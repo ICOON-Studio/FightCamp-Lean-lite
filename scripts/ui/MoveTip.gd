@@ -36,7 +36,7 @@ const FADE_S := 0.25         # the ink card's cross-fade to the clip
 const READY_FRAMES := 3      # frames the clip draws under the ink card before the cross-fade (its first pose settled)
 const WARM_IDLE_FRAMES := 20 # the page has been still this long before the card warms its player
 const TIER_COLOR := {"unlearned": UI.MUTED, "raw": UI.AMBER, "usable": UI.GREEN, "sharp": UI.GOLD, "signature": UI.PURPLE,
-	"locked": UI.MUTED, "ready": UI.GREEN, "learning": UI.AMBER, "owned": UI.GREEN}
+	"locked": UI.MUTED, "ready": UI.GREEN, "learning": UI.MUTED, "felt": UI.AMBER, "owned": UI.GREEN}
 
 static var _inst: Control = null
 
@@ -242,7 +242,9 @@ func _show(id: String, f: Dictionary) -> void:
 
 
 static func _has_clip(d: Dictionary) -> bool:
-	return not BjjFilm.film(str(d["id"])).is_empty() if str(d["sport"]) == "bjj" else not (d["clips"] as Array).is_empty()
+	if str(d["sport"]) == "bjj":   # S384 a tree move with an exact film plays it too (MatPlayer.tree_film)
+		return not BjjFilm.film(str(d["id"])).is_empty() or MatPlayer.tree_film(str(d["id"])) >= 0
+	return not (d["clips"] as Array).is_empty()
 
 
 ## The frame after the card shows: start its clip; then READY_FRAMES drawn under the ink card; then the cross-fade.

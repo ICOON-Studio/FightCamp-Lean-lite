@@ -22,6 +22,10 @@ const CREATE := preload("res://scenes/Create.tscn")
 const SHELL := preload("res://scenes/Shell.tscn")
 const INTERVIEW := preload("res://scenes/modals/Interview.tscn")
 const REVIEW := preload("res://scenes/modals/WeekReview.tscn")
+const POSTER := preload("res://scenes/modals/PosterReveal.tscn")
+const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
+const FighterPage := preload("res://scripts/ui/areas/FighterPage.gd")
+const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
 const INFO := preload("res://scenes/modals/InfoModal.tscn")
 const CAMP := preload("res://scenes/modals/Camp.tscn")
 const WEIGH := preload("res://scenes/modals/WeighIn.tscn")
@@ -142,7 +146,7 @@ func _render_modal() -> void:
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_modal_layer.add_child(center)
 	var scene: PackedScene = {"interview": INTERVIEW, "review": REVIEW, "info": INFO, "camp": CAMP, "weighin": WEIGH,
-		"fight": FIGHT, "goaltalk": GOALTALK, "trial": TRIAL, "prooffer": PROOFFER}[modal["type"]]
+		"fight": FIGHT, "goaltalk": GOALTALK, "trial": TRIAL, "prooffer": PROOFFER, "poster": POSTER}[modal["type"]]
 	var node := scene.instantiate()
 	center.add_child(node)
 	node.build(self, modal)
@@ -238,11 +242,24 @@ func nav(r: Dictionary) -> void:
 	past.append(route.duplicate())
 	ahead.clear()
 	route = {"area": r.get("area", "home"), "tab": int(r.get("tab", 0)), "fighter": str(r.get("fighter", "")),
-		"ftab": int(r.get("ftab", 0)), "bout": str(r.get("bout", ""))}
+		"ftab": int(r.get("ftab", 0)), "ptab": int(r.get("ptab", 0)), "bout": str(r.get("bout", ""))}
 	_drop_old_toast()
 	render()
 	if _shell != null:
 		_shell.scroll_top()
+
+
+## S387 the Playbook lives on the fighter page. `who` goes first: the rail passes the fighter on screen, a "playbook:<tab>" link
+## passes Playbook.pick (the caller named its fighter there, e.g. "Ana's mat: Playbook" from the roster).
+func _nav_area(area: String, tab: int, who: String) -> void:
+	if area != "playbook":
+		nav({"area": area, "tab": tab})
+		return
+	var id := Playbook.fighter_id(career, who, str(route.get("fighter", "")))
+	if id == "":
+		toast("Sign a fighter first: the Playbook is on the fighter's page.")
+		return
+	nav({"area": "fighters", "tab": 0, "fighter": id, "ftab": FighterPage.PLAYBOOK_TAB, "ptab": tab})
 
 
 func open_modal(m: Dictionary) -> void:
@@ -304,9 +321,20 @@ func act(name: String, arg: String = "") -> void:
 			render()
 		"go":
 			var parts := arg.split(":")
-			nav({"area": parts[0], "tab": int(parts[1]) if parts.size() > 1 else 0})
+			_nav_area(parts[0], int(parts[1]) if parts.size() > 1 else 0, Playbook.pick)
 		"area":
-			nav({"area": arg, "tab": 0})
+			_nav_area(arg, 0, str(route.get("fighter", "")))
+		"ptab":
+			nav({"area": "fighters", "tab": 0, "fighter": route["fighter"], "ftab": FighterPage.PLAYBOOK_TAB, "ptab": int(arg)})
+		"guideweek":
+			if on_week_tab():
+				FirstWeek.set_week(career)
+				render()
+			else:
+				nav({"area": "fighters", "tab": 0, "fighter": str(career.fighter().get("id", "")), "ftab": FighterPage.TRAINING_TAB})
+		"guideskip":
+			FirstWeek.skip(career)
+			render()
 		"tab":
 			nav({"area": route["area"], "tab": int(arg)})
 		"fighter":
@@ -393,8 +421,26 @@ static func closed_modal(c: Career) -> Dictionary:
 		"buttons": [["New career", "newcareer", ""], ["Load career", "load", ""], ["Title", "title", ""]]}
 
 
+var quiet_moments := false   # S387 TestJump plays through: no poster moment in its way
+
+
 func _start_career(gym_name: String, city: String) -> void:
-	resume(Career.quick_start(gym_name, city))
+	var c := Career.quick_start(gym_name, city)
+	FirstWeek.begin(c)
+	resume(c)
+	if c.guide == "sign":
+		act("interview")   # S387 the career opens on the boxer
+
+
+## S387 PosterReveal, the moment after Accept. Only with a picture: headless runs stay in words.
+func show_poster(fid: String) -> void:
+	if DisplayServer.get_name() != "headless" and not quiet_moments:
+		open_modal({"type": "poster", "fid": fid})
+
+
+## S387 FirstWeek: true on the fighter's Training tab, where the guide's "Lock in week 1" confirms the week.
+func on_week_tab() -> bool:
+	return route["area"] == "fighters" and str(route.get("fighter", "")) != "" and int(route.get("ftab", 0)) == FighterPage.TRAINING_TAB
 
 
 ## Puts a career on screen at HOME (a new one or a loaded save).

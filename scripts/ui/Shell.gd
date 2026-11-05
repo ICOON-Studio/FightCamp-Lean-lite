@@ -7,11 +7,12 @@ const Data := preload("res://scripts/state/Data.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 const Tips := preload("res://scripts/ui/Tips.gd")
 const TopCards := preload("res://scripts/ui/TopCards.gd")
+const FirstWeekStrip := preload("res://scripts/ui/FirstWeekStrip.gd")
+const FighterPage := preload("res://scripts/ui/areas/FighterPage.gd")
 
 const AREA_SCENES := {
 	"home": preload("res://scenes/areas/Home.tscn"),
 	"fighters": preload("res://scenes/areas/Fighters.tscn"),
-	"playbook": preload("res://scenes/areas/Playbook.tscn"),
 	"fights": preload("res://scenes/areas/Fights.tscn"),
 	"gym": preload("res://scenes/areas/Gym.tscn"),
 	"money": preload("res://scenes/areas/Money.tscn"),
@@ -19,6 +20,7 @@ const AREA_SCENES := {
 }
 
 var _top: PanelContainer
+var _guide: VBoxContainer   # S387 FirstWeekStrip, only while the first-week guide runs
 var _rail: VBoxContainer
 var _scroll: ScrollContainer
 var _content: MarginContainer
@@ -32,6 +34,8 @@ func _ready() -> void:
 	_top = PanelContainer.new()
 	_top.theme_type_variation = "TopBar"
 	add_child(_top)
+	_guide = UI.vbox(0)
+	add_child(_guide)
 	var body := UI.hbox(0)
 	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	add_child(body)
@@ -63,6 +67,9 @@ func refresh(main: Node) -> void:
 	_main = main
 	var scroll := _scroll.scroll_vertical
 	_build_top(main)
+	UI.clear(_guide)
+	if main.career.guide != "":
+		_guide.add_child(FirstWeekStrip.make(main))
 	_build_rail(main)
 	UI.clear(_content)
 	var area: Node = AREA_SCENES[main.route["area"]].instantiate()
@@ -175,7 +182,9 @@ func _on_gear(id: int) -> void:
 func _build_rail(main: Node) -> void:
 	UI.clear(_rail)
 	for a in Data.AREAS:
-		var on: bool = main.route["area"] == a["id"]
+		# S387 the Playbook is a fighter-page tab; its rail button is the shortcut to it, lit while that tab is open.
+		var book: bool = main.route["area"] == "fighters" and str(main.route.get("fighter", "")) != "" and int(main.route.get("ftab", 0)) == FighterPage.PLAYBOOK_TAB
+		var on: bool = book if a["id"] == "playbook" else (main.route["area"] == a["id"] and not (book and a["id"] == "fighters"))
 		# S331 (operator on the menu: "remove these texts"): the name alone, no job line under it.
 		var b := UI.button2(str(a["name"]).capitalize(), "", "RailOn" if on else "Rail", main.act.bind("area", a["id"]), Vector2(0, 52),
 			UI.FG, UI.MUTED, false, 19, UI.TINY)

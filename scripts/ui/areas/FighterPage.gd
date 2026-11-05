@@ -22,8 +22,14 @@ const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 
 ## S354 C204 (operator on the training board: "this should be like a sub tab in the players profile , to see an an overview
 ## of the training"): the week board (WeekBoard; S356 TrainingBoard deleted) is the page's Training tab.
-const TABS := ["Overview", "Attributes and moves", "Body", "Training", "Record", "Camp", "Contract and goals"]
+## S387 (operator: "maybe it is good idea to put playbook in the fighter page"): the Playbook is tab 7, drawn beside Training.
+const TABS := ["Overview", "Attributes and moves", "Body", "Training", "Record", "Camp", "Contract and goals", "Playbook"]
+const TAB_ORDER := [0, 1, 2, 3, 7, 4, 5, 6]
 const TRAINING_TAB := 3
+const PLAYBOOK_TAB := 7
+const PLAYBOOK := preload("res://scenes/areas/Playbook.tscn")
+const PromoShot := preload("res://scripts/ui/PromoShot.gd")
+const Faces := preload("res://scripts/rules/Faces.gd")
 
 
 func build(main: Node, f: Dictionary) -> void:
@@ -32,13 +38,14 @@ func build(main: Node, f: Dictionary) -> void:
 	var g := Sim.goal_read(c, f)
 	var t := int(main.route.get("ftab", 0))
 	var tabs := UI.hbox(4)
-	for i in TABS.size():
+	for i in TAB_ORDER:
 		tabs.add_child(UI.button(TABS[i], "TabOn" if t == i else "Tab", main.act.bind("ftab", str(i))))
 	var sub := UI.muted("%s, %d, %s, amateur %d-%d" % [f["wc"], f["age"], f["stance"], f["w"], f["l"]], UI.BODY)
-	if t == TRAINING_TAB:
+	if t == TRAINING_TAB or t == PLAYBOOK_TAB:
 		# S382 training final proof: the week strip is the screen (TRAINING_SCREEN_S381.md section 3, the mockup's one
 		# title row) - name, her line and the tabs share one row so the PM nights sit above the fold at 1080.
 		var row := UI.hbox(24)
+		_photo(row, f, Vector2(64, 80))
 		var who := UI.vbox(0)
 		who.add_child(UI.display(str(f["name"]).to_upper(), 36))
 		who.add_child(sub)
@@ -49,6 +56,7 @@ func build(main: Node, f: Dictionary) -> void:
 	else:
 		add_child(UI.muted("FIGHTERS / Roster / %s" % f["name"], UI.SMALL))
 		var head := UI.hbox(16)
+		_photo(head, f, Vector2(96, 120))
 		head.add_child(UI.display(str(f["name"]).to_upper(), 52))
 		sub.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		head.add_child(sub)
@@ -61,6 +69,10 @@ func build(main: Node, f: Dictionary) -> void:
 		line.custom_minimum_size = Vector2(0, 1)
 		add_child(line)
 	match t:
+		PLAYBOOK_TAB:
+			var book := PLAYBOOK.instantiate()
+			add_child(book)
+			book.build(main)
 		0:
 			_overview(main, c, f, g)
 		1:
@@ -187,6 +199,13 @@ func _card(title: String, parent: Container = null) -> VBoxContainer:
 	var c := UI.card(title)
 	(parent if parent != null else self).add_child(c[0])
 	return c[1]
+
+
+## S387 operator: the fighter's page carries the face (a breathing head and shoulders, PromoShot).
+func _photo(parent: Control, f: Dictionary, size: Vector2) -> void:
+	var p := PromoShot.picture(Faces.stem(f), size)
+	if p != null:
+		parent.add_child(p)
 
 
 func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:

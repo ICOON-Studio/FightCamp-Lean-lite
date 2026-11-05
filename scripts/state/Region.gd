@@ -173,15 +173,19 @@ static func rankings(c: Career, div: String = "wlw") -> Array:
 		if str(f["div"]) == div and int(f["w"]) >= RANK_MIN_WINS and not bool(f.get("pro", false)):
 			rows.append({"name": f["name"], "club": c.gym_name, "w": int(f["w"]), "l": int(f["l"]), "rating": 0.0, "ours": true,
 				"fid": f["id"]})
-	rows.sort_custom(func(x, y):
-		var nx := int(x["w"]) - int(x["l"])
-		var ny := int(y["w"]) - int(y["l"])
-		if nx != ny:
-			return nx > ny
-		if int(x["w"]) != int(y["w"]):
-			return int(x["w"]) > int(y["w"])
-		return float(x["rating"]) > float(y["rating"]))
+	rows.sort_custom(before)
 	return rows
+
+
+## The table's order: net wins, then wins, then rating (S387: its own function, BoutRead.rank_move sorts by the same rule).
+static func before(x: Dictionary, y: Dictionary) -> bool:
+	var nx := int(x["w"]) - int(x["l"])
+	var ny := int(y["w"]) - int(y["l"])
+	if nx != ny:
+		return nx > ny
+	if int(x["w"]) != int(y["w"]):
+		return int(x["w"]) > int(y["w"])
+	return float(x["rating"]) > float(y["rating"])
 
 
 ## Her place (1-based) in her division, 0 when unranked.

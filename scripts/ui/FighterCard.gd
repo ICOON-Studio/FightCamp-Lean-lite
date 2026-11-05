@@ -60,6 +60,7 @@ static func face(f: Dictionary) -> Control:
 		a.region = Rect2(HEAD_CROP.position * s, HEAD_CROP.size * s)
 		r.texture = a
 	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	HomeBoard.PromoShot.live(r)
 	return r
 
 

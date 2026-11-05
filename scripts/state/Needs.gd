@@ -10,6 +10,7 @@ const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const SeasonPath := preload("res://scripts/rules/SeasonPath.gd")
+const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 
 
 ## S324 update 27: GymBills' read of the gym's money now: "ok" | "warn" (runway under 8 weeks) | "red" (below $0) | "closed".
@@ -41,6 +42,9 @@ static func needs(career: Career) -> Array:
 		n.append({"red": true, "t": "A fighter is waiting at reception",
 			"s": "%s, %s, amateur %d-%d" % [a["name"], str(a["wc"]).to_lower(), a["w"], a["l"]],
 			"act": "interview", "arg": "", "label": "Meet the walk-in"})
+	var guide := FirstWeek.need(career)   # S387 the first week's next step blocks time like any red need
+	if not guide.is_empty():
+		n.append(guide)
 	for p in career.prospects:
 		if str(p["state"]) == "invited" and int(p["trial_day"]) <= career.day:
 			n.append({"red": true, "t": "Trial today: %s" % p["name"], "s": "%s, %s; at the gym now" % [str(p["wc"]).to_lower(), p["note"]],
@@ -65,7 +69,7 @@ static func needs(career: Career) -> Array:
 		if str(d["state"]) == "offer":
 			n.append({"red": false, "t": "A sponsor is waiting: %s" % d["name"], "s": "%s a week for %s" % [GameMoney.text(int(d["per"])), d["what"]],
 				"act": "go", "arg": "money:3", "label": "Deals"})
-	if not career.fighters.is_empty() and career.coach.is_empty():
+	if not career.fighters.is_empty() and career.coach.is_empty() and career.guide != "coach":   # S387 the guide already asks
 		n.append({"red": false, "t": "Hire a coach", "s": "without one, training runs at 60%",
 			"act": "go", "arg": "gym:1", "label": "Staff"})
 	for f in career.fighters:

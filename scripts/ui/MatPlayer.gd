@@ -14,6 +14,7 @@ const Pose := preload("res://scripts/grapple/GrapplePose.gd")
 const Player := preload("res://scripts/grapple/GrapplePlayer.gd")
 const Grip := preload("res://scripts/grapple/GrappleGrip.gd")
 const BjjFilm := preload("res://scripts/rules/BjjFilm.gd")
+const BjjTree := preload("res://scripts/rules/BjjTree.gd")
 const MH := preload("res://scripts/fight3d/MHRig.gd")
 const Kit := preload("res://scripts/fight3d/FighterKit.gd")
 
@@ -23,6 +24,7 @@ const ORBIT_DEG_S := 9.0
 const HOLD_S := 0.8   # the pause on the landing before the move plays again
 const MAT_BG := Color("#f1eee8")
 const MAT_FLOOR := Color("#ebe7df")
+const POSE_S := 1.6   # S384 each pose of an unfilmed edge holds this long
 const HOLD_IN_S := 0.01   # a held step stops this far inside its end, so it stays the step on screen
 
 static var _db: Array = []
@@ -36,6 +38,10 @@ var _yaw := 35.0
 var _look := Vector3(0, 0.4, 0)
 var _hold := 0.0
 var _stop_at := -1.0   # a coach step plays to here, then holds
+var mode := ""   # S384 "move" | "clip" | "poses": what the mat shows now
+var _poses: Array = []
+var _pose_i := 0
+var _pose_t := 0.0
 
 
 static func db() -> Array:
@@ -56,16 +62,63 @@ func _ready() -> void:
 	_cast(world)
 
 
-## Plays this syllabus move on a loop; false when GrappleMap has no sequence for it.
+## S384 GAMETREE1: a tree move's own film (the map's moves[].film), only when it fits exactly; -1 otherwise.
+static func tree_film(id: String) -> int:
+	var m := BjjTree.move(id)
+	if str(m.get("src", "")) != "tree" or str(m.get("film_fit", "")) != "exact" or (m.get("film", []) as Array).is_empty():
+		return -1
+	return int(m["film"][0])
+
+
+## Plays this syllabus move on a loop; false when GrappleMap has no sequence for it. S384: a tree move plays its exact film.
 func play_move(id: String) -> bool:
 	var i := BjjFilm.find(db(), id)
+	if i < 0:
+		i = tree_film(id)
 	if i < 0 or player == null:
 		return false
 	_seq = i
+	_poses = []
+	mode = "move"
 	_hold = 0.0
 	_stop_at = -1.0
 	player.paused = false
 	player.play(db()[i], player.men, player.scale, Transform3D.IDENTITY)
+	return true
+
+
+## S384 GAMETREE1: plays a GrappleMap sequence by its index (an edge's film.transition) on a loop; false when it is not a
+## transition (never a wrong clip).
+func play_seq(i: int) -> bool:
+	if player == null or i < 0 or i >= db().size() or not DB.is_transition(db()[i]):
+		return false
+	_seq = i
+	_poses = []
+	mode = "clip"
+	_hold = 0.0
+	_stop_at = -1.0
+	player.paused = false
+	player.play(db()[i], player.men, player.scale, Transform3D.IDENTITY)
+	return true
+
+
+## S384 GAMETREE1 (design 7: an edge without an exact film shows its from and to poses, never a clip): the two positions
+## (GrappleMap pose ids, the nodes' card_pose) held in turn, POSE_S each, no motion between them. false when neither exists.
+func show_poses(a: int, b: int) -> bool:
+	var ps: Array = []
+	for i in [a, b]:
+		if i >= 0 and i < db().size() and not DB.is_transition(db()[i]):
+			ps.append(i)
+	if player == null or ps.is_empty():
+		return false
+	_seq = -1
+	_poses = ps
+	_pose_i = 0
+	_pose_t = 0.0
+	mode = "poses"
+	_stop_at = -1.0
+	player.paused = false
+	player.play(db()[ps[0]], player.men, player.scale, Transform3D.IDENTITY)
 	return true
 
 
@@ -109,6 +162,12 @@ func _process(delta: float) -> void:
 		player.seek(_stop_at)
 		player.paused = true
 		_stop_at = -1.0
+	if _poses.size() > 1:
+		_pose_t += delta
+		if _pose_t >= POSE_S:
+			_pose_t = 0.0
+			_pose_i = (_pose_i + 1) % _poses.size()
+			player.play(db()[_poses[_pose_i]], player.men, player.scale, Transform3D.IDENTITY)
 	if _seq >= 0 and player.done() and not player.paused:
 		_hold += delta
 		if _hold >= HOLD_S:

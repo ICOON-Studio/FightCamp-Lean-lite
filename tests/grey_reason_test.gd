@@ -1,6 +1,7 @@
 extends SceneTree
 ## Every visible disabled BaseButton on the layout-snapshot route must carry a real tooltip reason (>= 12 chars, not generic).
 
+const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 
@@ -32,6 +33,9 @@ func _initialize() -> void:
 	main.act("newcareer")
 	await _check_moment("02_create")
 	main.act("quick")
+	main.act("guideskip")
+	main.close_modal()
+	FirstWeek.ana_joins(main.career)
 	await _check_moment("03_home_start")
 	main.act("interview")
 	for card in ["Jab and move", "Pad rounds", "Hill sprints"]:

@@ -8,7 +8,7 @@ extends VBoxContainer
 ## build a chain from her moves, ComboFlow rates it, her body throws it), Escapes (a move book, S359).
 
 const UI := preload("res://scripts/ui/UI.gd")
-const AreaHead := preload("res://scripts/ui/AreaHead.gd")
+const Data := preload("res://scripts/state/Data.gd")
 const MovePlayer := preload("res://scripts/fight3d/MovePlayer.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const SM := preload("res://scripts/rules/StrikeMap.gd")
@@ -22,11 +22,18 @@ const NoGi := preload("res://scripts/rules/NoGi.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 const CoachSteps := preload("res://scripts/ui/CoachSteps.gd")
 const MoveTip := preload("res://scripts/ui/MoveTip.gd")
+const BjjTree := preload("res://scripts/rules/BjjTree.gd")
+const MatTree := preload("res://scripts/ui/MatTree.gd")
+const MatTreeInfo := preload("res://scripts/ui/MatTreeInfo.gd")
 
 ## S359 (operator still: the player covered the plan panel - "remove the player or make it smaller?"): 400 x 440 beside
 ## the map (was 560 x 600), so the map and its side panel get the width; the Combos tab keeps its own bigger player.
 const PLAYER := Vector2(400, 440)
 const MAP_H := 760.0
+## S384 GAMETREE1 Ana's page: the moves list, the centre column (MatTree) and the mat, 1920 wide.
+const MAT_H := 880.0
+const BOOK_W := 450.0
+const TREE_W := 790.0
 const SLOW := 0.35
 ## The opponent the player's ghost wears: a fixed sparring partner (the page is about her moves, not a bout).
 
@@ -42,22 +49,22 @@ var _steps: Control   # S376 the coach's steps under Ana's mat (CoachSteps)
 func build(main: Node) -> void:
 	add_theme_constant_override("separation", 12)
 	var c: Career = main.career
-	AreaHead.add(self, main, "playbook")
-	if c.fighters.is_empty():
-		AreaHead.placeholder(self, "NO FIGHTERS YET", "Sign a fighter: moves, plans and escapes live here.")
-		return
-	var f: Dictionary = c.fighters[0]
+	# S387 a tab of the fighter's own page: the page's route names the fighter, so the old name chips are gone.
+	var f: Dictionary = {}
 	for x in c.fighters + c.grapplers:
-		if str(x["id"]) == pick:
+		if str(x["id"]) == str(main.route.get("fighter", "")):
 			f = x
+	if f.is_empty():
+		return
 	pick = str(f["id"])
-	add_child(_picker(main, c, f))
 	# S375 (operator: "i expect to see the bjj moves not a female fighter doing box", "train her on bjj"): a no-gi athlete's
 	# whiteboard is her syllabus on the mat - each move played on two bodies from GrappleMap, Drill it sends it to her classes.
+	# S384 GAMETREE1: ONE page, no tab row (S387: the fighter page carries the name).
 	if str(f.get("sport", "")) == "bjj":
 		add_child(_mat_book(main, c, f))
 		return
-	match int(main.route["tab"]):
+	add_child(_tabs(main))
+	match int(main.route.get("ptab", 0)):
 		0:
 			add_child(_book(f, MoveWords.groups(), MoveWords.WORDS, "Click a move and it plays here."))   # S360 Q-S294-91
 		1:
@@ -68,16 +75,21 @@ func build(main: Node) -> void:
 			add_child(_book(f, ESCAPES, ESCAPE_WORDS, "Click an escape and it plays here."))
 
 
-## Her name chips: the page is one fighter's whiteboard.
-func _picker(main: Node, c: Career, f: Dictionary) -> Control:
-	var row := UI.hbox(8)
-	row.add_child(UI.muted("Fighter", UI.SMALL))
-	for x in c.fighters + c.grapplers:
-		var on := str(x["id"]) == str(f["id"])
-		var id := str(x["id"])
-		row.add_child(UI.button(str(x["name"]), "TabOn" if on else "Tab", func():
-			pick = id
-			main.render()))
+## The fighter a Playbook link opens: `who`, else the fighter on the page, else the last one on the Playbook, else the first boxer.
+static func fighter_id(c: Career, who: String, on_page: String) -> String:
+	var ids: Array = (c.fighters + c.grapplers).map(func(x): return str(x["id"]))
+	for id in [who, on_page, pick]:
+		if ids.has(id):
+			return id
+	return str(ids[0]) if not ids.is_empty() else ""
+
+
+func _tabs(main: Node) -> Control:
+	var row := UI.hbox(4)
+	var names: Array = Data.area("playbook")["tabs"]
+	for i in names.size():
+		var on := int(main.route.get("ptab", 0)) == i
+		row.add_child(UI.button(names[i], "TabOn" if on else "Tab", main.act.bind("ptab", str(i))))
 	return row
 
 
@@ -97,28 +109,42 @@ func _plan(main: Node, f: Dictionary) -> Control:
 
 ## S375 her syllabus as a move book beside the mat: each move's pad level toward owned (a weapon at the tick) and a
 ## signature, the one her classes drill, Watch (GrappleMap on two bodies, BjjFilm) and Drill it (NoGi "move:<id>").
+## S384 GAMETREE1 (design 7, docs/mockups/S384_gametree.png): one page, three columns - the moves list (MatBook, now with
+## the FELT step and the Links group: tree moves of the belt, taught in class, and a belt ahead at half rate), the centre
+## column (MatTree: goal, plan strip, the map, leaks) and the mat. Hovering an edge plays it here.
 func _mat_book(main: Node, c: Career, f: Dictionary) -> Control:
 	var h := UI.hbox(16)
-	h.custom_minimum_size = Vector2(0, MAP_H)
+	h.custom_minimum_size = Vector2(0, MAT_H)
 	var scroll := ScrollContainer.new()
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var v := UI.vbox(10)
+	scroll.custom_minimum_size = Vector2(BOOK_W, 0)
+	var v := UI.vbox(6)
 	v.name = "MatBook"
-	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	v.custom_minimum_size = Vector2(BOOK_W - 14.0, 0)
 	scroll.add_child(v)
 	var belt := str(f.get("belt", "white"))
-	v.add_child(UI.caps("%s'S SYLLABUS - %s BELT: %s" % [str(f["first"]).to_upper(), belt.to_upper(),
+	v.add_child(UI.caps("%s'S MOVES - %s BELT: %s" % [str(f["first"]).to_upper(), belt.to_upper(),
 		str((BeltRoad.SYLLABUS.get(belt, {}) as Dictionary).get("title", "")).to_upper()]))
-	var drilling := NoGi.drilling(f, c.day)
-	v.add_child(UI.muted("Watch a move and it plays on the mat, the coach's steps under it. Drill it and %s's classes work on it (+%.1f a week) until it is a signature (%d)." % [
-		str(f["first"]), NoGi.DRILL_GAIN, int(NoGi.SIGNATURE)], UI.SMALL, true))
+	var drilling := MatTreeInfo.drilled(f, c.day)
+	v.add_child(UI.muted("Drill a move and %s's classes work on it (+%.1f a week): felt at %d, owned at %d, a signature at %d." % [
+		str(f["first"]), NoGi.DRILL_GAIN, int(BjjTree.T["FELT"]), int(BeltRoad.OWNED_AT), int(NoGi.SIGNATURE)], UI.TINY, true))
 	var bjj: Dictionary = f.get("bjj", {})
 	for g in NoGi.groups_of(f):
 		v.add_child(UI.caps(str(g[0])))
 		for id in g[1]:
 			v.add_child(_mat_row(main, f, str(id), float(bjj.get(str(id), 0.0)), str(id) == drilling))
+	var links := MatTreeInfo.links(f)
+	if not links.is_empty():
+		v.add_child(UI.caps("LINKS - TAUGHT IN CLASS"))
+		for id in links:
+			v.add_child(_mat_row(main, f, str(id), BjjTree.mastery(f, str(id)), str(id) == drilling, BjjTree.drill_plan_for(f, str(id))))
+	var ahead := MatTreeInfo.ahead(f)
+	if not ahead.is_empty():
+		v.add_child(UI.caps("A BELT AHEAD - HALF RATE"))
+		for id in ahead:
+			v.add_child(_mat_row(main, f, str(id), BjjTree.mastery(f, str(id)), str(id) == drilling, BjjTree.drill_plan_for(f, str(id))))
 	h.add_child(scroll)
+	h.add_child(MatTree.make(main, f, c.day, _play_edge, TREE_W))
 	var col := UI.vbox(8)
 	col.custom_minimum_size = Vector2(PLAYER.x, 0)
 	var card := PanelContainer.new()
@@ -131,7 +157,7 @@ func _mat_book(main: Node, c: Career, f: Dictionary) -> Control:
 	card.add_child(mat)
 	col.add_child(card)
 	player = mat
-	_name = UI.label("Watch a move and it plays here (GrappleMap).", UI.BODY, UI.FG, "bold", true)
+	_name = UI.label("Hover a card or Watch a move and it plays here (GrappleMap).", UI.BODY, UI.FG, "bold", true)
 	col.add_child(_name)
 	# S376 BJJCOACH1: the coach's steps under the mat, lit as the film plays them; click one to play it and hold.
 	_steps = CoachSteps.new()
@@ -144,31 +170,42 @@ func _mat_book(main: Node, c: Career, f: Dictionary) -> Control:
 	return h
 
 
-func _mat_row(main: Node, f: Dictionary, id: String, lvl: float, drilled: bool) -> Control:
-	var row := UI.hbox(10)
+## A move row: name (hover = the move's card), meter to the signature with the owned tick, level, felt / owned chip,
+## Watch, Drill. `plan` = the Drill plan (default "move:<id>", S375; Links rows "tree:" / "ahead:", S384).
+func _mat_row(main: Node, f: Dictionary, id: String, lvl: float, drilled: bool, plan: String = "") -> Control:
+	var row := UI.hbox(5)
 	row.name = "Mat_" + id
-	var nm := UI.label(NoGi.move_name(id), UI.BODY, UI.FG, "semi")
-	nm.custom_minimum_size = Vector2(230, 0)
+	if plan == "":
+		plan = "move:" + id
+	var nm := UI.label(BjjTree.move_name(id), UI.SMALL, UI.FG, "semi")
+	nm.custom_minimum_size = Vector2(176, 0)
+	nm.clip_text = true
 	MoveTip.attach(nm, id, f)   # S382 MOVETIP1: hover the move's name - the hover card plays it on the mat
 	row.add_child(nm)
-	row.add_child(UI.meter(clampf(lvl / NoGi.SIGNATURE, 0.0, 1.0), UI.GOLD if lvl >= NoGi.SIGNATURE else UI.GREEN,
-		[BeltRoad.OWNED_AT / NoGi.SIGNATURE], 160.0))
-	row.add_child(UI.mono("%d" % int(lvl), UI.SMALL, UI.FG))
-	row.add_child(UI.chip("signature" if lvl >= NoGi.SIGNATURE else ("owned" if lvl >= BeltRoad.OWNED_AT else "learning"),
-		"gold" if lvl >= NoGi.SIGNATURE else ("green" if lvl >= BeltRoad.OWNED_AT else "")))
-	if drilled:
-		row.add_child(UI.chip("drilling this week", "green"))
+	var st := BjjTree.state(lvl)
+	var col := UI.GOLD if st == "signature" else (UI.GREEN if st == "owned" else (UI.AMBER if st == "felt" else UI.MUTED))
+	row.add_child(UI.meter(clampf(lvl / NoGi.SIGNATURE, 0.0, 1.0), col, [BeltRoad.OWNED_AT / NoGi.SIGNATURE], 46.0))
+	var num := UI.mono(("%.1f" % lvl) if absf(lvl - roundf(lvl)) > 0.04 else "%d" % int(roundf(lvl)), UI.TINY, UI.FG)
+	num.custom_minimum_size = Vector2(34, 0)
+	num.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	row.add_child(num)
+	var mv_belt := str(BjjTree.move(id).get("belt", f.get("belt", "white")))
+	var ahead := BeltRoad.rank(mv_belt) > BeltRoad.rank(str(f.get("belt", "white")))
+	row.add_child(UI.chip("%s belt" % mv_belt if ahead and st == "learning" else st,
+		"gold" if st == "signature" else ("green" if st == "owned" else ("amber" if st == "felt" else ""))))
 	row.add_child(UI.spacer())
-	var filmed := BjjFilm.film(id).size() > 0
+	var filmed := BjjFilm.film(id).size() > 0 or MatPlayer.tree_film(id) >= 0
 	# S376: an unfilmed move still has the coach's steps to read (BjjSteps).
 	var w := UI.button("Watch" if filmed else "Steps", "Btn", func(): _watch(id))
 	w.tooltip_text = "" if filmed else "GrappleMap has no film of this move yet: the coach's steps only."
 	w.name = "Watch_" + id
+	w.add_theme_font_size_override("font_size", UI.TINY)
 	row.add_child(w)
-	var d := UI.button("Drilling" if drilled else "Drill it", "Btn", func():
-		main.act("gdrill", "%s|move:%s" % [f["id"], id])
-		main.toast("%s's classes drill the %s." % [f["first"], NoGi.move_name(id).to_lower()]), drilled)
+	var d := UI.button("Drilling" if drilled else "Drill", "BtnSolid" if drilled else "Btn", func():
+		main.act("gdrill", "%s|%s" % [f["id"], plan])
+		main.toast("%s's classes drill the %s." % [f["first"], BjjTree.move_name(id).to_lower()]), drilled)
 	d.name = "Drill_" + id
+	d.add_theme_font_size_override("font_size", UI.TINY)
 	row.add_child(d)
 	return row
 
@@ -178,9 +215,36 @@ func _watch(id: String) -> void:
 		return
 	var ok: bool = player.play_move(id)
 	if _name != null:
-		_name.text = NoGi.move_name(id) if ok else "%s: GrappleMap has no film of it yet." % NoGi.move_name(id)
+		_name.text = BjjTree.move_name(id) if ok else "%s: GrappleMap has no film of it yet." % BjjTree.move_name(id)
 	if is_instance_valid(_steps):
 		_steps.show_move(id, ok)
+
+
+## S384 GAMETREE1: an edge hovered in the centre column plays here - its film only when it is exact (never a wrong clip),
+## else its from and to positions in turn.
+func _play_edge(eid: String) -> void:
+	if player == null or not player.has_method("play_seq"):
+		return
+	var e := BjjTree.edge(eid)
+	var mv := str(e.get("move", ""))
+	var film: Variant = e.get("film")
+	var seq := -1
+	if film is Dictionary and str(film.get("fit", "")) == "exact" and film.get("transition") != null:
+		seq = int(film["transition"])
+	var ok: bool = seq >= 0 and player.play_seq(seq)
+	var a := str(BjjTree.node(str(e["from"])).get("name", ""))
+	var b := str(BjjTree.node(str(e["ok"])).get("name", ""))
+	if not ok:
+		var pa: Variant = BjjTree.node(str(e["from"])).get("card_pose")
+		var pb: Variant = BjjTree.node(str(e["ok"])).get("card_pose")
+		player.show_poses(int(pa) if pa != null else -1, int(pb) if pb != null else -1)
+	if _name != null:
+		if ok:
+			_name.text = "%s: %s to %s" % [BjjTree.move_name(mv), a.to_lower(), b.to_lower()]
+		else:
+			_name.text = "%s - no exact film yet: %s, then %s" % [BjjTree.move_name(mv), a.to_lower(), b.to_lower()]
+	if is_instance_valid(_steps):
+		_steps.show_move(mv, ok and seq == BjjFilm.find(MatPlayer.db(), mv))
 
 
 ## S359 ESCAPES (operator: "escapes has nothing, is that intentional?"): the ways out a boxer drills - off the ropes, out of

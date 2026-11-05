@@ -1,0 +1,340 @@
+<!doctype html>
+<!-- S384 GAMETREE1 mockup for the operator's OK (not game code): Ana's ONE Playbook page with the game tree in the centre.
+     Numbers come from ops/research/GAMETREE1_DESIGN_S384.md (odds formula 3.3, Ana's start 4.2) and
+     ops/research/GAMETREE1_POSITIONS_S384.json. Picture cards: shipped ink PNGs where they exist, glyph tiles where a BJJ card is pending. -->
+<html><head><meta charset="utf-8"><title>Game tree mockup</title><style>
+@font-face{font-family:Marker;src:url(../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Kalam;src:url(../../assets/fonts/Kalam-Regular.ttf)}
+@font-face{font-family:KalamB;src:url(../../assets/fonts/Kalam-Bold.ttf)}
+@font-face{font-family:Barlow;src:url(../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Mono;src:url(../../assets/fonts/IBMPlexMono-Medium.ttf)}
+:root{--bg:#cfe0ea;--panel:#fdfefe;--panel2:#e9eef2;--line:#c9d1d8;--fg:#22262e;--muted:#5e6773;--blue:#2f6fdb;--red:#e2483d;
+--green:#23935d;--amber:#d97a00;--yellow:#ffd54a;--coal:#211f1e;--coal2:#2c2a28;--inkyel:#f2bf3a;--oppblue:#5b8dff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--bg);font-family:Barlow,sans-serif;color:var(--fg);overflow:hidden;position:relative}
+/* top bar (as S355) */
+.top{height:76px;background:#fff;display:flex;align-items:center;padding:0 16px;gap:12px;border-bottom:1px solid var(--line)}
+.btn{border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-weight:600;color:var(--muted);background:#fff;font-size:15px}
+.gym{font-family:Marker;color:var(--blue);font-size:30px;margin-left:6px}
+.badge{border:2px solid var(--amber);color:var(--amber);border-radius:14px;padding:3px 12px;font-weight:700;font-size:15px;margin-left:18px}
+.date{margin-left:auto;text-align:right;font-weight:700;font-size:19px;line-height:1}.date small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+.cont{background:var(--blue);color:#fff;border-radius:22px;padding:8px 18px;width:250px;font-weight:700;font-size:17px;line-height:1.1}
+.cont small{display:block;font-weight:400;font-size:12px;opacity:.85}.cash{font-weight:700;color:var(--green);font-size:28px}
+.rail{position:absolute;left:10px;top:90px;width:180px}.rail div{background:#fff;border-radius:6px;margin-bottom:10px;padding:13px 14px;font-weight:700;font-size:17px;border-left:4px solid transparent}
+.rail .on{border-left-color:var(--red)}
+.main{position:absolute;left:214px;top:88px;width:1682px;height:982px}
+.head{display:flex;align-items:center;gap:14px;height:50px}
+h1{font-family:Marker;font-size:38px;font-weight:400}
+.pick{display:flex;gap:8px;margin-left:10px}
+.pick div{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:22px;padding:3px 14px 3px 3px;font-weight:600;font-size:15px;color:var(--muted)}
+.pick div.on{border:2px solid var(--blue);color:var(--fg)}
+.pick img,.face{width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:50% 28%;background:#111;display:block}
+.cols{display:grid;grid-template-columns:410px 856px 380px;gap:18px;margin-top:8px}
+.board{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.hd{font-size:12px;letter-spacing:2px;font-weight:700;color:var(--muted)}
+/* LEFT: moves */
+.mv{display:grid;grid-template-columns:30px 152px 52px 30px 58px 36px;gap:5px;align-items:center;height:33px;border-top:1px dotted #d3dce3}
+.mv .nm{font-weight:600;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.th{width:30px;height:30px;border-radius:5px;background:var(--coal) center/cover no-repeat;display:flex;align-items:center;justify-content:center;
+ color:var(--inkyel);font-family:Marker;font-size:17px;line-height:1}
+.meter{height:8px;background:#d3dce3;border-radius:4px;position:relative;overflow:hidden}
+.meter b{display:block;height:100%;background:var(--green)}.meter u{position:absolute;top:0;bottom:0;width:2px;background:var(--fg);left:60%}
+.meter.lrn b{background:#9aa4ad}
+.num{font-family:Mono;font-size:12px;text-align:right}
+.chip{font-size:11px;font-weight:700;border-radius:9px;padding:2px 7px;text-align:center;white-space:nowrap}
+.c-own{background:#dff3e8;color:var(--green)}.c-lrn{background:var(--panel2);color:var(--muted)}.c-ahd{background:#efe7ff;color:#6b3fd0}
+.c-drl{background:var(--green);color:#fff}.c-flt{background:#fff1c2;color:#946400}
+.meter.flt b{background:#e3ad2a}.meter u.f{left:30%;background:#9aa4ad;width:1.5px}
+.dr{font-size:12px;font-weight:700;color:var(--blue);border:1px solid #c9d7f3;border-radius:6px;padding:3px 0;text-align:center}
+.dr.on{background:var(--green);border-color:var(--green);color:#fff}
+.grp{font-size:11px;letter-spacing:1.6px;font-weight:700;color:var(--muted);margin:9px 0 3px}
+/* CENTRE */
+.centre{display:flex;flex-direction:column;gap:10px}
+.goalrow{display:flex;align-items:center;gap:8px;height:62px}
+.lbl{font-size:12px;letter-spacing:2px;font-weight:700;color:var(--muted);width:44px}
+.goal{width:128px;height:58px;border:2px solid var(--line);border-radius:9px;background:#fff;display:flex;align-items:center;gap:7px;padding:3px}
+.goal .th{width:48px;height:48px;font-size:22px}
+.goal b{font-family:Marker;font-weight:400;font-size:17px;display:block;line-height:1.05}.goal span{font-size:11.5px;color:var(--muted);line-height:1.1;display:block}
+.goal.on{border-color:var(--blue);background:#e8efff}
+.sysbtn{border:1px solid var(--line);background:#fff;border-radius:9px;height:58px;padding:0 12px;display:flex;align-items:center;font-weight:700;font-size:15px}
+.opp{margin-left:auto;display:flex;align-items:center;gap:8px;border:2px solid var(--oppblue);border-radius:30px;padding:4px 14px 4px 4px;background:#fff}
+.opp .face{width:46px;height:46px}
+.opp b{display:block;font-size:15px}.opp span{font-size:12px;color:var(--muted)}
+.pips{display:inline-flex;gap:3px;vertical-align:middle;margin-left:4px}.pips i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--oppblue);display:block}
+.pips i.f{background:var(--oppblue)}
+.plan{display:flex;align-items:stretch;gap:5px;height:186px}
+.pn{width:86px;background:var(--coal);border-radius:10px;padding:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#f4efe6;text-align:center}
+.pn .t{font-family:Marker;font-size:15px;line-height:1.05}
+.pn.goalnode{outline:3px solid var(--inkyel);outline-offset:-3px}
+.pe{width:162px;background:#fff;border:2px solid var(--inkyel);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.pe .pic{height:80px;background:var(--coal) center/cover no-repeat;display:flex;align-items:center;justify-content:center;color:var(--inkyel);font-family:Marker;font-size:34px;position:relative}
+.pe .pic small{position:absolute;left:6px;bottom:4px;font-family:Kalam;font-size:12px;color:#a9a39a}
+.pe .step{position:absolute;left:6px;top:6px;width:22px;height:22px;border-radius:50%;background:var(--inkyel);color:var(--coal);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;z-index:2}
+.pe .t{font-family:Marker;font-size:16px;padding:4px 8px 0;line-height:1.1}
+.pe .nums{display:flex;align-items:baseline;gap:8px;padding:1px 8px 0}
+.pe .pts{font-weight:700;font-size:16px;color:var(--green);margin-left:auto}
+.word{font-weight:700;font-size:13px;letter-spacing:1.2px;border-radius:6px;padding:3px 8px;line-height:1.1}
+.w-lik{background:#dff3e8;color:var(--green)}.w-evn{background:#fff1c2;color:#946400}.w-lng{background:#fde4e1;color:#c2332a}
+.pe.costly .pic::after{content:"";position:absolute;right:5px;top:5px;width:30px;height:30px;border-top:3px dashed var(--red);border-right:3px dashed var(--red);border-radius:0 7px 0 0}
+.pe.hovered{box-shadow:0 0 0 3px #ffe9a8}
+.tip{position:absolute;width:316px;background:#fff;border:1px solid #b9c3cc;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,.28);padding:6px 12px;z-index:20}
+.tip h4{font-family:Marker;font-weight:400;font-size:16px;margin-bottom:4px}
+.tip div{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:3px 0;border-top:1px dotted #d3dce3}
+.tip div b{font-weight:700}
+.rp{display:inline-flex;gap:2px;vertical-align:middle}.rp i{width:7px;height:7px;border-radius:50%;background:#d3dce3;display:block}.rp i.f{background:var(--amber)}
+.pe .ms{font-family:Kalam;font-style:italic;font-size:13px;color:var(--muted);padding:0 8px 4px;line-height:1.15}
+.pe .ms.bad{color:var(--red)}
+.pe.base{border-color:#cfd5dc}
+.arr{display:flex;align-items:center;color:#9aa4ad;font-size:18px;width:8px;justify-content:center}
+.ng{width:44px;height:44px}
+.mapbox{background:var(--coal);border-radius:12px;position:relative;height:520px;overflow:hidden;
+ background-image:radial-gradient(rgba(255,255,255,.035) 1px,transparent 1px);background-size:5px 5px}
+.maphd{position:absolute;left:16px;top:10px;color:#f4efe6;font-family:Marker;font-size:20px}
+.maphd span{font-family:Barlow;font-size:13px;color:#a9a39a;margin-left:10px;font-weight:600}
+.legend{position:absolute;left:16px;right:16px;bottom:8px;display:flex;gap:12px;color:#cfc8bc;font-size:11.5px;white-space:nowrap;align-items:center}
+.legend svg{vertical-align:middle;margin-right:4px}
+.leaks{display:flex;gap:10px;align-items:stretch;height:100px}
+.leak{flex:1;border:2px dashed var(--red);border-radius:10px;background:#fff;display:flex;gap:8px;padding:6px;align-items:center;position:relative}
+.leak .th{width:84px;height:84px;font-size:30px;flex:none}
+.leak b{font-family:Marker;font-weight:400;font-size:16px;white-space:nowrap;display:block;line-height:1.1}
+.leak .l{font-family:Kalam;font-style:italic;font-size:14px;color:#374151;line-height:1.2}
+.leak .dr{margin-top:5px;display:inline-block;padding:3px 12px;font-size:12px}
+.cursor{position:absolute;width:18px;height:22px}
+/* RIGHT */
+.ana{display:flex;gap:12px;align-items:center}
+.ana img{width:96px;height:96px;border-radius:10px;object-fit:cover;object-position:50% 22%;background:#111}
+.ana .n{font-family:Marker;font-size:27px;line-height:1.05}
+.ana .s{font-size:14px;color:var(--muted);margin-top:2px}
+.belt{display:inline-flex;height:12px;width:70px;border-radius:2px;background:#f6f6f4;border:1px solid #9aa4ad;position:relative;vertical-align:middle;margin-top:5px}
+.belt i{position:absolute;right:5px;top:0;bottom:0;width:22px;background:#111;display:flex;gap:2px;padding:0 3px;align-items:center}.belt i em{width:3px;height:9px;background:#fff;display:block}
+.belt i em.o{background:#3a3f46}
+.kv{display:flex;justify-content:space-between;font-size:14px;padding:5px 0;border-top:1px dotted #d3dce3}
+.kv b{font-weight:700}
+.mat{margin-top:10px;height:330px;border-radius:10px;background:#0f1216 url(../../assets/ui/moves/hip_bump_sweep.png) center/cover no-repeat;position:relative;border:1px solid #2b3440}
+.mat .play{position:absolute;left:10px;bottom:10px;right:10px;height:6px;border-radius:3px;background:rgba(255,255,255,.25)}
+.mat .play b{display:block;height:100%;width:46%;background:var(--inkyel);border-radius:3px}
+.mat .cap{position:absolute;left:10px;top:8px;background:rgba(15,18,22,.8);color:#f4efe6;padding:3px 10px;border-radius:6px;font-weight:700;font-size:13px}
+.mname{font-weight:700;font-size:16px;margin-top:8px}
+.steps{margin-top:4px}
+.steps div{display:flex;gap:8px;align-items:center;font-size:14px;padding:4px 6px;border-radius:6px}
+.steps div i{width:20px;height:20px;border-radius:50%;background:var(--panel2);font-style:normal;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex:none}
+.steps div.on{background:#fff4d6}.steps div.on i{background:var(--inkyel)}
+.credit{font-size:12px;color:var(--muted);margin-top:6px}
+.wk{margin-top:10px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--panel2)}
+.wk .meter{height:10px;margin-top:5px}.wk .meter b{background:#9aa4ad}.wk .meter s{position:absolute;top:0;bottom:0;background:var(--green);opacity:.85}
+.tag{position:absolute;right:18px;bottom:4px;font-family:Kalam;color:#3b4250;font-size:14px;opacity:.8}
+</style></head><body>
+<div class="top"><span class="btn">Back</span><span class="btn">Fwd</span><span class="gym">Anvil Street Gym</span>
+<span class="badge">Open Sat 7 Feb</span>
+<div class="date">Mon 12 Jan 2026<small>Week 2</small></div><span class="btn">II</span><span class="btn">&gt;</span><span class="btn">&gt;&gt;</span>
+<div class="cont">CONTINUE<small>to Tue 13 Jan</small></div><span class="cash">$14,241</span><span class="btn">Mail</span><span class="btn">Menu</span></div>
+<div class="rail"><div>Home</div><div>Fighters</div><div class="on">Playbook</div><div>Fights</div><div>Gym</div><div>Money</div><div>World</div></div>
+
+<div class="main">
+ <div class="head"><h1>PLAYBOOK</h1>
+  <div class="pick"><div><img src="../../assets/ui/face/mh_boxer_10.jpg" alt="">Aisha Rahman</div><div class="on"><img src="../../assets/ui/face/mh_boxer_17.jpg" alt="">Ana Ribeiro</div></div>
+ </div>
+ <div class="cols">
+  <!-- LEFT: Ana's moves (MatBook, unchanged rows + the Links group) -->
+  <div class="board" style="height:898px">
+   <div class="hd">ANA'S MOVES - WHITE BELT: THE FOUNDATIONS</div>
+   <div id="moves"></div>
+  </div>
+
+  <!-- CENTRE: the game tree (MatTree) -->
+  <div class="centre">
+   <div class="goalrow">
+    <div class="lbl">GOAL</div>
+    <div class="goal"><div class="th" style="background-image:url(../../assets/ui/moves/rear_naked_choke.png)"></div><div><b>Back</b><span>Drill: seatbelt and hooks</span></div></div>
+    <div class="goal on"><div class="th">&#8593;</div><div><b>Mount</b><span>2 steps, all owned</span></div></div>
+    <div class="goal"><div class="th" style="background-image:url(../../assets/ui/moves/toe_hold.png)"></div><div><b>Legs</b><span>IBJJF: straight ankle only</span></div></div>
+    <div class="goal"><div class="th">+2</div><div><b>Points</b><span>Double leg, +2</span></div></div>
+    <div class="sysbtn">Systems 8</div>
+    <div class="opp"><img class="face" src="../../assets/ui/face/mh_boxer_13.jpg" alt=""><div><b>R1 Rosa Lund</b><span>Passer - tape <span class="pips"><i class="f"></i><i class="f"></i><i></i></span></span></div></div>
+   </div>
+
+   <div class="plan">
+    <div class="pn"><svg class="ng" viewBox="0 0 44 44"></svg><div class="t">On the feet</div></div>
+    <div class="arr">&#8250;</div>
+    <div class="pe base"><div class="step">1</div><div class="pic">&#8600;<small>card pending</small></div><div class="t">Pull guard</div>
+     <div class="nums"><span class="word w-lik">LIKELY</span><span class="pts">+0</span></div>
+     <div class="ms">everyone's move</div></div>
+    <div class="arr">&#8250;</div>
+    <div class="pn"><svg class="ng" viewBox="0 0 44 44"></svg><div class="t">Legs locked</div></div>
+    <div class="arr">&#8250;</div>
+    <div class="pe hovered"><div class="step">2</div><div class="pic" style="background-image:url(../../assets/ui/moves/hip_bump_sweep.png)"></div><div class="t">Hip bump &#8644;</div>
+     <div class="nums"><span class="word w-lik">LIKELY</span><span class="pts">+6</span></div>
+     <div class="ms">miss: stays</div></div>
+    <div class="arr">&#8250;</div>
+    <div class="pn goalnode"><svg class="ng" viewBox="0 0 44 44"></svg><div class="t">Mounted</div></div>
+    <div class="arr">&#8250;</div>
+    <div class="pe costly"><div class="step">3</div><div class="pic">&#10007;<small>card pending</small></div><div class="t">Americana</div>
+     <div class="nums"><span class="word w-lng">LONG SHOT</span><span class="pts">tap</span></div>
+     <div class="ms bad">miss: knee shield</div></div>
+    <div class="arr">&#8250;</div>
+    <div class="pn"><svg class="ng" viewBox="0 0 44 44"></svg><div class="t">Ana wins by tap</div></div>
+   </div>
+
+   <div class="mapbox" id="mapbox">
+    <div class="maphd">ANA'S GAME<span>9 moves owned - 23 felt - 28 holes</span></div>
+    <svg id="map" width="856" height="520" viewBox="0 0 856 520" style="position:absolute;left:0;top:0"></svg>
+    <div class="legend">
+     <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="#f2bf3a" stroke-width="4"/></svg>owned</span>
+     <span><svg width="26" height="8"><line x1="0" y1="4" x2="13" y2="4" stroke="#f2bf3a" stroke-width="3"/><line x1="13" y1="4" x2="26" y2="4" stroke="#8d939c" stroke-width="2"/></svg>felt (15+)</span>
+     <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="#8d939c" stroke-width="2"/></svg>learning</span>
+     <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="#b79cff" stroke-width="2" stroke-dasharray="2 4"/></svg>a belt ahead (x0.5)</span>
+     <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="#e8e2d8" stroke-width="1.5"/></svg>everyone's</span>
+     <span><svg width="26" height="8"><line x1="0" y1="4" x2="26" y2="4" stroke="#ff5a4e" stroke-width="2" stroke-dasharray="6 4"/></svg>a miss lands</span>
+     <span style="color:#ff6b5f;font-weight:700">HOLE</span><span style="margin-left:-8px">no owned move</span>
+     <span style="color:#8fb0ff;font-weight:700">&#9673; Rosa</span><span style="margin-left:-8px">scouted hole</span>
+    </div>
+   </div>
+
+   <div class="leaks">
+    <div class="lbl" style="align-self:center">LEAKS</div>
+    <div class="leak"><div class="th" style="background-image:url(../../assets/ui/moves/rear_naked_choke.png)"></div><div><b>On the back</b><div class="l">Rear naked choke 12 - felt next Sunday</div><span class="dr on">Drilling</span></div></div>
+    <div class="leak"><div class="th">&#8613;</div><div><b>Back taken</b><div class="l">Seatbelt escape 22 - the Winter Open loss</div><span class="dr">Drill</span></div></div>
+    <div class="leak"><div class="th" style="background-image:url(../../assets/ui/moves/knee_cut_pass.png)"></div><div><b>Over the knee shield</b><div class="l">Knee cut 15 - the double leg lands here</div><span class="dr">Drill</span></div></div>
+   </div>
+  </div>
+
+  <!-- RIGHT: Ana + the mat player (unchanged) -->
+  <div class="board" style="height:898px">
+   <div class="ana"><img src="../../assets/ui/face/mh_boxer_17.jpg" alt=""><div>
+    <div class="n">Ana Ribeiro</div>
+    <div class="s">Featherweight no-gi, 22 - 4-2 in opens</div>
+    <span class="belt"><i><em></em><em></em><em class="o"></em><em class="o"></em></i></span> <span class="s">white, 2 stripes</span></div></div>
+   <div style="margin-top:10px">
+    <div class="kv"><span>Next</span><b>Regional No-Gi Open, Sat 7 Feb</b></div>
+    <div class="kv"><span>Mat classes</span><b>130 of 200 to blue</b></div>
+    <div class="kv"><span>Morale</span><b>62 - steady</b></div>
+    <div class="kv"><span>Rolling partner</span><b>Marta Kowal - Sun 18 Jan</b></div>
+   </div>
+   <div class="mat"><div class="cap">Legs locked &#8594; Mounted</div><div class="play"><b></b></div></div>
+   <div class="mname">Hip bump sweep</div>
+   <div class="steps">
+    <div><i>1</i>Sit up onto one hand, chest to the opponent</div>
+    <div class="on"><i>2</i>Reach over the far shoulder, trap the arm</div>
+    <div><i>3</i>Bump the hips up and through</div>
+    <div><i>4</i>Roll over into mount</div>
+   </div>
+   <div class="credit">Ana in red, the partner in blue. The moves are GrappleMap's (eel.is/GrappleMap), played at a coached pace.</div>
+   <div class="wk"><div style="display:flex;justify-content:space-between;font-size:14px"><b>This week: Rear naked choke</b><span class="num">12 &#8594; 15.2</span></div>
+    <div class="meter"><b style="width:24%"></b><s style="left:24%;width:6.4%"></s><u></u></div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px">felt at 15 next Sunday - owned at 30 in 6 weeks</div></div>
+  </div>
+ </div>
+</div>
+<div class="tip" style="left:1174px;top:394px"><h4>Hip bump sweep - step 2</h4>
+ <div><span><b>76%</b> vs Rosa</span><span><b>+6</b> sweep 2, mount 4</span></div>
+ <div><span>miss: <b>stays</b>, Rosa owns no posture</span><span>read <span class="rp"><i></i><i></i><i></i></span></span></div></div>
+<svg class="cursor" style="left:1122px;top:378px;z-index:21" viewBox="0 0 18 22"><path d="M1 1 L1 17 L5 13 L8 20 L11 19 L8 12 L14 12 Z" fill="#fff" stroke="#111" stroke-width="1.4"/></svg>
+<div class="tag">mockup S384 GAMETREE1 r2 - Ana's start (design 4.2), odds from design 3.3; hover on the hip bump card shows its numbers and plays its clip</div>
+
+<script>
+const P="../../assets/ui/moves/";
+/* glyph for a position: Ana red, the opponent blue; top / bottom / neutral / attack */
+function glyph(side){
+ const R="#c8202a",B="#2f5fd0";
+ if(side==="top")return `<rect x="8" y="10" width="28" height="10" rx="4" fill="${R}"/><rect x="6" y="24" width="32" height="10" rx="4" fill="${B}"/>`;
+ if(side==="bottom")return `<rect x="8" y="10" width="28" height="10" rx="4" fill="${B}"/><rect x="6" y="24" width="32" height="10" rx="4" fill="${R}"/>`;
+ if(side==="attack")return `<rect x="6" y="16" width="16" height="12" rx="4" fill="${R}"/><rect x="24" y="12" width="14" height="20" rx="4" fill="${B}"/><path d="M14 8 q10 -6 18 2" stroke="#f2bf3a" stroke-width="2.5" fill="none"/>`;
+ if(side==="end")return `<circle cx="22" cy="22" r="13" fill="none" stroke="#f2bf3a" stroke-width="3"/><path d="M15 22 l5 5 l9 -11" stroke="#f2bf3a" stroke-width="3" fill="none"/>`;
+ return `<rect x="8" y="8" width="11" height="28" rx="4" fill="${R}"/><rect x="25" y="8" width="11" height="28" rx="4" fill="${B}"/>`;
+}
+document.querySelectorAll(".plan .pn svg").forEach((s,i)=>{s.innerHTML=glyph(["neutral","bottom","top","end"][i])});
+
+/* LEFT column rows: [name, mastery, card png or glyph, state] state: own | lrn | drl | ahd */
+const G=[["ESCAPES AND SURVIVAL"],["Shrimp and bridge",44,"shrimp_bridge"],["Frame and recover guard",36,"#&#8613;"],["Seatbelt escape",22,"#&#8613;"],["Posture in closed guard",33,"posture_closed_guard"],
+["PASSES AND SWEEPS"],["Bullfighter pass",31,"bullfighter_pass"],["Knee cut pass",15,"knee_cut_pass"],["Scissor sweep",34,"#&#8635;"],["Hip bump sweep",32,"hip_bump_sweep"],
+["TAKEDOWNS AND SUBMISSIONS"],["Double leg",31,"double_leg"],["Armbar from guard",28,"#&#10007;"],["Kimura",35,"#&#10007;"],["Americana",30,"#&#10007;"],["Rear naked choke",12,"rear_naked_choke","drl"],["Guillotine",9,"#&#10007;"],
+["LINKS - TAUGHT IN CLASS"],["Snap down",19.5,"#&#8600;"],["Low single",19.5,"#&#8600;"],["Seatbelt and hooks",19.5,"#&#8634;"],["Step to mount",19.5,"#&#8593;"],["Dig the underhook",19.5,"#&#8593;"],
+["A BELT AHEAD - HALF RATE"],["Kimura roll to the back",0,"#&#8634;","ahd"],["Single-leg X",0,"single_leg_x","ahd"],["De la Riva",0,"de_la_riva","ahd"]];
+const mv=document.getElementById("moves");
+for(const r of G){
+ if(r.length===1){mv.insertAdjacentHTML("beforeend",`<div class="grp">${r[0]}</div>`);continue}
+ const [n,m,c,st0]=r; const st=st0||(m>=30?"own":m>=15?"flt":"lrn");
+ const th=c[0]==="#"?`<div class="th">${c.slice(1)}</div>`:`<div class="th" style="background-image:url(${P}${c}.png)"></div>`;
+ const chip={own:'<span class="chip c-own">owned</span>',lrn:'<span class="chip c-lrn">learning</span>',flt:'<span class="chip c-flt">felt</span>',drl:'<span class="chip c-drl">drilling</span>',ahd:'<span class="chip c-ahd">blue belt</span>'}[st];
+ const w=Math.min(100,m/50*100);
+ mv.insertAdjacentHTML("beforeend",`<div class="mv">${th}<span class="nm">${n}</span><div class="meter ${m>=30?'':st==='flt'?'flt':'lrn'}"><b style="width:${w}%"></b><u class="f"></u><u></u></div><span class="num">${m%1?m.toFixed(1):m}</span>${chip}<span class="dr ${st==='drl'?'on':''}">${st==='drl'?'&#10003;':'Drill'}</span></div>`);
+}
+
+/* CENTRE map: Ana's side of the tree around the plan (her reachable nodes + one ring) */
+const NW=128,NH=44;
+const N={
+ standing:[72,250,"On the feet","neutral"],
+ fht:[250,100,"Head in the vice","top"],
+ cgb:[250,250,"Legs locked","bottom"],
+ hgt:[250,370,"Over the knee|shield","top"],
+ fhb:[72,400,"Head caught","bottom"],
+ tt:[440,42,"Riding the turtle","top"],
+ kta:[440,150,"Kimura trap","attack"],
+ bt:[630,120,"On the back","top"],
+ mt:[630,320,"Mounted","top"],
+ sct:[630,440,"Side pin","top"],
+ tap:[786,250,"Ana wins|by tap","end"]
+};
+const TAPW=124;
+const HOLES={bt:1,hgt:1,fhb:1};
+const OPP={cgb:"Rosa: no posture",kta:"Rosa: no kimura defence"};
+/* [from,to,label,type,curve,labelDx,labelDy,plan] */
+const E=[
+ ["standing","cgb","Pull guard","base",0,4,-24,1],
+ ["standing","hgt","Double leg","own",0,-34,10],
+ ["standing","fht","Snap down","flt",0,-34,-6],
+ ["standing","fhb","double leg missed","miss",0,52,22],
+ ["fht","kta","Kimura","own",0,-6,-12],
+ ["fht","tt","Spin behind","flt",0,-14,-12],
+ ["cgb","kta","Kimura","own",0,-30,4],
+ ["cgb","mt","Hip bump / Scissor","own",0,20,24,2],
+ ["kta","tap","Kimura","own",0,40,-8],
+ ["kta","bt","Kimura roll","ahd",0,0,-30],
+ ["tt","bt","Seatbelt and hooks","flt",0,34,-8],
+ ["bt","tap","Rear naked choke 12 - learning","lrn",0,52,-6],
+ ["mt","tap","Americana","own",0,40,16,3],
+ ["mt","hgt","americana missed","miss",0,0,16],
+ ["hgt","sct","Knee cut 15","flt",0,-10,20],
+ ["sct","mt","Step to mount","flt",0,-46,2],
+ ["sct","tap","Americana","own",0,36,10]
+];
+const svg=document.getElementById("map");
+const COL={own:"#f2bf3a",flt:"#8d939c",lrn:"#8d939c",ahd:"#b79cff",base:"#e8e2d8",miss:"#ff5a4e"};
+const WID={own:3.5,flt:2,lrn:2,ahd:2,base:1.5,miss:2};
+let defs=`<defs>`;for(const k in COL)defs+=`<marker id="a_${k}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="${k==='own'?4.2:5.5}" markerHeight="${k==='own'?4.2:5.5}" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="${COL[k]}"/></marker>`;
+defs+=`<filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5"/></filter></defs>`;
+function clip(x1,y1,x2,y2,w,h){const dx=x2-x1,dy=y2-y1;const t=Math.min(Math.abs(w/2/(dx||1e-6)),Math.abs(h/2/(dy||1e-6)));return [x1+dx*Math.min(t,1),y1+dy*Math.min(t,1)]}
+let under="",lines="",labels="",nodes="";
+for(const [a,b,lab,ty,cv,ldx,ldy,plan] of E){
+ const A=N[a],B=N[b];const bw=(b==="tap"?TAPW:NW)+10,aw=(a==="tap"?TAPW:NW)+10;
+ let mx=(A[0]+B[0])/2,my=(A[1]+B[1])/2;
+ // control point: perpendicular offset
+ const dx=B[0]-A[0],dy=B[1]-A[1],L=Math.hypot(dx,dy);const cx=mx-dy/L*cv,cy=my+dx/L*cv;
+ const s=clip(A[0],A[1],cv?cx:B[0],cv?cy:B[1],aw,NH+10),e=clip(B[0],B[1],cv?cx:A[0],cv?cy:A[1],bw,NH+10);
+ const d=cv?`M${s[0]} ${s[1]} Q${cx} ${cy} ${e[0]} ${e[1]}`:`M${s[0]} ${s[1]} L${e[0]} ${e[1]}`;
+ const dash=ty==="miss"?'stroke-dasharray="7 5"':ty==="ahd"?'stroke-dasharray="2 5"':"";
+ const op=ty==="lrn"?0.85:1;
+ if(plan)under+=`<path d="${d}" stroke="#f2bf3a" stroke-width="16" opacity=".45" fill="none" filter="url(#glow)"/>`;
+ if(ty==="flt"){const hx=(s[0]+e[0])/2,hy=(s[1]+e[1])/2;lines+=`<path d="M${s[0]} ${s[1]} L${hx} ${hy}" stroke="#f2bf3a" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M${hx} ${hy} L${e[0]} ${e[1]}" stroke="#8d939c" stroke-width="2" fill="none" stroke-linecap="round" marker-end="url(#a_flt)"/>`;}
+ else lines+=`<path d="${d}" stroke="${COL[ty]}" stroke-width="${plan?6:WID[ty]}" ${dash} opacity="${op}" fill="none" stroke-linecap="round" marker-end="url(#a_${ty})"/>`;
+ const lx=(cv?(s[0]+2*cx+e[0])/4:mx)+ldx,ly=(cv?(s[1]+2*cy+e[1])/4:my)+ldy;
+ if(plan){const qx=(s[0]+e[0])/2,qy=(s[1]+e[1])/2;labels+=`<circle cx="${qx}" cy="${qy}" r="11" fill="#f2bf3a" stroke="#211f1e" stroke-width="2"/><text x="${qx}" y="${qy+4.5}" text-anchor="middle" font-family="Barlow" font-weight="700" font-size="13" fill="#211f1e">${plan}</text>`;}
+ if(lab){const fill=ty==="miss"?"#ff8a80":ty==="own"?"#f7d77a":ty==="flt"?"#e6d3a0":ty==="ahd"?"#cdb8ff":ty==="base"?"#e8e2d8":"#b9bec6";
+  const it=ty==="miss"?'font-style="italic" font-family="Kalam"':'font-family="Barlow" font-weight="600"';
+  labels+=`<text x="${lx}" y="${ly+4}" text-anchor="middle" ${it} font-size="12.5" fill="${fill}" stroke="#211f1e" stroke-width="4" paint-order="stroke">${lab}</text>`;}
+}
+for(const k in N){const [x,y,t,side]=N[k];const w=k==="tap"?TAPW:NW;
+ const planNode=["standing","cgb","mt","tap"].includes(k);
+ const ls=t.split("|");
+ const txt=ls.length===1?`<text x="42" y="${NH/2+5}" font-family="Marker" font-size="${t.length>15?12.5:14}" fill="#f4efe6">${t}</text>`:
+  `<text x="42" y="${NH/2-3}" font-family="Marker" font-size="13" fill="#f4efe6">${ls[0]}</text><text x="42" y="${NH/2+12}" font-family="Marker" font-size="13" fill="#f4efe6">${ls[1]}</text>`;
+ nodes+=`<g transform="translate(${x-w/2},${y-NH/2})"><rect width="${w}" height="${NH}" rx="9" fill="#2f2c29" stroke="${planNode?'#f2bf3a':'#57524b'}" stroke-width="${planNode?2.5:1.5}"/>`+
+ `<g transform="translate(2,3) scale(.84)">${glyph(side)}</g>${txt}</g>`;
+ if(HOLES[k])nodes+=`<g transform="translate(${x+w/2-36},${y-NH/2-16}) rotate(-6)"><rect width="44" height="17" rx="3" fill="#211f1e" stroke="#ff5a4e" stroke-width="2"/><text x="22" y="13" text-anchor="middle" font-family="Barlow" font-weight="700" font-size="11.5" fill="#ff6b5f" letter-spacing="1">HOLE</text></g>`;
+ if(OPP[k]){const tw=OPP[k].length*6.3+26;nodes+=`<g transform="translate(${x-tw/2},${y+NH/2+4})"><rect width="${tw}" height="19" rx="9.5" fill="#16223d" stroke="#5b8dff" stroke-width="1.5"/><circle cx="11" cy="9.5" r="4.5" fill="none" stroke="#8fb0ff" stroke-width="1.6"/><circle cx="11" cy="9.5" r="1.8" fill="#8fb0ff"/><text x="21" y="13.5" font-family="Barlow" font-weight="700" font-size="11.5" fill="#bcd0ff">${OPP[k]}</text></g>`;}
+}
+svg.innerHTML=defs+under+lines+nodes+labels;
+</script>
+</body></html>

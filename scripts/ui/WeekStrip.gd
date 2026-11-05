@@ -17,7 +17,7 @@ const Faces := preload("res://scripts/rules/Faces.gd")
 const SparNights := preload("res://scripts/rules/SparNights.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 
-const FACES := "res://assets/ui/face"
+const FACES := "res://assets/ui/face/studio"
 const INK := Color("#1f2a44")
 const PENCIL := Color("#8a929e")
 const RED := Color("#c8312a")

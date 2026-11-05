@@ -10,6 +10,7 @@ extends SceneTree
 ##   4. the page: three plan buttons (the chosen one solid), a pick changes the drilled move, each open names its lean and
 ##      her chance as a word.
 
+const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 
@@ -88,6 +89,9 @@ func _page() -> void:
 	for i in 4:
 		await process_frame
 	main.act("quick")
+	main.act("guideskip")
+	main.close_modal()
+	FirstWeek.ana_joins(main.career)
 	main.act("go", "fighters:0")
 	main.act("fighter", "ana")
 	for i in 3:

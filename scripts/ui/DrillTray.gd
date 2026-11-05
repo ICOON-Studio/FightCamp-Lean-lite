@@ -17,7 +17,7 @@ const PlanCards := preload("res://scripts/rules/PlanCards.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 
 const SLOTS := 4
-const FACES := "res://assets/ui/face"
+const FACES := "res://assets/ui/face/studio"
 const SLIDE_S := 0.35
 const SLIDE_PX := 60.0
 

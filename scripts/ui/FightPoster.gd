@@ -12,7 +12,7 @@ const Data := preload("res://scripts/state/Data.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const HALFTONE := preload("res://assets/ui/halftone.gdshader")
 const BEBAS := "res://assets/fonts/BebasNeue-Regular.ttf"
-const FACES := "res://assets/ui/face"
+const FACES := "res://assets/ui/face/poster"   # S387 tools/poster_faces.py: head and shoulders, backdrop keyed out, tones stretched
 
 const PAPER := Color("#f3ead6")
 const INK := Color("#1b1918")

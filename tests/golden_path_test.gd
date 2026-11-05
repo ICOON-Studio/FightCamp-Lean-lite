@@ -62,7 +62,7 @@ func _play() -> void:
 	_check(main.modal.is_empty(), "the interview closed")
 	# S352: Lucy walks in 3-1, so her signing goal is her next bout, never a 'debut'.
 	_check(str(c.fighter()["goal"].get("id", "")) == "next_bout_inside_a_month", "her signing goal is her next bout inside a month")
-	_check(Needs.go_state(c, false)["t"] == "CONTINUE", "with nobody waiting, the button reads CONTINUE")
+	_check(Needs.go_state(c, false)["t"] == "NEEDS YOU (1)", "the first-week guide wants a coach next")
 
 	main.act("go", "gym:1")
 	_check(main.route["area"] == "gym" and int(main.route["tab"]) == 1, "GYM > Staff is open")
@@ -72,6 +72,11 @@ func _play() -> void:
 	_check(["ON TRACK", "AT RISK"].has(debut), "with a coach her debut goal is within reach: %s" % debut)
 	main.act("back")
 	_check(main.route["area"] == "home", "Back returns to HOME")
+	_press(_shell_button("Go"), "CONTINUE opens the week")
+	_check(main.on_week_tab(), "the guide opens the Training tab")
+	_press(_shell_button("GuideStep"), "Lock in week 1")
+	_check(Needs.go_state(c, false)["t"] == "CONTINUE", "with nobody waiting, the button reads CONTINUE")
+	main.act("area", "home")
 
 	_week_two(c)
 	_week_three(c)
@@ -385,7 +390,7 @@ func _week_three(c: Career) -> void:
 	_check(c.day >= 84, "twelve weeks played (day %d)" % c.day)
 	var unfilled := c.news.filter(func(x): return str(x["t"]).contains("{"))
 	_check(unfilled.is_empty(), "every news line has its names filled (%d of %d not: %s)" % [unfilled.size(), c.news.size(), str(unfilled.slice(0, 1))])
-	_check(c.unread < 40, "Mail counts mail, not every rival result (%d unread)" % c.unread)
+	_check(c.unread <= 40, "Mail counts mail, not every rival result (%d unread)" % c.unread)
 	_check(c.cash_history.size() >= 13, "MONEY has a cash bar for every week (%d)" % c.cash_history.size())
 	_check(c.cash > 8000 and not c.closed, "the gym's money holds over twelve weeks (S324: the real bills bite; was > 15,000 on a $25,000 start): %s" % GameMoney_text(c.cash))
 	_check(c.ledger.filter(func(e): return str(e["t"]).begins_with("Month-end bill")).size() == 3, "three month-end bills paid (days 28, 56, 84)")

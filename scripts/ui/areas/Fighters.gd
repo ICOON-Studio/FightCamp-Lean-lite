@@ -31,6 +31,12 @@ func build(main: Node) -> void:
 		return
 	var page_g := c.grappler_by_id(str(main.route.get("fighter", "")))
 	if not page_g.is_empty():
+		if int(main.route.get("ftab", 0)) == FIGHTER_PAGE_SCRIPT.PLAYBOOK_TAB:   # S387 the mat, from the rail or the page's button
+			add_child(UI.display(str(page_g["name"]).to_upper(), 36))
+			var book: Node = FIGHTER_PAGE_SCRIPT.PLAYBOOK.instantiate()
+			add_child(book)
+			book.build(main)
+			return
 		add_child(GrapplerPage.make(main, page_g))
 		return
 	AreaHead.add(self, main, "fighters")
@@ -111,19 +117,35 @@ func _roster(main: Node, c: Career) -> void:
 		card[1].add_child(h)
 		_mat(main, c, card[1])
 		return
-	# S330 (MENULOOK1): a tile per fighter - rings for weight, condition, goal and her next bout - two to a row.
+	# S330 (MENULOOK1): a tile per fighter - rings for weight, condition, goal and her next bout. S387 one to a row: the photo, the
+	# rings and the coach's checklist (CoachCheck) share the row.
+	card[1].add_child(_fight_card(c))
 	var grid := GridContainer.new()
 	grid.name = "Roster"
-	grid.columns = 2
+	grid.columns = 1
 	grid.add_theme_constant_override("h_separation", 16)
 	grid.add_theme_constant_override("v_separation", 16)
 	for f in c.fighters:
-		grid.add_child(FighterTile.build(main, c, f))
+		grid.add_child(FighterTile.build(main, c, f, true))
 	card[1].add_child(grid)
 	_mat(main, c, card[1])
 	var scouting := UI.button("Find another fighter: Scouting", "Btn", main.act.bind("tab", "3"))
 	scouting.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	card[1].add_child(scouting)
+
+
+## S387 (operator: "an overview so players knows whos has booked fight"): one line, every boxer and the fight in front of them.
+func _fight_card(c: Career) -> Control:
+	var row := UI.hbox(8)
+	row.name = "WhoIsBooked"
+	row.add_child(UI.caps("BOOKED FIGHTS"))
+	for f in c.fighters:
+		var b: Dictionary = f.get("bout", {})
+		if b.has("day") and b.has("opp"):
+			row.add_child(UI.chip("%s vs %s, %s" % [f["first"], str(b["opp"]["name"]), Clock.fmt(int(b["day"]))], "green"))
+		else:
+			row.add_child(UI.chip("%s: no fight booked" % str(f["first"]), "amber"))
+	return row
 
 
 func _camps(main: Node, c: Career) -> void:

@@ -16,6 +16,7 @@ const FightPoster := preload("res://scripts/ui/FightPoster.gd")
 ## S334 (operator C152 on the A-pose bust: "looks kind silly"): the polaroid is her ring photo (tools/bake_headshots.gd,
 ## one glove raised after a win); the old crop of the baked body portrait is only the fallback for a face never shot.
 const FACES := "res://assets/ui/face"
+const PromoShot := preload("res://scripts/ui/PromoShot.gd")
 const CROP := Rect2(0.25, 0.0, 0.5, 0.42)
 const POLAROID := Vector2(330, 460)
 
@@ -166,6 +167,7 @@ static func polaroid(main: Node, f: Dictionary) -> Control:
 		tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 		tr.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		tr.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		PromoShot.live(tr)
 		shot.add_child(tr)
 	var pro := bool(f.get("pro", false))
 	var rec := "%d-%d" % [int(f.get("pro_w", 0)), int(f.get("pro_l", 0))] if pro else "%d-%d" % [f["w"], f["l"]]
@@ -187,9 +189,9 @@ static func polaroid(main: Node, f: Dictionary) -> Control:
 
 
 static func portrait(f: Dictionary) -> Texture2D:
-	var shot := FACES.path_join(Faces.stem(f) + ".jpg")
-	if ResourceLoader.exists(shot):
-		return load(shot)
+	var shot := PromoShot.shot(Faces.stem(f))   # S387 head and shoulders on the slate backdrop: no crossed arms, no hands
+	if shot != null:
+		return shot
 	var p := BodyFigure.portrait_for(Faces.glb(Faces.stem(f)), "red")
 	var tex := p.get("tex") as Texture2D
 	if tex == null:

@@ -14,6 +14,8 @@ const Grapplers := preload("res://scripts/state/Grapplers.gd")
 const StripeCall := preload("res://scripts/rules/StripeCall.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
+const BjjTree := preload("res://scripts/rules/BjjTree.gd")
+const MatTreeInfo := preload("res://scripts/ui/MatTreeInfo.gd")
 
 const BELT_COLOR := {"white": Color("#f4f5f6"), "blue": Color("#2f5fd0"), "purple": Color("#7b3fc4"),
 	"brown": Color("#7a4a25"), "black": Color("#151515")}
@@ -44,8 +46,27 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		"gdrill":   # "id|coach" / "id|open" / "id|fav" (S364, what the classes drill)
 			var kv := arg.split("|")
 			var gf := c.grappler_by_id(kv[0])
-			if not gf.is_empty() and (NoGi.DRILLS.has(kv[1]) or kv[1].begins_with("move:")):   # S375 "move:<id>" = the player's pick
+			if not gf.is_empty() and (NoGi.DRILLS.has(kv[1]) or kv[1].begins_with("move:")   # S375 "move:<id>" = the player's pick
+					or (BjjTree.is_tree_plan(kv[1]) and not BjjTree.drill_target(gf, kv[1]).is_empty())):   # S384 tree:/route:/ahead:
 				gf["drill"] = kv[1]
+		"gplan":   # "id|route:<route id>" / "id|goal:<goal>" (S384 GAMETREE1, the Playbook's plan strip)
+			var kv := arg.split("|")
+			var gf := c.grappler_by_id(kv[0])
+			if not gf.is_empty() and kv.size() > 1:
+				var key := kv[1].get_slice(":", 1)
+				if kv[1].begins_with("route:") and not BjjTree.route(key).is_empty():
+					MatTreeInfo.set_plan(gf, MatTreeInfo.plan_goal(gf), BjjTree.route(key)["steps"])
+				elif kv[1].begins_with("goal:") and MatTreeInfo.GOALS.has(key):
+					var fl := MatTreeInfo.fill(gf, key)
+					if (fl["steps"] as Array).is_empty():
+						why = str(fl["line"])
+					else:
+						MatTreeInfo.set_plan(gf, key, fl["steps"])
+			if not main.modal.is_empty():
+				if why != "":
+					main.toast(why)
+				main.close_modal()
+				return true
 		"gteach":   # "id|1" / "id|0" (S365, the beginners' class)
 			var kv := arg.split("|")
 			why = Grapplers.teach(c, kv[0], kv.size() > 1 and kv[1] == "1")
@@ -294,6 +315,8 @@ func _call(main: Node, c: Career, f: Dictionary, nxt: String, r: Dictionary) -> 
 			Color(0, 0, 0, 0), [wl, right])
 		row.name = "Open_%d" % d
 		v.add_child(row)
+		if entered.has(d):
+			v.add_child(field_chips(f, d))
 	v.add_child(UI.caps("THE RULES (ADULT NO-GI)"))
 	var mm := BeltRoad.MATCH_MIN
 	v.add_child(UI.label("%d min at white (%d blue, %d purple, %d brown, %d black). Mount or back %d, guard pass %d, takedown, sweep or knee on belly %d. A submission ends it. No-gi only." % [
@@ -388,3 +411,15 @@ func _record(f: Dictionary) -> Control:
 		card[1].add_child(UI.label("%s - %s %d%s" % [b["t"], Clock.MONTHS[int(d["month"]) - 1], int(d["year"]), (" (%s)" % note) if note != "" else ""],
 			UI.SMALL, UI.FG, "body", true))
 	return card[0]
+
+
+## S384 GAMETREE1: the bracket path drawn at entry - one chip per round, the opponent and the one free style word.
+static func field_chips(f: Dictionary, d: int) -> HBoxContainer:
+	var h := UI.hbox(8)
+	h.name = "Field_%d" % d
+	var fl: Array = (f.get("field", {}) as Dictionary).get(d, [])
+	for i in fl.size():
+		var chip := UI.label("R%d %s - %s" % [i + 1, str(fl[i]["name"]), str(fl[i]["style"])], UI.TINY, UI.MUTED, "mono")
+		chip.name = "FieldOpp_%d" % i
+		h.add_child(chip)
+	return h

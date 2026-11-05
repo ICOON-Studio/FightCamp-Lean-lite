@@ -12,6 +12,7 @@ const MoveClips := preload("res://scripts/fight3d/MoveClips.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
+const BjjTree := preload("res://scripts/rules/BjjTree.gd")
 const BjjSteps := preload("res://scripts/rules/BjjSteps.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 ## ComboBuilder preloads the card, so its palette is loaded at run time (no preload cycle).
@@ -142,10 +143,12 @@ static func _combo_tier(f: Dictionary, combo: String) -> String:
 ## A syllabus move: her level (learning / owned / signature, the mat book's words), the coach's first and last step.
 static func _bjj(id: String, f: Dictionary, d: Dictionary) -> Dictionary:
 	d["sport"] = "bjj"
-	d["name"] = NoGi.move_name(id)
+	d["name"] = BjjTree.move_name(id)
 	d["glyph"] = "user"
-	var lvl := float((f.get("bjj", {}) as Dictionary).get(id, 0.0))
-	d["tier"] = "signature" if lvl >= NoGi.SIGNATURE else ("owned" if lvl >= BeltRoad.OWNED_AT else "learning")
+	# S384 GAMETREE1: the tree's mastery (a syllabus move's f["bjj"], a tree move's class time + drilling) and its step -
+	# learning, felt (15, tried in rolling), owned, signature.
+	var lvl := BjjTree.mastery(f, id)
+	d["tier"] = BjjTree.state(lvl)
 	var steps: Array = BjjSteps.steps(id)
 	for s in steps:
 		d["glyphs"].append(["user", str(s).get_slice(",", 0).get_slice(":", 0)])
@@ -154,7 +157,7 @@ static func _bjj(id: String, f: Dictionary, d: Dictionary) -> Dictionary:
 	for g in NoGi.groups_of(f):
 		if (g[1] as Array).has(id):
 			group = str(g[0])
-	d["lines"] = ["Level %d of %d - owned at %d." % [int(lvl), int(NoGi.SIGNATURE), int(BeltRoad.OWNED_AT)]]
+	d["lines"] = ["Level %d of %d - felt at %d, owned at %d." % [int(lvl), int(NoGi.SIGNATURE), int(BjjTree.T["FELT"]), int(BeltRoad.OWNED_AT)]]
 	if group != "":
 		d["lines"].append("%s, %d coach's steps." % [group, steps.size()])
 	return d

@@ -3,12 +3,15 @@ extends VBoxContainer
 ## the federation would not sanction it, and cannot be accepted.
 
 const UI := preload("res://scripts/ui/UI.gd")
+const Faces := preload("res://scripts/rules/Faces.gd")
 const Tape := preload("res://scripts/ui/Tape.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
 const OppFileCard := preload("res://scripts/ui/OppFileCard.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
+const BoutCompare := preload("res://scripts/ui/BoutCompare.gd")
+const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 
 
 func build(main: Node, offer_id: String) -> void:
@@ -23,6 +26,10 @@ func build(main: Node, offer_id: String) -> void:
 		add_child(gone[0])
 		return
 	var opp: Dictionary = o["opp"]
+	# S387 once accepted the file fills on the bout's own copy (Bouts.accept, tape_days): read that one.
+	var booked: Dictionary = (f["bout"] as Dictionary).get("opp", {})
+	if bool(o["accepted"]) and str(booked.get("name", "")) == str(opp["name"]):
+		opp = booked
 	add_child(UI.muted("FIGHTS / Offers / %s vs %s" % [f["name"], opp["name"]], UI.SMALL))
 	var head := UI.hbox(16)
 	head.add_child(UI.display("THE BOUT", 52))
@@ -32,29 +39,43 @@ func build(main: Node, offer_id: String) -> void:
 		["Record", "%d-%d AM" % [f["w"], f["l"]]], ["Age, stance", "%d, %s" % [f["age"], f["stance"]]], ["Style", f["style"]],
 	], opp["name"], opp["club"], [
 		["Record", "%d-%d AM" % [opp["w"], opp["l"]]], ["Age, stance", "%d, %s" % [opp["age"], opp["stance"]]], ["Style", opp["style"]],
-	]))
-	var grid := UI.hbox(16)
-	add_child(grid)
+	], Faces.pair(f, opp)))
+	# S387 MENUBOUT the decision on one screen, Accept included: the stats against the estimate, the win band and the ranks
+	# at stake (BoutCompare, BoutRead), the file they rest on, then the terms.
+	var compare := UI.hbox(16)
+	compare.name = "BoutCompare"
+	compare.add_child(BoutCompare.stats_card(f, opp, c.seed))
+	compare.add_child(BoutCompare.read_card(c, f, opp, BoutRead.camp_for(f, int(o["day"]) - c.day)))
+	add_child(compare)
 	# S341 scouting in stages: her threat and weakness are no longer handed over - they are in her file, found on tape.
 	var report := UI.card("SCOUTING")
+	report[0].size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	report[0].size_flags_stretch_ratio = 3.0
 	report[1].add_child(OppFileCard.build(opp, false, OppFileCard.OppFile.history(c.results, str(opp["name"]))))
-	grid.add_child(report[0])
+	compare.add_child(report[0])
 	var weeks := int((int(o["day"]) - c.day) / 7.0)
 	# S373 the weigh-in forecast: her weight now and on the scale after a camp cut from tomorrow (Sim.weigh_forecast).
 	var wf := Sim.weigh_forecast(c, f, int(o["day"]))
 	var terms := UI.card("TERMS")
-	UI.add_rows(terms[1], [
+	var cols := UI.hbox(32)
+	terms[1].add_child(cols)
+	var left := UI.vbox(0)
+	var right := UI.vbox(0)
+	for col in [left, right]:
+		(col as Control).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		cols.add_child(col)
+	UI.add_rows(left, [
 		UI.kv("Date", "%s, 3 x 3 min" % Clock.fmt(int(o["day"]))),
 		UI.kv("Weight", "%.1f kg" % f["limit"], UI.FG, "mono"),
 		UI.kv("On the scale", "%.1f now, %.1f on the day" % [float(wf["now"]), float(wf["day"])], UI.GREEN if bool(wf["ok"]) else UI.RED, "mono"),
+		UI.kv("Time for a camp", "yes, %d weeks" % weeks if weeks >= 1 else "no"),
+	])
+	UI.add_rows(right, [
 		UI.kv("Purse", "none, amateur"),
 		UI.kv("Club ticket cut", UI.money(BoutRules.TICKET_CUT), UI.GREEN, "mono"),
-		UI.kv("Time for a camp", "yes, %d weeks" % weeks if weeks >= 1 else "no"),
 		UI.kv("Answer by", Clock.fmt(int(o["expires"]))),
 	])
-	grid.add_child(terms[0])
-	for child in grid.get_children():
-		(child as Control).size_flags_vertical = Control.SIZE_FILL
+	add_child(terms[0])
 	var foot := UI.hbox(10)
 	var open := not bool(o["answered"])
 	var accept_off := bool(o["mismatch"]) or not open

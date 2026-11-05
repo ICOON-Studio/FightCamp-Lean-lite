@@ -66,6 +66,7 @@ static func _face(f: Dictionary) -> TextureRect:
 		a.region = Rect2(0.0, (s.y - h) * FACE_Y, s.x, h)
 		tex = a
 	r.texture = tex
+	HomeBoard.PromoShot.live(r)
 	return r
 
 

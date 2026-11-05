@@ -2,26 +2,30 @@ extends RefCounted
 ## S370 every gain carries its cause (S367 critic: "decimal gains make a week feel like nothing happened"; praised sims name
 ## why a number moved - S370_MENUS_RESEARCH.md). The week's sessions are tallied per stat as they land (Sim.step_day), and
 ## the week review says which ones moved each stat: "Heavy bag x3, Strength circuit x1". Pure static functions.
-##   add(src, stat, session_name, points)   words(src, stat) -> String   top(src, stat) -> [[name, times, points], ...]
+##   add(src, stat, session_name, points, dow)   words(src, stat) -> String   top(src, stat) -> [[name, times, points, days], ...]
+## S387 MENUREVIEW1: the tally keeps the weekdays too (0 = Monday), so the review can say "roadwork Mon + Fri" (WeekRead.cause).
 
 const SHOWN := 2   # the review names the two sessions that did the most
 
 
-## Tallies one session's gain on one stat into `src` ({stat: {session: [times, points]}}).
-static func add(src: Dictionary, stat: String, session_name: String, points: float) -> void:
+## Tallies one session's gain on one stat into `src` ({stat: {session: [times, points, days]}}).
+static func add(src: Dictionary, stat: String, session_name: String, points: float, dow := -1) -> void:
 	if stat == "" or session_name == "" or points <= 0.0:
 		return
 	var per: Dictionary = src.get_or_add(stat, {})
-	var row: Array = per.get(session_name, [0, 0.0])
-	per[session_name] = [int(row[0]) + 1, float(row[1]) + points]
+	var row: Array = per.get(session_name, [0, 0.0, []])
+	var days: Array = (row[2] as Array).duplicate() if row.size() > 2 else []   # a save from mid-week before S387 has none
+	if dow >= 0:
+		days.append(dow)
+	per[session_name] = [int(row[0]) + 1, float(row[1]) + points, days]
 
 
-## The sessions that moved `stat`, most points first (ties by name): [[name, times, points], ...].
+## The sessions that moved `stat`, most points first (ties by name): [[name, times, points, days], ...].
 static func top(src: Dictionary, stat: String) -> Array:
 	var out: Array = []
 	var per: Dictionary = src.get(stat, {})
 	for k in per.keys():
-		out.append([str(k), int(per[k][0]), float(per[k][1])])
+		out.append([str(k), int(per[k][0]), float(per[k][1]), per[k][2] if (per[k] as Array).size() > 2 else []])
 	out.sort_custom(func(a: Array, b: Array) -> bool:
 		return a[2] > b[2] if not is_equal_approx(float(a[2]), float(b[2])) else str(a[0]) < str(b[0]))
 	return out

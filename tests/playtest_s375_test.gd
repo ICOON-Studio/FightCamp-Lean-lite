@@ -6,6 +6,7 @@ extends SceneTree
 ##   4. a fighter's own combination has a Drill it in PLAYBOOK > Combos (YOUR OWN), not only on the Training tab.
 ## (Danny's Fight camps photo is his own since S372's male bodies - tools/s376_findings_still.gd 2_camps.png.)
 
+const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Recruit := preload("res://scripts/rules/Recruit.gd")
 const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
@@ -27,6 +28,9 @@ func _initialize() -> void:
 	for i in 4:
 		await process_frame
 	main.act("quick")
+	main.act("guideskip")
+	main.close_modal()
+	FirstWeek.ana_joins(main.career)
 	main.act("interview")   # the walk-in signs Lucy (TestJump's own steps)
 	for card in ["Jab and move", "Pad rounds", "Hill sprints"]:
 		main.act("pickcard", card)

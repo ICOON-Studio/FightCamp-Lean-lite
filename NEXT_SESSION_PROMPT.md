@@ -1,3 +1,25 @@
+# S388 - next session (written S387, 2026-11-05 late)
+
+START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S388` + map redraw.
+Strip `data-deleted` lines until Q-S294-102 is answered: the tool wants 32 pieces gone and his yes (Q-S294-100) covered 2 cards.
+S387 MERGED update 76 to main (suite green; menu work + GAMETREE1): FirstWeek guide, Ana after week 1, no empty reviews, Playbook as
+fighter tab 7 (rail = shortcut), BoutRead bout page, WeekRead review, CoachCheck roster checklist, OfferCard, PosterReveal jigsaw on
+Accept (windowed only), PromoShot photos (studio set, plain light), poster heads (tools/poster_faces.py). Scores: ops/research/MENU_CRITIC_S387.md.
+ORDER FOR S388
+1. His playtest notes on update 76 first.
+2. Rescore the screens with a blind critic; lowest: Playbook Combos 4, post-lock board 4, review 5. Fix to 8.
+   Check the critic's "lost progress" note on review bars. One Playbook page (PLAYBOOK_SPEC_S381) is still unbuilt.
+3. FIVE SOUND REDOS (C234: punch_power_head, punch_miss, knockdown_fall, footwork_canvas, ui_click): make them with Ludo directly.
+   Qwen repeated round 1 twice (PR #51 closed: 90 synthetic rows). PR #46 is still open and should be closed with it. No poster sound yet.
+4. FIGHT MOTION round 3 (claude/defflow1 672654a7, not merged; plan in ops/research/AB_LOOP_S386.md): NOT STARTED in S387.
+5. BJJ9R18 is queued on BASE cursor/bjj9r16 (his 7.5, C235). FIGHT9R16 queued. Cursor allowance ~2% until ~11-07.
+BUGS FOUND, NOT FIXED: Sim.daily_gain applies the camp multiplier twice on the camp's stat (goal rows read optimistic in camp);
+GymBills.line ignores the bill already owed; CLAUDE.md says the gym closes after 4 weeks, the rule is 8 (CLOSE_AFTER_WEEKS);
+GAMETREE1 7 of 21 tuning bars unmet; the offer page band is wide on a first meeting by design (tape only runs in camp).
+OPERATOR: Cursor Miro login works from E:/FightCamp/Game only; Lean and worktrees still need it, so seats cannot use Miro. Ziva down.
+SETTINGS: S388 Claude Opus 5.5, effort high, Fast OFF | critic sub-agents: general-purpose, same model | Cursor: Composer 2.5, Fast OFF |
+agy: Argon High (falls back to Flash) | Ludo sounds: from this session.
+
 # S387 - next session (written S386, 2026-11-05 late; operator: "prepare next session")
 
 START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S387` + map redraw

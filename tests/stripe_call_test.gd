@@ -10,6 +10,7 @@ extends SceneTree
 ##   5. the week review: the classes, the drilled move (a new weapon is the headline), her open, the stripe calls in the
 ##      review itself (HOLD swaps the buttons for what happened).
 
+const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 const StripeCall := preload("res://scripts/rules/StripeCall.gd")
@@ -69,6 +70,7 @@ func _calls() -> void:
 	r = StripeCall.apply(thin, "hold", 70)
 	_check(str(r["news"]).contains("another club"), "under 50 loyalty a hold sends her to look at another club")
 	var c := Career.quick_start()
+	FirstWeek.ana_joins(c)
 	var e := c.grappler_by_id("ana")
 	var mem := int(c.bjj_side["members"])   # S365 the BJJ members see the grading standard
 	var r1 := Grapplers.stripe(c, "ana", "early")
@@ -105,6 +107,7 @@ func _opens() -> void:
 	f["morale"] = 20
 	_check(is_equal_approx(NoGi.win_chance(f, 0), p - 0.10), "morale 20 takes 0.10")
 	var c := Career.quick_start()
+	FirstWeek.ana_joins(c)
 	var a := c.grappler_by_id("ana")
 	a["tough_next"] = true
 	Grapplers.enter(c, "ana", 33)
@@ -126,6 +129,9 @@ func _review() -> void:
 	for i in 4:
 		await process_frame
 	main.act("quick")
+	main.act("guideskip")
+	main.close_modal()
+	FirstWeek.ana_joins(main.career)
 	var c: Career = main.career
 	while c.day < 7:
 		Clock.step(c)

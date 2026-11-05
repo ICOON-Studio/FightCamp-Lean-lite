@@ -1,3 +1,25 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 76 (2026-11-05): THE FIRST WEEK, THE ROSTER CHECKLIST, THE FIGHT POSTER
+=====================================================================================================================
+
+ 0. NEW CAREER: press Quick start. You open on Lucy's interview. A strip under the top bar walks you through Sign Lucy,
+    Hire a coach, Set week 1, Continue, and CONTINUE itself takes you to each step. Ana is not on the books yet: she asks
+    to join at the end of week 1. "Skip the guide" ends it for this career; the switch on the title screen turns it off.
+ 1. FIGHTERS > Roster: the row now runs the full width with the photo, the rings and the coach's checklist of eight
+    checks. Click any check to go to the place that fixes it. "Booked fights" on top says who has a fight.
+ 2. PHOTOS: head and shoulders, no hands, normal light on a slate backdrop, and they breathe slowly. Look at Home, the
+    Roster, the fighter page head, the camp and the offers.
+ 3. FIGHTS > Offers: a card per offer with the opponent's face, record, style, win chance, gap, rank and ticket cut.
+ 4. Open an offer: both photos on the tale of the tape, Lucy's seven stats against the estimated ranges, the win chance
+    and what a win or a loss does to the rank.
+ 5. ACCEPT THE BOUT: the fight poster flies in as jigsaw pieces and locks together. A click skips it. No sound yet.
+ 6. WEEK REVIEW: each point says what earned it, the next point says when it lands, then goal pace, rank and cash runway.
+ 7. PLAYBOOK is now a tab on the fighter's page. The side button goes straight to it for the fighter on screen.
+ 8. ANA'S MAT (after week 1): GAMETREE1, the belt match's position tree, in the Playbook. 7 of its 21 tuning bars are
+    still unmet, so its numbers are not final.
+
+KNOWN: the review can still need a scroll; the win chance is wide before scouting and only narrows after you accept, so
+most offers show a wide band; sounds and fight motion are unchanged in this build.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 75 (2026-11-04): THE CAMP'S PROTOCOL MATTERS, THE MEN'S TRAINING PICTURES
 =====================================================================================================================
 

@@ -9,6 +9,7 @@ extends SceneTree
 ##   5. the career: weekly income/costs carry the BJJ lines, end_week bills them and churns; promote to blue adds members.
 ##   6. the page: THE BJJ CLASSES card, "Ana teaches" locked at white, open at blue, pressed -> 2 classes a week.
 
+const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
@@ -83,6 +84,7 @@ func _trade() -> void:
 
 func _career() -> void:
 	var c := Career.quick_start()
+	FirstWeek.ana_joins(c)
 	_check(int(c.bjj_side["members"]) == BjjSide.START_MEMBERS and c.bjj_on() and not c.bjj_teaches(), "quick start: the BJJ side runs with 8 members")
 	var inc := Sim.weekly_income(c)
 	var cost := Sim.weekly_costs(c)
@@ -111,6 +113,9 @@ func _page() -> void:
 	for i in 4:
 		await process_frame
 	main.act("quick")
+	main.act("guideskip")
+	main.close_modal()
+	FirstWeek.ana_joins(main.career)
 	main.act("go", "fighters:0")
 	main.act("fighter", "ana")
 	for i in 3:

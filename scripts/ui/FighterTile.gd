@@ -3,6 +3,12 @@ extends RefCounted
 ## FIGHTERS > Roster - her name and record big, rank and mood as chips, then four rings: weight to her limit, condition,
 ## her goal, and the days to her next bout (red when she is out injured); her season line under them.
 
+const PromoShot := preload("res://scripts/ui/PromoShot.gd")
+const Faces := preload("res://scripts/rules/Faces.gd")
+const PHOTO := Vector2(148, 185)
+const CoachCheck := preload("res://scripts/rules/CoachCheck.gd")
+const CHECK_W := 400.0
+const RING_TEXT_W := 124.0
 const UI := preload("res://scripts/ui/UI.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
@@ -14,13 +20,19 @@ const NeedRing := preload("res://scripts/ui/NeedRing.gd")
 const COUNTDOWN_DAYS := 42
 
 
-static func build(main: Node, c: Career, f: Dictionary) -> PanelContainer:
+static func build(main: Node, c: Career, f: Dictionary, checklist: bool = false) -> PanelContainer:
 	var p := PanelContainer.new()
 	p.theme_type_variation = "Card"
 	p.name = "Tile_" + str(f["id"])
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var row := UI.hbox(16)
+	p.add_child(row)
+	var photo := PromoShot.picture(Faces.stem(f), PHOTO)   # S387 operator: the roster row carries the face
+	if photo != null:
+		row.add_child(photo)
 	var v := UI.vbox(10)
-	p.add_child(v)
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_child(v)
 	var top := UI.hbox(12)
 	var name := UI.button(f["name"], "Link", main.act.bind("fighter", f["id"]))
 	name.add_theme_font_size_override("font_size", UI.BODY + 5)
@@ -64,6 +76,8 @@ static func build(main: Node, c: Career, f: Dictionary) -> PanelContainer:
 		rings.add_child(_ring("NEXT BOUT", "%dd" % days if days > 0 else "TODAY", "%s vs %s" % [Clock.fmt(int(fb["day"])), fb["opp"]["name"]],
 			clampf(1.0 - float(days) / COUNTDOWN_DAYS, 0.05, 1.0), UI.GOLD))
 	v.add_child(rings)
+	if checklist:
+		row.add_child(_checklist(main, c, f))
 	var season := Champs.home_line(c, f)
 	if season != "":
 		var sl := UI.label(season, UI.SMALL, UI.GOLD if Champs.active(f) else UI.FG)
@@ -71,6 +85,53 @@ static func build(main: Node, c: Career, f: Dictionary) -> PanelContainer:
 		sl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		v.add_child(sl)
 	return p
+
+
+## S387 the coach's checklist (CoachCheck): a tick, cross or dash per check, and a click opens the place that fixes it.
+static func _checklist(main: Node, c: Career, f: Dictionary) -> Control:
+	var v := UI.vbox(2)
+	v.name = "Checklist_" + str(f["id"])
+	v.custom_minimum_size = Vector2(CHECK_W, 0)
+	var rows := CoachCheck.rows(c, f)
+	var sc := CoachCheck.score(rows)
+	var head := UI.hbox(8)
+	head.add_child(UI.caps("COACH'S CHECKLIST"))
+	head.add_child(UI.spacer())
+	head.add_child(UI.chip("%d OF %d READY" % [sc[0], sc[1]], "green" if sc[0] == sc[1] else "amber"))
+	v.add_child(head)
+	for r in rows:
+		v.add_child(_check_row(main, f, r))
+	return v
+
+
+static func _check_row(main: Node, f: Dictionary, r: Dictionary) -> Control:
+	var state := str(r["state"])
+	var col: Color = {"ok": UI.GREEN, "warn": UI.AMBER, "bad": UI.RED}.get(state, UI.MUTED)
+	var b := UI.button("", "Ghost", func():
+		if str(r["act"]) == "ftab":
+			main.route["fighter"] = str(f["id"])
+		main.act(str(r["act"]), str(r["arg"])), str(r["act"]) == "", "Comes after a booking")
+	b.name = "Check_" + str(r["key"])
+	b.custom_minimum_size = Vector2(0, 28)
+	var h := UI.hbox(8)
+	h.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	h.offset_left = 6
+	h.offset_right = -6
+	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var mark := UI.label({"ok": "✓", "warn": "!", "bad": "✕"}.get(state, "-"), UI.BODY, col, "bold")
+	mark.custom_minimum_size = Vector2(18, 0)
+	var name := UI.label(str(r["label"]), UI.SMALL, UI.FG if state != "off" else UI.MUTED, "semi")
+	name.custom_minimum_size = Vector2(112, 0)
+	var word := UI.label(str(r["word"]), UI.SMALL, col if state != "ok" else UI.MUTED)
+	word.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	word.clip_text = true
+	word.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	for l in [mark, name, word]:
+		l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		h.add_child(l)
+	b.add_child(h)
+	return b
 
 
 static func mood_word(f: Dictionary) -> String:
@@ -96,6 +157,12 @@ static func _ring(head: String, big: String, sub: String, value: float, col: Col
 	t.alignment = BoxContainer.ALIGNMENT_CENTER
 	t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	t.add_child(UI.caps(head))
-	t.add_child(UI.label(sub, UI.SMALL, col if col != UI.MUTED else UI.FG, "bold", true))
+	# S387 (operator: "this doesnt look good"): a long line keeps its width and stops at two lines; it never stacks word by word.
+	t.custom_minimum_size.x = RING_TEXT_W
+	var line := UI.label(sub, UI.SMALL, col if col != UI.MUTED else UI.FG, "bold", true)
+	line.max_lines_visible = 2
+	line.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	line.tooltip_text = sub
+	t.add_child(line)
 	box.add_child(t)
 	return box

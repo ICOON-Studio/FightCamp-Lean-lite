@@ -30,6 +30,9 @@ const RIM_B := Color(0.25, 0.55, 1.0)    # cool rim, the fighter's right
 
 var _cam: Camera3D
 var _chin := CHIN_DEG
+var _bg := BG
+var _plain := false   # S387 plain=1 (operator: "use normal lightning not red and blue"): soft white rims, neutral fill
+var _out := OUT   # S387 studio=<res dir> bg=r,g,b: the lit-backdrop set PromoShot shows (dark skin vanished on the dark studio)
 var _faces := {}   # stem -> its eyes and nose in the photo (promo_face.json)
 
 
@@ -42,6 +45,14 @@ func _initialize() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("stems="):
 			stems = Array(a.trim_prefix("stems=").split(","))
+		if a.begins_with("studio="):
+			_out = a.trim_prefix("studio=")
+			DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(_out))
+		if a == "plain=1":
+			_plain = true
+		if a.begins_with("bg="):
+			var v := a.trim_prefix("bg=").split(",")
+			_bg = Color(float(v[0]), float(v[1]), float(v[2]))
 		if a.begins_with("chin="):
 			_chin = float(a.trim_prefix("chin="))
 		if a.begins_with("poses="):
@@ -81,7 +92,7 @@ func _initialize() -> void:
 				await process_frame
 			await RenderingServer.frame_post_draw
 			var img := _photo(root.get_texture().get_image())
-			var path := ProjectSettings.globalize_path(OUT.path_join(str(stem) + ".jpg"))
+			var path := ProjectSettings.globalize_path(_out.path_join(str(stem) + ".jpg"))
 			if poses.size() > 1 or OS.get_cmdline_user_args().has("test"):
 				path = "E:/FightCamp/tmp/promo_%s_%s_%.1f.jpg" % [stem, pose[0], pose[1]]
 			img.save_jpg(path, 0.92)
@@ -92,7 +103,7 @@ func _initialize() -> void:
 			look.queue_free()
 		body.queue_free()
 		await process_frame
-	if not (poses.size() > 1 or OS.get_cmdline_user_args().has("test")):   # merge: a stems= run keeps the other bodies
+	if _out == OUT and not (poses.size() > 1 or OS.get_cmdline_user_args().has("test")):   # merge: a stems= run keeps the other bodies
 		var jp := OUT.path_join("promo_face.json")
 		var old = JSON.parse_string(FileAccess.get_file_as_string(jp)) if FileAccess.file_exists(jp) else {}
 		var all: Dictionary = old if old is Dictionary else {}
@@ -109,10 +120,10 @@ func _studio() -> void:
 	var env := WorldEnvironment.new()
 	var e := Environment.new()
 	e.background_mode = Environment.BG_COLOR
-	e.background_color = BG
+	e.background_color = _bg
 	e.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	e.ambient_light_color = Color(0.5, 0.55, 0.6)
-	e.ambient_light_energy = 0.25
+	e.ambient_light_color = Color(0.6, 0.6, 0.6) if _plain else Color(0.5, 0.55, 0.6)
+	e.ambient_light_energy = 0.55 if _plain else 0.25
 	e.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	env.environment = e
 	root.add_child(env)
@@ -124,8 +135,8 @@ func _studio() -> void:
 			[Vector3(-1.5, 1.9, -1.2), RIM_A, 5.0, 4.0], [Vector3(1.5, 1.9, -1.2), RIM_B, 5.0, 4.0]]:
 		var o := OmniLight3D.new()
 		o.position = l[0]
-		o.light_color = l[1]
-		o.light_energy = l[2]
+		o.light_color = Color.WHITE if _plain else l[1]
+		o.light_energy = minf(float(l[2]), 1.2) if _plain and l[0].z < 0.0 else float(l[2])
 		o.omni_range = l[3]
 		o.shadow_enabled = l == [Vector3(-1.4, 2.3, 2.2), Color(1.0, 0.95, 0.9), 2.6, 7.0]
 		root.add_child(o)

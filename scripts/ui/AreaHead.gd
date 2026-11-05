@@ -5,7 +5,8 @@ const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 
 
-static func add(parent: Container, main: Node, area_id: String, extra: Array = [], tabs_on: bool = true) -> void:
+## S384 `tab_row` false: no tab row at all (Ana's Playbook is one page, design GAMETREE1 7).
+static func add(parent: Container, main: Node, area_id: String, extra: Array = [], tabs_on: bool = true, tab_row: bool = true) -> void:
 	var a := Data.area(area_id)
 	var head := UI.hbox(16)
 	var h1 := UI.display(a["name"], 52)
@@ -15,7 +16,7 @@ static func add(parent: Container, main: Node, area_id: String, extra: Array = [
 		head.add_child(e)
 	parent.add_child(head)
 	var tabs: Array = a["tabs"]
-	if tabs.is_empty():
+	if tabs.is_empty() or not tab_row:
 		return
 	var row := UI.hbox(4)
 	for i in tabs.size():

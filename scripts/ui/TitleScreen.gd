@@ -1,6 +1,7 @@
 extends CenterContainer
 ## The title: resume the saved career, new career, quick start, load, settings, quit.
 
+const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const SaveGame := preload("res://scripts/state/SaveGame.gd")
 
@@ -22,6 +23,13 @@ func build(main: Node) -> void:
 	v.add_child(resume)
 	v.add_child(_tbtn("New career", "country, city, gym name", "TBtn", main.act.bind("newcareer", "")))
 	v.add_child(_tbtn("Quick start", "a built gym in London", "TBtnPrimary", main.act.bind("quick", "")))
+	# S387 FirstWeek: the veteran's switch; kept between runs.
+	var skip := CheckButton.new()
+	skip.name = "SkipGuide"
+	skip.text = "Skip the first-week guide"
+	skip.button_pressed = FirstWeek.skip_on()
+	skip.toggled.connect(FirstWeek.set_skip)
+	v.add_child(skip)
 	v.add_child(_tbtn("Load career", "", "TBtn", main.act.bind("load", "")))
 	v.add_child(_tbtn("Settings", "", "TBtn", main.act.bind("settings", "")))
 	v.add_child(_tbtn("Quit", "", "TBtn", main.act.bind("quit", "")))

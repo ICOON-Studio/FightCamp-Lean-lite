@@ -3,6 +3,7 @@ extends RefCounted
 ## the bouts' days are Bouts.day_events, the region's Region.day_events. Every fighter trains on her own plan (her camp's
 ## focus while in camp) and drills her moves; the week review reports each fighter.
 
+const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
 const FighterGoal := preload("res://scripts/rules/FighterGoal.gd")
@@ -33,6 +34,8 @@ const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 ## S382 PADWEEK1: the week's move and combo drilling, night by night (the old fixed 420 / 240 lumps are PadWeek's nights).
 const DrillWeek := preload("res://scripts/state/DrillWeek.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
+## S387 MENUREVIEW1: what the week really did (whole points and their causes, goal, rank, runway), read into the report.
+const WeekRead := preload("res://scripts/rules/WeekRead.gd")
 
 ## Without a coach training runs at 60%: the coach factor 0.5 + r x 0.7 equals 0.6 at this rating.
 const NO_COACH_RATING := 100.0 / 7.0
@@ -203,7 +206,7 @@ static func step_day(career: Career) -> void:
 			if st != "" and (f["stats"] as Dictionary).has(st):
 				var was := float(f["stats"][st])
 				f["stats"][st] = minf(STAT_CAP, was + float(r[k[1]]) * BoutRules.camp_gain_mult(f.get("camp", {}), st) * mult)
-				WeekCause.add(f.get_or_add("week_src", {}), st, str(by[k[2]]), float(f["stats"][st]) - was)
+				WeekCause.add(f.get_or_add("week_src", {}), st, str(by[k[2]]), float(f["stats"][st]) - was, dow)
 		var lo := minf(float(f["weight"]), float(f["limit"]) - 1.5)
 		var hi := maxf(float(f["weight"]), float(f["limit"]) + 1.6)
 		f["weight"] = clampf(float(f["weight"]) + float(r["kg"]), lo, hi)
@@ -310,7 +313,7 @@ static func end_week(career: Career) -> void:
 		var start: Dictionary = f.get("week_start", {})
 		for key in Data.STATS:
 			rows.append({"st": key, "before": float(start.get(key, f["stats"][key])), "after": float(f["stats"][key]),
-				"why": WeekCause.words(f.get("week_src", {}), key)})
+				"why": WeekCause.words(f.get("week_src", {}), key), "src": WeekCause.top(f.get("week_src", {}), key)})
 		var drill := DrillWeek.run(career, f)
 		var plan := {}
 		var planned: Dictionary = f.get("week_planned", {})
@@ -332,6 +335,10 @@ static func end_week(career: Career) -> void:
 				nt = WeekTwist.card(ask)
 		WeekTwist.deal(f, nt)
 		# (No news line: the Training tab shows the card all week and the review names it - a weekly line flooded Mail.)
+		var route := week_path(career, f)
+		var wait := weeks_out(career, f)
+		for x in rows:
+			x["read"] = WeekRead.stat(x, route, str(Data.LABEL[x["st"]]), wait)
 		var rank_before := int(f.get("rank_at_review", f.get("rank", 0)))
 		# S370 GOALTESTS1: Sunday is the coach's assessment for a ready grade, and her bleep level is read for the review.
 		var award := SkillAwards.assess(f, career.day)
@@ -344,7 +351,9 @@ static func end_week(career: Career) -> void:
 				SkillAwards.bleep(float(f["stats"]["conditioning"]), Data.sex_of(f))]
 				if SkillAwards.bleep_known(Data.sex_of(f)) else [],
 			"rank_before": rank_before, "rank_after": int(f.get("rank", 0)), "div": Data.DIVISIONS[f["div"]]["short"],
-			"coach": coach_line(career, f), "plan": plan, "peak": str(f.get("peak_line", "")), "injury": Injuries.new_this_week(career, f)})
+			"coach": coach_line(career, f), "plan": plan, "peak": str(f.get("peak_line", "")), "injury": Injuries.new_this_week(career, f),
+			"goal": WeekRead.goal(goal_read(career, f), float(goal_read(career, _as_of(f, start)).get("share", 0.0))),
+			"rank": WeekRead.rank(rank_before, int(f.get("rank", 0)), str(Data.DIVISIONS[f["div"]]["short"]))})
 		f.erase("peak_line")
 		f["rank_at_review"] = int(f.get("rank", 0))
 		if not career.coach.is_empty():
@@ -355,13 +364,49 @@ static func end_week(career: Career) -> void:
 		# S352 (board review: "Paid this week -$1,000" vs Home's "Costs this week -$1,123"): the week's running costs go on the
 		# month-end bill; "out" is the cash that left - the review shows both, and names what was paid.
 		"money": {"in": int(career.week_money["in"]), "out": int(career.week_money["out"]), "costs": int(costs["total"]),
-			"paid": (career.week_money.get("items", []) as Array).duplicate(), "line": GymBills.line(career.cash, net, career.weeks_below), "status": status},
+			"paid": (career.week_money.get("items", []) as Array).duplicate(), "line": GymBills.line(career.cash, net, career.weeks_below), "status": status,
+			"runway": WeekRead.runway(career.cash, career.accrued, int(income["total"]), int(costs["total"]), career.day, career.weeks_below)},
 		"coach": coach_line(career, career.fighter()),
 	}
-	career.review_pending = true
+	# S387 (menu critic: "empty week reviews fire"): a week in which nobody trained has nothing to review.
+	career.review_pending = not (reports.is_empty() and (career.last_report["grapplers"] as Array).is_empty())
+	FirstWeek.end_of_week(career, week)
 	Roster.check_pro(career)
 	career.week_money = {"in": 0, "out": 0}
 	career.cash_history.append({"w": week + 1, "c": career.cash})
+
+
+## S387 the stats she is headed for, week by week (WeekRead.path): Monday's phase and the twist card in play, the coach's
+## weeks to fight night (PadWeek.ahead), then her own week with no bout. A copy: the fighter is not touched.
+static func week_path(career: Career, f: Dictionary) -> Array:
+	var g := f.duplicate(true)
+	WeekPhase.sync(g, career.day)
+	var bout: Dictionary = g.get("bout", {})
+	var open := not bout.is_empty() and not bool(bout.get("done", false))
+	var later := PadWeek.ahead(g, career.day, int(ceil((int(bout["day"]) - career.day) / 7.0))) if open else []
+	var free := g.duplicate(true)
+	free["bout"] = {}
+	free["camp"] = {}
+	free.erase("twist")
+	WeekPhase.sync(free, career.day)
+	while later.size() < WeekRead.HORIZON:
+		later.append([WeekPlan.days_of(free), PadWeek.evenings(free), "base"])
+	return WeekRead.path(WeekTwist.days(WeekTwist.active(g), WeekPlan.days_of(g)), week_ctx(career, g), PadWeek.evenings(g), later)
+
+
+## The whole weeks an injury keeps her out (0 when fit): her ETAs wait for them.
+static func weeks_out(career: Career, f: Dictionary) -> int:
+	if not Injuries.out(career, f):
+		return 0
+	return int(ceil((int((f["injury"] as Dictionary)["until_day"]) - career.day) / 7.0))
+
+
+## The fighter with the stats she had at `stats` (a shallow copy, for a read).
+static func _as_of(f: Dictionary, stats: Dictionary) -> Dictionary:
+	var g := f.duplicate()
+	if not stats.is_empty():
+		g["stats"] = stats
+	return g
 
 
 static func coach_line(career: Career, f: Dictionary) -> String:
@@ -395,7 +440,8 @@ static func goal_read(career: Career, f: Dictionary) -> Dictionary:
 	if f.is_empty() or (f.get("goal", {}) as Dictionary).is_empty():
 		return {}
 	var goal: Dictionary = f["goal"]
-	var p: Dictionary = FighterGoal.progress(goal, f, career.day, daily_gain(career, f))
+	var rate := daily_gain(career, f)
+	var p: Dictionary = FighterGoal.progress(goal, f, career.day, rate)
 	var card: Dictionary = FighterGoal.card(goal, p)
 	# The bar shows the share of the climb from her start to the target, not current / target.
 	var share := 0.0
@@ -413,4 +459,5 @@ static func goal_read(career: Career, f: Dictionary) -> Dictionary:
 		"title": goal["title"], "status": card["status"], "cls": chip.get(card["status_code"], "red"),
 		"left": maxi(0, int(p["days_left"])), "share": share / maxf(1.0, float(n)), "row": ", ".join(card["targets"]).to_lower(),
 		"line": goal.get("persona_line", ""),
+		"code": card["status_code"], "days_left": int(p["days_left"]), "targets": p["per_target"], "rate": rate,   # S387 WeekRead.goal
 	}

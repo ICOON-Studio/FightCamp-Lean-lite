@@ -34,6 +34,7 @@ extends RefCounted
 ##   FightCamp.exe -- jump=theatre        S379 the Grappling theatre: GrappleMap chains played straight, documentary
 ##                                        camera + free orbit; `chain=<id>` opens one (TheatreChains ids, e.g. fifty_fifty)
 
+const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
@@ -102,6 +103,7 @@ static func wanted(args: PackedStringArray) -> String:
 ## Plays main to fight night. Returns false if a step did not reach its screen.
 static func run(main: Node, jump: String) -> bool:
 	main.save_path = SAVE_PATH
+	main.quiet_moments = true
 	main.act("quick")
 	# S356 one known career, like the golden path (S327): Career.seed is randi() per new career, so on about 1 run in 8 a
 	# training injury pulled her out before fight night and the jump opened an empty bout.
@@ -112,8 +114,10 @@ static func run(main: Node, jump: String) -> bool:
 	main.act("sign")
 	main.act("hire", "reid")
 	var c: Career = main.career
+	FirstWeek.skip(c)   # S387 a jump is past the first-week guide
 	var f: Dictionary = c.fighter()
 	if jump == "belt":
+		FirstWeek.ana_joins(c)
 		main.act("fighter", "ana")
 		return main.find_child("GrapplerPage", true, false) != null
 	if jump == "nationals":

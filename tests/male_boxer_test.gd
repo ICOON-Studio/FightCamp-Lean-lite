@@ -3,6 +3,7 @@ extends SceneTree
 ## quick-start career (Lucy at reception, Ana on the mat) and Danny Osei, the scouting pool's male lightweight
 ## (Data.PROSPECTS, div mlw), signed after his trial; an old save made of women only.
 
+const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
@@ -58,6 +59,7 @@ func _divisions() -> void:
 
 func _career_has_men() -> void:
 	var c := Career.quick_start()
+	FirstWeek.ana_joins(c)
 	var men := c.rivals.filter(func(r): return str(Data.DIVISIONS[str(r["div"])]["sex"]) == "m")
 	_check(men.size() == 16, "the region holds 16 men (%d)" % men.size())
 	_check(men.all(func(r): return (r.get("bouts", []) as Array).size() == int(r["w"]) + int(r["l"])), "each man has a past that matches his record")
@@ -68,6 +70,7 @@ func _career_has_men() -> void:
 
 func _signed_man_books_men() -> void:
 	var c := Career.quick_start()
+	FirstWeek.ana_joins(c)
 	var p := Roster.prospect(c, "danny")
 	p["state"] = "invited"
 	var f := Roster.sign_prospect(c, "danny", ["signature"])
@@ -87,6 +90,7 @@ func _signed_man_books_men() -> void:
 
 func _rankings_by_sex() -> void:
 	var c := Career.quick_start()
+	FirstWeek.ana_joins(c)
 	var rows: Array = Region.rankings(c, "mlw")
 	var names: Array = rows.map(func(r): return str(r["name"]))
 	_check(rows.size() == 4 and names.has("Arjun Patel") and not names.has("Lucy Jackson"), "the men's lightweight table is men only (%d)" % rows.size())
@@ -97,6 +101,7 @@ func _rankings_by_sex() -> void:
 ## A save from before S371: women only, no "sex" on the fighter, no men in the region, three prospects.
 func _old_save() -> void:
 	var c := Career.quick_start()
+	FirstWeek.ana_joins(c)
 	var lucy := Data.fighter_state(Data.lucy(), c.day)
 	lucy.erase("sex")
 	c.fighters.append(lucy)

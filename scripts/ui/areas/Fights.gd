@@ -1,6 +1,7 @@
 extends VBoxContainer
 ## FIGHTS: Offers, Calendar, Results. An offer's Open goes to its bout page.
 
+const OfferCard := preload("res://scripts/ui/OfferCard.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
@@ -8,6 +9,7 @@ const Bouts := preload("res://scripts/state/Bouts.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const BOUT_PAGE := preload("res://scenes/areas/BoutPage.tscn")
 const FighterCard := preload("res://scripts/ui/FighterCard.gd")
+const BoutCompare := preload("res://scripts/ui/BoutCompare.gd")
 ## Her latest results on the Offers tab's standing card.
 const LAST_RESULTS := 3
 
@@ -59,18 +61,9 @@ func _offers(main: Node, c: Career) -> void:
 		for bf in c.fighters:
 			card[1].add_child(UI.label(_next_offer(c, bf), UI.BODY, UI.FG, "bold", true))
 		return
-	var rows: Array = []
+	# S387 a card per offer (OfferCard): the opponent's face, record, win band and the chips, ready to decide on.
 	for fo in open:
-		var f: Dictionary = fo[0]
-		var o: Dictionary = fo[1]
-		var unsafe := bool(o["mismatch"])
-		var sub := ("Not safe: %s has %d bouts, %s has %d" % [str(f["first"]), int(o["own_bouts"]), str(o["opp"]["name"]).split(" ")[1],
-			int(o["their_bouts"])]) if unsafe else "Legal, even match"
-		var b := UI.button("Open", "Btn", main.act.bind("openBout", o["id"]))
-		b.name = "Open_" + str(o["id"])
-		rows.append(UI.row("%s vs %s, %s" % [f["first"], o["opp"]["name"], Clock.fmt(int(o["day"]))],
-			"%s; answer by %s" % [sub, Clock.fmt(int(o["expires"]))], UI.RED if unsafe else UI.GREEN, [b]))
-	UI.add_rows(card[1], rows)
+		card[1].add_child(OfferCard.make(main, c, fo[0], fo[1]))
 
 
 ## When her next offer can come, by Bouts.day_events' rule: none while booked or in the championships, else from her

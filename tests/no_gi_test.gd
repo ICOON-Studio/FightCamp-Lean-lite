@@ -8,6 +8,7 @@ extends SceneTree
 ##   4. the save: an old save gains Ana; a round trip keeps her.
 ##   5. the page: belt road, stripes drawn, Give stripe off until due, Enter pays and reads Entered; the roster lists her.
 
+const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
@@ -83,6 +84,7 @@ func _opens() -> void:
 
 func _career() -> void:
 	var c := Career.quick_start()
+	FirstWeek.ana_joins(c)
 	_check(c.grapplers.size() == 1 and str(c.grapplers[0]["id"]) == "ana", "a new career has Ana on the mat")
 	var cash := c.cash
 	_check(Grapplers.enter(c, "ana", 33) == "" and c.cash == cash - 95, "entering the Regional pays $95")
@@ -112,6 +114,7 @@ func _career() -> void:
 
 func _save() -> void:
 	var c := Career.quick_start()
+	FirstWeek.ana_joins(c)
 	var d := SaveGame.to_dict(c)
 	(d["props"] as Dictionary).erase("grapplers")
 	_check(SaveGame.from_dict(d).grapplers.size() == 1, "a save from before the belt road gains Ana")
@@ -126,6 +129,9 @@ func _page() -> void:
 	for i in 4:
 		await process_frame
 	main.act("quick")
+	main.act("guideskip")
+	main.close_modal()
+	FirstWeek.ana_joins(main.career)
 	main.act("go", "fighters:0")
 	for i in 3:
 		await process_frame

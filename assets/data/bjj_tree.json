@@ -1,0 +1,4804 @@
+{
+ "meta": {
+  "id": "GAMETREE1",
+  "session": "S384",
+  "status": "stage 1 data (S384 GAMETREE1-A): hand-kept from here; edge ids e001-e135 are frozen, new edges append",
+  "perspective": "Every node is seen from Ana's side; mirror is the same physical position from the opponent's side. An edge is a move done by the side standing on 'from'. The opponent's options at node X are the edges from mirror(X), landing at mirror(ok) / mirror(bad). One table serves both athletes.",
+  "keys": {
+   "ok": "where a success lands",
+   "bad": "where a miss lands when the defender owns an answer (else the walk stays)",
+   "points": "IBJJF points the edge scores (its own score + the landing node's reach_points; BeltRoad.POINTS)",
+   "bad_gives": "points a miss hands the other side",
+   "answers": "defender moves whose mastery stops this edge",
+   "odds": "the base-rate row in BjjTree.KIND_BASE",
+   "film": "GrappleMap transition id + fit (exact/partial/move-only)",
+   "gm_pose": "GrappleMap position ids for the node card (card_pose = the first)",
+   "finish_w": "chooser prior: share of visits that end in a tap (Grappling Conjecture 2024/25); also checked as an output. back_top 0.36 is UNVERIFIED (no source found, John S384) and is a tuning value set by bar 6",
+   "ibjjf_min": "lowest belt allowed under IBJJF no-gi adult rules (re-check in stage 1)"
+  },
+  "unlock_rule": "Positions are free. Owning a move (mastery >= BeltRoad.OWNED_AT 30) owns every edge with that move id; a FELT move (15-29, r2) is used in opens at mf = m/30; a learning move (under 15) is never tried in an open. BASE moves are everyone's at 100. A hole = a node where the side owns no non-BASE out-edge.",
+  "sources": "Structure from two public BJJ charts (S384 tmp files, not shipped) and BJJ fact; every name here is ours. Poses and film ids from assets/grapplemap/graph.json.",
+  "counts": {
+   "nodes": 49,
+   "positions": 47,
+   "physical_positions": 25,
+   "edges": 135,
+   "moves": 80,
+   "moves_by_src": {
+    "syllabus": 42,
+    "tree": 28,
+    "base": 10
+   },
+   "edges_by_film_fit": {
+    "exact": 33,
+    "partial": 70,
+    "none": 29,
+    "move-only": 3
+   },
+   "routes": 8
+  },
+  "checks": {
+   "errors": [],
+   "unreached_from_standing": [],
+   "dead_ends": [],
+   "syllabus_ids_in_beltroad": 54,
+   "syllabus_ids_here": 42,
+   "syllabus_ids_missing_from_beltroad": [],
+   "syllabus_not_on_an_edge": [],
+   "pronoun_strings": []
+  },
+  "ana_start": {
+   "owned_moves": [
+    "americana",
+    "bullfighter_pass",
+    "double_leg",
+    "frame_recover_guard",
+    "hip_bump_sweep",
+    "kimura",
+    "posture_closed_guard",
+    "scissor_sweep",
+    "shrimp_bridge"
+   ],
+   "owned_edges": 22,
+   "holes": 28,
+   "holes_with_a_learning_edge": 19,
+   "note": "tree moves of Ana's belt start at OWNED_AT x mat_classes / CLASSES_TO_NEXT = 30 x 130/200 = 19.5",
+   "felt_moves": 23,
+   "felt_edges": 33,
+   "learning_moves": [
+    "rear_naked_choke",
+    "guillotine"
+   ],
+   "holes_with_a_felt_edge": 17,
+   "holes_with_only_a_learning_edge": 2
+  },
+  "changes_from_draft": [
+   "guard_pull is a BASE move (everyone owns it; fixed odds 0.94, Williams 2019) and lands in closed guard",
+   "butterfly_sweep lands on top in half guard for 2, not in mount",
+   "dogfight_roll moves to white; BASE edge e135 'Settle back to half' leaves the dogfight for anyone",
+   "71 empty answer lists filled; every non-BASE edge has an answer",
+   "keys renamed (from/ok/bad/bad_gives/answers); node ours/theirs lists dropped (derived from edges + mirror)",
+   "chart cell ids, chart-derived source notes and GrappleMap titles dropped; ending names rewritten without pronouns",
+   "Butterfly route opens with guard pull + open the legs (BASE steps do not count toward route length)",
+   "IBJJF legality per move added; leg-lock defence (leg_lock_escape) is white so defending is never a hole"
+  ],
+  "r2_review": [
+   "S384 r2 (Kalli + John seat reviews): FELT step at 15 added to the unlock rule",
+   "back_top finish_w 0.36 marked UNVERIFIED (tuning value, bar 6)",
+   "per-move rates live in the design (3.3), not here: rear_naked_choke 0.35 (ADCC 2022, 34.7%), mat_return 0.71 (GC 2023, 70.8%)"
+  ],
+  "ibjjf_check": {
+   "read": "2026-11-05",
+   "source": "ibjjf.com/books-videos: Technical Fouls and Illegal Moves poster (20240101_GolpesProibidos_EN.pdf, VRS 4.0) beside Rule Book v6.0 (2024JUN_IBJJF_Rules_EN.pdf)",
+   "version": "poster VRS 4.0 (file 2024-01-01); Rule Book v6.0 (June 2024) - the current versions on the IBJJF page on 2026-11-05",
+   "table": {
+    "straight foot lock (row 3)": "illegal only for 4-12 and 13-15 years: legal at every adult belt",
+    "bicep slicer, calf slicer, knee bar, toe hold (rows 12-15)": "illegal for white, blue and purple adults: brown and up",
+    "heel hook, locks twisting the knees, knee reaping (rows 17-19)": "illegal up to brown/black gi; legal for brown and black adults in no-gi",
+    "toe hold with outward pressure (row 20), slam, spinal lock, scissor takedown (rows 21-26)": "illegal at every belt (not in the graph)"
+   },
+   "changes": [],
+   "kept": [
+    "every ibjjf_min in the graph matches the table: straight_ankle_lock white; kneebar, toe_hold, calf_slicer brown; outside_heel_hook, inside_heel_hook, saddle_entry (reaping) brown in no-gi",
+    "k_guard stays brown: a guard is not on the list, but its one edge (e070) lands in saddle_attack, a knee-reaping position (row 19), so the edge is illegal below brown"
+   ],
+   "status": "re-checked"
+  }
+ },
+ "nodes": [
+  {
+   "id": "standing",
+   "name": "On the feet",
+   "side": "neutral",
+   "mirror": "standing",
+   "family": "standing",
+   "lanes": [
+    "standing"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    94,
+    61,
+    11,
+    97
+   ],
+   "card_pose": 94
+  },
+  {
+   "id": "single_leg_top",
+   "name": "Leg in hand",
+   "side": "top",
+   "mirror": "single_leg_bottom",
+   "family": "single_leg",
+   "lanes": [
+    "standing",
+    "half_guard"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    65,
+    67,
+    70
+   ],
+   "card_pose": 65
+  },
+  {
+   "id": "single_leg_bottom",
+   "name": "Leg caught",
+   "side": "bottom",
+   "mirror": "single_leg_top",
+   "family": "single_leg",
+   "lanes": [
+    "standing",
+    "escapes"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    65,
+    67,
+    70
+   ],
+   "card_pose": 65
+  },
+  {
+   "id": "body_lock_top",
+   "name": "Locked behind, standing",
+   "side": "top",
+   "mirror": "body_lock_bottom",
+   "family": "body_lock",
+   "lanes": [
+    "standing",
+    "kimura_back"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    85,
+    64,
+    80
+   ],
+   "card_pose": 85
+  },
+  {
+   "id": "body_lock_bottom",
+   "name": "Locked from behind",
+   "side": "bottom",
+   "mirror": "body_lock_top",
+   "family": "body_lock",
+   "lanes": [
+    "standing",
+    "escapes"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    85,
+    64,
+    80
+   ],
+   "card_pose": 85
+  },
+  {
+   "id": "front_headlock_top",
+   "name": "Head in the vice",
+   "side": "top",
+   "mirror": "front_headlock_bottom",
+   "family": "front_headlock",
+   "lanes": [
+    "kimura_back",
+    "standing"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    492,
+    547,
+    152,
+    154
+   ],
+   "card_pose": 492
+  },
+  {
+   "id": "front_headlock_bottom",
+   "name": "Head caught",
+   "side": "bottom",
+   "mirror": "front_headlock_top",
+   "family": "front_headlock",
+   "lanes": [
+    "escapes"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    492,
+    547,
+    152,
+    154
+   ],
+   "card_pose": 492
+  },
+  {
+   "id": "turtle_top",
+   "name": "Riding the turtle",
+   "side": "top",
+   "mirror": "turtle_bottom",
+   "family": "turtle",
+   "lanes": [
+    "kimura_back",
+    "standing"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    237,
+    242,
+    506,
+    31
+   ],
+   "card_pose": 237
+  },
+  {
+   "id": "turtle_bottom",
+   "name": "Turtled up",
+   "side": "bottom",
+   "mirror": "turtle_top",
+   "family": "turtle",
+   "lanes": [
+    "escapes"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    237,
+    242,
+    506,
+    31
+   ],
+   "card_pose": 237
+  },
+  {
+   "id": "kimura_trap_attack",
+   "name": "Kimura trap",
+   "side": "attack",
+   "mirror": "kimura_trap_defend",
+   "family": "kimura_trap",
+   "lanes": [
+    "kimura_back"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    248,
+    146,
+    256,
+    499,
+    580,
+    488
+   ],
+   "card_pose": 248
+  },
+  {
+   "id": "kimura_trap_defend",
+   "name": "Arm trapped",
+   "side": "defend",
+   "mirror": "kimura_trap_attack",
+   "family": "kimura_trap",
+   "lanes": [
+    "escapes"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    248,
+    146,
+    256,
+    499,
+    580,
+    488
+   ],
+   "card_pose": 248
+  },
+  {
+   "id": "back_top",
+   "name": "On the back",
+   "side": "top",
+   "mirror": "back_bottom",
+   "family": "back",
+   "lanes": [
+    "kimura_back"
+   ],
+   "reach_points": 4,
+   "finish_w": 0.36,
+   "gm_pose": [
+    244,
+    276,
+    252,
+    258,
+    3,
+    508
+   ],
+   "card_pose": 244
+  },
+  {
+   "id": "back_bottom",
+   "name": "Back taken",
+   "side": "bottom",
+   "mirror": "back_top",
+   "family": "back",
+   "lanes": [
+    "escapes"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    244,
+    276,
+    252,
+    258,
+    3,
+    508
+   ],
+   "card_pose": 244
+  },
+  {
+   "id": "mount_top",
+   "name": "Mounted",
+   "side": "top",
+   "mirror": "mount_bottom",
+   "family": "mount",
+   "lanes": [
+    "passing"
+   ],
+   "reach_points": 4,
+   "finish_w": 0.09,
+   "gm_pose": [
+    150,
+    204,
+    351,
+    362
+   ],
+   "card_pose": 150
+  },
+  {
+   "id": "mount_bottom",
+   "name": "Under the mount",
+   "side": "bottom",
+   "mirror": "mount_top",
+   "family": "mount",
+   "lanes": [
+    "escapes"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    150,
+    204,
+    351,
+    362
+   ],
+   "card_pose": 150
+  },
+  {
+   "id": "knee_on_belly_top",
+   "name": "Knee on the belly",
+   "side": "top",
+   "mirror": "knee_on_belly_bottom",
+   "family": "knee_on_belly",
+   "lanes": [
+    "passing"
+   ],
+   "reach_points": 2,
+   "finish_w": 0.0,
+   "gm_pose": [
+    193,
+    192,
+    59,
+    173
+   ],
+   "card_pose": 193
+  },
+  {
+   "id": "knee_on_belly_bottom",
+   "name": "Knee in the gut",
+   "side": "bottom",
+   "mirror": "knee_on_belly_top",
+   "family": "knee_on_belly",
+   "lanes": [
+    "escapes"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    193,
+    192,
+    59,
+    173
+   ],
+   "card_pose": 193
+  },
+  {
+   "id": "side_control_top",
+   "name": "Side pin",
+   "side": "top",
+   "mirror": "side_control_bottom",
+   "family": "side_control",
+   "lanes": [
+    "passing"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.045,
+   "gm_pose": [
+    225,
+    0,
+    302,
+    446
+   ],
+   "card_pose": 225
+  },
+  {
+   "id": "side_control_bottom",
+   "name": "Pinned on the side",
+   "side": "bottom",
+   "mirror": "side_control_top",
+   "family": "side_control",
+   "lanes": [
+    "escapes"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    225,
+    0,
+    302,
+    446
+   ],
+   "card_pose": 225
+  },
+  {
+   "id": "north_south_top",
+   "name": "Head-to-head pin",
+   "side": "top",
+   "mirror": "north_south_bottom",
+   "family": "north_south",
+   "lanes": [
+    "passing",
+    "kimura_back"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    2,
+    134,
+    148
+   ],
+   "card_pose": 2
+  },
+  {
+   "id": "north_south_bottom",
+   "name": "Pinned head-to-head",
+   "side": "bottom",
+   "mirror": "north_south_top",
+   "family": "north_south",
+   "lanes": [
+    "escapes"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    2,
+    134,
+    148
+   ],
+   "card_pose": 2
+  },
+  {
+   "id": "closed_guard_bottom",
+   "name": "Legs locked",
+   "side": "bottom",
+   "mirror": "closed_guard_top",
+   "family": "closed_guard",
+   "lanes": [
+    "closed_guard"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    265,
+    376,
+    110,
+    4
+   ],
+   "card_pose": 265
+  },
+  {
+   "id": "closed_guard_top",
+   "name": "Inside the lock",
+   "side": "top",
+   "mirror": "closed_guard_bottom",
+   "family": "closed_guard",
+   "lanes": [
+    "passing"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    265,
+    376,
+    163,
+    7
+   ],
+   "card_pose": 265
+  },
+  {
+   "id": "seated_guard_bottom",
+   "name": "Sitting up",
+   "side": "bottom",
+   "mirror": "seated_guard_top",
+   "family": "seated_guard",
+   "lanes": [
+    "open_guard",
+    "standing"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    157,
+    122,
+    158
+   ],
+   "card_pose": 157
+  },
+  {
+   "id": "seated_guard_top",
+   "name": "Over a seated guard",
+   "side": "top",
+   "mirror": "seated_guard_bottom",
+   "family": "seated_guard",
+   "lanes": [
+    "passing"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    157,
+    122,
+    158
+   ],
+   "card_pose": 157
+  },
+  {
+   "id": "supine_guard_bottom",
+   "name": "Feet up",
+   "side": "bottom",
+   "mirror": "supine_guard_top",
+   "family": "supine_guard",
+   "lanes": [
+    "open_guard",
+    "leg_lock"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    185,
+    42
+   ],
+   "card_pose": 185
+  },
+  {
+   "id": "supine_guard_top",
+   "name": "Standing over the feet",
+   "side": "top",
+   "mirror": "supine_guard_bottom",
+   "family": "supine_guard",
+   "lanes": [
+    "passing"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    185,
+    42
+   ],
+   "card_pose": 185
+  },
+  {
+   "id": "butterfly_bottom",
+   "name": "Hooks in",
+   "side": "bottom",
+   "mirror": "butterfly_top",
+   "family": "butterfly",
+   "lanes": [
+    "open_guard"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    278,
+    170,
+    149,
+    277
+   ],
+   "card_pose": 278
+  },
+  {
+   "id": "butterfly_top",
+   "name": "Over the hooks",
+   "side": "top",
+   "mirror": "butterfly_bottom",
+   "family": "butterfly",
+   "lanes": [
+    "passing"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    278,
+    170,
+    149,
+    277
+   ],
+   "card_pose": 278
+  },
+  {
+   "id": "dlr_bottom",
+   "name": "Hooked outside",
+   "side": "bottom",
+   "mirror": "dlr_top",
+   "family": "dlr",
+   "lanes": [
+    "open_guard"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    21,
+    46,
+    48
+   ],
+   "card_pose": 21
+  },
+  {
+   "id": "dlr_top",
+   "name": "Leg hooked",
+   "side": "top",
+   "mirror": "dlr_bottom",
+   "family": "dlr",
+   "lanes": [
+    "passing"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    21,
+    46,
+    48
+   ],
+   "card_pose": 21
+  },
+  {
+   "id": "slx_bottom",
+   "name": "Under the leg",
+   "side": "bottom",
+   "mirror": "slx_top",
+   "family": "slx",
+   "lanes": [
+    "open_guard",
+    "leg_lock"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    114,
+    466,
+    365,
+    299,
+    34
+   ],
+   "card_pose": 114
+  },
+  {
+   "id": "slx_top",
+   "name": "Standing on one leg",
+   "side": "top",
+   "mirror": "slx_bottom",
+   "family": "slx",
+   "lanes": [
+    "passing",
+    "escapes"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    114,
+    466,
+    365,
+    299,
+    34
+   ],
+   "card_pose": 114
+  },
+  {
+   "id": "half_guard_bottom",
+   "name": "Knee shield",
+   "side": "bottom",
+   "mirror": "half_guard_top",
+   "family": "half_guard",
+   "lanes": [
+    "half_guard"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    195,
+    312,
+    155,
+    124
+   ],
+   "card_pose": 195
+  },
+  {
+   "id": "half_guard_top",
+   "name": "Over the knee shield",
+   "side": "top",
+   "mirror": "half_guard_bottom",
+   "family": "half_guard",
+   "lanes": [
+    "passing"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    195,
+    312,
+    155
+   ],
+   "card_pose": 195
+  },
+  {
+   "id": "flat_half_bottom",
+   "name": "Flattened half",
+   "side": "bottom",
+   "mirror": "flat_half_top",
+   "family": "flat_half",
+   "lanes": [
+    "half_guard",
+    "escapes"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    337,
+    260,
+    386,
+    56
+   ],
+   "card_pose": 337
+  },
+  {
+   "id": "flat_half_top",
+   "name": "Crossface half",
+   "side": "top",
+   "mirror": "flat_half_bottom",
+   "family": "flat_half",
+   "lanes": [
+    "passing"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    386,
+    56,
+    260
+   ],
+   "card_pose": 386
+  },
+  {
+   "id": "dogfight_underhook",
+   "name": "Up on the underhook",
+   "side": "bottom",
+   "mirror": "dogfight_whizzer",
+   "family": "dogfight",
+   "lanes": [
+    "half_guard"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    273,
+    129,
+    124
+   ],
+   "card_pose": 273
+  },
+  {
+   "id": "dogfight_whizzer",
+   "name": "Fighting the whizzer",
+   "side": "top",
+   "mirror": "dogfight_underhook",
+   "family": "dogfight",
+   "lanes": [
+    "half_guard",
+    "leg_lock"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    88,
+    273
+   ],
+   "card_pose": 88
+  },
+  {
+   "id": "deep_half_bottom",
+   "name": "Under the hips",
+   "side": "bottom",
+   "mirror": "deep_half_top",
+   "family": "deep_half",
+   "lanes": [
+    "half_guard"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    177,
+    100,
+    82
+   ],
+   "card_pose": 177
+  },
+  {
+   "id": "deep_half_top",
+   "name": "Sat on deep half",
+   "side": "top",
+   "mirror": "deep_half_bottom",
+   "family": "deep_half",
+   "lanes": [
+    "passing"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    177,
+    100,
+    82,
+    139
+   ],
+   "card_pose": 177
+  },
+  {
+   "id": "ashi_attack",
+   "name": "Attacking the leg",
+   "side": "attack",
+   "mirror": "ashi_defend",
+   "family": "ashi",
+   "lanes": [
+    "leg_lock"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    313,
+    181
+   ],
+   "card_pose": 313
+  },
+  {
+   "id": "ashi_defend",
+   "name": "Leg attacked",
+   "side": "defend",
+   "mirror": "ashi_attack",
+   "family": "ashi",
+   "lanes": [
+    "escapes"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    313,
+    181
+   ],
+   "card_pose": 313
+  },
+  {
+   "id": "saddle_attack",
+   "name": "Saddle",
+   "side": "attack",
+   "mirror": "saddle_defend",
+   "family": "saddle",
+   "lanes": [
+    "leg_lock"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.18,
+   "gm_pose": [
+    217,
+    216
+   ],
+   "card_pose": 217
+  },
+  {
+   "id": "saddle_defend",
+   "name": "Stuck in the saddle",
+   "side": "defend",
+   "mirror": "saddle_attack",
+   "family": "saddle",
+   "lanes": [
+    "escapes"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": [
+    217,
+    219
+   ],
+   "card_pose": 217
+  },
+  {
+   "id": "fifty_fifty",
+   "name": "Fifty-fifty",
+   "side": "neutral",
+   "mirror": "fifty_fifty",
+   "family": "fifty_fifty",
+   "lanes": [
+    "leg_lock"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.175,
+   "gm_pose": [
+    321,
+    322
+   ],
+   "card_pose": 321
+  },
+  {
+   "id": "scramble",
+   "name": "Scramble",
+   "side": "neutral",
+   "mirror": "scramble",
+   "family": "scramble",
+   "lanes": [
+    "standing",
+    "escapes"
+   ],
+   "reach_points": 0,
+   "finish_w": 0.02,
+   "gm_pose": [
+    347
+   ],
+   "card_pose": 347
+  },
+  {
+   "id": "tap_win",
+   "name": "Ana wins by tap",
+   "side": "end",
+   "mirror": "tap_loss",
+   "family": "finish",
+   "lanes": [],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": "NONE",
+   "card_pose": "N"
+  },
+  {
+   "id": "tap_loss",
+   "name": "Ana taps",
+   "side": "end",
+   "mirror": "tap_win",
+   "family": "finish",
+   "lanes": [],
+   "reach_points": 0,
+   "finish_w": 0.0,
+   "gm_pose": "NONE",
+   "card_pose": "N"
+  }
+ ],
+ "moves": [
+  {
+   "id": "double_leg",
+   "name": "Double leg",
+   "lane": "standing",
+   "kind": "takedown",
+   "belt": "white",
+   "src": "syllabus",
+   "syllabus": "double_leg",
+   "film": [
+    1734
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "guillotine",
+   "name": "Guillotine",
+   "lane": "standing",
+   "kind": "submission",
+   "belt": "white",
+   "src": "syllabus",
+   "syllabus": "guillotine",
+   "film": [
+    698,
+    959,
+    1016
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "arm_drag_back",
+   "name": "Arm drag to the back",
+   "lane": "open_guard",
+   "kind": "back_take",
+   "belt": "blue",
+   "src": "syllabus",
+   "syllabus": "arm_drag_back",
+   "film": [
+    930,
+    946
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "wrestle_up",
+   "name": "Wrestle up",
+   "lane": "half_guard",
+   "kind": "transition",
+   "belt": "brown",
+   "src": "syllabus",
+   "syllabus": "wrestle_up",
+   "film": [
+    632
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "shrimp_bridge",
+   "name": "Shrimp and bridge",
+   "lane": "escapes",
+   "kind": "escape",
+   "belt": "white",
+   "src": "syllabus",
+   "syllabus": "shrimp_bridge",
+   "film": [
+    994
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "frame_recover_guard",
+   "name": "Frame and recover",
+   "lane": "escapes",
+   "kind": "escape",
+   "belt": "white",
+   "src": "syllabus",
+   "syllabus": "frame_recover_guard",
+   "film": [
+    1015,
+    1638
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "seatbelt_escape",
+   "name": "Back escape",
+   "lane": "escapes",
+   "kind": "escape",
+   "belt": "white",
+   "src": "syllabus",
+   "syllabus": "seatbelt_escape",
+   "film": [
+    1818
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "posture_closed_guard",
+   "name": "Posture up",
+   "lane": "passing",
+   "kind": "transition",
+   "belt": "white",
+   "src": "syllabus",
+   "syllabus": "posture_closed_guard",
+   "film": [
+    719
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "bullfighter_pass",
+   "name": "Bullfighter pass",
+   "lane": "passing",
+   "kind": "pass",
+   "belt": "white",
+   "src": "syllabus",
+   "syllabus": "bullfighter_pass",
+   "film": [
+    1331
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "knee_cut_pass",
+   "name": "Knee cut",
+   "lane": "passing",
+   "kind": "pass",
+   "belt": "white",
+   "src": "syllabus",
+   "syllabus": "knee_cut_pass",
+   "film": [
+    1008
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "scissor_sweep",
+   "name": "Scissor sweep",
+   "lane": "closed_guard",
+   "kind": "sweep",
+   "belt": "white",
+   "src": "syllabus",
+   "syllabus": "scissor_sweep",
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "hip_bump_sweep",
+   "name": "Hip bump",
+   "lane": "closed_guard",
+   "kind": "sweep",
+   "belt": "white",
+   "src": "syllabus",
+   "syllabus": "hip_bump_sweep",
+   "film": [
+    695
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "armbar_guard",
+   "name": "Armbar from guard",
+   "lane": "closed_guard",
+   "kind": "submission",
+   "belt": "white",
+   "src": "syllabus",
+   "syllabus": "armbar_guard",
+   "film": [
+    693
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "kimura",
+   "name": "Kimura",
+   "lane": "kimura_back",
+   "kind": "grip_and_submission",
+   "belt": "white",
+   "src": "syllabus",
+   "syllabus": "kimura",
+   "film": [
+    839,
+    1371,
+    1773,
+    1783
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "americana",
+   "name": "Americana",
+   "lane": "top_control",
+   "kind": "submission",
+   "belt": "white",
+   "src": "syllabus",
+   "syllabus": "americana",
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "rear_naked_choke",
+   "name": "Rear naked choke",
+   "lane": "kimura_back",
+   "kind": "submission",
+   "belt": "white",
+   "src": "syllabus",
+   "syllabus": "rear_naked_choke",
+   "film": [
+    1237
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "de_la_riva",
+   "name": "De la Riva",
+   "lane": "open_guard",
+   "kind": "entry_and_sweep",
+   "belt": "blue",
+   "src": "syllabus",
+   "syllabus": "de_la_riva",
+   "film": [
+    2043
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "single_leg_x",
+   "name": "Single-leg X",
+   "lane": "open_guard",
+   "kind": "entry",
+   "belt": "blue",
+   "src": "syllabus",
+   "syllabus": "single_leg_x",
+   "film": [
+    1548
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "deep_half",
+   "name": "Deep half",
+   "lane": "half_guard",
+   "kind": "entry",
+   "belt": "blue",
+   "src": "syllabus",
+   "syllabus": "deep_half",
+   "film": [
+    1106
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "butterfly_sweep",
+   "name": "Butterfly sweep",
+   "lane": "open_guard",
+   "kind": "sweep",
+   "belt": "blue",
+   "src": "syllabus",
+   "syllabus": "butterfly_sweep",
+   "film": [
+    758
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "over_under_pass",
+   "name": "Over-under pass",
+   "lane": "passing",
+   "kind": "pass",
+   "belt": "blue",
+   "src": "syllabus",
+   "syllabus": "over_under_pass",
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "leg_drag",
+   "name": "Leg drag",
+   "lane": "passing",
+   "kind": "pass",
+   "belt": "blue",
+   "src": "syllabus",
+   "syllabus": "leg_drag",
+   "film": [
+    1093
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "berimbolo",
+   "name": "Berimbolo",
+   "lane": "open_guard",
+   "kind": "back_take",
+   "belt": "blue",
+   "src": "syllabus",
+   "syllabus": "berimbolo",
+   "film": [
+    1860
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "triangle",
+   "name": "Triangle",
+   "lane": "closed_guard",
+   "kind": "submission",
+   "belt": "blue",
+   "src": "syllabus",
+   "syllabus": "triangle",
+   "film": [
+    1032
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "straight_ankle_lock",
+   "name": "Straight ankle lock",
+   "lane": "leg_lock",
+   "kind": "submission",
+   "belt": "blue",
+   "src": "syllabus",
+   "syllabus": "straight_ankle_lock",
+   "film": [
+    1215
+   ],
+   "film_fit": "move-only",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "darce",
+   "name": "Darce",
+   "lane": "half_guard",
+   "kind": "submission",
+   "belt": "blue",
+   "src": "syllabus",
+   "syllabus": "darce",
+   "film": [
+    1180
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "k_guard",
+   "name": "K-guard",
+   "lane": "leg_lock",
+   "kind": "entry",
+   "belt": "purple",
+   "src": "syllabus",
+   "syllabus": "k_guard",
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "brown"
+  },
+  {
+   "id": "waiter_sweep",
+   "name": "Waiter sweep",
+   "lane": "half_guard",
+   "kind": "sweep",
+   "belt": "purple",
+   "src": "syllabus",
+   "syllabus": "waiter_sweep",
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "body_lock_pass",
+   "name": "Body-lock pass",
+   "lane": "passing",
+   "kind": "pass",
+   "belt": "purple",
+   "src": "syllabus",
+   "syllabus": "body_lock_pass",
+   "film": [
+    1074
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "outside_heel_hook",
+   "name": "Outside heel hook",
+   "lane": "leg_lock",
+   "kind": "submission",
+   "belt": "purple",
+   "src": "syllabus",
+   "syllabus": "outside_heel_hook",
+   "film": [
+    1284
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "brown"
+  },
+  {
+   "id": "kneebar",
+   "name": "Kneebar",
+   "lane": "leg_lock",
+   "kind": "submission",
+   "belt": "purple",
+   "src": "syllabus",
+   "syllabus": "kneebar",
+   "film": [
+    1022
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "brown"
+  },
+  {
+   "id": "toe_hold",
+   "name": "Toe hold",
+   "lane": "leg_lock",
+   "kind": "submission",
+   "belt": "purple",
+   "src": "syllabus",
+   "syllabus": "toe_hold",
+   "film": [
+    630
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "brown"
+  },
+  {
+   "id": "anaconda",
+   "name": "Anaconda",
+   "lane": "kimura_back",
+   "kind": "submission",
+   "belt": "purple",
+   "src": "syllabus",
+   "syllabus": "anaconda",
+   "film": [
+    727
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "north_south_choke",
+   "name": "North-south choke",
+   "lane": "top_control",
+   "kind": "submission",
+   "belt": "purple",
+   "src": "syllabus",
+   "syllabus": "north_south_choke",
+   "film": [
+    621
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "back_triangle",
+   "name": "Back triangle",
+   "lane": "kimura_back",
+   "kind": "submission",
+   "belt": "purple",
+   "src": "syllabus",
+   "syllabus": "back_triangle",
+   "film": [
+    878
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "inside_heel_hook",
+   "name": "Inside heel hook",
+   "lane": "leg_lock",
+   "kind": "submission",
+   "belt": "brown",
+   "src": "syllabus",
+   "syllabus": "inside_heel_hook",
+   "film": [
+    717
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "brown"
+  },
+  {
+   "id": "saddle_entry",
+   "name": "Saddle entry",
+   "lane": "leg_lock",
+   "kind": "entry",
+   "belt": "brown",
+   "src": "syllabus",
+   "syllabus": "saddle_entry",
+   "film": [
+    850
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "brown"
+  },
+  {
+   "id": "calf_slicer",
+   "name": "Calf slicer",
+   "lane": "leg_lock",
+   "kind": "submission",
+   "belt": "brown",
+   "src": "syllabus",
+   "syllabus": "calf_slicer",
+   "film": [
+    612
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "brown"
+  },
+  {
+   "id": "crucifix",
+   "name": "Crucifix",
+   "lane": "kimura_back",
+   "kind": "submission",
+   "belt": "brown",
+   "src": "syllabus",
+   "syllabus": "crucifix",
+   "film": [
+    1337
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "mounted_triangle",
+   "name": "Mounted triangle",
+   "lane": "top_control",
+   "kind": "submission",
+   "belt": "brown",
+   "src": "syllabus",
+   "syllabus": "mounted_triangle",
+   "film": [
+    720
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "counter_pass",
+   "name": "Counter-pass",
+   "lane": "passing",
+   "kind": "pass",
+   "belt": "brown",
+   "src": "syllabus",
+   "syllabus": "counter_pass",
+   "film": [
+    1758
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "clock_choke",
+   "name": "Clock choke",
+   "lane": "kimura_back",
+   "kind": "submission",
+   "belt": "brown",
+   "src": "syllabus",
+   "syllabus": "clock_choke",
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "single_leg_shoot",
+   "name": "Low single",
+   "lane": "standing",
+   "kind": "entry",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    1044
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "single_leg_finish",
+   "name": "Run the pipe",
+   "lane": "standing",
+   "kind": "takedown",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    1695
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "snap_down",
+   "name": "Snap down",
+   "lane": "kimura_back",
+   "kind": "entry",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    986
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "guard_pull",
+   "name": "Pull guard",
+   "lane": "open_guard",
+   "kind": "entry",
+   "belt": "base",
+   "src": "base",
+   "syllabus": null,
+   "film": [
+    1293
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "sprawl",
+   "name": "Sprawl",
+   "lane": "standing",
+   "kind": "escape",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    928
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "go_behind",
+   "name": "Spin behind",
+   "lane": "kimura_back",
+   "kind": "transition",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    1970
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "mat_return",
+   "name": "Mat return",
+   "lane": "standing",
+   "kind": "takedown",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    1959
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "break_body_lock",
+   "name": "Break the lock",
+   "lane": "escapes",
+   "kind": "escape",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "headlock_peel",
+   "name": "Peel the headlock",
+   "lane": "escapes",
+   "kind": "escape",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "stand_up",
+   "name": "Stand up",
+   "lane": "escapes",
+   "kind": "escape",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    718,
+    1109
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "turtle_back_take",
+   "name": "Seatbelt and hooks",
+   "lane": "kimura_back",
+   "kind": "back_take",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    775
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "granby_roll",
+   "name": "Granby roll",
+   "lane": "escapes",
+   "kind": "escape",
+   "belt": "blue",
+   "src": "tree",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "kimura_trap_roll",
+   "name": "Kimura roll to the back",
+   "lane": "kimura_back",
+   "kind": "back_take",
+   "belt": "blue",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    1775
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "kimura_defence",
+   "name": "Hide the arm",
+   "lane": "escapes",
+   "kind": "escape",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "mount_armbar",
+   "name": "Armbar from mount",
+   "lane": "top_control",
+   "kind": "submission",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    693
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "head_arm_choke",
+   "name": "Head-and-arm choke",
+   "lane": "top_control",
+   "kind": "submission",
+   "belt": "blue",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    1297
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "giftwrap_back",
+   "name": "Giftwrap to the back",
+   "lane": "kimura_back",
+   "kind": "back_take",
+   "belt": "purple",
+   "src": "tree",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "mount_step",
+   "name": "Step to mount",
+   "lane": "top_control",
+   "kind": "transition",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    918
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "kob_pop",
+   "name": "Pop to knee on belly",
+   "lane": "top_control",
+   "kind": "transition",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    700
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "turn_to_knees",
+   "name": "Turn to the knees",
+   "lane": "escapes",
+   "kind": "escape",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    1703
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "slx_sweep",
+   "name": "Single-X sweep",
+   "lane": "open_guard",
+   "kind": "sweep",
+   "belt": "blue",
+   "src": "tree",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "ashi_entry",
+   "name": "Ashi entry",
+   "lane": "leg_lock",
+   "kind": "entry",
+   "belt": "blue",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    1521
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "half_underhook",
+   "name": "Dig the underhook",
+   "lane": "half_guard",
+   "kind": "transition",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    1097,
+    1168
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "crossface_flatten",
+   "name": "Crossface and flatten",
+   "lane": "passing",
+   "kind": "transition",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    1134
+   ],
+   "film_fit": "exact",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "smash_pass",
+   "name": "Free the leg",
+   "lane": "passing",
+   "kind": "pass",
+   "belt": "blue",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    765
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "dogfight_roll",
+   "name": "Dogfight roll",
+   "lane": "half_guard",
+   "kind": "sweep",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "whizzer_kick",
+   "name": "Whizzer kick",
+   "lane": "escapes",
+   "kind": "escape",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    956
+   ],
+   "film_fit": "partial",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "backstep_pass",
+   "name": "Back-step pass",
+   "lane": "passing",
+   "kind": "pass",
+   "belt": "purple",
+   "src": "tree",
+   "syllabus": null,
+   "film": [
+    867
+   ],
+   "film_fit": "move-only",
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "leg_lock_escape",
+   "name": "Boot out",
+   "lane": "escapes",
+   "kind": "escape",
+   "belt": "white",
+   "src": "tree",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "open_legs",
+   "name": "Open the legs",
+   "lane": "open_guard",
+   "kind": "base",
+   "belt": "base",
+   "src": "base",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "lie_back",
+   "name": "Lie back",
+   "lane": "open_guard",
+   "kind": "base",
+   "belt": "base",
+   "src": "base",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "sit_up",
+   "name": "Sit up",
+   "lane": "open_guard",
+   "kind": "base",
+   "belt": "base",
+   "src": "base",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "push_down",
+   "name": "Push them down",
+   "lane": "passing",
+   "kind": "base",
+   "belt": "base",
+   "src": "base",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "walk_to_north",
+   "name": "Walk to north-south",
+   "lane": "top_control",
+   "kind": "base",
+   "belt": "base",
+   "src": "base",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "hooks_in",
+   "name": "Hooks in",
+   "lane": "open_guard",
+   "kind": "base",
+   "belt": "base",
+   "src": "base",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "kick_free",
+   "name": "Kick free",
+   "lane": "escapes",
+   "kind": "base",
+   "belt": "base",
+   "src": "base",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "sit_to_guard",
+   "name": "Sit to guard",
+   "lane": "escapes",
+   "kind": "base",
+   "belt": "base",
+   "src": "base",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  },
+  {
+   "id": "settle_half",
+   "name": "Settle back to half",
+   "lane": "half_guard",
+   "kind": "base",
+   "belt": "base",
+   "src": "base",
+   "syllabus": null,
+   "film": [],
+   "film_fit": null,
+   "ibjjf_min": "white"
+  }
+ ],
+ "edges": [
+  {
+   "id": "e001",
+   "move": "double_leg",
+   "owner": "neutral",
+   "lane": "standing",
+   "odds": "takedown",
+   "from": "standing",
+   "ok": "half_guard_top",
+   "bad": "front_headlock_bottom",
+   "points": 2,
+   "bad_gives": 0,
+   "answers": [
+    "sprawl",
+    "guillotine"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1734,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e002",
+   "move": "single_leg_shoot",
+   "owner": "neutral",
+   "lane": "standing",
+   "odds": "entry",
+   "from": "standing",
+   "ok": "single_leg_top",
+   "bad": "front_headlock_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "sprawl"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1044,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e003",
+   "move": "snap_down",
+   "owner": "neutral",
+   "lane": "kimura_back",
+   "odds": "entry",
+   "from": "standing",
+   "ok": "front_headlock_top",
+   "bad": "standing",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "headlock_peel"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 986,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e004",
+   "move": "guard_pull",
+   "owner": "neutral",
+   "lane": "open_guard",
+   "odds": "base",
+   "from": "standing",
+   "ok": "closed_guard_bottom",
+   "bad": "seated_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [],
+   "belt": "base",
+   "film": {
+    "transition": 1293,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e005",
+   "move": "arm_drag_back",
+   "owner": "neutral",
+   "lane": "open_guard",
+   "odds": "back_take",
+   "from": "standing",
+   "ok": "body_lock_top",
+   "bad": "standing",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "break_body_lock"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 946,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e006",
+   "move": "single_leg_finish",
+   "owner": "top",
+   "lane": "standing",
+   "odds": "takedown",
+   "from": "single_leg_top",
+   "ok": "turtle_top",
+   "bad": "seated_guard_bottom",
+   "points": 2,
+   "bad_gives": 0,
+   "answers": [
+    "guillotine",
+    "sprawl"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1695,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e007",
+   "move": "sprawl",
+   "owner": "bottom",
+   "lane": "standing",
+   "odds": "escape",
+   "from": "single_leg_bottom",
+   "ok": "front_headlock_top",
+   "bad": "turtle_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "single_leg_finish"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 928,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e008",
+   "move": "guillotine",
+   "owner": "bottom",
+   "lane": "standing",
+   "odds": "submission",
+   "from": "single_leg_bottom",
+   "ok": "tap_win",
+   "bad": "closed_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "headlock_peel"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1016,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e009",
+   "move": "mat_return",
+   "owner": "top",
+   "lane": "standing",
+   "odds": "takedown",
+   "from": "body_lock_top",
+   "ok": "turtle_top",
+   "bad": "standing",
+   "points": 2,
+   "bad_gives": 0,
+   "answers": [
+    "break_body_lock",
+    "kimura"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1959,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e010",
+   "move": "break_body_lock",
+   "owner": "bottom",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "body_lock_bottom",
+   "ok": "standing",
+   "bad": "turtle_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "mat_return"
+   ],
+   "belt": "white",
+   "film": null
+  },
+  {
+   "id": "e011",
+   "move": "kimura",
+   "owner": "bottom",
+   "lane": "kimura_back",
+   "odds": "entry",
+   "from": "body_lock_bottom",
+   "ok": "kimura_trap_attack",
+   "bad": "turtle_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "kimura_defence"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1783,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e012",
+   "move": "guillotine",
+   "owner": "top",
+   "lane": "standing",
+   "odds": "submission",
+   "from": "front_headlock_top",
+   "ok": "tap_win",
+   "bad": "closed_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "stand_up"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 959,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e013",
+   "move": "darce",
+   "owner": "top",
+   "lane": "half_guard",
+   "odds": "submission",
+   "from": "front_headlock_top",
+   "ok": "tap_win",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "headlock_peel"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1180,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e014",
+   "move": "anaconda",
+   "owner": "top",
+   "lane": "kimura_back",
+   "odds": "submission",
+   "from": "front_headlock_top",
+   "ok": "tap_win",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "headlock_peel"
+   ],
+   "belt": "purple",
+   "film": {
+    "transition": 727,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e015",
+   "move": "kimura",
+   "owner": "top",
+   "lane": "kimura_back",
+   "odds": "entry",
+   "from": "front_headlock_top",
+   "ok": "kimura_trap_attack",
+   "bad": "standing",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "stand_up"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1371,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e016",
+   "move": "go_behind",
+   "owner": "top",
+   "lane": "kimura_back",
+   "odds": "transition",
+   "from": "front_headlock_top",
+   "ok": "turtle_top",
+   "bad": "seated_guard_top",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "headlock_peel"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1970,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e017",
+   "move": "headlock_peel",
+   "owner": "bottom",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "front_headlock_bottom",
+   "ok": "seated_guard_bottom",
+   "bad": "turtle_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "go_behind"
+   ],
+   "belt": "white",
+   "film": null
+  },
+  {
+   "id": "e018",
+   "move": "stand_up",
+   "owner": "bottom",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "front_headlock_bottom",
+   "ok": "standing",
+   "bad": "turtle_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "go_behind"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 718,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e019",
+   "move": "turtle_back_take",
+   "owner": "top",
+   "lane": "kimura_back",
+   "odds": "back_take",
+   "from": "turtle_top",
+   "ok": "back_top",
+   "bad": "scramble",
+   "points": 4,
+   "bad_gives": 0,
+   "answers": [
+    "granby_roll",
+    "stand_up"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 775,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e020",
+   "move": "kimura",
+   "owner": "top",
+   "lane": "kimura_back",
+   "odds": "entry",
+   "from": "turtle_top",
+   "ok": "kimura_trap_attack",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "kimura_defence"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1773,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e021",
+   "move": "clock_choke",
+   "owner": "top",
+   "lane": "kimura_back",
+   "odds": "submission",
+   "from": "turtle_top",
+   "ok": "tap_win",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "granby_roll",
+    "stand_up"
+   ],
+   "belt": "brown",
+   "film": null
+  },
+  {
+   "id": "e022",
+   "move": "crucifix",
+   "owner": "top",
+   "lane": "kimura_back",
+   "odds": "submission",
+   "from": "turtle_top",
+   "ok": "tap_win",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "granby_roll"
+   ],
+   "belt": "brown",
+   "film": {
+    "transition": 1337,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e023",
+   "move": "calf_slicer",
+   "owner": "top",
+   "lane": "leg_lock",
+   "odds": "submission",
+   "from": "turtle_top",
+   "ok": "tap_win",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "leg_lock_escape"
+   ],
+   "belt": "brown",
+   "film": {
+    "transition": 612,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e024",
+   "move": "stand_up",
+   "owner": "bottom",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "turtle_bottom",
+   "ok": "standing",
+   "bad": "body_lock_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "turtle_back_take"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1109,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e025",
+   "move": "granby_roll",
+   "owner": "bottom",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "turtle_bottom",
+   "ok": "supine_guard_bottom",
+   "bad": "back_bottom",
+   "points": 0,
+   "bad_gives": 4,
+   "answers": [
+    "turtle_back_take"
+   ],
+   "belt": "blue",
+   "film": null
+  },
+  {
+   "id": "e026",
+   "move": "kimura",
+   "owner": "attack",
+   "lane": "kimura_back",
+   "odds": "submission",
+   "from": "kimura_trap_attack",
+   "ok": "tap_win",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "kimura_defence"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 839,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e027",
+   "move": "kimura_trap_roll",
+   "owner": "attack",
+   "lane": "kimura_back",
+   "odds": "back_take",
+   "from": "kimura_trap_attack",
+   "ok": "back_top",
+   "bad": "supine_guard_bottom",
+   "points": 4,
+   "bad_gives": 0,
+   "answers": [
+    "kimura_defence"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1775,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e028",
+   "move": "kimura_defence",
+   "owner": "defend",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "kimura_trap_defend",
+   "ok": "scramble",
+   "bad": "back_bottom",
+   "points": 0,
+   "bad_gives": 4,
+   "answers": [
+    "kimura_trap_roll",
+    "kimura"
+   ],
+   "belt": "white",
+   "film": null
+  },
+  {
+   "id": "e029",
+   "move": "rear_naked_choke",
+   "owner": "top",
+   "lane": "kimura_back",
+   "odds": "submission",
+   "from": "back_top",
+   "ok": "tap_win",
+   "bad": "half_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "seatbelt_escape"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1237,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e030",
+   "move": "back_triangle",
+   "owner": "top",
+   "lane": "kimura_back",
+   "odds": "submission",
+   "from": "back_top",
+   "ok": "tap_win",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "seatbelt_escape"
+   ],
+   "belt": "purple",
+   "film": {
+    "transition": 878,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e031",
+   "move": "seatbelt_escape",
+   "owner": "bottom",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "back_bottom",
+   "ok": "half_guard_top",
+   "bad": "mount_bottom",
+   "points": 0,
+   "bad_gives": 4,
+   "answers": [
+    "turtle_back_take"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1818,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e032",
+   "move": "americana",
+   "owner": "top",
+   "lane": "top_control",
+   "odds": "submission",
+   "from": "mount_top",
+   "ok": "tap_win",
+   "bad": "half_guard_top",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "shrimp_bridge"
+   ],
+   "belt": "white",
+   "film": null
+  },
+  {
+   "id": "e033",
+   "move": "mount_armbar",
+   "owner": "top",
+   "lane": "top_control",
+   "odds": "submission",
+   "from": "mount_top",
+   "ok": "tap_win",
+   "bad": "closed_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "shrimp_bridge"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 693,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e034",
+   "move": "mounted_triangle",
+   "owner": "top",
+   "lane": "top_control",
+   "odds": "submission",
+   "from": "mount_top",
+   "ok": "tap_win",
+   "bad": "supine_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "shrimp_bridge"
+   ],
+   "belt": "brown",
+   "film": {
+    "transition": 720,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e035",
+   "move": "head_arm_choke",
+   "owner": "top",
+   "lane": "top_control",
+   "odds": "submission",
+   "from": "mount_top",
+   "ok": "tap_win",
+   "bad": "half_guard_top",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "shrimp_bridge"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1297,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e036",
+   "move": "giftwrap_back",
+   "owner": "top",
+   "lane": "kimura_back",
+   "odds": "back_take",
+   "from": "mount_top",
+   "ok": "back_top",
+   "bad": "side_control_top",
+   "points": 4,
+   "bad_gives": 0,
+   "answers": [
+    "shrimp_bridge"
+   ],
+   "belt": "purple",
+   "film": null
+  },
+  {
+   "id": "e037",
+   "move": "shrimp_bridge",
+   "owner": "bottom",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "mount_bottom",
+   "ok": "half_guard_bottom",
+   "bad": "back_bottom",
+   "points": 0,
+   "bad_gives": 4,
+   "answers": [
+    "mount_step"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 994,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e038",
+   "move": "mount_step",
+   "owner": "top",
+   "lane": "top_control",
+   "odds": "transition",
+   "from": "knee_on_belly_top",
+   "ok": "mount_top",
+   "bad": "half_guard_top",
+   "points": 4,
+   "bad_gives": 0,
+   "answers": [
+    "shrimp_bridge"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 918,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e039",
+   "move": "shrimp_bridge",
+   "owner": "bottom",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "knee_on_belly_bottom",
+   "ok": "supine_guard_bottom",
+   "bad": "mount_bottom",
+   "points": 0,
+   "bad_gives": 4,
+   "answers": [
+    "kob_pop"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 994,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e040",
+   "move": "mount_step",
+   "owner": "top",
+   "lane": "top_control",
+   "odds": "transition",
+   "from": "side_control_top",
+   "ok": "mount_top",
+   "bad": "half_guard_top",
+   "points": 4,
+   "bad_gives": 0,
+   "answers": [
+    "frame_recover_guard"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 918,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e041",
+   "move": "kob_pop",
+   "owner": "top",
+   "lane": "top_control",
+   "odds": "transition",
+   "from": "side_control_top",
+   "ok": "knee_on_belly_top",
+   "bad": "supine_guard_top",
+   "points": 2,
+   "bad_gives": 0,
+   "answers": [
+    "frame_recover_guard"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 700,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e042",
+   "move": "americana",
+   "owner": "top",
+   "lane": "top_control",
+   "odds": "submission",
+   "from": "side_control_top",
+   "ok": "tap_win",
+   "bad": "half_guard_top",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "frame_recover_guard"
+   ],
+   "belt": "white",
+   "film": null
+  },
+  {
+   "id": "e043",
+   "move": "kimura",
+   "owner": "top",
+   "lane": "kimura_back",
+   "odds": "entry",
+   "from": "side_control_top",
+   "ok": "kimura_trap_attack",
+   "bad": "half_guard_top",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "kimura_defence"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1371,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e044",
+   "move": "darce",
+   "owner": "top",
+   "lane": "half_guard",
+   "odds": "submission",
+   "from": "side_control_top",
+   "ok": "tap_win",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "turn_to_knees"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1180,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e045",
+   "move": "walk_to_north",
+   "owner": "top",
+   "lane": "top_control",
+   "odds": "base",
+   "from": "side_control_top",
+   "ok": "north_south_top",
+   "bad": "side_control_top",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [],
+   "belt": "base",
+   "film": null
+  },
+  {
+   "id": "e046",
+   "move": "frame_recover_guard",
+   "owner": "bottom",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "side_control_bottom",
+   "ok": "closed_guard_bottom",
+   "bad": "mount_bottom",
+   "points": 0,
+   "bad_gives": 4,
+   "answers": [
+    "kob_pop",
+    "mount_step"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1015,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e047",
+   "move": "turn_to_knees",
+   "owner": "bottom",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "side_control_bottom",
+   "ok": "turtle_bottom",
+   "bad": "back_bottom",
+   "points": 0,
+   "bad_gives": 4,
+   "answers": [
+    "turtle_back_take"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1703,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e048",
+   "move": "north_south_choke",
+   "owner": "top",
+   "lane": "top_control",
+   "odds": "submission",
+   "from": "north_south_top",
+   "ok": "tap_win",
+   "bad": "supine_guard_top",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "shrimp_bridge"
+   ],
+   "belt": "purple",
+   "film": {
+    "transition": 621,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e049",
+   "move": "kimura",
+   "owner": "top",
+   "lane": "kimura_back",
+   "odds": "entry",
+   "from": "north_south_top",
+   "ok": "kimura_trap_attack",
+   "bad": "side_control_top",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "kimura_defence"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1371,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e050",
+   "move": "giftwrap_back",
+   "owner": "top",
+   "lane": "kimura_back",
+   "odds": "back_take",
+   "from": "north_south_top",
+   "ok": "back_top",
+   "bad": "side_control_top",
+   "points": 4,
+   "bad_gives": 0,
+   "answers": [
+    "shrimp_bridge"
+   ],
+   "belt": "purple",
+   "film": null
+  },
+  {
+   "id": "e051",
+   "move": "shrimp_bridge",
+   "owner": "bottom",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "north_south_bottom",
+   "ok": "supine_guard_bottom",
+   "bad": "side_control_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "crossface_flatten"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 994,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e052",
+   "move": "scissor_sweep",
+   "owner": "bottom",
+   "lane": "closed_guard",
+   "odds": "sweep",
+   "from": "closed_guard_bottom",
+   "ok": "mount_top",
+   "bad": "half_guard_bottom",
+   "points": 6,
+   "bad_gives": 0,
+   "answers": [
+    "posture_closed_guard"
+   ],
+   "belt": "white",
+   "film": null
+  },
+  {
+   "id": "e053",
+   "move": "hip_bump_sweep",
+   "owner": "bottom",
+   "lane": "closed_guard",
+   "odds": "sweep",
+   "from": "closed_guard_bottom",
+   "ok": "mount_top",
+   "bad": "supine_guard_bottom",
+   "points": 6,
+   "bad_gives": 0,
+   "answers": [
+    "posture_closed_guard"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 695,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e054",
+   "move": "armbar_guard",
+   "owner": "bottom",
+   "lane": "closed_guard",
+   "odds": "submission",
+   "from": "closed_guard_bottom",
+   "ok": "tap_win",
+   "bad": "supine_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "posture_closed_guard"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 693,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e055",
+   "move": "triangle",
+   "owner": "bottom",
+   "lane": "closed_guard",
+   "odds": "submission",
+   "from": "closed_guard_bottom",
+   "ok": "tap_win",
+   "bad": "side_control_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "posture_closed_guard"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1032,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e056",
+   "move": "kimura",
+   "owner": "bottom",
+   "lane": "kimura_back",
+   "odds": "entry",
+   "from": "closed_guard_bottom",
+   "ok": "kimura_trap_attack",
+   "bad": "closed_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "kimura_defence"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1371,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e057",
+   "move": "guillotine",
+   "owner": "bottom",
+   "lane": "standing",
+   "odds": "submission",
+   "from": "closed_guard_bottom",
+   "ok": "tap_win",
+   "bad": "half_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "posture_closed_guard"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 698,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e058",
+   "move": "open_legs",
+   "owner": "bottom",
+   "lane": "open_guard",
+   "odds": "base",
+   "from": "closed_guard_bottom",
+   "ok": "butterfly_bottom",
+   "bad": "closed_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [],
+   "belt": "base",
+   "film": null
+  },
+  {
+   "id": "e059",
+   "move": "posture_closed_guard",
+   "owner": "top",
+   "lane": "passing",
+   "odds": "transition",
+   "from": "closed_guard_top",
+   "ok": "supine_guard_top",
+   "bad": "closed_guard_top",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "hip_bump_sweep"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 719,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e060",
+   "move": "wrestle_up",
+   "owner": "bottom",
+   "lane": "half_guard",
+   "odds": "transition",
+   "from": "seated_guard_bottom",
+   "ok": "single_leg_top",
+   "bad": "supine_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "sprawl"
+   ],
+   "belt": "brown",
+   "film": {
+    "transition": 632,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e061",
+   "move": "arm_drag_back",
+   "owner": "bottom",
+   "lane": "open_guard",
+   "odds": "back_take",
+   "from": "seated_guard_bottom",
+   "ok": "back_top",
+   "bad": "supine_guard_bottom",
+   "points": 4,
+   "bad_gives": 0,
+   "answers": [
+    "snap_down"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 930,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e062",
+   "move": "guillotine",
+   "owner": "bottom",
+   "lane": "standing",
+   "odds": "submission",
+   "from": "seated_guard_bottom",
+   "ok": "tap_win",
+   "bad": "supine_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "posture_closed_guard"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 959,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e063",
+   "move": "hooks_in",
+   "owner": "bottom",
+   "lane": "open_guard",
+   "odds": "base",
+   "from": "seated_guard_bottom",
+   "ok": "butterfly_bottom",
+   "bad": "seated_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [],
+   "belt": "base",
+   "film": null
+  },
+  {
+   "id": "e064",
+   "move": "lie_back",
+   "owner": "bottom",
+   "lane": "open_guard",
+   "odds": "base",
+   "from": "seated_guard_bottom",
+   "ok": "supine_guard_bottom",
+   "bad": "seated_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [],
+   "belt": "base",
+   "film": null
+  },
+  {
+   "id": "e065",
+   "move": "snap_down",
+   "owner": "top",
+   "lane": "kimura_back",
+   "odds": "entry",
+   "from": "seated_guard_top",
+   "ok": "front_headlock_top",
+   "bad": "seated_guard_top",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "sit_up"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 986,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e066",
+   "move": "knee_cut_pass",
+   "owner": "top",
+   "lane": "passing",
+   "odds": "pass",
+   "from": "seated_guard_top",
+   "ok": "side_control_top",
+   "bad": "half_guard_top",
+   "points": 3,
+   "bad_gives": 0,
+   "answers": [
+    "half_underhook"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1008,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e067",
+   "move": "push_down",
+   "owner": "top",
+   "lane": "passing",
+   "odds": "base",
+   "from": "seated_guard_top",
+   "ok": "supine_guard_top",
+   "bad": "seated_guard_top",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [],
+   "belt": "base",
+   "film": null
+  },
+  {
+   "id": "e068",
+   "move": "de_la_riva",
+   "owner": "bottom",
+   "lane": "open_guard",
+   "odds": "entry",
+   "from": "supine_guard_bottom",
+   "ok": "dlr_bottom",
+   "bad": "half_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "leg_drag",
+    "knee_cut_pass"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 2043,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e069",
+   "move": "single_leg_x",
+   "owner": "bottom",
+   "lane": "open_guard",
+   "odds": "entry",
+   "from": "supine_guard_bottom",
+   "ok": "slx_bottom",
+   "bad": "half_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "counter_pass"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1548,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e070",
+   "move": "k_guard",
+   "owner": "bottom",
+   "lane": "leg_lock",
+   "odds": "entry",
+   "from": "supine_guard_bottom",
+   "ok": "saddle_attack",
+   "bad": "half_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "counter_pass"
+   ],
+   "belt": "purple",
+   "film": null
+  },
+  {
+   "id": "e071",
+   "move": "sit_up",
+   "owner": "bottom",
+   "lane": "open_guard",
+   "odds": "base",
+   "from": "supine_guard_bottom",
+   "ok": "seated_guard_bottom",
+   "bad": "supine_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [],
+   "belt": "base",
+   "film": null
+  },
+  {
+   "id": "e072",
+   "move": "bullfighter_pass",
+   "owner": "top",
+   "lane": "passing",
+   "odds": "pass",
+   "from": "supine_guard_top",
+   "ok": "side_control_top",
+   "bad": "half_guard_top",
+   "points": 3,
+   "bad_gives": 0,
+   "answers": [
+    "half_underhook"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1331,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e073",
+   "move": "leg_drag",
+   "owner": "top",
+   "lane": "passing",
+   "odds": "pass",
+   "from": "supine_guard_top",
+   "ok": "side_control_top",
+   "bad": "supine_guard_top",
+   "points": 3,
+   "bad_gives": 0,
+   "answers": [
+    "frame_recover_guard"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1093,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e074",
+   "move": "berimbolo",
+   "owner": "bottom",
+   "lane": "open_guard",
+   "odds": "back_take",
+   "from": "dlr_bottom",
+   "ok": "back_top",
+   "bad": "half_guard_bottom",
+   "points": 4,
+   "bad_gives": 0,
+   "answers": [
+    "leg_drag"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1860,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e075",
+   "move": "de_la_riva",
+   "owner": "bottom",
+   "lane": "open_guard",
+   "odds": "sweep",
+   "from": "dlr_bottom",
+   "ok": "seated_guard_top",
+   "bad": "supine_guard_bottom",
+   "points": 2,
+   "bad_gives": 0,
+   "answers": [
+    "leg_drag",
+    "counter_pass"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 2043,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e076",
+   "move": "single_leg_x",
+   "owner": "bottom",
+   "lane": "open_guard",
+   "odds": "entry",
+   "from": "dlr_bottom",
+   "ok": "slx_bottom",
+   "bad": "supine_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "counter_pass"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1548,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e077",
+   "move": "leg_drag",
+   "owner": "top",
+   "lane": "passing",
+   "odds": "pass",
+   "from": "dlr_top",
+   "ok": "side_control_top",
+   "bad": "supine_guard_top",
+   "points": 3,
+   "bad_gives": 0,
+   "answers": [
+    "de_la_riva"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1093,
+    "fit": "move-only"
+   }
+  },
+  {
+   "id": "e078",
+   "move": "counter_pass",
+   "owner": "top",
+   "lane": "passing",
+   "odds": "pass",
+   "from": "dlr_top",
+   "ok": "side_control_top",
+   "bad": "half_guard_top",
+   "points": 3,
+   "bad_gives": 0,
+   "answers": [
+    "berimbolo"
+   ],
+   "belt": "brown",
+   "film": {
+    "transition": 1758,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e079",
+   "move": "slx_sweep",
+   "owner": "bottom",
+   "lane": "open_guard",
+   "odds": "sweep",
+   "from": "slx_bottom",
+   "ok": "seated_guard_top",
+   "bad": "supine_guard_bottom",
+   "points": 2,
+   "bad_gives": 0,
+   "answers": [
+    "counter_pass"
+   ],
+   "belt": "blue",
+   "film": null
+  },
+  {
+   "id": "e080",
+   "move": "ashi_entry",
+   "owner": "bottom",
+   "lane": "leg_lock",
+   "odds": "entry",
+   "from": "slx_bottom",
+   "ok": "ashi_attack",
+   "bad": "supine_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "counter_pass"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1521,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e081",
+   "move": "counter_pass",
+   "owner": "top",
+   "lane": "passing",
+   "odds": "pass",
+   "from": "slx_top",
+   "ok": "side_control_top",
+   "bad": "ashi_defend",
+   "points": 3,
+   "bad_gives": 0,
+   "answers": [
+    "ashi_entry"
+   ],
+   "belt": "brown",
+   "film": {
+    "transition": 1758,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e082",
+   "move": "kick_free",
+   "owner": "top",
+   "lane": "escapes",
+   "odds": "base",
+   "from": "slx_top",
+   "ok": "supine_guard_top",
+   "bad": "slx_top",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [],
+   "belt": "base",
+   "film": null
+  },
+  {
+   "id": "e083",
+   "move": "butterfly_sweep",
+   "owner": "bottom",
+   "lane": "open_guard",
+   "odds": "sweep",
+   "from": "butterfly_bottom",
+   "ok": "half_guard_top",
+   "bad": "supine_guard_bottom",
+   "points": 2,
+   "bad_gives": 0,
+   "answers": [
+    "body_lock_pass"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 758,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e084",
+   "move": "arm_drag_back",
+   "owner": "bottom",
+   "lane": "open_guard",
+   "odds": "back_take",
+   "from": "butterfly_bottom",
+   "ok": "back_top",
+   "bad": "seated_guard_bottom",
+   "points": 4,
+   "bad_gives": 0,
+   "answers": [
+    "snap_down"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 930,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e085",
+   "move": "single_leg_x",
+   "owner": "bottom",
+   "lane": "open_guard",
+   "odds": "entry",
+   "from": "butterfly_bottom",
+   "ok": "slx_bottom",
+   "bad": "seated_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "counter_pass"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1548,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e086",
+   "move": "wrestle_up",
+   "owner": "bottom",
+   "lane": "half_guard",
+   "odds": "transition",
+   "from": "butterfly_bottom",
+   "ok": "single_leg_top",
+   "bad": "supine_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "sprawl"
+   ],
+   "belt": "brown",
+   "film": {
+    "transition": 632,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e087",
+   "move": "guillotine",
+   "owner": "bottom",
+   "lane": "standing",
+   "odds": "submission",
+   "from": "butterfly_bottom",
+   "ok": "tap_win",
+   "bad": "half_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "posture_closed_guard"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 959,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e088",
+   "move": "kimura",
+   "owner": "bottom",
+   "lane": "kimura_back",
+   "odds": "entry",
+   "from": "butterfly_bottom",
+   "ok": "kimura_trap_attack",
+   "bad": "seated_guard_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "kimura_defence"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1371,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e089",
+   "move": "body_lock_pass",
+   "owner": "top",
+   "lane": "passing",
+   "odds": "pass",
+   "from": "butterfly_top",
+   "ok": "side_control_top",
+   "bad": "half_guard_top",
+   "points": 3,
+   "bad_gives": 0,
+   "answers": [
+    "frame_recover_guard",
+    "half_underhook"
+   ],
+   "belt": "purple",
+   "film": {
+    "transition": 1074,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e090",
+   "move": "over_under_pass",
+   "owner": "top",
+   "lane": "passing",
+   "odds": "pass",
+   "from": "butterfly_top",
+   "ok": "side_control_top",
+   "bad": "seated_guard_top",
+   "points": 3,
+   "bad_gives": 0,
+   "answers": [
+    "triangle"
+   ],
+   "belt": "blue",
+   "film": null
+  },
+  {
+   "id": "e091",
+   "move": "snap_down",
+   "owner": "top",
+   "lane": "kimura_back",
+   "odds": "entry",
+   "from": "butterfly_top",
+   "ok": "front_headlock_top",
+   "bad": "butterfly_top",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "headlock_peel"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 986,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e092",
+   "move": "half_underhook",
+   "owner": "bottom",
+   "lane": "half_guard",
+   "odds": "transition",
+   "from": "half_guard_bottom",
+   "ok": "dogfight_underhook",
+   "bad": "flat_half_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "crossface_flatten"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1097,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e093",
+   "move": "deep_half",
+   "owner": "bottom",
+   "lane": "half_guard",
+   "odds": "entry",
+   "from": "half_guard_bottom",
+   "ok": "deep_half_bottom",
+   "bad": "flat_half_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "crossface_flatten"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1106,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e094",
+   "move": "kimura",
+   "owner": "bottom",
+   "lane": "kimura_back",
+   "odds": "entry",
+   "from": "half_guard_bottom",
+   "ok": "kimura_trap_attack",
+   "bad": "flat_half_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "kimura_defence"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1371,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e095",
+   "move": "single_leg_x",
+   "owner": "bottom",
+   "lane": "open_guard",
+   "odds": "entry",
+   "from": "half_guard_bottom",
+   "ok": "slx_bottom",
+   "bad": "side_control_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "crossface_flatten"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1548,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e096",
+   "move": "hooks_in",
+   "owner": "bottom",
+   "lane": "open_guard",
+   "odds": "base",
+   "from": "half_guard_bottom",
+   "ok": "butterfly_bottom",
+   "bad": "flat_half_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [],
+   "belt": "base",
+   "film": null
+  },
+  {
+   "id": "e097",
+   "move": "knee_cut_pass",
+   "owner": "top",
+   "lane": "passing",
+   "odds": "pass",
+   "from": "half_guard_top",
+   "ok": "side_control_top",
+   "bad": "dogfight_whizzer",
+   "points": 3,
+   "bad_gives": 0,
+   "answers": [
+    "half_underhook"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1008,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e098",
+   "move": "crossface_flatten",
+   "owner": "top",
+   "lane": "passing",
+   "odds": "transition",
+   "from": "half_guard_top",
+   "ok": "flat_half_top",
+   "bad": "dogfight_whizzer",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "half_underhook"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1134,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e099",
+   "move": "body_lock_pass",
+   "owner": "top",
+   "lane": "passing",
+   "odds": "pass",
+   "from": "half_guard_top",
+   "ok": "side_control_top",
+   "bad": "butterfly_top",
+   "points": 3,
+   "bad_gives": 0,
+   "answers": [
+    "half_underhook"
+   ],
+   "belt": "purple",
+   "film": {
+    "transition": 1074,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e100",
+   "move": "over_under_pass",
+   "owner": "top",
+   "lane": "passing",
+   "odds": "pass",
+   "from": "half_guard_top",
+   "ok": "side_control_top",
+   "bad": "half_guard_top",
+   "points": 3,
+   "bad_gives": 0,
+   "answers": [
+    "frame_recover_guard"
+   ],
+   "belt": "blue",
+   "film": null
+  },
+  {
+   "id": "e101",
+   "move": "darce",
+   "owner": "top",
+   "lane": "half_guard",
+   "odds": "submission",
+   "from": "half_guard_top",
+   "ok": "tap_win",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "headlock_peel"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1180,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e102",
+   "move": "ashi_entry",
+   "owner": "top",
+   "lane": "leg_lock",
+   "odds": "entry",
+   "from": "half_guard_top",
+   "ok": "ashi_attack",
+   "bad": "supine_guard_bottom",
+   "points": 0,
+   "bad_gives": 2,
+   "answers": [
+    "leg_lock_escape"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1521,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e103",
+   "move": "kneebar",
+   "owner": "top",
+   "lane": "leg_lock",
+   "odds": "submission",
+   "from": "half_guard_top",
+   "ok": "tap_win",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "leg_lock_escape"
+   ],
+   "belt": "purple",
+   "film": {
+    "transition": 1022,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e104",
+   "move": "frame_recover_guard",
+   "owner": "bottom",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "flat_half_bottom",
+   "ok": "half_guard_bottom",
+   "bad": "side_control_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "crossface_flatten"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1638,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e105",
+   "move": "half_underhook",
+   "owner": "bottom",
+   "lane": "half_guard",
+   "odds": "transition",
+   "from": "flat_half_bottom",
+   "ok": "dogfight_underhook",
+   "bad": "side_control_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "crossface_flatten"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1168,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e106",
+   "move": "deep_half",
+   "owner": "bottom",
+   "lane": "half_guard",
+   "odds": "entry",
+   "from": "flat_half_bottom",
+   "ok": "deep_half_bottom",
+   "bad": "side_control_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "crossface_flatten"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1106,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e107",
+   "move": "smash_pass",
+   "owner": "top",
+   "lane": "passing",
+   "odds": "pass",
+   "from": "flat_half_top",
+   "ok": "side_control_top",
+   "bad": "half_guard_bottom",
+   "points": 3,
+   "bad_gives": 2,
+   "answers": [
+    "half_underhook"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 765,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e108",
+   "move": "mount_step",
+   "owner": "top",
+   "lane": "top_control",
+   "odds": "transition",
+   "from": "flat_half_top",
+   "ok": "mount_top",
+   "bad": "half_guard_top",
+   "points": 4,
+   "bad_gives": 0,
+   "answers": [
+    "frame_recover_guard"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 918,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e109",
+   "move": "darce",
+   "owner": "top",
+   "lane": "half_guard",
+   "odds": "submission",
+   "from": "flat_half_top",
+   "ok": "tap_win",
+   "bad": "half_guard_top",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "headlock_peel"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1180,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e110",
+   "move": "kimura",
+   "owner": "top",
+   "lane": "kimura_back",
+   "odds": "entry",
+   "from": "flat_half_top",
+   "ok": "kimura_trap_attack",
+   "bad": "half_guard_top",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "kimura_defence"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 1371,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e111",
+   "move": "wrestle_up",
+   "owner": "bottom",
+   "lane": "half_guard",
+   "odds": "transition",
+   "from": "dogfight_underhook",
+   "ok": "single_leg_top",
+   "bad": "flat_half_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "whizzer_kick"
+   ],
+   "belt": "brown",
+   "film": {
+    "transition": 632,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e112",
+   "move": "dogfight_roll",
+   "owner": "bottom",
+   "lane": "half_guard",
+   "odds": "sweep",
+   "from": "dogfight_underhook",
+   "ok": "half_guard_top",
+   "bad": "flat_half_bottom",
+   "points": 2,
+   "bad_gives": 0,
+   "answers": [
+    "whizzer_kick"
+   ],
+   "belt": "white",
+   "film": null
+  },
+  {
+   "id": "e113",
+   "move": "whizzer_kick",
+   "owner": "top",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "dogfight_whizzer",
+   "ok": "half_guard_top",
+   "bad": "turtle_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "dogfight_roll"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 956,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e114",
+   "move": "darce",
+   "owner": "top",
+   "lane": "half_guard",
+   "odds": "submission",
+   "from": "dogfight_whizzer",
+   "ok": "tap_win",
+   "bad": "turtle_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "headlock_peel"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1180,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e115",
+   "move": "saddle_entry",
+   "owner": "top",
+   "lane": "leg_lock",
+   "odds": "entry",
+   "from": "dogfight_whizzer",
+   "ok": "saddle_attack",
+   "bad": "turtle_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "leg_lock_escape"
+   ],
+   "belt": "brown",
+   "film": {
+    "transition": 850,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e116",
+   "move": "waiter_sweep",
+   "owner": "bottom",
+   "lane": "half_guard",
+   "odds": "sweep",
+   "from": "deep_half_bottom",
+   "ok": "half_guard_top",
+   "bad": "flat_half_bottom",
+   "points": 2,
+   "bad_gives": 0,
+   "answers": [
+    "backstep_pass"
+   ],
+   "belt": "purple",
+   "film": null
+  },
+  {
+   "id": "e117",
+   "move": "backstep_pass",
+   "owner": "top",
+   "lane": "passing",
+   "odds": "pass",
+   "from": "deep_half_top",
+   "ok": "side_control_top",
+   "bad": "half_guard_bottom",
+   "points": 3,
+   "bad_gives": 2,
+   "answers": [
+    "waiter_sweep"
+   ],
+   "belt": "purple",
+   "film": {
+    "transition": 867,
+    "fit": "move-only"
+   }
+  },
+  {
+   "id": "e118",
+   "move": "straight_ankle_lock",
+   "owner": "attack",
+   "lane": "leg_lock",
+   "odds": "submission",
+   "from": "ashi_attack",
+   "ok": "tap_win",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "leg_lock_escape"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 1215,
+    "fit": "move-only"
+   }
+  },
+  {
+   "id": "e119",
+   "move": "outside_heel_hook",
+   "owner": "attack",
+   "lane": "leg_lock",
+   "odds": "submission",
+   "from": "ashi_attack",
+   "ok": "tap_win",
+   "bad": "fifty_fifty",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "leg_lock_escape"
+   ],
+   "belt": "purple",
+   "film": {
+    "transition": 1284,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e120",
+   "move": "saddle_entry",
+   "owner": "attack",
+   "lane": "leg_lock",
+   "odds": "entry",
+   "from": "ashi_attack",
+   "ok": "saddle_attack",
+   "bad": "fifty_fifty",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "leg_lock_escape"
+   ],
+   "belt": "brown",
+   "film": {
+    "transition": 850,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e121",
+   "move": "toe_hold",
+   "owner": "attack",
+   "lane": "leg_lock",
+   "odds": "submission",
+   "from": "ashi_attack",
+   "ok": "tap_win",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "leg_lock_escape"
+   ],
+   "belt": "purple",
+   "film": {
+    "transition": 630,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e122",
+   "move": "leg_lock_escape",
+   "owner": "defend",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "ashi_defend",
+   "ok": "supine_guard_top",
+   "bad": "saddle_defend",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "ashi_entry",
+    "saddle_entry"
+   ],
+   "belt": "white",
+   "film": null
+  },
+  {
+   "id": "e123",
+   "move": "counter_pass",
+   "owner": "defend",
+   "lane": "passing",
+   "odds": "pass",
+   "from": "ashi_defend",
+   "ok": "side_control_top",
+   "bad": "saddle_defend",
+   "points": 3,
+   "bad_gives": 0,
+   "answers": [
+    "ashi_entry"
+   ],
+   "belt": "brown",
+   "film": {
+    "transition": 1758,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e124",
+   "move": "inside_heel_hook",
+   "owner": "attack",
+   "lane": "leg_lock",
+   "odds": "submission",
+   "from": "saddle_attack",
+   "ok": "tap_win",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "leg_lock_escape"
+   ],
+   "belt": "brown",
+   "film": {
+    "transition": 717,
+    "fit": "exact"
+   }
+  },
+  {
+   "id": "e125",
+   "move": "kneebar",
+   "owner": "attack",
+   "lane": "leg_lock",
+   "odds": "submission",
+   "from": "saddle_attack",
+   "ok": "tap_win",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "leg_lock_escape"
+   ],
+   "belt": "purple",
+   "film": {
+    "transition": 1022,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e126",
+   "move": "leg_lock_escape",
+   "owner": "defend",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "saddle_defend",
+   "ok": "scramble",
+   "bad": "saddle_defend",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "saddle_entry"
+   ],
+   "belt": "white",
+   "film": null
+  },
+  {
+   "id": "e127",
+   "move": "inside_heel_hook",
+   "owner": "neutral",
+   "lane": "leg_lock",
+   "odds": "submission",
+   "from": "fifty_fifty",
+   "ok": "tap_win",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "leg_lock_escape"
+   ],
+   "belt": "brown",
+   "film": {
+    "transition": 717,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e128",
+   "move": "toe_hold",
+   "owner": "neutral",
+   "lane": "leg_lock",
+   "odds": "submission",
+   "from": "fifty_fifty",
+   "ok": "tap_win",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "leg_lock_escape"
+   ],
+   "belt": "purple",
+   "film": {
+    "transition": 630,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e129",
+   "move": "saddle_entry",
+   "owner": "neutral",
+   "lane": "leg_lock",
+   "odds": "entry",
+   "from": "fifty_fifty",
+   "ok": "saddle_attack",
+   "bad": "fifty_fifty",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "leg_lock_escape"
+   ],
+   "belt": "brown",
+   "film": {
+    "transition": 850,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e130",
+   "move": "leg_lock_escape",
+   "owner": "neutral",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "fifty_fifty",
+   "ok": "scramble",
+   "bad": "saddle_defend",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "saddle_entry"
+   ],
+   "belt": "white",
+   "film": null
+  },
+  {
+   "id": "e131",
+   "move": "wrestle_up",
+   "owner": "neutral",
+   "lane": "half_guard",
+   "odds": "transition",
+   "from": "scramble",
+   "ok": "single_leg_top",
+   "bad": "turtle_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "sprawl"
+   ],
+   "belt": "brown",
+   "film": {
+    "transition": 632,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e132",
+   "move": "stand_up",
+   "owner": "neutral",
+   "lane": "escapes",
+   "odds": "escape",
+   "from": "scramble",
+   "ok": "standing",
+   "bad": "turtle_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [
+    "sprawl"
+   ],
+   "belt": "white",
+   "film": {
+    "transition": 718,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e133",
+   "move": "arm_drag_back",
+   "owner": "neutral",
+   "lane": "open_guard",
+   "odds": "back_take",
+   "from": "scramble",
+   "ok": "back_top",
+   "bad": "turtle_bottom",
+   "points": 4,
+   "bad_gives": 0,
+   "answers": [
+    "stand_up"
+   ],
+   "belt": "blue",
+   "film": {
+    "transition": 930,
+    "fit": "partial"
+   }
+  },
+  {
+   "id": "e134",
+   "move": "sit_to_guard",
+   "owner": "neutral",
+   "lane": "escapes",
+   "odds": "base",
+   "from": "scramble",
+   "ok": "seated_guard_bottom",
+   "bad": "scramble",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [],
+   "belt": "base",
+   "film": null
+  },
+  {
+   "id": "e135",
+   "move": "settle_half",
+   "owner": "bottom",
+   "lane": "half_guard",
+   "odds": "base",
+   "from": "dogfight_underhook",
+   "ok": "half_guard_bottom",
+   "bad": "flat_half_bottom",
+   "points": 0,
+   "bad_gives": 0,
+   "answers": [],
+   "belt": "base",
+   "film": null
+  }
+ ],
+ "routes": [
+  {
+   "id": "kimura_to_back",
+   "name": "Kimura trap to the back",
+   "lane": "kimura_back",
+   "steps": [
+    "e003",
+    "e015",
+    "e027",
+    "e029"
+   ],
+   "length": 4
+  },
+  {
+   "id": "ashi_system",
+   "name": "Single-X to the saddle",
+   "lane": "leg_lock",
+   "steps": [
+    "e069",
+    "e080",
+    "e120",
+    "e124"
+   ],
+   "length": 4
+  },
+  {
+   "id": "half_guard_system",
+   "name": "Knee shield to the back",
+   "lane": "half_guard",
+   "steps": [
+    "e092",
+    "e111",
+    "e006",
+    "e019",
+    "e029"
+   ],
+   "length": 5
+  },
+  {
+   "id": "butterfly_slx",
+   "name": "Butterfly hooks to single-X",
+   "lane": "open_guard",
+   "steps": [
+    "e004",
+    "e058",
+    "e085",
+    "e079",
+    "e066"
+   ],
+   "length": 3
+  },
+  {
+   "id": "dlr_bolo",
+   "name": "De la Riva to the back",
+   "lane": "open_guard",
+   "steps": [
+    "e068",
+    "e074",
+    "e029"
+   ],
+   "length": 3
+  },
+  {
+   "id": "pass_to_mount",
+   "name": "Pass, pin, mount",
+   "lane": "passing",
+   "steps": [
+    "e072",
+    "e040",
+    "e036",
+    "e029"
+   ],
+   "length": 4
+  },
+  {
+   "id": "wrestler",
+   "name": "Shot to the back",
+   "lane": "standing",
+   "steps": [
+    "e002",
+    "e006",
+    "e019",
+    "e029"
+   ],
+   "length": 4
+  },
+  {
+   "id": "closed_guard_basics",
+   "name": "Closed guard sweep to mount",
+   "lane": "closed_guard",
+   "steps": [
+    "e053",
+    "e032"
+   ],
+   "length": 2
+  }
+ ]
+}

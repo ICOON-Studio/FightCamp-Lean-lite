@@ -4,6 +4,7 @@ extends PanelContainer
 const UI := preload("res://scripts/ui/UI.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const OppFileCard := preload("res://scripts/ui/OppFileCard.gd")
+const MatSystems := preload("res://scripts/ui/MatSystems.gd")
 
 
 func build(main: Node, m: Dictionary) -> void:
@@ -17,6 +18,12 @@ func build(main: Node, m: Dictionary) -> void:
 	if m.has("rival"):
 		var c: Career = main.career
 		v.add_child(OppFileCard.build(c.rival(str(m["rival"])), false, OppFile.history(c.results, str(m["rival"]))))
+	# S384 GAMETREE1: Ana's route cards (the Systems button on her Playbook page).
+	if m.has("systems"):
+		var gf: Dictionary = main.career.grappler_by_id(str(m["systems"]))
+		if not gf.is_empty():
+			custom_minimum_size = Vector2(780, 0)
+			v.add_child(MatSystems.cards(main, gf))
 	var foot := UI.hbox(10)
 	foot.add_child(UI.spacer())
 	var buttons: Array = m.get("buttons", [])

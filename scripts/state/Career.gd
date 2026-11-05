@@ -21,6 +21,7 @@ const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 @export var grapplers: Array = []   # S362 the no-gi athletes (NoGi, the belt road)
 @export var bjj_side: Dictionary = {}   # S365 the no-gi classes as a business (BjjSide: members, churn); {} = its start
 @export var applicant: Dictionary = {}
+@export var guide: String = ""   # S387 FirstWeek: "sign" | "coach" | "week" | "go"; "" = no first-week guide
 @export var news: Array = []
 @export var unread: int = 0
 @export var review_pending: bool = false
@@ -54,7 +55,7 @@ static func quick_start(name: String = "Anvil Street Gym", town: String = "Londo
 	c.seed = randi()
 	c.cash = start_cash()
 	c.applicant = Data.lucy()
-	c.grapplers = [NoGi.athlete()]
+	# S387 FirstWeek: the career opens on the boxer alone; Ana joins the mat at the end of week 1.
 	c.bjj_side = BjjSide.start()
 	c.cash_history = [{"w": 1, "c": c.cash}]
 	for r in Data.OPPONENTS + [Data.MISMATCH] + Data.RIVALS:

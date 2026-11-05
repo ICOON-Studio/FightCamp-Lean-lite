@@ -24,6 +24,14 @@ func _initialize() -> void:
 	var top := WeekCause.top(src, "power")
 	_check(top.size() == 4 and str(top[0][0]) == "Pads" and WeekCause.words(src, "power") == "from Pads x1, Heavy bag x3",
 		"the biggest points lead and only two are named: '%s'" % WeekCause.words(src, "power"))
+	# S387 the tally keeps the days: the review says "roadwork Mon + Fri" (WeekRead.cause).
+	var days := {}
+	WeekCause.add(days, "conditioning", "Roadwork", 0.1, 0)
+	WeekCause.add(days, "conditioning", "Roadwork", 0.1, 4)
+	_check(WeekCause.top(days, "conditioning")[0][3] == [0, 4] and WeekCause.words(days, "conditioning") == "from Roadwork x2", "the weekdays are kept beside the count")
+	var old := {"chin": {"Neck work": [1, 0.1]}}   # a mid-week save from before S387
+	WeekCause.add(old, "chin", "Neck work", 0.1, 2)
+	_check(WeekCause.top(old, "chin")[0][3] == [2] and int(WeekCause.top(old, "chin")[0][1]) == 2, "an old tally row takes days from here on")
 	print("WEEK_CAUSE failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 

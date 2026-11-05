@@ -5,6 +5,7 @@ extends SceneTree
 ## the same card. A move with no clip shows its ink card, never a wrong clip.
 ## Population: a quick-start career, Lucy signed (the film tool's start), Ana on the mat.
 
+const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const MoveTip := preload("res://scripts/ui/MoveTip.gd")
 const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
@@ -21,6 +22,9 @@ func _initialize() -> void:
 	root.add_child(main)
 	await _frames(4)
 	main.act("quick")
+	main.act("guideskip")
+	main.close_modal()
+	FirstWeek.ana_joins(main.career)
 	main.act("interview")
 	for card in ["Jab and move", "Pad rounds", "Hill sprints"]:
 		main.act("pickcard", card)
