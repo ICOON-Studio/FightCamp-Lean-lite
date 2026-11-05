@@ -26,12 +26,10 @@ void fragment() {
 	float lum = pow(dot(c, vec3(0.299, 0.587, 0.114)), lift);
 	float dark = clamp((1.0 - lum - 0.5) * contrast + 0.5, 0.0, 1.0);
 	float r = sqrt(dark) * 0.62;
-	if (dark < 0.03) {
-		COLOR = paper;   // S387 blank paper stays blank: a zero dot still drew its soft edge
-		return;
-	}
 	float d = length(cell);
 	float aa = fwidth(d);
 	float dot_ink = 1.0 - smoothstep(r - aa, r + aa, d);
+	// S387 blank paper stays blank: a zero dot still drew its soft edge. S388 no early return: a fragment() may not have one.
+	dot_ink *= step(0.03, dark);
 	COLOR = vec4(mix(paper.rgb, ink.rgb, dot_ink), 1.0);
 }

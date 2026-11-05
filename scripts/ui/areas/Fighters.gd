@@ -18,6 +18,7 @@ const GrapplerPage := preload("res://scripts/ui/areas/GrapplerPage.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
 const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
+const RosterSummary := preload("res://scripts/ui/RosterSummary.gd")
 
 
 func build(main: Node) -> void:
@@ -250,6 +251,7 @@ func _mat(main: Node, c: Career, parent: Container) -> void:
 	# opens record, classes this belt, the move her classes drill, and her mat in the Playbook.
 	parent.add_child(UI.caps("ON THE MAT - NO-GI"))
 	var grid := FighterCard.grid("MatCards")
+	grid.columns = 1   # S388 C236 a summary row, the full width like the boxers
 	for g in c.grapplers:
 		var fc := FighterCard.build(main, g, "Grappler")
 		var v: VBoxContainer = fc[1]
@@ -259,6 +261,7 @@ func _mat(main: Node, c: Career, parent: Container) -> void:
 		var drill := NoGi.drilling(g, c.day)
 		if drill != "":
 			v.add_child(UI.label("Drilling: %s" % NoGi.move_name(drill).to_lower(), UI.SMALL, UI.GREEN, "bold"))
+		v.add_child(RosterSummary.grappler(c, g))
 		var id := str(g["id"])
 		var mat := UI.button("%s's mat: Playbook" % str(g["first"]), "Btn", func():
 			Playbook.pick = id

@@ -1,9 +1,12 @@
-FIGHTCAMP - WEEK 6 BUILD, UPDATE 76 (2026-11-05): THE FIRST WEEK, THE ROSTER CHECKLIST, THE FIGHT POSTER
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 77 (2026-11-06): OPENS ON HOME, A GUIDE THAT SAYS WHAT AND WHY, THE ROSTER SUMMARY
 =====================================================================================================================
 
- 0. NEW CAREER: press Quick start. You open on Lucy's interview. A strip under the top bar walks you through Sign Lucy,
-    Hire a coach, Set week 1, Continue, and CONTINUE itself takes you to each step. Ana is not on the books yet: she asks
-    to join at the end of week 1. "Skip the guide" ends it for this career; the switch on the title screen turns it off.
+ 0. NEW CAREER: press Quick start. You open on Home, and nothing pops up by itself. The strip under the top bar now says what to
+    do and why, on every screen: Sign your first boxer, Hire a coach, Set week 1, Run the week. Its blue button takes you to
+    each step. Ana is not on the books yet: she asks to join at the end of week 1. "Skip the guide" ends it for this career;
+    the switch on the title screen turns it off.
+ 0b. FIGHTERS > Roster is now a summary page: each boxer shows all seven attributes, style, main session, the move being
+    learned, weapons and pay. Ana has the full width too: syllabus bars, mood, next open, chance and the next belt.
  1. FIGHTERS > Roster: the row now runs the full width with the photo, the rings and the coach's checklist of eight
     checks. Click any check to go to the place that fixes it. "Booked fights" on top says who has a fight.
  2. PHOTOS: head and shoulders, no hands, normal light on a slate backdrop, and they breathe slowly. Look at Home, the

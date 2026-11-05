@@ -1,5 +1,5 @@
 extends SceneTree
-## S387 FirstWeek: a new career opens on the boxer with no grappler signed; CONTINUE walks sign -> coach -> week 1 and only then runs
+## S387 FirstWeek: a new career opens on the gym (S388) with no grappler signed; CONTINUE walks sign -> coach -> week 1 and only then runs
 ## time; the first review names someone who trained; Ana joins at the end of week 1; Skip ends the guide; an unguided week with
 ## nobody training fires no review. The Playbook is the fighter page's tab: the rail shortcut lands there and keeps its sub-tab.
 
@@ -35,15 +35,27 @@ func _strip() -> Node:
 	return main.find_child("FirstWeekStrip", true, false)
 
 
+## The guide's two lines on screen hold these words.
+func _says(what: String, why: String) -> bool:
+	var a := main.find_child("GuideWhat", true, false) as Label
+	var b := main.find_child("GuideWhy", true, false) as Label
+	return a != null and b != null and a.text.contains(what) and b.text.contains(why)
+
+
 func _guided() -> void:
 	main.act("quick")
 	var c: Career = main.career
 	_check(c.guide == "sign", "a new career starts the guide")
-	_check(str(main.modal.get("type", "")) == "interview", "the career opens on the boxer's interview")
+	_check(main.modal.is_empty(), "the career opens on the gym, nothing opens by itself (S275)")
+	_check(_strip() != null and main.find_child("GuideStep", true, false) != null, "the guide shows its step button")
+	_check(_says("Sign your first boxer", "No boxer, no fights"), "the guide says what to do and why: sign")
+	main.on_go()
+	_check(str(main.modal.get("type", "")) == "interview", "the guide's button opens the boxer's interview")
 	_check(c.grapplers.is_empty(), "no grappler is signed at the start")
 	Sim.sign(c, ["Jab and move", "Pad rounds", "Hill sprints"])
 	main.close_modal()
 	_check(_strip() != null, "the strip shows")
+	_check(_says("Hire a coach", "60%"), "the guide says what to do and why: coach")
 	_check(str(Needs.go_state(c, false)["t"]).begins_with("NEEDS YOU"), "signed, no coach: CONTINUE is blocked")
 	main.on_go()
 	_check(main.route["area"] == "gym" and int(main.route["tab"]) == 1, "CONTINUE goes to GYM > Staff")

@@ -46,6 +46,9 @@ func _initialize() -> void:
 	await process_frame   # S352 a player's next click is a later frame: the hire toast clears on the next page
 	main.act("go", "fighters:1")
 	await _shot("06_training")
+	main.on_go()   # S388 opens the week ...
+	main.on_go()   # ... and locks it: the guide's last step
+	await _shot("06b_guide_go")
 	main.run_to_stop()
 	main.act("area", "home")
 	await _shot("07_home_week1")
@@ -180,6 +183,16 @@ func _initialize() -> void:
 	main.act("signprospect")
 	main.act("go", "fighters:0")
 	await _shot("36_roster")
+	var sc := main.find_child("*Scroll*", true, false) as ScrollContainer   # S388 C236 the no-gi card sits below the fold
+	if sc == null:
+		for n in main.find_children("*", "ScrollContainer", true, false):
+			if (n as ScrollContainer).is_visible_in_tree():
+				sc = n
+	if sc != null:
+		sc.scroll_vertical = 100000
+	await _shot("36b_roster_mat")
+	if sc != null:
+		sc.scroll_vertical = 0
 	main.act("go", "fighters:1")
 	await _shot("37_training")
 	main.act("fighter", "kira")

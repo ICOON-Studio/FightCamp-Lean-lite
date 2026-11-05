@@ -1,6 +1,6 @@
 extends RefCounted
 ## S387 the forced first week (operator "Yes, build 1-3"; ops/research/MENU_CRITIC_S386.md item 1, first hour 3/10): a new career
-## opens on the boxer, then sign -> hire the coach -> set week 1 -> CONTINUE. Career.guide holds the step ("" = no guide: a save
+## opens on Home (S388, operator: "the game wshould open on home"), then sign -> hire the coach -> set week 1 -> CONTINUE. Career.guide holds the step ("" = no guide: a save
 ## from before this, a veteran's skip, or a finished first week). Each unfinished step is a red need, so CONTINUE itself reads
 ## NEEDS YOU and takes the player to it. Ana (the no-gi grappler) joins at the end of week 1 (operator S353: BJJ stays).
 

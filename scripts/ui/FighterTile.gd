@@ -15,6 +15,7 @@ const Champs := preload("res://scripts/state/Champs.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const NeedRing := preload("res://scripts/ui/NeedRing.gd")
+const RosterSummary := preload("res://scripts/ui/RosterSummary.gd")
 
 ## A bout this many days out shows an empty countdown ring; the ring fills as the day comes.
 const COUNTDOWN_DAYS := 42
@@ -76,7 +77,8 @@ static func build(main: Node, c: Career, f: Dictionary, checklist: bool = false)
 		rings.add_child(_ring("NEXT BOUT", "%dd" % days if days > 0 else "TODAY", "%s vs %s" % [Clock.fmt(int(fb["day"])), fb["opp"]["name"]],
 			clampf(1.0 - float(days) / COUNTDOWN_DAYS, 0.05, 1.0), UI.GOLD))
 	v.add_child(rings)
-	if checklist:
+	if checklist:   # the Roster row: S388 C236 the summary, S387 the checklist
+		v.add_child(RosterSummary.boxer(c, f))
 		row.add_child(_checklist(main, c, f))
 	var season := Champs.home_line(c, f)
 	if season != "":

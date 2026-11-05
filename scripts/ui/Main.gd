@@ -427,9 +427,7 @@ var quiet_moments := false   # S387 TestJump plays through: no poster moment in 
 func _start_career(gym_name: String, city: String) -> void:
 	var c := Career.quick_start(gym_name, city)
 	FirstWeek.begin(c)
-	resume(c)
-	if c.guide == "sign":
-		act("interview")   # S387 the career opens on the boxer
+	resume(c)   # S388 lands on the gym; nothing opens by itself (S275): the guide's "Meet the walk-in" opens the boxer
 
 
 ## S387 PosterReveal, the moment after Accept. Only with a picture: headless runs stay in words.
