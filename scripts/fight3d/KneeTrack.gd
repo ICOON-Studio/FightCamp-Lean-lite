@@ -16,6 +16,11 @@ const ALLOW_DEG := 20.0      # human knee-in / knee-out left untouched (probe ba
 const BENT_DEG := 15.0       # full correction at and above this knee bend; eases to 0 below it
 const STRAIGHT_DEG := 5.0    # dead-straight leg: zero correction
 const FREE := ["knockout", "win", "countdown", "fall"]
+## S383c: a knee pointing backwards (|offset| past BACK_DEG) keeps the side it was corrected to last (Skeleton3D meta
+## "knee_track_side"): at +-180 the clamp chattered between +ALLOW and -ALLOW from frame to frame and the knee flipped up to
+## 179 deg in one frame (tools/owned_mocap_jitter.gd, cmu_13_17: 4 flips). The swivel is also measured from the kept side
+## the short way round, so a partial weight never swings the long way.
+const BACK_DEG := 150.0
 const EASE_S := 0.2
 
 var _ap: AnimationPlayer = null
@@ -62,7 +67,10 @@ static func align(skel: Skeleton3D, weight: float) -> void:
 	if skel == null or weight <= 0.0:
 		return
 	var allow := deg_to_rad(ALLOW_DEG)
-	for leg in LEGS:
+	var back := deg_to_rad(BACK_DEG)
+	var sides: Array = skel.get_meta("knee_track_side", [0.0, 0.0])
+	for li in LEGS.size():
+		var leg: Array = LEGS[li]
 		var u := skel.find_bone(str(leg[0]))
 		var l := skel.find_bone(str(leg[1]))
 		var f := skel.find_bone(str(leg[2]))
@@ -91,14 +99,19 @@ static func align(skel: Skeleton3D, weight: float) -> void:
 		var fwd := foot.normalized()
 		var side := Vector3.UP.cross(fwd)
 		var ang := atan2(off.dot(side), off.dot(fwd))
+		var s: float = sides[li]
+		if absf(ang) < back or s == 0.0:
+			s = 1.0 if ang >= 0.0 else -1.0
+		sides[li] = s
+		skel.set_meta("knee_track_side", sides)
 		if absf(ang) <= allow:
 			continue
 		var u_bend := clampf((flex - STRAIGHT_DEG) / (BENT_DEG - STRAIGHT_DEG), 0.0, 1.0)
 		var w := clampf(weight, 0.0, 1.0) * u_bend * u_bend * (3.0 - 2.0 * u_bend)
 		if w <= 0.0:
 			continue
-		var kept := clampf(ang, -allow, allow)
-		var target_ang := lerpf(ang, kept, w)
+		var kept := allow * s
+		var target_ang := lerpf(kept + wrapf(ang - kept, -PI, PI), kept, w)
 		var want_xz := (fwd * cos(target_ang) + side * sin(target_ang)).normalized()
 		var sy := -1.0 if axis.y < 0.0 else 1.0
 		var t_vec := want_xz * maxf(absf(axis.y), 1e-4) - Vector3.UP * (want_xz.dot(axis) * sy)

@@ -12,6 +12,14 @@ const Drift := preload("res://tools/orbit_drift.gd")   # S379 operator: "the cam
 ## S381 res=<a.res,b.res,...>: baked clips not wired into FightClips (tools/owned_mocap_bake.gd output) are added as their
 ## file stem, hips as an offset from this body's rest and their floor travel KEPT (the grid then shows any foot slide).
 ## S383 t0=<s> max_s=<s>: film a window of each clip (from t0, at most max_s seconds) - a long take's best 40 s.
+## S383c (operator: "the video clip is lagging ... the knees are trembling again"; tools/owned_mocap_jitter.gd measured it):
+## FightStage.setup gives the boxer the WHOLE fight modifier stack, so these films were not "the clip itself" - FootPlant
+## re-planted feet the clips already plant (knee shake 3-4x the clip's), its swings ran on wall-clock delta (uneven steps)
+## and KneeTrack ran twice a frame. Now every SkeletonModifier3D except MetaHumanTwist (skinning helpers) is switched off
+## (strip_modifiers) and KneeTrack.align runs once, as documented above; `mods=game` keeps the stack (the old films) and
+## then skips the explicit align (S383d: it ran twice a frame - the call here and the modifier).
+## The camera circles a FIXED floor point (the clip window's mean hips) instead of re-centring on the hips every frame
+## (every hip sway became a whole-frame shake and the grid slid instead of the boxer moving).
 
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const KneeTrack := preload("res://scripts/fight3d/KneeTrack.gd")
@@ -48,6 +56,7 @@ func _initialize() -> void:
 	var extra: Array = []
 	var t0 := 0.0
 	var max_s := INF
+	var game_mods := false
 	for a in OS.get_cmdline_user_args():
 		var s := str(a)
 		if s.begins_with("out="):
@@ -62,6 +71,8 @@ func _initialize() -> void:
 			t0 = float(s.substr(3))
 		elif s.begins_with("max_s="):
 			max_s = float(s.substr(6))
+		elif s == "mods=game":
+			game_mods = true
 	var stage: Node3D = Stage.new()
 	root.add_child(stage)
 	await process_frame
@@ -75,6 +86,8 @@ func _initialize() -> void:
 	var bx: Dictionary = stage.boxers[0]
 	var body: Node3D = bx["node"]
 	var skel: Skeleton3D = bx["skel"]
+	if not game_mods:
+		print("ORBIT modifiers off: ", ",".join(strip_modifiers(skel)))
 	var ap: AnimationPlayer = bx["ap"]
 	var hips := skel.find_bone("Hips")
 	var cam: Camera3D = stage.camera
@@ -97,13 +110,18 @@ func _initialize() -> void:
 		var total := maxf(MIN_S, cycle)
 		var frames := int(ceil(total * FPS))
 		var face: float = body.global_rotation.y
+		var c := Vector3.ZERO
+		var path := hips_path(skel, ap.get_animation(name), start, length)
+		for p in path:
+			c += p
+		c /= float(maxi(path.size(), 1))
+		c.y = 1.0
 		for f in frames:
 			var t := float(f) / FPS
 			var in_cycle := fmod(t, cycle)
 			Stage.IdleMatch.freeze(bx, name, start + minf(in_cycle, length))
-			KneeTrack.align(skel, 1.0)
-			var c: Vector3 = (skel.global_transform * skel.get_bone_global_pose(hips)).origin
-			c.y = 1.0
+			if not game_mods:
+				KneeTrack.align(skel, 1.0)   # once: with mods=game the KneeTrack modifier already runs
 			var ang := face + PI * 0.5 + Drift.angle(f, frames, 30.0)
 			cam.look_at_from_position(Vector3(c.x + sin(ang) * RADIUS, HEIGHT, c.z + cos(ang) * RADIUS), c, Vector3.UP)
 			await RenderingServer.frame_post_draw
@@ -112,6 +130,36 @@ func _initialize() -> void:
 		print("ORBIT %s %.2f-%.2fs %d frames" % [name, start, start + length, frames])
 	print("ORBIT DONE %d/%d" % [done, ids.size()])
 	quit(0)
+
+
+## S383c: switches off every SkeletonModifier3D under `skel` but MetaHumanTwist (the skin's twist helpers) - the clip
+## itself, no fight layers. Returns the names switched off.
+static func strip_modifiers(skel: Skeleton3D) -> Array:
+	var off: Array = []
+	for c in skel.get_children():
+		if c is SkeletonModifier3D and str(c.name) != "MetaHumanTwist":
+			(c as SkeletonModifier3D).active = false
+			off.append(str(c.name))
+	return off
+
+
+## S383c: the hips in world space, read off the clip's Hips position track (no pose update needed), every 1/FPS from t0
+## for `length` seconds.
+static func hips_path(skel: Skeleton3D, anim: Animation, t0: float, length: float) -> Array:
+	var hb := skel.find_bone("Hips")
+	var par := skel.get_bone_parent(hb)
+	var pg := skel.get_bone_global_rest(par) if par >= 0 else Transform3D.IDENTITY
+	var tr := -1
+	for t in anim.get_track_count():
+		if anim.track_get_type(t) == Animation.TYPE_POSITION_3D and str(anim.track_get_path(t)).ends_with(":Hips"):
+			tr = t
+	var out: Array = []
+	for f in int(length * FPS) + 1:
+		var lp: Vector3 = skel.get_bone_rest(hb).origin
+		if tr >= 0:
+			lp = anim.position_track_interpolate(tr, minf(t0 + f / float(FPS), anim.length))
+		out.append(skel.global_transform * (pg * lp))
+	return out
 
 
 ## A baked clip from a file, as FightClips._add_baked adds it but with its floor travel kept.

@@ -21,6 +21,7 @@ extends SceneTree
 
 const MH := preload("res://scripts/fight3d/MHRig.gd")
 const Plant := preload("res://tools/owned_mocap_plant.gd")
+const Smooth := preload("res://tools/owned_mocap_smooth.gd")
 const TEMPLATE := "res://assets/anim/baked/mc_Box1_M3_Idle.res"
 const FPS := 30.0
 
@@ -89,6 +90,10 @@ func _initialize() -> void:
 	# the reference pose (a straight wrist - a boxer's wrist is straight - and a flat boot) unless hold= says otherwise.
 	src["hold"] = Array(str(args.get("hold", "LeftHand,RightHand,LeftToes,RightToes" if mode == "json" else "")).split(",", false))
 	var dir := str(args.get("dir", "res://assets/anim/baked"))
+	# S383b diagnosis: pin=0 skips the planted-foot pin (owned_mocap_jitter.gd compares the clip with and without it).
+	_pin = str(args.get("pin", "1")) != "0"
+	# S383c smooth=0 skips the zero-phase smoothing of the noisy tracks (tools/owned_mocap_smooth.gd).
+	_smooth = str(args.get("smooth", "1")) != "0"
 	quit(_bake(src, dir.path_join(str(args["out"]) + ".res"), str(args.get("glb", "mh_boxer_08")), str(args["out"])))
 
 
@@ -152,6 +157,8 @@ func _from_fbx(path: String, t0: float, t1: float) -> Dictionary:
 		var b := skel.find_bone(str(p.get_subname(0)))
 		if b >= 0:
 			tr["%d|%d" % [b, anim.track_get_type(t)]] = t
+	# S383c: Rokoko's FBX is keyed at 24 fps - read cubic, its teleporting first key removed (Smooth.fbx_cubic).
+	var t_first := Smooth.fbx_cubic(anim, tr.values(), tr.get("%d|%d" % [idx["Hips"], Animation.TYPE_POSITION_3D], -1))
 	var sg := _chain_xf(skel)
 	var rest_g := []
 	for i in skel.get_bone_count():
@@ -161,7 +168,7 @@ func _from_fbx(path: String, t0: float, t1: float) -> Dictionary:
 		rest[ours] = (rest_g[idx[ours]] as Transform3D).origin
 	var end := anim.length if t1 < 0.0 else minf(t1, anim.length)
 	var frames := []
-	var t := t0
+	var t := maxf(t0, t_first)
 	while t <= end + 0.0001:
 		var g := []
 		g.resize(skel.get_bone_count())
@@ -235,6 +242,8 @@ static func _yaw_about(up: Vector3, from: Vector3, to: Vector3) -> Quaternion:
 	return Quaternion(up, a.signed_angle_to(b, up))
 
 
+var _pin := true
+var _smooth := true
 var _fk_par: Array = []
 var _fk_rot: Array = []
 var _fk_pos: Array = []
@@ -458,8 +467,18 @@ func _bake(src: Dictionary, out: String, glb: String, stem: String) -> int:
 			feet[side][i] = (feet[side][i] as Vector3) + up_t * lift
 	for i in hips_y.size():
 		hips_y[i] = float(hips_y[i]) + lift
+	# S383c the noisy tracks low-passed, zero phase (tools/owned_mocap_smooth.gd), before the pin solves the legs on them.
+	var punch: Dictionary = Plant.punch_exempt(anim, skel)
+	if _smooth:
+		print("OWNEDMOCAP SMOOTH %s %s" % [stem, Smooth.report(Smooth.smooth(anim, [], punch))])
 	# S383 the planted-foot pin: each plant of OUR foot held still by leg IK (tools/owned_mocap_plant.gd).
-	var pinned := Plant.pin(anim, skel, up_t)
+	var pinned: Dictionary = Plant.pin(anim, skel, up_t) if _pin else {}
+	# S383c the pin's per-frame IK hands the hips' leftover shake to the knees: the leg tracks are smoothed again (their
+	# shake down to 0.05 deg, cut-off no lower than 4 Hz), then pinned once more (the smoothing moved the planted feet).
+	if _smooth and _pin:
+		print("OWNEDMOCAP SMOOTH-LEGS %s %s" % [stem, Smooth.report(Smooth.smooth(anim, ["LeftUpperLeg", "LeftLowerLeg",
+			"LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot"], {}, 0.05))])
+		pinned = Plant.pin(anim, skel, up_t)
 	if ResourceSaver.save(anim, out) != OK:
 		print("OWNEDMOCAP FAILED to save ", out)
 		return 1

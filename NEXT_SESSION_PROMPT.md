@@ -1,61 +1,55 @@
-# S383 - next session (written S382, 2026-11-04 evening)
+# S385 - next session (written S383, 2026-11-05; S384 ran beside it and may add its own block)
 
 START in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. The S382 prompt is in git history.
-FIRST: `list_sessions` - S382 ("Agent communications startup", cwd E:\FightCamp\Game) may still be live with 2 workflows
-running (DEFFLOW1 build, training round 2). Collect what they pushed; never redo it. Their scripts:
-C:/Users/user/.claude/projects/E--FightCamp-Game/db767ba5-bbfa-4c95-809c-837d924ef757/workflows/scripts/ (s382-*.js).
+FIRST: `list_sessions`. S384 ("Agent communications startup", started 11-04 late) may still be live: it OWNS GAMETREE1
+stage 1 (operator 11-05 "Yes, tell S384 to build", branch claude/gametree1) and DEFFLOW2 (claude/defflow1, fix round 2).
+Collect what it pushed; never redo it. RULE (operator S383 "why you keep idling?"): while a background job runs, check
+what it already produced (films, logs, branches) and act on it - never just wait for its notification.
 
-MERGED S382 (main 7dee627e; full suite on main 146/146 after a headless --import of the camp2 southpaw PNGs):
-- 143b63d0 camp2: C229 camp (club nights free, $160 southpaw partner, film = answered tells, halved edges) + five gym
-  ideas (threshold bars, weeks strip, spar nights = Playbook tests, LEGS/SCALE/RISK gauges, hover ghosts).
-- adc972ec holo-off: no holo panels/close-ups in live rounds; corner card holo tints THIS round's hits ('head 16').
-- 7dee627e MOVETIP1: hover any move card -> one shared card plays the move live (own World3D per clip player, partner
-  reacts, ink card until the clip loads, compact card without a clip). Operator: "nice presentation for a skill it plays
-  the animation". Ink move art (assets/ui/moves) is NOT on main yet - waits on movepics1 round 2 (glyph fallback).
-- Docs on main: PLAYBOOK_SPEC_S381.md (f246d325), TRAINING_SCREEN_S381.md (d1eb9791), DEFFLOW_STUDY_S382.md +
-  DEFFLOW1_DESIGN_S382.md (99b94ca6, critic-fixed). Calm Playbook mockup E:/FightCamp/tmp/s382/gameplan/playbook_calm.png.
+MERGED S383 (main):
+- 881519d5 MOVEPICS1: 42 ink move cards ship; 39 rows `pending` in assets/ui/moves/moves_rows.json show their glyph
+  (MoveTip falls back). 28 BJJ pending: Ludo cannot draw correct BJJ technique (2 rounds, 125 credits, a black-belt judge
+  passed 0 - memory project_ludo_bjj_cards_fail_s383) -> BJJ cards only from our own 3D poses. 11 boxing pending (coach
+  failed: 3b-3 x4, cut_off, pivot_out, push_off, roll, roll_out, slip, step_out).
+- ec292868 OWNED MOCAP: 7 takes (3.2 min) in assets/anim/baked/owned (rk_shadowboxing_a/b, rk_boxing, cmu_14_01/14_02/
+  13_17/13_18), NOT wired into the fight. Trims when wiring: 14_01 + shadowboxing_a first 1.2 s, 13_18 last 0.6 s.
+- b0136b5f + 166bb2a4 seat_dispatch: EYES FIRST names every sheet path; `seat_dispatch.py retry <task>` reruns a failed
+  round that delivered nothing (delete the empty local agy/<task> branch first). 277c3adb BJJ9 loop seat = cursor.
+- 85fafe06 combo film claude/boxmap1 PARKED (operator "park it"); harvest SeamWeld/ShoulderCorrective later.
 
-OPERATOR DECISIONS S382:
-- "Training screen first" (before the Playbook one-page build).
-- "Yes, add flow": DEFFLOW1 Part B FLOW streak approved (N clean defences -> IN FLOW window, one-word cue, slow-mo replay).
-- Sent a Canelo-on-the-ropes short with "!!" -> matched defences per punch (memory project_defence_flow_s382).
-- Showed a skill-tree hover card from a game he plays (recorded 2 min: E:/FightCamp/tmp/s382/rec/, notes NOTES.md).
-- PENDING: combo film claude/boxmap1 - park after round 6? (refuted: trapezius seams, glove above brow, IK tests
-  tautological, body shot a straight). Claude recommends PARK; harvest SeamWeld/ShoulderCorrective into the fight later.
-- PENDING: footwork r3 side clip verdict (sent S382; "his ass is bouncing" fix) -> then FOOTWORK2 wire into the fight.
+MERGED d484f857 (suite 150/150, knee/foot tests pass on main) - claude/owned-mocap2 (worktree E:/FightCamp/wt/LEAN_OWNEDMOCAP2), OPERATOR APPROVED "Yes, merge
+it" after the new films (E:/FightCamp/tmp/s383/ownedmocap2/*.mp4, 1080p fixed camera + legs close-ups):
+- Cause measured (tools/owned_mocap_jitter.gd): the baked clips are clean; FootPlant re-solved knee IK every frame on
+  already-planted clips (knee shake x3-4; the Punch PRO combo used in FIGHTS 3.0 -> 11.5), ran delta-dependent (films on
+  wall clock = uneven 'lag'), and KneeTrack's clamp chattered +-20 deg near 180 (179 deg flips). Fix: FootPlant sub-steps
+  (SUB_S 1/60), world low-pass of the IK target (OUT_TAU_S 0.03), soft reach (tanh from SOFT_REACH 0.97), SWING_S 0.26,
+  repeat pass in a frame redoes it; KneeTrack keeps its side past BACK_DEG 150. PRO combo knee shake 2.5 vs 2.8 nofeet.
+- Unchecked: the bake TOOLS (owned_mocap_bake/plant/smooth/bars.gd, cmu_amc_source.py, takes.sh) carry edits from an
+  interrupted agent, not reviewed; no asset was re-baked with them. Review before the next re-bake. Edited test backup:
+  E:/FightCamp/tmp/s383/ownedmocap2/wip_s383c/. Combo plant slide 2.23 cm vs 1.27 on the old (double-speed) film path.
+- CONFLICT WARNING: claude/defflow1 (DEFFLOW2: FootPlant lock / why / dpose / rival boot keep-out) and claude/fight9base
+  (FootPlant + KneeTrack) change the same files. Whoever merges second keeps BOTH: our step()/sub-step/low-pass/_reach
+  core + DEFFLOW2's lock/pull/keep-out hooks inside it. Re-measure with owned_mocap_jitter.gd after the merge.
+
+LOOPS (Argon credits out until ~11-10; agy answers only gemini-3.8-flash; Cursor cannot see the eyes sheets):
+- FIGHT9 on agy/Flash: R11 + R12 5 -> 6/10 (checks 6/7), PR #40 #41; R13 PR #43 open. Collect: keep the best green one
+  as BASE or drop; close the rest with a note (see PR #36/#37/#39 comments for the pattern).
+- BJJ9 on cursor: R14 broke (connection lost, PR #39 closed), R15 3 -> 3/10 PR #42, R16 PR #44 (unjudged). Both loops are
+  weak until Argon is back - consider pausing BJJ9 (loop_seats) rather than burning rounds.
 
 DO IN ORDER:
-1. Collect claude/training1 (round 2: evenings follow the strip = REST is rest in the sim + balance numbers; PLANTRAY1
-   camp tray 'THE PLAN vs Maria' + UNDRILLED x0.8; click-through film; skeptic). Look at r2_*.png + eyes the film, merge.
-1b. S382 LATE (training round 2 landed at ~00:00): claude/training1 be429dd9, main ec292868 merged in, suite 155/155;
-   EVENINGS (strip = truth; pads 75 min/night, Standard drill 0.115, Hard 0.14, Hard load 1.0 - camp peaks < 80) +
-   PLANTRAY1 camp tray done; stills E:/FightCamp/tmp/s382/training/r2_*.png; click-through clickthrough.mp4 (click-card
-   then night works, 70/30 split, gold flip = projection 31.7). SKEPTIC REFUTED, 2 items - fix then merge:
-   (a) REAL BUG: on the Monday board of camp week 2+, f.phase_day is still week 1 (WeekPhase.sync only runs in
-   Sim.step_day on dow 0 / bout accept), so WeekPhase.film_night is true -> strip draws Tue FILM + Wed REST; Monday's
-   step syncs, film turns off, PadWeek lays Mon+Wed pads -> Wed trains + tires while the board said REST and the
-   planned film never runs. Fix: the board/strip call WeekPhase.sync (or compute the phase for 'this week') before
-   drawing; add an evenings_test case drawn BEFORE Monday's sync. (b) drag-and-drop never started a drag on the
-   hidden desktop (posted messages, unfocused window) - prove it on the real desktop or a focused window.
-   Spec TRAINING_SCREEN_S381 5.4 needs Hard load 1.0.
-2. claude/defflow1 09a25dcc (DONE building, NOT merged; suite 151/151 with main merged): A1 sim is solid (who lands
-   unchanged over 200 seeds, 0 rule breaks in 2000 picks, def 85 picks a good answer 94.5%, 5+ kinds in 42/50 exchanges,
-   win shares move <= 0.01), A2 3D + B FLOW built. SKEPTIC REFUTED the video (final_ropes.mp4, final_career_r1.mp4):
-   (a) feet travel on the ropes 0.11-0.51 m - from his own punch/hit clips playing under the defence + the probe's
-   soft hold dragging the pair (no presser walks him down); (b) bodies inside bodies at ropes 44.5-44.8, career 26.6;
-   (c) roll->block shows the glove on top of the head while he jabs (29.2); (d) a jab answered by a near-kneeling squat
-   (career 17.6-17.9) - jabs need 0-1 head width; (e) slip peaks 0.27 s early (40.76); (f) FLOW never triggered on any
-   film/seed - cue + replay unproven; (g) a habit caption on screen ('...made Lucy pay for a habit: slow starter') =
-   flavour text (pre-existing caption system - check it). Fix round DEFFLOW2: plant feet under defence windows on the
-   ropes (lock FootPlant while a defence plays), GloveClear/head gap during duck_in/smother, size the duck by punch
-   (jab -> parry/slip only), a FLOW film seed that triggers it, then eyes + skeptic; merge.
-3. movepics1 round 2 (39 rejected cards) -> merge -> the hover card + training tray get the ink art.
-4. Playbook one-page build from PLAYBOOK_SPEC_S381 (10 stages; GamePlan.gd 550 lines gets deleted).
-5. Boxmap: park unless the operator says one more round. Theatre-ground (C223 float) still unfinished.
-6. Owned mocap bake (killed S381; inventory E:/FightCamp/tmp/s381/ownedmocap/), pocket pass, export + WHAT_TO_TRY.
+1. DEFFLOW2 (S384) merges main into claude/defflow1 keeping both FootPlant changes - check it re-measured knee ~2.5.
+2. Collect the loop PRs #40-#44.
+3. claude/training1 (21 ahead, suite 155/155): skeptic items - (a) REAL BUG camp week 2+ Monday board draws week 1's
+   phase (WeekPhase.sync only in Sim.step_day dow 0) -> strip says REST/FILM that the sim does not run; fix + an
+   evenings_test case before Monday's sync; (b) drag-and-drop proof on a focused window. Then merge (operator: training
+   screen first).
+4. Wire the owned takes into the fight (guard idles / footwork variety; FOOTWORK2 waits on the footwork r3 verdict).
+5. Playbook one-page build (PLAYBOOK_SPEC_S381) after training merges - check GAMETREE1 for overlap first (Playbook centre).
+6. BJJ pose cards from 3D (move_pic_bjj.gd) for the 28 pending - only if a pose reads; never Ludo.
 
-PC: E: fixed (87 GB free, pagefile moved). The operator games on this PC (ArcheAge, 7-11 GB) -> watchdog RED for RAM/
-heat often; every Godot launch goes through the gate (non-RED AND fewer than 2 Godot processes):
+PC: the operator games here (ArcheAge) -> RED often. Every Godot launch through the gate (non-RED AND < 2 Godot):
 C:/Users/user/AppData/Local/Temp/claude/8016259957f41297/db767ba5-bbfa-4c95-809c-837d924ef757/scratchpad/gated.sh
-(WT=<worktree> or run from the worktree root). New PNGs on main need a headless --import in the main checkout before
-tests (revert the .import line-ending churn after). Ziva was DOWN at S382 start (not restarted - PC RED).
+(WT=<worktree>). New PNGs on main need a headless --import in the main checkout (revert the .import churn after).
+Animation films for the operator: 1080p, fixed camera, one take per film + a legs close-up, never a grid reel
+(memory feedback_mocap_films_judgeable_s383). Ziva DOWN (not restarted: its editor takes a Godot slot).

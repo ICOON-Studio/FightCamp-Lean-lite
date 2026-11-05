@@ -8,7 +8,7 @@
   "updated": "2026-11-04",
   "summary": "S381: agy falls back to Claude Opus when Argon credits run out (be417e39); LOCOWALK4 Ludo walks rejected ('all terrible') -> procedural bounce+step-drag footwork (claude/footwork1, stand-off passed); liver picture in the LIVER callout MERGED; Gear->Menu; one-page Playbook (no tabs) designed + mockup; real fight camp study (C229) + Undisputed gym ideas -> camp build approved; Rune Coliseum/Corner King/EMM/KungFuCard/Gladiator Command studied by REA (numbers only); GrappleMap-engine boxing combo rebuilt on Punch PRO takes (elbows); reference-clip flow study -> pocket pass plan.",
   "last_working_commit": "89dc4c75",
-  "next_action": "S382, in order: (0) FIRST check list_sessions: S381 may still be live with 5 workflows running (camp build claude/camp2 at stage S4, owned mocap claude/owned-mocap, move cards r2 claude/movepics1, footwork hips claude/footwork1, theatre fix claude/theatre-ground) - collect what they pushed, never redo it. (1) Collect claude/camp2 (C229 camp fixes + 5 Undisputed-gym ideas, operator 'Yes, build both'): read the review + full-suite result, look at the stills, merge. (2) Footwork claude/footwork1: operator passed the r4c stand-off ('first clip look ok'), side clip 'his ass is bouncing more than usual' -> r5 hips fix; eyes-check r5 (eyes CLI on the video, never stills), send, then FOOTWORK2 = wire it into the fight. (3) Combo film claude/boxmap1 07c42140: now plays Punch PRO takes straight; NOT filmed (watchdog RED) - render r5, eyes on elbows (C230/C231), fix the 2 test fails (blue 10 cm pop). (4) holo-off claude/holo-off-live 465b8fb0: film + full suite, fix callout_pop_test, merge. (5) Move cards r2 (39 rejected), owned mocap (Downloads Mixamo/Punch PRO + CMU) -> pocket pass plan (tmp whomo0tve plan: range, no dead time, defender layer, contact, close camera). (6) Playbook one page: operator to answer the calmer-version question; then build with the Rune Coliseum takeaways + tape room. (7) E: 4.6% free (pagefile 32 GB on E:) - operator asked to move the pagefile to C:."
+  "next_action": "S385, in order (NEXT_SESSION_PROMPT.md): (0) list_sessions - S384 may be live, it owns GAMETREE1 stage 1 + DEFFLOW2; (1) merge claude/owned-mocap2 if not done (operator 'Yes, merge it': FootPlant sub-step/low-pass/soft reach + KneeTrack side hysteresis, the knee tremble fix; defflow1 + fight9base touch the same files - keep both); (2) collect loop PRs #40-#44; (3) training1 skeptic fixes (week-2 Monday phase bug, drag proof) then merge; (4) wire the 7 owned takes into the fight; (5) Playbook one page after training; (6) BJJ cards from 3D poses only (Ludo failed)."
  },
  "next": "Collect LOCOWALK1 (real walk + step clips, Ludo) against the drawn-bone bars; then FIGHT9 R7 and BJJ9 at a real 9/10.",
  "assessment": {
@@ -4451,7 +4451,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-04 18:40 board_sync",
+  "updated": "2026-11-05 04:10 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4630,13 +4630,56 @@
     "title": "TASK FIGHT9R10 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
     "who": "antigravity",
     "started": "2026-11-04T18:40",
-    "run": "FIGHT9R10"
+    "run": "FIGHT9R10",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK BJJ9R13 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
     "who": "antigravity",
     "started": "2026-11-04T10:11",
     "run": "BJJ9R13",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK BJJ9R14 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
+    "who": "cursor",
+    "started": "2026-11-04T19:10",
+    "run": "BJJ9R14",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHT9R11 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "who": "antigravity",
+    "started": "2026-11-04T20:10",
+    "run": "FIGHT9R11",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK BJJ9R15 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
+    "who": "cursor",
+    "started": "2026-11-04T22:45",
+    "run": "BJJ9R15",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHT9R12 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "who": "antigravity",
+    "started": "2026-11-04T23:11",
+    "run": "FIGHT9R12",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHT9R13 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "who": "antigravity",
+    "started": "2026-11-05T02:11",
+    "run": "FIGHT9R13",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK BJJ9R16 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
+    "who": "cursor",
+    "started": "2026-11-05T02:40",
+    "run": "BJJ9R16",
     "state": "LANDED - Claude collects"
    }
   ],
@@ -5104,6 +5147,6 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "89dc4c75",
- "next_action": "S382, in order: (0) FIRST check list_sessions: S381 may still be live with 5 workflows running (camp build claude/camp2 at stage S4, owned mocap claude/owned-mocap, move cards r2 claude/movepics1, footwork hips claude/footwork1, theatre fix claude/theatre-ground) - collect what they pushed, never redo it. (1) Collect claude/camp2 (C229 camp fixes + 5 Undisputed-gym ideas, operator 'Yes, build both'): read the review + full-suite result, look at the stills, merge. (2) Footwork claude/footwork1: operator passed the r4c stand-off ('first clip look ok'), side clip 'his ass is bouncing more than usual' -> r5 hips fix; eyes-check r5 (eyes CLI on the video, never stills), send, then FOOTWORK2 = wire it into the fight. (3) Combo film claude/boxmap1 07c42140: now plays Punch PRO takes straight; NOT filmed (watchdog RED) - render r5, eyes on elbows (C230/C231), fix the 2 test fails (blue 10 cm pop). (4) holo-off claude/holo-off-live 465b8fb0: film + full suite, fix callout_pop_test, merge. (5) Move cards r2 (39 rejected), owned mocap (Downloads Mixamo/Punch PRO + CMU) -> pocket pass plan (tmp whomo0tve plan: range, no dead time, defender layer, contact, close camera). (6) Playbook one page: operator to answer the calmer-version question; then build with the Rune Coliseum takeaways + tape room. (7) E: 4.6% free (pagefile 32 GB on E:) - operator asked to move the pagefile to C:.",
+ "next_action": "S385, in order (NEXT_SESSION_PROMPT.md): (0) list_sessions - S384 may be live, it owns GAMETREE1 stage 1 + DEFFLOW2; (1) merge claude/owned-mocap2 if not done (operator 'Yes, merge it': FootPlant sub-step/low-pass/soft reach + KneeTrack side hysteresis, the knee tremble fix; defflow1 + fight9base touch the same files - keep both); (2) collect loop PRs #40-#44; (3) training1 skeptic fixes (week-2 Monday phase bug, drag proof) then merge; (4) wire the 7 owned takes into the fight; (5) Playbook one page after training; (6) BJJ cards from 3D poses only (Ludo failed).",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

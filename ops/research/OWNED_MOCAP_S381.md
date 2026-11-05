@@ -14,7 +14,7 @@ Only our retargeted `.res` clips (our skeleton, our tracks) are in the repo.
 
 | source | files | licence (as published) | what we may do |
 |---|---|---|---|
-| Rokoko free combat pack, `Downloads/Combat.zip` (Mixamo rig FBX, 30 fps, Smartsuit Pro II capture) | ShadowBoxing_mixamo.fbx, Boxing_mixamo.fbx (FightingIdle_mixamo.fbx dropped) | Rokoko free-pack pages: usable "in any animation, VFX, game ... from passion project to commercial use" | ship retargeted in the game |
+| Rokoko free combat pack, `Downloads/Combat.zip` (Mixamo rig FBX, 24 fps - slerped to 30 fps in the bake; Smartsuit Pro II capture) | ShadowBoxing_mixamo.fbx, Boxing_mixamo.fbx (FightingIdle_mixamo.fbx dropped) | Rokoko free-pack pages: usable "in any animation, VFX, game ... from passion project to commercial use" | ship retargeted in the game |
 | CMU Graphics Lab Motion Capture Database (mocap.cs.cmu.edu), ASF/AMC, 120 fps | kept: 13_17, 13_18, 14_01, 14_02 (14_03, 15_13, 17_10 baked then dropped on eyes) | site: "free for all uses"; FAQ: may be in commercially sold products, may NOT be resold directly, even converted | ship retargeted in the game; never sell/give the clip files as a pack; credit line in the game credits (NSF EIA-0196217) |
 | Ailive Fab pack, `Downloads/boxing.zip` | none kept | - | S381 eyes: footwork stance ~1 m wide + rear hand at the hip, sway a 2 s lunge with hands low; hooks/uppercuts out by brief |
 
@@ -105,6 +105,67 @@ under the shoulder and the slide by the ball; neither sees a cocked rear hand or
 then the shortest guard drop): rk_shadowboxing_a 2-10 s, rk_shadowboxing_b whole 5.8 s (looped), rk_boxing 0-8,
 cmu_14_01 25-33, cmu_14_02 22-30, cmu_13_17 0-8, cmu_13_18 16-24. Every window: 0 plants over 3 cm.
 
+## S383d: "the video clip is lagging ... the knees are trembling again" - cause, fix, bars
+
+**Cause** (tools/owned_mocap_jitter.gd; knee shake = RMS of the 2nd difference of the knee bend, deg/frame^2, 30 fps):
+1. tools/clip_orbit.gd built the boxer through FightStage, so the films ran the WHOLE fight modifier stack. FootPlant held
+   feet the clips already plant, swapped in its own 0.2 s steps and pinned the knee at its hard reach limit (~16 deg bend)
+   and let go a few frames later: knee shake 3-4x the clip's (rk 1.4-1.6 -> 4.5-6.0, CMU 2.0-3.6 -> 7.6-9.6, PRO combo
+   2.8 -> 9.7).
+2. The film froze each frame with a seek (update) - that runs the modifier stack a second time per frame - and the
+   films ran on wall-clock delta (no --fixed-fps): FootPlant's steps ran at double, uneven speed (the "lag").
+3. KneeTrack near +-180 deg: the clamp sent a backwards knee to +20 deg one frame and -20 the next (cmu_13_17 right knee:
+   flips up to 179 deg in a frame); clip_orbit also ran KneeTrack twice a frame (its own call + the modifier).
+4. The orbit camera re-aimed at the hips every frame (whole-frame shake 2.4-6.7 mm/frame^2).
+
+**Fix.**
+- KneeTrack: a knee past 150 deg from its toes keeps the side it was last corrected to (Skeleton3D meta
+  `knee_track_side`); the swivel is measured from that side the short way round. clip_orbit runs KneeTrack once.
+- FootPlant (runs in every fight): the reach limit eases in (0.97 -> 0.99 of the leg, tanh) instead of a hard clamp; the
+  IK target is low-passed in the world (0.03 s: a held foot's target is still, so a glide gets no lag; 0.06 was smoother
+  but its landing tail slid the feet in the fight); a step takes 0.26 s (was 0.2); a repeat modifier pass in the same frame redoes the frame from its start state; the logic sub-steps
+  at 1/60 s between frames and a teleport is a speed (6 m/s) as well as 0.3 m - frame-rate independent.
+  Tried and DROPPED: letting the clip's own foot motion through the plant (its fast detail, or whole steps the clip lifts
+  or drags). It halved the films' shake but the fight plays clips with the hips held in place, where that motion is
+  skating: tools/sidestep_probe.gd planted slide on dodges/weaves went 0.1-0.3 m -> 0.5-1.7 m.
+- Films: tools/owned_mocap_film.gd - the clip itself (every modifier off but MetaHumanTwist, no KneeTrack: "mocap plays
+  pure"), one fixed camera (chest height, 3/4 front, placed once from the window's mean hips), --fixed-fps 30, frame
+  t0 + f/30 exactly; `mods=game` films a clip through the full fight stack, PLAYING (no seek), as fights show it.
+
+**Bars** (S383d, mh_boxer_08; "film" = the path the film is drawn on; before = the S383 films' path):
+
+| take | clip knee shake | film before | film after | pole flips > 90 deg (before / after) | plant slide cm max (before / after) |
+|---|---|---|---|---|---|
+| PRO combo, game stack | 2.82 (`nofeet` 2.80) | 9.68 | 2.54 | 0 / 0 | 1.27 seek, 2.42 playing / 2.23 |
+| our idle, game stack | 0.47 (`nofeet` 0.46) | 0.73 | 0.47 | 0 / 0 | 1.40 seek, 1.37 playing / 1.38, 1.27 |
+| rk_shadowboxing_a | 1.36 | 4.48 | 1.36 | 0 / 0 | 5.61 / 1.03 |
+| rk_shadowboxing_b | 1.48 | 5.07 | 1.48 | 0 / 0 | 4.81 / 1.20 |
+| rk_boxing | 1.44 | 6.00 | 1.44 | 0 / 0 | 4.94 / 1.44 |
+| cmu_14_01 | 2.03 | 7.57 | 2.03 | 2 / 0 | 4.16 / 1.64 |
+| cmu_14_02 | 3.08 | 9.57 | 3.08 | 6 / 1 (the clip's own) | 2.77 / 1.44 |
+| cmu_13_17 | 3.64 | 8.99 | 3.64 | 7 / 0 | 1.62 / 1.84 (the clip's own) |
+| cmu_13_18 | 2.52 | 7.77 | 2.52 | 0 / 0 | 4.56 / 1.66 |
+
+- FootPlant bar (game stack, knee shake within +20 % of `nofeet`): PRO combo 2.54 vs 2.80, idle 0.47 vs 0.46 (+2 %);
+  seek path 2.55 / 0.48. Plant slide: idle 1.37 -> 1.27 playing, 1.40 -> 1.38 seek; PRO combo 2.42 -> 2.23 playing, but
+  1.27 -> 2.23 on the old seek path (that path ran the steps at double speed) - over the "no worse" bar there by 1 cm.
+- 1/30 s vs 0.2 s steps (both read every 0.2 s, game stack playing): PRO combo knee 19.2 / 19.6 (+2 %), slide 4.6 / 4.6;
+  idle 7.3 / 8.0 (+10 %), slide 1.20 / 1.20. tests/foot_plant_test.gd: a 0.8 m/s glide at both steps - foot travel within
+  1.3 %, feet end within 1.4 cm.
+- In the fight (tools/sidestep_probe.gd, --fixed-fps 60, planted slide m, old FootPlant -> new): guard 0.02 -> 0.02; the
+  game's short steps 0.02/0.03/0.02/0.05 -> 0.03/0.04/0.03/0.06; dodges/weaves without SideStep 0.21/0.11/0.01/0.04/0.05
+  -> 0.20/0.14/0.01/0.03/0.09; with SideStep 0.08/0.06/0.08/0.10/0.13 -> 0.04/0.05/0.04/0.17/0.16 (totals 0.42 -> 0.47
+  and 0.45 -> 0.46 m).
+- **S383d films** (E:/FightCamp/tmp/s383/ownedmocap2/<name>.mp4 and <name>_legs.mp4, 1920x1080 h264 crf 18, 30 fps, each
+  checked: ffmpeg mpdecimate unique frames == frame count): the 7 kept takes and our idle as the clip itself (pure), the
+  whole take or its least-travel 30 s (cmu_14_01/14_02/13_17 30 s windows; rk_shadowboxing_b 5.8 s and the idle looped to
+  10 s); a 10 s legs close-up of each; pro_combo_punch_game.mp4 - the PRO combo as the fight loads it (hips held in
+  place), through the whole fight stack with the new FootPlant/KneeTrack, guard 1 s between repeats, 10 s.
+- Known, not changed: a fast sideways glide steps both feet nearly all the time (the S376 reach rule; legs near full
+  stretch in our stance with the S314 stretch) - old and new FootPlant alike.
+- Tests: tests/knee_track_test.gd (a backwards knee keeps its side), tests/foot_plant_test.gd (frame-rate independence,
+  feet held while the body stands, steps while it glides), tests/owned_mocap_test.gd unchanged.
+
 ## Dropped
 
 | take | why |
@@ -145,5 +206,5 @@ OWNED_DROPPED cmu_17_10 why=flail_17s
 ## Not done
 
 - The clips are not wired into FightClips / BeatClips; no fight plays them yet. In the fight the KneeTrack, FootPlant
-  and GuardTuck modifiers would sit on top (the films apply KneeTrack only).
+  and GuardTuck modifiers would sit on top (the S383d films show the clips pure; pro_combo_punch_game shows the stack).
 - The arms keep the actors' punch speed; the pops count is mostly that, not noise (hands/toes noise removed).

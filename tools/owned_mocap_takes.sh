@@ -5,6 +5,8 @@
 #   run from the repo root: bash tools/owned_mocap_takes.sh <X dir> <CJ dir> <Downloads dir>
 #   bars after a bake: <godot> --headless --path . --script res://tools/owned_mocap_measure.gd -- res=<a.res,...>
 #   S383: CMU hands + toes are held at the reference pose (bake hold=, default for json), plants pinned by leg IK.
+#   S383c: noisy tracks low-passed zero-phase (tools/owned_mocap_smooth.gd), pin faded over 5 frames, Rokoko read cubic;
+#   regenerate the CMU JSONs first (cmu_amc_source.py now anti-aliases 120 -> 30). Tremble bars: tools/owned_mocap_bars.gd.
 X=$1; CJ=$2; DL=$3
 G="${GODOT_EXE:-$LOCALAPPDATA/Programs/Godot/Godot_v4.7.2-stable_win64_console.exe}"
 b(){ "$G" --headless --audio-driver Dummy --path . --script res://tools/owned_mocap_bake.gd -- "$@" dir=res://assets/anim/baked/owned 2>&1 | grep -E "^OWNEDMOCAP [a-z]|FAILED|SCRIPT ERROR" | sed 's/ -> res.*//'; }

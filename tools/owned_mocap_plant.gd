@@ -4,14 +4,17 @@ extends RefCounted
 ## markers drift 2-13 cm inside a plant) and what one hips shift cannot fix (two planted feet with different errors) both
 ## stay. Here each plant of OUR baked foot is pinned: a run of >= 4 frames with the ball within 3 cm of that foot's floor
 ## and slower than 0.35 m/s along it is held at the run's mean spot (its height untouched) by two-bone leg IK (thigh +
-## shin, the knee kept in its own plane, the foot's world rotation kept), blended in and out over the run's edge frames.
+## shin, the knee kept in its own plane, the foot's world rotation kept). S383c: the offset fades in over the 5 frames
+## before the plant and out over the 5 after it (was: 2 frames inside it - the leg jumped half the offset in one frame).
 ## Writes the UpperLeg / LowerLeg / Foot rotation keys again. Returns how many frames were pinned per foot.
 
 const FPS := 30.0
 const BAND := 0.03
 const SPEED := 0.35
 const MIN_RUN := 4
-const EDGE := 2.0
+const EDGE := 5
+const OFF_HZ := 5.0
+const Smooth := preload("res://tools/owned_mocap_smooth.gd")
 
 
 static func _tracks(anim: Animation) -> Dictionary:
@@ -76,7 +79,16 @@ static func pin(anim: Animation, skel: Skeleton3D, up: Vector3) -> Dictionary:
 				if k - s >= MIN_RUN:
 					runs.append([s, k])
 				s = -1
-		var pinned := 0
+		# S383c: each plant's offset (its mean spot minus the ball) is faded in over the EDGE frames before the plant and
+		# out over the EDGE frames after it (smoothstep, the plant's first / last offset), so the leg never jumps into or
+		# out of the pin; inside a plant the full offset. Every frame is solved once with its own offset.
+		var off := []
+		var wt := []
+		off.resize(n)
+		wt.resize(n)
+		for k in n:
+			off[k] = Vector3.ZERO
+			wt[k] = 0.0
 		for r in runs:
 			var a: int = r[0]
 			var e: int = r[1]
@@ -84,16 +96,66 @@ static func pin(anim: Animation, skel: Skeleton3D, up: Vector3) -> Dictionary:
 			for k in range(a, e):
 				mean += ball[k]
 			mean /= float(e - a)
+			var first := Vector3.ZERO
+			var last := Vector3.ZERO
 			for k in range(a, e):
-				var w := clampf(minf(float(k - a + 1), float(e - k)) / EDGE, 0.0, 1.0)
 				var d: Vector3 = mean - (ball[k] as Vector3)
 				d -= up * d.dot(up)
-				if d.length() < 0.001:
-					continue
-				_leg_ik(anim, skel, tr, side, [bu, bl, bf], k, d * w)
-				pinned += 1
+				off[k] = d
+				wt[k] = 2.0
+				if k == a:
+					first = d
+				last = d
+			for i in EDGE:
+				var w := _ease(float(i + 1) / float(EDGE + 1))
+				var kb := a - EDGE + i
+				var ka := e + EDGE - 1 - i
+				if kb >= 0 and float(wt[kb]) < w:
+					off[kb] = first * w
+					wt[kb] = w
+				if ka < n and float(wt[ka]) < w:
+					off[ka] = last * w
+					wt[ka] = w
+		# The offsets low-passed (5 Hz, zero phase): inside a plant the offset follows the ball's creep and at the plant's
+		# edges it turns into the fade - a kink the IK hands to the knee as a one-frame shake (S383c bars).
+		off = Smooth.filter_vec(off, Smooth.kernel(OFF_HZ))
+		var pinned := 0
+		for k in n:
+			if (off[k] as Vector3).length() < 0.0005:
+				continue
+			_leg_ik(anim, skel, tr, side, [bu, bl, bf], k, off[k])
+			pinned += 1
 		out[side] = pinned
 	return out
+
+
+## S383c the punch frames, for tools/owned_mocap_smooth.gd's pop limiter: track name -> Array[bool] per key, true on the
+## UpperArm / LowerArm of an arm whose wrist moves > 1.5 m/s against its shoulder (+-4 keys) - the same rule as the
+## tremble bars' exemption (tools/owned_mocap_bars.gd).
+static func punch_exempt(anim: Animation, skel: Skeleton3D) -> Dictionary:
+	var tr := _tracks(anim)
+	var n := anim.track_get_key_count(tr["Hips"])
+	var out := {}
+	for side in ["Left", "Right"]:
+		var sh := skel.find_bone(side + "UpperArm")
+		var hd := skel.find_bone(side + "Hand")
+		var fast := []
+		fast.resize(n)
+		fast.fill(false)
+		var last := Vector3.ZERO
+		for k in n:
+			var r := _glob(skel, anim, tr, hd, k).origin - _glob(skel, anim, tr, sh, k).origin
+			if k > 0 and (r - last).length() * FPS > 1.5:
+				for j in range(maxi(0, k - 4), mini(n, k + 5)):
+					fast[j] = true
+			last = r
+		out[side + "UpperArm"] = fast
+		out[side + "LowerArm"] = fast
+	return out
+
+
+static func _ease(x: float) -> float:
+	return x * x * (3.0 - 2.0 * x)
 
 
 ## Moves the ankle by `d` (skeleton space): thigh + shin re-aimed, the knee kept on its side, the foot's world turn kept.

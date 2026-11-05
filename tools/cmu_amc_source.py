@@ -6,11 +6,12 @@ pose is  W_b = W_parent @ C_b @ M_b @ C_b^-1,  C_b = euler(axis) and M_b = euler
 composed Rz @ Ry @ Rx (X applied first);  tip(b) = tip(parent) + W_b @ direction_b * length_b;  the root's rotation is
 euler(RX, RY, RZ) and its position the frame's TX TY TZ. Units -> metres with 0.056444 (CMU's 0.45 length unit, inches).
 
-Output (one JSON per take, frames resampled from 120 fps to 30 by taking every 4th):
+Output (one JSON per take, frames resampled from 120 fps to 30: S383c each output frame is the triangle-weighted mean of
+the 7 source frames around it, an anti-alias low-pass; aa=0 = the old every-4th-frame pick):
   {"fps": 30, "source": "CMU 14_01", "rest": {joint: [x,y,z]}, "frames": [{"D": {bone: [x,y,z,w]}, "P": {joint: [x,y,z]}}]}
   D = the bone's world rotation relative to its rest (quaternion), P = world joint positions (Hips, feet, toes).
 Bones are named as our boxer names them (MHRig UE5_TO_OURS values), so the bake needs no CMU knowledge.
-    python -I tools/cmu_amc_source.py <subject.asf> <trial.amc> <out.json> [t0=<s>] [t1=<s>] [src_fps=120]
+    python -I tools/cmu_amc_source.py <subject.asf> <trial.amc> <out.json> [t0=<s>] [t1=<s>] [src_fps=120] [aa=1]
 """
 import json
 import math
@@ -203,11 +204,45 @@ def main():
     i0, i1 = int(round(t0 * src_fps)), min(len(frames), int(round(t1 * src_fps)))
     _, s0, p0 = pose(bones, parent, order, None)
     rest = {j: joint_pos(s0, p0, spec) for j, spec in JOINTS.items()}
+    # S383c anti-alias: each 30 fps frame is the triangle-weighted mean of the source frames around it
+    # ([1 2 3 4 3 2 1] / 16 at 120 fps: a 2.5 Hz bounce keeps 98 %, 15 Hz and up - which would fold back into the 30 fps
+    # clip as a shake - is cut to 43 % and less). aa=0 = the old every-4th-frame pick.
+    aa = opt.get("aa", "1") != "0"
+    half = step - 1 if aa else 0
+    tri = [float(step - abs(k)) for k in range(-half, half + 1)]
+    cache = {}
+
+    def at(i):
+        i = min(max(i, 0), len(frames) - 1)
+        if i not in cache:
+            W, s, t = pose(bones, parent, order, frames[i])
+            cache[i] = ({ours: quat(W[seg]) for ours, seg in BONES.items()},
+                        {j: joint_pos(s, t, JOINTS[j]) for j in TRACKED})
+        return cache[i]
+
     outf = []
     for i in range(i0, i1, step):
-        W, s, t = pose(bones, parent, order, frames[i])
-        outf.append({"D": {ours: quat(W[seg]) for ours, seg in BONES.items()},
-                     "P": {j: joint_pos(s, t, JOINTS[j]) for j in TRACKED}})
+        for old in [k for k in cache if k < i - step]:
+            del cache[old]
+        Dc, Pc = at(i)
+        D = {b: [0.0, 0.0, 0.0, 0.0] for b in Dc}
+        P = {j: [0.0, 0.0, 0.0] for j in Pc}
+        for k, w in zip(range(-half, half + 1), tri):
+            Dk, Pk = at(i + k)
+            for b, q in Dk.items():
+                sg = 1.0 if sum(q[c] * Dc[b][c] for c in range(4)) >= 0.0 else -1.0
+                for c in range(4):
+                    D[b][c] += w * sg * q[c]
+            for j, v in Pk.items():
+                for c in range(3):
+                    P[j][c] += w * v[c]
+        tw = sum(tri)
+        for b, q in D.items():
+            nq = math.sqrt(sum(c * c for c in q)) or 1.0
+            D[b] = [round(c / nq, 6) for c in q]
+        for j in P:
+            P[j] = [round(c / tw, 5) for c in P[j]]
+        outf.append({"D": D, "P": P})
     json.dump({"fps": 30, "source": "CMU " + amc.replace("\\", "/").split("/")[-1].split(".")[0],
                "t0": t0, "src_frames": len(frames), "src_fps": src_fps, "rest": rest, "frames": outf}, open(out, "w"))
     print("CMU_SOURCE %s frames %d (%.2f s at %g fps) -> %d at 30 fps -> %s" % (
