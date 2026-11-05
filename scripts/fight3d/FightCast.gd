@@ -43,7 +43,7 @@ static func crew(stage: Node3D, pro: bool) -> Node3D:
 	var c := CornerCrew.new()
 	stage.add_child(c)
 	c.build(stage, pro)
-	Referee.build(stage)   # S313: the third man in the ring (parts the clinches)
+	# S369/S371 NOREF1: no referee in the ring; clinches part via PushOff.
 	return c
 
 

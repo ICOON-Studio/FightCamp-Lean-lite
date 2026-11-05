@@ -153,15 +153,94 @@
   {
    "task": "FIGHT9R10",
    "seat": "agy",
-   "status": "queued",
-   "queued": "2026-11-04T10:11"
+   "status": "launched",
+   "queued": "2026-11-04T10:11",
+   "launched": "2026-11-04T18:40"
   },
   {
    "task": "BJJ9R14",
    "seat": "agy",
-   "status": "queued",
+   "status": "launched",
    "queued": "2026-11-04T11:09",
-   "loop": "BJJ9"
+   "loop": "BJJ9",
+   "launched": "2026-11-04T15:41"
+  },
+  {
+   "task": "BJJ9R14",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-04T18:53",
+   "launched": "2026-11-04T19:10"
+  },
+  {
+   "task": "FIGHT9R11",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-04T19:46",
+   "loop": "FIGHT9",
+   "launched": "2026-11-04T20:10"
+  },
+  {
+   "task": "BJJ9R15",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-04T20:59",
+   "loop": "BJJ9",
+   "launched": "2026-11-04T22:45"
+  },
+  {
+   "task": "FIGHT9R12",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-04T22:03",
+   "loop": "FIGHT9",
+   "launched": "2026-11-04T23:11"
+  },
+  {
+   "task": "FIGHT9R13",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-05T00:24",
+   "loop": "FIGHT9",
+   "launched": "2026-11-05T02:11"
+  },
+  {
+   "task": "BJJ9R16",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-05T00:59",
+   "loop": "BJJ9",
+   "launched": "2026-11-05T02:40"
+  },
+  {
+   "task": "FIGHT9R14",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-05T18:51",
+   "loop": "FIGHT9",
+   "launched": "2026-11-05T19:10"
+  },
+  {
+   "task": "BJJ9R17",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-05T18:53",
+   "loop": "BJJ9",
+   "launched": "2026-11-05T19:41"
+  },
+  {
+   "task": "FIGHT9R15",
+   "seat": "agy",
+   "status": "queued",
+   "queued": "2026-11-05T20:25",
+   "loop": "FIGHT9"
+  },
+  {
+   "task": "SOUND1R2",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-05T21:26",
+   "note": "S386: round 1 rework - Ludo not synthetic, restore 13 round-0 rows + crowd loop"
   }
  ]
 }

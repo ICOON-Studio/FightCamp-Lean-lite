@@ -4,14 +4,14 @@ extends Node
 ## Reallusion checked S311), so it is built from our own pieces: RangeBreath's "clinch" phase walks the holder in to
 ## CLINCH_M; here both stand in the block pose held mid-loop, each body shifted to its own left so the heads pass each
 ## other's shoulder, the holder's arms over the other's upper back and the other's hands on the holder's flanks
-## (CornerIK, attached to every boxer by CornerCrew), each looking past the other's shoulder. The referee walks in;
-## at break_t FightView's "ref" step_out beats call release(), the referee pushes them apart and both step out.
+## (CornerIK, attached to every boxer by CornerCrew), each looking past the other's shoulder.
 ##   setup(stage)  start(holder, dur, digs, digger)  release()  offset(i, to) -> Vector3  floor_m(base) -> float  engaged
 ## S354 (CLINCH2, operator S340 "someone also needs to perfect the clinch"): the hold is a real tie-up, not a freeze - an
 ## A-frame (the trunk leans from the pelvis: chests in, hips back), a jostle (the pair turns about its middle and drifts,
 ## feet shuffling), the free hand digs short hooks into the other's ribs (a beat's `digs`/`digger`), and the pair is only
 ## called TIED once that pose has come in - the spacing and the hands ease in from start(), nothing snaps.
 
+const PushOff := preload("res://scripts/fight3d/PushOff.gd")
 const POSES := ["pro_block_loop", "mc_block"]
 ## S317 (operator Q-S294-25 "Clinch looks wrong", his C143 mark "calculate the grip without wearing the glove"): when the
 ## baked two-person clinch is there (FightClips.PAIR, tools/pair_bake.gd from a Cascadeur-authored clinch: both lean in
@@ -33,7 +33,7 @@ const MIN_M := 0.32
 const SIDE_M := 0.13
 const EASE_S := 0.3
 ## The pose is held between these shares of its loop (a block loop played to its end would hand back to the guard).
-## Letting go: the shift and the closest gap ease back over this long (the referee's push and their step out cover it).
+## Letting go: the shift and the closest gap ease back over this long (the push-off and their step out cover it).
 const RELEASE_S := 0.5
 const HOLD_SPAN := Vector2(0.3, 0.75)
 const HOLD_SPEED := 0.35
@@ -124,7 +124,7 @@ func setup(s: Node) -> void:
 			break
 
 
-## A "clinch" beat: `who` ties up for about `dur` seconds (the referee's break releases it; this is the safety net).
+## A "clinch" beat: `who` ties up for about `dur` seconds (the break releases it; this is the safety net).
 ## S354: the beat may carry `digs` (0-3) and `digger` (ClinchBeats: the woman who is NOT tying up works the body); with
 ## no digger named, the opponent digs. The two extra arguments default, so the S313 call `start(who, dur)` still works.
 func start(who: int, dur: float, digs: int = 0, digger: int = -1) -> void:
@@ -140,10 +140,8 @@ func start(who: int, dur: float, digs: int = 0, digger: int = -1) -> void:
 	_clip_t = 0.0
 	_hold = 0.0
 	_turn = 1.0 if stage.life.rng.randf() < 0.5 else -1.0
+	PushOff.cancel(stage)
 	_tie_up()
-	var ref: Node = stage.get("referee")
-	if ref != null:
-		ref.step_in()
 
 
 func release() -> void:
@@ -156,20 +154,10 @@ func release() -> void:
 	_digger = -1
 	_hold = 0.0
 	_clip_t = 0.0
-	for i in 2:
-		var ik: Node = stage.boxers[i].get("ik")
-		if ik != null:
-			ik.reach("Left", null)
-			ik.reach("Right", null)
-			ik.look(null)
-			ik.upright(0.0)
-		stage.guard(i)
-	var ref: Node = stage.get("referee")
-	if ref != null:
-		ref.part()
 	if was:
 		stage.life.cancel(0)
 		stage.life.cancel(1)
+	PushOff.begin(stage)
 
 
 ## The closest the two may stand: the tie's own gap while tied, easing back to the stage's `base` as they let go (no snap
@@ -179,12 +167,16 @@ func release() -> void:
 ## dragged across the canvas for the whole hold. floor_m runs inside RingPlace.compose right before feet.aim_step.
 func floor_m(base: float) -> float:
 	var tied := PAIR_GAP_M if _pair else MIN_M
+	var feet: Object = stage.get("feet")
 	if holder < 0:
+		if PushOff.active():
+			if feet != null:
+				feet.set("want_m", PushOff.gap)
+			return PushOff.gap
 		return lerpf(base, tied, _w)
 	var gap := lerpf(base, tied, _tie)
 	# Footwork is a RefCounted, not a Node (S354: typed as Node this line threw on every frame of every hold and the range
 	# machine kept RangeBreath's CLINCH_M, so the walk-in never had a gap to stop at).
-	var feet: Object = stage.get("feet")
 	if feet != null:
 		feet.set("want_m", gap)
 	return gap
@@ -200,6 +192,7 @@ func offset(_i: int, to: Vector3) -> Vector3:
 func _process(delta: float) -> void:
 	_w = move_toward(_w, 1.0 if engaged else 0.0, delta / (EASE_S if engaged else RELEASE_S))
 	_tie = move_toward(_tie, 1.0 if holder >= 0 else 0.0, delta / EASE_S)
+	PushOff.step(stage, delta)
 	if holder < 0:
 		return
 	_clock += delta
@@ -209,6 +202,13 @@ func _process(delta: float) -> void:
 		return
 	var dist := (stage.boxers[0]["pos"] as Vector3).distance_to(stage.boxers[1]["pos"])
 	var want := (PAIR_GAP_M if _pair else ENGAGE_M) + TIE_SLACK_M
+	if not engaged and dist > PAIR_GAP_M and _free(0) and _free(1):
+		var p0: Vector3 = stage.boxers[0]["pos"]
+		var p1: Vector3 = stage.boxers[1]["pos"]
+		var dir := (p1 - p0).normalized()
+		var close_m := minf(dist - PAIR_GAP_M, delta * 0.9)
+		stage.boxers[holder]["pos"] = (p0 + dir * close_m) if holder == 0 else (p1 - dir * close_m)
+		dist = (stage.boxers[0]["pos"] as Vector3).distance_to(stage.boxers[1]["pos"])
 	# S354: the pair is TIED once it stands at the tie's spacing and the tie's own clip has had TIE_SET_S to come in. The
 	# clip is the clock (the pose path has no clip and keeps _clock): a hold whose first sample lands mid-join reads the
 	# old pose - the r1 run measured a head gap of 0.62 m on the engage frame.
@@ -332,7 +332,7 @@ func _engage() -> void:
 
 ## S354 the jostle: the pair turns about its own middle (equal and opposite), easing in, and the holder walks the other
 ## back - a slow drift the planted feet carry as shuffle steps. RingPlace faces each body at the other, so turning the two
-## canvas positions turns both bodies. Written into `pos` (not a shown offset): the feet, the facing and the referee all
+## canvas positions turns both bodies. Written into `pos` (not a shown offset): the feet, the facing and the camera all
 ## follow it, and the pair's distance stays the tie's own.
 func _jostle() -> void:
 	var e := _smooth(clampf(_hold / JOSTLE_S, 0.0, 1.0))

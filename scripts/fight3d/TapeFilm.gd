@@ -78,7 +78,7 @@ func _ready() -> void:
 	var her_scale := clampf((cm if cm > 0.0 else Faces.cm(p[1])) / Faces.cm(p[1]), 0.88, 1.12)
 	stage.setup({"glb": Faces.glb(p[0]), "corner": "red", "scale": 1.0, "stance": "orthodox"},
 		{"glb": Faces.glb(p[1]), "corner": "blue", "scale": her_scale, "stance": str(_opp.get("stance", "orthodox"))})
-	Referee.build(stage)
+	# S369/S371 NOREF1: no referee in the ring.
 
 
 ## Back to the first frame of a film: both in guard at range, the broadcast camera on them.

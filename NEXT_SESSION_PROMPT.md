@@ -13,6 +13,11 @@ FREE SEATS FIRST - Claude merges, judges films by eyes and decides; the reading/
      running on Cursor).
  (4) NOREF (take fight9base's FightCast.crew + PushOff onto main) and the corner lens keep-out -> Arena brief.
  (5) Redraw P0 Where we are at start (`where_we_are.py roll S386`) and at the end.
+SETTINGS (operator rule: model, effort, Fast mode - this session and every seat with a task):
+  S386 Claude: Opus 5.5, effort medium, Fast OFF (merges, film eyes, briefs - the heavy work is on free seats)
+  Grok Dev GAMETREE1: its own Grok model, effort high | Arena NOREF+lens: its strongest coding model, effort high
+  Cursor BJJ9 loop: Composer 2.5, Fast OFF | agy FIGHT9 loop: Argon High (dispatcher falls back to Flash) |
+  Qwen SOUND1: qwen3-coder | Ollama judge: gemma4:12b (keep_alive 0)
 
 START: `git pull && python ops/Tools/agent_comms.py start`, then `list_sessions` (S384 may still own GAMETREE1 + DEFFLOW2).
 
