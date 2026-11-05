@@ -4456,7 +4456,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-05 04:10 board_sync",
+  "updated": "2026-11-05 19:41 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4687,6 +4687,18 @@
     "started": "2026-11-05T02:40",
     "run": "BJJ9R16",
     "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHT9R14 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "who": "antigravity",
+    "started": "2026-11-05T19:10",
+    "run": "FIGHT9R14"
+   },
+   {
+    "title": "TASK BJJ9R17 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
+    "who": "cursor",
+    "started": "2026-11-05T19:41",
+    "run": "BJJ9R17"
    }
   ],
   "next": [
@@ -5085,6 +5097,11 @@
   "session_started": "",
   "maps": [
    {
+    "title": "P0 Where we are: DONE / NOW / NEXT (Miro)",
+    "url": "https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689579200297",
+    "note": "S385: redrawn at every session start and end from ops/Tools/where_we_are.py (one canvas_update_from_svg)"
+   },
+   {
     "title": "Core loop - Early Access: mockups, opinions, your notes (Miro)",
     "url": "https://miro.com/app/board/uXjVETf7la4=/?moveToWidget=3458764689099716206",
     "note": "S354: the three mechanics, Kalli + John + Claude opinion lanes, a YOUR NOTES column for stickies"
@@ -5154,7 +5171,138 @@
     "url": "/attach?path=research/MAKE_IT_A_GAME_PLAN_S323.md",
     "note": "APPROVED S323 (\"Build it\") - update 27 next"
    }
-  ]
+  ],
+  "map": {
+   "done_earlier": [
+    {
+     "text": "Lean restart, one repo",
+     "who": "claude"
+    },
+    {
+     "text": "Fight: knockdown, count, replay",
+     "who": "claude"
+    },
+    {
+     "text": "Game plan go-to combination",
+     "who": "claude"
+    },
+    {
+     "text": "Camp build: camps differ",
+     "who": "claude"
+    },
+    {
+     "text": "Liver picture in the callout",
+     "who": "claude"
+    },
+    {
+     "text": "One-page Playbook designed",
+     "who": "claude"
+    },
+    {
+     "text": "Move tip plays the animation",
+     "who": "claude"
+    },
+    {
+     "text": "Holo off live rounds",
+     "who": "claude"
+    },
+    {
+     "text": "42 ink move cards",
+     "who": "claude"
+    },
+    {
+     "text": "7 owned mocap takes baked",
+     "who": "claude"
+    },
+    {
+     "text": "Knee tremble fix merged",
+     "who": "claude"
+    },
+    {
+     "text": "FLOW: no defence gate",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Loop PRs #38-#44 collected",
+     "who": "claude"
+    },
+    {
+     "text": "Training screen merged",
+     "who": "claude"
+    },
+    {
+     "text": "Monday board phase fix",
+     "who": "claude"
+    },
+    {
+     "text": "Drag-and-drop proven",
+     "who": "claude"
+    },
+    {
+     "text": "FIGHT9 probe fixed (drawn bones)",
+     "who": "claude"
+    },
+    {
+     "text": "Ollama: 3rd loop judge",
+     "who": "claude"
+    },
+    {
+     "text": "DEFFLOW2 code audit",
+     "who": "claude"
+    },
+    {
+     "text": "DEFFLOW2 merged with main",
+     "who": "claude"
+    },
+    {
+     "text": "Qwen = sound engineer",
+     "who": "agent"
+    }
+   ],
+   "now": [
+    {
+     "text": "DEFFLOW2 round 3 (bars, fixes)",
+     "who": "claude"
+    }
+   ],
+   "next": [
+    {
+     "text": "GAMETREE1 stage 1: test + gate",
+     "who": "claude"
+    },
+    {
+     "text": "Referee out on main (NOREF)",
+     "who": "claude"
+    },
+    {
+     "text": "Corner lens out of bodies",
+     "who": "claude"
+    },
+    {
+     "text": "Wire 7 owned takes into fight",
+     "who": "claude"
+    },
+    {
+     "text": "Playbook one page",
+     "who": "claude"
+    },
+    {
+     "text": "BJJ cards from 3D poses",
+     "who": "claude"
+    },
+    {
+     "text": "Listen: sound board round 0",
+     "who": "operator"
+    },
+    {
+     "text": "Play update 74",
+     "who": "operator"
+    }
+   ],
+   "session": "S385"
+  }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",

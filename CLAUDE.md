@@ -88,6 +88,9 @@ Questions for the operator go on the board (`python ops/Tools/agent_comms.py ask
 3b. The Miro production map (operator S323: "so i can always know what we work on and next"): move the cards between
    DONE / NOW / NEXT in P0 and the part frames P1-P9 (https://miro.com/app/board/uXjVEV03QWA=/, right of frame 11) and keep
    their scores honest; the ops board links them from roadmap.json `plan.maps`.
+   S385 operator ("a map similar to this ... updated on every session end or start"): the P0 "Where we are" frame
+   (DONE earlier / this session, NOW, NEXT) is drawn from `ops/Tools/where_we_are.py`. At START: `roll S<n>` + `now`;
+   at END: `done` / `drop` / `next`; both times redraw it with `where_we_are.py svg` and one canvas_update_from_svg.
 4. Memorize the session (memory) and say so in the handover.
 5. Ask the operator whether to hand over or keep going; the handover is ONE copy/paste block.
 

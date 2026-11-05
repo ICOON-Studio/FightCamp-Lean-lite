@@ -2638,6 +2638,18 @@ def start(args: argparse.Namespace) -> int:
         print("        `already_decided_do_not_reask`, `traps_that_each_cost_a_pass`")
         print("        or `rules_this_session_earned` - nothing else renders.")
 
+    # S385 operator: "i want a map similar to this for this project, needs to be updated on every session end or start".
+    _rule("P0 WHERE WE ARE (Miro) - redraw it NOW and again at your wrap-up")
+    try:
+        import where_we_are  # noqa: PLC0415
+        c = where_we_are.cards()
+        for k, title in (("done_session", "DONE in " + (c["session"] or "?")), ("now", "NOW"), ("next", "NEXT")):
+            print(f"  {title}: " + " | ".join(x["text"] for x in c[k]))
+    except Exception as exc:  # noqa: BLE001
+        print(f"  where_we_are failed: {exc}")
+    print("  START: python Tools/where_we_are.py roll S<n>  (this session's DONE -> Earlier), `now` your work, then")
+    print("         python Tools/where_we_are.py svg -> one canvas_update_from_svg (recipe: Tools/where_we_are_svg.py docstring).")
+    print("  END:   `done` each finished item (<= 34 chars), `drop` stale NOW/NEXT, `next` new ones, redraw the same way.")
     if not full:
         _rule("END OF SESSION")
         print("  A stage ships whole (digest, roadmap now, queue, memory, `ship`); the last message is the queue, then ONE")
