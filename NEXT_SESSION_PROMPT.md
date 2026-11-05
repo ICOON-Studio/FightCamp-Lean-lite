@@ -1,4 +1,18 @@
-# S386 - next session (written S385, 2026-11-05 evening; S384 was live beside it)
+# S386 - next session (written S385, 2026-11-05 late; S385 handed over at the operator's "prepare next session")
+
+ORDER FOR S386 (operator S385: "we need to save your tokens too ... are you using our free agents?" -> "Yes, use free seats"):
+FREE SEATS FIRST - Claude merges, judges films by eyes and decides; the reading/coding/research goes to free seats:
+  Grok Dev (own Godot 4.7.2 box, `python ops/Tools/gbot.py send --to dev --file <brief>`), Arena (cloud, full repo, PR),
+  Dola (cici.py), John/Kalli/Maria (gbot), Ollama local (gemma4 judge, qwen2.5:14b log digests), Cursor (Miro MCP after
+  the operator's `cursor-agent mcp login miro`; Composer 2.5 only; ~2% left until ~11-07), Qwen = sound engineer.
+ (1) GAMETREE1 stage 1 -> GROK DEV: branch claude/gametree1 (92b89ce5), plan ops/research/GAMETREE1_PLAN_S384.md +
+     GAMETREE1_TUNING_S384.md; run bjj_tree_test, bjj_tree_odds_test, bjj_tree_ui_test + the suite, fix, tune; Claude merges.
+ (2) DEFFLOW2 r3 films (E:/FightCamp/tmp/s385/defflow2/r3, films_r3.sh may still be running at handover): eyes at the
+     round-2 failure moments; if good, merge claude/defflow1 (main merged in, 164/164 at 7957a5fe + fixes).
+ (3) Collect FIGHT9R14 (run the FIXED probe from claude/fight9base on it by hand) and BJJ9R17 (operator: keep the BJJ9 loop
+     running on Cursor).
+ (4) NOREF (take fight9base's FightCast.crew + PushOff onto main) and the corner lens keep-out -> Arena brief.
+ (5) Redraw P0 Where we are at start (`where_we_are.py roll S386`) and at the end.
 
 START: `git pull && python ops/Tools/agent_comms.py start`, then `list_sessions` (S384 may still own GAMETREE1 + DEFFLOW2).
 
@@ -25,6 +39,16 @@ FIGHT9R14 + BJJ9R17 queued by the loop. claude/training1 MERGED 96d48da2 (suite 
 WeekPhase.ensure in WeekBoard.plan_of (Monday board of camp week 2+ drew week 1's film night), evenings_test case 6;
 skeptic (b) drag proven by a real mouse on a focused window (1-2 onto Friday pads -> 50/50 split, projections move;
 E:/FightCamp/tmp/s385/training/drag_mid.jpg + drag_dropped.jpg). LEAN_TRAINING1 worktree retired.
+DEFFLOW2 (S385 took it over from S384; claude/defflow1, wt E:/FightCamp/wt/LEAN_DEFFLOW1): AUDIT
+ops/research/DEFFLOW2_AUDIT_S385.md. Round 3 so far: main merged (7957a5fe; FootPlant = S383d core + DEFFLOW hooks,
+FootGeom.gd split, combo knee 2.45 vs main 2.85, suite 164/164); tools/drawn_bars.gd = bars on DRAWN bones (PoseTap last):
+on r3 WIP they FAILED where film failed (HIPS_V p99 2.64 m/s, TRUNK 28 frames, CROWN 5). Fixes 0cf7a289..: DefPose shown
+hips <= 1 m/s once a frame; CornerIK re-runs GloveClear.reclear after its clinch pose; glove over a head keeps 0.19 m.
+Now: HIPS_V p99 1.25 (bar 1.2; the 2.0 hw_v is clear() zeroing hips_world outside the stack - a bar artefact), TRUNK
+open 4 frames PASS (clinch head-on-shoulder 28 frames = main's Clinch, reported apart), CROWN 6 (mostly MISSES passing
+over a ducked head - PunchReach weights only landing hands; one static at 151.99), JAB_DROP pass. Round-3 films rendering
+to E:/FightCamp/tmp/s385/defflow2/r3 (films_r3.sh): eyes them at 76.6/97.45/0:35/3:17 equivalents before any merge.
+Career runs need the hidden desktop (the 3D fight never starts headless; a headless try hangs - kill it).
 NEXT: (1) collect FIGHT9R14/BJJ9R17. S385 FIXED the FIGHT9 probe on claude/fight9base 8720a3a0: the hinge check read the
 RAW clip (outside the modifier stack) and a toe-off frame read 153 deg, so no round could ever be kept. R14 launched 19:10
 on the OLD probe - when it lands, run the fixed probe on agy/fight9r14 (git show origin/claude/fight9base:tools/fight9_probe.gd)
