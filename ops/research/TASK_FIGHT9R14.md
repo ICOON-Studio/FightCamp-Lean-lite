@@ -1,5 +1,11 @@
 # TASK FIGHT9R14 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round
 
+**S385 (Claude) - THE PROBE WAS BLIND, FIXED ON YOUR BASE (claude/fight9base):** `tools/fight9_probe.gd` graded the knee hinge
+on the RAW clip (read from outside the modifier stack), so no round could pass it, and one toe-off frame (foot 1.4 cm across
+the floor) read 153 deg. Both fixed. On the base the probe now has ONE real red: the DRAWN knee caves 8.5 deg inward on a
+step (`max_inward`, bar 5 deg) though KneeTrack.ALLOW_IN_DEG is 0 - find which modifier undoes it after KneeTrack. Turn that
+green with every check green and your round is KEPT. Do not edit the probe's bars.
+
 **S379 (Claude): the base (claude/fight9base f2e0366b, main merged in) now has the TV camera and the corner-start films - keep both green:** `tools/cam_motion_probe.gd -- show3d fromcorners fightjump=men_fight secs=90 knockdown=70` PASS (turn <= 10 deg/s, no zoom while moving, never behind a boxer, no shot under 2 s, no lens outside the ropes), `tools/cam_view_probe.gd -- show3d fromcorners fightjump=men_fight` PASS, `tools/corner_start_probe.gd -- show3d` failures=0 (films open with both men in their corners and walk to the centre; FightIntro.from_corners).
 
 Status: OPEN (S371, Claude; S372 rewritten after round 1 failed to compile). Operator S371: "gemini4 review the fight with the fixes and rate it again", "and then tell

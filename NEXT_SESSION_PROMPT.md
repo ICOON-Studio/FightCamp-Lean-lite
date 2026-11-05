@@ -1,13 +1,34 @@
 # S386 - next session (written S385, 2026-11-05 evening; S384 was live beside it)
 
 START: `git pull && python ops/Tools/agent_comms.py start`, then `list_sessions` (S384 may still own GAMETREE1 + DEFFLOW2).
+
+S384 ENDED 2026-11-05 ~19:00 (operator "need to wrap up"): it HANDS OVER both items, neither merged.
+- GAMETREE1 stage 1 (operator "Yes, build stage 1"; spec ops/research/GAMETREE1_DESIGN_S384.md sec 9-10 on the branch):
+  claude/gametree1 tip 3ebb2206, wt E:/FightCamp/wt/LEAN_GAMETREE1, main (96d48da2) already merged in.
+  - Done: core (BjjTree/BjjOpp/BjjWalk/BjjOpen, assets/data/bjj_tree.json, Grapplers opens on the tree, week-report
+    paths/arrows/leak Drill/roll line, bjj_tree_test + bjj_tree_odds_test) and UI (Ana's one-page Playbook, 3 columns, MatTree
+    centre, bjj_tree_ui_test). Core was NEVER run in Godot (PC RED the whole gate window).
+  - Not done: Tune (tools/bjj_tree_balance.gd, bjj_tree_sim_test, TUNING.md draft in E:/FightCamp/tmp/s384/gametree1_build/;
+    last commit 3ebb2206 = its unrun WIP), 3 reviews, fix round, gate (full suite, export, WHAT_TO_TRY, scripted playthrough).
+  - Plan: E:/FightCamp/tmp/s384/gametree1_build/PLAN.md. First job: run the 3 bjj_tree tests + full suite, then the tune bars.
+- DEFFLOW2 (matched defences + FLOW; FLOW gate removed per operator "fix he mechanism", def 57 flows 0.112 of rounds):
+  claude/defflow1 tip ee0411b1, wt E:/FightCamp/wt/LEAN_DEFFLOW1. Round 2 FAILED all 4 eyes lenses
+  (verdicts in the S384 workflow journal; films E:/FightCamp/tmp/s384/defflow2/r2): corner camera inside Lucy 3:17,
+  a referee still walks in at 2:52 (must be gone), deep jab-range drop 0:35, bodies inside bodies career 76.6,
+  glove on a crown 97.45, late shallow hook duck, FLOW replay shows no flow, ropes parry lead foot travelling, duck root 2 m/s.
+  ee0411b1 = round-3 fixer WIP, unfilmed and untested. It has NOT merged main yet: main's owned-mocap2 FootPlant core
+  (d484f857) conflicts in FootPlant.gd + run_tests.sh - keep S383's step() core, put DEFFLOW's lock/why/dpose/rival-boot
+  keep-out hooks inside it, then re-measure tools/owned_mocap_jitter.gd (Punch PRO knee ~2.54) + FEET/RISE bars.
+  2 rounds failed on video: audit the code before another fix round (feedback rule).
 S385 DONE: loop PRs #38 #40-#44 closed (all dropped; #43 FIGHT9R13 5.5/10, #44 BJJ9R16 2.5/10 rejudged by Claude's eyes);
 FIGHT9R14 + BJJ9R17 queued by the loop. claude/training1 MERGED 96d48da2 (suite 158/158): skeptic (a) fixed -
 WeekPhase.ensure in WeekBoard.plan_of (Monday board of camp week 2+ drew week 1's film night), evenings_test case 6;
 skeptic (b) drag proven by a real mouse on a focused window (1-2 onto Friday pads -> 50/50 split, projections move;
 E:/FightCamp/tmp/s385/training/drag_mid.jpg + drag_dropped.jpg). LEAN_TRAINING1 worktree retired.
-NEXT: (1) collect FIGHT9R14/BJJ9R17; FIGHT9 RED_TEST fight9_probe fails EVERY round (6/7 checks), so no round can be
-kept - read the probe's 2 failures before spending more rounds; (2) wire the 7 owned takes into the fight after DEFFLOW2
+NEXT: (1) collect FIGHT9R14/BJJ9R17. S385 FIXED the FIGHT9 probe on claude/fight9base 8720a3a0: the hinge check read the
+RAW clip (outside the modifier stack) and a toe-off frame read 153 deg, so no round could ever be kept. R14 launched 19:10
+on the OLD probe - when it lands, run the fixed probe on agy/fight9r14 (git show origin/claude/fight9base:tools/fight9_probe.gd)
+and keep it by hand if all green and its film beats 6. The one real red left: drawn knee 8.5 deg inward on a step (bar 5); (2) wire the 7 owned takes into the fight after DEFFLOW2
 merges; (3) Playbook one page; (4) BJJ cards from 3D poses.
 
 # S385 - next session (written S383, 2026-11-05; S384 ran beside it and may add its own block)

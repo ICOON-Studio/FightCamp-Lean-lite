@@ -657,6 +657,11 @@ def judge(mp4: Path, what: str, intent: str) -> dict:
         cj = sh([sys.executable, ROOT / "Tools" / "claude_judge.py", mp4, "--kind", "bjj" if kind == "bjj" else "fight",
                  "--what", what, "--intent", intent], timeout=2400)
         log(f"JUDGE {what}: Gemini failed (rc {p.returncode}), Claude's eyes: {(cj.stdout or cj.stderr).strip()[-160:]}")
+        if not md.is_file():
+            # S385: Gemini AND Claude's eyes out (11-05 02:18: both, the loops held 16 h) - the local gemma4 on Ollama
+            oj = sh([sys.executable, ROOT / "Tools" / "ollama_judge.py", mp4, "--kind", "bjj" if kind == "bjj" else "fight",
+                     "--what", what, "--intent", intent], timeout=2400)
+            log(f"JUDGE {what}: Claude's eyes failed too, local Ollama: {(oj.stdout or oj.stderr).strip()[-160:]}")
     score, line = read_verdict(md.read_text(encoding="utf-8", errors="replace") if md.is_file() else "")
     return {"film": mp4.as_posix(), "verdict_file": md.as_posix() if md.is_file() else "", "score": score, "line": line,
             "rc": p.returncode, "err": "" if md.is_file() else (p.stdout + p.stderr)[-300:]}

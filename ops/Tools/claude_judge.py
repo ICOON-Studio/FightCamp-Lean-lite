@@ -78,8 +78,13 @@ def sheets(mp4: Path, out: Path, every: float) -> list[Path]:
     return got
 
 
+def out_dir(mp4: Path) -> Path:
+    """S385: <task>_<stem> - every loop film is after.mp4 / before.mp4, so the stem alone let BJJ9R16 overwrite FIGHT9R13."""
+    return WORK / f"{mp4.parent.name}_{mp4.stem}".replace(".", "_")
+
+
 def judge(mp4: Path, kind: str, what: str, intent: str, every: float = 10.0) -> Path | None:
-    out = WORK / mp4.stem.replace(".", "_")
+    out = out_dir(mp4)
     shots = sheets(mp4, out, every)
     if not shots:
         print(f"CLAUDE_JUDGE no contact sheets for {mp4}")
