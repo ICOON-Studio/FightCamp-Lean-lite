@@ -3,6 +3,8 @@ extends PanelContainer
 ## the moves she drilled, a new weapon, her ranking change; planned vs actual (S355); then money and the coach's word.
 ## S361 a reveal (Q-S294-86, ReviewReveal): the rows land one at a time, the week's biggest surprise lands last on a sticky
 ## note, alone; a click on the review shows everything at once.
+## S382 CARDFLIP1: the PADS row under the stats - the drill cards the pad and sparring nights drilled, before -> after, and a
+## card that crossed 30 / 60 / 85 turning over to its gold back (FlipCard) on the night that did it.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -15,6 +17,11 @@ const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
 const GrapplerPage := preload("res://scripts/ui/areas/GrapplerPage.gd")
 const Bar := preload("res://scripts/ui/Bar.gd")
+const PadReview := preload("res://scripts/rules/PadReview.gd")
+const FlipCard := preload("res://scripts/ui/FlipCard.gd")
+## S382 CARDFLIP1: a crossed card turns gold this long after its row lands (its bar has grown first), and the next row waits.
+const FLIP_AT := 0.75
+const FLIP_HOLD := 0.5
 
 const BODY_W := 940.0
 ## The review's body at most this tall (1080 less the modal's margins and the Next week row); past it, it scrolls.
@@ -28,6 +35,7 @@ var revealed := false
 
 var _seq: Array = []      # [Control, seconds] in landing order
 var _grow: Array = []     # [bar, frac, seconds]
+var _cards: Array = []    # [FlipCard, seconds its row lands] (S382 CARDFLIP1: the PADS row)
 var _tween: Tween
 
 
@@ -89,10 +97,12 @@ func build(main: Node, m: Dictionary) -> void:
 				cell.add_child(wl)
 			t = _land(stats, cell, t, step)
 		v.add_child(stats)
+		var on_pads := {}
+		t = _pads(c, v, fr, t, step, on_pads)
 		var notes: Array = []
 		var moved: Array = []
 		for mv in fr.get("moves", []):
-			if float(mv["after"]) - float(mv["before"]) >= 0.5:
+			if float(mv["after"]) - float(mv["before"]) >= 0.5 and not on_pads.has("move:" + str(mv["name"])):
 				moved.append("%s %d -> %d" % [mv["name"], roundi(float(mv["before"])), roundi(float(mv["after"]))])
 		if not moved.is_empty():
 			notes.append("Moves: " + ", ".join(moved))
@@ -184,6 +194,30 @@ func _land(parent: Node, c: Control, at: float, step: float) -> float:
 	return at + step
 
 
+## S382 CARDFLIP1 (TRAINING_SCREEN_S381.md 5.6): the PADS row - each drill card the nights drilled (PadReview.shown), its
+## bar growing before -> after, and a card that crossed 30 / 60 / 85 turning gold; the next row waits for the turn.
+## Fills `shown` with the card ids on the row (the Moves note leaves those out). Returns the next row's second.
+func _pads(c: Career, v: VBoxContainer, fr: Dictionary, t: float, step: float, shown: Dictionary) -> float:
+	var rows := PadReview.shown(fr.get("pads", []))
+	if rows.is_empty():
+		return t
+	var f := c.fighter_by_id(str(fr["id"]))
+	var row := UI.hbox(12)
+	row.name = "Pads_" + str(fr["id"])
+	var flips := false
+	for r in rows:
+		var card := FlipCard.make(f, r)
+		row.add_child(card)
+		_cards.append([card, t])
+		shown[str(r["card"])] = true
+		flips = flips or not (r["cross"] as Dictionary).is_empty()
+	var box := UI.vbox(4)
+	box.add_child(UI.caps("PADS"))
+	box.add_child(row)
+	t = _land(v, box, t, step)
+	return t + (FLIP_AT + FlipCard.FLIP_S + FLIP_HOLD if flips else 0.0)
+
+
 ## The week's surprise on a yellow sticky note, a little askew, in marker: red for an injury, marker blue for the rest.
 func _headline(head: Dictionary) -> PanelContainer:
 	var p := PanelContainer.new()
@@ -208,6 +242,11 @@ func _play() -> void:
 		end = maxf(end, float(s[1]))
 	for g in _grow:
 		_tween.tween_property(g[0], "frac", g[1], 0.6).set_delay(g[2]).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	for k in _cards:
+		_tween.tween_callback(k[0].grow).set_delay(k[1])
+		if k[0].back != null:
+			_tween.tween_callback(_turn.bind(k[0])).set_delay(float(k[1]) + FLIP_AT)
+		end = maxf(end, float(k[1]) + FLIP_AT + FlipCard.FLIP_S + FlipCard.PULSE_S)
 	_tween.tween_callback(func(): revealed = true).set_delay(end + ReviewReveal.FADE + 0.4)
 
 
@@ -218,6 +257,14 @@ func _pop(c: Control) -> void:
 	var sc := find_child("ReviewScroll", true, false) as ScrollContainer
 	if sc != null:
 		sc.ensure_control_visible(c)
+
+
+## A crossed card turns gold where she can see it (the review scrolls to it when it sits below the fold).
+func _turn(card: Control) -> void:
+	var sc := find_child("ReviewScroll", true, false) as ScrollContainer
+	if sc != null:
+		sc.ensure_control_visible(card)
+	card.flip()
 
 
 ## A click on the review while it plays: everything lands at once (a reveal is never a wait).
@@ -236,6 +283,8 @@ func finish() -> void:
 			_pop(s[0])
 	for g in _grow:
 		g[0].frac = g[1]
+	for k in _cards:
+		k[0].settle()
 	revealed = true
 
 

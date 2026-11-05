@@ -88,12 +88,23 @@ static func cap(id: String, moves: Dictionary, technique: float, ring_iq: float)
 	return minf(MoveMastery.cap(technique, ring_iq), lowest)
 
 
-static func drill(m: float, id: String, minutes: float, coach_skill: float, station_tier: int, cap_value: float) -> float:
+## S382 PADWEEK1: station "ring_sparring" for a sparring night's share (PadWeek); a float tier for the gym's pad upgrades.
+static func drill(m: float, id: String, minutes: float, coach_skill: float, station_tier: float, cap_value: float, station := "pads") -> float:
 	var r := row(id)
 	if r.is_empty():
 		return m
 	var n := float(r["moves"].size())
-	return MoveMastery.gain(m, "pads", minutes * 2.0 / n, coach_skill, station_tier, 1.0, cap_value)
+	return MoveMastery.gain(m, station, minutes * 2.0 / n, coach_skill, station_tier, 1.0, cap_value)
+
+
+## S382 PADWEEK1: the punch that holds a chain back - [move name, mastery] of its weakest (move names), [] when empty.
+static func held_by(moves: Dictionary, chain: Array) -> Array:
+	var out: Array = []
+	for mv in chain:
+		var m := float(moves.get(str(mv), 0.0))
+		if out.is_empty() or m < float(out[1]):
+			out = [str(mv), m]
+	return out
 
 
 static func fade(m: float, drilled: bool) -> float:

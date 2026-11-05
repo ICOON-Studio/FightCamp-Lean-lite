@@ -29,12 +29,18 @@ static func cap(technique: float, ring_iq: float) -> float:
 	return clampf(40.0 + 0.4 * technique + 0.2 * ring_iq, 50.0, 100.0)
 
 
+## S382 PADWEEK1: the technique her cap needs to reach `target` at this ring IQ (the card's "signature needs Technique 83").
+static func technique_for(target: float, ring_iq: float) -> float:
+	return (target - 40.0 - 0.2 * ring_iq) / 0.4
+
+
 ## Drills the move for `minutes` at `station` and returns the NEW mastery:
 ## rate * minutes/60 * station_tier/2 * coach x1.40 * room-left * efficiency.
 ## Unknown station -> no gain. The result never passes the cap and never drops
 ## below the mastery that walked in; an UNLEARNED move (m = 0) drilled for any
 ## positive gain starts at least at 1.0 (Ludo r115 tier table: M = 1 unlocks RAW).
-static func gain(m: float, station: String, minutes: float, coach_skill: float, station_tier: int, efficiency: float, cap_value: float) -> float:
+## S382 PADWEEK1: station_tier is a float (pads 2 today; a gym upgrade 2.2 / 2.4 pays x1.1 / x1.2).
+static func gain(m: float, station: String, minutes: float, coach_skill: float, station_tier: float, efficiency: float, cap_value: float) -> float:
 	var rate: float = float(GAIN_PER_HOUR.get(station, 0.0))
 	if rate <= 0.0:
 		return m

@@ -1,15 +1,16 @@
 extends SceneTree
 ## S375 COMBOPLAN1: his own combinations (OwnCombos) - planned on the Training tab, drilled on the week's pads (Sim), a
 ## signature at ComboWords.SIGNATURE_AT that lands whole more often and runs one punch past his hand speed in the ring
-## (Combos.pick), longer chains slower to own and dearer in gas, whole_by_round from his own tank. The planner card builds.
+## (Combos.pick), longer chains slower to own and dearer in gas, whole_by_round from his own tank. The tray shows them (S382).
 
 const Data := preload("res://scripts/state/Data.gd")
-const Sim := preload("res://scripts/state/Sim.gd")
+const DrillWeek := preload("res://scripts/state/DrillWeek.gd")
 const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
-const ComboPlanner := preload("res://scripts/ui/ComboPlanner.gd")
+const DrillTray := preload("res://scripts/ui/DrillTray.gd")
+const PadEdit := preload("res://scripts/rules/PadEdit.gd")
 
 var failures := 0
 
@@ -46,8 +47,8 @@ func _initialize() -> void:
 	f["own_combos"] = {"own:1": 20.0, "own:2": 40.0}
 	f["combos"] = {"1-2": 50.0}
 	f["combo_learning"] = "own:1"
-	Sim.drill_combos(c, f, 60.0)
-	_check(OwnCombos.mastery(f, "own:1") > 20.0, "Sim drills own:1 (%.1f)" % OwnCombos.mastery(f, "own:1"))
+	DrillWeek.run(c, f)   # S382 PADWEEK1: the coach's pad nights put the planned combination on Friday
+	_check(OwnCombos.mastery(f, "own:1") > 20.0, "the week drills own:1 (%.1f)" % OwnCombos.mastery(f, "own:1"))
 	_check(OwnCombos.mastery(f, "own:2") < 40.0 and float(f["combos"]["1-2"]) < 50.0, "the rest fade")
 	f["own_combos"]["own:1"] = 99.0
 	f["moves"]["Lead hook"] = 50.0
@@ -138,10 +139,13 @@ func _initialize() -> void:
 	f["plan_combo"] = ""
 	f["own_combos"] = {"own:1": 50.0, "own:2": 50.0, "own:3": 0.0}
 
-	# f. The planner card builds with a row per combination and a drill button.
-	var card := ComboPlanner.make(null, f)
-	_check(card.find_child("Own_own_1", true, false) != null and card.find_child("Drill_own_2", true, false) != null
-		and card.find_child("BuildCombo", true, false) != null, "the planner card: a row each, Drill and Build buttons")
+	# f. S382 DRILLCARD1: the Training tab's tray (it replaced the planner card) shows his own combinations as drill cards
+	# beside + Build a combination.
+	var cards := PadEdit.tray(f, {})
+	var card := DrillTray.make(null, f, cards, {}, func(_c): pass, func(_c): pass)
+	_check(cards.has("own:1") and cards.has("own:2") and card.find_child("Drill_own_1", true, false) != null
+		and card.find_child("Drill_own_2", true, false) != null and card.find_child("BuildCombo", true, false) != null,
+		"the tray: a drill card each, and Build (%s)" % str(cards))
 	card.free()
 	print("COMBO_PLAN failures=%d" % failures)
 	quit(1 if failures > 0 else 0)

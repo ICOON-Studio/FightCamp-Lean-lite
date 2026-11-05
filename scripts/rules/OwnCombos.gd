@@ -3,7 +3,7 @@ extends RefCounted
 ## planner should be in each fighters profile to plan his training combos (grappleflow format) 1-1 / step in / hook etc the
 ## longer the combination the better to become a signature move (good success rate), but long combos cost energy (can be
 ## thrown limited times)"). A chain saved in PLAYBOOK > Combos (ComboBuilder, f["book"]: {name, chain, score}) is his OWN
-## combination: it gets an id ("own:1"), its own pad mastery (f["own_combos"]), and Sim.drill_combos trains it when it is
+## combination: it gets an id ("own:1"), its own pad mastery (f["own_combos"]), and DrillWeek trains it when it is
 ## the combination he drills. Its steps and slips are the coach's cues; the ring throws its punches.
 ## - Usable at Combos.LEARN_AT (every punch in it a weapon too), a SIGNATURE at ComboWords.SIGNATURE_AT: drilling, not
 ##   length, makes the signature. A signature may run ONE punch past his hand-speed cap in the ring (Combos.pick), so a long
@@ -131,14 +131,15 @@ static func cap(f: Dictionary, e: Dictionary) -> float:
 
 
 ## One week's pad time on it: minutes split over every move in the chain (steps too: a longer chain takes longer to own).
-static func drill_week(f: Dictionary, id: String, minutes: float, skill: float, tier: int) -> float:
+## S382 PADWEEK1: PadWeek calls it a night at a time (minutes = that night's share); station "ring_sparring" on a spar night.
+static func drill_week(f: Dictionary, id: String, minutes: float, skill: float, tier: float, station := "pads") -> float:
 	var e := entry(f, id)
 	if e.is_empty():
 		return 0.0
 	if not f.has("own_combos"):
 		f["own_combos"] = {}
 	var n := float(maxi(1, (e["chain"] as Array).size()))
-	var after := MoveMastery.gain(mastery(f, id), "pads", minutes * 2.0 / n, skill, tier, 1.0, cap(f, e))
+	var after := MoveMastery.gain(mastery(f, id), station, minutes * 2.0 / n, skill, tier, 1.0, cap(f, e))
 	f["own_combos"][id] = after
 	return after
 

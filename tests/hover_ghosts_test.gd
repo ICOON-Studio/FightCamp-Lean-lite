@@ -9,7 +9,7 @@ extends SceneTree
 ##      card reads "same" (it changes who she spars, not the days); hovering commits nothing.
 ##   4. The whiteboard (jump=camp): THIS CAMP's ghost_day(dow, card) ghosts the week with that morning changed (the same
 ##      numbers as a dry run of that edit), the day's own card ghosts nothing, [] clears; a changed day's 'undo' ghosts the
-##      coach's card on hover; the morning's picker ghosts the card under the cursor (its focused item) and clears off the
+##      coach's card on hover; the morning's picker (S382: picture cards) ghosts the card under the cursor and clears off the
 ##      list or closed; hovering changes no plan.
 ## Population: hand-written forecasts (2); the jump=camp career (TestJump "camp": Lucy in camp, her bout booked) for 3-4.
 
@@ -110,7 +110,7 @@ func _board() -> void:
 	await _frames(3)
 	var b := main.find_child("WeekBoard", true, false)
 	var camp = b.find_child("Goal", true, false) if b != null else null
-	var gauge = camp.find_child("Gauges", true, false) if camp != null else null
+	var gauge = b.find_child("Gauges", true, false) if camp != null else null   # S382 DRILLCARD1: shown in the board's head
 	_check(gauge != null, "THIS CAMP has the gauge row")
 	if gauge == null:
 		return
@@ -143,7 +143,7 @@ func _board() -> void:
 	await _frames(3)
 	b = main.find_child("WeekBoard", true, false)
 	var undo := b.find_child("Undo_%d" % dow, true, false) as Button
-	gauge = b.find_child("Goal", true, false).find_child("Gauges", true, false)
+	gauge = b.find_child("Gauges", true, false)
 	dial = gauge.find_child("Gauge_legs", true, false).find_child("Dial", true, false)
 	_check(undo != null, "the changed day has 'undo'")
 	if undo != null:
@@ -154,26 +154,29 @@ func _board() -> void:
 		_check(is_nan(float(dial.get("ghost"))), "leaving 'undo' clears it")
 		undo.pressed.emit()
 		await _frames(3)
-	# The morning's picker: the item under the cursor (its focused item) ghosts that card; closing it clears.
+	# The morning's picker (S382 DRILLCARD1: 9 picture cards under the mornings): the card under the cursor ghosts it;
+	# leaving it clears; closing the picker clears.
 	b = main.find_child("WeekBoard", true, false)
-	var mag := b.find_child("Session_%d" % dow, true, false) as MenuButton
-	gauge = b.find_child("Goal", true, false).find_child("Gauges", true, false)
-	dial = gauge.find_child("Gauge_legs", true, false).find_child("Dial", true, false)
-	var pop := mag.get_popup()
-	var k := WeekPhase.cards().find(["rest", "normal"])
 	plan_before = f.get("week_edits", {}).duplicate(true)
-	pop.about_to_popup.emit()
-	pop.set_focused_item(k)
+	(b.find_child("Session_%d" % dow, true, false) as Button).pressed.emit()
+	await _frames(3)
+	b = main.find_child("WeekBoard", true, false)
+	gauge = b.find_child("Gauges", true, false)
+	dial = gauge.find_child("Gauge_legs", true, false).find_child("Dial", true, false)
+	var rest := b.find_child("Picker", true, false).find_child("Pick_rest", true, false) as Button
+	rest.mouse_entered.emit()
 	await create_timer(0.3).timeout
 	_check(is_equal_approx(float(dial.get("ghost")), float(want["legs"])), "the picker's Rest under the cursor ghosts it (%.1f)" % float(dial.get("ghost")))
-	pop.set_focused_item(-1)
+	rest.mouse_exited.emit()
 	await _frames(2)
-	_check(is_nan(float(dial.get("ghost"))), "off the list: no ghost")
-	pop.set_focused_item(k)
+	_check(is_nan(float(dial.get("ghost"))), "off the card: no ghost")
+	rest.mouse_entered.emit()
 	await _frames(2)
-	pop.popup_hide.emit()
-	await _frames(2)
-	_check(is_nan(float(dial.get("ghost"))), "closing the picker clears the ghost")
+	(b.find_child("Session_%d" % dow, true, false) as Button).pressed.emit()   # a second click closes it
+	await _frames(3)
+	b = main.find_child("WeekBoard", true, false)
+	dial = b.find_child("Gauges", true, false).find_child("Gauge_legs", true, false).find_child("Dial", true, false)
+	_check(b.find_child("Picker", true, false) == null and is_nan(float(dial.get("ghost"))), "closing the picker clears the ghost")
 	_check(f.get("week_edits", {}) == plan_before, "the picker's hover changes no plan")
 
 

@@ -10,14 +10,10 @@ const Membership := preload("res://scripts/rules/Membership.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
-const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const Region := preload("res://scripts/state/Region.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
-const Combos := preload("res://scripts/rules/Combos.gd")
-const ComboWords := preload("res://scripts/rules/ComboWords.gd")
-const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
@@ -34,19 +30,13 @@ const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
 const PushBack := preload("res://scripts/rules/PushBack.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
+## S382 PADWEEK1: the week's move and combo drilling, night by night (the old fixed 420 / 240 lumps are PadWeek's nights).
+const DrillWeek := preload("res://scripts/state/DrillWeek.gd")
+const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 
 ## Without a coach training runs at 60%: the coach factor 0.5 + r x 0.7 equals 0.6 at this rating.
 const NO_COACH_RATING := 100.0 / 7.0
 const STAT_CAP := 99.0
-## Move drilling a week: the move she is learning gets pad time (USABLE in 2 weeks with a coach, 3 without); each move a
-## week card drills gets bag time; the rest decay (MoveMastery.decay_week).
-const LEARN_STATION := "pads"
-const LEARN_MINUTES := 420.0
-const CARD_STATION := "heavy_bag"
-const CARD_MINUTES := 120.0
-const STATION_TIER := 2
-## S302 combos: the combo she is drilling gets this much pad time a week (on top of the move she is learning).
-const COMBO_MINUTES := 240.0
 
 
 static func coach_rating(career: Career) -> float:
@@ -129,7 +119,7 @@ static func week_ctx(career: Career, f: Dictionary) -> Dictionary:
 	return {"stats": f["stats"], "pot": int(f["pot"]), "coach": coach_rating(career), "weight": float(f["weight"]),
 		"diet": "cut" if cutting else "hold", "fatigue": float(f.get("week_fatigue", 20.0)), "phase": str(f.get("phase", "base")),
 		"twist_kg": float(WeekTwist.active(f).get("kg_day", 0.0)), "twist_fat": float(WeekTwist.active(f).get("fat_day", 0.0)),
-		"camp_stat": str(ev["stat"]), "eve_drill": float(ev["drill"]), "eve_load": float(ev["load"]),
+		"camp_stat": str(ev["stat"]), "eve_drill": float(ev["drill"]), "eve_load": float(ev["load"]), "camp_on": PadWeek.in_camp(f),
 		"camp_mult": BoutRules.camp_gain_mult(f.get("camp", {}), str(ev["stat"]))}
 
 
@@ -153,7 +143,7 @@ static func weigh_forecast(career: Career, f: Dictionary, bout_day: int) -> Dict
 		var tw := WeekTwist.active(g)
 		var days := WeekTwist.days(tw, WeekPlan.days_of(g))
 		var r := WeekPlan.full_day(str((days[dow] as Array)[0]), str((days[dow] as Array)[1]),
-			str(WeekTwist.evenings(tw, WeekPlan.evenings_of(g))[dow]), week_ctx(career, g), float(g.get("week_fatigue", 20.0)))
+			str(PadWeek.evenings(g)[dow]), week_ctx(career, g), float(g.get("week_fatigue", 20.0)))
 		var lo := minf(float(g["weight"]), lim - 1.5)
 		var hi := maxf(float(g["weight"]), lim + 1.6)
 		g["weight"] = clampf(float(g["weight"]) + float(r["kg"]), lo, hi)
@@ -166,7 +156,7 @@ static func weigh_forecast(career: Career, f: Dictionary, bout_day: int) -> Dict
 ## {stat: points a day} averaged over her week; a camp multiplies its focus by the protocol.
 static func daily_gain(career: Career, f: Dictionary) -> Dictionary:
 	var tw := WeekTwist.active(f)
-	var w := WeekPlan.week(WeekTwist.days(tw, WeekPlan.days_of(f)), week_ctx(career, f), WeekTwist.evenings(tw, WeekPlan.evenings_of(f)))
+	var w := WeekPlan.week(WeekTwist.days(tw, WeekPlan.days_of(f)), week_ctx(career, f), PadWeek.evenings(f))
 	var out: Dictionary = {}
 	for key in f["stats"].keys():
 		out[key] = float((w["gains"] as Dictionary).get(key, 0.0)) / 7.0 * BoutRules.camp_gain_mult(f.get("camp", {}), str(key))
@@ -187,7 +177,8 @@ static func step_day(career: Career) -> void:
 			twist_monday(career, f)
 		var tw := WeekTwist.active(f)
 		var days := WeekTwist.days(tw, WeekPlan.days_of(f))
-		var evs := WeekTwist.evenings(tw, WeekPlan.evenings_of(f))
+		var evs := PadWeek.evenings(f)   # S382 EVENINGS1: the strip's nights; an evening drawn REST rests
+		DrillWeek.note(career, f, dow)   # S382 PLANTRAY1 review: Sunday drills what this evening carried
 		if dow == 0:
 			f["week_planned"] = WeekActual.snapshot(WeekPlan.week(days, week_ctx(career, f), evs), WeekPlan.days_of(f), float(f["weight"]), career.day)
 			# S360 Q-S294-90: a camp week that starts with the opponent's line met is a week of preparation (WeekOpp).
@@ -273,108 +264,6 @@ static func _with_bjj(career: Career, income: Dictionary) -> Dictionary:
 	return income
 
 
-## One week of move drilling for one fighter. Returns {rows: [{name, before, after}], new_weapon: "" or the move}.
-static func drill_week(career: Career, f: Dictionary) -> Dictionary:
-	var moves: Dictionary = f["moves"]
-	var cap := MoveMastery.cap(float(f["stats"]["technique"]), float(f["stats"]["fight_iq"]))
-	var skill := float(career.coach.get("rating", 0.0))
-	var carded: Array = []
-	for card in f["cards"]:
-		if Data.CARD_MOVES.has(card):
-			carded.append(Data.CARD_MOVES[card])
-	var learning := str(f.get("learning", ""))
-	var pads := TrainingPlan.pads_factor(plan_of(career, f)) * float(WeekTwist.active(f).get("move_mult", 1.0))   # S351 pad rounds set the pace; S356 the twist
-	var rows: Array = []
-	var new_weapon := ""
-	for m in Data.MOVES:
-		var before := float(moves.get(m, 0.0))
-		var after := before
-		if m == learning and pads > 0.0:
-			after = MoveMastery.gain(before, LEARN_STATION, LEARN_MINUTES * pads, skill, STATION_TIER, 1.0, cap)
-		elif carded.has(m):
-			after = MoveMastery.gain(before, CARD_STATION, CARD_MINUTES, skill, STATION_TIER, 1.0, cap)
-		else:
-			after = MoveMastery.decay_week(before, false)
-		moves[m] = after
-		rows.append({"name": m, "before": before, "after": after})
-		if before < BoutRules.WEAPON_MASTERY and after >= BoutRules.WEAPON_MASTERY:
-			new_weapon = m
-	if (new_weapon != "" and new_weapon == learning) or learning == "":
-		# Next: the first move not yet a weapon; once all are, pad time sharpens her weakest one.
-		var next := ""
-		for m in Data.MOVES:
-			if float(moves[m]) < BoutRules.WEAPON_MASTERY:
-				next = m
-				break
-		if next == "":
-			for m in Data.MOVES:
-				if next == "" or float(moves[m]) < float(moves[next]):
-					next = m
-		f["learning"] = next
-		career.add_news("%s has a new weapon: the %s (%s)." % [f["first"], new_weapon.to_lower(),
-			MoveMastery.describe(new_weapon, float(moves[new_weapon]))])
-	var new_combo := drill_combos(career, f, skill)
-	return {"rows": rows, "new_weapon": new_weapon, "new_combo": new_combo}
-
-
-## S302 combos (operator: "Yes, build combos"): the combo she is drilling gets pad time, never sharper than its weakest
-## punch; the others fade slowly. When it turns USABLE, or none is set, the coach picks the next she can learn.
-static func drill_combos(career: Career, f: Dictionary, skill: float) -> String:
-	var moves: Dictionary = f["moves"]
-	if not f.has("combos"):
-		f["combos"] = {}
-	var combos: Dictionary = f["combos"]
-	var drilling := str(f.get("combo_learning", ""))
-	var pads := TrainingPlan.pads_factor(plan_of(career, f)) * float(WeekTwist.active(f).get("combo_mult", 1.0))
-	# S375 COMBOPLAN1 his own combination from the planner: the pad time goes to it until it is his signature.
-	if drilling.begins_with("own:"):
-		var oe := OwnCombos.entry(f, drilling)
-		if not oe.is_empty() and OwnCombos.missing(f, oe) == "":
-			for id in combos.keys():
-				combos[id] = Combos.fade(float(combos[id]), false)
-			var ob := OwnCombos.mastery(f, drilling)
-			var oa := OwnCombos.drill_week(f, drilling, COMBO_MINUTES * pads, skill, STATION_TIER) if pads > 0.0 else ob
-			if ob < Combos.LEARN_AT and oa >= Combos.LEARN_AT:
-				career.add_news("%s can throw the %s in a fight now (%s)." % [f["first"], oe["name"], Combos.describe("combination", oa)])
-			elif ob < ComboWords.SIGNATURE_AT and oa >= ComboWords.SIGNATURE_AT:
-				career.add_news("Signature: %s owns the %s - it lands whole more often, and fresh it runs one punch longer." % [f["first"], oe["name"]])
-				f["combo_learning"] = Combos.next_to_learn(moves, combos)
-			_fade_own(f, drilling)
-			return ""
-		drilling = ""
-	if drilling == "" or not Combos.unlocked(moves).has(drilling):
-		drilling = Combos.next_to_learn(moves, combos)
-	var ids: Array = combos.keys()
-	if drilling != "" and not ids.has(drilling):
-		ids.append(drilling)
-	var new_combo := ""
-	_fade_own(f, "")
-	for id in ids:
-		var before := float(combos.get(id, 0.0))
-		var after := Combos.fade(before, false)
-		if id == drilling and pads > 0.0:
-			var cap := Combos.cap(id, moves, float(f["stats"]["technique"]), float(f["stats"]["fight_iq"]))
-			after = Combos.drill(before, id, COMBO_MINUTES * pads, skill, STATION_TIER, cap)
-		combos[id] = after
-		# S303 Kalli K-COMBOWORDS1: the coach's words when it turns usable and when it becomes her signature.
-		if before < Combos.LEARN_AT and after >= Combos.LEARN_AT:
-			new_combo = id
-			career.add_news("%s can throw the %s in a fight now (%s). Coach: \"%s\"" % [f["first"], id, Combos.describe(id, after),
-				ComboWords.line(id, "coach_learning", str(f["first"]), career.day)])
-		elif before < ComboWords.SIGNATURE_AT and after >= ComboWords.SIGNATURE_AT:
-			career.add_news("Coach: \"%s\"" % ComboWords.line(id, "coach_signature", str(f["first"]), career.day))
-	f["combo_learning"] = Combos.next_to_learn(moves, combos) if new_combo == drilling else drilling
-	return new_combo
-
-
-## His own combinations fade slowly like the book's, except the one on the pads this week.
-static func _fade_own(f: Dictionary, drilled: String) -> void:
-	var own: Dictionary = f.get("own_combos", {})
-	for id in own.keys():
-		if str(id) != drilled:
-			own[id] = Combos.fade(float(own[id]), false)
-
-
 static func end_week(career: Career) -> void:
 	var week := int(floor((career.day - 1) / 7.0)) + 1
 	for f in career.fighters:
@@ -422,7 +311,7 @@ static func end_week(career: Career) -> void:
 		for key in Data.STATS:
 			rows.append({"st": key, "before": float(start.get(key, f["stats"][key])), "after": float(f["stats"][key]),
 				"why": WeekCause.words(f.get("week_src", {}), key)})
-		var drill := drill_week(career, f)
+		var drill := DrillWeek.run(career, f)
 		var plan := {}
 		var planned: Dictionary = f.get("week_planned", {})
 		var tw := WeekTwist.active(f)
@@ -438,7 +327,7 @@ static func end_week(career: Career) -> void:
 		var nt := WeekTwist.draw(week + 1 + career.fighters.find(f) * 31, str(f.get("twist", "")), fight_week, twist_needs(f, career))
 		# S361 some weeks her own ask takes the card's place (PushBack; never over the rare short-notice swap).
 		if not bool(nt.get("rare", false)):
-			var ask := PushBack.pick(f, week + 1, WeekPlan.days_of(f), WeekPlan.evenings_of(f), float(f.get("week_peak", 0.0)), str(f.get("twist", "")))
+			var ask := PushBack.pick(f, week + 1, WeekPlan.days_of(f), PadWeek.evenings(f, false), float(f.get("week_peak", 0.0)), str(f.get("twist", "")))
 			if ask != "":
 				nt = WeekTwist.card(ask)
 		WeekTwist.deal(f, nt)
@@ -449,7 +338,7 @@ static func end_week(career: Career) -> void:
 		if not award.is_empty():
 			# News, not mail: the week review shows it in gold (golden_path: mail counts mail, not every result).
 			career.add_news("%s passed the %s award: a medal and a certificate on the gym wall." % [f["first"], award["name"]], false)
-		reports.append({"id": f["id"], "name": f["name"], "rows": rows, "moves": drill["rows"], "new_weapon": drill["new_weapon"],
+		reports.append({"id": f["id"], "name": f["name"], "rows": rows, "moves": drill["rows"], "new_weapon": drill["new_weapon"], "pads": drill["review"],
 			"award": str(award.get("name", "")), "award_p": SkillAwards.progress(f), "bests": TestDay.record(f, career.day),
 			"bleep": [SkillAwards.bleep(float(start.get("conditioning", f["stats"]["conditioning"])), Data.sex_of(f)),
 				SkillAwards.bleep(float(f["stats"]["conditioning"]), Data.sex_of(f))]

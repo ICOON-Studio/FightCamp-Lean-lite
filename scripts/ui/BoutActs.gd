@@ -14,6 +14,10 @@ const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
+const PadWeek := preload("res://scripts/rules/PadWeek.gd")
+const PadEdit := preload("res://scripts/rules/PadEdit.gd")
+const PlanCards := preload("res://scripts/rules/PlanCards.gd")
+const DrillTray := preload("res://scripts/ui/DrillTray.gd")
 
 
 ## The fighter an action means: by id, else the open moment's, else the first.
@@ -44,6 +48,8 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			f[{"focus": "focus", "diet": "diet", "learn": "learning", "combo": "combo_learning", "trainload": "load_setting"}[name]] = parts[1] if parts.size() > 1 else parts[0]
 			if name == "focus":
 				f.erase("week_plan")   # S351 a new main = the coach's week for it
+			elif name == "combo":
+				PlanCards.drill_it(f, parts[1] if parts.size() > 1 else "")   # S382 in camp the slot alone drills nothing
 			main.render()
 		"weekplan":
 			# S351 one block more or less on a session: "fid|session|+1"; her main follows the biggest session.
@@ -76,6 +82,38 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			main.render()
 		"weekreset":
 			WeekPhase.clear(who(main, arg))
+			main.render()
+		"drill", "undrill", "padsplit", "drillit":
+			# S382 DRILLCARD1 the Training tab's pad nights (PadEdit): "fid|dow|card" a card onto a night, "fid|dow[|card]"
+			# a night cleared (or one card off it), "fid|dow" a split night's shares cycled, "fid|card" + drill it.
+			var parts := arg.split("|")
+			var f := who(main, parts[0])
+			var nights := PadWeek.nights_of(f)
+			match name:
+				"drill":
+					PadEdit.place(f, nights, int(parts[1]), parts[2])
+				"undrill":
+					if parts.size() > 2:
+						PadEdit.remove(f, nights, int(parts[1]), parts[2])
+					else:
+						PadEdit.clear(f, nights, int(parts[1]))
+				"padsplit":
+					PadEdit.cycle(f, nights, int(parts[1]))
+				"drillit":
+					PadEdit.drill_it(f, nights, parts[1])
+			DrillTray.picked = ""
+			main.render()
+		"nights":
+			# S382 DRILLCARD1 Light / Standard / Hard on the Training tab: "fid|0..2" - in camp the camp's protocol (1..3), else
+			# her training load; PadWeek.nights_for turns it into pad and sparring nights.
+			var parts := arg.split("|")
+			var f := who(main, parts[0])
+			var step := clampi(int(parts[1]), 0, 2)
+			if PadWeek.in_camp(f):
+				f["camp"]["protocol"] = step + 1
+				f["load_setting"] = BoutRules.camp_level(step + 1)
+			else:
+				f["load_setting"] = PadWeek.STEPS[step]
 			main.render()
 		"bodyfocus":
 			var parts := arg.split("|")

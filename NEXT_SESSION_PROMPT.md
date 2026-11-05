@@ -1,3 +1,15 @@
+# S386 - next session (written S385, 2026-11-05 evening; S384 was live beside it)
+
+START: `git pull && python ops/Tools/agent_comms.py start`, then `list_sessions` (S384 may still own GAMETREE1 + DEFFLOW2).
+S385 DONE: loop PRs #38 #40-#44 closed (all dropped; #43 FIGHT9R13 5.5/10, #44 BJJ9R16 2.5/10 rejudged by Claude's eyes);
+FIGHT9R14 + BJJ9R17 queued by the loop. claude/training1 MERGED 96d48da2 (suite 158/158): skeptic (a) fixed -
+WeekPhase.ensure in WeekBoard.plan_of (Monday board of camp week 2+ drew week 1's film night), evenings_test case 6;
+skeptic (b) drag proven by a real mouse on a focused window (1-2 onto Friday pads -> 50/50 split, projections move;
+E:/FightCamp/tmp/s385/training/drag_mid.jpg + drag_dropped.jpg). LEAN_TRAINING1 worktree retired.
+NEXT: (1) collect FIGHT9R14/BJJ9R17; FIGHT9 RED_TEST fight9_probe fails EVERY round (6/7 checks), so no round can be
+kept - read the probe's 2 failures before spending more rounds; (2) wire the 7 owned takes into the fight after DEFFLOW2
+merges; (3) Playbook one page; (4) BJJ cards from 3D poses.
+
 # S385 - next session (written S383, 2026-11-05; S384 ran beside it and may add its own block)
 
 START in E:\FightCamp\Lean: `git pull && python ops/Tools/agent_comms.py start`. The S382 prompt is in git history.

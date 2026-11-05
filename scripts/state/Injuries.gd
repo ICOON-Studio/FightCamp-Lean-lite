@@ -16,6 +16,7 @@ const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
+const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 
 ## The fight model's head damage is one number for the whole bout; InjuryRoll reads the WORST of the body's places. A bout
@@ -139,7 +140,9 @@ static func ratio(f: Dictionary) -> float:
 
 
 static func week_hours(f: Dictionary) -> float:
-	return WeekPlan.hours(WeekPlan.days_of(f), WeekPlan.evenings_of(f), float(BoutRules.camp_evening(f.get("camp", {}))["load"]))
+	# S382 EVENINGS1: the nights she runs (PadWeek.evenings, no twist: the plan's hours), the taper's pads at half
+	return WeekPlan.hours(WeekPlan.days_of(f), PadWeek.evenings(f, false), float(BoutRules.camp_evening(f.get("camp", {}))["load"]),
+		PadWeek.pad_share(f))
 
 
 ## Her usual weekly hours; an old save's 4-week history is read once as its average.

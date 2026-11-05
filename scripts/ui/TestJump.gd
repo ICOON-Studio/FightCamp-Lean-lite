@@ -15,6 +15,9 @@ extends RefCounted
 ##   FightCamp.exe -- jump=camp           S357 update 59: quick start, Lucy booked and her camp started, a choice twist dealt
 ##                                        (the short-notice swap when the bout is 2+ weeks out); opens on her Training tab -
 ##                                        the coach's whiteboard
+##   FightCamp.exe -- jump=training       S382 TRAINING1: quick start, no bout taken, week 1 played to its review and closed
+##                                        - Lucy between fights in week 2 (the Uppercut on Mon + Wed pads, the 1-1 on Fri);
+##                                        opens on her fighter page: the Training tab is the tester's click
 ##   FightCamp.exe -- jump=belt           S362 update 64: quick start, Ana Ribeiro's belt road (the no-gi Record tab)
 ##   FightCamp.exe -- jump=men            S371 update 68: quick start, then Danny Osei (a man, the men's lightweights) signed
 ##                                        through scouting, played on until his first men's offers arrive; opens on FIGHTS >
@@ -42,7 +45,8 @@ const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 const SAVE_PATH := "user://test_jump_save.json"
 const SCENE_JUMPS := {"grapple": "res://scenes/dev/GrappleBrowser.tscn", "strikemap": "res://scenes/dev/StrikeBrowser.tscn",
 	"theatre": "res://scenes/dev/GrappleTheatre.tscn"}
-const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp", "belt", "men", "men_fight", "gameplan"]
+const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp", "belt", "men", "men_fight", "gameplan",
+	"training"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
 ## S378 jump=gameplan: her own combinations (PLAYBOOK > Combos rows) and their pad time - the first a signature.
@@ -129,6 +133,16 @@ static func run(main: Node, jump: String) -> bool:
 		# He walks in at 61.6 kg for the 60 kg class; S374 Bouts.makeable_day dates his offer where his camp cut makes the
 		# scale, so he boxes as a player would leave him (S372 had to start him 1 kg over: he missed by 0.32 kg).
 		f = m
+	if jump == "training":
+		for i in 14:
+			if c.review_pending:
+				break
+			main.run_to_stop()
+		_tidy(main, c)
+		if not main.modal.is_empty():
+			main.act("close")
+		main.act("fighter", str(f["id"]))
+		return (f.get("bout", {}) as Dictionary).is_empty() and c.day >= 7
 	if jump == "pro":
 		f["w"] = 9
 		f["l"] = 1

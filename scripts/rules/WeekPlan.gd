@@ -47,8 +47,11 @@ const INTENSITY := {
 ## S354 step 1 evenings (Kalli: sparring is a weekly on/off, not a nightly pick; John: 1-2 sparring days a week, 3-8 rounds):
 ## pads and drills every evening but Sunday, sparring on Thursday (and Tuesday at two). The diet covers the evening work, so
 ## evenings move fatigue and skills, not weight. Boxing sparring MET 7.8 (Compendium), ~30 min = 4-6 rounds with rests.
+## S382 EVENINGS1: the evenings she runs are the strip's nights (PadWeek.evenings: 3 pad nights + the phase's sparring on
+## the coach's Standard week, not 5 + 1), so a pad night is a full club session - 75 min (was 45; a club evening runs
+## 60-90): the coach's week keeps its ~8 h and its fatigue (tools/evenings_balance.gd: Standard peak 70.4 vs 69.1).
 const EVENINGS := {
-	"pads": {"name": "Pads and drills", "stat": "", "met": 6.0, "min": 45.0, "rpe": 5.0},
+	"pads": {"name": "Pads and drills", "stat": "", "met": 6.0, "min": 75.0, "rpe": 5.0},
 	"sparring": {"name": "Sparring vs a partner", "stat": "fight_iq", "met": 7.8, "min": 30.0, "rpe": 7.0},
 	"rest": {"name": "Rest", "stat": "", "met": 0.0, "min": 0.0, "rpe": 0.0},
 	"film": {"name": "Film: the opponent's video with the coach", "stat": "", "met": 0.0, "min": 0.0, "rpe": 0.0},
@@ -56,6 +59,9 @@ const EVENINGS := {
 const SPAR_DAYS := [[], [3], [1, 3]]
 ## S381 C229 stage 2: the pad night film takes in a Build week - the first of these still on the pads.
 const FILM_DAYS := [1, 2, 4, 0, 5, 3]
+## S382 EVENINGS1: a camp's taper pad night is half a night (PadWeek.nights_for: half the drill minutes) - half its load,
+## its hours and its camp drill (full_day, hours).
+const TAPER_PADS := 0.5
 const SESSION_SHARE := 0.2
 const KCAL_PER_KG := 7700.0
 ## S356 fight week on a cut: the low-residue, low-glycogen diet of the last days drops the gut and glycogen water - ~0.5-1 %
@@ -101,6 +107,8 @@ static func ahead(f: Dictionary, day: int, weeks: int) -> Array:
 	return out
 
 
+## The evenings her phase gives (the spar pills, the phase's pad evenings, film's night) - the template PadWeek.nights_of
+## lays her nights on. S382 EVENINGS1: the evenings she RUNS are PadWeek.evenings (the strip's nights, the rest REST).
 static func evenings_of(f: Dictionary) -> Array:
 	var p := str(f.get("phase", "base"))
 	var camp: Dictionary = f.get("camp", {})
@@ -136,27 +144,29 @@ static func full_day(id: String, intensity: String, evening: String, ctx: Dictio
 	var tired := TIRED_GAIN if fatigue >= OVERREACHED else 1.0
 	var share := SESSION_SHARE * tired
 	# S380: in a camp the pads drill the camp's stat at the protocol's share (BoutRules.camp_evening; Light keeps plain pads)
-	var drill := float(ctx.get("eve_drill", 0.0))
+	var half := evening == "pads" and bool(ctx.get("camp_on", false)) and str(ctx.get("phase", "")) == "taper"
+	var px := TAPER_PADS if half else 1.0
+	var drill := float(ctx.get("eve_drill", 0.0)) * px
 	if evening == "pads" and drill > 0.0 and stats.has(str(ctx.get("camp_stat", ""))):
 		r["stat2"] = str(ctx["camp_stat"])
 		share = drill * tired
 	if r["stat2"] != "" and stats.has(r["stat2"]):
 		r["gain2"] = float(TrainingPreview.preview_gain(stats, int(ctx.get("pot", 70)), {"training_modifiers": [r["stat2"]]},
 			float(ctx.get("coach", 50.0)), 1.0, share).get(r["stat2"], 0.0))
-	r["fatigue"] = clampf(float(r["fatigue"]) + float(e["rpe"]) * float(e["min"]) * float(ctx.get("eve_load", 1.0)) / LOAD_PER_FATIGUE,
+	r["fatigue"] = clampf(float(r["fatigue"]) + float(e["rpe"]) * float(e["min"]) * px * float(ctx.get("eve_load", 1.0)) / LOAD_PER_FATIGUE,
 		0.0, 100.0)
 	return r
 
 
 ## The week's training hours for the injury model (TrainingLoad's chronic / ratio): mornings at their intensity's load,
-## evenings at face value (x eve_load in a camp, S380). The coach's week is ~8 h - amateur boxers train 8-15 h
-## (TrainingLoad, research S323).
-static func hours(days: Array, evenings: Array, eve_load: float = 1.0) -> float:
+## evenings at face value (x eve_load in a camp, S380; a pads evening x pad_x, the taper's half nights). The coach's week
+## is ~8 h - amateur boxers train 8-15 h (TrainingLoad, research S323).
+static func hours(days: Array, evenings: Array, eve_load: float = 1.0, pad_x: float = 1.0) -> float:
 	var mins := 0.0
 	for d in days:
 		mins += float(session(str(d[0]))["min"]) * float((INTENSITY.get(str(d[1]), INTENSITY["normal"]) as Dictionary)["load"])
 	for e in evenings:
-		mins += float((EVENINGS.get(str(e), EVENINGS["rest"]) as Dictionary)["min"]) * eve_load
+		mins += float((EVENINGS.get(str(e), EVENINGS["rest"]) as Dictionary)["min"]) * eve_load * (pad_x if str(e) == "pads" else 1.0)
 	return mins / 60.0
 
 

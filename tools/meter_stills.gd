@@ -33,7 +33,7 @@ func _initialize() -> void:
 		main.act("close")
 	main.act("fighter", "danny")
 	main.act("ftab", "3")
-	await _shot("m1_training.png", "ComboPlanner")
+	await _shot("m1_training.png", "DrillTray")
 	main.act("ftab", "1")
 	await _shot("m2_attributes.png", "")
 	main.act("ftab", "0")

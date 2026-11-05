@@ -107,6 +107,16 @@ func _initialize() -> void:
 			main.queue_free()
 			await process_frame
 			continue
+		if jump == "training":
+			# S382 TRAINING1: Lucy between fights in week 2, on her fighter page, the Uppercut on her Wednesday pads.
+			_check(ok and str(main.route.get("fighter", "")) == str(f["id"]) and (f.get("bout", {}) as Dictionary).is_empty()
+				and main.modal.is_empty() and main.save_path == TestJump.SAVE_PATH,
+				"training: week %d, no bout, her fighter page, no modal open" % (main.career.day / 7 + 1))
+			_check(float(f["moves"].get("Uppercut", 0.0)) > 10.0 and float(f["moves"].get("Uppercut", 0.0)) < 30.0,
+				"training: the Uppercut is part-learned (%.1f) - Wednesday's pads can still take it over 30" % float(f["moves"].get("Uppercut", 0.0)))
+			main.queue_free()
+			await process_frame
+			continue
 		if jump == "taperoom":
 			# S343 (Q-S294-68): in her camp with film study, the tape room opens on her opponent's films.
 			var room: Node = main.get_node_or_null("TapeRoom")

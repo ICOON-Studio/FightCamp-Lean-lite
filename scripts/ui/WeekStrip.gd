@@ -7,13 +7,15 @@ extends HBoxContainer
 ## Top of the FIGHT CAMP modal and the whiteboard header; it replaced the Build/Peak/Taper bar and "camp week 2 of 4".
 ## S382 G3 (gym idea 4): a sparring night used for a Playbook test (PlanTest, SparNights) darkens its glove pip to ink.
 ##   cells(bout_day, today, start, spar_now) -> [{to_go, phase, word, spar, now, past, future}]   last_spar(cells) -> index
-##   week_lines(phase, focus, film = this week holds the camp's one film night) -> 7 strings   make(f, opp, bout_day, today, start, focus, film, spar_now) -> WeekStrip
+##   week_lines(phase, focus, film = this week holds the camp's one film night, step, camp) -> 7 strings
+##   make(f, opp, bout_day, today, start, focus, film, spar_now, proto = the camp modal's pick, -1 = f's own) -> WeekStrip
 
 const UI := preload("res://scripts/ui/UI.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const SparNights := preload("res://scripts/rules/SparNights.gd")
+const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 
 const FACES := "res://assets/ui/face"
 const INK := Color("#1f2a44")
@@ -24,6 +26,8 @@ const EVENING := {"pads": "pads", "sparring": "sparring", "rest": "rest", "film"
 
 var _cells: Array = []
 var _focus := ""
+var _step := 1
+var _camp := true
 var _peek: PopupPanel
 
 
@@ -53,10 +57,13 @@ static func last_spar(cs: Array) -> int:
 	return at
 
 
-## The coach's week for a phase: "Mon  Normal roadwork - pads", one line a day (WeekPhase.week + WeekPlan.evenings_for).
-static func week_lines(p: String, focus: String, film: bool) -> Array:
+## The coach's week for a phase: "Mon  Normal roadwork - pads", one line a day (WeekPhase.week + the camp's nights at
+## step 0 Light / 1 Standard / 2 Hard - S382 EVENINGS1: PadWeek.lay, the evenings she runs; the others read rest). camp =
+## false: no camp protocol, her between-fights nights at that step (PadWeek.in_camp, as the sim reads it).
+static func week_lines(p: String, focus: String, film: bool, step := 1, camp := true) -> Array:
 	var days := WeekPhase.week(p, focus)
-	var evs := WeekPlan.evenings_for(WeekPhase.spar(p), WeekPhase.pads(p), WeekPhase.film_night(p, {"film": film}))
+	var evs := PadWeek.evenings_from(PadWeek.lay(step, camp, p,
+		WeekPlan.evenings_for(WeekPhase.spar(p), WeekPhase.pads(p), WeekPhase.film_night(p, {"film": film}))))
 	var out: Array = []
 	for i in 7:
 		out.append("%s  %s - %s" % [Clock.DAYS[i], WeekPhase.card(days[i]), EVENING.get(str(evs[i]), str(evs[i]))])
@@ -64,10 +71,18 @@ static func week_lines(p: String, focus: String, film: bool) -> Array:
 
 
 static func make(f: Dictionary, opp: Dictionary, bout_day: int, today: int, start: int, focus: String, _film: bool,
-		spar_now := -1) -> HBoxContainer:
+		spar_now := -1, proto := -1) -> HBoxContainer:
 	var s := new()
 	s.name = "WeekStrip"
 	s._focus = focus
+	# S382 EVENINGS1 review: the nights the sim will run - the camp modal's pick (proto), else the camp's own protocol, else
+	# (no camp) her between-fights load setting (PadWeek.step_of / in_camp, as Sim reads them)
+	var g := f
+	if proto >= 0:
+		g = f.duplicate()
+		g["camp"] = (f.get("camp", {}) as Dictionary).merged({"protocol": proto}, true)
+	s._step = PadWeek.step_of(g)
+	s._camp = PadWeek.in_camp(g)
 	s._cells = cells(bout_day, today, start, spar_now)
 	var used: Array = (f.get("bout", {}) as Dictionary).get("plan_test_nights", [])
 	for c in s._cells:   # S382 G3: the spar nights a test took, in the cell they fall in
@@ -165,7 +180,7 @@ func peek(i: int) -> void:
 	_peek.add_child(v)
 	v.add_child(UI.label("%s - THE COACH'S WEEK" % str(c["word"]), UI.SMALL, INK, "caps"))
 	# S382: a week to come never holds the film night - the camp's one film night is in the week it opens (WeekPhase.film_night)
-	for line in week_lines(str(c["phase"]), _focus, false):
+	for line in week_lines(str(c["phase"]), _focus, false, _step, _camp):
 		v.add_child(UI.label(line, UI.SMALL, UI.FG, "body"))
 	var b := get_child(i * 2) as Control
 	var at := Vector2i(b.get_screen_position() + Vector2(0, b.size.y + 6)) if b.is_inside_tree() else Vector2i.ZERO

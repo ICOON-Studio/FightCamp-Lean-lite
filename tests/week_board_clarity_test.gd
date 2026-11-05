@@ -1,8 +1,8 @@
 extends SceneTree
 ## S359 Kalli SQ25's whiteboard clarity fixes on the real board (jump=camp: Lucy in camp, a twist with two answers dealt):
 ## fatigue as words, LIGHT / NORMAL / HARD on the magnets, the weeks strip (S381 G2), COACH'S PICK and the
-## Monday rule, the grid dimmed until the twist is answered once, 'undo' on a changed day, a moved goal line shows its delta,
-## and hovering an answer previews the lines.
+## Monday rule, START HERE on the sticky until the twist is answered once (S382 DRILLCARD1: nothing dims any more), 'undo'
+## on a changed day, a moved goal line shows its delta, and hovering an answer previews the lines.
 ## Population: the jump=camp career (TestJump "camp") - one amateur in camp, her bout booked.
 
 const TestJump := preload("res://scripts/ui/TestJump.gd")
@@ -46,20 +46,29 @@ func _initialize() -> void:
 	_check(not " ".join(_texts(b)).contains("camp week"), "no 'camp week N of M' text")
 	# S382 G4: the gauge row heads THIS CAMP; the weight line, the fatigue-peak line and the injury row it replaced are gone,
 	# the diet pills stay.
+	# S382 DRILLCARD1: THIS CAMP's gauge row is shown in the board's head, beside Light / Standard / Hard.
 	var goal_col := b.find_child("Goal", true, false)
-	var gauges := goal_col.find_child("Gauges", true, false) if goal_col != null else null
+	var head := b.find_child("BoardHead", true, false)
+	var gauges := head.find_child("Gauges", true, false) if head != null else null
 	var col_words := " ".join(_texts(goal_col))
-	_check(gauges != null and gauges.get_child_count() == 3, "the gauge row in THIS CAMP")
+	_check(gauges != null and gauges.get_child_count() == 3, "the gauge row heads the board")
 	_check(goal_col != null and goal_col.find_child("Line_weight", true, false) == null and goal_col.find_child("Line_fatigue", true, false) == null
 		and not col_words.contains("FATIGUE PEAK") and not col_words.contains("INJURY RISK") and not col_words.contains("doubles the injury risk"),
 		"no weight / fatigue-peak / injury text beside the dials")
 	_check(goal_col != null and goal_col.find_child("Diet_cut", true, false) != null, "the diet pills stay")
-	var words := 0
+	# S382 DRILLCARD1: each morning card carries its index card (Tips: the tiredness as a word and number); a tired day
+	# also wears the word as a tag on its picture.
+	var cards := 0
+	var tags := 0
 	for i in 7:
-		var l := b.find_child("Fatigue_%d" % i, true, false) as Label
-		if l != null and WORDS.has(l.text) and not l.get_signal_connection_list("mouse_entered").is_empty():   # S359 its card (Tips)
-			words += 1
-	_check(words == 7, "seven days read their tiredness as a word with its card on hover (%d)" % words)
+		var s := b.find_child("Session_%d" % i, true, false) as Control
+		if s != null and not s.get_signal_connection_list("mouse_entered").is_empty():
+			cards += 1
+		var t := b.find_child("Fatigue_%d" % i, true, false)
+		if t != null:
+			tags += 1 if WORDS.has(str((t.get_child(0) as Label).text)) else 0
+	_check(cards == 7, "seven mornings carry their index card on hover (%d)" % cards)
+	_check(tags == b.find_children("Fatigue_*", "", true, false).size(), "a tired day's tag reads a fatigue word (%d)" % tags)
 	var roman := 0
 	for i in 7:
 		for t in _texts(b.find_child("Session_%d" % i, true, false)):
@@ -75,7 +84,8 @@ func _initialize() -> void:
 	_check(b.find_child("TwistRule", true, false) != null, "the sticky says no answer by Monday = the coach's pick")
 	var grid := b.find_child("Week", true, false) as Control
 	_check(WeekBoard.teaching(f) and b.find_child("StartHere", true, false) != null, "first open: START HERE on the sticky")
-	_check(grid != null and grid.get_parent().modulate.a < 0.5, "first open: the grid is dimmed")
+	# S382 DRILLCARD1 (TRAINING_SCREEN_S381 section 8): the 35 % dim gate is gone - the sticky says START HERE, nothing dims.
+	_check(grid != null and grid.modulate.a > 0.9 and grid.get_parent().modulate.a > 0.9, "first open: the strip is not dimmed")
 
 	# Hovering an answer previews where the lines land.
 	var camp := b.find_child("Goal", true, false)   # S362 THIS CAMP is WeekCamp.gd
@@ -90,9 +100,7 @@ func _initialize() -> void:
 	main.act("twistpick", "%s|%s" % [fid, "a"])
 	await _settle(2)
 	b = _board()
-	_check(bool(f.get("board_taught", false)), "answering the twist ends the teaching dim")
-	grid = b.find_child("Week", true, false) as Control
-	_check(grid.get_parent().modulate.a > 0.9, "the grid brightens once the twist is answered")
+	_check(bool(f.get("board_taught", false)) and b.find_child("StartHere", true, false) == null, "answering the twist ends START HERE")
 
 	# Change Sunday (the coach's rest) to Hard intervals: 'undo' appears and a goal line pulses its delta.
 	main.act("wday", "%s|6|intervals|hard" % fid)

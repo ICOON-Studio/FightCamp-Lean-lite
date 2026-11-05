@@ -133,15 +133,8 @@ func _test7() -> void:
 	var p2 := TP.step(TP.step(plan, "roadwork", 1), "roadwork", 1)
 	p2 = TP.step(TP.step(p2, "roadwork", 1), "roadwork", 1)
 	p2 = TP.step(p2, "roadwork", 1)   # 6 > the bag's 5
-	var no_pads := plan.duplicate()
-	no_pads["pads"] = 0
-	var lots := {}
-	for id in TP.IDS:
-		lots[id] = 0
-	lots["pads"] = 6
-	lots["shadow"] = 1
-	_check(TP.main_of(plan) == "heavy_bag" and TP.main_of(p2) == "roadwork" and is_equal_approx(TP.pads_factor(plan), 1.0)
-		and TP.pads_factor(no_pads) == 0.0 and TP.pads_factor(lots) == 2.0, "main follows the biggest session; pads factor 1 / 0 / 2")
+	# S382 PADWEEK1: the pads factor moved to PadWeek (pad nights / 3; tests/test_pad_week.gd).
+	_check(TP.main_of(plan) == "heavy_bag" and TP.main_of(p2) == "roadwork", "main follows the biggest session")
 
 
 ## 8. A broken or missing saved plan falls back to the coach's week for her focus.

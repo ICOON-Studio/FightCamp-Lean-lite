@@ -2,7 +2,6 @@ extends VBoxContainer
 ## One fighter's page: Overview, Attributes and moves, Body, Record, Camp, Contract and goals.
 
 const AwardCard := preload("res://scripts/ui/AwardCard.gd")
-const ComboPlanner := preload("res://scripts/ui/ComboPlanner.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
@@ -31,24 +30,36 @@ func build(main: Node, f: Dictionary) -> void:
 	add_theme_constant_override("separation", 14)
 	var c: Career = main.career
 	var g := Sim.goal_read(c, f)
-	add_child(UI.muted("FIGHTERS / Roster / %s" % f["name"], UI.SMALL))
-	var head := UI.hbox(16)
-	head.add_child(UI.display(str(f["name"]).to_upper(), 52))
-	var sub := UI.muted("%s, %d, %s, amateur %d-%d" % [f["wc"], f["age"], f["stance"], f["w"], f["l"]], UI.BODY)
-	sub.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	head.add_child(sub)
-	if not g.is_empty():
-		head.add_child(UI.chip("Goal: %s, %d days, %s" % [g["title"], g["left"], str(g["status"]).to_lower()], g["cls"]))
-	add_child(head)
-	var tabs := UI.hbox(4)
 	var t := int(main.route.get("ftab", 0))
+	var tabs := UI.hbox(4)
 	for i in TABS.size():
 		tabs.add_child(UI.button(TABS[i], "TabOn" if t == i else "Tab", main.act.bind("ftab", str(i))))
-	add_child(tabs)
-	var line := ColorRect.new()
-	line.color = UI.LINE
-	line.custom_minimum_size = Vector2(0, 1)
-	add_child(line)
+	var sub := UI.muted("%s, %d, %s, amateur %d-%d" % [f["wc"], f["age"], f["stance"], f["w"], f["l"]], UI.BODY)
+	if t == TRAINING_TAB:
+		# S382 training final proof: the week strip is the screen (TRAINING_SCREEN_S381.md section 3, the mockup's one
+		# title row) - name, her line and the tabs share one row so the PM nights sit above the fold at 1080.
+		var row := UI.hbox(24)
+		var who := UI.vbox(0)
+		who.add_child(UI.display(str(f["name"]).to_upper(), 36))
+		who.add_child(sub)
+		row.add_child(who)
+		tabs.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		row.add_child(tabs)
+		add_child(row)
+	else:
+		add_child(UI.muted("FIGHTERS / Roster / %s" % f["name"], UI.SMALL))
+		var head := UI.hbox(16)
+		head.add_child(UI.display(str(f["name"]).to_upper(), 52))
+		sub.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		head.add_child(sub)
+		if not g.is_empty():
+			head.add_child(UI.chip("Goal: %s, %d days, %s" % [g["title"], g["left"], str(g["status"]).to_lower()], g["cls"]))
+		add_child(head)
+		add_child(tabs)
+		var line := ColorRect.new()
+		line.color = UI.LINE
+		line.custom_minimum_size = Vector2(0, 1)
+		add_child(line)
 	match t:
 		0:
 			_overview(main, c, f, g)
@@ -82,10 +93,10 @@ func build(main: Node, f: Dictionary) -> void:
 				UI.kv("Plan", "cutting" if str(f["diet"]) == "cut" else "holding"), _injury_row(main.career, f)])
 		3:
 			# S354 CORE3: the week planner (WeekBoard) replaces the session-blocks board - the week now drives the sim.
-			# S370 GOALTESTS1: her road (the skills awards) and her engine (the bleep test) sit above the week that moves them.
-			add_child(AwardCard.make(c, f))
-			add_child(ComboPlanner.make(main, f))   # S375 COMBOPLAN1: his own combinations, drilled on the week's pads
+			# S382 DRILLCARD1: the tab opens on the week strip and its drill tray (the tray replaced the S375 combo planner);
+			# her road (the skills awards, S370 GOALTESTS1) sits below it.
 			add_child(WeekBoard.make(main, c, f))
+			add_child(AwardCard.make(c, f))
 		4:
 			var title := "RECORD: %d-%d AMATEUR" % [f["w"], f["l"]]
 			if bool(f.get("pro", false)):

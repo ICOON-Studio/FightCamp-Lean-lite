@@ -45,8 +45,9 @@ func _test_camp() -> void:
 	var ev3 := BoutRules.camp_evening({"focus": "power", "protocol": 3})
 	var ev1 := BoutRules.camp_evening({"focus": "power", "protocol": 1})
 	_check(float(ev0["drill"]) == 0.0 and float(ev0["load"]) == 1.0, "no camp: plain evenings")
-	_check(str(ev3["stat"]) == "power" and is_equal_approx(float(ev3["drill"]), 0.09) and is_equal_approx(float(ev3["load"]), 1.2),
-		"a Hard camp's pads drill its stat at 0.09, evenings x1.2")
+	# S382 EVENINGS1: per pad night (the strip's 3 Hard nights, not 5); Hard's volume is its third night, not a x1.2
+	_check(str(ev3["stat"]) == "power" and is_equal_approx(float(ev3["drill"]), 0.14) and is_equal_approx(float(ev3["load"]), 1.0),
+		"a Hard camp's pad nights drill its stat at 0.14, evenings x1.0")
 	_check(float(ev1["drill"]) == 0.0 and is_equal_approx(float(ev1["load"]), 0.75), "a Light camp keeps plain pads, evenings x0.75")
 	_check(BoutRules.stale_energy(50.0) == 0.0 and is_equal_approx(BoutRules.stale_energy(54.0), 8.0) and BoutRules.stale_energy(75.0) == 20.0,
 		"heavy legs: 0 at 50 fatigue, 8 at 54, capped 20")

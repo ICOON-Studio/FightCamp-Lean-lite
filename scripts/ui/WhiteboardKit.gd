@@ -3,8 +3,8 @@ extends RefCounted
 ## fighter's Training tab is drawn with - the board in its frame, marker and hand-written words, the magnets a session is,
 ## the fight date circled in red, the sticky note, a day's fatigue bar. Colour only means risk: ink by default, amber near
 ## the line, red over it.
-##   board_style() -> the board in its frame   ink(text, size, kind, colour) -> Label   magnet(text, roman, dark, tip) -> PanelContainer
-##   pick_magnet(text, roman, dark, tip, items, on_pick) -> MenuButton   circled(top, under) -> Control   sticky() -> PanelContainer
+##   board_style() -> the board in its frame   ink(text, size, kind, colour) -> Label   circled(top, under) -> Control
+##   sticky() -> PanelContainer   (S382 DRILLCARD1: the magnets and their 25-card pick list went with the old week grid)
 ##   tape_chip(text) -> PanelContainer   Fatigue (bar)   roman(intensity)   risk_colour(v)
 ##   level(intensity) -> LIGHT|NORMAL|HARD   fatigue_word(v, red) -> [word, tip, colour]
 
@@ -15,9 +15,6 @@ const FRAME := Color("#3b3430")      # its frame
 const INK := Color("#1f2a44")        # navy marker
 const PENCIL := Color("#6b7280")     # the lighter hand
 const RED := Color("#c8312a")        # the red marker: the date, risk
-const MAGNET := Color("#ffffff")
-const DOT_DARK := Color("#1f2a44")
-const DOT_LIGHT := Color("#9fb3dc")
 const AMBER_AT := 70.0
 const RED_AT := 80.0
 
@@ -65,60 +62,6 @@ static func risk_colour(v: float) -> Color:
 	return RED if v >= RED_AT else (UI.AMBER if v >= AMBER_AT else INK)
 
 
-static func _pill(dark: bool) -> StyleBoxFlat:
-	var s := UI.box(MAGNET, Color("#d8d4cb"), 18, 1, 10, 6)
-	s.shadow_color = Color(0, 0, 0, 0.18)
-	s.shadow_size = 3
-	s.shadow_offset = Vector2(0, 2)
-	return s
-
-
-## A magnet that is only shown (the evening): a dot, the words, the intensity in roman numerals.
-static func magnet(text: String, rom: String, dark: bool, tip: String) -> PanelContainer:
-	var p := PanelContainer.new()
-	p.add_theme_stylebox_override("panel", _pill(dark))
-	p.tooltip_text = tip
-	var h := UI.hbox(6)
-	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	p.add_child(h)
-	h.add_child(_Dot.new(dark))
-	var w := ink(text, UI.SMALL, "hand", INK, true)
-	w.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	w.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	h.add_child(w)
-	if rom != "":
-		var r := ink(rom, UI.SMALL, "handbold", INK)
-		r.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		h.add_child(r)
-	return p
-
-
-## A magnet you move (the morning): click it for every card ([label, arg] items); on_pick gets the item's arg.
-static func pick_magnet(text: String, rom: String, dark: bool, tip: String, items: Array, current: int, on_pick: Callable) -> MenuButton:
-	var b := MenuButton.new()
-	b.flat = false
-	b.text = ""
-	b.tooltip_text = tip
-	for k in ["normal", "hover", "pressed", "focus"]:
-		var s := _pill(dark)
-		if k == "hover" or k == "pressed":
-			s.border_color = UI.GOLD
-			s.set_border_width_all(2)
-		b.add_theme_stylebox_override(k, s)
-	var inner := magnet(text, rom, dark, tip)
-	inner.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
-	inner.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	inner.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	b.add_child(inner)
-	b.custom_minimum_size = Vector2(0, 40)
-	var pop := b.get_popup()
-	for i in items.size():
-		pop.add_radio_check_item(str(items[i][0]), i)
-		pop.set_item_checked(i, i == current)
-	pop.id_pressed.connect(func(id): on_pick.call(items[id][1]))
-	return b
-
-
 ## The fight date, circled in red marker; `under` in hand below it.
 static func circled(top: String, under: String) -> Control:
 	var c := _Circle.new()
@@ -153,19 +96,6 @@ static func tape_chip(text: String) -> PanelContainer:
 	p.add_child(UI.label(text, UI.SMALL, Color.WHITE, "caps"))
 	p.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	return p
-
-
-class _Dot extends Control:
-	var dark := false
-
-	func _init(d: bool) -> void:
-		dark = d
-		custom_minimum_size = Vector2(16, 16)
-		size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-	func _draw() -> void:
-		draw_circle(size * 0.5, 8.0, DOT_DARK if dark else DOT_LIGHT)
 
 
 class _Circle extends Control:

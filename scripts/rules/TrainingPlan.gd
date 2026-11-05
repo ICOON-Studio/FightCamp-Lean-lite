@@ -10,7 +10,7 @@ extends RefCounted
 ## PARTNER / OTHER shares. Between those points time pays more the more it is concentrated (a focus works); past a third
 ## of the week it pays less (one thing all week stops adding). A week never builds more than the default week in total
 ## (TOTAL_CAP): moving time reshapes her gains, it does not create them.
-## The pads' share sets how fast the new move and the combo come (pads_factor; 0 blocks = no new move this week).
+## S382 PADWEEK1: the move and combo pace is the pad NIGHTS now (PadWeek.pads_factor = pad nights / 3), not the pads' share.
 ## Pure static module - ZERO preloads.
 
 const IDS := ["sparring", "neck", "shadow", "heavy_bag", "speed_bag", "pads", "slip_rope", "roadwork"]
@@ -153,12 +153,6 @@ static func main_of(plan: Dictionary) -> String:
 
 static func main_stat(plan: Dictionary) -> String:
 	return str(STAT_OF.get(main_of(plan), ""))
-
-
-## Pad time against the default week's: 1.0 = the usual pace for the new move and the combo, 0 = none, at most 2.
-static func pads_factor(plan: Dictionary) -> float:
-	var usual := float(PADS_BLOCKS) / float(DEFAULT_TOTAL)
-	return clampf(float(shares(plan)["pads"]) / usual, 0.0, 2.0)
 
 
 ## The amount on the card: "12 rounds", "31 km", "40 min" (0 = "off").

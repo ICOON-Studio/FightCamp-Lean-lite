@@ -61,7 +61,8 @@ func build(main: Node, m: Dictionary) -> void:
 	head.add_child(UI.display("FIGHT CAMP", 46))
 	# S382 G4: the cut to the limit is the SCALE dial's (the gauge row), no longer said here
 	head.add_child(UI.label("%d days to fight night. Pick what the camp builds." % int(mine["days"]), 19, CampCard.SUB, "body", true))
-	top.add_child(WeekStrip.make(f, opp, bout_day, c.day, int((f.get("camp", {}) as Dictionary).get("start", c.day)), focus, film))
+	top.add_child(WeekStrip.make(f, opp, bout_day, c.day, int((f.get("camp", {}) as Dictionary).get("start", c.day)), focus, film,
+		-1, proto))   # S382 EVENINGS1 review: a week's peek shows the picked protocol's nights (CampForecast runs proto too)
 	_gap(v, 16)
 	var grid := UI.hbox(34)
 	v.add_child(grid)

@@ -6,6 +6,7 @@ extends RefCounted
 ## days a week): BASE no bout booked; BUILD 3+ weeks out (the camp's stat Hard once); PEAK two weeks out (the hardest week,
 ## sparring twice); TAPER fight week (light, three rest days, no sparring).
 ##   phase(bout, day) -> id   sync(f, day) (f["phase"]; edits from another phase are dropped)   week(phase, focus) -> 7 days
+##   ensure(f, day) -> sync unless the phase is already this week's
 ##   spar(phase) / pads(phase) -> sparring / pad nights   film_night(phase, camp, day) -> the camp's one film night is this week   card(day) -> "Hard intervals"   cards() -> [[id, intensity] x every card]
 ##   edit(f, dow, day_pick) / edit_spar(f, n) / edits(f) -> {days: {dow: [id, int]}, spar}   clear(f)
 ## Pure static; f keys: phase, week_edits {phase, days {"0".."6": [id, intensity]}, spar}.
@@ -52,6 +53,16 @@ static func sync(f: Dictionary, day: int) -> String:
 	if not e.is_empty() and str(e.get("phase", "")) != p:
 		f.erase("week_edits")
 	return p
+
+
+## S385 (training1 skeptic): the board of a Monday is drawn BEFORE Sim.step_day's Monday sync, so it read last week's
+## phase (camp week 2: Tue FILM + Wed REST drawn, the sim then ran Mon+Wed pads). Bring the phase to `day`'s week first;
+## a phase already synced this week (Monday's step, a bout booked mid-week) is left alone, its week_edits kept.
+static func ensure(f: Dictionary, day: int) -> String:
+	var pd := int(f.get("phase_day", -1000000))
+	if not f.has("phase") or pd - posmod(pd, 7) != day - posmod(day, 7):
+		return sync(f, day)
+	return str(f["phase"])
 
 
 static func week(p: String, focus: String) -> Array:

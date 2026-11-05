@@ -13,11 +13,15 @@ extends RefCounted
 ## the club's own nights cost coach evenings and risk, not cash (a club coach does not bill his own boxer). S381 C229
 ## stage 4: the flat edges halved (0.5 / 1.2 / 2.0 -> 0.25 / 0.6 / 1.0; NO_CAMP_EDGE stays -1.5) - the value moved into the
 ## matchup (film answers, the southpaw mate, the stat thresholds the focus card crosses); tools/camp_film_balance.gd.
+## S382 EVENINGS1: the camp runs only the strip's pad nights (PadWeek: 2 / 2 / 3 a week, the taper's at half), not 5, so
+## drill is per NIGHT: Standard 0.05 -> 0.115, Hard 0.09 -> 0.14 (a 25-day power camp: +2.06 / +2.98 vs +2.06 / +3.03
+## before), and Hard's load 1.2 -> 1.0 - its extra volume is now a real third pad night (at 1.2 it peaked 84, overreached;
+## at 1.0 76.1 vs 74.6 before). tools/evenings_balance.gd.
 const PROTOCOLS := [
 	{"name": "None", "cost": 0, "focus": 1.0, "edge": 0.0, "drill": 0.0, "load": 1.0, "level": "normal", "nights": 0, "blurb": ""},
 	{"name": "Light", "cost": 0, "focus": 1.1, "edge": 0.25, "drill": 0.0, "load": 0.75, "level": "light", "nights": 3, "blurb": "3 nights, spar 1 a week"},
-	{"name": "Standard", "cost": 0, "focus": 1.2, "edge": 0.6, "drill": 0.05, "load": 1.0, "level": "normal", "nights": 4, "blurb": "4 nights, spar 2 a week"},
-	{"name": "Hard", "cost": 0, "focus": 1.35, "edge": 1.0, "drill": 0.09, "load": 1.2, "level": "hard", "nights": 5, "blurb": "5 nights a week"},
+	{"name": "Standard", "cost": 0, "focus": 1.2, "edge": 0.6, "drill": 0.115, "load": 1.0, "level": "normal", "nights": 4, "blurb": "4 nights, spar 2 a week"},
+	{"name": "Hard", "cost": 0, "focus": 1.35, "edge": 1.0, "drill": 0.14, "load": 1.0, "level": "hard", "nights": 5, "blurb": "5 nights a week"},
 ]
 ## S380 fight night: camp fatigue still carried into the ring empties the tank at the first bell (Halperin, Hughes &
 ## Chapman 2016: punch impact -4 to -7 % when camp fatigue had not cleared). Under FRESH_FATIGUE reads FRESH

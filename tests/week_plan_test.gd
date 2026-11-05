@@ -4,6 +4,7 @@ extends SceneTree
 
 const WP := preload("res://scripts/rules/WeekPlan.gd")
 const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
+const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 
 var _fails := 0
 
@@ -44,14 +45,17 @@ func _initialize() -> void:
 	_check(float(hold["peak"]) < WP.OVERREACHED and (hold["red"] as Array).is_empty(), "coach's week peaks at %.0f, no red day" % float(hold["peak"]))
 	var greedy := [["intervals", "hard"], ["roadwork", "hard"], ["heavy_bag", "hard"], ["intervals", "hard"],
 		["roadwork", "hard"], ["strength", "hard"], ["rest", "normal"]]
-	var ev := WP.evenings_for(1)
+	# S382 EVENINGS1: the evenings she runs are the strip's nights - the coach's Standard week: Mon / Wed / Fri pads, Thu spar
+	var tpl := WP.evenings_for(1)
+	var ev := PadWeek.evenings_from(PadWeek.lay(1, false, "base", tpl))
+	_check(ev == ["pads", "rest", "pads", "sparring", "pads", "rest", "rest"], "the coach's week runs the strip's nights: %s" % [ev])
 	var g := WP.week(greedy, _ctx(), ev)
 	var g2 := WP.project(greedy, _ctx(), 2, ev)
 	_check(float(g["peak"]) < WP.OVERREACHED and float(g2["peak"]) >= WP.OVERREACHED and (g["red"] as Array).size() == 5,
 		"six hard mornings: week 1 peaks %.0f, week 2 overreaches (%.0f); five red days" % [float(g["peak"]), float(g2["peak"])])
 	var c4 := WP.project(WP.COACH_WEEK, _ctx(), 4, ev)
 	_check(float(c4["peak"]) < 72.0, "the coach's week + evenings over a 4-week camp stays under 72 (%.0f)" % float(c4["peak"]))
-	_check(ev == ["pads", "pads", "pads", "sparring", "pads", "pads", "rest"] and WP.evenings_for(2)[1] == "sparring"
+	_check(tpl == ["pads", "pads", "pads", "sparring", "pads", "pads", "rest"] and WP.evenings_for(2)[1] == "sparring"
 		and not WP.evenings_for(0).has("sparring"), "sparring nights: 1 = Thursday, 2 = Tuesday + Thursday, 0 = none")
 	var spar := WP.full_day("rest", "normal", "sparring", _ctx(), 20.0)
 	_check(float(spar["gain2"]) > 0.0 and str(spar["stat2"]) == "fight_iq" and float(spar["kg"]) > 0.0,
