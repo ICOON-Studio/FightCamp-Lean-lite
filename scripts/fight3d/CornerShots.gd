@@ -106,8 +106,101 @@ static func frame_at(pos: Vector3, look: Vector3, fov: float, x: float) -> Vecto
 ## distance it lost so the framing holds; a drift that would leave the ring is cut short. Returns the framing.
 const HALF_M := 2.75 - 0.25   # FightStage.RING_M * 0.5, less a rope's reach
 
+## S386 CORNERLENS1: the corner minute's lens never sits inside a body.
+const KEEP_M := 0.45
 
-static func inside(fr: Dictionary) -> Dictionary:
+
+## S386: collect Head/Neck/UpperChest/LeftShoulder/RightShoulder for every person near the lens.
+static func body_points(ctx: Dictionary) -> Array:
+	var pts: Array = []
+	var bones := ["Head", "Neck", "UpperChest", "LeftShoulder", "RightShoulder"]
+	for key in ["her", "coach", "blue_coach"]:
+		if ctx.has(key) and ctx[key] != null:
+			var actor: Dictionary = ctx[key]
+			for b in bones:
+				var bp: Vector3 = bone(actor, b)
+				if bp != Vector3.INF:
+					pts.append(bp)
+	return pts
+
+
+## S386 CORNERLENS1: if the lens pos (or pos + drift) is closer than KEEP_M to any body point, move the lens AWAY from
+## that point along the look->pos line (back off from the look point) until every point is >= KEEP_M, staying inside the
+## ropes. Narrow fov by the distance gained so the framing holds (inverse of inside()'s widen formula; clamp 15-70 deg).
+## Update focus if > 0. If no position on that line satisfies both, keep the nearest-to-valid one and set blocked = true.
+static func keep_out(fr: Dictionary, bodies: Array) -> Dictionary:
+	if fr.is_empty() or not fr.has("pos") or bodies.is_empty():
+		return fr
+	var p: Vector3 = fr["pos"]
+	var look: Vector3 = fr["look"]
+	var dir := (p - look).normalized()
+	if dir.length() < 0.01:
+		return fr
+	var d0 := p.distance_to(look)
+	var move := 0.0
+	for bp in bodies:
+		var body_pt: Vector3 = bp
+		var dist := p.distance_to(body_pt)
+		if dist < KEEP_M:
+			var need := KEEP_M - dist
+			var away := (p - body_pt).normalized()
+			var proj: float = away.dot(dir)
+			if proj > 0.01:
+				move = maxf(move, need / proj)
+			else:
+				move = maxf(move, need * 2.0)
+	if move > 0.0:
+		var new_p := p + dir * move
+		var blocked := false
+		if not _in(new_p):
+			var q: Vector3 = p
+			var found := false
+			for i in 40:
+				var t := float(i + 1) / 40.0
+				var candidate := p.lerp(new_p, t)
+				if not _in(candidate):
+					q = p.lerp(new_p, float(i) / 40.0)
+					blocked = true
+					found = true
+					break
+			if not found:
+				q = new_p
+			fr["pos"] = q
+		else:
+			fr["pos"] = new_p
+		if blocked:
+			fr["blocked"] = true
+		var final_p: Vector3 = fr["pos"]
+		var d1 := final_p.distance_to(look)
+		var fov0: float = float(fr.get("fov", 0.0))
+		if fov0 > 0.0 and d1 > 0.2 and d0 > 0.01:
+			var fov1 := rad_to_deg(2.0 * atan(tan(deg_to_rad(fov0) * 0.5) * d0 / d1))
+			fr["fov"] = clampf(fov1, 15.0, 70.0)
+		if float(fr.get("focus", 0.0)) > 0.0:
+			fr["focus"] = d1
+	var final_p: Vector3 = fr["pos"]
+	var dr: Vector3 = fr.get("drift", Vector3.ZERO)
+	for i in 10:
+		if _in(final_p + dr) and _drift_clear(final_p + dr, bodies):
+			break
+		dr *= 0.6
+	fr["drift"] = dr if (_in(final_p + dr) and _drift_clear(final_p + dr, bodies)) else Vector3.ZERO
+	return fr
+
+
+## S386: true if the drift end is >= KEEP_M from every body point.
+static func _drift_clear(end_p: Vector3, bodies: Array) -> bool:
+	for bp in bodies:
+		if end_p.distance_to(bp) < KEEP_M:
+			return false
+	return true
+
+
+static func _in(p: Vector3) -> bool:
+	return absf(p.x) <= HALF_M and absf(p.z) <= HALF_M
+
+
+static func inside(fr: Dictionary, bodies: Array = []) -> Dictionary:
 	if fr.is_empty() or not fr.has("pos"):
 		return fr
 	var p: Vector3 = fr["pos"]
@@ -131,11 +224,9 @@ static func inside(fr: Dictionary) -> Dictionary:
 			break
 		dr *= 0.6
 	fr["drift"] = dr if _in(p + dr) else Vector3.ZERO
+	if not bodies.is_empty():
+		fr = keep_out(fr, bodies)
 	return fr
-
-
-static func _in(p: Vector3) -> bool:
-	return absf(p.x) <= HALF_M and absf(p.z) <= HALF_M
 
 
 ## A bone's world position on an actor ({skel}). The head as shown when the actor's CornerIK has turned it (S309: a look
