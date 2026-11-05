@@ -174,8 +174,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false,
-   "verdict": ""
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator C234 2026-11-05, sound board round 0 #1"
   },
   "assets/audio/fight/punch_power_head_1.ogg": {
    "event": "punch_power_head",
@@ -192,8 +193,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false,
-   "verdict": ""
+   "heard": true,
+   "verdict": "redo",
+   "verdict_note": "operator C234 2026-11-05, sound board round 0 #2"
   },
   "assets/audio/fight/punch_body_1.ogg": {
    "event": "punch_body",
@@ -210,8 +212,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false,
-   "verdict": ""
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator C234 2026-11-05, sound board round 0 #3"
   },
   "assets/audio/fight/punch_blocked_1.ogg": {
    "event": "punch_blocked",
@@ -228,8 +231,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false,
-   "verdict": ""
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator C234 2026-11-05, sound board round 0 #4"
   },
   "assets/audio/fight/punch_miss_1.ogg": {
    "event": "punch_miss",
@@ -246,8 +250,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false,
-   "verdict": ""
+   "heard": true,
+   "verdict": "redo",
+   "verdict_note": "operator C234 2026-11-05, sound board round 0 #5"
   },
   "assets/audio/fight/punch_big_1.ogg": {
    "event": "punch_big",
@@ -264,8 +269,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false,
-   "verdict": ""
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator C234 2026-11-05, sound board round 0 #6"
   },
   "assets/audio/fight/bell_round_start_1.ogg": {
    "event": "bell_round_start",
@@ -282,8 +288,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false,
-   "verdict": ""
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator C234 2026-11-05, sound board round 0 #7"
   },
   "assets/audio/fight/bell_round_end_1.ogg": {
    "event": "bell_round_end",
@@ -300,8 +307,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false,
-   "verdict": ""
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator C234 2026-11-05, sound board round 0 #8"
   },
   "assets/audio/crowd/crowd_arena_loop_1.ogg": {
    "event": "crowd_arena_loop",
@@ -318,8 +326,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "stereo",
-   "heard": false,
-   "verdict": ""
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator C234 2026-11-05, sound board round 0 #9"
   },
   "assets/audio/crowd/crowd_roar_1.ogg": {
    "event": "crowd_roar",
@@ -336,8 +345,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false,
-   "verdict": ""
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator C234 2026-11-05, sound board round 0 #10"
   },
   "assets/audio/fight/knockdown_fall_1.ogg": {
    "event": "knockdown_fall",
@@ -354,8 +364,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false,
-   "verdict": ""
+   "heard": true,
+   "verdict": "redo",
+   "verdict_note": "operator C234 2026-11-05, sound board round 0 #11"
   },
   "assets/audio/fight/footwork_canvas_1.ogg": {
    "event": "footwork_canvas",
@@ -372,8 +383,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false,
-   "verdict": ""
+   "heard": true,
+   "verdict": "redo",
+   "verdict_note": "operator C234 2026-11-05, sound board round 0 #12"
   },
   "assets/audio/ui/ui_click_1.ogg": {
    "event": "ui_click",
@@ -390,8 +402,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false,
-   "verdict": ""
+   "heard": true,
+   "verdict": "redo",
+   "verdict_note": "operator C234 2026-11-05, sound board round 0 #13"
   }
  }
 }

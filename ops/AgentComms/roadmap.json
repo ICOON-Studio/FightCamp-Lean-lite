@@ -3,16 +3,16 @@
  "updated": "2026-11-05",
  "author": "claude S294",
  "now": {
-  "id": "S381",
+  "id": "S386",
   "owner": "claude",
-  "updated": "2026-11-04",
-  "summary": "S381: agy falls back to Claude Opus when Argon credits run out (be417e39); LOCOWALK4 Ludo walks rejected ('all terrible') -> procedural bounce+step-drag footwork (claude/footwork1, stand-off passed); liver picture in the LIVER callout MERGED; Gear->Menu; one-page Playbook (no tabs) designed + mockup; real fight camp study (C229) + Undisputed gym ideas -> camp build approved; Rune Coliseum/Corner King/EMM/KungFuCard/Gladiator Command studied by REA (numbers only); GrappleMap-engine boxing combo rebuilt on Punch PRO takes (elbows); reference-clip flow study -> pocket pass plan.",
-  "last_working_commit": "89dc4c75",
-  "next_action": "S386 (NEXT_SESSION_PROMPT.md): FREE SEATS FIRST (operator S385). (1) GAMETREE1 stage 1 -> Grok Dev (claude/gametree1 92b89ce5, plan ops/research/GAMETREE1_PLAN_S384.md); (2) eyes the DEFFLOW2 r3 films, merge claude/defflow1 if good; (3) collect FIGHT9R14 with the fixed probe + BJJ9R17; (4) NOREF + corner lens keep-out on main via Arena; (5) Where-we-are map roll + redraw.",
+  "updated": "2026-11-05",
+  "summary": "S386: NOREF + corner lens on main; blind A/B quality loop (harsh critic sub-agents vs UFC 6 / Undisputed; fight motion r2 3/10 vs 7, 2/10 vs 8); DEFFLOW2 r4 fixes on claude/defflow1 (BodyKeep, HitSnap carry, punch->punch reach fade); menu critic 4/10 + 3/10 -> operator \"Yes, build 1-3\" + Playbook into the fighter page; GAMETREE1 Goose branch tests pass; review board cleaned; Miro/ops board carry scores.",
+  "last_working_commit": "7149ceb6",
+  "next_action": "S387 (NEXT_SESSION_PROMPT.md): (1) build menu critic 1-3 + Playbook tab in the fighter page; (2) fight motion round 3 by the blind loop; (3) merge GAMETREE1 after the suite; (4) collect BJJ9R17 / SOUND1R2 / FIGHT9R15.",
   "verified_playable": "S385: training1 on main 96d48da2 - Training tab week strip + drill cards; drag 1-2 onto Friday pads proven on a real focused window (E:/FightCamp/tmp/s385/training/drag_*.jpg), suite 158/158.",
   "incomplete_blocked": "FIGHT9 loop: no kept round since R7 (RED_TEST fight9_probe fails every round); BJJ9 loop 2.5-4/10; owned takes not wired into the fight.",
   "next_acceptance": "Owned takes play in a live fight with no knee tremble (owned_mocap_jitter bars) and the operator's watch OK.",
-  "awaiting_operator": "Nothing blocking. Optional: refill the Gemini prepay (loop judge falls back to Claude's eyes)."
+  "awaiting_operator": "Gemini prepay refill (optional); Q-S294-98/99/100."
  },
  "next": "Collect LOCOWALK1 (real walk + step clips, Ludo) against the drawn-bone bars; then FIGHT9 R7 and BJJ9 at a real 9/10.",
  "assessment": {
@@ -1538,6 +1538,11 @@
    "id": "S381",
    "date": "2026-11-04",
    "summary": "S381: agy falls back to Claude Opus when Argon credits run out (be417e39); LOCOWALK4 Ludo walks rejected ('all terrible') -> procedural bounce+step-drag footwork (claude/footwork1, stand-off passed); liver picture in the LIVER callout MERGED; Gear->Menu; one-page Playbook (no tabs) designed + mockup; real fight camp study (C229) + Undisputed gym ideas -> camp build approved; Rune Coliseum/Corner King/EMM/KungFuCard/Gladiator Command studied by REA (numbers only); GrappleMap-engine boxing combo rebuilt on Punch PRO takes (elbows); reference-clip flow study -> pocket pass plan."
+  },
+  {
+   "id": "S386",
+   "date": "2026-11-05",
+   "summary": "S386: NOREF + corner lens on main; blind A/B quality loop (harsh critic sub-agents vs UFC 6 / Undisputed; fight motion r2 3/10 vs 7, 2/10 vs 8); DEFFLOW2 r4 fixes on claude/defflow1 (BodyKeep, HitSnap carry, punch->punch reach fade); menu critic 4/10 + 3/10 -> operator \"Yes, build 1-3\" + Playbook into the fighter page; GAMETREE1 Goose branch tests pass; review board cleaned; Miro/ops board carry scores."
   }
  ],
  "blocked_on_operator": [],
@@ -4456,7 +4461,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-05 S386",
+  "updated": "2026-11-05 22:41 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4598,40 +4603,115 @@
   },
   "working_now": [
    {
-    "title": "QUALITY Fight motion close range (DEFFLOW2): blind A/B round 2 - ours 3/10 vs Undisputed 7, 2/10 vs UFC 6 8 (target 8+). Next: bars that see what the critics see, clinch-or-break at close range, pocket hit reactions",
-    "who": "claude",
-    "state": "round 3 next session",
-    "started": "2026-11-05T22:40"
+    "title": "TASK FIGHT9R7 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "who": "antigravity",
+    "started": "2026-11-03T17:36",
+    "run": "FIGHT9R7",
+    "state": "LANDED - Claude collects"
    },
    {
-    "title": "QUALITY BJJ belt match (BJJ9 loop): last judged 3-4/10 (BJJ9R17 on Cursor, PR #49)",
+    "title": "TASK LOCOWALK2 - CURSOR - real walking clips for our boxers, from Ludo's captured presets (round 2 of LOCOWALK1)",
     "who": "cursor",
-    "state": "judging",
-    "started": "2026-11-05T19:32"
+    "started": "2026-11-03T18:41",
+    "run": "LOCOWALK2",
+    "state": "LANDED - Claude collects"
    },
    {
-    "title": "QUALITY Sound round 0: 13 Ludo sounds unheard (your verdict, board question Q-S294-99); round 1 rework queued on Qwen (SOUND1R2)",
-    "who": "qwen",
-    "state": "waiting on PC GREEN",
-    "started": "2026-11-05T21:27"
+    "title": "TASK FIGHT9R9 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "who": "antigravity",
+    "started": "2026-11-04T03:00",
+    "run": "FIGHT9R9",
+    "state": "LANDED - Claude collects"
    },
    {
-    "title": "QUALITY GAMETREE1 stage 1 (BJJ tree): Goose branch goose/issue-47 - bjj_tree 4 tests + golden path PASS, 14/21 tuning bars; to merge after the full suite",
-    "who": "claude",
-    "state": "ready to merge (suite)",
-    "started": "2026-11-05T21:20"
+    "title": "TASK BJJ9R12 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
+    "who": "antigravity",
+    "started": "2026-11-04T06:39",
+    "run": "BJJ9R12",
+    "state": "LANDED - Claude collects"
    },
    {
-    "title": "DONE Corner lens keeps 0.45 m off bodies (CORNERLENS1, main 76cea38c); referee gone (NOREF, main 5b2a4983) - not yet filmed",
-    "who": "claude",
-    "state": "merged",
-    "started": "2026-11-05T21:30"
+    "title": "TASK LOCOWALK4 - CURSOR - the forward walk and the four guard steps, from the Ludo presets already downloaded",
+    "who": "cursor",
+    "started": "2026-11-04T07:41",
+    "run": "LOCOWALK4",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHT9R10 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "who": "antigravity",
+    "started": "2026-11-04T18:40",
+    "run": "FIGHT9R10",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK BJJ9R13 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
+    "who": "antigravity",
+    "started": "2026-11-04T10:11",
+    "run": "BJJ9R13",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK BJJ9R14 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
+    "who": "cursor",
+    "started": "2026-11-04T19:10",
+    "run": "BJJ9R14",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHT9R11 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "who": "antigravity",
+    "started": "2026-11-04T20:10",
+    "run": "FIGHT9R11",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK BJJ9R15 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
+    "who": "cursor",
+    "started": "2026-11-04T22:45",
+    "run": "BJJ9R15",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHT9R12 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "who": "antigravity",
+    "started": "2026-11-04T23:11",
+    "run": "FIGHT9R12",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHT9R13 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "who": "antigravity",
+    "started": "2026-11-05T02:11",
+    "run": "FIGHT9R13",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK BJJ9R16 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
+    "who": "cursor",
+    "started": "2026-11-05T02:40",
+    "run": "BJJ9R16",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHT9R14 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "who": "antigravity",
+    "started": "2026-11-05T19:10",
+    "run": "FIGHT9R14",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK BJJ9R17 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
     "who": "cursor",
     "started": "2026-11-05T19:41",
     "run": "BJJ9R17",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK_SOUND1 - the sound engineer, round 1: the sound layer + the fight's core sounds, layered, measured, on the board (Qwen)",
+    "who": "qwen",
+    "started": "2026-11-05T20:41",
+    "run": "SOUND1",
     "state": "LANDED - Claude collects"
    },
    {
@@ -5115,6 +5195,22 @@
   "map": {
    "done_earlier": [
     {
+     "text": "FIGHT9R14 dropped (3 reds vs 1)",
+     "who": "claude"
+    },
+    {
+     "text": "DEFFLOW2 r3: FAIL on film",
+     "who": "claude"
+    },
+    {
+     "text": "Corner lens keep-out merged",
+     "who": "agent"
+    },
+    {
+     "text": "Referee gone (NOREF on main)",
+     "who": "claude"
+    },
+    {
      "text": "Loop PRs #38-#44 collected",
      "who": "claude"
     },
@@ -5153,40 +5249,12 @@
     {
      "text": "DEFFLOW2 drawn-bone bars",
      "who": "claude"
-    },
-    {
-     "text": "DEFFLOW2 hips, clinch, crown fixes",
-     "who": "claude"
-    },
-    {
-     "text": "Where-we-are map on Miro",
-     "who": "claude"
-    },
-    {
-     "text": "Miro structure + menus tidied",
-     "who": "agent"
-    },
-    {
-     "text": "GAMETREE1 plan in the branch",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "FIGHT9R14 dropped (3 reds vs 1)",
-     "who": "claude"
-    },
-    {
-     "text": "DEFFLOW2 r3: FAIL on film",
-     "who": "claude"
-    },
-    {
-     "text": "Corner lens keep-out merged",
-     "who": "agent"
-    },
-    {
-     "text": "Referee gone (NOREF on main)",
-     "who": "claude"
+     "text": "Sound round 0: 8 kept, 5 redo",
+     "who": "operator"
     }
    ],
    "now": [
@@ -5199,7 +5267,11 @@
      "who": "claude"
     },
     {
-     "text": "BJJ belt match 3-4/10 (BJJ9R17)",
+     "text": "Menu critic 1-3 + Playbook tab",
+     "who": "claude"
+    },
+    {
+     "text": "BJJ belt match 7.5/10 (you, R16)",
      "who": "agent"
     }
    ],
@@ -5209,16 +5281,8 @@
      "who": "claude"
     },
     {
-     "text": "Playbook one page",
-     "who": "claude"
-    },
-    {
      "text": "BJJ cards from 3D poses",
      "who": "claude"
-    },
-    {
-     "text": "Listen: sound board round 0",
-     "who": "operator"
     },
     {
      "text": "Play update 74",
@@ -5233,7 +5297,7 @@
      "who": "claude"
     }
    ],
-   "session": "S386"
+   "session": "S387"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

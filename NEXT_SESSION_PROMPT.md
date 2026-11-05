@@ -1,3 +1,39 @@
+# S387 - next session (written S386, 2026-11-05 late; operator: "prepare next session")
+
+START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S387` + map redraw
+(strip `data-deleted` lines until Q-S294-100 is answered - S386 did so).
+OPERATOR RULES FROM S386 (keep): free seats first; SHORT films (20 s scenes, 6 s clips); every visual item goes through the BLIND
+A/B LOOP - harsh critic sub-agents compare our clip side by side, blind, with UFC 6 / Undisputed / ESBC Revival
+(refs E:/FightCamp/tmp/s386/refs; NOT NBA 2K26) and the item is done only when EVERY critic gives ours >= 8/10; only then upload
+the clip; post each item's current score on Miro P0 and the ops board (plan.working_now QUALITY lines); clear old/acted review posts.
+
+ORDER FOR S387
+1. BUILD (operator: "Yes, build 1-3"; spec ops/research/MENU_CRITIC_S386.md):
+   (1) forced first week: career opens on the BOXER - sign her -> hire the coach -> set week 1 -> CONTINUE; no week review until
+       someone trained; Ana (the no-gi grappler) is NOT pre-signed at start (Career.gd:57 `c.grapplers = [NoGi.athlete()]`) - she
+       joins after week 1 (BJJ stays in the game, operator S353); a skip toggle for veterans.
+   (2) bout page: her 7 stats vs the opponent's estimated ranges (narrowing with scouting), a win-chance band, rank impact;
+       offers rows get mismatch number, opponent rank, ticket cut.
+   (3) week review: whole-point gains with their cause, goal projection vs deadline, rank move, cash runway in weeks.
+   PLUS (operator: "maybe it is good idea to put playbook in the fighter page"; Claude agreed): Playbook becomes a fighter-page
+   tab; the rail button becomes a shortcut to the current fighter's Playbook tab (7 -> 6 areas). Keep move_player_probe green.
+   Each screen: stills via the hidden desktop, then a blind design critic sub-agent rates it; golden_path + the screen tests.
+2. FIGHT MOTION round 3 (claude/defflow1 672654a7, NOT merged; plan at the bottom of ops/research/AB_LOOP_S386.md):
+   capsule bars that FAIL where the critics saw bodies through bodies (r6 film 16.4-17.2 s) -> clinch-or-break at close range ->
+   pocket hit reactions -> empty exchanges get feints/steps. Round 2: ours 3 vs Undisputed 7, 2 vs UFC 6 8.
+3. GAMETREE1 (Goose, branch goose/issue-47; wt LEAN_GAMETREE1 on local branch goose47): bjj_tree x4 + no_pronoun + golden_path
+   PASS, 14/21 tuning bars -> full suite, then merge (diff, not whole files), export, WHAT_TO_TRY.
+4. Collect: BJJ9R17 PR #49 (cursor); SOUND1R2 (qwen, queued; round 1 PR #46 NOT collected - synthetic sounds, dropped the 13
+   Ludo rows); FIGHT9R15 (agy, queued; must start from fight9base 8720a3a0's fixed probe).
+TOOLS S386: ops/Tools/blind_ab.py (gemini|ollama judges; AB_OLLAMA_URL=http://127.0.0.1:11435/api/chat - the Ollama app's own
+server lost E:/ollama/models, S386 started a hidden 2nd `ollama serve` with OLLAMA_MODELS=E:\ollama\models); the strong judge is
+a Claude sub-agent given ONLY neutral-folder contact sheets (8 fps, tile 2x5). tools/drawn_bars.gd JOLT + ARM_IN; defflow_probe
+writes drawn_frames.csv; E:/FightCamp/tmp/s386/joins.py = clip-change jolt report.
+BLOCKED / OPERATOR: Gemini prepay empty (HTTP 402); Grok Dev sendPrompt 502 (Goose issues instead); Q-S294-98/99/100 open.
+SETTINGS (operator rule): S387 Claude Opus 5.5, effort high, Fast OFF (UI build + motion round with critics) | Goose: GOOSE_QWEN_MODEL |
+Cursor BJJ9: Composer 2.5, Fast OFF | agy FIGHT9: Argon High (falls back to Flash) | Qwen SOUND1R2: qwen3-coder |
+critic sub-agents: general-purpose, same model.
+
 # S386 - next session (written S385, 2026-11-05 late; S385 handed over at the operator's "prepare next session")
 
 ORDER FOR S386 (operator S385: "we need to save your tokens too ... are you using our free agents?" -> "Yes, use free seats"):

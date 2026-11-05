@@ -16,6 +16,13 @@ Start from your branch qwen/sound1 (a54bd8d2) in worktree E:/FightCamp/wt/LEAN_S
    Rule (TASK_SOUND1): never overwrite a file a row names; a redo is a NEW file <event>_<n+1>.ogg.
 4. Keep the code (SoundBank.gd, Sfx.gd, FightSfx.gd, FlipCard/UI hooks, sound_bank_test.gd, FIGHT_HOOKS.md) - it is fine.
 
+## Operator's ear on round 0 (C234, 2026-11-05: "1,3,4,6,7,8,9,10 are ok , rest trash")
+KEEP as they are: punch_jab_head_1, punch_body_1, punch_blocked_1, punch_big_1, bell_round_start_1, bell_round_end_1,
+crowd_arena_loop_1, crowd_roar_1. Use these as the reference for what he likes.
+REDO with Ludo, a NEW file each (<event>_2.ogg, rows heard:false), and take the _1 file out of its event's `files` pool, leaving
+the file and its row on disk: punch_power_head, punch_miss, knockdown_fall, footwork_canvas, ui_click. Do these five FIRST.
+sounds.json on main now carries heard/verdict for all 13: keep those values.
+
 ## Done when
 - `git diff origin/main...HEAD -- assets/audio` shows NO modified or deleted file (only added ones); every main row is in sounds.json.
 - No file in sounds.json has source "ffmpeg synthetic".

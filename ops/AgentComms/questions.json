@@ -5004,10 +5004,11 @@
         "Later"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "i do not know how to do it",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-05T20:40:08Z",
+      "seen_by_claude": true,
+      "comment_only": true
     },
     {
       "id": "Q-S294-99",
@@ -5019,10 +5020,11 @@
         "Later"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "alreayd commented somewhere else on this",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-05T20:40:21Z",
+      "seen_by_claude": true,
+      "comment_only": true
     },
     {
       "id": "Q-S294-100",
@@ -5034,10 +5036,11 @@
         "No"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "Yes",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-05T20:40:33Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-101",
@@ -5052,6 +5055,24 @@
       "attach": [
         "research/MENU_CRITIC_S386.md"
       ],
+      "answer": "Yes, build 1-3",
+      "note": "Operator in chat: \"Yes, build 1-3\"; then on Playbook: \"maybe it is good idea to put playbook in the fighter page\" - Claude agrees (tab + rail shortcut).",
+      "answered_at": "2026-11-05T22:41:49",
+      "seen_by_claude": true,
+      "comment_only": false,
+      "answered_by": "operator (chat, S386)",
+      "status": "answered"
+    },
+    {
+      "id": "Q-S294-102",
+      "asked": "2026-11-05T20:48:33.621196+00:00",
+      "session": "S294",
+      "text": "Miro map cleanup: your yes covered 2 cards, but it now wants to delete 16 old cards (32 pieces: 13 old DONE + 3 old NEXT). Nothing deleted yet. OK to delete all 16?",
+      "options": [
+        "Yes, delete the 16",
+        "No, keep them"
+      ],
+      "attach": [],
       "answer": null,
       "note": null,
       "answered_at": null,
