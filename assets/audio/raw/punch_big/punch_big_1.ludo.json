@@ -1,0 +1,16 @@
+{
+  "assets": [
+    {
+      "file": "createSoundEffect-c9dc4e8c.mp3",
+      "command": "audio sound-effect",
+      "operation_id": "createSoundEffect",
+      "body": {
+        "description": "A devastating knockout punch in a boxing match: huge leather glove impact on the jaw, deep bass thud with a crack, slow-motion weight, cinematic, no music",
+        "duration": 1.2
+      },
+      "job_id": "c9dc4e8c-9584-4b2c-ae98-a53d936409e0",
+      "credits": 2,
+      "created_at": "2026-11-05T17:39:13.237Z"
+    }
+  ]
+}

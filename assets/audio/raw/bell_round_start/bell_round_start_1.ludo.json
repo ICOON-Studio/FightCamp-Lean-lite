@@ -1,0 +1,16 @@
+{
+  "assets": [
+    {
+      "file": "createSoundEffect-5463fa1e.mp3",
+      "command": "audio sound-effect",
+      "operation_id": "createSoundEffect",
+      "body": {
+        "description": "A boxing ring bell struck once to start the round: a single bright metallic ding of a brass ring bell with a natural ringing decay, indoor arena, no crowd",
+        "duration": 2
+      },
+      "job_id": "5463fa1e-96b5-45df-92c7-341fb0a1746c",
+      "credits": 2,
+      "created_at": "2026-11-05T17:39:21.996Z"
+    }
+  ]
+}

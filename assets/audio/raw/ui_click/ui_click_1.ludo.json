@@ -1,0 +1,16 @@
+{
+  "assets": [
+    {
+      "file": "createSoundEffect-176e6456.mp3",
+      "command": "audio sound-effect",
+      "operation_id": "createSoundEffect",
+      "body": {
+        "description": "A clean satisfying menu button click for a sports management game: short soft wooden tick with a tiny low thump, warm, not digital, not a beep",
+        "duration": 0.5
+      },
+      "job_id": "176e6456-66db-423e-a798-a0213b58f446",
+      "credits": 2,
+      "created_at": "2026-11-05T17:40:17.078Z"
+    }
+  ]
+}

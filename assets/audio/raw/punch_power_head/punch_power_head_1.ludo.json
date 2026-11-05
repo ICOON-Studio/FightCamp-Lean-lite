@@ -1,0 +1,16 @@
+{
+  "assets": [
+    {
+      "file": "createSoundEffect-54a37430.mp3",
+      "command": "audio sound-effect",
+      "operation_id": "createSoundEffect",
+      "body": {
+        "description": "A heavy boxing cross or hook landing flush on the head: deep leather glove impact with a low thud and a sharp crack, powerful, close microphone, no crowd, no music",
+        "duration": 0.7
+      },
+      "job_id": "54a37430-5e73-46c3-b007-49c89d1f49dc",
+      "credits": 2,
+      "created_at": "2026-11-05T17:38:48.378Z"
+    }
+  ]
+}

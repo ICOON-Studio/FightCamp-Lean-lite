@@ -1,0 +1,16 @@
+{
+  "assets": [
+    {
+      "file": "createSoundEffect-c5063893.mp3",
+      "command": "audio sound-effect",
+      "operation_id": "createSoundEffect",
+      "body": {
+        "description": "A boxing hook to the body landing on the ribs: dull heavy leather thump into the torso with a short exhaled grunt, close microphone, no crowd, no music",
+        "duration": 0.7
+      },
+      "job_id": "c5063893-ed33-488e-89bc-794665cc7461",
+      "credits": 2,
+      "created_at": "2026-11-05T17:38:54.288Z"
+    }
+  ]
+}

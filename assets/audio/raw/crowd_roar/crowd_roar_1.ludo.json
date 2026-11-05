@@ -1,0 +1,16 @@
+{
+  "assets": [
+    {
+      "file": "createSoundEffect-12088803.mp3",
+      "command": "audio sound-effect",
+      "operation_id": "createSoundEffect",
+      "body": {
+        "description": "A boxing arena crowd erupting after a big punch: thousands of fans roaring and gasping at once, rising then falling off, indoor arena reverb, no music",
+        "duration": 3
+      },
+      "job_id": "12088803-29af-4ca6-9a60-3b76e09f18d1",
+      "credits": 2,
+      "created_at": "2026-11-05T17:39:52.850Z"
+    }
+  ]
+}

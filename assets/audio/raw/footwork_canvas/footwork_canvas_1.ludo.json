@@ -1,0 +1,16 @@
+{
+  "assets": [
+    {
+      "file": "createSoundEffect-add45e58.mp3",
+      "command": "audio sound-effect",
+      "operation_id": "createSoundEffect",
+      "body": {
+        "description": "Boxing footwork on a ring canvas: light quick shuffling steps of leather boxing boots, soft squeaks and scuffs on canvas, close microphone, no crowd, no music",
+        "duration": 1.5
+      },
+      "job_id": "add45e58-1b80-43c2-8412-199e2a312a51",
+      "credits": 2,
+      "created_at": "2026-11-05T17:40:11.076Z"
+    }
+  ]
+}

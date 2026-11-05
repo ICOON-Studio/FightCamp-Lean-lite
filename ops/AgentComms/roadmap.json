@@ -4593,7 +4593,8 @@
    "POSTER": "Fight posters",
    "TIPSBAR": "Tips on the top bar",
    "PLAYBOOK2": "Playbook move book + game plan (done)",
-   "WBOPP": "Whiteboard opponent line (done)"
+   "WBOPP": "Whiteboard opponent line (done)",
+   "SOUND1": "Game sound: one agent (Qwen) makes and wires every sound, you judge each by ear"
   },
   "working_now": [
    {
@@ -4693,6 +4694,12 @@
     "id": "PLAY74",
     "who": "operator",
     "title": "Play update 74: the plan's go-to combination (board Test button), the knockdown count; update 73's knockdown + replay",
+    "after": ""
+   },
+   {
+    "id": "SOUND1",
+    "who": "qwen",
+    "title": "Sound engineer round 1 (Qwen owns all audio): the sound layer (buses, Sfx, FightSfx), layered punches, the referee count, crowd, UI clicks and two music tracks from Ludo - every sound UNHEARD until you keep it on the sound board",
     "after": ""
    },
    {

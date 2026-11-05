@@ -7,9 +7,9 @@
  },
  "qwen": {
   "in_rotation": true,
-  "note": "S349: GROUND3 r2 RUNNING (wt E:/FightCamp/wt/LEAN_GROUND3, out GROUND3_r2_out.txt) - G144 skill-gap odds, ground ~20 %, subs 8-25 %.",
-  "changed": "2026-10-02T09:32:50Z",
-  "role": "S299 LEAN: small pure rule modules + their unit tests (scripts/rules/*.gd, <200 lines each). Most reliable seat: 52 runs, 37 collected, 0 failed."
+  "note": "S385: TASK_SOUND1 queued (sound layer + layered punches + count + crowd + UI + music, round 1). Older: S349: GROUND3 r2 RUNNING (wt E:/FightCamp/wt/LEAN_GROUND3, out GROUND3_r2_out.txt) - G144 skill-gap odds, ground ~20 %, subs 8-25 %.",
+  "changed": "2026-11-05T19:50:00Z",
+  "role": "S385 SOUND ENGINEER (operator: \"assign one of my agents as sound enginner and take care of all needed sounds, effects etc\"): owns ALL game audio - sounds, effects, music - via the Ludo audio CLI; TASK_SOUND1. Every sound is UNHEARD until the operator keeps it on the sound board (the ear rule). Also: small pure rule modules + tests (S299). 52 runs, 0 failed."
  },
  "grok": {
   "in_rotation": true,

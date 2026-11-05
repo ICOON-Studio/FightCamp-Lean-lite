@@ -1,0 +1,15 @@
+{
+  "assets": [
+    {
+      "file": "createAmbiance-9a5c4be7.wav",
+      "command": "audio ambiance",
+      "operation_id": "createAmbiance",
+      "body": {
+        "description": "Indoor boxing arena crowd between punches: a few thousand fans murmuring and talking, occasional shouts of encouragement, steady and seamless, no music, no announcer"
+      },
+      "job_id": "9a5c4be7-8b23-458c-9eb5-213ffc27c55c",
+      "credits": 2,
+      "created_at": "2026-11-05T17:39:42.571Z"
+    }
+  ]
+}

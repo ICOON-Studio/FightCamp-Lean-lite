@@ -1,0 +1,16 @@
+{
+  "assets": [
+    {
+      "file": "createSoundEffect-4106c562.mp3",
+      "command": "audio sound-effect",
+      "operation_id": "createSoundEffect",
+      "body": {
+        "description": "A fast boxing punch that misses: short air whoosh of a glove and arm cutting through the air, with a sharp nasal exhale from the boxer, no impact, no crowd",
+        "duration": 0.5
+      },
+      "job_id": "4106c562-7411-4b8e-986e-405a03987234",
+      "credits": 2,
+      "created_at": "2026-11-05T17:39:06.037Z"
+    }
+  ]
+}

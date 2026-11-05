@@ -1,0 +1,16 @@
+{
+  "assets": [
+    {
+      "file": "createSoundEffect-9f763342.mp3",
+      "command": "audio sound-effect",
+      "operation_id": "createSoundEffect",
+      "body": {
+        "description": "A single quick boxing jab landing on an opponent's face: tight leather glove slap on skin, crisp and short, close microphone, dry, no crowd, no music",
+        "duration": 0.5
+      },
+      "job_id": "9f763342-6440-44ac-8be2-a6efbb0bec66",
+      "credits": 2,
+      "created_at": "2026-11-05T17:38:41.803Z"
+    }
+  ]
+}

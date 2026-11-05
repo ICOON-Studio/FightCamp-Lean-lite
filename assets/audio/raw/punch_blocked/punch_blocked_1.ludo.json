@@ -1,0 +1,16 @@
+{
+  "assets": [
+    {
+      "file": "createSoundEffect-0cdd153b.mp3",
+      "command": "audio sound-effect",
+      "operation_id": "createSoundEffect",
+      "body": {
+        "description": "A boxing punch blocked by the opponent's gloves and forearms: padded leather glove hitting glove, muffled double pat, lighter than a clean hit, no crowd, no music",
+        "duration": 0.5
+      },
+      "job_id": "0cdd153b-6dfb-4762-a23b-737ad1324038",
+      "credits": 2,
+      "created_at": "2026-11-05T17:39:00.607Z"
+    }
+  ]
+}

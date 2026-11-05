@@ -1,0 +1,16 @@
+{
+  "assets": [
+    {
+      "file": "createSoundEffect-8a2707ff.mp3",
+      "command": "audio sound-effect",
+      "operation_id": "createSoundEffect",
+      "body": {
+        "description": "A boxer collapsing onto the canvas of a boxing ring: a heavy body falling and slapping onto a padded canvas mat, the ring boards thump and the ropes rattle, no crowd",
+        "duration": 1.5
+      },
+      "job_id": "8a2707ff-5eab-46dc-8d88-8bcdbd6e1285",
+      "credits": 2,
+      "created_at": "2026-11-05T17:40:03.655Z"
+    }
+  ]
+}

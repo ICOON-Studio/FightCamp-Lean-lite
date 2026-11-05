@@ -1,0 +1,397 @@
+{
+ "_doc": "FightCamp sounds (S385). events: what the game plays (SoundBank.gd reads it); files: each asset, its Ludo prompt and numbers. heard=false until the operator keeps it on the sound board.",
+ "events": {
+  "punch_jab_head": {
+   "bus": "SFX",
+   "group": "fight",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/fight/punch_jab_head_1.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "loop": false
+  },
+  "punch_power_head": {
+   "bus": "SFX",
+   "group": "fight",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/fight/punch_power_head_1.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "loop": false
+  },
+  "punch_body": {
+   "bus": "SFX",
+   "group": "fight",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/fight/punch_body_1.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "loop": false
+  },
+  "punch_blocked": {
+   "bus": "SFX",
+   "group": "fight",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/fight/punch_blocked_1.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "loop": false
+  },
+  "punch_miss": {
+   "bus": "SFX",
+   "group": "fight",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/fight/punch_miss_1.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "loop": false
+  },
+  "punch_big": {
+   "bus": "SFX",
+   "group": "fight",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/fight/punch_big_1.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "loop": false
+  },
+  "bell_round_start": {
+   "bus": "SFX",
+   "group": "fight",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/fight/bell_round_start_1.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "loop": false
+  },
+  "bell_round_end": {
+   "bus": "SFX",
+   "group": "fight",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/fight/bell_round_end_1.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "loop": false
+  },
+  "crowd_arena_loop": {
+   "bus": "Crowd",
+   "group": "crowd",
+   "kind": "loop",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/crowd/crowd_arena_loop_1.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": true
+  },
+  "crowd_roar": {
+   "bus": "Crowd",
+   "group": "crowd",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/crowd/crowd_roar_1.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "loop": false
+  },
+  "knockdown_fall": {
+   "bus": "SFX",
+   "group": "fight",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/fight/knockdown_fall_1.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "loop": false
+  },
+  "footwork_canvas": {
+   "bus": "SFX",
+   "group": "fight",
+   "kind": "sfx",
+   "tier": 2,
+   "files": [
+    "res://assets/audio/fight/footwork_canvas_1.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "loop": false
+  },
+  "ui_click": {
+   "bus": "UI",
+   "group": "ui",
+   "kind": "sfx",
+   "tier": 3,
+   "files": [
+    "res://assets/audio/ui/ui_click_1.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "loop": false
+  }
+ },
+ "files": {
+  "assets/audio/fight/punch_jab_head_1.ogg": {
+   "event": "punch_jab_head",
+   "prompt": "A single quick boxing jab landing on an opponent's face: tight leather glove slap on skin, crisp and short, close microphone, dry, no crowd, no music",
+   "source": "ludo audio sfx",
+   "credits": 2,
+   "from": "punch_jab_head_1.wav",
+   "made": "2026-11-05 19:42",
+   "mmax": -22.4,
+   "lufs": -70.0,
+   "tp": -1.3,
+   "dur": 0.16,
+   "lead_silence": 0.0,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false,
+   "verdict": ""
+  },
+  "assets/audio/fight/punch_power_head_1.ogg": {
+   "event": "punch_power_head",
+   "prompt": "A heavy boxing cross or hook landing flush on the head: deep leather glove impact with a low thud and a sharp crack, powerful, close microphone, no crowd, no music",
+   "source": "ludo audio sfx",
+   "credits": 2,
+   "from": "punch_power_head_1.wav",
+   "made": "2026-11-05 19:42",
+   "mmax": -15.9,
+   "lufs": -16.4,
+   "tp": -1.4,
+   "dur": 0.68,
+   "lead_silence": 0.0,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false,
+   "verdict": ""
+  },
+  "assets/audio/fight/punch_body_1.ogg": {
+   "event": "punch_body",
+   "prompt": "A boxing hook to the body landing on the ribs: dull heavy leather thump into the torso with a short exhaled grunt, close microphone, no crowd, no music",
+   "source": "ludo audio sfx",
+   "credits": 2,
+   "from": "punch_body_1.wav",
+   "made": "2026-11-05 19:42",
+   "mmax": -27.3,
+   "lufs": -70.0,
+   "tp": -1.5,
+   "dur": 0.24,
+   "lead_silence": 0.0,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false,
+   "verdict": ""
+  },
+  "assets/audio/fight/punch_blocked_1.ogg": {
+   "event": "punch_blocked",
+   "prompt": "A boxing punch blocked by the opponent's gloves and forearms: padded leather glove hitting glove, muffled double pat, lighter than a clean hit, no crowd, no music",
+   "source": "ludo audio sfx",
+   "credits": 2,
+   "from": "punch_blocked_1.wav",
+   "made": "2026-11-05 19:42",
+   "mmax": -23.2,
+   "lufs": -70.0,
+   "tp": -1.4,
+   "dur": 0.31,
+   "lead_silence": 0.0,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false,
+   "verdict": ""
+  },
+  "assets/audio/fight/punch_miss_1.ogg": {
+   "event": "punch_miss",
+   "prompt": "A fast boxing punch that misses: short air whoosh of a glove and arm cutting through the air, with a sharp nasal exhale from the boxer, no impact, no crowd",
+   "source": "ludo audio sfx",
+   "credits": 2,
+   "from": "punch_miss_1.wav",
+   "made": "2026-11-05 19:42",
+   "mmax": -16.0,
+   "lufs": -16.0,
+   "tp": -1.6,
+   "dur": 0.48,
+   "lead_silence": 0.0,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false,
+   "verdict": ""
+  },
+  "assets/audio/fight/punch_big_1.ogg": {
+   "event": "punch_big",
+   "prompt": "A devastating knockout punch in a boxing match: huge leather glove impact on the jaw, deep bass thud with a crack, slow-motion weight, cinematic, no music",
+   "source": "ludo audio sfx",
+   "credits": 2,
+   "from": "punch_big_1.wav",
+   "made": "2026-11-05 19:42",
+   "mmax": -18.8,
+   "lufs": -20.8,
+   "tp": -1.3,
+   "dur": 0.92,
+   "lead_silence": 0.0,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false,
+   "verdict": ""
+  },
+  "assets/audio/fight/bell_round_start_1.ogg": {
+   "event": "bell_round_start",
+   "prompt": "A boxing ring bell struck once to start the round: a single bright metallic ding of a brass ring bell with a natural ringing decay, indoor arena, no crowd",
+   "source": "ludo audio sfx",
+   "credits": 2,
+   "from": "bell_round_start_1.wav",
+   "made": "2026-11-05 19:42",
+   "mmax": -14.5,
+   "lufs": -17.4,
+   "tp": -3.6,
+   "dur": 1.07,
+   "lead_silence": 0.0,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false,
+   "verdict": ""
+  },
+  "assets/audio/fight/bell_round_end_1.ogg": {
+   "event": "bell_round_end",
+   "prompt": "A boxing ring bell struck three times quickly to end the round: ding ding ding, bright brass ring bell with natural decay, indoor arena, no crowd",
+   "source": "ludo audio sfx",
+   "credits": 2,
+   "from": "bell_round_end_1.wav",
+   "made": "2026-11-05 19:42",
+   "mmax": -14.6,
+   "lufs": -16.5,
+   "tp": -6.5,
+   "dur": 1.36,
+   "lead_silence": 0.0,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false,
+   "verdict": ""
+  },
+  "assets/audio/crowd/crowd_arena_loop_1.ogg": {
+   "event": "crowd_arena_loop",
+   "prompt": "Indoor boxing arena crowd between punches: a few thousand fans murmuring and talking, occasional shouts of encouragement, steady and seamless, no music, no announcer",
+   "source": "ludo audio loop",
+   "credits": 2,
+   "from": "crowd_arena_loop_1.wav",
+   "made": "2026-11-05 19:42",
+   "mmax": -18.0,
+   "lufs": -20.6,
+   "tp": -9.1,
+   "dur": 8.0,
+   "lead_silence": 0.0,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "stereo",
+   "heard": false,
+   "verdict": ""
+  },
+  "assets/audio/crowd/crowd_roar_1.ogg": {
+   "event": "crowd_roar",
+   "prompt": "A boxing arena crowd erupting after a big punch: thousands of fans roaring and gasping at once, rising then falling off, indoor arena reverb, no music",
+   "source": "ludo audio sfx",
+   "credits": 2,
+   "from": "crowd_roar_1.wav",
+   "made": "2026-11-05 19:42",
+   "mmax": -14.1,
+   "lufs": -18.7,
+   "tp": -3.7,
+   "dur": 2.77,
+   "lead_silence": 0.0,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false,
+   "verdict": ""
+  },
+  "assets/audio/fight/knockdown_fall_1.ogg": {
+   "event": "knockdown_fall",
+   "prompt": "A boxer collapsing onto the canvas of a boxing ring: a heavy body falling and slapping onto a padded canvas mat, the ring boards thump and the ropes rattle, no crowd",
+   "source": "ludo audio sfx",
+   "credits": 2,
+   "from": "knockdown_fall_1.wav",
+   "made": "2026-11-05 19:42",
+   "mmax": -19.1,
+   "lufs": -20.1,
+   "tp": -1.3,
+   "dur": 1.36,
+   "lead_silence": 0.0,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false,
+   "verdict": ""
+  },
+  "assets/audio/fight/footwork_canvas_1.ogg": {
+   "event": "footwork_canvas",
+   "prompt": "Boxing footwork on a ring canvas: light quick shuffling steps of leather boxing boots, soft squeaks and scuffs on canvas, close microphone, no crowd, no music",
+   "source": "ludo audio sfx",
+   "credits": 2,
+   "from": "footwork_canvas_1.wav",
+   "made": "2026-11-05 19:42",
+   "mmax": -18.1,
+   "lufs": -21.0,
+   "tp": -1.2,
+   "dur": 1.43,
+   "lead_silence": 0.0,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false,
+   "verdict": ""
+  },
+  "assets/audio/ui/ui_click_1.ogg": {
+   "event": "ui_click",
+   "prompt": "A clean satisfying menu button click for a sports management game: short soft wooden tick with a tiny low thump, warm, not digital, not a beep",
+   "source": "ludo audio sfx",
+   "credits": 2,
+   "from": "ui_click_1.wav",
+   "made": "2026-11-05 19:42",
+   "mmax": -23.2,
+   "lufs": -70.0,
+   "tp": -1.2,
+   "dur": 0.11,
+   "lead_silence": 0.0,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false,
+   "verdict": ""
+  }
+ }
+}

@@ -1,0 +1,16 @@
+{
+  "assets": [
+    {
+      "file": "createSoundEffect-452b87e7.mp3",
+      "command": "audio sound-effect",
+      "operation_id": "createSoundEffect",
+      "body": {
+        "description": "A boxing ring bell struck three times quickly to end the round: ding ding ding, bright brass ring bell with natural decay, indoor arena, no crowd",
+        "duration": 2.5
+      },
+      "job_id": "452b87e7-145c-45da-8209-6e1d921f2399",
+      "credits": 2,
+      "created_at": "2026-11-05T17:39:32.061Z"
+    }
+  ]
+}
