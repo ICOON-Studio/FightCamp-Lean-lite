@@ -5078,6 +5078,51 @@
       "answered_at": "2026-11-05T22:53:37Z",
       "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-103",
+      "asked": "2026-11-06T09:44:35.233791+00:00",
+      "session": "S294",
+      "text": "Miro: 2 boards for the project. Move the frames in use to the production map and archive the loop board?",
+      "options": [
+        "Yes, one board",
+        "Keep both"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-104",
+      "asked": "2026-11-06T09:44:35.566403+00:00",
+      "session": "S294",
+      "text": "Fighter traits (C238): build a proposal for rolled traits with real fight effects, so each playthrough differs?",
+      "options": [
+        "Yes, propose",
+        "Not now"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-105",
+      "asked": "2026-11-06T09:44:35.917779+00:00",
+      "session": "S294",
+      "text": "Blood & Canvas: did you install the demo? Once it is in, I study it read-only for design.",
+      "options": [
+        "Installed",
+        "Not yet"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }
