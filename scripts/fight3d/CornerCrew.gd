@@ -12,6 +12,7 @@ const MH := preload("res://scripts/fight3d/MHRig.gd")
 const FightClips := preload("res://scripts/fight3d/FightClips.gd")
 const IdleMatch := preload("res://scripts/fight3d/IdleMatch.gd")
 const CornerIK := preload("res://scripts/fight3d/CornerIK.gd")
+const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
 const FighterKit := preload("res://scripts/fight3d/FighterKit.gd")
 
 const DIR := "res://assets/models/metahuman/"
@@ -26,6 +27,7 @@ const HIP_OVER_SEAT_M := 0.10
 const SEATED_HIPS_M := 0.54
 ## af_walk's ground speed at 1x on the unscaled body (tools/corner_probe.gd: the standing foot moves back 0.90-0.98 m/s).
 const WALK_MS := 0.92
+const BOXER_WALK_MS := 0.7   # S391: a boxer's step pairs to the centre, in her guard
 const TURN_S := 0.12
 const SIT := ["af_sit_enter", "af_sit_exit"]
 
@@ -128,6 +130,14 @@ func play(a: Dictionary, clip: String, speed: float = 1.0, from_s: float = 0.0) 
 func walk(a: Dictionary, to: Vector3, done: Callable = Callable(), carry: bool = false) -> void:
 	var n: Node3D = a["node"]
 	_turns.erase(n)
+	# S391 (board C240 "the walking is terrrible at the startof the fight"; S377: no casual walk on a boxer): a boxer walks
+	# in her guard on her own steps - the rig puts her feet down and her body rides on them (RingFeet).
+	var i: int = stage.boxers.find(a)
+	if i >= 0 and RingFeet.on(stage, a):
+		stage.guard(i)
+		RingFeet.hold(stage, i)
+		_walks[n] = {"a": a, "to": Vector3(to.x, 0, to.z), "speed": BOXER_WALK_MS * n.scale.x, "done": done, "rig": true}
+		return
 	play(a, "af_walk_carry" if carry else "af_walk")
 	var speed := WALK_MS * (0.68 if carry else 1.0) * n.scale.x
 	_walks[n] = {"a": a, "to": Vector3(to.x, 0, to.z), "speed": speed, "done": done}
@@ -218,6 +228,14 @@ func tick(delta: float) -> void:
 		var to: Vector3 = w["to"]
 		var at: Vector3 = (n as Node3D).position
 		var dist := Vector2(to.x - at.x, to.z - at.z).length()
+		if w.has("rig"):
+			if RingFeet.walking(w["a"], to, float(w["speed"]), delta):
+				_walks.erase(n)
+				if (w["done"] as Callable).is_valid():
+					(w["done"] as Callable).call()
+			elif dist > 0.1:
+				_ease_yaw(n, atan2(to.x - at.x, to.z - at.z), delta)
+			continue
 		var stride := float(w["speed"]) * delta
 		if dist <= stride:
 			(n as Node3D).position = to

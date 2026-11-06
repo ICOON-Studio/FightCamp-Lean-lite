@@ -20,7 +20,7 @@ var _head := -1
 var _dir := Vector3.ZERO      # skeleton space, the way the glove was travelling
 var _deg := 0.0
 var _t := -1.0
-const BRACE_RISE_S := 0.06
+const BRACE_RISE_S := 0.10   # S386: 0.06 (2 frames) folded the trunk 27 deg in two frames - a pop on film
 const BRACE_ELBOW_DEG := 22.0
 const BRACE_CRUNCH_DEG := 9.0
 const BRACE_SIDE_DEG := 6.0
@@ -35,6 +35,8 @@ const FOLD_HOLD_S := 0.45   # S311: real ~0.45 s folded over a body shot (R1 1:3
 const FOLD_TAU_S := 0.24
 const FOLD_LIFE_S := 1.3
 var _bt := -1.0
+var _gain_cur := 1.0           # S386: the fold's gain eases toward _gain (a brace turning into a fold jumped x3)
+const GAIN_RATE := 12.0        # gain units per second
 var _bleft := true
 var _gain := 1.0               # 1 = the brace, FOLD_GAIN = a landed body shot
 var _b := {}                   # bone ids: spine, chest, hips, l/r upper, lower, hand
@@ -62,9 +64,12 @@ func snap(dir_world: Vector3, degrees: float) -> void:
 	var skel := get_skeleton()
 	if skel == null or dir_world.length() < 1e-4:
 		return
+	# S386 (operator: "lean one frame, standing straight the next"; drawn JOLT 10-12 m/s at a second landed punch): a new
+	# snap while one is shown carries on from the turn on screen - restarting at 0 dropped the head back in one frame.
+	var shown := envelope(_t) * _deg if _t >= 0.0 else 0.0
 	_dir = (skel.global_transform.basis.inverse() * dir_world).normalized()
-	_deg = degrees
-	_t = 0.0
+	_deg = maxf(degrees, shown)
+	_t = RISE_S * clampf(shown / maxf(_deg, 1e-3), 0.0, 1.0) if shown > 0.0 else 0.0
 
 
 ## 0 -> 1 at RISE_S, then an exponential settle; 0 after LIFE_S.
@@ -81,8 +86,12 @@ static func envelope(t: float) -> float:
 func brace(hit_left: bool) -> void:
 	if (_b.values() as Array).has(-1):
 		return
-	_bleft = hit_left
-	_bt = 0.0
+	# S386: a brace/fold already shown carries on from its level (restarting at 0 = the trunk straight in one frame).
+	var lvl := 0.0
+	if _bt >= 0.0:
+		lvl = fold_envelope(_bt) if _gain > 1.0 else envelope(_bt * RISE_S / BRACE_RISE_S if _bt < BRACE_RISE_S else _bt - BRACE_RISE_S + RISE_S)
+	_bleft = hit_left if lvl <= 0.0 else _bleft   # the side changes only from a straight trunk
+	_bt = BRACE_RISE_S * clampf(lvl, 0.0, 1.0)
 	_gain = 1.0
 
 
@@ -159,11 +168,13 @@ func _sway_step() -> void:
 func _brace_step() -> void:
 	_bt += get_process_delta_time()
 	var e := envelope(_bt * RISE_S / BRACE_RISE_S) if _bt < BRACE_RISE_S else envelope(_bt - BRACE_RISE_S + RISE_S)
-	if _gain > 1.0:
-		e = fold_envelope(_bt) * _gain
+	_gain_cur = move_toward(_gain_cur, _gain, GAIN_RATE * get_process_delta_time())
+	if _gain > 1.0 or _gain_cur > 1.0:
+		e = fold_envelope(_bt) * _gain_cur
 	var skel := get_skeleton()
 	if e <= 0.0 or skel == null:
 		_bt = -1.0
+		_gain_cur = 1.0   # S392: the next brace starts as a brace, not at the ended fold's gain
 		return
 	var pose := func(n: String) -> Vector3: return skel.get_bone_global_pose(int(_b[n])).origin
 	var up: Vector3 = (pose.call("Chest") - pose.call("Hips")).normalized()

@@ -1,10 +1,11 @@
 extends RefCounted
 ## One boxer on the 3D ring (split from Fightstage.gd S307, 500-line rule): the MetaHuman body scaled to her height, her
 ## corner's kit and gloves, the clip library (mirrored for a southpaw) and the modifier stack in its order - join smoother,
-## tired sag, guard tuck, punch reach, head snap, elbows clear, knee track, planted feet. S316 control arms (tools/smooth_probe.gd): `noguard`,
-## `noreach`, `nosnap`, `noglove`, `nojoin`, `noknee`, `nofeet`.
+## tired sag, footwork hips and torso, guard tuck, punch reach, head snap, elbows clear, knee track, planted feet, footwork
+## legs. S316 control arms (tools/smooth_probe.gd): `noguard`, `noreach`, `nosnap`, `noglove`, `nojoin`, `noknee`, `nofeet`;
+## S391 `nofootwork` (and `stepclips`) = no footwork rig (RingFeet.gd).
 ## Reads the kit colours off the stage (its TRUNKS / VESTS / CORNERS / CLOTH_ROUGHNESS).
-##   build(stage, spec, index) -> {node, skel, ap, gloves, js, reach, snap, knee, feet, south, front, pos, vel, move_left}
+##   build(stage, spec, index) -> {node, skel, ap, gloves, js, reach, snap, knee, feet, rig, south, front, pos, vel, move_left}
 
 const MH := preload("res://scripts/fight3d/MHRig.gd")
 const FightClips := preload("res://scripts/fight3d/FightClips.gd")
@@ -24,6 +25,8 @@ const FootPlant := preload("res://scripts/fight3d/FootPlant.gd")
 const GuardWeave := preload("res://scripts/fight3d/GuardWeave.gd")
 const FloorClear := preload("res://scripts/fight3d/FloorClear.gd")
 const TiredSag := preload("res://scripts/fight3d/TiredSag.gd")
+const BoxerFootwork := preload("res://scripts/fight3d/BoxerFootwork.gd")
+const BoxerFootworkRig := preload("res://scripts/fight3d/BoxerFootworkRig.gd")
 
 
 static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
@@ -133,12 +136,22 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	# S314 `nostagger` = the clip's own stance spread (the control arm of gap 7).
 	var fp := FootPlant.attach(skel, ap, kt, null if OS.get_cmdline_user_args().has("nostagger") else body) if not OS.get_cmdline_user_args().has("nofeet") else null
 	# S376 (operator: "hands are below canvas wtf"): a boxer on the canvas lies ON it - body lifted, arms swung up out of it.
+	# S391: the procedural footwork over FootPlant; its hips and torso run before the guard so the arms' IK reads them. It
+	# starts let go (want 0): RingFeet.gd takes the legs when the fight or a director's walk runs.
+	var rig: Node = null
+	var args := OS.get_cmdline_user_args()
+	if fp != null and not args.has("nofootwork") and not args.has("stepclips"):
+		var plan := BoxerFootwork.new(Vector2.ZERO, 0.0, south, body.scale.x, index * 131 + 391)
+		rig = BoxerFootworkRig.attach(skel, body, plan, fp, gw if gw != null else (gt if gt != null else pr))
+		if rig != null:
+			rig.want = 0.0
+			rig.w = 0.0
 	var fc := FloorClear.attach(skel) if not OS.get_cmdline_user_args().has("nofloor") else null
 	var tw := skel.find_child("MetaHumanTwist", false, false)
 	if tw != null:
 		skel.move_child(tw, skel.get_child_count() - 1)
 	ap.animation_finished.connect(stage._on_finished.bind(index))
-	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "weave": gw, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "floor": fc, "south": south, "front": gl.front_m(),
+	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "weave": gw, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "rig": rig, "floor": fc, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,
 		"aim_m": 0.0, "aim_dir": 0.0, "hold_m": 0.0}
 

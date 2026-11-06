@@ -5089,10 +5089,11 @@
         "Keep both"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "1 board and make it make sense",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-06T09:45:13Z",
+      "seen_by_claude": true,
+      "comment_only": true
     },
     {
       "id": "Q-S294-104",
@@ -5104,10 +5105,11 @@
         "Not now"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "Yes, propose",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-06T09:45:21Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-105",
@@ -5117,6 +5119,67 @@
       "options": [
         "Installed",
         "Not yet"
+      ],
+      "attach": [],
+      "answer": "Installed",
+      "note": null,
+      "answered_at": "2026-11-06T09:45:28Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-106",
+      "asked": "2026-11-06T11:16:55.642484+00:00",
+      "session": "S294",
+      "text": "claude/defflow1 (matched defences, FLOW streak): new mechanic, 40 commits, its film failed. Rebuild later or drop?",
+      "options": [
+        "Rebuild later",
+        "Drop"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-107",
+      "asked": "2026-11-06T11:16:55.803853+00:00",
+      "session": "S294",
+      "text": "The plan's ring card never moves the fighters in the 3D fight. Worth new staging work?",
+      "options": [
+        "Yes, later",
+        "No"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-108",
+      "asked": "2026-11-06T11:16:55.983593+00:00",
+      "session": "S294",
+      "text": "PadWork and Mitts are finished but no screen plays them. Give them a view or drop them?",
+      "options": [
+        "Give a view",
+        "Drop"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-109",
+      "asked": "2026-11-06T11:16:56.149111+00:00",
+      "session": "S294",
+      "text": "7 owned mocap takes are in the repo, nothing plays them. Use them?",
+      "options": [
+        "Yes",
+        "No"
       ],
       "attach": [],
       "answer": null,

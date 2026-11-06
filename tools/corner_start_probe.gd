@@ -71,7 +71,7 @@ func _initialize() -> void:
 	var cs: RefCounted = fi.corners
 	for i in 2:
 		var tap: SkeletonModifier3D = PoseTap.new()
-		tap.setup(st.boxers[i]["skel"], ["LeftFoot", "RightFoot", "Hips"])
+		tap.setup(st.boxers[i]["skel"], ["LeftToes", "RightToes", "Hips"])   # S391: the ball of the foot is the plant; the heel pumps on purpose
 		(st.boxers[i]["skel"] as Skeleton3D).add_child(tap)
 		_taps.append(tap)
 	await process_frame
@@ -124,7 +124,7 @@ func _initialize() -> void:
 			prev_fov = cam.fov
 		for i in 2:
 			var n: Node3D = st.boxers[i]["node"]
-			var feet := [_shown(st, i, "LeftFoot"), _shown(st, i, "RightFoot")]
+			var feet := [_shown(st, i, "LeftToes"), _shown(st, i, "RightToes")]
 			var walking: bool = ph == "walk" and not bool((cs.get("arrived") as Array)[i])
 			if walking and (prev_feet[i] as Array).size() == 2 and (prev_body[i] as Vector3).is_finite():
 				# The planted foot = the slower of the two ankles over the canvas (FootPlant's steps skim the canvas 4 mm high, so the

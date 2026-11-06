@@ -39,3 +39,10 @@ sites of inside() (file:line) and whether they pass bodies.
 ## The one trap
 GDScript: no Variant `:=` from Dictionary reads (`var p: Vector3 = fr["pos"]`), `%` needs `%%` in format strings
 (ops/research/GDSCRIPT_TRAPS.md). The exit code alone is not a pass: any SCRIPT ERROR line is a fail.
+
+## Contract
+Added S392, after the work was collected by diff in S386 (76cea38c). It records what that work owned; it reruns nothing.
+OWNS: tests/corner_lens_test.gd
+RED_TEST: tests/corner_lens_test.gd
+REGRESSION: corner_lens_test
+VISUAL: yes

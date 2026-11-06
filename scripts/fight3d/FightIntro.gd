@@ -10,6 +10,7 @@ const CornerOverlay := preload("res://scripts/fight3d/CornerOverlay.gd")
 const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
 const TapeCard := preload("res://scripts/fight3d/TapeCard.gd")
 const CornerStart := preload("res://scripts/fight3d/CornerStart.gd")
+const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
 
 signal done
 
@@ -35,18 +36,21 @@ const OUT_M := 0.45                  # on the apron (FightStage APRON_M 0.6), no
 const IN_M := 0.65
 const ENTRY_ALONG_M := 1.45
 const E := ENTER_S
-const LENGTH_S := 13.0 + TAPE_S + E
+## S391 the walk to the centre is a boxer's step pairs in her guard (RingFeet), slower than af_walk: the touch waits for it.
+const WALK_MORE_S := 1.9
+const TOUCH_LEAN_M := 0.03   # S391: leaned in her stance the glove's face tips down, the touch reads 5 cm short (corner_film 0.139 vs 0.089)
+const LENGTH_S := 13.0 + WALK_MORE_S + TAPE_S + E
 ## [start s, framing]. S379 (C222, TV rulebook docs/TV_CAMERA_RULES.md: no shot shorter than 2 s): the wide comes in
 ## 0.6 s before the corners (it held 1.5 s), and the two-shot of the glove touch holds to the bell (the 1.4 s wide_out
 ## after a 1.5 s two-shot went).
 const SHOTS := [[0.0, "entry_red"], [BLUE_ENTER_S + 1.0, "entry_blue"], [E - 0.6, "wide"], [1.5 + E, "tape"],
-	[2.0 + TAPE_S + E, "red"], [5.0 + TAPE_S + E, "blue"], [8.0 + TAPE_S + E, "broadcast"], [10.1 + TAPE_S + E, "two_shot"]]
+	[2.0 + TAPE_S + E, "red"], [5.0 + TAPE_S + E, "blue"], [8.0 + TAPE_S + E, "broadcast"], [10.1 + WALK_MORE_S + TAPE_S + E, "two_shot"]]
 ## [s, cue]
 const CUES := [[0.0, "enter_red"], [BLUE_ENTER_S, "enter_blue"], [5.6, "to_corner_red"], [5.6 + BLUE_ENTER_S, "to_corner_blue"],
 	[E, "corners"], [1.8 + E, "tape"], [1.6 + TAPE_S + E, "untape"], [2.0 + TAPE_S + E, "name_red"], [2.6 + TAPE_S + E, "raise_red"],
 	[4.4 + TAPE_S + E, "lower_red"], [5.0 + TAPE_S + E, "name_blue"], [5.6 + TAPE_S + E, "raise_blue"], [7.4 + TAPE_S + E, "lower_blue"],
-	[8.0 + TAPE_S + E, "walk"], [10.4 + TAPE_S + E, "touch"], [11.3 + TAPE_S + E, "untouch"], [11.6 + TAPE_S + E, "seconds_out"],
-	[12.6 + TAPE_S + E, "bell"]]
+	[8.0 + TAPE_S + E, "walk"], [10.4 + WALK_MORE_S + TAPE_S + E, "touch"], [11.3 + WALK_MORE_S + TAPE_S + E, "untouch"],
+	[11.6 + WALK_MORE_S + TAPE_S + E, "seconds_out"], [12.6 + WALK_MORE_S + TAPE_S + E, "bell"]]
 
 var view: Node
 var stage: Node3D
@@ -372,6 +376,8 @@ func cue_touch() -> void:
 		var hand: String = str(stage.hand_of(i, "LeftHand")).trim_suffix("Hand")
 		var toward := (CornerShots.pos(stage.boxers[1 - i]) - CornerShots.pos(a)).normalized()
 		var pad := maxf(0.16, float(a.get("front", 0.16)) * (a["node"] as Node3D).scale.x + 0.015)
+		if RingFeet.on(stage, a):
+			pad -= TOUCH_LEAN_M
 		a["ik"].reach(hand, func(): return mid - toward * pad)
 		crew.look(a, stage.boxers[1 - i])
 

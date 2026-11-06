@@ -39,3 +39,10 @@ tools/bjj_tree_balance.gd + tests/bjj_tree_sim_test.gd.
 ## The one trap
 The exit code alone is not a pass: a test fails on any SCRIPT ERROR line, its own FAIL line, or no output.
 rc 124 / a hang = a parse error somewhere - run `godot --headless --check-only --script <file>` on what you touched.
+
+## Contract
+Added S392, after GAMETREE1 stage 1 ended in S386 (14 of 21 bars pass, 7 unmet). It records what that work owned; it reruns nothing.
+OWNS: tests/bjj_tree_test.gd, tests/bjj_tree_odds_test.gd, tests/bjj_tree_sim_test.gd, tests/bjj_tree_ui_test.gd
+RED_TEST: tests/bjj_tree_sim_test.gd
+REGRESSION: bjj_tree_test, bjj_tree_odds_test, bjj_tree_sim_test, bjj_tree_ui_test
+VISUAL: no

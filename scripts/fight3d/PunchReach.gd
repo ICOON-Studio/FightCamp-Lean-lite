@@ -17,7 +17,7 @@ const OUT_S := 0.16
 const LEAN_MAX := 0.30
 ## When the next clip cuts in (a combo, a hit), the reach and the carry let go over this long instead of at once (S302
 ## joins report: an instant release jolted the hook hand 12 m/s in one frame; JoinSmoother runs before this modifier).
-const FADE_S := 0.12
+const FADE_S := 0.20   # S386: 0.12 (4 frames) still read as a snap off the target
 ## The glove's long axis leans this share from the hand onto the forearm (Gloves.WRIST_STRAIGHT; `-- bentwrist` = 0 there).
 const Gloves := preload("res://scripts/fight3d/Gloves.gd")
 ## Solves per frame for the full-weight wrist (the glove axis moves with the forearm); `-- onepass` = the S302 single step.
@@ -35,6 +35,7 @@ var _front := 0.15
 var last_weight := 0.0   # for probes
 var lunge_m := 0.0       # how far her body carries in at full weight (FightStage reads lunge())
 var _w_now := 0.0
+var _armed_t := 0.0      # S386: seconds since arm(): a punch started mid-clip (BeatFire's skip) eases its reach in
 var _fades := {}         # hand -> {w, target, front, lunge}: a reach whose clip was cut off, falling to 0 over FADE_S
 
 
@@ -51,7 +52,9 @@ func setup(skel: Skeleton3D, player: AnimationPlayer) -> bool:
 
 
 func arm(clip: String, hand_bone: String, contact_s: float, target: Callable, glove_front_m: float) -> void:
+	disarm()   # S386: the punch on screen fades out (arming over it dropped its reach in one frame)
 	_clip = clip
+	_armed_t = 0.0
 	_hand = hand_bone
 	_contact = contact_s
 	_target = target
@@ -106,12 +109,17 @@ func _process_modification() -> void:
 		f["t"] = float(f["t"]) + dt
 		var u := clampf(float(f["t"]) / FADE_S, 0.0, 1.0)
 		f["w"] = float(f["w0"]) * (1.0 - u * u * (3.0 - 2.0 * u))
-		if float(f["w"]) <= 0.0 or (_clip != "" and hand == _hand):
+		# S386 (operator: "the 2nd punch starts from a default clip and doesn't blend"; drawn JOLT 6-11 m/s at punch -> punch):
+		# a new punch on the same hand erased the old reach at once - the glove snapped off the target to the raw clip. It
+		# fades on; the new reach solves on top of it.
+		if float(f["w"]) <= 0.0:
 			_fades.erase(hand)
 		else:
 			_reach(skel, str(hand), float(f["w"]), f["target"], float(f["front"]))
 	if _clip != "" and _arms.has(_hand):
-		_w_now = weight(ap.current_animation_position, _contact)
+		_armed_t += dt
+		var ramp := clampf(_armed_t / IN_S, 0.0, 1.0)
+		_w_now = weight(ap.current_animation_position, _contact) * ramp * ramp * (3.0 - 2.0 * ramp)
 		last_weight = _w_now
 		if _w_now > 0.0:
 			_reach(skel, _hand, _w_now, _target, _front)

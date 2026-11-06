@@ -10,12 +10,14 @@ extends SceneTree
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 const FightIntro := preload("res://scripts/fight3d/FightIntro.gd")
 const BONES := ["Hips", "LeftUpperLeg", "LeftLowerLeg", "LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot", "RightHand", "Head"]
-const SECONDS := 20.0
+const SECONDS := 20.0   # `secs=<n>` on the command line films longer
 
 var main: Node
 var out_dir := "user://men_fight_film"
 var _log: FileAccess
 var _frame := 0
+var _lens_side := Vector3.ZERO
+var _lens_mid := Vector3.ZERO
 
 
 func _initialize() -> void:
@@ -65,7 +67,11 @@ func _initialize() -> void:
 		# Set just before each draw, after the ring camera's own _process (which takes the view back on its cuts).
 		RenderingServer.frame_pre_draw.connect(_aim.bind(view, wide))
 	var start := _frame
-	while _frame - start < int(SECONDS * 30.0):
+	var secs := SECONDS
+	for a in args:
+		if str(a).begins_with("secs="):
+			secs = float(str(a).substr(5))
+	while _frame - start < int(secs * 30.0):
 		await process_frame
 		_frame += 1
 		_row(view)
@@ -97,6 +103,12 @@ func _aim(view: Node, wide: Camera3D) -> void:
 	var b: Vector3 = (view.stage.boxers[1]["node"] as Node3D).global_position
 	var mid := (a + b) * 0.5
 	var side := (b - a).cross(Vector3.UP).normalized()
+	# S391: eased (locked to the line between them, the whole ring whipped round at every step inside; legs cannot be judged)
+	if _lens_side == Vector3.ZERO or side.dot(_lens_side) < -0.2:
+		_lens_side = side
+		_lens_mid = mid
+	_lens_side = _lens_side.lerp(side, 0.012).normalized()
+	_lens_mid = _lens_mid.lerp(mid, 0.05)
 	wide.current = true
-	wide.global_position = mid + side * 4.2 + Vector3.UP * 0.95
-	wide.look_at(mid + Vector3.UP * 0.85, Vector3.UP)
+	wide.global_position = _lens_mid + _lens_side * 4.2 + Vector3.UP * 0.95
+	wide.look_at(_lens_mid + Vector3.UP * 0.85, Vector3.UP)

@@ -30,6 +30,16 @@ const INSIDE_EASE_S := 0.3
 const RHYTHM_PAUSE_S := Vector2(0.05, 0.35)
 const HALF_STEP_S := Vector2(0.14, 0.26)
 const CIRCLE_STEP_S := Vector2(0.25, 0.55)
+## S391 with the rig a step goes in only once her feet have landed the last one, and it is one pair long (RingFeet.PAIR_M):
+## her place never runs ahead of her feet. Feet moving ~55 % of the round (real 53-56 %; the old pause on step pairs read 81 %).
+const RIG_PAUSE_S := Vector2(0.2, 0.75)
+const RIG_HALF_S := Vector2(0.1, 0.2)
+const RIG_CIRCLE_S := Vector2(0.15, 0.32)
+## S391 at punching range their feet keep moving too (with the rig): small steps between punches, longer pauses. Short
+## circle steps hold the gap, a little in or out rocks it inside the phase's band; the inside spell moves least.
+const RANGE_PAUSE_S := {"pocket": Vector2(0.15, 0.55), "in": Vector2(0.2, 0.6), "inside": Vector2(0.45, 1.1)}
+const RANGE_STEP_S := Vector2(0.09, 0.2)
+const RANGE_ROCK_S := Vector2(0.05, 0.09)
 ## Pressed (a step_in beat), the other steps back this long (her answer to his step).
 const GIVE_S := Vector2(0.22, 0.34)
 ## S315 the pivot out of the inside (InsideExits "pivot", John J_INSIDE2: ~90 deg on the lead foot behind a check hook):
@@ -52,6 +62,9 @@ var _pivoted := false       # this pivot phase's step is taken
 ## holds the canvas and shuffles onto its new spot, 0.15 s, the procedural stepping shipped games use). `-- stepclips` =
 ## the old stride clips (the control arm).
 var glide: bool = not OS.get_cmdline_user_args().has("stepclips")
+## S391 the feet chase her place in step pairs and the body rides on them (RingFeet.gd). `-- nofootwork` = the S320 glide on
+## FootPlant. The Playbook's move player turns it off: its boxers are placed by hand between clips.
+var rig_on: bool = glide and not OS.get_cmdline_user_args().has("nofootwork")
 
 
 func setup(owner: Node) -> void:
@@ -106,19 +119,48 @@ func aim_step(dist: float, a_far: bool) -> void:
 ## Every frame at rest: a boxer free to step takes her next rhythm step once her pause runs out.
 func rhythm(delta: float, dist: float) -> void:
 	inside_w = move_toward(inside_w, 1.0 if str(_aim["phase"]) == "inside" else 0.0, delta / INSIDE_EASE_S)
+	if rig_on and RANGE_PAUSE_S.has(str(_aim["phase"])):
+		_range_steps(delta, dist)
 	if str(_aim["phase"]) != "rest":
 		return
 	var rng: RandomNumberGenerator = stage.life.rng
 	for who in 2:
 		_pause[who] = float(_pause[who]) - delta
-		if float(_pause[who]) > 0.0 or not can_step(who):
+		if float(_pause[who]) > 0.0 or not can_step(who) or not feet_down(who):
 			continue
-		_pause[who] = rng.randf_range(RHYTHM_PAUSE_S.x, RHYTHM_PAUSE_S.y)
+		var p: Vector2 = RIG_PAUSE_S if rig_on else RHYTHM_PAUSE_S
+		_pause[who] = rng.randf_range(p.x, p.y)
+		var half: Vector2 = RIG_HALF_S if rig_on else HALF_STEP_S
+		var round_s: Vector2 = RIG_CIRCLE_S if rig_on else CIRCLE_STEP_S
 		if rng.randf() < 0.5:
 			# A half step toward the middle of the rest band (in when long, out when short), never out of it.
-			walk(who, "advance" if dist > want_m else "retreat", rng.randf_range(HALF_STEP_S.x, HALF_STEP_S.y))
+			walk(who, "advance" if dist > want_m else "retreat", rng.randf_range(half.x, half.y))
 		else:
-			walk(who, "strafe_left" if rng.randf() < 0.5 else "strafe_right", rng.randf_range(CIRCLE_STEP_S.x, CIRCLE_STEP_S.y))
+			walk(who, "strafe_left" if rng.randf() < 0.5 else "strafe_right", rng.randf_range(round_s.x, round_s.y))
+		return
+
+
+## S391 no step pair of hers under way (always true without the rig).
+func feet_down(who: int) -> bool:
+	var rig: Variant = stage.boxers[who].get("rig")
+	return not rig_on or rig == null or (rig.plan.pair as Dictionary).is_empty()
+
+
+## S391 the rhythm at punching range: a boxer free to step takes a small one between punches; the "in" phase's attacker is
+## on her lunge, the other keeps moving.
+func _range_steps(delta: float, dist: float) -> void:
+	var ph := str(_aim["phase"])
+	var rng: RandomNumberGenerator = stage.life.rng
+	var pause: Vector2 = RANGE_PAUSE_S[ph]
+	for who in 2:
+		_pause[who] = float(_pause[who]) - delta
+		if float(_pause[who]) > 0.0 or not can_step(who) or not feet_down(who) or (ph == "in" and who == int(_aim["who"])):
+			continue
+		_pause[who] = rng.randf_range(pause.x, pause.y)
+		if rng.randf() < 0.65 or ph == "inside":
+			walk(who, "strafe_left" if rng.randf() < 0.5 else "strafe_right", rng.randf_range(RANGE_STEP_S.x, RANGE_STEP_S.y))
+		else:
+			walk(who, "advance" if dist > want_m else "retreat", rng.randf_range(RANGE_ROCK_S.x, RANGE_ROCK_S.y))
 		return
 
 

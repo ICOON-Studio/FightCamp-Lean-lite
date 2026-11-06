@@ -8,7 +8,8 @@ extends RefCounted
 ##   crane down (one move, eased, well under TvShot.TURN_MAX_DEG_S);
 ## - after HOLD_S both walk to the centre in their guard on the fight's own steps: the body moves at a calm WALK_MS (eased in
 ##   and out) and FootPlant steps the feet - one foot holds the canvas while the other steps, as every step of the round does
-##   (Footwork glide). Not the advance loop through StepRoot: that loop is not a cycle (its feet jump 0.36 m at the seam, once
+##   (Footwork glide; S391: with the footwork rig on, CornerCrew.walk's step pairs in her guard, RingFeet.gd, the body riding
+##   on the feet). Not the advance loop through StepRoot: that loop is not a cycle (its feet jump 0.36 m at the seam, once
 ##   a second) and StepRoot reads its travel BACKWARDS (-0.73 m a loop: the lead foot slides forward lowest), so the boxers
 ##   turned round and walked 5 m backwards to the middle (S379, tools/corner_start_probe.gd);
 ## - there they square up (a jab's length apart, FightIntro.cue_walk's marks), a straight cut to the close two-shot (held
@@ -18,6 +19,7 @@ extends RefCounted
 
 const CornerShots := preload("res://scripts/fight3d/CornerShots.gd")
 const TvShot := preload("res://scripts/fight3d/TvShot.gd")
+const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
 
 const HOLD_S := 2.0          # both in their corners before the walk
 const WALK_MS := 0.75        # a calm walk (the fight's glide steps ~0.9 m/s), eased in over WALK_ACC_S, out over WALK_DECEL_M
@@ -51,6 +53,7 @@ var phase := ""              # "corners" | "walk" | "touch" | "done"
 var walk_m := [0.0, 0.0]     # how far each body went on the walk (probes)
 var walk_s := 0.0
 var _marks: Array = []       # each boxer's square-up mark at the centre
+var _from: Array = []        # where each walk started
 var arrived := [false, false]
 var _t_walk := 0.0
 var _t_arr := 0.0
@@ -67,6 +70,7 @@ func start(intro: Node) -> void:
 	var axis := ((crew.corner("blue")["seat"] as Vector3) - (crew.corner("red")["seat"] as Vector3)).normalized()
 	for i in 2:
 		_marks.append(axis * (float(fi.stage.gap_m) + 0.1) * (-0.5 if i == 0 else 0.5))
+		RingFeet.hold(fi.stage, i)
 	_wide = _wide_shot()
 
 
@@ -78,10 +82,18 @@ func tick(delta: float) -> void:
 			if t >= HOLD_S:
 				phase = "walk"
 				_t_walk = t
+				for i in 2:
+					_from.append((fi.stage.boxers[i]["node"] as Node3D).position)
+					if RingFeet.on(fi.stage, fi.stage.boxers[i]):
+						fi.crew.walk(fi.stage.boxers[i], _marks[i], _arrive.bind(i))
 		"walk":
 			walk_s += delta
 			for i in 2:
-				if not arrived[i] and (_walk(i, delta, t - _t_walk) or t - _t_walk > WALK_MAX_S):
+				if RingFeet.on(fi.stage, fi.stage.boxers[i]):
+					walk_m[i] = (fi.stage.boxers[i]["node"] as Node3D).position.distance_to(_from[i])
+					if not arrived[i] and t - _t_walk > WALK_MAX_S:
+						_arrive(i)
+				elif not arrived[i] and (_walk(i, delta, t - _t_walk) or t - _t_walk > WALK_MAX_S):
 					_arrive(i)
 			if arrived[0] and arrived[1]:
 				phase = "touch"
@@ -174,6 +186,8 @@ func _walk(i: int, delta: float, since: float) -> bool:
 
 ## On the mark, squared up to the other's mark (his guard plays on).
 func _arrive(i: int) -> void:
+	if arrived[i]:   # S392: a timed-out walk still calls back from the rig
+		return
 	arrived[i] = true
 	var a: Dictionary = fi.stage.boxers[i]
 	var at: Vector3 = _marks[i]

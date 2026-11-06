@@ -3,10 +3,10 @@
  "updated": "2026-11-06",
  "author": "claude S294",
  "now": {
-  "id": "S389",
+  "id": "S392",
   "owner": "claude",
   "updated": "2026-11-06",
-  "summary": "S389: update 78 exported: opens fought bout by bout (live or simulate), bouts feed the belt, both women fight only with what they drilled, clash panels with real reasons, bodies placed every frame, every finish ends in a tap. Bible section 12 answered. Dominus Gladiatus studied: two hubs plus a countdown strip. Judges before the body fixes: reviewer 3, animation 4, technique 3, clarity 5/3/5; the body fixes are not judged yet. Board posts now carry a required rating.",
+  "summary": "S392: footwork merged to main b6316814 (blind A/B, judges did not know which: footwork 6 and 5.5 against 3.5 and 4 for main, whose boots hover over the canvas; final film after the hip floor 6 and 5; suite 184/0; not shown to him, under 7). One Miro board: 763 items copied to the production map, 53 links repointed, loop board marked archived, nothing deleted. Blood & Canvas studied. Traits proposal three rounds, 5/10, not shown. Ziva back up.",
   "last_working_commit": "7149ceb6",
   "next_action": "S387 (NEXT_SESSION_PROMPT.md): (1) build menu critic 1-3 + Playbook tab in the fighter page; (2) fight motion round 3 by the blind loop; (3) merge GAMETREE1 after the suite; (4) collect BJJ9R17 / SOUND1R2 / FIGHT9R15.",
   "verified_playable": "S385: training1 on main 96d48da2 - Training tab week strip + drill cards; drag 1-2 onto Friday pads proven on a real focused window (E:/FightCamp/tmp/s385/training/drag_*.jpg), suite 158/158.",
@@ -14,7 +14,7 @@
   "next_acceptance": "Owned takes play in a live fight with no knee tremble (owned_mocap_jitter bars) and the operator's watch OK.",
   "awaiting_operator": "Gemini prepay refill (optional); Q-S294-98/99/100."
  },
- "next": "S390: judge the fixed BJJ film and loop to 7/10 before showing him; then plain Home and fight flow with the Dominus layout; then C237 and C238 from the study; decide the FIGHT9 loop. Rule: nothing visual reaches him under 7/10.",
+ "next": "S393: fix the boots sharing floor space in close (both judges' worst fault), then judge to 7 before showing him; traits: rerun the plan probe with a truly wrong arm, then rewrite and judge; HUD and poster, leaning, menus per NEXT_SESSION_PROMPT.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -1558,6 +1558,11 @@
    "id": "S389",
    "date": "2026-11-06",
    "summary": "S389: update 78 exported: opens fought bout by bout (live or simulate), bouts feed the belt, both women fight only with what they drilled, clash panels with real reasons, bodies placed every frame, every finish ends in a tap. Bible section 12 answered. Dominus Gladiatus studied: two hubs plus a countdown strip. Judges before the body fixes: reviewer 3, animation 4, technique 3, clarity 5/3/5; the body fixes are not judged yet. Board posts now carry a required rating."
+  },
+  {
+   "id": "S392",
+   "date": "2026-11-06",
+   "summary": "S392: footwork merged to main b6316814 (blind A/B, judges did not know which: footwork 6 and 5.5 against 3.5 and 4 for main, whose boots hover over the canvas; final film after the hip floor 6 and 5; suite 184/0; not shown to him, under 7). One Miro board: 763 items copied to the production map, 53 links repointed, loop board marked archived, nothing deleted. Blood & Canvas studied. Traits proposal three rounds, 5/10, not shown. Ziva back up."
   }
  ],
  "blocked_on_operator": [],
@@ -5050,64 +5055,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Right winner on every submission",
-     "who": "claude"
-    },
-    {
-     "text": "Finish plays: lock, tap, banner",
-     "who": "claude"
-    },
-    {
-     "text": "Moves curated: 402 of 1485 out",
-     "who": "claude"
-    },
-    {
-     "text": "122 boxing clips scored",
-     "who": "claude"
-    },
-    {
-     "text": "Sounds wired, unheard",
-     "who": "claude"
-    },
-    {
-     "text": "Knockdown pop + ropes fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Camp Board page + wireframe",
-     "who": "claude"
-    },
-    {
-     "text": "Dominus loop read with REA",
-     "who": "claude"
-    },
-    {
-     "text": "Update 78 exported",
-     "who": "claude"
-    },
-    {
-     "text": "Bible decisions recorded",
-     "who": "claude"
-    },
-    {
-     "text": "Dominus study: 2 hubs + strip",
-     "who": "claude"
-    },
-    {
-     "text": "PR 54 merged, bodies fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Opens fought, feed the belt",
-     "who": "claude"
-    },
-    {
-     "text": "Clash panels, real reasons",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Gloves: whole palm cut",
      "who": "claude"
     },
@@ -5134,6 +5081,52 @@
     {
      "text": "Menus reviewed: 5.1 of 8",
      "who": "claude"
+    },
+    {
+     "text": "Right winner on every submission",
+     "who": "claude"
+    },
+    {
+     "text": "Finish plays: lock, tap, banner",
+     "who": "claude"
+    },
+    {
+     "text": "Moves curated: 402 of 1485 out",
+     "who": "claude"
+    },
+    {
+     "text": "122 boxing clips scored",
+     "who": "claude"
+    },
+    {
+     "text": "Sounds wired, unheard",
+     "who": "claude"
+    },
+    {
+     "text": "Knockdown pop + ropes fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Camp Board page + wireframe",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Footwork merged: 6 and 5 vs 3.5-4",
+     "who": "claude"
+    },
+    {
+     "text": "One Miro board, loop archived",
+     "who": "claude"
+    },
+    {
+     "text": "Blood & Canvas studied",
+     "who": "claude"
+    },
+    {
+     "text": "Ziva back up",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5150,8 +5143,12 @@
      "who": "claude"
     },
     {
-     "text": "Footwork wired: sub-agent",
-     "who": "agent"
+     "text": "Boots overlap in close: fix",
+     "who": "claude"
+    },
+    {
+     "text": "Traits at 5/10: wrong-plan test",
+     "who": "claude"
     }
    ],
    "next": [
@@ -5176,10 +5173,6 @@
      "who": "claude"
     },
     {
-     "text": "Fight card + fighter traits",
-     "who": "claude"
-    },
-    {
      "text": "47 boxing clips under 6",
      "who": "claude"
     },
@@ -5192,15 +5185,15 @@
      "who": "claude"
     },
     {
-     "text": "Your call: one Miro board",
-     "who": "operator"
+     "text": "Steps past Undisputed",
+     "who": "claude"
     },
     {
-     "text": "Steps past Undisputed",
+     "text": "Fight card (C237)",
      "who": "claude"
     }
    ],
-   "session": "S391"
+   "session": "S392"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

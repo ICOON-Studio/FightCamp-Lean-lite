@@ -22,10 +22,11 @@ const STILLS := [[1.0, "c01_bell_part"], [3.2, "c02_behind_walk"], [5.3, "c03_lo
 const TAPE_S := 5.5
 ## S317: the ring entry (FightIntro.ENTER_S) comes first; every later intro still moves by it.
 const E := 8.8
+const MORE := 1.9   # S391 FightIntro.WALK_MORE_S: the walk to the centre runs longer, the touch waits
 const INTRO_STILLS := [[0.6, "e01_red_outside"], [2.7, "e02_red_ducks"], [3.9, "e03_red_inside"], [5.1, "e04_blue_ducks"],
 	[7.2, "e05_to_corners"], [1.2 + E, "i01_wide"], [4.6 + E, "i015_tale_of_the_tape"], [3.4 + TAPE_S + E, "i02_red_named"],
-	[6.4 + TAPE_S + E, "i03_blue_named"], [9.0 + TAPE_S + E, "i04_walk_in"], [10.9 + TAPE_S + E, "i05_touch"],
-	[12.0 + TAPE_S + E, "i06_seconds_out"]]
+	[6.4 + TAPE_S + E, "i03_blue_named"], [9.0 + TAPE_S + E, "i04_walk_in"], [10.9 + MORE + TAPE_S + E, "i05_touch"],
+	[12.0 + MORE + TAPE_S + E, "i06_seconds_out"]]
 
 var main: Node
 var out_dir := "user://corner_film"
@@ -170,7 +171,7 @@ func _watch_intro(fi: Node) -> void:
 				var e: Dictionary = fi._entry(i)
 				var pos: Vector3 = CornerShots.pos(fi.stage.boxers[i])
 				crossed[i] = crossed[i] or (pos - (e["rope"] as Vector3)).dot(e["in"]) > 0.3
-		if tm > 10.7 + TAPE_S + E and tm < 11.2 + TAPE_S + E:
+		if tm > 10.7 + MORE + TAPE_S + E and tm < 11.2 + MORE + TAPE_S + E:
 			var st: Node3D = fi.stage
 			var g0: Vector3 = st.glove_front(0, st.hand_of(0, "LeftHand"))
 			var g1: Vector3 = st.glove_front(1, st.hand_of(1, "LeftHand"))

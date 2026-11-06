@@ -15,6 +15,7 @@ const RingCamera := preload("res://scripts/fight3d/RingCamera.gd")
 const TvShot := preload("res://scripts/fight3d/TvShot.gd")
 const UI := preload("res://scripts/ui/TV.gd")
 const StepRoot := preload("res://scripts/fight3d/StepRoot.gd")
+const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
 
 const DOWN_S := 1.0          # the count starts this long after the fall (and after the replay, when one plays)
 const TICK_S := 1.0          # one number a second
@@ -380,6 +381,12 @@ func _walk(delta: float) -> void:
 	if _path.is_empty():
 		var face := atan2(_body.x - n.position.x, _body.z - n.position.z)
 		n.rotation.y = lerp_angle(n.rotation.y, face, 1.0 - exp(-delta / FACE_S))
+		return
+	if RingFeet.on(st, walker):   # S391: he backs off on his own steps, in his guard, eyes on the body (no step clip)
+		var way := atan2(_body.x - n.position.x, _body.z - n.position.z)
+		n.rotation.y = lerp_angle(n.rotation.y, way, 1.0 - exp(-delta / FACE_S))
+		if RingFeet.backing(st, who, _path[0], delta):
+			_path.pop_front()
 		return
 	if str(ap.current_animation) != WALK_CLIP:
 		if ap.has_animation(WALK_CLIP):

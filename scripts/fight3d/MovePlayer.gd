@@ -131,6 +131,7 @@ func _build_stage() -> void:
 	var spec_a := {"glb": str(bodies[0]), "corner": "red", "stance": "orthodox", "scale": 1.0}
 	var spec_b := {"glb": str(bodies[1]), "corner": "blue", "stance": "orthodox", "scale": 1.0}
 	_stage.setup(spec_a, spec_b)
+	_stage.feet.rig_on = false   # S391: this player places its boxers by hand between clips; FootPlant keeps the feet
 	# Hide the ring (ropes, posts, crowd) but keep the floor
 	_hide_ring()
 	# Apply ghost material to boxer 1 (S382 the studio's partner is solid and reacts: MoveStudio)

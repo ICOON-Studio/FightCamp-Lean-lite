@@ -4,7 +4,11 @@ extends RefCounted
 ## distance she started at (a strafe round a point would open it); an aimed step in or out stops where it was aimed; nobody
 ## closes inside MIN_GAP_M. When the gap is outside its band, a boxer standing in her guard steps to it: the attacker lunges
 ## in, otherwise one steps out.
+## S391: with the footwork rig on, `pos` is where the fight says she stands; RingFeet moves her feet there and she is shown
+## over them (RingFeet.shown).
 ##   compose(stage, delta)
+
+const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
 
 ## S320 a glide step's speed eases in and out over this (Footwork.glide).
 const STEP_RAMP_S := 0.07
@@ -86,8 +90,9 @@ static func _place(st: Node, delta: float) -> void:
 		var bx: Dictionary = boxers[i]
 		var at: Vector3 = (bx["pos"] as Vector3) + shift
 		bx["pos"] = Vector3(clampf(at.x, -edge, edge), at.y, clampf(at.z, -edge, edge))
-		var me: Vector3 = bx["pos"]
-		var other: Vector3 = boxers[1 - i]["pos"]
+		RingFeet.tick(st, i, delta)
+		var me := RingFeet.shown(st, bx)
+		var other := RingFeet.shown(st, boxers[1 - i])
 		var n: Node3D = bx["node"]
 		var to := other - me
 		# S302: a landed punch carries her in (shown only; her place on the canvas stays).

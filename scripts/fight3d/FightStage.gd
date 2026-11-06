@@ -23,6 +23,7 @@ const Footwork := preload("res://scripts/fight3d/Footwork.gd")
 const Clinch := preload("res://scripts/fight3d/Clinch.gd")
 const RingPlace := preload("res://scripts/fight3d/RingPlace.gd")
 const HitImpact := preload("res://scripts/fight3d/HitImpact.gd")
+const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
 
 const CONTACT_S := 8.0 / 30.0
 ## When the glove lands, seconds into each move (natives frame 8; baked: the old repo's clip_phases contact_s).
@@ -119,7 +120,7 @@ func land(who: int, clip: String, body: bool, at_s: float = 0.0, contact_s: floa
 	# 0.21 m off the target at contact (p50), 66 % past 0.15 m, up to 0.98 m - punches landed from 1.6 m). The clip touches
 	# at the gap gap_m - short_m (clip_contact.json, measured at the jab gap); she must close the rest of today's gap by the
 	# contact: the lean and the reach's lunge take up to LEAN_COVER_M + LUNGE_MAX_M, a step in carries the remainder.
-	var need := _gap() - (gap_m - float(row.get("short_m", 0.0)))
+	var need := _gap_shown() - (gap_m - float(row.get("short_m", 0.0)))
 	pr.lunge_m = clampf(need - LEAN_COVER_M, 0.0, LUNGE_MAX_M)
 	var rest := need - LEAN_COVER_M - float(pr.lunge_m)
 	if rest > 0.03 and at_s > 0.0:
@@ -129,6 +130,13 @@ func land(who: int, clip: String, body: bool, at_s: float = 0.0, contact_s: floa
 ## Pelvis to pelvis now, metres.
 func _gap() -> float:
 	return Vector2(boxers[0]["pos"].x - boxers[1]["pos"].x, boxers[0]["pos"].z - boxers[1]["pos"].z).length()
+
+
+## S391 pelvis to pelvis as SHOWN (with the footwork rig her feet may still be stepping to `pos`): what a punch must cover.
+func _gap_shown() -> float:
+	var a := RingFeet.shown(self, boxers[0])
+	var b := RingFeet.shown(self, boxers[1])
+	return Vector2(a.x - b.x, a.z - b.z).length()
 
 
 ## The hand an orthodox clip names, on boxer i: a southpaw's clips are mirrored, so Left and Right swap.
@@ -186,6 +194,7 @@ func _process(delta: float) -> void:
 	if _ropes != null:   # S350: a stage built without a ring (probes) threw here every frame and skipped the rest
 		_ropes.tick(delta, boxers.map(func(bx): return bx["skel"]))
 	if scene:
+		RingFeet.scene(self, delta)
 		camera.nudge(delta)
 		return
 	stun.tick(delta)
@@ -351,9 +360,12 @@ func scene_mode(on: bool) -> void:
 		bx["vel"] = Vector3.ZERO
 		bx["move_left"] = 0.0
 		(bx["ap"] as AnimationPlayer).speed_scale = 1.0
-		if not on:
+		if on:
+			RingFeet.release(bx)   # S391: a director's walk takes the rig back (RingFeet.hold)
+		else:
 			var at := (bx["node"] as Node3D).position
 			bx["pos"] = Vector3(at.x, 0.0, at.z)
+			RingFeet.handed_back(self, bx)
 			guard(i)
 
 
