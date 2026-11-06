@@ -1,3 +1,20 @@
+# S394 - next session (written S393, 2026-11-06)
+
+START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S394` + map redraw.
+OPERATOR RULES (keep): nothing visual reaches him under 7; a blind reviewer sees UI and motion first; every board post carries its rating; research the reference before building fight motion; never end a turn waiting while other work exists. NEW S393: "why you run the full suiteofor each small change ?": run only the tests the diff touches; the full suite once, before export or at wrap-up. "i want serious proposals": no cartoon art anywhere.
+DONE S393, all on main: OWNEDTAKES1 and PADVIEW1 collected. Punch interrupted (CounterCut): both blind judges for it, 5 and 5 against 4.5; visible stops 5 -> 9 in 3 rounds. Fold room (RingPlace.room): one judge for, one equal; head in body outside the clinch 620 -> 431 frames. Calm camera for C242 (TvShot.anchored, 0.5 m dead zone): no blind test, move p50 0.05 -> 0.00, max 0.40 -> 0.27 m/s. HUD: chunk only from a landed punch and sized by damage, stamina flash at the contact. Five cartoon office pictures moved to Miro's RETIRED area. Tables: ops/research/FIGHT_TESTS_S393.md, MENU_DIRECTION_S393.md. Whole fight still 4.5-5. NOT exported, NOT shown except the Home mockup.
+MENU DIRECTION APPROVED ("Yes, this direction", on Home, 7/10): real fighters on arena dark, Needs you first, one row per fighter, no room or cartoon. Direction, not an order to reskin now.
+ORDER FOR S394
+1. BUILD HOME in the game on real data, to the mockup docs/mockups_s393/home3.png. Five rail buttons per PLAYER_PATH. Blind review on real stills, then show him. Sources are in docs/mockups_s393/
+2. PORTRAITS: every reviewer's top fault is bare heads. New render pass in hard gym light with shoulders and kit. Until then key the studio set onto dark (darkbg.py beside the mockup). Tops are red on everyone: crop above the straps.
+3. FIGHTER AND FIGHTS mockups: 6.5 and 6, not shown. Anatomy figure reads medical; Fights has too many buttons. PadView is parked by him: leave it, 3/10 before its loop fix.
+4. HUD RE-REVIEW: 4/10 before the flash fix and chunk by damage. Rings still barely change in a round. Numbers on the rings stay: he asked for them in S369.
+5. FIGHT: heads and gloves still merge up close, and judges say punches lack hip drive. Try claude/trunkcap at a softer limit than 30 degrees (boxing judge: at 30 it reads as an arm pushed out). Then retest claude/insidework1. Both branches are local, not pushed. The fall at 1:26: a boxer leans through the ropes.
+6. Then the S393 list: winded liver (big shots come about once a round, so most bouts never light it), impact flash, sound takes per punch, traits wrong-plan test, slow motion after C241.
+OPEN: Q-S294-110 plan and ring position, still unanswered. Camp Board direction card is his call. Calm camera: at 0:27-0:29 of lens.mp4 the red boxer's feet touch the frame's edge. cam_motion_probe FAILs on 2 short shots on both arms, so not new. PADVIEW1 and OWNEDTAKES1 worktrees can be retired. MEMORY.md is over its size limit. Gemini prepay empty. Windows restart for his pagefile.
+TRAPS: read what a probe cannot see before quoting it: fold_probe first stopped at the chest, interrupt_probe first saw landing punches only. hidden_desktop loses stdout on a timeout: pass --log-file. Film frames crop the right edge (window 1920x1009, canvas 2055): a "cut off" note may be the film. Headless Chrome paints only the window: render taller, then crop. Bash heredocs with quotes or backslashes break here: write a file. Blind reviewers vary by about a point. A Miro image's y moves when its height changes: re-read it.
+SETTINGS: S394 Claude Opus 5.5, effort high, Fast OFF | judges and critics: general-purpose sub-agents, same model, fresh each round | agy: gemini-3.8-flash-high, file tools only | Cursor: Composer 2.5, Fast OFF | Goose: cloud, 3 a day, 2 in flight.
+
 # S393 - next session (written S392, 2026-11-06)
 
 START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S393` + map redraw.

@@ -1111,6 +1111,55 @@
       "at": "2026-11-06 00:53",
       "text": "BOARD ANSWER Q-S294-102 - question: Miro map cleanup: your yes covered 2 cards, but it now wants to delete 16 old cards (32 pieces: 13 old DONE + 3 old NEXT). Nothing deleted yet. OK to delete all 16? | answer: Yes, delete the 16 | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
       "status": "waiting"
+    },
+    {
+      "id": "P152",
+      "from": "board",
+      "at": "2026-11-06 11:45",
+      "text": "BOARD ANSWER Q-S294-103 - question: Miro: 2 boards for the project. Move the frames in use to the production map and archive the loop board? | answer: 1 board and make it make sense | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P153",
+      "from": "board",
+      "at": "2026-11-06 11:45",
+      "text": "BOARD ANSWER Q-S294-104 - question: Fighter traits (C238): build a proposal for rolled traits with real fight effects, so each playthrough differs? | answer: Yes, propose | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P154",
+      "from": "board",
+      "at": "2026-11-06 11:45",
+      "text": "BOARD ANSWER Q-S294-105 - question: Blood & Canvas: did you install the demo? Once it is in, I study it read-only for design. | answer: Installed | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P155",
+      "from": "board",
+      "at": "2026-11-06 13:42",
+      "text": "BOARD ANSWER Q-S294-106 - question: claude/defflow1 (matched defences, FLOW streak): new mechanic, 40 commits, its film failed. Rebuild later or drop? | answer: i want to see current state | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P156",
+      "from": "board",
+      "at": "2026-11-06 13:43",
+      "text": "BOARD ANSWER Q-S294-107 - question: The plan's ring card never moves the fighters in the 3D fight. Worth new staging work? | answer: not sure what you are talking about | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P157",
+      "from": "board",
+      "at": "2026-11-06 13:43",
+      "text": "BOARD ANSWER Q-S294-108 - question: PadWork and Mitts are finished but no screen plays them. Give them a view or drop them? | answer: Give a view | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P158",
+      "from": "board",
+      "at": "2026-11-06 13:43",
+      "text": "BOARD ANSWER Q-S294-109 - question: 7 owned mocap takes are in the repo, nothing plays them. Use them? | answer: Yes | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
     }
   ]
 }

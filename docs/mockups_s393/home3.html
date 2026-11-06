@@ -1,0 +1,109 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Home</title>
+<link rel="stylesheet" href="v3.css">
+<style>
+.grid { display: grid; grid-template-columns: 1fr 420px; gap: 26px; flex: 1; min-height: 0; }
+.left { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.asks { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 14px; }
+.ask u { display: block; text-decoration: none; color: var(--warn); font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+.ask { border-color: var(--line) !important; }
+.ask.first { border-color: var(--warn) !important; background: #262a2a !important; }
+.ask { display: block; background: #1d2430; border: 1px solid var(--warn); border-radius: 6px; padding: 16px; }
+.ask .ph { width: 124px; height: 124px; }
+.ask b { display: block; font-weight: 700; font-size: 23px; line-height: 1.2; }
+.ask p { color: var(--dim); font-size: 18px; margin: 3px 0 11px; }
+.btns { display: flex; gap: 8px; }
+.fight { display: grid; grid-template-columns: 176px 1fr 230px 1fr 176px; align-items: center; height: 204px; padding: 14px; gap: 18px; overflow: hidden; background: linear-gradient(rgba(14,18,26,.66), rgba(14,18,26,.66)), url(file:///E:/FightCamp/tmp/s393/menu/ring.jpg) 50% 62% / cover; box-shadow: inset 5px 0 0 var(--red), inset -5px 0 0 var(--blue); }
+.fight .ph { width: 176px; height: 176px; }
+.fight b { display: block; font: 400 60px/.95 Bebas; }
+.fight span { color: #c6ceda; font-size: 18px; }
+.fight .r { text-align: right; }
+.days { text-align: center; }
+.days .n { font: 400 70px/.9 Bebas; display: block; color: var(--wrap); }
+.days .u { display: block; color: var(--wrap); font-weight: 600; font-size: 18px; }
+.days .d { display: block; font-size: 16px; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; color: var(--dim); font-weight: 500; font-size: 16px; padding: 0 12px 7px 0; }
+td { padding: 11px 12px 11px 0; border-top: 1px solid var(--line); vertical-align: middle; }
+.ppl { display: flex; align-items: center; gap: 14px; }
+.ppl .ph { width: 90px; height: 90px; }
+.ppl b { display: block; font-weight: 600; font-size: 21px; line-height: 1.15; }
+.ppl span { color: var(--dim); font-size: 16px; }
+.sm { font-size: 16px; display: block; }
+.bar { width: 96px; height: 7px; background: var(--slab2); border-radius: 4px; margin-top: 5px; }
+.bar u { display: block; height: 7px; border-radius: 4px; background: var(--good); }
+.bar u.w { background: var(--warn); }
+.right { display: flex; flex-direction: column; gap: 14px; }
+.news p { padding: 8px 0; border-top: 1px solid var(--line); }
+.news p b { font-weight: 600; display: block; }
+.news p b:before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin: 0 9px 2px 0; background: var(--dim); }
+.news p.g b:before { background: var(--good); }
+.news p.w b:before { background: var(--warn); }
+.news p.cl { display: flex; justify-content: space-between; padding: 7px 0; }
+.news p.cl b:before { display: none; }
+.news p span { color: var(--dim); font-size: 17px; }
+</style></head><body>
+<div class="top">
+  <div class="gym">Anvil Street</div>
+  <div class="date">Monday 9 March<small>Week 10</small></div>
+  <div class="grow"></div>
+  <div class="waiting">3 decisions waiting<small>The coach picks if you skip them</small></div>
+  <div class="cash">£11,240<small>£180 down this week</small></div>
+  <button class="go">Continue</button>
+</div>
+<div class="frame">
+  <nav class="rail"><a class="on">Home</a><a>Fighters</a><a>Fights<em>3</em></a><a>Club</a><a>World</a><div class="club"><svg viewBox="0 0 74 74"><circle cx="37" cy="37" r="35" fill="none" stroke="#efe8dc" stroke-width="2"/><circle cx="37" cy="37" r="30" fill="none" stroke="#efe8dc" stroke-width="1"/><path d="M15 29h15c1 0 2-1 4-1h25v6c-6 1-11 3-13 7l1 7h4v4H27v-4h4l1-7c-1-5-7-7-17-8z" fill="#efe8dc"/></svg><b>Anvil Street</b>Boxing club, London<br>Founded 2026, 34 members</div></nav>
+  
+  <main class="main"><div class="grid">
+    <section class="left">
+      <div>
+        <h2>Needs you</h2>
+        <div class="asks">
+          <div class="ask first"><u>Do this first, 11 days to the fight</u><b>Lucy is booked to spar on sore ribs</b><p>Swap Wednesday and Saturday for pads?</p><div class="btns"><button class="pick">Swap them</button><button class="ghost">Leave it</button></div></div>
+          <div class="ask"><u>By Friday</u><b>Chloe has 2 fight offers</b><p>The first one runs out.</p><div class="btns"><button class="pick">See the offers</button></div></div>
+          <div class="ask"><u>This week</u><b>Danny's left hand is sore</b><p>Sparring risks two weeks out.</p><div class="btns"><button class="pick">Rest him</button><button class="ghost">Keep sparring</button></div></div>
+        </div>
+      </div>
+      <div class="panel fight">
+        <i class="ph" style="background-image:url(file:///E:/FightCamp/tmp/s393/menu/dark/mh_boxer_11.jpg)"></i>
+        <div><b>Lucy<br>Jackson</b><span>Your fighter, 4 and 1</span></div>
+        <div class="days"><span class="n">11</span><span class="u">days to fight night</span><span class="d">Friday 20 March</span><button class="pick" style="margin-top:8px">Fight prep</button></div>
+        <div class="r"><b>Priya<br>Nair</b><span>Hackney ABC, 6 and 2</span></div>
+        <i class="ph" style="background-image:url(file:///E:/FightCamp/tmp/s393/menu/dark/mh_boxer_14.jpg)"></i>
+      </div>
+      <div>
+        <h2>Your fighters</h2>
+        <table>
+          <tr><th style="width:330px">Fighter</th><th>Form</th><th>Rank</th><th>Next</th><th>Weight</th><th style="width:170px">Condition</th><th>This week</th></tr>
+          <tr><td><div class="ppl"><i class="ph" style="background-image:url(file:///E:/FightCamp/tmp/s393/menu/dark/mh_boxer_11.jpg)"></i><div><b>Lucy Jackson</b><span>Lightweight, camp week 2 of 3</span></div></div></td>
+            <td><div class="form"><i>W</i><i>W</i><i class="l">L</i><i>W</i><i>W</i></div></td><td>12th</td><td>Priya Nair, 11 days</td><td><span class="warnc">61.4 kg</span><span class="dim sm">1.4 to lose</span></td><td>82<div class="bar"><u style="width:82%"></u></div><span class="warnc sm">Left ribs sore</span></td><td>Pads, sparring, roadwork</td></tr>
+          <tr><td><div class="ppl"><i class="ph" style="background-image:url(file:///E:/FightCamp/tmp/s393/menu/dark/mh_boxer_02.jpg)"></i><div><b>Danny Osei</b><span>Featherweight</span></div></div></td>
+            <td><div class="form"><i class="l">L</i><i>W</i><i>W</i><i class="l">L</i></div></td><td>31st</td><td>No fight booked</td><td>58.2 kg<span class="dim sm">On weight</span></td><td>61<div class="bar"><u class="w" style="width:61%"></u></div><span class="warnc sm">Left hand sore</span></td><td>Bag work, sparring</td></tr>
+          <tr><td><div class="ppl"><i class="ph" style="background-image:url(file:///E:/FightCamp/tmp/s393/menu/dark/mh_boxer_17.jpg)"></i><div><b>Chloe Bennett</b><span>Lightweight, 18, first year</span></div></div></td>
+            <td><div class="form"><i>W</i></div></td><td>New</td><td>2 offers waiting</td><td>59.8 kg<span class="dim sm">On weight</span></td><td>90<div class="bar"><u style="width:90%"></u></div></td><td>Footwork, shadow boxing</td></tr>
+        </table>
+      </div>
+    </section>
+    <aside class="right">
+      <div class="news">
+        <h2>Since last Monday</h2>
+        <p class="g"><b>Lucy's jab went from 61 to 63</b><span>Three pad rounds with Reid in the corner.</span></p>
+        <p class="w"><b>Danny hurt his hand</b><span>His fourth hard sparring week in a row.</span></p>
+        <p class="g"><b>Lucy lost 0.6 kg</b><span>On course for Thursday 19 if the diet holds.</span></p>
+        <p><b>Rent of £420 was paid</b><span>Ironclad Supplements paid £250 back in.</span></p>
+      </div>
+      <div class="news">
+        <h2>The club this month</h2>
+        <p class="cl"><span>Money in</span><b>£2,140</b></p>
+        <p class="cl"><span>Money out</span><b>£2,860</b></p>
+        <p class="cl"><span>Members</span><b>34, up 2</b></p>
+      </div>
+      <div class="news">
+        <h2>Coming up</h2>
+        <p><b>Lucy's weigh-in, Thu 19 Mar</b><span>Limit 60.0 kg. She needs to lose 1.4 kg.</span></p>
+        <p><b>London novice entries close, 27 Mar</b><span>Lucy qualifies if she beats Priya.</span></p>
+        <p><b>Danny can spar again, 6 Apr</b><span>If he rests the hand this week.</span></p>
+      </div>
+    </aside>
+  </div></main>
+</div>
+</body></html>

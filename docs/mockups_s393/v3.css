@@ -1,0 +1,22 @@
+@import url("base.css");
+/* round 3: press-photo portraits, one crop everywhere; one panel treatment on every screen */
+body { text-rendering: geometricPrecision; }
+.ph { position: relative; display: block; flex: none; filter: saturate(.86) contrast(1.05); background-size: 200%; background-position: 50% 18%; background-repeat: no-repeat; background-color: #10141c; border-radius: 4px; }
+.pick { background: var(--wrap); color: #14181f; border: 0; border-radius: 6px; font: 700 17px/1 Barlow; padding: 11px 18px; }
+.ghost { font-weight: 600; }
+.waiting { color: var(--warn); font-weight: 700; font-size: 20px; text-align: right; line-height: 1.2; }
+.waiting small { display: block; color: var(--dim); font: 500 15px/1.2 Barlow; }
+.panel { position: relative; background: var(--slab); border-radius: 6px; }
+.title { font: 400 64px/1 Bebas; }
+.main { display: flex; flex-direction: column; }
+.ph:after { content: ""; position: absolute; inset: 0; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.07); }
+
+.rail { position: relative; }
+.rail a em { float: right; font: 700 15px/22px Barlow; font-style: normal; background: var(--warn); color: #14181f; border-radius: 11px; min-width: 22px; text-align: center; padding: 0 6px; margin-top: 3px; }
+.club { position: absolute; left: 24px; right: 20px; bottom: 28px; color: var(--dim); font-size: 15px; line-height: 1.35; }
+.club svg { display: block; width: 74px; height: 74px; margin-bottom: 10px; }
+.club b { display: block; color: var(--wrap); font: 400 23px/1.1 Bebas; letter-spacing: .4px; }
+.form { display: flex; gap: 3px; }
+.form i { width: 21px; height: 21px; border-radius: 3px; font: 700 13px/21px Barlow; text-align: center; font-style: normal; color: #0d1117; background: var(--good); }
+.form i.l { background: var(--red); color: #fff; }
+.link { color: var(--wrap); font-size: 16px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: #5d6a7c; }

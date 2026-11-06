@@ -1824,6 +1824,14 @@
       "at": "2026-11-06T08:16:38Z",
       "seen_by_claude": true,
       "id": "C241"
+    },
+    {
+      "path": "_sent/2026-11-06_1400_defflow1_current_state_matched_defences_/ropes.mp4",
+      "text": "the camera move whenever a fighter moves this is not how proper coverage is done, stop moving the camera on every step a fighter does",
+      "at": "2026-11-06T14:40:17Z",
+      "seen_by_claude": false,
+      "id": "C242",
+      "addressed": "cited by db9dd2ac 2026-11-06"
     }
   ]
 }

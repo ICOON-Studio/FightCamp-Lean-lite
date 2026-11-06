@@ -1,0 +1,89 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Fights</title>
+<link rel="stylesheet" href="v3.css">
+<style>
+.hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex: none; }
+.quiet { background: var(--slab2); color: var(--wrap); border: 1px solid #4a5666; border-radius: 6px; font: 700 17px/1 Barlow; padding: 11px 18px; }
+.risky { background: none; color: #ff8d84; border: 1px solid var(--red); border-radius: 6px; font: 700 17px/1 Barlow; padding: 11px 18px; }
+.cols { display: grid; grid-template-columns: 116px 300px 1fr 1fr 1.15fr 166px; gap: 18px; padding: 0 16px 6px 8px; color: var(--dim); font-size: 16px; }
+.why { color: var(--dim); font-size: 15px; display: block; line-height: 1.2; margin-top: 2px; }
+.grid { flex: 1; display: grid; grid-template-columns: 1fr 440px; gap: 28px; min-height: 0; }
+.who i.ph { width: 56px; height: 56px; }
+.who { display: grid; grid-template-columns: 116px 300px 1fr 1fr 1.15fr 166px; gap: 18px; align-items: end; padding: 0 16px 6px 8px; margin-top: 16px; }
+.who div { display: flex; align-items: center; gap: 12px; grid-column: 1 / span 2; }
+.who u { text-decoration: none; color: var(--dim); font-size: 16px; }
+.who:first-child { margin-top: 0; }
+.who .ph { width: 52px; height: 52px; }
+.who b { font-weight: 600; font-size: 21px; }
+.who span { color: var(--dim); font-size: 17px; }
+.offer { display: grid; grid-template-columns: 116px 300px 1fr 1fr 1.15fr 166px; align-items: center; gap: 18px; background: var(--slab); border-radius: 6px; margin-bottom: 8px; height: 132px; padding: 8px 16px 8px 8px; }
+.offer .ph { width: 116px; height: 116px; }
+.offer b { display: block; font-weight: 600; font-size: 25px; line-height: 1.15; }
+.offer .sub2 { color: var(--dim); font-size: 18px; }
+.big { font-weight: 600; font-size: 22px; line-height: 1.15; }
+.lab { color: var(--dim); font-size: 16px; display: block; }
+.act { display: flex; flex-direction: column; gap: 8px; }
+.act button { width: 100%; }
+.by { color: var(--warn); font-size: 17px; font-weight: 600; display: block; margin-top: 3px; }
+.by.calm { color: var(--dim); font-weight: 500; }
+.day { display: grid; grid-template-columns: 86px 1fr; padding: 10px 0; border-top: 1px solid var(--line); }
+.day span { color: var(--dim); }
+.day b { font-weight: 600; display: block; }
+.day i { font-style: normal; color: var(--dim); font-size: 17px; }
+.res { display: grid; grid-template-columns: 60px 1fr auto; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); }
+.need { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-top: 1px solid var(--line); }
+.need span { display: block; color: var(--dim); font-size: 17px; }
+.gap { height: 18px; }
+table { width: 100%; border-collapse: collapse; }
+tr.h th { text-align: left; color: var(--dim); font-weight: 500; font-size: 16px; padding: 0 12px 7px 0; border-bottom: 1px solid var(--line); }
+tr.g td { padding: 14px 0 6px; }
+.grp { display: flex; align-items: center; gap: 10px; }
+.grp .ph { width: 34px; height: 34px; }
+.grp b { font-weight: 700; font-size: 19px; }
+.grp span { color: var(--dim); font-size: 16px; }
+td { padding: 9px 12px 9px 0; border-top: 1px solid var(--line); vertical-align: middle; }
+tr.g td { border-top: 0; }
+td.n { font-weight: 600; font-size: 20px; }
+td.n .why { font-weight: 500; }
+.ppl { display: flex; align-items: center; gap: 14px; }
+.ppl .ph { width: 92px; height: 92px; }
+.ppl b { display: block; font-weight: 600; font-size: 23px; line-height: 1.15; }
+.ppl span { color: var(--dim); font-size: 17px; }
+td.a { white-space: nowrap; padding-right: 0; text-align: right; }
+td.a button { padding: 10px 11px; font-size: 16px; margin-left: 4px; }
+</style></head><body>
+<div class="top">
+  <div class="gym">Anvil Street</div>
+  <div class="date">Monday 9 March<small>Week 10</small></div>
+  <div class="grow"></div>
+  <div class="waiting">3 decisions waiting<small>The coach picks if you skip them</small></div>
+  <div class="cash">£11,240<small>£180 down this week</small></div>
+  <button class="go">Continue</button>
+</div>
+<div class="frame">
+  <nav class="rail"><a>Home</a><a>Fighters</a><a class="on">Fights<em>3</em></a><a>Club</a><a>World</a><div class="club"><svg viewBox="0 0 74 74"><circle cx="37" cy="37" r="35" fill="none" stroke="#efe8dc" stroke-width="2"/><circle cx="37" cy="37" r="30" fill="none" stroke="#efe8dc" stroke-width="1"/><path d="M15 29h15c1 0 2-1 4-1h25v6c-6 1-11 3-13 7l1 7h4v4H27v-4h4l1-7c-1-5-7-7-17-8z" fill="#efe8dc"/></svg><b>Anvil Street</b>Boxing club, London<br>Founded 2026, 34 members</div></nav>
+  
+  <main class="main">
+    <div class="hd"><div style="font:600 21px/1.2 Barlow">Offers</div><button class="ghost">Ask for a fight</button></div>
+    <div class="grid">
+      <section>
+        <table><tr class="h"><th>Opponent</th><th>Date</th><th>Club gets</th><th>Coach's read</th><th>Answer by</th><th></th></tr><tr class="g"><td colspan="6"><div class="grp"><i class="ph" style="background-image:url(file:///E:/FightCamp/tmp/s393/menu/dark/mh_boxer_17.jpg)"></i><b>Chloe Bennett</b><span>1 and 0, lightweight</span></div></td></tr><tr><td><div class="ppl"><i class="ph" style="background-image:url(file:///E:/FightCamp/tmp/s393/menu/dark/mh_boxer_12.jpg)"></i><div><b>Megan Hughes</b><span>2 and 1, Bow Boxing Club</span></div></div></td><td class="n">Fri 3 April</td><td class="n">£350</td><td class="n ">Even fight</td><td class="warnc">Friday</td><td class="a"><button class="pick">Accept</button><button class="ghost">Scout</button><button class="ghost">Decline</button></td></tr><tr><td><div class="ppl"><i class="ph" style="background-image:url(file:///E:/FightCamp/tmp/s393/menu/dark/mh_boxer_22.jpg)"></i><div><b>Ellie Ward</b><span>1 and 3, Tower Hamlets ABC</span></div></div></td><td class="n">Sat 18 April</td><td class="n">£200</td><td class="n up">Should win</td><td class="dim">20 March</td><td class="a"><button class="pick">Accept</button><button class="ghost">Scout</button><button class="ghost">Decline</button></td></tr><tr class="g"><td colspan="6"><div class="grp"><i class="ph" style="background-image:url(file:///E:/FightCamp/tmp/s393/menu/dark/mh_boxer_11.jpg)"></i><b>Lucy Jackson</b><span>4 and 1, lightweight, after Priya Nair on 20 March</span></div></td></tr><tr><td><div class="ppl"><i class="ph" style="background-image:url(file:///E:/FightCamp/tmp/s393/menu/dark/mh_boxer_16.jpg)"></i><div><b>Dana Whitfield</b><span>9 and 1, Repton</span></div></div></td><td class="n">Sat 9 May</td><td class="n">£900</td><td class="n down">Too soon<span class="why">Dana has twice her fights</span></td><td class="dim">30 March</td><td class="a"><button class="risky">Accept anyway</button><button class="ghost">Scout</button><button class="ghost">Decline</button></td></tr></table>
+        <div class="gap"></div>
+        <h2>Recent results</h2>
+        <div class="res"><span class="up">Won</span><span>Lucy Jackson beat Erin Doyle on points. The jab plan took rounds 2 and 3.</span><span class="dim">14 Feb</span></div>
+        <div class="res"><span class="down">Lost</span><span>Danny Osei lost to Marcus Bell on points. He faded after round 1.</span><span class="dim">31 Jan</span></div>
+        <div class="res"><span class="up">Won</span><span>Chloe Bennett beat Jade Cooper on points in her first fight.</span><span class="dim">17 Jan</span></div>
+              </section>
+      <aside>
+        <h2>Coming up</h2>
+        <div class="day"><span>19 Mar</span><div><b>Lucy's weigh-in</b><i>Limit 60.0 kg, she is 61.4 kg</i></div></div>
+        <div class="day"><span>20 Mar</span><div><b>Lucy Jackson against Priya Nair</b><i>Town Hall, Hackney</i></div></div>
+        <div class="day"><span>27 Mar</span><div><b>London novice entries close</b><i>Lucy qualifies if she wins on the 20th</i></div></div>
+        <div class="day"><span>6 Apr</span><div><b>Danny can spar again</b><i>If he rests the hand this week</i></div></div>
+        <div class="gap"></div>
+        <h2>Who needs a fight</h2>
+        <div class="need"><div>Danny Osei<span>Free once his hand heals, 6 April</span></div></div>
+      </aside>
+    </div>
+  </main>
+</div>
+</body></html>

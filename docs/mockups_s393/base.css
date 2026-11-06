@@ -1,0 +1,55 @@
+@font-face { font-family: Bebas; src: url("file:///E:/FightCamp/Lean/assets/fonts/BebasNeue-Regular.ttf"); }
+@font-face { font-family: Barlow; font-weight: 400; src: url("file:///E:/FightCamp/Lean/assets/fonts/Barlow-Regular.ttf"); }
+@font-face { font-family: Barlow; font-weight: 500; src: url("file:///E:/FightCamp/Lean/assets/fonts/Barlow-Medium.ttf"); }
+@font-face { font-family: Barlow; font-weight: 600; src: url("file:///E:/FightCamp/Lean/assets/fonts/Barlow-SemiBold.ttf"); }
+@font-face { font-family: Barlow; font-weight: 700; src: url("file:///E:/FightCamp/Lean/assets/fonts/Barlow-Bold.ttf"); }
+
+:root {
+  --arena: #090b10;      /* the black the portraits are rendered on */
+  --slab: #131821;       /* a panel */
+  --slab2: #1b222d;
+  --line: #2a3340;
+  --wrap: #efe8dc;       /* hand-wrap ivory: all text */
+  --dim: #98a3b1;
+  --red: #d8392f;        /* red corner, and only that or a warning */
+  --blue: #3b7fe0;       /* blue corner and the ring canvas */
+  --canvas: #1f5fbf;
+  --good: #4fb98a;
+  --warn: #e6a23c;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; }
+body { background: var(--arena); color: var(--wrap); font: 500 19px/1.35 Barlow, sans-serif; font-variant-numeric: lining-nums tabular-nums; }
+
+.top { height: 72px; display: flex; align-items: center; gap: 28px; padding: 0 28px; border-bottom: 1px solid var(--line); }
+.gym { font: 400 34px/1 Bebas; letter-spacing: .5px; width: 196px; }
+.date { font-weight: 600; }
+.date small { display: block; color: var(--dim); font: 500 15px/1.2 Barlow; }
+.grow { flex: 1; }
+.cash { font-weight: 600; font-size: 22px; }
+.cash small { display: block; color: var(--dim); font: 500 15px/1.2 Barlow; text-align: right; }
+.go { background: var(--canvas); color: #fff; border: 0; border-radius: 6px; font: 700 22px/1 Barlow; padding: 14px 44px; }
+.ghost { background: none; color: var(--wrap); border: 1px solid var(--line); border-radius: 6px; font: 600 17px/1 Barlow; padding: 10px 16px; }
+.solid { background: var(--canvas); color: #fff; border: 0; border-radius: 6px; font: 600 17px/1 Barlow; padding: 11px 18px; }
+
+.frame { display: flex; height: 1008px; }
+.rail { width: 196px; padding: 18px 0 0; border-right: 1px solid var(--line); flex: none; }
+.rail a { display: block; padding: 15px 28px; font-weight: 600; font-size: 21px; color: var(--dim); }
+.rail a.on { color: var(--wrap); background: var(--slab); box-shadow: inset 4px 0 0 var(--canvas); }
+.main { flex: 1; padding: 22px 28px; min-width: 0; }
+
+h2 { font: 600 21px/1.2 Barlow; margin-bottom: 12px; }
+.face { background-size: cover; background-repeat: no-repeat; background-position: 50% 8%; background-color: var(--arena); }
+.up { color: var(--good); }
+.down { color: var(--red); }
+.dim { color: var(--dim); }
+.warnc { color: var(--warn); }
+
+/* round 2: one treatment for every face: the same light, the corner colours show through the shadows */
+.bw { filter: grayscale(1) contrast(1.14) brightness(1.04); }
+.pick { background: var(--wrap); color: #14181f; border: 0; border-radius: 6px; font: 700 17px/1 Barlow; padding: 11px 18px; }
+.band { position: relative; overflow: hidden; flex: none; height: 168px; }
+.band h1 { position: absolute; left: 300px; top: 30px; font: 400 84px/1 Bebas; }
+.band .sub { position: absolute; left: 302px; top: 112px; color: var(--dim); font-size: 21px; }
+.waiting { color: var(--warn); font-weight: 600; font-size: 17px; text-align: right; line-height: 1.2; }
+.waiting small { display: block; color: var(--dim); font: 500 15px/1.2 Barlow; }

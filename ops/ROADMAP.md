@@ -8,13 +8,13 @@ Updated 2026-11-06 by claude S294.
 
 ## Now
 
-**S392 — ?** *(claude)*
+**S393 — ?** *(claude)*
 
-S392: footwork on main, blind 6 and 5.5 against 3.5 and 4; bodies keep apart, boots touching 14 -> 1 of 3,604 frames; HUD chunk, flash and liver built, unreviewed; one Miro board; Blood & Canvas and Tale of the Tape studied; traits 5/10; Ziva up; suite 186/0. Nothing exported or shown.
+S393: PADVIEW1, OWNEDTAKES1 collected; punch interrupted merged, both blind judges for it; fold room merged, one for, one equal; calm camera for C242; inside work and the trunk limit not merged (lost, split); HUD 4/10 before later fixes, chunk by damage, not re-reviewed; menu direction approved on a Home mockup, 7/10; Fighter 6.5, Fights 6 not shown. Nothing exported.
 
 ## Next
 
-S393: collect PADVIEW1, OWNEDTAKES1, MENUTEXT1, LICENCE1; HUD review; inside fighting; punch interrupted; sound takes per punch; traits wrong-plan test.
+S394: build Home in the approved look on real data; portrait re-render in gym light with kit; HUD re-review; softer trunk limit; winded liver; sound takes per punch; traits wrong-plan test.
 
 ## Where the game actually is
 
@@ -282,3 +282,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S388**  |  |  | *none yet* | S388: update 77 exported: career opens on Home, first-week guide says what and why, Roster summary page, GYM > Records with filters, frozen condition fixed (cards now read the sim), halftone shader fixed, plain Why panel grading the plan against no plan. Measured: good plan 59% of bouts, no plan 45%, bad 41%; better-trained fighter wins (+5 stats 72%, +10 95%). New docs: GAME_BIBLE, STEAM_RELEASE_PLAN, PLAYER_PATH (critics: bible 5/10 v1, plan 4/10 v1, path 6/10, approved for plain screens on Home and the fight flow, arc not approved). Direction: structure first, skin last, prove the hook on strangers. Office against dashboard left open. |
 |  |  | **S389**  |  |  | *none yet* | S389: update 78 exported: opens fought bout by bout (live or simulate), bouts feed the belt, both women fight only with what they drilled, clash panels with real reasons, bodies placed every frame, every finish ends in a tap. Bible section 12 answered. Dominus Gladiatus studied: two hubs plus a countdown strip. Judges before the body fixes: reviewer 3, animation 4, technique 3, clarity 5/3/5; the body fixes are not judged yet. Board posts now carry a required rating. |
 |  |  | **S392**  |  |  | *none yet* | S392: footwork on main, blind 6 and 5.5 against 3.5 and 4; bodies keep apart, boots touching 14 -> 1 of 3,604 frames; HUD chunk, flash and liver built, unreviewed; one Miro board; Blood & Canvas and Tale of the Tape studied; traits 5/10; Ziva up; suite 186/0. Nothing exported or shown. |
+|  |  | **S393**  |  |  | *none yet* | S393: PADVIEW1, OWNEDTAKES1 collected; punch interrupted merged, both blind judges for it; fold room merged, one for, one equal; calm camera for C242; inside work and the trunk limit not merged (lost, split); HUD 4/10 before later fixes, chunk by damage, not re-reviewed; menu direction approved on a Home mockup, 7/10; Fighter 6.5, Fights 6 not shown. Nothing exported. |

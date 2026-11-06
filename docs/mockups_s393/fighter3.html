@@ -1,0 +1,110 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Fighter</title>
+<link rel="stylesheet" href="v3.css">
+<style>
+.hero { display: flex; align-items: center; gap: 22px; padding: 14px; height: 148px; flex: none; box-shadow: inset 5px 0 0 var(--red); }
+.hero .ph { width: 120px; height: 120px; margin-left: 6px; }
+.hero span { color: var(--dim); font-size: 19px; display: block; }
+.facts { display: flex; gap: 44px; text-align: right; margin-left: auto; padding-right: 14px; }
+.facts b { display: block; font-weight: 600; font-size: 30px; line-height: 1.1; }
+.facts span { font-size: 17px; }
+.tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--line); flex: none; margin-top: 8px; }
+.tabs a { padding: 12px 20px; font-weight: 600; font-size: 20px; color: var(--dim); }
+.tabs a.on { color: var(--wrap); box-shadow: inset 0 -3px 0 var(--canvas); }
+.body { flex: 1; display: grid; grid-template-columns: 290px 1fr 400px; gap: 30px; padding-top: 18px; min-height: 0; }
+.holo { position: relative; }
+.holo img { position: absolute; left: 50%; top: 40px; height: 380px; transform: translateX(-50%); mix-blend-mode: lighten; filter: grayscale(1) brightness(.82); }
+.dot { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--warn); box-shadow: 0 0 0 4px rgba(230,162,60,.28); }
+.note { position: absolute; left: 0; right: 0; top: 432px; }
+.lastf { position: absolute; left: 0; right: 0; top: 480px; }
+.note b { color: var(--warn); font-weight: 600; }
+.sk { display: grid; grid-template-columns: 130px 1fr 44px 44px; gap: 12px; align-items: center; padding: 5px 0; border-top: 1px solid var(--line); }
+.sk b { font-weight: 600; font-size: 22px; text-align: right; }
+.sk i { font-style: normal; font-size: 18px; font-weight: 600; text-align: right; }
+.tr { position: relative; height: 10px; background: var(--slab2); border-radius: 5px; }
+.tr u { position: absolute; left: 0; top: 0; height: 10px; border-radius: 5px; background: #8c98a8; }
+.tr u.gapw { background: #d96a5c; }
+.tr s { position: absolute; top: -6px; width: 5px; height: 22px; background: #8fbcff; }
+.lead { display: flex; justify-content: space-between; align-items: center; background: var(--slab); border-radius: 6px; padding: 12px 16px; margin-bottom: 16px; box-shadow: inset 4px 0 0 var(--blue); }
+.lead b { display: block; font-weight: 700; font-size: 24px; line-height: 1.2; }
+.lead span { color: var(--dim); font-size: 17px; }
+.key { color: var(--dim); font-size: 16px; float: right; font-weight: 500; }
+.key em { color: #6ea6ff; font-style: normal; font-weight: 600; }
+.gap { height: 16px; }
+.wk { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.wk div { background: var(--slab); border-radius: 4px; padding: 9px 8px; font-size: 16px; color: var(--dim); }
+.wk b { display: block; color: var(--wrap); font-weight: 600; font-size: 17px; }
+.wk .risk { background: #1d2430; border: 1px solid var(--warn); color: var(--warn); }
+.card { background: var(--slab); border-radius: 6px; padding: 14px 16px; margin-bottom: 14px; }
+.card b { font-weight: 600; display: block; }
+.card p { color: var(--dim); font-size: 17px; }
+.meter { height: 8px; background: var(--slab2); border-radius: 4px; margin: 10px 0 6px; }
+.meter u { display: block; height: 8px; border-radius: 4px; background: var(--blue); }
+.hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.hdr h2 { margin: 0; }
+.row { display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid var(--line); }
+.card .pick { margin-top: 10px; }
+</style></head><body>
+<div class="top">
+  <div class="gym">Anvil Street</div>
+  <div class="date">Monday 9 March<small>Week 10</small></div>
+  <div class="grow"></div>
+  <div class="waiting">3 decisions waiting<small>The coach picks if you skip them</small></div>
+  <div class="cash">£11,240<small>£180 down this week</small></div>
+  <button class="go">Continue</button>
+</div>
+<div class="frame">
+  <nav class="rail"><a>Home</a><a class="on">Fighters</a><a>Fights<em>3</em></a><a>Club</a><a>World</a><div class="club"><svg viewBox="0 0 74 74"><circle cx="37" cy="37" r="35" fill="none" stroke="#efe8dc" stroke-width="2"/><circle cx="37" cy="37" r="30" fill="none" stroke="#efe8dc" stroke-width="1"/><path d="M15 29h15c1 0 2-1 4-1h25v6c-6 1-11 3-13 7l1 7h4v4H27v-4h4l1-7c-1-5-7-7-17-8z" fill="#efe8dc"/></svg><b>Anvil Street</b>Boxing club, London<br>Founded 2026, 34 members</div></nav>
+  
+  <main class="main">
+    <div class="panel hero">
+      <i class="ph" style="background-image:url(file:///E:/FightCamp/tmp/s393/menu/dark/mh_boxer_11.jpg)"></i>
+      <div><div class="title">Lucy Jackson</div><span>Lightweight, age 23, orthodox</span></div>
+      <div class="facts">
+        <div><b>4 and 1</b><span>Amateur record</span></div>
+        <div><b>12th</b><span>London ranking</span></div>
+        <div><b>11 days</b><span>To Priya Nair</span></div>
+        <div><b>June 2027</b><span>Contract ends</span></div>
+      </div>
+    </div>
+    <div class="tabs"><a class="on">Overview</a><a>Week</a><a>Fight prep</a><a>Playbook</a><a>History</a></div>
+    <div class="body">
+      <div class="holo">
+        <h2>Her body today</h2>
+        <img src="file:///E:/FightCamp/Lean/assets/ui/body/holo_f.png">
+        <span class="dot" style="left:154px;top:150px"></span>
+        <div class="note"><b>Left ribs sore</b>, 3 days. Legs fresh.</div>
+        <div class="lastf"><h2>Last fights</h2>
+          <div class="row"><span>Beat Erin Doyle</span><span class="dim">14 Feb</span></div>
+          <div class="row"><span>Lost to Priya Nair</span><span class="dim">20 Dec</span></div>
+          <div class="row"><span>Stopped Jade Cooper</span><span class="dim">8 Nov</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="lead"><div><b>Keep Priya off the inside</b><span>She is 24 points better up close. Plan to fight at range.</span></div><button class="pick">Open fight prep</button></div>
+        <h2>Skills <span class="key"><em>Blue line</em> is Priya Nair, from tape. Red bars are well behind her.</span></h2>
+        <div class="sk"><span>Jab</span><div class="tr"><u style="width:63%"></u><s style="left:58%"></s></div><b>63</b><i class="up">+2</i></div>
+        <div class="sk"><span>Hand speed</span><div class="tr"><u style="width:66%"></u><s style="left:61%"></s></div><b>66</b><i></i></div>
+        <div class="sk"><span>Power</span><div class="tr"><u class="gapw" style="width:49%"></u><s style="left:64%"></s></div><b>49</b><i></i></div>
+        <div class="sk"><span>Footwork</span><div class="tr"><u style="width:58%"></u><s style="left:52%"></s></div><b>58</b><i></i></div>
+        <div class="sk"><span>Defence</span><div class="tr"><u style="width:55%"></u><s style="left:60%"></s></div><b>55</b><i class="up">+1</i></div>
+        <div class="sk"><span>Inside work</span><div class="tr"><u class="gapw" style="width:44%"></u><s style="left:68%"></s></div><b>44</b><i class="down">-1</i></div>
+        <div class="sk"><span>Stamina</span><div class="tr"><u style="width:71%"></u><s style="left:63%"></s></div><b>71</b><i class="up">+1</i></div>
+        <div class="sk"><span>Chin</span><div class="tr"><u style="width:62%"></u><s style="left:57%"></s></div><b>62</b><i></i></div>
+        <div class="gap"></div>
+        <div class="hdr"><h2>Her week</h2><button class="ghost">Change her week</button></div>
+        <div class="wk">
+          <div><b>Mon</b>Pads</div><div><b>Tue</b>Roadwork</div><div class="risk"><b>Wed</b>Sparring, sore ribs</div><div><b>Thu</b>Pads</div><div><b>Fri</b>Rest</div><div class="risk"><b>Sat</b>Sparring, sore ribs</div><div><b>Sun</b>Rest</div>
+        </div>
+      </div>
+      <div>
+        <h2>Her goal</h2>
+        <div class="card"><b>Win the London novice title</b><div class="meter"><u style="width:60%"></u></div><p>3 wins of 5 needed by December.</p></div>
+        <h2>What the coach has seen</h2>
+        <div class="card"><b>Drops her right after the jab</b><p>Two more coached weeks should fix it.</p></div>
+        <div class="card"><b>Gets tired in round 3</b><p>Her output fell 30% in her last two fights.</p></div>
+        <div class="card"><b>Sparring on sore ribs</b><p>Wednesday and Saturday are at risk.</p><button class="pick">Swap them for pads</button></div>
+                      </div>
+    </div>
+  </main>
+</div>
+</body></html>
