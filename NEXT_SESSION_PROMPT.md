@@ -1,3 +1,26 @@
+# S389 - next session (written S388, 2026-11-06)
+
+START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then docs/GAME_BIBLE.md, docs/PLAYER_PATH.md, docs/STEAM_RELEASE_PLAN.md.
+Then `where_we_are.py roll S389` + map redraw.
+HOW WE WORK NOW (operator S388: "you are agreeing with everything i say", "i am not a game designer , i just drop ideas"): Claude owns the design;
+his ideas are input, judged yes, no or later with the reason. Nothing reaches him unjudged: blind critic first, verdicts on Miro. Never build what you
+doubt. Wireframes are labelled as wireframes. Scope and money stay his.
+ORDER FOR S389
+1. Ask the four bible decisions (section 12): BJJ out of the first release? fight motion bar? five strangers now? art director after structure? Plus budget.
+2. Build plain screens, no art, for what the UX lead approved only: Home (Monday news, decisions, fighters, clocks; replaces week review and Mail) and
+   the fight flow (Accept lands on Fight prep; one Playbook page). Home must not become the old modal on a busier page: test its layout first.
+   Follow PLAYER_PATH sections 6-8, including the clock rule. The career arc is NOT approved.
+3. Fix-first list: PLAYER_PATH section 11. Also Body Report text on the result screen is almost invisible.
+4. Why panel, after strangers: weak advice after a good-plan loss, unexplained loss when outlanding, MIXED with 0 wrong, repetition, the one-button next step.
+   Tools: tools/plan_effect_probe.gd, tools/train_effect_probe.gd (one matchup so far; try other styles). Bad plans cost only about 4 points: balance question.
+5. Clip licence list (STEAM_RELEASE_PLAN section 2). Operator reads the MetaHuman licence signed in.
+6. C237 poster, C238 offers: unstarted, comment read. C238's "more RPG, unique playthroughs" needs a proposal; data list in ops/research/MENUDIR_*_S388.md, check claims first.
+OPEN: FIGHT9R16 PR #52 not collected (film 5 to 6.5); FIGHT9R17 and BJJ9R18 still queued or running; the bible pauses motion rounds, so decide before they spend more.
+Goose issue #53 can close (answers copied to ops/research). Miro: MENUDIR frame still shows the rejected office_home picture; office2 and pc_open are in E:/FightCamp/tmp/s388/menudir.
+AGENT STATE: Argon and Gemini's paid API out of credit; agy works on gemini-3.8-flash-high, file tools only, say so in the brief. Grok bots fail 502. Ziva down.
+Edge headless screenshots land a few seconds late: wait for the file.
+SETTINGS: S389 Claude Opus 5.5, effort high, Fast OFF | critic sub-agents: general-purpose, same model | agy: gemini-3.8-flash-high | Qwen: qwen3-coder | Cursor: Composer 2.5, Fast OFF.
+
 # S388 - next session (written S387, 2026-11-05 late)
 
 START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S388` + map redraw.

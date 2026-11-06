@@ -1780,6 +1780,36 @@
       "seen_by_claude": true,
       "id": "C235",
       "addressed": "cited by d77fea7c 2026-11-05"
+    },
+    {
+      "path": "_sent/2026-11-05_2352_update_76_roster_checklist_offer_cards_b/20_roster.png",
+      "text": "this should be a summary page , fill all necessary information for each fighter",
+      "at": "2026-11-05T22:55:49Z",
+      "seen_by_claude": true,
+      "id": "C236",
+      "addressed": "cited by 83bf907e 2026-11-06"
+    },
+    {
+      "path": "_sent/2026-11-05_2352_update_76_roster_checklist_offer_cards_b/poster_reveal.mp4",
+      "text": "not bad but needs some more info  dipsplayed like the rankings, and also a bit of variety like the ufc posters",
+      "at": "2026-11-05T23:12:41Z",
+      "seen_by_claude": false,
+      "at_s": 3.0,
+      "id": "C237"
+    },
+    {
+      "path": "_sent/2026-11-05_2352_update_76_roster_checklist_offer_cards_b/offers_rows.png",
+      "text": "again very luittle information is displayed on the fighters here,  the rpg elements needs to showmmore often and maybe add more if it can make each playthrough random and unique",
+      "at": "2026-11-05T23:14:07Z",
+      "seen_by_claude": false,
+      "id": "C238"
+    },
+    {
+      "path": "_sent/2026-11-05_2132_bjj9r17_before_after_argon_3_10_4_10_you/after.mp4",
+      "text": "this is looks good to me however the right panel needs proper presentation and design more features displayed there",
+      "at": "2026-11-05T23:34:53Z",
+      "seen_by_claude": false,
+      "id": "C239"
     }
   ]
 }
