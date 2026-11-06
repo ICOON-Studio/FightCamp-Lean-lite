@@ -10,12 +10,12 @@ extends RefCounted
 
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 
-## Fidgets with the hands up (v4 / v5 drop the hands: between rounds, not in the fight).
+## Fidgets with the hands up plus active head-movement and bob-and-weave so boxers never stand staring in pro_idle.
 const FIDGETS := ["pro_idle_fidget_v1", "pro_idle_fidget_v2", "pro_idle_fidget_v3", "pro_idle_fidget_v6",
-	"pro_idle_fidget_v7", "pro_idle_fidget_v8"]
+	"pro_idle_fidget_v7", "pro_idle_fidget_v8", "mc_head_movement", "mc_bob_weave"]
 const TEMPO := [0.93, 1.08]          # each boxer's guard rate (never the same)
-const QUIET_S := Vector2(0.4, 1.4)   # guard time before a fidget (the S302 film at 1-3 s, reset every beat: 4% fidgets)
-const FIDGET_S := Vector2(1.2, 2.6)  # how long a fidget window lasts
+const QUIET_S := Vector2(0.3, 1.0)   # guard time before an active fidget / head-movement
+const FIDGET_S := Vector2(1.0, 2.1)  # how long a fidget window lasts
 const FOLLOW_S := Vector2(0.10, 0.28)  # the second boxer of a pair step starts this much later
 
 var stage: Node

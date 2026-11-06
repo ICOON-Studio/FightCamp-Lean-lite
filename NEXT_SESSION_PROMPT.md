@@ -1,3 +1,19 @@
+# S391 - next session (written S390, 2026-11-06)
+
+START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S391` + map redraw.
+OPERATOR S390: "do not stop until we have all clips at least 6-7/10". NOT reached. Say so first. ops/research/BJJ_FILM_JUDGED_S390.md, CLIP_SCORES_S390.md hold every score.
+Judges: BJJ reviewer 3-4, animation 3-4, technique 2-3 over ten films. Boxing about 5. 47 of 122 in-game boxing clips under 6, none under 3. Nothing visual goes to him under 7.
+ORDER FOR S391
+1. His calls, none made for him: claude/footwork1 (never merged; the step clips in the ring score 4); the sound mix (wired, nobody has heard it); poster thump and card flip are stand-ins.
+2. BJJ bodies: real contact. The sep layer has been off since S379 (trembling), so limbs pass through bodies. That is the largest open item in every film. Then hands that truly hold: the wrist grip still reads on her own face, the tap meets nothing.
+   Film the kimura: GrappleFinish._take_grip is unfilmed. Only arm and grip families have a lock; chokes and legs get the squeeze and tap on GrappleMap's landing.
+3. BJJ reads as dice: a win from 0-3 on a 28% roll. Design question for the match, not animation. Short matches show no coach call.
+4. Boxing: skate after the count (cause unknown, not the lunge), knockdown head snap and stagger, stand-offs out of range.
+5. Hit reaction clips are kept on purpose (S310: every clip in play; the preview has no head snap). Score them in a fight, not on the grid.
+TRAPS: a feature behind DEFAULT_OFF never ran (S389's tap). A judge who cannot tell who is who reports "role inversion": check the frame. Previews in ops/previews/lean_anim date from 11-02, before FloorClear: re-render with mods=game.
+OPEN: FIGHT9 chain: R17, R18, R19 scored 6, 6, 5.5, under R16's 6.5. R20 is marked launched but never started (no run, no worktree); LOOP is off its brief, set it held. PRs #52, #55, #56, #57 are superseded by the hand merge: close them. Ziva down. Grok bots fail. KnockdownCount.gd and GrappleBrowser.gd over 500 lines. Keep-awake is off in his settings.
+SETTINGS: S391 Claude Opus 5.5, effort high, Fast OFF | judges: general-purpose sub-agents, same model | agy: gemini-3.8-flash-high, file tools only | Cursor: Composer 2.5, Fast OFF.
+
 # S390 - next session (written S389, 2026-11-06)
 
 START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S390` + map redraw.

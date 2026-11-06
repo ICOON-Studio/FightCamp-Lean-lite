@@ -1,7 +1,11 @@
 extends Camera3D
-## The ring's broadcast camera (split from FightStage S302): a TV lens at the apron that follows the pair, the close-up on
-## a big shot, the ropes between it and the boxers made see-through, and the nudge on a power shot.
-##   broadcast(a, b, snap, delta)  close_up(a, b, head_y, hit)  shake(m)  nudge(delta)  clear_view(ring_side, a, b, delta)
+## The ring's broadcast camera (split from FightStage S302): the TV main lens that rides beside the pair (S379), the film
+## shots the intro, the corner minute and the count place, the ropes between it and the boxers made see-through, and the
+## nudge on a power shot.
+##   broadcast(a, b, snap, delta)  film(pos, look, fov, focus)  close_up(a, b, head_y, hit)  shake(m)  nudge(delta)
+##   clear_view(ring_side, a, b, delta)
+
+const TvShot := preload("res://scripts/fight3d/TvShot.gd")
 
 ## The nudge decays with this time constant (seconds).
 const SHAKE_TAU_S := 0.09
@@ -17,26 +21,55 @@ const FADE_S := 0.2
 ## was see-through at once past 1.2 m).
 const NEAR_FADE := Vector2(0.9, 1.5)
 
-## S317 shot director (operator, on a reference boxing game's video: "look how much better their game looks"; the
-## reference cuts every 5.8 s on average - 15 shots in 86 s - between ringside lenses at chest height that keep
-## orbiting, the pair filling ~70 % of the frame; ours sat 3.6 m out at 1.45 m on one slowly drifting angle, ~45 %).
-## Each shot: dist (m from the pair's middle), h (lens height), look_h, fov, yaw (deg off the side-on line), orbit
-## (deg/s while it holds). HOLD_S = how long a shot holds.
-## S368 (operator: "the camera in the fight needs fixing many times it is behind the fighter and cant see"; on main
-## tools/cam_view_probe.gd measured the lens within 45 deg of straight behind a boxer 36.9 % of a round): the two
-## "shoulder" shots (1.75 m behind one boxer, 35 deg off her back) are now "three_q" - close, chest high, 32 deg off
-## side-on, one boxer's face and the other's shoulder - and every lens keeps within SIDE_ARC_DEG of side-on (below).
+## S379 C222 TV coverage (operator on the FIGHT9 round-9 film: "the camera movement makes me dizzy, watch what angles are
+## used in televised events and try to do the same, why you keep zooming in and out and rotate all at the same time"; the
+## rulebook: docs/TV_CAMERA_RULES.md). It replaces the S317 shot director (six ringside lenses that orbited 2-8 deg/s, cut
+## every 4-7.5 s and re-widened every frame near the ropes: tools/cam_motion_probe.gd measured turns up to 220 deg/s and 78
+## frames zooming while the lens moved). Every shot is placed ONCE at its cut - side-on to the pair, its FOV fixed for the
+## whole shot (TvShot.place frames both head to feet) - and while it holds the lens rides beside the pair (it keeps its
+## offset from their eased middle, so the picture holds still around them) and only pans, eased and at most
+## TvShot.TURN_MAX_DEG_S, where the ropes stop it. "main" = TV's elevated main camera, most of the round; "apron" = the
+## ringside handheld, lower and a little off side-on, now and then; "clinch" = lifted and turned toward the side where the
+## far head shows (S369). Each: dist (m from the pair's middle), h (lens height), look_h (-1: centred head to feet,
+## TvShot.centre_h), yaw (deg off side-on), hold (s).
 const SHOTS := [
-	{"name": "side", "dist": 3.0, "h": 1.3, "look_h": 1.0, "fov": 36.0, "yaw": 0.0, "orbit": 6.0},
-	{"name": "low_diag", "dist": 2.7, "h": 1.0, "look_h": 1.1, "fov": 40.0, "yaw": 34.0, "orbit": -8.0},
-	{"name": "three_q", "dist": 2.2, "h": 1.45, "look_h": 1.15, "fov": 38.0, "yaw": 32.0, "orbit": -2.0},
-	{"name": "side_wide", "dist": 3.7, "h": 1.55, "look_h": 1.0, "fov": 34.0, "yaw": -30.0, "orbit": 8.0},
-	{"name": "low_diag", "dist": 2.7, "h": 1.0, "look_h": 1.1, "fov": 40.0, "yaw": -34.0, "orbit": 8.0},
-	{"name": "three_q", "dist": 2.2, "h": 1.45, "look_h": 1.15, "fov": 38.0, "yaw": -32.0, "orbit": 2.0},
+	{"name": "main", "dist": 3.1, "h": 1.85, "look_h": -1.0, "yaw": 0.0, "hold": Vector2(14.0, 20.0)},
+	{"name": "apron", "dist": 2.6, "h": 1.4, "look_h": -1.0, "yaw": 12.0, "hold": Vector2(5.0, 7.0)},
+	{"name": "clinch", "dist": 2.8, "h": 2.15, "look_h": 1.4, "yaw": 28.0, "hold": Vector2(30.0, 30.0)},
 ]
+## S379: no shot shorter than MIN_SHOT_S (the rulebook's replay shots run 2-4 s; live TV cuts about every 9 s) - but the
+## emergency cut, the rulebook's "leave a blocked angle immediately": a boxer within NEAR_HARD_M of the lens, or the lens
+## within BEHIND_HARD_DEG of straight behind one (the probe's bar is 45; the hips swing up to ~5 deg in a frame). After
+## MIN_SHOT_S a shot also cuts when it is within BEHIND_CUT_DEG of behind a boxer, a boxer is within TOO_CLOSE_M, or a
+## boxer's head or feet have been out of the frame LOST_S. The pair's middle eases at MID_W (1/s), the lens rides at POS_W.
+## The regular "behind" cut needs BEHIND_HOLD_S under BEHIND_CUT_DEG (a step in or out swings their line for a moment).
+## The pair circles (the probe measured ~14 deg/s for seconds on end) while the lens holds its direction, so a new shot
+## is placed AHEAD of their turn: LEAD_S seconds of it (at most LEAD_MAX_DEG) off side-on, to come round through side-on.
+const MIN_SHOT_S := 2.2
+const BEHIND_CUT_DEG := 58.0
+const BEHIND_HOLD_S := 0.25
+const BEHIND_HARD_DEG := 50.0
+const LEAD_S := 1.4
+const LEAD_MAX_DEG := 26.0
+const AXIS_TAU_S := 0.6
+## A shot younger than MIN_SHOT_S that a fast pivot carries under PROTECT_DEG slides round the pair toward side-on, at most
+## SLIDE_DEG_S and eased (SLIDE_ACC), instead of cutting away at once; only under BEHIND_HARD_DEG does it cut.
+const PROTECT_DEG := 64.0
+const SLIDE_DEG_S := 7.5
+const SLIDE_ACC := 20.0
+const NEAR_HARD_M := 0.85
+const LOST_S := 0.3
+const MID_W := 2.4
+const POS_W := 4.0
+const MAX_DT_S := 1.0 / 30.0
+## A new shot within JUMP_CUT_M and JUMP_CUT_DEG of the lens it replaces would be a jump cut (it reads as a glitch, not
+## a new camera): the apron angle goes up instead.
+const JUMP_CUT_M := 0.8
+const JUMP_CUT_DEG := 25.0
+const JUMP_MID_M := 1.2   # on a snap, the pair's middle this far from the lens's: a fresh shot (a new round, a skip)
 ## S368: a lens never turns further than this off side-on to the pair (shot yaw + orbit + the turn that keeps it inside the
 ## ropes). Near the ropes it comes closer and widens instead (spot_inside's room search), and when even MIN_DIST_M does not
-## fit on this side it cuts to the other side of the pair - it never swings round behind a boxer.
+## fit on this side it rises to the crane lens on the same broadcast side - never crossing the 180-degree line.
 const SIDE_ARC_DEG := 40.0
 ## S368: deep in a corner neither side has a side-on spot inside the ropes even at MIN_DIST_M (the pair half a metre off two
 ## ropes): the lens rises over the top rope (RingSet's ropes at 0.45 / 0.85 / 1.25 m) like a TV crane, side-on, at most
@@ -44,16 +77,13 @@ const SIDE_ARC_DEG := 40.0
 const OVER_ROPES_H := 2.3
 const HIGH_DIST_M := 2.6
 const TOP_ROPE_H := 1.25
-const HOLD_S := Vector2(4.0, 7.5)
 ## S347 (operator: "this transparent rope on all your stills start to become annoying, why you do not change angle?"):
 ## the lens stands INSIDE the ropes, IN_M in from them, so no rope is ever between it and the pair - the ropes are only
 ## behind them (the tape room's rule, TapeFilm). A shot whose spot is outside turns toward the open ring, smallest turn
-## first (TURNS, deg); with no room at its distance anywhere it comes closer (down to MIN_DIST_M) and widens so the
-## frame keeps HALF_H_M above and below the pair's middle (the side shot's own framing: 3.0 m at fov 36).
-const RING_HALF_M := 2.75     # FightStage.RING_M * 0.5
-const IN_M := 0.4
+## first (TURNS, deg); with no room at its distance anywhere it comes closer (down to MIN_DIST_M).
+const RING_HALF_M := TvShot.RING_HALF_M     # FightStage.RING_M * 0.5
+const IN_M := TvShot.IN_M
 const MIN_DIST_M := 1.9
-const HALF_H_M := 1.0
 const TURNS := [0.0, 25.0, -25.0, 50.0, -50.0, 80.0, -80.0, 115.0, -115.0, 150.0, -150.0, 180.0]
 ## S317 motion blur (operator: "go ahead" on the download): sphynx-owner's Godot Motion Blur Addon v1.1.1 (MIT, per-object
 ## velocity blur as a compositor effect; needs his Easy Compositor Addon v1.0.4, MIT) - res://addons. The reference's fast
@@ -65,30 +95,41 @@ const JUMP_M := 0.4
 ## S348 (S348 round-1 still: "Step back" walked her into the over-the-shoulder lens, her back hid the other woman's face):
 ## a boxer this close to the lens (flat) cuts to the next shot.
 const TOO_CLOSE_M := 1.3
-## S348 (round-2 still: the referee stepping in to part a clinch filled a quarter of the frame): the referee closer than
-## this cuts the shot.
-const REF_CLOSE_M := 2.0
 ## S369 (CAMCLINCH1): in a tie-up the heads sit side by side along the side-on line, so a side-on lens lets the near head
-## hide the far one. While `clinch_heads` holds both heads, the lens turns CLINCH_YAW_DEG off side-on toward the side where
-## lens -> far head clears the near head, rises CLINCH_UP_M above the shot's height, and looks at the midpoint of the heads.
-const CLINCH_YAW_DEG := 40.0
-const CLINCH_UP_M := 0.35
+## hide the far one. While `clinch_heads` holds both heads the shot is SHOTS "clinch": turned its yaw off side-on toward the
+## side where lens -> far head clears the near head, lifted, looking at the midpoint of the heads (S379: placed at its cut,
+## no longer swung round while the lens held).
 var avoid := Vector3.INF      # the referee (FightStage sets it every frame); INF = nobody to keep off
 var clinch_heads: Array = []  # [head_a, head_b] in world space while a clinch is held, else []
 
-var close := false            # the big-shot close-up holds until broadcast() runs again
+var close := false            # a film shot (or the close-up) holds until broadcast() runs again
+var shot_name := ""           # S379: what the lens shows (probes read it): main / apron / clinch / film / close
+var cut_why := ""             # S379: why the last broadcast cut came (probes read it)
+var cuts := 0                 # S379: broadcast cuts so far (probes read it: a cut, however small the change)
 var _shot := -1
-var _shot_t := 0.0            # seconds the current shot has held
+var _shot_t := 0.0            # real seconds the current shot has held
 var _shot_hold := 0.0
 var _rng := RandomNumberGenerator.new()
 var _blur: CompositorEffect = null
-var _side := Vector3.LEFT     # the side of the pair the camera is on (it never jumps across the ring)
-var _clock := 0.0
+var _side := Vector3.LEFT     # the side of the pair the camera is on (flat)
 var _shake := 0.0             # metres, decaying
 var _shake_t := 0.0
-var _turn := 0.0              # S347: the turn (deg) the inside-the-ropes lens holds
-var _clinch_s := 1.0          # S369: which sign (+1 / -1) of CLINCH_YAW_DEG the clinch lens holds
-var _look := Vector3.INF
+var _clinch_s := 1.0          # S369: which sign (+1 / -1) of the clinch yaw the clinch lens holds
+var _apron_s := 1.0           # S379: the apron shot turns to alternate sides
+var _mid := Vector3.ZERO      # S379: the pair's middle, eased (flat)
+var _mid_v := Vector3.ZERO
+var _pos := Vector3.ZERO      # the lens, riding at _mid + _off
+var _pos_v := Vector3.ZERO
+var _off := Vector3.ZERO
+var _h := 1.85
+var _look_h := 0.95
+var _ang := Vector2.ZERO      # yaw, pitch (deg)
+var _ang_v := Vector2.ZERO
+var _lost := 0.0
+var _behind_s := 0.0          # S379: seconds the lens has been under BEHIND_CUT_DEG
+var _axis := INF              # the pair's line a -> b (deg about +Y) last frame
+var _axis_w := 0.0            # how fast it turns (deg/s, eased over AXIS_TAU_S)
+var _slide_w := 0.0           # deg/s the young shot's lens slides round the pair (PROTECT_DEG)
 
 
 func _init() -> void:
@@ -114,82 +155,179 @@ func _place_lens(pos: Vector3, look: Vector3) -> void:
 	look_at_from_position(pos, look, Vector3.UP)
 
 
-## The ringside lenses (SHOTS): each follows the pair, orbits slowly while it holds, and cuts to the next after HOLD_S
-## (a cut is a snap, never a swing across the ring). `snap` = start on a fresh shot.
+## S379 the TV lens (SHOTS): a cut places a shot once (TvShot.place, its FOV fixed till the next cut); while it holds it
+## rides beside the pair and pans (_ride); it cuts on the rules above (_due). `snap` = the ring changes hands (a round, the
+## intro's bell, the count): a fresh shot when a film shot was on or the pair jumped, else the shot on screen holds.
 func broadcast(a: Vector3, b: Vector3, snap: bool = false, delta: float = 0.0) -> void:
+	var was_film := close
 	close = false
-	_clock += delta
-	_shot_t += delta
-	var cut := snap or _shot < 0 or _shot_t >= _shot_hold
-	if not cut and _shot >= 0 and _shot_t > 0.6:   # a shot holds 0.6 s at least: never a cut every frame
-		for p in [a, b]:
-			if Vector2(p.x - position.x, p.z - position.z).length() < TOO_CLOSE_M:
-				cut = true
-		if avoid != Vector3.INF and Vector2(avoid.x - position.x, avoid.z - position.z).length() < REF_CLOSE_M:
-			cut = true
-	if cut:
-		if _shot < 0:
-			_rng.seed = 317
-		_shot = (_shot + 1) % SHOTS.size()
-		_shot_t = 0.0
-		_shot_hold = _rng.randf_range(HOLD_S.x, HOLD_S.y)
-	var sh: Dictionary = SHOTS[_shot]
-	var mid := (a + b) * 0.5
-	var side := _side_of(a, b)
-	if cut and avoid != Vector3.INF and side.dot(Vector3(avoid.x - mid.x, 0.0, avoid.z - mid.z)) > 0.0:
-		side = -side   # S348: a new shot opens on the side away from the referee (never a cut straight back into him)
+	# Real seconds: the 2x pace must not turn the lens faster. At most one 30 fps frame (MAX_DT_S): the frame the shout's
+	# slow motion starts divides an unscaled delta by the new time scale.
+	var dt := minf(delta / maxf(Engine.time_scale, 0.05), MAX_DT_S)
+	_shot_t += dt
+	var mid := Vector3((a.x + b.x) * 0.5, 0.0, (a.z + b.z) * 0.5)
+	var why := ""
+	if _shot < 0 or was_film:
+		why = "start"
+	elif snap and mid.distance_to(_mid) > JUMP_MID_M:
+		why = "jump"
+	else:
+		why = _due(a, b)
+	if why != "":
+		_cut(a, b, mid, why)
+	else:
+		_ride(a, b, dt)
+
+
+## Why the shot on screen must end now ("" = it holds).
+func _due(a: Vector3, b: Vector3) -> String:
+	var lens := Vector3(global_position.x, 0.0, global_position.z)
+	var behind := TvShot.behind_deg(a, b, lens)
+	var near := minf(TvShot.flat_gap(lens, a), TvShot.flat_gap(lens, b))
+	if behind < BEHIND_HARD_DEG or near < NEAR_HARD_M:
+		return "emergency"
+	if _shot_t < MIN_SHOT_S:
+		return ""
+	if _behind_s >= BEHIND_HOLD_S:
+		return "behind"
+	if near < TOO_CLOSE_M:
+		return "close"
+	if _lost >= LOST_S:
+		return "frame"
+	if (clinch_heads.size() == 2) != (shot_name == "clinch"):
+		return "clinch"
+	if _shot_t >= _shot_hold:
+		return "hold"
+	return ""
+
+
+## A straight cut to a fresh shot: "main" again after anything but a held main (which hands over to the apron for a
+## while), "clinch" while the heads are tied up. Same side of the pair as the lens on screen (the 180-degree line).
+func _cut(a: Vector3, b: Vector3, mid: Vector3, why: String) -> void:
+	if _shot < 0:
+		_rng.seed = 379
+	var k := 0
+	if clinch_heads.size() == 2:
+		k = 2
+	elif why == "hold" and shot_name == "main":
+		k = 1
+	var sh: Dictionary = SHOTS[k]
+	var here := Vector3(global_position.x - mid.x, 0.0, global_position.z - mid.z)
+	var prefer := here if here.length() > 0.3 else _side
+	# Ahead of the pair's turn: the lens direction stays put while their side-on line turns at _axis_w.
+	var lead := signf(_axis_w) * minf(absf(_axis_w) * LEAD_S, LEAD_MAX_DEG)
+	var yaw := lead
+	if k == 1:
+		_apron_s = signf(_axis_w) if absf(_axis_w) > 3.0 else -_apron_s
+		yaw = maxf(float(sh["yaw"]), absf(lead)) * _apron_s
+	elif k == 2:
+		# S379 fix: the clinch shot's own turn (SHOTS "clinch" yaw 28), not the lead (often 0), and placed keeping it
+		# (TvShot.place `keep_yaw`; it came back near side-on): the S369 turn toward the side where the far head shows
+		# did nothing in a clinch (tools/cam_view_probe.gd clinch=: the lens 15 deg off side-on, now 29).
+		yaw = _clinch_yaw(mid, TvShot.side_on(a, b, prefer), float(sh["dist"]), float(sh["h"]), float(sh["yaw"]))
+	var p := TvShot.place(a, b, prefer, float(sh["dist"]), yaw, float(sh["h"]), float(sh["look_h"]), _aspect(),
+		TvShot.PLACE_CLEAR_M, k == 2)
+	var old := global_position
+	if k == 0 and _shot >= 0 and old.distance_to(p["lens"]) < JUMP_CUT_M 			and rad_to_deg(here.angle_to(p["off"] as Vector3)) < JUMP_CUT_DEG:
+		k = 1
+		sh = SHOTS[1]
+		_apron_s = signf(_axis_w) if absf(_axis_w) > 3.0 else -_apron_s
+		yaw = maxf(float(sh["yaw"]), absf(lead)) * _apron_s
+		p = TvShot.place(a, b, prefer, float(sh["dist"]), yaw, float(sh["h"]), float(sh["look_h"]), _aspect())
+	_shot = k
+	cuts += 1
+	shot_name = str(sh["name"])
+	_shot_t = 0.0
+	_lost = 0.0
+	_shot_hold = _rng.randf_range((sh["hold"] as Vector2).x, (sh["hold"] as Vector2).y)
+	_mid = mid
+	_mid_v = Vector3.ZERO
+	_off = p["off"]
+	_side = _off.normalized() if _off.length() > 0.05 else _side
+	_pos = p["lens"]
+	_pos_v = Vector3.ZERO
+	_h = _pos.y
+	_look_h = float(p["look_h"])
+	_behind_s = 0.0
+	_slide_w = 0.0
+	cut_why = "%s (old lens behind %.0f near %.2f) -> %.2f m out, yaw %.0f, behind %.0f, pair turning %.0f deg/s%s" % [why,
+		TvShot.behind_deg(a, b, here + mid), minf(TvShot.flat_gap(here + mid, a), TvShot.flat_gap(here + mid, b)),
+		_off.length(), yaw, TvShot.behind_deg(a, b, _pos), _axis_w, " HIGH" if bool(p["high"]) else ""]
+	fov = float(p["fov"])
+	_ang = TvShot.aim(_pos, p["look"])
+	_ang_v = Vector2.ZERO
 	_lens(false)
-	# S368: the orbit stops at the arc's edge (5 deg in, so the ropes' turn still has room) instead of carrying the lens
-	# round behind a boxer. S369: while a clinch holds, turn CLINCH_YAW_DEG off side-on toward the clear side and lift.
-	var clinching := clinch_heads.size() == 2
-	var lens_h := float(sh["h"]) + (CLINCH_UP_M if clinching else 0.0)
-	var arc := SIDE_ARC_DEG - 5.0
-	var yaw_deg := _clinch_yaw(mid, side, float(sh["dist"]), lens_h) if clinching \
-		else clampf(float(sh["yaw"]) + float(sh["orbit"]) * _shot_t, -arc, arc)
-	var limit := Vector2(-SIDE_ARC_DEG - yaw_deg, SIDE_ARC_DEG - yaw_deg)
-	var sp := spot_inside(mid, Basis(Vector3.UP, deg_to_rad(yaw_deg)) * side, float(sh["dist"]),
-		0.0 if cut or clinching else _turn, Vector2.ZERO if clinching else limit)
-	if not bool(sp[3]):
-		# No room on this side even at MIN_DIST_M: a cut to the other side of the pair, never a swing round behind her.
-		var other_yaw := _clinch_yaw(mid, -side, float(sh["dist"]), lens_h) if clinching else yaw_deg
-		var other_lim := Vector2.ZERO if clinching else Vector2(-SIDE_ARC_DEG - other_yaw, SIDE_ARC_DEG - other_yaw)
-		var other := spot_inside(mid, Basis(Vector3.UP, deg_to_rad(other_yaw)) * -side, float(sh["dist"]), 0.0, other_lim)
-		if bool(other[3]):
-			side = -side
-			sp = other
-			cut = true
-		else:
-			sp = high_spot(mid, Basis(Vector3.UP, deg_to_rad(yaw_deg)) * side, float(sh["dist"]))
-			lens_h = OVER_ROPES_H
-	_side = side
-	_turn = float(sp[2])
-	var want_pos := (sp[0] as Vector3) + Vector3(0, lens_h, 0)
-	var want_look := ((clinch_heads[0] as Vector3) + (clinch_heads[1] as Vector3)) * 0.5 if clinching \
-		else mid + Vector3(0, float(sh["look_h"]), 0)
-	fov = maxf(float(sh["fov"]), rad_to_deg(2.0 * atan(HALF_H_M / maxf(float(sp[1]), 0.5))))
-	(attributes as CameraAttributesPractical).dof_blur_far_distance = want_pos.distance_to(want_look) + 1.6
-	if cut:
-		_look = want_look
-		_place_lens(want_pos, _look)
+	_set_lens(true)
+
+
+## The held shot: the pair's middle eases, the lens rides at its offset from it (stopped by the ropes: it slides along
+## them), and the lens pans toward the middle, eased and capped (TvShot.turn). The FOV never changes here.
+func _ride(a: Vector3, b: Vector3, dt: float) -> void:
+	if dt <= 0.0:
 		return
-	var k := clampf(delta * 3.0, 0.0, 1.0)
-	_look = want_look if not _look.is_finite() else _look.lerp(want_look, k)
-	_place_lens(position.lerp(want_pos, k), _look)
+	var m := TvShot.spring(_mid, _mid_v, Vector3((a.x + b.x) * 0.5, 0.0, (a.z + b.z) * 0.5), MID_W, dt)
+	_mid = m[0]
+	_mid_v = m[1]
+	var axis := rad_to_deg(atan2(-(b.z - a.z), b.x - a.x))
+	if is_finite(_axis):
+		_axis_w = lerpf(_axis_w, wrapf(axis - _axis, -180.0, 180.0) / dt, 1.0 - exp(-dt / AXIS_TAU_S))
+	_axis = axis
+	var behind := TvShot.behind_deg(a, b, Vector3(global_position.x, 0.0, global_position.z))
+	_behind_s = _behind_s + dt if behind < BEHIND_CUT_DEG else 0.0
+	var slide := 0.0
+	if _shot_t < MIN_SHOT_S and behind < PROTECT_DEG:
+		var side := TvShot.side_on(a, b, _off)
+		slide = -signf(side.signed_angle_to(_off, Vector3.UP)) * SLIDE_DEG_S
+	_slide_w = move_toward(_slide_w, slide, SLIDE_ACC * dt)
+	if absf(_slide_w) > 0.0:
+		_off = Basis(Vector3.UP, deg_to_rad(_slide_w * dt)) * _off
+	var want := TvShot.clamp_in(_mid + _off)
+	want.y = _h
+	var p := TvShot.spring(_pos, _pos_v, want, POS_W, dt)
+	_pos = p[0]
+	_pos_v = p[1]
+	var look := _mid + Vector3.UP * _look_h
+	if shot_name == "clinch" and clinch_heads.size() == 2:
+		look = ((clinch_heads[0] as Vector3) + (clinch_heads[1] as Vector3)) * 0.5
+	var t := TvShot.turn(_ang, _ang_v, TvShot.aim(_pos, look), dt)
+	_ang = t[0]
+	_ang_v = t[1]
+	_set_lens(false)
+	_lost = 0.0 if _seen(a) and _seen(b) else _lost + dt
 
 
-## S369: tries +CLINCH_YAW_DEG and -CLINCH_YAW_DEG off `side` (clamped to SIDE_ARC_DEG) and keeps the one whose
-## lens -> far-head line passes furthest from the near head.
-func _clinch_yaw(mid: Vector3, side: Vector3, dist: float, h: float) -> float:
+## No blur on a cut's frame (its motion vectors would smear the whole picture).
+func _set_lens(cut: bool) -> void:
+	if _blur != null:
+		_blur.set("intensity", 0.0 if cut else BLUR)
+	global_transform = Transform3D(TvShot.basis_of(_ang), _pos)
+	(attributes as CameraAttributesPractical).dof_blur_far_distance = Vector2(_off.x, _off.z).length() + 1.6
+
+
+## A boxer standing at `p` (feet) is in the frame head to feet.
+func _seen(p: Vector3) -> bool:
+	return _in_view(p + Vector3.UP * 0.05) and _in_view(p + Vector3.UP * 1.85)
+
+
+func _in_view(p: Vector3) -> bool:
+	return TvShot.in_view(global_transform, fov, _aspect(), p)
+
+
+func _aspect() -> float:
+	return TvShot.aspect_of(self)
+
+
+## S369: tries +`yaw` and -`yaw` off `side` and keeps the one whose lens -> far-head line passes furthest from the near
+## head (the clinch shot's turn).
+func _clinch_yaw(mid: Vector3, side: Vector3, dist: float, h: float, yaw: float) -> float:
 	var h0: Vector3 = clinch_heads[0]
 	var h1: Vector3 = clinch_heads[1]
-	var best_yaw := clampf(_clinch_s * CLINCH_YAW_DEG, -SIDE_ARC_DEG, SIDE_ARC_DEG)
+	var best_yaw := _clinch_s * yaw
 	var best_clear := -1.0
 	for s in [_clinch_s, -_clinch_s]:
-		var y := clampf(float(s) * CLINCH_YAW_DEG, -SIDE_ARC_DEG, SIDE_ARC_DEG)
+		var y := float(s) * yaw
 		var d := Basis(Vector3.UP, deg_to_rad(y)) * side
-		var sp := spot_inside(mid, d, dist, 0.0, Vector2.ZERO)
-		var flat: Vector3 = sp[0] if bool(sp[3]) else Vector3(mid.x, 0.0, mid.z) + d * dist
-		var lens := flat + Vector3(0, h, 0)
+		var lens := TvShot.clamp_in(Vector3(mid.x, 0.0, mid.z) + d * dist) + Vector3(0, h, 0)
 		var near_h := h0 if lens.distance_to(h0) < lens.distance_to(h1) else h1
 		var far_h := h1 if near_h == h0 else h0
 		var clear := Geometry3D.get_closest_point_to_segment(near_h, lens, far_h).distance_to(near_h)
@@ -203,7 +341,7 @@ func _clinch_yaw(mid: Vector3, side: Vector3, dist: float, h: float) -> float:
 ## Low at the side, both heads in frame (`head_y` = the hit boxer's head height), held until broadcast() is called again.
 func close_up(a: Vector3, b: Vector3, head_y: float, hit: int) -> void:
 	close = true
-	_look = Vector3.INF
+	shot_name = "close"
 	_lens(false)
 	var mid := (a + b) * 0.5 + Vector3(0, head_y - 0.12, 0)
 	var axis := (b - a).normalized()
@@ -214,13 +352,13 @@ func close_up(a: Vector3, b: Vector3, head_y: float, hit: int) -> void:
 	var flat := Vector3(mid.x, 0.0, mid.z) - hitter * 0.15
 	var arc := Vector2(-SIDE_ARC_DEG, SIDE_ARC_DEG)
 	var sp := spot_inside(flat, side, 2.5, 0.0, arc)
+	var h := mid.y + 0.08
 	if not bool(sp[3]):
-		var other := spot_inside(flat, -side, 2.5, 0.0, arc)
-		if bool(other[3]):
-			_side = -side
-			sp = other
+		sp = high_spot(flat, side, 2.5)
+		h = OVER_ROPES_H
+	_side = side
 	fov = maxf(32.0, rad_to_deg(2.0 * atan(0.7 / maxf(float(sp[1]), 0.5))))
-	_place_lens((sp[0] as Vector3) + Vector3(0, mid.y + 0.08, 0), mid)
+	_place_lens((sp[0] as Vector3) + Vector3(0, h, 0), mid)
 
 
 ## S347: a lens spot (flat, y 0) inside the ropes.
@@ -271,8 +409,7 @@ static func high_spot(mid: Vector3, dir: Vector3, dist: float) -> Array:
 
 
 func _side_of(a: Vector3, b: Vector3) -> Vector3:
-	var side := (b - a).normalized().cross(Vector3.UP).normalized()
-	return -side if side.dot(_side) < 0.0 else side
+	return (b - a).normalized().cross(Vector3.UP).normalized()
 
 
 ## S302: a power shot nudges the lens (the framing itself is untouched).
@@ -339,7 +476,7 @@ static func _fade(m: MeshInstance3D, want: float, delta: float) -> void:
 ## field: the near shoulder and the hall behind go soft). `focus` <= 0 = the broadcast lens.
 func film(pos: Vector3, look: Vector3, lens_fov: float, focus: float) -> void:
 	close = true
-	_look = Vector3.INF
+	shot_name = "film"
 	fov = lens_fov
 	_lens(focus > 0.0, focus)
 	_place_lens(pos, look)

@@ -17,6 +17,7 @@ const CHAIN_SHARE := [0.14, 0.12, 0.14, 0.2, 0.2, 0.2]
 ## coach crouches in front of the stool with his trunk up. upright(deg) tips the trunk back from the lower spine by deg
 ## (eased like the look), BEFORE the look, so the look only has a small turn left for the neck.
 var _upright := {"deg": 0.0, "w": 0.0}
+var _duck := 0.0
 var _spine := -1
 var _body: Node3D
 var _arms := {}            # "Left"/"Right" -> [upper, lower, hand]
@@ -81,12 +82,28 @@ func reach(side: String, target: Variant) -> void:
 		r["target"] = target
 
 
+## Immediate reach without EASE_S lag (used when PushOff takes over from Clinch).
+func reach_now(side: String, target: Variant) -> void:
+	var r: Dictionary = _reach[side]
+	r["on"] = target != null
+	if target != null:
+		r["target"] = target
+		r["w"] = 1.0
+
+
 ## Tips the trunk back `deg` from the lower spine (0 lets the clip's back return). S341: a negative `deg` leans it
 ## forward (the clinch's A-frame: chests in, hips back) - set after the clip, so the animation cannot undo it.
 func upright(deg: float) -> void:
 	if deg != 0.0:
 		_upright["deg"] = deg
+	else:
+		_duck = 0.0
 	_upright["on"] = deg != 0.0
+
+
+## S372 ring-entry top-rope duck (0..1): tilts the trunk down so the Head bone clears the 1.25 m top rope cleanly.
+func set_duck(w: float) -> void:
+	_duck = clampf(w, 0.0, 1.0)
 
 
 func look(target: Variant) -> void:
@@ -110,6 +127,27 @@ func _process_modification() -> void:
 		var par := skel.get_bone_parent(_spine)
 		var pq := skel.get_bone_global_pose(par).basis.get_rotation_quaternion() if par >= 0 else Quaternion.IDENTITY
 		skel.set_bone_pose_rotation(_spine, (pq.inverse() * (q * g.basis.get_rotation_quaternion())).normalized())
+	if _duck > 0.0 and _spine >= 0 and _head >= 0:
+		var gs := skel.get_bone_global_pose(_spine)
+		var gh := skel.get_bone_global_pose(_head)
+		var sc := maxf(skel.global_transform.basis.get_scale().y, 0.1)
+		var spine_y := (skel.global_transform * gs.origin).y
+		var head_y := (skel.global_transform * gh.origin).y
+		var max_y := lerpf(1.42, 0.98, _duck)
+		var trunk := gh.origin - gs.origin
+		var t_len := trunk.length()
+		if head_y > max_y and t_len > 0.1:
+			var horiz := Vector3(trunk.x, 0.0, trunk.z)
+			if horiz.length() <= 0.02:
+				horiz = Vector3(_fwd_skel.x, 0.0, _fwd_skel.z)
+			horiz = horiz.normalized() if horiz.length() > 1e-4 else Vector3.BACK
+			var want_y := clampf((max_y - spine_y) / sc, -t_len * 0.25, t_len * 0.95)
+			var want_h := sqrt(maxf(t_len * t_len - want_y * want_y, 0.0))
+			var want_dir := (horiz * want_h + Vector3.UP * want_y).normalized()
+			var q_duck := Quaternion(trunk.normalized(), want_dir)
+			var par_s := skel.get_bone_parent(_spine)
+			var pq_s := skel.get_bone_global_pose(par_s).basis.get_rotation_quaternion() if par_s >= 0 else Quaternion.IDENTITY
+			skel.set_bone_pose_rotation(_spine, (pq_s.inverse() * (q_duck * gs.basis.get_rotation_quaternion())).normalized())
 	# The look first: it turns the chest (S309), and the hands then still meet what they reach.
 	_look["w"] = move_toward(float(_look["w"]), 1.0 if bool(_look["on"]) else 0.0, delta / EASE_S)
 	if float(_look["w"]) > 0.0 and (_look["target"] as Callable).is_valid():

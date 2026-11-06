@@ -409,8 +409,8 @@
    "status": "queued",
    "queued_at": "2026-11-05 19:49",
    "tries": 0,
-   "skips": 10,
-   "last_error": "2026-11-06 00:40 gbot send rc=1: ['GROKBOT FAIL sendPrompt 502  {\"error\":\"A Sand box session is not permitted on this endpoint.\"}']"
+   "skips": 25,
+   "last_error": "2026-11-06 08:10 gbot send rc=1: ['GROKBOT FAIL sendPrompt 502  {\"error\":\"A Sand box session is not permitted on this endpoint.\"}']"
   }
  ]
 }

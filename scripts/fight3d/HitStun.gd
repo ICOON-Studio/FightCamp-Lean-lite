@@ -13,8 +13,9 @@ const MAX_S := 1.0
 ## 4:52.3); ours stood locked in the whole reaction 0.67 s. She is locked to the snap's peak plus a short settle, the
 ## reaction is cut HEAD_SETTLE_S after its peak and the join smoother eases her back into her guard. Hurt, big and body
 ## shots keep the full lock.
-const HEAD_LOCK_S := 0.28
-const HEAD_SETTLE_S := 0.12
+const HEAD_LOCK_S := 0.22
+const HEAD_SETTLE_S := 0.08
+
 ## Clip names that are a defence, a fidget or a tired idle (blocked while she is stunned).
 const BLOCKED := ["dodge", "weave", "block", "fidget", "idle_tired", "slighty_tired", "slip", "pull"]
 

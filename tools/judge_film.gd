@@ -8,11 +8,15 @@ extends SceneTree
 ## round time (shot, fall, replay, on the canvas) so the judge sees the knockdown clips too.
 
 const TestJump := preload("res://scripts/ui/TestJump.gd")
+const FightIntro := preload("res://scripts/fight3d/FightIntro.gd")
 
 var main: Node
 
 
 func _initialize() -> void:
+	# S379 (operator: "skip the walk in for the clips"): the film opens with both boxers in their corners (CornerStart);
+	# `walkin` films the game's full intro.
+	FightIntro.from_corners = not OS.get_cmdline_user_args().has("walkin")
 	var secs := 60.0
 	var jump := "fight"   # S372 fightjump=men_fight films Danny's bout (not jump=: Main runs that one itself)
 	for a in OS.get_cmdline_user_args():

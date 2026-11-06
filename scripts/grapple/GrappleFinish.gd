@@ -61,12 +61,235 @@ const VIC_L_ANKLE := Vector3(0, 0.0, 0.42)       # (minus b*0.36)
 const SHIN_SIDE := 0.18   # the crossing shin's offset off the head's axis (to the far side of the face)
 
 
+## S390 (three blind judges: "not believable", "guard submissions come out backwards"): who is APPLYING a submission, read from the
+## bodies. Height says nothing: in an omoplata, a triangle or an armbar from guard the attacker lies under the woman she is
+## finishing, and "the higher core wins" gave the win to the victim. Per family, the man whose limbs are on the other's target.
+const LEG_SUBS := ["triangle", "omoplata", "monoplata"]
+const ARM_SUBS := ["armbar", "spiderweb"]
+const CHOKE_SUBS := ["rear_naked_choke", "guillotine", "darce", "arm_triangle", "arm_choke"]
+const GRIP_SUBS := ["kimura", "americana"]
+const FOOT_SUBS := ["knee_bar", "straight_ankle_lock", "heel_hook"]
+
+
+## The man applying the submission in `tags` on this frame, 0 or 1; -1 = no submission in those tags.
+static func attacker(tags: Array, frame: Array) -> int:
+	var fam := ""
+	for t in tags:
+		for pair in [[LEG_SUBS, "leg"], [ARM_SUBS, "arm"], [CHOKE_SUBS, "choke"], [GRIP_SUBS, "grip"], [FOOT_SUBS, "foot"]]:
+			if (pair[0] as Array).has(t):
+				fam = str(pair[1])
+	if fam == "":
+		return -1
+	return 0 if _reach(fam, frame[0], frame[1]) <= _reach(fam, frame[1], frame[0]) else 1
+
+
+static func _near(a: PackedVector3Array, v: PackedVector3Array, names: Array, goals: Array) -> float:
+	var best := INF
+	for n in names:
+		for g in goals:
+			best = minf(best, a[DB.joint(n)].distance_to(v[DB.joint(g)]))
+	return best
+
+
+## How far `a`'s working limbs are from `v`'s target: smaller = `a` is the one applying it.
+static func _reach(fam: String, a: PackedVector3Array, v: PackedVector3Array) -> float:
+	match fam:
+		"leg":   # her legs round the other's shoulder and neck
+			var knee := _near(a, v, ["LeftKnee", "RightKnee"], ["LeftShoulder", "RightShoulder", "Neck"])
+			return knee + _near(a, v, ["LeftAnkle", "RightAnkle"], ["LeftShoulder", "RightShoulder", "Neck", "Core"])
+		"arm":   # the other's elbow at her hips
+			return _near(a, v, ["LeftHip", "RightHip"], ["LeftElbow", "RightElbow"])
+		"choke": # both her wrists at the other's neck
+			return a[DB.joint("LeftWrist")].distance_to(v[DB.joint("Neck")]) + a[DB.joint("RightWrist")].distance_to(v[DB.joint("Neck")])
+		"grip":  # both her hands on one of the other's wrists
+			var l: float = a[DB.joint("LeftWrist")].distance_to(v[DB.joint("LeftWrist")]) + a[DB.joint("RightWrist")].distance_to(v[DB.joint("LeftWrist")])
+			var r: float = a[DB.joint("LeftWrist")].distance_to(v[DB.joint("RightWrist")]) + a[DB.joint("RightWrist")].distance_to(v[DB.joint("RightWrist")])
+			return minf(l, r)
+		"foot":  # the other's knee or ankle at her hips
+			return _near(a, v, ["LeftHip", "RightHip"], ["LeftKnee", "RightKnee", "LeftAnkle", "RightAnkle"])
+	return INF
+
+
+## S390 (black belt on the film: "the setup is close", then the recorded extension popped the pair 90 degrees and lost the arm): the
+## finish grows out of the landing on screen, so nothing jumps. The lock tightens (LOCK_IN_S), the hips rise (SQUEEZE_M), the
+## loser taps on the winner's leg, and the last tap is the end. For the arm family the winner's hands take the wrist and the arm
+## goes straight; every family gets the squeeze and the tap.
+const LOCK_IN_S := 1.3
+const SQUEEZE_S := 0.6
+const SQUEEZE_M := 0.07
+const TAP_FIRST_S := 0.25
+const TAP_GAP_S := 0.28
+const TAP_LIFT_M := 0.24
+const PULL_M := 0.09      # the loser pulled down over the winner's hips
+const NECK_PAST_M := 0.16 # the crossing ankle lands this far past the neck
+const NECK_SIDE_M := 0.14
+const LEG_M := 0.43       # GrappleMap thigh and shin (GrappleMapDB.LIMBS)
+
+
+static func squeeze(frame: Array, winner: int, tags: Array) -> Dictionary:
+	var w: PackedVector3Array = (frame[winner] as PackedVector3Array).duplicate()
+	var l: PackedVector3Array = (frame[1 - winner] as PackedVector3Array).duplicate()
+	var free := "Left"
+	if tags.has("armbar") or tags.has("spiderweb"):
+		# The arm is chosen ONCE, before she moves: once her hips slide in both elbows are near them and it could flip mid-finish.
+		var arm := _arm_side(w, l)
+		_pull_in(w, l, arm)
+		free = _take_arm(w, l, arm)
+		_leg_over(w, l, arm)
+		# Her free arm posts out on the mat: beside the trapped one it hid it ("both arms between the legs").
+		var post := _flat(l[DB.joint(free + "Shoulder")] - w[DB.joint("Core")]).normalized()
+		_hand_to(l, free, Vector3(l[DB.joint(free + "Shoulder")].x, TAP_MAT_Y, l[DB.joint(free + "Shoulder")].z) + post * TAP_REACH)
+	else:
+		var core: Vector3 = w[DB.joint("Core")]
+		free = "Right" if l[DB.joint("RightWrist")].distance_to(core) > l[DB.joint("LeftWrist")].distance_to(core) else "Left"
+		for t in tags:
+			if GRIP_SUBS.has(t):
+				_take_grip(w, l, free)
+				break
+	var locked: Array = [w, l] if winner == 0 else [l, w]
+	var tight: PackedVector3Array = w.duplicate()
+	for n in ["Core", "LeftHip", "RightHip"]:
+		tight[DB.joint(n)] += Vector3.UP * SQUEEZE_M
+	for n in ["LeftKnee", "RightKnee"]:
+		tight[DB.joint(n)] += Vector3.UP * SQUEEZE_M * 0.5
+	var held: Array = [tight, l] if winner == 0 else [l, tight]
+	var frames: Array = [[_dup(frame[0]), _dup(frame[1])], locked, held]
+	var times := PackedFloat32Array([0.0, LOCK_IN_S, LOCK_IN_S + SQUEEZE_S])
+	var t := LOCK_IN_S + SQUEEZE_S + TAP_FIRST_S
+	var on := _tap_spot(tight, l, free)
+	for k in TAPS * 2:
+		var lv: PackedVector3Array = l.duplicate()
+		var up := k % 2 == 0
+		_hand_to(lv, free, on + Vector3.UP * (TAP_LIFT_M if up else 0.0))
+		frames.append([tight.duplicate(), lv] if winner == 0 else [lv, tight.duplicate()])
+		times.append(t)
+		t += TAP_GAP_S
+	return {"frames": frames, "times": times, "free": free}
+
+
+## The winner scoots her hips in under the loser's near shoulder (her whole body slides, so every limb keeps its length): only then is
+## the arm as long as her torso and the wrist lands on her chest, not her face ("both of Ana's hands cover her own face"). The loser
+## comes down over her ("kneeling upright, unbothered").
+static func _pull_in(w: PackedVector3Array, l: PackedVector3Array, side: String) -> void:
+	var hips: Vector3 = (w[DB.joint("LeftHip")] + w[DB.joint("RightHip")]) * 0.5
+	var slide := _flat(l[DB.joint(side + "Shoulder")] - hips)
+	for j in w.size():
+		w[j] += slide
+	hips += slide
+	var toward := Vector3.DOWN * PULL_M
+	for n in ["Neck", "Head", "LeftShoulder", "RightShoulder"]:
+		l[DB.joint(n)] += toward
+	l[DB.joint("Core")] += toward * 0.5
+
+
+static func _arm_side(w: PackedVector3Array, l: PackedVector3Array) -> String:
+	var side := "Right"
+	var best := INF
+	for s in ["Left", "Right"]:
+		var d := _seg_dist(l[DB.joint(s + "Elbow")], w[DB.joint("LeftHip")], w[DB.joint("RightHip")])
+		if d < best:
+			best = d
+			side = s
+	return side
+
+
+## The winner's leg nearest the loser's neck crosses it: a real armbar's leg over the face. Two-bone, the knee up.
+static func _leg_over(w: PackedVector3Array, l: PackedVector3Array, arm: String) -> void:
+	var neck: Vector3 = l[DB.joint("Neck")]
+	var side := "Left" if w[DB.joint("LeftKnee")].distance_to(neck) <= w[DB.joint("RightKnee")].distance_to(neck) else "Right"
+	var hip: Vector3 = w[DB.joint(side + "Hip")]
+	var was: Vector3 = w[DB.joint(side + "Ankle")]
+	# Across the throat, clear of the head ("Ana's foot goes through Nadia's head"): past the neck, low, to the far side of the arm.
+	var along := _flat(neck - hip).normalized()
+	var away := Vector3.UP.cross(along).normalized()
+	if away.dot(l[DB.joint(arm + "Shoulder")] - neck) > 0.0:
+		away = -away
+	var to := neck + along * NECK_PAST_M + away * NECK_SIDE_M + Vector3.DOWN * 0.1 - hip
+	var ankle := hip + to.normalized() * minf(to.length(), LEG_M * 2.0 - 0.02)
+	var half := hip.distance_to(ankle) * 0.5
+	w[DB.joint(side + "Knee")] = (hip + ankle) * 0.5 + Vector3.UP * sqrt(maxf(0.0, LEG_M * LEG_M - half * half))
+	w[DB.joint(side + "Ankle")] = ankle
+	for n in ["Heel", "Toe"]:
+		w[DB.joint(side + n)] += ankle - was
+
+
+## The arm she has: the loser's elbow nearest her hips. It goes straight toward her chest, her hands on the wrist. Returns the free side.
+static func _take_arm(w: PackedVector3Array, l: PackedVector3Array, side: String) -> String:
+	var sh: Vector3 = l[DB.joint(side + "Shoulder")]
+	var chest: Vector3 = (w[DB.joint("Core")] + w[DB.joint("Neck")]) * 0.5 + Vector3.UP * 0.12
+	var dir := (chest - sh).normalized()
+	var wrist := sh + dir * (REACH_UP + REACH_FORE)
+	l[DB.joint(side + "Elbow")] = sh + dir * REACH_UP
+	l[DB.joint(side + "Wrist")] = wrist
+	l[DB.joint(side + "Hand")] = wrist + dir * 0.06
+	l[DB.joint(side + "Fingers")] = wrist + dir * 0.13
+	for s in ["Left", "Right"]:
+		var grip := wrist + Vector3.UP * 0.05 + (Vector3.LEFT if s == "Left" else Vector3.RIGHT) * 0.04
+		var ws: Vector3 = w[DB.joint(s + "Shoulder")]
+		var to := grip - ws
+		if to.length() > REACH_UP + REACH_FORE - 0.01:
+			grip = ws + to.normalized() * (REACH_UP + REACH_FORE - 0.01)
+		var mid := (ws + grip) * 0.5
+		var half := ws.distance_to(grip) * 0.5
+		w[DB.joint(s + "Elbow")] = mid + Vector3.UP * sqrt(maxf(0.0, REACH_UP * REACH_UP - half * half))
+		w[DB.joint(s + "Wrist")] = grip
+		w[DB.joint(s + "Hand")] = grip + (grip - ws).normalized() * 0.05
+		w[DB.joint(s + "Fingers")] = grip + (grip - ws).normalized() * 0.11
+	return "Left" if side == "Right" else "Right"
+
+
+## A kimura or americana: both her hands on the wrist of the arm she has, that arm bent up behind the shoulder ("no figure-four, no bent arm").
+static func _take_grip(w: PackedVector3Array, l: PackedVector3Array, free: String) -> void:
+	var side := "Left" if free == "Right" else "Right"
+	var sh: Vector3 = l[DB.joint(side + "Shoulder")]
+	var core: Vector3 = w[DB.joint("Core")]
+	var out := _flat(sh - l[DB.joint("Core")]).normalized()
+	var elbow := sh + (out + Vector3.UP * 0.3).normalized() * REACH_UP
+	var wrist := elbow + (_flat(core - elbow).normalized() + Vector3.UP * 0.5).normalized() * REACH_FORE
+	var along := (wrist - elbow).normalized()
+	l[DB.joint(side + "Elbow")] = elbow
+	l[DB.joint(side + "Wrist")] = wrist
+	l[DB.joint(side + "Hand")] = wrist + along * 0.06
+	l[DB.joint(side + "Fingers")] = wrist + along * 0.13
+	for s in ["Left", "Right"]:
+		_hand_to(w, s, wrist + (Vector3.LEFT if s == "Left" else Vector3.RIGHT) * 0.04 + Vector3.UP * 0.03)
+
+
+## Where the free hand taps: the winner's thigh nearest it, or the mat beside the shoulder when her leg is out of reach.
+static func _tap_spot(w: PackedVector3Array, l: PackedVector3Array, free: String) -> Vector3:
+	var sh: Vector3 = l[DB.joint(free + "Shoulder")]
+	var best := INF
+	var spot := Vector3.ZERO
+	for s in ["Left", "Right"]:
+		var p := _closest_on_seg(sh, w[DB.joint(s + "Hip")], w[DB.joint(s + "Knee")]) + Vector3.UP * 0.1
+		if sh.distance_to(p) < best:
+			best = sh.distance_to(p)
+			spot = p
+	if best <= REACH_UP + REACH_FORE - 0.02:
+		return spot
+	var out := _flat(sh - w[DB.joint("Core")]).normalized()
+	return Vector3(sh.x, TAP_MAT_Y, sh.z) + out * TAP_REACH
+
+
+static func _hand_to(l: PackedVector3Array, side: String, at: Vector3) -> void:
+	var sh: Vector3 = l[DB.joint(side + "Shoulder")]
+	var to := at - sh
+	var reach := REACH_UP + REACH_FORE - 0.01
+	var hand := at if to.length() <= reach else sh + to.normalized() * reach
+	var mid := (sh + hand) * 0.5
+	var half := sh.distance_to(hand) * 0.5
+	l[DB.joint(side + "Elbow")] = mid + Vector3.UP * sqrt(maxf(0.0, REACH_UP * REACH_UP - half * half))
+	l[DB.joint(side + "Wrist")] = hand
+	l[DB.joint(side + "Hand")] = hand + to.normalized() * 0.05
+	l[DB.joint(side + "Fingers")] = hand + to.normalized() * 0.11
+
+
 static func times() -> PackedFloat32Array:
 	return PackedFloat32Array([0.0, SIT_S, LOCK_S, EXT_S, TAP1_S, TAP1B_S, TAP2_S, TAP2B_S])
 
 
 ## S380 BJJ9R15: GrappleMap's recorded "extend arm" (826), aligned from the lock landing — not hand-tuned keyframes.
-static func recorded(db: Array, landing: Array) -> Dictionary:
+static func recorded(db: Array, landing: Array, winner: int = -1) -> Dictionary:
 	if EXTEND_ARM_ID < 0 or EXTEND_ARM_ID >= db.size():
 		return build(landing)
 	var seq: Array = db[EXTEND_ARM_ID]["frames"]
@@ -77,6 +300,8 @@ static func recorded(db: Array, landing: Array) -> Dictionary:
 	var side := "Right"
 	var best := INF
 	var w := 0 if (landing[0] as PackedVector3Array)[DB.joint("Core")].y >= (landing[1] as PackedVector3Array)[DB.joint("Core")].y else 1
+	if winner >= 0:
+		w = winner
 	var vic: PackedVector3Array = landing[1 - w]
 	var win: PackedVector3Array = landing[w]
 	for s in ["Left", "Right"]:
@@ -255,8 +480,10 @@ static func _tap_point(stage: Array, lock_side: String) -> Vector3:
 
 ## S389 (every judge: "TAP appears, nobody taps"): the tap on ANY finish. From a landing frame the one underneath slaps the mat
 ## TAPS times with the free hand, the arm further from the winner. Raw frames and times, played after the finish.
-static func tap_out(frame: Array) -> Dictionary:
+static func tap_out(frame: Array, loser: int = -1) -> Dictionary:
 	var lose := 1 if (frame[0] as PackedVector3Array)[DB.joint("Core")].y >= (frame[1] as PackedVector3Array)[DB.joint("Core")].y else 0
+	if loser >= 0:
+		lose = loser
 	var win_core: Vector3 = (frame[1 - lose] as PackedVector3Array)[DB.joint("Core")]
 	var v: PackedVector3Array = frame[lose]
 	var side := "Left"

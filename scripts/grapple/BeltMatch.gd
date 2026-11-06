@@ -11,6 +11,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const Graph := preload("res://scripts/grapple/GrappleGraph.gd")
 const DB := preload("res://scripts/grapple/GrappleMapDB.gd")
 const GrappleFinish := preload("res://scripts/grapple/GrappleFinish.gd")
+const Curated := preload("res://scripts/grapple/GrappleCurated.gd")
 const Player := preload("res://scripts/grapple/GrapplePlayer.gd")
 const BjjMatch := preload("res://scripts/rules/BjjMatch.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
@@ -21,7 +22,7 @@ const MatHud := preload("res://scripts/grapple/MatHud.gd")
 const CALL_WINDOW_S := 5.0
 const SCRAMBLE_S := 0.25
 ## S371 BJJ9 round 5: the finished hold reads this long before the verdict banner (the bodies reach the sub first).
-const VERDICT_HOLD_S := 1.2
+const VERDICT_HOLD_S := 0.7
 const OPP := {"name": "Kim Patel", "skill": 30.0, "stats": {"strength": 55.0, "cardio": 50.0}}
 
 var browser: Control
@@ -175,7 +176,7 @@ func _drift(pos_c: String) -> void:
 	var outs: Array = browser.graph.outs(browser.current)
 	var ok: Array = []
 	for i in outs.size():
-		if Graph.lands(outs[i]) != null and not browser.graph.outs(int(Graph.lands(outs[i]))).is_empty() \
+		if Graph.lands(outs[i]) != null and not Curated.blocked(int(outs[i]["t"]["id"])) and not browser.graph.outs(int(Graph.lands(outs[i]))).is_empty() \
 				and int(Graph.lands(outs[i])) != _start_pos:
 			ok.append(i)
 	st["init"] = 1 - int(st["init"])
@@ -200,26 +201,20 @@ func _play_finish() -> void:
 	if not Player.on("finish"):   # S379 audit control arm: `-- nofinish`, the landing pose is the verdict pose
 		return
 	var tags: Array = browser.db[_finish_land].get("tags", [])
-	var frames: Array = browser.db[_finish_land]["frames"]
-	var landing: Array = (frames[0] if _finish_rev else frames[frames.size() - 1])
-	# S389: every finish ends in a tap on the bodies; the arm family plays its extension first.
-	var seq: Array = []
-	var times := PackedFloat32Array()
-	if tags.has("armbar") or tags.has("spiderweb"):
-		var fin: Dictionary = GrappleFinish.recorded(browser.db, landing)
-		seq = (fin["frames"] as Array).duplicate()
-		times = fin["times"]
-		landing = seq.back()
-	var tap: Dictionary = GrappleFinish.tap_out(landing)
-	var off: float = times[times.size() - 1] if times.size() > 0 else 0.0
-	var tf: Array = tap["frames"]
-	var tt: PackedFloat32Array = tap["times"]
-	for k in tf.size():
-		if k == 0 and not seq.is_empty():
-			continue
-		seq.append(tf[k])
-		times.append(off + tt[k])
-	browser.play_finish(seq, times)
+	# S390: the frame on screen, not the raw data: a move is laid on the pair swapped or mirrored, and on the raw frame the winner
+	# took the tap (film: Ana, the winner, slapping the mat).
+	var landing: Array = browser.player.shown_frame()
+	var winner := int(st["winner"])
+	var fin: Dictionary = GrappleFinish.squeeze(landing, winner, tags)
+	_draw()
+	hud.clear_for_finish(0.0)
+	browser.play_finish(fin["frames"], fin["times"])
+	# S390: the shot of the match: close and low, from the side the tap is on (every judge: "no tap"; the hand was behind the bodies).
+	var end: Array = browser.player.joints_at(browser.player.length_s())
+	var lose: PackedVector3Array = end[1 - winner]
+	var hand: Vector3 = lose[DB.joint(str(fin["free"]) + "Hand")]
+	var mid: Vector3 = ((end[0] as PackedVector3Array)[DB.joint("Core")] + (end[1] as PackedVector3Array)[DB.joint("Core")]) * 0.5
+	browser.finish_lens(mid.lerp(hand, 0.3), hand - mid)
 
 
 ## Every move out of the position on screen, laid on the pair as the browser would play it: its tags, where it lands,
@@ -231,7 +226,7 @@ func _cands(_pos_c: String) -> Array:
 	for i in outs.size():
 		var m: Dictionary = outs[i]
 		var land: Variant = Graph.lands(m)
-		if land == null:
+		if land == null or Curated.blocked(int(m["t"]["id"])):
 			continue
 		if int(land) == _start_pos:
 			continue
@@ -267,7 +262,8 @@ func _cands(_pos_c: String) -> Array:
 		if tlc.contains("hold") and _prev_title.contains("hold"):
 			continue
 		out.append({"i": i, "title": title, "tags": BjjMatch.scoring_tags(m["t"]["tags"] as Array, _tags(int(land))),
-			"to_c": to_c, "top_after": BjjMatch.top_of([_core_y(last, 0), _core_y(last, 1)], to_c)})
+			"to_c": to_c, "top_after": BjjMatch.top_of([_core_y(last, 0), _core_y(last, 1)], to_c),
+			"sub_by": GrappleFinish.attacker(m["t"]["tags"] as Array, last)})
 	return out
 
 
@@ -313,6 +309,11 @@ func _draw() -> void:
 	var top := _top(pos_c)
 	var on := "" if top < 0 else (" - %s on top" % str(names[top]).capitalize())
 	_where.text = "%s%s" % ["Scramble" if pos_c == "other" else pos_c.replace("_", " ").capitalize(), on]
+	# S390: two judges could not say who was who: the line wears her corner's colour, and the finish says which corner applies it.
+	var who := int(st["winner"]) if bool(st["over"]) and _finish_land >= 0 else _top(pos_c)
+	_where.add_theme_color_override("font_color", MatHud.SIDE_COLOR[who] if who >= 0 else UI.FG)
+	if bool(st["over"]) and _finish_land >= 0:   # the label read "Guard - Nadia on top" through Ana's armbar
+		_where.text = "%s - %s (%s)" % [BjjMatch.sub_name(browser.db[_finish_land].get("tags", [])), names[who] if who == 1 else str(f["first"]), "RED" if who == 0 else "BLUE"]
 	for i in 2:
 		_gas[i].frac = float(st["gas"][i])
 	_calls.text = "CALLS %d of %d%s" % [int(st["calls"]), BjjMatch.CALLS_PER_MATCH,

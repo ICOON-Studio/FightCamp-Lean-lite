@@ -8,6 +8,7 @@ const W := 1920
 const H := 1080
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const FightView := preload("res://scripts/fight3d/FightView.gd")
+const FightIntro := preload("res://scripts/fight3d/FightIntro.gd")
 
 var main: Node
 var out_dir := "user://fight3d_play"
@@ -20,6 +21,9 @@ const JOIN_BONES := ["LeftHand", "RightHand", "Head", "Hips", "LeftFoot", "Right
 
 
 func _initialize() -> void:
+	# S379 (operator: "skip the walk in for the clips"): the film opens with both boxers in their corners (CornerStart);
+	# `walkin` films the game's full intro.
+	FightIntro.from_corners = not OS.get_cmdline_user_args().has("walkin")
 	var args := OS.get_cmdline_user_args()
 	if not args.is_empty():
 		out_dir = args[0]

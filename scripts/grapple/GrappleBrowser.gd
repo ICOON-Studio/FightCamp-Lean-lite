@@ -13,6 +13,7 @@ const Pose := preload("res://scripts/grapple/GrapplePose.gd")
 const Player := preload("res://scripts/grapple/GrapplePlayer.gd")
 const Timing := preload("res://scripts/grapple/GrappleTiming.gd")
 const Grip := preload("res://scripts/grapple/GrappleGrip.gd")
+const GrappleMat := preload("res://scripts/grapple/GrappleMat.gd")
 const TieUpPanel := preload("res://scripts/grapple/TieUpPanel.gd")
 const BeltMatch := preload("res://scripts/grapple/BeltMatch.gd")
 const BjjOpen := preload("res://scripts/rules/BjjOpen.gd")
@@ -25,7 +26,8 @@ const MH := preload("res://scripts/fight3d/MHRig.gd")
 const Kit := preload("res://scripts/fight3d/FighterKit.gd")
 ## S335 operator: "use different colours on the clothes for each" - one colour head to toe per woman (top a shade lighter).
 const TOPS := [Color("#ff6a5c"), Color("#5b93ff")]
-const BODIES := ["res://assets/models/metahuman/mh_boxer_11.glb", "res://assets/models/metahuman/mh_boxer_10.glb"]
+## S390 (reviewer: "both share a skin tone, the limbs merge into one brown mass, it looks like clipping"): 11 and 10 were both #4f3122.
+const BODIES := ["res://assets/models/metahuman/mh_boxer_11.glb", "res://assets/models/metahuman/mh_boxer_17.glb"]
 const TRUNKS := [Color("#e2483d"), Color("#2f6fdb")]
 ## S336 MMA kit: the boxing trunks' white waistband and piping (MH_Trim) showed as a white tear between top and shorts on
 ## the ground; MMA shorts and a sports top are one corner colour, the trim a dark shade of it.
@@ -50,6 +52,13 @@ var _landing := ""         # a paced fall finished on the next completion (its i
 ## S371 round 5: a won submission's final move holds its own last frame (the verdict pose). Handing over to the landed
 ## position re-aligns the pair, and a loose graph link teleported the finish 1.9 m on the one frame the judge stares at.
 var freeze_handover := false
+const HUB_S := 1.1   # a position change with no move behind it
+const FIN_EASE_S := 1.2
+const FIN_DIST := 0.72
+var _fin_on := false
+var _fin := 0.0
+var _fin_yaw := 0.0
+var _fin_look := Vector3.ZERO
 ## S389 BJJWIRE: set before adding this scene to fight one bout of an open: {athlete, opp, seed, on_end}.
 var career_match: Dictionary = {}
 var _yaw := 35.0
@@ -234,7 +243,7 @@ func _room(world: Node3D) -> void:
 	var env := WorldEnvironment.new()
 	var e := Environment.new()
 	e.background_mode = Environment.BG_COLOR
-	e.background_color = Color("#dfe7ec")
+	e.background_color = GrappleMat.HALL
 	e.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	e.ambient_light_color = Color(0.9, 0.9, 0.92)
 	e.ambient_light_energy = 0.6
@@ -246,15 +255,7 @@ func _room(world: Node3D) -> void:
 	sun.light_energy = 1.3
 	sun.shadow_enabled = true
 	world.add_child(sun)
-	var mat := MeshInstance3D.new()
-	var plane := PlaneMesh.new()
-	plane.size = Vector2(10, 10)
-	mat.mesh = plane
-	var m := StandardMaterial3D.new()
-	m.albedo_color = Color("#9da3a8")  # neutral grey: red, blue and skin all read on it (operator S335: blue fighter on a blue mat)
-	m.roughness = 0.9
-	mat.material_override = m
-	world.add_child(mat)
+	GrappleMat.build(world)
 	cam = Camera3D.new()
 	cam.fov = 38.0
 	world.add_child(cam)
@@ -278,8 +279,17 @@ func _process(delta: float) -> void:
 	_look = _look.lerp((lo + hi) * 0.5, minf(1.0, delta * 3.0))
 	var r := maxf((hi - lo).length() * 0.5, 0.9)
 	var dist := r / tan(deg_to_rad(cam.fov * 0.5)) * 1.1
-	cam.position = _look + Basis(Vector3.UP, deg_to_rad(_yaw)) * Vector3(0, 0.42, 0.9).normalized() * dist
-	cam.look_at(_look, Vector3.UP)
+	var from := Vector3(0, 0.42, 0.9)
+	var at := _look
+	if _fin_on:
+		_fin = minf(1.0, _fin + delta / FIN_EASE_S)
+		var u := _fin * _fin * (3.0 - 2.0 * _fin)
+		_yaw += wrapf(_fin_yaw - _yaw, -180.0, 180.0) * minf(1.0, delta * 3.0)
+		dist *= lerpf(1.0, FIN_DIST, u)
+		from = from.lerp(Vector3(0, 0.2, 0.9), u)
+		at = _look.lerp(_fin_look, u)
+	cam.position = at + Basis(Vector3.UP, deg_to_rad(_yaw)) * from.normalized() * dist
+	cam.look_at(at, Vector3.UP)
 	if not moving.is_empty() and player.done():
 		var to: Variant = Graph.lands(moving)
 		moving = {}
@@ -314,7 +324,10 @@ func go_position(id: int) -> void:
 	if player.seq.is_empty():
 		player.play(db[id], player.men, player.scale, Transform3D.IDENTITY)
 	else:
-		player.blend_frames(Graph.placed(frames, Graph.align(_shown_for_align(), frames[0])))
+		# S390: a position is ONE frame, and a blend snaps a sequence's first frame onto the pose on screen: the bodies stayed where
+		# they were while the page and the match moved on to `id`. Two frames, so the pair really goes there.
+		# S390: paced, or the pair snaps across the mat in 0.2 s (two judges: "side control snaps to guard").
+		player.play_frames(Graph.placed([frames[0], frames[0]], Graph.align(_shown_for_align(), frames[0])), PackedFloat32Array([0.0, HUB_S]))
 	current = id
 	moving = {}
 	_refresh()
@@ -398,6 +411,13 @@ func play_finish(frames: Array, times: PackedFloat32Array) -> void:
 	player.blend_frames(Graph.placed(frames, Graph.align(_shown_for_align(), frames[0])), times)
 	moving = {"t": {"title": "Lock finish", "from": current, "to": null, "tags": []}, "reverse": false}
 	_refresh()
+
+
+## S390: the finish's lens: it eases in close and low on `look`, from the side `toward` points.
+func finish_lens(look: Vector3, toward: Vector3) -> void:
+	_fin_look = look
+	_fin_yaw = rad_to_deg(atan2(toward.x, toward.z)) + 25.0
+	_fin_on = true
 
 
 ## Play a move IN: it starts at its own position and ends on the one on screen.

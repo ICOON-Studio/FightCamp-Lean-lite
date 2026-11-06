@@ -22,13 +22,12 @@ const REST_M := Vector2(1.35, 1.65)
 ## Hooks, uppercuts and body shots are thrown this much inside the jab gap (their gloves fall 0.1-0.27 m short there).
 const INSIDE_M := 0.12
 const INSIDE := ["lead_hook", "body_hook", "rear_uppercut"]
-## Tied up, pelvis to pelvis (chest to chest, heads past each other's shoulder; real inside range < 0.65 m).
-const CLINCH_M := 0.38
+## Tied up, pelvis to pelvis (chest to chest without torso interpenetration).
+const CLINCH_M := 0.45
 ## A clinch beat is looked for this far back (ClinchBeats.DUR_MAX_S + a margin).
 const CLINCH_LOOK_S := 9.0
-## S314 inside range (InsideBeats spells: real women's finals 17-31 % of a round under 0.65 m, ours was 5 %): pelvis to
-## pelvis while they dig hooks and uppercuts, heads past each other's shoulder (Footwork.offset).
-const INSIDE_SPELL_M := 0.55
+## S314 inside range: close enough for hooks and uppercuts without stepping inside each other's chests.
+const INSIDE_SPELL_M := 0.64   # S390: R16 had 0.68, past the real 0.65 inside range; main 0.55 overlapped chests
 const INSIDE_LOOK_S := 7.0
 
 

@@ -43,11 +43,15 @@ var peer = null
 ## (inside jabs and hooks "landed" short). The striking hand is left alone while its reach is on.
 var reach: Node = null
 var shown_head := Vector3.INF
+## S379: her hips as shown (world): the broadcast lens frames and keeps off her back by them - a step's travel sits in the
+## clip's hips up to ~0.5 m from her root before the root catches up.
+var shown_hips := Vector3.INF
 var heads := true        # `-- noheads` turns the head clearance off (control arm)
 var pushes := 0          # frames a glove was moved out (for probes)
 var head_pushes := 0     # frames her trunk leaned out of the other's head
 var _arms := {}
 var _head := -1
+var _hips := -1
 var _spine := -1
 var _chest := -1
 
@@ -59,6 +63,7 @@ func setup(skel: Skeleton3D) -> bool:
 			return false
 		_arms[side] = ids
 	_head = skel.find_bone("Head")
+	_hips = skel.find_bone("Hips")
 	_spine = skel.find_bone("Spine")
 	_chest = skel.find_bone("Chest")
 	heads = _spine >= 0 and _chest >= 0 and not OS.get_cmdline_user_args().has("noheads")
@@ -93,6 +98,8 @@ func _process_modification() -> void:
 	if reach != null:
 		reach.settle()   # S331: her lean (and HitSnap's) carried the landing glove off the face; it lands again
 	shown_head = skel.global_transform * _centre(skel, k)
+	if _hips >= 0:
+		shown_hips = skel.global_transform * skel.get_bone_global_pose(_hips).origin
 	for side in _arms:
 		if reach != null and str(reach.get("_hand")).begins_with(side) and float(reach.get("last_weight")) > 0.0:
 			continue

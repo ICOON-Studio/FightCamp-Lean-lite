@@ -10,17 +10,22 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const ShortPunch := preload("res://scripts/rules/ShortPunch.gd")
 const TellPose := preload("res://scripts/fight3d/TellPose.gd")
+const PunchRange := preload("res://scripts/fight3d/PunchRange.gd")
+const FightSfx := preload("res://scripts/audio/FightSfx.gd")
 ## A short punch's join: half-life, length (s). Between the strike's (0.06, 0.3) and the guard return's (0.1, 0.45).
 const SHORT_JOIN := Vector2(0.09, 0.35)
 
 var stepped := [false, false]   # her next punch steps in (a Pro _ft take)
 var tired := [false, false]     # she has tired this round: her punches are the _hurt takes
 var last_contact := [-9.0, -9.0]  # view time her last punch lands (S302 combos)
-const FALL_AFTER_S := 0.12   # S376: a knockdown's fall starts this long after the shot lands
+const FALL_AFTER_S := 0.03   # S376: a knockdown's fall starts this long after the shot lands
 ## S376: the knockdown clips stand ~0.4 s before they drop (head 1.56 m -> the canvas by ~1.3 s, tools S376 measure):
 ## they start this far in, so the head is down ~0.9 s after the punch (the scan's MMA Career Simulator: 0.8 s).
 const FALL_FROM_S := 0.4
+const FALL_ON_CANVAS_S := 0.9   # S390: the thud waits for the body: canvas at ~1.3 s of the clip, started FALL_FROM_S in
 var last_hand := ["", ""]
+var last_def := ["", ""]
+var last_def_t := [-9.0, -9.0]
 
 
 func reset() -> void:
@@ -28,6 +33,8 @@ func reset() -> void:
 	tired = [false, false]
 	last_contact = [-9.0, -9.0]
 	last_hand = ["", ""]
+	last_def = ["", ""]
+	last_def_t = [-9.0, -9.0]
 
 
 ## v is the FightView: its stage, body map, profiles, round stop, rng, clock and close-up timer.
@@ -46,8 +53,10 @@ func fire(v: Node, b: Dictionary) -> void:
 		"step_in", "step_out":
 			# S311: one boxer lunges into the pocket or steps out of range; the other holds (RangeBreath).
 			if b.has("ref"):
-				stage.clinch.release()   # S313: the referee's break - he parts them, both step out
-			stage.step(who, 1 if move == "step_in" else -1)
+				stage.clinch.release()   # S369/S371 NOREF1: both push off to range
+			else:
+				stage.step(who, 1 if move == "step_in" else -1)
+				FightSfx.step()
 			stepped[who] = move == "step_in"
 		"clinch":
 			# S354 CLINCH2: the beat's own digs/digger (ClinchBeats) ride along; a beat without them ties up as before.
@@ -76,7 +85,8 @@ func _count(v: Node, who: int, other: int) -> void:
 	# A skipped round (KnockdownCount.stop) cancels a fall still to come - he would drop in the corner minute; a KO falls.
 	v.get_tree().create_timer(wait, false).timeout.connect(func():
 		if v.get("kd") == null or str(v.kd.phase) != "":
-			stage.play(who, fall, 1.0, FALL_FROM_S))
+			stage.play(who, fall, 1.0, FALL_FROM_S)
+			FightSfx.knockdown(FALL_ON_CANVAS_S))
 	if v.get("replay") != null and shot > -1.0:
 		v.replay.knockdown(who, shot)
 	if v.get("kd") != null:
@@ -137,28 +147,43 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 	if bt >= 0.0 and bt < 0.51 and float(hitsnap.get("_gain")) > 1.5:
 		base = maxf(base, t + (0.51 - bt))
 	last_contact[who] = base + at
+	# Her defence is chosen when the beat fires (the de-duplication reads the beat's own time), shown when it plays.
+	var d := ""
+	if land != "lands" and (str(b.get("def", "")) != "" or land == "misses"):
+		d = str(b.get("def", ""))
+		if d == "":
+			d = "slip" if rng.randf() < 0.75 else "pull"
+		if d in ["weave", "pull"] and str(last_def[other]) == d and t - float(last_def_t[other]) < 1.4:
+			d = "slip" if d == "weave" else "block"
+		last_def[other] = d
+		last_def_t[other] = t
 	var go := func() -> void:
-		# S321: a punch refused (she is locked in a hit reaction) never shows, so its hit must not either (punch_id -1).
+		# S321: a punch refused (she is locked in a hit reaction) never shows, so its hit or defence must not either.
 		var punch_id: int = int(stage.boxers[who]["play_id"]) if stage.play(who, clip, sp, skip) else -1
+		if punch_id < 0:
+			return
 		if short and skip > 0.0 and stage.boxers[who].get("js") != null:
 			# Started mid-swing, the clip's glove is up to a metre from the guard's: a slower join (S319 smooth_probe:
 			# the strike join's 0.06 s half-life added ~50 kinks/min up close) eases the glove onto the swing.
 			(stage.boxers[who]["js"] as Node).join(SHORT_JOIN.x, SHORT_JOIN.y)
 		v.body.land(b, at)
 		var tree: SceneTree = v.get_tree()
+		if punch_id >= 0 and land != "lands":
+			# S390: at the glove's contact, and only for a punch that shows. A slip or weave is a miss, not a block.
+			if land == "blocked" or str(b.get("def", "")) == "block":
+				FightSfx.blocked(at)
+			else:
+				FightSfx.missed(at)
 		if land == "lands":
 			# S302: the glove is carried onto her face past the guard, and the contact holds, snaps and nudges.
+			# (FIGHT9: no half-speed close-up on the big shot - Argon read it as slow motion; S376 replays knockdowns.)
 			stage.land(who, clip, move == "body_hook" or clip.contains("kidney"), at, contact)
+			if bool(b.get("big", false)):
+				FightSfx.big_shot_ahead(at)
 			var hit := BeatClips.react(move, bool(b.get("knockback", false)), stage.has_move, rng.randf(), bool(b.get("big", false)))
 			tree.create_timer(at).timeout.connect(stage.hit.bind(other, hit, BeatClips.speed(hit, ""), who, move, bool(b.get("big", false)), punch_id))
-			if bool(b.get("big", false)):
-				# The round's big shot: cut close as it is thrown and run it at half speed through the contact.
-				stage.close_up(other)
-				Engine.time_scale = 0.5 * v.pace()
-				v._close_left = at + 0.7
-		elif str(b.get("def", "")) != "":
+		elif d != "":
 			# Her defence (RoundStyle): a block meets the glove at contact; a slip, weave or step back starts early.
-			var d := str(b["def"])
 			var when := at * (0.8 if d == "block" else 0.35)
 			# S305: the side comes from the hand that throws it (her left arrives on the other's right).
 			var lead := move in ["jab", "lead_hook", "lead_uppercut"]
@@ -170,9 +195,9 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 					tree.create_timer(at).timeout.connect(snap.brace.bind(not from_left))
 			else:
 				var dclip := BeatClips.defence(d, move, from_left, bool(stage.boxers[other].get("south", false)), stage.has_move)
-				tree.create_timer(when).timeout.connect(stage.play.bind(other, dclip, BeatClips.speed(dclip, "")))
-		elif land == "misses" and not b.has("def"):
-			tree.create_timer(at * 0.35).timeout.connect(stage.play.bind(other, "slip" if randf() < 0.6 else "pull"))
+				tree.create_timer(when).timeout.connect(func():
+					if not PunchRange.cut_off(stage, who, punch_id):
+						stage.play(other, dclip, BeatClips.speed(dclip, "")))
 	if base <= t + 0.0001:
 		go.call()
 	else:

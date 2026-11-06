@@ -14,7 +14,7 @@ const HL_RISE_S := 0.20; const HL_HOLD_S := 1.00; const HL_FALL_S := 0.30
 ## Hand drop targets (from head bone, in skeleton space, scaled by height).
 const HD_DOWN_M := 0.42; const HD_FWD_M := 0.08
 ## Both-hands-down targets (from head bone).
-const BHD_DOWN_M := 0.45; const BHD_FWD_M := 0.12
+const BHD_DOWN_M := 0.36; const BHD_FWD_M := 0.10
 const BHD_SHOULDER_DEG := 8.0
 
 const KEY := "tell_mod"
@@ -28,7 +28,15 @@ static func apply(stage: Node3D, who: int, kind: String, at_s: float) -> void:
 		mod = TellMod.new(); mod.name = "TellPose"
 		if mod.setup(skel, bool(bx.get("south", false))):
 			skel.add_child(mod)
-			skel.move_child(mod, skel.get_child_count() - 1)  # Ensure it runs last
+			var kt := skel.find_child("KneeTrack", false, false)
+			if kt != null:
+				skel.move_child(mod, kt.get_index())
+			else:
+				var fp := skel.find_child("FootPlant", false, false)
+				if fp != null:
+					skel.move_child(mod, fp.get_index())
+				else:
+					skel.move_child(mod, skel.get_child_count() - 1)
 			bx[KEY] = mod
 		else: mod.free(); return
 	mod.start_tell(kind, at_s)

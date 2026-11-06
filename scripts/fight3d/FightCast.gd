@@ -8,6 +8,7 @@ const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
 const Referee := preload("res://scripts/fight3d/Referee.gd")
 const CornerMinute := preload("res://scripts/fight3d/CornerMinute.gd")
 const FightIntro := preload("res://scripts/fight3d/FightIntro.gd")
+const FightSfx := preload("res://scripts/audio/FightSfx.gd")
 const TaleOfTape := preload("res://scripts/rules/TaleOfTape.gd")
 const CornerJobsRow := preload("res://scripts/ui/CornerJobsRow.gd")
 const CornerCard := preload("res://scripts/rules/CornerCard.gd")
@@ -140,5 +141,6 @@ static func _intro_over(view: Node) -> void:
 	Engine.time_scale = view.pace()
 	view._bug_box.visible = true
 	view._banner.text = "ROUND 1"
+	FightSfx.bell(true)
 	view._draw_buttons()
 	view._hud()

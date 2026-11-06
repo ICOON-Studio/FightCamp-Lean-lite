@@ -122,6 +122,9 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	var fp := FootPlant.attach(skel, ap, kt, null if OS.get_cmdline_user_args().has("nostagger") else body) if not OS.get_cmdline_user_args().has("nofeet") else null
 	# S376 (operator: "hands are below canvas wtf"): a boxer on the canvas lies ON it - body lifted, arms swung up out of it.
 	var fc := FloorClear.attach(skel) if not OS.get_cmdline_user_args().has("nofloor") else null
+	var tw := skel.find_child("MetaHumanTwist", false, false)
+	if tw != null:
+		skel.move_child(tw, skel.get_child_count() - 1)
 	ap.animation_finished.connect(stage._on_finished.bind(index))
 	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "floor": fc, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,

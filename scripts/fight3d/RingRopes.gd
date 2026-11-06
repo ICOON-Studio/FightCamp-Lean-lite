@@ -24,7 +24,7 @@ const RADIUS_M := 0.018
 const MAX_BOW_M := 0.35
 ## S317 the ring entry: her cornerman holds the ropes apart where she ducks in - the middle rope pressed down, the top
 ## one lifted (by height: metres up/down at the crossing point), easing off over PART_R along the rope.
-const PART_DY := [0.0, -0.3, 0.0]   # bottom, middle, top. S320 (operator: "why the white rope is angled up like that"): nobody holds the top rope up on screen, so it stays; only the middle rope she presses down with her glove moves
+const PART_DY := [0.0, -0.3, 0.16]   # bottom, middle, top.
 const PART_R := 1.5   # (kept for the record; S320 the hold is a straight-line tent on its own side)
 const PART_SIDE_M := 0.4
 

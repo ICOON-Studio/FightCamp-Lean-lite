@@ -11,7 +11,9 @@ const CONTACT_PATH := "res://assets/data/clip_contact.json"
 ## alternating hands (~0.35 s a punch), 1.35 +- 0.27 s with the same hand (~0.45 s). (Moved from FightView S312.)
 const COMBO_LAND_S := 0.35
 const COMBO_SAME_HAND_S := 0.45
-const MIN_WIND_S := 0.12
+const MIN_WIND_S := 0.10
+
+
 
 
 ## Seconds into a punch clip to start it: 0, or for a follow-up (her last punch lands at view time `last`, now = `now`)
@@ -39,7 +41,12 @@ const PUNCH := {
 }
 ## S334 TAKEFIX1: all six stepping / wide-miss takes now measure clean (tools/take_fix.gd blended the offending windows
 ## toward the plain take), so they play and give every exchange more variety.
-const OFF_TAKES := []
+const OFF_TAKES := ["pro_left_jab_special", "pro_left_jab_hard_ft", "pro_right_cross_hard", "pro_right_cross_special",
+	"pro_right_cross_miss", "pro_right_hook_special", "pro_right_uppercut_hard",
+	# S390: scored under 6 on the game's own stack (ops/research/CLIP_SCORES_S390.md); the plain take plays instead. Reversible: delete a name.
+	"pro_left_uppercut_ft", "pro_left_uppercut_miss", "pro_left_uppercut_special", "pro_right_uppercut_ft", "pro_right_uppercut_hard_ft",
+	"pro_right_uppercut_miss", "pro_right_uppercut_special", "pro_left_hook_miss", "pro_left_hook_special", "pro_right_hook_hurt",
+	"pro_right_hook_hurt_ft", "pro_left_jab_miss"]
 ## A landed punch on the other boxer: by the punch that hit her, then "hurt" for the round's knockback.
 ## S310 (operator: "why don't you map all 165 clips we purchased?"): every Punch Pro hit reaction that comes back to guard
 ## within ~1 s (clip_recovery.json back_s) is in its punch's pool and the beat's roll picks one (react() took the first
@@ -95,7 +102,7 @@ const DEFENCE := {
 	"block": ["mc_to_block"],
 	"slip": ["pro_left_dodge", "pro_right_dodge", "mc_dodge_left", "slip"],
 	"weave": ["pro_left_weave", "pro_quick_weave", "pro_right_weave", "mc_dodge_right", "slip"],
-	"pull": ["pro_back_dodge", "pro_back_weave", "pull"],
+	"pull": ["pro_back_dodge", "pull"],
 }
 ## S310: every take the library has, picked by the beat's roll (pick()).
 const TIRED := ["pro_idle_tired", "pro_idle_slighty_tired", "pro_idle_really_tired_v1", "pro_idle_really_tired_v2", "mc_fidget"]
@@ -110,11 +117,11 @@ const OUT := ["pro_knockout_v1", "pro_knockout_v2", "pro_knockout_v3", "pro_knoc
 ## plays fast enough to land on that beat (never slower than authored, at most 2x).
 const IMPACT_S := {"jab": 0.365, "cross": 0.501, "lead_hook": 0.534, "rear_hook": 0.534, "lead_uppercut": 0.489,
 	"rear_uppercut": 0.489, "body_hook": 0.450}
+const OTHER_SPEED := 1.1
 ## Everything else from the Pro library (hit reactions, blocks, dodges) plays this much faster than authored.
 ## S376 (operator on the men's bout: "their punch speed feels very fast along with their body movement and it is very
 ## unatural"): 1.25 -> 1.1, and the recovery / reaction speed-ups capped at 1.5x (were 2.5x). Those speed up the WHOLE clip:
 ## at 2.5x the torso and legs snapped back with the hand, which no body does - only the arm retracts that fast.
-const OTHER_SPEED := 1.1
 ## The guard every Pro clip starts and ends in: playing it between moves makes the joins seamless.
 const GUARD := ["pro_idle", "idle"]
 

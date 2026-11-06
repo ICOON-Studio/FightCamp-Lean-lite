@@ -9,8 +9,15 @@ const CornerShots := preload("res://scripts/fight3d/CornerShots.gd")
 const CornerOverlay := preload("res://scripts/fight3d/CornerOverlay.gd")
 const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
 const TapeCard := preload("res://scripts/fight3d/TapeCard.gd")
+const CornerStart := preload("res://scripts/fight3d/CornerStart.gd")
 
 signal done
+
+## S379 (operator: "skip the walk in for the clips, make the clips start when each man is in his corner and then walk to
+## center start fighting"): the films open with both boxers in their corners and walk to the centre (CornerStart) - no
+## ring entry, no tale of the tape, no names. The film tools set this; a run can pass the user arg `fromcorners` (the
+## probes). The game's own fight keeps the full intro.
+static var from_corners := false
 
 ## S310 (operator: "add the tale of the tape when the fighters stand on their starting corners for a while"): after the
 ## opening wide, both hold in their corners TAPE_S while the tale of the tape (TaleOfTape / TapeCard) sits between them
@@ -23,15 +30,17 @@ const ENTER_S := 8.8
 const BLUE_ENTER_S := 2.4
 ## The clip ducks between the ropes from DUCK.x to DUCK.y s (hips lowest at 2.7 s): her body crosses the rope line then,
 ## from OUT_M outside the ropes to IN_M inside, ENTRY_ALONG_M from her corner post along that side.
-const DUCK := Vector2(1.0, 5.0)
-const OUT_M := 0.42                  # on the apron (FightStage APRON_M 0.6), not past its edge
-const IN_M := 0.6
-const ENTRY_ALONG_M := 1.1
+const DUCK := Vector2(2.1, 3.35)
+const OUT_M := 0.45                  # on the apron (FightStage APRON_M 0.6), not past its edge
+const IN_M := 0.65
+const ENTRY_ALONG_M := 1.45
 const E := ENTER_S
 const LENGTH_S := 13.0 + TAPE_S + E
-## [start s, framing]
-const SHOTS := [[0.0, "entry_red"], [BLUE_ENTER_S + 1.0, "entry_blue"], [E, "wide"], [1.5 + E, "tape"], [2.0 + TAPE_S + E, "red"],
-	[5.0 + TAPE_S + E, "blue"], [8.0 + TAPE_S + E, "broadcast"], [10.1 + TAPE_S + E, "two_shot"], [11.6 + TAPE_S + E, "wide_out"]]
+## [start s, framing]. S379 (C222, TV rulebook docs/TV_CAMERA_RULES.md: no shot shorter than 2 s): the wide comes in
+## 0.6 s before the corners (it held 1.5 s), and the two-shot of the glove touch holds to the bell (the 1.4 s wide_out
+## after a 1.5 s two-shot went).
+const SHOTS := [[0.0, "entry_red"], [BLUE_ENTER_S + 1.0, "entry_blue"], [E - 0.6, "wide"], [1.5 + E, "tape"],
+	[2.0 + TAPE_S + E, "red"], [5.0 + TAPE_S + E, "blue"], [8.0 + TAPE_S + E, "broadcast"], [10.1 + TAPE_S + E, "two_shot"]]
 ## [s, cue]
 const CUES := [[0.0, "enter_red"], [BLUE_ENTER_S, "enter_blue"], [5.6, "to_corner_red"], [5.6 + BLUE_ENTER_S, "to_corner_blue"],
 	[E, "corners"], [1.8 + E, "tape"], [1.6 + TAPE_S + E, "untape"], [2.0 + TAPE_S + E, "name_red"], [2.6 + TAPE_S + E, "raise_red"],
@@ -51,6 +60,7 @@ var _shot_t0 := 0.0
 var _frame: Dictionary = {}
 var _tape: Control = null
 var _entering := [-1.0, -1.0]   # per boxer: intro time her entry began (-1 = not entering)
+var corners: RefCounted = null  # S379: the corner-start opening (CornerStart) when it plays instead
 
 
 func run(v: Node, s: Node3D, c: CornerCrew, context: Dictionary) -> void:
@@ -68,10 +78,16 @@ func run(v: Node, s: Node3D, c: CornerCrew, context: Dictionary) -> void:
 	view.add_child(ui)
 	ui.build_intro()
 	ui.skip.connect(finish)
+	if from_corners or OS.get_cmdline_user_args().has("fromcorners"):
+		corners = CornerStart.new()
+		corners.start(self)
 
 
 func _process(delta: float) -> void:
 	t += delta
+	if corners != null:
+		corners.tick(delta)
+		return
 	while _cue_i < CUES.size() and float(CUES[_cue_i][0]) <= t:
 		call("cue_" + str(CUES[_cue_i][1]))
 		_cue_i += 1
@@ -115,13 +131,14 @@ func _framing(shot: String) -> Dictionary:
 			var look := at + Vector3.UP * 0.95
 			return {"pos": p, "look": look, "fov": 40.0, "focus": p.distance_to(look), "drift": (e["in"] as Vector3) * 0.3}
 		"wide", "wide_out":
-			# The whole ring from high over the neutral corner, a slow crane down. S380 (operator on a still of a boxer
-			# ducking in through the ropes: "its quite clear my picture is from when the fighter enters the ring"): it stood
-			# 7.2 m out and saw the entering boxer THROUGH the ropes; now inside them (the S347 rule), as claude/fight9base.
-			return _inside_wide(side, 3.4, 0.8, Vector3.DOWN * 0.3)
+			# The whole ring from high over the neutral corner, a slow crane down. S380 (operator on a still through the
+			# ropes: "i thought you fixed the ropes, why old problems appear again?"): it stood 7.2 m out, outside the ropes;
+			# now inside them (CornerStart.corner_wide), framed on both corner marks.
+			return CornerStart.corner_wide(side, [_corner_mark(0), _corner_mark(1)], _scales(), 3.4, 0.8, Vector3.DOWN * 0.3)
 		"tape":
-			# Both in their corners from the neutral corner inside the ropes (was 8.4 m out), so the card sits between them.
-			return _inside_wide(side, 1.6, 1.1, -side * 0.3)
+			# Both in their corners, square on from the side and level, so the card sits in the gap between them (S380: from
+			# the neutral corner inside the ropes, not 8.4 m out), a slow push in.
+			return CornerStart.corner_wide(side, [_corner_mark(0), _corner_mark(1)], _scales(), 1.6, 1.1, -side * 0.3)
 		"red", "blue":
 			# Medium on her in her corner, low, the corner team behind her.
 			var c: Dictionary = red if shot == "red" else blue
@@ -170,6 +187,10 @@ func _entry(i: int) -> Dictionary:
 	return {"rope": rope, "in": inward, "along": along, "out_at": rope - inward * OUT_M, "in_at": rope + inward * IN_M}
 
 
+func _scales() -> Array:
+	return [(stage.boxers[0]["node"] as Node3D).scale.y, (stage.boxers[1]["node"] as Node3D).scale.y]
+
+
 ## Her corner mark: in front of her stool's place.
 func _corner_mark(i: int) -> Vector3:
 	var c: Dictionary = crew.corner("red" if i == 0 else "blue")
@@ -206,24 +227,28 @@ func _carry_in() -> void:
 		if _entering[i] < 0.0:
 			continue
 		var e := _entry(i)
-		var u := clampf((t - _entering[i] - DUCK.x) / (DUCK.y - DUCK.x), 0.0, 1.0)
+		var dt_e := t - float(_entering[i])
+		var u := clampf((dt_e - DUCK.x) / (DUCK.y - DUCK.x), 0.0, 1.0)
 		var at: Vector3 = (e["out_at"] as Vector3).lerp(e["in_at"], u * u * (3.0 - 2.0 * u))
 		var n: Node3D = stage.boxers[i]["node"]
 		n.position = Vector3(at.x, 0.0, at.z)
-		# S320 (operator: "do you seriously donot see the errors"): a timer pressed the rope while she still stood upright
-		# and held it after she stood up inside. The rope goes down only while she is bent over AT it: by how low her head
-		# is (upright ~1.45 m, through the ropes ~1.0 m) and how near her hips are to the crossing point.
 		var skel: Skeleton3D = stage.boxers[i]["skel"]
 		var head_y: float = (skel.global_transform * skel.get_bone_global_pose(skel.find_bone("Head")).origin).y
 		var hips: Vector3 = skel.global_transform * skel.get_bone_global_pose(skel.find_bone("Hips")).origin
-		var near := 1.0 - clampf((Vector2(hips.x, hips.z).distance_to(Vector2((e["rope"] as Vector3).x, (e["rope"] as Vector3).z)) - 0.35) / 0.4, 0.0, 1.0)
-		# ROPELOG (S320): her head stays low (1.0-1.3 m) while she straightens up already inside, so the rope stayed
-		# down 0.3-0.6 s too long. It lets go as her hips come through the rope line (0 -> 0.15 m inside).
-		var through: float = (hips - (e["rope"] as Vector3)).dot(e["in"] as Vector3)
-		var held := clampf((1.40 - head_y) / 0.3, 0.0, 1.0) * near * clampf(1.0 - through / 0.15, 0.0, 1.0)
+		var rope_pt: Vector3 = e["rope"]
+		var in_dir: Vector3 = e["in"]
+		var near := 1.0 - clampf((Vector2(hips.x, hips.z).distance_to(Vector2(rope_pt.x, rope_pt.z)) - 0.5) / 0.45, 0.0, 1.0)
+		var through: float = (hips - rope_pt).dot(in_dir)
+		var at_through: float = (at - rope_pt).dot(in_dir)
+		var time_duck := clampf(minf((dt_e - 1.35) / 0.4, (3.85 - dt_e) / 0.4), 0.0, 1.0)
+		var pos_duck := clampf(1.0 - absf(at_through) / 0.52, 0.0, 1.0)
+		var duck := maxf(time_duck, pos_duck)
+		stage.boxers[i]["ik"].set_duck(duck)
+		var stand_h := 1.44 * maxf(1.0, n.scale.y)
+		var held := clampf((stand_h - minf(head_y, lerpf(stand_h + 0.02, 0.94, duck))) / 0.3, 0.0, 1.0) * near * clampf(1.0 - through / 0.42, 0.0, 1.0)
 		if OS.get_cmdline_user_args().has("ropelog"):
-			print("ROPELOG %d t=%.2f head=%.3f through=%.2f held=%.2f" % [i, t - _entering[i], head_y, through, held])
-		stage._ropes.part(i, e["rope"], held)
+			print("ROPELOG %d t=%.2f head=%.3f through=%.2f held=%.2f" % [i, dt_e, head_y, through, held])
+		stage._ropes.part(i, rope_pt, held)
 
 
 func cue_to_corner_red() -> void:
@@ -237,6 +262,7 @@ func cue_to_corner_blue() -> void:
 func _to_corner(i: int) -> void:
 	_entering[i] = -1.0
 	stage._ropes.part(i, Vector3.ZERO, 0.0)
+	stage.boxers[i]["ik"].upright(0.0)
 	var a: Dictionary = stage.boxers[i]
 	var mark := _corner_mark(i)
 	crew.walk(a, mark, _turn_in.bind(i))
@@ -253,6 +279,7 @@ func cue_corners() -> void:
 		var i := 0 if side == "red" else 1
 		_entering[i] = -1.0
 		stage._ropes.part(i, Vector3.ZERO, 0.0)
+		stage.boxers[i]["ik"].upright(0.0)
 		(stage.boxers[i]["node"] as Node3D).visible = true
 		var at := _corner_mark(i)
 		# S317: she walked here from the ropes; placed only when she has not arrived (a skip, a slow walk).
@@ -291,7 +318,6 @@ func cue_name_blue() -> void:
 
 func cue_raise_red() -> void:
 	_raise(0, true)
-	crew.play(crew.actors["coach"], "af_nod_yes")
 
 
 func cue_lower_red() -> void:
@@ -300,7 +326,6 @@ func cue_lower_red() -> void:
 
 func cue_raise_blue() -> void:
 	_raise(1, true)
-	crew.play(crew.actors["blue_coach"], "af_nod_yes")
 
 
 func cue_lower_blue() -> void:
@@ -338,14 +363,15 @@ func cue_walk() -> void:
 		crew.walk(a, mark, func(): crew.turn(a, face, func(): stage.guard(i)))
 
 
-## The touch: both lead gloves meet between them at chest height.
+## The touch: both lead gloves meet between them at chest height without passing through each other.
 func cue_touch() -> void:
 	var mid := (CornerShots.bone(stage.boxers[0], "Chest") + CornerShots.bone(stage.boxers[1], "Chest")) * 0.5 + Vector3.UP * 0.05
 	for i in 2:
 		var a: Dictionary = stage.boxers[i]
 		var hand: String = str(stage.hand_of(i, "LeftHand")).trim_suffix("Hand")
 		var toward := (CornerShots.pos(stage.boxers[1 - i]) - CornerShots.pos(a)).normalized()
-		a["ik"].reach(hand, func(): return mid - toward * 0.06)
+		var pad := maxf(0.16, float(a.get("front", 0.16)) * (a["node"] as Node3D).scale.x + 0.015)
+		a["ik"].reach(hand, func(): return mid - toward * pad)
 		crew.look(a, stage.boxers[1 - i])
 
 
@@ -354,6 +380,7 @@ func cue_untouch() -> void:
 		var a: Dictionary = stage.boxers[i]
 		a["ik"].reach("Left", null)
 		a["ik"].reach("Right", null)
+		a["ik"].upright(0.0)
 
 
 func cue_seconds_out() -> void:
@@ -373,15 +400,19 @@ func finish() -> void:
 	# S308: skipped from a button, this node stays in the tree to the frame's end; its _process must not film again
 	# (round 1 opened stuck on the intro's wide lens).
 	set_process(false)
+	if corners != null:
+		corners.stop()
 	for i in 2:
 		var a: Dictionary = stage.boxers[i]
 		a["ik"].reach("Left", null)
 		a["ik"].reach("Right", null)
+		a["ik"].upright(0.0)
 		crew.look(a, null)
 		(a["node"] as Node3D).visible = true
 	_entering = [-1.0, -1.0]
 	for i in 2:
 		stage._ropes.part(i, Vector3.ZERO, 0.0)
+		stage.boxers[i]["ik"].upright(0.0)
 	_marks()
 	crew.set_shown(false)
 	stage.scene_mode(false)

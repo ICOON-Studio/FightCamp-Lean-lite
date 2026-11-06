@@ -8,6 +8,7 @@ extends SceneTree
 ##       --fixed-fps 30 --write-movie <out>.avi --audio-driver Dummy --script res://tools/men_fight_film.gd -- <out_dir> [women]
 
 const TestJump := preload("res://scripts/ui/TestJump.gd")
+const FightIntro := preload("res://scripts/fight3d/FightIntro.gd")
 const BONES := ["Hips", "LeftUpperLeg", "LeftLowerLeg", "LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot", "RightHand", "Head"]
 const SECONDS := 20.0
 
@@ -18,6 +19,9 @@ var _frame := 0
 
 
 func _initialize() -> void:
+	# S379 (operator: "skip the walk in for the clips"): the film opens with both boxers in their corners (CornerStart);
+	# `walkin` films the game's full intro.
+	FightIntro.from_corners = not OS.get_cmdline_user_args().has("walkin")
 	var args := OS.get_cmdline_user_args()
 	if not args.is_empty():
 		out_dir = str(args[0])

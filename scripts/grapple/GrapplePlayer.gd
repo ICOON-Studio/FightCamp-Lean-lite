@@ -66,7 +66,9 @@ var _impact_on := on("impact")
 ## S379 operator (C221): "why on grapplemap the clips played fine, why you dont use them straight in the game" - the match
 ## now plays the recorded GrappleMap motion straight: the layers the audit measured as trembling or sinking are OFF unless a
 ## run asks for them (`-- with<layer>`); the hand-over blend, the floors and the feints stay (blend off made holds worse).
-const DEFAULT_OFF := ["idle", "sep", "carry", "impact", "route", "finish"]
+## S390: "finish" left this list: it is GrappleMap's recorded extension plus the tap, not a per-frame layer, and off it no film ever
+## showed a tap ("TAP appears, nobody taps" was this switch).
+const DEFAULT_OFF := ["idle", "sep", "carry", "impact", "route"]
 
 
 static func on(layer: String) -> bool:

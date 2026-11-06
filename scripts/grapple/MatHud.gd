@@ -144,7 +144,8 @@ func banner(text: String, color: Color) -> void:
 	word.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	word.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	p.add_child(word)
-	_stage.add_child(p)
+	offers.add_child(p)   # S390: along the bottom edge, under the bodies, not across the winner ("the banner covers her")
+	_sides(1.0, 0.3)
 
 
 ## A hold or a plain step: a row only.
@@ -193,6 +194,21 @@ func _chip(icon: String, title: String, sub: String, color: Color, big: bool) ->
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	h.add_child(v)
 	return p
+
+
+## S390 (reviewer: "two clean seconds with the cards off"): the cards leave the bodies to the finish.
+func clear_for_finish(after_s: float) -> void:
+	var t := create_tween()
+	t.tween_interval(after_s)
+	t.tween_property(_stage, "modulate:a", 0.0, 0.25)
+	_sides(0.0, 0.5)
+
+
+## S390: the side panels leave for the finish's close shot (they hid her head) and come back with the verdict.
+func _sides(to: float, over_s: float) -> void:
+	var t := create_tween().set_parallel(true)
+	for i in 2:
+		t.tween_property(get_node("Side_%d" % i), "modulate:a", to, over_s)
 
 
 func _clash(me: int, title: String, hit: bool, odds: float, roll: float, r: Dictionary) -> void:

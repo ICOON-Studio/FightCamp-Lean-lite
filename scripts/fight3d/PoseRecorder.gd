@@ -15,10 +15,19 @@ var _root: Array = []          # Transform3D per frame
 var _pos: Array = []           # PackedVector3Array per frame
 var _rot: Array = []           # Array[Quaternion] per frame
 var _was_playing := false
+var _settle := 0
+const SETTLE_FRAMES := 3
 
 
 func oldest() -> float:
 	return _t[0] if not _t.is_empty() else clock
+
+
+## S379: her root's place in the ring at clock time `at` (the nearest recorded frame) - the replay frames its angles on it.
+func root_at(at: float) -> Vector3:
+	if _t.is_empty():
+		return body.global_position if body != null else Vector3.ZERO
+	return (_root[clampi(_t.bsearch(at), 0, _t.size() - 1)] as Transform3D).origin
 
 
 func _process_modification() -> void:
@@ -30,10 +39,17 @@ func _process_modification() -> void:
 		_draw(skel, play)
 		return
 	if _was_playing:
-		# Back to live: her root goes back where the freeze left it (the newest frame); the bones are live again.
+		# Back to live: her root goes back where the freeze left it (the newest frame).
+		# S390 (tools/replay_exit_probe.gd: head 1.61 m on the first live frame, 0.08 m on the next; two judges: "pops upright"): under
+		# the replay the base pose is the rest pose, so the last recorded pose stays drawn until the animation has re-applied.
 		_was_playing = false
+		_settle = SETTLE_FRAMES
 		if body != null and not _root.is_empty():
 			body.global_transform = _root[_root.size() - 1]
+	if _settle > 0:
+		_settle -= 1
+		if not _t.is_empty():
+			_draw(skel, _t[_t.size() - 1])
 		return
 	clock += get_process_delta_time()
 	var n := skel.get_bone_count()

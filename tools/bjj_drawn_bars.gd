@@ -86,6 +86,8 @@ func _measure(t: float, pos_c: String) -> void:
 	if gap > APART_M:
 		_apart += 1
 		_run += 1.0 / 30.0
+		if absf(_run - 1.0) < 0.017:
+			print("APART t=%.1f gap=%.2f at %s moving %s" % [t, gap, str(b.get("db")[int(b.get("current"))].get("title", "")).left(30), str((b.get("moving") as Dictionary).get("t", {}).get("title", "-")).left(30)])
 		if _run > _run_worst:
 			_run_worst = _run
 			_run_t = t

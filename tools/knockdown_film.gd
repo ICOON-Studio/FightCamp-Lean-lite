@@ -11,6 +11,7 @@ extends SceneTree
 ##       --fixed-fps 30 --write-movie <out>.avi --audio-driver Dummy --script res://tools/knockdown_film.gd [-- stop=KO]
 
 const TestJump := preload("res://scripts/ui/TestJump.gd")
+const FightIntro := preload("res://scripts/fight3d/FightIntro.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const KnockdownCount := preload("res://scripts/fight3d/KnockdownCount.gd")
@@ -29,6 +30,9 @@ var _drawn := {}
 
 
 func _initialize() -> void:
+	# S379 (operator: "skip the walk in for the clips"): the film opens with both boxers in their corners (CornerStart);
+	# `walkin` films the game's full intro.
+	FightIntro.from_corners = not OS.get_cmdline_user_args().has("walkin")
 	var stop_how := ""
 	var skip := false   # S377 review: SKIP ROUND pressed 0.5 s into the fall (with stop=KO: he stays down, no replay later)
 	for a in OS.get_cmdline_user_args():

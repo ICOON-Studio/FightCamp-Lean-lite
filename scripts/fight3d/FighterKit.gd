@@ -13,19 +13,23 @@ extends RefCounted
 ##
 ## Kickboxing, muay thai and MMA are fought barefoot - no boots there, by the rules.
 
+const MeshCut := preload("res://scripts/fight3d/MeshCut.gd")
 const BOOT_PATH := "res://assets/models/kit/boxing_boot.glb"
 ## Real boxing boot on our rigs: the toe JOINT is the ball of the foot; the toe tips reach ~7 cm past it
-## (measured S115 - a 4 cm spill left bare toes showing), so the sole runs 10 cm past the joint.
-const TOE_SPILL_M := 0.10
-const HEEL_SPILL_M := 0.09
+## (measured S115 - a 4 cm spill left bare toes showing), so the sole runs 11 cm past the joint.
+const TOE_SPILL_M := 0.11
+const HEEL_SPILL_M := 0.095
 ## Our rigs' feet are wider than the generated boot's proportions (S115: skin showed at the inner edge).
-const WIDTH_FACTOR := 1.3
+const WIDTH_FACTOR := 1.35
 ## The toe bone sits this far above the floor in the rest pose (sole thickness under the ball).
 const TOE_CLEAR_M := 0.02
+const SOLE_PAD_M := 0.006
 ## The generated boot's toe points along -Z (measured S115: the first fit showed it on backwards),
 ## so it turns half a circle to face the rig's +Z forward.
 const BOOT_YAW := PI
 const FEET := [["LeftFoot", "LeftToes", 1.0], ["RightFoot", "RightToes", -1.0]]
+const CUT_FEET := {"LeftFoot": true, "RightFoot": true, "LeftToes": true, "RightToes": true,
+	"foot_l": true, "foot_r": true, "ball_l": true, "ball_r": true}
 
 
 ## True when this body's discipline wears boxing boots: the old boxing bodies f01-f04 and every MetaHuman boxer (mh_boxer_*).
@@ -137,6 +141,8 @@ static func dress(body: Node3D, model_name: String, discipline: String = "") -> 
 		for mi in boot.find_children("*", "MeshInstance3D", true, false):
 			mi.set_meta("fighter_kit", true)
 		added += 1
+	if added > 0:
+		_cut_feet(body, skel)
 	return added
 
 
@@ -152,7 +158,7 @@ static func _dress_metahuman(body: Node3D, skel: Skeleton3D, scene: PackedScene)
 		if node is Node3D:
 			to_body = (node as Node3D).transform * to_body
 		node = node.get_parent()
-	var sole_y: float = (preload("res://scripts/fight3d/MHRig.gd").height_of(body) as Vector2).x
+	var sole_y: float = (preload("res://scripts/fight3d/MHRig.gd").height_of(body) as Vector2).x - SOLE_PAD_M
 	if not is_finite(sole_y):
 		return 0
 	var added := 0
@@ -190,7 +196,18 @@ static func _dress_metahuman(body: Node3D, skel: Skeleton3D, scene: PackedScene)
 		for mi in boot.find_children("*", "MeshInstance3D", true, false):
 			mi.set_meta("fighter_kit", true)
 		added += 1
+	if added > 0:
+		_cut_feet(body, skel)
 	return added
+
+
+## Drops every body skin triangle that the foot or toe bones carry (weight >= 0.25), so bare toes/soles never poke through a boot.
+static func _cut_feet(body: Node3D, skel: Skeleton3D) -> void:
+	for found in body.find_children("*", "MeshInstance3D", true, false):
+		var mi := found as MeshInstance3D
+		if mi.has_meta("fighter_kit"):
+			continue
+		MeshCut.cut(mi, skel, CUT_FEET, "MH_Skin", 0.25)
 
 
 ## S266 (operator "wtf" on two crops of Ziva's fight video: a boot floating off the leg): the high-top boot rode the FOOT bone
@@ -306,7 +323,12 @@ static func _skinned_mesh(mi: MeshInstance3D, to_rest: Transform3D, to_skel: Tra
 		a[Mesh.ARRAY_BONES] = bones
 		a[Mesh.ARRAY_WEIGHTS] = weights
 		out.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, a)
-		out.surface_set_material(out.get_surface_count() - 1, mi.get_active_material(s))
+		var mat := mi.get_active_material(s)
+		if mat is BaseMaterial3D:
+			var dmat := (mat as BaseMaterial3D).duplicate() as BaseMaterial3D
+			dmat.cull_mode = BaseMaterial3D.CULL_DISABLED
+			mat = dmat
+		out.surface_set_material(out.get_surface_count() - 1, mat)
 	return out if out.get_surface_count() > 0 else null
 
 

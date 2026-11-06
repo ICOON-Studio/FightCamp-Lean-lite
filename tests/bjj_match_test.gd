@@ -126,7 +126,7 @@ func _initialize() -> void:
 	var gs := M.start({"belt": "white", "bjj": {}, "stats": {"cardio": 50.0}}, {"stats": {"cardio": 80.0}})
 	var pass_o := {"kind": "pass", "odds": 0.6, "pts": 3}
 	var g := M.gas_cost(gs, 0, pass_o)
-	_check(is_equal_approx(g.x, 2.0) and is_equal_approx(g.y, 8.0), "cardio 50: a move takes 2 of 100, a miss 8 (%s)" % str(g))
+	_check(is_equal_approx(g.x, 1.5) and is_equal_approx(g.y, 4.0), "cardio 50: a move takes 1.5 of 100, a miss 4 (%s)" % str(g))
 	var g1 := M.gas_cost(gs, 1, pass_o)
 	_check(g1.x < g.x, "a fitter woman pays less gas (%.1f < %.1f)" % [g1.x, g.x])
 	_check(M.gas_cost(gs, 0, M.HOLD).x < 0.0, "a hold gives gas back")

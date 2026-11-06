@@ -2704,6 +2704,90 @@
    },
    "collected": "S387: PR closed, branch kept",
    "archived": "2026-11-05 23:11 board_sync"
+  },
+  {
+   "agent": "cursor",
+   "id": "BJJ9R18",
+   "title": "TASK BJJ9R18 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
+   "status": "collected",
+   "started": "2026-11-06T01:11",
+   "eta": "2026-11-06T03:01",
+   "branch": "cursor/bjj9r18",
+   "worktree": "E:/FightCamp/wt/LEAN_BJJ9R18",
+   "wt": "E:/FightCamp/wt/LEAN_BJJ9R18",
+   "brief": "ops/research/TASK_BJJ9R18.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/BJJ9R18_dispatch_out.txt",
+   "match": "seat_dispatch.py run bjj9r18",
+   "model": "composer-2.5",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/BJJ9R18_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/BJJ9R18_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/BJJ9R18_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 25032,
+    "seat_pid": 46308
+   },
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 4/5 PASS; PR #54; films Argon 3 -> 3/10; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache",
+   "finished": "2026-11-06T02:58",
+   "pr": 54,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/bjj_tremble_probe.gd",
+     "ok": false,
+     "last": "BJJTREMBLE failures=6"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/grapple_pose_test.gd",
+     "ok": true,
+     "last": "       [1] _initialize (res://tests/grapple_pose_test.gd:76)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/grapple_contact_test.gd",
+     "ok": true,
+     "last": "PASS grapple_contact_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/grapple_timing_test.gd",
+     "ok": true,
+     "last": "PASS grapple_timing_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/BJJ9R18/before.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/BJJ9R18/before.gemini_argon.md",
+     "score": "3",
+     "line": "Score: 3/10",
+     "rc": 1,
+     "err": "",
+     "head": "5496e8b8b036b43b32bc0676599a0cee0e3fcaed"
+    },
+    "after": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/BJJ9R18/after.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/BJJ9R18/after.gemini_argon.md",
+     "score": "3",
+     "line": "Score: 3/10",
+     "rc": 1,
+     "err": "",
+     "head": "0906e1fbc5cc479d5f4aeacbe5014de84c0e7bda"
+    },
+    "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-06_0258_bjj9r18_before_after_argon_3_10_3_10_you)"
+   },
+   "reconciled": "2026-11-06 05:56 board_reconcile: branch cursor/bjj9r18 commits are on master",
+   "archived": "2026-11-06 05:56 board_sync"
   }
  ]
 }

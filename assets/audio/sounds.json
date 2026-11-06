@@ -9,9 +9,10 @@
    "files": [
     "res://assets/audio/fight/punch_jab_head_1.ogg"
    ],
-   "volume_db": 0.0,
+   "volume_db": 3.4,
    "pitch": 0.04,
-   "loop": false
+   "loop": false,
+   "priority": 2
   },
   "punch_power_head": {
    "bus": "SFX",
@@ -21,9 +22,10 @@
    "files": [
     "res://assets/audio/fight/punch_power_head_2.ogg"
    ],
-   "volume_db": 0.0,
+   "volume_db": 6.5,
    "pitch": 0.04,
-   "loop": false
+   "loop": false,
+   "priority": 2
   },
   "punch_body": {
    "bus": "SFX",
@@ -33,9 +35,10 @@
    "files": [
     "res://assets/audio/fight/punch_body_1.ogg"
    ],
-   "volume_db": 0.0,
+   "volume_db": 7.5,
    "pitch": 0.04,
-   "loop": false
+   "loop": false,
+   "priority": 2
   },
   "punch_blocked": {
    "bus": "SFX",
@@ -45,9 +48,10 @@
    "files": [
     "res://assets/audio/fight/punch_blocked_1.ogg"
    ],
-   "volume_db": 0.0,
+   "volume_db": 2.2,
    "pitch": 0.04,
-   "loop": false
+   "loop": false,
+   "priority": 1
   },
   "punch_miss": {
    "bus": "SFX",
@@ -59,7 +63,8 @@
    ],
    "volume_db": 0.0,
    "pitch": 0.04,
-   "loop": false
+   "loop": false,
+   "priority": 1
   },
   "punch_big": {
    "bus": "SFX",
@@ -69,9 +74,10 @@
    "files": [
     "res://assets/audio/fight/punch_big_1.ogg"
    ],
-   "volume_db": 0.0,
+   "volume_db": 4.8,
    "pitch": 0.04,
-   "loop": false
+   "loop": false,
+   "priority": 3
   },
   "bell_round_start": {
    "bus": "SFX",
@@ -83,7 +89,8 @@
    ],
    "volume_db": 0.0,
    "pitch": 0.04,
-   "loop": false
+   "loop": false,
+   "priority": 3
   },
   "bell_round_end": {
    "bus": "SFX",
@@ -95,7 +102,8 @@
    ],
    "volume_db": 0.0,
    "pitch": 0.04,
-   "loop": false
+   "loop": false,
+   "priority": 3
   },
   "crowd_arena_loop": {
    "bus": "Crowd",
@@ -107,7 +115,8 @@
    ],
    "volume_db": 0.0,
    "pitch": 0.0,
-   "loop": true
+   "loop": true,
+   "priority": 0
   },
   "crowd_roar": {
    "bus": "Crowd",
@@ -119,7 +128,9 @@
    ],
    "volume_db": 0.0,
    "pitch": 0.04,
-   "loop": false
+   "loop": false,
+   "priority": 1,
+   "cooldown": 2.0
   },
   "knockdown_fall": {
    "bus": "SFX",
@@ -131,7 +142,8 @@
    ],
    "volume_db": 0.0,
    "pitch": 0.04,
-   "loop": false
+   "loop": false,
+   "priority": 3
   },
   "footwork_canvas": {
    "bus": "SFX",
@@ -143,7 +155,8 @@
    ],
    "volume_db": 0.0,
    "pitch": 0.04,
-   "loop": false
+   "loop": false,
+   "priority": 0
   },
   "ui_click": {
    "bus": "UI",
@@ -155,7 +168,8 @@
    ],
    "volume_db": 0.0,
    "pitch": 0.04,
-   "loop": false
+   "loop": false,
+   "priority": 1
   }
  },
  "files": {

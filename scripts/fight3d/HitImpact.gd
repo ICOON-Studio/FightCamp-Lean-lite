@@ -6,25 +6,37 @@ extends RefCounted
 const PunchRange := preload("res://scripts/fight3d/PunchRange.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const HitStun := preload("res://scripts/fight3d/HitStun.gd")
+const FightSfx := preload("res://scripts/audio/FightSfx.gd")
 
 ## S302 impact (operator: "the punches feel like they have no power"; John J-GUARDPACE1: hit-stop 2-3 frames on a jab, 4-6
 ## on a power punch; the receiver's head snaps). Seconds both bodies hold at contact, head-snap degrees, camera nudge metres.
-const HOLD_S := {"jab": 0.05, "power": 0.08, "big": 0.11}
-const SNAP_DEG := {"jab": 9.0, "cross": 14.0, "hook": 17.0, "uppercut": 15.0}
+const HOLD_S := {"jab": 0.03, "power": 0.05, "big": 0.06}
+const SNAP_DEG := {"jab": 11.0, "cross": 16.0, "hook": 19.0, "uppercut": 17.0}
+
 const SHAKE_M := {"jab": 0.0, "power": 0.025, "big": 0.06}
 ## S301: a Pro clip plays its recovery fast (BeatClips.recover_scale, from its measured contact) and hands over to the guard
 ## the moment it is back in guard, instead of standing on to the end of the take.
-const RECOVER_RAMP_S := 0.12
-const TAIL_HOLD_S := 0.3
+const RECOVER_RAMP_S := 0.05
+const TAIL_HOLD_S := 0.06
+
 
 
 ## S302: `hitter`'s `move` lands on `who`: her hit reaction starts, both bodies hold for the hit-stop, her head snaps the
 ## way the glove drove it (not on a body shot), and a power shot nudges the camera.
 static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, move: String, big: bool, punch_id: int) -> void:
 	var was_cut := PunchRange.cut_off(st, hitter, punch_id)
+	if not was_cut:
+		var pr: Node = st.boxers[hitter].get("reach")
+		var ap_h: AnimationPlayer = st.boxers[hitter]["ap"]
+		if pr != null and str(pr.get("_clip")) != "" and str(ap_h.assigned_animation) == str(pr.get("_clip")):
+			var c_t := float(pr.get("_contact"))
+			if absf(ap_h.current_animation_position - c_t) > 0.01:
+				ap_h.seek(c_t, true)
+			pr._process_modification()
 	PunchRange.record(st, who, hitter, move, was_cut)
 	if was_cut:
 		return   # S320: her punch was cut off before it arrived (a clinch, a reaction): no hit shows without a punch
+	FightSfx.landed(move, big)
 	var boxers: Array = st.boxers
 	# S305: fast to its peak, then the clip's own pace back to guard; locked in it until then (HitStun).
 	var fast := BeatClips.react_fast(clip, speed)
@@ -32,7 +44,7 @@ static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, mov
 	st.play(who, clip, fast)
 	if str((boxers[who]["ap"] as AnimationPlayer).current_animation) == clip:
 		# S311: a plain head shot snaps and lets her fight on; hurt, big and body shots keep the full reaction.
-		var light := not big and not move.contains("body") and not (BeatClips.REACT["hurt"] as Array).has(clip)
+		var light := not move.contains("body") and not (BeatClips.REACT["hurt"] as Array).has(clip)
 		var cut := HitStun.head_cut(clip, fast) if light else HitStun.react_cut(clip, speed, fast)
 		st._cut[who] = cut if not cut.is_empty() else st._cut[who]
 		st.stun.start(who, clip, speed, light)

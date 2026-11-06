@@ -1,27 +1,18 @@
 extends Node
-## S377 KNOCKCOUNT1 - what happens after a knockdown (Argon on FIGHT9R6's film: "a completely non-functional knockdown state
-## where the winner dances on the loser's body while the clock runs out" - no count, the clock ran on 17 s, the standing
-## boxer stood on the downed one's leg in his stance). There is no referee in the ring (operator S369), so the ring keeps the
-## rule itself and the count is a broadcast graphic:
-## - the fall plays and its slow-motion replay (KnockdownReplay); the round clock HOLDS from the count beat on (FightView.t
-##   does not run, so the round's exchanges are not eaten by the count);
-## - the standing boxer backs off to the neutral corner farthest from the downed one (round the body) on the fight's mocap
-##   back-step loop at its own speed, the body moved by StepRoot: only as far as his planted foot pushes it, turned so the
-##   loop's travel points at the corner (he faces the downed boxer). S377 operator, on the corner crew's casual walk
-##   (af_walk): "the walking on the clip is so bad"; on the guard glide that replaced it: "their legs dont really move they
-##   slide across" - and he waits there, facing him;
-## - the count runs big under the banner, one number a second of the fight's own time (2x counts twice as fast; the replay
-##   pauses it with the rest of the ring);
-## - no stoppage: the downed boxer gets up by the sim's `up_at` (Knockdowns: 2-9; his countdown clip plays from its rise),
-##   the count runs on to the mandatory 8, BOX! - both go back to the fight where they stand;
-## - "RSC": he gets up, the count ends in STOPPED; "KO": he stays on the canvas (the knockout clip holds its last frame), the
-##   count goes to 10. The winner celebrates in his corner and the bout ends at once (FightView._bell).
+## S377 KNOCKCOUNT1 - what happens after a knockdown:
+## - the fall plays and its slow-motion replay (KnockdownReplay); the round clock HOLDS from the count beat on;
+## - the standing boxer backs off to the neutral corner farthest from the downed one on the fight's mocap back-step loop
+##   moved by StepRoot, turned so the loop's travel points at the corner, and waits there facing him;
+## - the count runs big under the banner, one number a second of the fight's own time;
+## - no stoppage: the downed boxer gets up by the sim's `up_at`, the count runs on to the mandatory 8, BOX!;
+## - "RSC": he gets up, the count ends in STOPPED; "KO": he stays on the canvas, the count goes to 10.
 ##   attach(view) -> Node   start(down, stop, up_at, fall_in)   holding() -> bool   stop()   phase, shown (probes read them)
 
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const FightHud := preload("res://scripts/fight3d/FightHud.gd")
 const RingCamera := preload("res://scripts/fight3d/RingCamera.gd")
+const TvShot := preload("res://scripts/fight3d/TvShot.gd")
 const UI := preload("res://scripts/ui/TV.gd")
 const StepRoot := preload("res://scripts/fight3d/StepRoot.gd")
 
@@ -41,10 +32,6 @@ const CLEAR_M := 0.8         # his path keeps this far from the lying body (hips
 const ROPE_IN_M := 2.45      # a detour waypoint stays this far in from the centre on both axes
 const END_S := 1.6           # KO / STOPPED shows this long before the bell
 const HOLD_END_S := 0.15     # a knockout clip freezes this close to its end (a finished clip would hand him to his guard)
-## Each countdown clip: where its rise starts (hips still flat on the canvas) and where it reaches the guard (clip seconds,
-## the baked clips' hips heights and clip_recovery.json's back_s; S377 map).
-## The count's own lens (the fight's pair framing aimed at the empty canvas between a man on the canvas and one in a corner,
-## S377 film): side-on to the line from the downed boxer to the neutral corner, inside the ropes, high, wide enough for both.
 const LENS_DIST_M := 3.4
 const LENS_H := 1.9
 const LOOK_H := 0.6
@@ -53,10 +40,8 @@ const EDGE_M := 1.0          # room kept beyond each of them in the frame
 const HUD_SPREAD := 1.35     # the body-map panels cover each side of the frame: both boxers stay in its middle 3/4
 const BACK_GAP_M := 2.2      # after BOX! the count's lens holds until they are this close again (or BACK_S)
 const BACK_S := 3.0
+const OPEN_HALF := TvShot.OPEN_W * 0.5     # S379: the picture's open middle, as a share of its width from the centre (HUD panels outside)
 const ASPECT := 16.0 / 9.0
-## While the standing boxer walks, the lens holds on the downed one (the broadcast's count shot; S377: the library has no
-## walk that reads right on our boxers - af_walk limps, the step loops squat - so the walk is not the picture until LOCOWALK1
-## brings real clips); it cuts to the wide count shot once he is in his corner.
 const DOWN_LENS_DIST_M := 1.3   # S377: high over him (the overhead count shot) - only the canvas round him is in
 const DOWN_LENS_H := 3.0
 const DOWN_HALF_M := 1.0         # the count close-up: his head and body (hips to head), the walker out of it
@@ -66,8 +51,7 @@ const RISE_TO := {"pro_knockout_countdown_v1": 26.55, "pro_knockout_countdown_v2
 	"mc_knockout_count": 26.55}
 
 var view: Control
-var phase := ""        # "" | "fall" (before scene mode) | "down" (fall + replay) | "count" | "end" (word up, bell next) | "over"
-                       # | "back" (after BOX!: boxing again, the count's lens holds till they close in)
+var phase := ""        # "" | "fall" | "down" | "count" | "end" | "over" | "back"
 var shown := ""        # the count graphic's text (probes read it)
 var top := 0           # the highest number counted this knockdown
 var _down := -1
@@ -75,6 +59,10 @@ var _stop := ""
 var _up_at := UP_AT
 var _wait := 0.0
 var _fall_in := 0.0
+var _walking_off := false
+var _mark := Vector3.ZERO
+const KnockdownRing := preload("res://scripts/fight3d/KnockdownRing.gd")
+const WALK_AFTER_S := 1.6   # S390: he turns and goes once the body has landed: planned earlier the route ran through where it fell
 var _tick := 0.0
 var _rising := false
 var _standing := false
@@ -105,24 +93,16 @@ func _build() -> void:
 	_label.add_theme_constant_override("outline_size", 14)
 	_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
 	view.add_child(_label)
-	FightHud.pin(_label, Vector4(0.5, 0, 0.5, 0), Vector4(-640, 300, 640, 470))
+	FightHud.pin(_label, Vector4(0.5, 0, 0.5, 0), Vector4(-640, 110, 640, 270))
 
 
 ## Boxer `down` goes down; `stop` is the round's stoppage ("", "KO", "RSC"); the fall clip starts `fall_in` s from now.
 func start(down: int, stop_how: String, up_at: int, fall_in: float) -> void:
-	if phase != "":
-		return
-	_down = down
-	_stop = stop_how
+	if phase != "": return
+	_down = down; _stop = stop_how
 	_up_at = clampi(up_at, 1, 9) if up_at > 0 else UP_AT
-	_fall_in = fall_in
-	_wait = 0.0
-	_tick = TICK_S
-	top = 0
-	_rising = false
-	_standing = false
-	_lens = {}
-	_down_lens = {}
+	_walking_off = false; _fall_in = fall_in; _wait = 0.0; _tick = TICK_S; top = 0
+	_rising = false; _standing = false; _lens = {}; _down_lens = {}
 	phase = "fall"
 	_drop_next(float(view.t))
 	_show("", UI.GOLD)
@@ -133,27 +113,19 @@ func holding() -> bool:
 	return phase in ["fall", "down", "count", "end"]
 
 
-## Clears a count a skipped round or bout left (FightView.skip_round / skip_bout / play_round). The knockdown's replay
-## does not cut in later (it would pause the corner minute or the result card). A knockout stays on the canvas: the bout
-## is over, the ring keeps him down under the result ("over").
+## Clears a count a skipped round or bout left (FightView.skip_round / skip_bout / play_round).
 func stop() -> void:
 	var r: Node = view.get("replay")
-	if r != null and not r.active():
-		r.set("_hit", -1.0)
-	if holding():
-		_crew_clear()
-	_flash = 0.0
-	_show("", UI.GOLD)
+	if r != null and not r.active(): r.set("_hit", -1.0)
+	if holding(): _crew_clear()
+	_flash = 0.0; _show("", UI.GOLD)
 	if _stop == "KO" and holding():
 		if not _scened:
-			view.stage.scene_mode(true)
-			_scened = true
-		phase = "over"
-		return
+			view.stage.scene_mode(true); _scened = true
+		phase = "over"; return
 	if _scened and view.stage != null and view.stage.scene and phase != "over":
 		view.stage.scene_mode(false)
-	_scened = false
-	phase = ""
+	_scened = false; phase = ""
 
 
 func _process(delta: float) -> void:
@@ -169,6 +141,10 @@ func _process(delta: float) -> void:
 		return
 	if _stop == "KO":
 		_hold_down()
+	if phase in ["fall", "down", "count"]:
+		var bx: Dictionary = view.stage.boxers[_down]
+		KnockdownRing.keep(bx["node"], bx["skel"], Stage.RING_M * 0.5, delta)
+		KnockdownRing.clear(view.stage.boxers[1 - _down]["node"], bx["skel"], Stage.RING_M * 0.5, delta)
 	match phase:
 		"fall":
 			_wait += delta
@@ -176,6 +152,12 @@ func _process(delta: float) -> void:
 				_scene_on()
 		"down":
 			_wait += delta
+			# S390 (two judges: he stands on the fallen man's leg for 2 s): once the fall has landed the walk to the corner starts,
+			# before the replay, so the replay's return finds them apart.
+			if _wait >= _fall_in + WALK_AFTER_S:
+				if not _walking_off:
+					_plan_walk()
+				_walk(delta)
 			if _wait >= _fall_in + DOWN_S and not _replay_due():
 				_begin_count()
 		"count":
@@ -189,7 +171,8 @@ func _process(delta: float) -> void:
 			_wait += delta
 			var a: Vector3 = view.stage.boxers[0]["pos"]
 			var b: Vector3 = view.stage.boxers[1]["pos"]
-			if _wait >= BACK_S or Vector2(a.x - b.x, a.z - b.z).length() <= BACK_GAP_M:
+			# S379 (C222): the count's lens is fixed - once either of them walks out of it the broadcast takes over.
+			if _wait >= BACK_S or Vector2(a.x - b.x, a.z - b.z).length() <= BACK_GAP_M or not _both_in_lens():
 				phase = ""
 				view.stage.broadcast(true)   # back to the fight's lenses
 				return
@@ -197,8 +180,7 @@ func _process(delta: float) -> void:
 		_frame(delta)
 
 
-## The beats the round script put right behind the count (a clinch entry, its tie-up and break, ~0.15-1.2 s after it) are
-## gone: nobody fights a man on the canvas. Later beats play after BOX!; a caption stays.
+## The beats the round script put right behind the count are gone: nobody fights a man on the canvas.
 func _drop_next(t0: float) -> void:
 	var keep: Array = (view.beats as Array).slice(0, int(view.next))
 	for i in range(int(view.next), (view.beats as Array).size()):
@@ -209,8 +191,6 @@ func _drop_next(t0: float) -> void:
 	view.beats = keep
 
 
-## Both boxers leave the fight's footwork for the count: the downed one lies where he fell (the fight would turn his body to
-## face the other), the standing one stands in his guard until he walks.
 func _scene_on() -> void:
 	view.stage.scene_mode(true)
 	_scened = true
@@ -223,15 +203,24 @@ func _replay_due() -> bool:
 	return r != null and (r.active() or float(r.get("_hit")) >= 0.0)
 
 
-func _begin_count() -> void:
+func _plan_walk() -> void:
+	_walking_off = true
 	var st: Node3D = view.stage
 	var walker: Dictionary = st.boxers[1 - _down]
 	var from: Vector3 = (walker["node"] as Node3D).position
 	var body := _body_centre()
 	var h := Stage.RING_M * 0.5 - NEUTRAL_IN_M
 	var corners := [Vector3(-h, 0, h), Vector3(h, 0, -h)]
-	var mark: Vector3 = corners[0] if body.distance_to(corners[0]) >= body.distance_to(corners[1]) else corners[1]
-	_path = _route(from, mark)
+	_mark = corners[0] if body.distance_to(corners[0]) >= body.distance_to(corners[1]) else corners[1]
+	_path = _route(from, _mark)
+	_body = body
+
+
+func _begin_count() -> void:
+	_plan_walk()   # again from where he stands now, round where the body lies
+	var from: Vector3 = (view.stage.boxers[1 - _down]["node"] as Node3D).position
+	var body := _body_centre()
+	var mark: Vector3 = _mark
 	_body = body
 	_lens = _count_lens(body, mark)
 	_down_lens = _on_body_lens(body, mark, from)
@@ -246,14 +235,12 @@ func _count(delta: float) -> void:
 	if _tick > 0.0:
 		return
 	_tick += TICK_S
-	# Each number holds its second: the word (KO / BOX! / STOPPED) comes on the tick after the last number.
 	if _stop == "KO":
 		if top >= KO_AT:
 			_finish("KO")
 		else:
 			_number(top + 1)
 		return
-	# A standing count: on to the mandatory 8 (or his up_at, 9), held there until he stands.
 	var last := maxi(MANDATORY, _up_at)
 	if top >= last and _standing:
 		if _stop == "RSC":
@@ -272,7 +259,7 @@ func _number(n: int) -> void:
 	_show(str(n), UI.GOLD)
 
 
-## His countdown clip from its rise (the canvas part before it is the same lying pose), the join smoother over the cut.
+## His countdown clip from its rise, the join smoother over the cut.
 func _rise() -> void:
 	_rising = true
 	var bx: Dictionary = view.stage.boxers[_down]
@@ -290,7 +277,7 @@ func _rise() -> void:
 	ap.seek(maxf(float(RISE_FROM[clip]), ap.current_animation_position), true)
 
 
-## Standing = his head back up (the clip's own rise); he is handed to his guard where the clip reaches it (back_s).
+## Standing = his head back up; he is handed to his guard where the clip reaches it.
 func _rise_watch() -> void:
 	if not _rising:
 		return
@@ -324,25 +311,37 @@ func _finish(word: String) -> void:
 	_wait = 0.0
 
 
-## The walk to the corner stops (BOX!, the stoppage word, a skipped round).
 func _crew_clear() -> void:
 	_path.clear()
 
 
-## Straight to the mark, or round the lying body (a segment from his hips to his head, not a point: a man lying across the
-## way is 1.6-1.8 m long) past whichever end makes the shorter walk.
+func _feet_ground(bx: Dictionary) -> Vector3:
+	var skel: Skeleton3D = bx["skel"]
+	var f_pos := Vector3.ZERO
+	var count := 0
+	for bone in ["LeftFoot", "RightFoot"]:
+		var id := skel.find_bone(bone)
+		if id >= 0:
+			var lp := skel.global_transform * skel.get_bone_global_pose(id).origin
+			f_pos += Vector3(lp.x, 0.0, lp.z)
+			count += 1
+	return (f_pos / float(count)) if count > 0 else (bx["node"] as Node3D).position
+
+
+## Straight to the mark, or round the lying body past whichever end makes the shorter walk.
 func _route(from: Vector3, mark: Vector3) -> Array:
 	var bx: Dictionary = view.stage.boxers[_down]
 	var hips: Vector3 = (bx["node"] as Node3D).position
 	var head := _head_ground(bx)
-	if _seg_gap(from, mark, hips, head) >= CLEAR_M:
+	var feet := _feet_ground(bx)
+	if _seg_gap(from, mark, hips, head) >= CLEAR_M and _seg_gap(from, mark, hips, feet) >= CLEAR_M:
 		return [mark]
-	var mid := (hips + head) * 0.5
+	var mid := (head + feet) * 0.5
 	var best: Array = [mark]
 	var best_len := INF
-	for end in [hips, head]:
+	for end in [head, feet]:
 		var out := Vector3(end.x - mid.x, 0.0, end.z - mid.z)
-		var wp: Vector3 = end + (out.normalized() if out.length() > 0.01 else Vector3.RIGHT) * CLEAR_M
+		var wp: Vector3 = end + (out.normalized() if out.length() > 0.01 else Vector3.RIGHT) * (CLEAR_M + 0.15)
 		wp = Vector3(clampf(wp.x, -ROPE_IN_M, ROPE_IN_M), 0.0, clampf(wp.z, -ROPE_IN_M, ROPE_IN_M))
 		var length := from.distance_to(wp) + wp.distance_to(mark)
 		if length < best_len:
@@ -351,7 +350,6 @@ func _route(from: Vector3, mark: Vector3) -> Array:
 	return best
 
 
-## The closest the walk from p to q comes to the body segment a-b (on the canvas, sampled every 5 cm).
 static func _seg_gap(p: Vector3, q: Vector3, a: Vector3, b: Vector3) -> float:
 	var n := maxi(1, int(p.distance_to(q) / 0.05))
 	var gap := INF
@@ -371,8 +369,7 @@ func _head_ground(bx: Dictionary) -> Vector3:
 	return Vector3(head.x, 0.0, head.z)
 
 
-## Backing to the corner: the back-step loop plays and the body goes where its planted foot pushes it (StepRoot), turned
-## so the loop's own travel points at the waypoint; at the mark, his guard, turning to face the downed boxer.
+## Backing to the corner: the back-step loop plays and the body goes where its planted foot pushes it (StepRoot).
 func _walk(delta: float) -> void:
 	var st: Node3D = view.stage
 	var who := 1 - _down
@@ -385,6 +382,8 @@ func _walk(delta: float) -> void:
 		n.rotation.y = lerp_angle(n.rotation.y, face, 1.0 - exp(-delta / FACE_S))
 		return
 	if str(ap.current_animation) != WALK_CLIP:
+		if ap.has_animation(WALK_CLIP):
+			ap.get_animation(WALK_CLIP).loop_mode = Animation.LOOP_LINEAR
 		st.act(who, WALK_CLIP, WALK_SPEED)
 		_clip_t = ap.current_animation_position
 		return
@@ -397,7 +396,6 @@ func _walk(delta: float) -> void:
 	var head := skel.global_transform.basis * StepRoot.heading(ap, skel, WALK_CLIP)
 	head.y = 0.0
 	if head.length() > 0.01 and d.length() > 0.05:
-		# He turns on his planted foot (round the body's centre the turn swung that foot across the canvas).
 		var foot := _planted(walker)
 		var turn := head.signed_angle_to(d, Vector3.UP) * (1.0 - exp(-delta / FACE_S))
 		n.rotation.y += turn
@@ -412,14 +410,12 @@ func _walk(delta: float) -> void:
 	n.position += step
 
 
-## The lower ankle on the canvas (world).
 func _planted(bx: Dictionary) -> Vector3:
 	var skel: Skeleton3D = bx["skel"]
 	var low := Vector3.INF
 	for bone in StepRoot.FEET:
 		var at := skel.global_transform * skel.get_bone_global_pose(skel.find_bone(bone)).origin
-		if not low.is_finite() or at.y < low.y:
-			low = at
+		if not low.is_finite() or at.y < low.y: low = at
 	return low
 
 
@@ -429,7 +425,6 @@ func _head_y(bx: Dictionary) -> float:
 	return (skel.global_transform * skel.get_bone_global_pose(id)).origin.y if id >= 0 else 0.0
 
 
-## The knockout clip stops a hair before its end, so the finished-clip handover never stands him up.
 func _hold_down() -> void:
 	var ap: AnimationPlayer = view.stage.boxers[_down]["ap"]
 	var clip := str(ap.current_animation)
@@ -437,8 +432,6 @@ func _hold_down() -> void:
 		ap.speed_scale = 0.0
 
 
-## The camera while the fight's own framing is off (scene mode): before the count the fight's pair lens, from the count on
-## the count's own shot (it holds through the bell). The walker's place is where he is drawn.
 func _frame(delta: float) -> void:
 	var st: Node3D = view.stage
 	var bx: Dictionary = st.boxers[1 - _down]
@@ -447,7 +440,9 @@ func _frame(delta: float) -> void:
 		bx["pos"] = Vector3(at.x, 0.0, at.z)
 	if st.camera == null:
 		return
-	if not _down_lens.is_empty() and phase == "count" and not _path.is_empty():
+	# S379 (C222): the overhead stays on him while he is down; as he starts to get up, a straight cut to the count's wider
+	# fixed shot (the overhead framed only the canvas round him - his head rose out of it).
+	if not _down_lens.is_empty() and phase == "count" and not _path.is_empty() and not (_rising or _standing):
 		st.camera.film(_down_lens["pos"], _down_lens["look"], float(_down_lens["fov"]), 0.0)
 	elif not _lens.is_empty() and phase in ["count", "end", "over", "back"]:
 		st.camera.film(_lens["pos"], _lens["look"], float(_lens["fov"]), 0.0)
@@ -456,11 +451,25 @@ func _frame(delta: float) -> void:
 	st.camera.clear_view(st._ring_side, st.boxers[0]["pos"], st.boxers[1]["pos"], delta)
 
 
-## Side-on to the line body -> corner, on whichever side has more room inside the ropes; the fov widens until both fit.
+## Both boxers' heads and feet are in the open middle of the stage camera's picture: within OPEN_HALF of the width from
+## its centre (the body-map panels cover the outer ~18 % of each side).
+func _both_in_lens() -> bool:
+	var cam: Camera3D = view.stage.camera
+	var w := cam.get_viewport().get_visible_rect().size.x
+	for bx in view.stage.boxers:
+		var skel: Skeleton3D = bx["skel"]
+		for bone in ["Head", "LeftFoot", "RightFoot"]:
+			var id := skel.find_bone(bone)
+			var p := skel.global_transform * skel.get_bone_global_pose(id).origin if id >= 0 else Vector3.INF
+			if id >= 0 and (not cam.is_position_in_frustum(p) or absf(cam.unproject_position(p).x - w * 0.5) > w * OPEN_HALF):
+				return false
+	return true
+
+
 func _count_lens(body: Vector3, mark: Vector3) -> Dictionary:
 	var line := Vector3(mark.x - body.x, 0.0, mark.z - body.z)
 	var span := maxf(line.length(), 0.5)
-	var mid := body.lerp(mark, LOOK_AT)
+	var mid := body.lerp(mark, 0.38)
 	var side := Vector3.UP.cross(line / span).normalized()
 	var arc := Vector2(-RingCamera.SIDE_ARC_DEG, RingCamera.SIDE_ARC_DEG)
 	var sp: Array = RingCamera.spot_inside(mid, side, LENS_DIST_M, 0.0, arc)
@@ -470,30 +479,25 @@ func _count_lens(body: Vector3, mark: Vector3) -> Dictionary:
 	var pos: Vector3 = (sp[0] as Vector3) + Vector3.UP * LENS_H
 	var look := mid + Vector3.UP * LOOK_H
 	var dist := maxf(Vector2(pos.x - look.x, pos.z - look.z).length(), 0.5)
-	var half_w := (maxf(span * LOOK_AT, span * (1.0 - LOOK_AT)) + EDGE_M) * HUD_SPREAD
+	var half_w := (maxf(span * 0.38, span * 0.62) + 1.25) * 1.45
 	var vfov := rad_to_deg(2.0 * atan(half_w / dist / ASPECT))
-	return {"pos": pos, "look": look, "fov": clampf(vfov, 34.0, 70.0)}
+	return {"pos": pos, "look": look, "fov": clampf(vfov, 36.0, 70.0)}
 
 
-## The downed boxer side-on to the walker's way out (body -> corner), from the side away from the walker (the other side when
-## that one has no room inside the ropes), framed tight on the body: he walks off in the background within a second.
 func _on_body_lens(body: Vector3, mark: Vector3, walker: Vector3) -> Dictionary:
 	var line := Vector3(mark.x - body.x, 0.0, mark.z - body.z)
 	var side := Vector3.UP.cross(line.normalized()) if line.length() > 0.05 else Vector3.BACK
-	if side.dot(Vector3(walker.x - body.x, 0.0, walker.z - body.z)) > 0.0:
-		side = -side   # the lens on the far side from him: he walks off in the background, not across the foreground
+	if side.dot(Vector3(walker.x - body.x, 0.0, walker.z - body.z)) > 0.0: side = -side
 	var arc := Vector2(-RingCamera.SIDE_ARC_DEG, RingCamera.SIDE_ARC_DEG)
 	var sp: Array = RingCamera.spot_inside(body, side, DOWN_LENS_DIST_M, 0.0, arc)
 	if not bool(sp[3]):
 		var other: Array = RingCamera.spot_inside(body, -side, DOWN_LENS_DIST_M, 0.0, arc)
-		if bool(other[3]):
-			sp = other
+		if bool(other[3]): sp = other
 	var pos: Vector3 = (sp[0] as Vector3) + Vector3.UP * DOWN_LENS_H
 	var look := body + Vector3.UP * 0.1
 	return {"pos": pos, "look": look, "fov": clampf(rad_to_deg(2.0 * atan(DOWN_HALF_M / pos.distance_to(look))), 30.0, 60.0)}
 
 
-## Where the downed body lies: halfway between his hips and his head on the canvas.
 func _body_centre() -> Vector3:
 	var bx: Dictionary = view.stage.boxers[_down]
 	var skel: Skeleton3D = bx["skel"]
@@ -507,8 +511,7 @@ func _body_centre() -> Vector3:
 
 func _show(text: String, colour: Color) -> void:
 	shown = text
-	if _label == null:
-		return
+	if _label == null: return
 	_label.text = text
 	_label.add_theme_color_override("font_color", colour)
 	_pop = 1.35 if text != "" else 1.0

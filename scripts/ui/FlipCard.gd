@@ -8,6 +8,7 @@ extends PanelContainer
 ##   FlipCard.make(f, row) -> "PadCard_<card>"   grow() bar + number   flip() the turn   settle() all at once (skip)
 
 const UI := preload("res://scripts/ui/UI.gd")
+const Sfx := preload("res://scripts/audio/Sfx.gd")
 const DrillCard := preload("res://scripts/ui/DrillCard.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const PadEdit := preload("res://scripts/rules/PadEdit.gd")
@@ -188,6 +189,7 @@ func grow() -> void:
 func flip() -> void:
 	if back == null or gold:
 		return
+	Sfx.play("ui_click")   # S390: no flip sound was kept yet; the kept click marks the turn
 	pivot_offset = size * 0.5
 	_turn = create_tween()
 	_turn.tween_property(self, "scale", Vector2(0.0, 1.04), FLIP_S * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)

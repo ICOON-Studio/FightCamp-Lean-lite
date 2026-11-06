@@ -306,7 +306,8 @@ func _scale(i: int) -> float:
 	return (boxers[i]["node"] as Node3D).scale.x
 
 
-## The broadcast camera follows the pair (RingCamera); `snap` jumps straight there.
+## The broadcast camera follows the pair (RingCamera); `snap` = a fresh shot when the ring changes hands. S379: it reads
+## both boxers where their hips are shown (GloveClear.shown_hips), not their roots - a step's travel sits in the hips first.
 func broadcast(snap: bool = false, delta: float = 0.0) -> void:
 	# S348: the lens keeps off the referee in every mode (stepping in to part a clinch he came within a metre of it).
 	# S359: an unseen referee (he shows only to break a clinch) is not steered round.
@@ -319,7 +320,13 @@ func broadcast(snap: bool = false, delta: float = 0.0) -> void:
 		var skel: Skeleton3D = bx.get("skel")
 		var id := skel.find_bone("Head") if skel != null else -1
 		return skel.global_transform * skel.get_bone_global_pose(id).origin if id >= 0 else (bx["pos"] as Vector3) + Vector3(0, 1.6, 0))
-	camera.broadcast(boxers[0]["pos"], boxers[1]["pos"], snap, delta)
+	camera.broadcast(_shown_at(0), _shown_at(1), snap, delta)
+
+
+func _shown_at(i: int) -> Vector3:
+	var gc: Node = boxers[i].get("gclear")
+	var h: Vector3 = gc.get("shown_hips") if gc != null and gc.get("shown_hips") != null else Vector3.INF
+	return Vector3(h.x, 0.0, h.z) if h.is_finite() else boxers[i]["pos"]
 
 
 ## The close-up on a big shot on boxer `hit`, held until broadcast() is called again.

@@ -283,6 +283,23 @@
    "queued": "2026-11-06T04:26",
    "loop": "FIGHT9",
    "launched": "2026-11-06T05:11"
+  },
+  {
+   "task": "FIGHT9R19",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-06T06:15",
+   "loop": "FIGHT9",
+   "launched": "2026-11-06T06:41"
+  },
+  {
+   "task": "FIGHT9R20",
+   "seat": "agy",
+   "status": "held",
+   "queued": "2026-11-06T07:46",
+   "loop": "FIGHT9",
+   "launched": "2026-11-06T08:11",
+   "note": "S390: never started; R17-R19 under R16; R16 merged by hand"
   }
  ]
 }

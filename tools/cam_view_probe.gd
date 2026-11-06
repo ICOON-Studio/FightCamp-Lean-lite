@@ -7,6 +7,11 @@ extends SceneTree
 ## Run windowed on the never-shown desktop (the camera needs a picture):
 ##   python tools/hidden_desktop.py run --timeout=600 --log=<f> <godot.exe> --path . --windowed --resolution 1280x720 \
 ##       --audio-driver Dummy --fixed-fps 30 --script res://tools/cam_view_probe.gd [-- secs=90]
+## S379: `fightjump=men_fight` plays Danny's bout (the films' jump; default Lucy's `fight`); `fromcorners` opens it as the films
+## do (FightIntro / CornerStart); `clinch=<s>[,<s>...]` puts a clinch (its tie-up and break, as ClinchBeats places one) at
+## those round seconds - natural clinches are rare (S374), the clinch lens needs measuring; headless with `show3d` the
+## stage's picture is pinned to the films' 1280 x 720 (as tools/cam_motion_probe.gd). CAMVIEW clinch prints the frames held
+## in a tie-up and how often a head was hidden in them.
 ## Prints CAMVIEW lines, then CAMVIEW_SUMMARY with PASS/FAIL against the bars below.
 
 const TestJump := preload("res://scripts/ui/TestJump.gd")
@@ -32,9 +37,16 @@ var _taps: Array = []
 
 func _initialize() -> void:
 	var secs := 90.0
+	var jump := "fight"
+	var clinch_at: Array = []
 	for a in OS.get_cmdline_user_args():
 		if str(a).begins_with("secs="):
 			secs = float(str(a).trim_prefix("secs="))
+		if str(a).begins_with("fightjump="):
+			jump = str(a).trim_prefix("fightjump=")
+		if str(a).begins_with("clinch="):
+			for c in str(a).trim_prefix("clinch=").split(","):
+				clinch_at.append(float(c))
 	root.size = Vector2i(1280, 720)
 	## S379 (operator: "the holo head pointer is cut"): the hidden desktop gives a 1920x1009 window, the expanded picture
 	## was 2055 wide and the 1920 movie cut ~65 px off each side - keep the picture 16:9 for films.
@@ -42,10 +54,16 @@ func _initialize() -> void:
 	main = load("res://scenes/Main.tscn").instantiate()
 	root.add_child(main)
 	await _wait(4)
-	print("CAMVIEW reached fight night: ", TestJump.run(main, "fight"))
+	print("CAMVIEW reached fight night: ", TestJump.run(main, jump))
 	await _wait(4)
 	main.act("fightstep", "start")
+	await _wait(2)
 	var view: Node = main._fight_layer.get_child(0)
+	var vp := (view.stage as Node).get_viewport() as SubViewport if view.stage != null else null
+	if vp != null and DisplayServer.get_name() == "headless":
+		if vp.get_parent() is SubViewportContainer:
+			(vp.get_parent() as SubViewportContainer).stretch = false
+		vp.size = Vector2i(1280, 720)
 	await _until(func(): return bool(view.playing), 120.0)
 	var st: Node = view.stage
 	for i in 2:
@@ -64,9 +82,15 @@ func _initialize() -> void:
 	var worst_run := 0.0
 	var worst_at := 0.0
 	var worst_shot := ""
+	var held := 0                  # frames the lens frames a tie-up (RingCamera.clinch_heads)
+	var held_hid := 0
+	var held_shot := 0             # ... of them on the clinch lens
+	var held_off := 0.0            # ... the lens's turn off side-on to the pair, summed (deg)
 	var t0 := float(view.t)
 	while bool(view.playing) and float(view.t) - t0 <= secs:
 		await process_frame
+		if not clinch_at.is_empty() and float(view.t) >= float(clinch_at[0]) - 1.0:
+			put_clinch(view, float(clinch_at.pop_front()))
 		if bool(st.get("scene")):
 			run_s = 0.0
 			continue
@@ -100,6 +124,16 @@ func _initialize() -> void:
 		if back:
 			behind += 1
 			by_shot[shot][2] += 1
+		if (cam.get("clinch_heads") as Array).size() == 2:
+			held += 1
+			held_hid += 1 if any else 0
+			held_shot += 1 if shot == "clinch" else 0
+			var ha := _bone(0, "Hips")
+			var hb := _bone(1, "Hips")
+			var ax := Vector3(hb.x - ha.x, 0, hb.z - ha.z)
+			var tl := Vector3(lens.x - (ha.x + hb.x) * 0.5, 0, lens.z - (ha.z + hb.z) * 0.5)
+			if ax.length() > 0.01 and tl.length() > 0.01:
+				held_off += absf(90.0 - rad_to_deg(ax.angle_to(tl)))
 		if any:
 			either += 1
 			by_shot[shot][1] += 1
@@ -118,6 +152,8 @@ func _initialize() -> void:
 		worst_at, worst_shot, inside])
 	print("CAMVIEW behind a boxer (lens within %.0f deg of straight behind her): %.1f %% of frames" % [BEHIND_DEG,
 		100.0 * behind / n])
+	print("CAMVIEW clinch: %d frames held in a tie-up (%.1f s), %d of them on the clinch lens (turned %.0f deg off side-on on average), a head hidden in %.1f %% of them" % [
+		held, held / 30.0, held_shot, held_off / maxf(1.0, held), 100.0 * held_hid / maxf(1.0, held)])
 	for s in by_shot:
 		print("CAMVIEW shot %s: %d frames (%.1f %%), a head hidden %.1f %%, behind a boxer %.1f %% of them" % [s,
 			by_shot[s][0], 100.0 * by_shot[s][0] / n, 100.0 * by_shot[s][1] / maxf(1.0, by_shot[s][0]),
@@ -127,6 +163,26 @@ func _initialize() -> void:
 	print("CAMVIEW_SUMMARY either_head_hidden=%.3f longest_s=%.2f inside=%d behind=%.3f %s" % [float(either) / n,
 		worst_run, inside, float(behind) / n, "PASS" if ok else "FAIL"])
 	quit(0 if ok else 1)
+
+
+## A clinch at round second `at` (ClinchBeats' shape: the tie-up held 2.6 s, both step out at the break), in place of the
+## round's own beats there; the view fires it and its range phase walks the holder in (RangeBreath "clinch").
+static func put_clinch(view: Node, at: float) -> void:
+	var bs: Array = view.beats
+	var keep: Array = bs.slice(0, int(view.next))
+	for i in range(int(view.next), bs.size()):
+		var t := float(bs[i]["t"])
+		if t < at - 0.2 or t > at + 3.6:
+			keep.append(bs[i])
+	var brk := at + 2.6
+	keep.append({"t": at, "who": "a", "move": "clinch", "result": "none", "caption": "", "dur": 2.6, "break_t": brk})
+	keep.append({"t": brk, "who": "a", "move": "step_out", "result": "none", "caption": "", "ref": true})
+	keep.append({"t": brk, "who": "b", "move": "step_out", "result": "none", "caption": "", "ref": true})
+	var head: Array = keep.slice(0, int(view.next))
+	var tail: Array = keep.slice(int(view.next))
+	tail.sort_custom(func(x: Dictionary, y: Dictionary) -> bool: return float(x["t"]) < float(y["t"]))
+	view.beats = head + tail
+	print("CAMVIEW clinch put in at t=%.1f (view t %.1f)" % [at, float(view.t)])
 
 
 ## The line lens -> target passes through boxer j's torso capsule or head sphere (stopped short of the target, so a

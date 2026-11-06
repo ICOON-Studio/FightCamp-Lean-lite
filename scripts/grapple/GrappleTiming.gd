@@ -9,7 +9,7 @@ extends RefCounted
 const DB := preload("res://scripts/grapple/GrappleMapDB.gd")
 const SPEED := 0.8   # metres a second of the gap's largest (weighted) joint move
 const MIN_S := 0.18
-const MAX_S := 1.2
+const MAX_S := 2.2   # S390: was 1.2: the biggest moves were clamped and whipped the pair round in half a second (every judge)
 const HEAVY := ["Core", "LeftHip", "RightHip"]
 const HEAVY_WEIGHT := 2.0
 

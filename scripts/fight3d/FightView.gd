@@ -7,6 +7,7 @@ extends Control
 ## Main keeps one FightView on its fight layer while a fight modal is open (FightView.sync).
 ## Headless (the tests) has no picture: the view is off there and fight night stays in words.
 
+const FightSfx := preload("res://scripts/audio/FightSfx.gd")
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const RoundScript := preload("res://scripts/rules/RoundScript.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
@@ -115,6 +116,11 @@ func prebuild(m_main: Node, m: Dictionary) -> void:
 	if stage == null and is_inside_tree():
 		setup(m_main, m)
 		_vp.render_target_update_mode = SubViewport.UPDATE_ONCE
+
+
+## S390: the crowd leaves with the ring, or its bed runs on under the menus.
+func _exit_tree() -> void:
+	FightSfx.crowd_off()
 
 
 func reveal() -> void:
@@ -239,6 +245,8 @@ func play_round(m: Dictionary, n: int) -> void:
 	_hud()
 	# S307: before round 1 the intro plays (FightCast.intro); it hands the ring back at the bell.
 	playing = not (n == 1 and FightCast.intro(self))
+	if playing:
+		FightSfx.bell(true)
 
 
 ## Exchange k's beats into the round. Its energy runs from where the round has her at its start to its end.
@@ -267,6 +275,12 @@ func _queue(m: Dictionary, k: int) -> void:
 
 ## Every 30 seconds: the ring slows and the shout bar waits for the call.
 func _open_shout() -> void:
+	var filming := OS.has_feature("movie")
+	for a in OS.get_cmdline_user_args():
+		filming = filming or str(a).begins_with("film=")
+	if filming:
+		_shouted("|pace=steady|aim=")
+		return
 	var f: Dictionary = main.career.fighter_by_id(fid)
 	var bar := ShoutBar.new()
 	add_child(bar)
@@ -386,6 +400,7 @@ func _bell() -> void:
 	_banner.add_theme_color_override("font_color", Color(0.95, 0.35, 0.3) if red else Color(0.45, 0.6, 1.0))
 	_say("")
 	_bell_left = BELL_S
+	FightSfx.bell(false)
 	Engine.time_scale = pace()
 	stage.broadcast(true)
 

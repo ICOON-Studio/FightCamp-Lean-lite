@@ -7,6 +7,7 @@ extends RefCounted
 
 const Bar := preload("res://scripts/ui/Bar.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
+const Sfx := preload("res://scripts/audio/Sfx.gd")
 
 const BG := Color("#cfe0ea")       # the gym wall
 const PANEL := Color("#fdfefe")    # a board / card
@@ -283,6 +284,7 @@ static func button(text: String, variation: String, on_press: Callable, disabled
 		b.tooltip_text = ""
 	b.focus_mode = Control.FOCUS_NONE
 	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	b.pressed.connect(func(): Sfx.play("ui_click"))
 	b.pressed.connect(on_press)
 	return b
 

@@ -7,6 +7,7 @@ extends Control
 const UI := preload("res://scripts/ui/UI.gd")
 const FightPoster := preload("res://scripts/ui/FightPoster.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
+const Sfx := preload("res://scripts/audio/Sfx.gd")
 
 const COLS := 4
 const ROWS := 6
@@ -146,6 +147,7 @@ func finish() -> void:
 	if ended or _tex == null:
 		return
 	ended = true
+	Sfx.play("knockdown_fall")   # S390 the poster's thump: the kept row that is a heavy thud; no sound was made for the poster
 	for p in _pieces:
 		p.queue_free()
 	_pieces.clear()

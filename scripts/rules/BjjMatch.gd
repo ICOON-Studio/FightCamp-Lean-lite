@@ -35,8 +35,8 @@ const PLAIN_MASTERY := 30.0
 const SKILL_SPAN := 200.0
 ## Gas 1.0 = fresh. Every move costs MOVE_GAS, a miss MISS_GAS more; below TIRED_GAS she gets no calls (tunnel vision)
 ## and her odds scale with gas.
-const MOVE_GAS := 0.02
-const MISS_GAS := 0.06
+const MOVE_GAS := 0.015
+const MISS_GAS := 0.025   # S390: was 0.06: both women sat on empty by 3:00 of 5:00, so "is tiring" was every reason
 const TIRED_GAS := 0.35
 const ODDS_RANGE := Vector2(0.05, 0.90)
 ## S369 (the Miro card 3: odds "from her technique, strength, cardio and fatigue"): STRENGTH lifts the moves that drive
@@ -216,7 +216,8 @@ static func offers(st: Dictionary, f: Dictionary, me: int, from_c: String, top_n
 		# back underneath Ana"): a submission finish is only worth attempting by the fighter the data puts ON TOP of
 		# its landing - a bottom fighter "hitting" a choke move showed the top fighter applying it, and the verdict
 		# named the wrong winner.
-		if kind == "sub" and int(c["top_after"]) != me:
+		# S390: the one APPLYING it (GrappleFinish.attacker), not the one on top: guard submissions finish from underneath.
+		if kind == "sub" and int(c.get("sub_by", c["top_after"])) != me:
 			continue
 		var syl := syllabus_of(tags)
 		var m := PLAIN_MASTERY
