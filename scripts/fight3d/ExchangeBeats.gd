@@ -14,6 +14,7 @@ const ClinchBeats := preload("res://scripts/rules/ClinchBeats.gd")
 const BurstShape := preload("res://scripts/rules/BurstShape.gd")
 const InsideBeats := preload("res://scripts/rules/InsideBeats.gd")
 const InsideExits := preload("res://scripts/rules/InsideExits.gd")
+const CounterCut := preload("res://scripts/rules/CounterCut.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
@@ -61,6 +62,8 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 	# S315: how each inside spell ends - a pivot behind a check hook, a tie-up until Break, or a step back.
 	irng.seed = int(ctx["seed"]) + k * 43
 	InsideExits.apply(plan["beats"], irng)
+	if not OS.get_cmdline_user_args().has("nocut"):   # `nocut` = the control arm
+		CounterCut.apply(plan["beats"], irng)   # S393: a punch stopped mid-throw by the other's landed shot
 	var at := k * Exchanges.EX_SECONDS
 	var out: Array = []
 	for b in plan["beats"]:

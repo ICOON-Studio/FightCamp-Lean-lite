@@ -4,6 +4,7 @@ extends SceneTree
 ## corner, every side direction - the spot is inside, no closer than MIN_DIST_M, and the middle keeps its full distance.
 
 const RingCamera := preload("res://scripts/fight3d/RingCamera.gd")
+const TvShot := preload("res://scripts/fight3d/TvShot.gd")
 
 var _fails := 0
 
@@ -71,5 +72,10 @@ func _initialize() -> void:
 		_check(one_side, "%s: every side direction - this side or the other fits, else the crane lens clears the top rope (%d of 16 craned)" % [name, high])
 	# Control: the old placement (straight out along the side at 3.0 m) stood outside the ropes from the middle already.
 	_check(not RingCamera.inside(Vector3.RIGHT * 3.0), "control: 3.0 m straight out is outside a 5.5 m ring")
+	# S393 C242: a step leaves the lens's point where it is; crossing the ring drags it along.
+	var rest := Vector3.ZERO
+	_check(TvShot.anchored(rest, Vector3(0.3, 0, 0.2)) == rest, "a step: the lens stays")
+	var moved := TvShot.anchored(rest, Vector3(1.5, 0, 0))
+	_check(moved.is_equal_approx(Vector3(1.5 - TvShot.DEAD_M, 0, 0)), "crossing the ring: it follows, %.1f m behind" % TvShot.DEAD_M)
 	print("ring_lens_test" if _fails == 0 else "ring_lens_test FAILED %d" % _fails)
 	quit(1 if _fails > 0 else 0)

@@ -218,3 +218,16 @@ static func aim(from: Vector3, to: Vector3) -> Vector2:
 
 static func basis_of(ang: Vector2) -> Basis:
 	return Basis.from_euler(Vector3(deg_to_rad(ang.y), deg_to_rad(ang.x), 0.0))
+
+
+## S393 C242 (operator: "stop moving the camera on every step a fighter does"): the point the lens follows rests until the pair's
+## middle is more than DEAD_M from it, then is dragged along at that distance. A step or a lunge leaves the picture still;
+## crossing the ring, the lens glides behind them. `-- nocalm` = the control arm.
+const DEAD_M := 0.5
+static var calm: bool = not OS.get_cmdline_user_args().has("nocalm")
+
+
+static func anchored(anchor: Vector3, mid: Vector3) -> Vector3:
+	var dead := DEAD_M if calm else 0.0
+	var away := mid - anchor
+	return anchor if away.length() <= dead else mid - away.normalized() * dead

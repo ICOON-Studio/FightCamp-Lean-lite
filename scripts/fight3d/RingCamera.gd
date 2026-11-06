@@ -2,8 +2,7 @@ extends Camera3D
 ## The ring's broadcast camera (split from FightStage S302): the TV main lens that rides beside the pair (S379), the film
 ## shots the intro, the corner minute and the count place, the ropes between it and the boxers made see-through, and the
 ## nudge on a power shot.
-##   broadcast(a, b, snap, delta)  film(pos, look, fov, focus)  close_up(a, b, head_y, hit)  shake(m)  nudge(delta)
-##   clear_view(ring_side, a, b, delta)
+##   broadcast(a, b, snap, delta)  film(pos, look, fov, focus)  close_up(a, b, head_y, hit)  shake(m)  nudge(delta)  clear_view(ring_side, a, b, delta)
 
 const TvShot := preload("res://scripts/fight3d/TvShot.gd")
 
@@ -118,6 +117,7 @@ var _clinch_s := 1.0          # S369: which sign (+1 / -1) of the clinch yaw the
 var _apron_s := 1.0           # S379: the apron shot turns to alternate sides
 var _mid := Vector3.ZERO      # S379: the pair's middle, eased (flat)
 var _mid_v := Vector3.ZERO
+var _anchor := Vector3.ZERO   # S393 C242: where the lens's middle rests (TvShot.anchored)
 var _pos := Vector3.ZERO      # the lens, riding at _mid + _off
 var _pos_v := Vector3.ZERO
 var _off := Vector3.ZERO
@@ -241,6 +241,7 @@ func _cut(a: Vector3, b: Vector3, mid: Vector3, why: String) -> void:
 	_lost = 0.0
 	_shot_hold = _rng.randf_range((sh["hold"] as Vector2).x, (sh["hold"] as Vector2).y)
 	_mid = mid
+	_anchor = mid
 	_mid_v = Vector3.ZERO
 	_off = p["off"]
 	_side = _off.normalized() if _off.length() > 0.05 else _side
@@ -265,7 +266,8 @@ func _cut(a: Vector3, b: Vector3, mid: Vector3, why: String) -> void:
 func _ride(a: Vector3, b: Vector3, dt: float) -> void:
 	if dt <= 0.0:
 		return
-	var m := TvShot.spring(_mid, _mid_v, Vector3((a.x + b.x) * 0.5, 0.0, (a.z + b.z) * 0.5), MID_W, dt)
+	_anchor = TvShot.anchored(_anchor, Vector3((a.x + b.x) * 0.5, 0.0, (a.z + b.z) * 0.5))
+	var m := TvShot.spring(_mid, _mid_v, _anchor, MID_W, dt)
 	_mid = m[0]
 	_mid_v = m[1]
 	var axis := rad_to_deg(atan2(-(b.z - a.z), b.x - a.x))

@@ -149,7 +149,8 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 	last_contact[who] = base + at
 	# Her defence is chosen when the beat fires (the de-duplication reads the beat's own time), shown when it plays.
 	var d := ""
-	if land != "lands" and (str(b.get("def", "")) != "" or land == "misses"):
+	var stopped := bool(b.get("stopped", false))   # S393 CounterCut: the other's punch stops this one; nobody defends it
+	if land != "lands" and not stopped and (str(b.get("def", "")) != "" or land == "misses"):
 		d = str(b.get("def", ""))
 		if d == "":
 			d = "slip" if rng.randf() < 0.75 else "pull"
@@ -168,7 +169,7 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 			(stage.boxers[who]["js"] as Node).join(SHORT_JOIN.x, SHORT_JOIN.y)
 		v.body.land(b, at)
 		var tree: SceneTree = v.get_tree()
-		if punch_id >= 0 and land != "lands":
+		if punch_id >= 0 and land != "lands" and not stopped:
 			# S390: at the glove's contact, and only for a punch that shows. A slip or weave is a miss, not a block.
 			if land == "blocked" or str(b.get("def", "")) == "block":
 				FightSfx.blocked(at)
