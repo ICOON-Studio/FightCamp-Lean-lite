@@ -4,6 +4,7 @@ extends RefCounted
 ## Mockup: E:/FightCamp/Game/Godot/research/S331_looks/b_whiteboard.png.
 
 const UI := preload("res://scripts/ui/UI.gd")
+const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
@@ -215,7 +216,7 @@ static func notes(c: Career, f: Dictionary) -> VBoxContainer:
 	var lim := float(f["limit"])
 	v.add_child(_note("Weight %.1f kg / limit %.1f %s" % [w, lim, "✓" if w <= lim else "- %.1f over" % (w - lim)],
 		UI.GREEN if w <= lim else (UI.AMBER if w - lim < 1.5 else UI.RED)))
-	var fat := int(f["fatigue"])
+	var fat := int(FighterProfile.fatigue(f))
 	v.add_child(_note("Condition %d - %s" % [100 - fat, "fresh" if fat < 30 else ("tired" if fat < 60 else "worn out")],
 		UI.GREEN if fat < 30 else (UI.AMBER if fat < 60 else UI.RED)))
 	if Injuries.out(c, f):

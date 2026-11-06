@@ -9,7 +9,7 @@ purpose: the first honest date comes after Gate 3. The critic would not bet on t
 | --- | --- | --- |
 | Core loop, sign to fight to next goal | Playable, 171 tests pass | No |
 | Strangers have played it | **Never, after 815 commits** | **Yes, the biggest gap** |
-| The hook | Half true (bible section 4) | **Yes** |
+| The hook | Plan measured at +18 points of bouts won; barely visible yet (bible section 4) | **Yes** |
 | Structure | Critic 4/10; 25 tabs plus 8 fighter tabs; stubs | **Yes** |
 | First hour | Critic 3/10 before S387's guide, not rescored | **Yes** |
 | Fight motion | 2-3/10 beside UFC 6 and Undisputed (S386); latest round 6.5/10 by a looser judge | Bar under review |
@@ -17,7 +17,7 @@ purpose: the first honest date comes after Gate 3. The critic would not bet on t
 | Settings | "Not built yet" | **Yes** |
 | Handbook | "Not built yet" | Should have |
 | Look | Best screen 6/10 from a blind critic | **Yes** |
-| Known rule bugs | Camp bonus counted twice; ambition does nothing | **Yes** |
+| Known rule bugs | Camp bonus counted twice; ambition does nothing. Frozen condition fixed S388 | **Yes** |
 | Release build | Renamed Godot program, window title shows DEBUG, no export templates, no icon | **Yes** |
 | Steam: account, page, capsule, trailer | Not started, as far as the repo shows | **Yes** |
 

@@ -4,6 +4,7 @@ extends PanelContainer
 
 const RoundGraphics := preload("res://scripts/ui/RoundGraphics.gd")
 const Broadcast := preload("res://scripts/ui/Broadcast.gd")
+const WhyCard := preload("res://scripts/ui/WhyCard.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Tape := preload("res://scripts/ui/Tape.gd")
@@ -321,6 +322,7 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	hero.add_child(Broadcast.corner(RoundGraphics.body(m.get("body_map", {}), "b", str(bodies[1]), "blue", m.get("body_track", {})), str(opp.get("name", opp["first"])), Broadcast.THEIRS, true))
 	v.add_child(hero)
 	var why: Array = m["why"]
+	v.add_child(WhyCard.build(m["rounds"], str(f["first"]), str(opp["first"])))   # S388 the hook: what the plan really did
 	v.add_child(Broadcast.reasons(why if not why.is_empty() else ["A close night: the rolls of the rounds decided it."]))
 	v.add_child(_body_report(main, m))
 	var foot := UI.hbox(10)

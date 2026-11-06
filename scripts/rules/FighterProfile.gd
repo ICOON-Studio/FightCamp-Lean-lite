@@ -37,6 +37,12 @@ const MORALE_EVENTS := {
 const TRUST := {"Fired up": 1.05, "Steady": 1.0, "Flat": 0.85, "Low": 0.7}
 
 
+## S388 how tired the fighter is now, 0..100. The sim writes week_fatigue every day; f["fatigue"] is only the signing value (it
+## sat frozen on every card until S388).
+static func fatigue(f: Dictionary) -> float:
+	return float(f.get("week_fatigue", f.get("fatigue", 20.0)))
+
+
 ## Mood word by morale 0..100.
 static func mood(morale: float) -> String:
 	if morale >= 75.0:

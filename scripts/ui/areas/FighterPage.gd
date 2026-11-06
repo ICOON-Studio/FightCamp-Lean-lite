@@ -3,6 +3,7 @@ extends VBoxContainer
 
 const AwardCard := preload("res://scripts/ui/AwardCard.gd")
 const UI := preload("res://scripts/ui/UI.gd")
+const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -216,7 +217,7 @@ func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 	add_child(grid)
 	var body := _card("BODY", grid)
 	UI.add_rows(body, [UI.kv("Weight", "%.1f of %.1f kg" % [f["weight"], f["limit"]], UI.FG, "mono"),
-		UI.kv("Condition", "Fresh" if int(f["fatigue"]) < 30 else "Tired"), _injury_row(main.career, f)])
+		UI.kv("Condition", "Fresh" if int(FighterProfile.fatigue(f)) < 30 else "Tired"), _injury_row(main.career, f)])
 	body.add_child(UI.caps("COACH SAYS"))
 	body.add_child(UI.label(Sim.coach_line(c, f), UI.BODY, UI.FG, "italic", true))
 	# S302: what the coach has learned about her so far (fights and sparring fill it in).

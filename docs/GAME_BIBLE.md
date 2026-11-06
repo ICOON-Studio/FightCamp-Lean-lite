@@ -5,7 +5,7 @@ This page decides what the game is. A new idea is tested against it. Change it o
 v1 scored 5/10 from an independent producer critic; his findings are in ops/research/CRITIC_BIBLE_S388.md and are worked in here.
 
 ## 1. The game in one line
-You run a small boxing gym. You plan every week and design every fight plan, then watch the fight prove you right or wrong.
+You run a small boxing gym, turn an unknown into a champion, and can always see how your plan made the difference.
 
 ## 2. Who it is for
 PC players of deep management games (Football Manager, Motorsport Manager, Out of the Park Baseball) who also like combat sports.
@@ -20,10 +20,15 @@ A 3D pitch alone did not save Boxing Club Manager: an opaque system did not earn
 went the way it did.**
 
 ## 4. The hook and whether it is true yet
-**The hook:** your plan visibly decides the fight.
-**Today it is half true.** Checked in scripts/state/LiveRound.gd: the plan does add to each exchange before the dice. But the critic
-measured a small edge against big dice, the plan's effect on screen is mostly a caption, ring position is not staged, the verdict often
-reads "too early" in a short bout, and hints give the answer away. It influences; it does not decide. **Making this true is the first
+**The hook:** you can see your plan mattered, and why. Total control is not the aim: Football Manager is praised for giving just enough
+control to feel smart after a win, and the raising of an unknown is the true engine (ops/research: loop research, docs/PLAYER_PATH.md).
+**Measured S388** (tools/plan_effect_probe.gd, 300 bouts each, Lucy against Maria only): good plan wins 59% of bouts, no plan 45%, bad plan 41%. So
+the plan really matters, by about 18 points between good and bad. But it flips only about one exchange a fight, a bad plan barely hurts,
+and the player needed help to see it. The Why panel now grades each plan against having no plan: a good plan reads GOOD in over 90% of
+fights, a bad plan almost never. Ring position is still not staged and hints still give the answer away.
+**Training beats planning, as it should** (tools/train_effect_probe.gd, one matchup): even fighters 42% with no plan and 61% with a good
+one; 5 points better 72%; 10 points better 95%; 5 points worse 10%, or 21% with a good plan. A good plan is worth about 3 points of stats.
+**Design rule: the better-trained fighter usually wins; a good plan turns close fights and gives underdogs a real chance.** **Making this true is the first
 design job, ahead of any art.** Until strangers feel it, the game has no proven reason to exist.
 
 ## 5. The four pillars (goals, not claims about today)
@@ -47,13 +52,13 @@ bar with what we have? 4. Does it remove more confusion than it adds? Verdict is
 **In:** boxing; one gym; a small roster; training week; Playbook; offers, camp, weigh-in, fight night; money and rankings; interview and
 signing with a career goal; Records; save and load; settings.
 **Out (later or never):** 3D gym floor, MMA, multiplayer, facility building, more gyms, mobile, the gi.
-**To settle in the structure design:** how far a career runs. Ending at first pro fights is probably too short for this audience.
+**Career length:** ending at first pro fights is too short for this audience. Proposed long arc: docs/PLAYER_PATH.md section 8, under review.
 
 ## 9. Structure comes first
 Operator: "the problem is not art , i think the preoblem is structure". Evidence agrees: critic S386 gave menu structure 4/10, "FM-sized
 menus over Punch-Club content"; today 6 areas with 25 tabs plus 8 fighter tabs for one or two fighters; Training in 2 places, Camp in 4,
 Goals in 3, Money in 4; stubs such as Gym > Floor. Screens were added one at a time and nobody designed the player's path.
-**Order:** design the player's week and one home for each job on paper; build it as plain screens; test on strangers; choose the skin last.
+**The design is docs/PLAYER_PATH.md.** **Order:** design the player's week and one home for each job on paper; build it as plain screens; test on strangers; choose the skin last.
 Fixed points: one-click reach stays (FM26 is the warning); empty stubs go; training, camp and goals live with the fighter.
 
 **Signing is an interview** (in): find a fighter, interview, agree a career goal and a focus, sign. The goal must be real.

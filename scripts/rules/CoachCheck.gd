@@ -37,7 +37,7 @@ static func _booked(f: Dictionary) -> bool:
 static func _fit(c: Career, f: Dictionary) -> Dictionary:
 	if Injuries.out(c, f):
 		return _row("fit", "Fit", Injuries.line(c, f), "bad", "ftab", BODY_TAB)
-	var fat := int(f["fatigue"])
+	var fat := int(FighterProfile.fatigue(f))
 	if fat >= 60:
 		return _row("fit", "Fit", "worn out", "bad", "ftab", BODY_TAB)
 	return _row("fit", "Fit", "tired" if fat >= 30 else "fresh", "warn" if fat >= 30 else "ok", "ftab", BODY_TAB)

@@ -21,10 +21,10 @@ func _initialize() -> void:
 	var s := CoachCheck.score(CoachCheck.rows(c, f))
 	_check(int(s[1]) == 5, "only the due checks count: %d" % int(s[1]))
 
-	f["fatigue"] = 70
+	f["week_fatigue"] = 70.0
 	r = _by_key(CoachCheck.rows(c, f))
 	_check(_state(r, "fit") == "bad", "worn out is red")
-	f["fatigue"] = 0
+	f["week_fatigue"] = 0.0
 	f["morale"] = 0.0
 	r = _by_key(CoachCheck.rows(c, f))
 	_check(_state(r, "mood") == "bad", "low morale is red")

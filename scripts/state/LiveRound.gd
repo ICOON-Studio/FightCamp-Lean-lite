@@ -270,7 +270,11 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 			crng.randf(), crng.randf(), crng.randf())
 		d -= float(cl["edge"])
 	var rng := _rng(c, f, n, i + 1)
-	var s := Exchanges.settle(d, rng.randf(), rng.randf())
+	var roll_a := rng.randf()
+	var roll_b := rng.randf()
+	var s := Exchanges.settle(d, roll_a, roll_b)
+	# S388 the plan's true effect: the same dice without its edge. +1 it won this exchange, -1 it lost it (FightWhy).
+	var swing := int(bool(s["won"])) - int(bool(Exchanges.settle(d - plan_edge, roll_a, roll_b)["won"]))
 	# S323 Push throws more (and so lands more), Save less.
 	s["landed"][0] = maxi(0, int(round(float(s["landed"][0]) * PaceAim.output(pace))))
 	# S355 Counter sense: she makes an attacker miss and a free counter comes back (its own dice).
@@ -320,7 +324,9 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	rec["arrow"] = arrow
 	rec["planned"] = bool(pick["planned"])
 	rec["arrow_fit"] = PlanFight.fit(arrow, psit)
+	rec["psit"] = psit
 	rec["plan_edge"] = plan_edge
+	rec["plan_swing"] = swing
 	# S375 SCOUTPLAN1 the plan seen in the ring: each planned arrow's running tally over the bout ([won, thrown]).
 	if bool(pick["planned"]):
 		var tally: Dictionary = f["bout"].get("plan_tally", {})

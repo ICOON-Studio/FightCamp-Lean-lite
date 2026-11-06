@@ -18,3 +18,9 @@ Claude checked: tab counts, the plan edge line in LiveRound.gd, G62 and the comm
 Pinned-board office 6: desk and chair waste the bottom third, tiny information, photos clash with the painting. Gemini dashboard 5: a wall of
 text, dead white areas. Desk mock 4: scattered, nothing looks clickable. Today's Home 4: a web admin page, the same job shouted four times.
 PC tile grid 3: twelve identical half-empty cards. None reaches 8; only the office has an identity.
+
+## UX lead on docs/PLAYER_PATH.md
+v1 5/10, not approved: hook had no screen, twist cards missing, no clock rule, long arc sold as cheap (Lucy only 29 after 8 seasons).
+v2 6/10: approved for plain screens, Home and the fight flow only; arc not approved. Home risks being the old modal on a busier page; the Why
+screen's numbers are exchanges won, not causes; clock rule unsound as worded (fixed in v3). Biggest risk: the Why reports a small plan edge
+against big dice. Paper cannot fix that: test it first.

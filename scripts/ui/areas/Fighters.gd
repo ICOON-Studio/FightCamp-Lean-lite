@@ -94,7 +94,7 @@ func _training(main: Node, c: Career) -> void:
 			var note := ("%s - %d to %s" % [tier, to - m, next_word]) if next_word != "" else tier
 			v.add_child(FighterCard.meter("SHARPENING" if sharpening else "LEARNING", learn,
 				float(m - from) / float(maxi(to - from, 1)), note, UI.GOLD))
-		var fat := int(f["fatigue"])
+		var fat := int(FighterProfile.fatigue(f))
 		v.add_child(FighterCard.meter("CONDITION", "%d" % (100 - fat), (100.0 - fat) / 100.0,
 			"fresh" if fat < 30 else ("tired" if fat < 60 else "worn out"), UI.GREEN if fat < 30 else (UI.AMBER if fat < 60 else UI.RED)))
 		var open := UI.button("Open training", "BtnSolid", func():

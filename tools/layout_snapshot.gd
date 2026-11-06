@@ -82,6 +82,7 @@ func _initialize() -> void:
 	main.act("area", "home")
 	await _shot("17_home_fightnight")
 	main.act("go_btn")
+	main.career.fighter()["arrows"] = [{"move": "1-1"}, {"move": "step_back"}, {"move": "pivot_out"}, {"move": "tie_up"}]   # S388 so the Why panel has a plan to read
 	await _shot("18_tape")
 	main.act("fightstep", "start")
 	await _shot("19_round1")

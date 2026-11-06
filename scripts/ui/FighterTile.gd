@@ -58,7 +58,7 @@ static func build(main: Node, c: Career, f: Dictionary, checklist: bool = false)
 	var over := w - lim
 	rings.add_child(_ring("WEIGHT", "%.1f" % w, "limit %.1f kg" % lim if over <= 0.0 else "%.1f kg over" % over,
 		1.0 if over <= 0.0 else clampf(1.0 - over / 3.0, 0.1, 0.95), UI.GREEN if over <= 0.0 else (UI.AMBER if over < 1.5 else UI.RED)))
-	var fat := int(f["fatigue"])
+	var fat := int(FighterProfile.fatigue(f))
 	rings.add_child(_ring("CONDITION", "%d" % (100 - fat), "fresh" if fat < 30 else ("tired" if fat < 60 else "worn out"),
 		(100.0 - fat) / 100.0, UI.GREEN if fat < 30 else (UI.AMBER if fat < 60 else UI.RED)))
 	var g := Sim.goal_read(c, f)
