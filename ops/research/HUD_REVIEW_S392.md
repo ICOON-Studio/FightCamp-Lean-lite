@@ -11,3 +11,10 @@
 
 ## Next
 1. Chunk from hits only. 2. Confirm `hit` fires per landed punch, then make the hit visible at normal play size. 3. Film a forced big liver shot. 4. Cut what the rings show mid-fight, and re-review to 7, then 8.
+
+## S393 round 2: 4/10 (fresh blind reviewer, E:/FightCamp/tmp/s393/film/hud.mp4). Not shown.
+Built before it: chunk only from a landed punch, chunk at least 0.12 of the arc, also on a full arc, stronger flash.
+Measured: 18 landed punches in the film, 18 HUD hits, so `hit` fires every time. 0 were big: a big shot survives only in a round's last exchange, a dominant exchange or after a landed setup, about one a round, and the film stops inside round 1. The liver needs big AND right_ribs, so most bouts never show it. That belongs to the "winded" design.
+Reviewer: a hit is readable but weak, every hit drops the number by 1, so a hard shot and a jab look alike. Rings near static: after 72 s energy 87/90, head 96/96, heart 100. Top bar unlabelled. Same two captions repeat word for word (0:32, 1:03). Cut: inner numbers, heart arc, "1x" chip.
+False hit at 0:38.8 and 1:09.0: the stamina flash came from the snapshot's body count, which moves on the exchange clock. Fixed after this review (flash now at the contact), NOT yet re-reviewed.
+Next: show hit size (hard shot vs jab), cut the numbers and heart arc, then review again.

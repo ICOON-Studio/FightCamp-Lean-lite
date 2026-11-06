@@ -24,8 +24,9 @@ const TOP := 36.0
 const RINGS_PX := 300.0
 const RINGS_ALPHA := 0.82
 const ICON_PX := 16
-const SIDE_COLOUR := [Color(0.95, 0.4, 0.35), Color(0.5, 0.65, 1.0)]
-const IVORY := Color("#efe8dc")
+const Arc := preload("res://scripts/fight3d/HudArc.gd")
+const SIDE_COLOUR := Arc.SIDE_COLOUR
+const IVORY := Arc.IVORY
 const ICON := {"head": "user", "body": "shirt", "legs": "footprints", "stamina": "zap", "guard": "shield", "heart": "heart"}
 const WORDS := {
 	"head": "Head: the worst of head, eyes and nose. The grey never comes back this fight (cuts, swelling).",
@@ -44,7 +45,7 @@ const GUARD_LOW := 0.55
 const READ_S := 0.25
 ## S392 (operator: "flash according to the damage done"): a flash is damage / FLASH_FULL, BodyMap's biggest loss; never under LEAST.
 const FLASH_FULL := 3.0
-const FLASH_LEAST := 0.35
+const FLASH_LEAST := 0.6
 
 var view: Control
 var edge: Control
@@ -56,7 +57,6 @@ var _snap: Dictionary = {}
 var _scored: Array = []
 var _start: Dictionary = {}
 var _read_left := 0.0
-var _body_seen := [-1, -1]
 var _low_said := -1
 
 
@@ -136,9 +136,10 @@ func hit(side: int, lost: Dictionary, big: bool) -> void:
 		else:
 			head = maxf(head, float(lost[p]))
 	if head > 0.0:
-		(meters[side]["head"] as Arc).flash(strength(head, big))
+		(meters[side]["head"] as Arc).flash(strength(head, big), true)
 	if body > 0.0:
-		(meters[side]["body"] as Arc).flash(strength(body, big))
+		(meters[side]["body"] as Arc).flash(strength(body, big), true)
+		(meters[side]["stamina"] as Arc).flash(0.6)   # S393: at the contact; on the exchange clock it read as a hit with nobody near
 	if big and lost.has("right_ribs"):
 		var ring := (blocks[side] as Control).find_child("Rings", true, false) as Rings
 		if ring != null:
@@ -173,10 +174,6 @@ func _process(delta: float) -> void:
 			ring.hurt = (_hurt[side] as Label).visible
 			var live: Node = view.get("body")
 			ring.liver_bad = ring.hurt or (live != null and BodyMap.value(live.map, "a" if side == 0 else "b", "right_ribs") <= BodyMap.HURT)
-		var taken := int((_snap.get("body", [0, 0]) as Array)[side])
-		if _body_seen[side] >= 0 and taken > int(_body_seen[side]):
-			(meters[side]["stamina"] as Arc).flash(0.6)   # the body arc flashes at the contact, by its damage (hit)
-		_body_seen[side] = taken
 		if side == 1:
 			_guard_call(bars["guard"])
 	var e := FightMeters.edge(_scored)
@@ -250,75 +247,6 @@ func _guard_call(bar: Dictionary) -> void:
 		return
 	_low_said = n
 	view._say("Corner: \"The hands are coming down - over the top!\"")
-
-
-## One of the six: fill eases to its target, the end past `keep` is gone for the fight, unknown = a dashed "?" arc.
-class Arc extends RefCounted:
-	const EASE_S := 0.35
-	var kind := ""
-	var side := 0
-	var fill := -1.0
-	var keep := 1.0
-	var known := true
-	var tooltip_text := ""
-	var _want := 1.0
-	var _want_keep := 1.0
-	var _flash := 0.0
-	var _band := -1
-	## S392 what the last hit took (top end, -1 = none). A hit is 1.5-3 points, under 2 degrees: drawn CHUNK_MIN wide at least.
-	const CHUNK_HOLD_S := 0.5
-	const CHUNK_MIN := 0.04
-	const CHUNK_DRAIN_S := 0.18
-	var chunk := -1.0
-	var _chunk_hold := 0.0
-
-	func set_bar(b: Dictionary) -> void:
-		known = bool(b["known"])
-		_want = float(b["fill"])
-		_want_keep = float(b["keep"])
-		if fill < 0.0:
-			fill = _want
-			keep = _want_keep
-		elif _want < fill - 0.0005:
-			chunk = maxf(chunk, fill)
-			_chunk_hold = CHUNK_HOLD_S
-			fill = _want
-		var band := band_of(_want)
-		if _band >= 0 and band != _band:
-			_flash = maxf(_flash, 0.7)
-		_band = band
-
-	func flash(power: float = 1.0) -> void:
-		_flash = maxf(_flash, power)
-
-
-	## Where the chunk ends on the arc, -1 = no chunk.
-	func chunk_top() -> float:
-		return maxf(chunk, fill + CHUNK_MIN) if chunk >= 0.0 else -1.0
-
-	func tick(delta: float) -> void:
-		var k := 1.0 - exp(-delta / EASE_S)
-		fill = lerpf(fill, _want, k)
-		keep = lerpf(keep, _want_keep, k)
-		_flash = maxf(0.0, _flash - delta * 2.0)
-		if chunk >= 0.0:
-			_chunk_hold -= delta
-			if _chunk_hold <= 0.0:
-				chunk = lerpf(chunk, fill, 1.0 - exp(-delta / CHUNK_DRAIN_S))
-				if chunk - fill < 0.004:
-					chunk = -1.0
-
-	static func band_of(v: float) -> int:
-		return 0 if v >= 0.6 else (1 if v >= 0.35 else 2)
-
-	func colour() -> Color:
-		var v := maxf(fill, 0.0)
-		# S347 (operator C193: "it reminds ufc6 too much"): no rainbow of yellow / white / purple / green. Her engine
-		# (stamina, guard, heart) in her corner's colour, her body (head, body, legs) ivory while fine - amber, then red,
-		# only when it matters, so the eye goes where something happened.
-		if kind in ["stamina", "guard", "heart"]:
-			return SIDE_COLOUR[side] if v >= 0.3 else Color("#f0a020")
-		return [IVORY, Color("#f0a020"), Color("#e0503c")][band_of(v)]
 
 
 ## Two rings, one inside the other, three arcs each (C186): the inner her body, the outer her engine. Each arc fills from
@@ -428,10 +356,10 @@ class Rings extends Control:
 		_part(c, r, a0, a1, fl, kp, Color(col.r, col.g, col.b, 0.22))   # spent, can come back at the bell
 		_part(c, r, a0, a1, 0.0, fl, col)
 		_part(c, r, a0, a1, kp, 1.0, Color(0.42, 0.42, 0.44, 0.85))   # gone for the fight
-		if a.chunk_top() > fl:
-			_part(c, r, a0, a1, fl, minf(a.chunk_top(), 1.0), Color(1.0, 0.95, 0.9, 0.95))   # S392 what this hit took
+		if a.chunk >= 0.0:
+			_part(c, r, a0, a1, a.chunk_span().x, a.chunk_span().y, Color(1.0, 0.95, 0.9, 0.95))   # S392 what this hit took
 		if a._flash > 0.0:
-			draw_arc(c, r, a0, a1, 32, Color(1, 1, 1, 0.55 * a._flash), WIDTH, true)
+			draw_arc(c, r, a0, a1, 32, Color(1, 1, 1, 0.8 * a._flash), WIDTH, true)
 		# S369 (operator, on the ring: "also add numbers here?"): her value on the arc, 0-100, so the corner can read who is
 		# the more tired without judging arc lengths.
 		var nf := ThemeDB.fallback_font

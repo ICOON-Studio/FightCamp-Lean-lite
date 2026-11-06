@@ -51,6 +51,11 @@ func _initialize() -> void:
 	var close_b := main.find_child("PadViewClose", true, false) as Button
 	_check(close_b != null, "Close button present")
 	if close_b != null:
+		# S393: the film showed "Clos" cut off at the screen's edge.
+		var screen := root.get_visible_rect()
+		print("PAD_VIEW sizes screen=%s main=%s close=%s" % [screen.size, (main as Control).size, close_b.get_global_rect()])
+		_check(screen.encloses(close_b.get_global_rect()), "Close is whole on the screen")
+	if close_b != null:
 		close_b.pressed.emit()
 	await process_frame
 	await process_frame

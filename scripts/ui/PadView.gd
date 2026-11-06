@@ -16,6 +16,8 @@ const VP_H := 720
 const MARGIN_FRAC := 0.04
 ## PadWork.play loops arg is unused today; we loop on done instead.
 const LOOP_ARG := 9999
+## S393: a breath in guard between rounds of the combination, so the loop reads as a boxer resetting.
+const LOOP_REST_S := 1.0
 
 var _fighter: Dictionary
 var _combo_id: String
@@ -23,6 +25,7 @@ var _closing := false
 var _vp: SubViewport
 var _pw: Node3D
 var _pad_done_connected := false
+var _targets: Array = []
 
 
 static func open(root: Node, fighter: Dictionary, combo_id: String) -> void:
@@ -54,8 +57,19 @@ func _ready() -> void:
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", 12)
 	card.add_child(col)
+	var head := HBoxContainer.new()
+	head.add_theme_constant_override("separation", 12)
+	col.add_child(head)
+	var title := UI.label("On the pads: %s" % _combo_words(), UI.BODY, UI.FG, "bold")
+	title.name = "PadViewTitle"
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	head.add_child(title)
+	var close_b := UI.button("Close", "BtnSolid", _close)
+	close_b.name = "PadViewClose"
+	head.add_child(close_b)
 	var holder := SubViewportContainer.new()
-	holder.custom_minimum_size = Vector2(VP_W, VP_H)
+	holder.custom_minimum_size = Vector2(640, 360)
+	holder.size_flags_vertical = Control.SIZE_EXPAND_FILL   # S393: fills the card; at a fixed height a white band sat under it
 	holder.stretch = true
 	col.add_child(holder)
 	_vp = SubViewport.new()
@@ -65,13 +79,14 @@ func _ready() -> void:
 	_vp.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	_vp.world_3d = World3D.new()
 	holder.add_child(_vp)
-	var close_row := HBoxContainer.new()
-	close_row.alignment = BoxContainer.ALIGNMENT_END
-	col.add_child(close_row)
-	var close_b := UI.button("Close", "BtnSolid", _close)
-	close_b.name = "PadViewClose"
-	close_row.add_child(close_b)
 	_deferred_start()
+
+
+func _combo_words() -> String:
+	var words: Array = []
+	for beat in Combos.row(_combo_id).get("beats", []):
+		words.append(str(beat).replace("_", " "))
+	return ", ".join(words)
 
 
 func _deferred_start() -> void:
@@ -101,16 +116,20 @@ func _deferred_start() -> void:
 func _start_pad_loop() -> void:
 	if _closing or not is_instance_valid(_pw):
 		return
-	var targets: Array = await _pw.compute_mitt_targets(_combo_id)
-	if _closing or not is_instance_valid(_pw):
-		return
+	if _targets.is_empty():
+		_pw.visible = false
+		_targets = await _pw.compute_mitt_targets(_combo_id)
+		if _closing or not is_instance_valid(_pw):
+			return
+		_pw.visible = true
 	_pw.play(_combo_id, LOOP_ARG)
-	_pw.set_mitt_targets(targets)
+	_pw.set_mitt_targets(_targets)
 
 
 func _on_pad_done() -> void:
 	if _closing:
 		return
+	await get_tree().create_timer(LOOP_REST_S).timeout
 	_start_pad_loop()
 
 
@@ -172,7 +191,7 @@ func _build_framing_camera(pw: Node3D) -> Camera3D:
 func _add_gym_floor() -> void:
 	var floor := MeshInstance3D.new()
 	var plane := PlaneMesh.new()
-	plane.size = Vector2(12, 12)
+	plane.size = Vector2(60, 60)
 	floor.mesh = plane
 	var mat := StandardMaterial3D.new()
 	mat.albedo_color = Color(0.45, 0.35, 0.25)
