@@ -191,6 +191,9 @@ func _initialize() -> void:
 	if sc != null:
 		sc.scroll_vertical = 100000
 	await _shot("36b_roster_mat")
+	main.act("go", "gym:4")   # S388 GYM > Records
+	await _shot("36c_records")
+	main.act("go", "fighters:0")
 	if sc != null:
 		sc.scroll_vertical = 0
 	main.act("go", "fighters:1")

@@ -113,8 +113,9 @@ func fighter_by_id(id: String) -> Dictionary:
 
 
 ## mail = false for the world's own news (rival results, shows): it goes in the feed without lighting the Mail badge.
-func add_news(text: String, mail: bool = true) -> void:
-	news.push_front({"d": day, "t": text})
+## own = the gym's own event for GYM > Records even when it lights no Mail badge (S388; a world story has neither).
+func add_news(text: String, mail: bool = true, own: bool = false) -> void:
+	news.push_front({"d": day, "t": text, "own": mail or own})
 	if mail:
 		unread += 1
 

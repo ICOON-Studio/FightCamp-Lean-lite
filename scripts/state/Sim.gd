@@ -286,7 +286,7 @@ static func end_week(career: Career) -> void:
 	if career.bjj_on():
 		bjj_left = int(BjjSide.week(career.bjj_side, career.bjj_teaches())["left"])
 		if bjj_left > 0:
-			career.add_news("%d left the BJJ classes this week. %d on the mat." % [bjj_left, int(career.bjj_side["members"])], false)
+			career.add_news("%d left the BJJ classes this week. %d on the mat." % [bjj_left, int(career.bjj_side["members"])], false, true)
 	var money: Dictionary = GameMoney.settle_week(career.cash, career.accrued, int(income["total"]), int(costs["total"]), career.day)
 	career.cash = int(money["cash"])
 	career.accrued = int(money["accrued"])
@@ -297,7 +297,7 @@ static func end_week(career: Career) -> void:
 		(career.week_money.get_or_add("items", []) as Array).append("Month-end bill: wages and upkeep")
 		career.add_news("Month-end bill paid: %s for wages and upkeep." % GameMoney.text(int(money["billed"])))
 	if int(roll["delta"]) > 0:
-		career.add_news("%d new members joined this week. %d on the books." % [int(roll["delta"]), career.members])
+		career.add_news("%d new member%s joined this week. %d on the books." % [int(roll["delta"]), "" if int(roll["delta"]) == 1 else "s", career.members])
 	var net := int(income["total"]) - int(costs["total"])
 	career.weeks_below = GymBills.next_below(career.cash, career.weeks_below)
 	var status := GymBills.status(career.cash, net, career.weeks_below)
@@ -344,7 +344,7 @@ static func end_week(career: Career) -> void:
 		var award := SkillAwards.assess(f, career.day)
 		if not award.is_empty():
 			# News, not mail: the week review shows it in gold (golden_path: mail counts mail, not every result).
-			career.add_news("%s passed the %s award: a medal and a certificate on the gym wall." % [f["first"], award["name"]], false)
+			career.add_news("%s passed the %s award: a medal and a certificate on the gym wall." % [f["first"], award["name"]], false, true)
 		reports.append({"id": f["id"], "name": f["name"], "rows": rows, "moves": drill["rows"], "new_weapon": drill["new_weapon"], "pads": drill["review"],
 			"award": str(award.get("name", "")), "award_p": SkillAwards.progress(f), "bests": TestDay.record(f, career.day),
 			"bleep": [SkillAwards.bleep(float(start.get("conditioning", f["stats"]["conditioning"])), Data.sex_of(f)),

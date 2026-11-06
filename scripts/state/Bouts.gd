@@ -279,7 +279,7 @@ static func tape_days(c: Career, f: Dictionary) -> void:
 		for t in OppFile.tells(opp):
 			if str(t["id"]) == id:
 				# Her best weapon is mail; the later finds are news only (they are on her file card): 1 mail a camp.
-				c.add_news("Tape on %s: %s - %s. %s." % [opp["first"], str(t["what"]).to_lower(), str(t["value"]).to_lower(), t["counter"]], id == "weapon")
+				c.add_news("Tape on %s: %s - %s. %s." % [opp["first"], str(t["what"]).to_lower(), str(t["value"]).to_lower(), t["counter"]], id == "weapon", true)
 	b["film"] = OppFile.film_depth(opp)
 	OppFile.remember(c.rival(str(opp["name"])), opp)
 

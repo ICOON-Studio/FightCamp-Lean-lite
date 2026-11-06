@@ -1,5 +1,5 @@
 extends VBoxContainer
-## GYM: Floor, Staff (hire a coach), Members, Facilities.
+## GYM: Floor, Staff (hire a coach), Members, Facilities, Records (S388).
 
 const UI := preload("res://scripts/ui/UI.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
@@ -10,6 +10,7 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Region := preload("res://scripts/state/Region.gd")
 const Tips := preload("res://scripts/ui/Tips.gd")
 const TopCards := preload("res://scripts/ui/TopCards.gd")
+const RecordsPage := preload("res://scripts/ui/RecordsPage.gd")
 
 
 func build(main: Node) -> void:
@@ -29,6 +30,8 @@ func build(main: Node) -> void:
 			_members(c)
 		3:
 			_facilities(main, c)
+		4:
+			add_child(RecordsPage.build(main, c))
 
 
 func _members(c: Career) -> void:
