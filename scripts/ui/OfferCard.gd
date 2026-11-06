@@ -7,6 +7,7 @@ const Faces := preload("res://scripts/rules/Faces.gd")
 const PromoShot := preload("res://scripts/ui/PromoShot.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 const BoutCompare := preload("res://scripts/ui/BoutCompare.gd")
+const OppFile := preload("res://scripts/rules/OppFile.gd")
 
 const PHOTO := Vector2(96, 120)
 const BAND_W := 170.0
@@ -29,6 +30,8 @@ static func make(main: Node, c: Career, f: Dictionary, o: Dictionary) -> PanelCo
 	who.add_child(UI.muted("%s's offer" % f["first"], UI.SMALL))
 	who.add_child(UI.display(str(opp["name"]).to_upper(), 30))
 	who.add_child(UI.label("%d-%d, %s, %s" % [opp["w"], opp["l"], opp["stance"], str(opp["style"]).to_lower()], UI.SMALL, UI.FG, "semi"))
+	who.add_child(UI.label(_bio(opp), UI.SMALL, UI.MUTED, "body", true))
+	who.add_child(UI.label(_read(opp), UI.SMALL, UI.FG, "body", true))
 	var why := "Not safe: %s has %d bouts, %s has %d" % [f["first"], int(o["own_bouts"]), str(opp["name"]).split(" ")[1], int(o["their_bouts"])]
 	who.add_child(UI.label(why if unsafe else "%s, answer by %s" % [Clock.fmt(int(o["day"])), Clock.fmt(int(o["expires"]))],
 		UI.SMALL, UI.RED if unsafe else UI.MUTED, "body", true))
@@ -45,6 +48,31 @@ static func make(main: Node, c: Career, f: Dictionary, o: Dictionary) -> PanelCo
 	return card
 
 
+## S391 C238 ("very little information is displayed on the fighters"): who she is, from what the booking shows.
+static func _bio(opp: Dictionary) -> String:
+	var bits: Array = []
+	if opp.has("age"):
+		bits.append("Age %d" % int(opp["age"]))
+	if opp.has("height"):
+		bits.append("%d cm" % int(opp["height"]))
+	if opp.has("reach"):
+		bits.append("reach %d" % int(opp["reach"]))
+	if str(opp.get("club", "")) != "":
+		bits.append(str(opp["club"]))
+	return ", ".join(bits)
+
+
+## Her game in words, and how much of her file is open: nothing here that scouting has not found.
+static func _read(opp: Dictionary) -> String:
+	var tells := OppFile.tells(opp)
+	var game := ""
+	for t in tells:
+		if str(t["id"]) == "style":
+			game = str(t["value"])
+	var paid := tells.filter(func(t): return str(t["how"]) != "booking").size()
+	return "%s. File: %d of %d found" % [game, OppFile.found(opp).size(), paid]
+
+
 static func _band(c: Career, f: Dictionary, o: Dictionary) -> Control:
 	var b := BoutRead.band(f, o["opp"], BoutRead.camp_for(f, int(o["day"]) - c.day), c.seed)
 	var lo := roundi(float(b["lo"]) * 100.0)
@@ -53,5 +81,5 @@ static func _band(c: Career, f: Dictionary, o: Dictionary) -> Control:
 	v.custom_minimum_size = Vector2(BAND_W, 0)
 	v.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	v.add_child(UI.caps("WIN CHANCE"))
-	v.add_child(UI.display("%d-%d%%" % [lo, hi], 34, UI.GREEN if lo >= 50 else (UI.RED if hi <= 50 else UI.FG)))
+	v.add_child(UI.label("%d-%d%%" % [lo, hi], 30, UI.GREEN if lo >= 50 else (UI.RED if hi <= 50 else UI.FG), "bold"))
 	return v

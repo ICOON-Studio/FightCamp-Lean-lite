@@ -19,6 +19,9 @@ const WRIST_STRAIGHT := 0.85
 ## Palms in, thumbs on top (the old repo's S162e measure on the certified clips), about the glove's long axis.
 const TWIST_DEG := {"l": -75.0, "r": 71.0}
 const CUT_FINGERS := ["Thumb", "Index", "Middle", "Ring", "Little"]
+## S391 (operator: "how come the gloves are not fixed yet ?"): the MetaHuman palm hangs on lower-case helper bones
+## (index_metacarpal_l, pinky_01_half_l), not on Left*/Right* ones. Left standing, it poked out of the straightened glove.
+const CUT_HELPERS := ["index_", "middle_", "ring_", "pinky_", "thumb_"]
 const SHADER_CODE := """
 shader_type spatial;
 uniform vec4 colour : source_color = vec4(0.55, 0.05, 0.05, 1.0);
@@ -121,6 +124,12 @@ func _cut_hands(body: Node3D) -> void:
 	for n in names.keys():
 		if not (str(n).begins_with("Left") or str(n).begins_with("Right")):
 			names.erase(n)
+	for bi in skel.get_bone_count():
+		var bn := str(skel.get_bone_name(bi))
+		if bn.ends_with("_l") or bn.ends_with("_r"):
+			for prefix in CUT_HELPERS:
+				if bn.begins_with(prefix):
+					names[bn] = true
 	names["LeftHand"] = true
 	names["RightHand"] = true
 	for found in body.find_children("*", "MeshInstance3D", true, false):

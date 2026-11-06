@@ -39,8 +39,8 @@ static func build(main: Node, c: Career, f: Dictionary, checklist: bool = false)
 	name.add_theme_font_size_override("font_size", UI.BODY + 5)
 	top.add_child(name)
 	var pro := bool(f.get("pro", false))
-	var record := "%d-%d PRO" % [int(f.get("pro_w", 0)), int(f.get("pro_l", 0))] if pro else "%d-%d AM" % [f["w"], f["l"]]
-	top.add_child(UI.display(record, 34, UI.GOLD))
+	var record := "%d-%d pro" % [int(f.get("pro_w", 0)), int(f.get("pro_l", 0))] if pro else "%d-%d amateur" % [f["w"], f["l"]]
+	top.add_child(UI.label(record, 28, UI.GOLD, "bold"))
 	top.add_child(UI.spacer())
 	if int(f.get("rank", 0)) > 0:
 		top.add_child(UI.chip("NUMBER %d" % int(f["rank"]), "gold"))

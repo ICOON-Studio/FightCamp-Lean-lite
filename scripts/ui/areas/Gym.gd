@@ -75,7 +75,6 @@ func _facilities(main: Node, c: Career) -> void:
 		Tips.card(kit_row, func(): return TopCards.kit(c, f))   # S362 J90 6g
 		rows.append(kit_row)
 	UI.add_rows(card[1], rows)
-	card[1].add_child(UI.muted("Building and placing equipment comes with the 3D gym.", UI.SMALL, true))
 	add_child(card[0])
 
 

@@ -82,6 +82,17 @@ function Get-Reading {
     $os = Get-CimInstance Win32_OperatingSystem
     $ramPct = [math]::Round(100 * (1 - $os.FreePhysicalMemory / $os.TotalVisibleMemorySize), 0)
     $commitFree = [math]::Round($os.FreeVirtualMemory / 1MB, 1)
+    # S391 (operator: "the space is already reserved so it should show the total"): the pagefile may still grow to its set
+    # maximum, so that room counts as free, as far as its drive can hold it (5 GB of the drive stays clear).
+    try {
+        foreach ($pf in @(Get-CimInstance Win32_PageFileUsage)) {
+            $set = Get-CimInstance Win32_PageFileSetting | Where-Object { $_.Name -ieq $pf.Name } | Select-Object -First 1
+            if ($set -and $set.MaximumSize -gt $pf.AllocatedBaseSize) {
+                $disk = [math]::Max(0, (Get-PSDrive ($pf.Name.Substring(0, 1))).Free / 1GB - 5)
+                $commitFree = [math]::Round($commitFree + [math]::Min(($set.MaximumSize - $pf.AllocatedBaseSize) / 1024, $disk), 1)
+            }
+        }
+    } catch {}
     $cFree = [math]::Round((Get-PSDrive C).Free / 1GB, 1)
     # E: = hot data + agent worktrees (operator S197: "add e capacity on the board").
     $eFree = $null; try { $eFree = [math]::Round((Get-PSDrive E -ErrorAction Stop).Free / 1GB, 1) } catch {}
@@ -161,8 +172,8 @@ function Get-Problems($r) {
     $top = ($r.Top | ForEach-Object { "$($_.Name) $([math]::Round($_.MB/1024,1)) GB" }) -join ', '
     $tabs = ''
     if ($r.Top | Where-Object { $_.Name -match 'brave|chrome|msedge|firefox|opera' -and $_.MB -gt 1500 }) { $tabs = ' Close some browser tabs.' }
-    if ($r.CommitFreeGB -ne $null -and $r.CommitFreeGB -lt $COMMIT_CRIT_GB) { $p += [pscustomobject]@{ Key='commit'; Red=$true;  Text="Commit memory nearly full: $($r.CommitFreeGB) GB free (RAM + pagefile). Godot jobs crash here - close browser tabs. Biggest: $top" } }
-    elseif ($r.CommitFreeGB -ne $null -and $r.CommitFreeGB -lt $COMMIT_WARN_GB) { $p += [pscustomobject]@{ Key='commit'; Red=$false; Text="Commit memory low: $($r.CommitFreeGB) GB free (RAM + pagefile)." } }
+    if ($r.CommitFreeGB -ne $null -and $r.CommitFreeGB -lt $COMMIT_CRIT_GB) { $p += [pscustomobject]@{ Key='commit'; Red=$true;  Text="Commit memory nearly full: $($r.CommitFreeGB) GB free (RAM + pagefile, with its room to grow). Godot jobs crash here - close browser tabs. Biggest: $top" } }
+    elseif ($r.CommitFreeGB -ne $null -and $r.CommitFreeGB -lt $COMMIT_WARN_GB) { $p += [pscustomobject]@{ Key='commit'; Red=$false; Text="Commit memory low: $($r.CommitFreeGB) GB free (RAM + pagefile, with its room to grow)." } }
     if ($r.RamPct -ge $RAM_CRIT_PCT) { $p += [pscustomobject]@{ Key='ram'; Red=$true;  Text="Memory $($r.RamPct)% used. Biggest: $top.$tabs" } }
     elseif ($r.RamPct -ge $RAM_WARN_PCT) { $p += [pscustomobject]@{ Key='ram'; Red=$false; Text="Memory $($r.RamPct)% used. Biggest: $top.$tabs" } }
     if ($r.CpuPct -ge $CPU_CRIT_PCT) { $p += [pscustomobject]@{ Key='cpu'; Red=$true;  Text="CPU at $($r.CpuPct)% - pause an agent or a test run." } }

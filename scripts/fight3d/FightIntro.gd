@@ -216,6 +216,7 @@ func _enter(i: int, wait: bool = false) -> void:
 	if wait:
 		return
 	var ap: AnimationPlayer = a["ap"]
+	stage._ropes.calm = true
 	if ap.has_animation("entry_ring"):
 		ap.play("entry_ring", 0.0)
 	_entering[i] = t
@@ -248,7 +249,7 @@ func _carry_in() -> void:
 		var held := clampf((stand_h - minf(head_y, lerpf(stand_h + 0.02, 0.94, duck))) / 0.3, 0.0, 1.0) * near * clampf(1.0 - through / 0.42, 0.0, 1.0)
 		if OS.get_cmdline_user_args().has("ropelog"):
 			print("ROPELOG %d t=%.2f head=%.3f through=%.2f held=%.2f" % [i, dt_e, head_y, through, held])
-		stage._ropes.part(i, rope_pt, held)
+		stage._ropes.part(i, rope_pt, near * clampf(1.0 - through / 0.42, 0.0, 1.0))
 
 
 func cue_to_corner_red() -> void:
@@ -410,6 +411,7 @@ func finish() -> void:
 		crew.look(a, null)
 		(a["node"] as Node3D).visible = true
 	_entering = [-1.0, -1.0]
+	stage._ropes.calm = false
 	for i in 2:
 		stage._ropes.part(i, Vector3.ZERO, 0.0)
 		stage.boxers[i]["ik"].upright(0.0)

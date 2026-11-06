@@ -1793,7 +1793,7 @@
       "path": "_sent/2026-11-05_2352_update_76_roster_checklist_offer_cards_b/poster_reveal.mp4",
       "text": "not bad but needs some more info  dipsplayed like the rankings, and also a bit of variety like the ufc posters",
       "at": "2026-11-05T23:12:41Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "at_s": 3.0,
       "id": "C237"
     },
@@ -1801,15 +1801,29 @@
       "path": "_sent/2026-11-05_2352_update_76_roster_checklist_offer_cards_b/offers_rows.png",
       "text": "again very luittle information is displayed on the fighters here,  the rpg elements needs to showmmore often and maybe add more if it can make each playthrough random and unique",
       "at": "2026-11-05T23:14:07Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "id": "C238"
     },
     {
       "path": "_sent/2026-11-05_2132_bjj9r17_before_after_argon_3_10_4_10_you/after.mp4",
       "text": "this is looks good to me however the right panel needs proper presentation and design more features displayed there",
       "at": "2026-11-05T23:34:53Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "id": "C239"
+    },
+    {
+      "path": "_sent/2026-11-05_2259_fight9r15_before_after_argon_5_5_10_5_5_/after.mp4",
+      "text": "the walking is terrrible at the startof the fight",
+      "at": "2026-11-06T08:14:50Z",
+      "seen_by_claude": true,
+      "id": "C240"
+    },
+    {
+      "path": "_sent/2026-11-05_2259_fight9r15_before_after_argon_5_5_10_5_5_/after.mp4",
+      "text": "the reaction timeon the KI hit is very slow as i see from its slow motion",
+      "at": "2026-11-06T08:16:38Z",
+      "seen_by_claude": true,
+      "id": "C241"
     }
   ]
 }

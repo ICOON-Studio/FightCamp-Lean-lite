@@ -22,10 +22,11 @@ const BODY := [["Hips", 0.17], ["Chest", 0.19], ["Head", 0.12], ["LeftHand", 0.0
 const RADIUS_M := 0.018
 ## S312: the furthest a ring rope gives under a body (a real ring rope bows ~0.1-0.4 m). S311's film bowed one 0.71 m.
 const MAX_BOW_M := 0.35
-## S317 the ring entry: her cornerman holds the ropes apart where she ducks in - the middle rope pressed down, the top
-## one lifted (by height: metres up/down at the crossing point), easing off over PART_R along the rope.
-const PART_DY := [0.0, -0.3, 0.16]   # bottom, middle, top.
-const PART_R := 1.5   # (kept for the record; S320 the hold is a straight-line tent on its own side)
+## S391 (operator on the ring entry: "make the ropes stand still without weird angles and make the rope a bit transparent as
+## she mounts it"): the ropes no longer part. While a boxer climbs through, that side's ropes hold their line and fade to
+## PART_ALPHA, and `calm` keeps bodies from bowing any rope during the entry.
+const PART_ALPHA := 0.3
+const PART_FADE_S := 0.25
 const PART_SIDE_M := 0.4
 
 var segments: Array = []      # MeshInstance3D, SEGMENTS per rope
@@ -35,9 +36,10 @@ var _left := 0.0
 var through_m := 0.0
 var through_who := ""
 var _parts := {}              # id -> [crossing point on the rope line, weight 0..1]
+var calm := false             # the ring entry: no body bows a rope
 
 
-## Holds the ropes apart at `at` (a point on a rope side) with weight `w` (0 = let go); `id` = who is coming through.
+## Fades the rope side at `at` by `w` (0 = solid again); `id` = who is coming through.
 func part(id: int, at: Vector3, w: float) -> void:
 	if w <= 0.0:
 		_parts.erase(id)
@@ -77,7 +79,7 @@ func build(half: float, heights: Array, mat_of: Callable) -> void:
 
 ## Steps the ropes by `delta` against the bodies of `skels` (the boxers' Skeleton3D nodes).
 func tick(delta: float, skels: Array) -> void:
-	var spheres := _spheres(skels)
+	var spheres: Array = [] if calm else _spheres(skels)
 	_left = minf(_left + delta, 0.1)
 	while _left >= SUBSTEP_S:
 		_left -= SUBSTEP_S
@@ -85,6 +87,29 @@ func tick(delta: float, skels: Array) -> void:
 			_step(rope, spheres)
 	for rope in _ropes:
 		_place(rope)
+		_fade_side(rope, delta)
+
+
+## Eases this rope toward the weight of whoever is climbing through its side.
+func _fade_side(rope: Dictionary, delta: float) -> void:
+	var a: Vector3 = rope["a"]
+	var b: Vector3 = rope["b"]
+	var want := 0.0
+	for id in _parts:
+		var at: Vector3 = _parts[id][0]
+		var ab := Vector2(b.x - a.x, b.z - a.z)
+		var t := clampf(Vector2(at.x - a.x, at.z - a.z).dot(ab) / ab.length_squared(), 0.0, 1.0)
+		if Vector2(a.x, a.z).lerp(Vector2(b.x, b.z), t).distance_to(Vector2(at.x, at.z)) <= PART_SIDE_M:
+			want = maxf(want, float(_parts[id][1]))
+	var was := float(rope.get("fade", 0.0))
+	var now := move_toward(was, want, delta / PART_FADE_S)
+	if now == was:
+		return
+	rope["fade"] = now
+	for m in rope["segs"]:
+		var mat := (m as MeshInstance3D).material_override as StandardMaterial3D
+		mat.albedo_color.a = lerpf(1.0, PART_ALPHA, now)
+		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA if now > 0.0 else BaseMaterial3D.TRANSPARENCY_DISABLED
 
 
 func _step(rope: Dictionary, spheres: Array) -> void:
@@ -117,19 +142,6 @@ func _step(rope: Dictionary, spheres: Array) -> void:
 					through_who = str(s[2])
 		if next[k].length() > MAX_BOW_M:
 			next[k] = next[k].normalized() * MAX_BOW_M
-		for id in _parts:
-			# S320 (operator on the parted ropes: "wtf stop trolling" - a 1.5 m bell bent them into waves and reached round
-			# the corner post onto the next side): a taut rope held at one point is two straight lines, post to hand to
-			# post, and only the rope of the side she comes through is held.
-			var at: Vector3 = _parts[id][0]
-			var ab := Vector2(b.x - a.x, b.z - a.z)
-			var t := clampf(Vector2(at.x - a.x, at.z - a.z).dot(ab) / ab.length_squared(), 0.0, 1.0)
-			if Vector2(a.x, a.z).lerp(Vector2(b.x, b.z), t).distance_to(Vector2(at.x, at.z)) > PART_SIDE_M or t <= 0.02 or t >= 0.98:
-				continue
-			var sk := float(k) / SEGMENTS
-			var tent := sk / t if sk <= t else (1.0 - sk) / (1.0 - t)
-			var dy := float(PART_DY[0 if a.y < 0.65 else (1 if a.y < 1.05 else 2)])
-			next[k] = next[k].lerp(Vector3(0, dy * tent, 0), float(_parts[id][1]))
 	rope["prev"] = u
 	rope["u"] = next
 

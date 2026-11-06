@@ -130,7 +130,7 @@ func _search() -> void:
 func everyone() -> Array:
 	var all: Array = []
 	for r in _career.rivals:
-		all.append("%s, %s, %d-%d AM" % [r["name"], r["club"], r["w"], r["l"]])
+		all.append("%s, %s, %d-%d amateur" % [r["name"], r["club"], r["w"], r["l"]])
 	for f in _career.fighters:
 		all.append("%s, %s, %d-%d AM (yours)" % [f["name"], _career.gym_name, f["w"], f["l"]])
 	for c in Data.COACHES:

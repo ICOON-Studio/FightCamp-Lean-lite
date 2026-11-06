@@ -4476,7 +4476,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-06 08:40 board_sync",
+  "updated": "2026-11-06 10:40 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4616,50 +4616,7 @@
    "WBOPP": "Whiteboard opponent line (done)",
    "SOUND1": "Game sound: one agent (Qwen) makes and wires every sound, you judge each by ear"
   },
-  "working_now": [
-   {
-    "title": "TASK_SOUND1 - the sound engineer, round 1: the sound layer + the fight's core sounds, layered, measured, on the board (Qwen)",
-    "who": "qwen",
-    "started": "2026-11-05T20:41",
-    "run": "SOUND1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK FIGHT9R15 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
-    "who": "antigravity",
-    "started": "2026-11-05T22:11",
-    "run": "FIGHT9R15",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK SOUND1R2 - QWEN (sound engineer) - round 1 rework (S386, Claude's collect review)",
-    "who": "qwen",
-    "started": "2026-11-05T23:11",
-    "run": "SOUND1R2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK FIGHT9R17 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
-    "who": "antigravity",
-    "started": "2026-11-06T03:11",
-    "run": "FIGHT9R17",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK FIGHT9R18 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
-    "who": "antigravity",
-    "started": "2026-11-06T05:11",
-    "run": "FIGHT9R18",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK FIGHT9R19 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
-    "who": "antigravity",
-    "started": "2026-11-06T06:41",
-    "run": "FIGHT9R19",
-    "state": "LANDED - Claude collects"
-   }
-  ],
+  "working_now": [],
   "next": [
    {
     "id": "BJJ7",
@@ -4907,6 +4864,36 @@
   },
   "done_recently": [
    {
+    "title": "TASK FIGHT9R19 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "who": "antigravity",
+    "when": "2026-11-06"
+   },
+   {
+    "title": "TASK FIGHT9R18 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "who": "antigravity",
+    "when": "2026-11-06"
+   },
+   {
+    "title": "TASK FIGHT9R17 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "who": "antigravity",
+    "when": "2026-11-06"
+   },
+   {
+    "title": "TASK SOUND1R2 - QWEN (sound engineer) - round 1 rework (S386, Claude's collect review)",
+    "who": "qwen",
+    "when": "2026-11-06"
+   },
+   {
+    "title": "TASK FIGHT9R15 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "who": "antigravity",
+    "when": "2026-11-06"
+   },
+   {
+    "title": "TASK_SOUND1 - the sound engineer, round 1: the sound layer + the fight's core sounds, layered, measured, on the board (Qwen)",
+    "who": "qwen",
+    "when": "2026-11-06"
+   },
+   {
     "title": "TASK FIGHT9R16 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
     "who": "antigravity",
     "when": "2026-11-06"
@@ -4933,36 +4920,6 @@
    },
    {
     "title": "TASK FIGHT9R13 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
-    "who": "antigravity",
-    "when": "2026-11-05"
-   },
-   {
-    "title": "TASK FIGHT9R12 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
-    "who": "antigravity",
-    "when": "2026-11-05"
-   },
-   {
-    "title": "TASK BJJ9R15 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
-    "who": "cursor",
-    "when": "2026-11-05"
-   },
-   {
-    "title": "TASK FIGHT9R11 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
-    "who": "antigravity",
-    "when": "2026-11-05"
-   },
-   {
-    "title": "TASK BJJ9R14 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
-    "who": "cursor",
-    "when": "2026-11-05"
-   },
-   {
-    "title": "TASK BJJ9R13 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
-    "who": "antigravity",
-    "when": "2026-11-05"
-   },
-   {
-    "title": "TASK FIGHT9R10 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
     "who": "antigravity",
     "when": "2026-11-05"
    }
@@ -5093,64 +5050,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Update 78 exported",
-     "who": "claude"
-    },
-    {
-     "text": "Bible decisions recorded",
-     "who": "claude"
-    },
-    {
-     "text": "Dominus study: 2 hubs + strip",
-     "who": "claude"
-    },
-    {
-     "text": "PR 54 merged, bodies fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Opens fought, feed the belt",
-     "who": "claude"
-    },
-    {
-     "text": "Clash panels, real reasons",
-     "who": "claude"
-    },
-    {
-     "text": "Board posts show ratings",
-     "who": "claude"
-    },
-    {
-     "text": "Update 77 exported",
-     "who": "claude"
-    },
-    {
-     "text": "Opens on Home, guide says why",
-     "who": "claude"
-    },
-    {
-     "text": "Roster summary page",
-     "who": "claude"
-    },
-    {
-     "text": "GYM Records with filters",
-     "who": "claude"
-    },
-    {
-     "text": "Frozen condition fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Plan effect measured: +18 pts",
-     "who": "claude"
-    },
-    {
-     "text": "Training wins fights, measured",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Right winner on every submission",
      "who": "claude"
     },
@@ -5181,6 +5080,60 @@
     {
      "text": "Dominus loop read with REA",
      "who": "claude"
+    },
+    {
+     "text": "Update 78 exported",
+     "who": "claude"
+    },
+    {
+     "text": "Bible decisions recorded",
+     "who": "claude"
+    },
+    {
+     "text": "Dominus study: 2 hubs + strip",
+     "who": "claude"
+    },
+    {
+     "text": "PR 54 merged, bodies fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Opens fought, feed the belt",
+     "who": "claude"
+    },
+    {
+     "text": "Clash panels, real reasons",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Gloves: whole palm cut",
+     "who": "claude"
+    },
+    {
+     "text": "50/50 slide fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Leaning: life 5.5 to 7",
+     "who": "claude"
+    },
+    {
+     "text": "Ropes still in the entry",
+     "who": "claude"
+    },
+    {
+     "text": "HUD bigger, moved in",
+     "who": "claude"
+    },
+    {
+     "text": "Offers and posters richer",
+     "who": "claude"
+    },
+    {
+     "text": "Menus reviewed: 5.1 of 8",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5195,6 +5148,10 @@
     {
      "text": "BJJ body contact session",
      "who": "claude"
+    },
+    {
+     "text": "Footwork wired: sub-agent",
+     "who": "agent"
     }
    ],
    "next": [
@@ -5223,23 +5180,27 @@
      "who": "claude"
     },
     {
-     "text": "Your verdict: footwork1",
-     "who": "operator"
-    },
-    {
-     "text": "Your ear: the sound mix",
-     "who": "operator"
-    },
-    {
      "text": "47 boxing clips under 6",
      "who": "claude"
     },
     {
      "text": "Your call: Camp Board direction",
      "who": "operator"
+    },
+    {
+     "text": "Menus to 8: Record, corner",
+     "who": "claude"
+    },
+    {
+     "text": "Your call: one Miro board",
+     "who": "operator"
+    },
+    {
+     "text": "Steps past Undisputed",
+     "who": "claude"
     }
    ],
-   "session": "S390"
+   "session": "S391"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

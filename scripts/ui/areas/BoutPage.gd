@@ -36,9 +36,9 @@ func build(main: Node, offer_id: String) -> void:
 	head.add_child(UI.chip("Not safe" if bool(o["mismatch"]) else "Legal, even match", "red" if bool(o["mismatch"]) else "green"))
 	add_child(head)
 	add_child(Tape.make(f["name"], "your fighter", [
-		["Record", "%d-%d AM" % [f["w"], f["l"]]], ["Age, stance", "%d, %s" % [f["age"], f["stance"]]], ["Style", f["style"]],
+		["Record", "%d-%d amateur" % [f["w"], f["l"]]], ["Age, stance", "%d, %s" % [f["age"], f["stance"]]], ["Style", f["style"]],
 	], opp["name"], opp["club"], [
-		["Record", "%d-%d AM" % [opp["w"], opp["l"]]], ["Age, stance", "%d, %s" % [opp["age"], opp["stance"]]], ["Style", opp["style"]],
+		["Record", "%d-%d amateur" % [opp["w"], opp["l"]]], ["Age, stance", "%d, %s" % [opp["age"], opp["stance"]]], ["Style", opp["style"]],
 	], Faces.pair(f, opp)))
 	# S387 MENUBOUT the decision on one screen, Accept included: the stats against the estimate, the win band and the ranks
 	# at stake (BoutCompare, BoutRead), the file they rest on, then the terms.

@@ -212,7 +212,7 @@ func _scouting(main: Node, c: Career) -> void:
 		var top := UI.hbox(12)
 		var nm := UI.label(str(p["name"]), UI.BODY + 5, UI.FG, "bold")
 		top.add_child(nm)
-		top.add_child(UI.display("%d-%d AM" % [int(p["w"]), int(p["l"])], 26, UI.GOLD))
+		top.add_child(UI.label("%d-%d amateur" % [int(p["w"]), int(p["l"])], 22, UI.GOLD, "bold"))
 		top.add_child(UI.spacer())
 		match str(p["state"]):
 			"invited":

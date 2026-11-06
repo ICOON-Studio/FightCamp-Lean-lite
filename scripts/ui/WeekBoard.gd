@@ -307,8 +307,8 @@ func _night_spec(main: Node, f: Dictionary, i: int, inp: Dictionary, projs: Dict
 	var c: Career = main.career
 	var coach := float(c.coach.get("rating", 0.0))
 	var who := str(c.coach.get("name", "")).get_slice(" ", 0)
-	var chips := ["%s x%.2f" % [who if coach > 0.0 else "no coach", 1.0 + 0.4 * coach / 100.0],
-		"tier %d x%.1f" % [int(PadWeek.STATION_TIER), PadWeek.STATION_TIER / 2.0]]
+	var chips := ["%s: +%d%% from sessions" % [who, roundi(40.0 * coach / 100.0)] if coach > 0.0 else "No coach: sessions at base",
+		"Gym kit: level %d" % int(PadWeek.STATION_TIER)]
 	var picked := DrillTray.picked_for(fid)
 	var click := func(dow: int) -> void:
 		var now := DrillTray.picked_for(fid)

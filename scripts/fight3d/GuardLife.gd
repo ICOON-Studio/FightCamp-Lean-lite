@@ -12,7 +12,7 @@ const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 
 ## Fidgets with the hands up plus active head-movement and bob-and-weave so boxers never stand staring in pro_idle.
 const FIDGETS := ["pro_idle_fidget_v1", "pro_idle_fidget_v2", "pro_idle_fidget_v3", "pro_idle_fidget_v6",
-	"pro_idle_fidget_v7", "pro_idle_fidget_v8", "mc_head_movement", "mc_bob_weave"]
+	"pro_idle_fidget_v7", "pro_idle_fidget_v8", "mc_head_movement", "mc_bob_weave", "ow_bounce_idle", "ow_side_lean"]
 const TEMPO := [0.93, 1.08]          # each boxer's guard rate (never the same)
 const QUIET_S := Vector2(0.3, 1.0)   # guard time before an active fidget / head-movement
 const FIDGET_S := Vector2(1.0, 2.1)  # how long a fidget window lasts

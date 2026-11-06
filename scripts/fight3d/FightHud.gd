@@ -28,10 +28,10 @@ static func build(view: Control) -> void:
 	view._bug_box = bug
 	var bv := UI.vbox(3)
 	bug.add_child(bv)
-	view._bug = UI.label("", UI.SMALL, UI.FG, "bold")
+	view._bug = UI.label("", 22, UI.FG, "bold")
 	view._bug.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	bv.add_child(view._bug)
-	view._clock = UI.mono("", UI.BODY, UI.FG)
+	view._clock = UI.mono("", 30, UI.FG)
 	view._clock.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	bv.add_child(view._clock)
 	view.bars = HudBars.attach(view)   # S345 the six bars a boxer + the round edge
@@ -41,7 +41,7 @@ static func build(view: Control) -> void:
 	view._buttons = UI.hbox(8)
 	view._buttons.alignment = BoxContainer.ALIGNMENT_CENTER
 	view.add_child(view._buttons)
-	pin(view._buttons, Vector4(0.5, 0, 0.5, 0), Vector4(-320, 132, 320, 172))
+	pin(view._buttons, Vector4(0.5, 0, 0.5, 0), Vector4(-320, 176, 320, 216))
 	view._cap_box = PanelContainer.new()
 	view._cap_box.add_theme_stylebox_override("panel", UI.box(Color(0.04, 0.03, 0.03, 0.78), Color(0, 0, 0, 0), 6, 0, 22, 10))
 	view._cap_box.visible = false
@@ -56,7 +56,7 @@ static func build(view: Control) -> void:
 	view._banner.add_theme_constant_override("outline_size", 10)
 	view._banner.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
 	view.add_child(view._banner)
-	pin(view._banner, Vector4(0.5, 0, 0.5, 0), Vector4(-640, 190, 640, 290))
+	pin(view._banner, Vector4(0.5, 0, 0.5, 0), Vector4(-640, 226, 640, 326))
 
 
 ## Anchors (left, top, right, bottom) and offsets in pixels from them.

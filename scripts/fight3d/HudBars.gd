@@ -17,9 +17,12 @@ const BodyLoad := preload("res://scripts/rules/BodyLoad.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const UI := preload("res://scripts/ui/TV.gd")
 
-const EDGE := 28.0
-const TOP := 24.0
-const RINGS_PX := 200.0
+## S391 (operator: "the circles need to be a bit bigger ... not so close to the sides ... maybe a bit transparent"): half as large again,
+## further in, and see-through.
+const EDGE := 72.0
+const TOP := 36.0
+const RINGS_PX := 300.0
+const RINGS_ALPHA := 0.82
 const ICON_PX := 16
 const SIDE_COLOUR := [Color(0.95, 0.4, 0.35), Color(0.5, 0.65, 1.0)]
 const IVORY := Color("#efe8dc")
@@ -71,12 +74,12 @@ func _build() -> void:
 		var panel := PanelContainer.new()
 		panel.name = "Bars%d" % side
 		# S347 (operator: "lighten the ui/hud"): a faint glass panel, no frame.
-		panel.add_theme_stylebox_override("panel", UI.box(Color(0.06, 0.05, 0.05, 0.38), Color(0, 0, 0, 0), 10, 0, 14, 10))
+		panel.add_theme_stylebox_override("panel", UI.box(Color(0.06, 0.05, 0.05, 0.2), Color(0, 0, 0, 0), 10, 0, 14, 10))
 		var col := UI.vbox(5)
 		panel.add_child(col)
 		var top := UI.hbox(8)
 		top.alignment = BoxContainer.ALIGNMENT_BEGIN if side == 0 else BoxContainer.ALIGNMENT_END
-		var who := UI.label(str(view._names[side]).to_upper(), UI.TINY, SIDE_COLOUR[side], "bold")
+		var who := UI.label(str(view._names[side]).to_upper(), UI.SMALL, SIDE_COLOUR[side], "bold")
 		var hurt := UI.label("HURT", UI.TINY, UI.RED, "bold")
 		hurt.visible = false
 		for c in ([who, hurt] if side == 0 else [hurt, who]):
@@ -88,6 +91,7 @@ func _build() -> void:
 		rings.custom_minimum_size = Vector2(RINGS_PX, RINGS_PX)
 		rings.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN if side == 0 else Control.SIZE_SHRINK_END
 		rings.mirror = side == 1
+		rings.modulate.a = RINGS_ALPHA
 		col.add_child(rings)
 		for key in FightMeters.ORDER:
 			var m := Arc.new()
@@ -108,7 +112,7 @@ func _build() -> void:
 		blocks.append(panel)
 	edge = EdgeMeter.new()
 	edge.name = "RoundEdge"
-	edge.custom_minimum_size = Vector2(300, 14)
+	edge.custom_minimum_size = Vector2(380, 18)
 	edge.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 
 
@@ -269,11 +273,11 @@ class Arc extends RefCounted:
 ## its start (from its end on the blue corner's mirrored block), its icon beside it; hover an arc for its words and
 ## numbers; "HURT" sits in the middle.
 class Rings extends Control:
-	const R_IN := 52.0
-	const R_OUT := 73.0
-	const WIDTH := 15.0
+	const R_IN := 78.0
+	const R_OUT := 109.0
+	const WIDTH := 23.0
 	const SPAN := 108.0           # degrees of each arc (the rest of its third is the gap)
-	const NUM_SIZE := 13          # S369 the value drawn on each arc
+	const NUM_SIZE := 19          # S369 the value drawn on each arc
 	const INNER := ["head", "body", "legs"]
 	const OUTER := ["stamina", "guard", "heart"]
 	const ICONS := {"head": "user", "body": "shirt", "legs": "footprints", "stamina": "zap", "guard": "shield", "heart": "heart"}
@@ -285,7 +289,7 @@ class Rings extends Control:
 	func _ready() -> void:
 		mouse_filter = Control.MOUSE_FILTER_PASS
 		for k in ICONS:
-			_tex[k] = Icons.texture(str(ICONS[k]), 16)
+			_tex[k] = Icons.texture(str(ICONS[k]), 24)
 
 	func _process(delta: float) -> void:
 		for a in arcs.values():
@@ -315,11 +319,11 @@ class Rings extends Control:
 		var a0 := deg_to_rad(mid - SPAN * 0.5)
 		var a1 := deg_to_rad(mid + SPAN * 0.5)
 		draw_arc(c, r, a0, a1, 32, Color(1, 1, 1, 0.10), WIDTH, true)
-		var icon_r := r + WIDTH * 0.5 + 12.0 if outer else r - WIDTH * 0.5 - 12.0
+		var icon_r := r + WIDTH * 0.5 + 16.0 if outer else r - WIDTH * 0.5 - 16.0
 		var ic: Texture2D = _tex.get(key)
 		var at := c + Vector2.from_angle(deg_to_rad(mid)) * icon_r
 		if ic != null:
-			draw_texture_rect(ic, Rect2(at - Vector2(8, 8), Vector2(16, 16)), false, Color("#f3ece2"))
+			draw_texture_rect(ic, Rect2(at - Vector2(12, 12), Vector2(24, 24)), false, Color("#f3ece2"))
 		if a == null:
 			return
 		if not a.known:

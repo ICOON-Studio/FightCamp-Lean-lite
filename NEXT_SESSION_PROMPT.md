@@ -1,3 +1,25 @@
+# S392 - next session (written S391, 2026-11-06)
+
+START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S392` + map redraw.
+OPERATOR S391 RULES (keep):
+- A blind design reviewer sees UI, HUD and appearance work BEFORE he does, even when he asked for the change. Under 7, keep looping and report in words.
+- "keep doing this research ahead to anticipate issues": read how Undisputed solves a thing before building it (numbers and names only). ops/research/UNDISPUTED_MIX_S391.md.
+- His sound choices are made and wired. Nothing about sound waits on him.
+DONE S391, on claude/glovecut (check it reached main): gloves cut the whole palm; GuardWeave leaning between punches (blind A/B: life 5.5 -> 7, naturalness 6 -> 6); ropes hold their line in the entry and fade; fight HUD rings 300 px, moved in, see-through, bigger round box; offer rows and posters show more; number font, plain words, watchdog counts pagefile growth.
+ORDER FOR S392
+1. COLLECT THE FOOTWORK SUB-AGENT: branch worktree-agent-a5f71fcc5a222e9f9 (worktree E:/FightCamp/Lean/.claude/worktrees/agent-a5f71fcc5a222e9f9). It audits unmerged work and wires claude/footwork1 into the ring, walk from the corner included. Audit in ops/research/WIRE_AUDIT_S391.md on that branch. Operator approved the footwork ("yes"). If it did not finish, finish it there. Review before merging.
+2. HUD and poster: film the 300 px rings, render the poster over the real dim screen (tools/poster_still.gd draws a test backdrop, not the game), blind design reviewer, loop to 7, then show him.
+3. Leaning: film the slower rise (RISE_TAU_S, EASE_OFF_S), blind judge naturalness. ow_bounce_idle and ow_side_lean went in as fidgets with GuardTuck on: check the join pop in a fight; drop them if it stays.
+4. Menus: ops/research/MENU_CRITIC_S391.md, average 5.1, bar 8. Next: career Record page (one line, contradicts 4-1), corner screen, thin list pages, contradictions list. Menu popup: critic says wrong corner, code places it under the button: check first. Rescore after.
+5. Footwork past Undisputed: gather-and-reach as a second step type, picked per fighter; flat shorter steps when tired. Bar: blind side-by-side against real boxer footage in E:/eyes_cache (95 videos, 8 h).
+6. Hit reactions and blocks as partial-body layers over footwork (Undisputed has Block, BodyReaction, HeadReaction masks; runtime use unconfirmed). Blend targets: punch and slip 0.15 s, normal 0.30, weave 0.5.
+7. Measure our slip clips against 19 cm over 0.65 s.
+HIS CALLS: one Miro board (production map) with the loop board archived: he has not answered. Rolled fighter traits for C238 need a proposal with real effects. C239 BJJ right panel not started. C241 slow KO reaction: check on the current film.
+OPEN: FIGHT9 chain closed, runs marked closed. Old 3 GB research videos: not found as a set; E:/FightCamp_backup_D/videos (1.4 GB, grapplearts real BJJ), eyes_cache. He set the pagefile to 32000/32000: needs a Windows restart to take full size. Ziva down. Grok bots fail. Archived 4 idle Claude sessions. MEMORY.md over its size limit.
+'to 50/50': his slide was an old preview (11-04 05:29, before GrappleGraph.steady); the current code is right and my data change was removed. ops/previews/lean_grapple is stale: re-render with lean_grapple_render.py --force, judge, then replace.
+TRAPS: 2 windowed Godot jobs never at once; `_console.exe` never. fight3d_film.gd cannot run headless. A film stopped by timeout still gives a usable avi. Python heredocs with a backslash break through the shell here: write a file. Stills render 1920x1009 on the hidden desktop.
+SETTINGS: S392 Claude Opus 5.5, effort high, Fast OFF | judges and reviewers: general-purpose sub-agents, same model | agy: gemini-3.8-flash-high, file tools only | Cursor: Composer 2.5, Fast OFF.
+
 # S391 - next session (written S390, 2026-11-06)
 
 START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S391` + map redraw.

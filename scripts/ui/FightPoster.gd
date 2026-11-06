@@ -10,14 +10,25 @@ extends RefCounted
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
+const BoutRead := preload("res://scripts/rules/BoutRead.gd")
+const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const Region := preload("res://scripts/state/Region.gd")
 const HALFTONE := preload("res://assets/ui/halftone.gdshader")
 const BEBAS := "res://assets/fonts/BebasNeue-Regular.ttf"
 const FACES := "res://assets/ui/face/poster"   # S387 tools/poster_faces.py: head and shoulders, backdrop keyed out, tones stretched
 
-const PAPER := Color("#f3ead6")
 const INK := Color("#1b1918")
-const RED := Color("#c8302a")
 const TALL := 1.45
+## S391 C237 ("needs some more info displayed like the rankings, and also a bit of variety like the ufc posters"): each bout
+## draws its own paper, accent, headline and layout from its names, so a run of cards does not look like one card.
+const LOOKS := [
+	{"paper": Color("#f3ead6"), "accent": Color("#c8302a"), "head": "AMATEUR BOXING", "names_first": false},
+	{"paper": Color("#e6ebee"), "accent": Color("#1f4f9c"), "head": "FIGHT NIGHT", "names_first": true},
+	{"paper": Color("#f2e3b8"), "accent": Color("#1b1918"), "head": "%s FIGHT NIGHT", "names_first": false},
+	{"paper": Color("#efe2dc"), "accent": Color("#8a1f3d"), "head": "MAIN EVENT", "names_first": true},
+]
+static var PAPER := Color("#f3ead6")
+static var RED := Color("#c8302a")
 
 
 static func build(c: Career, f: Dictionary, w: float = 380.0) -> Control:
@@ -30,6 +41,9 @@ static func build(c: Career, f: Dictionary, w: float = 380.0) -> Control:
 		push_warning("FightPoster: %s's bout has no opponent: %s" % [f.get("first", "?"), b.keys()])
 		return null
 	var opp: Dictionary = b["opp"]
+	var look: Dictionary = LOOKS[posmod(hash(str(f.get("name", "")) + str(opp.get("name", "")) + str(b.get("day", 0))), LOOKS.size())]
+	PAPER = look["paper"]
+	RED = look["accent"]
 	var k := w / 380.0   # every size below is for a 380 px poster
 	var p := PanelContainer.new()
 	p.name = "FightPoster"
@@ -39,28 +53,38 @@ static func build(c: Career, f: Dictionary, w: float = 380.0) -> Control:
 	var v := UI.vbox(roundi(4 * k))
 	p.add_child(v)
 	v.add_child(_text("%s PRESENTS" % c.gym_name.to_upper(), 15 * k, INK, true))
-	v.add_child(_text("AMATEUR BOXING", 34 * k, RED, true))
+	var head := "PRO DEBUT" if bool(f.get("pro", false)) and int(f.get("pro_w", 0)) + int(f.get("pro_l", 0)) == 0 else ("PROFESSIONAL BOXING" if bool(f.get("pro", false)) else str(look["head"]))
+	v.add_child(_text((head % str(c.city).to_upper()) if head.contains("%s") else head, 34 * k, RED, true))
 	var faces := Faces.pair(f, opp)
 	var row := UI.hbox(roundi(6 * k))
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
 	row.add_child(_face(str(faces[0]), false, 168 * k))
 	row.add_child(_face(str(faces[1]), true, 168 * k))
-	v.add_child(row)
+	var ranks := Region.rankings(c, str(f.get("div", "")))
 	var names := UI.hbox(0)
-	names.add_child(_side(str(f["name"]), "%d-%d  %s" % [int(f.get("w", 0)), int(f.get("l", 0)), str(f.get("style", ""))], k))
+	names.add_child(_side(str(f["name"]), _line(ranks, f), k))
 	var vs := _text("VS", 44 * k, RED, true)
 	vs.custom_minimum_size = Vector2(46 * k, 0)
 	names.add_child(vs)
-	names.add_child(_side(str(opp["name"]), "%d-%d  %s" % [int(opp.get("w", 0)), int(opp.get("l", 0)), str(opp.get("style", ""))], k))
-	v.add_child(names)
+	names.add_child(_side(str(opp["name"]), _line(ranks, opp), k))
+	for part in ([names, row] if bool(look["names_first"]) else [row, names]):
+		v.add_child(part)
 	var div: Dictionary = Data.DIVISIONS.get(f.get("div", ""), {})
 	var sex := "MEN'S" if str(div.get("sex", "f")) == "m" else "WOMEN'S"
-	v.add_child(_text("3 X 3 MIN  -  %s %s" % [sex, str(div.get("short", "%.0f KG" % float(f.get("limit", 0.0)))).to_upper()], 17 * k, INK, true))
+	v.add_child(_text("%d X 3 MIN  -  %s %s" % [int(b.get("rounds", BoutRules.ROUNDS)), sex, str(div.get("short", "%.0f KG" % float(f.get("limit", 0.0)))).to_upper()], 17 * k, INK, true))
+	v.add_child(_text("CLUB TICKET CUT %s" % UI.money(BoutRules.TICKET_CUT), 15 * k, RED, true))
 	var gap := Control.new()
 	gap.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	v.add_child(gap)
 	v.add_child(_stub(Clock.fmt_long(int(b["day"])).to_upper(), "%s  -  doors 6 pm" % c.city, k))
 	return p
+
+
+## Rank, record and style under a name.
+static func _line(ranks: Array, who: Dictionary) -> String:
+	var at := BoutRead.rank_of(ranks, str(who.get("name", "")))
+	var rec := "%d-%d  %s" % [int(who.get("w", 0)), int(who.get("l", 0)), str(who.get("style", ""))]
+	return ("#%d  %s" % [at, rec]) if at > 0 else ("UNRANKED  %s" % rec)
 
 
 ## A halftone headshot; the blue corner flipped to face the red one.

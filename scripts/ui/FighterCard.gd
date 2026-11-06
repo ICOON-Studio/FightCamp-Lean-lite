@@ -27,7 +27,7 @@ static func build(main: Node, f: Dictionary, tag: String) -> Array:
 	var name := UI.button(str(f["name"]), "Link", main.act.bind("fighter", str(f["id"])))
 	name.add_theme_font_size_override("font_size", UI.BODY + 5)
 	top.add_child(name)
-	top.add_child(UI.display(record(f), 30, UI.GOLD))
+	top.add_child(UI.label(record(f), 26, UI.GOLD, "bold"))
 	top.add_child(UI.spacer())
 	if int(f.get("rank", 0)) > 0:
 		top.add_child(UI.chip("NUMBER %d" % int(f["rank"]), "gold"))
@@ -37,10 +37,10 @@ static func build(main: Node, f: Dictionary, tag: String) -> Array:
 
 static func record(f: Dictionary) -> String:
 	if str(f.get("sport", "")) == "bjj":
-		return "%d-%d OPENS" % [int(f.get("w", 0)), int(f.get("l", 0))]   # S376: a no-gi athlete's record is her opens
+		return "%d-%d opens" % [int(f.get("w", 0)), int(f.get("l", 0))]   # S376: a no-gi athlete's record is her opens
 	if bool(f.get("pro", false)):
-		return "%d-%d PRO" % [int(f.get("pro_w", 0)), int(f.get("pro_l", 0))]
-	return "%d-%d AM" % [int(f["w"]), int(f["l"])]
+		return "%d-%d pro" % [int(f.get("pro_w", 0)), int(f.get("pro_l", 0))]
+	return "%d-%d amateur" % [int(f["w"]), int(f["l"])]
 
 
 ## Her face photo (HomeBoard's portrait: the face shot, else a render of her model), cropped to fill the frame.

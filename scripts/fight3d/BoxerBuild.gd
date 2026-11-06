@@ -21,6 +21,7 @@ const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
 const GuardLife := preload("res://scripts/fight3d/GuardLife.gd")
 const KneeTrack := preload("res://scripts/fight3d/KneeTrack.gd")
 const FootPlant := preload("res://scripts/fight3d/FootPlant.gd")
+const GuardWeave := preload("res://scripts/fight3d/GuardWeave.gd")
 const FloorClear := preload("res://scripts/fight3d/FloorClear.gd")
 const TiredSag := preload("res://scripts/fight3d/TiredSag.gd")
 
@@ -73,6 +74,17 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	else:
 		ts.free()
 		ts = null
+	# S391: she leans and dips off the line between punches (before the guard, so the gloves follow the face).
+	var gw: GuardWeave = null
+	if not OS.get_cmdline_user_args().has("noweave"):
+		gw = GuardWeave.new()
+		gw.name = "GuardWeave"
+		if gw.setup(skel, ap, BeatClips.GUARD + GuardLife.FIDGETS + ["advance", "retreat", "strafe_left", "strafe_right"], index * 31 + 7):
+			skel.add_child(gw)
+			skel.move_child(gw, (ts.get_index() + 1) if ts != null else ((js.get_index() + 1) if js != null else 0))
+		else:
+			gw.free()
+			gw = null
 	# S302: her guard tucks in toward her face and pumps (after the join smoother).
 	var gt := GuardTuck.new()
 	gt.name = "GuardTuck"
@@ -80,7 +92,7 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	# S313: the step clips too (Footwork.STRIDE) - at rest they step most of the time, and the guard drops there (gap 5).
 	if not OS.get_cmdline_user_args().has("noguard") and gt.setup(skel, ap, body, BeatClips.GUARD + GuardLife.FIDGETS + ["advance", "retreat", "strafe_left", "strafe_right"], index * 31 + 7):
 		skel.add_child(gt)
-		skel.move_child(gt, (ts.get_index() + 1) if ts != null else ((js.get_index() + 1) if js != null else 0))
+		skel.move_child(gt, (gw.get_index() + 1) if gw != null else ((ts.get_index() + 1) if ts != null else ((js.get_index() + 1) if js != null else 0)))
 	else:
 		gt.free()
 		gt = null
@@ -126,7 +138,7 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	if tw != null:
 		skel.move_child(tw, skel.get_child_count() - 1)
 	ap.animation_finished.connect(stage._on_finished.bind(index))
-	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "floor": fc, "south": south, "front": gl.front_m(),
+	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "weave": gw, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "floor": fc, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,
 		"aim_m": 0.0, "aim_dir": 0.0, "hold_m": 0.0}
 
