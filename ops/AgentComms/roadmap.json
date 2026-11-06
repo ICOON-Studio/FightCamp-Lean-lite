@@ -4476,7 +4476,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-06 08:11 board_sync",
+  "updated": "2026-11-06 08:40 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4636,13 +4636,6 @@
     "who": "qwen",
     "started": "2026-11-05T23:11",
     "run": "SOUND1R2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK FIGHT9R16 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
-    "who": "antigravity",
-    "started": "2026-11-06T00:11",
-    "run": "FIGHT9R16",
     "state": "LANDED - Claude collects"
    },
    {
@@ -4914,6 +4907,11 @@
   },
   "done_recently": [
    {
+    "title": "TASK FIGHT9R16 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+    "who": "antigravity",
+    "when": "2026-11-06"
+   },
+   {
     "title": "TASK BJJ9R18 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
     "who": "cursor",
     "when": "2026-11-06"
@@ -4966,11 +4964,6 @@
    {
     "title": "TASK FIGHT9R10 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
     "who": "antigravity",
-    "when": "2026-11-05"
-   },
-   {
-    "title": "TASK LOCOWALK4 - CURSOR - the forward walk and the four guard steps, from the Ludo presets already downloaded",
-    "who": "cursor",
     "when": "2026-11-05"
    }
   ],
@@ -5180,6 +5173,14 @@
     {
      "text": "Knockdown pop + ropes fixed",
      "who": "claude"
+    },
+    {
+     "text": "Camp Board page + wireframe",
+     "who": "claude"
+    },
+    {
+     "text": "Dominus loop read with REA",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5188,7 +5189,11 @@
      "who": "claude"
     },
     {
-     "text": "47 clips under 6, BJJ at 3-4",
+     "text": "Camp Board: coach test not passed",
+     "who": "claude"
+    },
+    {
+     "text": "BJJ body contact session",
      "who": "claude"
     }
    ],
@@ -5223,6 +5228,14 @@
     },
     {
      "text": "Your ear: the sound mix",
+     "who": "operator"
+    },
+    {
+     "text": "47 boxing clips under 6",
+     "who": "claude"
+    },
+    {
+     "text": "Your call: Camp Board direction",
      "who": "operator"
     }
    ],
