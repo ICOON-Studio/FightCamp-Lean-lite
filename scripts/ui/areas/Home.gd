@@ -1,56 +1,37 @@
 extends VBoxContainer
-## HOME: what needs me. S333 look B (Q-S294-52 "B Gym whiteboard"): the coach's whiteboard about her next bout (polaroid,
-## marker notes, the next 4 weeks), the squad's other tiles | the needs as sticky notes, the cash tin, news and mail.
+## HOME: what needs me. S394 the approved layout (ops/research/MENU_DIRECTION_S393.md) in the game's light cards: needs first, the
+## next fight as a matchup, one row per fighter; on the right what happened and why, the club's week, what is coming.
 
 const UI := preload("res://scripts/ui/UI.gd")
-const HomeBoard := preload("res://scripts/ui/HomeBoard.gd")
-const Needs := preload("res://scripts/state/Needs.gd")
+const HomeNeeds := preload("res://scripts/ui/HomeNeeds.gd")
+const HomeMatch := preload("res://scripts/ui/HomeMatch.gd")
+const HomeRows := preload("res://scripts/ui/HomeRows.gd")
+const HomeSide := preload("res://scripts/ui/HomeSide.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
-const FighterTile := preload("res://scripts/ui/FighterTile.gd")
+const NoGi := preload("res://scripts/rules/NoGi.gd")
+
+const SIDE_W := 420.0
 
 
 func build(main: Node) -> void:
-	add_theme_constant_override("separation", 18)
 	var c: Career = main.career
 	var grid := UI.hbox(26)
 	add_child(grid)
-	var left := UI.vbox(18)
+	var left := UI.vbox(20)
 	left.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	left.size_flags_stretch_ratio = 2.6
-	var right := UI.vbox(18)
-	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	grid.add_child(left)
+	var right := UI.vbox(20)
+	right.custom_minimum_size = Vector2(SIDE_W, 0)
 	grid.add_child(right)
-
-	# S333 look B: the coach's whiteboard about her (the soonest bout), then the rest of the squad as tiles.
-	left.add_child(HomeBoard.board(main, c, events(c)))
-	var hero := HomeBoard.hero(c)
-	for f in c.fighters:
-		if f != hero:
-			left.add_child(FighterTile.build(main, c, f))
-
-	var n := Needs.needs(c)
-	var stickies := UI.vbox(14)
-	stickies.name = "Needs"
-	for i in mini(n.size(), 5):
-		stickies.add_child(HomeBoard.sticky(main, n[i], i))
-	if n.is_empty():
-		stickies.add_child(HomeBoard.sticky(main, {"t": "Nothing needs you", "s": "Press Continue.", "red": false,
-			"label": "Mail", "act": "mail", "arg": ""}, 2))
-	right.add_child(stickies)
-	right.add_child(HomeBoard.cash_tin(c))
-
-	var news := UI.card("NEWS AND MAIL")
-	var rows: Array = []
-	for x in c.news.slice(0, 2):
-		rows.append(UI.row(x["t"], Clock.fmt(int(x["d"]))))
-	UI.add_rows(news[1], rows)
-	var all := UI.button("All news", "BtnQuiet", main.act.bind("mail", ""))
-	all.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	news[1].add_child(all)
-	right.add_child(news[0])
+	var blocks := [HomeNeeds.build(main, c), HomeMatch.build(main, c), HomeRows.build(main, c)]
+	if HomeNeeds.pressing(c).is_empty() and blocks[1] != null:   # nothing pressing: the fight leads the page
+		blocks = [blocks[1], blocks[0], blocks[2]]
+	for block in blocks:
+		if block != null:
+			left.add_child(block)
+	HomeSide.fill(right, main, c, events(c))
 
 
 ## What happens in the next four weeks, for the strip: her bouts and weigh-ins, the championship dates, the bills.
@@ -66,6 +47,10 @@ static func events(c: Career) -> Array:
 		ev.append({"d": int(fb["day"]), "t": "%s vs %s" % [f["first"], fb["opp"]["name"]], "kind": "bout"})
 		if not bool(fb["weighed"]):
 			ev.append({"d": int(fb["day"]) - 1, "t": "weigh-in", "kind": "weigh"})
+	for g in c.grapplers:
+		var opens := NoGi.opens_after(c.day, 1)
+		if not opens.is_empty():
+			ev.append({"d": int(opens[0]["d"]), "t": "%s: %s" % [g["first"], opens[0]["name"]], "kind": "open"})
 	for e in Champs.calendar(c):
 		if not ev.any(func(x): return int(x["d"]) == int(e["d"]) and str(x["kind"]) == "bout"):
 			ev.append({"d": int(e["d"]), "t": str(e["t"]), "kind": "champ"})

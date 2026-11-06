@@ -141,7 +141,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			var fid := str(Bouts.find_offer(c, arg)[0].get("id", ""))
 			if Bouts.accept(c, arg):
 				main.nav({"area": "home", "tab": 0})
-				main.toast("Bout booked. SET CAMP waits on the top bar.")
+				main.toast("Bout booked. Next: set the camp.")
 				main.show_poster(fid)
 		"declineOffer":
 			Bouts.decline(c, arg)
@@ -197,7 +197,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			var f := who(main, "")
 			Bouts.after_fight(c, f)
 			main.close_modal()
-			main.toast("NEW GOAL waits on the top bar: %s is in your office." % f["first"])
+			main.toast("%s is in your office: pick the next goal." % f["first"])
 		"goaltalk":
 			var f := who(main, arg)
 			main.open_modal({"type": "goaltalk", "fid": f["id"], "pick": ""})

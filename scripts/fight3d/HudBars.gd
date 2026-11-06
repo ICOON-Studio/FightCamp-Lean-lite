@@ -44,8 +44,11 @@ const UNKNOWN := {
 const GUARD_LOW := 0.55
 const READ_S := 0.25
 ## S392 (operator: "flash according to the damage done"): a flash is damage / FLASH_FULL, BodyMap's biggest loss; never under LEAST.
+const LEAN_PER_PUNCH := 0.04
+const LEAN_MOST := 0.25
+const EVEN_UNDER := 0.08
 const FLASH_FULL := 3.0
-const FLASH_LEAST := 0.6
+const FLASH_LEAST := 0.25   # S394 (blind review: "a 1-point and a 2-point hit get the same flash"): was 0.6, which floored both
 
 var view: Control
 var edge: Control
@@ -58,6 +61,9 @@ var _scored: Array = []
 var _start: Dictionary = {}
 var _read_left := 0.0
 var _low_said := -1
+## S394 punches landed since the last scored exchange, per corner: the round edge leans with them before the verdict.
+var _landed := [0, 0]
+var _scored_seen := 0
 
 
 static func attach(v: Control) -> Node:
@@ -115,7 +121,7 @@ func _build() -> void:
 		blocks.append(panel)
 	edge = EdgeMeter.new()
 	edge.name = "RoundEdge"
-	edge.custom_minimum_size = Vector2(380, 18)
+	edge.custom_minimum_size = Vector2(380, 40)
 	edge.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 
 
@@ -139,7 +145,8 @@ func hit(side: int, lost: Dictionary, big: bool) -> void:
 		(meters[side]["head"] as Arc).flash(strength(head, big), true)
 	if body > 0.0:
 		(meters[side]["body"] as Arc).flash(strength(body, big), true)
-		(meters[side]["stamina"] as Arc).flash(0.6)   # S393: at the contact; on the exchange clock it read as a hit with nobody near
+		(meters[side]["stamina"] as Arc).flash(strength(body, big) * 0.5)   # S393 at the contact; S394 fainter than the part struck
+	_landed[1 - side] += 1
 	if big and lost.has("right_ribs"):
 		var ring := (blocks[side] as Control).find_child("Rings", true, false) as Rings
 		if ring != null:
@@ -157,7 +164,7 @@ func paint(snap: Dictionary, scored: Array, start: Dictionary) -> void:
 
 func _process(delta: float) -> void:
 	for b in blocks:
-		(b as Control).visible = view._bug_box.visible
+		(b as Control).visible = view._bug_box.visible and bool(view.playing)   # S394 the corner's letterbox cut them in half
 	_read_left -= delta
 	if _read_left > 0.0 or _snap.is_empty():
 		return
@@ -176,10 +183,19 @@ func _process(delta: float) -> void:
 			ring.liver_bad = ring.hurt or (live != null and BodyMap.value(live.map, "a" if side == 0 else "b", "right_ribs") <= BodyMap.HURT)
 		if side == 1:
 			_guard_call(bars["guard"])
-	var e := FightMeters.edge(_scored)
+	if _scored.size() != _scored_seen:
+		_scored_seen = _scored.size()
+		_landed = [0, 0]
+	var e := clampf(FightMeters.edge(_scored) + clampf((_landed[0] - _landed[1]) * LEAN_PER_PUNCH, -LEAN_MOST, LEAN_MOST), -1.0, 1.0)
 	(edge as EdgeMeter).want = e
+	(edge as EdgeMeter).word = "EVEN ROUND" if absf(e) < EVEN_UNDER else "%s AHEAD" % str(view._names[0 if e > 0.0 else 1]).to_upper()
 	var won := _scored.filter(func(x): return bool(x.get("won", false))).size()
 	edge.tooltip_text = "Who has this round: %s %d, %s %d exchanges" % [view._names[0], won, view._names[1], _scored.size() - won]
+
+
+## S394 the stamina the ring shows, 0-100, so the corner's table reads the same number; < 0 before the first read.
+func stamina(side: int) -> float:
+	return float(FightMeters.bars(_source(side))["stamina"]["fill"]) * 100.0 if not _snap.is_empty() else -1.0
 
 
 ## The values FightMeters reads for side 0 (her) / 1 (the opponent).
@@ -257,7 +273,7 @@ class Rings extends Control:
 	const R_OUT := 109.0
 	const WIDTH := 23.0
 	const SPAN := 108.0           # degrees of each arc (the rest of its third is the gap)
-	const NUM_SIZE := 19          # S369 the value drawn on each arc
+	const NUM_SIZE := 21          # S369 the value drawn on each arc
 	const INNER := ["head", "body", "legs"]
 	const OUTER := ["stamina", "guard", "heart"]
 	const ICONS := {"head": "user", "body": "shirt", "legs": "footprints", "stamina": "zap", "guard": "shield", "heart": "heart"}
@@ -359,7 +375,7 @@ class Rings extends Control:
 		if a.chunk >= 0.0:
 			_part(c, r, a0, a1, a.chunk_span().x, a.chunk_span().y, Color(1.0, 0.95, 0.9, 0.95))   # S392 what this hit took
 		if a._flash > 0.0:
-			draw_arc(c, r, a0, a1, 32, Color(1, 1, 1, 0.8 * a._flash), WIDTH, true)
+			draw_arc(c, r, a0, a1, 32, Color(1.0, 0.32, 0.22, 0.9 * a._flash), WIDTH + 6.0 * a._flash, true)   # S394 white on ivory did not read
 		# S369 (operator, on the ring: "also add numbers here?"): her value on the arc, 0-100, so the corner can read who is
 		# the more tired without judging arc lengths.
 		var nf := ThemeDB.fallback_font
@@ -402,8 +418,10 @@ class Rings extends Control:
 
 ## Who has the round: from the centre toward red's side (left) or blue's (right), ticks at each third.
 class EdgeMeter extends Control:
+	const BAR_H := 18.0
 	var want := 0.0
 	var value := 0.0
+	var word := ""
 
 	func _ready() -> void:
 		mouse_filter = Control.MOUSE_FILTER_PASS
@@ -414,7 +432,7 @@ class EdgeMeter extends Control:
 
 	func _draw() -> void:
 		var w := size.x
-		var h := size.y
+		var h := BAR_H
 		var mid := w / 2.0
 		draw_rect(Rect2(0, 0, mid, h), Color(0.95, 0.4, 0.35, 0.16))   # a tug of war: red's half, blue's half
 		draw_rect(Rect2(mid, 0, mid, h), Color(0.5, 0.65, 1.0, 0.16))
@@ -426,3 +444,7 @@ class EdgeMeter extends Control:
 		for i in range(1, 6):
 			var x := w * i / 6.0
 			draw_line(Vector2(x, 0.0 if i == 3 else h * 0.55), Vector2(x, h), Color(1, 1, 1, 0.8 if i == 3 else 0.35), 2.0 if i == 3 else 1.0)
+		if word != "":   # S394 (blind review: "the only lead cue is unlabelled"): the bar says what it means
+			var f := ThemeDB.fallback_font
+			var tw := f.get_string_size(word, HORIZONTAL_ALIGNMENT_LEFT, -1, 16).x
+			draw_string(f, Vector2((w - tw) * 0.5, size.y - 3.0), word, HORIZONTAL_ALIGNMENT_LEFT, -1, 16, Color(0.94, 0.91, 0.86))

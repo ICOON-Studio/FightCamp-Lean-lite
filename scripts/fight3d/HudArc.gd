@@ -20,7 +20,7 @@ const CHUNK_HOLD_S := 0.5
 const CHUNK_MIN := 0.1
 ## S393 (blind review: "a hard shot and a jab look alike"): the chunk grows with the hit, from a flash of WEAK_POWER to full.
 const CHUNK_MAX := 0.3
-const WEAK_POWER := 0.6
+const WEAK_POWER := 0.25
 const CHUNK_DRAIN_S := 0.18
 var chunk := -1.0
 var _struck := false

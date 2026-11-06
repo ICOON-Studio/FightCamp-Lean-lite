@@ -76,7 +76,7 @@ static func corner(view: Node) -> bool:
 	var won_a := done.filter(func(x): return bool((x as Dictionary).get("won", false))).size()
 	card["stats"] = {"round": int(view.round_n), "won": bool(r.get("won", false)), "score": [won_a, done.size() - won_a],
 		"counts": int(r.get("counts", 0)), "tally": BodyMap.tally(view._round_beats),
-		"energy": {"a": float(en.get("a_end", 100.0)), "b": float(en.get("b_end", 100.0))}}
+		"energy": {"a": _bell_energy(view, 0, float(en.get("a_end", 100.0))), "b": _bell_energy(view, 1, float(en.get("b_end", 100.0)))}}
 	# S318 the body map on the card (plan Q-S294-29): her figure + the cutman's job, and the number behind each call.
 	var bl: Node = view.get("body")
 	if bl != null:
@@ -145,3 +145,10 @@ static func _intro_over(view: Node) -> void:
 	FightSfx.bell(true)
 	view._draw_buttons()
 	view._hud()
+
+
+## S394 (blind review: rings 62/65 at the bell, the corner's table 71/69): the corner reads the stamina the ring shows.
+static func _bell_energy(view: Node, side: int, fallback: float) -> float:
+	var hud: Node = view.get("bars")
+	var shown: float = hud.stamina(side) if hud != null else -1.0
+	return shown if shown >= 0.0 else fallback

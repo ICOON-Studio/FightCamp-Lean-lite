@@ -2,6 +2,8 @@
 
 **Status: direction approved by the operator, 2026-11-06 ("Yes, this direction"), on the Home mockup.** Fighter and Fights were not shown.
 
+**S394 update:** built in the game, the dark look clashed with the light pages (operator: "the black background doesnt fit the rest of the game"). He chose "Match the light game". Home keeps this layout in the game's light cards (commit 06a5c755), blind reviews 5 to 6.5 over ten rounds, his word on the stills: "its ok for now". Dark is only for a later pass over every page at once.
+
 Mockups, not game screens. HTML with real game art, in E:/FightCamp/tmp/s393/menu/.
 
 ## The direction

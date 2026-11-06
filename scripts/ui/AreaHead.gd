@@ -4,6 +4,8 @@ extends RefCounted
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 
+const CLUB := ["gym", "money"]
+
 
 ## S384 `tab_row` false: no tab row at all (Ana's Playbook is one page, design GAMETREE1 7).
 static func add(parent: Container, main: Node, area_id: String, extra: Array = [], tabs_on: bool = true, tab_row: bool = true) -> void:
@@ -19,14 +21,29 @@ static func add(parent: Container, main: Node, area_id: String, extra: Array = [
 	if tabs.is_empty() or not tab_row:
 		return
 	var row := UI.hbox(4)
-	for i in tabs.size():
-		var on: bool = tabs_on and int(main.route["tab"]) == i and str(main.route.get("fighter", "")) == ""
-		row.add_child(UI.button(tabs[i], "TabOn" if on else "Tab", main.act.bind("tab", str(i))))
+	if CLUB.has(area_id):
+		_club_tabs(row, main, tabs_on)
+	else:
+		for i in tabs.size():
+			var on: bool = tabs_on and int(main.route["tab"]) == i and str(main.route.get("fighter", "")) == ""
+			row.add_child(UI.button(tabs[i], "TabOn" if on else "Tab", main.act.bind("tab", str(i))))
 	parent.add_child(row)
 	var line := ColorRect.new()
 	line.color = UI.LINE
 	line.custom_minimum_size = Vector2(0, 1)
 	parent.add_child(line)
+
+
+## S394 PLAYER_PATH 6: one Club on the rail. The gym's and the money's tabs sit in one row and keep their routes (gym:1, money:0).
+static func _club_tabs(row: Container, main: Node, tabs_on: bool) -> void:
+	for id in CLUB:
+		var tabs: Array = Data.area(id)["tabs"]
+		for i in tabs.size():
+			if str(tabs[i]) == "":
+				continue
+			var now := int(main.route["tab"])
+			var on: bool = tabs_on and main.route["area"] == id and (now == i or (id == "gym" and now == 0 and i == 1))
+			row.add_child(UI.button(tabs[i], "TabOn" if on else "Tab", main.act.bind("go", "%s:%d" % [id, i])))
 
 
 ## "Comes in week N" placeholder card.

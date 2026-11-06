@@ -137,7 +137,7 @@ static func _combo_news(career: Career, f: Dictionary, drilled: Dictionary, befo
 		# S303 Kalli K-COMBOWORDS1: the coach's words when it turns usable and when it becomes her signature.
 		if before < Combos.LEARN_AT and after >= Combos.LEARN_AT:
 			new_combo = str(id)
-			career.add_news("%s can throw the %s in a fight now (%s). Coach: \"%s\"" % [f["first"], id, Combos.describe(str(id), after),
+			career.add_news("%s can throw the %s in a fight now. Coach: \"%s\"" % [f["first"], id,
 				ComboWords.line(str(id), "coach_learning", str(f["first"]), career.day)])
 		elif before < ComboWords.SIGNATURE_AT and after >= ComboWords.SIGNATURE_AT:
 			career.add_news("Coach: \"%s\"" % ComboWords.line(str(id), "coach_signature", str(f["first"]), career.day))

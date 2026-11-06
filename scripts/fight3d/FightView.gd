@@ -428,6 +428,7 @@ func _done() -> void:
 	playing = false
 	Engine.time_scale = 1.0
 	# S307: between rounds the corner minute plays in the ring (FightCast.corner); its pick starts the next round.
+	_bug_box.visible = false   # S394 the corner's letterbox cut the round box and rings in half; the next round brings them back
 	if FightCast.corner(self):
 		return
 	main.act("fightwatched", str(round_n))

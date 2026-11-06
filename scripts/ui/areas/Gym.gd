@@ -1,5 +1,5 @@
 extends VBoxContainer
-## GYM: Floor, Staff (hire a coach), Members, Facilities, Records (S388).
+## CLUB: Staff (hire a coach), Members, Facilities, Records (S388), beside Money (AreaHead joins the two). S394 the Floor tab went, PLAYER_PATH 6.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
@@ -18,13 +18,7 @@ func build(main: Node) -> void:
 	var c: Career = main.career
 	AreaHead.add(self, main, "gym")
 	match int(main.route["tab"]):
-		0:
-			var card := UI.card("THE FLOOR")
-			var n := UI.note("The 3D gym lives here: members training, your fighter on the bags, the ring.\nIt comes after the menus feel right.")
-			n.custom_minimum_size = Vector2(0, 140)
-			card[1].add_child(n)
-			add_child(card[0])
-		1:
+		0, 1:
 			_staff(main, c)
 		2:
 			_members(c)

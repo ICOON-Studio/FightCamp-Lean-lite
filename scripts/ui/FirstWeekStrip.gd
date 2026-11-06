@@ -45,6 +45,7 @@ static func make(main: Node) -> Control:
 	if c.guide != "go":
 		var b := UI.button(_button(main, c), "BtnSolid", main.on_go)
 		b.name = "GuideStep"
+		b.visible = not (c.guide == "sign" and main.route["area"] == "home")   # S394 HOME's top card has this same button
 		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(b)
 	return panel
@@ -69,7 +70,7 @@ static func why(c: Career) -> String:
 		"sign":
 			return "No boxer, no fights: the gym needs someone to train and book. %s is at reception: read the card, pick one starting focus, sign." % who
 		"coach":
-			return "Without a coach, %s trains at 60%%. A coach also runs the evening classes, which bring money in. Pick one of two: Gym, then Staff." % who
+			return "Without a coach, %s trains at 60%%. A coach also runs the evening classes, which bring money in. Pick one of two: Club, then Staff." % who
 		"week":
 			return "Sessions are what raise %s's attributes, and the days wait until this plan is locked. Change the sessions if you want, then lock it." % who
 	return "CONTINUE plays the days. The review then shows what training gained and where the money went."

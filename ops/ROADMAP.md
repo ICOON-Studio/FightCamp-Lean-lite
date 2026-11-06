@@ -8,13 +8,13 @@ Updated 2026-11-06 by claude S294.
 
 ## Now
 
-**S393 — ?** *(claude)*
+**S394 — ?** *(claude)*
 
-S393: PADVIEW1, OWNEDTAKES1 collected; punch interrupted merged, both blind judges for it; fold room merged, one for, one equal; calm camera for C242; inside work and the trunk limit not merged (lost, split); HUD 4/10 before later fixes, chunk by damage, not re-reviewed; menu direction approved on a Home mockup, 7/10; Fighter 6.5, Fights 6 not shown. Nothing exported.
+S394: Home rebuilt on real data in the light look (dark clashed, his call), needs as notes pinned on a cork board (his idea, kept), five rail buttons with Club, coach on Home. Blind: cards 6.5, board 6. HUD lead bar, damage flash; HUD still 5, corner hide failed. Portraits on a branch, not used. Suite 191/0. Nothing exported.
 
 ## Next
 
-S394: build Home in the approved look on real data; portrait re-render in gym light with kit; HUD re-review; softer trunk limit; winded liver; sound takes per punch; traits wrong-plan test.
+S395: find why the HUD stays on in the corner, measure first; put the tired-read design to him; rebake portraits, no gloves; Home leftovers; Settings, Handbook, Fight prep tab; trunk limit; S393 list.
 
 ## Where the game actually is
 
@@ -283,3 +283,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S389**  |  |  | *none yet* | S389: update 78 exported: opens fought bout by bout (live or simulate), bouts feed the belt, both women fight only with what they drilled, clash panels with real reasons, bodies placed every frame, every finish ends in a tap. Bible section 12 answered. Dominus Gladiatus studied: two hubs plus a countdown strip. Judges before the body fixes: reviewer 3, animation 4, technique 3, clarity 5/3/5; the body fixes are not judged yet. Board posts now carry a required rating. |
 |  |  | **S392**  |  |  | *none yet* | S392: footwork on main, blind 6 and 5.5 against 3.5 and 4; bodies keep apart, boots touching 14 -> 1 of 3,604 frames; HUD chunk, flash and liver built, unreviewed; one Miro board; Blood & Canvas and Tale of the Tape studied; traits 5/10; Ziva up; suite 186/0. Nothing exported or shown. |
 |  |  | **S393**  |  |  | *none yet* | S393: PADVIEW1, OWNEDTAKES1 collected; punch interrupted merged, both blind judges for it; fold room merged, one for, one equal; calm camera for C242; inside work and the trunk limit not merged (lost, split); HUD 4/10 before later fixes, chunk by damage, not re-reviewed; menu direction approved on a Home mockup, 7/10; Fighter 6.5, Fights 6 not shown. Nothing exported. |
+|  |  | **S394**  |  |  | *none yet* | S394: Home rebuilt on real data in the light look (dark clashed, his call), needs as notes pinned on a cork board (his idea, kept), five rail buttons with Club, coach on Home. Blind: cards 6.5, board 6. HUD lead bar, damage flash; HUD still 5, corner hide failed. Portraits on a branch, not used. Suite 191/0. Nothing exported. |

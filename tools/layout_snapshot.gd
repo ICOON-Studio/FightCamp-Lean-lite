@@ -69,6 +69,9 @@ func _initialize() -> void:
 	await _shot("12_bout")
 	main.act("accept", "lucy:o8")
 	await _shot("13_home_booked")
+	main.act("close")
+	main.clear_toast()
+	await _shot("13b_home_booked_settled")
 	main.act("camp", "lucy")
 	await _shot("14_camp")
 	main.act("startcamp")
@@ -80,6 +83,7 @@ func _initialize() -> void:
 	main.act("doWeigh")
 	main.run_to_stop()
 	main.act("area", "home")
+	main.clear_toast()
 	await _shot("17_home_fightnight")
 	main.act("go_btn")
 	main.career.fighter()["arrows"] = [{"move": "1-1"}, {"move": "step_back"}, {"move": "pivot_out"}, {"move": "tie_up"}]   # S388 so the Why panel has a plan to read
@@ -215,6 +219,7 @@ func _initialize() -> void:
 	await _shot("40_prooffer")
 	main.act("turnpro")
 	main.act("area", "home")
+	main.clear_toast()
 	await _shot("41_home_two")
 	quit(0)
 
