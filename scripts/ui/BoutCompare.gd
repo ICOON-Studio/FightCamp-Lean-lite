@@ -107,7 +107,7 @@ static func read_card(c: Career, f: Dictionary, opp: Dictionary, camp: Dictionar
 	var lo := roundi(float(b["lo"]) * 100.0)
 	var hi := roundi(float(b["hi"]) * 100.0)
 	var big := UI.hbox(14)
-	var num := UI.label("%d-%d%%" % [lo, hi], 38, UI.GREEN if lo >= 50 else (UI.RED if hi <= 50 else UI.FG), "bold")
+	var num := UI.mono("%d-%d%%" % [lo, hi], 38, UI.GREEN if lo >= 50 else (UI.RED if hi <= 50 else UI.FG))
 	num.name = "WinBand"
 	big.add_child(num)
 	var s := BoutRead.stage(opp)

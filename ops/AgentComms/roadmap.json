@@ -4481,7 +4481,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-06 10:40 board_sync",
+  "updated": "2026-11-06 14:40 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4621,7 +4621,22 @@
    "WBOPP": "Whiteboard opponent line (done)",
    "SOUND1": "Game sound: one agent (Qwen) makes and wires every sound, you judge each by ear"
   },
-  "working_now": [],
+  "working_now": [
+   {
+    "title": "TASK PADVIEW1 - a pad-work view in the Playbook (S392, Cursor)",
+    "who": "cursor",
+    "started": "2026-11-06T13:55",
+    "run": "PADVIEW1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK OWNEDTAKES1 - the owned mocap takes play: boxers shadowbox in their corner before the bell (S392, agy)",
+    "who": "antigravity",
+    "started": "2026-11-06T13:56",
+    "run": "OWNEDTAKES1",
+    "state": "LANDED - Claude collects"
+   }
+  ],
   "next": [
    {
     "id": "BJJ7",
@@ -5055,6 +5070,22 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Footwork merged: 6 and 5 vs 3.5-4",
+     "who": "claude"
+    },
+    {
+     "text": "One Miro board, loop archived",
+     "who": "claude"
+    },
+    {
+     "text": "Blood & Canvas studied",
+     "who": "claude"
+    },
+    {
+     "text": "Ziva back up",
+     "who": "claude"
+    },
+    {
      "text": "Gloves: whole palm cut",
      "who": "claude"
     },
@@ -5093,39 +5124,23 @@
     {
      "text": "Moves curated: 402 of 1485 out",
      "who": "claude"
-    },
-    {
-     "text": "122 boxing clips scored",
-     "who": "claude"
-    },
-    {
-     "text": "Sounds wired, unheard",
-     "who": "claude"
-    },
-    {
-     "text": "Knockdown pop + ropes fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Camp Board page + wireframe",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Footwork merged: 6 and 5 vs 3.5-4",
+     "text": "PADVIEW1 + OWNEDTAKES1 collected",
      "who": "claude"
     },
     {
-     "text": "One Miro board, loop archived",
+     "text": "Pad view camera aimed at boxers",
      "who": "claude"
     },
     {
-     "text": "Blood & Canvas studied",
+     "text": "Corner take changes per bout",
      "who": "claude"
     },
     {
-     "text": "Ziva back up",
+     "text": "SQ28 cancelled after 38 skips",
      "who": "claude"
     }
    ],
@@ -5148,6 +5163,14 @@
     },
     {
      "text": "Inside fighting: nobody works",
+     "who": "claude"
+    },
+    {
+     "text": "HUD: chunk from hits only",
+     "who": "claude"
+    },
+    {
+     "text": "Pad view layout, blind review",
      "who": "claude"
     }
    ],
@@ -5193,7 +5216,7 @@
      "who": "claude"
     }
    ],
-   "session": "S392"
+   "session": "S393"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

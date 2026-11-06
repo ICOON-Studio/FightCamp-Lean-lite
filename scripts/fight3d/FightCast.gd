@@ -129,7 +129,8 @@ static func intro(view: Node) -> bool:
 	fi.done.connect(_intro_over.bind(view))
 	# S310 the tale of the tape: her height is the body the ring draws her with until she has her own.
 	var tape := TaleOfTape.rows(f, opp, c.gym_name, Faces.cm(Faces.stem(f)))
-	fi.run(view, view.stage, view.crew, {"intros": intros, "tape": tape, "names": [str(f["name"]), str(opp["name"])]})
+	fi.run(view, view.stage, view.crew, {"intros": intros, "tape": tape, "names": [str(f["name"]), str(opp["name"])],
+		"seed": c.day * 97 + str(opp["name"]).hash()})
 	return true
 
 

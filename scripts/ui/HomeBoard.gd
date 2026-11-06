@@ -173,7 +173,7 @@ static func polaroid(main: Node, f: Dictionary) -> Control:
 	var pro := bool(f.get("pro", false))
 	var rec := "%d-%d" % [int(f.get("pro_w", 0)), int(f.get("pro_l", 0))] if pro else "%d-%d" % [f["w"], f["l"]]
 	var cap := UI.button("%s %s" % [f["first"], rec], "Link", main.act.bind("fighter", f["id"]))
-	cap.add_theme_font_override("font", UI.font("marker"))
+	cap.add_theme_font_override("font", UI.font("bold"))
 	cap.add_theme_font_size_override("font_size", 28)
 	cap.add_theme_color_override("font_color", UI.FG)
 	cap.add_theme_color_override("font_hover_color", UI.GOLD)

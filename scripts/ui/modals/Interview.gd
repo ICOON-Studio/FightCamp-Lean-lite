@@ -24,7 +24,7 @@ func build(main: Node, m: Dictionary) -> void:
 	v.add_child(UI.muted("Terms: club stipend, $250 a week.", UI.SMALL))
 	var foot := UI.hbox(10)
 	foot.add_child(UI.spacer())
-	foot.add_child(UI.button("Not now", "BtnQuiet", main.act.bind("decline", "")))
+	foot.add_child(UI.button("Pass", "BtnQuiet", main.act.bind("decline", "")))
 	var focus := RecruitPanel.focus_of(picks)
 	var ready := focus != "" or picks.size() == 3
 	var sign := UI.button("Sign %s - %s" % [a["first"], str(Recruit.FOCUS[focus]["name"]).to_lower()] if focus != "" else

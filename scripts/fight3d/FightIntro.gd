@@ -11,6 +11,7 @@ const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
 const TapeCard := preload("res://scripts/fight3d/TapeCard.gd")
 const CornerStart := preload("res://scripts/fight3d/CornerStart.gd")
 const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
+const CornerWarm := preload("res://scripts/fight3d/CornerWarm.gd")
 
 signal done
 
@@ -63,8 +64,11 @@ var _shot := ""
 var _shot_t0 := 0.0
 var _frame: Dictionary = {}
 var _tape: Control = null
+const WARM_S := 1.8
 var _entering := [-1.0, -1.0]   # per boxer: intro time her entry began (-1 = not entering)
 var corners: RefCounted = null  # S379: the corner-start opening (CornerStart) when it plays instead
+var _warm := [{}, {}]           # per boxer: {clip: String, win: Vector2}
+var _warming := false
 
 
 func run(v: Node, s: Node3D, c: CornerCrew, context: Dictionary) -> void:
@@ -89,6 +93,7 @@ func run(v: Node, s: Node3D, c: CornerCrew, context: Dictionary) -> void:
 
 func _process(delta: float) -> void:
 	t += delta
+	_tick_warm()
 	if corners != null:
 		corners.tick(delta)
 		return
@@ -299,9 +304,62 @@ func cue_corners() -> void:
 			crew.place(a, spot, crew.yaw_to(spot, Vector3.ZERO))
 			crew.play(a, str(k[2]))
 			(a["node"] as Node3D).visible = true
+	if not _has_nowarm():
+		_start_warm()
+
+
+static func _has_nowarm() -> bool:
+	return OS.get_cmdline_user_args().has("nowarm") or OS.get_cmdline_user_args().has("--nowarm") or OS.get_cmdline_args().has("--nowarm")
+
+
+func _start_warm() -> void:
+	_warming = false
+	for i in 2:
+		var ap: AnimationPlayer = stage.boxers[i]["ap"]
+		var seed := CornerWarm.seed_for(int(ctx.get("seed", 0)), i)
+		var clip := CornerWarm.pick(seed, ap.has_animation)
+		if clip != "" and ap.has_animation(clip):
+			var anim := ap.get_animation(clip)
+			var win := CornerWarm.window(anim.length, seed, WARM_S)
+			_warm[i] = {"clip": clip, "win": win}
+			crew.play(stage.boxers[i], clip, 1.0, win.x)
+			_warming = true
+		else:
+			_warm[i] = {}
+
+
+func _tick_warm() -> void:
+	if not _warming:
+		return
+	if corners != null and str(corners.get("phase")) != "corners":
+		_end_warm()
+		return
+	for i in 2:
+		if _warm[i].is_empty():
+			continue
+		var ap: AnimationPlayer = stage.boxers[i]["ap"]
+		var clip: String = _warm[i]["clip"]
+		var win: Vector2 = _warm[i]["win"]
+		if ap.current_animation != clip or not ap.is_playing() or ap.current_animation_position >= win.y - 0.001:
+			var a: Dictionary = stage.boxers[i]
+			if a.get("js") != null:
+				(a["js"] as Node).join(0.1, 0.3)
+			ap.seek(win.x, true)
+			if not ap.is_playing() or ap.current_animation != clip:
+				ap.play(clip, 0.0)
+
+
+func _end_warm() -> void:
+	if not _warming:
+		return
+	_warming = false
+	_warm = [{}, {}]
+	for i in 2:
+		stage.guard(i)
 
 
 func cue_tape() -> void:
+	_end_warm()
 	if not ctx.has("tape"):
 		return
 	_tape = TapeCard.build(ctx["tape"], ctx.get("names", ["", ""]))
@@ -359,6 +417,7 @@ func _raise(i: int, up: bool) -> void:
 
 ## To the centre, a jab's length apart, facing.
 func cue_walk() -> void:
+	_end_warm()
 	ui.say("")
 	var axis := ((crew.corner("blue")["seat"] as Vector3) - (crew.corner("red")["seat"] as Vector3)).normalized()
 	for i in 2:
@@ -404,6 +463,7 @@ func cue_bell() -> void:
 func finish() -> void:
 	if not is_inside_tree() or not is_processing():
 		return
+	_end_warm()
 	# S308: skipped from a button, this node stays in the tree to the frame's end; its _process must not film again
 	# (round 1 opened stuck on the intro's wide lens).
 	set_process(false)

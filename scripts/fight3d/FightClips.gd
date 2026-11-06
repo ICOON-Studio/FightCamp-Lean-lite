@@ -18,6 +18,7 @@ const BAKED := {
 	"boxing_slip": "slip", "boxing_pull": "pull", "boxing_body_hook": "body_hook", "boxing_rear_uppercut": "rear_uppercut",
 }
 const BAKED_DIR := "res://assets/anim/baked/"
+const OWNED_DIR := "res://assets/anim/baked/owned/"
 ## MoCap Online Punch Starter, baked as mc_Punch_M3_<Name>.res: our name -> file stem.
 const MOCAP_ONLINE := {
 	"mc_idle": "Punch_M3_Idle", "mc_fidget": "Punch_M3_Idle_Fidget_V1", "mc_jab": "Punch_M3_Left_Jab",
@@ -73,6 +74,12 @@ static func load_into(ap: AnimationPlayer, skel: Skeleton3D, corner_only: bool =
 		var file := str(f).trim_suffix(".remap")
 		if (file.begins_with("af_") or file.begins_with("ow_")) and file.ends_with(".res"):   # S391 ow_: owned Mixamo takes (tools/owned_mocap_bake.gd)
 			baked[file.trim_suffix(".res")] = BAKED_DIR + file
+	# S392: owned mocap takes (assets/anim/baked/owned/<take>.res)
+	if not corner_only and (DirAccess.dir_exists_absolute(OWNED_DIR) or DirAccess.dir_exists_absolute(OWNED_DIR.trim_suffix("/"))):
+		for f in DirAccess.get_files_at(OWNED_DIR):
+			var file := str(f).trim_suffix(".remap")
+			if file.ends_with(".res"):
+				baked[file.trim_suffix(".res")] = OWNED_DIR + file
 	for name in baked:
 		if _add_baked(lib, skel, prefix, str(name), str(baked[name])):
 			added.append(name)

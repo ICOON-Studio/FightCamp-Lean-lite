@@ -89,8 +89,8 @@ func build(main: Node, offer_id: String) -> void:
 	accept.name = "Accept"
 	foot.add_child(accept)
 	var decline_why := "You already answered this offer - pick another from Fights" if not open else ""
-	var decline := UI.button("Decline", "BtnQuiet", main.act.bind("declineOffer", offer_id), not open, decline_why)
-	decline.name = "Decline"
+	var decline := UI.button("Pass", "BtnQuiet", main.act.bind("declineOffer", offer_id), not open, decline_why)
+	decline.name = "Pass"
 	foot.add_child(decline)
 	if bool(o["mismatch"]):
 		var why := UI.muted("The federation would not sanction it: a novice (%d bouts) may not meet an open fighter (%d bouts; novice ends at %d)." % [

@@ -20,7 +20,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		"load":
 			var loaded := SaveGame.load_career(main.save_path)
 			if loaded == null:
-				main.toast("No saved career yet. Save from the Gear menu while you play.")
+				main.toast("No saved career yet. Save from the Menu while you play.")
 			else:
 				main.resume(loaded)
 				main.toast("Loaded: %s, %s." % [loaded.gym_name, Clock.fmt_long(loaded.day)])

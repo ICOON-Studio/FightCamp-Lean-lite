@@ -18,7 +18,7 @@ func build(main: Node) -> void:
 	v.add_child(_gap(14))
 	var saved := SaveGame.summary(main.save_path)
 	var resume := _tbtn("Resume career", saved if saved != "" else "no save yet", "TBtn", main.act.bind("load", ""), saved == "",
-		"No save file yet - save from the Gear menu during a career")
+		"No save file yet - save from the Menu during a career")
 	resume.name = "Resume"
 	v.add_child(resume)
 	v.add_child(_tbtn("New career", "country, city, gym name", "TBtn", main.act.bind("newcareer", "")))
@@ -35,7 +35,7 @@ func build(main: Node) -> void:
 	v.add_child(_tbtn("Quit", "", "TBtn", main.act.bind("quit", "")))
 	v.add_child(_gap(10))
 	## S367 playtest: the line said "Week 3 build" at update 66 - it names no build now, so it cannot go stale.
-	v.add_child(UI.muted("Early access build: the gym, the boxers, fight night and the no-gi mat are live; save from the Gear menu.", UI.SMALL, true))
+	v.add_child(UI.muted("Early access build: the gym, the boxers, fight night and the no-gi mat are live; save from the Menu.", UI.SMALL, true))
 
 
 func _gap(h: int) -> Control:

@@ -37,6 +37,7 @@ static func _side(name: String, sub: String, rows: Array, stem: String, photo_ri
 		body.add_child(UI.muted(sub, UI.SMALL))
 	var items: Array = []
 	for r in rows:
-		items.append(UI.kv(str(r[0]), str(r[1])))
+		var kind := "mono" if str(r[0]) == "Record" else "bold"
+		items.append(UI.kv(str(r[0]), str(r[1]), UI.FG, kind))
 	UI.add_rows(body, items)
 	return c[0]

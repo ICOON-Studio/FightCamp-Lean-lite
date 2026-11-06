@@ -16,6 +16,8 @@ const Faces := preload("res://scripts/rules/Faces.gd")
 const ComboStrip := preload("res://scripts/ui/ComboStrip.gd")
 const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const MoveTip := preload("res://scripts/ui/MoveTip.gd")
+const PadView := preload("res://scripts/ui/PadView.gd")
+const MoveClips := preload("res://scripts/fight3d/MoveClips.gd")
 const SCRIPT_PATH := "res://scripts/ui/ComboBuilder.gd"
 
 ## The moves she can chain: ComboFlow id, name, the clip her body plays, the move she must master (Data.MOVES; "" = none),
@@ -217,7 +219,11 @@ func _refresh(play: bool) -> void:
 	var by_id := {}
 	for e in PALETTE:
 		by_id[e["id"]] = e
-	_rows.add_child(ComboStrip.strip(f, chain, r, by_id, _remove))
+	var bid := book_id(chain)
+	var strip := ComboStrip.strip(f, chain, r, by_id, _remove)
+	_rows.add_child(strip)
+	if bid != "" and not MoveClips.clips(bid).is_empty():
+		_attach_pad_watch_row(strip, bid)
 	_rows.add_child(ComboStrip.totals(f, chain, r, book_id(chain)))
 	var lessons := PanelContainer.new()
 	lessons.name = "Lessons"
@@ -244,7 +250,7 @@ func _refresh(play: bool) -> void:
 	var save := UI.button("Save to the book", "Btn", _save, locked != "", locked)
 	save.name = "SaveCombo"
 	btns.add_child(save)
-	var bid := book_id(chain)
+	bid = book_id(chain)
 	if bid != "":
 		var open := Combos.unlocked(f.get("moves", {})).has(bid)
 		var drill := UI.button("Drill it on the pads", "Btn", _drill.bind(bid), not open,
@@ -254,6 +260,29 @@ func _refresh(play: bool) -> void:
 	_rows.add_child(btns)
 	if play:
 		_play()
+
+
+func _attach_pad_watch_row(strip: Control, bid: String) -> void:
+	var step1 := strip.find_child("Step_1", true, false)
+	if step1 == null:
+		return
+	var row := step1.get_child(0) as VBoxContainer
+	if row == null:
+		return
+	var top := row.get_child(0) as HBoxContainer
+	if top == null:
+		return
+	var x_idx := top.get_child_count() - 1
+	var w := UI.button("Watch on the pads", "Btn", _open_pad_view.bind(bid), false, "")
+	w.name = "WatchPads_" + bid.replace(" ", "_").replace("-", "_")
+	top.add_child(w)
+	top.move_child(w, x_idx)
+
+
+func _open_pad_view(bid: String) -> void:
+	if bid == "" or MoveClips.clips(bid).is_empty():
+		return
+	PadView.open(main, f, bid)
 
 
 func _play() -> void:
