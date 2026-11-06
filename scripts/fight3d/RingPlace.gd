@@ -15,7 +15,13 @@ const STEP_RAMP_S := 0.07
 ## S311: nobody closes inside this pelvis gap (gloves in guard would meet).
 const MIN_GAP_M := 0.62
 ## S314: in an inside spell the heads pass each other's shoulder (Footwork.offset), so they may close to this.
-const INSIDE_FLOOR_M := 0.48
+const INSIDE_FLOOR_M := 0.6   # S392: 0.48 sat under the 0.64 inside range (RangeBreath) and let the chests in
+## S392 (two blind judges: "they walk through each other", chests merged, lead boots jammed; ring_feet_probe men: inside range shown
+## down to 0.35 m, chests 0.23 m apart, though the fight's place held 0.58): the floors above guard `pos`, not the body as shown,
+## and the feet's lag and a lunge carried it through. Shown bodies keep this far apart, each giving half; a lunge stops here too.
+## `-- nobodykeep` = the control arm.
+const BODY_KEEP_M := 0.6
+static var body_keep: bool = not OS.get_cmdline_user_args().has("nobodykeep")
 ## S311: the pair's middle stays this far inside the ropes (was 0.9: nobody ever reached them), and a boxer's pelvis
 ## at least ROPE_LEAN_M (backed onto the ropes she leans on them).
 const MID_IN_M := 0.55
@@ -74,6 +80,21 @@ static func compose(st: Node, delta: float) -> void:
 
 
 ## Keeps the pair inside the ropes and puts each body where it is shown (lunge, clinch, inside offsets), facing the other.
+## S392 where `me` is shown when she stands closer to `other` than `keep_m`: she gives half of what is missing, straight back
+## (the other gives the other half on her own turn). It grows from 0 with the shortfall, so nothing pops.
+static func kept(me: Vector3, other: Vector3, keep_m: float) -> Vector3:
+	var away := Vector3(me.x - other.x, 0.0, me.z - other.z)
+	var short := keep_m - away.length()
+	if short <= 0.0 or away.length() < 0.001:
+		return me
+	return me + away.normalized() * short * 0.5
+
+
+## S392 a lunge carries her in only as far as `keep_m` from the other. `dist` = the gap before it.
+static func lunge_room(lunge_m: float, dist: float, keep_m: float) -> float:
+	return clampf(lunge_m, 0.0, maxf(dist - keep_m, 0.0))
+
+
 static func _place(st: Node, delta: float) -> void:
 	var boxers: Array = st.boxers
 	var feet: RefCounted = st.feet
@@ -94,10 +115,15 @@ static func _place(st: Node, delta: float) -> void:
 		var me := RingFeet.shown(st, bx)
 		var other := RingFeet.shown(st, boxers[1 - i])
 		var n: Node3D = bx["node"]
+		var keep_m: float = st.clinch.floor_m(BODY_KEEP_M) if body_keep else 0.0
+		me = kept(me, other, keep_m)
 		var to := other - me
 		# S302: a landed punch carries her in (shown only; her place on the canvas stays).
 		var pr: Node = bx.get("reach")
-		n.position = me + (to.normalized() * float(pr.lunge()) if pr != null and to.length() > 0.01 else Vector3.ZERO) + st.clinch.offset(i, to) + feet.offset(to)
+		var lunge := lunge_room(float(pr.lunge()), to.length(), keep_m) if pr != null else 0.0
+		# S392: the rig's feet already stand off the line (RingFeet.tick); only a body the rig has let go of takes the shift here.
+		var side: Vector3 = feet.offset(to) * (1.0 - float(bx["rig"].w) if RingFeet.on(st, bx) else 1.0)
+		n.position = me + (to.normalized() * lunge if to.length() > 0.01 else Vector3.ZERO) + st.clinch.offset(i, to) + side
 		if bx.get("snap") != null:
 			bx["snap"].sway = feet.inside_w   # S315 small head sways inside
 		if bx.get("tuck") != null and not st._no_inguard:

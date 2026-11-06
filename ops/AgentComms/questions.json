@@ -5137,10 +5137,11 @@
         "Drop"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "i want to see current state",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-06T11:42:00Z",
+      "seen_by_claude": true,
+      "comment_only": true
     },
     {
       "id": "Q-S294-107",
@@ -5152,10 +5153,11 @@
         "No"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "not sure what you are talking about",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-06T11:43:16Z",
+      "seen_by_claude": true,
+      "comment_only": true
     },
     {
       "id": "Q-S294-108",
@@ -5167,10 +5169,11 @@
         "Drop"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "Give a view",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-06T11:43:27Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-109",
@@ -5180,6 +5183,22 @@
       "options": [
         "Yes",
         "No"
+      ],
+      "attach": [],
+      "answer": "Yes",
+      "note": null,
+      "answered_at": "2026-11-06T11:43:40Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-110",
+      "asked": "2026-11-06T12:00:38.014297+00:00",
+      "session": "S294",
+      "text": "Plan and ring position, reworded: in your plan you pick where each exchange happens (long range, on the ropes). The result counts it, but the 3D fighters do not walk there, so the picture can disagree with the plan. Should the fighters move to where the plan says?",
+      "options": [
+        "Yes, later",
+        "No, leave it"
       ],
       "attach": [],
       "answer": null,

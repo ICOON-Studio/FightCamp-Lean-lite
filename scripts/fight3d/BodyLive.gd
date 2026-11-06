@@ -65,12 +65,17 @@ func _apply(b: Dictionary) -> void:
 	var stage: Node = view.stage
 	BodyMap.add_beats(map, [b], {"a": bool(stage.boxers[0].get("south", false)), "b": bool(stage.boxers[1].get("south", false))})
 	var struck := []
+	var lost := {}
 	var round_n := int(view.get("round_n"))
 	for p in BodyMap.PLACES:
 		if BodyMap.value(map, def, p) < float(before[p]):
 			struck.append(p)
+			lost[p] = float(before[p]) - BodyMap.value(map, def, p)
 			BodyTip.log_hit(taken[side], p, str(b["move"]), bool(b.get("big", false)), round_n)
 	RoundHits.count(_by_round[side], round_n, struck)
+	var bars: Node = view.get("bars")   # S392: the HUD answers at the contact
+	if bars != null and not lost.is_empty():
+		bars.hit(side, lost, bool(b.get("big", false)))
 
 
 ## S382 {spot: punches landed} on boxer `side` (0 = hers) in round `n` (the corner card's tint and words).

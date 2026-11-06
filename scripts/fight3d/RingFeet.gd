@@ -48,7 +48,7 @@ static func tick(st: Node, i: int, delta: float) -> void:
 	var pos: Vector3 = bx["pos"]
 	var other: Vector3 = st.boxers[1 - i]["pos"]
 	var yaw := atan2(other.x - pos.x, other.z - pos.z)
-	var goal: Vector2 = _xz(_end(st, bx)) - rig.mid()
+	var goal: Vector2 = _xz(_end(st, bx)) - rig.mid() + _xz(st.feet.offset(other - pos))   # S392: inside, her feet go off the line with her
 	if free or float(rig.w) <= 0.0 or goal.distance_to(plan.centre()) > JUMP_M:
 		_stand(rig, _xz(pos), yaw)   # she stands where the fight says until the rig has her back
 		return

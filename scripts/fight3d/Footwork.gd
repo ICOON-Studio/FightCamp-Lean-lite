@@ -21,7 +21,9 @@ const EXIT_SCALE := 0.8
 const BAND_M := {"in": 0.06, "pocket": 0.08, "rest": 0.12, "clinch": 0.06, "inside": 0.06}
 ## S314 inside range: each body shifts this far to her own left so the heads pass each other's shoulder (forehead by the
 ## other's shoulder, as real inside work looks), easing in and out over INSIDE_EASE_S.
-const INSIDE_SIDE_M := 0.07
+## S392 (blind coach: "faces mashed together"; ring_feet_probe: heads 0.06 m apart inside): 0.07 left the heads on one line. 0.13 is
+## the clinch's ear by ear (Clinch.SIDE_M), and with the rig her feet step there too (RingFeet.tick), so the boots clear as well.
+const INSIDE_SIDE_M := 0.13
 const INSIDE_EASE_S := 0.3
 
 ## S311 real-fight gap 3: out of range their feet never stop (real: feet moving 53-56 % of a round, ~155 m travel; ours

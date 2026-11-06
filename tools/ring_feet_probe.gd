@@ -19,6 +19,14 @@ var view: Node
 var st: Array = [{}, {}]
 
 
+const BOOT_TOUCH_M := 0.09
+var boots_frames := 0
+var boots_min := 9.0
+var boots_by := {}
+var boots_clips := {}
+var gaps := {}
+
+
 func _initialize() -> void:
 	var secs := 120.0
 	for a in OS.get_cmdline_user_args():
@@ -30,7 +38,8 @@ func _initialize() -> void:
 	main = load("res://scenes/Main.tscn").instantiate()
 	root.add_child(main)
 	await _wait(4)
-	print("RING_FEET reached fight night: ", TestJump.run(main, "fight"), " arms ", OS.get_cmdline_user_args())
+	var jump := "men_fight" if OS.get_cmdline_user_args().has("men") else "fight"
+	print("RING_FEET reached fight night: ", TestJump.run(main, jump), " arms ", OS.get_cmdline_user_args())
 	await _wait(4)
 	main.act("fightstep", "start")
 	view = main._fight_layer.get_child(0)
@@ -60,6 +69,8 @@ func _log(i: int) -> void:
 	var bx: Dictionary = view.stage.boxers[i]
 	var skel: Skeleton3D = bx["skel"]
 	var xf := skel.global_transform
+	if i == 0:
+		_boots()
 	d["frames"] = int(d["frames"]) + 1
 	var rig: Node = bx.get("rig")
 	var on: bool = rig != null and float(rig.w) >= 0.99
@@ -175,12 +186,95 @@ func _report() -> void:
 		print("RING_FEET %d pairs by way [count, mean m]: %s" % [i, str(kinds)])
 		print("RING_FEET %d knee deg p50 %.0f p99 %.0f locked>170 %.1f %% shake %.2f planted leg %.2f | shown off place m p50 %.3f p90 %.3f max %.3f" % [i, _pc(knee, 0.5), _pc(knee, 0.99),
 			100.0 * locked / maxf(1.0, knee.size()), sqrt(float(d["shake"]) / maxf(1.0, int(d["shake_n"]))), sqrt(float(d.get("shake_p", 0.0)) / maxf(1.0, int(d.get("shake_pn", 0)))), _pc(d["off"], 0.5), _pc(d["off"], 0.9), _pc(d["off"], 1.0)])
+	for ph in gaps:
+		var g: Dictionary = gaps[ph]
+		print("RING_FEET gap %s (%d frames): place p5 %.2f p50 %.2f | shown p5 %.2f p50 %.2f min %.2f | chest p5 %.2f p50 %.2f min %.2f | head p5 %.2f p50 %.2f min %.2f" % [ph, (g["pos"] as Array).size(), _pc(g["pos"], 0.05), _pc(g["pos"], 0.5), _pc(g["shown"], 0.05), _pc(g["shown"], 0.5), _pc(g["shown"], 0.0), _pc(g["chest"], 0.05), _pc(g["chest"], 0.5), _pc(g["chest"], 0.0), _pc(g["head"], 0.05), _pc(g["head"], 0.5), _pc(g["head"], 0.0)])
+	var over := 0
+	for key in boots_by:
+		over += int(boots_by[key][0])
+	print("RING_FEET boots drawn: inside %.2f m %d of %d frames (%.1f %%), closest %.3f m" % [BOOT_TOUCH_M, over, boots_frames, 100.0 * over / maxf(1.0, boots_frames), boots_min])
+	for key in boots_by:
+		print("RING_FEET boots by %s: %d frames, mean gap %.2f m" % [key, int(boots_by[key][0]), float(boots_by[key][1]) / maxf(1.0, int(boots_by[key][0]))])
+	var top: Array = boots_clips.keys()
+	top.sort_custom(func(a, b): return int(boots_clips[a]) > int(boots_clips[b]))
+	print("RING_FEET boots clips: ", top.slice(0, 6).map(func(c): return "%s %d" % [c, int(boots_clips[c])]))
 	for i in 2:
 		print("RING_FEET %d lowest knee %.3f m in %s" % [i, float(st[i].get("knee_low", 9.0)), str(st[i].get("knee_low_clip", ""))])
 	var rows: Array = view.stage.hit_gaps.filter(func(r): return not bool(r.get("cut", false)))
 	var miss: Array = rows.map(func(r): return float(r["miss"]))
 	var far := rows.filter(func(r): return float(r["miss"]) > MISS_M).size()
 	print("RING_FEET landed %d in %.0f s | glove to target m p50 %.3f p90 %.3f max %.3f | > %.2f m: %d (%.0f %%)" % [rows.size(), secs, _pc(miss, 0.5), _pc(miss, 0.9), _pc(miss, 1.0), MISS_M, far, 100.0 * far / maxf(1.0, rows.size())])
+
+
+## S392 (two blind judges: "lead boots share the same floor space") the boots as DRAWN, every frame, whoever has the legs: each
+## boot a line from the ankle past the toes on the canvas plan. Under BOOT_TOUCH_M two boots are inside each other.
+func _boot(bx: Dictionary, k: int) -> Array:
+	var skel: Skeleton3D = bx["skel"]
+	var xf := skel.global_transform
+	var a: Vector3 = xf * skel.get_bone_global_pose(skel.find_bone(LEGS[k][2])).origin
+	var b: Vector3 = xf * skel.get_bone_global_pose(skel.find_bone(TOES[k])).origin
+	var tip := b + (b - a) * 0.45
+	return [Vector2(a.x, a.z), Vector2(tip.x, tip.z), minf(a.y, b.y)]
+
+
+static func _seg(a: Vector2, b: Vector2, c: Vector2, d: Vector2) -> float:
+	var best := 9.0
+	for n in 9:
+		var p := a.lerp(b, n / 8.0)
+		var q := Geometry2D.get_closest_point_to_segment(p, c, d)
+		best = minf(best, p.distance_to(q))
+		var p2 := c.lerp(d, n / 8.0)
+		best = minf(best, p2.distance_to(Geometry2D.get_closest_point_to_segment(p2, a, b)))
+	return best
+
+
+## S392 how close the bodies come, by phase: the fight's place (pos), the body as shown (the node), chest to chest as drawn.
+func _gaps(b0: Dictionary, b1: Dictionary) -> void:
+	var a: Vector3 = b0["pos"]
+	var b: Vector3 = b1["pos"]
+	var na := (b0["node"] as Node3D).position
+	var nb := (b1["node"] as Node3D).position
+	var s0: Skeleton3D = b0["skel"]
+	var s1: Skeleton3D = b1["skel"]
+	var ca: Vector3 = s0.global_transform * s0.get_bone_global_pose(s0.find_bone("Chest")).origin
+	var cb: Vector3 = s1.global_transform * s1.get_bone_global_pose(s1.find_bone("Chest")).origin
+	var ph := str(view.stage.feet.phase())
+	if not gaps.has(ph):
+		gaps[ph] = {"pos": [], "shown": [], "chest": [], "head": []}
+	(gaps[ph]["pos"] as Array).append(Vector2(a.x - b.x, a.z - b.z).length())
+	(gaps[ph]["shown"] as Array).append(Vector2(na.x - nb.x, na.z - nb.z).length())
+	(gaps[ph]["chest"] as Array).append(Vector2(ca.x - cb.x, ca.z - cb.z).length())
+	var ha: Vector3 = s0.global_transform * s0.get_bone_global_pose(s0.find_bone("Head")).origin
+	var hb: Vector3 = s1.global_transform * s1.get_bone_global_pose(s1.find_bone("Head")).origin
+	(gaps[ph]["head"] as Array).append(ha.distance_to(hb))
+
+
+func _boots() -> void:
+	var b0: Dictionary = view.stage.boxers[0]
+	var b1: Dictionary = view.stage.boxers[1]
+	_gaps(b0, b1)
+	var close := 9.0
+	for k in 2:
+		for m in 2:
+			var s0 := _boot(b0, k)
+			var s1 := _boot(b1, m)
+			if absf(float(s0[2]) - float(s1[2])) < 0.12:   # one boot in the air over the other is not boot in boot
+				close = minf(close, _seg(s0[0], s0[1], s1[0], s1[1]))
+	boots_frames += 1
+	boots_min = minf(boots_min, close)
+	if close >= BOOT_TOUCH_M:
+		return
+	var r0: Node = b0.get("rig")
+	var r1: Node = b1.get("rig")
+	var legs := "rig+rig" if r0 != null and r1 != null and float(r0.w) >= 0.99 and float(r1.w) >= 0.99 else ("clip+clip" if r0 == null or r1 == null or (float(r0.w) <= 0.01 and float(r1.w) <= 0.01) else "mixed")
+	var gap := (b0["node"] as Node3D).position.distance_to((b1["node"] as Node3D).position)
+	var key := "%s %s" % [str(view.stage.feet.phase()), legs]
+	var row: Array = boots_by.get(key, [0, 0.0])
+	boots_by[key] = [int(row[0]) + 1, float(row[1]) + gap]
+	var c0 := str((b0["ap"] as AnimationPlayer).current_animation)
+	var c1 := str((b1["ap"] as AnimationPlayer).current_animation)
+	boots_clips[c0] = int(boots_clips.get(c0, 0)) + 1
+	boots_clips[c1] = int(boots_clips.get(c1, 0)) + 1
 
 
 func _wait(n: int) -> void:

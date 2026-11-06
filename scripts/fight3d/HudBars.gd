@@ -42,6 +42,9 @@ const UNKNOWN := {
 ## Her scouted guard under this and the corner tells her to go over the top (once a round).
 const GUARD_LOW := 0.55
 const READ_S := 0.25
+## S392 (operator: "flash according to the damage done"): a flash is damage / FLASH_FULL, BodyMap's biggest loss; never under LEAST.
+const FLASH_FULL := 3.0
+const FLASH_LEAST := 0.35
 
 var view: Control
 var edge: Control
@@ -116,6 +119,33 @@ func _build() -> void:
 	edge.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 
 
+## S392 how bright a hit flashes, 0-1. A big punch is full whatever it took.
+static func strength(loss: float, big: bool) -> float:
+	if loss <= 0.0:
+		return 0.0
+	return 1.0 if big else clampf(loss / FLASH_FULL, FLASH_LEAST, 1.0)
+
+
+## S392 a landed punch at the glove's contact (BodyLive): `lost` = {place: points}. The arcs answer now, not at the next read.
+func hit(side: int, lost: Dictionary, big: bool) -> void:
+	var head := 0.0
+	var body := 0.0
+	for p in lost:
+		if str(p).ends_with("_ribs"):
+			body = maxf(body, float(lost[p]))
+		else:
+			head = maxf(head, float(lost[p]))
+	if head > 0.0:
+		(meters[side]["head"] as Arc).flash(strength(head, big))
+	if body > 0.0:
+		(meters[side]["body"] as Arc).flash(strength(body, big))
+	if big and lost.has("right_ribs"):
+		var ring := (blocks[side] as Control).find_child("Rings", true, false) as Rings
+		if ring != null:
+			ring.liver_hit()
+	_read_left = 0.0
+
+
 ## Called with the HUD's state after the watched exchanges (LiveRound.state) and the exchanges scored so far this round.
 func paint(snap: Dictionary, scored: Array, start: Dictionary) -> void:
 	if not snap.is_empty():
@@ -141,10 +171,11 @@ func _process(delta: float) -> void:
 		var ring := (blocks[side] as Control).find_child("Rings", true, false) as Rings
 		if ring != null:
 			ring.hurt = (_hurt[side] as Label).visible
+			var live: Node = view.get("body")
+			ring.liver_bad = ring.hurt or (live != null and BodyMap.value(live.map, "a" if side == 0 else "b", "right_ribs") <= BodyMap.HURT)
 		var taken := int((_snap.get("body", [0, 0]) as Array)[side])
 		if _body_seen[side] >= 0 and taken > int(_body_seen[side]):
-			(meters[side]["body"] as Arc).flash()
-			(meters[side]["stamina"] as Arc).flash()
+			(meters[side]["stamina"] as Arc).flash(0.6)   # the body arc flashes at the contact, by its damage (hit)
 		_body_seen[side] = taken
 		if side == 1:
 			_guard_call(bars["guard"])
@@ -234,6 +265,12 @@ class Arc extends RefCounted:
 	var _want_keep := 1.0
 	var _flash := 0.0
 	var _band := -1
+	## S392 what the last hit took (top end, -1 = none). A hit is 1.5-3 points, under 2 degrees: drawn CHUNK_MIN wide at least.
+	const CHUNK_HOLD_S := 0.5
+	const CHUNK_MIN := 0.04
+	const CHUNK_DRAIN_S := 0.18
+	var chunk := -1.0
+	var _chunk_hold := 0.0
 
 	func set_bar(b: Dictionary) -> void:
 		known = bool(b["known"])
@@ -242,19 +279,34 @@ class Arc extends RefCounted:
 		if fill < 0.0:
 			fill = _want
 			keep = _want_keep
+		elif _want < fill - 0.0005:
+			chunk = maxf(chunk, fill)
+			_chunk_hold = CHUNK_HOLD_S
+			fill = _want
 		var band := band_of(_want)
 		if _band >= 0 and band != _band:
 			_flash = maxf(_flash, 0.7)
 		_band = band
 
-	func flash() -> void:
-		_flash = 1.0
+	func flash(power: float = 1.0) -> void:
+		_flash = maxf(_flash, power)
+
+
+	## Where the chunk ends on the arc, -1 = no chunk.
+	func chunk_top() -> float:
+		return maxf(chunk, fill + CHUNK_MIN) if chunk >= 0.0 else -1.0
 
 	func tick(delta: float) -> void:
 		var k := 1.0 - exp(-delta / EASE_S)
 		fill = lerpf(fill, _want, k)
 		keep = lerpf(keep, _want_keep, k)
 		_flash = maxf(0.0, _flash - delta * 2.0)
+		if chunk >= 0.0:
+			_chunk_hold -= delta
+			if _chunk_hold <= 0.0:
+				chunk = lerpf(chunk, fill, 1.0 - exp(-delta / CHUNK_DRAIN_S))
+				if chunk - fill < 0.004:
+					chunk = -1.0
 
 	static func band_of(v: float) -> int:
 		return 0 if v >= 0.6 else (1 if v >= 0.35 else 2)
@@ -285,6 +337,17 @@ class Rings extends Control:
 	var mirror := false
 	var hurt := false
 	var _tex := {}
+	## S392 (operator: "make the liver flash red quickly and keep it showing the duration of the effect"): a big liver shot flashes it
+	## in the ring's middle; it holds LIVER_MIN_S, and stays while liver_bad (hurt, or BodyMap's hurt band). Not a panel: S381 stands.
+	const LIVER_MIN_S := 3.0
+	const LIVER_PX := 92.0
+	const LIVER_FLASH_RATE := 3.0
+	const LIVER_PIC := preload("res://assets/ui/body/organ_liver.png")
+	var liver_flash := 0.0
+	var liver_bad := false
+	var _liver_left := 0.0
+	var _liver_on := false
+	var _liver_t := 0.0
 
 	func _ready() -> void:
 		mouse_filter = Control.MOUSE_FILTER_PASS
@@ -294,7 +357,26 @@ class Rings extends Control:
 	func _process(delta: float) -> void:
 		for a in arcs.values():
 			(a as Arc).tick(delta)
+		tick_liver(delta, liver_bad)
 		queue_redraw()
+
+
+	func liver_hit() -> void:
+		liver_flash = 1.0
+		_liver_left = LIVER_MIN_S
+		_liver_on = true
+
+
+	func liver_lit() -> bool:
+		return _liver_on
+
+
+	func tick_liver(delta: float, bad: bool) -> void:
+		liver_flash = maxf(0.0, liver_flash - delta * LIVER_FLASH_RATE)
+		_liver_left -= delta
+		_liver_t += delta
+		if _liver_on and _liver_left <= 0.0 and not bad:
+			_liver_on = false
 
 	## The middle of slot i in degrees: on top, then lower right, lower left (swapped on the mirrored block).
 	func mid_deg(i: int) -> float:
@@ -309,10 +391,15 @@ class Rings extends Control:
 		for i in 3:
 			_arc(c, R_IN, mid_deg(i), arcs.get(INNER[i]) as Arc, str(INNER[i]), false)
 			_arc(c, R_OUT, mid_deg(i), arcs.get(OUTER[i]) as Arc, str(OUTER[i]), true)
+		if _liver_on:
+			var px := LIVER_PX * (1.0 + 0.18 * liver_flash)
+			var tint := Color(1.0, 0.22, 0.16, 1.0).lerp(Color(1.0, 0.75, 0.7, 1.0), liver_flash)
+			tint.a = minf(1.0, 0.62 + 0.14 * sin(_liver_t * 5.0) + liver_flash)
+			draw_texture_rect(LIVER_PIC, Rect2(c - Vector2(px, px) * 0.5, Vector2(px, px)), false, tint)
 		if hurt:
 			var f := ThemeDB.fallback_font
 			var w := f.get_string_size("HURT", HORIZONTAL_ALIGNMENT_LEFT, -1, 15).x
-			draw_string(f, c + Vector2(-w * 0.5, 6), "HURT", HORIZONTAL_ALIGNMENT_LEFT, -1, 15, Color("#e0503c"))
+			draw_string(f, c + Vector2(-w * 0.5, 48 if _liver_on else 6), "HURT", HORIZONTAL_ALIGNMENT_LEFT, -1, 15, Color("#e0503c"))
 
 	## One arc: its dark track, the spent part (comes back at the bell), the fill, the grey end gone for the fight.
 	func _arc(c: Vector2, r: float, mid: float, a: Arc, key: String, outer: bool) -> void:
@@ -341,6 +428,8 @@ class Rings extends Control:
 		_part(c, r, a0, a1, fl, kp, Color(col.r, col.g, col.b, 0.22))   # spent, can come back at the bell
 		_part(c, r, a0, a1, 0.0, fl, col)
 		_part(c, r, a0, a1, kp, 1.0, Color(0.42, 0.42, 0.44, 0.85))   # gone for the fight
+		if a.chunk_top() > fl:
+			_part(c, r, a0, a1, fl, minf(a.chunk_top(), 1.0), Color(1.0, 0.95, 0.9, 0.95))   # S392 what this hit took
 		if a._flash > 0.0:
 			draw_arc(c, r, a0, a1, 32, Color(1, 1, 1, 0.55 * a._flash), WIDTH, true)
 		# S369 (operator, on the ring: "also add numbers here?"): her value on the arc, 0-100, so the corner can read who is

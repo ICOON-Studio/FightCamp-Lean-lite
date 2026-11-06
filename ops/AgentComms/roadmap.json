@@ -6,7 +6,7 @@
   "id": "S392",
   "owner": "claude",
   "updated": "2026-11-06",
-  "summary": "S392: footwork merged to main b6316814 (blind A/B, judges did not know which: footwork 6 and 5.5 against 3.5 and 4 for main, whose boots hover over the canvas; final film after the hip floor 6 and 5; suite 184/0; not shown to him, under 7). One Miro board: 763 items copied to the production map, 53 links repointed, loop board marked archived, nothing deleted. Blood & Canvas studied. Traits proposal three rounds, 5/10, not shown. Ziva back up.",
+  "summary": "S392: footwork on main, blind 6 and 5.5 against 3.5 and 4; bodies keep apart, boots touching 14 -> 1 of 3,604 frames; HUD chunk, flash and liver built, unreviewed; one Miro board; Blood & Canvas and Tale of the Tape studied; traits 5/10; Ziva up; suite 186/0. Nothing exported or shown.",
   "last_working_commit": "7149ceb6",
   "next_action": "S387 (NEXT_SESSION_PROMPT.md): (1) build menu critic 1-3 + Playbook tab in the fighter page; (2) fight motion round 3 by the blind loop; (3) merge GAMETREE1 after the suite; (4) collect BJJ9R17 / SOUND1R2 / FIGHT9R15.",
   "verified_playable": "S385: training1 on main 96d48da2 - Training tab week strip + drill cards; drag 1-2 onto Friday pads proven on a real focused window (E:/FightCamp/tmp/s385/training/drag_*.jpg), suite 158/158.",
@@ -14,7 +14,7 @@
   "next_acceptance": "Owned takes play in a live fight with no knee tremble (owned_mocap_jitter bars) and the operator's watch OK.",
   "awaiting_operator": "Gemini prepay refill (optional); Q-S294-98/99/100."
  },
- "next": "S393: fix the boots sharing floor space in close (both judges' worst fault), then judge to 7 before showing him; traits: rerun the plan probe with a truly wrong arm, then rewrite and judge; HUD and poster, leaning, menus per NEXT_SESSION_PROMPT.",
+ "next": "S393: collect PADVIEW1, OWNEDTAKES1, MENUTEXT1, LICENCE1; HUD review; inside fighting; punch interrupted; sound takes per punch; traits wrong-plan test.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -1562,7 +1562,7 @@
   {
    "id": "S392",
    "date": "2026-11-06",
-   "summary": "S392: footwork merged to main b6316814 (blind A/B, judges did not know which: footwork 6 and 5.5 against 3.5 and 4 for main, whose boots hover over the canvas; final film after the hip floor 6 and 5; suite 184/0; not shown to him, under 7). One Miro board: 763 items copied to the production map, 53 links repointed, loop board marked archived, nothing deleted. Blood & Canvas studied. Traits proposal three rounds, 5/10, not shown. Ziva back up."
+   "summary": "S392: footwork on main, blind 6 and 5.5 against 3.5 and 4; bodies keep apart, boots touching 14 -> 1 of 3,604 frames; HUD chunk, flash and liver built, unreviewed; one Miro board; Blood & Canvas and Tale of the Tape studied; traits 5/10; Ziva up; suite 186/0. Nothing exported or shown."
   }
  ],
  "blocked_on_operator": [],
@@ -5143,11 +5143,11 @@
      "who": "claude"
     },
     {
-     "text": "Boots overlap in close: fix",
+     "text": "Traits at 5/10: wrong-plan test",
      "who": "claude"
     },
     {
-     "text": "Traits at 5/10: wrong-plan test",
+     "text": "Inside fighting: nobody works",
      "who": "claude"
     }
    ],
