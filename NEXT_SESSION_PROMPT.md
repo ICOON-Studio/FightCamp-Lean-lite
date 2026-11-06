@@ -3,6 +3,7 @@
 START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S391` + map redraw.
 OPERATOR S390: "do not stop until we have all clips at least 6-7/10". NOT reached. Say so first. ops/research/BJJ_FILM_JUDGED_S390.md, CLIP_SCORES_S390.md hold every score.
 Judges: BJJ reviewer 3-4, animation 3-4, technique 2-3 over ten films. Boxing about 5. 47 of 122 in-game boxing clips under 6, none under 3. Nothing visual goes to him under 7.
+NEW SINCE THIS BLOCK WAS WRITTEN: operator tried a Dominus-style live week and said it looked too much like that game. The direction is now the Camp Board, ops/research/OWN_LOOP_S390.md, wireframe https://claude.ai/artifact/CdMKrLLJVfBConairS9AQ4: operator "board looks nice". Proposal only, nothing in the game. First fix why peaks vanish with a hard cut, then the harshness, then a critic. There is NO gym floor scene in this project; the bible rules it out. Do not take Dominus's skulls, rooms, shared arena day or ticking days (ops/research/DOMINUS_LOOP_S390.md is reference only).
 ORDER FOR S391
 1. His calls, none made for him: claude/footwork1 (never merged; the step clips in the ring score 4); the sound mix (wired, nobody has heard it); poster thump and card flip are stand-ins.
 2. BJJ bodies: real contact. The sep layer has been off since S379 (trembling), so limbs pass through bodies. That is the largest open item in every film. Then hands that truly hold: the wrist grip still reads on her own face, the tap meets nothing.
