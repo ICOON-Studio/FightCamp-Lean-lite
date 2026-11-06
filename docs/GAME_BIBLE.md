@@ -76,10 +76,10 @@ Target is a polished indie, not AAA. Wireframes are labelled as wireframes. Soun
 - Fight motion: see decision 2 below.
 Tests prove code works. They never prove a bar is met.
 
-## 12. Decisions needed from the operator
-1. **BJJ.** Recommendation: out of the first release, a free update later. It doubles the work while boxing's core is unproven. His S353
-   decision was to ship it, so this is his call.
-2. **Fight motion bar.** His S386 rule: every critic 8/10. But critics gave Undisputed itself 7, so that bar means beating a big studio.
-   Recommendation: "nothing visibly broken", judged by strangers.
-3. **Stranger test now.** Recommendation: 5 strangers play the current build before more is built. Only he can find them.
-4. **Art director.** Recommendation: yes, but after structure, not before.
+## 12. Operator decisions (answered S389, 2026-11-06)
+1. **BJJ.** Stays in the first release (his S353 decision stands; Claude recommended out and was overruled). The BJJ rounds carry on.
+2. **Fight motion bar.** "Nothing visibly broken", judged by strangers. This replaces the S386 rule of every critic at 8/10.
+3. **Stranger test.** After the plain screens, not before. There is no baseline on today's build, so the first five strangers are the baseline.
+4. **Art director.** None. Claude and the seats do the look, with blind critics.
+Still open: budget.
+

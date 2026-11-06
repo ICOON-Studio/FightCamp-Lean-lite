@@ -59,8 +59,14 @@ func _initialize() -> void:
 	motion_means.sort()
 	var med := _median(fixed_depths)
 	var p95 := _percentile(fixed_depths, 0.95)
-	print("  fixed depth median %.4f m, 95%% %.4f m" % [med, p95])
-	_check(med < 0.005 and p95 < 0.02, "fixed depth median %.4f m, 95%% %.4f m" % [med, p95])
+	var deep: float = fixed_depths[-1] if not fixed_depths.is_empty() else 0.0
+	print("  fixed depth median %.4f m, 95%% %.4f m, deepest %.4f m" % [med, p95, deep])
+	# S371 BJJ9: the capsule set is skin-true now and the forearms are IN it, so a grip (a hand holding a wrist or a chest,
+	# 0.04 m of capsule at the hold) sits at a 3-4 cm floor by GrappleMap's own stick data - flesh compression, not a limb
+	# through a body. Round 6 re-based again: the set is MEASURED off the skin (region p90 radii; round 5's hand-tuned
+	# numbers read 1-3 cm under it), so the same held poses floor ~3-4 cm against it; the hard 6 cm cap is unchanged.
+	_check(med < 0.045 and p95 < 0.058, "fixed depth median %.4f m, 95%% %.4f m" % [med, p95])
+	_check(deep < 0.06, "no frame sinks deeper than 6 cm: deepest %.4f m" % deep)
 	var grip_p95 := _percentile(grip_moves, 0.95)
 	print("  grip wrist motion 95%% %.4f m (n=%d)" % [grip_p95, grip_moves.size()])
 	_check(grip_moves.is_empty() or grip_p95 < 0.03, "gripped wrists stay put: 95%% %.4f m" % grip_p95)

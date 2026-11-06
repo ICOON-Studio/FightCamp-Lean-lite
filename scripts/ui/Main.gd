@@ -33,6 +33,9 @@ const FIGHT := preload("res://scenes/modals/FightNight.tscn")
 const GOALTALK := preload("res://scenes/modals/GoalTalk.tscn")
 const TRIAL := preload("res://scenes/modals/Trial.tscn")
 const PROOFFER := preload("res://scenes/modals/ProOffer.tscn")
+const OPEN_NIGHT := preload("res://scenes/modals/OpenNight.tscn")
+const MatNight := preload("res://scripts/ui/MatNight.gd")
+const Grapplers := preload("res://scripts/state/Grapplers.gd")
 
 var career: Career = null
 var screen := "title"
@@ -50,6 +53,7 @@ var save_path := SaveGame.PATH
 
 var _screen_holder: Control
 var _fight_layer: Control
+var _mat_layer: Control   # S389 a bout of an open fought live covers the career
 var _modal_layer: Control
 var _toast_layer: Control
 var _shell: Node = null
@@ -70,7 +74,9 @@ func _ready() -> void:
 	_screen_holder = _layer()
 	_fight_layer = _layer()
 	_modal_layer = _layer()
+	_mat_layer = _layer()
 	_toast_layer = _layer()
+	Grapplers.live = FightView.enabled()
 	_toast_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_timer = Timer.new()
 	_timer.one_shot = true
@@ -146,7 +152,7 @@ func _render_modal() -> void:
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_modal_layer.add_child(center)
 	var scene: PackedScene = {"interview": INTERVIEW, "review": REVIEW, "info": INFO, "camp": CAMP, "weighin": WEIGH,
-		"fight": FIGHT, "goaltalk": GOALTALK, "trial": TRIAL, "prooffer": PROOFFER, "poster": POSTER}[modal["type"]]
+		"fight": FIGHT, "goaltalk": GOALTALK, "trial": TRIAL, "prooffer": PROOFFER, "poster": POSTER, "open": OPEN_NIGHT}[modal["type"]]
 	var node := scene.instantiate()
 	center.add_child(node)
 	node.build(self, modal)
@@ -283,7 +289,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if key == KEY_SPACE and screen == "career" and modal.is_empty():
 		on_go()
 		get_viewport().set_input_as_handled()
-	elif key == KEY_ESCAPE and not modal.is_empty() and not ["fight", "weighin", "trial"].has(str(modal["type"])) \
+	elif key == KEY_ESCAPE and not modal.is_empty() and not ["fight", "weighin", "trial", "open"].has(str(modal["type"])) \
 			and not bool(modal.get("locked", false)):
 		close_modal()
 		get_viewport().set_input_as_handled()
@@ -402,6 +408,16 @@ func act(name: String, arg: String = "") -> void:
 			open_modal(closed_modal(career))
 		"quit":
 			get_tree().quit()
+		"opennight":
+			open_modal({"type": "open", "fid": arg})
+		"opensim":
+			Grapplers.sim_bout(career, career.grappler_by_id(arg))
+			redraw_modal()
+		"openlive":
+			MatNight.start(self, _mat_layer, career.grappler_by_id(arg))
+		"openclose":
+			Grapplers.close_open(career, career.grappler_by_id(arg))
+			close_modal()
 		_:
 			if not (GymActs.act(self, name, arg) or BoutActs.act(self, name, arg) or RosterActs.act(self, name, arg) or GrapplerPage.act(self, name, arg)):
 				push_warning("unknown action " + name)

@@ -17,6 +17,14 @@ const CLASSES_PER_WEEK := 3
 ## S365 teaching the beginners' class takes one of her evenings (mirrors BjjSide.TEACH_CLASSES; NoGi preloads no BjjSide).
 const TEACH_CLASSES := 1
 const DRILL_GAIN := 3.2
+## S369 (operator "Yes, train them"): the classes train her body too - the rolls after the drilling are interval work
+## against a resisting body. A week of CLASSES_PER_WEEK classes adds BODY_GAIN x (1 - value / BODY_CEIL) (the closer to
+## her ceiling the slower, like MoveMastery): cardio 58 -> ~67 and strength 52 -> ~58 in a year at 3 classes (coach
+## judgement, game values; the belt match reads them - BjjMatch: strength in takedowns/passes/escapes/mount, cardio =
+## how fast she gasses). One fewer class while she teaches = less gain.
+const BODY_GAIN := {"cardio": 0.6, "strength": 0.3}
+const BODY_CEIL := 90.0
+const BODY_START := 50.0
 const OPEN_FIRST := 33   # Sat 7 Feb 2026 (day 0 = Mon 5 Jan)
 const OPEN_EVERY := 35
 const BRACKET := 8
@@ -68,6 +76,8 @@ static func athlete() -> Dictionary:
 		"bjj": {"shrimp_bridge": 44.0, "frame_recover_guard": 36.0, "seatbelt_escape": 22.0, "posture_closed_guard": 33.0,
 			"bullfighter_pass": 31.0, "knee_cut_pass": 15.0, "scissor_sweep": 34.0, "hip_bump_sweep": 32.0, "double_leg": 31.0,
 			"armbar_guard": 28.0, "kimura": 35.0, "americana": 30.0, "rear_naked_choke": 12.0, "guillotine": 9.0},
+		# S369 BJJMATCH1 (Miro card 3: odds from technique, strength, cardio and fatigue): her body, 0-100 like a boxer's.
+		"stats": {"strength": 52.0, "cardio": 58.0},
 		"w": 4, "l": 2, "entered": [], "morale": MORALE_START, "loyalty": MORALE_START,
 		"opens": [
 			{"d": -16, "open": "London No-Gi Open", "win": true, "opp": "Kim Patel", "how": "submission (armbar from guard) 3:12"},
@@ -176,12 +186,26 @@ static func chance_word(p: float) -> String:
 ## A week on the mat: the classes count, the drilled move gains. Returns the move drilled.
 static func week(f: Dictionary, day: int = 0) -> String:
 	f["mat_classes"] = int(f.get("mat_classes", 0)) + classes_of(f)
+	train_body(f)
 	var m := drilling(f, day)
 	f["drill_on"] = m
 	if m != "":
 		var bjj: Dictionary = f.get_or_add("bjj", {})
 		bjj[m] = minf(100.0, float(bjj.get(m, 0.0)) + gain_of(f) * (HUNGRY if int(f.get("held", 0)) > 0 else 1.0))
 	return m
+
+
+## The week's classes on her body (S389: both the coach's plan and a tree plan call this).
+static func train_body(f: Dictionary) -> void:
+	var stats: Dictionary = f.get_or_add("stats", {})
+	for k in BODY_GAIN:
+		stats[k] = minf(BODY_CEIL, float(stats.get(k, BODY_START)) + body_gain(f, k))
+
+
+## This week's gain to her `key` (cardio / strength) from her own classes.
+static func body_gain(f: Dictionary, key: String) -> float:
+	var v := float((f.get("stats", {}) as Dictionary).get(key, BODY_START))
+	return float(BODY_GAIN.get(key, 0.0)) * float(classes_of(f)) / CLASSES_PER_WEEK * maxf(0.0, 1.0 - v / BODY_CEIL)
 
 
 ## S365 her own classes a week: one fewer while she teaches the beginners' class (BjjSide.TEACH_CLASSES).

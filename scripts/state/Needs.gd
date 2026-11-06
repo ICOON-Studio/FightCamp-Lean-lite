@@ -11,6 +11,7 @@ const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const SeasonPath := preload("res://scripts/rules/SeasonPath.gd")
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
+const Grapplers := preload("res://scripts/state/Grapplers.gd")
 
 
 ## S324 update 27: GymBills' read of the gym's money now: "ok" | "warn" (runway under 8 weeks) | "red" (below $0) | "closed".
@@ -45,6 +46,10 @@ static func needs(career: Career) -> Array:
 	var guide := FirstWeek.need(career)   # S387 the first week's next step blocks time like any red need
 	if not guide.is_empty():
 		n.append(guide)
+	var mat := Grapplers.open_due(career)   # S389 an open she entered is today: fought bout by bout
+	if not mat.is_empty():
+		n.append({"red": true, "t": "%s competes today: %s" % [mat["first"], mat["open_run"]["name"]],
+			"s": "fight each bout yourself, or simulate it", "act": "opennight", "arg": mat["id"], "label": "Go to the mats"})
 	for p in career.prospects:
 		if str(p["state"]) == "invited" and int(p["trial_day"]) <= career.day:
 			n.append({"red": true, "t": "Trial today: %s" % p["name"], "s": "%s, %s; at the gym now" % [str(p["wc"]).to_lower(), p["note"]],

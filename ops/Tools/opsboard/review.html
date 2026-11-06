@@ -62,6 +62,7 @@
            font: inherit; font-size: .8rem; cursor: pointer; }
   .ghost:hover { color: var(--bad); border-color: var(--bad); }
   .ghost.restore:hover { color: var(--good); border-color: var(--good); }
+  .rating { margin-left: 10px; padding: 2px 8px; border-radius: 6px; background: #2f6fdb; color: #fff; font-size: .7em; font-weight: 600; white-space: nowrap; }
   .posthead { display: flex; gap: 10px; align-items: baseline; justify-content: space-between; flex-wrap: wrap; }
   .bulk { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 10px 0 0; color: var(--muted); font-size: .85rem; }
   .bulk button { background: var(--amber); color: #0b1220; border: 0; border-radius: 6px; padding: 7px 14px; font: inherit; font-weight: 600; cursor: pointer; }
@@ -110,7 +111,7 @@ async function load() {
 }
 function postHtml(p, removed) {
   const old = !removed && p.superseded_by;
-  return `<section class="post ${old ? "superseded" : ""}"><div class="posthead"><h2>${esc(p.title)}${old ? `<span class="old" title="replaced by ${esc(p.superseded_by)}">Older version</span>` : ""}</h2>
+  return `<section class="post ${old ? "superseded" : ""}"><div class="posthead"><h2>${esc(p.title)}<span class="rating">${esc(p.rating || "Not rated")}</span>${old ? `<span class="old" title="replaced by ${esc(p.superseded_by)}">Older version</span>` : ""}</h2>
     <button class="ghost ${removed ? "restore" : ""}" data-act="${removed ? "restore" : "remove"}" data-batch="${esc(p.batch)}">${removed ? "Restore post" : "Remove post"}</button></div>
     <div class="meta">${esc(p.stage)} ${esc((p.at||"").replace("T"," "))} · ${p.files.length} file${p.files.length>1?"s":""}${removed && p.removed_at ? " · removed " + esc(p.removed_at.replace("T"," ")) : ""}</div>
     <div class="grid">${p.files.map(f => cardHtml({...f, batch: p.batch}, removed)).join("")}</div></section>`;

@@ -1,3 +1,16 @@
+FIGHTCAMP - WEEK 6 BUILD, UPDATE 78 (2026-11-06): ANA FIGHTS HER OWN MATCHES, AND YOU SEE WHY EACH MOVE WORKS
+=============================================================================================================
+
+ NEW. Enter Ana in an open from her page, then run time to that Saturday. Time stops: Go to the mats.
+  a. The bout card shows who is next and how the two compare. Fight it yourself, or simulate it, bout by bout.
+  b. Fight it: a panel each side lists every move tried and why it worked or not. Bigger moves collide in the middle:
+     attack against defence, the winner pushes through, then the chance, the roll and the plain reason.
+  c. Both fighters now use only what they have drilled. Drill the armbar until it is owned and it appears in the match.
+  d. After the last bout: the medal, and each bout counts as 2 classes towards the next belt.
+ e. Bodies are placed every frame now: nobody sits in the mat, torsos stay out of each other, and every finish ends in a tap.
+ KNOWN: not judged yet since those fixes. Finishes other than the armbar have no lock of their own, and both fighters run out of gas by about 3:00.
+
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 77 (2026-11-06): OPENS ON HOME, A GUIDE THAT SAYS WHAT AND WHY, THE ROSTER SUMMARY, RECORDS, THE WHY PANEL
 =====================================================================================================================
 

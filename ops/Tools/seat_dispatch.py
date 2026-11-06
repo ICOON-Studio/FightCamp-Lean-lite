@@ -747,7 +747,8 @@ def post_board(task: str, before: dict, after: dict, branch: str) -> str:
     if not files:
         return ""
     title = f"{task} before/after - Argon {before.get('score', '-')}/10 -> {after.get('score', '-')}/10 (your visual OK closes it)"
-    p = sh([sys.executable, ROOT / "Tools" / "review_add.py", "--title", title, "--stage", "S368", *files], timeout=300)
+    p = sh([sys.executable, ROOT / "Tools" / "review_add.py", "--title", title, "--stage", "S368",
+            "--rating", f"{after.get('score', '?')}/10, loop judge", *files], timeout=300)
     return (p.stdout or p.stderr).strip().splitlines()[-1:] and (p.stdout or p.stderr).strip().splitlines()[-1] or ""
 
 

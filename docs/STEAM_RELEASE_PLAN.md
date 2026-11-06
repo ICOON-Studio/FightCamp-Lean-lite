@@ -42,9 +42,9 @@ Each has a pass test. Work outside the current gate waits.
 **Gate 0: Decisions.** Bible read, the four decisions made, legal audit done.
 
 **Gate 1: Prove the hook. Cheap, no art.**
-a. Five strangers play today's build: a baseline, before anything else is built.
-b. Design the structure on paper, reviewed by a critic. c. Make the plan decide more: a bigger edge, ring position staged, a post-fight
-"why", fewer give-away hints. d. Build it as plain screens. e. Five new strangers.
+a. Design the structure on paper, reviewed by a critic.
+b. Operator S389: no stranger baseline on today's build; the first strangers play the plain screens. c. Make the plan decide more: a bigger edge, ring position staged, a post-fight
+"why", fewer give-away hints. d. Build it as plain screens. e. Five strangers, the first ever.
 Pass: 3 of 5 keep playing, and they can say why they won or lost.
 **Stop rule:** if two rounds of this fail, we stop adding features and rethink the game with the operator. One project was already
 cancelled after months without a version he enjoyed; this gate exists so that cannot happen slowly again.
@@ -75,11 +75,11 @@ days after paying the app fee (reported as $100; confirm the amount on the Steam
   This may be a game made because it is worth making, not an income. He should decide knowing that.
 
 ## 6. Who does what
-**Operator:** the four decisions, budget, finding strangers, Steamworks account, fee, bank and tax forms, the MetaHuman licence check.
+**Operator:** budget, finding strangers, Steamworks account, fee, bank and tax forms, the MetaHuman licence check.
 **Claude:** design, code, the plan, briefs, assets audit, store text, critics on everything before he sees it.
 **Seats:** animation rounds and research. Argon's credits and Gemini's paid API are out today.
 
 ## 7. Next five jobs
-1. Operator: read the bible, make the four decisions. 2. Operator: find five strangers; Claude: prepare a build and a short test sheet.
-3. Claude: the structure on paper, critic-reviewed. 4. Claude: make the plan decide more. 5. Claude: clip licence list.
+1. Claude: plain Home and fight flow. 2. Claude: wire the BJJ match into the career (S389: BJJ ships).
+3. Claude: make the plan decide more. 4. Operator: find five strangers; Claude: the build and a short test sheet. 5. Claude: clip licence list.
 Paused until they matter: fight motion rounds, sound wiring, Home skin.

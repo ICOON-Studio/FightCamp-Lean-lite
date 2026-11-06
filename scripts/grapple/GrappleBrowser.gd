@@ -8,12 +8,19 @@ extends Control
 const UI := preload("res://scripts/ui/UI.gd")
 const DB := preload("res://scripts/grapple/GrappleMapDB.gd")
 const Graph := preload("res://scripts/grapple/GrappleGraph.gd")
+const BjjMatch := preload("res://scripts/rules/BjjMatch.gd")
 const Pose := preload("res://scripts/grapple/GrapplePose.gd")
 const Player := preload("res://scripts/grapple/GrapplePlayer.gd")
+const Timing := preload("res://scripts/grapple/GrappleTiming.gd")
 const Grip := preload("res://scripts/grapple/GrappleGrip.gd")
 const TieUpPanel := preload("res://scripts/grapple/TieUpPanel.gd")
+const BeltMatch := preload("res://scripts/grapple/BeltMatch.gd")
+const BjjOpen := preload("res://scripts/rules/BjjOpen.gd")
+const BjjOpp := preload("res://scripts/rules/BjjOpp.gd")
+const NoGi := preload("res://scripts/rules/NoGi.gd")
 const FightFlow := preload("res://scripts/rules/FightFlow.gd")
 const FlowView := preload("res://scripts/ui/FlowView.gd")
+const Contact := preload("res://scripts/grapple/GrappleContact.gd")
 const MH := preload("res://scripts/fight3d/MHRig.gd")
 const Kit := preload("res://scripts/fight3d/FighterKit.gd")
 ## S335 operator: "use different colours on the clothes for each" - one colour head to toe per woman (top a shade lighter).
@@ -26,6 +33,12 @@ const TRIM_DARKEN := 0.45
 const START := "mount"
 const ORBIT_DEG_S := 6.0
 const PANEL_W := 470
+## S371 BJJ9 (Argon: a takedown is "nine seconds of slow-motion"): a fall lands in LANDS_S, its last gaps shaved so
+## it accelerates into the mat, and the body that lands takes an impact compression.
+const LANDS_S := 1.9
+## S371 round 8: the longest a plain transition may run (the data's own pace kept in proportion below it).
+const MOVE_MAX_S := 4.0
+const LANDS_RELIEF := 0.65
 
 var db: Array = []
 var graph: RefCounted
@@ -33,6 +46,12 @@ var player: Node
 var cam: Camera3D
 var current := -1          # the position on screen (a GrappleMap sequence index)
 var moving: Dictionary = {}  # the move playing ({} = holding a position)
+var _landing := ""         # a paced fall finished on the next completion (its impact runs then)
+## S371 round 5: a won submission's final move holds its own last frame (the verdict pose). Handing over to the landed
+## position re-aligns the pair, and a loose graph link teleported the finish 1.9 m on the one frame the judge stares at.
+var freeze_handover := false
+## S389 BJJWIRE: set before adding this scene to fight one bout of an open: {athlete, opp, seed, on_end}.
+var career_match: Dictionary = {}
 var _yaw := 35.0
 var _look := Vector3(0, 0.4, 0)
 var _side: VBoxContainer
@@ -76,6 +95,13 @@ func _ready() -> void:
 	_cast(view.get_child(0).get_child(0))
 	_family("mount")
 	go_position(db.find(DB.find(db, START)))
+	if not career_match.is_empty():
+		rows.get_child(0).visible = false
+		var cm: Node = BeltMatch.new()
+		cm.name = "BeltMatch"
+		add_child(cm)
+		cm.setup(self, career_match["athlete"], int(career_match["seed"]), career_match["opp"], career_match["on_end"])
+		return
 	var jump_tie := ""
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("walk="):
@@ -95,6 +121,29 @@ func _ready() -> void:
 	if jump_tie != "":
 		_open_ties()
 		TieUpPanel.pick(self, jump_tie)
+	# S369 BJJMATCH1: `match=1` plays a belt match (Ana vs an open's opponent) on this pair; `fast=N` runs N x for probes.
+	var args := OS.get_cmdline_user_args()
+	if args.has("match=1"):
+		_walking = false
+		for a in args:
+			if str(a).begins_with("fast="):
+				Engine.time_scale = clampf(float(str(a).get_slice("=", 1)), 1.0, 8.0)
+		var match_seed := 369
+		for a in args:
+			if str(a).begins_with("seed="):
+				match_seed = int(str(a).get_slice("=", 1))
+		var bm: Node = BeltMatch.new()
+		bm.name = "BeltMatch"
+		add_child(bm)
+		var ana := NoGi.athlete()
+		var rival := {}
+		for a in args:
+			if str(a).begins_with("own="):   # a move she has drilled to owned, for films
+				ana["bjj"][str(a).get_slice("=", 1)] = 40.0
+		if args.has("bracket=1"):
+			rival = BjjOpen.match_opp(BjjOpp.generate("white", "Passer", match_seed))
+		rows.get_child(0).visible = false
+		bm.setup(self, ana, match_seed, rival)
 
 
 ## The walk's next move: one out of here that lands on a position with moves of its own, a new place first; at a dead
@@ -217,7 +266,8 @@ func _process(delta: float) -> void:
 		return
 	if _walking:
 		_walk_step(delta)
-	_yaw += ORBIT_DEG_S * delta
+	if get_node_or_null("BeltMatch") == null:   # S389: a match holds its angle (all three judges: "the camera never stops turning")
+		_yaw += ORBIT_DEG_S * delta
 	var js: Array = player.joints_at(player.t())
 	var lo := Vector3.INF
 	var hi := -Vector3.INF
@@ -233,14 +283,30 @@ func _process(delta: float) -> void:
 	if not moving.is_empty() and player.done():
 		var to: Variant = Graph.lands(moving)
 		moving = {}
+		if _landing != "":
+			_landing = ""
+			if player.has_method("impact"):
+				player.impact()
 		if to != null:
-			current = int(to)
-		_refresh()
+			# S371 round 4: hand over to the landed POSITION's own sequence - a completed move's last frame sat
+			# frozen through the settle and the whole call window (the probe's 6.8 s still run); a position breathes.
+			if freeze_handover:
+				freeze_handover = false
+				_refresh()
+			else:
+				go_position(int(to))
+		else:
+			_refresh()
+
+
+func _shown_for_align() -> Array:
+	return player.shown_frame()
 
 
 ## ---------- moving through the graph ----------
 
-## Show a position, laid on the pose on screen when there is one (same position = no jump).
+## Show a position, laid on the pose on screen when there is one (same position = no jump). S371 round 5: the hand-over
+## BLENDS from the pose on screen (the probe caught a 1.91 m toe teleport on a loose link) - a fast slide, never a snap.
 func go_position(id: int) -> void:
 	if id < 0:
 		return
@@ -248,19 +314,89 @@ func go_position(id: int) -> void:
 	if player.seq.is_empty():
 		player.play(db[id], player.men, player.scale, Transform3D.IDENTITY)
 	else:
-		player.play_frames(Graph.placed(frames, Graph.align(player.shown_frame(), frames[0])))
+		player.blend_frames(Graph.placed(frames, Graph.align(_shown_for_align(), frames[0])))
 	current = id
 	moving = {}
 	_refresh()
 
 
-## Play a move OUT of the position on screen (laid on it), then hold where it lands.
-func play_out(move: Dictionary) -> void:
+## Play a move OUT of the position on screen (laid on it), then hold where it lands. `kind` (a BeltMatch kind:
+## takedown, sweep ...) paces a fall: LANDS_S total, accelerating into the mat, with an impact when it lands.
+func play_out(move: Dictionary, kind: String = "") -> void:
 	var frames: Array = db[int(move["t"]["id"])]["frames"]
 	var rev := bool(move["reverse"])
+	# S371 round 5: a positional move that leaves the feet is a fall too - a drift walked the pair to the mat at the
+	# natural pace and the probe caught a 3.4 s standing-to-ground move.
+	if kind == "":
+		var from_v: Variant = move["t"]["to"] if rev else move["t"]["from"]
+		var land: Variant = Graph.lands(move)
+		if from_v != null and land != null and BjjMatch.classify(db[int(from_v)]["tags"]) == "standing" \
+				and BjjMatch.classify(db[int(land)]["tags"]) != "standing":
+			kind = "takedown"
 	var first: Array = frames.back() if rev else frames[0]
-	player.play_frames(Graph.placed(frames, Graph.align(player.shown_frame(), first), rev))
+	var placed: Array = Graph.placed(frames, Graph.align(_shown_for_align(), first), rev)
+	if kind in ["takedown", "sweep"] and placed.size() > 1:
+		player.play_frames(placed, Timing.key_times_shape(placed, LANDS_S, LANDS_RELIEF))
+		_landing = kind
+	else:
+		_landing = ""
+		# S371 round 8: a plain transition keeps its data pace but never over MOVE_MAX_S - Argon priced "transitions take
+		# 3-4 seconds of slow, linear interpolation" in every round since the verdicts began (a "begin" ran 7.7 s in
+		# round 4's probe; real technical transitions are 1.5-2.5 s). Round 9: every plain move gets a light settle
+		# (relief 0.25 - the last gaps carry less, so it arrives rather than cruises) - Argon round 8 asked for
+		# "ease-in/ease-out, fast explosive initiation, heavy deceleration".
+		var nat := Timing.key_times(placed)
+		var nat_total := float(nat[nat.size() - 1]) if nat.size() > 0 else 0.0
+		if placed.size() > 2:
+			player.play_frames(placed, Timing.key_times_shape(placed, minf(nat_total, MOVE_MAX_S), 0.25))
+		else:
+			player.play_frames(placed)
 	moving = move
+	_refresh()
+
+
+## S371 round 9: a MISSED attempt, shown - the move's opening keyframes out and back (the pair visibly tries and
+## recovers). Argon round 8: misses played nothing, so an exchange of eight alternating misses held one pose for six
+## seconds ("completely frozen like statues", 01:03-01:09).
+const FEINT_KEYS := 2
+const FEINT_S := 1.1
+
+
+func play_feint(move: Dictionary) -> void:
+	if not Player.on("feint"):   # S379 audit control arm: `-- nofeint`, a miss shows nothing (the round-8 behaviour)
+		return
+	var frames: Array = db[int(move["t"]["id"])]["frames"]
+	var rev := bool(move["reverse"])
+	if frames.size() < 3:
+		return
+	var first: Array = frames.back() if rev else frames[0]
+	var placed: Array = Graph.placed(frames, Graph.align(_shown_for_align(), first), rev)
+	var n := mini(FEINT_KEYS, placed.size() - 2)
+	if n < 1:
+		return
+	var seq: Array = []
+	for k in n + 1:
+		seq.append(placed[k])
+	for k in range(n - 1, -1, -1):
+		seq.append(placed[k])
+	# The feint keeps the pacing it had before round 10 (its key times were built for the UN-routed sequence, so the
+	# waypoint insertions made blend_frames fall back to the data's natural pace). Re-timing it here moved the whole
+	# match's rhythm and with it every roll (round 10: the probe's seed-369 bout went from a 0:57 arm lock to a 2:14
+	# omoplata); the finish alone gets threaded times.
+	player.blend_frames(seq, Timing.key_times_shape(seq, FEINT_S, 0.3))
+	moving = {}   # a feint scores nothing: the match keeps its state and the next move may take over mid-feint
+	_refresh()
+
+
+## S377 round 10 (Argon round 9: the called arm lock showed no lock - "the winning fighter's hips are pivoted
+## perpendicular, leg across the face, and the defender's arm is fully extended between the thighs"). BeltMatch hands
+## the built finish here: the winner takes the arm from the landing pose on screen. It is played like a move but it
+## lands on nothing - the verdict hold follows - and the pose is never re-aligned under the banner.
+func play_finish(frames: Array, times: PackedFloat32Array) -> void:
+	if frames.size() < 2:
+		return
+	player.blend_frames(Graph.placed(frames, Graph.align(_shown_for_align(), frames[0])), times)
+	moving = {"t": {"title": "Lock finish", "from": current, "to": null, "tags": []}, "reverse": false}
 	_refresh()
 
 
@@ -269,7 +405,7 @@ func play_in(move: Dictionary) -> void:
 	var frames: Array = db[int(move["t"]["id"])]["frames"]
 	var rev := bool(move["reverse"])
 	var last: Array = frames[0] if rev else frames.back()
-	player.play_frames(Graph.placed(frames, Graph.align(player.shown_frame(), last), rev))
+	player.play_frames(Graph.placed(frames, Graph.align(_shown_for_align(), last), rev))
 	moving = {"t": move["t"], "reverse": rev, "into": current}
 	_refresh()
 

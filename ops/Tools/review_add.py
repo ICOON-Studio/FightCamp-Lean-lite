@@ -9,6 +9,9 @@ manifest.json. A file argument may carry a caption after "=". Videos should alre
 S223 operator ("keep the latest versions on"): a post that REPLACES an earlier one names it -
     --supersedes 2026-10-13_1813 [--supersedes <another prefix>]   -> the old post shows "Older version" on /review and his
 "Remove all older versions" button takes it off the board (moved to Removed, never deleted).
+
+S389 operator ("evrything that is posted on the board i want to know what was rated"): --rating is required and shows on the
+post: the score and who gave it, e.g. --rating "3/10, blind reviewer". Say "Not judged" when nothing has rated it.
 """
 from __future__ import annotations
 
@@ -28,6 +31,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--title", required=True)
     ap.add_argument("--stage", default="")
+    ap.add_argument("--rating", required=True, help='the score and who gave it, e.g. "3/10, blind reviewer", or "Not judged"')
     ap.add_argument("--supersedes", action="append", default=[], help="batch-name prefix of a post this one replaces (repeat)")
     ap.add_argument("files", nargs="+")
     a = ap.parse_args()
@@ -52,7 +56,7 @@ def main() -> int:
     if not rows:
         print("NOTHING POSTED")
         return 2
-    (batch / "manifest.json").write_text(json.dumps({"title": a.title, "stage": a.stage, "at": now.strftime("%Y-%m-%dT%H:%M"),
+    (batch / "manifest.json").write_text(json.dumps({"title": a.title, "stage": a.stage, "rating": a.rating, "at": now.strftime("%Y-%m-%dT%H:%M"),
                                                      "files": rows}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print("POSTED %d file(s) -> http://127.0.0.1:8787/review  (%s)" % (len(rows), batch))
     if a.supersedes:

@@ -110,6 +110,7 @@ func _build(main: Node, c: Career, f: Dictionary) -> void:
 		row.add_child(_syllabus(main, f, nxt, r))
 	row.add_child(_call(main, c, f, nxt, r))
 	var side := UI.vbox(16)
+	side.add_child(_body(f))
 	side.add_child(_classes(main, c, f))
 	side.add_child(_record(f))
 	row.add_child(side)
@@ -385,6 +386,25 @@ func _classes(main: Node, c: Career, f: Dictionary) -> Control:
 	mine.name = "TeachHer"
 	btns.add_child(mine)
 	v.add_child(btns)
+	return card[0]
+
+
+## S369 HER BODY: strength and cardio in whole points, trained by her classes (NoGi.body_gain), and what each does in a
+## belt match.
+func _body(f: Dictionary) -> Control:
+	var card := UI.card("BODY - TRAINED ON THE MAT")
+	card[0].name = "BjjBody"
+	var v: VBoxContainer = card[1]
+	var stats: Dictionary = f.get("stats", {})
+	for row in [["Strength", "strength", "takedowns, passes, escapes, taking mount"], ["Cardio", "cardio", "how fast the tank empties in a match"]]:
+		var key := str(row[1])
+		var val := float(stats.get(key, NoGi.BODY_START))
+		var gain := NoGi.body_gain(f, key)
+		var weeks := ceili((floorf(val) + 1.0 - val) / gain) if gain > 0.0 else 0
+		v.add_child(_progress(str(row[0]), "%d" % int(floor(val)), val / 100.0))
+		var what := str(row[2]).left(1).to_upper() + str(row[2]).substr(1)
+		v.add_child(UI.muted("%s. Next point in %d week%s at %d classes." % [what, weeks, "" if weeks == 1 else "s",
+			NoGi.classes_of(f)] if gain > 0.0 else "%s. At the ceiling." % what, UI.TINY, true))
 	return card[0]
 
 

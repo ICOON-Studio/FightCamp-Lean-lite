@@ -273,6 +273,7 @@ class Rings extends Control:
 	const R_OUT := 73.0
 	const WIDTH := 15.0
 	const SPAN := 108.0           # degrees of each arc (the rest of its third is the gap)
+	const NUM_SIZE := 13          # S369 the value drawn on each arc
 	const INNER := ["head", "body", "legs"]
 	const OUTER := ["stamina", "guard", "heart"]
 	const ICONS := {"head": "user", "body": "shirt", "legs": "footprints", "stamina": "zap", "guard": "shield", "heart": "heart"}
@@ -338,6 +339,14 @@ class Rings extends Control:
 		_part(c, r, a0, a1, kp, 1.0, Color(0.42, 0.42, 0.44, 0.85))   # gone for the fight
 		if a._flash > 0.0:
 			draw_arc(c, r, a0, a1, 32, Color(1, 1, 1, 0.55 * a._flash), WIDTH, true)
+		# S369 (operator, on the ring: "also add numbers here?"): her value on the arc, 0-100, so the corner can read who is
+		# the more tired without judging arc lengths.
+		var nf := ThemeDB.fallback_font
+		var txt := "%d" % roundi(fl * 100.0)
+		var ts := nf.get_string_size(txt, HORIZONTAL_ALIGNMENT_LEFT, -1, NUM_SIZE)
+		var tp := c + Vector2.from_angle(deg_to_rad(mid)) * r + Vector2(-ts.x * 0.5, ts.y * 0.32)
+		draw_string_outline(nf, tp, txt, HORIZONTAL_ALIGNMENT_LEFT, -1, NUM_SIZE, 4, Color(0, 0, 0, 0.9))
+		draw_string(nf, tp, txt, HORIZONTAL_ALIGNMENT_LEFT, -1, NUM_SIZE, Color.WHITE)
 
 	## The share [u0, u1] of an arc, filling from its start (from its end on the mirrored block).
 	func _part(c: Vector2, r: float, a0: float, a1: float, u0: float, u1: float, col: Color) -> void:

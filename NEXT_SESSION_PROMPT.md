@@ -1,3 +1,30 @@
+# S390 - next session (written S389, 2026-11-06)
+
+START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S390` + map redraw.
+OPERATOR RULES FROM S389 (keep):
+- Nothing visual reaches him under 7/10. "did it got judged until 7/10 ?": loop fixes and blind judges first, and report progress in words.
+- Every board post shows its rating: "evrything that is posted on the board i want to know what was rated". review_add.py now requires --rating.
+- Bible section 12 is answered: BJJ ships; fight bar is "nothing visibly broken"; strangers after the plain screens; no art director. Budget still open.
+- Dominus Gladiatus is the structure reference: ops/research/DOMINUS_STUDY_S389.md. Two hubs plus a countdown strip. Do not touch the clock or event choices on his save.
+ORDER FOR S390
+1. BJJ FIGHT TO 7/10, then show him. Fixed in S389, NOT YET JUDGED: GrappleDrawn.track places both bodies every frame; every finish ends in a tap
+   (GrappleFinish.tap_out); LOCKED IN on the card, the banner after the tap. Bars on seed 28: floor 0.236 -> 0.049 m, torsos 0.224 -> 0.040 m.
+   Film with: python tools/hidden_desktop.py run --timeout=590 --log=<f> <godot> --path . --windowed --resolution 1920x1080 --audio-driver Dummy
+   --fixed-fps 30 --write-movie <avi> --script res://tools/belt_match_film.gd -- match=1 bracket=1 own=armbar_guard secs=215 seed=28
+   (about 2.3x real time; cut the last 62 s). Bars, 33 s headless: tools/bjj_drawn_bars.gd, same args. Sheets: claude_judge.sheets(mp4, out, 5.0) plus a
+   last sheet at 59.6 s. Judges: three blind general-purpose sub-agents with the prompts in ops/research/BJJ_SUB1_JUDGED_S389.md's lanes (reviewer, black belt + animator,
+   three personas). Baseline: reviewer 3, animation 4, technique 3, clarity 5/3/5.
+   Still open for 7/10, by what the judges named: a real lock per submission family (only the armbar has one; a seed that ends in an armbar shows the best case);
+   guard submissions come out backwards (BjjMatch.offers lets only the top woman finish); gas empties by 3:00 so "is tiring" is every reason (misses cost too much);
+   the apart bar fails 2.0 s at 86 s: a move stands them up while the class still reads Back; STOPPED can look like a loss (feints). Tree-only moves never reach the match.
+2. Plain Home and the fight flow (PLAYER_PATH sections 6-8), now with the Dominus layout: countdown strip, one card-grid-plus-panel layout, tutorial as goal card, one-line prompts, first-time cards.
+3. C237 poster: fight card with venue, rule, stakes, crowd, purse, days left. C238 offers: fighter rows with rolled traits. Both in DOMINUS_STUDY "What we take"; run through a blind critic.
+4. FIGHT9 loop: FIGHT9R18 is running on agy and chains to 9/10, but the bar is now "nothing visibly broken". Decide whether to stop it. PR #52 conflicts in FightIntro, FootPlant,
+   GloveClear, KneeTrack; PR #55 not looked at. BJJ9R19 is held in dispatch_queue.json.
+5. Clip licence list; operator reads the MetaHuman licence. Ziva down. Grok bots fail 502.
+TOOLS: a Godot log only flushes at the end, so a short --timeout looks like a freeze: it cost time twice in S389. GrappleBrowser.gd is over the 500-line rule.
+SETTINGS: S390 Claude Opus 5.5, effort high, Fast OFF | judges and critics: general-purpose sub-agents, same model | agy: gemini-3.8-flash-high, file tools only | Cursor: Composer 2.5, Fast OFF.
+
 # S389 - next session (written S388, 2026-11-06)
 
 START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then docs/GAME_BIBLE.md, docs/PLAYER_PATH.md, docs/STEAM_RELEASE_PLAN.md.

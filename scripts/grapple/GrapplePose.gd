@@ -46,6 +46,8 @@ const WRIST_FADE := Vector2(120.0, 165.0)
 const HAND_SHORT := Vector2(0.03, 0.06)
 
 var joints := PackedVector3Array()
+## World-space offset applied to every drawn bone after the solve (partner overlap fix — joints stay on the data).
+var world_shift := Vector3.ZERO
 ## Two-bone IK on the wrists and ankles after the aim solve (off = the aim solve alone, the control arm)
 var ik := true
 var _id := {}
@@ -290,6 +292,14 @@ func _process_modification() -> void:
 	for v in joints:
 		j.append(inv * v)
 	var glob := pose_globals(skel, j, _mem, get_process_delta_time())
+	if world_shift.length_squared() > 1e-12:
+		var gt := skel.global_transform
+		var inv_gt := gt.affine_inverse()
+		for i in glob:
+			var w: Vector3 = gt * (glob[i] as Transform3D).origin + world_shift
+			var g: Transform3D = glob[i]
+			g.origin = inv_gt * w
+			glob[i] = g
 	for i in skel.get_bone_count():
 		var parent := skel.get_bone_parent(i)
 		var local: Transform3D = glob[i] if parent < 0 else (glob[parent] as Transform3D).affine_inverse() * glob[i]

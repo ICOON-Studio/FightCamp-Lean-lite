@@ -247,9 +247,10 @@
   {
    "task": "BJJ9R18",
    "seat": "cursor",
-   "status": "queued",
+   "status": "launched",
    "queued": "2026-11-05T21:32",
-   "loop": "BJJ9"
+   "loop": "BJJ9",
+   "launched": "2026-11-06T01:11"
   },
   {
    "task": "FIGHT9R16",
@@ -258,6 +259,30 @@
    "queued": "2026-11-05T22:59",
    "loop": "FIGHT9",
    "launched": "2026-11-06T00:11"
+  },
+  {
+   "task": "FIGHT9R17",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-06T01:27",
+   "loop": "FIGHT9",
+   "launched": "2026-11-06T03:11"
+  },
+  {
+   "task": "BJJ9R19",
+   "seat": "cursor",
+   "status": "held",
+   "queued": "2026-11-06T02:58",
+   "loop": "BJJ9",
+   "note": "S389: held by Claude. Operator: BJJ clips look fine, wire training, belts and the match instead. Set back to queued to run it."
+  },
+  {
+   "task": "FIGHT9R18",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-06T04:26",
+   "loop": "FIGHT9",
+   "launched": "2026-11-06T05:11"
   }
  ]
 }

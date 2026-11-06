@@ -14,6 +14,10 @@ const BjjOpen := preload("res://scripts/rules/BjjOpen.gd")
 const BjjOpp := preload("res://scripts/rules/BjjOpp.gd")
 
 
+## S389 with a picture on screen (Main) an open waits for the player, bout by bout; headless it plays itself on the walk.
+static var live := false
+
+
 ## Returns true when an open ran today (the clock stops on it).
 static func day(c: Career) -> bool:
 	var ran := false
@@ -21,20 +25,28 @@ static func day(c: Career) -> bool:
 		if posmod(c.day, 7) == 6:
 			# S384 GAMETREE1: a tree:/route:/ahead: plan drills on the tree (before NoGi.week, whose drilling_for would fall
 			# back silently); a finished one falls through to the coach's pick. The levels snapshot feeds the report's arrows.
+			# S389: her body trains in the classes on either plan (the belt match reads it).
 			var lv := BjjTree.levels(f)
 			var plan := str(f.get("drill", "coach"))
+			var body_before: Dictionary = (f.get("stats", {}) as Dictionary).duplicate()
 			if BjjTree.is_tree_plan(plan) and not BjjTree.drill_target(f, plan).is_empty():
 				f["mat_week"] = BjjTree.week_mark(f, lv, BjjTree.week(f, c.day))
+				NoGi.train_body(f)
 			else:
 				var before: Dictionary = (f.get("bjj", {}) as Dictionary).duplicate()
 				var m := NoGi.week(f, c.day)
 				f["mat_week"] = {"move": m, "before": float(before.get(m, 0.0)), "after": float((f["bjj"] as Dictionary).get(m, 0.0)) if m != "" else 0.0}
 				f["mat_week"]["levels_before"] = lv
+			f["mat_week"]["body"] = {"cardio": [float(body_before.get("cardio", NoGi.BODY_START)), float(f["stats"]["cardio"])],
+				"strength": [float(body_before.get("strength", NoGi.BODY_START)), float(f["stats"]["strength"])]}
 			BjjOpen.roll_week(c, f)
 		var entered: Array = f.get("entered", [])
 		if entered.has(c.day):
 			entered.erase(c.day)
-			_open(c, f, NoGi.open_on(c.day))
+			if live:
+				f["open_run"] = BjjOpen.start_run(NoGi.open_on(c.day), c.day)
+			else:
+				_open(c, f, NoGi.open_on(c.day))
 			ran = true
 	return ran
 
@@ -42,9 +54,48 @@ static func day(c: Career) -> bool:
 static func _open(c: Career, f: Dictionary, o: Dictionary) -> void:
 	if o.is_empty():
 		return
+	_close(c, f, o, BjjOpen.run_open(f, o, c.day, _rng(c, f, 0)))
+
+
+static func _rng(c: Career, f: Dictionary, bout: int) -> RandomNumberGenerator:
 	var rng := RandomNumberGenerator.new()
-	rng.seed = hash("%d|%s|%d" % [c.seed, f["id"], c.day])
-	var res := BjjOpen.run_open(f, o, c.day, rng)
+	rng.seed = hash("%d|%s|%d" % [c.seed, f["id"], c.day]) if bout == 0 else hash("%d|%s|%d|%d" % [c.seed, f["id"], c.day, bout])
+	return rng
+
+
+## S389 the athlete whose open is on today, bout by bout ({} when nobody's is).
+static func open_due(c: Career) -> Dictionary:
+	for f in c.grapplers:
+		if not (f.get("open_run", {}) as Dictionary).is_empty():
+			return f
+	return {}
+
+
+## Her next opponent in today's open, from the bracket path drawn at entry.
+static func next_opp(c: Career, f: Dictionary) -> Dictionary:
+	var run: Dictionary = f["open_run"]
+	return BjjOpen.field_of(f, NoGi.open_on(int(run["d"])), int(run["d"]), _rng(c, f, 0))[(run["rows"] as Array).size()]
+
+
+## The next bout simulated, or as the player fought it (`res` from BeltMatch).
+static func sim_bout(c: Career, f: Dictionary) -> void:
+	var run: Dictionary = f["open_run"]
+	var field := BjjOpen.field_of(f, NoGi.open_on(int(run["d"])), int(run["d"]), _rng(c, f, 0))
+	BjjOpen.sim_bout(f, run, field, _rng(c, f, (run["rows"] as Array).size() + 1))
+
+
+static func live_bout(c: Career, f: Dictionary, res: Dictionary) -> void:
+	BjjOpen.live_bout(f["open_run"], next_opp(c, f), res)
+
+
+## The open is over: records, morale, medal, belt credit, news; clears the run.
+static func close_open(c: Career, f: Dictionary) -> void:
+	var run: Dictionary = f["open_run"]
+	_close(c, f, NoGi.open_on(int(run["d"])), BjjOpen.result(f, run))
+	f.erase("open_run")
+
+
+static func _close(c: Career, f: Dictionary, o: Dictionary, res: Dictionary) -> void:
 	BjjOpen.note_stats(f, res)
 	f.erase("tough_next")
 	(f.get("field", {}) as Dictionary).erase(c.day)
@@ -60,7 +111,10 @@ static func _open(c: Career, f: Dictionary, o: Dictionary) -> void:
 			mood -= NoGi.TAP_MORALE if str(rows[i]["how"]).begins_with("submission") else NoGi.LOSS_MORALE
 	f["morale"] = clampi(int(f.get("morale", NoGi.MORALE_START)) + mood, 0, 100)
 	var medal := str(res["medal"])
-	f["open_week"] = {"name": str(o["name"]), "medal": medal, "matches": rows.duplicate(true), "morale": mood, "leak": res.get("leak", {})}
+	var credit := rows.size() * BjjOpen.BOUT_CLASSES   # S389 competition is mat time: the fight feeds the belt
+	f["mat_classes"] = int(f.get("mat_classes", 0)) + credit
+	f["open_week"] = {"name": str(o["name"]), "medal": medal, "matches": rows.duplicate(true), "morale": mood, "leak": res.get("leak", {}),
+		"classes": credit}
 	c.add_news("%s at the %s: %s (%d-%d)." % [f["first"], o["name"], ("%s medal" % medal) if medal != "" else "out in the first round",
 		int(res["wins"]), rows.size() - int(res["wins"])])
 	var joined := BjjSide.medal(c.bjj_side, medal)
@@ -124,7 +178,7 @@ static func week_report(c: Career) -> Array:
 			"move": str(mw.get("move", "")), "before": before, "after": after,
 			"owned": before < BeltRoad.OWNED_AT and after >= BeltRoad.OWNED_AT, "open": f.get("open_week", {}),
 			"due": NoGi.stripes_due(f, c.day), "morale": int(f.get("morale", NoGi.MORALE_START)),
-			"loyalty": int(f.get("loyalty", NoGi.MORALE_START)), "held": int(f.get("held", 0))})
+			"loyalty": int(f.get("loyalty", NoGi.MORALE_START)), "held": int(f.get("held", 0)), "body": mw.get("body", {})})
 		tree_report(out.back(), f, mw)
 		f.erase("mat_week")
 		f.erase("open_week")

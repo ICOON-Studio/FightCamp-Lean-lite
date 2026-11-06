@@ -76,6 +76,7 @@ var _switches: PackedStringArray = []
 var _moves := 10
 var _scene := "res://scenes/dev/GrappleBrowser.tscn"
 var _chain := "fifty_fifty"
+var _last_sample_i := -1
 
 
 func _initialize() -> void:
@@ -169,7 +170,10 @@ func _process(delta: float) -> bool:
 			m = b.get_node_or_null("BeltMatch")
 		if m != null:
 			_answer_calls()
-	if _clock >= SKIP_S and not (_cache[0] as Dictionary).is_empty() and not (_cache[1] as Dictionary).is_empty():
+	var si := int(_clock * FPS)
+	if si > _last_sample_i and _clock >= SKIP_S and not (_cache[0] as Dictionary).is_empty() \
+			and not (_cache[1] as Dictionary).is_empty():
+		_last_sample_i = si
 		_sample()
 	var over := false
 	if mode == "match" and m != null:
@@ -179,9 +183,12 @@ func _process(delta: float) -> bool:
 	if over or _clock > (MATCH_MAX_S if mode == "match" else BROWSER_MAX_S):
 		_report()
 		_done = true
-		quit(0)
+		quit(0 if _failures == 0 else 1)
 		return true
 	return false
+
+
+var _failures := 0
 
 
 ## The browser's walk quits the tree by itself: the report runs on the way out.
@@ -363,6 +370,8 @@ func _report() -> void:
 	print("TREMBLE frames %d (%.1f s measured, skeleton updates %d / %d)" % [n, n / FPS, _updates[0], _updates[1]])
 	if n < 10:
 		print("TREMBLE_FAIL too few drawn frames")
+		_failures = 1
+		print("BJJTREMBLE failures=%d" % _failures)
 		return
 	var out := {"mode": mode, "switches": ",".join(_switches), "frames": n, "joints": {}, "phases": {}, "overlap": {}}
 	var rows: Array = []
@@ -446,3 +455,35 @@ func _report() -> void:
 		out["end"] = "%s %s" % [str(m.get("st")["how"]), str(m.get("st")["pts"])]
 		print("TREMBLE match end: %s at %.1f s" % [out["end"], _clock])
 	print("TREMBLE_JSON " + JSON.stringify(out))
+	_failures = 0
+	var pool_p95 := float(out["phases"].get("all", [0, 0])[1])
+	var pool_flip := float(out["phases"].get("all", [0, 0, 0, 0])[3])
+	if pool_p95 > 100.0:
+		_failures += 1
+		print("BJJTREMBLE bar fail pooled jerk p95 %.1f > 100" % pool_p95)
+	if pool_flip > 0.3:
+		_failures += 1
+		print("BJJTREMBLE bar fail flips %.2f/s > 0.3" % pool_flip)
+	for r in rows:
+		if float(r["p95"]) > 300.0:
+			_failures += 1
+			print("BJJTREMBLE bar fail joint %s p95 %.0f > 300" % [r["name"], r["p95"]])
+			break
+	var ak_p95 := _pct(_ov[0], 0.95)
+	var ka_p95 := _pct(_ov[1], 0.95)
+	if ak_p95 > 0.10 or ka_p95 > 0.10:
+		_failures += 1
+		print("BJJTREMBLE bar fail torso overlap p95 %.3f / %.3f > 0.10" % [ak_p95, ka_p95])
+	var fin_pk := 0.0
+	for f in _ov[0].size():
+		if _phase[f] == "finish" or _phase[f] == "verdict":
+			fin_pk = maxf(fin_pk, maxf(_ov[0][f], _ov[1][f]))
+	if fin_pk > 0.10:
+		_failures += 1
+		print("BJJTREMBLE bar fail finish+verdict overlap peak %.3f > 0.10" % fin_pk)
+	for ph in ["move", "join", "hold", "miss", "finish"]:
+		var pk := str(out["phases"].get("pop_" + ph, [0.0])[0])
+		if float(pk) > 0.15:
+			_failures += 1
+			print("BJJTREMBLE bar fail pop %s %.3f m > 0.15" % [ph, float(pk)])
+	print("BJJTREMBLE failures=%d" % _failures)

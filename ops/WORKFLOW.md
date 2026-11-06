@@ -203,7 +203,7 @@ o_popups.ps1` (started by
   roadmap current, no stray waiters). The GO to clear and the block come in the same message.
 - If an animation changed, send it with SendUserFile at the end (`python ops/Tools/clip_status.py new-anims`).
 - EVERY STILL/VIDEO SENT GOES ON THE BOARD (operator S192: "i want to be able to see those on the opsboard to make comments"):
-  `python ops/Tools/review_add.py --stage S<n> --title "<what it shows>" <file>[="caption"] ...` beside SendUserFile; he comments at
+  `python ops/Tools/review_add.py --stage S<n> --rating "<score, who>" --title "<what it shows>" <file>[="caption"] ...` beside SendUserFile; he comments at
   8787/review and `start` prints his unseen comments (quote each in the first message, open the file, act).
 
 ## 8. Agents

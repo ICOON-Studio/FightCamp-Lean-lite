@@ -13,36 +13,83 @@ const BjjOpp := preload("res://scripts/rules/BjjOpp.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 
+const BjjMatch := preload("res://scripts/rules/BjjMatch.gd")
+
 const ROLLS_KEPT := 6
+## S389 a bout counts as this many classes towards the next belt (competition is mat time; coach judgement).
+const BOUT_CLASSES := 2
+## An opponent's strength and cardio roll BODY_LOW .. BODY_LOW + BODY_SPREAD - 1 (Ana starts 52 / 58).
+const BODY_LOW := 45.0
+const BODY_SPREAD := 16
 const LINES_KEPT := 5
 
 
-static func run_open(f: Dictionary, o: Dictionary, today: int, rng: RandomNumberGenerator) -> Dictionary:
-	var belt := str(f.get("belt", "white"))
-	var rules := BjjTree.rules_for(belt)
+## S389 an open runs bout by bout, so the player can fight one live (BeltMatch) or simulate it (the walk): a run is
+## {d, name, rounds, rows, wins, visits, over}; run_open plays a whole one on the walk.
+static func start_run(o: Dictionary, today: int) -> Dictionary:
+	return {"d": today, "name": str(o["name"]), "rounds": int(round(log(float(NoGi.BRACKET)) / log(2.0))), "rows": [], "wins": 0,
+		"visits": {}, "over": false}
+
+
+## The bracket path drawn at entry (a fresh one when she has none).
+static func field_of(f: Dictionary, o: Dictionary, today: int, rng: RandomNumberGenerator) -> Array:
 	var field: Array = (f.get("field", {}) as Dictionary).get(today, [])
 	if field.size() < 3:
 		field = BjjOpp.field(f, o, rng.randi())
-	var rounds := int(round(log(float(NoGi.BRACKET)) / log(2.0)))
-	var plan := BjjTree.plan_of(f, rules)
-	var matches: Array = []
-	var wins := 0
-	var visits := {}
-	for r in rounds:
-		var opp: Dictionary = field[r]
-		var w := BjjWalk.walk(f, opp, [plan, BjjTree.route(str(opp.get("route", ""))).get("steps", [])], int(rules["minutes"]), rules, rng)
-		for k in w["visits"]:
-			var v: Array = visits.get_or_add(k, [0, 0, 0])
-			for i in 3:
-				v[i] += int(w["visits"][k][i])
-		matches.append({"d": today, "open": str(o["name"]), "win": bool(w["win"]), "opp": str(opp["name"]), "how": str(w["how"]),
-			"path": w["path"], "end": str(w["end"]), "opp_id": str(opp.get("id", "")), "style": str(opp.get("style", "")),
-			"lines": BjjWalk.rule_lines(w, LINES_KEPT)})
-		if not bool(w["win"]):
-			break
-		wins += 1
+	return field
+
+
+static func add_row(run: Dictionary, row: Dictionary) -> void:
+	(run["rows"] as Array).append(row)
+	if bool(row["win"]):
+		run["wins"] = int(run["wins"]) + 1
+	run["over"] = not bool(row["win"]) or (run["rows"] as Array).size() >= int(run["rounds"])
+
+
+## The next bout on the walk.
+static func sim_bout(f: Dictionary, run: Dictionary, field: Array, rng: RandomNumberGenerator) -> void:
+	var rules := BjjTree.rules_for(str(f.get("belt", "white")))
+	var opp: Dictionary = field[(run["rows"] as Array).size()]
+	var w := BjjWalk.walk(f, opp, [BjjTree.plan_of(f, rules), BjjTree.route(str(opp.get("route", ""))).get("steps", [])],
+		int(rules["minutes"]), rules, rng)
+	var visits: Dictionary = run["visits"]
+	for k in w["visits"]:
+		var v: Array = visits.get_or_add(k, [0, 0, 0])
+		for i in 3:
+			v[i] += int(w["visits"][k][i])
+	add_row(run, {"d": int(run["d"]), "open": str(run["name"]), "win": bool(w["win"]), "opp": str(opp["name"]), "how": str(w["how"]),
+		"path": w["path"], "end": str(w["end"]), "opp_id": str(opp.get("id", "")), "style": str(opp.get("style", "")),
+		"lines": BjjWalk.rule_lines(w, LINES_KEPT)})
+
+
+## The next bout as the player fought it: res = {win, how, landed (move names)}.
+static func live_bout(run: Dictionary, opp: Dictionary, res: Dictionary) -> void:
+	add_row(run, {"d": int(run["d"]), "open": str(run["name"]), "win": bool(res["win"]), "opp": str(opp["name"]), "how": str(res["how"]),
+		"path": [], "end": "", "opp_id": str(opp.get("id", "")), "style": str(opp.get("style", "")), "lines": [],
+		"landed": res.get("landed", []), "live": true})
+
+
+## An open's opponent as BeltMatch reads her: her drilled level and a body from her seed.
+static func match_opp(opp: Dictionary) -> Dictionary:
+	var s := absi(int(opp.get("seed", 0)))
+	return {"name": str(opp["name"]), "first": str(opp.get("first", opp["name"])), "skill": BjjMatch.skill_of(opp), "bjj": opp.get("bjj", {}),
+		"stats": {"strength": BODY_LOW + float(s % BODY_SPREAD), "cardio": BODY_LOW + float((s / BODY_SPREAD) % BODY_SPREAD)}}
+
+
+static func result(f: Dictionary, run: Dictionary) -> Dictionary:
+	var wins := int(run["wins"])
+	var rounds := int(run["rounds"])
 	var medal := "gold" if wins == rounds else ("silver" if wins == rounds - 1 else ("bronze" if wins == rounds - 2 else ""))
-	return {"matches": matches, "wins": wins, "medal": medal, "leak": leak_of(f, visits, rules)}
+	return {"matches": run["rows"], "wins": wins, "medal": medal,
+		"leak": leak_of(f, run["visits"], BjjTree.rules_for(str(f.get("belt", "white"))))}
+
+
+static func run_open(f: Dictionary, o: Dictionary, today: int, rng: RandomNumberGenerator) -> Dictionary:
+	var run := start_run(o, today)
+	var field := field_of(f, o, today, rng)
+	while not bool(run["over"]):
+		sim_bout(f, run, field, rng)
+	return result(f, run)
 
 
 ## The open's leak: of Ana's holes the walk visited, the one with the most points lost + TAP_VALUE x taps, with the move
@@ -83,7 +130,7 @@ static func note_stats(f: Dictionary, res: Dictionary) -> void:
 
 ## One line for a bout: "R1 Rosa Lund (Guard player): double leg, run the pipe, rear naked choke - won, submission ...".
 static func path_line(row: Dictionary, i: int) -> String:
-	var landed: Array = []
+	var landed: Array = (row.get("landed", []) as Array).duplicate()
 	for p in row.get("path", []):
 		if int(p[1]) == 0 and str(p[2]) == "hit":
 			landed.append(BjjTree.move_name(str(BjjTree.edge(str(p[0])).get("move", ""))).to_lower())

@@ -8,13 +8,13 @@ Updated 2026-11-06 by claude S294.
 
 ## Now
 
-**S388 — ?** *(claude)*
+**S389 — ?** *(claude)*
 
-S388: update 77 exported: career opens on Home, first-week guide says what and why, Roster summary page, GYM > Records with filters, frozen condition fixed (cards now read the sim), halftone shader fixed, plain Why panel grading the plan against no plan. Measured: good plan 59% of bouts, no plan 45%, bad 41%; better-trained fighter wins (+5 stats 72%, +10 95%). New docs: GAME_BIBLE, STEAM_RELEASE_PLAN, PLAYER_PATH (critics: bible 5/10 v1, plan 4/10 v1, path 6/10, approved for plain screens on Home and the fight flow, arc not approved). Direction: structure first, skin last, prove the hook on strangers. Office against dashboard left open.
+S389: update 78 exported: opens fought bout by bout (live or simulate), bouts feed the belt, both women fight only with what they drilled, clash panels with real reasons, bodies placed every frame, every finish ends in a tap. Bible section 12 answered. Dominus Gladiatus studied: two hubs plus a countdown strip. Judges before the body fixes: reviewer 3, animation 4, technique 3, clarity 5/3/5; the body fixes are not judged yet. Board posts now carry a required rating.
 
 ## Next
 
-S389: operator's four bible decisions; plain Home and fight screens from docs/PLAYER_PATH.md; five strangers on the build; clip licence list. Paused until they matter: fight motion rounds, sound wiring, Home skin.
+S390: judge the fixed BJJ film and loop to 7/10 before showing him; then plain Home and fight flow with the Dominus layout; then C237 and C238 from the study; decide the FIGHT9 loop. Rule: nothing visual reaches him under 7/10.
 
 ## Where the game actually is
 
@@ -280,3 +280,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S386**  |  |  | *none yet* | S386: NOREF + corner lens on main; blind A/B quality loop (harsh critic sub-agents vs UFC 6 / Undisputed; fight motion r2 3/10 vs 7, 2/10 vs 8); DEFFLOW2 r4 fixes on claude/defflow1 (BodyKeep, HitSnap carry, punch->punch reach fade); menu critic 4/10 + 3/10 -> operator "Yes, build 1-3" + Playbook into the fighter page; GAMETREE1 Goose branch tests pass; review board cleaned; Miro/ops board carry scores. |
 |  |  | **S387**  |  |  | *none yet* | S387: update 76 merged and exported: first-week guide, Ana after week 1, no empty reviews, Playbook on the fighter page, analytic bout page and week review, roster checklist, offer cards, jigsaw poster on Accept, new photos (head and shoulders, normal light, slate), GAMETREE1 (7 of 21 tuning bars unmet). BJJ9R18 now starts from R16 (operator 7.5). SOUND1R2 and FIGHT9R15 dropped; fight motion round 3 not started. Sounds: 5 redos made with Ludo, operator picked 1, 6, 9, 10, 13; the set is final, wiring next. |
 |  |  | **S388**  |  |  | *none yet* | S388: update 77 exported: career opens on Home, first-week guide says what and why, Roster summary page, GYM > Records with filters, frozen condition fixed (cards now read the sim), halftone shader fixed, plain Why panel grading the plan against no plan. Measured: good plan 59% of bouts, no plan 45%, bad 41%; better-trained fighter wins (+5 stats 72%, +10 95%). New docs: GAME_BIBLE, STEAM_RELEASE_PLAN, PLAYER_PATH (critics: bible 5/10 v1, plan 4/10 v1, path 6/10, approved for plain screens on Home and the fight flow, arc not approved). Direction: structure first, skin last, prove the hook on strangers. Office against dashboard left open. |
+|  |  | **S389**  |  |  | *none yet* | S389: update 78 exported: opens fought bout by bout (live or simulate), bouts feed the belt, both women fight only with what they drilled, clash panels with real reasons, bodies placed every frame, every finish ends in a tap. Bible section 12 answered. Dominus Gladiatus studied: two hubs plus a countdown strip. Judges before the body fixes: reviewer 3, animation 4, technique 3, clarity 5/3/5; the body fixes are not judged yet. Board posts now carry a required rating. |

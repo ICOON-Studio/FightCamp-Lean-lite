@@ -147,7 +147,7 @@ def _posts_in(base: Path, notes: dict[str, list[dict[str, Any]]]) -> list[dict[s
                               "comments": notes.get(key, [])})
         if files:
             posts.append({"batch": batch.name, "title": str(man.get("title", batch.name)), "stage": str(man.get("stage", "")),
-                          "at": str(man.get("at", "")), "mtime": batch.stat().st_mtime, "files": files,
+                          "rating": str(man.get("rating", "")), "at": str(man.get("at", "")), "mtime": batch.stat().st_mtime, "files": files,
                           "superseded_by": str(man.get("superseded_by", "")), "removed_at": str(man.get("removed_at", ""))})
     posts.sort(key=lambda p: (p["at"] or "", p["mtime"]), reverse=True)
     return posts

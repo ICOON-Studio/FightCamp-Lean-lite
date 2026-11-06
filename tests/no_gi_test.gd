@@ -100,7 +100,7 @@ func _career() -> void:
 		stopped = Grapplers.day(c)
 	_check(stopped, "the open's Saturday stops the clock")
 	_check((f["opens"] as Array).size() > before and int(f["w"]) + int(f["l"]) > w0, "the open ran on its Saturday (%d matches)" % ((f["opens"] as Array).size() - before))
-	_check(int(f["mat_classes"]) == 130 + 3 * 4, "four Sundays, 12 classes (%d)" % int(f["mat_classes"]))
+	_check(int(f["mat_classes"]) == 130 + 3 * 4 + ((f["opens"] as Array).size() - before) * 2, "four Sundays, 12 classes, 2 a bout (%d)" % int(f["mat_classes"]))
 	_check(str(c.news[0]["t"]).contains("Regional No-Gi Open") or str(c.news[1]["t"]).contains("Regional No-Gi Open"), "the news says how she did")
 	_check(not bool(Grapplers.stripe(c, "ana")["ok"]) or NoGi.stripes_due(f, c.day) > 0, "no stripe given while none is due")
 	for k in 12:

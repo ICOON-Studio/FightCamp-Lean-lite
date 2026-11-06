@@ -35,3 +35,24 @@ static func key_times(frames: Array) -> PackedFloat32Array:
 	for d in durations(frames):
 		out.append(out[out.size() - 1] + d)
 	return out
+
+
+## S371 BJJ9 (Argon: takedowns are "9 seconds of slow-motion"): a paced move - the whole sequence runs in `total`
+## seconds, the natural gap lengths kept in PROPORTION but shaved toward the end (relief 0..1: a fall accelerates
+## into the mat - the last gaps carry less of the total). Timing comes from real footage, never from GrappleMap.
+static func key_times_shape(frames: Array, total: float, relief: float = 0.6) -> PackedFloat32Array:
+	var base := durations(frames)
+	var n := base.size()
+	var out := PackedFloat32Array([0.0])
+	if n == 0:
+		return out
+	var w := PackedFloat32Array()
+	var sum := 0.0
+	for k in n:
+		var wk := 1.0 - relief * (float(k) / maxf(1.0, float(n - 1)))
+		w.append(wk)
+		sum += base[k] * wk
+	var scale := total / maxf(0.001, sum)
+	for k in n:
+		out.append(out[out.size() - 1] + base[k] * w[k] * scale)
+	return out
