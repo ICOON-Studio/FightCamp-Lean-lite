@@ -51,6 +51,18 @@ func _initialize() -> void:
 	span = full.chunk_span()
 	_check(span.y <= 1.0 and span.y - span.x >= HudBars.Arc.CHUNK_MIN - 0.0001, "a hit on a full arc shows just as wide")
 
+	var jab = HudBars.Arc.new()
+	jab.set_bar(_bar(0.9))
+	jab.flash(HudBars.strength(1.1, false), true)
+	jab.set_bar(_bar(0.89))
+	var hard = HudBars.Arc.new()
+	hard.set_bar(_bar(0.9))
+	hard.flash(HudBars.strength(3.0, true), true)
+	hard.set_bar(_bar(0.87))
+	var jab_w: float = jab.chunk_span().y - jab.chunk_span().x
+	var hard_w: float = hard.chunk_span().y - hard.chunk_span().x
+	_check(hard_w >= jab_w * 2.0, "a hard shot takes a clearly bigger piece than a jab (%.2f against %.2f)" % [hard_w, jab_w])
+
 	var small: float = HudBars.strength(1.5, false)
 	var big: float = HudBars.strength(3.0, true)
 	_check(small > 0.0 and small < big, "the flash follows the damage: %.2f, big %.2f" % [small, big])

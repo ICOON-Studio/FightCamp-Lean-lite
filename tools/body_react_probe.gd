@@ -32,7 +32,7 @@ const VIS_DEG := 2.0           # or the trunk has
 const WIN_S := 1.4             # measured window after the contact (hit fold life ~1.3 s)
 const START_WIN_F := 4         # the reaction's animation_started lands within this many frames of the contact
 const KEEP_F := 150            # pose history per boxer (5 s)
-const TAP_BONES := ["Head", "Chest", "Spine", "Hips", "LeftHand", "RightHand"]
+const TAP_BONES := ["Head", "Neck", "UpperChest", "Chest", "Spine", "Hips", "LeftHand", "RightHand"]
 
 var main: Node
 var view: Node

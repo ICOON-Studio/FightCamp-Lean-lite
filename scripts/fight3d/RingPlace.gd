@@ -22,6 +22,11 @@ const INSIDE_FLOOR_M := 0.6   # S392: 0.48 sat under the 0.64 inside range (Rang
 ## `-- nobodykeep` = the control arm.
 const BODY_KEEP_M := 0.6
 static var body_keep: bool = not OS.get_cmdline_user_args().has("nobodykeep")
+## S393 (two blind judges: "her face stays sunk in the other's torso"; fold_probe: 111 of 123 sunk frames were the gut-shot
+## reactions): a boxer folding over a body shot needs room, or her head goes into the other's trunk. While one folds, the
+## bodies keep this much further apart. `-- nofoldroom` = the control arm.
+const FOLD_ROOM_M := 0.22
+static var fold_room: bool = not OS.get_cmdline_user_args().has("nofoldroom")
 ## S311: the pair's middle stays this far inside the ropes (was 0.9: nobody ever reached them), and a boxer's pelvis
 ## at least ROPE_LEAN_M (backed onto the ropes she leans on them).
 const MID_IN_M := 0.55
@@ -90,6 +95,15 @@ static func kept(me: Vector3, other: Vector3, keep_m: float) -> Vector3:
 	return me + away.normalized() * short * 0.5
 
 
+static func _fold(bx: Dictionary) -> float:
+	return float(bx["snap"].fold_w()) if bx.get("snap") != null else 0.0
+
+
+## S393 the extra keep for the pair, from how far each is folded (0..1).
+static func room(fold_a: float, fold_b: float) -> float:
+	return FOLD_ROOM_M * clampf(maxf(fold_a, fold_b), 0.0, 1.0) if fold_room else 0.0
+
+
 ## S392 a lunge carries her in only as far as `keep_m` from the other. `dist` = the gap before it.
 static func lunge_room(lunge_m: float, dist: float, keep_m: float) -> float:
 	return clampf(lunge_m, 0.0, maxf(dist - keep_m, 0.0))
@@ -115,7 +129,7 @@ static func _place(st: Node, delta: float) -> void:
 		var me := RingFeet.shown(st, bx)
 		var other := RingFeet.shown(st, boxers[1 - i])
 		var n: Node3D = bx["node"]
-		var keep_m: float = st.clinch.floor_m(BODY_KEEP_M) if body_keep else 0.0
+		var keep_m: float = st.clinch.floor_m(BODY_KEEP_M + room(_fold(bx), _fold(boxers[1 - i]))) if body_keep else 0.0
 		me = kept(me, other, keep_m)
 		var to := other - me
 		# S302: a landed punch carries her in (shown only; her place on the canvas stays).

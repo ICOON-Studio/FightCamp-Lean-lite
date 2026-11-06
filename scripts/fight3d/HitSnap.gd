@@ -101,6 +101,11 @@ func fold(hit_left: bool) -> void:
 	_gain = FOLD_GAIN
 
 
+## S393 how far she is folded right now, 0..1 (RingPlace gives her room).
+func fold_w() -> float:
+	return clampf(fold_envelope(_bt), 0.0, 1.0) if _bt >= 0.0 and _gain > 1.0 else 0.0
+
+
 ## The fold's shape: up like the brace, held, then a slow settle; 0 after FOLD_LIFE_S.
 static func fold_envelope(t: float) -> float:
 	if t < 0.0 or t >= FOLD_LIFE_S:

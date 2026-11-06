@@ -17,10 +17,14 @@ var _flash := 0.0
 var _band := -1
 ## S392 what the last hit took (top end, -1 = none). A hit is 1.5-3 points, under 2 degrees: drawn CHUNK_MIN wide at least.
 const CHUNK_HOLD_S := 0.5
-const CHUNK_MIN := 0.12
+const CHUNK_MIN := 0.1
+## S393 (blind review: "a hard shot and a jab look alike"): the chunk grows with the hit, from a flash of WEAK_POWER to full.
+const CHUNK_MAX := 0.3
+const WEAK_POWER := 0.6
 const CHUNK_DRAIN_S := 0.18
 var chunk := -1.0
 var _struck := false
+var _width := CHUNK_MIN
 var _chunk_hold := 0.0
 
 func set_bar(b: Dictionary) -> void:
@@ -43,11 +47,13 @@ func set_bar(b: Dictionary) -> void:
 func flash(power: float = 1.0, struck := false) -> void:
 	_flash = maxf(_flash, power)
 	_struck = _struck or struck
+	if struck:
+		_width = lerpf(CHUNK_MIN, CHUNK_MAX, clampf((power - WEAK_POWER) / (1.0 - WEAK_POWER), 0.0, 1.0))
 
 ## The chunk on the arc, (low, high); always CHUNK_MIN wide, so a hit on a full arc shows too. x < 0 = no chunk.
 func chunk_span() -> Vector2:
-	var top := minf(maxf(chunk, fill + CHUNK_MIN), 1.0)
-	return Vector2(minf(fill, top - CHUNK_MIN), top) if chunk >= 0.0 else Vector2(-1.0, -1.0)
+	var top := minf(maxf(chunk, fill + _width), 1.0)
+	return Vector2(minf(fill, top - _width), top) if chunk >= 0.0 else Vector2(-1.0, -1.0)
 
 func tick(delta: float) -> void:
 	var k := 1.0 - exp(-delta / EASE_S)
