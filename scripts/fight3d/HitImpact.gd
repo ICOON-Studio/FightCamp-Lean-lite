@@ -12,6 +12,7 @@ const FightSfx := preload("res://scripts/audio/FightSfx.gd")
 ## on a power punch; the receiver's head snaps). Seconds both bodies hold at contact, head-snap degrees, camera nudge metres.
 const HOLD_S := {"jab": 0.03, "power": 0.05, "big": 0.06}
 const SNAP_DEG := {"jab": 11.0, "cross": 16.0, "hook": 19.0, "uppercut": 17.0}
+const BIG_SNAP := 1.6   # S395 (blind review: a big shot in slow motion showed no head snap)
 
 const SHAKE_M := {"jab": 0.0, "power": 0.025, "big": 0.06}
 ## S301: a Pro clip plays its recovery fast (BeatClips.recover_scale, from its measured contact) and hands over to the guard
@@ -66,6 +67,8 @@ static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, mov
 	for key in SNAP_DEG:
 		if move.contains(key):
 			deg = float(SNAP_DEG[key])
+	if big:
+		deg *= BIG_SNAP
 	var hand: String = st.hand_of(hitter, "LeftHand" if move in ["jab", "lead_hook", "lead_uppercut"] else "RightHand")
 	var skel: Skeleton3D = boxers[hitter]["skel"]
 	var shoulder := skel.global_transform * skel.get_bone_global_pose(skel.find_bone(hand.trim_suffix("Hand") + "UpperArm")).origin

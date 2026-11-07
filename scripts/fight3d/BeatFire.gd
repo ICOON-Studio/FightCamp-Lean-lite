@@ -171,10 +171,16 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 		var tree: SceneTree = v.get_tree()
 		if punch_id >= 0 and land != "lands" and not stopped:
 			# S390: at the glove's contact, and only for a punch that shows. A slip or weave is a miss, not a block.
+			# S395: the punch must still be running (PunchRange.cut_off): 14 % of block/miss sounds fired after
+			# the punch clip was replaced by a reaction or another move.
 			if land == "blocked" or str(b.get("def", "")) == "block":
-				FightSfx.blocked(at)
+				tree.create_timer(at).timeout.connect(func():
+					if not PunchRange.cut_off(stage, who, punch_id):
+						FightSfx.blocked())
 			else:
-				FightSfx.missed(at)
+				tree.create_timer(at).timeout.connect(func():
+					if not PunchRange.cut_off(stage, who, punch_id):
+						FightSfx.missed())
 		if land == "lands":
 			# S302: the glove is carried onto her face past the guard, and the contact holds, snaps and nudges.
 			# (FIGHT9: no half-speed close-up on the big shot - Argon read it as slow motion; S376 replays knockdowns.)

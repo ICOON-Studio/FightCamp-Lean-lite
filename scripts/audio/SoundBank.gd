@@ -62,9 +62,19 @@ static func volume_db(id: String) -> float:
 	return float(event(id).get("volume_db", 0.0))
 
 
-## The random pitch spread of every play (0.04 = +-4%), so a repeat never sounds like a copy.
+## The random pitch spread of every play (0.06 = +-6%, about 1 semitone), so a repeat never sounds like a copy.
 static func pitch(id: String) -> float:
 	return float(event(id).get("pitch", 0.0))
+
+
+## S395: the random volume spread (dB): each play varies by +-this much, so no two land at the same level.
+static func volume_spread(id: String) -> float:
+	return float(event(id).get("volume_spread", 0.0))
+
+
+## S395: how many seconds before contact the sound should fire (compensates for the file's rise time to peak).
+static func pre_fire_s(id: String) -> float:
+	return float(event(id).get("pre_fire_s", 0.0))
 
 
 static func cooldown(id: String) -> float:

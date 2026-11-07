@@ -24,6 +24,9 @@ const ZOOM := 0.62           # of the shot's field of view at the closest
 const CENTRE := 0.75         # how far the push slides the head towards the middle of the frame
 const MOST_A_ROUND := 2
 const APART_S := 8.0
+const GLOW := Color(1.0, 0.72, 0.42)   # the warm flash on a big shot
+const GLOW_MOST := 0.2
+const GLOW_S := 0.3
 
 var view: Control
 var _who: Label
@@ -40,6 +43,8 @@ var _slow := false
 var _base_fov := 0.0
 var _set_fov := 0.0
 var _aim := Vector2.ZERO
+var _glow: ColorRect
+var _glow_left := 0.0
 
 
 static func attach(v: Control, pin: Callable) -> Node:
@@ -85,6 +90,12 @@ func _build() -> void:
 	_shot = UI.label("", 24, UI.FG, "bold")
 	row.add_child(_shot)
 	visible = false
+	_glow = ColorRect.new()
+	_glow.color = Color(GLOW, 0.0)
+	_glow.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	view.add_child(_glow)
+	view.move_child(_glow, 0)
+	_glow.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
 
 ## A punch reached the other boxer.
@@ -103,11 +114,13 @@ func landed(b: Dictionary) -> void:
 	_left = SHOW_S
 	modulate.a = 1.0
 	visible = true
+	if big:
+		_glow_left = GLOW_S
 
 
 ## A big shot is LEAD_S from landing (BodyLive.land).
 func big_coming(b: Dictionary) -> void:
-	if bool(view.playing):
+	if bool(view.playing) and str(b["move"]) != "jab":   # S395 a jab into the gloves is no event, even a good one
 		_moment(1 if str(b["who"]) == "a" else 0)
 
 
@@ -138,6 +151,8 @@ func _back() -> void:
 func _process(delta: float) -> void:
 	var real := delta / maxf(Engine.time_scale, 0.05)
 	_clock += real
+	_glow_left = maxf(0.0, _glow_left - real)
+	_glow.color.a = GLOW_MOST * _glow_left / GLOW_S
 	if visible:
 		_left -= real
 		modulate.a = clampf(_left / FADE_S, 0.0, 1.0)

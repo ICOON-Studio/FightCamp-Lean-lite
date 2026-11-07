@@ -12,9 +12,9 @@ const FightIntro := preload("res://scripts/fight3d/FightIntro.gd")
 const CornerMinute := preload("res://scripts/fight3d/CornerMinute.gd")
 const PICK_AT_S := 16.0   # the card comes up at 9 s: a player reads it, then picks
 ## S395 (operator: "why do you render full fight clips"): `short` runs the dull stretches fast, so a film costs a third.
-const FAST := 8.0
-const FAST_ROUND_TO_S := 165.0   # round 1 at speed to here, then the last 15 s and the bell as played
-const FAST_CORNER_S := Vector2(20.0, 46.0)   # the walk, the card and the walk out stay as played
+const FAST := 12.0
+const FAST_ROUND_TO_S := 172.0   # round 1 at speed to here, then the last 8 s and the bell as played
+const FAST_CORNER_S := Vector2(17.0, 48.0)   # the walk, the card and the walk out stay as played
 var _fast_on := false
 
 var main: Node
@@ -94,7 +94,7 @@ func _initialize() -> void:
 	_rings(view, "end of the bell")
 	await _corner(view, "body")
 	if OS.get_cmdline_user_args().has("short"):   # S395 (operator: "noneedto bea full fight ?"): one round, the corner, the next bell
-		await _wait(150)
+		await _wait(75)
 		print("FILM done")
 		quit(0)
 		return

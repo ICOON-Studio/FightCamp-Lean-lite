@@ -227,3 +227,42 @@ func _do_duck(bus_name: String, db: float, seconds: float) -> void:
 	tw.tween_interval(seconds)
 	tw.tween_method(set_db, base + db, base, DUCK_RELEASE_S)
 	_ducks[bus_name] = tw
+
+
+## S395: a sub-bass impact for the big-shot moment. Generates a short 55 Hz tone with a 0.3 s exponential decay.
+## Engine.time_scale does not slow AudioStreamPlayer, so the heavier hit is a separate low layer under the punch.
+static func sub_bass() -> void:
+	var n := ensure()
+	if n == null:
+		return
+	n._play_sub_bass()
+
+
+func _play_sub_bass() -> void:
+	var sr := 22050
+	var dur := 0.3
+	var n_samples := int(sr * dur)
+	var data := PackedByteArray()
+	data.resize(n_samples * 2)
+	var freq := 55.0
+	var tau := 0.12
+	for i in n_samples:
+		var t := float(i) / sr
+		var env := exp(-t / tau)
+		var sample := sin(TAU * freq * t) * env
+		var val := int(clampf(sample, -1.0, 1.0) * 32767.0)
+		data[i * 2] = val & 0xFF
+		data[i * 2 + 1] = (val >> 8) & 0xFF
+	var stream := AudioStreamWAV.new()
+	stream.format = AudioStreamWAV.FORMAT_16_BITS
+	stream.mix_rate = sr
+	stream.stereo = false
+	stream.data = data
+	var player := AudioStreamPlayer.new()
+	player.name = "SubBass_%d" % Engine.get_process_frames()
+	player.stream = stream
+	player.volume_db = -6.0
+	player.bus = "SFX"
+	add_child(player)
+	player.play()
+	player.finished.connect(player.queue_free)

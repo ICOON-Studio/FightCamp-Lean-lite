@@ -280,7 +280,7 @@ func _test_code() -> void:
 	var hooks := {"res://scripts/ui/UI.gd": ["Sfx.play(\"ui_click\")"], "res://scripts/ui/FlipCard.gd": ["Sfx.play(\"ui_click\")"],
 		"res://scripts/ui/modals/PosterReveal.gd": ["Sfx.play(\"knockdown_fall\")"],
 		"res://scripts/fight3d/HitImpact.gd": ["FightSfx.landed(move, big)"],
-		"res://scripts/fight3d/BeatFire.gd": ["FightSfx.blocked(at)", "FightSfx.missed(at)", "FightSfx.step()", "FightSfx.knockdown(", "FightSfx.big_shot_ahead(at)"],
+		"res://scripts/fight3d/BeatFire.gd": ["FightSfx.blocked()", "FightSfx.missed()", "FightSfx.step()", "FightSfx.knockdown(", "FightSfx.big_shot_ahead(at)"],
 		"res://scripts/fight3d/FightView.gd": ["FightSfx.bell(true)", "FightSfx.bell(false)", "FightSfx.crowd_off()"],
 		"res://scripts/fight3d/FightCast.gd": ["FightSfx.bell(true)"]}
 	for path in hooks:

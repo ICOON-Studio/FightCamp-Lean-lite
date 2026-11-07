@@ -4,30 +4,37 @@ extends RefCounted
 ## clinch, the count, the corner bed and the crowd swell come back when the operator has kept a sound for them.
 
 const Sfx := preload("res://scripts/audio/Sfx.gd")
+const SoundBank := preload("res://scripts/audio/SoundBank.gd")
 
 const ROAR_AFTER_S := 0.22    # the crowd answers a beat after the big shot and the fall
-const BIG_DUCK_DB := -4.0     # SOUND_LIST mix: the bed ducks 4 dB for 0.6 s under a big shot
-const BIG_DUCK_S := 0.6
+const BIG_DUCK_DB := -8.0     # S395: deeper duck under the big shot (was -4); the slow-mo moment needs room
+const BIG_DUCK_S := 1.0       # S395: matches FightCalls.HOLD_S (the ring is slow for 1 s)
 const HUSH_DB := -11.0        # R8: near-silence before the round's big shot
 
 
 ## `move` lands. The big shot plays alone: every sound was heard on its own, so two whole punches never stack.
+## S395: pre_fire_s advances the sound by the file's rise time, so the peak lands with the glove.
 static func landed(move: String, big: bool) -> void:
+	var pf := SoundBank.pre_fire_s(resolve_move(move))
 	if big:
-		Sfx.play("punch_big", {"power": 1.0})
+		Sfx.play("punch_big", {"power": 1.0, "delay": -pf})
+		Sfx.sub_bass()
 		Sfx.play("crowd_roar", {"delay": ROAR_AFTER_S})
 		Sfx.duck("Crowd", BIG_DUCK_DB, BIG_DUCK_S)
 	else:
-		Sfx.play(resolve_move(move))
+		Sfx.play(resolve_move(move), {"delay": -pf})
 
 
 ## `delay`: the seconds to the glove's contact, so the sound lands with the picture.
+## S395: pre_fire_s compensates for the file's rise time; the punch must still be running (BeatFire checks cut_off).
 static func blocked(delay: float = 0.0) -> void:
-	Sfx.play("punch_blocked", {"delay": delay})
+	var pf := SoundBank.pre_fire_s("punch_blocked")
+	Sfx.play("punch_blocked", {"delay": maxf(0.0, delay - pf)})
 
 
 static func missed(delay: float = 0.0) -> void:
-	Sfx.play("punch_miss", {"delay": delay})
+	var pf := SoundBank.pre_fire_s("punch_miss")
+	Sfx.play("punch_miss", {"delay": maxf(0.0, delay - pf)})
 
 
 ## R8: the round's big shot is known at its beat. The crowd drops until the contact; landed() takes the bus from there.

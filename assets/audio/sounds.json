@@ -10,7 +10,9 @@
     "res://assets/audio/fight/punch_jab_head_1.ogg"
    ],
    "volume_db": 3.4,
-   "pitch": 0.04,
+   "pitch": 0.06,
+   "volume_spread": 1.5,
+   "pre_fire_s": 0.010,
    "loop": false,
    "priority": 2
   },
@@ -23,7 +25,9 @@
     "res://assets/audio/fight/punch_power_head_2.ogg"
    ],
    "volume_db": 6.5,
-   "pitch": 0.04,
+   "pitch": 0.06,
+   "volume_spread": 1.5,
+   "pre_fire_s": 0.027,
    "loop": false,
    "priority": 2
   },
@@ -36,7 +40,9 @@
     "res://assets/audio/fight/punch_body_1.ogg"
    ],
    "volume_db": 7.5,
-   "pitch": 0.04,
+   "pitch": 0.06,
+   "volume_spread": 1.5,
+   "pre_fire_s": 0.015,
    "loop": false,
    "priority": 2
   },
@@ -49,7 +55,9 @@
     "res://assets/audio/fight/punch_blocked_1.ogg"
    ],
    "volume_db": 2.2,
-   "pitch": 0.04,
+   "pitch": 0.06,
+   "volume_spread": 1.5,
+   "pre_fire_s": 0.0,
    "loop": false,
    "priority": 1
   },
@@ -62,7 +70,9 @@
     "res://assets/audio/fight/punch_miss_4.ogg"
    ],
    "volume_db": 0.0,
-   "pitch": 0.04,
+   "pitch": 0.06,
+   "volume_spread": 1.5,
+   "pre_fire_s": 0.005,
    "loop": false,
    "priority": 1
   },
@@ -75,7 +85,9 @@
     "res://assets/audio/fight/punch_big_1.ogg"
    ],
    "volume_db": 4.8,
-   "pitch": 0.04,
+   "pitch": 0.06,
+   "volume_spread": 1.5,
+   "pre_fire_s": 0.031,
    "loop": false,
    "priority": 3
   },
@@ -240,8 +252,8 @@
    "mmax": -23.2,
    "lufs": -70.0,
    "tp": -1.4,
-   "dur": 0.31,
-   "lead_silence": 0.0,
+   "dur": 0.24,
+   "lead_silence": 0.005,
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
