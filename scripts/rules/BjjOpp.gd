@@ -8,6 +8,7 @@ extends RefCounted
 const BjjTree := preload("res://scripts/rules/BjjTree.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
+const BjjBody := preload("res://scripts/rules/BjjBody.gd")
 
 const STYLES := {"Wrestler": ["standing", "kimura_back"], "Guard player": ["closed_guard", "open_guard"],
 	"Passer": ["passing", "top_control"], "Half-guard player": ["half_guard", "escapes"], "Leg locker": ["leg_lock", "open_guard"]}
@@ -23,6 +24,7 @@ const OWNED_BAND := {"white": [8, 12], "blue": [25, 36], "purple": [30, 40], "br
 const LEAN_STYLE := ["Passer", "Guard player", "Wrestler"]
 ## [T] (bar 1 / bar 12 / bar 11c). UNOWNED_M and LEAN_W are new values the design does not give (flagged in the report).
 ## S384 calibration: OWNED_M 30-50 -> 30-45, CLASS_SHARE 0.4-0.9 -> 0.5-0.9, UNOWNED_M 5-28 -> 11-26 (bars 1, 3, 4).
+## S397 BJJREAL: the time at the belt is the class share (mat_classes), read by BjjBody.mat_time - not by the masteries.
 const T0 := {"OWNED_M": Vector2(30, 45), "CLASS_SHARE": Vector2(0.5, 0.9), "ROUTE_M": Vector2(50, 70),
 	"UNOWNED_M": Vector2(11, 26), "LEAN_W": 2.0}
 static var T: Dictionary = T0.duplicate()
@@ -71,6 +73,13 @@ static func _put(o: Dictionary, id: String, m: float) -> void:
 		(o["bjj"] as Dictionary)[id] = m
 
 
+## The stored part of a move (mastery without the season).
+static func _stored(o: Dictionary, id: String) -> float:
+	if str(BjjTree.move(id).get("src", "")) == "tree":
+		return BjjTree.class_part(o, id) + float((o["tree"] as Dictionary).get(id, 0.0))
+	return float((o["bjj"] as Dictionary).get(id, 0.0))
+
+
 static func _rand(rng: RandomNumberGenerator, r: Vector2) -> float:
 	return snappedf(rng.randf_range(r.x, r.y), 0.1)
 
@@ -84,7 +93,7 @@ static func generate(belt: String, style: String, seed: int) -> Dictionary:
 	var share := rng.randf_range((T["CLASS_SHARE"] as Vector2).x, (T["CLASS_SHARE"] as Vector2).y)
 	var o := {"id": "opp_%d" % (seed & 0x7fffffff), "name": "%s %s" % [first, last], "first": first, "belt": belt, "style": style,
 		"mat_classes": int(round(share * float(BeltRoad.CLASSES_TO_NEXT.get(belt, 300)))), "bjj": {}, "tree": {},
-		"route": "", "iq": float(BjjTree.IQ.get(belt, 40.0)), "seed": seed}
+		"route": "", "iq": float(BjjTree.IQ.get(belt, 40.0)), "seed": seed, "stats": BjjBody.roll(style, seed)}
 	var rank := BeltRoad.rank(belt)
 	var owned := {}
 	# Lower belts' syllabus: all owned (tree moves of lower belts come through class time, 30).
@@ -106,7 +115,7 @@ static func generate(belt: String, style: String, seed: int) -> Dictionary:
 			if BjjTree.is_base(mv):
 				continue
 			var m := _rand(rng, T["ROUTE_M"] if rank >= BeltRoad.rank("purple") else T["OWNED_M"])
-			_put(o, mv, maxf(m, BjjTree.mastery(o, mv)))
+			_put(o, mv, maxf(m, _stored(o, mv)))
 			owned[mv] = true
 	o["route"] = str(routes[0]) if not routes.is_empty() else ""
 	o["routes"] = routes

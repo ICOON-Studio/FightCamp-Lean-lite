@@ -20,7 +20,9 @@ func _check(ok: bool, what: String) -> void:
 
 func _initialize() -> void:
 	var c := Career.quick_start()
-	_check(c.cash == Career.start_cash() and c.cash == 14600, "a new career starts on 3 months of costs: %d" % c.cash)
+	# S397 money bites: 3 months of costs is now 17,200 - January's heating and power, insurance and the Standard kit budget
+	# joined the costs (was 14,600).
+	_check(c.cash == Career.start_cash() and c.cash == 17200, "a new career starts on 3 months of costs: %d" % c.cash)
 	_check(not c.closed and c.weeks_below == 0, "a new gym is open, no weeks below $0")
 	c.cash = -20000
 	var below: Array = []

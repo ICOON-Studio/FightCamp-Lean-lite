@@ -23,15 +23,23 @@ SESSIONS LEFT RUNNING (report to "Agent communications startup" S398 - CHECK THE
   merge). Week 5.5 -> 6.2/6.4, Fight prep 4 -> 5.4/6.2 blind; structural list in ops/research/MENUS_STATE_S398.md; stylized 2D
   art A/B plan in ops/research/STYLE_AB_S398.md (free seat). Archive the session (local_bb58ebe9-...) once idle.
   ALSO: godot_slot lost Godot output until 94ca7137 - a queued test that printed nothing before then proves nothing.
-- Money that bites (local_7eb19d9c-cef4-4cbd-ac3d-ef52eeb9c79b, claude/money-bites-1c249d): v2.2 money, legal_index fix (a
-  careful novice stopped boxing), harness no_render + one frame per stop (the two-boxer signal-11 crash was HARNESS-ONLY:
-  Godot's deferred-call queue overflowed; the game's CONTINUE is one day per timer tick). Sends a MERGE REPORT, then stops.
-- BJJ realism successor (local_84dbfd9b-1357-400a-a308-9c3e4c051ae3, origin/claude/bjj-realism-s398 @2d8d0d4e): v2 fitted, every
-  belt bar in band (n=1000), 11 BJJ tests green, critics 4-6 (sonnet next); beat engine OFF (BEATS2=0, byte-identical). Merge
-  plan agreed: the whole range after its full-suite result (clean merge-tree sim). White even subs 22% (bar 30-55) needs beats.
+- Money that bites: MERGED (it merged itself, 1e737b39 + doc 166a5482; S398 re-ran money_close + golden_path on main: 0
+  failures). Sensible gyms never close and hold 1.0-2.2 months of costs a quarter (was 12.5 months piled up, or every careful
+  two-boxer gym closed). Critics 6/6 design, stills 5.5. Left: Money page layout (Spend section), licence / a pro leaving /
+  overdraft (MONEY_BITES_S397.md s10) - free seat. Archive the session once idle.
+MAIN FAILURES to fix (free seat, small): plain_words_test (Interview.gd 'Not now', from rank 5) and tip_notes_test ('weapon'
+  definition 23 words).
+- BJJ realism v2: MERGED by S398 (500c3ca7; bjj_body + bjj_tree 0 failures on the merge; its full suite green but main's
+  plain_words_test - Interview.gd 'Not now', a main failure to fix). Beat engine is on main OFF (BEATS2=0); next BJJ step = the
+  beat engine to white even subs 30-55% and no stalling, on a FREE SEAT (Cursor), sonnet critics. Archive the session once idle.
 - Fighter look (local_0dc594e4-25d0-455d-9a8e-276a3001ddb3, claude/fighter-look-4bc1d9): operator "they do look dumb tbh, the
   poses the glare they all look the same"; variety + eyes/blinks + idle poses + a toon switch built; three-arm blind film test
   (today / varied realistic / varied stylized, sonnet critics, orthodox fighters) then report. Found the southpaw knock-knee.
+  Round 1 blind (2 critics + control): main 4.5 | varied realistic 3.5 (own bug: eyes rolled into the whites, pale lids,
+  black hair on the grey coach - fixed f18e544d, re-rendering) | toon 3.0. Faults BOTH critics put on EVERY arm, for free-seat
+  briefs: (1) singlets read as body paint with torn strap edges (MH_Top / FighterKit cloth - Ludo/Tripo asset); (2) a hole at
+  the coach's neck at the collar (mh_staff_coach mesh); (3) the same coach and second in both corners (CornerCrew one team);
+  (4) Erin's head-back stare at the roof 1:10-1:13 (stool clip); (5) intro/face-off faces hidden by gloves.
 - Animation chain HANDED OVER (685k): ops/research/ANIM_HANDOVER_S397.md (22d9be75). No Claude session for it (tokens): the seats
   run through seat_dispatch. In flight: SOUTHPAW1 on Cursor (operator-seen southpaw knock-knee; BoxerFootworkRig mirrored knee
   solve), HITSELL5 queued on Qwen, inside-work A/B films in the queue. Collect SOUTHPAW1 when its PR lands (sonnet critic).

@@ -5,6 +5,9 @@ extends RefCounted
 const SaveGame := preload("res://scripts/state/SaveGame.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const UI := preload("res://scripts/ui/UI.gd")
+const GymSpend := preload("res://scripts/state/GymSpend.gd")
+const GymUpgrades := preload("res://scripts/rules/GymUpgrades.gd")
+const StaffRoles := preload("res://scripts/rules/StaffRoles.gd")
 
 
 static func act(main: Node, name: String, arg: String) -> bool:
@@ -41,6 +44,54 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			main.render()
 		"scout":
 			main.toast("Scouting trials come in week 4.")
+		# S397 money bites (GymSpend): Club > Money's upgrades, premises, kit budget, club show, contract talks; People's staff.
+		"buyup", "movepremises", "hirerole", "letgorole", "kitbudget", "bookshow", "talks", "stipend", "dues", "eveningcoach", "grantbid":
+			_spend(main, c, name, arg)
 		_:
 			return false
 	return true
+
+
+static func _spend(main: Node, c: Career, name: String, arg: String) -> void:
+	var why := ""
+	var done := ""
+	match name:
+		"buyup":
+			why = GymSpend.buy(c, arg)
+			done = "Bought: %s. Ready in a week." % str(GymUpgrades.item(arg).get("name", arg)).to_lower()
+		"movepremises":
+			why = GymSpend.move(c)
+			done = "Moved: %s." % str(GymSpend.premises(c)["name"]).to_lower()
+		"hirerole":
+			why = GymSpend.hire(c, arg)
+			done = "%s hired." % str(StaffRoles.role(arg).get("name", arg)).get_slice(",", 0)
+		"letgorole":
+			why = GymSpend.let_go(c, arg)
+			done = "%s let go." % str(StaffRoles.role(arg).get("name", arg)).get_slice(",", 0)
+		"kitbudget":
+			GymSpend.set_kit(c, arg)
+			done = "Kit budget: %s." % str(GymSpend.kit(c)["name"]).to_lower()
+		"bookshow":
+			why = GymSpend.book_show(c)
+			done = "Club show booked for %s." % Clock.fmt(int(c.show.get("day", c.day)))
+		"dues":
+			GymSpend.set_dues(c, arg)
+			done = "Dues set."
+		"eveningcoach":
+			why = GymSpend.evening_coach(c, 1 if arg == "add" else -1)
+			done = "Evening coaches: %d." % c.extra_coaches
+		"grantbid":
+			why = GymSpend.grant_bid(c)
+			done = "Grant bid sent."
+		"stipend":
+			var sp := arg.split("|")
+			var sf := c.fighter_by_id(sp[0])
+			why = "no such fighter" if sf.is_empty() else GymSpend.set_stipend(c, sf, sp.size() > 1 and sp[1] == "on")
+			done = "Stipend changed for %s." % str(sf.get("first", ""))
+		"talks":
+			var parts := arg.split("|")
+			var f := c.fighter_by_id(parts[0])
+			why = "no such fighter" if f.is_empty() else GymSpend.answer_talks(c, f, parts.size() > 1 and parts[1] == "keep")
+			done = "Contract settled."
+	main.toast(done if why == "" else "Not now: %s." % why)
+	main.render()

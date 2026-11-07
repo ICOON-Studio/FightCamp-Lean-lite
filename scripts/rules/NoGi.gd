@@ -77,7 +77,8 @@ static func athlete() -> Dictionary:
 			"bullfighter_pass": 31.0, "knee_cut_pass": 15.0, "scissor_sweep": 34.0, "hip_bump_sweep": 32.0, "double_leg": 31.0,
 			"armbar_guard": 28.0, "kimura": 35.0, "americana": 30.0, "rear_naked_choke": 12.0, "guillotine": 9.0},
 		# S369 BJJMATCH1 (Miro card 3: odds from technique, strength, cardio and fatigue): her body, 0-100 like a boxer's.
-		"stats": {"strength": 52.0, "cardio": 58.0},
+		# S397 BJJREAL: the rest of the grappler's body and mind (BjjBody), a white belt's calm.
+		"stats": {"strength": 52.0, "cardio": 58.0, "flexibility": 56.0, "explosiveness": 50.0, "composure": 45.0, "aggression": 52.0},
 		"w": 4, "l": 2, "entered": [], "morale": MORALE_START, "loyalty": MORALE_START,
 		"opens": [
 			{"d": -16, "open": "London No-Gi Open", "win": true, "opp": "Kim Patel", "how": "submission (armbar from guard) 3:12"},

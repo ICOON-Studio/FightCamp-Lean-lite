@@ -112,15 +112,16 @@ static func fatigue_mult(peak: float) -> float:
 	return 1.0 + clampf((peak - FATIGUE_RISK_FROM) / FATIGUE_RISK_SPAN, 0.0, SPIKE_MULT - 1.0)
 
 
-static func training_chance(hours: float, ratio: float, peak: float = 0.0) -> float:
-	var chance: float = TRAIN_BASE_10H * hours / 10.0 * load_mult(ratio) * fatigue_mult(peak)
+## S397 `risk`: the gym's own multiplier (GymSpend.train_risk: the floor, the S&C coach, the kit budget).
+static func training_chance(hours: float, ratio: float, peak: float = 0.0, risk: float = 1.0) -> float:
+	var chance: float = TRAIN_BASE_10H * hours / 10.0 * load_mult(ratio) * fatigue_mult(peak) * risk
 	return clampf(chance, 0.0, 0.3)
 
 
-static func training_roll(seed: int, hours: float, ratio: float, peak: float = 0.0) -> Dictionary:
+static func training_roll(seed: int, hours: float, ratio: float, peak: float = 0.0, risk: float = 1.0) -> Dictionary:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = seed
-	var chance: float = training_chance(hours, ratio, peak)
+	var chance: float = training_chance(hours, ratio, peak, risk)
 	if rng.randf() >= chance:
 		return {"injured": false, "type": "none", "days_out": 0}
 	var total: int = 0

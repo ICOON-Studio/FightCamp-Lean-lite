@@ -12,6 +12,7 @@ const GymBills := preload("res://scripts/rules/GymBills.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 const Bar := preload("res://scripts/ui/Bar.gd")
+const ClubSpend := preload("res://scripts/ui/areas/ClubSpend.gd")
 
 ## One-offs shown on Income / Bills: the last this many days.
 const LEDGER_DAYS := 56
@@ -25,6 +26,7 @@ func build(main: Node) -> void:
 	# S396 screen cut: Money is one page - cash and the week's in and out (the overview's bars carry the old Income and Bills
 	# tables' numbers, so those two would repeat them), deals, then the repairs (from Facilities, Routes.gd).
 	_overview(c)
+	ClubSpend.add(self, main, c)   # S397 money bites: premises, upgrades, kit budget, club show, contract talks
 	_ledger("ONE-OFFS IN, LAST 8 WEEKS", c, true, "Ticket cuts from bouts land here.")
 	_ledger("PAID OUT, LAST 8 WEEKS", c, false, "Nothing paid out yet.")
 	_deals(main, c)
@@ -79,10 +81,13 @@ func _overview(c: Career) -> void:
 	var scale := float(maxi(1, maxi(int(inc["total"]), int(cost["total"]))))
 	split.add_child(_split_card("WHERE IT COMES FROM, A WEEK", [
 		["Members' dues", int(inc["dues"])], ["Evening classes", int(inc["classes"])],
-		["No-gi classes' dues", int(inc.get("bjj", 0))], ["Sponsors", int(inc["sponsors"])]], scale, UI.GREEN, "+"))
+		["No-gi classes' dues", int(inc.get("bjj", 0))], ["Sponsors", int(inc["sponsors"])],
+		["Fitness classes", int(inc.get("fitness", 0))], ["Juniors' dues", int(inc.get("juniors", 0))]], scale, UI.GREEN, "+"))
 	split.add_child(_split_card("WHERE IT GOES, A WEEK", [
 		["Rent", int(cost.get("rent", cost["upkeep"]))], ["Boxing Board fees", int(cost.get("fees", 0))],
-		["Coach", int(cost["staff"])], ["Fighter stipends", int(cost["fighters"])], ["No-gi classes' coach", int(cost.get("bjj", 0))]],
+		["Coach", int(cost["staff"])], ["Fighter stipends", int(cost["fighters"])], ["No-gi classes' coach", int(cost.get("bjj", 0))],
+		["Heating, power, insurance", int(cost.get("power", 0))], ["Staff", int(cost.get("staff_roles", 0))], ["Kit budget", int(cost.get("kit", 0))],
+		["Upgrades' upkeep", int(cost.get("upgrades", 0))], ["Juniors' coach", int(cost.get("juniors_coach", 0))]],
 		scale, UI.RED, "-"))
 
 
@@ -118,8 +123,8 @@ func _split_card(title: String, lines: Array, scale: float, col: Color, sign: St
 
 ## Members needed for dues alone to cover this week's costs less the other income.
 func _break_even(c: Career, inc: Dictionary, cost: Dictionary) -> int:
-	var need := int(cost["total"]) - int(inc["classes"]) - int(inc["sponsors"]) - int(inc.get("bjj", 0))
-	return int(ceil(float(maxi(0, need)) / (float(GymBills.FEE_MONTH) / GymBills.WEEKS_A_MONTH)))
+	var need := int(cost["total"]) - int(inc["total"]) + int(inc["dues"])
+	return int(ceil(float(maxi(0, need)) / (float(Membership.fee(c.dues_band)) / GymBills.WEEKS_A_MONTH)))
 
 
 func _ledger(title: String, c: Career, incoming: bool, empty: String) -> void:

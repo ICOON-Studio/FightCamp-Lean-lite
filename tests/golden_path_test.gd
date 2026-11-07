@@ -53,7 +53,8 @@ func _play() -> void:
 	# a missed weigh-in) as a career without the first hour's fixed show; first_hour_walk_test plays the first hour itself.
 	c.first_hour = {}
 	_check(main.screen == "career" and c != null, "quick start opens the career")
-	_check(c.members == 30 and c.cash == 14600, "quick start: 30 members, $14,600 (3 months of costs, S324) - got %d" % c.cash)
+	# S397 money bites: 3 months of costs now includes January's heating and power, insurance and the kit budget (was 14,600).
+	_check(c.members == 30 and c.cash == 17200, "quick start: 30 members, $17,200 (3 months of costs, S324/S397) - got %d" % c.cash)
 	_check(Needs.go_state(c, false)["t"] == "NEEDS YOU (1)", "CONTINUE reads NEEDS YOU while the walk-in waits")
 
 	main.act("go_btn")
@@ -70,7 +71,7 @@ func _play() -> void:
 	main.act("go", "gym:1")
 	_check(main.route["area"] == "gym" and int(main.route["tab"]) == 1, "GYM > Staff is open")
 	main.act("hire", "reid")
-	_check(str(c.coach.get("name", "")) == "Luke Reid" and c.cash == 13600, "Luke Reid hired, $1,000 paid (14,600 - 1,000)")
+	_check(str(c.coach.get("name", "")) == "Luke Reid" and c.cash == 16200, "Luke Reid hired, $1,000 paid (17,200 - 1,000)")
 	var debut := str(Sim.goal_read(c, c.fighter())["status"])
 	_check(["ON TRACK", "AT RISK"].has(debut), "with a coach her debut goal is within reach: %s" % debut)
 	main.act("back")

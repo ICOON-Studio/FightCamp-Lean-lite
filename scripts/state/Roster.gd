@@ -17,6 +17,9 @@ const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const FighterGoal := preload("res://scripts/rules/FighterGoal.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
+const GymSpend := preload("res://scripts/state/GymSpend.gd")
+const HomeJuniors := preload("res://scripts/state/HomeJuniors.gd")
+const StarDeal := preload("res://scripts/rules/StarDeal.gd")
 
 ## The goal a new signing brings: a booked bout and her engine up inside a month - her debut, or her next bout when she
 ## already has bouts on her card (S352).
@@ -82,7 +85,7 @@ static func trial_day_for(day: int) -> int:
 
 static func invite(c: Career, id: String) -> bool:
 	var p := prospect(c, id)
-	if p.is_empty() or str(p["state"]) != "scout":
+	if p.is_empty() or str(p["state"]) != "scout" or GymSpend.place_blocked(c) != "":   # S397 roster places
 		return false
 	p["state"] = "invited"
 	p["trial_day"] = trial_day_for(c.day)
@@ -120,8 +123,12 @@ static func sign_prospect(c: Career, id: String, picks: Array) -> Dictionary:
 	var raw: Dictionary = p.duplicate(true)
 	for k in ["state", "trial_day", "note"]:
 		raw.erase(k)
+	if GymSpend.place_blocked(c) != "":   # S397 a place filled since the invite
+		return {}
 	p["state"] = "signed"
-	return sign_fighter(c, raw, picks)
+	var f := sign_fighter(c, raw, picks)
+	HomeJuniors.on_sign(c, raw, f)   # S397 a home-grown signing: half the stipend for a year
+	return f
 
 
 ## Signs a fighter (the walk-in, or a prospect after her trial) on the club stipend with her signing goal.
@@ -192,9 +199,13 @@ static func check_pro(c: Career) -> void:
 			return
 
 
-## The gym's cut of a pro purse.
-static func gym_cut(purse: int) -> int:
-	return int(round(purse * GYM_SHARE))
+## The gym's cut of a pro purse. S397 (StarDeal): the fighter's own share after contract talks (GYM_SHARE until then).
+static func gym_cut(purse: int, f: Dictionary = {}) -> int:
+	return int(round(purse * share_of(f)))
+
+
+static func share_of(f: Dictionary) -> float:
+	return GYM_SHARE if f.is_empty() else StarDeal.share(f)
 
 
 ## Her championship titles (London or national champion) - each sells tickets.

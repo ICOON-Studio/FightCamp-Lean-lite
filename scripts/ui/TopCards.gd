@@ -6,6 +6,7 @@
 const Sim := preload("res://scripts/state/Sim.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
+const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
 const Data := preload("res://scripts/state/Data.gd")
 
@@ -27,6 +28,14 @@ static func money(c: Career) -> Dictionary:
 		rows.append(["Stipends", "-" + GameMoney.text(int(out["fighters"])), "", ""])
 	if int(out.get("bjj", 0)) > 0:
 		rows.append(["No-gi classes' coach", "-" + GameMoney.text(int(out["bjj"])), "", ""])
+	# S397 money bites (GymSpend / GymBills): the new lines, so the rows still add up to the net; rank 5's loan too.
+	for k in [["fitness", "Fitness classes"], ["juniors", "Juniors' dues"]]:
+		if int(inc.get(k[0], 0)) > 0:
+			rows.append([k[1], "+" + GameMoney.text(int(inc[k[0]])), "", ""])
+	for k in [["power", "Heating, power, insurance"], ["staff_roles", "Staff jobs"], ["kit", "Kit budget"], ["upgrades", "Upgrades' upkeep"],
+			["juniors_coach", "Juniors' coach"], ["loan", "Loan"]]:
+		if int(out.get(k[0], 0)) > 0:
+			rows.append([k[1], "-" + GameMoney.text(int(out[k[0]])), "", ""])
 	var net := int(inc["total"]) - int(out["total"])
 	rows.append(["Net a week", ("+" if net >= 0 else "-") + GameMoney.text(absi(net)), "▲" if net >= 0 else "▼", "good" if net >= 0 else "bad"])
 	var means := "the cash grows by %s a week." % GameMoney.text(net) if net >= 0 else \
@@ -43,11 +52,11 @@ static func date(c: Career) -> Dictionary:
 
 
 static func members(c: Career) -> Dictionary:
-	var target := Membership.natural_members(c.reputation)
+	var target := GymSpend.member_target(c)   # S397 the dues band and the room (premises, coaches) hold it
 	var gap := target - c.members
 	return {"title": "Members", "rows": [["On the books", str(c.members), "", ""],
 		["The gym can carry", str(target), ("▲ +%d" % gap) if gap > 0 else (("▼ %d" % gap) if gap < 0 else ""), "good" if gap > 0 else ("bad" if gap < 0 else "")],
-		["Dues a week", GameMoney.text(Membership.weekly_dues(c.members)), "", ""]],
+		["Dues a week", GameMoney.text(Membership.weekly_dues(c.members, c.dues_band)), "", ""]],
 		"means": "the count walks a few a week toward what the gym can carry." if gap != 0 else "the count holds where it is.",
 		"keys": ["reputation", "dues"]}
 

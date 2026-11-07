@@ -14,6 +14,8 @@ const RecordsPage := preload("res://scripts/ui/RecordsPage.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
+const GymSpend := preload("res://scripts/state/GymSpend.gd")
+const StaffRoles := preload("res://scripts/rules/StaffRoles.gd")
 const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
 const PromoShot := preload("res://scripts/ui/PromoShot.gd")
 
@@ -50,7 +52,7 @@ static func _grade(r: int) -> String:
 
 func _members(c: Career) -> void:
 	var card := UI.card("MEMBERS")
-	var target := Membership.natural_members(c.reputation)
+	var target := GymSpend.member_target(c)   # S397 the dues band and the room (premises, coaches) hold it
 	# S396 blind review ("57 (growing toward 57)" read as debug): the count says where it is heading, the cap says only itself.
 	var drift := "steady" if target == c.members else ("growing toward %d" % target if target > c.members else "falling toward %d" % target)
 	var books := UI.kv("On the books", "%d, %s" % [c.members, drift], UI.FG, "mono")
@@ -59,7 +61,7 @@ func _members(c: Career) -> void:
 	UI.add_rows(card[1], [
 		books,
 		UI.kv("Reputation", "known locally" if c.reputation < 30 else ("known in the region" if c.reputation < 60 else "a name in the sport"), UI.FG, "mono"),
-		UI.kv("Dues", "%s a month each" % UI.money(Membership.weekly_rate()), UI.FG, "mono"),
+		UI.kv("Dues", "%s a month each (%s, set on Money)" % [UI.money(Membership.fee(c.dues_band)), str(Membership.DUES[c.dues_band]["name"]).to_lower()], UI.FG, "mono"),
 	] + ([UI.kv("Evening classes", "need a coach")] if c.coach.is_empty() else []))
 	# S398 (operator: "nothing displayed unless the player can really do something about it"): how reputation grows is a
 	# hover, and the members' quotes (flavour, nothing to do) are gone.
@@ -106,6 +108,7 @@ func _staff(main: Node, c: Career) -> void:
 		rows.append(pair)
 	UI.add_rows(card[1], rows)
 	# (S398 rank 5 round 3, blind: "What Luke brings repeats the card": the hired assistant's card carries it now.)
+	_roles(main, c, card[1])   # S397 money bites: the staff jobs
 
 
 ## S397 rank 5: the head coach's row - the photo from the start, the name, the edge as a result.
@@ -172,3 +175,20 @@ static func _assistant_photo(c: Career, id: String) -> String:
 	if id == "reid":
 		return "mh_boxer_07"
 	return "mh_boxer_08" if mine == "mh_staff_trainer" else "mh_staff_trainer"
+
+
+## S397 money bites (P5, MONEY_BITES_S397 7.1): the staff jobs beside the coach, each one number; hire or let go here.
+func _roles(main: Node, c: Career, body: Container) -> void:
+	body.add_child(UI.caps("STAFF JOBS: %d OF %d ROSTER PLACES USED" % [GymSpend.used(c), GymSpend.places(c)]))
+	var rows: Array = []
+	for r in StaffRoles.LIST:
+		var id := str(r["id"])
+		var pay := "%s a pro night" % UI.money(int(r["per_bout"])) if int(r["per_bout"]) > 0 else "%s a week" % UI.money(int(r["wage"]))
+		var on := c.staff_roles.has(id)
+		var b := UI.button("Let go, a week's pay" if on and StaffRoles.notice(id) > 0 else ("Let go" if on else "Hire"), "Btn",
+			main.act.bind("letgorole" if on else "hirerole", id))
+		b.name = ("LetGo_" if on else "Hire_") + id
+		var row := UI.row(str(r["name"]), "%s. %s" % [r["effect"], pay], UI.GREEN if on else Color(0, 0, 0, 0), [b])
+		row.name = "Role_" + id
+		rows.append(row)
+	UI.add_rows(body, rows)

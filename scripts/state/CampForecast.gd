@@ -25,6 +25,7 @@ const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
+const GymSpend := preload("res://scripts/state/GymSpend.gd")
 
 
 static func run(c: Career, f: Dictionary, focus: String, protocol: int, film := false) -> Dictionary:
@@ -62,7 +63,7 @@ static func run(c: Career, f: Dictionary, focus: String, protocol: int, film := 
 		for k in [["stat", "gain"], ["stat2", "gain2"]]:
 			var st := str(r.get(k[0], ""))
 			if st != "" and (g["stats"] as Dictionary).has(st):
-				g["stats"][st] = minf(Sim.STAT_CAP, float(g["stats"][st]) + float(r[k[1]]) * BoutRules.camp_gain_mult(g["camp"], st) * mult)
+				g["stats"][st] = minf(Sim.STAT_CAP, float(g["stats"][st]) + float(r[k[1]]) * BoutRules.camp_gain_mult(g["camp"], st) * mult * GymSpend.gain(c, st, g))
 		var lo := minf(float(g["weight"]), lim - 1.5)
 		var hi := maxf(float(g["weight"]), lim + 1.6)
 		g["weight"] = clampf(float(g["weight"]) + float(r["kg"]), lo, hi)
@@ -76,7 +77,7 @@ static func run(c: Career, f: Dictionary, focus: String, protocol: int, film := 
 			var h := TrainingLoad.hours("rest") if d + 1 < until else Injuries.week_hours(g)
 			if d + 1 >= until:
 				# a twist answered "push through" (risk 2) rolls twice, as Injuries.end_week does (this week's card only)
-				safe *= pow(1.0 - InjuryRoll.training_chance(h, h / usual if usual > 0.0 else 1.0, wpeak), int(WeekTwist.active(g).get("risk", 1)))
+				safe *= pow(1.0 - InjuryRoll.training_chance(h, h / usual if usual > 0.0 else 1.0, wpeak, GymSpend.train_risk(c)), int(WeekTwist.active(g).get("risk", 1)))
 			g["chronic"] = TrainingLoad.next_chronic(usual, h)
 	var fe := float(g.get("week_fatigue", fat0))
 	return {"stats": g["stats"], "kg": kg, "limit": lim, "weigh_ok": BoutRules.made_weight(kg, lim), "fatigue_now": fat0,

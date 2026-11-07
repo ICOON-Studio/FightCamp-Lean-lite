@@ -35,15 +35,23 @@ const PLANS := ["tree:", "route:", "ahead:"]
 ## MF_CEIL 1.8 -> 1.4, BASE_ENTRY 0.5 -> 0.42, BASE_TRANSITION 0.4 -> 0.45, BASE_BACK_PRO 0.35 -> 0.30, BEAT_S 22 -> 33,
 ## PLAN_PULL 2 -> 1.5, CHAIN 1.15 -> 1.1, D_NONE 0.7 -> 0.9; the rest at the design's start. Stage-2 bars (9, 10, 12)
 ## have not been run on CHAIN / READ_W / D_NONE / PLAN_PULL yet.
+## S398 BJJREAL fit on tools/bjj_realism_probe.gd (BJJ_REALISM_S397.md 8): MAT_ATT 0.8 -> 0.7, MAT_DEF 1.2 -> 1.0, ESC_PRO
+## 0.35 -> 0.5, the mat-time levels blue 1.0 -> 0.6, purple 1.8 -> 1.35, brown 2.4 -> 1.95, black 2.9 -> 2.6 (MAT_TOP 0.4).
 const T0 := {"TAP_VALUE": 20.0, "EPS": 0.17, "STYLE_W": 2.0, "LATE_S": 60.0, "MOOD_W": 4.0, "MF_CEIL": 1.4,
 	"BASE_ENTRY": 0.42, "BASE_TRANSITION": 0.45, "BASE_ESCAPE": 0.30, "BASE_BACK_PRO": 0.30, "BASE_TAKEDOWN": 0.33,
 	"BACK_FINISH_W": 0.36, "OFF_BELT": 0.5, "BEAT_S": 33.0, "FELT": 15.0, "ROLL_EVERY": 2,
-	"PLAN_PULL": 1.5, "CHAIN": 1.1, "READ_W": 0.6, "D_NONE": 0.9, "FILM_OPENS": 3}
+	"PLAN_PULL": 1.5, "CHAIN": 1.1, "READ_W": 0.6, "D_NONE": 0.9, "FILM_OPENS": 3,
+	"MAT_ATT": 0.7, "MAT_DEF": 1.0, "FORM_SD": 0.25, "ESC_AM": 0.10, "ESC_PRO": 0.5, "ESC_W": 0.8, "EPS_IQ": 0.5,
+	"BEATS2": 0.0, "BEAT2_S": 11.0, "ACT_P": 0.3, "ACT_GRIP": 0.25, "GRIP_W": 0.15,
+	"MAT_BLUE": 0.6, "MAT_PURPLE": 1.35, "MAT_BROWN": 1.95, "MAT_BLACK": 2.6, "MAT_TOP": 0.4}
 ## The design's start values (10.5): the formula tests check the worked numbers of 3.3 against these.
 const T_DESIGN := {"TAP_VALUE": 10.0, "EPS": 0.2, "STYLE_W": 2.0, "LATE_S": 60.0, "MOOD_W": 5.0, "MF_CEIL": 1.8,
 	"BASE_ENTRY": 0.50, "BASE_TRANSITION": 0.40, "BASE_ESCAPE": 0.30, "BASE_BACK_PRO": 0.35, "BASE_TAKEDOWN": 0.33,
 	"BACK_FINISH_W": 0.36, "OFF_BELT": 0.5, "BEAT_S": 22.0, "FELT": 15.0, "ROLL_EVERY": 2,
-	"PLAN_PULL": 2.0, "CHAIN": 1.15, "READ_W": 0.6, "D_NONE": 0.7, "FILM_OPENS": 3}
+	"PLAN_PULL": 2.0, "CHAIN": 1.15, "READ_W": 0.6, "D_NONE": 0.7, "FILM_OPENS": 3,
+	"MAT_ATT": 0.8, "MAT_DEF": 1.2, "FORM_SD": 0.25, "ESC_AM": 0.10, "ESC_PRO": 0.35, "ESC_W": 0.8, "EPS_IQ": 0.5,
+	"BEATS2": 0.0, "BEAT2_S": 11.0, "ACT_P": 0.3, "ACT_GRIP": 0.25, "GRIP_W": 0.15,
+	"MAT_BLUE": 1.0, "MAT_PURPLE": 1.8, "MAT_BROWN": 2.4, "MAT_BLACK": 2.9, "MAT_TOP": 0.4}
 static var T: Dictionary = T0.duplicate()
 static var _data: Dictionary = {}
 
@@ -262,14 +270,23 @@ static func answer_mastery(defender: Dictionary, e: Dictionary, rules: Dictionar
 	return best
 
 
-## The one formula (design 3.3): BASE edges 0.94; else clamp(base x A x CHAIN x MOOD / (D x READ), 0.03, 0.90).
+## The one formula (design 3.3): BASE edges 0.94; else clamp(logit+(base x A x CHAIN x MOOD / (D x READ), SHIFT), 0.03, 0.90).
+## S397 `shift` = the walk's logit levers side against side (mat time, body, tanks, form; 0 = even): the multiplied odds
+## are moved by it on the logit scale before the clamp, so a zero shift is exactly the GAMETREE1 formula.
 static func odds(e: Dictionary, m_att: float, m_ans: float, rules: Dictionary, chain: bool = false, read: float = 0.0,
-		mood: float = 0.0) -> float:
+		mood: float = 0.0, shift: float = 0.0) -> float:
 	if is_base(str(e["move"])):
 		return BASE_P
 	var p := base_rate(e, rules) * mf(m_att) * (float(T["CHAIN"]) if chain else 1.0) * (1.0 + float(T["MOOD_W"]) * mood)
 	p /= maxf(float(T["D_NONE"]), mf(m_ans)) * (1.0 + float(T["READ_W"]) * read)
+	if shift != 0.0:
+		p = logit_add(p, shift)
 	return clampf(p, CLAMP.x, CLAMP.y)
+
+
+static func logit_add(p: float, shift: float) -> float:
+	var q := clampf(p, 0.005, 0.995)
+	return 1.0 / (1.0 + exp(-(log(q / (1.0 - q)) + shift)))
 
 
 ## A miss slides down the bad arrow only as far as the defender owns the answer.

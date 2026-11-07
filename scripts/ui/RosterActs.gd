@@ -2,6 +2,7 @@ extends RefCounted
 ## The player's moves on the roster: scouting (invite a prospect, watch her trial, sign her or pass) and turning a
 ## fighter pro (hear the promoter's offer, sign or stay amateur). Main.act hands names it does not know here.
 
+const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const Recruit := preload("res://scripts/rules/Recruit.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const UI := preload("res://scripts/ui/UI.gd")
@@ -30,6 +31,8 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			if Roster.invite(c, arg):
 				var p := Roster.prospect(c, arg)
 				main.toast("%s comes in for a trial on %s." % [p["first"], Clock.fmt(int(p["trial_day"]))])
+			elif GymSpend.place_blocked(c) != "":   # S397 roster places
+				main.toast("No trial: %s (Club)." % GymSpend.place_blocked(c))
 			main.render()
 		"trial":
 			main.open_modal({"type": "trial", "pid": arg, "picks": []})

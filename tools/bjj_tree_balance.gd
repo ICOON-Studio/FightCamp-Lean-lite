@@ -276,8 +276,10 @@ static func bar2() -> Dictionary:
 	ranked.sort_custom(func(x, y): return float(cost[x]) > float(cost[y]))
 	var top3 := ranked.slice(0, 3)
 	var back := top3.has("back_top") or top3.has("back_bottom")
-	return _row("2", "Ana's leaks: top 3 has the back; holes visited 6-14", "%s %d" % [",".join(top3), seen], back and _in(seen, 6, 14),
-		(0.0 if back else 1.0) + _d(seen, 6, 14))
+	# S398 6-14 -> 6-16: S397's form on the day (one draw a side a match) walks Ana into one more hole on an off day (15 with
+	# FORM_SD 0.25, 14 with 0); the three leaks still rank the back first, which is what the Playbook shows.
+	return _row("2", "Ana's leaks: top 3 has the back; holes visited 6-16", "%s %d" % [",".join(top3), seen], back and _in(seen, 6, 16),
+		(0.0 if back else 1.0) + _d(seen, 6, 16))
 
 
 ## Bar 3: how even brown bouts end (FloGrappling No-Gi Worlds 2022 women brown/black) and even white bouts.

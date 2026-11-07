@@ -18,6 +18,7 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
+const GymSpend := preload("res://scripts/state/GymSpend.gd")
 
 ## The fight model's head damage is one number for the whole bout; InjuryRoll reads the WORST of the body's places. A bout
 ## between equals carries ~22 damage (each loses ~1.5 rounds: 8-18 a lost round, 2 a won one); x2.2 puts its worst place
@@ -171,6 +172,10 @@ static func after_bout(c: Career, f: Dictionary, m: Dictionary) -> void:
 		"rounds": (m["rounds"] as Array).size(), "head_stoppage": head_stop, "ko_history": history, "day": c.day})
 	if head_stop:
 		f["ko_history"] = history + [c.day]
+	# S397 the cutman: half the cut layoffs after a pro bout (a seeded coin, so a save replays the same).
+	if bool(roll["injured"]) and str(roll["type"]) == "cut" and bool(f.get("pro", false)) and c.staff_roles.has("cutman") 			and posmod(_seed(c, f, 11), 2) == 0:
+		c.add_news("The cutman closed %s's cut on the night: no layoff." % f["first"])
+		return
 	if bool(roll["injured"]):
 		_hurt(c, f, roll, "in the fight")
 		m["injury"] = line(c, f)
@@ -185,11 +190,12 @@ static func end_week(c: Career) -> void:
 			f["chronic"] = TrainingLoad.next_chronic(usual, TrainingLoad.hours("rest"))
 			continue
 		var h := week_hours(f)
-		var roll := InjuryRoll.training_roll(_seed(c, f, 3), h, h / usual if usual > 0.0 else 1.0, float(f.get("week_peak", 0.0)))
+		var risk := GymSpend.train_risk(c)   # S397 the floor, the S&C coach, the kit budget
+		var roll := InjuryRoll.training_roll(_seed(c, f, 3), h, h / usual if usual > 0.0 else 1.0, float(f.get("week_peak", 0.0)), risk)
 		# S356 a twist answered "push through" (WeekTwist risk 2): a second roll, twice the risk.
 		for k in range(1, int(WeekTwist.active(f).get("risk", 1))):
 			if not bool(roll["injured"]):
-				roll = InjuryRoll.training_roll(_seed(c, f, 3 + k * 101), h, h / usual if usual > 0.0 else 1.0, float(f.get("week_peak", 0.0)))
+				roll = InjuryRoll.training_roll(_seed(c, f, 3 + k * 101), h, h / usual if usual > 0.0 else 1.0, float(f.get("week_peak", 0.0)), risk)
 		f["chronic"] = TrainingLoad.next_chronic(usual, h)
 		if bool(roll["injured"]):
 			_hurt(c, f, roll, "in training")
@@ -209,7 +215,8 @@ static func day_tick(c: Career) -> void:
 
 
 static func _hurt(c: Career, f: Dictionary, roll: Dictionary, where: String) -> void:
-	var days := int(roll["days_out"])
+	# S397 the physio on call: back a quarter sooner (never for a stoppage's medical suspension).
+	var days := int(roll["days_out"]) if str(roll["type"]) == "ko" else maxi(1, roundi(float(roll["days_out"]) * GymSpend.days_out(c)))
 	var was: Dictionary = f.get("injury", {})
 	if out(c, f) and int(was["until_day"]) >= c.day + days:
 		return   # S327 she is already out longer (e.g. fought hurt and it got worse): the old injury stands

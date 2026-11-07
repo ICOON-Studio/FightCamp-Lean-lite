@@ -135,7 +135,15 @@ func _layer() -> Control:
 
 ## ---------- drawing ----------
 
+## S397 money bites: tools/career_harness.gd plays hundreds of weeks through act() and never looks at a screen; building
+## every page and moment each step crashed the engine there (signal 11 in UI layout with two boxers). True = the rules run,
+## no screen or moment is built. Only harnesses set it; the game and the tests never do.
+var no_render := false
+
+
 func render() -> void:
+	if no_render:
+		return
 	if screen != _shown_screen:
 		UI.clear(_screen_holder)
 		_shell = null
@@ -160,6 +168,8 @@ func _put_screen(scene: PackedScene) -> void:
 
 
 func _render_modal() -> void:
+	if no_render:
+		return
 	UI.clear(_modal_layer)
 	_modal_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	# Fight night in 3D: while a round plays the ring has the screen; the words modal draws over it between rounds.

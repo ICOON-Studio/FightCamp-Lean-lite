@@ -9,6 +9,7 @@ const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
 const FighterGoal := preload("res://scripts/rules/FighterGoal.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
+const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
@@ -211,7 +212,7 @@ static func step_day(career: Career) -> void:
 			var st := str(r.get(k[0], ""))
 			if st != "" and (f["stats"] as Dictionary).has(st):
 				var was := float(f["stats"][st])
-				f["stats"][st] = minf(STAT_CAP, was + float(r[k[1]]) * BoutRules.camp_gain_mult(f.get("camp", {}), st) * mult)
+				f["stats"][st] = minf(STAT_CAP, was + float(r[k[1]]) * BoutRules.camp_gain_mult(f.get("camp", {}), st) * mult * GymSpend.gain(career, st, f))
 				WeekCause.add(f.get_or_add("week_src", {}), st, str(by[k[2]]), float(f["stats"][st]) - was, dow)
 		var lo := minf(float(f["weight"]), float(f["limit"]) - 1.5)
 		var hi := maxf(float(f["weight"]), float(f["limit"]) + 1.6)
@@ -224,6 +225,7 @@ static func step_day(career: Career) -> void:
 	Injuries.day_tick(career)
 	Bouts.day_events(career)
 	ProLadder.day_events(career)   # S397 the pro tables: a month of world bouts, her offers
+	GymSpend.day_events(career)   # S397 money bites: a club show's night
 	Region.day_events(career)
 	if career.day % 7 == 0:
 		end_week(career)
@@ -239,8 +241,12 @@ static func weekly_costs(career: Career) -> Dictionary:
 	out["rent"] = int(bills["rent"])
 	out["fees"] = int(bills["fees"])
 	out["bjj"] = int(bjj_money(career)["coach"])
+	# S397 money bites: heating and power by the season, insurance, and what the gym spends on (GymSpend.costs).
+	out["power"] = int(bills["power"]) + int(bills["insurance"])
+	var spend := GymSpend.costs(career)
+	out.merge(spend)
 	out["loan"] = int(ClubStart.loan(career.start)[0]) if career.loan_weeks > 0 else 0   # S397 the debt start's loan
-	out["total"] = int(out["total"]) + int(out["bjj"]) + int(out["loan"])
+	out["total"] = int(out["total"]) + int(out["bjj"]) + int(out["power"]) + int(spend["total"]) + int(out["loan"])
 	return out
 
 
@@ -253,7 +259,8 @@ static func bjj_money(career: Career) -> Dictionary:
 
 static func bills_setup(career: Career) -> Dictionary:
 	return {"members": career.members, "coach_hours_week": 0.0, "coaches": 0 if career.coach.is_empty() else 1,
-		"boxers": career.fighters.size(), "rent_mult": ClubStart.rent_mult(career.start)}
+		"boxers": career.fighters.size(), "rent_month": int(GymSpend.premises(career)["rent"]),
+		"rent_mult": ClubStart.rent_mult(career.start), "month": int(Clock._date(career.day)["month"])}
 
 
 
@@ -266,12 +273,15 @@ static func sponsors(career: Career) -> int:
 
 
 static func weekly_income(career: Career) -> Dictionary:
-	return _with_bjj(career, GameMoney.weekly_income(Membership.weekly_dues(career.members), not career.coach.is_empty(), sponsors(career)))
+	return _with_bjj(career, GameMoney.weekly_income(Membership.weekly_dues(career.members, career.dues_band), not career.coach.is_empty(), sponsors(career)))
 
 
 static func _with_bjj(career: Career, income: Dictionary) -> Dictionary:
 	income["bjj"] = int(bjj_money(career)["dues"])
-	income["total"] = int(income["total"]) + int(income["bjj"])
+	var spend := GymSpend.income(career)
+	income["fitness"] = int(spend["fitness"])
+	income["juniors"] = int(spend["juniors"])
+	income["total"] = int(income["total"]) + int(income["bjj"]) + int(spend["total"])
 	return income
 
 
@@ -286,7 +296,7 @@ static func end_week(career: Career) -> void:
 			career.add_news("%s has trained out a habit (%s)." % [f["first"], str(hf["id"]).replace("_", " ")])
 		for perk in PerkRoad.newly_open(f, career.day):
 			career.add_news("%s opens a perk on the road: %s." % [f["first"], perk])
-	var roll: Dictionary = Membership.settle_week(career.members, career.reputation)
+	var roll: Dictionary = Membership.settle_week(career.members, career.reputation, GymSpend.member_cap(career), career.dues_band)
 	career.members = int(roll["members"])
 	var income: Dictionary = _with_bjj(career, GameMoney.weekly_income(int(roll["dues"]), not career.coach.is_empty(), sponsors(career)))
 	var costs: Dictionary = weekly_costs(career)
@@ -316,6 +326,7 @@ static func end_week(career: Career) -> void:
 	elif status == "red":
 		career.add_news("The bank balance is below $0. %s." % GymBills.line(career.cash, net, career.weeks_below))
 	Injuries.end_week(career)
+	GymSpend.end_week(career)
 	var reports: Array = []
 	for f in career.fighters:
 		var rows: Array = []

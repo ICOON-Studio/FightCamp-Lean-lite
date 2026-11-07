@@ -17,6 +17,15 @@ const MEMBERS_PER_REPUTATION_POINT := 0.6
 const MAX_MEMBERS := 400
 ## S66 "Unfreeze now": the walk closes a quarter of the gap a week, never more than 6 members. 0 on either freezes it.
 const WEEKLY_DRIFT_FRACTION := 0.25
+## S397 money bites round 2 (both critics: "the player cannot set the dues"): three dues bands. Real: community boxing
+## clubs GBP 20-35 a month, premium boxing gyms GBP 50-80 (game dollars x 1.25). How many the band draws is GAME: cheap
+## draws 15% more; premium 15% fewer, a gap a famous gym closes (reputation 100 = no gap).
+const DUES := {
+	"cheap": {"name": "Cheap", "fee": 25, "draw": 1.15},
+	"standard": {"name": "Standard", "fee": 35, "draw": 1.0},
+	"premium": {"name": "Premium", "fee": 45, "draw": 0.85},
+}
+const DUES_ORDER := ["cheap", "standard", "premium"]
 const MAX_WEEKLY_MEMBER_CHANGE := 6
 
 
@@ -26,8 +35,8 @@ static func weekly_rate() -> int:
 
 
 ## What the gym as it stands could carry. Reputation is the only input in week 1.
-static func natural_members(reputation: int) -> int:
-	var total := float(BASE_MEMBERS) + float(reputation) * MEMBERS_PER_REPUTATION_POINT
+static func natural_members(reputation: int, band: String = "standard") -> int:
+	var total := (float(BASE_MEMBERS) + float(reputation) * MEMBERS_PER_REPUTATION_POINT) * draw(band, reputation)
 	return clampi(int(round(total)), 0, MAX_MEMBERS)
 
 
@@ -44,16 +53,26 @@ static func step_members(current: int, target: int, fraction: float = WEEKLY_DRI
 	return current + (step if gap > 0 else -step)
 
 
-static func weekly_dues(members: int) -> int:
-	return int(GymBills.week({"members": maxi(0, members)})["income"])
+static func draw(band: String, reputation: int) -> float:
+	var d := float((DUES.get(band, DUES["standard"]) as Dictionary)["draw"])
+	return d + (1.0 - d) * clampf(float(reputation) / 100.0, 0.0, 1.0) if d < 1.0 else d
 
 
-## The weekly pass: walk the count one step, then bill that count. The caller credits the cash.
-static func settle_week(members: int, reputation: int) -> Dictionary:
-	var target := natural_members(reputation)
+static func fee(band: String) -> int:
+	return int((DUES.get(band, DUES["standard"]) as Dictionary)["fee"])
+
+
+static func weekly_dues(members: int, band: String = "standard") -> int:
+	return roundi(float(maxi(0, members)) * float(fee(band)) / GymBills.WEEKS_A_MONTH)
+
+
+## The weekly pass: walk the count one step, then bill that count. The caller credits the cash. S397 money bites: the
+## premises cap what the gym can hold (GymSpend.member_cap; a full gym needs a bigger place).
+static func settle_week(members: int, reputation: int, cap: int = MAX_MEMBERS, band: String = "standard") -> Dictionary:
+	var target := mini(natural_members(reputation, band), cap)
 	var after := step_members(members, target)
 	return {
-		"dues": weekly_dues(after),
+		"dues": weekly_dues(after, band),
 		"members": after,
 		"members_before": members,
 		"target": target,

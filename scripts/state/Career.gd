@@ -49,6 +49,18 @@ const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
 @export var closed: bool = false
 ## S325 the career's own dice for what should differ career to career (injuries); 0 on a save from before update 28.
 @export var seed: int = 0
+## S397 money bites (GymSpend, MONEY_BITES_S397 7.1): upgrades bought ({id, day}), staff roles beside the coach (ids), the
+## premises tier, the kit budget a week, and the club show ({day: booked night or -1, last: the last night, night: result}).
+@export var upgrades: Array = []
+@export var staff_roles: Array = []
+@export var premises: int = 0
+@export var kit_level: String = "standard"
+@export var show: Dictionary = {"day": -1, "last": -1}
+## S397 round 2: the dues band (Membership.DUES), evening coaches beyond the staff jobs (each carries more members), and
+## the year's grant bid ({} none; {due, amount} waiting for the answer; "last": the day of the last bid).
+@export var dues_band: String = "standard"
+@export var extra_coaches: int = 0
+@export var grant: Dictionary = {}
 ## S397 rank 5 (ops/research/RANK5_FIRST_HOUR_S397.md): the player as head coach (HeadCoach: {name, bg}; {} = an old save, no
 ## edge), the start picked (ClubStart id; "" = an old save, read as "fresh"), the start's loan weeks left, and the first
 ## hour's own facts (FirstHour: the show, the second walk-in, the tasks; {} = no first hour).
@@ -99,10 +111,11 @@ static func from_create(create: Dictionary, name: String, town: String) -> Caree
 ## Start cash: GymBills.START_MONTHS months of a first-year gym's costs - rent and fees, the first sessional coach and
 ## one fighter's stipend (S324: was $25,000, ~8 months of costs, so money never forced a decision).
 ## S397 rank 5: the start sets the months in the bank and the rent (ClubStart); "fresh" is the S324 three months.
+## S397 money bites: the costs now include January's heating and power, insurance and the Standard kit budget.
 static func start_cash(start_id: String = "fresh") -> int:
 	var bills: Dictionary = GymBills.week({"members": ClubStart.members(start_id), "coaches": 1, "boxers": 1,
-		"rent_mult": ClubStart.rent_mult(start_id)})
-	var week := int(bills["rent"]) + int(bills["fees"]) + int(Data.coach("reid")["salary"]) + GameMoney.FIGHTER_STIPEND
+		"rent_mult": ClubStart.rent_mult(start_id), "month": 1})
+	var week := int(bills["rent"]) + int(bills["fees"]) + int(bills["power"]) + int(bills["insurance"]) + 		int(GymBills.KIT_BUDGET["standard"]["week"]) + int(Data.coach("reid")["salary"]) + GameMoney.FIGHTER_STIPEND
 	return roundi(float(week) * GymBills.WEEKS_A_MONTH * float(ClubStart.months(start_id)) / 100.0) * 100
 
 

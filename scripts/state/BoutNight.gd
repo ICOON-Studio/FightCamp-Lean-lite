@@ -362,8 +362,8 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 		c.add_news(Roster.debut_words(f, tickets))
 	elif pro:
 		var purse := int(f["bout"]["purse"])
-		m["gym_cut"] = Roster.gym_cut(purse)
-		c.pay(Roster.gym_cut(purse), "Purse share (%d%%): %s vs %s" % [int(Roster.GYM_SHARE * 100), f["first"], opp["name"]])
+		m["gym_cut"] = Roster.gym_cut(purse, f)
+		c.pay(Roster.gym_cut(purse, f), "Purse share (%d%%): %s vs %s" % [roundi(Roster.share_of(f) * 100), f["first"], opp["name"]])
 		if win:
 			f["purse"] = mini(int(f["purse_top"]), int(f["purse"]) + int(f["purse_step"]))
 	else:

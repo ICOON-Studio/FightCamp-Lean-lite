@@ -35,7 +35,8 @@ func _test1() -> void:
 	_check(w["income"] == 0, "test 1: zero club income == 0")
 
 
-## 2. A real club: 33 members, 6h coaching, 1 coach, 2 boxers.
+## 2. A real club: 33 members, 6h coaching, 1 coach, 2 boxers. S397 money bites: + heating and power at the year's
+## average ($420/month = 97 a week) and liability insurance ($1,250/year = 24 a week): costs 591 -> 712, net -324 -> -445.
 func _test2() -> void:
 	var w: Dictionary = GB.week({"members": 33, "coach_hours_week": 6.0, "coaches": 1, "boxers": 2})
 	var ok := true
@@ -47,11 +48,13 @@ func _test2() -> void:
 		ok = false
 	if w["fees"] != 7:
 		ok = false
-	if w["costs"] != 591:
+	if w["power"] != 97 or w["insurance"] != 24:
 		ok = false
-	if w["net"] != -324:
+	if w["costs"] != 712:
 		ok = false
-	_check(ok, "test 2: real club income=267 rent=416 coaching=168 fees=7 costs=591 net=-324")
+	if w["net"] != -445:
+		ok = false
+	_check(ok, "test 2: real club income=267 rent=416 coaching=168 fees=7 power=97 insurance=24 costs=712 net=-445")
 
 
 ## 3. One more member adds ~8 to income.
@@ -100,16 +103,16 @@ func _test6() -> void:
 	_check(ok, "test 6: next_below 3 / 0 / 0")
 
 
-## 7. start_cash for the test-2 club: 591 * 4.33 * 3 = 7677 -> 7700.
+## 7. start_cash for the test-2 club: 712 * 4.33 * 3 = 9249 -> 9200 (S397: was 591 -> 7700 before power and insurance).
 func _test7() -> void:
 	var sc: int = GB.start_cash({"members": 33, "coach_hours_week": 6.0, "coaches": 1, "boxers": 2})
-	_check(sc == 7700, "test 7: start_cash == 7700")
+	_check(sc == 9200, "test 7: start_cash == 9200")
 
 
-## 8. break_even_members for the test-2 club: 74.
+## 8. break_even_members for the test-2 club: 712 / 8.08 -> 89 (S397: was 74 before power and insurance).
 func _test8() -> void:
 	var be: int = GB.break_even_members({"members": 33, "coach_hours_week": 6.0, "coaches": 1, "boxers": 2})
-	_check(be == 74, "test 8: break_even_members == 74")
+	_check(be == 89, "test 8: break_even_members == 89")
 
 
 ## 9. line().

@@ -29,6 +29,7 @@ const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const PeakCamp := preload("res://scripts/rules/PeakCamp.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
+const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
 const ClubStart := preload("res://scripts/rules/ClubStart.gd")
@@ -120,7 +121,8 @@ static func day_events(c: Career) -> void:
 		if (f["bout"] as Dictionary).is_empty() and c.day >= int(f["next_offer_day"]) and offers_settled(f):
 			var div: Dictionary = Data.DIVISIONS[f["div"]]
 			var names: Array = div["opponents"]
-			var opp: Dictionary = c.rival(str(names[int(f["opp_index"]) % names.size()])).duplicate(true)
+			var own := AmateurBooking.bouts_of(int(f["w"]), int(f["l"]))
+			var opp: Dictionary = c.rival(str(names[legal_index(c, names, int(f["opp_index"]), own)])).duplicate(true)
 			var id := "%s:o%d" % [f["id"], c.day]
 			var on := AmateurBooking.fight_day(c.day, AmateurBooking.lead_weeks(id))
 			on = makeable_day(c, f, on)
@@ -129,7 +131,6 @@ static func day_events(c: Career) -> void:
 				opp = c.rival(FirstHour.show_opponent(c, f)).duplicate(true)
 				on = FirstHour.SHOW_DAY
 				FirstHour.mark_offered(c)
-			var own := AmateurBooking.bouts_of(int(f["w"]), int(f["l"]))
 			f["offers"] = [
 				_offer(id, opp, on, c.day + OFFER_ANSWER_DAYS, own),
 				_offer("%s:m%d" % [f["id"], c.day], c.rival(str(div["mismatch"])).duplicate(true), on + 7, c.day + MISMATCH_ANSWER_DAYS, own),
@@ -159,6 +160,19 @@ static func makeable_day(c: Career, f: Dictionary, on: int) -> int:
 		if float(sim.weigh_forecast(c, f, on + 7 * k)["day"]) <= float(f["limit"]):
 			return on + 7 * k
 	return on + 7 * WEIGHT_WEEKS_MAX
+
+
+## S397 (money bites harness: a careful novice stopped boxing at ~day 110): the rivals' records grow at club shows, so the
+## next name in turn can be an open boxer a novice may not meet (England Boxing: 10 bouts or fewer meet novices only), and
+## then every offer was a mismatch, every day, forever. The matchmaker offers the next name in turn who is a legal match,
+## and only when nobody in the division is, the next name as before.
+static func legal_index(c: Career, names: Array, start: int, own_bouts: int) -> int:
+	for k in names.size():
+		var i := posmod(start + k, names.size())
+		var r := c.rival(str(names[i]))
+		if not r.is_empty() and AmateurBooking.experience_match_ok(own_bouts, AmateurBooking.bouts_of(int(r["w"]), int(r["l"]))):
+			return i
+	return posmod(start, names.size())
 
 
 static func _offer(id: String, opp: Dictionary, on: int, expires: int, own_bouts: int) -> Dictionary:
@@ -282,7 +296,7 @@ static func start_camp(c: Career, f: Dictionary, focus: String, protocol: int, f
 	f["load_setting"] = BoutRules.camp_level(protocol)
 	if film:
 		tape_days(c, f)
-	return cost
+	return cost + GymSpend.pro_camp(c, f)   # S397 a pro camp's bill and the cutman's night
 
 
 ## S341 tape study (OppFile): the camp's sessions so far open her file one tell each (weapon first, weakness last); each

@@ -23,7 +23,7 @@ const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
 const Graph := preload("res://scripts/grapple/GrappleGraph.gd")
 
-const HOW := "^(submission \\([a-z' -]+\\) \\d+:\\d\\d|points \\d+-\\d+(, advantages \\d+-\\d+(, referee decision)?)?)$"
+const HOW := "^(submission \\([a-z' -]+\\) \\d+:\\d\\d|points \\d+-\\d+(, advantages \\d+-\\d+(, referee decision|, penalties \\d+-\\d+)?)?)$"
 const PRONOUN := "(?i)\\b(she|her|hers|herself)\\b"
 
 var _fails := 0

@@ -16,6 +16,21 @@ const WEEKS_A_MONTH := 4.33
 const CLOSE_AFTER_WEEKS := 8
 const WARN_RUNWAY_WEEKS := 8
 const START_MONTHS := 3
+## S397 money bites (MONEY_BITES_S397 7.1, the club owner critic): heating and power by the season, and public liability
+## insurance. Real: $300-750 a month in winter, about half in summer; insurance ~$1,000-1,500 a year (game dollars).
+const POWER_WINTER := 560
+const POWER_SUMMER := 280
+const WINTER_MONTHS := [10, 11, 12, 1, 2, 3]
+const INSURANCE_YEAR := 1250
+## The kit budget a week (round 1: club kit is $2,000-3,500 a year: gloves, headguards, pads, bags). Low wears the kit:
+## more training injuries; Good keeps it fresh and a few more stay. GAME effect sizes; GymSpend applies them. S397 round 2
+## (critic A: Low saved $25 and lost $26 of dues, a dead choice): Low now spends nothing and only raises the risk.
+const KIT_BUDGET := {
+	"low": {"name": "Low", "week": 0, "risk": 1.25, "members": 0},
+	"standard": {"name": "Standard", "week": 45, "risk": 1.0, "members": 0},
+	"good": {"name": "Good", "week": 80, "risk": 0.90, "members": 2},
+}
+const KIT_ORDER := ["low", "standard", "good"]
 
 
 static func week(g: Dictionary) -> Dictionary:
@@ -24,12 +39,24 @@ static func week(g: Dictionary) -> Dictionary:
 	var co: int = int(g.get("coaches", 0))
 	var bx: int = int(g.get("boxers", 0))
 	var income: int = roundi(float(m) * float(FEE_MONTH) / WEEKS_A_MONTH)
-	var rent: int = roundi(float(RENT_MONTH) * float(g.get("rent_mult", 1.0)) / WEEKS_A_MONTH)   # S397 ClubStart: bigger rooms
+	# S397: the premises' rent (money bites: GymSpend.premises) times the start's room (rank 5: ClubStart).
+	var rent: int = roundi(float(g.get("rent_month", RENT_MONTH)) * float(g.get("rent_mult", 1.0)) / WEEKS_A_MONTH)
 	var coaching: int = roundi(ch * float(COACH_HOUR))
 	var fees: int = roundi((float(CLUB_YEAR) + float(bx) * float(BOXER_YEAR) + float(co) * float(COACH_YEAR)) / 52.0)
-	var costs: int = rent + coaching + fees
+	# S397: a setup without a month (an old caller) pays the year's average power; insurance always.
+	var power: int = roundi(float(power_month(int(g.get("month", 0)))) / WEEKS_A_MONTH)
+	var insurance: int = roundi(float(INSURANCE_YEAR) / 52.0)
+	var costs: int = rent + coaching + fees + power + insurance
 	var net: int = income - costs
-	return {"income": income, "rent": rent, "coaching": coaching, "fees": fees, "costs": costs, "net": net}
+	return {"income": income, "rent": rent, "coaching": coaching, "fees": fees, "power": power, "insurance": insurance,
+		"costs": costs, "net": net}
+
+
+## Heating and power for a month (1-12); 0 = the year's average.
+static func power_month(month: int) -> int:
+	if month <= 0:
+		return roundi((POWER_WINTER + POWER_SUMMER) / 2.0)
+	return POWER_WINTER if WINTER_MONTHS.has(month) else POWER_SUMMER
 
 
 static func runway_weeks(cash: int, net: int) -> int:

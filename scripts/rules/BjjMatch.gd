@@ -14,6 +14,8 @@ extends RefCounted
 ## Pure: positions come in as GrappleMap tag lists and moves as candidate dictionaries (the browser builds them).
 
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
+const BjjBody := preload("res://scripts/rules/BjjBody.gd")
+const BjjRef := preload("res://scripts/rules/BjjRef.gd")
 
 const CALLS_PER_MATCH := 3
 ## S371 round 9: 1.0 -> 0.4 - the chained hand-overs (a move every ~2.5 s with a 0.5 s settle) never accumulated a
@@ -33,6 +35,12 @@ const MASTERY_SPAN := 75.0
 const PLAIN_MASTERY := 30.0
 ## Skill gap: (her skill - theirs) / SKILL_SPAN added to the odds.
 const SKILL_SPAN := 200.0
+## S397 BJJREAL: a grappler's skill = the mean drilled mastery + MAT_SKILL a level of mat time (BjjBody.mat_time - the belt
+## and the classes), so a belt gap shows in the live match as it does in the walk (tools/bjj_realism_probe.gd, LIVE rows).
+const MAT_SKILL := 20.0
+## A live kind as the referee counts it (BjjRef.OFF_W).
+const REF_KIND := {"takedown": "takedown", "sweep": "sweep", "pass": "pass", "mount": "transition", "back": "back_take",
+	"knee_on_belly": "transition", "sub": "submission", "escape": "escape", "advance": "entry"}
 ## Gas 1.0 = fresh. Every move costs MOVE_GAS, a miss MISS_GAS more; below TIRED_GAS she gets no calls (tunnel vision)
 ## and her odds scale with gas.
 const MOVE_GAS := 0.015
@@ -173,7 +181,7 @@ static func odds(kind: String, m: float, skill: float, opp_skill: float, gas: fl
 	return clampf(p, ODDS_RANGE.x, ODDS_RANGE.y)
 
 
-## Her skill for the gap: the mean of her syllabus mastery.
+## Her skill for the gap: the mean of her syllabus mastery + her mat time (S397).
 static func skill_of(f: Dictionary) -> float:
 	var bjj: Dictionary = f.get("bjj", {})
 	if bjj.is_empty():
@@ -181,7 +189,18 @@ static func skill_of(f: Dictionary) -> float:
 	var s := 0.0
 	for k in bjj:
 		s += float(bjj[k])
-	return s / bjj.size()
+	return s / bjj.size() + MAT_SKILL * BjjBody.mat_time(f)
+
+
+## S397 level points at the bell: the referee's decision (BjjRef) on the match log - who attacked more (a miss counts half)
+## - instead of the tank. {winner, share, call}.
+static func decide(st: Dictionary, rng: RandomNumberGenerator) -> Dictionary:
+	var t := BjjRef.new_tally()
+	for e in st.get("log", []):
+		var kind := str(e.get("kind", ""))
+		if REF_KIND.has(kind):
+			BjjRef.attempt(t, int(e["who"]), str(REF_KIND[kind]), bool(e.get("hit", false)))
+	return BjjRef.decide(st["pts"], [0, 0], t, rng)
 
 
 static func start(f: Dictionary, opp: Dictionary) -> Dictionary:

@@ -24,7 +24,7 @@ const TERMS := {
 	"runway": {"name": "Runway", "def": "Weeks the cash lasts at this week's net.",
 		"why": "Under 8 weeks the cash turns amber; weeks below $0 in a row close the gym."},
 	# GymBills.FEE_MONTH, Membership.weekly_dues
-	"dues": {"name": "Dues", "def": "Each member pays $35 a month; the gym keeps it by the week.",
+	"dues": {"name": "Dues", "def": "Each member pays $25, $35 or $45 a month, as set on Money.",
 		"why": "Members are the gym's steady income."},
 	# Membership.natural_members
 	"reputation": {"name": "Reputation", "def": "What the town thinks of the gym.",

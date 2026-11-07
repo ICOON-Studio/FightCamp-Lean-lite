@@ -81,7 +81,7 @@ func _initialize() -> void:
 
 	# 5. The starts.
 	_check(ClubStart.ids() == ["fresh", "debt", "backed"], "three starts")
-	_check(Career.start_cash("fresh") == 14600, "fresh: the S324 three months, $14,600 (got %d)" % Career.start_cash("fresh"))
+	_check(Career.start_cash("fresh") == 17200, "fresh: the S324 three months, $17,200 with S397 heating, insurance and kit (got %d)" % Career.start_cash("fresh"))
 	_check(Career.start_cash("debt") < Career.start_cash("fresh") / 2, "debt: about one month (%d)" % Career.start_cash("debt"))
 	_check(Career.start_cash("backed") > Career.start_cash("fresh") * 2, "backed: about six months at the bigger rent (%d)" % Career.start_cash("backed"))
 	var d := Career.quick_start("D", "London", "debt")

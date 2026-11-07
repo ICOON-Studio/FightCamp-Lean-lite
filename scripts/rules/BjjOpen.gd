@@ -69,11 +69,15 @@ static func live_bout(run: Dictionary, opp: Dictionary, res: Dictionary) -> void
 		"landed": res.get("landed", []), "live": true})
 
 
-## An open's opponent as BeltMatch reads her: her drilled level and a body from her seed.
+## An open's opponent as BeltMatch reads her: her drilled level and her body (S397: the rolled BjjBody attributes; an
+## opponent saved before S397 has none and keeps the old body from her seed).
 static func match_opp(opp: Dictionary) -> Dictionary:
 	var s := absi(int(opp.get("seed", 0)))
+	var stats: Dictionary = (opp.get("stats", {}) as Dictionary).duplicate()
+	if stats.is_empty():
+		stats = {"strength": BODY_LOW + float(s % BODY_SPREAD), "cardio": BODY_LOW + float((s / BODY_SPREAD) % BODY_SPREAD)}
 	return {"name": str(opp["name"]), "first": str(opp.get("first", opp["name"])), "skill": BjjMatch.skill_of(opp), "bjj": opp.get("bjj", {}),
-		"stats": {"strength": BODY_LOW + float(s % BODY_SPREAD), "cardio": BODY_LOW + float((s / BODY_SPREAD) % BODY_SPREAD)}}
+		"belt": str(opp.get("belt", "white")), "tree": opp.get("tree", {}), "mat_classes": int(opp.get("mat_classes", 0)), "stats": stats}
 
 
 static func result(f: Dictionary, run: Dictionary) -> Dictionary:

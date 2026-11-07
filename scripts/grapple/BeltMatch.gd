@@ -404,13 +404,17 @@ func _end() -> void:
 		browser.get_tree().create_timer(1.5).timeout.connect(browser.get_tree().quit)
 
 
-## S389 what the bracket needs: a bracket has no draw, so level at the bell goes to whoever has more gas left.
+## S389 what the bracket needs: a bracket has no draw. S397: level at the bell goes to the referee - the more offensive
+## grappler (BjjMatch.decide), no longer the fuller tank.
 func result() -> Dictionary:
 	var w := int(st["winner"])
 	var how := str(st["how"])
 	if w < 0:
-		w = 0 if float(st["gas"][0]) >= float(st["gas"][1]) else 1
-		how = "decision after %d-%d, more left in the tank" % [int(st["pts"][0]), int(st["pts"][1])]
+		var d := BjjMatch.decide(st, _rng)
+		w = int(d["winner"])
+		var sh := float(d.get("share", 0.5))
+		how = "referee decision after %d-%d, %d%% of the attacks" % [int(st["pts"][0]), int(st["pts"][1]),
+			int(round(100.0 * (sh if w == 0 else 1.0 - sh)))]
 	var landed: Array = []
 	for e in st["log"]:
 		var title := BjjClash.title({"kind": str(e["kind"]), "title": str(e["title"])}).to_lower()
