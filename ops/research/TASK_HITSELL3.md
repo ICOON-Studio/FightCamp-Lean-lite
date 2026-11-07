@@ -8,7 +8,7 @@ OWNS: scripts/fight3d/HitSnap.gd, scripts/fight3d/HitStun.gd, scripts/fight3d/Hi
 RED_TEST: tests/hit_sell_test.gd -> HIT_SELL failures=0
 REGRESSION: hit_snap_gain_test, hit_flash_test, fight_polish_test, counter_cut_test, body_keep_test, inside_beats_test
 VISUAL: yes
-FILM: --resolution 1920x1080 --script res://tools/corner_film.gd -- E:/FightCamp/tmp/hitsell3 film
+FILM: --resolution 1280x720 --script res://tools/fight3d_film.gd -- E:/FightCamp/tmp/hitsell3 short
 
 ## Why round 2 is not enough (Claude read it)
 - Its harness is live (a landed cross moves the head 0.103 m, a power shot turns it 37 deg): keep that.

@@ -67,7 +67,7 @@ func _initialize() -> void:
 	if OS.get_cmdline_user_args().has("combos"):
 		f["combos"] = load("res://scripts/ui/TestJump.gd").DRILLED.duplicate()   # S310: the set-up row has her drilled combinations
 	print("CORNER_FILM fighter %s %s habits %s vs %s (%s)" % [f["name"], f["stats"], f.get("habits", []), f["bout"]["opp"]["name"], f["bout"]["opp"]["style"]])
-	FightView.fast = true   # S308: 3:00 rounds; the film runs them at 2x
+	FightView.fast = not short   # S308: 3:00 rounds at 2x; S397 `short` plays at real speed (walks are judged as shown)
 	main.act("fightstep", "start")
 	var view: Node = main._fight_layer.get_child(0)
 	var total := int(main.modal["total"])

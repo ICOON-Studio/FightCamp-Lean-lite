@@ -436,6 +436,22 @@ def launch_goose(r: dict) -> str:
     return log(f"CLOUD {task} -> Goose, issue #{n} (branch goose/issue-{n}; goose.yml opens the PR)")
 
 
+def cursor_no_hooks(wt: Path) -> str:
+    """S398: cursor-agent (11-07 update) wraps EVERY workspace hook in its own PowerShell snippet ([UTF8Encoding]::new($false),
+    Register-EngineEvent, & { $input | <hook> }) and evaluates it with bash, which dies on Cursor's own parentheses - every
+    Shell call the seat made was refused ("eval: syntax error near unexpected token `('"), whatever our hook line said.
+    Proven by the animation chain: with .claude/settings.json = {} in the worktree, git status and git clean -n both run.
+    So a Cursor worktree gets no Claude hooks: settings.json emptied and marked assume-unchanged (sparse worktrees own skip-worktree; never committed, never in
+    status). Cost: rule_guard does not refuse commands inside Cursor's own worktree (its own branch only); the watchdog
+    launch gate and heat_governor still apply. Main and every Claude session keep the guard."""
+    cfg = wt / ".claude" / "settings.json"
+    if not cfg.is_file():
+        return "no .claude/settings.json in the worktree (sparse) - nothing to do"
+    git("update-index", "--assume-unchanged", "--", ".claude/settings.json", cwd=wt)
+    cfg.write_text("{}\n", encoding="utf-8")
+    return "Claude hooks off for Cursor (.claude/settings.json = {}, assume-unchanged)"
+
+
 def launch(r: dict) -> str:
     task, seat = r["task"], r["seat"]
     wt, branch = WT / f"LEAN_{task}", f"{seat}/{task.lower()}"
@@ -448,6 +464,8 @@ def launch(r: dict) -> str:
     seed = sh(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ROOT / "Tools" / "seed_godot_cache.ps1",
                "-Worktree", wt], timeout=1800)
     log(f"SEED {task}: {(seed.stdout.strip().splitlines() or ['?'])[-1]}")
+    if seat == "cursor":
+        log(f"HOOKS {task}: {cursor_no_hooks(wt)}")
     brief_src, brief_dst = brief_contract.brief_path(task), wt / "ops" / "research" / f"TASK_{task}.md"
     copied = not brief_dst.is_file() or brief_dst.read_bytes() != brief_src.read_bytes()
     if copied:
