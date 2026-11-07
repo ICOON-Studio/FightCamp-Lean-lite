@@ -28,6 +28,14 @@
     "note": "both feet skate back half a grid square on every jab; a pop at the loop reset.",
     "source": "ops/previews/S368/jab/jab_c_after.gemini_argon.md",
     "when": "2026-11-02"
+   },
+   {
+    "check": "Ollama gemma4:12b clip judge S399 (LOW TRUST, ranks only)",
+    "result": "7/10 FIX",
+    "pass": false,
+    "note": "Foot sliding: Minor sliding visible at 0:01.6 and 0:01.8 as the weight shifts.",
+    "source": "previews/lean_anim/pro_left_jab_c.gemini_argon.md",
+    "when": "2026-11-07"
    }
   ],
   "pro_hit_by_hook_v7_short": [
@@ -104,6 +112,14 @@
     "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
     "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
     "when": "2026-11-01"
+   },
+   {
+    "check": "Ollama gemma4:12b clip judge S399 (LOW TRUST, ranks only)",
+    "result": "3/10 FIX",
+    "pass": false,
+    "note": "Foot sliding: Significant sliding at 0:00.4 and 0:00.6 as the character shifts weight without a clear plant.",
+    "source": "previews/lean_anim/pro_left_jab_ft.gemini_argon.md",
+    "when": "2026-11-07"
    }
   ],
   "pro_left_jab_hard_ft": [
@@ -114,6 +130,14 @@
     "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
     "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
     "when": "2026-11-01"
+   },
+   {
+    "check": "Ollama gemma4:12b clip judge S399 (LOW TRUST, ranks only)",
+    "result": "3/10 FIX",
+    "pass": false,
+    "note": "Wrong speed: The transition from the \"duck\" (0:01.0) to the \"recovery\" (0:02.0) feels slightly sluggish.",
+    "source": "previews/lean_anim/pro_left_jab_hard_ft.gemini_argon.md",
+    "when": "2026-11-07"
    }
   ],
   "pro_left_jab_hurt_ft": [
@@ -134,6 +158,14 @@
     "note": "partial: only the kicked-up foot and the flung rear glove, measured against the plain take - not a check of the whole clip.",
     "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
     "when": "2026-11-01"
+   },
+   {
+    "check": "Ollama gemma4:12b clip judge S399 (LOW TRUST, ranks only)",
+    "result": "4/10 FIX",
+    "pass": false,
+    "note": "Foot sliding: Significant sliding on the lead foot during the extension phase (0:01.0 - 0:01.4).",
+    "source": "previews/lean_anim/pro_left_jab_miss.gemini_argon.md",
+    "when": "2026-11-07"
    }
   ],
   "pro_left_uppercut_ft": [
@@ -504,6 +536,76 @@
     "note": "Foot sliding: 0:01.0 - 0:01.1 (slight sliding during weight shift).",
     "source": "previews/lean_anim/pro_idle_really_tired_v2.gemini_argon.md",
     "when": "2026-11-07"
+   }
+  ],
+  "pro_left_jab": [
+   {
+    "check": "Ollama gemma4:12b clip judge S399 (LOW TRUST, ranks only)",
+    "result": "3/10 FIX",
+    "pass": false,
+    "note": "Foot sliding: Significant sliding/drifting at 0:00.2 and 0:01.0.",
+    "source": "previews/lean_anim/pro_left_jab.gemini_argon.md",
+    "when": "2026-11-07"
+   }
+  ],
+  "pro_left_jab_a": [
+   {
+    "check": "Ollama gemma4:12b clip judge S399 (LOW TRUST, ranks only)",
+    "result": "3/10 FIX",
+    "pass": false,
+    "note": "Rear hand: At 0:00.4, the rear hand is wide and not tucked at the chin.",
+    "source": "previews/lean_anim/pro_left_jab_a.gemini_argon.md",
+    "when": "2026-11-07"
+   }
+  ],
+  "pro_left_jab_b": [
+   {
+    "check": "Ollama gemma4:12b clip judge S399 (LOW TRUST, ranks only)",
+    "result": "7/10 FIX",
+    "pass": false,
+    "note": "Foot sliding: 0:01.6 - 0:01.8 (slight sliding during the extension of the jab).",
+    "source": "previews/lean_anim/pro_left_jab_b.gemini_argon.md",
+    "when": "2026-11-07"
+   }
+  ],
+  "pro_left_jab_special": [
+   {
+    "check": "Ollama gemma4:12b clip judge S399 (LOW TRUST, ranks only)",
+    "result": "3/10 FIX",
+    "pass": false,
+    "note": "Foot sliding: 0:01.0 to 0:01.2 (sliding forward/downward during the duck).",
+    "source": "previews/lean_anim/pro_left_jab_special.gemini_argon.md",
+    "when": "2026-11-07"
+   }
+  ],
+  "pro_left_jab_hard": [
+   {
+    "check": "Ollama gemma4:12b clip judge S399 (LOW TRUST, ranks only)",
+    "result": "3/10 FIX",
+    "pass": false,
+    "note": "Foot sliding: 0:01.6 - 0:01.8 (significant sliding during weight shift)",
+    "source": "previews/lean_anim/pro_left_jab_hard.gemini_argon.md",
+    "when": "2026-11-07"
+   }
+  ],
+  "pro_left_jab_hurt": [
+   {
+    "check": "Ollama gemma4:12b clip judge S399 (LOW TRUST, ranks only)",
+    "result": "4/10 FIX",
+    "pass": false,
+    "note": "Foot sliding: 0:00.8 to 0:01.0 (slight sliding during the weight shift).",
+    "source": "previews/lean_anim/pro_left_jab_hurt.gemini_argon.md",
+    "when": "2026-11-07"
+   }
+  ],
+  "rk_walk_back": [
+   {
+    "check": "operator OK on the clip's own video (S399)",
+    "result": "OK",
+    "pass": true,
+    "note": "operator: \"3 clip is fine\" (Mixamo Walking Backwards through the old repo route, claude/rokoko-route; blind critic 7/7/7 vs the game walk 3)",
+    "source": "E:/FightCamp/tmp/rokoko2/walk/rk_walk_back.mp4",
+    "when": "2026-11-08"
    }
   ]
  },

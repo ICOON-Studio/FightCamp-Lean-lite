@@ -153,7 +153,15 @@ static func _card(tex: Texture2D, kind: String, words: String, small: String, bg
 		r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 		r.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		h.add_child(r)
+		if icon != "" and icon != "lock":   # S399 critic: keep the kind's colour - the picture sits in its coloured tile
+			var frame := PanelContainer.new()
+			frame.add_theme_stylebox_override("panel", UI.box(Color(tile_col), Color(0, 0, 0, 0), 8, 0, 5, 5))
+			frame.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			r.custom_minimum_size = Vector2(PIC - 10, PIC - 10)
+			frame.add_child(r)
+			h.add_child(frame)
+		else:
+			h.add_child(r)
 	else:
 		var tile := PanelContainer.new()
 		tile.add_theme_stylebox_override("panel", UI.box(Color("#cfd6dd") if icon == "lock" else Color(tile_col), Color(0, 0, 0, 0), 8, 0, 0, 0))

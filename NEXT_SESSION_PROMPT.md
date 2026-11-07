@@ -1,5 +1,7 @@
 # S400 - next session (written S399 main session, 2026-11-07, late)
 
+OPEN THE SESSION IN E:\FightCamp\Lean (S399 was opened in E:\FightCamp\Game - not a git repo, so its side sessions got no
+worktrees and shared one folder, and the sidebar split into two groups; operator: "why is lean different than the current").
 START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S400` + map redraw
 (strip data-deleted lines before canvas_update_from_svg). Read memory feedback_source_vs_ours_first_s399 FIRST.
 
@@ -11,6 +13,21 @@ bones outside skeleton_updated = the raw clip, not what is drawn (tools/stance_p
 broken previews. RULES NOW: raw-vs-ours table before any fix; poses read inside skeleton_updated; critics burst EVERY frame
 (eyes burst --count 12 --span 0.4) + leg crops on 3 consecutive frames; nothing on the board under 8/10 from a blind critic;
 NO layer work (WALK1 held, PR #78 SOUTHPAW2 + #77 rebuild design held) until the clips match the source.
+
+LATEST (S399, end): rokoko-back pushed claude/rokoko-route (NOT merged - operator asked; ask him again): Rokoko jab/cross/guard
+play pure in the fight, clean as source (jab slide 0.012 vs raw 0.016, 0 snaps), blind best 7 (walk back 7/7/7 vs game walk 3,
+guard 6.5 vs 5); the Rokoko actor is southpaw (windows mirrored, the old "jab" was his rear straight); KnockOut Winner/Loser are
+in the old GitHub repo (no re-download). Operator on the films: "the first 2 clips have no animation for walking the fighters
+are sliding" - TRUE on main too: RingPlace moves the root while the legs hold the guard. rokoko-back is now driving every ring
+movement with captured step clips (corner walk + boxing side/back/forward steps), clip root motion, then the per-fighter walk set.
+rk_walk_back VERIFIED by his OK ("3 clip is fine", a8f11e47) - shows on the board once the branch merges.
+12 Mixamo walks in E:/FightCamp/packs/mixamo_walks (ops/research/MIXAMO_WALKS_S399.md, 7 clean bases; Mixamo export works via
+its API from his signed-in Chrome, download by anchor click in the tab - S3 links cannot be fetched cross-origin).
+Grappling: page bar 7/10, and GrappleMap's own figures do NOT overlap (operator) - overlap is our joint mapping, not the source;
+"the grapplemap clips and the video i have seen with our engine are pretty good" - grappling-rater rates and posts first.
+Menu art A/B RESULT (ops/research/STYLE_AB_RESULT_S399.md): stylized wins Fight prep 7.5 vs 6.5 (control 6.5), ties elsewhere (portrait too small); fix the dark icon tiles + boot picture, then 3 critics. Bugs found: interview has no portrait, 14_camp dead end "That offer is gone". Menu art: 23 portraits verified against their photos (610242f6), imported; stills in E:/FightCamp/tmp/styleab/arm_a|arm_b
+(layout + week) - next: blind A/B, 3 critics per page + a control (duplicate arm a), B wins at +0.5.
+Board pages: Boxer + Grappling have Verified / Archive tabs (0ca68f69).
 
 SESSIONS RUNNING (check with list_sessions / list_events; their reports come to the S399 main session):
 - rokoko-back (local_c5af2324-6ce9-41d1-af29-0c76772f556b): ports the OLD repo's Rokoko route (gh api
