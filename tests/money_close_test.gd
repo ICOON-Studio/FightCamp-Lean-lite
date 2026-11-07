@@ -1,5 +1,5 @@
 extends SceneTree
-## S324 update 27 money that bites: the weekly clock keeps the weeks below $0 and closes the gym at the fourth, the close
+## S324 update 27 money that bites: the weekly clock keeps the weeks below $0 and closes the gym at the eighth (S327; was the fourth), the close
 ## need and screen take over, the clock stops; the control arm (a rich gym) never closes. Prints MONEY_CLOSE failures=<n>.
 
 const Sim := preload("res://scripts/state/Sim.gd")

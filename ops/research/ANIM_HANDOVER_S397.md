@@ -35,3 +35,8 @@ Blind sonnet critic, neutral names (A = `nowork` control, B = inside work): A 5.
 Confound: B's camera sat wider/higher, which the critic said may hide the clinch overlap rather than fix it; B's index did not
 finish (overview sheets only). Both: clinch bodies merge (0:20-0:23, 0:44-0:47), punches with no reaction. Saved on
 wip/s399-insidework (edc55c6b). A retest needs the SAME camera in both arms.
+
+## S399 - HITSELL5 (#76) finding for the rebuild
+HitSnap adds its head turn on top of the reaction clip's own head keyframes: they fight (asked 26 deg, shown 13) or stack
+(shown 76). Tuning HitSnap moved the played median 23.0 -> 24.4 deg only. One writer per head bone (the clip OR the snap,
+never both) - a rebuild rule. Probe: tools/head_react_probe.gd (merged).

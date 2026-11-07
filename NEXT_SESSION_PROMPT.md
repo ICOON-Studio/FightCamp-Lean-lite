@@ -19,7 +19,11 @@ count fixed (Qwen run = 1 agent); blue's second = cutman body in amateur bouts (
 (Money still live - archive when idle); leftover worktree work on wip/s399-* (clinch-shape, insidework, ground3, fightwalk2,
 padview1, fight9r10), claude/bjjcontact + wip/s399-s394-portraits pushed; operator markups 11-04 in ops/Feedback/ (liver picture
 on the body callout; camp mock-up options "make no sense") - both closed (liver done 3fbe2cef; mock-up superseded by the S398 rebuild), STATUS line in each README.
-OPEN: 5th staff MetaHuman for pro corners; fighter-look faults 1/2/4/5 (singlet paint, coach neck hole, Erin's roof stare,
+OPEN: ASSET items (code cannot fix, S399 checked): the singlet is the body mesh's own MH_Top surface coloured (no cloth
+thickness, edges follow skin triangles = "body paint, torn straps") -> a real cloth singlet/vest per body; the coach's
+Staff_Shirt is the old Creator tee with no neck under the collar (mh_staff_coach) -> re-export with the body; a 5th staff
+MetaHuman for pro corners. HITSELL5 #76 closed, probe kept (tools/head_react_probe.gd): HitSnap and the reaction clip both
+write the head bone -> the rebuild's one-writer rule. fighter-look faults 1/2/4/5 (singlet paint, coach neck hole, Erin's roof stare,
 faces behind gloves) with the Fighter look session; 37 closed/merged-PR branches deleted (operator OK); 39 no-PR branches left (ops/research/BRANCH_TRIAGE_S399.md). Animation rebuild: Dola draft in ops/research/DOLA_ANIMREBUILD_S399.md (8 steps, step 1 = jab through the picker) - put it beside agy's docs/ANIM_REBUILD_DESIGN.md before two blind sonnet critics. BJJBEAT1 runs on Goose (#75), not Cursor.
 SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor GPT-5.6 Sol High | Qwen qwen3-coder | agy Argon High.
 

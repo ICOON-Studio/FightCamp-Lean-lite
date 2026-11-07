@@ -113,12 +113,25 @@ static func ordinal(n: int) -> String:
 
 
 static func next_text(c: Career, f: Dictionary) -> String:
-	if Injuries.out(c, f):
-		return "Out injured"
 	var fb: Dictionary = f["bout"]
-	if fb.has("opp") and fb.has("day"):
+	var booked := fb.has("opp") and fb.has("day")
+	var hurt := Injuries.out(c, f)
+	if hurt and not booked:
+		return "Out injured"
+	if booked:
 		var days := int(fb["day"]) - c.day
-		return "%s, %s" % [str(fb["opp"]["name"]), "%d days" % days if days > 1 else ("tomorrow" if days == 1 else "tonight")]
+		var when := "%d days" % days if days > 1 else ("tomorrow" if days == 1 else "tonight")
+		var bout := "%s, %s" % [str(fb["opp"]["name"]), when]
+		if not hurt:
+			return bout
+		# S399 (home leftovers: "Lucy can be Out injured while the card counts down to her bout"): an injured boxer keeps
+		# her booked bout on the row, with what it means - the decision due, fighting hurt, or fit before the bell.
+		if Injuries.pending(f):
+			return "Hurt before the bout - decide"
+		if str((f.get("injury", {}) as Dictionary).get("choice", "")) == "fight":
+			return "%s - fighting hurt" % bout
+		var fit := int(f["injury"]["until_day"]) - c.day
+		return "%s - fit in %d days" % [bout, fit] if fit > 1 else "%s - fit tomorrow" % bout
 	var open := open_offers(f)
 	if not open.is_empty():
 		return "1 offer waiting" if open.size() == 1 else "%d offers waiting" % open.size()

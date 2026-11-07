@@ -3749,6 +3749,703 @@
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off | S397 Claude: collected - probe merged d0e95c2e (S393 fault gone: 7 frames, 0 spells); _clear_torso not merged",
    "archived": "2026-11-07 19:41 board_sync"
+  },
+  {
+   "agent": "ziva",
+   "id": "BJJ9R10",
+   "title": "BJJ9 round 10: the belt match to 9/10 on Argon (armbar finish pose first) - Ziva self-runs the loop",
+   "status": "superseded",
+   "started": "2026-11-03T14:20",
+   "branch": "ziva/bjj9",
+   "wt": "E:/FightCamp/wt/ZIVA_LEAN",
+   "brief": "research/TASK_BJJ9.md",
+   "note": "S399 superseded: stopped S379 on the operator (\"limbs are trembling\", \"use argon instead of ziva\"); the BJJ loops ended S390 (3-4/10) and BJJ realism v2 merged 500c3ca7; next BJJ step = BJJBEAT1 (Goose #75)",
+   "archived": "2026-11-07 21:43 board_sync"
+  },
+  {
+   "agent": "antigravity",
+   "id": "FIGHT9R8",
+   "title": "TASK FIGHT9R8 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
+   "status": "superseded",
+   "started": "2026-11-03T20:41",
+   "eta": "2026-11-03T22:06",
+   "branch": "agy/fight9r8",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHT9R8",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHT9R8",
+   "brief": "ops/research/TASK_FIGHT9R8.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHT9R8_dispatch_out.txt",
+   "match": "seat_dispatch.py run fight9r8",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHT9R8_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHT9R8_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHT9R8_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 11000
+   },
+   "note": "S399 superseded: runner crashed at launch 11-03 (FileNotFoundError, fixed - agy ran FIGHT9R19 and OWNEDTAKES1 after); the FIGHT9 loop ended S390 (~5/10); animation now = ANIMREBUILD1",
+   "finished": "2026-11-03T21:01",
+   "archived": "2026-11-07 21:43 board_sync"
+  },
+  {
+   "agent": "antigravity",
+   "id": "BJJ9R11",
+   "title": "TASK BJJ9R11 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
+   "status": "superseded",
+   "started": "2026-11-04T05:01",
+   "eta": "2026-11-04T06:26",
+   "branch": "agy/bjj9r11",
+   "worktree": "E:/FightCamp/wt/LEAN_BJJ9R11",
+   "wt": "E:/FightCamp/wt/LEAN_BJJ9R11",
+   "brief": "ops/research/TASK_BJJ9R11.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/BJJ9R11_dispatch_out.txt",
+   "match": "seat_dispatch.py run bjj9r11",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/BJJ9R11_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/BJJ9R11_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/BJJ9R11_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 57948
+   },
+   "note": "S399 superseded: runner crashed at launch 11-04 (same fixed FileNotFoundError); BJJ9 loop replaced by BJJ realism v2 (merged) and BJJBEAT1",
+   "finished": "2026-11-04T05:29",
+   "archived": "2026-11-07 21:43 board_sync"
+  },
+  {
+   "agent": "cursor",
+   "id": "FIGHTWALK1",
+   "title": "TASK FIGHTWALK1 - CURSOR (Composer 2.5, Fast OFF) - the walks around the fight, 5.5 -> 7",
+   "status": "closed",
+   "started": "2026-11-07T14:11",
+   "eta": "2026-11-07T16:01",
+   "branch": "cursor/fightwalk1",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHTWALK1",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHTWALK1",
+   "brief": "ops/research/TASK_FIGHTWALK1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHTWALK1_dispatch_out.txt",
+   "match": "seat_dispatch.py run fightwalk1",
+   "model": "composer-2.5",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHTWALK1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHTWALK1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHTWALK1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 3020,
+    "seat_pid": 37400
+   },
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 6/6 PASS; PR #66; films Argon 4.5 -> 6/10; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache | S399: decided, not merged (ANIM_HANDOVER_S397.md / PR #74)",
+   "finished": "2026-11-07T15:25",
+   "pr": 66,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/fight_walk_test.gd",
+     "ok": true,
+     "last": "FIGHT_WALK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_polish_test.gd",
+     "ok": true,
+     "last": "FIGHT_POLISH checks=9 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_warm_test.gd",
+     "ok": true,
+     "last": "CORNER_WARM_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/foot_plant_test.gd",
+     "ok": true,
+     "last": "FOOT_PLANT checks=14 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_lens_test.gd",
+     "ok": true,
+     "last": "CORNER_LENS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_feet_test.gd",
+     "ok": true,
+     "last": "RING_FEET_TEST failures=0"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHTWALK1/before.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHTWALK1/before.gemini_argon.md",
+     "score": "4.5",
+     "line": "The fighting is a passable foundation, but the walks and the corner coverage break the broadcast illusion. The rope entries are awkward, the walk back to the corner is hidden, and the camera keeps ending up inside bodies.",
+     "rc": 1,
+     "err": "",
+     "head": "0a5ac272f58bb66e9bbd6ca82d02aa0ac5e9dfb0"
+    },
+    "after": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHTWALK1/after.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHTWALK1/after.gemini_argon.md",
+     "score": "6",
+     "line": "The fighting looks like boxing. The new walks are a step up when they reach the right place (3:49.9), but the round breaks stage boxers in the wrong corner, reuse one slumped rest pose, and are filmed with empty or blocked shots.",
+     "rc": 1,
+     "err": "",
+     "head": "c0eeab59dd84cd82edf17d76fec7ef1b740f171d"
+    },
+    "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-07_1525_fightwalk1_before_after_argon_4_5_10_6_1)"
+   },
+   "archived": "2026-11-07 21:43 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "HITSELL1",
+   "title": "TASK HITSELL1 - QWEN (qwen3-coder) - a landed punch must read as landed, a blocked one as blocked",
+   "status": "closed",
+   "started": "2026-11-07T14:40",
+   "eta": "2026-11-07T16:30",
+   "branch": "qwen/hitsell1",
+   "worktree": "E:/FightCamp/wt/LEAN_HITSELL1",
+   "wt": "E:/FightCamp/wt/LEAN_HITSELL1",
+   "brief": "ops/research/TASK_HITSELL1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HITSELL1_dispatch_out.txt",
+   "match": "seat_dispatch.py run hitsell1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HITSELL1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HITSELL1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HITSELL1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 16956,
+    "seat_pid": 34276
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/6 PASS; PR #65 | S399: decided, not merged (ANIM_HANDOVER_S397.md / PR #74)",
+   "finished": "2026-11-07T14:50",
+   "pr": 65,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/hit_sell_test.gd",
+     "ok": false,
+     "last": "HIT_SELL failures=3"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_snap_gain_test.gd",
+     "ok": true,
+     "last": "HIT_SNAP_GAIN failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_flash_test.gd",
+     "ok": true,
+     "last": "HIT_FLASH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_polish_test.gd",
+     "ok": true,
+     "last": "FIGHT_POLISH checks=9 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/counter_cut_test.gd",
+     "ok": true,
+     "last": "COUNTER_CUT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/body_keep_test.gd",
+     "ok": true,
+     "last": "BODY_KEEP failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "archived": "2026-11-07 21:43 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "HITSELL2",
+   "title": "TASK HITSELL2 - QWEN (qwen3-coder) - round 2: a test that measures, then a landed punch that reads as landed",
+   "status": "closed",
+   "started": "2026-11-07T15:41",
+   "eta": "2026-11-07T17:31",
+   "branch": "qwen/hitsell2",
+   "worktree": "E:/FightCamp/wt/LEAN_HITSELL2",
+   "wt": "E:/FightCamp/wt/LEAN_HITSELL2",
+   "brief": "ops/research/TASK_HITSELL2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HITSELL2_dispatch_out.txt",
+   "match": "seat_dispatch.py run hitsell2",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HITSELL2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HITSELL2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HITSELL2_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 9168,
+    "seat_pid": 14508
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 6/6 PASS; PR #69 | S399: decided, not merged (ANIM_HANDOVER_S397.md / PR #74)",
+   "finished": "2026-11-07T16:16",
+   "pr": 69,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/hit_sell_test.gd",
+     "ok": true,
+     "last": "HIT_SELL failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_snap_gain_test.gd",
+     "ok": true,
+     "last": "HIT_SNAP_GAIN failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_flash_test.gd",
+     "ok": true,
+     "last": "HIT_FLASH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_polish_test.gd",
+     "ok": true,
+     "last": "FIGHT_POLISH checks=9 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/counter_cut_test.gd",
+     "ok": true,
+     "last": "COUNTER_CUT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/body_keep_test.gd",
+     "ok": true,
+     "last": "BODY_KEEP failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "archived": "2026-11-07 21:43 board_sync"
+  },
+  {
+   "agent": "cursor",
+   "id": "FIGHTWALK2",
+   "title": "TASK FIGHTWALK2 - CURSOR (Composer 2.5, Fast OFF) - round 2: walks that arrive, a corner crew that works",
+   "status": "closed",
+   "started": "2026-11-07T16:19",
+   "eta": "2026-11-07T18:09",
+   "branch": "cursor/fightwalk2",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHTWALK2",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHTWALK2",
+   "brief": "ops/research/TASK_FIGHTWALK2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHTWALK2_dispatch_out.txt",
+   "match": "seat_dispatch.py run fightwalk2",
+   "model": "composer-2.5",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHTWALK2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHTWALK2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHTWALK2_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": false,
+    "runner_pid": 27452,
+    "seat_pid": 20432
+   },
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 6/8 PASS; PR #70; films Argon ? -> -/10; NOT committed (outside OWNS): tools/corner_film.gd | S399: decided, not merged (ANIM_HANDOVER_S397.md / PR #74)",
+   "finished": "2026-11-07T16:56",
+   "pr": 70,
+   "checks": [
+    {
+     "kind": "COMPILE",
+     "script": "Main.tscn boot",
+     "ok": false,
+     "last": "res://tests/fight_walk_test.gd:144: Too many arguments for \"_plant_slides()\" call. Expected at most 2 but received 3."
+    },
+    {
+     "kind": "RED_TEST",
+     "script": "tests/fight_walk_test.gd",
+     "ok": false,
+     "last": "   at: load (modules/gdscript/gdscript_resource_format.cpp:46)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_polish_test.gd",
+     "ok": true,
+     "last": "FIGHT_POLISH checks=9 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_warm_test.gd",
+     "ok": true,
+     "last": "CORNER_WARM_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/foot_plant_test.gd",
+     "ok": true,
+     "last": "FOOT_PLANT checks=14 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_lens_test.gd",
+     "ok": true,
+     "last": "CORNER_LENS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_feet_test.gd",
+     "ok": true,
+     "last": "RING_FEET_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/crowd_room_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHTWALK2/before.mp4",
+     "verdict_file": "",
+     "score": "?",
+     "line": "",
+     "rc": 1,
+     "err": "GEMINI BRAKE: FIGHTWALK2 before is ~453,776 tokens (cap 400,000 a call) - cut the film to the part being judged, or pass --allow-long\n",
+     "head": "034d2aeeaefaa1c8cfb65eb2332ce368b74999fc"
+    },
+    "after": {
+     "film": "",
+     "why": "does not compile: res://tests/fight_walk_test.gd:144: Too many arguments for \"_plant_slides()\" call. Expected at most 2 but received 3.; res://tests/fight_walk_test.gd:157: Too many arguments for \"_plant_slides()\" call. Expected at most 2 but received 3.; res://tests/fight_walk_test.gd:163: Too many arguments for \"_plant_slides()\" call. Expected at most 2 but received 3.",
+     "compile": [
+      "res://tests/fight_walk_test.gd:144: Too many arguments for \"_plant_slides()\" call. Expected at most 2 but received 3.",
+      "res://tests/fight_walk_test.gd:157: Too many arguments for \"_plant_slides()\" call. Expected at most 2 but received 3.",
+      "res://tests/fight_walk_test.gd:163: Too many arguments for \"_plant_slides()\" call. Expected at most 2 but received 3.",
+      "res://tests/fight_walk_test.gd:250: Cannot infer the type of \"p95\" variable because the value doesn't have a set type.",
+      "res://tests/fight_walk_test.gd:297: Cannot infer the type of \"at\" variable because the value doesn't have a set type."
+     ]
+    },
+    "board": "POSTED 1 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-07_1656_fightwalk2_before_after_argon_10_10_your)"
+   },
+   "archived": "2026-11-07 21:43 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "HITSELL4",
+   "title": "TASK HITSELL4 - QWEN (qwen3-coder) - a blocked head shot shows on the fight's own path, a landed one keeps its snap",
+   "status": "closed",
+   "started": "2026-11-07T17:24",
+   "eta": "2026-11-07T19:14",
+   "branch": "qwen/hitsell4",
+   "worktree": "E:/FightCamp/wt/LEAN_HITSELL4",
+   "wt": "E:/FightCamp/wt/LEAN_HITSELL4",
+   "brief": "ops/research/TASK_HITSELL4.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HITSELL4_dispatch_out.txt",
+   "match": "seat_dispatch.py run hitsell4",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HITSELL4_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HITSELL4_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HITSELL4_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": false,
+    "runner_pid": 10740,
+    "seat_pid": 52216
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/7 PASS; PR #72; films Argon ? -> ?/10 | S399: decided, not merged (ANIM_HANDOVER_S397.md / PR #74)",
+   "finished": "2026-11-07T18:11",
+   "pr": 72,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/hit_sell_test.gd",
+     "ok": true,
+     "last": "HIT_SELL failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_snap_gain_test.gd",
+     "ok": true,
+     "last": "HIT_SNAP_GAIN failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_flash_test.gd",
+     "ok": true,
+     "last": "HIT_FLASH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_polish_test.gd",
+     "ok": true,
+     "last": "FIGHT_POLISH checks=9 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/counter_cut_test.gd",
+     "ok": true,
+     "last": "COUNTER_CUT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/body_keep_test.gd",
+     "ok": true,
+     "last": "BODY_KEEP failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/inside_beats_test.gd",
+     "ok": true,
+     "last": "INSIDE_BEATS failures=0"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/HITSELL4/before.mp4",
+     "verdict_file": "",
+     "score": "?",
+     "line": "",
+     "rc": 1,
+     "err": "GEMINI upload start failed: HTTP 402: Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. \n",
+     "head": "0c4ff63221f63ef5fdad6a843331dbeb7b09cbdd"
+    },
+    "after": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/HITSELL4/after.mp4",
+     "verdict_file": "",
+     "score": "?",
+     "line": "",
+     "rc": 1,
+     "err": "GEMINI upload start failed: HTTP 402: Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. \n",
+     "head": "b1c3f6ef867c73d469bdbae7e3d64bcf823557aa"
+    },
+    "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-07_1810_hitsell4_before_after_argon_10_10_your_v)"
+   },
+   "archived": "2026-11-07 21:43 board_sync"
+  },
+  {
+   "agent": "cursor",
+   "id": "FIGHTWALK3",
+   "title": "TASK FIGHTWALK3 - CURSOR (Composer 2.5, Fast OFF) - the corner minute a TV director would cut: 4 -> 8",
+   "status": "closed",
+   "started": "2026-11-07T17:24",
+   "eta": "2026-11-07T19:14",
+   "branch": "cursor/fightwalk3",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHTWALK3",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHTWALK3",
+   "brief": "ops/research/TASK_FIGHTWALK3.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHTWALK3_dispatch_out.txt",
+   "match": "seat_dispatch.py run fightwalk3",
+   "model": "composer-2.5",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHTWALK3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHTWALK3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHTWALK3_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": false,
+    "runner_pid": 34880,
+    "seat_pid": 47360
+   },
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 8/8 PASS; PR #73; films Argon ? -> ?/10 | S399: decided, not merged (ANIM_HANDOVER_S397.md / PR #74)",
+   "finished": "2026-11-07T18:56",
+   "pr": 73,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/corner_work_test.gd",
+     "ok": true,
+     "last": "CORNER_WORK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_walk_test.gd",
+     "ok": true,
+     "last": "FIGHT_WALK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_polish_test.gd",
+     "ok": true,
+     "last": "FIGHT_POLISH checks=9 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_warm_test.gd",
+     "ok": true,
+     "last": "CORNER_WARM_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/foot_plant_test.gd",
+     "ok": true,
+     "last": "FOOT_PLANT checks=14 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_lens_test.gd",
+     "ok": true,
+     "last": "CORNER_LENS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_feet_test.gd",
+     "ok": true,
+     "last": "RING_FEET_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/crowd_room_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHTWALK3/before.mp4",
+     "verdict_file": "",
+     "score": "?",
+     "line": "",
+     "rc": 1,
+     "err": "GEMINI upload start failed: HTTP 402: Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. \n",
+     "head": "0c4ff63221f63ef5fdad6a843331dbeb7b09cbdd"
+    },
+    "after": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/FIGHTWALK3/after.mp4",
+     "verdict_file": "",
+     "score": "?",
+     "line": "",
+     "rc": 1,
+     "err": "GEMINI upload start failed: HTTP 402: Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. \n",
+     "head": "5c1e390e753e3900400f962cfd6e3b9261a85c25"
+    },
+    "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-07_1856_fightwalk3_before_after_argon_10_10_your)"
+   },
+   "archived": "2026-11-07 21:43 board_sync"
+  },
+  {
+   "agent": "cursor",
+   "id": "SOUTHPAW1",
+   "title": "TASK SOUTHPAW1 - CURSOR (Composer 2.5, Fast OFF) - a southpaw stands knock-kneed in guard (the operator saw it)",
+   "status": "closed",
+   "started": "2026-11-07T19:03",
+   "eta": "2026-11-07T20:53",
+   "branch": "cursor/southpaw1",
+   "worktree": "E:/FightCamp/wt/LEAN_SOUTHPAW1",
+   "wt": "E:/FightCamp/wt/LEAN_SOUTHPAW1",
+   "brief": "ops/research/TASK_SOUTHPAW1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/SOUTHPAW1_dispatch_out.txt",
+   "match": "seat_dispatch.py run southpaw1",
+   "model": "composer-2.5",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/SOUTHPAW1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/SOUTHPAW1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/SOUTHPAW1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": false,
+    "runner_pid": 10960,
+    "seat_pid": 19928
+   },
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 7/7 PASS; PR #74; films Argon 5 -> 5.5/10 | S399: decided, not merged (ANIM_HANDOVER_S397.md / PR #74)",
+   "finished": "2026-11-07T20:27",
+   "pr": 74,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/southpaw_legs_test.gd",
+     "ok": true,
+     "last": "SOUTHPAW_LEGS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_feet_test.gd",
+     "ok": true,
+     "last": "RING_FEET_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/foot_plant_test.gd",
+     "ok": true,
+     "last": "FOOT_PLANT checks=14 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/boxer_footwork_test.gd",
+     "ok": true,
+     "last": "BOXER_FOOTWORK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_polish_test.gd",
+     "ok": true,
+     "last": "FIGHT_POLISH checks=9 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_warm_test.gd",
+     "ok": true,
+     "last": "CORNER_WARM_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/knee_track_test.gd",
+     "ok": true,
+     "last": "KNEE_TRACK checks=6 failures=0"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/SOUTHPAW1/before.mp4",
+     "head": "8add2b8dba3a33230aa7b8fca0792b2ee2edbc34",
+     "score": "5",
+     "line": "The fight has believable rhythm and good broadcast moments. The guard stance undermines it: both boxers, blue most clearly, stand knock-kneed in their guard poses (0:21, 0:30, 0:51). Hit reactions are also hard to see, and the wide and repl",
+     "rc": 1,
+     "err": "",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/SOUTHPAW1/before.gemini_argon.md"
+    },
+    "after": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/SOUTHPAW1/after.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/SOUTHPAW1/after.gemini_argon.md",
+     "score": "5.5",
+     "line": "The fighting reads as boxing and nothing obviously breaks, but this footage can't confirm the southpaw fix. Red may still show knock-knees in a crouch, and the cutting and clock montage hurt watchability.",
+     "rc": 1,
+     "err": "",
+     "head": "6a7499a396c3a815648a0b2fcd88135678fff2bb"
+    },
+    "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-07_2027_southpaw1_before_after_argon_5_10_5_5_10)"
+   },
+   "archived": "2026-11-07 21:43 board_sync"
   }
  ]
 }
