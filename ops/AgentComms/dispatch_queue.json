@@ -451,8 +451,16 @@
   {
    "task": "MONEYLAYOUT1",
    "seat": "agy",
-   "status": "queued",
-   "queued": "2026-11-07T21:29"
+   "status": "launched",
+   "queued": "2026-11-07T21:29",
+   "launched": "2026-11-07T23:11"
+  },
+  {
+   "task": "GRAPPLEFIX1",
+   "seat": "qwen",
+   "status": "moved_session",
+   "queued": "2026-11-07T23:30",
+   "note": "S399 operator: \"assign it to new session\" - grappling-rater Claude session"
   }
  ]
 }

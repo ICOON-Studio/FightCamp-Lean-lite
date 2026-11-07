@@ -23,6 +23,14 @@ const REL_MAX := 0.55
 const LIFT_MAX := 0.5
 const LIFT_DOWN_MAX := 0.15
 const GROUND_CORE_Y := 0.62
+## The head as a sphere, its centre this far past the Head bone along the neck.
+const LIMB_DIP_M := 0.05
+const THIGHS := ["thighL", "thighR", "shoulders", "head"]
+const THIGH_GIVE_M := 0.0
+const REL_LEAK_S := 3.0
+const THIGH_REL_MAX := 0.35   # past this the bodies are apart enough: a thigh still in is the data's, and chasing it ran `rel` to its cap
+const HEAD_UP := 0.08
+const HEAD_R := 0.11
 
 
 static func read_bones(skel: Skeleton3D) -> Dictionary:
@@ -59,8 +67,8 @@ static func parts(d: Dictionary) -> Dictionary:
 		torso.append(["trunk", (d["Spine"] as Vector3) + lat * 0.035 * s, (d["Neck"] as Vector3) + lat * 0.035 * s, 0.12])
 	var all: Array = torso.duplicate()
 	var head: Vector3 = d["Head"]
-	var hc := head + (head - (d["Neck"] as Vector3)).normalized() * 0.08
-	all.append(["head", hc, hc, 0.11])
+	var hc := head + (head - (d["Neck"] as Vector3)).normalized() * HEAD_UP
+	all.append(["head", hc, hc, HEAD_R])
 	for l in LIMBS:
 		all.append([l[0], d[l[1]], d[l[2]], l[3]])
 	return {"torso": torso, "all": all}
@@ -84,30 +92,67 @@ static func torso_depth(p0: Dictionary, p1: Dictionary) -> float:
 ## frames, torsos 0.22 m deep). The data is a thin figure's; our women are thick, so every frame the two bodies are placed
 ## as drawn: LIFT clears the mat for both, REL pushes torsos out of each other and, on the ground, closes a gap. Rate-capped
 ## so nothing pops. `st` = {rel: Vector3, lift: float}, kept by GrapplePlayer; body 1 moves +rel/2, body 0 -rel/2.
-static func track(men: Array, j0: PackedVector3Array, j1: PackedVector3Array, st: Dictionary, delta: float) -> void:
+static func track(men: Array, j0: PackedVector3Array, j1: PackedVector3Array, st: Dictionary, delta: float) -> Array:
 	if men.size() < 2 or j0.size() != DB.JOINTS.size() or j1.size() != DB.JOINTS.size():
-		return
+		return []
 	var rel: Vector3 = st["rel"]
 	var lift := float(st["lift"])
 	var up := Vector3(0.0, lift, 0.0)
-	var p0 := parts(bone_world(men[0], (men[0] as Node).get_parent(), j0, up - rel * 0.5))
-	var p1 := parts(bone_world(men[1], (men[1] as Node).get_parent(), j1, up + rel * 0.5))
+	var d0 := bone_world(men[0], (men[0] as Node).get_parent(), j0, up - rel * 0.5)
+	var d1 := bone_world(men[1], (men[1] as Node).get_parent(), j1, up + rel * 0.5)
+	var p0 := parts(d0)
+	var p1 := parts(d1)
 	var step := TRACK_RATE * delta
 	var ground: bool = minf(j0[DB.joint("Core")].y, j1[DB.joint("Core")].y) < GROUND_CORE_Y
-	var near := _nearest(p0, p1)
+	var near := _nearest(p0, p1, rel.length() < THIGH_REL_MAX)
+	st["pen"] = near["pen"]
 	if float(near["pen"]) > PEN_OK:
-		rel += (near["pen_n"] as Vector3) * minf(float(near["pen"]) * TRACK_GAIN, step)
+		rel += (near["pen_n"] as Vector3) * minf((float(near["pen"]) - PEN_OK) * TRACK_GAIN * 2.0, step * 2.0)
 	elif ground and float(near["gap"]) > GAP_OK:
-		rel -= (near["gap_n"] as Vector3) * minf(float(near["gap"]) * TRACK_GAIN, step)
+		rel -= (near["gap_n"] as Vector3) * minf((float(near["gap"]) - GAP_OK) * TRACK_GAIN, step)
 	elif not ground:
 		rel = rel.move_toward(Vector3.ZERO, step * 0.5)
-	st["rel"] = rel.limit_length(REL_MAX)
-	var low := minf(_lowest(p0["all"]), _lowest(p1["all"]))
+	# A shift outlives the position that needed it (a stale 0.5 m sat under a turtle on seed 11): it leaks back toward the recording.
+	st["rel"] = (rel * exp(-delta / REL_LEAK_S)).limit_length(REL_MAX)
+	# On the recording's limbs: a limb GrappleLimbs swung clears the mat by itself, and read here it bounced the whole pair (S391, seed 11).
+	var low := minf(_lowest_recorded(men[0], p0, d0, up - rel * 0.5), _lowest_recorded(men[1], p1, d1, up + rel * 0.5))
 	if low < 0.0:
 		lift += minf(-low * TRACK_GAIN * 2.0, step)
 	elif low > FLOOR_OK:
 		lift -= minf(low * TRACK_GAIN, step)
 	st["lift"] = clampf(lift, -LIFT_DOWN_MAX, LIFT_MAX)
+	return [d0, d1]
+
+
+## A pose's limbs as the recording alone draws them, in world space under `world_ofs`. Read after bone_world.
+static func recorded(pose: Node, skel: Skeleton3D, world_ofs: Vector3) -> Dictionary:
+	var gt := skel.global_transform
+	var out := {}
+	var rec: Dictionary = pose.get("limb_rec")
+	for k in rec:
+		out[k] = [gt * (rec[k][0] as Vector3) + world_ofs, gt * (rec[k][1] as Vector3) + world_ofs, gt.basis * (rec[k][2] as Vector3)]
+	return out
+
+
+static func _lowest_recorded(pose: Node, p: Dictionary, d: Dictionary, ofs: Vector3) -> float:
+	var rec := recorded(pose, (pose as Node).get_parent(), ofs)
+	if rec.is_empty():
+		return _lowest(p["all"])
+	var low := INF
+	for c in p["all"]:
+		if str(c[0]) in ["pelvis", "trunk", "head", "neck", "shoulders"]:
+			low = minf(low, minf((c[1] as Vector3).y, (c[2] as Vector3).y) - float(c[3]))
+	var limbs := INF
+	for side in ["Left", "Right"]:
+		var arm: Array = rec.get(side + "Arm", [])
+		var leg: Array = rec.get(side + "Leg", [])
+		if arm.is_empty() or leg.is_empty():
+			return _lowest(p["all"])
+		limbs = minf(limbs, minf((arm[0] as Vector3).y - 0.06, (arm[1] as Vector3).y - 0.045))
+		var toes: Vector3 = (leg[1] as Vector3) + (d[side + "Toes"] as Vector3) - (d[side + "Foot"] as Vector3)
+		limbs = minf(limbs, minf((leg[0] as Vector3).y - 0.10, minf((leg[1] as Vector3).y - 0.065, toes.y - 0.068)))
+	# A limb the data sinks is GrappleLimbs' to lift: only past LIMB_DIP does the pair rise for it (the film: both women floating, one shin down).
+	return minf(low, limbs + LIMB_DIP_M)
 
 
 static func _lowest(caps: Array) -> float:
@@ -118,7 +163,7 @@ static func _lowest(caps: Array) -> float:
 
 
 ## The deepest torso overlap and the closest surfaces, each with its direction from body 0 to body 1.
-static func _nearest(p0: Dictionary, p1: Dictionary) -> Dictionary:
+static func _nearest(p0: Dictionary, p1: Dictionary, thighs: bool = false) -> Dictionary:
 	var out := {"pen": 0.0, "pen_n": Vector3.UP, "gap": INF, "gap_n": Vector3.RIGHT}
 	for x in p0["all"]:
 		for y in p1["all"]:
@@ -132,5 +177,10 @@ static func _nearest(p0: Dictionary, p1: Dictionary) -> Dictionary:
 			var torso: bool = str(x[0]) in ["pelvis", "trunk"] and str(y[0]) in ["pelvis", "trunk"]
 			if torso and -d > float(out["pen"]):
 				out["pen"] = -d
+				out["pen_n"] = n
+			# A thigh pressed in at its root, a shoulder or a head cannot swing clear (GrappleLimbs has done what it can): what is left moves the bodies.
+			var root_in: bool = thighs and (str(x[0]) in THIGHS and str(y[0]) in ["pelvis", "trunk"]) or thighs and (str(y[0]) in THIGHS and str(x[0]) in ["pelvis", "trunk"])
+			if root_in and -d - THIGH_GIVE_M > float(out["pen"]):
+				out["pen"] = -d - THIGH_GIVE_M
 				out["pen_n"] = n
 	return out

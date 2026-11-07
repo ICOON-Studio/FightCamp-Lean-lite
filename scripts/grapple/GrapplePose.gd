@@ -50,6 +50,12 @@ var joints := PackedVector3Array()
 var world_shift := Vector3.ZERO
 ## Two-bone IK on the wrists and ankles after the aim solve (off = the aim solve alone, the control arm)
 var ik := true
+## S391 GrappleLimbs: limb key ("LeftArm"...) -> [root to middle, end offset]: world metres, the second off the recording.
+var limb_fix := {}
+## S391 GrappleLimbs: [offset at the head's centre, world metres; that centre's distance from the neck]. Empty = the recording's head.
+var head_fix: Array = []
+## The limbs as the recording alone draws them, skeleton space, from the last pose_globals: key -> [middle, end, bend normal].
+var limb_rec := {}
 var _id := {}
 var _rest := {}          # bone -> global rest (skeleton space)
 var _rest_local := {}    # bone -> local rest
@@ -311,6 +317,11 @@ func _process_modification() -> void:
 ## the modifiers ran (S307 trap), so tests and cameras read this - one-off (no `mem`): the short trunk turn and the body's
 ## forward for a straight limb's roll, so it differs from the drawn pose only at a 180-deg trunk crossing or a straight limb.
 func pose_globals(skel: Skeleton3D, j: PackedVector3Array, mem: Variant = null, dt: float = 0.0) -> Dictionary:
+	if head_fix.size() == 2 and (head_fix[0] as Vector3).length_squared() > 1e-8:
+		# The neck bends toward the corrected head; the Head joint's distance is the data's, so the offset is scaled to it.
+		j = j.duplicate()
+		var hj := DB.joint("Head")
+		j[hj] += skel.global_transform.basis.inverse() * (head_fix[0] as Vector3) * (j[hj].distance_to(j[DB.joint("Neck")]) / float(head_fix[1]))
 	var rot := solve_rotations(j, mem, dt)
 	var by_id := {}
 	for n in rot.keys():
@@ -334,9 +345,23 @@ func pose_globals(skel: Skeleton3D, j: PackedVector3Array, mem: Variant = null, 
 			var roll := rest_up.cross(_fwd) if limb[0] == "UpperArm" else _fwd.cross(rest_up)
 			# The aim solve's bend normal (continuous through straight) picks the side the elbow / knee bends to.
 			var normal: Vector3 = (by_id[_id[up]] as Basis) * roll
-			var bend := _reach(glob[_id[up]].origin, j[DB.joint(s + limb[3])], rest_up.length(), rest_lo.length(), normal)
+			var root: Vector3 = glob[_id[up]].origin
+			var bend := _reach(root, j[DB.joint(s + limb[3])], rest_up.length(), rest_lo.length(), normal)
 			if bend.is_empty():
 				continue
+			var key: String = s + ("Arm" if limb[0] == "UpperArm" else "Leg")
+			var rec_mid: Vector3 = root + (bend[0] as Vector3)
+			var rec_end: Vector3 = rec_mid + (bend[1] as Vector3)
+			limb_rec[key] = [rec_mid, rec_end, normal]
+			var fix: Array = limb_fix.get(key, [])
+			if not fix.is_empty():
+				# GrappleLimbs: the end moved, and the middle sticks out the way it says.
+				var to_skel := skel.global_transform.basis.inverse()
+				var end: Vector3 = rec_end + to_skel * (fix[1] as Vector3)
+				var plane := (to_skel * (fix[0] as Vector3)).cross(end - root)
+				var moved := _reach(root, end, rest_up.length(), rest_lo.length(), held_plane(plane, normal))
+				if not moved.is_empty():
+					bend = moved
 			var n: Vector3 = (bend[0] as Vector3).cross(bend[1])
 			if n.length() < 1e-4:
 				continue
@@ -346,6 +371,12 @@ func pose_globals(skel: Skeleton3D, j: PackedVector3Array, mem: Variant = null, 
 	for i in skel.get_bone_count():
 		_global(skel, i, by_id, hips_pos, glob)
 	return glob
+
+
+## The plane a corrected limb bends in. Near the line it means nothing: it fades to the recording's own, or the elbow flips side in one frame.
+static func held_plane(plane: Vector3, normal: Vector3) -> Vector3:
+	var firm := smoothstep(0.01, 0.05, plane.length())
+	return plane.normalized() * firm + normal.normalized() * (1.0 - firm)
 
 
 ## The upper and lower limb directions that put the end at `target` from `root` (lengths a, b; the reach clamped), the

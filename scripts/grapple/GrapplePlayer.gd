@@ -11,6 +11,7 @@ const Timing := preload("res://scripts/grapple/GrappleTiming.gd")
 const GrappleContact := preload("res://scripts/grapple/GrappleContact.gd")
 const Graph := preload("res://scripts/grapple/GrappleGraph.gd")
 const GrappleDrawn := preload("res://scripts/grapple/GrappleDrawn.gd")
+const GrappleLimbs := preload("res://scripts/grapple/GrappleLimbs.gd")
 const DATA_LEG_M := 0.86
 const BREATH_M := 0.012
 ## S371 BJJ9 (Argon: takedowns are "weightless, no impact on the mat"): a landed throw shakes the body - a short
@@ -45,6 +46,10 @@ var _carry_out: Array = []
 var _carry_t := -1.0
 ## S389: the two bodies placed as drawn, every frame (GrappleDrawn.track), onto GrapplePose.world_shift.
 var _place := {"rel": Vector3.ZERO, "lift": 0.0}
+const PLACE_EASE_S := 0.08
+const PLACE_FAST_S := 0.03   # torsos this deep in each other do not wait for the ease
+const PLACE_DEEP_M := 0.07
+var _place_shown := {"rel": Vector3.ZERO, "vrel": Vector3.ZERO, "lift": Vector3.ZERO, "vlift": Vector3.ZERO}
 ## S336 GROUND2A: push the two bodies out of each other (off = the data as it is, the control arm)
 var contact := true   # when each keyframe is reached (GrappleTiming)
 ## S376 BJJCOACH1: the coach's steps play at half speed and hold on a step (Playbook mat).
@@ -61,6 +66,8 @@ var _sep_on := on("sep")
 var _carry_on := on("carry")
 var _blend_on := on("blend")
 var _impact_on := on("impact")
+var _limbs_on := on("limbs")
+var _limbs := GrappleLimbs.fresh()
 
 
 ## S379 operator (C221): "why on grapplemap the clips played fine, why you dont use them straight in the game" - the match
@@ -299,11 +306,27 @@ func _push_display_shift() -> void:
 		return
 	var j0: PackedVector3Array = (men[0] as Node).get("joints") as PackedVector3Array
 	var j1: PackedVector3Array = (men[1] as Node).get("joints") as PackedVector3Array
-	GrappleDrawn.track(men, j0, j1, _place, get_process_delta_time())
-	var up := Vector3(0.0, float(_place["lift"]), 0.0)
-	var half: Vector3 = (_place["rel"] as Vector3) * 0.5
+	var dt := get_process_delta_time()
+	var drawn := GrappleDrawn.track(men, j0, j1, _place, dt)
+	# Eased on the way to the screen and outside the loop: track's steps are corners, and every joint of both women showed them as jerk.
+	GrappleLimbs.ease_to(_place_shown, "rel", "vrel", _place["rel"], dt, PLACE_FAST_S if float(_place.get("pen", 0.0)) > PLACE_DEEP_M else PLACE_EASE_S)
+	# Up at once: a lag here is a body under the mat.
+	GrappleLimbs.ease_to(_place_shown, "lift", "vlift", Vector3(0.0, float(_place["lift"]), 0.0), dt,
+		0.02 if float(_place["lift"]) > (_place_shown["lift"] as Vector3).y else GrappleLimbs.EASE_S)
+	var up: Vector3 = _place_shown["lift"]
+	var half: Vector3 = (_place_shown["rel"] as Vector3) * 0.5
 	(men[1] as Node).set("world_shift", up + half)
 	(men[0] as Node).set("world_shift", up - half)
+	if _limbs_on and drawn.size() == 2:
+		var want_up := Vector3(0.0, float(_place["lift"]), 0.0)
+		var want_half: Vector3 = (_place["rel"] as Vector3) * 0.5
+		var was: Array = [up - half - want_up + want_half, up + half - want_up - want_half]
+		var rec: Array = []
+		for m in 2:
+			rec.append(GrappleDrawn.recorded(men[m], (men[m] as Node).get_parent(), (men[m] as Node).get("world_shift")))
+			for k in (drawn[m] as Dictionary):
+				drawn[m][k] += was[m]
+		GrappleLimbs.solve(men, drawn, rec, [j0, j1], _limbs, dt)
 
 
 ## S380 BJJ9R15: a held position breathes once (~0.25 Hz, chest under 1 cm) — never the old limb idle on moves.

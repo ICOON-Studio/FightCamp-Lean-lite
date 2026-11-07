@@ -11,6 +11,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const Graph := preload("res://scripts/grapple/GrappleGraph.gd")
 const DB := preload("res://scripts/grapple/GrappleMapDB.gd")
 const GrappleFinish := preload("res://scripts/grapple/GrappleFinish.gd")
+const FinishLens := preload("res://scripts/grapple/FinishLens.gd")
 const Curated := preload("res://scripts/grapple/GrappleCurated.gd")
 const Player := preload("res://scripts/grapple/GrapplePlayer.gd")
 const BjjMatch := preload("res://scripts/rules/BjjMatch.gd")
@@ -214,7 +215,8 @@ func _play_finish() -> void:
 	var lose: PackedVector3Array = end[1 - winner]
 	var hand: Vector3 = lose[DB.joint(str(fin["free"]) + "Hand")]
 	var mid: Vector3 = ((end[0] as PackedVector3Array)[DB.joint("Core")] + (end[1] as PackedVector3Array)[DB.joint("Core")]) * 0.5
-	browser.finish_lens(mid.lerp(hand, 0.3), hand - mid)
+	var look := mid.lerp(hand, 0.3)
+	browser.finish_lens(look, FinishLens.toward(end, look, 1 - winner, str(fin["free"])))
 
 
 ## Every move out of the position on screen, laid on the pair as the browser would play it: its tags, where it lands,
@@ -390,8 +392,8 @@ func _end() -> void:
 	_close_call()
 	_draw()
 	var w := int(st["winner"])
-	var line := ("%s WINS - %s" % [str(f["first"]).to_upper(), st["how"]]) if w == 0 else \
-		(("%s WINS - %s" % [str(names[1]), st["how"]]) if w == 1 else str(st["how"]).to_upper())
+	var line := ("%s (RED) WINS - %s" % [str(f["first"]).to_upper(), st["how"]]) if w == 0 else \
+		(("%s (BLUE) WINS - %s" % [str(names[1]), st["how"]]) if w == 1 else str(st["how"]).to_upper())
 	hud.banner(line, UI.GREEN if w == 0 else (UI.RED if w == 1 else UI.FG))
 	var called := (st["log"] as Array).filter(func(e): return bool(e["called"])).size()
 	print("MATCH_END %s | %d-%d | calls used %d | moves %d" % [line, int(st["pts"][0]), int(st["pts"][1]), called,

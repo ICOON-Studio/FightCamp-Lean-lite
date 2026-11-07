@@ -1,31 +1,42 @@
-# S400 - next session (written S399 main session, 2026-11-07)
+# S400 - next session (written S399 main session, 2026-11-07, late)
 
 START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S400` + map redraw
-(strip data-deleted lines before canvas_update_from_svg: 22 surplus cards need his OK to delete).
-TOKEN RULES unchanged (S398): free seats build, Claude briefs/reviews/merges, sonnet blind critics, no watchers.
-SEATS (seat_dispatch, 30-min reconcile; max 2 PC agents):
-- Cursor (GPT-5.6 Sol): SOUTHPAW2 RUNNING (knee valgus in the frontal plane; must FAIL on main first or stop) ->
-  FIGHTERMODEL3 (BASE claude/fighter-profiles-407aee, merge main first; gate in its brief; Claude runs the 2 blind critics) ->
-  BJJBEAT1 (BEATS2 on, white subs 0.30-0.55, first scorer 0.80-0.87, belt table kept).
-- Qwen: HITSELL5 RUNNING -> MONEYOD1 (overdraft with interest, rules only; careless still closes >= 9/10).
-- agy: ANIMREBUILD1 (design doc docs/ANIM_REBUILD_DESIGN.md -> 2 sonnet critics -> Cursor builds step by step) ->
-  MONEYLAYOUT1 (DECIDE / SPEND / DEALS / HISTORY folded, 3 button kinds; stills -> blind critics, bar 8).
-COLLECT: each PR - read the test for loosened bars, run RED_TEST on main (must fail), diff, then film/critic for VISUAL.
-JUDGES (operator S399 "Use Ollama only"): seat_dispatch JUDGE_CHAIN = ("ollama",), blind_ab default ollama; Gemini prepay
-dry since 11-04 ($33.26, not topped up), Claude's eyes off. If Ollama is down, start it (it auto-updates); no fallback.
-DONE S399: main tests green (b2fa0b90); Ziva on main (wip/ziva-s399 keeps its cache); SOUTHPAW1 #74 closed (test passed on
-main, fix a no-op); inside-work 5.5 -> 6.0 blind, NOT merged (camera differed; wip/s399-insidework); seat_dispatch double
-count fixed (Qwen run = 1 agent); blue's second = cutman body in amateur bouts (8de50e96); BJJ + Menus sessions archived
-(Money still live - archive when idle); leftover worktree work on wip/s399-* (clinch-shape, insidework, ground3, fightwalk2,
-padview1, fight9r10), claude/bjjcontact + wip/s399-s394-portraits pushed; operator markups 11-04 in ops/Feedback/ (liver picture
-on the body callout; camp mock-up options "make no sense") - both closed (liver done 3fbe2cef; mock-up superseded by the S398 rebuild), STATUS line in each README.
-OPEN: ASSET items (code cannot fix, S399 checked): the singlet is the body mesh's own MH_Top surface coloured (no cloth
-thickness, edges follow skin triangles = "body paint, torn straps") -> a real cloth singlet/vest per body; the coach's
-Staff_Shirt is the old Creator tee with no neck under the collar (mh_staff_coach) -> re-export with the body; a 5th staff
-MetaHuman for pro corners. HITSELL5 #76 closed, probe kept (tools/head_react_probe.gd): HitSnap and the reaction clip both
-write the head bone -> the rebuild's one-writer rule. fighter-look faults 1/2/4/5 (singlet paint, coach neck hole, Erin's roof stare,
-faces behind gloves) with the Fighter look session; 37 closed/merged-PR branches deleted (operator OK); 39 no-PR branches left (ops/research/BRANCH_TRIAGE_S399.md). Animation rebuild: Dola draft in ops/research/DOLA_ANIMREBUILD_S399.md (8 steps, step 1 = jab through the picker) - put it beside agy's docs/ANIM_REBUILD_DESIGN.md before two blind sonnet critics. BJJBEAT1 runs on Goose (#75), not Cursor.
-SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor GPT-5.6 Sol High | Qwen qwen3-coder | agy Argon High.
+(strip data-deleted lines before canvas_update_from_svg). Read memory feedback_source_vs_ours_first_s399 FIRST.
+
+THE S399 FINDING (operator: "are you telling me that all this time you are using wrong workflow ?" - yes, for animation):
+the bought Punch PRO clips are clean at the source (0 leg snaps, tools/raw_fbx_feet.py in Blender); Rokoko is NOT spotless raw
+(Boxing take 4.26 m slide / 63 snaps raw vs ours 6.58 / 98 - the first '0.000' was a tool bug on mixamorig: names, fixed); OUR conversion onto MetaHuman (tools/owned_mocap_bake.gd + the Punch PRO bake) adds the tremble and 1.3-6.6 m of
+foot slide; ~14 runtime layers then fight each other (blind critic 4/10, ops/research/ANIM_CRITICS_S399.md); tests read
+bones outside skeleton_updated = the raw clip, not what is drawn (tools/stance_probe.gd shows both); AI judges passed
+broken previews. RULES NOW: raw-vs-ours table before any fix; poses read inside skeleton_updated; critics burst EVERY frame
+(eyes burst --count 12 --span 0.4) + leg crops on 3 consecutive frames; nothing on the board under 8/10 from a blind critic;
+NO layer work (WALK1 held, PR #78 SOUTHPAW2 + #77 rebuild design held) until the clips match the source.
+
+SESSIONS RUNNING (check with list_sessions / list_events; their reports come to the S399 main session):
+- rokoko-back (local_c5af2324-6ce9-41d1-af29-0c76772f556b): ports the OLD repo's Rokoko route (gh api
+  repos/ICOON-Studio/FightCamp ... FightClipRokoko, MixamoMotion, FightClipRetarget, MetaHumanRig, FightClipSlice; S270 "videos
+  are perfect") into Lean, "plays pure". FIRST a walk from C:/Users/user/Downloads/Boxing_Side_Step_Walk.fbx (clean raw), then
+  the approved jab/cross/guard windows. Board at 8/10 only. KnockOut_Winner/Loser need his Rokoko re-download.
+- stylized-test (local_24af3b58-b6d3-4f4d-aa33-ae82e385046f): two fighters (mh_boxer_01, _13) with Ludo-repainted flat skin/face
+  textures under the toon shader, blind A/B vs realistic (he likes toon; merged toon scored 2.5-3 vs 3.5-4.5).
+- grappling-rater (local_44f94664-6279-4da5-b97c-194651ddab5f): ops/research/TASK_GRAPPLEFIX1.md - all 47 moves measured
+  as the game draws them, worst fixed, blind-rated, VERIFIED ones onto the Grappling page (shows verified only now).
+SEATS: Cursor RETARGET1 (Punch PRO re-import, raw-vs-ours gate) -> FIGHTERMODEL3; agy MONEYLAYOUT1; Qwen free (MONEYOD1
+landed on its branch - collect: careless still closes 10/10, sensible unchanged); Goose BJJBEAT1 (#75, a commit landed on
+its branch - collect). Ollama is the only film judge (operator "Use Ollama only").
+MENU ART (operator: "what are you waiting with the assets?"): assets/ui/style_b/ - 23 flat comic portraits made from each
+body's OWN studio photo (no face reference: a reference bled boxer 01's face into others, kept in portraits_v1_refbleed/),
+8 threat/answer icons; switch PromoShot.ui_art() (`ui_art=b`), MatchupCards uses the kind pictures in arm b. NEXT: check
+every portrait against its photo (he: "whatever is on the image must match the fighter"), import (godot --headless --import),
+stills with tools/layout_snapshot.gd + tools/week_still.gd in arms a / b / control, 3 blind critics per page (STYLE_AB_S398.md).
+DONE S399 late: Fighter look merged (5e8c4bfa: varied realistic ON, toon OFF behind art=toon); S391 BJJ contact merged
+(b0fa2d66); grappling page verified-only (f15c24f2); clip_rate_batch.py + ollama_judge --kind clip (Ollama ranked clips
+3 points too kind - ranks only); 42 dead remote branches deleted (his OK); intro faces off the gloves (2f8c84cd); Home row
+keeps an injured boxer's bout (fadfd563); corner seconds differ (8de50e96); main tests green.
+OPERATOR WANTS: "i want all fixes merged" - merge every branch that measures no worse (34 no-PR branches in
+ops/research/BRANCH_TRIAGE_S399.md), report the worse ones with numbers; "keep constant work on structure, mechanisms,
+polishing menus"; "no idling".
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet, blind, every-frame eyes | Cursor GPT-5.6 Sol High.
 
 # S399 - next session (written S398 main session, 2026-11-07)
 

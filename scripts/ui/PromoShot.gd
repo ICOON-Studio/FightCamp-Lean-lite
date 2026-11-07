@@ -51,8 +51,28 @@ static func whole(tex: Texture2D) -> Texture2D:
 	return a
 
 
+## S399 menu art A/B (ops/research/STYLE_AB_S398.md): "b" = the flat comic portraits (assets/ui/style_b/portraits, Ludo
+## image edit of each body's own studio photo, so the picture matches the fighter), "a" = the studio photos. `ui_art=b` on
+## the command line (stills, A/B) or `ui_art` in user://settings.cfg [settings]; default "a" until the blind A/B decides.
+const STYLE_B := "res://assets/ui/style_b/portraits"
+
+
+static func ui_art() -> String:
+	for a in OS.get_cmdline_user_args():
+		if str(a).begins_with("ui_art="):
+			return "b" if str(a).substr(7) == "b" else "a"
+	var cf := ConfigFile.new()
+	if cf.load("user://settings.cfg") == OK:
+		return "b" if str(cf.get_value("settings", "ui_art", "a")) == "b" else "a"
+	return "a"
+
+
 ## The photo of a body on the slate backdrop, null when it has none.
 static func shot(stem: String) -> Texture2D:
+	if ui_art() == "b":
+		var styled := STYLE_B.path_join(stem + ".png")
+		if ResourceLoader.exists(styled):
+			return crop(load(styled), stem)
 	var gym := GYM.path_join(stem + ".jpg")
 	if ResourceLoader.exists(gym):
 		return whole(load(gym))

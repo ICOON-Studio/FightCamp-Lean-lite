@@ -16,7 +16,9 @@ SNAP_DEG = 6.0
 
 def bone_names(arm):
     names = [b.name for b in arm.pose.bones]
-    low = {n.lower(): n for n in names}
+    # S399 fix (rokoko-back found it): Mixamo bones are "mixamorig:LeftToeBase" - strip any "prefix:" before matching, or
+    # the feet are never found and slide reads 0.000 for a measurement of nothing.
+    low = {n.split(":")[-1].lower(): n for n in names}
     pick = lambda *c: next((low[x] for x in c if x in low), None)  # noqa: E731
     feet = [pick("ball_l", "foot_l", "leftfoot", "lefttoebase"), pick("ball_r", "foot_r", "rightfoot", "righttoebase")]
     legs = [n for n in names if any(k in n.lower() for k in ("calf", "thigh", "foot", "leg"))]
@@ -31,6 +33,8 @@ def measure(path):
     act = arm.animation_data.action if arm.animation_data else None
     f0, f1 = (int(act.frame_range[0]), int(act.frame_range[1])) if act else (1, 1)
     feet, legs, root = bone_names(arm)
+    if not all(feet):
+        raise RuntimeError(f"feet not found ({feet}) - no measurement")
     sc = bpy.context.scene
     pos = {f: [] for f in feet if f}
     rot = {b: [] for b in legs}

@@ -56,6 +56,7 @@ const HUB_S := 1.1   # a position change with no move behind it
 const FIN_EASE_S := 1.2
 const FIN_DIST := 0.72
 var _fin_on := false
+var _frame_r := 0.0
 var _fin := 0.0
 var _fin_yaw := 0.0
 var _fin_look := Vector3.ZERO
@@ -277,8 +278,9 @@ func _process(delta: float) -> void:
 			lo = lo.min(v)
 			hi = hi.max(v)
 	_look = _look.lerp((lo + hi) * 0.5, minf(1.0, delta * 3.0))
-	var r := maxf((hi - lo).length() * 0.5, 0.9)
-	var dist := r / tan(deg_to_rad(cam.fov * 0.5)) * 1.1
+	# S391: eased like the look: unsmoothed, a limb reaching out changed the framing in one frame and judges read the pair jumping in size.
+	_frame_r = lerpf(_frame_r, maxf((hi - lo).length() * 0.5, 0.9), minf(1.0, delta * 2.0)) if _frame_r > 0.0 else maxf((hi - lo).length() * 0.5, 0.9)
+	var dist := _frame_r / tan(deg_to_rad(cam.fov * 0.5)) * 1.1
 	var from := Vector3(0, 0.42, 0.9)
 	var at := _look
 	if _fin_on:
@@ -416,7 +418,7 @@ func play_finish(frames: Array, times: PackedFloat32Array) -> void:
 ## S390: the finish's lens: it eases in close and low on `look`, from the side `toward` points.
 func finish_lens(look: Vector3, toward: Vector3) -> void:
 	_fin_look = look
-	_fin_yaw = rad_to_deg(atan2(toward.x, toward.z)) + 25.0
+	_fin_yaw = rad_to_deg(atan2(toward.x, toward.z))
 	_fin_on = true
 
 

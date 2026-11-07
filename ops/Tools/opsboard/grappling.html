@@ -127,13 +127,19 @@ fetch("/api/grappling").then(r => r.json()).then(d => {
      <span class="bar"><i style="width:${pct("verified")}%;background:var(--good)"></i><i style="width:${pct("in progress")}%;background:var(--amber)"></i><i style="width:${pct("not started")}%;background:var(--line)"></i></span>`;
   document.getElementById("shown").textContent = d.shown_rule;
   document.getElementById("rule").textContent = d.rule + ".";
+  // S399 (operator, on a failing "To 50/50" card: "i thought this was fixed ? why is it still on board like that ?"): the
+  // same rule as the boxing page (S379 "show me only what is supposed to be 100% correct") - verified moves only; ?all=1
+  // shows every move with its check.
+  const showAll = new URLSearchParams(location.search).get("all") === "1";
   const seen = new Set();
-  const done = d.rows.filter(r => r.video && !seen.has(r.title) && seen.add(r.title));
-  const rest = d.rows.filter(r => !r.video);
+  const done = d.rows.filter(r => r.video && (showAll || r.progress === "verified") && !seen.has(r.title) && seen.add(r.title));
+  const rest = showAll ? d.rows.filter(r => !r.video) : [];
+  const hidden = d.rows.filter(r => r.progress !== "verified").length;
+  if (!showAll) document.getElementById("shown").innerHTML = `Showing only VERIFIED moves (${done.length}). ${hidden} are not at the bar yet and are hidden - <a href="/grappling?all=1">show every move with its check</a>.`;
   let html = done.length ? `<h2>Rendered (${done.length})</h2><div class="grid">${done.map(card).join("")}</div>` : "";
   if (rest.length) html += `<h2>Not rendered yet (${rest.length})</h2><table class="rest"><tr><th>Move</th><th>Belt</th><th>What it does</th><th>Played</th></tr>` +
     rest.map(r => `<tr><td>${esc(r.title)}</td><td>${esc(r.id === null ? "not in GrappleMap" : beltText(r.belt))}</td><td>${esc(r.kind)}</td><td>${r.plays}x</td></tr>`).join("") + `</table>`;
-  document.getElementById("tiles").innerHTML = html || "No moves found in the match films.";
+  document.getElementById("tiles").innerHTML = html || (showAll ? "No moves found in the match films." : "No move is verified yet: nothing here passes the bar. The fixes are under way.");
 }).catch(e => { document.getElementById("tiles").innerHTML = `<p class="err">Could not load: ${esc(e.message)}</p>`; });
 </script>
 </body>

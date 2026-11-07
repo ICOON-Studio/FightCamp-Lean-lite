@@ -44,12 +44,23 @@ func _initialize() -> void:
 			(c as SkeletonModifier3D).active = false
 			print("STANCE switched off: ", c.name)
 	var drawn := {"toes": [], "ank": []}
+	var neck := {"max": 0.0, "min": INF}
 	skel.skeleton_updated.connect(func():   # the pose as drawn: modifiers applied (read only inside this signal)
 		var x := skel.global_transform
 		drawn["toes"] = []
 		drawn["ank"] = []
 		drawn["knee"] = []
 		drawn["hip"] = []
+		var nk := skel.find_bone("neck_01") if skel.find_bone("neck_01") >= 0 else skel.find_bone("Neck")
+		var hd := skel.find_bone("head") if skel.find_bone("head") >= 0 else skel.find_bone("Head")
+		var sp := skel.find_bone("spine_05") if skel.find_bone("spine_05") >= 0 else skel.find_bone("UpperChest")
+		if nk >= 0 and hd >= 0 and sp >= 0:
+			var dn := skel.get_bone_global_pose(hd).origin.distance_to(skel.get_bone_global_pose(nk).origin)
+			var ds := skel.get_bone_global_pose(nk).origin.distance_to(skel.get_bone_global_pose(sp).origin)
+			var rn := skel.get_bone_global_rest(hd).origin.distance_to(skel.get_bone_global_rest(nk).origin)
+			var rs := skel.get_bone_global_rest(nk).origin.distance_to(skel.get_bone_global_rest(sp).origin)
+			neck["max"] = maxf(float(neck["max"]), (dn + ds) / maxf(rn + rs, 1e-4))
+			neck["min"] = minf(float(neck["min"]), (dn + ds) / maxf(rn + rs, 1e-4))
 		for i in 2:
 			var ids: Array = rig._legs[i]["ids"]
 			drawn["toes"].append(x * skel.get_bone_global_pose(ids[3]).origin)
@@ -115,6 +126,7 @@ func _initialize() -> void:
 	for k in ["plan", "rig", "drawn", "drawn_ankle", "shown", "shown_ankle"]:
 		var v: Vector2 = sums[k] / maxf(n, 1)
 		print("STANCE %-12s length=%.3f width=%.3f" % [k, v.x, v.y])
+	print("STANCE drawn neck length (chest->neck->head) vs rest: min %.3f max %.3f x rest" % [neck["min"], neck["max"]])
 	print("STANCE rig weight mean %.2f, frames under 0.5: %d of %d" % [wsum / maxf(n, 1), wlow, n])
 	print("STANCE drawn knee valgus max (m inside the hip->ankle line, + = knock-kneed): lead %.3f rear %.3f" % [valg[0], valg[1]])
 	print("STANCE drawn rear ankle over rear toe (heel proxy) %.3f-%.3f m  args=%s" % [heel_min, heel_max, str(OS.get_cmdline_user_args())])

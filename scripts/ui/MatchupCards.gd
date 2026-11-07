@@ -19,6 +19,9 @@ const MOVES := "res://assets/ui/moves/"
 const PIC := 64
 const KIND_ICON := {"style": "footprints", "weapon": "hand-fist", "habit": "refresh-cw", "weakness": "trending-down"}
 const KIND_COL := {"style": "#0e7490", "weapon": "#b42318", "habit": "#7c3aed", "weakness": "#23935d"}
+## S399 menu art A/B, arm "b" (PromoShot.ui_art): the kind's flat comic picture instead of the icon tile.
+const KIND_PIC_B := {"style": "threat_game", "weapon": "threat_weapon", "habit": "threat_habit", "weakness": "threat_weakness"}
+const PIC_B_DIR := "res://assets/ui/style_b/icons"
 const KIND_WORD := {"style": "THEIR GAME", "weapon": "THEIR BEST WEAPON", "habit": "THEIR HABIT", "weakness": "THEIR WEAKNESS"}
 ## Words -> the move picture that shows them (first match wins).
 const PICS := [["body", "body_hook"], ["uppercut", "rear_uppercut"], ["lead hook", "lead_hook"], ["left hook", "lead_hook"],
@@ -106,7 +109,7 @@ static func _row(main: Node, opp: Dictionary, t: Dictionary, film: bool) -> HBox
 			Color("#f3f5f8"), "lock", 380))
 		return row
 	# S398 critics: ten near-identical renders carried nothing - each kind has its own icon and colour
-	var their := _card(null, str(KIND_WORD.get(kind, str(t["what"]).to_upper())), str(t["value"]), "", UI.PANEL,
+	var their := _card(_kind_pic(kind), str(KIND_WORD.get(kind, str(t["what"]).to_upper())), str(t["value"]), "", UI.PANEL,
 		str(KIND_ICON.get(kind, "info")), 380, str(KIND_COL.get(kind, "#334155")))
 	row.add_child(their)
 	var arrow := UI.label("->", 30, UI.MUTED, "bold")
@@ -125,6 +128,13 @@ static func _row(main: Node, opp: Dictionary, t: Dictionary, film: bool) -> HBox
 	(yours.get_child(0) as HBoxContainer).add_child(w)
 	row.add_child(yours)
 	return row
+
+
+static func _kind_pic(kind: String) -> Texture2D:
+	if PromoShot.ui_art() != "b" or not KIND_PIC_B.has(kind):
+		return null
+	var path := PIC_B_DIR.path_join(str(KIND_PIC_B[kind]) + ".png")
+	return load(path) if ResourceLoader.exists(path) else null
 
 
 ## A picture card: the move picture (or an icon tile), the caps kind, the words, a small line under them.
