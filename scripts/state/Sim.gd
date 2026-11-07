@@ -37,6 +37,10 @@ const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 ## S387 MENUREVIEW1: what the week really did (whole points and their causes, goal, rank, runway), read into the report.
 const WeekRead := preload("res://scripts/rules/WeekRead.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
+## S397 rank 5: the head coach's edge, the start's rent and loan, the first hour's quiet weeks.
+const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
+const ClubStart := preload("res://scripts/rules/ClubStart.gd")
+const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 
 ## Without a coach training runs at 60%: the coach factor 0.5 + r x 0.7 equals 0.6 at this rating.
 const NO_COACH_RATING := 100.0 / 7.0
@@ -124,7 +128,7 @@ static func week_ctx(career: Career, f: Dictionary) -> Dictionary:
 		"diet": "cut" if cutting else "hold", "fatigue": float(f.get("week_fatigue", 20.0)), "phase": str(f.get("phase", "base")),
 		"twist_kg": float(WeekTwist.active(f).get("kg_day", 0.0)), "twist_fat": float(WeekTwist.active(f).get("fat_day", 0.0)),
 		"camp_stat": str(ev["stat"]), "eve_drill": float(ev["drill"]), "eve_load": float(ev["load"]), "camp_on": PadWeek.in_camp(f),
-		"camp_mult": BoutRules.camp_gain_mult(f.get("camp", {}), str(ev["stat"]))}
+		"camp_mult": BoutRules.camp_gain_mult(f.get("camp", {}), str(ev["stat"]))}.merged(HeadCoach.ctx(career.head))
 
 
 ## S373 (Danny 61.6 kg missed 60.0 on his first offer, ~17 days out, with no warning on the offer): her weight on the
@@ -235,7 +239,8 @@ static func weekly_costs(career: Career) -> Dictionary:
 	out["rent"] = int(bills["rent"])
 	out["fees"] = int(bills["fees"])
 	out["bjj"] = int(bjj_money(career)["coach"])
-	out["total"] = int(out["total"]) + int(out["bjj"])
+	out["loan"] = int(ClubStart.loan(career.start)[0]) if career.loan_weeks > 0 else 0   # S397 the debt start's loan
+	out["total"] = int(out["total"]) + int(out["bjj"]) + int(out["loan"])
 	return out
 
 
@@ -248,7 +253,7 @@ static func bjj_money(career: Career) -> Dictionary:
 
 static func bills_setup(career: Career) -> Dictionary:
 	return {"members": career.members, "coach_hours_week": 0.0, "coaches": 0 if career.coach.is_empty() else 1,
-		"boxers": career.fighters.size()}
+		"boxers": career.fighters.size(), "rent_mult": ClubStart.rent_mult(career.start)}
 
 
 
@@ -291,6 +296,7 @@ static func end_week(career: Career) -> void:
 		if bjj_left > 0:
 			career.add_news("%d left the BJJ classes this week. %d on the mat." % [bjj_left, int(career.bjj_side["members"])], false, true)
 	var money: Dictionary = GameMoney.settle_week(career.cash, career.accrued, int(income["total"]), int(costs["total"]), career.day)
+	career.loan_weeks = maxi(0, career.loan_weeks - 1)
 	career.cash = int(money["cash"])
 	career.accrued = int(money["accrued"])
 	career.week_money["in"] = int(career.week_money["in"]) + int(income["total"])
@@ -331,6 +337,8 @@ static func end_week(career: Career) -> void:
 		var bt: Dictionary = f.get("bout", {})
 		var fight_week := not bt.is_empty() and not bool(bt.get("done", false)) and int(bt.get("day", 0)) - career.day <= 7
 		var nt := WeekTwist.draw(week + 1 + career.fighters.find(f) * 31, str(f.get("twist", "")), fight_week, twist_needs(f, career))
+		if FirstHour.quiet(career):   # S397 rank 5 (critic point 9): no card and no ask before the club's first bout
+			nt = {"id": "", "rare": true}
 		# S361 some weeks her own ask takes the card's place (PushBack; never over the rare short-notice swap).
 		if not bool(nt.get("rare", false)):
 			var ask := PushBack.pick(f, week + 1, WeekPlan.days_of(f), PadWeek.evenings(f, false), float(f.get("week_peak", 0.0)), str(f.get("twist", "")))
@@ -424,7 +432,11 @@ static func coach_line(career: Career, f: Dictionary) -> String:
 
 ## Signs the walk-in at reception.
 static func sign(career: Career, picks: Array) -> void:
-	Roster.sign_fighter(career, career.applicant, picks)
+	var f := Roster.sign_fighter(career, career.applicant, picks)
+	f["next_offer_day"] = FirstHour.first_offer_day(career, int(f["next_offer_day"]))   # S397 the show's offer: Monday week 2
+	for p in career.prospects:   # S397 a prospect who walked in (FirstHour's second walk-in) is signed, not scouted
+		if str(p["id"]) == str(f["id"]):
+			p["state"] = "signed"
 	career.applicant = {}
 
 

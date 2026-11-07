@@ -40,7 +40,6 @@ func _ready() -> void:
 	_top.theme_type_variation = "TopBar"
 	add_child(_top)
 	_guide = UI.vbox(0)
-	add_child(_guide)
 	var body := UI.hbox(0)
 	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	add_child(body)
@@ -50,10 +49,17 @@ func _ready() -> void:
 	body.add_child(rail_panel)
 	_rail = UI.vbox(4)
 	rail_panel.add_child(_rail)
+	# S397 rank 5 round 1 (blind: the guide strip ran the full width above the rail - double chrome): the guide is an inset
+	# banner at the top of the workspace column, right of the rail.
+	var col := UI.vbox(0)
+	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	body.add_child(col)
+	col.add_child(_guide)
 	_scroll = ScrollContainer.new()
 	_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	body.add_child(_scroll)
+	col.add_child(_scroll)
 	_content = MarginContainer.new()
 	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	for side in ["left", "right"]:
@@ -111,7 +117,8 @@ func _build_top(main: Node) -> void:
 	# S397 blind rounds 3-4 ("Pause/1x/2x/3x beside CONTINUE reads as two time systems"): one clock - CONTINUE runs the
 	# days and pauses them; how fast it runs is a setting (Menu > Settings, "Days run at").
 	# S394 HOME shows every need itself, so the flags stay for the other pages.
-	if main.route["area"] != "home":
+	# S397 rank 5 round 1 (blind: "three alarm pills for one task"): while the guide runs, its banner owns the next step.
+	if main.route["area"] != "home" and c.guide == "":
 		for f in Needs.flags(c):
 			var flag := UI.button(f["t"], "FlagRed" if f["red"] else "Flag", main.act.bind(f["act"], str(f.get("arg", ""))))
 			flag.size_flags_vertical = Control.SIZE_SHRINK_CENTER

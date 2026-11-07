@@ -1,7 +1,9 @@
 extends SceneTree
 ## S387 FirstWeek: a new career opens on the gym (S388) with no grappler signed; CONTINUE walks sign -> coach -> week 1 and only then runs
-## time; the first review names someone who trained; Ana joins at the end of week 1; Skip ends the guide; an unguided week with
-## nobody training fires no review. The Playbook is the fighter page's tab: the rail shortcut lands there and keeps its sub-tab.
+## time; the first review names someone who trained; Skip ends the guide; an unguided week with nobody training fires no review.
+## S397 rank 5 (ops/research/RANK5_FIRST_HOUR_S397.md): the guide no longer ends after week 1 - it moves to the first fight
+## (FIRST FIGHT: the show's offer), and Ana is no longer signed in week 1 (critics S397 point 11: she joins after the club's
+## second bout; first_hour_test covers it). The coach step says "assistant coach": the player is the head coach. The Playbook is the fighter page's tab: the rail shortcut lands there and keeps its sub-tab.
 
 const MAIN := preload("res://scenes/Main.tscn")
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
@@ -55,7 +57,7 @@ func _guided() -> void:
 	Sim.sign(c, ["Jab and move", "Pad rounds", "Hill sprints"])
 	main.close_modal()
 	_check(_strip() != null, "the strip shows")
-	_check(_says("Hire a coach", "60%"), "the guide says what to do and why: coach")
+	_check(_says("Hire an assistant coach", "60%"), "the guide says what to do and why: an assistant coach")
 	_check(str(Needs.go_state(c, false)["t"]).begins_with("NEEDS YOU"), "signed, no coach: CONTINUE is blocked")
 	main.on_go()
 	_check(main.route["area"] == "gym" and int(main.route["tab"]) == 1, "CONTINUE goes to GYM > Staff")
@@ -77,10 +79,10 @@ func _guided() -> void:
 	_check(stopped, "week 1 ends in a review")
 	_check((c.last_report["fighters"] as Array).size() == 1, "the review has the boxer who trained")
 	_check((c.last_report["grapplers"] as Array).is_empty(), "the first review stamps no grappler")
-	_check(c.guide == "", "the guide is over")
-	_check(c.grapplers.size() == 1, "Ana joined at the end of week 1")
+	_check(c.guide == "offer", "the first week is over: the guide moves to the show (%s)" % c.guide)
+	_check(c.grapplers.is_empty(), "Ana is not signed in week 1 (rank 5)")
 	main.render()
-	_check(_strip() == null, "the strip is gone")
+	_check(_strip() != null and _says("show", "kg"), "the strip now names the club show and the weight")
 
 
 func _skipped() -> void:
@@ -93,7 +95,7 @@ func _skipped() -> void:
 	for i in 8:
 		Clock.step(c)
 	_check(not c.review_pending, "a week with nobody training fires no review")
-	_check(c.grapplers.size() == 1, "a skipped guide still gets Ana after week 1")
+	_check(c.grapplers.is_empty() and c.first_hour.size() > 0, "a skipped guide keeps the first hour's calendar: no Ana in week 1")
 
 
 func _playbook() -> void:

@@ -41,9 +41,29 @@ function State {
     }
     if ($line -match '\bRED\b') { 'RED' } elseif ($line -match '\bAMBER\b') { 'AMBER' } else { 'GREEN' }
 }
+# S398 (operator "Yes, cap the cores"): the 7800X3D sat at 77-80 C on 40-50% load, so jobs were paused and resumed all
+# afternoon. When the PC is not GREEN, every scripted job (Godot --script/--headless, the eyes video indexer and its ffmpeg)
+# is pinned to 6 of the 16 threads (cores 2-4, both SMT threads; cores 0-1 stay free for Windows and his apps). A pinned
+# job keeps its cap for life (jobs are short; no flapping). His own Godot (editor, no --script) is never touched.
+$CapMask = [IntPtr]0x3F0
+$capped = @{}
+function CapJobs {
+    Get-CimInstance Win32_Process -Filter "Name LIKE 'Godot%' OR Name='python.exe' OR Name='ffmpeg.exe'" | ForEach-Object {
+        $id = [int]$_.ProcessId; $c = [string]$_.CommandLine; $n = [string]$_.Name
+        if ($capped.ContainsKey($id)) { return }
+        $job = (($n -like 'Godot*') -and ($c -match '--script|--headless') -and ($c -notmatch '--editor|\s-e(\s|$)|--remote-debug')) -or
+               (($n -eq 'python.exe') -and ($c -match 'eyes(\.exe)?["\s]')) -or
+               (($n -eq 'ffmpeg.exe') -and $capped.ContainsKey([int]$_.ParentProcessId))   # only the indexer's ffmpeg, never his
+        if (-not $job) { return }
+        $p = Get-Process -Id $id
+        if ($p) { try { $p.ProcessorAffinity = $CapMask; $capped[$id] = $true; Log "CAP 6 threads pid=$id $n" } catch {} }
+    }
+    foreach ($id in @($capped.Keys)) { if (-not (Get-Process -Id $id)) { $capped.Remove($id) } }
+}
 Log "start every=${Every}s"
 while ($true) {
     $s = State
+    if ($s -ne 'GREEN') { CapJobs }
     foreach ($id in @($paused)) { if (-not (Get-Process -Id $id)) { [void]$paused.Remove($id) } }
     if ($s -eq 'RED') {
         $lastRed = Get-Date

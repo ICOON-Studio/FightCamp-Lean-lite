@@ -323,11 +323,12 @@ func _unhandled_input(event: InputEvent) -> void:
 func act(name: String, arg: String = "") -> void:
 	match name:
 		"quick":
+			create = {}   # S397 rank 5: Quick start takes the first coach card and the fresh start (Career.from_create)
 			_start_career("Anvil Street Gym", "London")
 		"newcareer":
 			modal = {}
 			_render_modal()
-			create = {"step": 0, "country": "United Kingdom", "city": "London", "gym": ""}
+			create = {"step": 0, "country": "United Kingdom", "city": "London", "gym": "", "name": "", "coach": "", "start": "fresh"}
 			screen = "create"
 			render()
 		"cstep":
@@ -466,7 +467,7 @@ var quiet_moments := false   # S387 TestJump plays through: no poster moment in 
 
 
 func _start_career(gym_name: String, city: String) -> void:
-	var c := Career.quick_start(gym_name, city)
+	var c := Career.from_create(create, gym_name, city)
 	FirstWeek.begin(c)
 	resume(c)   # S388 lands on the gym; nothing opens by itself (S275): the guide's "Meet the walk-in" opens the boxer
 

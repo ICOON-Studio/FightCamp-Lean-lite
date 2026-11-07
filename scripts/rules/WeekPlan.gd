@@ -187,7 +187,9 @@ static func day(id: String, intensity: String, ctx: Dictionary, fatigue: float) 
 		var share := SESSION_SHARE * float(it["gain"]) * (TIRED_GAIN if fatigue >= OVERREACHED else 1.0)
 		gain = float(TrainingPreview.preview_gain(stats, int(ctx.get("pot", 70)), {"training_modifiers": [stat]},
 			float(ctx.get("coach", 50.0)), 1.0, share).get(stat, 0.0))
-	var deficit := CUT_DEFICIT if str(ctx.get("diet", "hold")) == "cut" else 0.0
+		gain *= float((ctx.get("head_gain", {}) as Dictionary).get(stat, 1.0))   # S397 HeadCoach: the strength coach
+	# S397 HeadCoach: the old hand's cut runs deeper (head_cut kcal a day on top of the CUT diet).
+	var deficit := (CUT_DEFICIT + float(ctx.get("head_cut", 0.0))) if str(ctx.get("diet", "hold")) == "cut" else 0.0
 	var kg := -(kcal - ALLOWANCE + deficit) / KCAL_PER_KG
 	if deficit > 0.0 and str(ctx.get("phase", "")) == "taper":
 		kg -= TAPER_KG

@@ -24,7 +24,7 @@ static func week(g: Dictionary) -> Dictionary:
 	var co: int = int(g.get("coaches", 0))
 	var bx: int = int(g.get("boxers", 0))
 	var income: int = roundi(float(m) * float(FEE_MONTH) / WEEKS_A_MONTH)
-	var rent: int = roundi(float(RENT_MONTH) / WEEKS_A_MONTH)
+	var rent: int = roundi(float(RENT_MONTH) * float(g.get("rent_mult", 1.0)) / WEEKS_A_MONTH)   # S397 ClubStart: bigger rooms
 	var coaching: int = roundi(ch * float(COACH_HOUR))
 	var fees: int = roundi((float(CLUB_YEAR) + float(bx) * float(BOXER_YEAR) + float(co) * float(COACH_YEAR)) / 52.0)
 	var costs: int = rent + coaching + fees

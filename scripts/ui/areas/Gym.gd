@@ -14,6 +14,8 @@ const RecordsPage := preload("res://scripts/ui/RecordsPage.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
+const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
+const PromoShot := preload("res://scripts/ui/PromoShot.gd")
 
 
 func build(main: Node) -> void:
@@ -63,8 +65,11 @@ func _members(c: Career) -> void:
 	add_child(card[0])
 	var why := UI.card("WHY THEY JOIN")
 	var rows: Array = []
-	for line in Region.why_join(c):
+	# S397 round 1 (blind: a member quotes the training on day one): the quotes start once a week has run.
+	for line in (Region.why_join(c) if c.day >= 7 else []):
 		rows.append(UI.label("\"%s\"" % line, UI.BODY, UI.FG, "italic", true))
+	if rows.is_empty():
+		rows.append(UI.muted("The members say why they come once the gym has run a week.", UI.BODY, true))
 	UI.add_rows(why[1], rows)
 	add_child(why[0])
 
@@ -93,23 +98,84 @@ func _staff(main: Node, c: Career) -> void:
 	var card := UI.card("STAFF")
 	add_child(card[0])
 	var rows: Array = []
-	if not c.coach.is_empty():
-		rows.append(UI.row("%s, %s" % [c.coach["name"], str(c.coach["kind"]).to_lower()],
-			"%s, %s, %s a week" % [c.coach["spec"], _grade(int(c.coach["rating"])), UI.money(int(c.coach["salary"]))], UI.GREEN))
+	if not c.head.is_empty():   # S397 rank 5: you, the head coach, and your edge (HeadCoach)
+		rows.append(_you(c))
+	if not c.coach.is_empty():   # S397 round 1 (blind: "a tiny green square marks the hire"): the assistant as a card
+		rows.append(_assistant(main, c, c.coach, true))
 	# S396 blind review: Money paid a BJJ coach Staff never named. The no-gi classes' coach is paid by the class.
 	if not c.grapplers.is_empty():
 		var bjj := Sim.bjj_money(c)
 		rows.append(UI.row("No-gi classes' coach, by the class", "%s a class, %s a week" % [UI.money(BjjSide.COACH_CLASS), UI.money(int(bjj["coach"]))], UI.GREEN))
 	if c.coach.is_empty():
-		rows.append(UI.muted("No coach yet. Two are available.", UI.BODY))
+		var pair := UI.hbox(14)   # S397 round 2 (blind: "spec strings"): two cards side by side, one table each
 		for coach in Data.COACHES:
-			rows.append(UI.row("%s, %s" % [coach["name"], str(coach["kind"]).to_lower()],
-				"%s, %s, %s, %s a week + %s to sign" % [coach["spec"], _grade(int(coach["rating"])), coach["note"],
-					UI.money(int(coach["salary"])), UI.money(GameMoney.COACH_SIGNING_FEE)],
-				Color(0, 0, 0, 0), [UI.button("Hire", "Btn", main.act.bind("hire", coach["id"]))]))
+			pair.add_child(_assistant(main, c, coach, false))
+		rows.append(pair)
 	UI.add_rows(card[1], rows)
-	if not c.coach.is_empty():   # S397 blind round 3 ("People is sparse"): what the coach does for the club, in its own words
-		card[1].add_child(UI.caps("WHAT %s BRINGS" % str(c.coach["name"]).get_slice(" ", 0).to_upper()))
-		UI.add_rows(card[1], [UI.kv("Pad nights", "%s, %s" % [str(c.coach["spec"]).to_lower(), c.coach["note"]]),
-			UI.kv("Game plans", "up to %d situations planned" % PlanBoard.arrow_limit(float(c.coach.get("rating", 0.0)))),
-			UI.kv("Evening classes", "3 a week, +%s" % UI.money(GameMoney.CLASSES_WITH_COACH))])
+	# (S398 rank 5 round 3, blind: "What Luke brings repeats the card": the hired assistant's card carries it now.)
+
+
+## S397 rank 5: the head coach's row - the photo from the start, the name, the edge as a result.
+static func _you(c: Career) -> Control:
+	var cd := HeadCoach.card(HeadCoach.of(c.head))
+	var h := UI.hbox(14)
+	h.name = "HeadCoachRow"
+	var pic := PromoShot.picture(str(cd.get("photo", "")), Vector2(64, 64))
+	if pic != null:
+		h.add_child(pic)
+	var v := UI.vbox(2)
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	v.add_child(UI.label("%s, head coach (you)" % c.head.get("name", HeadCoach.DEFAULT_NAME), UI.BODY, UI.FG, "bold"))
+	v.add_child(UI.label("%s: %s" % [cd.get("title", ""), str(cd.get("edge", "")).to_lower()], UI.SMALL, UI.GOLD, "bold"))
+	v.add_child(UI.muted(str(cd.get("plain", "")), UI.SMALL, true))
+	h.add_child(v)
+	return h
+
+
+## S397 rank 5 rounds 1-2 (the designer's 8/10 version; blind round 2: "a comparison table, the better value shown"): an assistant
+## as a card - a real photo, a one-line pitch, and the rules' own numbers: the session share (Sim: 0.5 + rating x 0.7 / 100; none
+## = 60%), the plan lines taught (PlanBoard), the evening classes' money and the weekly cost net of them.
+static func _assistant(main: Node, c: Career, coach: Dictionary, hired: bool) -> Control:
+	var card := PanelContainer.new()
+	card.name = "Assistant_" + str(coach["id"])
+	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = UI.PANEL2 if not hired else UI.PANEL
+	sb.border_color = UI.GREEN if hired else UI.LINE
+	sb.set_border_width_all(2 if hired else 1)
+	sb.set_corner_radius_all(10)
+	sb.set_content_margin_all(14)
+	card.add_theme_stylebox_override("panel", sb)
+	var v := UI.vbox(8)
+	card.add_child(v)
+	var head := UI.hbox(12)
+	var pic := PromoShot.picture(_assistant_photo(c, str(coach["id"])), Vector2(72, 72))
+	if pic != null:
+		head.add_child(pic)
+	var who := UI.vbox(2)
+	who.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	who.add_child(UI.label(str(coach["name"]), UI.BODY + 1, UI.FG, "bold"))
+	who.add_child(UI.chip(("HIRED - " if hired else "") + str(coach["kind"]).to_upper(), "green" if hired else ""))
+	who.add_child(UI.muted("%s, %s." % [str(coach["spec"]), coach["note"]], UI.SMALL, true))
+	head.add_child(who)
+	v.add_child(head)
+	var r := float(coach["rating"])
+	var net := int(coach["salary"]) - GameMoney.CLASSES_WITH_COACH
+	for kv in [["Training quality", "%d%% (alone: 60%%)" % roundi((0.5 + r * 0.7 / 100.0) * 100.0)], ["Fight-plan lines", "%d" % PlanBoard.arrow_limit(r)],
+			["Cost a week", UI.money(int(coach["salary"]))], ["Evening classes", "+%s a week" % UI.money(GameMoney.CLASSES_WITH_COACH)],
+			["Net a week", "-%s" % UI.money(net)]] + ([] if hired else [["To sign", UI.money(GameMoney.COACH_SIGNING_FEE)]]):
+		v.add_child(UI.kv(str(kv[0]), str(kv[1]), UI.RED if str(kv[0]) == "Net a week" else UI.FG, "mono"))
+	if not hired:
+		var b := UI.button("Hire %s" % str(coach["name"]).get_slice(" ", 0), "BtnSolid", main.act.bind("hire", coach["id"]))
+		b.name = "Hire_" + str(coach["id"])
+		v.add_child(b)
+	return card
+
+
+## The assistants' photos (S398 round 3, blind: "Luke and Marcus wear women's faces"): Marcus Hale the corner's man in a shirt, Luke Reid
+## a young ex-boxer's studio photo; when the head coach took the corner's man (the ex-pro card), Marcus takes a second ex-boxer.
+static func _assistant_photo(c: Career, id: String) -> String:
+	var mine := str(HeadCoach.card(HeadCoach.of(c.head)).get("photo", ""))
+	if id == "reid":
+		return "mh_boxer_07"
+	return "mh_boxer_08" if mine == "mh_staff_trainer" else "mh_staff_trainer"

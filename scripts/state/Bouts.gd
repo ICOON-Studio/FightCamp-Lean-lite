@@ -29,6 +29,9 @@ const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const PeakCamp := preload("res://scripts/rules/PeakCamp.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
+const FirstHour := preload("res://scripts/rules/FirstHour.gd")
+const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
+const ClubStart := preload("res://scripts/rules/ClubStart.gd")
 
 
 const OFFER_ANSWER_DAYS := 3
@@ -121,12 +124,19 @@ static func day_events(c: Career) -> void:
 			var id := "%s:o%d" % [f["id"], c.day]
 			var on := AmateurBooking.fight_day(c.day, AmateurBooking.lead_weeks(id))
 			on = makeable_day(c, f, on)
+			var show := FirstHour.is_show_offer(c, f)
+			if show:   # S397 rank 5: the club show the goal card named, makeable by the player's cut
+				opp = c.rival(FirstHour.show_opponent(c, f)).duplicate(true)
+				on = FirstHour.SHOW_DAY
+				FirstHour.mark_offered(c)
 			var own := AmateurBooking.bouts_of(int(f["w"]), int(f["l"]))
 			f["offers"] = [
 				_offer(id, opp, on, c.day + OFFER_ANSWER_DAYS, own),
 				_offer("%s:m%d" % [f["id"], c.day], c.rival(str(div["mismatch"])).duplicate(true), on + 7, c.day + MISMATCH_ANSWER_DAYS, own),
 			]
-			c.add_news("Two bout offers came in for %s." % f["name"])
+			# S397 round 1 (blind: "Two bout offers" with one shown): the show's offer says what it is; the unsafe pair is silent.
+			c.add_news("The club show on %s has offered %s a bout." % [Clock.fmt(on), f["first"]] if show else
+				"Two bout offers came in for %s." % f["name"])
 		for o in f["offers"]:
 			if not bool(o["answered"]) and c.day > int(o["expires"]):
 				o["answered"] = true
@@ -173,7 +183,23 @@ static func accept(c: Career, id: String) -> bool:
 	WeekPhase.sync(f, c.day)   # S356 a bout booked: the coach writes the camp's phase from today, not next Monday
 	FighterProfile.apply_morale(f, "booked", "A fight booked: %s" % o["opp"]["name"])
 	c.add_news("Booked: %s vs %s, %s." % [f["name"], o["opp"]["name"], Clock.fmt(int(o["day"]))])
+	read_on_booking(c, f)
 	return true
+
+
+## S397 HeadCoach, the ex-pro: the day a bout is booked, one of the opponent's habits is on file (OppFile's tape order),
+## named in the news as the head coach's own read.
+static func read_on_booking(c: Career, f: Dictionary) -> void:
+	var opp: Dictionary = f["bout"]["opp"]
+	for i in HeadCoach.free_tells(c.head):
+		if not opp.has("habits"):
+			opp["habits"] = RoundStyle.opponent_habits(opp)
+		var id := OppFile.tape(opp)
+		for t in OppFile.tells(opp):
+			if str(t["id"]) == id:
+				c.add_news("Your read on %s, from the ring: %s - %s. %s." % [opp["first"], str(t["what"]).to_lower(),
+					str(t["value"]).to_lower(), t["counter"]], true, true)
+	OppFile.remember(c.rival(str(opp["name"])), opp)
 
 
 static func decline(c: Career, id: String) -> void:
@@ -298,6 +324,7 @@ static func weigh(c: Career, f: Dictionary) -> bool:
 		return made
 	if not made:
 		c.add_news("%s missed weight. The bout is off." % f["name"])
+		_first_hour_after(c, f, false, true)
 		c.pay(-BoutRules.MISSED_WEIGHT_COST, "Empty slot: %s missed weight" % f["first"])
 		f["bout"] = {}
 		f["camp"] = {}
@@ -362,12 +389,26 @@ static func after_fight(c: Career, f: Dictionary) -> void:
 	f["load_setting"] = TrainingLoad.DEFAULT
 	f["next_offer_day"] = c.day + AFTER_FIGHT
 	f["booked_fight"] = false
+	if not champ:
+		_first_hour_after(c, f, won, false)
 	# S328 a championship round books the next one (or ends her run); a bout booked before she entered hands over to it.
 	if champ:
 		Champs.after_bout(c, f, won)
 	elif Champs.active(f):
 		Champs.book_next(c, f)
 	Roster.check_pro(c)
+
+
+## S397 rank 5: the first hour moves on after a bout (or a missed weigh-in): the rival's line, the backers' verdict.
+static func _first_hour_after(c: Career, f: Dictionary, won: bool, missed: bool) -> void:
+	for line in FirstHour.bout_done(c, f, won, missed):
+		c.add_news(line, false, true)
+	match FirstHour.backers_result(c, won):
+		"kept":
+			c.add_news("The backers are happy: the money stays.", true, true)
+		"pulled":
+			c.pay(-ClubStart.BACKERS_CLAWBACK, "The backers took money back after the first show")
+			c.add_news("The backers wanted the first show won. They took %s back." % GameMoney.text(ClubStart.BACKERS_CLAWBACK), true, true)
 
 
 static func goal_choices(c: Career, f: Dictionary) -> Array:

@@ -8,6 +8,7 @@ const TestJump := preload("res://scripts/ui/TestJump.gd")
 const SaveGame := preload("res://scripts/state/SaveGame.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
+const ProLadder := preload("res://scripts/state/ProLadder.gd")
 
 var failures := 0
 
@@ -26,6 +27,22 @@ func _initialize() -> void:
 			_check(ok and not (f["bout"] as Dictionary).is_empty() and str((f.get("injury", {}) as Dictionary).get("type", "")) == "hand"
 				and (main.modal.get("buttons", []) as Array).size() == 2, "injury: the hand injury asks pull out or fight hurt")
 			_check(str(main.route.get("fighter", "")) == str(f["id"]) and main.save_path == TestJump.SAVE_PATH, "injury: her fighter page, its own save slot")
+			main.queue_free()
+			await process_frame
+			continue
+		if jump == "proladder" or jump == "proranked":
+			# S397 rank 4 added these two jumps without a case here, so they fell through to the fight-night checks below and
+			# main.act("fightstep", "start") ran on a fighter with NO bout: BoutNight wrote round keys into the empty bout dict and
+			# the Fights page then read a bout with no "day"/"opp" (main CI red since S397: ProFights.gd:38, Fights.gd:122).
+			# They land on FIGHTS with the promoter's offers waiting - check that, never start a fight.
+			var offers: Array = f.get("pro_offers", []) as Array
+			_check(ok and str(main.route.get("area", "")) == "fights" and not offers.is_empty()
+				and (f.get("bout", {}) as Dictionary).is_empty(), "%s: a pro on FIGHTS with %d offers waiting, no bout" % [jump, offers.size()])
+			if jump == "proranked":
+				# S398: ranks are seeded by rating at the reviews (S397 "ranks mean levels"), so wins alone cannot promise a rank
+				# here (6-0-1 left her unranked at 64.7) - the jump promises a pro record with wins behind her.
+				var pe := ProLadder.entry(main.career, f)
+				_check(int(pe.get("w", 0)) >= 3, "proranked: a pro with %d-%d behind her (rank %d)" % [int(pe.get("w", 0)), int(pe.get("l", 0)), int(pe.get("rank", 0))])
 			main.queue_free()
 			await process_frame
 			continue

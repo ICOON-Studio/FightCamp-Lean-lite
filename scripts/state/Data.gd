@@ -21,11 +21,12 @@ const AREAS: Array[Dictionary] = [
 	{"id": "world", "name": "WORLD", "job": "the boxing world", "tabs": ["News", "Rankings", "Championships", "", ""]},
 ]
 
-## Decided: the first coach is sessional at $450 a week; $1,000 to sign either.
+## Decided: the first coach is sessional at $450 a week; $1,000 to sign either. S397 rank 5: the player is the head coach, so
+## both are assistants (docs/STRUCTURE_DESIGN_S395.md 5.8: "Luke Reid becomes your first assistant").
 const COACHES: Array[Dictionary] = [
-	{"id": "reid", "name": "Luke Reid", "kind": "Sessional coach", "salary": 450, "rating": 58, "spec": "Pad work",
+	{"id": "reid", "name": "Luke Reid", "kind": "Sessional assistant coach", "salary": 450, "rating": 58, "spec": "Pad work",
 		"note": "three evenings a week"},
-	{"id": "hale", "name": "Marcus Hale", "kind": "Full-time head coach", "salary": 1090, "rating": 74, "spec": "Conditioning",
+	{"id": "hale", "name": "Marcus Hale", "kind": "Full-time assistant coach", "salary": 1090, "rating": 74, "spec": "Conditioning",
 		"note": "every day, better gains"},
 ]
 

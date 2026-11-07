@@ -91,6 +91,7 @@ func _book() -> Dictionary:
 	main.act("quick")
 	var c: Career = main.career
 	c.seed = 1
+	c.first_hour = {}   # S397 rank 5: this camp is measured against the classic offer (Maria, 2-4 weeks); first_hour_test has the show
 	main.act("interview")
 	for card in ["Jab and move", "Pad rounds", "Hill sprints"]:
 		main.act("pickcard", card)

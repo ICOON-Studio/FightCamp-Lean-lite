@@ -75,9 +75,13 @@ static func read(rounds: Array, first: String, opp: String) -> Dictionary:
 	for r in rounds.slice(0, 1):
 		coach = (r.get("plan", []) as Array).filter(func(a): return bool((a as Dictionary).get("coach", false))).size()
 	out["coach"] = coach
+	# S397 rank 5 (critics: the Why must not praise a plan the player did not write): whose plan it was, said first. The player
+	# is the head coach; the hired coach is the assistant who plans when nobody else did.
 	if coach > 0:
-		out["plan"] = "The coach's plan (none was written): " + str(out["plan"])
+		out["plan"] = "The coach's plan, your assistant's (you wrote none): " + str(out["plan"])
 		out["next"] = "The coach planned %s from %s's tape. A plan of your own in the Playbook can answer more." % [_n(coach, "card"), opp]
+	elif str(grade) != "none":
+		out["plan"] = "Your plan: " + str(out["plan"])
 	if float(pt["tank"]) >= 1.0:
 		out["against"] = str(out["against"]) + " Wrong answers punished cost %s %d of the tank for the rest of the fight." % [first,
 			int(round(float(pt["tank"])))]

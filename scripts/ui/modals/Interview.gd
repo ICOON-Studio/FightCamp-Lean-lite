@@ -18,13 +18,18 @@ func build(main: Node, m: Dictionary) -> void:
 	v.add_child(UI.display(str(a["name"]).to_upper(), 48))
 	v.add_child(UI.muted("%d, %s, %s, amateur %d-%d, %s" % [a["age"], str(a["wc"]).to_lower(), a["stance"], a["w"], a["l"],
 		str(a["style"]).to_lower()], UI.BODY))
-	v.add_child(UI.label("\"I've had four fights at a church hall. I want a proper gym and a proper coach.\"", UI.BODY, UI.FG, "italic", true))
+	# S397 rank 5: each walk-in speaks for themself (FirstHour.walkin's quote); the first one's line stays.
+	v.add_child(UI.label(str(a.get("quote", "\"I've had four fights at a church hall. I want a proper gym and a proper coach.\"")), UI.BODY, UI.FG, "italic", true))
 	# S354 the reception as an RPG recruit (operator: "get it more rpg elements to this"): RecruitPanel.
 	v.add_child(RecruitPanel.build(main, main.career, a, picks, "pickcard"))
 	v.add_child(UI.muted("Terms: club stipend, $250 a week.", UI.SMALL))
 	var foot := UI.hbox(10)
 	foot.add_child(UI.spacer())
-	foot.add_child(UI.button("Pass", "BtnQuiet", main.act.bind("decline", "")))
+	# S397 a later walk-in can be turned away (the first one is the club's only boxer: Pass keeps them waiting).
+	var first: bool = main.career.fighters.is_empty()
+	var pass_b := UI.button("Not now" if first else "Pass on %s" % a["first"], "BtnQuiet", main.act.bind("decline" if first else "passwalkin", ""))
+	pass_b.name = "Pass"
+	foot.add_child(pass_b)
 	var focus := RecruitPanel.focus_of(picks)
 	var ready := focus != "" or picks.size() == 3
 	var sign := UI.button("Sign %s - %s" % [a["first"], str(Recruit.FOCUS[focus]["name"]).to_lower()] if focus != "" else

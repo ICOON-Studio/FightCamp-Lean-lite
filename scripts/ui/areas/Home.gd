@@ -11,6 +11,7 @@ const Sim := preload("res://scripts/state/Sim.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
+const HomeFirstHour := preload("res://scripts/ui/HomeFirstHour.gd")
 
 const SIDE_W := 420.0
 
@@ -25,9 +26,16 @@ func build(main: Node) -> void:
 	var right := UI.vbox(20)
 	right.custom_minimum_size = Vector2(SIDE_W, 0)
 	grid.add_child(right)
-	var blocks := [HomeNeeds.build(main, c), HomeMatch.build(main, c), HomeRows.build(main, c)]
+	# S397 rank 5 round 1 (blind: "the offer appears five times"; "an empty fighters table"): in the first hour, before the first
+	# bout, an unbooked matchup card and an empty roster table are not drawn - the pinned note owns the step.
+	var quiet := HomeFirstHour.FirstHour.quiet(c)
+	var booked := (HomeMatch.hero(c).get("bout", {}) as Dictionary).has("opp")
+	var blocks := [HomeNeeds.build(main, c), HomeMatch.build(main, c) if booked or not quiet else null,
+		HomeRows.build(main, c) if not (quiet and c.fighters.is_empty()) else null]
 	if HomeNeeds.pressing(c).is_empty() and blocks[1] != null:   # nothing pressing: the fight leads the page
 		blocks = [blocks[1], blocks[0], blocks[2]]
+	# S397 rank 5: the job and the show's clock lead until the first bout.
+	blocks.push_front(HomeFirstHour.build(main, c))
 	for block in blocks:
 		if block != null:
 			left.add_child(block)

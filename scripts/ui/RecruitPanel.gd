@@ -11,6 +11,7 @@ const Data := preload("res://scripts/state/Data.gd")
 const Recruit := preload("res://scripts/rules/Recruit.gd")
 const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
 const Bar := preload("res://scripts/ui/Bar.gd")
+const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
@@ -27,11 +28,13 @@ static func build(main: Node, c: Career, a: Dictionary, picks: Array, act: Strin
 	var top := UI.hbox(14)
 	var cl := Recruit.class_of(str(f.get("style", "")))
 	top.add_child(UI.chip("%s - %s; %s" % [str(f.get("style", "")).to_upper(), cl[0], cl[1]], "gold"))
-	var st := Recruit.stars(int(f["pot"]))
+	var eye := HeadCoach.sees_potential(c.head)   # S397 the amateur coach's eye for talent: the exact value, not a range
+	var st := Recruit.stars(int(f["pot"]), eye)
 	var full := int(floor(float(st[1])))
 	var stars_txt := "★".repeat(full) + "☆".repeat(5 - full)
 	top.add_child(UI.label(stars_txt, UI.BODY + 4, UI.AMBER, "bold"))
-	top.add_child(UI.muted("potential %s to %s stars (the coach's guess)" % [_s(float(st[0])), _s(float(st[1]))], UI.SMALL))
+	top.add_child(UI.muted("potential %s stars (your eye for talent: exact)" % _s(float(st[0])) if eye else
+		"potential %s to %s stars (a guess until the trial)" % [_s(float(st[0])), _s(float(st[1]))], UI.SMALL))
 	v.add_child(top)
 	var grid := UI.hbox(22)
 	v.add_child(grid)

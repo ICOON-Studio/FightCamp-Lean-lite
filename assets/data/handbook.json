@@ -403,5 +403,32 @@
   "group": "Money",
   "area": "fights",
   "src": "Roster.PRO_PURSE, Roster.PRO_PURSE_STEP, Roster.PRO_PURSE_TOP, Roster.GYM_SHARE"
+ },
+ {
+  "id": "head_coach",
+  "name": "Head coach (you)",
+  "def": "You run the club and stand in the corner. Your past, picked at the start, gives one edge for the whole career.",
+  "why": "Old hand: every cut burns 120 kcal a day more. Ex-pro: one of the opponent's habits is on file the day a bout is booked. Amateur coach: a prospect's potential shows exact. Strength coach: conditioning, power and speed mornings +10%, technique and defence mornings -10%.",
+  "group": "The club",
+  "area": "gym",
+  "src": "HeadCoach.CARDS, HeadCoach.OLDHAND_CUT_KCAL, EXPRO_TELLS, STRENGTH_GAIN, CRAFT_GAIN"
+ },
+ {
+  "id": "assistant",
+  "name": "Assistant coach",
+  "def": "The coach you hire. Runs the sessions you cannot, the evening classes, and writes a fight plan when you write none.",
+  "why": "Without one, missed sessions train at 60%. An assistant's plan reads one or two of the opponent's games; yours can read more.",
+  "group": "The club",
+  "area": "gym",
+  "src": "Sim.NO_COACH_RATING, CoachPlan.READ_AT"
+ },
+ {
+  "id": "start",
+  "name": "Club start",
+  "def": "How the club begins: Fresh doors, In debt with one good boxer, or Backed with big expectations.",
+  "why": "Fresh: three months of bills in the bank. In debt: one month, a $180 a week loan for 26 weeks, a better walk-in 2.2 kg over. Backed: six months, rent x1.5, and the backers take $5,000 back if the first show is lost.",
+  "group": "The club",
+  "area": "gym",
+  "src": "ClubStart.CARDS, LOAN_WEEK, LOAN_WEEKS, BACKERS_CLAWBACK"
  }
 ]

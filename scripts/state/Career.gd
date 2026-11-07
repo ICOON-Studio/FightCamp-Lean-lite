@@ -9,6 +9,8 @@ const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const RivalPast := preload("res://scripts/rules/RivalPast.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
+const ClubStart := preload("res://scripts/rules/ClubStart.gd")
+const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
 
 @export var gym_name: String = "Anvil Street Gym"
 @export var city: String = "London"
@@ -47,15 +49,27 @@ const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 @export var closed: bool = false
 ## S325 the career's own dice for what should differ career to career (injuries); 0 on a save from before update 28.
 @export var seed: int = 0
+## S397 rank 5 (ops/research/RANK5_FIRST_HOUR_S397.md): the player as head coach (HeadCoach: {name, bg}; {} = an old save, no
+## edge), the start picked (ClubStart id; "" = an old save, read as "fresh"), the start's loan weeks left, and the first
+## hour's own facts (FirstHour: the show, the second walk-in, the tasks; {} = no first hour).
+@export var head: Dictionary = {}
+@export var start: String = ""
+@export var loan_weeks: int = 0
+@export var first_hour: Dictionary = {}
 
 
-static func quick_start(name: String = "Anvil Street Gym", town: String = "London") -> Career:
+static func quick_start(name: String = "Anvil Street Gym", town: String = "London", start_id: String = "fresh",
+		head_coach: Dictionary = {}) -> Career:
 	var c := Career.new()
 	c.gym_name = name if name.strip_edges() != "" else "Anvil Street Gym"
 	c.city = town
 	c.seed = randi()
-	c.cash = start_cash()
-	c.applicant = Data.lucy()
+	c.start = ClubStart.valid(start_id)
+	c.head = head_coach.duplicate()
+	c.members = ClubStart.members(c.start)
+	c.loan_weeks = int(ClubStart.loan(c.start)[1])
+	c.cash = start_cash(c.start)
+	c.applicant = ClubStart.walkin(c.start, Data.lucy())
 	# S387 FirstWeek: the career opens on the boxer alone; Ana joins the mat at the end of week 1.
 	c.bjj_side = BjjSide.start()
 	c.cash_history = [{"w": 1, "c": c.cash}]
@@ -77,12 +91,19 @@ static func quick_start(name: String = "Anvil Street Gym", town: String = "Londo
 	return c
 
 
+## S397 rank 5: a new career from the create screen's picks (Main.create: name, coach, start); {} = Quick start's defaults.
+static func from_create(create: Dictionary, name: String, town: String) -> Career:
+	return quick_start(name, town, str(create.get("start", "fresh")), HeadCoach.make(str(create.get("name", "")), str(create.get("coach", ""))))
+
+
 ## Start cash: GymBills.START_MONTHS months of a first-year gym's costs - rent and fees, the first sessional coach and
 ## one fighter's stipend (S324: was $25,000, ~8 months of costs, so money never forced a decision).
-static func start_cash() -> int:
-	var bills: Dictionary = GymBills.week({"members": Membership.OPENING_MEMBERS, "coaches": 1, "boxers": 1})
+## S397 rank 5: the start sets the months in the bank and the rent (ClubStart); "fresh" is the S324 three months.
+static func start_cash(start_id: String = "fresh") -> int:
+	var bills: Dictionary = GymBills.week({"members": ClubStart.members(start_id), "coaches": 1, "boxers": 1,
+		"rent_mult": ClubStart.rent_mult(start_id)})
 	var week := int(bills["rent"]) + int(bills["fees"]) + int(Data.coach("reid")["salary"]) + GameMoney.FIGHTER_STIPEND
-	return roundi(float(week) * GymBills.WEEKS_A_MONTH * float(GymBills.START_MONTHS) / 100.0) * 100
+	return roundi(float(week) * GymBills.WEEKS_A_MONTH * float(ClubStart.months(start_id)) / 100.0) * 100
 
 
 ## The first fighter signed (Lucy in a quick start), {} before anyone signs.

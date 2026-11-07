@@ -110,6 +110,7 @@ static func run(main: Node, jump: String) -> bool:
 	# S356 one known career, like the golden path (S327): Career.seed is randi() per new career, so on about 1 run in 8 a
 	# training injury pulled her out before fight night and the jump opened an empty bout.
 	(main.career as Career).seed = 1
+	(main.career as Career).first_hour = {}   # S397 rank 5: a jump tests its part on the classic calendar, not the first show
 	main.act("interview")
 	for card in ["Jab and move", "Pad rounds", "Hill sprints"]:
 		main.act("pickcard", card)
@@ -157,12 +158,21 @@ static func run(main: Node, jump: String) -> bool:
 		Roster.turn_pro(c)
 		_pro_night(c, f)
 		_pro_wait(c, f)
-		if jump == "proranked":   # three step-ups taken: she has a place on the table
-			for i in 3:
+		if jump == "proranked":   # a pro with a few wins behind her (a place on the table comes from the reviews)
+			# S398: up to six nights (a loss is no rank), the STEP UP row first - rows[-1] was often the payday, and after a
+			# loss the promoter calls 12-20 weeks later (S397 real loss costs), past the old 90-day wait: the jump ended empty.
+			# A 66-rated debut pro went 1-5-1 taking the step ups (S398 run), so she takes the offer she most likely wins. Wins
+			# alone do not seat her: ranks are seeded by rating at the monthly and year-end reviews (S397 "ranks mean levels").
+			for i in 6:
+				if int(ProLadder.entry(c, f).get("rank", 0)) > 0:
+					break
 				var rows := ProLadder.offer_rows(c, f)
 				if rows.is_empty():
 					break
-				var pick: Dictionary = rows[-1]
+				var pick: Dictionary = rows[0]
+				for r in rows:
+					if float(r["chance"]["mid"]) > float(pick["chance"]["mid"]):
+						pick = r
 				ProLadder.book(c, f, int(pick["opp"]["id"]), false)
 				_pro_night(c, f)
 				_pro_wait(c, f)
@@ -297,7 +307,7 @@ static func _pro_night(c: Career, f: Dictionary) -> void:
 
 
 static func _pro_wait(c: Career, f: Dictionary) -> void:
-	for i in 90:
+	for i in 200:   # S398: a stopped loss waits up to 20 weeks for the next offers (Matchmaking.next_weeks + STOP_REST_WEEKS)
 		if not (f.get("pro_offers", []) as Array).is_empty():
 			return
 		Sim.step_day(c)

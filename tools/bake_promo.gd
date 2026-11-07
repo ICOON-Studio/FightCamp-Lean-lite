@@ -72,9 +72,10 @@ func _initialize() -> void:
 		if body == null:
 			push_error("cannot load " + glb)
 			continue
-		Kit.colour_vest(body, Stage.VESTS["red"], Stage.CLOTH_ROUGHNESS)   # as BoxerBuild dresses the red corner
-		Kit.cloth_normals(body)
-		Kit.dress(body, glb, "boxing")
+		if not str(stem).begins_with("mh_staff_"):   # S397 rank 5: the coach cards' staff bodies come in their own clothes
+			Kit.colour_vest(body, Stage.VESTS["red"], Stage.CLOTH_ROUGHNESS)   # as BoxerBuild dresses the red corner
+			Kit.cloth_normals(body)
+			Kit.dress(body, glb, "boxing")
 		# S380 operator: "make them pose without gloves on" - bare hands, arms folded (no Gloves node)
 		root.add_child(body)
 		await process_frame

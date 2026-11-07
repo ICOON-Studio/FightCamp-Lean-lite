@@ -7,7 +7,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const Glossary := preload("res://scripts/rules/Glossary.gd")
 
 const PATH := "res://assets/data/handbook.json"
-const GROUPS := ["All", "Words", "The week", "The plan", "Fight night", "Money"]
+const GROUPS := ["All", "Words", "The club", "The week", "The plan", "Fight night", "Money"]   # S397 rank 5: The club (head coach, assistant, starts)
 const AREA_NAMES := {"home": "Home", "fighters": "Fighters", "fights": "Fights", "club": "Club", "world": "World"}
 
 

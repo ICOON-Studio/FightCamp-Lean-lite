@@ -49,6 +49,9 @@ func _play() -> void:
 	# S327: the golden path plays one known career - Career.seed is randi() per new career, so the injury dice could hurt
 	# her in the debut camp on some runs (the gate went red once). A fixed seed keeps the path the same every run.
 	c.seed = 1
+	# S397 rank 5: the golden path plays the long road (week 2 offers 2-4 weeks out, twelve weeks, save/load, a second bout,
+	# a missed weigh-in) as a career without the first hour's fixed show; first_hour_walk_test plays the first hour itself.
+	c.first_hour = {}
 	_check(main.screen == "career" and c != null, "quick start opens the career")
 	_check(c.members == 30 and c.cash == 14600, "quick start: 30 members, $14,600 (3 months of costs, S324) - got %d" % c.cash)
 	_check(Needs.go_state(c, false)["t"] == "NEEDS YOU (1)", "CONTINUE reads NEEDS YOU while the walk-in waits")

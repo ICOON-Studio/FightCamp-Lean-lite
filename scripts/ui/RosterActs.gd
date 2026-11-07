@@ -52,6 +52,12 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			Roster.pass_on(c, str(main.modal["pid"]))
 			main.close_modal()
 			main.toast("You pass. Scouting has others.")
+		"passwalkin":   # S397 rank 5: a later walk-in (FirstHour's second) turned away at reception
+			var who := str(c.applicant.get("name", "The walk-in"))
+			Roster.pass_on(c, str(c.applicant.get("id", "")))
+			c.applicant = {}
+			main.close_modal()
+			main.toast("%s thanks you and leaves." % who)
 		"prooffer":
 			if not c.pro_offer.is_empty():
 				main.open_modal({"type": "prooffer", "fid": c.pro_offer["fid"]})
