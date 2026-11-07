@@ -9,6 +9,7 @@ extends RefCounted
 ##   setup(stage, seed)  settle(who) -> [clip, speed, from_s]  tick(delta)  later(who, delay, fn)  cancel(who)
 
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
+const RkClips := preload("res://scripts/fight3d/RkClips.gd")
 
 ## Fidgets with the hands up plus active head-movement and bob-and-weave so boxers never stand staring in pro_idle.
 const FIDGETS := ["pro_idle_fidget_v1", "pro_idle_fidget_v2", "pro_idle_fidget_v3", "pro_idle_fidget_v6",
@@ -60,7 +61,7 @@ func tick(delta: float) -> void:
 			if _fidget[who] <= 0.0 and FIDGETS.has(clip):
 				stage.guard(who)
 			continue
-		if not BeatClips.GUARD.has(clip) or clip.begins_with("rk_"):   # S399: the captured guard is the actor's own life - no fidget over it
+		if not BeatClips.GUARD.has(clip) or RkClips.is_rk(clip):   # S399: the captured guard is the actor's own life - no fidget over it
 			continue
 		_quiet[who] -= delta
 		if _quiet[who] <= 0.0:

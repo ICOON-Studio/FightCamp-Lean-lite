@@ -36,6 +36,7 @@ var short := false   # S397 `short` (operator: "why 5 minute and not shorter?"):
 var pick := "body"
 var pro := false
 var habits: Array = []
+var cast: Array = []   # STYLIZED1 `cast=mh_boxer_01,mh_boxer_02`: the red and blue bodies (Faces.CAST names), for a look A/B
 var _flagged := {}
 var _feet := {}
 var _taps: Array = []       # "<i>:<foot>" -> {last: Vector3, slide: float, worst: float}
@@ -53,6 +54,8 @@ func _initialize() -> void:
 			pick = str(a).substr(5)
 		if str(a).begins_with("habits="):
 			habits = Array(str(a).substr(7).split(","))
+		if str(a).begins_with("cast="):
+			cast = Array(str(a).substr(5).split(","))
 		if str(a).begins_with("seed="):
 			seed(int(str(a).substr(5)))   # FIGHTERLOOK1 A/B: the same career (Career.seed = randi()), so every arm meets the same opponent
 	DirAccess.make_dir_recursive_absolute(out_dir)
@@ -66,6 +69,16 @@ func _initialize() -> void:
 	var f: Dictionary = main.career.fighter()
 	if not habits.is_empty():
 		f["habits"] = habits   # S309 `habits=a,b`: habits her opponent punishes, so the corner has one to fix
+	if cast.size() == 2:
+		var Faces: GDScript = load("res://scripts/rules/Faces.gd")
+		for i in 2:
+			var who: Dictionary = f if i == 0 else f["bout"]["opp"]
+			for nm in Faces.CAST:
+				if str(Faces.CAST[nm]) == str(cast[i]):
+					who["name"] = nm
+					who["first"] = str(nm).get_slice(" ", 0)
+			if Faces.MEN_CM.has(str(cast[i])):
+				who["sex"] = "m"
 	if OS.get_cmdline_user_args().has("combos"):
 		f["combos"] = load("res://scripts/ui/TestJump.gd").DRILLED.duplicate()   # S310: the set-up row has her drilled combinations
 	print("CORNER_FILM fighter %s %s habits %s vs %s (%s)" % [f["name"], f["stats"], f.get("habits", []), f["bout"]["opp"]["name"], f["bout"]["opp"]["style"]])

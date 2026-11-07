@@ -10,6 +10,7 @@ const CornerOverlay := preload("res://scripts/fight3d/CornerOverlay.gd")
 const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
 const TapeCard := preload("res://scripts/fight3d/TapeCard.gd")
 const CornerStart := preload("res://scripts/fight3d/CornerStart.gd")
+const RkClips := preload("res://scripts/fight3d/RkClips.gd")
 const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
 const CornerWarm := preload("res://scripts/fight3d/CornerWarm.gd")
 
@@ -315,6 +316,10 @@ func _start_warm() -> void:
 		var ap: AnimationPlayer = stage.boxers[i]["ap"]
 		var seed := CornerWarm.seed_for(int(ctx.get("seed", 0)), i)
 		var clip := CornerWarm.pick(seed, ap.has_animation)
+		# S399 ("right leg looks wierd ... extended and twisted?"): not the broken S381 owned takes - the captured guard
+		var rk: Array = RkClips.GUARDS.filter(func(n): return ap.has_animation(n))
+		if not rk.is_empty():
+			clip = str(rk[posmod(seed, rk.size())])
 		if clip != "" and ap.has_animation(clip):
 			var anim := ap.get_animation(clip)
 			var win := CornerWarm.window(anim.length, seed, WARM_S)

@@ -92,6 +92,8 @@ static func dress(fighter: Node, glb_path: String = "") -> void:
 		RenderingServer.screen_space_roughness_limiter_set_active(true, float(limiter["amount"]), float(limiter["limit"]))
 	for m in fighter.find_children("*", "MeshInstance3D", true, false):
 		var mi := m as MeshInstance3D
+		if not glb_path.is_empty():
+			mi.set_meta("mh_body", glb_path.get_file().get_basename())   # STYLIZED1: ArtStyle finds this body's painted skin
 		# S307: a skinned mesh keeps its standing bounds; seated (the head 0.4 m lower) a close-up culled her hair.
 		mi.extra_cull_margin = 0.6
 		for s in mi.mesh.get_surface_count():

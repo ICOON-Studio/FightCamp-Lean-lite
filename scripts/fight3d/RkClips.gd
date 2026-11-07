@@ -69,8 +69,11 @@ static func on() -> bool:
 	return enabled
 
 
+## One of THESE captured clips. Not a prefix test: the corner warm-up's owned bakes are named rk_boxing / rk_shadowboxing_*
+## (tools/owned_mocap_bake.gd, the broken S381 route) - played "pure" they showed their twisted, extended legs raw (operator
+## S399 on the corner wide: "right leg looks wierd why it is extended and twisted?").
 static func is_rk(clip: String) -> bool:
-	return clip.begins_with(PREFIX)
+	return CLIPS.has(clip)
 
 
 ## Adds every window to `lib` on `skel` (tracks prefixed `prefix:`). Returns the names added.

@@ -15,6 +15,11 @@ const SKIN := "res://assets/models/metahuman/mh_skin.gdshader"
 const EYE := "res://assets/shaders/mh_eye.gdshader"
 ## Surfaces that get no ink line (inside the head, or cards that would turn into black blobs).
 const NO_LINE := ["Eye", "Teeth", "Lash", "Hair", "Brow", "Tongue"]
+## STYLIZED1 (operator S399 "i want whatever is on the image to match the fighter"): a body with its skin repainted in the
+## portraits' flat comic style (Ludo image edit on the UV atlas, the layout kept; ops/research/STYLIZED1.md) has
+## <texture stem>_toon.png here. Its skin then shows the painting as it is (no blur, no mean-tone wash), and its hair and
+## brow cards are one flat colour (the atlas keeps only the coverage). Bodies without one keep the shader-only toon.
+const PAINTED := "res://assets/models/metahuman/toon/"
 
 var _toon: Shader
 var _toon2: Shader
@@ -104,7 +109,7 @@ func _mesh(mi: MeshInstance3D) -> void:
 		var m := mi.get_active_material(s)
 		if m == null:
 			continue
-		var t := _twin(m)
+		var t := _twin(m, str(mi.get_meta("mh_body", "")))
 		if t != null and t != m:
 			mi.set_surface_override_material(s, t)
 
@@ -118,7 +123,7 @@ func _flat(m: BaseMaterial3D) -> void:
 	m.roughness = maxf(m.roughness, 0.35)
 
 
-func _twin(m: Material) -> Material:
+func _twin(m: Material, body: String = "") -> Material:
 	var id := m.get_instance_id()
 	if _done.has(id):
 		return _done[id]
@@ -132,11 +137,18 @@ func _twin(m: Material) -> Material:
 			out = sm
 		elif path == SKIN:
 			var tm := _new_toon()
+			var src_tex: Variant = sm.get_shader_parameter("albedo_tex")
+			var painted := painted_for(src_tex, body)
 			tm.set_shader_parameter("use_tex", true)
-			tm.set_shader_parameter("albedo_tex", sm.get_shader_parameter("albedo_tex"))
-			tm.set_shader_parameter("tex_blur", 3.0)
-			tm.set_shader_parameter("flat_mix", 0.6)
-			tm.set_shader_parameter("flat_col", _mean_tone(sm.get_shader_parameter("albedo_tex")))
+			if painted != null:
+				tm.set_shader_parameter("albedo_tex", painted)
+				tm.set_shader_parameter("tex_blur", 0.0)
+				tm.set_shader_parameter("flat_mix", 0.0)
+			else:
+				tm.set_shader_parameter("albedo_tex", src_tex)
+				tm.set_shader_parameter("tex_blur", 3.0)
+				tm.set_shader_parameter("flat_mix", 0.6)
+				tm.set_shader_parameter("flat_col", _mean_tone(src_tex))
 			var tint: Variant = sm.get_shader_parameter("tint")
 			if tint is Vector3:
 				tm.set_shader_parameter("tint", tint)
@@ -163,6 +175,9 @@ func _twin(m: Material) -> Material:
 			if bm.albedo_texture != null:
 				tm.set_shader_parameter("use_tex", true)
 				tm.set_shader_parameter("albedo_tex", bm.albedo_texture)
+				if is_painted_card(bm.albedo_texture, body):   # STYLIZED1: a painted body's hair is flat colour cards
+					tm.set_shader_parameter("tex_alpha_only", true)
+					tm.set_shader_parameter("albedo_col", _card_tone(bm.albedo_texture) * bm.albedo_color)
 			tm.set_shader_parameter("use_vcol", bm.vertex_color_use_as_albedo)
 			if bm.transparency == BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR:
 				tm.set_shader_parameter("alpha_cut", bm.alpha_scissor_threshold)
@@ -173,6 +188,41 @@ func _twin(m: Material) -> Material:
 			out = tm
 	_done[id] = out
 	return out
+
+
+## STYLIZED1: the repainted twin of a body's skin texture, or null when that body has none. The GLB's textures are named
+## per atlas ("mh02_head_albedo"), the body by MHRig's "mh_body" tag on the mesh: toon/<body>_<atlas>_toon.png.
+static func painted_for(tex: Variant, body: String) -> Texture2D:
+	if not (tex is Texture2D) or body.is_empty() or OS.get_cmdline_user_args().has("nopaint"):   # `nopaint`: the shader-only toon (A/B)
+		return null
+	var p := PAINTED + body + "_" + (tex as Texture2D).resource_name + "_toon.png"
+	return load(p) as Texture2D if ResourceLoader.exists(p) else null
+
+
+## STYLIZED1: the hair or brow cards of a body whose skin was repainted.
+static func is_painted_card(tex: Texture2D, body: String) -> bool:
+	var nm := tex.resource_name
+	return not body.is_empty() and not OS.get_cmdline_user_args().has("nopaint") and (nm.contains("hair_cards") or nm.contains("brow_cards")) 			and ResourceLoader.exists(PAINTED + body + "_mh02_head_albedo_toon.png")
+
+
+## A card atlas's colour where its strands cover (alpha > 0.5): the one flat hair colour.
+static func _card_tone(tex: Texture2D) -> Color:
+	var img: Image = tex.get_image()
+	if img == null:
+		return Color(0.1, 0.08, 0.06)
+	img = img.duplicate()
+	if img.is_compressed():
+		img.decompress()
+	img.resize(128, 128, Image.INTERPOLATE_BILINEAR)
+	var c := Color(0, 0, 0)
+	var n := 0
+	for y in 128:
+		for x in 128:
+			var px := img.get_pixel(x, y)
+			if px.a > 0.5:
+				c += px
+				n += 1
+	return Color(0.1, 0.08, 0.06) if n == 0 else Color(c.r / n, c.g / n, c.b / n)
 
 
 ## The skin texture's own mean colour (its 4x4 mip): the tone a toon face is painted in.

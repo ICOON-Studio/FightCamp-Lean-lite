@@ -269,7 +269,7 @@ func drop(prop: String) -> void:
 	_follow = _follow.filter(func(f): return f["prop"] != p)
 
 
-const RK_ARRIVE_M := 0.2   # S399: a captured walk stops within this of her mark (a stride is ~0.7 m; no glide onto it)
+const RK_ARRIVE_M := 0.06   # S399: a captured walk stops within a frame's travel of her mark (CornerStart snaps 5 cm)
 
 
 func tick(delta: float) -> void:
@@ -280,7 +280,10 @@ func tick(delta: float) -> void:
 		var dist := Vector2(to.x - at.x, to.z - at.z).length()
 		if w.has("rk"):
 			# arrived: on the mark, or past it (the step that would cross it would turn her round on the spot)
-			if dist <= RK_ARRIVE_M or dist > float(w["best"]) + 0.02 or not str((w["a"]["ap"] as AnimationPlayer).current_animation) == "rk_loc_walk":
+			# S399: a clip taken mid-walk (FightIntro._end_warm's guard, the walk's first frame) walks on; distance ends a walk
+			if str((w["a"]["ap"] as AnimationPlayer).current_animation) != "rk_loc_walk" and dist > RK_ARRIVE_M:
+				play(w["a"], "rk_loc_walk", 1.0, 0.0, WALK_JOIN)
+			if dist <= RK_ARRIVE_M or dist > float(w["best"]) + 0.02:
 				_walks.erase(n)
 				if (w["done"] as Callable).is_valid():
 					(w["done"] as Callable).call()

@@ -15,11 +15,13 @@ uniform float light_k = 0.17;           // the ring rig is five 3.0-3.6 spots: s
 uniform float sat = 1.12;
 uniform vec3 flat_col : source_color = vec3(0.5);
 uniform float flat_mix = 0.0;           // skin: this share of the photo texture is painted over in one skin tone (no photo face on a cel body)
+uniform bool tex_alpha_only = false;   // STYLIZED1: hair cards of a painted body - the atlas gives coverage only, colour is albedo_col
 uniform float tex_blur = 0.0;           // mip bias: skin pores and texture noise read as grime in flat colour (skin 2.5)
 
 void fragment() {
 	vec4 t = use_tex ? texture(albedo_tex, UV, tex_blur) : vec4(1.0);
-	vec3 c = mix(t.rgb, flat_col * (0.75 + 0.5 * dot(t.rgb, vec3(0.333)) / max(dot(flat_col, vec3(0.333)), 0.05)), flat_mix);
+	vec3 base = tex_alpha_only ? vec3(1.0) : t.rgb;
+	vec3 c = mix(base, flat_col * (0.75 + 0.5 * dot(base, vec3(0.333)) / max(dot(flat_col, vec3(0.333)), 0.05)), flat_mix);
 	c *= albedo_col.rgb * tint;
 	if (use_vcol) {
 		c *= COLOR.rgb;

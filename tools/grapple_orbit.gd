@@ -33,6 +33,8 @@ const DB := preload("res://scripts/grapple/GrappleMapDB.gd")
 const GD := preload("res://scripts/grapple/GrappleDrawn.gd")
 const Grip := preload("res://scripts/grapple/GrappleGrip.gd")
 const Timing := preload("res://scripts/grapple/GrappleTiming.gd")
+const Graph := preload("res://scripts/grapple/GrappleGraph.gd")
+const BjjMatch := preload("res://scripts/rules/BjjMatch.gd")
 const Pose := preload("res://scripts/grapple/GrapplePose.gd")
 const Player := preload("res://scripts/grapple/GrapplePlayer.gd")
 const MH := preload("res://scripts/fight3d/MHRig.gd")
@@ -49,6 +51,18 @@ const HOLD_S := 0.8
 const MIN_S := 4.0
 const MAX_S := 9.0
 const GAME_MIN_S := 1.5
+## S399 GRAPPLEFIX1 joins (operator: "what matters is the sequence blending"): `chain=<id>,<id>,...` plays the moves back to back
+## the way GrappleBrowser does in the belt match - a move lands, its landed POSITION holds HUB_S (go_position: two frames of the
+## position laid on the pose on screen), the next move is laid on the pose on screen (Graph.align + Graph.placed) and paced as
+## play_out paces it (a fall from standing lands in LANDS_S, a plain move is shaped to at most MOVE_MAX_S). Every join measured
+## around JOIN_PRE..JOIN_POST frames: the pose mismatch the curve absorbs, the worst velocity snap, pops, the deepest limb and
+## torso during the blend; the whole film's longest still stretch. `cam=fixed` holds one broadcast angle (default: a slow orbit).
+const HUB_S := 1.1
+const JOIN_PRE := 9
+const JOIN_POST := 18
+const ORBIT_DEG_S := 6.0
+const CHAIN_RADIUS := 3.0
+const STILL_MS := 0.02   # every tracked bone slower than this (m/s) = the pair stands still
 ## GrappleMap stores no timing (GrappleTiming paces it): a move longer than PLAY_MAX_S plays faster, evenly, so the whole
 ## move fits a short preview (the belt match itself caps a move at 4 s and lands a takedown in 1.9 s).
 const PLAY_MAX_S := 6.0
@@ -116,6 +130,8 @@ var _cache: Array = [{}, {}]
 var game := false
 var nofilm := false
 var noik := false
+var chain: Array = []
+var fixed_cam := false
 var _dbg: Array = []   # `debugcaps=1`: GrappleDrawn.parts drawn as translucent capsules over the women (S399 critic check)
 
 
@@ -133,7 +149,12 @@ func _initialize() -> void:
 			nofilm = true
 		elif s == "noik=1":
 			noik = true
-	var rows: Array = await measure(ids)
+		elif s.begins_with("chain="):
+			chain = Array(s.substr(6).split(",", false))
+			game = true
+		elif s == "cam=fixed":
+			fixed_cam = true
+	var rows: Array = await measure(chain if not chain.is_empty() else ids)
 	print("GORBIT DONE %d/%d" % [rows.size(), ids.size()])
 	quit(0)
 
@@ -187,6 +208,9 @@ func measure(ids: Array) -> Array:
 			Grip.attach(skels[i], poses[i], poses[1 - i])
 	var db: Array = DB.load_db()
 	await process_frame
+	if not chain.is_empty():
+		rows.append(await _chain(chain, db, player, poses, legs, cam, vp))
+		return rows
 	for id in ids:
 		var tok := str(id)
 		var rev := game and tok.contains("r")
@@ -369,6 +393,208 @@ func _draw_caps(world: Node3D) -> void:
 		var up := (b - a).normalized() if a.distance_to(b) > 1e-4 else Vector3.UP
 		var side := up.cross(Vector3.RIGHT if absf(up.dot(Vector3.RIGHT)) < 0.9 else Vector3.FORWARD).normalized()
 		mi.global_transform = Transform3D(Basis(side, up, side.cross(up)).orthonormalized(), mid)
+
+
+## The chain film (see HUB_S). Returns the sequence's own row; prints GJOIN_JSON per join and GSEQ_JSON.
+func _chain(toks: Array, db: Array, player: Node, poses: Array, legs: Array, cam: Camera3D, vp: SubViewport) -> Dictionary:
+	var graph := Graph.new()
+	var label := "chain_" + "_".join(toks)
+	var dir := out_dir.path_join(str(toks[0]) + "_chain" + ("_fixed" if fixed_cam else ""))
+	if not nofilm:
+		DirAccess.make_dir_recursive_absolute(dir)
+	var tracks: Array = []
+	for w in 2:
+		var per: Array = []
+		for _b in TRACK:
+			per.append([])
+		tracks.append(per)
+	var tin := PackedFloat32Array()
+	var limb_depth := {}
+	for k in LIMB_KEYS:
+		limb_depth[k] = PackedFloat32Array()
+	var joins: Array = []   # [frame, kind, from title, to title, mismatch m]
+	var st := {"f": 0, "follow": Vector3.ZERO}
+	player.reset_layers()
+	player.set("step_dt", 1.0 / FPS)
+	for pz in poses:
+		pz.set("step_dt", 1.0 / FPS)
+	var prev_land: Variant = null
+	var prev_title := ""
+	for i in toks.size():
+		var tok := str(toks[i])
+		var rev := tok.contains("r")
+		var idx := int(tok.rstrip("rl"))
+		var tr: Dictionary = graph.get_entry(idx)
+		if idx < 0 or idx >= db.size() or tr.is_empty():
+			print("GORBIT MISSING ", tok)
+			continue
+		var frames: Array = db[idx]["frames"]
+		var start_pos: Variant = tr["to"] if rev else tr["from"]
+		var land: Variant = tr["from"] if rev else tr["to"]
+		var title := Graph.clean(str(db[idx]["title"]))
+		var placed: Array
+		if i == 0:
+			var g := (db[idx] as Dictionary).duplicate()
+			if rev:
+				var fr: Array = frames.duplicate()
+				fr.reverse()
+				g["frames"] = fr
+			player.play(g, poses, Player.pair_scale(legs), Transform3D.IDENTITY)
+			placed = player.seq["frames"]
+		else:
+			# The landed position's hold first (GrappleBrowser.go_position), then the move.
+			if prev_land != null and int(prev_land) >= 0 and int(prev_land) < db.size():
+				var pf: Array = db[int(prev_land)]["frames"][0]
+				var hub: Array = Graph.placed([pf, pf], Graph.align(player.shown_frame(), pf))
+				joins.append([st["f"], "hold", prev_title, Graph.clean(str(db[int(prev_land)]["title"])), _mismatch(player, hub[0])])
+				player.play_frames(hub, PackedFloat32Array([0.0, HUB_S]))
+				await _chain_run(player, HUB_S, cam, vp, dir, tracks, tin, limb_depth, st)
+			var first: Array = frames.back() if rev else frames[0]
+			placed = Graph.placed(frames, Graph.align(player.shown_frame(), first), rev)
+			joins.append([st["f"], "move", prev_title, title, _mismatch(player, placed[0])])
+		var lands := false
+		if start_pos != null and land != null:
+			lands = BjjMatch.classify(db[int(start_pos)]["tags"]) == "standing" and BjjMatch.classify(db[int(land)]["tags"]) != "standing"
+		lands = lands or tok.contains("l")
+		if lands and placed.size() > 1:
+			player.play_frames(placed, Timing.key_times_shape(placed, LANDS_S, LANDS_RELIEF))
+		elif placed.size() > 2:
+			var nat := Timing.key_times(placed)
+			player.play_frames(placed, Timing.key_times_shape(placed, minf(float(nat[nat.size() - 1]), MOVE_MAX_S), 0.25))
+		else:
+			player.play_frames(placed)
+		if i == 0:
+			for _s in SETTLE_F:
+				player.seek(0.0)
+				await _frame()
+		await _chain_run(player, float(player.length_s()), cam, vp, dir, tracks, tin, limb_depth, st)
+		prev_land = land
+		prev_title = title
+	# the last position's hold, so the film ends on a settle like the match does
+	if prev_land != null and int(prev_land) >= 0 and int(prev_land) < db.size():
+		var pf2: Array = db[int(prev_land)]["frames"][0]
+		var hub2: Array = Graph.placed([pf2, pf2], Graph.align(player.shown_frame(), pf2))
+		joins.append([st["f"], "hold", prev_title, Graph.clean(str(db[int(prev_land)]["title"])), _mismatch(player, hub2[0])])
+		player.play_frames(hub2, PackedFloat32Array([0.0, HUB_S]))
+		await _chain_run(player, HUB_S, cam, vp, dir, tracks, tin, limb_depth, st)
+	var n := int(st["f"])
+	var row := _numbers(tracks, PackedFloat32Array(), n / FPS)
+	_inside_numbers(row, tin, limb_depth)
+	# the longest stretch with every tracked bone still
+	var still := 0
+	var still_best := 0
+	var still_at := 0
+	for f in range(1, n):
+		var fast := 0.0
+		for w in 2:
+			for k in TRACK.size():
+				fast = maxf(fast, ((tracks[w][k][f] as Vector3) - (tracks[w][k][f - 1] as Vector3)).length() * FPS)
+		still = still + 1 if fast < STILL_MS else 0
+		if still > still_best:
+			still_best = still
+			still_at = f - still + 1
+	row["still_s"] = snappedf(still_best / FPS, 0.01)
+	row["still_at_s"] = snappedf(still_at / FPS, 0.01)
+	row["id"] = label
+	row["frames"] = n
+	row["joins"] = joins.size()
+	var worst := 0.0
+	for jn in joins:
+		var jr := _join_numbers(jn, tracks, tin, limb_depth, n)
+		print("GJOIN_JSON " + JSON.stringify(jr))
+		worst = maxf(worst, float(jr["snap_ms2"]))
+	row["worst_join_snap_ms2"] = snappedf(worst, 0.1)
+	print("GSEQ_JSON " + JSON.stringify(row))
+	return row
+
+
+## One stretch of the chain at the game's own step, filmed and measured frame by frame.
+func _chain_run(player: Node, length: float, cam: Camera3D, vp: SubViewport, dir: String, tracks: Array, tin: PackedFloat32Array,
+		limb_depth: Dictionary, st: Dictionary) -> void:
+	var core := DB.joint("Core")
+	var steps := maxi(1, int(round(length * FPS)))
+	for q in steps:
+		var t := minf(float(q + 1) / FPS, length)
+		player.seek(t)
+		var f := int(st["f"])
+		var js: Array = player.joints_at(t)
+		var c_now: Vector3 = ((js[0] as PackedVector3Array)[core] + (js[1] as PackedVector3Array)[core]) * 0.5
+		var target := Vector3(c_now.x, 0.45, c_now.z)
+		st["follow"] = target if f == 0 else (st["follow"] as Vector3).lerp(target, 1.0 - exp(-1.0 / (FPS * FOLLOW_S)))
+		var ang := deg_to_rad(35.0) + (0.0 if fixed_cam else deg_to_rad(ORBIT_DEG_S) * f / FPS)
+		var flat := CHAIN_RADIUS * cos(deg_to_rad(ELEVATION_DEG))
+		var fl: Vector3 = st["follow"]
+		cam.look_at_from_position(fl + Vector3(sin(ang) * flat, CHAIN_RADIUS * sin(deg_to_rad(ELEVATION_DEG)), cos(ang) * flat), fl, Vector3.UP)
+		await _frame()
+		if not nofilm:
+			vp.get_texture().get_image().save_jpg(dir.path_join("f%04d.jpg" % f), 0.88)
+		for ua in OS.get_cmdline_user_args():
+			if str(ua).begins_with("bone="):
+				var bw := 1 if str(ua).contains("blue") else 0
+				var bn := str(ua).substr(5).replace("blue", "").replace("red", "")
+				var lkey := "%d%s%s" % [bw, "Right" if bn.begins_with("Right") else "Left", "Arm" if bn.contains("Arm") else "Leg"]
+				var ls: Dictionary = (player.get("_limbs") as Dictionary).get(lkey, {})
+				var hs: Dictionary = (player.get("_limbs") as Dictionary).get(lkey + "Hold", {})
+				print("CTRACE %d %s %s w %s o %s hold %.2f" % [f, bn, str((_cache[bw].get(bn, Vector3.ZERO) as Vector3).snapped(Vector3.ONE * 0.001)),
+					str((ls.get("ease_w", Vector3.ZERO) as Vector3).snapped(Vector3.ONE * 0.001)), str((ls.get("ease_o", Vector3.ZERO) as Vector3).snapped(Vector3.ONE * 0.001)),
+					float(hs.get("w", 0.0))])
+		for w in 2:
+			for k in TRACK.size():
+				(tracks[w][k] as Array).append(_cache[w].get(TRACK[k], Vector3.ZERO))
+		_inside(tin, limb_depth)
+		st["f"] = f + 1
+
+
+## How far the pose on screen sits from the next stretch's first keyframe (what its first curve gap has to absorb), metres.
+func _mismatch(player: Node, first: Array) -> float:
+	var worst := 0.0
+	for m in 2:
+		var now: PackedVector3Array = (player.get("men")[m] as Node).get("joints")
+		var nxt: PackedVector3Array = player.to_world(first[m])
+		for j in mini(now.size(), nxt.size()):
+			worst = maxf(worst, now[j].distance_to(nxt[j]))
+	return worst
+
+
+## A join's numbers in the frames around it: the worst velocity snap (second difference, m/s^2), the worst jerk, a pop, and the
+## deepest limb and torso while the bodies blend.
+func _join_numbers(jn: Array, tracks: Array, tin: PackedFloat32Array, limb_depth: Dictionary, n: int) -> Dictionary:
+	var jf := int(jn[0])
+	var a := maxi(1, jf - JOIN_PRE)
+	var b := mini(n - 2, jf + JOIN_POST)
+	var snap := 0.0
+	var snap_at := ""
+	var jerk := 0.0
+	var pop := 0.0
+	for w in 2:
+		for k in TRACK.size():
+			var p: Array = tracks[w][k]
+			for f in range(a, b + 1):
+				var acc: float = ((p[f + 1] as Vector3) - 2.0 * (p[f] as Vector3) + (p[f - 1] as Vector3)).length() * FPS * FPS
+				if acc > snap:
+					snap = acc
+					snap_at = "%s %s %+.2fs" % [["red", "blue"][w], TRACK[k], (f - jf) / FPS]
+				if f >= 2:
+					var j3: float = ((p[f + 1] as Vector3) - 3.0 * (p[f] as Vector3) + 3.0 * (p[f - 1] as Vector3) - (p[f - 2] as Vector3)).length()
+					jerk = maxf(jerk, j3 * FPS * FPS * FPS)
+				var s0: float = (p[f] as Vector3).distance_to(p[f - 1])
+				var before: float = (p[f - 1] as Vector3).distance_to(p[maxi(f - 2, 0)])
+				var after: float = (p[f + 1] as Vector3).distance_to(p[f])
+				if s0 > SPIKE_X * maxf(before, 0.002) and s0 > SPIKE_X * maxf(after, 0.002):
+					pop = maxf(pop, s0)
+	var limb := 0.0
+	var limb_at := ""
+	var torso := 0.0
+	for f in range(a, b + 1):
+		torso = maxf(torso, tin[f])
+		for key in limb_depth:
+			var d: float = (limb_depth[key] as PackedFloat32Array)[f]
+			if d > limb:
+				limb = d
+				limb_at = str(key)
+	return {"frame": jf, "t": snappedf(jf / FPS, 0.01), "kind": jn[1], "from": jn[2], "to": jn[3], "mismatch_m": snappedf(float(jn[4]), 0.001),
+		"snap_ms2": snappedf(snap, 0.1), "snap_at": snap_at, "jerk_max": snappedf(jerk, 0.1), "pop_m": snappedf(pop, 0.001),
+		"limb_in_m": snappedf(limb, 0.001), "limb_in": limb_at, "torso_in_m": snappedf(torso, 0.001)}
 
 
 ## A frame drawn: the next frame's start in a numbers-only run (the skeleton updates inside the frame seek() ran in), the

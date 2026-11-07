@@ -606,6 +606,154 @@
     "note": "operator: \"3 clip is fine\" (Mixamo Walking Backwards through the old repo route, claude/rokoko-route; blind critic 7/7/7 vs the game walk 3)",
     "source": "E:/FightCamp/tmp/rokoko2/walk/rk_walk_back.mp4",
     "when": "2026-11-08"
+   },
+   {
+    "check": "blind Sonnet critic S399, every-frame eyes (12-frame bursts + 3-frame leg crops), Punch PRO control arm",
+    "result": "7/10 (three critics)",
+    "pass": false,
+    "note": "Mixamo walk back: \"clear lift, land and push-off\"; rear toe drags a little at push-off (control ow_walk 3)",
+    "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
+    "when": "2026-11-08"
+   }
+  ],
+  "rk_guard": [
+   {
+    "check": "blind Sonnet critic S399, every-frame eyes (12-frame bursts + 3-frame leg crops), Punch PRO control arm",
+    "result": "6.5/10",
+    "pass": false,
+    "note": "clean, no flick or slide, but \"too static\": the captured guard barely moves (control pro_idle 5)",
+    "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
+    "when": "2026-11-08"
+   }
+  ],
+  "rk_guard_b": [
+   {
+    "check": "blind Sonnet critic S399, every-frame eyes (12-frame bursts + 3-frame leg crops), Punch PRO control arm",
+    "result": "6/10",
+    "pass": false,
+    "note": "\"very low amplitude, reads close to a frozen pose\"; feet planted, no flick (control pro_idle 5)",
+    "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
+    "when": "2026-11-08"
+   }
+  ],
+  "rk_jab": [
+   {
+    "check": "blind Sonnet critic S399, every-frame eyes (12-frame bursts + 3-frame leg crops), Punch PRO control arm",
+    "result": "5/10",
+    "pass": false,
+    "note": "mirrored Boxing 5.80-6.37: \"high bent arm, hook-jab\"; a one-frame pop at the turntable repeat (control pro_left_jab 4)",
+    "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
+    "when": "2026-11-08"
+   }
+  ],
+  "rk_cross": [
+   {
+    "check": "blind Sonnet critic S399, every-frame eyes (12-frame bursts + 3-frame leg crops), Punch PRO control arm",
+    "result": "4/10",
+    "pass": false,
+    "note": "Boxing 9.93-10.53: \"short, bent; the glove never fully extends\" (control pro_right_cross 5)",
+    "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
+    "when": "2026-11-08"
+   }
+  ],
+  "rk_cross_b": [
+   {
+    "check": "blind Sonnet critic S399, every-frame eyes (12-frame bursts + 3-frame leg crops), Punch PRO control arm",
+    "result": "3/10 (round 1: 7/10)",
+    "pass": false,
+    "note": "mirrored Boxing 5.43-6.10: round 1 \"real hip and shoulder rotation\" 7, round 2 \"cocked high, held, bent stab\" 3 - critic variance +-4",
+    "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
+    "when": "2026-11-08"
+   }
+  ],
+  "rk_walk_right": [
+   {
+    "check": "blind Sonnet critic S399, every-frame eyes (12-frame bursts + 3-frame leg crops), Punch PRO control arm",
+    "result": "7/10 then 5/10",
+    "pass": false,
+    "note": "Mixamo side step: \"stiff rhythm\"; round 2 the follow camera hid its travel (\"floats\")",
+    "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
+    "when": "2026-11-08"
+   }
+  ],
+  "rk_step_in": [
+   {
+    "check": "blind Sonnet critic S399, every-frame eyes (12-frame bursts + 3-frame leg crops), Punch PRO control arm",
+    "result": "4/10",
+    "pass": false,
+    "note": "Rokoko captured step in: \"bobbing shuffle, the rear foot creeps without a lift\" (the actor's own shuffle; slide <= raw)",
+    "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
+    "when": "2026-11-08"
+   }
+  ],
+  "rk_step_back": [
+   {
+    "check": "blind Sonnet critic S399, every-frame eyes (12-frame bursts + 3-frame leg crops), Punch PRO control arm",
+    "result": "5/10",
+    "pass": false,
+    "note": "Rokoko captured step back: \"rear boot slides in without a clear lift, covers little ground\"",
+    "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
+    "when": "2026-11-08"
+   }
+  ],
+  "rk_step_back_b": [
+   {
+    "check": "blind Sonnet critic S399, every-frame eyes (12-frame bursts + 3-frame leg crops), Punch PRO control arm",
+    "result": "4/10",
+    "pass": false,
+    "note": "Rokoko captured step back: \"squat, feet gather together, rear foot flicks out\"",
+    "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
+    "when": "2026-11-08"
+   }
+  ],
+  "rk_loc_in": [
+   {
+    "check": "blind Sonnet critic S399, every-frame eyes (12-frame bursts + 3-frame leg crops), Punch PRO control arm",
+    "result": "fight 6/10",
+    "pass": false,
+    "note": "carries her in the 20-s fight (= rk_step_in); fight critics: ours 6 vs main 4 and 5, \"no gliding\"",
+    "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
+    "when": "2026-11-08"
+   }
+  ],
+  "rk_loc_back": [
+   {
+    "check": "blind Sonnet critic S399, every-frame eyes (12-frame bursts + 3-frame leg crops), Punch PRO control arm",
+    "result": "fight 6/10",
+    "pass": false,
+    "note": "carries her in the fight (= rk_walk_back loops); fight critics 6 vs main 4-5",
+    "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
+    "when": "2026-11-08"
+   }
+  ],
+  "rk_loc_left": [
+   {
+    "check": "blind Sonnet critic S399, every-frame eyes (12-frame bursts + 3-frame leg crops), Punch PRO control arm",
+    "result": "fight 6/10",
+    "pass": false,
+    "note": "Mixamo left side step carries her in the fight; fight critics 6 vs main 4-5",
+    "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
+    "when": "2026-11-08"
+   }
+  ],
+  "rk_loc_right": [
+   {
+    "check": "blind Sonnet critic S399, every-frame eyes (12-frame bursts + 3-frame leg crops), Punch PRO control arm",
+    "result": "fight 6/10",
+    "pass": false,
+    "note": "Mixamo right side step carries her in the fight; fight critics 6 vs main 4-5",
+    "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
+    "when": "2026-11-08"
+   }
+  ],
+  "rk_loc_walk": [
+   {
+    "check": "blind Sonnet critic S399, every-frame eyes (12-frame bursts + 3-frame leg crops), Punch PRO control arm",
+    "result": "not judged alone",
+    "pass": false,
+    "note": "Mixamo Standard Walk, corner to centre (fight_walkin2.mp4); per loop slide 0.040 vs raw 0.038",
+    "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
+    "when": "2026-11-08"
    }
   ]
  },
@@ -929,6 +1077,47 @@
     "pass": true,
     "note": "operator on the four best game-arm films: \"the clips seem fine but what matters is the sequence blending\" (blind critics 6/10 each)",
     "source": "ops/previews/lean_grapple_game/656.mp4",
+    "when": "2026-11-08"
+   }
+  ]
+ },
+ "grapple_seq": {
+  "S1": [
+   {
+    "chain": "Step Closer > Pin Knee > Pass > Escape > Pendulum Sweep Start > Finish > Upa Escape > Aldo Pass",
+    "check": "Blind Sonnet critic per sequence, S399 GRAPPLEFIX1 joins batch (fixed camera; bursts at every hand-over T-0.6..T+0.6 + every 1.2 s; crops); control S3 duplicated but the critic matched the bytes (md5) - next control must be re-encoded",
+    "result": "overall 5/10, hand-overs 5/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "red's thigh and hip through blue 22.1-22.7 s; mannequin holds 1.5-2.6, 5.0-6.0, 23-24 s; fast roll at 7.2-7.6 s; no trembling, rolls have mass.",
+    "source": "ops/previews/lean_grapple_seq/S1_fixed.mp4",
+    "when": "2026-11-08"
+   }
+  ],
+  "S2": [
+   {
+    "chain": "Pin Knee > Push Over > Bull Fighter Pass > To Knee On Belly > Top Drops To Side > Wrist Control Escape > Threaten Triangle > Clasp Hands Together",
+    "check": "Blind Sonnet critic per sequence, S399 GRAPPLEFIX1 joins batch (fixed camera; bursts at every hand-over T-0.6..T+0.6 + every 1.2 s; crops); control S3 duplicated but the critic matched the bytes (md5) - next control must be re-encoded",
+    "result": "overall 4/10, hand-overs 3.5/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "bodies merge 11.3-13.5 s; holds nearly still ~2 s; 'jumps' reported only between unopened sheets (no pop measured at any join).",
+    "source": "ops/previews/lean_grapple_seq/S2_fixed.mp4",
+    "when": "2026-11-08"
+   }
+  ],
+  "S3": [
+   {
+    "chain": "Bottom Bails > Sit In > Top Lets Bottom Push Leg > Bottom Progresses > Bottom Gets To Knees > Front Headlock",
+    "check": "Blind Sonnet critic per sequence, S399 GRAPPLEFIX1 joins batch (fixed camera; bursts at every hand-over T-0.6..T+0.6 + every 1.2 s; crops); control S3 duplicated but the critic matched the bytes (md5) - next control must be re-encoded",
+    "result": "overall 4/10, hand-overs 6/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "blue swallowed by red 12.5-15.5 s; 1.5 s stalls at holds; no pop between movements, blends smooth.",
+    "source": "ops/previews/lean_grapple_seq/S3_fixed.mp4",
     "when": "2026-11-08"
    }
   ]

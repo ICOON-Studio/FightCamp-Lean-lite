@@ -244,7 +244,7 @@ func joints_at(time_s: float) -> Array:
 		if frames.size() == 1:
 			p = _idle(frames[0][m], time_s, m) if _idle_on else _hold_breath(frames[0][m] as PackedVector3Array, time_s)
 		elif contact and not _bake.is_empty():
-			p = _baked(time_s, m)
+			p = _baked(_warp(time_s), m)
 		else:
 			var u := _gap_u(time_s)
 			var k := mini(int(u), frames.size() - 2)
@@ -273,6 +273,8 @@ func joints_at(time_s: float) -> Array:
 				var idle := _idle(p, time_s, m)
 				for j in p.size():
 					p[j] = p[j].lerp(idle[j], iw)
+		if frames.size() == 2 and contact and _same(frames[0][m], frames[1][m]):
+			p = _live_hold(p, time_s, m)
 		for j in p.size():
 			p[j] = at * ((p[j] - _centre) * scale)
 			# S371 round 8: the raw data itself can sink a limb through the mat (Argon: a knee, shin and foot buried in
@@ -397,10 +399,37 @@ func reset_layers() -> void:
 			(men[m] as Node).set("head_fix", [])
 
 
-## S380 BJJ9R15: a held position breathes once (~0.25 Hz, chest under 1 cm) — never the old limb idle on moves.
-static func _hold_breath(src: PackedVector3Array, t: float) -> PackedVector3Array:
+## S399 GRAPPLEFIX1 (three blind sequence critics: "mannequin holds" at every hand-over): the hold between two moves is alive -
+## a slow weight shift side to side, the chest breathing and the head settling, each a raised cosine or a sine faded in from rest
+## (no tremble: one slow wave each, the two women out of phase). Hands and feet stay where the position holds them (grips).
+const LIVE_SHIFT_M := 0.02
+const LIVE_BREATH_M := 0.015
+const LIVE_HEAD_M := 0.015
+const LIVE_FADE_S := 0.4
+
+
+static func _live_hold(src: PackedVector3Array, t: float, man: int) -> PackedVector3Array:
 	var p := src.duplicate()
-	var h := sin(t * TAU * 0.25) * 0.008
+	var fade := smoothstep(0.0, LIVE_FADE_S, t)
+	var ph := float(man) * 1.9
+	var lat := (p[DB.joint("RightShoulder")] - p[DB.joint("LeftShoulder")]).normalized()
+	var breath := (1.0 - cos(t * TAU * 0.3)) * 0.5 * LIVE_BREATH_M
+	var shift := lat * sin(t * TAU * 0.35 + ph) * LIVE_SHIFT_M * fade
+	shift.y = 0.0
+	var core := Vector3(0.0, breath, 0.0) + shift
+	p[DB.joint("Core")] += core
+	p[DB.joint("Neck")] += core * 0.7
+	p[DB.joint("LeftHip")] += shift * 0.5
+	p[DB.joint("RightHip")] += shift * 0.5
+	p[DB.joint("Head")] += core * 0.7 + Vector3(0.0, sin(t * TAU * 0.27 + ph) * LIVE_HEAD_M * fade, 0.0)
+	return p
+
+
+## S380 BJJ9R15: a held position breathes once (~0.25 Hz, chest under 1 cm) — never the old limb idle on moves.
+static func _hold_breath(src: PackedVector3Array, t: float, from_rest: bool = false) -> PackedVector3Array:
+	var p := src.duplicate()
+	# S399: a hold between two moves starts from rest (1 - cos), so the breath does not jolt the pose the last move settled on.
+	var h := (1.0 - cos(t * TAU * 0.25)) * 0.006 if from_rest else sin(t * TAU * 0.25) * 0.008
 	p[DB.joint("Core")] += Vector3(0.0, h, 0.0)
 	p[DB.joint("Neck")] += Vector3(0.0, h * 0.6, 0.0)
 	return p
@@ -525,6 +554,38 @@ func _build_bake() -> void:
 		_bake.append(row)
 	if _args.has("baketime"):
 		print("GPLAYER bake %d samples %.1f ms" % [n, (Time.get_ticks_usec() - t0) / 1000.0])
+
+
+## S399 GRAPPLEFIX1 joins (chain arm of tools/grapple_orbit.gd: every "move lands, position holds" join snapped, jerk up to 3790,
+## the worst frame the last of the move): a move starts from rest and settles to rest. The first and last EASE_END_S (at most a
+## quarter of the move) are retimed by cubics (2u^2 - u^3 in, u + u^2 - u^3 out): the same path and the same keyframes at the
+## ends, the speed brought to zero and joined with slope 1 to the middle. The hold between moves (GrappleBrowser.go_position,
+## two frames of one pose) starts from rest too and breathes (_hold_breath) instead of standing dead.
+const EASE_END_S := 0.25
+
+
+func _warp(t: float) -> float:
+	var length := _bake_len
+	var e := minf(EASE_END_S, 0.25 * length)
+	if e <= 0.0:
+		return t
+	if t < e:
+		var u := t / e
+		return e * (2.0 * u * u - u * u * u)
+	if t > length - e:
+		var v := (t - (length - e)) / e
+		return length - e + e * (v + v * v - v * v * v)
+	return t
+
+
+## Two frames of one man that are the same pose (a hold), within 3 cm on every joint.
+static func _same(a: PackedVector3Array, b: PackedVector3Array) -> bool:
+	if a.size() != b.size():
+		return false
+	for j in a.size():
+		if a[j].distance_to(b[j]) > 0.03:
+			return false
+	return true
 
 
 ## The baked curve at `time_s`: a cubic through the samples.
