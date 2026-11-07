@@ -24,12 +24,14 @@ const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 ## S354 C204 (operator on the training board: "this should be like a sub tab in the players profile , to see an an overview
 ## of the training"): the week board (WeekBoard; S356 TrainingBoard deleted) is the page's Training tab.
 ## S387 (operator: "maybe it is good idea to put playbook in the fighter page"): the Playbook is tab 7, drawn beside Training.
-const TABS := ["Overview", "Attributes and moves", "Body", "Training", "Record", "Camp", "Contract and goals", "Playbook"]
-const TAB_ORDER := [0, 1, 2, 3, 7, 4, 5, 6]
+## S396 screen cut: 5 tabs shown (TAB_ORDER); 1, 2 and 6 fold into Overview, their indices kept for old links (Routes.gd).
+const TABS := ["Overview", "Attributes and moves", "Body", "Week", "History", "Fight prep", "Contract and goals", "Playbook"]
+const TAB_ORDER := [0, 3, 5, 7, 4]
 const TRAINING_TAB := 3
 const PLAYBOOK_TAB := 7
 const PLAYBOOK := preload("res://scenes/areas/Playbook.tscn")
 const PromoShot := preload("res://scripts/ui/PromoShot.gd")
+const WB_KIT := preload("res://scripts/ui/WhiteboardKit.gd")   # S396 one condition scale on every screen
 const Faces := preload("res://scripts/rules/Faces.gd")
 
 
@@ -69,6 +71,12 @@ func build(main: Node, f: Dictionary) -> void:
 		line.color = UI.LINE
 		line.custom_minimum_size = Vector2(0, 1)
 		add_child(line)
+	# S396 screen cut (Routes.gd): Overview carries the stats and moves, the body and the contract; 5 tabs, not 8.
+	for k in ([0, 1, 6] if t == 0 else [t]):   # Overview has its own body panel and radar: 2 and 1's board would repeat
+		_tab(main, c, f, g, k, t == 0)
+
+
+func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: bool = false) -> void:
 	match t:
 		PLAYBOOK_TAB:
 			var book := PLAYBOOK.instantiate()
@@ -77,7 +85,8 @@ func build(main: Node, f: Dictionary) -> void:
 		0:
 			_overview(main, c, f, g)
 		1:
-			add_child(AttrBoard.build(f))
+			if not folded:
+				add_child(AttrBoard.build(f))
 			# S354 the perk road (RPG layer): what training is opening.
 			var perk_card := _card("THE PERK ROAD - PERKS OPEN AS TRAINING BUILDS THE ATTRIBUTES")
 			for ps in PerkRoad.status(f):
@@ -217,7 +226,7 @@ func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 	add_child(grid)
 	var body := _card("BODY", grid)
 	UI.add_rows(body, [UI.kv("Weight", "%.1f of %.1f kg" % [f["weight"], f["limit"]], UI.FG, "mono"),
-		UI.kv("Condition", "Fresh" if int(FighterProfile.fatigue(f)) < 30 else "Tired"), _injury_row(main.career, f)])
+		UI.kv("Condition", str(WB_KIT.fatigue_word(FighterProfile.fatigue(f), false)[0]).capitalize()), _injury_row(main.career, f)])
 	body.add_child(UI.caps("COACH SAYS"))
 	body.add_child(UI.label(Sim.coach_line(c, f), UI.BODY, UI.FG, "italic", true))
 	# S302: what the coach has learned about her so far (fights and sparring fill it in).
@@ -247,7 +256,7 @@ func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 	var nb: Dictionary = f["bout"]
 	goal.add_child(UI.muted("vs %s, %s" % [nb["opp"]["name"], Clock.fmt(int(nb["day"]))] if not nb.is_empty() else "None booked.", UI.BODY))
 	var buttons := UI.hbox(8)
-	buttons.add_child(UI.button("Plan the week", "BtnSolid", main.act.bind("go", "fighters:1")))
+	buttons.add_child(UI.button("Plan the week", "BtnSolid", main.act.bind("ftab", str(TRAINING_TAB))))
 	buttons.add_child(UI.button("Fight plan (%d arrows)" % (f.get("arrows", []) as Array).size() if not (f.get("arrows", []) as Array).is_empty()
 		else "Fight plan", "Btn", main.act.bind("plan", f["id"])))
 	buttons.add_child(UI.button("Find a bout", "Btn", main.act.bind("go", "fights:0")))

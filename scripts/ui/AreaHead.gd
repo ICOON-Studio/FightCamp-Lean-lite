@@ -25,6 +25,8 @@ static func add(parent: Container, main: Node, area_id: String, extra: Array = [
 		_club_tabs(row, main, tabs_on)
 	else:
 		for i in tabs.size():
+			if str(tabs[i]) == "":   # S396 a folded tab (Routes.gd)
+				continue
 			var on: bool = tabs_on and int(main.route["tab"]) == i and str(main.route.get("fighter", "")) == ""
 			row.add_child(UI.button(tabs[i], "TabOn" if on else "Tab", main.act.bind("tab", str(i))))
 	parent.add_child(row)
@@ -35,15 +37,18 @@ static func add(parent: Container, main: Node, area_id: String, extra: Array = [
 
 
 ## S394 PLAYER_PATH 6: one Club on the rail. The gym's and the money's tabs sit in one row and keep their routes (gym:1, money:0).
+## S396 screen cut: People | Money | Records, in that order across the two areas.
+const CLUB_ORDER := [["gym", 1], ["money", 0], ["gym", 4]]
+
+
 static func _club_tabs(row: Container, main: Node, tabs_on: bool) -> void:
-	for id in CLUB:
+	for pair in CLUB_ORDER:
+		var id := str(pair[0])
+		var i := int(pair[1])
 		var tabs: Array = Data.area(id)["tabs"]
-		for i in tabs.size():
-			if str(tabs[i]) == "":
-				continue
-			var now := int(main.route["tab"])
-			var on: bool = tabs_on and main.route["area"] == id and (now == i or (id == "gym" and now == 0 and i == 1))
-			row.add_child(UI.button(tabs[i], "TabOn" if on else "Tab", main.act.bind("go", "%s:%d" % [id, i])))
+		var now := int(main.route["tab"])
+		var on: bool = tabs_on and main.route["area"] == id and (now == i or (id == "gym" and now == 0 and i == 1))
+		row.add_child(UI.button(tabs[i], "TabOn" if on else "Tab", main.act.bind("go", "%s:%d" % [id, i])))
 
 
 ## "Comes in week N" placeholder card.

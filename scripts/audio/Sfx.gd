@@ -15,6 +15,21 @@ const DUCK_RELEASE_S := 0.4
 static var _node: Node = null
 ## S396: a per-bus level on top of BUS_DEFS (the Crowd bed by attendance); a duck releases to it.
 static var bus_offset := {}
+## S396 Settings: the player's own level per bus (dB), on top of the mix and the room.
+static var user_db := {}
+
+
+## A bus's resting level: the mix, the room (bus_offset) and the player's setting.
+static func level(bus_name: String) -> float:
+	return float(BUS_DEFS.get(bus_name, 0.0)) + float(bus_offset.get(bus_name, 0.0)) + float(user_db.get(bus_name, 0.0))
+
+
+## S396 Settings: `pct` 0-100 of the bus's mix level (0 = silent). Master is the whole game.
+static func set_user(bus_name: String, pct: float) -> void:
+	user_db[bus_name] = -80.0 if pct <= 0.5 else linear_to_db(pct / 100.0)
+	var idx := AudioServer.get_bus_index(bus_name)
+	if idx >= 0:
+		AudioServer.set_bus_volume_db(idx, user_db[bus_name] if bus_name == "Master" else level(bus_name))
 var played: Dictionary = {}   # id -> plays this run (tests and probes read it)
 var _pool: Array = []
 var _loop_players: Array = []
@@ -79,7 +94,7 @@ func _init_buses() -> void:
 		return
 	_buses_ready = true
 	for bname in BUS_DEFS:
-		_ensure_bus(bname, BUS_DEFS[bname])
+		_ensure_bus(bname, level(bname))
 	_ensure_bus("Room", 0.0)
 	var room_idx := AudioServer.get_bus_index("Room")
 	if room_idx >= 0 and AudioServer.get_bus_effect_count(room_idx) == 0:
@@ -222,7 +237,7 @@ func _do_duck(bus_name: String, db: float, seconds: float) -> void:
 	var running: Tween = _ducks.get(bus_name)
 	if running != null:
 		running.kill()
-	var base: float = BUS_DEFS.get(bus_name, 0.0) + float(bus_offset.get(bus_name, 0.0))
+	var base: float = level(bus_name)
 	var set_db := func(v: float) -> void: AudioServer.set_bus_volume_db(idx, v)
 	var tw := create_tween()
 	tw.tween_method(set_db, AudioServer.get_bus_volume_db(idx), base + db, DUCK_ATTACK_S)

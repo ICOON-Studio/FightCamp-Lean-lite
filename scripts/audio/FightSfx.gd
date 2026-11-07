@@ -107,8 +107,7 @@ static func setup_room(bout: Dictionary) -> void:
 	Sfx.bus_offset["Crowd"] = _bed_offset_db
 	var crowd_idx := AudioServer.get_bus_index("Crowd")
 	if crowd_idx >= 0:
-		var base: float = Sfx.BUS_DEFS.get("Crowd", -12.0)
-		AudioServer.set_bus_volume_db(crowd_idx, base + _bed_offset_db)
+		AudioServer.set_bus_volume_db(crowd_idx, Sfx.level("Crowd"))
 	# The room: a hall is short and dry, an arena is long and wide.
 	var room_idx := AudioServer.get_bus_index("Room")
 	if room_idx >= 0 and AudioServer.get_bus_effect_count(room_idx) > 0:

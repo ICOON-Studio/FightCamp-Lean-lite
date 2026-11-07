@@ -150,7 +150,7 @@ func _injury_row(f: Dictionary, lines: Array) -> void:
 	lr.add_child(WB.ink(("OVER %.1f" % LOAD_OVER if load >= LOAD_OVER else "HOT") if over else (("NEAR %.1f" % LOAD_OVER if load >= LOAD_NEAR else "WARM") if near else "LOW"),
 		18, "marker", WB.RED if over else (UI.AMBER if near else UI.GREEN)))
 	add_child(lr)
-	add_child(WB.ink("this week's hours against the usual, and its fatigue peak - over 1.5, or a week over 76, doubles the injury risk",
+	add_child(WB.ink("this week's hours against the usual, and its fatigue peak - over 1.5, or a week over 76, triples the injury risk",
 		UI.SMALL, "hand", WB.PENCIL, true))
 
 

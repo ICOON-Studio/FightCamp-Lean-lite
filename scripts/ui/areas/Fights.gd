@@ -1,5 +1,6 @@
 extends VBoxContainer
-## FIGHTS: Offers, Calendar, Results. An offer's Open goes to its bout page.
+## FIGHTS, one page (S396): the offers with each fighter's standing, the calendar, the results. An offer's Open goes to its
+## bout page.
 
 const OfferCard := preload("res://scripts/ui/OfferCard.gd")
 const UI := preload("res://scripts/ui/UI.gd")
@@ -23,13 +24,10 @@ func build(main: Node) -> void:
 		page.build(main, str(main.route["bout"]))
 		return
 	AreaHead.add(self, main, "fights")
-	match int(main.route["tab"]):
-		0:
-			_offers(main, c)
-		1:
-			_calendar(c)
-		2:
-			_results(c)
+	# S396 screen cut: Offers, Calendar and Results are one page (docs/STRUCTURE_DESIGN_S395.md 5.4).
+	_offers(main, c)
+	_calendar(c)
+	_results(c)
 
 
 func _offers(main: Node, c: Career) -> void:
@@ -143,6 +141,6 @@ func _results(c: Career) -> void:
 	var rows: Array = []
 	for r in c.results:
 		var won := str(r.get("outcome", "win" if bool(r["win"]) else "loss"))
-		rows.append(UI.row("%s %s vs %s, %s%s" % [r.get("who", ""), {"win": "beat", "loss": "lost to", "draw": "drew with"}[won], r["opp"], r["cards"], " (pro)" if bool(r.get("pro", false)) else ""],
+		rows.append(UI.row("%s %s %s, %s%s" % [r.get("who", ""), {"win": "beat", "loss": "lost to", "draw": "drew with"}[won], r["opp"], r["cards"], " (pro)" if bool(r.get("pro", false)) else ""],
 			"%s. %s" % [Clock.fmt(int(r["d"])), r["why"]], UI.GREEN if bool(r["win"]) else UI.RED))
 	UI.add_rows(card[1], rows)

@@ -61,7 +61,7 @@ func _initialize() -> void:
 			continue
 		if jump == "nationals":
 			# S328 update 30: the career plays on until she can enter; WORLD > Nationals, then Enter books her regional.
-			_check(ok and str(main.route.get("area", "")) == "world" and int(main.route.get("tab", -1)) == 4, "nationals: eligible, on WORLD > Nationals (day %d, %d-%d)" % [main.career.day, f["w"], f["l"]])
+			_check(ok and str(main.route.get("area", "")) == "world" and int(main.route.get("tab", -1)) == 2, "nationals: eligible, on WORLD > Championships (day %d, %d-%d)" % [main.career.day, f["w"], f["l"]])
 			main.act("enterchamp", str(f["id"]))
 			var nb: Dictionary = f["bout"]
 			_check(Champs.active(f) and (int(nb.get("champ", -1)) >= 0 or int(nb.get("day", 999)) < Champs.stage_day(int(f["champ"]["close"]), 0)),

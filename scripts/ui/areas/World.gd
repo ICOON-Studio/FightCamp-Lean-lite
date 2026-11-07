@@ -34,7 +34,9 @@ func build(main: Node) -> void:
 		1:
 			_rankings(c)
 		2:
+			# S396 screen cut: Championships = the season's events and the road to the nationals.
 			_events(c)
+			NationalsView.build(self, main, c)
 		3:
 			_search()
 		4:

@@ -27,6 +27,7 @@ const APART_S := 8.0
 const GLOW := Color(1.0, 0.72, 0.42)   # the warm flash on a big shot
 const GLOW_MOST := 0.2
 const GLOW_S := 0.3
+const BLOCK_M := 0.24        # S396: a thrower's head or chest this close to the lens's line onto the hit head hides the blow
 
 var view: Control
 var _who: Label
@@ -70,6 +71,20 @@ static func envelope(t: float) -> float:
 	if t < IN_S:
 		return t / IN_S
 	return 1.0 if t < HOLD_S else 1.0 - (t - HOLD_S) / OUT_S
+
+
+## S396: is `target` hidden from `eye` by any of `blockers` (a point nearer the lens, within BLOCK_M of the sight line)?
+static func hidden(eye: Vector3, target: Vector3, blockers: Array) -> bool:
+	var ray := target - eye
+	var len := ray.length()
+	if len < 0.01:
+		return false
+	var dir := ray / len
+	for b in blockers:
+		var along := ((b as Vector3) - eye).dot(dir)
+		if along > 0.0 and along < len - 0.1 and ((b as Vector3) - (eye + dir * along)).length() < BLOCK_M:
+			return true
+	return false
 
 
 static func allowed(used: int, since: float) -> bool:
@@ -130,10 +145,16 @@ func _moment(hurt: int) -> void:
 		_used = 0
 	if view._shouting != null or _t >= 0.0 or not allowed(_used, _clock - _last):
 		return
+	var cam: Camera3D = view.stage.camera
+	var head := CornerShots.bone(view.stage.boxers[hurt], "Head")
+	# S396 (blind review 5.5: "hidden big hooks"): the slow push went in on the thrower's back. A blow the lens cannot see
+	# gets no moment, and spends none of the round's two.
+	var thrower: Dictionary = view.stage.boxers[1 - hurt]
+	if hidden(cam.global_position, head, [CornerShots.bone(thrower, "Head"), CornerShots.bone(thrower, "UpperChest")]):
+		return
 	_used += 1
 	_last = _clock
-	var cam: Camera3D = view.stage.camera
-	var to := cam.global_transform.affine_inverse() * CornerShots.bone(view.stage.boxers[hurt], "Head")
+	var to := cam.global_transform.affine_inverse() * head
 	_aim = Vector2(to.x, to.y) * CENTRE
 	_base_fov = cam.fov
 	_set_fov = cam.fov

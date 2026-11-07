@@ -11,13 +11,14 @@ const CARDS: Array[String] = ["Jab and move", "Body work", "Pad rounds", "Hill s
 
 const AREAS: Array[Dictionary] = [
 	{"id": "home", "name": "HOME", "job": "what needs me", "tabs": []},
-	{"id": "fighters", "name": "FIGHTERS", "job": "develop them", "tabs": ["Roster", "Training", "Fight camps", "Scouting"]},
+	# S396 screen cut (Routes.gd): an empty name is a tab folded into another page; its index keeps old links working.
+	{"id": "fighters", "name": "FIGHTERS", "job": "develop them", "tabs": ["Roster", "", "", "Find a fighter"]},
 	# S348 the Playbook (Q-S294-71 "Yes, build it"): her moves, plans, combos and escapes on one whiteboard, each one plays.
 	{"id": "playbook", "name": "PLAYBOOK", "job": "moves and plans", "tabs": ["Moves", "Game plan", "Combos", "Escapes"]},
-	{"id": "fights", "name": "FIGHTS", "job": "get them fights", "tabs": ["Offers", "Calendar", "Results"]},
-	{"id": "gym", "name": "CLUB", "job": "run the club", "tabs": ["", "Staff", "Members", "Facilities", "Records"]},
-	{"id": "money", "name": "CLUB", "job": "keep it alive", "tabs": ["Money", "Income", "Bills", "Deals"]},
-	{"id": "world", "name": "WORLD", "job": "the boxing world", "tabs": ["News", "Rankings", "Events", "Search", "Nationals"]},
+	{"id": "fights", "name": "FIGHTS", "job": "get them fights", "tabs": []},
+	{"id": "gym", "name": "CLUB", "job": "run the club", "tabs": ["", "People", "", "", "Records"]},
+	{"id": "money", "name": "CLUB", "job": "keep it alive", "tabs": ["Money", "", "", ""]},
+	{"id": "world", "name": "WORLD", "job": "the boxing world", "tabs": ["News", "Rankings", "Championships", "Search", ""]},
 ]
 
 ## Decided: the first coach is sessional at $450 a week; $1,000 to sign either.

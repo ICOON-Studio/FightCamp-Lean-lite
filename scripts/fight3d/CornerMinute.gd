@@ -123,7 +123,10 @@ func _camera() -> void:
 		p = cam.position.lerp(p, clampf(get_process_delta_time() * 3.0, 0.0, 1.0))
 	var look: Vector3 = f["look"]
 	if ui != null and ui.card_up():   # S350 C197: she stays in view beside the card
-		look = CornerShots.frame_at(p, look, float(f["fov"]), ui.subject_x())
+		# S396 (blind review 5.5: the card covered her): a two-shot aims between her and the coach, and that middle in the
+		# open strip left her under the card. Beside the card the subject is her face.
+		var subject := CornerShots.bone(ctx_actor("her"), "Head") if name in ["side2", "corner_wide", "low_out"] else look
+		look = CornerShots.frame_at(p, subject, float(f["fov"]), ui.subject_x())
 	cam.film(p, look, float(f["fov"]), float(f["focus"]))
 
 

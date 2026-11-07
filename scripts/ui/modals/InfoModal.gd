@@ -5,6 +5,8 @@ const UI := preload("res://scripts/ui/UI.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const OppFileCard := preload("res://scripts/ui/OppFileCard.gd")
 const MatSystems := preload("res://scripts/ui/MatSystems.gd")
+const SettingsPanel := preload("res://scripts/ui/SettingsPanel.gd")
+const HandbookPanel := preload("res://scripts/ui/HandbookPanel.gd")
 
 
 func build(main: Node, m: Dictionary) -> void:
@@ -13,7 +15,14 @@ func build(main: Node, m: Dictionary) -> void:
 	var v := UI.vbox(12)
 	add_child(v)
 	v.add_child(UI.display(str(m["title"]).to_upper(), 48))
-	v.add_child(UI.label(m["body"], UI.BODY, UI.FG, "body", true))
+	if str(m["body"]) != "":
+		v.add_child(UI.label(m["body"], UI.BODY, UI.FG, "body", true))
+	# S396 P15: Settings and the Handbook (they were "not built yet" pop-ups).
+	if m.has("settings"):
+		v.add_child(SettingsPanel.build(main))
+	if m.has("handbook"):
+		custom_minimum_size = Vector2(920, 0)
+		v.add_child(HandbookPanel.build(main))
 	# S341 a rival's file from the rankings: what the career has found of her, and every bout with us.
 	if m.has("rival"):
 		var c: Career = main.career

@@ -486,7 +486,7 @@ func film(pos: Vector3, look: Vector3, lens_fov: float, focus: float) -> void:
 
 func _lens(shallow: bool, focus: float = 0.0) -> void:
 	var lens := attributes as CameraAttributesPractical
-	lens.dof_blur_near_enabled = shallow
+	lens.dof_blur_near_enabled = false   # S396: near blur bled the hall through the coach near the lens; far side only
 	if shallow:
 		# The sharp band grows with the distance, as a real lens's depth of field does.
 		lens.dof_blur_near_distance = maxf(0.1, focus * 0.7)

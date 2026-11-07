@@ -1,5 +1,5 @@
 extends VBoxContainer
-## MONEY: Overview (cash week by week, now), Income, Bills (weekly lines paid at the month end, one-offs), Deals.
+## MONEY, one page (S396): cash week by week and now, the week in and out, the one-offs in and out, deals, repairs.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
@@ -15,21 +15,22 @@ const Bar := preload("res://scripts/ui/Bar.gd")
 
 ## One-offs shown on Income / Bills: the last this many days.
 const LEDGER_DAYS := 56
+const GYM_AREA := preload("res://scripts/ui/areas/Gym.gd")
 
 
 func build(main: Node) -> void:
 	add_theme_constant_override("separation", 14)
 	var c: Career = main.career
 	AreaHead.add(self, main, "money")
-	match int(main.route["tab"]):
-		0:
-			_overview(c)
-		1:
-			_income(c)
-		2:
-			_bills(c)
-		3:
-			_deals(main, c)
+	# S396 screen cut: Money is one page - cash and the week's in and out (the overview's bars carry the old Income and Bills
+	# tables' numbers, so those two would repeat them), deals, then the repairs (from Facilities, Routes.gd).
+	_overview(c)
+	_ledger("ONE-OFFS IN, LAST 8 WEEKS", c, true, "Ticket cuts from bouts land here.")
+	_ledger("PAID OUT, LAST 8 WEEKS", c, false, "Nothing paid out yet.")
+	_deals(main, c)
+	var kit: VBoxContainer = GYM_AREA.new()
+	add_child(kit)
+	kit._facilities(main, c)
 
 
 func _overview(c: Career) -> void:
@@ -115,36 +116,6 @@ func _split_card(title: String, lines: Array, scale: float, col: Color, sign: St
 func _break_even(c: Career, inc: Dictionary, cost: Dictionary) -> int:
 	var need := int(cost["total"]) - int(inc["classes"]) - int(inc["sponsors"]) - int(inc.get("bjj", 0))
 	return int(ceil(float(maxi(0, need)) / (float(GymBills.FEE_MONTH) / GymBills.WEEKS_A_MONTH)))
-
-
-func _income(c: Career) -> void:
-	var inc: Dictionary = Sim.weekly_income(c)
-	var card := UI.card("INCOME, PER WEEK")
-	UI.add_rows(card[1], [
-		UI.kv("Members' dues (%d x %s a month)" % [c.members, UI.money(Membership.weekly_rate())], UI.money(int(inc["dues"])), UI.FG, "mono"),
-		UI.kv("Evening classes" + ("" if not c.coach.is_empty() else " (need a coach)"), UI.money(int(inc["classes"])), UI.FG, "mono"),
-		UI.kv("BJJ classes' dues (%d x %s a month)" % [int(c.bjj_side.get("members", 0)), UI.money(BjjSide.FEE_MONTH)], UI.money(int(inc.get("bjj", 0))), UI.FG, "mono"),
-		UI.kv("Sponsors", UI.money(int(inc["sponsors"])), UI.FG, "mono"),
-		UI.kv("Total a week", UI.money(int(inc["total"])), UI.GREEN, "mono"),
-	])
-	add_child(card[0])
-	_ledger("ONE-OFFS IN, LAST 8 WEEKS", c, true, "Ticket cuts from bouts land here.")
-
-
-func _bills(c: Career) -> void:
-	var cost: Dictionary = Sim.weekly_costs(c)
-	var card := UI.card("BILLS, PER WEEK, PAID AT THE MONTH END")
-	UI.add_rows(card[1], [
-		UI.kv("Rent (%s a month)" % UI.money(GymBills.RENT_MONTH), UI.money(int(cost.get("rent", cost["upkeep"]))), UI.FG, "mono"),
-		UI.kv("England Boxing fees (yearly, by the week)", UI.money(int(cost.get("fees", 0))), UI.FG, "mono"),
-		UI.kv("Coach" if not c.coach.is_empty() else "Coach (none yet)", UI.money(int(cost["staff"])), UI.FG, "mono"),
-		UI.kv("Fighter stipends (%d)" % c.fighters.size(), UI.money(int(cost["fighters"])), UI.FG, "mono"),
-		UI.kv("BJJ coach (%s a class)" % UI.money(BjjSide.COACH_CLASS), UI.money(int(cost.get("bjj", 0))), UI.FG, "mono"),
-		UI.kv("Total a week", UI.money(int(cost["total"])), UI.FG, "mono"),
-		UI.kv("Owed so far, billed %s" % Clock.fmt(GameMoney.next_bill_day(c.day)), UI.money(c.accrued), UI.AMBER, "mono"),
-	])
-	add_child(card[0])
-	_ledger("PAID OUT, LAST 8 WEEKS", c, false, "Nothing paid out yet.")
 
 
 func _ledger(title: String, c: Career, incoming: bool, empty: String) -> void:

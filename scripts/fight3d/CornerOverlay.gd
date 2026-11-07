@@ -35,6 +35,9 @@ const BAR := 0.128
 ## S350 C197: where the card starts across the frame (with her body column it needs a little more room).
 const CARD_LEFT := 0.40
 const CARD_LEFT_BODY := 0.33
+const CARD_AFTER_CUT_S := 0.5
+var _pro := false
+const CARD_FADE_S := 0.4
 var _fix_step := 0
 const BAR_COLOUR := Color(0, 0, 0, 1)
 
@@ -84,6 +87,7 @@ func build(card: Dictionary, names: Array) -> void:
 	_pin(_card, Vector4(CARD_LEFT, BAR, 1, BAR), Vector4(0, 12, -24, 12))   # as tall as what it holds
 	var hb := UI.hbox(18)
 	_card.add_child(hb)
+	_pro = bool(card.get("pro", false))
 	_map = card.get("body_map", {})
 	_track = card.get("body_track", {})
 	_taken = card.get("body_taken", {})
@@ -171,8 +175,11 @@ func say(text: String) -> void:
 
 func show_card(on: bool) -> void:
 	if on and not _card.visible and is_inside_tree():   # S395 (blind review: the panel popped in hard)
+		# S396 (blind review 5.5: it still popped, on the same frame as the cut): the cut lands first, the card follows.
 		_card.modulate.a = 0.0
-		create_tween().tween_property(_card, "modulate:a", 1.0, 0.25)
+		var tw := create_tween()
+		tw.tween_interval(CARD_AFTER_CUT_S)
+		tw.tween_property(_card, "modulate:a", 1.0, CARD_FADE_S)
 	_card.visible = on
 
 
@@ -295,7 +302,8 @@ func _body_column(_her: String, glb: String = "") -> VBoxContainer:
 	_callouts(fig, still)
 	if not _track.is_empty():
 		fig.set_track(_track)
-	var opts := _cutman_jobs(vals)
+	# S396 truth pass: the cutman works pro corners only (CornerCrew); an amateur corner offered his jobs with nobody there.
+	var opts := _cutman_jobs(vals) if _pro else []
 	if opts.size() > 1:
 		cutman = str(opts[0][0])
 		col.add_child(UI.caps("CUTMAN"))

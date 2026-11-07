@@ -36,6 +36,9 @@ const PROOFFER := preload("res://scenes/modals/ProOffer.tscn")
 const OPEN_NIGHT := preload("res://scenes/modals/OpenNight.tscn")
 const MatNight := preload("res://scripts/ui/MatNight.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
+const Settings := preload("res://scripts/state/Settings.gd")
+const AutoSave := preload("res://scripts/state/AutoSave.gd")
+const Routes := preload("res://scripts/ui/Routes.gd")
 
 var career: Career = null
 var screen := "title"
@@ -65,6 +68,7 @@ var _shown_screen := ""
 
 func _ready() -> void:
 	theme = UI.theme()
+	Settings.apply(Settings.read(), get_tree())   # S396 P15 text size, window, sound, as the player left them
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var bg := ColorRect.new()
 	bg.color = UI.BG
@@ -218,6 +222,7 @@ func _tick() -> void:
 		return
 	if Clock.step(career):
 		pause()
+		AutoSave.on_stop(career, save_path)   # S396 P15: every Monday, the last weeks kept
 		if career.closed:
 			act("closedgym")
 		return
@@ -247,8 +252,8 @@ func run_to_stop(max_days: int = 60) -> int:
 func nav(r: Dictionary) -> void:
 	past.append(route.duplicate())
 	ahead.clear()
-	route = {"area": r.get("area", "home"), "tab": int(r.get("tab", 0)), "fighter": str(r.get("fighter", "")),
-		"ftab": int(r.get("ftab", 0)), "ptab": int(r.get("ptab", 0)), "bout": str(r.get("bout", ""))}
+	route = Routes.canon({"area": r.get("area", "home"), "tab": int(r.get("tab", 0)), "fighter": str(r.get("fighter", "")),
+		"ftab": int(r.get("ftab", 0)), "ptab": int(r.get("ptab", 0)), "bout": str(r.get("bout", ""))})   # S396 screen cut
 	_drop_old_toast()
 	render()
 	if _shell != null:
@@ -360,9 +365,9 @@ func act(name: String, arg: String = "") -> void:
 				_drop_old_toast()
 				render()
 		"settings":
-			open_modal({"type": "info", "title": "Settings", "body": "Audio, display, text size, and \"stop every day\" for players who want day-by-day control. Not built yet."})
+			open_modal({"type": "info", "title": "Settings", "body": "", "settings": true})
 		"handbook":
-			open_modal({"type": "info", "title": "Handbook", "body": "Every term in the game, one line each: what it is, why it matters, where you change it. Not built yet."})
+			open_modal({"type": "info", "title": "Handbook", "body": "", "handbook": true})
 		"go_btn":
 			on_go()
 		"speed":

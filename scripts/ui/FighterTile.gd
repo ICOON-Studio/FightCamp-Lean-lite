@@ -3,6 +3,7 @@ extends RefCounted
 ## FIGHTERS > Roster - her name and record big, rank and mood as chips, then four rings: weight to her limit, condition,
 ## her goal, and the days to her next bout (red when she is out injured); her season line under them.
 
+const WB_KIT := preload("res://scripts/ui/WhiteboardKit.gd")
 const PromoShot := preload("res://scripts/ui/PromoShot.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const PHOTO := Vector2(148, 185)
@@ -59,8 +60,9 @@ static func build(main: Node, c: Career, f: Dictionary, checklist: bool = false)
 	rings.add_child(_ring("WEIGHT", "%.1f" % w, "limit %.1f kg" % lim if over <= 0.0 else "%.1f kg over" % over,
 		1.0 if over <= 0.0 else clampf(1.0 - over / 3.0, 0.1, 0.95), UI.GREEN if over <= 0.0 else (UI.AMBER if over < 1.5 else UI.RED)))
 	var fat := int(FighterProfile.fatigue(f))
-	rings.add_child(_ring("CONDITION", "%d" % (100 - fat), "fresh" if fat < 30 else ("tired" if fat < 60 else "worn out"),
-		(100.0 - fat) / 100.0, UI.GREEN if fat < 30 else (UI.AMBER if fat < 60 else UI.RED)))
+	var word: Array = WB_KIT.fatigue_word(fat, false)   # S396 one condition scale on every screen
+	rings.add_child(_ring("CONDITION", "%d" % (100 - fat), str(word[0]).to_lower(), (100.0 - fat) / 100.0,
+		UI.GREEN if fat < WB_KIT.AMBER_AT - 20.0 else (UI.AMBER if fat < WB_KIT.RED_AT else UI.RED)))
 	var g := Sim.goal_read(c, f)
 	if g.is_empty():
 		rings.add_child(_ring("GOAL", "-", "talk in the office" if bool(f.get("goal_talk", false)) else "none set", 0.0, UI.MUTED))

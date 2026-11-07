@@ -6,7 +6,7 @@ DONE S395, all on main and pushed: HUD 5 to 6.5 (blind). The corner bug was the 
 ORDER FOR S396
 1. BOARD FIRST: read Q-S294-113 to 122 (structure design decisions). Rank 1 of its build order is the truth pass: autosave, real Settings, Handbook v1, camp double count, debug text.
 2. COLLECT SOUND3 (Qwen, running at handover): read the pr-check comment and the diff, then he listens. Miss whoosh rare or gone; the room by Attendance.
-3. CLOUD FILM: run 42355530619 was still rendering. `gh run download 42355530619 -n fight-stills-film`; if the software GPU film is usable, review films go there while he plays.
+3. CLOUD FILM: run 42355530619 hit its 45-minute cap at 1 fps (rc 124), so only a partial film came back. A whole short film needs about 75 minutes there: use the cloud only for a short window (secs= or a moment-only mode), and keep review films on the PC.
 4. FIGHT POLISH, from the 5.5 review: guard-to-walk snaps at the bell and the walk out, the corner card covers the boxer and pops, coach see-through and ugly (choose-your-coach is P12), hidden big hooks. Red's leg past the rope: later, he said.
 5. Then S394 items: Home leftovers, trunk limit, insidework1; S393 list (winded liver, sound takes, traits test).
 OPEN: mock-up page predates the Corner King study. Portraits need better models (necks, faces, hair, strands under the jaw), not more light. CMU 07_01 and ow_walk go on the clip licence list. MOSS-Audio 4B (E:/FightCamp/tmp/moss, 11 GB) is a relative check only: delete if unused. Gemini prepay empty. MEMORY.md over its limit.

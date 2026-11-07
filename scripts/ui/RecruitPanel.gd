@@ -90,7 +90,8 @@ static func _who(main: Node, f: Dictionary, picks: Array, act: String) -> VBoxCo
 	var sig := Recruit.signature(f)
 	if sig != "":
 		col.add_child(_line("SIGNATURE", "", sig, "mastery %d%s" % [int(float(f["moves"][sig])), " - already a weapon" if float(f["moves"][sig]) >= 30.0 else ""]))
-	col.add_child(_line("AMBITION", "gold", Recruit.ambition(f), "met: morale up; missed: loyalty drops"))
+	# S396 truth pass: the AMBITION line promised "met: morale up; missed: loyalty drops" and nothing did that. It comes back
+	# with P8 (promises and loyalty, docs/STRUCTURE_DESIGN_S395.md), when keeping it does something.
 	col.add_child(UI.caps("CHOOSE ONE STARTING FOCUS - IT SETS THE FIRST MONTH"))
 	var row := UI.hbox(8)
 	var pick := focus_of(picks)

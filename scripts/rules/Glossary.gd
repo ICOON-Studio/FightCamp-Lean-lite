@@ -7,13 +7,13 @@
 const TERMS := {
 	# WhiteboardKit.fatigue_word / AMBER_AT 70 / RED_AT 80
 	"fatigue": {"name": "Fatigue", "def": "How tired the fighter is by night, 0 to 100.",
-		"why": "Over 80 the next morning trains at 60% and a camp that peaks over 80 fails its line."},
+		"why": "At 80 or more the next morning trains at 60% and a camp that peaks there fails its line."},
 	# Injuries.ratio, WeekCamp LOAD_OVER
 	"load": {"name": "Training load", "def": "This week's training hours against a usual week.",
-		"why": "Over 1.5 doubles the injury risk."},
+		"why": "At 1.5 the injury risk is three times the usual."},
 	# BoutRules.WEAPON_MASTERY 30, BeltRoad.OWNED_AT 30
 	"weapon": {"name": "Weapon", "def": "A move at mastery 30 or more.",
-		"why": "Weapons get thrown on the night; each one adds to the edge."},
+		"why": "Weapons get thrown on the night; past the first 4, each adds 0.3 to the edge, up to 0.9."},
 	# WeekPhase
 	"phase": {"name": "Camp phase", "def": "BASE, BUILD, PEAK or TAPER, counted back from fight night.",
 		"why": "The phase writes the coach's week: volume in BUILD, the hardest week at PEAK, light in TAPER."},

@@ -162,7 +162,8 @@ static func daily_gain(career: Career, f: Dictionary) -> Dictionary:
 	var w := WeekPlan.week(WeekTwist.days(tw, WeekPlan.days_of(f)), week_ctx(career, f), PadWeek.evenings(f))
 	var out: Dictionary = {}
 	for key in f["stats"].keys():
-		out[key] = float((w["gains"] as Dictionary).get(key, 0.0)) / 7.0 * BoutRules.camp_gain_mult(f.get("camp", {}), str(key))
+		# S396 truth pass: WeekPlan.week already takes the camp multiplier (S380); a second one here counted the camp twice.
+		out[key] = float((w["gains"] as Dictionary).get(key, 0.0)) / 7.0
 	return out
 
 

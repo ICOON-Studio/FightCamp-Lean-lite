@@ -18,9 +18,9 @@ func build(main: Node) -> void:
 	var c: Career = main.career
 	AreaHead.add(self, main, "gym")
 	match int(main.route["tab"]):
-		0, 1:
+		0, 1, 2:
+			# S396 screen cut: People = the staff and the members (Routes.gd).
 			_staff(main, c)
-		2:
 			_members(c)
 		3:
 			_facilities(main, c)

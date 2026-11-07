@@ -113,6 +113,7 @@ static func corner(view: Node) -> bool:
 	var cm := CornerMinute.new()
 	view.add_child(cm)
 	cm.done.connect(view.corner_done)
+	card["pro"] = (view.crew.actors as Dictionary).has("cutman")   # S396 the overlay offers his jobs only when he is there
 	cm.run(view, view.stage, view.crew, {"round": int(view.round_n), "card": card, "won": bool(r.get("won", false)),
 		"pro": (view.crew.actors as Dictionary).has("cutman"), "names": names})
 	return true

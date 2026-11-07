@@ -31,6 +31,10 @@ const BOXER_WALK_MS := 0.7   # S391: a boxer's step pairs to the centre, in her 
 ## S395 ow_walk (tools/walk_cycle.gd, a real captured walk): its ground speed at 1x, and the pace a boxer walks it at.
 const OW_WALK_MS := 1.58
 const OW_WALK_RATE := 0.6
+## S396 (blind review 5.5: "guard-to-walk snaps at the bell"): the film dropped her hands in ~0.15 s. A boxer lowers her
+## guard over most of a second, so the walk joins slower and her ground speed eases in with it (no skate while the legs blend).
+const WALK_JOIN := Vector2(0.22, 0.8)
+const WALK_STOP_JOIN := Vector2(0.18, 0.6)
 const TURN_S := 0.12
 const SIT := ["af_sit_enter", "af_sit_exit"]
 
@@ -112,13 +116,14 @@ static func yaw_to(at: Vector3, to: Vector3) -> float:
 const CROUCH_UPRIGHT_DEG := 55.0
 
 
-func play(a: Dictionary, clip: String, speed: float = 1.0, from_s: float = 0.0) -> void:
+## `join`: the dead blend's half-life and length (s). S396: a boxer dropping her guard into the walk takes WALK_JOIN.
+func play(a: Dictionary, clip: String, speed: float = 1.0, from_s: float = 0.0, join: Vector2 = Vector2(0.1, 0.4)) -> void:
 	var ap: AnimationPlayer = a["ap"]
 	if not ap.has_animation(clip):
 		return
 	ap.speed_scale = 1.0
 	if a.get("js") != null:
-		(a["js"] as Node).join(0.1, 0.4)
+		(a["js"] as Node).join(join.x, join.y)
 		ap.play(clip, 0.0, speed)
 	else:
 		ap.play(clip, 0.25, speed)
@@ -139,8 +144,11 @@ func walk(a: Dictionary, to: Vector3, done: Callable = Callable(), carry: bool =
 	# S395 ("still walking is terrible"): the guard shuffle read as a shuffle. Between rounds a boxer simply walks, hands down.
 	if i >= 0 and (a["ap"] as AnimationPlayer).has_animation("ow_walk"):
 		RingFeet.hold(stage, i)
-		play(a, "ow_walk", OW_WALK_RATE)
-		_walks[n] = {"a": a, "to": Vector3(to.x, 0, to.z), "speed": OW_WALK_MS * OW_WALK_RATE * n.scale.x, "done": done}
+		var going := str((a["ap"] as AnimationPlayer).current_animation) == "ow_walk"   # a waypoint: she walks on
+		if not going:
+			play(a, "ow_walk", OW_WALK_RATE, 0.0, WALK_JOIN)
+		_walks[n] = {"a": a, "to": Vector3(to.x, 0, to.z), "speed": OW_WALK_MS * OW_WALK_RATE * n.scale.x, "done": done,
+			"ease": 0.0 if going else WALK_JOIN.y, "t": 0.0, "ow": true}
 		return
 	if i >= 0 and RingFeet.on(stage, a):
 		stage.guard(i)
@@ -246,13 +254,18 @@ func tick(delta: float) -> void:
 				_ease_yaw(n, atan2(to.x - at.x, to.z - at.z), delta)
 			continue
 		var stride := float(w["speed"]) * delta
+		if float(w.get("ease", 0.0)) > 0.0:
+			w["t"] = float(w["t"]) + delta
+			stride *= smoothstep(0.0, float(w["ease"]), float(w["t"]))
 		if dist <= stride:
 			(n as Node3D).position = to
 			_walks.erase(n)
-			# Arrived: she stops walking (the walk cycle would march on the spot through the turn).
-			play(w["a"], "af_idle")
 			if (w["done"] as Callable).is_valid():
 				(w["done"] as Callable).call()
+			# Arrived: she stops walking (the walk cycle would march on the spot through the turn). S396: unless `done`
+			# sent her on to the next waypoint.
+			if not _walks.has(n):
+				play(w["a"], "af_idle", 1.0, 0.0, WALK_STOP_JOIN if w.get("ow", false) else Vector2(0.1, 0.4))
 			continue
 		var dir := Vector3(to.x - at.x, 0, to.z - at.z) / dist
 		(n as Node3D).position = at + dir * stride
