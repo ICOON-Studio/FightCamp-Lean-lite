@@ -162,8 +162,8 @@ func setup(m_main: Node, m: Dictionary) -> void:
 	var picks := FightCast.bodies_for(f, opp)
 	bodies = picks.duplicate()
 	var sc := FightCast.body_scales(f, opp)
-	stage.setup({"glb": picks[0], "corner": "red", "scale": sc[0], "stance": str(f.get("stance", "orthodox"))},
-		{"glb": picks[1], "corner": "blue", "scale": sc[1], "stance": str(opp.get("stance", "orthodox"))})
+	stage.setup({"glb": picks[0], "corner": "red", "scale": sc[0], "stance": str(f.get("stance", "orthodox")), "who": f},
+		{"glb": picks[1], "corner": "blue", "scale": sc[1], "stance": str(opp.get("stance", "orthodox")), "who": opp})
 	crew = FightCast.crew(stage, bool(m.get("pro", false)) or total > 3)
 	# S376 KNOCKDOWN1: every knockdown's shot replays in slow motion once the fall has played (KnockdownReplay).
 	replay = KnockdownReplay.new()

@@ -21,6 +21,7 @@ const CallEvidence := preload("res://scripts/rules/CallEvidence.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 const Faces := preload("res://scripts/rules/Faces.gd")
+const FighterFace := preload("res://scripts/fight3d/FighterFace.gd")
 
 
 ## S332: each boxer's own body (Faces; was one of 3 by weight class, so every opponent wore one face).
@@ -46,6 +47,7 @@ static func crew(stage: Node3D, pro: bool) -> Node3D:
 	var c := CornerCrew.new()
 	stage.add_child(c)
 	c.build(stage, pro)
+	FighterFace.crew(c, stage)   # FIGHTERLOOK1: the team's eyes look and blink, their skin without the glare
 	# S369/S371 NOREF1: no referee in the ring; clinches part via PushOff.
 	return c
 

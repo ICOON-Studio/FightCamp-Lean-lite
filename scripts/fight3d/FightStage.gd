@@ -24,6 +24,8 @@ const Clinch := preload("res://scripts/fight3d/Clinch.gd")
 const RingPlace := preload("res://scripts/fight3d/RingPlace.gd")
 const HitImpact := preload("res://scripts/fight3d/HitImpact.gd")
 const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
+const ArtStyle := preload("res://scripts/fight3d/ArtStyle.gd")
+const FaceFill := preload("res://scripts/fight3d/FaceFill.gd")
 
 const CONTACT_S := 8.0 / 30.0
 ## When the glove lands, seconds into each move (natives frame 8; baked: the old repo's clip_phases contact_s).
@@ -101,6 +103,8 @@ func setup(a: Dictionary, b: Dictionary) -> void:
 		guard(i)
 	_compose(0.0)
 	broadcast(true)
+	ArtStyle.watch(self)   # FIGHTERLOOK1: `art=toon` draws the stage stylized (null and nothing changes when real)
+	FaceFill.attach(self)   # FIGHTERLOOK1: a soft fill behind the live lens (realistic look; off under nolook)
 
 
 func has_move(move: String) -> bool:

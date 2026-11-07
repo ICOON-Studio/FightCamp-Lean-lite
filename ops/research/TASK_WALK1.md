@@ -1,6 +1,6 @@
 # TASK WALK1 - CURSOR (GPT-5.6 Sol High) - the shown stance is not the planned stance: find the layer that squashes it
 
-Status: OPEN (S399, Claude main) - PRIORITY, ahead of the fighter model. Operator S399: "why do you even care for such
+Status: HELD (S399) until RETARGET1 and rokoko-back prove the clips clean against the source - no layer work on a broken base. Operator S399: "why do you even care for such
 detail when you cant even make walking look normal". Discipline: boxing. Runs AFTER SOUTHPAW2 (same files).
 
 ## Contract
@@ -10,27 +10,34 @@ REGRESSION: ring_feet_test, foot_plant_test, boxer_footwork_test, knee_track_tes
 VISUAL: yes
 FILM: --resolution 1280x720 --script res://tools/footwork_film.gd -- out=E:/FightCamp/tmp/walk1 seg=side,standoff
 
-## What is measured (S399, main)
-- PLAN (BoxerFootwork.gd:46-57): STANCE_LEN 0.50 m ball to ball along the fight line, STANCE_WID 0.32 across it, rear heel
-  1.6-4.8 cm over the bounce, a stepping foot lifts 4.5 cm (flat-footed 2.5).
-- SHOWN (tests/southpaw_legs_test from PR #74, run on main, Maria orthodox at rest): length 0.275, width 0.373 -> she stands
-  SQUARE (wider than long), not bladed. Real boxing stance: longer than wide, about 0.30-0.36 x height long and
-  0.12-0.18 x height wide (1.75 m: 0.53-0.63 by 0.21-0.32) - the plan's numbers are right, the screen is not.
-- Film (E:/FightCamp/tmp/walk_s399/side.mp4, footwork_film side): both heels flat, the feet barely leave the canvas on the
-  forward steps (0:04.2-0:05.4 burst), the body glides; knees fall inward (SOUTHPAW2 measures that one).
+## What is measured (S399, main) - READ THIS FIRST, the first numbers were wrong
+- MEASUREMENT TRAP: Godot 4 SkeletonModifier3D results exist only during the skeleton update. Reading
+  get_bone_global_pose() anywhere else returns the RAW CLIP pose (no footwork rig, no FootPlant, no KneeTrack). The
+  "0.275 x 0.373 square stance" (and SOUTHPAW1's whole test) measured the raw guard clip, not what is drawn. Read bones
+  inside `skel.skeleton_updated` (tools/stance_probe.gd does: "drawn" rows).
+- DRAWN at rest / in the pocket (tools/stance_probe.gd, headless FightStage, orthodox and southpaw, mh_boxer_13 and _01, rig
+  weight natural = 1.0): length 0.50-0.54 x width 0.34-0.37 = the plan; no knock-knee (valgus -0.003..-0.12 m, outside the
+  line). So the rig's standing stance is RIGHT. The raw guard clip under it is square (0.289 x 0.433).
+- The film still looks wrong (E:/FightCamp/tmp/walk_s399/side.mp4 footwork_film side: feet barely lift on the forward
+  steps 0:04.2-0:05.4, the body glides; the fighter-look still and Argon's film: knees in on blue). Those come from moments the
+  standing probe does not create: real STEPS (lift, skate, pivots), PUNCHES and HITS (does the rig fade and the square clip
+  show?), the CLINCH, and the CORNER WALKS (af_walk on CornerCrew: no footwork rig at all).
+- The CLIP too: ops/previews/lean_anim/advance.mp4 alone on the turntable has the feet on one line at 0:00.6-0:00.9 and the
+  knees in at 0:01.1-0:01.2 (Claude 4/10) - if any step plays that clip with the rig faded, that is what shows.
 
 ## Do
-1. tools/stance_probe.gd + tests/stance_shown_test.gd FIRST (headless, the fight's boxer on FightStage as ring_feet_test
-   builds it, stage processing, fixed clock). Per frame, from the pose AS SHOWN (global bones after every modifier): ball to
+1. Extend tools/stance_probe.gd (it exists: plan / rig / drawn rows, `phase=`, `stance=`, `off=<modifier>`, `natural`) and
+   write tests/stance_shown_test.gd: run a PLAYED round headless (the round as fight3d_film plays it, fixed clock), and per
+   frame, from the DRAWN pose (inside skeleton_updated), log the state (step / punch / hit / clinch / walk / rest) and: ball to
    ball length along her facing and width across it, rear and lead heel height over the ball, the stepping foot's peak
-   lift per step. Print the same numbers for the PLAN (BoxerFootwork's targets) beside them. Bars (all must FAIL on main):
+   lift per step, the rig weight. Print the worst frames per state. Bars (main must FAIL at least one, in a named state):
    - shown length within 10 % of the planned length x her scale, shown width within 10 % of the planned width x scale;
    - rear heel shown within HEEL_REAR (+-0.5 cm) over the bounce; never flat (< 0.8 cm) while bouncing;
    - a stepping foot's peak lift >= 60 % of LIFT_M (flat-footed: of FLAT_LIFT_M);
    - a planted ball moves < 1 cm while planted (no skate).
-2. Then switch layers off one at a time in the probe (FootPlant, BoxerFootworkRig, KneeTrack, RingFeet, the guard clip's own
-   leg keys) and print which one turns the planned 0.50 into the shown 0.275. Write that table in the PR body. Fix the cause
-   there, inside OWNS (one writer per foot bone: if two layers write the same foot, one of them stops).
+2. For each failing state, find the cause (the rig fading to the square clip, a clip's own feet, a layer) with `off=` and
+   rig-weight rows, write the table in the PR body, and fix it inside OWNS (one writer per foot bone). If a test elsewhere
+   reads bones outside skeleton_updated for a pass/fail, list it in the PR body (do not edit it).
 3. Every REGRESSION green; if SOUTHPAW2 merged, run its tests/guard_valgus_test.gd too. Start every Godot run
    through `python ops/Tools/godot_slot.py run --who cursor -- <godot cmd>`. Do not loosen a bar, do not drop samples.
 

@@ -69,6 +69,13 @@ MAIN FAILURES to fix (free seat, small): plain_words_test (Interview.gd 'Not now
   briefs: (1) singlets read as body paint with torn strap edges (MH_Top / FighterKit cloth - Ludo/Tripo asset); (2) a hole at
   the coach's neck at the collar (mh_staff_coach mesh); (3) the same coach and second in both corners (CornerCrew one team);
   (4) Erin's head-back stare at the roof 1:10-1:13 (stool clip); (5) intro/face-off faces hidden by gloves.
+  DONE (S398 end), NOT MERGED: claude/fighter-look-4bc1d9 @ 6260630e (main merged in), write-up ops/research/FIGHTERLOOK1.md.
+  Rounds 1-4 main/varied/toon: 4.5/3.5/3.0, 4.0/4.0/3.0, 4.0/4.25/3.0, 3.5/4.5/2.5 (control = twin 8 of 8). Verdict: keep
+  realistic, variety+life layer ON (never below main from round 2), toon OFF (ArtStyle.DEFAULT "real"; photo faces on cel
+  bodies). S399: review the diff, run its 11 touched tests through godot_slot (fighter_look, golden_path, faces, male_bodies,
+  corner_warm, corner_lens, fight_polish, foot_plant, ring_feet, guard_weave, knee_track), merge, archive the session.
+  Path to ~7.5 (free seats): team per corner 1 d; key/rim light + sweat 1.5 d; liveness + clip fixes 1.5 d; bone scales 1.5 d;
+  MetaHuman re-export with face joints -> morph targets for mouths 4 d; cloth kit 4 d. Nothing to the operator (4.5 < 7).
 - Animation chain HANDED OVER (685k): ops/research/ANIM_HANDOVER_S397.md (22d9be75). No Claude session for it (tokens): the seats
   run through seat_dispatch. In flight: SOUTHPAW1 on Cursor (operator-seen southpaw knock-knee; BoxerFootworkRig mirrored knee
   solve), HITSELL5 queued on Qwen, inside-work A/B films in the queue. Collect SOUTHPAW1 when its PR lands (sonnet critic).

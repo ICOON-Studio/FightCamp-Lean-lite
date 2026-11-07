@@ -415,16 +415,25 @@
    "launched": "2026-11-07T22:09"
   },
   {
+   "task": "RETARGET1",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-07T22:53",
+   "launched": "2026-11-07T22:53"
+  },
+  {
    "task": "WALK1",
    "seat": "cursor",
-   "status": "queued",
-   "queued": "2026-11-07T22:18"
+   "status": "held",
+   "queued": "2026-11-07T22:18",
+   "note": "S399 operator \"then why you kept working on the flaws ?\": no layer work until RETARGET1 + rokoko-back prove the clips clean against the source"
   },
   {
    "task": "MONEYOD1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-07T21:22"
+   "status": "launched",
+   "queued": "2026-11-07T21:22",
+   "launched": "2026-11-07T22:41"
   },
   {
    "task": "FIGHTERMODEL3",

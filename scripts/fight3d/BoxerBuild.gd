@@ -27,6 +27,9 @@ const FloorClear := preload("res://scripts/fight3d/FloorClear.gd")
 const TiredSag := preload("res://scripts/fight3d/TiredSag.gd")
 const BoxerFootwork := preload("res://scripts/fight3d/BoxerFootwork.gd")
 const BoxerFootworkRig := preload("res://scripts/fight3d/BoxerFootworkRig.gd")
+const FighterLook := preload("res://scripts/rules/FighterLook.gd")
+const FighterFace := preload("res://scripts/fight3d/FighterFace.gd")
+const FighterLife := preload("res://scripts/fight3d/FighterLife.gd")
 
 
 static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
@@ -40,6 +43,9 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	FighterKit.colour_vest(body, stage.VESTS[corner], stage.CLOTH_ROUGHNESS)
 	FighterKit.cloth_normals(body)
 	FighterKit.dress(body, str(spec["glb"]), "boxing")
+	# FIGHTERLOOK1: her own look from her data (`who`, else her body's name): skin, hair, trim, boots, scars, eyes.
+	var look := {} if FighterFace.off() else FighterLook.look(spec.get("who", {"name": str(spec["glb"]).get_file().get_basename()}))
+	var face := FighterFace.apply(body, skel, look, str(spec["glb"])) if not look.is_empty() else {"eyes": []}
 	# Elbows outside her torso, before the twist bones read the arms.
 	var ec := ElbowClear.new()
 	ec.name = "ElbowClear"
@@ -147,11 +153,24 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 			rig.want = 0.0
 			rig.w = 0.0
 	var fc := FloorClear.attach(skel) if not OS.get_cmdline_user_args().has("nofloor") else null
+	# FIGHTERLOOK1: breath, weight shifts, her stance, head and eyes on a face, blinks - after the tired sag, before the guard.
+	var life: Node = null
+	if not look.is_empty():
+		life = FighterLife.new()
+		life.name = "FighterLife"
+		if life.setup(skel, ap, stage, look, face["eyes"]):
+			skel.add_child(life)
+			var before: Node = gw if gw != null else (gt if gt != null else pr)
+			if before != null:
+				skel.move_child(life, before.get_index())
+		else:
+			life.free()
+			life = null
 	var tw := skel.find_child("MetaHumanTwist", false, false)
 	if tw != null:
 		skel.move_child(tw, skel.get_child_count() - 1)
 	ap.animation_finished.connect(stage._on_finished.bind(index))
-	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "weave": gw, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "rig": rig, "floor": fc, "south": south, "front": gl.front_m(),
+	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "weave": gw, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "rig": rig, "floor": fc, "life": life, "look": look, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,
 		"aim_m": 0.0, "aim_dir": 0.0, "hold_m": 0.0}
 

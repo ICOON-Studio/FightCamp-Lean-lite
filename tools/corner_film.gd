@@ -4,7 +4,7 @@ extends SceneTree
 ## hips on the seat, the bottle at her mouth, nobody outside the ring or in a post, planted feet that do not slide on the
 ## walks, round 2 starting on the call. Real pictures only (the never-shown desktop):
 ##   python tools/hidden_desktop.py run --timeout=400 <godot.exe> --path . --windowed --resolution 1920x1080 \
-##       --script res://tools/corner_film.gd -- <out_dir> [film] [short] [pick=body] [combos]
+##       --script res://tools/corner_film.gd -- <out_dir> [film] [short] [pick=body] [combos] [seed=N]
 ## `film`: no stills, play the whole fight's corners (run it under --write-movie). Prints CORNER_FILM failures=<n>.
 
 const W := 1920
@@ -53,6 +53,8 @@ func _initialize() -> void:
 			pick = str(a).substr(5)
 		if str(a).begins_with("habits="):
 			habits = Array(str(a).substr(7).split(","))
+		if str(a).begins_with("seed="):
+			seed(int(str(a).substr(5)))   # FIGHTERLOOK1 A/B: the same career (Career.seed = randi()), so every arm meets the same opponent
 	DirAccess.make_dir_recursive_absolute(out_dir)
 	root.size = Vector2i(W, H)
 	main = load("res://scenes/Main.tscn").instantiate()
