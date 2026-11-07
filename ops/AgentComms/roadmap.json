@@ -4490,7 +4490,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-07 14:40 board_sync",
+  "updated": "2026-11-07 15:41 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4635,13 +4635,21 @@
     "title": "TASK FIGHTWALK1 - CURSOR (Composer 2.5, Fast OFF) - the walks around the fight, 5.5 -> 7",
     "who": "cursor",
     "started": "2026-11-07T14:11",
-    "run": "FIGHTWALK1"
+    "run": "FIGHTWALK1",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK HITSELL1 - QWEN (qwen3-coder) - a landed punch must read as landed, a blocked one as blocked",
     "who": "qwen",
     "started": "2026-11-07T14:40",
-    "run": "HITSELL1"
+    "run": "HITSELL1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HITSELL2 - QWEN (qwen3-coder) - round 2: a test that measures, then a landed punch that reads as landed",
+    "who": "qwen",
+    "started": "2026-11-07T15:41",
+    "run": "HITSELL2"
    }
   ],
   "next": [
@@ -5141,23 +5149,27 @@
     {
      "text": "Pro ladder wired after debut",
      "who": "claude"
+    },
+    {
+     "text": "Ranks mean levels: inversions 0%",
+     "who": "claude"
+    },
+    {
+     "text": "Offers trade off: tune/step/payday",
+     "who": "claude"
+    },
+    {
+     "text": "Free seats + 8/10 split",
+     "who": "claude"
     }
    ],
    "now": [
-    {
-     "text": "Camp Board: coach test not passed",
-     "who": "claude"
-    },
     {
      "text": "BJJ body contact session",
      "who": "claude"
     },
     {
      "text": "Traits at 5/10: wrong-plan test",
-     "who": "claude"
-    },
-    {
-     "text": "Inside fighting: nobody works",
      "who": "claude"
     },
     {
@@ -5177,12 +5189,28 @@
      "who": "agent"
     },
     {
-     "text": "Pro Fights screens at 5: rules",
+     "text": "HITSELL2 hits sell (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "Fighter profiles (session)",
      "who": "claude"
     },
     {
-     "text": "HITSELL2 hits sell (Qwen)",
-     "who": "agent"
+     "text": "BJJ realism (session)",
+     "who": "claude"
+    },
+    {
+     "text": "Rank 5 coach first hour (session)",
+     "who": "claude"
+    },
+    {
+     "text": "Money that bites (session)",
+     "who": "claude"
+    },
+    {
+     "text": "Animation chain (session)",
+     "who": "claude"
     }
    ],
    "next": [

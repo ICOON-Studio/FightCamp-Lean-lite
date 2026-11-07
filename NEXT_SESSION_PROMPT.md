@@ -1,3 +1,25 @@
+# S398 - next session (written S397 main session, 2026-11-07)
+
+START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S398` + map redraw.
+RUNNING AT S397 END (own worktrees, keep working when this session ends; their end-of-turn notes went to the S397 session, so
+CHECK THEM YOURSELF: `mcp__ccd_session_mgmt__list_sessions`, `get_session`, their branches, their S398 lines in this file):
+- Fighter profiles (local_149a03f4-55c2-4831-a453-796a7f487caf, branch claude/fighter-profiles-*): design v1 `ops/research/FIGHTER_MODEL_S397.md` -> 3 critics -> v2 -> build: ~21 attributes, read by situation, nothing averaged, opponents and world boxers with full profiles, world bouts on the same maths. Owns Exchanges, LiveRound, BoutRules, RoundStyle, BoutNight, Knockdowns, scripts/world.
+- BJJ realism (local_2438ffcd-fe78-4430-93f8-cadffcbd939a): operator "proper and deep mechanism implementation of the bjj fight, have other agents for ideas, check miros for current ideas and start implementing what passes a 8/10 by critics".
+- Animation chain (local_40fc4a85-e240-437c-b6b9-e5df5e3e7166): collects FIGHTWALK1 (PR #66, checks 6/6, Argon film 4.5 -> 6) and HITSELL2 (Qwen), keeps a seat always animating.
+- Rank 5, the coach's first hour (local_675b7f4f-0809-40c6-af39-bf8df59550fc).
+- Money that bites (local_7eb19d9c-cef4-4cbd-ac3d-ef52eeb9c79b): measured: careless closes 100% in a year, sensible ends on $18-21k with nothing to spend; P11/P5/5.3b.
+- Menus to 8 (local_e7524d45-6c75-4c10-b873-396f3d2bc22a): told YES to redesign the Week page (4 flat rounds at 5.5), designer/critic split, bars attribute-agnostic for the fighter model.
+All six were told: designer/critic split, build at 8/10 from two fresh critics, re-score the built thing; free seats for any work.
+OPERATOR RULES NEW S397 (memory has each): "fast but priority is to be done properly" (no stand-ins for core systems; carry every approved decision across restarts - the S259 11-attribute approval was lost in the 10-28 restart). Bar to build is 8/10 (BJJ: "start implementing what passes a 8/10 by critics"). Designer/critic split: a designer agent writes the 8/10 version, a different fresh blind critic scores it. "let them use any free agent available to save claude tokens" / "goose, cline etc": `ops/research/FREE_DESIGNERS_S397.md` (Qwen, Dola, agy, Cline CLI, Goose, Cursor, Ollama; Arena costs tokens; Grok down). "is anyone working constantly on animation as i have asked": an animation seat row queued or running at all times. Kimi K3.1 Pro on Ollama Cloud = 402, needs paid credits (his call).
+DONE S397 (main session), all on main: WORLD1 collected (ids, belts, refills, take-their-place kept, real body names out). Rank 4: Matchmaking rules + rule-2 bots PASS (smart 7-10th, hard 12-13th, easy 18-19th, 120 careers); scouting worth it (hidden matchup edge; +9 to +21 top-10); pro ladder wired after the debut (ProLadder, monthly world, offers, scout = real OppFile tape, ladder bouts through BoutNight, save); ProFights screens (one table: tune-up / step up / payday that trade off, none dominated; stakes, stoppage %, weeks out; the Road); blind 4,5,5,4,5 then decision 5,4 - STOPPED, list in `ops/research/MATCHMAKING_S397.md`. Ranks mean levels: tables seeded by rating, year-end review, faster prospects; clear inversions 22-39% -> <=2.6% over 20 years (gated). Real loss costs: next_weeks 6/8/12, +8 weeks if stopped, stoppage % per row. Playbook blind 5/10 (Moves 5, Game plan 4, Combos 6, Escapes 5: `ops/research/PLAYBOOK_SCORE_S397.md`). HITSELL1 closed (test read 0), HITSELL2 queued.
+ORDER FOR S398
+1. Collect what the six sessions landed (verify by diff and measured numbers, never by their notes alone); merge order matters: fighter profiles touches Matchmaking.win_chance, BoutRead and ProLadder reads - money and menus must rebase on it.
+2. Matchmaking leftovers after fighter profiles lands: her damage/condition/career clock beside the risk; number cells instead of paragraphs; re-run the pro Fights blind round with the designer/critic split to 8.
+3. Playbook Game plan as the hub (critic: one column of situations, answers picked from cards with this opponent's landing %, preview plays the pick; Escapes folds into Moves) - with rule 4 ("lines compete") from the plan-bites work.
+4. Rank 3 rule 4 still open (plan must be a puzzle); rank 6+ per docs/STRUCTURE_DESIGN_S395.md section 8.
+OPEN: board Q-S294-123 (Camp Board: keep only the habits?) unanswered. MEMORY.md over its size limit. Two surplus Miro map slots.
+SETTINGS: S398 Claude Opus 5.5, effort high, Fast OFF | critics: fresh general-purpose sub-agents, blind | designers and drafts: free seats first | Qwen: HITSELL2 | Cursor: animation chain | Dola up on port 9333.
+
 # S397 - next session (written S396, 2026-11-07)
 
 START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S397` + map redraw.
