@@ -21,7 +21,7 @@ const FOOT_R := 0.068
 const SOLID := ["pelvis", "trunk", "head", "neck", "shoulders"]
 const PASSES := 3
 const GAIN := 0.8        # of a contact's depth closed a pass
-const SKIN_M := -0.02    # a limb is pushed before it touches: the ease lags, so it has this much to lag into
+const SKIN_M := -0.035   # a limb is pushed before it touches: the ease lags, so it has this much to lag into (S399: 2 -> 3.5 cm, the ease is longer)
 const LEVER_MIN := 0.3   # a contact nearer the root than this share of the bone pushes as if it were here
 const LEVER_MIN_M := 0.12
 const STEP_MAX := 0.16   # the most one pass moves a joint
@@ -32,7 +32,7 @@ const OFF_MAX := 0.25    # how far a held hand moves on top of the swing (bjj_dr
 const OFF_LEG_MAX := 0.1
 const MAT_NEAR_M := 0.09   # a hand this low in the data is on the mat, past FAR not at all
 const MAT_FAR_M := 0.16
-const SWING_MAX := 0.45  # radians a limb may leave the recording
+const SWING_MAX := 0.7  # radians a limb may leave the recording
 const HEAD_TURN_MAX := 0.7
 ## What can be held: [data joint a, data joint b, the data figure's radius, drawn bone a, drawn bone b, our skin's radius].
 ## The data radii are GrappleGrip.BODY's; ours GrappleContact's measured table.
@@ -53,9 +53,23 @@ const HOLD_SKIN_M := 0.012
 const HOLD_FIRM := 0.9
 const HOLD_GLIDE_S := 0.16
 const HOLD_TOUCH_S := 0.06
-const TOUCH_PRESS_M := 0.02     # a held forearm lies this far into the skin
+const TOUCH_PRESS_M := 0.01     # a held forearm lies this far into the skin
 ## Control arms beside GrapplePlayer's `nolimbs`.
 static var _args := OS.get_cmdline_user_args()
+## S399 GRAPPLEFIX1: the shown limb's ease (two stages of half each); `-- limbease=0.2` tries another.
+## S399 measured on 23 slow moves (tools/grapple_orbit.gd game arm): 0.1 s -> jerk p95 up to 138, 0.2 s -> limbs lag into bodies,
+## 0.15 s with SKIN_M 3.5 cm -> 10 of 23 inside every bar (8 before).
+const LIMB_EASE_S := 0.15
+static var limb_ease_s := _arg_f("limbease=", LIMB_EASE_S)
+static var skin_m := _arg_f("skin=", SKIN_M)
+static var swing_max := _arg_f("swing=", SWING_MAX)
+
+
+static func _arg_f(prefix: String, fallback: float) -> float:
+	for a in _args:
+		if str(a).begins_with(prefix):
+			return float(str(a).substr(prefix.length()))
+	return fallback
 
 
 static func fresh() -> Dictionary:
@@ -122,7 +136,14 @@ static func _limb(l: Array, d: Dictionary, r: Array, solids: Array, hold: Array,
 		if float(_deepest(m0, m0, rb, solids)[0]) <= 0.0:
 			var touch := _first_touch(m0, hold[0], rb, solids)
 			# The search lands in steps of a few millimetres; held still, those steps were the hands' tremble.
-			s["touch"] = (s.get("touch", touch) as Vector3).lerp(touch, 1.0 - exp(-dt / HOLD_TOUCH_S)) if dt > 0.0 else touch
+			# S399 GRAPPLEFIX1: second order (a first-order lag starts at full speed: a corner in the hand's path every new touch).
+			if _args.has("touch1"):
+				s["touch"] = (s.get("touch", touch) as Vector3).lerp(touch, 1.0 - exp(-dt / HOLD_TOUCH_S)) if dt > 0.0 else touch
+			else:
+				if not s.has("touch"):
+					s["touch"] = touch
+					s["vtouch"] = Vector3.ZERO
+				ease_to2(s, "touch", "vtouch", touch, dt, HOLD_TOUCH_S * 2.0)
 			var firm := pin
 			if not arm:
 				# A foot hooks with its heel: toes that would go in give the hold up, they cannot swing out of the way.
@@ -130,7 +151,7 @@ static func _limb(l: Array, d: Dictionary, r: Array, solids: Array, hold: Array,
 			o += ((s["touch"] as Vector3) - e0) * firm
 	for _p in PASSES:
 		var e := root + _swing(w, rec_e - root) + o
-		var m := _real_middle(root, root + _swing(w, rec_m - root), e, a, b, normal)
+		var m := _real_middle(root, root + _swing(w, rec_m - root), e, a, b, normal, not arm)
 		var c := _deepest(root, m, ra, solids)
 		if float(c[0]) > 0.0:
 			w += _torque(root, root.lerp(m, maxf(float(c[2]), LEVER_MIN)), (c[1] as Vector3) * float(c[0]) * GAIN)
@@ -146,7 +167,7 @@ static func _limb(l: Array, d: Dictionary, r: Array, solids: Array, hold: Array,
 		var low := maxf(rb - e.y, (FOOT_R - e.y - foot.y) if not arm else 0.0)
 		if low > 0.0:
 			w += _torque(root, e, Vector3.UP * low)
-		w = w.limit_length(SWING_MAX)
+		w = w.limit_length(swing_max)
 		if mat > 0.0:
 			# Not over a low elbow: a hand pressed down onto the mat drives the joint behind it under.
 			o.y += (rb - e.y) * mat * smoothstep(ra, ra + 0.08, m.y)
@@ -154,26 +175,36 @@ static func _limb(l: Array, d: Dictionary, r: Array, solids: Array, hold: Array,
 	# The mat has the last word: it is the one surface the eye never forgives.
 	for _p in 2:
 		var e := root + _swing(w, rec_e - root) + o
-		var m := _real_middle(root, root + _swing(w, rec_m - root), e, a, b, normal)
+		var m := _real_middle(root, root + _swing(w, rec_m - root), e, a, b, normal, not arm)
 		if m.y < ra:
 			w += _torque(root, m, Vector3.UP * (ra - m.y))
 			o.y += (ra - m.y) * 0.5
 		var low := maxf(rb - e.y, (FOOT_R - e.y - foot.y) if not arm else 0.0)
 		if low > 0.0:
 			w += _torque(root, e, Vector3.UP * low)
-	s["sw"] = w.limit_length(SWING_MAX + 0.1)
+	# S399 GRAPPLEFIX1: a held or planted end never comes in closer than the limb can fold (Pose.min_reach): there the bend's
+	# direction is a guess and the middle joint spun (860: a 46 cm one-frame pop).
+	var e_end := root + _swing(w, rec_e - root) + o
+	var reach := e_end - root
+	var near := Pose.min_reach(a, b, not arm) + Pose.SOFT_IK_M
+	if reach.length() < near:
+		var out_dir := reach.normalized() if reach.length() > 0.02 else (rec_e - root).normalized()
+		o += out_dir * near - reach
+	s["sw"] = w.limit_length(swing_max + 0.1)
 	s["o"] = o
-	ease_to(s, "ease_w", "vw", w, dt)
-	ease_to(s, "ease_o", "vo", o, dt)
+	# S399 GRAPPLEFIX1: two stages (ease_to2), so the shown limb's acceleration never jumps when the solve turns a corner.
+	ease_to2(s, "ease_w", "vw", w, dt, limb_ease_s)
+	ease_to2(s, "ease_o", "vo", o, dt, limb_ease_s)
 	var shown_w: Vector3 = s["ease_w"]
 	var shown_e := root + _swing(shown_w, rec_e - root) + (s["ease_o"] as Vector3)
-	var shown_m := _real_middle(root, root + _swing(shown_w, rec_m - root), shown_e, a, b, normal)
+	var shown_m := _real_middle(root, root + _swing(shown_w, rec_m - root), shown_e, a, b, normal, not arm)
 	if shown_m.y < ra:
-		# The ease lags and the mat does not wait for it: a joint it would sink swings up now.
+		# The ease lags and the mat does not wait for it: a joint it would sink swings up now. S399: on the shown limb only, never
+		# written back into the ease (that was a jump in its state with no speed to match: 620's red leg rang 0.37-0.68 rad).
 		shown_w += _torque(root, shown_m, Vector3.UP * (ra - shown_m.y))
-		s["ease_w"] = shown_w
 		shown_e = root + _swing(shown_w, rec_e - root) + (s["ease_o"] as Vector3)
-		shown_m = root + _swing(shown_w, rec_m - root)
+		# S399: the same middle as above (it was the plain swing here, so the bend plane jumped each time the joint met the mat).
+		shown_m = _real_middle(root, root + _swing(shown_w, rec_m - root), shown_e, a, b, normal, not arm)
 	var under := rb - shown_e.y
 	if not arm:
 		under = maxf(under, FOOT_R - shown_e.y - foot.y)
@@ -183,8 +214,8 @@ static func _limb(l: Array, d: Dictionary, r: Array, solids: Array, hold: Array,
 
 
 ## Where the middle joint really lands once the end has moved off the swing (what GrapplePose will draw).
-static func _real_middle(root: Vector3, m: Vector3, e: Vector3, a: float, b: float, normal: Vector3) -> Vector3:
-	var bend := Pose._reach(root, e, a, b, Pose.held_plane((m - root).cross(e - root), normal))
+static func _real_middle(root: Vector3, m: Vector3, e: Vector3, a: float, b: float, normal: Vector3, leg: bool = false) -> Vector3:
+	var bend := Pose._reach(root, e, a, b, Pose.held_plane((m - root).cross(e - root), normal), leg)
 	return root + (bend[0] as Vector3) if not bend.is_empty() else m
 
 
@@ -252,7 +283,7 @@ static func _hold(limb: String, mine: PackedVector3Array, other: PackedVector3Ar
 	if not s.has("at") or float(s["w"]) < 0.05:
 		s["at"] = at
 		s["vat"] = Vector3.ZERO
-	ease_to(s, "at", "vat", at, dt, HOLD_GLIDE_S)
+	ease_to2(s, "at", "vat", at, dt, HOLD_GLIDE_S)
 	return [s["at"], w * HOLD_FIRM]
 
 
@@ -287,7 +318,7 @@ static func _head(d: Dictionary, solids: Array, st: Dictionary, key: String, dt:
 	if ang > HEAD_TURN_MAX and from.cross(to).length() > 1e-5:
 		p = neck + from.rotated(from.cross(to).normalized(), HEAD_TURN_MAX) * rho
 	s["w"] = p - rec
-	ease_to(s, "off", "v", s["w"], dt)
+	ease_to2(s, "off", "v", s["w"], dt)
 	return [s["off"], rho]
 
 
@@ -316,12 +347,24 @@ static func _deepest(a: Vector3, b: Vector3, r: float, solids: Array) -> Array:
 		var pts := Geometry3D.get_closest_points_between_segments(a, b, c[1], c[2])
 		var along: Vector3 = (pts[0] as Vector3) - (pts[1] as Vector3)
 		var dist := along.length()
-		var depth := r + float(c[3]) - SKIN_M - dist
+		var depth := r + float(c[3]) - skin_m - dist
 		if depth > best:
 			best = depth
 			n = along / dist if dist > 1e-4 else Vector3.UP
 			at = 0.5 if len2 < 1e-8 else clampf(((pts[0] as Vector3) - a).dot(b - a) / len2, 0.0, 1.0)
 	return [best, n, at]
+
+
+## S399 GRAPPLEFIX1: two ease_to stages in a row, each at half the lag. One stage's acceleration jumps whenever its target turns a
+## corner (a jerk spike on every bone of the woman it moves); through a second it is continuous. `s` keeps key+"1" / vkey+"1".
+static func ease_to2(s: Dictionary, key: String, vkey: String, want: Vector3, dt: float, lag_s: float = EASE_S) -> void:
+	if dt <= 0.0:
+		return
+	if not s.has(key + "1"):
+		s[key + "1"] = s[key]
+		s[vkey + "1"] = Vector3.ZERO
+	ease_to(s, key + "1", vkey + "1", want, dt, lag_s * 0.5)
+	ease_to(s, key, vkey, s[key + "1"], dt, lag_s * 0.5)
 
 
 ## Critically damped toward `want`, speed capped: the correction has no corners, so it shows no jerk.

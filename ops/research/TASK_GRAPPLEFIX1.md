@@ -12,6 +12,10 @@ REGRESSION: grapple_limbs_test, grapple_contact_test, grapple_pose_test, bjj_mat
 VISUAL: yes
 FILM: --resolution 960x540 --script res://tools/grapple_orbit.gd -- game=1
 
+## Board bar (operator S399: "a bit of overlap can be fine, rate of 7 should be ok for now")
+Grappling page: a blind critic 7/10 (control arm, every-frame eyes) = VERIFIED. Pressed-together overlap is acceptable;
+parked limbs, pops and trembling are not. Boxing clips stay at 8/10.
+
 ## Do
 1. Add a `game=1` arm to tools/grapple_orbit.gd: the move as the belt match draws it (the S391 placement ON: contact push-out,
    GrappleLimbs clearance, holds, GrapplePose IK), same camera, same numbers, measured AS DRAWN (inside

@@ -44,6 +44,21 @@ const WRIST_MAX := 90.0
 const WRIST_FADE := Vector2(120.0, 165.0)
 ## The data's wrist->hand lengths (m, pair-scaled) over which the hand's swing fades in (shorter = a collapsed hand joint).
 const HAND_SHORT := Vector2(0.03, 0.06)
+const SOFT_IK_M := 0.04
+## S399 GRAPPLEFIX1: an elbow or knee folds no tighter than this inside angle. A hold that pulled a hand onto its own shoulder
+## folded the arm flat, the bend's direction came from a 1-2 cm hand-to-shoulder line, and the elbow spun 46 cm in a frame (860).
+const FOLD_MIN_DEG := 35.0
+const FOLD_MIN_LEG_DEG := 15.0   # a knee folds heel to seat (35 deg pushed 1235's feet into the other woman: park 6.7 -> 15.4 cm)
+static var fold_min_deg := _arg_f("fold=", FOLD_MIN_DEG)
+static var fold_min_leg_deg := _arg_f("foldleg=", FOLD_MIN_LEG_DEG)
+static var soft_ik_m := _arg_f("softik=", SOFT_IK_M)
+
+
+static func _arg_f(prefix: String, fallback: float) -> float:
+	for x in OS.get_cmdline_user_args():
+		if str(x).begins_with(prefix):
+			return float(str(x).substr(prefix.length()))
+	return fallback
 
 var joints := PackedVector3Array()
 ## World-space offset applied to every drawn bone after the solve (partner overlap fix — joints stay on the data).
@@ -56,6 +71,8 @@ var limb_fix := {}
 var head_fix: Array = []
 ## The limbs as the recording alone draws them, skeleton space, from the last pose_globals: key -> [middle, end, bend normal].
 var limb_rec := {}
+## S399 GRAPPLEFIX1: a fixed step for the drawn pose's memory (tools/grapple_orbit.gd, tests); < 0 = the frame's delta.
+var step_dt := -1.0
 var _id := {}
 var _rest := {}          # bone -> global rest (skeleton space)
 var _rest_local := {}    # bone -> local rest
@@ -297,7 +314,7 @@ func _process_modification() -> void:
 	var j := PackedVector3Array()
 	for v in joints:
 		j.append(inv * v)
-	var glob := pose_globals(skel, j, _mem, get_process_delta_time())
+	var glob := pose_globals(skel, j, _mem, step_dt if step_dt >= 0.0 else get_process_delta_time())
 	if world_shift.length_squared() > 1e-12:
 		var gt := skel.global_transform
 		var inv_gt := gt.affine_inverse()
@@ -346,7 +363,8 @@ func pose_globals(skel: Skeleton3D, j: PackedVector3Array, mem: Variant = null, 
 			# The aim solve's bend normal (continuous through straight) picks the side the elbow / knee bends to.
 			var normal: Vector3 = (by_id[_id[up]] as Basis) * roll
 			var root: Vector3 = glob[_id[up]].origin
-			var bend := _reach(root, j[DB.joint(s + limb[3])], rest_up.length(), rest_lo.length(), normal)
+			var is_leg: bool = limb[0] == "UpperLeg"
+			var bend := _reach(root, j[DB.joint(s + limb[3])], rest_up.length(), rest_lo.length(), normal, is_leg)
 			if bend.is_empty():
 				continue
 			var key: String = s + ("Arm" if limb[0] == "UpperArm" else "Leg")
@@ -359,7 +377,7 @@ func pose_globals(skel: Skeleton3D, j: PackedVector3Array, mem: Variant = null, 
 				var to_skel := skel.global_transform.basis.inverse()
 				var end: Vector3 = rec_end + to_skel * (fix[1] as Vector3)
 				var plane := (to_skel * (fix[0] as Vector3)).cross(end - root)
-				var moved := _reach(root, end, rest_up.length(), rest_lo.length(), held_plane(plane, normal))
+				var moved := _reach(root, end, rest_up.length(), rest_lo.length(), held_plane(plane, normal), is_leg)
 				if not moved.is_empty():
 					bend = moved
 			var n: Vector3 = (bend[0] as Vector3).cross(bend[1])
@@ -379,15 +397,31 @@ static func held_plane(plane: Vector3, normal: Vector3) -> Vector3:
 	return plane.normalized() * firm + normal.normalized() * (1.0 - firm)
 
 
+## The shortest root-to-end distance a limb of these lengths reaches (FOLD_MIN_DEG at the middle joint).
+static func min_reach(a: float, b: float, leg: bool = false) -> float:
+	var fold := fold_min_leg_deg if leg else fold_min_deg
+	return sqrt(maxf(0.0, a * a + b * b - 2.0 * a * b * cos(deg_to_rad(fold))))
+
+
 ## The upper and lower limb directions that put the end at `target` from `root` (lengths a, b; the reach clamped), the
 ## middle joint bent in the plane square to `normal` (upper x lower along normal: toward dir x normal). [] when the
 ## target is on the root.
-static func _reach(root: Vector3, target: Vector3, a: float, b: float, normal: Vector3) -> Array:
+static func _reach(root: Vector3, target: Vector3, a: float, b: float, normal: Vector3, leg: bool = false) -> Array:
 	var to := target - root
 	if to.length() < 1e-4:
 		return []
 	var dir := to.normalized()
-	var d := clampf(to.length(), absf(a - b) + 1e-3, a + b - 1e-3)
+	# S399 GRAPPLEFIX1 soft IK: near full reach the middle joint sits sqrt(shortfall) off the line, so a target hovering at arm's
+	# length pumped the elbow in and out (727: elbow jerk p95 938 m/s^3 with IK, 111 without). Past SOFT_IK_M short of straight
+	# the reach eases toward full exponentially instead of clamping: the end falls a little short, the middle never snaps.
+	var d := to.length()
+	var lmax := a + b
+	if soft_ik_m > 0.0 and d > lmax - soft_ik_m:
+		d = lmax - soft_ik_m * exp(-(d - (lmax - soft_ik_m)) / soft_ik_m)
+	var dmin := min_reach(a, b, leg)
+	if soft_ik_m > 0.0 and d < dmin + soft_ik_m:
+		d = dmin + soft_ik_m * exp(-((dmin + soft_ik_m) - d) / soft_ik_m)
+	d = clampf(d, absf(a - b) + 1e-3, lmax - 1e-3)
 	var pole := square(dir.cross(normal), dir)
 	var c := clampf((a * a + d * d - b * b) / (2.0 * a * d), -1.0, 1.0)
 	var elbow := root + dir * (a * c) + pole * (a * sqrt(1.0 - c * c))

@@ -20,7 +20,7 @@ SESSIONS RUNNING (check with list_sessions / list_events; their reports come to 
 - stylized-test (local_24af3b58-b6d3-4f4d-aa33-ae82e385046f): two fighters (mh_boxer_01, _13) with Ludo-repainted flat skin/face
   textures under the toon shader, blind A/B vs realistic (he likes toon; merged toon scored 2.5-3 vs 3.5-4.5).
 - grappling-rater (local_44f94664-6279-4da5-b97c-194651ddab5f): ops/research/TASK_GRAPPLEFIX1.md - all 47 moves measured
-  as the game draws them, worst fixed, blind-rated, VERIFIED ones onto the Grappling page (shows verified only now).
+  as the game draws them, worst fixed, blind-rated, VERIFIED ones onto the Grappling page (shows verified only now). Grappling bar = 7/10 (operator: "a bit of overlap can be fine, rate of 7 should be ok for now"); boxing stays 8.
 SEATS: Cursor RETARGET1 (Punch PRO re-import, raw-vs-ours gate) -> FIGHTERMODEL3; agy MONEYLAYOUT1; Qwen free (MONEYOD1
 landed on its branch - collect: careless still closes 10/10, sensible unchanged); Goose BJJBEAT1 (#75, a commit landed on
 its branch - collect). Ollama is the only film judge (operator "Use Ollama only").

@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Boxer Animations</title>
 <style>
+.subtabs{display:flex;gap:8px;margin:10px 0 14px}.subtabs a{padding:7px 14px;border-radius:8px;border:1px solid #3a4250;color:#c9d1db;text-decoration:none;font-weight:600}.subtabs a.on{background:#e3b341;color:#111;border-color:#e3b341}
+
   :root {
     --bg: #0e1116; --bg2: #161b22; --bg3: #1c2330; --line: #2a3341;
     --text: #e6edf3; --muted: #8b949e; --dim: #6e7681;
@@ -90,6 +92,8 @@
   <a href="/">&larr; Ops board</a>
 </header>
 <main>
+  <!-- S399 operator: "keep the old archived in submenu so i can see them" -->
+  <nav class="subtabs"><a id="tabv" href="/animations">Verified (at the bar)</a><a id="taba" href="/animations?all=1">Archive: not at the bar yet</a></nav>
   <div class="strip" id="strip"></div>
   <div class="shown" id="shown"></div>
   <div id="none"></div>
@@ -191,5 +195,6 @@ fetch("/api/animations").then(r => r.json()).then(d => {
   filters(); render();
 }).catch(e => { document.getElementById("groups").innerHTML = `<p class="err">Could not load: ${esc(e.message)}</p>`; });
 </script>
+<script>(function(){const a=new URLSearchParams(location.search).get("all")==="1";document.getElementById(a?"taba":"tabv").classList.add("on");})();</script>
 </body>
 </html>

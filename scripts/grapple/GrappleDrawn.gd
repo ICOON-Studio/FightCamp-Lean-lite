@@ -16,7 +16,15 @@ const LIMBS := [["neck", "Neck", "Head", 0.07], ["shoulders", "LeftUpperArm", "R
 ## track(): metres a second at most, the share of an error closed a frame, and what counts as fine.
 const TRACK_RATE := 1.4
 const TRACK_GAIN := 0.3
-const PEN_OK := 0.03
+const PEN_OK := 0.012   # S399: 0.03 -> 0.012, torsos settled 3-4 cm deep (bar 3 cm)
+static var pen_ok := _pen_arg()
+
+
+static func _pen_arg() -> float:
+	for x in OS.get_cmdline_user_args():
+		if str(x).begins_with("penok="):
+			return float(str(x).substr(6))
+	return PEN_OK
 const GAP_OK := 0.015
 const FLOOR_OK := 0.012
 const REL_MAX := 0.55
@@ -31,6 +39,7 @@ const REL_LEAK_S := 3.0
 const THIGH_REL_MAX := 0.35   # past this the bodies are apart enough: a thigh still in is the data's, and chasing it ran `rel` to its cap
 const HEAD_UP := 0.08
 const HEAD_R := 0.11
+const NORMAL_BAND_M := 0.02   # pairs this much farther than the closest still steer the gap's direction
 
 
 static func read_bones(skel: Skeleton3D) -> Dictionary:
@@ -106,8 +115,8 @@ static func track(men: Array, j0: PackedVector3Array, j1: PackedVector3Array, st
 	var ground: bool = minf(j0[DB.joint("Core")].y, j1[DB.joint("Core")].y) < GROUND_CORE_Y
 	var near := _nearest(p0, p1, rel.length() < THIGH_REL_MAX)
 	st["pen"] = near["pen"]
-	if float(near["pen"]) > PEN_OK:
-		rel += (near["pen_n"] as Vector3) * minf((float(near["pen"]) - PEN_OK) * TRACK_GAIN * 2.0, step * 2.0)
+	if float(near["pen"]) > pen_ok:
+		rel += (near["pen_n"] as Vector3) * minf((float(near["pen"]) - pen_ok) * TRACK_GAIN * 2.0, step * 2.0)
 	elif ground and float(near["gap"]) > GAP_OK:
 		rel -= (near["gap_n"] as Vector3) * minf((float(near["gap"]) - GAP_OK) * TRACK_GAIN, step)
 	elif not ground:
@@ -116,10 +125,14 @@ static func track(men: Array, j0: PackedVector3Array, j1: PackedVector3Array, st
 	st["rel"] = (rel * exp(-delta / REL_LEAK_S)).limit_length(REL_MAX)
 	# On the recording's limbs: a limb GrappleLimbs swung clears the mat by itself, and read here it bounced the whole pair (S391, seed 11).
 	var low := minf(_lowest_recorded(men[0], p0, d0, up - rel * 0.5), _lowest_recorded(men[1], p1, d1, up + rel * 0.5))
+	# S399 GRAPPLEFIX1: `ahead` (<= 0, GrapplePlayer from its baked curve) is how much lower the recording goes over the next
+	# moments: the pair starts up before a dip instead of jumping 5 cm in 4 frames when it comes, and does not settle into one.
+	low += minf(0.0, float(st.get("ahead", 0.0)))
 	if low < 0.0:
 		lift += minf(-low * TRACK_GAIN * 2.0, step)
 	elif low > FLOOR_OK:
-		lift -= minf(low * TRACK_GAIN, step)
+		# S399 GRAPPLEFIX1: only what is past the band (all of `low` dropped the pair 4 mm at a time, a step every few frames).
+		lift -= minf((low - FLOOR_OK) * TRACK_GAIN, step)
 	st["lift"] = clampf(lift, -LIFT_DOWN_MAX, LIFT_MAX)
 	return [d0, d1]
 
@@ -163,8 +176,12 @@ static func _lowest(caps: Array) -> float:
 
 
 ## The deepest torso overlap and the closest surfaces, each with its direction from body 0 to body 1.
+## S399 GRAPPLEFIX1: each direction is the depth-weighted mean over every pair that counts, not the deepest pair's alone - the
+## two trunk capsules traded "deepest" frame by frame and the push turned its sign with them (rel.z -6, +6, -8, +18 mm).
 static func _nearest(p0: Dictionary, p1: Dictionary, thighs: bool = false) -> Dictionary:
 	var out := {"pen": 0.0, "pen_n": Vector3.UP, "gap": INF, "gap_n": Vector3.RIGHT}
+	var pen_sum := Vector3.ZERO
+	var gaps: Array = []
 	for x in p0["all"]:
 		for y in p1["all"]:
 			var pts := Geometry3D.get_closest_points_between_segments(x[1], x[2], y[1], y[2])
@@ -173,14 +190,21 @@ static func _nearest(p0: Dictionary, p1: Dictionary, thighs: bool = false) -> Di
 			var n := along.normalized() if along.length() > 0.001 else Vector3.UP
 			if d < float(out["gap"]):
 				out["gap"] = d
-				out["gap_n"] = n
+			gaps.append([d, n])
 			var torso: bool = str(x[0]) in ["pelvis", "trunk"] and str(y[0]) in ["pelvis", "trunk"]
-			if torso and -d > float(out["pen"]):
-				out["pen"] = -d
-				out["pen_n"] = n
 			# A thigh pressed in at its root, a shoulder or a head cannot swing clear (GrappleLimbs has done what it can): what is left moves the bodies.
 			var root_in: bool = thighs and (str(x[0]) in THIGHS and str(y[0]) in ["pelvis", "trunk"]) or thighs and (str(y[0]) in THIGHS and str(x[0]) in ["pelvis", "trunk"])
-			if root_in and -d - THIGH_GIVE_M > float(out["pen"]):
-				out["pen"] = -d - THIGH_GIVE_M
-				out["pen_n"] = n
+			var depth := -d if torso else (-d - THIGH_GIVE_M if root_in else 0.0)
+			if depth > 0.0:
+				pen_sum += n * depth
+				out["pen"] = maxf(float(out["pen"]), depth)
+	if pen_sum.length() > 1e-5:
+		out["pen_n"] = pen_sum.normalized()
+	var gap_sum := Vector3.ZERO
+	for g in gaps:
+		var wg := NORMAL_BAND_M - (float(g[0]) - float(out["gap"]))
+		if wg > 0.0:
+			gap_sum += (g[1] as Vector3) * wg
+	if gap_sum.length() > 1e-5:
+		out["gap_n"] = gap_sum.normalized()
 	return out

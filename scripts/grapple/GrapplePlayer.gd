@@ -67,7 +67,47 @@ var _carry_on := on("carry")
 var _blend_on := on("blend")
 var _impact_on := on("impact")
 var _limbs_on := on("limbs")
+var _place_on := on("place")   # S399 GRAPPLEFIX1 control arm: `noplace` = no GrappleDrawn.track (no whole-body shift)
 var _limbs := GrappleLimbs.fresh()
+## S399 GRAPPLEFIX1: how far the recording's lowest joint drops over the next LOOK_S (<= 0), off the baked curve.
+const LOOK_S := 0.25
+const LIFT_UP_S := 0.08
+
+
+func _low_ahead() -> float:
+	if _bake.is_empty():
+		return 0.0
+	var now := _low_at(_t)
+	var lo := now
+	var step := 1.0 / 30.0
+	var tau := step
+	while tau <= LOOK_S + 1e-4:
+		lo = minf(lo, _low_at(minf(_t + tau, _bake_len)))
+		tau += step
+	return lo - now
+
+
+func _low_at(time_s: float) -> float:
+	var lo := INF
+	for m in 2:
+		for v in _baked(time_s, m):
+			lo = minf(lo, (at * ((v - _centre) * scale)).y)
+	return lo
+
+
+## S399 GRAPPLEFIX1 (the game arm of tools/grapple_orbit.gd: jerk p95 129-2268 m/s^3 on main with every layer off but the pace):
+## Catmull-Rom is C1 - the acceleration jumps at every keyframe, and a takedown lands 20 keyframes in 1.9 s, a jump every 3
+## frames. On the game path (contact on) each multi-keyframe move is BAKED once when it starts: the curve sampled at BAKE_HZ,
+## smoothed in time by a Gaussian of SMOOTH_S (a body's own low-pass; the ends pinned by point reflection, so a chained move
+## still starts and ends on its keyframes exactly), then read back by a cubic. `-- nosmooth` is the control arm.
+const BAKE_HZ := 30.0
+const SMOOTH_S := 0.06
+static var smooth_s := _arg_f("smooth=", SMOOTH_S)
+var _smooth_on := on("smooth")
+var _bake: Array = []        # per sample: [man0 joints, man1 joints], the data's own space
+var _bake_len := 0.0
+## S399 GRAPPLEFIX1: a fixed step for the layers (tools/grapple_orbit.gd game=1 seeks frame by frame); < 0 = the frame's delta.
+var step_dt := -1.0
 
 
 ## S379 operator (C221): "why on grapplemap the clips played fine, why you dont use them straight in the game" - the match
@@ -76,6 +116,13 @@ var _limbs := GrappleLimbs.fresh()
 ## S390: "finish" left this list: it is GrappleMap's recorded extension plus the tap, not a per-frame layer, and off it no film ever
 ## showed a tap ("TAP appears, nobody taps" was this switch).
 const DEFAULT_OFF := ["idle", "sep", "carry", "impact", "route"]
+
+
+static func _arg_f(prefix: String, fallback: float) -> float:
+	for a in _args:
+		if str(a).begins_with(prefix):
+			return float(str(a).substr(prefix.length()))
+	return fallback
 
 
 static func on(layer: String) -> bool:
@@ -96,6 +143,7 @@ func play(sequence: Dictionary, poses: Array, pair_scale: float, place: Transfor
 	var f0: Array = (seq["frames"] as Array)[0]
 	var c := ((f0[0] as PackedVector3Array)[DB.joint("Core")] + (f0[1] as PackedVector3Array)[DB.joint("Core")]) * 0.5
 	_centre = Vector3(c.x, 0.0, c.z)
+	_build_bake()
 	_apply()
 
 
@@ -107,6 +155,7 @@ func play_frames(frames: Array, times: PackedFloat32Array = PackedFloat32Array()
 	seq = {"frames": _snap_start(frames)}
 	_key_t = times if times.size() == (seq["frames"] as Array).size() else Timing.key_times(seq["frames"])
 	_t = 0.0
+	_build_bake()
 	_apply()
 
 
@@ -194,6 +243,8 @@ func joints_at(time_s: float) -> Array:
 		p.resize(DB.JOINTS.size())
 		if frames.size() == 1:
 			p = _idle(frames[0][m], time_s, m) if _idle_on else _hold_breath(frames[0][m] as PackedVector3Array, time_s)
+		elif contact and not _bake.is_empty():
+			p = _baked(time_s, m)
 		else:
 			var u := _gap_u(time_s)
 			var k := mini(int(u), frames.size() - 2)
@@ -306,13 +357,14 @@ func _push_display_shift() -> void:
 		return
 	var j0: PackedVector3Array = (men[0] as Node).get("joints") as PackedVector3Array
 	var j1: PackedVector3Array = (men[1] as Node).get("joints") as PackedVector3Array
-	var dt := get_process_delta_time()
-	var drawn := GrappleDrawn.track(men, j0, j1, _place, dt)
+	var dt := step_dt if step_dt >= 0.0 else get_process_delta_time()
+	_place["ahead"] = _low_ahead()
+	var drawn := GrappleDrawn.track(men, j0, j1, _place, dt if _place_on else 0.0)
 	# Eased on the way to the screen and outside the loop: track's steps are corners, and every joint of both women showed them as jerk.
-	GrappleLimbs.ease_to(_place_shown, "rel", "vrel", _place["rel"], dt, PLACE_FAST_S if float(_place.get("pen", 0.0)) > PLACE_DEEP_M else PLACE_EASE_S)
-	# Up at once: a lag here is a body under the mat.
-	GrappleLimbs.ease_to(_place_shown, "lift", "vlift", Vector3(0.0, float(_place["lift"]), 0.0), dt,
-		0.02 if float(_place["lift"]) > (_place_shown["lift"] as Vector3).y else GrappleLimbs.EASE_S)
+	GrappleLimbs.ease_to2(_place_shown, "rel", "vrel", _place["rel"], dt, PLACE_FAST_S if float(_place.get("pen", 0.0)) > PLACE_DEEP_M else PLACE_EASE_S)
+	# Up quickly: a lag here is a body under the mat (S399: with the look-ahead it starts early, so it no longer has to be instant).
+	GrappleLimbs.ease_to2(_place_shown, "lift", "vlift", Vector3(0.0, float(_place["lift"]), 0.0), dt,
+		(LIFT_UP_S if _bake.size() > 0 else 0.02) if float(_place["lift"]) > (_place_shown["lift"] as Vector3).y else GrappleLimbs.EASE_S)
 	var up: Vector3 = _place_shown["lift"]
 	var half: Vector3 = (_place_shown["rel"] as Vector3) * 0.5
 	(men[1] as Node).set("world_shift", up + half)
@@ -327,6 +379,22 @@ func _push_display_shift() -> void:
 			for k in (drawn[m] as Dictionary):
 				drawn[m][k] += was[m]
 		GrappleLimbs.solve(men, drawn, rec, [j0, j1], _limbs, dt)
+
+
+## S399 GRAPPLEFIX1: every carried layer back to the recording (a fresh move measured on its own, not on the last one's shift).
+func reset_layers() -> void:
+	_place = {"rel": Vector3.ZERO, "lift": 0.0}
+	_place_shown = {"rel": Vector3.ZERO, "vrel": Vector3.ZERO, "lift": Vector3.ZERO, "vlift": Vector3.ZERO}
+	_limbs = GrappleLimbs.fresh()
+	_carry_raw = []
+	_carry_out = []
+	_carry_t = -1.0
+	_blend_left = 0.0
+	for m in mini(men.size(), 2):
+		if men[m] != null:
+			(men[m] as Node).set("world_shift", Vector3.ZERO)
+			(men[m] as Node).set("limb_fix", {})
+			(men[m] as Node).set("head_fix", [])
 
 
 ## S380 BJJ9R15: a held position breathes once (~0.25 Hz, chest under 1 cm) — never the old limb idle on moves.
@@ -384,6 +452,95 @@ static func _idle(src: PackedVector3Array, t: float, phase: int = 0) -> PackedVe
 	p[DB.joint("Neck")] += shift * 0.5
 	p[DB.joint("Head")] += lat * (sin(ft * TAU / 5.3 + 0.9) * 0.05) + fwd * (cos(ft * TAU / 6.7) * 0.02) \
 		+ Vector3(0.0, sin(ft * TAU / 2.7 + 2.0) * 0.01, 0.0)
+	return p
+
+
+## The data's curve for one man at `time_s` (its own space): Catmull-Rom in time through the keyframes, as joints_at draws it raw.
+func _curve(time_s: float, m: int) -> PackedVector3Array:
+	var frames: Array = seq["frames"]
+	var p := PackedVector3Array()
+	p.resize(DB.JOINTS.size())
+	var u := _gap_u(time_s)
+	var k := mini(int(u), frames.size() - 2)
+	var w := smoothstep(0.0, 1.0, u - k) if frames.size() == 2 else u - k
+	var gap := _key_t[k + 1] - _key_t[k]
+	var pre_t := _key_t[k - 1] - _key_t[k] if k > 0 else -gap
+	var post_t := (_key_t[k + 2] if k + 2 < _key_t.size() else _key_t[k + 1] + gap) - _key_t[k]
+	for j in DB.JOINTS.size():
+		var a: Vector3 = (frames[maxi(k - 1, 0)][m] as PackedVector3Array)[j]
+		var b: Vector3 = (frames[k][m] as PackedVector3Array)[j]
+		var c: Vector3 = (frames[k + 1][m] as PackedVector3Array)[j]
+		var d: Vector3 = (frames[mini(k + 2, frames.size() - 1)][m] as PackedVector3Array)[j]
+		p[j] = b.cubic_interpolate_in_time(c, a, d, w, gap, pre_t, post_t)
+	return p
+
+
+## The move's curve sampled and smoothed once (see BAKE_HZ). Only on the game path, only for a move of 2+ keyframes.
+func _build_bake() -> void:
+	_bake = []
+	var frames: Array = seq.get("frames", [])
+	if not contact or not _smooth_on or frames.size() < 2 or length_s() <= 0.0 or smooth_s <= 0.0:
+		return
+	var t0 := Time.get_ticks_usec()
+	_bake_len = length_s()
+	var n := maxi(2, int(ceil(_bake_len * BAKE_HZ)) + 1)
+	var raw: Array = []
+	for i in n:
+		var t := _bake_len * float(i) / float(n - 1)
+		raw.append([_curve(t, 0), _curve(t, 1)])
+	var dt := _bake_len / float(n - 1)
+	var sig := smooth_s / dt
+	var rad := int(ceil(sig * 3.0))
+	var kern := PackedFloat32Array()
+	var ksum := 0.0
+	for q in range(-rad, rad + 1):
+		var g := exp(-0.5 * float(q * q) / (sig * sig))
+		kern.append(g)
+		ksum += g
+	for q in kern.size():
+		kern[q] /= ksum
+	var jn := DB.JOINTS.size()
+	for i in n:
+		var row: Array = []
+		for m in 2:
+			var acc := PackedVector3Array()
+			acc.resize(jn)
+			for q in kern.size():
+				var at_i := i + q - rad
+				var wq: float = kern[q]
+				var src: PackedVector3Array
+				var refl := false
+				if at_i < 0:
+					src = raw[-at_i][m]
+					refl = true
+				elif at_i >= n:
+					src = raw[2 * (n - 1) - at_i][m]
+					refl = true
+				else:
+					src = raw[at_i][m]
+				var edge: PackedVector3Array = raw[0][m] if at_i < 0 else raw[n - 1][m]
+				for j in jn:
+					acc[j] += (edge[j] * 2.0 - src[j] if refl else src[j]) * wq
+			row.append(acc)
+		_bake.append(row)
+	if _args.has("baketime"):
+		print("GPLAYER bake %d samples %.1f ms" % [n, (Time.get_ticks_usec() - t0) / 1000.0])
+
+
+## The baked curve at `time_s`: a cubic through the samples.
+func _baked(time_s: float, m: int) -> PackedVector3Array:
+	var n := _bake.size()
+	var x := clampf(time_s / _bake_len, 0.0, 1.0) * float(n - 1)
+	var i := mini(int(x), n - 2)
+	var f := x - float(i)
+	var a: PackedVector3Array = _bake[maxi(i - 1, 0)][m]
+	var b: PackedVector3Array = _bake[i][m]
+	var c: PackedVector3Array = _bake[i + 1][m]
+	var d: PackedVector3Array = _bake[mini(i + 2, n - 1)][m]
+	var p := PackedVector3Array()
+	p.resize(b.size())
+	for j in b.size():
+		p[j] = b[j].cubic_interpolate(c[j], a[j], d[j], f)
 	return p
 
 

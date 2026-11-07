@@ -16,11 +16,23 @@ const Drift := preload("res://tools/orbit_drift.gd")   # S379 operator: "the cam
 ##   spike the worst one-frame step that is over SPIKE_X times both its neighbours (a pop), metres
 ##   overlap capsules on the drawn bones: either woman's limbs, head and neck into the other's pelvis + trunk; peak depth
 ##         in metres and the frames deeper than 6 cm (bodies inside bodies)
+## S399 GRAPPLEFIX1 `game=1`: the move AS THE BELT MATCH DRAWS IT - GrapplePlayer with `contact` on (GrappleDrawn's placement,
+## GrappleLimbs' clearance and holds), GrapplePose's IK on, GrappleGrip's fingers, the browser's pacing (GrappleBrowser.play_out:
+## a takedown/sweep lands in LANDS_S, a plain move is shaped to at most MOVE_MAX_S). The layers step a fixed 1/30 s a frame
+## (GrapplePlayer.step_dt), settle SETTLE_F frames on the first pose, and start from the recording (reset_layers). An id may carry
+## `r` (played reversed) and `l` (a landing: takedown or sweep), e.g. ids=1295r,1470l. `nofilm=1`: numbers only, no frames
+## saved (runs headless). Extra numbers per move (GrappleDrawn.parts, the placement's own body model):
+##   torso_in_m   the deepest torso (pelvis/trunk) inside the other's torso, and frames past 6 cm
+##   limb_park_m  the deepest a limb or head stays inside the other's torso or head for a run over 0.2 s (the worst
+##                limb's depth held for PARK_F frames in a row), and which one
 ## One `GORBIT_JSON {...}` line per move.
 ##   python tools/hidden_desktop.py run --timeout=1800 <godot.exe> --path . --windowed --resolution 960x540 \
 ##       --audio-driver Dummy --script res://tools/grapple_orbit.gd -- out=<dir> ids=<GrappleMap sequence index,...>
 
 const DB := preload("res://scripts/grapple/GrappleMapDB.gd")
+const GD := preload("res://scripts/grapple/GrappleDrawn.gd")
+const Grip := preload("res://scripts/grapple/GrappleGrip.gd")
+const Timing := preload("res://scripts/grapple/GrappleTiming.gd")
 const Pose := preload("res://scripts/grapple/GrapplePose.gd")
 const Player := preload("res://scripts/grapple/GrapplePlayer.gd")
 const MH := preload("res://scripts/fight3d/MHRig.gd")
@@ -47,6 +59,15 @@ const ELEVATION_DEG := 24.0
 const V_MIN := 0.0005
 const SPIKE_X := 3.0
 const DEEP_M := 0.06
+## GrappleBrowser's pacing (LANDS_S, LANDS_RELIEF, MOVE_MAX_S) for the game arm.
+const LANDS_S := 1.9
+const LANDS_RELIEF := 0.65
+const MOVE_MAX_S := 4.0
+const SETTLE_F := 15
+const PARK_F := 7   # frames: a limb inside for longer than 0.2 s at 30 fps
+const LIMB_KEYS := ["head", "neck", "upperarmL", "upperarmR", "forearmL", "forearmR", "thighL", "thighR", "shinL", "shinR",
+	"footL", "footR"]
+const BODY_KEYS := ["pelvis", "trunk", "head"]
 const TRACK := ["LeftHand", "RightHand", "LeftLowerArm", "RightLowerArm", "LeftFoot", "RightFoot", "LeftLowerLeg",
 	"RightLowerLeg", "Head", "Hips"]
 const BONES := ["Hips", "Spine", "Neck", "Head", "LeftUpperArm", "RightUpperArm", "LeftLowerArm", "RightLowerArm",
@@ -79,6 +100,9 @@ void fragment() {
 
 var out_dir := "user://grapple_orbit"
 var _cache: Array = [{}, {}]
+var game := false
+var nofilm := false
+var noik := false
 
 
 func _initialize() -> void:
@@ -89,6 +113,21 @@ func _initialize() -> void:
 			out_dir = s.substr(4)
 		elif s.begins_with("ids="):
 			ids = Array(s.substr(4).split(",", false))
+		elif s == "game=1":
+			game = true
+		elif s == "nofilm=1":
+			nofilm = true
+		elif s == "noik=1":
+			noik = true
+	var rows: Array = await measure(ids)
+	print("GORBIT DONE %d/%d" % [rows.size(), ids.size()])
+	quit(0)
+
+
+## Builds the studio and the two women, then films and/or measures each move: one row of numbers per move found (also printed
+## as a GORBIT_JSON line). tests/grapple_fix_test.gd calls it with `game` and `nofilm` set.
+func measure(ids: Array) -> Array:
+	var rows: Array = []
 	# The picture is a fixed 960x540 SubViewport: the hidden desktop's window comes out 960x504 (S379 726da2ef).
 	var vp := SubViewport.new()
 	vp.size = Vector2i(W, H)
@@ -113,7 +152,9 @@ func _initialize() -> void:
 		_mma_trim(body, TRUNKS[i].darkened(TRIM_DARKEN))
 		var skel := body.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
 		var pose: Node = Pose.attach(skel)
-		pose.set("ik", false)
+		pose.set("ik", game and not noik)
+		if game:
+			pose.set("step_dt", 1.0 / FPS)
 		poses.append(pose)
 		skels.append(skel)
 		var sw := skel.global_transform
@@ -121,17 +162,47 @@ func _initialize() -> void:
 			sw * skel.get_bone_global_rest(skel.find_bone("LeftFoot")).origin))
 		_watch(skel, i)
 	var player: Node = Player.new()
-	player.set("contact", false)
+	player.set("contact", game)
+	if game:
+		# The browser's player: in the tree, so its layers run; paused, so only seek() moves it (one fixed step a frame).
+		player.set("paused", true)
+		player.set("step_dt", 1.0 / FPS)
+		root.add_child(player)
+		player.set("men", poses)
+		for i in 2:
+			Grip.attach(skels[i], poses[i], poses[1 - i])
 	var db: Array = DB.load_db()
 	await process_frame
-	var done := 0
 	for id in ids:
-		var idx := int(id)
+		var tok := str(id)
+		var rev := game and tok.contains("r")
+		var lands := game and tok.contains("l")
+		var idx := int(tok.rstrip("rl"))
 		if idx < 0 or idx >= db.size() or not DB.is_transition(db[idx]):
 			print("GORBIT MISSING ", id)
 			continue
 		var seq: Dictionary = db[idx]
-		player.play(seq, poses, Player.pair_scale(legs), Transform3D.IDENTITY)
+		if game:
+			var g := seq.duplicate()
+			if rev:
+				var fr: Array = (seq["frames"] as Array).duplicate()
+				fr.reverse()
+				g["frames"] = fr
+			if player.has_method("reset_layers"):
+				player.reset_layers()
+			player.set("step_dt", 1.0 / FPS)
+			player.play(g, poses, Player.pair_scale(legs), Transform3D.IDENTITY)
+			var placed: Array = player.seq["frames"]
+			if lands and placed.size() > 1:
+				player.play_frames(placed, Timing.key_times_shape(placed, LANDS_S, LANDS_RELIEF))
+			elif placed.size() > 2:
+				var nat := Timing.key_times(placed)
+				player.play_frames(placed, Timing.key_times_shape(placed, minf(float(nat[nat.size() - 1]), MOVE_MAX_S), 0.25))
+			for _s in SETTLE_F:
+				player.seek(0.0)
+				await _frame()
+		else:
+			player.play(seq, poses, Player.pair_scale(legs), Transform3D.IDENTITY)
 		var length: float = player.length_s()
 		var speed := maxf(1.0, length / PLAY_MAX_S)
 		var shown := length / speed
@@ -142,8 +213,9 @@ func _initialize() -> void:
 		var radius: float = fit[1]
 		var core := DB.joint("Core")
 		var follow := look
-		var dir := out_dir.path_join(str(idx))
-		DirAccess.make_dir_recursive_absolute(dir)
+		var dir := out_dir.path_join(str(idx) + ("r" if rev else ""))
+		if not nofilm:
+			DirAccess.make_dir_recursive_absolute(dir)
 		var tracks: Array = []   # per woman, per TRACK bone: an Array of Vector3 over the measured frames (Arrays, not
 		for w in 2:              # PackedVector3Array: a packed array read out of an Array is a copy, appends would be lost)
 			var per: Array = []
@@ -151,10 +223,20 @@ func _initialize() -> void:
 				per.append([])
 			tracks.append(per)
 		var ov := PackedFloat32Array()
+		var tin := PackedFloat32Array()
+		var limb_depth := {}
+		for k in LIMB_KEYS:
+			limb_depth[k] = PackedFloat32Array()
 		var measured := int(ceil(minf(shown, total) * FPS)) + 1
 		# One unrecorded settle frame so the first saved frame already shows this move's first pose.
+		if game:
+			player.set("step_dt", speed / FPS)
+			for pz in poses:
+				pz.set("step_dt", speed / FPS)
 		player.seek(0.0)
-		await RenderingServer.frame_post_draw
+		await _frame()
+		if nofilm:
+			frames = mini(frames, measured)
 		for f in frames:
 			var t := minf(float(f) / FPS * speed, length)
 			player.seek(t)
@@ -165,23 +247,111 @@ func _initialize() -> void:
 			follow = Vector3(c_now.x, look.y, c_now.z) if f == 0 else follow.lerp(Vector3(c_now.x, look.y, c_now.z), 1.0 - exp(-1.0 / (FPS * FOLLOW_S)))
 			cam.look_at_from_position(follow + Vector3(sin(ang) * flat, radius * sin(deg_to_rad(ELEVATION_DEG)), cos(ang) * flat),
 				follow, Vector3.UP)
-			await RenderingServer.frame_post_draw
-			vp.get_texture().get_image().save_jpg(dir.path_join("f%04d.jpg" % f), 0.88)
+			await _frame()
+			if game and OS.get_cmdline_user_args().has("trace=1"):
+				var pl: Dictionary = player.get("_place")
+				var ps: Dictionary = player.get("_place_shown")
+				print("GTRACE %d rel %s shown %s lift %.3f shown_lift %.3f pen %.3f" % [f, str((pl["rel"] as Vector3).snapped(Vector3.ONE * 0.001)),
+					str((ps["rel"] as Vector3).snapped(Vector3.ONE * 0.001)), float(pl["lift"]), (ps["lift"] as Vector3).y, float(pl.get("pen", 0.0))])
+			for ua in OS.get_cmdline_user_args():
+				if str(ua).begins_with("bone="):
+					var bw := 1 if str(ua).contains("blue") else 0
+					var bn := str(ua).substr(5).replace("blue", "").replace("red", "")
+					var pu: Vector3 = _cache[bw].get(bn.replace("Lower", "Upper"), Vector3.ZERO)
+					var pl: Vector3 = _cache[bw].get(bn, Vector3.ZERO)
+					var ph: Vector3 = _cache[bw].get(bn.replace("LowerArm", "Hand").replace("LowerLeg", "Foot"), Vector3.ZERO)
+					print("BTRACE %d mid %s end %s straight %.3f" % [f, str(pl.snapped(Vector3.ONE * 0.001)), str(ph.snapped(Vector3.ONE * 0.001)),
+						(pl - pu).normalized().dot((ph - pl).normalized())])
+			if game and OS.get_cmdline_user_args().has("ltrace=1"):
+				var lm: Dictionary = player.get("_limbs")
+				var line := "LTRACE %d" % f
+				for key in ["0LeftArm", "0RightArm", "0LeftLeg", "0RightLeg", "1LeftArm", "1RightArm", "1LeftLeg", "1RightLeg"]:
+					var ls: Dictionary = lm.get(key, {})
+					var hs: Dictionary = lm.get(key + "Hold", {})
+					if ls.is_empty():
+						continue
+					line += " | %s w%.3f o%.3f h%.2f" % [key, (ls["ease_w"] as Vector3).length(), (ls["ease_o"] as Vector3).length(), float(hs.get("w", 0.0))]
+				print(line)
+			if not nofilm:
+				vp.get_texture().get_image().save_jpg(dir.path_join("f%04d.jpg" % f), 0.88)
 			if f < measured:
 				for w in 2:
 					for k in TRACK.size():
 						(tracks[w][k] as Array).append(_cache[w].get(TRACK[k], Vector3.ZERO))
 				ov.append(_overlap())
+				_inside(tin, limb_depth)
 		var row := _numbers(tracks, ov, shown)
+		_inside_numbers(row, tin, limb_depth)
+		row["arm"] = "game" if game else "pure"
+		row["reverse"] = rev
 		row["speed"] = snappedf(speed, 0.01)
-		row["id"] = idx
+		row["id"] = str(idx) + ("r" if rev else "")
 		row["title"] = str(seq["title"])
 		row["length_s"] = snappedf(length, 0.01)
 		row["frames"] = frames
 		print("GORBIT_JSON " + JSON.stringify(row))
-		done += 1
-	print("GORBIT DONE %d/%d" % [done, ids.size()])
-	quit(0)
+		rows.append(row)
+	return rows
+
+
+## A frame drawn: the next frame's start in a numbers-only run (the skeleton updates inside the frame seek() ran in), the
+## picture's post-draw when filming.
+func _frame() -> void:
+	if nofilm:
+		await process_frame
+	else:
+		await RenderingServer.frame_post_draw
+
+
+## This frame's torso-in-torso depth and each limb's depth inside the other's torso or head (both women, GrappleDrawn.parts).
+func _inside(tin: PackedFloat32Array, limb_depth: Dictionary) -> void:
+	if _cache[0].size() < GD.BONES.size() or _cache[1].size() < GD.BONES.size():
+		tin.append(0.0)
+		for k in limb_depth:
+			var a0: PackedFloat32Array = limb_depth[k]
+			a0.append(0.0)
+			limb_depth[k] = a0
+		return
+	var p := [GD.parts(_cache[0]), GD.parts(_cache[1])]
+	tin.append(GD.deepest(p[0]["torso"], p[1]["torso"]))
+	var by := {}
+	for w in 2:
+		var body: Array = []
+		for c in p[1 - w]["all"]:
+			if str(c[0]) in BODY_KEYS:
+				body.append(c)
+		for c in p[w]["all"]:
+			var k := str(c[0])
+			if k in LIMB_KEYS:
+				by[k] = maxf(float(by.get(k, 0.0)), GD.deepest([c], body))
+	for k in limb_depth:
+		var arr: PackedFloat32Array = limb_depth[k]
+		arr.append(float(by.get(k, 0.0)))
+		limb_depth[k] = arr
+
+
+func _inside_numbers(row: Dictionary, tin: PackedFloat32Array, limb_depth: Dictionary) -> void:
+	var peak := 0.0
+	var deep := 0
+	for d in tin:
+		peak = maxf(peak, d)
+		if d > DEEP_M:
+			deep += 1
+	var park := 0.0
+	var park_at := ""
+	for k in limb_depth:
+		var arr: PackedFloat32Array = limb_depth[k]
+		for i in range(0, arr.size() - PARK_F + 1):
+			var lo := INF
+			for q in PARK_F:
+				lo = minf(lo, arr[i + q])
+			if lo > park:
+				park = lo
+				park_at = "%s %.2fs" % [k, i / FPS]
+	row["torso_in_m"] = snappedf(peak, 0.001)
+	row["torso_deep_frames"] = deep
+	row["limb_park_m"] = snappedf(park, 0.001)
+	row["limb_park_at"] = park_at
 
 
 ## Every bone of the women as drawn this frame (after GrapplePose ran), world space.
@@ -248,6 +418,7 @@ func _overlap() -> float:
 
 func _numbers(tracks: Array, ov: PackedFloat32Array, length: float) -> Dictionary:
 	var jerks := PackedFloat32Array()
+	var per_bone: Array = []   # [p95, name] per woman and bone: which bone carries the jerk
 	var flips := 0
 	var spike := 0.0
 	var spike_at := ""
@@ -256,9 +427,14 @@ func _numbers(tracks: Array, ov: PackedFloat32Array, length: float) -> Dictionar
 		for k in TRACK.size():
 			var p: Array = tracks[w][k]
 			n_frames = p.size()
+			var mine := PackedFloat32Array()
 			for i in range(3, p.size()):
 				var j3: Vector3 = (p[i] as Vector3) - 3.0 * (p[i - 1] as Vector3) + 3.0 * (p[i - 2] as Vector3) - (p[i - 3] as Vector3)
 				jerks.append(j3.length() * FPS * FPS * FPS)
+				mine.append(j3.length() * FPS * FPS * FPS)
+			mine.sort()
+			if mine.size() > 0:
+				per_bone.append([mine[int(mine.size() * 0.95)], "%s %s" % [["red", "blue"][w], TRACK[k]]])
 			for i in range(2, p.size()):
 				var a: Vector3 = p[i - 1] - p[i - 2]
 				var b: Vector3 = p[i] - p[i - 1]
@@ -279,7 +455,11 @@ func _numbers(tracks: Array, ov: PackedFloat32Array, length: float) -> Dictionar
 		if d > DEEP_M:
 			deep += 1
 	var secs := maxf(length, 1.0 / FPS)
-	return {"jerk_p95": snappedf(jerks[int(jerks.size() * 0.95)] if jerks.size() > 0 else 0.0, 0.1),
+	per_bone.sort_custom(func(x, y): return float(x[0]) > float(y[0]))
+	var worst := []
+	for q in mini(4, per_bone.size()):
+		worst.append("%s %d" % [per_bone[q][1], int(per_bone[q][0])])
+	return {"jerk_worst": ", ".join(worst), "jerk_p95": snappedf(jerks[int(jerks.size() * 0.95)] if jerks.size() > 0 else 0.0, 0.1),
 		"flips_s": snappedf(float(flips) / (2.0 * TRACK.size()) / secs, 0.01),
 		"spike_m": snappedf(spike, 0.001), "spike_at": spike_at,
 		"overlap_peak_m": snappedf(peak, 0.001), "overlap_deep_frames": deep, "measured_frames": n_frames}
