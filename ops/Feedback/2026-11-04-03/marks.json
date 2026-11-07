@@ -1,0 +1,25 @@
+{
+  "id": "2026-11-04-03",
+  "title": "",
+  "source": "media:_sent/2026-11-04_1124_c229_a_real_amateur_camp_in_our_fight_ca/camp_mockup.png",
+  "saved": "2026-11-04T11:37:37",
+  "image": {
+    "file": "original.png",
+    "width": 1920,
+    "height": 1080
+  },
+  "marked": "marked.png",
+  "coordinates": "percent of image size, origin top-left, x right, y down",
+  "marks": [
+    {
+      "n": 1,
+      "tool": "box",
+      "intent": "wrong",
+      "note": "thees options doesnt make any sense to me",
+      "x": 27.2,
+      "y": 53.6,
+      "w": 63.8,
+      "h": 31.4
+    }
+  ]
+}

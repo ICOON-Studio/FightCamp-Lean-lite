@@ -4490,7 +4490,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-07 19:11 board_sync",
+  "updated": "2026-11-07 20:41 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4674,16 +4674,17 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "TASK INSIDE4 - QWEN (qwen3-coder) - does a folded face still sink into the other boxer, measured in a played fight?",
-    "who": "qwen",
-    "started": "2026-11-07T18:12",
-    "run": "INSIDE4"
-   },
-   {
     "title": "TASK SOUTHPAW1 - CURSOR (Composer 2.5, Fast OFF) - a southpaw stands knock-kneed in guard (the operator saw it)",
     "who": "cursor",
     "started": "2026-11-07T19:03",
-    "run": "SOUTHPAW1"
+    "run": "SOUTHPAW1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HITSELL5 - QWEN (qwen3-coder) - find where a landed punch's reaction is lost in the played fight, then fix it there",
+    "who": "qwen",
+    "started": "2026-11-07T20:41",
+    "run": "HITSELL5"
    }
   ],
   "next": [
@@ -4933,6 +4934,11 @@
   },
   "done_recently": [
    {
+    "title": "TASK INSIDE4 - QWEN (qwen3-coder) - does a folded face still sink into the other boxer, measured in a played fight?",
+    "who": "qwen",
+    "when": "2026-11-07"
+   },
+   {
     "title": "Up close, a folded boxer's face never sinks into the other's body (INSIDE2 round 2)",
     "who": "",
     "when": "2026-11-07"
@@ -4986,11 +4992,6 @@
    },
    {
     "title": "TASK FIGHT9R19 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
-    "who": "antigravity",
-    "when": "2026-11-06"
-   },
-   {
-    "title": "TASK FIGHT9R18 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
     "who": "antigravity",
     "when": "2026-11-06"
    }
@@ -5121,64 +5122,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "WORLD1 merged: 20-year world",
-     "who": "claude"
-    },
-    {
-     "text": "Rule 2 bots pass: smart 8, hard 11",
-     "who": "claude"
-    },
-    {
-     "text": "Scouting worth it: +14 top 10",
-     "who": "claude"
-    },
-    {
-     "text": "Pro ladder wired after debut",
-     "who": "claude"
-    },
-    {
-     "text": "Ranks mean levels: inversions 0%",
-     "who": "claude"
-    },
-    {
-     "text": "Offers trade off: tune/step/payday",
-     "who": "claude"
-    },
-    {
-     "text": "Free seats + 8/10 split",
-     "who": "claude"
-    },
-    {
-     "text": "SOUND3 wired + merged",
-     "who": "claude"
-    },
-    {
-     "text": "Fight polish: walk, card, lens",
-     "who": "claude"
-    },
-    {
-     "text": "Truth pass: Settings, Handbook",
-     "who": "claude"
-    },
-    {
-     "text": "Autosave every Monday",
-     "who": "claude"
-    },
-    {
-     "text": "Screen cut: 5 rail, 8 tabs, 5",
-     "who": "claude"
-    },
-    {
-     "text": "Roster as a sortable table",
-     "who": "claude"
-    },
-    {
-     "text": "Menus blind 5 -> 5.5",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Ziva back up on main",
      "who": "claude"
     },
@@ -5209,6 +5152,48 @@
     {
      "text": "Rank 3 coach plan fix",
      "who": "claude"
+    },
+    {
+     "text": "WORLD1 merged: 20-year world",
+     "who": "claude"
+    },
+    {
+     "text": "Rule 2 bots pass: smart 8, hard 11",
+     "who": "claude"
+    },
+    {
+     "text": "Scouting worth it: +14 top 10",
+     "who": "claude"
+    },
+    {
+     "text": "Pro ladder wired after debut",
+     "who": "claude"
+    },
+    {
+     "text": "Ranks mean levels: inversions 0%",
+     "who": "claude"
+    },
+    {
+     "text": "Offers trade off: tune/step/payday",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Main tests green (Pass, weapon)",
+     "who": "claude"
+    },
+    {
+     "text": "Ziva back up on main",
+     "who": "claude"
+    },
+    {
+     "text": "SOUTHPAW1 checked: not kept",
+     "who": "claude"
+    },
+    {
+     "text": "Inside work +0.5: not merged",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5217,20 +5202,16 @@
      "who": "agent"
     },
     {
-     "text": "Menus 6.2 -> 8 (side session)",
-     "who": "claude"
-    },
-    {
-     "text": "BJJ realism (session)",
-     "who": "claude"
-    },
-    {
-     "text": "Money that bites (session)",
-     "who": "claude"
-    },
-    {
      "text": "Fighter look blind test",
      "who": "claude"
+    },
+    {
+     "text": "SOUTHPAW2: knee valgus (Cursor)",
+     "who": "agent"
+    },
+    {
+     "text": "Anim rebuild design (agy)",
+     "who": "agent"
     }
    ],
    "next": [
@@ -5297,9 +5278,17 @@
     {
      "text": "CPU: power plan 99% (you)",
      "who": "operator"
+    },
+    {
+     "text": "BJJ beat engine (Cursor)",
+     "who": "claude"
+    },
+    {
+     "text": "Money leftovers (Qwen)",
+     "who": "claude"
     }
    ],
-   "session": "S398"
+   "session": "S399"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

@@ -339,8 +339,78 @@
   {
    "task": "HITSELL2",
    "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-07T15:08",
+   "launched": "2026-11-07T15:41"
+  },
+  {
+   "task": "FIGHTWALK2",
+   "seat": "cursor",
+   "status": "done",
+   "queued": "2026-11-07T15:51"
+  },
+  {
+   "task": "CORNERCAM1",
+   "seat": "qwen",
+   "status": "moved_goose",
+   "queued": "2026-11-07T15:53"
+  },
+  {
+   "task": "INSIDE2",
+   "seat": "cursor",
+   "status": "moved_goose",
+   "queued": "2026-11-07T15:55"
+  },
+  {
+   "task": "HITSELL3",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-07T16:19",
+   "launched": "2026-11-07T16:41"
+  },
+  {
+   "task": "HITSELL4",
+   "seat": "qwen",
+   "status": "done",
+   "queued": "2026-11-07T17:11"
+  },
+  {
+   "task": "FIGHTWALK3",
+   "seat": "cursor",
+   "status": "done",
+   "queued": "2026-11-07T17:11"
+  },
+  {
+   "task": "INSIDE4",
+   "seat": "qwen",
+   "status": "done",
+   "queued": "2026-11-07T18:06"
+  },
+  {
+   "task": "HITSELL5",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-07T18:26",
+   "launched": "2026-11-07T20:41"
+  },
+  {
+   "task": "SOUTHPAW1",
+   "seat": "cursor",
+   "status": "done",
+   "queued": "2026-11-07T19:03",
+   "note": "S399: ran, PR #74 closed not merged; rework SOUTHPAW2"
+  },
+  {
+   "task": "SOUTHPAW2",
+   "seat": "cursor",
    "status": "queued",
-   "queued": "2026-11-07T15:08"
+   "queued": "2026-11-07T20:49"
+  },
+  {
+   "task": "ANIMREBUILD1",
+   "seat": "agy",
+   "status": "queued",
+   "queued": "2026-11-07T20:51"
   }
  ]
 }

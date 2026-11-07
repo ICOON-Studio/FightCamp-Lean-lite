@@ -1160,6 +1160,104 @@
       "at": "2026-11-06 13:43",
       "text": "BOARD ANSWER Q-S294-109 - question: 7 owned mocap takes are in the repo, nothing plays them. Use them? | answer: Yes | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
       "status": "waiting"
+    },
+    {
+      "id": "P159",
+      "from": "board",
+      "at": "2026-11-06 17:45",
+      "text": "BOARD ANSWER Q-S294-110 - question: Plan and ring position, reworded: in your plan you pick where each exchange happens (long range, on the ropes). The result counts it, but the 3D fighters do not walk there, so the picture can disagree with the plan. Should the fighters move to where the plan says? | answer: Yes, later | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P160",
+      "from": "board",
+      "at": "2026-11-07 07:00",
+      "text": "BOARD ANSWER Q-S294-111 - question: Fight HUD: 12 small numbers, nobody can see who is tired in 2 seconds. Big stamina number in each ring, other numbers only when low (still on hover and on the corner card)? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P161",
+      "from": "board",
+      "at": "2026-11-07 09:46",
+      "text": "BOARD ANSWER Q-S294-112 - question: The fight's sound has never been heard or rated. Gemini could rate it to 8/10, but its credit ran out, and nothing else here can listen. Who rates it? | answer: I listen and rate it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P162",
+      "from": "board",
+      "at": "2026-11-07 10:51",
+      "text": "BOARD ANSWER Q-S294-113 - question: Structure design 1: should a career never have to end? Boxers age and retire, new ones arrive, a pro ladder keeps running. This replaces the planned 10-15 hour story. | answer: Yes, open-ended | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P163",
+      "from": "board",
+      "at": "2026-11-07 10:51",
+      "text": "BOARD ANSWER Q-S294-114 - question: Structure design 2: may the gym have a plain list of upgrades with prices and effects? No gym floor, no 3D, just a list, so money stays a real choice late on. | answer: Yes | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P164",
+      "from": "board",
+      "at": "2026-11-07 10:51",
+      "text": "BOARD ANSWER Q-S294-115 - question: Structure design 3: BJJ stays. If it is not as good as boxing when Early Access is ready, should it ship in the first update instead of holding the launch? | answer: No, launch together | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P165",
+      "from": "board",
+      "at": "2026-11-07 10:52",
+      "text": "BOARD ANSWER Q-S294-116 - question: Structure design 4: raise the roster to a limit of 8 fighters, starting at 3 places? The bible says a small roster; 8 is the most a player can follow as people. | answer: Yes, up to 8 | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P166",
+      "from": "board",
+      "at": "2026-11-07 10:52",
+      "text": "BOARD ANSWER Q-S294-117 - question: Structure design 5: close the Camp Board card game, which failed its coach test, but keep discovering fighters' habits? Its board look lives on in Home. | answer: i do not know what is this | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P167",
+      "from": "board",
+      "at": "2026-11-07 10:53",
+      "text": "BOARD ANSWER Q-S294-118 - question: Structure design 6: keep the game's world in open files so fans can edit it later? Cheap if done now, and fans of this genre value it highly. | answer: Yes | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P168",
+      "from": "board",
+      "at": "2026-11-07 10:53",
+      "text": "BOARD ANSWER Q-S294-119 - question: Structure design 7: is this the right pitch? Deeper than Corner King, not bigger: a real club, fighters who fight differently, your plan, and the reason you won. | answer: Yes | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P169",
+      "from": "board",
+      "at": "2026-11-07 10:54",
+      "text": "BOARD ANSWER Q-S294-121 - question: Structure design 9: at the start, choose from four coach picture cards and a starting club? About one session of work, plus art for four new corner bodies. No character generator. | answer: Yes | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P170",
+      "from": "board",
+      "at": "2026-11-07 10:54",
+      "text": "BOARD ANSWER Q-S294-122 - question: Structure design 10: what total budget is there for the Steam capsule art, trailer and lawyer? Still open from the bible. Write an amount in the note. | answer: you take care of all that | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P171",
+      "from": "board",
+      "at": "2026-11-07 11:05",
+      "text": "BOARD ANSWER Q-S294-120 - question: Structure design 8: build all the proposed new systems, in the design's order? Press card and editor would be the first to drop. List: docs/STRUCTURE_DESIGN_S395.md, section 5.7. | answer: All of them | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P172",
+      "from": "board",
+      "at": "2026-11-07 14:45",
+      "text": "BOARD ANSWER Q-S294-123 - question: Structure 5 again, plainer: on Monday the coach plays cards on a board to plan the week (built in S390). The coach test said it did not feel like coaching. Remove that card game and keep only what it found out: each fighter's habits? | answer: Show me it first | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
     }
   ]
 }

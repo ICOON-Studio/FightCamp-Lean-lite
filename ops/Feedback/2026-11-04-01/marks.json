@@ -1,0 +1,25 @@
+{
+  "id": "2026-11-04-01",
+  "title": "",
+  "source": "media:_sent/2026-11-04_0401_body_callouts_pop_on_hit_hover_merged_d4/callout_check.png",
+  "saved": "2026-11-04T08:56:08",
+  "image": {
+    "file": "original.png",
+    "width": 1040,
+    "height": 620
+  },
+  "marked": "marked.png",
+  "coordinates": "percent of image size, origin top-left, x right, y down",
+  "marks": [
+    {
+      "n": 1,
+      "tool": "box",
+      "intent": "wrong",
+      "note": "add liver picture on the circle ?",
+      "x": 77.4,
+      "y": 22.5,
+      "w": 18.8,
+      "h": 18.5
+    }
+  ]
+}

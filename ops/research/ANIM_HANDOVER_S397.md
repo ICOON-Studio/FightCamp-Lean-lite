@@ -29,3 +29,9 @@ Token rule (operator via S398, plan at 49%): seats build, Claude judges; check i
   through godot_slot.py" + "do not loosen a bar".
 - My own Godot jobs: `python E:/FightCamp/Lean/ops/Tools/godot_slot.py run --who anim -- ...` (rule_guard enforces it).
 - seat_dispatch films/judges now run through the queue and judge in the background (f006eddd, 9a0318e7).
+
+## S399 result - inside-work retest
+Blind sonnet critic, neutral names (A = `nowork` control, B = inside work): A 5.5, B 6.0 -> +0.5, under the >= 1 bar. NOT merged.
+Confound: B's camera sat wider/higher, which the critic said may hide the clinch overlap rather than fix it; B's index did not
+finish (overview sheets only). Both: clinch bodies merge (0:20-0:23, 0:44-0:47), punches with no reaction. Saved on
+wip/s399-insidework (edc55c6b). A retest needs the SAME camera in both arms.

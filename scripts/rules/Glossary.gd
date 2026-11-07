@@ -12,7 +12,7 @@ const TERMS := {
 	"load": {"name": "Training load", "def": "This week's training hours against a usual week.",
 		"why": "At 1.5 the injury risk is three times the usual."},
 	# BoutRules.WEAPON_MASTERY 30, BeltRoad.OWNED_AT 30
-	"weapon": {"name": "Usable", "def": "A move at mastery 30 or more: it gets thrown on the night. The ladder: New, Raw, Usable 30, Sharp 60, Signature 85.",
+	"weapon": {"name": "Usable", "def": "A move at mastery 30 or more: it gets thrown on the night.",
 		"why": "Usable moves get thrown on the night; past the first 4, each adds 0.3 to the edge, up to 0.9."},
 	# WeekPhase
 	"phase": {"name": "Camp phase", "def": "BASE, BUILD, PEAK or TAPER, counted back from fight night.",
