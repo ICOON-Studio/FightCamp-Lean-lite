@@ -18,7 +18,7 @@ signal done(call: String)
 const MINUTE_S := 58.0
 ## The shot list: [start s, framing] (CornerShots). "cutman" plays in pro bouts only.
 ## S307 film check: no shot holds longer than ~6 s; over the shoulder, profile, the whole corner and the reverse take turns.
-const SHOTS := [[0.0, "part"], [2.2, "behind"], [4.4, "low_out"], [6.4, "water"], [7.8, "ice"], [9.0, "ots"], [14.0, "side2"],
+const SHOTS := [[0.0, "part"], [2.2, "behind"], [4.4, "low_out"], [6.4, "water"], [9.0, "ots"], [14.0, "side2"],
 	[19.0, "reverse"], [23.0, "corner_wide"], [27.0, "ots"], [30.0, "cutman"], [34.0, "side2"], [40.0, "other"], [43.5, "reverse"],
 	[47.0, "corner_wide"], [52.0, "push"], [54.6, "broadcast"]]
 ## What happens when: [s, cue] (the cue_<name> methods).
@@ -29,6 +29,9 @@ const LINES := {"long": "Stay long. Jab and move, make every punch reach.", "bod
 	"calm": "Breathe. Slow it down and pick your shots."}
 ## After the pick the reverse holds on the coach this long, then back over his shoulder.
 const REVERSE_S := 3.5
+const SAID_S := 6.0
+## The rest's tanks are full by "Seconds out!" (CornerRest): the end of the minute shows what the next round opens on.
+const REST_S := 52.0
 
 var view: Node
 var stage: Node3D
@@ -62,6 +65,7 @@ func run(v: Node, s: Node3D, c: CornerCrew, context: Dictionary) -> void:
 	ui = CornerOverlay.new()
 	view.add_child(ui)
 	ui.build(ctx["card"], ctx["names"])
+	ui.fade_in()
 	ui.chose.connect(_pick)
 	ui.fixed.connect(func(h: String): fix = h)
 	ui.skip.connect(finish)
@@ -87,7 +91,8 @@ func _process(delta: float) -> void:
 
 
 func _tick_ui() -> void:
-	ui.clock(MINUTE_S - t + 2.0, int(ctx["round"]) + 1)
+	ui.clock((1.0 - t / MINUTE_S) * 60.0, int(ctx["round"]) + 1)   # S395 a full minute on the clock, 0:00 on the bell
+	ui.rest(t / REST_S)
 
 
 ## The camera: cut to the shot whose start time has come (a pick holds the reverse for a while), drift along the shot.
@@ -221,7 +226,6 @@ func cue_ice() -> void:
 	crew.drop("bottle")
 	crew.actors["coach"]["ik"].reach("Left", null)
 	crew.play(crew.actors["second"], "af_idle")
-	crew.hold_at("ice", ctx_actor("her"), "Neck", Vector3(0, 0.03, -0.05))
 
 
 ## 0:09 her coach crouches in front of her, face to face; the corner card comes up.
@@ -237,6 +241,7 @@ func cue_face() -> void:
 	crew.look(her, coach)
 	ui.show_card(true)
 	_lines.append([t + 0.3, "\"%s\"" % ("Good round. Listen to me." if bool(ctx.get("won", false)) else "Look at me. We get this one back.")])
+	_lines.append([t + SAID_S, ""])   # S395 it stayed on screen for 43 s
 
 
 func cue_cutman() -> void:
@@ -277,6 +282,7 @@ func cue_default_call() -> void:
 ## 0:52 "Seconds out!": the corner team climbs out (gone at the cut) and the ice goes.
 func cue_seconds_out() -> void:
 	ui.show_card(false)
+	ui.skip_off()
 	_lines.append([t, "\"Seconds out!\""])
 	crew.drop("ice")
 	for i in 2:
@@ -336,13 +342,10 @@ func _pick(k: String) -> void:
 	ui.picked(k)
 	_lines.clear()
 	_lines.append([t, "\"%s\"" % LINES.get(k, BoutRules.CORNER[k])])
-	# S309: his read only when it backs your call (it argued for his own call after you picked another).
-	if k == str(ctx["card"]["call"]):
-		_lines.append([t + 3.4, "\"%s\"" % str(ctx["card"]["why"])])
 	for h in ctx["card"].get("fixes", []):
 		if str(h["id"]) == fix:
-			_lines.append([t + 3.4, "\"One more thing. %s: fix it this round.\"" % str(h["name"])])
-	_lines.append([t + 7.5, ""])
+			_lines.append([_card_off, "\"One more thing. %s: fix it this round.\"" % str(h["name"])])
+	_lines.append([_card_off + 4.0 if fix != "" else t + SAID_S, ""])
 	crew.play(crew.actors["coach"], "af_crouch_idle")
 	crew.play(ctx_actor("her"), "af_sit_idle")
 	if t >= 9.0 and t < 50.0:

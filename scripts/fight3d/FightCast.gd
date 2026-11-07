@@ -12,6 +12,8 @@ const FightSfx := preload("res://scripts/audio/FightSfx.gd")
 const TaleOfTape := preload("res://scripts/rules/TaleOfTape.gd")
 const CornerJobsRow := preload("res://scripts/ui/CornerJobsRow.gd")
 const CornerCard := preload("res://scripts/rules/CornerCard.gd")
+const PerkFight := preload("res://scripts/rules/PerkFight.gd")
+const CornerRest := preload("res://scripts/fight3d/CornerRest.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
@@ -77,6 +79,18 @@ static func corner(view: Node) -> bool:
 	card["stats"] = {"round": int(view.round_n), "won": bool(r.get("won", false)), "score": [won_a, done.size() - won_a],
 		"counts": int(r.get("counts", 0)), "tally": BodyMap.tally(view._round_beats),
 		"energy": {"a": _bell_energy(view, 0, float(en.get("a_end", 100.0))), "b": _bell_energy(view, 1, float(en.get("b_end", 100.0)))}}
+	# S395 where the rest takes them (CornerRest): her tank before the second's points, and the number the opponent opens on
+	# (LiveRound.opp_energy: the tank less the body shots taken). CornerOverlay works hers out from the points picked.
+	var tank: Dictionary = (f["bout"] as Dictionary).get("energy", {})
+	if not tank.is_empty():
+		var taken := float(((f["bout"] as Dictionary).get("body", {}) as Dictionary).get("b", 0))
+		card["rest"] = {"a": PerkFight.second_wind(f, int(view.round_n) + 1, float(tank["a"])),
+			"b": float(tank["b"]) - taken * PerkFight.body_cost(f)}
+		var hud: Node = view.get("bars")
+		if hud != null:
+			var menu: Dictionary = card["jobs_menu"]
+			var hers := CornerRest.opens(float(card["rest"]["a"]), CornerJobsRow.defaults(menu)["rec"], menu)
+			card["rest"]["parts"] = [hud.recovered(0, hers), hud.recovered(1, float(card["rest"]["b"]))]
 	# S318 the body map on the card (plan Q-S294-29): her figure + the cutman's job, and the number behind each call.
 	var bl: Node = view.get("body")
 	if bl != null:

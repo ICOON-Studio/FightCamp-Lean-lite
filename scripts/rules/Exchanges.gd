@@ -286,7 +286,7 @@ static func verdict(call: String, sit: String, won: bool, names: Array) -> Strin
 	var her := str(names[0])
 	var opp := str(names[1])
 	if call == "":
-		return "No shout: %s %s those 30 seconds alone." % [her, "won" if won else "lost"]
+		return "%s %s those 30 seconds with no call from you." % [her, "won" if won else "lost"]
 	var label := str(CALLS[call]["label"])
 	if won and (k == "best" or k == "ok"):
 		return "It worked: \"%s\" won %s those 30 seconds." % [label, her]

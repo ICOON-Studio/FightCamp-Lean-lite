@@ -18,6 +18,9 @@ func _initialize() -> void:
 		_check(r.position.x >= 0.0 and r.end.x <= 1.0 and r.position.y >= 0.0, "%s stays inside the shot" % stem)
 		_check((e - r.position.y) / r.size.y < 0.5, "%s has the eyes in the upper half" % stem)
 	_check(PromoShot.region("no_such_body") == Rect2(), "a body with no marks keeps its whole shot")
+	var frame := Image.create(8, 10, false, Image.FORMAT_RGB8)
+	var full := PromoShot.whole(ImageTexture.create_from_image(frame)) as AtlasTexture
+	_check(full != null and full.region == Rect2(0, 0, 8, 10), "a full-frame photo is its own crop, so it can breathe")
 	var tex: Texture2D = load("res://assets/ui/face/mh_boxer_11.jpg")
 	var cropped := PromoShot.crop(tex, "mh_boxer_11")
 	_check(cropped is AtlasTexture, "a shot crops to an atlas")

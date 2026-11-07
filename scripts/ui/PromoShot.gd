@@ -7,6 +7,7 @@ extends RefCounted
 
 const FACES := "res://assets/ui/face"
 const STUDIO := "res://assets/ui/face/studio"
+const GYM := "res://assets/ui/face/gym"   # S395 tools/bake_gym_portraits.gd: already head and shoulders, the file IS the frame
 const BREATH := preload("res://assets/ui/promo_breath.gdshader")
 const CROP_H := 0.52       # of the shot's height (and width: the frames are the shot's own 4:5)
 const ABOVE_EYES := 0.23   # how far above the eyes the frame starts, for tall hair
@@ -38,8 +39,19 @@ static func crop(tex: Texture2D, stem: String) -> Texture2D:
 	return a
 
 
+## A full-frame photo as a crop of itself, so live() breathes on it as on the others.
+static func whole(tex: Texture2D) -> Texture2D:
+	var a := AtlasTexture.new()
+	a.atlas = tex
+	a.region = Rect2(Vector2.ZERO, tex.get_size())
+	return a
+
+
 ## The photo of a body on the slate backdrop, null when it has none.
 static func shot(stem: String) -> Texture2D:
+	var gym := GYM.path_join(stem + ".jpg")
+	if ResourceLoader.exists(gym):
+		return whole(load(gym))
 	var path := STUDIO.path_join(stem + ".jpg")
 	return crop(load(path), stem) if ResourceLoader.exists(path) else null
 

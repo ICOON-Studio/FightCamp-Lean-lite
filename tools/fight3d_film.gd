@@ -9,6 +9,13 @@ const H := 1080
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const FightView := preload("res://scripts/fight3d/FightView.gd")
 const FightIntro := preload("res://scripts/fight3d/FightIntro.gd")
+const CornerMinute := preload("res://scripts/fight3d/CornerMinute.gd")
+const PICK_AT_S := 16.0   # the card comes up at 9 s: a player reads it, then picks
+## S395 (operator: "why do you render full fight clips"): `short` runs the dull stretches fast, so a film costs a third.
+const FAST := 8.0
+const FAST_ROUND_TO_S := 165.0   # round 1 at speed to here, then the last 15 s and the bell as played
+const FAST_CORNER_S := Vector2(20.0, 46.0)   # the walk, the card and the walk out stay as played
+var _fast_on := false
 
 var main: Node
 var out_dir := "user://fight3d_play"
@@ -79,21 +86,77 @@ func _initialize() -> void:
 		process_frame.connect(_log_joins.bind(view))
 	# S359: the intro (S307) plays before round 1 with playing false - wait for the round to start, or the film ends at once.
 	await _until(func(): return bool(view.playing), 120.0)
+	if OS.get_cmdline_user_args().has("short"):
+		process_frame.connect(_fast.bind(view))
+	await _until(func(): return float(view.t) >= float(view.length) - 1.0 or not bool(view.playing), 220.0)
+	_rings(view, "one second before the bell")
 	await _until(func(): return not bool(view.playing), 220.0)
-	await _wait(45)
-	pass   # S308: rounds are always full (3:00)
-	main.act("fightstep", "corner:body")
-	await _until(func(): return bool(view.playing), 120.0)
+	_rings(view, "end of the bell")
+	await _corner(view, "body")
+	if OS.get_cmdline_user_args().has("short"):   # S395 (operator: "noneedto bea full fight ?"): one round, the corner, the next bell
+		await _wait(150)
+		print("FILM done")
+		quit(0)
+		return
 	await _until(func(): return not bool(view.playing), 220.0)
-	await _wait(45)
-	main.act("fightstep", "corner:long")
-	await _until(func(): return bool(view.playing), 120.0)
+	await _corner(view, "long")
 	await _until(func(): return not bool(view.playing), 220.0)
 	await _wait(60)
 	if _joins != null:
 		_joins.close()
 	print("FILM done")
 	quit(0)
+
+
+## A big shot's moment plays as it plays in the game; the film goes back to speed after it.
+func _fast(view: Node) -> void:
+	var calls: Node = view.get_node_or_null("FightCalls")
+	if calls != null and float(calls._t) >= 0.0:
+		_fast_on = false
+		return
+	var m: Node = _minute(view)
+	var want := false
+	if bool(view.playing):
+		want = int(view.round_n) == 1 and float(view.t) > 2.0 and float(view.t) < FAST_ROUND_TO_S
+	elif m != null:
+		want = float(m.t) > FAST_CORNER_S.x and float(m.t) < FAST_CORNER_S.y
+	if want:
+		Engine.time_scale = FAST
+	elif _fast_on:
+		Engine.time_scale = view.pace() if bool(view.playing) else 1.0
+	_fast_on = want
+
+
+## S395: the corner minute plays to its own end, on the player's pick. This film used to send fightstep 45 frames after the
+## bell, so round 2 ran under the corner: rings and buttons on the letterbox, read as a game bug (tools/hud_corner_probe.gd).
+func _corner(view: Node, pick: String) -> void:
+	await _until(func(): return _minute(view) != null, 5.0)
+	var minute: Node = _minute(view)
+	if minute == null:
+		return   # a stoppage or the last round: no corner
+	await _until(func(): return float(minute.t) >= PICK_AT_S, 30.0)
+	minute.ui.chose.emit(pick)
+	await _until(func(): return float(minute.t) >= 53.0, 60.0)
+	print("FILM rest ends %.1f %.1f %s" % [minute.ui.rest_number(0), minute.ui.rest_number(1), str(minute.ctx["card"]["rest"].get("parts", []))])
+	await _until(func(): return bool(view.playing), 120.0)
+	await _wait(2)
+	_rings(view, "next round opens")
+	print("FILM edge %s %.2f clock %s, view %s window %s" % [view.bars.edge.word, view.bars.edge.value, view._clock.text, view.size, root.size])
+
+
+## S395 the stamina the rings draw against what the corner card will read.
+func _rings(view: Node, label: String) -> void:
+	var drawn := [float(view.bars.meters[0]["stamina"].fill) * 100.0, float(view.bars.meters[1]["stamina"].fill) * 100.0]
+	print("FILM rings %s: drawn %.1f / %.1f, card %.1f / %.1f" % [label, drawn[0], drawn[1], view.bars.stamina(0), view.bars.stamina(1)])
+	print("FILM body %s: legs %.1f / %.1f, guard %.1f / %.1f" % [label, float(view.bars.meters[0]["legs"].fill) * 100.0, float(view.bars.meters[1]["legs"].fill) * 100.0,
+		float(view.bars.meters[0]["guard"].fill) * 100.0, float(view.bars.meters[1]["guard"].fill) * 100.0])
+
+
+func _minute(view: Node) -> Node:
+	for c in view.get_children():
+		if c is CornerMinute and not c.is_queued_for_deletion():
+			return c
+	return null
 
 
 func _tidy(c: Career) -> void:

@@ -4,6 +4,7 @@ extends RefCounted
 ## S345 FIGHTHUD2 (Q-S294-69 "Yes, build it"): the scorebug is the round box top centre (round, clock, the round edge
 ## meter); each boxer's six bars stand in her top corner (HudBars) - the text rows (ENERGY 82, BODY TAKEN 4) are gone.
 
+const FightCalls := preload("res://scripts/fight3d/FightCalls.gd")
 const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
@@ -57,6 +58,7 @@ static func build(view: Control) -> void:
 	view._banner.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
 	view.add_child(view._banner)
 	pin(view._banner, Vector4(0.5, 0, 0.5, 0), Vector4(-640, 226, 640, 326))
+	FightCalls.attach(view, pin)   # S395 the TV line and the big-shot moment
 
 
 ## Anchors (left, top, right, bottom) and offsets in pixels from them.
@@ -72,6 +74,9 @@ static func pin(c: Control, anchors: Vector4, offsets: Vector4) -> void:
 
 
 ## The speed and skip buttons (shown while a round plays; moved out of FightView S312).
+const FADE_S := 0.35
+
+
 static func draw_buttons(view: Control) -> void:
 	var row: HBoxContainer = view._buttons
 	UI.clear(row)
@@ -87,11 +92,57 @@ static func draw_buttons(view: Control) -> void:
 	row.visible = bool(view.playing)
 
 
+## S395 (blind review: the bar goes back to even each round and nothing on screen says who leads the fight): the round line.
+static func round_line(n: int, total: int, rounds_done: Array, names: Array) -> String:
+	var line := "ROUND %d OF %d" % [n, total]
+	var won := rounds_done.filter(func(x): return bool((x as Dictionary).get("won", false))).size()
+	var lost := rounds_done.size() - won
+	if rounds_done.is_empty():
+		return line
+	if won == lost:
+		return "%s   LEVEL %d-%d" % [line, won, lost]
+	return "%s   %s LEADS %d-%d" % [line, str(names[0 if won > lost else 1]).get_slice(" ", 0).to_upper(), maxi(won, lost), mini(won, lost)]
+
+
+## S395 (blind review: everything cut out on one frame at the bell): it goes in the bell's last moments, before the corner.
+static func fade_out(view: Control) -> void:
+	var tw := view.create_tween().set_parallel(true)
+	for c in [view._bug_box, view._banner] + (view.bars.blocks as Array):
+		tw.tween_property(c, "modulate:a", 0.0, FADE_S)
+
+
+## S395 (blind review: the whole HUD popped back on one frame after the corner).
+static func fade_in(view: Control) -> void:
+	view._banner.modulate.a = 1.0
+	var tw := view.create_tween().set_parallel(true)
+	for c in [view._bug_box, view._buttons] + (view.bars.blocks as Array):
+		(c as Control).modulate.a = 0.0
+		tw.tween_property(c, "modulate:a", 1.0, 0.4)
+
+
 ## snap = LiveRound.state after the watched exchanges (energy a/b, body [hers, theirs], hurt [hers, theirs]); scored =
 ## this round's exchanges scored so far (the round edge). S310's rule holds: painted only from what was watched.
 static func paint(view: Control, snap: Dictionary, scored_now: Array) -> void:
 	if view.get("bars") != null:
 		view.bars.paint(snap, scored_now, round_start(view))
+
+
+## S395 (film: rings 67/69 at the bell, the corner card 62/65): the display after the exchanges finished by t, with both
+## tanks easing through the one being fought, so the last 30 s is not one jump at the bell. Body and hurt stay on the line.
+static func shown(exchanges: Array, t: float, start: Dictionary) -> Dictionary:
+	var k := int(t / Exchanges.EX_SECONDS)
+	var done: Dictionary = start
+	if k >= 1 and not exchanges.is_empty():
+		done = (exchanges[mini(k, exchanges.size()) - 1] as Dictionary).get("after", {})
+	if k >= exchanges.size():
+		return done
+	var now: Dictionary = (exchanges[k] as Dictionary).get("after", {})
+	var out := done.duplicate()
+	var part := fmod(t, Exchanges.EX_SECONDS) / Exchanges.EX_SECONDS
+	for who in ["a", "b"]:
+		if done.has(who) and now.has(who):
+			out[who] = lerpf(float(done[who]), float(now[who]), part)
+	return out
 
 
 ## The fight display before this round's first exchange: the live round's start, or the closed round's.

@@ -49,9 +49,15 @@ func land(b: Dictionary, at_s: float) -> void:
 	if str(b.get("result", "")) != "lands":
 		return
 	get_tree().create_timer(maxf(0.0, at_s)).timeout.connect(_apply.bind(b))
+	var calls: Node = view.get_node_or_null("FightCalls")
+	if calls != null and bool(b.get("big", false)):
+		get_tree().create_timer(maxf(0.0, at_s - calls.LEAD_S)).timeout.connect(calls.big_coming.bind(b))
 
 
 func _apply(b: Dictionary) -> void:
+	var calls: Node = view.get_node_or_null("FightCalls")
+	if calls != null:
+		calls.landed(b)
 	var def := "b" if str(b["who"]) == "a" else "a"
 	var side := 0 if def == "a" else 1
 	var st: Dictionary = stats[1 - side]

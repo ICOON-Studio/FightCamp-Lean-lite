@@ -243,6 +243,9 @@ func play_round(m: Dictionary, n: int) -> void:
 		stage.guard(i)
 	_draw_buttons()
 	_hud()
+	bars.fresh_round()
+	if n > 1:
+		FightHud.fade_in(self)
 	# S307: before round 1 the intro plays (FightCast.intro); it hands the ring back at the bell.
 	playing = not (n == 1 and FightCast.intro(self))
 	if playing:
@@ -318,6 +321,8 @@ func _process(delta: float) -> void:
 	var dt := delta
 	if _bell_left >= 0.0:
 		_bell_left -= dt
+		if _bell_left < FightHud.FADE_S and _bell_left + dt >= FightHud.FADE_S:
+			FightHud.fade_out(self)
 		if _bell_left < 0.0:
 			_done()
 		return
@@ -330,7 +335,7 @@ func _process(delta: float) -> void:
 	var counting: bool = kd != null and kd.holding()   # S377: the round clock holds through a knockdown's count
 	if not counting:
 		t += dt
-	if t > 1.2 and _banner.text.begins_with("ROUND"):
+	if t > 2.0 and _banner.text.begins_with("ROUND"):
 		_banner.text = ""
 	while next < beats.size() and float(beats[next]["t"]) <= t:
 		_fire(beats[next])
@@ -391,12 +396,15 @@ func _bell() -> void:
 	var r: Dictionary = (main.modal["rounds"] as Array)[round_n - 1]
 	# S303 corner card: read off the beats this round played, so the corner screen agrees with what was watched.
 	r["card"] = CornerCard.summarize(_round_beats)
+	bars.held = true
+	_buttons.visible = false   # S395 nothing left to skip in the seconds after the bell
 	body.bell()
 	if burn != null:
 		burn.bell()
 	_stop = str(r.get("stopped", ""))
 	var red := bool(r.get("won", true))
-	_banner.text = "BELL. %s'S ROUND" % ("RED" if red else "BLUE") if _stop == "" else "STOPPED. %s WINS" % ("RED" if red else "BLUE")
+	var who := str((_ctx["f"] if red else _ctx["opp"])["first"]).to_upper()   # S395 names, as the corner card has them
+	_banner.text = "BELL. %s'S ROUND" % who if _stop == "" else "STOPPED. %s WINS" % who
 	_banner.add_theme_color_override("font_color", Color(0.95, 0.35, 0.3) if red else Color(0.45, 0.6, 1.0))
 	_say("")
 	_bell_left = BELL_S
@@ -406,11 +414,10 @@ func _bell() -> void:
 
 
 func _hud() -> void:
-	_bug.text = "ROUND %d OF %d" % [round_n, total]
-	var left := maxf(0.0, length - t)
-	var seen := _exchanges().slice(0, int(t / Exchanges.EX_SECONDS))
+	_bug.text = FightHud.round_line(round_n, total, (main.modal.get("rounds", []) as Array).slice(0, round_n - 1), _names)
+	var left := ceilf(maxf(0.0, length - t))   # S395 reads 0:00 at the bell, not a second before it
 	_clock.text = "%d:%02d" % [int(left) / 60, int(left) % 60]
-	FightHud.paint(self, (seen[-1] as Dictionary).get("after", {}) if not seen.is_empty() else FightHud.round_start(self), FightHud.scored(_exchanges(), t))
+	FightHud.paint(self, FightHud.shown(_exchanges(), t, FightHud.round_start(self)), FightHud.scored(_exchanges(), t))
 
 
 ## This round's exchanges fought so far (live, or the closed round's).

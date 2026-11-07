@@ -44,8 +44,8 @@ const UNKNOWN := {
 const GUARD_LOW := 0.55
 const READ_S := 0.25
 ## S392 (operator: "flash according to the damage done"): a flash is damage / FLASH_FULL, BodyMap's biggest loss; never under LEAST.
-const LEAN_PER_PUNCH := 0.04
-const LEAN_MOST := 0.25
+const LEAN_PER_PUNCH := 0.02
+const LEAN_MOST := 0.125
 const EVEN_UNDER := 0.08
 const FLASH_FULL := 3.0
 const FLASH_LEAST := 0.25   # S394 (blind review: "a 1-point and a 2-point hit get the same flash"): was 0.6, which floored both
@@ -64,6 +64,8 @@ var _low_said := -1
 ## S394 punches landed since the last scored exchange, per corner: the round edge leans with them before the verdict.
 var _landed := [0, 0]
 var _scored_seen := 0
+## S395 the bell's rest refills legs at once; the rings hold what the round ended on until the corner takes the screen.
+var held := false
 
 
 static func attach(v: Control) -> Node:
@@ -166,9 +168,29 @@ func _process(delta: float) -> void:
 	for b in blocks:
 		(b as Control).visible = view._bug_box.visible and bool(view.playing)   # S394 the corner's letterbox cut them in half
 	_read_left -= delta
-	if _read_left > 0.0 or _snap.is_empty():
+	if _read_left > 0.0 or _snap.is_empty() or held:
 		return
 	_read_left = READ_S
+	_read()
+
+
+## S395 (blind review: round 2 opened on round 1's lead and tanks, then rolled to the real ones in 1.5 s): a new round starts
+## on its own numbers, with no ease from the last one.
+func fresh_round() -> void:
+	held = false
+	_landed = [0, 0]
+	_scored_seen = 0
+	for side in 2:
+		for key in FightMeters.ORDER:
+			var m: Arc = meters[side][key]
+			m.fill = -1.0
+			m.chunk = -1.0
+	if not _snap.is_empty():
+		_read()
+	(edge as EdgeMeter).value = (edge as EdgeMeter).want
+
+
+func _read() -> void:
 	for side in 2:
 		var bars := FightMeters.bars(_source(side))
 		for key in FightMeters.ORDER:
@@ -196,6 +218,27 @@ func _process(delta: float) -> void:
 ## S394 the stamina the ring shows, 0-100, so the corner's table reads the same number; < 0 before the first read.
 func stamina(side: int) -> float:
 	return float(FightMeters.bars(_source(side))["stamina"]["fill"]) * 100.0 if not _snap.is_empty() else -1.0
+
+
+## S395 (blind review: legs and guard came back from the corner higher, with nothing shown): {name: [what the ring holds, what
+## the next round opens on]} for a tank of `tank`. The bell's rest is already in BodyBurn; the rings are held until the round.
+func recovered(side: int, tank: float) -> Dictionary:
+	var src := _source(side)
+	src["energy"] = tank
+	src["energy_start"] = tank
+	var burn: Node = view.get("burn")
+	if burn != null:
+		var to: Dictionary = (burn.get("_to") as Array)[side]
+		var parts := {}
+		for part in BodyLoad.PARTS:
+			parts[part] = float(to.get("b_" + part, 0.0))
+		src["burn"] = parts
+		src["drop"] = {"lead": float(to.get("lead", 0.0)), "rear": float(to.get("rear", 0.0))}
+	var after := FightMeters.bars(src)
+	var out := {"legs": [meters[side]["legs"].fill * 100.0, float(after["legs"]["fill"]) * 100.0]}
+	if bool(_known[side]["guard"]):
+		out["guard"] = [meters[side]["guard"].fill * 100.0, float(after["guard"]["fill"]) * 100.0]
+	return out
 
 
 ## The values FightMeters reads for side 0 (her) / 1 (the opponent).
@@ -274,6 +317,8 @@ class Rings extends Control:
 	const WIDTH := 23.0
 	const SPAN := 108.0           # degrees of each arc (the rest of its third is the gap)
 	const NUM_SIZE := 21          # S369 the value drawn on each arc
+	const MID_SIZE := 46          # S395 her stamina in the ring's middle
+	const HURT_SIZE := 26
 	const INNER := ["head", "body", "legs"]
 	const OUTER := ["stamina", "guard", "heart"]
 	const ICONS := {"head": "user", "body": "shirt", "legs": "footprints", "stamina": "zap", "guard": "shield", "heart": "heart"}
@@ -340,10 +385,13 @@ class Rings extends Control:
 			var tint := Color(1.0, 0.22, 0.16, 1.0).lerp(Color(1.0, 0.75, 0.7, 1.0), liver_flash)
 			tint.a = minf(1.0, 0.62 + 0.14 * sin(_liver_t * 5.0) + liver_flash)
 			draw_texture_rect(LIVER_PIC, Rect2(c - Vector2(px, px) * 0.5, Vector2(px, px)), false, tint)
-		if hurt:
-			var f := ThemeDB.fallback_font
-			var w := f.get_string_size("HURT", HORIZONTAL_ALIGNMENT_LEFT, -1, 15).x
-			draw_string(f, c + Vector2(-w * 0.5, 48 if _liver_on else 6), "HURT", HORIZONTAL_ALIGNMENT_LEFT, -1, 15, Color("#e0503c"))
+		var f := ThemeDB.fallback_font
+		var st := arcs.get("stamina") as Arc
+		var word := "HURT" if hurt else ("" if _liver_on or st == null else "%d" % roundi(clampf(st.fill, 0.0, 1.0) * 100.0))
+		var px := HURT_SIZE if hurt else MID_SIZE
+		var at := c + Vector2(-f.get_string_size(word, HORIZONTAL_ALIGNMENT_LEFT, -1, px).x * 0.5, 48.0 if _liver_on else px * 0.36)
+		draw_string_outline(f, at, word, HORIZONTAL_ALIGNMENT_LEFT, -1, px, 6, Color(0, 0, 0, 0.9))
+		draw_string(f, at, word, HORIZONTAL_ALIGNMENT_LEFT, -1, px, Color("#e0503c") if hurt else (st.colour() if st != null else Color.WHITE))
 
 	## One arc: its dark track, the spent part (comes back at the bell), the fill, the grey end gone for the fight.
 	func _arc(c: Vector2, r: float, mid: float, a: Arc, key: String, outer: bool) -> void:
@@ -378,6 +426,8 @@ class Rings extends Control:
 			draw_arc(c, r, a0, a1, 32, Color(1.0, 0.32, 0.22, 0.9 * a._flash), WIDTH + 6.0 * a._flash, true)   # S394 white on ivory did not read
 		# S369 (operator, on the ring: "also add numbers here?"): her value on the arc, 0-100, so the corner can read who is
 		# the more tired without judging arc lengths.
+		if not Arc.number_on_arc(key, fl):
+			return
 		var nf := ThemeDB.fallback_font
 		var txt := "%d" % roundi(fl * 100.0)
 		var ts := nf.get_string_size(txt, HORIZONTAL_ALIGNMENT_LEFT, -1, NUM_SIZE)

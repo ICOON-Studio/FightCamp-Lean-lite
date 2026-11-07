@@ -8,6 +8,7 @@ const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the d
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const CallButtons := preload("res://scripts/ui/CallButtons.gd")
 const CornerStats := preload("res://scripts/ui/CornerStats.gd")
+const CornerRest := preload("res://scripts/fight3d/CornerRest.gd")
 
 signal chose(call: String)
 signal fixed(habit: String)
@@ -45,6 +46,10 @@ var _said: Label
 var _fix_box: VBoxContainer
 var _fixes: Array = []
 var _names: Array = []
+var _steps: Array = []
+var _skip: Button
+var _rest: Control = null   # S395 the tanks refilling on the top bar
+var _rest_from := 0.0        # her tank at the next round, before the second's water
 var fix := ""
 
 
@@ -62,6 +67,7 @@ func build(card: Dictionary, names: Array) -> void:
 	_pin(_clock, Vector4(0, 0, 0, 0), Vector4(32, 30, 420, 70))
 	var sk := UI.button("Skip to the bell", "BtnQuiet", func(): skip.emit())
 	sk.name = "SkipCorner"
+	_skip = sk
 	add_child(sk)
 	_pin(sk, Vector4(1, 0, 1, 0), Vector4(-300, 22, -28, 70))
 	_caption = UI.label("", 28, UI.FG, "body", true)
@@ -124,6 +130,7 @@ func build(card: Dictionary, names: Array) -> void:
 		_jobs_box = UI.vbox(0)
 		v.add_child(_jobs_box)
 		_draw_jobs()
+	_rest_strip(card, names)
 	_fixes = card.get("fixes", [])
 	_fix_box = UI.vbox(4)
 	v.add_child(_fix_box)
@@ -149,7 +156,13 @@ func build_intro() -> void:
 
 
 func clock(left_s: float, round_next: int) -> void:
-	_clock.text = "CORNER   0:%02d   ROUND %d NEXT" % [int(ceilf(maxf(0.0, left_s))), round_next]
+	_clock.text = clock_text(left_s, round_next)
+
+
+## S395 (blind review: the minute opened on "0:60").
+static func clock_text(left_s: float, round_next: int) -> String:
+	var s := int(ceilf(maxf(0.0, left_s)))
+	return "CORNER   %d:%02d   ROUND %d NEXT" % [s / 60, s % 60, round_next]
 
 
 func say(text: String) -> void:
@@ -157,7 +170,54 @@ func say(text: String) -> void:
 
 
 func show_card(on: bool) -> void:
+	if on and not _card.visible and is_inside_tree():   # S395 (blind review: the panel popped in hard)
+		_card.modulate.a = 0.0
+		create_tween().tween_property(_card, "modulate:a", 1.0, 0.25)
 	_card.visible = on
+
+
+## S395 (blind review: the letterbox and strip swapped in on one frame).
+func fade_in() -> void:
+	modulate.a = 0.0
+	create_tween().tween_property(self, "modulate:a", 1.0, 0.35)
+
+
+## S395 the rest's share gone by: the tanks on the top bar climb with it.
+func rest(frac: float) -> void:
+	if _rest != null:
+		_rest.tick(frac)
+
+
+func rest_number(side: int) -> float:
+	return _rest.number(side) if _rest != null else -1.0
+
+
+## "Seconds out!": too late to skip anything.
+func skip_off() -> void:
+	_skip.visible = false
+
+
+func _rest_strip(card: Dictionary, names: Array) -> void:
+	var st: Dictionary = card.get("stats", {})
+	var to: Dictionary = card.get("rest", {})
+	if to.is_empty() or st.is_empty():
+		return
+	_rest_from = float(to["a"])
+	_rest = CornerRest.new()
+	add_child(_rest)
+	_pin(_rest, Vector4(0.5, 0, 0.5, 0), Vector4(-430, 26, 430, 66))
+	var e: Dictionary = st.get("energy", {})
+	_rest.setup(names, [float(e.get("a", 100.0)), float(e.get("b", 100.0))], [_rest_to(), float(to["b"])])
+	if to.has("parts"):
+		var line := UI.label("", UI.SMALL, UI.MUTED, "body")
+		line.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		add_child(line)
+		_pin(line, Vector4(0.5, 0, 0.5, 0), Vector4(-430, 68, 430, 100))
+		_rest.body_line(to["parts"], line)
+
+
+func _rest_to() -> float:
+	return CornerRest.opens(_rest_from, jobs.get("rec", {}), _menu)
 
 
 func card_up() -> bool:
@@ -171,6 +231,9 @@ func subject_x() -> float:
 
 ## The call is made: the buttons go, the call (and the fix) stay on the card.
 func picked(call: String) -> void:
+	for s in _steps:   # S395 the numbers went with their rows: a picked card read "1, 3" over nothing
+		if is_instance_valid(s):
+			s.visible = false
 	_calls.visible = false
 	_fix_box.visible = false
 	if _jobs_box != null:
@@ -187,6 +250,8 @@ func _draw_jobs() -> void:
 	for ch in _jobs_box.get_children():
 		ch.queue_free()
 	_jobs_box.add_child(CornerJobsRow.build(_menu, jobs, _names, _draw_jobs, true))
+	if _rest != null:
+		_rest.aim(0, _rest_to())
 
 
 ## The corner action's job parts for the pick (Bouts.corner_jobs).
@@ -302,6 +367,7 @@ func apply_body() -> void:
 func _step(n: int, text: String) -> Label:
 	var l := UI.caps("%d   %s" % [n, text])
 	l.add_theme_color_override("font_color", UI.GOLD)
+	_steps.append(l)
 	return l
 
 

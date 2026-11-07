@@ -18,7 +18,7 @@ const FighterKit := preload("res://scripts/fight3d/FighterKit.gd")
 const DIR := "res://assets/models/metahuman/"
 const BODIES := {"coach": "mh_staff_coach", "second": "mh_staff_trainer", "cutman": "mh_staff_cutman_1",
 	"blue_coach": "mh_staff_coach_2", "blue_second": "mh_staff_trainer"}
-const LOOPS := ["af_walk", "af_walk_carry", "af_sit_idle", "af_sit_talk", "af_crouch_idle", "af_talk", "af_idle",
+const LOOPS := ["ow_walk", "af_walk", "af_walk_carry", "af_sit_idle", "af_sit_talk", "af_crouch_idle", "af_talk", "af_idle",
 	"af_idle_foldarms", "af_nod_yes"]
 ## The stool's centre, from the post along the corner's diagonal, metres (her back a hand from the corner pad).
 const SEAT_IN_M := 0.62
@@ -28,6 +28,9 @@ const SEATED_HIPS_M := 0.54
 ## af_walk's ground speed at 1x on the unscaled body (tools/corner_probe.gd: the standing foot moves back 0.90-0.98 m/s).
 const WALK_MS := 0.92
 const BOXER_WALK_MS := 0.7   # S391: a boxer's step pairs to the centre, in her guard
+## S395 ow_walk (tools/walk_cycle.gd, a real captured walk): its ground speed at 1x, and the pace a boxer walks it at.
+const OW_WALK_MS := 1.58
+const OW_WALK_RATE := 0.6
 const TURN_S := 0.12
 const SIT := ["af_sit_enter", "af_sit_exit"]
 
@@ -61,7 +64,7 @@ func build(s: Node3D, pro: bool) -> void:
 		props[side + "_bucket"].position = (c["post"] as Vector3) - (c["d"] as Vector3) * 0.42 + Vector3(0, 0.16, 0)
 	props["bottle"] = _cyl(0.035, 0.22, Color(0.55, 0.8, 0.95, 0.75), 0.15)
 	# An ice bag in a towel, held flat against the back of her neck (thin side front to back).
-	props["ice"] = _box(Vector3(0.12, 0.09, 0.03), Color(0.82, 0.88, 0.95), 0.85)
+	props["ice"] = _soft(Vector3(0.15, 0.1, 0.045), Color(0.93, 0.92, 0.88), 0.95)   # S395 a soft towel: the box read as a grey brick
 	set_shown(false)
 
 
@@ -133,6 +136,12 @@ func walk(a: Dictionary, to: Vector3, done: Callable = Callable(), carry: bool =
 	# S391 (board C240 "the walking is terrrible at the startof the fight"; S377: no casual walk on a boxer): a boxer walks
 	# in her guard on her own steps - the rig puts her feet down and her body rides on them (RingFeet).
 	var i: int = stage.boxers.find(a)
+	# S395 ("still walking is terrible"): the guard shuffle read as a shuffle. Between rounds a boxer simply walks, hands down.
+	if i >= 0 and (a["ap"] as AnimationPlayer).has_animation("ow_walk"):
+		RingFeet.hold(stage, i)
+		play(a, "ow_walk", OW_WALK_RATE)
+		_walks[n] = {"a": a, "to": Vector3(to.x, 0, to.z), "speed": OW_WALK_MS * OW_WALK_RATE * n.scale.x, "done": done}
+		return
 	if i >= 0 and RingFeet.on(stage, a):
 		stage.guard(i)
 		RingFeet.hold(stage, i)
@@ -380,6 +389,21 @@ func _box(size: Vector3, colour: Color, rough: float) -> MeshInstance3D:
 	m.material_override = _mat(colour, rough)
 	add_child(m)
 	return m
+
+
+## A squashed ball under a holder: _follow_props sets the holder's whole transform, which would wipe a scale on the prop.
+func _soft(size: Vector3, colour: Color, rough: float) -> Node3D:
+	var holder := Node3D.new()
+	var m := MeshInstance3D.new()
+	var sm := SphereMesh.new()
+	sm.radius = 0.5
+	sm.height = 1.0
+	m.mesh = sm
+	m.scale = size
+	m.material_override = _mat(colour, rough)
+	holder.add_child(m)
+	add_child(holder)
+	return holder
 
 
 func _cyl(r: float, h: float, colour: Color, rough: float) -> MeshInstance3D:

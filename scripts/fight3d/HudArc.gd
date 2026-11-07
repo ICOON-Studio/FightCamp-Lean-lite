@@ -67,6 +67,11 @@ func tick(delta: float) -> void:
 			if chunk - fill < 0.004:
 				chunk = -1.0
 
+## S395 tired read (Q-S294-111): stamina has the ring's middle; the others show their number only once they are low.
+static func number_on_arc(key: String, v: float) -> bool:
+	return key != "stamina" and band_of(v) > 0
+
+
 static func band_of(v: float) -> int:
 	return 0 if v >= 0.6 else (1 if v >= 0.35 else 2)
 

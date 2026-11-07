@@ -24,8 +24,9 @@ const KD_COST := 0.22
 const HURT_COST := 0.06
 const HEART_BASE := 1.5
 ## Round edge, the round's own rule (Exchanges.round_of: most exchanges won, a split goes to the bigger margin): each
-## exchange won is a third of the meter (EDGE_FULL net fill it), the margins only nudge it (TIE_NUDGE at most).
-const EDGE_FULL := 3.0
+## exchange won is a sixth of the meter, so only a clean sweep fills it (S395 blind review: 80% full on a close round read
+## as a beating); the margins only nudge it (TIE_NUDGE at most).
+const EDGE_FULL := 6.0
 const TIE_NUDGE := 0.15
 
 

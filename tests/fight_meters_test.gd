@@ -51,12 +51,17 @@ func _initialize() -> void:
 	var src_heart := FM.bars({"heart_attr": 70.0, "counts": 1, "hurts": 2})
 	_check(is_equal_approx(float(src_heart["heart"]["fill"]), FM.heart(70.0, 1, 2)), "bars() heart = heart(attr, counts, hurts)")
 
-	# 6. Round edge: red's margins push it up, blue's down, capped at EDGE_FULL clear exchanges.
+	# 6. Round edge: red's margins push it up, blue's down; only a sweep of the six exchanges fills it.
 	_check(FM.edge([]) == 0.0, "edge: no exchange yet = level")
-	_check(FM.edge([{"margin": 30.0}, {"margin": 45.0}, {"margin": 30.0}]) == 1.0, "edge: three clear red exchanges fill it")
+	var sweep := []
+	for i in 6:
+		sweep.append({"margin": 30.0})
+	_check(FM.edge(sweep) == 1.0, "edge: six clear red exchanges fill it")
+	var four_two := [{"margin": 9.0}, {"margin": 9.0}, {"margin": 9.0}, {"margin": 9.0}, {"margin": -9.0}, {"margin": -9.0}]
+	_check(FM.edge(four_two) < 0.5, "edge: a 4-2 round is a lead, not a beating (%.2f)" % FM.edge(four_two))
 	var close := FM.edge([{"margin": 10.0}, {"margin": -5.0}])
 	_check(close > 0.0 and close < 0.2, "edge: a close round leans a little (%.2f)" % close)
-	_check(FM.edge([{"margin": -30.0}, {"margin": -12.0}]) < -0.4, "edge: blue's round goes the other way")
+	_check(FM.edge([{"margin": -30.0}, {"margin": -12.0}]) < -0.3, "edge: blue's round goes the other way")
 	# The round's own rule: two small wins beat one big loss (Exchanges.round_of), so the meter leans her way too.
 	var two_small := [{"won": true, "margin": 3.0}, {"won": true, "margin": 4.0}, {"won": false, "margin": -40.0}]
 	_check(FM.edge(two_small) > 0.0, "edge: 2 small wins + 1 big loss still leans red, as the round is scored (%.2f)" % FM.edge(two_small))
