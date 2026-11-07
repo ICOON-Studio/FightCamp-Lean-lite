@@ -150,7 +150,7 @@ static func fill(f: Dictionary, goal: String, one_off: bool = false) -> Dictiona
 					break
 		out["line"] = "Drill: %s" % BjjTree.move_name(str(out["missing"])).to_lower() if str(out["missing"]) != "" else "no route yet"
 		if goal == "legs" and BeltRoad.rank(str(rl["legal"])) < BeltRoad.rank("brown"):
-			out["line"] = "IBJJF: straight ankle only"
+			out["line"] = "Union rules: straight ankle only"
 		return out
 	var steps: Array = (ranked[0]["steps"] as Array).duplicate()
 	if one_off:
@@ -227,7 +227,7 @@ static func route_line(f: Dictionary, rid: String) -> String:
 	if n >= BjjTree.LONG_AT:
 		line += " - long: gets read"
 	if not BjjTree.route_legal(steps, rl):
-		line += " - IBJJF: brown and up"
+		line += " - Union rules: brown and up"
 	return line
 
 

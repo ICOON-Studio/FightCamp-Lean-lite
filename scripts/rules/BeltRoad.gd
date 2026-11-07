@@ -122,9 +122,9 @@ static func promote(f: Dictionary, mastery: Dictionary, today: int) -> Dictionar
 		return {"ok": false, "why": "Already a black belt."}
 	var r := readiness(f, mastery, today)
 	if not r["age_ok"]:
-		return {"ok": false, "why": "Too young for %s: the IBJJF minimum is %d." % [nxt, MIN_AGE[nxt]]}
+		return {"ok": false, "why": "Too young for %s: the Grappling Union minimum is %d." % [nxt, MIN_AGE[nxt]]}
 	if int(r["days_left"]) > 0:
-		return {"ok": false, "why": "%d more days at %s (the IBJJF minimum)." % [r["days_left"], belt]}
+		return {"ok": false, "why": "%d more days at %s (the Grappling Union minimum)." % [r["days_left"], belt]}
 	var out := f.duplicate()
 	out["belt"] = nxt
 	out["belt_day"] = today

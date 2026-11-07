@@ -27,6 +27,8 @@ func _initialize() -> void:
 	if b == null:
 		_end()
 		return
+	_check(CB.chain == CB.starter(f) and CB.chain.size() >= 2, "test 1b: it opens on a combination she can throw (%s)" % str(CB.chain))
+	CB.chain = []
 	for id in ["jab", "cross", "slip"]:
 		(main.find_child("Try_" + id, true, false) as Button).pressed.emit()
 	await process_frame

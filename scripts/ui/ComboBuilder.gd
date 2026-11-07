@@ -100,6 +100,9 @@ func build(m: Node, fighter: Dictionary) -> void:
 	_rows.name = "Chain"
 	mid.add_child(_rows)
 	add_child(mid)
+	# S397 blind round 3 ("the middle panel is one line on a big white box"): it opens on a combination she can throw.
+	if chain.is_empty():
+		chain = starter(f)
 	var col := UI.vbox(8)
 	var card := PanelContainer.new()
 	card.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 12, 1, 6, 6))
@@ -113,6 +116,18 @@ func build(m: Node, fighter: Dictionary) -> void:
 	col.add_child(UI.muted("Your fighter throws the chain on a loop; the partner is a ghost.", UI.SMALL, true))
 	add_child(col)
 	_refresh(false)
+	player.ready.connect(_play, CONNECT_ONE_SHOT)
+
+
+## The chain the panel opens on: the 1-2-3 when she can throw it, else the 1-2.
+static func starter(fighter: Dictionary) -> Array:
+	var open: Array = Combos.unlocked(fighter.get("moves", {}))
+	for id in ["1-2-3", "1-2"]:
+		if open.has(id):
+			for row in Combos.BOOK:
+				if str(row["id"]) == id:
+					return (row["beats"] as Array).duplicate()
+	return ["jab", "cross"]
 
 
 ## MOVES TO TRY: each move adds itself to the chain; her book's combinations start one.
@@ -160,6 +175,8 @@ func _palette() -> Control:
 		MoveTip.attach(b, id, f)
 		flow.add_child(b)
 	v.add_child(flow)
+	# S397 blind round 3 ("3b, 1-6-3 never explained"): the numbers coaches call, once.
+	v.add_child(UI.label("1 jab · 2 cross · 3 lead hook · 6 uppercut · b to the body", UI.TINY, UI.MUTED, "body", true))
 	# S376 (operator's S375 playtest: "the own-combo builder has no 'Drill it' button"): each of the fighter's own
 	# combinations loads back into the builder AND goes on the pads from here, like the planner's Drill this week.
 	var own: Array = OwnCombos.entries(f)

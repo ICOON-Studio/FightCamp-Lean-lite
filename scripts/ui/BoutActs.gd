@@ -133,7 +133,7 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		"enterchamp":
 			var ef := who(main, arg)
 			if Champs.enter(c, ef):
-				main.toast("%s is entered for the nationals: the draw is on WORLD > Nationals." % ef["first"])
+				main.toast("%s is entered for the nationals: the draw is on World > Championships." % ef["first"])
 			main.render()
 		"openBout":
 			main.nav({"area": "fights", "tab": 0, "bout": arg})

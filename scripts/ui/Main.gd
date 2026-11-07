@@ -91,6 +91,23 @@ func _ready() -> void:
 	_toast_timer.timeout.connect(func(): UI.clear(_toast_layer))
 	add_child(_toast_timer)
 	render()
+	# S396 Steam: `-- capture=<file.png>` saves the screen after 6 s and quits (a release build checks itself on a hidden
+	# desktop; store screenshots). Without the option nothing changes.
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("capture="):
+			var wait := 6.0   # `capture_s=<seconds>` waits longer (a fight jump loads its 3D first)
+			for b in OS.get_cmdline_user_args():
+				if b.begins_with("capture_s="):
+					wait = float(b.trim_prefix("capture_s="))
+			get_tree().create_timer(wait).timeout.connect(func():
+				get_viewport().get_texture().get_image().save_png(a.trim_prefix("capture="))
+				get_tree().quit())
+		if a.begins_with("click="):   # `click=<button text>` presses that button at 8 s (drives a capture into the ring)
+			get_tree().create_timer(8.0).timeout.connect(func():
+				for b in get_tree().root.find_children("*", "Button", true, false):
+					if (b as Button).text == a.trim_prefix("click=") and (b as Button).is_visible_in_tree():
+						(b as Button).pressed.emit()
+						return)
 	# S310: the ops board's Play buttons start the build at the part to test (TestJump: `-- jump=fight`).
 	# S335 `-- jump=grapple` (the ground-move browser), S337 `jump=strikemap` (StrikeMap's position cards), S379
 	# `jump=theatre` (the Grappling theatre): prototypes outside the boxing game open on their own scene (TestJump.SCENE_JUMPS).
@@ -368,6 +385,8 @@ func act(name: String, arg: String = "") -> void:
 			open_modal({"type": "info", "title": "Settings", "body": "", "settings": true})
 		"handbook":
 			open_modal({"type": "info", "title": "Handbook", "body": "", "handbook": true})
+		"credits":
+			open_modal({"type": "info", "title": "Credits", "body": "", "credits": true})
 		"go_btn":
 			on_go()
 		"speed":

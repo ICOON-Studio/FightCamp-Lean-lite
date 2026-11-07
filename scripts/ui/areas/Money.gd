@@ -80,7 +80,7 @@ func _overview(c: Career) -> void:
 		["Members' dues", int(inc["dues"])], ["Evening classes", int(inc["classes"])],
 		["BJJ classes' dues", int(inc.get("bjj", 0))], ["Sponsors", int(inc["sponsors"])]], scale, UI.GREEN, "+"))
 	split.add_child(_split_card("WHERE IT GOES, A WEEK", [
-		["Rent", int(cost.get("rent", cost["upkeep"]))], ["England Boxing fees", int(cost.get("fees", 0))],
+		["Rent", int(cost.get("rent", cost["upkeep"]))], ["Boxing Board fees", int(cost.get("fees", 0))],
 		["Coach", int(cost["staff"])], ["Fighter stipends", int(cost["fighters"])], ["BJJ coach", int(cost.get("bjj", 0))]],
 		scale, UI.RED, "-"))
 

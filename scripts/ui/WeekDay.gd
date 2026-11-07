@@ -68,7 +68,7 @@ static func head(i: int, day: int, mine: bool, coach_card: Array, act: Callable,
 ## The morning card: her body at the station, the session's name; a click opens the picker.
 static func am(f: Dictionary, i: int, m: Array, planned: Array, r: Dictionary, red: bool, mine: bool, twist: String,
 		on_open: Callable) -> Button:
-	var b := _shell("Session_%d" % i, SOFT if str(m[0]) == "rest" else UI.PANEL, UI.LINE)
+	var b := _shell("Session_%d" % i, Color(0, 0, 0, 0) if str(m[0]) == "rest" else UI.PANEL, UI.ROWLINE if str(m[0]) == "rest" else UI.LINE)   # S397: rest is quiet
 	b.custom_minimum_size = Vector2(0, AM_H)
 	b.pressed.connect(func(): on_open.call(i))
 	var v := _inner(b, 6)
@@ -80,11 +80,11 @@ static func am(f: Dictionary, i: int, m: Array, planned: Array, r: Dictionary, r
 	v.add_child(pic)
 	if rest:
 		var bg := ColorRect.new()
-		bg.color = Color("#eceef1")
+		bg.color = Color(0, 0, 0, 0)
 		bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		pic.add_child(bg)
-		var word := UI.label("rest", 24, UI.MUTED, "hand")
+		var word := UI.label("rest", 20, Color(UI.MUTED, 0.7), "hand")
 		word.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		word.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		word.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -127,8 +127,8 @@ static func pm(spec: Dictionary) -> PmCard:
 	p.custom_minimum_size = Vector2(0, PM_H)
 	var pads := k == "pads"
 	var lit := pads and bool(spec.get("picked", false))
-	p.add_theme_stylebox_override("panel", UI.box(Color("#dce8ff") if lit else (Color("#fbfaf7") if pads else SOFT),
-		Color(0, 0, 0, 0) if pads else UI.LINE, 10, 0 if pads else 1, 8, 8))
+	p.add_theme_stylebox_override("panel", UI.box(Color("#dce8ff") if lit else (Color("#fbfaf7") if pads else (Color(0, 0, 0, 0) if k == "rest" else SOFT)),
+		Color(0, 0, 0, 0) if pads else (UI.ROWLINE if k == "rest" else UI.LINE), 10, 0 if pads else 1, 8, 8))   # S397: rest nights quiet
 	var v := UI.vbox(4)
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	p.add_child(v)
@@ -182,7 +182,7 @@ static func pm(spec: Dictionary) -> PmCard:
 			v.add_child(UI.label("Film", 18, UI.FG, "semi"))
 			v.add_child(UI.label("tape study", 14, UI.MUTED, "body"))
 		_:
-			var r := UI.label("rest", 26, UI.MUTED, "hand")
+			var r := UI.label("rest", 20, Color(UI.MUTED, 0.7), "hand")
 			r.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			r.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 			r.size_flags_vertical = Control.SIZE_EXPAND_FILL

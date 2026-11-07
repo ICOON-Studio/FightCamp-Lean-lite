@@ -129,7 +129,7 @@ func _initialize() -> void:
 		await _frames(3)
 		_check(str(f.get("plan_combo", "")) == "own:1", "test 7: the pick names it on the plan (plan_combo own:1)")
 		var said: Label = gp.find_child("GoToRounds", true, false)
-		_check(said != null and said.text.contains("40%") and said.text.contains("R1"), "test 7: the card says its share and the rounds it holds whole")
+		_check(said != null and said.tooltip_text.contains("40%") and said.text.contains("R1"), "test 7: the card says its share and the rounds it holds whole")
 		(gp.find_child("GoTo_own_1", true, false) as Button).pressed.emit()
 		await _frames(3)
 		_check(str(f.get("plan_combo", "")) == "", "test 7: a second click clears it")

@@ -15,6 +15,7 @@ const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const PadEdit := preload("res://scripts/rules/PadEdit.gd")
 const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const CampCard := preload("res://scripts/ui/CampCard.gd")
+const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 
 const CARD_H := 206.0
 const PIC := 112.0
@@ -100,7 +101,7 @@ static func make(f: Dictionary, card_id: String, proj: Dictionary, picked: bool,
 		chip.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		var h := UI.hbox(8)
 		chip.add_child(h)
-		h.add_child(UI.label("held at %d: %s" % [int(float(held[1])), str(held[0])], 15, UI.RED, "semi"))
+		h.add_child(UI.label("held back by her %s" % str(held[0]).to_lower(), 15, UI.RED, "semi"))   # S397: no raw number
 		var go := UI.button("+ drill it", "BtnSolid", func(): on_drill_it.call("move:" + str(held[0])))
 		go.name = "DrillIt"
 		go.focus_mode = Control.FOCUS_NONE
@@ -157,13 +158,14 @@ func _face(v: VBoxContainer, f: Dictionary, card_id: String, m: float, end: floa
 	s.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS   # "answer: hands drop la..." - never a letter cut in half
 	s.tooltip_text = s.text
 	words.add_child(s)
+	# S397 blind round 3 ("24.9 -> 27.7"): the tier in words on the card, the pad level on hover.
+	tooltip_text = "Pad level %.1f now, %.1f by Sunday.\n%s" % [m, end, tooltip_text]
 	var nums := UI.hbox(6)
-	nums.add_child(UI.label("%.1f" % m, 22, UI.FG, "bold"))
+	nums.add_child(UI.label(MoveMastery.tier(m).capitalize() if m > 0.0 else "New", 22, UI.FG, "bold"))
 	if end > m + 0.05:
-		var to := UI.label("", 22, UI.GREEN, "bold")
+		var up := MoveMastery.tier(end) != MoveMastery.tier(m)
+		var to := UI.label("-> " + MoveMastery.tier(end).capitalize() if up else "climbing", 22 if up else 18, UI.GREEN, "bold")
 		to.name = "End"
-		# It counts on from what the card showed last, with the bar (animated meters).
-		CampCard.count(to, float(_seen.get(_key(f, card_id), end)), end, func(x: float) -> String: return "-> %.1f" % x)
 		nums.add_child(to)
 	words.add_child(nums)
 	for n in [t, s, nums]:
@@ -186,8 +188,9 @@ func _gold(v: VBoxContainer, f: Dictionary, card_id: String, cross: Dictionary, 
 	name_row.add_child(s)
 	v.add_child(name_row)
 	var station := "pads" if (proj_pads as Array).has(int(cross["dow"])) else "sparring"
-	var when := UI.label("%s %s: %.1f -> %.1f" % [PadEdit.DAY_WORDS[int(cross["dow"])], station, float(cross["before"]),
-		float(cross["after"])], 20, UI.FG, "bold")
+	var when := UI.label("%s %s takes it there" % [PadEdit.DAY_WORDS[int(cross["dow"])], station], 20, UI.FG, "bold")
+	tooltip_text = "Pad level %.1f -> %.1f.
+%s" % [float(cross["before"]), float(cross["after"]), tooltip_text]   # S397
 	when.name = "When"
 	v.add_child(when)
 	for n in [name_row, s, when]:

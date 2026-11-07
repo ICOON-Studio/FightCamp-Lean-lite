@@ -11,6 +11,7 @@ const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const PaceAim := preload("res://scripts/rules/PaceAim.gd")
 const TheRead := preload("res://scripts/rules/TheRead.gd")
+const PlanRead := preload("res://scripts/rules/PlanRead.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const ClinchRest := preload("res://scripts/rules/ClinchRest.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
@@ -258,7 +259,15 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var plan_edge := PlanFight.edge(pick, psit, plan_rate * PerkFight.combo_rate(f, arrow), card_mean)
 	if plan_edge > PlanFight.edge(pick, psit, plan_rate, card_mean):
 		perks.append("hand_speed")
-	d += plan_edge
+	# S396 rank 3 (PlanRead): a right answer she keeps leaning on is read by the opponent (rule 4), and the round's reads -
+	# right answers that landed, wrong ones that were punished - carry into every later exchange of the round.
+	var fit_now := PlanFight.fit(arrow, psit) if bool(pick.get("planned", false)) else "none"
+	var uses: Dictionary = (f["bout"] as Dictionary).get_or_add("answer_uses", {})
+	if plan_edge > 0.0 and fit_now == "best":
+		plan_edge *= PlanRead.adjust(int(uses.get(arrow, 0)))
+	# The round's reads move the exchange and count as the plan's effect (swing), but the Why grades the answers themselves.
+	var read_edge := PlanRead.edge(int(lv.get("reads", 0)))
+	d += plan_edge + read_edge
 	# S360 Q-S294-90: the camp weeks spent on the opponent's own game (WeekOpp) count when the fight is on it.
 	d += WeekOpp.edge(f["bout"], sit)
 	# S340 the clinch's price (operator "a small stamina refill but risk of getting hit"): its own dice, so an exchange
@@ -274,7 +283,10 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var roll_b := rng.randf()
 	var s := Exchanges.settle(d, roll_a, roll_b)
 	# S388 the plan's true effect: the same dice without its edge. +1 it won this exchange, -1 it lost it (FightWhy).
-	var swing := int(bool(s["won"])) - int(bool(Exchanges.settle(d - plan_edge, roll_a, roll_b)["won"]))
+	var swing := int(bool(s["won"])) - int(bool(Exchanges.settle(d - plan_edge - read_edge, roll_a, roll_b)["won"]))
+	lv["reads"] = PlanRead.after(int(lv.get("reads", 0)), fit_now, bool(pick.get("planned", false)), bool(s["won"]))
+	if fit_now == "best":
+		uses[arrow] = int(uses.get(arrow, 0)) + 1
 	# S323 Push throws more (and so lands more), Save less.
 	s["landed"][0] = maxi(0, int(round(float(s["landed"][0]) * PaceAim.output(pace))))
 	# S355 Counter sense: she makes an attacker miss and a free counter comes back (its own dice).
@@ -326,6 +338,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	rec["arrow_fit"] = PlanFight.fit(arrow, psit)
 	rec["psit"] = psit
 	rec["plan_edge"] = plan_edge
+	rec["read_edge"] = read_edge
 	rec["plan_swing"] = swing
 	# S375 SCOUTPLAN1 the plan seen in the ring: each planned arrow's running tally over the bout ([won, thrown]).
 	if bool(pick["planned"]):

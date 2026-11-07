@@ -227,8 +227,12 @@ func _goal_row(f: Dictionary, goal: Dictionary, pl: Dictionary, nights: Dictiona
 	var nums := UI.hbox(6)
 	nums.name = "GoalNums"
 	nums.add_child(UI.label(str(Data.LABEL.get(stat, stat)), 19, UI.FG, "body"))
-	nums.add_child(UI.label("%.1f" % now, 19, UI.FG, "bold"))
-	nums.add_child(UI.label("-> %.1f" % end, 19, UI.GREEN, "bold"))
+	# S397 blind round 3 ("65.1 -> 65.2"): her stat as the page shows it everywhere, the week's gain in words, decimals on hover.
+	nums.add_child(UI.label("%d" % int(now), 19, UI.FG, "bold"))
+	var d := end - now
+	nums.add_child(UI.label("holding" if d < 0.05 else ("up a little" if d < 0.6 else ("up" if d < 1.5 else "a big week")), 19, UI.GREEN if d >= 0.05 else UI.MUTED, "bold"))
+	nums.tooltip_text = "%.1f now, %.1f by Sunday" % [now, end]
+	nums.mouse_filter = Control.MOUSE_FILTER_STOP
 	h.add_child(nums)
 	var fid := str(f["id"])
 	var bar := NightBar.make(stat, now, end, float(_seen_goal.get(fid, end)))

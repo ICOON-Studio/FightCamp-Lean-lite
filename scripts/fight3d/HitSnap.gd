@@ -14,6 +14,16 @@ const SETTLE_TAU_S := 0.11
 const LIFE_S := 0.55
 ## The share of the turn on the neck; the rest on the head.
 const NECK_SHARE := 0.45
+## S396 (two blind judges: "no hit reaction strong enough to sell any blow"): on the broadcast lens a head turning on its
+## neck moves a few pixels. A real head shot moves the head by the trunk giving way: the chest and upper spine rock back
+## along the punch, a little slower than the head (GIVE_RISE_S, no pop), and come back slower still.
+const GIVE_SHARE := 0.55      # trunk degrees per head-snap degree, split over Spine and Chest
+const GIVE_RISE_S := 0.07
+const GIVE_TAU_S := 0.2
+const GIVE_LIFE_S := 0.8
+const GIVE_MAX_DEG := 14.0    # a big hook snaps the head ~45 deg; the trunk gives at most this
+var _gt := -1.0
+var _gdeg := 0.0
 
 var _neck := -1
 var _head := -1
@@ -70,6 +80,19 @@ func snap(dir_world: Vector3, degrees: float) -> void:
 	_dir = (skel.global_transform.basis.inverse() * dir_world).normalized()
 	_deg = maxf(degrees, shown)
 	_t = RISE_S * clampf(shown / maxf(_deg, 1e-3), 0.0, 1.0) if shown > 0.0 else 0.0
+	var given := give_envelope(_gt) * _gdeg if _gt >= 0.0 else 0.0
+	_gdeg = minf(maxf(degrees * GIVE_SHARE, given), GIVE_MAX_DEG)
+	_gt = GIVE_RISE_S * clampf(given / maxf(_gdeg, 1e-3), 0.0, 1.0) if given > 0.0 else 0.0
+
+
+## S396: the trunk's give, 0 -> 1 at GIVE_RISE_S, then a slower settle; 0 after GIVE_LIFE_S.
+static func give_envelope(t: float) -> float:
+	if t < 0.0 or t >= GIVE_LIFE_S:
+		return 0.0
+	if t < GIVE_RISE_S:
+		var u := t / GIVE_RISE_S
+		return u * u * (3.0 - 2.0 * u)
+	return exp(-(t - GIVE_RISE_S) / GIVE_TAU_S)
 
 
 ## 0 -> 1 at RISE_S, then an exponential settle; 0 after LIFE_S.
@@ -123,6 +146,8 @@ func _process_modification() -> void:
 		_sway_step()
 	if _bt >= 0.0:
 		_brace_step()
+	if _gt >= 0.0:
+		_give_step()
 	if _t < 0.0:
 		return
 	_t += get_process_delta_time()
@@ -139,6 +164,29 @@ func _process_modification() -> void:
 		_turn(skel, _head, turn * (1.0 - NECK_SHARE))
 	else:
 		_turn(skel, _head, turn)
+
+
+## S396: the trunk rocks back along the punch, half on the spine, half on the chest (the head's turn rides on top of it).
+func _give_step() -> void:
+	_gt += get_process_delta_time()
+	var e := give_envelope(_gt)
+	if e <= 0.0:
+		_gt = -1.0
+		return
+	var skel := get_skeleton()
+	if skel == null:
+		return
+	var flat := Vector3(_dir.x, 0.0, _dir.z)
+	if flat.length() < 1e-4:
+		return
+	var axis := Vector3.UP.cross(flat.normalized()).normalized()
+	for n in ["Spine", "Chest"]:
+		var bone: int = int(_b.get(n, -1))
+		if bone < 0:
+			continue
+		var g: Transform3D = skel.get_bone_global_pose(bone)
+		var q := Quaternion(axis, deg_to_rad(_gdeg) * e * 0.5)
+		skel.set_bone_global_pose(bone, Transform3D(Basis(q) * g.basis, g.origin))
 
 
 ## Rotates `bone` about its own origin so the face (in front of the head bone, against the punch) moves along the punch.

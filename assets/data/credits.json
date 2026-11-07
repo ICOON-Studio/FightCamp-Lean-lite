@@ -1,0 +1,25 @@
+{
+ "_note": "S396 Steam release: the in-game credits (docs/STEAM_RELEASE_PLAN.md section 2). Every line a licence asks for. Sources: assets/**/CREDITS*.md, ops/research/CLIP_LICENCE_LIST_S392.md. Keep in step when an asset is added.",
+ "sections": [
+  {"title": "FightCamp", "lines": ["Made by ICOON Studio."]},
+  {"title": "Fighters and corner team", "lines": [
+   "Characters made with MetaHuman Creator, Epic Games."]},
+  {"title": "Boxing gloves", "lines": [
+   "\"Boxing Glove\" by Incg5764, sketchfab.com/3d-models/boxing-glove-5b464201104949e09f77f2d1cf8b60c3, licensed CC BY 4.0 (creativecommons.org/licenses/by/4.0). Changed for FightCamp: rescaled, decimated, retextured.",
+   "Shape based on \"Boxing Gloves - Left Handed\" by Gohar.Munir, CC BY 4.0."]},
+  {"title": "Motion", "lines": [
+   "Motion capture from the CMU Graphics Lab Motion Capture Database, mocap.cs.cmu.edu. The database was created with funding from NSF EIA-0196217.",
+   "Animations from Adobe Mixamo.",
+   "Quaternius Universal Animation Library via ActionForge (CC0).",
+   "Grappling positions from GrappleMap (public domain)."]},
+  {"title": "Sound", "lines": ["Sound effects made with Ludo.ai."]},
+  {"title": "Icons and type", "lines": [
+   "Lucide icons, ISC licence, Copyright (c) Lucide Contributors.",
+   "Barlow and Bebas Neue fonts, SIL Open Font License 1.1.",
+   "Permanent Marker font, Apache License 2.0."]},
+  {"title": "Rendering", "lines": [
+   "Motion blur: godot-motion-blur, Copyright (c) 2024 sphynx-owner, MIT licence.",
+   "Easy Compositor by Sphynx."]},
+  {"title": "Engine", "lines": ["Made with the Godot Engine (godotengine.org). Its licence follows."], "engine_licence": true}
+ ]
+}

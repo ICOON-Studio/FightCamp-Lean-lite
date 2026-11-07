@@ -13,6 +13,7 @@ const TopCards := preload("res://scripts/ui/TopCards.gd")
 const RecordsPage := preload("res://scripts/ui/RecordsPage.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
+const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
 
 
 func build(main: Node) -> void:
@@ -53,8 +54,7 @@ func _members(c: Career) -> void:
 		UI.kv("What the gym can carry now", str(target), UI.FG, "mono"),
 		UI.kv("Reputation", str(c.reputation), UI.FG, "mono"),
 		UI.kv("Dues", "%s a month each" % UI.money(Membership.weekly_rate()), UI.FG, "mono"),
-		UI.kv("Evening classes", ("3 a week, +%s" % UI.money(GameMoney.CLASSES_WITH_COACH)) if not c.coach.is_empty() else "need a coach"),
-	])
+	] + ([UI.kv("Evening classes", "need a coach")] if c.coach.is_empty() else []))
 	card[1].add_child(UI.muted("Reputation grows with your fighters' wins (+%d each) and a well-kept gym; the count walks toward what the gym can carry, a few a week." % BoutRules.WIN_REPUTATION, UI.SMALL, true))
 	add_child(card[0])
 	var why := UI.card("WHY THEY JOIN")
@@ -104,3 +104,8 @@ func _staff(main: Node, c: Career) -> void:
 					UI.money(int(coach["salary"])), UI.money(GameMoney.COACH_SIGNING_FEE)],
 				Color(0, 0, 0, 0), [UI.button("Hire", "Btn", main.act.bind("hire", coach["id"]))]))
 	UI.add_rows(card[1], rows)
+	if not c.coach.is_empty():   # S397 blind round 3 ("People is sparse"): what the coach does for the club, in its own words
+		card[1].add_child(UI.caps("WHAT %s BRINGS" % str(c.coach["name"]).get_slice(" ", 0).to_upper()))
+		UI.add_rows(card[1], [UI.kv("Pad nights", "%s, %s" % [str(c.coach["spec"]).to_lower(), c.coach["note"]]),
+			UI.kv("Game plans", "up to %d situations planned" % PlanBoard.arrow_limit(float(c.coach.get("rating", 0.0)))),
+			UI.kv("Evening classes", "3 a week, +%s" % UI.money(GameMoney.CLASSES_WITH_COACH))])

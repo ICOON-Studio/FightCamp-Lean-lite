@@ -13,6 +13,8 @@ const CornerMinute := preload("res://scripts/fight3d/CornerMinute.gd")
 const PICK_AT_S := 16.0   # the card comes up at 9 s: a player reads it, then picks
 ## S395 (operator: "why do you render full fight clips"): `short` runs the dull stretches fast, so a film costs a third.
 const FAST := 12.0
+## S396 (blind judges rated the action off a round played at 12x): the opening exchanges play as played, so the blows can be read.
+const REAL_ROUND_S := 22.0
 const FAST_ROUND_TO_S := 172.0   # round 1 at speed to here, then the last 8 s and the bell as played
 const FAST_CORNER_S := Vector2(17.0, 48.0)   # the walk, the card and the walk out stay as played
 var _fast_on := false
@@ -117,7 +119,7 @@ func _fast(view: Node) -> void:
 	var m: Node = _minute(view)
 	var want := false
 	if bool(view.playing):
-		want = int(view.round_n) == 1 and float(view.t) > 2.0 and float(view.t) < FAST_ROUND_TO_S
+		want = int(view.round_n) == 1 and float(view.t) > REAL_ROUND_S and float(view.t) < FAST_ROUND_TO_S
 	elif m != null:
 		want = float(m.t) > FAST_CORNER_S.x and float(m.t) < FAST_CORNER_S.y
 	if want:

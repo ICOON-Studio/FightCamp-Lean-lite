@@ -18,20 +18,20 @@ purpose: the first honest date comes after Gate 3. The critic would not bet on t
 | Handbook | "Not built yet" | Should have |
 | Look | Best screen 6/10 from a blind critic | **Yes** |
 | Known rule bugs | Camp bonus counted twice; ambition does nothing. Frozen condition fixed S388 | **Yes** |
-| Release build | Renamed Godot program, window title shows DEBUG, no export templates, no icon | **Yes** |
-| Steam: account, page, capsule, trailer | Not started, as far as the repo shows | **Yes** |
+| Release build | S396: real release export (official 4.7.2 templates), version 0.1.0, anvil icon, licence files ship; `sh tools/export.sh`. Checked: title, fight night, 3D ring, 0 errors. Exe-file icon needs rcedit | No |
+| Steam: account, page, capsule, trailer | S396: store text and AI disclosure drafted (docs/steam/); account, capsule and trailer not started | **Yes** |
 
 ## 2. Legal and asset audit
 | Asset | What we know | Action | Who |
 | --- | --- | --- | --- |
 | MetaHuman bodies (all fighters) | Reports since June 2025 say other engines are allowed, free under $1M revenue, no training AI on them. One 2026 blog disagrees. Epic's page needs a login: **not confirmed** | Read the current licence signed in, keep a copy | Operator |
 | Motion clips | CMU: shipping allowed. ActionForge: CC0 as stated on its site. Fab Ailive: bought, terms unread. Rokoko and ~475 FBX in Downloads: source and licence **unknown** per clip | List every shipped clip with its source; drop unknowns | Claude |
-| Gloves | CC BY 4.0: credit required | Credits screen | Claude |
+| Gloves | CC BY 4.0: credit required | Credits screen: DONE S396 (title screen, assets/data/credits.json) | Claude |
 | Icons, fonts | Lucide ISC, OFL: licence files must ship | Credits screen | Claude |
 | Boots | Higgsfield terms s4.4, commercial | Keep the job record | Claude |
 | Ludo art and sounds | Assumed covered by the paid plan, **terms unread** | Read and keep | Claude |
 | GrappleMap | Licence in repo, unread in full | Read (BJJ only) | Claude |
-| Real names | IBJJF in data and an event name; England Boxing rules used | Invented names in player-facing text | Claude |
+| Real names | IBJJF in data and an event name; England Boxing rules used | DONE S396: Grappling Union, Amateur Boxing Board in player text | Claude |
 | AI use | Steam's content survey requires disclosing AI-made art, sound and code | Declare honestly | Claude drafts, operator submits |
 
 Not legal advice. A short lawyer review before launch is worth paying for.

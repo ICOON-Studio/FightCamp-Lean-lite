@@ -100,10 +100,10 @@ func _initialize() -> void:
 	f["tray"] = ["move:Jab"]
 	projs = PadWeek.project(f, nights, week, 58.0, 2.0, 8)
 	e = PadEdit.eta(f, "move:Jab", projs["move:Jab"], week, nights["spar"])
-	_check(str(e["text"]).begins_with("spar nights only: +"), "a pinned usable card off the pads: spar nights only (%s)" % e["text"])
+	_check(str(e["text"]).begins_with("spar nights only"), "a pinned usable card off the pads: spar nights only (%s)" % e["text"])
 	var off := {"path": [], "sig_needs_t": 0.0}
 	e = PadEdit.eta(f, "move:Body hook", off, week, [])
-	_check(str(e["text"]) == "not on a night - fades 0.75/week" and str(e["tone"]) == "bad", "on no night: it fades (%s)" % e["text"])
+	_check(str(e["text"]) == "not on a night - it fades" and str(e["tone"]) == "bad", "on no night: it fades (%s)" % e["text"])
 	f["combos"] = {}
 	e = PadEdit.eta(f, "combo:1-2", off, week, [])
 	_check(str(e["text"]) == "not on a night" and str(e["tone"]) == "", "never drilled (0.0): nothing to fade, no red (%s)" % e["text"])

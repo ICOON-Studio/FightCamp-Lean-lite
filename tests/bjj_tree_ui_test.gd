@@ -164,7 +164,7 @@ func _pure(f: Dictionary, c: Career) -> void:
 	_check(not (back["steps"] as Array).is_empty() and BjjTree.route_ok(back["steps"]) and Info.count_steps(back["steps"]) <= Info.MAX_STEPS,
 		"the back's fill chains, at most %d moves (%s)" % [Info.MAX_STEPS, str(back["steps"])])
 	var legs := Info.fill(f, "legs")
-	_check(str(legs["line"]) == "IBJJF: straight ankle only" or not (legs["steps"] as Array).is_empty(), "white Legs: %s" % legs["line"])
+	_check(str(legs["line"]) == "Union rules: straight ankle only" or not (legs["steps"] as Array).is_empty(), "white Legs: %s" % legs["line"])
 	var mount := Info.fill(f, "mount")
 	_check(not (mount["steps"] as Array).is_empty(), "the mount's fill: %s (%s)" % [str(mount["steps"]), mount["line"]])
 	# Costly corner: only when the miss lands in a hole or gives 2+ (vs the field the answer is owned, P_bad 1).

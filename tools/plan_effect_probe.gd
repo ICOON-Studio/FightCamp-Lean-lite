@@ -29,6 +29,7 @@ func _run(label: String, arrows: Array, n: int) -> String:
 	var rounds_won := 0
 	var rounds_all := 0
 	var grades := {}
+	var fits := {}   # S396: how often each kind of planned answer fires
 	for i in n:
 		var c := Career.quick_start()
 		c.fighters.append(Data.fighter_state(Data.lucy(), c.day))
@@ -49,6 +50,8 @@ func _run(label: String, arrows: Array, n: int) -> String:
 				all += 1
 				won += int(bool(x["won"]))
 				edge += float(x.get("plan_edge", 0.0))
+				var fk := (str(x.get("arrow_fit", "")) if bool(x.get("planned", false)) else "improvised") + ("" if bool(x.get("planned", false)) else "")
+				fits[fk] = int(fits.get(fk, 0)) + 1
 		rounds_won += rw
 		var w := FightWhy.read(m["rounds"], "Lucy", "Maria")
 		grades[w["grade"]] = int(grades.get(w["grade"], 0)) + 1
@@ -56,4 +59,4 @@ func _run(label: String, arrows: Array, n: int) -> String:
 			print("WHY %s | %s | %s | %s | %s | %s" % [label, m.get("outcome", ""), FightWhy.GRADES[w["grade"]], w["plan"], w["against"], w["next"]])
 		bouts_won += int(str(m.get("outcome", "")) == "win" or (not m.has("outcome") and rw * 2 > (m["rounds"] as Array).size()))
 	return "%-10s exchanges won %.1f%%  rounds won %.1f%%  bouts won %.1f%%  mean edge %+.2f  (%d bouts) grades %s" % [label, 100.0 * won / maxf(1, all),
-		100.0 * rounds_won / maxf(1, rounds_all), 100.0 * bouts_won / n, edge / maxf(1, all), n, grades]
+		100.0 * rounds_won / maxf(1, rounds_all), 100.0 * bouts_won / n, edge / maxf(1, all), n, grades] + "  fits %s" % fits

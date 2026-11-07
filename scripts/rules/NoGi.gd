@@ -28,8 +28,8 @@ const BODY_START := 50.0
 const OPEN_FIRST := 33   # Sat 7 Feb 2026 (day 0 = Mon 5 Jan)
 const OPEN_EVERY := 35
 const BRACKET := 8
-const OPENS := [["Regional No-Gi Open", 95], ["Spring Open (IBJJF rules)", 110], ["London No-Gi Open", 95],
-	["Summer Open (IBJJF rules)", 110], ["Autumn No-Gi Open", 95], ["Winter Open (IBJJF rules)", 110]]
+const OPENS := [["Regional No-Gi Open", 95], ["Spring Open (Union rules)", 110], ["London No-Gi Open", 95],
+	["Summer Open (Union rules)", 110], ["Autumn No-Gi Open", 95], ["Winter Open (Union rules)", 110]]
 const WIN_BASE := 0.35
 const WIN_SLOPE := 0.30
 const WIN_RANGE := Vector2(0.2, 0.8)

@@ -123,7 +123,7 @@ func _build() -> void:
 		blocks.append(panel)
 	edge = EdgeMeter.new()
 	edge.name = "RoundEdge"
-	edge.custom_minimum_size = Vector2(380, 40)
+	edge.custom_minimum_size = Vector2(380, 46)
 	edge.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 
 
@@ -469,12 +469,11 @@ class Rings extends Control:
 ## Who has the round: from the centre toward red's side (left) or blue's (right), ticks at each third.
 class EdgeMeter extends Control:
 	const BAR_H := 18.0
+	const WORD_PX := 22
 	var want := 0.0
 	var value := 0.0
 	var word := ""
-
-	func _ready() -> void:
-		mouse_filter = Control.MOUSE_FILTER_PASS
+	func _ready() -> void: mouse_filter = Control.MOUSE_FILTER_PASS
 
 	func _process(delta: float) -> void:
 		value = lerpf(value, want, 1.0 - exp(-delta / 0.4))
@@ -496,5 +495,6 @@ class EdgeMeter extends Control:
 			draw_line(Vector2(x, 0.0 if i == 3 else h * 0.55), Vector2(x, h), Color(1, 1, 1, 0.8 if i == 3 else 0.35), 2.0 if i == 3 else 1.0)
 		if word != "":   # S394 (blind review: "the only lead cue is unlabelled"): the bar says what it means
 			var f := ThemeDB.fallback_font
-			var tw := f.get_string_size(word, HORIZONTAL_ALIGNMENT_LEFT, -1, 16).x
-			draw_string(f, Vector2((w - tw) * 0.5, size.y - 3.0), word, HORIZONTAL_ALIGNMENT_LEFT, -1, 16, Color(0.94, 0.91, 0.86))
+			var at := Vector2((w - f.get_string_size(word, HORIZONTAL_ALIGNMENT_LEFT, -1, WORD_PX).x) * 0.5, size.y - 2.0)   # S396: "AHEAD" too small
+			draw_string_outline(f, at, word, HORIZONTAL_ALIGNMENT_LEFT, -1, WORD_PX, 6, Color(0, 0, 0, 0.85))
+			draw_string(f, at, word, HORIZONTAL_ALIGNMENT_LEFT, -1, WORD_PX, Color(0.95, 0.45, 0.4) if v > 0.05 else (Color(0.55, 0.7, 1.0) if v < -0.05 else Color(0.94, 0.91, 0.86)))

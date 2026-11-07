@@ -12,8 +12,9 @@ const BOUT_PAGE := preload("res://scenes/areas/BoutPage.tscn")
 const FighterCard := preload("res://scripts/ui/FighterCard.gd")
 const BoutCompare := preload("res://scripts/ui/BoutCompare.gd")
 const MatOpens := preload("res://scripts/ui/MatOpens.gd")
-## Her latest results on the Offers tab's standing card.
-const LAST_RESULTS := 3
+const NationalsView := preload("res://scripts/ui/NationalsView.gd")
+const NextStep := preload("res://scripts/rules/NextStep.gd")
+const FighterPage := preload("res://scripts/ui/areas/FighterPage.gd")
 
 
 func build(main: Node) -> void:
@@ -83,7 +84,8 @@ static func next_offer_line(c: Career, f: Dictionary) -> String:
 	return "%s: an offer can come any day now." % f["first"]
 
 
-## One fighter's standing: booked or free, then her last results (newest first).
+## One fighter's standing: booked or free, then her road's next step - with Enter when the nationals are open to her
+## (S397 blind round 3: her last result was on this card and in Results below; the step is what the page lacked).
 func _standing(main: Node, c: Career, f: Dictionary) -> Control:
 	var fc := FighterCard.build(main, f, "Standing")
 	var v: VBoxContainer = fc[1]
@@ -92,18 +94,13 @@ func _standing(main: Node, c: Career, f: Dictionary) -> Control:
 		v.add_child(UI.label("Free to fight", UI.BODY, UI.GREEN, "bold"))
 	else:
 		v.add_child(UI.label("Booked: vs %s, %s" % [fb["opp"]["name"], Clock.fmt(int(fb["day"]))], UI.BODY, UI.GOLD, "bold"))
-	v.add_child(UI.caps("LAST RESULTS"))
-	var shown := 0
-	for r in c.results:
-		if str(r.get("fid", "")) != str(f["id"]) or shown >= LAST_RESULTS:
-			continue
-		var won := str(r.get("outcome", "win" if bool(r["win"]) else "loss"))
-		var l := UI.label("%s %s, %s" % [{"win": "W", "loss": "L", "draw": "D"}[won], r["opp"], r["cards"]], UI.SMALL,
-			UI.GREEN if won == "win" else (UI.RED if won == "loss" else UI.FG), "bold")
-		v.add_child(l)
-		shown += 1
-	if shown == 0:
-		v.add_child(UI.muted("No bouts with the club yet.", UI.SMALL))
+	var road: Dictionary = NextStep.road(FighterPage._road_input(c, f), c.day)
+	if int(road["lit"]) >= 0:
+		v.add_child(UI.caps("NEXT ON HER ROAD"))
+		v.add_child(UI.label("%s. %s" % [str(road["steps"][int(road["lit"])]["name"]), str(road.get("need", ""))], UI.SMALL, UI.FG, "body", true))
+	var enter := NationalsView.enter_button(main, c, f)
+	if enter != null:
+		v.add_child(enter)
 	return fc[0]
 
 

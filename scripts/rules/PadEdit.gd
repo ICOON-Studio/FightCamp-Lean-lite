@@ -210,10 +210,10 @@ static func eta(f: Dictionary, card: String, proj: Dictionary, week: Dictionary,
 			if int(p[0]) == 0:
 				gain = float(p[2]) - m
 		if gain > 0.0 and not spar.is_empty():
-			return {"text": "spar nights only: +%.1f a week" % gain, "tone": ""}
+			return {"text": "spar nights only: grows slowly", "tone": ""}
 		if m <= 0.0:   # never drilled: nothing there to fade (decay_week never goes below 0)
 			return {"text": "not on a night", "tone": ""}
-		return {"text": "not on a night - fades 0.75/week", "tone": "bad"}
+		return {"text": "not on a night - it fades", "tone": "bad"}
 	return {"text": "%s in 8+ weeks" % next[1], "tone": ""}
 
 

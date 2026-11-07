@@ -47,7 +47,7 @@ static func cards(m: Node, fd: Dictionary) -> Control:
 		var legal := BjjTree.route_legal(steps, Info.rules(fd))
 		var use := UI.button("In the plan" if cur == steps else "Use", "BtnSolid" if cur == steps else "Btn",
 			m.act.bind("gplan", "%s|route:%s" % [str(fd.get("id", "")), str(rid)]), not legal or cur == steps,
-			"IBJJF: not at this belt" if not legal else "")
+			"Union rules: not at this belt" if not legal else "")
 		use.name = "Use_" + str(rid)
 		use.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		v.add_child(use)

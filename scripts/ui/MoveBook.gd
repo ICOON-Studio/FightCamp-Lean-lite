@@ -26,11 +26,13 @@ var _cards := {}   # id -> Button
 var _combos := {}
 var _progress_on := false
 var _fighter := {}   # S382 MOVETIP1: with her, each card opens the hover card (MoveTip)
+var _next_on := true   # S397: Escapes has no "Next on the pads" line (combinations are not escapes)
 
 
 static func make(groups: Array, words: Dictionary, mastery: Dictionary, on_pick: Callable, combos := {}, progress := false,
-		fighter := {}) -> Control:
+		fighter := {}, next_line := true) -> Control:
 	var b := new()
+	b._next_on = next_line
 	b.name = "MoveBook"
 	b._combos = combos
 	b._fighter = fighter
@@ -72,7 +74,7 @@ func _book_head(groups: Array, mastery: Dictionary) -> Control:
 	h.name = "BookHead"
 	h.add_child(UI.label("%d of %d moves ready" % [ready, total], 22, UI.FG, "bold"))
 	h.add_child(Icons.pips(ready, total, "Ready: thrown with its pad time behind it."))
-	var next := Combos.next_to_learn(mastery, _combos)
+	var next := Combos.next_to_learn(mastery, _combos) if _next_on else ""
 	if next != "":
 		var nm := ""
 		for m in SM.MOVES:

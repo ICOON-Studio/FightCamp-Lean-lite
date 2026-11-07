@@ -65,7 +65,7 @@ const OPPONENTS: Array[Dictionary] = [
 	{"name": "Priya Nair", "first": "Priya", "club": "Leicester ABC", "age": 22, "stance": "orthodox",
 		"style": "Counter-puncher", "w": 5, "l": 1, "height": 170, "reach": 172, "rating": 63.5,
 		"threat": "Right hand counter over the jab", "weak": "Slow to start"},
-	{"name": "Erin Doyle", "first": "Erin", "club": "Belfast Golden Gloves", "age": 24, "stance": "orthodox",
+	{"name": "Erin Doyle", "first": "Erin", "club": "Belfast Gloves ABC", "age": 24, "stance": "orthodox",
 		"style": "Volume puncher", "w": 7, "l": 2, "height": 167, "reach": 168, "rating": 65.5,
 		"threat": "Never stops throwing", "weak": "Leaves the chin open"},
 ]

@@ -7,6 +7,7 @@ const OppFileCard := preload("res://scripts/ui/OppFileCard.gd")
 const MatSystems := preload("res://scripts/ui/MatSystems.gd")
 const SettingsPanel := preload("res://scripts/ui/SettingsPanel.gd")
 const HandbookPanel := preload("res://scripts/ui/HandbookPanel.gd")
+const CreditsPanel := preload("res://scripts/ui/CreditsPanel.gd")
 
 
 func build(main: Node, m: Dictionary) -> void:
@@ -23,6 +24,9 @@ func build(main: Node, m: Dictionary) -> void:
 	if m.has("handbook"):
 		custom_minimum_size = Vector2(920, 0)
 		v.add_child(HandbookPanel.build(main))
+	if m.has("credits"):   # S396 Steam: the licences' credits
+		custom_minimum_size = Vector2(920, 0)
+		v.add_child(CreditsPanel.build(main))
 	# S341 a rival's file from the rankings: what the career has found of her, and every bout with us.
 	if m.has("rival"):
 		var c: Career = main.career

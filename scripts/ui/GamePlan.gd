@@ -28,6 +28,7 @@ const PlanRecord := preload("res://scripts/rules/PlanRecord.gd")
 const PlanFile := preload("res://scripts/rules/PlanFile.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
+const GamePlanRows := preload("res://scripts/ui/GamePlanRows.gd")
 
 const PLACE_W := 250.0
 const OPT := Vector2(262, 64)
@@ -109,8 +110,8 @@ func _build() -> void:
 	add_child(_meter())
 	if not _bout().is_empty() and vs == "":
 		add_child(_file())
-	add_child(_rounds())
-	add_child(_go_to())
+	add_child(GamePlanRows.rounds(self))   # S397: the rounds and go-to rows moved to GamePlanRows (500-line rule)
+	add_child(GamePlanRows.go_to(self))
 	add_child(UI.caps("WHERE THE FIGHT GOES"))
 	for p in PlanLines.PLACES:
 		add_child(_line(str(p), ""))
@@ -198,84 +199,13 @@ func _file() -> Control:
 	return box
 
 
-## S375 SCOUTPLAN1 the ROUND row: the pace each round opens on (push / steady / save; none picked = steady),
-## with what the file says about the rounds.
-func _rounds() -> Control:
-	var box := UI.vbox(4)
-	box.name = "PlanRounds"
-	var row := UI.hbox(8)
-	row.add_child(UI.caps("ROUNDS"))
-	var n_rounds := int(_bout().get("rounds", BoutRules.ROUNDS)) if not _bout().is_empty() else BoutRules.ROUNDS
-	for n in range(1, n_rounds + 1):
-		var nn: int = n
-		row.add_child(UI.label("R%d" % nn, UI.SMALL, UI.FG, "bold"))
-		var now := PlanFile.pace_for(f, nn)
-		for pace in PlanFile.PACES:
-			var pp := str(pace)
-			var b := UI.button(pp.capitalize(), "PillOn" if pp == now else "Pill", func():
-				f["round_pace"] = PlanFile.set_pace(f.get("round_pace", []), nn, "" if pp == now else pp)
-				_refresh())
-			b.name = "Pace_%d_%s" % [nn, pp]
-			row.add_child(b)
-	box.add_child(row)
-	var hints := PlanFile.round_hints(_bout()["opp"]) if not _bout().is_empty() else {}
-	for k in hints:
-		var h: Array = hints[k]
-		var done := PlanFile.pace_for(f, int(k)) == str(h[0])
-		box.add_child(UI.label(("Done: " if done else "") + str(h[1]), UI.TINY, UI.GREEN if done else UI.GOLD, "body", true))
-	if hints.is_empty():
-		box.add_child(UI.muted("Push throws more and spends 1.35x gas; save breathes back. The tape tells you when to push.", UI.TINY, true))
-	return box
-
-
-## S378 PLANCOMBO1 the GO-TO row: one of his own drilled combinations named on the card (f["plan_combo"]). In the bout it
-## decides OwnCombos.NAMED_SHARE of his combination exchanges instead of USE_SHARE while he still throws it whole, and the
-## ring throws it more often; the rounds it holds whole are the trade. A second click clears it.
-func _go_to() -> Control:
-	var box := UI.vbox(4)
-	box.name = "PlanGoTo"
-	var row := UI.hbox(8)
-	row.add_child(UI.caps("GO-TO COMBINATION"))
-	var named := OwnCombos.named(f)
-	var go_id := str(named.get("id", ""))
-	var any := false
-	for e in OwnCombos.entries(f):
-		if not OwnCombos.usable(f, e):
-			continue
-		any = true
-		var id := str(e["id"])
-		var words := str(e["name"]).capitalize() + ("  (signature)" if OwnCombos.signature(f, e) else "")
-		var b := UI.button(words, "PillOn" if id == go_id else "Pill", func():
-			f["plan_combo"] = "" if id == go_id else id
-			_refresh())
-		b.name = "GoTo_" + id.replace(":", "_")
-		row.add_child(b)
-	box.add_child(row)
-	if not any:
-		box.add_child(UI.muted("None drilled yet: build one on her Week tab and put it on the pads.", UI.TINY, true))
-		return box
-	var share := "%d%% of the combination exchanges instead of %d%%" % [roundi(100.0 * OwnCombos.NAMED_SHARE), roundi(100.0 * OwnCombos.USE_SHARE)]
-	if named.is_empty():
-		box.add_child(UI.muted("Name one: it decides %s while thrown whole." % share, UI.TINY, true))
-		return box
-	var rounds: Array = []
-	var whole := OwnCombos.whole_by_round(f, named)
-	for i in whole.size():
-		rounds.append("R%d %s" % [i + 1, "whole" if bool(whole[i]) else "too tired"])
-	var col: Color = UI.GREEN if bool(whole[0]) else UI.RED
-	var said := UI.label("Decides %s while thrown whole:  %s" % [share, "  ·  ".join(rounds)], UI.TINY, col, "body", true)
-	said.name = "GoToRounds"
-	box.add_child(said)
-	return box
-
-
 ## The lines the coach holds (filled, empty, locked behind a better coach) and the plan's edge bar.
 func _meter() -> Control:
 	var h := UI.hbox(18)
 	h.name = "PlanMeter"
 	var limit := _limit()
 	var lines := UI.hbox(5)
-	lines.add_child(UI.caps("LINES %d / %d" % [arrows.size(), limit]))
+	lines.add_child(UI.caps("PLANNED: %d OF %d SITUATIONS" % [arrows.size(), limit]))
 	for n in range(1, PlanBoard.TOP_COACH + 1):
 		if n <= limit:
 			lines.add_child(UI.dot(UI.GREEN if n <= arrows.size() else UI.LINE))
@@ -296,9 +226,11 @@ func _meter() -> Control:
 			break
 	var col := UI.vbox(4)
 	var top := UI.hbox(8)
-	top.add_child(UI.caps("PLAN EDGE"))
-	_band = UI.label("%+.0f  %s" % [edge, band[1]], UI.SMALL, band[2], "bold")
+	top.add_child(UI.caps("THE PLAN SO FAR"))
+	_band = UI.label(str(band[1]), UI.SMALL, band[2], "bold")
 	_band.name = "EdgeBand"
+	_band.mouse_filter = Control.MOUSE_FILTER_PASS
+	_band.tooltip_text = "%+.0f over improvising" % edge   # S397 blind round 3: "Plan edge +5" was a raw number
 	top.add_child(_band)
 	col.add_child(top)
 	var track := ColorRect.new()
@@ -310,7 +242,7 @@ func _meter() -> Control:
 	_fill_to = _bar_w(edge)
 	track.add_child(_fill)
 	col.add_child(Icons.tip(track, "The plan's power points over improvising, against this game, summed over its lines - how the bout scores it."))
-	col.add_child(UI.muted("%d beat it  ·  %d work  ·  %d walk into it  ·  %d untrained" % [s["beats"], s["works"], s["walks"], s["untrained"]], UI.TINY))
+	col.add_child(UI.muted(PlanLines.tally_words(s), UI.TINY))
 	h.add_child(col)
 	_pulse = band[1] != old_band[1]
 	last_edge = edge
@@ -391,9 +323,9 @@ func _rating(row: Control, o: Dictionary) -> void:
 		row.add_child(UI.chip(str(o["why"]), "amber"))
 		return
 	var fit := str(o["fit"])
-	if fit != "none":
+	if fit != "none":   # S397 blind round 3: the edge number lives on hover, the chip says it in words
 		row.add_child(UI.chip(str(PlanLines.FIT_WORDS[fit]), {"best": "green", "ok": "", "wrong": "red"}[fit]))
-	row.add_child(UI.label("%+.0f" % float(o["edge"]), UI.SMALL, UI.GREEN if float(o["edge"]) > 0.5 else (UI.RED if float(o["edge"]) < -0.5 else UI.MUTED), "bold"))
+		row.get_child(-1).tooltip_text = "%+.0f over improvising" % float(o["edge"])
 	if float(o["rate"]) < 1.0:
 		row.add_child(Icons.icon("info", 16, UI.AMBER, "Untrained: lands 80% as well until it is drilled on the pads."))
 

@@ -32,8 +32,10 @@ const PLAYBOOK_TAB := 7
 const PLAYBOOK := preload("res://scenes/areas/Playbook.tscn")
 const PromoShot := preload("res://scripts/ui/PromoShot.gd")
 const WB_KIT := preload("res://scripts/ui/WhiteboardKit.gd")
-const FIGHTS_AREA := preload("res://scripts/ui/areas/Fights.gd")   # S396 one condition scale on every screen
 const Faces := preload("res://scripts/rules/Faces.gd")
+const NationalsView := preload("res://scripts/ui/NationalsView.gd")
+const PrepCard := preload("res://scripts/ui/PrepCard.gd")
+const BoutHistory := preload("res://scripts/ui/BoutHistory.gd")
 
 
 func build(main: Node, f: Dictionary) -> void:
@@ -111,30 +113,8 @@ func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: b
 			add_child(WeekBoard.make(main, c, f))
 			add_child(AwardCard.make(c, f))
 		4:
-			var title := "RECORD: %d-%d AMATEUR" % [f["w"], f["l"]]
-			if bool(f.get("pro", false)):
-				title += ", %d-%d-%d PRO (%s)" % [int(f.get("pro_w", 0)), int(f.get("pro_l", 0)), int(f.get("pro_d", 0)), f.get("promoter", "")]
-			var card := _card(title)
-			var mine := c.results.filter(func(r): return str(r.get("fid", f["id"])) == str(f["id"]))
-			# S396 blind review ("4-1 but one bout listed"): the bouts she brought with her are her record too.
-			var am := mine.filter(func(r): return not bool(r.get("pro", false)))
-			var before_w := int(f["w"]) - am.filter(func(r): return bool(r["win"])).size()
-			var before_l := int(f["l"]) - am.filter(func(r): return not bool(r["win"])).size()
-			if before_w + before_l > 0:
-				card.add_child(UI.muted("%d-%d before she joined the club; her bouts for the club below." % [before_w, before_l], UI.BODY, true))
-			if mine.is_empty():
-				card.add_child(UI.muted("Bouts for your gym show here.", UI.BODY))
-			var rows: Array = []
-			for r in mine:
-				# S373 FLOWBOUT1: what the plan did that night (PlanRecord.summary, kept on the result by BoutNight).
-				var pr: Dictionary = r.get("plan_rec", {})
-				var plan_txt := ""
-				if not pr.is_empty() and int(pr["used"]) > 0:   # S396: no "0 of 0" line for a night fought without a plan
-					plan_txt = "Plan: %d of %d planned exchanges won, %d improvised." % [int(pr["worked"]), int(pr["used"]), int(pr["improvised"])]
-				rows.append(UI.row("%s vs %s, %s" % ["Won" if bool(r["win"]) else "Lost", r["opp"], r["cards"]],
-					" ".join(["%s." % Clock.fmt(int(r["d"])), str(r["why"]).trim_suffix(".") + ("." if str(r["why"]) != "" else ""), plan_txt]).strip_edges(),
-					UI.GREEN if bool(r["win"]) else UI.RED))
-			UI.add_rows(card, rows)
+			# S397 blind round 3 ("History is one row"): every bout, the ones she brought too, as a table (BoutHistory).
+			add_child(BoutHistory.make(main, c, f))
 		5:
 			var card := _card("CAMP")
 			var camp: Dictionary = f["camp"]
@@ -164,18 +144,12 @@ func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: b
 				card.add_child(b)
 				card.add_child(OppFileCard.build(fb.get("opp", {}), false, OppFileCard.OppFile.history(c.results, str(fb.get("opp", {}).get("name", "")))))
 			else:
-				# S396 blind review (a page of one line): what fight prep holds, and the way to it.
-				card.add_child(UI.muted("No bout booked. Once one is, the camp, the weight cut and the tape on her opponent are set here.", UI.BODY, true))
-				# S396 blind round 2 ("Find a bout while Fights says no offer for 10 days"): when the next offer can come, and
-				# what is on her road meanwhile.
-				card.add_child(UI.label(FIGHTS_AREA.next_offer_line(c, f), UI.BODY, UI.FG, "bold", true))
-				var road: Dictionary = NextStep.road(_road_input(c, f), c.day)
-				if int(road["lit"]) >= 0:
-					card.add_child(UI.label("On her road: %s. %s" % [str(road["steps"][int(road["lit"])]["name"]), str(road.get("need", ""))],
-						UI.BODY, UI.FG, "body", true))
-				var find := UI.button("See offers and dates", "BtnSolid", main.act.bind("go", "fights:0"))
-				find.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-				card.add_child(find)
+				# S397 blind round 3 (one card of three lines; Enter hidden on another tab): her next fight and the one
+				# filled button, beside a ready-to-fight check (PrepCard).
+				var shell: Node = card.get_parent()   # the CAMP card is for a booked bout: this state has its own two
+				remove_child(shell)
+				shell.queue_free()
+				add_child(PrepCard.free_week(main, c, f, _road_input(c, f)))
 		6:
 			var card := _card("CONTRACT")
 			UI.add_rows(card, [UI.kv("Terms", "Club stipend, $250 a week"), UI.kv("Until", "turning pro")])
@@ -227,7 +201,7 @@ func _photo(parent: Control, f: Dictionary, size: Vector2) -> void:
 
 
 func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
-	_next_step_card(c, f)
+	_next_step_card(main, c, f)
 	# S340 C157: the attributes board runs the page's width (radar + every value the bout reads); body and goal below it.
 	add_child(AttrBoard.build(f))
 	var grid := UI.hbox(16)
@@ -264,7 +238,8 @@ func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 	var nb: Dictionary = f["bout"]
 	goal.add_child(UI.muted("vs %s, %s" % [nb["opp"]["name"], Clock.fmt(int(nb["day"]))] if not nb.is_empty() else "None booked.", UI.BODY))
 	var buttons := UI.hbox(8)
-	buttons.add_child(UI.button("Plan the week", "BtnSolid", main.act.bind("ftab", str(TRAINING_TAB))))
+	var entering := NationalsView.enter_button(main, c, f) != null   # S397: the Enter button above is the page's one filled button
+	buttons.add_child(UI.button("Plan the week", "Btn" if entering else "BtnSolid", main.act.bind("ftab", str(TRAINING_TAB))))
 	buttons.add_child(UI.button("Fight plan (%d arrows)" % (f.get("arrows", []) as Array).size() if not (f.get("arrows", []) as Array).is_empty()
 		else "Fight plan", "Btn", main.act.bind("plan", f["id"])))
 	buttons.add_child(UI.button("Find a bout", "Btn", main.act.bind("go", "fights:0")))
@@ -292,7 +267,7 @@ static func _road_input(c: Career, f: Dictionary) -> Dictionary:
 		"pro_bouts": pro_bouts}
 
 
-func _next_step_card(c: Career, f: Dictionary) -> void:
+func _next_step_card(main: Node, c: Career, f: Dictionary) -> void:
 	var card := _card("NEXT STEP")
 	var road: Dictionary = NextStep.road(_road_input(c, f), c.day)
 	if int(road["lit"]) < 0:
@@ -309,3 +284,6 @@ func _next_step_card(c: Career, f: Dictionary) -> void:
 			row.add_child(UI.chip(name, ""))
 	card.add_child(row)
 	card.add_child(UI.label(str(road["need"]), UI.BODY, UI.FG, "body", true))
+	var enter := NationalsView.enter_button(main, c, f)   # S397 blind round 3: one main action per state
+	if enter != null:
+		card.add_child(enter)

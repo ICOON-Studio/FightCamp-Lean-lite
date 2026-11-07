@@ -108,17 +108,17 @@ func _build_top(main: Node) -> void:
 	date.custom_minimum_size = Vector2(176, 0)   # the speed buttons stay put as the date's length changes
 	Tips.card(date, func(): return TopCards.date(main.career))   # S362 J90 6g
 	h.add_child(date)
-	var speed := UI.hbox(4)
+	# S397 blind round 3 ("Pause/1x/2x/3x beside CONTINUE reads as two time systems"): one clock - CONTINUE runs it and
+	# pauses it; the speed it runs at sits against the button as its setting (see below), no Pause of its own.
+	var speed := UI.hbox(3)
+	speed.name = "Speed"
 	speed.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	var stopped := not Needs.blockers(c).is_empty()   # a clock-stopper holds the clock: the speeds rest with it
-	var pause_b := UI.button("Pause", "Speed" if main.running else "SpeedOn", main.act.bind("pausebtn", ""), stopped, "Something needs you first: the clock is stopped")
-	pause_b.custom_minimum_size = Vector2(58, 0)
-	speed.add_child(pause_b)
 	for n in [1, 2, 3]:
-		var sb := UI.button("%dx" % n, "SpeedOn" if main.speed == n and main.running else "Speed", main.act.bind("speed", str(n)), stopped, "Something needs you first: the clock is stopped")
-		sb.custom_minimum_size = Vector2(36, 0)
+		var sb := UI.button(">".repeat(n), "SpeedOn" if main.speed == n else "Speed", main.act.bind("speed", str(n)), stopped, "Something needs you first: the clock is stopped")
+		sb.tooltip_text = "CONTINUE runs the days at this speed" if not stopped else sb.tooltip_text
+		sb.custom_minimum_size = Vector2(34, 0)
 		speed.add_child(sb)
-	h.add_child(speed)
 	# S394 HOME shows every need itself, so the flags stay for the other pages.
 	if main.route["area"] != "home":
 		for f in Needs.flags(c):
@@ -141,7 +141,15 @@ func _build_top(main: Node) -> void:
 		(l as Label).clip_text = true
 		(l as Label).text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	go.tooltip_text = "%s: %s" % [g["t"], g["s"]]
-	h.add_child(go)
+	var clock := UI.hbox(6)   # CONTINUE and its speed are one control
+	clock.name = "Clock"
+	clock.add_child(go)
+	var sv := UI.vbox(0)
+	sv.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	sv.add_child(UI.label("run speed", 12, UI.MUTED, "body"))
+	sv.add_child(speed)
+	clock.add_child(sv)
+	h.add_child(clock)
 	_gear_menu.set_item_text(0, "Mail (%d new)" % c.unread if c.unread > 0 else "Mail")
 	var gear := UI.button("Menu", "Ghost", _open_gear)   # S381 operator on "Gear": "???" - it is save/load/settings, not boxing gear
 	gear.name = "Gear"

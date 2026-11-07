@@ -5,6 +5,7 @@ extends VBoxContainer
 
 const NameLinks := preload("res://scripts/ui/NameLinks.gd")
 const MatOpens := preload("res://scripts/ui/MatOpens.gd")
+const RivalPast := preload("res://scripts/rules/RivalPast.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -49,7 +50,7 @@ func build(main: Node) -> void:
 			_events(c)
 			NationalsView.build(self, main, c)
 			for g in c.grapplers:   # S396 blind round 2: her opens are her championships
-				add_child(MatOpens.card(main, c, g, "%s: THE NO-GI OPENS" % str(g["first"]).to_upper()))
+				add_child(MatOpens.link(main, c, g, "No-gi has opens, not championships: her entries are on Fights."))
 		3:
 			_search()
 		4:
@@ -67,7 +68,7 @@ func _rankings(c: Career) -> void:
 	for div in divs:
 		_ranking_table(c, div)
 	for g in c.grapplers:   # S396: no-gi has no ranking table in the game; her belt is the ladder, said plainly
-		add_child(MatOpens.card(_main, c, g, "NO-GI: %s'S LADDER IS HER BELT" % str(g["first"]).to_upper()))
+		add_child(MatOpens.link(_main, c, g, "No-gi has no ranking table: her belt is her ladder."))
 
 
 func _ranking_table(c: Career, div: String) -> void:
@@ -75,10 +76,10 @@ func _ranking_table(c: Career, div: String) -> void:
 	add_child(card[0])
 	var grid := GridContainer.new()
 	grid.name = "Rankings_" + div
-	grid.columns = 4
+	grid.columns = 6   # S397: style and last bout fill the table's width (it sat in the left 40%)
 	grid.add_theme_constant_override("h_separation", 40)
 	grid.add_theme_constant_override("v_separation", 10)
-	for head in ["#", "FIGHTER", "GYM", "RECORD"]:
+	for head in ["#", "FIGHTER", "GYM", "RECORD", "STYLE", "LAST BOUT"]:
 		grid.add_child(UI.caps(head))
 	var rows := Region.rankings(c, div)
 	for i in mini(rows.size(), Region.RANK_ROWS):
@@ -86,15 +87,18 @@ func _ranking_table(c: Career, div: String) -> void:
 		var col := UI.GOLD if bool(r["ours"]) else UI.FG
 		grid.add_child(UI.mono(str(i + 1), UI.BODY, col))
 		if bool(r["ours"]):   # S396 blind round 2: hers is a link too, to her page
-			grid.add_child(UI.button(str(r["name"]), "BtnQuiet", _main.act.bind("fighter", str(r["fid"]))))
+			grid.add_child(UI.button(str(r["name"]), "Link", _main.act.bind("fighter", str(r["fid"]))))
 		else:
 			# S341 her name opens her file: what the gym has found of her and every bout with us.
-			var b := UI.button(str(r["name"]), "BtnQuiet", _main.act.bind("rivalfile", str(r["name"])))
+			var b := UI.button(str(r["name"]), "Link", _main.act.bind("rivalfile", str(r["name"])))
 			b.name = "File_" + str(r["name"]).replace(" ", "_")
 			b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 			grid.add_child(b)
 		grid.add_child(UI.label(r["club"], UI.BODY, col))
 		grid.add_child(UI.mono("%d-%d" % [r["w"], r["l"]], UI.BODY, col))
+		var who: Dictionary = c.fighter_by_id(str(r["fid"])) if bool(r["ours"]) else c.rival(str(r["name"]))
+		grid.add_child(UI.label(str(who.get("style", "")), UI.BODY, col))
+		grid.add_child(UI.label(_last_bout(c, r, who), UI.SMALL, UI.MUTED))
 	card[1].add_child(grid)
 	var notes: Array = []
 	for f in c.fighters:
@@ -108,6 +112,19 @@ func _ranking_table(c: Career, div: String) -> void:
 			notes.append("%s enters at %d wins (%d so far)." % [f["first"], Region.RANK_MIN_WINS, f["w"]])
 	notes.append("Rivals fight at club shows every other Saturday.")
 	card[1].add_child(UI.muted(" ".join(notes), UI.SMALL, true))
+
+
+## "beat Maria Ortega, on points" - her newest bout, from her record (RivalPast) or our results.
+func _last_bout(c: Career, r: Dictionary, who: Dictionary) -> String:
+	if bool(r["ours"]):
+		for res in c.results:
+			if str(res.get("fid", "")) == str(r["fid"]):
+				return "%s %s, %s" % ["beat" if bool(res["win"]) else "lost to", res["opp"], Clock.fmt(int(res["d"]))]
+		return ""
+	var last := RivalPast.shown(who, 1)
+	if last.is_empty():
+		return ""
+	return "%s %s, %s" % ["beat" if bool(last[0]["win"]) else "lost to", last[0]["vs"], str(last[0]["how"]).get_slice(",", 0)]
 
 
 func _events(c: Career) -> void:

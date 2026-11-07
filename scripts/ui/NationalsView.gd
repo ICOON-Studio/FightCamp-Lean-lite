@@ -18,7 +18,7 @@ static func build(page: Control, main: Node, c: Career) -> void:
 	if amateurs.is_empty():
 		var card := UI.card("THE NATIONAL AMATEUR CHAMPIONSHIPS")
 		page.add_child(card[0])
-		var text := "The season's goal for an amateur: 5 bouts and 3 months registered with England Boxing, the London regional, then the nationals. Sign a fighter first."
+		var text := "The season's goal for an amateur: 5 bouts and 3 months registered with the Amateur Boxing Board, the London regional, then the nationals. Sign a fighter first."
 		if not c.fighters.is_empty():
 			text = "Your fighters are pros: the nationals are for amateurs."
 		card[1].add_child(UI.muted(text, UI.BODY, true))
@@ -50,7 +50,7 @@ static func _road_card(page: Control, main: Node, c: Career, f: Dictionary) -> v
 		card[1].add_child(_needs(c, f))
 		var why := Champs.cannot_enter(c, f)
 		if why == "":
-			var b := UI.button("Enter %s" % f["first"], "Btn", main.act.bind("enterchamp", str(f["id"])))
+			var b := UI.button("Enter %s" % f["first"], "BtnSolid", main.act.bind("enterchamp", str(f["id"])))
 			b.name = "Enter_" + str(f["id"])
 			b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 			card[1].add_child(b)
@@ -64,6 +64,17 @@ static func _road_card(page: Control, main: Node, c: Career, f: Dictionary) -> v
 		for t in titles:
 			row.add_child(UI.chip("%d  %s" % [int(t["year"]), t["t"]], "gold"))
 		card[1].add_child(row)
+
+
+## S397 menus round 3 ("Enter the nationals is a small outline button on one tab"): the page's one filled button on her
+## Overview and Fight prep while entries are open and she qualifies; null otherwise.
+static func enter_button(main: Node, c: Career, f: Dictionary) -> Control:
+	if bool(f.get("pro", false)) or Champs.cannot_enter(c, f) != "":
+		return null
+	var b := UI.button("Enter %s for the nationals" % f["first"], "BtnSolid", main.act.bind("enterchamp", str(f["id"])))
+	b.name = "EnterNationals"
+	b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	return b
 
 
 ## Her road as SeasonRoad stops: ready, entered, then each round (Champs.path); before she enters, the next season's dates.

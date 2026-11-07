@@ -5,6 +5,8 @@ config_version=5
 [application]
 
 config/name="FightCamp"
+config/version="0.1.0"
+config/icon="res://assets/ui/app_icon.png"
 run/main_scene="res://scenes/Main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 boot_splash/bg_color=Color(0.113725, 0.0901961, 0.0784314, 1)

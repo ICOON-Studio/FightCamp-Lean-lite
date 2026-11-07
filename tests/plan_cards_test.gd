@@ -141,7 +141,7 @@ func _fight_paths() -> void:
 	_check(not weeks.is_empty() and weeks.max() <= 1, "nothing from the fight's own week (weeks %s)" % str(weeks))
 	var none := PlanCards.fight_paths(f, inp, 91, 96)
 	_check(none.values().all(func(v): return (v["path"] as Array).is_empty()), "the fight this week: no night counts")
-	var projs := {"combo:1-1": {"path": [], "eta": {"text": "not on a night - fades 0.75/week", "tone": "bad"}}}
+	var projs := {"combo:1-1": {"path": [], "eta": {"text": "not on a night - it fades", "tone": "bad"}}}
 	PlanCards.dress(f, projs, 77, 96, paths)
 	var one: Dictionary = projs["combo:1-1"]
 	var op: Array = (paths.get("combo:1-1", {}) as Dictionary).get("path", [])

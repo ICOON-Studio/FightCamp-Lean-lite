@@ -32,6 +32,7 @@ func build(main: Node) -> void:
 	v.add_child(skip)
 	v.add_child(_tbtn("Load career", "", "TBtn", main.act.bind("load", "")))
 	v.add_child(_tbtn("Settings", "", "TBtn", main.act.bind("settings", "")))
+	v.add_child(_tbtn("Credits", "", "TBtn", main.act.bind("credits", "")))
 	v.add_child(_tbtn("Quit", "", "TBtn", main.act.bind("quit", "")))
 	v.add_child(_gap(10))
 	## S367 playtest: the line said "Week 3 build" at update 66 - it names no build now, so it cannot go stale.

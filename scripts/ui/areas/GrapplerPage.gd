@@ -118,7 +118,7 @@ func _build(main: Node, c: Career, f: Dictionary) -> void:
 
 ## THE ROAD TO BLACK BELT: a bar per belt, hers outlined, her stripes on its tip.
 func _road(f: Dictionary) -> Control:
-	var card := UI.card("THE ROAD TO BLACK BELT - THE COACH PROMOTES; THE IBJJF SETS THE MINIMUMS")
+	var card := UI.card("THE ROAD TO BLACK BELT - THE COACH PROMOTES; THE GRAPPLING UNION SETS THE MINIMUMS")
 	card[0].name = "BeltRoad"
 	var h := UI.hbox(18)
 	card[1].add_child(h)
@@ -287,8 +287,8 @@ func _call(main: Node, c: Career, f: Dictionary, nxt: String, r: Dictionary) -> 
 			("   (stripe %d held back: drilling hungry)" % int(f["held"])) if int(f.get("held", 0)) > 0 else ""], UI.SMALL, UI.MUTED, "mono"))
 		v.add_child(stripe_buttons(main, f, c.day, func(call): main.act("gstripe", "%s|%s" % [fid, call])))
 		var btns := UI.hbox(10)
-		var floor_why := "" if bool(r["floor_ok"]) else (("%d more days at %s (the IBJJF minimum)" % [r["days_left"], f["belt"]]) if int(r["days_left"]) > 0 \
-			else "Too young for %s: the IBJJF minimum is %d" % [nxt, BeltRoad.MIN_AGE[nxt]])
+		var floor_why := "" if bool(r["floor_ok"]) else (("%d more days at %s (the Grappling Union minimum)" % [r["days_left"], f["belt"]]) if int(r["days_left"]) > 0 \
+			else "Too young for %s: the Grappling Union minimum is %d" % [nxt, BeltRoad.MIN_AGE[nxt]])
 		var pro := UI.button("Promote to %s%s" % [nxt, "" if bool(r["ready"]) else " (not ready)"], "Btn", main.act.bind("gpromote", fid),
 			floor_why != "", floor_why)
 		pro.name = "Promote"

@@ -166,3 +166,12 @@ static func answers(arrows: Array, tell: Dictionary, game: String, mastery: Dict
 				and PlanFight.fit(str(m["id"]), sit) == "best":
 			return true
 	return false
+
+
+## S397 blind round 3 ("2 beat it · 1 work · 0 walk into it · 1 untrained"): the tally in words, zeros left out.
+static func tally_words(s: Dictionary) -> String:
+	var parts: Array = []
+	for k in [["beats", "%d beat the opponent's game"], ["works", "%d work"], ["walks", "%d walk into it"], ["untrained", "%d not drilled yet"]]:
+		if int(s.get(k[0], 0)) > 0:
+			parts.append(str(k[1]) % int(s[k[0]]))
+	return ("Answers: " + ", ".join(parts) + ".") if not parts.is_empty() else "No answers written yet: she improvises."

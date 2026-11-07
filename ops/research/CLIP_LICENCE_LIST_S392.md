@@ -184,3 +184,14 @@ No source in this list is non-commercial. No source requires the operator to sig
 
 This is not legal advice. The operator should read the flagged items (MetaHuman licence page, Ludo EULA, CMU resale ban)
 before shipping on Steam.
+
+## S396 corrections (Claude, from git history)
+- **clinch_att / clinch_vic are not RamsterZ.** Commit ef451852 (S317) baked them from Cascadeur's two-person sample clinch
+  (`Cascy_CageClinch`) with tools/pair_bake.gd. The licence of Cascadeur's sample content was never read. **Flag #4: read the
+  Cascadeur terms for shipping its sample animations, or replace the clinch before release.**
+- **ow_walk** (S395) is CMU subject 07 trial 01, retargeted by tools/walk_cycle.gd: covered by the CMU credit line (now in the
+  in-game Credits, assets/data/credits.json).
+- RamsterZ therefore ships 15 clips, not 17. The in-game Credits list every source that asks for a credit (credits_test).
+- Flag #4 checked on the web (S396): Cascadeur's current Free plan is non-commercial; Indie covers commercial use under $100k a
+  year; no public page states terms for its bundled sample animations (cascadeur.com/plans). Our Cascadeur seat ended
+  2026-10-27. **Safest: replace the two clinch clips with a licensed source before launch**, or get Nekki's answer in writing.

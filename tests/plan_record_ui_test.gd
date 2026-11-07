@@ -39,14 +39,14 @@ func _initialize() -> void:
 	c.results.push_front({"d": 50, "fid": f["id"], "who": f["first"], "opp": "Erin Doyle", "win": true, "outcome": "win",
 		"pro": false, "cards": "30-27 x3", "why": "an old save", "plan_rec": {}})
 
-	# 1. The Record tab: a bout's line says what the plan did; a bout with no tally says nothing about a plan.
+	# 1. The History tab (S397 BoutHistory): a bout's note says what the plan did; a bout with no tally says nothing about a plan.
 	main.act("fighter", str(f["id"]))
 	main.act("ftab", "4")   # FighterPage.TABS[4] = Record
 	await _frames(8)
 	var text := _texts(main)
-	_check(text.contains("Plan: 5 of 8 planned exchanges won, 3 improvised."), "test 1: the Maria Ortega bout shows its plan tally")
-	_check(text.contains("Plan: 3 of 4 planned exchanges won, 6 improvised."), "test 1: the Priya Nair bout shows its own")
-	_check(text.count("Plan: ") == 2, "test 1: the old-save bout carries no plan line (%d)" % text.count("Plan: "))
+	_check(text.contains("plan won 5 of 8"), "test 1: the Maria Ortega bout shows its plan tally")
+	_check(text.contains("plan won 3 of 4"), "test 1: the Priya Nair bout shows its own")
+	_check(text.count("plan won ") == 2, "test 1: the old-save bout carries no plan line (%d)" % text.count("plan won "))
 
 	# 2. The Game plan line for that move: 8 of 12 across the two bouts, PlanRecord's word "works".
 	GamePlan.open = ""

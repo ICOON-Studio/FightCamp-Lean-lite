@@ -183,7 +183,7 @@ func _goal_tile(g: String, on: bool) -> Control:
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	v.add_child(UI.label(str(Info.GOAL_NAME[g]).to_upper(), 17, UI.FG, "display"))
-	var red := (fl["steps"] as Array).is_empty() and not str(fl["line"]).begins_with("IBJJF")
+	var red := (fl["steps"] as Array).is_empty() and not str(fl["line"]).begins_with("Union rules")
 	var line := UI.label(str(fl["line"]), 12, UI.RED if red else UI.MUTED, "semi", true)
 	line.custom_minimum_size = Vector2(70, 0)
 	v.add_child(line)
@@ -408,7 +408,7 @@ func _on_map_edge(eid: String) -> void:
 	if str(e["from"]) == _end_node() and not BjjTree.is_ending(_end_node()):
 		if st in ["learning", "ahead", "illegal"]:
 			_hint.text = "%s %d: %s - drill it to felt (%d) before it goes in the plan." % [BjjTree.move_name(str(e["move"])),
-				int(BjjTree.mastery(f, str(e["move"]))), "IBJJF: not at this belt" if st == "illegal" else st, int(BjjTree.T["FELT"])]
+				int(BjjTree.mastery(f, str(e["move"]))), "Union rules: not at this belt" if st == "illegal" else st, int(BjjTree.T["FELT"])]
 			return
 		if Info.count_steps(steps) >= Info.MAX_STEPS and not BjjTree.is_base(str(e["move"])):
 			_hint.text = "The plan holds %d moves." % Info.MAX_STEPS
