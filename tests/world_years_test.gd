@@ -25,9 +25,11 @@ func _init() -> void:
 	book.append("=== WORLD YEARS BOOK ===")
 	book.append("Seed: 12345, Years: %d" % YEARS)
 	book.append("")
+	_check_places_mean_levels(world, "a new world")
 	for year in YEARS:
 		var sim := WS.simulate_year(world["divisions"], rng)
 		_record_year(world, year, sim)
+		_check_places_mean_levels(world, "year %d" % (year + 1))
 	_check_rankings_full(world)
 	_check_age_spread(world)
 	_check_retirements_arrivals(world)
@@ -36,6 +38,7 @@ func _init() -> void:
 	_check_unique_ids(world)
 	_check_fight_schedules(world)
 	_print_book()
+	print("worst clear inversions over %d years: %.1f%% (bar %.0f%%)" % [YEARS, _worst_inverted * 100.0, MAX_INVERTED * 100.0])
 	print("WORLD_YEARS checks=%d failures=%d" % [checks, failures])
 	if failures > 0:
 		push_error("WORLD_YEARS failed")
@@ -152,6 +155,32 @@ func _check_champions_have_challengers(world: Dictionary) -> void:
 				failures += 1
 				push_error("Champions: %s %s champion has no mandatory challenger" % [div_id, level])
 				return
+
+
+## S397 (operator "Yes, fix ranks"): a place means a level - the share of ranked pairs where the boxer below is 5 or more
+## points better stays under MAX_INVERTED every year (a new world: none). Before: 22-39% at the start, 12-26% in year 1.
+const MAX_INVERTED := 0.05
+var _worst_inverted := 0.0
+
+
+func _check_places_mean_levels(world: Dictionary, when: String) -> void:
+	checks += 1
+	for div_id in world["divisions"]:
+		var r: Array = world["divisions"][div_id]["boxers"].filter(func(b): return int(b.get("rank", 0)) > 0 and not b.get("retired", false))
+		var n := 0
+		var bad := 0
+		for a in r:
+			for b in r:
+				if int(a["rank"]) < int(b["rank"]):
+					n += 1
+					bad += int(float(b["rating"]) - float(a["rating"]) >= 5.0)
+		var share := float(bad) / maxf(1.0, float(n))
+		_worst_inverted = maxf(_worst_inverted, share)
+		var bar := 0.0 if when == "a new world" else MAX_INVERTED
+		if share > bar:
+			failures += 1
+			push_error("Places: %s %s has %.1f%% clear inversions (bar %.0f%%)" % [div_id, when, share * 100.0, bar * 100.0])
+			return
 
 
 func _check_unique_ids(world: Dictionary) -> void:

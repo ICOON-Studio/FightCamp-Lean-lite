@@ -85,3 +85,30 @@ Left, structural (next session):
 - Unscouted reads are wide (18-70%); a scout narrows them but can bring bad news with no number for using the weakness.
 - Chance vs ranking: take-their-place churn means #17 can be far stronger than #18; the world needs a rating pull on ranks.
 - The TestJump films its pro bouts on the booking day (a test artefact; the real flow fights on fight night).
+
+## Real loss costs (S397, operator "Real loss costs"): two more blind rounds, decision 5 then 4
+Built: a night decides the wait (Matchmaking.next_weeks: quick 6 / normal 8 / hard 12 weeks, +8 weeks medical rest when
+stopped), the opponent's stoppage record and a stoppage % on every row (stop_chance = her chance to lose x the opponent's
+KO share), a duck costs the promoter's patience not fans, named rows beaten on place and chance are left out. Bots still
+pass (smart 7th, hard 13th, easy 18th; scouting +9 top 10).
+Blind: decision 5 ("time as a cost is the right resource"), then 4. STOPPED (seven rounds on this screen). Root causes left,
+in the order to do them:
+1. Ranks drift from ability: take-their-place churn lets #12 be an 86% favourite while #20 beat her. Add a rating pull to
+   the world's rankings (a yearly re-seed toward rating, or rank moves weighted by the gap) so a place means a level.
+2. The offer generator can make an offer beaten on every column by another: generate the three to trade off (safe/poor
+   pay, close/fair, step up/well paid) and reject a dominated one.
+3. Money does not bite: about $600 a fight against a $14,000 bank. A step up should pay 2-3x a safe night (real B-side
+   purses for a ranked name), and the career's costs should make a purse matter.
+4. Her own state is missing beside the risk: damage taken, condition, age and the career clock next to "out N weeks".
+5. Text: rows are paragraphs; put the numbers (stop %, weeks, fans) in their own short cells.
+
+## Ranks fixed (S397, operator "Yes, fix ranks")
+Measured first: a new world's places were in creation order (rank-rating correlation 0.11, 0.00, -0.53 on three seeds), and
+the share of "clear inversions" (a boxer ranked below is 5+ points better) was 22-39% at the start, 12-26% in year 1. By
+year 20 the table had also weakened and bunched (60-70 against 64-80) because prospects gained at most a point a year.
+Fixes: WorldGen seeds a new table by rating; WorldRank.review at each year end swaps neighbours 3+ points apart (3 passes)
+and lets a clearly better unranked boxer take the last place and climb; WorldAge lets prospects rise faster (0.6 of the way
+to the ceiling a year, at most 2.0). After: clear inversions 0% at the start and in years 1-2, at most 2.6% over 20 years
+(gated in world_years_test, bar 5%); the table holds 65-78 at year 20. On the screen: #15 41%, #16 49%, #18 67%.
+Bots still pass (smart 10th, hard 12th, easy 19th; the stronger table makes everyone's climb harder; scouting +21 top 10).
+Root causes left: 2 (offers that trade off), 3 (money that bites), 4 (her state beside the risk), 5 (short number cells).

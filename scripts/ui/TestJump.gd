@@ -283,6 +283,11 @@ static func _to_nationals(main: Node, c: Career, f: Dictionary) -> bool:
 
 ## S397 a pro night simulated (TestJump only): the bout is today, she made weight, the sim fights it, after_fight tidies.
 static func _pro_night(c: Career, f: Dictionary) -> void:
+	for i in 70:   # S397 blind: the night is fought on its own date, not the booking day
+		if c.day >= int(f["bout"]["day"]):
+			break
+		Sim.step_day(c)
+		c.review_pending = false
 	f["bout"]["day"] = c.day
 	f["bout"]["weighed"] = true
 	f["bout"]["made"] = true

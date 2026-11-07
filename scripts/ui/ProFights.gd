@@ -16,6 +16,8 @@ const OppFile := preload("res://scripts/rules/OppFile.gd")
 const FighterCard := preload("res://scripts/ui/FighterCard.gd")
 
 ## S397 blind round 3 ("LEVEL ON PAPER sits on an 80% fight"): the tag says what the read says.
+const KIND_WORD := {"tune": "TUNE-UP", "above": "STEP UP", "payday": "PAYDAY"}
+const KIND_KEY := {"tune": "green", "above": "gold", "payday": "amber"}
 const FAVOURITE_AT := 0.65
 const UNDERDOG_AT := 0.4
 const COL_KIND := 120
@@ -111,15 +113,30 @@ static func _table_card(main: Node, c: Career, f: Dictionary) -> Control:
 			bool(ProLadder.entry(c, f).get("rebuild", false)) else "The road is on the right."), UI.SMALL, UI.MUTED, "body", true))
 		return card[0]
 	v.add_child(_head_row())
-	var offered: Array = offers.map(func(x): return x["opp"])
+	var offered: Array = offers.filter(func(x): return str(x["kind"]) == "above").map(func(x): return x["opp"])   # a duck passes the step up
 	for r in offers:
 		v.add_child(UI.sep())
 		v.add_child(_row(main, c, f, r, offered, false))
 	var offered_ids: Array = offers.map(func(x): return int(x["opp"]["id"]))
 	var asks := ProLadder.ask_rows(c, f).filter(func(a): return bool(a["answer"]["ok"]) and not offered_ids.has(int(a["opp"]["id"])))
+	var all_rows: Array = []
+	for r in offers:
+		all_rows.append({"rank": int(r["opp"].get("rank", 0)), "mid": float(r["chance"]["mid"])})
+	for a in asks:
+		all_rows.append({"rank": int(a["opp"].get("rank", 0)), "mid": float(a["chance"]["mid"])})
+	var hidden := 0
+	# S397 blind: a name beaten on place and chance by another row is noise - nobody would pick it
+	asks = asks.filter(func(a):
+		var rk := int(a["opp"]["rank"])
+		var md := float(a["chance"]["mid"])
+		var beaten := all_rows.any(func(x): return int(x["rank"]) > 0 and int(x["rank"]) < rk and float(x["mid"]) > md)
+		return not beaten)
+	hidden = ProLadder.ask_rows(c, f).filter(func(a): return bool(a["answer"]["ok"]) and not offered_ids.has(int(a["opp"]["id"]))).size() - asks.size()
 	if not asks.is_empty():
 		v.add_child(UI.sep())
 		v.add_child(UI.caps("OR NAME YOUR OPPONENT: THE PROMOTER WILL MAKE ANY OF THESE"))
+		if hidden > 0:
+			v.add_child(UI.muted("%d more in your band are left out: a higher place is on offer at a better chance." % hidden, UI.SMALL))
 		var e := ProLadder.entry(c, f)
 		for a in asks:
 			v.add_child(UI.sep())
@@ -136,14 +153,24 @@ static func _row(main: Node, c: Career, f: Dictionary, r: Dictionary, offered: A
 	var scouted := bool(o.get("scouted", false))
 	var h := UI.hbox(14)
 	var mid0 := float(r["chance"]["mid"])
-	h.add_child(_fixed(COL_KIND, UI.chip("FAVOURITE" if mid0 >= FAVOURITE_AT else ("UNDERDOG" if mid0 < UNDERDOG_AT else "CLOSE"),
-		"green" if mid0 >= FAVOURITE_AT else ("amber" if mid0 < UNDERDOG_AT else "gold"))))
+	var kind := str(r.get("kind", ""))
+	if KIND_WORD.has(kind):   # S397: the promoter's offers say what they are for
+		h.add_child(_fixed(COL_KIND, UI.chip(KIND_WORD[kind], KIND_KEY[kind])))
+	else:
+		h.add_child(_fixed(COL_KIND, UI.chip("FAVOURITE" if mid0 >= FAVOURITE_AT else ("UNDERDOG" if mid0 < UNDERDOG_AT else "CLOSE"),
+			"green" if mid0 >= FAVOURITE_AT else ("amber" if mid0 < UNDERDOG_AT else "gold"))))
 	var who := UI.vbox(2)
 	who.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	who.add_child(UI.label(str(opp["name"]), UI.BODY + 1, UI.FG, "bold"))
 	var belt := str(opp.get("belt", ""))
 	who.add_child(UI.label("%s, %s, %s%s" % [_rank_word(opp), _record(opp), str(opp["style"]).to_lower(),
 		", %s champion" % belt.split("_")[-1] if belt != "" else ""], UI.SMALL, UI.MUTED))
+	var ko := int(opp.get("ko", 0))
+	var wins := int(opp.get("w", 0))
+	if wins > 0:
+		var ko_share := float(ko) / float(wins)
+		who.add_child(UI.label("Stopped %d of the %d beaten" % [ko, wins], UI.SMALL,
+			UI.RED if ko_share >= 0.4 else (UI.AMBER if ko_share >= 0.2 else UI.MUTED), "bold" if ko_share >= 0.4 else "body"))
 	for ln in _tape_lines(r["bout_opp"]):
 		who.add_child(UI.label(str(ln[0]), UI.SMALL, ln[1], str(ln[2]), true))
 	h.add_child(who)
@@ -163,16 +190,26 @@ static func _row(main: Node, c: Career, f: Dictionary, r: Dictionary, offered: A
 	var duck := str(st["duck"]) != ""
 	var win := UI.vbox(2)
 	win.add_child(UI.label(_win_short(c, f, opp, duck), UI.BODY, UI.GREEN if int(opp.get("rank", 0)) > 0 else UI.FG, "bold", true))
+	var gap := float(opp["rating"]) - float(ProLadder.entry(c, f)["rating"])
+	var nw := MM.next_weeks(gap, false)
+	win.add_child(UI.label("%s: next fight %d weeks on" % ["A quick night" if nw < MM.NEXT_WEEKS else
+		("A hard night" if nw > MM.NEXT_WEEKS else "A normal night"), nw], UI.SMALL, UI.GREEN if nw < MM.NEXT_WEEKS else
+		(UI.AMBER if nw > MM.NEXT_WEEKS else UI.MUTED), "body", true))
 	if duck:
-		win.add_child(UI.label("A duck (%d of %d: two stop the step ups)" % [int(ProLadder.entry(c, f).get("ducks", 0)) + 1, MM.DUCKS_BLOCK],
+		win.add_child(UI.label("Ducks the step up (%d of %d)" % [int(ProLadder.entry(c, f).get("ducks", 0)) + 1, MM.DUCKS_BLOCK],
 			UI.SMALL, UI.AMBER, "bold", true))
 	h.add_child(_fixed(COL_WIN, win))
 	var e := ProLadder.entry(c, f)
-	var lf := MM.loss_fans(float(opp["rating"]) - float(e["rating"])) + int(duck)
+	var lf := mini(MM.loss_fans(float(opp["rating"]) - float(e["rating"])), maxi(0, int(e.get("fans", 0))))
 	var lose := "%s; then a rebuild" % ("No fans lost" if lf == 0 else "-%d fan%s" % [lf, "" if lf == 1 else "s"])
 	if str(st["lose"]).contains("drop a place"):
 		lose += "; drops a place"
-	h.add_child(_fixed(COL_LOSE, UI.label(lose, UI.SMALL, UI.FG, "body", true)))
+	var lv := UI.vbox(2)
+	lv.add_child(UI.label(lose, UI.SMALL, UI.FG, "body", true))
+	var sc := MM.stop_chance(float(r["chance"]["mid"]), opp)
+	lv.add_child(UI.label("Stopped: %d%% chance; then out %d weeks, and damage" % [roundi(sc * 100.0), MM.next_weeks(gap, true)],
+		UI.SMALL, UI.RED if sc >= 0.15 else (UI.AMBER if sc >= 0.07 else UI.MUTED), "bold" if sc >= 0.15 else "body", true))
+	h.add_child(_fixed(COL_LOSE, lv))
 	var pay: Dictionary = r["pay"]
 	var total := int(pay["purse"]) + int(pay["tickets"])
 	var pv := UI.vbox(2)
@@ -196,12 +233,12 @@ static func _win_short(c: Career, f: Dictionary, opp: Dictionary, duck: bool = f
 	var you := int(e.get("rank", 0))
 	var r := int(opp.get("rank", 0))
 	var gap := float(opp["rating"]) - float(e["rating"])
-	var fans := 1 + int(gap > 2.0) - int(gap <= -MM.SOFT_GAP) - int(duck)
+	var fans := 1 + int(gap > 2.0) - int(gap <= -MM.SOFT_GAP)
 	var place := "Takes #%d" % r if r > 0 and (you == 0 or r < you) else "No place moves"
 	if str(opp.get("belt", "")) != "":
 		place += " and the belt"
 	var word := "+%d" % fans if fans > 0 else ("no" if fans == 0 else str(fans))
-	return "%s, %s fan%s%s" % [place, word, "" if absi(fans) == 1 else "s", " net" if duck else ""]
+	return "%s, %s fan%s" % [place, word, "" if absi(fans) == 1 else "s"]
 
 
 ## The opponent's tape: the weapon is public (pros fight on television); the weakness takes a scout.

@@ -163,6 +163,7 @@ static func year_end(divisions: Dictionary, rng: RandomNumberGenerator) -> Dicti
 		age_result["arrived"].append_array(new_boxers)
 		div["boxers"].append_array(new_boxers)
 		WR.refresh_ranks(div["boxers"], WG.RANKED_PER_DIVISION)
+		WR.review(div["boxers"])
 		age_result["crowned"].append_array(_fill_vacant_belts(div, rng))
 	return age_result
 

@@ -148,13 +148,9 @@ func _build(main: Node, c: Career, f: Dictionary) -> void:
 	var drill_it := func(card: String) -> void: main.act("drillit", "%s|%s" % [fid, card])
 	v.add_child(DrillTray.make(main, f, cards, projs, pick, drill_it))
 	v.add_child(_goal_row(f, goal, pl, nights))
+	v.add_child(_coach_row(main, f, pl))   # S397 layout pass: his advice beside the week it changes, above the fold
 	v.add_child(_strip(main, c, f, pl, inp, projs))
-	var below := UI.hbox(26)
-	var left := _foot(main, f, pl)
-	left.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	below.add_child(left)
-	below.add_child(_camp)
-	v.add_child(below)
+	v.add_child(_camp)   # S397 layout pass: the coach row took the foot's buttons; THIS CAMP closes the board
 
 
 ## The weeks strip (or THIS WEEK), Light / Standard / Hard, the fight-night gauges (THIS CAMP's GaugeRow, shown up here).
@@ -177,7 +173,15 @@ func _head(main: Node, c: Career, f: Dictionary, goal: Dictionary, evs: Array) -
 		else:
 			left.add_child(UI.label(str(ph["name"]), 16, UI.MUTED, "semi"))
 		h.add_child(left)
-	h.add_child(_steps(main, f))
+	# S397 blind Week critics ("three intensity controls, no link"): the toggle is the evenings - pad nights and sparring
+	var ev := UI.vbox(2)
+	ev.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	ev.add_child(UI.caps("EVENINGS"))
+	var evr := UI.hbox(14)
+	evr.add_child(_steps(main, f))
+	evr.add_child(_spar(main, f))
+	ev.add_child(evr)
+	h.add_child(ev)
 	h.add_child(_helps(main.career))
 	h.add_child(UI.spacer())
 	var g: Node = _camp.get("_gauge")
@@ -272,7 +276,7 @@ func _goal_row(f: Dictionary, goal: Dictionary, pl: Dictionary, nights: Dictiona
 		h.add_child(UI.label(words, 18, UI.GOLD if BoutRules.clears_night_line(stat, end) else UI.MUTED, "hand"))
 	h.add_child(UI.spacer())
 	var blocks := PadWeek.intensity(pl["days"], (nights.get("pads", []) as Array).size(), (nights.get("spar", []) as Array).size())
-	h.add_child(UI.label("INTENSITY", 16, UI.FG, "caps"))
+	h.add_child(UI.label("WEEK LOAD", 16, UI.FG, "caps"))
 	# S397 blind round 5 ("Intensity 10 / 16" is raw): the load against the coach's limit in words, the count on hover.
 	var full := float(blocks) / float(TrainingPlan.DEFAULT_TOTAL)
 	var n := UI.label("over the limit" if blocks > TrainingPlan.DEFAULT_TOTAL else ("a full load" if full >= 0.85 else ("a steady load" if full >= 0.5 else "a light load")),
@@ -360,11 +364,11 @@ func _ghost_day(dow: int, card: Array) -> void:
 		_camp.call("ghost_day", dow, card)
 
 
-## Under the strip: the coach's one line (and Do it), the sparring nights, the coach's week.
-func _foot(main: Node, f: Dictionary, pl: Dictionary) -> Control:
+## S397 layout pass: the coach's one line and Do it, under GOAL.
+func _coach_row(main: Node, f: Dictionary, pl: Dictionary) -> Control:
 	var fid := str(f["id"])
-	var v := UI.vbox(12)
 	var says := UI.hbox(10)
+	says.name = "CoachRow"
 	says.add_child(WB.ink("COACH:", 24, "marker"))
 	# S397 blind round 5: with no bout booked the weight forecast is moot (it read as "over the limit" beside "on weight").
 	var said_lines: Array = _lines if not (f.get("bout", {}) as Dictionary).is_empty() else _lines.filter(func(l): return str(l["id"]) != "weight")
@@ -387,20 +391,24 @@ func _foot(main: Node, f: Dictionary, pl: Dictionary) -> Control:
 		apply.tooltip_text = "Make the coach's change"
 		says.add_child(apply)
 		says.add_child(UI.spacer())
-	v.add_child(says)
-	var row := UI.hbox(10)
-	row.add_child(WB.ink("Sparring nights", UI.SMALL + 2, "handbold"))
+	var reset := UI.button("Coach's week", "BtnQuiet", main.act.bind("weekreset", fid))
+	reset.name = "WeekReset"
+	reset.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	reset.tooltip_text = "Undo your changes to the mornings: back to the coach's week for this phase"
+	says.add_child(reset)
+	return says
+
+
+## Sparring 0 / 1 / 2 a week, beside the pad nights' Light / Standard / Hard.
+static func _spar(main: Node, f: Dictionary) -> Control:
+	var fid := str(f["id"])
+	var row := UI.hbox(6)
+	row.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	row.add_child(UI.label("Sparring", 16, UI.FG, "semi"))
 	for n in 3:
 		var b := UI.button("%d" % n, "PillOn" if WeekPlan.evenings_of(f).count("sparring") == n else "Pill", main.act.bind("spar", "%s|%d" % [fid, n]))
 		b.name = "Spar_%d" % n
 		b.custom_minimum_size = Vector2(40, 34)
 		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(b)
-	var reset := UI.button("Coach's week", "BtnQuiet", main.act.bind("weekreset", fid))
-	reset.name = "WeekReset"
-	reset.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	reset.tooltip_text = "Undo your changes to the mornings: back to the coach's week for this phase"
-	row.add_child(reset)
-	row.add_child(UI.spacer())   # S397 blind Week critic: one CONTINUE - the top bar's
-	v.add_child(row)
-	return v
+	return row

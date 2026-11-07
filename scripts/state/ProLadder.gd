@@ -1,6 +1,6 @@
 extends RefCounted
 ## S397 rank 4 (P1): the pro career after the debut, on the WORLD1 tables (Career.world). After her debut a pro joins her
-## division's table unranked; the world fights a month at a time; every PRO_GAP_DAYS the promoter brings three offers
+## division's table unranked; the world fights a month at a time; the promoter brings three offers timed by the last night (Matchmaking.next_weeks)
 ## (Matchmaking.offers) that stand for OFFER_DAYS; a scout (SCOUT_COST) opens his tape (OppFile: weapon, weakness) and
 ## narrows the read (BoutRead.band, the same read as any amateur offer); or she asks for a named
 ## boxer inside the promoter's band. A booked pro bout is the same bout dict the debut uses (Roster.turn_pro), carrying
@@ -17,10 +17,14 @@ const OppFile := preload("res://scripts/rules/OppFile.gd")
 
 ## A pro has fought on television: the best weapon is public tape. The weakness takes a scout.
 const PUBLIC_TAPE := ["weapon"]
-const STEP_READ := 0.45     # the promoter's step up: a real chance, not a cliff
+const STEP_READ := 0.5      # the promoter's step up: a real chance, not a cliff
+const TUNE_READ := Vector2(0.7, 0.93)   # a tune-up the promoter offers: likely, never a sure thing
+const TUNE_AIM := 0.82
+const PAYDAY_READ := Vector2(0.2, 0.45)  # a payday: a long shot that pays
+const PAYDAY_TOP := 10
 const MONTH_DAYS := 28
 const YEAR_DAYS := 364
-const PRO_GAP_DAYS := 56       # Matchmaking.GAP_MONTHS: a pro camp of 6-8 weeks between bouts
+## The promoter calls so that the next fight night lands Matchmaking.next_weeks after the last (offers come LEAD_DAYS early).
 const OFFER_DAYS := 7
 const LEAD_DAYS := 42          # a booked pro bout is six weeks out: the camp
 const ROUNDS_UNRANKED := 4
@@ -83,7 +87,7 @@ static func join(c: Career, f: Dictionary) -> Dictionary:
 	e["w"] = int(f.get("pro_w", 0))
 	e["l"] = int(f.get("pro_l", 0))
 	e["d"] = int(f.get("pro_d", 0))
-	f["pro_next"] = c.day + PRO_GAP_DAYS
+	f["pro_next"] = c.day + MM.NEXT_WEEKS * 7 - LEAD_DAYS
 	f["pro_offers"] = []
 	return e
 
@@ -107,36 +111,81 @@ static func day_events(c: Career) -> void:
 			_make_offers(c, f)
 
 
+## S397 (operator "Offers that trade off"): the promoter's three offers are built to pull different ways, read on the
+## career's own odds (BoutRead), so none is the best on every column:
+##   TUNE-UP  a boxer below her or unranked, read nearest TUNE_READ: likely win, a quicker night, no place, small pay
+##   STEP UP  a ranked name in her band, read nearest STEP_READ: a place and better pay for a hard night (not while she
+##            rebuilds after a loss, nor after two ducks)
+##   PAYDAY   a top-10 name above her band, read inside PAYDAY_READ: two to three times the pay and a big place, at a real
+##            risk of being stopped
+## A set where one offer is at least as good as another on chance, place, pay, weeks and stoppage risk drops the worse one.
 static func _make_offers(c: Career, f: Dictionary) -> void:
 	var e := entry(c, f)
 	e["rating"] = night(f)
-	var rng := _rng(c, "offers|" + str(f["id"]))
+	var you := int(e.get("rank", 0))
+	var reach := maxi(1, you - MM.BAND_UP) if you > 0 else MM.UNRANKED_REACH
+	var tune := {}
+	var step := {}
+	var pay := {}
+	for b in table(c, f):
+		if b.get("player", false) or b.get("retired", false):
+			continue
+		var r := int(b.get("rank", 0))
+		var mid := float(read(c, f, bout_opp(f, b, PUBLIC_TAPE))["mid"])
+		var above := r > 0 and (you == 0 or r < you)
+		if not above:
+			if mid >= TUNE_READ.x and mid <= TUNE_READ.y and (tune.is_empty() or absf(mid - TUNE_AIM) < absf(float(tune["mid"]) - TUNE_AIM)):
+				tune = {"b": b, "mid": mid}
+		elif r >= reach and bool(MM.ask(e, b)["ok"]):
+			if step.is_empty() or absf(mid - STEP_READ) < absf(float(step["mid"]) - STEP_READ):
+				step = {"b": b, "mid": mid}
+		elif r <= PAYDAY_TOP and mid >= PAYDAY_READ.x and mid <= PAYDAY_READ.y:
+			if pay.is_empty() or r < int(pay["b"]["rank"]):
+				pay = {"b": b, "mid": mid}
 	var out: Array = []
-	for g in MM.offers(e, table(c, f), rng):
-		out.append({"id": int(g["opp"]["id"]), "kind": g["kind"], "file_found": PUBLIC_TAPE.duplicate(), "scouted": false, "until": c.day + OFFER_DAYS})
-	# S397 blind round 4: the step up is the ranked name in her band whose read is nearest STEP_READ (a step, not a cliff:
-	# the rule's rating gap missed what the full read sees, and offered a 7% fight)
-	var best := -1
-	var best_d := 9.0
-	for a in ask_rows(c, f):
-		if bool(a["answer"]["ok"]) and not out.any(func(x): return int(x["id"]) == int(a["opp"]["id"])):
-			var d := absf(float(a["chance"]["mid"]) - STEP_READ)
-			if d < best_d:
-				best_d = d
-				best = int(a["opp"]["id"])
-	if best > 0:
-		var step := {"id": best, "kind": "above", "file_found": PUBLIC_TAPE.duplicate(), "scouted": false, "until": c.day + OFFER_DAYS}
-		var at := -1
-		for i in out.size():
-			if str(out[i]["kind"]) == "above":
-				at = i
-		if at >= 0:
-			out[at] = step
-		elif int(e.get("ducks", 0)) < MM.DUCKS_BLOCK and not e.get("rebuild", false):
-			out.append(step)
-	f["pro_offers"] = out
-	if not out.is_empty():
-		c.add_news("%s's promoter has %d fights on the table (Fights)." % [f["first"], out.size()])
+	for kv in [["tune", tune], ["above", step], ["payday", pay]]:
+		var pick: Dictionary = kv[1]
+		if pick.is_empty():
+			continue
+		if kv[0] == "above" and (int(e.get("ducks", 0)) >= MM.DUCKS_BLOCK or e.get("rebuild", false)):
+			continue
+		out.append({"id": int(pick["b"]["id"]), "kind": kv[0], "file_found": PUBLIC_TAPE.duplicate(), "scouted": false,
+			"until": c.day + OFFER_DAYS})
+	f["pro_offers"] = _drop_dominated(c, f, out)
+	if not (f["pro_offers"] as Array).is_empty():
+		c.add_news("%s's promoter has %d fights on the table (Fights)." % [f["first"], (f["pro_offers"] as Array).size()])
+
+
+## The numbers a row is judged on: chance, the place a win takes (0 none), the gym's pay, weeks to the next fight, stop risk.
+static func offer_axes(c: Career, f: Dictionary, o: Dictionary) -> Dictionary:
+	var e := entry(c, f)
+	var opp := by_id(c, f, int(o["id"]))
+	var mid := float(read(c, f, bout_opp(f, opp, o.get("file_found", PUBLIC_TAPE)))["mid"])
+	var r := int(opp.get("rank", 0))
+	var you := int(e.get("rank", 0))
+	var p := MM.pay_of(e, opp)
+	return {"chance": mid, "place": (21 - r) if r > 0 and (you == 0 or r < you) else 0, "pay": int(p["purse"]) + int(p["tickets"]),
+		"weeks": MM.next_weeks(float(opp["rating"]) - float(e["rating"]), false), "stop": MM.stop_chance(mid, opp)}
+
+
+## True when x is at least as good as y on every axis (and better on one): y is never the right pick.
+static func dominates(x: Dictionary, y: Dictionary) -> bool:
+	var ge: bool = x["chance"] >= y["chance"] and x["place"] >= y["place"] and x["pay"] >= y["pay"] and x["weeks"] <= y["weeks"] and x["stop"] <= y["stop"]
+	var gt: bool = x["chance"] > y["chance"] or x["place"] > y["place"] or x["pay"] > y["pay"] or x["weeks"] < y["weeks"] or x["stop"] < y["stop"]
+	return ge and gt
+
+
+static func _drop_dominated(c: Career, f: Dictionary, out: Array) -> Array:
+	var axes: Array = out.map(func(o): return offer_axes(c, f, o))
+	var keep: Array = []
+	for i in out.size():
+		var beaten := false
+		for j in out.size():
+			if i != j and dominates(axes[j], axes[i]):
+				beaten = true
+		if not beaten:
+			keep.append(out[i])
+	return keep
 
 
 ## The opponent as a bout reads it (the shape Roster.turn_pro's debut opponent has): the career's own BoutRead and OppFile
@@ -233,7 +282,7 @@ static func book(c: Career, f: Dictionary, opp_id: int, asked: bool) -> Dictiona
 		var offered: Array = []
 		for o in f.get("pro_offers", []):
 			var x := by_id(c, f, int(o["id"]))
-			if not x.is_empty():
+			if not x.is_empty() and str(o["kind"]) == "above":   # only passing on the step up is a duck
 				offered.append({"opp": x})
 		MM.note_choice(e, opp, offered)
 	var pay := MM.pay_of(e, opp)
@@ -266,12 +315,11 @@ static func result(c: Career, f: Dictionary, outcome: String, stopped: bool) -> 
 	if outcome == "draw":   # a draw moves nobody: both records take it
 		e["d"] = int(e.get("d", 0)) + 1
 		opp["d"] = int(opp.get("d", 0)) + 1
-		f["pro_next"] = c.day + PRO_GAP_DAYS
+		f["pro_next"] = c.day + MM.NEXT_WEEKS * 7 - LEAD_DAYS
 		return {"draw": true, "rank_before": int(e["rank"]), "rank_after": int(e["rank"])}
 	var line := MM.apply_result(e, opp, table(c, f), outcome == "win", stopped)
 	e["rating"] = night(f)
-	f["pro_next"] = c.day + PRO_GAP_DAYS + int(e.get("rest", 0)) * MONTH_DAYS
-	e["rest"] = 0
+	f["pro_next"] = c.day + int(e.get("next_weeks", MM.NEXT_WEEKS)) * 7 - LEAD_DAYS   # her next camp starts then
 	var before := int(line["rank_before"])
 	var after := int(line["rank_after"])
 	if after != before:

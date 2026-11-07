@@ -17,8 +17,8 @@ const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const CampCard := preload("res://scripts/ui/CampCard.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 
-const CARD_H := 206.0
-const PIC := 112.0
+const CARD_H := 186.0   # S397 layout pass: the Week page fits 1080
+const PIC := 96.0
 const TWEEN_S := 0.45
 const GOLD_BG := Color("#fde58a")
 const GOLD_EDGE := Color("#e2a50c")
@@ -101,7 +101,7 @@ static func make(f: Dictionary, card_id: String, proj: Dictionary, picked: bool,
 		chip.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		var h := UI.hbox(8)
 		chip.add_child(h)
-		h.add_child(UI.label("held back by the %s" % str(held[0]).to_lower(), 15, UI.RED, "semi"))   # S397: no raw number
+		h.add_child(UI.label("needs a better %s" % str(held[0]).to_lower(), 15, UI.RED, "semi"))   # S397: no raw number
 		var go := UI.button("+ drill it", "BtnSolid", func(): on_drill_it.call("move:" + str(held[0])))
 		go.name = "DrillIt"
 		go.focus_mode = Control.FOCUS_NONE

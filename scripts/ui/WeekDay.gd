@@ -21,10 +21,10 @@ const PadEdit := preload("res://scripts/rules/PadEdit.gd")
 const DrillCard := preload("res://scripts/ui/DrillCard.gd")
 
 const DAYS := ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
-const AM_H := 128.0
-const AM_PIC := 90.0
-const PM_H := 180.0   # S397: the coach / kit chips left the cards (WeekBoard._helps)
-const PIC_H := 96.0
+const AM_H := 108.0
+const AM_PIC := 70.0
+const PM_H := 160.0   # S397: the coach / kit chips left the cards (WeekBoard._helps)
+const PIC_H := 80.0
 ## A split night's card name: the room a 1920-px strip's slot leaves it beside its picture and share badge.
 const SLOT_NAME_W := 76.0
 ## How far down the picture the AM / PM boxes cut (0 = the top, 0.5 = the middle).
@@ -107,7 +107,9 @@ static func am(f: Dictionary, i: int, m: Array, planned: Array, r: Dictionary, r
 	var row := UI.hbox(4)
 	row.add_child(UI.label("Rest" if rest else _cap(str(WeekPhase.NAMES.get(str(m[0]), str(m[0])))), 18, UI.FG, "semi"))
 	row.add_child(UI.spacer())
-	row.add_child(UI.label("AM", 13, UI.MUTED, "caps"))
+	# S397 blind Week critics ("the morning pictures look alike"): what the session trains, where "AM" sat
+	var st := "" if rest else str(WeekPlan.session(str(m[0])).get("stat", ""))
+	row.add_child(UI.label(str(Data.LABEL.get(st, st)) if st != "" else "AM", 13, UI.MUTED, "semi" if st != "" else "caps"))
 	v.add_child(row)
 	Tips.card(b, func(): return _magnet_card(m, planned, r, red, mine, twist))
 	return b

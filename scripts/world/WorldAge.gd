@@ -14,6 +14,10 @@ const MAX_FIGHTS_AMATEUR := 18
 const MAX_FIGHTS_PRO_EARLY := 6
 const MAX_FIGHTS_PRO_ESTABLISHED := 4
 const MAX_FIGHTS_CHAMPION := 2
+## S397: a prospect improves fast to the peak (the world weakened to a 60-70 table by year 20 at 1 point a year at most,
+## so a place stopped meaning a level). A share of the way to the 85 ceiling each year, at most RISE_MAX.
+const RISE_SHARE := 0.6
+const RISE_MAX := 2.0
 
 
 static func tick_year(boxers: Array, rng: RandomNumberGenerator) -> Dictionary:
@@ -50,7 +54,7 @@ static func _rise_per_year(age: int, peak: int, current: float) -> float:
 		return 0.0
 	var ceiling := 85.0
 	var gap := ceiling - current
-	return minf(1.0, gap / years_to_peak * 0.4)
+	return minf(RISE_MAX, gap / years_to_peak * RISE_SHARE)
 
 
 static func _decline_per_year(age: int, ledger: Dictionary) -> float:

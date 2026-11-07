@@ -56,7 +56,8 @@ func _initialize() -> void:
 	_check(not c.world.is_empty() and not e.is_empty(), "after the debut she is on the %s table" % ProLadder.division_for(f))
 	_check(int(e.get("rank", -1)) == 0, "she starts unranked (rank %d)" % int(e.get("rank", -1)))
 	_check(int(e.get("w", 0)) + int(e.get("l", 0)) + int(e.get("d", 0)) == 1, "the debut counts on her table record")
-	_check(int(f.get("pro_next", 0)) >= c.day + ProLadder.PRO_GAP_DAYS - 1, "the promoter calls again in about 8 weeks")
+	_check(int(f.get("pro_next", 0)) + ProLadder.LEAD_DAYS >= c.day + MM.NEXT_WEEKS * 7 - 1,
+		"the next fight night is about %d weeks after the debut" % MM.NEXT_WEEKS)
 	var other: Dictionary = ProLadder.table(c, f).filter(func(b): return int(b.get("rank", 0)) == 1)[0]
 	var bouts_before := int(other["w"]) + int(other["l"])
 	var waited := _days_until(c, f, func(): return not (f.get("pro_offers", []) as Array).is_empty(), 80)
@@ -68,6 +69,26 @@ func _initialize() -> void:
 		if not b.get("player", false) and int(b.get("rank", 0)) > 0 and int(b["w"]) + int(b["l"]) > 0:
 			world_moved = true
 	_check(world_moved, "the world fought on while she waited")
+	# S397 "Offers that trade off": over many calls, no offer is beaten on every column by another, and the kinds appear
+	var kinds := {}
+	var dominated := 0
+	var saved: Array = (f["pro_offers"] as Array).duplicate(true)
+	for k in 8:
+		f["pro_offers"] = []
+		f["pro_next"] = c.day
+		ProLadder.entry(c, f)["rating"] = ProLadder.night(f) + float(k) - 3.0
+		ProLadder._make_offers(c, f)
+		var os: Array = f["pro_offers"]
+		var ax: Array = os.map(func(o): return ProLadder.offer_axes(c, f, o))
+		for i in os.size():
+			kinds[str(os[i]["kind"])] = true
+			for j in os.size():
+				if i != j and ProLadder.dominates(ax[j], ax[i]):
+					dominated += 1
+	f["pro_offers"] = saved
+	_check(dominated == 0, "no offer is beaten on every column by another (8 calls, %d dominated)" % dominated)
+	_check(kinds.has("tune") and kinds.has("above"), "the promoter brings a tune-up and a step up (kinds seen: %s)" % ", ".join(kinds.keys()))
+	rows = ProLadder.offer_rows(c, f)
 	var cash := c.cash
 	var target: Dictionary = rows[0]
 	var width_before := float(target["chance"]["hi"]) - float(target["chance"]["lo"])

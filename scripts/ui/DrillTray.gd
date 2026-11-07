@@ -45,6 +45,7 @@ static func make(main: Node, f: Dictionary, cards: Array, projs: Dictionary, on_
 	if plan:
 		_versus(head, f)
 	head.add_child(UI.spacer())
+	head.add_child(_key())
 	var now := picked_for(fid)
 	var hint := WB.ink("%s: now click a PADS night" % PadEdit.title(f, now) if now != "" else "drag a card onto a PADS night",
 		20, "hand", WB.INK if now != "" else WB.PENCIL)
@@ -74,6 +75,24 @@ static func make(main: Node, f: Dictionary, cards: Array, projs: Dictionary, on_
 
 
 ## "vs" her face and first name (the face the weeks strip's poster shows).
+## S397 blind Week critics ("the bars have no key"): what the card bars' parts mean, once, above the cards.
+static func _key() -> HBoxContainer:
+	var k := UI.hbox(6)
+	k.name = "BarKey"
+	k.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	for part in [[DrillCard.SLATE, "learned"], [UI.GREEN, "this week"], [UI.FG, "next level"], [DrillCard.HATCH, "past the ceiling"]]:
+		var sw := ColorRect.new()
+		sw.color = part[0]
+		sw.custom_minimum_size = Vector2(3, 14) if str(part[1]) == "next level" else Vector2(16, 8)
+		sw.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		k.add_child(sw)
+		k.add_child(UI.label(str(part[1]), 14, UI.MUTED, "semi"))
+		var gap := Control.new()
+		gap.custom_minimum_size = Vector2(10, 0)
+		k.add_child(gap)
+	return k
+
+
 static func _versus(head: HBoxContainer, f: Dictionary) -> void:
 	var opp := PlanCards.opp(f)
 	var path := FACES.path_join(str(Faces.pair(f, opp)[1]) + ".jpg")

@@ -90,6 +90,12 @@ func _generate_division(rng: RandomNumberGenerator, div: Dictionary, base_seed: 
 		var b := _make_boxer(rng, firsts[i], lasts[i], clubs[i], sex, div["id"], is_ranked, base_seed + i)
 		b["rank"] = i + 1 if is_ranked else 0
 		boxers.append(b)
+	# S397 (operator "Yes, fix ranks"): a new table is seeded by ability - the ranks came in creation order, so a new
+	# world's places said nothing about level (rank-rating correlation 0.11, 0.00, -0.53 on three seeds)
+	var ranked: Array = boxers.filter(func(x): return int(x["rank"]) > 0)
+	ranked.sort_custom(func(a, b): return float(a["rating"]) > float(b["rating"]))
+	for i in ranked.size():
+		ranked[i]["rank"] = i + 1
 	return boxers
 
 

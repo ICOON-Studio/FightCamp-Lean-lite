@@ -4,6 +4,8 @@ extends RefCounted
 ##   rank    beat someone above you (or anyone ranked while you are not) and you take their place (WorldRank.apply_result_in);
 ##           lose to someone above you and you drop one; beat someone below and nothing moves
 ##   growth  soft fights teach little, hard ones more, losses most (GROW_*), on top of the yearly rise to the peak (WorldAge)
+##   time    a mismatch is a quick night (next fight in QUICK_WEEKS), a step up a hard one (HARD_WEEKS), a stopped loss adds a
+##           medical rest (STOP_REST_WEEKS) and damage
 ##   money   the purse follows your own rank; tickets follow your fans and how close the fight looks
 ##   record  a losing or level record is never ranked in the top TOP_RECORD
 ##   unknown an unscouted opponent is a RANGE_RAW-wide guess around the truth and an unseen matchup edge (+-EDGE_MAX);
@@ -18,7 +20,13 @@ const WA := preload("res://scripts/world/WorldAge.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 
 const GAP_MONTHS := 2          # a pro camp is 6-8 weeks: 4-6 bouts a year early on (assets/data/world/SOURCES.md)
-const REST_AFTER_STOPPAGE := 2 # extra months out after being stopped (a medical rest; game choice)
+## S397 (operator "Real loss costs"): a fight's night decides the wait for the next one, in weeks. A mismatch is a quick
+## night (a tune-up 4-6 weeks apart is normal for a prospect); a step up is a hard night that needs healing; being stopped
+## is a medical rest on top (boards suspend a stopped boxer 28 days or more; game value 8 weeks) and damage.
+const NEXT_WEEKS := 8
+const QUICK_WEEKS := 6
+const HARD_WEEKS := 12
+const STOP_REST_WEEKS := 8
 const BAND_UP := 5
 const UNRANKED_REACH := 15
 const TOP_ASK := 5             # asking for a top-5 boxer needs fans >= TOP_ASK_FANS
@@ -55,7 +63,7 @@ const FANS_MAX := 12
 static func join(division_boxers: Array, name: String, rating: float, age: int, seed: int = 0) -> Dictionary:
 	var p := {"id": -1, "seed": seed, "name": name, "rating": rating, "age": age, "peak_age": WA.PEAK_AGE_PRO, "rank": 0, "belt": "",
 		"w": 0, "l": 0, "d": 0, "ko": 0, "retired": false, "player": true, "fans": 0, "ducks": 0, "money": 0,
-		"rest": 0, "damage_ledger": {"hard_fights": 0, "stoppage_losses": 0, "total_fights": 0}, "log": []}
+		"next_weeks": NEXT_WEEKS, "damage_ledger": {"hard_fights": 0, "stoppage_losses": 0, "total_fights": 0}, "log": []}
 	division_boxers.append(p)
 	return p
 
@@ -151,8 +159,7 @@ static func ask(p: Dictionary, opp: Dictionary) -> Dictionary:
 static func note_choice(p: Dictionary, choice: Dictionary, offered: Array) -> void:
 	var harder := offered.any(func(g): return float(g["opp"]["rating"]) > float(choice["rating"]) + 2.0)
 	if harder and not p.get("rebuild", false):   # after a loss the softer fight is the rebuild, not a duck
-		p["ducks"] = int(p["ducks"]) + 1
-		p["fans"] = maxi(FANS_MIN, int(p["fans"]) - 1)
+		p["ducks"] = int(p["ducks"]) + 1   # S397 blind: a duck costs the promoter's patience, not fans (two stop the step ups)
 	elif float(choice["rating"]) > float(p["rating"]) + 2.0:
 		p["ducks"] = 0
 
@@ -212,7 +219,8 @@ static func apply_result(p: Dictionary, opp: Dictionary, boxers: Array, won: boo
 			WR.drop_one(p, boxers)
 		if stop:
 			WA.record_stoppage_loss(p)
-			p["rest"] = REST_AFTER_STOPPAGE
+			pass
+	p["next_weeks"] = next_weeks(gap, stop and not won)
 	_record_floor(p, boxers)
 	WA.record_bout(p, absf(gap))
 	WA.record_bout(opp, absf(gap))
@@ -222,6 +230,21 @@ static func apply_result(p: Dictionary, opp: Dictionary, boxers: Array, won: boo
 		"tickets": int(pay["tickets"])}
 	(p["log"] as Array).append(line)
 	return line
+
+
+## The chance she is stopped in this fight: her chance to lose times how often the opponent stops the boxers beaten
+## (the record's KO share, floored at a tenth: anyone can land one).
+static func stop_chance(win_chance_now: float, opp: Dictionary) -> float:
+	var wins := int(opp.get("w", 0))
+	var ko_share := maxf(0.1, float(opp.get("ko", 0)) / float(wins)) if wins > 0 else 0.25
+	return clampf((1.0 - win_chance_now) * ko_share, 0.0, 1.0)
+
+
+## Weeks to the next fight after this one (gap = opponent minus her): a mismatch is quick, a step up is hard, a stopped
+## loss adds the medical rest.
+static func next_weeks(gap: float, stopped_loss: bool) -> int:
+	var w := QUICK_WEEKS if gap <= -SOFT_GAP else (HARD_WEEKS if gap > 2.0 else NEXT_WEEKS)
+	return w + (STOP_REST_WEEKS if stopped_loss else 0)
 
 
 ## Fans a loss costs, by how the fight looked (gap = opponent minus her): a favourite who loses costs 2, a close loss 1,

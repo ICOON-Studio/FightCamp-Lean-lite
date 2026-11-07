@@ -71,13 +71,11 @@ func _run(bot: String) -> Dictionary:
 		var boxers: Array = divs[DIV]["boxers"]
 		var p := MM.join(boxers, "You", START_RATING, 22, 7000 + c)
 		var start := float(p["rating"])
-		var since := MM.GAP_MONTHS
+		var since := MM.NEXT_WEEKS
 		for m in MONTHS:
 			WS.simulate_month(divs, rng)
-			since += 1
-			if int(p["rest"]) > 0:
-				p["rest"] = int(p["rest"]) - 1
-			elif since >= MM.GAP_MONTHS:
+			since += 4   # weeks in a month, near enough
+			if since >= int(p["next_weeks"]):
 				var opp := _pick(bot, p, boxers, rng)
 				if not opp.is_empty():
 					MM.fight(p, opp, boxers, rng)

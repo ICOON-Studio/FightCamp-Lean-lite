@@ -43,6 +43,56 @@ static func refresh_ranks(boxers: Array, size: int) -> void:
 		table[i]["rank"] = i + 1
 
 
+## The year-end review (a sanctioning body's committee): neighbours swap where the lower-ranked boxer is clearly better
+## (REVIEW_GAP rating points), REVIEW_PASSES passes. Take-their-place still decides the year; this keeps a place meaning a
+## level as boxers age (without it the table drifted to a 0.55-0.72 rank-rating correlation by year 20).
+const REVIEW_GAP := 3.0
+const REVIEW_PASSES := 3
+
+
+static func review(boxers: Array) -> int:
+	var ranked: Array = boxers.filter(func(b): return int(b.get("rank", 0)) > 0 and not b.get("retired", false))
+	ranked.sort_custom(func(a, b): return int(a["rank"]) < int(b["rank"]))
+	var swaps := 0
+	for p in REVIEW_PASSES:
+		for i in range(ranked.size() - 1):
+			var hi: Dictionary = ranked[i]
+			var lo: Dictionary = ranked[i + 1]
+			if float(lo["rating"]) - float(hi["rating"]) >= REVIEW_GAP and not lo.get("player", false) and not hi.get("player", false):
+				var r := int(hi["rank"])
+				hi["rank"] = r + 1
+				lo["rank"] = r
+				ranked[i] = lo
+				ranked[i + 1] = hi
+				swaps += 1
+	# a clearly better unranked boxer takes the last place (the newcomer who never got a ranked fight)
+	var table_size := ranked.size()
+	while table_size > 0:
+		var last: Dictionary = ranked[table_size - 1]
+		var best: Dictionary = {}
+		for b in boxers:
+			if int(b.get("rank", 0)) == 0 and not b.get("retired", false) and not b.get("player", false):
+				if best.is_empty() or float(b["rating"]) > float(best["rating"]):
+					best = b
+		if best.is_empty() or last.get("player", false) or float(best["rating"]) - float(last["rating"]) < REVIEW_GAP:
+			break
+		best["rank"] = int(last["rank"])
+		last["rank"] = 0
+		ranked[table_size - 1] = best
+		swaps += 1
+		# the newcomer climbs past anyone clearly worse
+		var i := table_size - 1
+		while i > 0 and float(ranked[i]["rating"]) - float(ranked[i - 1]["rating"]) >= REVIEW_GAP and not ranked[i - 1].get("player", false):
+			var r := int(ranked[i - 1]["rank"])
+			ranked[i - 1]["rank"] = r + 1
+			ranked[i]["rank"] = r
+			var t: Dictionary = ranked[i - 1]
+			ranked[i - 1] = ranked[i]
+			ranked[i] = t
+			i -= 1
+	return swaps
+
+
 static func level_of(belt: String) -> String:
 	var parts := belt.split("_")
 	return parts[parts.size() - 1] if parts.size() >= 2 else ""
