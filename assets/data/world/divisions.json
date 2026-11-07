@@ -1,0 +1,44 @@
+{
+  "divisions": [
+    {
+      "id": "w_lw",
+      "name": "Women's Lightweight",
+      "sex": "women",
+      "weight_class": "lightweight",
+      "min_kg": 57.0,
+      "max_kg": 61.2,
+      "pro_rounds": 10,
+      "amateur_rounds": 3
+    },
+    {
+      "id": "w_wr",
+      "name": "Women's Welterweight",
+      "sex": "women",
+      "weight_class": "welterweight",
+      "min_kg": 61.2,
+      "max_kg": 66.7,
+      "pro_rounds": 10,
+      "amateur_rounds": 3
+    },
+    {
+      "id": "m_lw",
+      "name": "Men's Lightweight",
+      "sex": "men",
+      "weight_class": "lightweight",
+      "min_kg": 57.0,
+      "max_kg": 61.2,
+      "pro_rounds": 10,
+      "amateur_rounds": 3
+    },
+    {
+      "id": "m_wr",
+      "name": "Men's Welterweight",
+      "sex": "men",
+      "weight_class": "welterweight",
+      "min_kg": 61.2,
+      "max_kg": 66.7,
+      "pro_rounds": 12,
+      "amateur_rounds": 3
+    }
+  ]
+}

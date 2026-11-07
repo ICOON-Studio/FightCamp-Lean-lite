@@ -1,0 +1,89 @@
+{
+  "belt_levels": [
+    {
+      "level": "area",
+      "name": "Area Title",
+      "organisations": [
+        {
+          "name": "Northern Boxing Council",
+          "abbr": "NBC"
+        },
+        {
+          "name": "Southern Boxing Federation",
+          "abbr": "SBF"
+        },
+        {
+          "name": "Western Boxing League",
+          "abbr": "WBL"
+        },
+        {
+          "name": "Eastern Ring Union",
+          "abbr": "ERU"
+        }
+      ],
+      "description": "Regional entry-level professional titles"
+    },
+    {
+      "level": "national",
+      "name": "National Title",
+      "organisations": [
+        {
+          "name": "National Ring Board",
+          "abbr": "NRB"
+        },
+        {
+          "name": "National Boxing Council",
+          "abbr": "NatBC"
+        },
+        {
+          "name": "Home Nations Boxing Federation",
+          "abbr": "HNBF"
+        }
+      ],
+      "description": "Country-level championships"
+    },
+    {
+      "level": "continental",
+      "name": "Continental Title",
+      "organisations": [
+        {
+          "name": "Continental Ring Union",
+          "abbr": "CRU"
+        },
+        {
+          "name": "Atlantic Boxing Council",
+          "abbr": "ABC"
+        },
+        {
+          "name": "Intercontinental Ring Federation",
+          "abbr": "IRF"
+        }
+      ],
+      "description": "Continental-level championships"
+    },
+    {
+      "level": "world",
+      "name": "World Title",
+      "organisations": [
+        {
+          "name": "Global Boxing Association",
+          "abbr": "GBA"
+        },
+        {
+          "name": "World Ring Federation",
+          "abbr": "WRF"
+        },
+        {
+          "name": "International Ring Council",
+          "abbr": "IRC"
+        },
+        {
+          "name": "Universal Ring Organisation",
+          "abbr": "URO"
+        }
+      ],
+      "description": "World championships - the highest level"
+    }
+  ],
+  "_note": "Invented bodies only: no real sanctioning body names or initials (Steam, trademarks)."
+}

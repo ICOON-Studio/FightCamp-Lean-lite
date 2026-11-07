@@ -64,6 +64,7 @@ static func read(rounds: Array, first: String, opp: String) -> Dictionary:
 	out["plan"] = _plan_line(grade, t, first, worth)
 	var won := _won(rounds)
 	out["against"] = _against_line(grade, top_wrong, wrong, habits, first, opp, won, t, rounds)
+	out["next"] = _next_line(grade, top_best, top_wrong, first, opp, won, _top(sits))
 	# S397 what lasted past the exchange (PlanPressure): the punches the pressure took off her, the tank lost to wrong answers punished.
 	var pt := PlanPressure.tally(rounds)
 	out["pressure"] = pt
@@ -80,7 +81,6 @@ static func read(rounds: Array, first: String, opp: String) -> Dictionary:
 	if float(pt["tank"]) >= 1.0:
 		out["against"] = str(out["against"]) + " Wrong answers punished cost %s %d of the tank for the rest of the fight." % [first,
 			int(round(float(pt["tank"])))]
-	out["next"] = _next_line(grade, top_best, top_wrong, first, opp, won, _top(sits))
 	return out
 
 

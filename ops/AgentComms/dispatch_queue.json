@@ -300,6 +300,39 @@
    "loop": "FIGHT9",
    "launched": "2026-11-06T08:11",
    "note": "S390: never started; R17-R19 under R16; R16 merged by hand"
+  },
+  {
+   "task": "SOUND2",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-07T08:52",
+   "launched": "2026-11-07T09:40"
+  },
+  {
+   "task": "SOUND3",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-07T09:46",
+   "launched": "2026-11-07T10:40"
+  },
+  {
+   "task": "WORLD1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-07T11:23",
+   "launched": "2026-11-07T12:14"
+  },
+  {
+   "task": "FIGHTWALK1",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-07T13:57"
+  },
+  {
+   "task": "HITSELL1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-07T13:59"
   }
  ]
 }
