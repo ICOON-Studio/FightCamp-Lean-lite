@@ -33,6 +33,9 @@ const OW_WALK_MS := 1.58
 const OW_WALK_RATE := 0.6
 ## S396 (blind review 5.5: "guard-to-walk snaps at the bell"): the film dropped her hands in ~0.15 s. A boxer lowers her
 ## guard over most of a second, so the walk joins slower and her ground speed eases in with it (no skate while the legs blend).
+## S396 (blind review 5.5: "the coach is see-through"): the seconds' near-black shirts melted into the dark hall behind the
+## faded ropes. A corner team wears its corner's colour, muted, so it reads against the crowd.
+const TEAM_SHIRT := {"second": Color(0.42, 0.12, 0.11), "blue_second": Color(0.12, 0.2, 0.42)}
 const WALK_JOIN := Vector2(0.22, 0.8)
 const WALK_STOP_JOIN := Vector2(0.18, 0.6)
 const TURN_S := 0.12
@@ -55,6 +58,8 @@ func build(s: Node3D, pro: bool) -> void:
 		if role == "cutman" and not pro:
 			continue
 		actors[role] = _body(DIR + str(BODIES[role]) + ".glb")
+		if TEAM_SHIRT.has(role):
+			_shirt(actors[role]["node"], TEAM_SHIRT[role])
 	for i in stage.boxers.size():
 		_loops(stage.boxers[i]["ap"])
 		stage.boxers[i]["ik"] = CornerIK.attach(stage.boxers[i]["skel"], stage.boxers[i]["node"])
@@ -124,6 +129,9 @@ func play(a: Dictionary, clip: String, speed: float = 1.0, from_s: float = 0.0, 
 	ap.speed_scale = 1.0
 	if a.get("js") != null:
 		(a["js"] as Node).join(join.x, join.y)
+		# S396 (hand log: 0.51 -> -0.06 m in one frame into the walk): without a target the smoother waited for the last fight
+		# clip and never blended a corner join at all.
+		(a["js"] as Node).set_target(ap, clip)
 		ap.play(clip, 0.0, speed)
 	else:
 		ap.play(clip, 0.25, speed)
@@ -438,3 +446,15 @@ static func _mat(colour: Color, rough: float) -> StandardMaterial3D:
 	if colour.a < 1.0:
 		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	return mat
+
+
+## S396: a body's shirt (the outfit's Staff_Shirt surface) in `colour`, on its own material copy.
+static func _shirt(root: Node, colour: Color) -> void:
+	for m in root.find_children("*", "MeshInstance3D", true, false):
+		var mi := m as MeshInstance3D
+		for i in mi.mesh.get_surface_count():
+			var mat := mi.get_active_material(i) as BaseMaterial3D
+			if mat != null and mat.resource_name == "Staff_Shirt":
+				var own := mat.duplicate() as BaseMaterial3D
+				own.albedo_color = colour
+				mi.set_surface_override_material(i, own)

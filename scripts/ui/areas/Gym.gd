@@ -11,6 +11,8 @@ const Region := preload("res://scripts/state/Region.gd")
 const Tips := preload("res://scripts/ui/Tips.gd")
 const TopCards := preload("res://scripts/ui/TopCards.gd")
 const RecordsPage := preload("res://scripts/ui/RecordsPage.gd")
+const Sim := preload("res://scripts/state/Sim.gd")
+const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 
 
 func build(main: Node) -> void:
@@ -22,6 +24,16 @@ func build(main: Node) -> void:
 			# S396 screen cut: People = the staff and the members (Routes.gd).
 			_staff(main, c)
 			_members(c)
+			# S396 blind round 2 (labels and values 1,600 px apart): the two cards side by side.
+			var cols := UI.hbox(16)
+			cols.name = "PeopleCols"
+			var n := get_child_count()   # staff, members, then the members' "why they join" card
+			var two := [get_child(n - 3), get_child(n - 2)]
+			for ch in two:
+				remove_child(ch)
+				cols.add_child(ch)
+			add_child(cols)
+			move_child(cols, get_child_count() - 2)
 		3:
 			_facilities(main, c)
 		4:
@@ -31,13 +43,14 @@ func build(main: Node) -> void:
 func _members(c: Career) -> void:
 	var card := UI.card("MEMBERS")
 	var target := Membership.natural_members(c.reputation)
+	# S396 blind review ("57 (growing toward 57)" read as debug): the count says where it is heading, the cap says only itself.
 	var drift := "steady" if target == c.members else ("growing toward %d" % target if target > c.members else "falling toward %d" % target)
-	var books := UI.kv("On the books", str(c.members), UI.FG, "mono")
+	var books := UI.kv("On the books", "%d, %s" % [c.members, drift], UI.FG, "mono")
 	books.name = "Members"
 	Tips.card(books, func(): return TopCards.members(c))   # S362 J90 6g
 	UI.add_rows(card[1], [
 		books,
-		UI.kv("What the gym can carry now", "%d (%s)" % [target, drift], UI.FG, "mono"),
+		UI.kv("What the gym can carry now", str(target), UI.FG, "mono"),
 		UI.kv("Reputation", str(c.reputation), UI.FG, "mono"),
 		UI.kv("Dues", "%s a month each" % UI.money(Membership.weekly_rate()), UI.FG, "mono"),
 		UI.kv("Evening classes", ("3 a week, +%s" % UI.money(GameMoney.CLASSES_WITH_COACH)) if not c.coach.is_empty() else "need a coach"),
@@ -79,7 +92,11 @@ func _staff(main: Node, c: Career) -> void:
 	if not c.coach.is_empty():
 		rows.append(UI.row("%s, %s" % [c.coach["name"], str(c.coach["kind"]).to_lower()],
 			"%s, rating %d, %s a week" % [c.coach["spec"], c.coach["rating"], UI.money(int(c.coach["salary"]))], UI.GREEN))
-	else:
+	# S396 blind review: Money paid a BJJ coach Staff never named. The no-gi classes' coach is paid by the class.
+	if not c.grapplers.is_empty():
+		var bjj := Sim.bjj_money(c)
+		rows.append(UI.row("No-gi classes' coach, by the class", "%s a class, %s a week" % [UI.money(BjjSide.COACH_CLASS), UI.money(int(bjj["coach"]))], UI.GREEN))
+	if c.coach.is_empty():
 		rows.append(UI.muted("No coach yet. Two are available.", UI.BODY))
 		for coach in Data.COACHES:
 			rows.append(UI.row("%s, %s" % [coach["name"], str(coach["kind"]).to_lower()],

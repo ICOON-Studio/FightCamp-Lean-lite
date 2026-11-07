@@ -34,6 +34,10 @@ func _initialize() -> void:
 	for t in [["3", "fighter_week"], ["5", "fighter_prep"], ["4", "fighter_history"]]:
 		main.act("ftab", t[0])
 		await _shot(t[1])
+	# S396 (operator: "have they been reviewed and judged?"): the Playbook's four tabs join the blind review.
+	for p in [["0", "playbook_moves"], ["1", "playbook_plan"], ["2", "playbook_combos"], ["3", "playbook_escapes"]]:
+		main.act("ptab", p[0])
+		await _shot(p[1])
 	main.act("handbook")
 	await _shot("handbook")
 	main.act("close")

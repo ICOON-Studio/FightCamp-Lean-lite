@@ -13,6 +13,7 @@ const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const Data := preload("res://scripts/state/Data.gd")
+const NameLinks := preload("res://scripts/ui/NameLinks.gd")
 
 var checks := 0
 var failures := 0
@@ -69,6 +70,9 @@ func _initialize() -> void:
 	else:
 		_check(false, "quick start has a fighter")
 
+	# Every name is a link (S396 screen cut): a known fighter's name opens her page; brackets in the text stay text.
+	var bb := NameLinks.bbcode(c, "%s beat someone [3 rounds]" % str(c.fighters[0]["name"]))
+	_check(bb.contains("[url=fighter|%s]" % str(c.fighters[0]["id"])) and bb.contains("[lb]3 rounds]"), "names link, brackets stay text (%s)" % bb)
 	# No "not built yet" left in the game's own screens.
 	var found := []
 	for dir in ["res://scripts/ui", "res://scripts/ui/areas", "res://scripts/ui/modals"]:

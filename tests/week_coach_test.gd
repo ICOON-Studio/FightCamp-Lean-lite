@@ -26,7 +26,7 @@ func _initialize() -> void:
 	var easy := WP.COACH_WEEK
 	var goal := {"limit": 61.2, "stat": "conditioning", "target": 58.5}
 	_check(_say(easy, "hold", goal) == "The week lands on every line. Leave it.", "the coach's week on an easy goal: leave it")
-	_check(_say(easy, "hold", {"limit": 60.0, "stat": "conditioning", "target": 58.5}).begins_with("Over by"), "over the limit on a hold diet: switch to Cut")
+	_check(_say(easy, "hold", {"limit": 60.0, "stat": "conditioning", "target": 58.5}).begins_with("This week ends"), "over the limit on a hold diet: switch to Cut")
 	var short := _say(easy, "hold", {"limit": 61.2, "stat": "conditioning", "target": 61.0})
 	_check(short.begins_with("Conditioning lands") and short.contains("roadwork morning Hard"), "the stat short: name its session")
 	var hard: Array = []

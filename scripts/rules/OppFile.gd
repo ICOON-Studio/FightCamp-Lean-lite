@@ -77,7 +77,7 @@ static func tells(opp: Dictionary) -> Array:
 		"counter": w[0], "call": w[1], "when": w[2]})
 	for h in RoundStyle.opponent_habits(opp):
 		out.append({"id": "habit:" + str(h), "what": "Habit", "how": "tape", "value": str(HABIT_WORDS.get(h, h)),
-			"counter": "THE READ: the corner shouts the counter when it comes", "call": "", "when": ""})
+			"counter": "The read: the corner shouts the counter when it comes", "call": "", "when": ""})
 	var k := _answer(str(opp.get("weak", "")), WEAKNESS_ANSWERS)
 	out.append({"id": "weakness", "what": "Weakness", "how": "tape", "value": str(opp.get("weak", "?")),
 		"counter": k[0], "call": k[1], "when": k[2]})

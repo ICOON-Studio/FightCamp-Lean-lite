@@ -11,6 +11,7 @@ const Champs := preload("res://scripts/state/Champs.gd")
 const BOUT_PAGE := preload("res://scenes/areas/BoutPage.tscn")
 const FighterCard := preload("res://scripts/ui/FighterCard.gd")
 const BoutCompare := preload("res://scripts/ui/BoutCompare.gd")
+const MatOpens := preload("res://scripts/ui/MatOpens.gd")
 ## Her latest results on the Offers tab's standing card.
 const LAST_RESULTS := 3
 
@@ -26,6 +27,8 @@ func build(main: Node) -> void:
 	AreaHead.add(self, main, "fights")
 	# S396 screen cut: Offers, Calendar and Results are one page (docs/STRUCTURE_DESIGN_S395.md 5.4).
 	_offers(main, c)
+	for g in c.grapplers:   # S396 blind round 2: the no-gi athlete's opens belong on Fights too
+		add_child(MatOpens.card(main, c, g, "%s: NO-GI OPENS" % str(g["first"]).to_upper()))
 	_calendar(c)
 	_results(c)
 
@@ -57,7 +60,7 @@ func _offers(main: Node, c: Career) -> void:
 		card[1].add_child(UI.muted("No offers right now.", UI.BODY, true))
 		# S369: when each one's next offer can come (Bouts.day_events' own rule), not "every couple of weeks".
 		for bf in c.fighters:
-			card[1].add_child(UI.label(_next_offer(c, bf), UI.BODY, UI.FG, "bold", true))
+			card[1].add_child(UI.label(next_offer_line(c, bf), UI.BODY, UI.FG, "bold", true))
 		return
 	# S387 a card per offer (OfferCard): the opponent's face, record, win band and the chips, ready to decide on.
 	for fo in open:
@@ -66,7 +69,7 @@ func _offers(main: Node, c: Career) -> void:
 
 ## When her next offer can come, by Bouts.day_events' rule: none while booked or in the championships, else from her
 ## next_offer_day.
-func _next_offer(c: Career, f: Dictionary) -> String:
+static func next_offer_line(c: Career, f: Dictionary) -> String:
 	var fb: Dictionary = f["bout"]
 	if not fb.is_empty():
 		return "Booked: %s vs %s, %s." % [f["first"], fb["opp"]["name"], Clock.fmt(int(fb["day"]))]
@@ -120,6 +123,10 @@ func _calendar(c: Career) -> void:
 		ev.append({"d": int(next["d"]), "t": str(next["r"]).capitalize()})
 	ev.append({"d": GameMoney.next_bill_day(c.day), "t": "Month-end bill"})
 	ev.append_array(Champs.calendar(c))   # S328 the nationals: entries close, her road round by round
+	for g in c.grapplers:   # S396 blind review: Ana's opens were missing
+		for d in g.get("entered", []):
+			if int(d) >= c.day:
+				ev.append({"d": int(d), "t": "%s's no-gi open" % g["first"]})
 	ev.sort_custom(func(a, b): return int(a["d"]) < int(b["d"]))
 	var seen := {}
 	var rows: Array = []

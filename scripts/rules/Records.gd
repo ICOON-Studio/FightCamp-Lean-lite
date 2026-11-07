@@ -13,6 +13,7 @@ const WORDS := [
 	["People", ["joined the", "left the"]],
 	["Honours", [" award", " medal", "regional champion", " belt.", "Nationals 2", "Signature:", "met the goal", " rankings"]],
 	["Training", ["the goal:", "new goal"]],   # before Fights: a goal's own title can say "bout"
+	["Fights", ["Tape on"]],   # S396 blind review: a tape note naming what hurts her read as Health
 	["Health", ["hurt", "injury", "suspended", "cleared to box", "doctor"]],
 	["Money", ["sponsor", "signs with", "bill", "bank balance", "closed its doors"]],
 	["People", ["signs for", "joins as", "trial", "asks to train", "new member", "turns pro", "stays amateur"]],

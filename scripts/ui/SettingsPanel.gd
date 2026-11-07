@@ -18,15 +18,12 @@ static func build(main: Node) -> VBoxContainer:
 	for b in Settings.SOUND:
 		var key := "vol_" + str(b[0])
 		v.add_child(_row(str(b[1]), _slider(float(d[key]), func(x): d[key] = x; keep.call())))
-	var auto := CheckButton.new()
+	var auto := _pick([["Every Monday, the last %d weeks kept" % AutoSave.KEEP, true], ["Off", false]], 0 if bool(d["autosave"]) else 1,
+		func(i): d["autosave"] = i == 0; keep.call())
 	auto.name = "Autosave"
-	auto.text = "Every Monday, the last %d weeks kept" % AutoSave.KEEP
-	auto.button_pressed = bool(d["autosave"])
-	auto.focus_mode = Control.FOCUS_NONE
-	auto.toggled.connect(func(on): d["autosave"] = on; keep.call())
 	v.add_child(_row("Autosave", auto))
 	var last := AutoSave.last(str(main.save_path))
-	v.add_child(UI.label(last if last != "" else "No save yet: the first is made on the next Monday.", UI.SMALL, UI.MUTED))
+	v.add_child(UI.label(last if last != "" else "Autosave starts on the next Monday.", UI.SMALL, UI.MUTED))
 	return v
 
 
@@ -62,6 +59,16 @@ static func _slider(at: float, on_set: Callable) -> HBoxContainer:
 	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	s.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	s.focus_mode = Control.FOCUS_NONE
+	# S396 blind review: the theme drew the filled part light and the rest dark. Filled = the level, in the game's blue.
+	var track := StyleBoxFlat.new()
+	track.bg_color = UI.LINE
+	track.content_margin_top = 3
+	track.content_margin_bottom = 3
+	var fill := track.duplicate()
+	fill.bg_color = UI.GOLD
+	s.add_theme_stylebox_override("slider", track)
+	s.add_theme_stylebox_override("grabber_area", fill)
+	s.add_theme_stylebox_override("grabber_area_highlight", fill)
 	var n := UI.label("%d" % int(at), UI.BODY, UI.FG, "bold")
 	n.custom_minimum_size = Vector2(44, 0)
 	n.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT

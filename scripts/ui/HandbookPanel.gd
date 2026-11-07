@@ -23,7 +23,11 @@ static func terms() -> Array:
 			t["id"] = id
 			t["group"] = "Words"
 			out.append(t)
-	out.sort_custom(func(a, b): return str(a["name"]).naturalnocasecmp_to(str(b["name"])) < 0)
+	# S396 blind review ("Belt comes first in a boxing game"): by group in the game's order, then by name.
+	out.sort_custom(func(a, b):
+		var ga := GROUPS.find(str(a.get("group", "Words")))
+		var gb := GROUPS.find(str(b.get("group", "Words")))
+		return ga < gb if ga != gb else str(a["name"]).naturalnocasecmp_to(str(b["name"])) < 0)
 	return out
 
 
@@ -89,7 +93,8 @@ static func _entry(main: Node, t: Dictionary) -> Control:
 	h.add_child(col)
 	var area := str(t.get("area", ""))
 	if AREA_NAMES.has(area):
-		var b := UI.button("Show me", "Btn", func(): main.close_modal(); main.nav({"area": area, "tab": 0}))
-		b.tooltip_text = "Opens %s" % AREA_NAMES[area]
+		var b := UI.button("Open %s" % AREA_NAMES[area], "Btn", func(): main.close_modal(); main.nav({"area": area, "tab": 0}))
+		b.custom_minimum_size = Vector2(150, 0)   # one width, so the column lines up
+		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		h.add_child(b)
 	return h

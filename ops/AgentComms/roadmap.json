@@ -8,7 +8,7 @@
   "updated": "2026-11-07",
   "summary": "S395: HUD 5 to 6.5 (corner bug was the film tool; rest strip; fades; tired read B); TV hit line, big-shot slow motion and zoom; boxers walk on a real capture; SOUND2 collected; Attendance; pr-check and cloud film on GitHub; Ollama fixed; structure design with Corner King study, 10 questions on the board. Portraits 4.5, not used. Not exported."
  },
- "next": "S396: read the structure answers Q-113..122; collect SOUND3; check the cloud film; fight polish from the 5.5 review; truth pass (autosave, Settings, Handbook).",
+ "next": "S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -4490,7 +4490,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-07",
+  "updated": "2026-11-07 11:13 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4630,14 +4630,7 @@
    "WBOPP": "Whiteboard opponent line (done)",
    "SOUND1": "Game sound: one agent (Qwen) makes and wires every sound, you judge each by ear"
   },
-  "working_now": [
-   {
-    "title": "TASK_SOUND3 - the sound engineer, round 3: a real room, sized by the crowd (Qwen)",
-    "who": "qwen",
-    "started": "2026-11-07T10:40",
-    "run": "SOUND3"
-   }
-  ],
+  "working_now": [],
   "next": [
    {
     "id": "TRUTH1",
@@ -4885,6 +4878,11 @@
   },
   "done_recently": [
    {
+    "title": "TASK_SOUND3 - the sound engineer, round 3: a real room, sized by the crowd (Qwen)",
+    "who": "qwen",
+    "when": "2026-11-07"
+   },
+   {
     "id": "HUDFIX",
     "who": "claude",
     "title": "HUD 6.5: corner, rest strip, tired read, TV line, big-shot moment",
@@ -5053,6 +5051,30 @@
   "map": {
    "done_earlier": [
     {
+     "text": "HUD 5 to 6.5: corner, bell, fades",
+     "who": "claude"
+    },
+    {
+     "text": "Corner shows energy, legs, guard",
+     "who": "claude"
+    },
+    {
+     "text": "Portraits level, soft, 4.5: held",
+     "who": "claude"
+    },
+    {
+     "text": "Big-shot slow-mo, TV hit line",
+     "who": "claude"
+    },
+    {
+     "text": "Boxers walk on a real capture",
+     "who": "claude"
+    },
+    {
+     "text": "Structure design: Qs 113-122",
+     "who": "claude"
+    },
+    {
      "text": "Home built, light, 6.5: ok for now",
      "who": "claude"
     },
@@ -5083,56 +5105,40 @@
     {
      "text": "Punch interrupted: both judges for",
      "who": "claude"
-    },
-    {
-     "text": "Fold room merged: 620 to 431",
-     "who": "claude"
-    },
-    {
-     "text": "Calm camera for C242",
-     "who": "claude"
-    },
-    {
-     "text": "Menu direction approved, Home 7",
-     "who": "claude"
-    },
-    {
-     "text": "Footwork merged: 6 and 5 vs 3.5-4",
-     "who": "claude"
-    },
-    {
-     "text": "One Miro board, loop archived",
-     "who": "claude"
-    },
-    {
-     "text": "Blood & Canvas studied",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "HUD 5 to 6.5: corner, bell, fades",
+     "text": "SOUND3 wired + merged",
      "who": "claude"
     },
     {
-     "text": "Corner shows energy, legs, guard",
+     "text": "Fight polish: walk, card, lens",
      "who": "claude"
     },
     {
-     "text": "Portraits level, soft, 4.5: held",
+     "text": "Truth pass: Settings, Handbook",
      "who": "claude"
     },
     {
-     "text": "Big-shot slow-mo, TV hit line",
+     "text": "Autosave every Monday",
      "who": "claude"
     },
     {
-     "text": "Boxers walk on a real capture",
+     "text": "Screen cut: 5 rail, 8 tabs, 5",
      "who": "claude"
     },
     {
-     "text": "Structure design: Qs 113-122",
+     "text": "Roster as a sortable table",
      "who": "claude"
+    },
+    {
+     "text": "Menus blind 5 -> 5.5",
+     "who": "claude"
+    },
+    {
+     "text": "WORLD1 brief queued on Qwen",
+     "who": "agent"
     }
    ],
    "now": [
@@ -5154,6 +5160,10 @@
     },
     {
      "text": "Sound room by crowd size",
+     "who": "agent"
+    },
+    {
+     "text": "WORLD1 world rules (Qwen)",
      "who": "agent"
     }
    ],
@@ -5183,10 +5193,6 @@
      "who": "operator"
     },
     {
-     "text": "Menus to 8: Record, corner",
-     "who": "claude"
-    },
-    {
      "text": "Steps past Undisputed",
      "who": "claude"
     },
@@ -5203,15 +5209,31 @@
      "who": "claude"
     },
     {
-     "text": "Truth pass: autosave, Settings",
+     "text": "Menus 5.5 -> 8 (blind)",
      "who": "claude"
     },
     {
-     "text": "Read board answers Q-113 to 122",
+     "text": "Names as links, Search goes",
+     "who": "claude"
+    },
+    {
+     "text": "Ana a full fighter everywhere",
+     "who": "claude"
+    },
+    {
+     "text": "Plan bites (P17), rank 3",
+     "who": "claude"
+    },
+    {
+     "text": "Matchmaking (P1), rank 4",
+     "who": "claude"
+    },
+    {
+     "text": "Corner + Why: keep, improve",
      "who": "claude"
     }
    ],
-   "session": "S395"
+   "session": "S396"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

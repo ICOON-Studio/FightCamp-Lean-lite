@@ -31,7 +31,8 @@ const TRAINING_TAB := 3
 const PLAYBOOK_TAB := 7
 const PLAYBOOK := preload("res://scenes/areas/Playbook.tscn")
 const PromoShot := preload("res://scripts/ui/PromoShot.gd")
-const WB_KIT := preload("res://scripts/ui/WhiteboardKit.gd")   # S396 one condition scale on every screen
+const WB_KIT := preload("res://scripts/ui/WhiteboardKit.gd")
+const FIGHTS_AREA := preload("res://scripts/ui/areas/Fights.gd")   # S396 one condition scale on every screen
 const Faces := preload("res://scripts/rules/Faces.gd")
 
 
@@ -44,33 +45,23 @@ func build(main: Node, f: Dictionary) -> void:
 	for i in TAB_ORDER:
 		tabs.add_child(UI.button(TABS[i], "TabOn" if t == i else "Tab", main.act.bind("ftab", str(i))))
 	var sub := UI.muted("%s, %d, %s, amateur %d-%d" % [f["wc"], f["age"], f["stance"], f["w"], f["l"]], UI.BODY)
-	if t == TRAINING_TAB or t == PLAYBOOK_TAB:
-		# S382 training final proof: the week strip is the screen (TRAINING_SCREEN_S381.md section 3, the mockup's one
-		# title row) - name, her line and the tabs share one row so the PM nights sit above the fold at 1080.
-		var row := UI.hbox(24)
-		_photo(row, f, Vector2(64, 80))
-		var who := UI.vbox(0)
-		who.add_child(UI.display(str(f["name"]).to_upper(), 36))
-		who.add_child(sub)
-		row.add_child(who)
-		tabs.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		row.add_child(tabs)
-		add_child(row)
-	else:
-		add_child(UI.muted("FIGHTERS / Roster / %s" % f["name"], UI.SMALL))
-		var head := UI.hbox(16)
-		_photo(head, f, Vector2(96, 120))
-		head.add_child(UI.display(str(f["name"]).to_upper(), 52))
-		sub.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		head.add_child(sub)
-		if not g.is_empty():
-			head.add_child(UI.chip("Goal: %s, %d days, %s" % [g["title"], g["left"], str(g["status"]).to_lower()], g["cls"]))
-		add_child(head)
-		add_child(tabs)
-		var line := ColorRect.new()
-		line.color = UI.LINE
-		line.custom_minimum_size = Vector2(0, 1)
-		add_child(line)
+	# S396 blind round 2 ("the Week header differs from the other fighter tabs"): one header on every tab - the compact row
+	# (S382: it keeps the week strip above the fold), with her goal chip.
+	# S382 training final proof: the week strip is the screen (TRAINING_SCREEN_S381.md section 3, the mockup's one
+	# title row) - name, her line and the tabs share one row so the PM nights sit above the fold at 1080.
+	var row := UI.hbox(24)
+	_photo(row, f, Vector2(64, 80))
+	var who := UI.vbox(0)
+	who.add_child(UI.display(str(f["name"]).to_upper(), 36))
+	who.add_child(sub)
+	row.add_child(who)
+	tabs.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	row.add_child(tabs)
+	if not g.is_empty():
+		var gc := UI.chip("Goal: %s, %d days, %s" % [g["title"], g["left"], str(g["status"]).to_lower()], g["cls"])
+		gc.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		row.add_child(gc)
+	add_child(row)
 	# S396 screen cut (Routes.gd): Overview carries the stats and moves, the body and the contract; 5 tabs, not 8.
 	for k in ([0, 1, 6] if t == 0 else [t]):   # Overview has its own body panel and radar: 2 and 1's board would repeat
 		_tab(main, c, f, g, k, t == 0)
@@ -125,6 +116,12 @@ func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: b
 				title += ", %d-%d-%d PRO (%s)" % [int(f.get("pro_w", 0)), int(f.get("pro_l", 0)), int(f.get("pro_d", 0)), f.get("promoter", "")]
 			var card := _card(title)
 			var mine := c.results.filter(func(r): return str(r.get("fid", f["id"])) == str(f["id"]))
+			# S396 blind review ("4-1 but one bout listed"): the bouts she brought with her are her record too.
+			var am := mine.filter(func(r): return not bool(r.get("pro", false)))
+			var before_w := int(f["w"]) - am.filter(func(r): return bool(r["win"])).size()
+			var before_l := int(f["l"]) - am.filter(func(r): return not bool(r["win"])).size()
+			if before_w + before_l > 0:
+				card.add_child(UI.muted("%d-%d before she joined the club; her bouts for the club below." % [before_w, before_l], UI.BODY, true))
 			if mine.is_empty():
 				card.add_child(UI.muted("Bouts for your gym show here.", UI.BODY))
 			var rows: Array = []
@@ -132,7 +129,7 @@ func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: b
 				# S373 FLOWBOUT1: what the plan did that night (PlanRecord.summary, kept on the result by BoutNight).
 				var pr: Dictionary = r.get("plan_rec", {})
 				var plan_txt := ""
-				if not pr.is_empty():
+				if not pr.is_empty() and int(pr["used"]) > 0:   # S396: no "0 of 0" line for a night fought without a plan
 					plan_txt = "Plan: %d of %d planned exchanges won, %d improvised." % [int(pr["worked"]), int(pr["used"]), int(pr["improvised"])]
 				rows.append(UI.row("%s vs %s, %s" % ["Won" if bool(r["win"]) else "Lost", r["opp"], r["cards"]],
 					" ".join(["%s." % Clock.fmt(int(r["d"])), str(r["why"]).trim_suffix(".") + ("." if str(r["why"]) != "" else ""), plan_txt]).strip_edges(),
@@ -167,7 +164,18 @@ func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: b
 				card.add_child(b)
 				card.add_child(OppFileCard.build(fb.get("opp", {}), false, OppFileCard.OppFile.history(c.results, str(fb.get("opp", {}).get("name", "")))))
 			else:
-				card.add_child(UI.muted("No bout booked.", UI.BODY))
+				# S396 blind review (a page of one line): what fight prep holds, and the way to it.
+				card.add_child(UI.muted("No bout booked. Once one is, the camp, the weight cut and the tape on her opponent are set here.", UI.BODY, true))
+				# S396 blind round 2 ("Find a bout while Fights says no offer for 10 days"): when the next offer can come, and
+				# what is on her road meanwhile.
+				card.add_child(UI.label(FIGHTS_AREA.next_offer_line(c, f), UI.BODY, UI.FG, "bold", true))
+				var road: Dictionary = NextStep.road(_road_input(c, f), c.day)
+				if int(road["lit"]) >= 0:
+					card.add_child(UI.label("On her road: %s. %s" % [str(road["steps"][int(road["lit"])]["name"]), str(road.get("need", ""))],
+						UI.BODY, UI.FG, "body", true))
+				var find := UI.button("See offers and dates", "BtnSolid", main.act.bind("go", "fights:0"))
+				find.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+				card.add_child(find)
 		6:
 			var card := _card("CONTRACT")
 			UI.add_rows(card, [UI.kv("Terms", "Club stipend, $250 a week"), UI.kv("Until", "turning pro")])

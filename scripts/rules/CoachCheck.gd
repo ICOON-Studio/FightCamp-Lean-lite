@@ -11,6 +11,7 @@ const OppFile := preload("res://scripts/rules/OppFile.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 
 ## FighterPage tab numbers the checks open.
+const WB_KIT := preload("res://scripts/ui/WhiteboardKit.gd")
 const BODY_TAB := "2"
 const CAMP_TAB := "5"
 const GOAL_TAB := "6"
@@ -37,10 +38,11 @@ static func _booked(f: Dictionary) -> bool:
 static func _fit(c: Career, f: Dictionary) -> Dictionary:
 	if Injuries.out(c, f):
 		return _row("fit", "Fit", Injuries.line(c, f), "bad", "ftab", BODY_TAB)
-	var fat := int(FighterProfile.fatigue(f))
-	if fat >= 60:
-		return _row("fit", "Fit", "worn out", "bad", "ftab", BODY_TAB)
-	return _row("fit", "Fit", "tired" if fat >= 30 else "fresh", "warn" if fat >= 30 else "ok", "ftab", BODY_TAB)
+	# S396 truth pass: the whiteboard's scale (WhiteboardKit.fatigue_word: fresh under 50, ok, tired from 70, overcooked from
+	# 80). The checklist used 30 and 60, so a fighter read "fresh" on her ring and "tired" here.
+	var word: Array = WB_KIT.fatigue_word(FighterProfile.fatigue(f), false)
+	var w := str(word[0]).to_lower()
+	return _row("fit", "Fit", w, "bad" if w == "overcooked" else ("warn" if w == "tired" else "ok"), "ftab", BODY_TAB)
 
 
 static func _weight(c: Career, f: Dictionary) -> Dictionary:

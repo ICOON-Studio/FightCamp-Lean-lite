@@ -1,6 +1,7 @@
 extends RefCounted
 ## S388 GYM > Records: the gym's own history (rules/Records.gd), newest first, with two rows of filters: who and what.
 
+const NameLinks := preload("res://scripts/ui/NameLinks.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Records := preload("res://scripts/rules/Records.gd")
 
@@ -35,7 +36,7 @@ static func build(main: Node, c: Career) -> Control:
 	if rows.is_empty():
 		list.add_child(UI.muted("Nothing here yet.", UI.BODY))
 	for r in rows.slice(0, SHOWN):
-		list.add_child(_row(r))
+		list.add_child(_row(r, main, c))
 	if rows.size() > SHOWN:
 		v.add_child(UI.muted("Showing the newest %d. Use the filters to reach older events." % SHOWN, UI.SMALL))
 	return card[0]
@@ -67,7 +68,7 @@ static func _filter(head: String, name: String, items: Array, on: String, set_to
 	return h
 
 
-static func _row(r: Dictionary) -> Control:
+static func _row(r: Dictionary, main: Node, c: Career) -> Control:
 	var h := UI.hbox(12)
 	var date := UI.muted(Clock.fmt(int(r["d"])), UI.SMALL)
 	date.custom_minimum_size = Vector2(DATE_W, 0)
@@ -76,5 +77,5 @@ static func _row(r: Dictionary) -> Control:
 	chip.custom_minimum_size = Vector2(96, 0)
 	chip.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	h.add_child(chip)
-	h.add_child(UI.label(str(r["t"]), UI.BODY, UI.FG, "body", true))
+	h.add_child(NameLinks.label(main, c, str(r["t"])))   # S396 every name is a link
 	return h

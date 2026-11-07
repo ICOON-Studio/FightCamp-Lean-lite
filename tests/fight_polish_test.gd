@@ -23,6 +23,9 @@ func _initialize() -> void:
 	_check(cam.contains("dof_blur_near_enabled = false") and not cam.contains("dof_blur_near_enabled = shallow"), "no near blur on the corner lens")
 	var minute := FileAccess.get_file_as_string("res://scripts/fight3d/CornerMinute.gd")
 	_check(minute.contains("frame_at(p, subject"), "beside the card the two-shots frame her face")
+	var crew := FileAccess.get_file_as_string("res://scripts/fight3d/CornerCrew.gd")
+	_check(crew.contains("set_target(ap, clip)"), "a corner join names its clip, so the smoother blends it (it waited for a fight clip)")
+	_check(CornerCrew.TEAM_SHIRT.has("second") and CornerCrew.TEAM_SHIRT["second"].get_luminance() > 0.1, "the second's shirt reads against the dark hall")
 	print("FIGHT_POLISH checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures > 0 else 0)
 

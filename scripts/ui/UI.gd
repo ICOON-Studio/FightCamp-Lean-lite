@@ -53,7 +53,12 @@ static func font(kind: String) -> Font:
 		_fonts["caps"] = _spaced(bold, 2)
 		_fonts["italic"] = _italic(regular)
 		_fonts["display"] = _fonts["marker"]
-		_fonts["mono"] = mono
+		# S396 blind review: IBM Plex Mono values read as debug output. Numbers keep their columns with the body font's
+		# tabular figures (OpenType tnum) instead.
+		var tab := FontVariation.new()
+		tab.base_font = semi
+		tab.opentype_features = {TextServerManager.get_primary_interface().name_to_tag("tnum"): 1}
+		_fonts["mono"] = tab if mono != null else semi
 	return _fonts.get(kind, _fonts["body"])
 
 

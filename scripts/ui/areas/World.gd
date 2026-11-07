@@ -3,6 +3,8 @@ extends VBoxContainer
 ## and her bout), Search (every fighter, coach, prospect and gym the game knows), Nationals (S328 update 30: the road to the
 ## National Amateur Championships; S329 pictures in NationalsView: her road, the entry rings, Enter, the brackets).
 
+const NameLinks := preload("res://scripts/ui/NameLinks.gd")
+const MatOpens := preload("res://scripts/ui/MatOpens.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -25,10 +27,19 @@ func build(main: Node) -> void:
 	AreaHead.add(self, main, "world")
 	match int(main.route["tab"]):
 		0:
-			var card := UI.card("NEWS")
+			# S396 blind review (News repeated Club > Records word for word): the world's news here, the club's in Records.
+			var card := UI.card("AROUND THE REGION")
 			var rows: Array = []
 			for x in c.news:
-				rows.append(UI.row(x["t"], Clock.fmt(int(x["d"]))))
+				if bool(x.get("own", true)):
+					continue
+				var line := UI.hbox(12)   # S396 every name is a link
+				line.add_child(NameLinks.label(main, c, str(x["t"])))
+				line.add_child(UI.muted(Clock.fmt(int(x["d"])), UI.SMALL))
+				rows.append(line)
+			if rows.is_empty():
+				rows.append(UI.muted("Nothing from the other clubs yet.", UI.BODY))
+			rows.append(UI.muted("Your own club's news is in Club, Records.", UI.SMALL))
 			UI.add_rows(card[1], rows)
 			add_child(card[0])
 		1:
@@ -37,6 +48,8 @@ func build(main: Node) -> void:
 			# S396 screen cut: Championships = the season's events and the road to the nationals.
 			_events(c)
 			NationalsView.build(self, main, c)
+			for g in c.grapplers:   # S396 blind round 2: her opens are her championships
+				add_child(MatOpens.card(main, c, g, "%s: THE NO-GI OPENS" % str(g["first"]).to_upper()))
 		3:
 			_search()
 		4:
@@ -53,6 +66,8 @@ func _rankings(c: Career) -> void:
 		divs.append("wlw")
 	for div in divs:
 		_ranking_table(c, div)
+	for g in c.grapplers:   # S396: no-gi has no ranking table in the game; her belt is the ladder, said plainly
+		add_child(MatOpens.card(_main, c, g, "NO-GI: %s'S LADDER IS HER BELT" % str(g["first"]).to_upper()))
 
 
 func _ranking_table(c: Career, div: String) -> void:

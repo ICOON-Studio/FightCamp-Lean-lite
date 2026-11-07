@@ -35,6 +35,11 @@ func _draw() -> void:
 		var r := Rect2(x, minf(y, zero_y), bw * 0.7, absf(zero_y - y))
 		var col := UI.GOLD if float(p["c"]) >= 0.0 else UI.RED
 		draw_rect(r, Color(col, 1.0 if i == points.size() - 1 else 0.55))
+		# S396 blind round 2 (one axis label, no values): each week's cash on its bar.
+		var val := UI.money(int(p["c"]))
+		var vw := font.get_string_size(val, HORIZONTAL_ALIGNMENT_LEFT, -1, UI.TINY).x
+		draw_string(font, Vector2(i * bw + (bw - vw) / 2.0, minf(y, zero_y) - 6.0), val, HORIZONTAL_ALIGNMENT_LEFT, -1, UI.TINY,
+			UI.FG if i == points.size() - 1 else UI.MUTED)
 		var label := "W%d" % int(p["w"])
 		var tw := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, UI.TINY).x
 		draw_string(font, Vector2(i * bw + (bw - tw) / 2.0, size.y - 6), label, HORIZONTAL_ALIGNMENT_LEFT, -1, UI.TINY, UI.MUTED)

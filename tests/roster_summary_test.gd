@@ -7,6 +7,7 @@ const Data := preload("res://scripts/state/Data.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const RosterSummary := preload("res://scripts/ui/RosterSummary.gd")
+const RosterTable := preload("res://scripts/ui/RosterTable.gd")
 
 var failures := 0
 var main: Node
@@ -22,16 +23,14 @@ func _initialize() -> void:
 	FirstWeek.ana_joins(c)
 	main.act("go", "fighters:0")
 	await process_frame
-	var lucy: Node = main.find_child("Summary_lucy", true, false)
-	_check(lucy != null, "Lucy's row has a summary")
+	var lucy: Node = main.find_child("Row_lucy", true, false)
+	_check(lucy != null, "Lucy has a row in the roster table (S396, mock-up #roster)")
 	if lucy != null:
-		_check(lucy.find_child("Attributes", true, false).get_child_count() == Data.STATS.size(), "all seven attributes show")
-		_check(lucy.find_child("Facts", true, false).get_child_count() == 5, "style, session, learning, weapons and pay show")
-	var ana: Node = main.find_child("Summary_ana", true, false)
-	_check(ana != null, "Ana's card has a summary")
+		_check(lucy.find_children("*", "Label", true, false).size() == RosterTable.COLS.size(), "every column shows on her row")
+	var ana: Node = main.find_child("Row_ana", true, false)
+	_check(ana != null, "Ana has a row in the roster table")
 	if ana != null:
-		_check(ana.find_child("Syllabus", true, false).get_child_count() > 0, "Ana's syllabus shows")
-		_check(ana.find_child("Facts", true, false).get_child_count() >= 4, "mood, open, chance and best at show")
+		_check(ana.find_children("*", "Label", true, false).size() == RosterTable.COLS.size(), "every column shows on her row")
 	_check(RosterSummary.weapons({"moves": {"Jab": 51.0, "Cross": 30.0, "Hook": 12.0}}) == "2 of 3 moves", "weapons counts moves at 30 and up")
 	main.act("area", "home")
 	await process_frame

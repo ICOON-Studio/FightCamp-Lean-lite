@@ -19,6 +19,7 @@ const NoGi := preload("res://scripts/rules/NoGi.gd")
 const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
 const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 const RosterSummary := preload("res://scripts/ui/RosterSummary.gd")
+const RosterTable := preload("res://scripts/ui/RosterTable.gd")
 
 
 func build(main: Node) -> void:
@@ -118,19 +119,12 @@ func _roster(main: Node, c: Career) -> void:
 		card[1].add_child(h)
 		_mat(main, c, card[1])
 		return
-	# S330 (MENULOOK1): a tile per fighter - rings for weight, condition, goal and her next bout. S387 one to a row: the photo, the
-	# rings and the coach's checklist (CoachCheck) share the row.
-	card[1].add_child(_fight_card(c))
-	var grid := GridContainer.new()
-	grid.name = "Roster"
-	grid.columns = 1
-	grid.add_theme_constant_override("h_separation", 16)
-	grid.add_theme_constant_override("v_separation", 16)
-	for f in c.fighters:
-		grid.add_child(FighterTile.build(main, c, f, true))
-	card[1].add_child(grid)
-	_mat(main, c, card[1])
-	var scouting := UI.button("Find another fighter: Scouting", "Btn", main.act.bind("tab", "3"))
+	# S396 screen cut (mock-up #roster): one sortable table, a row per fighter and the no-gi athlete, built for eight; the
+	# tall tiles (S330, S387) fitted two to a screen and repeated the eight-line checklist on each. Her page has the detail.
+	var table := RosterTable.build(main, c)
+	table.name = "Roster"
+	card[1].add_child(table)
+	var scouting := UI.button("Find a fighter", "Btn", main.act.bind("tab", "3"))
 	scouting.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	card[1].add_child(scouting)
 

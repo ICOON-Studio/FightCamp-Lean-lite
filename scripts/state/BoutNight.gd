@@ -373,7 +373,7 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 		for d in c.deals:
 			if str(d["state"]) == "locked":
 				d["state"] = "offer"
-				c.add_news("%s wants to sponsor %s: %s a week (MONEY > Deals)." % [d["name"], f["first"], GameMoney.text(int(d["per"]))])
+				c.add_news("%s wants to sponsor %s: %s a week (Club, Money)." % [d["name"], f["first"], GameMoney.text(int(d["per"]))])
 	var card_text := ", ".join(cards) if stop == "" else "%s round %d" % [stop, rounds.size()]
 	c.results.push_front({"d": c.day, "fid": f["id"], "who": f["first"], "opp": opp["name"], "win": win, "outcome": outcome, "pro": pro, "cards": card_text,
 		"why": why[0] if not why.is_empty() else "", "plan_rec": PlanRecord.summary(rounds)})

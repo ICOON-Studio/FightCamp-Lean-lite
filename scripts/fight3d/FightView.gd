@@ -34,6 +34,7 @@ const SHOUT_PACE := 0.3
 
 const CLOSE_UP_S := 1.5
 const BELL_S := 2.6
+const BELL_EASE_S := 0.5
 
 var main: Node
 var stage: Node3D
@@ -411,6 +412,11 @@ func _bell() -> void:
 	_say("")
 	_bell_left = BELL_S
 	FightSfx.bell(false)
+	if _stop == "":   # S396 (blind review: both stood frozen in guard 2.6 s after the bell): the hands come down, as at a real bell
+		get_tree().create_timer(BELL_EASE_S).timeout.connect(func():
+			if _bell_left >= 0.0:
+				for i in 2:
+					stage.act(i, "af_idle"))
 	Engine.time_scale = pace()
 	stage.broadcast(true)
 

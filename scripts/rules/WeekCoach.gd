@@ -26,7 +26,8 @@ static func line(days: Array, wk: Dictionary, lines: Array, diet: String) -> Str
 	for ln in lines:
 		if str(ln["id"]) == "weight" and not bool(ln["ok"]):
 			if diet != "cut":
-				return "Over by %.1f kg at the weigh-in. Switch the diet to Cut." % float(ln["short"])
+				# S396 blind review: a forecast, not a fact - she is under the limit today and the week puts her over it.
+				return "This week ends %.1f kg over the limit. Switch the diet to Cut." % float(ln["short"])
 			return "Still %.1f kg over on a cut. Make one roadwork morning Hard." % float(ln["short"])
 	for ln in lines:
 		var id := str(ln["id"])

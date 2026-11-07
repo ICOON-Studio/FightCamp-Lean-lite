@@ -31,7 +31,9 @@ static func frame(shot: String, ctx: Dictionary) -> Dictionary:
 			# ropes ("the ropes in the foreground", S307) - the S347 rule is every lens inside them, the ropes only behind.
 			var seat: Vector3 = red["seat"]
 			var p := seat + d * 1.9 + l * 1.0 + Vector3.UP * 1.0
-			var look := seat + Vector3.UP * 0.82
+			# S396 (blind review: "crops her head off, only her torso and gloves"): the cut comes while she still stands, so
+			# the lens aims between the seat and her face - her head stays in standing, she sits into the middle.
+			var look := (Vector3(seat.x, 0.82, seat.z)).lerp(face, 0.5)
 			return {"pos": p, "look": look, "fov": 30.0, "focus": p.distance_to(look), "drift": d * 0.18}
 		"water":
 			# Close insert from her front-right: the bottle at her lips, the coach's arm coming in from the far side.
@@ -63,8 +65,8 @@ static func frame(shot: String, ctx: Dictionary) -> Dictionary:
 			# The whole corner from the ring's middle: her on the stool, the coach in front, the second on the apron.
 			var seat: Vector3 = red["seat"]
 			var p := seat + d * 3.4 - l * 0.9 + Vector3.UP * 1.45
-			var look := seat + d * 0.4 + Vector3.UP * 0.8
-			return {"pos": p, "look": look, "fov": 30.0, "focus": p.distance_to(look), "drift": -l * 0.25}
+			var look := seat + d * 0.4 + Vector3.UP * 1.0   # S396: the second on the apron kept his head (was 0.8, fov 30)
+			return {"pos": p, "look": look, "fov": 35.0, "focus": p.distance_to(look), "drift": -l * 0.25}
 		"reverse":
 			# The reverse: over her shoulder onto the coach as he speaks, looking up at her (three-quarter, never long straight-on).
 			var coach: Dictionary = ctx["coach"]
