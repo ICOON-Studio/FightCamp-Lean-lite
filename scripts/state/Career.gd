@@ -40,6 +40,7 @@ const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 @export var prospects: Array = []
 ## Week 4: a promoter's offer to turn a fighter pro ({} when none).
 @export var pro_offer: Dictionary = {}
+@export var world: Dictionary = {}   # S397 the WORLD1 pro tables (ProLadder); {} until a fighter turns pro
 ## S324 update 27 money that bites (GymBills): weeks in a row the cash ended a week below $0; at CLOSE_AFTER_WEEKS the gym
 ## closes (closed = the career is over: a summary, then load or a new career).
 @export var weeks_below: int = 0

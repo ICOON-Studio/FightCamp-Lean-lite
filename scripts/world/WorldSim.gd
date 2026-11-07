@@ -25,7 +25,7 @@ static func simulate_month(divisions: Dictionary, rng: RandomNumberGenerator) ->
 static func _simulate_division_month(boxers: Array, rng: RandomNumberGenerator) -> Array:
 	var active: Array = []
 	for b in boxers:
-		if not b.get("retired", false) and int(b.get("rank", 0)) > 0:
+		if not b.get("retired", false) and int(b.get("rank", 0)) > 0 and not b.get("player", false):
 			active.append(b)
 	if active.size() < 2:
 		return []
@@ -118,7 +118,11 @@ static func _apply_bout_result(winner: Dictionary, loser: Dictionary, stoppage: 
 	WA.record_bout(loser, gap)
 	if stoppage:
 		WA.record_stoppage_loss(loser)
+	var w_was := int(winner.get("rank", 0))
+	var l_was := int(loser.get("rank", 0))
 	WR.apply_result_in(winner, loser, division_boxers)
+	if w_was > 0 and l_was > w_was:
+		WR.drop_one(loser, division_boxers)
 	_check_belt(winner, loser, division_boxers)
 
 
@@ -140,6 +144,11 @@ static func simulate_year(divisions: Dictionary, rng: RandomNumberGenerator) -> 
 	for month in 12:
 		var month_result := simulate_month(divisions, rng)
 		all_results.append_array(month_result["results"])
+	return {"results": all_results, "age": year_end(divisions, rng)}
+
+
+## The year's end: everyone ages, the retired leave their belts, arrivals come in, the tables close their gaps, empty belts fill.
+static func year_end(divisions: Dictionary, rng: RandomNumberGenerator) -> Dictionary:
 	var age_result := {"retired": [], "arrived": [], "crowned": []}
 	var gen := preload("res://scripts/world/WorldGen.gd").new()
 	gen._load_data()
@@ -155,7 +164,7 @@ static func simulate_year(divisions: Dictionary, rng: RandomNumberGenerator) -> 
 		div["boxers"].append_array(new_boxers)
 		WR.refresh_ranks(div["boxers"], WG.RANKED_PER_DIVISION)
 		age_result["crowned"].append_array(_fill_vacant_belts(div, rng))
-	return {"results": all_results, "age": age_result}
+	return age_result
 
 
 static func _next_id(divisions: Dictionary) -> int:
@@ -177,7 +186,7 @@ static func _fill_vacant_belts(div: Dictionary, rng: RandomNumberGenerator) -> A
 	for level in levels:
 		if not orgs.has(level) or not WR.champion_of(boxers, level).is_empty():
 			continue
-		var below: Array = boxers.filter(func(b): return not b.get("retired", false) and int(b.get("rank", 0)) > 0 			and WR.level_index(str(b.get("belt", ""))) < WR.BELT_LEVELS.find(level))
+		var below: Array = boxers.filter(func(b): return not b.get("retired", false) and not b.get("player", false) and int(b.get("rank", 0)) > 0 and WR.level_index(str(b.get("belt", ""))) < WR.BELT_LEVELS.find(level))
 		below.sort_custom(func(a, b): return int(a["rank"]) < int(b["rank"]))
 		if below.size() < 2:
 			continue

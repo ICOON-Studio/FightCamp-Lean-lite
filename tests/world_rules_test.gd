@@ -103,17 +103,18 @@ func _check_forecast_falls_with_damage() -> void:
 		return
 
 
+## S397 (rank 4, take their place): an unranked boxer who beats a ranked one takes the place; the loser and everyone below
+## drop one, and the last place falls off the table.
 func _check_unranked_beat_ranked_no_swap() -> void:
 	checks += 1
-	var unranked := {"name": "New", "rank": 0, "rating": 65.0, "retired": false, "w": 3, "l": 1, "belt": "",
-		"damage_ledger": {"hard_fights": 0, "stoppage_losses": 0, "total_fights": 0}, "age": 20, "peak_age": 28}
-	var ranked := {"name": "Ranked", "rank": 10, "rating": 70.0, "retired": false, "w": 10, "l": 3, "belt": "",
-		"damage_ledger": {"hard_fights": 0, "stoppage_losses": 0, "total_fights": 0}, "age": 25, "peak_age": 28}
-	var division := [unranked, ranked]
+	var unranked := {"name": "New", "rank": 0, "rating": 65.0, "retired": false, "w": 3, "l": 1, "belt": ""}
+	var ranked := {"name": "Ranked", "rank": 10, "rating": 70.0, "retired": false, "w": 10, "l": 3, "belt": ""}
+	var last := {"name": "Last", "rank": 20, "rating": 64.0, "retired": false, "w": 6, "l": 4, "belt": ""}
+	var division := [unranked, ranked, last]
 	var result := WR.apply_result_in(unranked, ranked, division)
-	if result.get("moved", false):
+	if not result.get("moved", false) or int(unranked["rank"]) != 10 or int(ranked["rank"]) != 11 or int(last["rank"]) != 0:
 		failures += 1
-		push_error("Ranking: unranked beating ranked should not swap")
+		push_error("Ranking: unranked beat #10 -> want 10/11/off, got %d/%d/%d" % [int(unranked["rank"]), int(ranked["rank"]), int(last["rank"])])
 		return
 
 

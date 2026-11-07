@@ -12,6 +12,7 @@ const Champs := preload("res://scripts/state/Champs.gd")
 const SeasonPath := preload("res://scripts/rules/SeasonPath.gd")
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
+const ProLadder := preload("res://scripts/state/ProLadder.gd")
 
 
 ## S324 update 27: GymBills' read of the gym's money now: "ok" | "warn" (runway under 8 weeks) | "red" (below $0) | "closed".
@@ -66,6 +67,11 @@ static func needs(career: Career) -> Array:
 			if not bool(o["answered"]) and not bool(o["mismatch"]):
 				n.append({"red": true, "t": "Answer a bout offer: %s vs %s" % [f["name"], o["opp"]["name"]],
 					"s": "expires %s" % Clock.fmt(int(o["expires"])), "act": "openBout", "arg": o["id"], "label": "Open"})
+		var pro_offers: Array = f.get("pro_offers", [])
+		if not pro_offers.is_empty() and (f["bout"] as Dictionary).is_empty():
+			n.append({"red": true, "t": "The promoter has %d fights for %s" % [pro_offers.size(), f["name"]],
+				"s": "pick one, scout one, or ask for a name; they stand until %s" % Clock.fmt(int(pro_offers[0]["until"])),
+				"act": "go", "arg": "fights:0", "label": "Fights"})
 		if Bouts.weigh_in_today(career, f):
 			n.append({"red": true, "t": "Weigh-in today: %s" % f["first"], "s": "%s must make %.1f kg" % [f["name"], f["limit"]],
 				"act": "weighin", "arg": f["id"], "label": "Weigh in"})

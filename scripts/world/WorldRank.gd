@@ -52,22 +52,40 @@ static func level_index(belt: String) -> int:
 	return BELT_LEVELS.find(level_of(belt))
 
 
+## Take their place: beat someone above you (or anyone ranked while you are unranked) and you take their spot, they and
+## everyone between drop one, and whoever falls past the table's end is unranked. Beat someone below you: nothing moves.
 static func apply_result_in(winner: Dictionary, loser: Dictionary, division_boxers: Array) -> Dictionary:
 	var w_rank := int(winner.get("rank", 0))
 	var l_rank := int(loser.get("rank", 0))
-	if w_rank <= 0 or l_rank <= 0:
+	if l_rank <= 0:
 		return {"moved": false}
-	if w_rank < l_rank:
+	if w_rank > 0 and w_rank < l_rank:
 		return {"moved": false}
-	winner["rank"] = l_rank
-	loser["rank"] = l_rank + 1
+	var size := 0
 	for b in division_boxers:
-		if b == winner or b == loser:
+		size = maxi(size, int(b.get("rank", 0)))
+	var bottom := w_rank if w_rank > 0 else size + 1
+	for b in division_boxers:
+		if b == winner:
 			continue
 		var r := int(b.get("rank", 0))
-		if r > l_rank and r < w_rank:
-			b["rank"] = r + 1
-	return {"moved": true, "winner_new": l_rank, "loser_new": l_rank + 1}
+		if r >= l_rank and r < bottom:
+			b["rank"] = r + 1 if r + 1 <= size else 0
+	winner["rank"] = l_rank
+	return {"moved": true, "winner_new": l_rank, "loser_new": int(loser["rank"])}
+
+
+## A ranked boxer beaten by someone above loses one place: the boxer below steps up (the sanctioning body's table, not
+## take-their-place, which only moves a winner from below).
+static func drop_one(loser: Dictionary, division_boxers: Array) -> void:
+	var r := int(loser.get("rank", 0))
+	if r <= 0:
+		return
+	for b in division_boxers:
+		if b != loser and not b.get("retired", false) and int(b.get("rank", 0)) == r + 1:
+			b["rank"] = r
+			loser["rank"] = r + 1
+			return
 
 
 static func vacate_belt(champion: Dictionary, division_boxers: Array) -> Dictionary:

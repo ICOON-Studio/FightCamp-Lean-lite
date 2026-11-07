@@ -9,6 +9,7 @@ const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
+const ProLadder := preload("res://scripts/state/ProLadder.gd")
 
 const DAYS := ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 const MONTHS := ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -48,6 +49,8 @@ static func next_stop(career: Career) -> Dictionary:
 			cands.append({"d": Champs.stage_day(int(f["champ"]["close"]), st), "r": "the %s%s" % [Champs.stage_name(st).to_lower(), who]})
 		elif (f["bout"] as Dictionary).is_empty() and Bouts.offers_settled(f) and not bool(f.get("pro", false)):
 			cands.append({"d": maxi(int(f["next_offer_day"]), career.day + 1), "r": "a bout offer arrives" + who})
+		elif (f["bout"] as Dictionary).is_empty() and ProLadder.on_ladder(career, f) and (f.get("pro_offers", []) as Array).is_empty():
+			cands.append({"d": maxi(int(f.get("pro_next", 0)), career.day + 1), "r": "the promoter calls" + who})
 		if not (f["bout"] as Dictionary).is_empty():
 			cands.append({"d": int(f["bout"]["day"]) - 1, "r": "weigh-in" + who})
 			cands.append({"d": int(f["bout"]["day"]), "r": "fight night" + who})

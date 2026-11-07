@@ -36,6 +36,7 @@ const DrillWeek := preload("res://scripts/state/DrillWeek.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 ## S387 MENUREVIEW1: what the week really did (whole points and their causes, goal, rank, runway), read into the report.
 const WeekRead := preload("res://scripts/rules/WeekRead.gd")
+const ProLadder := preload("res://scripts/state/ProLadder.gd")
 
 ## Without a coach training runs at 60%: the coach factor 0.5 + r x 0.7 equals 0.6 at this rating.
 const NO_COACH_RATING := 100.0 / 7.0
@@ -218,6 +219,7 @@ static func step_day(career: Career) -> void:
 	career.day += 1
 	Injuries.day_tick(career)
 	Bouts.day_events(career)
+	ProLadder.day_events(career)   # S397 the pro tables: a month of world bouts, her offers
 	Region.day_events(career)
 	if career.day % 7 == 0:
 		end_week(career)

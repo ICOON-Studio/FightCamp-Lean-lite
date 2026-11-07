@@ -35,6 +35,7 @@ const CoachPlan := preload("res://scripts/rules/CoachPlan.gd")
 const PlanRecord := preload("res://scripts/rules/PlanRecord.gd")
 const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const PeakCamp := preload("res://scripts/rules/PeakCamp.gd")
+const ProLadder := preload("res://scripts/state/ProLadder.gd")
 const NOTES_PATH := "res://assets/data/fight_habits.json"
 
 static var _notes_bank: Dictionary = {}
@@ -351,6 +352,8 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 		m["members_lost"] = gone
 	else:
 		f[rec + "d"] = int(f.get(rec + "d", 0)) + 1
+	if pro:
+		m["ladder"] = ProLadder.result(c, f, outcome, stop != "")   # S397 the debut puts her on the table; a ladder bout moves it
 	if not tickets.is_empty():
 		m["tickets"] = tickets
 		m["gym_cut"] = int(tickets["gym"])

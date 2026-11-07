@@ -4490,7 +4490,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-07 13:01 board_sync",
+  "updated": "2026-11-07 14:11 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4632,11 +4632,10 @@
   },
   "working_now": [
    {
-    "title": "TASK_WORLD1 - the living world, as rules only (Qwen)",
-    "who": "qwen",
-    "started": "2026-11-07T12:14",
-    "run": "WORLD1",
-    "state": "LANDED - Claude collects"
+    "title": "TASK FIGHTWALK1 - CURSOR (Composer 2.5, Fast OFF) - the walks around the fight, 5.5 -> 7",
+    "who": "cursor",
+    "started": "2026-11-07T14:11",
+    "run": "FIGHTWALK1"
    }
   ],
   "next": [
@@ -4886,6 +4885,11 @@
   },
   "done_recently": [
    {
+    "title": "TASK_WORLD1 - the living world, as rules only (Qwen)",
+    "who": "qwen",
+    "when": "2026-11-07"
+   },
+   {
     "title": "TASK_SOUND3 - the sound engineer, round 3: a real room, sized by the crowd (Qwen)",
     "who": "qwen",
     "when": "2026-11-07"
@@ -5115,7 +5119,16 @@
      "who": "claude"
     }
    ],
-   "done_session": [],
+   "done_session": [
+    {
+     "text": "WORLD1 merged: 20-year world",
+     "who": "claude"
+    },
+    {
+     "text": "Rule 2 bots pass: smart 8, hard 11",
+     "who": "claude"
+    }
+   ],
    "now": [
     {
      "text": "Camp Board: coach test not passed",
@@ -5138,16 +5151,24 @@
      "who": "agent"
     },
     {
-     "text": "WORLD1 collected: 4 bugs fixed",
-     "who": "claude"
-    },
-    {
      "text": "Menus 6.2 -> 8 (side session)",
      "who": "claude"
     },
     {
      "text": "Plan bites rule 4 (side session)",
      "who": "claude"
+    },
+    {
+     "text": "Matchmaking: screens next",
+     "who": "claude"
+    },
+    {
+     "text": "FIGHTWALK1 walks (Cursor)",
+     "who": "agent"
+    },
+    {
+     "text": "HITSELL1 hits sell (Qwen)",
+     "who": "agent"
     }
    ],
    "next": [
@@ -5197,10 +5218,6 @@
     },
     {
      "text": "Plan bites (P17), rank 3",
-     "who": "claude"
-    },
-    {
-     "text": "Matchmaking (P1), rank 4",
      "who": "claude"
     },
     {
