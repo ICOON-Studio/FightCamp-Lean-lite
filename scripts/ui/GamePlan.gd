@@ -252,7 +252,7 @@ func _go_to() -> Control:
 		row.add_child(b)
 	box.add_child(row)
 	if not any:
-		box.add_child(UI.muted("None drilled yet: build one on the fighter page (Training) and put it on the pads.", UI.TINY, true))
+		box.add_child(UI.muted("None drilled yet: build one on her Week tab and put it on the pads.", UI.TINY, true))
 		return box
 	var share := "%d%% of the combination exchanges instead of %d%%" % [roundi(100.0 * OwnCombos.NAMED_SHARE), roundi(100.0 * OwnCombos.USE_SHARE)]
 	if named.is_empty():

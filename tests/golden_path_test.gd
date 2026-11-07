@@ -399,12 +399,9 @@ func _week_three(c: Career) -> void:
 		"rankings: %s, %d-%d, rank %d" % [f["name"], f["w"], f["l"], int(f["rank"])])
 	main.act("go", "world:1")
 	_check(main._shell.find_child("Rankings_wlw", true, false) != null, "WORLD > Rankings draws")
+	# S396: the Search tab went once every name became a link (design 5.4); a rival's name in the table opens her file.
 	main.act("go", "world:3")
-	var box: LineEdit = main._shell.find_child("SearchBox", true, false) as LineEdit
-	if box != null:
-		box.text_changed.emit("priya")
-	var hits: Node = main._shell.find_child("Hits", true, false)
-	_check(hits != null and hits.get_child_count() == 1, "WORLD > Search finds Priya")
+	_check(int(main.route["tab"]) == 1, "an old link to WORLD > Search lands on Rankings")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(main.save_path))
 
 

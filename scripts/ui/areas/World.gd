@@ -71,7 +71,7 @@ func _rankings(c: Career) -> void:
 
 
 func _ranking_table(c: Career, div: String) -> void:
-	var card := UI.card("%s, LONDON REGION" % str(Data.DIVISIONS[div]["name"]).to_upper())
+	var card := UI.card("%s, THE REGION'S CLUB SHOWS" % str(Data.DIVISIONS[div]["name"]).to_upper())   # S396: not only London clubs
 	add_child(card[0])
 	var grid := GridContainer.new()
 	grid.name = "Rankings_" + div
@@ -85,8 +85,8 @@ func _ranking_table(c: Career, div: String) -> void:
 		var r: Dictionary = rows[i]
 		var col := UI.GOLD if bool(r["ours"]) else UI.FG
 		grid.add_child(UI.mono(str(i + 1), UI.BODY, col))
-		if bool(r["ours"]):
-			grid.add_child(UI.label(r["name"], UI.BODY, col, "bold"))
+		if bool(r["ours"]):   # S396 blind round 2: hers is a link too, to her page
+			grid.add_child(UI.button(str(r["name"]), "BtnQuiet", _main.act.bind("fighter", str(r["fid"]))))
 		else:
 			# S341 her name opens her file: what the gym has found of her and every bout with us.
 			var b := UI.button(str(r["name"]), "BtnQuiet", _main.act.bind("rivalfile", str(r["name"])))

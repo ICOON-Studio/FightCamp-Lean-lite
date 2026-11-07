@@ -18,7 +18,7 @@ const AREAS: Array[Dictionary] = [
 	{"id": "fights", "name": "FIGHTS", "job": "get them fights", "tabs": []},
 	{"id": "gym", "name": "CLUB", "job": "run the club", "tabs": ["", "People", "", "", "Records"]},
 	{"id": "money", "name": "CLUB", "job": "keep it alive", "tabs": ["Money", "", "", ""]},
-	{"id": "world", "name": "WORLD", "job": "the boxing world", "tabs": ["News", "Rankings", "Championships", "Search", ""]},
+	{"id": "world", "name": "WORLD", "job": "the boxing world", "tabs": ["News", "Rankings", "Championships", "", ""]},
 ]
 
 ## Decided: the first coach is sessional at $450 a week; $1,000 to sign either.

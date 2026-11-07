@@ -33,6 +33,8 @@ static func canon(r: Dictionary) -> Dictionary:
 		"world":
 			if tab == 4:   # Nationals are a championship
 				tab = 2
+			elif tab == 3:   # S396: Search went once every name became a link; its link lands on Rankings
+				tab = 1
 	out["area"] = area
 	out["tab"] = tab
 	return out

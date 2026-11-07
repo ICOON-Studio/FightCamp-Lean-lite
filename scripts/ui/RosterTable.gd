@@ -14,6 +14,7 @@ const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const WB_KIT := preload("res://scripts/ui/WhiteboardKit.gd")
 const FIGHTER_PAGE := preload("res://scripts/ui/areas/FighterPage.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
+const Needs := preload("res://scripts/state/Needs.gd")
 const PromoShot := preload("res://scripts/ui/PromoShot.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const FACE := Vector2(48, 60)
@@ -89,9 +90,12 @@ static func _grappler_cells(c: Career, g: Dictionary) -> Dictionary:
 	return cells
 
 
-## Only what is wrong, one line: "Lucy: no bout booked. Ana: ..." ("" when nothing is).
+## Only what is wrong, one line: "Lucy: no bout booked. Ana: ..." ("" when nothing is). S396 blind round 3 ("Nobody needs
+## you" beside an open nationals entry and a goal talk): Home's own pins come first, so the two pages agree.
 static func needs_line(c: Career) -> String:
 	var parts: Array = []
+	for n in Needs.needs(c):
+		parts.append(str(n["t"]))
 	for f in c.fighters:
 		var bad := CoachCheck.rows(c, f).filter(func(r): return str(r["state"]) == "bad")
 		if not bad.is_empty():

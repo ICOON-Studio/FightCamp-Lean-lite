@@ -93,10 +93,10 @@
   "id": "mastery",
   "name": "Mastery",
   "def": "How well a move is drilled, 0 to 100: Raw, Usable, Sharp, Signature.",
-  "why": "Technique and Ring IQ cap it; a week without drilling costs 0.75, never below 30 once reached.",
+  "why": "Technique and Ring IQ cap it. In the Playbook a combination shows its level; a step or defence reads READY; a move whose parts are not drilled yet reads LOCKED.",
   "group": "Words",
   "area": "fighters",
-  "src": "MoveMastery.tier, MoveMastery.cap, MoveMastery.decay_week"
+  "src": "MoveMastery.tier, MoveMastery.cap, MoveMastery.decay_week, MoveBook._progress"
  },
  {
   "id": "morale",

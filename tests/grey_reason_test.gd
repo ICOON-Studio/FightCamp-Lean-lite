@@ -132,11 +132,7 @@ func _initialize() -> void:
 	await _check_moment("30_rankings")
 	main.act("go", "world:2")
 	await _check_moment("31_events")
-	main.act("go", "world:3")
-	var box: LineEdit = main._shell.find_child("SearchBox", true, false)
-	box.text = "ri"
-	box.text_changed.emit("ri")
-	await _check_moment("32_search")
+	# S396: Search went (every name is a link); its old link lands on Rankings.
 	if disabled_total <= 0:
 		failures += 1
 		print("FAIL: no disabled buttons seen on the route")

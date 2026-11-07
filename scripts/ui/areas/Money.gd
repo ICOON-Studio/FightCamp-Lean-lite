@@ -41,6 +41,9 @@ func _overview(c: Career) -> void:
 	var chart: Control = CashChart.new()
 	chart.name = "CashChart"
 	chart.points = c.cash_history.slice(-12)
+	# S396 blind round 3 (the last bar said $11,381, the top bar $11,831): the weeks closed, then the cash now.
+	if not chart.points.is_empty() and int(chart.points[-1]["c"]) != c.cash:
+		chart.points = chart.points.slice(-11) + [{"w": -1, "c": c.cash}]
 	chart_card[1].add_child(chart)
 	grid.add_child(chart_card[0])
 	var inc: Dictionary = Sim.weekly_income(c)
