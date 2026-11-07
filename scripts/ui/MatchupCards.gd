@@ -121,7 +121,7 @@ static func _row(main: Node, opp: Dictionary, t: Dictionary, film: bool) -> HBox
 	var answer := str(t["counter"])
 	if answer.begins_with("Plan an arrow for "):   # the game row: an instruction, not the threat again
 		answer = "Write what your fighter does %s" % answer.trim_prefix("Plan an arrow for ").replace("'", "").to_lower()
-	var yours := _card(null, "SUGGESTED ANSWER - NOT IN YOUR PLAN YET", answer, "", Color("#eef4ff"), "target", 640, "#2f6fdb")
+	var yours := _card(_answer_pic(answer), "SUGGESTED ANSWER - NOT IN YOUR PLAN YET", answer, "", Color("#eef4ff"), "target", 640, "#2f6fdb")
 	var w := UI.button("Write it", "BtnSolid", main.act.bind("ptab", "1"))
 	w.name = "WriteIt_" + id.replace(":", "_")
 	w.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -135,6 +135,23 @@ static func _kind_pic(kind: String) -> Texture2D:
 		return null
 	var path := PIC_B_DIR.path_join(str(KIND_PIC_B[kind]) + ".png")
 	return load(path) if ResourceLoader.exists(path) else null
+
+
+## S399 arm "b": the answer's comic picture by what the answer asks for (first match), else the target icon tile.
+const ANSWER_PIC_B := [["elbow", "answer_elbows"], ["angle", "answer_angle"], ["step off", "answer_angle"],
+	["busy", "answer_busy"], ["first", "answer_busy"], ["press", "answer_pressure"], ["ground", "answer_pressure"],
+	["walk", "answer_pressure"]]
+
+
+static func _answer_pic(answer: String) -> Texture2D:
+	if PromoShot.ui_art() != "b":
+		return null
+	var low := answer.to_lower()
+	for row in ANSWER_PIC_B:
+		if low.contains(str(row[0])):
+			var path := PIC_B_DIR.path_join(str(row[1]) + ".png")
+			return load(path) if ResourceLoader.exists(path) else null
+	return null
 
 
 ## A picture card: the move picture (or an icon tile), the caps kind, the words, a small line under them.

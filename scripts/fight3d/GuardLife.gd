@@ -60,7 +60,7 @@ func tick(delta: float) -> void:
 			if _fidget[who] <= 0.0 and FIDGETS.has(clip):
 				stage.guard(who)
 			continue
-		if not BeatClips.GUARD.has(clip):
+		if not BeatClips.GUARD.has(clip) or clip.begins_with("rk_"):   # S399: the captured guard is the actor's own life - no fidget over it
 			continue
 		_quiet[who] -= delta
 		if _quiet[who] <= 0.0:

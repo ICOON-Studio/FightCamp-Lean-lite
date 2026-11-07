@@ -33,13 +33,20 @@ const LIFT_DOWN_MAX := 0.15
 const GROUND_CORE_Y := 0.62
 ## The head as a sphere, its centre this far past the Head bone along the neck.
 const LIMB_DIP_M := 0.05
-const THIGHS := ["thighL", "thighR", "shoulders", "head"]
+const THIGHS := ["thighL", "thighR", "shoulders", "head", "face"]
 const THIGH_GIVE_M := 0.0
 const REL_LEAK_S := 3.0
 const THIGH_REL_MAX := 0.35   # past this the bodies are apart enough: a thigh still in is the data's, and chasing it ran `rel` to its cap
 const HEAD_UP := 0.08
 const HEAD_R := 0.11
-const NORMAL_BAND_M := 0.02   # pairs this much farther than the closest still steer the gap's direction
+const NORMAL_BAND_M := 0.02
+## S399 GRAPPLEFIX1 (blind critic, 886 at 1.43 s: "blue's leg runs through red's chin"): the head sphere sits over the skull, so a
+## face and jaw were free to sink into a thigh. A FACE sphere rides the head bone, FACE_FWD in front of it and FACE_UP above, in
+## the body's own forward at rest.
+const FACE_FWD := 0.075
+const FACE_UP := 0.01
+const FACE_R := 0.07
+static var _face_local := {}   # pairs this much farther than the closest still steer the gap's direction
 
 
 static func read_bones(skel: Skeleton3D) -> Dictionary:
@@ -49,7 +56,26 @@ static func read_bones(skel: Skeleton3D) -> Dictionary:
 		var i := skel.find_bone(n)
 		if i >= 0:
 			d[n] = gt * skel.get_bone_global_pose(i).origin
+	var hi := skel.find_bone("Head")
+	if hi >= 0:
+		d["Face"] = gt * (skel.get_bone_global_pose(hi) * face_local(skel))
 	return d
+
+
+## The face's centre in the head bone's own space (cached per skeleton): FACE_FWD along the body's rest forward (toes minus
+## ankles, as GrapplePose finds it), FACE_UP up.
+static func face_local(skel: Skeleton3D) -> Vector3:
+	var key := skel.get_instance_id()
+	if _face_local.has(key):
+		return _face_local[key]
+	var f := Vector3.ZERO
+	for s in ["Left", "Right"]:
+		f += skel.get_bone_global_rest(skel.find_bone(s + "Toes")).origin - skel.get_bone_global_rest(skel.find_bone(s + "Foot")).origin
+	f.y = 0.0
+	var head := skel.get_bone_global_rest(skel.find_bone("Head"))
+	var v := head.basis.inverse() * (f.normalized() * FACE_FWD + Vector3.UP * FACE_UP)
+	_face_local[key] = v
+	return v
 
 
 ## Bone origins in world space from a pose's drawn globals. `world_ofs` simulates a display shift (metres, world).
@@ -66,6 +92,9 @@ static func bone_world(pose: Node, skel: Skeleton3D, j_world: PackedVector3Array
 		var bi: int = skel.find_bone(n)
 		if bi >= 0:
 			d[n] = gt * (g[bi] as Transform3D).origin + world_ofs
+	var hi := skel.find_bone("Head")
+	if hi >= 0:
+		d["Face"] = gt * ((g[hi] as Transform3D) * face_local(skel)) + world_ofs
 	return d
 
 
@@ -78,6 +107,8 @@ static func parts(d: Dictionary) -> Dictionary:
 	var head: Vector3 = d["Head"]
 	var hc := head + (head - (d["Neck"] as Vector3)).normalized() * HEAD_UP
 	all.append(["head", hc, hc, HEAD_R])
+	if d.has("Face"):
+		all.append(["face", d["Face"], d["Face"], FACE_R])
 	for l in LIMBS:
 		all.append([l[0], d[l[1]], d[l[2]], l[3]])
 	return {"torso": torso, "all": all}

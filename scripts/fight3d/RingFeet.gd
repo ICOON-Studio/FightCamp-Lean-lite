@@ -42,6 +42,7 @@ static func tick(st: Node, i: int, delta: float) -> void:
 	var free: bool = st.clinch.engaged or int(st.clinch.holder) >= 0   # from the tie-up on: the hold's bars read the clip's own body
 	for w in FREE:
 		free = free or clip.contains(w)
+	free = free or clip.begins_with("rk_loc_")   # S399: a captured step clip carries her (RkLoco), not the rig
 	rig.want = 0.0 if free else 1.0
 	rig.ease_w(delta)
 	var plan: RefCounted = rig.plan

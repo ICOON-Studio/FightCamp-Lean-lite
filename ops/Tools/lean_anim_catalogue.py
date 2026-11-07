@@ -174,6 +174,13 @@ def build() -> dict:
         ("Knockdowns, knockouts, wins", lists["DOWN"] + lists["OUT"] + lists["WIN"]),
         ("Clinch and ring entry", pair + entry),
     ]
+    # S399: the captured clips the fight plays PURE (scripts/fight3d/RkClips.gd: Rokoko via the old repo route + Mixamo walks)
+    rk_path = LEAN / "scripts" / "fight3d" / "RkClips.gd"
+    rk_src = rk_path.read_text(encoding="utf-8", errors="replace") if rk_path.is_file() else ""
+    rk_block = rk_src.split("const CLIPS := {", 1)[1].split("\n}", 1)[0] if "const CLIPS := {" in rk_src else ""
+    rk_ids = list(dict.fromkeys(re.findall(r'"(rk_[a-z_0-9]+)"\s*:', rk_block)))
+    if rk_ids:
+        groups.insert(0, ("Captured clips (Rokoko + Mixamo, play pure)", rk_ids))
     shown = {c for _, ids in groups for c in ids}
     groups.append(("In the library, never picked", [c for c in lib if c not in shown]))
     out = []
@@ -181,6 +188,11 @@ def build() -> dict:
     prog = {"verified": 0, "in progress": 0, "not started": 0}
     for title, ids in groups:
         rows = [row(c) for c in ids]
+        if title.startswith("Captured clips"):
+            for r in rows:
+                r["status"] = "IN GAME"
+                r["source"] = "Rokoko / Mixamo capture, old repo route (S399)"
+                r["why"] = r.get("why") or "Plays pure in the fight (RkClips.gd)"
         for r in rows:
             counts[r["status"]] = counts.get(r["status"], 0) + 1
             prog[r["progress"]] += 1

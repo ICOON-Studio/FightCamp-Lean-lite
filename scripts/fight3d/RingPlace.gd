@@ -142,6 +142,7 @@ static func _place(st: Node, delta: float) -> void:
 			bx["snap"].sway = feet.inside_w   # S315 small head sways inside
 		if bx.get("tuck") != null and not st._no_inguard:
 			bx["tuck"].inner = feet.inside_w   # S315 the inside guard: elbows on the ribs, gloves at the cheeks
-		if to.length() > 0.01:
+		# S399: a captured step clip (RkLoco) carries her in its own frame - she turns to face once it is done, not mid-step
+		if to.length() > 0.01 and not str((bx["ap"] as AnimationPlayer).current_animation).begins_with("rk_loc_"):
 			var yaw := atan2(to.x, to.z)
 			n.rotation = Vector3(0.0, yaw if delta <= 0.0 else lerp_angle(n.rotation.y, yaw, 1.0 - exp(-delta / FACE_S)), 0.0)

@@ -26,6 +26,9 @@ const HitImpact := preload("res://scripts/fight3d/HitImpact.gd")
 const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
 const ArtStyle := preload("res://scripts/fight3d/ArtStyle.gd")
 const FaceFill := preload("res://scripts/fight3d/FaceFill.gd")
+const RkClips := preload("res://scripts/fight3d/RkClips.gd")
+const RkPure := preload("res://scripts/fight3d/RkPure.gd")
+const RkLoco := preload("res://scripts/fight3d/RkLoco.gd")
 
 const CONTACT_S := 8.0 / 30.0
 ## When the glove lands, seconds into each move (natives frame 8; baked: the old repo's clip_phases contact_s).
@@ -94,6 +97,10 @@ func setup(a: Dictionary, b: Dictionary) -> void:
 	clinch.setup(self)
 	for bx in boxers:
 		bx["idle_match"] = IdleMatch.sample(bx, BeatClips.first(BeatClips.GUARD, (bx["ap"] as AnimationPlayer).has_animation))
+		bx["idle_matches"] = {str(bx["idle_match"].get("clip", "")): bx["idle_match"]}
+		for g in RkClips.GUARDS:   # S399: both captured guard windows, so a return to guard can enter either near her pose
+			if (bx["ap"] as AnimationPlayer).has_animation(g) and not (bx["idle_matches"] as Dictionary).has(g):
+				bx["idle_matches"][g] = IdleMatch.sample(bx, g)
 	side.setup(self)
 	boxers[0]["pos"] = Vector3(0, 0, -gap_m * 0.5)
 	boxers[1]["pos"] = Vector3(0, 0, gap_m * 0.5)
@@ -195,6 +202,9 @@ func _start(who: int, clip: String, speed: float, fade: float = BLEND_S) -> void
 
 
 func _process(delta: float) -> void:
+	for bx in boxers:   # S399 ROKOKO2: a captured Rokoko clip plays pure (RkPure); the legs come back while the rig steps
+		RkPure.tick(bx, delta, RingFeet.on(self, bx) and not ((bx["rig"] as Node).plan.pair as Dictionary).is_empty())
+		RkLoco.tick(bx, scene, delta)   # a captured step / walk moves her by its own hip travel
 	if _ropes != null:   # S350: a stage built without a ring (probes) threw here every frame and skipped the rest
 		_ropes.tick(delta, boxers.map(func(bx): return bx["skel"]))
 	if scene:
@@ -242,10 +252,20 @@ func guard(who: int) -> void:
 	var idle := BeatClips.first(BeatClips.GUARD, ap.has_animation)
 	ap.speed_scale = 1.0
 	if idle != "":
+		# S399 ROKOKO2: the captured guard is two windows of one take; each return to guard enters one of them (old S274
+		# GUARD_VARIANTS) at the point nearest her pose, and plays at the take's own speed (a tempo would retime the actor).
+		var rk_guard := RkClips.is_rk(idle)
+		if rk_guard:
+			var pool: Array = RkClips.GUARDS.filter(func(n): return ap.has_animation(n))
+			idle = str(pool[life.rng.randi() % pool.size()])
+			boxers[who]["idle_match"] = (boxers[who].get("idle_matches", {}) as Dictionary).get(idle, {})
 		# S302: her own tempo, from a random point of the loop (both started the same loop in step: 0.92 correlated).
 		var g := life.settle(who, idle, ap.get_animation(idle).length)
+		# a captured window must not start in its last seconds (it would end and re-enter at once)
 		var at := IdleMatch.pick(boxers[who], idle, float(g[2]), life.rng)
-		_start(who, idle, float(g[1]), GUARD_FADE_S)
+		if rk_guard:
+			at = minf(at, maxf(0.0, ap.get_animation(idle).length - 3.0))
+		_start(who, idle, 1.0 if rk_guard else float(g[1]), GUARD_FADE_S)
 		ap.seek(at, true)
 	else:
 		ap.play("jab")

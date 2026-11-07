@@ -21,6 +21,9 @@ cp "$ROOT/docs/WHAT_TO_TRY.txt" "$OUT/WHAT_TO_TRY.txt"
 mkdir -p "$OUT/assets/models/metahuman" "$OUT/assets/anim/metahuman"
 cp "$ROOT"/assets/models/metahuman/mh_*.glb "$ROOT"/assets/models/metahuman/mh_*.json "$OUT/assets/models/metahuman/"
 cp "$ROOT"/assets/anim/metahuman/*.glb "$OUT/assets/anim/metahuman/"
+# S399 ROKOKO2: the Rokoko takes are retargeted on each boxer at fight start from their raw FBX (RkRetarget._load_fbx).
+mkdir -p "$OUT/assets/anim/rokoko_combat"
+cp "$ROOT"/assets/anim/rokoko_combat/*.fbx "$OUT/assets/anim/rokoko_combat/"
 # S312: MHRig.dress reads the skin micro-normal raw too (MICRO_NORMAL); every build before shipped skin without it.
 cp "$ROOT"/assets/models/metahuman/mh_skin_micro_normal.png "$OUT/assets/models/metahuman/"
 # S319: the motion blur compiles its shaders from their .glsl source at run time (addons/easy-compositor); an export

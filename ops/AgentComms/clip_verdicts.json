@@ -1,5 +1,5 @@
 {
- "_doc": "S379 (operator: \"on the boxing show me only what is supposed to be 100% correct\"): every recorded check of a single clip or GrappleMap move, read by the ops board's Boxer animations and Grappling animations pages (ops/Tools/lean_anim_catalogue.py, lean_grapple_catalogue.py). A row with pass:true makes the clip VERIFIED and it shows on the page's default view. Only two checks may set pass:true: the operator's OK on that clip's own video, or the Argon clip judge at 9/10 or better on every score with no defect (the FIGHT9 bar, operator S371: 'until its 9/10'). Everything else (probes, a fix OK'd on stills, a lower score) is recorded with pass:false and counts as IN PROGRESS. Keys: boxing = the clip id on the Boxer page (pro_...), grapple = the GrappleMap sequence index (the Grappling page's tile id). Add a row: {check, result, pass, note, source, when}; a frame check adds frames:true and clean:true/false - the Grappling page calls a tile clean only from such a row, never from numbers alone.",
+ "_doc": "S379 (operator: \"on the boxing show me only what is supposed to be 100% correct\"): every recorded check of a single clip or GrappleMap move, read by the ops board's Boxer animations and Grappling animations pages (ops/Tools/lean_anim_catalogue.py, lean_grapple_catalogue.py). A row with pass:true makes the clip VERIFIED and it shows on the page's default view. Only two checks may set pass:true: the operator's OK on that clip's own video, or the Argon clip judge at 9/10 or better on every score with no defect (the FIGHT9 bar, operator S371: 'until its 9/10'). Everything else (probes, a fix OK'd on stills, a lower score) is recorded with pass:false and counts as IN PROGRESS. Keys: boxing = the clip id on the Boxer page (pro_...), grapple = the GrappleMap sequence index (the Grappling page's tile id). Add a row: {check, result, pass, note, source, when}; a frame check adds frames:true and clean:true/false - the Grappling page calls a tile clean only from such a row, never from numbers alone. S399 (operator via the main session: \"a bit of overlap can be fine, rate of 7 should be ok for now\"): for the GRAPPLING page a blind critic at 7/10 or more (neutral clip names, key hidden, a control arm, every-frame eyes bursts) also sets pass:true; the row's source is the clip judged and the page plays it.",
  "bar": "your OK on the clip's own video, or the Argon clip judge at 9/10+ with no defect",
  "boxing": {
   "pro_right_hook_hard": [
@@ -656,6 +656,280 @@
     "note": "the takedown reads (tie-up, leg weave, both fall, Red on top), smooth, no trembling; on landing Red's hips and thigh sink into Blue's torso (4.4 s). 14 s at the data's pace, shown 2.3x faster.",
     "source": "ops/previews/lean_grapple/1470.mp4",
     "when": "2026-11-04"
+   }
+  ],
+  "1314": [
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 1 (4 critics, neutral names, key hidden, control arm: 990 game 4 vs 3, 886 pure 4 vs 5; eyes bursts + crops; two critics sampled about a third of the sheets): game-drawn clip vs pure preview",
+    "result": "game 5/10, pure 5.5/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "red's torso and arm sink into blue's chest and stay parked there 1.8-4.0 s; held pose at the end. Game and pure looked near-identical to the critics.",
+    "source": "ops/previews/lean_grapple_game/1314.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 2 (3 critics, neutral names, key hidden, every-frame bursts listed + 3-frame crops, control arm: 1138 scored 5 and 4): game-drawn clip after the face volume and with no 4 s frozen padding",
+    "result": "game 6/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "blue's forearm through red's pelvis 1.7-2.4 s; dead-still end hold; good weight transfer, no jitter.",
+    "source": "ops/previews/lean_grapple_game/1314.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "check": "operator OK on the clip's own video (S399)",
+    "result": "OK",
+    "pass": true,
+    "note": "operator on the four best game-arm films: \"the clips seem fine but what matters is the sequence blending\" (blind critics 6/10 each)",
+    "source": "ops/previews/lean_grapple_game/1314.mp4",
+    "when": "2026-11-08"
+   }
+  ],
+  "622": [
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 1 (4 critics, neutral names, key hidden, control arm: 990 game 4 vs 3, 886 pure 4 vs 5; eyes bursts + crops; two critics sampled about a third of the sheets): game-drawn clip vs pure preview",
+    "result": "game 4/10, pure 4/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "red's head buried in blue's chest and neck 0.4-2.0 s; blue's legs stiffly upright; last 1.5 s frozen. Game and pure looked near-identical to the critics.",
+    "source": "ops/previews/lean_grapple_game/622.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 2 (3 critics, neutral names, key hidden, every-frame bursts listed + 3-frame crops, control arm: 1138 scored 5 and 4): game-drawn clip after the face volume and with no 4 s frozen padding",
+    "result": "game 4/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "blue's head sunk under red's hips 2.4-3.6 s; blue's legs kick straight up like a doll 0.8-2.4 s.",
+    "source": "ops/previews/lean_grapple_game/622.mp4",
+    "when": "2026-11-08"
+   }
+  ],
+  "688": [
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 1 (4 critics, neutral names, key hidden, control arm: 990 game 4 vs 3, 886 pure 4 vs 5; eyes bursts + crops; two critics sampled about a third of the sheets): game-drawn clip vs pure preview",
+    "result": "game 3.5/10, pure 3/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "triangle: red reads as buried inside blue with an arm through her head; near static. Game and pure looked near-identical to the critics.",
+    "source": "ops/previews/lean_grapple_game/688.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 2 (3 critics, neutral names, key hidden, every-frame bursts listed + 3-frame crops, control arm: 1138 scored 5 and 4): game-drawn clip after the face volume and with no 4 s frozen padding",
+    "result": "game 4/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "triangle reads as a knotted ball; blue's leg through red's knee 0.5-1.0 s; barely changes.",
+    "source": "ops/previews/lean_grapple_game/688.mp4",
+    "when": "2026-11-08"
+   }
+  ],
+  "990": [
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 1 (4 critics, neutral names, key hidden, control arm: 990 game 4 vs 3, 886 pure 4 vs 5; eyes bursts + crops; two critics sampled about a third of the sheets): game-drawn clip vs pure preview",
+    "result": "game 3.5/10, pure 3/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "red's seat sunk into blue's belly 2.4-4.0 s; red's swung leg rigid like a plank (control scored 4 and 3). Game and pure looked near-identical to the critics.",
+    "source": "ops/previews/lean_grapple_game/990.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 2 (3 critics, neutral names, key hidden, every-frame bursts listed + 3-frame crops, control arm: 1138 scored 5 and 4): game-drawn clip after the face volume and with no 4 s frozen padding",
+    "result": "game 5/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "blue's pelvis sunk into red's thighs and seat 1.2-2.7 s; frozen hold from 1.8 s.",
+    "source": "ops/previews/lean_grapple_game/990.mp4",
+    "when": "2026-11-08"
+   }
+  ],
+  "1295": [
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 1 (4 critics, neutral names, key hidden, control arm: 990 game 4 vs 3, 886 pure 4 vs 5; eyes bursts + crops; two critics sampled about a third of the sheets): game-drawn clip vs pure preview",
+    "result": "game 5/10, pure 5/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "heads and chests inside each other from 1.0 s; nearly frozen after 1.0 s. Game and pure looked near-identical to the critics.",
+    "source": "ops/previews/lean_grapple_game/1295.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 2 (3 critics, neutral names, key hidden, every-frame bursts listed + 3-frame crops, control arm: 1138 scored 5 and 4): game-drawn clip after the face volume and with no 4 s frozen padding",
+    "result": "game 5/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "red's face pressed into blue's jaw and neck from 0.6 s; nearly static clinch.",
+    "source": "ops/previews/lean_grapple_game/1295.mp4",
+    "when": "2026-11-08"
+   }
+  ],
+  "787": [
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 1 (4 critics, neutral names, key hidden, control arm: 990 game 4 vs 3, 886 pure 4 vs 5; eyes bursts + crops; two critics sampled about a third of the sheets): game-drawn clip vs pure preview",
+    "result": "game 6/10, pure 6/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "red's hunched straight-legged pose frozen from 2.0 s; blue's post hand pops in at 1.9 s; no deep overlap, no pops. Game and pure looked near-identical to the critics.",
+    "source": "ops/previews/lean_grapple_game/787.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 2 (3 critics, neutral names, key hidden, every-frame bursts listed + 3-frame crops, control arm: 1138 scored 5 and 4): game-drawn clip after the face volume and with no 4 s frozen padding",
+    "result": "game 6/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "hands and forearms interlocked through each other all clip; barely a move; cleanest of its four.",
+    "source": "ops/previews/lean_grapple_game/787.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "check": "operator OK on the clip's own video (S399)",
+    "result": "OK",
+    "pass": true,
+    "note": "operator on the four best game-arm films: \"the clips seem fine but what matters is the sequence blending\" (blind critics 6/10 each)",
+    "source": "ops/previews/lean_grapple_game/787.mp4",
+    "when": "2026-11-08"
+   }
+  ],
+  "886": [
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 1 (4 critics, neutral names, key hidden, control arm: 990 game 4 vs 3, 886 pure 4 vs 5; eyes bursts + crops; two critics sampled about a third of the sheets): game-drawn clip vs pure preview",
+    "result": "game 4/10, pure 4/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "blue's thigh through red's chin at 1.43 s (crop); red's shin in blue's torso 3.0-4.6 s. Game and pure looked near-identical to the critics.",
+    "source": "ops/previews/lean_grapple_game/886.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 2 (3 critics, neutral names, key hidden, every-frame bursts listed + 3-frame crops, control arm: 1138 scored 5 and 4): game-drawn clip after the face volume and with no 4 s frozen padding",
+    "result": "game 5/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "blue's shin cuts through red's shoulder and hair while red's head is on blue's thigh 1.8-2.4 s; static hold.",
+    "source": "ops/previews/lean_grapple_game/886.mp4",
+    "when": "2026-11-08"
+   }
+  ],
+  "1138": [
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 1 (4 critics, neutral names, key hidden, control arm: 990 game 4 vs 3, 886 pure 4 vs 5; eyes bursts + crops; two critics sampled about a third of the sheets): game-drawn clip vs pure preview",
+    "result": "game 5/10, pure 5/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "red's torso and hip sunk into blue 2.4-4.0 s; feet slide 2.0-3.2 s. Game and pure looked near-identical to the critics.",
+    "source": "ops/previews/lean_grapple_game/1138.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 2 (3 critics, neutral names, key hidden, every-frame bursts listed + 3-frame crops, control arm: 1138 scored 5 and 4): game-drawn clip after the face volume and with no 4 s frozen padding",
+    "result": "game 5/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "red's hip and thigh sink into blue's head and neck 3.7-4.4 s; blue's torso under red's chest early (control copy 4/10).",
+    "source": "ops/previews/lean_grapple_game/1138.mp4",
+    "when": "2026-11-08"
+   }
+  ],
+  "1943": [
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 1 (4 critics, neutral names, key hidden, control arm: 990 game 4 vs 3, 886 pure 4 vs 5; eyes bursts + crops; two critics sampled about a third of the sheets): game-drawn clip vs pure preview",
+    "result": "game 5/10, pure 5/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "blue's head buried in red's back from 1.0 s; held pose after 2.0 s. Game and pure looked near-identical to the critics.",
+    "source": "ops/previews/lean_grapple_game/1943.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 2 (3 critics, neutral names, key hidden, every-frame bursts listed + 3-frame crops, control arm: 1138 scored 5 and 4): game-drawn clip after the face volume and with no 4 s frozen padding",
+    "result": "game 6/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "blue's forearm presses into red's head and neck 1.2-2.2 s; stiff creep; believable turtle back-take shape.",
+    "source": "ops/previews/lean_grapple_game/1943.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "check": "operator OK on the clip's own video (S399)",
+    "result": "OK",
+    "pass": true,
+    "note": "operator on the four best game-arm films: \"the clips seem fine but what matters is the sequence blending\" (blind critics 6/10 each)",
+    "source": "ops/previews/lean_grapple_game/1943.mp4",
+    "when": "2026-11-08"
+   }
+  ],
+  "954": [
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 1 (4 critics, neutral names, key hidden, control arm: 990 game 4 vs 3, 886 pure 4 vs 5; eyes bursts + crops; two critics sampled about a third of the sheets): game-drawn clip vs pure preview",
+    "result": "game 4/10, pure 4/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "blue mostly hidden inside red's torso; tangled lump. Game and pure looked near-identical to the critics.",
+    "source": "ops/previews/lean_grapple_game/954.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 2 (3 critics, neutral names, key hidden, every-frame bursts listed + 3-frame crops, control arm: 1138 scored 5 and 4): game-drawn clip after the face volume and with no 4 s frozen padding",
+    "result": "game 4/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "blue mostly hidden under red's torso; red's face in blue's head and neck 1.2-1.5 s.",
+    "source": "ops/previews/lean_grapple_game/954.mp4",
+    "when": "2026-11-08"
+   }
+  ],
+  "656": [
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 1 (4 critics, neutral names, key hidden, control arm: 990 game 4 vs 3, 886 pure 4 vs 5; eyes bursts + crops; two critics sampled about a third of the sheets): game-drawn clip vs pure preview",
+    "result": "game 6/10, pure 6/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "blue presses into red's head and upper back 0.4-0.8 s; stiff planted arms; clean, no pops. Game and pure looked near-identical to the critics.",
+    "source": "ops/previews/lean_grapple_game/656.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "check": "Blind Sonnet critics, S399 GRAPPLEFIX1 batch 2 (3 critics, neutral names, key hidden, every-frame bursts listed + 3-frame crops, control arm: 1138 scored 5 and 4): game-drawn clip after the face volume and with no 4 s frozen padding",
+    "result": "game 5/10 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "red's legs pass through blue's thigh and hip 2.6-4.0 s; heads overlap 0-1.8 s; stiff straight arm.",
+    "source": "ops/previews/lean_grapple_game/656.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "check": "operator OK on the clip's own video (S399)",
+    "result": "OK",
+    "pass": true,
+    "note": "operator on the four best game-arm films: \"the clips seem fine but what matters is the sequence blending\" (blind critics 6/10 each)",
+    "source": "ops/previews/lean_grapple_game/656.mp4",
+    "when": "2026-11-08"
    }
   ]
  }

@@ -103,6 +103,7 @@ def table(labels: list[str]) -> None:
     ms = sorted(base["moves"], key=lambda m: -badness(games[0][1].get(m["id"], {})))
     keys = [("torso_in_m", ".1f", "torso cm"), ("limb_park_m", ".1f", "park cm"), ("spike_m", ".1f", "pop cm"),
             ("jerk_p95", ".0f", "jerk"), ("flips_s", ".2f", "flips/s")]
+    src = sets[-1].get("game", {})
     lines = ["# GRAPPLEFIX1 - the 47 played moves, pure vs as the game draws them", "",
              "S399 GRAPPLEFIX1. Measured by `ops/Tools/lean_grapple_fix_table.py` (tools/grapple_orbit.gd `nofilm=1`, headless, "
              "--fixed-fps 30, bones read on Skeleton3D.skeleton_updated). **pure** = the GrappleMap recording on our women, no layers "
@@ -116,13 +117,18 @@ def table(labels: list[str]) -> None:
         lines.append(f"- game `{l}`: **{n}/{len(base['moves'])}** moves pass every bar")
     npure = sum(1 for m in base["moves"] if m["id"] in pure and not fails(pure[m["id"]]))
     lines += [f"- pure: {npure}/{len(base['moves'])}", ""]
-    lines.append("| move | kind | " + " | ".join(h for _, _, h in keys) + " | fails (game " + labels[-1] + ") |")
-    lines.append("|---|---|" + "---|" * len(keys) + "---|")
+    lines += ["**source** (last two columns) = GrappleMap's own figure as played, measured the same way with its viewer's thickness "
+              "(joint spheres + limb midpoint radii from Eelis/GrappleMap src/positions.cpp and src/players.hpp), so a move where the "
+              "source is clear and ours is not is OUR mapping's fault.", ""]
+    lines.append("| move | kind | " + " | ".join(h for _, _, h in keys) + " | source torso / park cm | fails (game " + labels[-1] + ") |")
+    lines.append("|---|---|" + "---|" * len(keys) + "---|---|")
     for m in ms:
         cells = []
         for k, fmt, _ in keys:
             cells.append(" / ".join([cell(pure.get(m["id"]), k, fmt)] + [cell(g.get(m["id"]), k, fmt) for _, g in games]))
-        lines.append(f"| {m['id']} {m['title'][:32]} | {m['kind']} | " + " | ".join(cells) + " | " +
+        sr = src.get(m["id"], {})
+        stxt = (f"{100 * float(sr['src_torso_in_m']):.1f} / {100 * float(sr['src_limb_park_m']):.1f}" if "src_torso_in_m" in sr else "-")
+        lines.append(f"| {m['id']} {m['title'][:32]} | {m['kind']} | " + " | ".join(cells) + f" | {stxt} | " +
                      (", ".join(fails(last[m["id"]])) if m["id"] in last else "-") + " |")
     lines.append("")
     (ROOT / "research" / "GRAPPLEFIX1_TABLE.md").write_text("\n".join(lines) + "\n", encoding="utf-8")

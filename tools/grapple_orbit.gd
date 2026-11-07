@@ -48,6 +48,7 @@ const FPS := 30.0
 const HOLD_S := 0.8
 const MIN_S := 4.0
 const MAX_S := 9.0
+const GAME_MIN_S := 1.5
 ## GrappleMap stores no timing (GrappleTiming paces it): a move longer than PLAY_MAX_S plays faster, evenly, so the whole
 ## move fits a short preview (the belt match itself caps a move at 4 s and lands a takedown in 1.9 s).
 const PLAY_MAX_S := 6.0
@@ -65,9 +66,21 @@ const LANDS_RELIEF := 0.65
 const MOVE_MAX_S := 4.0
 const SETTLE_F := 15
 const PARK_F := 7   # frames: a limb inside for longer than 0.2 s at 30 fps
-const LIMB_KEYS := ["head", "neck", "upperarmL", "upperarmR", "forearmL", "forearmR", "thighL", "thighR", "shinL", "shinR",
+const LIMB_KEYS := ["head", "face", "neck", "upperarmL", "upperarmR", "forearmL", "forearmR", "thighL", "thighR", "shinL", "shinR",
 	"footL", "footR"]
-const BODY_KEYS := ["pelvis", "trunk", "head"]
+const BODY_KEYS := ["pelvis", "trunk", "head", "face"]
+## S399 operator: GrappleMap's own figures have volume and do not overlap in its viewer. The SOURCE figure measured the same way:
+## its joints as played (joints_at), with the viewer's own thickness (Eelis/GrappleMap src/positions.cpp jointDefs radii: Head 0.11,
+## Core 0.1, hips 0.09, shoulders 0.08, knees 0.05, elbows 0.045, ankles 0.03; src/players.hpp limbs() midpoint radii: thigh 0.085,
+## shin 0.055, forearm 0.03, neck 0.05), scaled with the pair. Its torso is no tube, only the core, hip and shoulder spheres: capsules
+## between them at the smaller sphere's radius.
+const SRC_TORSO := [["Core", "LeftHip", 0.09], ["Core", "RightHip", 0.09], ["LeftHip", "RightHip", 0.09], ["Core", "Neck", 0.08],
+	["LeftShoulder", "RightShoulder", 0.08], ["Core", "LeftShoulder", 0.08], ["Core", "RightShoulder", 0.08]]
+const SRC_HEAD := [["Head", "Head", 0.11]]
+const SRC_LIMBS := [["head", "Head", "Head", 0.11], ["neck", "Neck", "Head", 0.05], ["upperarmL", "LeftShoulder", "LeftElbow", 0.0625],
+	["upperarmR", "RightShoulder", "RightElbow", 0.0625], ["forearmL", "LeftElbow", "LeftWrist", 0.03], ["forearmR", "RightElbow", "RightWrist", 0.03],
+	["thighL", "LeftHip", "LeftKnee", 0.085], ["thighR", "RightHip", "RightKnee", 0.085], ["shinL", "LeftKnee", "LeftAnkle", 0.055],
+	["shinR", "RightKnee", "RightAnkle", 0.055], ["footL", "LeftHeel", "LeftToe", 0.0275], ["footR", "RightHeel", "RightToe", 0.0275]]
 const TRACK := ["LeftHand", "RightHand", "LeftLowerArm", "RightLowerArm", "LeftFoot", "RightFoot", "LeftLowerLeg",
 	"RightLowerLeg", "Head", "Hips"]
 const BONES := ["Hips", "Spine", "Neck", "Head", "LeftUpperArm", "RightUpperArm", "LeftLowerArm", "RightLowerArm",
@@ -103,6 +116,7 @@ var _cache: Array = [{}, {}]
 var game := false
 var nofilm := false
 var noik := false
+var _dbg: Array = []   # `debugcaps=1`: GrappleDrawn.parts drawn as translucent capsules over the women (S399 critic check)
 
 
 func _initialize() -> void:
@@ -206,7 +220,9 @@ func measure(ids: Array) -> Array:
 		var length: float = player.length_s()
 		var speed := maxf(1.0, length / PLAY_MAX_S)
 		var shown := length / speed
-		var total := clampf(shown + HOLD_S, MIN_S, MAX_S)
+		# S399: the game arm films the move and a short hold, not a 4 s clip padded with a frozen last frame (every blind critic
+		# scored that freeze as "mannequin": 688 moves for 0.54 s and then stood still for 3.5 s).
+		var total := clampf(shown + HOLD_S, GAME_MIN_S if game else MIN_S, MAX_S)
 		var frames := int(ceil(total * FPS))
 		var fit := _fit(player, length)
 		var look: Vector3 = fit[0]
@@ -227,6 +243,11 @@ func measure(ids: Array) -> Array:
 		var limb_depth := {}
 		for k in LIMB_KEYS:
 			limb_depth[k] = PackedFloat32Array()
+		var src_tin := PackedFloat32Array()
+		var src_depth := {}
+		for k in LIMB_KEYS:
+			src_depth[k] = PackedFloat32Array()
+		var rad_k := float(Player.pair_scale(legs))
 		var measured := int(ceil(minf(shown, total) * FPS)) + 1
 		# One unrecorded settle frame so the first saved frame already shows this move's first pose.
 		if game:
@@ -247,6 +268,8 @@ func measure(ids: Array) -> Array:
 			follow = Vector3(c_now.x, look.y, c_now.z) if f == 0 else follow.lerp(Vector3(c_now.x, look.y, c_now.z), 1.0 - exp(-1.0 / (FPS * FOLLOW_S)))
 			cam.look_at_from_position(follow + Vector3(sin(ang) * flat, radius * sin(deg_to_rad(ELEVATION_DEG)), cos(ang) * flat),
 				follow, Vector3.UP)
+			if OS.get_cmdline_user_args().has("debugcaps=1"):
+				_draw_caps(world)
 			await _frame()
 			if game and OS.get_cmdline_user_args().has("trace=1"):
 				var pl: Dictionary = player.get("_place")
@@ -262,6 +285,17 @@ func measure(ids: Array) -> Array:
 					var ph: Vector3 = _cache[bw].get(bn.replace("LowerArm", "Hand").replace("LowerLeg", "Foot"), Vector3.ZERO)
 					print("BTRACE %d mid %s end %s straight %.3f" % [f, str(pl.snapped(Vector3.ONE * 0.001)), str(ph.snapped(Vector3.ONE * 0.001)),
 						(pl - pu).normalized().dot((ph - pl).normalized())])
+			if OS.get_cmdline_user_args().has("facedbg=1") and f % 3 == 0:
+				for w in 2:
+					var me: Dictionary = _cache[w]
+					var ot: Dictionary = _cache[1 - w]
+					if not me.has("Face"):
+						continue
+					var line := "FACEDBG %d %s face-head %.3f" % [f, ["red", "blue"][w], (me["Face"] as Vector3).distance_to(me["Head"])]
+					for seg in [["LeftUpperLeg", "LeftLowerLeg", 0.10], ["RightUpperLeg", "RightLowerLeg", 0.10]]:
+						var cp := Geometry3D.get_closest_point_to_segment(me["Face"], ot[seg[0]], ot[seg[1]])
+						line += " | other %s gap %.3f" % [seg[0], (me["Face"] as Vector3).distance_to(cp) - 0.07 - float(seg[2])]
+					print(line)
 			if game and OS.get_cmdline_user_args().has("ltrace=1"):
 				var lm: Dictionary = player.get("_limbs")
 				var line := "LTRACE %d" % f
@@ -280,8 +314,14 @@ func measure(ids: Array) -> Array:
 						(tracks[w][k] as Array).append(_cache[w].get(TRACK[k], Vector3.ZERO))
 				ov.append(_overlap())
 				_inside(tin, limb_depth)
+				_src_inside(player.joints_at(t), rad_k, src_tin, src_depth)
 		var row := _numbers(tracks, ov, shown)
 		_inside_numbers(row, tin, limb_depth)
+		var src := {}
+		_inside_numbers(src, src_tin, src_depth)
+		row["src_torso_in_m"] = src["torso_in_m"]
+		row["src_limb_park_m"] = src["limb_park_m"]
+		row["src_limb_park_at"] = src["limb_park_at"]
 		row["arm"] = "game" if game else "pure"
 		row["reverse"] = rev
 		row["speed"] = snappedf(speed, 0.01)
@@ -292,6 +332,43 @@ func measure(ids: Array) -> Array:
 		print("GORBIT_JSON " + JSON.stringify(row))
 		rows.append(row)
 	return rows
+
+
+func _draw_caps(world: Node3D) -> void:
+	var caps: Array = []
+	for w in 2:
+		if _cache[w].size() >= GD.BONES.size():
+			for c in GD.parts(_cache[w])["all"]:
+				caps.append([w, c])
+	while _dbg.size() < caps.size():
+		var mi := MeshInstance3D.new()
+		var m := StandardMaterial3D.new()
+		m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		m.no_depth_test = true
+		mi.material_override = m
+		world.add_child(mi)
+		_dbg.append(mi)
+	for i in _dbg.size():
+		var mi: MeshInstance3D = _dbg[i]
+		mi.visible = i < caps.size()
+		if not mi.visible:
+			continue
+		var c: Array = caps[i][1]
+		var a: Vector3 = c[1]
+		var b: Vector3 = c[2]
+		var r := float(c[3])
+		var cm := CapsuleMesh.new()
+		cm.radius = r
+		cm.height = a.distance_to(b) + 2.0 * r
+		cm.radial_segments = 12
+		cm.rings = 4
+		mi.mesh = cm
+		(mi.material_override as StandardMaterial3D).albedo_color = Color(1, 1, 0, 0.25) if caps[i][0] == 0 else Color(0, 1, 1, 0.25)
+		var mid := (a + b) * 0.5
+		var up := (b - a).normalized() if a.distance_to(b) > 1e-4 else Vector3.UP
+		var side := up.cross(Vector3.RIGHT if absf(up.dot(Vector3.RIGHT)) < 0.9 else Vector3.FORWARD).normalized()
+		mi.global_transform = Transform3D(Basis(side, up, side.cross(up)).orthonormalized(), mid)
 
 
 ## A frame drawn: the next frame's start in a numbers-only run (the skeleton updates inside the frame seek() ran in), the
@@ -330,6 +407,32 @@ func _inside(tin: PackedFloat32Array, limb_depth: Dictionary) -> void:
 		limb_depth[k] = arr
 
 
+## The source figure's torso-in-torso and each limb's depth in the other's torso or head this frame (`js` = joints_at, world).
+func _src_inside(js: Array, k: float, tin: PackedFloat32Array, depth: Dictionary) -> void:
+	var caps := [{}, {}]
+	for w in 2:
+		var p: PackedVector3Array = js[w]
+		var torso: Array = []
+		for c in SRC_TORSO:
+			torso.append(["t", p[DB.joint(c[0])], p[DB.joint(c[1])], float(c[2]) * k])
+		var body: Array = torso.duplicate()
+		for c in SRC_HEAD:
+			body.append(["h", p[DB.joint(c[0])], p[DB.joint(c[1])], float(c[2]) * k])
+		var limbs: Array = []
+		for c in SRC_LIMBS:
+			limbs.append([c[0], p[DB.joint(c[1])], p[DB.joint(c[2])], float(c[3]) * k])
+		caps[w] = {"torso": torso, "body": body, "limbs": limbs}
+	tin.append(GD.deepest(caps[0]["torso"], caps[1]["torso"]))
+	var by := {}
+	for w in 2:
+		for c in caps[w]["limbs"]:
+			by[c[0]] = maxf(float(by.get(c[0], 0.0)), GD.deepest([c], caps[1 - w]["body"]))
+	for key in depth:
+		var arr: PackedFloat32Array = depth[key]
+		arr.append(float(by.get(key, 0.0)))
+		depth[key] = arr
+
+
 func _inside_numbers(row: Dictionary, tin: PackedFloat32Array, limb_depth: Dictionary) -> void:
 	var peak := 0.0
 	var deep := 0
@@ -365,6 +468,9 @@ func _watch(skel: Skeleton3D, who: int) -> void:
 		for n in BONES:
 			if int(ids[n]) >= 0:
 				d[n] = gt * skel.get_bone_global_pose(int(ids[n])).origin
+		var hb := skel.find_bone("Head")
+		if hb >= 0:
+			d["Face"] = gt * (skel.get_bone_global_pose(hb) * GD.face_local(skel))
 		_cache[who] = d)
 
 

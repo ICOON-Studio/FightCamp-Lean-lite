@@ -18,7 +18,7 @@ const LIMBS := [["LeftArm", "LeftUpperArm", "LeftLowerArm", "LeftHand", 0.06, 0.
 	["LeftLeg", "LeftUpperLeg", "LeftLowerLeg", "LeftFoot", 0.10, 0.065, "LeftToes"],
 	["RightLeg", "RightUpperLeg", "RightLowerLeg", "RightFoot", 0.10, 0.065, "RightToes"]]
 const FOOT_R := 0.068
-const SOLID := ["pelvis", "trunk", "head", "neck", "shoulders"]
+const SOLID := ["pelvis", "trunk", "head", "neck", "shoulders", "face"]
 const PASSES := 3
 const GAIN := 0.8        # of a contact's depth closed a pass
 const SKIN_M := -0.035   # a limb is pushed before it touches: the ease lags, so it has this much to lag into (S399: 2 -> 3.5 cm, the ease is longer)

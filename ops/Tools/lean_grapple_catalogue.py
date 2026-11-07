@@ -193,6 +193,11 @@ def build() -> dict:
                     "status_text": text, "status_cls": cls})
         if (PREVIEWS / f"{tid}.mp4").is_file():
             row["video"] = (PREVIEWS / f"{tid}.mp4").relative_to(PREVIEW_ROOT).as_posix()
+        # S399 GRAPPLEFIX1: a verified move plays the very clip its passing check judged (the game-drawn render,
+        # previews/lean_grapple_game/), not the pure preview.
+        passed = [c for c in mine if c.get("pass") is True and str(c.get("source", "")).startswith("ops/previews/")]
+        if passed and (ROOT / str(passed[-1]["source"])[len("ops/"):]).is_file():
+            row["video"] = str(passed[-1]["source"])[len("ops/previews/"):]
         row["progress"] = "verified" if any(c.get("pass") is True for c in mine) else (
             "in progress" if row.get("video") or mine else "not started")
         rows.append(row)

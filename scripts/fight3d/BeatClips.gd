@@ -4,6 +4,7 @@ extends RefCounted
 ## from assets/data/clip_contact.json (tools/clip_contact.gd measures the glove's furthest reach on the game's body).
 ## Lead = left: our boxers fight orthodox in the ring view.
 
+const RkClips := preload("res://scripts/fight3d/RkClips.gd")
 const CONTACT_PATH := "res://assets/data/clip_contact.json"
 ## S302 (operator: "still too slow"): a follow-up by the same boxer starts part-way through its wind-up so it lands this
 ## long after her last punch, never with less than MIN_WIND_S of visible throw. Piorkowski, Lees & Barton 2011 (the paper
@@ -123,7 +124,9 @@ const OTHER_SPEED := 1.1
 ## unatural"): 1.25 -> 1.1, and the recovery / reaction speed-ups capped at 1.5x (were 2.5x). Those speed up the WHOLE clip:
 ## at 2.5x the torso and legs snapped back with the hand, which no body does - only the arm retracts that fast.
 ## The guard every Pro clip starts and ends in: playing it between moves makes the joins seamless.
-const GUARD := ["pro_idle", "idle"]
+## S399 ROKOKO2: the Rokoko captured guard first (FightingIdle 9.23-18.17 s and 35.70-45.00 s; FightStage.guard picks one
+## of the two each time); a body without it (`-- norokoko`) keeps the Pro guard.
+const GUARD := ["rk_guard", "rk_guard_b", "pro_idle", "idle"]
 
 ## S301 (operator after the second S300 film: "these still feel off"). tools/clip_recovery.gd measured every Pro clip on the
 ## game's body: at the S300 speeds the punching hand was back in guard 0.26-0.60 s after impact (Undisputed hands control
@@ -216,6 +219,12 @@ static func punch(move: String, ctx: Dictionary, has: Callable) -> String:
 		names = [stem + ("_hurt_ft" if step else "_hurt")]
 	elif step:
 		names = [stem + "_ft"]
+	# S399 ROKOKO2: a plain (or stepping) jab or cross is the actor's captured one; a big shot, a miss and a tired punch keep
+	# their Punch PRO takes.
+	var plain_ctx := not bool(ctx.get("big", false)) and not bool(ctx.get("miss", false)) and not bool(ctx.get("tired", false))
+	var rk := RkClips.punch(move, float(ctx.get("roll", 0.0)), has) if plain_ctx else ""
+	if rk != "":
+		names = [rk]
 	names.append_array([take, stem, str(PUNCH[move][2])])
 	names = names.filter(func(n): return not OFF_TAKES.has(n))
 	var got := first(names, has)
@@ -239,6 +248,8 @@ static func react(move: String, hurt: bool, has: Callable, roll: float = 0.0, bi
 
 ## The measured row of a clip (clip_contact.json): contact_s, hand, reach_m, length_s; {} when not measured.
 static func contact_row(clip: String) -> Dictionary:
+	if RkClips.is_rk(clip):
+		return RkClips.row(clip)
 	contact(clip, 0.0)
 	var row: Variant = _contact.get(clip, null)
 	return row if row is Dictionary else {}
@@ -246,6 +257,8 @@ static func contact_row(clip: String) -> Dictionary:
 
 ## Seconds into `clip` when the glove lands: the measured value, else `fallback`.
 static func contact(clip: String, fallback: float) -> float:
+	if RkClips.is_rk(clip):   # S399: the captured punch's own farthest frame (RkClips.CLIPS contact_s)
+		return float(RkClips.row(clip).get("contact_s", fallback))
 	if _contact.is_empty() and FileAccess.file_exists(CONTACT_PATH):
 		var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(CONTACT_PATH))
 		_contact = parsed if parsed is Dictionary else {"_": {}}

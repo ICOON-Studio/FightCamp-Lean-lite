@@ -4,6 +4,7 @@ extends RefCounted
 ## body's own AnimationPlayer under one name each. Split out of FightStage (S299: it had passed the 500-line rule).
 
 const NativeClip := preload("res://scripts/fight3d/NativeClip.gd")
+const RkClips := preload("res://scripts/fight3d/RkClips.gd")
 
 ## Native MetaHuman punches (20 frames at 30 fps, contact at frame 8).
 const CLIPS := {
@@ -89,6 +90,9 @@ static func load_into(ap: AnimationPlayer, skel: Skeleton3D, corner_only: bool =
 	for name in ({} if corner_only else ENTRY):
 		if _add_baked(lib, skel, prefix, str(name), str(ENTRY[name]), true):
 			added.append(name)
+	# S399 ROKOKO2: the Rokoko captured jab, cross and guard, built on this body (RkClips; `-- norokoko` = off).
+	if not corner_only:
+		added.append_array(RkClips.load_into(lib, skel, prefix, ap.get_node(ap.root_node) as Node3D))
 	return added
 
 

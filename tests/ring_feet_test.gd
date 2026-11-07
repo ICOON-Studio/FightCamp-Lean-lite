@@ -4,6 +4,7 @@ extends SceneTree
 ## stays near her place; a planted ball holds the canvas; feet never cross; falls, the clinch, the win and scenes hand the legs
 ## back (the rig lets go in under 0.3 s and shows her at her place); a director's walk arrives on its mark in her guard, no af_walk.
 
+const RkClips := preload("res://scripts/fight3d/RkClips.gd")
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
 const DT := 1.0 / 30.0
@@ -17,6 +18,8 @@ func _initialize() -> void:
 	stage.process_mode = Node.PROCESS_MODE_DISABLED
 	root.add_child(stage)
 	await process_frame
+	# S399: the rig on the Punch PRO guard - the captured Rokoko guard owns her legs (tests/rokoko_clips_test.gd)
+	RkClips.enabled = false
 	stage.setup({"glb": "res://assets/models/metahuman/mh_boxer_01.glb", "corner": "red"},
 		{"glb": "res://assets/models/metahuman/mh_boxer_02.glb", "corner": "blue", "stance": "southpaw"})
 	stage.set_process(false)

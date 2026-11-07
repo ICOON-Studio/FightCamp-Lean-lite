@@ -57,6 +57,11 @@ func _initialize() -> void:
 	var t0 := 0.0
 	var max_s := INF
 	var game_mods := false
+	## S399 ROKOKO2: `tail=<s>` the hold after the clip (default TAIL_S; a judge read the hold as an abrupt settle);
+	## `follow` = the orbit centre eases after the hips (a walk travels 1-2 m and left the frame round a fixed point).
+	var tail_s := TAIL_S
+	var follow := false
+	var once := false   # S399: the clip plays once, no repeat (a repeat restarts it: the judge reads that seam as a pop)
 	for a in OS.get_cmdline_user_args():
 		var s := str(a)
 		if s.begins_with("out="):
@@ -73,6 +78,12 @@ func _initialize() -> void:
 			max_s = float(s.substr(6))
 		elif s == "mods=game":
 			game_mods = true
+		elif s.begins_with("tail="):
+			tail_s = float(s.substr(5))
+		elif s == "follow":
+			follow = true
+		elif s == "once":
+			once = true
 	var stage: Node3D = Stage.new()
 	root.add_child(stage)
 	await process_frame
@@ -106,8 +117,8 @@ func _initialize() -> void:
 		DirAccess.make_dir_recursive_absolute(dir)
 		var start := minf(t0, ap.get_animation(name).length)
 		var length: float = minf(ap.get_animation(name).length - start, max_s)
-		var cycle := length + TAIL_S
-		var total := maxf(MIN_S, cycle)
+		var cycle := length + tail_s
+		var total := cycle if once else maxf(MIN_S, cycle)
 		var frames := int(ceil(total * FPS))
 		var face: float = body.global_rotation.y
 		var c := Vector3.ZERO
@@ -116,11 +127,16 @@ func _initialize() -> void:
 			c += p
 		c /= float(maxi(path.size(), 1))
 		c.y = 1.0
+		if follow and path.size() > 0:
+			c = Vector3((path[0] as Vector3).x, 1.0, (path[0] as Vector3).z)
 		for f in frames:
 			var t := float(f) / FPS
 			var in_cycle := fmod(t, cycle)
 			Stage.IdleMatch.freeze(bx, name, start + minf(in_cycle, length))
-			if not game_mods:
+			if follow and path.size() > 0:
+				var hp: Vector3 = path[clampi(int(minf(in_cycle, length) * FPS), 0, path.size() - 1)]
+				c = c.lerp(Vector3(hp.x, 1.0, hp.z), 1.0 - exp(-(1.0 / FPS) / 0.6))
+			if not game_mods and not name.begins_with("rk_"):   # S399: a Rokoko clip plays pure (RkPure) - no knee layer
 				KneeTrack.align(skel, 1.0)   # once: with mods=game the KneeTrack modifier already runs
 			var ang := face + PI * 0.5 + Drift.angle(f, frames, 30.0)
 			cam.look_at_from_position(Vector3(c.x + sin(ang) * RADIUS, HEIGHT, c.z + cos(ang) * RADIUS), c, Vector3.UP)

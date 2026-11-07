@@ -8,6 +8,7 @@ const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const GuardLife := preload("res://scripts/fight3d/GuardLife.gd")
 const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
 const RangeBreath := preload("res://scripts/fight3d/RangeBreath.gd")
+const RkLoco := preload("res://scripts/fight3d/RkLoco.gd")
 
 ## Stride speed of each footwork clip at 1x, metres a second, and its direction in the boxer's own frame (old repo U84,
 ## measured on the source): the body moves exactly this fast while the clip plays, so the planted foot stays planted.
@@ -128,7 +129,7 @@ func rhythm(delta: float, dist: float) -> void:
 	var rng: RandomNumberGenerator = stage.life.rng
 	for who in 2:
 		_pause[who] = float(_pause[who]) - delta
-		if float(_pause[who]) > 0.0 or not can_step(who) or not feet_down(who):
+		if float(_pause[who]) > 0.0 or not can_step(who) or not feet_down(who) or _captured(who):
 			continue
 		var p: Vector2 = RIG_PAUSE_S if rig_on else RHYTHM_PAUSE_S
 		_pause[who] = rng.randf_range(p.x, p.y)
@@ -140,6 +141,13 @@ func rhythm(delta: float, dist: float) -> void:
 		else:
 			walk(who, "strafe_left" if rng.randf() < 0.5 else "strafe_right", rng.randf_range(round_s.x, round_s.y))
 		return
+
+
+## S399 ROKOKO2: she is in the Rokoko captured guard (RkClips) - the take carries the actor's own rhythm (his feet shift and
+## pivot in it), so the fight adds no rhythm steps over it; the steps the range needs (aim_step, lunges, exits, circles)
+## still go in, and RkPure hands her legs to the rig for them.
+func _captured(who: int) -> bool:
+	return str((stage.boxers[who]["ap"] as AnimationPlayer).current_animation).begins_with("rk_guard")
 
 
 ## S391 no step pair of hers under way (always true without the rig).
@@ -156,7 +164,7 @@ func _range_steps(delta: float, dist: float) -> void:
 	var pause: Vector2 = RANGE_PAUSE_S[ph]
 	for who in 2:
 		_pause[who] = float(_pause[who]) - delta
-		if float(_pause[who]) > 0.0 or not can_step(who) or not feet_down(who) or (ph == "in" and who == int(_aim["who"])):
+		if float(_pause[who]) > 0.0 or not can_step(who) or not feet_down(who) or (ph == "in" and who == int(_aim["who"])) or _captured(who):
 			continue
 		_pause[who] = rng.randf_range(pause.x, pause.y)
 		if rng.randf() < 0.65 or ph == "inside":
@@ -250,6 +258,20 @@ func walk(who: int, clip: String, seconds: float, scale: float = WALK_SCALE, aim
 	bx["vel"] = dir.normalized() * float(spec[0]) * scale * float(bx.get("legs", 1.0))
 	bx["move_left"] = seconds
 	bx["move_total"] = seconds
+	# S399 ROKOKO2: a captured step clip carries her (RkLoco) - its own hip travel moves her, whole loops nearest the
+	# distance asked; her body never glides under a standing guard.
+	if RkLoco.on():
+		var body_dir: Vector3 = (bx["node"] as Node3D).global_transform.basis.inverse() * dir
+		var loco := RkLoco.pick(bx, body_dir, (bx["vel"] as Vector3).length() * seconds)
+		if not loco.is_empty():
+			bx["vel"] = Vector3.ZERO
+			bx["hold_m"] = 0.0   # no gap pin and no stop at the aimed gap: the step plays its whole loops
+			bx["aim_dir"] = 0.0
+			bx["move_left"] = float(loco["seconds"])
+			bx["move_total"] = float(loco["seconds"])
+			stage._cut[who] = {}
+			stage._start(who, str(loco["clip"]), 1.0, stage.GUARD_FADE_S)   # the guard's slower join (a strike's popped the knee)
+			return
 	if glide:
 		return
 	stage._cut[who] = {}
@@ -276,6 +298,8 @@ func stop(who: int) -> void:
 	# and the next one usually comes inside it (FightStage._compose ends the grace).
 	if STRIDE.has(str((bx["ap"] as AnimationPlayer).current_animation)):
 		bx["step_grace"] = STEP_GRACE_S
+	elif RkLoco.is_loco(str((bx["ap"] as AnimationPlayer).current_animation)):
+		stage.guard(who)   # S399: the captured step is done (whole loops): back to her guard where the step left her
 
 
 ## An aimed step from `dist` to `to` at `scale`, long enough to get there (it stops on arrival).

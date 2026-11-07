@@ -164,6 +164,14 @@ func walk(a: Dictionary, to: Vector3, done: Callable = Callable(), carry: bool =
 	# in her guard on her own steps - the rig puts her feet down and her body rides on them (RingFeet).
 	var i: int = stage.boxers.find(a)
 	# S395 ("still walking is terrible"): the guard shuffle read as a shuffle. Between rounds a boxer simply walks, hands down.
+	# S399 ROKOKO2 (operator: "the fighters are sliding"): the captured Mixamo walk carries her (RkLoco moves her node by
+	# its own hip travel); this only steers her and stops her on her mark.
+	if i >= 0 and (a["ap"] as AnimationPlayer).has_animation("rk_loc_walk"):
+		RingFeet.release(a)
+		if str((a["ap"] as AnimationPlayer).current_animation) != "rk_loc_walk":
+			play(a, "rk_loc_walk", 1.0, 0.0, WALK_JOIN)
+		_walks[n] = {"a": a, "to": Vector3(to.x, 0, to.z), "speed": 0.0, "done": done, "rk": true, "best": INF}
+		return
 	if i >= 0 and (a["ap"] as AnimationPlayer).has_animation("ow_walk"):
 		RingFeet.hold(stage, i)
 		var going := str((a["ap"] as AnimationPlayer).current_animation) == "ow_walk"   # a waypoint: she walks on
@@ -261,12 +269,27 @@ func drop(prop: String) -> void:
 	_follow = _follow.filter(func(f): return f["prop"] != p)
 
 
+const RK_ARRIVE_M := 0.2   # S399: a captured walk stops within this of her mark (a stride is ~0.7 m; no glide onto it)
+
+
 func tick(delta: float) -> void:
 	for n in _walks.keys():
 		var w: Dictionary = _walks[n]
 		var to: Vector3 = w["to"]
 		var at: Vector3 = (n as Node3D).position
 		var dist := Vector2(to.x - at.x, to.z - at.z).length()
+		if w.has("rk"):
+			# arrived: on the mark, or past it (the step that would cross it would turn her round on the spot)
+			if dist <= RK_ARRIVE_M or dist > float(w["best"]) + 0.02 or not str((w["a"]["ap"] as AnimationPlayer).current_animation) == "rk_loc_walk":
+				_walks.erase(n)
+				if (w["done"] as Callable).is_valid():
+					(w["done"] as Callable).call()
+				if not _walks.has(n):
+					play(w["a"], "af_idle", 1.0, 0.0, WALK_STOP_JOIN)
+				continue
+			w["best"] = minf(float(w["best"]), dist)
+			_ease_yaw(n, atan2(to.x - at.x, to.z - at.z), delta)
+			continue
 		if w.has("rig"):
 			if RingFeet.walking(w["a"], to, float(w["speed"]), delta):
 				_walks.erase(n)
