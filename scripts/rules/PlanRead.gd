@@ -8,7 +8,9 @@ extends RefCounted
 ##   opponent; a planned answer that is the wrong one and loses puts the opponent one up on her. Each read is worth
 ##   STACK_EDGE to every later exchange of the round, up to MAX_READS either way. The corner minute resets it.
 ## - ADJUST (rule 4, "opponents adjust"): an answer that keeps being the right one loses ADJUST of its edge per use after
-##   the first FREE_USES in a fight - leaning on one line stops paying, so the plan stays a puzzle.
+##   the first FREE_USES in a round - leaning on one line stops paying, so the plan stays a puzzle. Per round, not per
+##   fight: a template built for her opponent leans on its key answer, and a fight-long count left it behind the coach's
+##   generic starter (plan_templates_test); the corner minute resets both sides' reads.
 ##   PlanRead.edge(reads) -> float   PlanRead.after(reads, fit, planned, won) -> int   PlanRead.adjust(uses) -> float
 
 const STACK_EDGE := 3.5

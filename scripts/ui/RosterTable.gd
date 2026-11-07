@@ -71,8 +71,10 @@ static func _grappler_cells(c: Career, g: Dictionary) -> Dictionary:
 	var cells := {}
 	cells["fighter"] = ["%s\n%d, no-gi" % [g["name"], int(g.get("age", 0))], str(g["name"]), "ok"]
 	cells["record"] = ["%d-%d" % [int(g.get("w", 0)), int(g.get("l", 0))], float(int(g.get("w", 0)) * 100 - int(g.get("l", 0))), "ok"]
-	cells["rank"] = [str(g.get("belt", "white")).capitalize() + " belt", 999.0, "ok"]
-	cells["road"] = ["Belt road", 50.0, "ok"]
+	# S397 blind round 5 ("columns mean different things per row"): each cell answers its column - no-gi has no table
+	# and no weight cut; the belt is her road.
+	cells["rank"] = ["No table", 999.0, "ok"]
+	cells["road"] = ["%s belt" % str(g.get("belt", "white")).capitalize(), 50.0, "ok"]
 	var entered: Array = g.get("entered", [])
 	var next_day := -1
 	for d in entered:
@@ -80,7 +82,7 @@ static func _grappler_cells(c: Career, g: Dictionary) -> Dictionary:
 			next_day = int(d)
 	cells["next"] = ["Open, %s" % Clock.fmt(next_day) if next_day >= 0 else "No open entered", float(next_day if next_day >= 0 else 1.0e9), "ok" if next_day >= 0 else "watch"]
 	# S396 blind round 2 ("Ana's row is all dashes"): what she has - her class, her mood, the next belt.
-	cells["weight"] = ["Featherweight", 0.0, "ok"]
+	cells["weight"] = ["No cut", 0.0, "ok"]
 	var mood := FighterProfile.mood(float(g.get("morale", FighterProfile.MORALE_START)))
 	cells["condition"] = [mood, 50.0, {"Fired up": "good", "Steady": "ok", "Flat": "watch", "Low": "bad"}.get(mood, "ok")]
 	var nxt := BeltRoad.next_belt(str(g.get("belt", "white")))
@@ -106,9 +108,20 @@ static func needs_line(c: Career) -> String:
 static func build(main: Node, c: Career) -> VBoxContainer:
 	var v := UI.vbox(8)
 	v.name = "RosterTable"
-	var need := needs_line(c)
-	v.add_child(UI.label(("Needs you: " + need) if need != "" else "Nobody needs you this week.", UI.BODY,
-		UI.RED if need != "" else UI.MUTED, "body", true))
+	# S397 blind round 4 ("one run-on red sentence, nothing clickable"): each need is a chip that goes where it is answered.
+	var chips := HFlowContainer.new()
+	chips.name = "NeedChips"
+	chips.add_theme_constant_override("h_separation", 8)
+	chips.add_theme_constant_override("v_separation", 6)
+	chips.add_child(UI.label("Needs you:" if needs_line(c) != "" else "Nobody needs you this week.", UI.BODY, UI.FG if needs_line(c) != "" else UI.MUTED, "bold"))
+	for n in Needs.needs(c):
+		chips.add_child(UI.button(str(n["t"]), "FlagRed" if bool(n.get("red", false)) else "Flag", main.act.bind(str(n["act"]), str(n.get("arg", "")))))
+	for f in c.fighters:
+		var bad := CoachCheck.rows(c, f).filter(func(r): return str(r["state"]) == "bad")
+		if not bad.is_empty():
+			chips.add_child(UI.button("%s: %s" % [f["first"], ", ".join(bad.map(func(r): return "%s %s" % [str(r["label"]).to_lower(), r["word"]]))],
+				"Flag", main.act.bind("fighter", str(f["id"]))))
+	v.add_child(chips)
 	var head := UI.hbox(0)
 	for col in COLS:
 		var id := str(col[0])

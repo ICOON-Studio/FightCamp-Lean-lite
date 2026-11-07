@@ -18,7 +18,7 @@ purpose: the first honest date comes after Gate 3. The critic would not bet on t
 | Handbook | "Not built yet" | Should have |
 | Look | Best screen 6/10 from a blind critic | **Yes** |
 | Known rule bugs | Camp bonus counted twice; ambition does nothing. Frozen condition fixed S388 | **Yes** |
-| Release build | S396: real release export (official 4.7.2 templates), version 0.1.0, anvil icon, licence files ship; `sh tools/export.sh`. Checked: title, fight night, 3D ring, 0 errors. Exe-file icon needs rcedit | No |
+| Release build | S396: real release export (official 4.7.2 templates), version 0.1.0, anvil icon, licence files ship; `sh tools/export.sh`. Checked: title, fight night, 3D ring, 0 errors; the exe carries the icon and version info (Godot 4.7 writes them, no rcedit) | No |
 | Steam: account, page, capsule, trailer | S396: store text and AI disclosure drafted (docs/steam/); account, capsule and trailer not started | **Yes** |
 
 ## 2. Legal and asset audit

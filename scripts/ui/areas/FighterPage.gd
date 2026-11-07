@@ -34,7 +34,6 @@ const PromoShot := preload("res://scripts/ui/PromoShot.gd")
 const WB_KIT := preload("res://scripts/ui/WhiteboardKit.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const NationalsView := preload("res://scripts/ui/NationalsView.gd")
-const PrepCard := preload("res://scripts/ui/PrepCard.gd")
 const BoutHistory := preload("res://scripts/ui/BoutHistory.gd")
 
 
@@ -43,8 +42,12 @@ func build(main: Node, f: Dictionary) -> void:
 	var c: Career = main.career
 	var g := Sim.goal_read(c, f)
 	var t := int(main.route.get("ftab", 0))
+	# S397 blind round 4 ("Fight prep is 60% empty and repeats other pages"): the tab shows only with a bout or a camp to prep.
+	var prep := not (f.get("bout", {}) as Dictionary).is_empty() or not (f.get("camp", {}) as Dictionary).is_empty()
+	if t == 5 and not prep:
+		t = 0
 	var tabs := UI.hbox(4)
-	for i in TAB_ORDER:
+	for i in TAB_ORDER.filter(func(i): return i != 5 or prep):
 		tabs.add_child(UI.button(TABS[i], "TabOn" if t == i else "Tab", main.act.bind("ftab", str(i))))
 	var sub := UI.muted("%s, %d, %s, amateur %d-%d" % [f["wc"], f["age"], f["stance"], f["w"], f["l"]], UI.BODY)
 	# S396 blind round 2 ("the Week header differs from the other fighter tabs"): one header on every tab - the compact row
@@ -143,13 +146,6 @@ func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: b
 				b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 				card.add_child(b)
 				card.add_child(OppFileCard.build(fb.get("opp", {}), false, OppFileCard.OppFile.history(c.results, str(fb.get("opp", {}).get("name", "")))))
-			else:
-				# S397 blind round 3 (one card of three lines; Enter hidden on another tab): her next fight and the one
-				# filled button, beside a ready-to-fight check (PrepCard).
-				var shell: Node = card.get_parent()   # the CAMP card is for a booked bout: this state has its own two
-				remove_child(shell)
-				shell.queue_free()
-				add_child(PrepCard.free_week(main, c, f, _road_input(c, f)))
 		6:
 			var card := _card("CONTRACT")
 			UI.add_rows(card, [UI.kv("Terms", "Club stipend, $250 a week"), UI.kv("Until", "turning pro")])

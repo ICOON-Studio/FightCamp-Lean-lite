@@ -93,7 +93,7 @@ static func _entry(main: Node, t: Dictionary) -> Control:
 	h.add_child(col)
 	var area := str(t.get("area", ""))
 	if AREA_NAMES.has(area):
-		var b := UI.button("Open %s" % AREA_NAMES[area], "Btn", func(): main.close_modal(); main.nav({"area": area, "tab": 0}))
+		var b := UI.button("%s ›" % AREA_NAMES[area], "Link", func(): main.close_modal(); main.nav({"area": area, "tab": 0}))   # S397: a quiet link, not a button per row
 		b.custom_minimum_size = Vector2(150, 0)   # one width, so the column lines up
 		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		h.add_child(b)

@@ -146,7 +146,7 @@ static func _plan_row(mn: Dictionary, sel: Dictionary, names: Array, on_change: 
 	if _tv:
 		pass   # S350 "too much text": on the 3D card the dropdown alone; the tally is its hover
 	elif arrows.is_empty():
-		p_row.add_child(_m("No plan: %s improvises. Add one arrow:" % names[0], UI.SMALL))
+		p_row.add_child(_m("No plan of yours: %s runs the coach's lines or improvises. Add one arrow:" % names[0], UI.SMALL))
 	else:
 		p_row.add_child(_m("%d of %d arrows worked. Change one:" % [int(t.get("worked", 0)), int(t.get("used", 0))], UI.SMALL))
 	var changes: Array = mn.get("changes", [])

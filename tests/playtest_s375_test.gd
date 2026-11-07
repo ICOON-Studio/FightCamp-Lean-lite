@@ -1,7 +1,7 @@
 extends SceneTree
 ## S376 the operator's S375 exe playtest findings, fixed:
 ##   1. the named boxers' personalities read differently (Danny's read like Lucy's: both rolled heart high, temper hot);
-##   2. Ana is a face card on the Roster, not a text row;
+##   2. Ana is a row with her face on the Roster (S396 RosterTable), and it leads to her mat;
 ##   3. Scouting is face cards, and the scouted ranges stay on a card after the invite;
 ##   4. a fighter's own combination has a Drill it in PLAYBOOK > Combos (YOUR OWN), not only on the Training tab.
 ## (Danny's Fight camps photo is his own since S372's male bodies - tools/s376_findings_still.gd 2_camps.png.)
@@ -39,12 +39,17 @@ func _initialize() -> void:
 	var lt := Recruit.traits(c.fighters[0].get("personality", {}))
 	_check(not seen.has("%s / %s" % [lt[0][0], lt[1][0]]), "Lucy's pair (%s / %s) is hers alone" % [lt[0][0], lt[1][0]])
 
-	# 2. Ana on the Roster: a card with her face.
+	# 2. Ana on the Roster (S396 RosterTable): a row with her face; the row opens her page, whose Playbook is her mat.
 	main.act("go", "fighters:0")
 	await _frames()
-	var ana := main.find_child("Grappler_ana", true, false)
-	_check(ana != null and ana is PanelContainer and ana.find_child("Face", true, false) != null, "Ana is a face card on the Roster")
-	_check(main.find_child("Mat_ana", true, false) != null, "her card opens her mat in the Playbook")
+	var ana: Button = main.find_child("Row_ana", true, false)
+	_check(ana != null and ana.find_children("*", "TextureRect", true, false).size() > 0, "Ana is a row with her face on the Roster")
+	if ana != null:
+		ana.pressed.emit()
+		await _frames()
+		main.act("ftab", "7")
+		await _frames()
+	_check(main.find_child("MatPlayer", true, false) != null and main.find_child("MatBook", true, false) != null, "her row opens her page, and its Playbook is her mat")
 
 	# 3. Scouting: face cards; Kira's ranges stay after the invite.
 	main.act("go", "fighters:3")

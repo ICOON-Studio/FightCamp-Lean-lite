@@ -64,7 +64,11 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			var parts := arg.split("|")
 			var f := who(main, parts[0])
 			# S356 one card a day; the coach's own card for that day removes the exception (WeekPhase).
-			WeekPhase.edit(f, clampi(int(parts[1]), 0, 6), [parts[2], parts[3] if parts.size() > 3 else "normal"], WeekPlan.coach_of(f))
+			# S397: on the weekend the board is next week's (WeekPhase.ahead_view); the change waits for that Monday.
+			var g := WeekPhase.ahead_view(f, c.day) if WeekPhase.weekend(c.day) else f
+			WeekPhase.edit(g, clampi(int(parts[1]), 0, 6), [parts[2], parts[3] if parts.size() > 3 else "normal"], WeekPlan.coach_of(g))
+			if WeekPhase.weekend(c.day):
+				WeekPhase.keep_ahead(f, g)
 			main.render()
 		"twistpick":
 			# S356 the week's twist card answered: "fid|a" (until Monday runs; WeekTwist.pick).
@@ -78,10 +82,19 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		"spar":
 			var parts := arg.split("|")
 			var f := who(main, parts[0])
-			WeekPhase.edit_spar(f, clampi(int(parts[1]), 0, 2))
+			var g := WeekPhase.ahead_view(f, c.day) if WeekPhase.weekend(c.day) else f
+			WeekPhase.edit_spar(g, clampi(int(parts[1]), 0, 2))
+			if WeekPhase.weekend(c.day):
+				WeekPhase.keep_ahead(f, g)
 			main.render()
 		"weekreset":
-			WeekPhase.clear(who(main, arg))
+			var f := who(main, arg)
+			if WeekPhase.weekend(c.day):
+				var g := WeekPhase.ahead_view(f, c.day)
+				g.erase("week_edits")
+				WeekPhase.keep_ahead(f, g)
+			else:
+				WeekPhase.clear(f)
 			main.render()
 		"drill", "undrill", "padsplit", "drillit":
 			# S382 DRILLCARD1 the Training tab's pad nights (PadEdit): "fid|dow|card" a card onto a night, "fid|dow[|card]"

@@ -174,4 +174,4 @@ static func tally_words(s: Dictionary) -> String:
 	for k in [["beats", "%d beat the opponent's game"], ["works", "%d work"], ["walks", "%d walk into it"], ["untrained", "%d not drilled yet"]]:
 		if int(s.get(k[0], 0)) > 0:
 			parts.append(str(k[1]) % int(s[k[0]]))
-	return ("Answers: " + ", ".join(parts) + ".") if not parts.is_empty() else "No answers written yet: she improvises."
+	return ("Answers: " + ", ".join(parts) + ".") if not parts.is_empty() else "No answers written yet: the fighter improvises."

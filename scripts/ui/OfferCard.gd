@@ -74,7 +74,7 @@ static func _read(opp: Dictionary) -> String:
 
 
 static func _band(c: Career, f: Dictionary, o: Dictionary) -> Control:
-	var b := BoutRead.band(f, o["opp"], BoutRead.camp_for(f, int(o["day"]) - c.day), c.seed)
+	var b := BoutRead.band(f, o["opp"], BoutRead.camp_for(f, int(o["day"]) - c.day), c.seed, float(c.coach.get("rating", 0.0)))   # S397 rank 3
 	var lo := roundi(float(b["lo"]) * 100.0)
 	var hi := roundi(float(b["hi"]) * 100.0)
 	var v := UI.vbox(0)

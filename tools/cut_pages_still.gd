@@ -32,6 +32,8 @@ func _initialize() -> void:
 	main.act("fighter", str(f["id"]))
 	await _shot("fighter_overview")
 	for t in [["3", "fighter_week"], ["5", "fighter_prep"], ["4", "fighter_history"]]:
+		if t[0] == "5" and (f["bout"] as Dictionary).is_empty() and (f["camp"] as Dictionary).is_empty():
+			continue   # S397: Fight prep shows only with a bout or a camp
 		main.act("ftab", t[0])
 		await _shot(t[1])
 	# S396 (operator: "have they been reviewed and judged?"): the Playbook's four tabs join the blind review.

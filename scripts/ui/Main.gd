@@ -69,6 +69,7 @@ var _shown_screen := ""
 func _ready() -> void:
 	theme = UI.theme()
 	Settings.apply(Settings.read(), get_tree())   # S396 P15 text size, window, sound, as the player left them
+	speed = int(Settings.CLOCK[int(Settings.read()["clock"])][1])   # S397 CONTINUE's speed lives in Settings
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var bg := ColorRect.new()
 	bg.color = UI.BG

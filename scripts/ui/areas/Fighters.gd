@@ -124,9 +124,10 @@ func _roster(main: Node, c: Career) -> void:
 	var table := RosterTable.build(main, c)
 	table.name = "Roster"
 	card[1].add_child(table)
-	var scouting := UI.button("Find a fighter", "Btn", main.act.bind("tab", "3"))
-	scouting.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	card[1].add_child(scouting)
+	# S397 blind round 4 ("Find a fighter is both a tab and a button"): the tab is the way; this line says what waits there.
+	var open := c.prospects.filter(func(p): return str(p.get("state", "")) != "signed").size()
+	card[1].add_child(UI.muted("%d prospect%s scouted, waiting under Find a fighter." % [open, "" if open == 1 else "s"] if open > 0
+		else "No prospects scouted yet: Find a fighter sends the scout.", UI.SMALL, true))
 
 
 ## S387 (operator: "an overview so players knows whos has booked fight"): one line, every boxer and the fight in front of them.
@@ -234,7 +235,7 @@ func _scouting(main: Node, c: Career) -> void:
 			v.add_child(b)
 		grid.add_child(pc)
 	card[1].add_child(grid)
-	card[1].add_child(UI.muted("A trial is free: the fighter comes in on the Monday. Signing costs the %s club stipend a week." % UI.money(250), UI.SMALL, true))
+	card[1].add_child(UI.muted("Scouted ranges: a club fighter reads about 50-60. A trial is free: the fighter comes in on the Monday. Signing costs the %s club stipend a week." % UI.money(250), UI.SMALL, true))
 
 
 ## S362 the no-gi athletes on the mat: belt, stripes, opens record; the name opens her belt road.

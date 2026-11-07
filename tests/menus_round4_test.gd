@@ -3,9 +3,9 @@ extends SceneTree
 ## Ana the no-gi athlete) -
 ## 1. one main action: a filled "Enter Lucy for the nationals" on her Overview and Fight prep;
 ## 2. History lists every bout, the ones she brought too (5 rows for 4-1), with a method;
-## 3. Ana's full card only on Fights, a one-line link on Rankings and Championships;
+## 3. Ana's full card only on Fights, a one-line link on Rankings;
 ## 4. the top bar has one clock: no Pause button beside CONTINUE, the speeds sit in the Clock group;
-## 5. Escapes has no referee card and no "Next on the pads" line.
+## 5. Escapes has no referee card and no "Worth pad time next" line.
 
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 
@@ -24,11 +24,12 @@ func _initialize() -> void:
 	main.act("fighter", str(f["id"]))
 	await _frames(4)
 	_check(main.find_child("EnterNationals", true, false) is Button, "1: Overview carries Enter for the nationals")
-	main.act("ftab", "5")
-	await _frames(4)
 	var e: Button = main.find_child("EnterNationals", true, false)
-	_check(e != null and e.theme_type_variation == "BtnSolid", "1: Fight prep carries it as the filled button")
-	_check(main.find_child("PrepFree", true, false) != null, "1: Fight prep shows next fight and ready-to-fight")
+	_check(e != null and e.theme_type_variation == "BtnSolid", "1: it is the page's filled button")
+	var prep_tab := false
+	for b in main.find_children("*", "Button", true, false):
+		prep_tab = prep_tab or str((b as Button).text) == "Fight prep"
+	_check(not prep_tab, "1: no bout, no camp: the Fight prep tab is not shown (round 4)")
 	main.act("ftab", "4")
 	await _frames(4)
 	var hist: Node = main.find_child("BoutHistory", true, false)
@@ -36,7 +37,7 @@ func _initialize() -> void:
 	var rows := text.count("\nWon\n") + text.count("\nLost\n")
 	_check(rows == int(f["w"]) + int(f["l"]), "2: History has a row per bout (%d of %d)" % [rows, int(f["w"]) + int(f["l"])])
 	_check(text.contains("points") or text.contains("stopped"), "2: each row has a method")
-	for r in [["world:1", false], ["world:2", false], ["fights:0", true]]:
+	for r in [["world:1", false], ["fights:0", true]]:   # S397 round 5: Championships carries no Ana strip
 		main.act("go", r[0])
 		await _frames(3)
 		var full := false
@@ -50,12 +51,12 @@ func _initialize() -> void:
 	var pause := false
 	for b in main.find_children("*", "Button", true, false):
 		pause = pause or str((b as Button).text) == "Pause"
-	_check(not pause and main.find_child("Clock", true, false) != null, "4: one clock - no Pause, speeds beside CONTINUE")
+	_check(not pause and main.find_child("Speed", true, false) == null, "4: one clock - no Pause, no speed buttons beside CONTINUE (Settings)")
 	main.act("fighter", str(f["id"]))
 	main.act("ptab", "3")
 	await _frames(4)
 	var esc := _texts(main)
-	_check(not esc.contains("Referee breaks") and not esc.contains("Next on the pads"), "5: Escapes - no referee card, no pads line")
+	_check(not esc.contains("Referee breaks") and not esc.contains("Worth pad time next"), "5: Escapes - no referee card, no pads line")
 	_end()
 
 

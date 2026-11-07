@@ -258,7 +258,7 @@ const ESCAPE_WORDS := {
 	"pivot_out": "Turn on the lead foot and step off the ropes to the side; out of there, the opponent faces the ropes.",
 	"slip 2-3@own_ropes": "Slip the punch, cross and hook back coming off the ropes: the ropes spring the counter.",
 	"tie_up@own_ropes": "Wrap the arms and smother the punches, then push off the ropes.",
-	"push_off": "Frame on the shoulders and step back out of the tie-up: the space is hers to make.",
+	"push_off": "Frame on the shoulders and step back out of the tie-up: make the space before the next punch.",
 	"roll_out": "Roll under the hook and come up outside it, already moving away.",
 	"step_back": "One step back from mid range to long range: out of hook reach.",
 	"step_out": "Step out from long range to outside: rest out of reach.",

@@ -158,14 +158,15 @@ static func _glance(g: Dictionary) -> PanelContainer:
 	var v := UI.vbox(6)
 	p.add_child(v)
 	v.add_child(UI.label("AT A GLANCE", UI.SMALL, UI.FG, "handbold"))
-	var pair := func(rs: Array) -> String: return ", ".join(rs.map(func(r): return "%s %d" % [r["name"], int(floorf(float(r["value"])))]))
+	# S397 blind round 4 ("the same values three times"): the note names them; the bars beside it carry the numbers.
+	var pair := func(rs: Array) -> String: return " and ".join(rs.map(func(r): return str(r["name"])))
 	v.add_child(UI.label("Best: " + pair.call(g["best"]), UI.BODY, UI.FG, "hand", true))
 	v.add_child(UI.label("Work on: " + pair.call(g["work"]), UI.BODY, UI.FG, "hand", true))
 	if bool(g["hot"]):
-		v.add_child(UI.label("Hot temper (%d): trades when hit." % int(g["temper"]), UI.BODY, UI.RED, "hand", true))
+		v.add_child(UI.label("Hot temper: trades when hit.", UI.BODY, UI.RED, "hand", true))
 	if float(g["pot"]) > 0.0:
-		v.add_child(UI.label("Fight average %d of a potential %d: room for %d more." % [int(g["fight_avg"]), int(g["pot"]),
-			maxi(0, int(g["pot"]) - int(g["fight_avg"]))], UI.BODY, UI.FG, "hand", true))
+		var room := int(g["pot"]) - int(g["fight_avg"])
+		v.add_child(UI.label("Room to grow: %s." % ("a lot" if room >= 20 else ("some" if room >= 8 else "close to the ceiling")), UI.BODY, UI.FG, "hand", true))
 	if str(g["style"]) != "":
 		v.add_child(UI.label("Style: " + str(g["style"]), UI.BODY, UI.MUTED, "hand", true))
 	return p

@@ -9,10 +9,12 @@ const PATH := "user://settings.cfg"
 ## Text size: the whole interface scales (Window.content_scale_factor).
 const TEXT_SIZES := [["Small", 0.9], ["Medium", 1.0], ["Large", 1.15], ["Largest", 1.3]]
 const WINDOWS := [["Windowed", "windowed"], ["Full screen", "fullscreen"]]
+## S397 blind round 4 (speed buttons beside CONTINUE read as a second clock): how fast CONTINUE runs the days (Main.speed).
+const CLOCK := [["Normal", 1], ["Fast", 2], ["Fastest", 3]]
 ## The sound buses a player sets, with the label shown.
 const SOUND := [["Master", "Sound: all"], ["SFX", "Sound: punches, ring"], ["Crowd", "Sound: crowd"], ["Music", "Sound: music"]]
 const DEFAULTS := {"text": 1, "window": 0, "vol_Master": 100, "vol_SFX": 90, "vol_Crowd": 70, "vol_Music": 80,
-	"autosave": true}
+	"autosave": true, "clock": 1}
 
 
 static func read(path: String = PATH) -> Dictionary:
@@ -23,6 +25,7 @@ static func read(path: String = PATH) -> Dictionary:
 			d[k] = cf.get_value("settings", k, DEFAULTS[k])
 	d["text"] = clampi(int(d["text"]), 0, TEXT_SIZES.size() - 1)
 	d["window"] = clampi(int(d["window"]), 0, WINDOWS.size() - 1)
+	d["clock"] = clampi(int(d["clock"]), 0, CLOCK.size() - 1)
 	for b in SOUND:
 		d["vol_" + str(b[0])] = clampf(float(d["vol_" + str(b[0])]), 0.0, 100.0)
 	return d

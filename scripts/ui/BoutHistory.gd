@@ -26,7 +26,7 @@ static func make(main: Node, c: Career, f: Dictionary) -> Control:
 	for i in range(prior.size() - 1, -1, -1):
 		var p: Dictionary = prior[i]
 		rows.append({"when": p["when"], "opp": "%s (%s)" % [p["opp"], p["club"]], "win": p["win"], "draw": false, "method": p["method"],
-			"rounds": _rounds_of(str(p["method"])), "note": "before %s" % c.gym_name, "old": true})
+			"rounds": _rounds_of(str(p["method"])), "note": "", "old": true})
 	v.add_child(_totals(c, f, rows, mine.size()))
 	var title := "EVERY BOUT: %d-%d AMATEUR" % [f["w"], f["l"]]
 	if bool(f.get("pro", false)):
@@ -35,10 +35,16 @@ static func make(main: Node, c: Career, f: Dictionary) -> Control:
 	v.add_child(card[0])
 	var t: VBoxContainer = card[1]
 	if rows.is_empty():
-		t.add_child(UI.muted("No bouts yet: her first one shows here.", UI.BODY))
+		t.add_child(UI.muted("No bouts yet: the first one shows here.", UI.BODY))
 		return v
 	t.add_child(_line(["WHEN", "OPPONENT", "RESULT", "METHOD", "ROUNDS", "NOTE"], true))
+	var divided := false
 	for r in rows:
+		if bool(r["old"]) and not divided:   # S397 blind round 4: one divider, not "before the club" on every row
+			divided = true
+			var d := UI.caps("BEFORE %s" % c.gym_name.to_upper())
+			d.add_theme_color_override("font_color", UI.MUTED)
+			t.add_child(d)
 		t.add_child(_row(r))
 	return v
 
@@ -74,16 +80,19 @@ static func _rounds_of(method: String) -> String:
 
 ## Totals: record, wins on points, wins inside, with the club.
 static func _totals(c: Career, f: Dictionary, rows: Array, club_n: int) -> Control:
-	var h := UI.hbox(16)
+	var h := UI.hbox(40)   # S397 blind round 4 ("four giant cards for 2 and 1-0"): one strip of totals
 	var won := rows.filter(func(r): return bool(r["win"]))
 	var inside := won.filter(func(r): return str(r["method"]).begins_with("stopped")).size()
 	var club_w := rows.filter(func(r): return not bool(r["old"]) and bool(r["win"])).size()
 	for t in [["RECORD", "%d-%d" % [f["w"], f["l"]]], ["WON ON POINTS", str(won.size() - inside)], ["WON INSIDE", str(inside)],
 			["FOR %s" % c.gym_name.to_upper(), "%d-%d" % [club_w, club_n - club_w]]]:
-		var cd := UI.card(str(t[0]))
-		cd[1].add_child(UI.display(str(t[1]), 40))
-		h.add_child(cd[0])
-	return h
+		var cell := UI.hbox(10)
+		cell.add_child(UI.caps(str(t[0])))
+		cell.add_child(UI.label(str(t[1]), 24, UI.FG, "bold"))
+		h.add_child(cell)
+	var cd := UI.card()
+	cd[1].add_child(h)
+	return cd[0]
 
 
 static func _row(r: Dictionary) -> Control:

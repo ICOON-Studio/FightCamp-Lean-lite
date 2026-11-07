@@ -35,7 +35,7 @@ func _initialize() -> void:
 	_check(main.find_child("Step_3", true, false) != null and CB.chain == ["jab", "cross", "slip"], "test 2: three moves to try make three numbered rows")
 	var verdict := main.find_child("Verdict", true, false)
 	var lessons := main.find_child("Lessons", true, false)
-	_check(verdict != null and lessons != null and _text(verdict).contains("FLOWS"), "test 3: 1-2 then slip FLOWS, with key lessons (%s)" % (_text(verdict) if verdict else "none"))
+	_check(verdict != null and lessons != null and _text(verdict).to_upper().contains("FLOWS"), "test 3: 1-2 then slip FLOWS, with key lessons (%s)" % (_text(verdict) if verdict else "none"))
 	var why := CB.locked_why(f, "rear_uppercut")
 	var up := float((f["moves"] as Dictionary)["Uppercut"])
 	_check((up < 30.0) == (why != "") and CB.locked_why(f, "slip") == "", "test 4: a punch under 30 says why (uppercut %d: '%s'); a slip never locks" % [int(up), why])

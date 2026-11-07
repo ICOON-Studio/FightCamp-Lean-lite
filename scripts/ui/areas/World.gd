@@ -40,17 +40,21 @@ func build(main: Node) -> void:
 				rows.append(line)
 			if rows.is_empty():
 				rows.append(UI.muted("Nothing from the other clubs yet.", UI.BODY))
-			rows.append(UI.muted("Your own club's news is in Club, Records.", UI.SMALL))
+			rows.append(UI.muted("Your results, signings and money news are in Club, Records.", UI.SMALL))
 			UI.add_rows(card[1], rows)
-			add_child(card[0])
+			# S397 blind round 4 ("News: eight lines, two-thirds empty"; "the calendar repeats on Championships"): what has
+			# happened beside what is coming - the region's events move here from Championships.
+			var cols := UI.hbox(16)
+			cols.name = "NewsCols"
+			card[0].size_flags_stretch_ratio = 3.0
+			cols.add_child(card[0])
+			add_child(cols)
+			_events(c, cols)
 		1:
 			_rankings(c)
 		2:
-			# S396 screen cut: Championships = the season's events and the road to the nationals.
-			_events(c)
+			# S396 screen cut: Championships = the road to the nationals (S397: the events moved to News).
 			NationalsView.build(self, main, c)
-			for g in c.grapplers:   # S396 blind round 2: her opens are her championships
-				add_child(MatOpens.link(main, c, g, "No-gi has opens, not championships: her entries are on Fights."))
 		3:
 			_search()
 		4:
@@ -68,7 +72,7 @@ func _rankings(c: Career) -> void:
 	for div in divs:
 		_ranking_table(c, div)
 	for g in c.grapplers:   # S396: no-gi has no ranking table in the game; her belt is the ladder, said plainly
-		add_child(MatOpens.link(_main, c, g, "No-gi has no ranking table: her belt is her ladder."))
+		add_child(MatOpens.link(_main, c, g, "No-gi has no ranking table: the belt is the ladder."))
 
 
 func _ranking_table(c: Career, div: String) -> void:
@@ -127,9 +131,11 @@ func _last_bout(c: Career, r: Dictionary, who: Dictionary) -> String:
 	return "%s %s, %s" % ["beat" if bool(last[0]["win"]) else "lost to", last[0]["vs"], str(last[0]["how"]).get_slice(",", 0)]
 
 
-func _events(c: Career) -> void:
-	var card := UI.card("EVENTS")
-	add_child(card[0])
+func _events(c: Career, parent: Container) -> void:
+	var card := UI.card("COMING UP")
+	card[0].size_flags_stretch_ratio = 2.0
+	card[0].size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	parent.add_child(card[0])
 	var ev: Array = []
 	for e in Champs.calendar(c):
 		ev.append({"d": int(e["d"]), "t": e["t"], "ours": true})

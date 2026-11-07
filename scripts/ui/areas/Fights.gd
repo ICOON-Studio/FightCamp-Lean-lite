@@ -96,11 +96,12 @@ func _standing(main: Node, c: Career, f: Dictionary) -> Control:
 		v.add_child(UI.label("Booked: vs %s, %s" % [fb["opp"]["name"], Clock.fmt(int(fb["day"]))], UI.BODY, UI.GOLD, "bold"))
 	var road: Dictionary = NextStep.road(FighterPage._road_input(c, f), c.day)
 	if int(road["lit"]) >= 0:
-		v.add_child(UI.caps("NEXT ON HER ROAD"))
+		v.add_child(UI.caps("NEXT ON THE ROAD"))
 		v.add_child(UI.label("%s. %s" % [str(road["steps"][int(road["lit"])]["name"]), str(road.get("need", ""))], UI.SMALL, UI.FG, "body", true))
-	var enter := NationalsView.enter_button(main, c, f)
-	if enter != null:
-		v.add_child(enter)
+	if NationalsView.enter_button(main, c, f) != null:   # S397 blind round 4: the Enter button lives on Championships
+		var go := UI.button("Enter %s on Championships" % f["first"], "Link", main.act.bind("go", "world:2"))
+		go.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		v.add_child(go)
 	return fc[0]
 
 
@@ -146,5 +147,5 @@ func _results(c: Career) -> void:
 	for r in c.results:
 		var won := str(r.get("outcome", "win" if bool(r["win"]) else "loss"))
 		rows.append(UI.row("%s %s %s, %s%s" % [r.get("who", ""), {"win": "beat", "loss": "lost to", "draw": "drew with"}[won], r["opp"], r["cards"], " (pro)" if bool(r.get("pro", false)) else ""],
-			"%s. %s" % [Clock.fmt(int(r["d"])), r["why"]], UI.GREEN if bool(r["win"]) else UI.RED))
+			"%s. %s" % [Clock.fmt(int(r["d"])), str(r["why"]).get_slice(":", 0)], UI.GREEN if bool(r["win"]) else UI.RED))   # S397: no camp jargon
 	UI.add_rows(card[1], rows)

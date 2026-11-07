@@ -55,7 +55,8 @@ func _overview(c: Career) -> void:
 		UI.kv("Weekly in", UI.signed(int(inc["total"])), UI.GREEN, "mono"),
 		UI.kv("Weekly costs", UI.signed(-int(cost["total"])), UI.FG, "mono"),
 		UI.kv("Weekly net", UI.signed(net), UI.GREEN if net >= 0 else UI.RED, "mono"),
-		UI.kv("Owed, billed %s" % Clock.fmt(GameMoney.next_bill_day(c.day)), UI.money(c.accrued), UI.FG, "mono"),
+		# S397 blind round 4 ("Owed $0" beside $1,293 of weekly costs read as a contradiction): what the month has run up.
+		UI.kv("Month's bill so far, paid %s" % Clock.fmt(GameMoney.next_bill_day(c.day)), UI.money(c.accrued) if c.accrued > 0 else "nothing yet: it adds up each Monday", UI.FG, "mono"),
 	])
 	# S324 update 27: the runway and the close rule, in plain words.
 	var ms := Needs.money_status(c)
@@ -78,10 +79,10 @@ func _overview(c: Career) -> void:
 	var scale := float(maxi(1, maxi(int(inc["total"]), int(cost["total"]))))
 	split.add_child(_split_card("WHERE IT COMES FROM, A WEEK", [
 		["Members' dues", int(inc["dues"])], ["Evening classes", int(inc["classes"])],
-		["BJJ classes' dues", int(inc.get("bjj", 0))], ["Sponsors", int(inc["sponsors"])]], scale, UI.GREEN, "+"))
+		["No-gi classes' dues", int(inc.get("bjj", 0))], ["Sponsors", int(inc["sponsors"])]], scale, UI.GREEN, "+"))
 	split.add_child(_split_card("WHERE IT GOES, A WEEK", [
 		["Rent", int(cost.get("rent", cost["upkeep"]))], ["Boxing Board fees", int(cost.get("fees", 0))],
-		["Coach", int(cost["staff"])], ["Fighter stipends", int(cost["fighters"])], ["BJJ coach", int(cost.get("bjj", 0))]],
+		["Coach", int(cost["staff"])], ["Fighter stipends", int(cost["fighters"])], ["No-gi classes' coach", int(cost.get("bjj", 0))]],
 		scale, UI.RED, "-"))
 
 

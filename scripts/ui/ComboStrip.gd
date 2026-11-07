@@ -82,7 +82,7 @@ static func _card(f: Dictionary, i: int, id: String, e: Dictionary, chain: Array
 	if needs != "":
 		var lv := float((f.get("moves", {}) as Dictionary).get(needs, 0.0))
 		var t := MoveMastery.tier(lv)
-		var lab := UI.label("%s %d" % [t, int(lv)], UI.TINY, TIER_COLOR.get(t, UI.FG), "bold")
+		var lab := UI.label(t.capitalize(), UI.TINY, TIER_COLOR.get(t, UI.FG), "bold")   # S397: the level on hover
 		lab.tooltip_text = "Mastery of the %s: %d. %s" % [needs.to_lower(), int(lv),
 			"A weapon in a fight from %d." % int(Combos.LEARN_AT) if lv < Combos.LEARN_AT else "Ready to throw in a fight."]
 		v.add_child(lab)
@@ -93,20 +93,17 @@ static func _card(f: Dictionary, i: int, id: String, e: Dictionary, chain: Array
 				"Not a weapon yet (%d of %d): pad time first - Training, Pads with the coach" % [int(lv), int(Combos.LEARN_AT)]))
 	else:
 		v.add_child(UI.muted("any boxer", UI.TINY))
-	if BeatClips.IMPACT_S.has(id):
-		v.add_child(UI.label("lands %.2f s" % float(BeatClips.IMPACT_S[id]), UI.TINY))
+	# S397 blind round 4 ("lands 0.36 s", "gas +1.3%", "hurts head 1.7" are engine numbers): one word for its gas; the
+	# timing, gas and damage numbers live on the totals' hover cards.
 	var econ := SkillAwards.economy_ids(f)
 	var gas := 100.0 * (CF.energy(chain.slice(0, i + 1), econ) - CF.energy(chain.slice(0, i), econ)) / Combos.ROUND_COST
-	v.add_child(UI.label("gas +%.1f%%" % gas, UI.TINY, UI.AMBER if gas >= 2.0 else UI.FG))
+	v.add_child(UI.label("costs gas" if gas >= 2.0 else "easy on gas", UI.TINY, UI.AMBER if gas >= 2.0 else UI.FG))
 	if grade != "":
 		var g := Icons.tip(UI.chip("%s grade" % grade.capitalize(), "gold"),
 			"Passed at %s: clean technique, %d%% less gas on this punch - on this card and in the ring." % [
 			grade.capitalize(), roundi(100.0 * (1.0 - float(SkillAwards.ECONOMY[grade])))])
 		g.name = "Graded"
 		v.add_child(g)
-	var dmg := _damage([id])
-	if dmg["head"] + dmg["ribs"] > 0.0:
-		v.add_child(UI.label("hurts %s %.1f" % ["ribs" if dmg["ribs"] > 0.0 else "head", dmg["ribs"] + dmg["head"]], UI.TINY))
 	if i == 0 and float(st.get("delta", 0.0)) < 0.0:
 		v.add_child(Icons.tip(UI.chip("slow opener", "red"), " ".join(st.get("notes", []))))
 	MoveTip.attach(p, id, f)   # S382 MOVETIP1: hover a card in the strip and the hover card plays that move
@@ -124,9 +121,8 @@ static func _join(st: Dictionary) -> Control:
 	var arrow := UI.label("->", UI.BODY + 4, col, "bold")
 	arrow.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(arrow)
-	var score := UI.label(("+%d" % int(d)) if d > 0.0 else (str(int(d)) if d < 0.0 else "even"), UI.SMALL, col, "bold")
-	score.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	v.add_child(score)
+	arrow.tooltip_text = "%+d to the combination's strength" % int(d)
+	arrow.mouse_filter = Control.MOUSE_FILTER_PASS
 	var notes: Array = st.get("notes", [])
 	if not notes.is_empty():
 		var words := UI.label(_short(str(notes[0])), UI.TINY - 2, col, "body", true)
@@ -146,12 +142,12 @@ static func totals(f: Dictionary, chain: Array, rated: Dictionary, bid: String) 
 	g.add_theme_constant_override("h_separation", 10)
 	var word := str(rated["word"])
 	var col: Color = {"flows": UI.GREEN, "workable": UI.AMBER}.get(word, UI.RED)
-	g.add_child(_tile("STRENGTH", "%d" % int(rated["score"]), word.to_upper() + " (70+ flows)", col,
+	g.add_child(_tile("STRENGTH", word.capitalize(), "how each punch sets up the next", col,
 		{"title": "Combination strength", "rows": [["Score", "%d / 100" % int(rated["score"]), "", ""], ["Flows at", "70", "", ""],
 		["Workable at", "45", "", ""]], "means": "how well each punch sets up the next: the loaded hand on time, level changes, moving the head after. Each join on the strip shows its share."}))
 	var gas := CF.energy(chain, SkillAwards.economy_ids(f))
 	var share := 100.0 * gas / Combos.ROUND_COST
-	var tank := _tile("GAS", "%d%%" % maxi(1, int(round(share))), "of a round, each time", UI.AMBER if share >= 8.0 else UI.FG,
+	var tank := _tile("GAS", "Light" if share < 4.0 else ("Medium" if share < 8.0 else "Heavy"), "on the tank, each time", UI.AMBER if share >= 8.0 else UI.FG,
 		{"title": "Gas tank", "rows": [["This chain", "%.2f" % gas, "", ""], ["A whole round", "%.0f" % Combos.ROUND_COST, "", ""],
 		["Share", "%.0f%%" % share, "", "watch" if share >= 8.0 else ""]],
 		"means": "each throw takes %.0f%% of what a whole round of fighting costs. Long chains tire sooner." % share})
@@ -160,10 +156,12 @@ static func totals(f: Dictionary, chain: Array, rated: Dictionary, bid: String) 
 	var t := 0.0
 	for id in chain:
 		t += float(BeatClips.IMPACT_S.get(str(id), 0.0))
-	g.add_child(_tile("LANDS IN", "%.1f s" % t, "first to last punch", UI.FG,
+	g.add_child(_tile("SPEED", "Quick" if t < 1.2 else ("Steady" if t < 2.0 else "Slow"), "first punch to last", UI.FG,
 		{"title": "Speed", "rows": [], "means": "the time the punches take to land, one after another (shipped boxing games' median punch timing). The longer it runs, the longer the boxer stands there to be hit."}))
 	var dmg := _damage(chain)
-	g.add_child(_tile("DAMAGE", "%.1f" % (dmg["head"] + dmg["ribs"]), "head %.1f - ribs %.1f" % [dmg["head"], dmg["ribs"]], UI.FG,
+	var hurt: float = float(dmg["head"]) + float(dmg["ribs"])
+	g.add_child(_tile("DAMAGE", "Light" if hurt < 3.0 else ("Solid" if hurt < 6.0 else "Heavy"),
+		"head and body" if dmg["ribs"] > 0.0 and dmg["head"] > 0.0 else ("to the body" if dmg["ribs"] > 0.0 else "to the head"), UI.FG,
 		{"title": "Damage if it all lands", "rows": [["Head", "%.1f" % dmg["head"], "", ""], ["Ribs", "%.1f" % dmg["ribs"], "", ""]],
 		"means": "what the punches take off the opponent's body map when every one lands (a big shot doubles it). Ribs drain the gas too."}))
 	g.add_child(_odds_tile(f, bid))
@@ -178,11 +176,16 @@ static func _odds_tile(f: Dictionary, bid: String) -> Control:
 	if tbl.is_empty():
 		return _tile("VS " + who, "-", "book combinations only", UI.MUTED,
 			{"title": "In the ring", "rows": [], "means": "the ring odds exist for the combinations in the book; start from one on the left to see how often it lands whole."})
+	# S397 blind round 4 ("VS AN EVEN OPPONENT 0%" above a table of 40-60%): with no opponent booked there is no main game,
+	# so the tile reads the table's middle - an even opponent's average - instead of a missing row.
 	var best := 0.0
+	var n := 0
 	for r in tbl["rows"]:
-		if str(r["sit"]) == str(tbl["main"]):
-			best = float(r["odds"])
-	return _tile("VS " + who, "%d%%" % int(round(best * 100.0)), "lands whole in the opponent's main game", UI.GREEN if best > float(tbl["base"]) else UI.FG,
+		if str(tbl["main"]) == "" or str(r["sit"]) == str(tbl["main"]):
+			best += float(r["odds"])
+			n += 1
+	best = best / maxf(1.0, float(n))
+	return _tile("VS " + who, "%d%%" % int(round(best * 100.0)), "lands whole, on average" if str(tbl["main"]) == "" else "lands whole in the opponent's main game", UI.GREEN if best > float(tbl["base"]) else UI.FG,
 		{"title": "In the ring", "rows": [["This combination", "%d%%" % int(round(best * 100.0)), "", ""],
 		["No combination", "%d%%" % int(round(float(tbl["base"]) * 100.0)), "", ""]],
 		"means": "how often it lands whole in the opponent's main game, the fight's own dice. The table below has every game."})

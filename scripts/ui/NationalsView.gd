@@ -47,14 +47,16 @@ static func _road_card(page: Control, main: Node, c: Career, f: Dictionary) -> v
 	road.stops = stops(c, f)
 	card[1].add_child(road)
 	if not _this_year(c, f):
-		card[1].add_child(_needs(c, f))
 		var why := Champs.cannot_enter(c, f)
+		if why != "":
+			card[1].add_child(_needs(c, f))
 		if why == "":
 			var b := UI.button("Enter %s" % f["first"], "BtnSolid", main.act.bind("enterchamp", str(f["id"])))
 			b.name = "Enter_" + str(f["id"])
 			b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 			card[1].add_child(b)
 			card[1].add_child(UI.muted("Each round is a normal bout: camp, weigh-in, your corner. No other offers while in it; no ticket cut for the club.", UI.SMALL, true))
+			card[1].add_child(_needs(c, f))   # S397: the button first, what she meets under it
 		else:
 			card[1].add_child(UI.muted(why + ".", UI.BODY, true))
 	var titles: Array = f.get("titles", [])
@@ -113,11 +115,12 @@ static func _needs(c: Career, f: Dictionary) -> HBoxContainer:
 	var right_age := age >= SeasonPath.AGE_MIN and age <= SeasonPath.AGE_MAX
 	var fit := not Injuries.out(c, f)
 	var met := func(ok: bool) -> Color: return UI.GREEN if ok else UI.AMBER
-	row.add_child(_tile("BOUTS", "%d of %d" % [mini(n, SeasonPath.MIN_BOUTS), SeasonPath.MIN_BOUTS], str(mini(n, SeasonPath.MIN_BOUTS)),
+	# S397 blind round 4 ("each ring says its value twice"): the ring holds the number, the line under it says it in words.
+	row.add_child(_tile("BOUTS", "enough bouts" if n >= SeasonPath.MIN_BOUTS else "%d more to box" % (SeasonPath.MIN_BOUTS - n), str(mini(n, SeasonPath.MIN_BOUTS)),
 		n, SeasonPath.MIN_BOUTS, met.call(n >= SeasonPath.MIN_BOUTS)))
-	row.add_child(_tile("REGISTERED", "%d of 13 weeks" % weeks, str(weeks), weeks, 13, met.call(Champs.club_days(c, f) >= SeasonPath.MIN_CLUB_DAYS)))
-	row.add_child(_tile("AGE", "Elite is %d to %d" % [SeasonPath.AGE_MIN, SeasonPath.AGE_MAX], str(age), 1, 1, UI.GREEN if right_age else UI.RED))
-	row.add_child(_tile("FIT TO BOX", "yes" if fit else Injuries.line(c, f), "OK" if fit else "HURT", 1, 1, UI.GREEN if fit else UI.RED))
+	row.add_child(_tile("WEEKS REGISTERED", "long enough" if weeks >= 13 else "%d weeks to go" % (13 - weeks), str(weeks), weeks, 13, met.call(Champs.club_days(c, f) >= SeasonPath.MIN_CLUB_DAYS)))
+	row.add_child(_tile("AGE", "in the elite band" if right_age else "elite is %d to %d" % [SeasonPath.AGE_MIN, SeasonPath.AGE_MAX], str(age), 1, 1, UI.GREEN if right_age else UI.RED))
+	row.add_child(_tile("FIT TO BOX", "no injuries" if fit else Injuries.line(c, f), "OK" if fit else "HURT", 1, 1, UI.GREEN if fit else UI.RED))
 	return row
 
 

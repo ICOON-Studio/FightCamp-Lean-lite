@@ -7,13 +7,15 @@ extends RefCounted
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
+const PlanPressure := preload("res://scripts/rules/PlanPressure.gd")
 
 const GRADES := {"good": "GOOD PLAN", "mixed": "MIXED PLAN", "wrong": "WRONG PLAN", "none": "NO PLAN"}
 ## The grade is the plan against no plan at all: the mean edge per exchange. Below zero it did worse than improvising.
 const GOOD_AT := 1.5
 const WRONG_AT := 0.0
 ## Chance of winning the bout per point of mean plan edge. Measured S388, tools/plan_effect_probe.gd: +2.96 edge = +14 points.
-const WORTH_PER_EDGE := 4.7
+## S397 with the reads, pressure and the tank ceiling riding on the answers: +2.65 = +24 points, -1.93 = -13 (600 bouts each).
+const WORTH_PER_EDGE := 8.0
 const MIN_HABIT := 3
 const SIT_WORDS := {"press": "pressure", "range": "a boxer at range", "counter": "a counter-puncher", "counter_late": "a counter-puncher",
 	"loadup": "big loaded shots", "tiring": "a tiring opponent", "hurt": "a hurt opponent", "hurt_danger": "a hurt opponent who hits back",
@@ -62,6 +64,22 @@ static func read(rounds: Array, first: String, opp: String) -> Dictionary:
 	out["plan"] = _plan_line(grade, t, first, worth)
 	var won := _won(rounds)
 	out["against"] = _against_line(grade, top_wrong, wrong, habits, first, opp, won, t, rounds)
+	# S397 what lasted past the exchange (PlanPressure): the punches the pressure took off her, the tank lost to wrong answers punished.
+	var pt := PlanPressure.tally(rounds)
+	out["pressure"] = pt
+	if int(pt["cut"]) > 0:
+		out["plan"] = str(out["plan"]) + " Its pressure took %d landed punch%s off %s." % [int(pt["cut"]), "" if int(pt["cut"]) == 1 else "es", opp]
+	# S397 rule 1: a plan the coach wrote because none was (CoachPlan) says so, and the next step is the player's own.
+	var coach := 0
+	for r in rounds.slice(0, 1):
+		coach = (r.get("plan", []) as Array).filter(func(a): return bool((a as Dictionary).get("coach", false))).size()
+	out["coach"] = coach
+	if coach > 0:
+		out["plan"] = "The coach's plan (none was written): " + str(out["plan"])
+		out["next"] = "The coach planned %s from %s's tape. A plan of your own in the Playbook can answer more." % [_n(coach, "card"), opp]
+	if float(pt["tank"]) >= 1.0:
+		out["against"] = str(out["against"]) + " Wrong answers punished cost %s %d of the tank for the rest of the fight." % [first,
+			int(round(float(pt["tank"])))]
 	out["next"] = _next_line(grade, top_best, top_wrong, first, opp, won, _top(sits))
 	return out
 

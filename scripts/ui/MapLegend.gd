@@ -29,7 +29,7 @@ static func build(plan_mode: bool) -> PanelContainer:
 		v.add_child(UI.sep())
 		var h := UI.hbox(14)
 		h.add_child(UI.label("Build it:  1  pick a card    2  pick WHEN    3  take a move out", UI.SMALL, UI.FG, "semi"))
-		h.add_child(UI.muted("The boxer follows your arrows from any card; with none, the boxer improvises.", UI.TINY))
+		h.add_child(UI.muted("The boxer follows your arrows from any card; with none, a coach writes one or two, and without a coach the boxer improvises.", UI.TINY))
 		v.add_child(h)
 	return p
 

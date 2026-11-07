@@ -30,7 +30,7 @@ static func build(main: Node, f: Dictionary, tag: String) -> Array:
 	top.add_child(UI.label(record(f), 26, UI.GOLD, "bold"))
 	top.add_child(UI.spacer())
 	if int(f.get("rank", 0)) > 0:
-		top.add_child(UI.chip("NUMBER %d" % int(f["rank"]), "gold"))
+		top.add_child(UI.chip("#%d IN THE REGION" % int(f["rank"]), "gold"))
 	v.add_child(top)
 	return [p, v]
 

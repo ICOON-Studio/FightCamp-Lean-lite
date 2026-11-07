@@ -360,5 +360,5 @@ static func _ring(fr: Dictionary, bid: String) -> Control:
 		g.add_child(UI.muted({"best": "its best game", "ok": "fits", "wrong": "walks into trouble", "none": "no help"}.get(str(r["fit"]), ""), UI.SMALL))
 	box.add_child(g)
 	box.add_child(UI.muted("An exchange with no combination: %d%%.%s" % [int(round(float(t["base"]) * 100.0)),
-		"" if bool(t["drilled"]) else " Not drilled yet: worth 80% until 30 on the pads."], UI.SMALL, true))
+		"" if bool(t["drilled"]) else " Not drilled yet: it lands less well until it has pad time."], UI.SMALL, true))
 	return box

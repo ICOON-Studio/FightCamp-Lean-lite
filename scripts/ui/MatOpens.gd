@@ -17,11 +17,11 @@ static func link(main: Node, c: Career, g: Dictionary, line: String) -> Control:
 	cd[0].name = "MatLink_" + str(g["id"])
 	var h := UI.hbox(14)
 	h.add_child(UI.button("%s  %d-%d in opens" % [g["name"], int(g.get("w", 0)), int(g.get("l", 0))], "Link", main.act.bind("fighter", str(g["id"]))))
-	h.add_child(UI.chip("%s BELT" % str(g.get("belt", "white")).to_upper(), "gold"))
+	h.add_child(UI.chip("%s BELT, %d STRIPE%s" % [str(g.get("belt", "white")).to_upper(), int(g.get("stripes", 0)), "" if int(g.get("stripes", 0)) == 1 else "S"], "gold"))   # S397 r6: same words as Fights
 	var l := UI.muted(line, UI.BODY, true)
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	h.add_child(l)
-	h.add_child(UI.button("Her opens on Fights", "Btn", main.act.bind("go", "fights:0")))
+	h.add_child(UI.button("%s's opens on Fights" % g["first"], "Btn", main.act.bind("go", "fights:0")))
 	cd[1].add_child(h)
 	return cd[0]
 
@@ -39,7 +39,7 @@ static func card(main: Node, c: Career, g: Dictionary, title: String = "") -> Co
 	head.add_child(UI.chip("%s BELT, %d STRIPE%s" % [belt.to_upper(), int(g.get("stripes", 0)), "" if int(g.get("stripes", 0)) == 1 else "S"], "gold"))
 	v.add_child(head)
 	if nxt != "":
-		var road := UI.label("The belt is her ladder: %s belt %s." % [nxt.capitalize(), _way(float(r["share"]))], UI.SMALL, UI.MUTED, "body", true)
+		var road := UI.label("Next belt: %s, %d%% of the way." % [nxt, int(round(float(r["share"]) * 100.0))], UI.SMALL, UI.MUTED, "body", true)
 		road.mouse_filter = Control.MOUSE_FILTER_PASS   # S397: the counts stay on hover, not in the line
 		road.tooltip_text = "Classes %d of %d, moves %d of %d." % [int(r["mat"][0]), int(r["mat"][1]), int(r["moves"][0]), int(r["moves"][1])]
 		v.add_child(road)

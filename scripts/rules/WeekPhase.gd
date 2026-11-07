@@ -9,7 +9,9 @@ extends RefCounted
 ##   ensure(f, day) -> sync unless the phase is already this week's
 ##   spar(phase) / pads(phase) -> sparring / pad nights   film_night(phase, camp, day) -> the camp's one film night is this week   card(day) -> "Hard intervals"   cards() -> [[id, intensity] x every card]
 ##   edit(f, dow, day_pick) / edit_spar(f, n) / edits(f) -> {days: {dow: [id, int]}, spar}   clear(f)
-## Pure static; f keys: phase, week_edits {phase, days {"0".."6": [id, intensity]}, spar}.
+##   S397 the weekend plans next week: weekend(day), ahead_view(f, day) -> a view of f for next Monday's week (its own
+##   exceptions, f["week_edits_next"]), keep_ahead(f, view); sync moves them into week_edits on that Monday.
+## Pure static; f keys: phase, week_edits {phase, days {"0".."6": [id, intensity]}, spar}, week_edits_next {.., monday}.
 
 const PHASES := {
 	"base": {"name": "Base week", "line": "No bout booked: the coach keeps things ticking over.", "spar": 1},
@@ -49,6 +51,13 @@ static func sync(f: Dictionary, day: int) -> String:
 	f["phase"] = p
 	f["phase_day"] = day   # S382: the week the phase is for (film_night: the camp's first week only)
 	f.erase("week_days")   # the S354 whole-week save: the phase writes the week now
+	# S397 the week planned on the weekend before (ahead_view) becomes this week's exceptions on its Monday.
+	var nx: Dictionary = f.get("week_edits_next", {})
+	var monday := day - posmod(day, 7)
+	if not nx.is_empty() and int(nx.get("monday", -1)) <= monday:
+		if int(nx.get("monday", -1)) == monday and str(nx.get("phase", "")) == p:
+			f["week_edits"] = nx
+		f.erase("week_edits_next")
 	var e: Dictionary = f.get("week_edits", {})
 	if not e.is_empty() and str(e.get("phase", "")) != p:
 		f.erase("week_edits")
@@ -63,6 +72,41 @@ static func ensure(f: Dictionary, day: int) -> String:
 	if not f.has("phase") or pd - posmod(pd, 7) != day - posmod(day, 7):
 		return sync(f, day)
 	return str(f["phase"])
+
+
+## S397 blind round 5-6 ("the Week tab edits a week that is already over"): Saturday and Sunday plan the next week.
+static func weekend(day: int) -> bool:
+	return posmod(day, 7) >= 5
+
+
+## A view of `f` for the week that starts next Monday: that week's phase, the exceptions planned for it (its own slot,
+## else this week's when the phase carries over), no twist yet (Monday deals it). Shares f's other keys (pad week, moves).
+static func ahead_view(f: Dictionary, day: int) -> Dictionary:
+	var monday := day - posmod(day, 7) + 7
+	var g := f.duplicate(false)
+	var p := phase(f.get("bout", {}), monday)
+	g["phase"] = p
+	g["phase_day"] = monday
+	g["twist"] = ""
+	g.erase("twist_pick")
+	var nx: Dictionary = f.get("week_edits_next", {})
+	if int(nx.get("monday", -1)) == monday and str(nx.get("phase", "")) == p:
+		g["week_edits"] = nx
+	elif str((f.get("week_edits", {}) as Dictionary).get("phase", "")) == p:
+		g["week_edits"] = (f["week_edits"] as Dictionary).duplicate(true)
+	else:
+		g.erase("week_edits")
+	return g
+
+
+## Keeps what was planned on the view as next week's exceptions.
+static func keep_ahead(f: Dictionary, g: Dictionary) -> void:
+	var e: Dictionary = (g.get("week_edits", {}) as Dictionary).duplicate(true)
+	e["phase"] = str(g["phase"])
+	e["monday"] = int(g["phase_day"])
+	if not e.has("days"):
+		e["days"] = {}
+	f["week_edits_next"] = e
 
 
 static func week(p: String, focus: String) -> Array:

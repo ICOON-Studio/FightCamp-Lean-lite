@@ -44,7 +44,7 @@ static func build(main: Node, c: Career, f: Dictionary, checklist: bool = false)
 	top.add_child(UI.label(record, 28, UI.GOLD, "bold"))
 	top.add_child(UI.spacer())
 	if int(f.get("rank", 0)) > 0:
-		top.add_child(UI.chip("NUMBER %d" % int(f["rank"]), "gold"))
+		top.add_child(UI.chip("#%d IN THE REGION" % int(f["rank"]), "gold"))
 	var mood := UI.chip(mood_word(f).to_upper(), mood_colour(f))
 	mood.name = "Mood_" + str(f["id"])
 	mood.tooltip_text = str(f.get("mood_reason", ""))

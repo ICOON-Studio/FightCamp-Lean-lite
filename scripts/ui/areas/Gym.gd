@@ -41,6 +41,11 @@ func build(main: Node) -> void:
 			add_child(RecordsPage.build(main, c))
 
 
+## S397 blind round 4 ("rating 58" is a raw number): a coach's rating in words.
+static func _grade(r: int) -> String:
+	return "a solid club coach" if r < 65 else ("a strong coach" if r < 80 else "an elite coach")
+
+
 func _members(c: Career) -> void:
 	var card := UI.card("MEMBERS")
 	var target := Membership.natural_members(c.reputation)
@@ -51,8 +56,7 @@ func _members(c: Career) -> void:
 	Tips.card(books, func(): return TopCards.members(c))   # S362 J90 6g
 	UI.add_rows(card[1], [
 		books,
-		UI.kv("What the gym can carry now", str(target), UI.FG, "mono"),
-		UI.kv("Reputation", str(c.reputation), UI.FG, "mono"),
+		UI.kv("Reputation", "known locally" if c.reputation < 30 else ("known in the region" if c.reputation < 60 else "a name in the sport"), UI.FG, "mono"),
 		UI.kv("Dues", "%s a month each" % UI.money(Membership.weekly_rate()), UI.FG, "mono"),
 	] + ([UI.kv("Evening classes", "need a coach")] if c.coach.is_empty() else []))
 	card[1].add_child(UI.muted("Reputation grows with your fighters' wins (+%d each) and a well-kept gym; the count walks toward what the gym can carry, a few a week." % BoutRules.WIN_REPUTATION, UI.SMALL, true))
@@ -91,7 +95,7 @@ func _staff(main: Node, c: Career) -> void:
 	var rows: Array = []
 	if not c.coach.is_empty():
 		rows.append(UI.row("%s, %s" % [c.coach["name"], str(c.coach["kind"]).to_lower()],
-			"%s, rating %d, %s a week" % [c.coach["spec"], c.coach["rating"], UI.money(int(c.coach["salary"]))], UI.GREEN))
+			"%s, %s, %s a week" % [c.coach["spec"], _grade(int(c.coach["rating"])), UI.money(int(c.coach["salary"]))], UI.GREEN))
 	# S396 blind review: Money paid a BJJ coach Staff never named. The no-gi classes' coach is paid by the class.
 	if not c.grapplers.is_empty():
 		var bjj := Sim.bjj_money(c)
@@ -100,7 +104,7 @@ func _staff(main: Node, c: Career) -> void:
 		rows.append(UI.muted("No coach yet. Two are available.", UI.BODY))
 		for coach in Data.COACHES:
 			rows.append(UI.row("%s, %s" % [coach["name"], str(coach["kind"]).to_lower()],
-				"%s, rating %d, %s, %s a week + %s to sign" % [coach["spec"], coach["rating"], coach["note"],
+				"%s, %s, %s, %s a week + %s to sign" % [coach["spec"], _grade(int(coach["rating"])), coach["note"],
 					UI.money(int(coach["salary"])), UI.money(GameMoney.COACH_SIGNING_FEE)],
 				Color(0, 0, 0, 0), [UI.button("Hire", "Btn", main.act.bind("hire", coach["id"]))]))
 	UI.add_rows(card[1], rows)

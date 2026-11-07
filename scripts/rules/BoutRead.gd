@@ -11,8 +11,9 @@ extends RefCounted
 ## All seven stats share the one range: seven separate dice would close in on her rating by overlap. A hidden tell moves
 ## nothing: public() blanks its words, and every opponent gets the same room for what a hidden tell could be.
 ##   stage(opp) -> {found, all, share}   rating_range(opp, salt) -> [lo, hi]   stat_ranges(opp, salt) -> {stat: [lo, hi]}
-##   true_stats(opp) -> {stat: value}    camp_for(f, days) -> camp   chance(f, opp, camp) -> 0..1
-##   band(f, opp, camp, salt) -> {lo, hi}   mismatch(f, opp, camp, salt) -> power points
+##   true_stats(opp) -> {stat: value}    camp_for(f, days) -> camp   chance(f, opp, camp, coach) -> 0..1
+##   band(f, opp, camp, salt, coach) -> {lo, hi}   mismatch(f, opp, camp, salt) -> power points
+## coach = the gym coach's rating (0 = none): with no plan written he writes one at the first bell (CoachPlan, S397).
 ##   rank_of(rows, name) -> 1-based or 0   rank_move(rows, f, opp_name, order, min_wins) -> {now, win, loss, need}
 ## Pure static; salt = the career's seed, so the same opponent reads differently in another career.
 
@@ -28,6 +29,7 @@ const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
+const CoachPlan := preload("res://scripts/rules/CoachPlan.gd")
 
 ## The range's full width in rating points: nothing found, her whole file open (design values; the file never gives the
 ## exact number). The truth starts at least EDGE_KEEP of the width from either end.
@@ -55,6 +57,10 @@ const MEAN_LANDED := 3.5
 ## Share of a plan's edge that reaches the ring: she starts many exchanges where the last one left her, not on the card the
 ## game puts her on (measured: a four-arrow plan in real bouts against the same plan always on the game's own card).
 const PLAN_REACH := 0.75
+## S397 what rides on a plan's answers past their own exchange: the round's reads (PlanRead), the bout's pressure and the
+## tank ceiling (PlanPressure). Measured against real bouts (tests/bout_read_test.gd), on top of PLAN_REACH: 1.3 is the
+## smallest worst miss over its eight cases (0.041; 1.0 missed the planned case by 0.074, 1.5 a coach-plan case by 0.050).
+const PLAN_CARRY := 1.3
 ## Rounds of next_mode's dice behind one style's mix.
 const MIX_ROUNDS := 300
 
@@ -181,7 +187,7 @@ static func _game_edge(f: Dictionary, sit: String, n: int) -> float:
 	var moves: Dictionary = f.get("moves", {})
 	var combos: Dictionary = f.get("combos", {})
 	var pick := PlanFight.choose(f.get("arrows", []), at, moves, sit)
-	e += PLAN_REACH * PlanFight.edge(pick, sit, PlanFight.rate(str(pick["move"]), combos), PlanFight.card_mean(at, sit, moves, combos))
+	e += PLAN_REACH * PLAN_CARRY * PlanFight.edge(pick, sit, PlanFight.rate(str(pick["move"]), combos), PlanFight.card_mean(at, sit, moves, combos))
 	var habits := 0.0
 	for i in Exchanges.EXCHANGES:
 		habits += HabitFix.cost(HabitFix.punished(f.get("habits", []), sit, n, i, n == BoutRules.ROUNDS), "", 0.0)
@@ -219,8 +225,10 @@ static func _tiring(opp: Dictionary, n: int, energy: float) -> float:
 
 
 ## Her mean edge in power points in each round against this opponent, on this camp.
-static func round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary) -> Array:
+static func round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach := 0.0) -> Array:
 	var fx := f.merged({"camp": camp, "bout": {}}, true)
+	if (fx.get("arrows", []) as Array).is_empty():   # the plan she walks out with: the coach's when none is written
+		fx["arrows"] = CoachPlan.write(str(opp.get("style", "")), coach, fx.get("moves", {}), fx.get("combos", {}))
 	var base := ComboOdds.gap(fx, opp)
 	var tanks := _energy(fx, opp)
 	var mix := _games(opp)
@@ -270,8 +278,8 @@ static func _round_odds(e: float) -> float:
 
 
 ## The chance she wins this bout: two rounds of three (a 3-round card has no draw).
-static func chance(f: Dictionary, opp: Dictionary, camp: Dictionary) -> float:
-	var e := round_edges(f, opp, camp)
+static func chance(f: Dictionary, opp: Dictionary, camp: Dictionary, coach := 0.0) -> float:
+	var e := round_edges(f, opp, camp, coach)
 	var a := _round_odds(float(e[0]))
 	var b := _round_odds(float(e[1]))
 	var c := _round_odds(float(e[2]))
@@ -280,19 +288,19 @@ static func chance(f: Dictionary, opp: Dictionary, camp: Dictionary) -> float:
 
 ## {lo, hi}: the chance at the top of her range and at the bottom of it, over what a hidden tell could be. A find only takes
 ## words off the list, so the band stays inside the last one, and hidden words move nothing.
-static func band(f: Dictionary, opp: Dictionary, camp: Dictionary, salt: int) -> Dictionary:
+static func band(f: Dictionary, opp: Dictionary, camp: Dictionary, salt: int, coach := 0.0) -> Dictionary:
 	var span := rating_range(opp, salt)
-	return {"lo": clampf(_end(f, opp, float(span[1]), camp, false) - SLACK, 0.01, 0.99),
-		"hi": clampf(_end(f, opp, float(span[0]), camp, true) + SLACK, 0.01, 0.99)}
+	return {"lo": clampf(_end(f, opp, float(span[1]), camp, false, coach) - SLACK, 0.01, 0.99),
+		"hi": clampf(_end(f, opp, float(span[0]), camp, true, coach) + SLACK, 0.01, 0.99)}
 
 
-static func _end(f: Dictionary, opp: Dictionary, rating: float, camp: Dictionary, best: bool) -> float:
+static func _end(f: Dictionary, opp: Dictionary, rating: float, camp: Dictionary, best: bool, coach := 0.0) -> float:
 	var weaks: Array = [str(opp.get("weak", ""))] if OppFile.known(opp, "weakness") else ANY_WEAK
 	var weapons: Array = [str(opp.get("threat", ""))] if OppFile.known(opp, "weapon") else ANY_WEAPON
 	var out := 0.0 if best else 1.0
 	for w in weaks:
 		for t in weapons:
-			var c := chance(f, opp.merged({"rating": rating, "weak": w, "threat": t}, true), camp)
+			var c := chance(f, opp.merged({"rating": rating, "weak": w, "threat": t}, true), camp, coach)
 			out = maxf(out, c) if best else minf(out, c)
 	return out
 

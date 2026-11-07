@@ -108,17 +108,8 @@ func _build_top(main: Node) -> void:
 	date.custom_minimum_size = Vector2(176, 0)   # the speed buttons stay put as the date's length changes
 	Tips.card(date, func(): return TopCards.date(main.career))   # S362 J90 6g
 	h.add_child(date)
-	# S397 blind round 3 ("Pause/1x/2x/3x beside CONTINUE reads as two time systems"): one clock - CONTINUE runs it and
-	# pauses it; the speed it runs at sits against the button as its setting (see below), no Pause of its own.
-	var speed := UI.hbox(3)
-	speed.name = "Speed"
-	speed.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	var stopped := not Needs.blockers(c).is_empty()   # a clock-stopper holds the clock: the speeds rest with it
-	for n in [1, 2, 3]:
-		var sb := UI.button(">".repeat(n), "SpeedOn" if main.speed == n else "Speed", main.act.bind("speed", str(n)), stopped, "Something needs you first: the clock is stopped")
-		sb.tooltip_text = "CONTINUE runs the days at this speed" if not stopped else sb.tooltip_text
-		sb.custom_minimum_size = Vector2(34, 0)
-		speed.add_child(sb)
+	# S397 blind rounds 3-4 ("Pause/1x/2x/3x beside CONTINUE reads as two time systems"): one clock - CONTINUE runs the
+	# days and pauses them; how fast it runs is a setting (Menu > Settings, "Days run at").
 	# S394 HOME shows every need itself, so the flags stay for the other pages.
 	if main.route["area"] != "home":
 		for f in Needs.flags(c):
@@ -141,15 +132,9 @@ func _build_top(main: Node) -> void:
 		(l as Label).clip_text = true
 		(l as Label).text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	go.tooltip_text = "%s: %s" % [g["t"], g["s"]]
-	var clock := UI.hbox(6)   # CONTINUE and its speed are one control
-	clock.name = "Clock"
-	clock.add_child(go)
-	var sv := UI.vbox(0)
-	sv.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	sv.add_child(UI.label("run speed", 12, UI.MUTED, "body"))
-	sv.add_child(speed)
-	clock.add_child(sv)
-	h.add_child(clock)
+	go.tooltip_text += "
+Click again to pause. How fast the days run: Menu > Settings."
+	h.add_child(go)
 	_gear_menu.set_item_text(0, "Mail (%d new)" % c.unread if c.unread > 0 else "Mail")
 	var gear := UI.button("Menu", "Ghost", _open_gear)   # S381 operator on "Gear": "???" - it is save/load/settings, not boxing gear
 	gear.name = "Gear"
@@ -169,7 +154,8 @@ func _cash(c: Career) -> Control:
 	cash.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	v.add_child(cash)
 	var net := Needs.money_net(c)
-	var line := UI.label("%s %s this week" % [UI.money(absi(net)), "up" if net >= 0 else "down"], 15, UI.MUTED)
+	# S397 blind round 5 ("$287 down this week" while the chart shows the week up): it is the running rate, said so.
+	var line := UI.label("running %s%s a week" % ["+" if net >= 0 else "-", UI.money(absi(net))], 15, UI.MUTED)
 	line.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	v.add_child(line)
 	v.name = "Cash"

@@ -101,7 +101,7 @@ static func make(f: Dictionary, card_id: String, proj: Dictionary, picked: bool,
 		chip.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		var h := UI.hbox(8)
 		chip.add_child(h)
-		h.add_child(UI.label("held back by her %s" % str(held[0]).to_lower(), 15, UI.RED, "semi"))   # S397: no raw number
+		h.add_child(UI.label("held back by the %s" % str(held[0]).to_lower(), 15, UI.RED, "semi"))   # S397: no raw number
 		var go := UI.button("+ drill it", "BtnSolid", func(): on_drill_it.call("move:" + str(held[0])))
 		go.name = "DrillIt"
 		go.focus_mode = Control.FOCUS_NONE

@@ -50,7 +50,14 @@ static func make(main: Node, c: Career, f: Dictionary) -> PanelContainer:
 	p.name = "WeekBoard"
 	p.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 14, 1, 18, 16))
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	p._build(main, c, f)
+	# S397 blind rounds 5-6 ("it plans Mon 2 - Sun 8 Feb when today is Sat 7"): Saturday and Sunday plan next week. The
+	# board draws a view of her for next Monday (WeekPhase.ahead_view); the morning acts write that week's own exceptions,
+	# which WeekPhase.sync moves in on the Monday - this weekend's two days run as they were planned.
+	var g := f
+	if WeekPhase.weekend(c.day):
+		g = WeekPhase.ahead_view(f, c.day)
+		g["_ahead"] = true
+	p._build(main, c, g)
 	return p
 
 
@@ -75,7 +82,8 @@ static func goal_of(c: Career, f: Dictionary) -> Dictionary:
 
 ## The week as drawn: the twist applied, every day's numbers, the camp's goal lines.
 static func plan_of(c: Career, f: Dictionary) -> Dictionary:
-	WeekPhase.ensure(f, c.day)   # S385: a Monday board is drawn before the sim's Monday sync
+	if not bool(f.get("_ahead", false)):   # the weekend's view of next week is already that week's (make)
+		WeekPhase.ensure(f, c.day)   # S385: a Monday board is drawn before the sim's Monday sync
 	var goal := goal_of(c, f)
 	var tw := WeekTwist.active(f)
 	var base := WeekPlan.days_of(f)
@@ -160,9 +168,14 @@ func _head(main: Node, c: Career, f: Dictionary, goal: Dictionary, evs: Array) -
 			str(camp.get("focus", f.get("focus", ""))), bool(camp.get("film", false)), evs.count("sparring")))
 	else:
 		var left := UI.vbox(0)
-		left.add_child(WB.ink("THIS WEEK", 34, "marker"))
+		var ahead := bool(f.get("_ahead", false))
+		left.add_child(WB.ink("NEXT WEEK" if ahead else "THIS WEEK", 34, "marker"))
 		var ph: Dictionary = WeekPhase.PHASES.get(str(f.get("phase", "base")), WeekPhase.PHASES["base"])
-		left.add_child(UI.label(str(ph["name"]), 16, UI.MUTED, "semi"))
+		if ahead:   # S397: the weekend plans Monday's week; the dates say which
+			var mon := int(f["phase_day"])
+			left.add_child(UI.label("%s - %s: %s" % [Clock.fmt(mon), Clock.fmt(mon + 6), str(ph["name"]).to_lower()], 16, UI.MUTED, "semi"))
+		else:
+			left.add_child(UI.label(str(ph["name"]), 16, UI.MUTED, "semi"))
 		h.add_child(left)
 	h.add_child(_steps(main, f))
 	h.add_child(UI.spacer())
@@ -246,10 +259,14 @@ func _goal_row(f: Dictionary, goal: Dictionary, pl: Dictionary, nights: Dictiona
 	h.add_child(UI.spacer())
 	var blocks := PadWeek.intensity(pl["days"], (nights.get("pads", []) as Array).size(), (nights.get("spar", []) as Array).size())
 	h.add_child(UI.label("INTENSITY", 16, UI.FG, "caps"))
-	var n := UI.label("%d" % blocks, 24, WB.RED if blocks > TrainingPlan.DEFAULT_TOTAL else UI.FG, "bold")
+	# S397 blind round 5 ("Intensity 10 / 16" is raw): the load against the coach's limit in words, the count on hover.
+	var full := float(blocks) / float(TrainingPlan.DEFAULT_TOTAL)
+	var n := UI.label("over the limit" if blocks > TrainingPlan.DEFAULT_TOTAL else ("a full load" if full >= 0.85 else ("a steady load" if full >= 0.5 else "a light load")),
+		22, WB.RED if blocks > TrainingPlan.DEFAULT_TOTAL else UI.FG, "bold")
 	n.name = "Intensity"
+	n.mouse_filter = Control.MOUSE_FILTER_STOP
+	n.tooltip_text = "%d of the coach's %d blocks this week" % [blocks, TrainingPlan.DEFAULT_TOTAL]
 	h.add_child(n)
-	h.add_child(UI.label("/ %d" % TrainingPlan.DEFAULT_TOTAL, 18, UI.MUTED, "body"))
 	return h
 
 
@@ -263,7 +280,7 @@ func _strip(main: Node, c: Career, f: Dictionary, pl: Dictionary, inp: Dictionar
 	var wk: Dictionary = pl["wk"]
 	var changed: Dictionary = WeekPhase.edits(f).get("days", {})
 	var coach := WeekPlan.coach_of(f)
-	var monday := c.day - posmod(c.day, 7)
+	var monday := c.day - posmod(c.day, 7) + (7 if bool(f.get("_ahead", false)) else 0)   # S397 the weekend's next week
 	var twist := str(WeekTwist.active(f).get("name", ""))
 	var set_day := func(i: int, card: Array) -> void:
 		picking = ""
@@ -311,8 +328,8 @@ func _night_spec(main: Node, f: Dictionary, i: int, inp: Dictionary, projs: Dict
 	var c: Career = main.career
 	var coach := float(c.coach.get("rating", 0.0))
 	var who := str(c.coach.get("name", "")).get_slice(" ", 0)
-	var chips := ["%s: +%d%% from sessions" % [who, roundi(40.0 * coach / 100.0)] if coach > 0.0 else "No coach: sessions at base",
-		"Gym kit: level %d" % int(PadWeek.STATION_TIER)]
+	# S397 blind round 5 ("Luke: +23%", "Gym kit: level 2" are raw): who helps the night, in words.
+	var chips := ["%s holds the pads" % who if coach > 0.0 else "No coach: sessions at base", "good kit" if int(PadWeek.STATION_TIER) >= 2 else "basic kit"]
 	var picked := DrillTray.picked_for(fid)
 	var click := func(dow: int) -> void:
 		var now := DrillTray.picked_for(fid)
@@ -339,7 +356,9 @@ func _foot(main: Node, f: Dictionary, pl: Dictionary) -> Control:
 	var v := UI.vbox(12)
 	var says := UI.hbox(10)
 	says.add_child(WB.ink("COACH:", 24, "marker"))
-	var line := WB.ink("\"%s\"" % WeekCoach.line(pl["days"], pl["wk"], _lines, str((pl["ctx"] as Dictionary).get("diet", "hold"))), 22,
+	# S397 blind round 5: with no bout booked the weight forecast is moot (it read as "over the limit" beside "on weight").
+	var said_lines: Array = _lines if not (f.get("bout", {}) as Dictionary).is_empty() else _lines.filter(func(l): return str(l["id"]) != "weight")
+	var line := WB.ink("\"%s\"" % WeekCoach.line(pl["days"], pl["wk"], said_lines, str((pl["ctx"] as Dictionary).get("diet", "hold"))), 22,
 		"hand", WB.INK, true)
 	line.name = "CoachLine"
 	line.size_flags_horizontal = Control.SIZE_EXPAND_FILL

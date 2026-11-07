@@ -205,7 +205,7 @@ func _meter() -> Control:
 	h.name = "PlanMeter"
 	var limit := _limit()
 	var lines := UI.hbox(5)
-	lines.add_child(UI.caps("PLANNED: %d OF %d SITUATIONS" % [arrows.size(), limit]))
+	lines.add_child(UI.caps("ANSWERS WRITTEN: %d, THE COACH CAN HOLD %d" % [arrows.size(), limit]))
 	for n in range(1, PlanBoard.TOP_COACH + 1):
 		if n <= limit:
 			lines.add_child(UI.dot(UI.GREEN if n <= arrows.size() else UI.LINE))

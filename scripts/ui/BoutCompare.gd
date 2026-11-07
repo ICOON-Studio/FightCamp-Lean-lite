@@ -103,7 +103,7 @@ static func read_card(c: Career, f: Dictionary, opp: Dictionary, camp: Dictionar
 	card[0].size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	card[0].size_flags_stretch_ratio = 2.0
 	var v: VBoxContainer = card[1]
-	var b := BoutRead.band(f, opp, camp, c.seed)
+	var b := BoutRead.band(f, opp, camp, c.seed, float(c.coach.get("rating", 0.0)))   # S397 rank 3: the coach's plan counts
 	var lo := roundi(float(b["lo"]) * 100.0)
 	var hi := roundi(float(b["hi"]) * 100.0)
 	var big := UI.hbox(14)

@@ -11,7 +11,7 @@
  {
   "id": "condition",
   "name": "Condition",
-  "def": "The fighter card's freshness: 100 minus her fatigue.",
+  "def": "The fighter card's freshness: 100 minus the fighter's fatigue.",
   "why": "It is fatigue turned round, so fatigue 20 shows as condition 80.",
   "group": "Words",
   "area": "fighters",
@@ -65,7 +65,7 @@
  {
   "id": "weight_cut",
   "name": "Weight cut",
-  "def": "Eating 500 kcal a day under her need to reach the class limit.",
+  "def": "Eating 500 kcal a day under the fighter's need to reach the class limit.",
   "why": "About 0.45 kg comes off a week (7,700 kcal a kg), plus 0.05 kg a day in fight week.",
   "group": "The week",
   "area": "fighters",
@@ -75,7 +75,7 @@
   "id": "injury",
   "name": "Injury",
   "def": "Time out hurt, from a bout or a training week.",
-  "why": "While out she gets a quarter of the training gains; up to 2 weeks is minor, up to 4 moderate.",
+  "why": "While out, a fighter gets a quarter of the training gains; up to 2 weeks is minor, up to 4 moderate.",
   "group": "The week",
   "area": "fighters",
   "src": "Injuries.gain_mult (TrainingLoad.SETTINGS rest gain 0.25), Injuries.severity"
@@ -119,7 +119,7 @@
  {
   "id": "goal",
   "name": "Fighter goal",
-  "def": "What the fighter wants done by a deadline, first set when she signs.",
+  "def": "What the fighter wants done by a deadline, first set at signing.",
   "why": "A new signing wants a bout booked and conditioning up 3.5 in 28 days; met is +10 morale, missed -20.",
   "group": "Words",
   "area": "fighters",
@@ -128,8 +128,8 @@
  {
   "id": "potential",
   "name": "Potential",
-  "def": "How good a fighter could become: stars before her trial, a number after.",
-  "why": "Before her free Monday trial the stars are a range; a trial reads good at potential 80 or more.",
+  "def": "How good a fighter could become: a scouted range before the trial, a number after.",
+  "why": "Before the free Monday trial it is a range; a trial reads good at potential 80 or more.",
   "group": "Words",
   "area": "fighters",
   "src": "Recruit.stars, Roster.trial_day_for, Roster.trial_read"
@@ -146,8 +146,8 @@
  {
   "id": "rankings",
   "name": "Rankings",
-  "def": "The region's amateurs in her division, best first.",
-  "why": "She enters the table at 4 wins, and it sorts by wins minus losses.",
+  "def": "The region's amateurs in the fighter's division, best first.",
+  "why": "A fighter enters the table at 4 wins, and it sorts by wins minus losses.",
   "group": "Words",
   "area": "world",
   "src": "Region.RANK_MIN_WINS, Region.before"
@@ -156,7 +156,7 @@
   "id": "championships",
   "name": "National championships",
   "def": "A regional draw, then a national draw, for the amateur title.",
-  "why": "She can enter with 5 bouts and 91 days registered, aged 19 to 40.",
+  "why": "A fighter can enter with 5 bouts and 91 days registered, aged 19 to 40.",
   "group": "Words",
   "area": "world",
   "src": "SeasonPath.MIN_BOUTS, SeasonPath.MIN_CLUB_DAYS, SeasonPath.AGE_MIN, SeasonPath.AGE_MAX"
@@ -218,7 +218,7 @@
  {
   "id": "plan_line",
   "name": "Plan line",
-  "def": "A place in the ring, maybe a situation, and her answer there.",
+  "def": "A place in the ring, maybe a situation, and the fighter's answer there.",
   "why": "An answer that beats the opponent's game is worth up to 9 power an exchange, one that works 3; a wrong one costs 7.",
   "group": "The plan",
   "area": "fighters",
@@ -236,7 +236,7 @@
  {
   "id": "tape_study",
   "name": "Tape study",
-  "def": "Watching the opponent's film in camp to open her hidden tells.",
+  "def": "Watching the opponent's film in camp to open the opponent's hidden tells.",
   "why": "One tell opens on the camp's first day, then one every 2 days; each your plan answers adds 0.4 power, up to 1.2.",
   "group": "The plan",
   "area": "fights",
@@ -254,7 +254,7 @@
  {
   "id": "heavy_legs",
   "name": "Heavy legs",
-  "def": "Camp fatigue still in her legs on fight night.",
+  "def": "Camp fatigue still in the legs on fight night.",
   "why": "Each fatigue point over 50 costs 2 energy at the first bell, up to 20.",
   "group": "Fight night",
   "area": "fighters",
@@ -264,7 +264,7 @@
   "id": "energy",
   "name": "Energy",
   "def": "The fighter's tank in the bout, 0 to 100.",
-  "why": "Moving costs 18 a round; under 40 she tires and under 20 her punches lose force.",
+  "why": "Moving costs 18 a round; under 40 the fighter tires and under 20 the punches lose force.",
   "group": "Fight night",
   "area": "fights",
   "src": "Combos.TANK, Combos.ROUND_COST, Combos.WEARY_AT, Combos.TIRED_AT"
@@ -363,7 +363,7 @@
   "id": "stipend",
   "name": "Stipend",
   "def": "The club's weekly pay to an amateur fighter.",
-  "why": "Each amateur costs $250 a week; it stops when she turns pro.",
+  "why": "Each amateur costs $250 a week; it stops on turning pro.",
   "group": "Money",
   "area": "club",
   "src": "GameMoney.FIGHTER_STIPEND, Roster.turn_pro"
@@ -372,7 +372,7 @@
   "id": "sponsor",
   "name": "Sponsor",
   "def": "A company that pays the club each week for its name on show.",
-  "why": "Ironclad pays $250 a week from the start; Bow Road pays $150 after her first win.",
+  "why": "Ironclad pays $250 a week from the start; Bow Road pays $150 after the fighter's first win.",
   "group": "Money",
   "area": "club",
   "src": "Data.DEALS, Sim.sponsors"
@@ -389,7 +389,7 @@
  {
   "id": "pro_debut",
   "name": "Pro debut",
-  "def": "Her first pro bout, a small-hall show 4 weeks after she signs.",
+  "def": "The first pro bout, a small-hall show 4 weeks after signing.",
   "why": "The offer comes at 7 wins and a top-3 ranking, or 9 wins; the club pays $230 licence plus $875 medicals.",
   "group": "Money",
   "area": "fights",
@@ -399,7 +399,7 @@
   "id": "purse",
   "name": "Purse",
   "def": "What a pro is paid for a bout.",
-  "why": "From her second pro bout it is $1,500, +$500 a pro win up to $3,000; the club keeps 25%.",
+  "why": "From the second pro bout it is $1,500, +$500 a pro win up to $3,000; the club keeps 25%.",
   "group": "Money",
   "area": "fights",
   "src": "Roster.PRO_PURSE, Roster.PRO_PURSE_STEP, Roster.PRO_PURSE_TOP, Roster.GYM_SHARE"

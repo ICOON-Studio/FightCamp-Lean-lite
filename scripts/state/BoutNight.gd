@@ -31,6 +31,7 @@ const BodyReport := preload("res://scripts/rules/BodyReport.gd")
 const BodyTrack := preload("res://scripts/rules/BodyTrack.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
+const CoachPlan := preload("res://scripts/rules/CoachPlan.gd")
 const PlanRecord := preload("res://scripts/rules/PlanRecord.gd")
 const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const PeakCamp := preload("res://scripts/rules/PeakCamp.gd")
@@ -174,6 +175,10 @@ static func _open(c: Career, f: Dictionary, m: Dictionary, plan: String, fix: St
 	# S339 the corner's one arrow (after open: round 1 copies her plan onto the bout, with the coach's limit).
 	if n == 1:
 		f["bout"]["arrow_limit"] = arrow_limit(c)
+		# S397 rule 1: no plan written - the coach writes one from the tape (CoachPlan; no coach writes nothing).
+		if (f["bout"]["arrows"] as Array).is_empty():
+			f["bout"]["arrows"] = CoachPlan.write(str(f["bout"]["opp"].get("style", "")), float(c.coach.get("rating", 0.0)),
+				f.get("moves", {}), f.get("combos", {}))
 	var ja: Dictionary = jobs.get("arrow", {})
 	if n > 1 and not ja.is_empty():
 		var before: Array = f["bout"]["arrows"]

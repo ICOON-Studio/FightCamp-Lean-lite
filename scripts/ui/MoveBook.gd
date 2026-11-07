@@ -74,14 +74,14 @@ func _book_head(groups: Array, mastery: Dictionary) -> Control:
 	h.name = "BookHead"
 	h.add_child(UI.label("%d of %d moves ready" % [ready, total], 22, UI.FG, "bold"))
 	h.add_child(Icons.pips(ready, total, "Ready: thrown with its pad time behind it."))
-	var next := Combos.next_to_learn(mastery, _combos) if _next_on else ""
+	var next := ""   # S397 blind round 5: "worth pad time next" disagreed with the Week's pads; the Week owns what is drilled
 	if next != "":
 		var nm := ""
 		for m in SM.MOVES:
 			if str(m["combo"]) == next:
 				nm = str(m["name"])
 				break
-		h.add_child(UI.label("Next on the pads: %s" % nm, UI.SMALL, UI.GOLD, "semi"))
+		h.add_child(UI.label("Worth pad time next: %s" % nm, UI.SMALL, UI.GOLD, "semi"))
 	return h
 
 

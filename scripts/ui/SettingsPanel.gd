@@ -15,6 +15,9 @@ static func build(main: Node) -> VBoxContainer:
 	var keep := func(): Settings.write(d); Settings.apply(d, tree)
 	v.add_child(_row("Text size", _pick(Settings.TEXT_SIZES, int(d["text"]), func(i): d["text"] = i; keep.call())))
 	v.add_child(_row("Window", _pick(Settings.WINDOWS, int(d["window"]), func(i): d["window"] = i; keep.call())))
+	var clock := _pick(Settings.CLOCK, int(d["clock"]), func(i): d["clock"] = i; main.speed = int(Settings.CLOCK[i][1]); keep.call())
+	clock.name = "ClockSpeed"
+	v.add_child(_row("Days run at", clock))   # S397: CONTINUE's speed, out of the top bar
 	for b in Settings.SOUND:
 		var key := "vol_" + str(b[0])
 		v.add_child(_row(str(b[1]), _slider(float(d[key]), func(x): d[key] = x; keep.call())))

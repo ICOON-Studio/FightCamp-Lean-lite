@@ -12,6 +12,7 @@ const Combos := preload("res://scripts/rules/Combos.gd")
 const PaceAim := preload("res://scripts/rules/PaceAim.gd")
 const TheRead := preload("res://scripts/rules/TheRead.gd")
 const PlanRead := preload("res://scripts/rules/PlanRead.gd")
+const PlanPressure := preload("res://scripts/rules/PlanPressure.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const ClinchRest := preload("res://scripts/rules/ClinchRest.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
@@ -78,6 +79,7 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 	var pace0 := PlanFile.pace_for(f, n)
 	if n == 1:
 		f["bout"]["plan_tally"] = {}
+	PlanPressure.new_round(f["bout"], n)   # S397 the plan's pressure and her tank's ceiling last the bout
 	m["live"] = {"pace": pace0 if pace0 != "" else str(was.get("pace", "steady")), "aim": str(was.get("aim", "")), "n": n, "plan": plan, "ex": [], "shouts": 0, "mode": mode, "her_hurt": bool(jobs.get("hurt", false)), "opp_hurt": false,
 		"talk": talk, "talk_kind": str(jobs.get("talk", "")), "setup": setup,
 		"cost": 0.0, "e": e, "base": base, "fix": fix, "last": n >= int(f["bout"].get("rounds", BoutRules.ROUNDS)),
@@ -262,11 +264,11 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	# S396 rank 3 (PlanRead): a right answer she keeps leaning on is read by the opponent (rule 4), and the round's reads -
 	# right answers that landed, wrong ones that were punished - carry into every later exchange of the round.
 	var fit_now := PlanFight.fit(arrow, psit) if bool(pick.get("planned", false)) else "none"
-	var uses: Dictionary = (f["bout"] as Dictionary).get_or_add("answer_uses", {})
+	var uses: Dictionary = lv.get_or_add("answer_uses", {})   # per round: both corners reset at the bell (S396 templates test)
 	if plan_edge > 0.0 and fit_now == "best":
 		plan_edge *= PlanRead.adjust(int(uses.get(arrow, 0)))
 	# The round's reads move the exchange and count as the plan's effect (swing), but the Why grades the answers themselves.
-	var read_edge := PlanRead.edge(int(lv.get("reads", 0)))
+	var read_edge := PlanRead.edge(int(lv.get("reads", 0))) + PlanPressure.edge(f["bout"])   # S397 + the bout's pressure
 	d += plan_edge + read_edge
 	# S360 Q-S294-90: the camp weeks spent on the opponent's own game (WeekOpp) count when the fight is on it.
 	d += WeekOpp.edge(f["bout"], sit)
@@ -289,6 +291,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		uses[arrow] = int(uses.get(arrow, 0)) + 1
 	# S323 Push throws more (and so lands more), Save less.
 	s["landed"][0] = maxi(0, int(round(float(s["landed"][0]) * PaceAim.output(pace))))
+	var pressed := PlanPressure.after(f["bout"], lv, s, fit_now, bool(pick.get("planned", false)))
 	# S355 Counter sense: she makes an attacker miss and a free counter comes back (its own dice).
 	if PerkFight.has(f, "counter_sense") and PerkFight.counters(f, sit, bool(s["won"]), _rng(c, f, n, i + 73).randf()):
 		perks.append("counter_sense")
@@ -340,6 +343,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	rec["plan_edge"] = plan_edge
 	rec["read_edge"] = read_edge
 	rec["plan_swing"] = swing
+	rec["pressure"] = pressed
 	# S375 SCOUTPLAN1 the plan seen in the ring: each planned arrow's running tally over the bout ([won, thrown]).
 	if bool(pick["planned"]):
 		var tally: Dictionary = f["bout"].get("plan_tally", {})
@@ -433,7 +437,7 @@ static func close(f: Dictionary, m: Dictionary) -> Dictionary:
 	# The calls' energy carries into the next round's start.
 	var fb: Dictionary = f["bout"]
 	if fb.has("energy"):
-		fb["energy"]["a"] = clampf(float(fb["energy"]["a"]) - spent, 0.0, 100.0)
+		fb["energy"]["a"] = clampf(float(fb["energy"]["a"]) - spent, 0.0, PlanPressure.ceiling(fb))
 	var worked := 0
 	var calls := 0
 	var paid := {}

@@ -20,6 +20,8 @@ const GOOD_PLAN := [{"move": "1-1"}, {"move": "step_back"}, {"move": "pivot_out"
 ## How far chance() may sit from a measured share: its known misses plus the dice of SIMS bouts.
 const CALIBRATED := 0.06
 const NESTED := 0.01
+## The real bouts' gym coach (Reid): with no plan written he writes one at the first bell (CoachPlan, S397), so chance() is told.
+const COACH := 58.0
 
 var _fails := 0
 
@@ -57,7 +59,7 @@ func _measured(f0: Dictionary, opp: Dictionary) -> float:
 		var sc := Career.new()
 		sc.day = 50000 + k * 7
 		sc.seed = 387
-		sc.coach = {"rating": 58.0}
+		sc.coach = {"rating": COACH}
 		var sf: Dictionary = f0.duplicate(true)
 		sf["camp"] = CAMP.duplicate(true)
 		sf["bout"] = {"opp": opp.duplicate(true), "day": sc.day, "weighed": true, "made": true, "done": false, "film": 1}
@@ -78,12 +80,12 @@ func _real_bouts() -> void:
 		var f: Dictionary = row[1]
 		var opp: Dictionary = (all[int(row[2])] as Dictionary).duplicate(true)
 		var real := _measured(f, opp)
-		var est := BoutRead.chance(f, opp, CAMP)
+		var est := BoutRead.chance(f, opp, CAMP, COACH)
 		_check(absf(est - real) <= CALIBRATED, "%s vs %s: chance() %.3f, real bouts %.3f" % [row[0], opp["first"], est, real])
 		var dice := 2.0 * sqrt(maxf(real * (1.0 - real), 0.01) / float(SIMS))
 		var scouted := opp.duplicate(true)
 		for found in OppFile.hidden(opp).size() + 1:
-			var b := BoutRead.band(f, scouted, CAMP, 387)
+			var b := BoutRead.band(f, scouted, CAMP, 387, COACH)
 			_check(real >= float(b["lo"]) - dice and real <= float(b["hi"]) + dice,
 				"%s vs %s, %d found: band %.2f-%.2f holds real %.3f" % [row[0], opp["first"], found, b["lo"], b["hi"], real])
 			OppFile.tape(scouted)
