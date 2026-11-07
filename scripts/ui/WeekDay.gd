@@ -23,8 +23,8 @@ const DrillCard := preload("res://scripts/ui/DrillCard.gd")
 const DAYS := ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
 const AM_H := 128.0
 const AM_PIC := 90.0
-const PM_H := 228.0
-const PIC_H := 112.0
+const PM_H := 180.0   # S397: the coach / kit chips left the cards (WeekBoard._helps)
+const PIC_H := 96.0
 ## A split night's card name: the room a 1920-px strip's slot leaves it beside its picture and share badge.
 const SLOT_NAME_W := 76.0
 ## How far down the picture the AM / PM boxes cut (0 = the top, 0.5 = the middle).
@@ -94,8 +94,8 @@ static func am(f: Dictionary, i: int, m: Array, planned: Array, r: Dictionary, r
 	var tags := UI.hbox(4)
 	tags.position = Vector2(4, 4)
 	pic.add_child(tags)
-	if not rest and str(m[1]) != "normal":
-		tags.add_child(_tag(WB.level(str(m[1])), WB.RED if str(m[1]) == "hard" else UI.GOLD))
+	if not rest:   # S397 blind Week critic ("only Thursday shows a load"): every session wears its load
+		tags.add_child(_tag(WB.level(str(m[1])), WB.RED if str(m[1]) == "hard" else (UI.GOLD if str(m[1]) == "light" else Color("#5b6472"))))
 	if m != planned:
 		tags.add_child(_tag("TWIST", UI.AMBER))
 	var fat := float(r.get("fatigue", 0.0))
@@ -125,6 +125,10 @@ static func pm(spec: Dictionary) -> PmCard:
 	p.kind = k
 	p.spec = spec
 	p.custom_minimum_size = Vector2(0, PM_H)
+	if k == "rest":   # S397 blind Week critic ("rest nights take a third of the screen"): a one-line strip
+		p.custom_minimum_size = Vector2(0, 0)
+		p.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+		p.tooltip_text = "A rest night. More pad nights: Hard, above the week."
 	var pads := k == "pads"
 	var lit := pads and bool(spec.get("picked", false))
 	p.add_theme_stylebox_override("panel", UI.box(Color("#dce8ff") if lit else (Color("#fbfaf7") if pads else (Color(0, 0, 0, 0) if k == "rest" else SOFT)),
@@ -151,7 +155,7 @@ static func pm(spec: Dictionary) -> PmCard:
 			elif entries.size() == 1:
 				var c := str(entries[0]["card"])
 				v.add_child(_tex(DrillCard.picture(f, c), PIC_H))
-				v.add_child(UI.label(PadEdit.title(f, c), 24, UI.FG, "marker"))
+				v.add_child(UI.label(PadEdit.title(f, c), 22, UI.FG, "bold"))   # S397: "1-1" in the brush font read ")-)"
 				v.add_child(_gain(f, c, spec, i))
 			else:
 				for at in entries.size():
@@ -162,11 +166,12 @@ static func pm(spec: Dictionary) -> PmCard:
 			gap.size_flags_vertical = Control.SIZE_EXPAND_FILL
 			gap.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			v.add_child(gap)
-			var chips := UI.hbox(6)
-			chips.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			for t in spec.get("chips", []):
-				chips.add_child(_chip(str(t)))
-			v.add_child(chips)
+			if not (spec.get("chips", []) as Array).is_empty():
+				var chips := UI.hbox(6)
+				chips.mouse_filter = Control.MOUSE_FILTER_IGNORE
+				for t in spec["chips"]:
+					chips.add_child(_chip(str(t)))
+				v.add_child(chips)
 		"sparring":
 			var tex := _tex(DrillCard.station(f, "sparring"), PIC_H)
 			v.add_child(tex)
@@ -182,11 +187,7 @@ static func pm(spec: Dictionary) -> PmCard:
 			v.add_child(UI.label("Film", 18, UI.FG, "semi"))
 			v.add_child(UI.label("tape study", 14, UI.MUTED, "body"))
 		_:
-			var r := UI.label("rest", 20, Color(UI.MUTED, 0.7), "hand")
-			r.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			r.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-			r.size_flags_vertical = Control.SIZE_EXPAND_FILL
-			v.add_child(r)
+			pass   # REST on the strip's one line says it
 	return p
 
 
@@ -197,7 +198,7 @@ static func _gain(f: Dictionary, c: String, spec: Dictionary, i: int) -> Label:
 		return UI.label("", 16, UI.GREEN, "bold")
 	var b := float(rows[i][0])
 	var a := float(rows[i][1])
-	var txt := "%+.1f" % (a - b)
+	var txt := "%+.1f learned" % (a - b)   # S397 blind Week critic: "+2.8" of what
 	var col := UI.GREEN
 	for t in PadEdit.TIERS:
 		if b < float(t[0]) and a >= float(t[0]):
@@ -230,11 +231,11 @@ static func _slot(f: Dictionary, e: Dictionary, s: Dictionary, i: int) -> PanelC
 	var title := PadEdit.title(f, c)
 	# The name shares its line with the share badge; a long one steps its size down instead of losing letters.
 	var fs := 20
-	while fs > 14 and UI.font("marker").get_string_size(title, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x > SLOT_NAME_W:
+	while fs > 14 and UI.font("bold").get_string_size(title, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x > SLOT_NAME_W:
 		fs -= 1
 	var top := UI.hbox(4)
 	top.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var name := UI.label(title, fs, UI.FG, "marker")
+	var name := UI.label(title, fs, UI.FG, "bold")
 	name.clip_text = true
 	name.custom_minimum_size = Vector2(40, 0)
 	name.size_flags_horizontal = Control.SIZE_EXPAND_FILL

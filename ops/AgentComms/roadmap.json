@@ -4490,7 +4490,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-07 14:11 board_sync",
+  "updated": "2026-11-07 14:40 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4636,6 +4636,12 @@
     "who": "cursor",
     "started": "2026-11-07T14:11",
     "run": "FIGHTWALK1"
+   },
+   {
+    "title": "TASK HITSELL1 - QWEN (qwen3-coder) - a landed punch must read as landed, a blocked one as blocked",
+    "who": "qwen",
+    "started": "2026-11-07T14:40",
+    "run": "HITSELL1"
    }
   ],
   "next": [
@@ -5127,6 +5133,14 @@
     {
      "text": "Rule 2 bots pass: smart 8, hard 11",
      "who": "claude"
+    },
+    {
+     "text": "Scouting worth it: +14 top 10",
+     "who": "claude"
+    },
+    {
+     "text": "Pro ladder wired after debut",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5159,15 +5173,15 @@
      "who": "claude"
     },
     {
-     "text": "Matchmaking: screens next",
-     "who": "claude"
-    },
-    {
      "text": "FIGHTWALK1 walks (Cursor)",
      "who": "agent"
     },
     {
-     "text": "HITSELL1 hits sell (Qwen)",
+     "text": "Pro Fights screens at 5: rules",
+     "who": "claude"
+    },
+    {
+     "text": "HITSELL2 hits sell (Qwen)",
      "who": "agent"
     }
    ],

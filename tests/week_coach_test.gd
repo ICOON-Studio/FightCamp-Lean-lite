@@ -28,13 +28,25 @@ func _initialize() -> void:
 	_check(_say(easy, "hold", goal) == "The week lands on every line. Leave it.", "the coach's week on an easy goal: leave it")
 	_check(_say(easy, "hold", {"limit": 60.0, "stat": "conditioning", "target": 58.5}).begins_with("This week ends"), "over the limit on a hold diet: switch to Cut")
 	var short := _say(easy, "hold", {"limit": 61.2, "stat": "conditioning", "target": 61.0})
-	_check(short.begins_with("Conditioning lands") and short.contains("roadwork morning Hard"), "the stat short: name its session")
+	_check(short.begins_with("Conditioning lands") and (short.contains("roadwork Hard") or short.contains("for Hard roadwork")), "the stat short: name its session")
+	# S397: the line names the morning, and advice carries the change the board's Apply makes (a builder, Hard, no Hard beside it)
+	var ctx := _ctx("hold", 20.0)
+	var evs := WP.evenings_for(1)
+	var ad := WC.advice(easy, WP.week(easy, ctx, evs), WP.goal_lines({"limit": 61.2, "stat": "conditioning", "target": 61.0}, easy, ctx, 3, evs), "hold")
+	var fx: Dictionary = ad["fix"]
+	_check(not fx.is_empty() and str(fx["card"][1]) == "hard" and ["roadwork", "intervals"].has(str(fx["card"][0])), "the fix is a Hard roadwork morning (%s)" % str(fx))
+	_check(not fx.is_empty() and str(ad["say"]).contains(str(WC.DAY_NAMES[int(fx["dow"])])), "the line names the fix's day")
+	_check(not str(ad["say"]).contains("0."), "the gap in words, not a number")
 	var hard: Array = []
 	for d in easy:
 		hard.append([str(d[0]), "hard" if str(d[0]) != "rest" else "normal"])
 	var red := _say(hard, "hold", goal, 60.0)
 	_check(red.contains("'s in the red") and red.contains("down to Light"), "Hard every day: the first day in the red, and the fix")
 	_check(not red.begins_with("Sunday"), "the red day is a training day, not the rest day")
+	var rad := WC.advice(hard, WP.week(hard, _ctx("hold", 60.0), WP.evenings_for(1)), [], "hold")
+	_check(not (rad["fix"] as Dictionary).is_empty() and str(rad["fix"]["card"][1]) == "light", "the red day's fix takes it to Light")
+	var wad := WC.advice(easy, WP.week(easy, _ctx("hold", 20.0), WP.evenings_for(1)), [{"id": "weight", "ok": false, "short": 0.4}], "hold")
+	_check(wad["fix"] == {"diet": "cut"}, "over the limit: the fix is the Cut diet")
 	print("WEEK_COACH %s" % ("PASS" if _fails == 0 else "FAIL %d" % _fails))
 	quit(0 if _fails == 0 else 1)
 

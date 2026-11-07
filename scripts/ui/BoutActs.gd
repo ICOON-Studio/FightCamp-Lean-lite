@@ -18,6 +18,7 @@ const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const PadEdit := preload("res://scripts/rules/PadEdit.gd")
 const PlanCards := preload("res://scripts/rules/PlanCards.gd")
 const DrillTray := preload("res://scripts/ui/DrillTray.gd")
+const ProLadder := preload("res://scripts/state/ProLadder.gd")
 
 
 ## The fighter an action means: by id, else the open moment's, else the first.
@@ -150,6 +151,23 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			main.render()
 		"openBout":
 			main.nav({"area": "fights", "tab": 0, "bout": arg})
+		"proscout":   # S397 rank 4: "<fid>:<opp id>", one scout's look at an offered pro opponent
+			var sp := arg.split(":")
+			var sf := who(main, sp[0])
+			if ProLadder.scout(c, sf, int(sp[1])):
+				main.toast("Scouted: the read narrows and the matchup shows.")
+			main.render()
+		"probook":   # S397 rank 4: "<fid>:<opp id>:o|a" - take an offer, or ask for a name
+			var bp := arg.split(":")
+			var bf := who(main, bp[0])
+			var res := ProLadder.book(c, bf, int(bp[1]), bp[2] == "a")
+			if bool(res["ok"]):
+				main.nav({"area": "home", "tab": 0})
+				main.toast("Pro fight booked for %s. Next: set the camp." % bf["first"])
+				main.show_poster(str(bf["id"]))
+			else:
+				main.toast("The promoter says no: %s." % str(res["reason"]))
+				main.render()
 		"accept":
 			var fid := str(Bouts.find_offer(c, arg)[0].get("id", ""))
 			if Bouts.accept(c, arg):

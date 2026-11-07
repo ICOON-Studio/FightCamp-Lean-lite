@@ -133,7 +133,7 @@ func _make_boxer(rng: RandomNumberGenerator, first: String, last: String, club: 
 	var stance: String = STANCES[rng.randi_range(0, 1)] if rng.randf() < 0.25 else STANCES[0]
 	var st: Dictionary = STYLES[rng.randi_range(0, STYLES.size() - 1)]
 	var rating := _roll_rating(rng, age, is_ranked)
-	var record := _roll_record(rng, age, is_ranked)
+	var record := _roll_record(rng, age, is_ranked, rating)
 	var height := rng.randi_range(165, 180) if sex == "men" else rng.randi_range(158, 174)
 	var id := _next_id
 	_next_id += 1
@@ -182,11 +182,12 @@ func _roll_rating(rng: RandomNumberGenerator, age: int, is_ranked: bool) -> floa
 	return snappedf(base * age_factor, 0.5)
 
 
-func _roll_record(rng: RandomNumberGenerator, age: int, is_ranked: bool) -> Dictionary:
+func _roll_record(rng: RandomNumberGenerator, age: int, is_ranked: bool, rating: float = 65.0) -> Dictionary:
 	var fights_per_year := 12 if age < 22 else 6
 	var years_active := maxi(1, age - 16)
 	var total_fights := mini(years_active * fights_per_year, rng.randi_range(5, 40) if is_ranked else rng.randi_range(0, 12))
-	var win_pct := rng.randf_range(0.55, 0.90) if is_ranked else rng.randf_range(0.40, 0.75)
+	# the better boxer has the better record: 55 rates about 45% wins, 80 about 88% (plus or minus 8 points of luck)
+	var win_pct := clampf(0.45 + (rating - 55.0) / 25.0 * 0.43 + rng.randf_range(-0.08, 0.08), 0.30, 0.95)
 	var wins := int(float(total_fights) * win_pct)
 	var losses := total_fights - wins - (1 if rng.randf() < 0.15 else 0)
 	losses = maxi(0, losses)

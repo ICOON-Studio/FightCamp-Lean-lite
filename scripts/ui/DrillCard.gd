@@ -148,7 +148,7 @@ func _face(v: VBoxContainer, f: Dictionary, card_id: String, m: float, end: floa
 	tw.name = "Tag"
 	tag.add_child(tw)
 	words.add_child(tag)
-	var t := UI.label(PadEdit.title(f, card_id), 28, UI.FG, "marker")
+	var t := UI.label(PadEdit.title(f, card_id), 26, UI.FG, "bold")   # S397: names in the plain face ("1-1" read ")-)")
 	t.name = "Title"
 	t.clip_text = true
 	words.add_child(t)
@@ -177,16 +177,15 @@ func _gold(v: VBoxContainer, f: Dictionary, card_id: String, cross: Dictionary, 
 	var top := UI.hbox(8)
 	top.name = "Gold"
 	top.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	top.add_child(UI.label(str(cross["tier"]).to_upper(), 54, GOLD_INK, "marker"))
-	top.add_child(UI.spacer())
-	top.add_child(UI.label("★", 40, GOLD_EDGE, "bold"))
-	v.add_child(top)
+	# S397 blind Week critic ("USABLE is louder than the move"): the move leads, the tier is its badge.
 	var name_row := UI.hbox(10)
-	name_row.add_child(UI.label(PadEdit.title(f, card_id), 26, UI.FG, "marker"))
+	name_row.add_child(UI.label(PadEdit.title(f, card_id), 34, UI.FG, "bold"))
 	var s := UI.label("" if PadWeek.kind(card_id) == "move" else PadEdit.sub(f, card_id), 16, UI.FG, "body")   # a move's old tier is moot here
 	s.size_flags_vertical = Control.SIZE_SHRINK_END
 	name_row.add_child(s)
 	v.add_child(name_row)
+	top.add_child(UI.label("★ %s" % str(cross["tier"]).to_upper(), 18, GOLD_INK, "bold"))
+	v.add_child(top)
 	var station := "pads" if (proj_pads as Array).has(int(cross["dow"])) else "sparring"
 	var when := UI.label("%s %s takes it there" % [PadEdit.DAY_WORDS[int(cross["dow"])], station], 20, UI.FG, "bold")
 	tooltip_text = "Pad level %.1f -> %.1f.
@@ -221,7 +220,7 @@ func payload() -> Dictionary:
 func _get_drag_data(_at: Vector2) -> Variant:
 	var tag := PanelContainer.new()
 	tag.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.GOLD, 8, 3, 12, 6))
-	tag.add_child(UI.label(PadEdit.title({}, card) if PadWeek.kind(card) != "own" else "combination", 24, UI.FG, "marker"))
+	tag.add_child(UI.label(PadEdit.title({}, card) if PadWeek.kind(card) != "own" else "combination", 22, UI.FG, "bold"))
 	set_drag_preview(tag)
 	return payload()
 

@@ -15,6 +15,8 @@ const MatOpens := preload("res://scripts/ui/MatOpens.gd")
 const NationalsView := preload("res://scripts/ui/NationalsView.gd")
 const NextStep := preload("res://scripts/rules/NextStep.gd")
 const FighterPage := preload("res://scripts/ui/areas/FighterPage.gd")
+const ProFights := preload("res://scripts/ui/ProFights.gd")
+const ProLadder := preload("res://scripts/state/ProLadder.gd")
 
 
 func build(main: Node) -> void:
@@ -28,6 +30,9 @@ func build(main: Node) -> void:
 	AreaHead.add(self, main, "fights")
 	# S396 screen cut: Offers, Calendar and Results are one page (docs/STRUCTURE_DESIGN_S395.md 5.4).
 	_offers(main, c)
+	for f in c.fighters:   # S397 rank 4: a pro's offers, the road and the asks
+		if ProLadder.on_ladder(c, f):
+			add_child(ProFights.section(main, c, f))
 	for g in c.grapplers:   # S396 blind round 2: the no-gi athlete's opens belong on Fights too
 		add_child(MatOpens.card(main, c, g, "%s: NO-GI OPENS" % str(g["first"]).to_upper()))
 	_calendar(c)
@@ -35,6 +40,8 @@ func build(main: Node) -> void:
 
 
 func _offers(main: Node, c: Career) -> void:
+	if not c.fighters.is_empty() and c.fighters.all(func(x): return ProLadder.on_ladder(c, x)):
+		return   # S397 rank 4: a pro-only gym gets the promoter's cards below, not an empty amateur board
 	# S369 (S367 critic: "a list in the top fifth of an empty page"): the offers on the left, each fighter's standing on
 	# the right - her face, record, what she has booked and her last results - so an empty week still reads.
 	var cols := UI.hbox(16)
@@ -77,7 +84,7 @@ static func next_offer_line(c: Career, f: Dictionary) -> String:
 	if Champs.active(f):
 		return "%s: no other offers during the championships." % f["first"]
 	if bool(f.get("pro", false)):
-		return "%s: pro bouts are not offered here." % f["first"]
+		return "%s: pro fights come from the promoter, below." % f["first"] if ProLadder.on_ladder(c, f) else 			"%s: the pro debut comes first." % f["first"]
 	var days := int(f.get("next_offer_day", c.day)) - c.day
 	if days > 0:
 		return "%s: the next offer can come from %s (in %d day%s)." % [f["first"], Clock.fmt(int(f["next_offer_day"])), days, "" if days == 1 else "s"]
@@ -116,6 +123,8 @@ func _calendar(c: Career) -> void:
 			ev.append({"d": int(fb["day"]), "t": "Fight night: %s vs %s" % [f["first"], fb["opp"]["name"]]})
 		if not (f["camp"] as Dictionary).is_empty():
 			ev.append({"d": int(f["camp"]["start"]), "t": "%s's camp started" % f["first"]})
+		if ProLadder.on_ladder(c, f) and fb.is_empty() and (f.get("pro_offers", []) as Array).is_empty():
+			ev.append({"d": maxi(int(f.get("pro_next", c.day)), c.day + 1), "t": "The promoter calls: %s's next fights" % f["first"]})
 	var next := Clock.next_stop(c)
 	if not ["weigh-in", "fight night"].has(str(next["r"])):
 		ev.append({"d": int(next["d"]), "t": str(next["r"]).capitalize()})
@@ -147,5 +156,5 @@ func _results(c: Career) -> void:
 	for r in c.results:
 		var won := str(r.get("outcome", "win" if bool(r["win"]) else "loss"))
 		rows.append(UI.row("%s %s %s, %s%s" % [r.get("who", ""), {"win": "beat", "loss": "lost to", "draw": "drew with"}[won], r["opp"], r["cards"], " (pro)" if bool(r.get("pro", false)) else ""],
-			"%s. %s" % [Clock.fmt(int(r["d"])), str(r["why"]).get_slice(":", 0)], UI.GREEN if bool(r["win"]) else UI.RED))   # S397: no camp jargon
+			"%s. %s" % [Clock.fmt(int(r["d"])), str(r["why"]).get_slice(":", 0)], UI.GREEN if bool(r["win"]) else (UI.MUTED if won == "draw" else UI.RED)))   # S397: no camp jargon
 	UI.add_rows(card[1], rows)

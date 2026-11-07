@@ -39,7 +39,8 @@ static func record(f: Dictionary) -> String:
 	if str(f.get("sport", "")) == "bjj":
 		return "%d-%d opens" % [int(f.get("w", 0)), int(f.get("l", 0))]   # S376: a no-gi athlete's record is her opens
 	if bool(f.get("pro", false)):
-		return "%d-%d pro" % [int(f.get("pro_w", 0)), int(f.get("pro_l", 0))]
+		var pd := int(f.get("pro_d", 0))   # S397: draws count (a 0-0 pro with a draw read as unbeaten and unfought)
+		return "%d-%d%s pro" % [int(f.get("pro_w", 0)), int(f.get("pro_l", 0)), "-%d" % pd if pd > 0 else ""]
 	return "%d-%d amateur" % [int(f["w"]), int(f["l"])]
 
 

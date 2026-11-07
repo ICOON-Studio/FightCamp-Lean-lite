@@ -9,6 +9,7 @@ extends SceneTree
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
+const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 
 var _fails := 0
 
@@ -32,6 +33,27 @@ func _initialize() -> void:
 	var monday := c.day - posmod(c.day, 7) + 7
 	_check(text.contains("NEXT WEEK") and not text.contains("THIS WEEK"), "1: the weekend board is NEXT WEEK")
 	_check(text.contains(Clock.fmt(monday)), "1: with next Monday's date (%s)" % Clock.fmt(monday))
+	# S397 Week critic round 2: rest nights are one-line strips; the coach's change is one click (CoachApply)
+	var nights := main.find_child("Nights", true, false)
+	var thin := 0
+	for n in (nights.get_children() if nights != null else []):
+		if str(n.get("kind")) == "rest":
+			thin += 1 if (n as Control).size.y < 60.0 else 0
+			_check((n as Control).size.y < 60.0, "rest night %s is a strip (%.0f px)" % [n.name, (n as Control).size.y])
+	_check(thin > 0, "the week has rest nights drawn as strips")
+	_check(not text.contains("holds the pads
+") or text.count("holds the pads") == 1, "who holds the pads is said once")
+	# the critic's "sparring 1 but no sparring night": next week's nights are next week's, not this week's run ones
+	for d in (PadWeek.nights_of(WeekPhase.ahead_view(f, c.day))["spar"] as Array):
+		var sn := main.find_child("Night_%d" % int(d), true, false)
+		_check(sn != null and str(sn.get("kind")) == "sparring", "next week's sparring night %d is drawn SPARRING" % int(d))
+	var apply := main.find_child("CoachApply", true, false) as Button
+	if apply != null:
+		apply.pressed.emit()
+		await _frames(2)
+		var ed: Dictionary = (f.get("week_edits_next", {}) as Dictionary).get("days", {})
+		_check(not ed.is_empty() or str(f.get("diet", "")) == "cut", "Do it made the coach's change (%s)" % str(ed))
+		f.erase("week_edits_next")
 	var before: Dictionary = (f.get("week_edits", {}) as Dictionary).duplicate(true)
 	main.act("wday", "%s|1|intervals|hard" % fid)   # Tuesday
 	await _frames(2)

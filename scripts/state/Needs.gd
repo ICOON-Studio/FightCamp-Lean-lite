@@ -69,7 +69,7 @@ static func needs(career: Career) -> Array:
 					"s": "expires %s" % Clock.fmt(int(o["expires"])), "act": "openBout", "arg": o["id"], "label": "Open"})
 		var pro_offers: Array = f.get("pro_offers", [])
 		if not pro_offers.is_empty() and (f["bout"] as Dictionary).is_empty():
-			n.append({"red": true, "t": "The promoter has %d fights for %s" % [pro_offers.size(), f["name"]],
+			n.append({"red": true, "t": "%d fights offered for %s" % [pro_offers.size(), f["first"]],
 				"s": "pick one, scout one, or ask for a name; they stand until %s" % Clock.fmt(int(pro_offers[0]["until"])),
 				"act": "go", "arg": "fights:0", "label": "Fights"})
 		if Bouts.weigh_in_today(career, f):

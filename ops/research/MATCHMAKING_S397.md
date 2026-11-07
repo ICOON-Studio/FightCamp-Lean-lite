@@ -65,3 +65,23 @@ finishes and fewer stoppage losses than the same bot blind.
   holder; title fights are not separate yet.
 - Five-year version, amateur version, and the screens (Ask for a fight, the Road, promoter's band with its reasons) come next,
   plus the blind walkthrough. Not wired into the career.
+
+## Screens (S397, operator "Yes, build screens"): five blind rounds, stopped at 5
+Wired: scripts/state/ProLadder.gd (after the debut a pro joins her WORLD1 table; a monthly world tick; offers every 8 weeks;
+scouting opens the tape; ladder bouts run through the real fight night), screens scripts/ui/ProFights.gd on the Fights page,
+tests/pro_ladder_test.gd, stills tools/pro_fights_still.gd (TestJump proladder / proranked).
+| round | score (screen / decision) | what changed after it |
+|---|---|---|
+| 1 | 4 | fighter header, stakes per offer, mid reads, the Road's fightable window, step ups sell more tickets |
+| 2 | 5 | one NEXT FIGHT table (offers then asks), shared rules once, scout shows how the read moved, records follow ratings |
+| 3 | 5 (6 / 4) | step up = a ranked name, no duck while rebuilding, scouting on asks, net fans, a loss column, FAVOURITE/CLOSE/UNDERDOG |
+| 4 | 4 (5 / 4) | risk pays (OPP_DRAW_PER_PLACE), a loss costs fans by how it looked (loss_fans), the gym's take as the money, the Road slice |
+| 5 | 5 (6 / 4) | stopped: the critics now pull opposite ways (round 4 asked losses to cost by look; round 5 calls the free underdog loss "solved") |
+Left, structural (next session):
+- The decision still reads as solved to critics: "the highest ranked name near 40%" dominates. The bots agree a ~45-55% read is
+  best. Next lever, from round 5: a loss to a ranked name costs something real besides fans (a layoff when stopped, shown in
+  weeks; a rankings freeze), and the safe fight gives something concrete (sharpness, a safe purse).
+- No "her vs them" side by side: show her style and the matchup the scout found as numbers.
+- Unscouted reads are wide (18-70%); a scout narrows them but can bring bad news with no number for using the weakness.
+- Chance vs ranking: take-their-place churn means #17 can be far stronger than #18; the world needs a rating pull on ranks.
+- The TestJump films its pro bouts on the booking day (a test artefact; the real flow fights on fight night).

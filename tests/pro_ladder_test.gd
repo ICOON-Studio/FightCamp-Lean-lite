@@ -70,11 +70,16 @@ func _initialize() -> void:
 	_check(world_moved, "the world fought on while she waited")
 	var cash := c.cash
 	var target: Dictionary = rows[0]
+	var width_before := float(target["chance"]["hi"]) - float(target["chance"]["lo"])
 	var ok := ProLadder.scout(c, f, int(target["opp"]["id"]))
-	var scouted: Dictionary = ProLadder.offer_rows(c, f)[0]["offer"]
+	var after: Dictionary = ProLadder.offer_rows(c, f)[0]
 	_check(ok and cash - c.cash == MM.SCOUT_COST, "a scout costs $%d (paid %d)" % [MM.SCOUT_COST, cash - c.cash])
-	_check(bool(scouted["scouted"]) and absf(float(scouted["hi"]) - float(scouted["lo"]) - MM.RANGE_SCOUTED) < 0.6,
-		"the scouted read narrows to about %d points (%.1f-%.1f)" % [int(MM.RANGE_SCOUTED), float(scouted["lo"]), float(scouted["hi"])])
+	var width_after := float(after["chance"]["hi"]) - float(after["chance"]["lo"])
+	_check(bool(after["offer"]["scouted"]) and width_after < width_before * 0.75,   # the weapon is public tape (S397), so the scout finds the weakness only
+		"the scout narrows the read: %d-%d%% -> %d-%d%%" % [roundi(float(target["chance"]["lo"]) * 100), roundi(float(target["chance"]["hi"]) * 100),
+		roundi(float(after["chance"]["lo"]) * 100), roundi(float(after["chance"]["hi"]) * 100)])
+	_check((after["bout_opp"]["file_found"] as Array).has("weapon") and (after["bout_opp"]["file_found"] as Array).has("weakness"),
+		"his tape is open: weapon and weakness found")
 	_check(not ProLadder.scout(c, f, int(target["opp"]["id"])), "the same offer cannot be scouted twice")
 	var asks := ProLadder.ask_rows(c, f)
 	_check(not asks.is_empty() and not bool(asks[0]["answer"]["ok"]) and str(asks[0]["answer"]["reason"]).begins_with("Too high"),
@@ -82,6 +87,7 @@ func _initialize() -> void:
 	_check(asks.any(func(r): return bool(r["answer"]["ok"])), "someone in the band can be asked for")
 	var booked := ProLadder.book(c, f, int(target["opp"]["id"]), false)
 	_check(bool(booked["ok"]) and int(f["bout"].get("ladder", 0)) == int(target["opp"]["id"]), "she books the scouted fight")
+	_check((f["bout"]["opp"].get("file_found", []) as Array).has("weakness"), "what the scout found goes into the bout's file")
 	_check(int(f["bout"]["rounds"]) >= ProLadder.ROUNDS_UNRANKED and int(f["bout"]["purse"]) >= MM.PURSE_UNRANKED,
 		"a pro bout: %d rounds, purse $%d" % [int(f["bout"]["rounds"]), int(f["bout"]["purse"])])
 	_check((f.get("pro_offers", []) as Array).is_empty(), "the other offers go")

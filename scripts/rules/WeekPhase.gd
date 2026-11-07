@@ -13,6 +13,8 @@ extends RefCounted
 ##   exceptions, f["week_edits_next"]), keep_ahead(f, view); sync moves them into week_edits on that Monday.
 ## Pure static; f keys: phase, week_edits {phase, days {"0".."6": [id, intensity]}, spar}, week_edits_next {.., monday}.
 
+## DrillWeek.NOTED: the evenings Sim ran this week (laid over the live week); next week has none yet.
+const NOTED := "week_nights"
 const PHASES := {
 	"base": {"name": "Base week", "line": "No bout booked: the coach keeps things ticking over.", "spar": 1},
 	"build": {"name": "Build week", "line": "Volume up; the camp's stat gets a Hard morning.", "spar": 1},
@@ -89,6 +91,7 @@ static func ahead_view(f: Dictionary, day: int) -> Dictionary:
 	g["phase_day"] = monday
 	g["twist"] = ""
 	g.erase("twist_pick")
+	g.erase(NOTED)   # S397 blind Week critic: this week's run evenings (DrillWeek.note) are not next week's nights
 	var nx: Dictionary = f.get("week_edits_next", {})
 	if int(nx.get("monday", -1)) == monday and str(nx.get("phase", "")) == p:
 		g["week_edits"] = nx

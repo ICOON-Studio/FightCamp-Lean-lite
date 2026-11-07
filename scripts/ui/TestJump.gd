@@ -39,6 +39,8 @@ const Bouts := preload("res://scripts/state/Bouts.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
+const ProLadder := preload("res://scripts/state/ProLadder.gd")
+const Sim := preload("res://scripts/state/Sim.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
@@ -47,7 +49,7 @@ const SAVE_PATH := "user://test_jump_save.json"
 const SCENE_JUMPS := {"grapple": "res://scenes/dev/GrappleBrowser.tscn", "strikemap": "res://scenes/dev/StrikeBrowser.tscn",
 	"theatre": "res://scenes/dev/GrappleTheatre.tscn"}
 const JUMPS := ["fight", "fight_nofilm", "corner", "round3", "injury", "nationals", "pro", "taperoom", "camp", "belt", "men", "men_fight", "gameplan",
-	"training"]
+	"training", "proladder", "proranked"]
 ## What two weeks of pad time on the 1-2 and the 1-2-3 leave her with (Combos.LEARN_AT is 30).
 const DRILLED := {"1-2": 62.0, "1-2-3": 48.0}
 ## S378 jump=gameplan: her own combinations (PLAYBOOK > Combos rows) and their pad time - the first a signature.
@@ -147,6 +149,26 @@ static func run(main: Node, jump: String) -> bool:
 			main.act("close")
 		main.act("fighter", str(f["id"]))
 		return (f.get("bout", {}) as Dictionary).is_empty() and c.day >= 7
+	if jump == "proladder" or jump == "proranked":   # S397 rank 4: a pro after the debut, the promoter's offers waiting
+		f["w"] = 9
+		f["l"] = 1
+		f["offers"] = []
+		Roster.check_pro(c)
+		Roster.turn_pro(c)
+		_pro_night(c, f)
+		_pro_wait(c, f)
+		if jump == "proranked":   # three step-ups taken: she has a place on the table
+			for i in 3:
+				var rows := ProLadder.offer_rows(c, f)
+				if rows.is_empty():
+					break
+				var pick: Dictionary = rows[-1]
+				ProLadder.book(c, f, int(pick["opp"]["id"]), false)
+				_pro_night(c, f)
+				_pro_wait(c, f)
+		_tidy(main, c)
+		main.act("go", "fights:0")
+		return not (f.get("pro_offers", []) as Array).is_empty()
 	if jump == "pro":
 		f["w"] = 9
 		f["l"] = 1
@@ -257,3 +279,21 @@ static func _to_nationals(main: Node, c: Career, f: Dictionary) -> bool:
 		main.run_to_stop()
 	main.act("go", "world:4")
 	return Champs.cannot_enter(c, f) == ""
+
+
+## S397 a pro night simulated (TestJump only): the bout is today, she made weight, the sim fights it, after_fight tidies.
+static func _pro_night(c: Career, f: Dictionary) -> void:
+	f["bout"]["day"] = c.day
+	f["bout"]["weighed"] = true
+	f["bout"]["made"] = true
+	var m := {"fid": f["id"], "step": "tape", "total": int(f["bout"].get("rounds", 4))}
+	Bouts.fight_step(c, f, m, "sim")
+	Bouts.after_fight(c, f)
+
+
+static func _pro_wait(c: Career, f: Dictionary) -> void:
+	for i in 90:
+		if not (f.get("pro_offers", []) as Array).is_empty():
+			return
+		Sim.step_day(c)
+		c.review_pending = false

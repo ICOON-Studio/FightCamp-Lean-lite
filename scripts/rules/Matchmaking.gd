@@ -36,7 +36,10 @@ const LEARN_GAP := 6.0         # past this many points above you a fight teaches
 const STOP_COST := 0.8         # rating lost at once to a stoppage loss (the damage shows now, not only after 31)
 const PURSE_UNRANKED := 1500
 const PURSE_PER_PLACE := 400   # rank 1 pays 1500 + 19 * 400 on a 20-place table
+const OPP_DRAW_PER_PLACE := 150  # fighting a ranked name above you: the B side is paid for the name
 const TICKET_PER_FAN := 150
+const STEP_SELLS := 6.0       # a step up this far above still sells as a close fight
+const STEP_BONUS := 0.25      # and a real step up sells a quarter more: the underdog story
 const GYM_SHARE := 0.25        # manager 15% + trainer 10% (Roster.GYM_SHARE)
 const TOP_RECORD := 10         # the board ranks nobody with a losing (or level) record above #11
 ## "Styles make fights": how his hidden weapon, habits and weakness (OppFile's tape tells) meet your boxer's game, in rating
@@ -107,7 +110,14 @@ static func offers(p: Dictionary, boxers: Array, rng: RandomNumberGenerator) -> 
 	var own := float(p["rating"])
 	var below := pool.filter(func(b): return float(b["rating"]) < own - 2.0)
 	var level := pool.filter(func(b): return absf(float(b["rating"]) - own) <= 2.0)
-	var above := pool.filter(func(b): return float(b["rating"]) > own + 2.0 and _in_band(p, b))
+	# S397 blind round 3: the promoter's step up is a ranked name in your band when there is one (an unranked step up gave
+	# no place and lost to simply asking for #15); else anyone better.
+	var above := pool.filter(func(b): return int(b.get("rank", 0)) > 0 and _place(b) < _place(p) and _in_band(p, b) and float(b["rating"]) > own - 2.0)
+	var near := above.filter(func(b): return float(b["rating"]) <= own + STEP_SELLS)   # a step, not a cliff
+	if not near.is_empty():
+		above = near
+	if above.is_empty():
+		above = pool.filter(func(b): return float(b["rating"]) > own + 2.0 and float(b["rating"]) <= own + STEP_SELLS and _in_band(p, b))
 	var groups := [["below", below], ["level", level]]
 	if int(p["ducks"]) < DUCKS_BLOCK and not p.get("rebuild", false):
 		groups.append(["above", above])
@@ -140,7 +150,7 @@ static func ask(p: Dictionary, opp: Dictionary) -> Dictionary:
 ## The player chose `opp` from these offers: taking a softer fight while a harder one was offered counts as a duck.
 static func note_choice(p: Dictionary, choice: Dictionary, offered: Array) -> void:
 	var harder := offered.any(func(g): return float(g["opp"]["rating"]) > float(choice["rating"]) + 2.0)
-	if harder:
+	if harder and not p.get("rebuild", false):   # after a loss the softer fight is the rebuild, not a duck
 		p["ducks"] = int(p["ducks"]) + 1
 		p["fans"] = maxi(FANS_MIN, int(p["fans"]) - 1)
 	elif float(choice["rating"]) > float(p["rating"]) + 2.0:
@@ -163,7 +173,12 @@ static func fight(p: Dictionary, opp: Dictionary, boxers: Array, rng: RandomNumb
 static func pay_of(p: Dictionary, opp: Dictionary) -> Dictionary:
 	var p_rank := int(p["rank"])
 	var purse := PURSE_UNRANKED + PURSE_PER_PLACE * maxi(0, 21 - p_rank) if p_rank > 0 else PURSE_UNRANKED
-	var closeness := clampf(1.0 - absf(float(opp["rating"]) - float(p["rating"])) / 15.0, 0.3, 1.0)
+	var o_rank := int(opp.get("rank", 0))
+	if o_rank > 0 and (p_rank == 0 or o_rank < p_rank):   # S397 blind round 4: risk pays - the name above you is the draw
+		purse += OPP_DRAW_PER_PLACE * (21 - o_rank)
+	# a close fight sells, and so does a step up to 6 points (the crowd comes to see her try); a mismatch either way does not
+	var gap := float(opp["rating"]) - float(p["rating"])
+	var closeness := clampf(1.0 + minf(gap, 0.0) / 15.0 - maxf(gap - STEP_SELLS, 0.0) / 15.0, 0.3, 1.0) + (STEP_BONUS if gap > 2.0 and gap <= STEP_SELLS else 0.0)
 	return {"purse": purse, "tickets": int(TICKET_PER_FAN * float(maxi(0, int(p["fans"]) + 5)) * closeness)}
 
 
@@ -190,7 +205,7 @@ static func apply_result(p: Dictionary, opp: Dictionary, boxers: Array, won: boo
 		grow -= STOP_COST if stop else 0.0
 		p["l"] = int(p["l"]) + 1
 		opp["w"] = int(opp.get("w", 0)) + 1
-		p["fans"] = clampi(int(p["fans"]) - 1, FANS_MIN, FANS_MAX)
+		p["fans"] = clampi(int(p["fans"]) - loss_fans(gap), FANS_MIN, FANS_MAX)
 		p["rebuild"] = true
 		WR.apply_result_in(opp, p, boxers)
 		if o_rank > 0 and p_rank > o_rank:
@@ -207,6 +222,12 @@ static func apply_result(p: Dictionary, opp: Dictionary, boxers: Array, won: boo
 		"tickets": int(pay["tickets"])}
 	(p["log"] as Array).append(line)
 	return line
+
+
+## Fans a loss costs, by how the fight looked (gap = opponent minus her): a favourite who loses costs 2, a close loss 1,
+## an underdog who loses costs none (S397 blind round 4: the loss column read the same on every row).
+static func loss_fans(gap: float) -> int:
+	return 2 if gap < -2.0 else (1 if gap <= 2.0 else 0)
 
 
 ## A losing or level record cannot sit in the top TOP_RECORD: the boxer drops to the first place under it.

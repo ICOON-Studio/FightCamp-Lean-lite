@@ -325,14 +325,22 @@
   {
    "task": "FIGHTWALK1",
    "seat": "cursor",
-   "status": "queued",
-   "queued": "2026-11-07T13:57"
+   "status": "launched",
+   "queued": "2026-11-07T13:57",
+   "launched": "2026-11-07T14:11"
   },
   {
    "task": "HITSELL1",
    "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-07T13:59",
+   "launched": "2026-11-07T14:40"
+  },
+  {
+   "task": "HITSELL2",
+   "seat": "qwen",
    "status": "queued",
-   "queued": "2026-11-07T13:59"
+   "queued": "2026-11-07T15:08"
   }
  ]
 }

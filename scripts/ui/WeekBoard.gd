@@ -178,6 +178,7 @@ func _head(main: Node, c: Career, f: Dictionary, goal: Dictionary, evs: Array) -
 			left.add_child(UI.label(str(ph["name"]), 16, UI.MUTED, "semi"))
 		h.add_child(left)
 	h.add_child(_steps(main, f))
+	h.add_child(_helps(main.career))
 	h.add_child(UI.spacer())
 	var g: Node = _camp.get("_gauge")
 	if g != null:
@@ -185,6 +186,17 @@ func _head(main: Node, c: Career, f: Dictionary, goal: Dictionary, evs: Array) -
 		(g as Control).size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		h.add_child(g)
 	return h
+
+
+## S397 blind Week critic ("Luke holds the pads" and "good kit" on every pads card): who helps the pad nights, said once.
+static func _helps(c: Career) -> Label:
+	var coach := float(c.coach.get("rating", 0.0))
+	var who := str(c.coach.get("name", "")).get_slice(" ", 0)
+	var l := UI.label("%s, %s" % ["%s holds the pads" % who if coach > 0.0 else "No coach: pad nights at base", "good kit" if int(PadWeek.STATION_TIER) >= 2 else "basic kit"],
+		15, UI.MUTED, "semi")
+	l.name = "PadHelp"
+	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	return l
 
 
 ## Light / Standard / Hard: her pad nights (in camp the camp's protocol, else her training load).
@@ -243,7 +255,7 @@ func _goal_row(f: Dictionary, goal: Dictionary, pl: Dictionary, nights: Dictiona
 	# S397 blind round 3 ("65.1 -> 65.2"): her stat as the page shows it everywhere, the week's gain in words, decimals on hover.
 	nums.add_child(UI.label("%d" % int(now), 19, UI.FG, "bold"))
 	var d := end - now
-	nums.add_child(UI.label("holding" if d < 0.05 else ("up a little" if d < 0.6 else ("up" if d < 1.5 else "a big week")), 19, UI.GREEN if d >= 0.05 else UI.MUTED, "bold"))
+	nums.add_child(UI.label(("holding" if d < 0.05 else ("up a little" if d < 0.6 else ("up" if d < 1.5 else "a big week"))) + " by Sunday", 19, UI.GREEN if d >= 0.05 else UI.MUTED, "bold"))
 	nums.tooltip_text = "%.1f now, %.1f by Sunday" % [now, end]
 	nums.mouse_filter = Control.MOUSE_FILTER_STOP
 	h.add_child(nums)
@@ -253,7 +265,9 @@ func _goal_row(f: Dictionary, goal: Dictionary, pl: Dictionary, nights: Dictiona
 	bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(bar)
-	var words := BoutRules.night_line_words(stat)
+	# S397 blind Week critic ("65 / at 64 / 0.3 short"): the fight-night line only when a fight is booked.
+	var booked := not (goal["bout"] as Dictionary).is_empty() and not bool((goal["bout"] as Dictionary).get("done", false))
+	var words := BoutRules.night_line_words(stat) if booked else ""
 	if words != "":
 		h.add_child(UI.label(words, 18, UI.GOLD if BoutRules.clears_night_line(stat, end) else UI.MUTED, "hand"))
 	h.add_child(UI.spacer())
@@ -325,11 +339,7 @@ func _night_spec(main: Node, f: Dictionary, i: int, inp: Dictionary, projs: Dict
 	for card in rows:
 		if kind == "sparring" and (rows[card] as Dictionary).has(i):
 			spar.append(PadEdit.title(f, str(card)))
-	var c: Career = main.career
-	var coach := float(c.coach.get("rating", 0.0))
-	var who := str(c.coach.get("name", "")).get_slice(" ", 0)
-	# S397 blind round 5 ("Luke: +23%", "Gym kit: level 2" are raw): who helps the night, in words.
-	var chips := ["%s holds the pads" % who if coach > 0.0 else "No coach: sessions at base", "good kit" if int(PadWeek.STATION_TIER) >= 2 else "basic kit"]
+	var chips: Array = []   # S397: who helps the nights is said once, by Light / Standard / Hard (_helps)
 	var picked := DrillTray.picked_for(fid)
 	var click := func(dow: int) -> void:
 		var now := DrillTray.picked_for(fid)
@@ -350,7 +360,7 @@ func _ghost_day(dow: int, card: Array) -> void:
 		_camp.call("ghost_day", dow, card)
 
 
-## Under the strip: the coach's one line, the sparring nights, the coach's week, CONTINUE.
+## Under the strip: the coach's one line (and Do it), the sparring nights, the coach's week.
 func _foot(main: Node, f: Dictionary, pl: Dictionary) -> Control:
 	var fid := str(f["id"])
 	var v := UI.vbox(12)
@@ -358,11 +368,25 @@ func _foot(main: Node, f: Dictionary, pl: Dictionary) -> Control:
 	says.add_child(WB.ink("COACH:", 24, "marker"))
 	# S397 blind round 5: with no bout booked the weight forecast is moot (it read as "over the limit" beside "on weight").
 	var said_lines: Array = _lines if not (f.get("bout", {}) as Dictionary).is_empty() else _lines.filter(func(l): return str(l["id"]) != "weight")
-	var line := WB.ink("\"%s\"" % WeekCoach.line(pl["days"], pl["wk"], said_lines, str((pl["ctx"] as Dictionary).get("diet", "hold"))), 22,
-		"hand", WB.INK, true)
+	var ad := WeekCoach.advice(pl["days"], pl["wk"], said_lines, str((pl["ctx"] as Dictionary).get("diet", "hold")))
+	var fix: Dictionary = ad["fix"]
+	var line := WB.ink("\"%s\"" % str(ad["say"]), 22, "hand", WB.INK, fix.is_empty())   # with Do it: one line, the button beside it
 	line.name = "CoachLine"
-	line.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	if fix.is_empty():
+		line.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	if float(ad["short"]) > 0.0:
+		line.mouse_filter = Control.MOUSE_FILTER_STOP
+		line.tooltip_text = "%.1f short of the line" % float(ad["short"])
 	says.add_child(line)
+	# S397 blind Week critic ("the advice needs an Apply button"): his change in one click.
+	if not fix.is_empty():
+		var arg := "%s|cut" % fid if fix.has("diet") else "%s|%d|%s|%s" % [fid, int(fix["dow"]), str(fix["card"][0]), str(fix["card"][1])]
+		var apply := UI.button("Do it", "Btn", main.act.bind("diet" if fix.has("diet") else "wday", arg))
+		apply.name = "CoachApply"
+		apply.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		apply.tooltip_text = "Make the coach's change"
+		says.add_child(apply)
+		says.add_child(UI.spacer())
 	v.add_child(says)
 	var row := UI.hbox(10)
 	row.add_child(WB.ink("Sparring nights", UI.SMALL + 2, "handbold"))
@@ -377,23 +401,6 @@ func _foot(main: Node, f: Dictionary, pl: Dictionary) -> Control:
 	reset.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	reset.tooltip_text = "Undo your changes to the mornings: back to the coach's week for this phase"
 	row.add_child(reset)
-	row.add_child(UI.spacer())
-	row.add_child(_continue(main))
+	row.add_child(UI.spacer())   # S397 blind Week critic: one CONTINUE - the top bar's
 	v.add_child(row)
 	return v
-
-
-func _continue(main: Node) -> Button:
-	var go := Button.new()
-	go.name = "BoardContinue"
-	go.text = "CONTINUE"
-	go.add_theme_font_override("font", UI.font("marker"))
-	go.add_theme_font_size_override("font_size", 28)
-	for k in ["normal", "hover", "pressed", "focus"]:
-		var s := UI.box(WB.RED if k != "hover" else WB.RED.lightened(0.1), Color("#8e1f1a"), 4, 2, 30, 8)
-		s.set_border_width(SIDE_BOTTOM, 6)
-		go.add_theme_stylebox_override(k, s)
-	go.add_theme_color_override("font_color", Color.WHITE)
-	go.add_theme_color_override("font_hover_color", Color.WHITE)
-	go.pressed.connect(func(): main.act("go_btn"))
-	return go
