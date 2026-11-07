@@ -11,6 +11,7 @@ const CornerShots := preload("res://scripts/fight3d/CornerShots.gd")
 const CornerOverlay := preload("res://scripts/fight3d/CornerOverlay.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
+const FightSfx := preload("res://scripts/audio/FightSfx.gd")
 
 signal done(call: String)
 
@@ -69,6 +70,7 @@ func run(v: Node, s: Node3D, c: CornerCrew, context: Dictionary) -> void:
 	ui.chose.connect(_pick)
 	ui.fixed.connect(func(h: String): fix = h)
 	ui.skip.connect(finish)
+	FightSfx.corner_minute(true)   # S396 the crowd drops under the coach
 	_tick_ui()
 
 
@@ -284,6 +286,7 @@ func cue_seconds_out() -> void:
 	ui.show_card(false)
 	ui.skip_off()
 	_lines.append([t, "\"Seconds out!\""])
+	FightSfx.corner_minute(false)   # S396 the crowd comes back
 	crew.drop("ice")
 	for i in 2:
 		crew.look(stage.boxers[i], null)
@@ -359,6 +362,7 @@ func finish() -> void:
 	# S308: skipped from a button, this node stays in the tree to the frame's end; its _process must not film again
 	# (round 1 opened stuck on the intro's wide lens).
 	set_process(false)
+	FightSfx.corner_minute(false)
 	if pick == "":
 		pick = str(ctx["card"]["call"])
 	ui.apply_body()   # S318 the cutman's job and the ice land even when the minute ran out unpicked

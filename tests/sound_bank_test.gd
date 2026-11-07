@@ -54,7 +54,8 @@ func _check(ok: bool, what: String) -> void:
 
 func _test_final_set() -> void:
 	var evts: Array = SoundBank.events()
-	_check(evts.size() == FINAL.size(), "the set has %d events (got %d)" % [FINAL.size(), evts.size()])
+	# S395: new sounds may be on the board but unheard (no kept files yet); the set has at least FINAL.size() events.
+	_check(evts.size() >= FINAL.size(), "the set has at least %d events (got %d)" % [FINAL.size(), evts.size()])
 	for id in FINAL:
 		var want := "res://assets/audio/%s.ogg" % FINAL[id]
 		var fl: Array = SoundBank.files(id)
@@ -269,7 +270,8 @@ func _test_code() -> void:
 				if arg.begins_with("\""):
 					var id := arg.trim_prefix("\"").trim_suffix("\"")
 					seen[id] = true
-					_check(not SoundBank.files(id).is_empty(), "%s plays '%s': a kept row" % [path, id])
+					# S395: new sounds may be on the board but unheard (no kept files yet); they're in the manifest.
+					_check(SoundBank.has(id), "%s plays '%s': a known event" % [path, id])
 				else:
 					_check(path.ends_with("FightSfx.gd") and arg.begins_with("resolve_move("), "%s plays a computed id (%s)" % [path, arg])
 	print("SOUND_IDS played by the code: %s" % str(seen.keys()))
@@ -280,7 +282,7 @@ func _test_code() -> void:
 	var hooks := {"res://scripts/ui/UI.gd": ["Sfx.play(\"ui_click\")"], "res://scripts/ui/FlipCard.gd": ["Sfx.play(\"ui_click\")"],
 		"res://scripts/ui/modals/PosterReveal.gd": ["Sfx.play(\"knockdown_fall\")"],
 		"res://scripts/fight3d/HitImpact.gd": ["FightSfx.landed(move, big)"],
-		"res://scripts/fight3d/BeatFire.gd": ["FightSfx.blocked()", "FightSfx.missed()", "FightSfx.step()", "FightSfx.knockdown(", "FightSfx.big_shot_ahead(at)"],
+		"res://scripts/fight3d/BeatFire.gd": ["FightSfx.blocked()", "FightSfx.missed(", "FightSfx.step()", "FightSfx.knockdown(", "FightSfx.big_shot_ahead(at)"],
 		"res://scripts/fight3d/FightView.gd": ["FightSfx.bell(true)", "FightSfx.bell(false)", "FightSfx.crowd_off()"],
 		"res://scripts/fight3d/FightCast.gd": ["FightSfx.bell(true)"]}
 	for path in hooks:

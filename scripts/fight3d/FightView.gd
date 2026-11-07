@@ -209,6 +209,8 @@ func play_round(m: Dictionary, n: int) -> void:
 	var f: Dictionary = c.fighter_by_id(fid)
 	var opp: Dictionary = f["bout"]["opp"]
 	round_n = n
+	if n == 1:
+		FightSfx.setup_room(f["bout"])   # S396 the hall or the arena, by attendance, before the walk-in
 	if kd != null:
 		kd.stop()
 	var profiles := {"a": RoundStyle.of_fighter(f), "b": RoundStyle.from_opponent(opp)}

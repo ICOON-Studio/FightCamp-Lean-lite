@@ -182,6 +182,30 @@
    "pitch": 0.04,
    "loop": false,
    "priority": 1
+  },
+  "crowd_groan": {
+   "bus": "Crowd",
+   "group": "crowd",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "loop": false,
+   "priority": 1,
+   "cooldown": 2.0
+  },
+  "crowd_swell": {
+   "bus": "Crowd",
+   "group": "crowd",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "loop": false,
+   "priority": 1,
+   "cooldown": 2.0
   }
  },
  "files": {

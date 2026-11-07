@@ -180,7 +180,7 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 			else:
 				tree.create_timer(at).timeout.connect(func():
 					if not PunchRange.cut_off(stage, who, punch_id):
-						FightSfx.missed())
+						FightSfx.missed(0.0, move, str(b.get("def", ""))))
 		if land == "lands":
 			# S302: the glove is carried onto her face past the guard, and the contact holds, snaps and nudges.
 			# (FIGHT9: no half-speed close-up on the big shot - Argon read it as slow motion; S376 replays knockdowns.)

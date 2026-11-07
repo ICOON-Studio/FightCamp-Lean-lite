@@ -13,6 +13,8 @@ const DUCK_ATTACK_S := 0.02   # R7: attack 10-20 ms, release 0.4-0.8 s
 const DUCK_RELEASE_S := 0.4
 
 static var _node: Node = null
+## S396: a per-bus level on top of BUS_DEFS (the Crowd bed by attendance); a duck releases to it.
+static var bus_offset := {}
 var played: Dictionary = {}   # id -> plays this run (tests and probes read it)
 var _pool: Array = []
 var _loop_players: Array = []
@@ -220,7 +222,7 @@ func _do_duck(bus_name: String, db: float, seconds: float) -> void:
 	var running: Tween = _ducks.get(bus_name)
 	if running != null:
 		running.kill()
-	var base: float = BUS_DEFS.get(bus_name, 0.0)
+	var base: float = BUS_DEFS.get(bus_name, 0.0) + float(bus_offset.get(bus_name, 0.0))
 	var set_db := func(v: float) -> void: AudioServer.set_bus_volume_db(idx, v)
 	var tw := create_tween()
 	tw.tween_method(set_db, AudioServer.get_bus_volume_db(idx), base + db, DUCK_ATTACK_S)

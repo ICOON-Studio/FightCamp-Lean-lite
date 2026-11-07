@@ -5201,10 +5201,204 @@
         "No, leave it"
       ],
       "attach": [],
+      "answer": "Yes, later",
+      "note": null,
+      "answered_at": "2026-11-06T15:45:54Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-111",
+      "asked": "2026-11-06T19:52:00.947467+00:00",
+      "session": "S294",
+      "text": "Fight HUD: 12 small numbers, nobody can see who is tired in 2 seconds. Big stamina number in each ring, other numbers only when low (still on hover and on the corner card)?",
+      "options": [
+        "Yes, build it",
+        "Add it, keep all numbers",
+        "Stamina number only",
+        "No, leave it"
+      ],
+      "attach": [],
+      "answer": "Yes, build it",
+      "note": null,
+      "answered_at": "2026-11-07T05:00:07Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-112",
+      "asked": "2026-11-07T06:53:07.181549+00:00",
+      "session": "S294",
+      "text": "The fight's sound has never been heard or rated. Gemini could rate it to 8/10, but its credit ran out, and nothing else here can listen. Who rates it?",
+      "options": [
+        "I top up Gemini",
+        "I listen and rate it"
+      ],
+      "attach": [],
+      "answer": "I listen and rate it",
+      "note": null,
+      "answered_at": "2026-11-07T07:46:17Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-113",
+      "asked": "2026-11-07T08:33:45.022125+00:00",
+      "session": "S294",
+      "text": "Structure design 1: should a career never have to end? Boxers age and retire, new ones arrive, a pro ladder keeps running. This replaces the planned 10-15 hour story.",
+      "options": [
+        "Yes, open-ended",
+        "No, keep it short"
+      ],
+      "attach": [],
+      "answer": "Yes, open-ended",
+      "note": null,
+      "answered_at": "2026-11-07T08:51:10Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-114",
+      "asked": "2026-11-07T08:33:45.184834+00:00",
+      "session": "S294",
+      "text": "Structure design 2: may the gym have a plain list of upgrades with prices and effects? No gym floor, no 3D, just a list, so money stays a real choice late on.",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "attach": [],
+      "answer": "Yes",
+      "note": null,
+      "answered_at": "2026-11-07T08:51:37Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-115",
+      "asked": "2026-11-07T08:33:45.350148+00:00",
+      "session": "S294",
+      "text": "Structure design 3: BJJ stays. If it is not as good as boxing when Early Access is ready, should it ship in the first update instead of holding the launch?",
+      "options": [
+        "Yes",
+        "No, launch together"
+      ],
+      "attach": [],
+      "answer": "No, launch together",
+      "note": null,
+      "answered_at": "2026-11-07T08:51:53Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-116",
+      "asked": "2026-11-07T08:33:45.517540+00:00",
+      "session": "S294",
+      "text": "Structure design 4: raise the roster to a limit of 8 fighters, starting at 3 places? The bible says a small roster; 8 is the most a player can follow as people.",
+      "options": [
+        "Yes, up to 8",
+        "Keep it smaller"
+      ],
+      "attach": [],
+      "answer": "Yes, up to 8",
+      "note": null,
+      "answered_at": "2026-11-07T08:52:05Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-117",
+      "asked": "2026-11-07T08:33:45.719794+00:00",
+      "session": "S294",
+      "text": "Structure design 5: close the Camp Board card game, which failed its coach test, but keep discovering fighters' habits? Its board look lives on in Home.",
+      "options": [
+        "Yes, close it",
+        "Keep it"
+      ],
+      "attach": [],
+      "answer": "i do not know what is this",
+      "note": null,
+      "answered_at": "2026-11-07T08:52:50Z",
+      "seen_by_claude": false,
+      "comment_only": true
+    },
+    {
+      "id": "Q-S294-118",
+      "asked": "2026-11-07T08:33:45.889913+00:00",
+      "session": "S294",
+      "text": "Structure design 6: keep the game's world in open files so fans can edit it later? Cheap if done now, and fans of this genre value it highly.",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "attach": [],
+      "answer": "Yes",
+      "note": null,
+      "answered_at": "2026-11-07T08:53:02Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-119",
+      "asked": "2026-11-07T08:33:46.057289+00:00",
+      "session": "S294",
+      "text": "Structure design 7: is this the right pitch? Deeper than Corner King, not bigger: a real club, fighters who fight differently, your plan, and the reason you won.",
+      "options": [
+        "Yes",
+        "Change it"
+      ],
+      "attach": [],
+      "answer": "Yes",
+      "note": null,
+      "answered_at": "2026-11-07T08:53:30Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-120",
+      "asked": "2026-11-07T08:33:46.219377+00:00",
+      "session": "S294",
+      "text": "Structure design 8: build all the proposed new systems, in the design's order? Press card and editor would be the first to drop. List: docs/STRUCTURE_DESIGN_S395.md, section 5.7.",
+      "options": [
+        "All of them",
+        "I will pick"
+      ],
+      "attach": [],
       "answer": null,
       "note": null,
       "answered_at": null,
       "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-121",
+      "asked": "2026-11-07T08:33:46.383463+00:00",
+      "session": "S294",
+      "text": "Structure design 9: at the start, choose from four coach picture cards and a starting club? About one session of work, plus art for four new corner bodies. No character generator.",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "attach": [],
+      "answer": "Yes",
+      "note": null,
+      "answered_at": "2026-11-07T08:54:13Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-122",
+      "asked": "2026-11-07T08:33:46.550704+00:00",
+      "session": "S294",
+      "text": "Structure design 10: what total budget is there for the Steam capsule art, trailer and lawyer? Still open from the bible. Write an amount in the note.",
+      "options": [
+        "Decide later",
+        "Amount in note"
+      ],
+      "attach": [],
+      "answer": "you take care of all that",
+      "note": null,
+      "answered_at": "2026-11-07T08:54:57Z",
+      "seen_by_claude": false,
+      "comment_only": true
     }
   ]
 }

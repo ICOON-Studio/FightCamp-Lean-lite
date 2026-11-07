@@ -1,20 +1,14 @@
 {
  "_note": "SINGLE SOURCE OF TRUTH for the roadmap. The ops board reads this file directly and ROADMAP.md is GENERATED from it by Tools/render_roadmap.py. Do not hand-maintain a second copy anywhere - that is the defect R136/U62 named and it has cost this project eight times.",
- "updated": "2026-11-06",
+ "updated": "2026-11-07",
  "author": "claude S294",
  "now": {
-  "id": "S394",
+  "id": "S395",
   "owner": "claude",
-  "updated": "2026-11-06",
-  "summary": "S394: Home rebuilt on real data in the light look (dark clashed, his call), needs as notes pinned on a cork board (his idea, kept), five rail buttons with Club, coach on Home. Blind: cards 6.5, board 6. HUD lead bar, damage flash; HUD still 5, corner hide failed. Portraits on a branch, not used. Suite 191/0. Nothing exported.",
-  "last_working_commit": "7149ceb6",
-  "next_action": "S387 (NEXT_SESSION_PROMPT.md): (1) build menu critic 1-3 + Playbook tab in the fighter page; (2) fight motion round 3 by the blind loop; (3) merge GAMETREE1 after the suite; (4) collect BJJ9R17 / SOUND1R2 / FIGHT9R15.",
-  "verified_playable": "S385: training1 on main 96d48da2 - Training tab week strip + drill cards; drag 1-2 onto Friday pads proven on a real focused window (E:/FightCamp/tmp/s385/training/drag_*.jpg), suite 158/158.",
-  "incomplete_blocked": "FIGHT9 loop: no kept round since R7 (RED_TEST fight9_probe fails every round); BJJ9 loop 2.5-4/10; owned takes not wired into the fight.",
-  "next_acceptance": "Owned takes play in a live fight with no knee tremble (owned_mocap_jitter bars) and the operator's watch OK.",
-  "awaiting_operator": "Gemini prepay refill (optional); Q-S294-98/99/100."
+  "updated": "2026-11-07",
+  "summary": "S395: HUD 5 to 6.5 (corner bug was the film tool; rest strip; fades; tired read B); TV hit line, big-shot slow motion and zoom; boxers walk on a real capture; SOUND2 collected; Attendance; pr-check and cloud film on GitHub; Ollama fixed; structure design with Corner King study, 10 questions on the board. Portraits 4.5, not used. Not exported."
  },
- "next": "S395: find why the HUD stays on in the corner, measure first; put the tired-read design to him; rebake portraits, no gloves; Home leftovers; Settings, Handbook, Fight prep tab; trunk limit; S393 list.",
+ "next": "S396: read the structure answers Q-113..122; collect SOUND3; check the cloud film; fight polish from the 5.5 review; truth pass (autosave, Settings, Handbook).",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -1573,6 +1567,11 @@
    "id": "S394",
    "date": "2026-11-06",
    "summary": "S394: Home rebuilt on real data in the light look (dark clashed, his call), needs as notes pinned on a cork board (his idea, kept), five rail buttons with Club, coach on Home. Blind: cards 6.5, board 6. HUD lead bar, damage flash; HUD still 5, corner hide failed. Portraits on a branch, not used. Suite 191/0. Nothing exported."
+  },
+  {
+   "id": "S395",
+   "date": "2026-11-07",
+   "summary": "S395: HUD 5 to 6.5 (corner bug was the film tool; rest strip; fades; tired read B); TV hit line, big-shot slow motion and zoom; boxers walk on a real capture; SOUND2 collected; Attendance; pr-check and cloud film on GitHub; Ollama fixed; structure design with Corner King study, 10 questions on the board. Portraits 4.5, not used. Not exported."
   }
  ],
  "blocked_on_operator": [],
@@ -4491,7 +4490,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-06",
+  "updated": "2026-11-07",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4631,12 +4630,25 @@
    "WBOPP": "Whiteboard opponent line (done)",
    "SOUND1": "Game sound: one agent (Qwen) makes and wires every sound, you judge each by ear"
   },
-  "working_now": [],
+  "working_now": [
+   {
+    "title": "TASK_SOUND3 - the sound engineer, round 3: a real room, sized by the crowd (Qwen)",
+    "who": "qwen",
+    "started": "2026-11-07T10:40",
+    "run": "SOUND3"
+   }
+  ],
   "next": [
    {
-    "id": "HUDFIX",
+    "id": "TRUTH1",
     "who": "claude",
-    "title": "HUD to 7: corner bug, who is tired",
+    "title": "Truth pass: autosave, Settings, Handbook v1",
+    "after": ""
+   },
+   {
+    "id": "FIGHTPOL",
+    "who": "claude",
+    "title": "Fight polish: walk joins, corner card, coach",
     "after": ""
    },
    {
@@ -4644,12 +4656,6 @@
     "who": "claude",
     "title": "BJJ fight to 7/10: real locks, guard submissions, gas",
     "after": ""
-   },
-   {
-    "id": "CARD2",
-    "who": "claude",
-    "title": "Fight card (C237) and fighter traits (C238)",
-    "after": "HOME1"
    }
   ],
   "waiting_seat": [
@@ -4879,6 +4885,23 @@
   },
   "done_recently": [
    {
+    "id": "HUDFIX",
+    "who": "claude",
+    "title": "HUD 6.5: corner, rest strip, tired read, TV line, big-shot moment",
+    "when": "2026-11-07"
+   },
+   {
+    "id": "STRUCT",
+    "who": "claude",
+    "title": "Structure design for a 9/10 manager game, Corner King study",
+    "when": "2026-11-07"
+   },
+   {
+    "title": "TASK_SOUND2 - the sound engineer, round 2: fight sound to 8/10 (Qwen)",
+    "who": "qwen",
+    "when": "2026-11-07"
+   },
+   {
     "id": "HOME1",
     "who": "claude",
     "title": "Home on real data, pinned notice board, five rail buttons"
@@ -4902,41 +4925,6 @@
     "title": "TASK FIGHT9R18 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
     "who": "antigravity",
     "when": "2026-11-06"
-   },
-   {
-    "title": "TASK FIGHT9R17 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
-    "who": "antigravity",
-    "when": "2026-11-06"
-   },
-   {
-    "title": "TASK SOUND1R2 - QWEN (sound engineer) - round 1 rework (S386, Claude's collect review)",
-    "who": "qwen",
-    "when": "2026-11-06"
-   },
-   {
-    "title": "TASK FIGHT9R15 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
-    "who": "antigravity",
-    "when": "2026-11-06"
-   },
-   {
-    "title": "TASK_SOUND1 - the sound engineer, round 1: the sound layer + the fight's core sounds, layered, measured, on the board (Qwen)",
-    "who": "qwen",
-    "when": "2026-11-06"
-   },
-   {
-    "title": "TASK FIGHT9R16 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
-    "who": "antigravity",
-    "when": "2026-11-06"
-   },
-   {
-    "title": "TASK BJJ9R18 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
-    "who": "cursor",
-    "when": "2026-11-06"
-   },
-   {
-    "title": "TASK BJJ9R17 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
-    "who": "cursor",
-    "when": "2026-11-05"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5065,6 +5053,18 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Home built, light, 6.5: ok for now",
+     "who": "claude"
+    },
+    {
+     "text": "Home notice board: kept",
+     "who": "claude"
+    },
+    {
+     "text": "HUD lead bar, damage flash",
+     "who": "claude"
+    },
+    {
      "text": "PADVIEW1 + OWNEDTAKES1 collected",
      "who": "claude"
     },
@@ -5107,31 +5107,31 @@
     {
      "text": "Blood & Canvas studied",
      "who": "claude"
-    },
-    {
-     "text": "Ziva back up",
-     "who": "claude"
-    },
-    {
-     "text": "Gloves: whole palm cut",
-     "who": "claude"
-    },
-    {
-     "text": "50/50 slide fixed",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Home built, light, 6.5: ok for now",
+     "text": "HUD 5 to 6.5: corner, bell, fades",
      "who": "claude"
     },
     {
-     "text": "Home notice board: kept",
+     "text": "Corner shows energy, legs, guard",
      "who": "claude"
     },
     {
-     "text": "HUD lead bar, damage flash",
+     "text": "Portraits level, soft, 4.5: held",
+     "who": "claude"
+    },
+    {
+     "text": "Big-shot slow-mo, TV hit line",
+     "who": "claude"
+    },
+    {
+     "text": "Boxers walk on a real capture",
+     "who": "claude"
+    },
+    {
+     "text": "Structure design: Qs 113-122",
      "who": "claude"
     }
    ],
@@ -5153,16 +5153,8 @@
      "who": "claude"
     },
     {
-     "text": "HUD at 5: corner bug, tired read",
-     "who": "claude"
-    },
-    {
-     "text": "Portraits redo: no gloves, softer",
-     "who": "claude"
-    },
-    {
-     "text": "Fight prep tab, Settings, Handbook",
-     "who": "claude"
+     "text": "Sound room by crowd size",
+     "who": "agent"
     }
    ],
    "next": [
@@ -5205,9 +5197,21 @@
     {
      "text": "BJJ fight to 7/10 (was 3-4)",
      "who": "claude"
+    },
+    {
+     "text": "Red's leg past the rope: refine",
+     "who": "claude"
+    },
+    {
+     "text": "Truth pass: autosave, Settings",
+     "who": "claude"
+    },
+    {
+     "text": "Read board answers Q-113 to 122",
+     "who": "claude"
     }
    ],
-   "session": "S394"
+   "session": "S395"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
