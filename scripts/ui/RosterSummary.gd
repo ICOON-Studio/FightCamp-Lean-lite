@@ -75,7 +75,7 @@ static func _learning(f: Dictionary) -> String:
 	var learn := str(f.get("learning", ""))
 	if learn == "":
 		return "coach picks"
-	return "%s, %s" % [learn, MoveMastery.tier(float((f.get("moves", {}) as Dictionary).get(learn, 0.0))).to_lower()]
+	return "%s, %s" % [learn, MoveMastery.word(float((f.get("moves", {}) as Dictionary).get(learn, 0.0))).to_lower()]
 
 
 static func _bar(head: String, value: String, frac: float) -> Control:

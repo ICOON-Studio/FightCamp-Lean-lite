@@ -4,6 +4,7 @@ extends VBoxContainer
 
 const OfferCard := preload("res://scripts/ui/OfferCard.gd")
 const UI := preload("res://scripts/ui/UI.gd")
+const Fixtures := preload("res://scripts/ui/Fixtures.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
@@ -106,44 +107,15 @@ func _standing(main: Node, c: Career, f: Dictionary) -> Control:
 		v.add_child(UI.caps("NEXT ON THE ROAD"))
 		v.add_child(UI.label("%s. %s" % [str(road["steps"][int(road["lit"])]["name"]), str(road.get("need", ""))], UI.SMALL, UI.FG, "body", true))
 	if NationalsView.enter_button(main, c, f) != null:   # S397 blind round 4: the Enter button lives on Championships
-		var go := UI.button("Enter %s on Championships" % f["first"], "Link", main.act.bind("go", "world:2"))
+		var go := UI.button("Enter %s for the nationals" % f["first"], "Link", main.act.bind("go", "world:2"))
 		go.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		v.add_child(go)
 	return fc[0]
 
 
+## S398: the one fixture list (Fixtures), the same as World's.
 func _calendar(c: Career) -> void:
-	var card := UI.card("CALENDAR")
-	add_child(card[0])
-	var ev: Array = []
-	for f in c.fighters:
-		var fb: Dictionary = f["bout"]
-		if not fb.is_empty():
-			ev.append({"d": int(fb["day"]) - 1, "t": "Weigh-in: %s" % f["first"]})
-			ev.append({"d": int(fb["day"]), "t": "Fight night: %s vs %s" % [f["first"], fb["opp"]["name"]]})
-		if not (f["camp"] as Dictionary).is_empty():
-			ev.append({"d": int(f["camp"]["start"]), "t": "%s's camp started" % f["first"]})
-		if ProLadder.on_ladder(c, f) and fb.is_empty() and (f.get("pro_offers", []) as Array).is_empty():
-			ev.append({"d": maxi(int(f.get("pro_next", c.day)), c.day + 1), "t": "The promoter calls: %s's next fights" % f["first"]})
-	var next := Clock.next_stop(c)
-	if not ["weigh-in", "fight night"].has(str(next["r"])):
-		ev.append({"d": int(next["d"]), "t": str(next["r"]).capitalize()})
-	ev.append({"d": GameMoney.next_bill_day(c.day), "t": "Month-end bill"})
-	ev.append_array(Champs.calendar(c))   # S328 the nationals: entries close, her road round by round
-	for g in c.grapplers:   # S396 blind review: Ana's opens were missing
-		for d in g.get("entered", []):
-			if int(d) >= c.day:
-				ev.append({"d": int(d), "t": "%s's no-gi open" % g["first"]})
-	ev.sort_custom(func(a, b): return int(a["d"]) < int(b["d"]))
-	var seen := {}
-	var rows: Array = []
-	for e in ev:
-		var key := "%d|%s" % [e["d"], str(e["t"]).to_lower()]
-		if seen.has(key):
-			continue
-		seen[key] = true
-		rows.append(UI.kv(Clock.fmt(int(e["d"])), e["t"], UI.FG))
-	UI.add_rows(card[1], rows)
+	add_child(Fixtures.card(c)[0])
 
 
 func _results(c: Career) -> void:

@@ -105,13 +105,7 @@ static func build(f: Dictionary) -> PanelContainer:
 	head.add_child(key)
 	c[1].add_child(head)
 	var body := UI.hbox(32)
-	var left := UI.vbox(12)
-	var radar: Control = AttrRadar.new()
-	radar.values = RADAR.map(func(k): return {"name": label_of(str(k)), "value": value(f, str(k))})
-	radar.pot = pot
-	radar.numbers = false
-	left.add_child(radar)
-	body.add_child(left)
+	# S398 (menus round 6 + the operator's rule): the bars carry the numbers; the radar drew the same ones again - cut.
 	var groups := rows(f)
 	var mid := UI.vbox(8)
 	mid.size_flags_horizontal = Control.SIZE_EXPAND_FILL

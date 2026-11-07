@@ -8,7 +8,7 @@ extends RefCounted
 ##   phase(bout, day) -> id   sync(f, day) (f["phase"]; edits from another phase are dropped)   week(phase, focus) -> 7 days
 ##   ensure(f, day) -> sync unless the phase is already this week's
 ##   spar(phase) / pads(phase) -> sparring / pad nights   film_night(phase, camp, day) -> the camp's one film night is this week   card(day) -> "Hard intervals"   cards() -> [[id, intensity] x every card]
-##   edit(f, dow, day_pick) / edit_spar(f, n) / edits(f) -> {days: {dow: [id, int]}, spar}   clear(f)
+##   edit(f, dow, day_pick) / edit_spar(f, n) / edit_eve(f, dow, kind, coach_kind) / edits(f) -> {days: {dow: [id, int]}, spar, eve}   clear(f)
 ##   S397 the weekend plans next week: weekend(day), ahead_view(f, day) -> a view of f for next Monday's week (its own
 ##   exceptions, f["week_edits_next"]), keep_ahead(f, view); sync moves them into week_edits on that Monday.
 ## Pure static; f keys: phase, week_edits {phase, days {"0".."6": [id, intensity]}, spar}, week_edits_next {.., monday}.
@@ -174,6 +174,17 @@ static func edit_spar(f: Dictionary, n: int) -> void:
 		e.erase("spar")
 	else:
 		e["spar"] = clampi(n, 0, 2)
+
+
+## S398 Week redesign: one evening set to rest / pads / sparring; the coach's own kind for that night removes the exception.
+static func edit_eve(f: Dictionary, dow: int, kind: String, coach_kind: String) -> void:
+	var e := _own(f)
+	if not e.has("eve"):
+		e["eve"] = {}
+	if kind == coach_kind:
+		(e["eve"] as Dictionary).erase(str(dow))
+	else:
+		e["eve"][str(dow)] = kind
 
 
 static func clear(f: Dictionary) -> void:

@@ -20,7 +20,7 @@ const Faces := preload("res://scripts/rules/Faces.gd")
 const FACE := Vector2(48, 60)
 
 const COLS := [["fighter", "Fighter", 260], ["record", "Record", 90], ["rank", "Rank", 110], ["road", "The Road", 150],
-	["next", "Next", 230], ["weight", "Weight", 130], ["condition", "Condition", 120], ["goal", "Goal", 260]]
+	["next", "Next", 230], ["weight", "Weight", 130], ["condition", "Condition", 120], ["mood", "Mood", 110], ["goal", "Goal", 260]]
 const TONE := {"ok": UI.FG, "good": UI.GREEN, "watch": UI.AMBER, "bad": UI.RED, "muted": UI.MUTED}
 
 ## The sort column the page last used (kept while the game runs).
@@ -57,6 +57,9 @@ static func _boxer_cells(c: Career, f: Dictionary) -> Dictionary:
 	var word: Array = WB_KIT.fatigue_word(FighterProfile.fatigue(f), false)
 	var w := str(word[0]).to_lower()
 	cells["condition"] = [w.capitalize(), FighterProfile.fatigue(f), "good" if w == "fresh" else ("ok" if w == "ok" else ("watch" if w == "tired" else "bad"))]
+	# S398 menus round 6 ("fill the roster"): the mood every row has (morale), beside the body's condition.
+	var mood := FighterProfile.mood(float(f.get("morale", FighterProfile.MORALE_START)))
+	cells["mood"] = [mood, float(f.get("morale", FighterProfile.MORALE_START)), {"Fired up": "good", "Steady": "ok", "Flat": "watch", "Low": "bad"}.get(mood, "ok")]
 	var g := Sim.goal_read(c, f)
 	if g.is_empty():
 		cells["goal"] = ["Talk in the office" if bool(f.get("goal_talk", false)) else "No goal set", 1.0e9, "muted"]
@@ -73,7 +76,7 @@ static func _grappler_cells(c: Career, g: Dictionary) -> Dictionary:
 	cells["record"] = ["%d-%d" % [int(g.get("w", 0)), int(g.get("l", 0))], float(int(g.get("w", 0)) * 100 - int(g.get("l", 0))), "ok"]
 	# S397 blind round 5 ("columns mean different things per row"): each cell answers its column - no-gi has no table
 	# and no weight cut; the belt is her road.
-	cells["rank"] = ["No table", 999.0, "ok"]
+	cells["rank"] = ["", 999.0, "muted"]   # S398 (operator rule): nothing to say, nothing shown
 	cells["road"] = ["%s belt" % str(g.get("belt", "white")).capitalize(), 50.0, "ok"]
 	var entered: Array = g.get("entered", [])
 	var next_day := -1
@@ -82,9 +85,11 @@ static func _grappler_cells(c: Career, g: Dictionary) -> Dictionary:
 			next_day = int(d)
 	cells["next"] = ["Open, %s" % Clock.fmt(next_day) if next_day >= 0 else "No open entered", float(next_day if next_day >= 0 else 1.0e9), "ok" if next_day >= 0 else "watch"]
 	# S396 blind round 2 ("Ana's row is all dashes"): what she has - her class, her mood, the next belt.
-	cells["weight"] = ["No cut", 0.0, "ok"]
+	cells["weight"] = ["", 0.0, "muted"]
 	var mood := FighterProfile.mood(float(g.get("morale", FighterProfile.MORALE_START)))
-	cells["condition"] = [mood, 50.0, {"Fired up": "good", "Steady": "ok", "Flat": "watch", "Low": "bad"}.get(mood, "ok")]
+	var gw := str(WB_KIT.fatigue_word(FighterProfile.fatigue(g), false)[0]).to_lower()
+	cells["condition"] = [gw.capitalize(), FighterProfile.fatigue(g), "good" if gw == "fresh" else ("ok" if gw == "ok" else ("watch" if gw == "tired" else "bad"))]
+	cells["mood"] = [mood, float(g.get("morale", FighterProfile.MORALE_START)), {"Fired up": "good", "Steady": "ok", "Flat": "watch", "Low": "bad"}.get(mood, "ok")]
 	var nxt := BeltRoad.next_belt(str(g.get("belt", "white")))
 	var share := float(BeltRoad.readiness(g, g.get("bjj", {}), c.day)["share"])
 	cells["goal"] = ["%s belt

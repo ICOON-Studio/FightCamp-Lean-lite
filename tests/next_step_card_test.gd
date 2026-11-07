@@ -105,23 +105,17 @@ func _check_page(c: Career, f: Dictionary, after_edit: bool) -> String:
 	var road: Dictionary = NextStep.road(inp, c.day)
 	var expected_need: String = str(road["need"])
 
+	# S398 (operator rule: nothing the player cannot act on): the step now and its need on one line, the whole road on its
+	# hover - no row of step chips
+	var now := card.find_child("NextStepNow", true, false) as Label
+	var lit_step := str(road["steps"][int(road["lit"])]["name"]) if int(road["lit"]) >= 0 else ""
+	_check(now != null and (lit_step == "" or now.text.begins_with(lit_step)), "the step now leads the line (%s)" % (now.text if now else "none"))
 	for step_name in NextStep.STEPS:
-		var found := false
-		for row in _chip_texts(card):
-			if str(row["text"]).contains(step_name):
-				found = true
-				break
-		_check(found, "shows step '%s'" % step_name)
-
-	var gold := _chip_texts(card).filter(func(row): return bool(row["gold"]))
-	_check(gold.size() == 1, "exactly one lit chip (got %d)" % gold.size())
+		_check(now != null and now.tooltip_text.contains(step_name), "the road's step '%s' is on the hover" % step_name)
 
 	var need_found := ""
-	for l in card.find_children("*", "Label", true, false):
-		var t := str(l.text)
-		if t == expected_need:
-			need_found = t
-			break
+	if now != null and now.text.ends_with(expected_need):
+		need_found = expected_need
 	_check(need_found == expected_need, "need line matches NextStep.road (expected '%s')" % expected_need)
 	_check(expected_need != "", "need line is not empty")
 

@@ -51,7 +51,7 @@ static func _road_card(page: Control, main: Node, c: Career, f: Dictionary) -> v
 		if why != "":
 			card[1].add_child(_needs(c, f))
 		if why == "":
-			var b := UI.button("Enter %s" % f["first"], "BtnSolid", main.act.bind("enterchamp", str(f["id"])))
+			var b := UI.button("Enter %s for the nationals" % f["first"], "BtnSolid", main.act.bind("enterchamp", str(f["id"])))
 			b.name = "Enter_" + str(f["id"])
 			b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 			card[1].add_child(b)
@@ -97,8 +97,11 @@ static func stops(c: Career, f: Dictionary) -> Array:
 	return [
 		{"label": "Ready to enter", "date": "yes" if ready else "not yet", "state": "done" if ready else "next",
 			"sub": "" if ready else "see below"},
-		{"label": "Entries open", "date": Clock.fmt(close - Champs.ENTRY_WINDOW), "sub": "close " + Clock.fmt(close),
-			"sub2": "enter now" if ready and open else "", "state": "next" if ready else "ahead"},
+		# S398 menus round 6 ("Championships highlights a past step"): while entries are open the lit step says so and leads
+		# with the date that matters, the close; the past opening date drops to the small line.
+		{"label": "Entries", "date": ("open now" if open else "open " + Clock.fmt(close - Champs.ENTRY_WINDOW)),
+			"sub": "close " + Clock.fmt(close), "sub2": ("enter now" if ready else "") if open else "",
+			"state": "next" if ready else "ahead"},
 		{"label": "Regional semi-final", "date": Clock.fmt(Champs.stage_day(close, 0)), "sub": "London, 4 boxers", "state": "ahead"},
 		{"label": "Regional final", "date": Clock.fmt(Champs.stage_day(close, 1)), "state": "ahead"},
 		{"label": "National championships", "date": Clock.fmt(Champs.stage_day(close, 2)), "sub": "up to 4 bouts in 9 days", "state": "ahead"},
@@ -115,6 +118,10 @@ static func _needs(c: Career, f: Dictionary) -> HBoxContainer:
 	var right_age := age >= SeasonPath.AGE_MIN and age <= SeasonPath.AGE_MAX
 	var fit := not Injuries.out(c, f)
 	var met := func(ok: bool) -> Color: return UI.GREEN if ok else UI.AMBER
+	# S398 (operator: nothing the player cannot act on): a met requirement is one line; only an unmet one keeps its ring
+	if n >= SeasonPath.MIN_BOUTS and Champs.club_days(c, f) >= SeasonPath.MIN_CLUB_DAYS and right_age and fit:
+		row.add_child(UI.label("Eligible: %d bouts, %d weeks registered, age %d, fit to box." % [n, weeks, age], UI.BODY, UI.GREEN, "semi"))
+		return row
 	# S397 blind round 4 ("each ring says its value twice"): the ring holds the number, the line under it says it in words.
 	row.add_child(_tile("BOUTS", "enough bouts" if n >= SeasonPath.MIN_BOUTS else "%d more to box" % (SeasonPath.MIN_BOUTS - n), str(mini(n, SeasonPath.MIN_BOUTS)),
 		n, SeasonPath.MIN_BOUTS, met.call(n >= SeasonPath.MIN_BOUTS)))

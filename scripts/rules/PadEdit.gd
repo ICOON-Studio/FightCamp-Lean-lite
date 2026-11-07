@@ -248,7 +248,7 @@ static func sub(f: Dictionary, card: String) -> String:
 			return str(OwnCombos.entry(f, card).get("name", ""))
 		"combo":
 			return ", ".join((Combos.row(PadWeek.key(card)).get("moves", []) as Array).map(func(x): return str(x).to_lower()))
-	return MoveMastery.tier(PadWeek.mastery(f, card)).to_lower()
+	return MoveMastery.word(PadWeek.mastery(f, card)).to_lower()
 
 
 static func kind_word(f: Dictionary, card: String) -> String:

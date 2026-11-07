@@ -22,6 +22,24 @@ static func tier(m: float) -> String:
 	return "SIGNATURE"
 
 
+## S398 menus round 6 ("Combos 'Usable' vs Week 'Raw' vs Moves 'RAW'"): the ONE word every page shows for a move or a
+## combination - New (never drilled), Raw, Usable (30), Sharp (60), Signature (85). Title case everywhere.
+const WORDS := {"UNLEARNED": "New", "RAW": "Raw", "USABLE": "Usable", "SHARP": "Sharp", "SIGNATURE": "Signature"}
+const LADDER := "New > Raw > Usable 30 > Sharp 60 > Signature 85"
+
+
+static func word(m: float) -> String:
+	return str(WORDS[tier(m)])
+
+
+## The word for the next tier up and the mastery it starts at ("" / 0 past Signature).
+static func next_word(m: float) -> Array:
+	for edge in [30.0, 60.0, 85.0]:
+		if m < edge:
+			return [word(edge), edge]
+	return ["", 0.0]
+
+
 ## The mastery ceiling for a punch thrown by this fighter (Ludo r115 Part 1):
 ## a TECH 50 / IQ 60 athlete caps any punch at 72.0 - no Signature check-hook
 ## without raising the foundations first.

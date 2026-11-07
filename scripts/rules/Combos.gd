@@ -216,8 +216,7 @@ static func opponent_combos(opp: Dictionary) -> Dictionary:
 
 
 static func describe(id: String, m: float) -> String:
-	var word := MoveMastery.tier(m)
-	word = word.substr(0, 1) + word.substr(1).to_lower()
+	var word := MoveMastery.word(m)
 	return "%s %s (M%d)" % [word, id, roundi(m)]
 
 

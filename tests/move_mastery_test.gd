@@ -29,6 +29,10 @@ func _check_tiers() -> void:
 	_check(MM.tier(84.9) == "SHARP", "tier 84.9 -> SHARP (<85)")
 	_check(MM.tier(85.0) == "SIGNATURE", "tier 85 -> SIGNATURE")
 	_check(MM.tier(100.0) == "SIGNATURE", "tier 100 -> SIGNATURE")
+	# S398 one word set on every page: New, Raw, Usable, Sharp, Signature (title case).
+	_check(MM.word(0.0) == "New" and MM.word(12.0) == "Raw" and MM.word(30.0) == "Usable" and MM.word(60.0) == "Sharp"
+		and MM.word(90.0) == "Signature", "word(): New / Raw / Usable / Sharp / Signature")
+	_check(MM.next_word(12.0) == ["Usable", 30.0] and MM.next_word(85.0) == ["", 0.0], "next_word(): Usable at 30; none past 85")
 
 
 func _check_cap() -> void:

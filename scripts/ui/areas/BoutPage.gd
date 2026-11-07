@@ -31,9 +31,16 @@ func build(main: Node, offer_id: String) -> void:
 	if bool(o["accepted"]) and str(booked.get("name", "")) == str(opp["name"]):
 		opp = booked
 	add_child(UI.muted("FIGHTS / Offers / %s vs %s" % [f["name"], opp["name"]], UI.SMALL))
+	# S373 the weigh-in forecast: her weight now and on the scale after a camp cut from tomorrow (Sim.weigh_forecast).
+	var wf := Sim.weigh_forecast(c, f, int(o["day"]))
 	var head := UI.hbox(16)
 	head.add_child(UI.display("THE BOUT", 52))
-	head.add_child(UI.chip("Not safe" if bool(o["mismatch"]) else "Legal, even match", "red" if bool(o["mismatch"]) else "green"))
+	# S398 menus (first-hour critics: "Legal, even match" stayed green while the weight missed): the chip says the worst.
+	var chip := UI.chip("Not safe" if bool(o["mismatch"]) else ("Weight at risk" if not bool(wf["ok"]) else "Legal, even match"),
+		"red" if bool(o["mismatch"]) else ("amber" if not bool(wf["ok"]) else "green"))
+	chip.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	head.add_child(chip)
+	head.add_child(UI.spacer())
 	add_child(head)
 	add_child(Tape.make(f["name"], "your fighter", [
 		["Record", "%d-%d amateur" % [f["w"], f["l"]]], ["Age, stance", "%d, %s" % [f["age"], f["stance"]]], ["Style", f["style"]],
@@ -54,8 +61,6 @@ func build(main: Node, offer_id: String) -> void:
 	report[1].add_child(OppFileCard.build(opp, false, OppFileCard.OppFile.history(c.results, str(opp["name"]))))
 	compare.add_child(report[0])
 	var weeks := int((int(o["day"]) - c.day) / 7.0)
-	# S373 the weigh-in forecast: her weight now and on the scale after a camp cut from tomorrow (Sim.weigh_forecast).
-	var wf := Sim.weigh_forecast(c, f, int(o["day"]))
 	var terms := UI.card("TERMS")
 	var cols := UI.hbox(32)
 	terms[1].add_child(cols)
@@ -77,6 +82,7 @@ func build(main: Node, offer_id: String) -> void:
 	])
 	add_child(terms[0])
 	var foot := UI.hbox(10)
+	foot.name = "BoutFoot"
 	var open := not bool(o["answered"])
 	var accept_off := bool(o["mismatch"]) or not open
 	var accept_why := ""
@@ -106,4 +112,12 @@ func build(main: Node, offer_id: String) -> void:
 		heavy.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		heavy.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		foot.add_child(heavy)
-	add_child(foot)
+	# S398 menus (first-hour critics: Accept sat below the fold at 1080): the decision sits on the title line; the reason
+	# lines (weight, sanction) stay under the terms.
+	for n in foot.get_children():
+		if n is Button:
+			foot.remove_child(n)
+			(n as Control).size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			head.add_child(n)
+	if foot.get_child_count() > 0:
+		add_child(foot)

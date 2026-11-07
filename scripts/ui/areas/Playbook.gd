@@ -43,6 +43,7 @@ var player: Control
 var _move := ""
 var _name: Label
 var _slow: Button
+var _shown: Array = []   # S398: the viewer card and its buttons, shown the first time a move is picked
 var _steps: Control   # S376 the coach's steps under Ana's mat (CoachSteps)
 
 
@@ -290,14 +291,18 @@ func _player_col(f: Dictionary, prompt: String) -> Control:
 	player.custom_minimum_size = PLAYER
 	card.add_child(player)
 	col.add_child(card)
+	# S398 menus round 6 ("the viewer opens only when something is picked"): an empty viewer is not drawn; the prompt holds
+	# its place until the first pick.
+	card.visible = false
 	_name = UI.label(prompt, UI.BODY, UI.FG, "bold", true)
 	col.add_child(_name)
 	var btns := UI.hbox(8)
+	btns.visible = false
+	_shown = [card, btns]
 	btns.add_child(UI.button("Replay", "Btn", func(): _play(_move)))
 	_slow = UI.button("Slow motion", "Btn", _toggle_slow)
 	btns.add_child(_slow)
 	col.add_child(btns)
-	col.add_child(UI.muted("Your fighter's body, the partner a ghost. Lit moves work in a fight; grey ones need pad time first.", UI.SMALL, true))
 	return col
 
 
@@ -305,6 +310,9 @@ func _play(id: String) -> void:
 	if id == "" or player == null:
 		return
 	_move = id
+	for n in _shown:
+		if is_instance_valid(n):
+			(n as Control).visible = true
 	var mv := SM.move(id)
 	_name.text = "%s  -  %s to %s" % [str(mv.get("name", id)), str(SM.card(str(mv.get("from", ""))).get("name", "")),
 		str(SM.card(str(mv.get("to", ""))).get("name", ""))]

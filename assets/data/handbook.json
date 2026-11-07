@@ -82,9 +82,9 @@
  },
  {
   "id": "weapon",
-  "name": "Weapon",
-  "def": "A move at mastery 30 or more.",
-  "why": "Past the first 4 weapons, each one adds 0.3 power on the night, up to 0.9.",
+  "name": "Usable",
+  "def": "A move at mastery 30 or more: it gets thrown on the night. The ladder: New, Raw, Usable 30, Sharp 60, Signature 85.",
+  "why": "Past the first 4 usable moves, each one adds 0.3 power on the night, up to 0.9.",
   "group": "Words",
   "area": "fighters",
   "src": "BoutRules.WEAPON_MASTERY, BASE_WEAPONS, WEAPON_EDGE, WEAPON_EDGE_CAP"

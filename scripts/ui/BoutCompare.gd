@@ -107,14 +107,20 @@ static func read_card(c: Career, f: Dictionary, opp: Dictionary, camp: Dictionar
 	var lo := roundi(float(b["lo"]) * 100.0)
 	var hi := roundi(float(b["hi"]) * 100.0)
 	var big := UI.hbox(14)
-	var num := UI.mono("%d-%d%%" % [lo, hi], 38, UI.GREEN if lo >= 50 else (UI.RED if hi <= 50 else UI.FG))
+	# S398 menus (first-hour critics: "Win chance 4-56%" reads as a bug): one number, how sure it is in words, the range
+	# under it; scouting narrows the range.
+	var mid := roundi((lo + hi) / 2.0)
+	var num := UI.mono("%d%%" % mid, 38, UI.GREEN if lo >= 50 else (UI.RED if hi <= 50 else UI.FG))
 	num.name = "WinBand"
+	num.tooltip_text = "%d to %d%%" % [lo, hi]
 	big.add_child(num)
 	var s := BoutRead.stage(opp)
 	var file := UI.vbox(2)
 	file.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var sure := "a rough guess" if hi - lo >= 30 else ("fairly sure" if hi - lo >= 12 else "sure")
+	file.add_child(UI.label("%s: %d to %d%%" % [sure, lo, hi], UI.SMALL, UI.FG, "semi"))
 	file.add_child(Icons.pips(int(s["found"]), int(s["all"]), "Tape study in camp finds these. Each one narrows the chance."))
-	file.add_child(UI.muted("%d of %d found" % [int(s["found"]), int(s["all"])], UI.TINY))
+	file.add_child(UI.muted("%d of %d found on the opponent's file" % [int(s["found"]), int(s["all"])], UI.TINY))
 	big.add_child(file)
 	v.add_child(big)
 	var ruler := _bar(0.0, float(b["lo"]), float(b["hi"]), BAR_W, UI.GOLD)

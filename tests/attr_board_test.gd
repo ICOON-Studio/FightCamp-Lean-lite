@@ -33,7 +33,7 @@ func _initialize() -> void:
 		if page == null:
 			continue
 		var radars := page.find_children("*", "Control", true, false).filter(func(n): return n.get_script() == AttrRadar)
-		_check(radars.size() == 1, "tab %s has one radar (%d)" % [tab, radars.size()])
+		_check(radars.size() == 0, "tab %s: no radar, the bars carry the numbers (S398) (%d)" % [tab, radars.size()])
 		var text := _texts(page)
 		for word in ["FIGHTING", "BODY", "MIND", "AT A GLANCE", "Footwork", "Heart", "Discipline", "Coachability", "Temper", "Ring IQ"]:
 			_check(text.contains(word), "tab %s shows %s" % [tab, word])

@@ -23,7 +23,7 @@ const MoveTip := preload("res://scripts/ui/MoveTip.gd")
 const CARD_SIZE := Vector2(136, 176)
 const KIND_COLOR := {"punch": Color("#2f6fdb"), "defence": Color("#4f8a2c"), "step": Color("#8a5a2a")}
 const KIND_TINT := {"punch": Color("#eef4ff"), "defence": Color("#f1f6ea"), "step": Color("#f7f0e8")}
-const TIER_COLOR := {"UNLEARNED": UI.MUTED, "RAW": UI.AMBER, "USABLE": UI.GOLD, "SHARP": UI.GREEN, "SIGNATURE": UI.PURPLE}
+const TIER_COLOR := {"UNLEARNED": UI.MUTED, "RAW": UI.AMBER, "USABLE": UI.GREEN, "SHARP": UI.GOLD, "SIGNATURE": UI.PURPLE}
 
 
 ## The cards and the joins, wrapping onto a second line past four. `entries[id]` = ComboBuilder.PALETTE's row.
@@ -74,7 +74,7 @@ static func _card(f: Dictionary, i: int, id: String, e: Dictionary, chain: Array
 	top.add_child(UI.spacer())
 	top.add_child(Icons.button("x", "Take it out", on_remove.bind(i), UI.MUTED, 16))
 	v.add_child(top)
-	v.add_child(UI.label(str(e.get("name", id)), UI.BODY + 3, UI.FG, "display"))
+	v.add_child(UI.label(str(e.get("name", id)), UI.BODY + 3, UI.FG, "bold"))   # S398: the brush is for titles
 	var what: String = {"punch": "%s hand - %s" % [str(m.get("hand", "")), str(m.get("level", ""))], "defence": "defence",
 		"step": "feet"}.get(kind, kind)
 	v.add_child(UI.muted(what, UI.TINY))
@@ -82,15 +82,15 @@ static func _card(f: Dictionary, i: int, id: String, e: Dictionary, chain: Array
 	if needs != "":
 		var lv := float((f.get("moves", {}) as Dictionary).get(needs, 0.0))
 		var t := MoveMastery.tier(lv)
-		var lab := UI.label(t.capitalize(), UI.TINY, TIER_COLOR.get(t, UI.FG), "bold")   # S397: the level on hover
+		var lab := UI.label(MoveMastery.word(lv), UI.TINY, TIER_COLOR.get(t, UI.FG), "bold")   # S397: the level on hover
 		lab.tooltip_text = "Mastery of the %s: %d. %s" % [needs.to_lower(), int(lv),
-			"A weapon in a fight from %d." % int(Combos.LEARN_AT) if lv < Combos.LEARN_AT else "Ready to throw in a fight."]
+			"Usable in a fight from %d." % int(Combos.LEARN_AT) if lv < Combos.LEARN_AT else "Usable: ready to throw in a fight."]
 		v.add_child(lab)
 		if lv < Combos.LEARN_AT:
-			# Not a weapon yet: the card stays in the strip to try, faded, with the way to learn it.
+			# Not usable yet: the card stays in the strip to try, faded, with the way to learn it.
 			p.modulate = Color(1, 1, 1, 0.78)
 			v.add_child(Icons.tip(UI.chip("pad time first", "amber"),
-				"Not a weapon yet (%d of %d): pad time first - Training, Pads with the coach" % [int(lv), int(Combos.LEARN_AT)]))
+				"Not usable yet (mastery %d of %d): pad time first - Training, Pads with the coach" % [int(lv), int(Combos.LEARN_AT)]))
 	else:
 		v.add_child(UI.muted("any boxer", UI.TINY))
 	# S397 blind round 4 ("lands 0.36 s", "gas +1.3%", "hurts head 1.7" are engine numbers): one word for its gas; the

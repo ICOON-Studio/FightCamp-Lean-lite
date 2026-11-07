@@ -16,6 +16,7 @@ const Champs := preload("res://scripts/state/Champs.gd")
 const NextStep := preload("res://scripts/rules/NextStep.gd")
 const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
 const WeekBoard := preload("res://scripts/ui/WeekBoard.gd")
+const FightPrep := preload("res://scripts/ui/FightPrep.gd")
 const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
 const OppFileCard := preload("res://scripts/ui/OppFileCard.gd")
 const MoveTip := preload("res://scripts/ui/MoveTip.gd")
@@ -62,8 +63,14 @@ func build(main: Node, f: Dictionary) -> void:
 	row.add_child(who)
 	tabs.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	row.add_child(tabs)
-	if not g.is_empty():
-		var gc := UI.chip("Goal: %s, %d days, %s" % [g["title"], g["left"], str(g["status"]).to_lower()], g["cls"])
+	if not g.is_empty() and t == 0:   # S398 critics: on Week / Fight prep the goal chip met other deadlines
+		# S398 critics ("next bout inside a month, at risk" beside a booked bout): the chip says what the goal asks
+		var miss: Array = []   # what is still missing, in words ("Conditioning 62.9 of 65.1"); a met part is not repeated
+		for tg in g.get("targets", []):
+			if not bool(tg.get("met", false)):
+				miss.append("a fight booked" if str(tg["key"]) == "booked_fight" else "%s %.1f of %.1f" % [str(Data.LABEL.get(str(tg["key"]), str(tg.get("label", tg["key"])))), float(tg["current"]), float(tg["target"])])
+		var gc := UI.chip("Goal, %d days: %s" % [g["left"], ("still needs " + ", ".join(miss) + " - " + str(g["status"]).to_lower()) if not miss.is_empty() else "met"], g["cls"])
+		gc.tooltip_text = str(g["title"])
 		gc.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(gc)
 	add_child(row)
@@ -94,7 +101,7 @@ func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: b
 				var mm := float(moves[mv])
 				var learning := str(f.get("learning", "")) == mv
 				var row := UI.stat_row(mv + ("  (learning)" if learning else ""), mm, mm >= BoutRules.WEAPON_MASTERY, UI.FG,
-					"  " + MoveMastery.tier(mm).to_lower())
+					"  " + MoveMastery.word(mm).to_lower())
 				var bar: Control = row.get_meta("bar")
 				bar.frac = mm / 100.0
 				bar.marks = [BoutRules.WEAPON_MASTERY / 100.0]   # S375 the tick where a move becomes a weapon
@@ -108,7 +115,7 @@ func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: b
 		2:
 			var card := _card("BODY")
 			UI.add_rows(card, [UI.kv("Weight", "%.1f kg" % f["weight"], UI.FG, "mono"), UI.kv("Class limit", "%.1f kg" % f["limit"], UI.FG, "mono"),
-				UI.kv("Plan", "cutting" if str(f["diet"]) == "cut" else "holding"), _injury_row(main.career, f)])
+				UI.kv("Plan", "cutting" if str(f["diet"]) == "cut" else "holding")] + _injury_rows(main.career, f))
 		3:
 			# S354 CORE3: the week planner (WeekBoard) replaces the session-blocks board - the week now drives the sim.
 			# S382 DRILLCARD1: the tab opens on the week strip and its drill tray (the tray replaced the S375 combo planner);
@@ -119,33 +126,8 @@ func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: b
 			# S397 blind round 3 ("History is one row"): every bout, the ones she brought too, as a table (BoutHistory).
 			add_child(BoutHistory.make(main, c, f))
 		5:
-			var card := _card("CAMP")
-			var camp: Dictionary = f["camp"]
-			var fb: Dictionary = f["bout"]
-			if not camp.is_empty():
-				var fs := FilmEdge.summary(f)   # S381 C229 stage 4: the film counts the tells her plan answers
-				card.add_child(UI.label("%s focus, %s protocol, film %d/%d answered" % [Data.LABEL[camp["focus"]],
-					str(BoutRules.PROTOCOLS[int(camp["protocol"])]["name"]).to_lower(), int(fs["n"]), int(fs["of"])], UI.BODY, UI.FG, "body", true))
-				# S341 her file (OppFile): what tape study has found so far, and its answers; the rest is hidden.
-				var opp: Dictionary = fb.get("opp", {})
-				card.add_child(UI.caps("SCOUTING %s" % str(opp.get("name", "the opponent")).to_upper()))
-				if bool(camp.get("film", false)):
-					# S343 the tape room (Q-S294-68): watch her films, read her flow, answer her in the plan.
-					var tape := UI.button("Watch the tape", "BtnSolid", main.act.bind("taperoom", f["id"]))
-					tape.name = "TapeRoom"
-					tape.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-					card.add_child(tape)
-				card.add_child(OppFileCard.build(opp, bool(camp.get("film", false)), OppFileCard.OppFile.history(c.results, str(opp.get("name", "")))))
-				if not bool(camp.get("film", false)):
-					card.add_child(UI.muted("No tape study in this camp: what is hidden shows on the night.", UI.SMALL, true))
-			elif not fb.is_empty():
-				var days_to_bout := int(fb["day"]) - c.day
-				var camp_locked := days_to_bout < BoutRules.CAMP_MIN_DAYS
-				var camp_why := "Bout in %d days - a camp needs at least %d days before fight night" % [days_to_bout, BoutRules.CAMP_MIN_DAYS]
-				var b := UI.button("Set the camp", "BtnSolid", main.act.bind("camp", f["id"]), camp_locked, camp_why)
-				b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-				card.add_child(b)
-				card.add_child(OppFileCard.build(fb.get("opp", {}), false, OppFileCard.OppFile.history(c.results, str(fb.get("opp", {}).get("name", "")))))
+			# S398 Fight prep rebuilt (first-hour critics 4/10): countdown, the road, camp and weight, the file, the plan.
+			add_child(FightPrep.make(main, c, f))
 		6:
 			var card := _card("CONTRACT")
 			UI.add_rows(card, [UI.kv("Terms", "Club stipend, $250 a week"), UI.kv("Until", "turning pro")])
@@ -170,7 +152,7 @@ func _combos(f: Dictionary, moves: Dictionary) -> void:
 			card.add_child(UI.row(id, "needs the %s as a weapon" % " and the ".join(need.map(func(x): return str(x).to_lower())), UI.MUTED))
 			continue
 		var mm := float(combos.get(id, 0.0))
-		var r := UI.stat_row(id + ("  (drilling)" if id == drilling else ""), mm, mm >= Combos.LEARN_AT, UI.FG, "  " + MoveMastery.tier(mm).to_lower())
+		var r := UI.stat_row(id + ("  (drilling)" if id == drilling else ""), mm, mm >= Combos.LEARN_AT, UI.FG, "  " + MoveMastery.word(mm).to_lower())
 		var bar: Control = r.get_meta("bar")
 		bar.frac = mm / 100.0
 		MoveTip.attach(r, id, f)
@@ -178,9 +160,10 @@ func _combos(f: Dictionary, moves: Dictionary) -> void:
 	card.add_child(UI.muted("Each combination in a fight costs energy, longer ones more; conditioning decides how fast the tank empties.", UI.SMALL, true))
 
 
-## S325 update 28: her injury or suspension, red while she is out.
-func _injury_row(c: Career, f: Dictionary) -> HBoxContainer:
-	return UI.kv("Injuries", Injuries.line(c, f), UI.RED if Injuries.out(c, f) else UI.FG)
+## S325 update 28: the injury or suspension, red while the fighter is out. S398 (operator: nothing the player cannot act
+## on): no row at all while fit.
+func _injury_rows(c: Career, f: Dictionary) -> Array:
+	return [UI.kv("Injuries", Injuries.line(c, f), UI.RED)] if Injuries.out(c, f) else []
 
 
 func _card(title: String, parent: Container = null) -> VBoxContainer:
@@ -204,7 +187,7 @@ func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 	add_child(grid)
 	var body := _card("BODY", grid)
 	UI.add_rows(body, [UI.kv("Weight", "%.1f of %.1f kg" % [f["weight"], f["limit"]], UI.FG, "mono"),
-		UI.kv("Condition", str(WB_KIT.fatigue_word(FighterProfile.fatigue(f), false)[0]).capitalize()), _injury_row(main.career, f)])
+		UI.kv("Condition", str(WB_KIT.fatigue_word(FighterProfile.fatigue(f), false)[0]).capitalize())] + _injury_rows(main.career, f))
 	body.add_child(UI.caps("COACH SAYS"))
 	body.add_child(UI.label(Sim.coach_line(c, f), UI.BODY, UI.FG, "italic", true))
 	# S302: what the coach has learned about her so far (fights and sparring fill it in).
@@ -269,17 +252,13 @@ func _next_step_card(main: Node, c: Career, f: Dictionary) -> void:
 	if int(road["lit"]) < 0:
 		card.add_child(UI.label("Pro - every step done", UI.BODY, UI.FG, "body", true))
 		return
-	var row := UI.hbox(6)
-	for s in road["steps"]:
-		var name: String = str(s["name"])
-		if bool(s["done"]):
-			row.add_child(UI.chip("✓ " + name, ""))
-		elif bool(s["lit"]):
-			row.add_child(UI.chip(name, "gold"))
-		else:
-			row.add_child(UI.chip(name, ""))
-	card.add_child(row)
-	card.add_child(UI.label(str(road["need"]), UI.BODY, UI.FG, "body", true))
+	# S398 (operator: nothing the player cannot act on): the step now and what it needs; the whole road on hover
+	var lit: Dictionary = road["steps"][int(road["lit"])]
+	var now := UI.label("%s: %s" % [str(lit["name"]), str(road["need"])], UI.BODY, UI.FG, "body", true)
+	now.name = "NextStepNow"
+	now.mouse_filter = Control.MOUSE_FILTER_STOP
+	now.tooltip_text = " > ".join((road["steps"] as Array).map(func(st): return ("done: " if bool(st["done"]) else "") + str(st["name"])))
+	card.add_child(now)
 	var enter := NationalsView.enter_button(main, c, f)   # S397 blind round 3: one main action per state
 	if enter != null:
 		card.add_child(enter)

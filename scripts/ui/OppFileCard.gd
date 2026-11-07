@@ -59,7 +59,7 @@ static func _tell_row(opp: Dictionary, t: Dictionary, film_bought: bool) -> HBox
 	else:
 		var how := "on tape in this camp" if film_bought else str(HOW.get(str(t["how"]), "the fight shows it"))
 		how = how[0].to_upper() + how.substr(1) + "."
-		var q := UI.label("?", UI.SMALL, UI.MUTED, "bold")
+		var q := UI.label("? - " + how.to_lower().trim_suffix("."), UI.SMALL, UI.MUTED, "body")   # S398: what opens it, on screen
 		q.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_child(q)
 		row.add_child(Icons.icon("lock", 16, UI.MUTED, how))

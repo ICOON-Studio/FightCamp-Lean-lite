@@ -1,23 +1,25 @@
 extends PanelContainer
-## The fighter's Training tab (S356 the coach's whiteboard; S382 DRILLCARD1 rebuilt as ONE strip of the week -
-## TRAINING_SCREEN_S381.md sections 3-4 and the approved mockup). Top: the weeks strip to fight night (WeekStrip; "THIS
-## WEEK" without a bout), Light / Standard / Hard (the pad nights: PadWeek.nights_for) and the fight-night gauges (GaugeRow,
-## built by THIS CAMP - WeekCamp - and shown up here). Then the tray (DrillTray: LEARN, or THE PLAN vs <opponent> with a
-## bout booked - PlanCards, S382 PLANTRAY1 - the drill cards, + Build a
-## combination), GOAL (the focus stat now -> the end of this week, NightBar's gold tick) and INTENSITY (the week's blocks,
-## PadWeek.intensity / TrainingPlan.DEFAULT_TOTAL), and the seven days: an AM card and a PM card each (WeekDay). Below the
-## strip: the coach's line, the sparring nights, the coach's week, CONTINUE, and THIS CAMP (goal lines, diet, the twist).
-## Nothing dims and nothing opens by itself (the S359 teaching dim, the More row and the pick lists are gone, section 8).
-## Clicks: a tray card then a PADS night (or drag it there) = BoutActs drill; a split night's badge = padsplit; right-click
-## = undrill; "+ drill it" = drillit; Light / Standard / Hard = nights; a morning opens its picker, a picture = wday.
+## The fighter's Week tab. S398 Week v8 (docs/WEEK_REDESIGN_S397.md, mock-up docs/week_mock/week_v8.png; built on the S398
+## main session's call after twelve blind critics held the paper version at 7): top to bottom
+##   head      NEXT / THIS WEEK and its dates (or the weeks strip to fight night, WeekStrip), the fight-night gauges in camp,
+##             WEEK TIREDNESS (the week's peak on the model's 0-100 scale: starts at, peak, the day)
+##   totals    PLAN TOTALS: the week's gains by attribute and the moves that reach Usable
+##   the week  seven columns: the morning card, the evening card, "tired N" at night (WeekCards); a click on a card opens its
+##             popover (WeekPops): Light | Normal | Hard + the sessions, or Rest | Pads | Sparring + the drill cards
+##   goal      the goal attribute this week (now -> Sunday), the target and the pace to it
+##   coach     his one change with what it does on the button, and Back to the coach's week
+##   tray      LEARN ON THE PADS (DrillTray): drag a card onto an evening, or click it then the evening
+##   camp      THIS CAMP (WeekCamp) only with a fight booked
+## One effort scale (tiredness), every number named, one edit grammar (click -> popover), blue = what you set.
 ##   WeekBoard.make(main, career, fighter) -> PanelContainer   goal_of(career, fighter)   plan_of(career, fighter)
-##   WeekBoard.picking (static "fid|dow": the morning whose picker is open)
+##   WeekBoard.picking / picking_eve (static "fid|dow": the morning / evening whose popover is open)
 
 const UI := preload("res://scripts/ui/UI.gd")
 const WB := preload("res://scripts/ui/WhiteboardKit.gd")
 const WeekDay := preload("res://scripts/ui/WeekDay.gd")
+const WeekCards := preload("res://scripts/ui/WeekCards.gd")
+const WeekPops := preload("res://scripts/ui/WeekPops.gd")
 const DrillTray := preload("res://scripts/ui/DrillTray.gd")
-const NightBar := preload("res://scripts/ui/NightBar.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const DrillWeek := preload("res://scripts/state/DrillWeek.gd")
@@ -29,20 +31,18 @@ const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const PadEdit := preload("res://scripts/rules/PadEdit.gd")
 const PlanCards := preload("res://scripts/rules/PlanCards.gd")
-const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const WeekCamp := preload("res://scripts/ui/WeekCamp.gd")
 const WeekStrip := preload("res://scripts/ui/WeekStrip.gd")
 
 const WEEKS_NO_BOUT := 4
-const STEP_WORDS := ["Light", "Standard", "Hard"]
 
 static var picking := ""
-## fid -> the GOAL bar's end-of-week number last drawn (it tweens on from there).
-static var _seen_goal := {}
+static var picking_eve := ""
 
 var _lines: Array = []
-var _camp: Node = null   # THIS CAMP (WeekCamp): a morning under the cursor ghosts there (S382 G5)
+var _camp: Node = null   # THIS CAMP (WeekCamp): a choice under the cursor ghosts there (S382 G5)
+var _meter: Control = null   # WEEK FATIGUE, drawn on the totals row (S398: the camp head ran past 1920)
 
 
 static func make(main: Node, c: Career, f: Dictionary) -> PanelContainer:
@@ -50,9 +50,8 @@ static func make(main: Node, c: Career, f: Dictionary) -> PanelContainer:
 	p.name = "WeekBoard"
 	p.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 14, 1, 18, 16))
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	# S397 blind rounds 5-6 ("it plans Mon 2 - Sun 8 Feb when today is Sat 7"): Saturday and Sunday plan next week. The
-	# board draws a view of her for next Monday (WeekPhase.ahead_view); the morning acts write that week's own exceptions,
-	# which WeekPhase.sync moves in on the Monday - this weekend's two days run as they were planned.
+	# S397 blind rounds 5-6: Saturday and Sunday plan next week. The board draws a view of her for next Monday
+	# (WeekPhase.ahead_view); the acts write that week's own exceptions, which WeekPhase.sync moves in on the Monday.
 	var g := f
 	if WeekPhase.weekend(c.day):
 		g = WeekPhase.ahead_view(f, c.day)
@@ -117,14 +116,31 @@ static func camp_week(c: Career, f: Dictionary) -> int:
 	return clampi(total - weeks + 1, 1, total)
 
 
+static func booked(goal: Dictionary) -> bool:
+	return not (goal["bout"] as Dictionary).is_empty() and not bool((goal["bout"] as Dictionary).get("done", false))
+
+
+## Each day's tiredness: [start after the night's sleep, end at night, the day's cost] (WeekPlan.week's fatigue chain).
+static func tired_days(pl: Dictionary) -> Array:
+	var out: Array = []
+	var prev := float((pl["ctx"] as Dictionary).get("fatigue", 20.0))
+	for r in (pl["wk"] as Dictionary)["days"]:
+		var start := prev * WeekPlan.FATIGUE_KEEP
+		var end := float(r["fatigue"])
+		out.append([start, end, maxf(0.0, end - start), float(r.get("load", 0.0)) / WeekPlan.LOAD_PER_FATIGUE])
+		prev = end
+	return out
+
+
 func _build(main: Node, c: Career, f: Dictionary) -> void:
 	var pl := plan_of(c, f)
 	var goal: Dictionary = pl["goal"]
 	_lines = pl["lines"]
 	_camp = WeekCamp.make(main, f, goal, _lines, teaching(f), func(g: Dictionary) -> Array: return plan_of(c, g)["lines"])
-	var v := UI.vbox(12)
+	var v := UI.vbox(14)
 	add_child(v)
-	v.add_child(_head(main, c, f, goal, pl["evs"]))
+	var tired := tired_days(pl)
+	v.add_child(_head(c, f, goal, pl, tired))
 	var inp := DrillWeek.inputs(c, f)
 	var nights: Dictionary = inp["nights"]
 	var week: Dictionary = inp["week"]
@@ -135,164 +151,134 @@ func _build(main: Node, c: Career, f: Dictionary) -> void:
 	for card in cards:
 		if not projs.has(card):
 			projs[card] = PadEdit.idle(f, str(card))
+	var usable := 0
 	for card in projs:
 		projs[card]["eta"] = PadEdit.eta(f, str(card), projs[card], week, nights.get("spar", []))
 		projs[card]["pads"] = nights.get("pads", [])
+		if cards.has(card) and not PadEdit.crossing(f, str(card), projs[card]).is_empty():
+			usable += 1
 	if plan:   # judged on the camp's real weeks to the bout (PlanCards.fight_paths), not this week repeated
 		var fd := int((f["bout"] as Dictionary)["day"])
 		PlanCards.dress(f, projs, c.day - posmod(c.day, 7), fd, PlanCards.fight_paths(f, inp, c.day, fd))
+	var bar := _twist_bar(main, f)   # S398 critics: an open twist is the week's one decision - one line above the week
+	if bar != null:
+		v.add_child(bar)
+		var tn := _camp.find_child("Twist", true, false) as Control   # said once: the bar holds the decision
+		if tn != null:
+			tn.visible = false
+	var tot := WeekCards.totals((pl["wk"] as Dictionary)["gains"], usable)
+	tot.add_child(UI.spacer())
+	tot.add_child(_meter)
+	v.add_child(tot)
+	v.add_child(_strip(main, c, f, pl, inp, projs, tired, cards))
+	v.add_child(_goal_row(f, goal, pl))
+	v.add_child(_coach_row(main, f, pl))
+	(_camp as Control).visible = booked(goal)   # S398 critic: no fight booked, no camp to show
+	if booked(goal):
+		v.add_child(_camp)
 	var fid := str(f["id"])
-	var pick := func(card: String) -> void:   # click-click: the card waits for a night (a second click puts it back)
+	var pick := func(card: String) -> void:   # click-click: the card waits for an evening (a second click puts it back)
 		DrillTray.picked = "" if DrillTray.picked_for(fid) == card else "%s|%s" % [fid, card]
 		main.render()
 	var drill_it := func(card: String) -> void: main.act("drillit", "%s|%s" % [fid, card])
 	v.add_child(DrillTray.make(main, f, cards, projs, pick, drill_it))
-	v.add_child(_goal_row(f, goal, pl, nights))
-	v.add_child(_coach_row(main, f, pl))   # S397 layout pass: his advice beside the week it changes, above the fold
-	v.add_child(_strip(main, c, f, pl, inp, projs))
-	v.add_child(_camp)   # S397 layout pass: the coach row took the foot's buttons; THIS CAMP closes the board
+	if not booked(goal):
+		v.add_child(_camp)
 
 
-## The weeks strip (or THIS WEEK), Light / Standard / Hard, the fight-night gauges (THIS CAMP's GaugeRow, shown up here).
-func _head(main: Node, c: Career, f: Dictionary, goal: Dictionary, evs: Array) -> Control:
+## The week's name and dates (or the weeks strip to fight night), the fight-night gauges, WEEK TIREDNESS.
+func _head(c: Career, f: Dictionary, goal: Dictionary, pl: Dictionary, tired: Array) -> Control:
 	var h := UI.hbox(24)
 	h.name = "BoardHead"
 	var bout: Dictionary = goal["bout"]
 	var camp: Dictionary = f.get("camp", {})
-	if not bout.is_empty() and not bool(bout.get("done", false)):
-		h.add_child(WeekStrip.make(f, bout.get("opp", {}), int(bout["day"]), c.day, int(camp.get("start", c.day)),
-			str(camp.get("focus", f.get("focus", ""))), bool(camp.get("film", false)), evs.count("sparring")))
-	else:
-		var left := UI.vbox(0)
-		var ahead := bool(f.get("_ahead", false))
-		left.add_child(WB.ink("NEXT WEEK" if ahead else "THIS WEEK", 34, "marker"))
+	if booked(goal):   # S398 (operator: nothing on screen the player cannot act on): the camp's weeks are Fight prep's
+		var left := UI.hbox(14)
+		left.add_child(WB.ink("THIS WEEK", 34, "marker"))
 		var ph: Dictionary = WeekPhase.PHASES.get(str(f.get("phase", "base")), WeekPhase.PHASES["base"])
-		if ahead:   # S397: the weekend plans Monday's week; the dates say which
-			var mon := int(f["phase_day"])
-			left.add_child(UI.label("%s - %s: %s" % [Clock.fmt(mon), Clock.fmt(mon + 6), str(ph["name"]).to_lower()], 16, UI.MUTED, "semi"))
-		else:
-			left.add_child(UI.label(str(ph["name"]), 16, UI.MUTED, "semi"))
+		var line := UI.label("%s - fight night %s, %d days" % [str(ph["name"]), Clock.fmt(int(bout["day"])), int(bout["day"]) - c.day], 17, UI.FG, "semi")
+		line.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		left.add_child(line)
 		h.add_child(left)
-	# S397 blind Week critics ("three intensity controls, no link"): the toggle is the evenings - pad nights and sparring
-	var ev := UI.vbox(2)
-	ev.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	ev.add_child(UI.caps("EVENINGS"))
-	var evr := UI.hbox(14)
-	evr.add_child(_steps(main, f))
-	evr.add_child(_spar(main, f))
-	ev.add_child(evr)
-	h.add_child(ev)
-	h.add_child(_helps(main.career))
+	else:
+		var left := UI.hbox(14)
+		var ahead := bool(f.get("_ahead", false))
+		var t := WB.ink("NEXT WEEK" if ahead else "THIS WEEK", 34, "marker")
+		left.add_child(t)
+		var mon := int(f["phase_day"]) if ahead else c.day - posmod(c.day, 7)
+		var dates := UI.label("%s - %s" % [Clock.fmt(mon), Clock.fmt(mon + 6)], 17, UI.FG, "semi")
+		dates.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		left.add_child(dates)
+		var nb := UI.label("No fight booked", 16, UI.MUTED, "body")
+		nb.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		left.add_child(nb)
+		h.add_child(left)
 	h.add_child(UI.spacer())
 	var g: Node = _camp.get("_gauge")
-	if g != null:
+	if g != null and booked(goal):
 		g.get_parent().remove_child(g)
 		(g as Control).size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		h.add_child(g)
+	var wk: Dictionary = pl["wk"]
+	var order := range(7)
+	order.sort_custom(func(a, b): return float(tired[a][2]) > float(tired[b][2]))
+	var heavy := ", ".join(order.slice(0, 2).map(func(d): return "%s %s" % [WeekCards.DAY_NAMES[d].left(3), WeekCards.tired_words(float(tired[d][2]))]))
+	_meter = WeekCards.meter(float((pl["ctx"] as Dictionary).get("fatigue", 20.0)), float(wk["peak"]), maxi(0, int(wk["peak_day"])), heavy)
 	return h
 
 
-## S397 blind Week critic ("Luke holds the pads" and "good kit" on every pads card): who helps the pad nights, said once.
-static func _helps(c: Career) -> Label:
-	var coach := float(c.coach.get("rating", 0.0))
-	var who := str(c.coach.get("name", "")).get_slice(" ", 0)
-	var l := UI.label("%s, %s" % ["%s holds the pads" % who if coach > 0.0 else "No coach: pad nights at base", "good kit" if int(PadWeek.STATION_TIER) >= 2 else "basic kit"],
-		15, UI.MUTED, "semi")
-	l.name = "PadHelp"
-	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	return l
-
-
-## Light / Standard / Hard: her pad nights (in camp the camp's protocol, else her training load).
-static func _steps(main: Node, f: Dictionary) -> Control:
-	var row := UI.hbox(0)
-	row.name = "Steps"
-	row.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	var on := PadWeek.step_of(f)
-	var camp := PadWeek.in_camp(f)
-	# The tooltip counts the pad nights as PadWeek.nights_of will (film takes one, the taper halves them); the sparring
-	# nights are the Sparring nights pills', not the step's.
-	var ph := str(f.get("phase", "base"))
-	var film := camp and WeekPhase.film_night(ph, f.get("camp", {}), int(f.get("phase_day", -1)))   # S385: this week's film only
-	for i in 3:
-		var pads: int = (PadWeek.nights_for(i, camp, film, camp and ph == "taper")["pads"] as Array).size()
-		var b := Button.new()
-		b.name = "Step_%d" % i
-		b.text = STEP_WORDS[i]
-		b.focus_mode = Control.FOCUS_NONE
-		b.custom_minimum_size = Vector2(108, 44)
-		b.add_theme_font_override("font", UI.font("semi"))
-		b.add_theme_font_size_override("font_size", 19)
-		var lit := i == on
-		for k in ["font_color", "font_hover_color", "font_pressed_color"]:
-			b.add_theme_color_override(k, Color.WHITE if lit else UI.FG)
-		for st in ["normal", "hover", "pressed", "focus"]:
-			var s := UI.box(UI.GOLD if lit else (UI.PANEL2 if st == "hover" else UI.PANEL), UI.GOLD if lit else UI.LINE, 0, 1, 0, 0)
-			s.corner_radius_top_left = 8 if i == 0 else 0
-			s.corner_radius_bottom_left = 8 if i == 0 else 0
-			s.corner_radius_top_right = 8 if i == 2 else 0
-			s.corner_radius_bottom_right = 8 if i == 2 else 0
-			b.add_theme_stylebox_override(st, s)
-		b.tooltip_text = "%d pad night%s a week" % [pads, "" if pads == 1 else "s"]
-		b.pressed.connect(main.act.bind("nights", "%s|%d" % [f["id"], i]))
-		row.add_child(b)
-	return row
-
-
-## GOAL: the focus stat now -> the end of this week (the mornings' sum; NightBar's gold tick at the number that changes
-## the night) and INTENSITY: the week's blocks against the coach's 16.
-func _goal_row(f: Dictionary, goal: Dictionary, pl: Dictionary, nights: Dictionary) -> Control:
+## GOAL: the goal attribute now -> Sunday, the target and the pace to it (WeekPlan.goal_lines' projection).
+func _goal_row(f: Dictionary, goal: Dictionary, pl: Dictionary) -> Control:
 	var h := UI.hbox(14)
 	h.name = "GoalRow"
 	var stat := str(goal["stat"])
 	var now := float((f["stats"] as Dictionary).get(stat, 50.0))
-	var end := now
-	for r in (pl["wk"] as Dictionary).get("days", []):
-		if str(r.get("stat", "")) == stat:
-			end += float(r.get("gain", 0.0))
-		if str(r.get("stat2", "")) == stat:
-			end += float(r.get("gain2", 0.0))
-	h.add_child(UI.label("GOAL", 16, UI.FG, "caps"))
+	var end := float(((pl["wk"] as Dictionary)["stats_end"] as Dictionary).get(stat, now))
+	h.add_child(UI.caps("GOAL"))
 	var nums := UI.hbox(6)
 	nums.name = "GoalNums"
-	nums.add_child(UI.label(str(Data.LABEL.get(stat, stat)), 19, UI.FG, "body"))
-	# S397 blind round 3 ("65.1 -> 65.2"): her stat as the page shows it everywhere, the week's gain in words, decimals on hover.
-	nums.add_child(UI.label("%d" % int(now), 19, UI.FG, "bold"))
-	var d := end - now
-	nums.add_child(UI.label(("holding" if d < 0.05 else ("up a little" if d < 0.6 else ("up" if d < 1.5 else "a big week"))) + " by Sunday", 19, UI.GREEN if d >= 0.05 else UI.MUTED, "bold"))
-	nums.tooltip_text = "%.1f now, %.1f by Sunday" % [now, end]
-	nums.mouse_filter = Control.MOUSE_FILTER_STOP
+	nums.add_child(UI.label(WeekCards.label_of(stat), 19, UI.FG, "body"))
+	nums.add_child(UI.label("%.1f -> %.1f" % [now, end], 19, UI.FG, "bold"))
+	nums.add_child(UI.label("this week", 19, UI.FG, "body"))
 	h.add_child(nums)
-	var fid := str(f["id"])
-	var bar := NightBar.make(stat, now, end, float(_seen_goal.get(fid, end)))
-	_seen_goal[fid] = end
-	bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var line := {}
+	for l in _lines:
+		if str(l["id"]) == stat:
+			line = l
+	var bar := WeekCards.GoalBar.new()
+	bar.name = "GoalBar"
+	bar.now = now
+	bar.week = end
+	bar.pace = float(line.get("end", end))
+	bar.target = float(line.get("target", float(goal["target"])))
 	bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(bar)
-	# S397 blind Week critic ("65 / at 64 / 0.3 short"): the fight-night line only when a fight is booked.
-	var booked := not (goal["bout"] as Dictionary).is_empty() and not bool((goal["bout"] as Dictionary).get("done", false))
-	var words := BoutRules.night_line_words(stat) if booked else ""
-	if words != "":
-		h.add_child(UI.label(words, 18, UI.GOLD if BoutRules.clears_night_line(stat, end) else UI.MUTED, "hand"))
-	h.add_child(UI.spacer())
-	var blocks := PadWeek.intensity(pl["days"], (nights.get("pads", []) as Array).size(), (nights.get("spar", []) as Array).size())
-	h.add_child(UI.label("WEEK LOAD", 16, UI.FG, "caps"))
-	# S397 blind round 5 ("Intensity 10 / 16" is raw): the load against the coach's limit in words, the count on hover.
-	var full := float(blocks) / float(TrainingPlan.DEFAULT_TOTAL)
-	var n := UI.label("over the limit" if blocks > TrainingPlan.DEFAULT_TOTAL else ("a full load" if full >= 0.85 else ("a steady load" if full >= 0.5 else "a light load")),
-		22, WB.RED if blocks > TrainingPlan.DEFAULT_TOTAL else UI.FG, "bold")
-	n.name = "Intensity"
-	n.mouse_filter = Control.MOUSE_FILTER_STOP
-	n.tooltip_text = "%d of the coach's %d blocks this week" % [blocks, TrainingPlan.DEFAULT_TOTAL]
-	h.add_child(n)
+	if not line.is_empty():
+		var w := int(goal["weeks"])
+		h.add_child(UI.label("target %d %s" % [roundi(float(line["target"])), "by fight night" if booked(goal) else "in %d weeks" % w], 17, UI.FG, "body"))
+		var ok := bool(line["ok"])
+		var pace := UI.label("on pace for %.1f%s" % [float(line["end"]), ", on target" if ok else ", a little short" if float(line["short"]) < 0.6 else ", short"],
+			17, UI.GREEN if ok else UI.AMBER, "bold")
+		pace.name = "GoalPace"
+		h.add_child(pace)
+	var key := UI.hbox(5)   # S398 critics: the gold dot on the mornings, said once
+	var dot := ColorRect.new()
+	dot.color = Color("#e0a400")
+	dot.custom_minimum_size = Vector2(9, 9)
+	dot.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	key.add_child(dot)
+	key.add_child(UI.label("mornings that train it", 14, UI.MUTED, "body"))
+	h.add_child(key)
+	if booked(goal):   # S397: the fight-night line only when a fight is booked
+		var words := BoutRules.night_line_words(stat)
+		if words != "":
+			h.add_child(UI.label(words, 16, UI.GREEN if BoutRules.clears_night_line(stat, end) else UI.MUTED, "body"))
 	return h
 
 
-## The seven days: heads, the AM cards, the open morning's picker, the PM cards.
-func _strip(main: Node, c: Career, f: Dictionary, pl: Dictionary, inp: Dictionary, projs: Dictionary) -> Control:
+## The seven columns: day head, the morning card, the evening card, "tired N" at night; the open popover floats beside its card.
+func _strip(main: Node, c: Career, f: Dictionary, pl: Dictionary, inp: Dictionary, projs: Dictionary, tired: Array, cards: Array) -> Control:
 	var fid := str(f["id"])
-	var box := UI.vbox(8)
-	box.name = "Week"
 	var days: Array = pl["days"]
 	var base: Array = pl["base"]
 	var wk: Dictionary = pl["wk"]
@@ -300,34 +286,77 @@ func _strip(main: Node, c: Career, f: Dictionary, pl: Dictionary, inp: Dictionar
 	var coach := WeekPlan.coach_of(f)
 	var monday := c.day - posmod(c.day, 7) + (7 if bool(f.get("_ahead", false)) else 0)   # S397 the weekend's next week
 	var twist := str(WeekTwist.active(f).get("name", ""))
+	var goal_key := str((pl["goal"] as Dictionary)["stat"])
 	var set_day := func(i: int, card: Array) -> void:
 		picking = ""
 		main.act("wday", "%s|%d|%s|%s" % [fid, i, card[0], card[1]])
 	var open := func(i: int) -> void:
 		picking = "" if picking == "%s|%d" % [fid, i] else "%s|%d" % [fid, i]
+		picking_eve = ""
 		main.render()
-	var heads := UI.hbox(10)
-	var ams := UI.hbox(10)
-	ams.name = "Mornings"
-	var pms := UI.hbox(10)
-	pms.name = "Nights"
+	var open_eve := func(i: int) -> void:
+		picking_eve = "" if picking_eve == "%s|%d" % [fid, i] else "%s|%d" % [fid, i]
+		picking = ""
+		main.render()
+	var grid := UI.hbox(10)
+	grid.name = "Week"
+	var am_cards: Array = []
+	var pm_cards: Array = []
 	for i in 7:
+		var col := UI.vbox(8)
+		col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		col.custom_minimum_size.x = 150
 		var hd := WeekDay.head(i, monday + i, changed.has(str(i)), coach[i], set_day, _ghost_day)
-		hd.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		hd.custom_minimum_size.x = 60
-		heads.add_child(hd)
-		ams.add_child(WeekDay.am(f, i, days[i], base[i], wk["days"][i], (wk["red"] as Array).has(i), changed.has(str(i)), twist, open))
-		pms.add_child(WeekDay.pm(_night_spec(main, f, i, inp, projs)))
-	box.add_child(heads)
-	box.add_child(ams)
+		col.add_child(hd)
+		var r: Dictionary = (wk["days"][i] as Dictionary).duplicate()
+		# S398 built-page critics ("the cards don't add up to PLAN TOTALS in camp"): each card shows its gain as the week
+		# counts it - the camp's multiplier on the camp's attribute (WeekPlan.week)
+		var ctx: Dictionary = pl["ctx"]
+		for k in [["stat", "gain"], ["stat2", "gain2"]]:
+			if str(r.get(k[0], "")) != "" and str(r[k[0]]) == str(ctx.get("camp_stat", "")):
+				r[k[1]] = float(r[k[1]]) * float(ctx.get("camp_mult", 1.0))
+		var m: Array = days[i]
+		var red := (wk["red"] as Array).has(i)
+		var card := func() -> Dictionary: return WeekDay.magnet_card(m, base[i], r, red, changed.has(str(i)), twist)
+		var am := WeekCards.am(i, m, base[i], r, float(tired[i][3]), float(tired[i][0]), goal_key, card, open)
+		col.add_child(am)
+		am_cards.append(am)
+		var spec := _night_spec(main, f, i, inp, projs)
+		spec["cost"] = float(tired[i][2]) - float(tired[i][3])
+		spec["key2"] = str(r.get("stat2", "")) if float(r.get("gain2", 0.0)) >= 0.005 else ""
+		spec["gain2"] = float(r.get("gain2", 0.0))
+		spec["on_open"] = open_eve
+		var pm := WeekDay.pm(spec)
+		col.add_child(pm)
+		pm_cards.append(pm)
+		col.add_child(WeekCards.tired_line(i, float(tired[i][0]), float(tired[i][1]), float(tired[i][2])))
+		grid.add_child(col)
+	var close := func() -> void:
+		picking = ""
+		picking_eve = ""
+		main.render()
 	if picking.begins_with(fid + "|"):
 		var i := int(picking.get_slice("|", 1))
-		box.add_child(WeekDay.picker(f, i, days[i], set_day, _ghost_day))
-	box.add_child(pms)
-	return box
+		var body := WeekPops.morning(i, days[i], pl["ctx"], float(tired[i][0]), set_day, _ghost_day, goal_key)
+		var p := WeekCards.pop("MorningPop", "%s morning" % WeekCards.DAY_NAMES[i], body, close)
+		p.anchor = am_cards[i]
+		p.left = i >= 2   # over the days before it, which the change cannot alter
+		grid.add_child(p)
+	elif picking_eve.begins_with(fid + "|"):
+		var i := int(picking_eve.get_slice("|", 1))
+		var spec: Dictionary = (pm_cards[i] as Control).get("spec")
+		var body := WeekPops.evening(f, i, str(spec["kind"]), spec.get("entries", []), cards, PadWeek.pad_share(f),
+			func(d: int, k: String): picking_eve = "" if k != "pads" else picking_eve; main.act("weve", "%s|%d|%s" % [fid, d, k]),
+			func(d: int, cd: String): picking_eve = ""; main.act("drill", "%s|%d|%s" % [fid, d, cd]),
+			func(d: int): picking_eve = ""; main.act("undrill", "%s|%d" % [fid, d]))
+		var p := WeekCards.pop("EveningPop", "%s evening" % WeekCards.DAY_NAMES[i], body, close)
+		p.anchor = pm_cards[i]
+		p.left = i >= 2
+		grid.add_child(p)
+	return grid
 
 
-## One PM card's spec (WeekDay.pm): what the night is, its cards and their gains, the chips, and the clicks.
+## One evening card's spec (WeekDay.pm): what the night is, its cards and their gains, and the clicks.
 func _night_spec(main: Node, f: Dictionary, i: int, inp: Dictionary, projs: Dictionary) -> Dictionary:
 	var fid := str(f["id"])
 	var nights: Dictionary = inp["nights"]
@@ -340,17 +369,20 @@ func _night_spec(main: Node, f: Dictionary, i: int, inp: Dictionary, projs: Dict
 		kind = "film"
 	var rows := PadEdit.night_rows(f, projs)
 	var spar: Array = []
+	var spar_g: Array = []   # S398: "Uppercut +3" - what the sparring night drills, so the tray's week adds up
 	for card in rows:
 		if kind == "sparring" and (rows[card] as Dictionary).has(i):
 			spar.append(PadEdit.title(f, str(card)))
-	var chips: Array = []   # S397: who helps the nights is said once, by Light / Standard / Hard (_helps)
+			var d := roundi(float(rows[card][i][1]) - float(rows[card][i][0]))
+			if d > 0:
+				spar_g.append("%s %+d" % [PadEdit.title(f, str(card)), d])
 	var picked := DrillTray.picked_for(fid)
 	var click := func(dow: int) -> void:
 		var now := DrillTray.picked_for(fid)
 		if now != "":
 			main.act("drill", "%s|%d|%s" % [fid, dow, now])
 	return {"i": i, "kind": kind, "entries": (inp["week"] as Dictionary).get(PadWeek.DAYS[i], []), "rows": rows, "f": f,
-		"chips": chips, "picked": picked != "", "spar_cards": spar, "camp": PadWeek.in_camp(f), "partner": PlanCards.partner(f),
+		"chips": [], "picked": picked != "", "spar_cards": spar, "spar_gains": spar_g, "camp": PadWeek.in_camp(f), "partner": PlanCards.partner(f),
 		"on_drop": func(dow: int, card: String): main.act("drill", "%s|%d|%s" % [fid, dow, card]),
 		"on_click": click,
 		"on_clear": func(dow: int): main.act("undrill", "%s|%d" % [fid, dow]),
@@ -358,57 +390,94 @@ func _night_spec(main: Node, f: Dictionary, i: int, inp: Dictionary, projs: Dict
 		"on_split": func(dow: int): main.act("padsplit", "%s|%d" % [fid, dow])}
 
 
-## S382 G5: a morning card under the cursor (WeekDay) ghosts on THIS CAMP; [] = off.
+## The week's open twist as one bar: its name and line, the two answers as buttons (the coach's pick filled), the details
+## on hover; THIS CAMP below keeps the full card. null when there is no choice to make.
+func _twist_bar(main: Node, f: Dictionary) -> Control:
+	var t := WeekTwist.card_for(f)
+	if t.is_empty() or not t.has("a") or bool(f.get("twist_locked", false)) or str(f.get("twist_pick", "")) != "":
+		return null
+	var p := PanelContainer.new()
+	p.name = "TwistBar"
+	p.add_theme_stylebox_override("panel", UI.box(Color("#fff4cf"), Color("#e0a400"), 10, 1, 14, 8))
+	var h := UI.hbox(14)
+	p.add_child(h)
+	h.add_child(UI.label(("%s" if bool(t.get("ask", false)) else "TWIST: %s") % str(t["name"]).to_upper(), 16, WB.RED, "bold"))
+	var line := UI.label(str(t["line"]), 16, UI.FG, "body")
+	line.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	line.clip_text = true
+	line.tooltip_text = str(t["line"])
+	line.mouse_filter = Control.MOUSE_FILTER_STOP
+	h.add_child(line)
+	var shown := WeekTwist.answer(f)
+	for a in ["a", "b"]:
+		var opt: Dictionary = t[a]
+		var b := UI.button(str(opt["label"]) + (" (coach's pick)" if a == shown else ""), "BtnSolid" if a == shown else "Btn",
+			main.act.bind("twistpick", "%s|%s" % [f["id"], a]))
+		b.name = "TwistBar_" + a
+		b.tooltip_text = str(opt["line"])
+		if _camp != null:
+			b.mouse_entered.connect(func(): _camp.call("_preview", a))
+			b.mouse_exited.connect(func(): _camp.call("_preview_off"))
+		h.add_child(b)
+	return p
+
+
+## S382 G5: a choice under the cursor ghosts on THIS CAMP; [] = off.
 func _ghost_day(dow: int, card: Array) -> void:
 	if _camp != null:
 		_camp.call("ghost_day", dow, card)
 
 
-## S397 layout pass: the coach's one line and Do it, under GOAL.
+## The coach's one change with what it does written on the button (this week's gain, the peak), and Back to his week.
 func _coach_row(main: Node, f: Dictionary, pl: Dictionary) -> Control:
 	var fid := str(f["id"])
-	var says := UI.hbox(10)
+	var says := UI.hbox(12)
 	says.name = "CoachRow"
-	says.add_child(WB.ink("COACH:", 24, "marker"))
+	says.add_child(UI.caps("COACH"))
 	# S397 blind round 5: with no bout booked the weight forecast is moot (it read as "over the limit" beside "on weight").
 	var said_lines: Array = _lines if not (f.get("bout", {}) as Dictionary).is_empty() else _lines.filter(func(l): return str(l["id"]) != "weight")
 	var ad := WeekCoach.advice(pl["days"], pl["wk"], said_lines, str((pl["ctx"] as Dictionary).get("diet", "hold")))
 	var fix: Dictionary = ad["fix"]
-	var line := WB.ink("\"%s\"" % str(ad["say"]), 22, "hand", WB.INK, fix.is_empty())   # with Do it: one line, the button beside it
+	var line := UI.label("\"%s\"" % str(ad["say"]), 17, UI.FG, "body")
 	line.name = "CoachLine"
-	if fix.is_empty():
-		line.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	if float(ad["short"]) > 0.0:
 		line.mouse_filter = Control.MOUSE_FILTER_STOP
 		line.tooltip_text = "%.1f short of the line" % float(ad["short"])
 	says.add_child(line)
-	# S397 blind Week critic ("the advice needs an Apply button"): his change in one click.
 	if not fix.is_empty():
 		var arg := "%s|cut" % fid if fix.has("diet") else "%s|%d|%s|%s" % [fid, int(fix["dow"]), str(fix["card"][0]), str(fix["card"][1])]
-		var apply := UI.button("Do it", "Btn", main.act.bind("diet" if fix.has("diet") else "wday", arg))
+		var apply := UI.button("Do it" + _fix_effect(pl, fix), "BtnSolid", main.act.bind("diet" if fix.has("diet") else "wday", arg))
 		apply.name = "CoachApply"
 		apply.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		apply.tooltip_text = "Make the coach's change"
 		says.add_child(apply)
-		says.add_child(UI.spacer())
-	var reset := UI.button("Coach's week", "BtnQuiet", main.act.bind("weekreset", fid))
+	says.add_child(UI.spacer())
+	var mine := not WeekPhase.edits(f).is_empty() and (not (WeekPhase.edits(f).get("days", {}) as Dictionary).is_empty()
+		or not (WeekPhase.edits(f).get("eve", {}) as Dictionary).is_empty() or WeekPhase.edits(f).has("spar"))
+	var reset := UI.button("Back to the coach's week", "Btn", main.act.bind("weekreset", fid), not mine, "This is the coach's week")
 	reset.name = "WeekReset"
 	reset.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	reset.tooltip_text = "Undo your changes to the mornings: back to the coach's week for this phase"
 	says.add_child(reset)
 	return says
 
 
-## Sparring 0 / 1 / 2 a week, beside the pad nights' Light / Standard / Hard.
-static func _spar(main: Node, f: Dictionary) -> Control:
-	var fid := str(f["id"])
-	var row := UI.hbox(6)
-	row.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	row.add_child(UI.label("Sparring", 16, UI.FG, "semi"))
-	for n in 3:
-		var b := UI.button("%d" % n, "PillOn" if WeekPlan.evenings_of(f).count("sparring") == n else "Pill", main.act.bind("spar", "%s|%d" % [fid, n]))
-		b.name = "Spar_%d" % n
-		b.custom_minimum_size = Vector2(40, 34)
-		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		row.add_child(b)
-	return row
+## ": Conditioning +0.06 this week, peak tired 56 -> 58" - the coach's morning change run through the same week.
+static func _fix_effect(pl: Dictionary, fix: Dictionary) -> String:
+	if not fix.has("dow"):
+		return ""
+	var days: Array = (pl["days"] as Array).duplicate(true)
+	days[int(fix["dow"])] = [str(fix["card"][0]), str(fix["card"][1])]
+	var wk2 := WeekPlan.week(days, pl["ctx"], pl["evs"])
+	var wk: Dictionary = pl["wk"]
+	var stat := str((pl["goal"] as Dictionary)["stat"])
+	# S398 critics: the effect in the goal's own terms - where the pace ends, against the target
+	var goal: Dictionary = pl["goal"]
+	var l1 := WeekPlan.goal_lines(goal, pl["days"], pl["ctx"], int(goal["weeks"]), pl["evs"])
+	var l2 := WeekPlan.goal_lines(goal, days, pl["ctx"], int(goal["weeks"]), pl["evs"])
+	var out := ""
+	for k in l1.size():
+		if str(l1[k]["id"]) == stat:
+			var reach := float(l2[k]["end"]) >= float(l1[k]["target"])
+			out = ": %.1f of %d%s" % [float(l2[k]["end"]), roundi(float(l1[k]["target"])), "" if reach else ", still short"]
+	if roundi(float(wk2["peak"])) != roundi(float(wk["peak"])):
+		out += "%s peak fatigue %d -> %d" % [", " if out != "" else ": ", roundi(float(wk["peak"])), roundi(float(wk2["peak"]))]
+	return out

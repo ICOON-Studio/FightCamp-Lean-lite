@@ -33,16 +33,14 @@ func _initialize() -> void:
 	var monday := c.day - posmod(c.day, 7) + 7
 	_check(text.contains("NEXT WEEK") and not text.contains("THIS WEEK"), "1: the weekend board is NEXT WEEK")
 	_check(text.contains(Clock.fmt(monday)), "1: with next Monday's date (%s)" % Clock.fmt(monday))
-	# S397 Week critic round 2: rest nights are one-line strips; the coach's change is one click (CoachApply)
-	var nights := main.find_child("Nights", true, false)
-	var thin := 0
-	for n in (nights.get_children() if nights != null else []):
-		if str(n.get("kind")) == "rest":
-			thin += 1 if (n as Control).size.y < 60.0 else 0
-			_check((n as Control).size.y < 60.0, "rest night %s is a strip (%.0f px)" % [n.name, (n as Control).size.y])
-	_check(thin > 0, "the week has rest nights drawn as strips")
-	_check(not text.contains("holds the pads
-") or text.count("holds the pads") == 1, "who holds the pads is said once")
+	# S398 Week v8: every evening is a card of the same height, a rest night says Rest; the coach's change is one click
+	var rests := 0
+	for i in 7:
+		var n := main.find_child("Night_%d" % i, true, false)
+		if n != null and str(n.get("kind")) == "rest":
+			rests += 1
+			_check(_texts(n).contains("Rest"), "rest night %d says Rest" % i)
+	_check(rests > 0, "the week has rest nights")
 	# the critic's "sparring 1 but no sparring night": next week's nights are next week's, not this week's run ones
 	for d in (PadWeek.nights_of(WeekPhase.ahead_view(f, c.day))["spar"] as Array):
 		var sn := main.find_child("Night_%d" % int(d), true, false)

@@ -107,7 +107,7 @@ func _after() -> void:
 	await _frames(2)
 	var b := _board()
 	var title := b.find_child("TrayTitle", true, false) as Label
-	_check(title != null and title.text == "LEARN", "after the fight: LEARN (%s)" % (title.text if title else "none"))
+	_check(title != null and title.text == "LEARN ON THE PADS", "after the fight: LEARN ON THE PADS (%s)" % (title.text if title else "none"))
 	_check(b.find_child("Stamp", true, false) == null and b.find_child("OppName", true, false) == null, "no stamp, no opponent")
 	var head := b.find_child("BoardHead", true, false)
 	_check(head != null and head.find_child("WeekStrip", true, false) == null, "the head is THIS WEEK again, no weeks strip")

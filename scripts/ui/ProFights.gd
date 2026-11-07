@@ -101,7 +101,7 @@ static func _head_row() -> Control:
 static func _table_card(main: Node, c: Career, f: Dictionary) -> Control:
 	var card := UI.card("NEXT FIGHT")
 	var v: VBoxContainer = card[1]
-	if not (f["bout"] as Dictionary).is_empty():
+	if not (f["bout"] as Dictionary).is_empty() and (f["bout"] as Dictionary).has("day"):   # S398: a dayless bout dict (main CI)
 		v.add_child(UI.label("Booked: vs %s, %s. Set the camp on Fighters, then the Week tab." % [f["bout"]["opp"]["name"], Clock.fmt(int(f["bout"]["day"]))],
 			UI.BODY, UI.GOLD, "bold", true))
 		return card[0]

@@ -43,7 +43,7 @@ static func info(id: String, f: Dictionary) -> Dictionary:
 		var kind := str(sm["kind"])
 		d["beats"] = (Combos.row(combo).get("beats", []) as Array).duplicate() if combo != "" else ([id] if CF.MOVES.has(id) else [])
 		d["glyph"] = "hand-fist" if kind == "combo" else ("shield" if kind == "defence" else "footprints")
-		d["tier"] = "forced on you" if kind == "forced" else ("ready" if combo == "" else _combo_tier(f, combo))
+		d["tier"] = "forced on you" if kind == "forced" else ("usable" if combo == "" else _combo_tier(f, combo))
 	elif pal != "":
 		var e := _entry(pal)
 		d["name"] = str(e["name"])
@@ -52,9 +52,9 @@ static func info(id: String, f: Dictionary) -> Dictionary:
 		d["clips"] = [str(e["clip"])] if str(e.get("clip", "")) != "" else []
 		d["glyph"] = KIND_GLYPH.get(str((CF.MOVES.get(pal, {}) as Dictionary).get("kind", "punch")), "hand-fist")
 		var needs := str(e.get("needs", ""))
-		d["tier"] = "ready" if needs == "" else MoveMastery.tier(float(moves.get(needs, 0.0))).to_lower()
+		d["tier"] = "usable" if needs == "" else MoveMastery.word(float(moves.get(needs, 0.0))).to_lower()
 		if needs != "" and float(moves.get(needs, 0.0)) < Combos.LEARN_AT:
-			d["lines"].append("Not a weapon yet (%d of %d): pad time first." % [int(moves.get(needs, 0.0)), int(Combos.LEARN_AT)])
+			d["lines"].append("Not usable yet (mastery %d of %d): pad time first." % [int(moves.get(needs, 0.0)), int(Combos.LEARN_AT)])
 	elif not Combos.row(id).is_empty():
 		combo = id
 		d["beats"] = (Combos.row(id)["beats"] as Array).duplicate()
@@ -62,7 +62,7 @@ static func info(id: String, f: Dictionary) -> Dictionary:
 		d["tier"] = _combo_tier(f, id)
 	else:   # a move with no film (the check hook): its name and her level, the ink card
 		d["name"] = id
-		d["tier"] = MoveMastery.tier(float(moves.get(id, 0.0))).to_lower() if moves.has(id) else ""
+		d["tier"] = MoveMastery.word(float(moves.get(id, 0.0))).to_lower() if moves.has(id) else ""
 		d["pic"] = id.to_lower().replace(" ", "_")
 	var beats: Array = d["beats"]
 	for b in beats:
@@ -137,7 +137,7 @@ static func _combo_tier(f: Dictionary, combo: String) -> String:
 	if not Combos.missing(combo, f.get("moves", {})).is_empty():
 		return "locked"
 	var v := float((f.get("combos", {}) as Dictionary).get(combo, 0.0))
-	return "raw" if v <= 0.0 else MoveMastery.tier(v).to_lower()
+	return MoveMastery.word(v).to_lower()
 
 
 ## A syllabus move: her level (learning / owned / signature, the mat book's words), the coach's first and last step.

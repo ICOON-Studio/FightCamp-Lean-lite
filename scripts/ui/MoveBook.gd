@@ -56,7 +56,7 @@ func _progress(m: Dictionary, mastery: Dictionary) -> Array:
 	if str(m["kind"]) != "combo":
 		return ["READY", 1.0]
 	var v := float(_combos.get(str(m["combo"]), 0.0))
-	return [MoveMastery.tier(v) if v > 0.0 else "RAW", clampf(v / 100.0, 0.0, 1.0)]
+	return [MoveMastery.tier(v), clampf(v / 100.0, 0.0, 1.0)]
 
 
 ## "18 of 26 ready" across the book, and the next combination worth her pad time.
@@ -72,8 +72,8 @@ func _book_head(groups: Array, mastery: Dictionary) -> Control:
 			ready += int(_is_ready(m, mastery))
 	var h := UI.hbox(14)
 	h.name = "BookHead"
-	h.add_child(UI.label("%d of %d moves ready" % [ready, total], 22, UI.FG, "bold"))
-	h.add_child(Icons.pips(ready, total, "Ready: thrown with its pad time behind it."))
+	h.add_child(UI.label("%d of %d moves usable" % [ready, total], 22, UI.FG, "bold"))
+	h.tooltip_text = "Usable: thrown on the night, its pad time behind it (mastery 30; steps and defences from day one)."   # S398: no squares
 	var next := ""   # S397 blind round 5: "worth pad time next" disagreed with the Week's pads; the Week owns what is drilled
 	if next != "":
 		var nm := ""
@@ -106,9 +106,9 @@ func _group(title: String, line: String, ids: Array, words: Dictionary, mastery:
 				continue
 			of += 1
 			n += int(_is_ready(m, mastery))
-		top.add_child(UI.label("%d / %d ready" % [n, of], UI.TINY, UI.GREEN if n == of else UI.MUTED, "bold"))
+		top.add_child(UI.label("%d / %d usable" % [n, of], UI.TINY, UI.GREEN if n == of else UI.MUTED, "bold"))
 	head.add_child(top)
-	head.add_child(UI.muted(line, UI.SMALL, true))
+	head.tooltip_text = line   # S398 (operator rule): the section's blurb on hover
 	add_child(head)
 	var flow := HFlowContainer.new()
 	flow.add_theme_constant_override("h_separation", 10)
@@ -150,7 +150,8 @@ func _mark(card: Button, p: Array) -> void:
 	if t == "":
 		return
 	var col: Color = TIER_COLOR.get(t, UI.GREEN if t == "READY" else UI.MUTED)
-	var tag := UI.label(t, UI.TINY - 2, col, "bold")
+	# S398 one word set (MoveMastery.WORDS): footwork is Usable from day one, a gate reads Locked.
+	var tag := UI.label({"READY": "Usable", "LOCKED": "Locked"}.get(t, MoveMastery.WORDS.get(t, t)), UI.TINY - 1, col, "bold")
 	tag.name = "Tier"
 	tag.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	tag.offset_left = -96

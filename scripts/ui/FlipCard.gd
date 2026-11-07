@@ -90,7 +90,7 @@ func _face_body(f: Dictionary, id: String, capv: float) -> void:
 	words.add_child(tag)
 	words.add_child(_clip(UI.label(PadEdit.title(f, id), 24, UI.FG, "marker")))
 	# A move's front names the tier she started the week on: the gold back is where "usable" is said (no spoiler).
-	var front := MoveMastery.tier(float(row["before"])).to_lower() if PadWeek.kind(id) == "move" else _sub(f, id)
+	var front := MoveMastery.word(float(row["before"])).to_lower() if PadWeek.kind(id) == "move" else _sub(f, id)
 	var sub := UI.label(front, 13, UI.MUTED, "body")
 	sub.name = "Sub"
 	words.add_child(_clip(sub))
@@ -113,7 +113,7 @@ func _back_body(f: Dictionary, id: String, capv: float) -> void:
 	var v := _vb(back)
 	var top := UI.hbox(6)
 	v.add_child(top)
-	var tw := UI.label(str(cr["tier"]).to_upper(), 40, DrillCard.GOLD_INK, "marker")
+	var tw := UI.label(str(cr["tier"]).capitalize(), 40, DrillCard.GOLD_INK, "marker")
 	tw.name = "Tier"
 	top.add_child(tw)
 	top.add_child(UI.spacer())

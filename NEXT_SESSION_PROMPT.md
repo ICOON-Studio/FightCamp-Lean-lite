@@ -7,7 +7,11 @@ stops; building goes to Cursor (now GPT-5.6 Sol High) and Qwen first - not on hi
 FREE SEATS BUILD, CLAUDE REVIEWS (operator S398 "instead of opening your own 3 session why you do not assign each one to a free
 ai ?"): no new Claude side sessions for building. Each next task becomes a brief + seat_dispatch row on a free seat - Cursor
 (GPT-5.6 Sol High, 1M context) for systems and multi-file work, Qwen for tests/probes/data, Dola/agy for design drafts - and the
-main session only writes briefs, reviews diffs + measured numbers, runs sonnet critics, and merges. Next rows to brief: Fighter
+main session only writes briefs, reviews diffs + measured numbers, runs sonnet critics, and merges. ANIMATION PRIORITY: the anim chain (685k) proposed a REBUILD of fight animation around a clip library + picker - paired captures,
+one reaction picker, physics for impact, fewer layers (every S397/S398 round lost or tied on film: the system, not the fixes).
+Route it free-seat style: a design draft by Dola/agy (read ops/research/ANIM_HANDOVER_S397.md + the S397/S398 film fault lists),
+two sonnet critics on the design, then Cursor (GPT-5.6 Sol) builds it step by step, each step judged on film here. Not a
+Claude side session (operator closed that card). Next rows to brief: Fighter
 model v3 (Cursor; ops/research/TASK_FIGHTERMODEL3.md has the gate), BJJ beat engine (Cursor), stylized 2D menu art A/B (Cursor +
 Ludo assets), Money leftovers (Qwen). Seats cannot see images: give them numbers to hit, and judge films/stills here.
 GODOT QUEUE (S398): every agent Godot job runs `python ops/Tools/godot_slot.py run --who <s> -- <godot cmd>` (GREEN 3 / AMBER 2 /
@@ -15,10 +19,10 @@ RED 0 / 0 under 4 GB commit); rule_guard refuses a direct agent Godot job; seat_
 shows it. Heat governor pins agent jobs to 6 threads when not GREEN. Cursor worktrees run with no Claude hooks
 (seat_dispatch.cursor_no_hooks: Cursor's 11-07 wrapper breaks any hook).
 SESSIONS LEFT RUNNING (report to "Agent communications startup" S398 - CHECK THEM: list_sessions / list_events):
-- Menus to 8 (local_bb58ebe9-495a-4480-ad0e-afdfcb986026, claude/menus-to-8b-5fe49c): Week v8 built (plateau ~6.2 blind), Fight
-  prep rebuilt with pictures, first-hour fixes, operator rule "nothing displayed unless the player can do something with it",
-  Fatigue as the one word; two_boxers_two_years_test. Sends a MERGE REPORT, then stops. Merge it from a clean worktree
-  (wt/MERGE_S398 exists, seeded), run its touched tests there, push. Stylized 2D art test = a later session (operator OK).
+- Menus to 8: MERGED by S398 (39ca1ac5 + da1e7fd0; golden_path, test_jump, first_hour 0 failures, next_step_card PASS on the
+  merge). Week 5.5 -> 6.2/6.4, Fight prep 4 -> 5.4/6.2 blind; structural list in ops/research/MENUS_STATE_S398.md; stylized 2D
+  art A/B plan in ops/research/STYLE_AB_S398.md (free seat). Archive the session (local_bb58ebe9-...) once idle.
+  ALSO: godot_slot lost Godot output until 94ca7137 - a queued test that printed nothing before then proves nothing.
 - Money that bites (local_7eb19d9c-cef4-4cbd-ac3d-ef52eeb9c79b, claude/money-bites-1c249d): v2.2 money, legal_index fix (a
   careful novice stopped boxing), harness no_render + one frame per stop (the two-boxer signal-11 crash was HARNESS-ONLY:
   Godot's deferred-call queue overflowed; the game's CONTINUE is one day per timer tick). Sends a MERGE REPORT, then stops.

@@ -9,7 +9,7 @@ const PriorBouts := preload("res://scripts/rules/PriorBouts.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 
 ## Column widths: when, opponent, result, method, rounds (the note fills the rest).
-const COLS := [150, 330, 110, 260, 110]
+const COLS := [150, 330, 110, 300]
 
 
 static func make(main: Node, c: Career, f: Dictionary) -> Control:
@@ -27,17 +27,18 @@ static func make(main: Node, c: Career, f: Dictionary) -> Control:
 		var p: Dictionary = prior[i]
 		rows.append({"when": p["when"], "opp": "%s (%s)" % [p["opp"], p["club"]], "win": p["win"], "draw": false, "method": p["method"],
 			"rounds": _rounds_of(str(p["method"])), "note": "", "old": true})
-	v.add_child(_totals(c, f, rows, mine.size()))
 	var title := "EVERY BOUT: %d-%d AMATEUR" % [f["w"], f["l"]]
 	if bool(f.get("pro", false)):
 		title += ", %d-%d-%d PRO" % [int(f.get("pro_w", 0)), int(f.get("pro_l", 0)), int(f.get("pro_d", 0))]
 	var card := UI.card(title)
+	# S398 (operator rule; the record was shown three times): the totals live on the table's hover, not a strip of their own
+	card[0].tooltip_text = _totals_line(c, f, rows, mine.size())
 	v.add_child(card[0])
 	var t: VBoxContainer = card[1]
 	if rows.is_empty():
 		t.add_child(UI.muted("No bouts yet: the first one shows here.", UI.BODY))
 		return v
-	t.add_child(_line(["WHEN", "OPPONENT", "RESULT", "METHOD", "ROUNDS", "NOTE"], true))
+	t.add_child(_line(["WHEN", "OPPONENT", "RESULT", "METHOD", "NOTE"], true))   # S398: the method says the rounds
 	var divided := false
 	for r in rows:
 		if bool(r["old"]) and not divided:   # S397 blind round 4: one divider, not "before the club" on every row
@@ -78,7 +79,14 @@ static func _rounds_of(method: String) -> String:
 	return "%d of %d" % [BoutRules.ROUNDS, BoutRules.ROUNDS]
 
 
-## Totals: record, wins on points, wins inside, with the club.
+## Totals in one line (the table's hover): wins on points, wins inside, with the club.
+static func _totals_line(c: Career, f: Dictionary, rows: Array, club_n: int) -> String:
+	var won := rows.filter(func(r): return bool(r["win"]))
+	var inside := won.filter(func(r): return str(r["method"]).begins_with("stopped")).size()
+	var club_w := rows.filter(func(r): return not bool(r["old"]) and bool(r["win"])).size()
+	return "Won on points %d, won inside %d; for %s %d-%d" % [won.size() - inside, inside, c.gym_name, club_w, club_n - club_w]
+
+
 static func _totals(c: Career, f: Dictionary, rows: Array, club_n: int) -> Control:
 	var h := UI.hbox(40)   # S397 blind round 4 ("four giant cards for 2 and 1-0"): one strip of totals
 	var won := rows.filter(func(r): return bool(r["win"]))
@@ -97,7 +105,7 @@ static func _totals(c: Career, f: Dictionary, rows: Array, club_n: int) -> Contr
 
 static func _row(r: Dictionary) -> Control:
 	var res := "Draw" if bool(r.get("draw", false)) else ("Won" if bool(r["win"]) else "Lost")
-	var l := _line([r["when"], r["opp"], res, r["method"], r["rounds"], r["note"]], false, UI.GREEN if bool(r["win"]) else UI.RED)
+	var l := _line([r["when"], r["opp"], res, r["method"], r["note"]], false, UI.GREEN if bool(r["win"]) else UI.RED)
 	if r.has("tip"):
 		l.tooltip_text = str(r["tip"])
 	return l

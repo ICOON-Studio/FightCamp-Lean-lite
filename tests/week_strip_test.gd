@@ -84,7 +84,10 @@ func _initialize() -> void:
 	main.act("ftab", "3")
 	await _settle(0.2)
 	var board := main.find_child("WeekBoard", true, false)
-	_check(board != null and board.find_child("WeekStrip", true, false) != null, "the whiteboard header carries the strip")
+	# S398 (operator rule: nothing the player cannot act on): the Week head says the week and the fight in words; the strip
+	# stays in the camp modal (above) and its weeks are Fight prep's
+	_check(board != null and board.find_child("WeekStrip", true, false) == null and " ".join(_texts(board)).contains("fight night"),
+		"the Week head names the week and fight night in words, no strip")
 	_check(board != null and not " ".join(_texts(board)).contains("camp week"), "no 'camp week N of M' on the board")
 	_done()
 

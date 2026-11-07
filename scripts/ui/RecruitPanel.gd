@@ -52,6 +52,16 @@ static func _attributes(f: Dictionary) -> VBoxContainer:
 	var col := UI.vbox(6)
 	col.custom_minimum_size = Vector2(430, 0)
 	col.add_child(UI.caps("ATTRIBUTES - GREEN NOW, BLUE = HOW HIGH IT CAN GO"))
+	# S398 menus (first-hour critics: "/84" six times read as a template): the ceiling most attributes share is said once
+	# under the bars; a row prints its own ceiling only when it differs.
+	var caps := {}
+	for key in Data.STATS:
+		var k := int(Recruit.ceiling(f, key))
+		caps[k] = int(caps.get(k, 0)) + 1
+	var common := -1
+	for k in caps:
+		if common < 0 or int(caps[k]) > int(caps[common]):
+			common = int(k)
 	for key in Data.STATS:
 		var row := UI.hbox(8)
 		var l := UI.label(str(Data.LABEL[key]), UI.SMALL)
@@ -73,9 +83,9 @@ static func _attributes(f: Dictionary) -> VBoxContainer:
 		now_bar.frac = now / 100.0
 		stack.add_child(now_bar)
 		row.add_child(stack)
-		row.add_child(UI.label("%d / %d" % [int(now), int(cap)], UI.SMALL, UI.FG, "mono"))
+		row.add_child(UI.label("%d" % int(now) + ("  up to %d" % int(cap) if int(cap) != common else ""), UI.SMALL, UI.FG, "bold"))
 		col.add_child(row)
-	col.add_child(UI.muted("The ceilings are a guess: training, sparring and fights show the truth.", UI.TINY, true))
+	col.add_child(UI.muted("Most can climb to about %d (a guess: training, sparring and fights show the truth)." % common, UI.TINY, true))
 	return col
 
 
@@ -92,7 +102,7 @@ static func _who(main: Node, f: Dictionary, picks: Array, act: String) -> VBoxCo
 		col.add_child(_line("HABIT", "amber", str(h.get("name", hs[0])), str(h.get("effect", "")) + " Can be trained out."))
 	var sig := Recruit.signature(f)
 	if sig != "":
-		col.add_child(_line("SIGNATURE", "", sig, "mastery %d%s" % [int(float(f["moves"][sig])), " - already a weapon" if float(f["moves"][sig]) >= 30.0 else ""]))
+		col.add_child(_line("SIGNATURE", "", sig, "mastery %d%s" % [int(float(f["moves"][sig])), " - already usable" if float(f["moves"][sig]) >= 30.0 else ""]))
 	# S396 truth pass: the AMBITION line promised "met: morale up; missed: loyalty drops" and nothing did that. It comes back
 	# with P8 (promises and loyalty, docs/STRUCTURE_DESIGN_S395.md), when keeping it does something.
 	col.add_child(UI.caps("CHOOSE ONE STARTING FOCUS - IT SETS THE FIRST MONTH"))
@@ -126,8 +136,12 @@ static func _line(tag: String, colour: String, name: String, effect: String) -> 
 static func _perks(f: Dictionary) -> VBoxContainer:
 	var col := UI.vbox(4)
 	col.custom_minimum_size = Vector2(430, 0)
-	col.add_child(UI.caps("THE PERK ROAD - PERKS OPEN AS TRAINING BUILDS THE ATTRIBUTES"))
-	for s in PerkRoad.status(f):
+	col.add_child(UI.caps("THE PERK ROAD - %s'S CLOSEST PERKS" % str(f["first"]).to_upper()))
+	# S398 menus (first-hour critics: every walk-in showed the same road): this fighter's open perks and the nearest ones,
+	# four at most; the rest wait on the fighter page.
+	var road: Array = PerkRoad.status(f)
+	road.sort_custom(func(a, b): return (0.0 if bool(a["open"]) else float(a["gap"])) < (0.0 if bool(b["open"]) else float(b["gap"])))
+	for s in road.slice(0, 4):
 		var row := UI.hbox(8)
 		var n := UI.label(str(s["name"]), UI.SMALL, UI.GREEN if bool(s["open"]) or bool(s["near"]) else UI.FG, "bold")
 		n.custom_minimum_size = Vector2(118, 0)
@@ -138,7 +152,8 @@ static func _perks(f: Dictionary) -> VBoxContainer:
 		row.add_child(e)
 		row.add_child(UI.label("OPEN" if bool(s["open"]) else str(s["need"]), UI.TINY, UI.GREEN if bool(s["open"]) or bool(s["near"]) else UI.MUTED, "mono"))
 		col.add_child(row)
-	col.add_child(UI.muted("Green = open or close: the next weeks of training can open it.", UI.TINY, true))
+	if road.size() > 4:
+		col.add_child(UI.muted("%d more on the fighter page. Green = open, or a few weeks of training away." % (road.size() - 4), UI.TINY, true))
 	return col
 
 

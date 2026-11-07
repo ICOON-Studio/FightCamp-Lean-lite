@@ -35,7 +35,7 @@ const YAW_DEG := 15.0   # turned a little toward her front, his face still in vi
 const FADE_S := 0.25         # the ink card's cross-fade to the clip
 const READY_FRAMES := 3      # frames the clip draws under the ink card before the cross-fade (its first pose settled)
 const WARM_IDLE_FRAMES := 20 # the page has been still this long before the card warms its player
-const TIER_COLOR := {"unlearned": UI.MUTED, "raw": UI.AMBER, "usable": UI.GREEN, "sharp": UI.GOLD, "signature": UI.PURPLE,
+const TIER_COLOR := {"unlearned": UI.MUTED, "new": UI.MUTED, "raw": UI.AMBER, "usable": UI.GREEN, "sharp": UI.GOLD, "signature": UI.PURPLE,
 	"locked": UI.MUTED, "ready": UI.GREEN, "learning": UI.MUTED, "felt": UI.AMBER, "owned": UI.GREEN}
 
 static var _inst: Control = null

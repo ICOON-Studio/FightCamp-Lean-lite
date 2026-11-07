@@ -7,6 +7,7 @@ const NameLinks := preload("res://scripts/ui/NameLinks.gd")
 const MatOpens := preload("res://scripts/ui/MatOpens.gd")
 const RivalPast := preload("res://scripts/rules/RivalPast.gd")
 const UI := preload("res://scripts/ui/UI.gd")
+const Fixtures := preload("res://scripts/ui/Fixtures.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Region := preload("res://scripts/state/Region.gd")
@@ -40,7 +41,6 @@ func build(main: Node) -> void:
 				rows.append(line)
 			if rows.is_empty():
 				rows.append(UI.muted("Nothing from the other clubs yet.", UI.BODY))
-			rows.append(UI.muted("Your results, signings and money news are in Club, Records.", UI.SMALL))
 			UI.add_rows(card[1], rows)
 			# S397 blind round 4 ("News: eight lines, two-thirds empty"; "the calendar repeats on Championships"): what has
 			# happened beside what is coming - the region's events move here from Championships.
@@ -111,11 +111,11 @@ func _ranking_table(c: Career, div: String) -> void:
 		if bool(f.get("pro", false)):
 			notes.append("%s is a pro now: out of the amateur rankings." % f["first"])
 		elif int(f.get("rank", 0)) > 0:
-			notes.append("%s is number %d." % [f["name"], int(f["rank"])])
+			pass   # S398 (operator rule): the highlighted row already says it
 		else:
 			notes.append("%s enters at %d wins (%d so far)." % [f["first"], Region.RANK_MIN_WINS, f["w"]])
-	notes.append("Rivals fight at club shows every other Saturday.")
-	card[1].add_child(UI.muted(" ".join(notes), UI.SMALL, true))
+	if not notes.is_empty():
+		card[1].add_child(UI.muted(" ".join(notes), UI.SMALL, true))
 
 
 ## "beat Maria Ortega, on points" - her newest bout, from her record (RivalPast) or our results.
@@ -131,25 +131,12 @@ func _last_bout(c: Career, r: Dictionary, who: Dictionary) -> String:
 	return "%s %s, %s" % ["beat" if bool(last[0]["win"]) else "lost to", last[0]["vs"], str(last[0]["how"]).get_slice(",", 0)]
 
 
+## S398: the one fixture list (Fixtures), the same as Fights'.
 func _events(c: Career, parent: Container) -> void:
-	var card := UI.card("COMING UP")
+	var card := Fixtures.card(c)
 	card[0].size_flags_stretch_ratio = 2.0
 	card[0].size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	parent.add_child(card[0])
-	var ev: Array = []
-	for e in Champs.calendar(c):
-		ev.append({"d": int(e["d"]), "t": e["t"], "ours": true})
-	for d in Region.next_shows(c.day, 4):
-		ev.append({"d": d, "t": "%s, %d rival bouts" % [Region.show_name(d), Region.SHOW_BOUTS], "ours": false})
-	for f in c.fighters:
-		var fb: Dictionary = f["bout"]
-		if not fb.is_empty():
-			ev.append({"d": int(fb["day"]), "t": "%s vs %s: your bout%s" % [f["first"], fb["opp"]["name"], " (pro debut)" if bool(fb.get("pro", false)) else ""], "ours": true})
-	ev.sort_custom(func(a, b): return int(a["d"]) < int(b["d"]))
-	var rows: Array = []
-	for e in ev:
-		rows.append(UI.kv(Clock.fmt(int(e["d"])), e["t"], UI.GOLD if bool(e["ours"]) else UI.FG))
-	UI.add_rows(card[1], rows)
 
 
 func _search() -> void:

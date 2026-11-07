@@ -29,6 +29,8 @@ static func region(stem: String) -> Rect2:
 
 
 static func crop(tex: Texture2D, stem: String) -> Texture2D:
+	if tex == null:   # S398: a picture not imported yet (a worktree seeded before it existed) loads null
+		return null
 	var r := region(stem)
 	if r.size == Vector2.ZERO:
 		return tex
@@ -41,6 +43,8 @@ static func crop(tex: Texture2D, stem: String) -> Texture2D:
 
 ## A full-frame photo as a crop of itself, so live() breathes on it as on the others.
 static func whole(tex: Texture2D) -> Texture2D:
+	if tex == null:
+		return null
 	var a := AtlasTexture.new()
 	a.atlas = tex
 	a.region = Rect2(Vector2.ZERO, tex.get_size())

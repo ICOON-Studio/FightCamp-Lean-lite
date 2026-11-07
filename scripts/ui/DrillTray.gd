@@ -10,6 +10,7 @@ extends VBoxContainer
 const UI := preload("res://scripts/ui/UI.gd")
 const WB := preload("res://scripts/ui/WhiteboardKit.gd")
 const DrillCard := preload("res://scripts/ui/DrillCard.gd")
+const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const PadEdit := preload("res://scripts/rules/PadEdit.gd")
 const ComboBuilder := preload("res://scripts/ui/ComboBuilder.gd")
 const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
@@ -39,16 +40,22 @@ static func make(main: Node, f: Dictionary, cards: Array, projs: Dictionary, on_
 	var head := UI.hbox(14)
 	head.name = "TrayHead"
 	var plan := PlanCards.active(f)
-	var title := WB.ink("THE PLAN vs" if plan else "LEARN", 34, "marker")
+	# S398 Week v8: one caps title, the level ladder once for the page (MoveMastery.LADDER), the hint in plain words.
+	var title := UI.caps("THE PLAN vs" if plan else "LEARN ON THE PADS")
 	title.name = "TrayTitle"
+	title.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	head.add_child(title)
 	if plan:
 		_versus(head, f)
+	var ladder := UI.label(MoveMastery.LADDER, 14, UI.MUTED, "body")
+	ladder.name = "Ladder"
+	ladder.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	head.add_child(ladder)
 	head.add_child(UI.spacer())
-	head.add_child(_key())
 	var now := picked_for(fid)
-	var hint := WB.ink("%s: now click a PADS night" % PadEdit.title(f, now) if now != "" else "drag a card onto a PADS night",
-		20, "hand", WB.INK if now != "" else WB.PENCIL)
+	var hint := UI.label("%s: now click an evening" % PadEdit.title(f, now) if now != "" else "Drag a card onto an evening, or click it then the evening",
+		15, UI.FG if now != "" else UI.MUTED, "semi" if now != "" else "body")
+	hint.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	hint.name = "TrayHint"
 	head.add_child(hint)
 	t.add_child(head)
@@ -110,7 +117,7 @@ static func _versus(head: HBoxContainer, f: Dictionary) -> void:
 		face.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		face.texture = a
 		head.add_child(face)
-	var who := WB.ink(str(opp.get("first", str(opp.get("name", "")).get_slice(" ", 0))).to_upper(), 34, "marker")
+	var who := WB.ink(str(opp.get("first", str(opp.get("name", "")).get_slice(" ", 0))).to_upper(), 18, "bold")
 	who.name = "OppName"
 	head.add_child(who)
 

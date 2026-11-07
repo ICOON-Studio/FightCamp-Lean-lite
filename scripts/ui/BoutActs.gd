@@ -105,7 +105,12 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			var nights := PadWeek.nights_of(f)
 			match name:
 				"drill":
-					PadEdit.place(f, nights, int(parts[1]), parts[2])
+					# S398 Week v8: a drill card dropped on any evening makes it a pads night (the evening's own edit)
+					var dow := int(parts[1])
+					if not (nights.get("pads", []) as Array).has(dow):
+						_set_evening(main, f, dow, "pads")
+						nights = PadWeek.nights_of(f)
+					PadEdit.place(f, nights, dow, parts[2])
 				"undrill":
 					if parts.size() > 2:
 						PadEdit.remove(f, nights, int(parts[1]), parts[2])
@@ -116,6 +121,20 @@ static func act(main: Node, name: String, arg: String) -> bool:
 				"drillit":
 					PadEdit.drill_it(f, nights, parts[1])
 			DrillTray.picked = ""
+			main.render()
+		"weve":
+			# S398 Week v8: one evening set to rest / pads / sparring from its popover - "fid|dow|kind". Leaving pads sends its
+			# drill back to the tray.
+			var parts := arg.split("|")
+			var f := who(main, parts[0])
+			var dow := clampi(int(parts[1]), 0, 6)
+			var nights := PadWeek.nights_of(f)
+			if parts[2] != "pads" and (nights.get("pads", []) as Array).has(dow):
+				var had: Array = (f.get("pad_week", {}) as Dictionary).get(PadWeek.DAYS[dow], [])
+				if not had.is_empty():
+					PadEdit.clear(f, nights, dow)
+					main.toast("%s back in the tray" % PadEdit.title(f, str((had[0] as Dictionary)["card"])))
+			_set_evening(main, f, dow, parts[2])
 			main.render()
 		"nights":
 			# S382 DRILLCARD1 Light / Standard / Hard on the Training tab: "fid|0..2" - in camp the camp's protocol (1..3), else
@@ -243,3 +262,13 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		_:
 			return false
 	return true
+
+
+## S398 Week v8: one evening's kind as the player's exception (WeekPhase.edit_eve); on a weekend it is next week's.
+static func _set_evening(main: Node, f: Dictionary, dow: int, kind: String) -> void:
+	var c: Career = main.career
+	var g := WeekPhase.ahead_view(f, c.day) if WeekPhase.weekend(c.day) else f
+	var coach := PadWeek.evenings_from(PadWeek.coach_nights(g))
+	WeekPhase.edit_eve(g, dow, kind, str(coach[dow]))
+	if WeekPhase.weekend(c.day):
+		WeekPhase.keep_ahead(f, g)

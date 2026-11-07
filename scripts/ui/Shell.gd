@@ -98,10 +98,16 @@ func _build_top(main: Node) -> void:
 	var c: Career = main.career
 	var h := UI.hbox(14)
 	_top.add_child(h)
-	h.add_child(UI.button("Back", "Ghost", main.act.bind("back", ""), main.past.is_empty(),
-		"Nothing to go back to - you have not left this screen yet"))
-	h.add_child(UI.button("Fwd", "Ghost", main.act.bind("fwd", ""), main.ahead.is_empty(),
-		"Nothing forward - use Back first, then Fwd"))
+	# S398 menus (first-hour critics: "Back / Fwd look like a browser"): two small arrows, the words on hover.
+	for nav in [["back", "<", "Back: the last page", "Nothing to go back to"], ["fwd", ">", "Forward again", "Nothing forward"]]:
+		var nb := UI.button(str(nav[1]), "Ghost", main.act.bind(str(nav[0]), ""), (main.past if nav[0] == "back" else main.ahead).is_empty(), str(nav[3]))
+		nb.name = "Nav_" + str(nav[0])
+		nb.custom_minimum_size = Vector2(36, 36)
+		nb.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		nb.add_theme_font_size_override("font_size", 20)
+		if not nb.disabled:
+			nb.tooltip_text = str(nav[2])
+		h.add_child(nb)
 	var gym := UI.label(c.gym_name, 32, UI.GOLD, "marker")
 	gym.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(gym)
@@ -129,6 +135,9 @@ func _build_top(main: Node) -> void:
 	var g: Dictionary = Needs.go_state(c, main.running)
 	var ink := Color.WHITE if g["cls"] == "GoBlock" else UI.GOLD_INK
 	var cls: String = g["cls"]
+	if cls == "GoBlock" and c.guide != "":   # S398 menus: while the guide runs it says the need; the button is not a red alarm
+		cls = "Go"
+		ink = UI.GOLD_INK
 	if cls == "Go" and main.route["area"] == "home" and not HomeNeeds.pressing(c).is_empty():
 		cls = "Btn"   # HOME's top need holds the page's one filled button; the clock still runs from here
 		ink = UI.GOLD
@@ -238,7 +247,7 @@ func _club_mark(c: Career) -> Control:
 	badge.custom_minimum_size = Vector2(74, 74)
 	badge.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	v.add_child(badge)
-	v.add_child(UI.label(c.gym_name, UI.BODY, UI.FG, "bold", true))
-	v.add_child(UI.label("Boxing club", 15, UI.MUTED))
-	v.add_child(UI.label("%d members" % c.members, 15, UI.MUTED))
+	# S398 (operator: nothing the player cannot act on): the name is the top bar's, the members People's - the crest stays
+	badge.tooltip_text = "%s, %d members" % [c.gym_name, c.members]
+	badge.mouse_filter = Control.MOUSE_FILTER_STOP
 	return m

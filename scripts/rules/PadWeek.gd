@@ -95,6 +95,28 @@ static func nights_for(step: int, camp: bool, film := false, taper := false) -> 
 ## (WeekPlan.evenings_of with the twist card unless twist = false): sparring on her real sparring evenings (the board's spar
 ## pills, the phase, a twist), film on her film evening, the pad nights on the first evenings still "pads" in PAD_ORDER.
 static func nights_of(f: Dictionary, twist := true) -> Dictionary:
+	return with_evenings(coach_nights(f, twist), WeekPhase.edits(f).get("eve", {}))
+
+
+## S398 Week redesign (approved rule change, no new mechanic): the evenings the player set on the Week page (WeekPhase
+## edits "eve" {dow: rest|pads|sparring}) replace the coach's kind on those nights; the pad-night count follows them
+## instead of the Light / Standard / Hard step. A film night stays film. No edits = the coach's nights unchanged.
+static func with_evenings(n: Dictionary, eve: Dictionary) -> Dictionary:
+	if eve.is_empty():
+		return n
+	var evs := evenings_from(n)
+	for k in eve:
+		var d := int(k)
+		if d >= 0 and d < 7 and str(evs[d]) != "film":
+			evs[d] = str(eve[k])
+	var out := n.duplicate(true)
+	out["pads"] = range(7).filter(func(d): return str(evs[d]) == "pads")
+	out["spar"] = range(7).filter(func(d): return str(evs[d]) == "sparring")
+	return out
+
+
+## The coach's nights for this week: the step's laid nights before any evening the player set.
+static func coach_nights(f: Dictionary, twist := true) -> Dictionary:
 	var tpl: Array = WeekPlan.evenings_of(f)
 	var evs := tpl
 	if twist:

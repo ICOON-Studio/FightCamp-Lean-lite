@@ -42,7 +42,7 @@ func _initialize() -> void:
 		_done()
 		return
 	# S381 G2: the weeks strip (WeekStrip, week_strip_test) replaced the phase cells and "camp week 2 of 4".
-	_check(b.find_child("WeekStrip", true, false) != null, "the weeks strip is drawn")
+	_check(b.find_child("WeekStrip", true, false) == null, "S398: no weeks strip on the Week head (the camp's weeks are Fight prep's)")
 	_check(not " ".join(_texts(b)).contains("camp week"), "no 'camp week N of M' text")
 	# S382 G4: the gauge row heads THIS CAMP; the weight line, the fatigue-peak line and the injury row it replaced are gone,
 	# the diet pills stay.

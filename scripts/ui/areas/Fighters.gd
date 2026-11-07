@@ -90,8 +90,8 @@ func _training(main: Node, c: Career) -> void:
 					to = edge
 					break
 				from = edge
-			var tier := MoveMastery.tier(float(m))
-			var next_word: String = {30: "a weapon", 60: "SHARP", 85: "SIGNATURE"}.get(to, "")
+			var tier := MoveMastery.word(float(m))
+			var next_word: String = {30: "Usable", 60: "Sharp", 85: "Signature"}.get(to, "")
 			var note := ("%s - %d to %s" % [tier, to - m, next_word]) if next_word != "" else tier
 			v.add_child(FighterCard.meter("SHARPENING" if sharpening else "LEARNING", learn,
 				float(m - from) / float(maxi(to - from, 1)), note, UI.GOLD))

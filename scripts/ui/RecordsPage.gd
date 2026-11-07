@@ -27,7 +27,7 @@ static func build(main: Node, c: Career) -> Control:
 	v.add_child(_filter("WHAT", "WhatFilter", kinds, kind, func(id): kind = id, main))
 	var all := Records.rows(c)
 	var rows := Records.pick(all, who, kind)
-	var count := UI.muted("%d of %d events" % [rows.size(), all.size()], UI.SMALL)
+	var count := UI.muted("" if rows.size() == all.size() else "%d of %d events" % [rows.size(), all.size()], UI.SMALL)   # S398: only when a filter hides some
 	count.name = "RecordsCount"
 	v.add_child(count)
 	var list := UI.vbox(6)

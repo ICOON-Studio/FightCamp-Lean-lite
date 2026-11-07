@@ -17,8 +17,9 @@ const PERKS := [
 	{"id": "hand_speed", "name": "Fast hands", "effect": "Combinations land whole more often: +25% edge", "need": {"speed": 70}},
 ]
 const NEAR := 5.0
-const SHORT := {"power": "power", "speed": "speed", "technique": "tech", "defense": "def", "conditioning": "cond",
-	"fight_iq": "ring IQ", "chin": "chin"}
+## S398 menus (first-hour critics: "def 65(57)" is a code): the attribute's own word, "Defence 65, now 57".
+const SHORT := {"power": "Power", "speed": "Hand speed", "technique": "Technique", "defense": "Defence", "conditioning": "Conditioning",
+	"fight_iq": "Ring IQ", "chin": "Chin"}
 
 
 static func _value(f: Dictionary, key: String) -> float:
@@ -39,11 +40,11 @@ static func status(f: Dictionary) -> Array:
 			var have := _value(f, str(k))
 			met = met and have >= float(need[k])
 			gap = maxf(gap, float(need[k]) - have)
-			var label := str(k).substr(5).to_lower() if str(k).begins_with("move:") else str(SHORT.get(k, k))
-			words.append("%s %d (%d)" % [label, int(need[k]), int(floor(have))])
+			var label := str(k).substr(5).to_lower() if str(k).begins_with("move:") else str(SHORT.get(k, str(k).capitalize()))
+			words.append("%s %d, now %d" % [label, int(need[k]), int(floor(have))])
 		var is_open := met or opened.has(p["id"])
 		out.append({"id": p["id"], "name": p["name"], "effect": p["effect"], "need": " + ".join(words), "open": is_open,
-			"near": not is_open and gap <= NEAR})
+			"near": not is_open and gap <= NEAR, "gap": gap})
 	return out
 
 

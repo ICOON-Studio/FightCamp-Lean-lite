@@ -254,7 +254,9 @@ static func label(text: String, size: int = BODY, color: Color = FG, kind: Strin
 	l.text = text
 	l.add_theme_font_size_override("font_size", size)
 	l.add_theme_color_override("font_color", color)
-	l.add_theme_font_override("font", font(kind))
+	# S398 menus round 6 ("brush font for page titles only"): the brush (Permanent Marker) draws titles of 28 px and up;
+	# a smaller "marker" word is the plain bold face.
+	l.add_theme_font_override("font", font("bold" if kind == "marker" and size < 28 else kind))
 	if wrap:
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL

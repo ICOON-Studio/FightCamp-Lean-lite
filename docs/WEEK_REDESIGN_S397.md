@@ -72,3 +72,27 @@ the Light / Standard / Hard step; a camp keeps its own protocol until the player
 ## Scores
 - v1 (Claude, from the Cline draft): critic A 6.5, critic B 6.5. Shared faults: head counts change evenings you cannot see; L/N/H too small on a clickable card; tiredness unlabelled; load has no unit; tiny decimals. v2 answers each.
 - v2: critic C 6.5, critic D 6.5. Shared faults: evening click-cycling can drop a drill (a small Rest / Pads / Spar control on each evening head instead); the load chip wraps (use segmented L / N / H); four ways to edit (one grammar: popovers with previews); sessions /16 and tiredness /100 not linked (show each day's cost "+2"); gold means three things (drop targets in blue); no way to take a drill off; the goal needs an end point ("65 -> 67" with a target tick); lock wording ("Can't pass 38 until the cross improves"). Next: v3 (hand-over: ops/research/MENUS_STATE_S397.md).
+
+## S398 rounds v3-v8 (menus side session 2, 2026-11-07)
+Designer seat for v3: Cline 3.0.74 plan mode (`cline -p`, brief = v2 + the eight faults). Its draft kept three click-cycles,
+12 px buttons, an invented "Mastered" tier and a goal-bar jump; Claude kept its x-off, blue drop targets, ladder-once and
+cost chips, and wrote v3. From v5 on the design went to critics as a 1920x1080 HTML mock-up (Edge headless, the game's
+fonts and colours, numbers from the game's own tiredness model) instead of text.
+Decisions taken on the way: ONE effort scale = the model's tiredness 0-100 (the "16 blocks" was display-only and is gone);
+every number carries its name; one edit grammar (click a card -> popover with the segment row + the list, previews on
+hover); gold = goal only, blue = what you set, green = gains; attribute icon tiles (colours used for nothing else) instead
+of the near-identical station photos; per-evening kinds (the approved rule change, now in PadWeek.with_evenings /
+WeekPhase.edit_eve); the calendar first, plan totals under the head, the tray under the week.
+| version | form | critic scores (fresh, blind) |
+|---|---|---|
+| v3 | text | 7.0 / 7.0 |
+| v4 | text | 6.8 / 6.8 |
+| v5 | mock-up | 6.8 / 6.9 |
+| v6 | mock-up + popover still | 7.0 / 7.0 |
+| v7 | mock-up + popover still | 6.8 / 7.0 |
+| v8 | mock-up + popover still (docs/week_mock/) | 6.8 / 7.0 |
+Stalled: every critic says "the structure is right, it reaches 8 with my fixes", and the fixes now contradict each other
+(one decimal vs two, row labels vs none, visible segments vs hidden). Asked the operator (via the S398 main session)
+whether to build at 7 and judge the built stills. Open faults several critics share: the popover must not cover what it
+previews (open in the card's own column, keep the goal + meter strip pinned); one time span per row (the coach's Do it
+says this week's change); the effort tag means effort only; THIS CAMP hidden when no fight is booked; the x at least 20 px.

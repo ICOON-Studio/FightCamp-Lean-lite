@@ -61,17 +61,10 @@ func _members(c: Career) -> void:
 		UI.kv("Reputation", "known locally" if c.reputation < 30 else ("known in the region" if c.reputation < 60 else "a name in the sport"), UI.FG, "mono"),
 		UI.kv("Dues", "%s a month each" % UI.money(Membership.weekly_rate()), UI.FG, "mono"),
 	] + ([UI.kv("Evening classes", "need a coach")] if c.coach.is_empty() else []))
-	card[1].add_child(UI.muted("Reputation grows with your fighters' wins (+%d each) and a well-kept gym; the count walks toward what the gym can carry, a few a week." % BoutRules.WIN_REPUTATION, UI.SMALL, true))
+	# S398 (operator: "nothing displayed unless the player can really do something about it"): how reputation grows is a
+	# hover, and the members' quotes (flavour, nothing to do) are gone.
+	card[0].tooltip_text = "Reputation grows with your fighters' wins (+%d each) and a well-kept gym; the count walks toward what the gym can carry, a few a week." % BoutRules.WIN_REPUTATION
 	add_child(card[0])
-	var why := UI.card("WHY THEY JOIN")
-	var rows: Array = []
-	# S397 round 1 (blind: a member quotes the training on day one): the quotes start once a week has run.
-	for line in (Region.why_join(c) if c.day >= 7 else []):
-		rows.append(UI.label("\"%s\"" % line, UI.BODY, UI.FG, "italic", true))
-	if rows.is_empty():
-		rows.append(UI.muted("The members say why they come once the gym has run a week.", UI.BODY, true))
-	UI.add_rows(why[1], rows)
-	add_child(why[0])
 
 
 func _facilities(main: Node, c: Career) -> void:

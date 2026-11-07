@@ -101,7 +101,7 @@ static func needs(career: Career) -> Array:
 			"s": "gains, moves, rankings, money", "act": "review", "arg": "", "label": "Open"})
 	for f in career.fighters:
 		if bool(f["goal_talk"]):
-			n.append({"red": false, "t": "%s is waiting in your office" % f["first"], "s": "pick the next goal",
+			n.append({"red": false, "t": "New goal: %s is waiting in your office" % f["first"], "s": "pick the next goal",   # S398: the top bar's NEW GOAL, same words
 				"act": "goaltalk", "arg": f["id"], "label": "Talk"})
 	return n
 

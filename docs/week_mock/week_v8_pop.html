@@ -1,0 +1,162 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Week v5 mock</title>
+<style>
+@font-face{font-family:Barlow;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Regular.ttf);font-weight:400}
+@font-face{font-family:Barlow;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Medium.ttf);font-weight:500}
+@font-face{font-family:Barlow;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-SemiBold.ttf);font-weight:600}
+@font-face{font-family:Barlow;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Bold.ttf);font-weight:700}
+@font-face{font-family:Marker;src:url(file:///E:/FightCamp/Lean/assets/fonts/PermanentMarker-Regular.ttf)}
+:root{--bg:#cfe0ea;--panel:#fdfefe;--line:#c9d1d8;--fg:#22262e;--muted:#5e6773;--blue:#2f6fdb;--pale:#e6effc;
+--green:#23935d;--amber:#d97a00;--red:#e2483d;--gold:#e0a400;--goldpale:#fff4cf;--slate:#7a8794;--soft:#f3f5f8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);font-family:Barlow,Arial,sans-serif;color:var(--fg);font-variant-numeric:tabular-nums}
+.top{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 16px;gap:14px}
+.btn{border:1px solid var(--line);border-radius:6px;padding:6px 12px;font-weight:600;font-size:15px;background:#fff;color:var(--fg)}
+.gym{font-family:Marker;color:var(--blue);font-size:26px;margin-left:6px}
+.date b{display:block;font-size:17px}.date span{font-size:13px;color:var(--muted)}
+.chipy{background:#ffd95a;border-radius:14px;padding:5px 12px;font-weight:700;font-size:14px;margin-left:50px}
+.sp{flex:1}
+.money{text-align:right}.money b{color:var(--green);font-size:22px;display:block}.money span{font-size:13px;color:var(--muted)}
+.cont{background:var(--blue);color:#fff;border-radius:24px;padding:8px 18px;width:250px}.cont b{display:block;font-size:17px}.cont span{font-size:12px}
+.side{position:absolute;left:0;top:72px;width:200px;height:1008px;padding:14px 10px}
+.nav{background:#fff;border-radius:6px;padding:13px 14px;font-weight:700;font-size:17px;margin-bottom:8px;border-left:4px solid #e3e7ec}
+.nav.on{border-left-color:var(--red)}
+.main{position:absolute;left:226px;top:72px;width:1660px}
+.fh{height:110px;display:flex;align-items:center;gap:20px}
+.fh img{width:60px;height:74px}
+.name{font-family:Marker;font-size:32px}.sub{color:var(--muted);font-size:17px}
+.tabs{display:flex;gap:6px;margin-left:24px;margin-top:-14px}.tab{padding:10px 15px;font-weight:600;color:var(--muted);font-size:16px}
+.tab.on{background:#fff;color:var(--blue);border-radius:4px 4px 0 0}
+.board{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 16px 14px;height:880px}
+.row{display:flex;align-items:center;gap:14px;white-space:nowrap}
+.caps{font-size:13px;letter-spacing:2px;font-weight:700;color:var(--fg)}
+.h1{font-family:Marker;font-size:26px}
+.muted{color:var(--muted)}
+.meter{position:relative;width:300px;height:14px;border-radius:7px;overflow:hidden;display:flex}
+.meter i{display:block;height:100%}
+.ofill{position:absolute;left:0;top:3px;height:8px;background:var(--fg);border-radius:4px}
+.obtn{border:1px solid var(--blue);color:var(--blue);border-radius:6px;padding:5px 12px;font-weight:600;font-size:15px;background:#fff}
+.fbtn{background:var(--blue);color:#fff;border-radius:6px;padding:5px 14px;font-weight:700;font-size:15px}
+.tray{display:flex;gap:12px;margin-top:8px}
+.card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:10px 12px;width:312px;height:156px;position:relative}
+.card .t{display:flex;gap:10px}
+.card img{width:58px;height:58px;border-radius:6px;object-fit:cover;object-position:50% 20%}
+.cn{font-size:22px;font-weight:700;line-height:24px}
+.tier{font-size:15px;font-weight:600;color:var(--muted)}
+.badge{position:absolute;right:10px;top:10px;background:#e3f4ea;color:var(--green);font-weight:700;font-size:13px;border-radius:10px;padding:3px 9px}
+.mline{font-size:14px;margin-top:7px;white-space:nowrap}
+.mbar{position:relative;height:10px;background:#e6eaee;border-radius:5px;margin-top:4px}
+.mbar .a{position:absolute;left:0;top:0;height:10px;background:#454d58;border-radius:5px 0 0 5px}
+.mbar .b{position:absolute;top:0;height:10px;background:var(--green)}
+.mbar .k{position:absolute;top:-3px;width:2px;height:16px;background:var(--fg)}
+.kw{position:absolute;top:12px;font-size:11px;color:var(--muted);transform:translateX(-50%)}
+.stat{font-size:14px;margin-top:16px}
+.build{border:1px dashed var(--line);border-radius:10px;width:300px;height:156px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--fg);font-weight:600;font-size:17px}
+.goal{white-space:nowrap;display:flex;align-items:center;gap:14px;margin-top:12px;height:32px}
+.gbar{position:relative;width:420px;height:12px;background:#eef0f2;border-radius:6px}
+.coach{display:flex;align-items:center;gap:14px;height:40px;margin-top:6px}
+.days{display:grid;grid-template-columns:repeat(7,224px);gap:10px;margin-top:8px}
+.dh{font-size:15px;font-weight:700;letter-spacing:1.5px;height:22px;display:flex;justify-content:space-between}
+.dh span{font-weight:500;letter-spacing:0;color:var(--muted);font-size:14px}
+.seg{display:flex;height:28px;border:1px solid #d8dee4;border-radius:7px;overflow:hidden;font-size:13.5px;font-weight:600;color:#6b7480;background:#fbfcfd}
+.seg div{flex:1;display:flex;align-items:center;justify-content:center;border-right:1px solid #e3e8ed}
+.seg div:last-child{border-right:none}
+.seg .on{background:var(--pale);color:#1d4fa8;box-shadow:inset 0 0 0 1.5px var(--blue);border-radius:6px}
+.am{margin-top:6px;height:86px;border:1px solid var(--line);border-radius:9px;background:#fff;display:flex;gap:9px;padding:8px;position:relative}
+.am img{width:68px;height:68px;border-radius:6px;object-fit:cover;object-position:50% 15%}
+.sn{font-size:18px;font-weight:700;line-height:21px}
+.ef{font-size:14.5px;margin-top:3px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:5px;background:var(--gold);margin-left:6px;vertical-align:middle}
+.pm{margin-top:6px;height:104px;border:1px solid var(--line);border-radius:9px;background:#fff;padding:8px 10px;position:relative;display:flex;gap:9px}
+.pm img{width:56px;height:56px;border-radius:6px;object-fit:cover;object-position:50% 15%}
+.pm.rest{background:var(--soft);color:#8a929c;font-weight:600;font-size:16px;align-items:center;justify-content:center}
+.x{position:absolute;right:7px;top:5px;color:var(--muted);font-size:16px;font-weight:700}
+.tired{margin-top:10px;display:flex;align-items:center;gap:8px;font-size:14px;height:22px}
+.tb{position:relative;flex:1;height:9px;background:#eceff2;border-radius:5px}
+.tb i{position:absolute;left:0;top:0;height:9px;border-radius:5px;background:var(--slate)}
+.tn{font-weight:700;font-size:16px;width:28px;text-align:right}
+.camp{margin-top:20px}
+</style>
+<style>
+.sum{display:flex;gap:18px;align-items:center;margin-top:4px;font-size:18px;white-space:nowrap}
+.sum .k{color:var(--muted);font-size:13px;letter-spacing:2px;font-weight:700}
+.ic{width:56px;height:56px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:none}
+.ic svg{width:30px;height:30px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.eff{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:1px;border-radius:9px;padding:2px 8px}
+.eff.Light{background:#eef1f4;color:#5e6773}.eff.Normal{background:#e6effc;color:#1d4fa8}.eff.Hard{background:#fde9cf;color:#a35b00}
+.costl{display:flex;align-items:center;gap:8px;margin-top:5px;font-size:13.5px}
+.am{height:98px !important}.pm{height:98px !important}
+.pmrest{margin-top:8px;height:98px;border:1px solid var(--line);border-radius:9px;background:#f7f8fa;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding-left:14px;color:#6b7480;font-size:17px;font-weight:700}
+.pmrest span{font-size:13.5px;font-weight:500;margin-top:4px}
+.tired2{margin-top:12px;display:flex;align-items:center;gap:8px;height:22px;padding-right:2px}
+.tired2 .lab{font-size:14px;color:var(--muted);width:78px}.tired2 .lab b{color:var(--fg);font-size:16px}
+.tired2 .tb{flex:1;height:12px;background:#eceff2;border-radius:6px;position:relative}
+.tick{position:absolute;top:-3px;width:1px;height:18px;background:#b8c1ca}
+.pop{position:absolute;width:350px;background:#fff;border:1px solid #b9c4cf;border-radius:12px;box-shadow:0 10px 28px rgba(30,45,60,.25);padding:12px;z-index:5}
+.pop .seg{margin:6px 0 10px}
+.pr{display:flex;align-items:center;gap:10px;padding:6px 6px;border-radius:7px;font-size:15px}
+.pr.on{background:var(--pale)}.pr .ic{width:30px;height:30px;border-radius:6px}.pr .ic svg{width:17px;height:17px}
+.pr .g{margin-left:auto;text-align:right;font-size:13.5px;line-height:16px}
+.pop .seg .on{background:var(--blue);color:#fff;box-shadow:none;border-radius:0}
+.lock{border:1px solid var(--line);border-radius:10px;background:#f7f8fa;padding:12px 14px;width:312px;height:156px}
+</style></head><body>
+<div class="top">
+ <span class="btn">Back</span><span class="btn" style="color:#bbb">Fwd</span>
+ <span class="gym">Anvil Street Gym</span>
+ <span class="date"><b>Sat 7 Feb 2026</b><span>Week 5</span></span>
+ <span class="chipy">NEW GOAL</span>
+ <span class="sp"></span>
+ <span class="money"><b>$11,831</b><span>running -$287 a week</span></span>
+ <span class="cont"><b>CONTINUE</b><span>to Mon 9 Feb, week review</span></span>
+ <span class="btn">Menu</span>
+</div>
+<div class="side">
+ <div class="nav">Home</div><div class="nav on">Fighters</div><div class="nav">Fights</div><div class="nav">Club</div><div class="nav">World</div>
+</div>
+<div class="main">
+ <div class="fh"><img src="lucy_face.png"><div><div class="name">Lucy Jackson</div><div class="sub">Lightweight, 21, orthodox, amateur 4-1</div></div>
+  <div class="tabs"><span class="tab">Overview</span><span class="tab on">Week</span><span class="tab">Playbook</span><span class="tab">History</span></div></div>
+ <div class="board">
+  <div class="row" style="height:44px">
+   <span class="h1">Next week</span>
+   <span style="font-size:16px;font-weight:600">Mon 9 - Sun 15 Feb</span>
+   <span class="muted" style="font-size:15px">No fight booked</span>
+   <span class="sp"></span>
+   <span class="caps">WEEK TIREDNESS</span>
+   <span style="position:relative;display:inline-block">
+    <span class="meter"><i style="width:210px;background:#e4e9ee"></i><i style="width:30px;background:#f5d9a8"></i><i style="width:60px;background:#f3b8b2"></i></span>
+    <span class="ofill" style="width:168px"></span>
+    <span style="position:absolute;left:204px;top:16px;font-size:11px" class="muted">70</span><span style="position:absolute;left:234px;top:16px;font-size:11px" class="muted">80</span>
+   </span>
+   <span style="font-size:15px;margin-left:8px"><span class="muted">starts at 30 &middot;</span> <b>peak 56</b> on Fri <span class="muted">- fine</span></span>
+     </div>
+  <div class="sum"><span class="k">PLAN TOTALS</span><b>Conditioning +0.60</b><span class="muted">&middot;</span><b>Power +0.40</b><span class="muted">&middot;</span><b>Ring IQ +0.40</b><span class="muted">&middot;</span><b>Hand speed +0.06</b><span class="muted">&middot;</span><b style="color:var(--green)">2 moves reach Usable</b></div>
+  <div style="height:14px"></div><div class="days" id="days" style="position:relative"><div><div class="dh">MON<span>9 Feb</span></div><div class="am" style="margin-top:0"><span class="ic" style="background:#be185d"><svg viewBox="0 0 24 24"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></span><div><div class="sn">Roadwork<span class="dot"></span></div><div class="ef">Conditioning +0.20</div><div class="costl"><span class="eff Normal">NORMAL</span><span class="muted">+5 tired</span></div></div></div><div class="pm" style="margin-top:14px"><span class="ic" style="background:#334155"><svg viewBox="0 0 24 24"><path d="M12.035 17.012a3 3 0 0 0-3-3l-.311-.002a.72.72 0 0 1-.505-1.229l1.195-1.195A2 2 0 0 1 10.828 11H12a2 2 0 0 0 0-4H9.243a3 3 0 0 0-2.122.879l-2.707 2.707A4.83 4.83 0 0 0 3 14a8 8 0 0 0 8 8h2a8 8 0 0 0 8-8V7a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0"/><path d="M13.888 9.662A2 2 0 0 0 17 8V5A2 2 0 1 0 13 5"/><path d="M9 5A2 2 0 1 0 5 5V10"/><path d="M9 7V4A2 2 0 1 1 13 4V7.268"/></svg></span><div><div class="sn" style="font-size:19px">Uppercut</div><div class="ef">mastery +7 &rarr; 33</div><div class="costl"><span class="eff Normal">PADS</span><span class="muted">+9 tired</span></div></div><span class="x">&times;</span></div><div class="tired2"><span class="lab">tired <b>40</b></span><span class="tb"><i style="position:absolute;left:0;top:0;height:12px;border-radius:6px;width:40%;background:#7a8794"></i><span class="tick" style="left:70%"></span><span class="tick" style="left:80%;background:#e2a29c"></span></span></div></div><div><div class="dh">TUE<span>10 Feb</span></div><div class="am" style="margin-top:0"><span class="ic" style="background:#9a3412"><svg viewBox="0 0 24 24"><path d="M12.409 13.017A5 5 0 0 1 22 15c0 3.866-4 7-9 7-4.077 0-8.153-.82-10.371-2.462-.426-.316-.631-.832-.62-1.362C2.118 12.723 2.627 2 10 2a3 3 0 0 1 3 3 2 2 0 0 1-2 2c-1.105 0-1.64-.444-2-1"/><path d="M15 14a5 5 0 0 0-7.584 2"/><path d="M9.964 6.825C8.019 7.977 9.5 13 8 15"/></svg></span><div><div class="sn">Heavy bag</div><div class="ef">Power +0.20</div><div class="costl"><span class="eff Normal">NORMAL</span><span class="muted">+6 tired</span></div></div></div><div class="pmrest">Rest</div><div class="tired2"><span class="lab">tired <b>40</b></span><span class="tb"><i style="position:absolute;left:0;top:0;height:12px;border-radius:6px;width:40%;background:#7a8794"></i><span class="tick" style="left:70%"></span><span class="tick" style="left:80%;background:#e2a29c"></span></span></div></div><div><div class="dh">WED<span>11 Feb</span></div><div class="am" style="margin-top:0"><span class="ic" style="background:#be185d"><svg viewBox="0 0 24 24"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></span><div><div class="sn">Intervals<span class="dot"></span></div><div class="ef">Conditioning +0.20</div><div class="costl"><span class="eff Normal">NORMAL</span><span class="muted">+6 tired</span></div></div></div><div class="pm" style="margin-top:8px"><span class="ic" style="background:#334155"><svg viewBox="0 0 24 24"><path d="M12.035 17.012a3 3 0 0 0-3-3l-.311-.002a.72.72 0 0 1-.505-1.229l1.195-1.195A2 2 0 0 1 10.828 11H12a2 2 0 0 0 0-4H9.243a3 3 0 0 0-2.122.879l-2.707 2.707A4.83 4.83 0 0 0 3 14a8 8 0 0 0 8 8h2a8 8 0 0 0 8-8V7a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0"/><path d="M13.888 9.662A2 2 0 0 0 17 8V5A2 2 0 1 0 13 5"/><path d="M9 5A2 2 0 1 0 5 5V10"/><path d="M9 7V4A2 2 0 1 1 13 4V7.268"/></svg></span><div><div class="sn" style="font-size:19px">Uppercut</div><div class="ef">mastery +6 &rarr; 39</div><div class="costl"><span class="eff Normal">PADS</span><span class="muted">+9 tired</span></div></div><span class="x">&times;</span></div><div class="tired2"><span class="lab">tired <b>49</b></span><span class="tb"><i style="position:absolute;left:0;top:0;height:12px;border-radius:6px;width:49%;background:#7a8794"></i><span class="tick" style="left:70%"></span><span class="tick" style="left:80%;background:#e2a29c"></span></span></div></div><div><div class="dh">THU<span>12 Feb</span></div><div class="am" style="margin-top:0"><span class="ic" style="background:#7c3aed"><svg viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span><div><div class="sn">Speed bag</div><div class="ef">Hand speed +0.06</div><div class="costl"><span class="eff Light">LIGHT</span><span class="muted">+2 tired</span></div></div></div><div class="pm" style="margin-top:8px"><span class="ic" style="background:#0e7490"><svg viewBox="0 0 24 24"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></svg></span><div><div class="sn" style="font-size:19px">Sparring</div><div class="ef">Ring IQ +0.40</div><div class="costl"><span class="eff Normal">4 ROUNDS</span><span class="muted">+5 tired</span></div></div></div><div class="tired2"><span class="lab">tired <b>49</b></span><span class="tb"><i style="position:absolute;left:0;top:0;height:12px;border-radius:6px;width:49%;background:#7a8794"></i><span class="tick" style="left:70%"></span><span class="tick" style="left:80%;background:#e2a29c"></span></span></div></div><div><div class="dh">FRI<span>13 Feb</span></div><div class="am" style="margin-top:0"><span class="ic" style="background:#be185d"><svg viewBox="0 0 24 24"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></span><div><div class="sn">Roadwork<span class="dot"></span></div><div class="ef">Conditioning +0.20</div><div class="costl"><span class="eff Normal">NORMAL</span><span class="muted">+5 tired</span></div></div></div><div class="pm" style="margin-top:8px"><span class="ic" style="background:#334155"><svg viewBox="0 0 24 24"><path d="M12.035 17.012a3 3 0 0 0-3-3l-.311-.002a.72.72 0 0 1-.505-1.229l1.195-1.195A2 2 0 0 1 10.828 11H12a2 2 0 0 0 0-4H9.243a3 3 0 0 0-2.122.879l-2.707 2.707A4.83 4.83 0 0 0 3 14a8 8 0 0 0 8 8h2a8 8 0 0 0 8-8V7a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0"/><path d="M13.888 9.662A2 2 0 0 0 17 8V5A2 2 0 1 0 13 5"/><path d="M9 5A2 2 0 1 0 5 5V10"/><path d="M9 7V4A2 2 0 1 1 13 4V7.268"/></svg></span><div><div class="sn" style="font-size:19px">1-1</div><div class="ef">mastery +6 &rarr; 33</div><div class="costl"><span class="eff Normal">PADS</span><span class="muted">+9 tired</span></div></div><span class="x">&times;</span></div><div class="tired2"><span class="lab">tired <b>56</b></span><span class="tb"><i style="position:absolute;left:0;top:0;height:12px;border-radius:6px;width:56%;background:#7a8794"></i><span class="tick" style="left:70%"></span><span class="tick" style="left:80%;background:#e2a29c"></span></span></div></div><div><div class="dh">SAT<span>14 Feb</span></div><div class="am" style="margin-top:0"><span class="ic" style="background:#9a3412"><svg viewBox="0 0 24 24"><path d="M12.409 13.017A5 5 0 0 1 22 15c0 3.866-4 7-9 7-4.077 0-8.153-.82-10.371-2.462-.426-.316-.631-.832-.62-1.362C2.118 12.723 2.627 2 10 2a3 3 0 0 1 3 3 2 2 0 0 1-2 2c-1.105 0-1.64-.444-2-1"/><path d="M15 14a5 5 0 0 0-7.584 2"/><path d="M9.964 6.825C8.019 7.977 9.5 13 8 15"/></svg></span><div><div class="sn">Strength circuit</div><div class="ef">Power +0.20</div><div class="costl"><span class="eff Normal">NORMAL</span><span class="muted">+6 tired</span></div></div></div><div class="pmrest">Rest</div><div class="tired2"><span class="lab">tired <b>55</b></span><span class="tb"><i style="position:absolute;left:0;top:0;height:12px;border-radius:6px;width:55%;background:#7a8794"></i><span class="tick" style="left:70%"></span><span class="tick" style="left:80%;background:#e2a29c"></span></span></div></div><div><div class="dh">SUN<span>15 Feb</span></div><div class="am" style="background:#f7f8fa;align-items:center;margin-top:0"><div style="padding-left:8px"><div class="sn" style="color:#6b7480">Rest</div><div class="ef muted">recovers</div></div></div><div class="pmrest">Rest</div><div class="tired2"><span class="lab">tired <b>48</b></span><span class="tb"><i style="position:absolute;left:0;top:0;height:12px;border-radius:6px;width:48%;background:#7a8794"></i><span class="tick" style="left:70%"></span><span class="tick" style="left:80%;background:#e2a29c"></span></span></div></div></div>
+  <div class="goal"><span class="caps">GOAL</span>
+   <span style="font-size:18px">Conditioning <b>65.0 &rarr; 65.6</b> this week</span>
+   <span class="gbar"><span style="position:absolute;left:0;top:0;height:12px;width:30%;background:var(--gold);border-radius:6px"></span><span style="position:absolute;left:0;top:0;height:12px;width:90%;border-right:2px dashed #c9a227"></span><span style="position:absolute;right:0;top:-4px;width:2px;height:20px;background:var(--fg)"></span><span style="position:absolute;right:-6px;top:15px;font-size:12px;font-weight:700">67</span><span style="position:absolute;left:-4px;top:15px;font-size:12px" class="muted">65</span></span>
+   <span style="font-size:16px">target <b>67</b> in 3 weeks &middot; <b style="color:var(--amber)">on pace for 66.8, a little short</b></span>
+   <span class="sp"></span><span class="muted" style="font-size:14px"><span class="dot" style="margin:0 5px 0 0"></span>mornings that train it</span>
+  </div>
+  <div class="coach" style="white-space:nowrap"><span class="caps">COACH</span><span style="font-size:17px;font-style:italic">"Make Monday's roadwork Hard."</span><span class="fbtn">Do it: Conditioning 66.8 &rarr; 67.0 &middot; peak tired 56 &rarr; 58</span><span class="sp"></span><span class="obtn">Back to the coach's week</span></div>
+  <div class="row" style="margin-top:10px;height:22px"><span class="caps">LEARN ON THE PADS</span>
+   <span class="muted" style="font-size:14px">New &rsaquo; Raw &rsaquo; <b style="color:var(--fg)">Usable 30</b> &rsaquo; Sharp 60 &rsaquo; Signature 85</span><span class="sp"></span>
+   <span class="muted" style="font-size:14px">Drag a card onto an evening, or click it then the evening</span></div>
+  <div class="tray">
+   <div class="card"><div class="t"><span class="ic" style="background:#334155"><svg viewBox="0 0 24 24"><path d="M12.035 17.012a3 3 0 0 0-3-3l-.311-.002a.72.72 0 0 1-.505-1.229l1.195-1.195A2 2 0 0 1 10.828 11H12a2 2 0 0 0 0-4H9.243a3 3 0 0 0-2.122.879l-2.707 2.707A4.83 4.83 0 0 0 3 14a8 8 0 0 0 8 8h2a8 8 0 0 0 8-8V7a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0"/><path d="M13.888 9.662A2 2 0 0 0 17 8V5A2 2 0 1 0 13 5"/><path d="M9 5A2 2 0 1 0 5 5V10"/><path d="M9 7V4A2 2 0 1 1 13 4V7.268"/></svg></span><div><div class="cn">Uppercut</div><div class="tier">Raw &middot; rear hand</div></div></div>
+    <span class="badge">Usable on Mon</span>
+    <div class="mline">mastery 26 &rarr; <b>39</b> this week</div>
+    <div class="mbar"><span class="a" style="width:26%"></span><span class="b" style="left:26%;width:13%"></span><span class="k" style="left:30%"></span><span class="kw" style="left:30%">usable</span></div>
+    <div class="stat" style="color:var(--blue)">on Mon and Wed pads</div></div>
+   <div class="card"><div class="t"><span class="ic" style="background:#334155"><svg viewBox="0 0 24 24"><path d="M12.035 17.012a3 3 0 0 0-3-3l-.311-.002a.72.72 0 0 1-.505-1.229l1.195-1.195A2 2 0 0 1 10.828 11H12a2 2 0 0 0 0-4H9.243a3 3 0 0 0-2.122.879l-2.707 2.707A4.83 4.83 0 0 0 3 14a8 8 0 0 0 8 8h2a8 8 0 0 0 8-8V7a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0"/><path d="M13.888 9.662A2 2 0 0 0 17 8V5A2 2 0 1 0 13 5"/><path d="M9 5A2 2 0 1 0 5 5V10"/><path d="M9 7V4A2 2 0 1 1 13 4V7.268"/></svg></span><div><div class="cn">1-1</div><div class="tier">Raw &middot; jab, jab</div></div></div>
+    <span class="badge">Usable on Fri</span>
+    <div class="mline">mastery 27 &rarr; <b>33</b> this week</div>
+    <div class="mbar"><span class="a" style="width:27%"></span><span class="b" style="left:27%;width:6%"></span><span class="k" style="left:30%"></span><span class="kw" style="left:30%">usable</span></div>
+    <div class="stat" style="color:var(--blue)">on Fri pads</div></div>
+   <div class="card"><div class="t"><span class="ic" style="background:#9aa5b1"><svg viewBox="0 0 24 24"><path d="M12.035 17.012a3 3 0 0 0-3-3l-.311-.002a.72.72 0 0 1-.505-1.229l1.195-1.195A2 2 0 0 1 10.828 11H12a2 2 0 0 0 0-4H9.243a3 3 0 0 0-2.122.879l-2.707 2.707A4.83 4.83 0 0 0 3 14a8 8 0 0 0 8 8h2a8 8 0 0 0 8-8V7a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0"/><path d="M13.888 9.662A2 2 0 0 0 17 8V5A2 2 0 1 0 13 5"/><path d="M9 5A2 2 0 1 0 5 5V10"/><path d="M9 7V4A2 2 0 1 1 13 4V7.268"/></svg></span><div><div class="cn">1-2</div><div class="tier">New &middot; jab, cross</div></div></div><div class="mline">mastery 0 &middot; <span class="muted">tops out at 38 while the Cross is 24</span></div><div class="mbar"><span class="k" style="left:30%"></span><span class="kw" style="left:30%">usable</span><span style="position:absolute;left:38%;right:0;top:0;height:10px;background:#d5dadf;border-radius:0 5px 5px 0"></span></div><div class="row" style="margin-top:16px;gap:10px"><span class="muted" style="font-size:14px">not on a pads night</span><span class="sp"></span><span class="obtn" style="font-size:13px;padding:3px 9px">Drill the Cross</span></div></div><div class="card"><div class="t"><span class="ic" style="background:#9aa5b1"><svg viewBox="0 0 24 24"><path d="M12.035 17.012a3 3 0 0 0-3-3l-.311-.002a.72.72 0 0 1-.505-1.229l1.195-1.195A2 2 0 0 1 10.828 11H12a2 2 0 0 0 0-4H9.243a3 3 0 0 0-2.122.879l-2.707 2.707A4.83 4.83 0 0 0 3 14a8 8 0 0 0 8 8h2a8 8 0 0 0 8-8V7a2 2 0 1 0-4 0v2a2 2 0 1 0 4 0"/><path d="M13.888 9.662A2 2 0 0 0 17 8V5A2 2 0 1 0 13 5"/><path d="M9 5A2 2 0 1 0 5 5V10"/><path d="M9 7V4A2 2 0 1 1 13 4V7.268"/></svg></span><div><div class="cn">1-1-2</div><div class="tier">New &middot; jab, jab, cross</div></div></div><div class="mline">mastery 0 &middot; <span class="muted">tops out at 38 while the Cross is 24</span></div><div class="mbar"><span class="k" style="left:30%"></span><span class="kw" style="left:30%">usable</span><span style="position:absolute;left:38%;right:0;top:0;height:10px;background:#d5dadf;border-radius:0 5px 5px 0"></span></div><div class="row" style="margin-top:16px;gap:10px"><span class="muted" style="font-size:14px">not on a pads night</span><span class="sp"></span><span class="obtn" style="font-size:13px;padding:3px 9px">Drill the Cross</span></div></div><div class="build"><span style="font-size:30px;font-weight:400">+</span>Build a combination<span class="muted" style="font-size:14px;font-weight:500">opens the Playbook</span></div>
+  </div>
+  <div class="camp"><span class="h1" style="font-size:24px">This camp</span> <span class="muted" style="font-size:15px;margin-left:12px">Weight 59.8 of 60.0 kg - on track</span></div>
+ </div>
+</div>
+<div class="pop" style="left:350px;top:318px"><div class="row" style="justify-content:space-between"><b style="font-size:16px">Wednesday morning</b><span class="muted" style="font-size:13px">Esc to close</span></div><div class="seg"><div>Light</div><div class="on">Normal</div><div>Hard</div></div><div class="pr "><span class="ic" style="background:#be185d"><svg viewBox="0 0 24 24"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></span><b>Roadwork</b><span class="g">Conditioning +0.20<br><span class="muted">+5 tired</span></span></div><div class="pr on"><span class="ic" style="background:#be185d"><svg viewBox="0 0 24 24"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></span><b>Intervals</b><span class="g">Conditioning +0.20<br><span class="muted">+6 tired</span></span></div><div class="pr "><span class="ic" style="background:#9a3412"><svg viewBox="0 0 24 24"><path d="M12.409 13.017A5 5 0 0 1 22 15c0 3.866-4 7-9 7-4.077 0-8.153-.82-10.371-2.462-.426-.316-.631-.832-.62-1.362C2.118 12.723 2.627 2 10 2a3 3 0 0 1 3 3 2 2 0 0 1-2 2c-1.105 0-1.64-.444-2-1"/><path d="M15 14a5 5 0 0 0-7.584 2"/><path d="M9.964 6.825C8.019 7.977 9.5 13 8 15"/></svg></span><b>Heavy bag</b><span class="g">Power +0.20<br><span class="muted">+6 tired</span></span></div><div class="pr "><span class="ic" style="background:#9a3412"><svg viewBox="0 0 24 24"><path d="M12.409 13.017A5 5 0 0 1 22 15c0 3.866-4 7-9 7-4.077 0-8.153-.82-10.371-2.462-.426-.316-.631-.832-.62-1.362C2.118 12.723 2.627 2 10 2a3 3 0 0 1 3 3 2 2 0 0 1-2 2c-1.105 0-1.64-.444-2-1"/><path d="M15 14a5 5 0 0 0-7.584 2"/><path d="M9.964 6.825C8.019 7.977 9.5 13 8 15"/></svg></span><b>Strength circuit</b><span class="g">Power +0.20<br><span class="muted">+6 tired</span></span></div><div class="pr "><span class="ic" style="background:#7c3aed"><svg viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span><b>Speed bag</b><span class="g">Hand speed +0.10<br><span class="muted">+3 tired</span></span></div><div class="pr "><span class="ic" style="background:#cfd6dd"></span><b>Rest</b><span class="g">recovers<br><span class="muted">no work</span></span></div></div>
+</body></html>

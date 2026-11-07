@@ -93,7 +93,7 @@ func _initialize() -> void:
 		card.back.get_combined_minimum_size().y, card.size.y])
 	var tier: Label = card.find_child("Tier", true, false)
 	var when: Label = card.find_child("When", true, false)
-	_check(tier != null and tier.text == "USABLE", "the back's tier word: %s" % ("-" if tier == null else tier.text))
+	_check(tier != null and tier.text == "Usable", "the back's tier word: %s" % ("-" if tier == null else tier.text))
 	var nm: Label = card.back.find_child("Name", true, false)
 	_check(nm != null and nm.text == "1-1" and nm.size.x > 20.0, "the back names the card: %s (%.0f px)" % [
 		"-" if nm == null else nm.text, 0.0 if nm == null else nm.size.x])

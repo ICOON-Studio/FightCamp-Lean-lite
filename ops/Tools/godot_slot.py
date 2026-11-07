@@ -134,7 +134,14 @@ def run(who: str, cmd: list[str], max_wait: float) -> int:
                 return 75
             time.sleep(POLL_S)
         print(f"GODOT_SLOT start after {time.time() - t0:.0f} s ({who})", file=sys.stderr, flush=True)
-        return subprocess.run(cmd).returncode
+        # S398: Godot_v4*.exe is a GUI-subsystem program - with inherited handles its stdout/stderr were LOST under this
+        # wrapper (tests "passed" with rc 0 and no output). Capture and relay line by line instead (stderr folded into stdout).
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL)
+        out = sys.stdout.buffer
+        for line in iter(p.stdout.readline, b""):
+            out.write(line)
+            out.flush()
+        return p.wait()
     finally:
         me.unlink(missing_ok=True)
 

@@ -1,13 +1,14 @@
 extends SceneTree
 ## S382 DRILLCARD1 (TRAINING_SCREEN_S381.md sections 3-4, build order item 2): the Training tab's week strip on the real
 ## board, every click path the design counts:
-##   1. the tab opens on the board (the awards card below it); the strip: LEARN tray + Build, Light / Standard / Hard, the
-##      gauges in the header, GOAL and INTENSITY, 7 AM + 7 PM cards; nothing dimmed, no pick lists, no combo planner;
+##   1. the tab opens on the board (the awards card below it); the strip: LEARN tray + Build, the gauges and WEEK TIREDNESS
+##      in the header, PLAN TOTALS, GOAL, 7 AM + 7 PM cards; nothing dimmed, no pick lists, no combo planner;
 ##   2. click-click: a tray card, then a PADS night -> the card on that night (2 clicks); a second click on the card unpicks;
-##   3. drag: the card's payload drops on a PADS night (split 50/50 on an occupied night), never on a sparring or rest night;
+##   3. drag: the card's payload drops on a PADS night (split 50/50 on an occupied night); S398 v8: any evening but film takes
+##      it (it becomes a pads night);
 ##   4. the split badge cycles 50/50 -> 70/30; right-click a slot takes that card off; right-click the night clears it;
 ##   5. "+ drill it" on a card held by a punch puts that punch on a night;
-##   6. Light / Standard / Hard set the camp's protocol and the PM pad cards follow PadWeek.nights_of;
+##   6. S398 v8: an evening's popover sets it Rest / Pads / Sparring and the PM cards follow PadWeek.nights_of;
 ##   7. a morning opens 9 picture cards; a pick changes the day and closes it.
 ## Population: the jump=camp career (TestJump "camp": Lucy in camp, her bout booked, a twist dealt).
 
@@ -61,11 +62,12 @@ func _layout(b: Node) -> void:
 	var tray := b.find_child("DrillTray", true, false)
 	_check(tray != null and tray.find_child("BuildCombo", true, false) != null, "the LEARN tray with + Build a combination")
 	_check(tray != null and _cards(tray).size() >= 2, "drill cards in the tray (%d)" % _cards(tray).size())
-	_check(b.find_child("Step_0", true, false) != null and b.find_child("Step_2", true, false) != null, "Light / Standard / Hard")
+	_check(b.find_child("Step_0", true, false) == null and b.find_child("WeekTired", true, false) != null and b.find_child("PlanTotals", true, false) != null,
+		"WEEK TIREDNESS and PLAN TOTALS, no Light / Standard / Hard")
 	var head := b.find_child("BoardHead", true, false)
-	_check(head != null and head.find_child("Gauges", true, false) != null and head.find_child("WeekStrip", true, false) != null,
-		"the weeks strip and the gauges head the board")
-	_check(b.find_child("GoalRow", true, false) != null and b.find_child("Intensity", true, false) != null, "GOAL and INTENSITY")
+	_check(head != null and head.find_child("Gauges", true, false) != null and head.find_child("WeekStrip", true, false) == null,
+		"the gauges head the board; S398: the weeks strip is Fight prep's")
+	_check(b.find_child("GoalRow", true, false) != null and b.find_child("Intensity", true, false) == null, "GOAL, no blocks count")
 	var am := 0
 	var pm := 0
 	for i in 7:
@@ -98,7 +100,7 @@ func _click_click() -> void:
 	_check(DrillTray.picked == "%s|%s" % [fid, card], "click 1: the card waits for a night")
 	b = _board()
 	var hint := b.find_child("TrayHint", true, false) as Label
-	_check(hint != null and hint.text.contains("now click a PADS night"), "the hint says click a PADS night")
+	_check(hint != null and hint.text.contains("now click an evening"), "the hint says click an evening")
 	(b.find_child("Drill_move_Body_hook", true, false) as Button).pressed.emit()
 	await _frames(2)
 	_check(DrillTray.picked == "", "clicking it again unpicks")
@@ -123,7 +125,7 @@ func _drag_split_clear() -> void:
 		spar = int(d)
 	if spar >= 0:
 		var sn := b.find_child("Night_%d" % spar, true, false)
-		_check(not sn._can_drop_data(Vector2.ZERO, payload), "no drop on a sparring night")
+		_check(sn._can_drop_data(Vector2.ZERO, payload), "S398: a sparring night takes the drop too (it becomes a pads night)")
 	var night := b.find_child("Night_%d" % p, true, false)
 	_check(night._can_drop_data(Vector2.ZERO, payload), "a PADS night takes the drag")
 	night._drop_data(Vector2.ZERO, payload)
@@ -169,25 +171,32 @@ func _drill_it() -> void:
 
 
 func _steps() -> void:
-	var b := _board()
-	(b.find_child("Step_2", true, false) as Button).pressed.emit()
+	# S398 v8: an evening is set in its own popover (Rest | Pads | Sparring); the PM cards follow PadWeek.nights_of.
+	var rest := -1
+	for i in 7:
+		var nd = _board().find_child("Night_%d" % i, true, false)
+		if nd != null and str(nd.kind) == "rest":
+			rest = i
+	_check(rest >= 0, "a rest evening to set (%d)" % rest)
+	if rest < 0:
+		return
+	var before := _pad_cards()
+	_left(_board().find_child("Night_%d" % rest, true, false))
 	await _frames(2)
-	_check(int(f["camp"]["protocol"]) == 3, "Hard: the camp's protocol 3")
+	var pop := _board().find_child("EveningPop", true, false)
+	_check(pop != null and pop.find_child("Eve_pads", true, false) != null, "a click on an evening opens its popover")
+	if pop == null:
+		return
+	(pop.find_child("Eve_pads", true, false) as Button).pressed.emit()
+	await _frames(2)
 	var want: int = (PadWeek.nights_of(f)["pads"] as Array).size()
-	_check(_pad_cards() == want, "the PADS cards follow the nights (%d / %d)" % [_pad_cards(), want])
-	var hard := _pad_cards()
-	(_board().find_child("Step_0", true, false) as Button).pressed.emit()
-	await _frames(2)
-	want = (PadWeek.nights_of(f)["pads"] as Array).size()
-	_check(int(f["camp"]["protocol"]) == 1 and _pad_cards() == want, "Light: protocol 1, %d PADS cards" % want)
-	# The step must change what the strip shows, not only agree with itself: Hard draws more PADS cards than Light.
-	_check(hard > _pad_cards(), "Hard draws more PADS nights than Light (%d > %d)" % [hard, _pad_cards()])
-	(_board().find_child("Step_2", true, false) as Button).pressed.emit()
-	await _frames(2)
-	var tip := str((_board().find_child("Step_0", true, false) as Button).tooltip_text)
-	_check(tip == "%d pad night%s a week" % [want, "" if want == 1 else "s"], "Light's tooltip counts the nights the strip runs (%s)" % tip)
-	(_board().find_child("Step_1", true, false) as Button).pressed.emit()
-	await _frames(2)
+	_check(_pad_cards() == want and want == before + 1, "Pads: that evening is a pads night (%d -> %d)" % [before, _pad_cards()])
+	pop = _board().find_child("EveningPop", true, false)
+	_check(pop != null, "the popover stays open on Pads, for its drill")
+	if pop != null:
+		(pop.find_child("Eve_rest", true, false) as Button).pressed.emit()
+		await _frames(2)
+	_check(_pad_cards() == before and _board().find_child("EveningPop", true, false) == null, "Rest: back to %d pads nights, popover closed" % before)
 
 
 func _picker() -> void:

@@ -12,7 +12,7 @@ const COACH := "coach"
 const WORDS := [
 	["People", ["joined the", "left the"]],
 	["Honours", [" award", " medal", "regional champion", " belt.", "Nationals 2", "Signature:", "met the goal", " rankings"]],
-	["Training", ["the goal:", "new goal"]],   # before Fights: a goal's own title can say "bout"
+	["Training", ["the goal:", "missed the goal", "new goal"]],   # before Fights: a goal's own title can say "bout"
 	["Fights", ["Tape on"]],   # S396 blind review: a tape note naming what hurts her read as Health
 	["Health", ["hurt", "injury", "suspended", "cleared to box", "doctor"]],
 	["Money", ["sponsor", "signs with", "bill", "bank balance", "closed its doors"]],
@@ -27,6 +27,8 @@ static func rows(c: Career) -> Array:
 	var out: Array = []
 	for n in c.news:
 		var text := str(n["t"])
+		if text.contains("joined this week") or text.contains("left the gym this week"):
+			continue   # S398 (operator rule): the weekly member count is the People page's, nothing to do here
 		var who := who_of(c, text)
 		# A save from before S388 has no "own" mark: a row naming nobody of ours is the world's story.
 		var own := bool(n["own"]) if (n as Dictionary).has("own") else who != [GYM]
@@ -34,7 +36,9 @@ static func rows(c: Career) -> Array:
 			out.append({"d": int(n["d"]), "t": text, "kind": kind_of(text), "who": who})
 	for f in c.fighters:
 		for h in f.get("history", []):
-			var line := "%s %s the goal: %s." % [f["first"], "met" if bool(h["met"]) else "missed", h["title"]]
+			# S398 menus round 6 ("missed the goal" on the night she fought read as a contradiction): goals are judged on
+			# fight night, and the line says so.
+			var line := "Judged on fight night: %s %s the goal \"%s\"." % [f["first"], "met" if bool(h["met"]) else "missed", h["title"]]
 			out.append({"d": int(h["d"]), "t": line, "kind": kind_of(line), "who": [str(f["id"])]})
 	out.sort_custom(func(a, b): return int(a["d"]) > int(b["d"]))
 	return out

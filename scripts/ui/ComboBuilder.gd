@@ -76,7 +76,7 @@ static func locked_why(fighter: Dictionary, id: String) -> String:
 	var m := float((fighter.get("moves", {}) as Dictionary).get(needs, 0.0))
 	if m >= Combos.LEARN_AT:
 		return ""
-	return "Not a weapon yet (%d of %d): pad time first - Training, Pads with the coach" % [int(m), int(Combos.LEARN_AT)]
+	return "Not usable yet (mastery %d of %d): pad time first - Week, a pads night" % [int(m), int(Combos.LEARN_AT)]
 
 
 ## The book combination this chain is, by its beats ("" when it is her own).
@@ -191,7 +191,7 @@ func _palette() -> Control:
 			var oid := str(o["id"])
 			var need := OwnCombos.missing(f, o)
 			var d := UI.button("Drilling" if drilling == oid else "Drill it", "Btn", _drill_own.bind(oid, str(o["name"])),
-				drilling == oid or need != "", "Every punch in it must be a weapon first (%d on the pads)." % int(Combos.LEARN_AT) if need != "" else "")
+				drilling == oid or need != "", "Every punch in it must be Usable first (mastery %d)." % int(Combos.LEARN_AT) if need != "" else "")
 			d.name = "DrillOwn_" + oid.replace(":", "_")
 			row.add_child(d)
 			v.add_child(row)
@@ -271,7 +271,7 @@ func _refresh(play: bool) -> void:
 	if bid != "":
 		var open := Combos.unlocked(f.get("moves", {})).has(bid)
 		var drill := UI.button("Drill it on the pads", "Btn", _drill.bind(bid), not open,
-			"Every punch in the %s must be a weapon first (30 on the pads)" % bid)
+			"Every punch in the %s must be Usable first (mastery 30)" % bid)
 		drill.name = "DrillCombo"
 		btns.add_child(drill)
 	_rows.add_child(btns)
@@ -354,6 +354,8 @@ static func _ring(fr: Dictionary, bid: String) -> Control:
 	g.add_theme_constant_override("h_separation", 20)
 	for r in t["rows"]:
 		var main := str(r["sit"]) == str(t["main"])
+		if str(r["fit"]) == "none" and not main:
+			continue   # S398 (operator rule): a game it changes nothing in is not a row; the base rate is said once below
 		g.add_child(UI.label(str(r["label"]) + ("  (main game)" if main else ""), UI.SMALL, UI.GOLD if main else UI.FG, "bold" if main else "body"))
 		g.add_child(UI.mono("%d%%" % int(round(float(r["odds"]) * 100.0)), UI.BODY,
 			{"best": UI.GREEN, "ok": UI.GREEN, "wrong": UI.RED}.get(str(r["fit"]), UI.FG)))

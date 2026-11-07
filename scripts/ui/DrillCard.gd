@@ -17,8 +17,8 @@ const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const CampCard := preload("res://scripts/ui/CampCard.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 
-const CARD_H := 186.0   # S397 layout pass: the Week page fits 1080
-const PIC := 96.0
+const CARD_H := 190.0   # S398 Week v8: the tray sits under the week
+const PIC := 64.0
 const TWEEN_S := 0.45
 const GOLD_BG := Color("#fde58a")
 const GOLD_EDGE := Color("#e2a50c")
@@ -52,10 +52,10 @@ static func make(f: Dictionary, card_id: String, proj: Dictionary, picked: bool,
 	var cross := PadEdit.crossing(f, card_id, proj)
 	var gold := not cross.is_empty()
 	for st in ["normal", "hover", "pressed", "disabled", "focus"]:
-		var s := UI.box(GOLD_BG if gold else UI.PANEL, UI.GOLD if picked else (GOLD_EDGE if gold else (UI.MUTED if st == "hover" else UI.LINE)),
-			10, 3 if picked else 2, 0, 0)
+		# S398 Week v8: white cards; blue = the card you hold (or the one under the cursor); the tier it reaches is a badge
+		var s := UI.box(UI.PANEL, Color("#2f6fdb") if picked or st == "hover" else UI.LINE, 10, 3 if picked else 1, 0, 0)
 		b.add_theme_stylebox_override(st, s)
-	b.tooltip_text = "Drag onto a PADS night, or click it and then the night."
+	b.tooltip_text = "Drag onto an evening, or click it and then the evening."
 	b.pressed.connect(func(): on_pick.call(card_id))
 	var pad := MarginContainer.new()
 	pad.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -70,10 +70,9 @@ static func make(f: Dictionary, card_id: String, proj: Dictionary, picked: bool,
 	var rows: Dictionary = PadEdit.night_rows(f, {card_id: proj}).get(card_id, {})
 	for dow in rows:
 		end = maxf(end, float(rows[dow][1]))
+	b._face(v, f, card_id, m, end, proj)
 	if gold:
-		b._gold(v, f, card_id, cross, proj.get("pads", []))
-	else:
-		b._face(v, f, card_id, m, end, proj)
+		b._badge(v, cross, proj.get("pads", []))
 	var bar := TierBar.new()
 	bar.name = "Bar"
 	bar.now = m
@@ -85,34 +84,35 @@ static func make(f: Dictionary, card_id: String, proj: Dictionary, picked: bool,
 		var grow := func() -> void:
 			bar.create_tween().tween_property(bar, "end", end, TWEEN_S).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 		bar.ready.connect(grow, CONNECT_ONE_SHOT)
-	if gold:
-		return b
 	var line: Dictionary = proj.get("eta", {})
-	var eta := UI.label(str(line.get("text", "")), 16, UI.GREEN if str(line.get("tone", "")) == "good"
-		else (UI.RED if str(line.get("tone", "")) == "bad" else UI.FG), "bold")
+	# S398: a card wearing its "Usable on Mon" badge says it once; the line under the bar is for the cards without one
+	var eta := UI.label("" if gold else str(line.get("text", "")), 15, UI.GREEN if str(line.get("tone", "")) == "good" else UI.MUTED, "semi")
 	eta.name = "Eta"
 	eta.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	v.add_child(eta)
 	var held: Array = proj.get("held_by", [])
+	if not held.is_empty() and m >= 30.0 and end + 20.0 < float(proj.get("cap", 100.0)):
+		held = []   # S398 critics: a cap far above this week's mastery is nothing to act on yet
 	if not held.is_empty():
-		var chip := PanelContainer.new()
+		# S398 Week v8: a cap is said in grey words with its number, and the way past it is a normal button
+		var chip := UI.vbox(4)
 		chip.name = "Held"
-		chip.add_theme_stylebox_override("panel", UI.box(SOFT_RED, Color(UI.RED, 0.5), 6, 1, 8, 3))
-		chip.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-		var h := UI.hbox(8)
-		chip.add_child(h)
-		h.add_child(UI.label("needs a better %s" % str(held[0]).to_lower(), 15, UI.RED, "semi"))   # S397: no raw number
-		var go := UI.button("+ drill it", "BtnSolid", func(): on_drill_it.call("move:" + str(held[0])))
+		var punch := str(held[0])
+		var hl := UI.label("Held at %d by the %s (%d): drill the %s to raise it" % [int(float(proj.get("cap", 100.0))), punch, roundi(PadWeek.mastery(f, "move:" + punch)), punch],
+			14, UI.MUTED, "body")
+		hl.clip_text = true
+		hl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		hl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		chip.add_child(hl)
+		var go := UI.button("Drill the %s" % punch, "Btn", func(): on_drill_it.call("move:" + punch))
 		go.name = "DrillIt"
 		go.focus_mode = Control.FOCUS_NONE
-		for st in ["normal", "hover", "pressed"]:
-			go.add_theme_stylebox_override(st, UI.box(UI.RED if st == "normal" else UI.RED.darkened(0.15), Color(0, 0, 0, 0), 5, 0, 7, 1))
-		go.add_theme_color_override("font_color", Color.WHITE)
 		go.add_theme_font_size_override("font_size", 13)
-		go.tooltip_text = "Puts the %s on the next pad night you have not set" % str(held[0]).to_lower()
-		h.add_child(go)
+		go.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		go.tooltip_text = "Puts the %s on the next pad night you have not set" % punch.to_lower()
+		chip.add_child(go)
 		v.add_child(chip)
-	elif float(proj.get("sig_needs_t", 0.0)) > 0.0 and not str(line.get("text", "")).begins_with("signature"):
+	elif false and float(proj.get("sig_needs_t", 0.0)) > 0.0:   # S398 (operator rule): a signature far beyond this week - not shown
 		# Her cap is under the signature line: what it takes (the hatched wall on the bar).
 		var sig := UI.label("signature needs Technique %d" % ceili(float(proj["sig_needs_t"])), 14, UI.MUTED, "semi")
 		sig.name = "SigNeeds"
@@ -148,11 +148,12 @@ func _face(v: VBoxContainer, f: Dictionary, card_id: String, m: float, end: floa
 	tw.name = "Tag"
 	tag.add_child(tw)
 	words.add_child(tag)
-	var t := UI.label(PadEdit.title(f, card_id), 26, UI.FG, "bold")   # S397: names in the plain face ("1-1" read ")-)")
+	var t := UI.label(PadEdit.title(f, card_id), 22, UI.FG, "bold")   # S397: names in the plain face ("1-1" read ")-)")
 	t.name = "Title"
 	t.clip_text = true
 	words.add_child(t)
-	var s := UI.label(str(proj.get("sub", PadEdit.sub(f, card_id))), 15, UI.MUTED, "body")
+	var sub := str(proj.get("sub", PadEdit.sub(f, card_id)))
+	var s := UI.label(MoveMastery.word(m) + (" - " + sub if sub != "" and sub.to_lower() != MoveMastery.word(m).to_lower() else ""), 15, UI.MUTED, "body")
 	s.name = "Sub"
 	s.clip_text = true
 	s.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS   # "answer: hands drop la..." - never a letter cut in half
@@ -160,40 +161,28 @@ func _face(v: VBoxContainer, f: Dictionary, card_id: String, m: float, end: floa
 	words.add_child(s)
 	# S397 blind round 3 ("24.9 -> 27.7"): the tier in words on the card, the pad level on hover.
 	tooltip_text = "Pad level %.1f now, %.1f by Sunday.\n%s" % [m, end, tooltip_text]
-	var nums := UI.hbox(6)
-	nums.add_child(UI.label(MoveMastery.tier(m).capitalize() if m > 0.0 else "New", 22, UI.FG, "bold"))
-	if end > m + 0.05:
-		var up := MoveMastery.tier(end) != MoveMastery.tier(m)
-		var to := UI.label("-> " + MoveMastery.tier(end).capitalize() if up else "climbing", 22 if up else 18, UI.GREEN, "bold")
-		to.name = "End"
-		nums.add_child(to)
-	words.add_child(nums)
-	for n in [t, s, nums]:
+	var nums := UI.hbox(4)
+	var to := UI.label("mastery %d -> %d this week" % [roundi(m), roundi(end)] if end > m + 0.05 else "mastery %d" % roundi(m), 15, UI.FG, "body")
+	to.name = "End"
+	nums.add_child(to)
+	v.add_child(nums)
+	for n in [t, s, nums, to]:
 		(n as Control).mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
-## The gold face: the tier it reaches this week, the card, the night that does it.
-func _gold(v: VBoxContainer, f: Dictionary, card_id: String, cross: Dictionary, proj_pads: Array) -> void:
-	var top := UI.hbox(8)
-	top.name = "Gold"
-	top.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	# S397 blind Week critic ("USABLE is louder than the move"): the move leads, the tier is its badge.
-	var name_row := UI.hbox(10)
-	name_row.add_child(UI.label(PadEdit.title(f, card_id), 34, UI.FG, "bold"))
-	var s := UI.label("" if PadWeek.kind(card_id) == "move" else PadEdit.sub(f, card_id), 16, UI.FG, "body")   # a move's old tier is moot here
-	s.size_flags_vertical = Control.SIZE_SHRINK_END
-	name_row.add_child(s)
-	v.add_child(name_row)
-	top.add_child(UI.label("★ %s" % str(cross["tier"]).to_upper(), 18, GOLD_INK, "bold"))
-	v.add_child(top)
+## S398 Week v8: the tier it reaches this week as a green badge, "Usable on Mon" (the move still leads the card).
+func _badge(v: VBoxContainer, cross: Dictionary, proj_pads: Array) -> void:
+	var p := PanelContainer.new()
+	p.name = "Badge"
+	p.add_theme_stylebox_override("panel", UI.box(Color("#e3f4ea"), Color(0, 0, 0, 0), 10, 0, 9, 2))
+	p.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var w := UI.label("%s on %s" % [str(cross["tier"]).capitalize(), PadEdit.DAY_WORDS[int(cross["dow"])]], 14, UI.GREEN, "bold")
+	w.name = "When"
+	p.add_child(w)
 	var station := "pads" if (proj_pads as Array).has(int(cross["dow"])) else "sparring"
-	var when := UI.label("%s %s takes it there" % [PadEdit.DAY_WORDS[int(cross["dow"])], station], 20, UI.FG, "bold")
-	tooltip_text = "Pad level %.1f -> %.1f.
-%s" % [float(cross["before"]), float(cross["after"]), tooltip_text]   # S397
-	when.name = "When"
-	v.add_child(when)
-	for n in [name_row, s, when]:
-		(n as Control).mouse_filter = Control.MOUSE_FILTER_IGNORE
+	p.tooltip_text = "Mastery %.1f -> %.1f on %s %s" % [float(cross["before"]), float(cross["after"]), PadEdit.DAY_WORDS[int(cross["dow"])], station]
+	v.get_child(0).add_child(p)
 
 
 ## The red rubber stamp across the picture's foot: "UNDRILLED x0.8" (a plan card not in her hands by fight night).
@@ -202,9 +191,12 @@ static func _stamp(words: String) -> PanelContainer:
 	st.name = "Stamp"
 	st.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.92), UI.RED, 3, 2, 5, 1))
 	st.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	st.rotation_degrees = -8.0
-	st.position = Vector2(4, PIC - 34)
-	st.add_child(UI.label(words, 13, UI.RED, "bold"))
+	st.position = Vector2(0, PIC - 18)   # S398: inside the 64 px picture, never over the name
+	st.custom_minimum_size = Vector2(PIC, 0)
+	var l := UI.label(words.get_slice(" x", 0), 10, UI.RED, "bold")
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	st.add_child(l)
+	st.tooltip_text = words
 	return st
 
 
@@ -279,12 +271,7 @@ class TierBar extends Control:
 			draw_rect(Rect2(w * now / 100.0, y, w * (minf(end, 100.0) - now) / 100.0, h), gain)
 		if cap < 100.0:
 			var x0 := w * cap / 100.0
-			draw_rect(Rect2(x0, y, w - x0, h), Color(track, 1.0))
-			var x := x0
-			while x < w:
-				var x1 := minf(x + h, w)
-				draw_line(Vector2(x, y + h), Vector2(x1, y + h - (x1 - x)), HATCH, 2.0)
-				x += 7.0
+			draw_rect(Rect2(x0, y, w - x0, h), Color("#d5dadf"))   # S398: past the cap is plain grey, no hatching
 		for t in [30.0, 60.0, 85.0]:
 			var col := (GOLD_EDGE if cap >= 85.0 else HATCH) if t == 85.0 else UI.FG
 			draw_line(Vector2(w * t / 100.0, 0), Vector2(w * t / 100.0, size.y), col, 2.0)
