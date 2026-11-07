@@ -102,7 +102,7 @@ REM The model and flags are the operator's fixed settings for Cursor and are
 REM pinned here so no launch inherits something else.
 REM S131: CURSOR_MODEL overrides the model for ONE launch when the operator picks
 REM one (2026-09-30, U199 lobby art: "Sonnet 5" - a model that can see renders).
-if "%CURSOR_MODEL%"=="" set "CURSOR_MODEL=composer-2.5"
+if "%CURSOR_MODEL%"=="" set "CURSOR_MODEL=gpt-5.6-sol-high"
 REM S214: note the model this launch runs, for the model-router live view (127.0.0.1:4101).
 for %%I in ("%~2") do set "FC_WT=%%~nxI"
 if not exist "C:\Users\user\.claude\mods\model-router-live\agents" mkdir "C:\Users\user\.claude\mods\model-router-live\agents"

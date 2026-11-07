@@ -36,6 +36,9 @@ but in the played fight the reaction is lost or never fired. Find where before t
 4. Keep every REGRESSION test green. Do not touch BeatClips.gd, GloveClear.gd, HitStun.gd unless step 2 proves the cause there
    (then stop and report), FootPlant.gd, nor the fight model (scripts/rules, scripts/state, scripts/world). Files under 500 lines.
 
+## Rules
+- Start EVERY Godot run (tests and probes) through the shared queue: `python E:/FightCamp/Lean/ops/Tools/godot_slot.py run --who seat -- "<godot.exe>" --headless --audio-driver Dummy --path . --script res://...` (S398: seven sessions share this PC; the queue starts jobs in arrival order as the watchdog allows). For a windowed probe, put the hidden-desktop command after `--`.
+
 ## Result lines (PR body)
 RESULT: HEAD_REACT main  landed n=.. turn_med=.. travel_med=.. | blocked ... | ratio ...
 RESULT: HEAD_REACT after ...

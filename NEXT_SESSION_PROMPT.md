@@ -1,3 +1,53 @@
+# S399 - next session (written S398 main session, 2026-11-07)
+
+START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S399` + map redraw.
+TOKEN RULES (operator S398 "need to save your tokens its already 49%"): at most 3 Claude sessions working; blind critics are
+sub-agents with model sonnet; no commit-watcher monitors (sessions message you); a session past ~330k writes a handover and
+stops; building goes to Cursor (now GPT-5.6 Sol High) and Qwen first - not on his Claude plan.
+FREE SEATS BUILD, CLAUDE REVIEWS (operator S398 "instead of opening your own 3 session why you do not assign each one to a free
+ai ?"): no new Claude side sessions for building. Each next task becomes a brief + seat_dispatch row on a free seat - Cursor
+(GPT-5.6 Sol High, 1M context) for systems and multi-file work, Qwen for tests/probes/data, Dola/agy for design drafts - and the
+main session only writes briefs, reviews diffs + measured numbers, runs sonnet critics, and merges. Next rows to brief: Fighter
+model v3 (Cursor; ops/research/TASK_FIGHTERMODEL3.md has the gate), BJJ beat engine (Cursor), stylized 2D menu art A/B (Cursor +
+Ludo assets), Money leftovers (Qwen). Seats cannot see images: give them numbers to hit, and judge films/stills here.
+GODOT QUEUE (S398): every agent Godot job runs `python ops/Tools/godot_slot.py run --who <s> -- <godot cmd>` (GREEN 3 / AMBER 2 /
+RED 0 / 0 under 4 GB commit); rule_guard refuses a direct agent Godot job; seat_dispatch checks + films queue too; `status`
+shows it. Heat governor pins agent jobs to 6 threads when not GREEN. Cursor worktrees run with no Claude hooks
+(seat_dispatch.cursor_no_hooks: Cursor's 11-07 wrapper breaks any hook).
+SESSIONS LEFT RUNNING (report to "Agent communications startup" S398 - CHECK THEM: list_sessions / list_events):
+- Menus to 8 (local_bb58ebe9-495a-4480-ad0e-afdfcb986026, claude/menus-to-8b-5fe49c): Week v8 built (plateau ~6.2 blind), Fight
+  prep rebuilt with pictures, first-hour fixes, operator rule "nothing displayed unless the player can do something with it",
+  Fatigue as the one word; two_boxers_two_years_test. Sends a MERGE REPORT, then stops. Merge it from a clean worktree
+  (wt/MERGE_S398 exists, seeded), run its touched tests there, push. Stylized 2D art test = a later session (operator OK).
+- Money that bites (local_7eb19d9c-cef4-4cbd-ac3d-ef52eeb9c79b, claude/money-bites-1c249d): v2.2 money, legal_index fix (a
+  careful novice stopped boxing), harness no_render + one frame per stop (the two-boxer signal-11 crash was HARNESS-ONLY:
+  Godot's deferred-call queue overflowed; the game's CONTINUE is one day per timer tick). Sends a MERGE REPORT, then stops.
+- BJJ realism successor (local_84dbfd9b-1357-400a-a308-9c3e4c051ae3, origin/claude/bjj-realism-s398 @2d8d0d4e): v2 fitted, every
+  belt bar in band (n=1000), 11 BJJ tests green, critics 4-6 (sonnet next); beat engine OFF (BEATS2=0, byte-identical). Merge
+  plan agreed: the whole range after its full-suite result (clean merge-tree sim). White even subs 22% (bar 30-55) needs beats.
+- Fighter look (local_0dc594e4-25d0-455d-9a8e-276a3001ddb3, claude/fighter-look-4bc1d9): operator "they do look dumb tbh, the
+  poses the glare they all look the same"; variety + eyes/blinks + idle poses + a toon switch built; three-arm blind film test
+  (today / varied realistic / varied stylized, sonnet critics, orthodox fighters) then report. Found the southpaw knock-knee.
+- Animation chain HANDED OVER (685k): ops/research/ANIM_HANDOVER_S397.md (22d9be75). No Claude session for it (tokens): the seats
+  run through seat_dispatch. In flight: SOUTHPAW1 on Cursor (operator-seen southpaw knock-knee; BoxerFootworkRig mirrored knee
+  solve), HITSELL5 queued on Qwen, inside-work A/B films in the queue. Collect SOUTHPAW1 when its PR lands (sonnet critic).
+  Archive that session (local_40fc4a85-e240-437c-b6b9-e5df5e3e7166) once idle - operator OK needed.
+- Fighter model v3: NOT MERGED - built model (critics 6 / 5.5) turned rule 2 OPEN (S397 "fix scouting first" would be undone).
+  Brief + merge gate: ops/research/TASK_FIGHTERMODEL3.md on claude/fighter-profiles-407aee @c534d646 (rule 2 held, bar 1 in band,
+  8 built, merge AFTER Menus and Money). It waits as a card ("Fighter model v3") - start it only when under 3 sessions.
+DONE S398 (main), all on main: Rank 5 first hour merged (c53f5281; coach cards, starts, hire assistant 7; set 5.5); main CI red
+since S397 fixed (8108861b: test_jump proladder/proranked case + jump waits out a loss); Rank 3 plan defect fixed (1b11af53:
+the coach always writes a line, unsaved plan says "suggestion"); rule 4 PARKED until the fighter model
+(ops/research/RULE4_PARKED_S398.md); rule-guard hook without quotes/brackets; Cursor no-hooks worktrees (bf1a15a0); before-film
+judged in the background (f006eddd); core cap 6 threads (6f508b1e; CPU 77-81 -> 54-67 C); Cursor on GPT-5.6 Sol High
+(6c6e526a); Godot queue (478fbf93, 9a0318e7); MSI Afterburner: power -6% (AMD minimum), fan curve 40/60/80/100 at
+50/65/75/85 C, start with Windows; 4 startup apps off (Speccy, Opera GX assistant, BlueStacks Services, Reallusion Hub).
+OPEN: CPU fix he runs himself (power plan max 99%, or BIOS Curve Optimizer -20); GPU hot spot 112 C peak (re-paste if >100 C with
+the new curve); a 6-0-1 pro stays unranked (ranks seeded by rating at reviews) - fighter model v3 owns it; BoutRead under-counts
+a plan line she throws anyway (0.12) - fighter model; 14 surplus Miro map cards not deleted (needs his OK). MEMORY.md is long.
+SETTINGS: S399 Claude Opus 5.5, effort high, Fast OFF | critics: sonnet sub-agents, blind | Cursor: GPT-5.6 Sol High |
+Qwen: HITSELL5 | max 3 Claude sessions.
+
 # S398 - next session (written S397 main session, 2026-11-07)
 
 START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S398` + map redraw.

@@ -4490,7 +4490,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-07 15:41 board_sync",
+  "updated": "2026-11-07 19:11 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4649,7 +4649,41 @@
     "title": "TASK HITSELL2 - QWEN (qwen3-coder) - round 2: a test that measures, then a landed punch that reads as landed",
     "who": "qwen",
     "started": "2026-11-07T15:41",
-    "run": "HITSELL2"
+    "run": "HITSELL2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTWALK2 - CURSOR (Composer 2.5, Fast OFF) - round 2: walks that arrive, a corner crew that works",
+    "who": "cursor",
+    "started": "2026-11-07T16:19",
+    "run": "FIGHTWALK2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HITSELL4 - QWEN (qwen3-coder) - a blocked head shot shows on the fight's own path, a landed one keeps its snap",
+    "who": "qwen",
+    "started": "2026-11-07T17:24",
+    "run": "HITSELL4",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTWALK3 - CURSOR (Composer 2.5, Fast OFF) - the corner minute a TV director would cut: 4 -> 8",
+    "who": "cursor",
+    "started": "2026-11-07T17:24",
+    "run": "FIGHTWALK3",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK INSIDE4 - QWEN (qwen3-coder) - does a folded face still sink into the other boxer, measured in a played fight?",
+    "who": "qwen",
+    "started": "2026-11-07T18:12",
+    "run": "INSIDE4"
+   },
+   {
+    "title": "TASK SOUTHPAW1 - CURSOR (Composer 2.5, Fast OFF) - a southpaw stands knock-kneed in guard (the operator saw it)",
+    "who": "cursor",
+    "started": "2026-11-07T19:03",
+    "run": "SOUTHPAW1"
    }
   ],
   "next": [
@@ -4899,6 +4933,16 @@
   },
   "done_recently": [
    {
+    "title": "Up close, a folded boxer's face never sinks into the other's body (INSIDE2 round 2)",
+    "who": "",
+    "when": "2026-11-07"
+   },
+   {
+    "title": "TASK HITSELL3 - QWEN (qwen3-coder) - landed vs blocked measured on the fight's own path",
+    "who": "qwen",
+    "when": "2026-11-07"
+   },
+   {
     "title": "TASK_WORLD1 - the living world, as rules only (Qwen)",
     "who": "qwen",
     "when": "2026-11-07"
@@ -5141,13 +5185,33 @@
     {
      "text": "4 startup apps off (memory)",
      "who": "claude"
+    },
+    {
+     "text": "Rank 5 first hour merged",
+     "who": "claude"
+    },
+    {
+     "text": "Main CI test_jump fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Godot job queue (first-come)",
+     "who": "claude"
+    },
+    {
+     "text": "Cursor on GPT-5.6 Sol",
+     "who": "claude"
+    },
+    {
+     "text": "Core cap: CPU 80 -> ~60 C",
+     "who": "claude"
+    },
+    {
+     "text": "Rank 3 coach plan fix",
+     "who": "claude"
     }
    ],
    "now": [
-    {
-     "text": "BJJ body contact session",
-     "who": "claude"
-    },
     {
      "text": "Sound room by crowd size",
      "who": "agent"
@@ -5157,27 +5221,7 @@
      "who": "claude"
     },
     {
-     "text": "Plan bites rule 4 (side session)",
-     "who": "claude"
-    },
-    {
-     "text": "FIGHTWALK1 walks (Cursor)",
-     "who": "agent"
-    },
-    {
-     "text": "HITSELL2 hits sell (Qwen)",
-     "who": "agent"
-    },
-    {
-     "text": "Fighter profiles (session)",
-     "who": "claude"
-    },
-    {
      "text": "BJJ realism (session)",
-     "who": "claude"
-    },
-    {
-     "text": "Rank 5 coach first hour (session)",
      "who": "claude"
     },
     {
@@ -5185,7 +5229,7 @@
      "who": "claude"
     },
     {
-     "text": "Animation chain (session)",
+     "text": "Fighter look blind test",
      "who": "claude"
     }
    ],
@@ -5241,6 +5285,18 @@
     {
      "text": "Traits at 5/10: wrong-plan test",
      "who": "claude"
+    },
+    {
+     "text": "Rule 4 after fighter model",
+     "who": "claude"
+    },
+    {
+     "text": "Fighter model v3 (rule 2)",
+     "who": "claude"
+    },
+    {
+     "text": "CPU: power plan 99% (you)",
+     "who": "operator"
     }
    ],
    "session": "S398"

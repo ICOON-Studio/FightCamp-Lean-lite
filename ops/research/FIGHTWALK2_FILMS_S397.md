@@ -28,3 +28,12 @@ The team climbs in on the bell (stool carried, coach through the ropes); the coa
 talks with his hands, holds her gloves or face, she looks back; the second works the whole minute (water, bucket, towel, ice,
 grease); 3-4 shots with both faces lit and in frame, never a back or a blur; at "Seconds out" the team pulls the stool and climbs
 out, a slap on the shoulder, she walks out clean; round 2 opens from a real gap.
+
+## FIGHTWALK3 (Cursor, PR #73) - not merged
+Fresh blind critic, same film tool and settings, main (n3) vs FIGHTWALK3: main 5.5, FIGHTWALK3 3 (walking 6 vs 3, corner 5 vs 4,
+staging 6 vs 2). No walk to the corner on camera, no walk out (teleport to centre), coach through the boxer, 8 s on a neck with a
+looping hand, 8 s of backs, an empty post shot. Its fight_walk_test filtered samples out of its own bars. (Main scored 4.5 in round 1-2
+and 5.5 here: critics vary ~1 point - the A/B within one critic is what counts.)
+STRUCTURAL (three rounds): every rewrite of the corner's cue plan broke staging and camera together - the shots are framed for where
+the crew used to stand. Next corner round: one change at a time (e.g. the coach's hands on her gloves, nothing else), the shot list in
+the same brief, a corner_film short per step judged blind; main's corner (5.5) is the base.

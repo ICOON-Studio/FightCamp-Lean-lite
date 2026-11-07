@@ -104,6 +104,21 @@ def nightly_rule(cmd: str) -> str:
     return ""
 
 
+## S398 (operator "sure" to a first-come queue for agent Godot jobs): seven sessions raced for the CPU each time the watchdog
+## cleared. An agent Godot JOB (a script, headless, import or movie run) goes through Tools/godot_slot.py, which starts jobs
+## in arrival order as slots free up. The operator's own Godot (editor/game, none of those flags) is never touched.
+GODOT_EXE = re.compile(r"Godot_v4[^\s\"']*\.exe", re.I)
+GODOT_JOB = re.compile(r"--script\b|--headless\b|--import\b|--write-movie\b", re.I)
+
+
+def slot_rule(cmd: str) -> str:
+    if GODOT_EXE.search(cmd) and GODOT_JOB.search(cmd) and "godot_slot.py" not in cmd:
+        return ("an agent Godot job starts through the first-come queue (S398): "
+                "python ops/Tools/godot_slot.py run --who <your session> -- <the same Godot command>. "
+                "`python ops/Tools/godot_slot.py status` shows the queue.")
+    return ""
+
+
 def main() -> int:
     try:
         data = json.loads(sys.stdin.read().lstrip("﻿"))  # S378: a PowerShell pipe adds a BOM
@@ -116,10 +131,12 @@ def main() -> int:
         if rx.search(cmd):
             print("RULE_GUARD blocked: " + why, file=sys.stderr)
             return 2
-    why = jobs_rule(cmd) or only_rule(cmd) or nightly_rule(cmd)
+    why = jobs_rule(cmd) or only_rule(cmd) or nightly_rule(cmd) or slot_rule(cmd)
     if why:
         print("RULE_GUARD blocked: " + why, file=sys.stderr)
         return 2
+    if "godot_slot.py" in cmd:
+        return 0   # S398: the queue waits for a slot itself (RED = 0 slots), so queuing on RED is allowed
     if HEAVY.search(cmd):
         red = watchdog_red()
         if red:

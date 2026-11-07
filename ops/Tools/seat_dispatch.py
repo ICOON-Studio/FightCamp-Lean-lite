@@ -84,7 +84,7 @@ AGY = find_agy() or AGY
 AGY_MODEL = "gemini-4-argon-high"   # S369 operator: "antigravity should have argon now" (agy models lists it; test call OK)
 ## seat -> live_runs agent name, the words a roadmap `who` uses, its model, its run cap (minutes)
 SEATS = {"qwen": {"agent": "qwen", "who": ("qwen",), "model": "qwen3-coder", "minutes": 90},
-         "cursor": {"agent": "cursor", "who": ("cursor",), "model": "composer-2.5", "minutes": 90},
+         "cursor": {"agent": "cursor", "who": ("cursor",), "model": "gpt-5.6-sol-high", "minutes": 90},   # S398: Cursor renewed; operator "i do not want it to use your tokens" - non-Claude top model
          "agy": {"agent": "antigravity", "who": ("antigravity", "agy"), "model": AGY_MODEL, "minutes": 65}}
 SEAT_PROCS = {"qwen": "qwen-code", "cursor": "cursor-agent", "agy": "agy.exe"}
 PC_AGENTS = ("qwen", "cursor", "antigravity", "agy", "codex", "cline", "ziva")
@@ -517,11 +517,19 @@ def _literal(line: str) -> bool:
     return bool(line) and not re.search(r"<=|>=|<|>|\bAND\b|\bOR\b", line)
 
 
+SLOT_WAIT_S = 3600   # S398: the dispatcher's own Godot checks and films queue in godot_slot.py like every session's job
+
+
+def slotted(who: str, cmd: list) -> list:
+    """S398: run `cmd` through the first-come Godot queue (ops/Tools/godot_slot.py), waiting up to SLOT_WAIT_S for a slot."""
+    return [sys.executable, ROOT / "Tools" / "godot_slot.py", "run", "--who", who, "--max-wait", str(SLOT_WAIT_S), "--", *cmd]
+
+
 def run_gd(wt: Path, script: str, args: str = "", pass_line: str = "") -> dict:
     cmd = [GODOT, "--headless", "--audio-driver", "Dummy", "--path", wt, "--script", "res://" + script]
     if args:
         cmd += ["--"] + shlex.split(args)
-    p = sh(cmd, cwd=wt, timeout=TEST_TIMEOUT_S)
+    p = sh(slotted(f"dispatch:{Path(str(wt)).name}", cmd), cwd=wt, timeout=TEST_TIMEOUT_S + SLOT_WAIT_S + 60)
     out = (p.stdout or "") + (p.stderr or "")
     err = SCRIPT_ERR_RE.search(out)
     found = pass_line in out if _literal(pass_line) else None
@@ -646,9 +654,10 @@ def film(wt: Path, contract: dict, mp4: Path) -> str:
     extra = [] if "--resolution" in args else ["--resolution", "1280x720"]
     # S380: the raw AVI (hundreds of MB on a 91%-full E:) never outlives this call - gone once the mp4 exists, and on any failure.
     try:
-        p = sh([sys.executable, GAME / "tools" / "hidden_desktop.py", "run", f"--timeout={FILM_TIMEOUT_S}", f"--log={mp4.with_suffix('.log')}",
-                GODOT, "--path", wt, "--windowed", *extra, "--audio-driver", "Dummy", "--fixed-fps", "30", "--write-movie", avi, *args],
-               cwd=wt, timeout=FILM_TIMEOUT_S + 120)
+        p = sh(slotted(f"dispatch-film:{Path(str(wt)).name}",
+                       [sys.executable, GAME / "tools" / "hidden_desktop.py", "run", f"--timeout={FILM_TIMEOUT_S}", f"--log={mp4.with_suffix('.log')}",
+                        GODOT, "--path", wt, "--windowed", *extra, "--audio-driver", "Dummy", "--fixed-fps", "30", "--write-movie", avi, *args]),
+               cwd=wt, timeout=FILM_TIMEOUT_S + 120 + SLOT_WAIT_S + 60)
         if not avi.is_file():
             return f"no film written (rc {p.returncode}; log {mp4.with_suffix('.log')})"
         c = sh(["ffmpeg", "-y", "-loglevel", "error", "-i", avi, "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "23", "-an", mp4], timeout=900)
