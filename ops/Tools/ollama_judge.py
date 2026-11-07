@@ -62,8 +62,8 @@ def judge(mp4: Path, kind: str, what: str, intent: str, model: str = MODEL, ever
         print(f"OLLAMA_JUDGE no score line: {text[-300:]}")
         return None
     md = mp4.with_suffix(".gemini_argon.md")
-    md.write_text(f"# JUDGE: local {model} (Ollama) on {len(shots)} eyes contact sheets ({what or mp4.name}) - Gemini and "
-                  f"Claude's eyes both out. LOW TRUST: check film times and details on the film before acting on them.\n\n"
+    md.write_text(f"# JUDGE: local {model} (Ollama) on {len(shots)} eyes contact sheets ({what or mp4.name}) - the film "
+                  f"judge (operator S399: Ollama only). LOW TRUST: check film times and details on the film before acting on them.\n\n"
                   f"{text}\n", encoding="utf-8")
     print(f"OLLAMA_JUDGE {md}")
     return md

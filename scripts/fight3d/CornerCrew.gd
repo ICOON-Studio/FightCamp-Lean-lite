@@ -18,6 +18,19 @@ const FighterKit := preload("res://scripts/fight3d/FighterKit.gd")
 const DIR := "res://assets/models/metahuman/"
 const BODIES := {"coach": "mh_staff_coach", "second": "mh_staff_trainer", "cutman": "mh_staff_cutman_1",
 	"blue_coach": "mh_staff_coach_2", "blue_second": "mh_staff_trainer"}
+## S399 (fighter-look blind round 1, both critics on every arm: "the same coach and second in both corners"): blue's second
+## shared mh_staff_trainer with red's. Four staff bodies exist; an amateur bout leaves the cutman's free, so blue's second
+## wears it there. A pro bout uses all four - it needs a fifth staff MetaHuman (asset), until then blue's second repeats.
+const BLUE_SECOND_AMATEUR := "mh_staff_cutman_1"
+
+
+## The body each role wears ("" = not in this bout): every face in the corners differs in an amateur bout.
+static func body_for(role: String, pro: bool) -> String:
+	if role == "cutman" and not pro:
+		return ""
+	if role == "blue_second" and not pro:
+		return BLUE_SECOND_AMATEUR
+	return str(BODIES.get(role, ""))
 const LOOPS := ["ow_walk", "af_walk", "af_walk_carry", "af_sit_idle", "af_sit_talk", "af_crouch_idle", "af_talk", "af_idle",
 	"af_idle_foldarms", "af_nod_yes"]
 ## The stool's centre, from the post along the corner's diagonal, metres (her back a hand from the corner pad).
@@ -55,9 +68,10 @@ func build(s: Node3D, pro: bool) -> void:
 	stage = s
 	name = "CornerCrew"
 	for role in BODIES:
-		if role == "cutman" and not pro:
+		var body := body_for(role, pro)
+		if body == "":
 			continue
-		actors[role] = _body(DIR + str(BODIES[role]) + ".glb")
+		actors[role] = _body(DIR + body + ".glb")
 		if TEAM_SHIRT.has(role):
 			_shirt(actors[role]["node"], TEAM_SHIRT[role])
 	for i in stage.boxers.size():

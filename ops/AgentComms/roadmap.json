@@ -5194,6 +5194,10 @@
     {
      "text": "Inside work +0.5: not merged",
      "who": "claude"
+    },
+    {
+     "text": "Corner seconds: no repeat face",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5285,6 +5289,10 @@
     },
     {
      "text": "Money leftovers (Qwen)",
+     "who": "claude"
+    },
+    {
+     "text": "5th staff MetaHuman (pro corner)",
      "who": "claude"
     }
    ],

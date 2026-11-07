@@ -10,3 +10,5 @@
 
 Intent key: WRONG = this is wrong, fix it; CHANGE = adjust this; KEEP = this is good, keep it; MOVE = move it from the arrow's tail to its head.
 Answer the user by mark number, e.g. "point 3".
+
+**STATUS (S399):** SUPERSEDED - this camp mock-up was not built; the S398 menus rebuild (Week v8 7cb50993, Fight prep daf5030e/d58e955d: only actionable info, no option pills) replaced it.

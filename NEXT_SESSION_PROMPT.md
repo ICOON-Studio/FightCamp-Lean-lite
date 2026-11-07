@@ -1,3 +1,28 @@
+# S400 - next session (written S399 main session, 2026-11-07)
+
+START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S400` + map redraw
+(strip data-deleted lines before canvas_update_from_svg: 22 surplus cards need his OK to delete).
+TOKEN RULES unchanged (S398): free seats build, Claude briefs/reviews/merges, sonnet blind critics, no watchers.
+SEATS (seat_dispatch, 30-min reconcile; max 2 PC agents):
+- Cursor (GPT-5.6 Sol): SOUTHPAW2 RUNNING (knee valgus in the frontal plane; must FAIL on main first or stop) ->
+  FIGHTERMODEL3 (BASE claude/fighter-profiles-407aee, merge main first; gate in its brief; Claude runs the 2 blind critics) ->
+  BJJBEAT1 (BEATS2 on, white subs 0.30-0.55, first scorer 0.80-0.87, belt table kept).
+- Qwen: HITSELL5 RUNNING -> MONEYOD1 (overdraft with interest, rules only; careless still closes >= 9/10).
+- agy: ANIMREBUILD1 (design doc docs/ANIM_REBUILD_DESIGN.md -> 2 sonnet critics -> Cursor builds step by step) ->
+  MONEYLAYOUT1 (DECIDE / SPEND / DEALS / HISTORY folded, 3 button kinds; stills -> blind critics, bar 8).
+COLLECT: each PR - read the test for loosened bars, run RED_TEST on main (must fail), diff, then film/critic for VISUAL.
+JUDGES (operator S399 "Use Ollama only"): seat_dispatch JUDGE_CHAIN = ("ollama",), blind_ab default ollama; Gemini prepay
+dry since 11-04 ($33.26, not topped up), Claude's eyes off. If Ollama is down, start it (it auto-updates); no fallback.
+DONE S399: main tests green (b2fa0b90); Ziva on main (wip/ziva-s399 keeps its cache); SOUTHPAW1 #74 closed (test passed on
+main, fix a no-op); inside-work 5.5 -> 6.0 blind, NOT merged (camera differed; wip/s399-insidework); seat_dispatch double
+count fixed (Qwen run = 1 agent); blue's second = cutman body in amateur bouts (8de50e96); BJJ + Menus sessions archived
+(Money still live - archive when idle); leftover worktree work on wip/s399-* (clinch-shape, insidework, ground3, fightwalk2,
+padview1, fight9r10), claude/bjjcontact + wip/s399-s394-portraits pushed; operator markups 11-04 in ops/Feedback/ (liver picture
+on the body callout; camp mock-up options "make no sense") - both closed (liver done 3fbe2cef; mock-up superseded by the S398 rebuild), STATUS line in each README.
+OPEN: 5th staff MetaHuman for pro corners; fighter-look faults 1/2/4/5 (singlet paint, coach neck hole, Erin's roof stare,
+faces behind gloves) with the Fighter look session; 37 closed/merged-PR branches deleted (operator OK); 39 no-PR branches left (ops/research/BRANCH_TRIAGE_S399.md). Animation rebuild: Dola draft in ops/research/DOLA_ANIMREBUILD_S399.md (8 steps, step 1 = jab through the picker) - put it beside agy's docs/ANIM_REBUILD_DESIGN.md before two blind sonnet critics. BJJBEAT1 runs on Goose (#75), not Cursor.
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor GPT-5.6 Sol High | Qwen qwen3-coder | agy Argon High.
+
 # S399 - next session (written S398 main session, 2026-11-07)
 
 START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S399` + map redraw.

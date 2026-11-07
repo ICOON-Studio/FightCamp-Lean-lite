@@ -266,6 +266,10 @@ def seat_busy(seat: str, procs: list) -> str:
     return f"a {SEAT_PROCS[seat]} process is live (pid {hit})" if hit else ""
 
 
+RUN_PROC = {"qwen": ("qwen-code",), "cursor": ("cursor-agent",), "agy": ("agy.exe",), "antigravity": ("agy.exe",),
+            "codex": ("codex exec", "codex.exe exec")}
+
+
 def pc_agents(procs: list) -> list[str]:
     """Agents on the PC now: running live_runs entries of PC seats, plus CLI agent processes no entry accounts for."""
     seen, out, names = set(), [], set()
@@ -273,6 +277,9 @@ def pc_agents(procs: list) -> list[str]:
         if isinstance(v, dict) and v.get("status") == "running" and str(v.get("agent", "")).lower() in PC_AGENTS:
             out.append(f"{v.get('agent')} {k}")
             seen.add(str(v.get("worktree", "")).replace("\\", "/").lower())
+            ## S399: the CLI's own process does not carry the worktree path (qwen runs with it as cwd), so a running
+            ## entry also accounts for its seat's process - HITSELL5 was counted twice and held Cursor + agy at "max 2".
+            names.update(RUN_PROC.get(str(v.get("agent", "")).lower(), ()))
     for pid, cmd in procs:
         ## the CLI seats; Codex only as `codex exec` (the operator's Codex desktop app runs codex.exe app-server all day)
         name = next((n for n in ("agy.exe", "qwen-code", "cursor-agent", "codex exec", "codex.exe exec") if n in cmd), "")
@@ -671,27 +678,36 @@ def film(wt: Path, contract: dict, mp4: Path) -> str:
             pass
 
 
+## S399 operator (Gemini prepay dry since 11-04, asked to top up): "Use Ollama only". The film judge is the local gemma4 on
+## Ollama; Gemini (paid) and Claude's eyes (Claude tokens) stay in the code, off. Put "gemini" / "claude" back here to use them.
+JUDGE_CHAIN = ("ollama",)
+
+
 def judge(mp4: Path, what: str, intent: str) -> dict:
-    """Gemini 4 Argon on one film (gemini_judge.py writes <film>.gemini_argon.md beside it and logs the spend)."""
+    """One film through JUDGE_CHAIN in order until one writes <film>.gemini_argon.md (the verdict file every judge shares)."""
     # S379: a BJJ loop is judged on the BJJ prompt (trembling and bodies inside bodies first), never the boxing one
     kind = "bjj" if what.upper().startswith("BJJ") else "fight"
-    p = sh([sys.executable, ROOT / "Tools" / "gemini_judge.py", mp4, "--model", "argon", "--fps", "24", "--what", what,
-            "--intent", intent, "--kind", kind], timeout=900)
     md = mp4.with_suffix(".gemini_argon.md")
-    if p.returncode != 0 or not md.is_file():
-        # S380 operator (Gemini API prepay out, HTTP 402): "Judge by Claude's eyes" - contact sheets + Claude headless, the
-        # same prompt and verdict file (Tools/claude_judge.py); a Gemini failure no longer stops the loop
-        cj = sh([sys.executable, ROOT / "Tools" / "claude_judge.py", mp4, "--kind", "bjj" if kind == "bjj" else "fight",
-                 "--what", what, "--intent", intent], timeout=2400)
-        log(f"JUDGE {what}: Gemini failed (rc {p.returncode}), Claude's eyes: {(cj.stdout or cj.stderr).strip()[-160:]}")
-        if not md.is_file():
-            # S385: Gemini AND Claude's eyes out (11-05 02:18: both, the loops held 16 h) - the local gemma4 on Ollama
-            oj = sh([sys.executable, ROOT / "Tools" / "ollama_judge.py", mp4, "--kind", "bjj" if kind == "bjj" else "fight",
-                     "--what", what, "--intent", intent], timeout=2400)
-            log(f"JUDGE {what}: Claude's eyes failed too, local Ollama: {(oj.stdout or oj.stderr).strip()[-160:]}")
+    md.unlink(missing_ok=True)   # a stale verdict from an earlier run is not this film's
+    rc, tried = 1, []
+    for j in JUDGE_CHAIN:
+        if j == "gemini":
+            p = sh([sys.executable, ROOT / "Tools" / "gemini_judge.py", mp4, "--model", "argon", "--fps", "24", "--what", what,
+                    "--intent", intent, "--kind", kind], timeout=900)
+        elif j == "claude":   # S380: contact sheets + Claude headless, the same prompt and verdict file
+            p = sh([sys.executable, ROOT / "Tools" / "claude_judge.py", mp4, "--kind", kind, "--what", what, "--intent", intent],
+                   timeout=2400)
+        else:                 # S385: the local gemma4 on Ollama
+            p = sh([sys.executable, ROOT / "Tools" / "ollama_judge.py", mp4, "--kind", kind, "--what", what, "--intent", intent],
+                   timeout=2400)
+        rc = p.returncode
+        tried.append(f"{j} rc {rc}: {(p.stdout or p.stderr).strip()[-120:]}")
+        if rc == 0 and md.is_file():
+            break
+    log(f"JUDGE {what}: " + " | ".join(tried))
     score, line = read_verdict(md.read_text(encoding="utf-8", errors="replace") if md.is_file() else "")
     return {"film": mp4.as_posix(), "verdict_file": md.as_posix() if md.is_file() else "", "score": score, "line": line,
-            "rc": p.returncode, "err": "" if md.is_file() else (p.stdout + p.stderr)[-300:]}
+            "rc": rc, "err": "" if md.is_file() else " | ".join(tried)[-300:]}
 
 
 def read_verdict(text: str) -> tuple[str, str]:

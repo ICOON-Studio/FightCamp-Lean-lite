@@ -403,14 +403,40 @@
   {
    "task": "SOUTHPAW2",
    "seat": "cursor",
-   "status": "queued",
-   "queued": "2026-11-07T20:49"
+   "status": "launched",
+   "queued": "2026-11-07T20:49",
+   "launched": "2026-11-07T21:21"
   },
   {
    "task": "ANIMREBUILD1",
    "seat": "agy",
    "status": "queued",
    "queued": "2026-11-07T20:51"
+  },
+  {
+   "task": "MONEYOD1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-07T21:22"
+  },
+  {
+   "task": "FIGHTERMODEL3",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-07T21:28"
+  },
+  {
+   "task": "BJJBEAT1",
+   "seat": "cursor",
+   "status": "moved_goose",
+   "queued": "2026-11-07T21:23",
+   "note": "S399: Goose cloud (operator: use other free agents)"
+  },
+  {
+   "task": "MONEYLAYOUT1",
+   "seat": "agy",
+   "status": "queued",
+   "queued": "2026-11-07T21:29"
   }
  ]
 }

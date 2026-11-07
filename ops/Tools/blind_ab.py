@@ -109,7 +109,7 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--ours", required=True)
     ap.add_argument("--ref", required=True)
     ap.add_argument("--what", default="")
-    ap.add_argument("--judges", default="gemini,ollama")
+    ap.add_argument("--judges", default="ollama")   # S399 operator: "Use Ollama only"
     ap.add_argument("--seconds", type=float, default=6.0)
     ap.add_argument("--ref-from", type=float, default=0.0)
     ap.add_argument("--ours-from", type=float, default=0.0)
