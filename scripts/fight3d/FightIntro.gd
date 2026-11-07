@@ -15,10 +15,8 @@ const CornerWarm := preload("res://scripts/fight3d/CornerWarm.gd")
 
 signal done
 
-## S379 (operator: "skip the walk in for the clips, make the clips start when each man is in his corner and then walk to
-## center start fighting"): the films open with both boxers in their corners and walk to the centre (CornerStart) - no
-## ring entry, no tale of the tape, no names. The film tools set this; a run can pass the user arg `fromcorners` (the
-## probes). The game's own fight keeps the full intro.
+## S379 ("skip the walk in for the clips"): films open in the corners and walk to the centre (CornerStart); set by the
+## film tools or the user arg `fromcorners`. The game's own fight keeps the full intro.
 static var from_corners := false
 
 ## S310 (operator: "add the tale of the tape when the fighters stand on their starting corners for a while"): after the
@@ -41,9 +39,8 @@ const E := ENTER_S
 const WALK_MORE_S := 1.9
 const TOUCH_LEAN_M := 0.03   # S391: leaned in her stance the glove's face tips down, the touch reads 5 cm short (corner_film 0.139 vs 0.089)
 const LENGTH_S := 13.0 + WALK_MORE_S + TAPE_S + E
-## [start s, framing]. S379 (C222, TV rulebook docs/TV_CAMERA_RULES.md: no shot shorter than 2 s): the wide comes in
-## 0.6 s before the corners (it held 1.5 s), and the two-shot of the glove touch holds to the bell (the 1.4 s wide_out
-## after a 1.5 s two-shot went).
+## [start s, framing]. S379 (docs/TV_CAMERA_RULES.md: no shot under 2 s): the wide 0.6 s before the corners, the
+## glove-touch two-shot holds to the bell.
 const SHOTS := [[0.0, "entry_red"], [BLUE_ENTER_S + 1.0, "entry_blue"], [E - 0.6, "wide"], [1.5 + E, "tape"],
 	[2.0 + TAPE_S + E, "red"], [5.0 + TAPE_S + E, "blue"], [8.0 + TAPE_S + E, "broadcast"], [10.1 + WALK_MORE_S + TAPE_S + E, "two_shot"]]
 ## [s, cue]
@@ -396,18 +393,19 @@ func cue_lower_blue() -> void:
 
 
 ## Her rear glove up to the crowd (her hand IK), then back to the guard.
-## S359 (operator on the S358 film: "wtf is this ??"): the target was 0.32 m over the HEAD bone and 0.12 m to her RIGHT
-## whichever hand rose - the glove sat on her head over the guard glove, and a southpaw's left arm crossed over her head.
-## Now above the raising arm's own shoulder and out to that side, the elbow a little bent (RAISE: up, out, forward, m).
+## S359 ("wtf is this ??": the glove sat on her head): above the raising arm's own shoulder, out to that side (RAISE m).
 const RAISE := Vector3(0.46, 0.2, 0.08)
 
 
 func _raise(i: int, up: bool) -> void:
 	var a: Dictionary = stage.boxers[i]
 	var hand: String = str(stage.hand_of(i, "RightHand")).trim_suffix("Hand")
+	var other: String = str(stage.hand_of(i, "LeftHand")).trim_suffix("Hand")
 	if not up:
 		a["ik"].reach(hand, null)
+		a["ik"].reach(other, null)
 		return
+	a["ik"].reach(other, func(): return CornerShots.low_glove(a, other))   # S399: the free glove off her face
 	var out := 1.0 if hand == "Left" else -1.0   # side() is her own left
 	a["ik"].reach(hand, func():
 		var s: float = (a["node"] as Node3D).scale.x
@@ -429,15 +427,13 @@ func cue_walk() -> void:
 
 ## The touch: both lead gloves meet between them at chest height without passing through each other.
 func cue_touch() -> void:
-	var mid := (CornerShots.bone(stage.boxers[0], "Chest") + CornerShots.bone(stage.boxers[1], "Chest")) * 0.5 + Vector3.UP * 0.05
 	for i in 2:
 		var a: Dictionary = stage.boxers[i]
 		var hand: String = str(stage.hand_of(i, "LeftHand")).trim_suffix("Hand")
-		var toward := (CornerShots.pos(stage.boxers[1 - i]) - CornerShots.pos(a)).normalized()
-		var pad := maxf(0.16, float(a.get("front", 0.16)) * (a["node"] as Node3D).scale.x + 0.015)
-		if RingFeet.on(stage, a):
-			pad -= TOUCH_LEAN_M
-		a["ik"].reach(hand, func(): return mid - toward * pad)
+		var rear: String = str(stage.hand_of(i, "RightHand")).trim_suffix("Hand")
+		var at := CornerShots.touch_at(stage.boxers, i, TOUCH_LEAN_M if RingFeet.on(stage, a) else 0.0)
+		a["ik"].reach(hand, func(): return at)
+		a["ik"].reach(rear, func(): return CornerShots.low_glove(a, rear))   # S399: the rear glove off her face
 		crew.look(a, stage.boxers[1 - i])
 
 

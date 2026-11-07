@@ -37,6 +37,10 @@ def pc_red() -> bool:
         return False
 
 
+CLIP_SCORE = ("\nEnd with one line 'Score: N/10' for the clip as a move in a shipped boxing game (10 = a boxing fan sees "
+              "nothing wrong, 5 = clearly game animation, 2 = broken).")
+
+
 def judge(mp4: Path, kind: str, what: str, intent: str, model: str = MODEL, every: float = 10.0) -> Path | None:
     if pc_red():
         print("OLLAMA_JUDGE skipped: PC watchdog RED")
@@ -45,7 +49,10 @@ def judge(mp4: Path, kind: str, what: str, intent: str, model: str = MODEL, ever
     if not shots:
         print(f"OLLAMA_JUDGE no contact sheets for {mp4}")
         return None
-    prompt = (gemini_judge.BJJ_PROMPT if kind == "bjj" else gemini_judge.FIGHT_PROMPT) + (f"\nContext: {intent}" if intent else "")
+    if kind == "clip":   # S399: one clip on the turntable (lean_anim previews) - the clip prompt, with a score line
+        prompt = gemini_judge.CLIP_PROMPT.format(intent=f"Intended move: {intent}" if intent else "") + CLIP_SCORE
+    else:
+        prompt = (gemini_judge.BJJ_PROMPT if kind == "bjj" else gemini_judge.FIGHT_PROMPT) + (f"\nContext: {intent}" if intent else "")
     prompt += claude_judge.SHEET_NOTE.replace("Open EVERY image with your Read tool before you answer, in order.",
                                               "The images are attached in this order: " + ", ".join(s.name for s in shots) + ".")
     body = {"model": model, "stream": False, "think": False, "keep_alive": 0,
@@ -72,7 +79,7 @@ def judge(mp4: Path, kind: str, what: str, intent: str, model: str = MODEL, ever
 def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("film")
-    ap.add_argument("--kind", default="fight", choices=["fight", "bjj"])
+    ap.add_argument("--kind", default="fight", choices=["fight", "bjj", "clip"])
     ap.add_argument("--what", default="")
     ap.add_argument("--intent", default="")
     ap.add_argument("--model", default=MODEL)

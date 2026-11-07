@@ -94,3 +94,11 @@
 - `wip/s399-padview1` 2026-11-07 no PR
 
 **S399 DONE (operator "yes delete"):** the 37 closed-PR and merged-PR branches above are deleted from origin. The no-PR group stays.
+
+## S399 second pass - no-PR branches (git cherry vs main)
+Proposed batch 2 for deletion (needs his OK): `qwen/shortpunch1` (every commit already on main); `goose/issue-67`
+(INSIDE2), `goose/issue-68` (CORNERCAM1), `qwen/hitsell3`, `qwen/inside4` - all decided NOT merged in the S397 anim
+chain (ANIM_HANDOVER_S397.md). The other 34 carry commits main does not have: keep until each is decided (wip/s399-*
+are this session's saves; claude/fighter-profiles-407aee is FIGHTERMODEL3's BASE; claude/defflow1 has 40).
+
+**S399 batch 2 DONE (operator "Yes, delete them"):** the 5 above deleted from origin.

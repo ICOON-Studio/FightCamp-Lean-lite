@@ -40,3 +40,10 @@ wip/s399-insidework (edc55c6b). A retest needs the SAME camera in both arms.
 HitSnap adds its head turn on top of the reaction clip's own head keyframes: they fight (asked 26 deg, shown 13) or stack
 (shown 76). Tuning HitSnap moved the played median 23.0 -> 24.4 deg only. One writer per head bone (the clip OR the snap,
 never both) - a rebuild rule. Probe: tools/head_react_probe.gd (merged).
+
+## S399 - intro moments need captures too (operator: "robots synchronized saluting each other")
+The glove touch and the ring introduction are IK poses on a frozen guard: two mirrored bodies hit the same pose on the same
+frame. S399 staggered the touch (one offers, the other answers 0.2-0.4 s later, the offer on top) and took the free glove
+off the face - a stopgap. The rebuild's clip list must include, paired: glove touch (one- and two-glove), the
+referee's instructions stance (loose, weight shifting), the named-in-the-ring raise (one arm, both arms, a turn to the
+crowd), and the walk back to the corner. Without them any procedural version reads as robots.

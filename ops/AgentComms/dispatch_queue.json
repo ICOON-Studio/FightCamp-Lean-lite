@@ -410,8 +410,15 @@
   {
    "task": "ANIMREBUILD1",
    "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-07T20:51",
+   "launched": "2026-11-07T22:09"
+  },
+  {
+   "task": "WALK1",
+   "seat": "cursor",
    "status": "queued",
-   "queued": "2026-11-07T20:51"
+   "queued": "2026-11-07T22:18"
   },
   {
    "task": "MONEYOD1",

@@ -327,6 +327,46 @@
     "source": "ops/research/S342_DIGEST.md (TAKE CLEAN 24)",
     "when": "2026-11-01"
    }
+  ],
+  "pro_idle": [
+   {
+    "check": "Ollama gemma4:12b clip judge S399 (LOW TRUST, ranks only)",
+    "result": "8/10 SHIP",
+    "pass": false,
+    "note": "Foot sliding: 0:01.2 to 0:01.3 (slight sliding on the left foot as the weight shifts).",
+    "source": "previews/lean_anim/pro_idle.gemini_argon.md",
+    "when": "2026-11-07"
+   }
+  ],
+  "pro_win_v2": [
+   {
+    "check": "Ollama gemma4:12b clip judge S399 (LOW TRUST, ranks only)",
+    "result": "7/10 FIX",
+    "pass": false,
+    "note": "Foot sliding: 0:00.2 (slight slide during weight shift), 0:02.0 (sliding during turn).",
+    "source": "previews/lean_anim/pro_win_v2.gemini_argon.md",
+    "when": "2026-11-07"
+   }
+  ],
+  "pro_idle_fidget_v1": [
+   {
+    "check": "Ollama gemma4:12b clip judge S399 (LOW TRUST, ranks only)",
+    "result": "9/10 SHIP",
+    "pass": false,
+    "note": "Foot sliding: 0:01.3 (slight slide on the left foot as the weight shifts).",
+    "source": "previews/lean_anim/pro_idle_fidget_v1.gemini_argon.md",
+    "when": "2026-11-07"
+   }
+  ],
+  "pro_win_v3": [
+   {
+    "check": "Ollama gemma4:12b clip judge S399 (LOW TRUST, ranks only)",
+    "result": "2/10 CUT",
+    "pass": false,
+    "note": "Foot sliding: Significant sliding/floating seen at 0:00.4, 0:00.8, and 0:01.4.",
+    "source": "previews/lean_anim/pro_win_v3.gemini_argon.md",
+    "when": "2026-11-07"
+   }
   ]
  },
  "grapple": {

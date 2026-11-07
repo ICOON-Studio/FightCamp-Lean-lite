@@ -256,3 +256,25 @@ static func side(a: Dictionary) -> Vector3:
 
 static func _sc(a: Dictionary) -> float:
 	return (a["node"] as Node3D).scale.x
+
+
+## S399: where a glove with no job rests in the intro - in front of her chest, off her face. LOW: forward, down from the
+## chest bone, out to that hand's side (m, scaled with her).
+const LOW := Vector3(0.22, -0.10, 0.12)   # S399 still: -0.06 under the chest bone read at her hip
+
+
+static func low_glove(a: Dictionary, hand: String) -> Vector3:
+	var s: float = (a["node"] as Node3D).scale.x
+	var out := 1.0 if hand == "Left" else -1.0   # side() is her own left
+	return bone(a, "Chest") + (fwd(a) * LOW.x - Vector3.UP * LOW.y + side(a) * out * LOW.z) * s
+
+
+## The glove touch: boxer i's lead glove where the two meet between their chests (S391 pad: her glove's front, less `lean`
+## when she stands leaned in her stance).
+static func touch_at(boxers: Array, i: int, lean: float) -> Vector3:
+	var a: Dictionary = boxers[i]
+	var mid := (bone(boxers[0], "Chest") + bone(boxers[1], "Chest")) * 0.5 + Vector3.UP * 0.05
+	var toward := (pos(boxers[1 - i]) - pos(a)).normalized()
+	var pad := maxf(0.16, float(a.get("front", 0.16)) * (a["node"] as Node3D).scale.x + 0.015) - lean
+	return mid - toward * pad
+
