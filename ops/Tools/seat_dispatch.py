@@ -729,7 +729,7 @@ def _judged_at(head: str, task: str) -> tuple[str, dict]:
     return best
 
 
-def films(task: str, wt: Path, contract: dict, which: str) -> dict:
+def films(task: str, wt: Path, contract: dict, which: str, judge_now: bool = True) -> dict:
     mp4 = PREVIEWS / task / f"{which}.mp4"
     md = mp4.with_suffix(".gemini_argon.md")
     head = git("rev-parse", "HEAD", cwd=wt).strip()
@@ -753,10 +753,36 @@ def films(task: str, wt: Path, contract: dict, which: str) -> dict:
         return {"film": "", "why": why}
     title = brief_contract.brief_path(task).read_text(encoding="utf-8", errors="replace").splitlines()[0].lstrip("# ")
     label = "main, before the change" if which == "before" else "the agent's branch, after the change"
+    if not judge_now:   # S398: judged in the background by judge_later() while the seat works
+        return {"film": mp4.as_posix(), "head": head, "score": "?", "line": "", "rc": 0, "err": "",
+                "pending": (str(mp4), f"{task} {which}", f"Video = {label} for {title}. Judge above all what this change is about.")}
     j = judge(mp4, f"{task} {which}", f"Video = {label} for {title}. Judge above all what this change is about.")
     j["head"] = head
     log(f"JUDGE {task} {which}: Argon {j['score']}/10 {j['line'][:120]}")
     return j
+
+
+def judge_later(task: str, d: dict):
+    """S398 (anim-chain: every launch sat 15-20 min before the seat started while the BEFORE film was judged through the
+    Gemini -> claude_judge -> ollama_judge chain): the before film is rendered first, then judged on a thread while the seat
+    works; run() joins it before the PR and the board need the score. Fills `d` in place. None when nothing is pending."""
+    import threading
+    pend = d.pop("pending", None) if d else None
+    if not pend:
+        return None
+
+    def work() -> None:
+        try:
+            j = judge(Path(pend[0]), pend[1], pend[2])
+            d.update({k: v for k, v in j.items() if k != "head"})
+            log(f"JUDGE {task} before (background): Argon {j.get('score')}/10 {str(j.get('line', ''))[:120]}")
+        except Exception as exc:  # a judge failure never stops the run; the PR shows '?'
+            d["err"] = f"background judge failed: {exc}"[:300]
+            log(f"JUDGE {task} before (background): FAILED {exc}")
+
+    t = threading.Thread(target=work, name=f"judge-{task}", daemon=True)
+    t.start()
+    return t
 
 
 def post_board(task: str, before: dict, after: dict, branch: str) -> str:
@@ -879,7 +905,8 @@ def run(task: str) -> int:
     out = Path(info["dispatch"]["out"])
     contract = brief_contract.parse((wt / "ops" / "research" / f"TASK_{task}.md").read_text(encoding="utf-8", errors="replace"))
     try:
-        before = films(task, wt, contract, "before") if needs_film(contract) else {}
+        before = films(task, wt, contract, "before", judge_now=(seat == "agy")) if needs_film(contract) else {}
+        before_judge = judge_later(task, before)   # S398: qwen/cursor start right after the render; agy waits (its eyes read the verdict)
         prompt = Path(info["dispatch"]["prompt"])
         env = dict(os.environ, GODOT_EXE=str(GODOT))
         env.pop("AGENT_WINDOW", None)
@@ -938,6 +965,8 @@ def run(task: str) -> int:
             after = {"film": "", "why": "does not compile: " + "; ".join(broken[:3]), "compile": broken} if needs_film(contract) else {}
         else:
             after = films(task, wt, contract, "after") if needs_film(contract) else {}
+        if before_judge is not None:
+            before_judge.join(timeout=2400)   # the background before-film judge (judge_later) must be done for the PR and board
         board = post_board(task, before, after, branch) if (before.get("film") or after.get("film")) else ""
         title = f"{task}: {short_title(task, info.get('title', ''))[:100]} ({info['agent']}, unattended)"
         body = pr_body(task, info, checks, committed, stray, before, after, out_tail)

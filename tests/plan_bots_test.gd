@@ -40,6 +40,13 @@ func _initialize() -> void:
 	var hp := CoachPlan.write(style, 74.0, lucy0.get("moves", {}), {"1-1": 50.0})
 	_check(hp.size() == 2 and hp.all(func(a): return PlanFight.fit(str(a["move"]), "press") == "best" and bool(a.get("coach", false))),
 		"the coach's arrows answer her main game and are marked his: %s" % str(hp))
+	# S398 rank 5: a hired coach always writes a line, whatever her style, even with no combination drilled (a walk-in vs Priya got
+	# none and the Why said NO PLAN); every line is a best answer to the game on its card.
+	for st in Exchanges.STYLE_MODES:
+		var bare := CoachPlan.write(str(st), 58.0, lucy0.get("moves", {}), {})
+		_check(bare.size() == 1 and bare.all(func(a): return PlanFight.fit(str(a["move"]), _game_on(str(st), str(a["move"]))) == "best" and PlanFight.rate(str(a["move"]), {}) >= 1.0),
+			"coach 58 writes one drilled best line vs %s with no combination drilled: %s" % [st, str(bare)])
+		_check(CoachPlan.write(str(st), 74.0, lucy0.get("moves", {}), {}).size() == 2, "coach 74 writes two lines vs %s" % st)
 	var why := FightWhy.read([{"won": true, "plan": hp, "exchanges": [{"won": true, "landed": [4, 3], "planned": true, "arrow": "step_back",
 		"arrow_fit": "best", "psit": "press", "plan_edge": 5.0}]}], "Lucy", "Maria")
 	_check(str(why["plan"]).begins_with("The coach's plan") and str(why["next"]).contains("plan of your own"), "the Why says it was the coach's plan")
@@ -63,6 +70,15 @@ func _initialize() -> void:
 	print("PLAN_BOTS rule 4 %s: weighed - lookup %+.3f (target +0.08)" % ["PASS" if weighed >= lookup + 0.08 else "OPEN", weighed - lookup])
 	print("PLAN_BOTS checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures > 0 else 0)
+
+
+## The game the coach answered on the card a move leaves from (CoachPlan.cards).
+static func _game_on(style: String, move_id: String) -> String:
+	var card := str(StrikeMap.move(move_id).get("from", ""))
+	for cg in CoachPlan.cards(style):
+		if str(cg[0]) == card:
+			return str(cg[1])
+	return ""
 
 
 ## Rule 4 lookup: the report says "pressure" - the first move on each card that answers pressure, whatever she has drilled.

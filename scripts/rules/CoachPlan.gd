@@ -3,6 +3,9 @@ extends RefCounted
 ## on coach skill: from close to no plan at all, up to about half of a well-read plan. It never reads an opponent as well as
 ## you can." The coach plans from the tape's style only, one card at a time, most-fought card first: on each card he reads
 ## he writes the best answer (PlanFight.ANSWERS) to the game her style brings there most, as long as she can throw it drilled.
+## S398 rank 5: a card with no such answer is skipped for the next one (a walk-in with no drilled combination got nothing
+## against a counter-puncher, so the Why said NO PLAN while a coach was hired). Undrilled answers stay out: measured, an
+## undrilled double jab vs Priya made the coach's plan worth +26 points of bouts (0.34 -> 0.60), more than the player's own.
 ## Cards he does not read get no arrow, so she improvises there exactly as with no plan: a coach's plan is safe, never
 ## a wrong one. How many cards he reads comes from his rating (READ_AT); no coach reads none.
 ## No "when" arrows, no habits, no second game on a card: those are the player's to find, so the player's plan stays best.
@@ -51,13 +54,24 @@ static func _add(per: Dictionary, card: String, game: String, w: float) -> void:
 	row[game] = float(row.get(game, 0.0)) + w
 
 
-## The coach's plan: one arrow on each card he reads, the first best answer there she can throw at full rate.
+## The coach's plan: one arrow on each card he reads (most-fought first, skipping a card she has no drilled best answer on),
+## the first best answer there she can throw at full rate.
 static func write(style: String, rating: float, mastery: Dictionary, combos: Dictionary) -> Array:
 	var plan: Array = []
-	for cg in cards(style).slice(0, reads(rating)):
-		for m in StrikeMap.outs(str(cg[0])):
-			var id := str(m["id"])
-			if PlanFight.fit(id, str(cg[1])) == "best" and PlanFight.can_do(m, mastery) and PlanFight.rate(id, combos) >= 1.0:
-				plan.append({"move": id, "coach": true})
-				break
+	var want := reads(rating)
+	for cg in cards(style):
+		if plan.size() >= want:
+			break
+		var id := answer(str(cg[0]), str(cg[1]), mastery, combos)
+		if id != "":
+			plan.append({"move": id, "coach": true})
 	return plan
+
+
+## The coach's answer on a card to a game: the first best move out of it she can do at full rate; "" if none.
+static func answer(card: String, game: String, mastery: Dictionary, combos: Dictionary) -> String:
+	for m in StrikeMap.outs(card):
+		var id := str(m["id"])
+		if PlanFight.fit(id, game) == "best" and PlanFight.can_do(m, mastery) and PlanFight.rate(id, combos) >= 1.0:
+			return id
+	return ""

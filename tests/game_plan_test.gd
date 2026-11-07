@@ -52,6 +52,9 @@ func _initialize() -> void:
 	for p in PlanLines.PLACES:
 		_check(gp.find_child("Line_%s_" % p, false, false) != null, "test 2: a line for %s" % p)
 	_check(gp.find_child("PlanMeter", true, false) != null, "test 2: the lines meter and the plan edge show")
+	# S398 rank 5: the coach's starter on show is not the plan the fight uses until a line is changed - it says so.
+	var unsaved := gp.find_children("*", "Label", true, false).any(func(l): return str((l as Label).text).to_upper().contains("NOT SAVED"))
+	_check(unsaved == (f.get("arrows", []) as Array).is_empty(), "test 2: a plan not yet saved says it is a suggestion")
 	var locks := 0
 	for n in gp.find_children("*", "TextureRect", true, false):
 		locks += int(str((n as Control).tooltip_text).begins_with("A coach rated"))

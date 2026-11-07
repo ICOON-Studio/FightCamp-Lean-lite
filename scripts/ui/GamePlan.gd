@@ -205,7 +205,10 @@ func _meter() -> Control:
 	h.name = "PlanMeter"
 	var limit := _limit()
 	var lines := UI.hbox(5)
-	lines.add_child(UI.caps("ANSWERS WRITTEN: %d, THE COACH CAN HOLD %d" % [arrows.size(), limit]))
+	# S398 rank 5: with no saved plan this shows the coach's starter, which the fight does not use until a line is changed.
+	var unsaved := (f.get("arrows", []) as Array).is_empty()
+	var shown := "A SUGGESTION, NOT SAVED: %d LINES. CHANGE ANY LINE TO USE THEM" if unsaved else "ANSWERS WRITTEN: %d"
+	lines.add_child(UI.caps((shown + ", THE COACH CAN HOLD %d") % [arrows.size(), limit]))
 	for n in range(1, PlanBoard.TOP_COACH + 1):
 		if n <= limit:
 			lines.add_child(UI.dot(UI.GREEN if n <= arrows.size() else UI.LINE))
