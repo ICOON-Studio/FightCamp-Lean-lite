@@ -4,7 +4,7 @@ extends SceneTree
 ## hips on the seat, the bottle at her mouth, nobody outside the ring or in a post, planted feet that do not slide on the
 ## walks, round 2 starting on the call. Real pictures only (the never-shown desktop):
 ##   python tools/hidden_desktop.py run --timeout=400 <godot.exe> --path . --windowed --resolution 1920x1080 \
-##       --script res://tools/corner_film.gd -- <out_dir> [film] [pick=body] [combos]
+##       --script res://tools/corner_film.gd -- <out_dir> [film] [short] [pick=body] [combos]
 ## `film`: no stills, play the whole fight's corners (run it under --write-movie). Prints CORNER_FILM failures=<n>.
 
 const W := 1920
@@ -32,6 +32,7 @@ var main: Node
 var out_dir := "user://corner_film"
 var failures := 0
 var film := false
+var short := false   # S397 `short` (operator: "why 5 minute and not shorter?"): round 1 skipped, one corner minute, round 2 opens
 var pick := "body"
 var pro := false
 var habits: Array = []
@@ -46,6 +47,7 @@ func _initialize() -> void:
 		out_dir = args[0]
 	for a in args:
 		film = film or str(a) == "film"
+		short = short or str(a) == "short"
 		pro = pro or str(a) == "pro"
 		if str(a).begins_with("pick="):
 			pick = str(a).substr(5)
@@ -92,8 +94,8 @@ func _initialize() -> void:
 	_check(not view.stage.scene, "the fight has the boxers back after the intro")
 	for n in range(1, total):
 		await _wait(30)
-		if film:
-			# The film watches each round to its bell.
+		if film and not short:
+			# The film watches each round to its bell (`short`: skips it, as the stills run does).
 			await _until(func(): return _find(view, "cue_walk_out") != null or not bool(view.playing), 120.0)
 		else:
 			view.skip_round()
@@ -115,9 +117,11 @@ func _initialize() -> void:
 			print("CORNER_FILM round %d opened with fix '%s'" % [n + 1, fx])
 			_check(fx != "", "the corner's fix reaches the next round")
 		_check(not view.stage.scene, "the fight has the boxers back")
-		if not film:
+		if not film or short:
 			break
-	if film:
+	if short:
+		await _wait(240)   # round 2's first seconds: the walk out and the touch of gloves
+	elif film:
 		await _until(func(): return not bool(view.playing), 120.0)
 		await _wait(90)
 	print("CORNER_FILM failures=%d" % failures)

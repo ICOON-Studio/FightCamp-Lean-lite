@@ -5077,64 +5077,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "SOUND3 wired + merged",
-     "who": "claude"
-    },
-    {
-     "text": "Fight polish: walk, card, lens",
-     "who": "claude"
-    },
-    {
-     "text": "Truth pass: Settings, Handbook",
-     "who": "claude"
-    },
-    {
-     "text": "Autosave every Monday",
-     "who": "claude"
-    },
-    {
-     "text": "Screen cut: 5 rail, 8 tabs, 5",
-     "who": "claude"
-    },
-    {
-     "text": "Roster as a sortable table",
-     "who": "claude"
-    },
-    {
-     "text": "Menus blind 5 -> 5.5",
-     "who": "claude"
-    },
-    {
-     "text": "WORLD1 brief queued on Qwen",
-     "who": "agent"
-    },
-    {
-     "text": "HUD 5 to 6.5: corner, bell, fades",
-     "who": "claude"
-    },
-    {
-     "text": "Corner shows energy, legs, guard",
-     "who": "claude"
-    },
-    {
-     "text": "Portraits level, soft, 4.5: held",
-     "who": "claude"
-    },
-    {
-     "text": "Big-shot slow-mo, TV hit line",
-     "who": "claude"
-    },
-    {
-     "text": "Boxers walk on a real capture",
-     "who": "claude"
-    },
-    {
-     "text": "Structure design: Qs 113-122",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "WORLD1 merged: 20-year world",
      "who": "claude"
     },
@@ -5161,15 +5103,49 @@
     {
      "text": "Free seats + 8/10 split",
      "who": "claude"
+    },
+    {
+     "text": "SOUND3 wired + merged",
+     "who": "claude"
+    },
+    {
+     "text": "Fight polish: walk, card, lens",
+     "who": "claude"
+    },
+    {
+     "text": "Truth pass: Settings, Handbook",
+     "who": "claude"
+    },
+    {
+     "text": "Autosave every Monday",
+     "who": "claude"
+    },
+    {
+     "text": "Screen cut: 5 rail, 8 tabs, 5",
+     "who": "claude"
+    },
+    {
+     "text": "Roster as a sortable table",
+     "who": "claude"
+    },
+    {
+     "text": "Menus blind 5 -> 5.5",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Ziva back up on main",
+     "who": "claude"
+    },
+    {
+     "text": "4 startup apps off (memory)",
+     "who": "claude"
     }
    ],
    "now": [
     {
      "text": "BJJ body contact session",
-     "who": "claude"
-    },
-    {
-     "text": "Traits at 5/10: wrong-plan test",
      "who": "claude"
     },
     {
@@ -5259,15 +5235,15 @@
      "who": "claude"
     },
     {
-     "text": "Plan bites (P17), rank 3",
+     "text": "Corner + Why: keep, improve",
      "who": "claude"
     },
     {
-     "text": "Corner + Why: keep, improve",
+     "text": "Traits at 5/10: wrong-plan test",
      "who": "claude"
     }
    ],
-   "session": "S397"
+   "session": "S398"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

@@ -1,7 +1,7 @@
 # TASK HITSELL3 - QWEN (qwen3-coder) - landed vs blocked measured on the fight's own path
 
-Status: DRAFT (S397, Claude, anim-chain session) - queued only after HITSELL2's film verdict (round 2 = branch qwen/hitsell2,
-commit ddb54e90). Discipline: boxing (the live 3D fight, up close).
+Status: OPEN (S397, Claude, anim-chain session). Round 2 = PR #69, branch qwen/hitsell2, commit ddb54e90 (not merged yet;
+its film is being judged). START FROM IT: `git checkout origin/qwen/hitsell2 -- tests/hit_sell_test.gd scripts/fight3d/HitSnap.gd`. Discipline: boxing (the live 3D fight, up close).
 
 ## Contract
 OWNS: scripts/fight3d/HitSnap.gd, scripts/fight3d/HitStun.gd, scripts/fight3d/HitImpact.gd, tests/hit_sell_test.gd

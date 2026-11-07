@@ -9,7 +9,7 @@ OWNS: scripts/fight3d/CornerCrew.gd, scripts/fight3d/CornerMinute.gd, scripts/fi
 RED_TEST: tests/fight_walk_test.gd -> FIGHT_WALK failures=0
 REGRESSION: fight_polish_test, corner_warm_test, foot_plant_test, corner_lens_test, ring_feet_test, crowd_room_test
 VISUAL: yes
-FILM: --resolution 1920x1080 --script res://tools/corner_film.gd -- E:/FightCamp/tmp/fightwalk2 film
+FILM: --resolution 1920x1080 --script res://tools/corner_film.gd -- E:/FightCamp/tmp/fightwalk2 film short
 
 ## Why round 1 failed (Claude measured it, then watched both films)
 1. THE BOXER NEVER WALKS. Round 1 sent a boxer's ow_walk through `RingFeet.walking()`. That function only moves `walk_at`
