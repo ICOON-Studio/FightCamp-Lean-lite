@@ -23,6 +23,7 @@ const Drift := preload("res://tools/orbit_drift.gd")   # S379 operator: "the cam
 
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const KneeTrack := preload("res://scripts/fight3d/KneeTrack.gd")
+const RkLoco := preload("res://scripts/fight3d/RkLoco.gd")
 const FPS := 30
 const MIN_S := 4.0
 const TAIL_S := 0.4
@@ -123,6 +124,12 @@ func _initialize() -> void:
 		var face: float = body.global_rotation.y
 		var c := Vector3.ZERO
 		var path := hips_path(skel, ap.get_animation(name), start, length)
+		# S399 a captured loco clip (RkLoco) is in place in the library: her body travels by its root curve
+		var loco := RkLoco.info(skel, name)
+		var base := body.position
+		if not loco.is_empty():
+			for k in path.size():
+				path[k] = (path[k] as Vector3) + body.global_transform.basis * RkLoco.sample(loco, start + k / float(FPS))
 		for p in path:
 			c += p
 		c /= float(maxi(path.size(), 1))
@@ -133,6 +140,8 @@ func _initialize() -> void:
 			var t := float(f) / FPS
 			var in_cycle := fmod(t, cycle)
 			Stage.IdleMatch.freeze(bx, name, start + minf(in_cycle, length))
+			if not loco.is_empty():
+				body.position = base + body.global_transform.basis * RkLoco.sample(loco, start + minf(in_cycle, length))
 			if follow and path.size() > 0:
 				var hp: Vector3 = path[clampi(int(minf(in_cycle, length) * FPS), 0, path.size() - 1)]
 				c = c.lerp(Vector3(hp.x, 1.0, hp.z), 1.0 - exp(-(1.0 / FPS) / 0.6))
@@ -143,6 +152,7 @@ func _initialize() -> void:
 			await RenderingServer.frame_post_draw
 			root.get_texture().get_image().save_jpg(dir.path_join("f%04d.jpg" % f), 0.88)
 		done += 1
+		body.position = base
 		print("ORBIT %s %.2f-%.2fs %d frames" % [name, start, start + length, frames])
 	print("ORBIT DONE %d/%d" % [done, ids.size()])
 	quit(0)

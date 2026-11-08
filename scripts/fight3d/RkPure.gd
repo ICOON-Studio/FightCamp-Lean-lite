@@ -16,7 +16,7 @@ extends RefCounted
 const RkClips := preload("res://scripts/fight3d/RkClips.gd")
 
 const FADE_S := 0.15
-const KEEP := ["MetaHumanTwist", "JoinSmoother"]
+const KEEP := ["MetaHumanTwist", "JoinSmoother", "RkJoinFeet"]   # RkJoinFeet: the feet through a join (acts only then)
 const LEGS := ["BoxerFootworkRig", "BoxerFootworkUpper", "FootPlant", "KneeTrack", "FloorClear"]
 
 

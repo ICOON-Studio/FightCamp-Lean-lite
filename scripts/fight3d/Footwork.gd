@@ -9,6 +9,7 @@ const GuardLife := preload("res://scripts/fight3d/GuardLife.gd")
 const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
 const RangeBreath := preload("res://scripts/fight3d/RangeBreath.gd")
 const RkLoco := preload("res://scripts/fight3d/RkLoco.gd")
+const RkJoin := preload("res://scripts/fight3d/RkJoin.gd")
 
 ## Stride speed of each footwork clip at 1x, metres a second, and its direction in the boxer's own frame (old repo U84,
 ## measured on the source): the body moves exactly this fast while the clip plays, so the planted foot stays planted.
@@ -270,7 +271,9 @@ func walk(who: int, clip: String, seconds: float, scale: float = WALK_SCALE, aim
 			bx["move_left"] = float(loco["seconds"])
 			bx["move_total"] = float(loco["seconds"])
 			stage._cut[who] = {}
+			RkJoin.capture(stage, who)
 			stage._start(who, str(loco["clip"]), 1.0, stage.GUARD_FADE_S)   # the guard's slower join (a strike's popped the knee)
+			RkJoin.align(stage, who)
 			return
 	if glide:
 		return

@@ -30,6 +30,7 @@ const BoxerFootworkRig := preload("res://scripts/fight3d/BoxerFootworkRig.gd")
 const FighterLook := preload("res://scripts/rules/FighterLook.gd")
 const FighterFace := preload("res://scripts/fight3d/FighterFace.gd")
 const FighterLife := preload("res://scripts/fight3d/FighterLife.gd")
+const RkJoinFeet := preload("res://scripts/fight3d/RkJoinFeet.gd")
 
 
 static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
@@ -74,6 +75,17 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	else:
 		js.free()
 		js = null
+	# S399: a join into a captured clip keeps her feet planted through the blend (right after the join smoother).
+	var jf := RkJoinFeet.new()
+	jf.name = "RkJoinFeet"
+	if jf.setup(skel):
+		jf.js = js
+		jf.ap = body.find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
+		skel.add_child(jf)
+		skel.move_child(jf, (js.get_index() + 1) if js != null else 0)
+	else:
+		jf.free()
+		jf = null
 	# S323: a tired trunk folds, the head hangs, the shoulders heave (before the guard, so the gloves follow the face).
 	var ts := TiredSag.new()
 	ts.name = "TiredSag"
@@ -170,7 +182,7 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	if tw != null:
 		skel.move_child(tw, skel.get_child_count() - 1)
 	ap.animation_finished.connect(stage._on_finished.bind(index))
-	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "weave": gw, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "rig": rig, "floor": fc, "life": life, "look": look, "south": south, "front": gl.front_m(),
+	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "joinfeet": jf, "weave": gw, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "rig": rig, "floor": fc, "life": life, "look": look, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,
 		"aim_m": 0.0, "aim_dir": 0.0, "hold_m": 0.0}
 

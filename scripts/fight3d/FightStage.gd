@@ -29,6 +29,7 @@ const FaceFill := preload("res://scripts/fight3d/FaceFill.gd")
 const RkClips := preload("res://scripts/fight3d/RkClips.gd")
 const RkPure := preload("res://scripts/fight3d/RkPure.gd")
 const RkLoco := preload("res://scripts/fight3d/RkLoco.gd")
+const RkJoin := preload("res://scripts/fight3d/RkJoin.gd")
 
 const CONTACT_S := 8.0 / 30.0
 ## When the glove lands, seconds into each move (natives frame 8; baked: the old repo's clip_phases contact_s).
@@ -251,6 +252,7 @@ func guard(who: int) -> void:
 	boxers[who]["step_grace"] = 0.0
 	var idle := BeatClips.first(BeatClips.GUARD, ap.has_animation)
 	ap.speed_scale = 1.0
+	RkJoin.capture(self, who)   # S399: her feet now, before the guard's seek poses the new clip
 	if idle != "":
 		# S399 ROKOKO2: the captured guard is two windows of one take; each return to guard enters one of them (old S274
 		# GUARD_VARIANTS) at the point nearest her pose, and plays at the take's own speed (a tempo would retime the actor).
@@ -267,6 +269,7 @@ func guard(who: int) -> void:
 			at = minf(at, maxf(0.0, ap.get_animation(idle).length - 3.0))
 		_start(who, idle, 1.0 if rk_guard else float(g[1]), GUARD_FADE_S)
 		ap.seek(at, true)
+		RkJoin.align(self, who)   # S399: the guard's feet laid over the feet she stands on
 	else:
 		ap.play("jab")
 		ap.seek(0.0, true)
@@ -300,9 +303,11 @@ func play(who: int, move: String, speed: float = 1.0, from_s: float = 0.0) -> bo
 	life.cancel(who)
 	if boxers[who].get("reach") != null:
 		(boxers[who]["reach"] as Node).disarm()
+	RkJoin.capture(self, who)
 	_start(who, move, speed)
 	if from_s > 0.0:
 		(boxers[who]["ap"] as AnimationPlayer).seek(from_s, true)
+	RkJoin.align(self, who)
 	var r := BeatClips.recovery(move)
 	_cut[who] = {} if r.y <= 0.0 else {"clip": move, "contact": r.x if r.x >= 0.15 else -1.0, "back": r.y, "fast": false,
 		"scale": BeatClips.recover_scale(move, speed)}
