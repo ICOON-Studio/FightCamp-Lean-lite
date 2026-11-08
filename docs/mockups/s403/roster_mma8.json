@@ -1,0 +1,1203 @@
+{
+ "_doc": "S403: the eight MMA fighters for every menu mockup. Primary attributes are the agreed 11. The skills list is a DRAFT until the skills review.",
+ "primary": [
+  "Strength",
+  "Explosiveness",
+  "Hand speed",
+  "Foot speed",
+  "Stamina",
+  "Recovery",
+  "Flexibility",
+  "Durability",
+  "Fight IQ",
+  "Composure",
+  "Heart"
+ ],
+ "skills_draft": [
+  "Accuracy",
+  "Timing",
+  "Blocking",
+  "Head movement",
+  "Footwork",
+  "Inside fighting",
+  "Clinch",
+  "Kick defence",
+  "Takedowns",
+  "Takedown defence",
+  "Scrambling",
+  "Guard",
+  "Passing",
+  "Control",
+  "Submissions",
+  "Submission defence",
+  "Escapes"
+ ],
+ "fighters": [
+  {
+   "name": "Lucy Jackson",
+   "sex": "F",
+   "age": 21,
+   "class": "Bantamweight",
+   "kg": 61,
+   "height_cm": 169,
+   "reach_cm": 172,
+   "stance": "Orthodox",
+   "portrait": "assets/ui/style_b/portraits/mh_boxer_11.png",
+   "record": "2-1",
+   "rank": "-",
+   "base": "Boxer",
+   "read": "Sharp hands, learning the mat",
+   "style_dial": 60,
+   "weight": "Makes weight easily",
+   "tag": "",
+   "primary": {
+    "Strength": {
+     "now": 54,
+     "cap": 72
+    },
+    "Explosiveness": {
+     "now": 56,
+     "cap": 74
+    },
+    "Hand speed": {
+     "now": 63,
+     "cap": 81
+    },
+    "Foot speed": {
+     "now": 61,
+     "cap": 79
+    },
+    "Stamina": {
+     "now": 62,
+     "cap": 80
+    },
+    "Recovery": {
+     "now": 59,
+     "cap": 77
+    },
+    "Flexibility": {
+     "now": 49,
+     "cap": 67
+    },
+    "Durability": {
+     "now": 57,
+     "cap": 75
+    },
+    "Fight IQ": {
+     "now": 58,
+     "cap": 76
+    },
+    "Composure": {
+     "now": 52,
+     "cap": 70
+    },
+    "Heart": {
+     "now": 66,
+     "cap": 84
+    }
+   },
+   "skills": {
+    "Accuracy": {
+     "now": 58,
+     "cap": 82
+    },
+    "Timing": {
+     "now": 61,
+     "cap": 85
+    },
+    "Blocking": {
+     "now": 57,
+     "cap": 81
+    },
+    "Head movement": {
+     "now": 52,
+     "cap": 76
+    },
+    "Footwork": {
+     "now": 63,
+     "cap": 87
+    },
+    "Inside fighting": {
+     "now": 50,
+     "cap": 74
+    },
+    "Clinch": {
+     "now": 36,
+     "cap": 60
+    },
+    "Kick defence": {
+     "now": 32,
+     "cap": 56
+    },
+    "Takedowns": {
+     "now": 29,
+     "cap": 53
+    },
+    "Takedown defence": {
+     "now": 41,
+     "cap": 65
+    },
+    "Scrambling": {
+     "now": 32,
+     "cap": 56
+    },
+    "Guard": {
+     "now": 21,
+     "cap": 45
+    },
+    "Passing": {
+     "now": 17,
+     "cap": 41
+    },
+    "Control": {
+     "now": 27,
+     "cap": 51
+    },
+    "Submissions": {
+     "now": 14,
+     "cap": 38
+    },
+    "Submission defence": {
+     "now": 26,
+     "cap": 50
+    },
+    "Escapes": {
+     "now": 27,
+     "cap": 51
+    }
+   },
+   "moves": {
+    "Jab": "Sharp",
+    "Cross": "Sharp",
+    "Lead hook": "Usable",
+    "Body hook": "Usable",
+    "Uppercut": "Usable",
+    "Low kick": "Raw",
+    "Double leg": "Raw"
+   },
+   "today": {
+    "kind": "booked",
+    "text": "Fights Priya Nair (outside fighter, bantamweight wrestler) in 19 days"
+   }
+  },
+  {
+   "name": "Aisha Rahman",
+   "sex": "F",
+   "age": 26,
+   "class": "Flyweight",
+   "kg": 57,
+   "height_cm": 162,
+   "reach_cm": 164,
+   "stance": "Southpaw",
+   "portrait": "assets/ui/style_b/portraits/mh_boxer_10.png",
+   "record": "7-2",
+   "rank": "#9",
+   "base": "BJJ specialist",
+   "read": "Dangerous from her back, poor striker",
+   "style_dial": 38,
+   "weight": "Hard cut",
+   "tag": "",
+   "primary": {
+    "Strength": {
+     "now": 50,
+     "cap": 58
+    },
+    "Explosiveness": {
+     "now": 48,
+     "cap": 56
+    },
+    "Hand speed": {
+     "now": 44,
+     "cap": 52
+    },
+    "Foot speed": {
+     "now": 47,
+     "cap": 55
+    },
+    "Stamina": {
+     "now": 66,
+     "cap": 74
+    },
+    "Recovery": {
+     "now": 63,
+     "cap": 71
+    },
+    "Flexibility": {
+     "now": 82,
+     "cap": 90
+    },
+    "Durability": {
+     "now": 53,
+     "cap": 61
+    },
+    "Fight IQ": {
+     "now": 74,
+     "cap": 82
+    },
+    "Composure": {
+     "now": 72,
+     "cap": 80
+    },
+    "Heart": {
+     "now": 70,
+     "cap": 78
+    }
+   },
+   "skills": {
+    "Accuracy": {
+     "now": 34,
+     "cap": 48
+    },
+    "Timing": {
+     "now": 41,
+     "cap": 55
+    },
+    "Blocking": {
+     "now": 38,
+     "cap": 52
+    },
+    "Head movement": {
+     "now": 36,
+     "cap": 50
+    },
+    "Footwork": {
+     "now": 44,
+     "cap": 58
+    },
+    "Inside fighting": {
+     "now": 32,
+     "cap": 46
+    },
+    "Clinch": {
+     "now": 46,
+     "cap": 60
+    },
+    "Kick defence": {
+     "now": 30,
+     "cap": 44
+    },
+    "Takedowns": {
+     "now": 54,
+     "cap": 68
+    },
+    "Takedown defence": {
+     "now": 48,
+     "cap": 62
+    },
+    "Scrambling": {
+     "now": 70,
+     "cap": 84
+    },
+    "Guard": {
+     "now": 86,
+     "cap": 99
+    },
+    "Passing": {
+     "now": 74,
+     "cap": 88
+    },
+    "Control": {
+     "now": 71,
+     "cap": 85
+    },
+    "Submissions": {
+     "now": 88,
+     "cap": 99
+    },
+    "Submission defence": {
+     "now": 80,
+     "cap": 94
+    },
+    "Escapes": {
+     "now": 78,
+     "cap": 92
+    }
+   },
+   "moves": {
+    "Armbar": "Signature",
+    "Triangle": "Sharp",
+    "Rear naked choke": "Sharp",
+    "Hip bump sweep": "Sharp",
+    "Jab": "Raw",
+    "Double leg": "Usable"
+   },
+   "today": {
+    "kind": "camp",
+    "text": "In camp, week 3 of 6"
+   }
+  },
+  {
+   "name": "Maria Ortega",
+   "sex": "F",
+   "age": 28,
+   "class": "Flyweight",
+   "kg": 57,
+   "height_cm": 165,
+   "reach_cm": 166,
+   "stance": "Orthodox",
+   "portrait": "assets/ui/style_b/portraits/mh_boxer_13.png",
+   "record": "9-3",
+   "rank": "#5",
+   "base": "Wrestler",
+   "read": "Grinds on the wall, wins on control",
+   "style_dial": 72,
+   "weight": "Makes weight",
+   "tag": "",
+   "primary": {
+    "Strength": {
+     "now": 78,
+     "cap": 83
+    },
+    "Explosiveness": {
+     "now": 66,
+     "cap": 71
+    },
+    "Hand speed": {
+     "now": 48,
+     "cap": 53
+    },
+    "Foot speed": {
+     "now": 55,
+     "cap": 60
+    },
+    "Stamina": {
+     "now": 84,
+     "cap": 89
+    },
+    "Recovery": {
+     "now": 74,
+     "cap": 79
+    },
+    "Flexibility": {
+     "now": 44,
+     "cap": 49
+    },
+    "Durability": {
+     "now": 68,
+     "cap": 73
+    },
+    "Fight IQ": {
+     "now": 62,
+     "cap": 67
+    },
+    "Composure": {
+     "now": 70,
+     "cap": 75
+    },
+    "Heart": {
+     "now": 76,
+     "cap": 81
+    }
+   },
+   "skills": {
+    "Accuracy": {
+     "now": 44,
+     "cap": 55
+    },
+    "Timing": {
+     "now": 47,
+     "cap": 58
+    },
+    "Blocking": {
+     "now": 50,
+     "cap": 61
+    },
+    "Head movement": {
+     "now": 40,
+     "cap": 51
+    },
+    "Footwork": {
+     "now": 52,
+     "cap": 63
+    },
+    "Inside fighting": {
+     "now": 58,
+     "cap": 69
+    },
+    "Clinch": {
+     "now": 72,
+     "cap": 83
+    },
+    "Kick defence": {
+     "now": 46,
+     "cap": 57
+    },
+    "Takedowns": {
+     "now": 88,
+     "cap": 99
+    },
+    "Takedown defence": {
+     "now": 84,
+     "cap": 95
+    },
+    "Scrambling": {
+     "now": 76,
+     "cap": 87
+    },
+    "Guard": {
+     "now": 48,
+     "cap": 59
+    },
+    "Passing": {
+     "now": 70,
+     "cap": 81
+    },
+    "Control": {
+     "now": 86,
+     "cap": 97
+    },
+    "Submissions": {
+     "now": 40,
+     "cap": 51
+    },
+    "Submission defence": {
+     "now": 60,
+     "cap": 71
+    },
+    "Escapes": {
+     "now": 66,
+     "cap": 77
+    }
+   },
+   "moves": {
+    "Double leg": "Signature",
+    "Single leg": "Sharp",
+    "Ground and pound": "Sharp",
+    "Jab": "Usable",
+    "Cross": "Raw"
+   },
+   "today": {
+    "kind": "injured",
+    "text": "Injured: rib injury, fit in 3 weeks"
+   }
+  },
+  {
+   "name": "Megan Hughes",
+   "sex": "F",
+   "age": 24,
+   "class": "Featherweight",
+   "kg": 66,
+   "height_cm": 178,
+   "reach_cm": 183,
+   "stance": "Orthodox",
+   "portrait": "assets/ui/style_b/portraits/mh_boxer_12.png",
+   "record": "5-1",
+   "rank": "#14",
+   "base": "Muay Thai",
+   "read": "Knees and elbows in the clinch",
+   "style_dial": 64,
+   "weight": "Makes weight",
+   "tag": "Marks easily",
+   "primary": {
+    "Strength": {
+     "now": 66,
+     "cap": 80
+    },
+    "Explosiveness": {
+     "now": 62,
+     "cap": 76
+    },
+    "Hand speed": {
+     "now": 57,
+     "cap": 71
+    },
+    "Foot speed": {
+     "now": 58,
+     "cap": 72
+    },
+    "Stamina": {
+     "now": 70,
+     "cap": 84
+    },
+    "Recovery": {
+     "now": 62,
+     "cap": 76
+    },
+    "Flexibility": {
+     "now": 76,
+     "cap": 90
+    },
+    "Durability": {
+     "now": 60,
+     "cap": 74
+    },
+    "Fight IQ": {
+     "now": 60,
+     "cap": 74
+    },
+    "Composure": {
+     "now": 58,
+     "cap": 72
+    },
+    "Heart": {
+     "now": 64,
+     "cap": 78
+    }
+   },
+   "skills": {
+    "Accuracy": {
+     "now": 60,
+     "cap": 80
+    },
+    "Timing": {
+     "now": 58,
+     "cap": 78
+    },
+    "Blocking": {
+     "now": 62,
+     "cap": 82
+    },
+    "Head movement": {
+     "now": 48,
+     "cap": 68
+    },
+    "Footwork": {
+     "now": 56,
+     "cap": 76
+    },
+    "Inside fighting": {
+     "now": 70,
+     "cap": 90
+    },
+    "Clinch": {
+     "now": 86,
+     "cap": 99
+    },
+    "Kick defence": {
+     "now": 78,
+     "cap": 98
+    },
+    "Takedowns": {
+     "now": 30,
+     "cap": 50
+    },
+    "Takedown defence": {
+     "now": 50,
+     "cap": 70
+    },
+    "Scrambling": {
+     "now": 36,
+     "cap": 56
+    },
+    "Guard": {
+     "now": 26,
+     "cap": 46
+    },
+    "Passing": {
+     "now": 22,
+     "cap": 42
+    },
+    "Control": {
+     "now": 28,
+     "cap": 48
+    },
+    "Submissions": {
+     "now": 20,
+     "cap": 40
+    },
+    "Submission defence": {
+     "now": 34,
+     "cap": 54
+    },
+    "Escapes": {
+     "now": 32,
+     "cap": 52
+    }
+   },
+   "moves": {
+    "Knee": "Signature",
+    "Elbow": "Sharp",
+    "Teep": "Sharp",
+    "Low kick": "Sharp",
+    "Body kick": "Usable",
+    "Jab": "Usable",
+    "Cross": "Usable"
+   },
+   "today": {
+    "kind": "offer",
+    "text": "Offer: top-10 fight on 5 weeks' notice"
+   }
+  },
+  {
+   "name": "Danny Osei",
+   "sex": "M",
+   "age": 20,
+   "class": "Lightweight",
+   "kg": 70,
+   "height_cm": 174,
+   "reach_cm": 178,
+   "stance": "Orthodox",
+   "portrait": "assets/ui/style_b/portraits/mh_boxer_02.png",
+   "record": "3-0",
+   "rank": "-",
+   "base": "All-rounder",
+   "read": "Young prospect, nothing bad, nothing great yet",
+   "style_dial": 55,
+   "weight": "Makes weight easily",
+   "tag": "",
+   "primary": {
+    "Strength": {
+     "now": 58,
+     "cap": 84
+    },
+    "Explosiveness": {
+     "now": 64,
+     "cap": 90
+    },
+    "Hand speed": {
+     "now": 60,
+     "cap": 86
+    },
+    "Foot speed": {
+     "now": 62,
+     "cap": 88
+    },
+    "Stamina": {
+     "now": 64,
+     "cap": 90
+    },
+    "Recovery": {
+     "now": 70,
+     "cap": 96
+    },
+    "Flexibility": {
+     "now": 60,
+     "cap": 86
+    },
+    "Durability": {
+     "now": 58,
+     "cap": 84
+    },
+    "Fight IQ": {
+     "now": 46,
+     "cap": 72
+    },
+    "Composure": {
+     "now": 44,
+     "cap": 70
+    },
+    "Heart": {
+     "now": 62,
+     "cap": 88
+    }
+   },
+   "skills": {
+    "Accuracy": {
+     "now": 50,
+     "cap": 82
+    },
+    "Timing": {
+     "now": 46,
+     "cap": 78
+    },
+    "Blocking": {
+     "now": 48,
+     "cap": 80
+    },
+    "Head movement": {
+     "now": 50,
+     "cap": 82
+    },
+    "Footwork": {
+     "now": 54,
+     "cap": 86
+    },
+    "Inside fighting": {
+     "now": 46,
+     "cap": 78
+    },
+    "Clinch": {
+     "now": 48,
+     "cap": 80
+    },
+    "Kick defence": {
+     "now": 44,
+     "cap": 76
+    },
+    "Takedowns": {
+     "now": 52,
+     "cap": 84
+    },
+    "Takedown defence": {
+     "now": 50,
+     "cap": 82
+    },
+    "Scrambling": {
+     "now": 56,
+     "cap": 88
+    },
+    "Guard": {
+     "now": 46,
+     "cap": 78
+    },
+    "Passing": {
+     "now": 44,
+     "cap": 76
+    },
+    "Control": {
+     "now": 46,
+     "cap": 78
+    },
+    "Submissions": {
+     "now": 42,
+     "cap": 74
+    },
+    "Submission defence": {
+     "now": 44,
+     "cap": 76
+    },
+    "Escapes": {
+     "now": 48,
+     "cap": 80
+    }
+   },
+   "moves": {
+    "Jab": "Usable",
+    "Cross": "Usable",
+    "Low kick": "Usable",
+    "Double leg": "Usable",
+    "Armbar": "Raw",
+    "Knee": "Raw"
+   },
+   "today": {
+    "kind": "contract",
+    "text": "Contract ends in 4 weeks"
+   }
+  },
+  {
+   "name": "Josh Harper",
+   "sex": "M",
+   "age": 27,
+   "class": "Middleweight",
+   "kg": 84,
+   "height_cm": 183,
+   "reach_cm": 193,
+   "stance": "Southpaw",
+   "portrait": "assets/ui/style_b/portraits/mh_boxer_01.png",
+   "record": "11-4",
+   "rank": "#7",
+   "base": "Kickboxer",
+   "read": "Long kicks at range, hates the floor",
+   "style_dial": 46,
+   "weight": "Hard cut",
+   "tag": "",
+   "primary": {
+    "Strength": {
+     "now": 62,
+     "cap": 68
+    },
+    "Explosiveness": {
+     "now": 72,
+     "cap": 78
+    },
+    "Hand speed": {
+     "now": 66,
+     "cap": 72
+    },
+    "Foot speed": {
+     "now": 78,
+     "cap": 84
+    },
+    "Stamina": {
+     "now": 72,
+     "cap": 78
+    },
+    "Recovery": {
+     "now": 64,
+     "cap": 70
+    },
+    "Flexibility": {
+     "now": 84,
+     "cap": 90
+    },
+    "Durability": {
+     "now": 64,
+     "cap": 70
+    },
+    "Fight IQ": {
+     "now": 68,
+     "cap": 74
+    },
+    "Composure": {
+     "now": 66,
+     "cap": 72
+    },
+    "Heart": {
+     "now": 58,
+     "cap": 64
+    }
+   },
+   "skills": {
+    "Accuracy": {
+     "now": 74,
+     "cap": 86
+    },
+    "Timing": {
+     "now": 72,
+     "cap": 84
+    },
+    "Blocking": {
+     "now": 60,
+     "cap": 72
+    },
+    "Head movement": {
+     "now": 66,
+     "cap": 78
+    },
+    "Footwork": {
+     "now": 78,
+     "cap": 90
+    },
+    "Inside fighting": {
+     "now": 48,
+     "cap": 60
+    },
+    "Clinch": {
+     "now": 44,
+     "cap": 56
+    },
+    "Kick defence": {
+     "now": 82,
+     "cap": 94
+    },
+    "Takedowns": {
+     "now": 34,
+     "cap": 46
+    },
+    "Takedown defence": {
+     "now": 46,
+     "cap": 58
+    },
+    "Scrambling": {
+     "now": 40,
+     "cap": 52
+    },
+    "Guard": {
+     "now": 28,
+     "cap": 40
+    },
+    "Passing": {
+     "now": 26,
+     "cap": 38
+    },
+    "Control": {
+     "now": 30,
+     "cap": 42
+    },
+    "Submissions": {
+     "now": 24,
+     "cap": 36
+    },
+    "Submission defence": {
+     "now": 38,
+     "cap": 50
+    },
+    "Escapes": {
+     "now": 36,
+     "cap": 48
+    }
+   },
+   "moves": {
+    "High kick": "Signature",
+    "Body kick": "Sharp",
+    "Low kick": "Sharp",
+    "Teep": "Sharp",
+    "Jab": "Sharp",
+    "Cross": "Usable"
+   },
+   "today": {
+    "kind": "free",
+    "text": "No fight booked"
+   }
+  },
+  {
+   "name": "Tomas Novak",
+   "sex": "M",
+   "age": 25,
+   "class": "Welterweight",
+   "kg": 77,
+   "height_cm": 179,
+   "reach_cm": 182,
+   "stance": "Orthodox",
+   "portrait": "assets/ui/style_b/portraits/mh_boxer_03.png",
+   "record": "8-5",
+   "rank": "#22",
+   "base": "Power puncher",
+   "read": "One big right hand, gone by round 3",
+   "style_dial": 84,
+   "weight": "Very hard cut",
+   "tag": "",
+   "primary": {
+    "Strength": {
+     "now": 86,
+     "cap": 94
+    },
+    "Explosiveness": {
+     "now": 90,
+     "cap": 98
+    },
+    "Hand speed": {
+     "now": 70,
+     "cap": 78
+    },
+    "Foot speed": {
+     "now": 54,
+     "cap": 62
+    },
+    "Stamina": {
+     "now": 44,
+     "cap": 52
+    },
+    "Recovery": {
+     "now": 46,
+     "cap": 54
+    },
+    "Flexibility": {
+     "now": 40,
+     "cap": 48
+    },
+    "Durability": {
+     "now": 58,
+     "cap": 66
+    },
+    "Fight IQ": {
+     "now": 48,
+     "cap": 56
+    },
+    "Composure": {
+     "now": 54,
+     "cap": 62
+    },
+    "Heart": {
+     "now": 72,
+     "cap": 80
+    }
+   },
+   "skills": {
+    "Accuracy": {
+     "now": 52,
+     "cap": 66
+    },
+    "Timing": {
+     "now": 56,
+     "cap": 70
+    },
+    "Blocking": {
+     "now": 44,
+     "cap": 58
+    },
+    "Head movement": {
+     "now": 36,
+     "cap": 50
+    },
+    "Footwork": {
+     "now": 42,
+     "cap": 56
+    },
+    "Inside fighting": {
+     "now": 62,
+     "cap": 76
+    },
+    "Clinch": {
+     "now": 50,
+     "cap": 64
+    },
+    "Kick defence": {
+     "now": 40,
+     "cap": 54
+    },
+    "Takedowns": {
+     "now": 38,
+     "cap": 52
+    },
+    "Takedown defence": {
+     "now": 42,
+     "cap": 56
+    },
+    "Scrambling": {
+     "now": 40,
+     "cap": 54
+    },
+    "Guard": {
+     "now": 24,
+     "cap": 38
+    },
+    "Passing": {
+     "now": 24,
+     "cap": 38
+    },
+    "Control": {
+     "now": 30,
+     "cap": 44
+    },
+    "Submissions": {
+     "now": 16,
+     "cap": 30
+    },
+    "Submission defence": {
+     "now": 30,
+     "cap": 44
+    },
+    "Escapes": {
+     "now": 28,
+     "cap": 42
+    }
+   },
+   "moves": {
+    "Cross": "Signature",
+    "Lead hook": "Sharp",
+    "Uppercut": "Usable",
+    "Jab": "Raw",
+    "Low kick": "Raw"
+   },
+   "today": {
+    "kind": "leaving",
+    "text": "A bigger gym has made an offer"
+   }
+  },
+  {
+   "name": "Kwame Boateng",
+   "sex": "M",
+   "age": 37,
+   "class": "Heavyweight",
+   "kg": 111,
+   "height_cm": 186,
+   "reach_cm": 196,
+   "stance": "Orthodox",
+   "portrait": "assets/ui/style_b/portraits/mh_boxer_07.png",
+   "record": "24-11",
+   "rank": "#12",
+   "base": "Veteran counter-fighter",
+   "read": "Reads everything, the legs and chin are going",
+   "style_dial": 28,
+   "weight": "No cut needed",
+   "tag": "",
+   "primary": {
+    "Strength": {
+     "now": 80,
+     "cap": 80
+    },
+    "Explosiveness": {
+     "now": 48,
+     "cap": 48
+    },
+    "Hand speed": {
+     "now": 52,
+     "cap": 52
+    },
+    "Foot speed": {
+     "now": 38,
+     "cap": 38
+    },
+    "Stamina": {
+     "now": 50,
+     "cap": 50
+    },
+    "Recovery": {
+     "now": 42,
+     "cap": 42
+    },
+    "Flexibility": {
+     "now": 38,
+     "cap": 38
+    },
+    "Durability": {
+     "now": 31,
+     "cap": 31
+    },
+    "Fight IQ": {
+     "now": 90,
+     "cap": 90
+    },
+    "Composure": {
+     "now": 88,
+     "cap": 88
+    },
+    "Heart": {
+     "now": 80,
+     "cap": 80
+    }
+   },
+   "skills": {
+    "Accuracy": {
+     "now": 76,
+     "cap": 82
+    },
+    "Timing": {
+     "now": 88,
+     "cap": 94
+    },
+    "Blocking": {
+     "now": 74,
+     "cap": 80
+    },
+    "Head movement": {
+     "now": 66,
+     "cap": 72
+    },
+    "Footwork": {
+     "now": 60,
+     "cap": 66
+    },
+    "Inside fighting": {
+     "now": 70,
+     "cap": 76
+    },
+    "Clinch": {
+     "now": 68,
+     "cap": 74
+    },
+    "Kick defence": {
+     "now": 60,
+     "cap": 66
+    },
+    "Takedowns": {
+     "now": 50,
+     "cap": 56
+    },
+    "Takedown defence": {
+     "now": 70,
+     "cap": 76
+    },
+    "Scrambling": {
+     "now": 44,
+     "cap": 50
+    },
+    "Guard": {
+     "now": 52,
+     "cap": 58
+    },
+    "Passing": {
+     "now": 56,
+     "cap": 62
+    },
+    "Control": {
+     "now": 60,
+     "cap": 66
+    },
+    "Submissions": {
+     "now": 44,
+     "cap": 50
+    },
+    "Submission defence": {
+     "now": 62,
+     "cap": 68
+    },
+    "Escapes": {
+     "now": 58,
+     "cap": 64
+    }
+   },
+   "moves": {
+    "Cross": "Signature",
+    "Check hook": "Signature",
+    "Jab": "Sharp",
+    "Double leg": "Usable"
+   },
+   "today": {
+    "kind": "retire",
+    "text": "Talking about retiring"
+   }
+  }
+ ]
+}

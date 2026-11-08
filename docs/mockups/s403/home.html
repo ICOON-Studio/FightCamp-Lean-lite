@@ -1,0 +1,123 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Home</title><style>
+@font-face{font-family:Barlow;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:BarlowB;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Marker;src:url(file:///E:/FightCamp/Lean/assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Kalam;src:url(file:///E:/FightCamp/Lean/assets/fonts/Kalam-Regular.ttf)}
+@font-face{font-family:KalamB;src:url(file:///E:/FightCamp/Lean/assets/fonts/Kalam-Bold.ttf)}
+:root{--blue:#2F6FDB;--red:#D93F34;--green:#2A8F5E;--ink:#22262E;--amber:#C9770F;--mut:#5b554a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:#c9a574 url(file:///E:/FightCamp/Lean/assets/ui/warm/wall.png) 0 0/384px 384px;font-family:Barlow;color:var(--ink);overflow:hidden;position:relative}
+.top{height:76px;display:flex;align-items:center;padding:0 22px;gap:14px;background:#f6ead3 url(file:///E:/FightCamp/Lean/assets/ui/warm/paper.png) 0 0/600px auto;box-shadow:0 4px 0 rgba(90,60,25,.35);position:relative;z-index:5}
+.nb{border:1.5px solid #b9a27d;border-radius:8px;padding:6px 13px;font-family:BarlowB;font-size:17px;color:#555;background:#fffaf0}
+.gym{font-family:Marker;font-size:32px;color:var(--blue);margin-left:6px}
+.date{font-family:BarlowB;font-size:19px;line-height:1.1}.date small{display:block;font-family:Barlow;font-size:14px;color:var(--mut)}
+.sp{flex:1}
+.cash{text-align:right;font-family:BarlowB;font-size:27px;color:var(--green);line-height:1}.cash small{display:block;font-family:Barlow;font-size:14px;color:var(--mut);margin-top:3px}
+.go{background:var(--red);color:#fff;font-family:BarlowB;font-size:20px;padding:8px 24px;border-radius:30px;line-height:1.1;width:560px;box-shadow:0 3px 0 #9d2a22}.go small{display:block;font-family:Barlow;font-size:14px;opacity:.95}
+.wrap{display:flex;height:1004px}
+nav{width:200px;padding:14px 11px;display:flex;flex-direction:column;gap:11px}
+nav a{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-radius:12px;background:#f8efdc url(file:///E:/FightCamp/Lean/assets/ui/warm/paper.png) 0 0/300px auto;font-family:BarlowB;font-size:20px;border-left:8px solid #a48c66;box-shadow:0 3px 5px rgba(60,35,10,.3)}
+nav a.on{border-left-color:var(--red)}
+nav .b{background:var(--red);color:#fff;border-radius:10px;font-size:14px;padding:1px 7px}
+.anvil{margin:18px 0 0 22px;width:68px;height:68px;border:3px double var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;background:#f8efdc}
+main{flex:1;padding:12px 20px 0 8px;display:grid;grid-template-columns:1fr 468px;gap:16px;align-content:start}
+.cap{font-family:BarlowB;font-size:13px;letter-spacing:2px;color:#6b6250;text-transform:uppercase}
+.btn{display:inline-block;background:var(--blue);color:#fff;font-family:BarlowB;font-size:15px;padding:5px 14px;border-radius:20px;white-space:nowrap}
+.btn.g{background:#fffaf0;color:var(--blue);border:2px solid var(--blue);padding:3px 12px}
+.btn.d{background:var(--ink)}
+.btn.q{background:#fffaf0;color:#555;border:2px solid #b9a27d;padding:3px 12px}
+.chip{display:inline-block;border:1.5px solid #8a7f69;border-radius:14px;padding:0 9px;font-family:BarlowB;font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;color:#4a4436;white-space:nowrap}
+.chip.green{border-color:var(--green);color:var(--green)}.chip.red{border-color:var(--red);color:var(--red)}.chip.amber{border-color:var(--amber);color:var(--amber)}.chip.blue{border-color:var(--blue);color:var(--blue)}
+.board{border:28px solid transparent;border-image:url(file:///E:/FightCamp/Lean/assets/ui/warm/board.png) 30 fill/28px stretch;padding:0 4px;height:290px;position:relative;filter:drop-shadow(0 6px 6px rgba(60,35,10,.4));margin-top:12px}
+.boardcap{display:inline-block;background:#f8efdc;padding:1px 10px;border-radius:4px;margin:4px 0 0 6px;font-family:BarlowB;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#6b6250}
+.notes{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:20px 22px;height:100%;padding-top:2px}
+.sticky{position:relative;padding:12px 16px 8px;font-family:Kalam;min-width:0}
+.sticky::before{content:"";position:absolute;inset:0;background:url(file:///E:/FightCamp/Lean/assets/ui/warm/sticky.png) 0 0/100% 100% no-repeat;filter:drop-shadow(0 4px 4px rgba(0,0,0,.3));z-index:0}
+.sticky.o::before{filter:hue-rotate(-22deg) saturate(1.5) drop-shadow(0 4px 4px rgba(0,0,0,.3))}
+.sticky.gr::before{filter:hue-rotate(60deg) saturate(.9) drop-shadow(0 4px 4px rgba(0,0,0,.3))}
+.sticky.r::before{filter:hue-rotate(-52deg) saturate(2.4) drop-shadow(0 4px 4px rgba(0,0,0,.3))}
+.sticky>*{position:relative;z-index:1}
+.sticky .mag{position:absolute;top:-12px;left:50%;width:24px;height:24px;background:url(file:///E:/FightCamp/Lean/assets/ui/warm/magnet.png) 0 0/100% 100%;z-index:2}
+.sticky h3{font-family:KalamB;font-size:19px;line-height:1.1;font-weight:400}
+.sticky p{font-size:15.5px;line-height:1.15;margin:2px 0 5px;font-family:Kalam;color:#3b3626}
+.sticky .btn{position:absolute;right:14px;bottom:12px}
+.card{position:relative;padding:12px 20px}
+.card::before{content:"";position:absolute;inset:0;background:url(file:///E:/FightCamp/Lean/assets/ui/warm/paper.png) 0 0/100% 100% no-repeat;filter:drop-shadow(0 4px 5px rgba(60,35,10,.35));z-index:0}
+.card>*{position:relative;z-index:1}
+.pfw{overflow:hidden;position:relative;flex:none;border-radius:6px;background:#111}.pfw img{position:absolute;left:0;top:0;width:100%;height:auto;transform:scale(1.85);transform-origin:50% 9%}
+.bar{height:9px;background:#e3d9c3;border-radius:5px;position:relative;overflow:hidden;width:70px}.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:5px}
+table{border-collapse:collapse;width:100%}
+th{font-family:BarlowB;font-size:13px;letter-spacing:1.3px;color:#6b6250;text-align:left;padding:2px 6px;text-transform:uppercase}
+td{padding:4px 6px;font-size:16px;border-top:1px solid #d9c9a8;vertical-align:middle}
+td small{display:block;color:var(--mut);font-size:13px;line-height:1.1}
+td .nm{font-family:BarlowB;font-size:19px;color:var(--blue);line-height:1.05}
+.kv{display:flex;justify-content:space-between;font-size:17px;padding:3px 0;border-bottom:1px solid #d9c9a8}.kv b{font-family:BarlowB}
+.news p{font-size:16px;line-height:1.2;margin-top:6px}.news small{color:var(--mut);font-size:13.5px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#8a7f69;margin-right:6px}
+.reason{font-family:Kalam;font-size:13.5px;color:var(--mut)}
+.uc{position:relative;filter:grayscale(1);opacity:.55;pointer-events:none}
+.uc::after{content:"";position:absolute;top:4px;right:4px;width:30px;height:30px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2 2 21h20z' fill='%23ffd54a' stroke='%2322262e' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cpath d='M12 9v6M12 18v.5' stroke='%2322262e' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat}
+.btn.uc::after,.chip.uc::after{width:18px;height:18px;top:-9px;right:-9px}
+.ic{display:inline-flex;width:28px;height:28px;border:1.8px solid #6b6250;border-radius:50%;align-items:center;justify-content:center;vertical-align:middle;margin-right:6px;color:#4a4436;background:#fffaf0}
+.ic.blue{color:var(--blue);border-color:var(--blue)}.ic.red{color:var(--red);border-color:var(--red)}.ic.amber{color:var(--amber);border-color:var(--amber)}
+.ic.p{border:0;background:none;width:24px;height:24px;margin:0;color:#6b6250}
+.ic svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.ic.p svg{width:22px;height:22px}
+td{position:relative}.tip{position:absolute;background:#22262E;color:#fff;font-family:BarlowB;font-size:13px;padding:4px 9px;border-radius:6px;white-space:nowrap;z-index:9;box-shadow:0 3px 6px rgba(0,0,0,.35)}
+.tip::after{content:"";position:absolute;left:12px;bottom:-5px;border:5px solid transparent;border-top-color:#22262E;border-bottom:0}
+.tip.l::after{left:-9px;bottom:auto;top:7px;border:5px solid transparent;border-right-color:#22262E;border-left:0}
+</style></head><body>
+<div class="top"><span class="nb">&lt;</span><span class="nb" style="opacity:.5">&gt;</span><span class="gym">Anvil Street Gym</span><div class="date">Mon 3 Aug 2026<small>Week 31</small></div><div class="sp"></div><div class="cash">$14,820<small>growing +$303 a week</small></div><div class="go">NEEDS YOU (2)<small>Answer Megan Hughes's bout offer. Time stops Thu 6 Aug, in 3 days</small></div><span class="nb">Menu</span></div>
+<div class="wrap"><nav><a class="on">Home</a><a>Fighters</a><a>Fights<span class="b">1</span></a><a>Club</a><a>World</a><div class="anvil"><svg width="38" height="30" viewBox="0 0 38 30"><path d="M2 4h34v6H24c0 4-2 6-4 8l4 6v4H8v-4l4-6c-3-2-6-4-6-8H2z" fill="#22262E"/></svg></div></nav>
+<main>
+<div>
+ <span class="boardcap">Needs you &middot; red stops the clock, amber comes next, the rest can wait</span><div class="board">
+ <div class="notes">
+  <div class="sticky r"><span class="mag"></span><h3>Answer a bout offer</h3><p><b>Megan Hughes</b>, Featherweight: a top-10 fight on 5 weeks' notice, Sat 5 Sep. Answer by Thu 6 Aug.</p><span class="btn d">Open</span></div>
+  <div class="sticky r"><span class="mag"></span><h3>Tomas Novak: a bigger gym has called</h3><p>Match the offer, promise something, or let go. Answer by Fri 7 Aug.</p><span class="btn d uc">Hear it</span></div>
+  <div class="sticky o"><span class="mag"></span><h3>Danny Osei's contract ends</h3><p>In 4 weeks, Mon 31 Aug. Keep the share or change it. Talk before it runs out.</p><span class="btn g">Talk</span></div>
+  <div class="sticky o"><span class="mag"></span><h3>Kwame Boateng, 37, talks of retiring</h3><p>24-11, ranked #12. Hear what he wants for the last fights.</p><span class="btn g uc">Talk</span></div>
+  <div class="sticky"><span class="mag"></span><h3>Two fighters in camp: the pads</h3><p>Lucy and Aisha both need the coach. Pick who gets the pad nights.</p><span class="btn g uc">Set pads</span></div>
+  <div class="sticky gr"><span class="mag"></span><h3>Week 30 review is ready</h3><p>Gains, moves, rankings, money. It sits here, never pops up.</p><span class="btn g">Open</span></div>
+ </div></div>
+ <div class="card" style="margin-top:14px;padding:10px 22px;height:108px;display:flex;align-items:center;gap:22px">
+  <div class="pfw" style="width:76px;height:80px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_11.png"></div>
+  <div style="width:290px"><div class="cap">Next fight</div><b style="font-family:BarlowB;font-size:24px;color:var(--blue)">Lucy Jackson</b><div style="font-size:15px;color:var(--mut)">Bantamweight, 2-1, 60.2 kg now, limit 61.0</div></div>
+  <div style="text-align:center;flex:1"><div style="font-family:Marker;font-size:38px;color:var(--blue);line-height:1">19 days</div><div style="font-size:15px">Fight night Sat 22 Aug &middot; weigh-in Fri 21 Aug</div><div style="margin-top:3px"><span class="btn">Fight prep</span> <span class="chip uc" style="margin-left:6px">MMA rules, cage</span></div></div>
+  <div style="text-align:right;width:290px"><div class="cap">Opponent</div><b style="font-family:BarlowB;font-size:24px">Priya Nair</b><div style="font-size:15px;color:var(--mut)">Wrestling club, 3-1. Scouting file open.</div></div>
+  <div class="pfw" style="width:76px;height:80px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_14.png"></div>
+ </div>
+ <div class="card" style="margin-top:14px;padding:10px 20px 12px">
+  <div class="cap" style="margin-bottom:2px">Your fighters (8) &middot; click a name for the fighter page</div>
+  <table><tr><th></th><th>Fighter</th><th>Record</th><th>Rank</th><th>Today</th><th><i class="ic p" data-i="scale" title="Weight now against the class limit"></i></th><th><i class="ic p" data-i="battery" title="Freshness: how rested the fighter is"></i></th><th>This week</th></tr>
+  <tr><td style="width:56px"><div class="pfw" style="width:48px;height:48px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_11.png"></div></td><td><div class="nm">Lucy Jackson</div><small>Bantamweight, boxer</small></td><td>2-1</td><td>-</td><td><i class="ic blue" data-i="calendar" title="Booked: a fight is set"></i> Priya Nair, 19 days</td><td><b>60.2</b><small>of 61.0</small></td><td><div class="bar"><i style="width:71%;background:var(--green)"></i></div></td><td style="font-size:14.5px">Pads, sparring, roadwork</td></tr>
+  <tr><td><div class="pfw" style="width:48px;height:48px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_10.png"></div></td><td><div class="nm">Aisha Rahman</div><small>Flyweight, BJJ</small></td><td>7-2</td><td>#9</td><td><i class="ic blue" data-i="dumbbell" title="In camp: training for a fight"></i> week 3 of 6</td><td><b>59.6</b><small>of 57.0, 2.6 to lose</small></td><td><div class="bar"><i style="width:38%;background:var(--amber)"></i></div></td><td style="font-size:14.5px">Mat rounds, cut diet</td></tr>
+  <tr><td><div class="pfw" style="width:48px;height:48px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_13.png"></div></td><td><div class="nm">Maria Ortega</div><small>Flyweight, wrestler</small></td><td>9-3</td><td>#5</td><td><i class="ic red" data-i="cross" title="Injured: cannot take fight offers until fit"></i><span class="tip l" style="left:178px;top:9px">No offers until fit</span> rib, fit in 3 weeks</td><td><b>56.7</b><small>of 57.0</small></td><td><div class="bar"><i style="width:60%;background:var(--green)"></i></div></td><td style="font-size:14.5px">Rehab, legs and core only</td></tr>
+  <tr><td><div class="pfw" style="width:48px;height:48px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_12.png"></div></td><td><div class="nm">Megan Hughes</div><small>Featherweight, Muay Thai</small></td><td>5-1</td><td>#14</td><td><i class="ic amber" data-i="mail" title="Offer: a bout is waiting for an answer"></i> top-10 fight, answer Thu 6 Aug</td><td><b>65.4</b><small>of 66.0</small></td><td><div class="bar"><i style="width:77%;background:var(--green)"></i></div></td><td style="font-size:14.5px">Clinch work, pads</td></tr>
+  <tr><td><div class="pfw" style="width:48px;height:48px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_02.png"></div></td><td><div class="nm">Danny Osei</div><small>Lightweight, all-rounder</small></td><td>3-0</td><td>-</td><td><i class="ic amber" data-i="file" title="Contract: it runs out soon"></i> ends in 4 weeks</td><td><b>69.2</b><small>of 70.0</small></td><td><div class="bar"><i style="width:82%;background:var(--green)"></i></div></td><td style="font-size:14.5px">Mixed: kicks, double leg</td></tr>
+  <tr><td><div class="pfw" style="width:48px;height:48px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_01.png"></div></td><td><div class="nm">Josh Harper</div><small>Middleweight, kickboxer</small></td><td>11-4</td><td>#7</td><td><i class="ic " data-i="minus" title="Free: nothing booked"></i> no fight booked <span class="btn q uc" style="margin-left:6px;padding:1px 10px;font-size:13px">Ask for a fight</span></td><td><b>86.5</b><small>of 84.0, 2.5 to lose</small></td><td><div class="bar"><i style="width:90%;background:var(--green)"></i></div></td><td style="font-size:14.5px">Kicks, footwork</td></tr>
+  <tr><td><div class="pfw" style="width:48px;height:48px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_03.png"></div></td><td><div class="nm">Tomas Novak</div><small>Welterweight, power puncher</small></td><td>8-5</td><td>#22</td><td><i class="ic red" data-i="exit" title="Leaving: a bigger gym has called"></i> a bigger gym has called</td><td><b>80.0</b><small>of 77.0, 3.0 to lose</small></td><td><div class="bar"><i style="width:54%;background:var(--amber)"></i></div></td><td style="font-size:14.5px">Heavy bag, roadwork</td></tr>
+  <tr><td><div class="pfw" style="width:48px;height:48px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_07.png"></div></td><td><div class="nm">Kwame Boateng</div><small>Heavyweight, veteran, 37</small></td><td>24-11</td><td>#12</td><td><i class="ic " data-i="hourglass" title="Retiring: has started talking about it"></i> talking about it</td><td><b>111.0</b><small>no cut needed</small></td><td><div class="bar"><i style="width:63%;background:var(--green)"></i></div></td><td style="font-size:14.5px">Light pads, film</td></tr>
+  </table>
+ </div>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;margin-top:12px">
+ <div class="card news"><div class="cap">Since last Monday</div>
+  <p><span class="dot" style="background:var(--green)"></span><b>Lucy's hand speed went from 62 to 63</b><br><small>pads Tue and Thu, sparring Fri</small></p>
+  <p><span class="dot" style="background:var(--red)"></span><b>Maria hurt a rib in sparring on Thursday</b><br><small>a hard body shot in the third round. Fit in 3 weeks.</small></p>
+  <p><span class="dot" style="background:var(--green)"></span><b>Danny's fight IQ went from 45 to 46</b><br><small>film on Wednesday</small></p>
+  <p><span class="dot"></span><b>4 new members joined. 68 on the books.</b><br><small>the place is full at 70</small></p>
+  <p><span class="dot" style="background:var(--amber)"></span><b>Aisha is 2.6 kg over, cut on pace</b><br><small>diet cut, 26 days to go</small></p>
+  <div style="margin-top:8px"><span class="btn q">All news and mail (6 new)</span></div></div>
+ <div class="card"><div class="cap">The club this week</div><div class="kv"><span style="position:relative"><i class="ic p" data-i="coins" title="Money in this week"></i><span class="tip" style="left:30px;top:-3px">Money in this week</span></span><b>$1,720</b></div><div class="kv"><span><i class="ic p" data-i="receipt" title="Costs this week"></i></span><b>$1,417</b></div><div class="kv"><span><i class="ic p" data-i="users" title="Members on the books"></i></span><b>68, up 4</b></div><div class="kv"><span><i class="ic p" data-i="clip" title="Coach"></i></span><b>Luke Reid</b></div><div style="margin-top:8px"><span class="btn g">Open the books</span></div></div>
+ <div class="card"><div class="cap">Coming up</div>
+  <div class="kv"><span>Thu 6 Aug, in 3 days</span><b>Megan's offer ends</b></div>
+  <div class="kv"><span>Mon 17 Aug, in 14 days</span><b>Bills about $3,960</b></div>
+  <div class="kv"><span>Fri 21 Aug, in 18 days</span><b>Lucy weighs in</b></div>
+  <div class="kv"><span>Sat 22 Aug, in 19 days</span><b>Lucy v Priya Nair</b></div>
+  <div class="kv"><span>Sat 29 Aug, in 26 days</span><b>Aisha fights</b></div>
+  <div class="kv" style="border:0"><span>Mon 31 Aug, in 28 days</span><b>Danny's contract ends</b></div></div>
+</div>
+</main></div><script>
+const P={calendar:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',dumbbell:'<path d="M6 7v10M18 7v10M3 10v4M21 10v4M6 12h12"/>',cross:'<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/>',mail:'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>',file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/>',minus:'<circle cx="12" cy="12" r="9"/><path d="M8 12h8"/>',exit:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',hourglass:'<path d="M5 22h14M5 2h14M17 22v-4.2a2 2 0 0 0-.6-1.4L12 12l-4.4 4.4A2 2 0 0 0 7 17.8V22M7 2v4.2a2 2 0 0 0 .6 1.4L12 12l4.4-4.4A2 2 0 0 0 17 6.2V2"/>',scale:'<path d="M12 3v18M5 21h14M3 7h18M5 7l-3 8a3 3 0 0 0 6 0zM19 7l-3 8a3 3 0 0 0 6 0z"/>',battery:'<rect x="2" y="7" width="16" height="10" rx="2"/><path d="M22 11v2M6 11v2M10 11v2"/>',coins:'<circle cx="8" cy="8" r="6"/><path d="M18.1 10.4A6 6 0 1 1 10.3 18M7 6h1v4"/>',receipt:'<path d="M4 2v20l3-2 3 2 3-2 3 2 3-2 2 2V2l-2 2-3-2-3 2-3-2-3 2zM8 8h8M8 12h8"/>',users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',clip:'<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>'};
+document.querySelectorAll('i[data-i]').forEach(e=>e.innerHTML='<svg viewBox="0 0 24 24">'+P[e.dataset.i]+'</svg>');
+</script></body></html>

@@ -43,3 +43,6 @@ They disagreed on two things:
 ## What it costs
 The fighter model waiting in PR #85 was built on the old list and needs reworking. It is on hold until you decide.
 Skills get the same review next.
+
+## Left and right
+One Strength number for the whole fighter, no number per hand (operator, 2026-11-08: "i think all games use the same number for right and left"). The left and right sides already differ through moves: the jab, the cross and the hooks each have their own level, and the stance sets which hand is the power hand.

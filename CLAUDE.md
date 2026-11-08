@@ -42,6 +42,7 @@ Claude decides design and integrates; the operator approves (D49: Ludo makes ass
   contract tests. Ziva - 3D fight motion + a playtest of each weekly build inside the editor.
 - Chat bots: Kalli - content and numbers tables; John - real-world research behind numbers; Maria - art review of each
   build's stills. Dola parked. Codex: none (operator S228). Ludo: assets only.
+- CRITICS KNOW THE WHOLE GAME (operator S403: "i want every screen you design to have the right options so every critic needs to know the whole game design and mechanics to guide you"): every critic brief opens with `ops/research/CRITIC_PACK.md` and `ops/research/CRITIC_ACCESS.md` (the Miro board, real screens, mockups) and asks which options a screen is missing, which are useless and what each changes. The pack gives the game, never our proposal or an earlier score. Update it when a mechanic or screen lands.
 - At most 3 PC agents at once (watchdog), cloud seats unlimited. Every brief names its owned files, the one test command,
   and stays under the 500-line rule.
 
@@ -68,7 +69,7 @@ Training pace 1.0 per focused week, headroom clamp((potential - stat) / 25, 0.10
 +$350/week with a coach; amateur fighter on a $250 stipend; amateur bout pays the club a $450 ticket cut.
 Update 27 (S324, GymBills, real England Boxing club numbers GBP x 1.25): dues $35/member/MONTH (kept by the week); rent
 $1,800/month (replaced the $500 upkeep); England Boxing fees $315 club + $18 a boxer + $35 a coach a year; start cash = 3
-months of costs ($14,600); 4 weeks in a row below $0 = the gym closes; a loss costs 3 members + 2 reputation (stoppage 5 + 4).
+months of costs ($14,600); 4 weeks in a row below $0 = the gym closes; a loss costs 3 members + 2 reputation (stoppage 5 + 4). (Code since the S397 money work: 8 weeks below $0; a loss costs 1 member, a stoppage 2: read the code, GymBills and BoutRules, before quoting these.)
 Week 4 (Kalli K-PROLINE1): pro offer at 7 wins + top-3 ranking or 9 wins; debut purse $1,500 (+$500 a win, top $3,000),
 gym share 35%, stipend stops, 4-round debut; a new move is a weapon (mastery 30) in 2-3 weeks of pad time.
 Week 5 (Kalli K-FIGHT3D1): the 3D fight never decides - it shows the settled round. 40 s a watched round (full), highlights
