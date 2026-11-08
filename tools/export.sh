@@ -1,13 +1,13 @@
 #!/bin/sh
-# Builds Builds/FightCamp.exe + FightCamp.pck. Runs the tests first (a red test stops the build).
+# Builds Builds/FightCamp.exe + FightCamp.pck. The full tests run once a day at 05:00 (S402 operator), not here: before an export run only the tests the change touches.
 # S396 Steam: with the official 4.7.2 export templates installed it is a real RELEASE export (no DEBUG title, version info,
 # icon); without them, the old way: the Godot program renamed, running FightCamp.pck beside it.
-# Usage: sh tools/export.sh   |   OUT=<dir> sh tools/export.sh (another folder)   |   NOTESTS=1 (the suite already ran today)
+# Usage: sh tools/export.sh   |   OUT=<dir> sh tools/export.sh (another folder)   |   FULLTESTS=1 (only if asked)
 GODOT="$LOCALAPPDATA/Programs/Godot/Godot_v4.7.2-stable_win64.exe"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OUT="${OUT:-$ROOT/Builds}"
 TEMPLATE="$APPDATA/Godot/export_templates/4.7.2.stable/windows_release_x86_64.exe"
-[ -n "$NOTESTS" ] || sh "$ROOT/tools/run_tests.sh" || { echo "tests failed: no build"; exit 1; }
+[ -z "$FULLTESTS" ] || sh "$ROOT/tools/run_tests.sh" || { echo "tests failed: no build"; exit 1; }
 mkdir -p "$OUT"
 if [ -f "$TEMPLATE" ]; then
 	"$GODOT" --headless --audio-driver Dummy --path "$ROOT" --export-release "Windows Desktop" "$OUT/FightCamp.exe" >/dev/null 2>&1 || exit 1

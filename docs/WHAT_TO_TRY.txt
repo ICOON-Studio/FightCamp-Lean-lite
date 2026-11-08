@@ -1,3 +1,10 @@
+FIGHTCAMP - BUILD OF 2026-11-08 (S402): AN EXPIRED OFFER IS NO LONGER A DEAD END
+================================================================================
+
+ NEW.
+  a. Open a fight offer that has expired: the page now gives you "Back to Fights".
+ The menus, the fighter profile and the seven mechanics you chose are on the Miro board, not in this build yet.
+
 FIGHTCAMP - BUILD OF 2026-11-08 (S401): THE CORNER FROM THE APRON, CALLS THAT COST TRUST, COMIC FACES IN THE MENUS
 ====================================================================================================================
 

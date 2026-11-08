@@ -65,8 +65,8 @@ static func needs(career: Career) -> Array:
 				"act": "injurychoice", "arg": f["id"], "label": "Decide"})
 		for o in f["offers"]:
 			if not bool(o["answered"]) and not bool(o["mismatch"]):
-				n.append({"red": true, "t": "Answer a bout offer: %s vs %s" % [f["name"], o["opp"]["name"]],
-					"s": "expires %s" % Clock.fmt(int(o["expires"])), "act": "openBout", "arg": o["id"], "label": "Open"})
+				n.append({"red": true, "t": "Answer %s's bout offer" % f["first"],
+					"s": "%s\nexpires %s" % [o["opp"]["name"], Clock.fmt(int(o["expires"]))], "act": "openBout", "arg": o["id"], "label": "Open"})
 		var pro_offers: Array = f.get("pro_offers", [])
 		if not pro_offers.is_empty() and (f["bout"] as Dictionary).is_empty():
 			n.append({"red": true, "t": "%d fights offered for %s" % [pro_offers.size(), f["first"]],

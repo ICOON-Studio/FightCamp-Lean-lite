@@ -351,7 +351,7 @@
    "agent": "cursor",
    "id": "FIGHTERMODEL3B",
    "title": "TASK FIGHTERMODEL3B - CURSOR (Grok 4.7 High) - the fighter model to 8/10 built, rule 2 held again (round 2)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-08T09:11",
    "eta": "2026-11-08T11:01",
    "branch": "cursor/fightermodel3b",
@@ -372,7 +372,445 @@
     "runner_pid": 24860,
     "seat_pid": 43612
    },
+   "note": "S368 seat_dispatch: cursor exit 124; 59 commit(s); checks 7/9 PASS; PR #85; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache",
+   "finished": "2026-11-08T11:03",
+   "pr": 85,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/fighter_model_bars_test.gd",
+     "ok": true,
+     "last": "FIGHTER_BARS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fighter_model_bars_test.gd",
+     "ok": true,
+     "last": "FIGHTER_BARS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fighter_model_test.gd",
+     "ok": true,
+     "last": "FIGHTER_MODEL failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/matchmaking_bots_test.gd",
+     "ok": false,
+     "last": "MATCHMAKING_BOTS failures=2"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bout_read_test.gd",
+     "ok": true,
+     "last": "BOUT_READ PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/world_years_test.gd",
+     "ok": true,
+     "last": "WORLD_YEARS checks=29 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/attr_board_test.gd",
+     "ok": true,
+     "last": "   at: cleanup (core/object/object.cpp:2536)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/balance_harness_test.gd",
+     "ok": true,
+     "last": "BALANCE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": false,
+     "last": "GOLDEN_PATH failures=2"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "CORNERTRUST1": {
+   "agent": "qwen",
+   "id": "CORNERTRUST1",
+   "title": "TASK CORNERTRUST1 - QWEN (qwen3-coder) - a wrong corner call costs her trust; a Low fighter stops listening (rules only)",
+   "status": "landed",
+   "started": "2026-11-08T10:16",
+   "eta": "2026-11-08T12:06",
+   "branch": "qwen/cornertrust1",
+   "worktree": "E:/FightCamp/wt/LEAN_CORNERTRUST1",
+   "wt": "E:/FightCamp/wt/LEAN_CORNERTRUST1",
+   "brief": "ops/research/TASK_CORNERTRUST1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CORNERTRUST1_dispatch_out.txt",
+   "match": "seat_dispatch.py run cornertrust1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CORNERTRUST1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CORNERTRUST1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CORNERTRUST1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 47588,
+    "seat_pid": 20456
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 8/9 PASS; PR #84",
+   "finished": "2026-11-08T10:36",
+   "pr": 84,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/corner_trust_test.gd",
+     "ok": true,
+     "last": "CORNER_TRUST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/trust_fight_test.gd",
+     "ok": true,
+     "last": "TRUST_FIGHT PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/exchanges_test.gd",
+     "ok": false,
+     "last": "EXCHANGES failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/habit_fix_test.gd",
+     "ok": true,
+     "last": "HABIT_FIX failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_bout_test.gd",
+     "ok": true,
+     "last": "PLAN_BOUT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_bots_test.gd",
+     "ok": true,
+     "last": "PLAN_BOTS checks=18 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_jobs_test.gd",
+     "ok": true,
+     "last": "CORNERJOBS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plain_words_test.gd",
+     "ok": true,
+     "last": "PLAIN_WORDS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "OFFERGONE1": {
+   "agent": "qwen",
+   "id": "OFFERGONE1",
+   "title": "TASK OFFERGONE1 - QWEN (qwen3-coder) - an expired fight offer is never a dead end",
+   "status": "landed",
+   "started": "2026-11-08T11:03",
+   "eta": "2026-11-08T12:53",
+   "branch": "qwen/offergone1",
+   "worktree": "E:/FightCamp/wt/LEAN_OFFERGONE1",
+   "wt": "E:/FightCamp/wt/LEAN_OFFERGONE1",
+   "brief": "ops/research/TASK_OFFERGONE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/OFFERGONE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run offergone1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/OFFERGONE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/OFFERGONE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/OFFERGONE1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 23460,
+    "seat_pid": 21080
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/5 PASS; PR #86",
+   "finished": "2026-11-08T12:02",
+   "pr": 86,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/offer_gone_test.gd",
+     "ok": true,
+     "last": "OFFER_GONE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/test_jump_test.gd",
+     "ok": true,
+     "last": "TESTJUMP failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/first_hour_walk_test.gd",
+     "ok": true,
+     "last": "FIRST_HOUR_WALK failures=0 minutes=30.2"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plain_words_test.gd",
+     "ok": true,
+     "last": "PLAIN_WORDS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "GUIDEFLAG1": {
+   "agent": "qwen",
+   "id": "GUIDEFLAG1",
+   "title": "TASK GUIDEFLAG1 - QWEN (qwen3-coder) - the guide strip ends with the first week; the offer flag says what is needed",
+   "status": "landed",
+   "started": "2026-11-08T12:10",
+   "eta": "2026-11-08T14:00",
+   "branch": "qwen/guideflag1",
+   "worktree": "E:/FightCamp/wt/LEAN_GUIDEFLAG1",
+   "wt": "E:/FightCamp/wt/LEAN_GUIDEFLAG1",
+   "brief": "ops/research/TASK_GUIDEFLAG1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/GUIDEFLAG1_dispatch_out.txt",
+   "match": "seat_dispatch.py run guideflag1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/GUIDEFLAG1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/GUIDEFLAG1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/GUIDEFLAG1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 18684,
+    "seat_pid": 30152
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 4/6 PASS; PR #87",
+   "finished": "2026-11-08T12:28",
+   "pr": 87,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/guide_ends_test.gd",
+     "ok": true,
+     "last": "GUIDE_ENDS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/first_week_test.gd",
+     "ok": false,
+     "last": "FIRST_WEEK failures=2"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/first_hour_walk_test.gd",
+     "ok": false,
+     "last": "FIRST_HOUR_WALK failures=2 minutes=29.7"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/test_jump_test.gd",
+     "ok": true,
+     "last": "TESTJUMP failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plain_words_test.gd",
+     "ok": true,
+     "last": "PLAIN_WORDS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "BJJBEAT1": {
+   "agent": "cursor",
+   "id": "BJJBEAT1",
+   "title": "TASK BJJBEAT1 - CURSOR (GPT-5.6 Sol High) - turn the two-sided BJJ beat ON and tune it into the real bars",
+   "status": "running",
+   "started": "2026-11-08T12:11",
+   "eta": "2026-11-08T14:01",
+   "branch": "cursor/bjjbeat1",
+   "worktree": "E:/FightCamp/wt/LEAN_BJJBEAT1",
+   "wt": "E:/FightCamp/wt/LEAN_BJJBEAT1",
+   "brief": "ops/research/TASK_BJJBEAT1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/BJJBEAT1_dispatch_out.txt",
+   "match": "seat_dispatch.py run bjjbeat1",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/BJJBEAT1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/BJJBEAT1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/BJJBEAT1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 51292,
+    "seat_pid": 43744
+   },
    "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
+  },
+  "SWINGCENSUS1": {
+   "agent": "antigravity",
+   "id": "SWINGCENSUS1",
+   "title": "TASK SWINGCENSUS1 - AGY (Argon High) - every random swing the player feels, and what they are told",
+   "status": "landed",
+   "started": "2026-11-08T12:41",
+   "eta": "2026-11-08T14:06",
+   "branch": "agy/swingcensus1",
+   "worktree": "E:/FightCamp/wt/LEAN_SWINGCENSUS1",
+   "wt": "E:/FightCamp/wt/LEAN_SWINGCENSUS1",
+   "brief": "ops/research/TASK_SWINGCENSUS1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/SWINGCENSUS1_dispatch_out.txt",
+   "match": "seat_dispatch.py run swingcensus1",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/SWINGCENSUS1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/SWINGCENSUS1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/SWINGCENSUS1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 35996,
+    "seat_pid": 52440
+   },
+   "note": "S368 seat_dispatch: agy exit 0; 1 commit(s); checks 2/2 PASS; PR #88",
+   "finished": "2026-11-08T13:00",
+   "pr": 88,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/plain_words_test.gd",
+     "ok": true,
+     "last": "PLAIN_WORDS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plain_words_test.gd",
+     "ok": true,
+     "last": "PLAIN_WORDS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "GUIDEFLAG2": {
+   "agent": "qwen",
+   "id": "GUIDEFLAG2",
+   "title": "TASK GUIDEFLAG2 - QWEN (qwen3-coder) - round 2: the guide must end, without breaking the first fight",
+   "status": "landed",
+   "started": "2026-11-08T13:00",
+   "eta": "2026-11-08T14:50",
+   "branch": "qwen/guideflag2",
+   "worktree": "E:/FightCamp/wt/LEAN_GUIDEFLAG2",
+   "wt": "E:/FightCamp/wt/LEAN_GUIDEFLAG2",
+   "brief": "ops/research/TASK_GUIDEFLAG2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/GUIDEFLAG2_dispatch_out.txt",
+   "match": "seat_dispatch.py run guideflag2",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/GUIDEFLAG2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/GUIDEFLAG2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/GUIDEFLAG2_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 17440,
+    "seat_pid": 51832
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 6/6 PASS; PR #89",
+   "finished": "2026-11-08T13:18",
+   "pr": 89,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/first_week_test.gd",
+     "ok": true,
+     "last": "FIRST_WEEK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/first_week_test.gd",
+     "ok": true,
+     "last": "FIRST_WEEK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/first_hour_walk_test.gd",
+     "ok": true,
+     "last": "FIRST_HOUR_WALK failures=0 minutes=30.2"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/test_jump_test.gd",
+     "ok": true,
+     "last": "TESTJUMP failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plain_words_test.gd",
+     "ok": true,
+     "last": "PLAIN_WORDS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   }
  },
  "codex_budget": {

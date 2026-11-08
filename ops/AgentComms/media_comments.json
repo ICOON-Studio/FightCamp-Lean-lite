@@ -1832,6 +1832,69 @@
       "seen_by_claude": true,
       "id": "C242",
       "addressed": "cited by db9dd2ac 2026-11-06"
+    },
+    {
+      "path": "_sent/2026-11-07_2242_boxer_clips_guard_and_footwork_15_worst_/advance.mp4",
+      "text": "the legs move randomly , is this a joke ?",
+      "at": "2026-11-07T20:49:04Z",
+      "seen_by_claude": true,
+      "at_s": 4.0,
+      "id": "C243"
+    },
+    {
+      "path": "_sent/2026-11-07_2242_boxer_clips_guard_and_footwork_15_worst_/pro_idle_fidget_v1.mp4",
+      "text": "knees and legs tremble randmoly",
+      "at": "2026-11-07T20:49:28Z",
+      "seen_by_claude": true,
+      "at_s": 5.9,
+      "id": "C244"
+    },
+    {
+      "path": "_sent/2026-11-07_2247_southpaw2_before_after_argon_5_5_10_5_10/after.mp4",
+      "text": "thereis no walkingat all only sliding at the start",
+      "at": "2026-11-07T21:20:12Z",
+      "seen_by_claude": true,
+      "id": "C245"
+    },
+    {
+      "path": "_sent/2026-11-07_2247_southpaw2_before_after_argon_5_5_10_5_10/after.mp4",
+      "text": "even their heads are not attached properly to the bodies",
+      "at": "2026-11-07T21:21:27Z",
+      "seen_by_claude": true,
+      "id": "C246"
+    },
+    {
+      "path": "_sent/2026-11-08_0006_retarget1_before_after_argon_10_10_your_/after.mp4",
+      "text": "clip is not playing",
+      "at": "2026-11-07T22:46:21Z",
+      "seen_by_claude": true,
+      "at_s": 0.0,
+      "id": "C247",
+      "addressed": "cited by 1269989c 2026-11-08"
+    },
+    {
+      "path": "_sent/2026-11-08_0006_retarget1_before_after_argon_10_10_your_/before.mp4",
+      "text": "clip is not playing",
+      "at": "2026-11-07T22:46:36Z",
+      "seen_by_claude": true,
+      "at_s": 0.0,
+      "id": "C248",
+      "addressed": "cited by 1269989c 2026-11-08"
+    },
+    {
+      "path": "_sent/2026-11-07_1856_fightwalk3_before_after_argon_10_10_your/after.mp4",
+      "text": "terrible,remove it",
+      "at": "2026-11-07T22:48:39Z",
+      "seen_by_claude": true,
+      "at_s": 66.2,
+      "id": "C249"
+    },
+    {
+      "path": "_sent/2026-11-08_0906_stylized2_retuned_painted_toon_v_realist/arm_a2_m.mp4",
+      "text": "wtf the moment they start fighting they stop and goback to corner ??",
+      "at": "2026-11-08T07:09:33Z",
+      "seen_by_claude": true,
+      "id": "C250"
     }
   ]
 }

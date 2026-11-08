@@ -29,7 +29,7 @@ and say what you decided. Ask him only about taste, scope or money. Be concise, 
 3. 2D menus and the simulation first. The 3D fight and 3D gym come later as views on the same data.
 4. Scope: boxing only, one gym, a small roster, amateur to first pro fight. New systems enter only when the last build feels right.
 5. Small files: no script over 500 lines; one `Career` data resource, a `Clock`, pure rule modules, one scene per screen.
-6. Tests: pure rule modules have unit tests; one golden-path test plays the build's path. Run them before every export.
+6. Tests: pure rule modules have unit tests; one golden-path test plays the build's path. FULL TESTS ONCE A DAY (operator S402: "full test should go once a day around 5 am and then you review and act on it"): the scheduled task runs them at 05:00, results in `ops/AgentComms/nightly/latest.txt`, a Claude task reviews them after. In a session, and before an export, run only the tests the change touches.
 7. Rule modules may be copied from the archived old repo's `Godot/scripts` (GitHub ICOON-Studio/FightCamp; TrainingPreview, rules/FighterGoal, Membership,
    state/GameMoney, FightCamp, AmateurBooking, rules/MoveMastery, FightPlans, Retention) with their tests. Re-read each and strip
    what is not needed. Never read GameState.gd or FightRealtime.gd whole (huge).
@@ -82,7 +82,7 @@ ANIMATION PROGRESSES EVERY SESSION (operator S401: "keep the animation work prog
 Questions for the operator go on the board (`python ops/Tools/agent_comms.py ask "<text>" --options "a|b"`).
 
 ## Wrap-up (every session, before the handover)
-1. Tests green, `sh tools/export.sh`, WHAT_TO_TRY.txt current.
+1. The tests the session's changes touch are green (never the full suite: it runs at 05:00), `sh tools/export.sh`, WHAT_TO_TRY.txt current.
 2. Ops board: in `ops/AgentComms/roadmap.json` update `now`, `next`, `plan` (working_now / next / done_recently /
    titles) and append the session to `sessions`; run `python ops/Tools/render_roadmap.py`; commit them with the session's work.
 3. Rewrite `NEXT_SESSION_PROMPT.md` here for the next session.

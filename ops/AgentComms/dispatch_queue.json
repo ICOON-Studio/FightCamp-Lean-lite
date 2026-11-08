@@ -500,8 +500,47 @@
   {
    "task": "OFFERGONE1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-08T11:02"
+   "status": "launched",
+   "queued": "2026-11-08T11:02",
+   "launched": "2026-11-08T11:03"
+  },
+  {
+   "id": "GUIDEFLAG1",
+   "seat": "qwen",
+   "title": "TASK GUIDEFLAG1 - QWEN (qwen3-coder) - the guide strip ends with the first week; the offer flag says what is needed",
+   "brief": "GUIDEFLAG1"
+  },
+  {
+   "id": "BJJBEAT1",
+   "seat": "cursor",
+   "title": "TASK BJJBEAT1 - CURSOR (Grok 4.7 High) - turn the two-sided BJJ beat ON and tune it into the real bars",
+   "brief": "BJJBEAT1"
+  },
+  {
+   "id": "SWINGCENSUS1",
+   "seat": "agy",
+   "title": "TASK SWINGCENSUS1 - AGY (Argon High) - every random swing the player feels, and what they are told",
+   "brief": "SWINGCENSUS1"
+  },
+  {
+   "id": "FIGHTERMODEL3C",
+   "seat": "cursor",
+   "title": "TASK FIGHTERMODEL3C - CURSOR (Grok 4.7 High) - scouting has something to find again (round 3, from an audit)",
+   "brief": "FIGHTERMODEL3C",
+   "status": "held",
+   "held_why": "S403 operator: the primary attributes are being redone; do not build on the old list"
+  },
+  {
+   "id": "GUIDEFLAG2",
+   "seat": "qwen",
+   "title": "TASK GUIDEFLAG2 - QWEN (qwen3-coder) - round 2: the guide must end, without breaking the first fight",
+   "brief": "GUIDEFLAG2"
+  },
+  {
+   "id": "R11A",
+   "seat": "qwen",
+   "title": "TASK R11A - QWEN (qwen3-coder) - an injury says why it happened",
+   "brief": "R11A"
   }
  ]
 }

@@ -1,3 +1,27 @@
+# S403 - next session (written S402 main session, 2026-11-08)
+
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S403` + map redraw on the ONE board (uXjVEV03QWA=). Read board answers, sticky notes AND Miro comments (S402: his note was a comment on an image; `canvas_read_as_svg` shows them as <comment> on the frame).
+STANDING ORDER: animation progresses every session; name the item and seat in the first message.
+NEW RULE (operator S402): "full test should go once a day around 5 am and then you review and act on it". Windows task "FightCamp Nightly Tests" 05:00 (ops/Tools/nightly_tests.ps1, ops/AgentComms/nightly/latest.txt); Claude scheduled task fightcamp-review-full-tests about 07:09 reviews and acts (ops/AgentComms/nightly/reviews.md). In a session run only the tests the change touches; export.sh no longer runs the suite. First real run: 2026-11-09, not yet seen working: read latest.txt and reviews.md first.
+
+HIS DECISIONS S402:
+- Mechanics: "do those thare agreed with critics and have big impact" = rows both critics scored 8+ (ops/research/S400_REVIEW/MECHANICS_DECISION_S402.md): R11, R24, R28, R25, R37, R55, R58 in that order. Other 16 NEW IN rows on hold. Nothing already in the game cut.
+- Menus: Q-S294-127 "Yes, build the seven": Home, Fighter Week, Boxing profile, Playbook, Fight night, Money, World. Miro frame MENUS FINAL (S402) 3458764689777613662: 17 rows, layout + Ludo art + two critics + my call + his sticky. Structure: ops/research/S400_REVIEW/MENU_STRUCTURE_S402.md (with what appears when).
+- Art: "there is no art consistency on this with hte other pictures" (Start). One warm style: tan plaster wall, wood and aluminium frames, cream paper. Sources docs/mockups/s402 + concepts/S402_*.
+- Profile: one fighter, one body and mind in every sport; only skills swap (ops/research/S400_REVIEW/FIGHTER_PROFILE_S402.md v2, after two MMA critics 5.5 and 6 on the earlier draft; v2 not re-scored). Boxer 25 numbers, grappler 20, kickboxer 32, Muay Thai 34, MMA 47 (folded to about 7 headlines). His notes: "try to interconnect those attributes with all sports", "mind also what stats we need for kickboxing (elbows,kicks )". John asked crossover numbers (SQ29): read the answer before setting read-across or engine numbers.
+
+ORDER:
+1. Collect: GUIDEFLAG2 (Qwen, round 2 of #87; first_week and first_hour_walk must stay green), BJJBEAT1 (Cursor), SWINGCENSUS1 (agy: docs/SWING_CENSUS.md, the groundwork for R11; check each row against the code). FIGHTERMODEL3C is queued behind BJJBEAT1 (audit: typical matchup moves the odds 0.04 vs 0.10 before; scouted read biased -0.015). PR #85 NOT merged until rule 2 holds.
+2. Animation: session rokoko-repair (local_08cde081-ab48-426c-a866-589b564ae636, RETARGET2B): read its state, film, merge, proguard.
+3. BUILD THE SEVEN. First a shared kit in the look of the concepts, with Ludo making the real pieces (whiteboard + frame, cream paper card, magnet, sticky, chalkboard, marker tray) wired into the scripts/ui/UI.gd theme, so screens cannot drift. Then one screen per task: Money, World and Playbook first (no mechanic depends on them), Home (Monday page: week review folds in; nothing opens by itself), Fight night and Week (their shell now; cutman card, adapted note and pad nights arrive with R28, R25, R55), Boxing profile last (needs PR #85's attributes). Cursor gets one 2D screen per task and cannot see images: Claude checks stills.
+4. Redraw the two profile mockups to attribute list v2 (05c, 05d: Power, Chin, Cuts in Body, Weight cut, Blocking, style dial) and repaint. Menus both critics asked to fix: Start tighter, Fighters with a real roster, offer card on top of her profile, People as staff on the gym wall (new layout), Grow without the pro offer on it. Top bar no change.
+5. Then R11, R28, R25; R37 and R55 from the mockups; R58 after the world runs.
+
+STILL WAITING ON HIM: cut Test day and dues bands? | "yes, ARCHIVED" (copy 7 JPGs and 2 html mockups to the ONE board, permanently delete uXjVETf7la4= via Chrome) | delete 38 leftover map cards.
+MOBIUS checked (ops/research/MOBIUS_S402.md): not usable yet (code under review, one person only, no foot-slide number); recheck when weights and a licence appear.
+PAINT LESSONS: a reference with a different layout gets its content pasted in; a reference with the same layout takes over completely. Mask-repaint only the background works when the wall is dark. Restore real faces from the layout. Render mockups with Python subprocess + msedge --headless, one at a time (shell loops lose them). Long heredocs through the shell hook can fail: write scripts to the scratchpad.
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor Grok 4.7 High until 12-07.
+
 # S402 - next session (written S401 main session, 2026-11-08)
 
 OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S402` + map redraw on the ONE board.

@@ -1,18 +1,22 @@
 {
  "_note": "SINGLE SOURCE OF TRUTH for the roadmap. The ops board reads this file directly and ROADMAP.md is GENERATED from it by Tools/render_roadmap.py. Do not hand-maintain a second copy anywhere - that is the defect R136/U62 named and it has cost this project eight times.",
- "updated": "2026-11-07",
+ "updated": "2026-11-08",
  "author": "claude S294",
  "now": {
   "id": "S401",
   "owner": "claude",
   "updated": "2026-11-08",
-  "summary": "S401: operator's board answer 'compare the structure to corner king and have ritics review it and refine it' done (CORNER_KING_REFINED_S401.md); gym compared with tycoon games (GYM_VS_TYCOON_S401.md, dues choice is fake); 103 mechanics listed and scored by two critics on Miro; 14 menus painted from the real screens with Ludo; one Miro board (uXjVEV03QWA=); corner minute from the apron; body figure as a scan; corner trust in (Qwen); 16 dead branches deleted.",
-  "last_working_commit": "13d41822 (S401 on main: corner apron 47b1c7c8, CornerTrust 0a47e4c3)",
+  "summary": "S402: 7 mechanics chosen (critics 8+); menus and structure adjusted, two critics 7/7; MENUS FINAL frame on Miro, seven approved to build; one warm art style; fighter profile for every sport (v2 after MMA critics); PR #85 audited, not merged; OFFERGONE1 in; full tests at 05:00 with a Claude review.",
+  "last_working_commit": "903b5f8d (S402 on main; OFFERGONE1 76cdcfda)",
   "verified_playable": "corner_lens, corner_crew_bodies, corner_warm, corner_trust, exchanges, trust_fight, habit_fix, plan_bots, golden_path, plain_words on main; corner film viewed by Claude",
   "incomplete_blocked": "PR #85 FIGHTERMODEL3B landed 7/9 checks, not reviewed; OFFERGONE1 on Qwen; Rokoko repair in its own session (branch claude/rokoko-repair-3bb3a3); ARCHIVED Miro board not yet deleted (7 images and 2 html mockups to move); corner_film 'gloves touch' check red since S400's 1.2x gloves",
-  "next_action": "1) Read his IN/LATER/OUT on the Miro MECHANICS LIST and act on it, then finalise the menus and repaint only the changed ones. 2) Animation every session: collect Rokoko repair, then proguard. 3) Review PR #85 against TASK_FIGHTERMODEL3. 4) Collect OFFERGONE1. 5) Finish moving ARCHIVED and delete it via his Chrome. 6) Six rule-breaks on our screens, fake dues choice.",
+  "next_action": "1) Collect GUIDEFLAG2, BJJBEAT1, SWINGCENSUS1. 2) Animation: Rokoko repair. 3) Build the seven approved menus: shared UI kit first, then Money, World, Playbook, Home, Fight night, Week, Boxing profile last. 4) Redraw profile mockups to v2. 5) R11, R28, R25.",
   "next_acceptance": "No screen is built without his OK on its Miro row and painted concept; mechanics ruled before menus are finalised; animation moves each session.",
-  "awaiting_operator": "IN/LATER/OUT on the 103 mechanics (Miro); OK/change/cut on the 14 refined menus; Camp Board (Q-S294-123)."
+  "awaiting_operator": [
+   "Cut Test day and dues bands?",
+   "Yes, ARCHIVED: copy and permanently delete the old Miro board",
+   "Delete 38 leftover map cards"
+  ]
  },
  "next": "S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.",
  "assessment": {
@@ -1583,6 +1587,11 @@
    "id": "S401",
    "date": "2026-11-08",
    "summary": "S401: structure vs Corner King refined by 3 critics; gym vs tycoon games, 22 ideas; 103 mechanics scored; 14 painted menus; one Miro board; corner minute from the apron; muscle-scan body figure; CornerTrust; 16 branches deleted. Not merged: PR #85, Rokoko repair."
+  },
+  {
+   "id": "S402",
+   "date": "2026-11-08",
+   "summary": "S402: 7 mechanics chosen by critics; menus and structure adjusted; final menus with verdicts on Miro, seven approved; one warm art style; one fighter profile for all sports, MMA critics; PR #85 audited, round 3 queued; OFFERGONE1 in; full tests daily at 05:00, reviewed by Claude. Not built: the seven menus."
   }
  ],
  "blocked_on_operator": [],
@@ -4501,7 +4510,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-08 11:11 board_sync",
+  "updated": "2026-11-08 13:22 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4643,24 +4652,80 @@
   },
   "working_now": [
    {
-    "id": "MECH-LIST",
-    "who": "operator",
-    "title": "Your IN / LATER / OUT on 103 mechanics (Miro)"
+    "title": "TASK SOUTHPAW2 - CURSOR (GPT-5.6 Sol High) - the guard knock-knee, round 2: a test that FAILS on main first",
+    "who": "cursor",
+    "started": "2026-11-07T21:21",
+    "run": "SOUTHPAW2",
+    "state": "LANDED - Claude collects"
    },
    {
-    "id": "ROKOKO-REPAIR",
-    "who": "claude",
-    "title": "Rokoko repair: clips, film, merge, proguard (own session)"
+    "title": "TASK ANIMREBUILD1 - AGY (Argon High) - design draft: fight animation rebuilt around a clip library + one picker",
+    "who": "antigravity",
+    "started": "2026-11-07T22:09",
+    "run": "ANIMREBUILD1",
+    "state": "LANDED - Claude collects"
    },
    {
-    "id": "OFFERGONE1",
+    "title": "TASK RETARGET1 - CURSOR (GPT-5.6 Sol High) - bring the purchased Punch PRO pack onto our boxer WITHOUT breaking it",
+    "who": "cursor",
+    "started": "2026-11-07T22:53",
+    "run": "RETARGET1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK RETARGET2 - CURSOR (GPT-5.6 Sol High) - RETARGET1 round 2: keep the wins, fix the stance and the end trim",
+    "who": "cursor",
+    "started": "2026-11-08T07:24",
+    "run": "RETARGET2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL3B - CURSOR (Grok 4.7 High) - the fighter model to 8/10 built, rule 2 held again (round 2)",
+    "who": "cursor",
+    "started": "2026-11-08T09:11",
+    "run": "FIGHTERMODEL3B",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK CORNERTRUST1 - QWEN (qwen3-coder) - a wrong corner call costs her trust; a Low fighter stops listening (rules only)",
     "who": "qwen",
-    "title": "An expired fight offer is never a dead end"
+    "started": "2026-11-08T10:16",
+    "run": "CORNERTRUST1",
+    "state": "LANDED - Claude collects"
    },
    {
-    "id": "FIGHTERMODEL3B",
-    "who": "claude",
-    "title": "Review the fighter model (PR #85)"
+    "title": "TASK OFFERGONE1 - QWEN (qwen3-coder) - an expired fight offer is never a dead end",
+    "who": "qwen",
+    "started": "2026-11-08T11:03",
+    "run": "OFFERGONE1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK GUIDEFLAG1 - QWEN (qwen3-coder) - the guide strip ends with the first week; the offer flag says what is needed",
+    "who": "qwen",
+    "started": "2026-11-08T12:10",
+    "run": "GUIDEFLAG1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK BJJBEAT1 - CURSOR (GPT-5.6 Sol High) - turn the two-sided BJJ beat ON and tune it into the real bars",
+    "who": "cursor",
+    "started": "2026-11-08T12:11",
+    "run": "BJJBEAT1"
+   },
+   {
+    "title": "TASK SWINGCENSUS1 - AGY (Argon High) - every random swing the player feels, and what they are told",
+    "who": "antigravity",
+    "started": "2026-11-08T12:41",
+    "run": "SWINGCENSUS1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK GUIDEFLAG2 - QWEN (qwen3-coder) - round 2: the guide must end, without breaking the first fight",
+    "who": "qwen",
+    "started": "2026-11-08T13:00",
+    "run": "GUIDEFLAG2",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
@@ -5096,63 +5161,25 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Overdraft merged (Qwen)",
-     "who": "agent"
-    },
-    {
-     "text": "One-frame films blocked",
+     "text": "OFFERGONE1 collected",
      "who": "claude"
     },
     {
-     "text": "Unapproved Money page reverted",
+     "text": "Final menus + verdicts on Miro",
      "who": "claude"
     },
     {
-     "text": "Why names a lost decision's cause",
+     "text": "One fighter profile designed",
      "who": "claude"
     },
     {
-     "text": "59 screens judged vs our plan",
-     "who": "agent"
-    },
-    {
-     "text": "96 Miro ideas rated, 13 removed",
-     "who": "agent"
-    },
-    {
-     "text": "Main tests green (Pass, weapon)",
+     "text": "Seven menus approved",
      "who": "claude"
     },
     {
-     "text": "Ziva back up on main",
+     "text": "Full tests daily at 5 am",
      "who": "claude"
     },
-    {
-     "text": "SOUTHPAW1 checked: not kept",
-     "who": "claude"
-    },
-    {
-     "text": "Inside work +0.5: not merged",
-     "who": "claude"
-    },
-    {
-     "text": "Corner seconds: no repeat face",
-     "who": "claude"
-    },
-    {
-     "text": "Ziva back up on main",
-     "who": "claude"
-    },
-    {
-     "text": "4 startup apps off (memory)",
-     "who": "claude"
-    },
-    {
-     "text": "Rank 5 first hour merged",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
     {
      "text": "9 dead branches deleted",
      "who": "claude"
@@ -5188,28 +5215,29 @@
     {
      "text": "103 mechanics rated on Miro",
      "who": "agent"
-    },
-    {
-     "text": "Corner King, tycoon compared",
-     "who": "agent"
     }
    ],
+   "done_session": [],
    "now": [
-    {
-     "text": "Your IN/LATER/OUT on 103 rows",
-     "who": "operator"
-    },
-    {
-     "text": "Review PR #85 fighter model",
-     "who": "claude"
-    },
     {
      "text": "Rokoko repair (session)",
      "who": "agent"
     },
     {
-     "text": "OFFERGONE1 (Qwen)",
-     "who": "agent"
+     "text": "BJJ beat engine (Cursor)",
+     "who": "claude"
+    },
+    {
+     "text": "Build 7 menus, UI kit first",
+     "who": "claude"
+    },
+    {
+     "text": "Fighter model round 3 (Cursor)",
+     "who": "claude"
+    },
+    {
+     "text": "Guide strip, round 2 (Qwen)",
+     "who": "claude"
     }
    ],
    "next": [
@@ -5298,7 +5326,7 @@
      "who": "claude"
     }
    ],
-   "session": "S401"
+   "session": "S403"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

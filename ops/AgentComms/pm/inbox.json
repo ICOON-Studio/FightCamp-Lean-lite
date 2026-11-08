@@ -1258,6 +1258,20 @@
       "at": "2026-11-07 14:45",
       "text": "BOARD ANSWER Q-S294-123 - question: Structure 5 again, plainer: on Monday the coach plays cards on a board to plan the week (built in S390). The coach test said it did not feel like coaching. Remove that card game and keep only what it found out: each fighter's habits? | answer: Show me it first | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
       "status": "waiting"
+    },
+    {
+      "id": "P173",
+      "from": "board",
+      "at": "2026-11-08 08:51",
+      "text": "BOARD ANSWER Q-S294-124 - question: Delete 16 old branches whose work is already on main? (list attached; nothing else changes) | answer: Yes, delete the 16 | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P174",
+      "from": "board",
+      "at": "2026-11-08 10:26",
+      "text": "BOARD ANSWER Q-S294-125 - question: Approve the game's menus one by one: Miro frame 'MENUS FOR YOUR OK (S400)' (14 rows: what each shows, 3 critics, my proposal). Write OK / change / cut on each row's yellow sticky. | answer: compare the structure to corner king and have ritics review it and refine it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
     }
   ]
 }

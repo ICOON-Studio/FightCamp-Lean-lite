@@ -26,6 +26,10 @@ static func begin(c: Career) -> void:
 
 ## Moves the guide on from what is true now. Safe to call any time.
 static func sync(c: Career) -> void:
+	# TASK GUIDEFLAG2: a saved career past week 8 with a stale guide loses it on sync.
+	if c.day >= 56 and c.guide != "":
+		c.guide = ""
+		return
 	if c.guide == "sign" and c.applicant.is_empty() and not c.fighters.is_empty():
 		c.guide = "coach"
 	if c.guide == "coach" and not c.coach.is_empty():
@@ -94,14 +98,11 @@ static func need(c: Career) -> Dictionary:
 ## The end of a week (Sim, after the report is written). Week 1 hands the guide to the first fight; every Monday the first hour
 ## brings its people (FirstHour.monday: the second walk-in, Ana's teaser, then Ana).
 static func end_of_week(c: Career, week: int) -> void:
+	# TASK GUIDEFLAG2: at the end of week 1, the guide moves from "go" to "offer".
 	if week == 1 and c.guide == "go":
 		c.guide = "offer"
-	elif week == 1 and c.guide != "":
-		sync(c)
 	if not FirstHour.on(c):   # a save from before rank 5 (or a test without the first hour): Ana at the end of week 1, as before
 		if week == 1:
-			if c.guide == "offer":
-				c.guide = ""
 			ana_joins(c)
 		return
 	var m := FirstHour.monday(c)
