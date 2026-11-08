@@ -78,6 +78,7 @@ round 2+ opens on the corner call; one broadcast camera + a 1.5 s close-up on th
 
 ## Session start
 Open the session in `E:\FightCamp\Lean`. `git pull && python ops/Tools/agent_comms.py start`, then read `NEXT_SESSION_PROMPT.md`.
+ANIMATION PROGRESSES EVERY SESSION (operator S401: "keep the animation work progressing on every session"): name the animation item and its seat in the first message; if none is running, launch the next one first.
 Questions for the operator go on the board (`python ops/Tools/agent_comms.py ask "<text>" --options "a|b"`).
 
 ## Wrap-up (every session, before the handover)

@@ -59,6 +59,7 @@ static func share(edge: float, pol: String, film: int, habits: Variant = null, s
 		c.day = 20 + i
 		var f: Dictionary = c.fighter()
 		f["camp"] = {}
+		f["morale"] = 60.0   # S401 CornerTrust: morale now carries between bouts; each measured bout starts level
 		if habits != null:
 			f["habits"] = habits
 		if pol.begins_with("setup"):

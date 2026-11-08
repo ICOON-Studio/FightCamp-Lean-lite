@@ -8,13 +8,13 @@ Updated 2026-11-07 by claude S294.
 
 ## Now
 
-**S395 — ?** *(claude)*
+**S400 — ?** *(claude)*
 
-S395: HUD 5 to 6.5 (corner bug was the film tool; rest strip; fades; tired read B); TV hit line, big-shot slow motion and zoom; boxers walk on a real capture; SOUND2 collected; Attendance; pr-check and cloud film on GitHub; Ollama fixed; structure design with Corner King study, 10 questions on the board. Portraits 4.5, not used. Not exported.
+S400: the base reviewed before any more building (operator: 'i want the base of the game done properly, the structure reviewed by critics'). All 59 real screens judged by critics against OUR plan (UX 5-6.5, player 5.5-6.5, art 4-6); 14 menus on the Miro frame 'MENUS FOR YOUR OK (S400)' for his OK row by row (Q-S294-125). 96 Miro ideas rated: 9 worth trying, 13 moved to REMOVED IDEAS. Ludo painted concepts are the art bar ('the ludo screens look nice'). Unapproved Money page reverted; overdraft rules in (off); the Why now names what a lost decision turned on.
 
 ## Next
 
-S396: read the structure answers Q-113..122; collect SOUND3; check the cloud film; fight polish from the 5.5 review; truth pass (autosave, Settings, Handbook).
+S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.
 
 ## Where the game actually is
 

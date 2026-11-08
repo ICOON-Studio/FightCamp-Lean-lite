@@ -22,6 +22,7 @@ const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
+const CornerTrust := preload("res://scripts/rules/CornerTrust.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
@@ -206,7 +207,8 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var fire := shout == "now" and not (lv.get("setup", {}) as Dictionary).is_empty() and str(lv["setup"].get("used", "")) == ""
 	if shout == "now":
 		shout = ""
-	var shouted := shout != "" and Exchanges.CALLS.has(shout)
+	var shouted := shout != "" and Exchanges.CALLS.has(shout) and CornerTrust.lands(f)
+	if shout != "" and not shouted: CornerTrust.ignored(f["bout"])
 	var call := shout if shouted else str(lv["plan"])
 	var coach := float((f.get("personality", {}) as Dictionary).get("coachability", 55.0))
 	# S361 her trust (morale) scales what she takes in of every call and fix (FighterProfile.TRUST).
@@ -457,6 +459,7 @@ static func close(f: Dictionary, m: Dictionary) -> Dictionary:
 	for h in paid.keys():
 		if not (f["notes_seen"] as Array).has("habit:" + str(h)):
 			(f["notes_seen"] as Array).append("habit:" + str(h))
+	CornerTrust.tally(f["bout"], exs)
 	m.erase("live")
 	return {"n": int(lv["n"]), "won": ro["won"], "won_n": ro["won_n"], "mine": ro["mine"], "theirs": ro["theirs"],
 		"corner": str(lv["plan"]), "energy": e, "exchanges": exs, "landed": ro["landed"], "calls": calls, "worked": worked,

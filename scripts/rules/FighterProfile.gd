@@ -28,6 +28,8 @@ const MORALE_EVENTS := {
 	"refused": -4,   # S356 twist: she did not
 	"heard": 5,        # S361 PushBack: her ask, done her way
 	"overruled": -5,   # S361 PushBack: her ask turned down (a low-coachability fighter takes it worse)
+	"call_wrong": -2,   # S401 CornerTrust: a wrong call she followed
+	"call_right": 1,    # S401 CornerTrust: a right call that landed
 }
 
 ## S361 trust (Q-S294-86: "her morale is the trust score, no new meter"): how much of the corner's word she takes in, by

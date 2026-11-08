@@ -36,6 +36,7 @@ const PlanRecord := preload("res://scripts/rules/PlanRecord.gd")
 const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const PeakCamp := preload("res://scripts/rules/PeakCamp.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
+const CornerTrust := preload("res://scripts/rules/CornerTrust.gd")
 const NOTES_PATH := "res://assets/data/fight_habits.json"
 
 static var _notes_bank: Dictionary = {}
@@ -398,6 +399,7 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 		c.add_news("%s loses to %s %s (%s). %d members leave the gym." % [f["name"], opp["name"], how, card_text,
 			int(m.get("members_lost", 0))])
 	FighterProfile.apply_morale(f, outcome, {"win": "Beat %s", "loss": "Lost to %s", "draw": "Drew with %s"}[outcome] % opp["name"])
+	CornerTrust.settle(f, opp["name"])
 	coach_note(c, f, "fight")
 	var goal: Dictionary = f.get("goal", {})
 	if not goal.is_empty():

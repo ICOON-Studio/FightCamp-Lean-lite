@@ -486,14 +486,22 @@
   {
    "task": "RETARGET2B",
    "seat": "cursor",
-   "status": "queued",
-   "queued": "2026-11-08T09:12"
+   "status": "superseded",
+   "queued": "2026-11-08T09:12",
+   "note": "S401: operator \"assign free seats or open new sessions\": taken by a Claude side session while Cursor is held"
   },
   {
    "task": "CORNERTRUST1",
    "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-08T10:01",
+   "launched": "2026-11-08T10:16"
+  },
+  {
+   "task": "OFFERGONE1",
+   "seat": "qwen",
    "status": "queued",
-   "queued": "2026-11-08T10:01"
+   "queued": "2026-11-08T11:02"
   }
  ]
 }
