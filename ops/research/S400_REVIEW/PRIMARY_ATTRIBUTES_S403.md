@@ -1,6 +1,6 @@
 # Primary attributes: the proposal in plain words (S403, 2026-11-08)
 
-AGREED, 11 attributes. Operator, 2026-11-08: "these 10 lookok", then "i donot agree to have speed same stat for hands and legs": Hand speed and Foot speed stay two numbers.
+AGREED, 10 attributes. Operator, 2026-11-08: "these 10 lookok". He split Speed into hand and foot the same day ("i donot agree to have speed same stat for hands and legs"), then reversed that: "Revert the split hand feet speed change and use 1 attribute for both". One Speed is final.
 
 Your note: "we are talking about primary attributes not moves or skills the current attributes do not make any sense".
 
@@ -9,13 +9,12 @@ Your note: "we are talking about primary attributes not moves or skills the curr
 2. Skills: how good at one sport. Looked at after this.
 3. Moves: a jab, a low kick, an armbar. They stay in the Playbook, each with its Raw, Usable, Sharp level.
 
-## The 11 primary attributes
+## The 10 primary attributes
 | Name | What it means |
 |---|---|
 | Strength | Raw force |
 | Explosiveness | Force produced fast |
-| Hand speed | How fast the hands are |
-| Foot speed | How fast the feet are |
+| Speed | How fast the body moves, hands and feet |
 | Stamina | How long the fighter holds the pace |
 | Recovery | How fast the fighter bounces back, between rounds and between training days |
 | Flexibility | Range of motion and healthy joints |
@@ -25,6 +24,7 @@ Your note: "we are talking about primary attributes not moves or skills the curr
 | Heart | Keeps going when losing |
 
 ## What changes from the old list
+- Hand speed and Foot speed were two numbers. They become one number, called Speed.
 - Chin and Toughness were two numbers. They become one number, called Durability.
 - Boxing's Conditioning and BJJ's Cardio were two names for the same lungs. They become one number, called Stamina.
 - Power is no longer its own number. How hard a fighter hits comes from Strength, Explosiveness and skill.
@@ -35,7 +35,7 @@ Your note: "we are talking about primary attributes not moves or skills the curr
 
 ## What the three critics said
 A fight coach, a game designer and a veteran player each looked at the list on their own. They scored the old list 4, 4 and 5 out of 10.
-All three wanted one Speed number. The operator overruled that: hands and feet stay separate, so a fast-handed plodder and a quick mover with slow hands are different fighters. They agreed on the other merges above.
+All three agreed on the merges above.
 They disagreed on two things:
 - The designer would remove Explosiveness and Recovery, because the current fight code barely uses them. The coach and the player want both. I kept them, but the fight has to really use them, or they go.
 - The coach and the designer wanted one more, Coordination (how fast a fighter learns). Both doubted a player would feel it, and the player did not list it. I left it out.
@@ -43,6 +43,12 @@ They disagreed on two things:
 ## What it costs
 The fighter model waiting in PR #85 was built on the old list and needs reworking. It is on hold until you decide.
 Skills get the same review next.
+
+## How the player knows how fast her hands are (operator: "how player knows how fast his hands go")
+There is no separate number. Speed is the one bar. The difference between hands and feet shows in three other places:
+- Words on the profile and the scouting report: "fast hands", "slow hands", "quick feet", "heavy feet".
+- The Fast hands perk, already in the game, opens at Speed 70: combinations land whole more often.
+- Feet: the Footwork skill. A fast fighter with poor Footwork reads as quick hands and heavy feet.
 
 ## Left and right
 One Strength number for the whole fighter, no number per hand (operator, 2026-11-08: "i think all games use the same number for right and left"). The left and right sides already differ through moves: the jab, the cross and the hooks each have their own level, and the stance sets which hand is the power hand.

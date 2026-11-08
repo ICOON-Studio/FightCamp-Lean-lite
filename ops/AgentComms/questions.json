@@ -5502,9 +5502,9 @@
         "research/S400_REVIEW/PRIMARY_ATTRIBUTES_S403.md"
       ],
       "answer": "rename engine to stamina or conditioning and separate hand speed from leg speed",
-      "note": null,
+      "note": "S404 operator reversed the split: \"Revert the split hand feet speed change and use 1 attribute for both\". Stamina kept; one Speed.",
       "answered_at": "2026-11-08T11:44:09Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": true
     }
   ]

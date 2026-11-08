@@ -5,7 +5,7 @@ Operator: "use 8 mma fighters with different skillsets to populate menus so that
 ## Populate with the eight
 Use `roster_mma8.json` in this folder: a boxer learning MMA, a BJJ specialist, a wrestler, a Muay Thai fighter, a young all-rounder, a kickboxer, a one-punch knockout artist and a fading veteran. Women and men, flyweight to heavyweight, one of them injured, one in camp, one booked, one with an offer, one with a contract ending, one a bigger gym wants, one thinking of retiring, one with nothing on.
 A page that lists fighters shows all eight. A page about one fighter uses whichever of the eight tests it hardest, and must still work with each of the others: the grappler with no real striking, the striker with no ground game, the veteran with no room to grow, the prospect with everything still low.
-Show the agreed 11 primary attributes. Skills in the file are a draft until the skills review. Moves stay in the Playbook, not on the attribute bars.
+Show the agreed 10 primary attributes. Skills in the file are a draft until the skills review. Moves stay in the Playbook, not on the attribute bars.
 
 ## What does not work yet
 Everything MMA needs is on the page now, so nothing has to be redesigned at release.

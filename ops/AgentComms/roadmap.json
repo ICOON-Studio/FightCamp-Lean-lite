@@ -6,11 +6,11 @@
   "id": "S401",
   "owner": "claude",
   "updated": "2026-11-08",
-  "summary": "S403: 11 primary attributes agreed (three layers: attributes, skills, moves); every critic now reads the whole game (CRITIC_PACK + Miro access); seven menus filled with 8 MMA fighters, 3 critic rounds, 6-7.25, on Miro; WarmKit built; GUIDEFLAG2, swing census, R11A in.",
+  "summary": "S403: 10 primary attributes agreed (one Speed, S404) (three layers: attributes, skills, moves); every critic now reads the whole game (CRITIC_PACK + Miro access); seven menus filled with 8 MMA fighters, 3 critic rounds, 6-7.25, on Miro; WarmKit built; GUIDEFLAG2, swing census, R11A in.",
   "last_working_commit": "903b5f8d (S402 on main; OFFERGONE1 76cdcfda)",
   "verified_playable": "corner_lens, corner_crew_bodies, corner_warm, corner_trust, exchanges, trust_fight, habit_fix, plan_bots, golden_path, plain_words on main; corner film viewed by Claude",
   "incomplete_blocked": "PR #85 FIGHTERMODEL3B landed 7/9 checks, not reviewed; OFFERGONE1 on Qwen; Rokoko repair in its own session (branch claude/rokoko-repair-3bb3a3); ARCHIVED Miro board not yet deleted (7 images and 2 html mockups to move); corner_film 'gloves touch' check red since S400's 1.2x gloves",
-  "next_action": "1) Collect BJJBEAT1 (#91, 3 checks failed). 2) Animation: Rokoko repair, film RETARGET2B, merge, proguard. 3) Skills layer with critics who know the game (CRITIC_PACK), then re-brief the fighter model for the 11 primary attributes (FIGHTERMODEL3C held). 4) Seven menus stalled at 6-7.25 after 3 critic rounds: his call, one more pass or build; then Money, World, Playbook on WarmKit.",
+  "next_action": "1) Collect BJJBEAT1 (#91, 3 checks failed). 2) Animation: Rokoko repair, film RETARGET2B, merge, proguard. 3) Skills layer with critics who know the game (CRITIC_PACK), then re-brief the fighter model for the 10 primary attributes (one Speed, S404) (FIGHTERMODEL3C held). 4) Seven menus stalled at 6-7.25 after 3 critic rounds: his call, one more pass or build; then Money, World, Playbook on WarmKit.",
   "next_acceptance": "No screen is built without his OK on its Miro row and painted concept; mechanics ruled before menus are finalised; animation moves each session.",
   "awaiting_operator": [
    "Cut Test day and dues bands?",
@@ -5174,6 +5174,26 @@
   "map": {
    "done_earlier": [
     {
+     "text": "GUIDEFLAG2 and swing census in",
+     "who": "agent"
+    },
+    {
+     "text": "10 primary attributes agreed",
+     "who": "operator"
+    },
+    {
+     "text": "Critics know the whole game",
+     "who": "claude"
+    },
+    {
+     "text": "7 menus: 8 MMA fighters, on Miro",
+     "who": "claude"
+    },
+    {
+     "text": "WarmKit built, no screen yet",
+     "who": "claude"
+    },
+    {
      "text": "OFFERGONE1 collected",
      "who": "claude"
     },
@@ -5208,50 +5228,9 @@
     {
      "text": "Corner minute from the apron",
      "who": "claude"
-    },
-    {
-     "text": "16 dead branches deleted",
-     "who": "claude"
-    },
-    {
-     "text": "One Miro board, all moved over",
-     "who": "claude"
-    },
-    {
-     "text": "Corner trust in (Qwen)",
-     "who": "agent"
-    },
-    {
-     "text": "14 menus painted, real screens",
-     "who": "agent"
-    },
-    {
-     "text": "103 mechanics rated on Miro",
-     "who": "agent"
     }
    ],
-   "done_session": [
-    {
-     "text": "GUIDEFLAG2 and swing census in",
-     "who": "agent"
-    },
-    {
-     "text": "11 primary attributes agreed",
-     "who": "operator"
-    },
-    {
-     "text": "Critics know the whole game",
-     "who": "claude"
-    },
-    {
-     "text": "7 menus: 8 MMA fighters, on Miro",
-     "who": "claude"
-    },
-    {
-     "text": "WarmKit built, no screen yet",
-     "who": "claude"
-    }
-   ],
+   "done_session": [],
    "now": [
     {
      "text": "Rokoko repair (session)",
@@ -5360,7 +5339,7 @@
      "who": "operator"
     }
    ],
-   "session": "S403"
+   "session": "S404"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

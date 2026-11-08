@@ -1,10 +1,9 @@
 {
- "_doc": "S403: the eight MMA fighters for every menu mockup. Primary attributes are the agreed 11. The skills list is a DRAFT until the skills review.",
+ "_doc": "S403: the eight MMA fighters for every menu mockup. Primary attributes are the agreed 10. The skills list is a DRAFT until the skills review.",
  "primary": [
   "Strength",
   "Explosiveness",
-  "Hand speed",
-  "Foot speed",
+  "Speed",
   "Stamina",
   "Recovery",
   "Flexibility",
@@ -59,13 +58,9 @@
      "now": 56,
      "cap": 74
     },
-    "Hand speed": {
+    "Speed": {
      "now": 63,
      "cap": 81
-    },
-    "Foot speed": {
-     "now": 61,
-     "cap": 79
     },
     "Stamina": {
      "now": 62,
@@ -206,11 +201,7 @@
      "now": 48,
      "cap": 56
     },
-    "Hand speed": {
-     "now": 44,
-     "cap": 52
-    },
-    "Foot speed": {
+    "Speed": {
      "now": 47,
      "cap": 55
     },
@@ -352,11 +343,7 @@
      "now": 66,
      "cap": 71
     },
-    "Hand speed": {
-     "now": 48,
-     "cap": 53
-    },
-    "Foot speed": {
+    "Speed": {
      "now": 55,
      "cap": 60
     },
@@ -497,11 +484,7 @@
      "now": 62,
      "cap": 76
     },
-    "Hand speed": {
-     "now": 57,
-     "cap": 71
-    },
-    "Foot speed": {
+    "Speed": {
      "now": 58,
      "cap": 72
     },
@@ -644,11 +627,7 @@
      "now": 64,
      "cap": 90
     },
-    "Hand speed": {
-     "now": 60,
-     "cap": 86
-    },
-    "Foot speed": {
+    "Speed": {
      "now": 62,
      "cap": 88
     },
@@ -790,11 +769,7 @@
      "now": 72,
      "cap": 78
     },
-    "Hand speed": {
-     "now": 66,
-     "cap": 72
-    },
-    "Foot speed": {
+    "Speed": {
      "now": 78,
      "cap": 84
     },
@@ -936,13 +911,9 @@
      "now": 90,
      "cap": 98
     },
-    "Hand speed": {
+    "Speed": {
      "now": 70,
      "cap": 78
-    },
-    "Foot speed": {
-     "now": 54,
-     "cap": 62
     },
     "Stamina": {
      "now": 44,
@@ -1081,13 +1052,9 @@
      "now": 48,
      "cap": 48
     },
-    "Hand speed": {
+    "Speed": {
      "now": 52,
      "cap": 52
-    },
-    "Foot speed": {
-     "now": 38,
-     "cap": 38
     },
     "Stamina": {
      "now": 50,
