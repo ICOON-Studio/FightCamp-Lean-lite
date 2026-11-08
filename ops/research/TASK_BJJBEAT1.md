@@ -3,6 +3,9 @@
 Status: OPEN (S399, Claude main). Discipline: no-gi BJJ. Source: ops/research/BJJ_REALISM_S397.md (v2 merged 500c3ca7, its
 section "Five paper rounds" + the shipped table), S398 BJJREAL step 3 (BjjBeat.gd, on main with BEATS2 = 0).
 
+Update S402 (Claude main): Cursor seat now runs Grok 4.7 High. Goose got as far as branch origin/goose/issue-75 (8106bfd4): BEATS2 = 1 and a 210-line
+tests/bjj_beat_on_test.gd, no tuning at all, never measured. Take that test as a starting point (git show origin/goose/issue-75:tests/bjj_beat_on_test.gd), check it against the bars below, and do the tuning.
+
 ## Contract
 OWNS: scripts/rules/BjjBeat.gd, scripts/rules/BjjTree.gd, scripts/rules/BjjWalk.gd, tests/bjj_beat_test.gd, tests/bjj_beat_on_test.gd
 RED_TEST: tests/bjj_beat_on_test.gd -> BJJ_BEAT_ON failures=0
