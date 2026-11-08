@@ -8,9 +8,9 @@ Updated 2026-11-08 by claude S294.
 
 ## Now
 
-**S401 — ?** *(claude)*
+**S406 — ?** *(claude)*
 
-Menus: one combined pass, 12 pages on shared facts and icons, last critic 7-8 (Week and Money 8), Miro frame 3458764689791839686. Operator said build. KitIcon.gd in the game (kit_icon_test green); three screen briefs queued on Cursor.
+ONE CHANGE in the corner built (his "Build small version"): Elbows in, Gloves high, habit fix or Leave it, one slot. Measured first: holo head punches do not change results, no version changes who wins. SPLIT500 and R11C merged. World page round 1 sent back (blank names). Build exported.
 
 ## Next
 
@@ -290,3 +290,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S403**  |  |  | *none yet* |  |
 |  |  | **S403b**  |  |  | *none yet* |  |
 |  |  | **S405**  |  |  | *none yet* |  |
+|  |  | **S406**  |  |  | *none yet* |  |

@@ -1,3 +1,23 @@
+# S406 handover (written 2026-11-08, S406 main session)
+
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S407` and redraw the map (strip data-deleted lines; he has not approved deleting map cards).
+STANDING ORDER: animation progresses every session; name the item and seat in the first message.
+FULL TESTS at 05:00: read ops/AgentComms/nightly/latest.txt and reviews.md first (first real run 2026-11-09, not yet seen).
+
+BUILT S406, on main:
+ONE CHANGE in the corner (scripts/rules/Adaptation.gd, tests/adaptation_test.gd; design and every number in ops/research/ADAPTATION_S406.md). Elbows in, Gloves high, the habit fix or Leave it, one slot, one round. His call: "Build small version", after "actually no" to making head punches count first. So: holo head punches still do nothing to the result; only punches a change moves add or take off head damage. It moves where she is hit and what it costs, NOT who wins. Measured, 300 bouts a cell: nothing 64.3%, always Elbows 63.6%, always Gloves 64.8%, reading tank and head 64.1%. Two critics scored v1 5.5 and 4, and the build did not go back to critics. Set-up and Talk are NOT folded yet: MENUFIGHT1 does it (brief updated, no longer held). The body is one place: the game has one body punch, so the holo's ribs read 0 against an orthodox opponent.
+Also merged: SPLIT500 (#98), R11C. Money tooltip now says "$N short of the price" (grey_reason failed on it). ops/IF_CLAUDE_RUNS_OUT.md = a paste-ready Cursor prompt, for when his plan runs out.
+Holo blink and organ pop seen on film: they work. FILM TRAP: hidden-desktop films are a centre crop of a 2055-wide canvas (window comes up 1920x1009), about 67 px lost per side. Edges look cut off when the game is fine. Films need --write-movie <out>.avi or nothing is written.
+
+COLLECT (order): PR #100 MENUMONEY2: run its test, render stills, compare with docs/mockups/s403/money.png, close #97 if good. PR #101 SOUTHPAW3: test only, see below. PR #99 World is NOT mergeable: MENUWORLD2 is queued with base cursor/menuworld1 (every fighter name blank: clip_text on the name button with no width; Style cut off; table two thirds of the board; page past the screen; old blue background). Render 30_rankings with tools/layout_snapshot.gd after it lands.
+Queue on Cursor after: MENUPLAYBOOK1, FIGHTERMODEL4A, MENUHOME1, MENUWEEK1, MENUFIGHT1.
+
+ANIMATION, next item: the guard knock-knee. Qwen measured on the new clips (PR #101): main still fails, blue lead valgus +0.130 m, red rear -0.098; same with noproguard; no rig setting moved the knee by more than 1 mm; clip only (nofeet nofootwork) fails on all 4 legs. So PR #78's rig fix does not hold on today's clips: close it unless its numbers say otherwise. Next: raw-vs-ours table on the knee in guard (tools/raw_fbx_feet.py way): is the knock-knee in the source take, the bake, or the test's measure? Look at a still before any fix. Seat: Qwen.
+
+CI: main's latest finished run: boxer_footwork (known torso lean) and move_tip red; ring_feet passed this time, so it is intermittent. tests/ring_feet_test.gd now prints why a walk has not arrived (step in the air, feet off, aim off): read that line the next time it goes red. move_tip has timing bars (opens within 400 ms): likely load on the runner, not read yet.
+WAITING ON HIM: keep or cut Test day and dues bands | "yes, ARCHIVED" | play the S406 build. He asked about running Claude Code on free models: Ollama's Claude Desktop route is Mac-only for now; on this PC Cursor is the fallback, `ollama launch claude --model kimi-k3.1-pro:cloud` is the terminal route, untested. Magpie, Free Claude Code and OmniRoute are not vetted.
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor Grok 4.7 High until 12-07.
+
 # S405 handover (written 2026-11-08, S405 main session, stopped at 640k context: past the 420k rule)
 
 OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S406` and redraw the map.

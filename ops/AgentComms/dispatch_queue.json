@@ -640,6 +640,12 @@
       "seat": "qwen",
       "title": "TASK SOUTHPAW3 - QWEN (qwen3-coder) - the guard knock-knee fix, carried onto the new clips",
       "brief": "SOUTHPAW3"
+    },
+    {
+      "id": "KNEERAW1",
+      "seat": "qwen",
+      "title": "TASK KNEERAW1 - QWEN (qwen3-coder) - the guard knock-knee: fix the measure, then raw clip against ours",
+      "brief": "KNEERAW1"
     }
   ]
 }

@@ -1,3 +1,14 @@
+FIGHTCAMP - BUILD OF 2026-11-08 (S406): ONE CHANGE IN THE CORNER
+================================================================================
+
+ NEW.
+  a. Between rounds the corner card has ONE CHANGE, where the habit fix was: Elbows in, Gloves high, the habit fix, or Leave it. Each button shows what it moves. It lasts one round, and the next card says what it did.
+  b. Elbows in sends part of the body punches to the head: it saves energy and brings a knockdown closer. Gloves high does the reverse.
+  c. A standing count on the cards now says what it cost.
+ TRY: play one fight and use ONE CHANGE after round 1. Can you tell what it did? Does the corner feel any more crowded?
+ It changes where she gets hit and what it costs, not who wins: that was the small version you picked.
+ The new menus are not in this build yet.
+
 FIGHTCAMP - BUILD OF 2026-11-08 (S405): THE HOLO IS BACK
 ================================================================================
 

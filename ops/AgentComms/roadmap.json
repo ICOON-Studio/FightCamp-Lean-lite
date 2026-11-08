@@ -3,18 +3,19 @@
   "updated": "2026-11-08",
   "author": "claude S294",
   "now": {
-    "id": "S401",
+    "id": "S406",
     "owner": "claude",
     "updated": "2026-11-08",
-    "summary": "Menus: one combined pass, 12 pages on shared facts and icons, last critic 7-8 (Week and Money 8), Miro frame 3458764689791839686. Operator said build. KitIcon.gd in the game (kit_icon_test green); three screen briefs queued on Cursor.",
-    "last_working_commit": "3ab9def0 (S405: side holos, hit numbers, organ pops; boxer_footwork, ring_feet and move_tip red on CI)",
+    "summary": "ONE CHANGE in the corner built (his \"Build small version\"): Elbows in, Gloves high, habit fix or Leave it, one slot. Measured first: holo head punches do not change results, no version changes who wins. SPLIT500 and R11C merged. World page round 1 sent back (blank names). Build exported.",
+    "last_working_commit": "4b9eca66 (S406: ONE CHANGE; boxer_footwork and move_tip red on CI, ring_feet intermittent)",
     "verified_playable": "corner_lens, corner_crew_bodies, corner_warm, corner_trust, exchanges, trust_fight, habit_fix, plan_bots, golden_path, plain_words on main; corner film viewed by Claude",
-    "incomplete_blocked": "PR #85 FIGHTERMODEL3B landed 7/9 checks, not reviewed; OFFERGONE1 on Qwen; Rokoko repair in its own session (branch claude/rokoko-repair-3bb3a3); ARCHIVED Miro board not yet deleted (7 images and 2 html mockups to move); corner_film 'gloves touch' check red since S400's 1.2x gloves",
-    "next_action": "ONE ADAPTATION PER ROUND (operator 'Yes, both', S405): write the design, critics score it with their 10/10 lists, he approves, then build; MENUFIGHT1 held until then. Then collect SPLIT500, R11C, MENUWORLD1. Film the holo's blink and organ pop: not seen on film yet. Diagnose ring_feet's director's walk on CI. Full handover: NEXT_SESSION_PROMPT.md.",
+    "incomplete_blocked": "PR #100 MENUMONEY2 and #101 SOUTHPAW3 landed, not collected. MENUWORLD2, MENUPLAYBOOK1, FIGHTERMODEL4A, MENUHOME1, MENUWEEK1, MENUFIGHT1 queued on Cursor.",
+    "next_action": "Collect PR #100 Money round 2 (render stills, compare with the mockup; close #97 if good) and #101 SOUTHPAW3 (test only: the knock-knee remains, close #78). Then the animation item: raw-vs-ours on the guard knee, the clip chain, not the rig. Full handover: NEXT_SESSION_PROMPT.md.",
     "next_acceptance": "No screen is built without his OK on its Miro row and painted concept; mechanics ruled before menus are finalised; animation moves each session.",
     "awaiting_operator": [
       "Keep or cut Test day and dues bands (dues measured: premium best at every reputation)",
-      "Yes, ARCHIVED: copy and permanently delete the old Miro board"
+      "Yes, ARCHIVED: copy 7 JPGs and 2 mockups to the ONE board, delete the old one",
+      "Play the S406 build: can you tell what ONE CHANGE did?"
     ]
   },
   "next": "S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.",
@@ -1606,6 +1607,11 @@
       "id": "S405",
       "date": "2026-11-08",
       "note": "BJJ beat ON; R11B, R11D, R11E; proguard guard ON; side holos back with hit numbers and organ pops; refusing Lucy brings Danny; CI limit 18 min and 9 tests added; critics' 10/10 lists on Miro; new-game screens on Miro; Money round 1 sent back."
+    },
+    {
+      "id": "S406",
+      "date": "2026-11-08",
+      "note": "Measured the adaptation first: holo counts do not change results. Small version built at his call. SPLIT500, R11C merged; World round 2 briefed; holo pop filmed; hidden-desktop film crop found; IF_CLAUDE_RUNS_OUT prompt written."
     }
   ],
   "blocked_on_operator": [],
@@ -4524,7 +4530,7 @@
   },
   "plan": {
     "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-    "updated": "2026-11-08 20:11 board_sync",
+    "updated": "2026-11-08",
     "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
     "titles": {
       "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4666,107 +4672,22 @@
     },
     "working_now": [
       {
-        "title": "TASK SOUTHPAW2 - CURSOR (GPT-5.6 Sol High) - the guard knock-knee, round 2: a test that FAILS on main first",
+        "title": "TASK MENUMONEY2 - CURSOR (Grok 4.7 High) - the Money page, round 2: the bills bug and the fit",
         "who": "cursor",
-        "started": "2026-11-07T21:21",
-        "run": "SOUTHPAW2",
-        "state": "LANDED - Claude collects"
+        "started": "2026-11-08T20:29",
+        "run": "MENUMONEY2"
       },
       {
-        "title": "TASK ANIMREBUILD1 - AGY (Argon High) - design draft: fight animation rebuilt around a clip library + one picker",
-        "who": "antigravity",
-        "started": "2026-11-07T22:09",
-        "run": "ANIMREBUILD1",
-        "state": "LANDED - Claude collects"
-      },
-      {
-        "title": "TASK RETARGET1 - CURSOR (GPT-5.6 Sol High) - bring the purchased Punch PRO pack onto our boxer WITHOUT breaking it",
-        "who": "cursor",
-        "started": "2026-11-07T22:53",
-        "run": "RETARGET1",
-        "state": "LANDED - Claude collects"
-      },
-      {
-        "title": "TASK RETARGET2 - CURSOR (GPT-5.6 Sol High) - RETARGET1 round 2: keep the wins, fix the stance and the end trim",
-        "who": "cursor",
-        "started": "2026-11-08T07:24",
-        "run": "RETARGET2",
-        "state": "LANDED - Claude collects"
-      },
-      {
-        "title": "TASK FIGHTERMODEL3B - CURSOR (Grok 4.7 High) - the fighter model to 8/10 built, rule 2 held again (round 2)",
-        "who": "cursor",
-        "started": "2026-11-08T09:11",
-        "run": "FIGHTERMODEL3B",
-        "state": "LANDED - Claude collects"
-      },
-      {
-        "title": "TASK CORNERTRUST1 - QWEN (qwen3-coder) - a wrong corner call costs her trust; a Low fighter stops listening (rules only)",
+        "title": "TASK SOUTHPAW3 - QWEN (qwen3-coder) - the guard knock-knee fix, carried onto today's clips",
         "who": "qwen",
-        "started": "2026-11-08T10:16",
-        "run": "CORNERTRUST1",
+        "started": "2026-11-08T20:30",
+        "run": "SOUTHPAW3"
+      },
+      {
+        "title": "Collect Money round 2 (PR #100) and SOUTHPAW3 (PR #101)",
+        "who": "claude",
+        "run": "",
         "state": "LANDED - Claude collects"
-      },
-      {
-        "title": "TASK OFFERGONE1 - QWEN (qwen3-coder) - an expired fight offer is never a dead end",
-        "who": "qwen",
-        "started": "2026-11-08T11:03",
-        "run": "OFFERGONE1",
-        "state": "LANDED - Claude collects"
-      },
-      {
-        "title": "TASK GUIDEFLAG1 - QWEN (qwen3-coder) - the guide strip ends with the first week; the offer flag says what is needed",
-        "who": "qwen",
-        "started": "2026-11-08T12:10",
-        "run": "GUIDEFLAG1",
-        "state": "LANDED - Claude collects"
-      },
-      {
-        "title": "TASK SWINGCENSUS1 - AGY (Argon High) - every random swing the player feels, and what they are told",
-        "who": "antigravity",
-        "started": "2026-11-08T12:41",
-        "run": "SWINGCENSUS1",
-        "state": "LANDED - Claude collects"
-      },
-      {
-        "title": "TASK GUIDEFLAG2 - QWEN (qwen3-coder) - round 2: the guide must end, without breaking the first fight",
-        "who": "qwen",
-        "started": "2026-11-08T13:00",
-        "run": "GUIDEFLAG2",
-        "state": "LANDED - Claude collects"
-      },
-      {
-        "title": "TASK R11A - QWEN (qwen3-coder) - an injury says why it happened",
-        "who": "qwen",
-        "started": "2026-11-08T13:34",
-        "run": "R11A",
-        "state": "LANDED - Claude collects"
-      },
-      {
-        "title": "QWEN (qwen3-coder) - a standing count on the cards says what it cost",
-        "who": "goose",
-        "started": "2026-11-08T18:11",
-        "run": "R11C",
-        "state": "LANDED - Claude collects"
-      },
-      {
-        "title": "TASK MENUMONEY1 - CURSOR (Grok 4.7 High) - the Money page, built from the approved mockup",
-        "who": "cursor",
-        "started": "2026-11-08T18:48",
-        "run": "MENUMONEY1",
-        "state": "LANDED - Claude collects"
-      },
-      {
-        "title": "TASK MENUWORLD1 - CURSOR (Grok 4.7 High) - the World page, rebuilt around the rankings",
-        "who": "cursor",
-        "started": "2026-11-08T19:34",
-        "run": "MENUWORLD1"
-      },
-      {
-        "title": "TASK SPLIT500 - QWEN (qwen3-coder) - make room in the two files at the 500-line limit",
-        "who": "qwen",
-        "started": "2026-11-08T19:53",
-        "run": "SPLIT500"
       }
     ],
     "next": [
@@ -5040,6 +4961,31 @@
     },
     "done_recently": [
       {
+        "title": "ONE CHANGE in the corner (small version)",
+        "who": "claude",
+        "when": "2026-11-08"
+      },
+      {
+        "title": "SPLIT500 merged",
+        "who": "claude",
+        "when": "2026-11-08"
+      },
+      {
+        "title": "R11C: a standing count says what it cost",
+        "who": "claude",
+        "when": "2026-11-08"
+      },
+      {
+        "title": "Holo blink and organ pop seen on film",
+        "who": "claude",
+        "when": "2026-11-08"
+      },
+      {
+        "title": "TASK SPLIT500 - QWEN (qwen3-coder) - make room in the two files at the 500-line limit",
+        "who": "qwen",
+        "when": "2026-11-08"
+      },
+      {
         "title": "TASK R11F - QWEN (qwen3-coder) - members who leave after a loss are named on the result",
         "who": "qwen",
         "when": "2026-11-08"
@@ -5081,21 +5027,6 @@
       },
       {
         "title": "TASK HITSELL4 - QWEN (qwen3-coder) - a blocked head shot shows on the fight's own path, a landed one keeps its snap",
-        "who": "qwen",
-        "when": "2026-11-07"
-      },
-      {
-        "title": "TASK FIGHTWALK2 - CURSOR (Composer 2.5, Fast OFF) - round 2: walks that arrive, a corner crew that works",
-        "who": "cursor",
-        "when": "2026-11-07"
-      },
-      {
-        "title": "TASK HITSELL2 - QWEN (qwen3-coder) - round 2: a test that measures, then a landed punch that reads as landed",
-        "who": "qwen",
-        "when": "2026-11-07"
-      },
-      {
-        "title": "TASK HITSELL1 - QWEN (qwen3-coder) - a landed punch must read as landed, a blocked one as blocked",
         "who": "qwen",
         "when": "2026-11-07"
       }
@@ -5294,19 +5225,31 @@
         {
           "text": "Money tooltip says what's short",
           "who": "claude"
+        },
+        {
+          "text": "Holo blink + organ pop filmed",
+          "who": "claude"
+        },
+        {
+          "text": "ONE CHANGE in the corner",
+          "who": "claude"
+        },
+        {
+          "text": "World checked, round 2 queued",
+          "who": "claude"
         }
       ],
       "now": [
-        {
-          "text": "Seven menus: Cursor queued",
-          "who": "agent"
-        },
         {
           "text": "Fighter model 4A queued",
           "who": "agent"
         },
         {
-          "text": "One adaptation per round",
+          "text": "Collect Money round 2 (#100)",
+          "who": "claude"
+        },
+        {
+          "text": "World round 2 (Cursor)",
           "who": "claude"
         }
       ],
@@ -5397,6 +5340,10 @@
         },
         {
           "text": "Brighten the murky fight",
+          "who": "claude"
+        },
+        {
+          "text": "Knee: raw clip vs ours (Qwen)",
           "who": "claude"
         }
       ],
