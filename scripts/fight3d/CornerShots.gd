@@ -36,8 +36,9 @@ static func frame(shot: String, ctx: Dictionary) -> Dictionary:
 			var look := (Vector3(seat.x, 0.82, seat.z)).lerp(face, 0.5)
 			return {"pos": p, "look": look, "fov": 30.0, "focus": p.distance_to(look), "drift": d * 0.18}
 		"water":
-			# Close insert from her front-right: the bottle at her lips, the coach's arm coming in from the far side.
-			var p := face + (Basis(Vector3.UP, -0.8) * d) * 0.85 + Vector3.UP * 0.02
+			# Close insert from just left of straight on: the bottle at her lips, the coach's arm coming in from the far side
+			# (S401: he is on the apron on her right; from further left the second filled the frame).
+			var p := face + (Basis(Vector3.UP, 0.25) * d) * 0.85 + Vector3.UP * 0.02
 			return {"pos": p, "look": face + Vector3.DOWN * 0.05, "fov": 28.0, "focus": p.distance_to(face), "drift": -l * 0.05}
 		"ice":
 			# Close insert from behind her left shoulder: the ice on the back of her neck.
@@ -45,21 +46,19 @@ static func frame(shot: String, ctx: Dictionary) -> Dictionary:
 			var p := neck + l * 0.62 - d * 0.12 + Vector3.UP * 0.16
 			return {"pos": p, "look": neck, "fov": 30.0, "focus": p.distance_to(neck), "drift": d * 0.05}
 		"ots":
-			# Over the coach's right shoulder onto her face: just behind and above his shoulder joint, so the line to her
-			# face passes beside his head (his shoulder and ear soft in the foreground), never through his hunched back.
-			var coach: Dictionary = ctx["coach"]
-			var sh := bone(coach, "RightUpperArm")
-			var dir := (sh - face).normalized()
-			var p := sh + dir * 0.6 + Vector3.UP * 0.16 - side(coach) * 0.2
-			return {"pos": p, "look": face, "fov": 32.0, "focus": p.distance_to(face), "drift": -side(coach) * 0.05}
+			# Her face as she listens, from her front-right inside the ropes. S401: with the coach on the apron a lens over his
+			# shoulder stands outside the ropes, and it held on his arm filling a third of the frame for 7 s.
+			var p := face + (Basis(Vector3.UP, -0.5) * d) * 0.95 + Vector3.UP * 0.1
+			return {"pos": p, "look": face, "fov": 30.0, "focus": p.distance_to(face), "drift": -l * 0.05}
 		"side2":
-			# Both in profile from her left: the coach crouched, talking up to her on the stool.
+			# Both in profile: the coach leaning over the rope, talking down to her on the stool. S401: square to the line between
+			# their heads, on the ring side (from her front-left he stood straight behind her).
 			var coach: Dictionary = ctx["coach"]
 			var cf := bone(coach, "Head")
 			var mid := (face + cf) * 0.5
-			# S309: the coach's head is higher now (his look lifts his back): the lens sits just under the line of their
-			# eyes. S380: from her front-left inside the ring (l * 1.7 alone stood 0.9 m outside the ropes).
-			var p := mid + d * 1.5 + l * 1.25 + Vector3.UP * 0.12
+			var across := Vector3(cf.x - face.x, 0, cf.z - face.z).normalized().cross(Vector3.UP)
+			# Square alone runs along the rope and leaves the ring, so it is turned toward the ring's middle.
+			var p := mid + ((across if across.dot(d) > 0.0 else -across) * 0.6 + d * 0.8).normalized() * 1.9 + Vector3.UP * 0.12
 			return {"pos": p, "look": mid, "fov": 32.0, "focus": p.distance_to(mid), "drift": d * 0.12}
 		"corner_wide":
 			# The whole corner from the ring's middle: her on the stool, the coach in front, the second on the apron.
@@ -68,11 +67,11 @@ static func frame(shot: String, ctx: Dictionary) -> Dictionary:
 			var look := seat + d * 0.4 + Vector3.UP * 1.0   # S396: the second on the apron kept his head (was 0.8, fov 30)
 			return {"pos": p, "look": look, "fov": 35.0, "focus": p.distance_to(look), "drift": -l * 0.25}
 		"reverse":
-			# The reverse: over her shoulder onto the coach as he speaks, looking up at her (three-quarter, never long straight-on).
+			# The reverse: the coach as he speaks, from the ring's side, his head between the top two ropes. S401: over her
+			# shoulder the lens left the ring with him on the apron and came back aimed at the crowd.
 			var coach: Dictionary = ctx["coach"]
 			var cf := bone(coach, "Head") + fwd(coach) * 0.09 + Vector3.UP * 0.03
-			var dir := Vector3(face.x - cf.x, 0, face.z - cf.z).normalized()
-			var p := face + dir * 0.42 + l * 0.24 + Vector3.UP * 0.02
+			var p := cf + d * 1.3 + Vector3.UP * 0.02
 			return {"pos": p, "look": cf, "fov": 30.0, "focus": p.distance_to(cf), "drift": l * 0.04}
 		"cutman":
 			# Close on her face from her front-right: the cutman's fingers on her far cheekbone.

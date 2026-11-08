@@ -25,6 +25,11 @@ const SHOTS := [[0.0, "part"], [2.2, "behind"], [4.4, "low_out"], [6.4, "water"]
 ## What happens when: [s, cue] (the cue_<name> methods).
 const CUES := [[0.3, "walk"], [2.2, "crew_in"], [6.4, "water"], [7.8, "ice"], [9.0, "face"], [30.0, "cutman"], [34.0, "cutman_off"],
 	[40.0, "blue_talk"], [50.0, "default_call"], [52.0, "seconds_out"], [52.4, "stand"], [54.6, "walk_out"]]
+## S401 where a corner man works from on the apron: along the rope from the post, behind it, and his lean over the top rope.
+const APRON_ALONG_M := 0.4
+const APRON_OUT_M := 0.2
+const APRON_CROUCH_OUT_M := 0.28   # crouched his knees come forward: this keeps them behind the bottom rope
+const APRON_LEAN_DEG := 18.0
 ## The coach's line for each call (what a real corner says in that minute).
 const LINES := {"long": "Stay long. Jab and move, make every punch reach.", "body": "Go downstairs. Dig to the body, the head comes later.",
 	"calm": "Breathe. Slow it down and pick your shots."}
@@ -206,6 +211,8 @@ func cue_crew_in() -> void:
 		var cs := (c["post"] as Vector3) + rope * 0.55 + out * 0.3
 		crew.place(coach, cs, crew.yaw_to(cs, c["seat"]))
 		crew.play(coach, "af_idle_foldarms" if side == "red" else "af_idle")
+		if side == "red":
+			coach["ik"].upright(0.0)   # S401 last corner's lean over the rope
 		var ss := (c["post"] as Vector3) + rope * 1.1 + out * 0.3
 		crew.place(second, ss, crew.yaw_to(ss, c["seat"]))
 		crew.play(second, "af_crouch_idle")
@@ -215,15 +222,27 @@ func cue_crew_in() -> void:
 		(crew.props[side + "_bucket"] as Node3D).visible = true
 
 
-## 0:06 water: her coach, inside the ropes at her front-left, holds the bottle to her lips (his hand reaches it; from
-## the apron the second's arm is 0.3 m short of her mouth).
+## S401 a spot on the apron `out_m` outside the rope on her right (on her left when `left`), `along` metres out from the post.
+func _apron(c: Dictionary, along: float, out_m: float, left := false) -> Vector3:
+	var d: Vector3 = c["d"]
+	var l: Vector3 = (c["l"] as Vector3) * (-1.0 if left else 1.0)
+	return (c["post"] as Vector3) + (d - l).normalized() * along - (d + l).normalized() * out_m
+
+
+## 0:06 water: S401 (operator's pick: on the apron, outside the ropes, leaning in) her coach leans over the top rope on her
+## right and holds the bottle to her lips, from his side of her face.
 func cue_water() -> void:
 	var her := ctx_actor("her")
 	var coach: Dictionary = crew.actors["coach"]
 	var c: Dictionary = crew.corner("red")
-	# His hand a hand's width in front of her lips: the bottle's middle sits there, tipped to them.
-	var hand := func(): return _mouth(her) + CornerShots.fwd(her) * 0.13 + Vector3.DOWN * 0.03
-	_stand_to_reach(coach, hand.call(), (c["seat"] as Vector3) + (c["l"] as Vector3) * 0.5 + (c["d"] as Vector3) * 0.6, "Left")
+	var at := _apron(c, APRON_ALONG_M, APRON_OUT_M)
+	var hand := func():
+		var m := _mouth(her)
+		return m + Vector3(at.x - m.x, 0, at.z - m.z).normalized() * 0.13 + Vector3.DOWN * 0.03
+	var first: Vector3 = hand.call()
+	crew.place(coach, at, crew.yaw_to(at, first))
+	crew.play(coach, "af_idle")
+	coach["ik"].upright(-APRON_LEAN_DEG)
 	coach["ik"].reach("Left", hand)
 	crew.hold("bottle", coach, "Left", func(): return _mouth(her))
 
@@ -235,12 +254,13 @@ func cue_ice() -> void:
 	crew.play(crew.actors["second"], "af_idle")
 
 
-## 0:09 her coach crouches in front of her, face to face; the corner card comes up.
+## 0:09 her coach crouches on the apron, face to face with her through the ropes; the corner card comes up. S401: he crouches
+## from the start: a coach standing here had her staring at the roof, and his crouch at the pick left the reverse aimed over him.
 func cue_face() -> void:
 	var her := ctx_actor("her")
 	var coach: Dictionary = crew.actors["coach"]
 	var c: Dictionary = crew.corner("red")
-	var at := CornerShots.pos(her) + (c["d"] as Vector3) * 1.15 * (her["node"] as Node3D).scale.x
+	var at := _apron(c, APRON_ALONG_M, APRON_CROUCH_OUT_M)
 	crew.place(coach, at, crew.yaw_to(at, CornerShots.pos(her)))
 	crew.play(coach, "af_crouch_idle")
 	crew.play(her, "af_sit_talk" if not bool(ctx.get("won", false)) else "af_sit_idle")
@@ -258,7 +278,12 @@ func cue_cutman() -> void:
 	var her := ctx_actor("her")
 	var c: Dictionary = crew.corner("red")
 	var cheek := func(): return CornerShots.bone(her, "Head") + CornerShots.fwd(her) * 0.08 + CornerShots.side(her) * 0.055
-	_stand_to_reach(cut, cheek.call(), (c["seat"] as Vector3) + (c["l"] as Vector3) * 0.55 + (c["d"] as Vector3) * 0.4, "Right")
+	# S401 from the apron on her left, the coach keeps her right.
+	var at := _apron(c, APRON_ALONG_M, APRON_OUT_M, true)
+	var first: Vector3 = cheek.call()
+	crew.place(cut, at, crew.yaw_to(at, first))
+	crew.play(cut, "af_idle")
+	cut["ik"].upright(-APRON_LEAN_DEG)
 	cut["ik"].reach("Right", cheek)
 	crew.look(cut, her)
 	(cut["node"] as Node3D).visible = true
@@ -266,15 +291,17 @@ func cue_cutman() -> void:
 
 func cue_cutman_off() -> void:
 	if crew.actors.has("cutman"):
+		crew.actors["cutman"]["ik"].upright(0.0)
 		(crew.actors["cutman"]["node"] as Node3D).visible = false
 
 
-## 0:40 the other corner: their coach stands over their boxer and talks.
+## 0:40 the other corner: their coach talks to their boxer from the apron on her left (the cut-away's lens is on that side,
+## so he is not hidden behind her).
 func cue_blue_talk() -> void:
 	var opp := ctx_actor("opp")
 	var coach: Dictionary = crew.actors["blue_coach"]
 	var c: Dictionary = crew.corner("blue")
-	var at := CornerShots.pos(opp) + (c["d"] as Vector3) * 0.95
+	var at := _apron(c, APRON_ALONG_M, APRON_OUT_M, true)
 	crew.place(coach, at, crew.yaw_to(at, CornerShots.pos(opp)))
 	crew.play(coach, "af_talk")
 	crew.look(coach, opp)
@@ -325,17 +352,6 @@ func _marks() -> void:
 		var mark: Vector3 = axis * stage.gap_m * (-0.5 if i == 0 else 0.5)
 		if CornerShots.pos(stage.boxers[i]).distance_to(mark) > 0.3:
 			crew.place(stage.boxers[i], mark, crew.yaw_to(mark, Vector3.ZERO))
-
-
-## Stands `a` (playing its idle) so that its `side` shoulder is a forearm and a half from `point`, coming from `near`.
-func _stand_to_reach(a: Dictionary, point: Vector3, near: Vector3, side: String) -> void:
-	var dir := Vector3(point.x - near.x, 0, point.z - near.z).normalized()
-	var left := Vector3.UP.cross(dir).normalized()
-	var sc := (a["node"] as Node3D).scale.x
-	var at := point - dir * 0.28 * sc + left * (-0.19 if side == "Left" else 0.19) * sc
-	crew.place(a, at, atan2(dir.x, dir.z))
-	crew.play(a, "af_idle")
-	(a["node"] as Node3D).visible = true
 
 
 func _mouth(her: Dictionary) -> Vector3:

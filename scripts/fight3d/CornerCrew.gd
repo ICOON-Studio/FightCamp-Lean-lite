@@ -34,7 +34,7 @@ static func body_for(role: String, pro: bool) -> String:
 const LOOPS := ["ow_walk", "af_walk", "af_walk_carry", "af_sit_idle", "af_sit_talk", "af_crouch_idle", "af_talk", "af_idle",
 	"af_idle_foldarms", "af_nod_yes"]
 ## The stool's centre, from the post along the corner's diagonal, metres (her back a hand from the corner pad).
-const SEAT_IN_M := 0.62
+const SEAT_IN_M := 0.42
 ## Seated, her hip joint stands this far above the seat (tools/corner_probe.gd: seated hips 0.54 m on the 169 cm body).
 const HIP_OVER_SEAT_M := 0.10
 const SEATED_HIPS_M := 0.54
