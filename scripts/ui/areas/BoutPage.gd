@@ -17,12 +17,19 @@ const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 func build(main: Node, offer_id: String) -> void:
 	add_theme_constant_override("separation", 14)
 	var c: Career = main.career
+	if c == null:
+		var gone := UI.card()
+		gone[1].add_child(UI.muted("That offer is gone.", UI.BODY))
+		gone[1].add_child(UI.button("Back to Fights", "Btn", main.act.bind("go", "fights:0")))
+		add_child(gone[0])
+		return
 	var fo := Bouts.find_offer(c, offer_id)
 	var f: Dictionary = fo[0]
 	var o: Dictionary = fo[1]
 	if o.is_empty() or f.is_empty():
 		var gone := UI.card()
 		gone[1].add_child(UI.muted("That offer is gone.", UI.BODY))
+		gone[1].add_child(UI.button("Back to Fights", "Btn", main.act.bind("go", "fights:0")))
 		add_child(gone[0])
 		return
 	var opp: Dictionary = o["opp"]

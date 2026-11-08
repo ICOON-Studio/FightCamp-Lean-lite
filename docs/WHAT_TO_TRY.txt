@@ -1,3 +1,15 @@
+FIGHTCAMP - BUILD OF 2026-11-08 (S401): THE CORNER FROM THE APRON, CALLS THAT COST TRUST, COMIC FACES IN THE MENUS
+====================================================================================================================
+
+ NEW.
+  a. Menus: the comic portraits and picture cards are on.
+  b. Corner minute: the coach and second work from the apron, outside the ropes, and the stool sits closer to the corner.
+     Watch the water, the talk through the ropes and the wide shot. Tell me if any camera shot looks wrong.
+  c. The body figure on the corner card is now a muscle scan, dark inside with bright fibres.
+  d. Shouts count: a wrong shout in an exchange she loses costs morale after the fight, a right one that lands earns a little back.
+     Below 30 morale (Low) she ignores your shouts. Saying nothing is free.
+ KNOWN: in the intro the gloves stop just short of touching. One footwork test reads her lean about 2 degrees over its bar.
+
 FIGHTCAMP - WEEK 6 BUILD, UPDATE 78 (2026-11-06): ANA FIGHTS HER OWN MATCHES, AND YOU SEE WHY EACH MOVE WORKS
 =============================================================================================================
 

@@ -10,7 +10,7 @@ ORDER:
 3. Animation: read session rokoko-repair (local_08cde081-ab48-426c-a866-589b564ae636, branch claude/rokoko-repair-3bb3a3): RETARGET2B -> film -> merge -> proguard.
 4. Review PR #85 FIGHTERMODEL3B (7/9 checks) against ops/research/TASK_FIGHTERMODEL3.md: rule 2 held, bar 1 in band. Collect OFFERGONE1 (Qwen).
 5. Finish ARCHIVED: 7 images of its RETIRED frame 3458764689580241048 (captions moved; image_create by URL failed; download, then image_get_upload_url) and the 2 html mockups (Whiteboard planner 3458764689105298849, Corner minute 3458764689106986945: screenshot in Chrome). Then delete that board through his Chrome: he chose that.
-6. No-design defects: week review pops up by itself; guide strip on every page at week 20; flag text cut off; Playbook pane empty; fake dues (premium wins everywhere, row R65); corner_film "gloves touch" 0.189 vs 0.12 since the 1.2x gloves.
+6. No-design defects: week review pops up by itself; guide strip on every page at week 20; flag text cut off; Playbook pane empty; fake dues (premium wins everywhere, row R65); corner_film "gloves touch" 0.189 vs 0.12 since the 1.2x gloves. boxer_footwork_test red (torso lean 13.9 vs bar 8-12, mh_boxer_10 and 01; 211 of 212 passed; the S401 exe was exported past it with NOTESTS=1, not caused by S401 files, cause unknown).
 
 DONE S401: 16 branches deleted; corner minute from the apron 47b1c7c8; body figure a muscle scan 33f1550d (tools/holo_scan_look.py); CornerTrust 0a47e4c3. corner_film checks need --fixed-fps 30. The visible gym stays out unless he says so.
 SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor Grok 4.7 High until 12-07.
