@@ -61,6 +61,42 @@ static func pick(f: Dictionary, week: int, days: Array, evs: Array, peak: float,
 	return str(want[rng.randi_range(0, want.size() - 1)])
 
 
+## One plain clause saying why this ask came up; "" for an unknown id. Reads the same conditions as reasons(),
+## first match wins. No rng, no pronouns.
+static func why(id: String, f: Dictionary, peak: float) -> String:
+	var p: Dictionary = f.get("personality", {})
+	var habits: Array = f.get("habits", [])
+	match id:
+		"ask_rest":
+			return "last week's fatigue peaked at %d" % roundi(peak)
+		"ask_easy":
+			if peak >= PEAK_EASY:
+				return "last week's fatigue peaked at %d" % roundi(peak)
+			if float(p.get("discipline", 55.0)) < LOW_DISCIPLINE:
+				return "not one for hard mornings"
+			return ""
+		"ask_spar":
+			if float(p.get("confidence", 55.0)) >= HIGH_TRAIT:
+				return "confident and wants rounds"
+			if float(p.get("temper", 55.0)) >= HIGH_TRAIT:
+				return "hot-headed and wants rounds"
+			if _any(habits, SPAR_HABITS):
+				return "likes a scrap"
+			return ""
+		"ask_road":
+			if _any(habits, ROAD_HABITS):
+				return "fades late in fights"
+			return ""
+		"ask_bag":
+			var st := str(f.get("style", ""))
+			if BAG_STYLES.has(st):
+				return "a %s wants the bag" % st.to_lower()
+			if _any(habits, BAG_HABITS):
+				return "wants more power work"
+			return ""
+	return ""
+
+
 ## The ask card with her answer's effects in it.
 static func _her_way(id: String) -> Dictionary:
 	var t := WeekTwist.card(id)

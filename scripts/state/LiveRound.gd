@@ -354,7 +354,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		f["bout"]["plan_tally"] = tally
 		rec["plan_tally"] = tally[arrow]
 	rec["clinch"] = cl
-	rec["clinch_line"] = ClinchRest.line(cl, names)
+	rec["clinch_line"] = ClinchRest.line(cl, names, ClinchRest.why(str(opp.get("style", "")), float(opp.get("rating", 60.0)), float(vals.get("technique", 55.0))))
 	rec["perks"] = perks
 	rec["perk_line"] = "%s makes %s miss and counters - Counter sense." % names if perks.has("counter_sense") else ""
 	lv["at"] = PlanFight.where_next(arrow, bool(s["won"]), sit)

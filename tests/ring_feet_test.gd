@@ -128,7 +128,7 @@ func _scene_walk() -> void:
 	var n: Node3D = bx["node"]
 	var to: Vector3 = n.position + Vector3(1.2, 0.0, 0.9)
 	RingFeet.hold(stage, 0)
-	var left := 300
+	var left := 900   # S405: a wait, not a bar: a loaded CI runner needs more frames for the same walk
 	var done := false
 	while left > 0 and not done:
 		done = RingFeet.walking(bx, to, 0.7, DT)

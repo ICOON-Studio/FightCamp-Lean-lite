@@ -37,6 +37,15 @@ static func chance(opp_style: String, opp_rating: float, technique: float) -> fl
 	return clampf(BASE + float(STYLE.get(opp_style, 0.0)) + (opp_rating - technique) / 100.0, CHANCE_MIN, CHANCE_MAX)
 
 
+## R11E: why the shot landed - one short clause the player can train or plan around. First match wins.
+static func why(opp_style: String, opp_rating: float, technique: float) -> String:
+	if opp_rating - technique >= 10.0:
+		return "more technique keeps that hand quiet"
+	if float(STYLE.get(opp_style, 0.0)) > 0.0:
+		return "a %s works in there" % opp_style.to_lower()
+	return ""
+
+
 ## {hit, shots, head, edge, damage}: rolls r1 (does she land), r2 (one or two), r3 (one on the break, to the head).
 static func roll(p: float, r1: float, r2: float, r3: float) -> Dictionary:
 	if r1 >= p:
@@ -46,8 +55,9 @@ static func roll(p: float, r1: float, r2: float, r3: float) -> Dictionary:
 	return {"hit": true, "shots": shots, "head": head, "edge": HIT_EDGE * shots, "damage": BREAK_DAMAGE if head else 0.0}
 
 
-## The words for it ("" when she did not tie up). names = [hers, the opponent's].
-static func line(c: Dictionary, names: Array) -> String:
+## The words for it ("" when she did not tie up). names = [hers, the opponent's]. R11E: reason (from why()) appends
+## ": <reason>." when the shot landed; a clinch with no shot reads exactly as today.
+static func line(c: Dictionary, names: Array, reason: String = "") -> String:
 	if c.is_empty():
 		return ""
 	var out := "%s ties %s up and gets a breather" % [names[0], names[1]]
@@ -57,4 +67,5 @@ static func line(c: Dictionary, names: Array) -> String:
 	var what := "digs " + ribs
 	if bool(c.get("head", false)):
 		what = ("digs one to the ribs and " if int(c["shots"]) == 2 else "") + "lands one on the break"
-	return "%s, but %s %s." % [out, names[1], what]
+	var tail := (": %s." % reason) if reason != "" else "."
+	return "%s, but %s %s%s" % [out, names[1], what, tail]

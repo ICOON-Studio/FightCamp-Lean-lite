@@ -4525,7 +4525,7 @@
   },
   "plan": {
     "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-    "updated": "2026-11-08 18:41 board_sync",
+    "updated": "2026-11-08 19:11 board_sync",
     "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
     "titles": {
       "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4749,13 +4749,32 @@
         "started": "2026-11-08T18:11",
         "run": "R11C",
         "state": "LANDED - Claude collects"
+      },
+      {
+        "title": "TASK MENUMONEY1 - CURSOR (Grok 4.7 High) - the Money page, built from the approved mockup",
+        "who": "cursor",
+        "started": "2026-11-08T18:48",
+        "run": "MENUMONEY1"
+      },
+      {
+        "title": "TASK R11D - QWEN (qwen3-coder) - when a fighter pushes back, the card says why",
+        "who": "qwen",
+        "started": "2026-11-08T18:58",
+        "run": "R11D",
+        "state": "LANDED - Claude collects"
+      },
+      {
+        "title": "TASK R11E - QWEN (qwen3-coder) - a shot in the clinch says why it landed",
+        "who": "qwen",
+        "started": "2026-11-08T19:11",
+        "run": "R11E"
       }
     ],
     "next": [
       {
-        "id": "MENUMONEY1",
+        "id": "MENUMONEY2",
         "who": "cursor",
-        "title": "Money page in the game, from the approved mockup",
+        "title": "Money page round 2: bills bug, fits one screen",
         "after": ""
       },
       {
@@ -5274,6 +5293,10 @@
         {
           "text": "Proguard guard merged (7 vs 6.5)",
           "who": "claude"
+        },
+        {
+          "text": "Push-back + clinch say why",
+          "who": "agent"
         }
       ],
       "now": [

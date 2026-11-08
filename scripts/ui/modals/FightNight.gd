@@ -339,7 +339,7 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		take.append([UI.signed(cut), "CLUB TICKET CUT" if cut > 0 else "NO TICKET CUT AT THE CHAMPIONSHIPS", UI.GREEN if cut > 0 else UI.MUTED])
 	# S325: a loss shows the members it cost (update 27 took them, the ribbon still said NO CHANGE); an injury shows red.
 	var lost := int(m.get("members_lost", 0))
-	take.append(["+%d" % BoutRules.WIN_MEMBERS if win else ("-%d" % lost if lost > 0 else "NO CHANGE"), "MEMBERS AFTER THE NEWS", UI.GOLD if lost == 0 else UI.RED])
+	take.append(["+%d" % BoutRules.WIN_MEMBERS if win else ("-%d" % lost if lost > 0 else "NO CHANGE"), ("MEMBERS AFTER THE NEWS" if lost == 0 else ("MEMBERS LEFT AFTER THE STOPPAGE" if str(m.get("stopped", "")) != "" else "MEMBERS LEFT AFTER THE LOSS")), UI.GOLD if lost == 0 else UI.RED])
 	if m.has("injury"):
 		take.append([str(m["injury"]).to_upper(), "INJURY REPORT", UI.RED])
 	foot.add_child(Broadcast.ribbon(take))

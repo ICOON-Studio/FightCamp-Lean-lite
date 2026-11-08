@@ -115,7 +115,7 @@ func _roster(main: Node, c: Career) -> void:
 		var h := UI.hbox(12)
 		h.add_child(UI.muted("Nobody signed yet.", UI.BODY))
 		h.add_child(UI.button("Meet the walk-in", "Btn", main.act.bind("interview", ""), c.applicant.is_empty(),
-			"No walk-in at reception - press CONTINUE and someone may show up"))
+			"Nobody is waiting at reception. Try the Find a fighter tab."))
 		card[1].add_child(h)
 		_mat(main, c, card[1])
 		return

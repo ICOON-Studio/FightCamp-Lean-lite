@@ -607,6 +607,20 @@
       "seat": "qwen",
       "title": "TASK R11E - QWEN (qwen3-coder) - a shot in the clinch says why it landed",
       "brief": "R11E"
+    },
+    {
+      "id": "MENUMONEY2",
+      "seat": "cursor",
+      "title": "TASK MENUMONEY2 - CURSOR (Grok 4.7 High) - the Money page, round 2: the bills bug and the fit",
+      "brief": "MENUMONEY2"
+    },
+    {
+      "id": "R11F",
+      "seat": "qwen",
+      "title": "TASK R11F - QWEN (qwen3-coder) - members who leave after a loss are named on the result",
+      "brief": "R11F",
+      "status": "superseded",
+      "note": "S405: cancelled at launch; the result page already shows the member drop (census row 9 wrong). Claude made the label name the cause."
     }
   ]
 }

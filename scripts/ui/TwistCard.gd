@@ -6,6 +6,7 @@ extends RefCounted
 const UI := preload("res://scripts/ui/UI.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
+const PushBack := preload("res://scripts/rules/PushBack.gd")
 const COL_W := 520
 
 
@@ -38,6 +39,11 @@ static func build(main: Node, f: Dictionary, title: String) -> VBoxContainer:
 		row.add_child(col)
 	box.add_child(row)
 	if bool(t.get("ask", false)):   # S361 her ask: what her trust stands at, and what it does
+		var why_clause := PushBack.why(str(t["id"]), f, float(f.get("week_peak", 0.0)))
+		if why_clause != "":
+			var wl := UI.label("Why: %s." % why_clause, UI.SMALL, UI.MUTED, "body", true)
+			wl.name = "AskWhy"
+			box.add_child(wl)
 		var mood := FighterProfile.mood(float(f.get("morale", FighterProfile.MORALE_START)))
 		var tl := UI.label("%s's mood: %s (morale %d). Mood is trust: in a fight a Flat or Low fighter takes in less of the corner's calls." % [
 			first, mood, roundi(float(f.get("morale", FighterProfile.MORALE_START)))], UI.SMALL, UI.MUTED, "body", true)
