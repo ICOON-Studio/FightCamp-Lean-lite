@@ -30,6 +30,26 @@ func _run() -> void:
 			var t: Texture2D = sm.get_shader_parameter("albedo_tex")
 			_check(sm.shader.resource_path == SKIN and t != null and t.resource_path.is_empty(),
 				"%s realistic: skin shader + its own photo texture '%s'" % [body, t.resource_name if t else "-"])
+	# STYLIZED2: the brow cards sit over the eyes on every body (10 of 23 were exported on the jaw).
+	var d := DirAccess.open("res://assets/models/metahuman")
+	var bad := []
+	for fn in d.get_files():
+		if not fn.ends_with(".glb"):
+			continue
+		var g := MHRig.load_fighter("res://assets/models/metahuman/" + fn)
+		var eye_top := -1e9
+		var brow_low := 1e9
+		for mi in g.find_children("*", "MeshInstance3D", true, false):
+			for s in (mi as MeshInstance3D).mesh.get_surface_count():
+				var nm: String = (mi as MeshInstance3D).mesh.surface_get_material(s).resource_name
+				if nm == "MH_Eye" or nm.begins_with("MH_Brows"):
+					for p in (mi as MeshInstance3D).mesh.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]:
+						eye_top = maxf(eye_top, p.y) if nm == "MH_Eye" else eye_top
+						brow_low = minf(brow_low, p.y) if nm != "MH_Eye" else brow_low
+		if absf(brow_low - eye_top) > 0.02:
+			bad.append("%s %.3f" % [fn, brow_low - eye_top])
+		g.free()
+	_check(bad.is_empty(), "every body's brows sit over its eyes (lowest card within 2 cm of the eye top) %s" % [bad])
 	# Every texture painted exists and loads.
 	for body in ["mh_boxer_01", "mh_boxer_13"]:
 		for atlas in ["mh02_head_albedo", "mh02_body_albedo"]:

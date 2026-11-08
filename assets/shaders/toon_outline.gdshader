@@ -5,9 +5,13 @@ render_mode unshaded, cull_front, shadows_disabled;
 
 uniform vec4 line_col : source_color = vec4(0.06, 0.05, 0.05, 1.0);
 uniform float width_px = 1.6;
+uniform float push_back = 0.0;          // STYLIZED2: metres the hull sits behind the body (view space), so it shows only on
+                                        // the silhouette, not over the neck below the jaw (critics: "a chin scribble")
 
 void vertex() {
-	vec4 clip = PROJECTION_MATRIX * (MODELVIEW_MATRIX * vec4(VERTEX, 1.0));
+	vec4 vpos = MODELVIEW_MATRIX * vec4(VERTEX, 1.0);
+	vpos.xyz += normalize(vpos.xyz) * push_back;
+	vec4 clip = PROJECTION_MATRIX * vpos;
 	vec3 n = normalize((MODELVIEW_MATRIX * vec4(NORMAL, 0.0)).xyz);
 	vec2 off = (PROJECTION_MATRIX * vec4(n, 0.0)).xy;
 	float len = length(off);

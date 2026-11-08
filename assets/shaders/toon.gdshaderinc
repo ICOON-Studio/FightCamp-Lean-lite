@@ -16,7 +16,12 @@ uniform float sat = 1.12;
 uniform vec3 flat_col : source_color = vec3(0.5);
 uniform float flat_mix = 0.0;           // skin: this share of the photo texture is painted over in one skin tone (no photo face on a cel body)
 uniform bool tex_alpha_only = false;   // STYLIZED1: hair cards of a painted body - the atlas gives coverage only, colour is albedo_col
-uniform float tex_blur = 0.0;           // mip bias: skin pores and texture noise read as grime in flat colour (skin 2.5)
+uniform float tex_blur = 0.0;
+// STYLIZED2 (the portraits' 2-3 hard shadow shapes): a cel FORM shadow from one key fixed to the camera (upper left), so a
+// face carries the same comic shadow side whatever the five ring spots do (summed, they lit every face flat).
+uniform float form_shade = 1.0;         // < 1: the shadow side's share of the colour (1 = off)
+uniform vec3 form_key = vec3(-0.55, 0.55, 0.62);   // view space: from the camera's upper left
+uniform float form_cut = 0.12;          // where the shadow edge falls (dot of normal and key)           // mip bias: skin pores and texture noise read as grime in flat colour (skin 2.5)
 
 void fragment() {
 	vec4 t = use_tex ? texture(albedo_tex, UV, tex_blur) : vec4(1.0);
@@ -28,6 +33,10 @@ void fragment() {
 	}
 	if (use_band) {
 		c = mix(c, band_col.rgb, smoothstep(0.35, 0.65, COLOR.r));
+	}
+	if (form_shade < 1.0) {
+		float d = dot(normalize(NORMAL), normalize(form_key));
+		c *= mix(form_shade, 1.0, smoothstep(form_cut - 0.025, form_cut + 0.025, d));
 	}
 	float l = dot(c, vec3(0.299, 0.587, 0.114));
 	ALBEDO = clamp(mix(vec3(l), c, sat), 0.0, 1.0);

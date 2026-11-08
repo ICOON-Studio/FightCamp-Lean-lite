@@ -76,8 +76,69 @@ static func load_fighter(glb_path: String) -> Node3D:
 		ap.name = "AnimationPlayer"
 		ap.add_animation_library("", AnimationLibrary.new())
 		fighter.add_child(ap)
+	seat_brows(fighter)
 	dress(fighter, glb_path)
 	return fighter
+
+
+## STYLIZED2 (blind critics, every look: "a chin scribble", "chin mark"): on 10 of the 23 MetaHumans (boxers 11 13 14 15 16
+## 17 18 20, staff coach_2 + cutman_1) the brow cards were exported ~12 cm low - ON THE JAW, under the mouth. A brow's lowest
+## card sits ~1.2 cm under the eye's top on every good body (01 02 03 07 08 10 12 19 21 22 23, coach, trainer). Moves the cards
+## up to that and onto the forehead (front skin under them + 1.5 mm, a median so the arc keeps its shape). Returns the lift.
+static func seat_brows(fighter: Node) -> Vector3:
+	var eye_top := -1e9
+	var head: PackedVector3Array
+	var brow_mi: MeshInstance3D = null
+	for m in fighter.find_children("*", "MeshInstance3D", true, false):
+		var mi := m as MeshInstance3D
+		for s in mi.mesh.get_surface_count():
+			var mat := mi.mesh.surface_get_material(s)
+			var nm: String = mat.resource_name if mat != null else ""
+			if nm == "MH_Eye":
+				for p in mi.mesh.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]:
+					eye_top = maxf(eye_top, p.y)
+			elif nm == "MH_Skin_Head":
+				head = mi.mesh.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]
+			elif nm.begins_with("MH_Brows") and mi.mesh.get_surface_count() == 1:
+				brow_mi = mi
+	if brow_mi == null or eye_top < -1e8 or head.is_empty():
+		return Vector3.ZERO
+	var arrays: Array = brow_mi.mesh.surface_get_arrays(0)
+	var v: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+	var low := 1e9
+	for p in v:
+		low = minf(low, p.y)
+	if low > eye_top - 0.05:
+		return Vector3.ZERO   # a good body: its brows already sit over the eyes
+	var dy := (eye_top - 0.002) - low   # 1 cm over the good bodies' 1.2 cm under: these bodies carry a straighter groom (still S399: cards on the lid)
+	# The forehead's front skin on a 4 mm grid (x, y) -> the largest z (the skin facing forward).
+	var front := {}
+	for p in head:
+		if p.z > 0.0:
+			var k := Vector2i(roundi(p.x / 0.004), roundi(p.y / 0.004))
+			front[k] = maxf(float(front.get(k, -1e9)), p.z)
+	var dzs: Array = []
+	for p in v:
+		var k := Vector2i(roundi(p.x / 0.004), roundi((p.y + dy) / 0.004))
+		if front.has(k):
+			dzs.append(float(front[k]) + 0.0015 - p.z)
+	if dzs.is_empty():
+		return Vector3.ZERO
+	dzs.sort()
+	var lift := Vector3(0.0, dy, float(dzs[dzs.size() / 2]))
+	for i in v.size():
+		v[i] += lift
+	arrays[Mesh.ARRAY_VERTEX] = v
+	var old := brow_mi.mesh as ArrayMesh
+	if old == null:
+		return Vector3.ZERO
+	var fmt: int = old.surface_get_format(0)
+	var am := ArrayMesh.new()
+	am.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays, [], {}, fmt & Mesh.ARRAY_FLAG_USE_8_BONE_WEIGHTS)
+	am.surface_set_material(0, old.surface_get_material(0))
+	am.resource_name = old.resource_name
+	brow_mi.mesh = am
+	return lift
 
 
 static func dress(fighter: Node, glb_path: String = "") -> void:

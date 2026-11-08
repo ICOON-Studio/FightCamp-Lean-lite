@@ -76,6 +76,7 @@ const LIMB_EASE_S := 0.15
 ## from the line is turned toward its target at this rate, so a side change is a swing, never a jump.
 const AXIS_RATE := 6.0
 static var axis_rate := _arg_f("axisrate=", AXIS_RATE)
+static var end_out := not _args.has("endout=0")
 static var limb_ease_s := _arg_f("limbease=", LIMB_EASE_S)
 static var skin_m := _arg_f("skin=", SKIN_M)
 static var swing_max := _arg_f("swing=", SWING_MAX)
@@ -193,6 +194,18 @@ static func _limb(l: Array, d: Dictionary, r: Array, solids: Array, hold: Array,
 		if mat > 0.0:
 			# Not over a low elbow: a hand pressed down onto the mat drives the joint behind it under.
 			o.y += (rb - e.y) * mat * smoothstep(ra, ra + 0.08, m.y)
+		o = o.limit_length(o_max)
+	# S399 GRAPPLEFIX1 (operator: "Yes, try re-bend"; S1 7.5 s, blue's hand 7 cm in red's pelvis, the forearm 15 cm through her
+	# in a full grip): the swing turns the arm about the shoulder, and a hand the recording grips INSIDE our thicker woman stays
+	# in her whatever the arm does - letting the elbow go round its line instead cleared 1 cm at jerk 253 -> 311. The end itself
+	# comes out to her skin along her normal (within o's own cap): S1 park 14.8 -> 8.9 cm. `-- endout=0` = off.
+	if end_out:
+		for _p in 2:
+			var e := root + _swing(w, rec_e - root) + o
+			var c := _deepest(e, e, rb, solids)
+			var dep := float(c[0]) + skin_m
+			if dep > 0.0:
+				o += (c[1] as Vector3) * dep
 		o = o.limit_length(o_max)
 	# The mat has the last word: it is the one surface the eye never forgives.
 	for _p in 2:

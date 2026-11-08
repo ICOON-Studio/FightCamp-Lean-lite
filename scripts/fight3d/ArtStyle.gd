@@ -20,6 +20,13 @@ const NO_LINE := ["Eye", "Teeth", "Lash", "Hair", "Brow", "Tongue"]
 ## <texture stem>_toon.png here. Its skin then shows the painting as it is (no blur, no mean-tone wash), and its hair and
 ## brow cards are one flat colour (the atlas keeps only the coverage). Bodies without one keep the shader-only toon.
 const PAINTED := "res://assets/models/metahuman/toon/"
+## STYLIZED2 retune (blind STYLIZED1: "flat slabs", "pale", "a chin scribble", "washed eyes"): a camera-keyed cel form
+## shadow on every toon surface, the light ~12% lower (painted skin measured 25% over the portrait's tone on screen), a
+## bolder line that sits 4 cm behind the body (silhouette only), lashes at half strength.
+const FORM_SHADE := 0.66
+const LIGHT_K := 0.15
+const LINE_PX := 2.4
+const LINE_BACK := 0.04
 
 var _toon: Shader
 var _toon2: Shader
@@ -52,6 +59,8 @@ func _enter_tree() -> void:
 	_toon2 = load(TOON_2SIDE) as Shader
 	_line = ShaderMaterial.new()
 	_line.shader = load(OUTLINE) as Shader
+	_line.set_shader_parameter("width_px", LINE_PX)
+	_line.set_shader_parameter("push_back", LINE_BACK)
 	get_tree().node_added.connect(_on_added)
 	_convert.call_deferred(get_parent())
 	_light.call_deferred(get_parent())
@@ -168,6 +177,9 @@ func _twin(m: Material, body: String = "") -> Material:
 		if bm.shading_mode == BaseMaterial3D.SHADING_MODE_UNSHADED or bm.transparency == BaseMaterial3D.TRANSPARENCY_ALPHA \
 				or bm.transparency == BaseMaterial3D.TRANSPARENCY_ALPHA_DEPTH_PRE_PASS:
 			_flat(bm)
+			if nm.contains("Lash") and not bm.has_meta("art_lash"):
+				bm.set_meta("art_lash", true)
+				bm.albedo_color.a *= 0.5
 			out = bm
 		else:
 			var tm := _new_toon()
@@ -246,4 +258,6 @@ static func _mean_tone(tex: Variant) -> Color:
 func _new_toon() -> ShaderMaterial:
 	var tm := ShaderMaterial.new()
 	tm.shader = _toon
+	tm.set_shader_parameter("form_shade", FORM_SHADE)
+	tm.set_shader_parameter("light_k", LIGHT_K)
 	return tm

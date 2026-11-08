@@ -641,6 +641,10 @@ func _inside(tin: PackedFloat32Array, limb_depth: Dictionary) -> void:
 			var k := str(c[0])
 			if k in LIMB_KEYS:
 				by[k] = maxf(float(by.get(k, 0.0)), GD.deepest([c], body))
+				if OS.get_cmdline_user_args().has("parkdbg=1") and GD.deepest([c], body) > 0.08:
+					for bc in body:
+						if GD.deepest([c], [bc]) > 0.08:
+							print("PARKDBG %d %s.%s in %s.%s %.3f" % [tin.size(), ["red", "blue"][w], k, ["red", "blue"][1 - w], bc[0], GD.deepest([c], [bc])])
 	for k in limb_depth:
 		var arr: PackedFloat32Array = limb_depth[k]
 		arr.append(float(by.get(k, 0.0)))

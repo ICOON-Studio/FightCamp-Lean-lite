@@ -28,6 +28,10 @@ void fragment() {
 	eye = mix(eye, eye * 0.35, lash * 0.8);
 	ALBEDO = mix(eye, lidc, on_lid);
 	if (toon) {
+		// STYLIZED2: flat comic eye - a dark iris, an off-white white (critics: "washed grey-blue eyes")
+		float el = dot(eye, vec3(0.333));
+		vec3 flat_eye = mix(eye * 0.45, min(eye * 1.05, vec3(0.86, 0.83, 0.79)), smoothstep(0.3, 0.42, el));
+		ALBEDO = mix(flat_eye, lidc, on_lid);
 		ROUGHNESS = 1.0;
 		SPECULAR = 0.0;
 	} else {
