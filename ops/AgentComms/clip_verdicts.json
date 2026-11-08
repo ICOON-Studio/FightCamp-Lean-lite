@@ -1137,6 +1137,28 @@
     "note": "7.5 s red's thigh through blue's torso; 11 s blue's forearm in red's chest; 12.4-12.9 s blue's arm and head in red's torso; 16 s red's hand through blue's neck. No pops.",
     "source": "ops/previews/lean_grapple_seq_merge/S1_fixed.mp4",
     "when": "2026-11-08"
+   },
+   {
+    "chain": "Step Closer > Pin Knee > Pass > Escape > Pendulum Sweep Start > Finish > Upa Escape > Aldo Pass",
+    "check": "Blind Sonnet critic, new vs old (board) film side by side under neutral names, key hidden; control critic = the new S2 vs a re-encoded copy (5 vs 5). New = S399 re-bend round: a hand or foot inside her pushed out to her skin (4b29d3bb) on top of 673eb88f",
+    "result": "blind critic 6/10, merging 5.5/10, hand-overs 6/10 (old fast film 5.5 / 5 / 6) (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "7 s blue's forearm still in red's thigh but less; 10 s blue's hand in red's thigh (worst); 16 s blue's legs read clean (old: folded through red's hip). No pops.",
+    "source": "ops/previews/lean_grapple_seq_hand/S1_fixed.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "chain": "Step Closer > Pin Knee > Pass > Escape > Pendulum Sweep Start > Finish > Upa Escape > Aldo Pass",
+    "check": "Blind Sonnet critic, new vs old (board) film side by side under neutral names, key hidden; control critic = the old S1 vs a re-encoded copy (5.5 vs 5.5). New = S399 placement round: upper arms in the other's pelvis/trunk move the bodies (9c9c7bc2) on top of 4b29d3bb + 673eb88f. Operator bar for the board: +1 on two of three, else park merging",
+    "result": "blind critic 6.5/10, merging 6.5/10, hand-overs 6/10 (old fast film 5.5 / 5 / 6); control pair of the old S1 5.5 vs 5.5 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "7.7-8.5 s blue kneels clear above red (old: blue sunk into red's thighs and pelvis, forearms in her groin); 10.4-11.6 s red's shin on blue's head (both). No pops.",
+    "source": "ops/previews/lean_grapple_seq_place/S1_fixed.mp4",
+    "when": "2026-11-08"
    }
   ],
   "S2": [
@@ -1194,6 +1216,28 @@
     "note": "hands rest on the surface more, hand-in-head at 12 s gone; red's head and hip still sink into blue's thigh at 12 s+. No pops.",
     "source": "ops/previews/lean_grapple_seq_merge/S2_fixed.mp4",
     "when": "2026-11-08"
+   },
+   {
+    "chain": "Pin Knee > Push Over > Bull Fighter Pass > To Knee On Belly > Top Drops To Side > Wrist Control Escape > Threaten Triangle > Clasp Hands Together",
+    "check": "Blind Sonnet critic, new vs old (board) film side by side under neutral names, key hidden; control critic = the new S2 vs a re-encoded copy (5 vs 5). New = S399 re-bend round: a hand or foot inside her pushed out to her skin (4b29d3bb) on top of 673eb88f",
+    "result": "blind critic 6/10, merging 5/10, hand-overs 7/10 (old fast film 6.5 / 6 / 7); control pair of this film 5 vs 5 (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "4.3-5.1 s red's hands sink into blue's shins (old cleaner there); 9.3-9.7 s blue's forearm in red's ribs; 13.3-14.1 s red's shin through blue's chest (both). No pops.",
+    "source": "ops/previews/lean_grapple_seq_hand/S2_fixed.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "chain": "Pin Knee > Push Over > Bull Fighter Pass > To Knee On Belly > Top Drops To Side > Wrist Control Escape > Threaten Triangle > Clasp Hands Together",
+    "check": "Blind Sonnet critic, new vs old (board) film side by side under neutral names, key hidden; control critic = the old S1 vs a re-encoded copy (5.5 vs 5.5). New = S399 placement round: upper arms in the other's pelvis/trunk move the bodies (9c9c7bc2) on top of 4b29d3bb + 673eb88f. Operator bar for the board: +1 on two of three, else park merging",
+    "result": "blind critic 5.5/10, merging 6/10, hand-overs 6/10 (old fast film 5 / 5 / 6) (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "9-10 s red's legs more open, less trunk-on-trunk; 5 s blue's feet in red's chin (both); 7 s red's upper arm in blue's chest (both). No pops.",
+    "source": "ops/previews/lean_grapple_seq_place/S2_fixed.mp4",
+    "when": "2026-11-08"
    }
   ],
   "S3": [
@@ -1250,6 +1294,28 @@
     "clean": false,
     "note": "differs only 0-3 s (red's shin in blue's hip); shared: red's head in blue's torso 4.5-5.5 s, blue under red's hips 7-11 s. No pops.",
     "source": "ops/previews/lean_grapple_seq_merge/S3_fixed.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "chain": "Bottom Bails > Sit In > Top Lets Bottom Push Leg > Bottom Progresses > Bottom Gets To Knees > Front Headlock",
+    "check": "Blind Sonnet critic, new vs old (board) film side by side under neutral names, key hidden; control critic = the new S2 vs a re-encoded copy (5 vs 5). New = S399 re-bend round: a hand or foot inside her pushed out to her skin (4b29d3bb) on top of 673eb88f",
+    "result": "blind critic 5.5/10, merging 5.5/10, hand-overs 6/10 (old fast film 5 / 4 / 6) (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "cleaner guard legs 1-4 s; 4.2 s blue's shin in red's hip smaller than old; 5-11 s the same. No pops.",
+    "source": "ops/previews/lean_grapple_seq_hand/S3_fixed.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "chain": "Bottom Bails > Sit In > Top Lets Bottom Push Leg > Bottom Progresses > Bottom Gets To Knees > Front Headlock",
+    "check": "Blind Sonnet critic, new vs old (board) film side by side under neutral names, key hidden; control critic = the old S1 vs a re-encoded copy (5.5 vs 5.5). New = S399 placement round: upper arms in the other's pelvis/trunk move the bodies (9c9c7bc2) on top of 4b29d3bb + 673eb88f. Operator bar for the board: +1 on two of three, else park merging",
+    "result": "blind critic 5/10, merging 5/10, hand-overs 6/10 (old fast film 6 / 6 / 6) - the same S3 code scored 5.5 vs 5 last round (bar 7)",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "1.6-2.5 s red's hand into blue's calf; 3.5-4.5 s red's forearm into blue's abdomen; 5-11 s the same as old. No pops.",
+    "source": "ops/previews/lean_grapple_seq_place/S3_fixed.mp4",
     "when": "2026-11-08"
    }
   ]

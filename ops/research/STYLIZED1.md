@@ -54,3 +54,34 @@ Keep realistic (A leads in 3 of 4 critic rows). Do not paint the other 21 bodies
 test is free code, not credits: toon light retuned for darker, warmer skin with a strong 2-band cel shadow (shade 0.35-0.4,
 key from one side), a thicker outline without the chin line (outline off the jaw underside), dark eye colour in toon,
 then re-film the same two bodies; paint the rest only if that arm beats A by 0.5.
+
+# STYLIZED2 - retuned toon + the brow fix (2026-11-08, commit 32ceb10e)
+
+## The "chin scribble" was the eyebrows
+On 10 of the 23 MetaHumans (boxers 11 Lucy, 13 Maria, 14, 15 Erin, 16, 17, 18, 20; staff coach_2, cutman_1) the brow cards
+were exported 12-13 cm low - on the jaw, under the mouth (probe: brow lowest y v eye top y; good bodies -0.007..-0.016 m,
+these -0.123..-0.132 m). Every critic, every look, saw it ("chin scribble", "chin mark"). MHRig.seat_brows moves the cards
+up (lowest card 2 mm under the eye top - the good bodies' -12 mm sat on the lids of these straighter grooms) and onto the
+forehead (median of the front skin under them + 1.5 mm). Realistic default changes for those 10 bodies: brows on the
+forehead. Test: art_toon_paint_test checks all 23 bodies.
+
+## Toon retune (arm D)
+Camera-keyed cel form shadow (view-space key upper left, shade 0.66), light_k 0.17 -> 0.15, line 2.4 px pushed 4 cm behind
+the body (silhouette only), toon eye: dark iris + off-white white, lashes x0.5 alpha, painted skins refit at std x1.1.
+
+## Blind round (new build: Rokoko merges + brow fix; seed 7, both bouts; control = D re-encoded, so md5 differs)
+| Arm | Critic 3 (Sonnet) | Critic 4 (Sonnet) | Mean | Portrait match | Claude (eyes) |
+|---|---|---|---|---|---|
+| A2 realistic + brow fix | 6.5 / 7 | 5.5 / 6 | **6.25** | 3.0 | 4.5 |
+| D retuned toon + painted | 5 / 5 | 5 / 5 | **5.0** | 5.5 | 4 |
+Control held: both critics scored the re-encode equal to its twin (they spotted it by pixel diff, not checksum). Both ran the
+dense bursts on all six films. D v A2: -1.25 -> D does not win. D v C (round 1): +0.1.
+Critics on D: "coherent but crude", blotchy flat skin patches, dithered brow/lash fringe, flat unshaded bodies, paler than
+the portrait, no bold outline. On A2: "polished but dark/murky", rim halo, and "breaks the link to the 2D portraits" (3/10).
+
+## Verdict and recommendation
+Stylizing the 3D does not pay: two rounds, -1.2 and -1.25 v realistic, ~7 credits spent. Keep realistic; toon stays OFF.
+The real gap the operator named ("whatever is on the image to match the fighter") is the portrait match - realistic 3/10.
+Cheaper direction: move the 2D portraits toward the 3D (paint over the studio renders assets/ui/face/studio/<body>.jpg with a
+light comic pass that keeps the real face and tan), judged blind on "same person". Second: the realistic fight reads dark and
+murky to every critic in both rounds - a grade/exposure pass is a cheap look gain.

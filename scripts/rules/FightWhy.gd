@@ -27,7 +27,8 @@ static func read(rounds: Array, first: String, opp: String) -> Dictionary:
 	var wrong := {}
 	var habits := {}
 	var sits := {}
-	var t := {"best": 0, "wrong": 0, "used": 0, "all": 0, "for": 0, "cost": 0, "edge": 0.0, "mine": 0, "theirs": 0}
+	var lost_sits := {}   # S400: the situations of the exchanges she LOST - what the cards actually turned on
+	var t := {"best": 0, "wrong": 0, "used": 0, "all": 0, "for": 0, "cost": 0, "edge": 0.0, "mine": 0, "theirs": 0, "xwon": 0}
 	for r in rounds:
 		for x in r.get("exchanges", []):
 			t["all"] += 1
@@ -37,6 +38,10 @@ static func read(rounds: Array, first: String, opp: String) -> Dictionary:
 			var sit := str(x.get("psit", ""))
 			if sit != "":
 				sits[sit] = int(sits.get(sit, 0)) + 1
+			if bool(x.get("won", false)):
+				t["xwon"] += 1
+			elif sit != "":
+				lost_sits[sit] = int(lost_sits.get(sit, 0)) + 1
 			var swing := int(x.get("plan_swing", 0))
 			t["for"] += maxi(0, swing)
 			t["cost"] += maxi(0, -swing)
@@ -65,6 +70,8 @@ static func read(rounds: Array, first: String, opp: String) -> Dictionary:
 	var won := _won(rounds)
 	out["against"] = _against_line(grade, top_wrong, wrong, habits, first, opp, won, t, rounds)
 	out["next"] = _next_line(grade, top_best, top_wrong, first, opp, won, _top(sits))
+	if grade == "good" and not won:
+		out["next"] = str(out["next"]) + " " + _lost_cause(t, _top(lost_sits), lost_sits, first, opp)
 	# S397 what lasted past the exchange (PlanPressure): the punches the pressure took off her, the tank lost to wrong answers punished.
 	var pt := PlanPressure.tally(rounds)
 	out["pressure"] = pt
@@ -119,6 +126,10 @@ static func _against_line(grade: String, top_wrong: String, wrong: Dictionary, h
 		return "%s's habit cost exchanges: %s, %s." % [first, LiveRound.habit_name(habit).to_lower(), _n(int(habits[habit]), "time")]
 	if won:
 		return "Nothing went badly wrong."
+	# S400 (critic: "out-landed 61 to 56 and lost" read as a contradiction): the cards score the 30-second exchanges, not punches
+	if int(t["mine"]) > int(t["theirs"]):
+		return "%s won %d of the %d exchanges and took %s, though %s landed more punches (%d to %d)." % [opp, int(t["all"]) - int(t["xwon"]),
+			int(t["all"]), _lost(rounds), first, int(t["mine"]), int(t["theirs"])]
 	return "%s landed %d to %s's %d, and took %s." % [opp, int(t["theirs"]), first, int(t["mine"]), _lost(rounds)]
 
 
@@ -128,7 +139,7 @@ static func _next_line(grade: String, top_best: String, top_wrong: String, first
 			return "Write a plan in the Playbook. The main problem was %s: %s answers that." % [sit_word(top_sit, first), best_answer(top_sit)]
 		return "Write a plan in the Playbook before the next fight."
 	if grade == "good" and not won:
-		return "Keep the plan: it was right. The gap was elsewhere, so check the camp and %s's condition." % first
+		return "Keep the plan: it was right."
 	if top_wrong != "" and grade != "good":
 		var p := top_wrong.split("|")
 		var better := best_answer(p[1])
@@ -139,6 +150,16 @@ static func _next_line(grade: String, top_best: String, top_wrong: String, first
 		var q := top_best.split("|")
 		return "Keep it: %s answers %s." % [name_of(q[0]), sit_word(q[1], first)]
 	return "Keep the plan."
+
+
+## S400 (critic: on a lost decision the Why said "GOOD PLAN ... check the camp" while the camp had peaked): a good plan that lost
+## names what the cards turned on - the situation she lost most exchanges in, and the move that answers it.
+static func _lost_cause(t: Dictionary, top_lost: String, lost_sits: Dictionary, first: String, opp: String) -> String:
+	if top_lost == "":
+		return "%s lost the close exchanges: %d of %d went to %s." % [first, int(t["all"]) - int(t["xwon"]), int(t["all"]), opp]
+	var line := "Most exchanges %s lost came against %s (%s)." % [first, sit_word(top_lost, first), _n(int(lost_sits[top_lost]), "time")]
+	var ans := best_answer(top_lost)
+	return line + (" %s answers that: drill it on the pads." % ans if ans != "" else "")
 
 
 static func _n(n: int, word: String) -> String:

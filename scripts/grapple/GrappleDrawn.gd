@@ -40,6 +40,18 @@ const THIGH_REL_MAX := 0.35   # past this the bodies are apart enough: a thigh s
 const HEAD_UP := 0.08
 const HEAD_R := 0.11
 const NORMAL_BAND_M := 0.02
+## S399 GRAPPLEFIX1 placement round (operator: "Yes, try placement"; S2 9.9 s blue's upper arm 17 cm in red's trunk, the whole
+## arm through her while gripping): an upper arm rides its shoulder, and a shoulder pressed in leaves GrappleLimbs' swing nothing
+## to clear with. Upper arms in the other's pelvis or trunk move the bodies too. `-- placearms=0` off, `=2` past THIGH_REL_MAX too.
+const ARM_KEYS := ["upperarmL", "upperarmR"]
+static var place_arms := _place_arms_arg()
+
+
+static func _place_arms_arg() -> int:
+	for x in OS.get_cmdline_user_args():
+		if str(x).begins_with("placearms="):
+			return int(str(x).substr(10))
+	return 1
 ## S399 GRAPPLEFIX1 (blind critic, 886 at 1.43 s: "blue's leg runs through red's chin"): the head sphere sits over the skull, so a
 ## face and jaw were free to sink into a thigh. A FACE sphere rides the head bone, FACE_FWD in front of it and FACE_UP above, in
 ## the body's own forward at rest.
@@ -225,6 +237,8 @@ static func _nearest(p0: Dictionary, p1: Dictionary, thighs: bool = false) -> Di
 			var torso: bool = str(x[0]) in ["pelvis", "trunk"] and str(y[0]) in ["pelvis", "trunk"]
 			# A thigh pressed in at its root, a shoulder or a head cannot swing clear (GrappleLimbs has done what it can): what is left moves the bodies.
 			var root_in: bool = thighs and (str(x[0]) in THIGHS and str(y[0]) in ["pelvis", "trunk"]) or thighs and (str(y[0]) in THIGHS and str(x[0]) in ["pelvis", "trunk"])
+			if place_arms > 0 and not root_in and (thighs or place_arms == 2):
+				root_in = (str(x[0]) in ARM_KEYS and str(y[0]) in ["pelvis", "trunk"]) or (str(y[0]) in ARM_KEYS and str(x[0]) in ["pelvis", "trunk"])
 			var depth := -d if torso else (-d - THIGH_GIVE_M if root_in else 0.0)
 			if depth > 0.0:
 				pen_sum += n * depth

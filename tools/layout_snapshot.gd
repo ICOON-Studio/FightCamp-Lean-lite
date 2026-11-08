@@ -63,11 +63,22 @@ func _initialize() -> void:
 	_run_until(func(): return not (c.fighter()["offers"] as Array).is_empty())
 	main.act("go", "fights:0")
 	await _shot("10_offers")
-	main.act("openBout", "lucy:m8")
-	await _shot("11_bout_unsafe")
-	main.act("openBout", "lucy:o8")
+	# S400 (critics: 11-14 all read "That offer is gone"): the ids come from the offers on the table, never typed - the
+	# hard-coded m8 / o8 went stale (the ids already carry "lucy:") and every shot from the bout page to fight night showed a dead page.
+	var mis := ""
+	var safe := ""
+	for o in c.fighter()["offers"]:
+		if bool(o.get("mismatch", false)) and mis == "":
+			mis = str(o["id"])
+		elif not bool(o.get("mismatch", false)) and safe == "":
+			safe = str(o["id"])
+	print("SNAPSHOT offers: mismatch=%s safe=%s" % [mis, safe])
+	if mis != "":
+		main.act("openBout", mis)
+		await _shot("11_bout_unsafe")
+	main.act("openBout", safe)
 	await _shot("12_bout")
-	main.act("accept", "lucy:o8")
+	main.act("accept", safe)
 	await _shot("13_home_booked")
 	main.act("close")
 	main.clear_toast()
@@ -166,9 +177,10 @@ func _initialize() -> void:
 	await _shot("31_events")
 	main.act("go", "world:3")
 	var box: LineEdit = main._shell.find_child("SearchBox", true, false)
-	box.text = "ri"
-	box.text_changed.emit("ri")
-	await _shot("32_search")
+	if box != null:   # S400: Search left World in S396 (every name is a link) - a null box stopped the run before week 4
+		box.text = "ri"
+		box.text_changed.emit("ri")
+		await _shot("32_search")
 	main.save_path = "user://layout_snapshot.save"
 	main.act("save")
 	main.act("title")
