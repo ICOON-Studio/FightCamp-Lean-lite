@@ -199,12 +199,14 @@ func cue_crew_in() -> void:
 		var second: Dictionary = crew.actors[pre + "second"]
 		var d: Vector3 = c["d"]
 		var l: Vector3 = c["l"]
-		# Her coach waits at her right front, clear of the low shot from her left.
-		var cs := (c["seat"] as Vector3) - l * 0.6 + d * 0.6
+		# S400 (operator picked "on the apron, outside the ropes, leaning in"): both wait on the apron outside the rope on her
+		# right (her right front = d - l), clear of the low shot from her left - nothing passes through the ropes.
+		var rope := (d - l).normalized()      # the rope on her right, running out from the post
+		var out := -(d + l).normalized()      # that rope's outside
+		var cs := (c["post"] as Vector3) + rope * 0.55 + out * 0.3
 		crew.place(coach, cs, crew.yaw_to(cs, c["seat"]))
 		crew.play(coach, "af_idle_foldarms" if side == "red" else "af_idle")
-		# The second works from the apron, outside the ropes at her right (he slid the stool in under the middle rope).
-		var ss := (c["seat"] as Vector3) - l * 0.85
+		var ss := (c["post"] as Vector3) + rope * 1.1 + out * 0.3
 		crew.place(second, ss, crew.yaw_to(ss, c["seat"]))
 		crew.play(second, "af_crouch_idle")
 		(coach["node"] as Node3D).visible = true

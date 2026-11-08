@@ -4496,7 +4496,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-08 07:41 board_sync",
+  "updated": "2026-11-08 09:11 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4690,7 +4690,14 @@
     "title": "TASK RETARGET2 - CURSOR (GPT-5.6 Sol High) - RETARGET1 round 2: keep the wins, fix the stance and the end trim",
     "who": "cursor",
     "started": "2026-11-08T07:24",
-    "run": "RETARGET2"
+    "run": "RETARGET2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL3B - CURSOR (Grok 4.7 High) - the fighter model to 8/10 built, rule 2 held again (round 2)",
+    "who": "cursor",
+    "started": "2026-11-08T09:11",
+    "run": "FIGHTERMODEL3B"
    }
   ],
   "next": [
@@ -5305,6 +5312,10 @@
     },
     {
      "text": "9 tried ideas, smallest first",
+     "who": "claude"
+    },
+    {
+     "text": "Ropes give again (S391 stilled)",
      "who": "claude"
     }
    ],

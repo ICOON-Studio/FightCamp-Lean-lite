@@ -296,10 +296,10 @@ func cue_corners() -> void:
 			stage.guard(i)
 		var pre := "" if side == "red" else "blue_"
 		var l: Vector3 = c["l"]
-		for k in [["coach", -0.85, "af_idle_foldarms"], ["second", 0.85, "af_idle"]]:
+		for k in [["coach", -0.7, "af_idle_foldarms"], ["second", 0.7, "af_idle"]]:
 			var a: Dictionary = crew.actors[pre + str(k[0])]
-			var spot := (c["seat"] as Vector3) + l * float(k[1]) - (c["d"] as Vector3) * 0.1
-			crew.place(a, spot, crew.yaw_to(spot, Vector3.ZERO))
+			var spot := (c["post"] as Vector3) - (c["d"] as Vector3) * 1.15 + l * float(k[1])   # S400 operator: corner team on the floor, past the apron
+			crew.place(a, spot, crew.yaw_to(spot, Vector3.ZERO), -1.08)   # RingSet's arena floor (was on the ring: legs through the ropes)
 			crew.play(a, str(k[2]))
 			(a["node"] as Node3D).visible = true
 	if not _has_nowarm():
@@ -399,7 +399,7 @@ func cue_lower_blue() -> void:
 
 ## Her rear glove up to the crowd (her hand IK), then back to the guard.
 ## S359 ("wtf is this ??": the glove sat on her head): above the raising arm's own shoulder, out to that side (RAISE m).
-const RAISE := Vector3(0.46, 0.2, 0.08)
+const RAISE := Vector3(0.32, 0.3, 0.14)   # S400 (operator: "the shoulder joint seems broken"): 0.46 straight up forced ~160 deg
 
 
 func _raise(i: int, up: bool) -> void:

@@ -118,9 +118,9 @@ func set_shown(on: bool) -> void:
 		_follow.clear()
 
 
-func place(a: Dictionary, at: Vector3, yaw: float) -> void:
+func place(a: Dictionary, at: Vector3, yaw: float, y := 0.0) -> void:   # S400 y: the arena floor for a corner team outside the ring
 	var n: Node3D = a["node"]
-	n.position = Vector3(at.x, 0.0, at.z)
+	n.position = Vector3(at.x, y, at.z)
 	n.rotation = Vector3(0, yaw, 0)
 	_walks.erase(n)
 	_turns.erase(n)

@@ -1,3 +1,36 @@
+# S401 - next session (written S400 main session, 2026-11-08)
+
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S401` + map redraw.
+Read memory: feedback_blind_ab_before_ui_merge_s400 (screens only from the agreed Miro mockups; critics judge vs OUR plan) and
+feedback_ludo_painted_concepts_s400 FIRST.
+
+THE ORDER NOW (operator S400: "i want the base of the game done properly, the structure reviewed by critics, proposed mockups if
+need change or creation ... mechanics ideas reviewed"):
+1. His notes on Miro frame "MENUS FOR YOUR OK (S400)" (loop board uXjVETf7la4=, id 3458764689767139156, left of MENU MAP;
+   14 rows: shows / 3 critics / proposal / his yellow sticky) and board Q-S294-125. READ THEM FIRST (canvas_read_as_svg on the frame).
+2. Per approved menu: an HTML layout with the real content and every real control -> `ludo image edit` paintover (look B
+   reference; concepts so far are ART STYLE ONLY: docs/mockups/concepts/S400_money_ludo_v4.png, tmp/s400_concepts/home_r1 v3)
+   -> his OK -> build. Nothing is built on a menu he has not OK'd.
+3. Then the 9 ideas both critics want (ops/research/S400_REVIEW/IDEAS_VERDICT.md), smallest first: scorecards per round,
+   a readable reason for every swing, a wrong corner call costs trust, the shout lands only with trust.
+Review pack: ops/research/S400_REVIEW/ (YARDSTICK.md = his rulings, the critics' yardstick; STRUCTURE_BY_MENU.md; critics).
+
+FIGHT NIGHT FIXES S400 (his films): round 1 "ends immediately" = corner_film `short` mode (fixed: 20 s of round 1 + an on-screen
+cut caption); intro corner team on the arena floor (y -1.08) not on the ring; glove raise lowered (shoulder pinch); gloves 1.2x
+(amateur 10 oz); corner minute: coach + second WAIT on the apron outside the rope on her right (his pick "1": on the apron,
+outside the ropes, leaning in). OPEN: the corner minute's WORKING beats (water to her lips, face-to-face talk, cutman, blue
+coach talk) still step the coach inside the ropes - rework them from the apron: stool closer to the corner (CornerCrew.SEAT_IN_M
+0.62 -> ~0.4, everything is relative to the seat), the hold aimed from her side, film-checked (tools/corner_film.gd film short).
+Ropes no longer give when a body passes (S391 1f0b57c7 stilled them) - later, his call "not important for now".
+Check film of all of this: E:/FightCamp/tmp/s400_film/fix2.mp4 (see the S400 handover note if it showed a fault).
+
+AGENTS: RETARGET2 PR #83 NOT mergeable (retarget_fidelity_test 46 failures; #81 had 0) -> RETARGET2B queued on Cursor (Grok 4.7
+High; keeps the stance + trim fixes, fidelity back to 0, test prints each failing clip). FIGHTERMODEL3B queued on Cursor (round 2,
+on cursor/fightermodel3). Cursor GPT models are at Cursor's monthly limit until 12-07: Grok/Composer pool only 3% used.
+Qwen HELD until menus are approved (no build work first). Side sessions: grappling merging PARKED (stop rule), stylized toon OFF
+(lost twice), rokoko waits on RETARGET2B. Q-S294-124: delete 16 dead branches (his OK).
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics: sonnet sub-agents, prompt written from YARDSTICK.md | Cursor Grok 4.7 High.
+
 # S400 - next session (written S399 main session, 2026-11-07, late)
 
 OPEN THE SESSION IN E:\FightCamp\Lean (S399 was opened in E:\FightCamp\Game - not a git repo, so its side sessions got no

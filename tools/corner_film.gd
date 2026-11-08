@@ -109,6 +109,13 @@ func _initialize() -> void:
 	_check(not view.stage.scene, "the fight has the boxers back after the intro")
 	for n in range(1, total):
 		await _wait(30)
+		if film and short:
+			# S400 (operator: "the first round ends immediately, as soon it starts the fighters go back to the corner"): a
+			# `short` film showed round 1 for one second, which reads as a game bug. It now boxes 20 s of round 1 at real
+			# speed, then says on screen that the film cuts to the bell (the game itself plays every round in full).
+			await _wait(600)
+			_cut_caption("Film cut: the rest of round %d is skipped to the bell." % n)
+			await _wait(45)
 		if film and not short:
 			# The film watches each round to its bell (`short`: skips it, as the stills run does).
 			await _until(func(): return _find(view, "cue_walk_out") != null or not bool(view.playing), 120.0)
@@ -364,6 +371,28 @@ func _tidy(c: Career) -> void:
 			main.act("goaltalk", f["id"])
 			main.act("pickgoal", "five_round_engine")
 			main.act("setgoal")
+
+
+## S400 a film-only caption (never in the game): bottom centre for 3 s, so a cut in the film never reads as a game bug.
+func _cut_caption(text: String) -> void:
+	var layer := CanvasLayer.new()
+	layer.layer = 120
+	var panel := PanelContainer.new()
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0, 0, 0, 0.75)
+	sb.set_content_margin_all(14)
+	panel.add_theme_stylebox_override("panel", sb)
+	var lab := Label.new()
+	lab.text = text
+	lab.add_theme_font_size_override("font_size", 30)
+	lab.add_theme_color_override("font_color", Color(1, 0.85, 0.3))
+	panel.add_child(lab)
+	layer.add_child(panel)
+	root.add_child(layer)
+	await process_frame
+	var vs := root.get_visible_rect().size
+	panel.position = Vector2((vs.x - panel.size.x) / 2.0, vs.y - panel.size.y - 120.0)
+	create_timer(3.0).timeout.connect(layer.queue_free)
 
 
 func _wait(frames: int) -> void:

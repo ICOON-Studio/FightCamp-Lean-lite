@@ -15,6 +15,9 @@ const HANDS := {
 ## hand back and down), and a glove laid along the hand then leaves the forearm at an angle, its cuff off the wrist. A taped,
 ## gloved wrist is held nearly straight: the glove's long axis is this share of the way from the hand to the forearm.
 ## `-- bentwrist` = the control arm (the glove along the hand, as before).
+## S400 (operator: "the gloves need to be a bit larger, they look like mma gloves"): amateur women box in 10 oz gloves; the
+## mesh at 1.0 read small. front_m() measures the mounted mesh, so reach and GloveClear follow the size.
+const SIZE := 1.2
 const WRIST_STRAIGHT := 0.85
 ## Palms in, thumbs on top (the old repo's S162e measure on the certified clips), about the glove's long axis.
 const TWIST_DEG := {"l": -75.0, "r": 71.0}
@@ -67,7 +70,7 @@ func mount(body: Node3D, colour: Color, cuff: Color) -> int:
 		model.name = "Geometry"
 		# The mesh is a LEFT glove (thumb lobe on -X, palm +Z). The right hand's frame mirrors X; the left takes it turned
 		# half a turn about Y. Then the twist about the long axis.
-		model.scale = Vector3(-1.0, 1.0, 1.0) if side == "r" else Vector3(-1.0, 1.0, -1.0)
+		model.scale = (Vector3(-1.0, 1.0, 1.0) if side == "r" else Vector3(-1.0, 1.0, -1.0)) * SIZE
 		model.transform = Transform3D(Basis(Vector3.UP, deg_to_rad(float(TWIST_DEG[side]))), Vector3.ZERO) * model.transform
 		var mat := ShaderMaterial.new()
 		mat.shader = _shader
