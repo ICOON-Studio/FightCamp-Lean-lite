@@ -1,5 +1,5 @@
 {
- "_doc": "S403: the eight MMA fighters for every menu mockup. Primary attributes are the agreed 10. The skills list is a DRAFT until the skills review.",
+ "_doc": "S403: the eight MMA fighters for every menu mockup. Primary attributes are the agreed 10. The 12 skills are agreed (S404).",
  "primary": [
   "Strength",
   "Explosiveness",
@@ -12,23 +12,18 @@
   "Composure",
   "Heart"
  ],
- "skills_draft": [
+ "skills": [
   "Accuracy",
   "Timing",
-  "Blocking",
-  "Head movement",
+  "Defence",
   "Footwork",
   "Inside fighting",
   "Clinch",
-  "Kick defence",
   "Takedowns",
   "Takedown defence",
-  "Scrambling",
   "Guard",
-  "Passing",
-  "Control",
+  "Top game",
   "Submissions",
-  "Submission defence",
   "Escapes"
  ],
  "fighters": [
@@ -100,13 +95,9 @@
      "now": 61,
      "cap": 85
     },
-    "Blocking": {
-     "now": 57,
-     "cap": 81
-    },
-    "Head movement": {
-     "now": 52,
-     "cap": 76
+    "Defence": {
+     "now": 55,
+     "cap": 79
     },
     "Footwork": {
      "now": 63,
@@ -120,10 +111,6 @@
      "now": 36,
      "cap": 60
     },
-    "Kick defence": {
-     "now": 32,
-     "cap": 56
-    },
     "Takedowns": {
      "now": 29,
      "cap": 53
@@ -132,29 +119,17 @@
      "now": 41,
      "cap": 65
     },
-    "Scrambling": {
-     "now": 32,
-     "cap": 56
-    },
     "Guard": {
      "now": 21,
      "cap": 45
     },
-    "Passing": {
-     "now": 17,
-     "cap": 41
-    },
-    "Control": {
-     "now": 27,
-     "cap": 51
+    "Top game": {
+     "now": 22,
+     "cap": 46
     },
     "Submissions": {
      "now": 14,
      "cap": 38
-    },
-    "Submission defence": {
-     "now": 26,
-     "cap": 50
     },
     "Escapes": {
      "now": 27,
@@ -243,13 +218,9 @@
      "now": 41,
      "cap": 55
     },
-    "Blocking": {
-     "now": 38,
-     "cap": 52
-    },
-    "Head movement": {
-     "now": 36,
-     "cap": 50
+    "Defence": {
+     "now": 37,
+     "cap": 51
     },
     "Footwork": {
      "now": 44,
@@ -263,10 +234,6 @@
      "now": 46,
      "cap": 60
     },
-    "Kick defence": {
-     "now": 30,
-     "cap": 44
-    },
     "Takedowns": {
      "now": 54,
      "cap": 68
@@ -275,33 +242,21 @@
      "now": 48,
      "cap": 62
     },
-    "Scrambling": {
-     "now": 70,
-     "cap": 84
-    },
     "Guard": {
      "now": 86,
      "cap": 99
     },
-    "Passing": {
-     "now": 74,
-     "cap": 88
-    },
-    "Control": {
-     "now": 71,
-     "cap": 85
+    "Top game": {
+     "now": 73,
+     "cap": 87
     },
     "Submissions": {
      "now": 88,
      "cap": 99
     },
-    "Submission defence": {
-     "now": 80,
-     "cap": 94
-    },
     "Escapes": {
-     "now": 78,
-     "cap": 92
+     "now": 79,
+     "cap": 93
     }
    },
    "moves": {
@@ -385,13 +340,9 @@
      "now": 47,
      "cap": 58
     },
-    "Blocking": {
-     "now": 50,
-     "cap": 61
-    },
-    "Head movement": {
-     "now": 40,
-     "cap": 51
+    "Defence": {
+     "now": 45,
+     "cap": 56
     },
     "Footwork": {
      "now": 52,
@@ -405,10 +356,6 @@
      "now": 72,
      "cap": 83
     },
-    "Kick defence": {
-     "now": 46,
-     "cap": 57
-    },
     "Takedowns": {
      "now": 88,
      "cap": 99
@@ -417,33 +364,21 @@
      "now": 84,
      "cap": 95
     },
-    "Scrambling": {
-     "now": 76,
-     "cap": 87
-    },
     "Guard": {
      "now": 48,
      "cap": 59
     },
-    "Passing": {
-     "now": 70,
-     "cap": 81
-    },
-    "Control": {
-     "now": 86,
-     "cap": 97
+    "Top game": {
+     "now": 78,
+     "cap": 89
     },
     "Submissions": {
      "now": 40,
      "cap": 51
     },
-    "Submission defence": {
-     "now": 60,
-     "cap": 71
-    },
     "Escapes": {
-     "now": 66,
-     "cap": 77
+     "now": 63,
+     "cap": 74
     }
    },
    "moves": {
@@ -526,13 +461,9 @@
      "now": 58,
      "cap": 78
     },
-    "Blocking": {
-     "now": 62,
-     "cap": 82
-    },
-    "Head movement": {
-     "now": 48,
-     "cap": 68
+    "Defence": {
+     "now": 55,
+     "cap": 75
     },
     "Footwork": {
      "now": 56,
@@ -546,10 +477,6 @@
      "now": 86,
      "cap": 99
     },
-    "Kick defence": {
-     "now": 78,
-     "cap": 98
-    },
     "Takedowns": {
      "now": 30,
      "cap": 50
@@ -558,33 +485,21 @@
      "now": 50,
      "cap": 70
     },
-    "Scrambling": {
-     "now": 36,
-     "cap": 56
-    },
     "Guard": {
      "now": 26,
      "cap": 46
     },
-    "Passing": {
-     "now": 22,
-     "cap": 42
-    },
-    "Control": {
-     "now": 28,
-     "cap": 48
+    "Top game": {
+     "now": 25,
+     "cap": 45
     },
     "Submissions": {
      "now": 20,
      "cap": 40
     },
-    "Submission defence": {
-     "now": 34,
-     "cap": 54
-    },
     "Escapes": {
-     "now": 32,
-     "cap": 52
+     "now": 33,
+     "cap": 53
     }
    },
    "moves": {
@@ -669,13 +584,9 @@
      "now": 46,
      "cap": 78
     },
-    "Blocking": {
-     "now": 48,
-     "cap": 80
-    },
-    "Head movement": {
-     "now": 50,
-     "cap": 82
+    "Defence": {
+     "now": 49,
+     "cap": 81
     },
     "Footwork": {
      "now": 54,
@@ -689,10 +600,6 @@
      "now": 48,
      "cap": 80
     },
-    "Kick defence": {
-     "now": 44,
-     "cap": 76
-    },
     "Takedowns": {
      "now": 52,
      "cap": 84
@@ -701,33 +608,21 @@
      "now": 50,
      "cap": 82
     },
-    "Scrambling": {
-     "now": 56,
-     "cap": 88
-    },
     "Guard": {
      "now": 46,
      "cap": 78
     },
-    "Passing": {
-     "now": 44,
-     "cap": 76
-    },
-    "Control": {
-     "now": 46,
-     "cap": 78
+    "Top game": {
+     "now": 45,
+     "cap": 77
     },
     "Submissions": {
      "now": 42,
      "cap": 74
     },
-    "Submission defence": {
-     "now": 44,
-     "cap": 76
-    },
     "Escapes": {
-     "now": 48,
-     "cap": 80
+     "now": 46,
+     "cap": 78
     }
    },
    "moves": {
@@ -811,13 +706,9 @@
      "now": 72,
      "cap": 84
     },
-    "Blocking": {
-     "now": 60,
-     "cap": 72
-    },
-    "Head movement": {
-     "now": 66,
-     "cap": 78
+    "Defence": {
+     "now": 63,
+     "cap": 75
     },
     "Footwork": {
      "now": 78,
@@ -831,10 +722,6 @@
      "now": 44,
      "cap": 56
     },
-    "Kick defence": {
-     "now": 82,
-     "cap": 94
-    },
     "Takedowns": {
      "now": 34,
      "cap": 46
@@ -843,33 +730,21 @@
      "now": 46,
      "cap": 58
     },
-    "Scrambling": {
-     "now": 40,
-     "cap": 52
-    },
     "Guard": {
      "now": 28,
      "cap": 40
     },
-    "Passing": {
-     "now": 26,
-     "cap": 38
-    },
-    "Control": {
-     "now": 30,
-     "cap": 42
+    "Top game": {
+     "now": 28,
+     "cap": 40
     },
     "Submissions": {
      "now": 24,
      "cap": 36
     },
-    "Submission defence": {
-     "now": 38,
-     "cap": 50
-    },
     "Escapes": {
-     "now": 36,
-     "cap": 48
+     "now": 37,
+     "cap": 49
     }
    },
    "moves": {
@@ -953,13 +828,9 @@
      "now": 56,
      "cap": 70
     },
-    "Blocking": {
-     "now": 44,
-     "cap": 58
-    },
-    "Head movement": {
-     "now": 36,
-     "cap": 50
+    "Defence": {
+     "now": 40,
+     "cap": 54
     },
     "Footwork": {
      "now": 42,
@@ -973,10 +844,6 @@
      "now": 50,
      "cap": 64
     },
-    "Kick defence": {
-     "now": 40,
-     "cap": 54
-    },
     "Takedowns": {
      "now": 38,
      "cap": 52
@@ -985,33 +852,21 @@
      "now": 42,
      "cap": 56
     },
-    "Scrambling": {
-     "now": 40,
-     "cap": 54
-    },
     "Guard": {
      "now": 24,
      "cap": 38
     },
-    "Passing": {
-     "now": 24,
-     "cap": 38
-    },
-    "Control": {
-     "now": 30,
-     "cap": 44
+    "Top game": {
+     "now": 27,
+     "cap": 41
     },
     "Submissions": {
      "now": 16,
      "cap": 30
     },
-    "Submission defence": {
-     "now": 30,
-     "cap": 44
-    },
     "Escapes": {
-     "now": 28,
-     "cap": 42
+     "now": 29,
+     "cap": 43
     }
    },
    "moves": {
@@ -1094,13 +949,9 @@
      "now": 88,
      "cap": 94
     },
-    "Blocking": {
-     "now": 74,
-     "cap": 80
-    },
-    "Head movement": {
-     "now": 66,
-     "cap": 72
+    "Defence": {
+     "now": 70,
+     "cap": 76
     },
     "Footwork": {
      "now": 60,
@@ -1114,10 +965,6 @@
      "now": 68,
      "cap": 74
     },
-    "Kick defence": {
-     "now": 60,
-     "cap": 66
-    },
     "Takedowns": {
      "now": 50,
      "cap": 56
@@ -1126,33 +973,21 @@
      "now": 70,
      "cap": 76
     },
-    "Scrambling": {
-     "now": 44,
-     "cap": 50
-    },
     "Guard": {
      "now": 52,
      "cap": 58
     },
-    "Passing": {
-     "now": 56,
-     "cap": 62
-    },
-    "Control": {
-     "now": 60,
-     "cap": 66
+    "Top game": {
+     "now": 58,
+     "cap": 64
     },
     "Submissions": {
      "now": 44,
      "cap": 50
     },
-    "Submission defence": {
-     "now": 62,
-     "cap": 68
-    },
     "Escapes": {
-     "now": 58,
-     "cap": 64
+     "now": 60,
+     "cap": 66
     }
    },
    "moves": {

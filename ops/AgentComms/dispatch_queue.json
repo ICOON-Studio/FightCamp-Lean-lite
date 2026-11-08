@@ -527,8 +527,8 @@
    "seat": "cursor",
    "title": "TASK FIGHTERMODEL3C - CURSOR (Grok 4.7 High) - scouting has something to find again (round 3, from an audit)",
    "brief": "FIGHTERMODEL3C",
-   "status": "held",
-   "held_why": "S403 operator: the primary attributes are being redone; do not build on the old list"
+   "status": "superseded",
+   "held_why": "S404 operator agreed the 10 attributes and \"Ok 12\" skills: replaced by FIGHTERMODEL4A, the audit returns as 4B"
   },
   {
    "id": "GUIDEFLAG2",
@@ -541,6 +541,18 @@
    "seat": "qwen",
    "title": "TASK R11A - QWEN (qwen3-coder) - an injury says why it happened",
    "brief": "R11A"
+  },
+  {
+   "id": "BJJBEAT2",
+   "seat": "cursor",
+   "title": "TASK BJJBEAT2 - CURSOR (Grok 4.7 High) - BJJBEAT1 round 2: the last two bars, with a key that does not trade them",
+   "brief": "BJJBEAT2"
+  },
+  {
+   "id": "FIGHTERMODEL4A",
+   "seat": "cursor",
+   "title": "TASK FIGHTERMODEL4A - CURSOR (Grok 4.7 High) - the fighter model on the agreed 10 attributes and 5 boxing skills",
+   "brief": "FIGHTERMODEL4A"
   }
  ]
 }

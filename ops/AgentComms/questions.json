@@ -5506,6 +5506,38 @@
       "answered_at": "2026-11-08T11:44:09Z",
       "seen_by_claude": true,
       "comment_only": true
+    },
+    {
+      "id": "Q-S294-129",
+      "asked": "2026-11-08T13:14:21.872493+00:00",
+      "session": "S294",
+      "text": "The seven menus stalled at 6-7.25 after three critic rounds. One more critic pass (about 1M tokens) or build them and fix the known faults screen by screen?",
+      "options": [
+        "Build them",
+        "One more pass"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-130",
+      "asked": "2026-11-08T13:14:29.393610+00:00",
+      "session": "S294",
+      "text": "Skills: three critics scored the 17-skill draft 4-5/10. Proposal is 12 skills, at most 6 on a page for one sport (boxing 5: Accuracy, Timing, Defence, Footwork, Inside fighting). Every merge is listed one by one in the attached page. OK to use these 12?",
+      "options": [
+        "Yes, use these 12",
+        "Change the list"
+      ],
+      "attach": [
+        "research/S400_REVIEW/SKILLS_PROPOSAL_S404.md"
+      ],
+      "answer": "Yes, use these 12",
+      "note": "in chat: \"Ok 12\"",
+      "answered_at": "2026-11-08T13:31:24.908488+00:00",
+      "seen_by_claude": true
     }
   ]
 }
