@@ -1,3 +1,31 @@
+# S404 - next session (written S403 main session, 2026-11-08)
+
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S404` + map redraw on the ONE board (uXjVEV03QWA=). Read board answers, stickies AND Miro comments.
+STANDING ORDER: animation progresses every session; name the item and seat in the first message.
+FULL TESTS at 05:00: read ops/AgentComms/nightly/latest.txt and reviews.md first (first real run 2026-11-09).
+
+HIS DECISIONS S403:
+- PRIMARY ATTRIBUTES, 11, the same in every sport (ops/research/S400_REVIEW/PRIMARY_ATTRIBUTES_S403.md): Strength, Explosiveness, Hand speed, Foot speed, Stamina, Recovery, Flexibility, Durability, Fight IQ, Composure, Heart. His words: "we are talking about primary attributes not moves or skills"; "i donot agree to have speed same stat for hands and legs"; one Strength number, no number per hand. Three layers: primary attributes, skills per sport, moves in the Playbook ("you mixed punch types with attributes ?"). Facts not bars: height, reach, stance, weight; Cuts a tag; Aggression a dial. Critics' split kept honest in the page: Explosiveness and Recovery must do real work in the fight, or go.
+- PR #85's fighter model is on the old list and needs rework; FIGHTERMODEL3C is HELD in dispatch_queue.json. Re-brief it for the 11 after the skills review.
+- SKILLS NOT REVIEWED YET. Merge candidates from the critics: Blocking + Head movement, Sweeps into Guard, Wall work into Clinch, Scrambles + Get-ups. He overruled one merge already, so show him each one. Punch and kick types go to the Playbook. Roster skills in docs/mockups/s403/roster_mma8.json are a draft.
+- CRITICS KNOW THE WHOLE GAME (CLAUDE.md, memory): every critic brief opens with ops/research/CRITIC_PACK.md (written from the code) + CRITIC_ACCESS.md (Miro board, tested from a sub-agent; 57 real screens in E:/FightCamp/critic_pack/screens). Update the pack when a mechanic or screen lands. Re-render the screens with tools/layout_snapshot.gd when they age.
+- MENUS: filled with 8 MMA fighters (docs/mockups/s403/roster_mma8.json, shared_facts.md, MOCKUP_RULES.md). Not usable now = grey with reason; not built = full colour + warning triangle. "try to use icond and toolitps instead of plain text".
+
+THE MENU LOOP: docs/mockups/s403/{home,fighter_week,profile,playbook,fight_night,money,world}. Notes ops/research/S403_MENUS/round{1,2,3}_{designer,player}.md. Fresh sonnet critics each round. Average of the two scores per round:
+Home 7.0, 7.0, 7.25 | Week 6.5, 7.0, 6.75 | Profile 6.5, 6.5, 6.5 | Playbook 6.25, 6.75, 6.75 | Fight night 6.75, 7.0, 6.75 | Money 6.25, 6.5, 6.75 | World 6.0, 5.75, 6.0.
+STALLED BELOW 8 after 3 rounds: fresh critics find new faults each round. Round 3 left real faults worth one more pass: numbers that still contradict (Lucy's weight 60.4 vs 60.2, pad nights 3 vs 2, Why counts), World repeats Home and its rankings decide nothing, Money ranks the worst buy first and hires no discipline coaches, Fight night's corner minute is overloaded and shows design notes as text, Profile shows grappling as a paragraph (needs the skills review). A designer round costs about 1 M sub-agent tokens across three agents: his weekly plan was at 66% on 11-08.
+On Miro: frame "MENUS S403: eight MMA fighters" 3458764689784470568 (x -30000), with honest scores. Keep it current. The other ten menus (Start, First week, Fighters, Fights, Fight prep, People, Grow, Top bar, Overview, BJJ profile) have not been through the loop.
+WarmKit (scripts/ui/WarmKit.gd, assets/ui/warm/, warm_kit_test): the real Ludo pieces. Nothing reads it yet, so no screen changed. tools/warm_kit_still.gd renders a sample.
+
+ORDER:
+1. Collect BJJBEAT1 PR #91 (13/16 checks: read the three that failed). R11: next rows from docs/SWING_CENSUS.md section 2 (R11A, injuries, is done).
+2. Animation: session rokoko-repair (local_08cde081-ab48-426c-a866-589b564ae636, branch claude/retarget2b, pushed): retarget fidelity 46 failures to 0 (ops/research/RETARGET2B_RESULT.md in its worktree). Its own limit: one setting per clip from 98 makes the bars easier. Next: film, merge, the proguard flip.
+3. Skills layer with critics who know the game; then re-brief the fighter model for the 11.
+4. His call on the menus, then build Money, World, Playbook first on WarmKit, one 2D screen per Cursor task; Claude checks stills.
+STILL WAITING ON HIM: cut Test day and dues bands? | "yes, ARCHIVED" | delete 38 leftover map cards (where_we_are svg marks 30 surplus: strip data-deleted lines) | 878 old playtest stills (101 MB) uncommitted: keep or leave.
+TRAPS: Edge's launcher exits before its screenshot exists: tools/render_mockup.py waits for it. A rename by hand left "PRIYA ORTEGA": replace full names first. Godot jobs in a session go through godot_slot or rule_guard blocks them. Long heredocs through the shell hook fail: write scripts to the scratchpad. CLAUDE.md's money numbers trail the code (noted there).
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics and mockup designers sonnet | Cursor Grok 4.7 High until 12-07.
+
 # S403 - next session (written S402 main session, 2026-11-08)
 
 OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S403` + map redraw on the ONE board (uXjVEV03QWA=). Read board answers, sticky notes AND Miro comments (S402: his note was a comment on an image; `canvas_read_as_svg` shows them as <comment> on the frame).

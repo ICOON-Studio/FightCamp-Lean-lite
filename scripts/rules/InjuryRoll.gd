@@ -139,6 +139,39 @@ static func training_roll(seed: int, hours: float, ratio: float, peak: float = 0
 	return {"injured": true, "type": str(chosen[0]), "days_out": days}
 
 
+## R11A: one short clause that says why the training injury happened. Picked in order: pushed through the warning;
+## the larger of the load and fatigue multipliers when it is above 1.0; risk above 1.0; plain bad luck.
+static func training_cause(ratio: float, peak: float, risk: float, pushed: bool) -> String:
+	if pushed:
+		return "you pushed through the warning"
+	var lm: float = load_mult(ratio)
+	var fm: float = fatigue_mult(peak)
+	if lm > 1.0 or fm > 1.0:
+		if lm >= fm:
+			return "the hours jumped against the usual week"
+		return "the week ran too hot"
+	if risk > 1.0:
+		return "the floor and kit are poor"
+	return "plain bad luck, the load was fine"
+
+
+## R11A: one short clause that says why the bout injury happened. Head was the worst place -> head shots; else the rounds.
+static func bout_cause(damage: Dictionary) -> String:
+	var places: Dictionary = damage.get("places", {})
+	if places.is_empty():
+		return "from the rounds boxed"
+	var worst_key: String = ""
+	var worst_val: float = 100.0
+	for key in places:
+		var v: float = float(places[key])
+		if v < worst_val:
+			worst_val = v
+			worst_key = key
+	if worst_key == "head":
+		return "from the head shots taken"
+	return "from the rounds boxed"
+
+
 static func weeks_out(days: int) -> int:
 	if days <= 0:
 		return 0

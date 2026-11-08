@@ -420,8 +420,8 @@
    "status": "queued",
    "queued_at": "2026-11-08 12:36",
    "tries": 0,
-   "skips": 2,
-   "last_error": "2026-11-08 13:11 gbot send rc=1: ['GROKBOT FAIL sendPrompt 502  {\"error\":\"A Sand box session may not make this request on this endpoint.\"}']"
+   "skips": 4,
+   "last_error": "2026-11-08 14:11 gbot send rc=1: ['GROKBOT FAIL sendPrompt 502  {\"error\":\"A Sand box session may not make this request on this endpoint.\"}']"
   }
  ]
 }

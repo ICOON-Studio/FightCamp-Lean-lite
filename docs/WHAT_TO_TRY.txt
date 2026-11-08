@@ -1,3 +1,12 @@
+FIGHTCAMP - BUILD OF 2026-11-08 (S403): THE GUIDE ENDS, AN INJURY SAYS WHY
+================================================================================
+
+ NEW.
+  a. The guide strip now follows your first fight and is gone for good by week 8. It no longer sits on every page.
+  b. The offer note on Home reads in full: "Answer Lucy's bout offer", with the opponent and the date under it.
+  c. When a fighter is hurt in training or a fight, the week review says why: the hours jumped, the week ran too hot, you pushed through, or plain bad luck.
+ The 11 primary attributes and the seven new menus with eight MMA fighters are on the Miro board, not in this build yet.
+
 FIGHTCAMP - BUILD OF 2026-11-08 (S402): AN EXPIRED OFFER IS NO LONGER A DEAD END
 ================================================================================
 

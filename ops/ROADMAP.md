@@ -10,7 +10,7 @@ Updated 2026-11-08 by claude S294.
 
 **S401 — ?** *(claude)*
 
-S402: 7 mechanics chosen (critics 8+); menus and structure adjusted, two critics 7/7; MENUS FINAL frame on Miro, seven approved to build; one warm art style; fighter profile for every sport (v2 after MMA critics); PR #85 audited, not merged; OFFERGONE1 in; full tests at 05:00 with a Claude review.
+S403: 11 primary attributes agreed (three layers: attributes, skills, moves); every critic now reads the whole game (CRITIC_PACK + Miro access); seven menus filled with 8 MMA fighters, 3 critic rounds, 6-7.25, on Miro; WarmKit built; GUIDEFLAG2, swing census, R11A in.
 
 ## Next
 
@@ -287,3 +287,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S395**  |  |  | *none yet* | S395: HUD 5 to 6.5 (corner bug was the film tool; rest strip; fades; tired read B); TV hit line, big-shot slow motion and zoom; boxers walk on a real capture; SOUND2 collected; Attendance; pr-check and cloud film on GitHub; Ollama fixed; structure design with Corner King study, 10 questions on the board. Portraits 4.5, not used. Not exported. |
 |  |  | **S401**  |  |  | *none yet* | S401: structure vs Corner King refined by 3 critics; gym vs tycoon games, 22 ideas; 103 mechanics scored; 14 painted menus; one Miro board; corner minute from the apron; muscle-scan body figure; CornerTrust; 16 branches deleted. Not merged: PR #85, Rokoko repair. |
 |  |  | **S402**  |  |  | *none yet* | S402: 7 mechanics chosen by critics; menus and structure adjusted; final menus with verdicts on Miro, seven approved; one warm art style; one fighter profile for all sports, MMA critics; PR #85 audited, round 3 queued; OFFERGONE1 in; full tests daily at 05:00, reviewed by Claude. Not built: the seven menus. |
+|  |  | **S403**  |  |  | *none yet* |  |

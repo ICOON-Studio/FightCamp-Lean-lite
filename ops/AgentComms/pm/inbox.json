@@ -1272,6 +1272,13 @@
       "at": "2026-11-08 10:26",
       "text": "BOARD ANSWER Q-S294-125 - question: Approve the game's menus one by one: Miro frame 'MENUS FOR YOUR OK (S400)' (14 rows: what each shows, 3 critics, my proposal). Write OK / change / cut on each row's yellow sticky. | answer: compare the structure to corner king and have ritics review it and refine it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
       "status": "waiting"
+    },
+    {
+      "id": "P175",
+      "from": "board",
+      "at": "2026-11-08 13:44",
+      "text": "BOARD ANSWER Q-S294-128 - question: Primary attributes: three critics scored the current list 4-5/10. Proposal is 10, the same in every sport: Strength, Explosiveness, Speed, Stamina, Recovery, Flexibility, Durability, Fight IQ, Composure, Heart. Height, reach, weight and stance show as facts, moves stay in the Playbook. OK to use these 10? | answer: rename engine to stamina or conditioning and separate hand speed from leg speed | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
     }
   ]
 }

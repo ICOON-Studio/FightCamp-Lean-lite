@@ -5501,10 +5501,11 @@
       "attach": [
         "research/S400_REVIEW/PRIMARY_ATTRIBUTES_S403.md"
       ],
-      "answer": "Change the list",
-      "note": "in chat: \"these 10 lookok\", then \"i donot agree to have speed same stat for hands and legs\": 11, Hand speed and Foot speed separate",
-      "answered_at": "2026-11-08T11:39:29.260739+00:00",
-      "seen_by_claude": true
+      "answer": "rename engine to stamina or conditioning and separate hand speed from leg speed",
+      "note": null,
+      "answered_at": "2026-11-08T11:44:09Z",
+      "seen_by_claude": false,
+      "comment_only": true
     }
   ]
 }

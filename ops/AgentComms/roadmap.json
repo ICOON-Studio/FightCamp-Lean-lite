@@ -6,11 +6,11 @@
   "id": "S401",
   "owner": "claude",
   "updated": "2026-11-08",
-  "summary": "S402: 7 mechanics chosen (critics 8+); menus and structure adjusted, two critics 7/7; MENUS FINAL frame on Miro, seven approved to build; one warm art style; fighter profile for every sport (v2 after MMA critics); PR #85 audited, not merged; OFFERGONE1 in; full tests at 05:00 with a Claude review.",
+  "summary": "S403: 11 primary attributes agreed (three layers: attributes, skills, moves); every critic now reads the whole game (CRITIC_PACK + Miro access); seven menus filled with 8 MMA fighters, 3 critic rounds, 6-7.25, on Miro; WarmKit built; GUIDEFLAG2, swing census, R11A in.",
   "last_working_commit": "903b5f8d (S402 on main; OFFERGONE1 76cdcfda)",
   "verified_playable": "corner_lens, corner_crew_bodies, corner_warm, corner_trust, exchanges, trust_fight, habit_fix, plan_bots, golden_path, plain_words on main; corner film viewed by Claude",
   "incomplete_blocked": "PR #85 FIGHTERMODEL3B landed 7/9 checks, not reviewed; OFFERGONE1 on Qwen; Rokoko repair in its own session (branch claude/rokoko-repair-3bb3a3); ARCHIVED Miro board not yet deleted (7 images and 2 html mockups to move); corner_film 'gloves touch' check red since S400's 1.2x gloves",
-  "next_action": "1) Collect GUIDEFLAG2, BJJBEAT1, SWINGCENSUS1. 2) Animation: Rokoko repair. 3) Build the seven approved menus: shared UI kit first, then Money, World, Playbook, Home, Fight night, Week, Boxing profile last. 4) Redraw profile mockups to v2. 5) R11, R28, R25.",
+  "next_action": "1) Collect BJJBEAT1 (#91, 3 checks failed). 2) Animation: Rokoko repair, film RETARGET2B, merge, proguard. 3) Skills layer with critics who know the game (CRITIC_PACK), then re-brief the fighter model for the 11 primary attributes (FIGHTERMODEL3C held). 4) Seven menus stalled at 6-7.25 after 3 critic rounds: his call, one more pass or build; then Money, World, Playbook on WarmKit.",
   "next_acceptance": "No screen is built without his OK on its Miro row and painted concept; mechanics ruled before menus are finalised; animation moves each session.",
   "awaiting_operator": [
    "Cut Test day and dues bands?",
@@ -1592,6 +1592,11 @@
    "id": "S402",
    "date": "2026-11-08",
    "summary": "S402: 7 mechanics chosen by critics; menus and structure adjusted; final menus with verdicts on Miro, seven approved; one warm art style; one fighter profile for all sports, MMA critics; PR #85 audited, round 3 queued; OFFERGONE1 in; full tests daily at 05:00, reviewed by Claude. Not built: the seven menus."
+  },
+  {
+   "id": "S403",
+   "date": "2026-11-08",
+   "note": "11 primary attributes; critics know the whole game; seven menus with 8 MMA fighters on Miro, stalled below 8; WarmKit; GUIDEFLAG2, SWINGCENSUS1, R11A collected."
   }
  ],
  "blocked_on_operator": [],
@@ -4510,7 +4515,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-08 13:22 board_sync",
+  "updated": "2026-11-08 14:11 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4711,7 +4716,8 @@
     "title": "TASK BJJBEAT1 - CURSOR (GPT-5.6 Sol High) - turn the two-sided BJJ beat ON and tune it into the real bars",
     "who": "cursor",
     "started": "2026-11-08T12:11",
-    "run": "BJJBEAT1"
+    "run": "BJJBEAT1",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK SWINGCENSUS1 - AGY (Argon High) - every random swing the player feels, and what they are told",
@@ -4725,6 +4731,13 @@
     "who": "qwen",
     "started": "2026-11-08T13:00",
     "run": "GUIDEFLAG2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK R11A - QWEN (qwen3-coder) - an injury says why it happened",
+    "who": "qwen",
+    "started": "2026-11-08T13:34",
+    "run": "R11A",
     "state": "LANDED - Claude collects"
    }
   ],
@@ -5217,7 +5230,28 @@
      "who": "agent"
     }
    ],
-   "done_session": [],
+   "done_session": [
+    {
+     "text": "GUIDEFLAG2 and swing census in",
+     "who": "agent"
+    },
+    {
+     "text": "11 primary attributes agreed",
+     "who": "operator"
+    },
+    {
+     "text": "Critics know the whole game",
+     "who": "claude"
+    },
+    {
+     "text": "7 menus: 8 MMA fighters, on Miro",
+     "who": "claude"
+    },
+    {
+     "text": "WarmKit built, no screen yet",
+     "who": "claude"
+    }
+   ],
    "now": [
     {
      "text": "Rokoko repair (session)",
@@ -5228,15 +5262,7 @@
      "who": "claude"
     },
     {
-     "text": "Build 7 menus, UI kit first",
-     "who": "claude"
-    },
-    {
      "text": "Fighter model round 3 (Cursor)",
-     "who": "claude"
-    },
-    {
-     "text": "Guide strip, round 2 (Qwen)",
      "who": "claude"
     }
    ],
@@ -5324,6 +5350,14 @@
     {
      "text": "Six rule-breaks on our screens",
      "who": "claude"
+    },
+    {
+     "text": "Skills layer with critics",
+     "who": "claude"
+    },
+    {
+     "text": "Menus: one more pass or build",
+     "who": "operator"
     }
    ],
    "session": "S403"

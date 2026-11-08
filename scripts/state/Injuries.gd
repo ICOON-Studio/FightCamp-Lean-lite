@@ -50,11 +50,18 @@ static func line(c: Career, f: Dictionary) -> String:
 
 
 ## S361 the week review's headline: the injury's line when it began in the last 7 days (training or a bout), else "".
+## R11A: appends the cause clause when the injury has one ("why"); an old save without it reads as before.
 static func new_this_week(c: Career, f: Dictionary) -> String:
 	if not out(c, f):
 		return ""
 	var inj: Dictionary = f["injury"]
-	return line(c, f) if int(inj["until_day"]) - int(inj["days_out"]) > c.day - 7 else ""
+	if int(inj["until_day"]) - int(inj["days_out"]) <= c.day - 7:
+		return ""
+	var base := line(c, f)
+	var why := str(inj.get("why", ""))
+	if why.is_empty():
+		return base
+	return base + ", " + why
 
 
 ## How serious, from the days the injury costs in all: up to 2 weeks minor, up to 4 moderate, longer serious.
@@ -177,7 +184,9 @@ static func after_bout(c: Career, f: Dictionary, m: Dictionary) -> void:
 		c.add_news("The cutman closed %s's cut on the night: no layoff." % f["first"])
 		return
 	if bool(roll["injured"]):
-		_hurt(c, f, roll, "in the fight")
+		var bout_why := "" if str(roll["type"]) == "ko" else InjuryRoll.bout_cause({"places": {"head": clampf(100.0 - dmg * DAMAGE_TO_WORST, 0.0, 100.0)},
+			"rounds": (m["rounds"] as Array).size()})
+		_hurt(c, f, roll, "in the fight", bout_why)
 		m["injury"] = line(c, f)
 
 
@@ -198,7 +207,9 @@ static func end_week(c: Career) -> void:
 				roll = InjuryRoll.training_roll(_seed(c, f, 3 + k * 101), h, h / usual if usual > 0.0 else 1.0, float(f.get("week_peak", 0.0)), risk)
 		f["chronic"] = TrainingLoad.next_chronic(usual, h)
 		if bool(roll["injured"]):
-			_hurt(c, f, roll, "in training")
+			var pushed := int(WeekTwist.active(f).get("risk", 1)) >= 2
+			var twhy := InjuryRoll.training_cause(h / usual if usual > 0.0 else 1.0, float(f.get("week_peak", 0.0)), risk, pushed)
+			_hurt(c, f, roll, "in training", twhy)
 
 
 ## Each day before the offers: no offers while she is out; back in the gym when the days are up.
@@ -214,13 +225,13 @@ static func day_tick(c: Career) -> void:
 			c.add_news("%s is cleared to box again." % f["first"])
 
 
-static func _hurt(c: Career, f: Dictionary, roll: Dictionary, where: String) -> void:
+static func _hurt(c: Career, f: Dictionary, roll: Dictionary, where: String, why: String = "") -> void:
 	# S397 the physio on call: back a quarter sooner (never for a stoppage's medical suspension).
 	var days := int(roll["days_out"]) if str(roll["type"]) == "ko" else maxi(1, roundi(float(roll["days_out"]) * GymSpend.days_out(c)))
 	var was: Dictionary = f.get("injury", {})
 	if out(c, f) and int(was["until_day"]) >= c.day + days:
 		return   # S327 she is already out longer (e.g. fought hurt and it got worse): the old injury stands
-	f["injury"] = {"type": str(roll["type"]), "days_out": days, "until_day": c.day + days, "choice": ""}
+	f["injury"] = {"type": str(roll["type"]), "days_out": days, "until_day": c.day + days, "choice": "", "why": why}
 	var what := line(c, f)
 	c.add_news("%s %s: %s." % [f["first"], "is suspended after the stoppage" if str(roll["type"]) == "ko" else "is hurt " + where, what])
 	for o in f["offers"]:

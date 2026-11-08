@@ -10,12 +10,12 @@ Show the agreed 11 primary attributes. Skills in the file are a draft until the 
 ## What does not work yet
 Everything MMA needs is on the page now, so nothing has to be redesigned at release.
 - Something built but not usable right now (needs a coach, a date, a level): greyed out, with the reason on it.
-- Something not built yet (MMA rules, the cage, the kicks in the fight): greyed out AND the under construction mark.
+- Something not built yet (MMA rules, the cage, the kicks in the fight): full colour, drawn exactly as it will work, with the under construction mark. A whole table or panel gets one mark on its header, not one per row. Do not grey it (round 2 critics: grey hid the design).
 
 Paste this once into the page's style, then add class `uc` to the element:
 
 ```css
-.uc{position:relative;filter:grayscale(1);opacity:.55;pointer-events:none}
+.uc{position:relative;pointer-events:none}
 .uc::after{content:"";position:absolute;top:4px;right:4px;width:30px;height:30px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2 2 21h20z' fill='%23ffd54a' stroke='%2322262e' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cpath d='M12 9v6M12 18v.5' stroke='%2322262e' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat}
 ```
 

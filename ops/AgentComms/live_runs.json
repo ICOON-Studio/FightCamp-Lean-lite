@@ -669,7 +669,7 @@
    "agent": "cursor",
    "id": "BJJBEAT1",
    "title": "TASK BJJBEAT1 - CURSOR (GPT-5.6 Sol High) - turn the two-sided BJJ beat ON and tune it into the real bars",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-08T12:11",
    "eta": "2026-11-08T14:01",
    "branch": "cursor/bjjbeat1",
@@ -690,7 +690,112 @@
     "runner_pid": 51292,
     "seat_pid": 43744
    },
-   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 13/16 PASS; PR #91",
+   "finished": "2026-11-08T13:55",
+   "pr": 91,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/bjj_beat_on_test.gd",
+     "ok": false,
+     "last": "BJJ_BEAT_ON FAIL failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_beat_on_test.gd",
+     "ok": false,
+     "last": "BJJ_BEAT_ON FAIL failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_beat_test.gd",
+     "ok": true,
+     "last": "BJJ_BEAT PASS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_body_test.gd",
+     "ok": true,
+     "last": "BJJ_BODY PASS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_clash_test.gd",
+     "ok": true,
+     "last": "BJJ_CLASH PASS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_coach_test.gd",
+     "ok": true,
+     "last": "BJJ_COACH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_finish_test.gd",
+     "ok": true,
+     "last": "BJJ_FINISH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_mat_test.gd",
+     "ok": true,
+     "last": "BJJ_MAT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_match_test.gd",
+     "ok": true,
+     "last": "BJJ_MATCH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_open_night_test.gd",
+     "ok": true,
+     "last": "BJJ_OPEN_NIGHT PASS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_side_test.gd",
+     "ok": true,
+     "last": "BJJ_SIDE PASS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_tree_odds_test.gd",
+     "ok": true,
+     "last": "BJJ_TREE_ODDS PASS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_tree_sim_test.gd",
+     "ok": false,
+     "last": "BJJ_TREE_SIM FAIL failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_tree_test.gd",
+     "ok": true,
+     "last": "BJJ_TREE PASS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_tree_ui_test.gd",
+     "ok": true,
+     "last": "BJJ_TREE_UI failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "SWINGCENSUS1": {
    "agent": "antigravity",
@@ -804,6 +909,90 @@
      "script": "tests/plain_words_test.gd",
      "ok": true,
      "last": "PLAIN_WORDS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "R11A": {
+   "agent": "qwen",
+   "id": "R11A",
+   "title": "TASK R11A - QWEN (qwen3-coder) - an injury says why it happened",
+   "status": "landed",
+   "started": "2026-11-08T13:34",
+   "eta": "2026-11-08T15:24",
+   "branch": "qwen/r11a",
+   "worktree": "E:/FightCamp/wt/LEAN_R11A",
+   "wt": "E:/FightCamp/wt/LEAN_R11A",
+   "brief": "ops/research/TASK_R11A.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/R11A_dispatch_out.txt",
+   "match": "seat_dispatch.py run r11a",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/R11A_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/R11A_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/R11A_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 45452,
+    "seat_pid": 17332
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 8/8 PASS; PR #90",
+   "finished": "2026-11-08T13:52",
+   "pr": 90,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/injury_why_test.gd",
+     "ok": true,
+     "last": "INJURY_WHY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/injuries_test.gd",
+     "ok": true,
+     "last": "INJURIES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/injury_roll_test.gd",
+     "ok": true,
+     "last": "INJURY_ROLL failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/training_load_test.gd",
+     "ok": true,
+     "last": "TRAINING_LOAD failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/review_reveal_test.gd",
+     "ok": true,
+     "last": "REVIEW_REVEAL PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plain_words_test.gd",
+     "ok": true,
+     "last": "PLAIN_WORDS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/save_load_test.gd",
+     "ok": true,
+     "last": "SAVE_LOAD checks=75 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
     }
    ],
    "films": {
