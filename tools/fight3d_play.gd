@@ -265,7 +265,7 @@ func _holo_off(view: Node, at: String) -> void:
 		var p: Control = view.find_child(n, true, false)
 		if p != null and p.is_visible_in_tree():
 			shown += 1
-	_check(shown == 0, "S381 no holo panel on screen (%s, scorebug %s)" % [at, view._bug_box.visible])
+	_check(shown == (2 if view._bug_box.visible else 0), "S405 the side holos follow the scorebug (%s, scorebug %s, %d shown)" % [at, view._bug_box.visible, shown])
 
 
 ## S381: her go-to combination's throws in round n so far (beats tagged with its id), and every combination she threw.

@@ -426,9 +426,6 @@ func act(name: String, arg: String = "") -> void:
 			var f: Dictionary = career.fighters[career.fighters.size() - 1]
 			close_modal()
 			toast("%s signed. Goal on the card: %s." % [f["first"], str(f["goal"]["title"]).to_lower()])
-		"decline":
-			close_modal()
-			toast("The boxer waits at reception while you think.")
 		"hire":
 			var c := Sim.hire(career, arg)
 			render()

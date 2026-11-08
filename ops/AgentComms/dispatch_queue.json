@@ -594,7 +594,9 @@
       "id": "MENUFIGHT1",
       "seat": "cursor",
       "title": "TASK MENUFIGHT1 - CURSOR (Grok 4.7 High) - Fight night's corner and result from the approved mockup",
-      "brief": "MENUFIGHT1"
+      "brief": "MENUFIGHT1",
+      "status": "held",
+      "held_why": "S405 operator: one adaptation per round replaces part of the corner minute; re-brief after the design passes critics"
     },
     {
       "id": "R11D",
@@ -621,6 +623,12 @@
       "brief": "R11F",
       "status": "superseded",
       "note": "S405: cancelled at launch; the result page already shows the member drop (census row 9 wrong). Claude made the label name the cause."
+    },
+    {
+      "id": "SPLIT500",
+      "seat": "qwen",
+      "title": "TASK SPLIT500 - QWEN (qwen3-coder) - make room in the two files at the 500-line limit",
+      "brief": "SPLIT500"
     }
   ]
 }

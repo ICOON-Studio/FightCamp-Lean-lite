@@ -5,6 +5,7 @@ extends RefCounted
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const Recruit := preload("res://scripts/rules/Recruit.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
+const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const STRIKE := preload("res://scenes/dev/StrikeBrowser.tscn")
 const TAPE := preload("res://scripts/ui/TapeRoom.gd")
@@ -55,6 +56,10 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			Roster.pass_on(c, str(main.modal["pid"]))
 			main.close_modal()
 			main.toast("You pass. Scouting has others.")
+		"decline":   # S405 the first walk-in refused: gone for good, the next one comes in
+			var left := FirstHour.refuse(c)
+			main.close_modal()
+			main.toast(left)
 		"passwalkin":   # S397 rank 5: a later walk-in (FirstHour's second) turned away at reception
 			var who := str(c.applicant.get("name", "The walk-in"))
 			Roster.pass_on(c, str(c.applicant.get("id", "")))

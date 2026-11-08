@@ -7,15 +7,14 @@
     "owner": "claude",
     "updated": "2026-11-08",
     "summary": "Menus: one combined pass, 12 pages on shared facts and icons, last critic 7-8 (Week and Money 8), Miro frame 3458764689791839686. Operator said build. KitIcon.gd in the game (kit_icon_test green); three screen briefs queued on Cursor.",
-    "last_working_commit": "1a37a4b2 (S405: proguard guard merged; boxer_footwork still red, the known torso-lean bar)",
+    "last_working_commit": "3ab9def0 (S405: side holos, hit numbers, organ pops; boxer_footwork, ring_feet and move_tip red on CI)",
     "verified_playable": "corner_lens, corner_crew_bodies, corner_warm, corner_trust, exchanges, trust_fight, habit_fix, plan_bots, golden_path, plain_words on main; corner film viewed by Claude",
     "incomplete_blocked": "PR #85 FIGHTERMODEL3B landed 7/9 checks, not reviewed; OFFERGONE1 on Qwen; Rokoko repair in its own session (branch claude/rokoko-repair-3bb3a3); ARCHIVED Miro board not yet deleted (7 images and 2 html mockups to move); corner_film 'gloves touch' check red since S400's 1.2x gloves",
-    "next_action": "S405 IN FLIGHT. Menus: MENUMONEY1 building on Cursor, then MENUWORLD1, MENUPLAYBOOK1, FIGHTERMODEL4A, MENUHOME1, MENUWEEK1, MENUFIGHT1 (briefs in ops/research, rules MENU_BUILD_RULES.md); Claude opens each screen's stills after landing and scores them against the mockup. Animation: proguard guard merged (blind 7 vs 6.5, low confidence). Next animation step, from that critic: the guard idle reads as one repeating sway, and a punch returns to guard in a 0.2 s snap with the rear foot barely moving. R11: R11C on Goose issue #94, R11D running on Qwen.",
+    "next_action": "ONE ADAPTATION PER ROUND (operator 'Yes, both', S405): write the design, critics score it with their 10/10 lists, he approves, then build; MENUFIGHT1 held until then. Then collect SPLIT500, R11C, MENUWORLD1. Film the holo's blink and organ pop: not seen on film yet. Diagnose ring_feet's director's walk on CI. Full handover: NEXT_SESSION_PROMPT.md.",
     "next_acceptance": "No screen is built without his OK on its Miro row and painted concept; mechanics ruled before menus are finalised; animation moves each session.",
     "awaiting_operator": [
-      "Cut Test day and dues bands?",
-      "Yes, ARCHIVED: copy and permanently delete the old Miro board",
-      "Delete 38 leftover map cards"
+      "Keep or cut Test day and dues bands (dues measured: premium best at every reputation)",
+      "Yes, ARCHIVED: copy and permanently delete the old Miro board"
     ]
   },
   "next": "S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.",
@@ -1606,7 +1605,7 @@
     {
       "id": "S405",
       "date": "2026-11-08",
-      "note": "BJJBEAT2 and R11B merged; CI limit 16 min after every main run was timing out; six tests added to the CI list; hover card framing and pro ladder seed fixed; proguard flip on its branch and filming; Home, Week, Fight night, R11C, R11D briefed; Money launched on Cursor."
+      "note": "BJJ beat ON; R11B, R11D, R11E; proguard guard ON; side holos back with hit numbers and organ pops; refusing Lucy brings Danny; CI limit 18 min and 9 tests added; critics' 10/10 lists on Miro; new-game screens on Miro; Money round 1 sent back."
     }
   ],
   "blocked_on_operator": [],
@@ -4525,7 +4524,7 @@
   },
   "plan": {
     "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-    "updated": "2026-11-08 19:11 board_sync",
+    "updated": "2026-11-08 19:41 board_sync",
     "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
     "titles": {
       "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4754,20 +4753,14 @@
         "title": "TASK MENUMONEY1 - CURSOR (Grok 4.7 High) - the Money page, built from the approved mockup",
         "who": "cursor",
         "started": "2026-11-08T18:48",
-        "run": "MENUMONEY1"
-      },
-      {
-        "title": "TASK R11D - QWEN (qwen3-coder) - when a fighter pushes back, the card says why",
-        "who": "qwen",
-        "started": "2026-11-08T18:58",
-        "run": "R11D",
+        "run": "MENUMONEY1",
         "state": "LANDED - Claude collects"
       },
       {
-        "title": "TASK R11E - QWEN (qwen3-coder) - a shot in the clinch says why it landed",
-        "who": "qwen",
-        "started": "2026-11-08T19:11",
-        "run": "R11E"
+        "title": "TASK MENUWORLD1 - CURSOR (Grok 4.7 High) - the World page, rebuilt around the rankings",
+        "who": "cursor",
+        "started": "2026-11-08T19:34",
+        "run": "MENUWORLD1"
       }
     ],
     "next": [
@@ -5035,6 +5028,21 @@
     },
     "done_recently": [
       {
+        "title": "TASK R11F - QWEN (qwen3-coder) - members who leave after a loss are named on the result",
+        "who": "qwen",
+        "when": "2026-11-08"
+      },
+      {
+        "title": "TASK R11E - QWEN (qwen3-coder) - a shot in the clinch says why it landed",
+        "who": "qwen",
+        "when": "2026-11-08"
+      },
+      {
+        "title": "TASK R11D - QWEN (qwen3-coder) - when a fighter pushes back, the card says why",
+        "who": "qwen",
+        "when": "2026-11-08"
+      },
+      {
         "title": "TASK R11B - QWEN (qwen3-coder) - the week's member change says why",
         "who": "qwen",
         "when": "2026-11-08"
@@ -5077,21 +5085,6 @@
       {
         "title": "TASK HITSELL1 - QWEN (qwen3-coder) - a landed punch must read as landed, a blocked one as blocked",
         "who": "qwen",
-        "when": "2026-11-07"
-      },
-      {
-        "title": "TASK FIGHTWALK1 - CURSOR (Composer 2.5, Fast OFF) - the walks around the fight, 5.5 -> 7",
-        "who": "cursor",
-        "when": "2026-11-07"
-      },
-      {
-        "title": "TASK BJJ9R11 - ANTIGRAVITY (Gemini 4 Argon High) - the BJJ belt match without trembling or bodies inside bodies, to 9/10",
-        "who": "antigravity",
-        "when": "2026-11-07"
-      },
-      {
-        "title": "TASK FIGHT9R8 - ANTIGRAVITY (Gemini 4 Argon High, the operator's 2,500 credits) - the live fight AND every clip to 9/10 on Argon's own judging, round by round",
-        "who": "antigravity",
         "when": "2026-11-07"
       }
     ],
@@ -5297,6 +5290,14 @@
         {
           "text": "Push-back + clinch say why",
           "who": "agent"
+        },
+        {
+          "text": "Refuse Lucy: Danny comes in",
+          "who": "claude"
+        },
+        {
+          "text": "Side holos back, hit numbers",
+          "who": "claude"
         }
       ],
       "now": [
@@ -5307,6 +5308,10 @@
         {
           "text": "Fighter model 4A queued",
           "who": "agent"
+        },
+        {
+          "text": "One adaptation per round",
+          "who": "claude"
         }
       ],
       "next": [

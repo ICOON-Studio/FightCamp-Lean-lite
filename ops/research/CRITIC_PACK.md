@@ -1,5 +1,9 @@
 > Also read `ops/research/CRITIC_ACCESS.md`: the Miro board, the real screens, the mockups and the eight MMA fighters. Written S403 from the code; update it when a mechanic or screen lands.
 
+## What every critic must return (operator S405: "i want the critics everytime to state what to change to reach 10/10")
+Whatever you score (a screen, a film, a mechanic, a design), end with **To reach 10/10**: the concrete changes that would take it from your score to 10, most important first, each specific enough to build. If it needs something the game cannot do yet, say so. A score without this list is not finished.
+
+
 # FightCamp critic pack: the whole game, for judging whether a screen has the right options
 
 Owner's rule: "i want every screen you design to have the right options so every critic needs to know the whole game design and mechanics to guide you".

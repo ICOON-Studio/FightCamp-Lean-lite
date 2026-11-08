@@ -141,7 +141,7 @@ func _initialize() -> void:
 	o.guide = "go"
 	_check(o.first_hour.is_empty() and int(o.fighter()["next_offer_day"]) == 8, "a career without the first hour keeps the old offer day")
 	_to_day(o, 7)
-	_check(o.grapplers.size() == 1 and o.guide == "", "and the old week 1: Ana joins, the guide ends")
+	_check(o.grapplers.size() == 1 and o.guide == "offer", "and the old week 1: Ana joins, the guide moves to the offer (GUIDEFLAG2)")
 	print("FIRST_HOUR failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 

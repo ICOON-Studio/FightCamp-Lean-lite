@@ -289,3 +289,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S402**  |  |  | *none yet* | S402: 7 mechanics chosen by critics; menus and structure adjusted; final menus with verdicts on Miro, seven approved; one warm art style; one fighter profile for all sports, MMA critics; PR #85 audited, round 3 queued; OFFERGONE1 in; full tests daily at 05:00, reviewed by Claude. Not built: the seven menus. |
 |  |  | **S403**  |  |  | *none yet* |  |
 |  |  | **S403b**  |  |  | *none yet* |  |
+|  |  | **S405**  |  |  | *none yet* |  |

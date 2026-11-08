@@ -1,21 +1,17 @@
 extends SceneTree
-## S381 HOLOOFF (operator after a playtest: "i liked how i told it do the 1-1, step in go body and the fighter actually did
-## it (i think you should remove the holos from those if you agree)"): no holo figures or hit-pop close-ups while a round
-## plays; the body map still counts every landed shot; the corner card's holo shows where it landed. 4 tests.
-## 1. Not built live (S382): BodyLive builds no panel, figure or close-up - nothing of the holo is in the fight's tree.
-## 2. Still counting: a landed body hook on blue and a cross on red take their points on the map and the punch stats, and
-##    the round's hits per spot (RoundHits.count: a punch counts once per spot).
-## 3. No pops on screen: after the punches still no BodyFigure / BodyCallouts anywhere under the fight view.
-## 4. Corner card (S382, skeptic: a round-1 card drew a clean figure - every place still 'fine'): the figure the card DRAWS
-##    is her muscle holo, and the shader colour it hands the struck spot (her head took the cross) is a visible tint that
-##    differs from an unstruck spot (her ribs: clear); the words layer drew "head 1" and nothing for the ribs; below
-##    BodyMap.HURT the band colour is on top (not the round tint).
+## S405 the holo on each side of the live round (operator: "i told you to put the holo on each side and blink the area that
+## gets hit, on critical hits pop up the right organ flashing, and the wholo changes colors on the damaged or tired areas").
+## 1. Built live: one figure a side, up with the scorebug, at the screen's own edge.
+## 2. Counting: landed punches take their points on the map, the punch stats and the round's hits.
+## 3. Live behaviour: a struck place blinks, a big punch pops its organ, a small one does not, the tired parts reach the figure.
+## 4. Corner card: its holo still shows where this round landed.
 
 const BodyLive := preload("res://scripts/fight3d/BodyLive.gd")
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const CornerOverlay := preload("res://scripts/fight3d/CornerOverlay.gd")
 const BodyFigure := preload("res://scripts/ui/BodyFigure.gd")
 const BodyCallouts := preload("res://scripts/ui/BodyCallouts.gd")
+const BodyPanels := preload("res://scripts/fight3d/BodyPanels.gd")
 const RoundHits := preload("res://scripts/ui/RoundHits.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 
@@ -28,7 +24,13 @@ class FakeStage extends Node:
 	var boxers := [{"south": false}, {"south": false}]
 
 
+class FakeBurn extends Node:
+	func track(_i: int) -> Dictionary:
+		return {"core": 80.0}
+
+
 class FakeView extends Control:
+	var burn: Node
 	var bodies := ["", ""]
 	var stage: Node
 	var round_n := 1
@@ -43,6 +45,8 @@ func _initialize() -> void:
 	view.bodies = [Faces.glb("mh_boxer_11"), Faces.glb("mh_boxer_13")]
 	view.stage = FakeStage.new()
 	view.add_child(view.stage)
+	view.burn = FakeBurn.new()
+	view.add_child(view.burn)
 	view._bug_box = Control.new()
 	view._bug_box.visible = true   # the scorebug is up: a round is playing
 	view.add_child(view._bug_box)
@@ -50,8 +54,17 @@ func _initialize() -> void:
 	view.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	bl = BodyLive.attach(view)
 	await _secs(0.3)
-	_check("1 nothing of the holo is built for the live round", _holo_nodes() == 0 and bl.get("figures") == null
-		and bl.get("panels") == null, "%d holo nodes" % _holo_nodes())
+	var holo: Node = bl.get("holo")
+	_check("1 two figures, one a side", holo != null and holo.figures.size() == 2, "")
+	_check("1 up with the scorebug", holo.panels.all(func(p): return (p as Control).visible), "")
+	var left: Rect2 = (holo.panels[0] as Control).get_global_rect()
+	var right: Rect2 = (holo.panels[1] as Control).get_global_rect()
+	_check("1 each at its own edge, on screen", left.position.x < 100.0 and right.end.x > 1820.0 and right.end.x <= 1920.0
+		and left.end.y <= 1080.0, "%s %s" % [left, right])
+	_check("1 the critical rule: a big punch, the place that lost most", BodyPanels.critical_place({"head": 90.0, "nose": 90.0},
+		{"head": 85.0, "nose": 88.0}, {"head": 5.0, "nose": 2.0}, true) == "head", "")
+	_check("1 the critical rule: a place dropping a band", BodyPanels.critical_place({"head": 56.0}, {"head": 54.0}, {"head": 2.0}, false) == "head", "")
+	_check("1 the critical rule: an ordinary punch pops nothing", BodyPanels.critical_place({"head": 90.0}, {"head": 88.0}, {"head": 2.0}, false) == "", "")
 	bl.land({"t": 12.0, "who": "a", "move": "body_hook", "result": "lands", "big": false, "caption": "", "def": ""}, 0.0)
 	bl.land({"t": 13.0, "who": "b", "move": "cross", "result": "lands", "big": true, "caption": "", "def": ""}, 0.0)
 	bl.land({"t": 14.0, "who": "b", "move": "jab", "result": "missed", "caption": "", "def": ""}, 0.0)
@@ -65,9 +78,22 @@ func _initialize() -> void:
 		rh == {"head": 1}, str(rh))
 	_check("2 blue's round 1: one to the liver side", bl.round_hits(1, 1) == {"right_ribs": 1}, str(bl.round_hits(1, 1)))
 	_check("2 nothing in round 2 yet", bl.round_hits(0, 2).is_empty(), "")
-	_check("3 still no holo or close-up under the fight view after the punches", _holo_nodes() == 0, "%d" % _holo_nodes())
+	var red_co: Node = holo.figures[0].get_node("BodyCallouts")
+	var blue_co: Node = holo.figures[1].get_node("BodyCallouts")
+	_check("3 the struck place is still blinking", float(holo.figures[0]._flash.get("head", 0.0)) > 0.0, "")
+	_check("3 the big cross popped the head card, as the brain", red_co.shown(0) and bool(red_co.get("live_pop")), "")
+	_check("3 the ordinary body hook popped nothing", not blue_co.shown(1), "")
+	await _secs(0.7)
+	_check("3 the tired parts reach the figure", is_equal_approx(float(holo.figures[0]._track.get("core", 0.0)), 80.0), "")
+	_check("3 this round's hits reach the figure", holo.figures[0].round_hits == {"head": 1}, str(holo.figures[0].round_hits))
+	await process_frame
+	await process_frame
+	var nums: Array = (holo.words[0].get("drawn") as Array).map(func(d): return str(d[0]))
+	_check("3 the holo writes the count on the area", nums == ["head 1"], str(nums))
 	# 4. The corner minute: the card as FightCast hands it over (the map, what her places took, this round's hits).
 	view._bug_box.visible = false
+	await _secs(0.1)
+	_check("3 the panels go with the scorebug", holo.panels.all(func(p): return not (p as Control).visible), "")
 	var co := CornerOverlay.new()
 	root.add_child(co)
 	co.build({"worked": "", "hurt": "", "why": "", "call": "", "body_map": bl.map, "body_taken": bl.taken[0],
@@ -112,14 +138,8 @@ func _initialize() -> void:
 
 
 func _end() -> void:
-	print("HOLO_OFF failures=%d" % failures)
+	print("HOLO_LIVE failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
-
-
-## BodyFigure / BodyCallouts nodes under the fight view (the live round's tree).
-func _holo_nodes() -> int:
-	return view.find_children("*", "Control", true, false).filter(func(n):
-		return n.get_script() == BodyFigure or n.get_script() == BodyCallouts).size()
 
 
 func _secs(s: float) -> void:

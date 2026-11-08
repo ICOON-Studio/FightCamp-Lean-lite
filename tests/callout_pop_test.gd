@@ -114,7 +114,7 @@ func _test1() -> void:
 
 ## 2. Off in the round.
 func _test2() -> void:
-	_check("2 the live round builds no holo (no figure, no close-ups under the fight view)", not _live_on_screen(), "")
+	_check("2 S405: the live round builds its side holos", _live_on_screen(), "")
 	_check("2 the stand-alone holo carries the close-ups", pop_co != null, "")
 	var any := false
 	for k in 3:
@@ -143,7 +143,7 @@ func _test3() -> void:
 	await _secs(0.3)
 	_check("3 fully out by 0.3 s", card.modulate.a > 0.99 and absf(card.scale.x - 1.0) < 0.02,
 		"a %.2f scale %.2f" % [card.modulate.a, card.scale.x])
-	_check("3 and still nothing in the fight view (S381 HOLOOFF)", not _live_on_screen(), "")
+	_check("3 and the side holos stay up (S405)", _live_on_screen(), "")
 
 
 ## A punch lands on the bout's map (BodyLive), then the stand-alone holo's close-up for each place it took pops.
@@ -242,7 +242,7 @@ func _test7() -> void:
 	var lv := BodyCallouts.pic_of(LIVER)
 	_check("7 the LIVER card shows the liver picture", lv != null and lv.resource_path.ends_with("organ_liver.png"),
 		lv.resource_path if lv != null else "none")
-	_check("7 HEAD keeps her face, RIBS the holo", BodyCallouts.pic_of(0) == null and BodyCallouts.pic_of(2) == null, "")
+	_check("7 HEAD keeps her face on the corner card, RIBS shows the ribs", BodyCallouts.pic_of(0) == null and BodyCallouts.pic_of(2) != null, "")
 	var names := []
 	for s in BodyCallouts.SPOTS:
 		names.append(str(s["name"]))

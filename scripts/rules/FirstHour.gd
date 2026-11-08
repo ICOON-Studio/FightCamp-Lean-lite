@@ -12,10 +12,13 @@ extends RefCounted
 ## Pure rules over the career's data; preloads only Data. FirstWeek owns the guide's step; this file owns the dates and cast.
 
 const Data := preload("res://scripts/state/Data.gd")
+const ClubStart := preload("res://scripts/rules/ClubStart.gd")
 
 const OFFER_DAY := 7    # Monday of week 2 (day 0 is Monday 5 January)
 const SHOW_DAY := 26    # Saturday of week 4: Sat 31 January, 19 days after the offer
 const SECOND_WALKIN := "danny"
+## Operator S405: refuse the first walk-in and this is who comes in instead.
+const REFUSED_QUOTE := "\"Three fights and I'm not here for trophies. Get me ready and get me a pro contract.\""
 ## Ana joins after the club's second bout, or by this day (week 9) if the second bout is slow to come.
 const ANA_BY_DAY := 56
 ## S398 round 5 (blind: "the bills job ticks itself"): the third task is a decision - the first boxer's next goal (the office).
@@ -88,7 +91,7 @@ static func monday(c: Career) -> Dictionary:
 	if bool(c.first_hour.get("fought", false)) and not bool(c.first_hour.get("walkin", false)) and c.applicant.is_empty():
 		c.first_hour["walkin"] = true
 		out["walkin"] = SECOND_WALKIN
-	elif bool(c.first_hour.get("walkin", false)) and not bool(c.first_hour.get("teaser", false)):
+	elif bool(c.first_hour.get("fought", false)) and bool(c.first_hour.get("walkin", false)) and not bool(c.first_hour.get("teaser", false)):
 		c.first_hour["teaser"] = true
 		out["teaser"] = true
 	if c.grapplers.is_empty() and (int(c.first_hour.get("bouts", 0)) >= 2 or c.day >= ANA_BY_DAY):
@@ -104,6 +107,27 @@ static func walkin(id: String) -> Dictionary:
 			d["quote"] = "\"People at the shows talk about your club. I want a coach who reads the other corner, not one who shouts.\""
 			return d
 	return {}
+
+
+## Operator S405: the person at reception is turned away for good. The first one (Lucy) is replaced by the second walk-in, who
+## then does not come again later. Refusing that one leaves reception empty. Returns the toast.
+static func refuse(c: Career) -> String:
+	var who := str(c.applicant.get("first", "The boxer"))
+	var next := walkin(SECOND_WALKIN)
+	if str(c.applicant.get("id", "")) == SECOND_WALKIN or next.is_empty():
+		for p in c.prospects:
+			if str(p["id"]) == SECOND_WALKIN:
+				p["state"] = "passed"
+		c.applicant = {}
+		c.add_news("%s thanks you and leaves." % who)
+		return "%s thanks you and leaves. Try the Find a fighter tab." % who
+	next["quote"] = REFUSED_QUOTE
+	next["limit"] = float(Data.DIVISIONS[str(next["div"])]["limit"])
+	c.applicant = ClubStart.walkin(c.start, next)
+	if on(c):
+		c.first_hour["walkin"] = true
+	c.add_news("%s leaves. %s is at reception and asking for you." % [who, str(next["name"])])
+	return "%s leaves. %s is at reception." % [who, str(next["name"])]
 
 
 ## The three club tasks after the first bout: which are done now.

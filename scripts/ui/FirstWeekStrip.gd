@@ -114,6 +114,8 @@ static func why(c: Career) -> String:
 	var who := str(c.applicant.get("first", f.get("first", "The boxer")))
 	match c.guide:
 		"sign":
+			if c.applicant.is_empty():
+				return "No boxer, no fights, and nobody is at reception now. The Find a fighter tab lists boxers looking for a gym: a trial is free."
 			return "No boxer, no fights. %s is at reception: read the card, pick one starting focus, sign." % who
 		"coach":
 			return "You cannot run every session: without an assistant the ones you miss run at 60%, and there are no evening classes."
@@ -190,6 +192,8 @@ static func _show_offer(c: Career) -> Dictionary:
 static func _word(c: Career, step: String) -> String:
 	match step:
 		"sign":
+			if c.applicant.is_empty() and c.fighters.is_empty():
+				return "Find a fighter"
 			return "Sign %s" % str(c.applicant.get("first", c.fighter().get("first", "the boxer")))
 		"coach":
 			return "Hire an assistant"
@@ -212,6 +216,8 @@ static func _step_button(main: Node, c: Career) -> Button:
 	var ftab := int(main.route.get("ftab", 0))
 	match c.guide:
 		"sign":
+			if c.applicant.is_empty():
+				return null if area == "fighters" and int(main.route.get("tab", 0)) == 3 else UI.button("Find a fighter", "BtnSolid", main.act.bind("go", "fighters:3"))
 			var b := UI.button("Meet the walk-in", "BtnSolid", main.on_go)
 			b.visible = main.route["area"] != "home"   # S394 HOME's top card has this same button
 			return b

@@ -1,3 +1,16 @@
+FIGHTCAMP - BUILD OF 2026-11-08 (S405): THE HOLO IS BACK
+================================================================================
+
+ NEW.
+  a. The muscle holo stands on each side of the fight. The area that gets hit blinks, and a number shows how many punches landed there this round.
+  b. A critical hit pops the right organ out, flashing: liver, ribs or brain. Damage and tired areas change colour.
+  c. The boxers have a new guard between punches.
+  d. Press Pass on Lucy and she leaves for good: Danny Osei comes in, wanting to turn pro. Pass on him too and the guide sends you to Find a fighter.
+  e. BJJ matches run on the two-sided beat.
+  f. The week review says why members moved. A fighter's push-back says why it came up. A shot in the clinch says why it landed. The result page says if members left after the loss or the stoppage.
+ TRY: play one fight. Do the holos cover too much? Can you see the blink and the organ pop?
+ The new menus are not in this build yet.
+
 FIGHTCAMP - BUILD OF 2026-11-08 (S403): THE GUIDE ENDS, AN INJURY SAYS WHY
 ================================================================================
 

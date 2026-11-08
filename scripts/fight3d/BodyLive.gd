@@ -3,18 +3,14 @@ extends Node
 ## changing colour on that area"; plan Q-S294-29 "Yes, build it", Game Godot/research/S316_BODY_MAP_PLAN.md step 2).
 ## Keeps the bout's BodyMap (six places a boxer, over all its rounds): a landed punch takes its points at the glove's contact.
 ##   attach(view) -> BodyLive   land(beat, at_s)   bell()   catch_up()   map / taken / stats / round_hits(side, n)
-## S381 HOLOOFF (operator after a playtest: "i liked how i told it do the 1-1, step in go body and the fighter actually did
-## it (i think you should remove the holos from those if you agree)" - Claude agreed): no holo panels, figures or HEAD /
-## LIVER / RIBS close-ups while a round plays - the fight picture is the two boxers. S382: none are even built (the S318-S379
-## side panels went with LIVE_PANELS); the map still takes every landed shot, and the holo with the struck places is the
-## corner card's (CornerOverlay._body_column: this round's hits tinted, RoundHits) and the round / result pages'
-## (RoundGraphics.body).
+## S405 the holo panels on each side of the live round are BodyPanels (they were off from S381 to S405).
 
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const BodyTip := preload("res://scripts/ui/BodyTip.gd")
 const CalloutLine := preload("res://scripts/ui/CalloutLine.gd")
 const RoundHits := preload("res://scripts/ui/RoundHits.gd")
+const BodyPanels := preload("res://scripts/fight3d/BodyPanels.gd")
 
 var view: Control
 var map: Dictionary = BodyMap.fresh()
@@ -25,6 +21,8 @@ var stats := [{"thrown": 0, "landed": 0, "jab_t": 0, "jab_l": 0, "pow_t": 0, "po
 var taken := [{}, {}]
 ## S382 per boxer {round_n: {spot: punches landed}} (RoundHits.count) - the corner card tints this round's hot spots.
 var _by_round := [{}, {}]
+var holo: Node   # BodyPanels: the two side figures
+var _catching := false   # SKIP ROUND lands the rest at once: nothing blinks or pops for those
 
 
 static func attach(v: Control) -> Node:
@@ -36,6 +34,7 @@ static func attach(v: Control) -> Node:
 	if v.get("main") != null:
 		v.main.modal["body_map"] = bl.map
 		v.main.modal["bodies"] = v.get("bodies")
+	bl.holo = BodyPanels.attach(v, bl)
 	return bl
 
 
@@ -82,6 +81,8 @@ func _apply(b: Dictionary) -> void:
 	var bars: Node = view.get("bars")   # S392: the HUD answers at the contact
 	if bars != null and not lost.is_empty():
 		bars.hit(side, lost, bool(b.get("big", false)))
+	if holo != null and not lost.is_empty() and not _catching:
+		holo.struck(side, before, lost, str(b["move"]), bool(b.get("big", false)))
 
 
 ## S382 {spot: punches landed} on boxer `side` (0 = hers) in round `n` (the corner card's tint and words).
@@ -112,6 +113,7 @@ static func spot_line(bmap: Dictionary, who: String, took: Dictionary, s: Dictio
 ## SKIP ROUND: the round is settled (Bouts "round_out"); its unwatched exchanges are built into the view's beats and
 ## every punch not yet played lands on the map now, so a skipped round still leaves its marks.
 func catch_up() -> void:
+	_catching = true
 	for k in range(int(view._ex_done), Exchanges.EXCHANGES):
 		view._queue(view.main.modal, k)
 	var rest: Array = (view.beats as Array).slice(int(view.next))
@@ -123,6 +125,7 @@ func catch_up() -> void:
 		if str(b.get("result", "")) == "lands" and str(b.get("move", "")) in BodyMap.PUNCHES:
 			_apply(b)
 	view.next = (view.beats as Array).size()
+	_catching = false
 
 
 ## The round's bell: the corner's one-round fixes run out (BodyMap.end_round).

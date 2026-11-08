@@ -33,6 +33,9 @@ const NAMES := {
 # So left_eye centre.x > right_eye centre.x, and same for ribs.
 var _values := {}
 var _flash := {}
+var blink := false   # S405 the live round's side holo: a struck place blinks BLINKS times over BLINK_S instead of one fade
+const BLINK_S := 1.2
+const BLINKS := 3.0
 var _punches := {}
 var _sc := 1.0
 var _off := Vector2.ZERO
@@ -172,7 +175,7 @@ func spot_colour(group: Array) -> Color:
 	var fl := 0.0
 	for p in group:
 		worst = minf(worst, float(_values.get(p, 100.0)))
-		fl = maxf(fl, float(_flash.get(p, 0.0)))
+		fl = maxf(fl, _flash_now(str(p)))
 	var b: String = BM.band(worst)
 	var col: Color = BAND_COLOURS[b]
 	col.a = float(SPOT_ALPHA[b])
@@ -252,7 +255,7 @@ func _draw() -> void:
 		var v: float = _values.get(p, 100.0)
 		var b: String = BM.band(v)
 		var bc: Color = BAND_COLOURS[b]
-		var fa: float = _flash.get(p, 0.0)
+		var fa: float = _flash_now(str(p))
 		var col: Color = _flash_colour(bc, fa)
 		_draw_place(p, col)
 
@@ -381,6 +384,11 @@ func _rect(tl: Vector2, w: float, h: float, r: float, col: Color) -> void:
 	draw_polygon(pts, PackedColorArray([col]))
 
 
+func _flash_now(p: String) -> float:
+	var a := float(_flash.get(p, 0.0))
+	return a * (0.5 + 0.5 * cos((1.0 - a) * TAU * BLINKS)) if blink else a
+
+
 func _flash_colour(base: Color, alpha: float) -> Color:
 	return base if alpha <= 0.0 else base.lerp(Color.WHITE, alpha)
 
@@ -483,7 +491,7 @@ func _process(delta: float) -> void:
 	for p in BM.PLACES:
 		var fa: float = _flash.get(p, 0.0)
 		if fa > 0.0:
-			_flash[p] = maxf(0.0, fa - delta / FLASH_S)
+			_flash[p] = maxf(0.0, fa - delta / (BLINK_S if blink else FLASH_S))
 			any = true
 	if any:
 		_paint_skin()

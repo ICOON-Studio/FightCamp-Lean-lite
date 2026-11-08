@@ -27,7 +27,9 @@ const SPOTS := [
 ]
 ## S381 (operator on the LIVER card: "add liver picture on the circle ?"): an ORGAN's close-up shows the organ itself, drawn
 ## in the holo's look (tools/bake_organ_pics.py, our own outline), not a crop of the muscles. The card's whole circle is it.
-const ORGAN_PICS := {"LIVER": preload("res://assets/ui/body/organ_liver.png")}
+const ORGAN_PICS := {"LIVER": preload("res://assets/ui/body/organ_liver.png"), "RIBS": preload("res://assets/ui/body/organ_ribs.png")}
+const BRAIN_PIC := preload("res://assets/ui/body/organ_brain.png")   # S405 the live round's head card (go_live)
+var live_pop := false   # S405 the live round: the head card is the brain and a popped card flashes red
 const R := 30.0          # a close-up's radius, px
 const PAD := 6.0         # from the panel's outer edge
 const GAP_Y := 86.0      # the close-ups' spacing down the strip
@@ -135,6 +137,12 @@ static func pic_of(k: int) -> Texture2D:
 	return ORGAN_PICS.get(str(SPOTS[k]["name"])) as Texture2D
 
 
+## S405 the live round's cards: the head shows the brain, and a card that popped flashes while it holds.
+func go_live() -> void:
+	live_pop = true
+	(_bubbles[0] as Bubble).pic.material = null
+
+
 ## A punch landed on `place`: its close-up pops out and holds HOLD_S (a new hit restarts the hold and swells it once).
 func struck(place: String) -> void:
 	var k := spot_of(place)
@@ -222,6 +230,8 @@ func _process(delta: float) -> void:
 			_tween(b, want)
 		b.position = centre(k) - Vector2(R, R)
 		b.visible = want or b.modulate.a > 0.01
+		if live_pop:
+			b.pic.modulate = Color.WHITE.lerp(Color(1.0, 0.25, 0.2), 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.014)) if float(_hold[k]) > 0.0 else Color.WHITE
 		if b.visible:
 			b.queue_redraw()
 			b.pic.queue_redraw()
@@ -261,7 +271,7 @@ func _colour(s: Dictionary) -> Color:
 func _draw_pic(b: Bubble) -> void:
 	var s: Dictionary = b.spot
 	var c := Vector2(R, R)
-	var t := pic_of(SPOTS.find(s))
+	var t := BRAIN_PIC as Texture2D if live_pop and str(s["at"]) == "head" else pic_of(SPOTS.find(s))
 	var cuv := Vector3(0.5, 0.5, 0.5)   # S381 an organ picture fills the circle
 	var asp := 1.0
 	if t == null:
@@ -293,7 +303,7 @@ func _draw_card(b: Bubble) -> void:
 	var band := BM.band(float(fig._values.get(_worst(s), 100.0)))
 	if band != "fine":
 		b.draw_circle(c, R, Color(col, 0.22))   # a hurt place's close-up takes its colour
-	if str(s["at"]) == "head" and face != null:
+	if str(s["at"]) == "head" and face != null and not live_pop:
 		var lay := FaceMarks.layout(face_uv, face.get_size().x / face.get_size().y)
 		FaceMarks.paint(b, c, R, fig._values, marks, lay["at"] if not lay.is_empty() else FaceMarks.AT)
 	b.draw_arc(c, R + 1.0, 0.0, TAU, 48, Color(0, 0, 0, 0.6), RING_W + 3.0, true)
