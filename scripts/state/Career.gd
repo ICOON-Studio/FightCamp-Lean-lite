@@ -68,6 +68,11 @@ const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
 @export var start: String = ""
 @export var loan_weeks: int = 0
 @export var first_hour: Dictionary = {}
+## S399 the arranged overdraft (Overdraft): the player switches it on after 12 weeks of trading, the bank charges
+## 16 % a year on the drawn balance weekly and pulls the facility after 12 consecutive weeks in the red.
+@export var overdraft_on: bool = false
+@export var overdraft_drawn_weeks: int = 0
+@export var income_history: Array = []
 
 
 static func quick_start(name: String = "Anvil Street Gym", town: String = "London", start_id: String = "fresh",

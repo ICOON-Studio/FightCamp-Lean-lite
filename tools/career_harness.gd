@@ -68,6 +68,8 @@ func _career(policy: String, i: int, weeks: int) -> Dictionary:
 	rng.seed = i * 7919 + 1
 	c.reputation = 10 + rng.randi_range(-3, 3)
 	c.seed = i * 7919 + 1   # S325 the career's dice (injuries): one per career, the same for both players
+	if args.get("overdraft", "0") == "1":   # S399 force the overdraft on for this run
+		c.overdraft_on = true
 	for k in Data.STATS:
 		c.applicant["stats"][k] = float(c.applicant["stats"][k]) + rng.randf_range(-4.0, 4.0)
 	main.act("interview")

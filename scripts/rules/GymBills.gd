@@ -78,8 +78,11 @@ static func status(cash: int, net: int, weeks_below: int) -> String:
 	return "ok"
 
 
-static func next_below(cash: int, weeks_below: int) -> int:
-	if cash < 0:
+static func next_below(cash: int, weeks_below: int, od_limit: int = 0) -> int:
+	# S399 the arranged overdraft: when the facility is on, the limit is positive and the clock counts weeks
+	# the cash sits below minus-the-limit instead of below $0. Off (default, limit 0) the original rule stands.
+	var threshold := -od_limit
+	if cash < threshold:
 		return weeks_below + 1
 	return 0
 

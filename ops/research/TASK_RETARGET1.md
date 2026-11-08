@@ -10,7 +10,7 @@ OWNS: tools/raw_fbx_feet.py, tools/retarget_compare.gd, tools/clip_gltf.gd, tool
 RED_TEST: tests/retarget_fidelity_test.gd -> RETARGET_FIDELITY failures=0
 REGRESSION: boxer_footwork_test, foot_plant_test, fight_polish_test, corner_warm_test, golden_path_test
 VISUAL: yes
-FILM: --resolution 1280x720 --script res://tools/clip_orbit.gd -- out=E:/FightCamp/tmp/retarget1 clips=mc_Box1_M3_Idle_Fidget_V1,mc_Box1_M3_Left_Jab,mc_Box1_M3_Win_V1
+FILM: --resolution 1280x720 --script res://tools/clip_orbit.gd -- out=E:/FightCamp/tmp/retarget1 res=res://assets/anim/baked/mc_Box1_M3_Idle_Fidget_V1.res,res://assets/anim/baked/mc_Box1_M3_Left_Jab.res,res://assets/anim/baked/mc_Box1_M3_Win_V1.res
 
 ## What is measured (S399, Claude)
 114 of the 122 clips the fight plays are MoCap Online Punch PRO (bought, EUR 42.43; source FBX at

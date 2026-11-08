@@ -85,6 +85,11 @@ func _initialize() -> void:
 			follow = true
 		elif s == "once":
 			once = true
+		elif not s.begins_with("--"):
+			# S400: a brief wrote `clips=` - read as nothing, 0 clips filmed, a one-frame film went on the board
+			push_error("ORBIT unknown argument: " + s)
+			quit(2)
+			return
 	var stage: Node3D = Stage.new()
 	root.add_child(stage)
 	await process_frame
@@ -155,7 +160,7 @@ func _initialize() -> void:
 		body.position = base
 		print("ORBIT %s %.2f-%.2fs %d frames" % [name, start, start + length, frames])
 	print("ORBIT DONE %d/%d" % [done, ids.size()])
-	quit(0)
+	quit(0 if done > 0 else 1)
 
 
 ## S383c: switches off every SkeletonModifier3D under `skel` but MetaHumanTwist (the skin's twist helpers) - the clip

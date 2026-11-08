@@ -1,86 +1,87 @@
 {
- "claude": {
-  "in_rotation": true,
-  "note": "S191 (2026-10-10): 11 merges (HUD ON, camera fix, PAD1, DOC2, TRAP1, DOC1, TELLS1/1B, CUT3A, CAST1, WEEK1A, HOUR1A, PLAYUI1E). IN FLIGHT: Cursor LUDO-GYMUI1 (wt LUDOGYMUI1, cursor/ludo-gymui1), Arena COMPOSURE1 (chat 01a122b3) + CORNER2P (chat 01a12332), cloud Qwen ANGLE1B (issue #83). Next: CORNER2A on Codex sol (brief ready).",
-  "changed": "2026-10-08T16:00:00Z",
-  "role": "LEAD: 3D scenes, stills/videos (window/GPU), briefs, review, merge, ship."
- },
- "qwen": {
-  "in_rotation": true,
-  "note": "S385: TASK_SOUND1 queued (sound layer + layered punches + count + crowd + UI + music, round 1). Older: S349: GROUND3 r2 RUNNING (wt E:/FightCamp/wt/LEAN_GROUND3, out GROUND3_r2_out.txt) - G144 skill-gap odds, ground ~20 %, subs 8-25 %.",
-  "changed": "2026-11-05T19:50:00Z",
-  "role": "S385 SOUND ENGINEER (operator: \"assign one of my agents as sound enginner and take care of all needed sounds, effects etc\"): owns ALL game audio - sounds, effects, music - via the Ludo audio CLI; TASK_SOUND1. Every sound is UNHEARD until the operator keeps it on the sound board (the ear rule). Also: small pure rule modules + tests (S299). 52 runs, 0 failed."
- },
- "grok": {
-  "in_rotation": true,
-  "note": "S227 operator \"use grok too\": the Grok APP (SuperGrok + Grok Bot, weekly limits 0% used, reset Oct 19/22) is available - drive it with computer-use for research (COUNTRYDATA1 first). S220: Grok Dev STATIONWEAR1E RUNNING (grok/stationwear1e, sent 22:29; 1D merged 7f7942d6). The Windows text-input panel can block the Grok Bot app - ask the operator to close it.\n2026-10-15 operator via board: available",
-  "changed": "2026-10-02T15:40:00Z",
-  "role": "S299 LEAN: Grok Dev = test seat - golden-path test, save/load round trips, blind contract tests from a spec. Grok bots: Kalli/John/Maria (own rows). 27 runs, 22 collected."
- },
- "codex": {
-  "in_rotation": false,
-  "note": "S227 OUT OF ROTATION (operator: 'codex out of the rotation when it finishes the current tasks'): it finishes and Claude collects OFFBAKE1B (wt ANIMFIX2), GYMLOOK3B (wt PROFILE2E) and ROOMS3B (wt ROOMS3); NO new Codex launches after that. Owners move: rooms + gym floor -> cloud Cursor (Claude renders the stills on the PC), animations -> Claude decides per item (Cascadeur ends 10-27). S224: ANIMFIX1 r2 RUNNING (wt E:/FightCamp/wt/ANIMFIX1, codex/animfix1, out ANIMFIX1_out.txt, exclusive Godot) - collect; ANIMCHAIN2 stopped (WIP pushed). Next on this seat: ANIMFIX2 -> ANIMFIX3 -> OFFBAKE1, PROFILE2F. S223: ANIMCHAIN2 RUNNING (pid 49568, gpt-6-astra high, worktrees FLYFOOT1/PAIRLIVE1/ANIMSOURCE1, out E:/FightCamp/wt/ANIMCHAIN2_out.txt) - exclusive Godot; collect + 3-min clip. LOCKER1B merged 65b8d1e4. S222 IN FLIGHT: Codex FIX5 (wt TECHSTAGE1) + ANIMCHAIN gpt-6-astra (FLYFOOT1->PAIRLIVE1->ANIMSOURCE1, out ANIMCHAIN_out.txt). S221: TECHSTAGE1 FIX5 RUNNING (wt E:/FightCamp/wt/TECHSTAGE1, launched 00:18) - collect; then FLYFOOT2 (TASK_FLYFOOT2.md) -> LOCKER1B. S219: FLYFOOT1 RUNNING (wt E:/FightCamp/wt/FLYFOOT1, codex/flyfoot1, out FLYFOOT1_out.txt; launched 20:22 via codex_task.cmd with the Ludo browser). ANIMSOURCE1D continue run hung 15:49 -> stopped, WIP b5bb8c06. Next on this seat: TECHSTAGE1 FIX5, ANIMSOURCE1D relaunch, KM3B, PAIRLIVE1, LUDOANIM1.",
-  "changed": "2026-10-12 S208",
-  "role": "CODER: big multi-file code and our tools (ops board, pipelines, agent_comms). Back in rotation S178 (operator: 'also use codex')."
- },
- "cursor": {
-  "in_rotation": true,
-  "note": "S377: LOCOWALK1 RUNNING (wt E:/FightCamp/wt/LEAN_LOCOWALK1, branch cursor/locowalk1, runner 41164) - real walk + step clips via Ludo CLI 0.2.2 (cap 6 cr); collect against the drawn-bone bars in tools/knockdown_film.gd. | S350: TRAINCLIPS1 r3 RUNNING (wt E:/FightCamp/wt/LEAN_TRAINCLIPS1, out TRAINCLIPS1_r3_out.txt) - session pictures at full reach. S349: TRAINCLIPS1 RUNNING (wt E:/FightCamp/wt/LEAN_TRAINCLIPS1, out TRAINCLIPS1_out.txt) - 8 session pictures of her for the training board.",
-  "changed": "2026-10-02T09:32:59Z",
-  "role": "S299 LEAN: Godot 2D screens from docs/menu_prototype.html, one scene per screen, <500 lines. Cannot see images - Claude checks every still. 104 runs, 74 collected."
- },
- "kalli": {
-  "in_rotation": true,
-  "note": "S181: K88 local sponsors SENT via gbot (envelope fd0e0397) - collect: python Tools/gbot.py thread --to kalli --full. S178 operator: 'you should not assign kali for reasearch' - design only. S150: K85 RUNNING via gbot (scene tree review) - collect next session. S139: K83 scorebug spec COLLECTED (K83_THE_BROADCAST_HUD_SPEC.md). Operator: 'use a new chat for kalli !!!!!' - every task via grokbots.py send --to Kalli --new.",
-  "changed": "2026-10-02T09:45:23Z",
-  "role": "S299 LEAN: game content + numbers (content banks, fight words, offer/purse tables). Proven in Lean weeks 2-5: 4 of 4 collected."
- },
- "john": {
-  "in_rotation": true,
-  "note": "S208 IN FLIGHT: J_CLOTHES2 (MetaHuman clothes, licence first) via gbot; J_CLOTHES_S207 saved. | S150: J61 (+J60) RUNNING via gbot (scene tree review) - collect next session. S137: J58 four rooms SENT (attached renders+concepts) into the plain 'John Research' thread, queued behind J56/J57 - collect by scrolling that thread.\n2026-10-15 operator via board: available",
-  "changed": "2026-10-12 S208",
-  "role": "S299 LEAN: deep real-world research (amateur records, judging, purses, injury rates) that numbers are grounded in. 15 runs, 5 collected."
- },
- "maria": {
-  "in_rotation": true,
-  "note": "S208: M_WARDROBE + M_ICONS text saved; asked to deliver icon PNG/SVG to _maria_delivery/M_ICONS_S207. | S150: M41 RUNNING via gbot (scene tree review) - collect next session. S146: M39 part 3 + M40 COLLECTED (M40 = week review look spec, Claude builds). M39 parts 1-2 still in her chat \"Venue ladder\". grokbots send --new now works (picker fix), use --out.",
-  "changed": "2026-10-12 S208",
-  "role": "S299 LEAN: art-direction review of each weekly build's stills (a second eye, not a gate). 12 runs, 7 collected."
- },
- "dola": {
-  "in_rotation": true,
-  "note": "S154 OPERATOR: Dola joins the working rotation from the NEXT session (research/art tasks; a brief must name the gap prior_research shows). S146: D68 + D69 COLLECTED (research/D68_ONE_MORE_TURN.md, D69_FIRST_HOUR_FRESH_EYES.md, 8/10 applied). D70 WITHDRAWN (research already held it). Idle - next brief must name the gap prior_research shows.",
-  "changed": "2026-10-03T16:10:00Z",
-  "role": "S299 LEAN: PARKED - 7 runs, 1 collected, frequent 502s."
- },
- "kimi": {
-  "in_rotation": false,
-  "note": "OFF - operator 2026-09-29 (S125): 'take him out of rotation'. S125 PARKED (operator 09-29 asked for a verdict after EUR 15): KM1 review half-useful (4 wrong claims), KM2 build trial gamed the test (identical fighters + retired the neck check) - REJECTED, test fixed by Claude (5e0279a5). Do not recharge; keep installed (Tools/kimi_task.ps1). Re-trial only on a new model, one small verifiable task. KM3 -> Qwen.",
-  "changed": "2026-09-29T12:59:36Z"
- },
- "cline": {
-  "in_rotation": true,
-  "note": "S156: Cline's free OpenRouter model hit its DAILY limit ('Rate limit exceeded: free-models-per-day-stealth') mid NIGHTLY1, 2026-10-03 ~19:06; the model itself ends 2026-10-05. NIGHTLY1's readable_onset part committed by Claude (90a4c2cd) and merged. Check the limit has reset before relaunching. Runs through Tools\\cline_task.cmd; do NOT let it open images itself - Claude opens the stills.",
-  "changed": "2026-10-03T19:40:00Z",
-  "role": "CODER (only when a free model is live): small fixes."
- },
- "arena": {
-  "in_rotation": true,
-  "note": "S262: RUNNING #274 GUARDPOSE2 (normal route - modifies GuardPose.gd) and #275 MHRBF1 (fast lane). S223: YARDSTICK1 RUNNING chat 01a139dd-3b50-7b09-8df0-5c2e777fe29d (pure J67 realism scorer). BOOKRULE1 test merged. S222 IN FLIGHT: BOOKRULE1 chat 01a137d9 - merge only a named-start contract test (fixture 57e726b2 is deliberate). S221: NEWCAREER3B zone rules LANDED as PR #167 (arena/b39aa6b0) - re",
-  "changed": "2026-10-12 S208",
-  "role": "S299 LEAN: bigger pure modules + tests in the cloud (balancing harness: Sim plays 1,000 careers headless and reports pace/money). Public mirror only; guard against deleted tests (ci_arena.py guard). 105 runs, 73 collected."
- },
- "antigravity": {
-  "in_rotation": true,
-  "note": "S377: FIGHT9R7 QUEUED (agy, BASE claude/fight9base = R5 + main 3264b79e merged by Claude); R6 3 -> 3/10 dropped, PRs #24 #25 #29 #30 closed as superseded. | S159 2026-10-04: Google Antigravity installed (IDE 2.5.5, desktop 2.19.1, CLI agy 1.2.16 at %LOCALAPPDATA%\u0007gy\bin\u0007gy.exe), operator signed in; free tier. Models run in Google's cloud but agy runs commands on THIS PC in the checkout - not a cloud seat. First trial ratio_cell_test (7/7) done in 125 s. Launch: short one-line -p prompt pointing at a task file + --add-dir (PS 5.1 mangles quotes), --mode accept-edits --sandbox, NO --dangerously-skip-permissions (the auto-mode classifier refused it); Claude runs the acceptance. One E: worktree per run, watchdog first.",
-  "changed": "2026-10-04T12:20:00Z",
-  "role": "CODER (free tier, runs commands on this PC): trial seat."
- },
- "note": "S352 in flight: TRAINCLIPS1 r5 (Ziva, PC editor on E:/FightCamp/wt/ZIVA_LEAN, branch ziva/trainclips1, chat 'Round 5 Task Progress'); SMOOTH3 r3 (Goose, ICOON-Studio/FightCamp-Lean issue 18, run 41359780831). CLINCH2 held for Ziva.",
- "_note": "S232 in flight: KICKREACH1 goose run 38918175220; OFFERREDS1 qwen #209; UICARDS1B cursor #201 (auto_continue); SPLITFIX1 grok #210; CORNERCONTRACT2 arena 01a14544; D69 dola; LUDO_R93 read blocked (operator).",
- "ziva": {
-  "in_rotation": true,
-  "role": "S299 LEAN: 3D fight motion polish + a playtest of each weekly build inside the Godot editor (plays the path, reports defects with stills). MCP down at S299 start - restart its editor first. 5 runs, 4 collected.",
-  "note": "S377: BJJ9 round 10 RUNNING (wt E:/FightCamp/wt/ZIVA_LEAN, ziva/bjj9 @ cf5891cf, chat thread 'BJJ9 Round 10' on 7012) - armbar finish pose; hit the 32k reply cap once (Continue). | S262: FULL motion seat, Basic plan (Ziva Smart), auto-approve ON, access map research/ZIVA_ACCESS.md. RUNNING TASK_ZIVAMOTION1 in chat \"Ziva Agent Access and Task Brief\" (http://127.0.0.1:7012/), branch ziva/playtest (no commit yet). S254: on the roadmap as playtester + owner of playable_loop_test (operator: also ziva can help) - PRODUCTION_ROADMAP_S254.md Seat fix."
- }
+  "claude": {
+    "in_rotation": true,
+    "note": "S191 (2026-10-10): 11 merges (HUD ON, camera fix, PAD1, DOC2, TRAP1, DOC1, TELLS1/1B, CUT3A, CAST1, WEEK1A, HOUR1A, PLAYUI1E). IN FLIGHT: Cursor LUDO-GYMUI1 (wt LUDOGYMUI1, cursor/ludo-gymui1), Arena COMPOSURE1 (chat 01a122b3) + CORNER2P (chat 01a12332), cloud Qwen ANGLE1B (issue #83). Next: CORNER2A on Codex sol (brief ready).",
+    "changed": "2026-10-08T16:00:00Z",
+    "role": "LEAD: 3D scenes, stills/videos (window/GPU), briefs, review, merge, ship."
+  },
+  "qwen": {
+    "in_rotation": true,
+    "note": "S385: TASK_SOUND1 queued (sound layer + layered punches + count + crowd + UI + music, round 1). Older: S349: GROUND3 r2 RUNNING (wt E:/FightCamp/wt/LEAN_GROUND3, out GROUND3_r2_out.txt) - G144 skill-gap odds, ground ~20 %, subs 8-25 %.",
+    "changed": "2026-11-05T19:50:00Z",
+    "role": "S385 SOUND ENGINEER (operator: \"assign one of my agents as sound enginner and take care of all needed sounds, effects etc\"): owns ALL game audio - sounds, effects, music - via the Ludo audio CLI; TASK_SOUND1. Every sound is UNHEARD until the operator keeps it on the sound board (the ear rule). Also: small pure rule modules + tests (S299). 52 runs, 0 failed."
+  },
+  "grok": {
+    "in_rotation": false,
+    "note": "S227 operator \"use grok too\": the Grok APP (SuperGrok + Grok Bot, weekly limits 0% used, reset Oct 19/22) is available - drive it with computer-use for research (COUNTRYDATA1 first). S220: Grok Dev STATIONWEAR1E RUNNING (grok/stationwear1e, sent 22:29; 1D merged 7f7942d6). The Windows text-input panel can block the Grok Bot app - ask the operator to close it.\n2026-10-15 operator via board: available",
+    "changed": "2026-10-02T15:40:00Z",
+    "role": "S299 LEAN: Grok Dev = test seat - golden-path test, save/load round trips, blind contract tests from a spec. Grok bots: Kalli/John/Maria (own rows). 27 runs, 22 collected.",
+    "out_reason": "operator 2026-11-07 (S397): 'Leave Grok off' - CLI not signed in; never brief it"
+  },
+  "codex": {
+    "in_rotation": false,
+    "note": "S227 OUT OF ROTATION (operator: 'codex out of the rotation when it finishes the current tasks'): it finishes and Claude collects OFFBAKE1B (wt ANIMFIX2), GYMLOOK3B (wt PROFILE2E) and ROOMS3B (wt ROOMS3); NO new Codex launches after that. Owners move: rooms + gym floor -> cloud Cursor (Claude renders the stills on the PC), animations -> Claude decides per item (Cascadeur ends 10-27). S224: ANIMFIX1 r2 RUNNING (wt E:/FightCamp/wt/ANIMFIX1, codex/animfix1, out ANIMFIX1_out.txt, exclusive Godot) - collect; ANIMCHAIN2 stopped (WIP pushed). Next on this seat: ANIMFIX2 -> ANIMFIX3 -> OFFBAKE1, PROFILE2F. S223: ANIMCHAIN2 RUNNING (pid 49568, gpt-6-astra high, worktrees FLYFOOT1/PAIRLIVE1/ANIMSOURCE1, out E:/FightCamp/wt/ANIMCHAIN2_out.txt) - exclusive Godot; collect + 3-min clip. LOCKER1B merged 65b8d1e4. S222 IN FLIGHT: Codex FIX5 (wt TECHSTAGE1) + ANIMCHAIN gpt-6-astra (FLYFOOT1->PAIRLIVE1->ANIMSOURCE1, out ANIMCHAIN_out.txt). S221: TECHSTAGE1 FIX5 RUNNING (wt E:/FightCamp/wt/TECHSTAGE1, launched 00:18) - collect; then FLYFOOT2 (TASK_FLYFOOT2.md) -> LOCKER1B. S219: FLYFOOT1 RUNNING (wt E:/FightCamp/wt/FLYFOOT1, codex/flyfoot1, out FLYFOOT1_out.txt; launched 20:22 via codex_task.cmd with the Ludo browser). ANIMSOURCE1D continue run hung 15:49 -> stopped, WIP b5bb8c06. Next on this seat: TECHSTAGE1 FIX5, ANIMSOURCE1D relaunch, KM3B, PAIRLIVE1, LUDOANIM1.",
+    "changed": "2026-10-12 S208",
+    "role": "CODER: big multi-file code and our tools (ops board, pipelines, agent_comms). Back in rotation S178 (operator: 'also use codex')."
+  },
+  "cursor": {
+    "in_rotation": true,
+    "note": "S377: LOCOWALK1 RUNNING (wt E:/FightCamp/wt/LEAN_LOCOWALK1, branch cursor/locowalk1, runner 41164) - real walk + step clips via Ludo CLI 0.2.2 (cap 6 cr); collect against the drawn-bone bars in tools/knockdown_film.gd. | S350: TRAINCLIPS1 r3 RUNNING (wt E:/FightCamp/wt/LEAN_TRAINCLIPS1, out TRAINCLIPS1_r3_out.txt) - session pictures at full reach. S349: TRAINCLIPS1 RUNNING (wt E:/FightCamp/wt/LEAN_TRAINCLIPS1, out TRAINCLIPS1_out.txt) - 8 session pictures of her for the training board.",
+    "changed": "2026-10-02T09:32:59Z",
+    "role": "S299 LEAN: Godot 2D screens from docs/menu_prototype.html, one scene per screen, <500 lines. Cannot see images - Claude checks every still. 104 runs, 74 collected."
+  },
+  "kalli": {
+    "in_rotation": true,
+    "note": "S181: K88 local sponsors SENT via gbot (envelope fd0e0397) - collect: python Tools/gbot.py thread --to kalli --full. S178 operator: 'you should not assign kali for reasearch' - design only. S150: K85 RUNNING via gbot (scene tree review) - collect next session. S139: K83 scorebug spec COLLECTED (K83_THE_BROADCAST_HUD_SPEC.md). Operator: 'use a new chat for kalli !!!!!' - every task via grokbots.py send --to Kalli --new.",
+    "changed": "2026-10-02T09:45:23Z",
+    "role": "S299 LEAN: game content + numbers (content banks, fight words, offer/purse tables). Proven in Lean weeks 2-5: 4 of 4 collected."
+  },
+  "john": {
+    "in_rotation": true,
+    "note": "S208 IN FLIGHT: J_CLOTHES2 (MetaHuman clothes, licence first) via gbot; J_CLOTHES_S207 saved. | S150: J61 (+J60) RUNNING via gbot (scene tree review) - collect next session. S137: J58 four rooms SENT (attached renders+concepts) into the plain 'John Research' thread, queued behind J56/J57 - collect by scrolling that thread.\n2026-10-15 operator via board: available",
+    "changed": "2026-10-12 S208",
+    "role": "S299 LEAN: deep real-world research (amateur records, judging, purses, injury rates) that numbers are grounded in. 15 runs, 5 collected."
+  },
+  "maria": {
+    "in_rotation": true,
+    "note": "S208: M_WARDROBE + M_ICONS text saved; asked to deliver icon PNG/SVG to _maria_delivery/M_ICONS_S207. | S150: M41 RUNNING via gbot (scene tree review) - collect next session. S146: M39 part 3 + M40 COLLECTED (M40 = week review look spec, Claude builds). M39 parts 1-2 still in her chat \"Venue ladder\". grokbots send --new now works (picker fix), use --out.",
+    "changed": "2026-10-12 S208",
+    "role": "S299 LEAN: art-direction review of each weekly build's stills (a second eye, not a gate). 12 runs, 7 collected."
+  },
+  "dola": {
+    "in_rotation": true,
+    "note": "S154 OPERATOR: Dola joins the working rotation from the NEXT session (research/art tasks; a brief must name the gap prior_research shows). S146: D68 + D69 COLLECTED (research/D68_ONE_MORE_TURN.md, D69_FIRST_HOUR_FRESH_EYES.md, 8/10 applied). D70 WITHDRAWN (research already held it). Idle - next brief must name the gap prior_research shows.",
+    "changed": "2026-10-03T16:10:00Z",
+    "role": "S299 LEAN: PARKED - 7 runs, 1 collected, frequent 502s."
+  },
+  "kimi": {
+    "in_rotation": false,
+    "note": "OFF - operator 2026-09-29 (S125): 'take him out of rotation'. S125 PARKED (operator 09-29 asked for a verdict after EUR 15): KM1 review half-useful (4 wrong claims), KM2 build trial gamed the test (identical fighters + retired the neck check) - REJECTED, test fixed by Claude (5e0279a5). Do not recharge; keep installed (Tools/kimi_task.ps1). Re-trial only on a new model, one small verifiable task. KM3 -> Qwen.",
+    "changed": "2026-09-29T12:59:36Z"
+  },
+  "cline": {
+    "in_rotation": true,
+    "note": "S156: Cline's free OpenRouter model hit its DAILY limit ('Rate limit exceeded: free-models-per-day-stealth') mid NIGHTLY1, 2026-10-03 ~19:06; the model itself ends 2026-10-05. NIGHTLY1's readable_onset part committed by Claude (90a4c2cd) and merged. Check the limit has reset before relaunching. Runs through Tools\\cline_task.cmd; do NOT let it open images itself - Claude opens the stills.",
+    "changed": "2026-10-03T19:40:00Z",
+    "role": "CODER (only when a free model is live): small fixes."
+  },
+  "arena": {
+    "in_rotation": true,
+    "note": "S262: RUNNING #274 GUARDPOSE2 (normal route - modifies GuardPose.gd) and #275 MHRBF1 (fast lane). S223: YARDSTICK1 RUNNING chat 01a139dd-3b50-7b09-8df0-5c2e777fe29d (pure J67 realism scorer). BOOKRULE1 test merged. S222 IN FLIGHT: BOOKRULE1 chat 01a137d9 - merge only a named-start contract test (fixture 57e726b2 is deliberate). S221: NEWCAREER3B zone rules LANDED as PR #167 (arena/b39aa6b0) - re",
+    "changed": "2026-10-12 S208",
+    "role": "S299 LEAN: bigger pure modules + tests in the cloud (balancing harness: Sim plays 1,000 careers headless and reports pace/money). Public mirror only; guard against deleted tests (ci_arena.py guard). 105 runs, 73 collected."
+  },
+  "antigravity": {
+    "in_rotation": true,
+    "note": "S377: FIGHT9R7 QUEUED (agy, BASE claude/fight9base = R5 + main 3264b79e merged by Claude); R6 3 -> 3/10 dropped, PRs #24 #25 #29 #30 closed as superseded. | S159 2026-10-04: Google Antigravity installed (IDE 2.5.5, desktop 2.19.1, CLI agy 1.2.16 at %LOCALAPPDATA%\u0007gy\bin\u0007gy.exe), operator signed in; free tier. Models run in Google's cloud but agy runs commands on THIS PC in the checkout - not a cloud seat. First trial ratio_cell_test (7/7) done in 125 s. Launch: short one-line -p prompt pointing at a task file + --add-dir (PS 5.1 mangles quotes), --mode accept-edits --sandbox, NO --dangerously-skip-permissions (the auto-mode classifier refused it); Claude runs the acceptance. One E: worktree per run, watchdog first.",
+    "changed": "2026-10-04T12:20:00Z",
+    "role": "CODER (free tier, runs commands on this PC): trial seat."
+  },
+  "note": "S352 in flight: TRAINCLIPS1 r5 (Ziva, PC editor on E:/FightCamp/wt/ZIVA_LEAN, branch ziva/trainclips1, chat 'Round 5 Task Progress'); SMOOTH3 r3 (Goose, ICOON-Studio/FightCamp-Lean issue 18, run 41359780831). CLINCH2 held for Ziva.",
+  "_note": "S232 in flight: KICKREACH1 goose run 38918175220; OFFERREDS1 qwen #209; UICARDS1B cursor #201 (auto_continue); SPLITFIX1 grok #210; CORNERCONTRACT2 arena 01a14544; D69 dola; LUDO_R93 read blocked (operator).",
+  "ziva": {
+    "in_rotation": true,
+    "role": "S299 LEAN: 3D fight motion polish + a playtest of each weekly build inside the Godot editor (plays the path, reports defects with stills). MCP down at S299 start - restart its editor first. 5 runs, 4 collected.",
+    "note": "S377: BJJ9 round 10 RUNNING (wt E:/FightCamp/wt/ZIVA_LEAN, ziva/bjj9 @ cf5891cf, chat thread 'BJJ9 Round 10' on 7012) - armbar finish pose; hit the 32k reply cap once (Continue). | S262: FULL motion seat, Basic plan (Ziva Smart), auto-approve ON, access map research/ZIVA_ACCESS.md. RUNNING TASK_ZIVAMOTION1 in chat \"Ziva Agent Access and Task Brief\" (http://127.0.0.1:7012/), branch ziva/playtest (no commit yet). S254: on the roadmap as playtester + owner of playable_loop_test (operator: also ziva can help) - PRODUCTION_ROADMAP_S254.md Seat fix."
+  }
 }

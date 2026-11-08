@@ -19,6 +19,16 @@ const LIMBS := [["LeftArm", "LeftUpperArm", "LeftLowerArm", "LeftHand", 0.06, 0.
 	["RightLeg", "RightUpperLeg", "RightLowerLeg", "RightFoot", 0.10, 0.065, "RightToes"]]
 const FOOT_R := 0.068
 const SOLID := ["pelvis", "trunk", "head", "neck", "shoulders", "face"]
+## S399 GRAPPLEFIX1 "bodies merging" (every blind critic): tools/grapple_mesh_probe.gd on the skinned meshes found the merging is
+## limb in LIMB (a foot or forearm 4-7 cm into the other's thigh, 886 blue's feet in red's thighs 0.33-1.67 s), and limbs only
+## cleared the other's trunk, pelvis and head. The other's thighs and upper arms are solid too, met at their capsule's skin (not
+## SKIN_M early: wrapped legs are always that close) less LIMB_PRESS_M - the capsules sit 1-2 cm outside the mesh, so a touch still
+## touches. Only the big parts: the ends (shins, feet, forearms) yield to them but not to each other - all ten limb parts solid
+## cleared no more and shook more (12 moves, mesh park median 4.4 -> 3.4 cm big / 4.1 all, frames past 3 cm 66 -> 42% / 46%,
+## jerk p95 median 179 -> 209 / 246). `-- limbsolid=0` turns it off, `-- limbset=all` tries all ten.
+const LIMB_SOLID := ["thighL", "thighR", "upperarmL", "upperarmR"]
+const LIMB_SOLID_ALL := ["thighL", "thighR", "shinL", "shinR", "upperarmL", "upperarmR", "forearmL", "forearmR", "footL", "footR"]
+const LIMB_PRESS_M := 0.0
 const PASSES := 3
 const GAIN := 0.8        # of a contact's depth closed a pass
 const SKIN_M := -0.035   # a limb is pushed before it touches: the ease lags, so it has this much to lag into (S399: 2 -> 3.5 cm, the ease is longer)
@@ -60,9 +70,18 @@ static var _args := OS.get_cmdline_user_args()
 ## S399 measured on 23 slow moves (tools/grapple_orbit.gd game arm): 0.1 s -> jerk p95 up to 138, 0.2 s -> limbs lag into bodies,
 ## 0.15 s with SKIN_M 3.5 cm -> 10 of 23 inside every bar (8 before).
 const LIMB_EASE_S := 0.15
+## S399 GRAPPLEFIX1: the most a middle joint may swing ROUND its root-to-end line, radians a second. Every way of fading a
+## corrected plane into the recording's axis has a frame where the two cancel (S1 blue's elbow 24 cm; with the swung axis
+## 860/1198/1629 at 32-52 cm), and an axis near that line leaves the side undefined (860 folded: 40 cm). The elbow's way out
+## from the line is turned toward its target at this rate, so a side change is a swing, never a jump.
+const AXIS_RATE := 6.0
+static var axis_rate := _arg_f("axisrate=", AXIS_RATE)
 static var limb_ease_s := _arg_f("limbease=", LIMB_EASE_S)
 static var skin_m := _arg_f("skin=", SKIN_M)
 static var swing_max := _arg_f("swing=", SWING_MAX)
+static var limb_press_m := _arg_f("limbpress=", LIMB_PRESS_M)
+static var limb_solid := not _args.has("limbsolid=0")
+static var limb_set: Array = LIMB_SOLID_ALL if _args.has("limbset=all") else LIMB_SOLID
 
 
 static func _arg_f(prefix: String, fallback: float) -> float:
@@ -100,6 +119,9 @@ static func _solids(p: Dictionary) -> Array:
 	for c in p["all"]:
 		if str(c[0]) in SOLID:
 			out.append(c)
+		elif limb_solid and str(c[0]) in limb_set:
+			# _deepest adds -skin_m to every solid: taken back here, so a limb meets a limb at the skin.
+			out.append([c[0], c[1], c[2], float(c[3]) + skin_m - limb_press_m])
 	return out
 
 
@@ -151,7 +173,7 @@ static func _limb(l: Array, d: Dictionary, r: Array, solids: Array, hold: Array,
 			o += ((s["touch"] as Vector3) - e0) * firm
 	for _p in PASSES:
 		var e := root + _swing(w, rec_e - root) + o
-		var m := _real_middle(root, root + _swing(w, rec_m - root), e, a, b, normal, not arm)
+		var m := _real_middle(root, root + _swing(w, rec_m - root), e, a, b, _swing(w, normal), not arm)
 		var c := _deepest(root, m, ra, solids)
 		if float(c[0]) > 0.0:
 			w += _torque(root, root.lerp(m, maxf(float(c[2]), LEVER_MIN)), (c[1] as Vector3) * float(c[0]) * GAIN)
@@ -175,7 +197,7 @@ static func _limb(l: Array, d: Dictionary, r: Array, solids: Array, hold: Array,
 	# The mat has the last word: it is the one surface the eye never forgives.
 	for _p in 2:
 		var e := root + _swing(w, rec_e - root) + o
-		var m := _real_middle(root, root + _swing(w, rec_m - root), e, a, b, normal, not arm)
+		var m := _real_middle(root, root + _swing(w, rec_m - root), e, a, b, _swing(w, normal), not arm)
 		if m.y < ra:
 			w += _torque(root, m, Vector3.UP * (ra - m.y))
 			o.y += (ra - m.y) * 0.5
@@ -197,26 +219,71 @@ static func _limb(l: Array, d: Dictionary, r: Array, solids: Array, hold: Array,
 	ease_to2(s, "ease_o", "vo", o, dt, limb_ease_s)
 	var shown_w: Vector3 = s["ease_w"]
 	var shown_e := root + _swing(shown_w, rec_e - root) + (s["ease_o"] as Vector3)
-	var shown_m := _real_middle(root, root + _swing(shown_w, rec_m - root), shown_e, a, b, normal, not arm)
+	var shown_m := _real_middle(root, root + _swing(shown_w, rec_m - root), shown_e, a, b, _swing(shown_w, normal), not arm)
 	if shown_m.y < ra:
 		# The ease lags and the mat does not wait for it: a joint it would sink swings up now. S399: on the shown limb only, never
 		# written back into the ease (that was a jump in its state with no speed to match: 620's red leg rang 0.37-0.68 rad).
 		shown_w += _torque(root, shown_m, Vector3.UP * (ra - shown_m.y))
 		shown_e = root + _swing(shown_w, rec_e - root) + (s["ease_o"] as Vector3)
 		# S399: the same middle as above (it was the plain swing here, so the bend plane jumped each time the joint met the mat).
-		shown_m = _real_middle(root, root + _swing(shown_w, rec_m - root), shown_e, a, b, normal, not arm)
+		shown_m = _real_middle(root, root + _swing(shown_w, rec_m - root), shown_e, a, b, _swing(shown_w, normal), not arm)
 	var under := rb - shown_e.y
 	if not arm:
 		under = maxf(under, FOOT_R - shown_e.y - foot.y)
 	if under > 0.0:
 		shown_e.y += under
-	return [shown_m - root, shown_e - rec_e]
+	# S399 GRAPPLEFIX1: the axis, rate-limited, and the middle bent about it; GrapplePose bends exactly so (index 2).
+	var want_axis := _bend_axis(root, root + _swing(shown_w, rec_m - root), shown_e, _swing(shown_w, normal))
+	var axis: Vector3 = want_axis.normalized()
+	var line := shown_e - root
+	var want := Pose._reach(root, shown_e, a, b, want_axis, not arm)
+	if line.length() > 1e-3 and not want.is_empty():
+		var dir := line.normalized()
+		var pole_want: Vector3 = (want[0] as Vector3) - dir * (want[0] as Vector3).dot(dir)
+		if pole_want.length() > 1e-4:
+			pole_want = pole_want.normalized()
+			var pole := pole_want
+			if s.has("pole") and dt > 0.0 and axis_rate > 0.0:
+				var last: Vector3 = s["pole"]
+				last -= dir * last.dot(dir)
+				if last.length() > 0.2:
+					pole = turn_toward(last, pole_want, axis_rate * dt)
+					pole = (pole - dir * pole.dot(dir)).normalized()
+			s["pole"] = pole
+			axis = pole.cross(dir)   # Pose._reach puts the middle along dir x axis = pole
+	var bent := Pose._reach(root, shown_e, a, b, axis, not arm)
+	if not bent.is_empty():
+		shown_m = root + (bent[0] as Vector3)
+	return [shown_m - root, shown_e - rec_e, axis]
+
+
+## `from` turned toward `to` by at most `max_ang` radians (unit result). A `to` too short to have a direction keeps `from`.
+static func turn_toward(from: Vector3, to: Vector3, max_ang: float) -> Vector3:
+	var f := from.normalized()
+	if to.length() < 1e-4:
+		return f
+	var t := to.normalized()
+	var ang := f.angle_to(t)
+	if ang <= max_ang:
+		return t
+	var ax := f.cross(t)
+	if ax.length() < 1e-5:
+		ax = f.cross(Vector3.UP if absf(f.y) < 0.9 else Vector3.RIGHT)
+	return f.rotated(ax.normalized(), max_ang)
 
 
 ## Where the middle joint really lands once the end has moved off the swing (what GrapplePose will draw).
 static func _real_middle(root: Vector3, m: Vector3, e: Vector3, a: float, b: float, normal: Vector3, leg: bool = false) -> Vector3:
-	var bend := Pose._reach(root, e, a, b, Pose.held_plane((m - root).cross(e - root), normal), leg)
+	var bend := Pose._reach(root, e, a, b, _bend_axis(root, m, e, normal), leg)
 	return root + (bend[0] as Vector3) if not bend.is_empty() else m
+
+
+## The axis the middle bends about: the swung recording's middle and the end's plane, faded near the line (Pose.held_plane) into
+## `normal` - the recording's axis SWUNG with the limb. S399 GRAPPLEFIX1 (S1 sequence, blue's elbow 24 cm in one frame at 11.37 s,
+## a held hand pushed off red's thigh): faded into the UNSWUNG axis, a limb turned 0.5 rad summed to almost nothing and the bend
+## side flipped in a frame.
+static func _bend_axis(root: Vector3, m: Vector3, e: Vector3, normal: Vector3) -> Vector3:
+	return Pose.held_plane((m - root).cross(e - root), normal)
 
 
 ## `v` under the small rotation `w` (axis times angle).

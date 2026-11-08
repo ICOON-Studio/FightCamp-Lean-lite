@@ -377,7 +377,10 @@ func pose_globals(skel: Skeleton3D, j: PackedVector3Array, mem: Variant = null, 
 				var to_skel := skel.global_transform.basis.inverse()
 				var end: Vector3 = rec_end + to_skel * (fix[1] as Vector3)
 				var plane := (to_skel * (fix[0] as Vector3)).cross(end - root)
-				var moved := _reach(root, end, rest_up.length(), rest_lo.length(), held_plane(plane, normal), is_leg)
+				# S399 GRAPPLEFIX1: the bend axis GrappleLimbs drew its middle with (its swing turns the axis too); recomputed from
+				# the middle it sat nearly on the line near straight, and turned 70 deg in a frame (S1 blue's elbow, 24 cm).
+				var bn: Vector3 = to_skel * (fix[2] as Vector3) if fix.size() > 2 else held_plane(plane, normal)
+				var moved := _reach(root, end, rest_up.length(), rest_lo.length(), bn, is_leg)
 				if not moved.is_empty():
 					bend = moved
 			var n: Vector3 = (bend[0] as Vector3).cross(bend[1])

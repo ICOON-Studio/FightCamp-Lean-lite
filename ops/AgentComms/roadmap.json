@@ -3,10 +3,16 @@
   "updated": "2026-11-07",
   "author": "claude S294",
   "now": {
-    "id": "S395",
+    "id": "S400",
     "owner": "claude",
-    "updated": "2026-11-07",
-    "summary": "S395: HUD 5 to 6.5 (corner bug was the film tool; rest strip; fades; tired read B); TV hit line, big-shot slow motion and zoom; boxers walk on a real capture; SOUND2 collected; Attendance; pr-check and cloud film on GitHub; Ollama fixed; structure design with Corner King study, 10 questions on the board. Portraits 4.5, not used. Not exported."
+    "updated": "2026-11-08",
+    "summary": "S400: collected MONEYOD1 (overdraft rules, off until an approved Money screen). MONEYLAYOUT1 merged then REVERTED: never approved, built from a text brief without the Miro plan (operator: 'they seem like an economic management simulator ... why you are not doing the mockups from miro as agreed'). One-frame films blocked at the source (C247/C248). FIGHTERMODEL3 stopped on Cursor's GPT limit - round 2 on Grok. Branch triage: nothing non-animation left to merge; Q-S294-124.",
+    "last_working_commit": "S400 revert commit (Money page as before 6fc15ca9)",
+    "verified_playable": "golden_path, first_hour, money_layout, game_money, money_close, overdraft, plain_words, tip_notes, home_look: 0 failures on main (S400). Money page stills E:/FightCamp/tmp/s400_money/v3.",
+    "incomplete_blocked": "RETARGET2 (Cursor Grok) running; FIGHTERMODEL3B queued on Cursor; MONEYOD2 STOPPED (it built on the unapproved page); SOUTHPAW2 #78 + ANIMREBUILD1 #77 held.",
+    "next_action": "Menus only from the Miro plan: find the agreed screen mockups, critics judge THOSE against the plan, operator's yes, then build. Animation: collect RETARGET2 -> film -> merge -> proguard.",
+    "next_acceptance": "RETARGET2: raw-vs-ours table no worse than source on jab stance + end trim, film >= 8/10 blind. MONEYOD2: OVERDRAFT_UI failures=0 and money_layout/golden_path green.",
+    "awaiting_operator": "Q-S294-124 delete 16 branches already on main."
   },
   "next": "S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.",
   "assessment": {
@@ -4490,7 +4496,7 @@
   },
   "plan": {
     "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-    "updated": "2026-11-07 21:43 board_sync",
+    "updated": "2026-11-08 07:41 board_sync",
     "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
     "titles": {
       "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4635,13 +4641,56 @@
         "title": "TASK HITSELL5 - QWEN (qwen3-coder) - find where a landed punch's reaction is lost in the played fight, then fix it there",
         "who": "qwen",
         "started": "2026-11-07T20:41",
-        "run": "HITSELL5"
+        "run": "HITSELL5",
+        "state": "LANDED - Claude collects"
       },
       {
         "title": "TASK SOUTHPAW2 - CURSOR (GPT-5.6 Sol High) - the guard knock-knee, round 2: a test that FAILS on main first",
         "who": "cursor",
         "started": "2026-11-07T21:21",
-        "run": "SOUTHPAW2"
+        "run": "SOUTHPAW2",
+        "state": "LANDED - Claude collects"
+      },
+      {
+        "title": "TASK ANIMREBUILD1 - AGY (Argon High) - design draft: fight animation rebuilt around a clip library + one picker",
+        "who": "antigravity",
+        "started": "2026-11-07T22:09",
+        "run": "ANIMREBUILD1",
+        "state": "LANDED - Claude collects"
+      },
+      {
+        "title": "TASK MONEYOD1 - QWEN (qwen3-coder) - an overdraft with interest: the bank's lever before the 8-week close (rules only)",
+        "who": "qwen",
+        "started": "2026-11-07T22:41",
+        "run": "MONEYOD1",
+        "state": "LANDED - Claude collects"
+      },
+      {
+        "title": "TASK RETARGET1 - CURSOR (GPT-5.6 Sol High) - bring the purchased Punch PRO pack onto our boxer WITHOUT breaking it",
+        "who": "cursor",
+        "started": "2026-11-07T22:53",
+        "run": "RETARGET1",
+        "state": "LANDED - Claude collects"
+      },
+      {
+        "title": "TASK MONEYLAYOUT1 - AGY (Argon High) - Club > Money: decisions first, history folded (layout only)",
+        "who": "antigravity",
+        "started": "2026-11-07T23:11",
+        "run": "MONEYLAYOUT1",
+        "state": "LANDED - Claude collects"
+      },
+      {
+        "title": "TASK FIGHTERMODEL3 - CURSOR (GPT-5.6 Sol High) - the fighter model to 8/10 built, rule 2 held again",
+        "who": "cursor",
+        "started": "2026-11-08T00:43",
+        "run": "FIGHTERMODEL3",
+        "state": "LANDED - Claude collects"
+      },
+      {
+        "title": "TASK RETARGET2 - CURSOR (GPT-5.6 Sol High) - RETARGET1 round 2: keep the wins, fix the stance and the end trim",
+        "who": "cursor",
+        "started": "2026-11-08T07:24",
+        "run": "RETARGET2"
       }
     ],
     "next": [
@@ -5077,6 +5126,26 @@
     "map": {
       "done_earlier": [
         {
+          "text": "Main tests green (Pass, weapon)",
+          "who": "claude"
+        },
+        {
+          "text": "Ziva back up on main",
+          "who": "claude"
+        },
+        {
+          "text": "SOUTHPAW1 checked: not kept",
+          "who": "claude"
+        },
+        {
+          "text": "Inside work +0.5: not merged",
+          "who": "claude"
+        },
+        {
+          "text": "Corner seconds: no repeat face",
+          "who": "claude"
+        },
+        {
           "text": "Ziva back up on main",
           "who": "claude"
         },
@@ -5111,47 +5180,19 @@
         {
           "text": "WORLD1 merged: 20-year world",
           "who": "claude"
-        },
-        {
-          "text": "Rule 2 bots pass: smart 8, hard 11",
-          "who": "claude"
-        },
-        {
-          "text": "Scouting worth it: +14 top 10",
-          "who": "claude"
-        },
-        {
-          "text": "Pro ladder wired after debut",
-          "who": "claude"
-        },
-        {
-          "text": "Ranks mean levels: inversions 0%",
-          "who": "claude"
-        },
-        {
-          "text": "Offers trade off: tune/step/payday",
-          "who": "claude"
         }
       ],
       "done_session": [
         {
-          "text": "Main tests green (Pass, weapon)",
+          "text": "Overdraft merged (Qwen)",
+          "who": "agent"
+        },
+        {
+          "text": "One-frame films blocked",
           "who": "claude"
         },
         {
-          "text": "Ziva back up on main",
-          "who": "claude"
-        },
-        {
-          "text": "SOUTHPAW1 checked: not kept",
-          "who": "claude"
-        },
-        {
-          "text": "Inside work +0.5: not merged",
-          "who": "claude"
-        },
-        {
-          "text": "Corner seconds: no repeat face",
+          "text": "Unapproved Money page reverted",
           "who": "claude"
         }
       ],
@@ -5165,11 +5206,7 @@
           "who": "claude"
         },
         {
-          "text": "SOUTHPAW2: knee valgus (Cursor)",
-          "who": "agent"
-        },
-        {
-          "text": "Anim rebuild design (agy)",
+          "text": "Fighter model v3 round 2 (Cursor)",
           "who": "agent"
         }
       ],
@@ -5231,10 +5268,6 @@
           "who": "claude"
         },
         {
-          "text": "Fighter model v3 (rule 2)",
-          "who": "claude"
-        },
-        {
           "text": "CPU: power plan 99% (you)",
           "who": "operator"
         },
@@ -5243,15 +5276,15 @@
           "who": "claude"
         },
         {
-          "text": "Money leftovers (Qwen)",
+          "text": "5th staff MetaHuman (pro corner)",
           "who": "claude"
         },
         {
-          "text": "5th staff MetaHuman (pro corner)",
+          "text": "SOUTHPAW2 + rebuild: held",
           "who": "claude"
         }
       ],
-      "session": "S399"
+      "session": "S400"
     }
   },
   "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

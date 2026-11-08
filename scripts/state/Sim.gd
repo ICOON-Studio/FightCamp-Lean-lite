@@ -28,6 +28,7 @@ const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const WeekActual := preload("res://scripts/rules/WeekActual.gd")
 const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
+const Overdraft := preload("res://scripts/rules/Overdraft.gd")
 const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
 const PushBack := preload("res://scripts/rules/PushBack.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
@@ -47,16 +48,13 @@ const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const NO_COACH_RATING := 100.0 / 7.0
 const STAT_CAP := 99.0
 
-
 static func coach_rating(career: Career) -> float:
 	return float(career.coach.get("rating", NO_COACH_RATING)) if not career.coach.is_empty() else NO_COACH_RATING
-
 
 ## The stat her week trains most: her camp's focus while she is in camp, else her plan's.
 static func focus_of(_career: Career, f: Dictionary) -> String:
 	var camp: Dictionary = f.get("camp", {})
 	return str(camp["focus"]) if not camp.is_empty() else str(f["focus"])
-
 
 ## S356 Monday: the twist card's answer is locked (the coach's call when none) and its once-effects land: cash, morale,
 ## reputation, members, the old coach's note (1 in 3 an old habit costs technique), the lefty edge and the hot head for her bout.
@@ -317,8 +315,20 @@ static func end_week(career: Career) -> void:
 		career.add_news("Month-end bill paid: %s for wages and upkeep." % GameMoney.text(int(money["billed"])))
 	if int(roll["delta"]) > 0:
 		career.add_news("%d new member%s joined this week. %d on the books." % [int(roll["delta"]), "" if int(roll["delta"]) == 1 else "s", career.members])
+	# S399 the arranged overdraft: interest on the drawn balance, the income trail for the limit, the 12-week pull.
+	if career.overdraft_on and career.cash < 0:
+		var _oi := Overdraft.weekly_interest(career.cash)
+		career.cash -= _oi
+		career.ledger.push_front({"d": career.day, "t": "Overdraft interest", "amount": -_oi})
+	career.income_history = Overdraft.trail(career.income_history, int(income["total"]))
+	var od_lim := Overdraft.limit(career.income_history.slice(-4).reduce(func(a, b): return a + b, 0), int(floor(float(career.day) / 7.0))) if career.overdraft_on else 0
+	career.overdraft_drawn_weeks = Overdraft.next_drawn(career.cash, career.overdraft_drawn_weeks)
+	if career.overdraft_on and Overdraft.should_pull(career.overdraft_drawn_weeks):
+		career.overdraft_on = false
+		career.overdraft_drawn_weeks = 0
+		career.add_news("The bank has pulled the overdraft: twelve weeks drawn.")
 	var net := int(income["total"]) - int(costs["total"])
-	career.weeks_below = GymBills.next_below(career.cash, career.weeks_below)
+	career.weeks_below = GymBills.next_below(career.cash, career.weeks_below, od_lim)
 	var status := GymBills.status(career.cash, net, career.weeks_below)
 	if status == "closed" and not career.closed:
 		career.closed = true

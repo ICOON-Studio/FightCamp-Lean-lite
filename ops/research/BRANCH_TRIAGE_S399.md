@@ -102,3 +102,15 @@ chain (ANIM_HANDOVER_S397.md). The other 34 carry commits main does not have: ke
 are this session's saves; claude/fighter-profiles-407aee is FIGHTERMODEL3's BASE; claude/defflow1 has 40).
 
 **S399 batch 2 DONE (operator "Yes, delete them"):** the 5 above deleted from origin.
+
+## S400 third pass (operator "i want all fixes merged") - what each leftover branch still holds
+Read-only check of 26 branches (file presence on main + commit messages; git cherry marks everything "+" because main
+collects by diff). RESULT: no rules / menu / tool branch is left to merge - every one is already on main.
+- Already on main, delete batch 3 (needs his OK): goose/issue-8, goose/issue-13, goose/issue-14, goose/issue-16,
+  goose/issue-17, goose/issue-18, goose/issue-48, qwen/bodytrack1, qwen/paceaim1, qwen/ground3, qwen/prodebut1,
+  qwen/kallinums1, qwen/noref1, qwen/sound1, cursor/ground2a, cursor/trainclips1 (16).
+- Fight animation / BJJ, NOT on main, held by the S399 rule (no layer work until clips match the source): claude/boxmap1,
+  claude/theatre-ground, claude/defflow1 (partly on main), cursor/fightcard1 (partly), agy/refbreak1 (referee dropped in
+  NOREF S386 - obsolete), arena/6e41a147 (rejected on main d0e95c2e), claude/jabfix1 (stale single bake).
+- Keep as record: ziva/lean (S311-S317 playtest notes), goose/issue-53 (menu direction review), wip/s399-s394-portraits
+  (S394 gym portraits, scored 4.5 and not used).

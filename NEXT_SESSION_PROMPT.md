@@ -65,6 +65,19 @@ ops/research/BRANCH_TRIAGE_S399.md), report the worse ones with numbers; "keep c
 polishing menus"; "no idling".
 SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet, blind, every-frame eyes | Cursor GPT-5.6 Sol High.
 
+UPDATE 11-08 07:30 (S399 main, last):
+- CURSOR GPT LIMIT: GPT-5.6 Sol + Codex 5.3 hit Cursor's monthly limit (resets 2026-12-07). The first RETARGET2 run died on it
+  silently. Cursor seat now grok-4.7-high (composer-2.5 also answers); seat_dispatch passes CURSOR_MODEL (f387789a). RETARGET2
+  relaunched 07:24 on Grok 4.7 High (wt/LEAN_RETARGET2, branch cursor/retarget2, BASE cursor/retarget1). CHECK FIRST: its PR, or
+  wt/RETARGET2_dispatch_out.txt + ops/AgentComms/seat_dispatch.log. #82 FIGHTERMODEL3's exit 1 may be the same limit - read
+  wt/FIGHTERMODEL3_dispatch_out.txt, and re-run it on Grok if so.
+- stylized-test: brow cards on 10 of 23 MetaHumans exported ~12 cm low (the "chin scribble"); fixed, re-filming A vs retuned
+  toon D, then blind critics. grappling-rater: S1-S3 faster films verified on his OK (blind 5/5/5.5, ab454fdd); full re-measure
+  + regression running. rokoko-back idle (waits for RETARGET2).
+- Side-session reports land in the S399 main session, not here: read them with mcp__ccd_session_mgmt__get_session / list_events
+  on the ids below, and message them with SendMessage to the local_ id.
+SETTINGS (overrides the line above): Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor Grok 4.7 High until 12/7.
+
 # S399 - next session (written S398 main session, 2026-11-07)
 
 START: `git pull && python ops/Tools/agent_comms.py start`, read this block, then `where_we_are.py roll S399` + map redraw.

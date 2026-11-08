@@ -541,7 +541,10 @@ def run_gd(wt: Path, script: str, args: str = "", pass_line: str = "") -> dict:
     err = SCRIPT_ERR_RE.search(out)
     found = pass_line in out if _literal(pass_line) else None
     ok = p.returncode == 0 and not err and found is not False
-    tail = [l for l in out.splitlines() if l.strip()][-1:] or ["(no output)"]
+    # S400: the queue's own "GODOT_SLOT start after 0 s" (stderr, appended last) stood in every PR's RESULT line - the
+    # test's own result line is the last one naming failures=, else its last line that is not the queue's
+    lines = [l for l in out.splitlines() if l.strip() and not l.startswith("GODOT_SLOT")]
+    tail = [l for l in lines if "failures=" in l][-1:] or lines[-1:] or ["(no output)"]
     return {"script": script, "ok": ok, "rc": p.returncode, "pass_line": pass_line, "found": found,
             "why": "script error" if err else ("timeout" if p.returncode == 124 else ""), "last": tail[0][:200]}
 
@@ -670,6 +673,16 @@ def film(wt: Path, contract: dict, mp4: Path) -> str:
         c = sh(["ffmpeg", "-y", "-loglevel", "error", "-i", avi, "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "23", "-an", mp4], timeout=900)
         if c.returncode != 0 or not mp4.is_file():
             return "ffmpeg failed: " + (c.stderr or "")[-200:]
+        # S400 (operator C247/C248 "clip is not playing"): RETARGET1's films were ONE frame (0.03 s) and went on the board
+        # with a score. A film under 2 s is a failed render - never judged, never posted.
+        d = sh(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", mp4], timeout=60)
+        try:
+            secs = float((d.stdout or "0").strip() or 0)
+        except ValueError:
+            secs = 0.0
+        if secs < 2.0:
+            mp4.unlink(missing_ok=True)
+            return f"film only {secs:.2f} s long - a failed render (log {mp4.with_suffix('.log')})"
         return ""
     finally:
         try:
@@ -994,6 +1007,10 @@ def run(task: str) -> int:
             before_judge.join(timeout=2400)   # the background before-film judge (judge_later) must be done for the PR and board
         board = post_board(task, before, after, branch) if (before.get("film") or after.get("film")) else ""
         title = f"{task}: {short_title(task, info.get('title', ''))[:100]} ({info['agent']}, unattended)"
+        # S400: FIGHTERMODEL3 stopped mid-work on Cursor's monthly limit and still read as a landed PR
+        if re.search(r"usage limit|hit your .{0,20}limit|ActionRequiredError", out_tail, re.I):
+            title = "[STOPPED: seat usage limit, half-done] " + title
+            log(f"LIMIT {task}: the seat stopped on a usage limit - PR marked half-done")
         body = pr_body(task, info, checks, committed, stray, before, after, out_tail)
         pr = sh(["gh", "pr", "create", "--repo", REPO, "--base", "main", "--head", branch, "--title", title, "--body", body],
                 cwd=wt, timeout=300) if push.returncode == 0 else push

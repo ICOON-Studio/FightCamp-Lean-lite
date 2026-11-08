@@ -40,6 +40,7 @@ const Pose := preload("res://scripts/grapple/GrapplePose.gd")
 const Player := preload("res://scripts/grapple/GrapplePlayer.gd")
 const MH := preload("res://scripts/fight3d/MHRig.gd")
 const Kit := preload("res://scripts/fight3d/FighterKit.gd")
+const Probe := preload("res://tools/grapple_mesh_probe.gd")
 ## The browser's two women and their colours (GrappleBrowser.gd: BODIES / TOPS / TRUNKS / TRIM_DARKEN).
 const BODIES := ["res://assets/models/metahuman/mh_boxer_11.glb", "res://assets/models/metahuman/mh_boxer_10.glb"]
 const TOPS := [Color("#ff6a5c"), Color("#5b93ff")]
@@ -131,6 +132,9 @@ var nofilm := false
 var noik := false
 var chain: Array = []
 var fixed_cam := false
+var mesh := false   # `mesh=1`: the MESH-true overlap too (tools/grapple_mesh_probe.gd), mesh_in_m / mesh_park_m per row
+var _probe: Array = []
+var _mesh_frames: Array = []   # per measured frame: Probe.inside's {key: depth}
 var _dbg: Array = []   # `debugcaps=1`: GrappleDrawn.parts drawn as translucent capsules over the women (S399 critic check)
 
 
@@ -153,6 +157,8 @@ func _initialize() -> void:
 			game = true
 		elif s == "cam=fixed":
 			fixed_cam = true
+		elif s == "mesh=1":
+			mesh = true
 	var rows: Array = await measure(chain if not chain.is_empty() else ids)
 	print("GORBIT DONE %d/%d" % [rows.size(), ids.size()])
 	quit(0)
@@ -194,6 +200,11 @@ func measure(ids: Array) -> Array:
 		var sw := skel.global_transform
 		legs.append((sw * skel.get_bone_global_rest(skel.find_bone("LeftUpperLeg")).origin).distance_to(
 			sw * skel.get_bone_global_rest(skel.find_bone("LeftFoot")).origin))
+		if mesh:
+			var pr: RefCounted = Probe.new()
+			pr.setup(skel)
+			print("GMESH setup %s verts %d rest_error %.4f" % [["red", "blue"][i], pr.rest.size(), pr.rest_error(skel)])
+			_probe.append(pr)
 		_watch(skel, i)
 	var player: Node = Player.new()
 	player.set("contact", game)
@@ -336,6 +347,7 @@ func measure(ids: Array) -> Array:
 				_src_inside(player.joints_at(t), rad_k, src_tin, src_depth)
 		var row := _numbers(tracks, ov, shown)
 		_inside_numbers(row, tin, limb_depth)
+		_mesh_numbers(row)
 		var src := {}
 		_inside_numbers(src, src_tin, src_depth)
 		row["src_torso_in_m"] = src["torso_in_m"]
@@ -469,6 +481,7 @@ func _chain(toks: Array, db: Array, player: Node, poses: Array, legs: Array, cam
 	var n := int(st["f"])
 	var row := _numbers(tracks, PackedFloat32Array(), n / FPS)
 	_inside_numbers(row, tin, limb_depth)
+	_mesh_numbers(row)
 	# the longest stretch with every tracked bone still
 	var still := 0
 	var still_best := 0
@@ -597,6 +610,18 @@ func _frame() -> void:
 
 ## This frame's torso-in-torso depth and each limb's depth inside the other's torso or head (both women, GrappleDrawn.parts).
 func _inside(tin: PackedFloat32Array, limb_depth: Dictionary) -> void:
+	if mesh:
+		if tin.is_empty():
+			_mesh_frames.clear()
+		var hit: Dictionary = Probe.inside(_probe[0], _probe[1])
+		_mesh_frames.append(hit)
+		if OS.get_cmdline_user_args().has("meshtrace=1"):
+			var keys := hit.keys()
+			keys.sort_custom(func(a, b): return float(hit[a]) > float(hit[b]))
+			var line := "MTRACE %d" % (_mesh_frames.size() - 1)
+			for k in keys.slice(0, 4):
+				line += " | %s %.3f" % [k, float(hit[k])]
+			print(line)
 	if _cache[0].size() < GD.BONES.size() or _cache[1].size() < GD.BONES.size():
 		tin.append(0.0)
 		for k in limb_depth:
@@ -648,6 +673,48 @@ func _src_inside(js: Array, k: float, tin: PackedFloat32Array, depth: Dictionary
 		depth[key] = arr
 
 
+## The mesh-true numbers of the frames _inside saw (`mesh=1`): mesh_in_m the deepest any part of one woman is in the other on
+## any frame; mesh_park_m the deepest a part stays in for PARK_F frames in a row, where, and the three worst parts so held.
+func _mesh_numbers(row: Dictionary) -> void:
+	if not mesh:
+		return
+	var peak := 0.0
+	var peak_at := ""
+	var keys := {}
+	for i in _mesh_frames.size():
+		for k in _mesh_frames[i]:
+			keys[k] = true
+			if float(_mesh_frames[i][k]) > peak:
+				peak = float(_mesh_frames[i][k])
+				peak_at = "%s %.2fs" % [k, i / FPS]
+	var worst: Array = []
+	for k in keys:
+		var best := 0.0
+		var at := 0
+		for i in range(0, _mesh_frames.size() - PARK_F + 1):
+			var lo := INF
+			for q in PARK_F:
+				lo = minf(lo, float((_mesh_frames[i + q] as Dictionary).get(k, 0.0)))
+			if lo > best:
+				best = lo
+				at = i
+		if best > 0.0:
+			worst.append([best, "%s %.2fs" % [k, at / FPS]])
+	worst.sort_custom(func(a, b): return a[0] > b[0])
+	var frames3 := 0
+	for h in _mesh_frames:
+		for k in h:
+			if float(h[k]) > 0.03:
+				frames3 += 1
+				break
+	row["mesh_in_m"] = snappedf(peak, 0.001)
+	row["mesh_in_at"] = peak_at
+	row["mesh_park_m"] = snappedf(float(worst[0][0]) if not worst.is_empty() else 0.0, 0.001)
+	row["mesh_park_at"] = str(worst[0][1]) if not worst.is_empty() else ""
+	row["mesh_worst"] = worst.slice(0, 3).map(func(x): return "%.3f %s" % [x[0], x[1]])
+	row["mesh_frames_3cm"] = frames3
+
+
 func _inside_numbers(row: Dictionary, tin: PackedFloat32Array, limb_depth: Dictionary) -> void:
 	var peak := 0.0
 	var deep := 0
@@ -686,6 +753,8 @@ func _watch(skel: Skeleton3D, who: int) -> void:
 		var hb := skel.find_bone("Head")
 		if hb >= 0:
 			d["Face"] = gt * (skel.get_bone_global_pose(hb) * GD.face_local(skel))
+		if mesh and _probe.size() > who:
+			_probe[who].capture(skel)
 		_cache[who] = d)
 
 

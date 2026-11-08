@@ -42,8 +42,8 @@ def moves() -> list[dict]:
     return res
 
 
-def run_arm(toks: list[str], game: bool) -> dict:
-    args = ["nofilm=1", "ids=" + ",".join(toks)] + (["game=1"] if game else [])
+def run_arm(toks: list[str], game: bool, extra: list[str] | None = None) -> dict:
+    args = ["nofilm=1", "ids=" + ",".join(toks)] + (["game=1"] if game else []) + list(extra or [])
     cmd = [sys.executable, str(ROOT / "Tools" / "godot_slot.py"), "run", "--who", "grapple", "--", str(GODOT), "--headless",
            "--fixed-fps", "30", "--audio-driver", "Dummy", "--path", str(LEAN), "--script", "res://tools/grapple_orbit.gd",
            "--"] + args
@@ -66,14 +66,15 @@ def badness(row: dict) -> float:
     return sum(max(0.0, float(row.get(k, 0.0)) / bar - 1.0) for k, bar in BARS.items())
 
 
-def measure(label: str, game_only: bool, toks: list[str] | None) -> None:
+def measure(label: str, game_only: bool, toks: list[str] | None, extra: list[str] | None = None) -> None:
     ms = moves()
     if toks:
         ms = [m for m in ms if m["tok"] in toks or m["id"] in toks]
     data = {"moves": ms}
     if not game_only:
         data["pure"] = run_arm([m["id"].rstrip("r") for m in ms], False)
-    data["game"] = run_arm([m["tok"] for m in ms], True)
+    data["game"] = run_arm([m["tok"] for m in ms], True, extra)
+    data["extra"] = list(extra or [])
     out = ROOT / "AgentComms" / f"grapplefix_{label}.json"
     out.write_text(json.dumps(data, indent=1) + "\n", encoding="utf-8")
     g = data["game"]
@@ -83,7 +84,15 @@ def measure(label: str, game_only: bool, toks: list[str] | None) -> None:
         r = g.get(m["id"])
         if r:
             print(f"  {m['id']:6} {m['title'][:34]:34} torso {r['torso_in_m']:.3f} park {r['limb_park_m']:.3f} "
-                  f"pop {r['spike_m']:.3f} jerk {r['jerk_p95']:6.1f} flips {r['flips_s']:.2f}  {','.join(fails(r))}")
+                  f"pop {r['spike_m']:.3f} jerk {r['jerk_p95']:6.1f} flips {r['flips_s']:.2f}  {','.join(fails(r))}"
+                  + (f"  MESH park {r['mesh_park_m']:.3f} f3cm {r['mesh_frames_3cm']}/{r['measured_frames']} {r['mesh_park_at']}"
+                     if "mesh_park_m" in r else ""))
+    if any("mesh_park_m" in r for r in g.values()):
+        mp = sorted(float(r["mesh_park_m"]) for r in g.values())
+        f3 = sum(int(r["mesh_frames_3cm"]) for r in g.values())
+        nf = sum(int(r["measured_frames"]) for r in g.values())
+        print(f"MESH {label}: park median {mp[len(mp) // 2]:.3f} p90 {mp[int(len(mp) * 0.9)]:.3f}; frames past 3 cm {f3}/{nf} "
+              f"({100.0 * f3 / max(1, nf):.0f}%)")
 
 
 def cell(r: dict | None, k: str, fmt: str) -> str:
@@ -145,7 +154,8 @@ def main(argv: list[str]) -> int:
         return 0
     label = argv[argv.index("--label") + 1] if "--label" in argv else "main"
     toks = argv[argv.index("--ids") + 1].split(",") if "--ids" in argv else None
-    measure(label, "--game-only" in argv, toks)
+    extra = argv[argv.index("--extra") + 1].split() if "--extra" in argv else None
+    measure(label, "--game-only" in argv, toks, extra)
     return 0
 
 
