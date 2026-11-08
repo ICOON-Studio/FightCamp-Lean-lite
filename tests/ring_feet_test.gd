@@ -135,7 +135,11 @@ func _scene_walk() -> void:
 		stage._process(DT)
 		await process_frame
 		left -= 1
-	_check(done, "a director's walk arrives (%d frames left)" % left)
+	# S406: red on CI only, with 0 frames left while "on its mark" passes. These numbers say which half of RingFeet.arrived holds it.
+	var mid_off: float = (Vector2(to.x, to.z) - bx["rig"].mid() - (bx["rig"].plan.centre() as Vector2)).length()
+	var aim_off: float = Vector3(to.x - bx["walk_at"].x, 0.0, to.z - bx["walk_at"].z).length()
+	_check(done, "a director's walk arrives (%d frames left; step in the air %s, feet %.3f m off, allowed %.3f; aim %.3f m off)" % [
+		left, str(not (bx["rig"].plan.pair as Dictionary).is_empty()), mid_off, RingFeet.ARRIVE_M * 1.5, aim_off])
 	_check(Vector2(n.position.x - to.x, n.position.z - to.z).length() < 0.06, "... on its mark")
 	_check(str((bx["ap"] as AnimationPlayer).current_animation) != "af_walk", "... with no casual walk")
 	stage.scene_mode(false)

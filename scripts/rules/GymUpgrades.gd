@@ -106,7 +106,7 @@ static func blocked(id: String, owned: Array, cash: int) -> String:
 	if has(owned, id):
 		return "owned"
 	if cash < int(u["price"]):
-		return "%d short" % (int(u["price"]) - cash)
+		return "$%d short of the price" % (int(u["price"]) - cash)
 	return ""
 
 
@@ -125,4 +125,4 @@ static func move_blocked(tier: int, cash: int) -> String:
 	if tier >= PREMISES.size() - 1:
 		return "the biggest premises already"
 	var cost := int(PREMISES[tier + 1]["move"])
-	return "%d short" % (cost - cash) if cash < cost else ""
+	return "$%d short of the price" % (cost - cash) if cash < cost else ""

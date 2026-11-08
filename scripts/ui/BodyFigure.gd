@@ -33,6 +33,7 @@ const NAMES := {
 # So left_eye centre.x > right_eye centre.x, and same for ribs.
 var _values := {}
 var _flash := {}
+var no_plate := false   # S405 the live side holo: nothing behind the figure
 var blink := false   # S405 the live round's side holo: a struck place blinks BLINKS times over BLINK_S instead of one fade
 const BLINK_S := 1.2
 const BLINKS := 3.0
@@ -92,7 +93,7 @@ func set_portrait(p: Dictionary) -> void:
 	_anchors = p.get("anchors", {})
 	_mask = p.get("mask") as Texture2D
 	holo = bool(p.get("holo", false))
-	_plate(holo and _tex != null)
+	_plate(holo and _tex != null and not no_plate)
 	if _tex != null and _mask != null:
 		_build_skin()
 	elif _skin != null:

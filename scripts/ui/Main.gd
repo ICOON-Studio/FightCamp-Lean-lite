@@ -17,23 +17,14 @@ const SaveGame := preload("res://scripts/state/SaveGame.gd")
 const FightView := preload("res://scripts/fight3d/FightView.gd")
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 
+const MainFlow := preload("res://scripts/ui/MainFlow.gd")
 const TITLE := preload("res://scenes/Title.tscn")
 const CREATE := preload("res://scenes/Create.tscn")
 const SHELL := preload("res://scenes/Shell.tscn")
-const INTERVIEW := preload("res://scenes/modals/Interview.tscn")
-const REVIEW := preload("res://scenes/modals/WeekReview.tscn")
 const POSTER := preload("res://scenes/modals/PosterReveal.tscn")
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const FighterPage := preload("res://scripts/ui/areas/FighterPage.gd")
 const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
-const INFO := preload("res://scenes/modals/InfoModal.tscn")
-const CAMP := preload("res://scenes/modals/Camp.tscn")
-const WEIGH := preload("res://scenes/modals/WeighIn.tscn")
-const FIGHT := preload("res://scenes/modals/FightNight.tscn")
-const GOALTALK := preload("res://scenes/modals/GoalTalk.tscn")
-const TRIAL := preload("res://scenes/modals/Trial.tscn")
-const PROOFFER := preload("res://scenes/modals/ProOffer.tscn")
-const OPEN_NIGHT := preload("res://scenes/modals/OpenNight.tscn")
 const MatNight := preload("res://scripts/ui/MatNight.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
 const Settings := preload("res://scripts/state/Settings.gd")
@@ -168,63 +159,30 @@ func _put_screen(scene: PackedScene) -> void:
 
 
 func _render_modal() -> void:
-	if no_render:
-		return
-	UI.clear(_modal_layer)
-	_modal_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	# Fight night in 3D: while a round plays the ring has the screen; the words modal draws over it between rounds.
-	if FightView.sync(self, _fight_layer) or modal.is_empty():
-		return
-	_modal_layer.mouse_filter = Control.MOUSE_FILTER_STOP
-	var scrim := ColorRect.new()
-	scrim.color = Color(0.04, 0.027, 0.02, 0.72)
-	scrim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_modal_layer.add_child(scrim)
-	var center := CenterContainer.new()
-	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_modal_layer.add_child(center)
-	var scene: PackedScene = {"interview": INTERVIEW, "review": REVIEW, "info": INFO, "camp": CAMP, "weighin": WEIGH,
-		"fight": FIGHT, "goaltalk": GOALTALK, "trial": TRIAL, "prooffer": PROOFFER, "poster": POSTER, "open": OPEN_NIGHT}[modal["type"]]
-	var node := scene.instantiate()
-	center.add_child(node)
-	node.build(self, modal)
+	MainFlow.render_modal(self)
 
 
 ## Redraws the open moment after its data changed (a pick, a round).
 func redraw_modal() -> void:
-	_render_modal()
+	MainFlow.redraw_modal(self)
 
 
 func modal_node() -> Node:
-	if _modal_layer.get_child_count() < 2:
-		return null
-	return _modal_layer.get_child(1).get_child(0)
+	return MainFlow.modal_node(self)
 
 
 func toast(text: String) -> void:
-	UI.clear(_toast_layer)
-	var p := PanelContainer.new()
-	p.theme_type_variation = "Toast"
-	p.add_child(UI.label(text))
-	p.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
-	p.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	p.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	p.offset_bottom = -24
-	_toast_layer.add_child(p)
-	_toast_timer.start(2.6)
-	_toast_frame = Engine.get_process_frames()
+	MainFlow.toast(self, text)
 
 
 func clear_toast() -> void:
-	_toast_timer.stop()
-	UI.clear(_toast_layer)
+	MainFlow.clear_toast(self)
 
 
 ## S352 (board review: "toasts stay up across several screens and cover content"): a new screen or moment clears the
 ## toast of an EARLIER action; one raised by the same action (same frame, e.g. "signed" then the page) stays up.
 func _drop_old_toast() -> void:
-	if Engine.get_process_frames() != _toast_frame:
-		clear_toast()
+	MainFlow.drop_old_toast(self)
 
 
 ## ---------- time ----------
@@ -302,17 +260,11 @@ func _nav_area(area: String, tab: int, who: String) -> void:
 
 
 func open_modal(m: Dictionary) -> void:
-	if running:
-		pause()
-	modal = m
-	_drop_old_toast()
-	_render_modal()
+	MainFlow.open_modal(self, m)
 
 
 func close_modal() -> void:
-	modal = {}
-	_render_modal()
-	render()
+	MainFlow.close_modal(self)
 
 
 func _unhandled_input(event: InputEvent) -> void:

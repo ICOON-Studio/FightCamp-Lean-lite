@@ -13,10 +13,9 @@ const BodyTurn := preload("res://scripts/ui/BodyTurn.gd")
 const BodyTip := preload("res://scripts/ui/BodyTip.gd")
 const BodyCallouts := preload("res://scripts/ui/BodyCallouts.gd")
 const RoundHits := preload("res://scripts/ui/RoundHits.gd")
-const UI := preload("res://scripts/ui/TV.gd")   # the fight's graphics keep the dark TV look
 
-const FIG_SIZE := Vector2(340, 420)
-const TOP := 322.0   # clear of her ring meters (HudBars), and it still ends above the shout bar
+const FIG_SIZE := Vector2(320, 540)   # S405 operator: "a bit bigger (narrower)"; no plate behind it, so only the figure shows
+const TOP := 356.0   # clear of her ring meters (HudBars), and it still ends above the shout bar
 const EDGE := 28.0
 const CORNER := ["red", "blue"]
 const CORNER_WHO := ["a", "b"]
@@ -47,10 +46,11 @@ func _build() -> void:
 		panel.name = "BodyPanel%d" % side
 		panel.visible = false   # up with the scorebug (_process)
 		panel.mouse_filter = Control.MOUSE_FILTER_PASS
-		panel.add_theme_stylebox_override("panel", UI.box(Color(0.06, 0.05, 0.05, 0.28), Color(0, 0, 0, 0), 10, 0, 8, 6))
+		panel.add_theme_stylebox_override("panel", StyleBoxEmpty.new())   # S405 operator: "remove the background from the holos"
 		var fig: Control = BodyFigure.new()
 		fig.custom_minimum_size = FIG_SIZE
 		fig.set("blink", true)
+		fig.set("no_plate", true)
 		var glb := str(view.get("bodies")[side]) if view.get("bodies") != null else ""
 		var still: Dictionary = BodyFigure.portrait_for(glb, CORNER[side])
 		if still.get("holo", false) or not BodyTurn.attach(fig, glb, CORNER[side]):
@@ -58,7 +58,9 @@ func _build() -> void:
 		panel.add_child(fig)
 		fig.tip_fn = _fig_tip.bind(fig, side)
 		BodyTip.attach(fig)
-		words.append(RoundHits.lay_on(fig, {}))   # S405 operator: "a number on each part ... how many hits each area has received"
+		var layer := RoundHits.lay_on(fig, {})
+		layer.set("size_px", 26)
+		words.append(layer)   # S405 operator: "a number on each part ... how many hits each area has received"
 		var co := BodyCallouts.attach(fig, still, -1.0 if side == 0 else 1.0, _place_tip.bind(side))
 		if co != null:
 			co.set("line_fn", _spot_line.bind(side))

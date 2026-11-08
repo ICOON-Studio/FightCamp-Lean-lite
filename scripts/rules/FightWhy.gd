@@ -92,6 +92,20 @@ static func read(rounds: Array, first: String, opp: String) -> Dictionary:
 	if float(pt["tank"]) >= 1.0:
 		out["against"] = str(out["against"]) + " Wrong answers punished cost %s %d of the tank for the rest of the fight." % [first,
 			int(round(float(pt["tank"])))]
+	# R11C: a standing count on the cards says what it cost. Names the round(s) where a boxer took a count.
+	var count_text := _count_line(rounds, first, opp)
+	if count_text != "":
+		if count_text.contains("|||"):
+			var parts := count_text.split("|||")
+			# Both sides: first part is player (against), second is opponent (plan).
+			out["against"] = str(out["against"]) + " " + str(parts[0])
+			out["plan"] = str(out["plan"]) + " " + str(parts[1])
+		elif count_text.contains("on the cards"):
+			# Player's boxer took counts.
+			out["against"] = str(out["against"]) + " " + count_text
+		else:
+			# Opponent took counts.
+			out["plan"] = str(out["plan"]) + " " + count_text
 	return out
 
 
@@ -204,3 +218,52 @@ static func _top(counts: Dictionary) -> String:
 			top = int(counts[id])
 			out = str(id)
 	return out
+
+
+## R11C: a standing count on the cards says what it cost. Names the round(s) where a boxer took a count.
+## If any round has a non-empty stopped, returns "": the stoppage already explains the bout.
+## Otherwise returns the line for the player's boxer, the opponent, or both (each in its own field).
+static func _count_line(rounds: Array, first: String, opp: String) -> String:
+	# Check if any round was stopped: the stoppage already explains the bout.
+	for r in rounds:
+		if str(r.get("stopped", "")) != "":
+			return ""
+	# Collect rounds where each side took counts.
+	var my_rounds: Array = []
+	var opp_rounds: Array = []
+	for i in rounds.size():
+		var r: Dictionary = rounds[i]
+		var counts: int = int(r.get("counts", 0))
+		if counts <= 0:
+			continue
+		var down: String = str(r.get("down", ""))
+		if down == "a":
+			my_rounds.append(str(i + 1))
+		elif down == "b":
+			opp_rounds.append(str(i + 1))
+	# No counts at all: return empty.
+	if my_rounds.is_empty() and opp_rounds.is_empty():
+		return ""
+	# Build the line for one side.
+	var my_line := ""
+	if not my_rounds.is_empty():
+		my_line = "%s took a standing count in %s: that round went wide on the cards." % [first, _rounds_phrase(my_rounds)]
+	var opp_line := ""
+	if not opp_rounds.is_empty():
+		opp_line = "%s took a standing count in %s: that round went wide your way." % [opp, _rounds_phrase(opp_rounds)]
+	# Return both lines separated by a marker the caller can split on.
+	if my_line != "" and opp_line != "":
+		return my_line + "|||" + opp_line
+	return my_line + opp_line
+
+
+## "round 2" or "rounds 2 and 3": the rounds where a boxer took counts.
+static func _rounds_phrase(round_nums: Array) -> String:
+	if round_nums.size() == 1:
+		return "round %s" % round_nums[0]
+	if round_nums.size() == 2:
+		return "rounds %s and %s" % [round_nums[0], round_nums[1]]
+	# Three or more: "rounds 1, 2 and 3".
+	var last: String = str(round_nums[-1])
+	var rest: Array = round_nums.slice(0, -1)
+	return "rounds %s and %s" % [", ".join(PackedStringArray(rest)), last]

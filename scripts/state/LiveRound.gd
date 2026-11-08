@@ -23,6 +23,7 @@ const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 const CornerTrust := preload("res://scripts/rules/CornerTrust.gd")
+const LiveRoundAfter := preload("res://scripts/state/LiveRoundAfter.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
@@ -91,9 +92,7 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 ## S310 what the fight display shows after i exchanges: {a, b (energy), body [taken by her, by the opponent], hurt [hers,
 ## the opponent's]}. Kept on each exchange ("after") and the round ("start") so the display shows only what was watched.
 static func state(lv: Dictionary, i: int) -> Dictionary:
-	var bt: Dictionary = lv.get("body", {})
-	return {"a": maxf(0.0, her_energy(lv, i)), "b": maxf(0.0, opp_energy(lv, i)), "body": [int(bt.get("a", 0)), int(bt.get("b", 0))],
-		"hurt": [bool(lv.get("her_hurt", false)), bool(lv.get("opp_hurt", false))]}
+	return LiveRoundAfter.state(lv, i)
 
 
 static func live(m: Dictionary) -> Dictionary:
@@ -116,13 +115,11 @@ static func push_gassed(pace: String, energy: float) -> float:
 
 ## Her energy as exchange i starts (the round's start -> bell, less what the calls spent and the body shots she took).
 static func her_energy(lv: Dictionary, i: int) -> float:
-	var e: Dictionary = lv["e"]
-	return lerpf(float(e.get("a", 100.0)), float(e.get("a_end", 100.0)), float(i) / Exchanges.EXCHANGES) - float(lv["cost"]) 		- float((lv.get("body", {}) as Dictionary).get("a", 0)) * Exchanges.BODY_COST
+	return LiveRoundAfter.her_energy(lv, i)
 
 
 static func opp_energy(lv: Dictionary, i: int) -> float:
-	var e: Dictionary = lv["e"]
-	return lerpf(float(e.get("b", 100.0)), float(e.get("b_end", 100.0)), float(i) / Exchanges.EXCHANGES) 		- float((lv.get("body", {}) as Dictionary).get("b", 0)) * float(lv.get("body_cost_b", Exchanges.BODY_COST))
+	return LiveRoundAfter.opp_energy(lv, i)
 
 
 ## What the corner sees before the next exchange: {sit, clue, offers, coach, mark, grades {call: word}, at (seconds into
@@ -354,34 +351,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		f["bout"]["plan_tally"] = tally
 		rec["plan_tally"] = tally[arrow]
 	rec["clinch"] = cl
-	rec["clinch_line"] = ClinchRest.line(cl, names, ClinchRest.why(str(opp.get("style", "")), float(opp.get("rating", 60.0)), float(vals.get("technique", 55.0))))
-	rec["perks"] = perks
-	rec["perk_line"] = "%s makes %s miss and counters - Counter sense." % names if perks.has("counter_sense") else ""
-	lv["at"] = PlanFight.where_next(arrow, bool(s["won"]), sit)
-	exs.append(rec)
-	if call != "":
-		lv["cost"] = float(lv["cost"]) + float(Exchanges.CALLS[call]["cost"])
-	if not cl.is_empty():
-		lv["cost"] = float(lv["cost"]) - ClinchRest.refill(call)
-	# S323 the pace's price: Push spends the round's own drop faster, Save slower and she breathes back a little.
-	var e0: Dictionary = lv["e"]
-	var drop := maxf(0.0, float(e0.get("a", 100.0)) - float(e0.get("a_end", 100.0))) / Exchanges.EXCHANGES
-	lv["cost"] = float(lv["cost"]) + drop * (PaceAim.spend(pace) - 1.0) - PaceAim.recover(pace)
-	lv["cost"] = float(lv["cost"]) + float((lv.get("talk", {}) as Dictionary).get("cost", 0.0)) 		+ (Combos.combo_cost((Combos.row(str(su.get("combo", ""))).get("moves", []) as Array).size()) if fire else 0.0)
-	# A big exchange can leave the loser hurt for the next one.
-	var rating := float(opp.get("rating", 60.0))
-	lv["opp_hurt"] = (float(s["margin"]) > Exchanges.HURT_AT and rng.randf() < clampf(0.3 + (float(vals.get("power", 55.0)) - 55.0) / 100.0, 0.1, 0.6)) 		or str(rec["setup"]) == "landed"
-	lv["her_hurt"] = float(s["margin"]) < -Exchanges.HURT_AT and rng.randf() < clampf((0.3 + (rating - float(vals.get("chin", 55.0))) / 100.0) 		* float((lv.get("talk", {}) as Dictionary).get("hurt", 1.0)) * (1.6 if str(rec["setup"]) == "missed" or str(rd.get("result", "")) == "missed" else 1.0), 0.1, 0.8)
-	rec["after"] = state(lv, i + 1)
-	var run := 0
-	for j in range(exs.size() - 1, -1, -1):
-		if str((exs[j] as Dictionary)["mode"]) != str(lv["mode"]):
-			break
-		run += 1
-	lv["mode"] = Exchanges.next_mode(str(opp.get("style", "")), str(opp.get("weak", "")), n, i + 1, str(lv["mode"]),
-		opp_energy(lv, i + 1), bool(lv["opp_hurt"]), rng, run)
-	if TheRead.dropped(st, str(lv["mode"])):   # S333: a habit punished twice is gone; she fights another way
-		lv["mode"] = TheRead.swap(st, str(lv["mode"]), n + i)
+	LiveRoundAfter.after_exchange(lv, rec, s, rng, vals, opp, call, pace, fire, cl, st, n, i, perks, names)
 	if exs.size() < Exchanges.EXCHANGES:
 		return {}
 	return close(f, m)

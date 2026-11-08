@@ -18,6 +18,7 @@ const FONT_SIZE := 13
 
 var fig: Control
 var hits := {}
+var size_px := FONT_SIZE   # S405 the live holo, with no plate behind it, writes them bigger
 var drawn: Array = []   # the words this layer drew last ([text, position]) - tests read the drawn state
 
 
@@ -76,12 +77,12 @@ func _draw() -> void:
 		var text := "%s %d" % [WORDS[key], n]
 		var g: Dictionary = fig.call("_geom_px", key)
 		var c: Vector2 = g["c"]
-		var w := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE).x
+		var w := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, size_px).x
 		var x := c.x - float(g["rx"]) - 4.0 - w if key == "right_ribs" else c.x + float(g["rx"]) + 4.0
 		x = clampf(x, 2.0, maxf(2.0, size.x - w - 2.0))
-		var at := Vector2(x, c.y + FONT_SIZE * 0.35)
-		draw_string_outline(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE, 4, Color(0, 0, 0, 0.85))
+		var at := Vector2(x, c.y + size_px * 0.35)
+		draw_string_outline(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, size_px, 4, Color(0, 0, 0, 0.85))
 		var col := tint(n).lerp(Color.WHITE, 0.35)
 		col.a = 1.0
-		draw_string(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE, col)
+		draw_string(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, size_px, col)
 		drawn.append([text, at])

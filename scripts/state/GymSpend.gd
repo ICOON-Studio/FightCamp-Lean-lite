@@ -227,7 +227,7 @@ static func book_show(c: Career) -> String:
 	if not ClubShow.can_book(c.day, int(c.show.get("day", -1)), int(c.show.get("last", -1))):
 		return "one show at a time, %d weeks apart" % (ClubShow.EVERY_DAYS / 7)
 	if c.cash < ClubShow.COST:
-		return "%d short" % (ClubShow.COST - c.cash)
+		return "$%d short of the price" % (ClubShow.COST - c.cash)
 	c.pay(-ClubShow.COST, "Club show: hall, officials, doctor and ambulance, trophies")
 	c.show["day"] = ClubShow.show_day(c.day)
 	c.add_news("%s's club show is booked for %s. Tickets go on sale at the desk." % [c.gym_name, Clock.fmt(int(c.show["day"]))])
@@ -296,7 +296,7 @@ static func answer_talks(c: Career, f: Dictionary, keep: bool) -> String:
 	var t := StarDeal.terms(f, str(talks["step"]), int(talks.get("take", 0)))
 	if keep:
 		if c.cash < int(t["bonus"]):
-			return "%d short" % (int(t["bonus"]) - c.cash)
+			return "$%d short of the price" % (int(t["bonus"]) - c.cash)
 		c.pay(-int(t["bonus"]), "Signing bonus: %s stays on %d%%" % [f["first"], roundi(float(t["keep"]) * 100)])
 	else:
 		f["gym_share"] = float(t["lower"])

@@ -629,6 +629,12 @@
       "seat": "qwen",
       "title": "TASK SPLIT500 - QWEN (qwen3-coder) - make room in the two files at the 500-line limit",
       "brief": "SPLIT500"
+    },
+    {
+      "id": "SOUTHPAW3",
+      "seat": "qwen",
+      "title": "TASK SOUTHPAW3 - QWEN (qwen3-coder) - the guard knock-knee fix, carried onto the new clips",
+      "brief": "SOUTHPAW3"
     }
   ]
 }
