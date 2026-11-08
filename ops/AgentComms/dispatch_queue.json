@@ -577,6 +577,24 @@
       "seat": "qwen",
       "title": "TASK R11C - QWEN (qwen3-coder) - a standing count on the cards says what it cost",
       "brief": "R11C"
+    },
+    {
+      "id": "MENUHOME1",
+      "seat": "cursor",
+      "title": "TASK MENUHOME1 - CURSOR (Grok 4.7 High) - the Home page from the approved mockup",
+      "brief": "MENUHOME1"
+    },
+    {
+      "id": "MENUWEEK1",
+      "seat": "cursor",
+      "title": "TASK MENUWEEK1 - CURSOR (Grok 4.7 High) - the Fighter Week page from the approved mockup",
+      "brief": "MENUWEEK1"
+    },
+    {
+      "id": "MENUFIGHT1",
+      "seat": "cursor",
+      "title": "TASK MENUFIGHT1 - CURSOR (Grok 4.7 High) - Fight night's corner and result from the approved mockup",
+      "brief": "MENUFIGHT1"
     }
   ]
 }
