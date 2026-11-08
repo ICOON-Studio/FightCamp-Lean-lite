@@ -39,6 +39,8 @@ func _initialize() -> void:
 		_find(glb, _arg("take", "Boxing"))
 	elif mode == "steps":
 		_steps(glb, _arg("take", "ShadowBoxing"))
+	elif mode == "guards":
+		_guards(glb, _arg("take", "FightingIdle"))
 	else:
 		_bare(glb, clips, mode == "yaw")
 	quit(0)
@@ -197,6 +199,62 @@ func _steps(glb: String, take: String) -> void:
 			var fr := Vector2((frames[a + span]["RightToes"] as Vector3).x - (frames[a]["RightToes"] as Vector3).x, (frames[a + span]["RightToes"] as Vector3).z - (frames[a]["RightToes"] as Vector3).z).length()
 			print("RKSTEP %s %.2f-%.2f s travel %.2f m at %.0f deg off her facing (0 fwd, 180 back) fists<=%.2f m feet %.2f/%.2f m" % [take, a * DT, (a + span) * DT, tv.length(), rel, worst, fl, fr])
 		a += 3
+
+
+## mode=guards take=<..>: GUARD windows with life - LEN_S windows every 0.5 s where both fists stay within 0.45 m of the
+## head every frame (no punch) and the hips stay within 0.35 m of where they started (in place). Life: the hips' bob
+## (vertical p2p), the weight shift (hips sideways p2p across her facing), the hands' drift (path length a second, both,
+## off the head). Stance: + = the left foot leads (orthodox), else the window plays mirrored.
+func _guards(glb: String, take: String) -> void:
+	var body := MH.load_fighter(glb)
+	root.add_child(body)
+	var skel := body.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
+	var to_body := body.global_transform.affine_inverse() * skel.global_transform
+	var anim := RkRetarget.build(skel, RkClips.DIR + take + "_mixamo.fbx", 0.0, 999.0, true)
+	var frames: Array = []
+	for f in int(anim.length / DT) + 1:
+		var t := minf(f * DT, anim.length)
+		for tr in anim.get_track_count():
+			var b := skel.find_bone(str(anim.track_get_path(tr)))
+			if b < 0:
+				continue
+			if anim.track_get_type(tr) == Animation.TYPE_ROTATION_3D:
+				skel.set_bone_pose_rotation(b, anim.rotation_track_interpolate(tr, t))
+			else:
+				skel.set_bone_pose_position(b, anim.position_track_interpolate(tr, t))
+		frames.append(_pose(skel, func(i: int) -> Transform3D: return to_body * _global(skel, i)))
+	var len_s := float(_arg("len", "6.0"))
+	var span := int(len_s / DT)
+	var a := 0
+	while a + span < frames.size():
+		var worst := 0.0
+		var wander := 0.0
+		var ylo := INF
+		var yhi := -INF
+		var drift := 0.0
+		var h0: Vector3 = frames[a]["Hips"]
+		var face: Vector3 = (frames[a]["LeftHand"] + frames[a]["RightHand"]) * 0.5 - h0
+		var side := Vector3(face.z, 0.0, -face.x).normalized()
+		var slo := INF
+		var shi := -INF
+		var lead := 0.0
+		for k in range(a, a + span + 1):
+			var p: Dictionary = frames[k]
+			for h in ["LeftHand", "RightHand"]:
+				worst = maxf(worst, ((p[h] as Vector3) - (p["Head"] as Vector3)).length())
+				if k > a:
+					drift += (((p[h] as Vector3) - (p["Head"] as Vector3)) - ((frames[k - 1][h] as Vector3) - (frames[k - 1]["Head"] as Vector3))).length()
+			var hp: Vector3 = p["Hips"]
+			wander = maxf(wander, Vector2(hp.x - h0.x, hp.z - h0.z).length())
+			ylo = minf(ylo, hp.y)
+			yhi = maxf(yhi, hp.y)
+			slo = minf(slo, hp.dot(side))
+			shi = maxf(shi, hp.dot(side))
+			lead += ((p["LeftToes"] as Vector3) - (p["RightToes"] as Vector3)).dot(Vector3(face.x, 0.0, face.z).normalized()) / (span + 1)
+		if worst <= float(_arg("fist", "0.45")) and wander <= float(_arg("wander", "0.35")):
+			print("RKGUARD %s %.1f-%.1f s bob %.3f m shift %.3f m drift %.2f m/s fists<=%.2f wander %.2f lead_L %.2f (%s)" % [take, a * DT,
+				(a + span) * DT, yhi - ylo, shi - slo, drift / len_s, worst, wander, lead, "orthodox" if lead > 0.0 else "southpaw: mirror"])
+		a += 15
 
 
 func _report_yaw(name: String, w: Dictionary, frames: Array) -> void:

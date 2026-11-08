@@ -14,6 +14,16 @@ broken previews. RULES NOW: raw-vs-ours table before any fix; poses read inside 
 (eyes burst --count 12 --span 0.4) + leg crops on 3 consecutive frames; nothing on the board under 8/10 from a blind critic;
 NO layer work (WALK1 held, PR #78 SOUTHPAW2 + #77 rebuild design held) until the clips match the source.
 
+COLLECT FIRST (S400): PR #81 RETARGET1 (Punch PRO re-baked in Blender: 145 clips failing -> 0, bars as briefed; no films -
+rokoko-back is filming it; merge on his OK) | #82 FIGHTERMODEL3 (cursor exit 1, checks 4/9 - read before anything) | #80
+MONEYLAYOUT1 (stills -> blind critic, 8 bar) | #79 MONEYOD1 (careless still closes 10/10, sensible unchanged - collect) | #78
+SOUTHPAW2 + #77 ANIMREBUILD1 held. Merged late S399: Rokoko route 1e738905, follow-ups 7bb353a7, joins 7f8d3afb (30-s sequence
+6.5-7.0 blind); 3D toon LOST (realistic 6.1 / painted toon 4.9 / shader toon 4.5) - fight stays realistic; menus stylized ON
+(0e44e469, da26daf8); grappling 787/1314/1943/656 VERIFIED (his OK), sequences S1-S3 with live holds (critic 4-5 before the fix).
+GUARD ORDER: RETARGET2 (Cursor, running) fixes #81's jab stance collapse + end trim -> rokoko-back films it -> merge -> flip the proguard default (claude/rokoko-proguard d41e0c4d: re-baked Punch PRO idle + clean fidgets as the guard; blind 7 vs 6.5, film tmp/rokoko2/seq3/seq_proguard.mp4) -> re-film. rk_cross_b out of the pool merged 644177c1.
+Guard liveliness: the Rokoko actor only holds a guard in FightingIdle 9-18 / 36-45 s - a livelier guard needs the clean Punch
+PRO idle (#81) or a synthetic bounce layer (his call).
+
 LATEST (S399, end): rokoko-back pushed claude/rokoko-route (NOT merged - operator asked; ask him again): Rokoko jab/cross/guard
 play pure in the fight, clean as source (jab slide 0.012 vs raw 0.016, 0 snaps), blind best 7 (walk back 7/7/7 vs game walk 3,
 guard 6.5 vs 5); the Rokoko actor is southpaw (windows mirrored, the old "jab" was his rear straight); KnockOut Winner/Loser are

@@ -99,7 +99,17 @@ function measured(m) {
   if (!m || m.jerk_p95 === undefined) return "";
   return `<div class="line">Measured as drawn: jerk p95 <b>${m.jerk_p95}</b> m/s³ · <b>${m.flips_s}</b> flips/s · worst pop <b>${Math.round(m.spike_m * 100)}</b> cm · deepest inside the other body <b>${Math.round(m.overlap_peak_m * 100)}</b> cm (${m.overlap_deep_frames} of ${m.measured_frames} frames over 6 cm)${m.speed > 1 ? ` · played ${m.speed}x faster to fit (${m.length_s} s at the data's pace)` : ""}</div>`;
 }
+function seqCard(r) {
+  return `<div class="card"><div class="media"><video src="/media/${encodeURI(r.video)}" muted loop autoplay playsinline preload="metadata" data-z="v"></video></div>
+    <div class="body">
+      <div class="top"><span class="name">${esc(r.title)}</span></div>
+      <span class="chip ${esc(r.status_cls)}">${esc(r.status_text)}</span>
+      <div class="line"><b>sequence</b> · the moves back to back as the belt match chains them</div>
+      ${checks(r.checks)}
+    </div></div>`;
+}
 function card(r) {
+  if (r.kind === "sequence") return seqCard(r);
   const same = r.same_name > 1 ? ` · 1 of ${r.same_name} GrappleMap moves with this name` : "";
   return `<div class="card"><div class="media"><video src="/media/${encodeURI(r.video)}" muted loop autoplay playsinline preload="metadata" data-z="v"></video></div>
     <div class="body">
@@ -125,7 +135,7 @@ fetch("/api/grappling").then(r => r.json()).then(d => {
   const pct = k => (100 * (p[k] || 0) / total).toFixed(1);
   document.getElementById("counts").textContent = `${d.total} moves · ${d.rendered} rendered`;
   document.getElementById("strip").innerHTML =
-    `<span class="v"><span class="n">${p["verified"]}</span><span class="k">verified (your OK / Argon 9/10+)</span></span>
+    `<span class="v"><span class="n">${p["verified"]}</span><span class="k">verified (your OK / blind critic 7/10+)</span></span>
      <span class="p"><span class="n">${p["in progress"]}</span><span class="k">in progress (rendered, measured)</span></span>
      <span class="s"><span class="n">${p["not started"]}</span><span class="k">not started (not rendered yet)</span></span>
      <span class="bar"><i style="width:${pct("verified")}%;background:var(--good)"></i><i style="width:${pct("in progress")}%;background:var(--amber)"></i><i style="width:${pct("not started")}%;background:var(--line)"></i></span>`;

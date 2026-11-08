@@ -201,6 +201,20 @@ def build() -> dict:
         row["progress"] = "verified" if any(c.get("pass") is True for c in mine) else (
             "in progress" if row.get("video") or mine else "not started")
         rows.append(row)
+    # S399 GRAPPLEFIX1 joins (operator: "what matters is the sequence blending"): belt-match SEQUENCES filmed by
+    # tools/grapple_orbit.gd chain=..., one tile each; verdicts in clip_verdicts.json "grapple_seq".
+    seqs, _ = boxing.verdicts("grapple_seq")
+    for key, mine in seqs.items():
+        last = mine[-1] if mine else {}
+        passed = [c for c in mine if c.get("pass") is True]
+        src = str((passed[-1] if passed else last).get("source", ""))
+        text, cls = chip({}, mine)
+        row = {"id": key, "title": "Sequence %s: %s" % (key, last.get("chain", "")), "kind": "sequence", "checks": mine,
+               "status_text": text, "status_cls": cls, "belt": "every belt (positional)", "same_name": 1}
+        if src.startswith("ops/previews/") and (ROOT / src[len("ops/"):]).is_file():
+            row["video"] = src[len("ops/previews/"):]
+        row["progress"] = "verified" if passed else "in progress"
+        rows.append(row)
     prog = {"verified": 0, "in progress": 0, "not started": 0}
     for r in rows:
         prog[r["progress"]] += 1
@@ -210,7 +224,9 @@ def build() -> dict:
             "shown_rule": "Shown: the %d GrappleMap moves the no-gi belt match played in its %d films (most played first); "
                           "%d rendered, %d verified (%s)." % (len(rows), len(_films()), rendered,
                                                              prog["verified"], bar or "a recorded 100% check"),
-            "rule": "Each preview is the move PURE: the GrappleMap recording on our two women, nothing laid on top (no push-out, "
+            "rule": "S399: a VERIFIED tile plays the clip its passing check judged - the move or sequence AS THE GAME DRAWS IT "
+                    "(placement, limbs, holds, IK, the match's pacing; previews/lean_grapple_game, lean_grapple_seq). Each other "
+                    "preview (?all=1) is the move PURE: the GrappleMap recording on our two women, nothing laid on top (no push-out, "
                     "no wrist/ankle IK, no grips, no idle sway). In the belt match (branch claude/bjj9base, not on main) the "
                     "same moves get per-frame layers; the S379 audit measured that bout at jerk p95 1312 m/s^3 and 3.75 "
                     "direction flips a second a joint against 44 and 0.05 for the plain player - the match trembles, these "

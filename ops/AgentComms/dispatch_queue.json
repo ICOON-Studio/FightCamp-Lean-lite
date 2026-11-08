@@ -438,8 +438,9 @@
   {
    "task": "FIGHTERMODEL3",
    "seat": "cursor",
-   "status": "queued",
-   "queued": "2026-11-07T21:28"
+   "status": "launched",
+   "queued": "2026-11-07T21:28",
+   "launched": "2026-11-08T00:43"
   },
   {
    "task": "BJJBEAT1",
@@ -461,6 +462,12 @@
    "status": "moved_session",
    "queued": "2026-11-07T23:30",
    "note": "S399 operator: \"assign it to new session\" - grappling-rater Claude session"
+  },
+  {
+   "task": "RETARGET2",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-08T03:00"
   }
  ]
 }

@@ -39,7 +39,11 @@ const PANEL_W := 470
 ## it accelerates into the mat, and the body that lands takes an impact compression.
 const LANDS_S := 1.9
 ## S371 round 8: the longest a plain transition may run (the data's own pace kept in proportion below it).
-const MOVE_MAX_S := 4.0
+## S399 (operator: "the fight speed on fight clips need to be faster, long sequences"): a plain move plays at PACE of the data's
+## own pace, at most MOVE_MAX_S (was 1.0 and 4.0 s; real no-gi transitions run 1.5-2.5 s), never under MOVE_MIN_S.
+const MOVE_MAX_S := 2.5
+const MOVE_MIN_S := 0.6
+const PACE := 0.6
 const LANDS_RELIEF := 0.65
 
 var db: Array = []
@@ -52,7 +56,7 @@ var _landing := ""         # a paced fall finished on the next completion (its i
 ## S371 round 5: a won submission's final move holds its own last frame (the verdict pose). Handing over to the landed
 ## position re-aligns the pair, and a loose graph link teleported the finish 1.9 m on the one frame the judge stares at.
 var freeze_handover := false
-const HUB_S := 1.1   # a position change with no move behind it
+const HUB_S := 0.6   # a position change with no move behind it (S399: 1.1 -> 0.6, the operator's "faster")
 const FIN_EASE_S := 1.2
 const FIN_DIST := 0.72
 var _fin_on := false
@@ -337,6 +341,22 @@ func go_position(id: int) -> void:
 
 ## Play a move OUT of the position on screen (laid on it), then hold where it lands. `kind` (a BeltMatch kind:
 ## takedown, sweep ...) paces a fall: LANDS_S total, accelerating into the mat, with an impact when it lands.
+## The key times a move plays at in the match (play_out): a fall lands in LANDS_S, a plain move at PACE of the data's own pace
+## within MOVE_MIN_S..MOVE_MAX_S, lightly settled (relief 0.25). tools/grapple_orbit.gd films with the same.
+static func move_times(placed: Array, lands: bool) -> PackedFloat32Array:
+	if lands and placed.size() > 1:
+		return Timing.key_times_shape(placed, LANDS_S, LANDS_RELIEF)
+	var nat := Timing.key_times(placed)
+	var nat_total := float(nat[nat.size() - 1]) if nat.size() > 0 else 0.0
+	var total := clampf(nat_total * PACE, minf(MOVE_MIN_S, nat_total), MOVE_MAX_S)
+	if placed.size() > 2:
+		return Timing.key_times_shape(placed, total, 0.25)
+	var out := PackedFloat32Array()
+	for t in nat:
+		out.append(t * total / maxf(0.001, nat_total))
+	return out
+
+
 func play_out(move: Dictionary, kind: String = "") -> void:
 	var frames: Array = db[int(move["t"]["id"])]["frames"]
 	var rev := bool(move["reverse"])
@@ -351,7 +371,7 @@ func play_out(move: Dictionary, kind: String = "") -> void:
 	var first: Array = frames.back() if rev else frames[0]
 	var placed: Array = Graph.placed(frames, Graph.align(_shown_for_align(), first), rev)
 	if kind in ["takedown", "sweep"] and placed.size() > 1:
-		player.play_frames(placed, Timing.key_times_shape(placed, LANDS_S, LANDS_RELIEF))
+		player.play_frames(placed, move_times(placed, true))
 		_landing = kind
 	else:
 		_landing = ""
@@ -360,12 +380,7 @@ func play_out(move: Dictionary, kind: String = "") -> void:
 		# round 4's probe; real technical transitions are 1.5-2.5 s). Round 9: every plain move gets a light settle
 		# (relief 0.25 - the last gaps carry less, so it arrives rather than cruises) - Argon round 8 asked for
 		# "ease-in/ease-out, fast explosive initiation, heavy deceleration".
-		var nat := Timing.key_times(placed)
-		var nat_total := float(nat[nat.size() - 1]) if nat.size() > 0 else 0.0
-		if placed.size() > 2:
-			player.play_frames(placed, Timing.key_times_shape(placed, minf(nat_total, MOVE_MAX_S), 0.25))
-		else:
-			player.play_frames(placed)
+		player.play_frames(placed, move_times(placed, false))
 	moving = move
 	_refresh()
 

@@ -1093,6 +1093,28 @@
     "note": "red's thigh and hip through blue 22.1-22.7 s; mannequin holds 1.5-2.6, 5.0-6.0, 23-24 s; fast roll at 7.2-7.6 s; no trembling, rolls have mass.",
     "source": "ops/previews/lean_grapple_seq/S1_fixed.mp4",
     "when": "2026-11-08"
+   },
+   {
+    "chain": "Step Closer > Pin Knee > Pass > Escape > Pendulum Sweep Start > Finish > Upa Escape > Aldo Pass",
+    "check": "Operator's OK on the film itself (S399: 'clips are fine'), slower pace with the live hold; blind Sonnet critic on the same film (control re-encoded)",
+    "result": "VERIFIED by the operator; blind critic 4/10, hand-overs 4/10",
+    "pass": true,
+    "frames": true,
+    "clean": false,
+    "note": "provisional - the critic hit its image limit and saw about half the film: a 0.2 s pose snap at 7.4 s, red buried in blue 26-31 s, near-still holds.",
+    "source": "ops/previews/lean_grapple_seq/S1_fixed.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "chain": "Step Closer > Pin Knee > Pass > Escape > Pendulum Sweep Start > Finish > Upa Escape > Aldo Pass",
+    "check": "Blind Sonnet critic, every frame tiled + crops, faster pace (PACE 0.6, hold 0.5 s), control = re-encoded S1",
+    "result": "blind critic 5/10, hand-overs 5/10, speed right (bar 7) - awaiting the operator's eye",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "bodies fuse in the scramble 12.7-13.3 s; mild snaps at 5.1 and 10.8 s hand-overs; stiff straight arms at the end (control copy scored 5/5).",
+    "source": "ops/previews/lean_grapple_seq_fast/S1_fixed.mp4",
+    "when": "2026-11-08"
    }
   ],
   "S2": [
@@ -1106,6 +1128,28 @@
     "note": "bodies merge 11.3-13.5 s; holds nearly still ~2 s; 'jumps' reported only between unopened sheets (no pop measured at any join).",
     "source": "ops/previews/lean_grapple_seq/S2_fixed.mp4",
     "when": "2026-11-08"
+   },
+   {
+    "chain": "Pin Knee > Push Over > Bull Fighter Pass > To Knee On Belly > Top Drops To Side > Wrist Control Escape > Threaten Triangle > Clasp Hands Together",
+    "check": "Operator's OK on the film itself (S399: 'clips are fine'), slower pace with the live hold; blind Sonnet critic on the same film (control re-encoded)",
+    "result": "VERIFIED by the operator; blind critic 4/10, hand-overs 3.5/10",
+    "pass": true,
+    "frames": true,
+    "clean": false,
+    "note": "bodies merging 10.9-13.1 s; near-static holds; pose changes reported in unopened gaps.",
+    "source": "ops/previews/lean_grapple_seq/S2_fixed.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "chain": "Pin Knee > Push Over > Bull Fighter Pass > To Knee On Belly > Top Drops To Side > Wrist Control Escape > Threaten Triangle > Clasp Hands Together",
+    "check": "Blind Sonnet critic, every frame tiled + crops, faster pace (PACE 0.6, hold 0.5 s), control = re-encoded S1",
+    "result": "blind critic 5/10, hand-overs 5/10, speed right (bar 7) - awaiting the operator's eye",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "abrupt 0.2 s pose changes at 8.3 and 11.0 s; tangled near-holds.",
+    "source": "ops/previews/lean_grapple_seq_fast/S2_fixed.mp4",
+    "when": "2026-11-08"
    }
   ],
   "S3": [
@@ -1118,6 +1162,28 @@
     "clean": false,
     "note": "blue swallowed by red 12.5-15.5 s; 1.5 s stalls at holds; no pop between movements, blends smooth.",
     "source": "ops/previews/lean_grapple_seq/S3_fixed.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "chain": "Bottom Bails > Sit In > Top Lets Bottom Push Leg > Bottom Progresses > Bottom Gets To Knees > Front Headlock",
+    "check": "Operator's OK on the film itself (S399: 'clips are fine'), slower pace with the live hold; blind Sonnet critic on the same film (control re-encoded)",
+    "result": "VERIFIED by the operator; blind critic 4/10, hand-overs 3/10",
+    "pass": true,
+    "frames": true,
+    "clean": false,
+    "note": "red's torso through blue's head 13.3 s; near-still holds 3.3-4.3, 14-15.5 s.",
+    "source": "ops/previews/lean_grapple_seq/S3_fixed.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "chain": "Bottom Bails > Sit In > Top Lets Bottom Push Leg > Bottom Progresses > Bottom Gets To Knees > Front Headlock",
+    "check": "Blind Sonnet critic, every frame tiled + crops, faster pace (PACE 0.6, hold 0.5 s), control = re-encoded S1",
+    "result": "blind critic 5.5/10, hand-overs 6.5/10, speed slow (bar 7) - awaiting the operator's eye",
+    "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "blue hidden under red 6.0-10.8 s; no pops, snaps or sliding at any hand-over.",
+    "source": "ops/previews/lean_grapple_seq_fast/S3_fixed.mp4",
     "when": "2026-11-08"
    }
   ]

@@ -13,6 +13,11 @@ extends RefCounted
 ## within 0.28 m of the head before its peak to the first frame it is back), so a clip never ends mid-punch - the S399 blind
 ## critic caught the first cut (a fixed 0.67 s) popping back to guard in one frame and holding the arm out. yaw_deg = the
 ## arm's line at the peak, the old rokoko_window_probe way (it reproduces the old 34.8 / 32.5 to 0.1 / 1.8 deg).
+## S399 TRIED AND REVERTED (blind critic: "every punch ends in a snap-back to guard"): running the punch windows on past the
+## fist's return (jab to 6.50 s, cross to 10.80 s; at 6.53 the actor drags his rear foot 3 m/s) - slide and snaps stayed at
+## raw, but two blind critics preferred the shipped cut (4 vs 6.5, 6.5 vs 7.0: "the extended cross returns 0.2 s later and
+## ends with a wide stance"). rk_cross_b left the pool (its window ends inside the next jab). The guard windows are the longest the take holds a guard
+## (rokoko_feet_probe mode=guards: fists within 0.49 m of the head, hips in place): FightingIdle 9.23-18.17 and 35.70-45.00 (9.0-24.0 measured: from 18 s she turns square, 1.27 m of slide).
 ##   rk_jab     Boxing 5.80-6.37 s        mirrored: one lead jab, peak 6.07, reach 0.61 m, home to home (the only clean single
 ##              jab: Boxing 9.2-10.5 is jab-jab-cross - the double jab is still out when the cross starts, so no cut is a jab)
 ##   rk_cross   Boxing 9.93-10.53 s       orthodox: the old boxing_cross re-cut home to home (reference rk_Boxing@10.00-10.53)
@@ -56,7 +61,7 @@ const GUARDS := ["rk_guard", "rk_guard_b"]
 const WALKS := ["rk_walk_right", "rk_walk_left", "rk_walk_back"]
 ## Which captured takes a beat's punch plays (BeatClips.punch): the plain jab and cross; a big shot, a miss, a tired punch
 ## keep their Punch PRO takes (no Rokoko take shows those).
-const PUNCH := {"jab": ["rk_jab"], "cross": ["rk_cross", "rk_cross_b"]}
+const PUNCH := {"jab": ["rk_jab"], "cross": ["rk_cross"]}
 ## The hips carry the take's own floor travel (RkRetarget.build carry_xz); `-- rkhold` = the old route (height only).
 static var carry_xz := not OS.get_cmdline_user_args().has("rkhold")
 

@@ -34,6 +34,7 @@ const GD := preload("res://scripts/grapple/GrappleDrawn.gd")
 const Grip := preload("res://scripts/grapple/GrappleGrip.gd")
 const Timing := preload("res://scripts/grapple/GrappleTiming.gd")
 const Graph := preload("res://scripts/grapple/GrappleGraph.gd")
+const Browser := preload("res://scripts/grapple/GrappleBrowser.gd")
 const BjjMatch := preload("res://scripts/rules/BjjMatch.gd")
 const Pose := preload("res://scripts/grapple/GrapplePose.gd")
 const Player := preload("res://scripts/grapple/GrapplePlayer.gd")
@@ -57,7 +58,9 @@ const GAME_MIN_S := 1.5
 ## play_out paces it (a fall from standing lands in LANDS_S, a plain move is shaped to at most MOVE_MAX_S). Every join measured
 ## around JOIN_PRE..JOIN_POST frames: the pose mismatch the curve absorbs, the worst velocity snap, pops, the deepest limb and
 ## torso during the blend; the whole film's longest still stretch. `cam=fixed` holds one broadcast angle (default: a slow orbit).
-const HUB_S := 1.1
+## The match moves again HOLD_GAP_S after a landed move (BeltMatch._act: `_wait = 0.5` after a hit), while the landed position's
+## own hold (GrappleBrowser.HUB_S) is still easing in.
+const HOLD_GAP_S := 0.5
 const JOIN_PRE := 9
 const JOIN_POST := 18
 const ORBIT_DEG_S := 6.0
@@ -74,10 +77,6 @@ const ELEVATION_DEG := 24.0
 const V_MIN := 0.0005
 const SPIKE_X := 3.0
 const DEEP_M := 0.06
-## GrappleBrowser's pacing (LANDS_S, LANDS_RELIEF, MOVE_MAX_S) for the game arm.
-const LANDS_S := 1.9
-const LANDS_RELIEF := 0.65
-const MOVE_MAX_S := 4.0
 const SETTLE_F := 15
 const PARK_F := 7   # frames: a limb inside for longer than 0.2 s at 30 fps
 const LIMB_KEYS := ["head", "face", "neck", "upperarmL", "upperarmR", "forearmL", "forearmR", "thighL", "thighR", "shinL", "shinR",
@@ -231,11 +230,7 @@ func measure(ids: Array) -> Array:
 			player.set("step_dt", 1.0 / FPS)
 			player.play(g, poses, Player.pair_scale(legs), Transform3D.IDENTITY)
 			var placed: Array = player.seq["frames"]
-			if lands and placed.size() > 1:
-				player.play_frames(placed, Timing.key_times_shape(placed, LANDS_S, LANDS_RELIEF))
-			elif placed.size() > 2:
-				var nat := Timing.key_times(placed)
-				player.play_frames(placed, Timing.key_times_shape(placed, minf(float(nat[nat.size() - 1]), MOVE_MAX_S), 0.25))
+			player.play_frames(placed, Browser.move_times(placed, lands))
 			for _s in SETTLE_F:
 				player.seek(0.0)
 				await _frame()
@@ -447,8 +442,8 @@ func _chain(toks: Array, db: Array, player: Node, poses: Array, legs: Array, cam
 				var pf: Array = db[int(prev_land)]["frames"][0]
 				var hub: Array = Graph.placed([pf, pf], Graph.align(player.shown_frame(), pf))
 				joins.append([st["f"], "hold", prev_title, Graph.clean(str(db[int(prev_land)]["title"])), _mismatch(player, hub[0])])
-				player.play_frames(hub, PackedFloat32Array([0.0, HUB_S]))
-				await _chain_run(player, HUB_S, cam, vp, dir, tracks, tin, limb_depth, st)
+				player.play_frames(hub, PackedFloat32Array([0.0, Browser.HUB_S]))
+				await _chain_run(player, HOLD_GAP_S, cam, vp, dir, tracks, tin, limb_depth, st)
 			var first: Array = frames.back() if rev else frames[0]
 			placed = Graph.placed(frames, Graph.align(player.shown_frame(), first), rev)
 			joins.append([st["f"], "move", prev_title, title, _mismatch(player, placed[0])])
@@ -456,13 +451,7 @@ func _chain(toks: Array, db: Array, player: Node, poses: Array, legs: Array, cam
 		if start_pos != null and land != null:
 			lands = BjjMatch.classify(db[int(start_pos)]["tags"]) == "standing" and BjjMatch.classify(db[int(land)]["tags"]) != "standing"
 		lands = lands or tok.contains("l")
-		if lands and placed.size() > 1:
-			player.play_frames(placed, Timing.key_times_shape(placed, LANDS_S, LANDS_RELIEF))
-		elif placed.size() > 2:
-			var nat := Timing.key_times(placed)
-			player.play_frames(placed, Timing.key_times_shape(placed, minf(float(nat[nat.size() - 1]), MOVE_MAX_S), 0.25))
-		else:
-			player.play_frames(placed)
+		player.play_frames(placed, Browser.move_times(placed, lands))
 		if i == 0:
 			for _s in SETTLE_F:
 				player.seek(0.0)
@@ -475,8 +464,8 @@ func _chain(toks: Array, db: Array, player: Node, poses: Array, legs: Array, cam
 		var pf2: Array = db[int(prev_land)]["frames"][0]
 		var hub2: Array = Graph.placed([pf2, pf2], Graph.align(player.shown_frame(), pf2))
 		joins.append([st["f"], "hold", prev_title, Graph.clean(str(db[int(prev_land)]["title"])), _mismatch(player, hub2[0])])
-		player.play_frames(hub2, PackedFloat32Array([0.0, HUB_S]))
-		await _chain_run(player, HUB_S, cam, vp, dir, tracks, tin, limb_depth, st)
+		player.play_frames(hub2, PackedFloat32Array([0.0, Browser.HUB_S]))
+		await _chain_run(player, Browser.HUB_S, cam, vp, dir, tracks, tin, limb_depth, st)
 	var n := int(st["f"])
 	var row := _numbers(tracks, PackedFloat32Array(), n / FPS)
 	_inside_numbers(row, tin, limb_depth)
