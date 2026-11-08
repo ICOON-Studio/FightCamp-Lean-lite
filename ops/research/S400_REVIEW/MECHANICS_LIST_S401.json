@@ -1,0 +1,934 @@
+{
+ "miro_board": "https://miro.com/app/board/uXjVEV03QWA=/",
+ "frame_miro_id": "3458764689772104154",
+ "note": "status = CURRENT or NEW; score rects are empty white rects, write text into them",
+ "rows": [
+  {
+   "row_id": "R01",
+   "name": "Mornings add up to the camp goal",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772104191",
+   "score_player_miro_id": "3458764689772104192"
+  },
+  {
+   "row_id": "R02",
+   "name": "The camp phase writes the week; you edit exceptions",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772104555",
+   "score_player_miro_id": "3458764689772104556"
+  },
+  {
+   "row_id": "R03",
+   "name": "Camp goal lines and the peak-camp bonus",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772104562",
+   "score_player_miro_id": "3458764689772104563"
+  },
+  {
+   "row_id": "R04",
+   "name": "Hard weeks vs injury risk",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772104569",
+   "score_player_miro_id": "3458764689772104570"
+  },
+  {
+   "row_id": "R05",
+   "name": "Monday twist card",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772104590",
+   "score_player_miro_id": "3458764689772104591"
+  },
+  {
+   "row_id": "R06",
+   "name": "She pushes back: overrule or listen",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772104597",
+   "score_player_miro_id": "3458764689772104598"
+  },
+  {
+   "row_id": "R07",
+   "name": "Week review: planned vs actual, with the reason",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772104604",
+   "score_player_miro_id": "3458764689772104605"
+  },
+  {
+   "row_id": "R08",
+   "name": "Perk road",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772104627",
+   "score_player_miro_id": "3458764689772104628"
+  },
+  {
+   "row_id": "R09",
+   "name": "Test day: three body tests and personal bests",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772104634",
+   "score_player_miro_id": "3458764689772104635"
+  },
+  {
+   "row_id": "R10",
+   "name": "Injuries and suspensions",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772104641",
+   "score_player_miro_id": "3458764689772104642"
+  },
+  {
+   "row_id": "R11",
+   "name": "Every random swing gets a readable reason",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772104659",
+   "score_player_miro_id": "3458764689772104660"
+  },
+  {
+   "row_id": "R12",
+   "name": "Scars change future injury risk",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772104666",
+   "score_player_miro_id": "3458764689772104667"
+  },
+  {
+   "row_id": "R13",
+   "name": "Money pushes on training",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772104673",
+   "score_player_miro_id": "3458764689772104682"
+  },
+  {
+   "row_id": "R14",
+   "name": "Tease next Monday's twist",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772104688",
+   "score_player_miro_id": "3458764689772104689"
+  },
+  {
+   "row_id": "R15",
+   "name": "Move book with mastery tiers",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772147904",
+   "score_player_miro_id": "3458764689772147905"
+  },
+  {
+   "row_id": "R16",
+   "name": "Combo lab: own combos and hit rate vs the next opponent",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772147927",
+   "score_player_miro_id": "3458764689772147928"
+  },
+  {
+   "row_id": "R17",
+   "name": "Game plan on a board: a card for each exchange",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772207934",
+   "score_player_miro_id": "3458764689772207935"
+  },
+  {
+   "row_id": "R18",
+   "name": "The plan must bite (a good plan beats a bad one by 30 points)",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772207941",
+   "score_player_miro_id": "3458764689772207942"
+  },
+  {
+   "row_id": "R19",
+   "name": "Scout the opponent: file, habits, tape room",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772207970",
+   "score_player_miro_id": "3458764689772207971"
+  },
+  {
+   "row_id": "R20",
+   "name": "Test it: sparring nights run the plan",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772207977",
+   "score_player_miro_id": "3458764689772207978"
+  },
+  {
+   "row_id": "R21",
+   "name": "Test-it accuracy follows scouting",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772207984",
+   "score_player_miro_id": "3458764689772207985"
+  },
+  {
+   "row_id": "R22",
+   "name": "Coach writes a plan if you do not",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772208027",
+   "score_player_miro_id": "3458764689772208028"
+  },
+  {
+   "row_id": "R23",
+   "name": "Habits you discover and fix",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772208034",
+   "score_player_miro_id": "3458764689772208035"
+  },
+  {
+   "row_id": "R24",
+   "name": "Fighters who fight differently (styles, traits, fighter model v3)",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772208044",
+   "score_player_miro_id": "3458764689772208046"
+  },
+  {
+   "row_id": "R25",
+   "name": "Opponent adapts to your plan by round 2",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772208062",
+   "score_player_miro_id": "3458764689772208063"
+  },
+  {
+   "row_id": "R26",
+   "name": "Corner minute: three fixes, time for two",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772208081",
+   "score_player_miro_id": "3458764689772208121"
+  },
+  {
+   "row_id": "R27",
+   "name": "Wrong corner calls cost her trust; a Low fighter ignores shouts",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772208128",
+   "score_player_miro_id": "3458764689772208129"
+  },
+  {
+   "row_id": "R28",
+   "name": "Cutman: a closing eye, stop it or go on",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772208136",
+   "score_player_miro_id": "3458764689772208137"
+  },
+  {
+   "row_id": "R29",
+   "name": "Scorecards shown after each round",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772208162",
+   "score_player_miro_id": "3458764689772208163"
+  },
+  {
+   "row_id": "R30",
+   "name": "Why screen: what decided the fight",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772208170",
+   "score_player_miro_id": "3458764689772208171"
+  },
+  {
+   "row_id": "R31",
+   "name": "One concrete change after the Why, carried into the plan",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772208179",
+   "score_player_miro_id": "3458764689772208180"
+  },
+  {
+   "row_id": "R32",
+   "name": "Watch the fight, highlights, or skip it",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772208209",
+   "score_player_miro_id": "3458764689772208210"
+  },
+  {
+   "row_id": "R33",
+   "name": "Sponsor wants a fight before camp is ready",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772208217",
+   "score_player_miro_id": "3458764689772208218"
+  },
+  {
+   "row_id": "R34",
+   "name": "Commentary line",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772208225",
+   "score_player_miro_id": "3458764689772208227"
+  },
+  {
+   "row_id": "R35",
+   "name": "Press card in fight week",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772208264",
+   "score_player_miro_id": "3458764689772208265"
+  },
+  {
+   "row_id": "R36",
+   "name": "Amateur bout offers and booking",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772257172",
+   "score_player_miro_id": "3458764689772257173"
+  },
+  {
+   "row_id": "R37",
+   "name": "Ask for a fight (a refusal gives its reason)",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772257201",
+   "score_player_miro_id": "3458764689772257202"
+  },
+  {
+   "row_id": "R38",
+   "name": "Scout before you say yes ($250)",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772257208",
+   "score_player_miro_id": "3458764689772257210"
+  },
+  {
+   "row_id": "R39",
+   "name": "Offers pull four ways: rank, growth, money, the unknown",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772257217",
+   "score_player_miro_id": "3458764689772257218"
+  },
+  {
+   "row_id": "R40",
+   "name": "The Road: the whole ladder with your fighter on it",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772257247",
+   "score_player_miro_id": "3458764689772257248"
+  },
+  {
+   "row_id": "R41",
+   "name": "Camp risk shown for each camp choice",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772257255",
+   "score_player_miro_id": "3458764689772257256"
+  },
+  {
+   "row_id": "R42",
+   "name": "Amateur nationals road",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772257262",
+   "score_player_miro_id": "3458764689772257263"
+  },
+  {
+   "row_id": "R43",
+   "name": "Turn pro: licence, debut, purse",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772257290",
+   "score_player_miro_id": "3458764689772257291"
+  },
+  {
+   "row_id": "R44",
+   "name": "Pro ladder, belts, title fights and defences",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772257297",
+   "score_player_miro_id": "3458764689772257298"
+  },
+  {
+   "row_id": "R45",
+   "name": "Pro contract talks: keep share for a bonus, or a lower share",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772257305",
+   "score_player_miro_id": "3458764689772257306"
+  },
+  {
+   "row_id": "R46",
+   "name": "Sparring supply: pay a visiting partner or use club members",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772257330",
+   "score_player_miro_id": "3458764689772257331"
+  },
+  {
+   "row_id": "R47",
+   "name": "Rematches and rivalries across fights",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772257338",
+   "score_player_miro_id": "3458764689772257339"
+  },
+  {
+   "row_id": "R48",
+   "name": "Weight class moves",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772257345",
+   "score_player_miro_id": "3458764689772257368"
+  },
+  {
+   "row_id": "R49",
+   "name": "Away shows",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772257374",
+   "score_player_miro_id": "3458764689772257375"
+  },
+  {
+   "row_id": "R50",
+   "name": "Recruit a fighter as an RPG card; trial first",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772301252",
+   "score_player_miro_id": "3458764689772301253"
+  },
+  {
+   "row_id": "R51",
+   "name": "Choose your coach and a starting club",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772301276",
+   "score_player_miro_id": "3458764689772301277"
+  },
+  {
+   "row_id": "R52",
+   "name": "A fighter's goal with a deadline",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772301283",
+   "score_player_miro_id": "3458764689772301284"
+  },
+  {
+   "row_id": "R53",
+   "name": "Roster up to 8; places grow with premises and staff",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772301290",
+   "score_player_miro_id": "3458764689772301291"
+  },
+  {
+   "row_id": "R54",
+   "name": "Coach runs it, per fighter",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772301322",
+   "score_player_miro_id": "3458764689772301323"
+  },
+  {
+   "row_id": "R55",
+   "name": "Two fighters, one coach: who gets the pads",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772301330",
+   "score_player_miro_id": "3458764689772301331"
+  },
+  {
+   "row_id": "R56",
+   "name": "Staff roles with one visible effect each",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772301338",
+   "score_player_miro_id": "3458764689772301339"
+  },
+  {
+   "row_id": "R57",
+   "name": "Staff cards with faces; a members panel (who joined, left, why)",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772301363",
+   "score_player_miro_id": "3458764689772301364"
+  },
+  {
+   "row_id": "R58",
+   "name": "A fighter leaves for a bigger gym (promises, loyalty, poaching)",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772301370",
+   "score_player_miro_id": "3458764689772301371"
+  },
+  {
+   "row_id": "R59",
+   "name": "A named rival gym with a coach and style",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772301377",
+   "score_player_miro_id": "3458764689772301378"
+  },
+  {
+   "row_id": "R60",
+   "name": "Career clock: retirement talk and a fights-left forecast",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772301397",
+   "score_player_miro_id": "3458764689772301398"
+  },
+  {
+   "row_id": "R61",
+   "name": "Retired fighters come back as coaches",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772301404",
+   "score_player_miro_id": "3458764689772301405"
+  },
+  {
+   "row_id": "R62",
+   "name": "Prospects with a deadline",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772301411",
+   "score_player_miro_id": "3458764689772301424"
+  },
+  {
+   "row_id": "R63",
+   "name": "Camp Board card game (coach plays cards to plan the week)",
+   "status": "CURRENT",
+   "recommendation": "OUT",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772301431",
+   "score_player_miro_id": "3458764689772301432"
+  },
+  {
+   "row_id": "R64",
+   "name": "Weekly bills, runway, and a club that can close",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772369305",
+   "score_player_miro_id": "3458764689772369306"
+  },
+  {
+   "row_id": "R65",
+   "name": "Dues bands: cheap, standard, premium",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772369318",
+   "score_player_miro_id": "3458764689772369319"
+  },
+  {
+   "row_id": "R66",
+   "name": "Kit budget low, standard, good",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772369325",
+   "score_player_miro_id": "3458764689772369326"
+  },
+  {
+   "row_id": "R67",
+   "name": "Upgrades list and premises tiers",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772369333",
+   "score_player_miro_id": "3458764689772369334"
+  },
+  {
+   "row_id": "R68",
+   "name": "Stipend or day job for an amateur",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772369360",
+   "score_player_miro_id": "3458764689772369361"
+  },
+  {
+   "row_id": "R69",
+   "name": "Club show: pay up front, sell tickets, may lose money",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772369367",
+   "score_player_miro_id": "3458764689772369368"
+  },
+  {
+   "row_id": "R70",
+   "name": "Overdraft and grant bids",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772369374",
+   "score_player_miro_id": "3458764689772369375"
+  },
+  {
+   "row_id": "R71",
+   "name": "Youth section and junior intakes",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772369405",
+   "score_player_miro_id": "3458764689772369406"
+  },
+  {
+   "row_id": "R72",
+   "name": "Who we recruit: white-collar nights or estate kids",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772369412",
+   "score_player_miro_id": "3458764689772369413"
+  },
+  {
+   "row_id": "R73",
+   "name": "Coach-hours timetable (one pool with pad time)",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772369421",
+   "score_player_miro_id": "3458764689772369422"
+  },
+  {
+   "row_id": "R74",
+   "name": "The 90-day cliff: new joiners at risk",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772369436",
+   "score_player_miro_id": "3458764689772369437"
+  },
+  {
+   "row_id": "R75",
+   "name": "Volunteer or paid coach",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772369445",
+   "score_player_miro_id": "3458764689772369446"
+  },
+  {
+   "row_id": "R76",
+   "name": "Sparring policy: open for all or coached only",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772369452",
+   "score_player_miro_id": "3458764689772369453"
+  },
+  {
+   "row_id": "R77",
+   "name": "Dust period when you move or fit out",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772369470",
+   "score_player_miro_id": "3458764689772369471"
+  },
+  {
+   "row_id": "R78",
+   "name": "Changing rooms upgrade",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772369477",
+   "score_player_miro_id": "3458764689772369478"
+  },
+  {
+   "row_id": "R79",
+   "name": "Coach course",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772369484",
+   "score_player_miro_id": "3458764689772369497"
+  },
+  {
+   "row_id": "R80",
+   "name": "January intake course",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772369503",
+   "score_player_miro_id": "3458764689772369504"
+  },
+  {
+   "row_id": "R81",
+   "name": "Sponsor line and per-fighter costs",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772369510",
+   "score_player_miro_id": "3458764689772369511"
+  },
+  {
+   "row_id": "R82",
+   "name": "One static gym picture on the Club page",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772369530",
+   "score_player_miro_id": "3458764689772369531"
+  },
+  {
+   "row_id": "R83",
+   "name": "Lease length, ticket price, reception requests, fixed power price",
+   "status": "NEW",
+   "recommendation": "OUT",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772369537",
+   "score_player_miro_id": "3458764689772369538"
+  },
+  {
+   "row_id": "R84",
+   "name": "Visible-gym ideas: zones, stations, halls, seating, desk",
+   "status": "NEW",
+   "recommendation": "OUT",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772369545",
+   "score_player_miro_id": "3458764689772369546"
+  },
+  {
+   "row_id": "R85",
+   "name": "A living world: boxers age, peak, retire, arrive; rivals improve",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772431631",
+   "score_player_miro_id": "3458764689772431632"
+  },
+  {
+   "row_id": "R86",
+   "name": "Rankings that move by taking places",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772431661",
+   "score_player_miro_id": "3458764689772431662"
+  },
+  {
+   "row_id": "R87",
+   "name": "Year review and three club goals",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772431668",
+   "score_player_miro_id": "3458764689772431669"
+  },
+  {
+   "row_id": "R88",
+   "name": "Named club tiers",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772431675",
+   "score_player_miro_id": "3458764689772431676"
+  },
+  {
+   "row_id": "R89",
+   "name": "Record book: champions, reigns, rivalries, your club's history",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772431702",
+   "score_player_miro_id": "3458764689772431703"
+  },
+  {
+   "row_id": "R90",
+   "name": "The world in open files",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772431711",
+   "score_player_miro_id": "3458764689772431712"
+  },
+  {
+   "row_id": "R91",
+   "name": "In-game editor for the world",
+   "status": "NEW",
+   "recommendation": "LATER",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772431719",
+   "score_player_miro_id": "3458764689772431720"
+  },
+  {
+   "row_id": "R92",
+   "name": "Home as the Monday page with one next action",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772431752",
+   "score_player_miro_id": "3458764689772431753"
+  },
+  {
+   "row_id": "R93",
+   "name": "CONTINUE says what stops time; Simulate to the next stop",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772431765",
+   "score_player_miro_id": "3458764689772431766"
+  },
+  {
+   "row_id": "R94",
+   "name": "Autosave, Settings, Handbook",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772431772",
+   "score_player_miro_id": "3458764689772431773"
+  },
+  {
+   "row_id": "R95",
+   "name": "First hour: first offer, first show",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772431779",
+   "score_player_miro_id": "3458764689772431780"
+  },
+  {
+   "row_id": "R96",
+   "name": "Belt road and stripes",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772431813",
+   "score_player_miro_id": "3458764689772431814"
+  },
+  {
+   "row_id": "R97",
+   "name": "The stripe as a choice: now, hold, early",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772431820",
+   "score_player_miro_id": "3458764689772431821"
+  },
+  {
+   "row_id": "R98",
+   "name": "BJJ week: classes drill the syllabus",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772431839",
+   "score_player_miro_id": "3458764689772431840"
+  },
+  {
+   "row_id": "R99",
+   "name": "Belt match: you call her next move",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772431846",
+   "score_player_miro_id": "3458764689772431847"
+  },
+  {
+   "row_id": "R100",
+   "name": "Open tournaments with brackets",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "BUILT",
+   "score_designer_miro_id": "3458764689772431853",
+   "score_player_miro_id": "3458764689772431854"
+  },
+  {
+   "row_id": "R101",
+   "name": "BJJ classes as a business",
+   "status": "CURRENT",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772431871",
+   "score_player_miro_id": "3458764689772431872"
+  },
+  {
+   "row_id": "R102",
+   "name": "BJJ on the same week, camp and Why as boxing",
+   "status": "NEW",
+   "recommendation": "IN",
+   "today": "PARTLY",
+   "score_designer_miro_id": "3458764689772431879",
+   "score_player_miro_id": "3458764689772431880"
+  },
+  {
+   "row_id": "R103",
+   "name": "Removed ideas (13): gym culture spreads, legacy, hall of fame wall, visible ageing, retirement montage, rival gym poaching members, crowd sways rounds, walkout song and robe, top-down stool view, sponsor logos on shorts, members train in the background, gym by time of day and season, marker squeak",
+   "status": "NEW",
+   "recommendation": "OUT",
+   "today": "NOT BUILT",
+   "score_designer_miro_id": "3458764689772431919",
+   "score_player_miro_id": "3458764689772431920"
+  }
+ ]
+}

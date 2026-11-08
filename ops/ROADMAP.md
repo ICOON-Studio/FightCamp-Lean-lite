@@ -8,9 +8,9 @@ Updated 2026-11-07 by claude S294.
 
 ## Now
 
-**S400 — ?** *(claude)*
+**S401 — ?** *(claude)*
 
-S400: the base reviewed before any more building (operator: 'i want the base of the game done properly, the structure reviewed by critics'). All 59 real screens judged by critics against OUR plan (UX 5-6.5, player 5.5-6.5, art 4-6); 14 menus on the Miro frame 'MENUS FOR YOUR OK (S400)' for his OK row by row (Q-S294-125). 96 Miro ideas rated: 9 worth trying, 13 moved to REMOVED IDEAS. Ludo painted concepts are the art bar ('the ludo screens look nice'). Unapproved Money page reverted; overdraft rules in (off); the Why now names what a lost decision turned on.
+S401: operator's board answer 'compare the structure to corner king and have ritics review it and refine it' done (CORNER_KING_REFINED_S401.md); gym compared with tycoon games (GYM_VS_TYCOON_S401.md, dues choice is fake); 103 mechanics listed and scored by two critics on Miro; 14 menus painted from the real screens with Ludo; one Miro board (uXjVEV03QWA=); corner minute from the apron; body figure as a scan; corner trust in (Qwen); 16 dead branches deleted.
 
 ## Next
 
@@ -285,3 +285,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S393**  |  |  | *none yet* | S393: PADVIEW1, OWNEDTAKES1 collected; punch interrupted merged, both blind judges for it; fold room merged, one for, one equal; calm camera for C242; inside work and the trunk limit not merged (lost, split); HUD 4/10 before later fixes, chunk by damage, not re-reviewed; menu direction approved on a Home mockup, 7/10; Fighter 6.5, Fights 6 not shown. Nothing exported. |
 |  |  | **S394**  |  |  | *none yet* | S394: Home rebuilt on real data in the light look (dark clashed, his call), needs as notes pinned on a cork board (his idea, kept), five rail buttons with Club, coach on Home. Blind: cards 6.5, board 6. HUD lead bar, damage flash; HUD still 5, corner hide failed. Portraits on a branch, not used. Suite 191/0. Nothing exported. |
 |  |  | **S395**  |  |  | *none yet* | S395: HUD 5 to 6.5 (corner bug was the film tool; rest strip; fades; tired read B); TV hit line, big-shot slow motion and zoom; boxers walk on a real capture; SOUND2 collected; Attendance; pr-check and cloud film on GitHub; Ollama fixed; structure design with Corner King study, 10 questions on the board. Portraits 4.5, not used. Not exported. |
+|  |  | **S401**  |  |  | *none yet* | S401: structure vs Corner King refined by 3 critics; gym vs tycoon games, 22 ideas; 103 mechanics scored; 14 painted menus; one Miro board; corner minute from the apron; muscle-scan body figure; CornerTrust; 16 branches deleted. Not merged: PR #85, Rokoko repair. |

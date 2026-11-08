@@ -1,0 +1,517 @@
+[
+ {
+  "id": "R01",
+  "score": 9,
+  "note": "The spine; sums, trade-offs, feeds goal"
+ },
+ {
+  "id": "R02",
+  "score": 6,
+  "note": "Saves time; exceptions give mild choice"
+ },
+ {
+  "id": "R03",
+  "score": 8,
+  "note": "Payoff and weigh-in risk give week stakes"
+ },
+ {
+  "id": "R04",
+  "score": 8,
+  "note": "Classic repeated risk-reward"
+ },
+ {
+  "id": "R05",
+  "score": 7,
+  "note": "Priced choice; depends on card variety"
+ },
+ {
+  "id": "R06",
+  "score": 7,
+  "note": "Trust makes overruling cost something"
+ },
+ {
+  "id": "R07",
+  "score": 6,
+  "note": "Useful feedback; popup issue; reads only"
+ },
+ {
+  "id": "R08",
+  "score": 6,
+  "note": "Long-term goal; choice depth unknown"
+ },
+ {
+  "id": "R09",
+  "score": 4,
+  "note": "No decision; mostly flavour data"
+ },
+ {
+  "id": "R10",
+  "score": 7,
+  "note": "Gives hard fights cost"
+ },
+ {
+  "id": "R11",
+  "score": 8,
+  "note": "Protects Why; makes randomness learnable"
+ },
+ {
+  "id": "R12",
+  "score": 5,
+  "note": "Real trade-off but adds bookkeeping"
+ },
+ {
+  "id": "R13",
+  "score": 4,
+  "note": "Kit budget already covers money-for-training"
+ },
+ {
+  "id": "R14",
+  "score": 5,
+  "note": "Planning value, little needed yet"
+ },
+ {
+  "id": "R15",
+  "score": 7,
+  "note": "Learning tab owner loves; unlock choices"
+ },
+ {
+  "id": "R16",
+  "score": 9,
+  "note": "Own combos with odds; signature appeal"
+ },
+ {
+  "id": "R17",
+  "score": 10,
+  "note": "The reason to buy"
+ },
+ {
+  "id": "R18",
+  "score": 9,
+  "note": "Without bite the plan is decoration"
+ },
+ {
+  "id": "R19",
+  "score": 8,
+  "note": "Gives plan something to answer"
+ },
+ {
+  "id": "R20",
+  "score": 8,
+  "note": "Lets plans be learned safely"
+ },
+ {
+  "id": "R21",
+  "score": 7,
+  "note": "Scouting gets purpose"
+ },
+ {
+  "id": "R22",
+  "score": 6,
+  "note": "Keeps depth optional; not exciting"
+ },
+ {
+  "id": "R23",
+  "score": 7,
+  "note": "Habits to fix create corner stakes"
+ },
+ {
+  "id": "R24",
+  "score": 9,
+  "note": "Styles are the differentiator vs rival"
+ },
+ {
+  "id": "R25",
+  "score": 8,
+  "note": "Living contest; needs fighter model first"
+ },
+ {
+  "id": "R26",
+  "score": 9,
+  "note": "Tight three-fix choice; centrepiece"
+ },
+ {
+  "id": "R27",
+  "score": 7,
+  "note": "Stakes on corner; modest scale"
+ },
+ {
+  "id": "R28",
+  "score": 8,
+  "note": "Strong risk decision on fight night"
+ },
+ {
+  "id": "R29",
+  "score": 6,
+  "note": "Small clarity gain"
+ },
+ {
+  "id": "R30",
+  "score": 10,
+  "note": "Our moat; closes the learning loop"
+ },
+ {
+  "id": "R31",
+  "score": 8,
+  "note": "Closes loop from Why to plan"
+ },
+ {
+  "id": "R32",
+  "score": 5,
+  "note": "Comfort feature, no design depth"
+ },
+ {
+  "id": "R33",
+  "score": 7,
+  "note": "Money versus readiness is clean"
+ },
+ {
+  "id": "R34",
+  "score": 3,
+  "note": "Decoration, no decision"
+ },
+ {
+  "id": "R35",
+  "score": 3,
+  "note": "Flavour with little visible change"
+ },
+ {
+  "id": "R36",
+  "score": 6,
+  "note": "Base of career; routine choice"
+ },
+ {
+  "id": "R37",
+  "score": 8,
+  "note": "Manager's real job; agency"
+ },
+ {
+  "id": "R38",
+  "score": 6,
+  "note": "Small paid scouting choice"
+ },
+ {
+  "id": "R39",
+  "score": 8,
+  "note": "Four pulls stop solved matchmaking"
+ },
+ {
+  "id": "R40",
+  "score": 5,
+  "note": "Orientation display, little action"
+ },
+ {
+  "id": "R41",
+  "score": 7,
+  "note": "Informed camp risk; good for week"
+ },
+ {
+  "id": "R42",
+  "score": 6,
+  "note": "Goal for amateurs"
+ },
+ {
+  "id": "R43",
+  "score": 7,
+  "note": "Timing risk decision"
+ },
+ {
+  "id": "R44",
+  "score": 7,
+  "note": "Long arc; title or build-up"
+ },
+ {
+  "id": "R45",
+  "score": 7,
+  "note": "Genuine repeated money trade-off"
+ },
+ {
+  "id": "R46",
+  "score": 7,
+  "note": "Ties gym to camp"
+ },
+ {
+  "id": "R47",
+  "score": 6,
+  "note": "Narrative hook; needs world"
+ },
+ {
+  "id": "R48",
+  "score": 5,
+  "note": "Fine but niche"
+ },
+ {
+  "id": "R49",
+  "score": 4,
+  "note": "Hosting adds scope; weak pull"
+ },
+ {
+  "id": "R50",
+  "score": 8,
+  "note": "RPG recruit hook, repeatable"
+ },
+ {
+  "id": "R51",
+  "score": 6,
+  "note": "Cheap identity; one-time choice"
+ },
+ {
+  "id": "R52",
+  "score": 6,
+  "note": "Fuels promise system"
+ },
+ {
+  "id": "R53",
+  "score": 6,
+  "note": "Roster limit forces keeping choices"
+ },
+ {
+  "id": "R54",
+  "score": 6,
+  "note": "Needed for 8, risks removing decisions"
+ },
+ {
+  "id": "R55",
+  "score": 8,
+  "note": "Scarce pads create real conflict"
+ },
+ {
+  "id": "R56",
+  "score": 6,
+  "note": "One visible effect each; plain"
+ },
+ {
+  "id": "R57",
+  "score": 6,
+  "note": "People over numbers; mostly display"
+ },
+ {
+  "id": "R58",
+  "score": 8,
+  "note": "Late-game pressure; strong stakes"
+ },
+ {
+  "id": "R59",
+  "score": 5,
+  "note": "Pressure present elsewhere; big cost"
+ },
+ {
+  "id": "R60",
+  "score": 7,
+  "note": "Honest end to careers"
+ },
+ {
+  "id": "R61",
+  "score": 5,
+  "note": "Nice loop, needs careers"
+ },
+ {
+  "id": "R62",
+  "score": 5,
+  "note": "Timer pressure, could be busy"
+ },
+ {
+  "id": "R63",
+  "score": 2,
+  "note": "Absent, contradicts the plan; closes"
+ },
+ {
+  "id": "R64",
+  "score": 9,
+  "note": "Failure state gives all choices weight"
+ },
+ {
+  "id": "R65",
+  "score": 2,
+  "note": "Premium always wins; hollow choice"
+ },
+ {
+  "id": "R66",
+  "score": 5,
+  "note": "Mild trade-off"
+ },
+ {
+  "id": "R67",
+  "score": 5,
+  "note": "Plain upgrade list, little tension"
+ },
+ {
+  "id": "R68",
+  "score": 8,
+  "note": "Best money-pace choice"
+ },
+ {
+  "id": "R69",
+  "score": 6,
+  "note": "Event gamble for young club"
+ },
+ {
+  "id": "R70",
+  "score": 5,
+  "note": "Safety valve, little decision"
+ },
+ {
+  "id": "R71",
+  "score": 6,
+  "note": "Pipeline investment"
+ },
+ {
+  "id": "R72",
+  "score": 7,
+  "note": "Gives dues choice an identity"
+ },
+ {
+  "id": "R73",
+  "score": 8,
+  "note": "Core tycoon decision, feeds week"
+ },
+ {
+  "id": "R74",
+  "score": 6,
+  "note": "Folded into timetable; retention"
+ },
+ {
+  "id": "R75",
+  "score": 5,
+  "note": "Small cost-reliability choice"
+ },
+ {
+  "id": "R76",
+  "score": 5,
+  "note": "Reasonable but minor"
+ },
+ {
+  "id": "R77",
+  "score": 3,
+  "note": "Busywork delay"
+ },
+ {
+  "id": "R78",
+  "score": 4,
+  "note": "Minor upgrade choice"
+ },
+ {
+  "id": "R79",
+  "score": 5,
+  "note": "Time-cost choice, small"
+ },
+ {
+  "id": "R80",
+  "score": 5,
+  "note": "Seasonal tradeoff, small"
+ },
+ {
+  "id": "R81",
+  "score": 4,
+  "note": "Premature with few fighters"
+ },
+ {
+  "id": "R82",
+  "score": 3,
+  "note": "Decoration, no decision"
+ },
+ {
+  "id": "R83",
+  "score": 2,
+  "note": "Four trivial knobs"
+ },
+ {
+  "id": "R84",
+  "score": 2,
+  "note": "Gym floor shelved; out of scope"
+ },
+ {
+  "id": "R85",
+  "score": 8,
+  "note": "Makes every offer meaningful"
+ },
+ {
+  "id": "R86",
+  "score": 6,
+  "note": "Readable; consequence of picks"
+ },
+ {
+  "id": "R87",
+  "score": 7,
+  "note": "Gives long game goals"
+ },
+ {
+  "id": "R88",
+  "score": 4,
+  "note": "Goals already shape the game"
+ },
+ {
+  "id": "R89",
+  "score": 5,
+  "note": "Pride screen, no decision"
+ },
+ {
+  "id": "R90",
+  "score": 5,
+  "note": "Fan value, not play"
+ },
+ {
+  "id": "R91",
+  "score": 3,
+  "note": "Heavy, off core"
+ },
+ {
+  "id": "R92",
+  "score": 6,
+  "note": "Better orientation, but no new decision"
+ },
+ {
+  "id": "R93",
+  "score": 6,
+  "note": "Comfort; quality of life"
+ },
+ {
+  "id": "R94",
+  "score": 4,
+  "note": "Needed hygiene, no design"
+ },
+ {
+  "id": "R95",
+  "score": 5,
+  "note": "Onboarding; guide lingers"
+ },
+ {
+  "id": "R96",
+  "score": 7,
+  "note": "Progression ladder with stripes"
+ },
+ {
+  "id": "R97",
+  "score": 7,
+  "note": "Real cost either way"
+ },
+ {
+  "id": "R98",
+  "score": 6,
+  "note": "Syllabus drilling modest"
+ },
+ {
+  "id": "R99",
+  "score": 8,
+  "note": "Move-by-move calls, engaging"
+ },
+ {
+  "id": "R100",
+  "score": 6,
+  "note": "Calendar for BJJ"
+ },
+ {
+  "id": "R101",
+  "score": 5,
+  "note": "Business angle, wiring unclear"
+ },
+ {
+  "id": "R102",
+  "score": 7,
+  "note": "One rulebook beats two paths"
+ },
+ {
+  "id": "R103",
+  "score": 1,
+  "note": "Removed ideas; none harmful if gone"
+ }
+]

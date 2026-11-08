@@ -3,16 +3,16 @@
  "updated": "2026-11-07",
  "author": "claude S294",
  "now": {
-  "id": "S400",
+  "id": "S401",
   "owner": "claude",
   "updated": "2026-11-08",
-  "summary": "S400: the base reviewed before any more building (operator: 'i want the base of the game done properly, the structure reviewed by critics'). All 59 real screens judged by critics against OUR plan (UX 5-6.5, player 5.5-6.5, art 4-6); 14 menus on the Miro frame 'MENUS FOR YOUR OK (S400)' for his OK row by row (Q-S294-125). 96 Miro ideas rated: 9 worth trying, 13 moved to REMOVED IDEAS. Ludo painted concepts are the art bar ('the ludo screens look nice'). Unapproved Money page reverted; overdraft rules in (off); the Why now names what a lost decision turned on.",
-  "last_working_commit": "2b4e07a7 (Why fix) + the S400 review commits",
-  "verified_playable": "golden_path, first_hour, money_layout, game_money, money_close, overdraft, plain_words, tip_notes, home_look: 0 failures on main (S400). Money page stills E:/FightCamp/tmp/s400_money/v3.",
-  "incomplete_blocked": "RETARGET2 runner (Cursor Grok) finishing checks; FIGHTERMODEL3B queued; Qwen held until menus are approved; SOUTHPAW2 #78 + ANIMREBUILD1 #77 held.",
-  "next_action": "Read his notes on the Miro frame / Q-S294-125. For each approved menu: an HTML layout with the real content -> a Ludo painted concept (ludo image edit, look B reference) -> his OK -> build. Then the 9 tried ideas, smallest first (scorecards, readable reasons, trust cost of a wrong call, shout gated on trust). Animation: collect RETARGET2 (runner finishing) -> rokoko-back film -> merge -> proguard.",
-  "next_acceptance": "No screen is built without his OK on its Miro row and on its painted concept; critics judge against YARDSTICK.md, never a generic sim.",
-  "awaiting_operator": "Q-S294-125 menus row by row; Q-S294-124 delete 16 dead branches."
+  "summary": "S401: operator's board answer 'compare the structure to corner king and have ritics review it and refine it' done (CORNER_KING_REFINED_S401.md); gym compared with tycoon games (GYM_VS_TYCOON_S401.md, dues choice is fake); 103 mechanics listed and scored by two critics on Miro; 14 menus painted from the real screens with Ludo; one Miro board (uXjVEV03QWA=); corner minute from the apron; body figure as a scan; corner trust in (Qwen); 16 dead branches deleted.",
+  "last_working_commit": "13d41822 (S401 on main: corner apron 47b1c7c8, CornerTrust 0a47e4c3)",
+  "verified_playable": "corner_lens, corner_crew_bodies, corner_warm, corner_trust, exchanges, trust_fight, habit_fix, plan_bots, golden_path, plain_words on main; corner film viewed by Claude",
+  "incomplete_blocked": "PR #85 FIGHTERMODEL3B landed 7/9 checks, not reviewed; OFFERGONE1 on Qwen; Rokoko repair in its own session (branch claude/rokoko-repair-3bb3a3); ARCHIVED Miro board not yet deleted (7 images and 2 html mockups to move); corner_film 'gloves touch' check red since S400's 1.2x gloves",
+  "next_action": "1) Read his IN/LATER/OUT on the Miro MECHANICS LIST and act on it, then finalise the menus and repaint only the changed ones. 2) Animation every session: collect Rokoko repair, then proguard. 3) Review PR #85 against TASK_FIGHTERMODEL3. 4) Collect OFFERGONE1. 5) Finish moving ARCHIVED and delete it via his Chrome. 6) Six rule-breaks on our screens, fake dues choice.",
+  "next_acceptance": "No screen is built without his OK on its Miro row and painted concept; mechanics ruled before menus are finalised; animation moves each session.",
+  "awaiting_operator": "IN/LATER/OUT on the 103 mechanics (Miro); OK/change/cut on the 14 refined menus; Camp Board (Q-S294-123)."
  },
  "next": "S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.",
  "assessment": {
@@ -1578,6 +1578,11 @@
    "id": "S395",
    "date": "2026-11-07",
    "summary": "S395: HUD 5 to 6.5 (corner bug was the film tool; rest strip; fades; tired read B); TV hit line, big-shot slow motion and zoom; boxers walk on a real capture; SOUND2 collected; Attendance; pr-check and cloud film on GitHub; Ollama fixed; structure design with Corner King study, 10 questions on the board. Portraits 4.5, not used. Not exported."
+  },
+  {
+   "id": "S401",
+   "date": "2026-11-08",
+   "summary": "S401: structure vs Corner King refined by 3 critics; gym vs tycoon games, 22 ideas; 103 mechanics scored; 14 painted menus; one Miro board; corner minute from the apron; muscle-scan body figure; CornerTrust; 16 branches deleted. Not merged: PR #85, Rokoko repair."
   }
  ],
  "blocked_on_operator": [],
@@ -4496,7 +4501,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-08 10:41 board_sync",
+  "updated": "2026-11-08 11:11 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4638,45 +4643,24 @@
   },
   "working_now": [
    {
-    "title": "TASK SOUTHPAW2 - CURSOR (GPT-5.6 Sol High) - the guard knock-knee, round 2: a test that FAILS on main first",
-    "who": "cursor",
-    "started": "2026-11-07T21:21",
-    "run": "SOUTHPAW2",
-    "state": "LANDED - Claude collects"
+    "id": "MECH-LIST",
+    "who": "operator",
+    "title": "Your IN / LATER / OUT on 103 mechanics (Miro)"
    },
    {
-    "title": "TASK ANIMREBUILD1 - AGY (Argon High) - design draft: fight animation rebuilt around a clip library + one picker",
-    "who": "antigravity",
-    "started": "2026-11-07T22:09",
-    "run": "ANIMREBUILD1",
-    "state": "LANDED - Claude collects"
+    "id": "ROKOKO-REPAIR",
+    "who": "claude",
+    "title": "Rokoko repair: clips, film, merge, proguard (own session)"
    },
    {
-    "title": "TASK RETARGET1 - CURSOR (GPT-5.6 Sol High) - bring the purchased Punch PRO pack onto our boxer WITHOUT breaking it",
-    "who": "cursor",
-    "started": "2026-11-07T22:53",
-    "run": "RETARGET1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK RETARGET2 - CURSOR (GPT-5.6 Sol High) - RETARGET1 round 2: keep the wins, fix the stance and the end trim",
-    "who": "cursor",
-    "started": "2026-11-08T07:24",
-    "run": "RETARGET2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK FIGHTERMODEL3B - CURSOR (Grok 4.7 High) - the fighter model to 8/10 built, rule 2 held again (round 2)",
-    "who": "cursor",
-    "started": "2026-11-08T09:11",
-    "run": "FIGHTERMODEL3B"
-   },
-   {
-    "title": "TASK CORNERTRUST1 - QWEN (qwen3-coder) - a wrong corner call costs her trust; a Low fighter stops listening (rules only)",
+    "id": "OFFERGONE1",
     "who": "qwen",
-    "started": "2026-11-08T10:16",
-    "run": "CORNERTRUST1",
-    "state": "LANDED - Claude collects"
+    "title": "An expired fight offer is never a dead end"
+   },
+   {
+    "id": "FIGHTERMODEL3B",
+    "who": "claude",
+    "title": "Review the fighter model (PR #85)"
    }
   ],
   "next": [
@@ -5184,19 +5168,47 @@
     {
      "text": "Corner minute from the apron",
      "who": "claude"
+    },
+    {
+     "text": "16 dead branches deleted",
+     "who": "claude"
+    },
+    {
+     "text": "One Miro board, all moved over",
+     "who": "claude"
+    },
+    {
+     "text": "Corner trust in (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "14 menus painted, real screens",
+     "who": "agent"
+    },
+    {
+     "text": "103 mechanics rated on Miro",
+     "who": "agent"
+    },
+    {
+     "text": "Corner King, tycoon compared",
+     "who": "agent"
     }
    ],
    "now": [
     {
-     "text": "Menus for your OK (Miro)",
+     "text": "Your IN/LATER/OUT on 103 rows",
      "who": "operator"
     },
     {
-     "text": "RETARGET2B queued (Cursor)",
+     "text": "Review PR #85 fighter model",
+     "who": "claude"
+    },
+    {
+     "text": "Rokoko repair (session)",
      "who": "agent"
     },
     {
-     "text": "Trust cost of calls (Qwen queued)",
+     "text": "OFFERGONE1 (Qwen)",
      "who": "agent"
     }
    ],
@@ -5270,19 +5282,19 @@
      "who": "claude"
     },
     {
-     "text": "SOUTHPAW2 + rebuild: held",
-     "who": "claude"
-    },
-    {
-     "text": "Painted concept per OK'd menu",
-     "who": "claude"
-    },
-    {
-     "text": "9 tried ideas, smallest first",
-     "who": "claude"
-    },
-    {
      "text": "Ropes give again (S391 stilled)",
+     "who": "claude"
+    },
+    {
+     "text": "Finish moving ARCHIVED, delete",
+     "who": "claude"
+    },
+    {
+     "text": "Fix the fake dues choice",
+     "who": "claude"
+    },
+    {
+     "text": "Six rule-breaks on our screens",
      "who": "claude"
     }
    ],

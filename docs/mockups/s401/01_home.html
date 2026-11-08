@@ -1,0 +1,89 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Home</title><style>
+@font-face{font-family:Barlow;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:BarlowB;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Marker;src:url(file:///E:/FightCamp/Lean/assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Kalam;src:url(file:///E:/FightCamp/Lean/assets/fonts/Kalam-Regular.ttf)}
+@font-face{font-family:KalamB;src:url(file:///E:/FightCamp/Lean/assets/fonts/Kalam-Bold.ttf)}
+:root{--wall:#CFE0EA;--board:#FDFEFE;--frame:#AEB8C0;--blue:#2F6FDB;--red:#E2483D;--yellow:#FFD54A;--green:#2FA36B;--ink:#22262E;--amber:#E8891B;--mut:#5d6870}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--wall);font-family:Barlow;color:var(--ink);overflow:hidden;position:relative}
+.top{height:76px;display:flex;align-items:center;padding:0 22px;gap:14px;background:#fff;box-shadow:0 3px 0 #B8CAD6;position:relative;z-index:5}
+.nb{border:1px solid #C9D3DB;border-radius:8px;padding:6px 13px;font-family:BarlowB;font-size:17px;color:#555}
+.gym{font-family:Marker;font-size:32px;color:var(--blue);margin-left:8px}
+.date{font-family:BarlowB;font-size:19px;line-height:1.1}.date small{display:block;font-family:Barlow;font-size:14px;color:#667}
+.sp{flex:1}
+.cash{text-align:right;font-family:BarlowB;font-size:27px;color:var(--green);line-height:1}.cash small{display:block;font-family:Barlow;font-size:14px;color:#667;margin-top:3px}
+.go{background:var(--blue);color:#fff;font-family:BarlowB;font-size:20px;padding:8px 24px;border-radius:30px;line-height:1.1;width:420px}.go small{display:block;font-family:Barlow;font-size:14px;opacity:.9}
+.wrap{display:flex;height:1004px}
+nav{width:200px;padding:14px 11px;display:flex;flex-direction:column;gap:11px}
+nav a{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-radius:12px;background:#fff;font-family:BarlowB;font-size:20px;border-left:8px solid var(--frame)}
+nav a.on{border-left-color:var(--red);box-shadow:0 4px 0 #B8CAD6}
+nav .b{background:var(--red);color:#fff;border-radius:10px;font-size:14px;padding:1px 7px}
+.anvil{margin:18px 0 0 22px;width:68px;height:68px;border:3px double var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center}
+main{flex:1;padding:14px 20px 16px 8px;position:relative}
+.board{background:var(--board);border:13px solid var(--frame);border-radius:6px;box-shadow:0 9px 0 #9FB1BE;position:relative;padding:16px 24px;overflow:hidden}
+.board::after{content:"";position:absolute;right:30px;bottom:-4px;width:260px;height:9px;background:#8d99a3;border-radius:3px;opacity:.0}
+h1{font-family:Marker;font-weight:400;font-size:46px;color:var(--blue);line-height:1}
+h2{font-family:Marker;font-weight:400;font-size:25px;color:var(--ink)}
+.cap{font-family:BarlowB;font-size:13px;letter-spacing:2px;color:#6c7781;text-transform:uppercase}
+.hand{font-family:Kalam;font-size:21px}
+.card{background:#fff;border:2px solid #D7DEE4;border-radius:10px;padding:12px 16px;box-shadow:0 3px 8px rgba(30,50,70,.1)}
+.pf{object-fit:cover;object-position:top;border-radius:6px;background:#111;display:block}
+.btn{display:inline-block;background:var(--blue);color:#fff;font-family:BarlowB;font-size:16px;padding:7px 18px;border-radius:20px;white-space:nowrap}
+.btn.g{background:#fff;color:var(--blue);border:2px solid var(--blue);padding:5px 16px}
+.btn.d{background:var(--ink)}
+.btn.q{background:#fff;color:#555;border:2px solid #C9D3DB;padding:5px 16px}
+.chip{display:inline-block;border:1.5px solid #8794a0;border-radius:14px;padding:1px 10px;font-family:BarlowB;font-size:12.5px;letter-spacing:.5px;text-transform:uppercase;color:#4a5560;white-space:nowrap}
+.chip.green{border-color:var(--green);color:var(--green)}.chip.red{border-color:var(--red);color:var(--red)}.chip.amber{border-color:var(--amber);color:var(--amber)}.chip.blue{border-color:var(--blue);color:var(--blue)}
+.new{display:inline-block;background:var(--red);color:#fff;font-family:BarlowB;font-style:normal;font-size:12px;letter-spacing:1px;padding:1px 7px;border-radius:4px;margin-left:8px;vertical-align:middle;transform:rotate(-3deg)}
+.sticky{position:relative;padding:14px 16px 12px;box-shadow:0 6px 12px rgba(30,40,50,.25);font-family:Kalam}
+.sticky .mag{position:absolute;top:-10px;left:50%;width:19px;height:19px;border-radius:50%;background:var(--red);box-shadow:0 2px 0 #A0302A}
+.y{background:#FFE46B}.o{background:#FFC27A}.gr{background:#BDEBC8}.bl{background:#BFDDFB}
+.kv{display:flex;justify-content:space-between;font-size:18px;padding:4px 0;border-bottom:1px solid #E5EAEE}.kv b{font-family:BarlowB}
+.pos{color:var(--green)}.neg{color:var(--red)}.am{color:var(--amber)}
+.bar{height:11px;background:#E3E8EC;border-radius:6px;position:relative;overflow:hidden}.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--blue);border-radius:6px}
+.pol{background:#fff;padding:9px 9px 34px;box-shadow:0 6px 14px rgba(0,0,0,.3);transform:rotate(-3deg);position:relative}
+.pol::before{content:"";position:absolute;top:-12px;left:50%;margin-left:-45px;width:90px;height:26px;background:rgba(240,225,150,.8);transform:rotate(2deg)}
+.pol span{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-family:Marker;font-size:19px}
+.pfw{overflow:hidden;position:relative;flex:none;border-radius:6px;background:#111}.pfw img{position:absolute;left:0;top:0;width:100%;height:auto;transform:scale(1.85);transform-origin:50% 9%}
+table{border-collapse:collapse;width:100%}
+th{font-family:BarlowB;font-size:14px;letter-spacing:1.5px;color:#6c7781;text-align:left;padding:6px 8px;text-transform:uppercase}
+td{padding:7px 8px;font-size:19px}
+</style></head><body><div class="top"><span class="nb">&lt;</span><span class="nb" style="opacity:.5">&gt;</span><span class="gym">Anvil Street Gym</span><div class="date">Mon 12 Jan 2026<small>Week 2</small></div><div class="sp"></div><div class="cash">$16,841<small>running -$680 a week</small></div><div class="go">NEEDS YOU (1)<small>Answer a bout offer: Lucy Jackson vs Priya Nair</small></div><span class="nb">Menu</span></div><div class="wrap"><nav><a class="on">Home</a><a class="">Fighters</a><a class="">Fights<span class="b">1</span></a><a class="">Club</a><a class="">World</a><div class="anvil"><svg width="38" height="30" viewBox="0 0 38 30"><path d="M2 4h34v6H24c0 4-2 6-4 8l4 6v4H8v-4l4-6c-3-2-6-4-6-8H2z" fill="#22262E"/></svg></div></nav><main>
+<div class="card" style="border-left:6px solid var(--blue);padding:8px 16px;display:flex;gap:14px;align-items:center;margin-bottom:10px">
+ <span class="cap">First fight</span><span class="chip blue">1 Take the show</span><span class="chip">2 Camp and plan</span><span class="chip">3 Weigh-in and fight</span>
+ <b style="font-size:18px;margin-left:12px">Take the club show.</b><span style="color:#667;font-size:15px">Weight: 61.4 kg now, 59.9 kg on the morning, limit 60.0. Made, 0.1 to spare.</span><div style="flex:1"></div><i class="new">NEW first week only</i><span class="btn q">Skip the guide</span></div>
+<div style="display:grid;grid-template-columns:1fr 440px;gap:16px">
+ <div>
+  <div class="board" style="padding:14px 22px 16px">
+   <div style="display:flex;gap:22px">
+    <div class="pol" style="width:190px;flex:none;margin-top:6px"><div class="pfw" style="width:172px;height:200px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_11.png"></div><span>Lucy Jackson</span></div>
+    <div style="flex:1">
+     <div class="cap">The job <i class="new">NEW Monday page</i></div>
+     <div style="display:grid;grid-template-columns:130px 1fr;gap:4px 8px;margin-top:4px;align-items:baseline"><span class="cap">Survival</span><b style="font-size:21px;font-family:Kalam">Keep the doors open: 8 weeks in a row below $0 closes the gym.</b><span class="cap">First target</span><b style="font-size:21px;font-family:Kalam">The club show on Sat 31 Jan has offered Lucy a bout against Priya Nair.</b></div>
+     <div style="display:flex;gap:14px;align-items:center;margin-top:10px"><div class="pfw" style="width:56px;height:56px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_staff_coach.png"></div><div><div class="cap">You</div><b style="font-size:20px">Sam Carter</b><div style="color:var(--blue);font-family:BarlowB;font-size:15px">Old hand: easier weight cuts</div></div>
+      <div style="margin-left:auto;text-align:right"><span class="chip blue">Show in 19 days</span></div></div>
+    </div>
+   </div>
+   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:18px">
+    <div class="sticky o" style="transform:rotate(-1.2deg)"><span class="mag"></span><div style="font-family:KalamB;font-size:21px">Answer a bout offer:</div><div style="font-family:KalamB;font-size:23px">Lucy Jackson vs Priya Nair</div><div style="font-size:16px;margin:4px 0 8px">expires Thu 15 Jan, in 3 days</div><span class="btn d">Open</span><i class="new">NEW name in full</i></div>
+    <div class="sticky y" style="transform:rotate(.8deg)"><span class="mag" style="background:#8794a0;box-shadow:0 2px 0 #5d6870"></span><div style="font-family:KalamB;font-size:21px">A sponsor is waiting:</div><div style="font-family:KalamB;font-size:23px">Ironclad Supplements</div><div style="font-size:16px;margin:4px 0 8px">$250 a week for banner on the gym wall</div><span class="btn g">Deals</span></div>
+    <div class="sticky gr" style="transform:rotate(-.6deg)"><span class="mag" style="background:#8794a0;box-shadow:0 2px 0 #5d6870"></span><div style="font-family:KalamB;font-size:23px">Week 1 review is ready</div><div style="font-size:16px;margin:4px 0 8px">gains, moves, rankings, money</div><span class="btn g">Open</span><i class="new">NEW sits here, never pops up</i></div>
+   </div>
+   <div style="margin-top:20px;padding:10px 16px;border:3px dashed var(--red);border-radius:10px;display:flex;align-items:center;gap:16px;font-family:Kalam;font-size:22px">
+    <span class="cap" style="color:var(--red)">Next stop</span><b>Thu 15 Jan: the offer expires, time stops there</b><span style="color:#667;font-size:19px">3 days</span><i class="new">NEW line under the big button</i></div>
+  </div>
+  <div class="card" style="margin-top:16px;padding:12px 18px">
+   <div class="cap">Your fighters</div>
+   <table><tr><th></th><th>Fighter</th><th>Record</th><th>Rank</th><th>Next</th><th>Weight</th><th>Freshness</th><th>This week</th></tr>
+   <tr><td style="width:84px"><div class="pfw" style="width:78px;height:78px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_11.png"></div></td><td><b style="color:var(--blue);font-size:21px">Lucy Jackson</b><div style="color:#667;font-size:15px">Lightweight</div></td><td style="font-size:20px">3 and 1</td><td>-</td><td style="font-size:19px">1 offer waiting</td><td><b>61.4 kg</b><div style="color:#667;font-size:14px">1.4 to lose</div></td><td><b>56</b><div class="bar" style="width:90px"><i style="width:56%;background:var(--green)"></i></div></td><td style="font-size:18px">Roadwork, heavy bag, intervals</td></tr></table>
+  </div>
+ </div>
+ <div style="display:flex;flex-direction:column;gap:14px">
+  <div class="card"><div class="cap">Since last Monday</div>
+   <div style="font-size:17px;line-height:1.3;margin-top:6px"><p><span class="pos">&#9679;</span> <b>Lucy's conditioning went from 61.6 to 62.1</b><br><small style="color:#667">roadwork Mon + Fri, intervals Wed</small></p><p style="margin-top:6px"><span>&#9679;</span> <b>6 new members joined this week. 36 on the books.</b><br><small style="color:#667">Mon 12 Jan</small></p><p style="margin-top:6px"><span>&#9679;</span> <b>The club show on Sat 31 Jan has offered Lucy a bout.</b><br><small style="color:#667">Mon 12 Jan</small></p><p style="margin-top:6px"><span>&#9679;</span> <b>Luke Reid joins as sessional assistant coach.</b><br><small style="color:#667">Mon 5 Jan</small></p></div>
+   <div style="margin-top:8px"><span class="btn q">All news and mail (6 new)</span></div></div>
+  <div class="card"><div class="cap">The club this week</div><div class="kv"><span>Money in</span><b>$641</b></div><div class="kv"><span>Costs</span><b>$1,321</b></div><div class="kv"><span>Members</span><b>36, up 6</b></div><div class="kv"><span>Coach</span><b>Luke Reid</b></div></div>
+  <div class="card"><div class="cap">Coming up</div><div style="font-size:18px;margin-top:6px"><span>&#9679;</span> <b>Bills about $5,284</b><div style="color:#667;font-size:15px;margin-left:16px">Mon 2 Feb, in 21 days</div></div></div>
+ </div>
+</div></main></div></body></html>

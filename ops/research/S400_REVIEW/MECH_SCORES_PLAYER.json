@@ -1,0 +1,517 @@
+[
+ {
+  "id": "R01",
+  "score": 8,
+  "note": "The spine; weekly puzzle I would repeat for years"
+ },
+ {
+  "id": "R02",
+  "score": 6,
+  "note": "Saves time; fine as default, I rarely touch it"
+ },
+ {
+  "id": "R03",
+  "score": 7,
+  "note": "Weigh-in payoff feels real; missed cut stings"
+ },
+ {
+  "id": "R04",
+  "score": 8,
+  "note": "Classic push-or-rest gamble every single week"
+ },
+ {
+  "id": "R05",
+  "score": 6,
+  "note": "Nice spice if the two answers truly differ"
+ },
+ {
+  "id": "R06",
+  "score": 7,
+  "note": "Trust and ego with fighter; good if consequences show"
+ },
+ {
+  "id": "R07",
+  "score": 6,
+  "note": "Useful, must not pop up; reason line is gold"
+ },
+ {
+  "id": "R08",
+  "score": 6,
+  "note": "Long-term carrot; depends how perks feel"
+ },
+ {
+  "id": "R09",
+  "score": 4,
+  "note": "Passive numbers; fine in history, no engagement"
+ },
+ {
+  "id": "R10",
+  "score": 7,
+  "note": "Rush-back-or-rest gives every fight a cost"
+ },
+ {
+  "id": "R11",
+  "score": 8,
+  "note": "Readable reasons stop luck feeling unfair"
+ },
+ {
+  "id": "R12",
+  "score": 4,
+  "note": "Scars sound cool; extra bookkeeping"
+ },
+ {
+  "id": "R13",
+  "score": 3,
+  "note": "Paying to train harder feels like a mobile paywall"
+ },
+ {
+  "id": "R14",
+  "score": 4,
+  "note": "Hardly cares; planning around twist is minor"
+ },
+ {
+  "id": "R15",
+  "score": 7,
+  "note": "Learning moves is satisfying if mastery shows"
+ },
+ {
+  "id": "R16",
+  "score": 9,
+  "note": "Building my own combos is the hook"
+ },
+ {
+  "id": "R17",
+  "score": 9,
+  "note": "Designing a plan is why I buy it"
+ },
+ {
+  "id": "R18",
+  "score": 8,
+  "note": "If plans do not bite, game is dead"
+ },
+ {
+  "id": "R19",
+  "score": 7,
+  "note": "Tape room scouting is real boxing fun"
+ },
+ {
+  "id": "R20",
+  "score": 7,
+  "note": "Sparring nights to test plan: good loop"
+ },
+ {
+  "id": "R21",
+  "score": 7,
+  "note": "Gives scouting teeth, I like it"
+ },
+ {
+  "id": "R22",
+  "score": 5,
+  "note": "Safety net; I would write my own"
+ },
+ {
+  "id": "R23",
+  "score": 7,
+  "note": "Fixing habits is very real coach work"
+ },
+ {
+  "id": "R24",
+  "score": 8,
+  "note": "Distinct styles make every fighter matter"
+ },
+ {
+  "id": "R25",
+  "score": 8,
+  "note": "Opponent adapting makes plan a living fight"
+ },
+ {
+  "id": "R26",
+  "score": 9,
+  "note": "Corner minute is the fight night thrill"
+ },
+ {
+  "id": "R27",
+  "score": 7,
+  "note": "Stakes for corner calls; trust is believable"
+ },
+ {
+  "id": "R28",
+  "score": 8,
+  "note": "Stop or go on is great drama"
+ },
+ {
+  "id": "R29",
+  "score": 7,
+  "note": "Scorecards each round feed decisions, real boxing"
+ },
+ {
+  "id": "R30",
+  "score": 9,
+  "note": "Why screen is the learning loop"
+ },
+ {
+  "id": "R31",
+  "score": 7,
+  "note": "Closes the loop; one clear takeaway"
+ },
+ {
+  "id": "R32",
+  "score": 6,
+  "note": "Skip options essential by month six"
+ },
+ {
+  "id": "R33",
+  "score": 7,
+  "note": "Money against readiness; real manager dilemma"
+ },
+ {
+  "id": "R34",
+  "score": 3,
+  "note": "Flavour only; I would ignore it"
+ },
+ {
+  "id": "R35",
+  "score": 4,
+  "note": "Press card nothing visible; skip"
+ },
+ {
+  "id": "R36",
+  "score": 7,
+  "note": "Base of the career; must be smooth"
+ },
+ {
+  "id": "R37",
+  "score": 8,
+  "note": "Asking for fights is the real manager job"
+ },
+ {
+  "id": "R38",
+  "score": 6,
+  "note": "Paying to scout is fair small choice"
+ },
+ {
+  "id": "R39",
+  "score": 7,
+  "note": "Easy versus step-up stops solved matchmaking"
+ },
+ {
+  "id": "R40",
+  "score": 7,
+  "note": "Seeing the ladder motivates the long run"
+ },
+ {
+  "id": "R41",
+  "score": 7,
+  "note": "Risk per camp helps me plan, not guess"
+ },
+ {
+  "id": "R42",
+  "score": 7,
+  "note": "Nationals give amateurs a proper goal"
+ },
+ {
+  "id": "R43",
+  "score": 8,
+  "note": "Turning pro is a big career moment"
+ },
+ {
+  "id": "R44",
+  "score": 8,
+  "note": "Title fights and defences are the dream"
+ },
+ {
+  "id": "R45",
+  "score": 6,
+  "note": "Contract trade-off is neat but occasional"
+ },
+ {
+  "id": "R46",
+  "score": 7,
+  "note": "Partner choice ties gym to camp"
+ },
+ {
+  "id": "R47",
+  "score": 7,
+  "note": "Rematches are where boxing stories live"
+ },
+ {
+  "id": "R48",
+  "score": 5,
+  "note": "Weight moves matter to boxing fans, modest"
+ },
+ {
+  "id": "R49",
+  "score": 4,
+  "note": "Away shows are extra, would not miss"
+ },
+ {
+  "id": "R50",
+  "score": 8,
+  "note": "Recruiting with trial is a strong hook"
+ },
+ {
+  "id": "R51",
+  "score": 7,
+  "note": "Who am I start, nice difficulty framing"
+ },
+ {
+  "id": "R52",
+  "score": 6,
+  "note": "Goals with deadlines give direction"
+ },
+ {
+  "id": "R53",
+  "score": 6,
+  "note": "Roster cap makes keep-or-cut choices"
+ },
+ {
+  "id": "R54",
+  "score": 6,
+  "note": "Needed at 8 fighters; I prefer hands on"
+ },
+ {
+  "id": "R55",
+  "score": 8,
+  "note": "Scarce pad time is the best week dilemma"
+ },
+ {
+  "id": "R56",
+  "score": 6,
+  "note": "Staff with one effect each; fine"
+ },
+ {
+  "id": "R57",
+  "score": 7,
+  "note": "Seeing who joined and left makes gym alive"
+ },
+ {
+  "id": "R58",
+  "score": 8,
+  "note": "Losing a star to bigger gym hurts, great"
+ },
+ {
+  "id": "R59",
+  "score": 5,
+  "note": "Rival gym is flavour until it bites"
+ },
+ {
+  "id": "R60",
+  "score": 7,
+  "note": "Honest end to careers; emotional"
+ },
+ {
+  "id": "R61",
+  "score": 6,
+  "note": "Old boxer becomes coach is sweet"
+ },
+ {
+  "id": "R62",
+  "score": 4,
+  "note": "Sign now or lose is a stress chore"
+ },
+ {
+  "id": "R63",
+  "score": 2,
+  "note": "Card game feels off theme; skip it"
+ },
+ {
+  "id": "R64",
+  "score": 8,
+  "note": "A gym that can close gives real tension"
+ },
+ {
+  "id": "R65",
+  "score": 5,
+  "note": "Dues band only matters once fixed"
+ },
+ {
+  "id": "R66",
+  "score": 5,
+  "note": "Mild slider, set and forget"
+ },
+ {
+  "id": "R67",
+  "score": 5,
+  "note": "A plain shopping list, no thrill"
+ },
+ {
+  "id": "R68",
+  "score": 7,
+  "note": "Stipend versus day job is a real choice"
+ },
+ {
+  "id": "R69",
+  "score": 7,
+  "note": "Putting on a show is a fun gamble"
+ },
+ {
+  "id": "R70",
+  "score": 5,
+  "note": "Overdraft and grants are bookkeeping"
+ },
+ {
+  "id": "R71",
+  "score": 6,
+  "note": "Juniors as pipeline is lovely long-term"
+ },
+ {
+  "id": "R72",
+  "score": 7,
+  "note": "Gym identity gives money choices flavour"
+ },
+ {
+  "id": "R73",
+  "score": 7,
+  "note": "Timetable fun if not too fiddly"
+ },
+ {
+  "id": "R74",
+  "score": 6,
+  "note": "New joiners at risk is a good tycoon beat"
+ },
+ {
+  "id": "R75",
+  "score": 4,
+  "note": "Small and fiddly, would not miss"
+ },
+ {
+  "id": "R76",
+  "score": 5,
+  "note": "Policy toggle, mild interest"
+ },
+ {
+  "id": "R77",
+  "score": 3,
+  "note": "Dust period is a chore"
+ },
+ {
+  "id": "R78",
+  "score": 3,
+  "note": "Changing rooms upgrade is dull"
+ },
+ {
+  "id": "R79",
+  "score": 5,
+  "note": "Coach course is a decent small hook"
+ },
+ {
+  "id": "R80",
+  "score": 5,
+  "note": "Seasonal intake is charming but minor"
+ },
+ {
+  "id": "R81",
+  "score": 5,
+  "note": "Sponsor line good only with more fighters"
+ },
+ {
+  "id": "R82",
+  "score": 4,
+  "note": "A picture of the gym, pretty, no depth"
+ },
+ {
+  "id": "R83",
+  "score": 2,
+  "note": "Four small tweaks, tedious"
+ },
+ {
+  "id": "R84",
+  "score": 4,
+  "note": "Gym floor building I would like but out"
+ },
+ {
+  "id": "R85",
+  "score": 9,
+  "note": "A living world is what keeps month six alive"
+ },
+ {
+  "id": "R86",
+  "score": 7,
+  "note": "Climbing rankings is the core motivation"
+ },
+ {
+  "id": "R87",
+  "score": 7,
+  "note": "Yearly goals give shape to a long game"
+ },
+ {
+  "id": "R88",
+  "score": 4,
+  "note": "Names without effect"
+ },
+ {
+  "id": "R89",
+  "score": 7,
+  "note": "Record book is pride and cheap"
+ },
+ {
+  "id": "R90",
+  "score": 6,
+  "note": "Modding makes fans stay"
+ },
+ {
+  "id": "R91",
+  "score": 5,
+  "note": "Editor is nice for fans, not me"
+ },
+ {
+  "id": "R92",
+  "score": 7,
+  "note": "One next action helps, if not hand-holdy"
+ },
+ {
+  "id": "R93",
+  "score": 8,
+  "note": "Simulate to next stop is vital for long career"
+ },
+ {
+  "id": "R94",
+  "score": 6,
+  "note": "Expected basics, not exciting"
+ },
+ {
+  "id": "R95",
+  "score": 5,
+  "note": "Guide that stays is annoying; first hour good"
+ },
+ {
+  "id": "R96",
+  "score": 7,
+  "note": "Belt road gives long BJJ progression"
+ },
+ {
+  "id": "R97",
+  "score": 6,
+  "note": "Stripe timing is a neat small choice"
+ },
+ {
+  "id": "R98",
+  "score": 6,
+  "note": "Drilling syllabus is a pleasing loop"
+ },
+ {
+  "id": "R99",
+  "score": 7,
+  "note": "Calling each grappling move is tense fun"
+ },
+ {
+  "id": "R100",
+  "score": 6,
+  "note": "Open brackets give BJJ a calendar"
+ },
+ {
+  "id": "R101",
+  "score": 5,
+  "note": "Class business is quiet income"
+ },
+ {
+  "id": "R102",
+  "score": 6,
+  "note": "One rulebook for both sports is sensible"
+ },
+ {
+  "id": "R103",
+  "score": 2,
+  "note": "Dropped ideas, I would not miss them"
+ }
+]

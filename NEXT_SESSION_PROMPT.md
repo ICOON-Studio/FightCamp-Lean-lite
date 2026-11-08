@@ -1,12 +1,19 @@
-# S401 - state so far (2026-11-08, S401 main session; refresh at handover)
+# S402 - next session (written S401 main session, 2026-11-08)
 
-ONE MIRO BOARD NOW (operator: "iam confused with miro there are 2 boards"; picked "One board, keep all"): https://miro.com/app/board/uXjVEV03QWA=/ , renamed THE ONE BOARD. Never write to uXjVETf7la4= (ARCHIVED).
-Far left of the board (x < 0): MENUS FOR YOUR OK (S401, frame 3458764689771007533, 14 rows + his stickies), THE GYM AGAINST TYCOON GAMES, REMOVED IDEAS, LUDO PAINTED CONCEPTS (Home, Money), RETIRED.
-LEFT TO DO BEFORE DELETING ARCHIVED (his browser; my tools cannot delete a board): 7 old images of its RETIRED frame (3458764689580241048; captions already moved; image_create by URL fails, so download then image_get_upload_url), and the two html mockups "Whiteboard planner" and "Corner minute" (no source file found: screenshot them from the board in Chrome and upload).
-HIS ANSWERS: Q-S294-125 "compare the structure to corner king and have ritics review it and refine it" (done, ops/research/S400_REVIEW/CORNER_KING_REFINED_S401.md). "also compare the gym aspect ... tycoon and sim" (done, GYM_VS_TYCOON_S401.md + GYM_IDEAS_VERDICT_S401.md). On the Ludo paintings: every preview and mockup is to be in that art. Still needed: OK / change / cut on the S401 stickies.
-BUILT S401, pushed unless noted: corner minute from the apron (47b1c7c8: coach leans over the rope with the water, crouches through the ropes to talk, seat 0.42, shots rebuilt); body figure as a scan, tools/holo_scan_look.py (33f1550d, commit local until pushed: he said "wtf is that it looks like an astraunat").
-OPEN: corner_film check still fails "the gloves touch in the intro" (0.189 m vs 0.12, measured at glove_front: since S400's 1.2x gloves; a thin visible gap in the still). corner_film checks need --fixed-fps 30 (real time under load: boxer never reached the stool). The exe in Builds is from 11-07: no stylized menus yet. Dues choice is fake (premium wins every reputation), fix = first gym job.
-AGENTS: Qwen CORNERTRUST1 running; Cursor FIGHTERMODEL3B then RETARGET2B queued.
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S402` + map redraw on the ONE board.
+STANDING ORDER (CLAUDE.md): animation progresses every session; say which item and seat in the first message. His words: "assign free seats or open new sessions".
+ONE MIRO BOARD: https://miro.com/app/board/uXjVEV03QWA=/ (renamed THE ONE BOARD). Never write to uXjVETf7la4= (ARCHIVED). New frames sit at x < 0. Read board answers in questions.json as well as the stickies (S401 missed one).
+
+ORDER:
+1. His IN/LATER/OUT on Miro frame MECHANICS LIST (S401, id 3458764689772104154, 103 rows with blank stickies, two critic scores per row; ops/research/S400_REVIEW/MECHANICS_SCORED_S401.md). A blank sticky means he agrees. Mechanics come before menus (his call).
+2. Then finalise the 14 menus against it (frame MENUS FOR YOUR OK S401, 3458764689771007533; CORNER_KING_REFINED_S401.md) and repaint only the changed ones. PAINTED MENUS frame 3458764689772257568, sources docs/mockups/s401 + concepts/S401_*: accurate, less rich than his two originals; four paler (a concept reference made Ludo paste Money's chalkboards into empty space).
+3. Animation: read session rokoko-repair (local_08cde081-ab48-426c-a866-589b564ae636, branch claude/rokoko-repair-3bb3a3): RETARGET2B -> film -> merge -> proguard.
+4. Review PR #85 FIGHTERMODEL3B (7/9 checks) against ops/research/TASK_FIGHTERMODEL3.md: rule 2 held, bar 1 in band. Collect OFFERGONE1 (Qwen).
+5. Finish ARCHIVED: 7 images of its RETIRED frame 3458764689580241048 (captions moved; image_create by URL failed; download, then image_get_upload_url) and the 2 html mockups (Whiteboard planner 3458764689105298849, Corner minute 3458764689106986945: screenshot in Chrome). Then delete that board through his Chrome: he chose that.
+6. No-design defects: week review pops up by itself; guide strip on every page at week 20; flag text cut off; Playbook pane empty; fake dues (premium wins everywhere, row R65); corner_film "gloves touch" 0.189 vs 0.12 since the 1.2x gloves.
+
+DONE S401: 16 branches deleted; corner minute from the apron 47b1c7c8; body figure a muscle scan 33f1550d (tools/holo_scan_look.py); CornerTrust 0a47e4c3. corner_film checks need --fixed-fps 30. The visible gym stays out unless he says so.
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor Grok 4.7 High until 12-07.
 
 # S401 - next session (written S400 main session, 2026-11-08)
 
