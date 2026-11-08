@@ -5517,10 +5517,10 @@
         "One more pass"
       ],
       "attach": [],
-      "answer": null,
-      "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answer": "Build them",
+      "note": "in chat 2026-11-08: \"Build them\"; closed by S405",
+      "answered_at": "2026-11-08T16:08:52.092224+00:00",
+      "seen_by_claude": true
     },
     {
       "id": "Q-S294-130",

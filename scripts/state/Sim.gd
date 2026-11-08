@@ -393,6 +393,7 @@ static func end_week(career: Career) -> void:
 		f["week_start"] = (f["stats"] as Dictionary).duplicate()
 	career.last_report = {
 		"week": week, "fighters": reports, "grapplers": Grapplers.week_report(career), "members": career.members, "members_delta": int(roll["delta"]),
+		"members_why": str(roll.get("why", "")),
 		# S352 (board review: "Paid this week -$1,000" vs Home's "Costs this week -$1,123"): the week's running costs go on the
 		# month-end bill; "out" is the cash that left - the review shows both, and names what was paid.
 		"money": {"in": int(career.week_money["in"]), "out": int(career.week_money["out"]), "costs": int(costs["total"]),

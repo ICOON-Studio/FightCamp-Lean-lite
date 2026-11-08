@@ -150,7 +150,7 @@ func build(main: Node, m: Dictionary) -> void:
 		UI.kv("Running costs (on the bill)", UI.signed(-int(r["money"].get("costs", 0))), UI.FG, "mono"),
 		UI.kv("Paid out this week", UI.signed(-int(r["money"]["out"])), UI.FG, "mono"),
 		UI.kv("Cash now", UI.money(c.cash), UI.FG, "mono"),
-		UI.kv("Members", "%d (%+d)" % [int(r.get("members", c.members)), int(r.get("members_delta", 0))], UI.FG, "mono"),
+		UI.kv("Members", _members_line(r, c), UI.FG, "mono"),
 	]:
 		money[1].add_child(row)
 	var paid: Array = r["money"].get("paid", [])
@@ -481,3 +481,10 @@ func _on_leak_drill(main: Node, id: String, plan: String, b: Button) -> void:
 	main.act("gdrill", "%s|%s" % [id, plan])
 	b.text = "Drilling it next Sunday"
 	b.disabled = true
+
+
+## R11B: the count with the why clause when present. An old save without members_why reads exactly as today.
+static func _members_line(r: Dictionary, c: Career) -> String:
+	var base := "%d (%+d)" % [int(r.get("members", c.members)), int(r.get("members_delta", 0))]
+	var why := str(r.get("members_why", ""))
+	return base + (": " + why if why != "" else "")

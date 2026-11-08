@@ -69,7 +69,8 @@ static func weekly_dues(members: int, band: String = "standard") -> int:
 ## The weekly pass: walk the count one step, then bill that count. The caller credits the cash. S397 money bites: the
 ## premises cap what the gym can hold (GymSpend.member_cap; a full gym needs a bigger place).
 static func settle_week(members: int, reputation: int, cap: int = MAX_MEMBERS, band: String = "standard") -> Dictionary:
-	var target := mini(natural_members(reputation, band), cap)
+	var natural := natural_members(reputation, band)
+	var target := mini(natural, cap)
 	var after := step_members(members, target)
 	return {
 		"dues": weekly_dues(after, band),
@@ -78,4 +79,21 @@ static func settle_week(members: int, reputation: int, cap: int = MAX_MEMBERS, b
 		"target": target,
 		"rate": weekly_rate(),
 		"delta": after - members,
+		"why": week_cause(members, after, natural, cap, band, natural_members(reputation)),
 	}
+
+
+## R11B: one plain clause for why the count moved. Pure, no rng. `at_standard` is what the same name would draw on
+## standard dues: the dues only get the blame when standard dues would have kept these members.
+static func week_cause(before: int, after: int, natural: int, cap: int, band: String, at_standard: int = MAX_MEMBERS) -> String:
+	if before == after:
+		return ""
+	if after > before:
+		if after >= cap and natural > cap:
+			return "the gym is full now"
+		return "word is getting round"
+	if natural >= cap:
+		return "the gym has less room"
+	if band == "premium" and at_standard >= before:
+		return "the dues are putting people off"
+	return "more than the gym's name can hold"

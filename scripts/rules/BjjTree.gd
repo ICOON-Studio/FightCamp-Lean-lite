@@ -37,20 +37,31 @@ const PLANS := ["tree:", "route:", "ahead:"]
 ## have not been run on CHAIN / READ_W / D_NONE / PLAN_PULL yet.
 ## S398 BJJREAL fit on tools/bjj_realism_probe.gd (BJJ_REALISM_S397.md 8): MAT_ATT 0.8 -> 0.7, MAT_DEF 1.2 -> 1.0, ESC_PRO
 ## 0.35 -> 0.5, the mat-time levels blue 1.0 -> 0.6, purple 1.8 -> 1.35, brown 2.4 -> 1.95, black 2.9 -> 2.6 (MAT_TOP 0.4).
-const T0 := {"TAP_VALUE": 20.0, "EPS": 0.17, "STYLE_W": 2.0, "LATE_S": 60.0, "MOOD_W": 4.0, "MF_CEIL": 1.4,
-	"BASE_ENTRY": 0.42, "BASE_TRANSITION": 0.45, "BASE_ESCAPE": 0.30, "BASE_BACK_PRO": 0.30, "BASE_TAKEDOWN": 0.33,
+## BJJBEAT1 (the two-sided beat is the match): TAP_VALUE 20 -> 4 and MOOD_W 4 -> 2.7 keep the attempt pace and the
+## morale bar; BASE_TRANSITION 0.45 -> 0.25 brings mount/pass back under 0.7; ESC_PRO 0.5 -> 0.37 holds the pro sub
+## rate; BEAT2_S stays 11 and the mat weights stay put (each one moves every belt row). BJJBEAT2: STRIPE_EDGE 0.80
+## scales only a four-stripe against a fresh same belt, BROWN_TRY 1.30 is how often two brown belts act on a submission
+## they already chose. STALL_N 5 and IDLE_P 0.82 put the 20-s count in band; SUB_TRAIL 0.5 with LEAD_SUB 1.1
+## makes the first scorer keep the bout; TRAIL_GAP / FAV_ODD leave a mismatch an upset; mat levels refit the belt table.
+const T0 := {"TAP_VALUE": 4.0, "EPS": 0.17, "STYLE_W": 2.0, "LATE_S": 60.0, "MOOD_W": 2.7, "MF_CEIL": 1.4,
+	"BASE_ENTRY": 0.42, "BASE_TRANSITION": 0.25, "BASE_ESCAPE": 0.30, "BASE_BACK_PRO": 0.30, "BASE_TAKEDOWN": 0.33,
 	"BACK_FINISH_W": 0.36, "OFF_BELT": 0.5, "BEAT_S": 33.0, "FELT": 15.0, "ROLL_EVERY": 2,
 	"PLAN_PULL": 1.5, "CHAIN": 1.1, "READ_W": 0.6, "D_NONE": 0.9, "FILM_OPENS": 3,
-	"MAT_ATT": 0.7, "MAT_DEF": 1.0, "FORM_SD": 0.25, "ESC_AM": 0.10, "ESC_PRO": 0.5, "ESC_W": 0.8, "EPS_IQ": 0.5,
-	"BEATS2": 0.0, "BEAT2_S": 11.0, "ACT_P": 0.3, "ACT_GRIP": 0.25, "GRIP_W": 0.15,
-	"MAT_BLUE": 0.6, "MAT_PURPLE": 1.35, "MAT_BROWN": 1.95, "MAT_BLACK": 2.6, "MAT_TOP": 0.4}
+	"MAT_ATT": 0.66, "MAT_DEF": 0.94, "FORM_SD": 0.25, "ESC_AM": 0.10, "ESC_PRO": 0.37, "ESC_W": 0.8, "EPS_IQ": 0.5,
+	"BEATS2": 1.0, "BEAT2_S": 11.0, "ACT_P": 0.34, "ACT_GRIP": 0.25, "GRIP_W": 0.15, "MISS_FLIP": 1.0, "SLIDE": 1.0,
+	"SWEEP_AM": 1.0, "PASS_W": 1.0, "STALL_N": 5.0, "ACT_INIT": 0.0, "SUB_TRAIL": 0.5, "LEAD_SUB": 1.1, "IDLE_P": 0.82,
+	"TRAIL_GAP": 1.15, "FAV_AT": 1.9, "FAV_ODD": 0.62, "SUB_HUNT": 1.0, "STRIPE_EDGE": 0.80, "BROWN_TRY": 1.30,
+	"MAT_BLUE": 0.52, "MAT_PURPLE": 1.35, "MAT_BROWN": 1.95, "MAT_BLACK": 2.42, "MAT_TOP": 0.4}
 ## The design's start values (10.5): the formula tests check the worked numbers of 3.3 against these.
+## BJJBEAT1: BEATS2 is on in both tables (the ~11 s two-sided beat is the match).
 const T_DESIGN := {"TAP_VALUE": 10.0, "EPS": 0.2, "STYLE_W": 2.0, "LATE_S": 60.0, "MOOD_W": 5.0, "MF_CEIL": 1.8,
 	"BASE_ENTRY": 0.50, "BASE_TRANSITION": 0.40, "BASE_ESCAPE": 0.30, "BASE_BACK_PRO": 0.35, "BASE_TAKEDOWN": 0.33,
 	"BACK_FINISH_W": 0.36, "OFF_BELT": 0.5, "BEAT_S": 22.0, "FELT": 15.0, "ROLL_EVERY": 2,
 	"PLAN_PULL": 2.0, "CHAIN": 1.15, "READ_W": 0.6, "D_NONE": 0.7, "FILM_OPENS": 3,
 	"MAT_ATT": 0.8, "MAT_DEF": 1.2, "FORM_SD": 0.25, "ESC_AM": 0.10, "ESC_PRO": 0.35, "ESC_W": 0.8, "EPS_IQ": 0.5,
-	"BEATS2": 0.0, "BEAT2_S": 11.0, "ACT_P": 0.3, "ACT_GRIP": 0.25, "GRIP_W": 0.15,
+	"BEATS2": 1.0, "BEAT2_S": 11.0, "ACT_P": 0.3, "ACT_GRIP": 0.25, "GRIP_W": 0.15, "MISS_FLIP": 1.0, "SLIDE": 1.0,
+	"SWEEP_AM": 1.0, "PASS_W": 1.0, "STALL_N": 2.0, "ACT_INIT": 0.0, "SUB_TRAIL": 1.0, "LEAD_SUB": 1.0, "IDLE_P": 1.0,
+	"TRAIL_GAP": 99.0, "FAV_AT": 99.0, "FAV_ODD": 1.0, "SUB_HUNT": 1.0, "STRIPE_EDGE": 1.0, "BROWN_TRY": 1.0,
 	"MAT_BLUE": 1.0, "MAT_PURPLE": 1.8, "MAT_BROWN": 2.4, "MAT_BLACK": 2.9, "MAT_TOP": 0.4}
 static var T: Dictionary = T0.duplicate()
 static var _data: Dictionary = {}
@@ -241,7 +252,12 @@ static func _kind_rate(kind: String, pro: bool) -> float:
 		"back_take":
 			return float(T["BASE_BACK_PRO"]) if pro else float(KIND_BASE["back_take"][0])
 	var row: Array = KIND_BASE.get(kind, [0.30, 0.30])
-	return float(row[1] if pro else row[0])
+	var rate := float(row[1] if pro else row[0])
+	if kind == "pass":
+		rate *= float(T.get("PASS_W", 1.0))
+	elif kind == "sweep" and not pro:
+		rate *= float(T.get("SWEEP_AM", 1.0))
+	return rate
 
 
 ## The edge's even-field rate under the bout's rules (overrides, amateur overrides, the kind's row; purple = midpoint).
@@ -281,7 +297,24 @@ static func odds(e: Dictionary, m_att: float, m_ans: float, rules: Dictionary, c
 	p /= maxf(float(T["D_NONE"]), mf(m_ans)) * (1.0 + float(T["READ_W"]) * read)
 	if shift != 0.0:
 		p = logit_add(p, shift)
-	return clampf(p, CLAMP.x, CLAMP.y)
+	p = clampf(p, CLAMP.x, CLAMP.y)
+	# Both are transient (BjjBeat sets one for a pick or an attempt, then clears it). Absent, this is the
+	# formula the odds tests check. SUB_BEHIND: a trailer rates a score or a sub as T.SUB_TRAIL. LEAD_FIN:
+	# a leader's sub lands at x T.LEAD_SUB, so the lead is the one that finishes.
+	var scoring := float(e.get("points", 0.0)) > 0.0 or str(e.get("odds", "")) == "submission"
+	var cut := float(T.get("SUB_BEHIND", 1.0))
+	if cut < 1.0 and scoring:
+		p = clampf(p * cut, CLAMP.x, CLAMP.y)
+	var hunt := float(T.get("SUB_HUNT_ON", 1.0))
+	if hunt != 1.0 and str(e.get("odds", "")) == "submission":
+		p = clampf(p * hunt, CLAMP.x, CLAMP.y)
+	var lead := float(T.get("LEAD_FIN", 1.0))
+	if lead > 1.0 and str(e.get("odds", "")) == "submission":
+		p = clampf(p * lead, CLAMP.x, CLAMP.y)
+	var fav := float(T.get("FAV_ON", 1.0))
+	if fav < 1.0 and scoring:
+		p = clampf(p * fav, CLAMP.x, CLAMP.y)
+	return p
 
 
 static func logit_add(p: float, shift: float) -> float:
@@ -291,7 +324,7 @@ static func logit_add(p: float, shift: float) -> float:
 
 ## A miss slides down the bad arrow only as far as the defender owns the answer.
 static func p_bad(m_ans: float) -> float:
-	return minf(1.0, maxf(0.0, m_ans) / P_BAD_AT)
+	return clampf(minf(1.0, maxf(0.0, m_ans) / P_BAD_AT) * float(T.get("SLIDE", 1.0)), 0.0, 1.0)
 
 
 ## Exactly NoGi.win_chance's mood term: (morale - 60) / 400 - TOUGH; 0 for a dict without morale.

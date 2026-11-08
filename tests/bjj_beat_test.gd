@@ -29,7 +29,8 @@ func _walk(belt: String, seed: int) -> Dictionary:
 func _initialize() -> void:
 	BjjTree.reset_tuning()
 	BjjOpp.reset_tuning()
-	# Off: the 33-s walk, no "works" key, the same result twice for a seed.
+	# The shipped table runs the two-sided beat. Off: the 33-s walk, no "works" key, the same result twice for a seed.
+	BjjTree.T["BEATS2"] = 0.0
 	var w0 := _walk("blue", 3)
 	_check(not w0.has("works"), "BEATS2 off: the 33-s walk runs")
 	_check(str(_walk("blue", 3)["how"]) == str(w0["how"]), "the walk is seeded")

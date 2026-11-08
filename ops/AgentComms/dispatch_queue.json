@@ -1,558 +1,582 @@
 {
- "_doc": "Tasks for the CLI seats, drained by ops/Tools/seat_dispatch.py (30-min reconcile).",
- "items": [
-  {
-   "task": "KNEETRACK1",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-03T00:26",
-   "launched": "2026-11-03T01:11"
-  },
-  {
-   "task": "NOREF1",
-   "seat": "qwen",
-   "status": "launched",
-   "queued": "2026-11-03T00:27",
-   "launched": "2026-11-03T01:36"
-  },
-  {
-   "task": "FIGHT9R1",
-   "seat": "agy",
-   "status": "superseded",
-   "queued": "2026-11-03T01:55",
-   "note": "S379: stale queue row (rounds 2-7 ran since)"
-  },
-  {
-   "task": "FIGHT9R2",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-03T03:09",
-   "loop": "FIGHT9",
-   "launched": "2026-11-03T03:41"
-  },
-  {
-   "task": "FIGHT9R3",
-   "seat": "agy",
-   "status": "failed",
-   "queued": "2026-11-03T05:13",
-   "loop": "FIGHT9",
-   "launched": "2026-11-03T05:41",
-   "note": "S375: agy 429 individual quota (resets ~11-10); moved to cursor as FIGHT9R4"
-  },
-  {
-   "task": "PASSEDSTAMP1",
-   "seat": "qwen",
-   "status": "launched",
-   "queued": "2026-11-03T05:29",
-   "launched": "2026-11-03T06:10"
-  },
-  {
-   "task": "FIGHT9R4",
-   "seat": "cursor",
-   "status": "launched",
-   "queued": "2026-11-03T10:11",
-   "loop": "FIGHT9",
-   "launched": "2026-11-03T10:41"
-  },
-  {
-   "task": "KALLINUMS1",
-   "seat": "qwen",
-   "status": "launched",
-   "queued": "2026-11-03T11:19",
-   "launched": "2026-11-03T11:21"
-  },
-  {
-   "task": "FIGHT9R5",
-   "seat": "cursor",
-   "status": "launched",
-   "queued": "2026-11-03T12:35",
-   "loop": "FIGHT9",
-   "launched": "2026-11-03T12:41"
-  },
-  {
-   "task": "FIGHT9R6",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-03T13:54",
-   "loop": "FIGHT9",
-   "launched": "2026-11-03T13:59"
-  },
-  {
-   "task": "FIGHT9R7",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-03T16:03",
-   "loop": "FIGHT9",
-   "launched": "2026-11-03T17:36"
-  },
-  {
-   "task": "LOCOWALK1",
-   "seat": "cursor",
-   "status": "launched",
-   "queued": "2026-11-03T16:31",
-   "launched": "2026-11-03T16:53",
-   "note": "S377: launched by hand (--task --act), runner pid 41164"
-  },
-  {
-   "task": "LOCOWALK2",
-   "seat": "cursor",
-   "status": "launched",
-   "queued": "2026-11-03T17:36",
-   "launched": "2026-11-03T18:41"
-  },
-  {
-   "task": "FIGHT9R8",
-   "seat": "agy",
-   "status": "failed",
-   "queued": "2026-11-03T18:36",
-   "loop": "FIGHT9",
-   "launched": "2026-11-03T20:41",
-   "note": "S379: runner crashed - agy.exe missing for 10 min at launch (21:01), agy never ran; superseded by FIGHT9R9 on BASE claude/fight9base = round 7 kept"
-  },
-  {
-   "task": "BJJ9R11",
-   "seat": "agy",
-   "status": "superseded",
-   "queued": "2026-11-04T03:41",
-   "launched": "2026-11-04T05:01",
-   "note": "S380: R11 never ran (agy.exe missing from the scheduled reconcile, fixed 3bf18542); redone as BJJ9R12 on bjj9base 405c0989 (main merged)"
-  },
-  {
-   "task": "FIGHT9R10",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-04T05:59",
-   "loop": "FIGHT9",
-   "note": "S379: released after the TV camera + corner-start films landed on claude/fight9base",
-   "launched": "2026-11-04T08:41"
-  },
-  {
-   "task": "BJJ9R12",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-04T06:38",
-   "loop": "BJJ9",
-   "launched": "2026-11-04T06:38",
-   "note": "S380: launched by hand (--task --act) on the merged base"
-  },
-  {
-   "task": "LOCOWALK4",
-   "seat": "cursor",
-   "status": "launched",
-   "queued": "2026-11-04T06:44",
-   "launched": "2026-11-04T07:41"
-  },
-  {
-   "task": "BJJ9R13",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-04T09:40",
-   "loop": "BJJ9",
-   "launched": "2026-11-04T10:11"
-  },
-  {
-   "task": "FIGHT9R10",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-04T10:11",
-   "launched": "2026-11-04T18:40"
-  },
-  {
-   "task": "BJJ9R14",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-04T11:09",
-   "loop": "BJJ9",
-   "launched": "2026-11-04T15:41"
-  },
-  {
-   "task": "BJJ9R14",
-   "seat": "cursor",
-   "status": "launched",
-   "queued": "2026-11-04T18:53",
-   "launched": "2026-11-04T19:10"
-  },
-  {
-   "task": "FIGHT9R11",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-04T19:46",
-   "loop": "FIGHT9",
-   "launched": "2026-11-04T20:10"
-  },
-  {
-   "task": "BJJ9R15",
-   "seat": "cursor",
-   "status": "launched",
-   "queued": "2026-11-04T20:59",
-   "loop": "BJJ9",
-   "launched": "2026-11-04T22:45"
-  },
-  {
-   "task": "FIGHT9R12",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-04T22:03",
-   "loop": "FIGHT9",
-   "launched": "2026-11-04T23:11"
-  },
-  {
-   "task": "FIGHT9R13",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-05T00:24",
-   "loop": "FIGHT9",
-   "launched": "2026-11-05T02:11"
-  },
-  {
-   "task": "BJJ9R16",
-   "seat": "cursor",
-   "status": "launched",
-   "queued": "2026-11-05T00:59",
-   "loop": "BJJ9",
-   "launched": "2026-11-05T02:40"
-  },
-  {
-   "task": "FIGHT9R14",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-05T18:51",
-   "loop": "FIGHT9",
-   "launched": "2026-11-05T19:10"
-  },
-  {
-   "task": "BJJ9R17",
-   "seat": "cursor",
-   "status": "launched",
-   "queued": "2026-11-05T18:53",
-   "loop": "BJJ9",
-   "launched": "2026-11-05T19:41"
-  },
-  {
-   "task": "FIGHT9R15",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-05T20:25",
-   "loop": "FIGHT9",
-   "launched": "2026-11-05T22:11"
-  },
-  {
-   "task": "SOUND1R2",
-   "seat": "qwen",
-   "status": "launched",
-   "queued": "2026-11-05T21:26",
-   "note": "S386: round 1 rework - Ludo not synthetic, restore 13 round-0 rows + crowd loop",
-   "launched": "2026-11-05T23:11"
-  },
-  {
-   "task": "BJJ9R18",
-   "seat": "cursor",
-   "status": "launched",
-   "queued": "2026-11-05T21:32",
-   "loop": "BJJ9",
-   "launched": "2026-11-06T01:11"
-  },
-  {
-   "task": "FIGHT9R16",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-05T22:59",
-   "loop": "FIGHT9",
-   "launched": "2026-11-06T00:11"
-  },
-  {
-   "task": "FIGHT9R17",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-06T01:27",
-   "loop": "FIGHT9",
-   "launched": "2026-11-06T03:11"
-  },
-  {
-   "task": "BJJ9R19",
-   "seat": "cursor",
-   "status": "held",
-   "queued": "2026-11-06T02:58",
-   "loop": "BJJ9",
-   "note": "S389: held by Claude. Operator: BJJ clips look fine, wire training, belts and the match instead. Set back to queued to run it."
-  },
-  {
-   "task": "FIGHT9R18",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-06T04:26",
-   "loop": "FIGHT9",
-   "launched": "2026-11-06T05:11"
-  },
-  {
-   "task": "FIGHT9R19",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-06T06:15",
-   "loop": "FIGHT9",
-   "launched": "2026-11-06T06:41"
-  },
-  {
-   "task": "FIGHT9R20",
-   "seat": "agy",
-   "status": "held",
-   "queued": "2026-11-06T07:46",
-   "loop": "FIGHT9",
-   "launched": "2026-11-06T08:11",
-   "note": "S390: never started; R17-R19 under R16; R16 merged by hand"
-  },
-  {
-   "task": "SOUND2",
-   "seat": "qwen",
-   "status": "launched",
-   "queued": "2026-11-07T08:52",
-   "launched": "2026-11-07T09:40"
-  },
-  {
-   "task": "SOUND3",
-   "seat": "qwen",
-   "status": "launched",
-   "queued": "2026-11-07T09:46",
-   "launched": "2026-11-07T10:40"
-  },
-  {
-   "task": "WORLD1",
-   "seat": "qwen",
-   "status": "launched",
-   "queued": "2026-11-07T11:23",
-   "launched": "2026-11-07T12:14"
-  },
-  {
-   "task": "FIGHTWALK1",
-   "seat": "cursor",
-   "status": "launched",
-   "queued": "2026-11-07T13:57",
-   "launched": "2026-11-07T14:11"
-  },
-  {
-   "task": "HITSELL1",
-   "seat": "qwen",
-   "status": "launched",
-   "queued": "2026-11-07T13:59",
-   "launched": "2026-11-07T14:40"
-  },
-  {
-   "task": "HITSELL2",
-   "seat": "qwen",
-   "status": "launched",
-   "queued": "2026-11-07T15:08",
-   "launched": "2026-11-07T15:41"
-  },
-  {
-   "task": "FIGHTWALK2",
-   "seat": "cursor",
-   "status": "done",
-   "queued": "2026-11-07T15:51"
-  },
-  {
-   "task": "CORNERCAM1",
-   "seat": "qwen",
-   "status": "moved_goose",
-   "queued": "2026-11-07T15:53"
-  },
-  {
-   "task": "INSIDE2",
-   "seat": "cursor",
-   "status": "moved_goose",
-   "queued": "2026-11-07T15:55"
-  },
-  {
-   "task": "HITSELL3",
-   "seat": "qwen",
-   "status": "launched",
-   "queued": "2026-11-07T16:19",
-   "launched": "2026-11-07T16:41"
-  },
-  {
-   "task": "HITSELL4",
-   "seat": "qwen",
-   "status": "done",
-   "queued": "2026-11-07T17:11"
-  },
-  {
-   "task": "FIGHTWALK3",
-   "seat": "cursor",
-   "status": "done",
-   "queued": "2026-11-07T17:11"
-  },
-  {
-   "task": "INSIDE4",
-   "seat": "qwen",
-   "status": "done",
-   "queued": "2026-11-07T18:06"
-  },
-  {
-   "task": "HITSELL5",
-   "seat": "qwen",
-   "status": "launched",
-   "queued": "2026-11-07T18:26",
-   "launched": "2026-11-07T20:41"
-  },
-  {
-   "task": "SOUTHPAW1",
-   "seat": "cursor",
-   "status": "done",
-   "queued": "2026-11-07T19:03",
-   "note": "S399: ran, PR #74 closed not merged; rework SOUTHPAW2"
-  },
-  {
-   "task": "SOUTHPAW2",
-   "seat": "cursor",
-   "status": "launched",
-   "queued": "2026-11-07T20:49",
-   "launched": "2026-11-07T21:21"
-  },
-  {
-   "task": "ANIMREBUILD1",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-07T20:51",
-   "launched": "2026-11-07T22:09"
-  },
-  {
-   "task": "RETARGET1",
-   "seat": "cursor",
-   "status": "launched",
-   "queued": "2026-11-07T22:53",
-   "launched": "2026-11-07T22:53"
-  },
-  {
-   "task": "WALK1",
-   "seat": "cursor",
-   "status": "held",
-   "queued": "2026-11-07T22:18",
-   "note": "S399 operator \"then why you kept working on the flaws ?\": no layer work until RETARGET1 + rokoko-back prove the clips clean against the source"
-  },
-  {
-   "task": "MONEYOD1",
-   "seat": "qwen",
-   "status": "launched",
-   "queued": "2026-11-07T21:22",
-   "launched": "2026-11-07T22:41"
-  },
-  {
-   "task": "FIGHTERMODEL3",
-   "seat": "cursor",
-   "status": "launched",
-   "queued": "2026-11-07T21:28",
-   "launched": "2026-11-08T00:43"
-  },
-  {
-   "task": "BJJBEAT1",
-   "seat": "cursor",
-   "status": "moved_goose",
-   "queued": "2026-11-07T21:23",
-   "note": "S399: Goose cloud (operator: use other free agents)"
-  },
-  {
-   "task": "MONEYLAYOUT1",
-   "seat": "agy",
-   "status": "launched",
-   "queued": "2026-11-07T21:29",
-   "launched": "2026-11-07T23:11"
-  },
-  {
-   "task": "GRAPPLEFIX1",
-   "seat": "qwen",
-   "status": "moved_session",
-   "queued": "2026-11-07T23:30",
-   "note": "S399 operator: \"assign it to new session\" - grappling-rater Claude session"
-  },
-  {
-   "task": "RETARGET2",
-   "seat": "cursor",
-   "status": "launched",
-   "queued": "2026-11-08T03:00",
-   "launched": "2026-11-08T03:00"
-  },
-  {
-   "task": "FIGHTERMODEL3B",
-   "seat": "cursor",
-   "status": "launched",
-   "queued": "2026-11-08T07:54",
-   "launched": "2026-11-08T09:11"
-  },
-  {
-   "task": "MONEYOD2",
-   "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-08T07:56"
-  },
-  {
-   "task": "RETARGET2B",
-   "seat": "cursor",
-   "status": "superseded",
-   "queued": "2026-11-08T09:12",
-   "note": "S401: operator \"assign free seats or open new sessions\": taken by a Claude side session while Cursor is held"
-  },
-  {
-   "task": "CORNERTRUST1",
-   "seat": "qwen",
-   "status": "launched",
-   "queued": "2026-11-08T10:01",
-   "launched": "2026-11-08T10:16"
-  },
-  {
-   "task": "OFFERGONE1",
-   "seat": "qwen",
-   "status": "launched",
-   "queued": "2026-11-08T11:02",
-   "launched": "2026-11-08T11:03"
-  },
-  {
-   "id": "GUIDEFLAG1",
-   "seat": "qwen",
-   "title": "TASK GUIDEFLAG1 - QWEN (qwen3-coder) - the guide strip ends with the first week; the offer flag says what is needed",
-   "brief": "GUIDEFLAG1"
-  },
-  {
-   "id": "BJJBEAT1",
-   "seat": "cursor",
-   "title": "TASK BJJBEAT1 - CURSOR (Grok 4.7 High) - turn the two-sided BJJ beat ON and tune it into the real bars",
-   "brief": "BJJBEAT1"
-  },
-  {
-   "id": "SWINGCENSUS1",
-   "seat": "agy",
-   "title": "TASK SWINGCENSUS1 - AGY (Argon High) - every random swing the player feels, and what they are told",
-   "brief": "SWINGCENSUS1"
-  },
-  {
-   "id": "FIGHTERMODEL3C",
-   "seat": "cursor",
-   "title": "TASK FIGHTERMODEL3C - CURSOR (Grok 4.7 High) - scouting has something to find again (round 3, from an audit)",
-   "brief": "FIGHTERMODEL3C",
-   "status": "superseded",
-   "held_why": "S404 operator agreed the 10 attributes and \"Ok 12\" skills: replaced by FIGHTERMODEL4A, the audit returns as 4B"
-  },
-  {
-   "id": "GUIDEFLAG2",
-   "seat": "qwen",
-   "title": "TASK GUIDEFLAG2 - QWEN (qwen3-coder) - round 2: the guide must end, without breaking the first fight",
-   "brief": "GUIDEFLAG2"
-  },
-  {
-   "id": "R11A",
-   "seat": "qwen",
-   "title": "TASK R11A - QWEN (qwen3-coder) - an injury says why it happened",
-   "brief": "R11A"
-  },
-  {
-   "id": "BJJBEAT2",
-   "seat": "cursor",
-   "title": "TASK BJJBEAT2 - CURSOR (Grok 4.7 High) - BJJBEAT1 round 2: the last two bars, with a key that does not trade them",
-   "brief": "BJJBEAT2"
-  },
-  {
-   "id": "FIGHTERMODEL4A",
-   "seat": "cursor",
-   "title": "TASK FIGHTERMODEL4A - CURSOR (Grok 4.7 High) - the fighter model on the agreed 10 attributes and 5 boxing skills",
-   "brief": "FIGHTERMODEL4A"
-  }
- ]
+  "_doc": "Tasks for the CLI seats, drained by ops/Tools/seat_dispatch.py (30-min reconcile).",
+  "items": [
+    {
+      "task": "KNEETRACK1",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-03T00:26",
+      "launched": "2026-11-03T01:11"
+    },
+    {
+      "task": "NOREF1",
+      "seat": "qwen",
+      "status": "launched",
+      "queued": "2026-11-03T00:27",
+      "launched": "2026-11-03T01:36"
+    },
+    {
+      "task": "FIGHT9R1",
+      "seat": "agy",
+      "status": "superseded",
+      "queued": "2026-11-03T01:55",
+      "note": "S379: stale queue row (rounds 2-7 ran since)"
+    },
+    {
+      "task": "FIGHT9R2",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-03T03:09",
+      "loop": "FIGHT9",
+      "launched": "2026-11-03T03:41"
+    },
+    {
+      "task": "FIGHT9R3",
+      "seat": "agy",
+      "status": "failed",
+      "queued": "2026-11-03T05:13",
+      "loop": "FIGHT9",
+      "launched": "2026-11-03T05:41",
+      "note": "S375: agy 429 individual quota (resets ~11-10); moved to cursor as FIGHT9R4"
+    },
+    {
+      "task": "PASSEDSTAMP1",
+      "seat": "qwen",
+      "status": "launched",
+      "queued": "2026-11-03T05:29",
+      "launched": "2026-11-03T06:10"
+    },
+    {
+      "task": "FIGHT9R4",
+      "seat": "cursor",
+      "status": "launched",
+      "queued": "2026-11-03T10:11",
+      "loop": "FIGHT9",
+      "launched": "2026-11-03T10:41"
+    },
+    {
+      "task": "KALLINUMS1",
+      "seat": "qwen",
+      "status": "launched",
+      "queued": "2026-11-03T11:19",
+      "launched": "2026-11-03T11:21"
+    },
+    {
+      "task": "FIGHT9R5",
+      "seat": "cursor",
+      "status": "launched",
+      "queued": "2026-11-03T12:35",
+      "loop": "FIGHT9",
+      "launched": "2026-11-03T12:41"
+    },
+    {
+      "task": "FIGHT9R6",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-03T13:54",
+      "loop": "FIGHT9",
+      "launched": "2026-11-03T13:59"
+    },
+    {
+      "task": "FIGHT9R7",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-03T16:03",
+      "loop": "FIGHT9",
+      "launched": "2026-11-03T17:36"
+    },
+    {
+      "task": "LOCOWALK1",
+      "seat": "cursor",
+      "status": "launched",
+      "queued": "2026-11-03T16:31",
+      "launched": "2026-11-03T16:53",
+      "note": "S377: launched by hand (--task --act), runner pid 41164"
+    },
+    {
+      "task": "LOCOWALK2",
+      "seat": "cursor",
+      "status": "launched",
+      "queued": "2026-11-03T17:36",
+      "launched": "2026-11-03T18:41"
+    },
+    {
+      "task": "FIGHT9R8",
+      "seat": "agy",
+      "status": "failed",
+      "queued": "2026-11-03T18:36",
+      "loop": "FIGHT9",
+      "launched": "2026-11-03T20:41",
+      "note": "S379: runner crashed - agy.exe missing for 10 min at launch (21:01), agy never ran; superseded by FIGHT9R9 on BASE claude/fight9base = round 7 kept"
+    },
+    {
+      "task": "BJJ9R11",
+      "seat": "agy",
+      "status": "superseded",
+      "queued": "2026-11-04T03:41",
+      "launched": "2026-11-04T05:01",
+      "note": "S380: R11 never ran (agy.exe missing from the scheduled reconcile, fixed 3bf18542); redone as BJJ9R12 on bjj9base 405c0989 (main merged)"
+    },
+    {
+      "task": "FIGHT9R10",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-04T05:59",
+      "loop": "FIGHT9",
+      "note": "S379: released after the TV camera + corner-start films landed on claude/fight9base",
+      "launched": "2026-11-04T08:41"
+    },
+    {
+      "task": "BJJ9R12",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-04T06:38",
+      "loop": "BJJ9",
+      "launched": "2026-11-04T06:38",
+      "note": "S380: launched by hand (--task --act) on the merged base"
+    },
+    {
+      "task": "LOCOWALK4",
+      "seat": "cursor",
+      "status": "launched",
+      "queued": "2026-11-04T06:44",
+      "launched": "2026-11-04T07:41"
+    },
+    {
+      "task": "BJJ9R13",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-04T09:40",
+      "loop": "BJJ9",
+      "launched": "2026-11-04T10:11"
+    },
+    {
+      "task": "FIGHT9R10",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-04T10:11",
+      "launched": "2026-11-04T18:40"
+    },
+    {
+      "task": "BJJ9R14",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-04T11:09",
+      "loop": "BJJ9",
+      "launched": "2026-11-04T15:41"
+    },
+    {
+      "task": "BJJ9R14",
+      "seat": "cursor",
+      "status": "launched",
+      "queued": "2026-11-04T18:53",
+      "launched": "2026-11-04T19:10"
+    },
+    {
+      "task": "FIGHT9R11",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-04T19:46",
+      "loop": "FIGHT9",
+      "launched": "2026-11-04T20:10"
+    },
+    {
+      "task": "BJJ9R15",
+      "seat": "cursor",
+      "status": "launched",
+      "queued": "2026-11-04T20:59",
+      "loop": "BJJ9",
+      "launched": "2026-11-04T22:45"
+    },
+    {
+      "task": "FIGHT9R12",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-04T22:03",
+      "loop": "FIGHT9",
+      "launched": "2026-11-04T23:11"
+    },
+    {
+      "task": "FIGHT9R13",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-05T00:24",
+      "loop": "FIGHT9",
+      "launched": "2026-11-05T02:11"
+    },
+    {
+      "task": "BJJ9R16",
+      "seat": "cursor",
+      "status": "launched",
+      "queued": "2026-11-05T00:59",
+      "loop": "BJJ9",
+      "launched": "2026-11-05T02:40"
+    },
+    {
+      "task": "FIGHT9R14",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-05T18:51",
+      "loop": "FIGHT9",
+      "launched": "2026-11-05T19:10"
+    },
+    {
+      "task": "BJJ9R17",
+      "seat": "cursor",
+      "status": "launched",
+      "queued": "2026-11-05T18:53",
+      "loop": "BJJ9",
+      "launched": "2026-11-05T19:41"
+    },
+    {
+      "task": "FIGHT9R15",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-05T20:25",
+      "loop": "FIGHT9",
+      "launched": "2026-11-05T22:11"
+    },
+    {
+      "task": "SOUND1R2",
+      "seat": "qwen",
+      "status": "launched",
+      "queued": "2026-11-05T21:26",
+      "note": "S386: round 1 rework - Ludo not synthetic, restore 13 round-0 rows + crowd loop",
+      "launched": "2026-11-05T23:11"
+    },
+    {
+      "task": "BJJ9R18",
+      "seat": "cursor",
+      "status": "launched",
+      "queued": "2026-11-05T21:32",
+      "loop": "BJJ9",
+      "launched": "2026-11-06T01:11"
+    },
+    {
+      "task": "FIGHT9R16",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-05T22:59",
+      "loop": "FIGHT9",
+      "launched": "2026-11-06T00:11"
+    },
+    {
+      "task": "FIGHT9R17",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-06T01:27",
+      "loop": "FIGHT9",
+      "launched": "2026-11-06T03:11"
+    },
+    {
+      "task": "BJJ9R19",
+      "seat": "cursor",
+      "status": "held",
+      "queued": "2026-11-06T02:58",
+      "loop": "BJJ9",
+      "note": "S389: held by Claude. Operator: BJJ clips look fine, wire training, belts and the match instead. Set back to queued to run it."
+    },
+    {
+      "task": "FIGHT9R18",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-06T04:26",
+      "loop": "FIGHT9",
+      "launched": "2026-11-06T05:11"
+    },
+    {
+      "task": "FIGHT9R19",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-06T06:15",
+      "loop": "FIGHT9",
+      "launched": "2026-11-06T06:41"
+    },
+    {
+      "task": "FIGHT9R20",
+      "seat": "agy",
+      "status": "held",
+      "queued": "2026-11-06T07:46",
+      "loop": "FIGHT9",
+      "launched": "2026-11-06T08:11",
+      "note": "S390: never started; R17-R19 under R16; R16 merged by hand"
+    },
+    {
+      "task": "SOUND2",
+      "seat": "qwen",
+      "status": "launched",
+      "queued": "2026-11-07T08:52",
+      "launched": "2026-11-07T09:40"
+    },
+    {
+      "task": "SOUND3",
+      "seat": "qwen",
+      "status": "launched",
+      "queued": "2026-11-07T09:46",
+      "launched": "2026-11-07T10:40"
+    },
+    {
+      "task": "WORLD1",
+      "seat": "qwen",
+      "status": "launched",
+      "queued": "2026-11-07T11:23",
+      "launched": "2026-11-07T12:14"
+    },
+    {
+      "task": "FIGHTWALK1",
+      "seat": "cursor",
+      "status": "launched",
+      "queued": "2026-11-07T13:57",
+      "launched": "2026-11-07T14:11"
+    },
+    {
+      "task": "HITSELL1",
+      "seat": "qwen",
+      "status": "launched",
+      "queued": "2026-11-07T13:59",
+      "launched": "2026-11-07T14:40"
+    },
+    {
+      "task": "HITSELL2",
+      "seat": "qwen",
+      "status": "launched",
+      "queued": "2026-11-07T15:08",
+      "launched": "2026-11-07T15:41"
+    },
+    {
+      "task": "FIGHTWALK2",
+      "seat": "cursor",
+      "status": "done",
+      "queued": "2026-11-07T15:51"
+    },
+    {
+      "task": "CORNERCAM1",
+      "seat": "qwen",
+      "status": "moved_goose",
+      "queued": "2026-11-07T15:53"
+    },
+    {
+      "task": "INSIDE2",
+      "seat": "cursor",
+      "status": "moved_goose",
+      "queued": "2026-11-07T15:55"
+    },
+    {
+      "task": "HITSELL3",
+      "seat": "qwen",
+      "status": "launched",
+      "queued": "2026-11-07T16:19",
+      "launched": "2026-11-07T16:41"
+    },
+    {
+      "task": "HITSELL4",
+      "seat": "qwen",
+      "status": "done",
+      "queued": "2026-11-07T17:11"
+    },
+    {
+      "task": "FIGHTWALK3",
+      "seat": "cursor",
+      "status": "done",
+      "queued": "2026-11-07T17:11"
+    },
+    {
+      "task": "INSIDE4",
+      "seat": "qwen",
+      "status": "done",
+      "queued": "2026-11-07T18:06"
+    },
+    {
+      "task": "HITSELL5",
+      "seat": "qwen",
+      "status": "launched",
+      "queued": "2026-11-07T18:26",
+      "launched": "2026-11-07T20:41"
+    },
+    {
+      "task": "SOUTHPAW1",
+      "seat": "cursor",
+      "status": "done",
+      "queued": "2026-11-07T19:03",
+      "note": "S399: ran, PR #74 closed not merged; rework SOUTHPAW2"
+    },
+    {
+      "task": "SOUTHPAW2",
+      "seat": "cursor",
+      "status": "launched",
+      "queued": "2026-11-07T20:49",
+      "launched": "2026-11-07T21:21"
+    },
+    {
+      "task": "ANIMREBUILD1",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-07T20:51",
+      "launched": "2026-11-07T22:09"
+    },
+    {
+      "task": "RETARGET1",
+      "seat": "cursor",
+      "status": "launched",
+      "queued": "2026-11-07T22:53",
+      "launched": "2026-11-07T22:53"
+    },
+    {
+      "task": "WALK1",
+      "seat": "cursor",
+      "status": "held",
+      "queued": "2026-11-07T22:18",
+      "note": "S399 operator \"then why you kept working on the flaws ?\": no layer work until RETARGET1 + rokoko-back prove the clips clean against the source"
+    },
+    {
+      "task": "MONEYOD1",
+      "seat": "qwen",
+      "status": "launched",
+      "queued": "2026-11-07T21:22",
+      "launched": "2026-11-07T22:41"
+    },
+    {
+      "task": "FIGHTERMODEL3",
+      "seat": "cursor",
+      "status": "launched",
+      "queued": "2026-11-07T21:28",
+      "launched": "2026-11-08T00:43"
+    },
+    {
+      "task": "BJJBEAT1",
+      "seat": "cursor",
+      "status": "moved_goose",
+      "queued": "2026-11-07T21:23",
+      "note": "S399: Goose cloud (operator: use other free agents)"
+    },
+    {
+      "task": "MONEYLAYOUT1",
+      "seat": "agy",
+      "status": "launched",
+      "queued": "2026-11-07T21:29",
+      "launched": "2026-11-07T23:11"
+    },
+    {
+      "task": "GRAPPLEFIX1",
+      "seat": "qwen",
+      "status": "moved_session",
+      "queued": "2026-11-07T23:30",
+      "note": "S399 operator: \"assign it to new session\" - grappling-rater Claude session"
+    },
+    {
+      "task": "RETARGET2",
+      "seat": "cursor",
+      "status": "launched",
+      "queued": "2026-11-08T03:00",
+      "launched": "2026-11-08T03:00"
+    },
+    {
+      "task": "FIGHTERMODEL3B",
+      "seat": "cursor",
+      "status": "launched",
+      "queued": "2026-11-08T07:54",
+      "launched": "2026-11-08T09:11"
+    },
+    {
+      "task": "MONEYOD2",
+      "seat": "qwen",
+      "status": "queued",
+      "queued": "2026-11-08T07:56"
+    },
+    {
+      "task": "RETARGET2B",
+      "seat": "cursor",
+      "status": "superseded",
+      "queued": "2026-11-08T09:12",
+      "note": "S401: operator \"assign free seats or open new sessions\": taken by a Claude side session while Cursor is held"
+    },
+    {
+      "task": "CORNERTRUST1",
+      "seat": "qwen",
+      "status": "launched",
+      "queued": "2026-11-08T10:01",
+      "launched": "2026-11-08T10:16"
+    },
+    {
+      "task": "OFFERGONE1",
+      "seat": "qwen",
+      "status": "launched",
+      "queued": "2026-11-08T11:02",
+      "launched": "2026-11-08T11:03"
+    },
+    {
+      "id": "GUIDEFLAG1",
+      "seat": "qwen",
+      "title": "TASK GUIDEFLAG1 - QWEN (qwen3-coder) - the guide strip ends with the first week; the offer flag says what is needed",
+      "brief": "GUIDEFLAG1"
+    },
+    {
+      "id": "BJJBEAT1",
+      "seat": "cursor",
+      "title": "TASK BJJBEAT1 - CURSOR (Grok 4.7 High) - turn the two-sided BJJ beat ON and tune it into the real bars",
+      "brief": "BJJBEAT1"
+    },
+    {
+      "id": "SWINGCENSUS1",
+      "seat": "agy",
+      "title": "TASK SWINGCENSUS1 - AGY (Argon High) - every random swing the player feels, and what they are told",
+      "brief": "SWINGCENSUS1"
+    },
+    {
+      "id": "FIGHTERMODEL3C",
+      "seat": "cursor",
+      "title": "TASK FIGHTERMODEL3C - CURSOR (Grok 4.7 High) - scouting has something to find again (round 3, from an audit)",
+      "brief": "FIGHTERMODEL3C",
+      "status": "superseded",
+      "held_why": "S404 operator agreed the 10 attributes and \"Ok 12\" skills: replaced by FIGHTERMODEL4A, the audit returns as 4B"
+    },
+    {
+      "id": "GUIDEFLAG2",
+      "seat": "qwen",
+      "title": "TASK GUIDEFLAG2 - QWEN (qwen3-coder) - round 2: the guide must end, without breaking the first fight",
+      "brief": "GUIDEFLAG2"
+    },
+    {
+      "id": "R11A",
+      "seat": "qwen",
+      "title": "TASK R11A - QWEN (qwen3-coder) - an injury says why it happened",
+      "brief": "R11A"
+    },
+    {
+      "id": "BJJBEAT2",
+      "seat": "cursor",
+      "title": "TASK BJJBEAT2 - CURSOR (Grok 4.7 High) - BJJBEAT1 round 2: the last two bars, with a key that does not trade them",
+      "brief": "BJJBEAT2"
+    },
+    {
+      "id": "MENUMONEY1",
+      "seat": "cursor",
+      "title": "TASK MENUMONEY1 - CURSOR (Grok 4.7 High) - the Money page from the approved mockup",
+      "brief": "MENUMONEY1"
+    },
+    {
+      "id": "MENUWORLD1",
+      "seat": "cursor",
+      "title": "TASK MENUWORLD1 - CURSOR (Grok 4.7 High) - the World page rebuilt around the rankings",
+      "brief": "MENUWORLD1"
+    },
+    {
+      "id": "MENUPLAYBOOK1",
+      "seat": "cursor",
+      "title": "TASK MENUPLAYBOOK1 - CURSOR (Grok 4.7 High) - the Playbook game plan and Combos from the approved mockup",
+      "brief": "MENUPLAYBOOK1"
+    },
+    {
+      "id": "FIGHTERMODEL4A",
+      "seat": "cursor",
+      "title": "TASK FIGHTERMODEL4A - CURSOR (Grok 4.7 High) - the fighter model on the agreed 10 attributes and 5 boxing skills",
+      "brief": "FIGHTERMODEL4A"
+    },
+    {
+      "id": "R11C",
+      "seat": "qwen",
+      "title": "TASK R11C - QWEN (qwen3-coder) - a standing count on the cards says what it cost",
+      "brief": "R11C"
+    }
+  ]
 }

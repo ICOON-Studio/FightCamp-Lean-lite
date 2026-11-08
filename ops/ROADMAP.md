@@ -10,7 +10,7 @@ Updated 2026-11-08 by claude S294.
 
 **S401 — ?** *(claude)*
 
-S403: 11 primary attributes agreed (three layers: attributes, skills, moves); every critic now reads the whole game (CRITIC_PACK + Miro access); seven menus filled with 8 MMA fighters, 3 critic rounds, 6-7.25, on Miro; WarmKit built; GUIDEFLAG2, swing census, R11A in.
+Menus: one combined pass, 12 pages on shared facts and icons, last critic 7-8 (Week and Money 8), Miro frame 3458764689791839686. Operator said build. KitIcon.gd in the game (kit_icon_test green); three screen briefs queued on Cursor.
 
 ## Next
 
@@ -288,3 +288,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S401**  |  |  | *none yet* | S401: structure vs Corner King refined by 3 critics; gym vs tycoon games, 22 ideas; 103 mechanics scored; 14 painted menus; one Miro board; corner minute from the apron; muscle-scan body figure; CornerTrust; 16 branches deleted. Not merged: PR #85, Rokoko repair. |
 |  |  | **S402**  |  |  | *none yet* | S402: 7 mechanics chosen by critics; menus and structure adjusted; final menus with verdicts on Miro, seven approved; one warm art style; one fighter profile for all sports, MMA critics; PR #85 audited, round 3 queued; OFFERGONE1 in; full tests daily at 05:00, reviewed by Claude. Not built: the seven menus. |
 |  |  | **S403**  |  |  | *none yet* |  |
+|  |  | **S403b**  |  |  | *none yet* |  |

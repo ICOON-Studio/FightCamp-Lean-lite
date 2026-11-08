@@ -1,0 +1,18 @@
+# Building the approved menus in the game (S403, operator "Build them")
+
+The spec for a screen is its picture and HTML in `docs/mockups/s403/`. Layout, words, order and look come from there. Numbers come from the running game, never from the mockup: the mockup's eight MMA fighters, prices and dates are examples.
+
+1. **Art:** `scripts/ui/WarmKit.gd` for wall, whiteboard, paper, sticky, chalkboard, magnet. Fonts as the mockup: Barlow, Permanent Marker, Kalam (`assets/fonts/`). No new art.
+2. **Icons:** `scripts/ui/KitIcon.gd`: `KitIcon.icon("camp", 24, colour, tooltip)`. Same meaning, same icon, every screen. Never draw your own. A fighter's state is one of booked, camp, injured, offer, contract, free, leaving, retiring.
+3. **Words:** the mockup's labels. Icon plus tooltip where the mockup has them. No his/her (no_pronoun_test). Plain words (plain_words_test).
+4. **Attributes and skills:** the 10 attributes and 12 skills are not in the game yet (TASK_FIGHTERMODEL4A). Show what the game has today, under today's names, and do not invent values.
+5. **Two states, as in the game's rules for everything MMA:**
+   - Built but not usable now: grey, with the reason on it, no red pin.
+   - Not built: full colour, drawn as it will work, with the `warn` icon on its header, input off, tooltip "Not built yet". One mark per panel, not per row. Use an honest empty or example state: never a made-up number that looks real.
+6. **Nothing is lost.** Every action the screen has today must still be reachable after the move. If the mockup has no place for one, put it in the page's second tab and say so in the PR body.
+7. **Only what the player can act on** (operator S398). No text addressed to a designer.
+8. **Fits 1920x1080** with no page scroll. A long table scrolls inside its own panel. Also check 1280x720 does not overlap.
+9. Files under 500 lines. Split a panel into its own script rather than growing the page. Numbers and rules go in pure `scripts/rules/` modules with tests, never in a screen.
+10. **Never change a game number or rule.** This is a screen task.
+11. `Godot` only through `python ops/Tools/godot_slot.py run --who <seat> -- <cmd>`, headless, `--audio-driver Dummy`. Parse check before a test. Read `ops/research/GDSCRIPT_TRAPS.md` first. Nothing opens on the owner's monitors.
+12. You cannot see images. Claude opens the stills after you land, so name every panel node (`name = "CoachesPanel"`), and state in the PR body which rows are not built and which actions moved.

@@ -1,3 +1,8 @@
+# BUILD THE MENUS (operator "Build them", 2026-11-08, S403 session)
+Queued on Cursor in ops/AgentComms/dispatch_queue.json, launched by the 30-min job once the watchdog is not RED: MENUMONEY1, MENUWORLD1, MENUPLAYBOOK1, then FIGHTERMODEL4A. Rules for every screen: ops/research/MENU_BUILD_RULES.md; the spec is docs/mockups/s403/<page>.png. Done in the game already: scripts/ui/KitIcon.gd (kit_icon_test green), WarmKit.
+Cursor cannot see images. When a screen lands: run its test, render stills on the hidden desktop (tools/layout_snapshot.gd), open them, compare with the mockup, then send them on the review board. Brief the next four after: Home, Fighter Week, Fight night, and Profile once FIGHTERMODEL4A is in.
+Still to do at the next start: where_we_are.py roll + redraw of the P0 map (not redrawn after this block).
+
 # S401 rokoko-repair - RETARGET2B merged, next animation step is the proguard flip (2026-11-08)
 MERGED ON MAIN: 18e3ab50, the bought Punch PRO clips re-baked. PRs #81 and #83 closed. Write-up: ops/research/RETARGET2B_RESULT.md.
 Numbers: tests/retarget_fidelity_test.gd 46 -> 0 failures (it prints one RETARGET_FAIL line per clip and bar). Regressions pass except boxer_footwork_test, 2 torso-lean failures (bar 8-12), which fail the same way with main's old clips.
