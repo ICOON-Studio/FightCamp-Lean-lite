@@ -8,9 +8,9 @@ Updated 2026-11-08 by claude S294.
 
 ## Now
 
-**S406 — ?** *(claude)*
+**S407 — ?** *(claude)*
 
-ONE CHANGE in the corner built (his "Build small version"): Elbows in, Gloves high, habit fix or Leave it, one slot. Measured first: holo head punches do not change results, no version changes who wins. SPLIT500 and R11C merged. World page round 1 sent back (blank names). Build exported.
+Money page merged from the mockup: buttons and tabs were unreadable (styled before the theme loaded), fixed with frame margins and table columns. The S406 knock-knee test could not see the game's guard: KNEERAW1 on Qwen fixes the measure, then raw clip against ours. ring_feet intermittent red explained and fixed. Ziva back on main.
 
 ## Next
 
@@ -291,3 +291,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S403b**  |  |  | *none yet* |  |
 |  |  | **S405**  |  |  | *none yet* |  |
 |  |  | **S406**  |  |  | *none yet* |  |
+|  |  | **S407**  |  |  | *none yet* |  |

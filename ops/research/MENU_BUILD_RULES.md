@@ -16,3 +16,4 @@ The spec for a screen is its picture and HTML in `docs/mockups/s403/`. Layout, w
 10. **Never change a game number or rule.** This is a screen task.
 11. `Godot` only through `python ops/Tools/godot_slot.py run --who <seat> -- <cmd>`, headless, `--audio-driver Dummy`. Parse check before a test. Read `ops/research/GDSCRIPT_TRAPS.md` first. Nothing opens on the owner's monitors.
 12. You cannot see images. Claude opens the stills after you land, so name every panel node (`name = "CoachesPanel"`), and state in the PR body which rows are not built and which actions moved.
+13. Button styles: `BtnSolid` is the filled blue button (Buy, the chosen option), `BtnPrimary` is white, `Btn` is outlined. On a blackboard an outlined button needs a cream font. Never read the theme before the node is in the tree (GDSCRIPT_TRAPS). Whiteboard content needs an inset of about 30 px to clear the frame; text on paper about 18 px to clear the torn edge.

@@ -7,3 +7,4 @@
 - Scene scripts compiled before autoloads use `get_node_or_null("/root/GameState")`, never the bare identifier.
 - `callv` with the wrong arity returns `{}`, not null. Headless `get_bone_global_pose()` needs the skeleton updated.
 - A Label that has already grown to its text never shrinks back: set `clip_text`/overrun BEFORE `size` (S213 STRESSHDR1).
+- `get_theme_stylebox()` / any theme read on a Control not yet in the tree returns Godot's default (dark grey box), with no error. Copying it into an override paints every button dark (S407 Money). Do it in `b.ready.connect(func(): ..., CONNECT_ONE_SHOT)`. `WarmKit.panel` is safe: it sets its own override first.

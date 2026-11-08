@@ -1,3 +1,13 @@
+FIGHTCAMP - BUILD OF 2026-11-08 (S407): THE MONEY PAGE
+================================================================================
+
+ NEW.
+  a. Club > Money is the page from your mockup: the books on a whiteboard, the cash chart with its coming bills, in and out, price tags, chalkboards for dues and kit.
+  b. Each price tag says what it does to your weekly money and how many weeks of cash you would have after buying it.
+  c. Hire buttons show the price. Coaches and the Cage have a warning triangle: they are drawn, not built.
+ TRY: open Club > Money around week 6. Can you tell what to buy next, and what it would cost you each week? Is anything hard to read?
+ Still plain: the top bar and the left menu are the old look. The other new menus are not in this build yet.
+
 FIGHTCAMP - BUILD OF 2026-11-08 (S406): ONE CHANGE IN THE CORNER
 ================================================================================
 

@@ -1,3 +1,21 @@
+# S407 handover (written 2026-11-08, S407 main session)
+
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S408` and redraw the map (strip data-deleted lines; he has not approved deleting map cards).
+STANDING ORDER: animation progresses every session; name the item and seat in the first message.
+FULL TESTS at 05:00: read ops/AgentComms/nightly/latest.txt and reviews.md first (first real run 2026-11-09, not yet seen).
+
+BUILT S407, on main: the Money page (PR #100 plus fixes). All its dark buttons and tabs were one bug: get_theme_stylebox before the node is in the tree returns Godot's default (now in GDSCRIPT_TRAPS and MENU_BUILD_RULES, so the next menus get it). One sonnet critic 6/10 BEFORE the last fixes (ops/research/S407_MONEY_CRITIC.md: what was taken, what is open). Not taken: removing MMA items (his S403 ruling). Open: warm tan shell for every screen, small text, overlapping upgrades. Not re-scored. Build exported.
+ring_feet intermittent red explained: the test skipped stage.guard, so a clip left playing ended mid-walk (clips run on real time, the walk on fixed frames, so only a slow runner showed it). Reproduced with the same numbers, fixed in the test. Real directors already guard first. tools/run_tests.sh now prints every FAIL line: read move_tip's next time it is red.
+
+ANIMATION: the guard knock-knee is still UNMEASURED. S406's numbers came from a broken test. KNEERAW1 (Qwen, branch qwen/kneeraw1) fixed part of it: its raw column has the opposite sign from the game column and it still reads outside skeleton_updated, so its conclusion is void. KNEERAW2 (ops/research/TASK_KNEERAW2.md, base qwen/kneeraw1) carries the five faults. Check the two signs agree before believing any row, then look at a still of the arm and frame it names. Close #101 and #78 only on that answer.
+
+COLLECT (order): KNEERAW2. MENUWORLD2 (Cursor, branch cursor/menuworld2): render 30_rankings with tools/layout_snapshot.gd, compare with docs/mockups/s403/world.png, close #99. Queue on Cursor after: MENUPLAYBOOK1, FIGHTERMODEL4A, MENUHOME1, MENUWEEK1, MENUFIGHT1.
+ZIVA: was down and 273 commits behind; now on origin/main, editor restarted from this session. Its old state is on local branch wip/ziva-s407.
+E: is 89% used (49 GB free), over the 85% rule; 15 held agent worktrees and the pagefile are the first places to look.
+RENDER TRAP: hidden-desktop stills are 1009 px tall, so a 1080 page looks cut at the bottom; say so to any critic.
+WAITING ON HIM: keep or cut Test day and dues bands | "yes, ARCHIVED" | play the S407 build (Money page).
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor Grok 4.7 High until 12-07.
+
 # S406 handover (written 2026-11-08, S406 main session)
 
 OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S407` and redraw the map (strip data-deleted lines; he has not approved deleting map cards).

@@ -169,7 +169,8 @@ static func rank(before: int, after: int, div: String) -> Dictionary:
 
 ## The cash ahead at this week's running balance, stepped week by week as Sim.end_week steps it: income in, costs on the
 ## month-end bill (GameMoney.settle_week), the close clock counting weeks in a row below $0 (GymBills). `accrued` is the
-## bill already run up and `day` the week's end. One-offs (purses, signing fees) are left out: they are not a pace.
+## bill already run up and `day` is today. Steps land on week ends (multiples of 7). On a week-end day that is
+## `day + 7 * w`, unchanged. One-offs (purses, signing fees) are left out: they are not a pace.
 ## weeks: weeks until a week ends below $0 (-1 not inside RUNWAY_WEEKS, 0 already below); back: weeks until it is back above
 ## $0 (-1 not while below); close: weeks until the gym closes (-1 not inside RUNWAY_WEEKS). state follows GymBills.status.
 static func runway(cash: int, accrued: int, income: int, costs: int, day: int, weeks_below: int) -> Dictionary:
@@ -183,7 +184,7 @@ static func runway(cash: int, accrued: int, income: int, costs: int, day: int, w
 	for w in range(1, RUNWAY_WEEKS + 1):
 		if close >= 0:
 			break
-		var s := GameMoney.settle_week(now, owed, income, costs, day + 7 * w)
+		var s := GameMoney.settle_week(now, owed, income, costs, _week_end(day, w))
 		now = int(s["cash"])
 		owed = int(s["accrued"])
 		below = GymBills.next_below(now, below)
@@ -232,3 +233,10 @@ static func _runway_text(state: String, cash: int, net: int, dry: int, back: int
 
 static func _weeks(n: int) -> String:
 	return "1 week" if n == 1 else "%d weeks" % n
+
+
+## The day the w-th coming week ends (1-based). Sim closes a week when the day is a multiple of 7.
+static func _week_end(day: int, w: int) -> int:
+	if day % 7 == 0:
+		return day + 7 * w
+	return day + (7 - day % 7) + 7 * (w - 1)

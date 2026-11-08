@@ -12,7 +12,7 @@ for t in $TESTS; do
   [ -f "$ROOT/tests/$t.gd" ] || continue
   code=$(cat "$TMP/$t.rc" 2>/dev/null || echo 99)
   if grep -qE "SCRIPT ERROR|Parse Error|Failed to load script" "$TMP/$t.out" 2>/dev/null; then code=9; fi
-  if [ "$code" -eq 0 ]; then echo "PASS $t"; else echo "FAIL $t (exit $code)"; tail -40 "$TMP/$t.out"; fail=1; fi
+  if [ "$code" -eq 0 ]; then echo "PASS $t"; else echo "FAIL $t (exit $code)"; grep -E "FAIL|SCRIPT ERROR" "$TMP/$t.out" | head -40; echo "--- last lines"; tail -15 "$TMP/$t.out"; fail=1; fi
 done
 rm -rf "$TMP"
 exit $fail

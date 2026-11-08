@@ -127,6 +127,7 @@ func _scene_walk() -> void:
 	_check(float(bx["rig"].w) <= 0.0, "a scene takes the rig off")
 	var n: Node3D = bx["node"]
 	var to: Vector3 = n.position + Vector3(1.2, 0.0, 0.9)
+	stage.guard(0)   # S407: as CornerCrew does. Without it a fidget still playing ends mid-walk and RingFeet.scene lets go of her legs.
 	RingFeet.hold(stage, 0)
 	var left := 900   # S405: a wait, not a bar: a loaded CI runner needs more frames for the same walk
 	var done := false

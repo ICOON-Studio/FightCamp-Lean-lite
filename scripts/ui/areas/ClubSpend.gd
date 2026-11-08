@@ -1,273 +1,277 @@
 extends RefCounted
-## S397 money bites (ops/research/MONEY_BITES_S397.md 7.1, STRUCTURE_DESIGN_S395 5.4 "Club > Money: bills, income, deals,
-## repairs, upgrades"): the cards on Money where the gym spends - premises, upgrades, the kit budget, the club show and a
-## pro's contract talks. Every row says the price, what it costs a week, the one number it moves, and the cash left after
-## (round 1, the FM critic: "leaves $9,200, 7 weeks of costs" is what makes buying a decision). Rules: GymSpend.
+## The buys on the books (S403 money mockup). Numbers come from the running gym. A tag is grey, with a reason and no
+## pin, when it cannot be bought or would not help. The cage is drawn and not built.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const GymUpgrades := preload("res://scripts/rules/GymUpgrades.gd")
 const ClubShow := preload("res://scripts/rules/ClubShow.gd")
-const StarDeal := preload("res://scripts/rules/StarDeal.gd")
-const HomeJuniors := preload("res://scripts/state/HomeJuniors.gd")
-const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
 const StaffRoles := preload("res://scripts/rules/StaffRoles.gd")
 const Grants := preload("res://scripts/rules/Grants.gd")
+const GymBills := preload("res://scripts/rules/GymBills.gd")
+const StarDeal := preload("res://scripts/rules/StarDeal.gd")
+
+const LEDGER_DAYS := 56
+const ICONS := {"mats": "mat", "strength": "weights", "fitkit": "fresh", "youth": "members"}
+const SHORT := {"mats": "Mats", "strength": "Strength corner", "fitkit": "Fitness class kit", "youth": "Youth section"}
 
 
-static func add(parent: Container, main: Node, c: Career) -> void:
-	_talks(parent, main, c)
-	_stipends(parent, main, c)
-	_premises(parent, main, c)
-	_upgrades(parent, main, c)
-	var pair := UI.hbox(16)
-	parent.add_child(pair)
-	_kit(pair, main, c)
-	_show(pair, main, c)
+static func why_tip(why: String) -> String:
+	if why == "":
+		return ""
+	if why.length() >= 12:
+		return why
+	return "Not yet: " + why
 
 
-## "leaves $9,200, about 7 weeks of costs"
-static func leaves(c: Career, price: int) -> String:
+static func items(main: Node, c: Career) -> Array:
+	var net := int(Sim.weekly_income(c)["total"]) - int(Sim.weekly_costs(c)["total"])
+	var out: Array = []
+	for u in GymUpgrades.LIST:
+		out.append(_upgrade(main, c, u, net))
+	out.append(_evening(main, c, net))
+	out.append(_show(main, c, net))
+	out.append(_grant(main, c, net))
+	var move := _move(main, c, net)
+	if not move.is_empty():
+		out.append(move)
+	out.append(_cage())
+	return out
+
+
+static func cashbook(main: Node, c: Career) -> Control:
+	var page := UI.vbox(8)
+	page.name = "CashbookPage"
+	page.add_child(_ledger("ONE-OFFS IN, LAST 8 WEEKS", c, true, "Ticket cuts from bouts land here."))
+	page.add_child(_ledger("PAID OUT, LAST 8 WEEKS", c, false, "Nothing paid out yet."))
+	page.add_child(_repairs(main, c))
+	page.add_child(_answers(main, c))
+	return page
+
+
+static func _upgrade(main: Node, c: Career, u: Dictionary, net: int) -> Dictionary:
+	var id := str(u["id"])
+	var price := int(u["price"])
+	var owned := GymUpgrades.has(c.upgrades, id)
+	var upkeep := int(u["upkeep"])
+	var added := 0
+	var delta := -upkeep
+	var grey := false
+	var reason := ""
+	if id == "youth":
+		added = GymSpend.juniors_dues()
+		delta = added - GymSpend.JUNIORS_COACH
+	elif id == "fitkit":
+		added = int(u["value"]) if c.staff_roles.has("assistant") else 0
+		delta = added - upkeep
+		if not owned and not c.staff_roles.has("assistant"):
+			grey = true
+			reason = "Needs a second club coach before these classes bring any money."
+	var why := "" if owned else GymUpgrades.blocked(id, c.upgrades, c.cash)
+	if not owned and why != "":
+		grey = true
+		reason = why_tip(why)
+	var effect := str(u["effect"])
+	if id == "youth":
+		effect = "20 juniors bring %s a week. The juniors' coach is %s." % [UI.money(GymSpend.juniors_dues()), UI.money(GymSpend.JUNIORS_COACH)]
+	elif id == "fitkit" and not owned:
+		effect = "Fitness classes, %s a week, once a second club coach runs them." % UI.money(int(u["value"]))
+	if owned:
+		effect = "Ours. " + effect
+	if grey and reason != "":
+		effect = reason
+	var buttons: Array = []
+	if not owned:
+		buttons.append(_btn(main, "Buy", "Buy_" + id, "buyup", id, why))
+	return _pack(id, str(SHORT.get(id, u["name"])), price, "ours" if owned else UI.money(price), str(ICONS.get(id, "money")),
+		effect, added, delta, grey, reason, owned, false, false, price, buttons, c, net)
+
+
+static func _evening(main: Node, c: Career, net: int) -> Dictionary:
+	var helps := GymSpend.member_limit(c) == "coaches"
+	var grey := not helps
+	var reason := "The coaches already have room, so another coach carries nobody yet." if grey else ""
+	var added := 0
+	var delta := -StaffRoles.EVENING_WAGE
+	if helps:
+		added = StaffRoles.COACH_MEMBERS * roundi(float(Membership.fee(c.dues_band)) / GymBills.WEEKS_A_MONTH)
+		delta = added - StaffRoles.EVENING_WAGE
+	var effect := "Carries %d more members, %s a week." % [StaffRoles.COACH_MEMBERS, UI.money(StaffRoles.EVENING_WAGE)]
+	if grey:
+		effect = reason
+	var buttons: Array = [_btn(main, "Hire", "EveningAdd", "eveningcoach", "add", "")]
+	if c.extra_coaches > 0:
+		buttons.append(_btn(main, "Let one go", "EveningLess", "eveningcoach", "less", ""))
+	return _pack("evening", "Second evening coach", StaffRoles.EVENING_WAGE, "%s a week" % UI.money(StaffRoles.EVENING_WAGE),
+		"coach", effect, added, delta, grey, reason, false, false, false, 0, buttons, c, net)
+
+
+static func _show(main: Node, c: Career, net: int) -> Dictionary:
+	var booked := int(c.show.get("day", -1))
+	if booked >= 0:
+		return _pack("show", "Club show", ClubShow.COST, "booked", "booked",
+			"Booked for %s." % Clock.fmt(booked), 0, 0, false, "", false, false, true, 0, [], c, net)
+	var why := ""
+	if not ClubShow.can_book(c.day, booked, int(c.show.get("last", -1))):
+		why = "the next show can be booked from %s" % Clock.fmt(int(c.show.get("last", 0)) + ClubShow.EVERY_DAYS - ClubShow.LEAD_DAYS)
+	elif c.cash < ClubShow.COST:
+		why = "not enough cash"
+	var pv := GymSpend.show_preview(c)
+	var effect := "The night: %s to %s. One show every %d weeks." % [UI.signed(int(pv["net_lo"])), UI.signed(int(pv["net_hi"])), ClubShow.EVERY_DAYS / 7]
+	var grey := why != ""
+	if grey:
+		effect = why_tip(why)
+	var label := "Book"
+	if why != "" and why != "not enough cash":
+		label = Clock.fmt(int(c.show.get("last", 0)) + ClubShow.EVERY_DAYS - ClubShow.LEAD_DAYS)
+	return _pack("show", "Club show", ClubShow.COST, UI.money(ClubShow.COST), "booked", effect, 0, 0, grey, effect if grey else "",
+		false, false, false, ClubShow.COST, [_btn(main, label, "BookShow", "bookshow", "", why)], c, net)
+
+
+static func _grant(main: Node, c: Career, net: int) -> Dictionary:
+	var why := ""
+	var effect := ""
+	var held := c.grant.has("due")
+	if held:
+		why = "A bid is already in and the answer is on its way."
+		effect = "A bid is in. The answer comes on %s." % Clock.fmt(int(c.grant["due"]))
+	else:
+		why = Grants.blocked(c.day, c.grant, GymSpend.youth_on(c), c.staff_roles.has("assistant") or c.extra_coaches > 0)
+		effect = "Once a year. Odds follow the gym's name." if why == "" else why_tip(why)
+	var grey := why != "" and not held
+	return _pack("grant", "Club grant bid", 0, "free", "money", effect, 0, 0, grey, effect if grey else "",
+		false, false, held, 0, [_btn(main, "Bid", "GrantBid", "grantbid", "", why)], c, net)
+
+
+static func _move(main: Node, c: Career, net: int) -> Dictionary:
+	if c.premises >= GymUpgrades.PREMISES.size() - 1:
+		return {}
+	var now: Dictionary = GymSpend.premises(c)
+	var nx: Dictionary = GymUpgrades.premises(c.premises + 1)
+	var price := int(nx["move"])
+	var why := GymUpgrades.move_blocked(c.premises, c.cash)
+	var helps := GymSpend.member_limit(c) == "premises"
+	var extra := roundi(float(int(nx["rent"]) - int(now["rent"])) / GymBills.WEEKS_A_MONTH)
+	var grey := why != "" or not helps
+	var reason := why_tip(why) if why != "" else "The place still has room, so a bigger unit would not help yet."
+	var effect := "Holds %d members. Rent up %s a week." % [int(nx["cap"]), UI.money(extra)]
+	if grey:
+		effect = reason
+	return _pack("move", _no_area(str(nx["name"])), price, UI.money(price), "members", effect, 0, -extra, grey, reason if grey else "",
+		false, false, false, price, [_btn(main, "Move", "MovePremises", "movepremises", "", why)], c, net)
+
+
+static func _cage() -> Dictionary:
+	var b := UI.button("Build", "Btn", func(): pass, true, "Not built yet")
+	b.name = "CageBuild"
+	return {
+		"id": "cage", "title": "Cage", "price": 0, "price_text": "price not set", "icon": "cage",
+		"effect": "MMA bouts in the gym, wall and takedown drills. Needs MMA rules.", "runway": "after: price not set", "payback": "",
+		"earn": 0, "grey": false, "reason": "Not built yet", "owned": false, "unbuilt": true, "held": false,
+		"affordable": false, "buttons": [b],
+	}
+
+
+static func _pack(id: String, title: String, price: int, price_text: String, icon: String, effect: String, added: int, delta: int,
+		grey: bool, reason: String, owned: bool, unbuilt: bool, held: bool, lump: int, buttons: Array, c: Career, net: int) -> Dictionary:
+	var afford := not grey and not owned and not unbuilt and not held and (lump <= 0 or c.cash >= lump)
+	var earn := added if afford else 0
+	var payback := ""
+	if afford and delta > 0 and lump > 0:
+		payback = "payback %d wks" % int(ceil(float(lump) / float(delta)))
+	var runway := "bought, no change" if owned or held else _runway(c, net, lump, delta)
+	return {
+		"id": id, "title": title, "price": price, "price_text": price_text, "icon": icon, "effect": effect,
+		"runway": runway, "payback": payback, "net_from": net, "net_to": net + delta if delta != 0 and not owned and not held else net, "earn": earn, "grey": grey, "reason": reason, "owned": owned,
+		"unbuilt": unbuilt, "held": held, "affordable": afford, "buttons": buttons,
+	}
+
+
+## "Bigger unit, 3,000 sq ft, a second ring" is too long for a price tag: the floor area goes.
+static func _no_area(unit: String) -> String:
+	var keep: Array[String] = []
+	for bit in unit.split(", "):
+		if not bit.ends_with("sq ft"):
+			keep.append(bit)
+	return ", ".join(keep)
+
+
+static func _runway(c: Career, net: int, price: int, delta: int) -> String:
 	var left := c.cash - price
-	var week := maxi(1, int(Sim.weekly_costs(c)["total"]))
-	var n := maxi(0, int(floor(float(left) / week)))
-	return "leaves %s, about %d week%s of costs" % [UI.money(left), n, "" if n == 1 else "s"]
+	var after := net + delta
+	if left < 0:
+		return "cash would fall short"
+	if after >= 0:
+		return "grows after"
+	return "%d wks in hand after" % GymBills.runway_weeks(left, after)
 
 
-static func _talks(parent: Container, main: Node, c: Career) -> void:
+static func _btn(main: Node, text: String, bname: String, action: String, arg: String, why: String) -> Button:
+	var b := UI.button(text, "Btn", main.act.bind(action, arg), why != "", why_tip(why))
+	b.name = bname
+	return b
+
+
+static func _ledger(title: String, c: Career, incoming: bool, empty: String) -> Control:
+	var card := UI.vbox(4)
+	card.add_child(UI.label(title, 16, UI.GOLD, "handbold"))
+	var any := false
+	for e in c.ledger:
+		if c.day - int(e["d"]) > LEDGER_DAYS:
+			break
+		if (int(e["amount"]) > 0) != incoming:
+			continue
+		any = true
+		var row := UI.hbox(12)
+		row.add_child(UI.label("%s  %s" % [Clock.fmt(int(e["d"])), str(e["t"])], 15, UI.FG, "hand"))
+		row.add_child(UI.label(UI.signed(int(e["amount"])), 15, UI.GREEN if incoming else UI.RED, "bold"))
+		card.add_child(row)
+	if not any:
+		card.add_child(UI.label(empty, 15, UI.MUTED, "body"))
+	return card
+
+
+static func _repairs(main: Node, c: Career) -> Control:
+	var box := UI.vbox(4)
+	box.name = "Repairs"
+	box.add_child(UI.label("REPAIRS", 16, UI.GOLD, "handbold"))
+	for f in c.facilities:
+		var row := UI.hbox(8)
+		row.name = "Kit_" + str(f["id"])
+		row.add_child(UI.label(str(f["name"]), 15, UI.FG, "body"))
+		if str(f["state"]) == "worn":
+			row.add_child(UI.label("worn", 14, UI.AMBER, "bold"))
+			var b := UI.button("Repair, %s" % UI.money(int(f["repair"])), "Btn", main.act.bind("repair", f["id"]))
+			b.name = "Repair_" + str(f["id"])
+			row.add_child(b)
+		else:
+			row.add_child(UI.label("good", 14, UI.GREEN, "bold"))
+		box.add_child(row)
+	return box
+
+
+static func _answers(main: Node, c: Career) -> Control:
+	var box := UI.vbox(4)
+	box.name = "TalkAnswers"
+	box.add_child(UI.label("CONTRACT ANSWERS", 16, UI.GOLD, "handbold"))
+	var any := false
 	for f in c.fighters:
 		var t: Dictionary = f.get("talks", {})
 		if t.is_empty():
 			continue
-		var terms := StarDeal.terms(f, str(t["step"]), int(t.get("take", 0)))
-		var card := UI.card("CONTRACT TALKS: %s" % str(f["name"]).to_upper())
-		card[0].name = "Talks_" + str(f["id"])
-		parent.add_child(card[0])
-		card[1].add_child(UI.label("%s has reached %s. A bigger management firm has called; answer by %s, or the lower share stands." % [
-			f["first"], terms["words"], Clock.fmt(int(t["until"]))], UI.BODY, UI.FG, "body", true))
-		var keep := UI.button("Keep %d%%: pay a %s bonus" % [roundi(float(terms["keep"]) * 100), UI.money(int(terms["bonus"]))], "BtnPrimary",
-			main.act.bind("talks", "%s|keep" % f["id"]), c.cash < int(terms["bonus"]), "not enough cash")
-		var lower := UI.button("Drop to %d%%" % roundi(float(terms["lower"]) * 100), "Btn", main.act.bind("talks", "%s|lower" % f["id"]))
-		var h := UI.hbox(12)
-		h.add_child(keep)
-		h.add_child(lower)
-		card[1].add_child(h)
-		card[1].add_child(UI.muted("The bonus %s. The gym's share of each purse and ticket sale: %d%% kept or %d%% after." % [
-			leaves(c, int(terms["bonus"])), roundi(float(terms["keep"]) * 100), roundi(float(terms["lower"]) * 100)], UI.SMALL, true))
-
-
-## Who is on the club stipend (STRUCTURE_DESIGN_S395 5.3b): full time for the money, or a day job and evenings only.
-static func _stipends(parent: Container, main: Node, c: Career) -> void:
-	var ams := c.fighters.filter(func(f): return not bool(f.get("pro", false)))
-	if ams.is_empty():
-		return
-	var card := UI.card("STIPENDS")
-	card[0].name = "Stipends"
-	parent.add_child(card[0])
-	var rows: Array = []
-	for f in ams:
-		var job := bool(f.get("day_job", false))
-		var b := UI.button("Pay the stipend, %s a week" % UI.money(GameMoney.FIGHTER_STIPEND) if job else "Stop the stipend", "Btn",
-			main.act.bind("stipend", "%s|%s" % [f["id"], "on" if job else "off"]))
-		b.name = "Stipend_" + str(f["id"])
-		var sub := "Day job: trains evenings, gains 15% less; the gym pays nothing" if job else 			"On the club stipend, %s a week: trains full time" % UI.money(int(f["weekly_salary"]))
-		rows.append(UI.row(str(f["name"]), sub, UI.GREEN if not job else Color(0, 0, 0, 0), [b]))
-	UI.add_rows(card[1], rows)
-	card[1].add_child(UI.muted("Most amateurs work or study. A stipend lets a top prospect train full time.", UI.SMALL, true))
-
-
-static func _premises(parent: Container, main: Node, c: Career) -> void:
-	var card := UI.card("PREMISES")
-	card[0].name = "Premises"
-	parent.add_child(card[0])
-	var p := GymSpend.premises(c)
-	var rows: Array = [UI.kv(str(p["name"]), "rent %s a month" % UI.money(int(p["rent"])), UI.FG, "mono"),
-		UI.kv("Members", _room_words(c, p), UI.AMBER if GymSpend.member_limit(c) != "" else UI.FG, "mono"),
-		UI.kv("Roster places", "%d of %d used" % [GymSpend.used(c), GymSpend.places(c)], UI.FG, "mono")]
-	if c.premises < GymUpgrades.PREMISES.size() - 1:
-		var nx := GymUpgrades.premises(c.premises + 1)
-		var why := GymUpgrades.move_blocked(c.premises, c.cash)
-		var b := UI.button("Move, %s" % UI.money(int(nx["move"])), "Btn", main.act.bind("movepremises", ""), why != "", why)
-		b.name = "MovePremises"
-		rows.append(UI.row("Next: %s" % str(nx["name"]).to_lower(), "Holds %d members, %d roster places; rent %s a month (+%s a week for good). The move %s." % [
-			int(nx["cap"]), int(nx["places"]), UI.money(int(nx["rent"])),
-			UI.money(roundi(float(int(nx["rent"]) - int(p["rent"])) / 4.33)), leaves(c, int(nx["move"]))], Color(0, 0, 0, 0), [b]))
-	rows.append(_dues_row(main, c))
-	rows.append(_evening_row(main, c))
-	UI.add_rows(card[1], rows)
-	var lim := GymSpend.member_limit(c)
-	if lim != "":
-		card[1].add_child(UI.label("%s: %s." % ["Full" if c.members >= GymSpend.member_cap(c) else "Nearly full",
-			"hire an evening coach, or a second club coach, to carry more members" if lim == "coaches"
-			else "move to a bigger place, or raise the dues for the members you have"], UI.BODY, UI.AMBER, "bold", true))
-
-
-## "68 of 70: the place is the limit (the coaches could carry 150)"
-static func _room_words(c: Career, p: Dictionary) -> String:
-	var place := int(p["cap"]) - GymUpgrades.room(c.upgrades)
-	var coaches := GymSpend.coaching_cap(c)
-	if place <= coaches:
-		return "%d of %d: the place is the limit (the coaches could carry %d)" % [c.members, GymSpend.member_cap(c), coaches]
-	return "%d of %d: the coaches are the limit (the place holds %d)" % [c.members, GymSpend.member_cap(c), place]
-
-
-static func _dues_row(main: Node, c: Career) -> Control:
-	var h := UI.hbox(8)
-	for band in Membership.DUES_ORDER:
-		var d: Dictionary = Membership.DUES[band]
-		var b := UI.button("%s %s" % [d["name"], UI.money(int(d["fee"]))], "BtnPrimary" if c.dues_band == band else "Btn", main.act.bind("dues", band))
-		b.name = "Dues_" + str(band)
-		h.add_child(b)
-	var words := {"cheap": "draws 15% more members", "standard": "the usual club rate",
-		"premium": "draws %d%% fewer members (a famous gym closes the gap)" % roundi((1.0 - Membership.draw("premium", c.reputation)) * 100)}
-	return UI.row("Dues a month", "Now %s: %s. Real clubs charge $25-45; premium gyms more." % [UI.money(Membership.fee(c.dues_band)),
-		words.get(c.dues_band, "")], Color(0, 0, 0, 0), [h])
-
-
-static func _evening_row(main: Node, c: Career) -> Control:
-	var add := UI.button("Hire one, %s a week" % UI.money(StaffRoles.EVENING_WAGE), "Btn", main.act.bind("eveningcoach", "add"))
-	add.name = "EveningAdd"
-	var right: Array = [add]
-	if c.extra_coaches > 0:
-		var less := UI.button("Let one go, a week's pay", "Btn", main.act.bind("eveningcoach", "less"))
-		less.name = "EveningLess"
-		right.append(less)
-	return UI.row("Evening coaches: %d" % c.extra_coaches, "Each carries %d more members (every coach does, you too; the volunteers %d)." % [
-		StaffRoles.COACH_MEMBERS, StaffRoles.VOLUNTEER_MEMBERS], Color(0, 0, 0, 0), right)
-
-
-static func _upgrades(parent: Container, main: Node, c: Career) -> void:
-	var card := UI.card("UPGRADES")
-	card[0].name = "Upgrades"
-	parent.add_child(card[0])
-	var rows: Array = []
-	for u in GymUpgrades.LIST:
-		var id := str(u["id"])
-		var right: Array = []
-		var sub := "%s. %s%s" % [u["effect"], UI.money(int(u["price"])), (" + %s a week upkeep" % UI.money(int(u["upkeep"]))) if int(u["upkeep"]) > 0 else ""]
-		if id == "youth":
-			sub += ", juniors' coach %s a week, juniors' dues +%s a week" % [UI.money(GymSpend.JUNIORS_COACH), UI.money(GymSpend.juniors_dues())]
-		if GymUpgrades.has(c.upgrades, id):
-			if not GymUpgrades.ready(c.upgrades, id, c.day):
-				right.append(UI.chip("fitters in", "amber"))
-			elif not GymUpgrades.working(id, c.staff_roles):
-				right.append(UI.chip("idle: needs a second club coach", "amber"))
-			else:
-				right.append(UI.chip("working", "green"))
-			sub = _since(c, id)
-		else:
-			var why := GymUpgrades.blocked(id, c.upgrades, c.cash)
-			var b := UI.button("Buy, %s" % UI.money(int(u["price"])), "Btn", main.act.bind("buyup", id), why != "", why)
-			b.name = "Buy_" + id
-			right.append(b)
-			sub += ". Buying %s" % leaves(c, int(u["price"]))
-		var r := UI.row(str(u["name"]), sub, Color(0, 0, 0, 0), right)
-		r.name = "Up_" + id
-		rows.append(r)
-	UI.add_rows(card[1], rows)
-
-
-## What an owned upgrade has done so far, in one line.
-static func _since(c: Career, id: String) -> String:
-	var day := 0
-	for o in c.upgrades:
-		if str(o["id"]) == id:
-			day = int(o["day"]) + GymUpgrades.FIT_DAYS
-	var weeks := maxi(0, int(floor((c.day - day) / 7.0)))
-	match id:
-		"fitkit":
-			return "Working %d weeks; the classes bring %s a week while the second club coach runs them." % [weeks, UI.money(int(GymSpend.income(c)["fitness"]))]
-		"youth":
-			var home := c.prospects.filter(func(p): return bool(p.get("home", false))).size()
-			return "%d juniors on the books for %d weeks; %d home-grown prospect%s so far. Intakes at the January and September terms." % [
-				GymSpend.JUNIORS, weeks, home, "" if home == 1 else "s"]
-		"mats":
-			return "Working %d weeks: training injury risk down 15%%." % weeks
-		"strength":
-			return "Working %d weeks: power and conditioning sessions gain 10%% more; the racks take room for 10 members." % weeks
-	return ""
-
-
-static func _kit(parent: Container, main: Node, c: Career) -> void:
-	var card := UI.card("KIT BUDGET")
-	card[0].name = "KitBudget"
-	card[0].size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	parent.add_child(card[0])
-	card[1].add_child(UI.muted("Gloves, headguards, pads and bags wear out: a club spends $2,000-3,500 a year on them.", UI.SMALL, true))
-	var h := UI.hbox(8)
-	for k in GymSpend.KIT_ORDER:
-		var kb: Dictionary = GymSpend.KIT[k]
-		var b := UI.button("%s, %s a week" % [kb["name"], UI.money(int(kb["week"]))], "BtnPrimary" if c.kit_level == k else "Btn",
-			main.act.bind("kitbudget", k))
-		b.name = "Kit_" + str(k)
-		h.add_child(b)
-	card[1].add_child(h)
-	var words := {}
-	for k in GymSpend.KIT_ORDER:   # the words follow GymBills.KIT_BUDGET, so they cannot drift from what is applied
-		var kb: Dictionary = GymSpend.KIT[k]
-		var risk := roundi((float(kb["risk"]) - 1.0) * 100)
-		words[k] = "Kit kept up: no effect either way." if k == "standard" else "%s: training injury risk %+d%%%s." % [
-			"Worn kit" if risk > 0 else "Fresh kit", risk, (", %d more members stay" % int(kb["members"])) if int(kb["members"]) > 0 else ""]
-	card[1].add_child(UI.label(str(words.get(c.kit_level, words["standard"])), UI.BODY, UI.FG, "body", true))
-	# Round 2 (critic B: one risk line with its reasons, not five percentages).
-	var r := GymSpend.train_risk(c)
-	var level := "low" if r <= 0.8 else ("high" if r > 1.05 else "normal")
-	var why: Array = []
-	if GymUpgrades.ready(c.upgrades, "mats", c.day):
-		why.append("the matted floor")
-	if c.staff_roles.has("strength"):
-		why.append("the S&C coach")
-	if c.kit_level != "standard":
-		why.append("%s kit" % str(GymSpend.kit(c)["name"]).to_lower())
-	var rl := UI.label("Training injury risk: %s%s." % [level, (" (" + ", ".join(why) + ")") if not why.is_empty() else ""], UI.BODY,
-		UI.GREEN if level == "low" else (UI.RED if level == "high" else UI.FG), "bold", true)
-	rl.name = "RiskLine"
-	card[1].add_child(rl)
-
-
-static func _grant(body: Container, main: Node, c: Career) -> void:
-	body.add_child(UI.caps("CLUB GRANT"))
-	if c.grant.has("due"):
-		body.add_child(UI.muted("A bid is in: the answer comes on %s." % Clock.fmt(int(c.grant["due"])), UI.SMALL, true))
-		return
-	var why := Grants.blocked(c.day, c.grant, GymSpend.youth_on(c), c.staff_roles.has("assistant") or c.extra_coaches > 0)
-	var b := UI.button("Bid for a grant", "Btn", main.act.bind("grantbid", ""), why != "", why)
-	b.name = "GrantBid"
-	body.add_child(UI.row("A small club grant, %s-%s, once a year" % [UI.money(Grants.AMOUNT.x), UI.money(Grants.AMOUNT.y)],
-		"About %d%% of bids win; it needs a youth section and a second coach. %s" % [roundi(Grants.chance(c.reputation) * 100),
-			"" if why == "" else "Now: " + why + "."], Color(0, 0, 0, 0), [b]))
-
-
-static func _show(parent: Container, main: Node, c: Career) -> void:
-	var card := UI.card("CLUB SHOW")
-	card[0].name = "ClubShow"
-	card[0].size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	parent.add_child(card[0])
-	var booked := int(c.show.get("day", -1))
-	if booked >= 0:
-		card[1].add_child(UI.label("Booked for %s. Paid %s for the hall, officials, doctor and ambulance, trophies." % [Clock.fmt(booked), UI.money(ClubShow.COST)],
-			UI.BODY, UI.FG, "body", true))
-	else:
-		var pv := GymSpend.show_preview(c)
-		card[1].add_child(UI.label("Host a show: %s up front. Expect %d-%d tickets at %s and a raffle of %s-%s: the night %s to %s after the hall." % [
-			UI.money(ClubShow.COST), int(pv["lo"]), int(pv["hi"]), UI.money(ClubShow.TICKET), UI.money(ClubShow.RAFFLE.x), UI.money(ClubShow.RAFFLE.y),
-			UI.signed(int(pv["net_lo"])), UI.signed(int(pv["net_hi"]))],
-			UI.BODY, UI.FG, "body", true))
-		card[1].add_child(UI.muted("Tickets follow the members, the gym's name, its own amateurs on the bill and, with a youth section, the juniors' families.",
-			UI.SMALL, true))
-		var ok := ClubShow.can_book(c.day, booked, int(c.show.get("last", -1)))
-		var why := "" if ok else "the next show can be booked from %s" % Clock.fmt(int(c.show.get("last", 0)) + ClubShow.EVERY_DAYS - ClubShow.LEAD_DAYS)
-		if why == "" and c.cash < ClubShow.COST:
-			why = "not enough cash"
-		var b := UI.button("Book the show, %s" % UI.money(ClubShow.COST), "Btn", main.act.bind("bookshow", ""), why != "", why)
-		b.name = "BookShow"
-		card[1].add_child(b)
-		if why != "":
-			card[1].add_child(UI.muted("Not yet: %s." % why, UI.SMALL, true))
-	_grant(card[1], main, c)
-	var last: Dictionary = c.show.get("night", {})
-	if not last.is_empty():
-		card[1].add_child(UI.kv("Last show, %s" % Clock.fmt(int(c.show.get("last", 0))), "%d sold, %s after the hall" % [int(last["sold"]), UI.signed(int(last["net"]))],
-			UI.GREEN if int(last["net"]) > 0 else UI.RED, "mono"))
+		any = true
+		var terms: Dictionary = StarDeal.terms(f, str(t["step"]), int(t.get("take", 0)))
+		var row := UI.hbox(8)
+		row.add_child(UI.label(str(f["name"]), 15, UI.FG, "bold"))
+		var keep := _btn(main, "Keep %d%%" % roundi(float(terms["keep"]) * 100), "TalkKeep_" + str(f["id"]), "talks",
+			"%s|keep" % f["id"], "" if c.cash >= int(terms["bonus"]) else "not enough cash")
+		var lower := _btn(main, "Drop to %d%%" % roundi(float(terms["lower"]) * 100), "TalkLower_" + str(f["id"]), "talks",
+			"%s|lower" % f["id"], "")
+		row.add_child(keep)
+		row.add_child(lower)
+		box.add_child(row)
+	if not any:
+		box.add_child(UI.label("No contract to answer.", 15, UI.MUTED, "body"))
+	return box
