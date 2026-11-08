@@ -1115,6 +1115,17 @@
     "note": "bodies fuse in the scramble 12.7-13.3 s; mild snaps at 5.1 and 10.8 s hand-overs; stiff straight arms at the end (control copy scored 5/5).",
     "source": "ops/previews/lean_grapple_seq_fast/S1_fixed.mp4",
     "when": "2026-11-08"
+   },
+   {
+    "chain": "Step Closer > Pin Knee > Pass > Escape > Pendulum Sweep Start > Finish > Upa Escape > Aldo Pass",
+    "check": "Operator's OK on the faster film (S399, to 'Swap the board tiles to the faster films?': 'Yes, faster on board'); game pace PACE 0.6, MOVE_MAX_S 2.5, HUB_S 0.6",
+    "result": "VERIFIED by the operator; blind critic 5/10, hand-overs 5/10, speed right (bar 7)",
+    "pass": true,
+    "frames": true,
+    "clean": false,
+    "note": "bodies fuse in the scramble 12.7-13.3 s; mild snaps at 5.1 and 10.8 s hand-overs; stiff straight arms at the end (control copy scored 5/5).",
+    "source": "ops/previews/lean_grapple_seq_fast/S1_fixed.mp4",
+    "when": "2026-11-08"
    }
   ],
   "S2": [
@@ -1150,6 +1161,17 @@
     "note": "abrupt 0.2 s pose changes at 8.3 and 11.0 s; tangled near-holds.",
     "source": "ops/previews/lean_grapple_seq_fast/S2_fixed.mp4",
     "when": "2026-11-08"
+   },
+   {
+    "chain": "Pin Knee > Push Over > Bull Fighter Pass > To Knee On Belly > Top Drops To Side > Wrist Control Escape > Threaten Triangle > Clasp Hands Together",
+    "check": "Operator's OK on the faster film (S399, to 'Swap the board tiles to the faster films?': 'Yes, faster on board'); game pace PACE 0.6, MOVE_MAX_S 2.5, HUB_S 0.6",
+    "result": "VERIFIED by the operator; blind critic 5/10, hand-overs 5/10, speed right (bar 7)",
+    "pass": true,
+    "frames": true,
+    "clean": false,
+    "note": "abrupt 0.2 s pose changes at 8.3 and 11.0 s; tangled near-holds.",
+    "source": "ops/previews/lean_grapple_seq_fast/S2_fixed.mp4",
+    "when": "2026-11-08"
    }
   ],
   "S3": [
@@ -1180,6 +1202,17 @@
     "check": "Blind Sonnet critic, every frame tiled + crops, faster pace (PACE 0.6, hold 0.5 s), control = re-encoded S1",
     "result": "blind critic 5.5/10, hand-overs 6.5/10, speed slow (bar 7) - awaiting the operator's eye",
     "pass": false,
+    "frames": true,
+    "clean": false,
+    "note": "blue hidden under red 6.0-10.8 s; no pops, snaps or sliding at any hand-over.",
+    "source": "ops/previews/lean_grapple_seq_fast/S3_fixed.mp4",
+    "when": "2026-11-08"
+   },
+   {
+    "chain": "Bottom Bails > Sit In > Top Lets Bottom Push Leg > Bottom Progresses > Bottom Gets To Knees > Front Headlock",
+    "check": "Operator's OK on the faster film (S399, to 'Swap the board tiles to the faster films?': 'Yes, faster on board'); game pace PACE 0.6, MOVE_MAX_S 2.5, HUB_S 0.6",
+    "result": "VERIFIED by the operator; blind critic 5.5/10, hand-overs 6.5/10, speed slow (bar 7)",
+    "pass": true,
     "frames": true,
     "clean": false,
     "note": "blue hidden under red 6.0-10.8 s; no pops, snaps or sliding at any hand-over.",

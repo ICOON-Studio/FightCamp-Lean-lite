@@ -84,7 +84,7 @@ AGY = find_agy() or AGY
 AGY_MODEL = "gemini-4-argon-high"   # S369 operator: "antigravity should have argon now" (agy models lists it; test call OK)
 ## seat -> live_runs agent name, the words a roadmap `who` uses, its model, its run cap (minutes)
 SEATS = {"qwen": {"agent": "qwen", "who": ("qwen",), "model": "qwen3-coder", "minutes": 90},
-         "cursor": {"agent": "cursor", "who": ("cursor",), "model": "gpt-5.6-sol-high", "minutes": 90},   # S398: Cursor renewed; operator "i do not want it to use your tokens" - non-Claude top model
+         "cursor": {"agent": "cursor", "who": ("cursor",), "model": "grok-4.7-high", "minutes": 90},   # S398 non-Claude top model; S399 11-08: GPT-5.6 Sol + Codex 5.3 hit Cursor's monthly limit (resets 12/7) - Grok 4.7 High answers
          "agy": {"agent": "antigravity", "who": ("antigravity", "agy"), "model": AGY_MODEL, "minutes": 65}}
 SEAT_PROCS = {"qwen": "qwen-code", "cursor": "cursor-agent", "agy": "agy.exe"}
 PC_AGENTS = ("qwen", "cursor", "antigravity", "agy", "codex", "cline", "ziva")
@@ -933,7 +933,7 @@ def run(task: str) -> int:
         before = films(task, wt, contract, "before", judge_now=(seat == "agy")) if needs_film(contract) else {}
         before_judge = judge_later(task, before)   # S398: qwen/cursor start right after the render; agy waits (its eyes read the verdict)
         prompt = Path(info["dispatch"]["prompt"])
-        env = dict(os.environ, GODOT_EXE=str(GODOT))
+        env = dict(os.environ, GODOT_EXE=str(GODOT), CURSOR_MODEL=SEATS["cursor"]["model"])   # S399: cursor_task.cmd read only its own default
         env.pop("AGENT_WINDOW", None)
         if seat == "agy":
             log(f"SEAT {task}: agy = {find_agy()}, cwd {wt} (exists {wt.is_dir()})")
