@@ -95,7 +95,7 @@ func _initialize() -> void:
 func _probe(args: Array) -> String:
 	var out: Array = []
 	var cmd := ["--headless", "--fixed-fps", "30", "--audio-driver", "Dummy", "--path", ProjectSettings.globalize_path("res://"),
-		"--script", "res://tools/rokoko_feet_probe.gd", "--"] + args
+		"--script", "res://tools/rokoko_feet_probe.gd", "--", "noproguard"] + args   # these bars measure the Rokoko guard windows themselves
 	OS.execute(OS.get_executable_path(), PackedStringArray(cmd), out, true)
 	return "
 ".join(out)

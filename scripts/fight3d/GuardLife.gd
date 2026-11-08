@@ -61,7 +61,7 @@ func tick(delta: float) -> void:
 			if _fidget[who] <= 0.0 and FIDGETS.has(clip):
 				stage.guard(who)
 			continue
-		if not BeatClips.GUARD.has(clip) or RkClips.is_rk(clip):   # S399: the captured guard is the actor's own life - no fidget over it
+		if not BeatClips.GUARD.has(clip) or RkClips.CLIPS.has(clip):   # S399: the captured guard is the actor's own life - no fidget over it
 			continue
 		_quiet[who] -= delta
 		if _quiet[who] <= 0.0:
@@ -69,7 +69,7 @@ func tick(delta: float) -> void:
 
 
 func _play_fidget(who: int, ap: AnimationPlayer) -> void:
-	var pool := FIDGETS.filter(func(n): return ap.has_animation(n) and n != _last[who])
+	var pool := FIDGETS.filter(func(n): return ap.has_animation(n) and n != _last[who] and (not RkClips.pro_on() or n in RkClips.PRO_FIDGETS))   # S399 proguard: only the re-baked Punch PRO fidgets, played pure
 	if pool.is_empty():
 		_quiet[who] = rng.randf_range(QUIET_S.x, QUIET_S.y)
 		return

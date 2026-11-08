@@ -9,6 +9,7 @@ const GuardLife := preload("res://scripts/fight3d/GuardLife.gd")
 const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
 const RangeBreath := preload("res://scripts/fight3d/RangeBreath.gd")
 const RkLoco := preload("res://scripts/fight3d/RkLoco.gd")
+const RkClips := preload("res://scripts/fight3d/RkClips.gd")
 const RkJoin := preload("res://scripts/fight3d/RkJoin.gd")
 
 ## Stride speed of each footwork clip at 1x, metres a second, and its direction in the boxer's own frame (old repo U84,
@@ -148,7 +149,8 @@ func rhythm(delta: float, dist: float) -> void:
 ## pivot in it), so the fight adds no rhythm steps over it; the steps the range needs (aim_step, lunges, exits, circles)
 ## still go in, and RkPure hands her legs to the rig for them.
 func _captured(who: int) -> bool:
-	return str((stage.boxers[who]["ap"] as AnimationPlayer).current_animation).begins_with("rk_guard")
+	var c := str((stage.boxers[who]["ap"] as AnimationPlayer).current_animation)
+	return c.begins_with("rk_guard") or (RkClips.pro_on() and c in RkClips.guards())
 
 
 ## S391 no step pair of hers under way (always true without the rig).

@@ -58,6 +58,12 @@ const CLIPS := {
 	"rk_walk_back": {"file": "res://assets/anim/mixamo_walk/Walking_Backwards.fbx", "start_s": 0.0, "end_s": 0.85, "yaw_deg": 15.4, "cycles": 5},
 }
 const GUARDS := ["rk_guard", "rk_guard_b"]
+## S405 proguard flip: the re-baked Punch PRO idle (RETARGET2B) is her guard under the Rokoko punches, its fidgets come
+## back (GuardLife), and both play pure like a captured clip. `-- noproguard` goes back to the Rokoko guard windows.
+const PRO_GUARDS := ["pro_idle"]
+const PRO_FIDGETS := ["pro_idle_fidget_v1", "pro_idle_fidget_v2", "pro_idle_fidget_v3", "pro_idle_fidget_v6", "pro_idle_fidget_v7",
+	"pro_idle_fidget_v8"]
+static var pro_guard := not OS.get_cmdline_user_args().has("noproguard")
 const WALKS := ["rk_walk_right", "rk_walk_left", "rk_walk_back"]
 ## Which captured takes a beat's punch plays (BeatClips.punch): the plain jab and cross; a big shot, a miss, a tired punch
 ## keep their Punch PRO takes (no Rokoko take shows those).
@@ -74,11 +80,21 @@ static func on() -> bool:
 	return enabled
 
 
+## The Punch PRO guard only runs with the captured route: a test of the footwork rig sets `enabled` off and needs the rig on pro_idle.
+static func pro_on() -> bool:
+	return enabled and pro_guard
+
+
+## The clips that count as her guard right now.
+static func guards() -> Array:
+	return PRO_GUARDS if pro_on() else GUARDS
+
+
 ## One of THESE captured clips. Not a prefix test: the corner warm-up's owned bakes are named rk_boxing / rk_shadowboxing_*
 ## (tools/owned_mocap_bake.gd, the broken S381 route) - played "pure" they showed their twisted, extended legs raw (operator
 ## S399 on the corner wide: "right leg looks wierd why it is extended and twisted?").
 static func is_rk(clip: String) -> bool:
-	return CLIPS.has(clip)
+	return CLIPS.has(clip) or (pro_on() and (clip in PRO_GUARDS or clip in PRO_FIDGETS))
 
 
 ## Adds every window to `lib` on `skel` (tracks prefixed `prefix:`). Returns the names added.

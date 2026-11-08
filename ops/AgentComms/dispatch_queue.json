@@ -595,6 +595,18 @@
       "seat": "cursor",
       "title": "TASK MENUFIGHT1 - CURSOR (Grok 4.7 High) - Fight night's corner and result from the approved mockup",
       "brief": "MENUFIGHT1"
+    },
+    {
+      "id": "R11D",
+      "seat": "qwen",
+      "title": "TASK R11D - QWEN (qwen3-coder) - when a fighter pushes back, the card says why",
+      "brief": "R11D"
+    },
+    {
+      "id": "R11E",
+      "seat": "qwen",
+      "title": "TASK R11E - QWEN (qwen3-coder) - a shot in the clinch says why it landed",
+      "brief": "R11E"
     }
   ]
 }

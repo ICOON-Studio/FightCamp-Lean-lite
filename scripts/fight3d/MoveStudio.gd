@@ -17,7 +17,7 @@ const BG := Color("#f1eee8")
 const FLOOR := Color("#ebe7df")
 const PITCH_DEG := 35.0
 const LOOK_Y := 0.85
-const DIST_M := 3.6
+const DIST_M := 4.15   # S405: 3.6 cut a partner's foot off the 300 px hover card mid-step
 ## The cover-up (mc_to_block) has its gloves up this far in at 1x; a slip's deepest point is MovePlayer.DEF_PEAK_S.
 const BLOCK_SET_S := 0.25
 const DEF_LATE_S := 0.03   # the head is off the line a touch before the glove arrives

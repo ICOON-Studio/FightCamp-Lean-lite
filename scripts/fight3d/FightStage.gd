@@ -99,7 +99,7 @@ func setup(a: Dictionary, b: Dictionary) -> void:
 	for bx in boxers:
 		bx["idle_match"] = IdleMatch.sample(bx, BeatClips.first(BeatClips.GUARD, (bx["ap"] as AnimationPlayer).has_animation))
 		bx["idle_matches"] = {str(bx["idle_match"].get("clip", "")): bx["idle_match"]}
-		for g in RkClips.GUARDS:   # S399: both captured guard windows, so a return to guard can enter either near her pose
+		for g in RkClips.guards():   # S399: both captured guard windows, so a return to guard can enter either near her pose
 			if (bx["ap"] as AnimationPlayer).has_animation(g) and not (bx["idle_matches"] as Dictionary).has(g):
 				bx["idle_matches"][g] = IdleMatch.sample(bx, g)
 	side.setup(self)
@@ -258,7 +258,7 @@ func guard(who: int) -> void:
 		# GUARD_VARIANTS) at the point nearest her pose, and plays at the take's own speed (a tempo would retime the actor).
 		var rk_guard := RkClips.is_rk(idle)
 		if rk_guard:
-			var pool: Array = RkClips.GUARDS.filter(func(n): return ap.has_animation(n))
+			var pool: Array = RkClips.guards().filter(func(n): return ap.has_animation(n))
 			idle = str(pool[life.rng.randi() % pool.size()])
 			boxers[who]["idle_match"] = (boxers[who].get("idle_matches", {}) as Dictionary).get(idle, {})
 		# S302: her own tempo, from a random point of the loop (both started the same loop in step: 0.92 correlated).

@@ -42,6 +42,7 @@ func _days_until(c: Career, f: Dictionary, cond: Callable, most: int) -> int:
 
 func _initialize() -> void:
 	var c := Career.quick_start()
+	c.seed = 7   # S405: quick_start draws a random seed, and some careers bring one offer, so this test failed at random
 	c.fighters.append(Data.fighter_state(Data.lucy(), c.day))
 	var f: Dictionary = c.fighter()
 	f["w"] = 9

@@ -317,7 +317,7 @@ func _start_warm() -> void:
 		var seed := CornerWarm.seed_for(int(ctx.get("seed", 0)), i)
 		var clip := CornerWarm.pick(seed, ap.has_animation)
 		# S399 ("right leg looks wierd ... extended and twisted?"): not the broken S381 owned takes - the captured guard
-		var rk: Array = RkClips.GUARDS.filter(func(n): return ap.has_animation(n))
+		var rk: Array = RkClips.guards().filter(func(n): return ap.has_animation(n))
 		if not rk.is_empty():
 			clip = str(rk[posmod(seed, rk.size())])
 		if clip != "" and ap.has_animation(clip):

@@ -92,7 +92,7 @@ static func align(stage: Node, who: int) -> void:
 	# her balls stay on these spots through the blend (RkJoinFeet) - not into a step clip: its own first step lifts them
 	if bx.get("joinfeet") != null:
 		# only into her GUARD: a step clip lifts the feet itself, and a punch plays its own feet (the cross's rear pivot)
-		if clip in RkClips.GUARDS:
+		if clip in RkClips.guards():
 			(bx["joinfeet"] as Node).arm(now)
 		else:
 			(bx["joinfeet"] as Node).release()
