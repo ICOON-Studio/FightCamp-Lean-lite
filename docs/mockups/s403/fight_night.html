@@ -15,7 +15,6 @@ body{width:1920px;height:1080px;background:#D9B27A url(file:///E:/FightCamp/Lean
 .cap em{font-style:normal;color:var(--dim);letter-spacing:.5px;text-transform:none}
 .mk{font-family:Marker;font-weight:400}
 .hand{font-family:Kalam}
-.new{display:inline-block;background:var(--red);color:#fff;font-family:BarlowB;font-style:normal;font-size:12px;letter-spacing:1px;padding:1px 7px;border-radius:4px;margin-left:8px;vertical-align:middle;transform:rotate(-3deg);text-transform:uppercase}
 .pfw{overflow:hidden;position:relative;flex:none;border-radius:6px;background:#111}.pfw img{position:absolute;left:0;top:0;width:100%;height:auto;transform:scale(1.85);transform-origin:50% 9%}
 .btn{display:inline-block;background:var(--red);color:#fff;font-family:BarlowB;font-size:17px;padding:8px 20px;border-radius:22px;white-space:nowrap;border:2px solid var(--red)}
 .btn.q{background:transparent;color:var(--chalk);border-color:#8d8878}
@@ -38,131 +37,144 @@ body{width:1920px;height:1080px;background:#D9B27A url(file:///E:/FightCamp/Lean
 .kv{display:grid;grid-template-columns:130px 1fr;gap:3px 12px;font-size:17px;line-height:1.3}
 .kv span.k{font-family:BarlowB;font-size:13px;letter-spacing:1.5px;color:#7a6a45;padding-top:3px;text-transform:uppercase}
 
-.i{display:inline-block;width:20px;height:20px;vertical-align:-4px;background:currentColor;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
-.i-bolt{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 2 3 14h9l-1 8 10-12h-9z'/%3E%3C/svg%3E")}
-.i-drop{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z'/%3E%3C/svg%3E")}
-.i-snow{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12h20M12 2v20M20 16l-4-4 4-4M4 8l4 4-4 4M16 4l-4 4-4-4M8 20l4-4 4 4'/%3E%3C/svg%3E")}
-.i-clock{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 6v6l4 2'/%3E%3C/svg%3E")}
-.i-lock{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E")}
-.i-skip{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 4l10 8-10 8zM19 4v16'/%3E%3C/svg%3E")}
-.i-target{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Ccircle cx='12' cy='12' r='6'/%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3C/svg%3E")}
-.i-down{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v14M6 11l6 6 6-6M5 21h14'/%3E%3C/svg%3E")}
-.i-eye{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12s4-8 10-8 10 8 10 8-4 8-10 8-10-8-10-8z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E")}
-.i-heart{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z'/%3E%3C/svg%3E")}
-.tipw{position:relative;display:inline-block}.tip{position:absolute;z-index:9;background:#14161b;color:#f2eee2;border:2px solid var(--gold);border-radius:8px;padding:6px 10px;font-size:14px;line-height:1.3;width:230px;box-shadow:0 4px 10px rgba(0,0,0,.5);font-family:Barlow;letter-spacing:0;text-transform:none;text-align:left;white-space:normal}.tip::before{content:'';position:absolute;left:18px;bottom:-9px;border:8px solid transparent;border-top-color:var(--gold);border-bottom:0}
-.ib{display:inline-flex;align-items:center;justify-content:center;width:40px;height:34px;border:2px solid #8d8878;border-radius:18px;color:var(--chalk)}
-.i-batt{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='7' width='16' height='10' rx='2'/%3E%3Cpath d='M22 11v2M6 10v4M10 10v4'/%3E%3C/svg%3E")}
+.tip{position:absolute;z-index:9;background:#14161b;color:#f2eee2;border:2px solid var(--gold);border-radius:8px;padding:6px 10px;font-size:14px;line-height:1.3;width:330px;box-shadow:0 4px 10px rgba(0,0,0,.5);font-family:Barlow;letter-spacing:0;text-transform:none;text-align:left;white-space:normal}.tip.up::before{content:'';position:absolute;right:60px;top:-9px;border:8px solid transparent;border-bottom-color:var(--gold);border-top:0}
 .pos{display:flex;gap:6px}.pos span{flex:1;text-align:center;border:2px solid #6c6858;border-radius:8px;padding:3px 4px;font-family:BarlowB;font-size:15px;color:var(--dim)}.pos span small{display:block;font-family:Barlow;font-size:13px;color:var(--dim)}.pos span.now{border-color:var(--gold);background:rgba(242,200,91,.14);color:var(--gold)}
-.bm{display:grid;grid-template-columns:repeat(3,1fr);gap:3px 10px;font-size:15px}.bm div{display:grid;grid-template-columns:58px 1fr 26px;gap:5px;align-items:center}.bm i{display:block;height:8px;border-radius:4px;background:#3b3a36;position:relative}.bm i b{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
-.grp{border:2px solid var(--gold);border-radius:10px;padding:6px 8px;display:flex;flex-direction:column;gap:5px}
+.opt.pick{background:rgba(242,200,91,.22);border:2px solid var(--gold);color:#e8e2cf;position:relative}.opt.pick::after{content:"\2713  PICKED";position:absolute;top:-9px;right:8px;background:var(--gold);color:var(--ink);font-family:BarlowB;font-size:12px;letter-spacing:1px;padding:0 7px;border-radius:4px}
+.opt.sug{border:2px dashed var(--gold);position:relative}.opt.sug::after{content:"COACH SUGGESTS";position:absolute;top:-9px;right:8px;background:#14161b;color:var(--gold);font-family:BarlowB;font-size:12px;letter-spacing:1px;padding:0 6px;border-radius:4px;border:1.5px dashed var(--gold)}
+.bd{display:flex;gap:12px;align-items:center}.bd svg{flex:none}.bd .nums{font-size:16px;line-height:1.35}.bd .nums div{display:flex;gap:8px;align-items:baseline}.bd .nums span.k{color:var(--dim);width:54px;font-size:14px}.bd .nums b{font-family:BarlowB;font-size:19px}
+.z{fill:#6FD3A0;fill-opacity:.4}.z.h{fill:#E2483D;fill-opacity:1}.sil{fill:#4a4943}
+.ex{width:92px;height:44px;position:relative;border-left:1px solid #5a5850}.ex i{position:absolute;left:14px;right:14px;border-radius:3px}.ex .m{position:absolute;left:0;right:0;top:21px;height:2px;background:#6c6858}
+.sg{background:rgba(0,0,0,.22);border:2px dashed #8d8878;border-radius:10px;padding:6px 12px;display:flex;flex-direction:column;gap:5px}
+.chip [data-ic]{margin-right:3px}
+.cap.uc::after{width:20px;height:20px;top:-1px;right:8px}.opt.uc::after{width:22px;height:22px}
+.grp{gap:21px!important;padding:10px 10px 8px}.tip.up::before{right:25px!important}
 </style></head><body>
-
-<!-- ============ LEFT: THE CORNER MINUTE ============ -->
-<div class="chalk" id="L"><div style="display:flex;flex-direction:column;gap:10px;height:100%">
+<!-- LEFT: THE CORNER MINUTE -->
+<div class="chalk" id="L"><div style="display:flex;flex-direction:column;gap:8px;height:100%">
 
 <div style="display:flex;justify-content:space-between;align-items:center;height:34px">
  <span class="cap">Fight night &nbsp;&middot;&nbsp; Corner 0:44 &nbsp;&middot;&nbsp; Round 2 of 3 &nbsp;&middot;&nbsp; 5:00 rounds</span>
- <span style="display:flex;gap:8px;align-items:center"><span class="chip on" title="Watch speed">1x</span><span class="chip" title="Watch speed">2x</span><span class="btn q s">Skip to the bell</span><span class="btn q s uc" style="padding-right:40px" title="Throw in the towel: not built yet">Throw in the towel</span></span>
+ <span class="btn q s uc" style="padding-right:40px" title="Throw in the towel: ends the fight as a loss for Lucy. Not built yet">Throw in the towel</span>
 </div>
 
-<div style="display:grid;grid-template-columns:1fr 150px 1fr;gap:12px;align-items:center;height:136px">
- <div class="row" style="gap:14px;align-items:center"><div class="pfw" style="width:104px;height:126px;border:3px solid var(--red)"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_11.png"></div>
-  <div><div class="mk" style="font-size:30px;color:var(--lred);line-height:1">LUCY JACKSON</div><div style="font-size:16px;margin-top:4px">Bantamweight &middot; 61 kg &middot; 2-1</div><div class="sub">Boxer, learning the mat</div><div style="margin-top:5px"><span class="chip" title="Lucy's energy, out of 100"><i class="i i-batt"></i> Energy 62</span></div></div></div>
+<div style="display:grid;grid-template-columns:1fr 150px 1fr;gap:12px;align-items:center;height:116px">
+ <div class="row" style="gap:14px;align-items:center"><div class="pfw" style="width:92px;height:110px;border:3px solid var(--red)"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_11.png"></div>
+  <div><div class="mk" style="font-size:30px;color:var(--lred);line-height:1;text-transform:uppercase" data-f="lucy.name"></div><div style="font-size:16px;margin-top:4px"><span data-f="lucy.class"></span> &middot; <span data-f="lucy.limit"></span> kg &middot; <span data-f="lucy.record"></span></div><div class="sub">Boxer, learning the mat</div></div></div>
  <div style="text-align:center"><div class="cap" style="font-size:13px">Round 1 was</div><div class="mk" style="font-size:22px;color:var(--lblue);line-height:1.1;margin:3px 0" title="Priya won round 1, 10-9 on your card">PRIYA'S</div><div class="sub">10-9 on your card</div></div>
- <div class="row" style="gap:14px;align-items:center;flex-direction:row-reverse;text-align:right"><div class="pfw" style="width:104px;height:126px;border:3px solid var(--blue)"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_14.png"></div>
-  <div><div class="mk" style="font-size:30px;color:var(--lblue);line-height:1">PRIYA NAIR</div><div style="font-size:16px;margin-top:4px">Bantamweight &middot; 61 kg &middot; 9-3 &middot; #5</div><div class="sub">Outside fighter. Wrestler</div><div style="margin-top:5px"><span class="chip" title="Priya's energy, out of 100"><i class="i i-batt"></i> Energy 71</span></div></div></div>
+ <div class="row" style="gap:14px;align-items:center;flex-direction:row-reverse;text-align:right"><div class="pfw" style="width:92px;height:110px;border:3px solid var(--blue)"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_14.png"></div>
+  <div><div class="mk" style="font-size:30px;color:var(--lblue);line-height:1;text-transform:uppercase" data-f="outside.priya.name"></div><div style="font-size:16px;margin-top:4px"><span data-f="lucy.class"></span> &middot; <span data-f="lucy.limit"></span> kg &middot; <span data-f="outside.priya.rec"></span> &middot; <span data-f="outside.priya.rank"></span></div><div class="sub">Outside fighter. Wrestler</div></div></div>
 </div>
 
-<div class="row" style="align-items:center;height:70px;gap:14px">
- <div class="pfw" style="width:54px;height:64px;opacity:.95"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_staff_coach.png"></div>
- <div class="sticky" style="width:640px;padding:10px 22px 6px;height:64px"><i class="mag"></i><div style="font-size:22px;font-family:KalamB;line-height:1.15">"She has adapted: Priya now shoots when you step back."</div></div>
- <div style="flex:1;border:3px solid var(--gold);border-radius:12px;padding:4px 10px;text-align:center" title="How Priya is fighting right now. She fights one way at a time."><div class="cap" style="font-size:12px">Priya is</div><div class="mk" style="font-size:22px;color:var(--gold);line-height:1">PRESSING</div><div class="sub" style="font-size:13px">and shoots if you step back</div></div>
+<div class="row" style="align-items:center;height:64px;gap:14px">
+ <div class="pfw" style="width:50px;height:58px;opacity:.95"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_staff_coach.png"></div>
+ <div class="sticky" style="width:640px;padding:9px 22px 6px;height:58px"><i class="mag"></i><div style="font-size:22px;font-family:KalamB;line-height:1.15">"She has adapted: Priya now shoots when you step back."</div></div>
+ <div style="flex:1;border:3px solid var(--gold);border-radius:12px;padding:3px 10px;text-align:center" title="How Priya is fighting right now. She fights one way at a time."><div class="cap" style="font-size:12px">Priya is</div><div class="mk" style="font-size:22px;color:var(--gold);line-height:1">PRESSING</div><div class="sub" style="font-size:13px">and shoots if you step back</div></div>
 </div>
 
-<div style="background:rgba(0,0,0,.22);border-radius:8px;padding:7px 14px 6px">
- <div style="display:flex;justify-content:space-between;align-items:center"><span class="cap">Where the fight is, and round 1 <i class="new" style="margin-left:4px">Not built yet</i></span><span class="cap" style="font-size:13px"><span style="color:var(--lred)">Lucy</span> &nbsp;&middot;&nbsp; <span style="color:var(--lblue)">Priya</span></span></div>
- <div class="pos uc" style="margin:5px 0 4px;padding-right:0" title="Where the fight is now, and seconds spent there in round 1"><span class="now" title="Standing: now">Standing<small>now &middot; 2:35</small></span><span title="Clinch">Clinch<small>0:00</small></span><span title="Against the cage wall">Wall<small>0:40</small></span><span title="On the ground">Ground<small>1:45, Priya on top</small></span></div>
- <div class="stat" style="height:28px"><span class="n" style="color:var(--lred)">24 of 58</span><div class="tr"><i style="right:0;width:41%;background:var(--red)"></i></div><span class="l" title="Strikes landed, of those thrown"><i class="i i-target"></i> Landed</span><div class="tr"><i style="left:0;width:43%;background:var(--blue)"></i></div><span class="n" style="text-align:right;color:var(--lblue)">9 of 21</span></div>
- <div class="stat" style="height:28px"><span class="n" style="color:var(--lred)">0:10</span><div class="tr"><i style="right:0;width:3%;background:var(--red)"></i></div><span class="l" title="Control time: how long each held the other down or on the wall"><i class="i i-clock"></i> Control</span><div class="tr"><i style="left:0;width:70%;background:var(--blue)"></i></div><span class="n" style="text-align:right;color:var(--lblue)">2:10</span></div>
- <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:3px" title="Six places take damage. Fine over 55, hurt 55 or less, critical 35 or less.">
-  <div class="bm"><div title="L eye: 48, hurt"><span>L eye</span><i><b style="width:48%;background:#E8B04A"></b></i><span style="text-align:right">48</span></div><div title="R eye: 82, fine"><span>R eye</span><i><b style="width:82%;background:#6FD3A0"></b></i><span style="text-align:right">82</span></div><div title="Nose: 70, fine"><span>Nose</span><i><b style="width:70%;background:#6FD3A0"></b></i><span style="text-align:right">70</span></div><div title="Jaw: 76, fine"><span>Jaw</span><i><b style="width:76%;background:#6FD3A0"></b></i><span style="text-align:right">76</span></div><div title="L ribs: 64, fine"><span>L ribs</span><i><b style="width:64%;background:#6FD3A0"></b></i><span style="text-align:right">64</span></div><div title="R ribs: 58, fine"><span>R ribs</span><i><b style="width:58%;background:#6FD3A0"></b></i><span style="text-align:right">58</span></div></div><div class="bm"><div title="L eye: 80, fine"><span>L eye</span><i><b style="width:80%;background:#6FD3A0"></b></i><span style="text-align:right">80</span></div><div title="R eye: 74, fine"><span>R eye</span><i><b style="width:74%;background:#6FD3A0"></b></i><span style="text-align:right">74</span></div><div title="Nose: 58, fine"><span>Nose</span><i><b style="width:58%;background:#6FD3A0"></b></i><span style="text-align:right">58</span></div><div title="Jaw: 71, fine"><span>Jaw</span><i><b style="width:71%;background:#6FD3A0"></b></i><span style="text-align:right">71</span></div><div title="L ribs: 69, fine"><span>L ribs</span><i><b style="width:69%;background:#6FD3A0"></b></i><span style="text-align:right">69</span></div><div title="R ribs: 77, fine"><span>R ribs</span><i><b style="width:77%;background:#6FD3A0"></b></i><span style="text-align:right">77</span></div></div></div>
+<div style="background:rgba(0,0,0,.22);border-radius:8px;padding:7px 14px 8px">
+ <div style="display:flex;justify-content:space-between;align-items:center"><span class="cap uc" style="padding-right:40px">Where the fight is, and round 1</span><span class="cap" style="font-size:13px"><span style="color:var(--lred)">Lucy</span> &nbsp;&middot;&nbsp; <span style="color:var(--lblue)">Priya</span></span></div>
+ <div style="display:grid;grid-template-columns:250px 1fr 250px;gap:12px;align-items:center;margin-top:4px">
+  <div class="bd" data-tip="Lucy, every site: L eye 48 hurt, R eye 82, Nose 70, Jaw 76, L ribs 64, R ribs 58, L leg 74, R leg 70. Fine over 55, hurt 55 or less, critical 35 or less."><svg data-art viewBox="0 0 64 132" width="58" height="120"><ellipse class="sil" cx="32" cy="13" rx="10" ry="12"/><rect class="sil" x="28" y="23" width="8" height="8"/><rect class="sil" x="17" y="30" width="30" height="46" rx="8"/><rect class="sil" x="8" y="32" width="9" height="46" rx="4"/><rect class="sil" x="47" y="32" width="9" height="46" rx="4"/><rect class="sil" x="19" y="76" width="12" height="50" rx="5"/><rect class="sil" x="33" y="76" width="12" height="50" rx="5"/><rect class="z" x="19" y="80" width="12" height="44" rx="5"/><rect class="z" x="33" y="80" width="12" height="44" rx="5"/><rect class="z" x="19" y="36" width="12" height="22" rx="4"/><rect class="z" x="33" y="36" width="12" height="22" rx="4"/><circle class="z" cx="27" cy="11" r="4.6"/><circle class="z h" cx="37" cy="11" r="4.6"/><ellipse class="z" cx="32" cy="17" rx="2.2" ry="3"/><rect class="z" x="26" y="21" width="12" height="4" rx="2"/></svg>
+   <div class="nums"><div><span class="k">L eye</span><b style="color:var(--lred)">48</b><span class="sub">hurts</span></div><div><span class="k">Jaw</span><b>76</b></div><div><span class="k"><i data-ic="energy" title="Energy left in this fight, out of 100"></i></span><b>62</b></div><div class="sub" style="font-size:13px;display:block;line-height:1.1">lasts to round 3 at this pace</div></div></div>
+  <div>
+   <div class="pos" data-tip="Where the fight is now, and seconds spent there in round 1"><span class="now">Standing<small>now &middot; 2:35</small></span><span>Clinch<small>0:00</small></span><span>Wall<small>0:40</small></span><span>Ground<small>1:45, Priya on top</small></span></div>
+   <div class="stat" style="height:28px;grid-template-columns:76px 1fr 104px 1fr 76px;margin-top:4px"><span class="n" style="color:var(--lred)">24 of 58</span><div class="tr"><i style="right:0;width:41%;background:var(--red)"></i></div><span class="l" title="Strikes landed, of those thrown"><i data-ic="hands"></i> Landed</span><div class="tr"><i style="left:0;width:43%;background:var(--blue)"></i></div><span class="n" style="text-align:right;color:var(--lblue)">9 of 21</span></div>
+   <div class="stat" style="height:28px;grid-template-columns:76px 1fr 104px 1fr 76px"><span class="n" style="color:var(--lred)">0:10</span><div class="tr"><i style="right:0;width:3%;background:var(--red)"></i></div><span class="l" title="Control time: how long each held the other down or on the wall"><i data-ic="clock"></i> Control</span><div class="tr"><i style="left:0;width:70%;background:var(--blue)"></i></div><span class="n" style="text-align:right;color:var(--lblue)">2:10</span></div>
+  </div>
+  <div class="bd" style="flex-direction:row-reverse" data-tip="Priya, every site: L eye 80, R eye 74, Nose 58, Jaw 71, L ribs 69, R ribs 77, L leg 66, R leg 52 hurt. Fine over 55, hurt 55 or less, critical 35 or less."><svg data-art viewBox="0 0 64 132" width="58" height="120"><ellipse class="sil" cx="32" cy="13" rx="10" ry="12"/><rect class="sil" x="28" y="23" width="8" height="8"/><rect class="sil" x="17" y="30" width="30" height="46" rx="8"/><rect class="sil" x="8" y="32" width="9" height="46" rx="4"/><rect class="sil" x="47" y="32" width="9" height="46" rx="4"/><rect class="sil" x="19" y="76" width="12" height="50" rx="5"/><rect class="sil" x="33" y="76" width="12" height="50" rx="5"/><rect class="z h" x="19" y="80" width="12" height="44" rx="5"/><rect class="z" x="33" y="80" width="12" height="44" rx="5"/><rect class="z" x="19" y="36" width="12" height="22" rx="4"/><rect class="z" x="33" y="36" width="12" height="22" rx="4"/><circle class="z" cx="27" cy="11" r="4.6"/><circle class="z" cx="37" cy="11" r="4.6"/><ellipse class="z" cx="32" cy="17" rx="2.2" ry="3"/><rect class="z" x="26" y="21" width="12" height="4" rx="2"/></svg>
+   <div class="nums"><div><span class="k">R leg</span><b style="color:var(--lred)">52</b><span class="sub">hurts</span></div><div><span class="k">Nose</span><b>58</b></div><div><span class="k"><i data-ic="energy" title="Energy left in this fight, out of 100"></i></span><b>71</b></div><div style="margin-top:2px"><span class="chip" style="border-color:var(--red);color:var(--lred)" title="Rocked: hurt but not down. She is easier to finish for a few seconds.">&#10022; Rocked</span></div></div></div>
+ </div>
 </div>
 
-<div class="cap" style="margin-top:0">In the corner: what do you tell Lucy?</div>
+<div style="display:flex;align-items:center;gap:14px;height:50px;position:relative">
+ <span class="cap" style="width:150px;flex:none;line-height:1.15">Round 1,<br><em>six exchanges</em></span>
+ <div style="display:flex;position:relative;border-right:1px solid #5a5850">
+  <div class="ex" title="Exchange 1: Lucy's jab"><span class="m"></span><i style="top:11px;height:10px;background:var(--red)"></i></div>
+  <div class="ex" title="Exchange 2: Lucy lands more"><span class="m"></span><i style="top:5px;height:16px;background:var(--red)"></i></div>
+  <div class="ex" title="Exchange 3: Lucy's jab"><span class="m"></span><i style="top:11px;height:10px;background:var(--red)"></i></div>
+  <div class="ex" title="Exchange 4: Priya shoots"><span class="m"></span><i style="top:23px;height:9px;background:var(--blue)"></i></div>
+  <div class="ex" title="Exchange 5: Priya's takedown. The big moment: Lucy goes to the floor, Priya on top"><span class="m"></span><i style="top:23px;height:20px;background:var(--blue)"></i><span style="position:absolute;left:36px;top:-3px;color:var(--gold);font-size:20px;line-height:1">&#9733;</span></div>
+  <div class="ex" title="Exchange 6: Priya holds her down"><span class="m"></span><i style="top:23px;height:14px;background:var(--blue)"></i></div>
+ </div>
+ <span class="sub" style="font-size:14px;line-height:1.2">Red = Lucy's edge, blue = Priya's.<br><span style="color:var(--gold)">&#9733;</span> the takedown, exchange 5</span>
+</div>
 
-<div class="grp" title="Two instructions get through in a minute">
- <div style="display:flex;justify-content:space-between;align-items:center"><span class="cap" style="color:var(--green)">Fixes: pick up to two</span><span style="font-family:BarlowB;font-size:15px;color:var(--gold)" title="Instructions left this minute">2 left &nbsp;<span style="font-size:20px">&#9679; &#9679;</span></span></div>
- <div class="row" style="align-items:center;height:46px">
+<div style="position:relative;height:56px;margin-bottom:6px"><span class="tip up" style="right:30px;top:6px;width:460px" data-t="Hover a body for every site: fine over 55, hurt 55 or less, critical 35 or less. Priya: R leg 52 hurts. Lucy: L eye 48 hurts."></span></div>
+<div class="grp">
+ <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:-4px"><span class="cap" style="color:var(--green)">In the corner: fixes, pick up to two</span><span style="display:flex;gap:10px;align-items:center"><span class="chip" style="background:rgba(242,200,91,.28);border-color:var(--gold);color:var(--gold)">&#10003; your pick</span><span class="chip" style="border-style:dashed;border-color:var(--gold);color:var(--gold);margin-right:150px">coach suggests</span><span style="font-family:BarlowB;font-size:15px;color:var(--gold)" title="Two instructions get through in a minute. Unpick one to add another.">2 of 2 used &nbsp;<span style="font-size:20px">&#9679; &#9679;</span></span></span></div>
+ <div class="row" style="align-items:center;min-height:52px">
   <span class="cap" style="width:70px;flex:none">Habit</span>
-  <div class="opt sel" style="flex:1"><b>Fix: Drops her hands after the jab</b>Your coach has seen it</div>
+  <div class="opt pick" style="flex:1"><b>Fix: Drops her hands after the jab</b>Your coach has seen it</div>
   <div class="opt" style="width:130px"><b>No fix</b>Just the plan</div>
  </div>
- <div class="row" style="align-items:center;height:48px">
+ <div class="row" style="align-items:center;min-height:52px">
   <span class="cap" style="width:70px;flex:none">Plan</span>
-  <div class="opt sel" style="flex:1.1"><b>Step back, then jab <i class="new" style="margin-left:4px">Adapted</i></b>Priya shoots on it</div>
+  <div class="opt pick" style="flex:1.1"><b>Step back, then jab</b>Priya shoots on it</div>
   <div class="opt" style="flex:1"><b>Keep the plan</b>2 of 3 answers working</div>
-  <div class="opt" style="flex:1"><b>Go to the body</b>Slows Priya for later</div>
-  <div class="opt uc" style="flex:1"><b>When she shoots: sprawl</b>Needs the floor game</div>
+  <div class="opt sug" style="flex:1"><b>Go to the body</b>Slows Priya for later</div>
+  <div class="opt uc" style="flex:1;padding-right:30px"><b>When she shoots: sprawl</b>Needs the floor game</div>
  </div>
- <div class="row" style="align-items:center;height:46px">
+ <div class="row" style="align-items:center;min-height:52px">
   <span class="cap" style="width:70px;flex:none">Talk</span>
   <div class="opt" style="flex:1"><b>Calm down</b>+1.0 power, saves energy, safer</div>
   <div class="opt" style="flex:1"><b>Fire up</b>-0.5 power, tiring, riskier</div>
-  <div class="opt sel" style="flex:1"><b>Tell the truth</b>+1.2 power</div>
+  <div class="opt sug" style="flex:1"><b>Tell the truth</b>+1.2 power</div>
  </div>
 </div>
 
-<div class="row" style="align-items:center;height:48px">
- <span class="cap" style="width:96px;flex:none;color:var(--green);line-height:1.2">Recover 3/3<br><em style="font-size:12px">free jobs</em></span>
- <div class="opt" style="flex:1.1"><b><i class="i i-drop" title="Water and breathing: +3 energy each"></i> <i class="i i-batt" title="energy"></i> +3 each <span style="color:var(--green)">&#9679;&#9679;&#9679;</span></b></div>
- <div class="opt" style="flex:1.1"><b><i class="i i-snow" title="Ice on the ribs: takes 3 body hits off the count, each"></i> Ribs: -3 hits <span style="color:var(--dim)">&#9675;</span></b></div>
- <div class="opt off" style="flex:1"><b><i class="i i-heart" title="Clear her head: only when she is hurt"></i> Clear head <i class="i i-lock" title="Greyed: Lucy is not hurt"></i></b></div>
- <div class="opt off" style="flex:1.3;position:relative"><span class="tip" style="right:0;top:126px;width:330px;opacity:1;filter:none">Set-up is greyed: Lucy has no combination yet. Drill one on the pads in the gym.</span><b><i class="i i-lock" title="Greyed: no combination drilled yet"></i> Set-up: a combination</b></div>
+<div class="row" style="align-items:center;min-height:52px">
+ <span class="cap" style="width:96px;flex:none;color:var(--green);line-height:1.2">Recover<br><em style="font-size:12px">3 free jobs</em></span>
+ <div class="opt" style="flex:1.2"><b><i data-ic="water" title="Water and breathing: +3 energy each"></i> Water: +3 energy each</b></div>
+ <div class="opt" style="flex:1.2"><b><i data-ic="ice" title="Ice on the ribs: takes 3 body hits off the count, each"></i> Ice the ribs: -3 hits</b></div>
+ <div class="opt" style="flex:1"><b><i data-ic="pads" title="Set-up: Lucy has the 1-2 (Usable). It fires when Priya opens a gap."></i> Set-up: <span data-f="lucy.combo"></span> <span data-f="lucy.combo_level"></span></b></div>
+ <div class="opt off" style="flex:.9"><b><i data-ic="Composure" title="Clear her head: only when she is rocked"></i> Clear head</b><span style="font-size:13px">Lucy is not rocked</span></div>
 </div>
 
-<div class="row" style="align-items:stretch;height:58px;border-top:2px dashed #6c6858;padding-top:6px">
- <div style="width:96px;flex:none"><span class="cap" style="color:var(--lred)">Cutman</span><div><i class="new" style="margin-left:0">New</i></div></div>
- <div style="flex:1;background:#2a1614;border:2px solid var(--red);border-radius:8px;padding:4px 12px;font-size:15px;line-height:1.25"><b style="font-family:BarlowB;font-size:16px"><i class="i i-eye" title="Left eye closing: stop it or go on"></i> Left eye closing</b> Not one of the two instructions. Nothing is pre-selected.</div>
+<div class="row" style="align-items:center;min-height:56px;border-top:2px dashed #6c6858;padding-top:6px">
+ <div style="width:96px;flex:none"><span class="cap" style="color:var(--lred)">Cutman</span></div>
+ <div style="flex:1;background:#2a1614;border:2px solid var(--red);border-radius:8px;padding:6px 12px;font-size:16px"><b style="font-family:BarlowB;font-size:17px"><i data-ic="scouted" title="Left eye closing: stop it or go on"></i> Left eye closing</b></div>
  <div class="opt" style="width:230px"><b>Stop it</b>Lucy loses, the eye is safe</div>
  <div class="opt" style="width:230px"><b>Go on</b>Risk of a lasting cut</div>
 </div>
 
-<div style="display:flex;align-items:center;gap:8px;height:34px;margin-top:auto">
- <span class="cap" style="flex:none;width:96px">In the round</span>
- <span class="chip on">Jab and move</span><span class="chip">Tie up</span><span class="chip">Hands up</span>
- <span class="chip uc" style="padding-right:36px">Sprawl</span><span class="chip uc" style="padding-right:36px">Get up</span><span class="chip uc" style="padding-right:36px">Protect the arm</span>
+<div class="sg" style="margin-top:auto">
+ <div style="display:flex;align-items:center;gap:8px">
+  <span class="cap uc" style="flex:none;padding-right:40px;color:var(--lblue)">Once the round starts</span>
+  <span class="chip on" data-tip="Position sets the calls. Standing: Jab and move, Tie up, Hands up. On the ground, bottom: Get up, Protect the arm. On the ground, on top: Hold her down, Pass the guard."><i data-ic="Speed"></i>Position: standing</span>
+  <span class="chip on"><i data-ic="hands"></i>Jab and move</span><span class="chip"><i data-ic="clinch"></i>Tie up</span><span class="chip"><i data-ic="guard"></i>Hands up</span>
+ </div>
+ <div style="display:flex;align-items:center;gap:8px">
+  <span class="sub" style="width:128px;flex:none">One call every 30 s</span>
+  <span class="sub">Pace</span><span class="chip">Push</span><span class="chip on">Steady</span><span class="chip">Save</span>
+  <span class="sub" style="margin-left:6px">Aim</span><span class="chip on">Own game</span><span class="chip">Head</span><span class="chip">Body</span><span class="chip uc" style="padding-right:36px">Legs</span>
+ </div>
 </div>
-<div style="display:flex;align-items:center;gap:8px;height:42px">
- <span class="cap" style="flex:none;width:96px;color:var(--dim)">Calls every 30 s</span>
- <span class="sub">Pace</span><span class="chip">Push</span><span class="chip on">Steady</span><span class="chip">Save</span>
- <span class="sub" style="margin-left:6px">Aim</span><span class="chip on">Own game</span><span class="chip">Head</span><span class="chip">Body</span><span class="chip uc" style="padding-right:36px">Legs</span>
- <div style="flex:1"></div><span class="btn q s">Say nothing</span><span class="btn">Start round 2 with this plan</span>
-</div>
+<div style="display:flex;align-items:center;gap:10px;height:42px;justify-content:flex-end"><span class="btn q s">Say nothing</span><span class="btn">Start round 2 with this plan</span></div>
 
 </div></div>
 
-<!-- ============ RIGHT: THE RESULT ============ -->
-<div class="chalk" id="R"><div style="display:flex;flex-direction:column;gap:10px;height:100%">
+<!-- RIGHT: THE RESULT -->
+<div class="chalk" id="R"><div style="display:flex;flex-direction:column;gap:16px;height:100%">
  <div class="cap" style="height:30px;display:flex;align-items:center">The result &nbsp;<em>after round 3</em></div>
 
  <div style="display:grid;grid-template-columns:112px 1fr 112px;gap:12px;align-items:center">
   <div class="pfw" style="width:112px;height:136px;border:3px solid var(--red)"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_11.png"></div>
-  <div style="text-align:center"><div class="mk" style="font-size:38px;color:var(--lblue);line-height:1">PRIYA NAIR</div><div class="mk" style="font-size:24px;color:var(--gold);margin:5px 0 8px">UNANIMOUS DECISION</div>
-   <div style="display:flex;gap:8px;justify-content:center"><div style="background:rgba(0,0,0,.3);border:2px solid #6c6858;border-radius:8px;padding:3px 10px"><div class="sub" style="font-size:12px;letter-spacing:1px">JUDGE 1</div><b style="font-size:22px">28-29</b></div><div style="background:rgba(0,0,0,.3);border:2px solid #6c6858;border-radius:8px;padding:3px 10px"><div class="sub" style="font-size:12px;letter-spacing:1px">JUDGE 2</div><b style="font-size:22px">28-29</b></div><div style="background:rgba(0,0,0,.3);border:2px solid #6c6858;border-radius:8px;padding:3px 10px"><div class="sub" style="font-size:12px;letter-spacing:1px">JUDGE 3</div><b style="font-size:22px">28-29</b></div></div></div>
+  <div style="text-align:center"><div class="mk" style="font-size:38px;color:var(--lblue);line-height:1;text-transform:uppercase" data-f="outside.priya.name"></div><div class="mk" style="font-size:24px;color:var(--gold);margin:5px 0 8px">UNANIMOUS DECISION</div>
+   <div style="display:flex;gap:8px;justify-content:center"><div style="background:rgba(0,0,0,.3);border:2px solid #6c6858;border-radius:8px;padding:3px 10px"><div class="sub" style="font-size:13px;letter-spacing:1px">JUDGE 1</div><b style="font-size:22px">28-29</b></div><div style="background:rgba(0,0,0,.3);border:2px solid #6c6858;border-radius:8px;padding:3px 10px"><div class="sub" style="font-size:13px;letter-spacing:1px">JUDGE 2</div><b style="font-size:22px">28-29</b></div><div style="background:rgba(0,0,0,.3);border:2px solid #6c6858;border-radius:8px;padding:3px 10px"><div class="sub" style="font-size:13px;letter-spacing:1px">JUDGE 3</div><b style="font-size:22px">28-29</b></div></div></div>
   <div class="pfw" style="width:112px;height:136px;border:3px solid var(--blue)"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_14.png"></div>
  </div>
- <div style="display:flex;justify-content:space-between;font-size:16px"><span style="white-space:nowrap"><b style="color:var(--lred);font-family:BarlowB">Lucy</b> now 2-2</span><span class="sub">3 rounds of 5:00</span><span style="white-space:nowrap"><b style="color:var(--lblue);font-family:BarlowB">Priya</b> 10-3, #5</span></div>
+ <div style="display:flex;justify-content:space-between;font-size:16px"><span style="white-space:nowrap"><b style="color:var(--lred);font-family:BarlowB">Lucy</b> now 2-2</span><span class="sub">3 rounds of 5:00</span><span style="white-space:nowrap"><b style="color:var(--lblue);font-family:BarlowB">Priya</b> 10-3, <span data-f="outside.priya.rank"></span></span></div>
 
  <div class="paper" style="padding:12px 18px 12px">
   <div style="display:flex;gap:14px;align-items:baseline"><span class="cap" style="color:#7a6a45">Why</span><b style="font-family:Marker;font-weight:400;font-size:27px;color:#b3342b">NO ANSWER FOR THE SHOT</b></div>
-  <div class="kv" style="margin-top:8px"><span class="k">Your plan</span><span>3 right answers, 2 wrong, 1 neutral. Worth about +4% on the chance of winning.</span><span class="k">Against you</span><span>Priya's takedowns held Lucy down for 6:30 over three rounds; Lucy had no line for "when she shoots".</span><span class="k">What decided it</span><span>Control time: Priya 6:30, Lucy 0:40. Strikes landed were close, 61 to 52.</span><span class="k">Next</span><span>Give "when she shoots" a line in the Playbook and drill takedown defence.</span></div>
+  <div class="kv" style="margin-top:8px"><span class="k">Your plan</span><span>7 right answers, 7 wrong, 1 neutral. Worth about +4% on the chance of winning.</span><span class="k">Against you</span><span>Priya's takedowns held Lucy down for 6:30 over three rounds; Lucy had no line for "when she shoots".</span><span class="k">What decided it</span><span>Control time: Priya 6:30, Lucy 0:40. Strikes landed were close, 61 to 52.</span><span class="k">Next</span><span style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span>Give "when she shoots" a line in the Playbook and drill takedown defence.</span><span class="btn s" style="flex:none">Write the line</span></span></div>
  </div>
 
  <div class="paper uc" style="padding:6px 18px;padding-right:44px;font-size:15px"><b>On the floor:</b> takedowns on Lucy 5 of 9 &middot; escapes 4 of 6 &middot; submissions tried 1</div>
 
  <div class="paper" style="padding:10px 18px">
   <div style="display:flex;justify-content:space-between;align-items:center"><div><div class="cap" style="color:#7a6a45">Body report</div><div style="font-size:17px;margin-top:3px"><b style="font-family:BarlowB">Ribs</b> went first: 6 body hits against Lucy.</div></div><span class="btn" style="background:var(--blue);border-color:var(--blue)">Train the ribs next week</span></div>
-  <div class="sub" style="margin-top:5px;color:#5c5548">Injury check after the bout: nothing found. If one is found, Lucy pulls out or fights hurt is asked here.</div>
+  <div class="sub" style="margin-top:5px;color:#5c5548">Injury check after the bout: nothing found.</div>
  </div>
 
  <div class="paper" style="padding:10px 18px">
@@ -175,7 +187,7 @@ body{width:1920px;height:1080px;background:#D9B27A url(file:///E:/FightCamp/Lean
  </div>
 
  <div class="paper" style="padding:10px 18px">
-  <div style="display:flex;justify-content:space-between;align-items:center"><span class="cap" style="color:#7a6a45">The plan, lit up</span><span class="chip" style="color:#555;border-color:#9a9078">See the flow</span></div>
+  <div style="display:flex;justify-content:space-between;align-items:center"><span class="cap" style="color:#7a6a45">The plan, lit up &nbsp;<em style="color:#5c5548">7 right, 7 wrong, 1 neutral</em></span><span class="chip" style="color:#555;border-color:#9a9078">See the flow</span></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 22px;margin-top:6px;font-size:16px">
    <span><b style="color:#2a8f5c">&#9679;</b> Double jab at range <b>3/4</b></span><span><b style="color:#2a8f5c">&#9679;</b> Pivot off the ropes <b>1/1</b></span>
    <span><b style="color:#c4402f">&#9679;</b> Step back, then jab <b>1/4</b></span><span><b style="color:#2a8f5c">&#9679;</b> Body shot when she loads up <b>2/3</b></span>
@@ -186,4 +198,5 @@ body{width:1920px;height:1080px;background:#D9B27A url(file:///E:/FightCamp/Lean
  <div style="display:flex;align-items:center;gap:12px;margin-top:auto;height:50px"><span style="flex:1"></span><span class="btn">Back home</span></div>
 </div></div>
 
+<script src="facts.js"></script><script src="kit.js"></script>
 </body></html>

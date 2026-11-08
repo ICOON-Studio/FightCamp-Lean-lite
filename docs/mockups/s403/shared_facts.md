@@ -1,3 +1,5 @@
+**Since round 4 the live facts are in `facts.json` + `roster_mma8.json`, read through `kit.js`; `tools/check_mockups.py` fails a page that types one by hand. This page is the history.**
+
 # One set of facts for every menu mockup (S403)
 
 Both critics in round 1: dates, opponents and cash contradict each other across the pages. Every page uses exactly these.

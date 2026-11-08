@@ -1,3 +1,8 @@
+# MENUS, round 4 done (S403 session, 2026-11-08, after S404's block below was written)
+The seven menus went through one combined pass: shared facts and icons (docs/mockups/s403/facts.json, kit.js, tools/check_mockups.py), 62 fixes in ops/research/S403_MENUS/FIXLIST_R4.md, 12 pages (new: Aisha's week and profile, Kwame's profile, Playbook ground, Combos). Critics now check that same list (CRITIC_BRIEF_R4.md) and only blockers count.
+Last critic (round4_confirm.md): Home 7, Fighter Week 8, Profile 7, Playbook 7, Fight night 7, Money 8, World 7. Its four blockers are fixed since, NOT scored again. Miro: frame 3458764689791839686 "MENUS S403 ROUND 4" at x -36200; the old frame 3458764689784470568 stays until he says delete.
+Placeholders that need his eye before a build: discipline coach prices ($300, $350 a week), Combos drawn for Megan only. Next: his call, then build on WarmKit, Money, World, Playbook first. The mockups' designs are the spec; kit.js icons and facts.json do not go into the game.
+
 # S404 - next session (written S403 main session, 2026-11-08)
 
 OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S404` + map redraw on the ONE board (uXjVEV03QWA=). Read board answers, stickies AND Miro comments.

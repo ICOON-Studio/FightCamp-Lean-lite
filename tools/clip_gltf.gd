@@ -10,6 +10,7 @@ extends SceneTree
 ## edit must stay under 0.5 deg / 5 mm (CLIPGLTF lines; exit 1 over that).
 
 const MH := preload("res://scripts/fight3d/MHRig.gd")
+const Smooth := preload("res://tools/owned_mocap_smooth.gd")
 const BAKED := "res://assets/anim/baked/"
 const BODY_DIR := "res://assets/models/metahuman/"
 const MAX_DEG := 0.5
@@ -31,6 +32,9 @@ func _initialize() -> void:
 			quit(_import(str(args["glb"]), str(args["like"]), str(args["out"])))
 		"check":
 			quit(_check(str(args["a"]), str(args["b"])))
+		"smooth":
+			quit(_smooth_dir(str(args["in"]), str(args["out"]), float(args.get("hz", "3.0")),
+				str(args.get("part", "all"))))
 		_:
 			print("CLIPGLTF usage: export | import | check")
 			quit(2)
@@ -43,6 +47,32 @@ static func _anim(stem_or_path: String) -> Animation:
 
 static func _skel(n: Node) -> Skeleton3D:
 	return n.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
+
+
+static func _smooth_dir(in_dir: String, out_dir: String, hz: float, part: String) -> int:
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(out_dir))
+	var names := ["LeftLowerLeg", "RightLowerLeg"] if part == "calves" else \
+		["Hips", "LeftUpperLeg", "LeftLowerLeg", "LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot"]
+	var count := 0
+	for file in DirAccess.get_files_at(in_dir):
+		if not file.ends_with(".res"):
+			continue
+		var anim := (load(in_dir.path_join(file)) as Animation).duplicate(true) as Animation
+		for track in anim.get_track_count():
+			if anim.track_get_type(track) != Animation.TYPE_ROTATION_3D \
+				or not names.has(str(anim.track_get_path(track))):
+				continue
+			var values := []
+			for key in anim.track_get_key_count(track):
+				values.append(anim.track_get_key_value(track, key))
+			values = Smooth.filter_rot(values, Smooth.kernel(hz))
+			for key in values.size():
+				anim.track_set_key_value(track, key, values[key])
+		if ResourceSaver.save(anim, out_dir.path_join(file)) != OK:
+			return 1
+		count += 1
+	print("CLIPGLTF smooth hz=%.1f part=%s clips=%d -> %s" % [hz, part, count, out_dir])
+	return 0
 
 
 ## The clip on the boxer, the way FightClips._add_baked plays it (hips = this body's rest + the clip's offset), out as glTF.

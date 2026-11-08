@@ -37,6 +37,8 @@ func _initialize() -> void:
 	if not args.is_empty():
 		out_dir = args[0]
 	for a in args:
+		if str(a).begins_with("seed="):   # RETARGET2B: two arms of a film must play the same career and fight
+			seed(int(str(a).substr(5)))
 		if str(a).begins_with("joins="):
 			_joins = FileAccess.open(str(a).substr(6), FileAccess.WRITE)
 			_joins.store_line("frame,who,clip,pos_x,pos_z," + ",".join(JOIN_BONES.map(func(b): return "%s_x,%s_y,%s_z" % [b, b, b])))

@@ -71,7 +71,7 @@ Update 27 (S324, GymBills, real England Boxing club numbers GBP x 1.25): dues $3
 $1,800/month (replaced the $500 upkeep); England Boxing fees $315 club + $18 a boxer + $35 a coach a year; start cash = 3
 months of costs ($14,600); 4 weeks in a row below $0 = the gym closes; a loss costs 3 members + 2 reputation (stoppage 5 + 4). (Code since the S397 money work: 8 weeks below $0; a loss costs 1 member, a stoppage 2: read the code, GymBills and BoutRules, before quoting these.)
 Week 4 (Kalli K-PROLINE1): pro offer at 7 wins + top-3 ranking or 9 wins; debut purse $1,500 (+$500 a win, top $3,000),
-gym share 35%, stipend stops, 4-round debut; a new move is a weapon (mastery 30) in 2-3 weeks of pad time.
+gym share 35% (the code has 25%: read it before quoting), stipend stops, 4-round debut; a new move is a weapon (mastery 30) in 2-3 weeks of pad time.
 Week 5 (Kalli K-FIGHT3D1): the 3D fight never decides - it shows the settled round. 40 s a watched round (full), highlights
 default; landed punches close 4-3 / clear 5-2 / dominant 6-1 (power gap < 1.5 / >= 4.0); the winner lands last and presses;
 round 2+ opens on the corner call; one broadcast camera + a 1.5 s close-up on the big shot. 3D runs only with a picture

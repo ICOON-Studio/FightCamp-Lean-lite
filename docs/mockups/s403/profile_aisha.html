@@ -1,0 +1,128 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Fighter profile: Aisha</title><style>@font-face{font-family:Barlow;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:BarlowB;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Marker;src:url(file:///E:/FightCamp/Lean/assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Kalam;src:url(file:///E:/FightCamp/Lean/assets/fonts/Kalam-Regular.ttf)}
+@font-face{font-family:KalamB;src:url(file:///E:/FightCamp/Lean/assets/fonts/Kalam-Bold.ttf)}
+:root{--ink:#2b2118;--blue:#2A63C4;--red:#C9372E;--green:#25794F;--amber:#B86A0A;--mut:#5f5342;--gold:#B8860B;--line:#DCCFB4;--cream:#FBF6E8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:url(file:///E:/FightCamp/Lean/assets/ui/warm/wall.png) 0 0/384px 384px;font-family:Barlow;color:var(--ink);overflow:hidden;position:relative}
+.wrap{display:flex;height:1004px}
+main{flex:1;padding:8px 20px 0 8px;position:relative;min-width:0}
+.board{border:26px solid transparent;border-image:url(file:///E:/FightCamp/Lean/assets/ui/warm/board.png) 40 fill/26px stretch;position:relative;padding:0 4px;overflow:hidden;margin-top:-4px}
+h1{font-family:Marker;font-weight:400;line-height:1;font-size:50px}
+.cap{font-family:BarlowB;font-size:14px;letter-spacing:1.8px;color:var(--mut);text-transform:uppercase;margin-bottom:2px}
+.card{background:var(--cream);border:2px solid var(--line);border-radius:10px;padding:8px 14px}
+.rel{position:relative}
+.btn{display:inline-block;background:var(--blue);color:#fff;font-family:BarlowB;font-size:16px;padding:6px 16px;border-radius:20px;white-space:nowrap}
+.btn.g{background:#fff;color:var(--blue);border:2px solid var(--blue);padding:4px 14px}
+.btn.q{background:#fff;color:#4a3f30;border:2px solid #B9A57F;padding:4px 14px}
+.chip{display:inline-block;border:1.5px solid #8a7a60;border-radius:14px;padding:1px 10px;font-family:BarlowB;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#4a3f30;white-space:nowrap;background:#fff}
+.chip.green{border-color:var(--green);color:var(--green)}.chip.red{border-color:var(--red);color:var(--red)}.chip.amber{border-color:var(--amber);color:var(--amber)}
+.sticky{position:relative;padding:20px 20px 8px;background:url(file:///E:/FightCamp/Lean/assets/ui/warm/sticky.png) 0 0/100% 100%;font-family:Kalam;filter:drop-shadow(0 5px 6px rgba(60,40,10,.35));transform:rotate(-1deg)}
+.sticky::before{content:"";position:absolute;top:-6px;left:50%;margin-left:-14px;width:28px;height:28px;background:url(file:///E:/FightCamp/Lean/assets/ui/warm/magnet.png) center/contain no-repeat}
+.mk{font-family:Marker;font-weight:400;font-size:22px}
+.pos{color:var(--green)}.neg{color:var(--red)}
+.pol{background:#fff;padding:9px 9px 34px;box-shadow:0 6px 14px rgba(0,0,0,.35);transform:rotate(-3deg);position:relative;flex:none;width:128px;margin:6px 0 0 6px}
+.pol::before{content:"";position:absolute;top:-12px;left:50%;margin-left:-45px;width:90px;height:26px;background:rgba(240,225,150,.85);transform:rotate(2deg)}
+.pol span{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-family:Marker;font-size:18px}
+.tabs{display:flex;gap:6px}.tabs span{padding:8px 18px;border-radius:8px 8px 0 0;font-family:BarlowB;font-size:18px;color:#4a3f30}.tabs .on{background:url(file:///E:/FightCamp/Lean/assets/ui/warm/paper.png) center/100% 100%;color:var(--blue)}.tabs .off{opacity:.5}
+.uc{position:relative;pointer-events:none}
+.uc::after{content:"";position:absolute;top:2px;right:4px;width:28px;height:28px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2 2 21h20z' fill='%23ffd54a' stroke='%2322262e' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cpath d='M12 9v6M12 18v.5' stroke='%2322262e' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat}
+.why{font-size:14px;color:#4a3f30;font-family:Kalam}
+.tip{position:absolute;z-index:20;background:#2b2118;color:#FBF6E8;font-family:Barlow;font-size:15px;line-height:1.3;padding:8px 12px;border-radius:8px;width:300px;box-shadow:0 5px 10px rgba(0,0,0,.4)}
+.hd{display:flex;gap:22px;align-items:flex-end;height:150px;position:relative}
+.hdt{padding-bottom:4px;flex:none}
+.sub{font-size:18px;color:var(--mut);margin-top:3px}
+.pay{font-size:17px;margin-top:4px;color:var(--ink)}.pay .dot{color:#a48c66;margin:0 4px}
+.chips{margin-top:6px;display:flex;gap:8px;align-items:center}
+.tabcol{margin-left:auto;align-self:flex-end;margin-right:6px}
+.sw{position:absolute;right:6px;top:6px;display:flex;align-items:center;gap:8px}
+.sw .nb{border:1.5px solid #b9a27d;border-radius:8px;padding:4px 11px;font-family:BarlowB;font-size:17px;color:#555;background:#fffaf0}
+.fc{position:relative;flex:none;border-radius:50%}.fc.cur{box-shadow:0 0 0 3px var(--blue)}
+.fc [data-face]{box-shadow:0 0 0 2px #fff}
+.fc em{position:absolute;right:-6px;top:-6px;width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid #8a7a60;display:flex;align-items:center;justify-content:center;font-size:14px;color:#4a3f30;font-style:normal}
+.fc em.red{border-color:var(--red);color:var(--red)}.fc em.amb{border-color:var(--amber);color:var(--amber)}
+.top3{display:flex;align-items:center;gap:14px;margin:2px 0 6px;padding:8px 16px;position:relative}
+.top3 .big{font-size:30px}
+.l2{font-size:16px;margin-top:1px}
+.key{display:flex;align-items:center;gap:20px;font-size:14px;color:var(--mut);margin:0 4px 6px;white-space:nowrap}
+.key span{display:inline-flex;align-items:center;gap:6px}
+.key .k1{width:3px;height:14px;background:var(--ink);display:inline-block}
+.key .k2{width:3px;height:12px;background:#8a7a60;opacity:.6;display:inline-block}
+.key .k3{width:22px;height:8px;background:var(--amber);border-radius:4px;display:inline-block}
+.cols{min-height:640px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:start}
+.col{display:flex;flex-direction:column;gap:8px}
+.r{display:grid;grid-template-columns:24px 140px 1fr 32px 22px 74px;gap:8px;align-items:center;height:36px;font-size:18px}
+.rs{display:grid;grid-template-columns:170px 1fr 32px 22px;gap:8px;align-items:center;height:32px;font-size:18px}
+.r b,.rs b{font-family:BarlowB;text-align:right}
+.lb{white-space:nowrap}
+.ai{font-size:20px}
+.bar{height:12px;background:#E6DCC6;border-radius:6px;position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--blue)}
+.bar.amb i{background:var(--amber)}
+.bar u{position:absolute;top:-3px;width:3px;height:18px;background:var(--ink);text-decoration:none}
+.bar s{position:absolute;top:-1px;width:3px;height:14px;background:#8a7a60;opacity:.6}
+.bar em{position:absolute;top:-6px;width:4px;height:24px;background:var(--red)}
+.dl{font-size:14px}
+.st{color:var(--gold);font-size:17px}.dn{color:var(--red);font-size:17px}
+.gh{display:flex;align-items:center;gap:8px;font-family:BarlowB;font-size:14px;letter-spacing:1.6px;text-transform:uppercase;color:var(--mut);margin-top:6px;padding:4px 44px 4px 0;border-bottom:1px solid var(--line);min-height:32px}
+.foot{display:flex;align-items:center;gap:8px;font-size:16px;border-top:1px solid var(--line);padding-top:6px;margin-top:4px}
+.pks{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:4px}
+.pk{border:2px solid var(--line);border-radius:8px;padding:4px 6px;text-align:center;line-height:1.2;background:#F6EFDC;color:var(--mut)}
+.pk b{display:block;font-family:BarlowB;font-size:14px;color:var(--ink)}
+.pk span{font-size:13px}
+.pk>i{font-size:22px;display:block;margin:0 auto}
+.pk.on{background:#FFF4CC;border-color:var(--gold)}.pk.on>i{color:var(--gold)}
+.pk .lk{width:1em;height:1em}
+.g1{font-size:18px;margin-top:4px}
+.gb{margin:10px 0 8px}
+.g2{display:flex;flex-direction:column;gap:6px;margin-top:6px;align-items:flex-start}
+.hab{margin-top:4px;display:flex;flex-wrap:wrap;gap:6px}
+.dial{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:15px}
+.dg{flex:1;height:10px;background:linear-gradient(90deg,#d9cfb8,#e0a07a);border-radius:5px;position:relative}
+.dg span{position:absolute;top:-7px;margin-left:-12px;width:24px;height:24px;border-radius:50%;background:var(--red);box-shadow:0 2px 0 #8a2620}
+.wc{width:230px;text-align:left}
+.wb{height:12px;background:#E6DCC6;border-radius:6px;position:relative;margin:4px 0}
+.wb i{position:absolute;top:0;bottom:0;border-radius:6px;background:var(--blue)}
+.dec{display:flex;align-items:center;gap:12px}
+.fl b{font-family:Marker;font-weight:400;font-size:30px;display:block;line-height:1}
+.fl span{font-size:16px}
+</style></head><body>
+<div data-kit="top"></div>
+<div class="wrap"><nav data-kit="rail" data-on="Fighters"></nav><main>
+<div class="hd">
+ <div class="pol"><div class="pfw" data-face="aisha" style="width:110px;height:118px"></div><span data-f="aisha.first"></span></div>
+ <div class="hdt"><h1 data-f="aisha.name"></h1>
+  <div class="sub"><span data-t="Flyweight, {aisha.age}, {aisha.stance}, MMA {aisha.record}, rank {aisha.rank}. {aisha.height_cm} cm, reach {aisha.reach_cm} cm"></span></div>
+  <div class="pay"><i data-ic="money"></i> <span data-t="{aisha.pay}, no stipend"></span> <span class="dot">|</span> contract to Sep 2026 <span class="dot">|</span> <span data-t="next money {aisha.next_money}"></span></div>
+  <div class="chips"><span class="chip ">BJJ specialist</span><span class="chip amber" data-tip="Hard cut: {aisha.weight_gap}"><i data-ic="weight"></i> <span data-t="{aisha.weight} of {aisha.limit}"></span></span><span class="chip "><i data-ic="camp"></i> <span data-t="In camp, {aisha.camp}"></span></span></div></div>
+ <div class="tabcol"><div class="tabs"><span class="on">Overview</span><span>Week</span><span>Fight prep</span><span>Playbook</span><span>History</span></div></div>
+ <div class="sw"><span class="nb" title="Previous fighter">&lt;</span><div class="fc" data-tip="{lucy.name}: booked, {lucy.opp}, {lucy.fight}"><span data-face="lucy" style="width:44px;height:44px;border-radius:50%"></span><em class=""><i data-ic="booked"></i></em></div><div class="fc cur" data-tip="{aisha.name}: in camp, {aisha.camp}"><span data-face="aisha" style="width:44px;height:44px;border-radius:50%"></span><em class=""><i data-ic="camp"></i></em></div><div class="fc" data-tip="{maria.name}: {maria.injury} injury, fit {maria.fit}"><span data-face="maria" style="width:44px;height:44px;border-radius:50%"></span><em class=""><i data-ic="injured"></i></em></div><div class="fc" data-tip="{megan.name}: offer, answer by {megan.by}"><span data-face="megan" style="width:44px;height:44px;border-radius:50%"></span><em class="red"><i data-ic="offer"></i></em></div><div class="fc" data-tip="{danny.name}: contract ends {danny.by}"><span data-face="danny" style="width:44px;height:44px;border-radius:50%"></span><em class="amb"><i data-ic="contract"></i></em></div><div class="fc" data-tip="{josh.name}: no fight booked"><span data-face="josh" style="width:44px;height:44px;border-radius:50%"></span><em class=""><i data-ic="free"></i></em></div><div class="fc" data-tip="{tomas.name}: a bigger gym, answer by {tomas.by}"><span data-face="tomas" style="width:44px;height:44px;border-radius:50%"></span><em class="red"><i data-ic="leaving"></i></em></div><div class="fc" data-tip="{kwame.name}: talking about retiring, talk {kwame.by}"><span data-face="kwame" style="width:44px;height:44px;border-radius:50%"></span><em class="red"><i data-ic="retiring"></i></em></div><span class="nb" title="Next fighter">&gt;</span></div>
+</div>
+<div class="board">
+<div class="card top3" style="background:#FFF0B8;border-color:var(--amber)"><i data-ic="camp" class="big"></i>
+  <div style="flex:1"><b class="mk" data-t="Fights {aisha.opp} on {aisha.fight}"></b>
+  <div class="l2" data-t="{aisha.opp_rec}, a {aisha.opp_style}. In camp, {aisha.camp}. Weight: {aisha.weight_gap}."></div>
+  <div class="why" data-t="{aisha.stake}"></div></div>
+  <div class="wc"><div class="cap">Win chance <b data-f="aisha.win"></b></div><div class="wb"><i style="left:55%;width:20%"></i></div><div class="why" data-f="aisha.win_note"></div></div>
+  <span class="btn">Open her camp week</span></div>
+<div class="key"><span class="cap" style="margin:0">Key</span><span><i data-ic="star" class="st"></i> one of the three best</span><span><i data-ic="down" class="dn"></i> falling</span><span><u class="k1"></u> can reach</span><span><s class="k2"></s> division average</span><span><b class="k3"></b> amber: under 45</span><span style="margin-left:auto">change a week</span></div>
+<div class="cols">
+ <div class="col">
+  <div class="card rel"><div class="cap">Body: the same in every sport</div><div class="r" data-tip="Strength {aisha.p.Strength}: fair. Division average 60. Can reach {aisha.p_cap.Strength}."><i data-ic="Strength" class="ai"></i><span class="lb">Strength</span><div class="bar "><i style="width:50%"></i><s style="left:60%"></s><u style="left:58%"></u></div><b data-f="aisha.p.Strength"></b><span></span><span></span></div><div class="r" data-tip="Explosiveness {aisha.p.Explosiveness}: fair. Division average 58. Can reach {aisha.p_cap.Explosiveness}."><i data-ic="Explosiveness" class="ai"></i><span class="lb">Explosiveness</span><div class="bar "><i style="width:48%"></i><s style="left:58%"></s><u style="left:56%"></u></div><b data-f="aisha.p.Explosiveness"></b><span></span><span></span></div><div class="r" data-tip="Speed {aisha.p.Speed}: fair. Division average 58. Can reach {aisha.p_cap.Speed}."><i data-ic="Speed" class="ai"></i><span class="lb">Speed</span><div class="bar "><i style="width:47%"></i><s style="left:58%"></s><u style="left:55%"></u></div><b data-f="aisha.p.Speed"></b><span></span><span></span></div><div class="r" data-tip="Stamina {aisha.p.Stamina}: strong. Division average 55. Can reach {aisha.p_cap.Stamina}."><i data-ic="Stamina" class="ai"></i><span class="lb">Stamina</span><div class="bar "><i style="width:66%"></i><s style="left:55%"></s><u style="left:74%"></u></div><b data-f="aisha.p.Stamina"></b><span></span><span class="dl pos">+0.2</span></div><div class="r" data-tip="Recovery {aisha.p.Recovery}: solid. Division average 52. Can reach {aisha.p_cap.Recovery}."><i data-ic="Recovery" class="ai"></i><span class="lb">Recovery</span><div class="bar "><i style="width:63%"></i><s style="left:52%"></s><u style="left:71%"></u></div><b data-f="aisha.p.Recovery"></b><span></span><span></span></div><div class="r" data-tip="Flexibility {aisha.p.Flexibility}: elite. Division average 50. Can reach {aisha.p_cap.Flexibility}."><i data-ic="Flexibility" class="ai"></i><span class="lb">Flexibility</span><div class="bar "><i style="width:82%"></i><s style="left:50%"></s><u style="left:90%"></u></div><b data-f="aisha.p.Flexibility"></b><span><i data-ic="star" class="st" title="One of the three best"></i></span><span class="dl pos">+0.1</span></div><div class="r" data-tip="Durability {aisha.p.Durability}: fair. Division average 56. Can reach {aisha.p_cap.Durability}."><i data-ic="Durability" class="ai"></i><span class="lb">Durability</span><div class="bar "><i style="width:53%"></i><s style="left:56%"></s><u style="left:61%"></u></div><b data-f="aisha.p.Durability"></b><span></span><span></span></div>
+   <div class="foot"><i data-ic="fresh"></i>Tired (38). No injury in 12 months</div><span class="tip" style="left:245px;top:284px;width:270px" data-t="Durability {aisha.p.Durability}: fair. Division average 56. Can reach {aisha.p_cap.Durability}."></span></div>
+  <div class="card"><div class="cap">Perk road: opens for good</div><div class="pks"><div class="pk" title="Finisher: Hits harder to finish. Opens at Explosiveness 70. His cap is 56"><i data-ic="Explosiveness"></i><b>Finisher</b><span><i data-ic="lock" class="lk"></i> out of reach</span></div><div class="pk" title="Fast hands: Faster flurries. Opens at Speed 70. His cap is 55"><i data-ic="Speed"></i><b>Fast hands</b><span><i data-ic="lock" class="lk"></i> out of reach</span></div><div class="pk" title="Iron chin: Takes more before she drops. Opens at Durability 70. His cap is 61"><i data-ic="Durability"></i><b>Iron chin</b><span><i data-ic="lock" class="lk"></i> out of reach</span></div><div class="pk" title="Second wind: Wins back some stamina between rounds. Opens at Stamina 70"><i data-ic="Stamina"></i><b>Second wind</b><span><i data-ic="lock" class="lk"></i> <span data-f="aisha.p.Stamina"></span> of 70</span></div><div class="pk on" title="Ring general: Corner calls work 25% better. Open: Fight IQ reached 65"><i data-ic="Fight IQ"></i><b>Ring general</b><span>open</span></div><div class="pk" title="Counter sense: Counters land more. Opens at Defence 65. His cap is 51"><i data-ic="intervals"></i><b>Counter sense</b><span><i data-ic="lock" class="lk"></i> out of reach</span></div></div></div>
+ </div>
+ <div class="col"><div class="card rel"><div class="cap">Skills: how good at MMA</div><div class="gh"><i data-ic="hands"></i>Striking</div><div class="rs" data-tip="Accuracy {aisha.s.Accuracy}: weak. Division average 50. Can reach {aisha.s_cap.Accuracy}."><span class="lb">Accuracy</span><div class="bar amb"><i style="width:34%"></i><s style="left:50%"></s><u style="left:48%"></u></div><b data-f="aisha.s.Accuracy"></b><span></span></div><div class="rs" data-tip="Timing {aisha.s.Timing}: weak. Division average 50. Can reach {aisha.s_cap.Timing}."><span class="lb">Timing</span><div class="bar amb"><i style="width:41%"></i><s style="left:50%"></s><u style="left:55%"></u></div><b data-f="aisha.s.Timing"></b><span></span></div><div class="rs" data-tip="Defence {aisha.s.Defence}: weak. Division average 48. Can reach {aisha.s_cap.Defence}."><span class="lb">Defence</span><div class="bar amb"><i style="width:37%"></i><s style="left:48%"></s><u style="left:51%"></u></div><b data-f="aisha.s.Defence"></b><span></span></div><div class="rs" data-tip="Footwork {aisha.s.Footwork}: weak. Division average 50. Can reach {aisha.s_cap.Footwork}."><span class="lb">Footwork</span><div class="bar amb"><i style="width:44%"></i><s style="left:50%"></s><u style="left:58%"></u></div><b data-f="aisha.s.Footwork"></b><span></span></div><div class="rs" data-tip="Inside fighting {aisha.s.Inside fighting}: weak. Division average 48. Can reach {aisha.s_cap.Inside fighting}."><span class="lb">Inside fighting</span><div class="bar amb"><i style="width:32%"></i><s style="left:48%"></s><u style="left:46%"></u></div><b data-f="aisha.s.Inside fighting"></b><span></span></div><div class="gh uc"><i data-ic="clinch"></i>Standing grappling</div><div class="rs" data-tip="Clinch {aisha.s.Clinch}: fair. Division average 46. Can reach {aisha.s_cap.Clinch}."><span class="lb">Clinch</span><div class="bar "><i style="width:46%"></i><s style="left:46%"></s><u style="left:60%"></u></div><b data-f="aisha.s.Clinch"></b><span></span></div><div class="rs" data-tip="Takedowns {aisha.s.Takedowns}: fair. Division average 46. Can reach {aisha.s_cap.Takedowns}."><span class="lb">Takedowns</span><div class="bar "><i style="width:54%"></i><s style="left:46%"></s><u style="left:68%"></u></div><b data-f="aisha.s.Takedowns"></b><span></span></div><div class="rs" data-tip="Takedown defence {aisha.s.Takedown defence}: fair. Division average 46. Can reach {aisha.s_cap.Takedown defence}."><span class="lb">Takedown defence</span><div class="bar "><i style="width:48%"></i><s style="left:46%"></s><u style="left:62%"></u></div><b data-f="aisha.s.Takedown defence"></b><span></span></div><div class="gh uc"><i data-ic="ground"></i>Ground</div><div class="rs" data-tip="Guard {aisha.s.Guard}: elite. Division average 44. Can reach {aisha.s_cap.Guard}."><span class="lb">Guard</span><div class="bar "><i style="width:86%"></i><s style="left:44%"></s><u style="left:99%"></u></div><b data-f="aisha.s.Guard"></b><span><i data-ic="star" class="st" title="One of the three best"></i></span></div><div class="rs" data-tip="Top game {aisha.s.Top game}: strong. Division average 46. Can reach {aisha.s_cap.Top game}."><span class="lb">Top game</span><div class="bar "><i style="width:73%"></i><s style="left:46%"></s><u style="left:87%"></u></div><b data-f="aisha.s.Top game"></b><span></span></div><div class="rs" data-tip="Submissions {aisha.s.Submissions}: elite. Division average 42. Can reach {aisha.s_cap.Submissions}."><span class="lb">Submissions</span><div class="bar "><i style="width:88%"></i><s style="left:42%"></s><u style="left:99%"></u></div><b data-f="aisha.s.Submissions"></b><span><i data-ic="star" class="st" title="One of the three best"></i></span></div><div class="rs" data-tip="Escapes {aisha.s.Escapes}: elite. Division average 44. Can reach {aisha.s_cap.Escapes}."><span class="lb">Escapes</span><div class="bar "><i style="width:79%"></i><s style="left:44%"></s><u style="left:93%"></u></div><b data-f="aisha.s.Escapes"></b><span><i data-ic="star" class="st" title="One of the three best"></i></span></div><span class="tip" style="right:14px;top:calc(100% + 6px);width:330px">Standing grappling and Ground are not in the game yet. These bars show where she starts.</span></div></div>
+ <div class="col">
+  <div class="card"><div class="cap">Mind: the same in every sport</div><div class="r" data-tip="Fight IQ {aisha.p.Fight IQ}: strong. Division average 54. Can reach {aisha.p_cap.Fight IQ}."><i data-ic="Fight IQ" class="ai"></i><span class="lb">Fight IQ</span><div class="bar "><i style="width:74%"></i><s style="left:54%"></s><u style="left:82%"></u></div><b data-f="aisha.p.Fight IQ"></b><span><i data-ic="star" class="st" title="One of the three best"></i></span><span></span></div><div class="r" data-tip="Composure {aisha.p.Composure}: strong. Division average 54. Can reach {aisha.p_cap.Composure}."><i data-ic="Composure" class="ai"></i><span class="lb">Composure</span><div class="bar "><i style="width:72%"></i><s style="left:54%"></s><u style="left:80%"></u></div><b data-f="aisha.p.Composure"></b><span><i data-ic="star" class="st" title="One of the three best"></i></span><span></span></div><div class="r" data-tip="Heart {aisha.p.Heart}: strong. Division average 56. Can reach {aisha.p_cap.Heart}."><i data-ic="Heart" class="ai"></i><span class="lb">Heart</span><div class="bar "><i style="width:70%"></i><s style="left:56%"></s><u style="left:78%"></u></div><b data-f="aisha.p.Heart"></b><span></span><span></span></div>
+   <div class="foot" title="Morale: Fired up 75+, Steady 50+, Flat 30+, Low. A Low fighter stops listening to the corner"><b>Fired up</b> morale</div></div>
+  
+  <div class="card"><div class="cap">Habits and traits</div><div class="hab"><span class="chip green" title="Habit: dangerous from her back">Dangerous from her back</span> <span class="chip red" title="Habit: poor striker, gets hit coming in">Poor striker</span> <span class="chip amber" title="Hard weight cut">Hard cut</span> <span class="chip green" title="Trait: Composure is strong">Composure: strong</span></div>
+   <div class="dial"><span>Patient</span><div class="dg" title="Style dial: how forward the fighter starts. Drag it"><span style="left:38%"></span></div><span>Forward</span></div>
+   <div class="why"><span data-t="Patient suits her: she wants it on the ground, where Guard {aisha.s.Guard} and Submissions {aisha.s.Submissions} work."></span></div></div>
+  <div class="sticky"><b class="mk">Rosa is a striker</b><div style="font-size:16px;margin-top:2px">Takedowns are how she gets Rosa down. Work on them before the fight.</div><div style="margin-top:6px"><span class="btn" style="font-size:14px">Work on Takedowns: open the Week</span></div></div>
+ </div>
+</div></div>
+</main></div>
+<script src="facts.js"></script><script src="kit.js"></script></body></html>

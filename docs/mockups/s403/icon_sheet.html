@@ -1,0 +1,8 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Icons</title><style>
+body{width:1920px;height:1080px;background:#f6ead3;font:15px sans-serif;color:#22262E;margin:0;padding:18px;box-sizing:border-box}
+#g{display:grid;grid-template-columns:repeat(11,1fr);gap:14px}
+.c{text-align:center}.c i{display:block;width:62px;height:62px;margin:0 auto 3px}
+</style></head><body><div id="g"></div><script src="facts.js"></script><script src="kit.js"></script><script>
+const g=document.getElementById('g');
+for(const k of Object.keys(window.KIT_ICONS)){const c=document.createElement('div');c.className='c';const e=window.KIT_ICONS[k];c.innerHTML='<i><svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+e[0]+'</svg></i>'+k;g.appendChild(c);}
+</script></body></html>

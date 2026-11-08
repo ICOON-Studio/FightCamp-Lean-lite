@@ -7,146 +7,150 @@
 :root{--blue:#2F6FDB;--red:#D93F34;--green:#2A8F5E;--ink:#22262E;--amber:#C9770F;--mut:#5b554a;--yellow:#FFD54A}
 *{box-sizing:border-box;margin:0;padding:0}
 body{width:1920px;height:1080px;background:#c9a574 url(file:///E:/FightCamp/Lean/assets/ui/warm/wall.png) 0 0/384px 384px;font-family:Barlow;color:var(--ink);overflow:hidden;position:relative}
-.top{height:76px;display:flex;align-items:center;padding:0 22px;gap:14px;background:#f6ead3 url(file:///E:/FightCamp/Lean/assets/ui/warm/paper.png) 0 0/600px auto;box-shadow:0 4px 0 rgba(90,60,25,.35)}
-.nb{border:1.5px solid #b9a27d;border-radius:8px;padding:6px 13px;font-family:BarlowB;font-size:17px;color:#555;background:#fffaf0}
-.gym{font-family:Marker;font-size:32px;color:var(--blue);margin-left:6px}
-.date{font-family:BarlowB;font-size:19px;line-height:1.1}.date small{display:block;font-family:Barlow;font-size:14px;color:var(--mut)}
-.sp{flex:1}
-.cash{text-align:right;font-family:BarlowB;font-size:27px;color:var(--green);line-height:1}.cash small{display:block;font-family:Barlow;font-size:14px;color:var(--mut);margin-top:3px}
-.go{background:var(--blue);color:#fff;font-family:BarlowB;font-size:20px;padding:8px 24px;border-radius:30px;line-height:1.1;width:520px;box-shadow:0 3px 0 #1f4fa0}.go small{display:block;font-family:Barlow;font-size:14px;opacity:.95}
 .wrap{display:flex;height:1004px}
-nav{width:200px;padding:14px 11px;display:flex;flex-direction:column;gap:11px}
-nav a{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-radius:12px;background:#f8efdc url(file:///E:/FightCamp/Lean/assets/ui/warm/paper.png) 0 0/300px auto;font-family:BarlowB;font-size:20px;border-left:8px solid #a48c66;box-shadow:0 3px 5px rgba(60,35,10,.3)}
-nav a.on{border-left-color:var(--red)}
-nav .b{background:var(--red);color:#fff;border-radius:10px;font-size:14px;padding:1px 7px}
 main{flex:1;padding:12px 20px 0 8px;display:grid;grid-template-columns:1fr 440px;gap:16px;height:1004px}
 .board{border:28px solid transparent;border-image:url(file:///E:/FightCamp/Lean/assets/ui/warm/board.png) 30 fill/28px stretch;padding:0 4px;position:relative;filter:drop-shadow(0 6px 6px rgba(60,35,10,.4));height:960px}
 h1{font-family:Marker;font-weight:400;font-size:42px;color:var(--blue);line-height:1}
 .lbl{font-family:Marker;font-size:21px;margin:6px 0 2px}
 .btn{display:inline-block;background:var(--blue);color:#fff;font-family:BarlowB;font-size:15px;padding:5px 14px;border-radius:18px;white-space:nowrap}
 .btn.g{background:#fffaf0;color:var(--blue);border:2px solid var(--blue);padding:3px 12px}
-.btn.r{background:#fffaf0;color:var(--red);border:2px solid var(--red);padding:3px 12px}
 .btn.off{background:#ddd5c4;color:#6c675c;pointer-events:none}
-.kpis{display:flex;gap:30px;margin-top:6px;font-family:KalamB;font-size:19px;white-space:nowrap;align-items:center;position:relative}
-.kpis span{display:inline-flex;align-items:center;gap:6px;position:relative}
+.tabs{display:flex;gap:8px;align-items:flex-end}
+.tab{font-family:BarlowB;font-size:16px;padding:6px 16px;border-radius:10px 10px 0 0;background:#fffaf0;border:2px solid #b9a27d;border-bottom:0;color:#555}
+.tab.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.kpis{display:flex;gap:26px;margin-top:6px;font-family:KalamB;font-size:19px;white-space:nowrap;align-items:center;position:relative}
+.kpis>span{display:inline-flex;align-items:center;gap:6px;position:relative}
+.gr{color:var(--green)}.rd{color:var(--red)}
 .row{display:flex;align-items:center;font-family:Kalam;font-size:18px;line-height:1.35}
-.row .n{width:130px;white-space:nowrap}.row .stroke{height:7px;border-radius:4px;margin:0 8px}.row .v{margin-left:auto;font-family:KalamB}
+.row .n{width:128px;white-space:nowrap}.row .stroke{height:7px;border-radius:4px;margin:0 8px}.row .v{margin-left:auto;font-family:KalamB}
 .in .stroke{background:var(--green)}.in .v{color:var(--green)}.out .stroke{background:var(--red)}.out .v{color:var(--red)}
-.total{border-top:3px solid var(--ink);margin-top:4px;padding-top:3px;display:flex;justify-content:space-between;font-family:KalamB;font-size:21px}
+.total{border-top:3px solid var(--ink);margin-top:3px;padding-top:1px;display:flex;justify-content:space-between;font-family:KalamB;font-size:21px}
 .io{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
 .ring{display:inline-block;border:3px solid var(--green);border-radius:50%;padding:0 12px;transform:rotate(-3deg)}
-.warn{font-family:Kalam;font-size:16.5px;color:#444;margin-top:4px;line-height:1.25}
-.panel{background:#fffaf0;border:2px solid #d8c8a5;border-radius:8px;padding:6px 10px;margin-top:8px;font-size:15.5px;box-shadow:0 2px 5px rgba(60,35,10,.15)}
-.panel .cap{font-family:BarlowB;font-size:12.5px;letter-spacing:1.8px;text-transform:uppercase;color:#6b6250;margin-bottom:2px}
-.pl{display:flex;align-items:center;gap:8px;padding:3px 0;border-top:1px solid #e5d8bb}
+.panel{background:#fffaf0;border:2px solid #d8c8a5;border-radius:8px;padding:6px 10px;margin-top:8px;font-size:15px;box-shadow:0 2px 5px rgba(60,35,10,.15);position:relative}
+.panel .cap{font-family:BarlowB;font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#6b6250;margin-bottom:2px}
+.pl{display:flex;align-items:center;gap:8px;padding:6px 0;border-top:1px solid #e5d8bb}
 .pl:first-of-type{border:0}
-.pfw{overflow:hidden;position:relative;flex:none;border-radius:5px;background:#111}.pfw img{position:absolute;left:0;top:0;width:100%;height:auto;transform:scale(1.85);transform-origin:50% 9%}
-.tags{display:grid;grid-template-columns:1fr 1fr;gap:16px 14px;margin-top:6px}
-.tag{position:relative;padding:10px 12px 8px;display:grid;grid-template-columns:50px 1fr;gap:2px 8px;min-width:0;height:130px}
+table.pf{width:100%;border-collapse:collapse}table.pf th{font-family:BarlowB;font-size:13px;letter-spacing:.8px;color:#6b6250;text-align:left;text-transform:uppercase;padding:0 4px;white-space:nowrap}table.pf td{font-size:13.5px;padding:0 4px;border-top:1px solid #e5d8bb;vertical-align:middle;white-space:nowrap}
+.st{display:inline-block;font-family:BarlowB;font-size:13px;color:#6c675c;background:#ddd5c4;border-radius:10px;padding:0 8px;margin-right:6px}
+.btn.s{padding:0 9px;font-size:13px}
+.leg{display:grid;grid-template-columns:1fr 1fr;gap:2px 10px;font-family:Kalam;font-size:13.5px;margin-top:2px}
+.leg i{display:inline-block;width:17px;height:17px;border-radius:50%;color:#fff;font:700 12px/17px BarlowB;text-align:center;margin-right:5px;font-style:normal}
+.tags{display:grid;grid-template-columns:1fr 1fr;gap:14px 14px;margin-top:8px}
+.tag{position:relative;padding:10px 12px 8px;display:grid;grid-template-columns:50px 1fr;gap:1px 8px;min-width:0;height:126px;align-content:start}
 .tag::before,.sticky::before{content:"";position:absolute;inset:0;background:url(file:///E:/FightCamp/Lean/assets/ui/warm/paper.png) 0 0/100% 100% no-repeat;filter:drop-shadow(0 3px 4px rgba(60,35,10,.35));z-index:0}
 .tag>*{position:relative;z-index:1}
-.tag svg.pic{grid-row:span 3;width:50px;height:50px}
-.tag .t{font-family:KalamB;font-size:17px;line-height:1.05}.tag .p{font-family:Marker;font-size:19px;color:var(--blue);line-height:1}
-.tag .w{font-size:12.5px;color:#4d473c;line-height:1.15}
-.mag{position:absolute;top:-11px;left:50%;width:22px;height:22px;background:url(file:///E:/FightCamp/Lean/assets/ui/warm/magnet.png) 0 0/100% 100%;z-index:3}
-.tag .act{grid-column:2;align-self:end}
-.signs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
-.sign{background:#2B3A35 url(file:///E:/FightCamp/Lean/assets/ui/warm/chalk.png) 0 0/100% 100% no-repeat;color:#F4F1E8;padding:12px 18px;font-family:Kalam;min-width:0;height:116px;filter:drop-shadow(0 3px 4px rgba(0,0,0,.35))}
+.tag svg.pic{grid-row:span 4;width:50px;height:50px}
+.tag .t{font-family:KalamB;font-size:17px;line-height:1.05}
+.tag .pr{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.tag .p{font-family:Marker;font-size:24px;color:var(--blue);line-height:1.05}
+.tag .w{font-size:13px;color:#3d382e;line-height:1.15}
+.tag .mt{font-family:BarlowB;font-size:13px;color:var(--ink);display:flex;gap:12px;align-items:center;margin-top:2px;white-space:nowrap}
+.tag .mt span{display:inline-flex;align-items:center;gap:4px}
+.pin{position:absolute;top:-11px;left:26px;width:22px;height:22px;background:url(file:///E:/FightCamp/Lean/assets/ui/warm/magnet.png) 0 0/100% 100%;z-index:3}.pin.grey{filter:grayscale(1)}.pin.green{filter:hue-rotate(110deg)}
+.signs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.sign{background:#2B3A35 url(file:///E:/FightCamp/Lean/assets/ui/warm/chalk.png) 0 0/100% 100% no-repeat;color:#F4F1E8;padding:12px 16px;font-family:Kalam;min-width:0;height:150px;filter:drop-shadow(0 3px 4px rgba(0,0,0,.35))}
 .sign .hd{font-family:Marker;font-size:17px;letter-spacing:1px}
-.mags{display:flex;gap:6px;margin-top:4px}
-.m{border-radius:20px;padding:3px 8px;font-family:BarlowB;font-size:13px;background:#fff;color:var(--ink)}.m.on{background:var(--yellow)}
-.sign .w{font-size:13px;color:#d8d3c4;margin-top:4px;line-height:1.15}
-.side{display:flex;flex-direction:column;gap:12px;padding-top:4px}
-.sticky{position:relative;padding:14px 18px 12px;font-family:Kalam}
-.sticky::before{background-image:url(file:///E:/FightCamp/Lean/assets/ui/warm/sticky.png)}
-.sticky.o::before{filter:hue-rotate(-22deg) saturate(1.5) drop-shadow(0 4px 4px rgba(0,0,0,.3))}
-.sticky.gr::before{filter:hue-rotate(60deg) saturate(.9) drop-shadow(0 4px 4px rgba(0,0,0,.3))}
-.sticky.bl::before{filter:hue-rotate(160deg) saturate(.9) drop-shadow(0 4px 4px rgba(0,0,0,.3))}
-.sticky>*{position:relative;z-index:1}
-.sticky .h{font-family:KalamB;font-size:20px;line-height:1.1}.sticky .s{font-size:14.5px;line-height:1.2;margin-top:3px;color:#3b3626}
-.sticky .acts{display:flex;gap:8px;margin-top:7px;flex-wrap:wrap}
-.when{font-family:Marker;font-size:15px;color:var(--red);display:block}
-.face{float:left;width:58px;height:70px;margin:2px 10px 2px 0;border:4px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.25);transform:rotate(-3deg);background:#333 center 18%/cover}
-.book{background:#8a6a45;color:#F8F0DC;border-radius:4px 10px 10px 4px;padding:12px 16px;box-shadow:inset 10px 0 0 #5E2C22,0 5px 0 rgba(0,0,0,.2);display:flex;align-items:center;gap:12px}
-.book .t{font-family:Marker;font-size:21px}.book .w{font-family:Kalam;font-size:15px;color:#E9D8BA}
-.ic{display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;color:#4a4436;vertical-align:middle}
-.ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.ic.green{color:var(--green)}.ic.red{color:var(--red)}.ic.amber{color:var(--amber)}.ic.blue{color:var(--blue)}
-.tip{position:absolute;background:#22262E;color:#fff;font-family:BarlowB;font-size:13px;padding:4px 9px;border-radius:6px;white-space:nowrap;z-index:9;box-shadow:0 3px 6px rgba(0,0,0,.35);font-style:normal}
+.mg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:6px}
+.mg>div{font-size:13px;line-height:1.15;color:#d8d3c4}
+.m{display:inline-block;border-radius:20px;padding:3px 9px;font-family:BarlowB;font-size:14px;background:#fff;color:var(--ink);white-space:nowrap;margin-bottom:3px}.m.on{background:var(--yellow)}.m.gy{background:#9a978c;color:#2b2b2b}
+.sign .w{font-size:14px;color:#d8d3c4;margin-top:6px;line-height:1.15}
+.side{display:flex;flex-direction:column;justify-content:space-between;height:968px;padding-top:2px}
+.side .panel{margin-top:8px}
+.ic{display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center}
+.tip{position:absolute;background:#22262E;color:#fff;font-family:BarlowB;font-size:13px;padding:4px 9px;border-radius:6px;white-space:nowrap;z-index:9;box-shadow:0 3px 6px rgba(0,0,0,.35);font-style:normal;font-weight:400}
 .tip::after{content:"";position:absolute;left:12px;top:-5px;border:5px solid transparent;border-bottom-color:#22262E;border-top:0}
-.rs{font-family:Kalam;font-size:12.5px;color:#5b554a;display:block;margin-top:2px}
 .uc{position:relative;pointer-events:none}
 .uc::after{content:"";position:absolute;top:4px;right:4px;width:30px;height:30px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2 2 21h20z' fill='%23ffd54a' stroke='%2322262e' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cpath d='M12 9v6M12 18v.5' stroke='%2322262e' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat}
+.row.uc::after{top:-2px;right:0;width:24px;height:24px}
 .off{opacity:.55;filter:grayscale(1)}
-table.pf{width:100%;border-collapse:collapse}table.pf th{font-family:BarlowB;font-size:12px;letter-spacing:1px;color:#6b6250;text-align:left;text-transform:uppercase;padding:0 4px}table.pf td{font-size:14px;padding:2px 4px;border-top:1px solid #e5d8bb;vertical-align:middle}
-.pin{position:absolute;top:-11px;left:50%;width:22px;height:22px;background:url(file:///E:/FightCamp/Lean/assets/ui/warm/magnet.png) 0 0/100% 100%;z-index:3}.pin.grey{filter:grayscale(1)}.pin.green{filter:hue-rotate(110deg)}
-.tag .p{font-size:26px !important}.tag .eff{font-family:BarlowB;font-size:13px;color:var(--ink)}
-.sign .w{font-size:15px !important}.m{font-size:15px !important;padding:4px 10px !important}.sign{height:132px !important}
-table.pf td,table.pf th{white-space:nowrap}table.pf td{padding:1px 4px !important;font-size:13.5px !important}.m{white-space:nowrap}.sign .m{font-size:13.5px !important;padding:3px 7px !important}.row.uc::after{top:-2px;right:0;width:24px;height:24px}
+.talk{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid #e5d8bb;font-size:15px;line-height:1.2}.talk b::after{content:":"}
+.talk:first-of-type{border:0}
+.dot{flex:none;width:12px;height:12px;border-radius:50%;background:#c9c2b0}.dot.r{background:var(--red)}.dot.a{background:var(--amber)}
+.ch{display:grid;grid-template-columns:104px 1fr 112px;gap:8px;align-items:center;padding:9px 0;border-top:1px solid #e5d8bb;font-size:14.5px;line-height:1.2}
+.ch:first-of-type{border:0}
+.ch b{font-family:BarlowB;font-size:15px;display:block}.ch .fc{display:flex;gap:4px}
 </style></head><body>
-<div class="top"><span class="nb">&lt;</span><span class="nb">&gt;</span><span class="gym">Anvil Street Gym</span><div class="date">Mon 2 Mar 2026<small>Week 9</small></div><div class="sp"></div><div class="cash">$14,820<small>growing +$303 a week</small></div><div class="go" style="background:var(--red);box-shadow:0 3px 0 #9d2a22">NEEDS YOU (4)<small>2 stop the clock. First: Megan's offer, answer by Thu 5 Mar, in 3 days</small></div><span class="nb">Menu</span></div>
-<div class="wrap"><nav><a>Home</a><a>Fighters<span class="b">3</span></a><a>Fights<span class="b">1</span></a><a class="on">Club</a><a>World</a></nav>
+<div data-kit="top"></div>
+<div class="wrap"><nav data-kit="rail" data-on="Club"></nav>
 <main>
 <div class="board" style="display:grid;grid-template-columns:490px 1fr;gap:24px;grid-template-rows:auto 1fr">
- <div style="grid-column:span 2"><h1>The books - week 9</h1>
-  <div class="kpis"><span><i class="ic green" data-i="coins" title="Cash in the tin"></i>$14,820</span><span><i class="ic" data-i="gauge" title="Runway: weeks of costs the tin covers. Under 8 weeks warns."></i>10 weeks in hand<i class="tip" style="left:0;top:34px">Runway: weeks of costs the tin covers</i></span><span><i class="ic green" data-i="coins" title="Left over each week"></i>Net +$303 a week</span><span><i class="ic red" data-i="cal" title="Bills are paid every 28 days"></i>Next bills Mon 16 Mar, about $5,668</span></div></div>
- <div>
-  <div class="lbl">Cash, weeks 1 to 9</div>
-  <svg width="490" height="150" viewBox="0 0 600 178" preserveAspectRatio="none"><g fill="none" stroke="#2F6FDB" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 78 L90 70 L160 64 L230 56 L300 78 L370 62 L440 52 L510 48 L560 44"/></g><g fill="#2F6FDB"><circle cx="20" cy="78" r="5"/><circle cx="90" cy="70" r="5"/><circle cx="160" cy="64" r="5"/><circle cx="230" cy="56" r="5"/><circle cx="300" cy="78" r="5"/><circle cx="370" cy="62" r="5"/><circle cx="440" cy="52" r="5"/><circle cx="510" cy="48" r="5"/></g><ellipse cx="560" cy="44" rx="22" ry="15" fill="none" stroke="#2FA36B" stroke-width="3"/><circle cx="560" cy="44" r="7" fill="#2FA36B"/><path d="M10 150 L590 150" stroke="#22262E" stroke-width="3"/><path d="M10 140 L590 140" stroke="#E2483D" stroke-width="2" stroke-dasharray="10 8"/><text x="14" y="134" font-family="Kalam" font-size="15" fill="#E2483D">$0</text><g font-family="Kalam" font-size="15" fill="#555"><text x="6" y="172">W1</text><text x="292" y="172">W5</text><text x="530" y="172">W9</text></g><g font-family="Kalam" font-size="16" fill="#22262E"><text x="14" y="100">$14,600 start</text><text x="262" y="102">W5 repairs</text><text x="470" y="30" font-weight="700" fill="#2FA36B">$14,820</text></g></svg>
-  <div class="io">
+ <div style="grid-column:span 2;position:relative">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end"><h1>The books, <span data-f="week" style="font-size:34px"></span></h1><div class="tabs"><span class="tab on">The books</span><span class="tab">Cashbook, 26 lines</span></div></div>
+  <div class="kpis"><span><i class="gr" data-ic="money" title="Cash in the tin"></i><b data-f="cash"></b></span>
+   <span><i data-ic="members"></i><b data-f="members_of"></b> members<i class="tip" style="left:0;top:34px" data-t="Break-even: {break_even} of your {members} members cover what the other income leaves"></i></span>
+   <span><i data-ic="runway" title="Runway: weeks of costs the tin covers. Under 8 weeks warns."></i><b data-f="runway"></b> in hand</span>
+   <span><i class="gr" data-ic="money" title="Left over each week"></i>Net <b data-f="net"></b> a week</span>
+   <span><i class="rd" data-ic="calendar" title="Bills are paid every 28 days"></i><span>Next bills <b data-f="bills_date"></b>, <b data-f="bills"></b></span></span></div></div>
+ <div style="margin-top:32px">
+  <div class="lbl">Cash, week 1 to 17 <span style="font-family:Kalam;font-size:14px;color:#555">dotted: if you do nothing</span></div>
+  <svg data-art width="490" height="152" viewBox="0 0 490 152" style="display:block"><path d="M34 78 H486" stroke="#d8c8a5" stroke-width="1.5" stroke-dasharray="3 5"/><text x="2" y="82" font-family="Kalam" font-size="13" fill="#5b554a">$10k</text><path d="M34 34 H486" stroke="#d8c8a5" stroke-width="1.5" stroke-dasharray="3 5"/><text x="2" y="38" font-family="Kalam" font-size="13" fill="#5b554a">$20k</text><path d="M34 122 H486" stroke="#E2483D" stroke-width="2" stroke-dasharray="8 6"/><text x="2" y="118" font-family="Kalam" font-size="13" fill="#E2483D">$0</text><path d="M257 8 V122" stroke="#22262E" stroke-width="1.5" stroke-dasharray="2 4"/><path d="M36 58 L64 57 L91 55 L119 54 L146 62 L174 61 L202 60 L229 58 L257 57" fill="none" stroke="#2F6FDB" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M257 57 L285 50 L312 67 L340 57 L368 50 L395 42 L423 58 L450 50 L478 43" fill="none" stroke="#2F6FDB" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 9"/><circle cx="36" cy="58" r="4.5" fill="#2F6FDB"/><circle cx="64" cy="57" r="4.5" fill="#2F6FDB"/><circle cx="91" cy="55" r="4.5" fill="#2F6FDB"/><circle cx="119" cy="54" r="4.5" fill="#2F6FDB"/><circle cx="146" cy="62" r="4.5" fill="#2F6FDB"/><circle cx="174" cy="61" r="4.5" fill="#2F6FDB"/><circle cx="202" cy="60" r="4.5" fill="#2F6FDB"/><circle cx="229" cy="58" r="4.5" fill="#2F6FDB"/><ellipse cx="257" cy="57" rx="16" ry="12" fill="none" stroke="#2FA36B" stroke-width="3"/><circle cx="257" cy="57" r="6" fill="#2FA36B"/><text x="257" y="22" text-anchor="middle" font-family="Kalam" font-size="16" font-weight="700" fill="#2FA36B" data-f="cash"></text><text x="38" y="44" font-family="Kalam" font-size="14" fill="#22262E">$14,600 start</text><text x="146" y="81" text-anchor="middle" font-family="Kalam" font-size="14" fill="#22262E">W5 repairs</text><path d="M312 67 V108" stroke="#E2483D" stroke-width="2" stroke-dasharray="2 4"/><circle cx="312" cy="104" r="8" fill="#E2483D"/><text x="312" y="108" text-anchor="middle" font-family="BarlowB" font-size="12" fill="#fff">1</text><path d="M423 58 V108" stroke="#E2483D" stroke-width="2" stroke-dasharray="2 4"/><circle cx="423" cy="104" r="8" fill="#E2483D"/><text x="423" y="108" text-anchor="middle" font-family="BarlowB" font-size="12" fill="#fff">4</text><circle cx="332" cy="60" r="4" fill="#2A8F5E"/><circle cx="332" cy="43" r="8" fill="#2A8F5E"/><text x="332" y="48" text-anchor="middle" font-family="BarlowB" font-size="12" fill="#fff">2</text><circle cx="415" cy="53" r="4" fill="#2A8F5E"/><circle cx="415" cy="36" r="8" fill="#2A8F5E"/><text x="415" y="41" text-anchor="middle" font-family="BarlowB" font-size="12" fill="#fff">3</text><g font-family="Kalam" font-size="13" fill="#5b554a"><text x="36" y="146" text-anchor="middle">W1</text><text x="146" y="146" text-anchor="middle">W5</text><text x="257" y="146" text-anchor="middle">W9 today</text><text x="368" y="146" text-anchor="middle">W13</text><text x="478" y="146" text-anchor="end">W17</text></g></svg>
+  <div class="leg"><span><i style="background:#D93F34">1</i>Bills <span data-f="bills_date"></span>, -<span data-f="bills"></span></span><span><i style="background:#2A8F5E">2</i><span data-t="{lucy.first}'s purse {lucy.fight}, +{ticket}"></span></span><span><i style="background:#2A8F5E">3</i><span data-t="{aisha.first}'s purse {aisha.fight}, +{ticket}"></span></span><span><i style="background:#D93F34">4</i>Bills Mon 13 Apr, -<span data-f="bills"></span></span></div>
+  <div class="io" style="margin-top:4px">
    <div class="in"><div class="lbl">In, a week</div>
-    <div class="row"><span class="n">Members' dues</span><span class="stroke" style="width:50px"></span><span class="v">+$550</span></div>
-    <div class="row"><span class="n">Fitness classes</span><span class="stroke" style="width:38px"></span><span class="v">+$420</span></div>
-    <div class="row"><span class="n" title="Ironclad $250, Bow Road Physio $150">Sponsors</span><span class="stroke" style="width:36px"></span><span class="v">+$400</span></div>
-    <div class="row"><span class="n">Evening classes</span><span class="stroke" style="width:30px"></span><span class="v">+$350</span></div>
-    <div class="total"><span>in</span><span style="color:var(--green)">+$1,720</span></div></div>
+    <div class="row"><span class="n">Members' dues</span><span class="stroke" style="width:50px"></span><span class="v">+<span data-f="in_dues"></span></span></div>
+    <div class="row"><span class="n">Fitness classes</span><span class="stroke" style="width:38px"></span><span class="v">+<span data-f="in_fitness"></span></span></div>
+    <div class="row"><span class="n" title="Ironclad $250, Bow Road Physio $150">Sponsors</span><span class="stroke" style="width:36px"></span><span class="v">+<span data-f="in_sponsors"></span></span></div>
+    <div class="row"><span class="n">Evening classes</span><span class="stroke" style="width:30px"></span><span class="v">+<span data-f="in_evening"></span></span></div>
+    <div class="total"><span>in</span><span style="color:var(--green)">+<span data-f="cash_in"></span></span></div></div>
    <div class="out"><div class="lbl">Out, a week</div>
-    <div class="row"><span class="n">Coach</span><span class="stroke" style="width:30px"></span><span class="v">-$450</span></div>
-    <div class="row"><span class="n">Rent</span><span class="stroke" style="width:28px"></span><span class="v">-$416</span></div>
-    <div class="row"><span class="n">Staff</span><span class="stroke" style="width:24px"></span><span class="v">-$380</span></div>
-    <div class="row"><span class="n">Power, kit, fees</span><span class="stroke" style="width:10px"></span><span class="v">-$171</span></div>
-    <div class="row uc" style="margin:2px 0"><span class="n" style="font-size:15px;width:auto">MMA fees, travel</span><span class="v" style="margin-right:30px;font-size:14px">unpriced</span></div><div class="total"><span>out</span><span style="color:var(--red)">-$1,417</span></div></div>
+    <div class="row"><span class="n">Coach</span><span class="stroke" style="width:30px"></span><span class="v">-<span data-f="out_coach"></span></span></div>
+    <div class="row"><span class="n">Rent</span><span class="stroke" style="width:28px"></span><span class="v">-<span data-f="out_rent"></span></span></div>
+    <div class="row"><span class="n">Staff</span><span class="stroke" style="width:24px"></span><span class="v">-<span data-f="out_staff"></span></span></div>
+    <div class="row" title="Nobody is paid a stipend today. Maria's rib costs nothing: no stipend, no physio."><span class="n">Stipends</span><span class="stroke" style="width:0"></span><span class="v" style="color:#6c675c">-<span data-f="out_stipends"></span></span></div>
+    <div class="row"><span class="n">Power, kit, fees</span><span class="stroke" style="width:10px"></span><span class="v">-<span data-f="out_power"></span></span></div>
+    <div class="row uc" style="margin:0"><span class="n" style="font-size:15px;width:auto">MMA fees, travel</span><span class="v" style="margin-right:30px;font-size:14px">unpriced</span></div><div class="total"><span>out</span><span style="color:var(--red)">-<span data-f="cash_out"></span></span></div></div>
   </div>
-  <div class="total" style="border:0;font-size:24px;margin-top:0"><span>Each week the tin grows</span><span class="ring" style="color:var(--green)">+$303</span></div>
-  <div class="warn" style="margin-top:0;font-size:15.5px">Dues from 31 members cover what the other income leaves (you have 68). A bout adds a $450 ticket cut.</div>
-  <div class="panel" style="padding:4px 10px 4px"><div class="cap"><i class="ic" data-i="coin" title="Share and stipend for the fighters with money to decide"></i> Fighters with money to decide</div><table class="pf"><tr><th></th><th>Fighter</th><th>Share / stipend</th><th>Next money</th></tr><tr><td style="width:28px"><div class="pfw" style="width:24px;height:24px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_11.png"></div></td><td><b>Lucy Jackson</b></td><td><span class="btn g" style="padding:0 8px;font-size:12.5px">Stipend $250</span></td><td>+$450, Sat 21 Mar</td></tr><tr><td style="width:28px"><div class="pfw" style="width:24px;height:24px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_10.png"></div></td><td><b>Aisha Rahman</b></td><td>25% share</td><td>+$450, Sat 11 Apr</td></tr><tr><td style="width:28px"><div class="pfw" style="width:24px;height:24px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_02.png"></div></td><td><b>Danny Osei</b></td><td><span class="btn g" style="padding:0 8px;font-size:12.5px">Stipend $250</span></td><td>contract ends Mon 30 Mar</td></tr></table><div style="font-size:13.5px;padding:3px 4px;color:#4d473c">Maria, Megan, Josh, Tomas, Kwame: 25% share, nothing due</div></div>
-<div class="panel" style="padding:4px 10px"><div class="cap"><i class="ic red" data-i="cal" title="Wages and upkeep are billed every 28 days"></i> Bills Mon 16 Mar, $5,668 (4 weeks)</div><div class="pl"><span>Coach</span><b style="margin-left:auto">$1,800</b></div><div class="pl"><span>Rent</span><b style="margin-left:auto">$1,664</b></div><div class="pl"><span>Staff</span><b style="margin-left:auto">$1,520</b></div><div class="pl"><span>Power, kit, fees</span><b style="margin-left:auto">$684</b></div></div>
+  <div class="total" style="border:0;font-size:22px;margin-top:0;padding:0"><span>Each week the tin grows</span><span class="ring" style="color:var(--green)"><span data-f="net"></span></span></div>
+  <div class="panel" style="padding:3px 10px 2px;margin-top:4px;font-size:14px"><div class="cap"><i data-ic="money" title="Stipend, pay and what each fighter earns the gym"></i> Fighters and money</div><table class="pf"><tr><th></th><th>Fighter</th><th>Stipend</th><th>Earns the gym</th><th>Next money</th></tr>
+<tr><td style="width:26px"><span data-face="lucy" style="width:20px;height:24px"></span></td><td><b data-f="lucy.name" data-tip="{lucy.pay}"></b></td><td><span class="st">off</span><span class="btn g s">Start <span data-f="stipend"></span></span></td><td>+<span data-f="ticket"></span></td><td><span data-f="lucy.fight"></span></td></tr>
+<tr><td style="width:26px"><span data-face="aisha" style="width:20px;height:24px"></span></td><td><b data-f="aisha.name" data-tip="{aisha.pay}"></b></td><td><span class="st">off</span><span class="btn g s">Start <span data-f="stipend"></span></span></td><td>+<span data-f="ticket"></span></td><td><span data-f="aisha.fight"></span></td></tr>
+<tr><td style="width:26px"><span data-face="maria" style="width:20px;height:24px"></span></td><td><b data-f="maria.name" data-tip="{maria.pay}"></b></td><td><span class="st">off</span><span class="btn g s">Start <span data-f="stipend"></span></span></td><td><span style="color:#6c675c">none</span></td><td><span style="color:#6c675c">nothing due</span></td></tr>
+<tr><td style="width:26px"><span data-face="megan" style="width:20px;height:24px"></span></td><td><b data-f="megan.name" data-tip="{megan.pay}"></b></td><td><span class="st">off</span><span class="btn g s">Start <span data-f="stipend"></span></span></td><td><span style="color:#6c675c">none</span></td><td><span style="color:#6c675c">nothing due</span></td></tr>
+<tr><td style="width:26px"><span data-face="danny" style="width:20px;height:24px"></span></td><td><b data-f="danny.name" data-tip="{danny.pay}"></b></td><td><span class="st">off</span><span class="btn g s">Start <span data-f="stipend"></span></span></td><td><span style="color:#6c675c">none</span></td><td>ends <span data-f="danny.by"></span></td></tr>
+<tr><td style="width:26px"><span data-face="josh" style="width:20px;height:24px"></span></td><td><b data-f="josh.name" data-tip="{josh.pay}"></b></td><td><span class="st">off</span><span class="btn g s">Start <span data-f="stipend"></span></span></td><td><span style="color:#6c675c">none</span></td><td><span style="color:#6c675c">nothing due</span></td></tr>
+<tr><td style="width:26px"><span data-face="tomas" style="width:20px;height:24px"></span></td><td><b data-f="tomas.name" data-tip="{tomas.pay}"></b></td><td><span class="st">off</span><span class="btn g s">Start <span data-f="stipend"></span></span></td><td><span style="color:#6c675c">none</span></td><td><span style="color:#6c675c">nothing due</span></td></tr>
+<tr><td style="width:26px"><span data-face="kwame" style="width:20px;height:24px"></span></td><td><b data-f="kwame.name" data-tip="{kwame.pay}"></b></td><td><span class="st">off</span><span class="btn g s">Start <span data-f="stipend"></span></span></td><td><span style="color:#6c675c">none</span></td><td><span style="color:#6c675c">nothing due</span></td></tr>
+  </table></div>
  </div>
- <div>
-  <div class="lbl">Price tags, the one that fits now first <span style="font-family:Kalam;font-size:14px;color:#555">red pin: buy &middot; grey: not yet &middot; green: ours</span></div>
+ <div style="margin-top:32px">
+  <div class="lbl">Price tags, what fits now first <span style="font-family:Kalam;font-size:14px;color:#555">red pin: buy &middot; green: ours &middot; grey: not usable now</span></div>
   <div class="tags">
-   <div class="tag"><span class="pin"></span><svg class="pic" viewBox="0 0 76 76"><rect x="6" y="20" width="64" height="44" fill="none" stroke="#22262E" stroke-width="3" rx="3"/><path d="M6 20 L38 6 L70 20" fill="none" stroke="#22262E" stroke-width="3"/><rect x="30" y="40" width="16" height="24" fill="none" stroke="#2F6FDB" stroke-width="3"/></svg><div class="t">Bigger unit, a second ring</div><div class="p">$12,000</div><div class="w"><b>Fixes 68 of 70.</b> Net +$303 to -$67 a week. Leaves 2 weeks.</div><div class="act"><span class="btn">Move</span></div></div>
-   <div class="tag"><span class="pin"></span><svg class="pic" viewBox="0 0 76 76"><path d="M8 58 L68 58 M14 58 L14 22 M62 58 L62 22 M10 22 L66 22" stroke="#22262E" stroke-width="3" fill="none"/><path d="M20 38 L56 38" stroke="#22262E" stroke-width="4"/><rect x="16" y="31" width="7" height="14" fill="#2F6FDB"/><rect x="53" y="31" width="7" height="14" fill="#2F6FDB"/></svg><div class="t">Strength corner</div><div class="p">$3,600</div><div class="w">Power and conditioning gain 10% more. Net +$281 a week. Leaves 7 weeks.</div><div class="act"><span class="btn">Buy</span></div></div>
-   <div class="tag"><span class="pin"></span><svg class="pic" viewBox="0 0 76 76"><circle cx="26" cy="22" r="8" fill="none" stroke="#22262E" stroke-width="3"/><circle cx="52" cy="26" r="7" fill="none" stroke="#22262E" stroke-width="3"/><path d="M26 30 L26 52 M26 52 L18 66 M26 52 L34 66 M52 33 L52 54 M52 54 L45 66 M52 54 L59 66" stroke="#22262E" stroke-width="3" fill="none"/></svg><div class="t">Youth section</div><div class="p">$1,800</div><div class="w">20 juniors. Net +$250 a week. Leaves 9 weeks.</div><div class="act"><span class="btn">Buy</span></div></div>
-   <div class="tag"><span class="pin"></span><svg class="pic" viewBox="0 0 76 76"><circle cx="38" cy="20" r="10" fill="none" stroke="#22262E" stroke-width="3"/><path d="M38 30 L38 54 M38 54 L28 70 M38 54 L48 70 M38 38 L22 30 M38 38 L54 30" stroke="#22262E" stroke-width="3" fill="none"/></svg><div class="t">Second evening coach</div><div class="p">$280 a week</div><div class="w">Carries 40 more members, but the place is full. Net +$23 a week.</div><div class="act"><span class="btn">Hire one</span></div></div>
-   <div class="tag"><span class="pin"></span><svg class="pic" viewBox="0 0 76 76"><rect x="12" y="8" width="52" height="62" fill="none" stroke="#22262E" stroke-width="3"/><path d="M18 20 L58 20" stroke="#E2483D" stroke-width="5"/><text x="20" y="44" font-family="Marker" font-size="15" fill="#2F6FDB">FIGHT</text><text x="22" y="60" font-family="Marker" font-size="13" fill="#22262E">NIGHT</text></svg><div class="t">Club show</div><div class="p">$3,500</div><div class="w">The night -$200 to +$2,325. Leaves 7 weeks.</div><div class="act"><span class="btn off">from Mon 6 Apr</span> <span class="rs"><i class="ic" data-i="lock" title="One show every 16 weeks"></i> every 16 weeks</span></div></div>
-   <div class="tag off"><span class="pin grey"></span><svg class="pic" viewBox="0 0 76 76"><path d="M8 62 L68 62 M12 62 L12 34 M26 62 L26 34 M40 62 L40 34 M54 62 L54 34 M8 34 L38 14 L68 34 Z" stroke="#22262E" stroke-width="3" fill="none"/></svg><div class="t">Club grant bid</div><div class="p">free, once a year</div><div class="w">Answer in 42 days. Odds follow reputation.</div><div class="act"><span class="btn off">Bid</span><span class="rs"><i class="ic" data-i="lock" title="Locked: needs a second coach"></i> needs a second coach</span></div></div>
-   <div class="tag uc"><span class="pin grey"></span><svg class="pic" viewBox="0 0 76 76"><path d="M10 60 L66 60 M18 60 L18 20 M58 60 L58 20 M38 60 L38 20 M12 20 L64 20 M12 40 L64 40" stroke="#22262E" stroke-width="3" fill="none"/></svg><div class="t">Cage</div><div class="p">price not set</div><div class="w">MMA bouts in the gym, wall and takedown drills. Needs MMA rules.</div><div class="act"><span class="btn">Build</span></div></div>
-   <div class="tag" style="opacity:.95"><span class="mag" style="filter:hue-rotate(100deg)"></span><svg class="pic" viewBox="0 0 76 76"><path d="M6 56 L38 42 L70 56 L38 70 Z" fill="none" stroke="#22262E" stroke-width="3"/><path d="M14 36 L30 36 L30 20 L46 20 L46 36 L62 36" stroke="#2FA36B" stroke-width="3" fill="none"/></svg><div class="t"><i class="ic green" data-i="check" title="Bought and working"></i> Mats, fitness kit</div><div class="p" style="color:var(--green)">ours</div><div class="w">Injury risk down 15%; the fitness classes bring $420 a week.</div></div>
+   <div class="tag"><span class="pin"></span><svg data-art class="pic" viewBox="0 0 76 76"><circle cx="26" cy="22" r="8" fill="none" stroke="#22262E" stroke-width="3"/><circle cx="52" cy="26" r="7" fill="none" stroke="#22262E" stroke-width="3"/><path d="M26 30 L26 52 M26 52 L18 66 M26 52 L34 66 M52 33 L52 54 M52 54 L45 66 M52 54 L59 66" stroke="#22262E" stroke-width="3" fill="none"/></svg><div class="t">Youth section</div><div class="pr"><div class="p">$1,800</div><span class="btn">Buy</span></div><div class="w" data-t="20 juniors bring +$250 a week. Net {net} to +$553."></div><div class="mt"><span><i data-ic="runway"></i>9 wks after</span><span>payback 8 wks</span></div></div>
+   <div class="tag"><span class="pin"></span><svg data-art class="pic" viewBox="0 0 76 76"><path d="M8 58 L68 58 M14 58 L14 22 M62 58 L62 22 M10 22 L66 22" stroke="#22262E" stroke-width="3" fill="none"/><path d="M20 38 L56 38" stroke="#22262E" stroke-width="4"/><rect x="16" y="31" width="7" height="14" fill="#2F6FDB"/><rect x="53" y="31" width="7" height="14" fill="#2F6FDB"/></svg><div class="t">Strength corner</div><div class="pr"><div class="p">$3,600</div><span class="btn">Buy</span></div><div class="w" data-t="Strength and Stamina gain 10% more. Net {net} to +$281."></div><div class="mt"><span><i data-ic="runway"></i>7 wks after</span></div></div>
+   <div class="tag uc"><span class="pin grey"></span><svg data-art class="pic" viewBox="0 0 76 76"><path d="M10 60 L66 60 M18 60 L18 20 M58 60 L58 20 M38 60 L38 20 M12 20 L64 20 M12 40 L64 40" stroke="#22262E" stroke-width="3" fill="none"/></svg><div class="t">Cage</div><div class="pr"><div class="p">price not set</div><span class="btn">Build</span></div><div class="w">MMA bouts in the gym, wall and takedown drills. Needs MMA rules.</div><div class="mt"><span><i data-ic="runway"></i>after: price not set</span></div></div>
+   <div class="tag off"><svg data-art class="pic" viewBox="0 0 76 76"><circle cx="38" cy="20" r="10" fill="none" stroke="#22262E" stroke-width="3"/><path d="M38 30 L38 54 M38 54 L28 70 M38 54 L48 70 M38 38 L22 30 M38 38 L54 30" stroke="#22262E" stroke-width="3" fill="none"/></svg><div class="t">Second evening coach</div><div class="pr"><div class="p">$280 a week</div><span class="btn" title="Not worth it yet: the place is full">Hire</span></div><div class="w" data-t="Grey: the place is full, so it carries nobody yet. Net {net} to +$23."></div><div class="mt"><span><i data-ic="runway"></i>8 wks after</span></div></div>
+   <div class="tag off"><svg data-art class="pic" viewBox="0 0 76 76"><rect x="12" y="8" width="52" height="62" fill="none" stroke="#22262E" stroke-width="3"/><path d="M18 20 L58 20" stroke="#E2483D" stroke-width="5"/><text x="20" y="44" font-family="Marker" font-size="15" fill="#2F6FDB">FIGHT</text><text x="22" y="60" font-family="Marker" font-size="13" fill="#22262E">NIGHT</text></svg><div class="t">Club show</div><div class="pr"><div class="p">$3,500</div><span class="btn off">from Mon 6 Apr</span></div><div class="w">The night: -$200 to +$2,325. One show every 16 weeks.</div><div class="mt"><span><i data-ic="runway"></i>7 wks after</span><span>payback 2 shows</span></div></div>
+   <div class="tag off"><svg data-art class="pic" viewBox="0 0 76 76"><path d="M8 62 L68 62 M12 62 L12 34 M26 62 L26 34 M40 62 L40 34 M54 62 L54 34 M8 34 L38 14 L68 34 Z" stroke="#22262E" stroke-width="3" fill="none"/></svg><div class="t">Club grant bid</div><div class="pr"><div class="p">free</div><span class="btn off">Bid</span></div><div class="w"><i data-ic="lock" title="Locked: needs a second coach"></i> Needs a second coach. Answer in 42 days, once a year; odds follow reputation.</div><div class="mt"><span><i data-ic="runway"></i><span data-f="runway"></span> after</span></div></div>
+   <div class="tag"><span class="pin green"></span><svg data-art class="pic" viewBox="0 0 76 76"><path d="M6 56 L38 42 L70 56 L38 70 Z" fill="none" stroke="#22262E" stroke-width="3"/><path d="M14 36 L30 36 L30 20 L46 20 L46 36 L62 36" stroke="#2FA36B" stroke-width="3" fill="none"/></svg><div class="t">Mats, fitness kit</div><div class="pr"><div class="p" style="color:var(--green)">ours</div></div><div class="w" data-t="Injury risk down 15%. The fitness classes bring {in_fitness} a week."></div><div class="mt"><span><i data-ic="runway"></i>bought, no change</span></div></div>
+   <div class="tag off"><svg data-art class="pic" viewBox="0 0 76 76"><rect x="6" y="20" width="64" height="44" fill="none" stroke="#22262E" stroke-width="3" rx="3"/><path d="M6 20 L38 6 L70 20" fill="none" stroke="#22262E" stroke-width="3"/><rect x="30" y="40" width="16" height="24" fill="none" stroke="#2F6FDB" stroke-width="3"/></svg><div class="t">Bigger unit, a second ring</div><div class="pr"><div class="p">$12,000</div><span class="btn off">Move</span></div><div class="w" data-t="More than {places} places, but $370 a week more. Net {net} to -$67."></div><div class="mt"><span><i data-ic="runway"></i>cash would fall to 1 wk</span></div></div>
   </div>
   <div class="signs">
-   <div class="sign"><div class="hd">DUES - A MONTH</div><div class="mags"><span class="m">Cheap $25</span><span class="m on">Standard $35</span><span class="m">Premium $45</span></div><div class="w">Cheap draws 15% more members, premium about 30% fewer. Clubs charge $25-45.</div></div>
-   <div class="sign"><div class="hd">KIT BUDGET - A WEEK</div><div class="mags"><span class="m">Low $0</span><span class="m on">Standard $45</span><span class="m">Good $80</span></div><div class="w">Injury risk now: low (matted floor, strength coach).</div></div>
+   <div class="sign"><div class="hd">DUES - A MONTH</div><div class="mg"><div><span class="m gy">Cheap $25</span><br>the place is full</div><div><span class="m on">Standard $35</span><br>now +<span data-f="in_dues"></span> a week</div><div><span class="m">Premium $45</span><br>48 members, about -$50 a week</div></div></div>
+   <div class="sign"><div class="hd">KIT BUDGET - A WEEK</div><div class="mags" style="display:flex;gap:6px;margin-top:6px"><span class="m">Low $0</span><span class="m on">Standard $45</span><span class="m">Good $80</span></div><div class="w">Injury risk now: standard. The mats are ours; the strength coach is not hired.</div></div>
   </div>
  </div>
 </div>
 <div class="side">
- <div class="sticky"><span class="mag"></span><span class="when">before Aisha's bout, Sat 11 Apr</span><div class="h">Aisha Rahman: first top-10, contract talk</div><div class="s">Ranked #9, a first top 10. Keep your 25% of every purse and ticket for a $2,500 bonus (leaves $12,320, 8 weeks), or drop to 20%.</div><div class="acts"><span class="btn">Keep 25%: pay $2,500</span><span class="btn r">Drop to 20%</span></div></div>
- <div class="sticky o"><span class="mag"></span><span class="when">ends Mon 30 Mar</span><div class="h">Danny Osei: contract ends</div><div class="s">A $250 weekly stipend would cut net from +$303 to +$53. The talk is on Home.</div><div class="acts"><span class="btn g">Open the talk</span></div></div>
- <div class="sticky o uc"><span class="mag"></span><span class="when">answer by Mon 9 Mar</span><div class="h">Tomas Novak: a bigger gym has called</div><div class="s">They offer $600 a week more. Matching costs the gym $120 a week: net +$303 to +$183, runway 10 to 9 weeks.</div><div class="acts"><span class="btn">Match, $120 a week</span><span class="btn r">Let go</span></div></div>
- <div class="book"><svg width="40" height="50" viewBox="0 0 44 54"><rect x="4" y="4" width="36" height="46" rx="3" fill="#F2E6D0"/><path d="M10 16 L34 16 M10 24 L34 24 M10 32 L28 32 M10 40 L30 40" stroke="#7A3B2E" stroke-width="2"/></svg><div><div class="t">The cashbook</div><div class="w">every payment, last 8 weeks: 26 lines. Open it.</div></div></div>
-  <div class="panel" style="display:flex;gap:14px;align-items:center"><div class="cap" style="margin:0"><i class="ic" data-i="tag" title="Deals: sponsors pay every week. Bigger ones come with a ranked fighter."></i></div>
-   <div style="flex:1;line-height:1.1"><b>Ironclad Supplements</b><br><span style="color:var(--green)">signed, $250 a week</span></div>
-   <div style="flex:1;line-height:1.1"><b>Bow Road Physio</b><br><span style="color:var(--green)">signed, $150 a week</span></div><span class="btn g" style="padding:2px 10px;font-size:14px;opacity:.5">Sign another</span>
-   </div>
-  <div class="panel" style="padding:6px 10px"><div class="cap"><i class="ic" data-i="users" title="Staff jobs: hire for a weekly wage"></i> Staff</div>
-   <div class="pl"><span>Physio: injuries back a quarter sooner</span><span class="btn g" style="margin-left:auto;padding:0 9px;font-size:13px">Hire $75</span></div>
-   <div class="pl"><span>Strength coach: injury risk -15%</span><span class="btn g" style="margin-left:auto;padding:0 9px;font-size:13px">Hire $100</span></div>
-   <div class="pl"><span>Cutman: half the post-bout layoffs</span><span class="btn g" style="margin-left:auto;padding:0 9px;font-size:13px">$150 a pro night</span></div></div>
-
+ <div class="panel"><div class="cap"><i data-ic="contract" title="A contract or offer is answered on the fighter's Profile"></i> Contract talks</div>
+  <div class="talk"><span class="dot r"></span><div style="flex:1"><b data-f="tomas.name"></b> <span data-t="Bigger gym calls, answer by {tomas.by}. Match {tomas_offer.match} a week: net {tomas_offer.net_after}, runway {tomas_offer.runway_after}."></span></div><span class="btn g s">Open the talk</span></div>
+  <div class="talk"><span class="dot a"></span><div style="flex:1"><b data-f="danny.name"></b> <span data-t="Contract ends {danny.by}. A stipend of {stipend} a week: net {danny_offer.net_after}, runway 8 weeks."></span></div><span class="btn g s">Open the talk</span></div>
+  </div>
+ <div class="panel uc" style="padding:8px 10px 6px"><div class="cap"><i data-ic="coach"></i> Coaches, a week</div>
+  <div class="ch"><div><b>Striking</b>$300 <span class="btn g s" style="padding:0 8px;margin-top:3px;display:inline-block">Hire</span></div><div>Jab, cross, hooks, uppercut<br><small style="color:var(--mut)"><i data-ic="runway"></i> 8 wks after, net +$3</small></div><div class="fc"><span data-face="lucy" style="width:24px;height:29px"></span><span data-face="tomas" style="width:24px;height:29px"></span><span data-face="danny" style="width:24px;height:29px"></span><span data-face="kwame" style="width:24px;height:29px"></span></div></div>
+  <div class="ch"><div><b>Wrestling</b>$300 <span class="btn g s" style="padding:0 8px;margin-top:3px;display:inline-block">Hire</span></div><div>Single leg, double leg, ground and pound, takedown defence<br><small style="color:var(--mut)"><i data-ic="runway"></i> 8 wks after, net +$3</small></div><div class="fc"><span data-face="lucy" style="width:24px;height:29px"></span><span data-face="maria" style="width:24px;height:29px"></span><span data-face="danny" style="width:24px;height:29px"></span></div></div>
+  <div class="ch"><div><b>BJJ</b>$300 <span class="btn g s" style="padding:0 8px;margin-top:3px;display:inline-block">Hire</span></div><div>Armbar, triangle, rear naked choke, sweeps<br><small style="color:var(--mut)"><i data-ic="runway"></i> 8 wks after, net +$3</small></div><div class="fc"><span data-face="aisha" style="width:24px;height:29px"></span><span data-face="maria" style="width:24px;height:29px"></span><span data-face="danny" style="width:24px;height:29px"></span></div></div>
+  <div class="ch"><div><b>Muay Thai</b>$350 <span class="btn g s" style="padding:0 8px;margin-top:3px;display:inline-block">Hire</span></div><div>Knee, elbow, teep, low kick, body kick<br><small style="color:var(--mut)"><i data-ic="runway"></i> 8 wks after, net -$47</small></div><div class="fc"><span data-face="megan" style="width:24px;height:29px"></span><span data-face="josh" style="width:24px;height:29px"></span></div></div></div>
+ <div class="panel"><div class="cap"><i data-ic="money" title="Wages and upkeep are billed every 28 days"></i> <span data-t="Bills {bills_date}, {bills} (4 weeks)"></span></div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:13.5px;line-height:1.2"><div>Coach<br><b data-f="bills_coach"></b></div><div>Rent<br><b data-f="bills_rent"></b></div><div>Staff<br><b data-f="bills_staff"></b></div><div>Power, kit, fees<br><b data-f="bills_power"></b></div></div></div>
+ <div class="panel" style="display:flex;gap:10px;align-items:center;font-size:14px"><div class="cap" style="margin:0"><i data-ic="reputation" title="Deals: sponsors pay every week. Bigger ones come with a ranked fighter."></i></div>
+   <div style="flex:1;line-height:1.15"><b>Ironclad Supplements</b><br><span style="color:var(--green)">signed, $250 a week</span></div>
+   <div style="flex:1;line-height:1.15"><b>Bow Road Physio</b><br><span style="color:var(--green)">signed, $150 a week</span></div><span class="btn g s" style="opacity:.5">Sign another</span></div>
+ <div class="panel"><div class="cap"><i data-ic="members" title="Staff jobs: hire for a weekly wage"></i> Staff</div>
+   <div class="pl"><span>Physio: injuries back a quarter sooner</span><span class="btn g s" style="margin-left:auto">Hire $75</span></div>
+   <div class="pl"><span>Strength coach: injury risk -15%</span><span class="btn g s" style="margin-left:auto">Hire $100</span></div>
+   <div class="pl"><span>Cutman: half the post-bout layoffs</span><span class="btn g s" style="margin-left:auto">$150 a pro night</span></div></div>
 </div>
 </main></div>
-<script>
-const P={users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',gauge:'<path d="m12 14 4-4"/><path d="M3.3 19a10 10 0 1 1 17.4 0"/>',coins:'<circle cx="8" cy="8" r="6"/><path d="M18.1 10.4A6 6 0 1 1 10.3 18M7 6h1v4"/>',coin:'<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 10h5a2 2 0 0 1 0 4H9"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',alert:'<path d="M12 3 2 21h20z"/><path d="M12 10v5M12 18v.5"/>',lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',check:'<path d="M4 12l5 5L20 6"/>',tag:'<path d="M3 12V3h9l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/>',wrench:'<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-3 3-2.7-.7-.7-2.7z"/>'};
-document.querySelectorAll('i[data-i]').forEach(e=>e.innerHTML='<svg viewBox="0 0 24 24">'+P[e.dataset.i]+'</svg>');
-</script></body></html>
+<script src="facts.js"></script><script src="kit.js"></script>
+</body></html>

@@ -1,0 +1,103 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Playbook: combos</title><style>
+@font-face{font-family:Barlow;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:BarlowB;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Marker;src:url(file:///E:/FightCamp/Lean/assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Kalam;src:url(file:///E:/FightCamp/Lean/assets/fonts/Kalam-Regular.ttf)}
+:root{--ink:#2b2118;--blue:#2A63C4;--red:#C9372E;--green:#25794F;--amber:#B86A0A;--mut:#5f5342;--gold:#B8860B;--line:#DCCFB4;--cream:#FBF6E8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:url(file:///E:/FightCamp/Lean/assets/ui/warm/wall.png) 0 0/384px 384px;font-family:Barlow;color:var(--ink);overflow:hidden;position:relative}
+.wrap{display:flex;height:1004px}
+main{flex:1;padding:12px 20px 12px 8px;position:relative}
+.board{border:26px solid transparent;border-image:url(file:///E:/FightCamp/Lean/assets/ui/warm/board.png) 40 fill/26px stretch;position:relative;padding:0 6px;overflow:hidden}
+h1{font-family:Marker;font-weight:400;line-height:1}
+.cap{font-family:BarlowB;font-size:14px;letter-spacing:1.8px;color:var(--mut);text-transform:uppercase}
+.card{background:var(--cream);border:2px solid var(--line);border-radius:10px;padding:10px 14px}
+.btn{display:inline-flex;align-items:center;gap:6px;background:var(--blue);color:#fff;font-family:BarlowB;font-size:16px;padding:6px 16px;border-radius:20px;white-space:nowrap}
+.btn.g{background:#fff;color:var(--blue);border:2px solid var(--blue);padding:4px 14px}
+.btn.q{background:#fff;color:#4a3f30;border:2px solid #B9A57F;padding:4px 14px}
+.btn.lt{background:transparent;color:var(--mut);border:1.5px solid var(--line);padding:3px 9px}
+.btn.off{background:#E9E1CD;color:#6b5e4c;border:2px solid #cbbd9c;padding:4px 14px}
+.chip{display:inline-flex;align-items:center;gap:5px;border:1.5px solid #8a7a60;border-radius:14px;padding:1px 10px;font-family:BarlowB;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#4a3f30;white-space:nowrap;background:#fff}
+.chip.green{border-color:var(--green);color:var(--green)}.chip.red{border-color:var(--red);color:var(--red)}.chip.amber{border-color:var(--amber);color:var(--amber)}.chip.blue{border-color:var(--blue);color:var(--blue)}
+.chip.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.chip.nc{text-transform:none;letter-spacing:0;font-size:14px}
+.est{background:repeating-linear-gradient(135deg,#fff 0 5px,#EADFC4 5px 9px);border-style:dashed}
+.pos{color:var(--green)}.neg{color:var(--red)}.am{color:var(--amber)}
+.pol{background:#fff;padding:9px 9px 34px;box-shadow:0 6px 14px rgba(0,0,0,.35);transform:rotate(-3deg);position:relative;flex:none}
+.pol::before{content:"";position:absolute;top:-12px;left:50%;margin-left:-45px;width:90px;height:26px;background:rgba(240,225,150,.85);transform:rotate(2deg)}
+.pol span{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-family:Marker;font-size:18px}
+.tabs{display:flex;gap:6px}.tabs span{padding:8px 18px;border-radius:8px 8px 0 0;font-family:BarlowB;font-size:18px;color:#4a3f30;position:relative}.tabs .on{background:url(file:///E:/FightCamp/Lean/assets/ui/warm/paper.png) center/100% 100%;color:var(--blue)}.tabs .off{opacity:.5}
+.uc{position:relative;pointer-events:none}
+.uc::after{content:"";position:absolute;top:4px;right:4px;width:30px;height:30px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2 2 21h20z' fill='%23ffd54a' stroke='%2322262e' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cpath d='M12 9v6M12 18v.5' stroke='%2322262e' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat}
+.uc.s{padding-right:30px}.uc.s::after{width:22px;height:22px;top:50%;margin-top:-11px;right:2px}
+.why{font-size:14px;color:#4a3f30;font-family:Kalam}
+.pips{display:inline-flex;gap:2px;vertical-align:middle}.pips i{width:6px;height:12px;border-radius:2px;background:#d8ceb6}
+.tw{position:relative}
+.tip{background:#2b2118;color:#FBF6E8;font-family:Barlow;font-size:15px;line-height:1.3;padding:8px 12px;border-radius:8px;box-shadow:0 5px 10px rgba(0,0,0,.4);position:relative}
+.tip::before{content:"";position:absolute;left:30px;top:-7px;border:7px solid transparent;border-top:0;border-bottom-color:#2b2118}
+.tip .chip{font-size:13px}
+.ln{display:flex;align-items:center;gap:10px;height:46px;padding:3px 12px;margin-bottom:4px}
+.ln b.pl{font-size:19px;width:96px}
+.ln .mv{display:flex;align-items:center;gap:7px;width:150px;color:var(--blue)}.ln .mv b{font-size:20px}
+.ln .lv{font-size:13px;color:var(--mut);width:64px}
+.bar{display:inline-block;width:70px;height:8px;background:#E6DCC6;border-radius:4px;position:relative}.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--blue);border-radius:4px}
+.dr{color:var(--mut);display:inline-flex;align-items:center;gap:6px;font-size:13px}
+.colh{display:flex;gap:10px;padding:0 12px;font-family:BarlowB;font-size:12px;letter-spacing:1.4px;color:var(--mut);text-transform:uppercase;margin:2px 0 2px}
+.grp{display:grid;grid-template-columns:150px 1fr;gap:6px;align-items:start;padding:2px 0;border-bottom:1px solid var(--line)}
+.grp .gn{display:flex;gap:8px;align-items:center;font-family:BarlowB;font-size:16px;padding-top:5px}
+.mchip{display:inline-flex;align-items:center;gap:5px;border:1.5px solid #8a7a60;border-radius:14px;padding:1px 9px 1px 6px;font-family:BarlowB;font-size:14px;background:#fff;margin:3px 4px 3px 0}
+.mchip.nw{border-style:dashed}
+.mchip [data-ic]{color:#9a8c70;width:1em;height:1em}
+.strip{display:flex;align-items:center;gap:8px}
+.fc{position:relative;flex:none;width:46px;height:46px}
+.fc>[data-face]{width:46px;height:46px;border-radius:50%;box-shadow:0 0 0 2px #fff}
+.fc.sel>[data-face]{box-shadow:0 0 0 3px var(--blue)}
+.fc .st{position:absolute;right:-5px;top:-5px;width:22px;height:22px;border-radius:50%;background:#4a3f30;color:#fff;border:2px solid #fff;display:flex;align-items:center;justify-content:center;padding:2px}
+.fc .st.r{background:var(--red)}.fc .st.a{background:var(--amber)}
+.lock{color:var(--mut)}
+</style></head><body>
+<div data-kit="top"></div>
+<div class="wrap"><nav data-kit="rail" data-on="Fighters"></nav><main>
+
+<div style="display:flex;gap:22px;align-items:flex-end;height:140px;position:relative">
+ <div class="pol" style="width:118px;margin:6px 0 0 6px"><div data-face="megan" style="width:100px;height:70px"></div><span data-f="megan.first"></span></div>
+ <div style="padding-bottom:6px"><h1 style="font-size:46px" data-f="megan.name"></h1><div style="font-size:19px;color:var(--mut);margin-top:3px" data-t="{megan.class}, {megan.age}, {megan.stance}, MMA {megan.record}, rank {megan.rank}"></div>
+  <div style="margin-top:6px;display:flex;gap:8px;align-items:center"><span class="chip" data-f="megan.base"></span><span class="chip amber" data-tip="Cuts open easily: the cutman matters" data-f="megan.tag"></span><span class="chip blue"><i data-ic="offer"></i><span data-t="Offer: {megan.opp}, answer by {megan.by}"></span></span><span class="chip" data-tip="Weight {megan.weight} kg, class limit {megan.limit} kg"><i data-ic="weight"></i><span data-t="{megan.weight} of {megan.limit}"></span></span></div></div>
+ <div style="margin-left:20px"><div class="tabs"><span>Overview</span><span>Week</span><span class="off" title="No fight booked">Fight prep</span><span class="on">Playbook</span><span>History</span></div></div>
+ <div class="strip" style="position:absolute;right:6px;top:6px"><span class="btn q" style="padding:3px 11px">&lt;</span><div class="fc" data-tip="Booked: {lucy.opp}, {lucy.fight}"><span data-face="lucy"></span><span class="st "><i data-ic="booked"></i></span></div><div class="fc" data-tip="In camp, {aisha.camp}"><span data-face="aisha"></span><span class="st "><i data-ic="camp"></i></span></div><div class="fc" data-tip="Injured: {maria.injury}, fit {maria.fit}"><span data-face="maria"></span><span class="st "><i data-ic="injured"></i></span></div><div class="fc sel" data-tip="Offer: {megan.opp}, answer by {megan.by}"><span data-face="megan"></span><span class="st r"><i data-ic="offer"></i></span></div><div class="fc" data-tip="Contract ends {danny.by}"><span data-face="danny"></span><span class="st a"><i data-ic="contract"></i></span></div><div class="fc" data-tip="No fight booked"><span data-face="josh"></span><span class="st "><i data-ic="free"></i></span></div><div class="fc" data-tip="A bigger gym wants him: answer by {tomas.by}"><span data-face="tomas"></span><span class="st r"><i data-ic="leaving"></i></span></div><div class="fc" data-tip="Talking about retiring: talk {kwame.by}"><span data-face="kwame"></span><span class="st r"><i data-ic="retiring"></i></span></div><span class="btn q" style="padding:3px 11px">&gt;</span></div>
+</div>
+<div class="tabs" style="margin:4px 0 0 6px"></div>
+<div class="board" style="height:812px;margin-top:-2px;padding:0 8px"><div style="display:flex;gap:14px;height:738px"><div class="card" style="width:300px;flex:none;height:100%;overflow:hidden">
+<div class="cap" style="margin-bottom:4px">Moves to try</div>
+<div style="font-size:13px;color:var(--mut);margin-bottom:2px">Punches</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><span class="btn g" style="justify-content:flex-start;font-size:15px"><i data-ic="hands"></i>+ Jab</span><span class="btn g" style="justify-content:flex-start;font-size:15px"><i data-ic="hands"></i>+ Cross</span><span class="btn off" style="justify-content:flex-start;font-size:15px" data-tip="Not usable yet: pad time first. Book a pad night in the Week."><i data-ic="lock"></i>Lead hook</span><span class="btn off" style="justify-content:flex-start;font-size:15px" data-tip="Not usable yet: pad time first. Book a pad night in the Week."><i data-ic="lock"></i>Body hook</span><span class="btn off" style="justify-content:flex-start;font-size:15px" data-tip="Not usable yet: pad time first. Book a pad night in the Week."><i data-ic="lock"></i>Uppercut</span></div>
+<div class="uc s" style="font-size:13px;color:var(--mut);margin-bottom:2px">Kicks, knees, elbows: not built in the fight</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><span class="btn g" style="justify-content:flex-start;font-size:15px"><i data-ic="kicks"></i>+ Teep</span><span class="btn g" style="justify-content:flex-start;font-size:15px"><i data-ic="kicks"></i>+ Low kick</span><span class="btn g" style="justify-content:flex-start;font-size:15px"><i data-ic="kicks"></i>+ Body kick</span><span class="btn g" style="justify-content:flex-start;font-size:15px"><i data-ic="knees"></i>+ Knee</span><span class="btn g" style="justify-content:flex-start;font-size:15px"><i data-ic="knees"></i>+ Elbow</span></div>
+<div style="font-size:13px;color:var(--mut);margin-bottom:2px">Defence</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><span class="btn g" style="justify-content:flex-start;font-size:15px"><i data-ic="Durability"></i>+ Slip</span><span class="btn g" style="justify-content:flex-start;font-size:15px"><i data-ic="Durability"></i>+ Roll</span></div>
+<div style="font-size:13px;color:var(--mut);margin-bottom:2px">Feet</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"><span class="btn g" style="justify-content:flex-start;font-size:15px"><i data-ic="Speed"></i>+ Pivot</span><span class="btn g" style="justify-content:flex-start;font-size:15px"><i data-ic="Speed"></i>+ Step in</span><span class="btn g" style="justify-content:flex-start;font-size:15px"><i data-ic="Speed"></i>+ Step back</span></div>
+<div style="border-top:2px solid var(--line);padding-top:6px"><div class="cap" style="margin-bottom:4px">Start from the book</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px"><span class="chip nc on">1-2</span><span class="chip nc">1-1</span><span class="chip nc">1-1-2</span><span class="chip nc" style="opacity:.55" data-tip="Needs the Lead hook: Not usable yet: pad time first. Book a pad night in the Week."><i data-ic="lock"></i>2-3</span><span class="chip nc" style="opacity:.55" data-tip="Needs the Lead hook: Not usable yet: pad time first. Book a pad night in the Week."><i data-ic="lock"></i>1-2-3</span><span class="chip nc" style="opacity:.55" data-tip="Needs the Body hook: Not usable yet: pad time first. Book a pad night in the Week."><i data-ic="lock"></i>1-2-3b</span></div>
+<div style="font-size:13px;color:var(--mut);margin-top:6px">1 jab, 2 cross, 3 lead hook, 6 uppercut, b to the body</div></div>
+<div style="border-top:2px solid var(--line);padding-top:6px;margin-top:8px"><div class="cap" style="margin-bottom:4px">Your own</div>
+<div style="display:flex;align-items:center;gap:6px"><span class="chip nc">jab, slip, cross</span><span class="btn g" style="font-size:13px;padding:2px 10px"><i data-ic="pads"></i>Drill it</span></div></div></div><div class="card" style="flex:1;height:100%;overflow:hidden;display:flex;flex-direction:column;gap:10px;padding:14px 16px">
+<h1 style="font-size:32px;color:var(--ink)">Build a combination</h1>
+<div class="card" style="display:flex;align-items:center;gap:12px;padding:12px 14px"><b style="font-family:Marker;font-size:26px;color:var(--blue);width:26px">1</b><i data-ic="hands" style="width:1.7em;height:1.7em;color:var(--blue)"></i><div style="flex:1"><b style="font-size:20px">Jab</b><div class="why">snap it out from the chin and back to the chin</div></div><span class="btn lt"><i data-ic="clear" title="Take it out of the chain"></i></span></div><div style="display:flex;align-items:center;gap:8px;padding:0 0 0 40px;color:var(--green);font-size:14px;font-family:BarlowB;line-height:1.6"><i data-ic="train" style="transform:rotate(90deg)"></i>sets up the cross: the jab hides the hips turning</div>
+<div class="card" style="display:flex;align-items:center;gap:12px;padding:12px 14px"><b style="font-family:Marker;font-size:26px;color:var(--blue);width:26px">2</b><i data-ic="hands" style="width:1.7em;height:1.7em;color:var(--blue)"></i><div style="flex:1"><b style="font-size:20px">Cross</b><div class="why">turn the back foot, hip through, chin behind the shoulder</div></div><span class="btn lt"><i data-ic="clear" title="Take it out of the chain"></i></span></div><div style="display:flex;align-items:center;gap:8px;padding:0 0 0 40px;color:var(--amber);font-size:14px;font-family:BarlowB;line-height:1.6"><i data-ic="train" style="transform:rotate(90deg)"></i>leaves her square: slip off the line next</div>
+<div class="card" style="display:flex;align-items:center;gap:12px;padding:12px 14px"><b style="font-family:Marker;font-size:26px;color:var(--blue);width:26px">3</b><i data-ic="Durability" style="width:1.7em;height:1.7em;color:var(--blue)"></i><div style="flex:1"><b style="font-size:20px">Slip</b><div class="why">a small move off the centre line, eyes up</div></div><span class="btn lt"><i data-ic="clear" title="Take it out of the chain"></i></span></div>
+<div style="display:flex;gap:10px;align-items:center;margin-top:2px"><span class="chip nc" style="font-size:16px;background:#E8F2EA;border-color:var(--green);color:var(--green)"><i data-ic="star"></i>Solid combination</span><span class="chip nc"><i data-ic="fatigue"></i>costs little fatigue</span><span class="chip nc"><i data-ic="energy"></i>3 moves</span></div>
+<div style="background:#fff7d6;border:2px solid #E5CB6E;border-radius:8px;padding:8px 14px"><div class="cap" style="margin-bottom:2px">Key lessons</div><div style="font-size:15px;line-height:1.4">- The jab sets up the cross.<br>- The cross leaves her square, so the slip comes next.<br>- Two to four punches, then move the head.</div></div>
+<div><div class="cap" style="margin-bottom:3px">In the ring: how often it lands whole</div>
+<div style="display:grid;grid-template-columns:200px 90px 1fr;gap:3px 12px;font-size:15px"><span data-t="Against {megan.opp}'s style (walks you down)"></span><span class="chip est nc" style="justify-content:center">58%?</span><span style="color:var(--green)">fits</span>
+<span>Against a boxer at range</span><span class="chip est nc" style="justify-content:center">44%?</span><span style="color:var(--mut)">no help</span>
+<span>Against a clinch fighter</span><span class="chip est nc" style="justify-content:center">31%?</span><span class="neg">walks into trouble</span></div>
+<div style="font-size:13px;color:var(--mut);margin-top:3px">Estimates: not scouted. Not drilled yet, it lands less well until it has pad time.</div></div>
+<div style="display:flex;gap:8px;margin-top:auto"><span class="btn"><i data-ic="film"></i>Play it</span><span class="btn q">Clear</span><span class="btn g">Save to the book</span><span class="btn g"><i data-ic="pads"></i>Drill it on the pads</span></div></div><div style="flex:none;width:500px;display:flex;flex-direction:column;gap:6px;height:100%"><div style="border-radius:12px;overflow:hidden;border:3px solid var(--line);background:#3a3a3c;flex:1;display:flex;align-items:center"><svg data-art viewBox="0 0 440 400" style="width:100%%;display:block"><rect width="440" height="400" fill="#3a3a3c"/>
+<g stroke="#4c4c4f" stroke-width="1.5"><path d="M0 330H440M0 360H440M60 300L20 400M180 300L170 400M300 300L310 400M420 300L460 400"/></g>
+<g stroke="#8fa6c7" fill="none" stroke-linecap="round" stroke-width="12" opacity=".45"><circle cx="340" cy="120" r="16"/><path d="M340 140V230M340 150l-22 40M340 150l22 40M340 230l-12 90M340 230l16 90"/></g>
+<g stroke="#ff8f82" fill="none" stroke-linecap="round" stroke-width="13"><circle cx="130" cy="120" r="16" fill="#ff8f82" stroke="none"/><path d="M130 140V230M130 150L190 140L262 134M130 150L108 196M130 230L112 320M130 230L156 320"/></g>
+<ellipse cx="338" cy="122" rx="26" ry="24" fill="#ffd54a" opacity=".45" stroke="#ffd54a" stroke-width="2"/><text x="300" y="84" font-family="Kalam" font-size="20" fill="#ffd54a">head</text>
+<text x="105" y="90" font-family="Kalam" font-size="20" fill="#ff8f82">she</text><text x="296" y="352" font-family="Kalam" font-size="18" fill="#9fb0c8">partner: a ghost</text>
+<g fill="#f4efe2"><circle cx="60" cy="378" r="9" stroke="#2A63C4" stroke-width="3" fill="#2A63C4"/><circle cx="110" cy="378" r="9" stroke="#f4efe2" stroke-width="3" fill="none"/><circle cx="160" cy="378" r="9" stroke="#f4efe2" stroke-width="3" fill="none"/></g>
+<text x="200" y="384" font-family="Kalam" font-size="18" fill="#f4efe2">1 jab, 2 cross, 3 slip</text></svg></div>
+<div style="font-size:14px;color:var(--mut)">Her body throws the chain on a loop. The partner is a ghost.</div></div></div></div>
+</main></div>
+<div style="position:fixed;top:152px;left:1436px;z-index:6;display:flex;font-family:BarlowB;font-size:15px;border:2px solid #2F6FDB;border-radius:16px;overflow:hidden;background:#fffaf0" title="The two halves of the Playbook"><span style="padding:3px 14px;color:#2F6FDB">Game plan</span><span style="padding:3px 14px;background:#2F6FDB;color:#fff">Combos</span></div>
+<script src="facts.js"></script><script src="kit.js"></script></body></html>

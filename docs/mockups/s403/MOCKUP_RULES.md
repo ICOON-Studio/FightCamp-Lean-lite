@@ -26,3 +26,6 @@ Operator: "try to use icond and toolitps instead of plain text , people can unde
 Use an icon wherever a player understands it without words: stamina, money, injury, weight, time, a locked option. Put the explanation in a tooltip. Keep words where an icon would be guessed wrong: names, numbers, decisions and the buttons that commit to them.
 Draw them as simple inline SVG line icons, the Lucide style (24 by 24, stroke 2, round joins, no fill), one consistent set across the pages.
 A still cannot hover: give every icon a `title` with its tooltip text, and draw one or two tooltips open on a page so the style can be judged.
+
+## Shared parts (round 4)
+Every page loads `facts.js` and `kit.js` at the end of body and takes its top bar, rail, icons and every shared fact from them (usage in the head of kit.js, the icons in `icon_sheet.png`). Change a fact in `facts.json`. `python tools/check_mockups.py` must print MOCKUPS OK. `python tools/render_mockup.py <page.html>` draws one page at a time and waits if the PC is short of memory.

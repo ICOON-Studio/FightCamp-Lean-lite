@@ -1,31 +1,11 @@
 extends SceneTree
-## S381 OWNED MOCAP (operator: "we already have these files"): long captured guard / footwork takes we already own (Rokoko
-## free combat pack, CMU boxing trials, Ailive footwork + duck/sway, Mixamo) -> our MetaHuman boxer's baked clip format
-## (assets/anim/baked/<stem>.res: the 25 tracks of mc_Box1_M3_Idle - local bone rotations + the Hips offset from rest, 30 fps).
-##   fbx:  <godot> --headless --path . --script res://tools/owned_mocap_bake.gd -- fbx in=<take.fbx> out=<stem> [t0=] [t1=]
-##   json: <godot> --headless --path . --script res://tools/owned_mocap_bake.gd -- json in=<cmu.json> out=<stem> [t0=] [t1=]
-##         (the JSON comes from tools/cmu_amc_source.py, which reads CMU ASF/AMC)
-## Optional: glb=mh_boxer_08 (the body the clip is fitted to), dir=<folder for the .res> (default assets/anim/baked).
-##
-## THE RETARGET (world-delta with a matched reference pose - no add-on, no name-map bake):
-## 1. Every source bone's motion is read as D_b(t) = W_b(t) * W_b(rest)^-1: its world rotation away from ITS OWN rest.
-## 2. Our boxer is posed once into the source's rest: top-down, each mapped bone is swung (shortest arc) so its segment
-##    (joint -> next mapped joint) points where the source's segment points at rest (arms T-pose for Mixamo, A for UE...).
-##    That is the reference Gref_b. Twist is untouched, so a bone's own roll stays ours.
-## 3. Each frame: G_b(t) = Q * D_b(t) * Q^-1 * Gref_b, Q = the source's world -> our skeleton's space (up kept up, the
-##    actor's start facing turned to ours). Locals follow from the parents; bones we do not map (spine_02/04, neck_02)
-##    hold their reference local. So every segment points where the source's segment points, frame for frame.
-## 4. Hips: the source hips' height above its planted toes and its floor travel, scaled by leg length (ours / theirs).
-## 5. S383 plants pinned: each plant of OUR baked foot held still by two-bone leg IK (tools/owned_mocap_plant.gd).
-## BARS: tools/owned_mocap_measure.gd on the saved clip (plant slide cm, knees, stance, hips, elbows, guard, pops).
-
 const MH := preload("res://scripts/fight3d/MHRig.gd")
 const Plant := preload("res://tools/owned_mocap_plant.gd")
 const Smooth := preload("res://tools/owned_mocap_smooth.gd")
+const Fit := preload("res://tools/owned_mocap_fit.gd")
 const TEMPLATE := "res://assets/anim/baked/mc_Box1_M3_Idle.res"
 const FPS := 30.0
 
-## Our joint -> the joint its segment aims at (both ours); the source carries the same names (+ *End / HeadTop).
 const AIM := {
 	"Spine": "Chest", "Chest": "UpperChest", "UpperChest": "Neck", "Neck": "Head",
 	"LeftShoulder": "LeftUpperArm", "LeftUpperArm": "LeftLowerArm", "LeftLowerArm": "LeftHand", "LeftHand": "LeftHandEnd",
@@ -33,13 +13,11 @@ const AIM := {
 	"LeftUpperLeg": "LeftLowerLeg", "LeftLowerLeg": "LeftFoot", "LeftFoot": "LeftToes",
 	"RightUpperLeg": "RightLowerLeg", "RightLowerLeg": "RightFoot", "RightFoot": "RightToes",
 }
-## Our end joints that are not bones of their own on our boxer.
 const OUR_END := {"LeftHandEnd": "LeftMiddleProximal", "RightHandEnd": "RightMiddleProximal"}
 const MAPPED := ["Hips", "Spine", "Chest", "UpperChest", "Neck", "Head",
 	"LeftShoulder", "LeftUpperArm", "LeftLowerArm", "LeftHand", "RightShoulder", "RightUpperArm", "RightLowerArm", "RightHand",
 	"LeftUpperLeg", "LeftLowerLeg", "LeftFoot", "LeftToes", "RightUpperLeg", "RightLowerLeg", "RightFoot", "RightToes"]
 
-## Source rigs -> our names. Mixamo (Rokoko's free packs ship on it), Unreal (UE4 3-spine / UE5 5-spine).
 const MIXAMO := {
 	"Hips": "Hips", "Spine": "Spine", "Chest": "Spine1", "UpperChest": "Spine2", "Neck": "Neck", "Head": "Head",
 	"HeadTop": "HeadTop_End",
@@ -61,9 +39,7 @@ const UNREAL := {
 	"LeftUpperLeg": "thigh_l", "LeftLowerLeg": "calf_l", "LeftFoot": "foot_l", "LeftToes": "ball_l",
 	"RightUpperLeg": "thigh_r", "RightLowerLeg": "calf_r", "RightFoot": "foot_r", "RightToes": "ball_r",
 }
-const TRACKED := ["Hips", "LeftFoot", "RightFoot", "LeftToes", "RightToes", "Head", "LeftHand", "RightHand"]
-
-
+const TRACKED := ["Hips", "LeftFoot", "RightFoot", "LeftToes", "RightToes", "Head", "LeftHand", "RightHand", "LeftUpperLeg", "RightUpperLeg"]
 func _initialize() -> void:
 	var args := {}
 	var mode := ""
@@ -73,6 +49,49 @@ func _initialize() -> void:
 			args[s.get_slice("=", 0)] = s.substr(s.find("=") + 1)
 		else:
 			mode = s
+	_passes = int(args.get("passes", "4"))
+	_final_fit = str(args.get("final_fit", "1")) != "0"
+	_follow = int(args.get("follow", "2"))
+	_final_smooth = str(args.get("final_smooth", "0")) != "0"
+	_facing = str(args.get("facing", "0" if mode == "json_batch" else "1")) != "0"
+	_fit_bare = str(args.get("fitbare", "0")) != "0"
+	Fit.room_soft = float(args.get("room", str(Fit.ROOM)))
+	Fit.room_hard = float(args.get("hard", str(Fit.HARD_ROOM)))
+	Fit.exact_round = str(args.get("exact", "0")) != "0"
+	Fit.double_pull = str(args.get("dbl", "1")) != "0"
+	Fit.pin_last = str(args.get("pinlast", "0")) != "0"
+	Fit.lock_planted = str(args.get("lock", "0")) != "0"
+	Fit.hard_hz = float(args.get("hardhz", str(Fit.HARD_HZ)))
+	Fit.still_plants = str(args.get("still", "1")) != "0"
+	Fit.smooth_target = float(args.get("target", "0.05"))
+	Fit.pre_smooth = str(args.get("presmooth", "0")) != "0"
+	if mode in ["batch", "json_batch"]:
+		var folder := str(args["in"])
+		var extension := ".json" if mode == "json_batch" else ".fbx"
+		var errors := 0
+		var files := DirAccess.get_files_at(folder)
+		var out_dir := str(args.get("dir", "res://assets/anim/baked"))
+		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(out_dir))
+		files.sort()
+		for file in files:
+			if not file.to_lower().ends_with(extension):
+				continue
+			var stem := "mc_" + file.get_basename().replace("_ ", "_").replace(" ", "_")
+			var out := out_dir.path_join(stem + ".res")
+			var old := out.get_basename() + "_old.res"
+			if ResourceLoader.exists(out) and not ResourceLoader.exists(old):
+				errors += 1 if ResourceSaver.save((load(out) as Animation).duplicate(true), old) != OK else 0
+			var one := _from_json(folder.path_join(file), 0.0, -1.0) if mode == "json_batch" else _from_fbx(folder.path_join(file), 0.0, -1.0)
+			if one.is_empty():
+				errors += 1
+				continue
+			one["hold"] = []
+			_pin = str(args.get("pin", "1")) != "0"
+			_smooth = str(args.get("smooth", "1")) != "0"
+			errors += _bake(one, out, str(args.get("glb", "mh_boxer_10")), stem)
+		print("OWNEDMOCAP BATCH clips=%d errors=%d" % [files.size(), errors])
+		quit(1 if errors else 0)
+		return
 	var src := {}
 	match mode:
 		"fbx":
@@ -86,21 +105,11 @@ func _initialize() -> void:
 	if src.is_empty():
 		quit(1)
 		return
-	# S383 CMU's hand and toe segments are noise (1-2 DOF, few markers): they flipped up to 177 deg in one frame. Held at
-	# the reference pose (a straight wrist - a boxer's wrist is straight - and a flat boot) unless hold= says otherwise.
 	src["hold"] = Array(str(args.get("hold", "LeftHand,RightHand,LeftToes,RightToes" if mode == "json" else "")).split(",", false))
 	var dir := str(args.get("dir", "res://assets/anim/baked"))
-	# S383b diagnosis: pin=0 skips the planted-foot pin (owned_mocap_jitter.gd compares the clip with and without it).
 	_pin = str(args.get("pin", "1")) != "0"
-	# S383c smooth=0 skips the zero-phase smoothing of the noisy tracks (tools/owned_mocap_smooth.gd).
 	_smooth = str(args.get("smooth", "1")) != "0"
 	quit(_bake(src, dir.path_join(str(args["out"]) + ".res"), str(args.get("glb", "mh_boxer_08")), str(args["out"])))
-
-
-# ---------------------------------------------------------------- sources
-
-## The node's transform up to the scene root, multiplied by hand (in _initialize the scene is not in the tree yet, so
-## global_transform reads identity - an FBX's unit scale / axis turn sits on its parent nodes).
 static func _chain_xf(n: Node) -> Transform3D:
 	var x := Transform3D.IDENTITY
 	var cur := n
@@ -109,14 +118,9 @@ static func _chain_xf(n: Node) -> Transform3D:
 			x = (cur as Node3D).transform * x
 		cur = cur.get_parent()
 	return x
-
-
 static func _strip(n: String) -> String:
 	var re := RegEx.create_from_string("^mixamorig\\d*[:_]")
 	return re.sub(n, "")
-
-
-## An FBX take (Godot's own FBX reader, ufbx) as the source dict: the bones' world rotation away from rest + positions.
 func _from_fbx(path: String, t0: float, t1: float) -> Dictionary:
 	var doc := FBXDocument.new()
 	var st := FBXState.new()
@@ -148,7 +152,6 @@ func _from_fbx(path: String, t0: float, t1: float) -> Dictionary:
 		if not idx.has(need):
 			print("OWNEDMOCAP FAILED: %s has no bone for %s (%s)" % [path, need, rig.get(need, "?")])
 			return {}
-	# Tracks by bone index.
 	var tr := {}
 	for t in anim.get_track_count():
 		var p := anim.track_get_path(t)
@@ -157,7 +160,6 @@ func _from_fbx(path: String, t0: float, t1: float) -> Dictionary:
 		var b := skel.find_bone(str(p.get_subname(0)))
 		if b >= 0:
 			tr["%d|%d" % [b, anim.track_get_type(t)]] = t
-	# S383c: Rokoko's FBX is keyed at 24 fps - read cubic, its teleporting first key removed (Smooth.fbx_cubic).
 	var t_first := Smooth.fbx_cubic(anim, tr.values(), tr.get("%d|%d" % [idx["Hips"], Animation.TYPE_POSITION_3D], -1))
 	var sg := _chain_xf(skel)
 	var rest_g := []
@@ -197,12 +199,10 @@ func _from_fbx(path: String, t0: float, t1: float) -> Dictionary:
 			P[j] = (sg * (g[idx[j]] as Transform3D)).origin
 		frames.append({"D": D, "P": P})
 		t += 1.0 / FPS
-	scene.queue_free()
+	scene.free()
 	print("OWNEDMOCAP source %s: rig %s, take %.2f s, used %.2f-%.2f s, %d frames" % [
 		path.get_file(), "mixamo" if rig == MIXAMO else "unreal", anim.length, t0, end, frames.size()])
 	return {"name": path.get_file(), "rest": rest, "frames": frames}
-
-
 func _from_json(path: String, t0: float, t1: float) -> Dictionary:
 	var d: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
 	var rest := {}
@@ -226,29 +226,16 @@ func _from_json(path: String, t0: float, t1: float) -> Dictionary:
 		frames.append({"D": D, "P": P})
 	print("OWNEDMOCAP source %s: %d frames (%.2f-%.2f s)" % [str(d["source"]), frames.size(), t0, (i1 - 1) / FPS])
 	return {"name": str(d["source"]), "rest": rest, "frames": frames}
-
-
-# ---------------------------------------------------------------- retarget
-
 static func _frame_basis(lateral: Vector3, up: Vector3) -> Basis:
 	var u := up.normalized()
 	var l := (lateral - u * lateral.dot(u)).normalized()
 	return Basis(l, u, l.cross(u).normalized())
-
-
 static func _yaw_about(up: Vector3, from: Vector3, to: Vector3) -> Quaternion:
 	var a := (from - up * from.dot(up)).normalized()
 	var b := (to - up * to.dot(up)).normalized()
 	return Quaternion(up, a.signed_angle_to(b, up))
-
-
-var _pin := true
-var _smooth := true
-var _fk_par: Array = []
-var _fk_rot: Array = []
-var _fk_pos: Array = []
-
-
+var _pin := true; var _smooth := true; var _passes := 4; var _final_fit := true; var _follow := 2; var _final_smooth := false; var _fit_bare := false; var _facing := true
+var _fk_par: Array = []; var _fk_rot: Array = []; var _fk_pos: Array = []
 func _g(i: int) -> Transform3D:
 	var x := Transform3D(Basis(_fk_rot[i] as Quaternion), _fk_pos[i] as Vector3)
 	var p: int = _fk_par[i]
@@ -256,8 +243,6 @@ func _g(i: int) -> Transform3D:
 		x = Transform3D(Basis(_fk_rot[p] as Quaternion), _fk_pos[p] as Vector3) * x
 		p = _fk_par[p]
 	return x
-
-
 func _bake(src: Dictionary, out: String, glb: String, stem: String) -> int:
 	var body := MH.load_fighter("res://assets/models/metahuman/%s.glb" % glb)
 	root.add_child(body)
@@ -273,8 +258,6 @@ func _bake(src: Dictionary, out: String, glb: String, stem: String) -> int:
 		rest_t[n] = skel.get_bone_global_rest(bi[n]).origin
 	var rest_s: Dictionary = src["rest"]
 	var frames: Array = src["frames"]
-	# A take whose first key is not the motion (Rokoko's Mixamo exports: frame 0 sits ~1 m off, a one-frame teleport):
-	# leading frames are dropped while the hips jump more than a tenth of a leg in one frame.
 	var leg0: float = (rest_s["LeftUpperLeg"] - rest_s["LeftLowerLeg"]).length() + (rest_s["LeftLowerLeg"] - rest_s["LeftFoot"]).length()
 	var cut := 0
 	while frames.size() > 2 and ((frames[1]["P"]["Hips"] as Vector3) - (frames[0]["P"]["Hips"] as Vector3)).length() > 0.1 * leg0:
@@ -282,19 +265,17 @@ func _bake(src: Dictionary, out: String, glb: String, stem: String) -> int:
 		cut += 1
 	if cut > 0:
 		print("OWNEDMOCAP dropped %d leading frame(s): the hips jump on the take's first key" % cut)
-	# Q: the source world -> our skeleton space, rest facing to rest facing (world up stays up).
 	var bs := _frame_basis(rest_s["LeftUpperLeg"] - rest_s["RightUpperLeg"], Vector3.UP)
 	var bt := _frame_basis(rest_t["LeftUpperLeg"] - rest_t["RightUpperLeg"], up_t)
 	var Q := (bt * bs.inverse()).get_rotation_quaternion()
-	# Y0: the actor's facing over the first second turned to the rest facing (a take may start turned).
 	var fwd_s := bs.z
 	var acc := Vector3.ZERO
 	for i in mini(frames.size(), int(FPS)):
 		acc += (frames[i]["D"]["Hips"] as Quaternion) * fwd_s
 	var Y0 := _yaw_about(Vector3.UP, acc, fwd_s)
-	var S := (Q * Y0).normalized()
+	# RETARGET2B: a bought take is already on its mark; Y0 squares the hips to the camera, which turns a bladed boxer side-on.
+	var S := (Q * (Y0 if _facing else Quaternion.IDENTITY)).normalized()
 	var Qi := Q.inverse()
-	# Leg length ratio and the floors (source: its planted toe height, the 10th percentile of the lower toe).
 	var leg_s := 0.0
 	var leg_t := 0.0
 	for side in ["Left", "Right"]:
@@ -310,8 +291,6 @@ func _bake(src: Dictionary, out: String, glb: String, stem: String) -> int:
 	var hips_t: Vector3 = rest_t["Hips"]
 	var h0: Vector3 = frames[0]["P"]["Hips"]
 	var hj_off_s: Vector3 = (rest_s["LeftUpperLeg"] + rest_s["RightUpperLeg"]) * 0.5 - rest_s["Hips"]
-	# The matched reference pose.
-	# Our own FK on plain arrays (a Skeleton3D outside the tree does not refresh its global poses).
 	_fk_par.clear()
 	_fk_rot.clear()
 	_fk_pos.clear()
@@ -338,7 +317,6 @@ func _bake(src: Dictionary, out: String, glb: String, stem: String) -> int:
 	var gref := {}
 	for n in MAPPED:
 		gref[n] = _g(bi[n]).basis.get_rotation_quaternion()
-	# The output: the template's tracks, keyed at 30 fps.
 	var tmpl := load(TEMPLATE) as Animation
 	var anim := Animation.new()
 	anim.length = (frames.size() - 1) / FPS
@@ -352,14 +330,8 @@ func _bake(src: Dictionary, out: String, glb: String, stem: String) -> int:
 	var hb: int = bi["Hips"]
 	var hpar := skel.get_bone_parent(hb)
 	var hrest := skel.get_bone_rest(hb).origin
-	# Bars as we go.
-	var feet := {"L": [], "R": []}
-	var knees := {"L": [], "R": []}
-	var elbows := []
-	var hips_y := []
-	var hps := []        # hips per frame before the plant correction
-	var offs := {"L": [], "R": []}   # ball of the foot relative to the hips
-	var corr := []       # the plant correction per frame (null where no foot is planted)
+	var feet := {"L": [], "R": []}; var hps := []
+	var offs := {"L": [], "R": []}; var corr := []
 	for fi in frames.size():
 		var f: Dictionary = frames[fi]
 		for i in skel.get_bone_count():
@@ -374,8 +346,6 @@ func _bake(src: Dictionary, out: String, glb: String, stem: String) -> int:
 			_fk_rot[b] = (pg.inverse() * g).normalized()
 		var hs: Vector3 = f["P"]["Hips"]
 		var dxz := Vector3(hs.x - h0.x, 0.0, hs.z - h0.z)
-		# Height: the source's HIP JOINTS (mid thigh tops) above its floor, scaled - not its pelvis bone, which sits 2 cm
-		# over the hip joints on our boxer and ~10 cm on CMU / Mixamo.
 		var hj_y: float = hs.y + ((f["D"]["Hips"] as Quaternion) * hj_off_s).y
 		var rise := (hj_y - floor_s) * k
 		_fk_pos[hb] = hrest
@@ -389,18 +359,12 @@ func _bake(src: Dictionary, out: String, glb: String, stem: String) -> int:
 			if anim.track_get_type(nt) == Animation.TYPE_ROTATION_3D:
 				anim.rotation_track_insert_key(nt, time, _fk_rot[b])
 		hps.append(hp)
-		# PLANTS: our legs are not the actor's, so his planted foot would skate under our body. Where his ball of the foot
-		# is on his floor, the hips move (along the floor only) so OUR ball lands where HIS lands (scaled, same travel).
 		var wsum := 0.0
 		var acc_c := Vector3.ZERO
 		for side in ["L", "R"]:
 			var nm := "Left" if side == "L" else "Right"
-			var th := _g(bi[nm + "UpperLeg"]).origin
-			var kn := _g(bi[nm + "LowerLeg"]).origin
-			var an := _g(bi[nm + "Foot"]).origin
 			var toe := _g(bi[nm + "Toes"]).origin
 			offs[side].append(toe - hp)
-			knees[side].append(180.0 - rad_to_deg((th - kn).angle_to(an - kn)))
 			var ps: Vector3 = f["P"][nm + "Toes"]
 			var w := clampf(1.0 - (ps.y - floor_s) / 0.03, 0.0, 1.0)
 			if w > 0.0:
@@ -410,16 +374,6 @@ func _bake(src: Dictionary, out: String, glb: String, stem: String) -> int:
 				acc_c += d * w
 				wsum += w
 		corr.append(acc_c / wsum if wsum > 0.05 else null)
-		var eb := 0
-		for nm in ["Left", "Right"]:
-			var sh := _g(bi[nm + "UpperArm"]).origin
-			var el := _g(bi[nm + "LowerArm"]).origin
-			var wr := _g(bi[nm + "Hand"]).origin
-			if 180.0 - rad_to_deg((sh - el).angle_to(wr - el)) > 70.0:
-				eb += 1
-		elbows.append(1 if eb == 2 else 0)
-		hips_y.append(_g(hb).origin.dot(up_t))
-	# The plant correction: gaps (both feet up) bridged linearly, then a 7-frame centred average (no pops).
 	var n_f := corr.size()
 	var filled := []
 	filled.resize(n_f)
@@ -450,8 +404,6 @@ func _bake(src: Dictionary, out: String, glb: String, stem: String) -> int:
 		anim.position_track_insert_key(hpos_t, i / FPS, hp_final - hrest)
 		for side in ["L", "R"]:
 			feet[side].append(hp_final + (offs[side][i] as Vector3))
-	# Floor: the planted balls of the feet land on OUR floor (a source's toe joint sits at another height in its foot):
-	# one constant hips shift so the 5th-percentile ball height equals our rest ball height.
 	var raw_h: Array = []
 	for side in feet:
 		for p in feet[side]:
@@ -465,32 +417,52 @@ func _bake(src: Dictionary, out: String, glb: String, stem: String) -> int:
 	for side in feet:
 		for i in (feet[side] as Array).size():
 			feet[side][i] = (feet[side][i] as Vector3) + up_t * lift
-	for i in hips_y.size():
-		hips_y[i] = float(hips_y[i]) + lift
-	# S383c the noisy tracks low-passed, zero phase (tools/owned_mocap_smooth.gd), before the pin solves the legs on them.
 	var punch: Dictionary = Plant.punch_exempt(anim, skel)
 	if _smooth:
-		print("OWNEDMOCAP SMOOTH %s %s" % [stem, Smooth.report(Smooth.smooth(anim, [], punch))])
-	# S383 the planted-foot pin: each plant of OUR foot held still by leg IK (tools/owned_mocap_plant.gd).
+		Smooth.smooth(anim, [], punch)
 	var pinned: Dictionary = Plant.pin(anim, skel, up_t) if _pin else {}
-	# S383c the pin's per-frame IK hands the hips' leftover shake to the knees: the leg tracks are smoothed again (their
-	# shake down to 0.05 deg, cut-off no lower than 4 Hz), then pinned once more (the smoothing moved the planted feet).
 	if _smooth and _pin:
-		print("OWNEDMOCAP SMOOTH-LEGS %s %s" % [stem, Smooth.report(Smooth.smooth(anim, ["LeftUpperLeg", "LeftLowerLeg",
-			"LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot"], {}, 0.05))])
+		Smooth.smooth(anim, ["LeftUpperLeg", "LeftLowerLeg", "LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot"], {}, 0.05)
 		pinned = Plant.pin(anim, skel, up_t)
+	var fit_tr: Dictionary = Plant._tracks(anim)
+	var fit_want := {}
+	var fit_on := {}
+	var goals := Fit.targets(anim, skel, fit_tr, bi, frames, S, k)
+	fit_want = goals["want"]
+	fit_on = goals["on"]
+	for side in ["Left", "Right"]:
+		var leg := [bi[side + "UpperLeg"], bi[side + "LowerLeg"], bi[side + "Foot"]]
+		for fi in frames.size():
+			Plant._leg_ik(anim, skel, fit_tr, side, leg, fi, (fit_want[side][fi] as Vector3) - Plant._glob(skel, anim, fit_tr, leg[2], fi).origin)
+	if _smooth or _fit_bare:
+		for _pass in (_passes if _smooth else 0):
+			Smooth.smooth(anim, ["Hips", "LeftUpperLeg", "LeftLowerLeg", "LeftFoot",
+				"RightUpperLeg", "RightLowerLeg", "RightFoot"], {}, 0.05)
+		Plant.pin(anim, skel, up_t)
+		var hips_track: int = fit_tr["Hips@pos"]
+		var parent_basis := skel.get_bone_global_rest(hpar).basis if hpar >= 0 else Basis.IDENTITY
+		for fi in frames.size():
+			var correction := Vector3.ZERO
+			var count := 0
+			for side in ["Left", "Right"]:
+				var foot: int = bi[side + "Foot"]
+				var current: Vector3 = Plant._glob(skel, anim, fit_tr, foot, fi).origin
+				var delta: Vector3 = fit_want[side][fi] - current
+				correction.y += delta.y * 0.5
+				if fit_on[side][fi]:
+					correction += Vector3(delta.x, 0.0, delta.z)
+					count += 1
+			if count > 0:
+				correction = Vector3(correction.x / count, correction.y, correction.z / count)
+			var hp_key: Vector3 = anim.track_get_key_value(hips_track, fi)
+			anim.track_set_key_value(hips_track, fi, hp_key + parent_basis.inverse() * correction)
+		if _final_fit:
+			Fit.finish(anim, skel, fit_tr, bi, frames, k, fit_want, fit_on, _follow, up_t)
+			if _final_smooth:
+				Smooth.smooth(anim, ["LeftUpperLeg", "LeftLowerLeg", "LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot"], {}, Fit.smooth_target)
 	if ResourceSaver.save(anim, out) != OK:
 		print("OWNEDMOCAP FAILED to save ", out)
 		return 1
-	# Bars: tools/owned_mocap_measure.gd reads the saved clip (plant slide, knees, stance, hips, elbows, guard, pops).
-	var path := 0.0
-	var last: Vector3 = frames[0]["P"]["Hips"]
-	for f in frames:
-		var hp: Vector3 = f["P"]["Hips"]
-		path += Vector2(hp.x - last.x, hp.z - last.z).length() * k
-		last = hp
-	var travel: Vector3 = (frames[-1]["P"]["Hips"] as Vector3) - h0
-	print("OWNEDMOCAP %s %s secs=%.2f pinned_frames L=%d R=%d hips_path=%.1f m net=%.2f m legs k=%.3f floor_lift=%+.3f m -> %s" % [
-		stem, str(src["name"]), anim.length, int(pinned.get("Left", 0)), int(pinned.get("Right", 0)), path,
-		Vector2(travel.x, travel.z).length() * k, k, lift, out])
+	print("OWNEDMOCAP %s %s secs=%.2f pinned L=%d R=%d k=%.3f -> %s" % [stem, str(src["name"]), anim.length, int(pinned.get("Left", 0)), int(pinned.get("Right", 0)), k, out])
+	body.free()
 	return 0
