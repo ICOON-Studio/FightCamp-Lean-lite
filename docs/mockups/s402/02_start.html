@@ -1,0 +1,82 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Start</title><style>
+@font-face{font-family:Barlow;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:BarlowB;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Marker;src:url(file:///E:/FightCamp/Lean/assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Kalam;src:url(file:///E:/FightCamp/Lean/assets/fonts/Kalam-Regular.ttf)}
+@font-face{font-family:KalamB;src:url(file:///E:/FightCamp/Lean/assets/fonts/Kalam-Bold.ttf)}
+:root{--wall:#CFE0EA;--board:#FDFEFE;--frame:#AEB8C0;--blue:#2F6FDB;--red:#E2483D;--yellow:#FFD54A;--green:#2FA36B;--ink:#22262E;--amber:#E8891B;--mut:#5d6870}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--wall);font-family:Barlow;color:var(--ink);overflow:hidden;position:relative}
+.top{height:76px;display:flex;align-items:center;padding:0 22px;gap:14px;background:#fff;box-shadow:0 3px 0 #B8CAD6;position:relative;z-index:5}
+.nb{border:1px solid #C9D3DB;border-radius:8px;padding:6px 13px;font-family:BarlowB;font-size:17px;color:#555}
+.gym{font-family:Marker;font-size:32px;color:var(--blue);margin-left:8px}
+.date{font-family:BarlowB;font-size:19px;line-height:1.1}.date small{display:block;font-family:Barlow;font-size:14px;color:#667}
+.sp{flex:1}
+.cash{text-align:right;font-family:BarlowB;font-size:27px;color:var(--green);line-height:1}.cash small{display:block;font-family:Barlow;font-size:14px;color:#667;margin-top:3px}
+.go{background:var(--blue);color:#fff;font-family:BarlowB;font-size:20px;padding:8px 24px;border-radius:30px;line-height:1.1;width:420px}.go small{display:block;font-family:Barlow;font-size:14px;opacity:.9}
+.wrap{display:flex;height:1004px}
+nav{width:200px;padding:14px 11px;display:flex;flex-direction:column;gap:11px}
+nav a{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-radius:12px;background:#fff;font-family:BarlowB;font-size:20px;border-left:8px solid var(--frame)}
+nav a.on{border-left-color:var(--red);box-shadow:0 4px 0 #B8CAD6}
+nav .b{background:var(--red);color:#fff;border-radius:10px;font-size:14px;padding:1px 7px}
+.anvil{margin:18px 0 0 22px;width:68px;height:68px;border:3px double var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center}
+main{flex:1;padding:14px 20px 16px 8px;position:relative}
+.board{background:var(--board);border:13px solid var(--frame);border-radius:6px;box-shadow:0 9px 0 #9FB1BE;position:relative;padding:16px 24px;overflow:hidden}
+.board::after{content:"";position:absolute;right:30px;bottom:-4px;width:260px;height:9px;background:#8d99a3;border-radius:3px;opacity:.0}
+h1{font-family:Marker;font-weight:400;font-size:46px;color:var(--blue);line-height:1}
+h2{font-family:Marker;font-weight:400;font-size:25px;color:var(--ink)}
+.cap{font-family:BarlowB;font-size:13px;letter-spacing:2px;color:#6c7781;text-transform:uppercase}
+.hand{font-family:Kalam;font-size:21px}
+.card{background:#fff;border:2px solid #D7DEE4;border-radius:10px;padding:12px 16px;box-shadow:0 3px 8px rgba(30,50,70,.1)}
+.pf{object-fit:cover;object-position:top;border-radius:6px;background:#111;display:block}
+.btn{display:inline-block;background:var(--blue);color:#fff;font-family:BarlowB;font-size:16px;padding:7px 18px;border-radius:20px;white-space:nowrap}
+.btn.g{background:#fff;color:var(--blue);border:2px solid var(--blue);padding:5px 16px}
+.btn.d{background:var(--ink)}
+.btn.q{background:#fff;color:#555;border:2px solid #C9D3DB;padding:5px 16px}
+.chip{display:inline-block;border:1.5px solid #8794a0;border-radius:14px;padding:1px 10px;font-family:BarlowB;font-size:12.5px;letter-spacing:.5px;text-transform:uppercase;color:#4a5560;white-space:nowrap}
+.chip.green{border-color:var(--green);color:var(--green)}.chip.red{border-color:var(--red);color:var(--red)}.chip.amber{border-color:var(--amber);color:var(--amber)}.chip.blue{border-color:var(--blue);color:var(--blue)}
+.new{display:inline-block;background:var(--red);color:#fff;font-family:BarlowB;font-style:normal;font-size:12px;letter-spacing:1px;padding:1px 7px;border-radius:4px;margin-left:8px;vertical-align:middle;transform:rotate(-3deg)}
+.sticky{position:relative;padding:14px 16px 12px;box-shadow:0 6px 12px rgba(30,40,50,.25);font-family:Kalam}
+.sticky .mag{position:absolute;top:-10px;left:50%;width:19px;height:19px;border-radius:50%;background:var(--red);box-shadow:0 2px 0 #A0302A}
+.y{background:#FFE46B}.o{background:#FFC27A}.gr{background:#BDEBC8}.bl{background:#BFDDFB}
+.kv{display:flex;justify-content:space-between;font-size:18px;padding:4px 0;border-bottom:1px solid #E5EAEE}.kv b{font-family:BarlowB}
+.pos{color:var(--green)}.neg{color:var(--red)}.am{color:var(--amber)}
+.bar{height:11px;background:#E3E8EC;border-radius:6px;position:relative;overflow:hidden}.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--blue);border-radius:6px}
+.pol{background:#fff;padding:9px 9px 34px;box-shadow:0 6px 14px rgba(0,0,0,.3);transform:rotate(-3deg);position:relative}
+.pol::before{content:"";position:absolute;top:-12px;left:50%;margin-left:-45px;width:90px;height:26px;background:rgba(240,225,150,.8);transform:rotate(2deg)}
+.pol span{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-family:Marker;font-size:19px}
+.pfw{overflow:hidden;position:relative;flex:none;border-radius:6px;background:#111}.pfw img{position:absolute;left:0;top:0;width:100%;height:auto;transform:scale(1.85);transform-origin:50% 9%}
+table{border-collapse:collapse;width:100%}
+th{font-family:BarlowB;font-size:14px;letter-spacing:1.5px;color:#6c7781;text-align:left;padding:6px 8px;text-transform:uppercase}
+td{padding:7px 8px;font-size:19px}
+</style></head><body><div class="wrap"><main>
+<div style="padding:10px 40px 0 190px">
+<div style="display:flex;gap:30px;border-bottom:4px solid #cfd6dc;margin:50px 0 16px"><span style="color:var(--green);font-family:BarlowB;font-size:17px;padding-bottom:8px">1&nbsp; You, the head coach</span><span style="color:var(--blue);font-family:BarlowB;font-size:17px;border-bottom:4px solid var(--blue);padding-bottom:8px;margin-bottom:-4px">2&nbsp; Your club and its start</span></div>
+<h1 style="font-size:54px;color:var(--ink)">2. Your club</h1>
+<div style="display:flex;gap:70px;margin-top:20px">
+ <div><div class="cap">Country</div><div style="display:flex;gap:8px;margin:6px 0 14px"><span class="btn">United Kingdom</span><span class="btn q">Ireland</span><span class="btn q">United States</span><span class="btn q">Mexico</span></div>
+ <div class="cap">City</div><div style="display:flex;gap:8px;margin-top:6px"><span class="btn">London</span><span class="btn q">Manchester</span><span class="btn q">Liverpool</span><span class="btn q">Glasgow</span></div></div>
+ <div><div class="cap">Gym name</div><div class="card" style="width:420px;padding:10px 14px;font-size:22px;margin-top:6px">Anvil Street Gym</div><p style="font-size:15px;color:#667;margin-top:6px;width:420px">The city is your club's home: it is on the posters, the news and the prospects' list.</p></div></div>
+<div class="cap" style="margin:26px 0 10px">How the club starts - it is also how hard the first year is</div>
+<div style="display:flex;gap:16px">
+<div class="card" style="width:530px;border:3px solid var(--blue);padding:16px 18px">
+<div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:BarlowB;font-size:25px;text-transform:uppercase">Fresh doors</b><span class="chip green">Normal</span></div>
+<p style="font-size:17px;margin:8px 0;line-height:1.3">Three months of bills in the bank, 30 members, one walk-in at reception.</p>
+<div style="display:flex;gap:22px;margin:8px 0"><div><div class="cap">Bank</div><b style="font-size:21px">$17,200</b></div><div><div class="cap">Members</div><b style="font-size:21px">30</b></div><div><div class="cap">Dues</div><b style="font-size:21px">$242/wk</b></div><div><div class="cap">Rent</div><b style="font-size:21px">$415/wk</b></div></div>
+<div style="display:flex;gap:12px;align-items:center"><div class="pfw" style="width:66px;height:66px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_11.png"></div><span style="font-size:16px;line-height:1.3">Walk-in: Lucy Jackson, 3-1, 61.6 kg for the 60.0 kg limit (1.6 over)</span></div>
+<p style="font-family:BarlowB;font-size:16px;margin-top:10px;color:var(--amber)">Keep the doors open while you find your feet.</p></div>
+<div class="card" style="width:530px;padding:16px 18px">
+<div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:BarlowB;font-size:25px;text-transform:uppercase">In debt, one good boxer</b><span class="chip red">Hard</span></div>
+<p style="font-size:17px;margin:8px 0;line-height:1.3">One month in the bank and a loan of $180 a week for 26 weeks. The walk-in is the best prospect in the area.</p>
+<div style="display:flex;gap:22px;margin:8px 0"><div><div class="cap">Bank</div><b style="font-size:21px">$5,700</b></div><div><div class="cap">Members</div><b style="font-size:21px">24</b></div><div><div class="cap">Dues</div><b style="font-size:21px">$194/wk</b></div><div><div class="cap">Rent</div><b style="font-size:21px">$415/wk</b></div><div><div class="cap">Loan</div><b style="font-size:21px;color:var(--red)">-$180/wk</b></div></div>
+<div style="display:flex;gap:12px;align-items:center"><div class="pfw" style="width:66px;height:66px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_11.png"></div><span style="font-size:16px;line-height:1.3">The same walk-in: every attribute +4, 2.2 kg over</span></div>
+<p style="font-family:BarlowB;font-size:16px;margin-top:10px;color:var(--red)">The walk-in has let the weight go: 2.2 kg over for the first show.</p></div>
+<div class="card" style="width:530px;padding:16px 18px">
+<div style="display:flex;justify-content:space-between;align-items:center"><b style="font-family:BarlowB;font-size:25px;text-transform:uppercase">Backed, big expectations</b><span class="chip amber">Risky</span></div>
+<p style="font-size:17px;margin:8px 0;line-height:1.3">Six months in the bank, 40 members and bigger rooms (rent x1.5), paid for by local backers.</p>
+<div style="display:flex;gap:22px;margin:8px 0"><div><div class="cap">Bank</div><b style="font-size:21px">$38,400</b></div><div><div class="cap">Members</div><b style="font-size:21px">40</b></div><div><div class="cap">Dues</div><b style="font-size:21px">$323/wk</b></div><div><div class="cap">Rent</div><b style="font-size:21px">$623/wk</b></div></div>
+<div style="display:flex;gap:12px;align-items:center"><div class="pfw" style="width:66px;height:66px"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_11.png"></div><span style="font-size:16px;line-height:1.3">The same walk-in</span></div>
+<p style="font-family:BarlowB;font-size:16px;margin-top:10px;color:var(--red)">The backers want the first show won, or they take $5,000 back.</p></div>
+</div>
+<div style="display:flex;justify-content:space-between;margin-top:30px"><span class="btn q">Back</span><span class="btn" style="font-size:19px;padding:9px 24px">Open the gym</span></div>
+</div></main></div></body></html>

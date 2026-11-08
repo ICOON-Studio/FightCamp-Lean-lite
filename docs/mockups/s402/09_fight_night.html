@@ -1,0 +1,78 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Fight night</title><style>
+@font-face{font-family:Barlow;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:BarlowB;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Marker;src:url(file:///E:/FightCamp/Lean/assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Kalam;src:url(file:///E:/FightCamp/Lean/assets/fonts/Kalam-Regular.ttf)}
+@font-face{font-family:KalamB;src:url(file:///E:/FightCamp/Lean/assets/fonts/Kalam-Bold.ttf)}
+:root{--wall:#CFE0EA;--board:#FDFEFE;--frame:#AEB8C0;--blue:#2F6FDB;--red:#E2483D;--yellow:#FFD54A;--green:#2FA36B;--ink:#22262E;--amber:#E8891B;--mut:#5d6870}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--wall);font-family:Barlow;color:var(--ink);overflow:hidden;position:relative}
+.top{height:76px;display:flex;align-items:center;padding:0 22px;gap:14px;background:#fff;box-shadow:0 3px 0 #B8CAD6;position:relative;z-index:5}
+.nb{border:1px solid #C9D3DB;border-radius:8px;padding:6px 13px;font-family:BarlowB;font-size:17px;color:#555}
+.gym{font-family:Marker;font-size:32px;color:var(--blue);margin-left:8px}
+.date{font-family:BarlowB;font-size:19px;line-height:1.1}.date small{display:block;font-family:Barlow;font-size:14px;color:#667}
+.sp{flex:1}
+.cash{text-align:right;font-family:BarlowB;font-size:27px;color:var(--green);line-height:1}.cash small{display:block;font-family:Barlow;font-size:14px;color:#667;margin-top:3px}
+.go{background:var(--blue);color:#fff;font-family:BarlowB;font-size:20px;padding:8px 24px;border-radius:30px;line-height:1.1;width:420px}.go small{display:block;font-family:Barlow;font-size:14px;opacity:.9}
+.wrap{display:flex;height:1004px}
+nav{width:200px;padding:14px 11px;display:flex;flex-direction:column;gap:11px}
+nav a{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-radius:12px;background:#fff;font-family:BarlowB;font-size:20px;border-left:8px solid var(--frame)}
+nav a.on{border-left-color:var(--red);box-shadow:0 4px 0 #B8CAD6}
+nav .b{background:var(--red);color:#fff;border-radius:10px;font-size:14px;padding:1px 7px}
+.anvil{margin:18px 0 0 22px;width:68px;height:68px;border:3px double var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center}
+main{flex:1;padding:14px 20px 16px 8px;position:relative}
+.board{background:var(--board);border:13px solid var(--frame);border-radius:6px;box-shadow:0 9px 0 #9FB1BE;position:relative;padding:16px 24px;overflow:hidden}
+.board::after{content:"";position:absolute;right:30px;bottom:-4px;width:260px;height:9px;background:#8d99a3;border-radius:3px;opacity:.0}
+h1{font-family:Marker;font-weight:400;font-size:46px;color:var(--blue);line-height:1}
+h2{font-family:Marker;font-weight:400;font-size:25px;color:var(--ink)}
+.cap{font-family:BarlowB;font-size:13px;letter-spacing:2px;color:#6c7781;text-transform:uppercase}
+.hand{font-family:Kalam;font-size:21px}
+.card{background:#fff;border:2px solid #D7DEE4;border-radius:10px;padding:12px 16px;box-shadow:0 3px 8px rgba(30,50,70,.1)}
+.pf{object-fit:cover;object-position:top;border-radius:6px;background:#111;display:block}
+.btn{display:inline-block;background:var(--blue);color:#fff;font-family:BarlowB;font-size:16px;padding:7px 18px;border-radius:20px;white-space:nowrap}
+.btn.g{background:#fff;color:var(--blue);border:2px solid var(--blue);padding:5px 16px}
+.btn.d{background:var(--ink)}
+.btn.q{background:#fff;color:#555;border:2px solid #C9D3DB;padding:5px 16px}
+.chip{display:inline-block;border:1.5px solid #8794a0;border-radius:14px;padding:1px 10px;font-family:BarlowB;font-size:12.5px;letter-spacing:.5px;text-transform:uppercase;color:#4a5560;white-space:nowrap}
+.chip.green{border-color:var(--green);color:var(--green)}.chip.red{border-color:var(--red);color:var(--red)}.chip.amber{border-color:var(--amber);color:var(--amber)}.chip.blue{border-color:var(--blue);color:var(--blue)}
+.new{display:inline-block;background:var(--red);color:#fff;font-family:BarlowB;font-style:normal;font-size:12px;letter-spacing:1px;padding:1px 7px;border-radius:4px;margin-left:8px;vertical-align:middle;transform:rotate(-3deg)}
+.sticky{position:relative;padding:14px 16px 12px;box-shadow:0 6px 12px rgba(30,40,50,.25);font-family:Kalam}
+.sticky .mag{position:absolute;top:-10px;left:50%;width:19px;height:19px;border-radius:50%;background:var(--red);box-shadow:0 2px 0 #A0302A}
+.y{background:#FFE46B}.o{background:#FFC27A}.gr{background:#BDEBC8}.bl{background:#BFDDFB}
+.kv{display:flex;justify-content:space-between;font-size:18px;padding:4px 0;border-bottom:1px solid #E5EAEE}.kv b{font-family:BarlowB}
+.pos{color:var(--green)}.neg{color:var(--red)}.am{color:var(--amber)}
+.bar{height:11px;background:#E3E8EC;border-radius:6px;position:relative;overflow:hidden}.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--blue);border-radius:6px}
+.pol{background:#fff;padding:9px 9px 34px;box-shadow:0 6px 14px rgba(0,0,0,.3);transform:rotate(-3deg);position:relative}
+.pol::before{content:"";position:absolute;top:-12px;left:50%;margin-left:-45px;width:90px;height:26px;background:rgba(240,225,150,.8);transform:rotate(2deg)}
+.pol span{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-family:Marker;font-size:19px}
+.pfw{overflow:hidden;position:relative;flex:none;border-radius:6px;background:#111}.pfw img{position:absolute;left:0;top:0;width:100%;height:auto;transform:scale(1.85);transform-origin:50% 9%}
+table{border-collapse:collapse;width:100%}
+th{font-family:BarlowB;font-size:14px;letter-spacing:1.5px;color:#6c7781;text-align:left;padding:6px 8px;text-transform:uppercase}
+td{padding:7px 8px;font-size:19px}
+
+body{background:#0b0c0f;color:#e8e6df}
+.dk{background:#14161b;border:2px solid #2a2e36;border-radius:8px;padding:14px 18px}
+.mono{font-family:Barlow;letter-spacing:1.5px;font-size:13px;color:#aab}
+.gold{color:#E9B949}
+.pfw{border-radius:6px}</style></head><body><div class="wrap"><main><div style="display:grid;grid-template-columns:1fr 1fr;gap:26px;padding:6px 20px 0;zoom:1.22"><div>
+<div style="display:flex;justify-content:space-between;align-items:center;height:42px;font-size:13px;letter-spacing:2px;color:#aab"><span>CORNER &nbsp; 0:44 &nbsp; ROUND 2 NEXT</span><span class="btn q" style="background:#1d2026;border-color:#3a3f48;color:#ccc;font-size:14px">Skip to the bell</span></div>
+<div style="height:380px;border-radius:8px;background:radial-gradient(ellipse at 40% 60%,#3b1d1a 0%,#17110f 55%,#0b0c0f 100%);position:relative;display:flex;align-items:flex-end;padding:20px;border:2px solid #2a2e36">
+ <div style="position:absolute;left:30px;bottom:40px;display:flex;gap:18px;align-items:flex-end"><div class="pfw" style="width:190px;height:230px;border:3px solid #e5543f"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_11.png"></div><div class="pfw" style="width:120px;height:150px;opacity:.9"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_staff_coach.png"></div></div>
+ <div style="position:absolute;right:0;top:0;bottom:0;width:60%;background:linear-gradient(90deg,transparent,#0b0c0f 85%)"></div>
+ <div style="position:absolute;left:0;right:0;bottom:6px;text-align:center;font-family:KalamB;font-size:22px;color:#f2eee2">"One more thing. Chases the stoppage: fix it this round."</div>
+</div>
+<div class="dk" style="margin-top:12px">
+ <div class="mono">ROUND 1: PRIYA'S ROUND &nbsp;-&nbsp; <span class="gold">10-9 ON YOUR CARD</span> &nbsp;-&nbsp; ROUNDS 0-1</div>
+ <div style="display:flex;justify-content:space-between;font-size:13px;margin:6px 0 2px"><b style="color:#e5543f;letter-spacing:1px">LUCY</b><span class="mono">THIS ROUND</span><b style="color:#3d7fe0;letter-spacing:1px">PRIYA</b></div><div style="display:grid;grid-template-columns:140px 70px 1fr 1fr 70px;gap:8px;align-items:center;font-size:14.5px;margin:4px 0"><span>Punches landed</span><span class="gold" style="font-size:13px">21 of 59</span><div style="height:8px;background:#2a2e36"><i style="display:block;height:8px;width:35%;background:#e5543f"></i></div><div style="height:8px;background:#2a2e36"><i style="display:block;height:8px;width:36%;background:#3d7fe0"></i></div><span style="font-size:13px;text-align:right">23 of 64</span></div><div style="display:grid;grid-template-columns:140px 70px 1fr 1fr 70px;gap:8px;align-items:center;font-size:14.5px;margin:4px 0"><span>To the body</span><span class="gold" style="font-size:13px">2 of 5</span><div style="height:8px;background:#2a2e36"><i style="display:block;height:8px;width:40%;background:#e5543f"></i></div><div style="height:8px;background:#2a2e36"><i style="display:block;height:8px;width:53%;background:#3d7fe0"></i></div><span style="font-size:13px;text-align:right">8 of 15</span></div><div style="display:grid;grid-template-columns:140px 70px 1fr 1fr 70px;gap:8px;align-items:center;font-size:14.5px;margin:4px 0"><span>Worst spot</span><span class="gold" style="font-size:13px">Left eye 66</span><div style="height:8px;background:#2a2e36"><i style="display:block;height:8px;width:66%;background:#e5543f"></i></div><div style="height:8px;background:#2a2e36"><i style="display:block;height:8px;width:66%;background:#3d7fe0"></i></div><span style="font-size:13px;text-align:right">Nose 66</span></div>
+ <div class="mono" style="margin-top:8px">IN THE CORNER: WHAT DO YOU TELL LUCY?</div>
+ <div style="font-size:15px;margin:4px 0"><b class="gold">COACH</b> &nbsp;Priya has read the jab. "Step back, then jab" has stopped working. <i class="new">NEW names the line</i></div>
+ <div style="display:flex;gap:10px;font-size:14px;margin-top:6px"><span class="mono" style="color:#E9B949">1 THE MINUTE</span><span class="mono" style="color:#E9B949">2 PICK THE PLAN - IT STARTS THE ROUND</span></div>
+ <div style="display:flex;gap:8px;margin-top:6px;align-items:stretch"><div style="width:150px;flex:none;background:#2a1614;border:2px solid #e5543f;border-radius:6px;padding:6px 8px;font-size:12.5px"><span class="mono" style="color:#e5543f">CUTMAN</span><br><b style="font-size:14px">Left eye closing</b><br>Stop it: she loses, the eye is safe<br>Go on: risk of a lasting cut</div><div style="width:2px;background:#555;flex:none"></div><div style="flex:1;border:2px solid #E9B949;border-radius:6px;padding:6px 8px;font-size:13px"><b style="font-size:14px">Step back, then jab</b><br><span style="color:#aab">keeps her off the ropes</span></div><div style="flex:1;border:2px solid #3a3f4a;border-radius:6px;padding:6px 8px;font-size:13px"><b style="font-size:14px">Go to the body</b><br><span style="color:#aab">slows Priya for later</span></div><div style="flex:1;border:2px solid #3a3f4a;border-radius:6px;padding:6px 8px;font-size:13px"><b style="font-size:14px">Off the ropes</b><br><span style="color:#aab">less damage, slower pace</span></div></div><div class="mono" style="margin-top:4px">TIME FOR TWO FIXES <i class="new">NEW cutman only when an eye is closing</i></div>
+</div></div><div>
+<div class="mono" style="height:42px;display:flex;align-items:center">THE RESULT</div>
+<div class="dk" style="padding:20px 24px">
+ <div style="display:grid;grid-template-columns:150px 1fr 150px;gap:14px;align-items:center"><div class="pfw" style="width:150px;height:190px;border:3px solid #e5543f"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_11.png"></div><div style="text-align:center"><div style="font-family:Marker;font-size:56px;color:#ff8f7c;line-height:1">LUCY JACKSON</div><div style="font-family:Marker;font-size:34px;color:#E9B949;margin:6px 0">WINS ON POINTS</div><div style="display:flex;gap:10px;justify-content:center"><div style="background:#1d2026;border:2px solid #3a3f48;border-radius:8px;padding:6px 14px"><div class="mono">JUDGE 1</div><b style="font-size:26px">29-28</b></div><div style="background:#1d2026;border:2px solid #3a3f48;border-radius:8px;padding:6px 14px"><div class="mono">JUDGE 2</div><b style="font-size:26px">29-28</b></div><div style="background:#1d2026;border:2px solid #3a3f48;border-radius:8px;padding:6px 14px"><div class="mono">JUDGE 3</div><b style="font-size:26px">28-29</b></div></div></div><div class="pfw" style="width:150px;height:190px;border:3px solid #3d7fe0"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_14.png"></div></div>
+</div>
+<div class="dk" style="margin-top:12px"><div style="display:flex;gap:16px;align-items:baseline"><span class="mono">WHY</span><b class="gold" style="font-size:24px">GOOD PLAN</b></div>
+ <div style="display:grid;grid-template-columns:140px 1fr;gap:8px 14px;margin-top:10px;font-size:16px;line-height:1.35"><span class="mono">YOUR PLAN</span><span>Your plan: 5 right answers, 1 wrong one, 2 neutral. Worth about +15% on the chance of winning.</span><span class="mono">AGAINST YOU</span><span>Chases the stoppage cost Lucy 3 exchanges; Priya's counters landed when Lucy loaded up.</span><span class="mono">NEXT</span><span>Keep the double jab at range; give the habit a line in the Playbook so the corner call is not the only fix.</span></div>
+</div>
