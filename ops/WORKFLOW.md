@@ -146,7 +146,7 @@ o_popups.ps1` (started by
   finishing an item is never a reason to end the turn. A turn ends ONLY when `now.next_action` and the queue are empty, or
   the single next item needs the operator's money/taste/scope. Otherwise the very next tool call after a commit is the first
   step of the next queued item (roadmap `now.next_action` order). The "queue + handover block" message is the LAST message of
-  a stage that is genuinely finished (CLAUDE.md s3 HANDOVER) - never a pause after one item, and context budget (s3: ~330k)
+  a stage that is genuinely finished (CLAUDE.md s3 HANDOVER) - never a pause after one item, and context budget (s3: ~420k)
   is the only other reason to stop. Before writing any closing message, ask: "is there a queued item I could start now?" - if
   yes, start it.
 - A defect you notice, you fix NOW, even off-milestone. The backlog is for features and cleanup, never for a seen defect.
@@ -173,7 +173,7 @@ o_popups.ps1` (started by
 ## 3. Session start and end
 - CLAUDE USAGE BUDGET (operator 2026-10-02, Pro plan, "switch to the cheaper mode"): default model Sonnet at medium
   effort (~/.claude/settings.json); the operator picks Opus in the model menu only for a hard problem. Run `start` ONCE.
-  ONE stage per session: hand over when the stage ships or the context passes ~330k tokens (get_usage; operator S201: "move handover to 330k" - a session already starts at ~90k), whichever
+  ONE stage per session: hand over when the stage ships or the context passes ~420k tokens (get_usage; operator S400: "do it 420k", was 330k since S201 - a session already starts at ~90k), whichever
   comes first. Connectors Higgsfield, Higgsfield Blender and Claude Docs are OFF by default; enable one only for a task
   that needs it. Read big files in windows, never whole.
 - ROUTED START (operator S215: desktop sessions bypass the Jev router; he wants no approval clicks): open a terminal tab running `jev` (ops/Tools/jev_claude.ps1) and continue the work there with `run_in_terminal`; the desktop session only reads/answers. Never type into a tab that holds a Claude session.

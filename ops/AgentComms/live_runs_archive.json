@@ -4446,6 +4446,338 @@
     "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-07_2027_southpaw1_before_after_argon_5_10_5_5_10)"
    },
    "archived": "2026-11-07 21:43 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "HITSELL5",
+   "title": "TASK HITSELL5 - QWEN (qwen3-coder) - find where a landed punch's reaction is lost in the played fight, then fix it there",
+   "status": "landed",
+   "started": "2026-11-07T20:41",
+   "eta": "2026-11-07T22:31",
+   "branch": "qwen/hitsell5",
+   "worktree": "E:/FightCamp/wt/LEAN_HITSELL5",
+   "wt": "E:/FightCamp/wt/LEAN_HITSELL5",
+   "brief": "ops/research/TASK_HITSELL5.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HITSELL5_dispatch_out.txt",
+   "match": "seat_dispatch.py run hitsell5",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HITSELL5_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HITSELL5_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HITSELL5_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": false,
+    "runner_pid": 10832,
+    "seat_pid": 26472
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/7 PASS; PR #76; films Argon ? -> 4/10",
+   "finished": "2026-11-07T22:07",
+   "pr": 76,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/head_react_probe.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_HITSELL5)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_snap_gain_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_HITSELL5)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_flash_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_HITSELL5)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_polish_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_HITSELL5)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/counter_cut_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_HITSELL5)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/body_keep_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_HITSELL5)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/inside_beats_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_HITSELL5)"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/HITSELL5/before.mp4",
+     "head": "615ff9dd599facc5c812a067efaf5398c17fbe26",
+     "score": "?",
+     "line": "",
+     "rc": 1,
+     "err": "GEMINI upload start failed: HTTP 402: Your prepayment credits are depleted. Please go to AI Studio at https://ai.studio/projects to manage your project and billing. Learn more at https://ai.google.dev/gemini-api/docs/billing#prepay. \n",
+     "verdict_file": ""
+    },
+    "after": {
+     "film": "E:/FightCamp/Lean/ops/previews/dispatch/HITSELL5/after.mp4",
+     "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/HITSELL5/after.gemini_argon.md",
+     "score": "4",
+     "line": "The change this task targets (visible hit reactions) can't be confirmed anywhere in this footage. Punches land at 0:12.0, 0:40.2 and 0:50.0 with no readable reaction, and the time-compressed stretches add frame-to-frame snaps that hurt more",
+     "rc": 1,
+     "err": "",
+     "head": "413b32b68875803acd70ca324f7bc9e706f7f594"
+    },
+    "board": "POSTED 2 file(s) -> http://127.0.0.1:8787/review  (E:\\FightCamp\\review\\2026-11-07_2207_hitsell5_before_after_argon_10_4_10_your)"
+   },
+   "archived_note": "S401 archived: PR closed"
+  },
+  {
+   "agent": "qwen",
+   "id": "MONEYOD1",
+   "title": "TASK MONEYOD1 - QWEN (qwen3-coder) - an overdraft with interest: the bank's lever before the 8-week close (rules only)",
+   "status": "landed",
+   "started": "2026-11-07T22:41",
+   "eta": "2026-11-08T00:31",
+   "branch": "qwen/moneyod1",
+   "worktree": "E:/FightCamp/wt/LEAN_MONEYOD1",
+   "wt": "E:/FightCamp/wt/LEAN_MONEYOD1",
+   "brief": "ops/research/TASK_MONEYOD1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/MONEYOD1_dispatch_out.txt",
+   "match": "seat_dispatch.py run moneyod1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/MONEYOD1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/MONEYOD1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/MONEYOD1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 36792,
+    "seat_pid": 32564
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 6/6 PASS; PR #79",
+   "finished": "2026-11-07T23:01",
+   "pr": 79,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/overdraft_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_MONEYOD1)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/money_close_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_MONEYOD1)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/game_money_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_MONEYOD1)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/first_hour_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_MONEYOD1)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/first_hour_walk_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_MONEYOD1)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_MONEYOD1)"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "archived_note": "S401 archived: PR closed"
+  },
+  {
+   "agent": "antigravity",
+   "id": "MONEYLAYOUT1",
+   "title": "TASK MONEYLAYOUT1 - AGY (Argon High) - Club > Money: decisions first, history folded (layout only)",
+   "status": "landed",
+   "started": "2026-11-07T23:11",
+   "eta": "2026-11-08T00:36",
+   "branch": "agy/moneylayout1",
+   "worktree": "E:/FightCamp/wt/LEAN_MONEYLAYOUT1",
+   "wt": "E:/FightCamp/wt/LEAN_MONEYLAYOUT1",
+   "brief": "ops/research/TASK_MONEYLAYOUT1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/MONEYLAYOUT1_dispatch_out.txt",
+   "match": "seat_dispatch.py run moneylayout1",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/MONEYLAYOUT1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/MONEYLAYOUT1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/MONEYLAYOUT1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 6924,
+    "seat_pid": 49792
+   },
+   "note": "S368 seat_dispatch: agy exit 0; 1 commit(s); checks 6/6 PASS; PR #80",
+   "finished": "2026-11-07T23:32",
+   "pr": 80,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/money_layout_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_MONEYLAYOUT1)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/game_money_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_MONEYLAYOUT1)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/money_close_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_MONEYLAYOUT1)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plain_words_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_MONEYLAYOUT1)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/tip_notes_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_MONEYLAYOUT1)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_MONEYLAYOUT1)"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "archived_note": "S401 archived: PR closed"
+  },
+  {
+   "agent": "cursor",
+   "id": "FIGHTERMODEL3",
+   "title": "TASK FIGHTERMODEL3 - CURSOR (GPT-5.6 Sol High) - the fighter model to 8/10 built, rule 2 held again",
+   "status": "landed",
+   "started": "2026-11-08T00:43",
+   "eta": "2026-11-08T02:33",
+   "branch": "cursor/fightermodel3",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHTERMODEL3",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHTERMODEL3",
+   "brief": "ops/research/TASK_FIGHTERMODEL3.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHTERMODEL3_dispatch_out.txt",
+   "match": "seat_dispatch.py run fightermodel3",
+   "model": "gpt-5.6-sol-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHTERMODEL3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHTERMODEL3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHTERMODEL3_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 38180,
+    "seat_pid": 42488
+   },
+   "note": "S368 seat_dispatch: cursor exit 1; 167 commit(s); checks 4/9 PASS; PR #82; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache",
+   "finished": "2026-11-08T01:39",
+   "pr": 82,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/fighter_model_bars_test.gd",
+     "ok": false,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_FIGHTERMODEL3)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fighter_model_bars_test.gd",
+     "ok": false,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_FIGHTERMODEL3)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fighter_model_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_FIGHTERMODEL3)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/matchmaking_bots_test.gd",
+     "ok": false,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_FIGHTERMODEL3)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bout_read_test.gd",
+     "ok": false,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_FIGHTERMODEL3)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/world_years_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_FIGHTERMODEL3)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/attr_board_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_FIGHTERMODEL3)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/balance_harness_test.gd",
+     "ok": true,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_FIGHTERMODEL3)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": false,
+     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_FIGHTERMODEL3)"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "archived_note": "S401 archived: PR closed"
   }
  ]
 }

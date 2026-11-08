@@ -466,8 +466,34 @@
   {
    "task": "RETARGET2",
    "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-08T03:00",
+   "launched": "2026-11-08T03:00"
+  },
+  {
+   "task": "FIGHTERMODEL3B",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-08T07:54",
+   "launched": "2026-11-08T09:11"
+  },
+  {
+   "task": "MONEYOD2",
+   "seat": "qwen",
    "status": "queued",
-   "queued": "2026-11-08T03:00"
+   "queued": "2026-11-08T07:56"
+  },
+  {
+   "task": "RETARGET2B",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-08T09:12"
+  },
+  {
+   "task": "CORNERTRUST1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-08T10:01"
   }
  ]
 }

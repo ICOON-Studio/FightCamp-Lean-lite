@@ -109,6 +109,22 @@ collects by diff). RESULT: no rules / menu / tool branch is left to merge - ever
 - Already on main, delete batch 3 (needs his OK): goose/issue-8, goose/issue-13, goose/issue-14, goose/issue-16,
   goose/issue-17, goose/issue-18, goose/issue-48, qwen/bodytrack1, qwen/paceaim1, qwen/ground3, qwen/prodebut1,
   qwen/kallinums1, qwen/noref1, qwen/sound1, cursor/ground2a, cursor/trainclips1 (16).
+  **S401 re-check (Q-S294-124 "Yes, delete the 16"; added lines of each branch looked up in main, not file presence):** the "already
+  on main" line above held for 9 of the 16 only. DELETED (share of added text lines on main; tip kept for restore):
+  goose/issue-8 100% 2327c5a7, goose/issue-13 99% d6971db7, goose/issue-17 91% 9c75ec05, goose/issue-48 99% 612eee34,
+  qwen/bodytrack1 100% 167cdba6, qwen/paceaim1 97% e743b5d9, qwen/ground3 99% 1cafef05, qwen/prodebut1 100% ed0f8dd1,
+  qwen/kallinums1 94% ccb98395. Restore: `git push origin <sha>:refs/heads/<name>`.
+  KEPT, code not on main: goose/issue-14 12% (Clinch.gd 23/275, tests/clinch_shape_test.gd), goose/issue-16 85%
+  (tools/moveplayer_still.gd 37/57), goose/issue-18 76% (GloveClear.gd 20/59), qwen/noref1 29% (PushOff.gd 26/77,
+  tools/push_off_probe.gd), qwen/sound1 33% (S386 not collected: synthetic placeholders; main has his final sound set),
+  cursor/ground2a 65% (GrappleContact.gd 119/234), cursor/trainclips1 49% (bake_session_pics.gd 117/412). Read S401, each
+  one is replaced or rejected work, none is a missed fix: issue-14 = CLINCH2 r4, rejected S352, main has Ziva's CLINCH2
+  (9092e67d); issue-18 = SMOOTH3 r3, rejected S353; issue-16 = MOVEPLAYER1 r2 tool, later rounds on main; noref1 = PR #23 closed,
+  main took NOREF from claude/fight9b (5b2a4983); ground2a = capsule push-out, main rebuilt it in S371 BJJ9 (6e58cb18);
+  trainclips1 = r4 failed, main has r5 (66237c8a).
+  **S401 DONE (operator, told they are replaced or rejected work: "Yes, delete the 7"):** deleted from origin. Tips for restore:
+  goose/issue-14 fee53078, goose/issue-16 4c9fb263, goose/issue-18 28fe5c75, qwen/noref1 e5347dac, qwen/sound1 a54bd8d2,
+  cursor/ground2a 0f7dc98e, cursor/trainclips1 15c4acea.
 - Fight animation / BJJ, NOT on main, held by the S399 rule (no layer work until clips match the source): claude/boxmap1,
   claude/theatre-ground, claude/defflow1 (partly on main), cursor/fightcard1 (partly), agy/refbreak1 (referee dropped in
   NOREF S386 - obsolete), arena/6e41a147 (rejected on main d0e95c2e), claude/jabfix1 (stale single bake).

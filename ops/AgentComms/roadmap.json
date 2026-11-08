@@ -5133,6 +5133,30 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Overdraft merged (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "One-frame films blocked",
+     "who": "claude"
+    },
+    {
+     "text": "Unapproved Money page reverted",
+     "who": "claude"
+    },
+    {
+     "text": "Why names a lost decision's cause",
+     "who": "claude"
+    },
+    {
+     "text": "59 screens judged vs our plan",
+     "who": "agent"
+    },
+    {
+     "text": "96 Miro ideas rated, 13 removed",
+     "who": "agent"
+    },
+    {
      "text": "Main tests green (Pass, weapon)",
      "who": "claude"
     },
@@ -5163,74 +5187,38 @@
     {
      "text": "Rank 5 first hour merged",
      "who": "claude"
-    },
-    {
-     "text": "Main CI test_jump fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Godot job queue (first-come)",
-     "who": "claude"
-    },
-    {
-     "text": "Cursor on GPT-5.6 Sol",
-     "who": "claude"
-    },
-    {
-     "text": "Core cap: CPU 80 -> ~60 C",
-     "who": "claude"
-    },
-    {
-     "text": "Rank 3 coach plan fix",
-     "who": "claude"
-    },
-    {
-     "text": "WORLD1 merged: 20-year world",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Overdraft merged (Qwen)",
-     "who": "agent"
-    },
-    {
-     "text": "One-frame films blocked",
+     "text": "9 dead branches deleted",
      "who": "claude"
     },
     {
-     "text": "Unapproved Money page reverted",
+     "text": "C250 traced: film tool, fixed",
      "who": "claude"
     },
     {
-     "text": "Why names a lost decision's cause",
+     "text": "7 more dead branches deleted",
      "who": "claude"
-    },
-    {
-     "text": "59 screens judged vs our plan",
-     "who": "agent"
-    },
-    {
-     "text": "96 Miro ideas rated, 13 removed",
-     "who": "agent"
     }
    ],
    "now": [
     {
-     "text": "Sound room by crowd size",
-     "who": "agent"
+     "text": "Menus for your OK (Miro)",
+     "who": "operator"
     },
     {
-     "text": "Fighter look blind test",
+     "text": "Corner minute from the apron",
      "who": "claude"
     },
     {
-     "text": "Fighter model v3 round 2 (Cursor)",
+     "text": "RETARGET2B queued (Cursor)",
      "who": "agent"
     },
     {
-     "text": "Menus for your OK (Miro)",
-     "who": "operator"
+     "text": "Trust cost of calls (Qwen queued)",
+     "who": "agent"
     }
    ],
    "next": [
@@ -5319,7 +5307,7 @@
      "who": "claude"
     }
    ],
-   "session": "S400"
+   "session": "S401"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

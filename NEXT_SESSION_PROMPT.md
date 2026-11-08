@@ -22,7 +22,9 @@ outside the ropes, leaning in). OPEN: the corner minute's WORKING beats (water t
 coach talk) still step the coach inside the ropes - rework them from the apron: stool closer to the corner (CornerCrew.SEAT_IN_M
 0.62 -> ~0.4, everything is relative to the seat), the hold aimed from her side, film-checked (tools/corner_film.gd film short).
 Ropes no longer give when a body passes (S391 1f0b57c7 stilled them) - later, his call "not important for now".
-Check film of all of this: E:/FightCamp/tmp/s400_film/fix2.mp4 (see the S400 handover note if it showed a fault).
+FILM-CHECKED S400 (tmp/s400_film/fix2.mp4, 0-54 s): intro team off the ring, raise without the shoulder pinch, gloves read
+as boxing gloves, round 1 boxes 20 s + the cut caption. NOT YET FILMED: the corner minute's apron waiting spots (the re-render was
+suspended by the governor: commit memory RED while the operator played a game) - first job: `tools/corner_film.gd film short seed=7`.
 
 AGENTS: RETARGET2 PR #83 NOT mergeable (retarget_fidelity_test 46 failures; #81 had 0) -> RETARGET2B queued on Cursor (Grok 4.7
 High; keeps the stance + trim fixes, fidelity back to 0, test prints each failing clip). FIGHTERMODEL3B queued on Cursor (round 2,

@@ -10,7 +10,7 @@ OWNS: scripts/rules/Overdraft.gd, scripts/ui/areas/ClubSpend.gd:104-125, scripts
 _overdraft + its one call in add()), scripts/ui/GymActs.gd:47-49, scripts/ui/GymActs.gd (one new branch in _spend),
 tests/overdraft_ui_test.gd
 RED_TEST: tests/overdraft_ui_test.gd -> OVERDRAFT_UI failures=0
-REGRESSION: overdraft_test, money_layout_test, money_close_test, game_money_test, plain_words_test, golden_path_test
+REGRESSION: overdraft_test, money_close_test, game_money_test, plain_words_test, golden_path_test
 VISUAL: no
 
 ## Prior research
