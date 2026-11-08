@@ -175,7 +175,7 @@ BUILT today (what screens show):
   hands go, Breathe pick your shots, Tie up, Go for the finish. Each has a best / ok / wrong match to the opponent's mode, needs stats, costs or gives energy; only
   two instructions per minute get through fully. Pace (Push / Steady / Save) and Aim (Own game / Head / Body / ribs / the hurt head) persist from shout to shout.
   A set-up "NOW!" fires a learned combination into a gap the opponent opens: big edge, or a cost if wrong.
-- Corner minute between rounds: the corner card (what worked, what hurt, the call), the plan call, ONE habit fix, RECOVER with 3 points (water, ice on the ribs, clear
+- Corner minute between rounds: the corner card (what worked, what hurt, the call), the plan call, ONE CHANGE for the next round (a habit fix, or Elbows in: half the body punches go to the head, saving their energy and adding head damage, or Gloves high: the reverse; moved punches change where she is hit and what it costs, measured not to change who wins), RECOVER with 3 points (water, ice on the ribs, clear
   her head when hurt), SET-UP (a combination x a gap), TALK (calm / fire up / the truth), change one plan arrow, cutman job (close the cut, enswell an eye, nothing).
   Trust: a wrong call she followed costs trust; a Low fighter ignores shouting.
 - Knockdowns and counts come from power and damage vs chin, heart for the count; amateur RSC at 3 counts in a round or 4 in a bout. Injury roll after the bout.

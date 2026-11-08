@@ -46,3 +46,6 @@ WarmKit, KitIcon, RoundGraphics, FlowView exist. Nothing new to find.
 
 ## The one trap
 FightNight.gd drives the 3D fight's beats through `build()` and `Broadcast.frame`. Move the drawing and leave the order of calls alone, or golden_path passes while the live fight shows the wrong page: the fight must still reach the corner page after each round when played with a picture.
+
+## Update S406: ONE CHANGE is built
+The corner's fix row is now ONE CHANGE (scripts/rules/Adaptation.gd; card["adapts"], CallButtons.fix_row). Keep that one slot and its numbers: Elbows in, Gloves high, the habit fix, Leave it. Where the mockup says Fix, draw ONE CHANGE. Fold Set-up and Talk behind one "More" line with the coach's default kept: the minute should read the second's points, ONE CHANGE, the plan. tests/adaptation_test.gd joins REGRESSION.

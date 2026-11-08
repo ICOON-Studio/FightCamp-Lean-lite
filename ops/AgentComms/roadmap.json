@@ -4524,7 +4524,7 @@
   },
   "plan": {
     "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-    "updated": "2026-11-08 19:41 board_sync",
+    "updated": "2026-11-08 20:11 board_sync",
     "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
     "titles": {
       "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4761,6 +4761,12 @@
         "who": "cursor",
         "started": "2026-11-08T19:34",
         "run": "MENUWORLD1"
+      },
+      {
+        "title": "TASK SPLIT500 - QWEN (qwen3-coder) - make room in the two files at the 500-line limit",
+        "who": "qwen",
+        "started": "2026-11-08T19:53",
+        "run": "SPLIT500"
       }
     ],
     "next": [
@@ -4775,6 +4781,12 @@
         "who": "cursor",
         "title": "World page in the game, built around the rankings",
         "after": "MENUMONEY1"
+      },
+      {
+        "id": "MENUWORLD2",
+        "who": "cursor",
+        "title": "World page, round 2: names, width and the fit",
+        "after": "MENUMONEY2"
       },
       {
         "id": "MENUPLAYBOOK1",
@@ -5214,6 +5226,34 @@
     "map": {
       "done_earlier": [
         {
+          "text": "BJJ beat on, bars met",
+          "who": "agent"
+        },
+        {
+          "text": "Member change says why",
+          "who": "agent"
+        },
+        {
+          "text": "Hover card + ladder test fixed",
+          "who": "claude"
+        },
+        {
+          "text": "Proguard guard merged (7 vs 6.5)",
+          "who": "claude"
+        },
+        {
+          "text": "Push-back + clinch say why",
+          "who": "agent"
+        },
+        {
+          "text": "Refuse Lucy: Danny comes in",
+          "who": "claude"
+        },
+        {
+          "text": "Side holos back, hit numbers",
+          "who": "claude"
+        },
+        {
           "text": "GUIDEFLAG2 and swing census in",
           "who": "agent"
         },
@@ -5240,63 +5280,19 @@
         {
           "text": "Final menus + verdicts on Miro",
           "who": "claude"
-        },
-        {
-          "text": "One fighter profile designed",
-          "who": "claude"
-        },
-        {
-          "text": "Seven menus approved",
-          "who": "claude"
-        },
-        {
-          "text": "Full tests daily at 5 am",
-          "who": "claude"
-        },
-        {
-          "text": "9 dead branches deleted",
-          "who": "claude"
-        },
-        {
-          "text": "C250 traced: film tool, fixed",
-          "who": "claude"
-        },
-        {
-          "text": "7 more dead branches deleted",
-          "who": "claude"
-        },
-        {
-          "text": "Corner minute from the apron",
-          "who": "claude"
         }
       ],
       "done_session": [
         {
-          "text": "BJJ beat on, bars met",
-          "who": "agent"
-        },
-        {
-          "text": "Member change says why",
-          "who": "agent"
-        },
-        {
-          "text": "Hover card + ladder test fixed",
+          "text": "SPLIT500 merged (Qwen)",
           "who": "claude"
         },
         {
-          "text": "Proguard guard merged (7 vs 6.5)",
+          "text": "R11C standing count says why",
           "who": "claude"
         },
         {
-          "text": "Push-back + clinch say why",
-          "who": "agent"
-        },
-        {
-          "text": "Refuse Lucy: Danny comes in",
-          "who": "claude"
-        },
-        {
-          "text": "Side holos back, hit numbers",
+          "text": "Money tooltip says what's short",
           "who": "claude"
         }
       ],
@@ -5398,9 +5394,13 @@
         {
           "text": "Skills layer with critics",
           "who": "claude"
+        },
+        {
+          "text": "Brighten the murky fight",
+          "who": "claude"
         }
       ],
-      "session": "S405"
+      "session": "S406"
     }
   },
   "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

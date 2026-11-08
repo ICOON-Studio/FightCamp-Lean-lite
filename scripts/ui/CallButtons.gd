@@ -68,10 +68,19 @@ static func now_button(now: Dictionary, names: Array, pick: Callable) -> Button:
 
 ## S309 the corner's one fix for a habit: a button per habit the coach can work on ({id, name, paid} from
 ## LiveRound.fixes) and No fix. The picked one stays lit. pick(id) gets "" for No fix. Empty when there is nothing to fix.
-static func fix_row(fixes: Array, names: Array, chosen: String, pick: Callable) -> HBoxContainer:
+## S406 ONE CHANGE: `changes` (Adaptation.offers) come first, in the same slot, so the row is still one choice.
+static func fix_row(fixes: Array, names: Array, chosen: String, pick: Callable, changes: Array = []) -> HBoxContainer:
 	var row := UI.hbox(8)
-	if fixes.is_empty():
+	if fixes.is_empty() and changes.is_empty():
 		return row
+	for ch in changes:
+		var cb := UI.button2(str(ch["name"]), str(ch["small"]), "Choice", pick.bind(str(ch["key"])), Vector2(0, 56),
+			UI.FG, UI.AMBER, false, UI.SMALL + 1, UI.TINY)
+		cb.name = "Change_" + str(ch["id"])
+		cb.tooltip_text = str(ch["tip"])
+		cb.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		cb.modulate = Color(1, 1, 1, 1.0 if chosen == "" or chosen == str(ch["key"]) else 0.45)
+		row.add_child(cb)
 	for h in fixes:
 		var paid := int(h["paid"])
 		var small := "%s made %s pay %d time%s this round" % [names[1], names[0], paid, "" if paid == 1 else "s"] if paid > 0 \
@@ -82,7 +91,7 @@ static func fix_row(fixes: Array, names: Array, chosen: String, pick: Callable) 
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.modulate = Color(1, 1, 1, 1.0 if chosen == "" or chosen == str(h["id"]) else 0.45)
 		row.add_child(b)
-	var none := UI.button2("No fix", "Just the plan", "BtnQuiet", pick.bind(""), Vector2(160, 56), UI.FG, UI.MUTED, false,
+	var none := UI.button2("Leave it", "Just the plan", "BtnQuiet", pick.bind(""), Vector2(160, 56), UI.FG, UI.MUTED, false,
 		UI.SMALL + 1, UI.TINY)
 	none.name = "FixNone"
 	none.modulate = Color(1, 1, 1, 1.0 if chosen == "" else 0.45)

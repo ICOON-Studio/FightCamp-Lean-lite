@@ -137,7 +137,7 @@ static func corner_jobs(parts: PackedStringArray) -> Dictionary:
 			continue
 		var kv := p.split("=", true, 1)
 		match kv[0]:
-			"fix", "talk":
+			"fix", "talk", "adapt":
 				jobs[kv[0]] = kv[1]
 			"arrow":
 				var am := kv[1].split(":", true, 1)

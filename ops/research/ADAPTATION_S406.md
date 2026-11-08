@@ -4,6 +4,26 @@ Operator S405, "Yes, both": the holo's hit numbers are the reason you choose. Be
 problem on the holo. Two conditions: it must COST something (no free best pick), and it REPLACES part of the corner minute
 instead of adding to it. Nothing is built until he approves this page.
 
+## Built (S406, operator "Build small version")
+scripts/rules/Adaptation.gd, tests/adaptation_test.gd. ONE CHANGE shares the habit fix's slot: Elbows in, Gloves high, the fix, or Leave it. Set-up and Talk are not folded yet: MENUFIGHT1 does that. On real bouts (300 a cell, 3 styles, edges -5 / 0 / +5): doing nothing 64.3%, always Elbows in 63.6%, always Gloves high 64.8%, a corner reading tank and head 64.1%. So nothing is a free best pick, and reading the fight does not win more: it moves where punches land and what they cost.
+
+## Where this stands (read first)
+**Not ready to build. Neither version below moves results.** Two blind critics scored v1 (the head-or-body change below) 5.5 and 4: the price is too small, the choice reads as a lookup. Their shared fix was to price the change in who wins the exchange and tie it to the opponent's game (v2). v2 was then measured on real bouts, no game code touched, 300 bouts a cell, 3 opponent styles, edges -5 / 0 / +5.
+
+| v2 setting (gain in the game it answers / price in the game it opens) | Doing nothing | Reading the round | Picking the opposite | Best fixed pick |
+|---|---|---|---|---|
+| +5 / -3 (n=200, edges -10 / 0 / +10) | 58.4% | 58.9% | 58.6% | 58.7% |
+| +8 / -5 (n=200, same edges) | 58.4% | 58.9% | 59.1% | 59.3% |
+| +12 / -8 | 64.3% | 64.9% | 64.7% | 65.4% |
+| +15 / -10 (as big as the game's best call) | 64.3% | 65.3% | 65.1% | 65.7% |
+| Half her favourite game taken away, no edge | 64.3% | 63.6% | 63.2% | 64.6% |
+
+Reading the round is no better than a blind pick: in four of the five settings one fixed pick beats it, and the fifth is inside the noise. With the coach's shouts already answering each game and each exchange close to a coin flip (she wins 52-55% in every game), one change over two corner minutes in a 3-round bout cannot show.
+
+**The block is underneath this mechanic:** the holo's head number does nothing in the result, so a choice built on it has nothing to act on. Proposal: first make head punches count toward knockdowns and stoppages, tuned with the fighter model (Chin, Durability; FIGHTERMODEL4A), then build ONE CHANGE on that, with bars on the harness first. That changes every fight's knockdown numbers, so it is the operator's call.
+
+Below is v1 as the critics read it, kept for the record.
+
 ## What was measured (S406, the game's own bouts; Lucy against each of the 3 opponent styles, paper edge -10 / 0 / +10, 40 bouts a cell)
 Punches landing on her per round, median, as the holo counts them:
 

@@ -5538,6 +5538,24 @@
       "note": "in chat: \"Ok 12\"",
       "answered_at": "2026-11-08T13:31:24.908488+00:00",
       "seen_by_claude": true
+    },
+    {
+      "id": "Q-S294-131",
+      "asked": "2026-11-08T18:45:36.823249+00:00",
+      "session": "S294",
+      "text": "One adaptation per round: the numbers on the holo do nothing to the result yet, so no version of the choice changes who wins. Make head punches count toward knockdowns first, then build it?",
+      "options": [
+        "Yes, head punches count first",
+        "Build the small version anyway",
+        "Park it"
+      ],
+      "attach": [
+        "research/ADAPTATION_S406.md"
+      ],
+      "answer": "Build the small version anyway",
+      "note": "Answered in the chat, S406. Built: scripts/rules/Adaptation.gd.",
+      "answered_at": "2026-11-08T19:09:07.950113+00:00",
+      "seen_by_claude": true
     }
   ]
 }

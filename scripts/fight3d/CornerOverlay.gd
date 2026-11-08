@@ -48,6 +48,7 @@ var _calls: Control
 var _said: Label
 var _fix_box: VBoxContainer
 var _fixes: Array = []
+var _changes: Array = []     # S406 ONE CHANGE (Adaptation.offers): same slot as the habit fix
 var _names: Array = []
 var _steps: Array = []
 var _skip: Button
@@ -136,9 +137,10 @@ func build(card: Dictionary, names: Array) -> void:
 		_draw_jobs()
 	_rest_strip(card, names)
 	_fixes = card.get("fixes", [])
+	_changes = card.get("adapts", [])
 	_fix_box = UI.vbox(4)
 	v.add_child(_fix_box)
-	if not _fixes.is_empty():
+	if not _fixes.is_empty() or not _changes.is_empty():
 		_fix_step = n
 		n += 1
 	_draw_fixes()
@@ -250,6 +252,9 @@ func picked(call: String) -> void:
 	for h in _fixes:
 		if str(h["id"]) == fix:
 			_said.text += "   Fix: %s" % str(h["name"]).to_lower()
+	for ch in _changes:
+		if str(ch["key"]) == fix:
+			_said.text += "   Change: %s" % str(ch["name"]).to_lower()
 	_said.visible = true
 
 
@@ -269,10 +274,10 @@ func jobs_suffix() -> String:
 func _draw_fixes() -> void:
 	for ch in _fix_box.get_children():
 		ch.queue_free()
-	if _fixes.is_empty():
+	if _fixes.is_empty() and _changes.is_empty():
 		return
-	_fix_box.add_child(_step(_fix_step, "FIX ONE HABIT (OPTIONAL)"))
-	_fix_box.add_child(CallButtons.fix_row(_fixes, _names, fix, _fix))
+	_fix_box.add_child(_step(_fix_step, "ONE CHANGE (OPTIONAL)"))
+	_fix_box.add_child(CallButtons.fix_row(_fixes, _names, fix, _fix, _changes))
 
 
 func _fix(id: String) -> void:

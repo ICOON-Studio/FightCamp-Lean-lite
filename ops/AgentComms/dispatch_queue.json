@@ -595,7 +595,6 @@
       "seat": "cursor",
       "title": "TASK MENUFIGHT1 - CURSOR (Grok 4.7 High) - Fight night's corner and result from the approved mockup",
       "brief": "MENUFIGHT1",
-      "status": "held",
       "held_why": "S405 operator: one adaptation per round replaces part of the corner minute; re-brief after the design passes critics"
     },
     {
@@ -615,6 +614,12 @@
       "seat": "cursor",
       "title": "TASK MENUMONEY2 - CURSOR (Grok 4.7 High) - the Money page, round 2: the bills bug and the fit",
       "brief": "MENUMONEY2"
+    },
+    {
+      "id": "MENUWORLD2",
+      "seat": "cursor",
+      "title": "TASK MENUWORLD2 - CURSOR (Grok 4.7 High) - the World page, round 2: names, width and the fit",
+      "brief": "MENUWORLD2"
     },
     {
       "id": "R11F",

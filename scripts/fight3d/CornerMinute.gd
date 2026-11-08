@@ -7,6 +7,7 @@ extends Node
 ## ropes on screen: it is in place by the cut that shows it. No pick by "seconds out" = the coach's own call.
 ##   run(view, stage, crew, ctx)   ctx = {round, card, won, pro, names, energy}   emits done(call)
 
+const Adaptation := preload("res://scripts/rules/Adaptation.gd")
 const CornerShots := preload("res://scripts/fight3d/CornerShots.gd")
 const CornerOverlay := preload("res://scripts/fight3d/CornerOverlay.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -369,6 +370,9 @@ func _pick(k: String) -> void:
 	for h in ctx["card"].get("fixes", []):
 		if str(h["id"]) == fix:
 			_lines.append([_card_off, "\"One more thing. %s: fix it this round.\"" % str(h["name"])])
+	for ch in ctx["card"].get("adapts", []):
+		if str(ch["key"]) == fix:
+			_lines.append([_card_off, "\"One more thing. %s this round.\"" % str(ch["name"])])
 	_lines.append([_card_off + 4.0 if fix != "" else t + SAID_S, ""])
 	crew.play(crew.actors["coach"], "af_crouch_idle")
 	crew.play(ctx_actor("her"), "af_sit_idle")
@@ -396,4 +400,4 @@ func finish() -> void:
 	var jobs: String = ui.jobs_suffix()
 	ui.queue_free()
 	queue_free()
-	done.emit(pick + ("|fix=" + fix if fix != "" else "") + jobs)
+	done.emit(pick + Adaptation.suffix(fix) + jobs)

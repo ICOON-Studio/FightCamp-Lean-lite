@@ -24,6 +24,7 @@ const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 const CornerTrust := preload("res://scripts/rules/CornerTrust.gd")
 const LiveRoundAfter := preload("res://scripts/state/LiveRoundAfter.gd")
+const Adaptation := preload("res://scripts/rules/Adaptation.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
@@ -66,8 +67,7 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 	# S310: body shots taken all fight ({a: by her, b: by the opponent}), kept on the bout so they carry round to round.
 	if n == 1 or not f["bout"].has("body"):
 		f["bout"]["body"] = {"a": 0, "b": 0}
-	# S339 the coach's plan she walks out with (her saved board; none = she fights her own way); the corner changes it on
-	# the bout only.
+	# S339 the coach's plan she walks out with (her saved board); the corner changes it on the bout only.
 	if n == 1 or not f["bout"].has("arrows"):
 		f["bout"]["arrows"] = (f.get("arrows", []) as Array).duplicate(true)
 	var talk := CornerJobs.talk(str(jobs.get("talk", "")), f.get("personality", {}))
@@ -83,7 +83,7 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 		f["bout"]["plan_tally"] = {}
 	PlanPressure.new_round(f["bout"], n)   # S397 the plan's pressure and her tank's ceiling last the bout
 	m["live"] = {"pace": pace0 if pace0 != "" else str(was.get("pace", "steady")), "aim": str(was.get("aim", "")), "n": n, "plan": plan, "ex": [], "shouts": 0, "mode": mode, "her_hurt": bool(jobs.get("hurt", false)), "opp_hurt": false,
-		"talk": talk, "talk_kind": str(jobs.get("talk", "")), "setup": setup,
+		"talk": talk, "talk_kind": str(jobs.get("talk", "")), "setup": setup, "adapt": Adaptation.start(f["bout"], str(jobs.get("adapt", "")), Exchanges.uptake(float((f.get("personality", {}) as Dictionary).get("coachability", 55.0)), 0) * FighterProfile.trust(f)),
 		"cost": 0.0, "e": e, "base": base, "fix": fix, "last": n >= int(f["bout"].get("rounds", BoutRules.ROUNDS)),
 		"body": f["bout"]["body"], "body_cost_b": PerkFight.body_cost(f)}
 	m["live"]["start"] = state(m["live"], 0)
@@ -304,7 +304,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var share_b := Exchanges.BODY_THREAT_SHARE if str(opp.get("threat", "")).to_lower().contains("body") else Exchanges.BODY_SHARE
 	var share_a := PaceAim.body_share(aim) if aim != "" else (Exchanges.BODY_CALL_SHARE if call == "body" else Exchanges.BODY_SHARE)
 	var body := [Exchanges.body_shots(int(s["landed"][0]), share_a, rng.randf()),
-		Exchanges.body_shots(int(s["landed"][1]), share_b, rng.randf())]
+		Adaptation.body_shots(lv, m, int(s["landed"][1]), share_b, rng.randf())]
 	var bt: Dictionary = lv.get("body", {"a": 0, "b": 0})
 	bt["b"] = int(bt.get("b", 0)) + int(body[0])
 	bt["a"] = int(bt.get("a", 0)) + int(body[1])
@@ -433,7 +433,7 @@ static func close(f: Dictionary, m: Dictionary) -> Dictionary:
 	m.erase("live")
 	return {"n": int(lv["n"]), "won": ro["won"], "won_n": ro["won_n"], "mine": ro["mine"], "theirs": ro["theirs"],
 		"corner": str(lv["plan"]), "energy": e, "exchanges": exs, "landed": ro["landed"], "calls": calls, "worked": worked,
-		"fix": str(lv.get("fix", "")), "habits_paid": paid, "fix_came": fix_came,
+		"fix": str(lv.get("fix", "")), "habits_paid": paid, "fix_came": fix_came, "adapt": lv.get("adapt", {}),
 		"fix_hold": Exchanges.uptake(float((f.get("personality", {}) as Dictionary).get("coachability", 55.0)), 0) * FighterProfile.trust(f), "start": lv.get("start", {}),
 		"talk": str(lv.get("talk_kind", "")), "setup": (lv.get("setup", {}) as Dictionary).duplicate(),
 		"arrows": PlanFight.tally(exs), "plan": (fb.get("arrows", []) as Array).duplicate(true),

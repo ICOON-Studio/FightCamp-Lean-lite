@@ -4,6 +4,7 @@ extends RefCounted
 ##   bodies_for(f, opp)  body_scales(f, opp)  crew(stage, pro)  intro(view) -> bool  corner(view) -> bool
 
 const HabitFix := preload("res://scripts/rules/HabitFix.gd")
+const Adaptation := preload("res://scripts/rules/Adaptation.gd")
 const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
 const Referee := preload("res://scripts/fight3d/Referee.gd")
 const CornerMinute := preload("res://scripts/fight3d/CornerMinute.gd")
@@ -74,6 +75,9 @@ static func corner(view: Node) -> bool:
 	card["fixes"] = LiveRound.fixes(f, r)   # S309: one habit the corner can fix
 	card["fixed"] = HabitFix.result(LiveRound.habit_name(str(r["fix"])) if str(r.get("fix", "")) != "" else "",
 		int(r.get("fix_came", 0)), float(r.get("fix_hold", 0.0)), names[0])   # S320: what last round's fix did
+	card["adapts"] = Adaptation.offers(r.get("exchanges", []), float(r.get("fix_hold", 0.0)), str((r.get("adapt", {}) as Dictionary).get("id", "")))   # S406 ONE CHANGE
+	if Adaptation.result(r.get("adapt", {})) != "":
+		card["fixed"] = Adaptation.result(r["adapt"])
 	card["jobs_menu"] = CornerJobsRow.menu(f, r)   # S310: recover, set-up, talk
 	# S354 C205 ("player needs to see some stats to take decisions"): the round in numbers at the top of the card.
 	var done: Array = (m["rounds"] as Array).slice(0, int(view.round_n))
