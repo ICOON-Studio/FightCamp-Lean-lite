@@ -3,7 +3,7 @@ extends RefCounted
 ## Same floor rules as GymPlan, so a figure can never walk through a wall or stand on a bag. Pure: no nodes, no art.
 ##   spots(plan) -> [{at: Vector2i, act: String, kind: String, flip: bool}]
 ##   route(plan, a, b) -> [Vector2i, ...] from a to b, [] when there is no way
-##   crowd(members, fighter_stems) -> body stems, fighters first
+##   crowd(members, fighter_stems, premises) -> body stems, fighters first; premises caps how many are in at once
 
 const GymPlan := preload("res://scripts/rules/GymPlan.gd")
 
@@ -12,6 +12,9 @@ const JOB := {"bag": "jab_back", "mat": "idle", "rack": "stand", "bench": "stand
 	"office_desk": "stand", "lockers": "stand", "treatment": "stand"}
 const MIN_PEOPLE := 2
 const MAX_PEOPLE := 12
+## S416 operator: "having 40+ doesnt mean they all go to the gym at the same, limit the number ... scale for the various tiers".
+## The most people in the building at once, by premises: the unit, the bigger unit, the club building (game values).
+const ON_THE_FLOOR := [6, 9, 12]
 const MEMBERS_EACH := 5       # one more person in the building for every five members
 ## The bodies that come in as ordinary members.
 const MEMBER_STEMS := ["mh_boxer_03", "mh_boxer_11", "mh_boxer_07", "mh_boxer_17", "mh_boxer_08", "mh_boxer_13", "mh_boxer_19", "mh_boxer_21",
@@ -70,8 +73,9 @@ static func route(plan: Dictionary, a: Vector2i, b: Vector2i) -> Array:
 
 
 ## Who is in: the club's own fighters first, then members; a bigger club is a busier gym.
-static func crowd(members: int, fighter_stems: Array) -> Array:
-	var n := clampi(MIN_PEOPLE + members / MEMBERS_EACH, MIN_PEOPLE, MAX_PEOPLE)
+static func crowd(members: int, fighter_stems: Array, premises := -1) -> Array:
+	var most: int = MAX_PEOPLE if premises < 0 else int(ON_THE_FLOOR[clampi(premises, 0, ON_THE_FLOOR.size() - 1)])
+	var n := clampi(MIN_PEOPLE + members / MEMBERS_EACH, MIN_PEOPLE, most)
 	var out: Array = []
 	for s in fighter_stems:
 		if out.size() < n and not out.has(s):

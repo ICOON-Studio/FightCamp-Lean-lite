@@ -1,3 +1,12 @@
+# S416 very last note (read first)
+MIRO: redrawn S416 (created 2, updated 54), but the LEARN step was not run for the 2 new cards: rebuild the ledger with one read as where_we_are_svg.py's docstring says before the next redraw, or they are created twice. PRESENT1A (Cursor, brief written): launch it if it has not run: it waited on the disk going RED. People on the floor: GymPeople.ON_THE_FLOOR 6, 9, 12 by premises (his "limit the number ... scale for the various tiers"). Members still fill three to a place: he may want the same idea in the places rule.
+
+# S416 last note (read first)
+He confirmed "I see people" meant the People page ("i saw it like 3-4 times"). GYMFIGURES1 and GYMKIND1 merged.
+PRESENT1, THE FIRST JOB: ops/research/S416_NEW_PLAYER_CRITIC.md has per-screen replacement text and the 12-item list. Do first what needs no new layout: bare numbers in words (coach bars' +30%, "0.9 over", "Gap -9", "File 0 of 4 found", "Net -$309 to -$362"), a reason on every greyed button, jargon, a Coach's suggestion on each game plan line. Cursor can take the text pass. The corner rebuild waits on the board question (docs/mockups/s416/critic_10_of_10.png; its text says she and her, keep the game's words neutral). Money split, a weekly checklist and a guide that never covers the page are layout: mockup and his yes first.
+GYMKIND1 result: +10% at most gives +0.5 to +1.2 points in three years, $667 to $22,286 a point: too small. kit_gain_on stays false; redesign before asking him. Its bots test has no win-chance column, though the brief asked for one.
+HEADAIM1 running on Qwen. KNOW1 on Goose issue 139.
+
 # S416 handover (written 2026-11-09, read first)
 HIS WORDS, live playtest of the build: "your presetnation to the player is extremely bad, noone understand your menu options and path to learning the game". FIRST JOB: the presentation pass (PRESENT1, roadmap plan.next): a blind critic who plays as a new player, every screen, every number in words without hover, every option says what it does and costs, and a clear path to learn the game. StaffCard is the pattern (S416). The coach bars' +30% still say nothing.
 ASK HIM: "every menu i open i see people": built as the People page (Reception and Club office now go elsewhere). If he meant the figures or the trainer, redo it. PR 141 GYMFIGURES1 is held for this answer (still E:/FightCamp/tmp/s416_figures/full.png looks right; its CI's grey_reason red is green on main).

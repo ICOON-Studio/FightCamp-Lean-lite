@@ -85,11 +85,11 @@ func _node() -> void:
 	b.setup(c, [])
 	_check(_placed(a.people) == _placed(b.people) and a.people.size() >= 2, "the same floor picks the same people (%d)" % a.people.size())
 	_check(_unique(a.people), "no two people on one spot")
-	_check(a.people.size() == mini(GymPeople.crowd(c.members, []).size(), a.spots.size()), "quick start places the crowd, one to a spot")
+	_check(a.people.size() == mini(GymPeople.crowd(c.members, [], c.premises).size(), a.spots.size()), "quick start places the crowd, one to a spot")
 	var old := Career.new()
 	var node = Floor.new()
 	node.setup(old, [])
-	var cap: int = GymPeople.crowd(old.members, []).size()
+	var cap: int = GymPeople.crowd(old.members, [], old.premises).size()
 	_check(old.gym_slots.is_empty() and node.spots.size() > cap, "an old save has more kit than people")
 	_check(node.people.size() == cap and node.people.size() <= GymPeople.MAX_PEOPLE, "an old save does not grow the crowd past what the club allows (%d)" % node.people.size())
 	_check(_unique(node.people), "an old save still puts one person on a spot")
@@ -167,7 +167,7 @@ func _floor_ok(folks, c: Career) -> void:
 	var stems: Array = []
 	for f in c.fighters:
 		stems.append(Faces.stem(f))
-	var cap: int = GymPeople.crowd(c.members, stems).size()
+	var cap: int = GymPeople.crowd(c.members, stems, c.premises).size()
 	var live: Array = GymFloorSpots.spots(c.gym_slots, c.day)
 	_check(folks.people.size() >= 2, "the page shows at least 2 people (%d)" % folks.people.size())
 	_check(folks.people.size() == mini(cap, folks.spots.size()), "one person to a spot, up to the crowd (%d people, %d spots)" % [folks.people.size(), folks.spots.size()])

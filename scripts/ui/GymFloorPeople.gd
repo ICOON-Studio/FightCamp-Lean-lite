@@ -62,7 +62,7 @@ func _arm() -> void:
 
 func _place(stems: Array) -> void:
 	spots = _read()
-	var crowd: Array = GymPeople.crowd(_career.members, stems)
+	var crowd: Array = GymPeople.crowd(_career.members, stems, _career.premises)
 	var n: int = mini(crowd.size(), spots.size())
 	_rng.seed = _seed()
 	var picked: Array = _pick(spots.size(), n)

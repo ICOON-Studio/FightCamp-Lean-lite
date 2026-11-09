@@ -6092,6 +6092,24 @@
       "answered_at": "2026-11-09T20:10:00Z",
       "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-161",
+      "asked": "2026-11-09T20:14:38.442444+00:00",
+      "session": "S294",
+      "text": "A new-player critic scored the corner 3/10: nine controls, no order, no clear next step. This is its redraw: how the round went, then one choice with its result in words, recovery, and a big Start round 2. Numbers are its own. Build the corner this way?",
+      "options": [
+        "Yes, build this",
+        "Yes, but change something",
+        "No"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-161_0_critic_10_of_10.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

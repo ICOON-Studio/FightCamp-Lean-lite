@@ -55,6 +55,7 @@ func _crowd() -> void:
 	_check(GymPeople.crowd(0, []).size() == GymPeople.MIN_PEOPLE, "an empty club still has two people in")
 	_check(GymPeople.crowd(30, []).size() == 8, "30 members bring 8 people (%d)" % GymPeople.crowd(30, []).size())
 	_check(GymPeople.crowd(500, []).size() == GymPeople.MAX_PEOPLE, "a huge club stops at the cap")
+	_check(GymPeople.crowd(500, [], 0).size() == 6 and GymPeople.crowd(500, [], 1).size() == 9 and GymPeople.crowd(500, [], 2).size() == 12, "the most on the floor at once scales with the premises (S416)")
 	var mine := GymPeople.crowd(30, ["mh_boxer_20", "mh_boxer_12"])
 	_check(mine[0] == "mh_boxer_20" and mine[1] == "mh_boxer_12", "the club's own fighters are in first")
 	var dupes := {}

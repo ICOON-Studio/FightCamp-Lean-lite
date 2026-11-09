@@ -69,7 +69,7 @@ static func build(main: Node, c: Career) -> Control:
 	var figures: Control = HubFigures.new()
 	figures.name = "HubFigures"
 	figures.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	figures.setup(iso, plan, GymPeople.crowd(c.members, stems), hash(str(plan["id"])))
+	figures.setup(iso, plan, GymPeople.crowd(c.members, stems, c.premises), hash(str(plan["id"])))
 	figures.visible = false   # they walk the drawn floor, not the picture
 	figures.process_mode = Node.PROCESS_MODE_DISABLED
 	hub.add_child(figures)
