@@ -1,7 +1,8 @@
-FIGHTCAMP - BUILD OF 2026-11-09 (S414): ONE PAGE IN THE DARK LOOK
+FIGHTCAMP - BUILD OF 2026-11-09 (S414): YOUR GYM PICTURE, AND ONE PAGE IN THE DARK LOOK
 ================================================================================
 
  NEW.
+  0. Home is now your gym picture, exactly as you made it, with the pins on its rooms. Nobody walks in it yet, and the equipment cannot be changed yet.
   a. Fighters > a boxer > Overview is now in dark panels: the boxer full height, big numbers, thick bars, one red button. Every other page stays cream, so you can compare.
  TRY: open Lucy's Overview, then any other page. Which look do you want everywhere? Your answer goes on the board.
 

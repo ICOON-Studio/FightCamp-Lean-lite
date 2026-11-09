@@ -1,3 +1,22 @@
+# S414 handover (written 2026-11-09, S414 main session; ended at about 860k context, far past the 420k rule)
+
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S415` and redraw the map: NOT redrawn in S414 (send only changed cards; strip data-deleted lines; he has not approved deleting map cards).
+READ THE PULL'S OUTPUT. Animation progresses every session: name the item and seat in the first message. 11-10 05:00 is the first real full test run: read ops/AgentComms/nightly/latest.txt against main's CI.
+
+HIS WORDS S414: "Show me one real page first" (dark look). "why you do not use it exactly as it is ?" then "yes": HIS GYM PICTURE IS NOW HOME, unchanged. Do not re-argue it. "do we need to generate any assets or use the pin and slot method ?": Claude's answer: pins now, slots next, editing his picture rather than new art. "i am scared to try 3d again": the gym stays 2D.
+
+BUILT S414, exported, HE HAS NOT PLAYED IT: Home = assets/ui/art/gym_main.jpg in GymHub, pins at PIN_AT, IsoGym + HubFigures hidden in the tree (tests and GymPlan read them). Fighter Overview in dark panels (DarkOverview.gd, FighterPage.dark_overview).
+Everything else is in ops/research/S414_DIGEST.md (next steps) and GYM_PLANNER_SITES_S414.md (eight sites, what Ludo can do, expansion and equipment proposals, sourced prices).
+
+WAITING ON HIM: Q-S294-146 dark or cream | Q-S294-147 one Gym button (S413's fight panel on the fighter page goes with it) | Q-S294-144 is obsolete now, withdraw it | play the build | Tripo sign-in in Chrome if he wants four-way pieces.
+FIRST FOR CLAUDE: Home's corner panels hide lockers and bags on his picture: look at E:/FightCamp/tmp/s414_home/home.png. "UFC" is painted on his bags: remove before anyone outside sees it. His picture holds a cage and an "MMA GYM" sign in a boxing-only demo: his call.
+
+COLLECT: REARHAND2 (Qwen, launched S414): is the right hook's low hand in the bought capture or the bake? Believe it only if the jab, cross and left hook controls agree within 0.03. FIGHTERMODEL4H then 4B (Cursor). MENUWEEK2 PR 130 HELD: red tests, two real script errors, built for cream. Home PR 120 is superseded: close it.
+TRAPS: long shell heredocs fail, write scripts to the scratchpad. In PowerShell `bash` is WSL: use the Bash tool. A texture made in _draw must be held or it draws white. Godot's built-in pane fails FloorPlanMaker's visitor check: Chrome works. A new image needs `--import` before tests see it.
+Ludo CLI: `ludo image edit` from the shell, 0.5 credit a result: `--image-type sprite` gives a cut-out. Working files: E:/FightCamp/tmp/s414_builder (his3/gym.png = his picture; his2 = emptied room + cut-outs from the previous version; paint/final = the painted test).
+E: 34 GB free (over the 85% rule); held agent worktrees are first to go.
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor Grok 4.7 High until 12-07.
+
 # S413 last note (read first)
 His words at handover, on the top bar's Home / Fighters / Fights / Club / World tabs: "whats the point oving those if they have shortcuts on the gym or be in submenus ?". On Home they repeat the gym's pins. Claude's answer: on Home they are redundant; on any other page they are the only quick way to jump. Proposal on the board as Q-S294-145 (one Gym button in place of the five). Shell._build_rail builds them (Rail_<id>). Remember the gym has no Club pin: Club office goes to People, so check the pins reach every page first (Money and Records are sub-tabs of Club).
 His follow-up: "why not add a book a fight inside the player profile ? would that solve the problem ?" Claude: yes for the common trip. Build with the one Gym button if he says yes on Q-S294-145: a fight panel on the fighter page showing that boxer's own offers with Open straight to the versus screen (act openBout, OfferCard), or when the next offer is due, or the booked bout with a link to Fight prep. Today FighterPage.gd line 224 has only a Find a bout button that goes to the Fights page. Bouts come as offers, so the panel answers offers rather than booking freely (pros: ProFights probook).

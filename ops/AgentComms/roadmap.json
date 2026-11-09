@@ -6,13 +6,13 @@
   "id": "S414",
   "owner": "claude",
   "updated": "2026-11-09",
-  "summary": "S414: fighter Overview in dark panels built as the one real page he asked for. REARHAND1 probe corrected: all 10 right hooks reach hip height and go behind the hip; no swap. Both gym planner sites used and compared.",
-  "last_working_commit": "dc66491e",
-  "verified_playable": "Seven touched tests green; dark page rendered and opened; exported 11-09 16:29. He has not played it.",
+  "summary": "S414: his own gym picture is Home, unchanged, pins on its rooms. Fighter Overview in dark panels. Eight planner sites compared; builder drawn. REARHAND1 corrected, REARHAND2 running.",
+  "last_working_commit": "see git log, S414",
+  "verified_playable": "Tests the change touches green; Home rendered on the real route and opened; exported 11-09. He has not played it.",
   "incomplete_blocked": "Guide as a person waits on Q-S294-140. Main screen on Q-S294-141 and 137. Coaches on Q-S294-142. COACH1 PR 127 not collected (CI running, still not opened). PR 124 not mergeable: camp_protocol red, 4G queued on Cursor then 4B. FIGHTERMODEL4G may be cut off by his restart: re-run as 4H. FLOOR2 PR 128 checked, waits on CI.",
-  "next_action": "Read his answers: Q-S294-146 dark or cream, Q-S294-147 one Gym button, Q-S294-144 camera, and the builder question. Read the 05:00 full test run. Collect REARHAND2 (Qwen) and FIGHTERMODEL4H (Cursor). MENUWEEK2 PR 130 held: red tests, two script errors, built for cream.",
+  "next_action": "Read his answers: Q-S294-146 dark or cream, Q-S294-147 one Gym button. Read the 05:00 full test run. Collect REARHAND2 (Qwen) and FIGHTERMODEL4H (Cursor). Then Home's corner panels on his picture, the UFC text off the bags, and the pin-and-slot plan in ops/research/S414_DIGEST.md.",
   "next_acceptance": "He picks a camera from real renders; 4F leaves only matchmaking_bots red with no test numbers changed; FLOOR2 tightens the places bar.",
-  "awaiting_operator": "['Q-S294-146 dark or cream','Q-S294-147 one Gym button','Q-S294-144 gym camera','the gym builder from the planner sites','play the S414 build']"
+  "awaiting_operator": "['Q-S294-146 dark or cream','Q-S294-147 one Gym button','play the S414 build']"
  },
  "next": "S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.",
  "assessment": {
@@ -1647,7 +1647,7 @@
   {
    "id": "S414",
    "date": "2026-11-09",
-   "note": "S414: one real page in dark panels; REARHAND1 corrected, REARHAND2 running; two gym planner websites compared for a player builder."
+   "note": "S414: one real page in dark panels; REARHAND1 corrected; eight gym planners compared; the builder drawn; straight-on painted 2D gym (Ludo room + front-facing pieces); door on the back wall, expansion down and right."
   }
  ],
  "blocked_on_operator": [],
@@ -4566,7 +4566,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-09 16:13 board_sync",
+  "updated": "2026-11-09 17:13 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4928,7 +4928,21 @@
     "title": "TASK FIGHTERMODEL4H - CURSOR (Grok 4.7 High) - the camp's three levels mean something again on the new fighter model",
     "who": "cursor",
     "started": "2026-11-09T16:13",
-    "run": "FIGHTERMODEL4H"
+    "run": "FIGHTERMODEL4H",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK REARHAND2 - QWEN (qwen3-coder) - is the right hook's low hand in the bought capture or made by our bake",
+    "who": "qwen",
+    "started": "2026-11-09T16:32",
+    "run": "REARHAND2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL4B - CURSOR (Grok 4.7 High) - scouting has something to find again, on the 10 attributes",
+    "who": "cursor",
+    "started": "2026-11-09T17:13",
+    "run": "FIGHTERMODEL4B"
    }
   ],
   "next": [
@@ -5514,6 +5528,14 @@
     {
      "text": "REARHAND1: right hooks drop",
      "who": "claude"
+    },
+    {
+     "text": "Gym builder drawn, painted 2D",
+     "who": "claude"
+    },
+    {
+     "text": "His picture is Home",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5629,6 +5651,14 @@
     },
     {
      "text": "Gym picture as main screen",
+     "who": "claude"
+    },
+    {
+     "text": "Your call: the painted gym",
+     "who": "operator"
+    },
+    {
+     "text": "Pin and slot on his picture",
      "who": "claude"
     }
    ],

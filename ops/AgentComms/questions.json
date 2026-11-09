@@ -5864,10 +5864,10 @@
       "attach": [
         "research/GYM_PLANNER_SITES_S414.md"
       ],
-      "answer": null,
+      "answer": "Withdrawn by Claude S414: overtaken by his own picture as the gym",
       "note": null,
       "answered_at": null,
-      "seen_by_claude": false
+      "seen_by_claude": true
     },
     {
       "id": "Q-S294-149",
@@ -5921,10 +5921,82 @@
         "AgentComms/board_attach/Q-S294-151_0_builder_place.jpg",
         "AgentComms/board_attach/Q-S294-151_1_builder_turned.jpg"
       ],
-      "answer": null,
+      "answer": "Withdrawn by Claude S414: he asked for a tilted top-down view in 2D; see the newer question",
       "note": null,
       "answered_at": null,
-      "seen_by_claude": false
+      "seen_by_claude": true
+    },
+    {
+      "id": "Q-S294-152",
+      "asked": "2026-11-09T15:46:52.699619+00:00",
+      "session": "S294",
+      "text": "Your idea drawn: the gym straight on from above, tilted, still 2D. It fills the screen edge to edge and is 33% bigger than the diagonal view. The cost: the 12 equipment pictures must be redrawn facing front, and the boxers re-made at this angle. Use this view for the gym?",
+      "options": [
+        "Yes, this view",
+        "Keep the diagonal, zoomed",
+        "Change something"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-152_0_builder_angle_only.jpg",
+        "AgentComms/board_attach/Q-S294-152_1_builder_angle_hud.jpg"
+      ],
+      "answer": "Withdrawn by Claude S414: replaced by the painted straight-on gym, see the newer question",
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": true
+    },
+    {
+      "id": "Q-S294-153",
+      "asked": "2026-11-09T15:59:59.554024+00:00",
+      "session": "S294",
+      "text": "The gym as a straight-on 2D painting in our art style: the room and each piece painted by Ludo, the door on the back wall, full screen. The second picture shows expansion: the door stays, the building grows right and down. Is this the gym you want?",
+      "options": [
+        "Yes, this is the gym",
+        "Change something"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-153_0_builder_painted_hud.jpg",
+        "AgentComms/board_attach/Q-S294-153_1_builder_grow.jpg"
+      ],
+      "answer": "Withdrawn by Claude S414: he sent his own picture as the target, see the newer question",
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": true
+    },
+    {
+      "id": "Q-S294-154",
+      "asked": "2026-11-09T16:24:56.563856+00:00",
+      "session": "S294",
+      "text": "Your picture as the real gym art. Ludo emptied the room, and pieces cut from your picture can be placed anywhere (second picture: a different layout, your art). The room stays one picture, the pieces and people go on top so the builder works. Use this as the gym?",
+      "options": [
+        "Yes, use my picture",
+        "Change something"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-154_0_hisgym_empty.jpg",
+        "AgentComms/board_attach/Q-S294-154_1_hisgym_moved.jpg"
+      ],
+      "answer": "Withdrawn by Claude S414: he asked to use the picture exactly as it is, see the newer question",
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": true
+    },
+    {
+      "id": "Q-S294-155",
+      "asked": "2026-11-09T16:28:50.585904+00:00",
+      "session": "S294",
+      "text": "Your picture exactly as it is, as the gym on the main screen. Put it in the game?",
+      "options": [
+        "Yes, put it in",
+        "Change something"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-155_0_hisgym_exact.jpg"
+      ],
+      "answer": "Yes, put it in (answered in the session)",
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": true
     }
   ]
 }

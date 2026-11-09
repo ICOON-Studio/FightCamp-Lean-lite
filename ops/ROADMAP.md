@@ -8,9 +8,9 @@ Updated 2026-11-09 by claude S294.
 
 ## Now
 
-**S413 — ?** *(claude)*
+**S414 — ?** *(claude)*
 
-S413: the guide is a person (old trainer, one line, a light). Home: the gym fills the window after his note on unused space. COACH1 and FLOOR2 merged; pad rating now teaches moves. CLIPFULL1: no benched take goes back.
+S414: his own gym picture is Home, unchanged, pins on its rooms. Fighter Overview in dark panels. Eight planner sites compared; builder drawn. REARHAND1 corrected, REARHAND2 running.
 
 ## Next
 
@@ -298,3 +298,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S411**  |  |  | *none yet* |  |
 |  |  | **S412**  |  |  | *none yet* |  |
 |  |  | **S413**  |  |  | *none yet* |  |
+|  |  | **S414**  |  |  | *none yet* |  |

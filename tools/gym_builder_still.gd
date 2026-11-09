@@ -53,9 +53,129 @@ const PLOTS := [
 	[-12.0, 1.0, 11.0, 16.0, "Youth section", "$1,800: 20 juniors' dues", -6.0, 9.0],
 ]
 
+## Real premises (GymUpgrades.PREMISES) and places (FLOOR_PLACES_S411.md). The stage sizes are the plan's, the positions the proposal.
+const GROW_TAGS := [
+	[0.0, 0.0, 0.0, 0.0, "Start: the unit", "70 members, 23 places, $1,800 a month", 8.0, 10.6, 0.0],
+	[0.0, 0.0, 0.0, 0.0, "Stage 2: bigger unit, grows right and down", "$12,000: 140 members, 47 places, $3,400 a month", 15.0, 16.6, 0.0],
+	[0.0, 0.0, 0.0, 0.0, "Stage 3: club building", "$25,000: 250 members, 83 places, $5,500 a month", 15.0, 21.0, 0.0],
+]
+const PAINT_DIR := "E:/FightCamp/tmp/s414_builder/paint/final/"
 var main: Node
 var out_dir := "user://builder_still"
 var turned := false
+var oblique := false
+var no_items := false   # the bare room: the base for a painted floor
+var empty_gym := false   # no people: the base a painter works over
+var bare := false   # the owner: "full screen gym without surround roads": nothing round the building, zoomed to the width
+
+
+## The owner: "like top-down but with angle?": the building square to the screen, seen from above and tilted so the back wall shows.
+## The equipment pictures are painted for the diagonal view and stay that way here: this tests the fit, not the art.
+class Oblique extends "res://scripts/ui/IsoGym.gd":
+	static var no_door := false
+	static var held := {}   # a texture made here must outlive the frame it is drawn in
+
+	static func tex_of(path: String) -> Texture2D:
+		if not held.has(path):
+			held[path] = ImageTexture.create_from_image(Image.load_from_file(path))
+		return held[path]
+
+	static var span := Vector2.ZERO   # draw as if the building were this big (the expansion picture)
+	static var painted := ""   # a folder: room.png under everything and <kind>.png for the pieces
+	const LEAN := 0.0
+	const SQUASH := 0.593
+	const K := 45.25
+
+	func _axes() -> Array:
+		return [Vector2(K, 0.0), Vector2(-LEAN * K, SQUASH * K)]
+
+	func _fit() -> void:
+		if plan.is_empty():
+			return
+		var a: Array = _axes()
+		var ex: Vector2 = a[0] * (span.x if span.x > 0.0 else float(plan["w"]))
+		var ey: Vector2 = a[1] * (span.y if span.y > 0.0 else float(plan["h"]))
+		var box := Vector2(ex.x - ey.x, ey.y + WALL)
+		_scale = minf(size.x / box.x, size.y / box.y) * 0.995
+		_origin = Vector2((size.x - box.x * _scale) * 0.5 - ey.x * _scale, (size.y - box.y * _scale) * 0.5 + WALL * _scale)
+
+	func tile(p: Vector2) -> Vector2:
+		var a: Array = _axes()
+		return _origin + (a[0] * p.x + a[1] * p.y) * _scale
+
+	func _floors() -> void:
+		if painted == "":
+			super()
+			return
+		var corner: Vector2 = tile(Vector2.ZERO) - Vector2(0.0, WALL * _scale)
+		var far: Vector2 = tile(Vector2(float(plan["w"]), float(plan["h"])))
+		draw_texture_rect(tex_of(painted + "room.png"), Rect2(corner, far - corner), false)
+
+	func _back_walls() -> void:
+		if painted == "":
+			super()
+
+	func _front_walls() -> void:
+		if painted == "":
+			super()
+
+	func _board() -> void:
+		if painted == "":
+			super()
+
+	func _front_door() -> void:
+		if no_door:
+			return
+		if painted == "":
+			super()
+			return
+		var tex := _pic("door")
+		var high: float = WALL * 0.92 * _scale
+		var wide: float = high * float(tex.get_width()) / float(tex.get_height())
+		var foot: Vector2 = tile(Vector2(float(plan["door"][0]) + 0.5, 0.0))
+		draw_texture_rect(tex, Rect2(foot.x - wide * 0.5, foot.y - high, wide, high), false)
+
+	func _room(z: Dictionary) -> void:
+		if painted == "":
+			super(z)
+
+	func _pic(kind: String) -> Texture2D:
+		if painted != "" and FileAccess.file_exists(painted + kind + ".png"):
+			return tex_of(painted + kind + ".png")
+		return super(kind)
+
+	## Seen straight on, a wall running up the screen is only its top edge.
+	func _edge_on(a: Vector2, b: Vector2) -> bool:
+		return absf(tile(a).x - tile(b).x) < 1.0
+
+	func _wall(a: Vector2, b: Vector2, high: float, col: Color) -> void:
+		if _edge_on(a, b):
+			draw_line(tile(a), tile(b), EDGE, maxf(4.0, 7.0 * _scale))
+			return
+		super(a, b, high, col)
+
+	func _stripe(a: Vector2, b: Vector2) -> void:
+		if not _edge_on(a, b):
+			super(a, b)
+
+	func _window(a: Vector2, b: Vector2) -> void:
+		if not _edge_on(a, b):
+			super(a, b)
+
+	func _item(it: Dictionary) -> void:
+		var x := float(it["x"])
+		var y := float(it["y"])
+		var w := float(it["w"])
+		var h := float(it["h"])
+		var tex := _pic(str(it["kind"]))
+		if tex == null:
+			return
+		var wide: float = w * K * _scale * 1.06 * float(SIZE.get(str(it["kind"]), 1.0))
+		var high: float = wide * float(tex.get_height()) / float(tex.get_width())
+		if str(it["kind"]) == "mat" and painted != "":   # flat on the floor: it must not stand taller than its depth on screen
+			high = h * K * SQUASH * _scale * 1.1
+		var foot: Vector2 = tile(Vector2(x + w * 0.5, y + h))
+		draw_texture_rect(tex, Rect2(foot.x - wide * 0.5, foot.y - high, wide, high), false)
 
 
 ## The owner: "if you rotate the camera a bit clockwise it can fit a bigger part of the gym". The floor and walls follow the turn;
@@ -136,6 +256,14 @@ class Marks extends Control:
 	func _draw() -> void:
 		if mode == "clean":
 			return
+		if mode == "grow":
+			var dark := Color("#2a2622")
+			draw_colored_polygon(iso._diamond(24.0, 0.0, 8.0, 24.0), dark)
+			draw_colored_polygon(iso._diamond(0.0, 18.0, 24.0, 6.0), dark)
+			_dashed(0.0, 0.0, 32.0, 24.0)
+			_dashed(0.0, 0.0, 24.0, 18.0)
+			_outline(0.0, 0.0, 16.0, 12.0, GOLD, 5.0)
+			return
 		var w := int(plan["w"])
 		var h := int(plan["h"])
 		var line := Color(1, 1, 1, 0.12)
@@ -152,6 +280,11 @@ class Marks extends Control:
 		else:
 			_ghost("rack", float(RACK_REFUSED.x), float(RACK_REFUSED.y), 2.0, 1.0, BAD)
 
+	func _dashed(x: float, y: float, w: float, h: float) -> void:
+		var d: PackedVector2Array = iso._diamond(x, y, w, h)
+		for k in 4:
+			draw_dashed_line(d[k], d[(k + 1) % 4], GOLD, 3.0, 16.0, true)
+
 	func _outline(x: float, y: float, w: float, h: float, col: Color, thick: float) -> void:
 		var d: PackedVector2Array = iso._diamond(x, y, w, h)
 		d.append(d[0])
@@ -160,8 +293,10 @@ class Marks extends Control:
 	func _ghost(kind: String, x: float, y: float, w: float, h: float, col: Color) -> void:
 		draw_colored_polygon(iso._diamond(x, y, w, h), Color(col, 0.6))
 		_outline(x, y, w, h, col, 3.0)
-		var tex: Texture2D = load(IsoGym.ART % kind)
+		var tex: Texture2D = iso._pic(kind)
 		var wide: float = (w + h) * IsoGym.TW * 0.5 * iso._scale * 1.06 * float(IsoGym.SIZE.get(kind, 1.0))
+		if Oblique.painted != "":
+			wide = w * Oblique.K * iso._scale * 1.06 * float(IsoGym.SIZE.get(kind, 1.0))
 		var high: float = wide * float(tex.get_height()) / float(tex.get_width())
 		var foot: Vector2 = iso.tile(Vector2(x + w, y + h))
 		var mid: Vector2 = iso.tile(Vector2(x + w * 0.5, y + h * 0.5))
@@ -196,13 +331,50 @@ func _initialize() -> void:
 	await _settle(8)
 	var c: Career = main.career
 	var plan: Dictionary = GymBonus.plan(c.gym_plan)
-	await _shot(c, plan, "clean", "builder_clean")
-	await _shot(c, plan, "place", "builder_place")
-	await _shot(c, plan, "refused", "builder_refused")
-	turned = true
-	await _shot(c, plan, "place", "builder_turned")
+	oblique = true
+	bare = true
+	var top: Dictionary = _door_on_top(plan)
+	print("BUILDER_TOP_PLAN problems=%s" % str(GymPlan.problems(top)))
+	no_items = true
+	empty_gym = true
+	Oblique.no_door = true
+	await _shot(c, top, "clean", "builder_room")
+	Oblique.no_door = false
+	no_items = false
+	empty_gym = false
+	if FileAccess.file_exists(PAINT_DIR + "room.png"):
+		Oblique.painted = PAINT_DIR
+		await _shot(c, top, "clean", "builder_painted_only")
+		await _shot(c, top, "place", "builder_painted_hud")
+		Oblique.span = Vector2(32, 24)
+		await _shot(c, top, "grow", "builder_grow")
+		Oblique.span = Vector2.ZERO
 	print("BUILDER_STILL DONE")
 	quit(0)
+
+
+## The owner: the door "should be on top side and expand maybe towards the bottom or sides". Reception goes under the back wall,
+## the lockers to the bottom of the left-hand column; the building can then grow down and to the right without moving the door.
+func _door_on_top(plan: Dictionary) -> Dictionary:
+	var p: Dictionary = plan.duplicate(true)
+	p["door"] = [3, 0]
+	for z in p["zones"]:
+		if str(z["kind"]) == "reception":
+			z["y"] = 0
+		elif str(z["kind"]) == "lockers":
+			z["y"] = 12
+			z["door"] = [7, 15]
+	for it in p["items"]:
+		match str(it["kind"]):
+			"desk":   # beside the door, never in front of it
+				it["x"] = 5
+				it["y"] = 1
+			"sofa":
+				it["x"] = 1
+				it["y"] = 3
+			"lockers":
+				it["y"] = 13
+	return p
 
 
 func _settle(frames: int) -> void:
@@ -218,7 +390,7 @@ func _with(plan: Dictionary, kind: String, at: Vector2i) -> Dictionary:
 
 func _shot(c: Career, plan: Dictionary, mode: String, file: String) -> void:
 	var placing: bool = mode == "place"
-	var clean: bool = mode == "clean"
+	var clean: bool = mode == "clean" or mode == "grow"
 	var test: Dictionary = plan if clean else (_with(plan, "bag", BAG_SPOT) if placing else _with(plan, "rack", RACK_REFUSED))
 	var problems: Array = GymPlan.problems(test)
 	var f: Dictionary = c.fighters[0]
@@ -233,20 +405,34 @@ func _shot(c: Career, plan: Dictionary, mode: String, file: String) -> void:
 	s.size = Vector2(W, H - BAR)
 	s.clip_contents = true
 	root.add_child(s)
-	var iso: Control = Rotated.new() if turned else IsoGym.new()
+	var iso: Control = Oblique.new() if oblique else (Rotated.new() if turned else IsoGym.new())
 	iso.plan = shown_plan
+	if no_items:
+		var bare_plan: Dictionary = shown_plan.duplicate(true)
+		bare_plan["items"] = []
+		iso.plan = bare_plan
 	iso.position = Vector2.ZERO   # the whole window under the game's top bar; the controls float in the corners with no floor
 	iso.size = Vector2(W, H - BAR)
+	if bare and not oblique:
+		iso.size = Vector2(W, 1090.0)
+		iso.position = Vector2(0.0, (H - BAR - iso.size.y) * 0.5)
 	var around := Surround.new()
 	around.iso = iso
 	around.position = iso.position
 	around.size = iso.size
-	s.add_child(around)
+	if bare:
+		var back := ColorRect.new()
+		back.color = Color("#15100d")
+		back.size = s.size
+		s.add_child(back)
+	else:
+		s.add_child(around)
 	s.add_child(iso)
 	iso._fit()
 	print("BUILDER_SCALE turned=%s scale=%.3f" % [str(turned), iso._scale])
 	var people := _figures(iso, shown_plan, Faces.stem(f))
-	s.add_child(people)
+	if not empty_gym:
+		s.add_child(people)
 	var marks := Marks.new()
 	marks.iso = iso
 	marks.plan = shown_plan
@@ -258,9 +444,12 @@ func _shot(c: Career, plan: Dictionary, mode: String, file: String) -> void:
 	if not clean:
 		for m in METERS:
 			_meter(s, iso, m, after)
-	for p in PLOTS:
+	for p in ([] if bare else PLOTS):
 		if not (turned and str(p[4]).begins_with("Club")):   # the turned view has no free floor for it
 			_plot_tag(s, iso, p)
+	if mode == "grow":
+		for g in GROW_TAGS:
+			_plot_tag(s, iso, g)
 	if clean:
 		await _finish(s, file)
 		return
@@ -386,7 +575,11 @@ func _top_hud(s: Control, ok: bool) -> void:
 	for step in [["1  Building", "Tab"], ["2  Zones", "Tab"], ["3  Pieces", "TabOn"]]:
 		steps.add_child(UI.button(step[0], step[1], func(): pass))
 	left.add_child(steps)
-	s.add_child(left)
+	var plate := PanelContainer.new()
+	plate.add_theme_stylebox_override("panel", UI.box(Dark.PANEL_BG, Color(0, 0, 0, 0), 8, 0, 12, 6))
+	plate.position = Vector2(8, 6)
+	plate.add_child(left)
+	s.add_child(plate)
 	var h := UI.hbox(8)
 	h.add_child(UI.button("3/4 view", "TabOn", func(): pass))
 	h.add_child(UI.button("Floor plan", "Tab", func(): pass))
@@ -443,7 +636,7 @@ func _tile(kind: String, name_: String, on: bool) -> Control:
 	p.custom_minimum_size = Vector2(130, 160)
 	var v := UI.vbox(0)
 	var pic := TextureRect.new()
-	pic.texture = load(IsoGym.ART % kind)
+	pic.texture = ImageTexture.create_from_image(Image.load_from_file(Oblique.painted + kind + ".png")) if Oblique.painted != "" else load(IsoGym.ART % kind)
 	pic.custom_minimum_size = Vector2(0, 54)
 	pic.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	pic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED

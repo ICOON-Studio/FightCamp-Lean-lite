@@ -109,3 +109,40 @@ Camera: turned 20 degrees clockwise the gym draws 9% bigger (scale 1.438 against
 
 The camera "the other way" (20 degrees anticlockwise): scale 1.329 against 1.315, about 1% bigger, so it fits no more of the gym than the clockwise test (9%) or a zoom (9%). The art would still need redoing.
 What each piece builds is a proposal.
+
+## The straight-on view (S414)
+The owner: "like top-down but with angle?", "2d". The building square to the screen, seen from above and tilted so the back wall shows: docs/mockups/s414/builder_angle_only.jpg and builder_angle_hud.jpg. Still 2D, no real 3D. Scale 1.752, against 1.315 for the diagonal view (33% bigger) and 1.421 for the diagonal zoomed to the width (23%). The 24 x 18 building fills the window edge to edge; nothing is cropped.
+Costs: the 12 equipment pictures are painted for the diagonal and must be redrawn facing front; the boxers' strips are baked from 3D by tools/bake_hub_sprites.gd and can be baked again at this camera. The panels now lie over the floor, so they need to slide away.
+
+## The painted gym, and can tools do it (S414)
+The owner: "no weird angles, straight up full screen ... generate as a high detailed background screen with our art style, can external tools do that?", "door looks wrong ... should be on top side and expand maybe towards the bottom or sides".
+Test, about 10.5 Ludo credits, `ludo image edit` from the CLI. Pictures: docs/mockups/s414/builder_painted_only, builder_painted_hud, builder_grow. Working files E:/FightCamp/tmp/s414_builder/paint (final/ = the room and pieces used; style_ref.png = a sheet of our 12 pieces).
+What worked: a painted EMPTY room from our own render keeps every wall and zone exactly in place (three tries, all usable). Each piece redrawn front-facing from our own picture, as a separate cut-out, keeps colours and materials: 11 of 11 usable first try.
+What failed: painting the whole gym with the equipment in it kept the diagonal angles, looked aged, and would freeze the layout. S408's rule stands: never one painting for the gym. Room as the painting, pieces and people on top.
+Weak point: the boxers are 3D renders, sharper and turned three-quarter, against painted surroundings. To do: re-bake at this camera, then try a paint pass.
+Tripo: not signed in on his Chrome, no CLI or key here. Value would be four-way turning from one model. `ludo model create` is the same idea from the CLI, not tried.
+
+## How expansion will work (proposal)
+1. The door and the back wall never move. The building grows down and to the right.
+2. Three stages, real premises numbers: Start, the unit, 16 x 12, 70 members, 23 places, $1,800 a month. Stage 2, bigger unit, 24 x 18, $12,000, 140 members, 47 places, $3,400 a month. Stage 3, club building, 32 x 24, $25,000, 250 members, 83 places, $5,500 a month.
+3. The next stage shows as a locked area with its price and what it gives, before you can afford it.
+4. On moving up, everything stays where it stands and the new floor arrives empty.
+5. Each stage needs one painted room per plan shape, or a room built from painted strips.
+Not solved: this layout does not nest. The Start outline cuts through the ring, so Start needs its own layout that holds a ring and leaves every piece in place at Stage 2. The four presets are not nested either.
+
+## How adding equipment will work (proposal)
+1. Pick a piece: the zones it may stand in light up, and the piece follows the mouse.
+2. Green footprint shows cost, +places, what it builds. Red footprint gives GymPlan's reason, and it cannot be placed.
+3. Placing it pays the price; it arrives after a week of fitters, as upgrades already do (GymUpgrades.FIT_DAYS 7).
+4. Zone meters and the top number update at once. The places cap comes from the premises.
+5. Selected piece: Turn, Remove (part of the price back: number to be set).
+6. A full zone is what pushes you to buy or expand: needs the rules in "The drawing, after the owner's notes", measured on the harness first.
+
+## His own picture as the gym (S414)
+The owner: "can you use this exact picture" (C:/Users/user/Downloads/MMA Manager Gym Floor Plan.png, 1672 x 941, his mock HUD baked in; a version without the HUD exists only in the chat). Test, about 4 Ludo credits, working files E:/FightCamp/tmp/s414_builder/his.
+Worked: `ludo image edit` removed every object and person and kept the building, floors, light and camera; a second edit removed the HUD and continued the grass and wall. Pieces cut out of the picture one at a time (image-type sprite) came back whole. Pictures: docs/mockups/s414/hisgym_empty.jpg, hisgym_moved.jpg (a different layout from his, the picture's own scale).
+Limits: one left-hand room kept its showers after the emptying; the bags lost their rail and float; a sign, cage and posters say MMA and the demo is boxing only; entrance is on the front wall, against his earlier note (door on top, grow down or sideways); 1672 wide, Ludo upscale caps at 2048; he should confirm where the picture came from; Steam asks for AI content to be disclosed.
+To build: the plan's zones and items must be remapped to this room (its own tile grid and picture scale, rooms on the left, main floor on the right), and every piece the game needs cut out or generated with this picture as the style reference. The boxers need to match this darker, more realistic look.
+
+## "Why you do not use it exactly as it is?" (S414)
+His latest picture, no HUD and no people, kept at E:/FightCamp/tmp/s414_builder/his3/gym.png; in the game frame docs/mockups/s414/hisgym_exact.jpg. As it is, it can be the main screen at once: pins and meters placed on its own rooms. What a fixed picture cannot do: show a change when the player adds a piece or expands, or match a gym that does not own a cage. An emptied room and cut-out pieces from his previous version (his2/empty, his2/piece) are ready for when the builder needs them.
