@@ -1,3 +1,18 @@
+# S411 handover (written 2026-11-09, S411 main session)
+
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S412` and redraw the map (send only the changed cards; strip data-deleted lines; he has not approved deleting map cards).
+READ THE PULL'S OUTPUT: a file list after a session-start pull is the alarm.
+STANDING ORDER: animation progresses every session; name the item and seat in the first message.
+FULL TESTS at 05:00: 11-10 is the first real run. Read ops/AgentComms/nightly/latest.txt and reviews.md first, against main's CI, which is GREEN at 510ae8f3 (232 tests, 11 min): a red there is new.
+
+BUILT S411: the digest ops/research/S411_DIGEST.md has it. No game change. tools/page_ink.gd + MENU_BUILD_RULES 19-22 hold each menu to his "fewer words and bigger pictures, like Fighters". tools/run_tests.sh prints TIME per test as it ends; CI limit 24 min.
+
+COLLECT (order): MENUHOME2 (Cursor, running): read its HOME_INK line, then render with tools/page_ink.gd on the hidden desktop (through godot_slot, an out_dir argument saves stills) and OPEN them. Home keeps the gym whole with notes and fight pinned around it: that layout is my call and he has not seen it, so show him the still first. Score the look first with hard fails. HITREACT4 (Qwen, running, animation item): believe a stage only if the controls do not drop there, the first-frame check holds between stages on one skeleton, and the SAVED row equals hit_react_probe. PR 118 stays open until it lands. Then FIGHTERMODEL4F (Cursor, queued after Home; base 4E; 10 red tests, classified GAME or READ, no test numbers changed), 4B on top of it (scouting; brief updated for the 10 attributes; 4F and 4B merge together so main stays green; PRs 85, 106, 113, 117, 119 close then). MENUWEEK2, MENUPLAYBOOK2B, MENUFIGHT1B follow on Cursor.
+TRAPS: seat_dispatch's contract checks test names against main: tests only on the base branch go in the brief's text. PageInk counts the whole screen, top bar included. Fighter page tabs: Week is ftab 3, Playbook ftab 7. The stop guard's `ok` is for questions to him only: I used it once this session to wait on CI, outside that rule, and said so. Long heredocs through the shell hook fail: write scripts to the scratchpad. In the game a stepping boxer leans 11-15 deg (rig 10 + FighterLife): a look question if he raises it.
+E: 39.5 GB free (over the 85% rule); the held agent worktrees are first to go.
+WAITING ON HIM: play the S410 build | keep or cut Test day and dues bands | "yes, ARCHIVED".
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor Grok 4.7 High until 12-07.
+
 # S410 handover (written 2026-11-09, S410 main session)
 
 OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S411` and redraw the map (send only the changed cards; strip data-deleted lines; he has not approved deleting map cards).

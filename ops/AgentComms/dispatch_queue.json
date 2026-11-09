@@ -687,6 +687,13 @@
    "status": "queued"
   },
   {
+   "id": "FIGHTERMODEL4F",
+   "seat": "cursor",
+   "title": "TASK FIGHTERMODEL4F - CURSOR (Grok 4.7 High) - the red tests the new fighter model leaves behind",
+   "brief": "FIGHTERMODEL4F",
+   "status": "queued"
+  },
+  {
    "id": "MENUWEEK2",
    "seat": "cursor",
    "title": "TASK MENUWEEK2 - CURSOR (Grok 4.7 High) - the Fighter Week page, fewer words, bigger pictures",

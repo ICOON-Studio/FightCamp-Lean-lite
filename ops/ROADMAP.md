@@ -8,9 +8,9 @@ Updated 2026-11-09 by claude S294.
 
 ## Now
 
-**S410 — ?** *(claude)*
+**S411 — ?** *(claude)*
 
-S410: Fighters is a line of full-body cards on a painted gym and a bout offer is a versus screen, as he picked. Dark top bar on every page. move_tip's real framing fault fixed. A session-start pull merged PR 106 by accident: undone before any push, and the cause fixed. HITREACT3 and FIGHTERMODEL4E running.
+S411: his yes on the four painted menus came with 'fewer words and bigger pictures, like Fighters'. page_ink turns that into bars; all four are briefed and queued on Cursor, Home running. Main's CI is green for the first time in days. FIGHTERMODEL4E not merged: 10 red tests the cancelled runs had hidden.
 
 ## Next
 
@@ -295,3 +295,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S408**  |  |  | *none yet* |  |
 |  |  | **S409**  |  |  | *none yet* |  |
 |  |  | **S410**  |  |  | *none yet* |  |
+|  |  | **S411**  |  |  | *none yet* |  |

@@ -3,20 +3,19 @@
  "updated": "2026-11-09",
  "author": "claude S294",
  "now": {
-  "id": "S410",
+  "id": "S411",
   "owner": "claude",
   "updated": "2026-11-09",
-  "summary": "S410: Fighters is a line of full-body cards on a painted gym and a bout offer is a versus screen, as he picked. Dark top bar on every page. move_tip's real framing fault fixed. A session-start pull merged PR 106 by accident: undone before any push, and the cause fixed. HITREACT3 and FIGHTERMODEL4E running.",
-  "last_working_commit": "3feaafe6",
-  "verified_playable": "versus, roster_cards, roster_flag, golden_path, first_hour_walk, offer_gone, grey_reason, move_tip, file_limits green; both screens rendered and opened. Not played by him yet.",
-  "incomplete_blocked": "Fighter model not mergeable: plan_bots 2 red on PR 117, 4E running. Four menus held for a painted concept and his yes. boxer_footwork red on main.",
-  "next_action": "Read his answers on the painted concepts and on the S410 build, then re-brief the held Cursor rows from the concepts he approves. Collect HITREACT3 (which conversion stage loses the head travel, controls must not drop) and FIGHTERMODEL4E (plan_bots green, CI inside its limit). Read main's CI on the S410 commits (move_tip should be green) and the first real 05:00 full test run (11-10).",
-  "next_acceptance": "HITREACT3 names a stage with its controls clean; plan_bots green with CI inside its limit; held menus re-briefed only from concepts he approved.",
+  "summary": "S411: his yes on the four painted menus came with 'fewer words and bigger pictures, like Fighters'. page_ink turns that into bars; all four are briefed and queued on Cursor, Home running. Main's CI is green for the first time in days. FIGHTERMODEL4E not merged: 10 red tests the cancelled runs had hidden.",
+  "last_working_commit": "510ae8f3",
+  "verified_playable": "Main CI green, 232 tests, 11 min (run 42598106431). Game unchanged since S410; he has not played S410 yet.",
+  "incomplete_blocked": "Four menus queued, none built. Fighter model not mergeable: 4F then 4B. Hit reaction stage still unknown: HITREACT4 running.",
+  "next_action": "Collect MENUHOME2: read its ink line, open the still, compare with MENU_BUILD_RULES 14-22. Collect HITREACT4 (every stage through the saved clip; controls must not drop; SAVED row equals hit_react_probe within 0.005 m). Read the first real 05:00 full test run (11-10) against main's CI. Then FIGHTERMODEL4F and the other three menus as they land.",
+  "next_acceptance": "Each menu meets its bar with nothing past 1080 and no action lost, and he plays it. HITREACT4 names a stage with its controls clean or says none does. 4F leaves only matchmaking_bots red, no test numbers changed.",
   "awaiting_operator": [
    "Play the S410 build",
-   "Painted concepts for Home, Week, Playbook, Fight night",
    "Keep or cut Test day and dues bands",
-   "yes, ARCHIVED"
+   "Yes, ARCHIVED (old Miro board)"
   ]
  },
  "next": "S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.",
@@ -1633,6 +1632,11 @@
    "id": "S410",
    "date": "2026-11-09",
    "note": "Painted Fighters cards and versus bout offer built from his pick; dark top bar. move_tip framing fixed over a whole clip. Stray PR 106 merge undone, background fetches fixed. HITREACT2 collected, HITREACT3 and FIGHTERMODEL4E launched. Build exported."
+  },
+  {
+   "id": "S411",
+   "date": "2026-11-09",
+   "note": "Q-S294-135: four menus re-briefed with measured bars (tools/page_ink.gd), queued on Cursor. no_gi and boxer_footwork fixed: main CI green. CI prints per-test times, 24 min. HITREACT3 sent back as HITREACT4. FIGHTERMODEL4E first finished run shows 10 reds: 4F queued, then 4B."
   }
  ],
  "blocked_on_operator": [],
@@ -4864,7 +4868,8 @@
     "title": "TASK FIGHTERMODEL4D - CURSOR (Grok 4.7 High) - the fighter model fits inside the test limit",
     "who": "cursor",
     "started": "2026-11-09T09:52",
-    "run": "FIGHTERMODEL4D"
+    "run": "FIGHTERMODEL4D",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK HITREACT2 - QWEN (qwen3-coder) - where does a hit reaction lose its movement?",
@@ -4872,13 +4877,45 @@
     "started": "2026-11-09T10:20",
     "run": "HITREACT2",
     "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HITREACT3 - QWEN (qwen3-coder) - run the conversion one step at a time and find where the head stops moving",
+    "who": "qwen",
+    "started": "2026-11-09T10:52",
+    "run": "HITREACT3",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL4E - CURSOR (Grok 4.7 High) - the plan must beat the coach again on the new fighter model",
+    "who": "cursor",
+    "started": "2026-11-09T11:01",
+    "run": "FIGHTERMODEL4E",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HITREACT4 - QWEN (qwen3-coder) - measure the conversion stages HITREACT3 did not run",
+    "who": "qwen",
+    "started": "2026-11-09T11:55",
+    "run": "HITREACT4"
+   },
+   {
+    "title": "TASK MENUHOME2 - CURSOR (Grok 4.7 High) - Home, round 2: the Needs-you board as drawn",
+    "who": "cursor",
+    "started": "2026-11-09T11:55",
+    "run": "MENUHOME2"
    }
   ],
   "next": [
    {
-    "id": "GAMELOOK2",
-    "who": "claude",
-    "title": "The painted look on Home, Week, Playbook and Fight night, once he approves the concepts",
+    "id": "MENUS411",
+    "who": "held",
+    "title": "Home, Week, Playbook, Fight night: fewer words, bigger pictures (queued on Cursor)",
+    "after": ""
+   },
+   {
+    "id": "FIGHTERMODEL4F",
+    "who": "held",
+    "title": "Fighter model: the 10 red tests, then scouting (4B)",
     "after": ""
    },
    {
@@ -4886,18 +4923,6 @@
     "who": "claude",
     "title": "The player builds their own gym on the same rules",
     "after": ""
-   },
-   {
-    "id": "MENUPLAYBOOK2",
-    "who": "held",
-    "title": "Playbook round 2: to the mockup, on one screen",
-    "after": ""
-   },
-   {
-    "id": "MENUHOME2",
-    "who": "held",
-    "title": "Home round 2: the Needs-you board as drawn",
-    "after": "MENUPLAYBOOK2"
    },
    {
     "id": "TRUTH1",
@@ -5145,6 +5170,16 @@
   },
   "done_recently": [
    {
+    "id": "CIGREEN",
+    "who": "claude",
+    "title": "Main's CI green again, with a time per test"
+   },
+   {
+    "id": "INK",
+    "who": "claude",
+    "title": "Fewer words and bigger pictures as a measured bar for every menu"
+   },
+   {
     "id": "ROSTERCARDS",
     "who": "claude",
     "title": "Fighters as full-body cards on a painted gym"
@@ -5342,6 +5377,26 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Fighters page painted (your pick)",
+     "who": "claude"
+    },
+    {
+     "text": "Hit reactions: loss is real",
+     "who": "agent"
+    },
+    {
+     "text": "Pull can't merge a stray PR",
+     "who": "claude"
+    },
+    {
+     "text": "Versus bout screen (your pick)",
+     "who": "claude"
+    },
+    {
+     "text": "Move card framing fixed",
+     "who": "claude"
+    },
+    {
      "text": "Boxers walk the gym floor",
      "who": "claude"
     },
@@ -5376,57 +5431,33 @@
     {
      "text": "Gym drawn from data",
      "who": "claude"
-    },
-    {
-     "text": "Menus remade as a game",
-     "who": "claude"
-    },
-    {
-     "text": "Money page merged",
-     "who": "claude"
-    },
-    {
-     "text": "ring_feet red explained, fixed",
-     "who": "claude"
-    },
-    {
-     "text": "SPLIT500 merged (Qwen)",
-     "who": "claude"
-    },
-    {
-     "text": "R11C standing count says why",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Fighters page painted (your pick)",
+     "text": "Fewer words as a test (page_ink)",
      "who": "claude"
     },
     {
-     "text": "Hit reactions: loss is real",
-     "who": "agent"
-    },
-    {
-     "text": "Pull can't merge a stray PR",
+     "text": "4 menus re-briefed to your yes",
      "who": "claude"
     },
     {
-     "text": "Versus bout screen (your pick)",
+     "text": "no_gi red on main fixed",
      "who": "claude"
     },
     {
-     "text": "Move card framing fixed",
+     "text": "boxer_footwork cause found",
+     "who": "claude"
+    },
+    {
+     "text": "Main CI green, 11 min",
      "who": "claude"
     }
    ],
    "now": [
     {
      "text": "Play the S410 build (you)",
-     "who": "operator"
-    },
-    {
-     "text": "Your call: 4 painted menus",
      "who": "operator"
     }
    ],
@@ -5532,7 +5563,7 @@
      "who": "claude"
     }
    ],
-   "session": "S410"
+   "session": "S411"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

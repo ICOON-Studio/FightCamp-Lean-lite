@@ -1,13 +1,14 @@
 # TASK FIGHTERMODEL4B - CURSOR (Grok 4.7 High) - scouting has something to find again, on the 10 attributes
 
-Status: OPEN (S411, Claude main). Discipline: boxing. Model: grok-4.7-high. Mechanics list row R24: critics 9 and 8, the operator's build list.
-The base is main once FIGHTERMODEL4E is merged. Do not start from an earlier branch.
+Status: OPEN, after FIGHTERMODEL4F lands (S411, Claude main). Discipline: boxing. Model: grok-4.7-high. Mechanics list row R24: critics 9 and 8, the operator's build list.
+FIRST: merge origin/main into this branch. It merges together with FIGHTERMODEL4F, so main stays green.
 Start every Godot run through `python ops/Tools/godot_slot.py run --who cursor -- <godot cmd>`.
 
 ## Contract
+BASE: cursor/fightermodel4f
 OWNS: scripts/rules/AttrGen.gd, scripts/rules/Attrs.gd, scripts/rules/BoutRead.gd, scripts/rules/Duels.gd, scripts/rules/Exchanges.gd, scripts/rules/Matchmaking.gd, tests/matchup_spread_test.gd
 RED_TEST: tests/matchup_spread_test.gd -> MATCHUP_SPREAD failures=0
-REGRESSION: matchmaking_bots_test, fighter_model_bars_test, fighter_model_test, fighter_model_speed_test, plan_bots_test, bout_read_test, world_years_test, golden_path_test
+REGRESSION: matchmaking_bots_test, plan_bots_test, bout_read_test, world_years_test, golden_path_test
 VISUAL: no
 
 ## Prior research
@@ -39,6 +40,8 @@ RESULT: spread median <x> signed mean <x> share worse <x>, before and after
 RESULT: rule 2 smart median <x> vs hard <x>; scouting +<n> top-10; stoppage losses blind <x> scouted <x>
 RESULT: CI tests job duration
 The blind critics are run by Claude on the built branch: do not score your own work.
+
+The branch's own fighter_model_test, fighter_model_speed_test and fighter_model_bars_test stay green too (they are not on main, so the contract cannot name them).
 
 ## The one trap
 tests/matchmaking_bots_test.gd takes about 12 minutes alone, so run it last and once. Widening the matchup also widens BoutRead's shown odds: BoutRead must stay in step with the real bout (tests/bout_read_test.gd, within 0.06).
