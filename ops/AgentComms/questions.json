@@ -5793,7 +5793,7 @@
       "answer": "they all look shit",
       "note": null,
       "answered_at": "2026-11-09T14:19:51Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": true
     },
     {
@@ -5997,6 +5997,40 @@
       "note": null,
       "answered_at": null,
       "seen_by_claude": true
+    },
+    {
+      "id": "Q-S294-156",
+      "asked": "2026-11-09T16:49:27.134705+00:00",
+      "session": "S294",
+      "text": "Your gym, made to grow: the room emptied, and each piece put back from your own picture. Top: a small club at the start. Bottom: halfway. With everything bought it is your picture exactly. Should the club start small and be bought up to this?",
+      "options": [
+        "Yes, start small and buy up",
+        "No, keep the full gym from day one"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-156_0_gym_grows.jpg"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-157",
+      "asked": "2026-11-09T16:49:27.301341+00:00",
+      "session": "S294",
+      "text": "Your picture has a cage and an 'MMA GYM' sign, and the demo is boxing only. For the demo?",
+      "options": [
+        "Leave the cage out, sign shows the club's name",
+        "Keep both as they are"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-157_0_gym_grows.jpg"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

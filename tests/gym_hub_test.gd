@@ -29,12 +29,17 @@ func _initialize() -> void:
 		_check(hub.size.y >= 1080.0 - 101.0, "the gym takes the whole window under the top bar (%.0f tall)" % hub.size.y)
 		var iso := hub.find_child("IsoGym", true, false)
 		_check(float(iso._scale) >= 1.2, "the gym is drawn big (scale %.2f)" % float(iso._scale))
-		for corner in ["CornerTopLeft", "CornerTopRight", "CornerBottomRight"]:
-			var box := hub.find_child(corner, true, false) as Control
-			_check(box != null and hub.get_global_rect().encloses(box.get_global_rect()), "%s is inside the window" % corner)
+		for gone in ["CornerTopLeft", "CornerTopRight", "CornerBottomRight"]:
+			_check(hub.find_child(gone, true, false) == null, "S415 no panel lies over the picture's rooms (%s)" % gone)
+		var box := hub.find_child("HomeShelf", true, false) as Control
+		_check(box != null and hub.get_global_rect().encloses(box.get_global_rect()), "the shelf is inside the window")
+		if box != null:
+			_check(box.size.y <= 60.0 and box.position.y >= hub.size.y - 70.0, "the shelf is one low row on the picture's bottom edge (%s, %s)" % [box.position, box.size])
+			var guide := main.find_child("GuideCorner", true, false) as Control
+			_check(guide == null or not box.get_global_rect().intersects(guide.get_global_rect()), "the shelf stays clear of the trainer")
 			for id in ["reception", "training", "playbook", "fights", "office", "world"]:
 				var pin := hub.find_child("Place_" + id, true, false) as Control
-				_check(box != null and pin != null and not box.get_global_rect().intersects(pin.get_global_rect()), "%s does not cover %s" % [corner, id])
+				_check(pin != null and not box.get_global_rect().intersects(pin.get_global_rect()), "the shelf does not cover %s" % id)
 	_check(hub != null and hub.find_child("GymLayout", true, false) == null, "the building is chosen at setup, not swapped for free on Home")
 	_figures(hub)
 	await _click(main, "fights", "fights", 0)

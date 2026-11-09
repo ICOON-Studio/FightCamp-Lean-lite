@@ -8,9 +8,9 @@ Updated 2026-11-09 by claude S294.
 
 ## Now
 
-**S414 — ?** *(claude)*
+**S415 — ?** *(claude)*
 
-S414: his own gym picture is Home, unchanged, pins on its rooms. Fighter Overview in dark panels. Eight planner sites compared; builder drawn. REARHAND1 corrected, REARHAND2 running.
+S415: Home shows his whole picture (one low shelf at its edge), UFC lettering off the 11 bags. Empty room + pieces cut from his own picture tested: start and halfway on the board. REARHAND2 merged, stopped by its ruler; REARHAND3 queued.
 
 ## Next
 
@@ -299,3 +299,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S412**  |  |  | *none yet* |  |
 |  |  | **S413**  |  |  | *none yet* |  |
 |  |  | **S414**  |  |  | *none yet* |  |
+|  |  | **S415**  |  |  | *none yet* |  |

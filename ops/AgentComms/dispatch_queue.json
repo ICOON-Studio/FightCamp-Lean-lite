@@ -717,8 +717,9 @@
   {
    "task": "FIGHTERMODEL4B",
    "seat": "cursor",
-   "status": "queued",
-   "queued": "2026-11-09T14:28"
+   "status": "launched",
+   "queued": "2026-11-09T14:28",
+   "launched": "2026-11-09T17:13"
   },
   {
    "id": "MENUPLAYBOOK2B",
@@ -781,8 +782,16 @@
   {
    "task": "REARHAND2",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-09T16:27"
+   "status": "launched",
+   "queued": "2026-11-09T16:27",
+   "launched": "2026-11-09T16:32"
+  },
+  {
+   "task": "REARHAND3",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-09T18:40",
+   "launched": "2026-11-09T18:42"
   }
  ]
 }

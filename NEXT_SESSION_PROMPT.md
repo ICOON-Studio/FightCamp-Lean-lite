@@ -1,3 +1,19 @@
+# S415 handover (written 2026-11-09, S415 main session)
+
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S416` and redraw the map (send only changed cards; strip data-deleted lines; he has not approved deleting map cards).
+READ THE PULL'S OUTPUT. Animation progresses every session: name the item and seat in the first message. 11-10 05:00 is the first real full test run: read ops/AgentComms/nightly/latest.txt against main's CI.
+
+HIS QUESTION S415: "do we need to reproduce the appearance of the reference image" as individual sprites, layered ring and cage, animated 2D fighters, modular floor tiles and wall sprites. Claude's answer: equipment yes, cut from his own picture; ring two layers; fighters yes, re-baked at this camera; floor and walls no, one emptied picture; tiles only pay if players draw any building shape.
+
+BUILT S415, exported, HE HAS NOT PLAYED IT: Home shows his whole picture, one low shelf at the bottom edge, UFC off the bags. Everything is in ops/research/S415_DIGEST.md.
+
+WAITING ON HIM: Q-S294-156 start small and buy up (docs/mockups/s415/gym_grows.jpg) | Q-S294-157 cage and MMA sign | Q-S294-146 dark or cream | Q-S294-147 one Gym button | play the build.
+ON A YES TO Q-156: tools/gym_slots_diff.py then gym_slots_compose.py (inputs E:/FightCamp/tmp/s415_slots; the chosen empty room is empty/editImage-2ad7a344-v2.png). Bake one PNG per slot, draw them over the base in GymHub, GymSlots rules + Career state, the buy flow. Needs a second Ludo edit to take the six bags off the red floor, or that floor and its bags stay one purchase. Then the places rules on the harness first (S414 digest item 4). Boxers on the floor last.
+COLLECT: REARHAND3 (Qwen, queued for the 30-min job): believe the forward column only if the controls agree within 0.05 of arm length. FIGHTERMODEL4B then 4H (Cursor): 4H's CI shows plan_bots 2 red and matchmaking_bots. MENUWEEK2 PR 130 held.
+TRAPS: rule_guard wants godot_slot before hidden_desktop; run that pair from the PowerShell tool (from the Bash tool hidden_desktop failed with CreateProcess 87). A `cd` outside the repo in the Bash tool moves the session's folder. Ludo's edit comes back 1664x928, not 1672x941: register it, do not lay it over.
+E: 34 GB free (over the 85% rule); held agent worktrees are first to go.
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor Grok 4.7 High until 12-07.
+
 # S414 handover (written 2026-11-09, S414 main session; ended at about 860k context, far past the 420k rule)
 
 OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S415` and redraw the map: NOT redrawn in S414 (send only changed cards; strip data-deleted lines; he has not approved deleting map cards).

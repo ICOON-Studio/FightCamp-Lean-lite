@@ -1,67 +1,94 @@
 extends RefCounted
-## S413 operator (on Home, with a screenshot): "i dont like the design there is so much unused space and the playable area seems
-## tiny". The gym now fills the window, and the few things that belong on top of it sit in the empty corners its diamond leaves.
+## S413 operator (on Home): "i dont like the design there is so much unused space and the playable area seems tiny". S414: "why you
+## do not use it exactly as it is ?": the picture is the screen, so nothing lies over its rooms. One low shelf stands on the pavement
+## at the picture's bottom edge: the job, the mail, the way down. The week's news and money are under the gym (HomeSide).
 ## Bottom left stays free: the old trainer stands there in the first hour.
 ##   HomeCorners.add(hub, main, career)
 
 const UI := preload("res://scripts/ui/UI.gd")
-const HomeSide := preload("res://scripts/ui/HomeSide.gd")
 const HomeMatch := preload("res://scripts/ui/HomeMatch.gd")
+const HomeSide := preload("res://scripts/ui/HomeSide.gd")
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const ClubStart := preload("res://scripts/rules/ClubStart.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 
-const WIDTH := 400.0
+const NAVY := Color(0.09, 0.14, 0.26, 0.92)
+const HEIGHT := 44.0
+const MARGIN := 8.0
+const WORDS_MIN_WIDTH := 1500.0   # a narrower window keeps the date and drops the sentence, which stays on the hover
 
 
 static func add(hub: Control, main: Node, c: Career) -> void:
-	var left := _column(hub, "CornerTopLeft", Control.PRESET_TOP_LEFT)
-	left.add_child(_job(c))
-	var right := _column(hub, "CornerTopRight", Control.PRESET_TOP_RIGHT)
-	right.add_child(HomeSide._since(main, c))
-	var low := _column(hub, "CornerBottomRight", Control.PRESET_BOTTOM_RIGHT)
-	low.add_child(HomeSide._club(c))
+	var shelf := UI.hbox(10)
+	shelf.name = "HomeShelf"
+	shelf.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	shelf.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	shelf.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	shelf.offset_right = -MARGIN
+	shelf.offset_bottom = -MARGIN
+	hub.add_child(shelf)
+	var job := _job(main, c)
+	shelf.add_child(job)
+	var news: Array = HomeSide.since_lines(c)
+	var mail := UI.button("Mail (%d new)" % c.unread if c.unread > 0 else "Mail", "Btn", main.act.bind("mail", ""))
+	mail.name = "AllNews"
+	mail.custom_minimum_size = Vector2(0, HEIGHT)
+	mail.tooltip_text = str(news[0]["t"]) if not news.is_empty() else ""
+	shelf.add_child(mail)
 	var more := UI.button("More below", "Btn", func(): _scroll_down(hub))
 	more.name = "HomeMore"
-	low.add_child(more)
+	more.custom_minimum_size = Vector2(0, HEIGHT)
+	shelf.add_child(more)
+	var words := job.find_child("JobWords", true, false) as Control
+	var fit := func(): words.visible = hub.size.x >= WORDS_MIN_WIDTH
+	hub.resized.connect(fit)
+	fit.call()
 
 
-static func _column(hub: Control, id: String, preset: int) -> VBoxContainer:
-	var v := UI.vbox(10)
-	v.name = id
-	v.custom_minimum_size = Vector2(WIDTH, 0)
-	v.set_anchors_and_offsets_preset(preset)
-	if preset == Control.PRESET_TOP_RIGHT or preset == Control.PRESET_BOTTOM_RIGHT:
-		v.grow_horizontal = Control.GROW_DIRECTION_BEGIN
-	if preset == Control.PRESET_BOTTOM_RIGHT:
-		v.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	hub.add_child(v)
-	return v
+## The job until the first bout, then the next fight. A click goes to Fights, where either is settled.
+static func _job(main: Node, c: Career) -> Control:
+	var plate := PanelContainer.new()
+	plate.name = "HomeJob"
+	var look := StyleBoxFlat.new()
+	look.bg_color = NAVY
+	look.set_corner_radius_all(8)
+	look.content_margin_left = 14
+	look.content_margin_right = 14
+	look.content_margin_top = 6
+	look.content_margin_bottom = 6
+	plate.add_theme_stylebox_override("panel", look)
+	plate.custom_minimum_size = Vector2(0, HEIGHT)
+	plate.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	plate.gui_input.connect(func(e: InputEvent):
+		if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT:
+			main.act("area", "fights"))
+	var row := UI.hbox(12)
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	plate.add_child(row)
+	var words := _words(c)
+	if str(words[0]) != "":
+		row.add_child(UI.chip(str(words[0]), "gold"))
+	var said := UI.label(str(words[1]), 17, Color.WHITE, "bold")
+	said.name = "JobWords"
+	said.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	row.add_child(said)
+	plate.tooltip_text = str(words[1])
+	return plate
 
 
-## The job until the first bout, then the next fight.
-static func _job(c: Career) -> Control:
-	var card := UI.card("")
-	(card[0] as Control).name = "HomeJob"
-	var head := UI.hbox(10)
-	card[1].add_child(head)
+## [the date tag, the sentence].
+static func _words(c: Career) -> Array:
 	if FirstHour.quiet(c):
-		head.add_child(UI.caps("THE JOB"))
-		head.add_child(UI.spacer())
 		var days := int(c.first_hour.get("show", FirstHour.SHOW_DAY)) - c.day
-		head.add_child(UI.chip("SHOW IN %d DAY%s" % [days, "" if days == 1 else "S"] if days > 0 else "SHOW TODAY", "gold"))
+		var tag := "SHOW IN %d DAY%s" % [days, "" if days == 1 else "S"] if days > 0 else "SHOW TODAY"
 		var lines := FirstHour.goal_lines(c, GymBills.CLOSE_AFTER_WEEKS, Clock.fmt(int(c.first_hour.get("show", FirstHour.SHOW_DAY))),
 			str(ClubStart.card(c.start)["bite"]))
-		card[1].add_child(UI.label(str(lines[mini(1, lines.size() - 1)]), UI.BODY, UI.FG, "bold", true))
-		return card[0]
-	head.add_child(UI.caps("NEXT FIGHT"))
+		return [tag, str(lines[mini(1, lines.size() - 1)])]
 	var f := HomeMatch.hero(c)
 	var b: Dictionary = f.get("bout", {}) if not f.is_empty() else {}
-	var words := "No fight booked. Offers come in on Fights."
 	if b.has("opp") and b.has("day"):
-		words = "%s vs %s, %s" % [f["first"], b["opp"]["name"], Clock.fmt(int(b["day"]))]
-	card[1].add_child(UI.label(words, UI.BODY, UI.FG, "bold", true))
-	return card[0]
+		return ["NEXT FIGHT", "%s vs %s, %s" % [f["first"], b["opp"]["name"], Clock.fmt(int(b["day"]))]]
+	return ["", "No fight booked. Offers come in on Fights."]
 
 
 ## The rest of Home waits under the gym.

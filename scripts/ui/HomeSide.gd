@@ -14,6 +14,8 @@ const COMING_SHOWN := 4
 
 
 static func fill(col: Container, main: Node, c: Career, events: Array) -> void:
+	col.add_child(_since(main, c))
+	col.add_child(_club(c))
 	var soon := _coming(c, events)
 	if soon != null:
 		col.add_child(soon)
