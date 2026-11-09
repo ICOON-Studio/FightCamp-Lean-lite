@@ -1,3 +1,10 @@
+FIGHTCAMP - BUILD OF 2026-11-09 (S414): ONE PAGE IN THE DARK LOOK
+================================================================================
+
+ NEW.
+  a. Fighters > a boxer > Overview is now in dark panels: the boxer full height, big numbers, thick bars, one red button. Every other page stays cream, so you can compare.
+ TRY: open Lucy's Overview, then any other page. Which look do you want everywhere? Your answer goes on the board.
+
 FIGHTCAMP - BUILD OF 2026-11-09 (S413): THE OLD TRAINER, AND A BIGGER GYM
 ================================================================================
 

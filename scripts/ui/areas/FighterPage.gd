@@ -36,6 +36,11 @@ const WB_KIT := preload("res://scripts/ui/WhiteboardKit.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const NationalsView := preload("res://scripts/ui/NationalsView.gd")
 const BoutHistory := preload("res://scripts/ui/BoutHistory.gd")
+const DarkOverview := preload("res://scripts/ui/DarkOverview.gd")
+
+## S414 operator on Q-S294-143: "Show me one real page first". On until the dark-or-cream answer; false draws the old page.
+static var dark_overview := true
+var _dark := false
 
 
 func build(main: Node, f: Dictionary) -> void:
@@ -43,6 +48,7 @@ func build(main: Node, f: Dictionary) -> void:
 	var c: Career = main.career
 	var g := Sim.goal_read(c, f)
 	var t := int(main.route.get("ftab", 0))
+	_dark = dark_overview and t == 0
 	# S397 blind round 4 ("Fight prep is 60% empty and repeats other pages"): the tab shows only with a bout or a camp to prep.
 	var prep := not (f.get("bout", {}) as Dictionary).is_empty() or not (f.get("camp", {}) as Dictionary).is_empty()
 	if t == 5 and not prep:
@@ -56,14 +62,17 @@ func build(main: Node, f: Dictionary) -> void:
 	# S382 training final proof: the week strip is the screen (TRAINING_SCREEN_S381.md section 3, the mockup's one
 	# title row) - name, her line and the tabs share one row so the PM nights sit above the fold at 1080.
 	var row := UI.hbox(24)
-	_photo(row, f, Vector2(64, 80))
-	var who := UI.vbox(0)
-	who.add_child(UI.display(str(f["name"]).to_upper(), 36))
-	who.add_child(sub)
-	row.add_child(who)
+	if _dark:   # the boxer's name and line stand over the full-height picture instead
+		DarkOverview.dim_wall(main)
+	else:
+		_photo(row, f, Vector2(64, 80))
+		var who := UI.vbox(0)
+		who.add_child(UI.display(str(f["name"]).to_upper(), 36))
+		who.add_child(sub)
+		row.add_child(who)
 	tabs.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	row.add_child(tabs)
-	if not g.is_empty() and t == 0:   # S398 critics: on Week / Fight prep the goal chip met other deadlines
+	if not g.is_empty() and t == 0 and not _dark:   # S398 critics: on Week / Fight prep the goal chip met other deadlines
 		# S398 critics ("next bout inside a month, at risk" beside a booked bout): the chip says what the goal asks
 		var miss: Array = []   # what is still missing, in words ("Conditioning 62.9 of 65.1"); a met part is not repeated
 		for tg in g.get("targets", []):
@@ -77,6 +86,8 @@ func build(main: Node, f: Dictionary) -> void:
 	# S396 screen cut (Routes.gd): Overview carries the stats and moves, the body and the contract; 5 tabs, not 8.
 	for k in ([0, 1, 6] if t == 0 else [t]):   # Overview has its own body panel and radar: 2 and 1's board would repeat
 		_tab(main, c, f, g, k, t == 0)
+	if _dark:
+		DarkOverview.ink(self)
 
 
 func _tab(main: Node, c: Career, f: Dictionary, g: Dictionary, t: int, folded: bool = false) -> void:
@@ -167,7 +178,7 @@ func _injury_rows(c: Career, f: Dictionary) -> Array:
 
 
 func _card(title: String, parent: Container = null) -> VBoxContainer:
-	var c := UI.card(title)
+	var c: Array = DarkOverview.panel(title) if _dark else UI.card(title)
 	(parent if parent != null else self).add_child(c[0])
 	return c[1]
 
@@ -181,6 +192,9 @@ func _photo(parent: Control, f: Dictionary, size: Vector2) -> void:
 
 func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 	_next_step_card(main, c, f)
+	if _dark:
+		DarkOverview.make(self, main, c, f, g)
+		return
 	# S340 C157: the attributes board runs the page's width (radar + every value the bout reads); body and goal below it.
 	add_child(AttrBoard.build(f))
 	var grid := UI.hbox(16)
@@ -261,4 +275,6 @@ func _next_step_card(main: Node, c: Career, f: Dictionary) -> void:
 	card.add_child(now)
 	var enter := NationalsView.enter_button(main, c, f)   # S397 blind round 3: one main action per state
 	if enter != null:
+		if _dark:
+			DarkOverview.main_style(enter)
 		card.add_child(enter)

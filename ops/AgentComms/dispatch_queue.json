@@ -710,8 +710,9 @@
   {
    "task": "FIGHTERMODEL4H",
    "seat": "cursor",
-   "status": "queued",
-   "queued": "2026-11-09T15:20"
+   "status": "launched",
+   "queued": "2026-11-09T15:20",
+   "launched": "2026-11-09T16:13"
   },
   {
    "task": "FIGHTERMODEL4B",
@@ -776,6 +777,12 @@
    "seat": "qwen",
    "status": "queued",
    "queued": "2026-11-09T15:20"
+  },
+  {
+   "task": "REARHAND2",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-09T16:27"
   }
  ]
 }
