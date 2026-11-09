@@ -2,6 +2,13 @@
  "_doc": "Tasks for the CLI seats, drained by ops/Tools/seat_dispatch.py (30-min reconcile).",
  "items": [
   {
+   "id": "HITREACT4",
+   "seat": "qwen",
+   "title": "TASK HITREACT4 - QWEN (qwen3-coder) - measure the conversion stages HITREACT3 did not run",
+   "brief": "HITREACT4",
+   "status": "queued"
+  },
+  {
    "task": "KNEETRACK1",
    "seat": "agy",
    "status": "launched",
@@ -595,8 +602,7 @@
    "seat": "cursor",
    "title": "TASK MENUFIGHT1 - CURSOR (Grok 4.7 High) - Fight night's corner and result from the approved mockup",
    "brief": "MENUFIGHT1",
-   "held_why": "S408 operator: hold until he approves a new look on the title, signing and the Money top line",
-   "status": "held"
+   "status": "superseded"
   },
   {
    "id": "R11D",
@@ -671,40 +677,35 @@
    "seat": "cursor",
    "title": "TASK MENUPLAYBOOK2 - CURSOR (Grok 4.7 High) - the Playbook, round 2: to the mockup, on one screen",
    "brief": "MENUPLAYBOOK2",
-   "status": "held",
-   "held_why": "S408 operator: hold until he approves a new look on the title, signing and the Money top line"
+   "status": "superseded"
   },
   {
    "id": "MENUHOME2",
    "seat": "cursor",
-   "title": "TASK MENUHOME2 - CURSOR (Grok 4.7 High) - Home, round 2: the Needs-you board as drawn",
+   "title": "TASK MENUHOME2 - CURSOR (Grok 4.7 High) - Home, fewer words, around the gym",
    "brief": "MENUHOME2",
-   "status": "held",
-   "held_why": "S408 operator: hold until he approves a new look on the title, signing and the Money top line"
+   "status": "queued"
   },
   {
    "id": "MENUWEEK2",
    "seat": "cursor",
-   "title": "TASK MENUWEEK2 - CURSOR (Grok 4.7 High) - the Fighter Week page, round 2: to the mockup, on one screen",
+   "title": "TASK MENUWEEK2 - CURSOR (Grok 4.7 High) - the Fighter Week page, fewer words, bigger pictures",
    "brief": "MENUWEEK2",
-   "status": "held",
-   "held_why": "S408 operator: hold until he approves a new look on the title, signing and the Money top line"
+   "status": "queued"
   },
   {
    "id": "MENUPLAYBOOK2B",
    "seat": "cursor",
-   "title": "TASK MENUPLAYBOOK2 - CURSOR (Grok 4.7 High) - the Playbook, round 2: to the mockup, on one screen",
+   "title": "TASK MENUPLAYBOOK2 - CURSOR (Grok 4.7 High) - the Playbook, fewer words, bigger pictures",
    "brief": "MENUPLAYBOOK2B",
-   "status": "held",
-   "held_why": "S408 operator: hold until he approves a new look on the title, signing and the Money top line"
+   "status": "queued"
   },
   {
    "id": "MENUFIGHT1B",
    "seat": "cursor",
-   "title": "TASK MENUFIGHT1 - CURSOR (Grok 4.7 High) - Fight night's corner and result from the approved mockup",
+   "title": "TASK MENUFIGHT1 - CURSOR (Grok 4.7 High) - Fight night, fewer words, bigger pictures",
    "brief": "MENUFIGHT1B",
-   "status": "held",
-   "held_why": "S408 operator: hold until he approves a new look on the title, signing and the Money top line"
+   "status": "queued"
   },
   {
    "id": "LOCOSLIDE2",

@@ -25,3 +25,9 @@ Reference: docs/mockups/s409/concepts/roster_painted.png and versus_painted.png;
 16. **Data as labelled tiles,** icon plus a word, the sentence on hover. The page's small text is 16 px or more; 14 only inside a tile.
 17. **Titles** in the brush font on the painting. On paint, the off tab takes a light ink (`RosterCards._tab`).
 18. **Score the look first,** with hard fails, then the options (feedback_critics_blind_to_presentation_s408).
+
+## Fewer words, bigger pictures (S411, operator Q-S294-135: "Yes, but with fewer words and bigger pictures, like Fighters")
+19. **The sentence goes on hover.** A visible text is a name, a number or a word or two on a button. A reason, a how-it-works or a what-it-changes line goes in the tooltip. Fixed text that repeats on every row becomes an icon with a tooltip. Nothing is lost: every fact on the page today is still on it, visible or on hover (rule 6 still holds).
+20. **A person on every page, large.** `RosterCards.body(stem, size)`, the same renders as Fighters. Small head-and-shoulders portraits are for strips and lists only.
+21. **The number is the test.** `tools/page_ink.gd`: `PageInk.read(root)` gives `words` (visible words on the screen), `pic_pct` (share of the screen under people and move pictures) and `tallest` (the tallest person, px). Each page's brief has its bar and the page's test prints the three. Measured on main S411: Versus 93 words / 49% / 830 px; Fighters with eight boxers 164 / 27% / 322 px; Home 127 / 0% / 0; Fighter Week 326 / 1% / 0; Playbook 270 / 0% / 0.
+22. **The painted concepts (docs/mockups/s410/concepts) show the surfaces only:** paper, wood, the brush font and the light. They carry far too much text, their numbers and faces are invented, and their left menu no longer exists. The s403 html says what a page can do; these rules say how much of it is written down.

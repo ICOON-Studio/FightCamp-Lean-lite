@@ -135,7 +135,7 @@ func _page() -> void:
 	main.act("go", "fighters:0")
 	for i in 3:
 		await process_frame
-	_check(main.find_child("Grappler_ana", true, false) != null, "the roster lists Ana on the mat")
+	_check(main.find_child("Row_ana", true, false) != null, "the roster lists Ana on the mat")
 	main.act("fighter", "ana")
 	for i in 3:
 		await process_frame

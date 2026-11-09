@@ -1,6 +1,6 @@
 # TASK MENUFIGHT1B - CURSOR (Grok 4.7 High) - Fight night's corner and result, built from the approved mockup
 
-Status: OPEN (S405, Claude main). Discipline: boxing now, MMA parts drawn as not built. Model: grok-4.7-high.
+Status: OPEN (S411 re-brief, Claude main). Discipline: boxing now, MMA parts drawn as not built. Model: grok-4.7-high.
 
 ## Contract
 OWNS: scripts/ui/modals/FightNight.gd, scripts/ui/FightCornerPage.gd, scripts/ui/FightResultPage.gd, scripts/ui/Broadcast.gd, scripts/ui/ReadPanel.gd, scripts/ui/CallButtons.gd, scripts/ui/CornerJobsRow.gd, scripts/ui/WhyCard.gd, tests/menu_fight_test.gd
@@ -43,6 +43,15 @@ WarmKit, KitIcon, RoundGraphics, FlowView exist. Nothing new to find.
 
 ## PR body
 `RESULT: tests/menu_fight_test.gd -> MENU_FIGHT failures=0`, one RESULT line per REGRESSION test, the not-built list, and what moved.
+
+## S411 UPDATE: the look, and fewer words (operator Q-S294-135: "Yes, but with fewer words and bigger pictures, like Fighters")
+This section overrides the faults above wherever they disagree. Read MENU_BUILD_RULES items 14-22 first. Worked examples on main: scripts/ui/RosterCards.gd (the Fighters cards), scripts/ui/VersusPanel.gd (the versus screen). Measure with `tools/page_ink.gd`: `const PageInk := preload("res://tools/page_ink.gd")`, `PageInk.read(root)`, at 1920x1080 with the guide off (`c.guide = ""`).
+Your test prints one line: `FIGHT_INK words=<n> pictures=<p> tallest=<h>` and fails if a bar below is missed. No bar may be met by cramming: nothing runs past 1080 px and text stays 16 px or more (14 only inside a tile).
+
+BARS, each read on its page: CORNER words <= 130, tallest >= 600 px. RESULT words <= 100, tallest >= 700 px. Both pages end above 1080. Print one FIGHT_INK line per page.
+Do this on the versus screen's model (scripts/ui/VersusPanel.gd), with `MenuFx.set_wall(main, VersusPanel.BACKDROP)`.
+CORNER: both boxers stand on the page, one each side, facing in (`RosterCards.body`, `VersusPanel.kit_stem`), so the choices sit between them. The second's points are one line under 12 words. ONE CHANGE is the only row of big cards: an icon, two or three words, the effect on hover. Set-up, Talk, Recover and Cutman fold behind one "More" with the coach's defaults kept. Damage reads off the two bodies: the body read's numbers sit by each figure, no table. Control and position rows are not built: one line with the triangle, or left off if there is no room.
+RESULT: the winner stands large (at least 700 px), the loser smaller. The decision in the brush font, the three judges as three tiles. WHY is the heading plus one line and the one big next-step button. Your plan, Against you, What decided it are on hover of that panel, or behind Full report with the round table, the plan lit up, See the flow and the body report. All the FightWhy.read text stays reachable and each field is still tested. Keep the order of calls from the one trap below.
 
 ## The one trap
 FightNight.gd drives the 3D fight's beats through `build()` and `Broadcast.frame`. Move the drawing and leave the order of calls alone, or golden_path passes while the live fight shows the wrong page: the fight must still reach the corner page after each round when played with a picture.

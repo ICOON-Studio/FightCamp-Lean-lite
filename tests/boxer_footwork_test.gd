@@ -235,6 +235,9 @@ func _rig_bars(who: String) -> void:
 	var ap: AnimationPlayer = bx["ap"]
 	if bx.get("weave") != null:
 		(bx["weave"] as SkeletonModifier3D).active = false   # S392: these bars measure the bounce alone; GuardWeave leans on purpose
+	var life := skel.get_node_or_null("FighterLife") as SkeletonModifier3D   # S411: so does a boxer's own rest pose (FIGHTERLOOK1): off, the rig reads 9.8; on, 3-4 deg more
+	if life != null:
+		life.active = false
 	if bx.get("feet") != null:
 		(bx["feet"] as Node).free()
 	var fw = Footwork.new(Vector2(body.global_position.x, body.global_position.z), body.global_rotation.y, false, body.scale.x)

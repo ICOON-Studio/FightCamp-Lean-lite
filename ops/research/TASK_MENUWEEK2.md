@@ -1,9 +1,9 @@
 # TASK MENUWEEK2 - CURSOR (Grok 4.7 High) - the Fighter Week page, round 2: to the mockup, on one screen
 
-Status: OPEN (S408, Claude main). Discipline: boxing now, MMA parts drawn as not built. Model: grok-4.7-high.
+Status: OPEN (S411 re-brief, Claude main). Discipline: boxing now, MMA parts drawn as not built. Model: grok-4.7-high.
 
 ## Contract
-BASE: cursor/menuweek1
+BASE: claude/menuweek1-main
 OWNS: scripts/ui/WeekBoard.gd, scripts/ui/WeekCards.gd, scripts/ui/WeekCardsPick.gd, scripts/ui/WeekCamp.gd, scripts/ui/WeekDay.gd, scripts/ui/WeekPops.gd, scripts/ui/WeekReadRows.gd, tests/menu_week_test.gd
 RED_TEST: tests/menu_week_test.gd -> MENU_WEEK failures=0
 REGRESSION: grey_reason_test, kit_icon_test, week_plan_test, training_week_test, first_week_test, golden_path_test, save_load_test, plain_words_test, no_pronoun_test
@@ -34,9 +34,23 @@ None needed: WarmKit and KitIcon are the parts.
 ## Rules
 Do not change WeekPlan, TrainingWeek or what gets saved. No file over 500 lines. Godot only through `python ops/Tools/godot_slot.py run --who cursor -- <godot cmd>`, headless, --audio-driver Dummy, never _console.exe. Nothing opens on the monitors.
 
+## S411 UPDATE: the look, and fewer words (operator Q-S294-135: "Yes, but with fewer words and bigger pictures, like Fighters")
+This section overrides the faults above wherever they disagree. Read MENU_BUILD_RULES items 14-22 first. Worked examples on main: scripts/ui/RosterCards.gd (the Fighters cards), scripts/ui/VersusPanel.gd (the versus screen). Measure with `tools/page_ink.gd`: `const PageInk := preload("res://tools/page_ink.gd")`, `PageInk.read(root)`, at 1920x1080 with the guide off (`c.guide = ""`).
+Your test prints one line: `WEEK_INK words=<n> pictures=<p> tallest=<h>` and fails if a bar below is missed. No bar may be met by cramming: nothing runs past 1080 px and text stays 16 px or more (14 only inside a tile).
+
+BARS: words <= 170, tallest >= 620 px, board bottom <= 1080. Measured on main today: 326 words, one 64 px face.
+1. WALL: `MenuFx.set_wall(main, RosterCards.BACKDROP)`.
+2. THE FIGHTER STANDS ON THE PAGE: a column of about 300 px at the left, `RosterCards.body` at least 620 px tall, the name in the brush font over the painting, and under the figure two tiles: fatigue and weight. Tabs stay.
+3. DAY CARDS: icon, session name, intensity dots. What it raises and its fatigue go in the tooltip. Rest cards say only Rest.
+4. CAMP CHART: bands, markers and the fatigue line, no sentences. The band names are the only words on it; the numbers are on hover.
+5. PICKER: chips with an icon and one word, closed until a slot is picked, and it opens over the page rather than pushing it.
+6. LEARN ON THE PADS: picture cards. The move or combo picture large (assets/ui/moves), the name, one progress bar. "Held at 51 by the Jab" and the mastery numbers go on hover; the Drill button stays when one is due.
+7. COACH: one line, under 12 words, with Do it. PLAN TOTALS and GOAL: icon tiles, one row. THE ROAD (Skills Awards) and anything else below the fold moves behind one button in the header that opens it in place.
+
 ## The one trap
 A render on the hidden desktop is 1009 px tall. Test the fit at 1920x1080 in the test, not by the picture.
 
 ## Result lines (PR body)
+RESULT: <the page's ink line, words, pictures, tallest>
 RESULT: tests/menu_week_test.gd -> MENU_WEEK failures=0
 RESULT: tests/grey_reason_test.gd -> PASS

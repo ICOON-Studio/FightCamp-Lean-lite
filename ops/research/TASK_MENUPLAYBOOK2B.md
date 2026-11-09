@@ -1,9 +1,9 @@
 # TASK MENUPLAYBOOK2B - CURSOR (Grok 4.7 High) - the Playbook, round 2: to the mockup, on one screen
 
-Status: OPEN (S408, Claude main). Discipline: boxing now, MMA parts drawn as not built. Model: grok-4.7-high.
+Status: OPEN (S411 re-brief, Claude main). Discipline: boxing now, MMA parts drawn as not built. Model: grok-4.7-high.
 
 ## Contract
-BASE: cursor/menuplaybook1
+BASE: claude/menuplaybook1-main
 OWNS: scripts/ui/areas/Playbook.gd, scripts/ui/GamePlan.gd, scripts/ui/GamePlanRows.gd, scripts/ui/PlanRuler.gd, scripts/ui/PlanRateChart.gd, tests/menu_playbook_test.gd, tests/game_plan_test.gd
 RED_TEST: tests/menu_playbook_test.gd -> MENU_PLAYBOOK failures=0
 REGRESSION: game_plan_test, kit_icon_test, move_book_test, move_tip_test, bjj_tree_ui_test, first_week_test, golden_path_test, save_load_test, plain_words_test, no_pronoun_test
@@ -33,9 +33,21 @@ None needed: WarmKit and the existing MovePlayer are the parts.
 ## Rules
 Do not change PlanLines, PlanBoard or what gets saved on fighter.arrows. No file over 500 lines. Godot only through `python ops/Tools/godot_slot.py run --who cursor -- <godot cmd>`, headless, --audio-driver Dummy, never _console.exe. Nothing opens on the monitors.
 
+## S411 UPDATE: the look, and fewer words (operator Q-S294-135: "Yes, but with fewer words and bigger pictures, like Fighters")
+This section overrides the faults above wherever they disagree. Read MENU_BUILD_RULES items 14-22 first. Worked examples on main: scripts/ui/RosterCards.gd (the Fighters cards), scripts/ui/VersusPanel.gd (the versus screen). Measure with `tools/page_ink.gd`: `const PageInk := preload("res://tools/page_ink.gd")`, `PageInk.read(root)`, at 1920x1080 with the guide off (`c.guide = ""`).
+Your test prints one line: `PLAYBOOK_INK words=<n> pictures=<p> tallest=<h>` and fails if a bar below is missed. No bar may be met by cramming: nothing runs past 1080 px and text stays 16 px or more (14 only inside a tile).
+
+BARS: words <= 120, pictures >= 25%, board bottom <= 1080. Measured on main today: 270 words, no pictures.
+1. WALL: `MenuFx.set_wall(main, RosterCards.BACKDROP)`.
+2. THE MOVE PLAYER IS THE PICTURE: the chalk-framed player is the largest thing on the page, at least 560 x 460 px, with its buttons as icons, names on hover. Still exactly one viewport (move_tip_test).
+3. THE LINES: five cards along the distance ruler, each with the move's picture (assets/ui/moves) over the move's name and the place as one word. The rating and drilled state are icons or pips; "works" and "beats it" sentences go on hover.
+4. MOVE BOOK: one row of icon chips per group. MMA groups that are not built fold to a single row with the warning triangle.
+5. RATE CHART: five icons with five bars, no caption. FIGHT SHAPE: the dark band, words only on its buttons.
+
 ## The one trap
 A render on the hidden desktop is 1009 px tall. Test the fit at 1920x1080 in the test, not by the picture.
 
 ## Result lines (PR body)
+RESULT: <the page's ink line, words, pictures, tallest>
 RESULT: tests/menu_playbook_test.gd -> MENU_PLAYBOOK failures=0
 RESULT: tests/game_plan_test.gd -> GAME_PLAN PASS
