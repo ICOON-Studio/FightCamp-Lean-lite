@@ -4565,7 +4565,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-09",
+  "updated": "2026-11-09 15:42 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4707,24 +4707,219 @@
   },
   "working_now": [
    {
+    "title": "TASK SOUTHPAW2 - CURSOR (GPT-5.6 Sol High) - the guard knock-knee, round 2: a test that FAILS on main first",
+    "who": "cursor",
+    "started": "2026-11-07T21:21",
+    "run": "SOUTHPAW2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK ANIMREBUILD1 - AGY (Argon High) - design draft: fight animation rebuilt around a clip library + one picker",
+    "who": "antigravity",
+    "started": "2026-11-07T22:09",
+    "run": "ANIMREBUILD1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK RETARGET1 - CURSOR (GPT-5.6 Sol High) - bring the purchased Punch PRO pack onto our boxer WITHOUT breaking it",
+    "who": "cursor",
+    "started": "2026-11-07T22:53",
+    "run": "RETARGET1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK RETARGET2 - CURSOR (GPT-5.6 Sol High) - RETARGET1 round 2: keep the wins, fix the stance and the end trim",
+    "who": "cursor",
+    "started": "2026-11-08T07:24",
+    "run": "RETARGET2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL3B - CURSOR (Grok 4.7 High) - the fighter model to 8/10 built, rule 2 held again (round 2)",
+    "who": "cursor",
+    "started": "2026-11-08T09:11",
+    "run": "FIGHTERMODEL3B",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK CORNERTRUST1 - QWEN (qwen3-coder) - a wrong corner call costs her trust; a Low fighter stops listening (rules only)",
+    "who": "qwen",
+    "started": "2026-11-08T10:16",
+    "run": "CORNERTRUST1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK OFFERGONE1 - QWEN (qwen3-coder) - an expired fight offer is never a dead end",
+    "who": "qwen",
+    "started": "2026-11-08T11:03",
+    "run": "OFFERGONE1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK GUIDEFLAG1 - QWEN (qwen3-coder) - the guide strip ends with the first week; the offer flag says what is needed",
+    "who": "qwen",
+    "started": "2026-11-08T12:10",
+    "run": "GUIDEFLAG1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK SWINGCENSUS1 - AGY (Argon High) - every random swing the player feels, and what they are told",
+    "who": "antigravity",
+    "started": "2026-11-08T12:41",
+    "run": "SWINGCENSUS1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK GUIDEFLAG2 - QWEN (qwen3-coder) - round 2: the guide must end, without breaking the first fight",
+    "who": "qwen",
+    "started": "2026-11-08T13:00",
+    "run": "GUIDEFLAG2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK R11A - QWEN (qwen3-coder) - an injury says why it happened",
+    "who": "qwen",
+    "started": "2026-11-08T13:34",
+    "run": "R11A",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "QWEN (qwen3-coder) - a standing count on the cards says what it cost",
+    "who": "goose",
+    "started": "2026-11-08T18:11",
+    "run": "R11C",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUMONEY1 - CURSOR (Grok 4.7 High) - the Money page, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-08T18:48",
+    "run": "MENUMONEY1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUWORLD1 - CURSOR (Grok 4.7 High) - the World page, rebuilt around the rankings",
+    "who": "cursor",
+    "started": "2026-11-08T19:34",
+    "run": "MENUWORLD1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK SOUTHPAW3 - QWEN (qwen3-coder) - the guard knock-knee fix, carried onto today's clips",
+    "who": "qwen",
+    "started": "2026-11-08T20:30",
+    "run": "SOUTHPAW3",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK KNEERAW1 - QWEN (qwen3-coder) - the guard knock-knee: fix the measure, then raw clip against ours",
+    "who": "qwen",
+    "started": "2026-11-08T21:41",
+    "run": "KNEERAW1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK KNEERAW2 - QWEN (qwen3-coder) - the knee table, round 2: make the two rulers agree",
+    "who": "qwen",
+    "started": "2026-11-08T22:00",
+    "run": "KNEERAW2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUPLAYBOOK1 - CURSOR (Grok 4.7 High) - the Playbook's game plan and Combos, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-08T22:42",
+    "run": "MENUPLAYBOOK1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL4A - CURSOR (Grok 4.7 High) - the fighter model on the agreed 10 attributes and 5 boxing skills",
+    "who": "cursor",
+    "started": "2026-11-08T23:42",
+    "run": "FIGHTERMODEL4A",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUHOME1 - CURSOR (Grok 4.7 High) - the Home page, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-09T01:12",
+    "run": "MENUHOME1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUWEEK1 - CURSOR (Grok 4.7 High) - the Fighter Week page, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-09T02:12",
+    "run": "MENUWEEK1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL4C - CURSOR (Grok 4.7 High) - the fighter model at the old speed",
+    "who": "cursor",
+    "started": "2026-11-09T06:55",
+    "run": "FIGHTERMODEL4C",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HUBSPRITES1 - QWEN (qwen3-coder) - our real boxers as small moving figures for the painted gym",
+    "who": "qwen",
+    "started": "2026-11-09T08:37",
+    "run": "HUBSPRITES1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HITREACT1 - QWEN (qwen3-coder) - do the hit reactions move as much as the capture does?",
+    "who": "qwen",
+    "started": "2026-11-09T09:51",
+    "run": "HITREACT1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL4D - CURSOR (Grok 4.7 High) - the fighter model fits inside the test limit",
+    "who": "cursor",
+    "started": "2026-11-09T09:52",
+    "run": "FIGHTERMODEL4D",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HITREACT2 - QWEN (qwen3-coder) - where does a hit reaction lose its movement?",
+    "who": "qwen",
+    "started": "2026-11-09T10:20",
+    "run": "HITREACT2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL4E - CURSOR (Grok 4.7 High) - the plan must beat the coach again on the new fighter model",
+    "who": "cursor",
+    "started": "2026-11-09T11:01",
+    "run": "FIGHTERMODEL4E",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUHOME2 - CURSOR (Grok 4.7 High) - Home, round 2: the Needs-you board as drawn",
+    "who": "cursor",
+    "started": "2026-11-09T11:55",
+    "run": "MENUHOME2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL4F - CURSOR (Grok 4.7 High) - the nine red tests the new fighter model leaves behind",
+    "who": "cursor",
+    "started": "2026-11-09T12:42",
+    "run": "FIGHTERMODEL4F",
+    "state": "LANDED - Claude collects"
+   },
+   {
     "title": "TASK MENUWEEK2 - CURSOR (Grok 4.7 High) - the Fighter Week page, round 2: to the mockup, on one screen",
     "who": "cursor",
     "started": "2026-11-09T15:13",
     "run": "MENUWEEK2"
    },
    {
-    "title": "Where each hand goes before a punch, measured",
+    "title": "TASK REARHAND1 - QWEN (qwen3-coder) - does the hand really drop to the hip before a punch, and in how many clips",
     "who": "qwen",
-    "started": "2026-11-09T15:30",
-    "run": "REARHAND1",
-    "state": "running"
-   },
-   {
-    "title": "The Fighter Week page, fewer words",
-    "who": "cursor",
-    "started": "2026-11-09T15:30",
-    "run": "MENUWEEK2",
-    "state": "running"
+    "started": "2026-11-09T15:36",
+    "run": "REARHAND1"
    }
   ],
   "next": [
@@ -5058,6 +5253,21 @@
   },
   "done_recently": [
    {
+    "title": "TASK CLIPFULL1 - QWEN (qwen3-coder) - large pictures of the five benched takes beside the plain takes that play",
+    "who": "qwen",
+    "when": "2026-11-09"
+   },
+   {
+    "title": "TASK FLOOR2 - QWEN (qwen3-coder) - the four gym layouts each hold about the same number of people",
+    "who": "qwen",
+    "when": "2026-11-09"
+   },
+   {
+    "title": "TASK COACH1 - CURSOR (Grok 4.7 High) - what a coach is good at, and a staff screen that says so",
+    "who": "cursor",
+    "when": "2026-11-09"
+   },
+   {
     "title": "The guide as a person; Home gym fills the window",
     "who": "claude"
    },
@@ -5099,31 +5309,6 @@
     "id": "HITREACT",
     "who": "agent",
     "title": "Hit reactions: head travel matches the clips; the loss was a faulty probe"
-   },
-   {
-    "id": "CIGREEN",
-    "who": "claude",
-    "title": "Main's CI green again, with a time per test"
-   },
-   {
-    "id": "INK",
-    "who": "claude",
-    "title": "Fewer words and bigger pictures as a measured bar for every menu"
-   },
-   {
-    "id": "ROSTERCARDS",
-    "who": "claude",
-    "title": "Fighters as full-body cards on a painted gym"
-   },
-   {
-    "id": "VERSUS",
-    "who": "claude",
-    "title": "Bout offers open as a versus screen"
-   },
-   {
-    "id": "FETCHFIX",
-    "who": "claude",
-    "title": "A git pull can no longer merge a background job's PR"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5320,16 +5505,20 @@
     {
      "text": "Names bold, text 15 px or more",
      "who": "claude"
+    },
+    {
+     "text": "Home: gym fills the window",
+     "who": "claude"
+    },
+    {
+     "text": "CLIPFULL1: none go back",
+     "who": "claude"
     }
    ],
    "now": [
     {
-     "text": "Play the S410 build (you)",
+     "text": "Play the S413 build (you)",
      "who": "operator"
-    },
-    {
-     "text": "CLIPFULL1: benched takes, large",
-     "who": "claude"
     }
    ],
    "next": [

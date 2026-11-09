@@ -8,9 +8,9 @@ Updated 2026-11-09 by claude S294.
 
 ## Now
 
-**S412 — ?** *(claude)*
+**S413 — ?** *(claude)*
 
-S412: one shared theme pass against the website look: the gym wall, cream cards, plates that press, no page bar. Versus: live shadowboxing, crests, facing each other. Coach design and his gym picture on the board. Blind critic 4.5 on the look.
+S413: the guide is a person (old trainer, one line, a light). Home: the gym fills the window after his note on unused space. COACH1 and FLOOR2 merged; pad rating now teaches moves. CLIPFULL1: no benched take goes back.
 
 ## Next
 
@@ -297,3 +297,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S410**  |  |  | *none yet* |  |
 |  |  | **S411**  |  |  | *none yet* |  |
 |  |  | **S412**  |  |  | *none yet* |  |
+|  |  | **S413**  |  |  | *none yet* |  |

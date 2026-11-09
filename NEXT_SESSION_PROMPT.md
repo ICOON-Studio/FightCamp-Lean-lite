@@ -1,3 +1,8 @@
+# S413 last note (read first)
+His words at handover, on the top bar's Home / Fighters / Fights / Club / World tabs: "whats the point oving those if they have shortcuts on the gym or be in submenus ?". On Home they repeat the gym's pins. Claude's answer: on Home they are redundant; on any other page they are the only quick way to jump. Proposal on the board as Q-S294-145 (one Gym button in place of the five). Shell._build_rail builds them (Rail_<id>). Remember the gym has no Club pin: Club office goes to People, so check the pins reach every page first (Money and Records are sub-tabs of Club).
+His follow-up: "why not add a book a fight inside the player profile ? would that solve the problem ?" Claude: yes for the common trip. Build with the one Gym button if he says yes on Q-S294-145: a fight panel on the fighter page showing that boxer's own offers with Open straight to the versus screen (act openBout, OfferCard), or when the next offer is due, or the booked bout with a link to Fight prep. Today FighterPage.gd line 224 has only a Find a bout button that goes to the Fights page. Bouts come as offers, so the panel answers offers rather than booking freely (pros: ProFights probook).
+Stage shipped. The map is current.
+
 # S413 handover (written 2026-11-09, S413 main session)
 
 OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S414` and redraw the map (send only changed cards; strip data-deleted lines; he has not approved deleting map cards).
