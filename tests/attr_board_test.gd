@@ -1,11 +1,12 @@
 extends SceneTree
-## S340 C157: her attributes board shows every value the bout reads (the 7 stats, footwork, her personality), grouped,
-## banded, with this week's change, and the radar draws the 8 fight attributes against her potential. Overview and the
-## Attributes tab both carry it.
+## S340 C157: her attributes board shows every value the bout reads, grouped, banded, with this week's change, and the
+## radar. S398 the fighter model: the 20 attributes + heart + the personality in PHYSICAL / SKILL / MIND, the radar on the
+## six keys (Duels.keys), the signature line and where the fighter wants the fight. Overview and the Attributes tab both.
 
 const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
 const AttrRadar := preload("res://scripts/ui/AttrRadar.gd")
 const Data := preload("res://scripts/state/Data.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 
 var failures := 0
 var main: Node
@@ -35,7 +36,8 @@ func _initialize() -> void:
 		var radars := page.find_children("*", "Control", true, false).filter(func(n): return n.get_script() == AttrRadar)
 		_check(radars.size() == 0, "tab %s: no radar, the bars carry the numbers (S398) (%d)" % [tab, radars.size()])
 		var text := _texts(page)
-		for word in ["FIGHTING", "BODY", "MIND", "AT A GLANCE", "Footwork", "Heart", "Discipline", "Coachability", "Temper", "Ring IQ"]:
+		for word in ["PHYSICAL", "SKILL", "MIND", "AT A GLANCE", "Footwork", "Heart", "Discipline", "Coachability", "Temper", "Fight IQ",
+				"Wants the fight", "Defence"]:
 			_check(text.contains(word), "tab %s shows %s" % [tab, word])
 		_check(not text.contains("BAR = WAY TO THE NEXT POINT"), "tab %s: the old bar card is gone" % tab)
 	print("PASS attr_board_test" if failures == 0 else "FAIL %d" % failures)
@@ -44,8 +46,8 @@ func _initialize() -> void:
 
 func _pure() -> void:
 	var f: Dictionary = Data.fighter_state(Data.lucy(), 0)
-	f["week_start"] = (f["stats"] as Dictionary).duplicate()
-	f["stats"]["power"] = float(f["stats"]["power"]) + 0.6
+	f["attrs_week"] = Attrs.of(f).duplicate()
+	f["stats"]["power"] = float(f["stats"]["power"]) + 0.6   # an old-stat writer: the board sees it on the attribute
 	f["personality"]["temper"] = 80.0
 	f["personality"]["heart"] = 80.0
 	var groups := AttrBoard.rows(f)
@@ -54,13 +56,15 @@ func _pure() -> void:
 	for g in groups:
 		for r in g["rows"]:
 			all[r["key"]] = r
-	_check(all.size() == 13, "13 values (%d)" % all.size())
-	for key in Data.STATS:
-		_check(all.has(key), "stat %s shown" % key)
+	_check(all.size() == Attrs.ABILITIES.size() + 5, "every attribute and the personality (%d)" % all.size())
+	var a := Attrs.of(f)
+	for key in Attrs.ABILITIES:
+		_check(all.has(key), "attribute %s shown" % key)
 		if all.has(key):
-			_check(is_equal_approx(float(all[key]["value"]), float(f["stats"][key])), "%s value matches" % key)
-	_check(is_equal_approx(float(all["footwork"]["value"]), float(f["footwork"])), "footwork from her profile")
-	_check(is_equal_approx(float(all["power"]["delta"]), 0.6), "power +0.6 this week (%.2f)" % float(all["power"]["delta"]))
+			_check(is_equal_approx(float(all[key]["value"]), float(a[key])), "%s value matches" % key)
+	_check(is_equal_approx(float(all["footwork"]["value"]), float(f["footwork"])), "footwork is the profile's")
+	_check(is_equal_approx(float(all["strength"]["delta"]), 0.6), "strength +0.6 this week (%.2f)" % float(all["strength"]["delta"]))
+	_check(is_equal_approx(float(all["explosiveness"]["delta"]), 0.6), "explosiveness +0.6 this week (%.2f)" % float(all["explosiveness"]["delta"]))
 	_check(is_equal_approx(float(all["speed"]["delta"]), 0.0), "speed unchanged this week")
 	_check(str(all["heart"]["band"]) == "elite", "heart 80 is elite (%s)" % all["heart"]["band"])
 	_check(str(all["temper"]["band"]) == "weak", "a hot temper (80) reads weak (%s)" % all["temper"]["band"])
@@ -75,6 +79,7 @@ func _pure() -> void:
 	_check(bool(g["hot"]), "temper 80 reads hot")
 	_check((g["best"] + g["work"]).all(func(r): return str(r["key"]) != "temper"), "temper is never a best or work-on value")
 	_check(float(g["work"][0]["value"]) <= float(g["work"][1]["value"]), "work-on lists the lowest first")
+	_check(str(g["wants"]) != "", "where the fighter wants the fight, in words (%s)" % g["wants"])
 
 
 func _texts(n: Node) -> String:

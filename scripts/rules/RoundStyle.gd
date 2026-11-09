@@ -9,6 +9,7 @@ extends RefCounted
 ## round 2" = she tires; "Body hooks" = her best punch), so what the scout said is what the ring shows.
 
 const Combos := preload("res://scripts/rules/Combos.gd")
+const AttrGen := preload("res://scripts/rules/AttrGen.gd")
 
 ## Data.MOVES name -> the beats the ring plays, with their shares. The hook and the uppercut are drilled as one move each
 ## but thrown off both hands (S300: the Punch Pro library has both); the check hook is a counter, thrown as the lead hook.
@@ -34,7 +35,7 @@ static func stat(p: Dictionary, key: String, fallback: float = 55.0) -> float:
 
 
 static func footwork(p: Dictionary) -> float:
-	return float(p.get("footwork", (stat(p, "speed") + stat(p, "defense")) * 0.5))
+	return float(p.get("footwork", 55.0))
 
 
 ## Our fighter's profile from her career dict (moves, stats, and footwork once the fighter profile stores it).
@@ -51,7 +52,9 @@ static func of_fighter(f: Dictionary) -> Dictionary:
 ## An opponent's profile from what the offer and the scout know: rating, style, threat and weakness words.
 static func from_opponent(opp: Dictionary) -> Dictionary:
 	var r := float(opp.get("rating", 60.0))
-	var st := {"power": r, "speed": r, "technique": r, "defense": r, "conditioning": r, "fight_iq": r, "chin": r}
+	# S398 the opponent's real profile (AttrGen: the level + the shape the file's words describe), in the old seven.
+	var prof: Dictionary = AttrGen.attrs_of(opp)
+	var st: Dictionary = AttrGen.Attrs.legacy(prof)
 	var moves := {"Jab": r * 0.85, "Cross": r * 0.75, "Lead hook": r * 0.6, "Body hook": r * 0.45, "Uppercut": r * 0.3,
 		"Check hook": 0.0}
 	var threat := str(opp.get("threat", "")).to_lower()
@@ -76,20 +79,12 @@ static func from_opponent(opp: Dictionary) -> Dictionary:
 		moves["Lead hook"] = r
 	if threat.contains("right") or threat.contains("cross") or threat.contains("straight"):
 		moves["Cross"] = r
-	if threat.contains("flurr") or threat.contains("never stops") or style.contains("volume"):
-		st["speed"] = r + 8.0
 	if threat == "everything":
 		for m in moves:
 			moves[m] = r * 0.8
 	if style.contains("counter"):
 		moves["Check hook"] = r * 0.6
-	if weak.contains("fades") or weak.contains("legs late"):
-		st["conditioning"] = r - 10.0
-	if weak.contains("chin open"):
-		st["defense"] = r - 10.0
-	var fw := r + (6.0 if style.contains("counter") or style.contains("out") else 0.0)
-	if weak.contains("stands still") or weak.contains("walks in straight"):
-		fw = r - 10.0
+	var fw := float(prof["footwork"])
 	return {"moves": moves, "stats": st, "footwork": fw, "combos": Combos.opponent_combos(opp)}
 
 

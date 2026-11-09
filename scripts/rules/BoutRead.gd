@@ -1,21 +1,7 @@
 extends RefCounted
-## S387 MENUBOUT (operator "Yes, build 1-3"; ops/research/MENU_CRITIC_S386.md item 2): a bout offer read as a decision. What
-## the coach can estimate of the opponent from her file, and what that makes the fighter's chance, rank and mismatch.
-## No odds model of its own: chance() walks the bout the sim fights. An exchange is Exchanges.settle's dice on the edge
-## (ComboOdds.win_odds), the edge is LiveRound.open's base (ComboOdds.gap) plus the rest of LiveRound.exchange's mean terms,
-## a round is the most of six exchanges, a bout the most of three rounds. tests/bout_read_test.gd holds it to real bouts
-## (BoutNight.play_out). What it leaves out: her shouts and the corner minute, so a bout the player works can beat it.
-## An opponent has one number, her rating; RoundStyle.from_opponent makes her stats from it, so that is what is hidden.
-## HIDING (PlanTest's rule: the truth sits inside the range, at a place the range does not show): the range is nested stage
-## by stage, each find cuts it from a dice-picked side, so the truth cannot be read off its middle or off how it moved.
-## All seven stats share the one range: seven separate dice would close in on her rating by overlap. A hidden tell moves
-## nothing: public() blanks its words, and every opponent gets the same room for what a hidden tell could be.
-##   stage(opp) -> {found, all, share}   rating_range(opp, salt) -> [lo, hi]   stat_ranges(opp, salt) -> {stat: [lo, hi]}
-##   true_stats(opp) -> {stat: value}    camp_for(f, days) -> camp   chance(f, opp, camp, coach) -> 0..1
-##   band(f, opp, camp, salt, coach) -> {lo, hi}   mismatch(f, opp, camp, salt) -> power points
-## coach = the gym coach's rating (0 = none): with no plan written he writes one at the first bell (CoachPlan, S397).
-##   rank_of(rows, name) -> 1-based or 0   rank_move(rows, f, opp_name, order, min_wins) -> {now, win, loss, need}
-## Pure static; salt = the career's seed, so the same opponent reads differently in another career.
+## A bout offer read as a decision: the coach's estimate of the opponent, and the fighter's chance, rank and mismatch.
+## chance() walks the bout the sim fights. Shouts and the corner minute are left out. One rating range hides the truth
+## across all seven stats, and a hidden tell moves nothing. coach is the gym coach's rating. salt is the career seed.
 
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
@@ -30,6 +16,8 @@ const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
 const CoachPlan := preload("res://scripts/rules/CoachPlan.gd")
+const RingDuel := preload("res://scripts/state/RingDuel.gd")
+const WorldBout := preload("res://scripts/world/WorldBout.gd")
 
 ## The range's full width in rating points: nothing found, her whole file open (design values; the file never gives the
 ## exact number). The truth starts at least EDGE_KEEP of the width from either end.
@@ -43,8 +31,8 @@ const ROOM_WEAPON := {"speed": 8.0}
 const CHIN_WEAK := 8.0
 ## While a tell is hidden the band's ends take the worst and the best of these, the same list for every opponent: each
 ## stands for one kind of words the sim reads (her tank, her third round, her games; the body shots on her fighter's tank).
-const ANY_WEAK := ["", "Fades after round 2", "Heavy legs late", "Walks in straight"]
-const ANY_WEAPON := ["", "Hooks", "Body hooks"]
+const ANY_WEAK := ["", "Fades after round 2", "Leaves the chin open", "Walks in straight"]
+const ANY_WEAPON := ["", "Never stops throwing", "Stops people"]
 ## The band's allowance for what chance() leaves out, each side (tests/bout_read_test.gd measures chance() against real bouts).
 const SLACK := 0.03
 ## With time for a camp the read assumes the club's usual one.
@@ -58,14 +46,13 @@ const MEAN_LANDED := 3.5
 ## game puts her on (measured: a four-arrow plan in real bouts against the same plan always on the game's own card).
 const PLAN_REACH := 0.75
 ## S397 what rides on a plan's answers past their own exchange: the round's reads (PlanRead), the bout's pressure and the
-## tank ceiling (PlanPressure). Measured against real bouts (tests/bout_read_test.gd), on top of PLAN_REACH: 1.3 is the
-## smallest worst miss over its eight cases (0.041; 1.0 missed the planned case by 0.074, 1.5 a coach-plan case by 0.050).
-const PLAN_CARRY := 1.3
+## tank ceiling (PlanPressure). Measured against real bouts (tests/bout_read_test.gd), on top of PLAN_REACH. Re-fit when
+## the watched form spread went from 8 to 5: 2.0 put the coach 0.11 over those bouts; 1.2 sits inside the 0.06 bar.
+const PLAN_CARRY := 1.2
 ## Rounds of next_mode's dice behind one style's mix.
 const MIX_ROUNDS := 300
 
-static var _mixes := {}
-
+static var _mixes := {}; static var _ge := {}; static var _ready := {}; static var _re := {}
 
 ## How far her file is open: tape tells found, of all she has.
 static func stage(opp: Dictionary) -> Dictionary:
@@ -101,10 +88,7 @@ static func rating_range(opp: Dictionary, salt: int) -> Array:
 
 ## Her seven stats as the sim fights them: RoundStyle's, with the chin BoutNight._counts takes off a chin weakness.
 static func true_stats(opp: Dictionary) -> Dictionary:
-	var st: Dictionary = RoundStyle.from_opponent(opp)["stats"]
-	if str(opp.get("weak", "")).to_lower().contains("chin"):
-		st["chin"] = float(st["chin"]) - CHIN_WEAK
-	return st
+	return RoundStyle.from_opponent(opp)["stats"]   # S398 the profile's own chin holds a chin weakness
 
 
 ## Her words as the file shows them: what is not found yet is blank.
@@ -118,16 +102,72 @@ static func public(opp: Dictionary) -> Dictionary:
 
 
 ## {stat: [lo, hi]} for the seven stats: the rating range moved by what the file shows, plus the room for a hidden tell.
+## S398 the room is what any real scouting phrase can do to that stat on the fighter model (_rooms: every threat and
+## weakness line the game's boxers carry, through AttrGen's words), so a range only shrinks as the file opens and always
+## holds the truth.
 static func stat_ranges(opp: Dictionary, salt: int) -> Dictionary:
 	var r := float(opp.get("rating", 60.0))
 	var span := rating_range(opp, salt)
 	var shown := true_stats(public(opp))
+	var rooms := _rooms()
 	var out := {}
 	for k in shown:
 		var off := float(shown[k]) - r
-		var down := 0.0 if OppFile.known(opp, "weakness") else float(ROOM_WEAK.get(k, 0.0))
-		var up := 0.0 if OppFile.known(opp, "weapon") else float(ROOM_WEAPON.get(k, 0.0))
+		var down := 0.0
+		var up := 0.0
+		if not OppFile.known(opp, "weakness"):
+			down += float(rooms["weak"][k][0])
+			up += float(rooms["weak"][k][1])
+		if not OppFile.known(opp, "weapon"):
+			down += float(rooms["weapon"][k][0])
+			up += float(rooms["weapon"][k][1])
 		out[k] = [float(span[0]) + off - down, float(span[1]) + off + up]
+	return out
+
+
+static var _room_cache := {}
+
+
+## {weak: {stat: [down, up]}, weapon: {...}}: the most any one real phrase moves each of the seven.
+static func _rooms() -> Dictionary:
+	if not _room_cache.is_empty():
+		return _room_cache
+	var data: GDScript = load("res://scripts/state/Data.gd")
+	var gen: GDScript = load("res://scripts/world/WorldGen.gd")
+	var rows: Array = data.OPPONENTS + [data.MISMATCH] + data.RIVALS + data.DIVISION_RIVALS + gen.STYLES
+	var base := {"rating": 60.0, "style": "Boxer-puncher", "name": "room", "threat": "", "weak": ""}
+	var zero := RoundStyle.from_opponent(base)["stats"] as Dictionary
+	var out := {"weak": {}, "weapon": {}}
+	for k in zero:
+		out["weak"][k] = [0.0, 0.0]
+		out["weapon"][k] = [0.0, 0.0]
+	for row in rows:
+		for cat in ["weak", "weapon"]:
+			var field := "weak" if cat == "weak" else "threat"
+			var st: Dictionary = RoundStyle.from_opponent(base.merged({field: str(row.get(field, ""))}, true))["stats"]
+			for k in zero:
+				var d := float(st[k]) - float(zero[k])
+				out[cat][k][0] = maxf(float(out[cat][k][0]), -d)
+				out[cat][k][1] = maxf(float(out[cat][k][1]), d)
+	_room_cache = out
+	return out
+
+
+## S398 the tale of the tape on the fighter model: the opponent's six keys (Duels.keys: long game, pocket, inside, power,
+## durability, engine) as ranges - the rating range on the shape the file's FOUND words show, plus KEY_ROOM either way while a
+## tell is still hidden (it could be a weapon or a hole). {name: [lo, hi]} in Duels.keys order.
+const KEY_ROOM := 4.0
+
+
+static func key_ranges(opp: Dictionary, salt: int) -> Array:
+	var span := rating_range(opp, salt)
+	var pub := public(opp)   # a world boxer's shape is on public tape (record, style); the scout's words are not
+	var lo := RingDuel.Duels.keys(RingDuel.AttrGen.attrs_of(pub.merged({"rating": float(span[0])}, true)))
+	var hi := RingDuel.Duels.keys(RingDuel.AttrGen.attrs_of(pub.merged({"rating": float(span[1])}, true)))
+	var room := 0.0 if int(stage(opp)["found"]) >= int(stage(opp)["all"]) else KEY_ROOM
+	var out: Array = []
+	for i in lo.size():
+		out.append({"name": str(lo[i]["name"]), "lo": float(lo[i]["value"]) - room, "hi": float(hi[i]["value"]) + room})
 	return out
 
 
@@ -173,6 +213,13 @@ static func _call(f: Dictionary, n: int) -> String:
 
 ## LiveRound.exchange's call, perk, plan and habit terms in one situation of round n, as a mean over the round's exchanges.
 static func _game_edge(f: Dictionary, sit: String, n: int) -> float:
+	var key := hash(sit) ^ (n * 1315423911) ^ hash(f.get("stats", {})) ^ hash(f.get("arrows", [])) ^ hash(f.get("moves", {})) ^ hash(f.get("combos", {})) ^ hash(f.get("personality", {})) ^ hash(f.get("perks", [])) ^ hash(f.get("habits", [])) ^ int(round(float(f.get("footwork", 0.0)) * 1000.0))
+	if _ge.has(key):
+		return float(_ge[key])
+	var e := _game_edge_of(f, sit, n)
+	_ge[key] = e
+	return e
+static func _game_edge_of(f: Dictionary, sit: String, n: int) -> float:
 	var vals: Dictionary = (f["stats"] as Dictionary).duplicate()
 	vals.merge(f.get("personality", {}) as Dictionary)
 	vals["footwork"] = float(f.get("footwork", vals.get("speed", 55.0)))
@@ -180,7 +227,8 @@ static func _game_edge(f: Dictionary, sit: String, n: int) -> float:
 	var heard := Exchanges.uptake(coach, 0) * FighterProfile.trust(f)
 	var call := _call(f, n)
 	var e := Exchanges.call_edge(call, sit, vals, heard)
-	if float(vals.get("fight_iq", 55.0)) >= Exchanges.IQ_FINDS:   # she finds the answer herself when the game carries on
+	vals.merge(RingDuel.Attrs.of(f), true)
+	if float(vals.get("ring_iq", 55.0)) >= Exchanges.IQ_FINDS:   # she finds the answer herself when the game carries on
 		e = lerpf(e, Exchanges.call_edge(call, sit, vals, heard, true), Exchanges.KEEP)
 	e = PerkFight.call_edge(f, e) + PerkFight.jab_edge(f, sit)
 	var at := str(PlanFight.GAME_CARD.get(sit, "long"))
@@ -190,15 +238,37 @@ static func _game_edge(f: Dictionary, sit: String, n: int) -> float:
 	e += PLAN_REACH * PLAN_CARRY * PlanFight.edge(pick, sit, PlanFight.rate(str(pick["move"]), combos), PlanFight.card_mean(at, sit, moves, combos))
 	var habits := 0.0
 	for i in Exchanges.EXCHANGES:
-		habits += HabitFix.cost(HabitFix.punished(f.get("habits", []), sit, n, i, n == BoutRules.ROUNDS), "", 0.0)
+		habits += Exchanges.HABIT_BOUT * HabitFix.cost(HabitFix.punished(f.get("habits", []), sit, n, i, n == BoutRules.ROUNDS), "", 0.0)
 	return e + habits / float(Exchanges.EXCHANGES)
 
 
+static func _read_copy(f: Dictionary, opp: Dictionary, camp: Dictionary, coach: float) -> Dictionary:
+	var key := "%s|%s|%s|%s|%s|%.4f" % [str(f.get("id", "")), str(f.get("stats", {})), str(f.get("moves", {})), str(f.get("personality", {})), str(f.get("style", "")), float(f.get("footwork", -1.0))]
+	if not _ready.has(key):
+		var made := f.duplicate()
+		made["stats"] = (f.get("stats", {}) as Dictionary).duplicate()
+		if f.has("attrs"): made["attrs"] = (f["attrs"] as Dictionary).duplicate()
+		made["bout"] = {}
+		RingDuel.Attrs.of(made)
+		_ready[key] = made
+	var once: Dictionary = _ready[key]
+	var fx := f.duplicate()
+	fx["stats"] = (once["stats"] as Dictionary).duplicate()
+	fx["attrs"] = (once["attrs"] as Dictionary).duplicate()
+	fx["stats_seen"] = (once["stats_seen"] as Dictionary).duplicate()
+	fx["footwork"] = once.get("footwork", f.get("footwork", 55.0))
+	fx["camp"] = camp
+	fx["bout"] = {}
+	if (fx.get("arrows", []) as Array).is_empty():
+		fx["arrows"] = CoachPlan.write(str(opp.get("style", "")), coach, fx.get("moves", {}), fx.get("combos", {}))
+	return fx
+
+
 ## The games her style really plays, Exchanges.next_mode's own dice run on (MAX_RUN makes them flatter than STYLE_MODES).
-static func _games(opp: Dictionary) -> Dictionary:
+static func _games(opp: Dictionary, bias: Dictionary = {}) -> Dictionary:
 	var style := str(opp.get("style", ""))
 	var weak := "walks in" if str(opp.get("weak", "")).to_lower().contains("walks in") else ""   # the one word next_mode reads here
-	var key := style + "|" + weak
+	var key := style + "|" + weak + "|" + str(bias)
 	if _mixes.has(key):
 		return _mixes[key]
 	var rng := RandomNumberGenerator.new()
@@ -208,7 +278,7 @@ static func _games(opp: Dictionary) -> Dictionary:
 		var mode := ""
 		var run := 0
 		for i in Exchanges.EXCHANGES:
-			var next := Exchanges.next_mode(style, weak, 2, i, mode, Combos.TANK, false, rng, run)
+			var next := Exchanges.next_mode(style, weak, 2, i, mode, Combos.TANK, false, rng, run, bias)
 			run = run + 1 if next == mode else 1
 			mode = next
 			tally[mode] = float(tally.get(mode, 0.0)) + 1.0 / float(MIX_ROUNDS * Exchanges.EXCHANGES)
@@ -225,15 +295,30 @@ static func _tiring(opp: Dictionary, n: int, energy: float) -> float:
 
 
 ## Her mean edge in power points in each round against this opponent, on this camp.
+static func _re_key(f: Dictionary, o: Dictionary, camp: Dictionary, coach: float) -> String:
+	return RingDuel.stat_bucket(f) + str(f.get("moves")) + str(f.get("combos")) + str(f.get("arrows")) + str(f.get("personality")) + str(f.get("perks")) + str(f.get("habits")) + str(f.get("style")) + str(f.get("stance")) + str(f.get("style_dials")) + str(f.get("durability_cap")) + str(camp) + str(coach) + str(o.get("rating")) + str(o.get("weak")) + str(o.get("threat")) + str(o.get("style")) + str(o.get("shape")) + str(o.get("age")) + str(o.get("peak_age")) + str(o.get("pace")) + str(o.get("forward")) + str(o.get("heart")) + str(o.get("stance")) + str(o.get("height")) + str(o.get("reach")) + str(o.get("name")) + str(o.get("damage_ledger")) + str(o.get("sex"))
+
+
 static func round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach := 0.0) -> Array:
-	var fx := f.merged({"camp": camp, "bout": {}}, true)
-	if (fx.get("arrows", []) as Array).is_empty():   # the plan she walks out with: the coach's when none is written
-		fx["arrows"] = CoachPlan.write(str(opp.get("style", "")), coach, fx.get("moves", {}), fx.get("combos", {}))
-	var base := ComboOdds.gap(fx, opp)
+	var key := _re_key(f, opp, camp, coach)
+	if _re.has(key):
+		return _re[key]
+	var out := _round_edges(f, opp, camp, coach)
+	_re[key] = out
+	return out
+
+
+static func _round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach := 0.0) -> Array:
+	var fx := _read_copy(f, opp, camp, coach)
+	var base := ComboOdds.night_gap(fx)   # S398 who is better is the duels below, exchange by exchange
 	var tanks := _energy(fx, opp)
-	var mix := _games(opp)
-	var body_a := MEAN_LANDED * Exchanges.BODY_COST * (Exchanges.BODY_THREAT_SHARE if str(opp.get("threat", "")).to_lower().contains("body") else Exchanges.BODY_SHARE)
+	var mix := _games(opp, RingDuel.mode_bias(fx, opp))
+	var own_attrs := RingDuel.Attrs.of(fx)
+	var opp_attrs := RingDuel.opp(opp)
+	var body_a := MEAN_LANDED * Exchanges.body_cost(float(own_attrs.get("body", 55.0))) \
+		* (Exchanges.BODY_THREAT_SHARE if str(opp.get("threat", "")).to_lower().contains("body") else Exchanges.BODY_SHARE)
 	var out: Array = []
+	var states: Dictionary = {}
 	for n in range(1, BoutRules.ROUNDS + 1):
 		var t: Dictionary = tanks[n - 1]
 		var e := base + float(t["edge"]) + BoutRules.stance_edge(n, str(f.get("stance", "orthodox")), opp, camp)
@@ -244,7 +329,26 @@ static func round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach 
 		var worth := {}
 		for sit in mix.keys() + ["tiring", "she_tired"]:
 			worth[sit] = _game_edge(fx, str(sit), n)
-		var body_b := MEAN_LANDED * Exchanges.BODY_COST * (Exchanges.BODY_CALL_SHARE if _call(f, n) == "body" else Exchanges.BODY_SHARE)
+		var body_b := MEAN_LANDED * Exchanges.body_cost(float(opp_attrs.get("body", 55.0))) \
+			* (Exchanges.BODY_CALL_SHARE if _call(f, n) == "body" else Exchanges.BODY_SHARE)
+		# S398 the duels, on the world's quick ladder (one energy a round, no ropes) so a page can read every hidden phrase.
+		var eas: Array = []
+		var ebs: Array = []
+		var wbs: Array = []
+		var mixw := RingDuel.wants_of_mix(mix)
+		for i in Exchanges.EXCHANGES:
+			var at := float(i) / float(Exchanges.EXCHANGES)
+			var done := float((n - 1) * Exchanges.EXCHANGES + i)
+			eas.append(lerpf(float(t["a"]), float(t["a_end"]), at) - done * body_a)
+			var eb := lerpf(float(t["b"]), float(t["b_end"]), at) - done * body_b
+			ebs.append(eb)
+			var tr := _tiring(opp, n, eb)
+			wbs.append([(1.0 - tr) * float(mixw[0]) + tr, (1.0 - tr) * float(mixw[1]), (1.0 - tr) * float(mixw[2])])
+		var duel_read := RingDuel.mean_edges(fx, opp, n, eas, ebs, _call(f, n), wbs, states)
+		states = duel_read["states"]
+		var duels: Array = duel_read["edges"]
+		for i in Exchanges.EXCHANGES:
+			e += float(duels[i]) / float(Exchanges.EXCHANGES)
 		for i in Exchanges.EXCHANGES:
 			var at := float(i) / float(Exchanges.EXCHANGES)
 			var done := float((n - 1) * Exchanges.EXCHANGES + i)
@@ -280,10 +384,16 @@ static func _round_odds(e: float) -> float:
 ## The chance she wins this bout: two rounds of three (a 3-round card has no draw).
 static func chance(f: Dictionary, opp: Dictionary, camp: Dictionary, coach := 0.0) -> float:
 	var e := round_edges(f, opp, camp, coach)
-	var a := _round_odds(float(e[0]))
-	var b := _round_odds(float(e[1]))
-	var c := _round_odds(float(e[2]))
-	return a * b + a * c + b * c - 2.0 * a * b * c
+	# S398 integrated over the form both bring on the night (RingDuel.form), as the bout rolls it.
+	var out := 0.0
+	var sd := RingDuel.FORM_SD * sqrt(2.0)
+	for j in WorldBout.GH_X.size():
+		var d := float(WorldBout.GH_X[j]) * sd
+		var a := _round_odds(float(e[0]) + d)
+		var b := _round_odds(float(e[1]) + d)
+		var c := _round_odds(float(e[2]) + d)
+		out += float(WorldBout.GH_W[j]) * (a * b + a * c + b * c - 2.0 * a * b * c)
+	return clampf(out, 0.01, 0.99)   # S398 never certain, and the band's own floor and ceiling
 
 
 ## {lo, hi}: the chance at the top of her range and at the bottom of it, over what a hidden tell could be. A find only takes
@@ -294,9 +404,17 @@ static func band(f: Dictionary, opp: Dictionary, camp: Dictionary, salt: int, co
 		"hi": clampf(_end(f, opp, float(span[0]), camp, true, coach) + SLACK, 0.01, 0.99)}
 
 
+## S398 the coach's single read (Rank 5 critics: "Win chance 4-56%" read like a bug): the chance at the middle of the
+## rating range the file gives, on the words found so far (hidden ones blank). Show "about <likely>%" and keep band() for
+## the honest spread (it narrows with every find); the likely read moves toward the truth as the file opens.
+static func likely(f: Dictionary, opp: Dictionary, camp: Dictionary, salt: int, coach := 0.0) -> float:
+	var span := rating_range(opp, salt)
+	return chance(f, public(opp).merged({"rating": (float(span[0]) + float(span[1])) * 0.5}, true), camp, coach)
+
+
 static func _end(f: Dictionary, opp: Dictionary, rating: float, camp: Dictionary, best: bool, coach := 0.0) -> float:
-	var weaks: Array = [str(opp.get("weak", ""))] if OppFile.known(opp, "weakness") else ANY_WEAK
-	var weapons: Array = [str(opp.get("threat", ""))] if OppFile.known(opp, "weapon") else ANY_WEAPON
+	var weaks: Array = [str(opp.get("weak", ""))] if OppFile.known(opp, "weakness") else _candidates(f, opp, "weak")
+	var weapons: Array = [str(opp.get("threat", ""))] if OppFile.known(opp, "weapon") else _candidates(f, opp, "threat")
 	var out := 0.0 if best else 1.0
 	for w in weaks:
 		for t in weapons:
@@ -305,10 +423,49 @@ static func _end(f: Dictionary, opp: Dictionary, rating: float, camp: Dictionary
 	return out
 
 
+static var _cand_cache := {}
+
+
+## S398 what a hidden line could be, for this fighter and this style: of every real phrase (_rooms' rows), the one that helps
+## her most and the one that hurts her most on the duels (RingDuel.mean_edge), plus ANY_* (the fades and tank lines the
+## duels' mean does not see). The same for any hidden word, so a hidden word still moves nothing.
+static func _candidates(f: Dictionary, opp: Dictionary, field: String) -> Array:
+	var key := "%s|%.1f|%s|%s" % [str(f.get("name", "")), RingDuel.Attrs.overall(RingDuel.Attrs.of(f)), str(opp.get("style", "")), field]
+	if _cand_cache.has(key):
+		return _cand_cache[key]
+	var data: GDScript = load("res://scripts/state/Data.gd")
+	var gen: GDScript = load("res://scripts/world/WorldGen.gd")
+	var rows: Array = data.OPPONENTS + [data.MISMATCH] + data.RIVALS + data.DIVISION_RIVALS + gen.STYLES
+	var base := opp.duplicate()
+	base["weak"] = ""
+	base["threat"] = ""
+	base.erase("shape")
+	var lo := ""
+	var hi := ""
+	var lo_e := INF
+	var hi_e := -INF
+	for row in rows:
+		var w := str(row.get(field, ""))
+		var e := RingDuel.mean_edge(f, base.merged({field: w}, true))
+		if e < lo_e:
+			lo_e = e
+			lo = w
+		if e > hi_e:
+			hi_e = e
+			hi = w
+	var out: Array = (ANY_WEAK if field == "weak" else ANY_WEAPON).duplicate()
+	for w in [lo, hi]:
+		if not out.has(w):
+			out.append(w)
+	_cand_cache[key] = out
+	return out
+
+
 ## The strength gap as the coach reads it: her power on the night less the middle of the opponent's range. Minus = the opponent.
 static func mismatch(f: Dictionary, opp: Dictionary, camp: Dictionary, salt: int) -> float:
 	var span := rating_range(opp, salt)
-	return ComboOdds.gap(f.merged({"camp": camp, "bout": {}}, true), {"rating": (float(span[0]) + float(span[1])) / 2.0})
+	var shown := public(opp).merged({"rating": (float(span[0]) + float(span[1])) / 2.0}, true)
+	return ComboOdds.gap(f.merged({"camp": camp, "bout": {}}, true), shown)
 
 
 ## A name's place (1-based) in a division table (Region.rankings' rows), 0 when not in it.

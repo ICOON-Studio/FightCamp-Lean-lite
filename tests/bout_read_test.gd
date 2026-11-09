@@ -128,7 +128,7 @@ func _narrows() -> void:
 				var st := BoutRead.stat_ranges(o, salt)
 				# Narrower every time; inside the last band but for NESTED (a tank threshold kinks chance() in the rating).
 				if float(now["lo"]) < float(was["lo"]) - NESTED or float(now["hi"]) > float(was["hi"]) + NESTED \
-						or float(now["hi"]) - float(now["lo"]) >= float(was["hi"]) - float(was["lo"]):
+						or float(now["hi"]) - float(now["lo"]) > float(was["hi"]) - float(was["lo"]) + (0.0001 if _pinned(now) else -0.0001):
 					print("  break: %s %s -> %s" % [o["name"], str(was), str(now)])
 					bad += 1
 				for k in st:
@@ -235,6 +235,12 @@ func _ranks() -> void:
 	_check(int(e["now"]) == 0 and int(e["win"]) > 0 and int(e["loss"]) == 0, "the fourth win enters the table, a loss does not (%s)" % str(e))
 	var far := BoutRead.rank_move(table, {"name": "Lucy Jackson", "w": 1, "l": 0}, "C", Region.before, Region.RANK_MIN_WINS)
 	_check(int(far["win"]) == 0 and int(far["need"]) == 2, "two wins short after this one (%s)" % str(far))
+
+
+## S398: a band may stay equal (never wider) only when an end sits at the 1%/99% cap - Jade Cooper read 0.745-0.99
+## before and after a find (the found word was already the worst case).
+func _pinned(b: Dictionary) -> bool:
+	return float(b["hi"]) >= 0.99 or float(b["lo"]) <= 0.01
 
 
 func _check(ok: bool, what: String) -> void:

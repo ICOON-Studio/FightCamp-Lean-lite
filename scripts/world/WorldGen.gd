@@ -3,6 +3,7 @@ extends RefCounted
 ## Reads data from assets/data/world/ JSON files. Each boxer is a Dictionary matching the opponent shape the fight reads.
 
 const WR := preload("res://scripts/world/WorldRank.gd")
+const AttrGen := preload("res://scripts/rules/AttrGen.gd")
 
 const STANCES := ["orthodox", "southpaw"]
 const STYLES := [
@@ -12,6 +13,9 @@ const STYLES := [
 	{"style": "Boxer-puncher", "threat": "Straight right", "weak": "Stands still after combinations"},
 	{"style": "Out-boxer", "threat": "A long jab to live behind", "weak": "Struggles when backed up"},
 	{"style": "Swarmer", "threat": "Left hook to the body", "weak": "Fades after round 2"},
+	{"style": "Stalker", "threat": "Cuts the ring off and sits down on the right", "weak": "Slow to start"},
+	{"style": "Slugger", "threat": "One big right hand", "weak": "Slow feet, moves in straight lines"},
+	{"style": "Spoiler", "threat": "Holds and leans, wins ugly", "weak": "Little power"},
 ]
 const RANKED_PER_DIVISION := 20
 const UNRANKED_PER_DIVISION := 15
@@ -137,10 +141,15 @@ func _make_boxer(rng: RandomNumberGenerator, first: String, last: String, club: 
 		div_id: String, is_ranked: bool, boxer_seed: int) -> Dictionary:
 	var age := _roll_age(rng, is_ranked)
 	var stance: String = STANCES[rng.randi_range(0, 1)] if rng.randf() < 0.25 else STANCES[0]
-	var st: Dictionary = STYLES[rng.randi_range(0, STYLES.size() - 1)]
+	# S398 the boxer is a generated profile (AttrGen: base traits, an archetype tilt, a signature and a flaw); the style word
+	# comes out of it, and the scout's words are the archetype's.
+	var prof := AttrGen.generate(rng)
+	var st: Dictionary = _style_row(AttrGen.style_word(prof))
 	var rating := _roll_rating(rng, age, is_ranked)
 	var record := _roll_record(rng, age, is_ranked, rating)
-	var height := rng.randi_range(165, 180) if sex == "men" else rng.randi_range(158, 174)
+	var ko_share := clampf(0.3 + float(prof["shape"].get("explosiveness", 0.0)) / 30.0, 0.05, 0.75)   # KOs from explosiveness
+	record["ko"] = int(round(float(record["w"]) * ko_share))
+	var body := AttrGen.body(rng, sex, _limit_of(div_id))
 	var id := _next_id
 	_next_id += 1
 	return {
@@ -162,14 +171,33 @@ func _make_boxer(rng: RandomNumberGenerator, first: String, last: String, club: 
 		"l": record["l"],
 		"d": record["d"],
 		"ko": record["ko"],
-		"height": height,
-		"reach": height + rng.randi_range(-2, 5),
+		"height": int(body["height"]),
+		"reach": int(body["reach"]),
+		"shape": prof["shape"],
+		"pace": float(prof["pace"]),
+		"forward": float(prof["forward"]),
+		"heart": float(prof["heart"]),
 		"damage_ledger": {"hard_fights": 0, "stoppage_losses": 0, "total_fights": 0},
 		"peak_age": _peak_age_for(sex, div_id),
 		"retired": false,
 		"rank": 0,
 		"belt": "",
 	}
+
+
+func _style_row(archetype: String) -> Dictionary:
+	for row in STYLES:
+		if str(row["style"]) == archetype:
+			return row
+	return STYLES[3]
+
+
+## The division's weight limit in kg from its data row (60 when it has none).
+func _limit_of(div_id: String) -> float:
+	for div in _data_cache.get("divisions", []):
+		if str(div.get("id", "")) == div_id:
+			return float(div.get("max_kg", 60.0))
+	return 60.0
 
 
 func _roll_age(rng: RandomNumberGenerator, is_ranked: bool) -> int:

@@ -22,8 +22,10 @@ const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
+const LiveRead := preload("res://scripts/state/LiveRead.gd")
+const RingDuel := preload("res://scripts/state/RingDuel.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 const CornerTrust := preload("res://scripts/rules/CornerTrust.gd")
-const LiveRoundAfter := preload("res://scripts/state/LiveRoundAfter.gd")
 const Adaptation := preload("res://scripts/rules/Adaptation.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
@@ -33,6 +35,7 @@ static func values(f: Dictionary) -> Dictionary:
 	var v: Dictionary = (f.get("stats", {}) as Dictionary).duplicate()
 	v.merge(f.get("personality", {}) as Dictionary)
 	v["footwork"] = float(f.get("footwork", v.get("speed", 55.0)))
+	v.merge(Attrs.of(f), true)   # S398 the attributes a call is done with (Exchanges.CALLS needs)
 	return v
 
 
@@ -51,8 +54,13 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 	# S381 C229 stage 4: the film is worth the found tells her plan answers, counted at the first bell for the whole bout.
 	if n == 1 or not f["bout"].has("answered"):
 		f["bout"]["answered"] = FilmEdge.answered(f)
-	var base := BoutRules.fight_power(f["stats"], f["camp"], int(f["bout"]["answered"]), "") \
-		+ BoutRules.weapons_edge(BoutRules.weapons(f.get("moves", {}))) + float(e.get("bonus", 0.0)) - float(opp.get("rating", 60.0))
+	# S398 the fighter model: no averaged stats against a rating any more - the base holds the night's edges (camp, film,
+	# weapons, combinations and tiredness); who is better is fought exchange by exchange in RingDuel's duels.
+	var base := BoutRules.night_edge(f["camp"], int(f["bout"]["answered"])) \
+		+ BoutRules.weapons_edge(BoutRules.weapons(f.get("moves", {}))) + float(e.get("bonus", 0.0))
+	if n == 1 or not f["bout"].has("form"):
+		f["bout"].erase("form")
+		RingDuel.form(f, c.day * 31 + c.fighters.find(f) * 7)
 	if n >= BoutRules.ROUNDS and float(f["stats"].get("conditioning", 0.0)) < BoutRules.FADE_CONDITIONING:
 		base -= BoutRules.OWN_FADE
 	if n >= BoutRules.ROUNDS and str(opp.get("weak", "")).begins_with("Fades"):
@@ -63,7 +71,8 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 	# S381 C229 stage 3: round 1 against a southpaw she never faced in camp.
 	base += BoutRules.stance_edge(n, str(f.get("stance", "orthodox")), opp, f["camp"], bool(f["bout"].get("lefty", false)))
 	var rng := _rng(c, f, n, 0)
-	var mode := Exchanges.next_mode(str(opp.get("style", "")), str(opp.get("weak", "")), n, 0, "", float(e.get("b", 100.0)), false, rng)
+	var mode := Exchanges.next_mode(str(opp.get("style", "")), str(opp.get("weak", "")), n, 0, "", float(e.get("b", 100.0)), false, rng, 0,
+		RingDuel.mode_bias(f, opp))
 	# S310: body shots taken all fight ({a: by her, b: by the opponent}), kept on the bout so they carry round to round.
 	if n == 1 or not f["bout"].has("body"):
 		f["bout"]["body"] = {"a": 0, "b": 0}
@@ -77,6 +86,8 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 		setup = {"combo": str(sj["combo"]), "gap": str(sj["gap"]), "mastery": float(f["combos"][str(sj["combo"])]), "used": ""}
 	# S323 Pace and Aim (the body is the track: the driver mode) carry from round to round until changed.
 	var was: Dictionary = m.get("live", {})
+	var own_attrs := Attrs.of(f)
+	var opp_attrs := RingDuel.opp(opp)
 	# S375 SCOUTPLAN1 the plan's ROUND row opens the round on its pace ("" = the default below).
 	var pace0 := PlanFile.pace_for(f, n)
 	if n == 1:
@@ -85,14 +96,17 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 	m["live"] = {"pace": pace0 if pace0 != "" else str(was.get("pace", "steady")), "aim": str(was.get("aim", "")), "n": n, "plan": plan, "ex": [], "shouts": 0, "mode": mode, "her_hurt": bool(jobs.get("hurt", false)), "opp_hurt": false,
 		"talk": talk, "talk_kind": str(jobs.get("talk", "")), "setup": setup, "adapt": Adaptation.start(f["bout"], str(jobs.get("adapt", "")), Exchanges.uptake(float((f.get("personality", {}) as Dictionary).get("coachability", 55.0)), 0) * FighterProfile.trust(f)),
 		"cost": 0.0, "e": e, "base": base, "fix": fix, "last": n >= int(f["bout"].get("rounds", BoutRules.ROUNDS)),
-		"body": f["bout"]["body"], "body_cost_b": PerkFight.body_cost(f)}
+		"place": int(f["bout"].get("last_place", 0)), "body": f["bout"]["body"],
+		"body_cost_a": Exchanges.body_cost(float(own_attrs.get("body", 55.0))),
+		"body_cost_b": PerkFight.body_cost(f) * Exchanges.body_cost(float(opp_attrs.get("body", 55.0))) / Exchanges.BODY_COST}
 	m["live"]["start"] = state(m["live"], 0)
+	RingDuel.open(m["live"])
 
 
 ## S310 what the fight display shows after i exchanges: {a, b (energy), body [taken by her, by the opponent], hurt [hers,
 ## the opponent's]}. Kept on each exchange ("after") and the round ("start") so the display shows only what was watched.
 static func state(lv: Dictionary, i: int) -> Dictionary:
-	return LiveRoundAfter.state(lv, i)
+	return RingDuel.state(lv, i)
 
 
 static func live(m: Dictionary) -> Dictionary:
@@ -115,11 +129,11 @@ static func push_gassed(pace: String, energy: float) -> float:
 
 ## Her energy as exchange i starts (the round's start -> bell, less what the calls spent and the body shots she took).
 static func her_energy(lv: Dictionary, i: int) -> float:
-	return LiveRoundAfter.her_energy(lv, i)
+	return RingDuel.her_energy(lv, i)
 
 
 static func opp_energy(lv: Dictionary, i: int) -> float:
-	return LiveRoundAfter.opp_energy(lv, i)
+	return RingDuel.opp_energy(lv, i)
 
 
 ## What the corner sees before the next exchange: {sit, clue, offers, coach, mark, grades {call: word}, at (seconds into
@@ -214,7 +228,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	if shouted:
 		lv["shouts"] = int(lv["shouts"]) + 1
 	var same_game := i > 0 and str((exs[i - 1] as Dictionary)["mode"]) == str(lv["mode"])
-	var finds := same_game and float(vals.get("fight_iq", 55.0)) >= Exchanges.IQ_FINDS
+	var finds := same_game and float(vals.get("ring_iq", 55.0)) >= Exchanges.IQ_FINDS
 	# S309: a habit the situation punishes costs her, unless the corner fixed it (as far as she took it in).
 	var fix := str(lv.get("fix", ""))
 	var habit := HabitFix.punished(f.get("habits", []), sit, n, i, bool(lv.get("last", false)))
@@ -225,7 +239,10 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		perks.append("ring_general")
 	if PerkFight.jab_edge(f, sit) > 0.0:
 		perks.append("stiff_jab")
-	var d := float(lv["base"]) + PerkFight.call_edge(f, ce) + PerkFight.jab_edge(f, sit) + HabitFix.cost(habit, fix, Exchanges.uptake(coach, 0) * trust * (0.5 if bool(f["bout"].get("hot", false)) else 1.0))
+	# A named fix clears the habit for the bout. The open cost (no fix) stays HABIT_BOUT times HabitFix, so a
+	# missed fix still loses nights; the uptake slip alone was not enough for the fix to beat the read.
+	var habit_pts := 0.0 if habit != "" and habit == fix else Exchanges.HABIT_BOUT * HabitFix.cost(habit, fix, Exchanges.uptake(coach, 0) * trust * (0.5 if bool(f["bout"].get("hot", false)) else 1.0))
+	var d := float(lv["base"]) + PerkFight.call_edge(f, ce) + PerkFight.jab_edge(f, sit) + habit_pts
 	# S310 the corner's talk works every exchange of the round; the set-up once, when it is fired.
 	d += float((lv.get("talk", {}) as Dictionary).get("edge", 0.0))
 	var su: Dictionary = lv.get("setup", {})
@@ -242,7 +259,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	# the one being read in that exchange.
 	# One gap weapon: with a set-up armed for this gap she waits for the corner's NOW instead of going herself.
 	var armed := not su.is_empty() and str(su.get("used", "")) == "" and CornerJobs.fits(str(su.get("gap", "")), sit)
-	var rd := {} if fire or armed or (habit != "" and habit != fix) else read_fire(c, f, lv, st, game, read_call, n, i)
+	var rd := {} if fire or armed or (habit != "" and habit != fix) else LiveRead.read_fire(c, f, lv, st, game, read_call, n, i)
 	# The corner's NOW on a habit she has already read past her trigger: the combination comes in on the read too.
 	if fire and fits and TheRead.fires(TheRead.read(st, game), TheRead.trigger(f)):
 		d += TheRead.EDGE_LANDED
@@ -279,6 +296,9 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		cl = ClinchRest.roll(ClinchRest.chance(str(opp.get("style", "")), float(opp.get("rating", 60.0)), float(vals.get("technique", 55.0))),
 			crng.randf(), crng.randf(), crng.randf())
 		d -= float(cl["edge"])
+	# S398 where this 30 s is fought and the duel there (its own dice, so the round's other rolls stay as they were).
+	var duel := RingDuel.step(f, opp, lv, call, str(lv["mode"]), her_energy(lv, i), opp_energy(lv, i), _rng(c, f, n, i + 91))
+	d += float(duel["edge"])
 	var rng := _rng(c, f, n, i + 1)
 	var roll_a := rng.randf()
 	var roll_b := rng.randf()
@@ -335,6 +355,14 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		"pace": pace, "aim": aim, "won": s["won"], "margin": s["margin"], "landed": s["landed"], "verdict": Exchanges.verdict(call, sit, bool(s["won"]), names),
 		"habit": habit, "fix": fix, "habit_line": HabitFix.line(habit_name(habit), names, habit == fix) if habit != "" else ""}
 	rec["at"] = at
+	rec["place"] = int(duel["place"])
+	rec["duel_edge"] = float(duel["edge"])
+	rec["a_best"] = str(duel["a_best"])
+	rec["b_best"] = str(duel["b_best"])
+	rec["pinned"] = bool(duel["pinned"])
+	rec["wa"] = int(duel["wa"])
+	rec["wb"] = int(duel["wb"])
+	rec["duel_line"] = RingDuel.duel_line(rec, names)
 	rec["arrow"] = arrow
 	rec["planned"] = bool(pick["planned"])
 	rec["arrow_fit"] = PlanFight.fit(arrow, psit)
@@ -350,53 +378,19 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		tally[arrow] = [int(tl[0]) + (1 if bool(s["won"]) else 0), int(tl[1]) + 1]
 		f["bout"]["plan_tally"] = tally
 		rec["plan_tally"] = tally[arrow]
-	rec["clinch"] = cl
-	LiveRoundAfter.after_exchange(lv, rec, s, rng, vals, opp, call, pace, fire, cl, st, n, i, perks, names)
+	RingDuel.settle(lv, rec, s, rng, vals, opp, f, call, pace, fire, cl, st, n, i, perks, names, arrow, sit, rd)
 	if exs.size() < Exchanges.EXCHANGES:
 		return {}
 	return close(f, m)
 
 
-## S333 THE READ for this bout, kept on the bout so it carries round to round. With film study her main game starts part-read.
+## S333 THE READ (LiveRead holds it since S398).
 static func read_state(f: Dictionary) -> Dictionary:
-	var fb: Dictionary = f["bout"]
-	if not fb.has("read"):
-		var film := int(fb.get("film", 0)) >= BoutRules.FILM_DEPTH_WITH_STUDY
-		fb["read"] = TheRead.start({}, Exchanges.favourite(str((fb["opp"] as Dictionary).get("style", ""))) if film else "")
-	return fb["read"]
+	return LiveRead.read_state(f)
 
 
-## Whether she throws the read counter this exchange: {} when not, else {game, read, trig, move, result, edge}.
-static func read_fire(c: Career, f: Dictionary, lv: Dictionary, st: Dictionary, game: String, read_call: String, n: int,
-		i: int) -> Dictionary:
-	# Once a round per habit: the opponent sees the first one coming and is careful with that game for a while.
-	if not TheRead.COUNTER.has(game) or bool(lv["her_hurt"]) or (lv.get("read_fired", []) as Array).has(game):
-		return {}
-	var now_read := TheRead.read(st, game)
-	var call := "now" if read_call == "take" else str(lv.get("read_call", ""))
-	var trig := TheRead.called(TheRead.trigger(f), call, now_read)
-	if not TheRead.fires(now_read, trig):
-		return {}
-	var move := str(TheRead.COUNTER[game])
-	var mastery := float((f.get("moves", {}) as Dictionary).get(move, 0.0))
-	var landed := _rng(c, f, n, i + 51).randf() < TheRead.land_chance(now_read, mastery)
-	if not lv.has("read_fired"):
-		lv["read_fired"] = []
-	(lv["read_fired"] as Array).append(game)
-	return {"game": game, "read": snappedf(now_read, 0.01), "trig": snappedf(trig, 0.01), "move": move,
-		"result": "landed" if landed else "missed", "edge": TheRead.EDGE_LANDED if landed else TheRead.EDGE_MISSED}
-
-
-## What the corner card shows of THE READ on the game it sees: {game, label, read, trig, temper, line, counter}.
 static func read_view(f: Dictionary, seen: String) -> Dictionary:
-	if not TheRead.COUNTER.has(seen):
-		return {}
-	var st := read_state(f)
-	var trig := TheRead.trigger(f)
-	var label := str(Exchanges.MODES[seen]["label"])
-	return {"game": seen, "label": label, "read": TheRead.read(st, seen), "trig": trig, "temper": TheRead.temperament(f),
-		"line": TheRead.line(TheRead.read(st, seen), trig, label.to_lower()), "counter": str(TheRead.COUNTER[seen]),
-		"dropped": TheRead.dropped(st, seen)}
+	return LiveRead.read_view(f, seen)
 
 
 static func close(f: Dictionary, m: Dictionary) -> Dictionary:
@@ -408,6 +402,8 @@ static func close(f: Dictionary, m: Dictionary) -> Dictionary:
 	e["a_end"] = maxf(0.0, float(e.get("a_end", 100.0)) - spent)
 	# The calls' energy carries into the next round's start.
 	var fb: Dictionary = f["bout"]
+	if not exs.is_empty():
+		fb["last_place"] = int(exs[-1].get("place", 0))
 	if fb.has("energy"):
 		fb["energy"]["a"] = clampf(float(fb["energy"]["a"]) - spent, 0.0, PlanPressure.ceiling(fb))
 	var worked := 0

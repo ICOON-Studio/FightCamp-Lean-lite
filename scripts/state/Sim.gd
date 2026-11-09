@@ -1,8 +1,7 @@
 extends RefCounted
-## What happens in a day and at a week's end, and the player's roster moves (sign, hire, plan). Reads the rule modules;
-## the bouts' days are Bouts.day_events, the region's Region.day_events. Every fighter trains on her own plan (her camp's
-## focus while in camp) and drills her moves; the week review reports each fighter.
+## What happens in a day and at a week's end, and the player's roster moves (sign, hire, plan).
 
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
@@ -47,7 +46,6 @@ const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 ## Without a coach training runs at 60%: the coach factor 0.5 + r x 0.7 equals 0.6 at this rating.
 const NO_COACH_RATING := 100.0 / 7.0
 const STAT_CAP := 99.0
-
 static func coach_rating(career: Career) -> float:
 	return float(career.coach.get("rating", NO_COACH_RATING)) if not career.coach.is_empty() else NO_COACH_RATING
 
@@ -55,7 +53,6 @@ static func coach_rating(career: Career) -> float:
 static func focus_of(_career: Career, f: Dictionary) -> String:
 	var camp: Dictionary = f.get("camp", {})
 	return str(camp["focus"]) if not camp.is_empty() else str(f["focus"])
-
 ## S356 Monday: the twist card's answer is locked (the coach's call when none) and its once-effects land: cash, morale,
 ## reputation, members, the old coach's note (1 in 3 an old habit costs technique), the lefty edge and the hot head for her bout.
 static func twist_monday(career: Career, f: Dictionary) -> void:
@@ -116,15 +113,13 @@ static func plan_of(career: Career, f: Dictionary) -> Dictionary:
 		return TrainingPlan.default_plan(focus, partner)
 	return TrainingPlan.plan_of(f.get("week_plan"), focus, partner)
 
-
-## S354 CORE3 step 1 (operator: "when picking up the morning exercises it has to sum up gains/loses towards a goal"): the
-## day is her week's morning + evening (WeekPlan) - the stat gains, the weight (her diet + the morning's burn) and her
-## fatigue. What she eats: CUT while over the limit (in camp or on the cut diet), else HOLD.
+## The day's morning and evening: stat gains, weight and fatigue. CUT while over the limit, else HOLD.
 static func week_ctx(career: Career, f: Dictionary) -> Dictionary:
 	var cutting := (str(f["diet"]) == "cut" or not (f["camp"] as Dictionary).is_empty()) and float(f["weight"]) > float(f["limit"]) - 0.15
 	var ev := BoutRules.camp_evening(f.get("camp", {}))   # S380: the protocol sets the camp's evenings
 	return {"stats": f["stats"], "pot": int(f["pot"]), "coach": career.coach.duplicate(true), "weight": float(f["weight"]),
 		"diet": "cut" if cutting else "hold", "fatigue": float(f.get("week_fatigue", 20.0)), "phase": str(f.get("phase", "base")),
+		"recovery": float(Attrs.of(f).get("recovery", 55.0)),
 		"twist_kg": float(WeekTwist.active(f).get("kg_day", 0.0)), "twist_fat": float(WeekTwist.active(f).get("fat_day", 0.0)),
 		"camp_stat": str(ev["stat"]), "eve_drill": float(ev["drill"]), "eve_load": float(ev["load"]), "camp_on": PadWeek.in_camp(f),
 		"camp_mult": BoutRules.camp_gain_mult(f.get("camp", {}), str(ev["stat"]))}.merged(HeadCoach.ctx(career.head))
@@ -210,8 +205,12 @@ static func step_day(career: Career) -> void:
 			var st := str(r.get(k[0], ""))
 			if st != "" and (f["stats"] as Dictionary).has(st):
 				var was := float(f["stats"][st])
-				f["stats"][st] = minf(STAT_CAP, was + float(r[k[1]]) * BoutRules.camp_gain_mult(f.get("camp", {}), st) * mult * GymSpend.gain(career, st, f))
+				var sid := str(m[0]) if int(k[2]) == 0 else str(r.get("evening", ""))
+				var gain := minf(STAT_CAP - was, float(r[k[1]]) * BoutRules.camp_gain_mult(f.get("camp", {}), st) * mult * GymSpend.gain(career, st, f))
+				Attrs.apply_session(f, sid, st, maxf(0.0, gain))
 				WeekCause.add(f.get_or_add("week_src", {}), st, str(by[k[2]]), float(f["stats"][st]) - was, dow)
+		if float(r.get("attr_gain", 0.0)) > 0.0:
+			Attrs.apply_session(f, str(m[0]), "", float(r["attr_gain"]) * mult)
 		var lo := minf(float(f["weight"]), float(f["limit"]) - 1.5)
 		var hi := maxf(float(f["weight"]), float(f["limit"]) + 1.6)
 		f["weight"] = clampf(float(f["weight"]) + float(r["kg"]), lo, hi)
@@ -230,8 +229,7 @@ static func step_day(career: Career) -> void:
 	Champs.day_events(career)   # S328 last: a pull-out from the week's injuries ends her championship run today
 
 
-## S324 update 27: the flat $500 upkeep became the real bills (GymBills): rent, and the governing body's yearly fees by the
-## week. The coach's own sessional pay stays the staff line (it is his hours), so GymBills' coaching line is not used.
+## S324: rent and the governing body's yearly fees (GymBills). The coach's sessional pay stays the staff line.
 static func weekly_costs(career: Career) -> Dictionary:
 	var staff: Array = [] if career.coach.is_empty() else [career.coach]
 	var bills: Dictionary = GymBills.week(bills_setup(career))
@@ -391,6 +389,7 @@ static func end_week(career: Career) -> void:
 		if not career.coach.is_empty():
 			Bouts.coach_note(career, f, "sparring")
 		f["week_start"] = (f["stats"] as Dictionary).duplicate()
+		f["attrs_week"] = Attrs.of(f).duplicate()   # S398 the board's weekly change per attribute
 	career.last_report = {
 		"week": week, "fighters": reports, "grapplers": Grapplers.week_report(career), "members": career.members, "members_delta": int(roll["delta"]),
 		"members_why": str(roll.get("why", "")),

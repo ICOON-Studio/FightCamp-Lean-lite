@@ -13,7 +13,12 @@ const EX_SECONDS := 30.0
 ## (27 x sqrt(6) ~ 66), so a round keeps the balance the old one-roll round had.
 const EX_SPREAD := 66.0
 ## Power points a call is worth in one exchange, by how it fits the situation.
-const EDGE := {"best": 15.0, "ok": 5.0, "none": 0.0, "wrong": -7.0}
+## best / wrong widened slightly so a read still beats guessing her best grade, and a wrong call still loses
+## clearly, once the duel (not the call) is most of an exchange. ok stays 5: the unit order best > ok > none > wrong holds.
+const EDGE := {"best": 17.0, "ok": 5.0, "none": 0.0, "wrong": -10.0}
+## HabitFix.cost is one habit in the open. The bout multiplies it: the duel is wide, and fixing the habit the
+## opponent punishes has to win more nights than the read alone.
+const HABIT_BOUT := 1.75
 const EDGE_WORD := {"best": "Big edge", "ok": "Small edge", "none": "No edge", "wrong": "Risky"}
 ## "She can": the mean of the values a call needs. Good from GOOD_AT, OK from OK_AT, else Poor (x mult on a positive edge).
 const GOOD_AT := 62.0
@@ -31,6 +36,11 @@ const BODY_SHARE := 0.2
 const BODY_CALL_SHARE := 0.5
 const BODY_THREAT_SHARE := 0.35
 const BODY_COST := 1.2
+const BODY_RESIST_SPAN := 0.8   # body 50 keeps the old cost; a strong/weak body moves it after the shot lands
+
+
+static func body_cost(body: float) -> float:
+	return BODY_COST * clampf(1.0 + (50.0 - body) / 50.0 * BODY_RESIST_SPAN, 0.4, 1.8)
 ## Shouts a round that land fully; each one after lands at LATE_SHOUT.
 const FULL_SHOUTS := 2
 const LATE_SHOUT := 0.5
@@ -47,30 +57,31 @@ const KEEP := 0.6
 ## S313 (Ziva: "round 1 is one decision five times" - six press exchanges in a row): a game is kept at most this many
 ## exchanges in a row (90 s), then she switches to another of her style's games.
 const MAX_RUN := 3
+static var _ww: Array = [0.0, 0.0, 0.0, 0.0]
 
 ## Eight real corner calls. long / body / calm keep their old ids (BoutRules.CORNER, RoundScript.CALL_BEATS, Combos).
 ## needs: the values she does it with (stats, footwork, personality). cost: energy per exchange on top of the round's.
 ## when / expect: the buttons' lines ({her} ours, {opp} the opponent; S309). tell: the coach saying it to her between rounds.
 const CALLS := {
-	"long": {"label": "Jab and move", "shout": "Turn! Jab and move!", "needs": ["footwork", "technique"], "cost": -0.5,
+	"long": {"label": "Jab and move", "shout": "Turn! Jab and move!", "needs": ["jab", "footwork"], "cost": -0.5,
 		"when": "Use when {opp} presses", "expect": "{her} wins it from range and saves energy",
 		"tell": "Jab and move: win it from range and save your legs."},
-	"body": {"label": "Go to the body", "shout": "Downstairs! Go to the body!", "needs": ["power"], "cost": 1.5,
+	"body": {"label": "Go to the body", "shout": "Downstairs! Go to the body!", "needs": ["hooks", "power"], "cost": 1.5,
 		"when": "Use when {opp} boxes at range", "expect": "{opp} slows down later; {her} takes shots getting in",
 		"tell": "Get inside and go to the body: it slows {opp} down for later."},
-	"lead": {"label": "Draw the lead", "shout": "Feint! Draw the lead!", "needs": ["fight_iq"], "cost": -0.5,
+	"lead": {"label": "Draw the lead", "shout": "Feint! Draw the lead!", "needs": ["ring_iq", "timing"], "cost": -0.5,
 		"when": "Use when {opp} waits to counter", "expect": "{opp}'s counters dry up; a quiet 30 seconds",
 		"tell": "Feint and draw the lead: take the counters away."},
-	"hands": {"label": "Hands up, move your head", "shout": "Hands up! Move your head!", "needs": ["defense"], "cost": 0.0,
+	"hands": {"label": "Hands up, move your head", "shout": "Hands up! Move your head!", "needs": ["guard", "head_movement"], "cost": 0.0,
 		"when": "Use when {opp} loads up", "expect": "{opp}'s big shots miss; {her} throws less",
 		"tell": "Hands up and move your head: make the big shots miss."},
-	"let_go": {"label": "Let your hands go", "shout": "Let your hands go!", "needs": ["conditioning", "speed"], "cost": 3.0,
+	"let_go": {"label": "Let your hands go", "shout": "Let your hands go!", "needs": ["engine", "hand_speed"], "cost": 3.0,
 		"when": "Use when {opp} tires", "expect": "{her}'s busiest 30 seconds; it costs energy",
 		"tell": "Let your hands go: {opp} can't keep up with you."},
 	"calm": {"label": "Breathe, pick your shots", "shout": "Breathe! Pick your shots!", "needs": ["discipline"], "cost": -3.0,
 		"when": "Use when {her} is tired", "expect": "{her} gets energy back; gives a little now",
 		"tell": "Breathe and pick your shots: get your legs back."},
-	"tie": {"label": "Tie up", "shout": "Hold! Tie up!", "needs": ["heart"], "cost": -2.0,
+	"tie": {"label": "Tie up", "shout": "Hold! Tie up!", "needs": ["inside", "heart"], "cost": -2.0,
 		"when": "Use when {her} is hurt", "expect": "{her} gets a breather; {opp} may dig to the ribs in there",
 		"tell": "Tie up, clear your head, get through it."},
 	"finish": {"label": "Go for the finish", "shout": "Finish it! Go now!", "needs": ["power", "heart"], "cost": 3.0,
@@ -117,13 +128,41 @@ const CLUES := {
 	"she_hurt": ["{her}'s legs dipped after that shot.", "{her} is holding on: hurt.", "{her} wobbles back to the ropes."],
 }
 
-## Games a style plays by weight (opponent style words as Data has them).
+## Games a style plays by weight (opponent style words as Data has them). Order is the roll order.
 const STYLE_MODES := {
 	"Pressure fighter": {"press": 0.55, "loadup": 0.2, "range": 0.1, "counter": 0.15},
 	"Counter-puncher": {"counter": 0.55, "range": 0.25, "press": 0.1, "loadup": 0.1},
 	"Volume puncher": {"press": 0.45, "range": 0.35, "counter": 0.1, "loadup": 0.1},
 	"Boxer-puncher": {"range": 0.35, "loadup": 0.25, "counter": 0.2, "press": 0.2},
 	"Out-boxer": {"range": 0.6, "counter": 0.25, "press": 0.05, "loadup": 0.1},
+	# S398 the generated world's other archetypes (AttrGen.ARCHETYPES).
+	"Swarmer": {"press": 0.65, "loadup": 0.1, "range": 0.05, "counter": 0.2},
+	"Stalker": {"press": 0.5, "loadup": 0.2, "counter": 0.25, "range": 0.05},
+	"Slugger": {"loadup": 0.45, "press": 0.35, "counter": 0.1, "range": 0.1},
+	"Spoiler": {"counter": 0.4, "press": 0.25, "range": 0.2, "loadup": 0.15},
+}
+## Roll order and weights, parallel to STYLE_MODES so a mix does not copy that dictionary every exchange.
+const MODE_I := {
+	"Pressure fighter": ["press", "loadup", "range", "counter"],
+	"Counter-puncher": ["counter", "range", "press", "loadup"],
+	"Volume puncher": ["press", "range", "counter", "loadup"],
+	"Boxer-puncher": ["range", "loadup", "counter", "press"],
+	"Out-boxer": ["range", "counter", "press", "loadup"],
+	"Swarmer": ["press", "loadup", "range", "counter"],
+	"Stalker": ["press", "loadup", "counter", "range"],
+	"Slugger": ["loadup", "press", "counter", "range"],
+	"Spoiler": ["counter", "press", "range", "loadup"],
+}
+const MODE_V := {
+	"Pressure fighter": [0.55, 0.2, 0.1, 0.15],
+	"Counter-puncher": [0.55, 0.25, 0.1, 0.1],
+	"Volume puncher": [0.45, 0.35, 0.1, 0.1],
+	"Boxer-puncher": [0.35, 0.25, 0.2, 0.2],
+	"Out-boxer": [0.6, 0.25, 0.05, 0.1],
+	"Swarmer": [0.65, 0.1, 0.05, 0.2],
+	"Stalker": [0.5, 0.2, 0.25, 0.05],
+	"Slugger": [0.45, 0.35, 0.1, 0.1],
+	"Spoiler": [0.4, 0.25, 0.2, 0.15],
 }
 
 
@@ -180,7 +219,7 @@ static func call_edge(call: String, sit: String, vals: Dictionary, heard: float,
 
 ## The opponent's game for the next exchange. ex = exchange index 0..5, n = round, energy = hers now.
 static func next_mode(style: String, weak: String, n: int, ex: int, prev: String, energy: float, hurt: bool,
-		rng: RandomNumberGenerator, run: int = 0) -> String:
+		rng: RandomNumberGenerator, run: int = 0, bias: Dictionary = {}) -> String:
 	if hurt:
 		return "hurt"
 	if energy < OPP_TIRED and rng.randf() < 0.75:
@@ -193,20 +232,31 @@ static func next_mode(style: String, weak: String, n: int, ex: int, prev: String
 	var tired_of := run >= MAX_RUN
 	if prev != "" and prev != "hurt" and prev != "tiring" and not tired_of and rng.randf() < KEEP:
 		return prev
-	var weights: Dictionary = (STYLE_MODES.get(style, STYLE_MODES["Boxer-puncher"]) as Dictionary).duplicate()
-	if w.contains("walks in"):
-		weights["press"] = float(weights.get("press", 0.0)) + 0.3
-	if tired_of:
-		weights.erase(prev)
+	var style_key := style if MODE_I.has(style) else "Boxer-puncher"
+	var names: Array = MODE_I[style_key]
+	var base: Array = MODE_V[style_key]
+	var walk := w.contains("walks in")
 	var total := 0.0
-	for k in weights.keys():
-		total += float(weights[k])
+	for i in names.size():
+		var name := str(names[i])
+		var x := 0.0 if tired_of and name == prev else float(base[i])
+		if x > 0.0 and walk and name == "press":
+			x += 0.3
+		if x > 0.0 and bias.has(name):
+			x *= float(bias[name])
+		_ww[i] = x
+		total += x
 	var roll := rng.randf() * total
-	for k in weights.keys():
-		roll -= float(weights[k])
+	var first := ""
+	for i in names.size():
+		if _ww[i] <= 0.0:
+			continue
+		if first == "":
+			first = str(names[i])
+		roll -= _ww[i]
 		if roll <= 0.0:
-			return str(k)
-	return str(weights.keys()[0])
+			return str(names[i])
+	return first if first != "" else str(names[0])
 
 
 ## S310 the game film study shows the corner she fights most: her style's heaviest game (Data's style words).

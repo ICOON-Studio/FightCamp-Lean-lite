@@ -23,6 +23,7 @@ extends RefCounted
 ## Pure static: every function works on the dictionary it is given (project on a deep copy).
 
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
@@ -329,8 +330,10 @@ static func drill(f: Dictionary, card: String, minutes: float, coach: float, tie
 	var m := mastery(f, card)
 	match kind(card):
 		"move":
+			var m0 := m
 			m = MoveMastery.gain(m, station, minutes, coach, tier, 1.0, cap(f, card))
 			f["moves"][key(card)] = m
+			Attrs.drill(f, key(card), m - m0)   # S398 the drilled move's punch improves a little
 		"combo":
 			if not f.has("combos"):
 				f["combos"] = {}

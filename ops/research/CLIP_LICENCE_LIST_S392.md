@@ -195,3 +195,19 @@ before shipping on Steam.
 - Flag #4 checked on the web (S396): Cascadeur's current Free plan is non-commercial; Indie covers commercial use under $100k a
   year; no public page states terms for its bundled sample animations (cascadeur.com/plans). Our Cascadeur seat ended
   2026-10-27. **Safest: replace the two clinch clips with a licensed source before launch**, or get Nekki's answer in writing.
+
+## S416 update (Claude, 2026-11-09): the biggest source was missing
+This list predates the switch to bought clips. assets/anim/baked now holds 165 MoCap Online clips (145 mc_Box1_*, 20 mc_Punch_*), most of what a fight plays. Added:
+
+| Source | Type | Files | Licence | Commercial OK? | Credit? | Flag? |
+|---|---|---|---|---|---|---|
+| MoCap Online Punch Pro + Punch Starter | anim | 165 | MoCap Online Standard License | Yes, under 1M end users and $1M revenue | None found | #5 |
+
+**Flag #5, for the operator before shipping:**
+- Standard License covers commercial games with the clips inside a larger project; raw FBX files may not be passed on. We ship baked Godot resources only, no FBX: https://mocaponline.com/pages/licensing
+- Their pages disagree on the ceiling: most say 1M end users and $1M revenue, the standard-license page says $1M or 50M users: https://mocaponline.com/pages/standard-license. Far above where we are; read it before a big launch.
+- One line of the licence says the materials may not be altered, while their FAQ says retargeting and editing are expected. We retarget every clip, and REARHAND5 edits two. The FAQ is on our side, but the licence text is the one that binds: worth one email to them.
+- Using their assets in AI applications needs written consent: https://mocaponline.com/pages/license. Our AI critics are shown rendered frames of our own characters, not the files, and no model is trained on them. Say so if MoCap Online ever asks, and never upload the FBX to any AI tool.
+- If the pack was bought through a store such as Fab, that store's terms apply as well.
+
+Still open from above: MetaHuman clause (Flag #1), Ludo EULA text (#2), the two Cascadeur clinch clips (#4: replace or get an answer in writing). New since this list: the gym picture is the operator's own image made with ChatGPT, edited with Ludo.

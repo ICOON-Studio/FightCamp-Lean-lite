@@ -10,12 +10,14 @@ const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const FighterGoal := preload("res://scripts/rules/FighterGoal.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
-const FightWords := preload("res://scripts/state/FightWords.gd")
+const FightWords := preload("res://scripts/rules/FightWords.gd")
 const Region := preload("res://scripts/state/Region.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const RivalPast := preload("res://scripts/rules/RivalPast.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const Knockdowns := preload("res://scripts/rules/Knockdowns.gd")
+const RingDuel := preload("res://scripts/state/RingDuel.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 const RoundScript := preload("res://scripts/rules/RoundScript.gd")
 const CoachNotes := preload("res://scripts/rules/CoachNotes.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
@@ -219,13 +221,9 @@ static func stopped(m: Dictionary) -> String:
 ## in the bout, or a count she does not beat, and the referee stops it. Damage and counts carry across the bout.
 static func _counts(c: Career, f: Dictionary, m: Dictionary, r: Dictionary) -> void:
 	var opp: Dictionary = f["bout"]["opp"]
-	var rating := float(opp.get("rating", 60.0))
-	var st: Dictionary = f["stats"]
-	var sides := {
-		"a": {"power": float(st["power"]), "chin": float(st["chin"]), "heart": float((f.get("personality", {}) as Dictionary).get("heart", 55.0))},
-		"b": {"power": rating, "chin": rating - (8.0 if str(opp.get("weak", "")).to_lower().contains("chin") else 0.0), "heart": 55.0,
-			"stop_mult": PerkFight.stop_mult(f)},
-	}
+	# S398 both sides from their profiles (RingDuel.side: the punch, the chin, the heart); a chin weakness is in the shape.
+	var sides := {"a": RingDuel.side(Attrs.of(f)), "b": RingDuel.side(RingDuel.opp(opp))}
+	sides["b"]["stop_mult"] = PerkFight.stop_mult(f)
 	var so_far: Dictionary = m.get("counts", {"a": 0, "b": 0})
 	var rng := RandomNumberGenerator.new()
 	rng.seed = c.day * 53 + int(r["n"]) * 11 + c.fighters.find(f) * 2003
@@ -240,6 +238,15 @@ static func _counts(c: Career, f: Dictionary, m: Dictionary, r: Dictionary) -> v
 		(r["lines"] as Array).append("%s is rocked but stays on the feet - Iron chin." % str(f["first"]))
 	m["damage"] = k["damage"]
 	so_far[loser] = int(so_far[loser]) + int(k["counts"])
+	# S398 the puncher's chance: the round's winner can be dropped too (Knockdowns.puncher_chance).
+	var winner := "a" if loser == "b" else "b"
+	if not bool(k["stopped"]) and int(k["counts"]) == 0:
+		var kc := Knockdowns.puncher_chance(winner, sides, m["damage"], so_far, rng)
+		if int(kc["counts"]) > 0:
+			so_far[winner] = int(so_far[winner]) + 1
+			k = {"counts": 1, "up_at": [clampi(8 - int(float(sides[winner]["heart"]) / 25.0), 2, 9)], "how": str(kc["how"]),
+				"stopped": bool(kc["stopped"]), "damage": m["damage"]}
+			loser = winner
 	m["counts"] = so_far
 	r["counts"] = int(k["counts"])
 	r["up_at"] = (k["up_at"] as Array).duplicate()   # S377 KNOCKCOUNT1: the ring's count gets him up on the sim's number
@@ -262,11 +269,14 @@ static func _lines(c: Career, f: Dictionary, r: Dictionary) -> void:
 	var n := int(r["n"])
 	var subs := {"her": f["first"], "opp": opp["first"], "threat": str(opp["threat"]).to_lower(), "round": n,
 		"focus": str(Data.LABEL.get(camp.get("focus", ""), "")).to_lower()}
-	r["lines"] = FightWords.round_lines(str(opp["style"]), bool(r["won"]), str(r["corner"]), subs, c.day + n * 13)
+	r["lines"] = FightWords.round_lines(str(opp["style"]), bool(r["won"]), str(r["corner"]), subs, c.day + n * 13,
+		f, r.get("exchanges", []))
 	var ln: Array = r["landed"]
 	(r["lines"] as Array).append("Exchanges %d-%d; punches landed %d-%d." % [int(r["won_n"]), Exchanges.EXCHANGES - int(r["won_n"]), int(ln[0]), int(ln[1])])
 	if int(r["calls"]) > 0:
 		(r["lines"] as Array).append("Your shouts that worked: %d of %d." % [int(r["worked"]), int(r["calls"])])
+	for l in RingDuel.round_lines(r.get("exchanges", []), [str(f["first"]), str(opp["first"])]):   # S398 where, and the duel
+		(r["lines"] as Array).append(l)
 	if n == PerkFight.SECOND_WIND_ROUND and PerkFight.has(f, "second_wind"):
 		(r["lines"] as Array).append("Second wind: %s comes out for round %d with fresh legs." % [f["first"], n])
 	var perks := PerkFight.round_line(r.get("exchanges", []), str(f["first"]))
@@ -347,6 +357,8 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 		c.reputation += BoutRules.WIN_REPUTATION * (2 if bool(f["bout"].get("short_notice", false)) else 1)
 	elif outcome == "loss":
 		f[rec + "l"] = int(f.get(rec + "l", 0)) + 1
+		if stop != "":
+			Attrs.wear_stoppage(f)
 		var gone := mini(c.members, BoutRules.STOPPED_LOSS_MEMBERS if stop != "" else BoutRules.LOSS_MEMBERS)
 		c.members -= gone
 		c.reputation = maxi(0, c.reputation - (BoutRules.STOPPED_LOSS_REPUTATION if stop != "" else BoutRules.LOSS_REPUTATION))

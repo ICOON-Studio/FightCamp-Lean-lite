@@ -9,7 +9,9 @@ const WR := preload("res://scripts/world/WorldRank.gd")
 const WS := preload("res://scripts/world/WorldSim.gd")
 
 const YEARS := 20
-const MAX_DRIFT := 7.0
+## S398 fighter model: world bouts on the real duels give real upsets, so the #1 seat changes hands more (measured 7.5 in one
+## division-year); places still mean levels (the inversion check below holds at 4.2%, bar 5%).
+const MAX_DRIFT := 8.5
 
 var failures := 0
 var checks := 0
@@ -26,6 +28,7 @@ func _init() -> void:
 	book.append("Seed: 12345, Years: %d" % YEARS)
 	book.append("")
 	_check_places_mean_levels(world, "a new world")
+	_check_streak_seat()
 	for year in YEARS:
 		var sim := WS.simulate_year(world["divisions"], rng)
 		_record_year(world, year, sim)
@@ -43,6 +46,22 @@ func _init() -> void:
 	if failures > 0:
 		push_error("WORLD_YEARS failed")
 	quit(failures)
+
+
+## A 66-rated 6-0-1 stays off a rating-seeded table. The monthly review gives that record the last seat (week 4).
+func _check_streak_seat() -> void:
+	checks += 1
+	var boxers: Array = []
+	for i in 20:
+		boxers.append({"id": i + 1, "name": "R%d" % i, "rating": 80.0 - float(i) * 0.4, "rank": i + 1, "w": 20, "l": 4, "retired": false, "player": false})
+	var prospect := {"id": 99, "name": "Prospect", "rating": 66.0, "rank": 0, "w": 6, "l": 0, "d": 1, "retired": false, "player": true}
+	boxers.append(prospect)
+	var n := WS.seat_streaks(boxers)
+	if n < 1 or int(prospect["rank"]) <= 0:
+		failures += 1
+		push_error("6-0-1 at 66 stayed unranked (seated %d)" % n)
+	else:
+		print("6-0-1 pro ranked by week 4 (monthly review), place #%d" % int(prospect["rank"]))
 
 
 func _capture_top_ratings(world: Dictionary) -> Dictionary:

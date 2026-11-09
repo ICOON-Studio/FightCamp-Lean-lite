@@ -1,3 +1,13 @@
+FIGHTCAMP - BUILD OF 2026-11-09 (S416): WOODEN FRAMES, AND THE NEW FIGHTER MODEL
+================================================================================
+
+ NEW.
+  a. Fighters > a boxer > Overview: the dark panels now sit in wooden frames. Every other page is still cream, so you can compare.
+  b. The fighter model is in. A boxer now has 14 attributes in three columns (Physical, Skill, Mind) instead of the old list. Ratings shifted a little because of it (Lucy reads 59 instead of 61).
+  c. The gym: real prices for the punching dummy ($420), the turf strip ($1,400) and the plyo and medicine ball set ($550).
+ TRY: open Lucy's Overview. Do the frames look right? Do the 14 attributes read clearly? Your answer on the wooden look goes on the board (Q-158).
+ TRY: play a few weeks and a bout. If a boxer feels very different from before, tell me which one.
+
 FIGHTCAMP - BUILD OF 2026-11-09 (S414): YOUR GYM PICTURE, AND ONE PAGE IN THE DARK LOOK
 ================================================================================
 

@@ -8,31 +8,37 @@ extends RefCounted
 ##   build(f) -> card (PanelContainer)
 
 const UI := preload("res://scripts/ui/UI.gd")
-const Data := preload("res://scripts/state/Data.gd")
-const AttrRadar := preload("res://scripts/ui/AttrRadar.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const StatBar := preload("res://scripts/ui/StatBar.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
+const AttrGen := preload("res://scripts/rules/AttrGen.gd")
 
+## S398 the fighter model (FIGHTER_MODEL_S397.md v2): every attribute the fight reads, in three groups, the radar on six
+## keys (the places and the body: where the fighter wins), the signature line and where the fighter wants the fight.
 const GROUPS := [
-	{"title": "FIGHTING", "keys": ["power", "speed", "technique", "defense", "footwork"]},
-	{"title": "BODY", "keys": ["conditioning", "chin"]},
-	{"title": "MIND", "keys": ["fight_iq", "heart", "discipline", "confidence", "coachability", "temper"]},
+	{"title": "PHYSICAL", "keys": ["strength", "explosiveness", "speed", "stamina", "recovery", "flexibility", "durability"]},
+	{"title": "SKILL", "keys": ["accuracy", "timing", "defence", "footwork", "inside"]},
+	{"title": "MIND", "keys": ["fight_iq", "composure", "heart", "discipline", "confidence", "coachability", "temper"]},
 ]
-const RADAR := ["power", "speed", "technique", "defense", "footwork", "conditioning", "chin", "fight_iq"]
-const NAME := {"footwork": "Footwork", "heart": "Heart", "discipline": "Discipline", "confidence": "Confidence",
-	"coachability": "Coachability", "temper": "Temper"}
+const NAME := {"discipline": "Discipline", "confidence": "Confidence", "coachability": "Coachability", "temper": "Temper"}
 const PERSONALITY := ["heart", "discipline", "confidence", "coachability", "temper"]
-## What each value does in a bout (read from the rule that uses it).
+## What each value does in a bout (read from the rule that uses it: Duels, Knockdowns, Exchanges, TheRead).
 const WHY := {
-	"power": "How hard the punches land: hurting the opponent, knockdowns, the corner's \"Go for the finish\".",
-	"speed": "Hand speed: who lands first and how long combinations run.",
-	"technique": "Clean punches, and how fast a move comes on the pads.",
-	"defense": "Slips and blocks: how much of the opponent's work gets through.",
-	"footwork": "Jab and move: turning the opponent and keeping the range. Grows with speed and defence.",
-	"conditioning": "When the tank runs low: energy over the rounds and between them.",
-	"chin": "How much it takes to hurt or drop the fighter.",
-	"fight_iq": "Ring IQ: reading the opponent's game and making the corner's calls work.",
-	"heart": "Getting up from a knockdown, holding on when hurt, going for the finish.",
+	"strength": "Leaning, framing and tying up inside; breaking free off the ropes.",
+	"explosiveness": "The first shot of an exchange, and the punch that drops someone.",
+	"speed": "Hands and feet: combinations, the counter, and taking the fight where it should be.",
+	"stamina": "The tank: how long the work lasts before the legs and guard go.",
+	"recovery": "Energy back between rounds, and how fast a hard week clears.",
+	"flexibility": "Range and joints: fewer strains in the gym and in the bout.",
+	"durability": "How much it takes to hurt or drop the fighter. A stoppage lowers the ceiling.",
+	"fight_iq": "Choosing the right place to fight; reading counters and habits.",
+	"composure": "The plan holds when hurt or pinned on the ropes.",
+	"heart": "Getting up, holding on, and going for the finish.",
+	"accuracy": "Landing what is thrown: power shots, finishing, beating the counter-puncher.",
+	"timing": "When the punch leaves. Counters, and the counter on the way in.",
+	"defence": "Fewer clean punches land: slips, rolls, the guard.",
+	"footwork": "Range control and cutting the ring off: who decides where the fight is.",
+	"inside": "Short work up close and answering it; the clinch.",
 	"discipline": "Sticking to the plan and the corner's \"Breathe, pick your shots\".",
 	"confidence": "Lifts after a good round, sinks after a bad one.",
 	"coachability": "How quickly a fix from the corner takes hold.",
@@ -43,19 +49,18 @@ const BANDS := [[45.0, "weak"], [55.0, "fair"], [65.0, "solid"], [75.0, "strong"
 ## S342 C158: the bands as colours that read at a glance (grey "solid" read as dead) - purple the elite end, as in games.
 const BAND_COLOUR := {"weak": UI.RED, "fair": UI.AMBER, "solid": UI.GOLD, "strong": UI.GREEN, "elite": UI.PURPLE}
 ## One icon an attribute (Icons.gd, every one with the row's tooltip).
-const ICON := {"power": "biceps-flexed", "speed": "zap", "technique": "target", "defense": "shield", "footwork": "footprints",
-	"conditioning": "heart-pulse", "chin": "shield-alert", "fight_iq": "brain", "heart": "heart", "discipline": "clipboard-pen",
-	"confidence": "trending-up", "coachability": "user-check", "temper": "flame"}
+const ICON := {"strength": "hand-fist", "explosiveness": "zap", "speed": "zap", "stamina": "heart-pulse",
+	"recovery": "refresh-cw", "flexibility": "user", "durability": "shield", "accuracy": "target", "timing": "zap",
+	"defence": "shield", "footwork": "footprints", "inside": "user", "fight_iq": "brain", "composure": "shield",
+	"heart": "heart", "discipline": "clipboard-pen", "confidence": "trending-up", "coachability": "user-check",
+	"temper": "flame"}
 const NAME_W := 128
 
 
 static func value(f: Dictionary, key: String) -> float:
-	if key == "footwork":
-		var st: Dictionary = f.get("stats", {})
-		return float(f.get("footwork", (float(st.get("speed", 55.0)) + float(st.get("defense", 55.0))) * 0.5))
 	if PERSONALITY.has(key):
 		return float((f.get("personality", {}) as Dictionary).get(key, 55.0))
-	return float((f.get("stats", {}) as Dictionary).get(key, 55.0))
+	return float(Attrs.of(f).get(key, 55.0))
 
 
 ## Temper reads the other way round: a hot temper is the weak end.
@@ -68,11 +73,11 @@ static func band(key: String, v: float) -> String:
 
 
 static func label_of(key: String) -> String:
-	return str(Data.LABEL.get(key, NAME.get(key, key.capitalize())))
+	return str(Attrs.LABEL.get(key, NAME.get(key, key.capitalize())))
 
 
 static func rows(f: Dictionary) -> Array:
-	var start: Dictionary = f.get("week_start", {})
+	var start: Dictionary = f.get("attrs_week", {})
 	var out: Array = []
 	for g in GROUPS:
 		var list: Array = []
@@ -136,12 +141,12 @@ static func glance(f: Dictionary) -> Dictionary:
 	for g in rows(f):
 		all.append_array((g["rows"] as Array).filter(func(r): return str(r["key"]) != "temper"))
 	all.sort_custom(func(a, b): return float(a["value"]) > float(b["value"]))
-	var fight := 0.0
-	for k in RADAR:
-		fight += value(f, str(k))
+	var a := Attrs.of(f)
 	var temper := value(f, "temper")
-	return {"best": all.slice(0, 2), "work": [all[all.size() - 1], all[all.size() - 2]], "fight_avg": fight / float(RADAR.size()),
-		"pot": float(f.get("pot", 0.0)), "hot": band("temper", temper) == "weak", "temper": temper, "style": str(f.get("style", ""))}
+	return {"best": all.slice(0, 2), "work": [all[all.size() - 1], all[all.size() - 2]], "fight_avg": Attrs.overall(a),
+		"pot": float(f.get("pot", 0.0)), "hot": band("temper", temper) == "weak", "temper": temper,
+		"style": AttrGen.style_word({"attrs": a, "pace": a.get("pace", 55.0), "forward": a.get("forward", 50.0)}),
+		"signature": Attrs.signature(a), "wants": Attrs.wants_words(a)}
 
 
 static func _glance(g: Dictionary) -> PanelContainer:
@@ -154,6 +159,9 @@ static func _glance(g: Dictionary) -> PanelContainer:
 	v.add_child(UI.label("AT A GLANCE", UI.SMALL, UI.FG, "handbold"))
 	# S397 blind round 4 ("the same values three times"): the note names them; the bars beside it carry the numbers.
 	var pair := func(rs: Array) -> String: return " and ".join(rs.map(func(r): return str(r["name"])))
+	if str(g.get("signature", "")) != "":
+		v.add_child(UI.label(str(g["signature"]) + ".", UI.BODY, UI.FG, "handbold", true))
+	v.add_child(UI.label("Wants the fight: " + str(g.get("wants", "")) + ".", UI.BODY, UI.FG, "hand", true))
 	v.add_child(UI.label("Best: " + pair.call(g["best"]), UI.BODY, UI.FG, "hand", true))
 	v.add_child(UI.label("Work on: " + pair.call(g["work"]), UI.BODY, UI.FG, "hand", true))
 	if bool(g["hot"]):

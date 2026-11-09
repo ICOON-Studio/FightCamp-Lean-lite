@@ -109,3 +109,28 @@ static func simulate_bout(sides: Dictionary, rounds: int, seed_value: int) -> Di
 			return {"counts": counts, "stopped": true, "how": str(res["how"]), "by": round_winner, "round": rd}
 
 	return {"counts": counts, "stopped": false, "how": "", "by": "", "round": rounds}
+
+
+## S398 the puncher's chance (boxing critic, round 2: "the fighter losing the round often lands the knockdown"): the round's
+## WINNER (`target`) can be caught by the loser's clean power shot or counter. A share COUNTER_SHARE of a clear round's count
+## chance, on the loser's punch against the target's chin and the damage the target carries (GV). A count can be waved off
+## as after any count. Returns {counts, stopped, how}.
+const COUNTER_SHARE := 0.4
+
+
+static func puncher_chance(target: String, sides: Dictionary, damage: Dictionary, counts_so_far: Dictionary,
+		rng: RandomNumberGenerator) -> Dictionary:
+	var other := "b" if target == "a" else "a"
+	var power := float((sides[other] as Dictionary).get("power", 60))
+	var chin := float((sides[target] as Dictionary).get("chin", 60))
+	var heart := float((sides[target] as Dictionary).get("heart", 55))
+	var dmg := float(damage.get(target, 0.0))
+	var p := minf(0.5, BASE_COUNT * COUNTER_SHARE * exp((power - chin) / POWER_CHIN_SCALE) * (1.0 + dmg / DAMAGE_SCALE))
+	if rng.randf() >= p:
+		return {"counts": 0, "stopped": false, "how": ""}
+	var stop_p := minf(0.9, REF_STOP * (1.0 + dmg / DAMAGE_SCALE) * (1.4 - heart / 100.0))
+	var waved := rng.randf() < stop_p
+	var ko := waved and dmg >= KO_DAMAGE and rng.randf() < (1.0 - heart / 100.0) * KO_ODDS
+	var total := int(counts_so_far.get(target, 0)) + 1
+	var stopped := waved or total >= COUNTS_BOUT_STOP
+	return {"counts": 1, "stopped": stopped, "how": ("KO" if ko else "RSC") if stopped else ""}

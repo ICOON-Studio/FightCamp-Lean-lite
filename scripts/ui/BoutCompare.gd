@@ -3,6 +3,9 @@ extends RefCounted
 ## estimated ranges (pips against a box), the win band, where a win or a loss moves the fighter, and the offer row's chips.
 ##   stats_card(f, opp, salt) -> card   read_card(c, f, opp, camp) -> card   offer_chips(c, f, o) -> [chips]
 
+const Attrs := preload("res://scripts/rules/Attrs.gd")
+const Duels := preload("res://scripts/rules/Duels.gd")
+const RingDuel := preload("res://scripts/state/RingDuel.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const RangeBar := preload("res://scripts/ui/RangeBar.gd")
@@ -55,24 +58,26 @@ static func _swatch(colour: Color, text: String) -> HBoxContainer:
 	return h
 
 
-## Seven rows: name, the fighter's pips against the opponent's box, the fighter's number, the estimate.
+## S398 six rows, the fighter model's keys (where each wins: long game, pocket, inside, power, durability, engine): the
+## fighter's value against the opponent's estimate (BoutRead.key_ranges), so the tape shows the matchup, not one level.
 static func stats_card(f: Dictionary, opp: Dictionary, salt: int) -> PanelContainer:
-	var card := UI.card("STATS VS THE ESTIMATE")
+	var card := UI.card("TALE OF THE TAPE")
 	card[0].name = "BoutStats"
 	var v: VBoxContainer = card[1]
 	var key := UI.hbox(16)
 	key.add_child(_swatch(UI.GOLD, str(f["first"])))
 	key.add_child(_swatch(UI.RED, "%s, estimate" % str(opp["first"])))
 	v.add_child(key)
-	var ranges := BoutRead.stat_ranges(opp, salt)
-	var stats: Dictionary = f["stats"]
-	for k in Data.STATS:
-		var mine := float(stats.get(k, 0.0))
-		var lo := float(ranges[k][0])
-		var hi := float(ranges[k][1])
+	var ranges := BoutRead.key_ranges(opp, salt)
+	var mine_keys := Duels.keys(Attrs.of(f))
+	for i in mine_keys.size():
+		var k := str(mine_keys[i]["name"])
+		var mine := float(mine_keys[i]["value"])
+		var lo := float(ranges[i]["lo"])
+		var hi := float(ranges[i]["hi"])
 		var row := UI.hbox(12)
-		row.name = "Stat_" + str(k)
-		var l := UI.label(str(Data.LABEL.get(k, k)), UI.SMALL)
+		row.name = "Key_" + k.replace(" ", "_")
+		var l := UI.label(k, UI.SMALL)
 		l.custom_minimum_size = Vector2(120, 0)
 		row.add_child(l)
 		row.add_child(_bar(_on_scale(mine), _on_scale(lo), _on_scale(hi), BAR_W, UI.GOLD))
@@ -82,6 +87,14 @@ static func stats_card(f: Dictionary, opp: Dictionary, salt: int) -> PanelContai
 		row.add_child(n)
 		row.add_child(UI.mono("%d-%d" % [roundi(lo), roundi(hi)], UI.SMALL, UI.MUTED))
 		v.add_child(row)
+	var seen := RingDuel.AttrGen.attrs_of(BoutRead.public(opp))
+	var sig := Attrs.signature(seen)
+	if sig != "":
+		v.add_child(UI.label("%s on tape: %s." % [str(opp["first"]), sig], UI.SMALL, UI.MUTED, "", true))
+	# Dola (S398): where the opponent wins and where it breaks, against this fighter (the duels at each place, on the tape).
+	var wb := RingDuel.wins_breaks(f, BoutRead.public(opp))
+	v.add_child(UI.label("%s wins %s, breaks %s." % [str(opp["first"]), str(Duels.PLACE_WORD[int(wb[0])]), str(Duels.PLACE_WORD[int(wb[1])])],
+		UI.SMALL, UI.FG, "", true))
 	return card[0]
 
 

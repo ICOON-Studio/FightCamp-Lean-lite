@@ -17,6 +17,9 @@ const MONTHS := 24
 const DIV := "m_lw"
 const START_RATING := 64.0
 const SMART_AT := 0.55
+## S416: the smart bot's own taste, moved here from the game's read. Beating someone above you takes their place and a loss drops one, so
+## once it has the tape it treats a scouted opponent as this many rating points easier. The number a screen shows does not lean.
+const SCOUTED_RISK := 2.5
 const SCOUTS_PER_PICK := 2   # smart scouts the fight it is about to take (at most two looks a pick)
 const EASY_MARGIN := 3.0
 const HARD_MARGIN := 1.0
@@ -35,15 +38,17 @@ func _initialize() -> void:
 			bot, r["place"], r["top10"], CAREERS, r["grow"], r["money"], r["w"], r["l"], r["stopped"], r["belts"]])
 	_bar("smart's median place beats easy's by >= %.0f" % EASY_MARGIN,
 		float(res["easy"]["place"]) - float(res["smart"]["place"]) >= EASY_MARGIN)
-	_bar("smart's median place beats hard's by >= %.0f" % HARD_MARGIN,
-		float(res["hard"]["place"]) - float(res["smart"]["place"]) >= HARD_MARGIN)
+	var smart_hard := float(res["hard"]["place"]) - float(res["smart"]["place"])
+	_bar("smart's median place beats hard's by >= %.0f (%+.1f)" % [HARD_MARGIN, smart_hard], smart_hard >= HARD_MARGIN)
 	_bar("smart gains more rating than easy", float(res["smart"]["grow"]) > float(res["easy"]["grow"]))
 	print("the unknown: scouting %+d top-10 finishes, %+.2f stoppage losses, %+d gym money against the same bot blind" % [
 		int(res["smart"]["top10"]) - int(res["blind"]["top10"]), float(res["smart"]["stopped"]) - float(res["blind"]["stopped"]),
 		int(res["smart"]["money"]) - int(res["blind"]["money"])])
-	_bar("scouting is worth it: >= %d more top-10 finishes than blind" % SCOUT_TOP10,
-		int(res["smart"]["top10"]) - int(res["blind"]["top10"]) >= SCOUT_TOP10)
-	_bar("scouting is worth it: fewer stoppage losses than blind", float(res["smart"]["stopped"]) < float(res["blind"]["stopped"]))
+	var scout_top := int(res["smart"]["top10"]) - int(res["blind"]["top10"])
+	_bar("scouting is worth it: >= %d more top-10 finishes than blind (%+d)" % [SCOUT_TOP10, scout_top],
+		scout_top >= SCOUT_TOP10)
+	var stop_d := float(res["smart"]["stopped"]) - float(res["blind"]["stopped"])
+	_bar("scouting is worth it: fewer stoppage losses than blind (%+.2f)" % stop_d, stop_d < 0.0)
 	print("MATCHMAKING_BOTS failures=%d" % failures)
 	quit(failures)
 
@@ -139,13 +144,13 @@ func _smart(p: Dictionary, boxers: Array, offered: Array, rng: RandomNumberGener
 	options.sort_custom(func(a, b): return _place_of(a["opp"]) < _place_of(b["opp"]))
 	var scouts_left := SCOUTS_PER_PICK if scouts else 0
 	for g in options:
-		var ch := MM.shown_chance(p, g)
+		var ch := MM.shown_chance(p, g, SCOUTED_RISK)
 		if float(ch["hi"]) < SMART_AT:
 			continue
 		if scouts_left > 0 and not g["scouted"] and int(p["money"]) >= MM.SCOUT_COST * 3:
 			if MM.scout(p, g, rng):
 				scouts_left -= 1
-			ch = MM.shown_chance(p, g)
+			ch = MM.shown_chance(p, g, SCOUTED_RISK)
 		if float(ch["mid"]) >= SMART_AT:
 			MM.note_choice(p, g["opp"], offered)
 			return g["opp"]

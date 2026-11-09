@@ -17,6 +17,11 @@ extends RefCounted
 ## drill is per NIGHT: Standard 0.05 -> 0.115, Hard 0.09 -> 0.14 (a 25-day power camp: +2.06 / +2.98 vs +2.06 / +3.03
 ## before), and Hard's load 1.2 -> 1.0 - its extra volume is now a real third pad night (at 1.2 it peaked 84, overreached;
 ## at 1.0 76.1 vs 74.6 before). tools/evenings_balance.gd.
+## S413: the new model parks about five of conditioning on recovery, and that clears fatigue faster, so those peaks fell
+## to 60.8 and 55.7 - both under the injury line of 72. Hard was then only 3.2% against Standard's 2.7% (the extra pad
+## night, nothing from fatigue). Load stays 1.0 (the third night is the volume). WeekPlan.HARD_HEAT is the harder
+## evenings on top of that, so the camp still gets tired enough to clear the line and stay under overreached.
+## Drill shares stay put. Raising them would move every camp's gains, not just a technique camp.
 const PROTOCOLS := [
 	{"name": "None", "cost": 0, "focus": 1.0, "edge": 0.0, "drill": 0.0, "load": 1.0, "level": "normal", "nights": 0, "blurb": ""},
 	{"name": "Light", "cost": 0, "focus": 1.1, "edge": 0.25, "drill": 0.0, "load": 0.75, "level": "light", "nights": 3, "blurb": "3 nights, spar 1 a week"},
@@ -179,8 +184,7 @@ static func fight_power(stats: Dictionary, camp: Dictionary, answered: int, corn
 	for k in ["power", "speed", "technique", "defense", "conditioning", "fight_iq"]:
 		p += float(stats.get(k, 55.0))
 	p /= 6.0
-	p += float(PROTOCOLS[clampi(int(camp.get("protocol", 0)), 0, 3)]["edge"]) if not camp.is_empty() else NO_CAMP_EDGE
-	p += film_edge(answered)
+	p += night_edge(camp, answered)
 	match corner:
 		"body":
 			p += CORNER_STRONG if clears_night_line("power", float(stats.get("power", 0.0))) else CORNER_WEAK
@@ -189,6 +193,12 @@ static func fight_power(stats: Dictionary, camp: Dictionary, answered: int, corn
 		"calm":
 			p += CORNER_CALM
 	return p
+
+
+## S398 the night's edges without the stats (the watched bout fights the stats as duels, RingDuel): the camp and the film.
+static func night_edge(camp: Dictionary, answered: int) -> float:
+	var p := float(PROTOCOLS[clampi(int(camp.get("protocol", 0)), 0, 3)]["edge"]) if not camp.is_empty() else NO_CAMP_EDGE
+	return p + film_edge(answered)
 
 
 ## One round. roll_a / roll_b are in [0, 1). Returns {n, won, mine, theirs, corner}.

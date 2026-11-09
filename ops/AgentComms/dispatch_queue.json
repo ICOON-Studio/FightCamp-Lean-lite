@@ -800,6 +800,12 @@
       "seat": "cursor",
       "status": "queued",
       "queued": "2026-11-09T18:53"
+    },
+    {
+      "task": "GYMKIND1",
+      "seat": "qwen",
+      "status": "queued",
+      "queued": "2026-11-09T19:05"
     }
   ]
 }

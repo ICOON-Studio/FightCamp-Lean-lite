@@ -7,6 +7,7 @@ const Data := preload("res://scripts/state/Data.gd")
 const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
 const FightWords := preload("res://scripts/state/FightWords.gd")
 const RivalPast := preload("res://scripts/rules/RivalPast.gd")
+const WorldBout := preload("res://scripts/world/WorldBout.gd")
 
 const NEWS_PATH := "res://assets/data/world_news.json"
 ## Bouts between rivals at each club show.
@@ -134,15 +135,16 @@ static func _bouts(r: Dictionary) -> int:
 
 ## told = whether the news says so (only divisions where the gym has a fighter make the feed).
 static func _rival_bout(c: Career, a: Dictionary, b: Dictionary, show: String, rng: RandomNumberGenerator, told: bool) -> void:
-	var sa := float(a["rating"]) + (rng.randf() - 0.5) * ROUND_SPREAD
-	var sb := float(b["rating"]) + (rng.randf() - 0.5) * ROUND_SPREAD
-	var winner := a if sa >= sb else b
-	var loser := b if sa >= sb else a
+	# S398 a rivals' bout is three rounds on the watched bout's maths (WorldBout: their profiles from their style and words).
+	var r := WorldBout.fast(a, b, 3, rng)
+	var a_won := str(r["winner"]) == "a" or (str(r["winner"]) == "" and rng.randf() < 0.5)
+	var winner := a if a_won else b
+	var loser := b if a_won else a
 	record(winner, true)
 	record(loser, false)
-	var stop := absf(sa - sb) > STOPPAGE_GAP and rng.randf() < STOPPAGE_ROLL
+	var stop := bool(r["stopped"])
 	# S341 both records keep the bout (RivalPast): who, where, how.
-	var how := "stopped in round %d" % (1 + int(absf(sa - sb)) % 3) if stop else "on points at the %s" % show
+	var how := "stopped in round %d" % int(r["round"]) if stop else "on points at the %s" % show
 	RivalPast.add(winner, c.day, str(loser["name"]), str(loser["club"]), true, how)
 	RivalPast.add(loser, c.day, str(winner["name"]), str(winner["club"]), false, how)
 	if not told:

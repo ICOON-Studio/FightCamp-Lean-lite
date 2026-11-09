@@ -7,24 +7,27 @@ extends RefCounted
 
 ## need: {stat: value} or {"move:<name>": mastery}.
 const PERKS := [
-	{"id": "iron_chin", "name": "Iron chin", "effect": "The first count each fight is only a stagger: still standing", "need": {"chin": 70}},
-	{"id": "stiff_jab", "name": "Stiff jab", "effect": "Pressers walk onto the jab: an edge every time the opponent presses", "need": {"technique": 65}},
-	{"id": "second_wind", "name": "Second wind", "effect": "+10 energy back at the bell for round 3", "need": {"conditioning": 70}},
+	{"id": "iron_chin", "name": "Iron chin", "effect": "The first count each fight is only a stagger: still standing", "need": {"durability": 70}},
+	{"id": "stiff_jab", "name": "Stiff jab", "effect": "Pressers walk onto the jab: an edge every time the opponent presses", "need": {"accuracy": 65}},
+	{"id": "second_wind", "name": "Second wind", "effect": "+10 energy back at the bell for round 3", "need": {"stamina": 70}},
 	{"id": "ring_general", "name": "Ring general", "effect": "Corner calls that fit work 25% better", "need": {"fight_iq": 65}},
-	{"id": "counter_sense", "name": "Counter sense", "effect": "Make an attacker miss: a free counter 3 times in 10", "need": {"defense": 65, "move:Check hook": 30}},
+	{"id": "counter_sense", "name": "Counter sense", "effect": "Make an attacker miss: a free counter 3 times in 10", "need": {"defence": 65, "move:Check hook": 30}},
 	{"id": "body_snatcher", "name": "Body snatcher", "effect": "Body shots drain 15% more energy", "need": {"move:Body hook": 30}},
-	{"id": "finisher", "name": "Finisher", "effect": "Once the opponent takes a count, the referee stops it 1.5x as often", "need": {"power": 70}},
+	{"id": "finisher", "name": "Finisher", "effect": "Once the opponent takes a count, the referee stops it 1.5x as often", "need": {"explosiveness": 70}},
 	{"id": "hand_speed", "name": "Fast hands", "effect": "Combinations land whole more often: +25% edge", "need": {"speed": 70}},
 ]
 const NEAR := 5.0
 ## S398 menus (first-hour critics: "def 65(57)" is a code): the attribute's own word, "Defence 65, now 57".
-const SHORT := {"power": "Power", "speed": "Hand speed", "technique": "Technique", "defense": "Defence", "conditioning": "Conditioning",
-	"fight_iq": "Ring IQ", "chin": "Chin"}
+const SHORT := {"durability": "Durability", "accuracy": "Accuracy", "stamina": "Stamina", "fight_iq": "Fight IQ",
+	"defence": "Defence", "explosiveness": "Explosiveness", "speed": "Speed"}
 
 
 static func _value(f: Dictionary, key: String) -> float:
 	if key.begins_with("move:"):
 		return float((f.get("moves", {}) as Dictionary).get(key.substr(5), 0.0))
+	var attrs: GDScript = load("res://scripts/rules/Attrs.gd")
+	if attrs.PRIMARY.has(key) or attrs.SKILLS.has(key):
+		return float(attrs.of(f).get(key, 0.0))
 	return float((f.get("stats", {}) as Dictionary).get(key, 0.0))
 
 

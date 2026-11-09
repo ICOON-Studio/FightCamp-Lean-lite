@@ -25,6 +25,7 @@ extends RefCounted
 const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const CoachAreas := preload("res://scripts/rules/CoachAreas.gd")
+const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 
 ## id -> {name, stat, met, min (minutes at normal), rpe}. Rest trains nothing and is where fatigue drains.
 const SESSIONS := {
@@ -36,9 +37,10 @@ const SESSIONS := {
 	"slip_rope": {"name": "Slip rope", "stat": "defense", "met": 4.5, "min": 30.0, "rpe": 4.0},
 	"shadow": {"name": "Shadow boxing", "stat": "technique", "met": 5.5, "min": 30.0, "rpe": 4.0},
 	"neck": {"name": "Neck work", "stat": "chin", "met": 3.5, "min": 20.0, "rpe": 3.0},
+	"mobility": {"name": "Mobility", "stat": "", "met": 2.5, "min": 20.0, "rpe": 2.0},
 	"rest": {"name": "Rest", "stat": "", "met": 0.0, "min": 0.0, "rpe": 0.0},
 }
-const ORDER := ["roadwork", "intervals", "heavy_bag", "strength", "speed_bag", "slip_rope", "shadow", "neck", "rest"]
+const ORDER := ["roadwork", "intervals", "heavy_bag", "strength", "speed_bag", "slip_rope", "shadow", "neck", "mobility", "rest"]
 ## intensity -> {gain, burn (kcal x), load (RPE x minutes x)}
 const INTENSITY := {
 	"light": {"gain": 0.6, "burn": 0.7, "load": 0.6, "label": "Light"},
@@ -52,7 +54,7 @@ const INTENSITY := {
 ## the coach's Standard week, not 5 + 1), so a pad night is a full club session - 75 min (was 45; a club evening runs
 ## 60-90): the coach's week keeps its ~8 h and its fatigue (tools/evenings_balance.gd: Standard peak 70.4 vs 69.1).
 const EVENINGS := {
-	"pads": {"name": "Pads and drills", "stat": "", "met": 6.0, "min": 75.0, "rpe": 5.0},
+	"pads": {"name": "Pads and drills", "stat": "technique", "met": 6.0, "min": 75.0, "rpe": 5.0},
 	"sparring": {"name": "Sparring vs a partner", "stat": "fight_iq", "met": 7.8, "min": 30.0, "rpe": 7.0},
 	"rest": {"name": "Rest", "stat": "", "met": 0.0, "min": 0.0, "rpe": 0.0},
 	"film": {"name": "Film: the opponent's video with the coach", "stat": "", "met": 0.0, "min": 0.0, "rpe": 0.0},
@@ -74,6 +76,10 @@ const FATIGUE_KEEP := 0.87
 const LOAD_PER_FATIGUE := 44.0
 const OVERREACHED := 80.0
 const TIRED_GAIN := 0.6
+## S413: Hard's load stays 1.0 (the third pad night is the volume). Recovery clears that volume under the injury
+## line - this power camp peaked 60.8, injury 3.2% against Standard's 2.7%. Extra heat on a Hard camp's evenings
+## only (its drill 0.14 at load 1.0) brings the peak to 77.4 and the injury to 4.9%, still under overreached.
+const HARD_HEAT := 1.5
 ## The coach's week: a camp's opening week that lands NEAR the goal and leaves the player dials to turn.
 const COACH_WEEK := [["roadwork", "normal"], ["heavy_bag", "normal"], ["intervals", "normal"], ["speed_bag", "light"],
 	["roadwork", "normal"], ["strength", "normal"], ["rest", "normal"]]
@@ -144,19 +150,32 @@ static func full_day(id: String, intensity: String, evening: String, ctx: Dictio
 	var stats: Dictionary = ctx.get("stats", {})
 	var tired := TIRED_GAIN if fatigue >= OVERREACHED else 1.0
 	var share := SESSION_SHARE * tired
-	# S380: in a camp the pads drill the camp's stat at the protocol's share (BoutRules.camp_evening; Light keeps plain pads)
+	# S380: in a camp the pads drill the camp's stat at the protocol's share (BoutRules.camp_evening; Light keeps plain pads).
+	# S413: plain pads train technique at SESSION_SHARE. Standard's drill is 0.115, so replacing the night taught a
+	# technique camp less than Light. When the camp stat is the pads' own stat the drill is extra on top of that session.
+	# A different camp stat still takes the night over (power and the rest keep the drill share alone).
 	var half := evening == "pads" and bool(ctx.get("camp_on", false)) and str(ctx.get("phase", "")) == "taper"
 	var px := TAPER_PADS if half else 1.0
 	var drill := float(ctx.get("eve_drill", 0.0)) * px
 	if evening == "pads" and drill > 0.0 and stats.has(str(ctx.get("camp_stat", ""))):
 		r["stat2"] = str(ctx["camp_stat"])
 		share = drill * tired
+		if r["stat2"] == str(e["stat"]):
+			share += SESSION_SHARE * tired
 	if r["stat2"] != "" and stats.has(r["stat2"]):
 		r["gain2"] = float(TrainingPreview.preview_gain(stats, int(ctx.get("pot", 70)), {"training_modifiers": [r["stat2"]]},
 			coach_for(ctx, evening), 1.0, share).get(r["stat2"], 0.0))
-	r["fatigue"] = clampf(float(r["fatigue"]) + float(e["rpe"]) * float(e["min"]) * px * float(ctx.get("eve_load", 1.0)) / LOAD_PER_FATIGUE,
+	r["fatigue"] = clampf(float(r["fatigue"]) + float(e["rpe"]) * float(e["min"]) * px * float(ctx.get("eve_load", 1.0)) * _heat(ctx) / LOAD_PER_FATIGUE,
 		0.0, 100.0)
 	return r
+
+
+## Hard evenings run hotter than their load of 1.0. Anything else, including a week with no camp, is x1.
+static func _heat(ctx: Dictionary) -> float:
+	var hard: Dictionary = BoutRules.PROTOCOLS[3]
+	if is_equal_approx(float(ctx.get("eve_drill", 0.0)), float(hard["drill"])) and is_equal_approx(float(ctx.get("eve_load", 1.0)), float(hard["load"])):
+		return HARD_HEAT
+	return 1.0
 
 
 ## The week's training hours for the injury model (TrainingLoad's chronic / ratio): mornings at their intensity's load,
@@ -228,19 +247,31 @@ static func day(id: String, intensity: String, ctx: Dictionary, fatigue: float) 
 	var stat := str(s["stat"])
 	var gain := 0.0
 	var stats: Dictionary = ctx.get("stats", {})
+	var share := SESSION_SHARE * float(it["gain"]) * (TIRED_GAIN if fatigue >= OVERREACHED else 1.0)
 	if stat != "" and stats.has(stat):
-		var share := SESSION_SHARE * float(it["gain"]) * (TIRED_GAIN if fatigue >= OVERREACHED else 1.0)
 		gain = float(TrainingPreview.preview_gain(stats, int(ctx.get("pot", 70)), {"training_modifiers": [stat]},
 			coach_for(ctx, id), 1.0, share).get(stat, 0.0))
 		gain *= float((ctx.get("head_gain", {}) as Dictionary).get(stat, 1.0))   # S397 HeadCoach: the strength coach
+	# Rest and mobility train recovery / flexibility without moving an old stat (gain stays 0).
+	var attr_gain := 0.0
+	if stat == "" and (id == "rest" or id == "mobility") and stats.has("conditioning"):
+		attr_gain = float(TrainingPreview.preview_gain(stats, int(ctx.get("pot", 70)), {"training_modifiers": ["conditioning"]},
+			coach_for(ctx, id), 1.0, share).get("conditioning", 0.0))
+		attr_gain *= float((ctx.get("head_gain", {}) as Dictionary).get("conditioning", 1.0))
 	# S397 HeadCoach: the old hand's cut runs deeper (head_cut kcal a day on top of the CUT diet).
 	var deficit := (CUT_DEFICIT + float(ctx.get("head_cut", 0.0))) if str(ctx.get("diet", "hold")) == "cut" else 0.0
 	var kg := -(kcal - ALLOWANCE + deficit) / KCAL_PER_KG
 	if deficit > 0.0 and str(ctx.get("phase", "")) == "taper":
 		kg -= TAPER_KG
 	kg += float(ctx.get("twist_kg", 0.0))   # S356 the week's twist card (WeekTwist kg_day / fat_day)
-	var after := clampf(fatigue * FATIGUE_KEEP + load / LOAD_PER_FATIGUE + float(ctx.get("twist_fat", 0.0)), 0.0, 100.0)
-	return {"id": id, "intensity": intensity, "stat": stat, "gain": gain, "kcal": kcal, "kg": kg, "load": load, "fatigue": after}
+	var after := clampf(fatigue * fatigue_keep(ctx) + load / LOAD_PER_FATIGUE + float(ctx.get("twist_fat", 0.0)), 0.0, 100.0)
+	return {"id": id, "intensity": intensity, "stat": stat, "gain": gain, "attr_gain": attr_gain, "kcal": kcal, "kg": kg,
+		"load": load, "fatigue": after}
+
+
+## Recovery clears fatigue faster. At 55 the night keeps FATIGUE_KEEP, so a week with no recovery number is unchanged.
+static func fatigue_keep(ctx: Dictionary) -> float:
+	return clampf(FATIGUE_KEEP - (float(ctx.get("recovery", 55.0)) - 55.0) * 0.003, 0.70, 0.95)
 
 
 static func week(days: Array, ctx: Dictionary, evenings: Array = []) -> Dictionary:

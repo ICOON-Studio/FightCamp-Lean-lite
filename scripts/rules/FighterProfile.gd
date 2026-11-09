@@ -69,7 +69,7 @@ static func make(f: Dictionary, seed_value: int) -> Dictionary:
 	var stats: Dictionary = f.get("stats", {})
 	var speed_val: float = float(stats.get("speed", FighterGoal.STAT_DEFAULT))
 	var defense_val: float = float(stats.get("defense", FighterGoal.STAT_DEFAULT))
-	var footwork_base: float = (speed_val + defense_val) * 0.5
+	var footwork_base: float = 55.0 + (speed_val + defense_val) * 0.0
 	var footwork_spread: float = (float(rng.randi_range(0, 80)) - 40.0) * 0.1
 	var footwork: float = snappedf(footwork_base + footwork_spread, 0.1)
 

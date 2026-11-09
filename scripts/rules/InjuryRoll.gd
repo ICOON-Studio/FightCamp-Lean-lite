@@ -30,7 +30,7 @@ static func bout_chance(damage: Dictionary) -> float:
 	var rounds: int = int(damage.get("rounds", 3))
 	var s: float = (100.0 - worst) / 100.0
 	var chance: float = BOUT_BASE * (float(rounds) / 3.0) * (0.4 + 1.2 * s)
-	return clampf(chance, 0.0, 0.4)
+	return clampf(chance * flex_mult(float(damage.get("flexibility", 55.0))), 0.0, 0.4)
 
 
 static func ko_days(history: Array, day: int) -> int:
@@ -113,15 +113,20 @@ static func fatigue_mult(peak: float) -> float:
 
 
 ## S397 `risk`: the gym's own multiplier (GymSpend.train_risk: the floor, the S&C coach, the kit budget).
-static func training_chance(hours: float, ratio: float, peak: float = 0.0, risk: float = 1.0) -> float:
-	var chance: float = TRAIN_BASE_10H * hours / 10.0 * load_mult(ratio) * fatigue_mult(peak) * risk
+## Flexibility (range and joints) lowers the chance. At 55 the multiplier is 1, so an old call is unchanged.
+static func flex_mult(flex: float) -> float:
+	return clampf(1.0 - (flex - 55.0) * 0.006, 0.70, 1.20)
+
+
+static func training_chance(hours: float, ratio: float, peak: float = 0.0, risk: float = 1.0, flex: float = 55.0) -> float:
+	var chance: float = TRAIN_BASE_10H * hours / 10.0 * load_mult(ratio) * fatigue_mult(peak) * risk * flex_mult(flex)
 	return clampf(chance, 0.0, 0.3)
 
 
-static func training_roll(seed: int, hours: float, ratio: float, peak: float = 0.0, risk: float = 1.0) -> Dictionary:
+static func training_roll(seed: int, hours: float, ratio: float, peak: float = 0.0, risk: float = 1.0, flex: float = 55.0) -> Dictionary:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = seed
-	var chance: float = training_chance(hours, ratio, peak, risk)
+	var chance: float = training_chance(hours, ratio, peak, risk, flex)
 	if rng.randf() >= chance:
 		return {"injured": false, "type": "none", "days_out": 0}
 	var total: int = 0

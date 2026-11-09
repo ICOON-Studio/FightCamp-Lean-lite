@@ -14,6 +14,7 @@ const MM := preload("res://scripts/rules/Matchmaking.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 
 ## A pro has fought on television: the best weapon is public tape. The weakness takes a scout.
 const PUBLIC_TAPE := ["weapon"]
@@ -31,6 +32,7 @@ const ROUNDS_UNRANKED := 4
 const ROUNDS_RANKED := 6
 const ROUNDS_TOP10 := 8
 const ROUNDS_TITLE := 10
+const REVIEW_WINS := 5   # a winning newcomer enters the board's bottom seat even without being offered a ranked name
 
 
 ## Which WORLD1 table she boxes on (four so far: women's and men's lightweight and welterweight).
@@ -72,7 +74,7 @@ static func _rng(c: Career, salt: String) -> RandomNumberGenerator:
 
 ## Her strength on the table is her strength on the night (no camp): the world's ratings are on the same scale.
 static func night(f: Dictionary) -> float:
-	return snappedf(BoutRules.fight_power(f["stats"], {}, 0, ""), 0.1)
+	return snappedf(Attrs.overall(Attrs.of(f)) + float(f.get("pro_rating_bonus", 0.0)), 0.1)
 
 
 ## She joins her table after the debut (the world is made the first time any pro needs it).
@@ -84,12 +86,26 @@ static func join(c: Career, f: Dictionary) -> Dictionary:
 		return e
 	e = MM.join(table(c, f), str(f["name"]), night(f), int(f.get("age", 22)), hash("%d|%s" % [c.seed, str(f["id"])]))
 	e["fid"] = str(f["id"])
+	shape_from(e, f)
 	e["w"] = int(f.get("pro_w", 0))
 	e["l"] = int(f.get("pro_l", 0))
 	e["d"] = int(f.get("pro_d", 0))
 	f["pro_next"] = c.day + MM.NEXT_WEEKS * 7 - LEAD_DAYS
 	f["pro_offers"] = []
 	return e
+
+
+## S398 the table row fights as the fighter: the shape is the attributes less their mean (the level is night()).
+static func shape_from(e: Dictionary, f: Dictionary) -> void:
+	var a := Attrs.of(f)
+	var lvl := Attrs.overall(a)
+	var sh := {}
+	for k in Attrs.ABILITIES:
+		sh[k] = float(a[k]) - lvl
+	e["shape"] = sh
+	e["pace"] = float(a.get("pace", 55.0))
+	e["forward"] = float(a.get("forward", 50.0))
+	e["heart"] = float(a.get("heart", 55.0))
 
 
 ## Once a day (Sim.step_day): the world fights a month at a time; her offers come and go.
@@ -122,6 +138,7 @@ static func day_events(c: Career) -> void:
 static func _make_offers(c: Career, f: Dictionary) -> void:
 	var e := entry(c, f)
 	e["rating"] = night(f)
+	shape_from(e, f)
 	var you := int(e.get("rank", 0))
 	var reach := maxi(1, you - MM.BAND_UP) if you > 0 else MM.UNRANKED_REACH
 	var tune := {}
@@ -194,7 +211,11 @@ static func bout_opp(f: Dictionary, opp: Dictionary, found: Array) -> Dictionary
 	return {"name": opp["name"], "first": opp["first"], "club": opp.get("club", ""), "age": int(opp["age"]),
 		"stance": opp["stance"], "style": opp["style"], "w": int(opp["w"]), "l": int(opp["l"]), "rating": float(opp["rating"]),
 		"threat": opp["threat"], "weak": opp["weak"], "div": f["div"], "pro": true, "rank": int(opp.get("rank", 0)),
-		"belt": opp.get("belt", ""), "file_found": found.duplicate()}
+		"belt": opp.get("belt", ""), "file_found": found.duplicate(),
+		# S398 the world boxer's own profile comes to the bout (AttrGen reads it there: the same person on the night).
+		"shape": (opp.get("shape", {}) as Dictionary).duplicate(), "pace": opp.get("pace", 50.0), "forward": opp.get("forward", 50.0),
+		"heart": opp.get("heart", 55.0), "height": opp.get("height", 170), "reach": opp.get("reach", 173),
+		"peak_age": opp.get("peak_age", 28), "damage_ledger": (opp.get("damage_ledger", {}) as Dictionary).duplicate()}
 
 
 ## Her chance as the bout page reads it (BoutRead.band: the rating range and every hidden tell's worst and best), with the
@@ -315,10 +336,15 @@ static func result(c: Career, f: Dictionary, outcome: String, stopped: bool) -> 
 	if outcome == "draw":   # a draw moves nobody: both records take it
 		e["d"] = int(e.get("d", 0)) + 1
 		opp["d"] = int(opp.get("d", 0)) + 1
+		_review_streak(e, table(c, f))
 		f["pro_next"] = c.day + MM.NEXT_WEEKS * 7 - LEAD_DAYS
 		return {"draw": true, "rank_before": int(e["rank"]), "rank_after": int(e["rank"])}
 	var line := MM.apply_result(e, opp, table(c, f), outcome == "win", stopped)
+	f["pro_rating_bonus"] = float(f.get("pro_rating_bonus", 0.0)) + float(line["grow"])
 	e["rating"] = night(f)
+	shape_from(e, f)
+	_review_streak(e, table(c, f))
+	line["rank_after"] = int(e["rank"])
 	f["pro_next"] = c.day + int(e.get("next_weeks", MM.NEXT_WEEKS)) * 7 - LEAD_DAYS   # her next camp starts then
 	var before := int(line["rank_before"])
 	var after := int(line["rank_after"])
@@ -326,6 +352,23 @@ static func result(c: Career, f: Dictionary, outcome: String, stopped: bool) -> 
 		c.add_news("%s %s: %s." % [f["name"], "moves up" if (after > 0 and (before == 0 or after < before)) else "drops",
 			"now #%d in the %s" % [after, str(c.world["divisions"][division_for(f)]["info"]["name"])] if after > 0 else "unranked"])
 	return line
+
+
+## The sanctioning body's regular newcomer review: a 5-win positive record earns the last table seat. Results against a
+## ranked boxer still take that boxer's exact place through Matchmaking/WorldRank before this fallback runs.
+static func _review_streak(e: Dictionary, boxers: Array) -> bool:
+	if int(e.get("rank", 0)) > 0 or int(e.get("w", 0)) < REVIEW_WINS or int(e.get("w", 0)) <= int(e.get("l", 0)):
+		return false
+	var last: Dictionary = {}
+	for b in boxers:
+		var r := int(b.get("rank", 0))
+		if b != e and r > 0 and (last.is_empty() or r > int(last["rank"])):
+			last = b
+	if last.is_empty():
+		return false
+	e["rank"] = int(last["rank"])
+	last["rank"] = 0
+	return true
 
 
 ## The road: her table's top places with her row, the belts, and the next step in words.

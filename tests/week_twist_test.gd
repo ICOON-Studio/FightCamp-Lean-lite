@@ -135,6 +135,8 @@ func _swap() -> void:
 	for s in 40:
 		var cw := _career()
 		cw.seed = 9000 + s
+		# The bout rolls on the day. Forty seeds on day 28 are one night; forty days are forty nights.
+		cw.day = 28 + s
 		var fw: Dictionary = cw.fighter()
 		_book(cw, fw, 1)
 		fw["bout"]["short_notice"] = true

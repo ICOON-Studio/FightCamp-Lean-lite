@@ -1,15 +1,21 @@
 extends RefCounted
-## Simulates bouts the player is not in: rating gap + luck, stoppages more likely at big gaps.
+## Simulates bouts the player is not in. S398: fought on the watched bout's own maths (WorldBout: the distance ladder, the
+## duels between the two profiles, form on the night, knockdowns from either side) - an upset comes from a matchup, a
+## punch or a bad night, never a flat roll; the old rating +-4 made an 8-point gap a certain win (measured S397).
 ## Records, ranks and belts move every month. Rival boxers improve too.
 
 const WA := preload("res://scripts/world/WorldAge.gd")
 const WR := preload("res://scripts/world/WorldRank.gd")
 const WG := preload("res://scripts/world/WorldGen.gd")
+const WB := preload("res://scripts/world/WorldBout.gd")
 
 const LUCK_SPREAD := 8.0
 const STOPPAGE_GAP_THRESHOLD := 6.0
 const STOPPAGE_CHANCE_PER_POINT := 0.04
 const UPSET_BONUS := 0.3
+const STREAK_WINS := 6       # 6-0-1 and the same shape of record take the last seat at the monthly review
+const STREAK_BUBBLE := 5.0   # a newcomer this many points better than the boxer above climbs, so places still mean levels
+const SEAT_WITHIN := 8.0     # a streak further than this below the last place waits; a better one climbs
 
 
 static func simulate_month(divisions: Dictionary, rng: RandomNumberGenerator) -> Dictionary:
@@ -19,7 +25,62 @@ static func simulate_month(divisions: Dictionary, rng: RandomNumberGenerator) ->
 		var div: Dictionary = divisions[div_id]
 		var div_results := _simulate_division_month(div["boxers"], rng)
 		results.append_array(div_results)
+		seat_streaks(div["boxers"])
 	return {"results": results, "belt_changes": belt_changes}
+
+
+## A winning newcomer takes the last seat at the monthly review even under WorldRank's 3-point gap. A prospect who already
+## has the record is ranked at the first month end (week 4). Returns how many were seated.
+static func seat_streaks(boxers: Array) -> int:
+	var born := {}
+	for b in boxers:
+		if int(b.get("rank", 0)) > 0:
+			born[int(b.get("id", 0))] = true
+	var seated := 0
+	for _pass in 4:
+		var best: Dictionary = {}
+		for b in boxers:
+			if born.has(int(b.get("id", 0))) or int(b.get("rank", 0)) != 0 or b.get("retired", false):
+				continue
+			var w := int(b.get("w", 0))
+			var l := int(b.get("l", 0))
+			if w < STREAK_WINS or w <= l:
+				continue
+			if best.is_empty() or w - l > int(best["w"]) - int(best["l"]) or (w - l == int(best["w"]) - int(best["l"]) and float(b["rating"]) > float(best["rating"])):
+				best = b
+		if best.is_empty():
+			break
+		var last: Dictionary = {}
+		for b in boxers:
+			if born.has(int(b.get("id", 0))) == false:
+				continue
+			var r := int(b.get("rank", 0))
+			if r > 0 and not b.get("player", false) and (last.is_empty() or r > int(last["rank"])):
+				last = b
+		if last.is_empty() or float(best["rating"]) + SEAT_WITHIN < float(last["rating"]):
+			break
+		best["rank"] = int(last["rank"])
+		last["rank"] = 0
+		born[int(best.get("id", 0))] = true
+		seated += 1
+		var ranked: Array = []
+		for b in boxers:
+			if int(b.get("rank", 0)) > 0 and not b.get("retired", false):
+				ranked.append(b)
+		ranked.sort_custom(func(a, c): return int(a["rank"]) < int(c["rank"]))
+		var i := -1
+		for j in ranked.size():
+			if int(ranked[j].get("id", 0)) == int(best.get("id", 0)):
+				i = j
+		while i > 0 and float(ranked[i]["rating"]) - float(ranked[i - 1]["rating"]) >= STREAK_BUBBLE and not ranked[i - 1].get("player", false):
+			var rr := int(ranked[i - 1]["rank"])
+			ranked[i - 1]["rank"] = rr + 1
+			ranked[i]["rank"] = rr
+			var t: Dictionary = ranked[i - 1]
+			ranked[i - 1] = ranked[i]
+			ranked[i] = t
+			i -= 1
+	return seated
 
 
 static func _simulate_division_month(boxers: Array, rng: RandomNumberGenerator) -> Array:
@@ -77,18 +138,13 @@ static func _pick_opponent(active: Array, a_idx: int, fought: Dictionary, rng: R
 
 
 static func simulate_bout(a: Dictionary, b: Dictionary, division_boxers: Array, rng: RandomNumberGenerator) -> Dictionary:
-	var a_power := float(a["rating"]) + (rng.randf() - 0.5) * LUCK_SPREAD
-	var b_power := float(b["rating"]) + (rng.randf() - 0.5) * LUCK_SPREAD
-	var winner: Dictionary
-	var loser: Dictionary
-	if a_power >= b_power:
-		winner = a
-		loser = b
-	else:
-		winner = b
-		loser = a
+	var r := WB.fast(a, b, rounds_for(a, b), rng)
+	# A level card goes to the busier man on the night (a world table books no draws): the one who won more exchanges.
+	var a_won := str(r["winner"]) == "a" or (str(r["winner"]) == "" and rng.randf() < 0.5)
+	var winner: Dictionary = a if a_won else b
+	var loser: Dictionary = b if a_won else a
 	var gap := absf(float(winner["rating"]) - float(loser["rating"]))
-	var stoppage := _roll_stoppage(gap, rng)
+	var stoppage := bool(r["stopped"])
 	_apply_bout_result(winner, loser, stoppage, division_boxers)
 	return {
 		"winner": winner["name"],
@@ -99,6 +155,19 @@ static func simulate_bout(a: Dictionary, b: Dictionary, division_boxers: Array, 
 		"stoppage": stoppage,
 		"gap": gap,
 	}
+
+
+## Scheduled rounds: amateur tables 3; pros 10 when either is top-10, 8 when ranked, else 6 (ProLadder's distances).
+static func rounds_for(a: Dictionary, b: Dictionary) -> int:
+	if str(a.get("div", "")).begins_with("a_"):
+		return 3
+	var top := mini(_rk(a), _rk(b))
+	return 10 if top <= 10 else (8 if top <= WG.RANKED_PER_DIVISION else 6)
+
+
+static func _rk(x: Dictionary) -> int:
+	var r := int(x.get("rank", 0))
+	return r if r > 0 else 99
 
 
 static func _roll_stoppage(gap: float, rng: RandomNumberGenerator) -> bool:

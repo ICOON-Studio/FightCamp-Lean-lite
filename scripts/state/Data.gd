@@ -4,8 +4,8 @@ extends RefCounted
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const STATS: Array[String] = ["power", "speed", "technique", "defense", "conditioning", "fight_iq", "chin"]
 const LABEL := {
-	"power": "Power", "speed": "Hand speed", "technique": "Technique", "defense": "Defence",
-	"conditioning": "Conditioning", "fight_iq": "Ring IQ", "chin": "Chin",
+	"power": "Power", "speed": "Speed", "technique": "Technique", "defense": "Defence",
+	"conditioning": "Stamina", "fight_iq": "Fight IQ", "chin": "Durability",
 }
 const CARDS: Array[String] = ["Jab and move", "Body work", "Pad rounds", "Hill sprints", "Defence drills", "Film study"]
 

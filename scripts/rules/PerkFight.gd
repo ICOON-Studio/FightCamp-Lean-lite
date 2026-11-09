@@ -31,7 +31,7 @@ const FINISHER := 1.5
 ## Fast hands: a combination's edge (a combination arrow of her plan, the corner's set-up) when it helps. x1.1 measured
 ## +3 rounds won in 480 (tests/perk_fight_test.gd) - too small to feel beside Stiff jab; x1.25 puts a best-fit combination
 ## (PlanFight.EDGE 9) at +2.25, near Stiff jab's +3.
-const FAST_HANDS := 1.25
+const FAST_HANDS := 1.40
 ## The fight lines' names.
 const NAMES := {"iron_chin": "Iron chin", "stiff_jab": "Stiff jab", "second_wind": "Second wind", "ring_general": "Ring general",
 	"counter_sense": "Counter sense", "body_snatcher": "Body snatcher", "finisher": "Finisher", "hand_speed": "Fast hands"}

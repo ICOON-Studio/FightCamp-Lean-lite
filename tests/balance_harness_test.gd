@@ -306,8 +306,10 @@ func _test_16_s305_tiredness_ramp() -> void:
 	var r1_unfit: float = float(rs_unfit["r1"])
 	var r3_unfit: float = float(rs_unfit["r3"])
 	var drop_unfit: float = r1_unfit - r3_unfit
-	_check(drop_unfit >= 0.04,
-			"S305 unfit (cond 50): r3 at least 0.04 below r1 (r1=%.3f r3=%.3f drop=%.3f, S305: was 0.08 at spread 6, now 0.04 with spread 27)" % [r1_unfit, r3_unfit, drop_unfit])
+	# S398 fighter model: the opponent (Priya, a counter-puncher) now has a real profile whose engine sits below her rating,
+	# so she tires too and the unfit boxer's RELATIVE fade measured 0.040 (was above): bar 0.035, the fade still shows.
+	_check(drop_unfit >= 0.035,
+			"S305 unfit (cond 50): r3 at least 0.035 below r1 (r1=%.3f r3=%.3f drop=%.3f, S305: was 0.08 at spread 6, 0.04 with spread 27, S398 0.035)" % [r1_unfit, r3_unfit, drop_unfit])
 	# Fit: cond 80, avg 60
 	var f_fit: Dictionary = H.make_fighter(60, 80.0, {}, opp_index)
 	var rs_fit: Dictionary = H.round_shares(f_fit, corners, n, 3001)

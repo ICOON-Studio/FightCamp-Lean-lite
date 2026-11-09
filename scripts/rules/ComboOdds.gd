@@ -13,6 +13,7 @@ const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
+const RingDuel := preload("res://scripts/state/RingDuel.gd")
 
 ## The opponent's games a combination is thrown into (her own trouble - she_tired / she_hurt - is not a plan's).
 const GAMES := ["press", "range", "counter", "loadup", "tiring"]
@@ -36,8 +37,12 @@ static func move_of(combo_id: String) -> String:
 static func gap(f: Dictionary, opp: Dictionary) -> float:
 	if opp.is_empty():
 		return 0.0
-	return BoutRules.fight_power(f["stats"], f.get("camp", {}), FilmEdge.answered(f), "") \
-		+ BoutRules.weapons_edge(BoutRules.weapons(f.get("moves", {}))) - float(opp.get("rating", 60.0))
+	return night_gap(f) + RingDuel.mean_edge(f, opp)
+
+
+## S398 the night's edges alone (camp, film, weapons): what LiveRound.open's base holds before the duels.
+static func night_gap(f: Dictionary) -> float:
+	return BoutRules.night_edge(f.get("camp", {}), FilmEdge.answered(f)) + BoutRules.weapons_edge(BoutRules.weapons(f.get("moves", {})))
 
 
 ## The lab's table for one book combination against one opponent ({} = an even opponent; {} back when no such move).

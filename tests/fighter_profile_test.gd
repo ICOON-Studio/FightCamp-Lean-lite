@@ -3,6 +3,7 @@ extends SceneTree
 
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const FighterGoal := preload("res://scripts/rules/FighterGoal.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 
 var failures: int = 0
 
@@ -41,7 +42,8 @@ func _test_determinism_and_difference() -> void:
 
 	var slugger := _slugger()
 	var p3 := FighterProfile.make(slugger, 42)
-	_check(float(p1["footwork"]) != float(p3["footwork"]), "different fighters give different footwork")
+	# Footwork is stored on the fighter (Attrs), not derived from speed and defence inside the profile.
+	_check(float(Attrs.of(lucy)["footwork"]) != float(Attrs.of(slugger)["footwork"]), "different fighters give different footwork")
 	var d1: Dictionary = p1["style_dials"]
 	var d3: Dictionary = p3["style_dials"]
 	_check(float(d1["pressure"]) != float(d3["pressure"]), "different fighters give different pressure")

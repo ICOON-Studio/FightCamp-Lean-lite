@@ -28,6 +28,9 @@ const SESSIONS: Array[Dictionary] = [
 	{"id": "roadwork", "name": "Roadwork", "stat": "conditioning", "point": "legs", "icon": "footprints",
 		"why": "the engine: legs and lungs for the last round"},
 ]
+## Morning card for flexibility (WeekPlan). Not one of the eight board sessions: the board stays one session per old stat.
+const MOBILITY := {"id": "mobility", "name": "Mobility", "stat": "", "point": "core", "icon": "user",
+	"why": "hips, shoulders and ankles: fewer strains, and the punches reach"}
 
 ## Her picked week cards (Data.CARDS) belong to a session: they show on its card as her drill.
 const CARD_SESSION := {

@@ -8,8 +8,8 @@ extends RefCounted
 ##           medical rest (STOP_REST_WEEKS) and damage
 ##   money   the purse follows your own rank; tickets follow your fans and how close the fight looks
 ##   record  a losing or level record is never ranked in the top TOP_RECORD
-##   unknown an unscouted opponent is a RANGE_RAW-wide guess around the truth and an unseen matchup edge (+-EDGE_MAX);
-##           scouting (SCOUT_COST) narrows the range to RANGE_SCOUTED and shows the edge
+##   unknown an unscouted opponent is a RANGE_RAW-wide guess around the truth and an unseen matchup (S398: the real one -
+##           the two profiles' duels, WorldBout); scouting (SCOUT_COST) narrows the range to RANGE_SCOUTED and shows it
 ## The promoter's rule: ask at most BAND_UP places above your rank (unranked: from UNRANKED_REACH down); a top-5 ask needs fans,
 ## two ducked fights in a row stop the asks until you take a hard one, and after a loss you win a rebuild fight before you
 ## ask above your place again. A refusal always says why.
@@ -18,6 +18,10 @@ extends RefCounted
 const WR := preload("res://scripts/world/WorldRank.gd")
 const WA := preload("res://scripts/world/WorldAge.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
+const WB := preload("res://scripts/world/WorldBout.gd")
+const AttrGen := preload("res://scripts/rules/AttrGen.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
+const ROUNDS := 6
 
 const GAP_MONTHS := 2          # a pro camp is 6-8 weeks: 4-6 bouts a year early on (assets/data/world/SOURCES.md)
 ## S397 (operator "Real loss costs"): a fight's night decides the wait for the next one, in weeks. A mismatch is a quick
@@ -64,16 +68,45 @@ static func join(division_boxers: Array, name: String, rating: float, age: int, 
 	var p := {"id": -1, "seed": seed, "name": name, "rating": rating, "age": age, "peak_age": WA.PEAK_AGE_PRO, "rank": 0, "belt": "",
 		"w": 0, "l": 0, "d": 0, "ko": 0, "retired": false, "player": true, "fans": 0, "ducks": 0, "money": 0,
 		"next_weeks": NEXT_WEEKS, "damage_ledger": {"hard_fights": 0, "stoppage_losses": 0, "total_fights": 0}, "log": []}
+	# S398 one model for everyone: the pro on the table is a person too - a profile from the seed (a bot, a test), which
+	# the career replaces with the fighter's own attributes (ProLadder.join).
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed * 31 + 398
+	var prof := AttrGen.generate(rng)
+	p["shape"] = prof["shape"]
+	p["pace"] = prof["pace"]
+	p["forward"] = prof["forward"]
+	p["heart"] = prof["heart"]
 	division_boxers.append(p)
 	return p
 
 
-## The real chance on the night: the game's own bout odds (BoutRead.chance) with both sides on their ratings, no camp edge.
-static func win_chance(own_rating: float, opp_rating: float) -> float:
-	var st := {}
-	for k in ["power", "speed", "technique", "defense", "conditioning", "fight_iq", "chin"]:
-		st[k] = own_rating
-	return BoutRead.chance({"name": "you", "stats": st}, {"name": "them", "rating": opp_rating, "style": "", "threat": "", "weak": ""}, {})
+## The real chance on the night (S398): the world's bout maths between the two profiles (WorldBout.chance). own / opp are
+## table rows (rating + shape) or bare ratings (a level profile with no shape: the read before the matchup is known).
+static func win_chance(own, opp) -> float:
+	return WB.chance(_row(own), _row(opp), ROUNDS)
+
+
+static func _row(x) -> Dictionary:
+	if x is Dictionary:
+		return x
+	return {"rating": float(x), "shape": _level_shape()}
+
+
+static func _level_shape() -> Dictionary:
+	var z := {}
+	for k in Attrs.ABILITIES:
+		z[k] = 0.0
+	return z
+
+
+## The same row with the matchup hidden: its level, no shape (what an unscouted read assumes).
+static func level_only(x: Dictionary) -> Dictionary:
+	var y := x.duplicate()
+	y["shape"] = _level_shape()
+	y.erase("pace")
+	y.erase("forward")
+	return y
 
 
 ## What the player sees of an opponent: a range holding the true rating, placed by a dice roll so the middle is not the truth.
@@ -83,10 +116,9 @@ static func guess(opp: Dictionary, rng: RandomNumberGenerator) -> Dictionary:
 	return {"opp": opp, "lo": lo, "hi": lo + RANGE_RAW, "scouted": false, "edge": 0.0}
 
 
-## The hidden matchup for this pair, fixed for the career (a replay agrees): uniform in +-EDGE_MAX.
+## S398 the matchup for this pair: how much the two profiles' duels move the chance from the level read (+ for you).
 static func edge(p: Dictionary, opp: Dictionary) -> float:
-	var h := absi(hash("%s|%s|%s" % [str(p.get("seed", 0)), str(opp.get("id", "")), str(opp.get("name", ""))]))
-	return snappedf((float(h % 10001) / 10000.0 * 2.0 - 1.0) * EDGE_MAX, 0.5)
+	return snappedf(win_chance(p, opp) - win_chance(p, level_only(opp)), 0.01)
 
 
 ## Scouting narrows a guess inside its old range, still holding the truth, and finds the matchup edge.
@@ -103,11 +135,15 @@ static func scout(p: Dictionary, g: Dictionary, rng: RandomNumberGenerator) -> b
 	return true
 
 
-## What the read shows: the rating range, and the matchup once scouted (unscouted it reads as even).
-static func shown_chance(p: Dictionary, g: Dictionary) -> Dictionary:
-	var own := float(p["rating"]) + float(g.get("edge", 0.0))
-	return {"lo": win_chance(own, float(g["hi"])), "mid": win_chance(own, (float(g["lo"]) + float(g["hi"])) / 2.0),
-		"hi": win_chance(own, float(g["lo"]))}
+## What the read shows: the rating range. Unscouted it is a level profile. Scouted, the real matchup. S416: the read never leans:
+## `risk` eases a scouted opponent's rating by that many points, for a bot that judges a jump up worth a thinner chance. Screens pass none.
+static func shown_chance(p: Dictionary, g: Dictionary, risk: float = 0.0) -> Dictionary:
+	var scouted := bool(g.get("scouted", false))
+	var o: Dictionary = g["opp"] if scouted else level_only(g["opp"])
+	var bump := -risk if scouted else 0.0
+	return {"lo": win_chance(p, o.merged({"rating": float(g["hi"]) + bump}, true)),
+		"mid": win_chance(p, o.merged({"rating": (float(g["lo"]) + float(g["hi"])) / 2.0 + bump}, true)),
+		"hi": win_chance(p, o.merged({"rating": float(g["lo"]) + bump}, true))}
 
 
 ## The promoter's three offers: one below you, one about level, one above (none above while you have ducked twice).
@@ -166,11 +202,10 @@ static func note_choice(p: Dictionary, choice: Dictionary, offered: Array) -> vo
 
 ## Fight night, simulated (the bot test and bouts the player does not watch): rolls the bout, then apply_result.
 static func fight(p: Dictionary, opp: Dictionary, boxers: Array, rng: RandomNumberGenerator) -> Dictionary:
-	var own := float(p["rating"])
-	var them := float(opp["rating"])
-	var e := edge(p, opp)
-	var won := rng.randf() < win_chance(own + e, them)
-	var stop := rng.randf() < clampf(absf(them - own) * 0.04, 0.05, 0.45) + (BAD_EDGE_STOP if e <= BAD_EDGE and not won else 0.0)
+	# S398 the bout itself, on the world's maths (the old flat roll + a hidden +-6 edge is gone).
+	var r := WB.fast(p, opp, ROUNDS, rng)
+	var won := str(r["winner"]) == "a" or (str(r["winner"]) == "" and rng.randf() < 0.5)
+	var stop := bool(r["stopped"])
 	var line := apply_result(p, opp, boxers, won, stop)
 	p["money"] = int(p["money"]) + int(round(float(int(line["purse"]) + int(line["tickets"])) * GYM_SHARE))
 	return line
@@ -225,7 +260,7 @@ static func apply_result(p: Dictionary, opp: Dictionary, boxers: Array, won: boo
 	WA.record_bout(p, absf(gap))
 	WA.record_bout(opp, absf(gap))
 	p["rating"] = snappedf(own + grow, 0.1)
-	var line := {"opp": opp["name"], "opp_rank": o_rank, "gap": gap, "edge": edge(p, opp), "won": won, "stop": stop,
+	var line := {"opp": opp["name"], "opp_rank": o_rank, "gap": gap, "edge": 0.0, "won": won, "stop": stop,
 		"rank_before": p_rank, "rank_after": int(p["rank"]), "grow": grow, "fans": int(p["fans"]), "purse": int(pay["purse"]),
 		"tickets": int(pay["tickets"])}
 	(p["log"] as Array).append(line)

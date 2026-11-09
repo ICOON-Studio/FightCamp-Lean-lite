@@ -203,16 +203,12 @@ static func _attributes(f: Dictionary) -> PanelContainer:
 	var c: Array = panel("ATTRIBUTES")
 	var pot := float(f.get("pot", 0.0))
 	var groups: Array = AttrBoard.rows(f)
-	var cols := UI.hbox(34)
-	var a := UI.vbox(9)
-	a.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var b := UI.vbox(9)
-	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_group(a, groups[0], pot)
-	_group(a, groups[1], pot)
-	_group(b, groups[2], pot)
-	cols.add_child(a)
-	cols.add_child(b)
+	var cols := UI.hbox(16)   # S416: one column a group; 14 attributes in two columns ran past the screen
+	for g in groups:
+		var col := UI.vbox(9)
+		col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_group(col, g, pot)
+		cols.add_child(col)
 	c[1].add_child(cols)
 	if pot > 0.0:
 		c[1].add_child(UI.label("White tick = ceiling %d. Hover a bar for what it does." % int(pot), UI.TINY, SOFT))
@@ -229,12 +225,12 @@ static func _row(r: Dictionary, pot: float) -> Control:
 	var key := str(r["key"])
 	var v := float(r["value"])
 	var col: Color = BAND[str(r["band"])]
-	var h := UI.hbox(10)
+	var h := UI.hbox(5)
 	h.tooltip_text = "%s %.1f\n%s" % [r["name"], v, r["why"]]
 	h.mouse_filter = Control.MOUSE_FILTER_PASS
 	h.add_child(Icons.icon(str(AttrBoard.ICON.get(key, "info")), 20, SOFT))
 	var lab := UI.label(str(r["name"]), UI.BODY, INK, "semi")
-	lab.custom_minimum_size.x = 128
+	lab.custom_minimum_size.x = 120
 	h.add_child(lab)
 	if key == "temper":
 		var tag := PanelContainer.new()
@@ -245,18 +241,19 @@ static func _row(r: Dictionary, pot: float) -> Control:
 		h.add_child(tag)
 		return h
 	var bar := Bar.new()
+	bar.custom_minimum_size.x = 50
 	bar.frac = v / 100.0
 	bar.colour = col
 	if pot > 0.0 and not AttrBoard.PERSONALITY.has(key):
 		bar.tick = pot / 100.0
 	h.add_child(bar)
-	var n := UI.label(str(int(floorf(v))), 28, col.lightened(0.15), "bold")
-	n.custom_minimum_size.x = 42
+	var n := UI.label(str(int(floorf(v))), 24, col.lightened(0.15), "bold")
+	n.custom_minimum_size.x = 32
 	n.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	h.add_child(n)
 	var d := float(r["delta"])
 	var change := UI.label("" if absf(d) < 0.05 else ("+%.1f" % d if d > 0.0 else "%.1f" % d), UI.TINY, TONE["green"] if d > 0.0 else TONE["red"], "mono")
-	change.custom_minimum_size.x = 38
+	change.custom_minimum_size.x = 32
 	change.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	h.add_child(change)
 	return h
@@ -275,6 +272,8 @@ static func _glance(f: Dictionary) -> PanelContainer:
 	if float(g["pot"]) > 0.0:
 		var room := int(g["pot"]) - int(g["fight_avg"])
 		c[1].add_child(_note("Room", "A lot" if room >= 20 else ("Some" if room >= 8 else "Close to the ceiling"), TONE["green"]))
+	if str(g.get("wants", "")) != "":
+		c[1].add_child(_note("Wants the fight", str(g["wants"]), TONE["green"]))
 	if str(g["style"]) != "":
 		c[1].add_child(_note("Style", str(g["style"]), TONE["amber"]))
 	return c[0]

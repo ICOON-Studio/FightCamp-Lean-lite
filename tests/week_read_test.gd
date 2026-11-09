@@ -78,7 +78,7 @@ func _causes() -> void:
 			(by.get_or_add(str(s["name"]).to_lower(), []) as Array).append(Clock.DAYS[d])
 	_check(by.size() == 2, "the coach's week trains conditioning with two sessions: %s" % str(by))
 	_check(bool(rd["tick"]) and int(rd["gain"]) == 1, "a crossed point is +1, not a decimal: %s" % str(rd["text"]))
-	_check(str(rd["text"]).begins_with("+1 Conditioning: "), "the line says it: %s" % str(rd["text"]))
+	_check(str(rd["text"]).begins_with("+1 Stamina: "), "the line says it: %s" % str(rd["text"]))
 	for who in by:
 		_check(str(rd["why"]).contains("%s %s" % [who, " + ".join(by[who])]), "the cause names %s on its days: %s" % [who, str(rd["why"])])
 	var chin := _row(c, f, "chin")
