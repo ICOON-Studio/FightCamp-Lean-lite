@@ -64,3 +64,48 @@ SEEN in the app: size in metres or feet and currency at the start; "templates" o
 NOT TESTED: placing a piece. The drag and click tools here did not put a mat in the room, so its selecting, overlap and prices were not seen. From its own page, not checked: live price list, custom mat size and colour, position and rotation numbers on three axes, inspection checklists in the paid version.
 VERDICT: the weakest fit of the three. It is the heaviest to use (nested menus, separate tools for each action, keyboard camera), which is the opposite of "pretty simple". Boxing kit: Wrestling held only mats; no boxing category.
 WORTH TAKING, one idea: paint mats and the ring in the club's colours. Later maybe: equipment wear with inspections, as a new mechanic, only if the floor feels like decoration.
+
+## All eight sites, and which one is best for the game (S414)
+The owner: "compare all these designers and propose which one you think is the best for the game". The owner also leans to a 3/4 view instead of real 3D, so 3D polish counts for nothing here.
+
+| Site | Kind | Pieces | What it reads back | Tested | For the game |
+|---|---|---|---|---|---|
+| Gym Equipment Rental, gymequipmentrental.com/gym-planner | Top-down grid, half-foot snap | 12 generic, each with its footprint | Machines, space used %, a verdict ("Under-equipped") | Added pieces; dragging not tried | BEST |
+| Fix Fitness, fixfitness.com/gym-designer | Top-down grid | 16 generic with sizes | Area used % | Added pieces; dragging not tried | Close second, less read-back |
+| Life Fitness | Simple 3D | One brand family | Nothing | Placed, turned, orbited, 2D | Best way to select and turn a piece |
+| 3DGymPlanner | Rich 3D | Hundreds, 58 brands | Budget, exercises the kit allows | Placed, overlap, budget | Best extra ideas, too many buttons |
+| Blue Sky, blueskyfitsupply.com/pages/gym-layout-designer | Top-down, five steps: walls, floor, kit, customise, quote | 241 | Area per space | Drew a room, reached Equipment; no piece placed | Step order is useful, tool too big |
+| RoomToDo, roomtodo.com/planner | General home planner | Furniture catalogue | Not seen | Opened the tools; the room did not draw | Not a gym tool |
+| 3D Gym Design | Unity, gymnastics | Gymnastics first | Price list (its own claim) | Editor opened; no piece placed | Weakest of the working editors |
+| FloorPlanMaker, floorplanmaker.app/gym-layout-planner | AI: words in, top-down drawing out | None to pick: it places them | Total area | Failed twice in the built-in browser ("Couldn't verify your session"), worked first time in Chrome, under a minute. Drew the boxing gym described. One drag of a bag did nothing, so editing is unproved | Not a builder (nothing to play, and it would need an AI service at runtime), but a fast way for us to sketch layouts |
+
+Two racks added to Gym Equipment Rental landed on exactly the same spot with no warning: same gap as the others, and our GymPlan rules fill it.
+
+### Proposal: build on Gym Equipment Rental's model, in our 3/4 view
+Why it wins: it is the only one shaped like our game. A short list of generic pieces, each with a known footprint, on a snapped grid, with a live count and a verdict. We have 12 pieces on a 1 m grid, the same size of problem. It needs no 3D and very few buttons, which is what the owner asked for in S287 ("pretty simple").
+The read-back becomes the game: instead of "Space used 12%, Under-equipped", "Places 31 of 47, Room to take more members", or "Floor full: members have stopped growing".
+Borrow three things: Life Fitness's turn control (quarter turns only), 3DGymPlanner's always-visible budget, and Blue Sky's order (the room first, then the pieces), which for us means zones, then pieces.
+Add what none has: GymPlan's rules, refusing a bad gym with the reason in words. Start from a preset.
+
+FloorPlanMaker's test (24 x 18 m boxing gym): reception, office, lockers, a ring with a marked walkway, 8 bags on one wall and 4 racks all came out in sensible places. Faults: two bags sit inside the weights zone, and it reported 468 m2 for a 432 m2 room. So even a good drawing needs our rules. Use it, if at all, to rough out new preset layouts for us; check its terms before anything from it goes near the game.
+
+## The drawing, after the owner's notes (S414)
+docs/mockups/s414/builder_clean, builder_place, builder_refused, builder_turned (tools/gym_builder_still.gd).
+His notes: "need to strengthen the connection between equipment-fighter/members", "zoom it a bit", "fit to the edges or add the extra rooms", "how the screen looks without the side panels", "remove the dots ... one meter per zone", "rotate the camera a bit clockwise".
+Done in the drawing: full screen, no side panels; controls float in the corners with no floor; street, car park and locked rooms fill the edges; real people on the equipment; one meter a zone; a card for the piece in hand.
+Real numbers: places, who fits (GymPlaces.fill at 140 members), the refusal (GymPlan.problems), the prices and effects on the locked rooms (GymUpgrades).
+NOT REAL YET, and the point of his first note: GymPlaces is not called by the game. Today equipment changes nothing for a boxer or a member, apart from the Strength corner upgrade and the four presets' bonuses. "Builds Power, Technique", "Trains here this week", "no longer waits" are proposals. Proposed rule, to measure on the balance harness before building: a member with no place at the busy hour is likelier to leave; a boxer whose station is full loses part of that session; a station's kind decides what it builds.
+Upgrades drawn as rooms are also a proposal: today they are a list on the Money page.
+Camera: turned 20 degrees clockwise the gym draws 9% bigger (scale 1.438 against 1.315), but all 12 equipment pictures are painted at one angle and the 19 boxers' sprite strips are baked at it, so the art must be redone (the turned picture shows the mismatch). The same 9% is free by zooming to the width and letting the top and bottom tips run off screen, with drag to pan.
+
+## Piece prices in the drawing (S414, retail snapshots, draft: a full price list is still a research job)
+| Piece | Drawn | From |
+|---|---|---|
+| Ring | $3,500 | Everlast 18 ft floor-level ring $3,500 (everlast.com/products/floor-level-full-size-custom-boxing-ring); Continental Sports floor ring from GBP 2,547 = about $3,180 at our GBP x 1.25 (continentalsports.co.uk/floor-mounted-boxing-ring) |
+| Heavy bag | $570 | 100 lb bag $349 (fitnesssuperstore.com/French-Fitness-Heavy-Punching-Bag-100-lb-p/ff-hpb100.htm) + TKO commercial wall mount $220 (progymsupply.com/p/tko-strength-commercial-heavy-bag-wall-mount/) |
+| Weights rack | $1,050 | Body-Solid 5-50 lb hex set with rack $1,034 (fitnessfactory.com/item/body-solid-vertical-5-50-lb-hex-dumbbell-package-with-rack) |
+| Bench | $400 | TKO commercial flat bench $400 (strengthwarehouseusa.com/products/tko-strength-flat-bench-860fb) |
+| Floor mat, 3 x 2 m | $390 | About $6 a sq ft for 4 x 8 ft folding mats (Home Depot gym mat listings), 65 sq ft. Consumer grade: the weakest of the five |
+
+The camera "the other way" (20 degrees anticlockwise): scale 1.329 against 1.315, about 1% bigger, so it fits no more of the gym than the clockwise test (9%) or a zoom (9%). The art would still need redoing.
+What each piece builds is a proposal.
