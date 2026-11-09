@@ -356,7 +356,7 @@ static func _body(c: Career, f: Dictionary) -> PanelContainer:
 	kg.add_child(limit)
 	card[1].add_child(kg)
 	var over: float = float(f["weight"]) - float(f["limit"])
-	if over > 0.05:
+	if over > 0.05 and not (f.get("bout", {}) as Dictionary).is_empty():   # S416: no fight, nothing to cut for
 		card[1].add_child(_note("Over", "%.1f kg to cut" % over, TONE["red"]))
 	var v: float = FighterProfile.fatigue(f)
 	var word: Array = WB_KIT.fatigue_word(v, false)

@@ -1,3 +1,13 @@
+# S416 handover (written 2026-11-09, read first)
+HIS WORDS, live playtest of the build: "your presetnation to the player is extremely bad, noone understand your menu options and path to learning the game". FIRST JOB: the presentation pass (PRESENT1, roadmap plan.next): a blind critic who plays as a new player, every screen, every number in words without hover, every option says what it does and costs, and a clear path to learn the game. StaffCard is the pattern (S416). The coach bars' +30% still say nothing.
+ASK HIM: "every menu i open i see people": built as the People page (Reception and Club office now go elsewhere). If he meant the figures or the trainer, redo it. PR 141 GYMFIGURES1 is held for this answer (still E:/FightCamp/tmp/s416_figures/full.png looks right; its CI's grey_reason red is green on main).
+ON THE BOARD: Q-S294-159 the Ludo-painted page (docs/mockups/s416/overview_painted_ludo.png): real textures are the build if yes (wood with brass, slate, painted tabs); MENUPLAYBOOK2B and MENUFIGHT1B stay held for it.
+ANIMATION: PR 140 REARHAND5B partial (right hook 0.019 to 0.094 of a 0.12 bar; stepping take short by 0.05 reach): film both and judge, do not loosen the bars. NEXT: HEADAIM1, his "this punch does not aim for the head" (Moves preview): measure the fist against the partner's head at contact. PR 138 closes with 140.
+DECIDED: no place cap by premises. GYMKIND1 queued on Qwen (kit_gain_on stays false until he approves). KNOW1 on Goose issue 139.
+MIRO NOT REDRAWN: cards updated by where_we_are.py; 125 lines changed, send with data-deleted stripped. ZIVA still down (Godot jobs were running). Builds holds about 700 MB of old folders (Release, review, s318, s323): he asked to remove old builds; only the board's buttons were removed.
+TRAP: a `cd` outside the repo in the Bash tool moves the session folder and the next PowerShell runs from there: use absolute paths.
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor Grok 4.7 High until 12-07.
+
 # S415 very last note (read first)
 ANIMATION NEXT (REARHAND5, no seat yet): REARHAND3 and 4 prove the right hook's low hand is in every right hook we bought (highest 0.099 of body height over the hips, against 0.35 for left hooks). A swap cannot fix it. Choices: leave it (one judge's 4/10, and he has not complained), raise the wind-up in the bake with an arm correction (tools/owned_mocap_bake.gd; Qwen cannot see, so Claude judges the film, then him), or look for a rear hook outside these packs (check licence). Decide, then seat it. REARHAND4's strike_h column is void.
 COLLECT: GYMBUY1 (Qwen, running): believe it only if WHOLE is never below NEVER and the population is printed. Then decide what each kind builds and a place cap by premises.

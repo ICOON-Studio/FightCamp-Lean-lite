@@ -123,8 +123,7 @@ func _play() -> void:
 	_check(main.on_week_tab(), "the week")
 	_screen("the coach's draft week", 2)
 	var lucy := c.fighter()
-	main.act("diet", "%s|cut" % lucy["id"])   # the coach line's Do it: start the cut now
-	_check(str(lucy["diet"]) == "cut", "the player starts the cut in week 1")
+	_check(str(lucy["diet"]) != "cut", "no fight yet: nothing asks for a cut in week 1 (S416)")
 	main.on_go()
 	_check(c.guide == "go", "week 1 locked")
 	main.act("area", "home")
@@ -152,6 +151,8 @@ func _play() -> void:
 		if not opts.is_empty():
 			(opts[0] as Button).emit_signal("pressed")
 		_screen("the line written", 2)
+		var said := main.find_children("*", "Label", true, false).filter(func(l): return (l as Label).is_visible_in_tree() and (l as Label).text.contains("Write one line"))
+		_check(said.is_empty(), "the guide moves on the moment a line is written (S416)")
 	_check(not (lucy.get("arrows", []) as Array).is_empty(), "the plan has a line of the player's own")
 	main.act("area", "home")
 

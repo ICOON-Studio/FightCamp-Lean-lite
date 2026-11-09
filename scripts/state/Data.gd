@@ -51,7 +51,7 @@ static func coach(id: String) -> Dictionary:
 ## The walk-in waiting at reception on day one. Decided: an amateur on the $250 club stipend.
 static func lucy() -> Dictionary:
 	return {
-		"id": "lucy", "name": "Lucy Jackson", "first": "Lucy", "sex": "f", "age": 21, "wc": "Lightweight", "limit": 60.0, "weight": 61.4,
+		"id": "lucy", "name": "Lucy Jackson", "first": "Lucy", "sex": "f", "age": 21, "wc": "Lightweight", "limit": 60.0, "weight": 60.9,
 		"stance": "orthodox", "style": "Out-boxer", "w": 3, "l": 1, "pot": 84, "cards": [], "focus": "conditioning", "div": "wlw",
 		"diet": "hold", "fatigue": 8, "weekly_salary": 250, "booked_fight": false, "history": [],
 		"stats": {"power": 58.4, "speed": 63.2, "technique": 60.1, "defense": 57.3, "conditioning": 61.6, "fight_iq": 59.0,
@@ -125,7 +125,7 @@ const COACH_IDS: Array[String] = ["reid", "hale"]
 ## classes in force from 1 Jan 2025 (John J_MEN1: 55, 57.5*, 60, 62.5*, 65, 70, 75 ...; * = England Boxing only); the
 ## opponents are Kalli's K_MEN1 (fictional names, real club names).
 ## S373 the women's four follow the same 2025 classes (John J_MEN1: 61.2 kg is in no rulebook, 66 kg was dropped on
-## 1 Jan 2025): 57, 60, 65, 75 - valid under England Boxing and World Boxing. Lucy and Samira walk 1.4 kg over as before.
+## 1 Jan 2025): 57, 60, 65, 75 - valid under England Boxing and World Boxing. Lucy and Samira walk 0.9 kg over (S416: "why start with cut weight immediately with no fight": the cut comes with the offer, so the camp must be able to make it).
 const DIVISIONS := {
 	"wlw": {"name": "Lightweight, women's amateur", "short": "lightweight", "limit": 60.0, "sex": "f",
 		"opponents": ["Maria Ortega", "Priya Nair", "Erin Doyle"], "mismatch": "Dana Whitfield"},
@@ -207,7 +207,7 @@ const PROSPECTS: Array[Dictionary] = [
 		"stance": "orthodox", "style": "Out-boxer", "w": 1, "l": 0, "pot": 86, "note": "fast hands, thin chin",
 		"stats": {"power": 54.0, "speed": 66.5, "technique": 59.0, "defense": 57.5, "conditioning": 58.0, "fight_iq": 57.0, "chin": 52.0},
 		"personality": {"heart": 36.0, "discipline": 64.0, "confidence": 58.0, "coachability": 84.0, "loyalty": 60.0, "temper": 30.0}},
-	{"id": "samira", "name": "Samira Khan", "first": "Samira", "sex": "f", "age": 18, "wc": "Welterweight", "div": "www", "weight": 66.4,
+	{"id": "samira", "name": "Samira Khan", "first": "Samira", "sex": "f", "age": 18, "wc": "Welterweight", "div": "www", "weight": 65.9,
 		"stance": "orthodox", "style": "Slugger", "w": 2, "l": 1, "pot": 82, "note": "raw power, no defence",
 		"stats": {"power": 66.0, "speed": 57.0, "technique": 54.5, "defense": 50.5, "conditioning": 60.0, "fight_iq": 54.0, "chin": 63.0},
 		"personality": {"heart": 70.0, "discipline": 34.0, "confidence": 66.0, "coachability": 52.0, "loyalty": 82.0, "temper": 60.0}},
@@ -216,7 +216,7 @@ const PROSPECTS: Array[Dictionary] = [
 		"stats": {"power": 62.0, "speed": 55.0, "technique": 58.5, "defense": 58.0, "conditioning": 64.0, "fight_iq": 59.5, "chin": 67.0},
 		"personality": {"heart": 84.0, "discipline": 62.0, "confidence": 70.0, "coachability": 36.0, "loyalty": 66.0, "temper": 40.0}},
 	# S371 MALE1: the first two men scouting can bring in (a lightweight and a welterweight, England Boxing men's classes).
-	{"id": "danny", "name": "Danny Osei", "first": "Danny", "sex": "m", "age": 20, "wc": "Lightweight", "div": "mlw", "weight": 61.6,
+	{"id": "danny", "name": "Danny Osei", "first": "Danny", "sex": "m", "age": 20, "wc": "Lightweight", "div": "mlw", "weight": 61.1,
 		"stance": "orthodox", "style": "Boxer-puncher", "w": 2, "l": 1, "pot": 85, "note": "sharp jab, light legs",
 		"stats": {"power": 59.0, "speed": 62.0, "technique": 61.0, "defense": 56.5, "conditioning": 57.0, "fight_iq": 58.0, "chin": 62.0},
 		"personality": {"heart": 64.0, "discipline": 60.0, "confidence": 82.0, "coachability": 34.0, "loyalty": 58.0, "temper": 45.0}},

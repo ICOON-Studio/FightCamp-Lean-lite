@@ -350,7 +350,7 @@ static func end_week(career: Career) -> void:
 			var rws := WeekActual.rows(planned, start, f["stats"], float(f["weight"]), float(f.get("week_peak", 0.0)))
 			plan = {"rows": rws, "twist": str(tw.get("name", "")),
 				"reason": WeekActual.reason(f.get("week_log", []), tw, str((f.get("camp", {}) as Dictionary).get("focus", ""))),
-				"change": WeekActual.suggest(rws, WeekPlan.days_of(f), week_ctx(career, f), float(f["weight"]) > float(f["limit"]) + 0.05)}
+				"change": WeekActual.suggest(rws, WeekPlan.days_of(f), week_ctx(career, f), float(f["weight"]) > float(f["limit"]) + 0.05 and not (f.get("bout", {}) as Dictionary).is_empty())}
 		f.erase("week_planned")
 		# The next week's twist card (never the same one twice running).
 		var bt: Dictionary = f.get("bout", {})

@@ -43,7 +43,7 @@ func _initialize() -> void:
 	_check(hub != null and hub.find_child("GymLayout", true, false) == null, "the building is chosen at setup, not swapped for free on Home")
 	_figures(hub)
 	await _click(main, "fights", "fights", 0)
-	await _click(main, "office", "gym", 1)
+	await _click(main, "office", "money", 0)
 	await _click(main, "world", "world", 1)
 	await _click(main, "training", "fighters", 0)
 	print("GYM_HUB failures=%d" % failures)

@@ -2,8 +2,7 @@ extends SceneTree
 ## S397 rank 5: the first hour's calendar and cast (FirstHour, FirstWeek; ops/research/RANK5_FIRST_HOUR_S397.md section 8).
 ##   1. the show's offer comes on Monday of week 2 (day 7) for Sat 24 Jan (day 19), never re-dated; its opponent is a legal one
 ##      drawn by the career's seed (two seeds, two opponents)
-##   2. the weight is a decision: on the weeks as planned the walk-in lands over or on the line; starting the cut in week 1
-##      makes it; the old hand's edge makes it with room
+##   2. S416: no fight, no cut. Nothing cuts in week 1; the camp from the offer makes weight; the old hand's edge is no worse
 ##   3. the weeks are quiet until the first bout: no twist card, no ask
 ##   4. after the bout: the rival's line, the second walk-in on the next Monday, Ana as a teaser, then Ana after the second bout
 ##   5. the three club tasks tick from what is true (second boxer, both booked, the first boxer's next goal); the backed start's verdict; the guide's stages follow the career
@@ -73,17 +72,14 @@ func _initialize() -> void:
 
 	# 2. The weight is a decision.
 	var plain := Sim.weigh_forecast(c, c.fighter(), FirstHour.SHOW_DAY)
-	var early := _new(1, "fresh", "expro", true)
-	_to_day(early, 7)
-	Bouts.accept(early, str((early.fighter()["offers"] as Array)[0]["id"]))
-	var cut := Sim.weigh_forecast(early, early.fighter(), FirstHour.SHOW_DAY)
+	# S416 operator: "why start with cut weight immediately with no fight": nothing cuts in week 1; the camp from the offer makes weight.
 	var hand := _new(1, "fresh", "oldhand")
 	_to_day(hand, 7)
 	Bouts.accept(hand, str((hand.fighter()["offers"] as Array)[0]["id"]))
 	var old := Sim.weigh_forecast(hand, hand.fighter(), FirstHour.SHOW_DAY)
-	print("  forecast on the show's morning: as planned %.2f, cut from week 1 %.2f, old hand %.2f (limit 60.0)" % [plain["day"], cut["day"], old["day"]])
-	_check(not bool(plain["ok"]), "as planned, the walk-in misses (%.2f): a real risk" % plain["day"])
-	_check(bool(cut["ok"]) and float(cut["day"]) < float(plain["day"]) - 0.2, "starting the cut in week 1 makes weight (%.2f)" % cut["day"])
+	print("  forecast on the show's morning: camp from the offer %.2f, old hand %.2f (limit 60.0)" % [plain["day"], old["day"]])
+	_check(bool(plain["ok"]), "the camp from the offer makes weight (%.2f)" % plain["day"])
+	_check(str(c.fighter()["diet"]) != "cut", "nothing started a cut before the offer")
 	_check(bool(old["ok"]) and float(old["day"]) < float(plain["day"]), "the old hand makes it on the coach's weeks (%.2f)" % old["day"])
 
 	# 3. Quiet weeks.

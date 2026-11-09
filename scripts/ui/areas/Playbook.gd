@@ -102,9 +102,8 @@ func _plan(main: Node, f: Dictionary) -> Control:
 	var scroll := ScrollContainer.new()
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	scroll.add_child(GamePlan.make(main, f, _play))
+	scroll.add_child(GamePlan.make(main, f, func(_id): pass))   # S416 operator: "there should not be a preview on this menu"
 	h.add_child(scroll)
-	h.add_child(_player_col(f, "Hover an answer and it plays here."))
 	return h
 
 

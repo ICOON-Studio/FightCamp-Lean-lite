@@ -26,7 +26,7 @@ const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 ## of the training"): the week board (WeekBoard; S356 TrainingBoard deleted) is the page's Training tab.
 ## S387 (operator: "maybe it is good idea to put playbook in the fighter page"): the Playbook is tab 7, drawn beside Training.
 ## S396 screen cut: 5 tabs shown (TAB_ORDER); 1, 2 and 6 fold into Overview, their indices kept for old links (Routes.gd).
-const TABS := ["Overview", "Attributes and moves", "Body", "Week", "History", "Fight prep", "Contract and goals", "Playbook"]
+const TABS := ["Overview", "Attributes and moves", "Body", "Training", "History", "Fight prep", "Contract and goals", "Playbook"]
 const TAB_ORDER := [0, 3, 5, 7, 4]
 const TRAINING_TAB := 3
 const PLAYBOOK_TAB := 7

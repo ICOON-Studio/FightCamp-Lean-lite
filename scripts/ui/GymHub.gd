@@ -3,6 +3,7 @@ extends RefCounted
 ## (GymPlan, IsoGym), so a door can only be where the plan puts it. Each place carries a pin and its name; clicking it goes
 ## there; a red pin says the place needs the player.
 ##   GymHub.build(main, career) -> Control   (S413: fills the window under the top bar)
+##   S416 GymFloorPeople draws the club's boxers on the picture, above the pieces and below the pins.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
@@ -15,6 +16,8 @@ const GymBonus := preload("res://scripts/rules/GymBonus.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const HomeCorners := preload("res://scripts/ui/HomeCorners.gd")
 const GymEquip := preload("res://scripts/ui/GymEquip.gd")
+const HomeRows := preload("res://scripts/ui/HomeRows.gd")
+const GymFloorPeople := preload("res://scripts/ui/GymFloorPeople.gd")
 
 const MIN_HEIGHT := 560.0
 const ABOVE := 100.0   # the top bar and the page's top margin: the gym takes the rest of the window
@@ -60,17 +63,23 @@ static func build(main: Node, c: Career) -> Control:
 	hub.add_child(picture)
 	var pieces: Array = GymEquip.standing(hub, c)
 	hub.add_child(iso)
-	var figures: Control = HubFigures.new()
-	figures.name = "HubFigures"
-	figures.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var stems: Array = []
 	for f in c.fighters:
 		stems.append(Faces.stem(f))
+	var figures: Control = HubFigures.new()
+	figures.name = "HubFigures"
+	figures.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	figures.setup(iso, plan, GymPeople.crowd(c.members, stems), hash(str(plan["id"])))
 	figures.visible = false   # they walk the drawn floor, not the picture
 	figures.process_mode = Node.PROCESS_MODE_DISABLED
 	hub.add_child(figures)
 	hub.add_child(MenuFx.dust(30))
+	var floor: Control = GymFloorPeople.new()
+	floor.name = "GymFloorPeople"
+	floor.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	floor.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	floor.setup(c, stems)
+	hub.add_child(floor)
 	var spots: Array = []
 	if bool(main.get_meta("gym_equip", false)):
 		pieces.append_array(GymEquip.ghosts(main, hub, c))
@@ -98,6 +107,9 @@ static func _lay(hub: Control, spots: Array, pieces: Array) -> void:
 	var k: float = maxf(hub.size.x / PICTURE_SIZE.x, hub.size.y / PICTURE_SIZE.y)
 	var corner: Vector2 = (hub.size - PICTURE_SIZE * k) * 0.5
 	GymEquip.lay(pieces, corner, k)
+	var floor: Node = hub.get_node_or_null("GymFloorPeople")
+	if floor != null:
+		floor.lay(corner, k)
 	for i in spots.size():
 		var at: Vector2 = corner + (PIN_AT[str(PLACES[i][0])] as Vector2) * PICTURE_SIZE * k
 		var s: Control = spots[i]
@@ -110,8 +122,8 @@ static func _go(main: Node, c: Career, id: String) -> void:
 		"reception":
 			if not c.applicant.is_empty():
 				main.act("interview", "")
-			else:
-				main.nav({"area": "gym", "tab": 0})
+			else:   # S416 operator: "every menu i open i see people". An empty reception sends you looking for a fighter
+				main.nav({"area": "fighters", "tab": 3})
 		"training":
 			main.act("area", "fighters")
 		"playbook":
@@ -119,7 +131,7 @@ static func _go(main: Node, c: Career, id: String) -> void:
 		"fights":
 			main.act("area", "fights")
 		"office":
-			main.nav({"area": "gym", "tab": 1})
+			main.nav({"area": "money", "tab": 0})   # the books; People and Records are tabs beside them
 		"world":
 			main.nav({"area": "world", "tab": 1})
 		"equip":
@@ -128,6 +140,11 @@ static func _go(main: Node, c: Career, id: String) -> void:
 
 ## How many things at this place want the player now.
 static func needs(c: Career, id: String) -> int:
+	if id == "fights":   # S416: the count that sat on the old Fights tab
+		var n := 0
+		for f in c.fighters:
+			n += HomeRows.open_offers(f).size()
+		return n
 	return 1 if id == "reception" and not c.applicant.is_empty() else 0
 
 

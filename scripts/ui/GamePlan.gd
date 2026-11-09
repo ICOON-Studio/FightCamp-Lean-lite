@@ -29,9 +29,11 @@ const PlanFile := preload("res://scripts/rules/PlanFile.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const GamePlanRows := preload("res://scripts/ui/GamePlanRows.gd")
+const FirstWeekStrip := preload("res://scripts/ui/FirstWeekStrip.gd")
+const MoveWords := preload("res://scripts/rules/MoveWords.gd")
 
 const PLACE_W := 250.0
-const OPT := Vector2(262, 64)
+const OPT := Vector2(440, 76)   # S416: wide enough for what the choice does
 const BAR_W := 300.0
 ## The edge bar's scale (power points, PlanFight.EDGE summed over the lines) and its bands.
 const EDGE_LO := -20.0
@@ -282,6 +284,7 @@ func _line(place: String, when: String) -> Control:
 		top.add_child(UI.label(str(SM.move(mid).get("name", mid)), UI.BODY, UI.GOLD, "bold"))
 		_rating(top, o)
 		_in_bouts(top, mid)
+		v.add_child(UI.muted(str(MoveWords.WORDS.get(mid, "")), UI.SMALL))   # S416 "the player just guesses what to pick"
 	else:
 		top.add_child(UI.muted("no line - improvises here", UI.SMALL))
 	top.add_child(UI.spacer())
@@ -337,11 +340,16 @@ func _option(place: String, when: String, o: Dictionary, picked: bool) -> Contro
 	var id := str(o["id"])
 	var locked := str(o["why"]) != ""
 	var fit := str(o["fit"])
-	var small := str(o["why"]) if locked else "%s%s  ·  to %s" % [str(PlanLines.FIT_WORDS[fit]) + "  " if fit != "none" else "",
-		"%+.0f" % float(o["edge"]), SM.card(str(o["to"])).get("name", "")]
+	var does := str(MoveWords.WORDS.get(id, ""))
+	var small := ("%s
+%s" % [str(o["why"]), does]) if locked else "%s then at %s
+%s" % [
+		str(PlanLines.FIT_WORDS[fit]) + ":" if fit != "none" else "Goes", str(SM.card(str(o["to"])).get("name", "")).to_lower(), does]
 	var big_col: Color = UI.MUTED if locked else ({"best": UI.GREEN, "wrong": UI.RED}.get(fit, UI.FG) as Color)
 	var b := UI.button2(str(o["name"]), small, "ChoiceOn" if picked else "Choice", func(): _pick(place, when, id, locked),
 		OPT, big_col, UI.MUTED, false, UI.SMALL, UI.TINY)
+	if not locked and fit != "none":
+		b.tooltip_text = "%+.0f over improvising" % float(o["edge"])
 	b.name = "Opt_" + id.replace(" ", "_").replace("@", "_at_")
 	if locked:
 		b.modulate = Color(1, 1, 1, 0.55)
@@ -369,7 +377,10 @@ func _pick(place: String, when: String, id: String, locked: bool) -> void:
 func _write(next: Array) -> void:
 	arrows = next
 	if PlanBoard.validate(arrows, SM.MOVES, _limit(), FightFlow.WHEN_WORDS)["ok"]:
+		var first := (f.get("arrows", []) as Array).is_empty()
 		f["arrows"] = arrows.duplicate(true)
+		if first and main != null and (main.get("career") as Career).guide != "":
+			FirstWeekStrip.refresh(main)
 
 
 func _add_pills(have: Dictionary) -> Control:

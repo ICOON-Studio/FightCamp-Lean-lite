@@ -18,15 +18,15 @@ const AREA_SCENES := {
 	"world": preload("res://scenes/areas/World.tscn"),
 }
 
-const HomeRows := preload("res://scripts/ui/HomeRows.gd")
 const HomeNeeds := preload("res://scripts/ui/HomeNeeds.gd")
 const RAIL_W := 128.0
 const PAGE_FOOT := 48
 const GUIDE_ROOM := 230
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
-const RAIL_ICON := {"home": "star", "fighters": "bag", "fights": "champion", "gym": "money", "world": "up"}
+const RAIL_ICON := {"home": "bag", "fighters": "bag", "fights": "champion", "gym": "money", "world": "up"}
 const BADGE := "res://assets/ui/club_badge.svg"
-const RAIL := [["home", "Home"], ["fighters", "Fighters"], ["fights", "Fights"], ["gym", "Club"], ["world", "World"]]
+## S416 operator: "remove double menus". One way back to the gym, whose pins are the way to every place. Not drawn on the gym itself.
+const RAIL := [["home", "Gym"]]
 
 var _top: PanelContainer
 var _guide: Control   # S413 the old trainer: a zero-size slot, drawn over the page while the first-hour guide runs
@@ -68,7 +68,7 @@ func _ready() -> void:
 	_content.add_theme_constant_override("margin_bottom", 48)
 	_scroll.add_child(_content)
 	_gear_menu = PopupMenu.new()
-	for item in ["Mail", "Save", "Load", "Settings", "Handbook", "Quit to title"]:
+	for item in ["Save", "Load", "Settings", "Handbook", "Quit to title"]:
 		_gear_menu.add_item(item)
 	_gear_menu.id_pressed.connect(_on_gear)
 	add_child(_gear_menu)
@@ -142,6 +142,8 @@ func _build_top(main: Node) -> void:
 	# S397 rank 5 round 1 (blind: "three alarm pills for one task"): while the guide runs, its banner owns the next step.
 	if main.route["area"] != "home" and c.guide == "":
 		for f in Needs.flags(c):
+			if str(f["t"]) == "APPLICANT":   # S416 "remove double menus": NEEDS YOU beside it already says a fighter is waiting
+				continue
 			var flag := UI.button(f["t"], "FlagRed" if f["red"] else "Flag", main.act.bind(f["act"], str(f.get("arg", ""))))
 			flag.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 			h.add_child(flag)
@@ -167,7 +169,6 @@ func _build_top(main: Node) -> void:
 	go.tooltip_text += "
 Click again to pause. How fast the days run: Menu > Settings."
 	h.add_child(go)
-	_gear_menu.set_item_text(0, "Mail (%d new)" % c.unread if c.unread > 0 else "Mail")
 	var gear := UI.button("Menu", "GhostDark", _open_gear)   # S381 operator on "Gear": "???" - it is save/load/settings, not boxing gear
 	gear.name = "Gear"
 	gear.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -208,7 +209,7 @@ func _open_gear() -> void:
 
 
 func _on_gear(id: int) -> void:
-	_main.act(["mail", "save", "load", "settings", "handbook", "title"][id], "")
+	_main.act(["save", "load", "settings", "handbook", "title"][id], "")
 
 
 func _build_rail(main: Node) -> void:
@@ -216,6 +217,8 @@ func _build_rail(main: Node) -> void:
 	var area: String = main.route["area"]
 	for r in RAIL:
 		var id: String = r[0]
+		if area == id:
+			continue
 		var on: bool = area == id or (id == "gym" and area == "money")
 		var b := UI.button(r[1], "RailOn" if on else "Rail", main.act.bind("go", "gym:1") if id == "gym" else main.act.bind("area", id))
 		b.name = "Rail_" + id
@@ -227,26 +230,14 @@ func _build_rail(main: Node) -> void:
 		for state in ["icon_normal_color", "icon_hover_color", "icon_pressed_color", "icon_focus_color"]:
 			b.add_theme_color_override(state, UI.RED if on else UI.TOP_INK)
 		_rail.add_child(b)
-		if id == "fights":
-			_offer_badge(b, main.career)
-
-
-## The offers still to answer, a count on the Fights button.
-func _offer_badge(b: Button, c: Career) -> void:
-	var n := 0
-	for f in c.fighters:
-		n += HomeRows.open_offers(f).size()
-	if n == 0:
-		return
-	var pill := PanelContainer.new()
-	pill.theme_type_variation = "Badge"
-	pill.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var l := UI.label(str(n), UI.TINY, Color.WHITE, "bold")
-	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	pill.add_child(l)
-	pill.custom_minimum_size = Vector2(22, 22)
-	pill.position = Vector2(RAIL_W - 24, 2)
-	b.add_child(pill)
+	# S416 operator: "the mail is in the settings menu". Mail is part of the game, on every page.
+	var c: Career = main.career
+	var mail := UI.button("Mail (%d new)" % c.unread if c.unread > 0 else "Mail", "Rail", main.act.bind("mail", ""))
+	mail.name = "Rail_mail"
+	mail.custom_minimum_size = Vector2(RAIL_W, 48)
+	mail.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	mail.add_theme_font_size_override("font_size", 19)
+	_rail.add_child(mail)
 
 
 func _club_mark(c: Career) -> Control:

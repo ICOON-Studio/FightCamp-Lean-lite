@@ -5,6 +5,7 @@ extends SceneTree
 ## Population: a quick-start career with its first fighter signed (the film tool's start); no bout booked, so the lines rate
 ## against the "Rate against" pick (a presser first, then a range boxer).
 
+const MoveWords := preload("res://scripts/rules/MoveWords.gd")
 const SM := preload("res://scripts/rules/StrikeMap.gd")
 const PlanLines := preload("res://scripts/rules/PlanLines.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
@@ -68,11 +69,9 @@ func _initialize() -> void:
 	var back: Button = gp.find_child("Opt_step_back", true, false)
 	var walk: Button = gp.find_child("Opt_3b-3", true, false)
 	_check(back != null and walk != null, "test 3: the open line lists the answers at mid range")
-	var mp := main.find_child("MovePlayer", true, false)
+	_check(main.find_child("MovePlayer", true, false) == null, "test 3: no preview on the game plan (S416)")
 	if back != null:
-		back.mouse_entered.emit()
-		await _frames(3)
-		_check(mp != null and str(mp.get("_move_id")) == "step_back", "test 3: hovering an answer plays it")
+		_check(_text(back).contains(MoveWords.WORDS["step_back"]), "test 3: the card says what the move does (S416)")
 		_check(_text(back).contains("Beats it"), "test 3: step back beats a presser, said on the card")
 		var before_edge := float(PlanLines.strength(gp.arrows, "press", f.get("moves", {}), f.get("combos", {}))["edge"])
 		gp._pick("mid", "", "slip 2-3", false)

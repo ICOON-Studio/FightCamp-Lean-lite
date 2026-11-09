@@ -76,7 +76,10 @@ static func goal_of(c: Career, f: Dictionary) -> Dictionary:
 	var weeks := WEEKS_NO_BOUT
 	if not bout.is_empty() and not bool(bout.get("done", false)):
 		weeks = maxi(1, int(ceil((int(bout["day"]) - c.day) / 7.0)))
-	return {"limit": float(f["limit"]), "stat": stat, "target": target, "weeks": weeks, "bout": bout}
+	var goal := {"stat": stat, "target": target, "weeks": weeks, "bout": bout}
+	if not bout.is_empty() and not bool(bout.get("done", false)):   # S416: a weight line only with a fight to make weight for
+		goal["limit"] = float(f["limit"])
+	return goal
 
 
 ## The week as drawn: the twist applied, every day's numbers, the camp's goal lines.

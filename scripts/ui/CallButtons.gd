@@ -83,11 +83,11 @@ static func fix_row(fixes: Array, names: Array, chosen: String, pick: Callable, 
 		row.add_child(cb)
 	for h in fixes:
 		var paid := int(h["paid"])
-		var small := "%s made %s pay %d time%s this round" % [names[1], names[0], paid, "" if paid == 1 else "s"] if paid > 0 \
-			else "Your coach has seen it"
+		var small := "Cost %s %d time%s this round. Press to work on it next round" % [names[0], paid, "" if paid == 1 else "s"] if paid > 0 else "Your coach has seen it. Press to work on it next round"   # S416 operator: "i do not understand the fix the habit option"
 		var b := UI.button2("Fix: " + str(h["name"]), small, "Choice", pick.bind(str(h["id"])), Vector2(0, 56),
 			UI.FG, UI.AMBER if paid > 0 else UI.MUTED, false, UI.SMALL + 1, UI.TINY)
 		b.name = "Fix_" + str(h["id"])
+		b.tooltip_text = "Your one change this minute. Next round this habit stops costing %s, as far as the instruction sinks in (Coachability)." % names[0]
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.modulate = Color(1, 1, 1, 1.0 if chosen == "" or chosen == str(h["id"]) else 0.45)
 		row.add_child(b)

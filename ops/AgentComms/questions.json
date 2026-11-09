@@ -5847,10 +5847,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-145_0_1_sign_home.png"
       ],
-      "answer": null,
+      "answer": "this is outdated picture",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-09T19:34:57Z",
+      "seen_by_claude": true,
+      "comment_only": true
     },
     {
       "id": "Q-S294-148",
@@ -6034,6 +6035,63 @@
       "answered_at": "2026-11-09T17:02:55Z",
       "seen_by_claude": true,
       "comment_only": true
+    },
+    {
+      "id": "Q-S294-158",
+      "asked": "2026-11-09T18:34:21.344359+00:00",
+      "session": "S294",
+      "text": "Dark panels with the wooden frames, on the real fighter Overview (attached, already in the game, no guide on it). Move the other pages to this look?",
+      "options": [
+        "Yes, move them all",
+        "Yes, one more page first",
+        "Change something"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-158_0_overview_dark_wood.png"
+      ],
+      "answer": "i wanna see is tiwh our existing artsyle with ludos textures and everything",
+      "note": null,
+      "answered_at": "2026-11-09T19:39:16Z",
+      "seen_by_claude": true,
+      "comment_only": true
+    },
+    {
+      "id": "Q-S294-159",
+      "asked": "2026-11-09T19:49:18.827085+00:00",
+      "session": "S294",
+      "text": "The fighter page repainted by Ludo in our art style: real wood frames with brass corners, slate boards, painted tabs, the gym behind it. A few painted digits are smudged: the game keeps its real numbers. Build every page to this look?",
+      "options": [
+        "Yes, build this look",
+        "Yes, try one page in the game first",
+        "Change something"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-159_0_overview_painted_ludo.png"
+      ],
+      "answer": "Yes, build this look",
+      "note": null,
+      "answered_at": "2026-11-09T20:04:16Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-160",
+      "asked": "2026-11-09T19:49:19.013853+00:00",
+      "session": "S294",
+      "text": "Home as it is today (attached). The five tabs at the top repeat the gym's pins. Replace them with one Gym button on every page, and move around through the gym?",
+      "options": [
+        "Yes, one Gym button",
+        "Keep the tabs off Home only",
+        "Keep them"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-160_0_home_now.png"
+      ],
+      "answer": "Yes, one Gym button",
+      "note": "answered in chat, S416: \"remove double menus\"; built",
+      "answered_at": "2026-11-09T20:10:00Z",
+      "seen_by_claude": true,
+      "comment_only": false
     }
   ]
 }

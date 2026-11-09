@@ -93,7 +93,7 @@ func _refused_both() -> void:
 func _debt_start() -> void:
 	var plain := _career()
 	FirstHour.refuse(plain)
-	_check(is_equal_approx(float(plain.applicant["weight"]), 61.6), "a normal start leaves his weight alone")
+	_check(is_equal_approx(float(plain.applicant["weight"]), 61.1), "a normal start leaves his weight alone")
 	var c := _career()
 	c.start = "debt"
 	FirstHour.refuse(c)

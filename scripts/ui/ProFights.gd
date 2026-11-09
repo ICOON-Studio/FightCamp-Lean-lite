@@ -102,14 +102,14 @@ static func _table_card(main: Node, c: Career, f: Dictionary) -> Control:
 	var card := UI.card("NEXT FIGHT")
 	var v: VBoxContainer = card[1]
 	if not (f["bout"] as Dictionary).is_empty() and (f["bout"] as Dictionary).has("day"):   # S398: a dayless bout dict (main CI)
-		v.add_child(UI.label("Booked: vs %s, %s. Set the camp on Fighters, then the Week tab." % [f["bout"]["opp"]["name"], Clock.fmt(int(f["bout"]["day"]))],
+		v.add_child(UI.label("Booked: vs %s, %s. Set the camp on Fighters, then the Training tab." % [f["bout"]["opp"]["name"], Clock.fmt(int(f["bout"]["day"]))],
 			UI.BODY, UI.GOLD, "bold", true))
 		return card[0]
 	var offers := ProLadder.offer_rows(c, f)
 	if offers.is_empty():
 		v.add_child(UI.label("The promoter calls on %s with three fights." % Clock.fmt(maxi(int(f.get("pro_next", c.day)), c.day + 1)),
 			UI.BODY, UI.FG, "bold"))
-		v.add_child(UI.label("Until then: set the training on Fighters, then the Week tab. %s" % ("After a loss the next pick is a rebuild fight: a win clears it." if
+		v.add_child(UI.label("Until then: set the training on Fighters, then the Training tab. %s" % ("After a loss the next pick is a rebuild fight: a win clears it." if
 			bool(ProLadder.entry(c, f).get("rebuild", false)) else "The road is on the right."), UI.SMALL, UI.MUTED, "body", true))
 		return card[0]
 	v.add_child(_head_row())

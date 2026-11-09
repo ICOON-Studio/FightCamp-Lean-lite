@@ -28,7 +28,7 @@ func _initialize() -> void:
 	_check(HomeRows.past_record({"w": 3, "l": 1}) == "3 and 1", "the record reads in words")
 	_check(HomeRows.past_record({"w": 0, "l": 0}) == "No fights", "no bouts at all says so")
 	_check(HomeRows.past_record({"pro": true, "pro_w": 0, "pro_l": 0, "w": 9, "l": 1}) == "9 and 1 amateur", "before the debut the amateur record stands")
-	_check(Shell.RAIL.size() == 5, "five rail buttons")
+	_check(Shell.RAIL.size() == 1, "one way back to the gym (S416: no double menus)")
 	var c := Career.quick_start()
 	if c != null:
 		_check(HomeMatch.hero(c).is_empty() or HomeMatch.hero(c).has("id"), "the hero reads a new career")

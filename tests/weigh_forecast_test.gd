@@ -36,6 +36,7 @@ func _danny(c: Career) -> Dictionary:
 	var p := Roster.prospect(c, "danny")
 	p["state"] = "invited"
 	var f := Roster.sign_prospect(c, "danny", ["signature"])
+	f["weight"] = 61.6   # S416 the roster walks in 0.5 kg lighter; this test is about a boxer the offer must wait for
 	c.day = int(f["next_offer_day"])
 	Bouts.day_events(c)
 	return f

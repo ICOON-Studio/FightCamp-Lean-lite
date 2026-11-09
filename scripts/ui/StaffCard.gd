@@ -26,7 +26,7 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 
 const TABS := [["People", "gym", 1], ["Money", "money", 0], ["Records", "gym", 4]]
-const ROLE_WORD := {"assistant": "Second", "strength": "Strength", "physio": "Physio", "cutman": "Cutman"}
+const ROLE_WORD := {"assistant": "Second coach", "strength": "Strength coach", "physio": "Physio", "cutman": "Cutman"}
 const ROLE_ICON := {"assistant": "members", "strength": "weights", "physio": "Recovery", "cutman": "ice"}
 const INK := RosterCards.INK
 const SOFT := RosterCards.INK_SOFT
@@ -234,12 +234,12 @@ static func _facts(coach: Dictionary, show_sign: bool) -> Control:
 	var net := salary - classes
 	var h := UI.hbox(6)
 	h.name = "CoachTiles"
-	h.add_child(_tile("coach", "%d lines" % limit, "How many lines you can write in a plan"))
-	h.add_child(_tile("money", UI.money(salary), "Cost a week"))
-	h.add_child(_tile("members", "+%s" % UI.money(classes), "Evening classes, a week", GREEN))
-	h.add_child(_tile("runway", UI.money(-net), "Net a week, after evening classes", UI.RED if net > 0 else GREEN))
+	h.add_child(_tile("coach", "%d lines" % limit, "How many lines you can write in a plan", INK, "in a game plan"))
+	h.add_child(_tile("money", UI.money(salary), "Cost a week", INK, "wage a week"))
+	h.add_child(_tile("members", "+%s" % UI.money(classes), "Evening classes, a week", GREEN, "evening classes"))
+	h.add_child(_tile("runway", UI.money(-net), "Net a week, after evening classes", UI.RED if net > 0 else GREEN, "net a week"))
 	if show_sign:
-		h.add_child(_tile("contract", UI.money(GameMoney.COACH_SIGNING_FEE), "To sign"))
+		h.add_child(_tile("contract", UI.money(GameMoney.COACH_SIGNING_FEE), "To sign", INK, "to sign"))
 	return h
 
 
@@ -269,7 +269,7 @@ static func _role(main: Node, c: Career, r: Dictionary) -> Control:
 	var v := UI.vbox(2)
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	v.add_child(UI.label(str(ROLE_WORD.get(id, id)), 16, INK, "bold"))
-	var fig := UI.label(_figure(id), 22, GREEN if on else INK, "bold")
+	var fig := UI.label(_figure(id), 15, GREEN if on else INK, "bold", true)   # S416 operator on "-15%": "wtf they lose strengh ?"
 	fig.tooltip_text = str(r["effect"])
 	fig.mouse_filter = Control.MOUSE_FILTER_STOP
 	v.add_child(fig)
@@ -289,13 +289,13 @@ static func _role(main: Node, c: Career, r: Dictionary) -> Control:
 static func _figure(id: String) -> String:
 	match id:
 		"assistant":
-			return "+%d" % StaffRoles.places(["assistant"])
+			return "%d more boxer on the roster, 40 more members" % StaffRoles.places(["assistant"])
 		"strength":
-			return "-%d%%" % roundi((1.0 - StaffRoles.STRENGTH_RISK) * 100.0)
+			return "%d%% fewer training injuries" % roundi((1.0 - StaffRoles.STRENGTH_RISK) * 100.0)
 		"physio":
-			return "-%d%%" % roundi((1.0 - StaffRoles.PHYSIO_DAYS) * 100.0)
+			return "Injured boxers back %d%% sooner" % roundi((1.0 - StaffRoles.PHYSIO_DAYS) * 100.0)
 		"cutman":
-			return "%d%%" % roundi(StaffRoles.CUTMAN_KEEP * 100.0)
+			return "%d%% fewer layoffs from cuts, pro bouts" % roundi((1.0 - StaffRoles.CUTMAN_KEEP) * 100.0)
 	return ""
 
 
@@ -323,18 +323,18 @@ static func _members(c: Career) -> Control:
 	var h := UI.hbox(8)
 	h.name = "Members"
 	Tips.card(h, func(): return TopCards.members(c))
-	h.add_child(_tile("members", str(c.members), "On the books: %d, %s." % [c.members, drift]))
-	h.add_child(_tile("reputation", rep_word, "Reputation: %s. Grows with wins (+%d each) and a well-kept gym." % [rep, BoutRules.WIN_REPUTATION]))
-	h.add_child(_tile("money", UI.money(Membership.fee(c.dues_band)), "Dues, %s a month each (%s, set on Money)." % [UI.money(Membership.fee(c.dues_band)), band]))
+	h.add_child(_tile("members", str(c.members), "On the books: %d, %s." % [c.members, drift], INK, "members"))
+	h.add_child(_tile("reputation", rep_word, "Reputation: %s. Grows with wins (+%d each) and a well-kept gym." % [rep, BoutRules.WIN_REPUTATION], INK, "reputation"))
+	h.add_child(_tile("money", UI.money(Membership.fee(c.dues_band)), "Dues, %s a month each (%s, set on Money)." % [UI.money(Membership.fee(c.dues_band)), band], INK, "dues a month"))
 	if c.coach.is_empty():
-		h.add_child(_tile("coach", "Need", "Evening classes need a coach."))
+		h.add_child(_tile("coach", "Need", "Evening classes need a coach.", INK, "a coach for classes"))
 	return h
 
 
-static func _tile(icon: String, word: String, tip: String, ink: Color = INK) -> Control:
+static func _tile(icon: String, word: String, tip: String, ink: Color = INK, caption: String = "") -> Control:
 	var p := PanelContainer.new()
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	p.custom_minimum_size = Vector2(0, 56)
+	p.custom_minimum_size = Vector2(0, 72)
 	p.tooltip_text = tip
 	p.mouse_filter = Control.MOUSE_FILTER_STOP
 	p.add_theme_stylebox_override("panel", UI.box(RosterCards.PAPER_DEEP, Color(0, 0, 0, 0), 8, 0, 4, 4))
@@ -348,6 +348,10 @@ static func _tile(icon: String, word: String, tip: String, ink: Color = INK) -> 
 	l.clip_text = true
 	l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	v.add_child(l)
+	if caption != "":   # S416: what the number is, without hovering
+		var cap := UI.label(caption, 13, SOFT)
+		cap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		v.add_child(cap)
 	p.add_child(v)
 	return p
 

@@ -9,6 +9,7 @@ const StaffRoles := preload("res://scripts/rules/StaffRoles.gd")
 const ClubShow := preload("res://scripts/rules/ClubShow.gd")
 const GymBonus := preload("res://scripts/rules/GymBonus.gd")
 const GymSlots := preload("res://scripts/rules/GymSlots.gd")
+const GymKinds := preload("res://scripts/rules/GymKinds.gd")
 const StarDeal := preload("res://scripts/rules/StarDeal.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
@@ -28,6 +29,9 @@ const JUNIORS_COACH := 168
 const COACH_COURSE := 400
 const DAY_JOB_GAIN := 0.85
 const COURSE_WEEK := 26
+## GYMKIND1: each kind of kit builds something. Off for players (the operator has not approved the rule); the bots test
+## switches it on to measure what each kind is worth.
+static var kit_gain_on := false
 
 
 static func kit(c: Career) -> Dictionary:
@@ -83,7 +87,10 @@ static func days_out(c: Career) -> float:
 
 
 static func gain(c: Career, stat: String, f: Dictionary = {}) -> float:
-	return GymUpgrades.gain_mult(c.upgrades, stat, c.day) * (DAY_JOB_GAIN if bool(f.get("day_job", false)) else 1.0) * GymBonus.training(c.gym_plan, stat)
+	var m := GymUpgrades.gain_mult(c.upgrades, stat, c.day) * (DAY_JOB_GAIN if bool(f.get("day_job", false)) else 1.0) * GymBonus.training(c.gym_plan, stat)
+	if kit_gain_on:
+		m *= GymKinds.gain_mult(c.gym_slots, c.day, stat)
+	return m
 
 
 ## ---------- stipends (STRUCTURE_DESIGN_S395 5.3b: "most fighters cost little; a stipend is a special deal") ----------

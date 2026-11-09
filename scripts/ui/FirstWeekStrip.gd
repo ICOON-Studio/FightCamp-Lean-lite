@@ -47,6 +47,17 @@ static func make(main: Node) -> Control:
 	return light
 
 
+## S416 operator: "there is nothing after you write one line ?": a panel that changes the step without redrawing the page calls this.
+static func refresh(main: Node) -> void:
+	var old: Node = main.find_child("FirstWeekStrip", true, false)
+	if old == null:
+		return
+	var parent: Node = old.get_parent()
+	parent.remove_child(old)
+	old.queue_free()
+	parent.add_child(make(main))
+
+
 static func _portrait() -> Control:
 	var t := TextureRect.new()
 	t.name = "GuideFace"
@@ -136,11 +147,7 @@ static func why(c: Career) -> String:
 		"coach":
 			return "You cannot run every session: without an assistant the ones you miss run at 60%, and there are no evening classes."
 		"week":
-			# S397 round 2 (blind: "the weight story steers you into a loss"): the cut is decided HERE, in week 1 - by the show's
-			# offer in week 2 the camp's cut alone can no longer make it (tests/first_hour_test.gd: 60.21 vs 59.87).
-			if float(f.get("weight", 0.0)) > float(f.get("limit", 99.0)) and str(f.get("diet", "")) != "cut":
-				return "%s is %.1f kg over for the show on %s: press Do it on the Week page to start the cut this week, then lock it." % [
-					who, float(f["weight"]) - float(f["limit"]), Clock.fmt(FirstHour.SHOW_DAY)]
+			# S416 operator: no fight, no cut talk. The boxer starts nearer the limit, so a cut from the offer makes weight.
 			return "The sessions raise %s's attributes; the days wait until this week is locked." % who
 		"offer":
 			return _weight_line(c, f, FirstHour.SHOW_DAY)

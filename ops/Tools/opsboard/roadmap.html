@@ -162,10 +162,10 @@ function partsFor(sid, running, next, done){
 // S310: Play the game - the latest build, or straight to the part an update asks him to test.
 async function loadPlay(){
   const info=await get("/api/launch"), box=$("playList");
-  const rows=((info&&info.targets)||[]).filter(t=>String(t.id).startsWith("fightcamp_"));
+  const rows=((info&&info.targets)||[]).filter(t=>t.id==="fightcamp_latest");   // S416 operator: "remove old builds and only post the latest"
   if(!rows.length){ box.innerHTML=`<span class="empty">No game build found on this PC.</span>`; return; }
   box.innerHTML=rows.map(t=>`<button type="button" class="playbtn${t.id==="fightcamp_latest"?" main":""}" data-id="${esc(t.id)}" title="${esc(t.why)}"${t.ready?"":" disabled"}>${esc(t.label)}</button>`).join("")
-    +`<div class="meta">Close a running FightCamp first. The test buttons start a fresh career on their own save slot; your saved career is never touched.</div>`;
+    +`<div class="meta">Close a running FightCamp first.</div>`;
   box.querySelectorAll(".playbtn").forEach(b=>b.onclick=async()=>{
     b.disabled=true; $("playState").textContent="Starting "+b.textContent+"…";
     let out=null; try{ const r=await fetch("/api/launch",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({target:b.dataset.id})}); out=await r.json(); }catch(e){ out={ok:false,error:String(e)}; }

@@ -54,7 +54,7 @@ static func _weight(c: Career, f: Dictionary) -> Dictionary:
 		return _row("weight", "Weight", "%.1f kg over on the day" % float(wf["over"]), "bad", "ftab", BODY_TAB)
 	if over <= 0.0:
 		return _row("weight", "Weight", "on the limit", "ok", "ftab", BODY_TAB)
-	return _row("weight", "Weight", "%.1f kg over, no bout yet" % over, "warn", "ftab", BODY_TAB)
+	return _row("weight", "Weight", "%.1f kg over, no bout yet" % over, "ok", "ftab", BODY_TAB)
 
 
 static func _mood(f: Dictionary) -> Dictionary:

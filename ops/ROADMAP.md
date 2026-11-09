@@ -8,9 +8,9 @@ Updated 2026-11-09 by claude S294.
 
 ## Now
 
-**S415 — ?** *(claude)*
+**S416 — ?** *(claude)*
 
-S415: the gym you buy up, on his newest picture: start small, 55 pieces, Equip mode, floor limits members, cage under repair, entrance clear. REARHAND4 merged: no owned right hook keeps the hand up. GYMBUY1 (Qwen) and FIGHTERMODEL4I (Cursor) running.
+S416: fighter model merged (4F, 4H, 4I); dark panels in wooden frames on the fighter page; his playtest notes fixed: no cut without a fight, one Gym button, pins go to their own places, Mail in the top bar, Training tab, game plan choices say what they do, People page in words, Fights has buttons. Exported.
 
 ## Next
 
@@ -300,3 +300,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S413**  |  |  | *none yet* |  |
 |  |  | **S414**  |  |  | *none yet* |  |
 |  |  | **S415**  |  |  | *none yet* |  |
+|  |  | **S416**  |  |  | *none yet* |  |

@@ -15,7 +15,7 @@ func _initialize() -> void:
 	var r := _by_key(CoachCheck.rows(c, f))
 	_check(r.size() == 8, "eight checks")
 	_check(_state(r, "fit") == "ok", "a fresh fighter is fit")
-	_check(_state(r, "weight") == "warn", "over the limit with no bout: a warning, %s" % r["weight"]["word"])
+	_check(_state(r, "weight") == "ok", "over the limit with no bout: nothing to cut for yet (S416), %s" % r["weight"]["word"])
 	_check(_state(r, "fight") == "warn" and str(r["fight"]["arg"]) == "fights:0", "no bout points at the offers")
 	_check(_state(r, "camp") == "off" and _state(r, "file") == "off" and _state(r, "plan") == "off", "camp, file and plan are not due yet")
 	var s := CoachCheck.score(CoachCheck.rows(c, f))

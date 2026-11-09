@@ -102,6 +102,11 @@ func _standing(main: Node, c: Career, f: Dictionary) -> Control:
 		v.add_child(UI.label("Free to fight", UI.BODY, UI.GREEN, "bold"))
 	else:
 		v.add_child(UI.label("Booked: vs %s, %s" % [fb["opp"]["name"], Clock.fmt(int(fb["day"]))], UI.BODY, UI.GOLD, "bold"))
+		var acts := UI.hbox(8)   # S416 operator on this page: "there is nothing to do in this menu wtf?"
+		var fid := str(f["id"])
+		acts.add_child(UI.button("Fight prep", "BtnSolid", func(): main.nav({"area": "fighters", "tab": 0, "fighter": fid, "ftab": 5})))
+		acts.add_child(UI.button("Game plan", "Btn", func(): main.nav({"area": "fighters", "tab": 0, "fighter": fid, "ftab": FighterPage.PLAYBOOK_TAB, "ptab": 1})))
+		v.add_child(acts)
 	var road: Dictionary = NextStep.road(FighterPage._road_input(c, f), c.day)
 	if int(road["lit"]) >= 0:
 		v.add_child(UI.caps("NEXT ON THE ROAD"))

@@ -21,10 +21,7 @@ static func line(c: Career) -> String:
 		"coach":
 			return "You can't hold every pad. Get yourself an assistant."
 		"week":
-			var over := float(f.get("weight", 0.0)) - float(f.get("limit", 99.0))
-			if over > 0.0 and str(f.get("diet", "")) != "cut":
-				return "%s is %.1f kilos over. Start the cut this week." % [who, over]
-			return "Plan the week, then lock it in."
+			return "Plan the week, then lock it in."   # S416 operator: "why start with cut weight immediately with no fight": no bout, no cut talk
 		"go":
 			return "Week's set. Press Continue and we go to work."
 		"offer":

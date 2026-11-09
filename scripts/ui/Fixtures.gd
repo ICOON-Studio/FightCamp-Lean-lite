@@ -50,6 +50,8 @@ static func card(c: Career) -> Array:
 	card[0].name = "Fixtures"
 	var rows: Array = []
 	for e in events(c):
+		if not bool(e["ours"]):   # S416 "there is nothing to do in this menu": other clubs' shows are nothing you can act on
+			continue
 		rows.append(UI.kv(Clock.fmt(int(e["d"])), e["t"], UI.GOLD if bool(e["ours"]) else UI.FG))
 	UI.add_rows(card[1], rows)
 	return card

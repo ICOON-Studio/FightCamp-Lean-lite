@@ -29,12 +29,6 @@ static func add(hub: Control, main: Node, c: Career) -> void:
 	hub.add_child(shelf)
 	var job := _job(main, c)
 	shelf.add_child(job)
-	var news: Array = HomeSide.since_lines(c)
-	var mail := UI.button("Mail (%d new)" % c.unread if c.unread > 0 else "Mail", "Btn", main.act.bind("mail", ""))
-	mail.name = "AllNews"
-	mail.custom_minimum_size = Vector2(0, HEIGHT)
-	mail.tooltip_text = str(news[0]["t"]) if not news.is_empty() else ""
-	shelf.add_child(mail)
 	var more := UI.button("More below", "Btn", func(): _scroll_down(hub))
 	more.name = "HomeMore"
 	more.custom_minimum_size = Vector2(0, HEIGHT)
