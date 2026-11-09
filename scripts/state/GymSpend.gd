@@ -7,6 +7,7 @@ extends RefCounted
 const GymUpgrades := preload("res://scripts/rules/GymUpgrades.gd")
 const StaffRoles := preload("res://scripts/rules/StaffRoles.gd")
 const ClubShow := preload("res://scripts/rules/ClubShow.gd")
+const GymBonus := preload("res://scripts/rules/GymBonus.gd")
 const StarDeal := preload("res://scripts/rules/StarDeal.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
@@ -77,11 +78,11 @@ static func train_risk(c: Career) -> float:
 
 
 static func days_out(c: Career) -> float:
-	return StaffRoles.PHYSIO_DAYS if c.staff_roles.has("physio") else 1.0
+	return (StaffRoles.PHYSIO_DAYS if c.staff_roles.has("physio") else 1.0) * GymBonus.days_out(c.gym_plan)
 
 
 static func gain(c: Career, stat: String, f: Dictionary = {}) -> float:
-	return GymUpgrades.gain_mult(c.upgrades, stat, c.day) * (DAY_JOB_GAIN if bool(f.get("day_job", false)) else 1.0)
+	return GymUpgrades.gain_mult(c.upgrades, stat, c.day) * (DAY_JOB_GAIN if bool(f.get("day_job", false)) else 1.0) * GymBonus.training(c.gym_plan, stat)
 
 
 ## ---------- stipends (STRUCTURE_DESIGN_S395 5.3b: "most fighters cost little; a stipend is a special deal") ----------
@@ -220,7 +221,7 @@ static func home_boxers(c: Career) -> int:
 
 
 static func show_preview(c: Career) -> Dictionary:
-	return ClubShow.preview(c.members, c.reputation, JUNIORS if youth_on(c) else 0, home_boxers(c))
+	return ClubShow.preview(c.members, c.reputation, JUNIORS if youth_on(c) else 0, home_boxers(c), GymBonus.show(c.gym_plan))
 
 
 static func book_show(c: Career) -> String:
@@ -241,7 +242,7 @@ static func day_events(c: Career) -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = c.seed * 31 + c.day
 	var n := ClubShow.night(c.members, c.reputation, JUNIORS if youth_on(c) else 0, home_boxers(c),
-		rng.randf_range(ClubShow.LUCK.x, ClubShow.LUCK.y), rng.randi_range(ClubShow.RAFFLE.x, ClubShow.RAFFLE.y))
+		rng.randf_range(ClubShow.LUCK.x, ClubShow.LUCK.y) * GymBonus.show(c.gym_plan), rng.randi_range(ClubShow.RAFFLE.x, ClubShow.RAFFLE.y))
 	c.pay(int(n["tickets"]) + int(n["raffle"]), "Club show: %d tickets and the raffle" % int(n["sold"]))
 	c.members += int(n["members"])
 	c.show = {"day": -1, "last": c.day, "night": n}

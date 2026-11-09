@@ -1,3 +1,22 @@
+# S409 handover (written 2026-11-09, S409 main session)
+
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S410` and redraw the map (send only the changed cards; strip data-deleted lines; he has not approved deleting map cards).
+STANDING ORDER: animation progresses every session; name the item and seat in the first message.
+FULL TESTS at 05:00: 11-10 is the first real run. Read ops/AgentComms/nightly/latest.txt and reviews.md first, against main's CI.
+
+BUILT S409, on main at 303c0c24:
+PEOPLE IN THE GYM: tools/bake_hub_sprites.gd bakes 19 boxers, 7 strips each (idle, jab, jab_back, idle_back, stand, walk, walk_back; 96x128, 16 frames, orthographic, one whole stride), assets/ui/art/hub_sprites, 12 MB. scripts/rules/GymPeople.gd (spots, route, crowd: 2 + members/5, cap 12, the club's fighters first), scripts/ui/HubFigures.gd draws them over IsoGym. tests/gym_people_test.gd, gym_hub_test. Film E:/FightCamp/tmp/s409_hub/gym_figures.mp4 checked by eye. Figures draw over everything, so a figure can overlap a tall item behind it; spots are on the viewer's side to avoid that. Not scored by a critic.
+THE BUILDING: Career.gym_plan, chosen on the Your club page (four cards drawn by IsoGym), scripts/rules/GymBonus.gd: draws 5% more members (target, not speed: the step is rounded up, so "faster" did nothing measurable), shows earn 5% more, power and technique +3%, days out -10%. tests/gym_bonus_test.gd. The Layout button on Home is gone. Quick start = the first building. The "N new members joined" line no longer lights Mail (it pushed golden_path's Mail bar to 42 of 40: real routine lines, so they stopped counting, bar untouched). Balance not run: numbers are small, the harness has no hook for them yet.
+move_tip: Engine.max_fps = 30. It was red on CI with 22 or 26 of 30 frames framed (bar 27) and green here; a real-time clip read on a slower runner. Check main's next CI to confirm.
+
+THE LOOK, WAITING ON HIM: Q-S294-134 with docs/mockups/s409/concepts/look_choice.png. Fighters as full-body cards, a versus screen. Left is buildable now from real renders (tools/bake_full_body.gd, output E:/FightCamp/tmp/s409_look/fullbody, not in the repo yet: bake into assets once he picks). Right is the Ludo paintover. Mock numbers, not scored by a critic: score presentation first with hard fails (feedback_critics_blind_to_presentation_s408). After his answer: build Fighters, then versus, then re-brief the held Cursor rows (MENUHOME2, MENUWEEK2, MENUPLAYBOOK2B, MENUFIGHT1B) from it.
+
+COLLECT: FIGHTERMODEL4D (Cursor, base cursor/fightermodel4c): 4C still hit the 18-minute CI limit (two_boxers 313 s v main's 113, golden_path 72 v 33, plan_bots 2 red), PR 113 stays open until 4D lands. Merge only if the tests job finishes inside its limit. HITREACT2 (Qwen, animation item): HITREACT1 (docs/HITREACT1_RESULT.md, PR 115 collected) read about half the head travel of the source on most clips, but its source column is the whole take and the game's clips may be trimmed, so the loss is NOT proved. Round 2 uses the same window, a body-height check, then finds the stage that loses it.
+TRAPS: where_we_are.py can fail writing roadmap.json (OSError 22, something else had it open): check the card landed. `ask --attach` needs an absolute path. NOW already lists running seats: do not add a card for them. Sim.gd is at 500 lines exactly.
+E: 42 GB free (over the 85% rule); the 29 held agent worktrees are first to go.
+WAITING ON HIM: Q-S294-134 | keep or cut Test day and dues bands | "yes, ARCHIVED" | play the S409 build.
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor Grok 4.7 High until 12-07.
+
 # S408 handover (written 2026-11-09, S408 main session)
 
 OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S409` and redraw the map (send only the changed cards; strip data-deleted lines; he has not approved deleting map cards).

@@ -294,7 +294,7 @@ static func end_week(career: Career) -> void:
 			career.add_news("%s has trained out a habit (%s)." % [f["first"], str(hf["id"]).replace("_", " ")])
 		for perk in PerkRoad.newly_open(f, career.day):
 			career.add_news("%s opens a perk on the road: %s." % [f["first"], perk])
-	var roll: Dictionary = Membership.settle_week(career.members, career.reputation, GymSpend.member_cap(career), career.dues_band)
+	var roll: Dictionary = Membership.settle_week(career.members, career.reputation, GymSpend.member_cap(career), career.dues_band, GymSpend.GymBonus.members(career.gym_plan))
 	career.members = int(roll["members"])
 	var income: Dictionary = _with_bjj(career, GameMoney.weekly_income(int(roll["dues"]), not career.coach.is_empty(), sponsors(career)))
 	var costs: Dictionary = weekly_costs(career)
@@ -314,7 +314,7 @@ static func end_week(career: Career) -> void:
 		(career.week_money.get_or_add("items", []) as Array).append("Month-end bill: wages and upkeep")
 		career.add_news("Month-end bill paid: %s for wages and upkeep." % GameMoney.text(int(money["billed"])))
 	if int(roll["delta"]) > 0:
-		career.add_news("%d new member%s joined this week. %d on the books." % [int(roll["delta"]), "" if int(roll["delta"]) == 1 else "s", career.members])
+		career.add_news("%d new member%s joined this week. %d on the books." % [int(roll["delta"]), "" if int(roll["delta"]) == 1 else "s", career.members], false, true)
 	# S399 the arranged overdraft: interest on the drawn balance, the income trail for the limit, the 12-week pull.
 	if career.overdraft_on and career.cash < 0:
 		var _oi := Overdraft.weekly_interest(career.cash)

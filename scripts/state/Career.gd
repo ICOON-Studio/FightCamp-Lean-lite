@@ -13,6 +13,7 @@ const ClubStart := preload("res://scripts/rules/ClubStart.gd")
 const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
 
 @export var gym_name: String = "Anvil Street Gym"
+@export var gym_plan: String = ""   # S409 the building (gym_plans.json id), chosen once at setup; "" = the first
 @export var city: String = "London"
 @export var day: int = 0
 @export var cash: int = 25000   # a new career starts with start_cash() (S324); 25000 is only an old save's default
@@ -110,7 +111,9 @@ static func quick_start(name: String = "Anvil Street Gym", town: String = "Londo
 
 ## S397 rank 5: a new career from the create screen's picks (Main.create: name, coach, start); {} = Quick start's defaults.
 static func from_create(create: Dictionary, name: String, town: String) -> Career:
-	return quick_start(name, town, str(create.get("start", "fresh")), HeadCoach.make(str(create.get("name", "")), str(create.get("coach", ""))))
+	var c: Career = quick_start(name, town, str(create.get("start", "fresh")), HeadCoach.make(str(create.get("name", "")), str(create.get("coach", ""))))
+	c.gym_plan = str(create.get("gym_plan", ""))
+	return c
 
 
 ## Start cash: GymBills.START_MONTHS months of a first-year gym's costs - rent and fees, the first sessional coach and

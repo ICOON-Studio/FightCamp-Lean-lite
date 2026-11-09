@@ -1,3 +1,14 @@
+FIGHTCAMP - BUILD OF 2026-11-09 (S409): PEOPLE IN YOUR GYM, AND YOU PICK THE BUILDING
+================================================================================
+
+ NEW.
+  a. Your boxers are in the gym on Home: working the bags, the weights and the mats, and walking the floor. More members, more people.
+  b. A new career asks which building you want, on the Your club page. Each gives one small edge for the whole career: more members, better shows, better power and technique training, or faster recovery. The bonus really runs.
+  c. The Layout button on Home is gone: you choose once, at the start.
+  d. The weekly 'new members joined' line no longer lights the Mail badge.
+ TRY: start a new career and pick a building. Do the people in the gym look right? Too many, too few, too small?
+ Still to come: the game look on the other pages (your call is on the board), building your own gym.
+
 FIGHTCAMP - BUILD OF 2026-11-09 (S408, late): IT STARTS TO LOOK LIKE A GAME
 ================================================================================
 

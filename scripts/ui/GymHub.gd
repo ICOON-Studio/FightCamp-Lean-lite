@@ -7,9 +7,12 @@ extends RefCounted
 const UI := preload("res://scripts/ui/UI.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
-const Settings := preload("res://scripts/state/Settings.gd")
 const GymPlan := preload("res://scripts/rules/GymPlan.gd")
 const IsoGym := preload("res://scripts/ui/IsoGym.gd")
+const HubFigures := preload("res://scripts/ui/HubFigures.gd")
+const GymPeople := preload("res://scripts/rules/GymPeople.gd")
+const GymBonus := preload("res://scripts/rules/GymBonus.gd")
+const Faces := preload("res://scripts/rules/Faces.gd")
 
 const HEIGHT := 700.0
 const PIN := 56.0
@@ -28,32 +31,26 @@ static func build(main: Node, c: Career) -> Control:
 	hub.custom_minimum_size = Vector2(0, HEIGHT)
 	hub.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hub.clip_contents = true
-	var plans: Array = GymPlan.load_all()
-	var which := posmod(int(Settings.read()["gym_layout"]), plans.size())
-	var plan: Dictionary = plans[which]
+	var plan: Dictionary = GymBonus.plan(c.gym_plan)
 	var iso: Control = IsoGym.new()
 	iso.name = "IsoGym"
 	iso.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	iso.plan = plan
 	hub.add_child(iso)
+	var figures: Control = HubFigures.new()
+	figures.name = "HubFigures"
+	figures.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var stems: Array = []
+	for f in c.fighters:
+		stems.append(Faces.stem(f))
+	figures.setup(iso, plan, GymPeople.crowd(c.members, stems), hash(str(plan["id"])))
+	hub.add_child(figures)
 	hub.add_child(MenuFx.dust(30))
 	var spots: Array = []
 	for p in PLACES:
 		var s := _spot(main, c, p, iso, _zone(plan, str(p[3])))
 		hub.add_child(s)
 		spots.append(s)
-	var pick := UI.button("%s  (%d of %d)" % [plan["name"], which + 1, plans.size()], "Btn", func():
-		var d := Settings.read()
-		d["gym_layout"] = (which + 1) % plans.size()
-		Settings.write(d)
-		main.render())
-	pick.name = "GymLayout"
-	pick.tooltip_text = "Choose how your club is laid out"
-	pick.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
-	pick.grow_horizontal = Control.GROW_DIRECTION_BEGIN
-	pick.offset_top = 14
-	pick.offset_right = -14
-	hub.add_child(pick)
 	hub.resized.connect(func(): _lay(iso, plan, spots))
 	MenuFx.arrive(spots, 0.1, 0.05)
 	return hub

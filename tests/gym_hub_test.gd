@@ -2,6 +2,7 @@ extends SceneTree
 ## S408 the gym is the menu: Home shows the painted club, every place is there and each click goes where its name says.
 
 const MAIN := preload("res://scenes/Main.tscn")
+const GymPlan := preload("res://scripts/rules/GymPlan.gd")
 
 var failures := 0
 
@@ -24,13 +25,32 @@ func _initialize() -> void:
 			_check(s != null, "the gym has " + id)
 			if s != null:
 				_check(s.position.x >= 0.0 and s.position.x + s.size.x <= hub.size.x + 1.0 and s.size.y > 40.0, "%s is on the painting (%s, %s)" % [id, s.position, s.size])
-	_check(hub != null and hub.find_child("GymLayout", true, false) != null, "the player can change the layout")
+	_check(hub != null and hub.find_child("GymLayout", true, false) == null, "the building is chosen at setup, not swapped for free on Home")
+	_figures(hub)
 	await _click(main, "fights", "fights", 0)
 	await _click(main, "office", "gym", 1)
 	await _click(main, "world", "world", 1)
 	await _click(main, "training", "fighters", 0)
 	print("GYM_HUB failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
+
+
+## People stand in the gym, and in a minute of walking about they keep to the floor.
+func _figures(hub: Control) -> void:
+	var f := hub.find_child("HubFigures", true, false)
+	_check(f != null and f.people.size() >= 2, "there are people in the gym (%d)" % (f.people.size() if f != null else 0))
+	if f == null:
+		return
+	var plan: Dictionary = f._plan
+	var blocked: Dictionary = GymPlan.taken(plan)
+	var walked := 0
+	for _i in 1800:
+		f.step(1.0 / 30.0)
+		for p in f.people:
+			walked += 1 if bool(p["walking"]) else 0
+			var t: Vector2 = p["tile"]
+			_check(not blocked.has(Vector2i(int(round(t.x)), int(round(t.y)))), "nobody walks through equipment (%s)" % t)
+	_check(walked > 0, "people walk about")
 
 
 func _click(main: Node, id: String, area: String, tab: int) -> void:

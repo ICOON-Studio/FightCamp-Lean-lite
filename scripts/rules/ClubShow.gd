@@ -32,9 +32,9 @@ static func sold(members: int, reputation: int, juniors: int, home_boxers: int, 
 
 
 ## What the player sees before booking: tickets and the night's net at bad and good luck, with an average raffle.
-static func preview(members: int, reputation: int, juniors: int, home_boxers: int) -> Dictionary:
-	var lo := sold(members, reputation, juniors, home_boxers, LUCK.x)
-	var hi := sold(members, reputation, juniors, home_boxers, LUCK.y)
+static func preview(members: int, reputation: int, juniors: int, home_boxers: int, draw_mult: float = 1.0) -> Dictionary:
+	var lo := sold(members, reputation, juniors, home_boxers, LUCK.x * draw_mult)
+	var hi := sold(members, reputation, juniors, home_boxers, LUCK.y * draw_mult)
 	var raffle := (RAFFLE.x + RAFFLE.y) / 2
 	return {"lo": lo, "hi": hi, "net_lo": lo * TICKET + RAFFLE.x - COST, "net_hi": hi * TICKET + RAFFLE.y - COST,
 		"net_mid": roundi((lo + hi) / 2.0) * TICKET + raffle - COST}

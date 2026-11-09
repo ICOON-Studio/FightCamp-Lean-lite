@@ -17,6 +17,7 @@ var main: Node
 
 
 func _initialize() -> void:
+	Engine.max_fps = 30   # a playing clip runs on real time: a slow runner must see the same frames (S408 trap)
 	root.size = Vector2i(1920, 1080)
 	main = load("res://scenes/Main.tscn").instantiate()
 	root.add_child(main)

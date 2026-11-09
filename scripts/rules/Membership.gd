@@ -68,8 +68,9 @@ static func weekly_dues(members: int, band: String = "standard") -> int:
 
 ## The weekly pass: walk the count one step, then bill that count. The caller credits the cash. S397 money bites: the
 ## premises cap what the gym can hold (GymSpend.member_cap; a full gym needs a bigger place).
-static func settle_week(members: int, reputation: int, cap: int = MAX_MEMBERS, band: String = "standard") -> Dictionary:
-	var natural := natural_members(reputation, band)
+## `draw_mult`: the building's pull on members (GymBonus.members).
+static func settle_week(members: int, reputation: int, cap: int = MAX_MEMBERS, band: String = "standard", draw_mult: float = 1.0) -> Dictionary:
+	var natural := roundi(natural_members(reputation, band) * draw_mult)
 	var target := mini(natural, cap)
 	var after := step_members(members, target)
 	return {

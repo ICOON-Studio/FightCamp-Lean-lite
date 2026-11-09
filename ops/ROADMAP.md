@@ -8,9 +8,9 @@ Updated 2026-11-09 by claude S294.
 
 ## Now
 
-**S408 — ?** *(claude)*
+**S409 — ?** *(claude)*
 
-S408: menus remade as a game after the operator's playtest: painted title and signing, MenuFx, Ludo textures on all menus, icon HUD with no side rail, the gym drawn from data (GymPlan, four presets, IsoGym). Critics had scored the first look 5-7 while he gave 1/10: critics must judge presentation first.
+S409: our real boxers now work and walk on the gym floor (19 bodies, 7 strips each, GymPeople + HubFigures). The building is chosen once at setup and its bonus runs in the rules. Game-look concepts for Fighters and Fights are on the board. FIGHTERMODEL4C sent back (still too slow for CI): 4D running. Hit reactions measured: round 2 running.
 
 ## Next
 
@@ -293,3 +293,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S406**  |  |  | *none yet* |  |
 |  |  | **S407**  |  |  | *none yet* |  |
 |  |  | **S408**  |  |  | *none yet* |  |
+|  |  | **S409**  |  |  | *none yet* |  |

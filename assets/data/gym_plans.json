@@ -1,6 +1,6 @@
 {
  "plans": [
-  {"id": "front_of_house", "name": "Front of house", "bonus": {"kind": "members", "pct": 5, "words": "New members join about 5% faster"},
+  {"id": "front_of_house", "name": "Front of house", "bonus": {"kind": "members", "pct": 5, "words": "Draws about 5% more members"},
    "w": 24, "h": 18, "board": [20, 0], "door": [3, 17],
    "zones": [
     {"id": "reception", "kind": "reception", "x": 0, "y": 12, "w": 8, "h": 6},

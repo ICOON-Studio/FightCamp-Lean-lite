@@ -130,6 +130,16 @@ static func _items(plan: Dictionary, out: Array) -> Dictionary:
 	return taken
 
 
+## Tile -> item kind, for anything that walks the floor (GymPeople).
+static func taken(plan: Dictionary) -> Dictionary:
+	return _items(plan, [])
+
+
+## May a person step from tile a to the next tile b? Inside the building, nothing standing there, walls only at a door.
+static func can_walk(plan: Dictionary, blocked: Dictionary, a: Vector2i, b: Vector2i) -> bool:
+	return _inside(plan, b.x, b.y) and not blocked.has(b) and _can_step(plan, a, b)
+
+
 ## A ring needs a clear walkway all round, inside the building.
 static func _clearance(plan: Dictionary, taken: Dictionary, out: Array) -> void:
 	for it in expand(plan):

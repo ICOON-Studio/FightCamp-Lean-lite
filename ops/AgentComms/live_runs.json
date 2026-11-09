@@ -1828,55 +1828,6 @@
     "board": ""
    }
   },
-  "BOXERLEAN1": {
-   "agent": "qwen",
-   "id": "BOXERLEAN1",
-   "title": "TASK BOXERLEAN1 - QWEN (qwen3-coder) - does the guard lean as far forward as the capture does?",
-   "status": "collected",
-   "started": "2026-11-09T07:18",
-   "eta": "2026-11-09T09:08",
-   "branch": "qwen/boxerlean1",
-   "worktree": "E:/FightCamp/wt/LEAN_BOXERLEAN1",
-   "wt": "E:/FightCamp/wt/LEAN_BOXERLEAN1",
-   "brief": "ops/research/TASK_BOXERLEAN1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/BOXERLEAN1_dispatch_out.txt",
-   "match": "seat_dispatch.py run boxerlean1",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/BOXERLEAN1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/BOXERLEAN1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/BOXERLEAN1_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 42344,
-    "seat_pid": 44804
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #112",
-   "finished": "2026-11-09T07:38",
-   "pr": 112,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/guard_knee_test.gd",
-     "ok": true,
-     "last": "GUARD_KNEE failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/guard_knee_test.gd",
-     "ok": true,
-     "last": "GUARD_KNEE failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   },
-   "reconciled": "2026-11-09 09:41 board_reconcile: branch qwen/boxerlean1 commits are on master"
-  },
   "HUBSPRITES1": {
    "agent": "qwen",
    "id": "HUBSPRITES1",
@@ -1924,6 +1875,108 @@
     "after": {},
     "board": ""
    }
+  },
+  "HITREACT1": {
+   "agent": "qwen",
+   "id": "HITREACT1",
+   "title": "TASK HITREACT1 - QWEN (qwen3-coder) - do the hit reactions move as much as the capture does?",
+   "status": "landed",
+   "started": "2026-11-09T09:51",
+   "eta": "2026-11-09T11:41",
+   "branch": "qwen/hitreact1",
+   "worktree": "E:/FightCamp/wt/LEAN_HITREACT1",
+   "wt": "E:/FightCamp/wt/LEAN_HITREACT1",
+   "brief": "ops/research/TASK_HITREACT1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HITREACT1_dispatch_out.txt",
+   "match": "seat_dispatch.py run hitreact1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HITREACT1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HITREACT1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HITREACT1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 9472,
+    "seat_pid": 2476
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #115; NOT committed (outside OWNS): nul",
+   "finished": "2026-11-09T10:12",
+   "pr": 115,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "FIGHTERMODEL4D": {
+   "agent": "cursor",
+   "id": "FIGHTERMODEL4D",
+   "title": "TASK FIGHTERMODEL4D - CURSOR (Grok 4.7 High) - the fighter model fits inside the test limit",
+   "status": "running",
+   "started": "2026-11-09T09:52",
+   "eta": "2026-11-09T11:42",
+   "branch": "cursor/fightermodel4d",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4D",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4D",
+   "brief": "ops/research/TASK_FIGHTERMODEL4D.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHTERMODEL4D_dispatch_out.txt",
+   "match": "seat_dispatch.py run fightermodel4d",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHTERMODEL4D_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHTERMODEL4D_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHTERMODEL4D_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 2400,
+    "seat_pid": 36504
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+  },
+  "HITREACT2": {
+   "agent": "qwen",
+   "id": "HITREACT2",
+   "title": "TASK HITREACT2 - QWEN (qwen3-coder) - where does a hit reaction lose its movement?",
+   "status": "running",
+   "started": "2026-11-09T10:20",
+   "eta": "2026-11-09T12:10",
+   "branch": "qwen/hitreact2",
+   "worktree": "E:/FightCamp/wt/LEAN_HITREACT2",
+   "wt": "E:/FightCamp/wt/LEAN_HITREACT2",
+   "brief": "ops/research/TASK_HITREACT2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HITREACT2_dispatch_out.txt",
+   "match": "seat_dispatch.py run hitreact2",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HITREACT2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HITREACT2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HITREACT2_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 24336,
+    "seat_pid": 43040
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }
  },
  "codex_budget": {

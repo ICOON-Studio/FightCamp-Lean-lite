@@ -9,6 +9,7 @@ extends RefCounted
 const Sim := preload("res://scripts/state/Sim.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
+const GymBonus := preload("res://scripts/rules/GymBonus.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
@@ -39,7 +40,7 @@ static func _project(c: Career, weeks: int) -> Array:
 		var cash_before := copy.cash
 		var accrued_before := copy.accrued
 		copy.day = _week_end(c.day, i + 1)
-		var roll: Dictionary = Membership.settle_week(copy.members, copy.reputation, GymSpend.member_cap(copy), copy.dues_band)
+		var roll: Dictionary = Membership.settle_week(copy.members, copy.reputation, GymSpend.member_cap(copy), copy.dues_band, GymBonus.members(copy.gym_plan))
 		copy.members = int(roll["members"])
 		var income: Dictionary = Sim.weekly_income(copy)
 		var costs: Dictionary = Sim.weekly_costs(copy)

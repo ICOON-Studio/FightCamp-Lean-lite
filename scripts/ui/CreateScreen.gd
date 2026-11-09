@@ -24,6 +24,11 @@ const CITIES := {
 }
 const COACH_CARD := Vector2(392, 0)
 const START_CARD := Vector2(528, 0)
+const PLAN_CARD := Vector2(392, 0)
+const PLAN_PIC := Vector2(356, 150)
+const IsoGym := preload("res://scripts/ui/IsoGym.gd")
+const GymPlan := preload("res://scripts/rules/GymPlan.gd")
+const GymBonus := preload("res://scripts/rules/GymBonus.gd")
 
 var _name_edit: LineEdit
 var _gym_edit: LineEdit
@@ -149,12 +154,39 @@ func _club(main: Node, v: VBoxContainer, s: Dictionary) -> void:
 	gym.add_child(UI.muted("The city is your club's home: it is on the posters, the news and the prospects' list.", UI.SMALL, true))
 	where.add_child(gym)
 	v.add_child(where)
+	v.add_child(UI.caps("YOUR BUILDING - EACH GIVES THE CLUB ONE SMALL EDGE FOR THE WHOLE CAREER"))
+	var plans := UI.hbox(16)
+	plans.alignment = BoxContainer.ALIGNMENT_CENTER
+	var chosen := str(GymBonus.plan(str(s.get("gym_plan", "")))["id"])
+	for p in GymPlan.load_all():
+		plans.add_child(_plan_card(main, p, str(p["id"]) == chosen))
+	v.add_child(plans)
 	v.add_child(UI.caps("HOW THE CLUB STARTS - IT IS ALSO HOW HARD THE FIRST YEAR IS"))
 	var row := UI.hbox(16)
 	var pick := ClubStart.valid(str(s.get("start", "fresh")))
 	for cd in ClubStart.CARDS:
 		row.add_child(_start_card(main, cd, str(cd["id"]) == pick))
 	v.add_child(row)
+
+
+## One building: its floor plan, drawn from the same data the game plays on, and the one edge it gives.
+func _plan_card(main: Node, p: Dictionary, on: bool) -> Control:
+	var box := _card_shell("Plan_" + str(p["id"]), on, PLAN_CARD)
+	var col := UI.vbox(6)
+	box.get_child(0).add_child(col)
+	var pic: Control = IsoGym.new()
+	pic.custom_minimum_size = PLAN_PIC
+	pic.plan = p
+	col.add_child(pic)
+	var top := UI.hbox(8)
+	top.add_child(UI.label(str(p["name"]).to_upper(), 22, UI.FG, "bold"))
+	top.add_child(UI.spacer())
+	if on:
+		top.add_child(UI.chip("✓", "gold"))
+	col.add_child(top)
+	col.add_child(_wrap(str(p["bonus"]["words"]), UI.SMALL, UI.GOLD, "bold"))
+	_overlay(box, func(): _keep(main); main.act("cpick", "gym_plan|" + str(p["id"])))
+	return box
 
 
 func _start_card(main: Node, cd: Dictionary, on: bool) -> Control:

@@ -5570,7 +5570,7 @@
       "answer": "Done",
       "note": null,
       "answered_at": "2026-11-09T05:13:53Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -5587,6 +5587,24 @@
       "note": "Answered in the app chat: \"Keep it full\"",
       "answered_at": "2026-11-09T05:27:05.913508+00:00",
       "seen_by_claude": true
+    },
+    {
+      "id": "Q-S294-134",
+      "asked": "2026-11-09T08:18:26.258450+00:00",
+      "session": "S294",
+      "text": "Game look for Fighters and Fights: your boxers as full-body cards and a versus screen. Left is what we can build now from the real renders, right is the Ludo painting over it. Which way?",
+      "options": [
+        "Build it like the left, real renders, bright",
+        "Build it like the right, painted surfaces",
+        "Keep the layout, change the look (say how)"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-134_0_look_choice.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }
