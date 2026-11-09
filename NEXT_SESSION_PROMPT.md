@@ -1,3 +1,21 @@
+# S411 very last line
+He said YES to designing the coach ceiling, school and bond ("Design the coach ceiling, school and bond? : yes"). Do it next session, right after the guide and theme job: open brief, critics paint with Ludo; check first whether a move really needs a coach who knows it.
+
+# S411 LAST NOTE (read first; S411 ended at 658k context, far past the 420k rule)
+His words: "the guide text is very weak and the whole presentation reminds web browser not a game". FIRST JOB, Claude's own, two parts, nothing built yet:
+1. THE GUIDE AS A PERSON (concept docs/mockups/s411/guide/concept.png, lettering garbled). Replace the FIRST WEEK strip and its numbered chips (scripts/ui/FirstWeekStrip.gd, scripts/rules/FirstWeek.gd; first_week and first_hour_walk tests must stay green) with an old trainer in the corner saying ONE short line, a light ring on the thing to touch, the rest dimmed. Lines in a voice, each under 12 words, e.g. "She's over the limit. Fix it this week or she doesn't fight." Show him the concept first; the character is new, so check with him.
+2. WEBSITE FEEL: fix it once, in the shared theme and Shell, not page by page. Pale watercolour wall as the default; page scroll bars; pill chips; outlined link-like buttons and tabs; label-left value-far-right rows; explanatory text beside everything; nothing reacting when pressed. A theme pass reaches pages no brief covers (Fighter overview, Money, Records, Find a fighter, new game). Then blind critic, look first, with hard fails.
+Also open: coach ceiling, school and bond (his yes pending, see below). COACH1, GYM3D2 and FIGHTERMODEL4F running.
+
+# S411 coach idea (read first)
+His words: "the coach needs to have a ceiling or specific skill tree-knowledge or something likethat, try to add interesting mechiancics and streghten the bond coach-training-fighter. what do you think". Claude proposed three, in order: a boxer outgrows a coach (each area rating is a teaching ceiling); a school and knowledge tree (which moves and corner calls a coach can teach; the coach learns too); a coach-boxer bond built on camps and corners, broken by switching. COACH1's area ratings are the base. Waiting for his yes; then an open-brief design round, critics painting with Ludo. Check first whether a move really needs a coach who knows it (mockups show Find a coach; not verified in the rules).
+
+# S411 staff (read first)
+His words on the coach card: "i do not understand what training quality 91 : means , i do not know what this coach is good at , make this porperly". Found: `spec` was display text; a coach had one rating for everything. COACH1 (Cursor, queued before MENUWEEK2, may collide with 4F in Sim.gd and WeekPlan.gd) gives each coach five area ratings averaging their overall, and rebuilds Club > People. The concept (docs/mockups/s411/staff/concept.png) has invented numbers. Open the still. A staff full-body render does not exist yet.
+
+# S411 final state (read first)
+Roadmap now.next_action has the order. FLOOR1 merged with one fix (fighters were subtracted from the members; test added). Its plan bar was loosened to 47 +/- 10 because per-kind places cannot equalise four different layouts: FLOOR2 fixes the layouts, then put the bar back. GYM3D1 on agy failed: agy's launcher allows no shell and no reads outside the worktree, so never give it a render job; GYM3D2 is the same brief on Qwen, who cannot see images: Claude opens the stills. Goose could not open FLOOR1's PR: collect goose/issue-123 style branches by hand when that happens. Issue 123 closed. Progressive knowledge APPROVED, Coach's eye cut.
+
 # S411 addendum (read first)
 PROGRESSIVE KNOWLEDGE: design v2 in ops/research/KNOWLEDGE_S411.md, waiting on his yes on the board. John SQ30 running. Bots test comes before any screen; it needs the fighter model merged.
 

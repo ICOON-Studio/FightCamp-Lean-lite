@@ -9,12 +9,12 @@
     "summary": "S411: the floor direction: a small unit that grows, stamina bars over boxers, places-free dots over equipment. Concepts painted, nothing built. Rule designed (FLOOR_PLACES_S411). Main CI green. Hit-reaction loss settled: the earlier probe was wrong. Fighter model 4F running.",
     "last_working_commit": "43f27bae",
     "verified_playable": "Main CI green, 232 tests, 11 min (run 42598106431). Game unchanged since S410; he has not played S410 yet.",
-    "incomplete_blocked": "Nothing on the floor is built: GYM3D1 (agy) tests three cameras, FLOOR1 (Goose) the rule. Fighter model not mergeable until 4F then 4B. Four menus queued; Home PR 120 held and likely replaced by the floor.",
-    "next_action": "Collect GYM3D1 (three cameras, frame time; open the stills) and FLOOR1 (Goose issue 123, PR on goose/issue-123). Ask him: which camera, from the real renders. Then brief the small-unit plans and the floor screen. Collect FIGHTERMODEL4F. Read the first real 05:00 full test run (11-10). R28: fix the eye damage first (numbers in tools/eye_band_probe.gd). Animation next: re-judge the 47 boxing clips scored under 6 in S390, which predates the S401 re-bake.",
-    "next_acceptance": "He picks a camera from real renders; FLOOR1 green with no money change; 4F leaves only matchmaking_bots red.",
+    "incomplete_blocked": "Nothing on the floor screen is built. FLOOR1 (the places rule) merged. GYM3D2 and 4F running. Fighter model not mergeable until 4F then 4B. Home PR 120 held.",
+    "next_action": "First: the guide as a person and the theme pass (NEXT_SESSION_PROMPT, S411 LAST NOTE). Collect COACH1 (Cursor): open the still, check the bars read true on a real boxer. Collect GYM3D2 (Qwen: the same 3D room from cutaway, straight top-down and 65 degrees, with frame time): open the stills, show him, he picks the camera. Collect FIGHTERMODEL4F (PR 124; only matchmaking_bots may stay red), then launch 4B. Then brief FLOOR2 (small-unit and bigger plans, each tier's places matching members/3; put gym_places_test's bar back to 47 +/- 3). Read the first real 05:00 full test run (11-10). Progressive knowledge is approved (KNOWLEDGE_S411.md): after the fighter model, the pure module, then the bots. R28: fix the eye damage first.",
+    "next_acceptance": "He picks a camera from real renders; 4F leaves only matchmaking_bots red with no test numbers changed; FLOOR2 tightens the places bar.",
     "awaiting_operator": [
       "Q-S294-137: which main-screen concept (he has been steering concept 1)",
-      "Which camera, once GYM3D1 lands",
+      "Which camera, once GYM3D2 lands",
       "Play the S410 build",
       "Keep or cut Test day and dues bands",
       "Yes, ARCHIVED (old Miro board)"
@@ -4557,7 +4557,7 @@
   },
   "plan": {
     "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-    "updated": "2026-11-09 13:12 board_sync",
+    "updated": "2026-11-09 13:42 board_sync",
     "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
     "titles": {
       "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4881,24 +4881,10 @@
         "state": "LANDED - Claude collects"
       },
       {
-        "title": "TASK HITREACT3 - QWEN (qwen3-coder) - run the conversion one step at a time and find where the head stops moving",
-        "who": "qwen",
-        "started": "2026-11-09T10:52",
-        "run": "HITREACT3",
-        "state": "LANDED - Claude collects"
-      },
-      {
         "title": "TASK FIGHTERMODEL4E - CURSOR (Grok 4.7 High) - the plan must beat the coach again on the new fighter model",
         "who": "cursor",
         "started": "2026-11-09T11:01",
         "run": "FIGHTERMODEL4E",
-        "state": "LANDED - Claude collects"
-      },
-      {
-        "title": "TASK HITREACT4 - QWEN (qwen3-coder) - measure the conversion stages HITREACT3 did not run",
-        "who": "qwen",
-        "started": "2026-11-09T11:55",
-        "run": "HITREACT4",
         "state": "LANDED - Claude collects"
       },
       {
@@ -4915,14 +4901,26 @@
         "run": "FIGHTERMODEL4F"
       },
       {
-        "title": "TASK HITREACT5 - QWEN (qwen3-coder) - the gap between the last bake stage and the saved clip",
-        "who": "qwen",
-        "started": "2026-11-09T12:49",
-        "run": "HITREACT5",
+        "title": "QWEN (qwen3-coder) - places free: the pure rule",
+        "who": "goose",
+        "started": "2026-11-09T13:16",
+        "run": "FLOOR1",
         "state": "LANDED - Claude collects"
       }
     ],
     "next": [
+      {
+        "id": "NOTWEB",
+        "who": "claude",
+        "title": "Guide as a person, one spoken line; one theme pass so nothing looks like a website",
+        "after": ""
+      },
+      {
+        "id": "COACH1",
+        "who": "held",
+        "title": "What a coach is good at, by how much, and a proper staff screen (queued on Cursor)",
+        "after": ""
+      },
       {
         "id": "MENUS411",
         "who": "held",
@@ -4938,7 +4936,7 @@
       {
         "id": "KNOW1",
         "who": "claude",
-        "title": "Progressive knowledge: reads, ranges, the moment you find out (design v2, needs his yes; after the fighter model)",
+        "title": "Progressive knowledge: APPROVED (Q-S294-139). After the fighter model: pure module, then bots, then screens",
         "after": "FIGHTERMODEL4F"
       },
       {
@@ -5235,6 +5233,21 @@
     },
     "done_recently": [
       {
+        "title": "TASK HITREACT5 - QWEN (qwen3-coder) - the gap between the last bake stage and the saved clip",
+        "who": "qwen",
+        "when": "2026-11-09"
+      },
+      {
+        "title": "TASK HITREACT4 - QWEN (qwen3-coder) - measure the conversion stages HITREACT3 did not run",
+        "who": "qwen",
+        "when": "2026-11-09"
+      },
+      {
+        "title": "TASK HITREACT3 - QWEN (qwen3-coder) - run the conversion one step at a time and find where the head stops moving",
+        "who": "qwen",
+        "when": "2026-11-09"
+      },
+      {
         "id": "HITREACT",
         "who": "agent",
         "title": "Hit reactions: head travel matches the clips; the loss was a faulty probe"
@@ -5278,47 +5291,6 @@
         "title": "TASK BOXERLEAN1 - QWEN (qwen3-coder) - does the guard lean as far forward as the capture does?",
         "who": "qwen",
         "when": "2026-11-09"
-      },
-      {
-        "title": "TASK LOCOSLIDE2 - QWEN (qwen3-coder) - which way does the planted foot creep, and what brings it back to the source?",
-        "who": "qwen",
-        "when": "2026-11-09"
-      },
-      {
-        "title": "TASK LOCOSLIDE1 - QWEN (qwen3-coder) - do the walking feet slide? Source against game",
-        "who": "qwen",
-        "when": "2026-11-09"
-      },
-      {
-        "title": "TASK LOCOKNEE1 - QWEN (qwen3-coder) - the walking clips against their source, with the ruler that works",
-        "who": "qwen",
-        "when": "2026-11-09"
-      },
-      {
-        "title": "TASK MENUWORLD2 - CURSOR (Grok 4.7 High) - the World page, round 2: names, width and the fit",
-        "who": "cursor",
-        "when": "2026-11-09"
-      },
-      {
-        "title": "Guard knee measured properly: no knock-knee against the source take",
-        "who": "claude"
-      },
-      {
-        "title": "World page in the game, from the mockup",
-        "who": "cursor"
-      },
-      {
-        "title": "Move card camera: both bodies in frame",
-        "who": "claude"
-      },
-      {
-        "title": "TASK MENUMONEY2 - CURSOR (Grok 4.7 High) - the Money page, round 2: the bills bug and the fit",
-        "who": "cursor",
-        "when": "2026-11-08"
-      },
-      {
-        "title": "Money page in the game, from the mockup (critic 6/10 before the last fixes)",
-        "who": "claude"
       }
     ],
     "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",

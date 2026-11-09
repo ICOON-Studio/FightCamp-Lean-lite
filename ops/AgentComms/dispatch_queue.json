@@ -694,6 +694,13 @@
    "status": "queued"
   },
   {
+   "id": "COACH1",
+   "seat": "cursor",
+   "title": "TASK COACH1 - CURSOR (Grok 4.7 High) - what a coach is good at, and a staff screen that says so",
+   "brief": "COACH1",
+   "status": "queued"
+  },
+  {
    "id": "MENUWEEK2",
    "seat": "cursor",
    "title": "TASK MENUWEEK2 - CURSOR (Grok 4.7 High) - the Fighter Week page, fewer words, bigger pictures",

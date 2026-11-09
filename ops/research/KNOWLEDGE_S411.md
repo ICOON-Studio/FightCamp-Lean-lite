@@ -14,7 +14,6 @@ Today's scouting (opponent tells) and knowing your own boxer become the same thi
 | Scout (the existing button) | An opponent, **or a prospect** | $250 (G) | Opponent: a tell. Prospect: one group sharpened |
 | Trial | A prospect | Four weeks' stipend on a trial contract (G) | They train with you; walk away at the end with no roster penalty |
 | Test day | Your boxer | A morning session, a small fee (G) | Body group sharpened at once |
-| Coach's eye | Your boxer | Pick one thing on the Week board; that week the coach watches it | That one thing sharpens faster |
 | Spar them harder | Your boxer | Named injury and fatigue risk, shown before you agree | Under-fire group sharpens up to half way |
 | A real bout | Your boxer | The bout | The only way to finish the under-fire group |
 
@@ -22,13 +21,15 @@ Today's scouting (opponent tells) and knowing your own boxer become the same thi
 | Group (one fading bar each; open it for the rows) | Day one | Sharpens by |
 |---|---|---|
 | **Body**: strength, explosiveness, speed, stamina, recovery, flexibility, and fatigue | Rough, fatigue in three colours | Sessions, Test day; strength coach and physio |
-| **Skills**: accuracy, timing, defence, footwork, inside, fight IQ | Wider | Pads and sparring, Coach's eye; second coach |
+| **Skills**: accuracy, timing, defence, footwork, inside, fight IQ | Wider | Pads and sparring; second coach |
 | **Under fire**: durability, composure, heart | Unknown | Hard rounds and bouts; sparring only half way |
 | **Potential** | Coach's guess in words | Months, age; never exact, except the Amateur coach's edge as now |
 | Traits and habits | One first impression | Each appears when it happens |
 | Your building, weight, height, stance, a visible injury | Exact | Always |
 
 Sharpening counts **exposure, not weeks** (sessions, hard rounds), so the first bout at about week 4 teaches a lot.
+
+Cut (owner, on Coach's eye: "what do you mena watches it ? for what ? isnt that to o much work for nothing ?"): a weekly pick of what the coach watches. Skills sharpen through the training you already planned.
 
 ## Hype: why a read can be wrong
 A prospect's shown centre leans high by their **hype**, shown as a tag: "Hyped". The rest of the offset is small. A flop is then a read you could have made and did not, never a rigged roll. Every wide range carries the coach's lean in words: "I think she can take a shot."
