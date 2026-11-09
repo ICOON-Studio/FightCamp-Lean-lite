@@ -1,14 +1,14 @@
 # TASK FIGHTERMODEL4C - CURSOR (Grok 4.7 High) - the fighter model at the old speed
 
 Status: OPEN (S408, Claude main). Discipline: boxing. Model: grok-4.7-high.
-BASE: cursor/fightermodel4a
 Start every Godot run through `python ops/Tools/godot_slot.py run --who cursor -- <godot cmd>`.
 FIRST: merge origin/main into this branch.
 
 ## Contract
+BASE: cursor/fightermodel4a
 OWNS: scripts/rules/Attrs.gd, scripts/rules/AttrGen.gd, scripts/rules/Duels.gd, scripts/rules/BoutRead.gd, scripts/rules/Exchanges.gd, scripts/state/RingDuel.gd, scripts/state/LiveRound.gd, scripts/state/LiveRead.gd, scripts/world/WorldBout.gd, scripts/world/WorldSim.gd, scripts/world/WorldGen.gd, tests/fighter_model_speed_test.gd
 RED_TEST: tests/fighter_model_speed_test.gd -> FIGHTER_SPEED failures=0
-REGRESSION: attr_ten, fighter_model, fighter_model_bars, world_years, plan_bots, golden_path_test, save_load
+REGRESSION: fighter_model, world_years, plan_bots, golden_path_test, save_load
 VISUAL: no
 
 ## Prior research

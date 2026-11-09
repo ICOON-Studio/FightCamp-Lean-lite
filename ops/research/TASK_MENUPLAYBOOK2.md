@@ -1,9 +1,9 @@
 # TASK MENUPLAYBOOK2 - CURSOR (Grok 4.7 High) - the Playbook, round 2: to the mockup, on one screen
 
 Status: OPEN (S408, Claude main). Discipline: boxing now, MMA parts drawn as not built. Model: grok-4.7-high.
-BASE: cursor/menuplaybook1
 
 ## Contract
+BASE: cursor/menuplaybook1
 OWNS: scripts/ui/areas/Playbook.gd, scripts/ui/GamePlan.gd, scripts/ui/GamePlanRows.gd, scripts/ui/PlanRuler.gd, scripts/ui/PlanRateChart.gd, tests/menu_playbook_test.gd, tests/game_plan_test.gd
 RED_TEST: tests/menu_playbook_test.gd -> MENU_PLAYBOOK failures=0
 REGRESSION: game_plan_test, kit_icon_test, move_book_test, move_tip_test, bjj_tree_ui_test, first_week_test, golden_path_test, save_load_test, plain_words_test, no_pronoun_test

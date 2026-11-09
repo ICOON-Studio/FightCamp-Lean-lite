@@ -1,9 +1,9 @@
 # TASK MENUWEEK2 - CURSOR (Grok 4.7 High) - the Fighter Week page, round 2: to the mockup, on one screen
 
 Status: OPEN (S408, Claude main). Discipline: boxing now, MMA parts drawn as not built. Model: grok-4.7-high.
-BASE: cursor/menuweek1
 
 ## Contract
+BASE: cursor/menuweek1
 OWNS: scripts/ui/WeekBoard.gd, scripts/ui/WeekCards.gd, scripts/ui/WeekCardsPick.gd, scripts/ui/WeekCamp.gd, scripts/ui/WeekDay.gd, scripts/ui/WeekPops.gd, scripts/ui/WeekReadRows.gd, tests/menu_week_test.gd
 RED_TEST: tests/menu_week_test.gd -> MENU_WEEK failures=0
 REGRESSION: grey_reason_test, kit_icon_test, week_plan_test, training_week_test, first_week_test, golden_path_test, save_load_test, plain_words_test, no_pronoun_test

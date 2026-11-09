@@ -1,9 +1,9 @@
 # TASK MENUHOME2 - CURSOR (Grok 4.7 High) - Home, round 2: the Needs-you board as drawn
 
 Status: OPEN (S408, Claude main). Discipline: boxing now, MMA parts drawn as not built. Model: grok-4.7-high.
-BASE: cursor/menuhome1
 
 ## Contract
+BASE: cursor/menuhome1
 OWNS: scripts/ui/areas/Home.gd, scripts/ui/HomeMatch.gd, scripts/ui/HomeNeeds.gd, scripts/ui/HomePanels.gd, tests/menu_home_test.gd, tests/home_look_test.gd
 RED_TEST: tests/menu_home_test.gd -> MENU_HOME failures=0
 REGRESSION: home_look_test, home_row_injured_test, kit_icon_test, first_week_test, golden_path_test, save_load_test, plain_words_test, no_pronoun_test

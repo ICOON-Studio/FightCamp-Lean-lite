@@ -5561,7 +5561,7 @@
       "id": "Q-S294-132",
       "asked": "2026-11-09T01:18:42.374724+00:00",
       "session": "S294",
-      "text": "Cursor is signed out, so four screens are stuck (Playbook, Home, Fighter Week, Fight night). Please run 'agent login' once in a terminal and sign in.",
+      "text": "Cursor is signed out, so four screens are stuck (Playbook, Home, Fighter Week, Fight night). Please run 'cursor-agent login' once in a terminal and sign in.",
       "options": [
         "Done",
         "Later"

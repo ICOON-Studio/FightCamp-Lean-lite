@@ -262,7 +262,8 @@ def seat_busy(seat: str, procs: list) -> str:
     for k, v in load(RUNS, {}).get("runs", {}).items():
         if isinstance(v, dict) and v.get("status") == "running" and str(v.get("agent", "")).lower() in (SEATS[seat]["agent"], seat):
             return f"running {k}"
-    hit = next((pid for pid, cmd in procs if SEAT_PROCS[seat] in cmd), None)
+    ## S408: the Cursor app keeps a `cursor-agent-worker` helper running all day; it is not a seat's run
+    hit = next((pid for pid, cmd in procs if SEAT_PROCS[seat] in cmd and "cursor-agent-worker" not in cmd), None)
     return f"a {SEAT_PROCS[seat]} process is live (pid {hit})" if hit else ""
 
 
@@ -285,7 +286,7 @@ def pc_agents(procs: list) -> list[str]:
         name = next((n for n in ("agy.exe", "qwen-code", "cursor-agent", "codex exec", "codex.exe exec") if n in cmd), "")
         # S369: one CLI run is a launcher plus its child node processes (qwen-code: 3 pids) - count a seat once, not per
         # process (a seat runs one task at a time: seat_busy).
-        if name and name not in names and not any(w and w in cmd for w in seen) and "seat_dispatch.py" not in cmd:
+        if name and name not in names and not any(w and w in cmd for w in seen) and "seat_dispatch.py" not in cmd and "cursor-agent-worker" not in cmd:
             names.add(name)
             out.append(f"{name} pid {pid}")
     return out
@@ -340,7 +341,7 @@ def cursor_auth_why() -> str:
             run = subprocess.run(["cmd", "/c", str(agent), "-p", "--trust", "--model", SEATS["cursor"]["model"], "--workspace", str(ws)],
                 input="Reply with the single word ok.", capture_output=True, text=True, timeout=90, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
             if "Authentication required" in (run.stdout or "") + (run.stderr or ""):
-                why = "Cursor is signed out (run `agent login` once)"
+                why = "Cursor is signed out (run `cursor-agent login` once)"
         except (OSError, subprocess.SubprocessError):
             pass
         _cursor_auth.append(why)

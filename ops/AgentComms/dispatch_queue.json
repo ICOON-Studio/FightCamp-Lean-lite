@@ -687,13 +687,19 @@
    "id": "MENUPLAYBOOK2B",
    "seat": "cursor",
    "title": "TASK MENUPLAYBOOK2 - CURSOR (Grok 4.7 High) - the Playbook, round 2: to the mockup, on one screen",
-   "brief": "MENUPLAYBOOK2"
+   "brief": "MENUPLAYBOOK2B"
   },
   {
    "id": "MENUFIGHT1B",
    "seat": "cursor",
    "title": "TASK MENUFIGHT1 - CURSOR (Grok 4.7 High) - Fight night's corner and result from the approved mockup",
-   "brief": "MENUFIGHT1"
+   "brief": "MENUFIGHT1B"
+  },
+  {
+   "id": "LOCOSLIDE2",
+   "seat": "qwen",
+   "title": "TASK LOCOSLIDE2 - QWEN (qwen3-coder) - which way the planted foot creeps, and what brings it back to the source",
+   "brief": "LOCOSLIDE2"
   }
  ]
 }
