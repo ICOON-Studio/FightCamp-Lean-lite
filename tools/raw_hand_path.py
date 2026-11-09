@@ -1,10 +1,12 @@
-"""raw_hand_path.py - REARHAND2 (S414): measure hand positions in source FBX files.
+"""raw_hand_path.py - REARHAND3 (S415): measure hand positions in source FBX files.
 
 For each source take, per frame at 30 fps, outputs the same numbers as hand_path_probe.gd:
   - hand to Head distance
   - hand height against Hips (hand.y - hips.y)
   - hand against Hips on the actor's forward axis (dot product with forward)
 Body height is the Head joint above the foot joint in the rest pose.
+Arm length is shoulder to elbow plus elbow to hand in the rest pose.
+Hips offset is the Hips joint position relative to the midpoint between the two thigh joints.
 
 Forward direction is derived from the jab animation (same as hand_path_probe.gd):
 the direction the left hand moves from frame 0 to full extension, projected to the ground.
@@ -65,7 +67,7 @@ def find_bone(arm, *names):
 
 
 def load_clip_data(path, clip_name):
-    """Load a clip and return (arm, data, body_height, src_fps, f0, f1)."""
+    """Load a clip and return (arm, data, body_height, arm_length, hips_offset, src_fps, f0, f1)."""
     bpy.ops.wm.read_factory_settings(use_empty=True)
     bpy.ops.import_scene.fbx(filepath=path, automatic_bone_orientation=False)
     arm = next((o for o in bpy.context.scene.objects if o.type == "ARMATURE"), None)
@@ -83,6 +85,10 @@ def load_clip_data(path, clip_name):
     right_hand = find_bone(arm, "RightHand")
     hips = find_bone(arm, "Hips")
     left_foot = find_bone(arm, "LeftFoot", "LeftAnkle")
+    left_shoulder = find_bone(arm, "LeftShoulder", "Shoulder")
+    left_elbow = find_bone(arm, "LeftElbow", "Elbow", "LeftForeArm", "ForeArm")
+    left_upleg = find_bone(arm, "LeftUpLeg", "LeftThigh", "LeftLeg")
+    right_upleg = find_bone(arm, "RightUpLeg", "RightThigh", "RightLeg")
     if not all([head, left_hand, right_hand, hips, left_foot]):
         print(f"RAWHAND {clip_name} FAIL missing bones", flush=True)
         return None
@@ -95,6 +101,24 @@ def load_clip_data(path, clip_name):
     if body_height < 1e-5:
         print(f"RAWHAND {clip_name} FAIL body_height too small", flush=True)
         return None
+    # Arm length: shoulder to elbow + elbow to hand (use left arm)
+    # In FBX: LeftArm is upper arm (shoulder to elbow), LeftForeArm is forearm (elbow to hand)
+    arm_length = 0.0
+    left_upper_arm = find_bone(arm, "LeftArm", "LeftUpperArm")
+    left_forearm = find_bone(arm, "LeftForeArm", "LeftLowerArm")
+    if left_upper_arm and left_forearm:
+        shoulder_rest = converted(mw @ left_upper_arm.head) * unit
+        elbow_rest = converted(mw @ left_forearm.head) * unit
+        hand_rest = converted(mw @ left_hand.head) * unit
+        arm_length = (elbow_rest - shoulder_rest).length + (hand_rest - elbow_rest).length
+    # Hips offset: hips position relative to midpoint between two thigh joints
+    hips_offset = 0.0
+    if left_upleg and right_upleg:
+        left_thigh_rest = converted(mw @ left_upleg.head) * unit
+        right_thigh_rest = converted(mw @ right_upleg.head) * unit
+        hips_rest = converted(mw @ hips.head) * unit
+        thigh_mid = (left_thigh_rest + right_thigh_rest) * 0.5
+        hips_offset = (hips_rest - thigh_mid).length
     n_frames = int((f1 - f0) * TARGET_FPS / src_fps) + 1
     data = []
     for i in range(n_frames):
@@ -109,7 +133,7 @@ def load_clip_data(path, clip_name):
     if len(data) < 2:
         print(f"RAWHAND {clip_name} FAIL not enough frames: {len(data)}", flush=True)
         return None
-    return {"data": data, "body_height": body_height}
+    return {"data": data, "body_height": body_height, "arm_length": arm_length, "hips_offset": hips_offset}
 
 
 def get_forward_from_jab(jab_data):
@@ -130,7 +154,7 @@ def get_forward_from_jab(jab_data):
     return forward
 
 
-def analyse_clip(data, body_height, forward, clip_name):
+def analyse_clip(data, body_height, arm_length, forward, clip_name):
     """Analyse a clip's hand path data."""
     punch_left = clip_name.startswith("pro_left_")
     hand_key = "lh" if punch_left else "rh"
@@ -175,18 +199,23 @@ def analyse_clip(data, body_height, forward, clip_name):
                 strike_h = (data[f][hand_key] - data[f]["hips"]).y
                 strike_ahead = (data[f][hand_key] - data[f]["hips"]).dot(forward)
                 strike_chin = (data[f][hand_key] - data[f]["head"]).length
+    # Arm-length normalized values (use arm_length if available, else body_height)
+    ruler = arm_length if arm_length > 1e-5 else body_height
     return {
         "clip": clip_name,
         "n": len(data),
         "body_height": body_height,
+        "arm_length": arm_length,
         "forward": (forward.x, forward.y, forward.z),
         "low_h": low_h / body_height,
         "low_h_f": low_h_f,
         "low_ahead": low_ahead / body_height,
         "low_ahead_f": low_ahead_f,
+        "low_ahead_arm": low_ahead / ruler,
         "strike_f": strike_f,
         "strike_h": strike_h / body_height,
         "strike_ahead": strike_ahead / body_height,
+        "strike_ahead_arm": strike_ahead / ruler,
         "strike_chin": strike_chin / body_height,
         "frames_low_to_strike": strike_f - low_h_f
     }
@@ -199,7 +228,7 @@ def main():
         print("RAWHAND FAIL could not load jab", flush=True)
         return
     forward = get_forward_from_jab(jab_result["data"])
-    print(f"RAWHAND forward={forward.x:.4f},{forward.y:.4f},{forward.z:.4f} body_height={jab_result['body_height']:.3f}", flush=True)
+    print(f"RAWHAND forward={forward.x:.4f},{forward.y:.4f},{forward.z:.4f} body_height={jab_result['body_height']:.3f} arm_length={jab_result['arm_length']:.3f} hips_offset={jab_result['hips_offset']:.3f}", flush=True)
     clips_to_measure = CONTROLS + RIGHT_HOOKS
     args = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
     if args:
@@ -220,13 +249,13 @@ def main():
                 clip_result = load_clip_data(path, clip)
             if not clip_result:
                 continue
-            analysis = analyse_clip(clip_result["data"], clip_result["body_height"], forward, clip)
+            analysis = analyse_clip(clip_result["data"], clip_result["body_height"], clip_result["arm_length"], forward, clip)
             results[clip] = analysis
             r = analysis
             print(f"RAWHAND {clip} frames={r['n']} low_h={r['low_h']:.3f} f={r['low_h_f']} "
-                  f"low_ahead={r['low_ahead']:.3f} f={r['low_ahead_f']} strike_f={r['strike_f']} "
-                  f"strike_h={r['strike_h']:.3f} strike_ahead={r['strike_ahead']:.3f} "
-                  f"strike_chin={r['strike_chin']:.3f} gap={r['frames_low_to_strike']}", flush=True)
+                  f"low_ahead={r['low_ahead']:.3f} f={r['low_ahead_f']} low_ahead_arm={r['low_ahead_arm']:.3f} "
+                  f"strike_f={r['strike_f']} strike_h={r['strike_h']:.3f} strike_ahead={r['strike_ahead']:.3f} "
+                  f"strike_ahead_arm={r['strike_ahead_arm']:.3f} strike_chin={r['strike_chin']:.3f} gap={r['frames_low_to_strike']}", flush=True)
         except Exception as e:
             print(f"RAWHAND {clip} FAIL {e}", flush=True)
     out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "raw_hand_path_data.json")

@@ -13,3 +13,9 @@ Tests green: gym_hub (went red-first on the new shelf check by construction: the
 
 ## Not done
 Nothing scored by a critic. The slots are a test, not in the game. The 18 slots are hand rectangles; the red floor, rail and six bags are one slot because no picture has that floor without its bags. Places still reach no game rule. FIGHTERMODEL4H red on CI (plan_bots 2, matchmaking_bots); 4B still running.
+
+## Later in S415
+- REARHAND3 merged (PR 134, tools and a doc, merged before its CI finished). All eight right hooks: raw and game hand height agree within 0.03 of body height, and the raw low point is at the hips too (raw low_h -0.023 to 0.099). So the drop is in the bought capture, not the bake. The forward column stays unproved: dividing by arm length made the controls worse (0.22 to 0.27), so section d was rightly not written. REARHAND1's "all 10 right hooks" is eight.
+- REARHAND4 (Qwen): every hook we own, height column only, to see if a better take exists.
+- FIGHTERMODEL4B's run died: "Connection lost" in its output, runner and Cursor processes gone, no exit logged, last file write 18:07. Three files saved as commit dae63cc2 on its branch, unproved. FIGHTERMODEL4I continues from it.
+- The board job launched MENUPLAYBOOK2B from the queue once 4B's run was marked stale. It waits on dark or cream, so it was stopped within a minute, its empty worktree and branch removed, and it and MENUFIGHT1B set to held. Its live_runs entry stays, so a re-run needs a new id.

@@ -1,8 +1,9 @@
 extends SceneTree
-## REARHAND2 (S414): the strike on a hook. REARHAND1's window ends at "full extension" (frame furthest from chin),
+## REARHAND3 (S415): the strike on a hook. REARHAND1's window ends at "full extension" (frame furthest from chin),
 ## but on a hook that can be the low point itself. This finds the actual strike: the frame of highest forward speed
 ## after the lowest hand position. Reports strike frame, hand height at strike, frames between low and strike.
 ## Same read as hand_path_probe.gd: skeleton_updated, modifiers off, Engine.max_fps = 30.
+## S415: adds arm length (shoulder to elbow + elbow to hand) and hips offset (hips above thigh midpoint).
 ##   godot_slot run -- <godot.exe> --headless --audio-driver Dummy --path . --script res://tools/hook_strike_probe.gd
 
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
@@ -36,11 +37,30 @@ func _initialize() -> void:
 			(c as SkeletonModifier3D).active = false
 	var bones: Array = [skel.find_bone("Head"), skel.find_bone("LeftHand"), skel.find_bone("RightHand"), skel.find_bone("Hips")]
 	var foot_i: int = skel.find_bone("LeftFoot")
+	var l_shoulder_i: int = skel.find_bone("LeftShoulder")
+	var l_elbow_i: int = skel.find_bone("LeftLowerArm")
+	var l_upleg_i: int = skel.find_bone("LeftUpperLeg")
+	var r_upleg_i: int = skel.find_bone("RightUpperLeg")
 	if bones.has(-1) or foot_i < 0:
 		print("HOOK_STRIKE FAIL a bone is missing: %s foot=%d" % [str(bones), foot_i])
 		quit(1)
 		return
 	var hgt: float = (skel.get_bone_global_rest(bones[HEAD]).origin - skel.get_bone_global_rest(foot_i).origin).length()
+	# Arm length: shoulder to elbow + elbow to hand (left arm)
+	var arm_len: float = 0.0
+	if l_shoulder_i >= 0 and l_elbow_i >= 0:
+		var shoulder_rest: Vector3 = skel.get_bone_global_rest(l_shoulder_i).origin
+		var elbow_rest: Vector3 = skel.get_bone_global_rest(l_elbow_i).origin
+		var hand_rest: Vector3 = skel.get_bone_global_rest(bones[LH]).origin
+		arm_len = elbow_rest.distance_to(shoulder_rest) + hand_rest.distance_to(elbow_rest)
+	# Hips offset: hips position relative to midpoint between two thigh joints
+	var hips_off: float = 0.0
+	if l_upleg_i >= 0 and r_upleg_i >= 0:
+		var l_thigh_rest: Vector3 = skel.get_bone_global_rest(l_upleg_i).origin
+		var r_thigh_rest: Vector3 = skel.get_bone_global_rest(r_upleg_i).origin
+		var hips_rest: Vector3 = skel.get_bone_global_rest(bones[HIPS]).origin
+		var thigh_mid: Vector3 = (l_thigh_rest + r_thigh_rest) * 0.5
+		hips_off = hips_rest.distance_to(thigh_mid)
 	var reads: Array = []
 	skel.skeleton_updated.connect(func():
 		var r: Array = []
@@ -56,7 +76,7 @@ func _initialize() -> void:
 	var jab_ext: int = _ext_frame(jab_data, LH)
 	var jab_line: Vector3 = (jab_data[jab_ext][LH] as Vector3) - (jab_data[0][LH] as Vector3)
 	var forward := Vector3(jab_line.x, 0.0, jab_line.z).normalized()
-	print("HOOK_STRIKE body=%.3f m forward=%s" % [hgt, str(forward)])
+	print("HOOK_STRIKE body=%.3f m arm=%.3f m hips_off=%.3f m forward=%s" % [hgt, arm_len, hips_off, str(forward)])
 
 	var results: Dictionary = {}
 	var clips: Array = RIGHT_HOOKS + CONTROLS
@@ -68,11 +88,11 @@ func _initialize() -> void:
 		var is_hook: bool = clip.contains("hook")
 		var punch_left: bool = _max_chin(data, LH) >= _max_chin(data, RH)
 		var p_i: int = LH if punch_left else RH
-		var analysis: Dictionary = _analyse_hook(clip, data, p_i, forward, hgt, is_hook)
+		var analysis: Dictionary = _analyse_hook(clip, data, p_i, forward, hgt, arm_len, is_hook)
 		results[clip] = analysis
 		print(_row_text(clip, analysis, hgt, " "))
 
-	_write_results(results, hgt)
+	_write_results(results, hgt, arm_len, hips_off)
 	print("HOOK_STRIKE DONE clips=%d" % results.size())
 	quit(0)
 
@@ -120,7 +140,7 @@ static func _ext_frame(data: Array, hand: int) -> int:
 	return best
 
 
-static func _analyse_hook(clip: String, data: Array, hand_i: int, forward: Vector3, hgt: float, is_hook: bool) -> Dictionary:
+static func _analyse_hook(clip: String, data: Array, hand_i: int, forward: Vector3, hgt: float, arm_len: float, is_hook: bool) -> Dictionary:
 	var ext: int = _ext_frame(data, hand_i)
 	var h0: float = _height(data[0], hand_i)
 	var low_h: float = h0
@@ -155,8 +175,10 @@ static func _analyse_hook(clip: String, data: Array, hand_i: int, forward: Vecto
 				strike_ahead = (hand_curr - (data[f][HIPS] as Vector3)).dot(forward)
 				strike_chin = _chin(data[f], hand_i)
 	var frames_low_to_strike: int = strike_f - low_h_f
+	var ruler: float = arm_len if arm_len > 1e-5 else hgt
 	return {"clip": clip, "n": data.size(), "ext": ext,
 		"low_h": low_h / hgt, "low_h_f": low_h_f, "low_ahead": low_ahead / hgt, "low_ahead_f": low_ahead_f,
+		"low_ahead_arm": low_ahead / ruler, "strike_ahead_arm": strike_ahead / ruler,
 		"strike_f": strike_f, "strike_h": strike_h / hgt, "strike_ahead": strike_ahead / hgt, "strike_chin": strike_chin / hgt,
 		"frames_low_to_strike": frames_low_to_strike}
 
@@ -166,28 +188,31 @@ static func _row_text(clip: String, r: Dictionary, hgt: float, sep: String) -> S
 		clip, str(r["n"]),
 		"low_h=%.3f" % r["low_h"], "f=%d" % r["low_h_f"],
 		"low_ahead=%.3f" % r["low_ahead"], "f=%d" % r["low_ahead_f"],
+		"low_ahead_arm=%.3f" % r["low_ahead_arm"],
 		"strike_f=%d" % r["strike_f"],
 		"strike_h=%.3f" % r["strike_h"],
 		"strike_ahead=%.3f" % r["strike_ahead"],
+		"strike_ahead_arm=%.3f" % r["strike_ahead_arm"],
 		"strike_chin=%.3f" % r["strike_chin"],
 		"gap=%d" % r["frames_low_to_strike"]])
 
 
-static func _write_results(results: Dictionary, hgt: float) -> void:
-	var lines: Array = ["# REARHAND2 result (S414)", "",
-		"Model mh_boxer_10. Body height: %.3f m. Every number is a share of it." % hgt, "",
+static func _write_results(results: Dictionary, hgt: float, arm_len: float, hips_off: float) -> void:
+	var lines: Array = ["# REARHAND3 result (S415)", "",
+		"Model mh_boxer_10. Body height: %.3f m. Arm length: %.3f m. Hips offset: %.3f m." % [hgt, arm_len, hips_off], "",
 		"Low-over-hips: lowest hand height above hips (as share of body height).",
 		"Ahead-of-hips: hand position on forward axis at lowest point (negative = behind hip).",
+		"Ahead-of-hips (arm): same distance as share of arm length.",
 		"Strike frame: frame of highest forward speed after lowest point (hooks only).",
 		"Strike height: hand height at strike frame.", "",
-		"| Clip | Frm | Low over hips | f | Low ahead | f | Strike f | Strike h | Strike ahead | Strike chin | Gap |",
-		"|---|---|---|---|---|---|---|---|---|---|---|"]
+		"| Clip | Frm | Low over hips | f | Low ahead | f | Low ahead arm | Strike f | Strike h | Strike ahead | Strike ahead arm | Strike chin | Gap |",
+		"|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
 	for clip in results:
 		var r: Dictionary = results[clip]
-		lines.append("| %s | %d | %.3f | %d | %.3f | %d | %d | %.3f | %.3f | %.3f | %d |" % [
-			clip, r["n"], r["low_h"], r["low_h_f"], r["low_ahead"], r["low_ahead_f"],
-			r["strike_f"], r["strike_h"], r["strike_ahead"], r["strike_chin"], r["frames_low_to_strike"]])
+		lines.append("| %s | %d | %.3f | %d | %.3f | %d | %.3f | %d | %.3f | %.3f | %.3f | %.3f | %d |" % [
+			clip, r["n"], r["low_h"], r["low_h_f"], r["low_ahead"], r["low_ahead_f"], r["low_ahead_arm"],
+			r["strike_f"], r["strike_h"], r["strike_ahead"], r["strike_ahead_arm"], r["strike_chin"], r["frames_low_to_strike"]])
 	lines.append("")
-	var f := FileAccess.open("res://docs/REARHAND2_GAME_DATA.md", FileAccess.WRITE)
+	var f := FileAccess.open("res://docs/REARHAND3_GAME_DATA.md", FileAccess.WRITE)
 	if f != null:
 		f.store_string("\n".join(lines) + "\n")
