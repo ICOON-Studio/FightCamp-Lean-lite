@@ -49,3 +49,15 @@ static func apply(d: Dictionary, tree: SceneTree) -> void:
 		return
 	var full := str(WINDOWS[int(d["window"])][1]) == "fullscreen"
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if full else DisplayServer.WINDOW_MODE_WINDOWED)
+	if not tree.root.has_meta("fit_pixels"):
+		tree.root.set_meta("fit_pixels", true)
+		tree.root.size_changed.connect(_fit_pixels.bind(tree.root))
+	_fit_pixels(tree.root)
+
+
+## S408 operator's close-ups: a 1080-line interface squeezed into a shorter window drew every letter soft (measured: same
+## label at 0.93 scale against true size). A window a little under 1080 tall gets the interface at its true pixels.
+static func _fit_pixels(root: Window) -> void:
+	var want := root.size if root.size.y >= 900 and root.size.y < 1080 else Vector2i(1920, 1080)
+	if root.content_scale_size != want:
+		root.content_scale_size = want

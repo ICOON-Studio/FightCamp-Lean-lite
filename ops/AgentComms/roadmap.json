@@ -4534,7 +4534,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-09 04:11 board_sync",
+  "updated": "2026-11-09 07:11 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4823,11 +4823,17 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "TASK LOCOSLIDE1 - QWEN (qwen3-coder) - do the walking feet slide? Source against game",
+    "title": "TASK LOCOSLIDE2 - QWEN (qwen3-coder) - which way does the planted foot creep, and what brings it back to the source?",
     "who": "qwen",
-    "started": "2026-11-09T03:51",
-    "run": "LOCOSLIDE1",
+    "started": "2026-11-09T06:53",
+    "run": "LOCOSLIDE2",
     "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL4C - CURSOR (Grok 4.7 High) - the fighter model at the old speed",
+    "who": "cursor",
+    "started": "2026-11-09T06:55",
+    "run": "FIGHTERMODEL4C"
    }
   ],
   "next": [
@@ -5101,6 +5107,11 @@
   },
   "done_recently": [
    {
+    "title": "TASK LOCOSLIDE1 - QWEN (qwen3-coder) - do the walking feet slide? Source against game",
+    "who": "qwen",
+    "when": "2026-11-09"
+   },
+   {
     "title": "TASK LOCOKNEE1 - QWEN (qwen3-coder) - the walking clips against their source, with the ruler that works",
     "who": "qwen",
     "when": "2026-11-09"
@@ -5147,11 +5158,6 @@
    },
    {
     "title": "R11C: a standing count says what it cost",
-    "who": "claude",
-    "when": "2026-11-08"
-   },
-   {
-    "title": "Holo blink and organ pop seen on film",
     "who": "claude",
     "when": "2026-11-08"
    }
@@ -5358,17 +5364,13 @@
     {
      "text": "Walking clips match source",
      "who": "agent"
+    },
+    {
+     "text": "Walking feet: no fault",
+     "who": "agent"
     }
    ],
    "now": [
-    {
-     "text": "Fighter model speed (Cursor)",
-     "who": "agent"
-    },
-    {
-     "text": "Planted foot creep (Qwen)",
-     "who": "agent"
-    },
     {
      "text": "Four screens round 2 (Cursor)",
      "who": "agent"

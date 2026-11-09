@@ -5567,10 +5567,26 @@
         "Later"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "Done",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-09T05:13:53Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-133",
+      "asked": "2026-11-09T05:24:13.351017+00:00",
+      "session": "S294",
+      "text": "World page key: it lists every icon in the game, most of them not on the table you are looking at. Show only the icons on the current table?",
+      "options": [
+        "Yes, only what's on the table",
+        "No, keep the full key"
+      ],
+      "attach": [],
+      "answer": "No, keep the full key",
+      "note": "Answered in the app chat: \"Keep it full\"",
+      "answered_at": "2026-11-09T05:27:05.913508+00:00",
+      "seen_by_claude": true
     }
   ]
 }

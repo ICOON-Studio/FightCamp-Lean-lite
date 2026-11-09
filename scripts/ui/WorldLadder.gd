@@ -82,7 +82,10 @@ static func _ladder(main: Node, c: Career, f: Dictionary, rows: Array, chosen: S
 	var v := UI.vbox(2)
 	board.add_child(v)
 	v.add_child(UI.caps(_caption(c, f)))
-	var head := _header()
+	# S408 (S398 rule: nothing the player cannot act on): the amateur tables have no rank history or stoppage count, so a column no row fills is left out.
+	var trend := rows.any(func(r): return str(r.get("trend", "")) != "")
+	var ko := rows.any(func(r): return bool(r.get("has_ko", false)) and int(r["w"]) > 0)
+	var head := _header(trend, ko)
 	head.name = "LadderHead"
 	v.add_child(head)
 	var list := UI.vbox(1)
@@ -91,7 +94,7 @@ static func _ladder(main: Node, c: Career, f: Dictionary, rows: Array, chosen: S
 	var line := str(route["line"])
 	for r in rows:
 		var row: Dictionary = r
-		list.add_child(_row(main, f, row, chosen, line if bool(row["ours"]) and int(row["rank"]) <= 0 else ""))
+		list.add_child(_row(main, f, row, chosen, line if bool(row["ours"]) and int(row["rank"]) <= 0 else "", trend, ko))
 	v.add_child(list)
 	board.resized.connect(func(): Compare.align_columns(head, list))
 	return board
@@ -101,19 +104,21 @@ static func _caption(c: Career, f: Dictionary) -> String:
 		return "BOXING, %s, PRO" % _weight(ProLadder.division_for(f)).to_upper()
 	return "BOXING, %s" % str(Data.DIVISIONS[str(f["div"])]["name"]).to_upper()
 
-static func _header() -> HBoxContainer:
+static func _header(trend: bool, ko: bool) -> HBoxContainer:
 	var h := UI.hbox(4)
 	h.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	# Compare.align_columns sets each column to its text, then shares the board's spare width by the third number.
 	var specs := [["#", 40, 0], ["Fighter", 220, 2], ["Record", 64, 1], ["Age", 40, 0], ["Win chance", 240, 5], ["Scout", 52, 1], ["Trend", 52, 1], ["Finishes", 80, 1], ["Style", 150, 1], ["", 150, 2]]
 	for pair in specs:
+		if (pair[0] == "Trend" and not trend) or (pair[0] == "Finishes" and not ko):
+			continue
 		var lab := UI.caps(str(pair[0]))
 		lab.custom_minimum_size = Vector2(int(pair[1]), 0)
 		lab.set_meta("grow", int(pair[2]))
 		h.add_child(lab)
 	return h
 
-static func _row(main: Node, f: Dictionary, row: Dictionary, chosen: String, line: String) -> Control:
+static func _row(main: Node, f: Dictionary, row: Dictionary, chosen: String, line: String, trend: bool, ko: bool) -> Control:
 	var p := PanelContainer.new()
 	p.name = "LadderRow_" + str(row["id"]).replace(" ", "_")
 	var mine := bool(row["ours"])
@@ -143,8 +148,10 @@ static func _row(main: Node, f: Dictionary, row: Dictionary, chosen: String, lin
 		chance.modulate = Color(1, 1, 1, 1.0 / 0.55)
 	h.add_child(chance)
 	h.add_child(_scout(row))
-	h.add_child(_trend(row))
-	h.add_child(_finishes(row))
+	if trend:
+		h.add_child(_trend(row))
+	if ko:
+		h.add_child(_finishes(row))
 	var style := UI.label(str(row.get("style", "")), UI.SMALL)
 	style.name = "Style"
 	style.clip_text = false

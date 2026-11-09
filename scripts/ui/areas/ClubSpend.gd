@@ -155,7 +155,7 @@ static func _move(main: Node, c: Career, net: int) -> Dictionary:
 	var helps := GymSpend.member_limit(c) == "premises"
 	var extra := roundi(float(int(nx["rent"]) - int(now["rent"])) / GymBills.WEEKS_A_MONTH)
 	var grey := why != "" or not helps
-	var reason := why_tip(why) if why != "" else "The place still has room, so a bigger unit would not help yet."
+	var reason := why_tip(why) if why != "" else "Not needed yet: your gym still has room for more members."
 	var effect := "Holds %d members. Rent up %s a week." % [int(nx["cap"]), UI.money(extra)]
 	if grey:
 		effect = reason

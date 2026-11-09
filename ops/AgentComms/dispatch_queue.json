@@ -700,6 +700,12 @@
    "seat": "qwen",
    "title": "TASK LOCOSLIDE2 - QWEN (qwen3-coder) - which way the planted foot creeps, and what brings it back to the source",
    "brief": "LOCOSLIDE2"
+  },
+  {
+   "id": "BOXERLEAN1",
+   "seat": "qwen",
+   "title": "TASK BOXERLEAN1 - QWEN (qwen3-coder) - does the guard lean as far forward as the capture does?",
+   "brief": "BOXERLEAN1"
   }
  ]
 }

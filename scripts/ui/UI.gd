@@ -44,6 +44,9 @@ static func font(kind: String) -> Font:
 		var bold: FontFile = load("res://assets/fonts/Barlow-Bold.ttf")
 		var bebas: FontFile = load("res://assets/fonts/BebasNeue-Regular.ttf")
 		var mono: FontFile = load("res://assets/fonts/IBMPlexMono-Medium.ttf")
+		for sharp: FontFile in [regular, semi, bold]:   # S408 operator's close-ups: small text was soft (glyphs on fractions of a pixel, no hinting)
+			sharp.hinting = TextServer.HINTING_NORMAL
+			sharp.subpixel_positioning = TextServer.SUBPIXEL_POSITIONING_DISABLED
 		_fonts["marker"] = _load_or("res://assets/fonts/PermanentMarker-Regular.ttf", bebas)
 		_fonts["hand"] = _load_or("res://assets/fonts/Kalam-Regular.ttf", regular)
 		_fonts["handbold"] = _load_or("res://assets/fonts/Kalam-Bold.ttf", bold)

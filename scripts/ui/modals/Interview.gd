@@ -5,6 +5,8 @@ const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const RecruitPanel := preload("res://scripts/ui/RecruitPanel.gd")
 const Recruit := preload("res://scripts/rules/Recruit.gd")
+const PromoShot := preload("res://scripts/ui/PromoShot.gd")
+const Faces := preload("res://scripts/rules/Faces.gd")
 
 
 func build(main: Node, m: Dictionary) -> void:
@@ -14,12 +16,22 @@ func build(main: Node, m: Dictionary) -> void:
 	var picks: Array = m["picks"]
 	var v := UI.vbox(10)
 	add_child(v)
-	v.add_child(UI.caps("AT RECEPTION"))
-	v.add_child(UI.display(str(a["name"]).to_upper(), 48))
-	v.add_child(UI.muted("%d, %s, %s, amateur %d-%d, %s" % [a["age"], str(a["wc"]).to_lower(), a["stance"], a["w"], a["l"],
+	# S408 operator: "there is not even a picture of the fighter you are signing".
+	var head := UI.hbox(20)
+	head.name = "WalkInHead"
+	v.add_child(head)
+	var shot := PromoShot.picture(Faces.stem(a), Vector2(170, 170))
+	if shot != null:
+		head.add_child(shot)
+	var who := UI.vbox(6)
+	who.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	head.add_child(who)
+	who.add_child(UI.caps("AT RECEPTION"))
+	who.add_child(UI.display(str(a["name"]).to_upper(), 48))
+	who.add_child(UI.muted("%d, %s, %s, amateur %d-%d, %s" % [a["age"], str(a["wc"]).to_lower(), a["stance"], a["w"], a["l"],
 		str(a["style"]).to_lower()], UI.BODY))
 	# S397 rank 5: each walk-in speaks for themself (FirstHour.walkin's quote); the first one's line stays.
-	v.add_child(UI.label(str(a.get("quote", "\"I've had four fights at a church hall. I want a proper gym and a proper coach.\"")), UI.BODY, UI.FG, "italic", true))
+	who.add_child(UI.label(str(a.get("quote", "\"I've had four fights at a church hall. I want a proper gym and a proper coach.\"")), UI.BODY, UI.FG, "italic", true))
 	# S354 the reception as an RPG recruit (operator: "get it more rpg elements to this"): RecruitPanel.
 	v.add_child(RecruitPanel.build(main, main.career, a, picks, "pickcard"))
 	v.add_child(UI.muted("Terms: club stipend, $250 a week.", UI.SMALL))
