@@ -1,0 +1,108 @@
+<!doctype html><html><head><meta charset="utf-8"><title>designer coach</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:#d9c3a0;font-family:"Segoe UI",Arial,sans-serif;color:#2b2118;position:relative;overflow:hidden}
+.mk{font-family:"Segoe Print","Kalam","Comic Sans MS",cursive}
+.top{position:absolute;left:0;top:0;width:1920px;height:64px;background:#1d1a17;color:#e9dcc3;font-size:22px;display:flex;align-items:center;padding:0 28px;gap:36px}
+.top b{color:#fff}.top .go{margin-left:auto;background:#c8352b;color:#fff;padding:10px 26px;border-radius:6px;font-weight:700}
+.rail{position:absolute;left:0;top:64px;width:110px;height:1016px;background:#2a2521}
+.rail div{height:84px;color:#b9a98c;font-size:18px;display:flex;align-items:center;justify-content:center}
+.rail .on{background:#d9c3a0;color:#2b2118;font-weight:700}
+.sticky{position:absolute;left:140px;top:86px;width:1740px;height:100px;background:#f6dc5b;transform:rotate(-.4deg);box-shadow:3px 4px 0 #0003;padding:12px 26px;font-size:34px;line-height:1.15}
+.sticky small{display:block;font-size:22px;color:#6b5a1a}
+.card{position:absolute;background:#f8f0de;border:3px solid #6e4b2a;border-radius:6px;box-shadow:4px 5px 0 #0003}
+.pol{left:140px;top:206px;width:420px;height:850px;padding:20px;transform:rotate(-.6deg)}
+.face{width:372px;height:250px;border:2px solid #2b2118;overflow:hidden}
+.name{font-size:38px;margin-top:10px;font-weight:700}
+.sch{display:inline-block;background:#2b2118;color:#f6dc5b;padding:4px 12px;font-size:20px;margin:6px 6px 0 0;border-radius:3px}
+.sch.x{background:#8e2b24;color:#fff}
+.ln{font-size:24px;margin-top:12px;line-height:1.25;background:#fff9d6;padding:10px 14px;border-left:6px solid #c8352b}
+.corner{margin-top:12px;font-size:20px;display:flex;gap:6px;align-items:center}
+.pip{width:26px;height:26px;border-radius:50%;border:2px solid #2b2118}
+.w{background:#3a8a4c}.l{background:#c8352b}
+.board{left:590px;top:206px;width:850px;height:850px;background:#fbfaf5;border:14px solid #b9bdc0;padding:16px 22px}
+.h{font-size:26px;font-weight:700;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.t{display:grid;grid-template-columns:70px 1fr;gap:4px 14px;align-items:center;padding:9px 6px;border-bottom:2px dashed #cfc7b4}
+.t.lim{background:#fde7e2;border:3px solid #c8352b;border-radius:6px}
+.ic{width:62px;height:62px;border-radius:50%;background:#2b2118;color:#f6dc5b;font-size:24px;font-weight:700;display:flex;align-items:center;justify-content:center;text-align:center}
+.ic.call{border-radius:14px 14px 14px 2px;background:#3d6a8f;color:#fff;font-size:17px;line-height:1.1;padding:4px}
+.tn{font-size:22px;font-weight:700;display:flex;justify-content:space-between}
+.tn i{font-style:normal;font-weight:700;font-size:18px;color:#a02a20}
+.bar{position:relative;height:26px;background:#e6dfcd;border:2px solid #2b2118;margin-top:6px}
+.bar .f{position:absolute;left:0;top:0;bottom:0;background:#e0a030}
+.bar .lock{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,#c9c1ac 0 6px,#e6dfcd 6px 12px)}
+.bar .tick{position:absolute;top:-9px;bottom:-9px;width:6px;background:#c8352b}
+.bar .m{position:absolute;top:-6px;width:14px;height:34px;background:#2b2118;border-radius:3px}
+.bar .tk{position:absolute;top:0;bottom:0;width:2px;background:#0005}
+.tag{font-size:16px;color:#fff;background:#3a8a4c;padding:1px 8px;border-radius:3px;margin-left:8px;font-weight:400}
+.sec{left:1470px;top:206px;width:410px;height:850px;padding:18px;background:#efe6cf}
+.gh{display:grid;grid-template-columns:48px 1fr;gap:10px;align-items:center;margin:8px 0}
+.gi{width:46px;height:46px;border-radius:50%;border:3px dashed #6e4b2a;font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center;background:#fff}
+.gi.n{background:#b9e3b9}
+.gb{height:18px;border:2px solid #6e4b2a;background:#fff;position:relative;margin-top:3px}
+.gb div{position:absolute;left:0;top:0;bottom:0;background:#9aa5ab}
+.btn{display:block;margin-top:12px;padding:13px;text-align:center;font-weight:700;font-size:22px;border-radius:6px;border:3px solid #2b2118}
+.b1{background:#f8f0de}.b2{background:#c8352b;color:#fff}
+.wrap{display:flex;gap:6px;margin-top:6px}
+.wr{flex:1;height:44px;border:2px solid #2b2118;font-size:16px;padding:10px 4px;text-align:center;background:repeating-linear-gradient(-20deg,#f3efe4 0 10px,#e4dcc6 10px 20px)}
+.wr.on{background:repeating-linear-gradient(-20deg,#fff 0 10px,#f0c2bc 10px 20px)}
+.wr.cur{outline:4px solid #c8352b}
+</style></head><body>
+<div class="top"><span>&lt; &gt;</span><b>Iron Lane Boxing</b><span>Mon 13 Apr, week 14</span><span style="color:#f6dc5b">WEEK REVIEW</span><span>$3,210</span><span class="go">CONTINUE</span></div>
+<div class="rail"><div>Home</div><div>Fighters</div><div>Fights</div><div class="on">Club</div><div>World</div></div>
+
+<div class="sticky mk">Week 14. Lucy has hit Luke's limit on the jab. Fight in 5 weeks.<small>Go deeper with Luke on what he has, or bring in a second book for one block?</small></div>
+
+<div class="card pol">
+ <div class="face">
+  <svg width="372" height="250" viewBox="0 20 380 250" preserveAspectRatio="xMidYMid slice"><rect width="380" height="330" fill="#9a7b58"/><circle cx="190" cy="125" r="78" fill="#d8a77c" stroke="#2b2118" stroke-width="4"/><path d="M112 112 q78 -90 156 0 q-10 -48 -78 -52 q-68 4 -78 52z" fill="#2b2118"/><circle cx="162" cy="125" r="6" fill="#2b2118"/><circle cx="218" cy="125" r="6" fill="#2b2118"/><path d="M165 158 q25 14 50 0" stroke="#2b2118" stroke-width="5" fill="none"/><path d="M60 330 q0 -110 130 -110 q130 0 130 110z" fill="#3d6a8f" stroke="#2b2118" stroke-width="4"/><rect x="250" y="210" width="88" height="64" rx="30" fill="#c8352b" stroke="#2b2118" stroke-width="4"/><rect x="40" y="210" width="88" height="64" rx="30" fill="#c8352b" stroke="#2b2118" stroke-width="4"/></svg>
+ </div>
+ <div class="name mk">Luke Reid</div>
+ <div><span class="sch">Out-boxer school</span><span class="sch">Jab and range</span><span class="sch x">Blind spot: the body</span></div>
+ <div class="ln mk">"The jab's as far as I can take it. Body work is not my game."</div>
+ <div class="corner">Corner with Lucy: <span class="pip w"></span><span class="pip w"></span><span class="pip l"></span><span class="pip w"></span><b>3-1</b></div>
+ <div style="margin-top:16px;font-size:20px;font-weight:700">BOND: 2 of 4 turns of tape</div>
+ <div class="wrap"><div class="wr on">Stranger</div><div class="wr on cur">Working</div><div class="wr">Trusted</div><div class="wr">Corner</div></div>
+ <div style="margin-top:8px;font-size:18px;color:#5a4a36">Trusted in 7 weeks and 1 more fight together: opens his deepest lessons.</div>
+ <div style="margin-top:12px;font-size:19px;color:#2f6a3f;font-weight:700">Luke picked up Check hook from Lucy (week 12)</div>
+</div>
+
+<div class="card board">
+ <div class="h"><span class="mk" style="font-size:32px">LUKE'S BOOK</span><span style="font-size:18px;font-weight:400">red line = his limit &nbsp;|&nbsp; black = Lucy now</span></div>
+ <div class="t lim"><div class="ic">1</div><div><div class="tn"><span>Jab</span><i>AT HIS LIMIT</i></div><div class="bar"><div class="f" style="width:58%"></div><div class="lock" style="left:60%;width:25%"></div><div class="tk" style="left:30%"></div><div class="tk" style="left:60%"></div><div class="tk" style="left:85%"></div><div class="tick" style="left:60%"></div><div class="m" style="left:56.5%"></div></div></div></div>
+ <div class="t"><div class="ic">2</div><div><div class="tn"><span>Cross</span></div><div class="bar"><div class="f" style="width:41%"></div><div class="tk" style="left:30%"></div><div class="tk" style="left:60%"></div><div class="tk" style="left:85%"></div><div class="tick" style="left:60%"></div><div class="m" style="left:39%"></div></div></div></div>
+ <div class="t"><div class="ic">1-2</div><div><div class="tn"><span>One-two</span></div><div class="bar"><div class="f" style="width:47%"></div><div class="tk" style="left:30%"></div><div class="tk" style="left:60%"></div><div class="tk" style="left:85%"></div><div class="tick" style="left:60%"></div><div class="m" style="left:45%"></div></div></div></div>
+ <div class="t"><div class="ic">3b</div><div><div class="tn"><span>Check hook <span class="tag">from Lucy</span></span></div><div class="bar"><div class="f" style="width:22%"></div><div class="tk" style="left:30%"></div><div class="tk" style="left:60%"></div><div class="tk" style="left:85%"></div><div class="tick" style="left:30%"></div><div class="m" style="left:20%"></div></div></div></div>
+ <div class="t"><div class="ic" style="font-size:18px">s 2-3</div><div><div class="tn"><span>Slip 2-3</span></div><div class="bar"><div class="f" style="width:33%"></div><div class="tk" style="left:30%"></div><div class="tk" style="left:60%"></div><div class="tk" style="left:85%"></div><div class="tick" style="left:60%"></div><div class="m" style="left:31%"></div></div></div></div>
+ <div class="h" style="margin-top:12px"><span style="font-size:21px">CALLS REHEARSED WITH THIS COACH: taken in full in the corner</span></div>
+ <div style="display:flex;gap:12px;margin-top:4px">
+  <div class="ic call" style="width:150px;height:72px">Jab and move</div>
+  <div class="ic call" style="width:150px;height:72px">Draw the lead</div>
+  <div class="ic call" style="width:150px;height:72px">Hands up, move</div>
+  <div class="ic call" style="width:150px;height:72px;background:#999;opacity:.65">Go to the body: not in his book</div>
+ </div>
+ <div style="margin-top:14px;font-size:18px;color:#5a4a36;display:flex;gap:26px;align-items:center">
+  <span style="display:inline-block;width:44px;height:20px;background:repeating-linear-gradient(45deg,#c9c1ac 0 6px,#e6dfcd 6px 12px);border:2px solid #2b2118"></span><span>opens only with trust</span>
+  <span>ticks: Usable 30 / Sharp 60 / Signature 85</span>
+ </div>
+ <div class="mk" style="margin-top:16px;font-size:23px;background:#fff9d6;padding:10px 16px;border-left:6px solid #c8352b">At this pace the jab stops growing in 2 weeks. The boxer's ceiling on the jab is higher than Luke's.</div>
+</div>
+
+<div class="card sec">
+ <div class="h"><span class="mk" style="font-size:28px">MARCUS HALE'S BOOK</span></div>
+ <div style="font-size:19px;margin-bottom:6px"><span class="sch">Pressure school</span><span class="sch">Body work</span></div>
+ <div style="font-size:18px;color:#5a4a36;margin-bottom:8px">What this coach adds. What is learned stays with the boxer.</div>
+ <div class="gh"><div class="gi n">3</div><div><b>Body hook</b> to Sharp<div class="gb"><div style="width:0%"></div></div></div></div>
+ <div class="gh"><div class="gi n">4</div><div><b>Uppercut</b> to Usable<div class="gb"><div style="width:0%"></div></div></div></div>
+ <div class="gh"><div class="gi">1</div><div><b>Jab</b>: only to Usable<div class="gb"><div style="width:58%"></div></div></div></div>
+ <div class="gh"><div class="gi" style="font-size:13px;border-radius:12px">call</div><div><b>Go to the body</b></div></div>
+ <div style="margin-top:12px;font-size:19px;line-height:1.3;border-top:3px dashed #6e4b2a;padding-top:10px">
+  The 58 jab stays. Undrilled it fades: Marcus can hold pads on it, not raise it.<br><br>
+  <b>First 2 weeks together: gains x0.7.</b> Fight in 5 weeks: about 3 good weeks.<br><br>
+  Block of 4 weeks minimum. Luke leaves with a week's pay.
+ </div>
+ <div class="btn b1">Stay with Luke, work the Cross</div>
+ <div class="btn b2">Hire Marcus for a block</div>
+ <div class="btn b1" style="font-size:18px">Run both: pads split, each bond slower</div>
+</div>
+</body></html>

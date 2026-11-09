@@ -1,0 +1,73 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;font-family:"Segoe UI",Arial,sans-serif;color:#f4ecdc;background:radial-gradient(ellipse at 30% 20%,#3a2a22 0,#171112 60%,#0b0809 100%);position:relative}
+.top{height:76px;background:linear-gradient(#1d1517,#0e0a0b);border-bottom:3px solid #c8321e;display:flex;align-items:center;padding:0 24px;gap:14px}
+.logo{font:italic 900 34px Impact,sans-serif;color:#5b8cff;letter-spacing:1px;margin-right:30px}
+.tab{padding:14px 26px;font:800 22px Arial;background:#2a2023;border-radius:6px;border-bottom:4px solid #0a0707;color:#d8c9b0}
+.tab.on{background:#f4ecdc;color:#1a1214;border-bottom-color:#c8321e;transform:translateY(-2px)}
+.go{margin-left:auto;background:linear-gradient(#e24a2c,#a82414);border-bottom:5px solid #5e130a;border-radius:8px;padding:12px 40px;font:900 28px Impact;letter-spacing:2px;color:#fff;box-shadow:0 0 24px #e24a2c88}
+.money{font:900 32px Impact;color:#ffd04a;margin-left:20px}
+.hero{position:absolute;left:0;top:76px;width:560px;height:1004px;background:linear-gradient(90deg,#120c0d,#2a1b19 70%,transparent)}
+.fig{position:absolute;left:60px;top:230px;width:380px;height:760px;background:radial-gradient(ellipse at 50% 12%,#9a6a4c 0 70px,transparent 72px),linear-gradient(#c8321e,#c8321e) 120px 170px/140px 260px no-repeat,linear-gradient(#3fa34d,#3fa34d) 125px 430px/130px 250px no-repeat;opacity:.9;filter:drop-shadow(0 20px 30px #000)}
+.name{position:absolute;left:40px;top:100px;font:900 76px Impact;letter-spacing:2px;text-transform:uppercase;color:#fff;text-shadow:4px 4px 0 #c8321e}
+.sub{position:absolute;left:44px;top:190px;font:700 24px Arial;color:#d8c9b0}
+.ovr{position:absolute;left:400px;top:230px;width:130px;height:130px;border-radius:50%;background:conic-gradient(#ffd04a 0 62%,#3a2d2d 0);display:flex;align-items:center;justify-content:center}
+.ovr b{width:104px;height:104px;border-radius:50%;background:#150f10;display:flex;flex-direction:column;align-items:center;justify-content:center;font:900 46px Impact;color:#ffd04a}
+.ovr i{font:700 13px Arial;color:#d8c9b0;font-style:normal;letter-spacing:2px}
+.panel{position:absolute;background:linear-gradient(#251a1c,#171012);border:2px solid #3b2b2c;border-top:4px solid #c8321e;border-radius:10px;padding:20px 26px}
+h2{font:900 22px Impact;letter-spacing:3px;color:#ffd04a;margin-bottom:14px}
+.stats{left:590px;top:110px;width:760px;height:560px}
+.row{display:flex;align-items:center;gap:14px;height:46px}
+.ic{width:36px;height:36px;border-radius:8px;background:#3b2b2c;display:flex;align-items:center;justify-content:center;font:900 16px Arial;color:#ffd04a}
+.nm{width:112px;font:800 20px Arial}
+.bar{position:relative;flex:1;height:26px;background:#0c0809;border-radius:4px;border:2px solid #3b2b2c;transform:skewX(-14deg);overflow:hidden}
+.bar span{display:block;height:100%;background:linear-gradient(90deg,#2d63c8,#5b8cff)}
+.bar em{position:absolute;top:-2px;bottom:-2px;width:4px;background:#fff}
+.v{width:44px;text-align:right;font:900 28px Impact;color:#fff}
+.cols{display:flex;gap:34px}.cols>div{flex:1}
+.glance{left:1380px;top:110px;width:510px;height:560px;display:flex;flex-direction:column;gap:12px}
+.chip{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:8px;background:#0f0a0b;border-left:8px solid #3fa34d;font:800 22px Arial}
+.chip.bad{border-left-color:#e24a2c}.chip.mid{border-left-color:#ffd04a}
+.chip small{display:block;font:600 15px Arial;color:#b9a98f}
+.hot{background:linear-gradient(#e24a2c,#a82414);padding:8px 14px;border-radius:6px;font:900 18px Impact;letter-spacing:1px}
+.goal{left:590px;top:700px;width:760px;height:300px}
+.ring{display:flex;align-items:center;gap:26px}
+.big{width:150px;height:150px;border-radius:50%;background:conic-gradient(#e24a2c 0 72%,#3a2d2d 0);display:flex;align-items:center;justify-content:center}
+.big b{width:118px;height:118px;border-radius:50%;background:#150f10;display:flex;align-items:center;justify-content:center;font:900 32px Impact;color:#fff}
+.btn{display:inline-block;margin-top:16px;padding:14px 40px;border-radius:8px;font:900 24px Impact;letter-spacing:2px;color:#fff;background:linear-gradient(#e24a2c,#a82414);border-bottom:6px solid #5e130a;box-shadow:0 0 22px #e24a2c77}
+.body{left:1380px;top:700px;width:510px;height:300px}
+.pip{display:inline-block;width:26px;height:26px;border-radius:50%;margin-right:6px;background:#3fa34d}.pip.o{background:#3a2d2d}
+</style></head><body>
+<div class="top"><div class="logo">Anvil Street Gym</div><div style="font:700 20px Arial;color:#d8c9b0;margin-right:24px">MON 12 JAN<br>WEEK 2</div>
+<div class="tab">Home</div><div class="tab on">Fighters</div><div class="tab">Fights</div><div class="tab">Club</div><div class="tab">World</div>
+<div class="money">$16,841</div><div class="go">ANSWER BOUT OFFER</div></div>
+<div class="hero"><div class="name">Lucy Jackson</div><div class="sub">Lightweight · 21 · orthodox · 3-1</div>
+<div class="ovr"><b>62<i>RATING</i></b></div><div class="fig"></div></div>
+<div class="panel stats"><h2>ATTRIBUTES</h2><div class="cols"><div>
+<div class="row"><div class="ic">P</div><div class="nm">Power</div><div class="bar"><span style="width:58%"></span><em style="left:84%"></em></div><div class="v">58</div></div>
+<div class="row"><div class="ic">S</div><div class="nm">Speed</div><div class="bar"><span style="width:63%"></span><em style="left:84%"></em></div><div class="v">63</div></div>
+<div class="row"><div class="ic">T</div><div class="nm">Technique</div><div class="bar"><span style="width:60%"></span><em style="left:84%"></em></div><div class="v">60</div></div>
+<div class="row"><div class="ic">D</div><div class="nm">Defence</div><div class="bar"><span style="width:57%"></span><em style="left:84%"></em></div><div class="v">57</div></div>
+<div class="row"><div class="ic">F</div><div class="nm">Footwork</div><div class="bar"><span style="width:63%"></span><em style="left:84%"></em></div><div class="v">63</div></div>
+<div class="row"><div class="ic">C</div><div class="nm">Stamina</div><div class="bar"><span style="width:62%"></span><em style="left:84%"></em></div><div class="v">62</div></div>
+</div><div>
+<div class="row"><div class="ic">IQ</div><div class="nm">Ring IQ</div><div class="bar"><span style="width:59%"></span><em style="left:84%"></em></div><div class="v">59</div></div>
+<div class="row"><div class="ic">H</div><div class="nm">Heart</div><div class="bar"><span style="width:85%;background:linear-gradient(90deg,#7b3fc8,#b07bff)"></span></div><div class="v">85</div></div>
+<div class="row"><div class="ic">Di</div><div class="nm">Discipline</div><div class="bar"><span style="width:69%;background:linear-gradient(90deg,#2f8a3b,#4fd163)"></span></div><div class="v">69</div></div>
+<div class="row"><div class="ic">Co</div><div class="nm">Confidence</div><div class="bar"><span style="width:51%;background:linear-gradient(90deg,#c86e10,#ffa63a)"></span></div><div class="v">51</div></div>
+<div class="row"><div class="ic">Ch</div><div class="nm">Chin</div><div class="bar"><span style="width:66%;background:linear-gradient(90deg,#2f8a3b,#4fd163)"></span></div><div class="v">66</div></div>
+<div class="row"><div class="ic">Te</div><div class="nm">Temper</div><div class="hot">HOT-HEADED</div></div>
+</div></div>
+<div style="margin-top:22px;font:600 17px Arial;color:#b9a98f">White tick = ceiling 84 · hover a bar for what it does</div></div>
+<div class="panel glance"><h2>AT A GLANCE</h2>
+<div class="chip"><span>Best</span><div>Heart, Discipline<small>carry her late rounds</small></div></div>
+<div class="chip mid"><span>Fix</span><div>Coachability, Confidence<small>slows her gains</small></div></div>
+<div class="chip bad"><span>Risk</span><div>Trades when hit<small>plan clean exits</small></div></div>
+<div class="chip"><span>Growth</span><div>Big room to grow<small>ceiling 84</small></div></div>
+<div class="chip mid"><span>Style</span><div>Out-boxer<small>wins at long range</small></div></div></div>
+<div class="panel goal"><h2>NEXT GOAL</h2><div class="ring"><div class="big"><b>62/65</b></div>
+<div><div style="font:900 34px Impact">FIGHT INSIDE A MONTH</div><div style="font:600 19px Arial;color:#b9a98f;margin-top:6px">Bout booked 0 of 1 · 21 days left · at risk</div><div class="btn">BOOK THE BOUT</div></div></div></div>
+<div class="panel body"><h2>BODY</h2><div style="font:900 56px Impact">61.4 <span style="font-size:28px;color:#b9a98f">/ 60.0 KG</span></div>
+<div style="margin:10px 0 18px"><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip o"></span><span class="pip o"></span> <span style="font:700 18px Arial;color:#d8c9b0">fatigue</span></div>
+<div class="chip bad" style="font-size:20px">1.4 kg to cut by Sat 31 Jan</div></div>
+</body></html>

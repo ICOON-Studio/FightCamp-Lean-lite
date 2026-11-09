@@ -1,3 +1,14 @@
+FIGHTCAMP - BUILD OF 2026-11-09 (S412): IT STOPS LOOKING LIKE A WEBSITE
+================================================================================
+
+ NEW.
+  a. Every page now sits on the painted gym, with cream paper cards. Buttons are plates that sink when you press them.
+  b. Bout offers: both boxers shadowbox toward you, live, each with their club's crest behind them.
+  c. Fighter cards: every boxer stands in their own pose.
+  d. The page scroll bar is gone. The mouse wheel still scrolls.
+ TRY: open a bout offer. Do the boxers feel alive? Does it stutter when the page opens? Then walk Club, Fighters, Money and World.
+ Still to come: your calls on the board (the guide as a person, the main screen, the coaches).
+
 FIGHTCAMP - BUILD OF 2026-11-09 (S409): PEOPLE IN YOUR GYM, AND YOU PICK THE BUILDING
 ================================================================================
 

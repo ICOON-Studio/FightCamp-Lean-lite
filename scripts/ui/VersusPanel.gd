@@ -15,6 +15,9 @@ const RosterCards := preload("res://scripts/ui/RosterCards.gd")
 const WB_KIT := preload("res://scripts/ui/WhiteboardKit.gd")
 
 const BACKDROP := "res://assets/ui/art/versus_backdrop.jpg"
+const FighterPose := preload("res://scripts/rules/FighterPose.gd")
+const ClubCrest := preload("res://scripts/rules/ClubCrest.gd")
+const VersusLive := preload("res://scripts/ui/VersusLive.gd")
 const CARD_W := 640.0
 const NAME_COLOUR := Color("#f6dfb4")
 const PAPER := Color("#fbf1df")
@@ -45,26 +48,32 @@ static func build(main: Node, c: Career, f: Dictionary, o: Dictionary, opp: Dict
 	root.name = "Versus"
 	root.custom_minimum_size = Vector2(0, 900)
 	var stems: Array = Faces.pair(f, opp)
+	var poses: Array = FighterPose.pair(str(stems[0]), str(stems[1]), offer_id)
+	var crests: Array = ClubCrest.pair(c.gym_name, str(opp["club"]))
 	var word: Array = WB_KIT.fatigue_word(FighterProfile.fatigue(f), false)
 	var shape := "Shape: %s · Mood: %s" % [str(word[0]).capitalize(), FighterProfile.mood(float(f.get("morale", FighterProfile.MORALE_START)))]
-	root.add_child(_side(str(f["name"]), "%s · your fighter" % str(f["wc"]), str(stems[0]), "red", shape, false))
+	root.add_child(_side(str(f["name"]), "%s · your fighter" % str(f["wc"]), str(stems[0]), "red", shape, false, int(poses[0]), str(crests[0]), hash(offer_id + "r")))
 	root.add_child(_card(main, c, f, o, opp, offer_id, wf, answer, str(stems[0])))
-	root.add_child(_side(str(opp["name"]), "%s · %s" % [str(f["wc"]), str(opp["club"])], str(stems[1]), "blue", "Style: %s" % str(opp["style"]), true))
+	root.add_child(_side(str(opp["name"]), "%s · %s" % [str(f["wc"]), str(opp["club"])], str(stems[1]), "blue", "Style: %s" % str(opp["style"]), true, int(poses[1]), str(crests[1]), hash(offer_id + "b")))
 	return root
 
 
-static func _side(who: String, sub: String, stem: String, corner: String, tag_text: String, right: bool) -> Control:
+static func _side(who: String, sub: String, stem: String, corner: String, tag_text: String, right: bool, pose: int = 0, crest: String = "", key: int = 0) -> Control:
 	var col := Control.new()
 	col.name = "Side_" + corner
 	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	col.clip_contents = true
 	col.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var pic := RosterCards.body(kit_stem(stem, corner))
+	if crest != "":   # S412 "behind the maybe the lgoos of each gym ?"
+		col.add_child(_crest(crest, right))
+	var pic: Control = VersusLive.make(stem, corner, right, key)   # S412 shadowboxing, live; no picture (a test): the baked pose
+	if pic == null:
+		pic = RosterCards.body(FighterPose.picture(kit_stem(stem, corner), pose))
 	if pic != null:
 		pic.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		pic.offset_top = 70
 		if pic is TextureRect:
-			(pic as TextureRect).flip_h = right   # both face the middle
+			(pic as TextureRect).flip_h = not right   # S412 the pictures face left: the left side turns, so both face the middle
 		col.add_child(pic)
 	var words := UI.vbox(0)
 	words.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
@@ -80,6 +89,23 @@ static func _side(who: String, sub: String, stem: String, corner: String, tag_te
 	col.add_child(words)
 	col.add_child(_tag(tag_text, right))
 	return col
+
+
+static func _crest(crest: String, right: bool) -> TextureRect:
+	var t := TextureRect.new()
+	t.name = "Crest"
+	t.texture = load(ClubCrest.path(crest))
+	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	t.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	t.offset_top = 190
+	t.offset_bottom = -160
+	var outward := 70.0 if right else -70.0   # the boxer stands on its middle: slide it to the outer side
+	t.offset_left = outward
+	t.offset_right = outward
+	t.modulate = Color(1, 1, 1, 0.26)
+	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return t
 
 
 static func _tag(text: String, right: bool) -> Control:

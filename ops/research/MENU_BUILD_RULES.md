@@ -31,3 +31,6 @@ Reference: docs/mockups/s409/concepts/roster_painted.png and versus_painted.png;
 20. **A person on every page, large.** `RosterCards.body(stem, size)`, the same renders as Fighters. Small head-and-shoulders portraits are for strips and lists only.
 21. **The number is the test.** `tools/page_ink.gd`: `PageInk.read(root)` gives `words` (visible words on the screen), `pic_pct` (share of the screen under people and move pictures) and `tallest` (the tallest person, px). Each page's brief has its bar and the page's test prints the three. Measured on main S411: Versus 93 words / 49% / 830 px; Fighters with eight boxers 164 / 27% / 322 px; Home 127 / 0% / 0; Fighter Week 326 / 1% / 0; Playbook 270 / 0% / 0.
 22. **The painted concepts (docs/mockups/s410/concepts) show the surfaces only:** paper, wood, the brush font and the light. They carry far too much text, their numbers and faces are invented, and their left menu no longer exists. The s403 html says what a page can do; these rules say how much of it is written down.
+
+## It is a sandbox (S412, operator: "please stop adding things like this that make it all about her, it is a sandbox game")
+24. **No fixed he or she, no story around one boxer.** Any text, mockup or coach line names the boxer through a variable or says "the boxer". A line is about the skill, not the person. Mockups mix men and women.

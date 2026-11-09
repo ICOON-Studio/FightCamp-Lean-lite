@@ -8,9 +8,9 @@ Updated 2026-11-09 by claude S294.
 
 ## Now
 
-**S411 — ?** *(claude)*
+**S412 — ?** *(claude)*
 
-S411: the floor direction: a small unit that grows, stamina bars over boxers, places-free dots over equipment. Concepts painted, nothing built. Rule designed (FLOOR_PLACES_S411). Main CI green. Hit-reaction loss settled: the earlier probe was wrong. Fighter model 4F running.
+S412: one shared theme pass against the website look: the gym wall, cream cards, plates that press, no page bar. Versus: live shadowboxing, crests, facing each other. Coach design and his gym picture on the board. Blind critic 4.5 on the look.
 
 ## Next
 
@@ -296,3 +296,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S409**  |  |  | *none yet* |  |
 |  |  | **S410**  |  |  | *none yet* |  |
 |  |  | **S411**  |  |  | *none yet* |  |
+|  |  | **S412**  |  |  | *none yet* |  |

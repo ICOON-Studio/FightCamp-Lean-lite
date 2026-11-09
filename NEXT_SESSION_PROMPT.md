@@ -1,3 +1,35 @@
+# S412 last note (read first)
+He restarted the PC after raising the pagefile (commit free went from 7 to about 16 GB). FIGHTERMODEL4G (Cursor) was running then and is probably cut off: if so its branch and worktree block the same id, so re-run it as FIGHTERMODEL4H from the same brief (BASE stays cursor/fightermodel4f, and 4B's BASE follows it).
+COACH1 PR 127: opened the render of Club > People from its worktree: the five bars and "Best at" read true and the page fits. It was built before the new theme, so its own blues and pale cards will change on merge: render again after. Its CI has one red, move_tip (19 of 150 frames): not its files, read main's CI on e0c3382f first (it was in progress) to see if main shares it, then merge. "Lucy, pad work: +0.00" still needs a look.
+FLOOR2 PR 128: read the before and after, each plan is now 46-47 places and keeps its character (bag wall has the most bags, conditioning the most mats). Merge once its CI is green.
+THE MAP: not redrawn in S412. Do it at the start: strip data-deleted lines, then the LEARN step (8 new cards).
+He said of the versus poses: "red is fine blue stil needs to turn more to the camera but still both have same poses, nevermind this is not important". Leave it unless he raises it. The two takes are picked by offer id, so the same take can come up on both sides.
+He has not answered the hand-over question or the three board calls.
+
+# S412 handover (written 2026-11-09, S412 main session)
+
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S413` and redraw the map.
+READ THE PULL'S OUTPUT. Animation progresses every session: name the item and seat in the first message. 11-10 05:00 is the first real full test run: read ops/AgentComms/nightly/latest.txt against main's CI.
+
+HIS RULE S412: "please stop adding things like this that make it all about her, it is a sandbox game". No fixed he or she and no story around one boxer in any text, mockup or brief (MENU_BUILD_RULES 24, CRITIC_PACK, memory). The game's own text is already guarded by tests/no_pronoun_test.gd; WrestleChains' "her" strings are save-file ids, leave them.
+
+BUILT S412, on main at e0c3382f, exported, HE HAS NOT PLAYED IT:
+THE LOOK, once in the shared theme (UI.gd, new Plate.gd, MenuFx, Shell, paper_grain shader): gym_backdrop on every page, dimmed; PANEL cream; plates with a lip that sink; stamped tags; kv value beside its name; page scroll bar hidden; MenuFx.ink_on_wall gives words straight on the wall a light ink (Main.render calls it; containers only, never into a PanelContainer). Blue accent is now canvas blue. menu_wall.jpg is unused.
+VERSUS: scripts/ui/VersusLive.gd, live MetaHuman per side, owned shadowboxing takes in a 12 s window, blended seam, chest eased to the lens; null when headless so tests keep the stills. Measured one frame 16 ms, opening 1 s (a re-render reloads them: watch it when he plays). ClubCrest (seven Ludo stamps in assets/ui/art/crests). The still's flip was backwards since S410: fixed. FighterPose: eight poses, three per boxer, all at one three-quarter angle (tools/bake_full_body.gd poseset, plus alt for the other kit).
+
+BLIND CRITIC ON THE LOOK: 4.5 (ops/research/S412_LOOK_CRITIC.md, 17 changes, drawing docs/mockups/s412/look_10.png). Bout 7, Home 6, Create 7; Records 2, staff 3. He said the versus "looks pretty good" so the critic is harsher: read it, do the shared items first: cream full-width slabs, blue underlined names, text size. It scored before the scroll bar went and before the live boxers.
+
+WAITING ON HIS ANSWERS, READ THEM FIRST:
+Q-S294-140 the guide as a person (concept docs/mockups/s412/guide_concept_words.png). Plan in NEXT_SESSION S411 LAST NOTE: replaces FirstWeekStrip chips; first_week and first_hour_walk stay green. Lines by name, no he or she.
+Q-S294-141 his ChatGPT gym picture as the main screen (ops/research/GYM_EXPANSION_S412.md). GYM3D2: stills E:/FightCamp/tmp/gym3d2, plain blocks, frame time never printed. The high cutaway is closest to his picture.
+Q-S294-142 coaches (ops/research/COACH_DESIGN_S412.md): book, limit, bond, a block to change. Bots first, after the fighter model.
+
+COLLECT: COACH1 PR 127 (mergeable, CI was running): render Club > People, open it. FLOOR2 (Qwen, running): read before/after per plan in the PR body. PR 124 4F has camp_protocol red: FIGHTERMODEL4G queued on Cursor (was waiting on a windowed render), then 4B; all three merge together.
+ANIMATION NEXT: CLIPRESCORE1 (docs/CLIPRESCORE1_SCORES.md, KEY E:/FightCamp/tmp/s412_clips/KEY.txt): 37 of 44 still under 6, none above 6, frames only 250 px so feet are coarse. Rose to 6: pro_win_v6, pro_right_weave, and five takes that are out of play (pro_left_hook_miss, _special, pro_left_jab_miss, pro_right_hook_hurt, _ft). Next: judge those at full size against a clip that plays, before any goes back in BeatClips.OFF_TAKES. Seat: Qwen for the pictures.
+TRAPS: a shell heredoc with a backslash loses it: write scripts to the scratchpad. `render_mockup.py --help` starts a render and hangs. seat_dispatch refuses while a windowed render runs on a non-GREEN PC. Memory went RED once with Chrome and the render together.
+Map not redrawn at start this session: redraw it.
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor Grok 4.7 High until 12-07.
+
 # S411 very last line
 He said YES to designing the coach ceiling, school and bond ("Design the coach ceiling, school and bond? : yes"). Do it next session, right after the guide and theme job: open brief, critics paint with Ludo; check first whether a move really needs a coach who knows it.
 

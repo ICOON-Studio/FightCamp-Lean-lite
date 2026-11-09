@@ -22,6 +22,8 @@ Scope: boxing, one gym, a small roster, amateur to first pro fight. No new scree
 A rule must be able to lose: say how the bots would prove it false. Rotating cannot be the best answer every career, nor can staying.
 Only what the player can act on goes on screen.
 
+SANDBOX (owner S412: "please stop adding things like this that make it all about her, it is a sandbox game"): the player runs any gym with any boxers, men or women. Write about the boxer by name or as "the boxer", never a fixed he or she, and never a story around one person.
+
 ## How to answer
 Three to five mechanics, smallest first. For each: the moment, the rule in plain words, what it costs, what it changes on fight night or in the week, what breaks if it is overdone. Then which you would cut. Then a list of what would make this 10/10, most important first, and draw it: a 1920x1080 HTML page rendered with tools/render_mockup.py, picture first, words few.
 Write to ops/research/S412_COACH/<your role>.md and docs/mockups/s412/coach/<your role>.png.
