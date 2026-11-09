@@ -1,3 +1,13 @@
+# S415 very last note (read first)
+ANIMATION NEXT (REARHAND5, no seat yet): REARHAND3 and 4 prove the right hook's low hand is in every right hook we bought (highest 0.099 of body height over the hips, against 0.35 for left hooks). A swap cannot fix it. Choices: leave it (one judge's 4/10, and he has not complained), raise the wind-up in the bake with an arm correction (tools/owned_mocap_bake.gd; Qwen cannot see, so Claude judges the film, then him), or look for a rear hook outside these packs (check licence). Decide, then seat it. REARHAND4's strike_h column is void.
+COLLECT: GYMBUY1 (Qwen, running): believe it only if WHOLE is never below NEVER and the population is printed. Then decide what each kind builds and a place cap by premises.
+Stage shipped in S415 (entrance clear, commit in roadmap now). He has not played it.
+
+# S415 last note (read first)
+HIS WORDS: "Yes, start small", "use this one it has full equipment now ?", "keep the cage but make it looked like it is under repair", "make the red marked are a bit smaller to fit more things", "why there is no menu on this area ? what can be used for ?" (now the Equip the gym pin). Q-146: "why do you have the guide on every screen you draw ? are you trying to annoy me ? dark looks nice , i like the wooden look of the menus though": no guide on stills or mockups (tools/gym_still.gd clears it); the guide's own question in the first hour stands unless he says so. Dark panels + wooden look is the next look to draw for one page.
+BUILT, exported, HE HAS NOT PLAYED IT: ops/research/GYM_SLOTS_S415.md. OPEN THERE: cardio is a fake buy until each kind builds something; 127 places outrun every premises; three placeholder prices; no bot buys equipment. The bake's inputs live in E:/FightCamp/tmp/s415_full only. To keep the same art, do not delete that folder.
+TRAP: a Ludo masked edit on a small rectangle fills it with a close-up: add small items by a whole-picture edit, then cut them out. A new picture in chat may also be in Downloads, losslessly: compare first.
+
 # S415 handover (written 2026-11-09, S415 main session)
 
 OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S416` and redraw the map (send only changed cards; strip data-deleted lines; he has not approved deleting map cards).

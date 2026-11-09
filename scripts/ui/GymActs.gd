@@ -8,6 +8,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const GymUpgrades := preload("res://scripts/rules/GymUpgrades.gd")
 const StaffRoles := preload("res://scripts/rules/StaffRoles.gd")
+const GymSlots := preload("res://scripts/rules/GymSlots.gd")
 
 
 static func act(main: Node, name: String, arg: String) -> bool:
@@ -45,8 +46,11 @@ static func act(main: Node, name: String, arg: String) -> bool:
 		"scout":
 			main.toast("Scouting trials come in week 4.")
 		# S397 money bites (GymSpend): Club > Money's upgrades, premises, kit budget, club show, contract talks; People's staff.
-		"buyup", "movepremises", "hirerole", "letgorole", "kitbudget", "bookshow", "talks", "stipend", "dues", "eveningcoach", "grantbid":
+		"buyup", "movepremises", "hirerole", "letgorole", "kitbudget", "bookshow", "talks", "stipend", "dues", "eveningcoach", "grantbid", "buyslot":
 			_spend(main, c, name, arg)
+		"equipgym":   # S415 Home's Equip mode: the pieces not yet bought show as ghosts on the picture
+			main.set_meta("gym_equip", arg == "on")
+			main.render()
 		_:
 			return false
 	return true
@@ -59,6 +63,9 @@ static func _spend(main: Node, c: Career, name: String, arg: String) -> void:
 		"buyup":
 			why = GymSpend.buy(c, arg)
 			done = "Bought: %s. Ready in a week." % str(GymUpgrades.item(arg).get("name", arg)).to_lower()
+		"buyslot":
+			why = GymSpend.buy_slot(c, arg)
+			done = "Bought: %s. Ready in a week." % str(GymSlots.item(arg).get("name", arg)).to_lower()
 		"movepremises":
 			why = GymSpend.move(c)
 			done = "Moved: %s." % str(GymSpend.premises(c)["name"]).to_lower()

@@ -8,6 +8,7 @@ const GymUpgrades := preload("res://scripts/rules/GymUpgrades.gd")
 const StaffRoles := preload("res://scripts/rules/StaffRoles.gd")
 const ClubShow := preload("res://scripts/rules/ClubShow.gd")
 const GymBonus := preload("res://scripts/rules/GymBonus.gd")
+const GymSlots := preload("res://scripts/rules/GymSlots.gd")
 const StarDeal := preload("res://scripts/rules/StarDeal.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
@@ -102,10 +103,22 @@ static func set_stipend(c: Career, f: Dictionary, on: bool) -> String:
 	return ""
 
 
-## The members the gym holds: the premises' room or what its coaches can carry, the smaller (the kit budget moves it a
-## little). S397 round 2: growth brings its own wage bill.
+## The members the gym holds: the premises' room, what its coaches can carry or what its floor has places for, the smallest (the
+## kit budget moves it a little). S397 round 2: growth brings its own wage bill. S415: and its own equipment.
 static func member_cap(c: Career) -> int:
-	return mini(int(premises(c)["cap"]) - GymUpgrades.room(c.upgrades), coaching_cap(c)) + int(kit(c)["members"])
+	return mini(mini(int(premises(c)["cap"]) - GymUpgrades.room(c.upgrades), coaching_cap(c)), GymSlots.member_room(c.gym_slots, c.day)) + int(kit(c)["members"])
+
+
+## S415 buys one piece on the picture: paid now, standing and counted once the fitters have had their week.
+static func buy_slot(c: Career, id: String) -> String:
+	var why := GymSlots.blocked(id, c.gym_slots, c.cash)
+	if why != "":
+		return why
+	var s := GymSlots.item(id)
+	c.pay(-int(s["price"]), "Equipment: %s" % str(s["name"]).to_lower())
+	c.gym_slots.append({"id": id, "day": c.day})
+	c.add_news("Fitters are in: %s, ready on %s." % [str(s["name"]).to_lower(), Clock.fmt(c.day + GymSlots.FIT_DAYS)])
+	return ""
 
 
 ## Where the member count is heading: what the gym's name and dues draw, held to the room (Membership.settle_week's target).
@@ -117,11 +130,14 @@ static func coaching_cap(c: Career) -> int:
 	return StaffRoles.coaching_cap(not c.coach.is_empty(), c.staff_roles, c.extra_coaches)
 
 
-## What holds the members back now: "premises", "coaches" or "" (room to grow).
+## What holds the members back now: "premises", "coaches", "equipment" or "" (room to grow).
 static func member_limit(c: Career) -> String:
 	if c.members < member_cap(c) - 2:
 		return ""
-	return "coaches" if coaching_cap(c) < int(premises(c)["cap"]) - GymUpgrades.room(c.upgrades) else "premises"
+	var building := int(premises(c)["cap"]) - GymUpgrades.room(c.upgrades)
+	if GymSlots.member_room(c.gym_slots, c.day) < mini(building, coaching_cap(c)):
+		return "equipment"
+	return "coaches" if coaching_cap(c) < building else "premises"
 
 
 static func places(c: Career) -> int:

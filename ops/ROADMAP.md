@@ -10,7 +10,7 @@ Updated 2026-11-09 by claude S294.
 
 **S415 — ?** *(claude)*
 
-S415: Home shows his whole picture (one low shelf at its edge), UFC lettering off the 11 bags. Empty room + pieces cut from his own picture tested: start and halfway on the board. REARHAND2 merged, stopped by its ruler; REARHAND3 queued. REARHAND3 merged: the right hook's low hand is in the bought capture. FIGHTERMODEL4B died after a lost connection: saved, continues as 4I.
+S415: the gym you buy up, on his newest picture: start small, 55 pieces, Equip mode, floor limits members, cage under repair, entrance clear. REARHAND4 merged: no owned right hook keeps the hand up. GYMBUY1 (Qwen) and FIGHTERMODEL4I (Cursor) running.
 
 ## Next
 

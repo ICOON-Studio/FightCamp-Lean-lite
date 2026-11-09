@@ -117,6 +117,7 @@ func _bills() -> void:
 
 func _career() -> void:
 	var c := Career.quick_start()
+	c.gym_slots = []   # S415 this test is about premises and coaches; the floor's own limit is gym_slots_test
 	_check(c.cash == Career.start_cash(), "a new career starts on the start cash: %d" % c.cash)
 	var base_cost := int(Sim.weekly_costs(c)["total"])
 	c.cash = 50000

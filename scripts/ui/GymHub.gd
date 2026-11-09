@@ -14,6 +14,7 @@ const GymPeople := preload("res://scripts/rules/GymPeople.gd")
 const GymBonus := preload("res://scripts/rules/GymBonus.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const HomeCorners := preload("res://scripts/ui/HomeCorners.gd")
+const GymEquip := preload("res://scripts/ui/GymEquip.gd")
 
 const MIN_HEIGHT := 560.0
 const ABOVE := 100.0   # the top bar and the page's top margin: the gym takes the rest of the window
@@ -22,15 +23,18 @@ const NAVY := Color(0.09, 0.14, 0.26, 0.92)
 const TAG := Vector2(170, 104)
 ## S414 the owner: "why you do not use it exactly as it is ?", then "yes": the owner's own picture is the main screen, unchanged.
 ## The drawn gym (IsoGym) stays in the tree, hidden: GymPlan and the people still read it until the pin-and-slot build.
-const PICTURE := "res://assets/ui/art/gym_main.jpg"
+## S415 "Yes, start small", "Yes, new picture": his picture emptied (gym_empty) with the pieces the club owns standing on it (GymEquip);
+## with every piece bought it is his picture.
+const PICTURE := "res://assets/ui/art/gym_empty.jpg"
 const PICTURE_SIZE := Vector2(1672, 941)
 ## Where each pin stands on the picture, as a share of its width and height.
-const PIN_AT := {"reception": Vector2(0.2, 0.47), "training": Vector2(0.51, 0.63), "playbook": Vector2(0.855, 0.29),
-	"fights": Vector2(0.685, 0.29), "office": Vector2(0.13, 0.32), "world": Vector2(0.27, 0.32)}
+const PIN_AT := {"reception": Vector2(0.165, 0.555), "training": Vector2(0.48, 0.6), "playbook": Vector2(0.846, 0.288),
+	"fights": Vector2(0.649, 0.31), "office": Vector2(0.13, 0.34), "world": Vector2(0.262, 0.35), "equip": Vector2(0.8, 0.52)}
 ## id, name, icon, the zone kind the pin stands on ("" = the noticeboard).
 const PLACES := [
 	["reception", "Reception", "members", "reception"], ["training", "Fighters", "bag", "bags"], ["playbook", "Playbook", "mat", "mats"],
 	["fights", "Fights", "champion", "ring"], ["office", "Club office", "money", "office"], ["world", "World", "up", ""],
+	["equip", "Equip the gym", "Strength", "weights"],
 ]
 
 
@@ -54,6 +58,7 @@ static func build(main: Node, c: Career) -> Control:
 	picture.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	picture.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hub.add_child(picture)
+	var pieces: Array = GymEquip.standing(hub, c)
 	hub.add_child(iso)
 	var figures: Control = HubFigures.new()
 	figures.name = "HubFigures"
@@ -67,13 +72,17 @@ static func build(main: Node, c: Career) -> Control:
 	hub.add_child(figures)
 	hub.add_child(MenuFx.dust(30))
 	var spots: Array = []
-	for p in PLACES:
-		var s := _spot(main, c, p, iso, _zone(plan, str(p[3])))
-		hub.add_child(s)
-		spots.append(s)
-	HomeCorners.add(hub, main, c)
-	hub.resized.connect(func(): _lay(hub, spots))
-	MenuFx.arrive(spots, 0.1, 0.05)
+	if bool(main.get_meta("gym_equip", false)):
+		pieces.append_array(GymEquip.ghosts(main, hub, c))
+		GymEquip.bar(main, hub, c)
+	else:
+		for p in PLACES:
+			var s := _spot(main, c, p, iso, _zone(plan, str(p[3])))
+			hub.add_child(s)
+			spots.append(s)
+		HomeCorners.add(hub, main, c)
+		MenuFx.arrive(spots, 0.1, 0.05)
+	hub.resized.connect(func(): _lay(hub, spots, pieces))
 	return hub
 
 
@@ -85,9 +94,10 @@ static func _zone(plan: Dictionary, kind: String) -> Dictionary:
 
 
 ## The pins stand on the picture's rooms; the picture covers the hub, centred, so they follow it at any window size.
-static func _lay(hub: Control, spots: Array) -> void:
+static func _lay(hub: Control, spots: Array, pieces: Array) -> void:
 	var k: float = maxf(hub.size.x / PICTURE_SIZE.x, hub.size.y / PICTURE_SIZE.y)
 	var corner: Vector2 = (hub.size - PICTURE_SIZE * k) * 0.5
+	GymEquip.lay(pieces, corner, k)
 	for i in spots.size():
 		var at: Vector2 = corner + (PIN_AT[str(PLACES[i][0])] as Vector2) * PICTURE_SIZE * k
 		var s: Control = spots[i]
@@ -112,6 +122,8 @@ static func _go(main: Node, c: Career, id: String) -> void:
 			main.nav({"area": "gym", "tab": 1})
 		"world":
 			main.nav({"area": "world", "tab": 1})
+		"equip":
+			main.act("equipgym", "on")
 
 
 ## How many things at this place want the player now.

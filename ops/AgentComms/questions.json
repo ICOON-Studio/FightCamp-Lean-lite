@@ -5828,10 +5828,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-146_0_cream_vs_dark.jpg"
       ],
-      "answer": null,
+      "answer": "why do you have the guide on every screen you draw ? are you trying to annoy me ? dark looks nice , i like the wooden look of the menus though",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-09T17:01:57Z",
+      "seen_by_claude": true,
+      "comment_only": true
     },
     {
       "id": "Q-S294-147",
@@ -6010,10 +6011,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-156_0_gym_grows.jpg"
       ],
-      "answer": null,
-      "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answer": "Yes, start small and buy up",
+      "note": "answered in the session chat, S415",
+      "answered_at": "2026-11-09T17:03:17Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-157",
@@ -6027,10 +6029,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-157_0_gym_grows.jpg"
       ],
-      "answer": null,
+      "answer": "keep the cage but make it looked like it is under repair",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-09T17:02:55Z",
+      "seen_by_claude": true,
+      "comment_only": true
     }
   ]
 }

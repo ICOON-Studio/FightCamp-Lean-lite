@@ -11,6 +11,7 @@ const NoGi := preload("res://scripts/rules/NoGi.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 const ClubStart := preload("res://scripts/rules/ClubStart.gd")
 const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
+const GymSlots := preload("res://scripts/rules/GymSlots.gd")
 
 @export var gym_name: String = "Anvil Street Gym"
 @export var gym_plan: String = ""   # S409 the building (gym_plans.json id), chosen once at setup; "" = the first
@@ -74,6 +75,8 @@ const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
 @export var overdraft_on: bool = false
 @export var overdraft_drawn_weeks: int = 0
 @export var income_history: Array = []
+## S415 the equipment bought ({id, day}, GymSlots). [] = a save from before: the whole gym stands.
+@export var gym_slots: Array = []
 
 
 static func quick_start(name: String = "Anvil Street Gym", town: String = "London", start_id: String = "fresh",
@@ -90,6 +93,7 @@ static func quick_start(name: String = "Anvil Street Gym", town: String = "Londo
 	c.applicant = ClubStart.walkin(c.start, Data.lucy())
 	# S387 FirstWeek: the career opens on the boxer alone; Ana joins the mat at the end of week 1.
 	c.bjj_side = BjjSide.start()
+	c.gym_slots = GymSlots.start_rows()
 	c.cash_history = [{"w": 1, "c": c.cash}]
 	for r in Data.OPPONENTS + [Data.MISMATCH] + Data.RIVALS:
 		c.rivals.append((r as Dictionary).merged({"div": "wlw"}))

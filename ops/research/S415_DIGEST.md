@@ -19,3 +19,11 @@ Nothing scored by a critic. The slots are a test, not in the game. The 18 slots 
 - REARHAND4 (Qwen): every hook we own, height column only, to see if a better take exists.
 - FIGHTERMODEL4B's run died: "Connection lost" in its output, runner and Cursor processes gone, no exit logged, last file write 18:07. Three files saved as commit dae63cc2 on its branch, unproved. FIGHTERMODEL4I continues from it.
 - The board job launched MENUPLAYBOOK2B from the queue once 4B's run was marked stale. It waits on dark or cream, so it was stopped within a minute, its empty worktree and branch removed, and it and MENUFIGHT1B set to held. Its live_runs entry stays, so a re-run needs a new id.
+
+## The gym you buy up (later in S415)
+His yes: start small. Built on his third picture of the session, ops/research/GYM_SLOTS_S415.md has the method, numbers and prices. Career.gym_slots, GymSlots (pure), GymEquip, GymSpend.buy_slot and the floor as a member limit; a seventh pin, Equip the gym, on the weights area (his question: "why there is no menu on this area ? what can be used for ?"). tests/gym_slots_test.gd. Stills docs/mockups/s415/home_start, home_equip, home_full, checked by eye; not scored by a critic.
+Not done: boxers on the floor; each kind building something; the balance harness has no bot that buys equipment.
+His Q-S294-146: "why do you have the guide on every screen you draw ? are you trying to annoy me ? dark looks nice , i like the wooden look of the menus though". Stills now render with the guide off (tools/gym_still.gd). The look is NOT yet decided by it: dark panels with a wooden look is a new direction to draw.
+
+## REARHAND4 (merged, PR 135)
+19 hook takes in the two Punch packs, controls passed (0.284, 0.273). No right hook reaches 0.15 of body height over the hips; the highest is 0.099 (Right_Hook_Hard_FT, a benched-style take), left hooks reach 0.35. Its strike_h column equals low_h on every row, so that column is void; low_h is the one that passed its controls. Only files named hook in the two Punch packs were read. So the low hand cannot be fixed by swapping a take.

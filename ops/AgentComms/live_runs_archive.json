@@ -5839,6 +5839,602 @@
    },
    "reconciled": "2026-11-09 09:41 board_reconcile: branch qwen/boxerlean1 commits are on master",
    "archived": "2026-11-09 09:42 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "HITREACT3",
+   "title": "TASK HITREACT3 - QWEN (qwen3-coder) - run the conversion one step at a time and find where the head stops moving",
+   "status": "collected",
+   "started": "2026-11-09T10:52",
+   "eta": "2026-11-09T12:42",
+   "branch": "qwen/hitreact3",
+   "worktree": "E:/FightCamp/wt/LEAN_HITREACT3",
+   "wt": "E:/FightCamp/wt/LEAN_HITREACT3",
+   "brief": "ops/research/TASK_HITREACT3.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HITREACT3_dispatch_out.txt",
+   "match": "seat_dispatch.py run hitreact3",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HITREACT3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HITREACT3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HITREACT3_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 52868,
+    "seat_pid": 30912
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #118",
+   "finished": "2026-11-09T11:29",
+   "pr": 118,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-09 13:41 board_reconcile: branch qwen/hitreact3 commits are on master",
+   "archived": "2026-11-09 13:42 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "HITREACT4",
+   "title": "TASK HITREACT4 - QWEN (qwen3-coder) - measure the conversion stages HITREACT3 did not run",
+   "status": "collected",
+   "started": "2026-11-09T11:55",
+   "eta": "2026-11-09T13:45",
+   "branch": "qwen/hitreact4",
+   "worktree": "E:/FightCamp/wt/LEAN_HITREACT4",
+   "wt": "E:/FightCamp/wt/LEAN_HITREACT4",
+   "brief": "ops/research/TASK_HITREACT4.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HITREACT4_dispatch_out.txt",
+   "match": "seat_dispatch.py run hitreact4",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HITREACT4_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HITREACT4_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HITREACT4_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 31328,
+    "seat_pid": 39372
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #121",
+   "finished": "2026-11-09T12:43",
+   "pr": 121,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-09 13:41 board_reconcile: branch qwen/hitreact4 commits are on master",
+   "archived": "2026-11-09 13:42 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "HITREACT5",
+   "title": "TASK HITREACT5 - QWEN (qwen3-coder) - the gap between the last bake stage and the saved clip",
+   "status": "collected",
+   "started": "2026-11-09T12:49",
+   "eta": "2026-11-09T14:39",
+   "branch": "qwen/hitreact5",
+   "worktree": "E:/FightCamp/wt/LEAN_HITREACT5",
+   "wt": "E:/FightCamp/wt/LEAN_HITREACT5",
+   "brief": "ops/research/TASK_HITREACT5.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HITREACT5_dispatch_out.txt",
+   "match": "seat_dispatch.py run hitreact5",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HITREACT5_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HITREACT5_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HITREACT5_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 47636,
+    "seat_pid": 38620
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #122",
+   "finished": "2026-11-09T12:59",
+   "pr": 122,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-09 13:41 board_reconcile: branch qwen/hitreact5 commits are on master",
+   "archived": "2026-11-09 13:42 board_sync"
+  },
+  {
+   "agent": "goose",
+   "id": "FLOOR1",
+   "title": "QWEN (qwen3-coder) - places free: the pure rule",
+   "status": "collected",
+   "started": "2026-11-09T13:16",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_FLOOR1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-09T14:16",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
+   "issue": "123",
+   "branch": "goose/issue-123",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/123",
+   "reconciled": "2026-11-09 14:05 board_reconcile: branch goose/issue-123 commits are on master",
+   "archived": "2026-11-09 14:05 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "GYM3D2",
+   "title": "TASK GYM3D2 - QWEN (qwen3-coder) - can the floor be a real 3D scene? A test, not a feature",
+   "status": "collected",
+   "started": "2026-11-09T13:52",
+   "eta": "2026-11-09T15:42",
+   "branch": "qwen/gym3d2",
+   "worktree": "E:/FightCamp/wt/LEAN_GYM3D2",
+   "wt": "E:/FightCamp/wt/LEAN_GYM3D2",
+   "brief": "ops/research/TASK_GYM3D2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/GYM3D2_dispatch_out.txt",
+   "match": "seat_dispatch.py run gym3d2",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/GYM3D2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/GYM3D2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/GYM3D2_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 21580,
+    "seat_pid": 46052
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #125",
+   "finished": "2026-11-09T14:13",
+   "pr": 125,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/gym_plan_test.gd",
+     "ok": true,
+     "last": "GYM_PLAN failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/gym_plan_test.gd",
+     "ok": true,
+     "last": "GYM_PLAN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-09 14:41 board_reconcile: branch qwen/gym3d2 commits are on master",
+   "archived": "2026-11-09 14:42 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "CLIPRESCORE1",
+   "title": "TASK CLIPRESCORE1 - QWEN (qwen3-coder) - fresh pictures of the boxing clips that scored under 6",
+   "status": "collected",
+   "started": "2026-11-09T14:29",
+   "eta": "2026-11-09T16:19",
+   "branch": "qwen/cliprescore1",
+   "worktree": "E:/FightCamp/wt/LEAN_CLIPRESCORE1",
+   "wt": "E:/FightCamp/wt/LEAN_CLIPRESCORE1",
+   "brief": "ops/research/TASK_CLIPRESCORE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLIPRESCORE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run cliprescore1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLIPRESCORE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLIPRESCORE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLIPRESCORE1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 52172,
+    "seat_pid": 42284
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #126",
+   "finished": "2026-11-09T14:43",
+   "pr": 126,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-09 15:10 board_reconcile: branch qwen/cliprescore1 commits are on master",
+   "archived": "2026-11-09 15:10 board_sync"
+  },
+  {
+   "agent": "cursor",
+   "id": "COACH1",
+   "title": "TASK COACH1 - CURSOR (Grok 4.7 High) - what a coach is good at, and a staff screen that says so",
+   "status": "collected",
+   "started": "2026-11-09T13:58",
+   "eta": "2026-11-09T15:48",
+   "branch": "cursor/coach1",
+   "worktree": "E:/FightCamp/wt/LEAN_COACH1",
+   "wt": "E:/FightCamp/wt/LEAN_COACH1",
+   "brief": "ops/research/TASK_COACH1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/COACH1_dispatch_out.txt",
+   "match": "seat_dispatch.py run coach1",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/COACH1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/COACH1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/COACH1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 8528,
+    "seat_pid": 33652
+   },
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 12/12 PASS; PR #127",
+   "finished": "2026-11-09T14:44",
+   "pr": 127,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/coach_areas_test.gd",
+     "ok": true,
+     "last": "COACH_AREAS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/week_plan_test.gd",
+     "ok": true,
+     "last": "WEEK_PLAN PASS fails=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/training_week_test.gd",
+     "ok": true,
+     "last": "TRAINING_WEEK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_board_test.gd",
+     "ok": true,
+     "last": "PASS plan_board_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/first_week_test.gd",
+     "ok": true,
+     "last": "FIRST_WEEK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/save_load_test.gd",
+     "ok": true,
+     "last": "SAVE_LOAD checks=76 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/balance_harness_test.gd",
+     "ok": true,
+     "last": "BALANCE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plain_words_test.gd",
+     "ok": true,
+     "last": "PLAIN_WORDS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/grey_reason_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-09 15:41 board_reconcile: branch cursor/coach1 commits are on master",
+   "archived": "2026-11-09 15:42 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "FLOOR2",
+   "title": "TASK FLOOR2 - QWEN (qwen3-coder) - the four gym layouts each hold about the same number of people",
+   "status": "collected",
+   "started": "2026-11-09T14:49",
+   "eta": "2026-11-09T16:39",
+   "branch": "qwen/floor2",
+   "worktree": "E:/FightCamp/wt/LEAN_FLOOR2",
+   "wt": "E:/FightCamp/wt/LEAN_FLOOR2",
+   "brief": "ops/research/TASK_FLOOR2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FLOOR2_dispatch_out.txt",
+   "match": "seat_dispatch.py run floor2",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FLOOR2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FLOOR2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FLOOR2_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 23180,
+    "seat_pid": 42376
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/5 PASS; PR #128",
+   "finished": "2026-11-09T14:58",
+   "pr": 128,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/gym_places_test.gd",
+     "ok": true,
+     "last": "GYM_PLACES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/gym_plan_test.gd",
+     "ok": true,
+     "last": "GYM_PLAN failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/gym_people_test.gd",
+     "ok": true,
+     "last": "GYM_PEOPLE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/gym_hub_test.gd",
+     "ok": true,
+     "last": "GYM_HUB failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/gym_bonus_test.gd",
+     "ok": true,
+     "last": "GYM_BONUS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-09 15:41 board_reconcile: branch qwen/floor2 commits are on master",
+   "archived": "2026-11-09 15:42 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "CLIPFULL1",
+   "title": "TASK CLIPFULL1 - QWEN (qwen3-coder) - large pictures of the five benched takes beside the plain takes that play",
+   "status": "collected",
+   "started": "2026-11-09T15:15",
+   "eta": "2026-11-09T17:05",
+   "branch": "qwen/clipfull1",
+   "worktree": "E:/FightCamp/wt/LEAN_CLIPFULL1",
+   "wt": "E:/FightCamp/wt/LEAN_CLIPFULL1",
+   "brief": "ops/research/TASK_CLIPFULL1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLIPFULL1_dispatch_out.txt",
+   "match": "seat_dispatch.py run clipfull1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLIPFULL1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLIPFULL1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLIPFULL1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 8924,
+    "seat_pid": 3008
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #129",
+   "finished": "2026-11-09T15:25",
+   "pr": 129,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-09 15:41 board_reconcile: branch qwen/clipfull1 commits are on master",
+   "archived": "2026-11-09 15:42 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "REARHAND2",
+   "title": "TASK REARHAND2 - QWEN (qwen3-coder) - is the right hook's low hand in the bought capture or made by our bake",
+   "status": "collected",
+   "started": "2026-11-09T16:32",
+   "eta": "2026-11-09T18:22",
+   "branch": "qwen/rearhand2",
+   "worktree": "E:/FightCamp/wt/LEAN_REARHAND2",
+   "wt": "E:/FightCamp/wt/LEAN_REARHAND2",
+   "brief": "ops/research/TASK_REARHAND2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/REARHAND2_dispatch_out.txt",
+   "match": "seat_dispatch.py run rearhand2",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/REARHAND2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/REARHAND2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/REARHAND2_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 11516,
+    "seat_pid": 3124
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #133",
+   "finished": "2026-11-09T16:50",
+   "pr": 133,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-09 18:41 board_reconcile: branch qwen/rearhand2 commits are on master",
+   "archived": "2026-11-09 18:42 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "REARHAND3",
+   "title": "TASK REARHAND3 - QWEN (qwen3-coder) - fix the forward ruler, then the right-hook table",
+   "status": "collected",
+   "started": "2026-11-09T18:42",
+   "eta": "2026-11-09T20:32",
+   "branch": "qwen/rearhand3",
+   "worktree": "E:/FightCamp/wt/LEAN_REARHAND3",
+   "wt": "E:/FightCamp/wt/LEAN_REARHAND3",
+   "brief": "ops/research/TASK_REARHAND3.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/REARHAND3_dispatch_out.txt",
+   "match": "seat_dispatch.py run rearhand3",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/REARHAND3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/REARHAND3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/REARHAND3_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 16408,
+    "seat_pid": 34168
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #134; NOT committed (outside OWNS): docs/REARHAND3_GAME_DATA.md, tools/raw_hand_path_data.json",
+   "finished": "2026-11-09T18:56",
+   "pr": 134,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-09 19:11 board_reconcile: branch qwen/rearhand3 commits are on master",
+   "archived": "2026-11-09 19:12 board_sync"
   }
  ]
 }
