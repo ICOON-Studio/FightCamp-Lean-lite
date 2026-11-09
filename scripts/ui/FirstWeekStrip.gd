@@ -181,7 +181,7 @@ static func _weight_line(c: Career, f: Dictionary, day: int) -> String:
 	if bool(fc["ok"]):
 		return line + " Made, %.1f to spare." % maxf(0.0, float(f["limit"]) - float(fc["day"]))
 	# S397 round 2: honest - once the camp cuts from today, nothing in this hour adds more; declining brings another offer.
-	return line + " %.1f over even with the camp's cut: take the risk, or decline and wait for the next offer." % float(fc["over"])
+	return line + " %.1f kg over even with the camp's cut: take the risk, or decline and wait for the next offer." % float(fc["over"])
 
 
 static func _opp(f: Dictionary) -> String:

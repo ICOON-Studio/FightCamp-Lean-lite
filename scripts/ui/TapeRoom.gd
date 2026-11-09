@@ -274,7 +274,7 @@ func spot_pick(words: String) -> void:
 			var fb: Dictionary = f.get("bout", {})
 			if not fb.is_empty():
 				fb["film"] = OppFile.film_depth(opp)
-			_toast("Spotted: %s. In the file now%s." % [words.to_lower(), "" if opened.size() < 2 else " (and %d more)" % (opened.size() - 1)])
+			_toast("Spotted: %s. On the scouting report now%s." % [words.to_lower(), "" if opened.size() < 2 else " (and %d more)" % (opened.size() - 1)])
 			if _tell_card != null:
 				_fill_node(_tell_card, (c["nodes"] as Array)[int(c["tell_node"])])
 		else:
@@ -291,8 +291,10 @@ func _spot_state() -> void:
 		return
 	var known := TapeClips.known(opp, clips[idx])
 	_spot_btn.disabled = known or spot_used or not playing
-	_spot_btn.tooltip_text = "The file holds this already" if known else ("One call a viewing: Replay to look again" if spot_used
-		else "Press when it shows")
+	_spot_btn.text = "Already in" if known else ("One call used" if spot_used else ("Not playing" if not playing else "SPOT"))
+	_spot_btn.tooltip_text = "Already in the scouting report" if known else (
+		"One call used: Replay to look again" if spot_used else (
+		"Not playing yet: wait for the film" if not playing else "Press when it shows"))
 
 
 ## Runs the film to its end at once (tests; a player uses Replay and watches).

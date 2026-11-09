@@ -275,7 +275,8 @@ func _body_report(main: Node, m: Dictionary) -> HBoxContainer:
 		var f: Dictionary = main.career.fighter_by_id(str(m["fid"]))
 		var set_now := str(f.get("focus", "")) == focus
 		var btn := UI.button("Training %s next week" % str(Data.LABEL.get(focus, focus)).to_lower() if set_now else "Train %s next week" % str(Data.LABEL.get(focus, focus)).to_lower(),
-			"Btn", main.act.bind("bodyfocus", "%s|%s" % [m["fid"], focus]), set_now)
+			"Btn", main.act.bind("bodyfocus", "%s|%s" % [m["fid"], focus]), set_now,
+			"Already set as next week's focus" if set_now else "")   # S417 grey_reason_test: a grey button says why
 		btn.name = "BodyFocus"
 		btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(btn)

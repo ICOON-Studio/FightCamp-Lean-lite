@@ -7,6 +7,7 @@ extends RefCounted
 
 const Bar := preload("res://scripts/ui/Bar.gd")
 const Plate := preload("res://scripts/ui/Plate.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")   # S417 the approved wood and slate look
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Sfx := preload("res://scripts/audio/Sfx.gd")
 
@@ -158,22 +159,13 @@ static func theme() -> Theme:
 		var sb := box(sticky[1], sticky[2], 2, 0, 22, 16)
 		sb.border_width_bottom = 6
 		_panel(t, sticky[0], sb)
-	var tin := box(PANEL, LINE, 4, 1, 26, 22)
-	tin.shadow_color = Color(0, 0, 0, 0.10)
-	tin.shadow_size = 5
-	_panel(t, "Tin", tin)
-	var paper := box(PANEL, Color(0, 0, 0, 0), 3, 0, 18, 16)
-	paper.border_color = PLATE_LIP
-	paper.border_width_bottom = 3
-	paper.shadow_color = Color(0, 0, 0, 0.35)
-	paper.shadow_size = 8
-	paper.shadow_offset = Vector2(0, 4)
-	_panel(t, "Card", paper)
-	_panel(t, "TopBar", _edge(TOP_BAR, 0, 0, 0, 1, 18, 12))   # S410 Q-S294-134: the dark painted bar
+	_panel(t, "Tin", WoodKit.slate(34, 30))
+	_panel(t, "Card", WoodKit.slate())   # S417 Q-S294-159: a slate in a wooden frame with brass corners
+	_panel(t, "TopBar", WoodKit.bar(18, 12))
 	_panel(t, "RailPanel", _edge(RAIL, 0, 0, 1, 0, 10, 14))
-	_panel(t, "Modal", box(PANEL, FRAME, 6, 3, 26, 22))
-	_panel(t, "Toast", box(PANEL, DARK, 4, 2, 18, 12))
-	_panel(t, "Note", box(PANEL2, clear, 3, 0, 14, 12))
+	_panel(t, "Modal", WoodKit.slate(38, 34))
+	_panel(t, "Toast", box(DARK, DARK_LIP, 4, 2, 18, 12))
+	_panel(t, "Note", box(Color(0, 0, 0, 0.3), clear, 3, 0, 14, 12))
 	_panel(t, "Badge", box(RED, clear, 9, 0, 6, 0))
 	for chip in [["Chip", MUTED], ["ChipGreen", GREEN], ["ChipRed", RED], ["ChipAmber", AMBER], ["ChipGold", GOLD]]:   # S412 a stamped tag, not a pill
 		var tag := box(PANEL, chip[1], 2, 0, 10, 3)
@@ -242,10 +234,13 @@ static func _button(t: Theme, name: String, bg: Color, border: Color, fg: Color,
 	if name != "Button":
 		t.set_type_variation(name, "Button")
 	var hb := bg.lightened(0.08) if hover_bg.r < 0.0 else hover_bg
-	t.set_stylebox("normal", name, Plate.style(bg, border, radius, pad_h, pad_v, 3))
-	t.set_stylebox("hover", name, Plate.style(hb, border, radius, pad_h, pad_v, 3))
-	t.set_stylebox("pressed", name, Plate.style(bg.darkened(0.1), border, radius, pad_h, pad_v, 0))
-	t.set_stylebox("disabled", name, Plate.style(Color(bg, bg.a * 0.45), Color(border, border.a * 0.45), radius, pad_h, pad_v, 0))
+	if WoodKit.PIECE.has(name):
+		fg = WoodKit.plates(t, name, pad_h, pad_v)
+	else:
+		t.set_stylebox("normal", name, Plate.style(bg, border, radius, pad_h, pad_v, 3))
+		t.set_stylebox("hover", name, Plate.style(hb, border, radius, pad_h, pad_v, 3))
+		t.set_stylebox("pressed", name, Plate.style(bg.darkened(0.1), border, radius, pad_h, pad_v, 0))
+		t.set_stylebox("disabled", name, Plate.style(Color(bg, bg.a * 0.45), Color(border, border.a * 0.45), radius, pad_h, pad_v, 0))
 	t.set_stylebox("focus", name, StyleBoxEmpty.new())
 	t.set_color("font_color", name, fg)
 	t.set_color("font_hover_color", name, FG if fg == MUTED else fg)
@@ -345,7 +340,7 @@ static func card(title: String = "") -> Array:
 	v.add_theme_constant_override("separation", 8)
 	p.add_child(v)
 	if title != "":
-		v.add_child(caps(title))
+		v.add_child(label(title, 18, WoodKit.HEAD, "caps"))
 	return [p, v]
 
 

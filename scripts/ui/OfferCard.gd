@@ -56,7 +56,7 @@ static func _bio(opp: Dictionary) -> String:
 	if opp.has("height"):
 		bits.append("%d cm" % int(opp["height"]))
 	if opp.has("reach"):
-		bits.append("reach %d" % int(opp["reach"]))
+		bits.append("reach %d cm" % int(opp["reach"]))
 	if str(opp.get("club", "")) != "":
 		bits.append(str(opp["club"]))
 	return ", ".join(bits)
@@ -70,7 +70,8 @@ static func _read(opp: Dictionary) -> String:
 		if str(t["id"]) == "style":
 			game = str(t["value"])
 	var paid := tells.filter(func(t): return str(t["how"]) != "booking").size()
-	return "%s. File: %d of %d found" % [game, OppFile.found(opp).size(), paid]
+	var report := "Scouting report: %d of %d found" % [OppFile.found(opp).size(), paid]
+	return report if game == "" else "%s. %s" % [game, report]
 
 
 static func _band(c: Career, f: Dictionary, o: Dictionary) -> Control:
@@ -81,5 +82,7 @@ static func _band(c: Career, f: Dictionary, o: Dictionary) -> Control:
 	v.custom_minimum_size = Vector2(BAND_W, 0)
 	v.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	v.add_child(UI.caps("WIN CHANCE"))
-	v.add_child(UI.label("%d-%d%%" % [lo, hi], 30, UI.GREEN if lo >= 50 else (UI.RED if hi <= 50 else UI.FG), "bold"))
+	v.add_child(UI.label("%d%% to %d%%" % [lo, hi], 22, UI.GREEN if lo >= 50 else (UI.RED if hi <= 50 else UI.FG), "bold"))
+	if hi - lo >= 30:   # BoutCompare.win_read: a band this wide is still a rough guess
+		v.add_child(UI.muted("Scout to narrow", UI.TINY))
 	return v

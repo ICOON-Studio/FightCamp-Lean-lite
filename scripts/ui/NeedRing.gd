@@ -24,4 +24,4 @@ func _draw() -> void:
 	var font := UI.font("display")
 	var fs := 34 if big.length() <= 3 else 26
 	var ts := font.get_string_size(big, HORIZONTAL_ALIGNMENT_LEFT, -1, fs)
-	draw_string(font, Vector2(c.x - ts.x / 2.0, c.y + fs * 0.36), big, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, UI.FG)
+	draw_string(font, Vector2(c.x - ts.x / 2.0, c.y + fs * 0.36), big, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, UI.WoodKit.fg(self))

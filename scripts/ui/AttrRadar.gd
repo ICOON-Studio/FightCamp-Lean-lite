@@ -63,7 +63,7 @@ func _draw() -> void:
 	if pot > 0.0:
 		var p := _ring(r * frac(pot))
 		for i in n:
-			draw_dashed_line(p[i], p[i + 1], UI.MUTED, 2.0, 7.0, true, true)
+			draw_dashed_line(p[i], p[i + 1], UI.WoodKit.muted(self), 2.0, 7.0, true, true)
 	var shape := PackedVector2Array()
 	for i in n:
 		shape.append(_point(i, r * frac(float(values[i]["value"])) * grow))
@@ -84,4 +84,4 @@ func _draw() -> void:
 			x = at.x - 6.0
 		elif dir.x < -4.0:
 			x = at.x - ts.x + 6.0
-		draw_string(font, Vector2(x, at.y + ts.y * 0.3), text, HORIZONTAL_ALIGNMENT_LEFT, -1, UI.TINY, UI.FG)
+		draw_string(font, Vector2(x, at.y + ts.y * 0.3), text, HORIZONTAL_ALIGNMENT_LEFT, -1, UI.TINY, UI.WoodKit.fg(self))

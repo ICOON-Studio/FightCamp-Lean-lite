@@ -8,9 +8,9 @@ Updated 2026-11-09 by claude S294.
 
 ## Now
 
-**S416 — ?** *(claude)*
+**S417 — ?** *(claude)*
 
-S416: fighter model merged (4F, 4H, 4I); dark panels in wooden frames on the fighter page; his playtest notes fixed: no cut without a fight, one Gym button, pins go to their own places, Mail in the top bar, Training tab, game plan choices say what they do, People page in words, Fights has buttons. Exported.
+S417: the approved wood and slate look is in the shared theme (WoodKit): every card, pop-up, tab, button and the top bar; words turn chalk on dark by themselves. Cursor's wording pass collected with two cuts. The grey-button test that kept main red is fixed. Punch head aim: found why (blocked and slipped punches are never aimed), round 1 void, round 2 running. Exported.
 
 ## Next
 
@@ -301,3 +301,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S414**  |  |  | *none yet* |  |
 |  |  | **S415**  |  |  | *none yet* |  |
 |  |  | **S416**  |  |  | *none yet* |  |
+|  |  | **S417**  |  |  | *none yet* |  |

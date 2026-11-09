@@ -94,7 +94,7 @@ static func _tag(it: Dictionary) -> Control:
 	var from_net := int(it.get("net_from", 0))
 	var to_net := int(it.get("net_to", from_net))
 	if to_net != from_net:
-		var net := UI.label("Net %s to %s" % [UI.signed(from_net), UI.signed(to_net)], 12, UI.GREEN if to_net > from_net else UI.RED, "bold")
+		var net := UI.label("Week %s to %s" % [UI.signed(from_net), UI.signed(to_net)], 12, UI.GREEN if to_net > from_net else UI.RED, "bold")
 		net.name = "TagNet"
 		net.tooltip_text = "What is left over each week now, and after this"
 		price_row.add_child(net)

@@ -75,7 +75,7 @@ func _draw() -> void:
 	var gain := UI.GOLD if crossed() else UI.GREEN
 	if x_end > x_now:
 		draw_style_box(_round(gain), Rect2(Vector2(0, y), Vector2(maxf(x_end, BAR_H), BAR_H)))
-	draw_style_box(_round(UI.MUTED), Rect2(Vector2(0, y), Vector2(maxf(x_now, BAR_H), BAR_H)))
+	draw_style_box(_round(UI.WoodKit.muted(self)), Rect2(Vector2(0, y), Vector2(maxf(x_now, BAR_H), BAR_H)))
 	if at >= 0.0:   # the gold tick, standing proud of the bar, edged in white so it reads on a gold fill too
 		var x := frac(at, win) * w
 		draw_rect(Rect2(Vector2(x - 3.0, 0.0), Vector2(6.0, size.y)), UI.PANEL)

@@ -250,7 +250,7 @@ static func _action(main: Node, f: Dictionary, row: Dictionary) -> Control:
 		var call := _noop()
 		if on and bool(row.get("pro", false)):
 			call = main.act.bind("probook", "%s:%d:a" % [str(f["id"]), int(row["oid"])])
-		var b := UI.button("Ask for this fight", "Btn", call, not on, why)
+		var b := UI.button(why if not on and why != "" else "Ask for this fight", "Btn", call, not on, why)
 		b.name = "Ask_" + str(row["id"])
 		Compare.wide_button(b, 0.0)
 		v.add_child(b)

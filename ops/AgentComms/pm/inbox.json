@@ -1279,6 +1279,146 @@
       "at": "2026-11-08 13:44",
       "text": "BOARD ANSWER Q-S294-128 - question: Primary attributes: three critics scored the current list 4-5/10. Proposal is 10, the same in every sport: Strength, Explosiveness, Speed, Stamina, Recovery, Flexibility, Durability, Fight IQ, Composure, Heart. Height, reach, weight and stance show as facts, moves stay in the Playbook. OK to use these 10? | answer: rename engine to stamina or conditioning and separate hand speed from leg speed | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
       "status": "waiting"
+    },
+    {
+      "id": "P176",
+      "from": "board",
+      "at": "2026-11-09 07:13",
+      "text": "BOARD ANSWER Q-S294-132 - question: Cursor is signed out, so four screens are stuck (Playbook, Home, Fighter Week, Fight night). Please run 'cursor-agent login' once in a terminal and sign in. | answer: Done | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P177",
+      "from": "board",
+      "at": "2026-11-09 10:40",
+      "text": "BOARD ANSWER Q-S294-134 - question: Game look for Fighters and Fights: your boxers as full-body cards and a versus screen. Left is what we can build now from the real renders, right is the Ludo painting over it. Which way? | answer: Build it like the right, painted surfaces | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P178",
+      "from": "board",
+      "at": "2026-11-09 11:45",
+      "text": "BOARD ANSWER Q-S294-135 - question: The painted look on Home, Fighter Week, Playbook and Fight night. Paintings of the older layouts: they show the surfaces, not how much text stays, and the left menu in them is already gone from the game. Build them this way? | answer: Yes, but with fewer words and bigger pictures, like Fighters | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P179",
+      "from": "board",
+      "at": "2026-11-09 13:19",
+      "text": "BOARD ANSWER Q-S294-138 - question: The pips over the training equipment (see the picture): what should they count? The game has no such limit yet. Places free: a bag or ring holds so many at once, a full floor is your reason to move to bigger premises. Wear: kit runs down with use and you pay to replace it. | answer: Places free | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P180",
+      "from": "board",
+      "at": "2026-11-09 13:46",
+      "text": "BOARD ANSWER Q-S294-139 - question: Progressive knowledge: you choose what to find out about a boxer, and pay in money, risk or a session. Approve this design? (Attached. Nothing is built until the bots prove it matters and the fighter model is merged.) | answer: \"Coach's eye\tYour boxer\tPick one thing on the Week board; that week the coach watches it\" what do you mena watches it ? for what ? isnt that to o much work for nothing ? | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P181",
+      "from": "board",
+      "at": "2026-11-09 14:33",
+      "text": "BOARD ANSWER Q-S294-140 - question: The guide as a person: an old trainer in the corner says one short line, a light ring marks the thing to touch, the rest dims. He replaces the FIRST WEEK strip and its numbered chips. He is a new character: is this the right man and idea? (Attached. Gym in the picture is only a concept.) | answer: Yes, build him | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P182",
+      "from": "board",
+      "at": "2026-11-09 14:33",
+      "text": "BOARD ANSWER Q-S294-141 - question: Your ChatGPT picture (the whole screen is the gym, roof off, four expansion stages): should it replace the four paintings as the main screen we aim for? | answer: Yes, aim for this | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P183",
+      "from": "board",
+      "at": "2026-11-09 14:38",
+      "text": "BOARD ANSWER Q-S294-137 - question: Four very different main screens, each a painted concept (open the picture). Which one, if any, feels like the game you want? | answer: None: try again | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P184",
+      "from": "board",
+      "at": "2026-11-09 14:41",
+      "text": "BOARD ANSWER Q-S294-142 - question: Coaches: each has his own book and a limit on how far he can take a boxer, a bond you feel on fight night, and changing coach buys new tools but costs depth. Approve this design? (Attached. Built only after the fighter model and only if the bots prove neither staying nor rotating always wins.) | answer: No | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P185",
+      "from": "board",
+      "at": "2026-11-09 15:47",
+      "text": "BOARD ANSWER Q-S294-143 - question: The look: most pages are one big cream sheet, and the critic scored that 4.5 of 10 as a web page. The attached picture shows the other way: dark panels, big numbers, one red button (the boxer in it is a placeholder). Should the pages move to this dark look? | answer: Show me one real page first | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P186",
+      "from": "board",
+      "at": "2026-11-09 15:49",
+      "text": "BOARD ANSWER Q-S294-145 - question: The five tabs in the top bar repeat the gym's pins on Home. Replace them with one Gym button on every page, and move around through the gym? (Attached: Home as it is now.) | answer: what is home screen ? is it the dashboard ? | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P187",
+      "from": "board",
+      "at": "2026-11-09 16:19",
+      "text": "BOARD ANSWER Q-S294-144 - question: Your gym as the main screen: three camera heights on a plain test room (blocks only, no art yet). Which height is closest to the game you want? | answer: they all look shit | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P188",
+      "from": "board",
+      "at": "2026-11-09 19:01",
+      "text": "BOARD ANSWER Q-S294-146 - question: The one real page you asked for: the fighter Overview in dark panels, with real data and the real boxer. Cream is on the left, dark on the right. It is in this build, so you can also play it (Fighters, then Lucy). Should the other pages move to the dark look? | answer: why do you have the guide on every screen you draw ? are you trying to annoy me ? dark looks nice , i like the wooden look of the menus though | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P189",
+      "from": "board",
+      "at": "2026-11-09 19:02",
+      "text": "BOARD ANSWER Q-S294-157 - question: Your picture has a cage and an 'MMA GYM' sign, and the demo is boxing only. For the demo? | answer: keep the cage but make it looked like it is under repair | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P190",
+      "from": "board",
+      "at": "2026-11-09 19:03",
+      "text": "BOARD ANSWER Q-S294-156 - question: Your gym, made to grow: the room emptied, and each piece put back from your own picture. Top: a small club at the start. Bottom: halfway. With everything bought it is your picture exactly. Should the club start small and be bought up to this? | answer: Yes, start small and buy up | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P191",
+      "from": "board",
+      "at": "2026-11-09 21:34",
+      "text": "BOARD ANSWER Q-S294-147 - question: Home is the first page after you load: yes, the dashboard, with the gym filling the window and small panels in its corners. The five tabs in the top bar repeat the gym's pins there. Replace them with one Gym button on every page, and move around through the gym? | answer: this is outdated picture | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P192",
+      "from": "board",
+      "at": "2026-11-09 21:39",
+      "text": "BOARD ANSWER Q-S294-158 - question: Dark panels with the wooden frames, on the real fighter Overview (attached, already in the game, no guide on it). Move the other pages to this look? | answer: i wanna see is tiwh our existing artsyle with ludos textures and everything | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P193",
+      "from": "board",
+      "at": "2026-11-09 22:04",
+      "text": "BOARD ANSWER Q-S294-159 - question: The fighter page repainted by Ludo in our art style: real wood frames with brass corners, slate boards, painted tabs, the gym behind it. A few painted digits are smudged: the game keeps its real numbers. Build every page to this look? | answer: Yes, build this look | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P194",
+      "from": "board",
+      "at": "2026-11-09 22:04",
+      "text": "BOARD ANSWER Q-S294-160 - question: Home as it is today (attached). The five tabs at the top repeat the gym's pins. Replace them with one Gym button on every page, and move around through the gym? | answer: Yes, one Gym button | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P195",
+      "from": "board",
+      "at": "2026-11-09 22:33",
+      "text": "BOARD ANSWER Q-S294-161 - question: A new-player critic scored the corner 3/10: nine controls, no order, no clear next step. This is its redraw: how the round went, then one choice with its result in words, recovery, and a big Start round 2. Numbers are its own. Build the corner this way? | answer: Yes, but change something | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
     }
   ]
 }

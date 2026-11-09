@@ -218,7 +218,9 @@ static func _read(c: Career, f: Dictionary, opp: Dictionary, day: int) -> Contro
 	var words := UI.vbox(2)
 	words.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	words.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	words.add_child(UI.label("%s · %d of %d found on the file" % [str(read["sure"]).left(1).to_upper() + str(read["sure"]).substr(1), int(read["found"]), int(read["all"])], 18, INK, "semi"))
+	words.add_child(UI.label("%s, %d%% to %d%%. Scouting report: %d of %d found" % [
+		str(read["sure"]).left(1).to_upper() + str(read["sure"]).substr(1), int(read["lo"]), int(read["hi"]),
+		int(read["found"]), int(read["all"])], 16, INK, "semi", true))
 	var stakes := UI.hbox(14)
 	stakes.name = "VersusStakes"
 	stakes.add_child(UI.label("A win: %s" % str(read["win_word"]), UI.SMALL, UI.GREEN, "bold"))

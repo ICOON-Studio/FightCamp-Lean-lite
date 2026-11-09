@@ -202,14 +202,14 @@ static func _row(r: Dictionary, pot := 0.0) -> Control:
 	h.add_child(bar)
 	var shown := str(int(floorf(v)))
 	if key == "temper":
-		shown = "Trader" if v >= 60.0 else ("Patient" if v <= 40.0 else "Even")
+		shown = "Trades" if v >= 60.0 else ("Patient" if v <= 40.0 else "Even")
 	var n := UI.label(shown, UI.BODY, col, "bold")
 	n.custom_minimum_size.x = 64 if key == "temper" else 34
 	n.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	h.add_child(n)
 	var d := float(r["delta"])
-	var change := UI.mono("" if absf(d) < 0.05 else ("+%.1f" % d if d > 0.0 else "%.1f" % d), UI.TINY, UI.GREEN if d > 0.0 else UI.RED)
-	change.custom_minimum_size = Vector2(40, 0)
+	var change := UI.mono("" if absf(d) < 0.05 else ("+%.1f wk" % d if d > 0.0 else "%.1f wk" % d), UI.TINY, UI.GREEN if d > 0.0 else UI.RED)
+	change.custom_minimum_size = Vector2(58, 0)
 	change.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	change.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(change)

@@ -37,6 +37,7 @@ static func render_modal(main: Node) -> void:
 	var node := scene.instantiate()
 	center.add_child(node)
 	node.build(main, main.modal)
+	preload("res://scripts/ui/WoodKit.gd").ink(center)   # S417 words on a slate pop-up take the chalk inks
 
 
 static func redraw_modal(main: Node) -> void:
@@ -67,7 +68,7 @@ static func toast(main: Node, text: String) -> void:
 	UI.clear(main._toast_layer)
 	var p := PanelContainer.new()
 	p.theme_type_variation = "Toast"
-	p.add_child(UI.label(text))
+	p.add_child(UI.label(text, UI.BODY, UI.TOP_INK))   # S417 the toast is a dark plate
 	p.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
 	p.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	p.grow_vertical = Control.GROW_DIRECTION_BEGIN

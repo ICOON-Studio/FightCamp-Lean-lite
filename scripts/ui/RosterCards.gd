@@ -212,7 +212,7 @@ static func _tiles(cells: Dictionary, grappler: bool) -> Control:
 	h.add_child(_tile("fresh", str(cells["condition"][0]), str(cells["condition"][2]), "Condition"))
 	h.add_child(_tile("mood", str(cells["mood"][0]), str(cells["mood"][2]), "Mood"))
 	if not grappler:
-		h.add_child(_tile("weight", str(w[0]).replace(" kg", ""), str(w[2]), "Weight against the class limit"))
+		h.add_child(_tile("weight", str(w[0]), str(w[2]), "kg against the class limit"))
 	return _inset(h, 8, 2, 4)
 
 
@@ -262,7 +262,7 @@ static func next_words(c: Career, f: Dictionary, cells: Dictionary, grappler: bo
 	for o in f.get("offers", []):
 		if not bool(o["answered"]) and not bool(o["mismatch"]):
 			return ["No bout", "Offer waiting"]
-	return ["No bout", "Ready to book"]
+	return ["No bout", "Open Fights"]
 
 
 static func _inset(child: Control, side: int, top: int, bottom: int) -> MarginContainer:

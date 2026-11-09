@@ -6111,6 +6111,23 @@
       "answered_at": "2026-11-09T20:33:18Z",
       "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-162",
+      "asked": "2026-11-09T21:40:19.107018+00:00",
+      "session": "S294",
+      "text": "The wood and slate look is on every card, pop-up, tab and button now. Money and World still use the whiteboard you approved in S403 (picture). Move those two to slate as well?",
+      "options": [
+        "Yes, slate everywhere",
+        "Keep the whiteboard on Money and World"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-162_0_money_whiteboard.jpg"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

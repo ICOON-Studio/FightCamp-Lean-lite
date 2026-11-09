@@ -164,11 +164,11 @@ static func _move(main: Node, c: Career, net: int) -> Dictionary:
 
 
 static func _cage() -> Dictionary:
-	var b := UI.button("Build", "Btn", func(): pass, true, "Not built yet")
+	var b := UI.button("Not built yet", "Btn", func(): pass, true, "Not built yet")
 	b.name = "CageBuild"
 	return {
-		"id": "cage", "title": "Cage", "price": 0, "price_text": "price not set", "icon": "cage",
-		"effect": "MMA bouts in the gym, wall and takedown drills. Needs MMA rules.", "runway": "after: price not set", "payback": "",
+		"id": "cage", "title": "Cage", "price": 0, "price_text": "not for sale yet", "icon": "cage",
+		"effect": "MMA bouts in the gym, wall and takedown drills. Needs MMA rules.", "runway": "not for sale yet", "payback": "",
 		"earn": 0, "grey": false, "reason": "Not built yet", "owned": false, "unbuilt": true, "held": false,
 		"affordable": false, "buttons": [b],
 	}
@@ -180,7 +180,7 @@ static func _pack(id: String, title: String, price: int, price_text: String, ico
 	var earn := added if afford else 0
 	var payback := ""
 	if afford and delta > 0 and lump > 0:
-		payback = "payback %d wks" % int(ceil(float(lump) / float(delta)))
+		payback = "payback %d weeks" % int(ceil(float(lump) / float(delta)))
 	var runway := "bought, no change" if owned or held else _runway(c, net, lump, delta)
 	return {
 		"id": id, "title": title, "price": price, "price_text": price_text, "icon": icon, "effect": effect,
@@ -205,7 +205,7 @@ static func _runway(c: Career, net: int, price: int, delta: int) -> String:
 		return "cash would fall short"
 	if after >= 0:
 		return "grows after"
-	return "%d wks in hand after" % GymBills.runway_weeks(left, after)
+	return "%d weeks of money left" % GymBills.runway_weeks(left, after)
 
 
 static func _btn(main: Node, text: String, bname: String, action: String, arg: String, why: String) -> Button:

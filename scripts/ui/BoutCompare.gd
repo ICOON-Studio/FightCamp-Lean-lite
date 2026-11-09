@@ -147,7 +147,7 @@ static func read_card(c: Career, f: Dictionary, opp: Dictionary, camp: Dictionar
 	var sure := str(read["sure"])
 	file.add_child(UI.label("%s: %d to %d%%" % [sure, lo, hi], UI.SMALL, UI.FG, "semi"))
 	file.add_child(Icons.pips(int(s["found"]), int(s["all"]), "Tape study in camp finds these. Each one narrows the chance."))
-	file.add_child(UI.muted("%d of %d found on the opponent's file" % [int(s["found"]), int(s["all"])], UI.TINY))
+	file.add_child(UI.muted("Scouting report: %d of %d found" % [int(s["found"]), int(s["all"])], UI.TINY))
 	big.add_child(file)
 	v.add_child(big)
 	var ruler := _bar(0.0, float(b["lo"]), float(b["hi"]), BAR_W, UI.GOLD)
@@ -175,12 +175,13 @@ static func offer_chips(c: Career, f: Dictionary, o: Dictionary) -> Array:
 	var opp: Dictionary = o["opp"]
 	var gap := roundi(BoutRead.mismatch(f, opp, BoutRead.camp_for(f, int(o["day"]) - c.day), c.seed))
 	var size := absi(gap)
-	var mis := UI.chip("Gap %s%d" % ["+" if gap > 0 else "", gap], "green" if size <= EVEN else ("amber" if size <= UNEVEN else "red"))
+	# BoutRead.mismatch -> ComboOdds.gap: power on the night minus the middle of the opponent's estimate.
+	var mis := UI.chip("Strength gap %s%d" % ["+" if gap > 0 else "", gap], "green" if size <= EVEN else ("amber" if size <= UNEVEN else "red"))
 	mis.name = "Mismatch_" + str(o["id"])
 	var theirs := BoutRead.rank_of(Region.rankings(c, str(f["div"])), str(opp["name"]))
 	var rank := UI.chip("Rank #%d" % theirs if theirs > 0 else "Unranked", "")
 	rank.name = "OppRank_" + str(o["id"])
-	var cut := UI.chip("Cut %s" % UI.money(BoutRules.TICKET_CUT), "green")
+	var cut := UI.chip("Ticket cut %s" % UI.money(BoutRules.TICKET_CUT), "green")
 	cut.name = "Cut_" + str(o["id"])
 	return [Icons.tip(mis, "%s's strength against the estimate of %s. Minus: %s is the stronger." % [f["first"], opp["first"], opp["first"]]),
 		Icons.tip(rank, "%s's place in the division." % opp["first"]), Icons.tip(cut, "The club's ticket cut for the bout.")]

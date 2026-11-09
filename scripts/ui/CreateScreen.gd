@@ -105,6 +105,17 @@ func _you(main: Node, v: VBoxContainer, s: Dictionary) -> void:
 	v.add_child(row)
 
 
+## HeadCoach.free_tells + Bouts.read_on_booking: the ex-pro opens the best weapon (OppFile.tape's first hidden tell) the day a bout is booked.
+func _chip_words(cd: Dictionary) -> String:
+	if str(cd.get("id", "")) == "expro":
+		return "Best weapon known at booking"
+	return str(cd.get("chip", ""))
+
+
+func _plain_words(cd: Dictionary) -> String:
+	return str(cd.get("plain", "")).replace("on file", "on the scouting report")
+
+
 func _coach_card(main: Node, cd: Dictionary, on: bool) -> Control:
 	var box := _card_shell("Coach_" + str(cd["id"]), on, COACH_CARD)
 	var col := UI.vbox(8)
@@ -118,12 +129,12 @@ func _coach_card(main: Node, cd: Dictionary, on: bool) -> Control:
 	if on:
 		top.add_child(UI.chip("✓ SELECTED", "gold"))
 	elif bool(cd["first"]):
-		top.add_child(UI.chip("GOOD FIRST CAREER", ""))
+		top.add_child(UI.chip("BEST FIRST GAME", ""))
 	col.add_child(top)   # (round 5: no extra badge row - every card's text starts at the same height)
 	col.add_child(_wrap(str(cd["past"]), UI.SMALL, UI.FG, "italic"))
 	col.add_child(_wrap(str(cd["edge"]), UI.BODY + 2, UI.GOLD, "bold"))
-	col.add_child(UI.chip(str(cd["chip"]).to_upper(), "gold" if on else ""))
-	col.add_child(_wrap(str(cd["plain"]), UI.SMALL, UI.FG, "body"))
+	col.add_child(UI.chip(_chip_words(cd).to_upper(), "gold" if on else ""))
+	col.add_child(_wrap(_plain_words(cd), UI.SMALL, UI.FG, "body"))
 	col.add_child(_wrap("First felt %s." % cd["felt"], UI.TINY, UI.MUTED, "body"))
 	_overlay(box, func(): _keep(main); main.act("cpick", "coach|" + str(cd["id"])))
 	return box

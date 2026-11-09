@@ -24,7 +24,7 @@ static func build(opp: Dictionary, film_bought := false, history: Array = []) ->
 	var found := OppFile.found(opp).size()
 	var all := found + OppFile.hidden(opp).size()
 	var head := UI.hbox(10)
-	head.add_child(UI.caps("THE OPPONENT'S FILE"))
+	head.add_child(UI.caps("SCOUTING REPORT"))
 	var tip := "%d of %d found." % [found, all]
 	if hint(opp) != "":
 		tip += "\n" + hint(opp)

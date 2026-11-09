@@ -1,5 +1,20 @@
-FIGHTCAMP - BUILD OF 2026-11-09 (S416): WOODEN FRAMES, AND THE NEW FIGHTER MODEL
+FIGHTCAMP - BUILD OF 2026-11-09 (S417): THE LOOK YOU APPROVED, ON EVERY PAGE
 ================================================================================
+
+ NEW.
+  a. The look you said yes to (wood with brass corners, slate boards, wooden tabs and buttons, a plank across the top)
+     is now in every page's cards, pop-ups, tabs and buttons, not only the fighter Overview.
+  b. NOT MOVED YET: pages that draw their own cream sheets. The Training week, Club > People, Fight camp, the bout
+     page, New game. The Money and World pages keep their whiteboard for now. Cursor is moving the Training week.
+  c. Words: bare numbers got their unit (kg, cm, weeks). "File" is now "Scouting report". "Gap" is "Strength gap".
+     "Sessional" is "Part-time". A camp's "edge" is "night bonus". Win chance reads "30% to 45%".
+  d. The attribute colours have a key under them: five small squares, one word each.
+  e. The grey "Training stamina next week" button after a fight now says why it is grey.
+ TRY: open a few pages (Fights, Find a fighter, History, Records, a weigh-in). Does the slate and wood read as one
+      game? Then the Training tab: that cream page is what the rest looked like this morning.
+
+OLDER BUILD (S416):
+BUILD OF 2026-11-09 (S416): WOODEN FRAMES, AND THE NEW FIGHTER MODEL
 
  NEW.
   a. Fighters > a boxer > Overview: the dark panels now sit in wooden frames. Every other page is still cream, so you can compare.

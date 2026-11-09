@@ -189,10 +189,9 @@ func _check_moment(name: String) -> void:
 		var reason := str(b.tooltip_text).strip_edges()
 		var label := _button_label(b)
 		print("%s | %s | %s" % [name, label, reason])
-		if reason.length() < 12:
+		if reason.length() < 12 or reason.to_lower().contains("not available"):
 			failures += 1
-		elif reason.to_lower().contains("not available"):
-			failures += 1
+			print("FAIL no reason on a grey button: %s | %s | %s" % [name, label, reason])   # S417 CI showed only a count
 
 
 func _walk_buttons(node: Node) -> Array:

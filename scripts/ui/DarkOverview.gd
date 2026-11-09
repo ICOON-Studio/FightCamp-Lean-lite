@@ -103,8 +103,7 @@ static func panel(title: String = "") -> Array:
 	var p := PanelContainer.new()
 	p.theme_type_variation = "Card"   # the page and its tests still find a card
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var wood := WarmKit.box("wood_panel")
-	wood.content_margin_top = 26    # the frame is 19 px; 36 all round pushed the bottom row past 1080
+	var wood := UI.WoodKit.slate(34, 26)   # S417 Q-S294-159: the brass-cornered frame (22 px); the page still fits 1080
 	wood.content_margin_bottom = 24
 	p.add_theme_stylebox_override("panel", wood)
 	var v := VBoxContainer.new()
@@ -170,7 +169,7 @@ static func _boxer(f: Dictionary) -> Control:
 		pic.offset_left = -125.0   # the picture is square with empty sides: wider than the column makes the boxer full height
 		pic.offset_right = 125.0
 	var g: Dictionary = AttrBoard.glance(f)
-	var ring := _ring(float(g["fight_avg"]) / 100.0, Color("#ffd54a"), str(int(g["fight_avg"])), "RATING", 130.0)
+	var ring := _ring(float(g["fight_avg"]) / 100.0, Color("#ffd54a"), str(int(g["fight_avg"])), "OF 100", 130.0)
 	ring.position = Vector2(LEFT_W - 136, 8)
 	holder.add_child(ring)
 	col.add_child(holder)
@@ -211,7 +210,16 @@ static func _attributes(f: Dictionary) -> PanelContainer:
 		cols.add_child(col)
 	c[1].add_child(cols)
 	if pot > 0.0:
-		c[1].add_child(UI.label("White tick = ceiling %d. Hover a bar for what it does." % int(pot), UI.TINY, SOFT))
+		# S417 collect: the colour key as swatches, not a sentence (operator: "use graphics ... less text").
+		var key := UI.hbox(6)
+		key.name = "BandKey"
+		key.add_child(UI.label("White tick = ceiling %d" % int(pot), UI.TINY, SOFT))
+		for band in AttrBoard.BANDS:
+			var sw := UI.dot(BAND[str(band[1])])
+			sw.custom_minimum_size = Vector2(10, 10)
+			key.add_child(sw)
+			key.add_child(UI.label(str(band[1]).capitalize(), UI.TINY, SOFT))
+		c[1].add_child(key)
 	return c[0]
 
 
@@ -237,7 +245,7 @@ static func _row(r: Dictionary, pot: float) -> Control:
 		tag.add_theme_stylebox_override("panel", UI.box(col, Color(0, 0, 0, 0), 4, 0, 12, 3))
 		tag.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		tag.add_child(UI.label("Trader" if v >= 60.0 else ("Patient" if v <= 40.0 else "Even"), UI.SMALL, Color.WHITE, "bold"))
+		tag.add_child(UI.label("Trades" if v >= 60.0 else ("Patient" if v <= 40.0 else "Even"), UI.SMALL, Color.WHITE, "bold"))
 		h.add_child(tag)
 		return h
 	var bar := Bar.new()
@@ -252,8 +260,8 @@ static func _row(r: Dictionary, pot: float) -> Control:
 	n.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	h.add_child(n)
 	var d := float(r["delta"])
-	var change := UI.label("" if absf(d) < 0.05 else ("+%.1f" % d if d > 0.0 else "%.1f" % d), UI.TINY, TONE["green"] if d > 0.0 else TONE["red"], "mono")
-	change.custom_minimum_size.x = 32
+	var change := UI.label("" if absf(d) < 0.05 else ("+%.1f wk" % d if d > 0.0 else "%.1f wk" % d), UI.TINY, TONE["green"] if d > 0.0 else TONE["red"], "mono")
+	change.custom_minimum_size.x = 58
 	change.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	h.add_child(change)
 	return h
@@ -271,7 +279,7 @@ static func _glance(f: Dictionary) -> PanelContainer:
 		c[1].add_child(_note("Temper", "Trades when hit", TONE["red"]))
 	if float(g["pot"]) > 0.0:
 		var room := int(g["pot"]) - int(g["fight_avg"])
-		c[1].add_child(_note("Room", "A lot" if room >= 20 else ("Some" if room >= 8 else "Close to the ceiling"), TONE["green"]))
+		c[1].add_child(_note("Room to grow", "A lot" if room >= 20 else ("Some" if room >= 8 else "Close to the ceiling"), TONE["green"]))
 	if str(g.get("wants", "")) != "":
 		c[1].add_child(_note("Wants the fight", str(g["wants"]), TONE["green"]))
 	if str(g["style"]) != "":
@@ -350,8 +358,8 @@ static func _body(c: Career, f: Dictionary) -> PanelContainer:
 	(card[0] as Control).custom_minimum_size.x = SIDE_W
 	(card[0] as Control).size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	var kg := UI.hbox(8)
-	kg.add_child(UI.label("%.1f" % float(f["weight"]), 52, INK, "bold"))
-	var limit := UI.label("/ %.1f kg" % float(f["limit"]), 22, SOFT, "bold")
+	kg.add_child(UI.label("%.1f kg" % float(f["weight"]), 40, INK, "bold"))
+	var limit := UI.label("limit %.1f kg" % float(f["limit"]), 18, SOFT, "bold")
 	limit.size_flags_vertical = Control.SIZE_SHRINK_END
 	kg.add_child(limit)
 	card[1].add_child(kg)

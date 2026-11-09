@@ -112,7 +112,7 @@ static func _coaches() -> Control:
 		var moves := UI.label(str(pair[1]), 13, UI.MUTED, "body", true)
 		moves.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_child(moves)
-		var b := UI.button("Hire", "Btn", func(): pass, true, "Not built yet")
+		var b := UI.button("Not built yet", "Btn", func(): pass, true, "Not built yet")
 		b.name = "CoachHire_" + str(pair[0])
 		row.add_child(b)
 		card[1].add_child(row)

@@ -41,8 +41,8 @@ func _draw() -> void:
 	for j in rounds.size():
 		var r: Dictionary = rounds[j]
 		var x := j * colw
-		draw_string(caps, Vector2(x, 16), str(r["title"]).to_upper(), HORIZONTAL_ALIGNMENT_LEFT, colw - 8.0, UI.TINY, UI.MUTED)
-		draw_string(bold, Vector2(x, 36), str(r["date"]), HORIZONTAL_ALIGNMENT_LEFT, colw - 8.0, UI.SMALL, UI.FG)
+		draw_string(caps, Vector2(x, 16), str(r["title"]).to_upper(), HORIZONTAL_ALIGNMENT_LEFT, colw - 8.0, UI.TINY, UI.WoodKit.muted(self))
+		draw_string(bold, Vector2(x, 36), str(r["date"]), HORIZONTAL_ALIGNMENT_LEFT, colw - 8.0, UI.SMALL, UI.WoodKit.fg(self))
 		var pairs: Array = r["pairs"]
 		var wins: Array = r.get("winners", [])
 		var span := slot * pow(2.0, j)

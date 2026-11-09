@@ -104,7 +104,7 @@ func _initialize() -> void:
 		"Hard: nights and hours, no price %s" % str(hard_words))
 	# S382 G4: the Hard card's red risk line is gone - its legs and injury are the gauge row's (and the card's hover).
 	var hard_risk := hard_box.find_child("Risk", true, false) as Label
-	_check(hard_risk != null and hard_risk.text == "edge +1.0" and hard_risk.get_theme_color("font_color") == CampCard.SUB
+	_check(hard_risk != null and hard_risk.text == "night bonus +1.0" and hard_risk.get_theme_color("font_color") == CampCard.SUB
 		and not " ".join(hard_words).contains("injury") and not " ".join(hard_words).contains("scratch") and not " ".join(hard_words).contains("heavy legs")
 		and str((hard_box as Control).tooltip_text) == "", "Hard: the edge only, legs and injury ghosted on the gauge row (no tooltip): %s" % str(hard_words))
 	# S382 G4: the gauge row in the left column, one CampForecast; the fatigue sentence and the agreed-weight line are gone.
@@ -127,8 +127,8 @@ func _initialize() -> void:
 	_check(_labels(m.find_child("Film", true, false)).has("Film on %s: yes, free" % f["bout"]["opp"]["name"]), "film is free: %s" % str(_labels(m.find_child("Film", true, false))))
 	# S381 C229 stage 4: film is earned - nothing found and no plan yet: 0 of Maria's 4 answerable tells, +0.0.
 	_check(_labels(m.find_child("Film", true, false)).has("0/4 answered - +0.0 on the night")
-		and _labels(m.find_child("Protocol_1", true, false)).any(func(t): return str(t).ends_with("edge +0.25"))
-		and _labels(m.find_child("Protocol_2", true, false)).any(func(t): return str(t).ends_with("edge +0.6")),
+		and _labels(m.find_child("Protocol_1", true, false)).any(func(t): return str(t).ends_with("night bonus +0.25"))
+		and _labels(m.find_child("Protocol_2", true, false)).any(func(t): return str(t).ends_with("night bonus +0.6")),
 		"film 'N/M answered', the halved edges on Light / Standard: %s" % str(_labels(m.find_child("Film", true, false))))
 	_press(m.find_child("Film", true, false) as Button, "film off")
 	await _settle(0.8)

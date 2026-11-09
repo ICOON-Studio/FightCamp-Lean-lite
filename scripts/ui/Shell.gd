@@ -110,8 +110,11 @@ func _build_top(main: Node) -> void:
 	var h := UI.hbox(14)
 	_top.add_child(h)
 	# S398 menus (first-hour critics: "Back / Fwd look like a browser"): two small arrows, the words on hover.
-	for nav in [["back", "<", "Back: the last page", "Nothing to go back to"], ["fwd", ">", "Forward again", "Nothing forward"]]:
-		var nb := UI.button(str(nav[1]), "GhostDark", main.act.bind(str(nav[0]), ""), (main.past if nav[0] == "back" else main.ahead).is_empty(), str(nav[3]))
+	for nav in [["back", "<", "Back: the last page", "No back: nothing earlier"], ["fwd", ">", "Forward again", "No next: nothing ahead"]]:
+		var stack: Array = main.past if str(nav[0]) == "back" else main.ahead
+		var empty: bool = stack.is_empty()
+		var shown := str(nav[1])   # S417 collect: a grey arrow says it; the reason stays on hover (his "less text")
+		var nb := UI.button(shown, "GhostDark", main.act.bind(str(nav[0]), ""), empty, str(nav[3]))
 		nb.name = "Nav_" + str(nav[0])
 		nb.custom_minimum_size = Vector2(36, 36)
 		nb.size_flags_vertical = Control.SIZE_SHRINK_CENTER

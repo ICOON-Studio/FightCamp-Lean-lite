@@ -99,7 +99,7 @@ func _standing(main: Node, c: Career, f: Dictionary) -> Control:
 	var v: VBoxContainer = fc[1]
 	var fb: Dictionary = f["bout"]
 	if fb.is_empty():
-		v.add_child(UI.label("Free to fight", UI.BODY, UI.GREEN, "bold"))
+		v.add_child(UI.label("No bout booked", UI.BODY, UI.GREEN, "bold"))
 	else:
 		v.add_child(UI.label("Booked: vs %s, %s" % [fb["opp"]["name"], Clock.fmt(int(fb["day"]))], UI.BODY, UI.GOLD, "bold"))
 		var acts := UI.hbox(8)   # S416 operator on this page: "there is nothing to do in this menu wtf?"

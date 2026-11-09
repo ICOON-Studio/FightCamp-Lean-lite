@@ -222,7 +222,8 @@ static func _row(main: Node, c: Career, f: Dictionary, r: Dictionary, offered: A
 	else:
 		acts.add_child(UI.button("Take this fight", "BtnSolid", main.act.bind("probook", "%s:%d:o" % [f["id"], int(opp["id"])])))
 	var why := "Already scouted" if scouted else ("Not enough cash" if c.cash < MM.SCOUT_COST else "")
-	acts.add_child(UI.button("Scout (%s)" % GameMoney.text(MM.SCOUT_COST), "Btn",
+	var scout := "Scout (%s)" % GameMoney.text(MM.SCOUT_COST)
+	acts.add_child(UI.button(why if why != "" else scout, "Btn",
 		main.act.bind("proscout", "%s:%d" % [f["id"], int(opp["id"])]), why != "", why))
 	h.add_child(_fixed(COL_ACT, acts))
 	return h

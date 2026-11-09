@@ -347,96 +347,6 @@
    },
    "note": "S400 STOPPED by Claude: it built the overdraft button on the unapproved Money page (reverted 5b3a7796). Re-brief only after an approved Money mockup."
   },
-  "FIGHTERMODEL3B": {
-   "agent": "cursor",
-   "id": "FIGHTERMODEL3B",
-   "title": "TASK FIGHTERMODEL3B - CURSOR (Grok 4.7 High) - the fighter model to 8/10 built, rule 2 held again (round 2)",
-   "status": "landed",
-   "started": "2026-11-08T09:11",
-   "eta": "2026-11-08T11:01",
-   "branch": "cursor/fightermodel3b",
-   "worktree": "E:/FightCamp/wt/LEAN_FIGHTERMODEL3B",
-   "wt": "E:/FightCamp/wt/LEAN_FIGHTERMODEL3B",
-   "brief": "ops/research/TASK_FIGHTERMODEL3B.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/FIGHTERMODEL3B_dispatch_out.txt",
-   "match": "seat_dispatch.py run fightermodel3b",
-   "model": "grok-4.7-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/FIGHTERMODEL3B_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/FIGHTERMODEL3B_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/FIGHTERMODEL3B_dispatch_runner.log",
-    "source": "dispatch_queue.json",
-    "brief_copied": true,
-    "runner_pid": 24860,
-    "seat_pid": 43612
-   },
-   "note": "S368 seat_dispatch: cursor exit 124; 59 commit(s); checks 7/9 PASS; PR #85; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache",
-   "finished": "2026-11-08T11:03",
-   "pr": 85,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/fighter_model_bars_test.gd",
-     "ok": true,
-     "last": "FIGHTER_BARS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/fighter_model_bars_test.gd",
-     "ok": true,
-     "last": "FIGHTER_BARS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/fighter_model_test.gd",
-     "ok": true,
-     "last": "FIGHTER_MODEL failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/matchmaking_bots_test.gd",
-     "ok": false,
-     "last": "MATCHMAKING_BOTS failures=2"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/bout_read_test.gd",
-     "ok": true,
-     "last": "BOUT_READ PASS"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/world_years_test.gd",
-     "ok": true,
-     "last": "WORLD_YEARS checks=29 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/attr_board_test.gd",
-     "ok": true,
-     "last": "   at: cleanup (core/object/object.cpp:2536)"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/balance_harness_test.gd",
-     "ok": true,
-     "last": "BALANCE failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/golden_path_test.gd",
-     "ok": false,
-     "last": "GOLDEN_PATH failures=2"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "CORNERTRUST1": {
    "agent": "qwen",
    "id": "CORNERTRUST1",
@@ -1370,108 +1280,6 @@
     "board": ""
    }
   },
-  "FIGHTERMODEL4A": {
-   "agent": "cursor",
-   "id": "FIGHTERMODEL4A",
-   "title": "TASK FIGHTERMODEL4A - CURSOR (Grok 4.7 High) - the fighter model on the agreed 10 attributes and 5 boxing skills",
-   "status": "landed",
-   "started": "2026-11-08T23:42",
-   "eta": "2026-11-09T01:32",
-   "branch": "cursor/fightermodel4a",
-   "worktree": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4A",
-   "wt": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4A",
-   "brief": "ops/research/TASK_FIGHTERMODEL4A.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/FIGHTERMODEL4A_dispatch_out.txt",
-   "match": "seat_dispatch.py run fightermodel4a",
-   "model": "grok-4.7-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/FIGHTERMODEL4A_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/FIGHTERMODEL4A_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/FIGHTERMODEL4A_dispatch_runner.log",
-    "source": "dispatch_queue.json",
-    "brief_copied": true,
-    "runner_pid": 23192,
-    "seat_pid": 18644
-   },
-   "note": "S368 seat_dispatch: cursor exit 0; 143 commit(s); checks 10/11 PASS; PR #106; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache",
-   "finished": "2026-11-09T00:53",
-   "pr": 106,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/attr_ten_test.gd",
-     "ok": true,
-     "last": "ATTR_TEN failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/fighter_model_bars_test.gd",
-     "ok": true,
-     "last": "FIGHTER_BARS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/fighter_model_test.gd",
-     "ok": true,
-     "last": "FIGHTER_MODEL failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/attr_board_test.gd",
-     "ok": true,
-     "last": "   at: cleanup (core/object/object.cpp:2536)"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/bout_read_test.gd",
-     "ok": false,
-     "last": "BOUT_READ FAIL 1"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/world_years_test.gd",
-     "ok": true,
-     "last": "WORLD_YEARS checks=29 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/perk_fight_test.gd",
-     "ok": true,
-     "last": "FAILURES 0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/week_plan_test.gd",
-     "ok": true,
-     "last": "WEEK_PLAN PASS fails=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/training_week_test.gd",
-     "ok": true,
-     "last": "TRAINING_WEEK failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/save_load_test.gd",
-     "ok": true,
-     "last": "SAVE_LOAD checks=75 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/golden_path_test.gd",
-     "ok": true,
-     "last": "GOLDEN_PATH failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "MENUHOME1": {
    "agent": "cursor",
    "id": "MENUHOME1",
@@ -1756,78 +1564,6 @@
    "note": "S368 seat_dispatch: cursor exit 1, no commit on cursor/menuplaybook2 (stray: -); output E:\\FightCamp\\wt\\MENUPLAYBOOK2_dispatch_out.txt",
    "finished": "2026-11-09T03:42"
   },
-  "FIGHTERMODEL4C": {
-   "agent": "cursor",
-   "id": "FIGHTERMODEL4C",
-   "title": "TASK FIGHTERMODEL4C - CURSOR (Grok 4.7 High) - the fighter model at the old speed",
-   "status": "landed",
-   "started": "2026-11-09T06:55",
-   "eta": "2026-11-09T08:45",
-   "branch": "cursor/fightermodel4c",
-   "worktree": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4C",
-   "wt": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4C",
-   "brief": "ops/research/TASK_FIGHTERMODEL4C.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/FIGHTERMODEL4C_dispatch_out.txt",
-   "match": "seat_dispatch.py run fightermodel4c",
-   "model": "grok-4.7-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/FIGHTERMODEL4C_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/FIGHTERMODEL4C_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/FIGHTERMODEL4C_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 19732,
-    "seat_pid": 5084
-   },
-   "note": "S368 seat_dispatch: cursor exit 0; 22 commit(s); checks 5/6 PASS; PR #113",
-   "finished": "2026-11-09T08:10",
-   "pr": 113,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/fighter_model_speed_test.gd",
-     "ok": true,
-     "last": "FIGHTER_SPEED failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/fighter_model_speed_test.gd",
-     "ok": true,
-     "last": "FIGHTER_SPEED failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/world_years_test.gd",
-     "ok": true,
-     "last": "WORLD_YEARS checks=29 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/plan_bots_test.gd",
-     "ok": false,
-     "last": "PLAN_BOTS checks=26 failures=2"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/golden_path_test.gd",
-     "ok": true,
-     "last": "GOLDEN_PATH failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/save_load_test.gd",
-     "ok": true,
-     "last": "SAVE_LOAD checks=75 failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "HUBSPRITES1": {
    "agent": "qwen",
    "id": "HUBSPRITES1",
@@ -1924,78 +1660,6 @@
     "board": ""
    }
   },
-  "FIGHTERMODEL4D": {
-   "agent": "cursor",
-   "id": "FIGHTERMODEL4D",
-   "title": "TASK FIGHTERMODEL4D - CURSOR (Grok 4.7 High) - the fighter model fits inside the test limit",
-   "status": "landed",
-   "started": "2026-11-09T09:52",
-   "eta": "2026-11-09T11:42",
-   "branch": "cursor/fightermodel4d",
-   "worktree": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4D",
-   "wt": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4D",
-   "brief": "ops/research/TASK_FIGHTERMODEL4D.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/FIGHTERMODEL4D_dispatch_out.txt",
-   "match": "seat_dispatch.py run fightermodel4d",
-   "model": "grok-4.7-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/FIGHTERMODEL4D_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/FIGHTERMODEL4D_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/FIGHTERMODEL4D_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 2400,
-    "seat_pid": 36504
-   },
-   "note": "S368 seat_dispatch: cursor exit 0; 24 commit(s); checks 5/6 PASS; PR #117",
-   "finished": "2026-11-09T10:58",
-   "pr": 117,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/fighter_model_speed_test.gd",
-     "ok": true,
-     "last": "FIGHTER_SPEED failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/fighter_model_speed_test.gd",
-     "ok": true,
-     "last": "FIGHTER_SPEED failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/world_years_test.gd",
-     "ok": true,
-     "last": "WORLD_YEARS checks=29 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/plan_bots_test.gd",
-     "ok": false,
-     "last": "PLAN_BOTS checks=26 failures=2"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/golden_path_test.gd",
-     "ok": true,
-     "last": "GOLDEN_PATH failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/save_load_test.gd",
-     "ok": true,
-     "last": "SAVE_LOAD checks=75 failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "HITREACT2": {
    "agent": "qwen",
    "id": "HITREACT2",
@@ -2036,78 +1700,6 @@
      "script": "tests/guard_knee_test.gd",
      "ok": true,
      "last": "GUARD_KNEE failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
-  "FIGHTERMODEL4E": {
-   "agent": "cursor",
-   "id": "FIGHTERMODEL4E",
-   "title": "TASK FIGHTERMODEL4E - CURSOR (Grok 4.7 High) - the plan must beat the coach again on the new fighter model",
-   "status": "landed",
-   "started": "2026-11-09T11:01",
-   "eta": "2026-11-09T12:51",
-   "branch": "cursor/fightermodel4e",
-   "worktree": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4E",
-   "wt": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4E",
-   "brief": "ops/research/TASK_FIGHTERMODEL4E.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/FIGHTERMODEL4E_dispatch_out.txt",
-   "match": "seat_dispatch.py run fightermodel4e",
-   "model": "grok-4.7-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/FIGHTERMODEL4E_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/FIGHTERMODEL4E_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/FIGHTERMODEL4E_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 31228,
-    "seat_pid": 37604
-   },
-   "note": "S368 seat_dispatch: cursor exit 0; 15 commit(s); checks 6/6 PASS; PR #119",
-   "finished": "2026-11-09T11:44",
-   "pr": 119,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/plan_bots_test.gd",
-     "ok": true,
-     "last": "PLAN_BOTS checks=26 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/fighter_model_speed_test.gd",
-     "ok": true,
-     "last": "FIGHTER_SPEED failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/fighter_model_speed_test.gd",
-     "ok": true,
-     "last": "FIGHTER_SPEED failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/world_years_test.gd",
-     "ok": true,
-     "last": "WORLD_YEARS checks=29 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/golden_path_test.gd",
-     "ok": true,
-     "last": "GOLDEN_PATH failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/save_load_test.gd",
-     "ok": true,
-     "last": "SAVE_LOAD checks=76 failures=0"
     }
    ],
    "films": {
@@ -2198,78 +1790,6 @@
      "script": "tests/no_pronoun_test.gd",
      "ok": true,
      "last": "NO_PRONOUN failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
-  "FIGHTERMODEL4F": {
-   "agent": "cursor",
-   "id": "FIGHTERMODEL4F",
-   "title": "TASK FIGHTERMODEL4F - CURSOR (Grok 4.7 High) - the nine red tests the new fighter model leaves behind",
-   "status": "landed",
-   "started": "2026-11-09T12:42",
-   "eta": "2026-11-09T14:32",
-   "branch": "cursor/fightermodel4f",
-   "worktree": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4F",
-   "wt": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4F",
-   "brief": "ops/research/TASK_FIGHTERMODEL4F.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/FIGHTERMODEL4F_dispatch_out.txt",
-   "match": "seat_dispatch.py run fightermodel4f",
-   "model": "grok-4.7-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/FIGHTERMODEL4F_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/FIGHTERMODEL4F_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/FIGHTERMODEL4F_dispatch_runner.log",
-    "source": "dispatch_queue.json",
-    "brief_copied": true,
-    "runner_pid": 52640,
-    "seat_pid": 14776
-   },
-   "note": "S368 seat_dispatch: cursor exit 0; 5 commit(s); checks 6/6 PASS; PR #124; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache",
-   "finished": "2026-11-09T13:49",
-   "pr": 124,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/exchanges_test.gd",
-     "ok": true,
-     "last": "EXCHANGES failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/plan_bots_test.gd",
-     "ok": true,
-     "last": "PLAN_BOTS checks=26 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/bout_read_test.gd",
-     "ok": true,
-     "last": "BOUT_READ PASS"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/world_years_test.gd",
-     "ok": true,
-     "last": "WORLD_YEARS checks=29 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/golden_path_test.gd",
-     "ok": true,
-     "last": "GOLDEN_PATH failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/save_load_test.gd",
-     "ok": true,
-     "last": "SAVE_LOAD checks=76 failures=0"
     }
    ],
    "films": {
@@ -2478,72 +1998,6 @@
     "board": ""
    }
   },
-  "FIGHTERMODEL4H": {
-   "agent": "cursor",
-   "id": "FIGHTERMODEL4H",
-   "title": "TASK FIGHTERMODEL4H - CURSOR (Grok 4.7 High) - the camp's three levels mean something again on the new fighter model",
-   "status": "landed",
-   "started": "2026-11-09T16:13",
-   "eta": "2026-11-09T18:03",
-   "branch": "cursor/fightermodel4h",
-   "worktree": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4H",
-   "wt": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4H",
-   "brief": "ops/research/TASK_FIGHTERMODEL4H.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/FIGHTERMODEL4H_dispatch_out.txt",
-   "match": "seat_dispatch.py run fightermodel4h",
-   "model": "grok-4.7-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/FIGHTERMODEL4H_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/FIGHTERMODEL4H_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/FIGHTERMODEL4H_dispatch_runner.log",
-    "source": "dispatch_queue.json",
-    "brief_copied": true,
-    "runner_pid": 24472,
-    "seat_pid": 36984
-   },
-   "note": "S368 seat_dispatch: cursor exit 0; 51 commit(s); checks 5/5 PASS; PR #132; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache",
-   "finished": "2026-11-09T16:46",
-   "pr": 132,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/camp_protocol_test.gd",
-     "ok": true,
-     "last": "CAMP_PROTOCOL failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/plan_bots_test.gd",
-     "ok": true,
-     "last": "PLAN_BOTS checks=26 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/bout_read_test.gd",
-     "ok": true,
-     "last": "BOUT_READ PASS"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/golden_path_test.gd",
-     "ok": true,
-     "last": "GOLDEN_PATH failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/week_read_test.gd",
-     "ok": true,
-     "last": "WEEK_READ failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "FIGHTERMODEL4B": {
    "agent": "cursor",
    "id": "FIGHTERMODEL4B",
@@ -2599,86 +2053,11 @@
    },
    "note": "S415: stopped seconds after launch, held for Q-S294-146"
   },
-  "FIGHTERMODEL4I": {
-   "agent": "cursor",
-   "id": "FIGHTERMODEL4I",
-   "title": "TASK FIGHTERMODEL4I - CURSOR (Grok 4.7 High) - scouting has something to find again, on the 10 attributes",
-   "status": "running",
-   "started": "2026-11-09T18:57",
-   "eta": "2026-11-09T20:47",
-   "branch": "cursor/fightermodel4i",
-   "worktree": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4I",
-   "wt": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4I",
-   "brief": "ops/research/TASK_FIGHTERMODEL4I.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/FIGHTERMODEL4I_dispatch_out.txt",
-   "match": "seat_dispatch.py run fightermodel4i",
-   "model": "grok-4.7-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/FIGHTERMODEL4I_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/FIGHTERMODEL4I_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/FIGHTERMODEL4I_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 1132,
-    "seat_pid": 24076
-   },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
-  },
-  "REARHAND4": {
-   "agent": "qwen",
-   "id": "REARHAND4",
-   "title": "TASK REARHAND4 - QWEN (qwen3-coder) - is there a right hook we own that does not drop the hand to the hip",
-   "status": "landed",
-   "started": "2026-11-09T18:59",
-   "eta": "2026-11-09T20:49",
-   "branch": "qwen/rearhand4",
-   "worktree": "E:/FightCamp/wt/LEAN_REARHAND4",
-   "wt": "E:/FightCamp/wt/LEAN_REARHAND4",
-   "brief": "ops/research/TASK_REARHAND4.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/REARHAND4_dispatch_out.txt",
-   "match": "seat_dispatch.py run rearhand4",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/REARHAND4_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/REARHAND4_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/REARHAND4_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 23720,
-    "seat_pid": 26152
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #135; NOT committed (outside OWNS): tools/__pycache__/raw_hand_path.cpython-313.pyc",
-   "finished": "2026-11-09T19:09",
-   "pr": 135,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/guard_knee_test.gd",
-     "ok": true,
-     "last": "GUARD_KNEE failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/guard_knee_test.gd",
-     "ok": true,
-     "last": "GUARD_KNEE failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "GYMBUY1": {
    "agent": "qwen",
    "id": "GYMBUY1",
    "title": "TASK GYMBUY1 - QWEN (qwen3-coder) - does buying equipment change a club's results",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-09T20:03",
    "eta": "2026-11-09T21:53",
    "branch": "qwen/gymbuy1",
@@ -2698,6 +2077,392 @@
     "brief_copied": true,
     "runner_pid": 10880,
     "seat_pid": 40452
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #136",
+   "finished": "2026-11-09T20:13",
+   "pr": 136,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/gym_slots_test.gd",
+     "ok": true,
+     "last": "GYM_SLOTS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/gym_slots_test.gd",
+     "ok": true,
+     "last": "GYM_SLOTS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/gym_spend_test.gd",
+     "ok": true,
+     "last": "GYM_SPEND failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "REARHAND5": {
+   "agent": "qwen",
+   "id": "REARHAND5",
+   "title": "TASK REARHAND5 - QWEN (qwen3-coder) - the plain right hook keeps the hand up before it swings",
+   "status": "landed",
+   "started": "2026-11-09T20:30",
+   "eta": "2026-11-09T22:20",
+   "branch": "qwen/rearhand5",
+   "worktree": "E:/FightCamp/wt/LEAN_REARHAND5",
+   "wt": "E:/FightCamp/wt/LEAN_REARHAND5",
+   "brief": "ops/research/TASK_REARHAND5.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/REARHAND5_dispatch_out.txt",
+   "match": "seat_dispatch.py run rearhand5",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/REARHAND5_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/REARHAND5_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/REARHAND5_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 15508,
+    "seat_pid": 7796
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/3 PASS; PR #138",
+   "finished": "2026-11-09T20:43",
+   "pr": 138,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/owned_mocap_test.gd",
+     "ok": false,
+     "last": "OWNED_MOCAP checks=3 failures=2"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "REARHAND5B": {
+   "agent": "qwen",
+   "id": "REARHAND5B",
+   "title": "TASK REARHAND5B - QWEN (qwen3-coder) - the plain right hook keeps the hand up: blend, do not solve",
+   "status": "landed",
+   "started": "2026-11-09T20:43",
+   "eta": "2026-11-09T22:33",
+   "branch": "qwen/rearhand5b",
+   "worktree": "E:/FightCamp/wt/LEAN_REARHAND5B",
+   "wt": "E:/FightCamp/wt/LEAN_REARHAND5B",
+   "brief": "ops/research/TASK_REARHAND5B.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/REARHAND5B_dispatch_out.txt",
+   "match": "seat_dispatch.py run rearhand5b",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/REARHAND5B_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/REARHAND5B_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/REARHAND5B_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 3100,
+    "seat_pid": 27984
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #140",
+   "finished": "2026-11-09T21:13",
+   "pr": 140,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "KNOW1": {
+   "agent": "goose",
+   "id": "KNOW1",
+   "title": "QWEN (qwen3-coder) - Knowledge.gd: what the player can see of a boxer, and the range never lies",
+   "status": "landed",
+   "started": "2026-11-09T20:59",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_KNOW1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-09T21:59",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
+   "issue": "139",
+   "branch": "goose/issue-139",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/139",
+   "reconciled": "2026-11-09 21:11 board_reconcile: run finished (success), branch goose/issue-139 pushed"
+  },
+  "HEADAIM1": {
+   "agent": "qwen",
+   "id": "HEADAIM1",
+   "title": "TASK HEADAIM1 - QWEN (qwen3-coder) - do the punches aim at the head",
+   "status": "landed",
+   "started": "2026-11-09T22:11",
+   "eta": "2026-11-10T00:01",
+   "branch": "qwen/headaim1",
+   "worktree": "E:/FightCamp/wt/LEAN_HEADAIM1",
+   "wt": "E:/FightCamp/wt/LEAN_HEADAIM1",
+   "brief": "ops/research/TASK_HEADAIM1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HEADAIM1_dispatch_out.txt",
+   "match": "seat_dispatch.py run headaim1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HEADAIM1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HEADAIM1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HEADAIM1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 36400,
+    "seat_pid": 36004
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #143",
+   "finished": "2026-11-09T22:34",
+   "pr": 143,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "PRESENT1A": {
+   "agent": "cursor",
+   "id": "PRESENT1A",
+   "title": "TASK PRESENT1A - CURSOR (Grok 4.7 High) - every number and word on the screens says what it means",
+   "status": "landed",
+   "started": "2026-11-09T22:30",
+   "eta": "2026-11-10T00:20",
+   "branch": "cursor/present1a",
+   "worktree": "E:/FightCamp/wt/LEAN_PRESENT1A",
+   "wt": "E:/FightCamp/wt/LEAN_PRESENT1A",
+   "brief": "ops/research/TASK_PRESENT1A.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/PRESENT1A_dispatch_out.txt",
+   "match": "seat_dispatch.py run present1a",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/PRESENT1A_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/PRESENT1A_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/PRESENT1A_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 8748,
+    "seat_pid": 23796
+   },
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 6/7 PASS; PR #144",
+   "finished": "2026-11-09T23:07",
+   "pr": 144,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/plain_words_test.gd",
+     "ok": true,
+     "last": "PLAIN_WORDS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plain_words_test.gd",
+     "ok": true,
+     "last": "PLAIN_WORDS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/grey_reason_test.gd",
+     "ok": false,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/menus_round4_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/first_week_test.gd",
+     "ok": true,
+     "last": "FIRST_WEEK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "HEADAIM2": {
+   "agent": "qwen",
+   "id": "HEADAIM2",
+   "title": "TASK HEADAIM2 - QWEN (qwen3-coder) - a blocked or slipped head punch is still thrown at the head",
+   "status": "landed",
+   "started": "2026-11-09T23:04",
+   "eta": "2026-11-10T00:54",
+   "branch": "qwen/headaim2",
+   "worktree": "E:/FightCamp/wt/LEAN_HEADAIM2",
+   "wt": "E:/FightCamp/wt/LEAN_HEADAIM2",
+   "brief": "ops/research/TASK_HEADAIM2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HEADAIM2_dispatch_out.txt",
+   "match": "seat_dispatch.py run headaim2",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HEADAIM2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HEADAIM2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HEADAIM2_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 25548,
+    "seat_pid": 42740
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 4/4 PASS; PR #145",
+   "finished": "2026-11-09T23:22",
+   "pr": 145,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/head_aim_test.gd",
+     "ok": true,
+     "last": "HEAD_AIM failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/short_punch_test.gd",
+     "ok": true,
+     "last": "SHORT_PUNCH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "HEADAIM2B": {
+   "agent": "qwen",
+   "id": "HEADAIM2B",
+   "title": "TASK HEADAIM2B - QWEN (qwen3-coder) - the head aim, round 2: a ruler that holds, and joins",
+   "status": "running",
+   "started": "2026-11-09T23:24",
+   "eta": "2026-11-10T01:14",
+   "branch": "qwen/headaim2b",
+   "worktree": "E:/FightCamp/wt/LEAN_HEADAIM2B",
+   "wt": "E:/FightCamp/wt/LEAN_HEADAIM2B",
+   "brief": "ops/research/TASK_HEADAIM2B.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HEADAIM2B_dispatch_out.txt",
+   "match": "seat_dispatch.py run headaim2b",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HEADAIM2B_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HEADAIM2B_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HEADAIM2B_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 29024,
+    "seat_pid": 6648
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+  },
+  "LOOKSLATE1": {
+   "agent": "cursor",
+   "id": "LOOKSLATE1",
+   "title": "TASK LOOKSLATE1 - CURSOR (Grok 4.7 High) - the Training week page on slate and wood",
+   "status": "running",
+   "started": "2026-11-09T23:29",
+   "eta": "2026-11-10T01:19",
+   "branch": "cursor/lookslate1",
+   "worktree": "E:/FightCamp/wt/LEAN_LOOKSLATE1",
+   "wt": "E:/FightCamp/wt/LEAN_LOOKSLATE1",
+   "brief": "ops/research/TASK_LOOKSLATE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/LOOKSLATE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run lookslate1",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/LOOKSLATE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/LOOKSLATE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/LOOKSLATE1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 14016,
+    "seat_pid": 240
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }

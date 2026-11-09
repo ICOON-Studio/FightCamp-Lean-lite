@@ -36,10 +36,10 @@ func _draw() -> void:
 	draw_rect(Rect2(0, y, w, H), Color(UI.LINE, 0.55), true)
 	var x := w * clampf(value / 100.0, 0.0, 1.0) * grow
 	if scale_mode:
-		draw_line(Vector2(w * 0.5, y - 2), Vector2(w * 0.5, y + H + 2), UI.MUTED, 1.0)
+		draw_line(Vector2(w * 0.5, y - 2), Vector2(w * 0.5, y + H + 2), UI.WoodKit.muted(self), 1.0)
 		draw_circle(Vector2(x, y + H * 0.5), H * 0.75, colour)
 		return
 	draw_rect(Rect2(0, y, x, H), colour, true)
 	if pot > 0.0:
 		var px := w * clampf(pot / 100.0, 0.0, 1.0)
-		draw_rect(Rect2(px - 1.5, y - 3, 3, H + 6), UI.FG, true)
+		draw_rect(Rect2(px - 1.5, y - 3, 3, H + 6), UI.WoodKit.fg(self), true)

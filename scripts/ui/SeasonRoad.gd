@@ -22,7 +22,7 @@ func _draw() -> void:
 	var n := stops.size()
 	var step := size.x / n
 	var y := 74.0
-	var cols := {"done": UI.GREEN, "out": UI.RED, "next": UI.GOLD, "ahead": UI.LINE}
+	var cols := {"done": UI.GREEN, "out": UI.RED, "next": UI.WoodKit.blue(self), "ahead": UI.LINE}
 	var lit := -1
 	for i in n:
 		if ["done", "out", "next"].has(str(stops[i]["state"])):
@@ -55,17 +55,17 @@ func _draw() -> void:
 				draw_line(Vector2(x - 5, y - 5), Vector2(x + 5, y + 5), UI.GOLD_INK, 3.0, true)
 				draw_line(Vector2(x - 5, y + 5), Vector2(x + 5, y - 5), UI.GOLD_INK, 3.0, true)
 		var words := str(s["label"]).split(" ", true, 1)
-		var top_col := UI.FG if st != "ahead" else UI.MUTED
-		_centred(caps, words[0].to_upper(), x, 22.0, UI.TINY, UI.MUTED, step)
+		var top_col := UI.WoodKit.fg(self) if st != "ahead" else UI.WoodKit.muted(self)
+		_centred(caps, words[0].to_upper(), x, 22.0, UI.TINY, UI.WoodKit.muted(self), step)
 		if words.size() > 1:
 			_centred(bold, words[1], x, 42.0, UI.SMALL, top_col, step)
-		_centred(bold, str(s["date"]), x, y + R + 26.0, UI.SMALL, col if st != "ahead" else UI.MUTED, step)
+		_centred(bold, str(s["date"]), x, y + R + 26.0, UI.SMALL, col if st != "ahead" else UI.WoodKit.muted(self), step)
 		var sub := str(s.get("sub", ""))
 		if sub != "":
-			_centred(body, sub, x, y + R + 48.0, UI.TINY, UI.FG if st == "next" else UI.MUTED, step)
+			_centred(body, sub, x, y + R + 48.0, UI.TINY, UI.WoodKit.fg(self) if st == "next" else UI.WoodKit.muted(self), step)
 		var sub2 := str(s.get("sub2", ""))
 		if sub2 != "":
-			_centred(body, sub2, x, y + R + 67.0, UI.TINY, UI.MUTED, step)
+			_centred(body, sub2, x, y + R + 67.0, UI.TINY, UI.WoodKit.muted(self), step)
 
 
 ## One line centred on x, cut with "..." to the stop's width.

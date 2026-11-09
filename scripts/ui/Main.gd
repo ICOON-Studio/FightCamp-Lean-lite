@@ -152,6 +152,7 @@ func render() -> void:
 	elif _shell != null:
 		_shell.refresh(self)
 	preload("res://scripts/ui/MenuFx.gd").ink_on_wall(_screen_holder)
+	preload("res://scripts/ui/WoodKit.gd").ink(_screen_holder)   # S417 words on a slate take the chalk inks
 
 
 func _put_screen(scene: PackedScene) -> void:

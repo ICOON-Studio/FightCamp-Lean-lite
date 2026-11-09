@@ -84,7 +84,7 @@ static func _you(c: Career) -> Control:
 	var cd := HeadCoach.card(HeadCoach.of(c.head))
 	var p := _paper(false)
 	p.name = "HeadCoachRow"
-	p.tooltip_text = "%s. %s %s" % [cd.get("edge", ""), cd.get("chip", ""), cd.get("plain", "")]
+	p.tooltip_text = "%s. %s %s" % [cd.get("edge", ""), _no_file(str(cd.get("chip", ""))), _no_file(str(cd.get("plain", "")))]
 	var h := UI.hbox(12)
 	p.add_child(h)
 	var pic := PromoShot.picture(str(cd.get("photo", "")), Vector2(84, 96))
@@ -123,7 +123,7 @@ static func _coach(main: Node, c: Career, coach: Dictionary, wide: bool) -> Cont
 	nm.tooltip_text = "%s. %s, %s." % [who.get("kind", ""), who.get("spec", ""), who.get("note", "")]
 	nm.mouse_filter = Control.MOUSE_FILTER_STOP
 	top.add_child(nm)
-	top.add_child(_tag("Full-time" if str(who.get("kind", "")).begins_with("Full") else "Sessional"))
+	top.add_child(_tag("Full-time" if str(who.get("kind", "")).begins_with("Full") else "Part-time"))
 	v.add_child(top)
 	v.add_child(_bars(who))
 	var f := c.fighter()
@@ -158,8 +158,14 @@ static func _with_areas(coach: Dictionary) -> Dictionary:
 
 
 static func _bars(coach: Dictionary) -> Control:
+	var wrap := UI.vbox(2)
+	# CoachAreas.lift / lift_for: the % is against training with no coach. Pads (lift_for) is move learning.
+	var cap := UI.label("Versus no coach", 13, SOFT)
+	cap.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	wrap.add_child(cap)
 	var box := UI.vbox(4)
 	box.name = "AreaBars"
+	wrap.add_child(box)
 	var rows := CoachAreas.ranked(coach)
 	for i in rows.size():
 		var id := str(rows[i]["id"])
@@ -195,11 +201,12 @@ static func _bars(coach: Dictionary) -> Control:
 		bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(bar)
-		var pct := UI.label(CoachAreas.pct_for(id, rating), 26, ink, "bold")
+		var noun := "moves" if id == "pads" else "gain"
+		var pct := UI.label("%s %s" % [CoachAreas.pct_for(id, rating), noun], 18, ink, "bold")
 		pct.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(pct)
 		box.add_child(row)
-	return box
+	return wrap
 
 
 static func _boxer(c: Career, f: Dictionary, coach: Dictionary) -> Control:
@@ -234,7 +241,7 @@ static func _facts(coach: Dictionary, show_sign: bool) -> Control:
 	var net := salary - classes
 	var h := UI.hbox(6)
 	h.name = "CoachTiles"
-	h.add_child(_tile("coach", "%d lines" % limit, "How many lines you can write in a plan", INK, "in a game plan"))
+	h.add_child(_tile("coach", "%d tactics" % limit, "How many tactics a fight plan can hold", INK, "in a fight plan"))
 	h.add_child(_tile("money", UI.money(salary), "Cost a week", INK, "wage a week"))
 	h.add_child(_tile("members", "+%s" % UI.money(classes), "Evening classes, a week", GREEN, "evening classes"))
 	h.add_child(_tile("runway", UI.money(-net), "Net a week, after evening classes", UI.RED if net > 0 else GREEN, "net a week"))
@@ -354,6 +361,11 @@ static func _tile(icon: String, word: String, tip: String, ink: Color = INK, cap
 		v.add_child(cap)
 	p.add_child(v)
 	return p
+
+
+## Player-facing: "file" is the scouting report. Keys in the data stay.
+static func _no_file(s: String) -> String:
+	return s.replace("on file", "on the scouting report").replace("file", "scouting report").replace("tell", "find")
 
 
 static func _tag(text: String) -> Control:

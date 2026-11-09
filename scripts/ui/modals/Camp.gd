@@ -140,7 +140,8 @@ func _options(main: Node, c: Career, f: Dictionary, opp: Dictionary, focus: Stri
 		var line := str(p["blurb"])
 		if str(p["level"]) == "hard":   # S381 C229: the dose as a coach says it - nights and hours against her usual
 			line = "%s, %d h (usual %d)" % [line, int(round(TrainingLoad.hours("hard"))), int(round(Injuries.chronic(f)))]
-		var b := CampCard.option("Protocol_%d" % i, str(p["name"]), line, "edge +%s" % _num(float(p["edge"])), CampCard.SUB,
+		# BoutRules.night_edge: this number is added on fight night, not a bonus to every training gain.
+		var b := CampCard.option("Protocol_%d" % i, str(p["name"]), line, "night bonus +%s" % _num(float(p["edge"])), CampCard.SUB,
 			proto == i, main.act.bind("cproto", str(i)), OPTION_H)
 		# S382 proof stills: no tooltip - the hover ghosts the legs and the risk on the gauge row (_ghosts); a tooltip said
 		# the same numbers a second time over the row below
