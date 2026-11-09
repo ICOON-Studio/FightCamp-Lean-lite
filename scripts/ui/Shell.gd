@@ -99,12 +99,11 @@ func _build_top(main: Node) -> void:
 	_top.add_child(h)
 	# S398 menus (first-hour critics: "Back / Fwd look like a browser"): two small arrows, the words on hover.
 	for nav in [["back", "<", "Back: the last page", "Nothing to go back to"], ["fwd", ">", "Forward again", "Nothing forward"]]:
-		var nb := UI.button(str(nav[1]), "Ghost", main.act.bind(str(nav[0]), ""), (main.past if nav[0] == "back" else main.ahead).is_empty(), str(nav[3]))
+		var nb := UI.button(str(nav[1]), "GhostDark", main.act.bind(str(nav[0]), ""), (main.past if nav[0] == "back" else main.ahead).is_empty(), str(nav[3]))
 		nb.name = "Nav_" + str(nav[0])
 		nb.custom_minimum_size = Vector2(36, 36)
 		nb.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		nb.add_theme_font_size_override("font_size", 20)
-		_on_dark(nb)
 		if not nb.disabled:
 			nb.tooltip_text = str(nav[2])
 		h.add_child(nb)
@@ -145,7 +144,7 @@ func _build_top(main: Node) -> void:
 		ink = UI.GOLD_INK
 	if cls == "Go" and main.route["area"] == "home" and not HomeNeeds.pressing(c).is_empty():
 		cls = "Btn"   # HOME's top need holds the page's one filled button; the clock still runs from here
-		ink = UI.GOLD
+		ink = UI.TOP_INK
 	var go := UI.button2(g["t"], g["s"], cls, main.act.bind("go_btn", ""), Vector2(270, 54), ink, ink, false, UI.BODY, UI.TINY)
 	go.name = "Go"
 	# A long need ("Answer a bout offer: ...") trims with an ellipsis inside the button instead of running into the cash.
@@ -157,21 +156,13 @@ func _build_top(main: Node) -> void:
 Click again to pause. How fast the days run: Menu > Settings."
 	h.add_child(go)
 	_gear_menu.set_item_text(0, "Mail (%d new)" % c.unread if c.unread > 0 else "Mail")
-	var gear := UI.button("Menu", "Ghost", _open_gear)   # S381 operator on "Gear": "???" - it is save/load/settings, not boxing gear
+	var gear := UI.button("Menu", "GhostDark", _open_gear)   # S381 operator on "Gear": "???" - it is save/load/settings, not boxing gear
 	gear.name = "Gear"
-	_on_dark(gear)
 	gear.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(gear)
 	for child in h.get_children():
 		if child is Button and child.custom_minimum_size.y == 0:
 			child.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-
-
-## S410 the top bar is dark: its outline buttons take a light ink.
-func _on_dark(b: Button) -> void:
-	for colour in ["font_color", "font_hover_color", "font_pressed_color"]:
-		b.add_theme_color_override(colour, UI.TOP_INK)
-	b.add_theme_color_override("font_disabled_color", UI.TOP_SOFT)
 
 
 func _cash(c: Career) -> Control:
@@ -222,7 +213,7 @@ func _build_rail(main: Node) -> void:
 		b.icon = KitIcon.tex(str(RAIL_ICON[id]), 24)
 		b.add_theme_constant_override("h_separation", 10)
 		for state in ["icon_normal_color", "icon_hover_color", "icon_pressed_color", "icon_focus_color"]:
-			b.add_theme_color_override(state, UI.RED if on else UI.GOLD)
+			b.add_theme_color_override(state, UI.RED if on else UI.TOP_INK)
 		_rail.add_child(b)
 		if id == "fights":
 			_offer_badge(b, main.career)

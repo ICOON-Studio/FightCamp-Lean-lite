@@ -151,6 +151,7 @@ func render() -> void:
 		_put_screen(CREATE)
 	elif _shell != null:
 		_shell.refresh(self)
+	preload("res://scripts/ui/MenuFx.gd").ink_on_wall(_screen_holder)
 
 
 func _put_screen(scene: PackedScene) -> void:

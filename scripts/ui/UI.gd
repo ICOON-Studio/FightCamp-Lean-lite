@@ -6,22 +6,28 @@ extends RefCounted
 ## for numbers (assets/fonts/SOURCE.md). The names below keep their old jobs: GOLD = the primary accent (now marker blue).
 
 const Bar := preload("res://scripts/ui/Bar.gd")
+const Plate := preload("res://scripts/ui/Plate.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Sfx := preload("res://scripts/audio/Sfx.gd")
 
 const BG := Color("#cfe0ea")       # the gym wall
-const PANEL := Color("#fdfefe")    # a board / card
+const PANEL := Color("#f6efe0")    # a card: cream paper (S412 operator: "reminds web browser not a game")
 const TOP_BAR := Color("#17130f")
 const TOP_INK := Color("#efe6d8")
 const TOP_SOFT := Color("#b8a88f")
-const PANEL2 := Color("#e9eef2")   # a pressed or raised card
-const LINE := Color("#c9d1d8")     # card borders, rules
-const ROWLINE := Color("#d3dce3")  # the dotted lines between rows
+const PANEL2 := Color("#ebe1cc")   # a pressed or raised card
+const LINE := Color("#d3c7ae")     # card borders, rules
+const ROWLINE := Color("#ddd2bc")  # the dotted lines between rows
 const RAIL := Color("#cfe0ea")
 const FRAME := Color("#aeb8c0")    # the board's aluminium frame
-const FG := Color("#22262e")       # marker ink
-const MUTED := Color("#5e6773")
-const GOLD := Color("#2f6fdb")     # marker blue (primary)
+const FG := Color("#241f1a")       # ink
+const MUTED := Color("#5d5243")
+const GOLD := Color("#27589e")     # ring-canvas blue (primary)
+const GOLD_LIP := Color("#16325c")
+const PLATE := Color("#e4d8bf")    # S412 a quiet button: a tan plate with a lip
+const PLATE_LIP := Color("#b09c78")
+const DARK := Color("#2b241d")     # a dark plate: tabs, the main secondary button
+const DARK_LIP := Color("#0e0b08")
 const GOLD_INK := Color("#ffffff")
 const RED := Color("#e2483d")
 const GREEN := Color("#23935d")
@@ -109,50 +115,33 @@ static func theme() -> Theme:
 	t.default_font_size = BODY
 	t.set_color("font_color", "Label", FG)
 	var clear := Color(0, 0, 0, 0)
-	_button(t, "Button", PANEL, LINE, FG, GOLD, 8, 12, 8, "semi", SMALL)
-	_button(t, "TBtn", PANEL, LINE, FG, GOLD, 10, 18, 14, "semi", 21)
-	_button(t, "TBtnPrimary", GOLD, GOLD, GOLD_INK, GOLD, 10, 18, 14, "semi", 21)
-	_button(t, "Ghost", clear, LINE, MUTED, MUTED, 8, 12, 8, "semi", SMALL)
-	_button(t, "Btn", clear, GOLD, GOLD, GOLD, 8, 14, 8, "bold", SMALL, Color(GOLD, 0.12))
-	_button(t, "BtnSolid", GOLD, GOLD, GOLD_INK, GOLD, 8, 14, 8, "bold", SMALL)
-	_button(t, "BtnQuiet", clear, LINE, MUTED, MUTED, 8, 14, 8, "bold", SMALL)
-	_button(t, "Rail", clear, clear, MUTED, clear, 8, 14, 10, "bold", 17)
-	_button(t, "RailOn", PANEL2, clear, GOLD, clear, 8, 14, 10, "bold", 17)
-	_button(t, "Tab", clear, clear, MUTED, clear, 8, 16, 10, "bold", 17)
-	_button(t, "TabOn", PANEL, clear, GOLD, clear, 8, 16, 10, "bold", 17)
-	_button(t, "Choice", PANEL, LINE, FG, MUTED, 10, 14, 12, "semi", BODY)
-	_button(t, "ChoiceOn", PANEL2, GOLD, FG, GOLD, 10, 14, 12, "semi", BODY)
-	# S342 small pill choices (the WHEN row): one line of chips instead of a wall of big buttons.
-	_button(t, "Pill", PANEL, LINE, MUTED, MUTED, 12, 9, 3, "semi", TINY)
-	_button(t, "PillOn", GOLD, GOLD, GOLD_INK, GOLD, 12, 9, 3, "semi", TINY)
-	_button(t, "Flag", YELLOW, YELLOW, FG, YELLOW_EDGE, 999, 14, 6, "bold", SMALL)
-	_button(t, "FlagRed", RED, RED, Color.WHITE, Color("#b8332a"), 999, 14, 6, "bold", SMALL)
-	_button(t, "Go", GOLD, GOLD, GOLD_INK, GOLD, 10, 16, 8, "bold", BODY)
-	_button(t, "GoBlock", RED, RED, Color.WHITE, RED, 10, 16, 8, "bold", BODY)
-	_button(t, "GoFight", FG, FG, BG, FG, 10, 16, 8, "bold", BODY)
+	var dark_hi := DARK.lightened(0.12)
+	_button(t, "Button", PLATE, PLATE_LIP, FG, FG, 6, 12, 8, "semi", SMALL)
+	_button(t, "TBtn", PLATE, PLATE_LIP, FG, FG, 6, 18, 14, "semi", 21)
+	_button(t, "TBtnPrimary", GOLD, GOLD_LIP, GOLD_INK, GOLD, 6, 18, 14, "semi", 21)
+	_button(t, "Ghost", PLATE, PLATE_LIP, MUTED, MUTED, 6, 12, 8, "semi", SMALL)
+	_button(t, "GhostDark", DARK, DARK_LIP, TOP_INK, DARK, 6, 12, 8, "semi", SMALL, dark_hi)
+	_button(t, "Btn", DARK, DARK_LIP, TOP_INK, DARK, 6, 14, 8, "bold", SMALL, dark_hi)
+	_button(t, "BtnSolid", GOLD, GOLD_LIP, GOLD_INK, GOLD, 6, 14, 8, "bold", SMALL)
+	_button(t, "BtnQuiet", PLATE, PLATE_LIP, MUTED, MUTED, 6, 14, 8, "bold", SMALL)
+	_button(t, "Rail", DARK, DARK_LIP, TOP_INK, DARK, 6, 14, 10, "bold", 17, dark_hi)
+	_button(t, "RailOn", PANEL, RED, FG, PANEL, 6, 14, 10, "bold", 17)
+	_button(t, "Tab", DARK, DARK_LIP, TOP_INK, DARK, 6, 16, 10, "bold", 17, dark_hi)
+	_button(t, "TabOn", PANEL, RED, FG, PANEL, 6, 16, 10, "bold", 17)
+	_button(t, "Choice", PLATE, PLATE_LIP, FG, MUTED, 6, 14, 12, "semi", BODY)
+	_button(t, "ChoiceOn", GOLD, GOLD_LIP, GOLD_INK, GOLD, 6, 14, 12, "semi", BODY)
+	# S342 small choices (the WHEN row): one line of chips instead of a wall of big buttons.
+	_button(t, "Pill", PLATE, PLATE_LIP, MUTED, MUTED, 4, 9, 3, "semi", TINY)
+	_button(t, "PillOn", GOLD, GOLD_LIP, GOLD_INK, GOLD, 4, 9, 3, "semi", TINY)
+	_button(t, "Flag", YELLOW, YELLOW_EDGE, FG, YELLOW_EDGE, 4, 14, 6, "bold", SMALL)
+	_button(t, "FlagRed", RED, Color("#8f241c"), Color.WHITE, RED, 4, 14, 6, "bold", SMALL)
+	_button(t, "Go", GOLD, GOLD_LIP, GOLD_INK, GOLD, 8, 16, 8, "bold", BODY)
+	_button(t, "GoBlock", RED, Color("#8f241c"), Color.WHITE, RED, 8, 16, 8, "bold", BODY)
+	_button(t, "GoFight", FG, DARK_LIP, BG, FG, 8, 16, 8, "bold", BODY)
 	_button(t, "Speed", clear, LINE, MUTED, MUTED, 6, 4, 6, "mono", TINY)
-	_button(t, "SpeedOn", LINE, LINE, FG, MUTED, 6, 4, 6, "mono", TINY)
+	_button(t, "SpeedOn", LINE, PLATE_LIP, FG, MUTED, 6, 4, 6, "mono", TINY)
 	_button(t, "Link", clear, clear, GOLD, clear, 0, 0, 0, "bold", BODY)
-	for tab_name in ["Tab", "TabOn"]:
-		for state in ["normal", "hover", "pressed", "disabled", "focus"]:
-			var sb := t.get_stylebox(state, tab_name) as StyleBoxFlat
-			if sb != null:
-				sb.corner_radius_bottom_left = 0
-				sb.corner_radius_bottom_right = 0
-	# S333 look B: the rail is white tabs with a frame-grey left edge (red when on); the board, polaroid and sticky notes.
-	for rail in [["Rail", FRAME], ["RailOn", RED]]:
-		for state in ["normal", "hover", "pressed", "disabled"]:
-			var rb := box(PANEL, rail[1], 10, 0, 16, 10)
-			rb.border_width_left = 8
-			if state == "hover":
-				rb.bg_color = PANEL2
-			t.set_stylebox(state, rail[0], rb)
-		t.set_color("font_color", rail[0], FG)
-		t.set_color("font_hover_color", rail[0], FG)
-	_button(t, "Ink", FG, FG, Color.WHITE, FG, 999, 16, 7, "bold", SMALL)
-	for go in ["Go", "GoBlock"]:
-		for state in ["normal", "hover", "pressed", "disabled"]:
-			(t.get_stylebox(state, go) as StyleBoxFlat).set_corner_radius_all(30)
+	_button(t, "Ink", FG, DARK_LIP, Color.WHITE, FG, 4, 16, 7, "bold", SMALL)
 	var board := box(PANEL, FRAME, 4, 14, 34, 26)
 	board.shadow_color = Color(0, 0, 0, 0.12)
 	board.shadow_size = 6
@@ -168,19 +157,33 @@ static func theme() -> Theme:
 		var sb := box(sticky[1], sticky[2], 2, 0, 22, 16)
 		sb.border_width_bottom = 6
 		_panel(t, sticky[0], sb)
-	var tin := box(PANEL, LINE, 16, 1, 26, 22)
+	var tin := box(PANEL, LINE, 4, 1, 26, 22)
 	tin.shadow_color = Color(0, 0, 0, 0.10)
 	tin.shadow_size = 5
 	_panel(t, "Tin", tin)
-	_panel(t, "Card", box(PANEL, LINE, 12, 1, 18, 16))
+	var paper := box(PANEL, Color(0, 0, 0, 0), 3, 0, 18, 16)
+	paper.border_color = PLATE_LIP
+	paper.border_width_bottom = 3
+	paper.shadow_color = Color(0, 0, 0, 0.35)
+	paper.shadow_size = 8
+	paper.shadow_offset = Vector2(0, 4)
+	_panel(t, "Card", paper)
 	_panel(t, "TopBar", _edge(TOP_BAR, 0, 0, 0, 1, 18, 12))   # S410 Q-S294-134: the dark painted bar
 	_panel(t, "RailPanel", _edge(RAIL, 0, 0, 1, 0, 10, 14))
-	_panel(t, "Modal", box(PANEL, GOLD, 14, 1, 26, 22))
-	_panel(t, "Toast", box(PANEL2, GOLD, 10, 1, 18, 12))
-	_panel(t, "Note", box(clear, LINE, 10, 1, 14, 12))
+	_panel(t, "Modal", box(PANEL, FRAME, 6, 3, 26, 22))
+	_panel(t, "Toast", box(PANEL, DARK, 4, 2, 18, 12))
+	_panel(t, "Note", box(PANEL2, clear, 3, 0, 14, 12))
 	_panel(t, "Badge", box(RED, clear, 9, 0, 6, 0))
-	for chip in [["Chip", MUTED], ["ChipGreen", GREEN], ["ChipRed", RED], ["ChipAmber", AMBER], ["ChipGold", GOLD]]:
-		_panel(t, chip[0], box(clear, chip[1], 999, 1, 10, 3))
+	for chip in [["Chip", MUTED], ["ChipGreen", GREEN], ["ChipRed", RED], ["ChipAmber", AMBER], ["ChipGold", GOLD]]:   # S412 a stamped tag, not a pill
+		var tag := box(PANEL, chip[1], 2, 0, 10, 3)
+		tag.border_width_left = 4
+		_panel(t, chip[0], tag)
+	var thumb := box(Color(1, 1, 1, 0.38), clear, 3, 0, 0, 0)   # S412 the page's scroll bar: a sliver, no track
+	var gutter := StyleBoxEmpty.new()
+	gutter.content_margin_left = 6
+	t.set_stylebox("scroll", "VScrollBar", gutter)
+	for state in ["grabber", "grabber_highlight", "grabber_pressed"]:
+		t.set_stylebox(state, "VScrollBar", thumb)
 	var sep := StyleBoxLine.new()
 	sep.color = ROWLINE
 	sep.thickness = 1
@@ -237,11 +240,11 @@ static func _button(t: Theme, name: String, bg: Color, border: Color, fg: Color,
 		pad_h: int, pad_v: int, font_kind: String, size: int, hover_bg: Color = Color(-1, 0, 0, 0)) -> void:
 	if name != "Button":
 		t.set_type_variation(name, "Button")
-	var hb := bg if hover_bg.r < 0.0 else hover_bg
-	t.set_stylebox("normal", name, box(bg, border, radius, 1, pad_h, pad_v))
-	t.set_stylebox("hover", name, box(hb, hover_border, radius, 1, pad_h, pad_v))
-	t.set_stylebox("pressed", name, box(hb, hover_border, radius, 1, pad_h, pad_v))
-	t.set_stylebox("disabled", name, box(Color(bg, bg.a * 0.45), Color(border, border.a * 0.45), radius, 1, pad_h, pad_v))
+	var hb := bg.lightened(0.08) if hover_bg.r < 0.0 else hover_bg
+	t.set_stylebox("normal", name, Plate.style(bg, border, radius, pad_h, pad_v, 3))
+	t.set_stylebox("hover", name, Plate.style(hb, border, radius, pad_h, pad_v, 3))
+	t.set_stylebox("pressed", name, Plate.style(bg.darkened(0.1), border, radius, pad_h, pad_v, 0))
+	t.set_stylebox("disabled", name, Plate.style(Color(bg, bg.a * 0.45), Color(border, border.a * 0.45), radius, pad_h, pad_v, 0))
 	t.set_stylebox("focus", name, StyleBoxEmpty.new())
 	t.set_color("font_color", name, fg)
 	t.set_color("font_hover_color", name, FG if fg == MUTED else fg)
@@ -297,6 +300,8 @@ static func button(text: String, variation: String, on_press: Callable, disabled
 		b.tooltip_text = ""
 	b.focus_mode = Control.FOCUS_NONE
 	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	b.button_down.connect(Plate.squash.bind(b, 0.95))   # S412 "nothing reacting when pressed"
+	b.button_up.connect(Plate.squash.bind(b, 1.0))
 	b.pressed.connect(func(): Sfx.play("ui_click"))
 	b.pressed.connect(on_press)
 	return b
@@ -405,8 +410,8 @@ static func kv(key: String, value: String, value_color: Color = FG, value_kind: 
 	var h := hbox(10)
 	var k := label(key, BODY, FG, "body", true)
 	h.add_child(k)
-	var v := label(value, BODY, value_color, value_kind)
-	v.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	var v := label(value, BODY, value_color, value_kind)   # S412 the value beside its name, not at the far edge of the card
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	h.add_child(v)
 	return h
 
@@ -416,6 +421,7 @@ static func chip(text: String, colour_key: String) -> PanelContainer:
 	var names := {"green": "ChipGreen", "red": "ChipRed", "amber": "ChipAmber", "gold": "ChipGold", "": "Chip"}
 	var p := PanelContainer.new()
 	p.theme_type_variation = names.get(colour_key, "Chip")
+	p.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN   # S412 a tag is as wide as its word
 	p.add_child(label(text, TINY, colours.get(colour_key, MUTED), "bold"))
 	p.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE

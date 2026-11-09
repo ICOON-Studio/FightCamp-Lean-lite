@@ -7,6 +7,8 @@ extends RefCounted
 const UI := preload("res://scripts/ui/UI.gd")
 const Sfx := preload("res://scripts/audio/Sfx.gd")
 const RAYS := preload("res://assets/ui/art/sun_rays.gdshader")
+const WALL := "res://assets/ui/art/gym_backdrop.jpg"   # S412 every page sits on the painted gym, as Fighters does
+const WALL_DIM := Color(0.68, 0.66, 0.64)   # the lamps stay, small words on the wall stay readable
 
 static var instant := DisplayServer.get_name() == "headless"
 
@@ -146,7 +148,8 @@ static func hover_grow(b: Control, by: float = 1.04) -> void:
 static func wall() -> TextureRect:
 	var r := TextureRect.new()
 	r.name = "PaintedWall"
-	r.texture = load("res://assets/ui/art/menu_wall.jpg")
+	r.texture = load(WALL)
+	r.modulate = WALL_DIM
 	r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	r.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -158,18 +161,33 @@ static func wall() -> TextureRect:
 static func set_wall(main: Node, path: String = "") -> void:
 	var r: TextureRect = main.get_node_or_null("PaintedWall")
 	if r != null:
-		r.texture = load(path if path != "" else "res://assets/ui/art/menu_wall.jpg")
+		r.texture = load(path if path != "" else WALL)
+		r.modulate = WALL_DIM if path == "" or path == WALL else Color.WHITE
 
 
 ## ... and its painted paper grain laid over the whole page, cards, buttons and all (multiplied, so white turns to painted paper).
 static func paper_filter() -> TextureRect:
 	var r := wall()
 	r.name = "PaintedPaper"
+	r.modulate = Color.WHITE
 	r.texture = load("res://assets/ui/art/menu_paper.jpg")
-	var mul := CanvasItemMaterial.new()
-	mul.blend_mode = CanvasItemMaterial.BLEND_MODE_MUL
-	r.material = mul
+	var grain := ShaderMaterial.new()   # S412 grain only: the painting's pastel blotches read as a watercolour web page
+	grain.shader = preload("res://assets/ui/art/paper_grain.gdshader")
+	r.material = grain
 	return r
+
+
+## S412 words straight on the dark wall take a light ink; anything on a card or a button keeps its own. Main calls it per page.
+static func ink_on_wall(n: Node) -> void:
+	for c in n.get_children():
+		if c is Label:
+			var was: Color = (c as Label).get_theme_color("font_color")
+			if was == UI.FG or was == UI.GOLD:
+				(c as Label).add_theme_color_override("font_color", UI.TOP_INK)
+			elif was == UI.MUTED:
+				(c as Label).add_theme_color_override("font_color", UI.TOP_SOFT)
+		elif c is Container and not c is PanelContainer:
+			ink_on_wall(c)
 
 
 ## A number that counts up to its value. `show` formats it.

@@ -70,10 +70,10 @@ func _initialize() -> void:
 		lucy.pressed.emit()
 		await process_frame
 		_check(str(main.route.get("fighter", "")) == "lucy", "a card opens the fighter's page")
-		_check(wall.texture.resource_path != RosterCards.BACKDROP, "the fighter's page keeps the plain wall")
+		_check(wall.texture.resource_path == RosterCards.BACKDROP, "S412 the fighter's page sits on the same gym wall")
 	main.act("go", "world:0")
 	await process_frame
-	_check(wall.texture.resource_path != RosterCards.BACKDROP, "and other pages get the plain wall back")
+	_check(wall.texture.resource_path == RosterCards.BACKDROP, "S412 and so does every other page")
 
 	print("ROSTER_CARDS failures=%d" % failures)
 	print("PASS roster_cards_test" if failures == 0 else "FAIL roster_cards_test")

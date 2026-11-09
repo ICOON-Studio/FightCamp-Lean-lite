@@ -1,11 +1,11 @@
 # TASK FIGHTERMODEL4B - CURSOR (Grok 4.7 High) - scouting has something to find again, on the 10 attributes
 
-Status: OPEN, after FIGHTERMODEL4F lands (S411, Claude main). Discipline: boxing. Model: grok-4.7-high. Mechanics list row R24: critics 9 and 8, the operator's build list.
-FIRST: merge origin/main into this branch. It merges together with FIGHTERMODEL4F, so main stays green.
+Status: OPEN, after FIGHTERMODEL4G lands (S411, Claude main). Discipline: boxing. Model: grok-4.7-high. Mechanics list row R24: critics 9 and 8, the operator's build list.
+FIRST: merge origin/main into this branch. It merges together with FIGHTERMODEL4F and 4G, so main stays green.
 Start every Godot run through `python ops/Tools/godot_slot.py run --who cursor -- <godot cmd>`.
 
 ## Contract
-BASE: cursor/fightermodel4f
+BASE: cursor/fightermodel4g
 OWNS: scripts/rules/AttrGen.gd, scripts/rules/Attrs.gd, scripts/rules/BoutRead.gd, scripts/rules/Duels.gd, scripts/rules/Exchanges.gd, scripts/rules/Matchmaking.gd, tests/matchup_spread_test.gd
 RED_TEST: tests/matchup_spread_test.gd -> MATCHUP_SPREAD failures=0
 REGRESSION: matchmaking_bots_test, plan_bots_test, bout_read_test, world_years_test, golden_path_test
