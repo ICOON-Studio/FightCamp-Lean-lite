@@ -107,7 +107,7 @@ def keep(path: str, size: int) -> bool:
 
 def _fetch_lite():
     """refs/lite/master <- FightCamp-lite master (absent on the very first push)."""
-    p = subprocess.run(["git", "fetch", "--no-tags", LITE_URL, "+%s:%s" % (BRANCH, LITE_REF)], cwd=str(ROOT),
+    p = subprocess.run(["git", "fetch", "--no-write-fetch-head", "--no-tags", LITE_URL, "+%s:%s" % (BRANCH, LITE_REF)], cwd=str(ROOT),
                        capture_output=True, text=True, timeout=600, creationflags=_NO_WINDOW)
     return p.returncode == 0
 
@@ -151,7 +151,7 @@ def build_tree(src: str) -> tuple[str, int]:
 
 
 def push(force: bool = False) -> str:
-    _git(["fetch", "--no-tags", "origin", BRANCH], timeout=600)
+    _git(["fetch", "--no-write-fetch-head", "--no-tags", "origin", BRANCH], timeout=600)
     src = _git(["rev-parse", "origin/" + BRANCH]).strip()
     have = _fetch_lite()
     parent = _git(["rev-parse", LITE_REF]).strip() if have else ""
@@ -179,7 +179,7 @@ def _relay_one(pr: dict, st: dict) -> str:
     if rec.get("closed"):
         return ""
     local = "refs/lite/pr/%s" % num
-    _git(["fetch", "--no-tags", LITE_URL, "+refs/pull/%s/head:%s" % (num, local)], timeout=600)
+    _git(["fetch", "--no-write-fetch-head", "--no-tags", LITE_URL, "+refs/pull/%s/head:%s" % (num, local)], timeout=600)
     base = _git(["merge-base", local, LITE_REF]).strip()
     src = _source_of(base)
     if not src:
@@ -187,7 +187,7 @@ def _relay_one(pr: dict, st: dict) -> str:
     diff = _git(["diff", "--binary", "--full-index", base, local], raw=True)
     if not diff.strip():
         return "LITE_RELAY #%s has no change yet" % num
-    _git(["fetch", "--no-tags", "origin", src], check=False)
+    _git(["fetch", "--no-write-fetch-head", "--no-tags", "origin", src], check=False)
     with tempfile.TemporaryDirectory() as td:
         env = {"GIT_INDEX_FILE": str(Path(td) / "relay.index")}
         _git(["read-tree", src], env=env)

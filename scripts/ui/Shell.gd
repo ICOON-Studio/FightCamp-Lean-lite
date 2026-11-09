@@ -81,6 +81,7 @@ func refresh(main: Node) -> void:
 		_guide.add_child(FirstWeekStrip.make(main))
 	_build_rail(main)
 	UI.clear(_content)
+	preload("res://scripts/ui/MenuFx.gd").set_wall(main)
 	var area: Node = AREA_SCENES[main.route["area"]].instantiate()
 	_content.add_child(area)
 	area.build(main)
@@ -103,17 +104,18 @@ func _build_top(main: Node) -> void:
 		nb.custom_minimum_size = Vector2(36, 36)
 		nb.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		nb.add_theme_font_size_override("font_size", 20)
+		_on_dark(nb)
 		if not nb.disabled:
 			nb.tooltip_text = str(nav[2])
 		h.add_child(nb)
-	var gym := UI.label(c.gym_name, 32, UI.GOLD, "marker")
+	var gym := UI.label(c.gym_name, 32, Color("#6ea2f2"), "marker")
 	gym.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(gym)
 	var date := VBoxContainer.new()
 	date.add_theme_constant_override("separation", 0)
 	date.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	date.add_child(UI.label(Clock.fmt_long(c.day), UI.BODY, UI.FG, "semi"))
-	date.add_child(UI.label("Week %d" % Clock.week_of(c.day), 15, UI.MUTED))
+	date.add_child(UI.label(Clock.fmt_long(c.day), UI.BODY, UI.TOP_INK, "semi"))
+	date.add_child(UI.label("Week %d" % Clock.week_of(c.day), 15, UI.TOP_SOFT))
 	date.name = "Date"
 	date.custom_minimum_size = Vector2(176, 0)   # the speed buttons stay put as the date's length changes
 	Tips.card(date, func(): return TopCards.date(main.career))   # S362 J90 6g
@@ -157,6 +159,7 @@ Click again to pause. How fast the days run: Menu > Settings."
 	_gear_menu.set_item_text(0, "Mail (%d new)" % c.unread if c.unread > 0 else "Mail")
 	var gear := UI.button("Menu", "Ghost", _open_gear)   # S381 operator on "Gear": "???" - it is save/load/settings, not boxing gear
 	gear.name = "Gear"
+	_on_dark(gear)
 	gear.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(gear)
 	for child in h.get_children():
@@ -164,17 +167,24 @@ Click again to pause. How fast the days run: Menu > Settings."
 			child.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 
 
+## S410 the top bar is dark: its outline buttons take a light ink.
+func _on_dark(b: Button) -> void:
+	for colour in ["font_color", "font_hover_color", "font_pressed_color"]:
+		b.add_theme_color_override(colour, UI.TOP_INK)
+	b.add_theme_color_override("font_disabled_color", UI.TOP_SOFT)
+
+
 func _cash(c: Career) -> Control:
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 0)
 	v.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	var ms := Needs.money_status(c)   # S324: coloured by GymBills (runway under 8 weeks amber, below $0 red)
-	var cash := UI.label(UI.money(c.cash), 24, UI.RED if ms == "red" or ms == "closed" else (UI.AMBER if ms == "warn" else UI.GREEN), "bold")
+	var cash := UI.label(UI.money(c.cash), 24, Color("#ff7a6e") if ms == "red" or ms == "closed" else (Color("#ffb347") if ms == "warn" else Color("#e8c15a")), "bold")
 	cash.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	v.add_child(cash)
 	var net := Needs.money_net(c)
 	# S397 blind round 5 ("$287 down this week" while the chart shows the week up): it is the running rate, said so.
-	var line := UI.label("running %s%s a week" % ["+" if net >= 0 else "-", UI.money(absi(net))], 15, UI.MUTED)
+	var line := UI.label("running %s%s a week" % ["+" if net >= 0 else "-", UI.money(absi(net))], 15, UI.TOP_SOFT)
 	line.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	v.add_child(line)
 	v.name = "Cash"

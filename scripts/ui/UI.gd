@@ -11,6 +11,9 @@ const Sfx := preload("res://scripts/audio/Sfx.gd")
 
 const BG := Color("#cfe0ea")       # the gym wall
 const PANEL := Color("#fdfefe")    # a board / card
+const TOP_BAR := Color("#17130f")
+const TOP_INK := Color("#efe6d8")
+const TOP_SOFT := Color("#b8a88f")
 const PANEL2 := Color("#e9eef2")   # a pressed or raised card
 const LINE := Color("#c9d1d8")     # card borders, rules
 const ROWLINE := Color("#d3dce3")  # the dotted lines between rows
@@ -170,7 +173,7 @@ static func theme() -> Theme:
 	tin.shadow_size = 5
 	_panel(t, "Tin", tin)
 	_panel(t, "Card", box(PANEL, LINE, 12, 1, 18, 16))
-	_panel(t, "TopBar", _edge(PANEL, 0, 0, 0, 1, 18, 12))
+	_panel(t, "TopBar", _edge(TOP_BAR, 0, 0, 0, 1, 18, 12))   # S410 Q-S294-134: the dark painted bar
 	_panel(t, "RailPanel", _edge(RAIL, 0, 0, 1, 0, 10, 14))
 	_panel(t, "Modal", box(PANEL, GOLD, 14, 1, 26, 22))
 	_panel(t, "Toast", box(PANEL2, GOLD, 10, 1, 18, 12))

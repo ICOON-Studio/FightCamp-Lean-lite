@@ -8,6 +8,7 @@ const Sim := preload("res://scripts/state/Sim.gd")
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const RosterSummary := preload("res://scripts/ui/RosterSummary.gd")
 const RosterTable := preload("res://scripts/ui/RosterTable.gd")
+const RosterCards := preload("res://scripts/ui/RosterCards.gd")
 
 var failures := 0
 var main: Node
@@ -21,6 +22,7 @@ func _initialize() -> void:
 	var c: Career = main.career
 	Sim.sign(c, ["Jab and move", "Pad rounds", "Hill sprints"])
 	FirstWeek.ana_joins(c)
+	RosterCards.view = "table"   # S410 the cards are the default; this test is about the table, one click away
 	main.act("go", "fighters:0")
 	await process_frame
 	var lucy: Node = main.find_child("Row_lucy", true, false)

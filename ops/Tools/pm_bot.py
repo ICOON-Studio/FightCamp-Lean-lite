@@ -241,7 +241,7 @@ def _from_artifact():
 
 
 def cmd_collect():
-    subprocess.run(["git", "fetch", "-q", "origin", "+refs/heads/xai/PM_REVIEW_*:refs/remotes/origin/xai/PM_REVIEW_*"], cwd=ROOT, capture_output=True, creationflags=NO_WINDOW)
+    subprocess.run(["git", "fetch", "--no-write-fetch-head", "-q", "origin", "+refs/heads/xai/PM_REVIEW_*:refs/remotes/origin/xai/PM_REVIEW_*"], cwd=ROOT, capture_output=True, creationflags=NO_WINDOW)
     branches = sorted(b.strip() for b in _git("branch", "-r", "--list", "origin/xai/PM_REVIEW_*").splitlines() if b.strip())
     name, text = "", ""
     if branches:

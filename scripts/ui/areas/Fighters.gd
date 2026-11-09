@@ -20,6 +20,8 @@ const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
 const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 const RosterSummary := preload("res://scripts/ui/RosterSummary.gd")
 const RosterTable := preload("res://scripts/ui/RosterTable.gd")
+const RosterCards := preload("res://scripts/ui/RosterCards.gd")
+const MenuFx := preload("res://scripts/ui/MenuFx.gd")
 
 
 func build(main: Node) -> void:
@@ -41,7 +43,8 @@ func build(main: Node) -> void:
 			return
 		add_child(GrapplerPage.make(main, page_g))
 		return
-	AreaHead.add(self, main, "fighters")
+	MenuFx.set_wall(main, RosterCards.BACKDROP)   # S410 Q-S294-134: the painted gym
+	RosterCards.head(self, main, c)
 	match int(main.route["tab"]):
 		0:
 			_roster(main, c)
@@ -109,6 +112,11 @@ func _training(main: Node, c: Career) -> void:
 
 
 func _roster(main: Node, c: Career) -> void:
+	if RosterCards.view == "cards" and not (c.fighters.is_empty() and c.grapplers.is_empty()):
+		var cards := RosterCards.build(main, c)
+		cards.name = "Roster"
+		add_child(cards)
+		return
 	var card := UI.card()
 	add_child(card[0])
 	if c.fighters.is_empty():

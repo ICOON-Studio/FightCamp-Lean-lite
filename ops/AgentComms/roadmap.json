@@ -3,20 +3,20 @@
  "updated": "2026-11-09",
  "author": "claude S294",
  "now": {
-  "id": "S409",
+  "id": "S410",
   "owner": "claude",
   "updated": "2026-11-09",
-  "summary": "S409: our real boxers now work and walk on the gym floor (19 bodies, 7 strips each, GymPeople + HubFigures). The building is chosen once at setup and its bonus runs in the rules. Game-look concepts for Fighters and Fights are on the board. FIGHTERMODEL4C sent back (still too slow for CI): 4D running. Hit reactions measured: round 2 running.",
-  "last_working_commit": "303c0c24",
-  "verified_playable": "guard_knee, menu_world, world_ladder_rules, golden_path, move_tip, move_book green; World rendered and compared with docs/mockups/s403/world.png",
-  "incomplete_blocked": "#106 fighter model not mergeable: 2-13x slower in the sim tests and CI over its limit; FIGHTERMODEL4C queued. Playbook #105, Home #107, Fighter Week #108 failed the mockup check: round 2 queued. Cursor signed out. boxer_footwork still red on main.",
-  "next_action": "Read the operator's answer on Q-S294-134 (the look for Fighters and Fights) and build that page first; the same look then goes to the held Cursor rows. Collect FIGHTERMODEL4D (CI must finish inside its limit) and HITREACT2 (is the loss real on the same window, and at which stage). Read the first real 05:00 full test run (11-10).",
-  "next_acceptance": "HUBSPRITES1 and FIGHTERMODEL4C collected or sent back; people walking in the gym in the .exe; each gym's bonus chosen at career start and running in the rules; the operator plays it.",
+  "summary": "S410: Fighters is a line of full-body cards on a painted gym and a bout offer is a versus screen, as he picked. Dark top bar on every page. move_tip's real framing fault fixed. A session-start pull merged PR 106 by accident: undone before any push, and the cause fixed. HITREACT3 and FIGHTERMODEL4E running.",
+  "last_working_commit": "3feaafe6",
+  "verified_playable": "versus, roster_cards, roster_flag, golden_path, first_hour_walk, offer_gone, grey_reason, move_tip, file_limits green; both screens rendered and opened. Not played by him yet.",
+  "incomplete_blocked": "Fighter model not mergeable: plan_bots 2 red on PR 117, 4E running. Four menus held for a painted concept and his yes. boxer_footwork red on main.",
+  "next_action": "Read his answers on the painted concepts and on the S410 build, then re-brief the held Cursor rows from the concepts he approves. Collect HITREACT3 (which conversion stage loses the head travel, controls must not drop) and FIGHTERMODEL4E (plan_bots green, CI inside its limit). Read main's CI on the S410 commits (move_tip should be green) and the first real 05:00 full test run (11-10).",
+  "next_acceptance": "HITREACT3 names a stage with its controls clean; plan_bots green with CI inside its limit; held menus re-briefed only from concepts he approved.",
   "awaiting_operator": [
-   "Q-S294-134: game look for Fighters and Fights",
+   "Play the S410 build",
+   "Painted concepts for Home, Week, Playbook, Fight night",
    "Keep or cut Test day and dues bands",
-   "yes, ARCHIVED",
-   "Play the S409 build"
+   "yes, ARCHIVED"
   ]
  },
  "next": "S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.",
@@ -1628,6 +1628,11 @@
    "id": "S409",
    "date": "2026-11-09",
    "note": "Boxers walk the gym floor. Building chosen at setup with a real bonus. Fighter model speed sent back (4D). Hit reactions measured, round 2 running. move_tip capped at 30 fps. Look concepts for Fighters and Fights on the board. Build exported."
+  },
+  {
+   "id": "S410",
+   "date": "2026-11-09",
+   "note": "Painted Fighters cards and versus bout offer built from his pick; dark top bar. move_tip framing fixed over a whole clip. Stray PR 106 merge undone, background fetches fixed. HITREACT2 collected, HITREACT3 and FIGHTERMODEL4E launched. Build exported."
   }
  ],
  "blocked_on_operator": [],
@@ -4688,29 +4693,198 @@
   },
   "working_now": [
    {
-    "id": "FIGHTERMODEL4D",
+    "title": "TASK SOUTHPAW2 - CURSOR (GPT-5.6 Sol High) - the guard knock-knee, round 2: a test that FAILS on main first",
     "who": "cursor",
-    "title": "Fighter model fits inside the test limit",
-    "after": ""
+    "started": "2026-11-07T21:21",
+    "run": "SOUTHPAW2",
+    "state": "LANDED - Claude collects"
    },
    {
-    "id": "HITREACT2",
+    "title": "TASK ANIMREBUILD1 - AGY (Argon High) - design draft: fight animation rebuilt around a clip library + one picker",
+    "who": "antigravity",
+    "started": "2026-11-07T22:09",
+    "run": "ANIMREBUILD1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK RETARGET1 - CURSOR (GPT-5.6 Sol High) - bring the purchased Punch PRO pack onto our boxer WITHOUT breaking it",
+    "who": "cursor",
+    "started": "2026-11-07T22:53",
+    "run": "RETARGET1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK RETARGET2 - CURSOR (GPT-5.6 Sol High) - RETARGET1 round 2: keep the wins, fix the stance and the end trim",
+    "who": "cursor",
+    "started": "2026-11-08T07:24",
+    "run": "RETARGET2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL3B - CURSOR (Grok 4.7 High) - the fighter model to 8/10 built, rule 2 held again (round 2)",
+    "who": "cursor",
+    "started": "2026-11-08T09:11",
+    "run": "FIGHTERMODEL3B",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK CORNERTRUST1 - QWEN (qwen3-coder) - a wrong corner call costs her trust; a Low fighter stops listening (rules only)",
     "who": "qwen",
-    "title": "Where a hit reaction loses its movement",
-    "after": ""
+    "started": "2026-11-08T10:16",
+    "run": "CORNERTRUST1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK OFFERGONE1 - QWEN (qwen3-coder) - an expired fight offer is never a dead end",
+    "who": "qwen",
+    "started": "2026-11-08T11:03",
+    "run": "OFFERGONE1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK GUIDEFLAG1 - QWEN (qwen3-coder) - the guide strip ends with the first week; the offer flag says what is needed",
+    "who": "qwen",
+    "started": "2026-11-08T12:10",
+    "run": "GUIDEFLAG1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK SWINGCENSUS1 - AGY (Argon High) - every random swing the player feels, and what they are told",
+    "who": "antigravity",
+    "started": "2026-11-08T12:41",
+    "run": "SWINGCENSUS1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK GUIDEFLAG2 - QWEN (qwen3-coder) - round 2: the guide must end, without breaking the first fight",
+    "who": "qwen",
+    "started": "2026-11-08T13:00",
+    "run": "GUIDEFLAG2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK R11A - QWEN (qwen3-coder) - an injury says why it happened",
+    "who": "qwen",
+    "started": "2026-11-08T13:34",
+    "run": "R11A",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "QWEN (qwen3-coder) - a standing count on the cards says what it cost",
+    "who": "goose",
+    "started": "2026-11-08T18:11",
+    "run": "R11C",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUMONEY1 - CURSOR (Grok 4.7 High) - the Money page, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-08T18:48",
+    "run": "MENUMONEY1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUWORLD1 - CURSOR (Grok 4.7 High) - the World page, rebuilt around the rankings",
+    "who": "cursor",
+    "started": "2026-11-08T19:34",
+    "run": "MENUWORLD1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK SOUTHPAW3 - QWEN (qwen3-coder) - the guard knock-knee fix, carried onto today's clips",
+    "who": "qwen",
+    "started": "2026-11-08T20:30",
+    "run": "SOUTHPAW3",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK KNEERAW1 - QWEN (qwen3-coder) - the guard knock-knee: fix the measure, then raw clip against ours",
+    "who": "qwen",
+    "started": "2026-11-08T21:41",
+    "run": "KNEERAW1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK KNEERAW2 - QWEN (qwen3-coder) - the knee table, round 2: make the two rulers agree",
+    "who": "qwen",
+    "started": "2026-11-08T22:00",
+    "run": "KNEERAW2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUPLAYBOOK1 - CURSOR (Grok 4.7 High) - the Playbook's game plan and Combos, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-08T22:42",
+    "run": "MENUPLAYBOOK1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL4A - CURSOR (Grok 4.7 High) - the fighter model on the agreed 10 attributes and 5 boxing skills",
+    "who": "cursor",
+    "started": "2026-11-08T23:42",
+    "run": "FIGHTERMODEL4A",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUHOME1 - CURSOR (Grok 4.7 High) - the Home page, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-09T01:12",
+    "run": "MENUHOME1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUWEEK1 - CURSOR (Grok 4.7 High) - the Fighter Week page, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-09T02:12",
+    "run": "MENUWEEK1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL4C - CURSOR (Grok 4.7 High) - the fighter model at the old speed",
+    "who": "cursor",
+    "started": "2026-11-09T06:55",
+    "run": "FIGHTERMODEL4C",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HUBSPRITES1 - QWEN (qwen3-coder) - our real boxers as small moving figures for the painted gym",
+    "who": "qwen",
+    "started": "2026-11-09T08:37",
+    "run": "HUBSPRITES1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HITREACT1 - QWEN (qwen3-coder) - do the hit reactions move as much as the capture does?",
+    "who": "qwen",
+    "started": "2026-11-09T09:51",
+    "run": "HITREACT1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL4D - CURSOR (Grok 4.7 High) - the fighter model fits inside the test limit",
+    "who": "cursor",
+    "started": "2026-11-09T09:52",
+    "run": "FIGHTERMODEL4D"
+   },
+   {
+    "title": "TASK HITREACT2 - QWEN (qwen3-coder) - where does a hit reaction lose its movement?",
+    "who": "qwen",
+    "started": "2026-11-09T10:20",
+    "run": "HITREACT2",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
    {
-    "id": "GYMBUILDER",
+    "id": "GAMELOOK2",
     "who": "claude",
-    "title": "The player builds their own gym on the same rules",
+    "title": "The painted look on Home, Week, Playbook and Fight night, once he approves the concepts",
     "after": ""
    },
    {
-    "id": "GAMELOOK",
+    "id": "GYMBUILDER",
     "who": "claude",
-    "title": "Game look on the other pages: full-body cards, picture tiles, versus screens",
+    "title": "The player builds their own gym on the same rules",
     "after": ""
    },
    {
@@ -4971,6 +5145,21 @@
   },
   "done_recently": [
    {
+    "id": "ROSTERCARDS",
+    "who": "claude",
+    "title": "Fighters as full-body cards on a painted gym"
+   },
+   {
+    "id": "VERSUS",
+    "who": "claude",
+    "title": "Bout offers open as a versus screen"
+   },
+   {
+    "id": "FETCHFIX",
+    "who": "claude",
+    "title": "A git pull can no longer merge a background job's PR"
+   },
+   {
     "id": "GYMPEOPLE",
     "who": "claude",
     "title": "Boxers work and walk on the gym floor"
@@ -5153,6 +5342,14 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Boxers walk the gym floor",
+     "who": "claude"
+    },
+    {
+     "text": "Gym bonus chosen at setup",
+     "who": "claude"
+    },
+    {
      "text": "Guard knee: no knock-knee",
      "who": "claude"
     },
@@ -5199,33 +5396,37 @@
     {
      "text": "R11C standing count says why",
      "who": "claude"
-    },
-    {
-     "text": "Money tooltip says what's short",
-     "who": "claude"
-    },
-    {
-     "text": "Holo blink + organ pop filmed",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Boxers walk the gym floor",
+     "text": "Fighters page painted (your pick)",
      "who": "claude"
     },
     {
-     "text": "Gym bonus chosen at setup",
+     "text": "Hit reactions: loss is real",
+     "who": "agent"
+    },
+    {
+     "text": "Pull can't merge a stray PR",
+     "who": "claude"
+    },
+    {
+     "text": "Versus bout screen (your pick)",
+     "who": "claude"
+    },
+    {
+     "text": "Move card framing fixed",
      "who": "claude"
     }
    ],
    "now": [
     {
-     "text": "Your call: Fighters + Fights look",
+     "text": "Play the S410 build (you)",
      "who": "operator"
     },
     {
-     "text": "Play the S409 build (you)",
+     "text": "Your call: 4 painted menus",
      "who": "operator"
     }
    ],
@@ -5331,12 +5532,12 @@
      "who": "claude"
     }
    ],
-   "session": "S409"
+   "session": "S410"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "d49c1235",
- "next_action": "Collect HUBSPRITES1 (PR 114, Qwen: real boxers as figures) and FIGHTERMODEL4C (PR 113, Cursor: read its speed numbers against main before merging). Then: walking figures in the gym, the gym bonus on the career chosen at setup, the game look on the other pages (re-brief the held Cursor rows), then the player's own gym on GymPlan's rules.",
+ "last_working_commit": "3feaafe6",
+ "next_action": "Read his answers on the painted concepts and on the S410 build, then re-brief the held Cursor rows from the concepts he approves. Collect HITREACT3 (which conversion stage loses the head travel, controls must not drop) and FIGHTERMODEL4E (plan_bots green, CI inside its limit). Read main's CI on the S410 commits (move_tip should be green) and the first real 05:00 full test run (11-10).",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

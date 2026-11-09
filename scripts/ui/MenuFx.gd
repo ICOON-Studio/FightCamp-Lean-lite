@@ -154,6 +154,13 @@ static func wall() -> TextureRect:
 	return r
 
 
+## S410 the picture behind the page: "" = Ludo's plain wall. Shell clears it before each page; Fighters asks for the painted gym.
+static func set_wall(main: Node, path: String = "") -> void:
+	var r: TextureRect = main.get_node_or_null("PaintedWall")
+	if r != null:
+		r.texture = load(path if path != "" else "res://assets/ui/art/menu_wall.jpg")
+
+
 ## ... and its painted paper grain laid over the whole page, cards, buttons and all (multiplied, so white turns to painted paper).
 static func paper_filter() -> TextureRect:
 	var r := wall()

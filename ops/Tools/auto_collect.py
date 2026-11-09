@@ -65,7 +65,7 @@ def eligibility(info: dict, any_state: bool = False) -> list[str]:
         why.append("no files")
     head = info["headRefOid"]
     ## S249: fetch the PR's own ref - an agent branch deleted after the PR (Arena, Grok Dev) still has refs/pull/<n>/head
-    _run("git", "fetch", "-q", "origin", "main", f"refs/pull/{info['number']}/head")
+    _run("git", "fetch", "--no-write-fetch-head", "-q", "origin", "main", f"refs/pull/{info['number']}/head")
     statuses = {}
     for line in _run("git", "diff", "--name-status", f"origin/main...{head}").splitlines():
         parts = line.split("\t")

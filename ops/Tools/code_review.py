@@ -61,7 +61,7 @@ def _brief_text(task: str) -> str:
 
 
 def _diff(info: dict) -> str:
-    _run("git", "fetch", "-q", "origin", "master", f"refs/pull/{info['number']}/head")
+    _run("git", "fetch", "--no-write-fetch-head", "-q", "origin", "master", f"refs/pull/{info['number']}/head")
     return _run("git", "diff", f"origin/master...{info['headRefOid']}")
 
 
@@ -139,7 +139,7 @@ def harvest() -> int:
         target = int(m.group(1))
         meta_path = REVIEWS / Path(files[0]).name.replace(".verdict.md", ".json")
         meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.is_file() else {}
-        _run("git", "fetch", "-q", "origin", f"refs/pull/{p['number']}/head")
+        _run("git", "fetch", "--no-write-fetch-head", "-q", "origin", f"refs/pull/{p['number']}/head")
         text = _run("git", "show", f"{p['headRefOid']}:{files[0]}", check=False)
         v = re.search(r"^\s*VERDICT:\s*(APPROVE|BLOCK)\b", text, re.M)
         n = re.search(r"^\s*NONCE:\s*([0-9a-f]+)", text, re.M)

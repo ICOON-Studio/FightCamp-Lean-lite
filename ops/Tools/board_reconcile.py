@@ -516,7 +516,7 @@ def main() -> int:
             if os.environ.get("FIGHTCAMP_FROM_START"):
                 return 0  # `agent_comms.py start` fetches and warms the cache itself, in parallel
             import research_sync
-            _run(["git", "fetch", "origin", "--prune"], 120)
+            _run(["git", "fetch", "--no-write-fetch-head", "origin", "--prune"], 120)
             research_sync.warm_cache()
         except Exception as exc:  # never breaks the reconcile
             print("BOARD_RECONCILE start-cache warm failed: %s" % exc)

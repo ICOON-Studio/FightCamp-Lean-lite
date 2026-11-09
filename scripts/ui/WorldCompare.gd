@@ -21,7 +21,6 @@ const LO := 35.0
 const HI := 95.0
 const FACE := Vector2(40, 46)
 
-
 static func build(main: Node, c: Career, f: Dictionary, row: Dictionary) -> Control:
 	var paper := WarmKit.panel("paper")
 	paper.name = "SideBySide"

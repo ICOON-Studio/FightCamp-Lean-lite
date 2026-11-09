@@ -469,10 +469,10 @@ func _week_four(c: Career) -> void:
 	_check(int(Sim.weekly_costs(c)["fighters"]) == 500, "two club stipends: $500 a week")
 	main.act("go", "fighters:0")
 	var roster: Node = main._shell.find_child("Roster", true, false)
-	# S396 screen cut: the roster is one sortable table, a row per fighter (S330 tiles before).
+	# S410 Q-S294-134: full-body cards on the painted gym; the S396 sortable table is one click away (roster_cards_test).
 	_check(roster != null and roster.find_child("Row_lucy", true, false) != null and roster.find_child("Row_kira", true, false) != null,
-		"the roster shows both as rows")
-	_check(roster != null and roster.find_child("Sort_condition", true, false) != null, "the roster sorts by condition")
+		"the roster shows both as cards")
+	_check(main._shell.find_child("View_table", true, false) != null, "the sortable table is one click away")
 	# Her new weapon: two weeks of pads with a coach.
 	var up_start := float(kira["moves"]["Uppercut"])
 	var weeks_start := c.cash_history.size()

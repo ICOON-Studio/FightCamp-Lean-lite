@@ -6,6 +6,7 @@ extends SceneTree
 ## Population: a quick-start career, Lucy signed (the film tool's start), Ana on the mat.
 
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
+const FRAME_CHECKS := 150   # five seconds at the capped 30 fps: more than one pass of a move's clip
 const MoveTip := preload("res://scripts/ui/MoveTip.gd")
 const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
@@ -94,16 +95,23 @@ func _initialize() -> void:
 			"the partner slips or blocks the jab (%s)" % str(seen))
 		_check(seen.any(func(c): return str(c).contains("hit_by_cross") or str(c).contains("hit_jab") or str(c) == "react_head"),
 			"and takes the cross (%s)" % str(seen))
-		# S408: the clip runs on real time, so one instant on a slow runner proves nothing: count frames (red on CI at 1 instant, green here).
+		# S408: the clip runs on real time, so one instant on a slow runner proves nothing. S410 (0 of 30 on CI, green here: the two
+		# machines sampled different moments): a whole pass of the clip, and the worst heights it reached.
 		var framed := 0
 		var first_bad := ""
-		for k in 30:
+		var top := 1.0e9
+		var low := -1.0e9
+		for k in FRAME_CHECKS:
 			await process_frame
+			var ys := _bone_heights(p)
+			top = minf(top, float(ys.min()))
+			low = maxf(low, float(ys.max()))
 			if p.bodies_in_frame():
 				framed += 1
 			elif first_bad == "":
 				first_bad = _where(p)
-		_check(framed >= 27, "both bodies head to feet in the studio camera (%d of 30 frames) %s" % [framed, first_bad])
+		print("MOVE_TIP frame heights: top %.0f, lowest %.0f" % [top, low])
+		_check(framed >= FRAME_CHECKS, "both bodies head to feet in the studio camera (%d of %d frames) %s" % [framed, FRAME_CHECKS, first_bad])
 	var r := card.get_global_rect()
 	var tr := tip.get_global_rect()
 	var screen := tip.get_viewport().get_visible_rect().size   # headless reports its own height; the card keeps to it
@@ -305,6 +313,17 @@ func _check(ok: bool, what: String) -> void:
 
 
 ## Where each body's head and feet land in the studio picture, for a failed framing check.
+## Screen height of every head and foot in the studio, this frame.
+func _bone_heights(p: Node) -> Array:
+	var cam: Camera3D = p.get("_cam")
+	var out: Array = []
+	for bx in (p.get("_stage") as Node).boxers:
+		var skel: Skeleton3D = bx["skel"]
+		for bone in ["Head", "LeftFoot", "RightFoot"]:
+			out.append(cam.unproject_position(skel.global_transform * skel.get_bone_global_pose(skel.find_bone(bone)).origin).y)
+	return out
+
+
 func _where(p: Node) -> String:
 	var cam: Camera3D = p.get("_cam")
 	var vp: Viewport = p.get("_vp")

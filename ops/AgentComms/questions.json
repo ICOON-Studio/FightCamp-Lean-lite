@@ -5601,6 +5601,25 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-134_0_look_choice.png"
       ],
+      "answer": "Build it like the right, painted surfaces",
+      "note": null,
+      "answered_at": "2026-11-09T08:40:01Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-135",
+      "asked": "2026-11-09T09:07:52.460170+00:00",
+      "session": "S294",
+      "text": "The painted look on Home, Fighter Week, Playbook and Fight night. Paintings of the older layouts: they show the surfaces, not how much text stays, and the left menu in them is already gone from the game. Build them this way?",
+      "options": [
+        "Yes, go on with this look",
+        "Yes, but with fewer words and bigger pictures, like Fighters",
+        "No, rethink them"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-135_0_four_menus.png"
+      ],
       "answer": null,
       "note": null,
       "answered_at": null,

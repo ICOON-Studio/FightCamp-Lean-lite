@@ -172,7 +172,7 @@ def open_agent_prs() -> list[dict]:
 def facts(pr: int, master: str | None = None, others: list[dict] | None = None) -> dict:
     info = json.loads(_run("gh", "pr", "view", str(pr), "--repo", REPO, "--json",
                            "number,title,body,headRefName,headRefOid,state,files,statusCheckRollup,comments,mergeable"))
-    _run("git", "fetch", "-q", "origin", "main", f"refs/pull/{pr}/head")  # S368: Lean's default branch is main
+    _run("git", "fetch", "--no-write-fetch-head", "-q", "origin", "main", f"refs/pull/{pr}/head")  # S368: Lean's default branch is main
     head = info["headRefOid"]
     master = master or _run("git", "rev-parse", "origin/main").strip()
     base = _run("git", "merge-base", master, head).strip()

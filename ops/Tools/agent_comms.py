@@ -1224,7 +1224,7 @@ def godot_missing() -> bool:
 
 def triage(args: argparse.Namespace) -> int:
     if not args.no_fetch:
-        git("fetch", "origin", "--prune")
+        git("fetch", "--no-write-fetch-head", "origin", "--prune")
     findings = 0
 
     print("== unmerged remote branches ==")
@@ -1647,7 +1647,7 @@ def _job_gbot():
 def _job_git():
     """(research check result, fetched). Fetch first so the research check sees the newest remote refs."""
     try:
-        subprocess.run(["git", "-C", str(ROOT), "fetch", "origin", "--prune"], capture_output=True, text=True,
+        subprocess.run(["git", "-C", str(ROOT), "fetch", "--no-write-fetch-head", "origin", "--prune"], capture_output=True, text=True,
                        timeout=FETCH_TIMEOUT)
     except (OSError, subprocess.SubprocessError):
         pass

@@ -120,8 +120,11 @@ func _measure_boxer(bx: Dictionary, clips: Array, mode: String, body_idx: int) -
 
 		var peak_head := 0.0
 		var peak_trunk := 0.0
+		var peak_head_frame := 0
+		var peak_trunk_frame := 0
 		var frames_used := 0
 		var length: float = ap.get_animation(clip).length
+		var hips_to_head: float = (base_bones["head"] - base_bones["hips"]).length()
 
 		for fr in range(1, 120):
 			var t: float = float(fr) * DT
@@ -137,10 +140,14 @@ func _measure_boxer(bx: Dictionary, clips: Array, mode: String, body_idx: int) -
 			frames_used += 1
 			var hd := head_disp(bones["head"], base_head, bones["chest"], base_chest)
 			var ta := absf(trunk_angle(bones["hips"], bones["neck"]) - base_ta)
-			peak_head = maxf(peak_head, hd)
-			peak_trunk = maxf(peak_trunk, ta)
+			if hd > peak_head:
+				peak_head = hd
+				peak_head_frame = fr
+			if ta > peak_trunk:
+				peak_trunk = ta
+				peak_trunk_frame = fr
 
-		print("HITREACT %s %s %s frames=%d head_m=%.4f trunk_deg=%.1f" % [mode, clip, body_name, int(frames_used), float(peak_head), float(peak_trunk)])
+		print("HITREACT %s %s %s frames=%d head_m=%.4f trunk_deg=%.1f peak_head_f=%d peak_trunk_f=%d length_s=%.3f hips_to_head=%.3f" % [mode, clip, body_name, int(frames_used), float(peak_head), float(peak_trunk), int(peak_head_frame), int(peak_trunk_frame), float(length), float(hips_to_head)])
 
 
 func _initialize() -> void:

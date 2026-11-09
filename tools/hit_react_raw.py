@@ -57,13 +57,17 @@ def selftest():
     return ok
 
 
-def measure(path):
+def measure(path, start=None, end=None):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     bpy.ops.import_scene.fbx(filepath=path, automatic_bone_orientation=False)
     arm = next(o for o in bpy.context.scene.objects if o.type == "ARMATURE")
     act = arm.animation_data.action if arm.animation_data else None
     f0, f1 = (int(act.frame_range[0]), int(act.frame_range[1])) if act else (1, 1)
     fps = bpy.context.scene.render.fps
+    if start is not None:
+        f0 = max(f0, int(start))
+    if end is not None:
+        f1 = min(f1, int(end))
 
     head_b = bone(arm, BONES["head"])
     neck_b = bone(arm, BONES["neck"])
@@ -91,6 +95,8 @@ def measure(path):
 
     peak_head = 0.0
     peak_trunk = 0.0
+    peak_head_frame = f0
+    peak_trunk_frame = f0
     used = 0
 
     for fr in range(f0, f1 + 1):
@@ -102,17 +108,28 @@ def measure(path):
         c = (mw @ chest_b.head) * unit
         hd = head_disp(h, base_head, c, base_chest)
         ta = abs(trunk_angle(hp, n) - base_ta)
-        peak_head = max(peak_head, hd)
-        peak_trunk = max(peak_trunk, ta)
+        if hd > peak_head:
+            peak_head = hd
+            peak_head_frame = fr
+        if ta > peak_trunk:
+            peak_trunk = ta
+            peak_trunk_frame = fr
         used += 1
 
+    hips_to_head = ((mw @ head_b.head) - (mw @ hips_b.head)).length * unit
     name = path.replace("\\", "/").split("/")[-1]
-    print(f"HITREACT_RAW {name} frames={used} head_m={peak_head:.4f} trunk_deg={peak_trunk:.1f} first_head_y={base_head.z:.3f}", flush=True)
+    win = f" win={f0}-{f1}" if (start is not None or end is not None) else ""
+    print(f"HITREACT_RAW {name} frames={used} head_m={peak_head:.4f} trunk_deg={peak_trunk:.1f} "
+          f"peak_head_f={peak_head_frame} peak_trunk_f={peak_trunk_frame} "
+          f"first_head_y={base_head.z:.3f} hips_to_head={hips_to_head:.3f}{win}", flush=True)
 
 
 if not selftest():
     sys.exit(1)
 if "--" in sys.argv:
-    paths = [a for a in sys.argv[sys.argv.index("--") + 1:] if not a.startswith("start=") and not a.startswith("end=")]
+    args = sys.argv[sys.argv.index("--") + 1:]
+    start = next((int(a[6:]) for a in args if a.startswith("start=")), None)
+    end = next((int(a[4:]) for a in args if a.startswith("end=")), None)
+    paths = [a for a in args if not a.startswith("start=") and not a.startswith("end=")]
     for p in paths:
-        measure(p)
+        measure(p, start, end)

@@ -84,7 +84,7 @@ def open_issue_numbers() -> set:
 
 def waiting(heads: dict, prs: dict) -> None:
     """Agent branches whose ISSUE is still open (an issue is closed when its work is collected by diff or superseded)."""
-    subprocess.run(["git", "fetch", "-q", "origin", "main"], capture_output=True, timeout=120)
+    subprocess.run(["git", "fetch", "--no-write-fetch-head", "-q", "origin", "main"], capture_output=True, timeout=120)
     pr_branches = {p["headRefName"] for p in prs.values()}
     try:
         open_issues = open_issue_numbers()
@@ -99,7 +99,7 @@ def waiting(heads: dict, prs: dict) -> None:
             continue  # its issue is closed: collected by diff or superseded
         # S287: fetch only a head the checkout lacks - fetching all ~600 agent branches one by one ran at the 2026-10-22 freeze
         if subprocess.run(["git", "cat-file", "-e", sha + "^{commit}"], capture_output=True).returncode != 0:
-            subprocess.run(["git", "fetch", "-q", "origin", branch], capture_output=True, timeout=120)
+            subprocess.run(["git", "fetch", "--no-write-fetch-head", "-q", "origin", branch], capture_output=True, timeout=120)
         ahead = subprocess.run(["git", "rev-list", "--count", "origin/main..%s" % sha], capture_output=True, text=True, timeout=30)
         age = subprocess.run(["git", "log", "-1", "--format=%ct", sha], capture_output=True, text=True, timeout=30)
         recent = age.returncode == 0 and age.stdout.strip().isdigit() and time.time() - int(age.stdout.strip()) < 3 * 86400
@@ -133,7 +133,7 @@ def main(argv: list[str]) -> int:
             if what == "heads":
                 for branch, sha in new.items():
                     if old.get(branch) != sha:
-                        subprocess.run(["git", "fetch", "-q", "origin", branch], capture_output=True, timeout=120)
+                        subprocess.run(["git", "fetch", "--no-write-fetch-head", "-q", "origin", branch], capture_output=True, timeout=120)
                         emit('PUSH %s %s "%s"' % (branch, sha[:8], subject(sha)))
             elif what == "runs":
                 for rid, r in new.items():

@@ -492,7 +492,7 @@ def launch(r: dict) -> str:
     task, seat = r["task"], r["seat"]
     wt, branch = WT / f"LEAN_{task}", f"{seat}/{task.lower()}"
     base = (brief_contract.parse(brief_contract.brief_path(task).read_text(encoding="utf-8", errors="replace")) or {}).get("base") or "main"
-    git("fetch", "-q", "origin", "main", *([base] if base != "main" else []), timeout=300)
+    git("fetch", "--no-write-fetch-head", "-q", "origin", "main", *([base] if base != "main" else []), timeout=300)
     brief_text = brief_contract.brief_path(task).read_text(encoding="utf-8", errors="replace")
     p = add_worktree(wt, f"origin/{base}", sparse_patterns(task, brief_text), branch=branch)
     if p.returncode != 0:
@@ -1259,7 +1259,7 @@ def main(argv: list[str]) -> int:
         tmp = WT / f"FILM_{task}"
         res = {}
         for which, ref in (("before", "origin/main"), ("after", f"origin/{branch}")):
-            git("fetch", "-q", "origin", "main", *([branch] if branch else []), timeout=300)
+            git("fetch", "--no-write-fetch-head", "-q", "origin", "main", *([branch] if branch else []), timeout=300)
             add_worktree(tmp, ref, sparse_patterns(task, ""))
             sh(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ROOT / "Tools" / "seed_godot_cache.ps1", "-Worktree", tmp],
                timeout=1800)

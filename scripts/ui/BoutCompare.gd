@@ -96,6 +96,19 @@ static func _move_words(now: int, after: int) -> String:
 	return "#%d, %s %d" % [after, "up" if after < now else "down", absi(after - now)]
 
 
+## The win chance in the words both the full report and the versus card use.
+static func win_read(c: Career, f: Dictionary, opp: Dictionary, camp: Dictionary) -> Dictionary:
+	var b := BoutRead.band(f, opp, camp, c.seed, float(c.coach.get("rating", 0.0)))   # S397 rank 3: the coach's plan counts
+	var lo := roundi(float(b["lo"]) * 100.0)
+	var hi := roundi(float(b["hi"]) * 100.0)
+	var s := BoutRead.stage(opp)
+	var m := BoutRead.rank_move(Region.rankings(c, str(f["div"])), f, str(opp["name"]), Region.before, Region.RANK_MIN_WINS)
+	return {"band": b, "lo": lo, "hi": hi, "mid": roundi((lo + hi) / 2.0), "found": int(s["found"]), "all": int(s["all"]),
+		"win_word": "%d more to enter" % int(m["need"]) if int(m["win"]) == 0 else _move_words(int(m["now"]), int(m["win"])),
+		"loss_word": _move_words(int(m["now"]), int(m["loss"])),
+		"sure": "a rough guess" if hi - lo >= 30 else ("fairly sure" if hi - lo >= 12 else "sure")}
+
+
 ## WIN CHANCE: the band as a number and on a 0-100 ruler, how much of the file it rests on; then the ranks at stake.
 static func read_card(c: Career, f: Dictionary, opp: Dictionary, camp: Dictionary) -> PanelContainer:
 	var card := UI.card("WIN CHANCE")
@@ -103,13 +116,14 @@ static func read_card(c: Career, f: Dictionary, opp: Dictionary, camp: Dictionar
 	card[0].size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	card[0].size_flags_stretch_ratio = 2.0
 	var v: VBoxContainer = card[1]
-	var b := BoutRead.band(f, opp, camp, c.seed, float(c.coach.get("rating", 0.0)))   # S397 rank 3: the coach's plan counts
-	var lo := roundi(float(b["lo"]) * 100.0)
-	var hi := roundi(float(b["hi"]) * 100.0)
+	var read := win_read(c, f, opp, camp)
+	var b: Dictionary = read["band"]
+	var lo := int(read["lo"])
+	var hi := int(read["hi"])
 	var big := UI.hbox(14)
 	# S398 menus (first-hour critics: "Win chance 4-56%" reads as a bug): one number, how sure it is in words, the range
 	# under it; scouting narrows the range.
-	var mid := roundi((lo + hi) / 2.0)
+	var mid := int(read["mid"])
 	var num := UI.mono("%d%%" % mid, 38, UI.GREEN if lo >= 50 else (UI.RED if hi <= 50 else UI.FG))
 	num.name = "WinBand"
 	num.tooltip_text = "%d to %d%%" % [lo, hi]
@@ -117,7 +131,7 @@ static func read_card(c: Career, f: Dictionary, opp: Dictionary, camp: Dictionar
 	var s := BoutRead.stage(opp)
 	var file := UI.vbox(2)
 	file.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	var sure := "a rough guess" if hi - lo >= 30 else ("fairly sure" if hi - lo >= 12 else "sure")
+	var sure := str(read["sure"])
 	file.add_child(UI.label("%s: %d to %d%%" % [sure, lo, hi], UI.SMALL, UI.FG, "semi"))
 	file.add_child(Icons.pips(int(s["found"]), int(s["all"]), "Tape study in camp finds these. Each one narrows the chance."))
 	file.add_child(UI.muted("%d of %d found on the opponent's file" % [int(s["found"]), int(s["all"])], UI.TINY))

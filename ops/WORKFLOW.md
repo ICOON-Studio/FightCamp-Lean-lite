@@ -105,6 +105,7 @@ o_popups.ps1` (started by
   task, not per commit (each main push cancels the last ci run, which still bills).
 - Stage explicit paths (`git add -- <files>`); check `git status -s` first (another agent's work may be staged). Never
   `audio_exports/`. Never a bare `git stash` / `reset --hard` / `checkout .` / `clean` in this shared checkout.
+- A SCRIPT'S `git fetch` IN THIS CHECKOUT TAKES `--no-write-fetch-head` (S410: collect_ready's PR fetch landed in FETCH_HEAD during a session-start `git pull`, which merged un-mergeable PR 106 into local main; caught before any push).
 - Commit messages end with the Co-Authored-By line the harness gives. Push `master` on every completed task.
 - FAST LANE (S240, operator: "do the rest that you suggested" after the Scion video - review intent, not lines): an agent PR that only
   ADDS a pure module + its test under scripts/rules, tests, research goes through `python ops/Tools/auto_collect.py <pr>` (dry run: ELIGIBLE

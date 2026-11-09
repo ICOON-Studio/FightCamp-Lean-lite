@@ -12,6 +12,8 @@ const OppFileCard := preload("res://scripts/ui/OppFileCard.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const BoutCompare := preload("res://scripts/ui/BoutCompare.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
+const VersusPanel := preload("res://scripts/ui/VersusPanel.gd")
+const MenuFx := preload("res://scripts/ui/MenuFx.gd")
 
 
 func build(main: Node, offer_id: String) -> void:
@@ -37,9 +39,17 @@ func build(main: Node, offer_id: String) -> void:
 	var booked: Dictionary = (f["bout"] as Dictionary).get("opp", {})
 	if bool(o["accepted"]) and str(booked.get("name", "")) == str(opp["name"]):
 		opp = booked
-	add_child(UI.muted("FIGHTS / Offers / %s vs %s" % [f["name"], opp["name"]], UI.SMALL))
+	var crumb := UI.muted("FIGHTS / Offers / %s vs %s" % [f["name"], opp["name"]], UI.SMALL)
+	add_child(crumb)
 	# S373 the weigh-in forecast: her weight now and on the scale after a camp cut from tomorrow (Sim.weigh_forecast).
 	var wf := Sim.weigh_forecast(c, f, int(o["day"]))
+	var foot := _answer_row(main, f, o, offer_id, wf)
+	if VersusPanel.report_for != offer_id:   # S410 Q-S294-134: the offer opens as a versus screen; this page is its full report
+		MenuFx.set_wall(main, VersusPanel.BACKDROP)
+		remove_child(crumb)
+		crumb.queue_free()
+		add_child(VersusPanel.build(main, c, f, o, opp, offer_id, wf, foot))
+		return
 	var head := UI.hbox(16)
 	head.add_child(UI.display("THE BOUT", 52))
 	# S398 menus (first-hour critics: "Legal, even match" stayed green while the weight missed): the chip says the worst.
@@ -47,6 +57,10 @@ func build(main: Node, offer_id: String) -> void:
 		"red" if bool(o["mismatch"]) else ("amber" if not bool(wf["ok"]) else "green"))
 	chip.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	head.add_child(chip)
+	var back := UI.button("Back to the versus", "Btn", VersusPanel.show_report.bind(main, ""))
+	back.name = "BackToVersus"
+	back.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	head.add_child(back)
 	head.add_child(UI.spacer())
 	add_child(head)
 	add_child(Tape.make(f["name"], "your fighter", [
@@ -88,6 +102,21 @@ func build(main: Node, offer_id: String) -> void:
 		UI.kv("Answer by", Clock.fmt(int(o["expires"]))),
 	])
 	add_child(terms[0])
+	# S398 menus (first-hour critics: Accept sat below the fold at 1080): the decision sits on the title line; the reason
+	# lines (weight, sanction) stay under the terms.
+	for n in foot.get_children():
+		if n is Button:
+			foot.remove_child(n)
+			(n as Control).size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			head.add_child(n)
+	if foot.get_child_count() > 0:
+		add_child(foot)
+	else:
+		foot.queue_free()
+
+
+## Accept, Pass and the one line that says why not.
+func _answer_row(main: Node, f: Dictionary, o: Dictionary, offer_id: String, wf: Dictionary) -> HBoxContainer:
 	var foot := UI.hbox(10)
 	foot.name = "BoutFoot"
 	var open := not bool(o["answered"])
@@ -119,12 +148,4 @@ func build(main: Node, offer_id: String) -> void:
 		heavy.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		heavy.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		foot.add_child(heavy)
-	# S398 menus (first-hour critics: Accept sat below the fold at 1080): the decision sits on the title line; the reason
-	# lines (weight, sanction) stay under the terms.
-	for n in foot.get_children():
-		if n is Button:
-			foot.remove_child(n)
-			(n as Control).size_flags_vertical = Control.SIZE_SHRINK_CENTER
-			head.add_child(n)
-	if foot.get_child_count() > 0:
-		add_child(foot)
+	return foot

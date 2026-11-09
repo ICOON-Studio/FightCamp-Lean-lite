@@ -8,9 +8,9 @@ Updated 2026-11-09 by claude S294.
 
 ## Now
 
-**S409 — ?** *(claude)*
+**S410 — ?** *(claude)*
 
-S409: our real boxers now work and walk on the gym floor (19 bodies, 7 strips each, GymPeople + HubFigures). The building is chosen once at setup and its bonus runs in the rules. Game-look concepts for Fighters and Fights are on the board. FIGHTERMODEL4C sent back (still too slow for CI): 4D running. Hit reactions measured: round 2 running.
+S410: Fighters is a line of full-body cards on a painted gym and a bout offer is a versus screen, as he picked. Dark top bar on every page. move_tip's real framing fault fixed. A session-start pull merged PR 106 by accident: undone before any push, and the cause fixed. HITREACT3 and FIGHTERMODEL4E running.
 
 ## Next
 
@@ -294,3 +294,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S407**  |  |  | *none yet* |  |
 |  |  | **S408**  |  |  | *none yet* |  |
 |  |  | **S409**  |  |  | *none yet* |  |
+|  |  | **S410**  |  |  | *none yet* |  |

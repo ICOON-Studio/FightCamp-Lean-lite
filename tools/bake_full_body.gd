@@ -23,6 +23,7 @@ const CLIP := "pro_idle"
 
 var _vp: SubViewport
 var _out := "E:/FightCamp/tmp/s409_look/fullbody"
+var _alt := false
 
 
 func _initialize() -> void:
@@ -32,6 +33,8 @@ func _initialize() -> void:
 			_out = a.substr(4)
 		if a.begins_with("stems="):
 			stems = a.substr(6).split(",")
+		if a == "alt":   # S410 the other corner's kit, <stem>_alt.png: the versus screen dresses each side in its corner's colour
+			_alt = true
 	DirAccess.make_dir_recursive_absolute(_out)
 	_setup()
 	var made := 0
@@ -41,7 +44,7 @@ func _initialize() -> void:
 		if body == null:
 			push_error("cannot load " + glb)
 			continue
-		var side: String = "blue" if str(stem).right(2) in Baked.BLUE_STEMS else "red"
+		var side: String = "blue" if (str(stem).right(2) in Baked.BLUE_STEMS) != _alt else "red"
 		Kit.colour_vest(body, Stage.VESTS[side], Stage.CLOTH_ROUGHNESS)
 		Kit.cloth_normals(body)
 		Kit.dress(body, glb, "boxing")
@@ -66,7 +69,7 @@ func _initialize() -> void:
 		img.convert(Image.FORMAT_RGBA8)
 		img.fix_alpha_edges()
 		img.resize(W, H, Image.INTERPOLATE_LANCZOS)
-		img.save_png(_out.path_join(str(stem) + ".png"))
+		img.save_png(_out.path_join(str(stem) + ("_alt" if _alt else "") + ".png"))
 		made += 1
 		body.queue_free()
 		await process_frame

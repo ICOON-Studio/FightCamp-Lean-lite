@@ -1,3 +1,21 @@
+# S410 handover (written 2026-11-09, S410 main session)
+
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S411` and redraw the map (send only the changed cards; strip data-deleted lines; he has not approved deleting map cards).
+READ THE PULL'S OUTPUT: a file list after a session-start pull is the alarm. S410's pull merged PR 106 into local main (a background fetch wrote FETCH_HEAD during the pull). Fixed in nine tools; any new script's fetch takes --no-write-fetch-head.
+STANDING ORDER: animation progresses every session; name the item and seat in the first message.
+FULL TESTS at 05:00: 11-10 is the first real run. Read ops/AgentComms/nightly/latest.txt and reviews.md first, against main's CI.
+
+BUILT S410, on main at 3feaafe6: the digest ops/research/S410_DIGEST.md has it. Fighters = RosterCards + RosterFlag, bout offer = VersusPanel (old page is Full report), dark top bar on every page. tools/roster_still.gd renders both with eight made-up fighters (through godot_slot, on the hidden desktop). One blind critic before the fixes: Fighters 7/6, versus 7.5/6.5; not re-scored (ops/research/S410_LOOK_CRITIC.md lists what is open). HE HAS NOT PLAYED IT.
+move_tip: now a whole pass of the clip, MoveStudio.LOOK_Y 0.24, 150 of 150 here. Only the one-two is measured; read main's next CI.
+
+THE LOOK: four painted concepts (Home, Fighter Week, Playbook, Fight night) are on the board as Q-S294-135 (docs/mockups/s410/concepts). Paintovers of the s403 layouts: check their numbers and faces before calling any of them a spec, and score the look first. After his yes per page: re-brief the held Cursor row from it (MENU_BUILD_RULES items 14-18). Nothing is built on a page he has not approved.
+
+COLLECT: HITREACT3 (Qwen, the animation item): the conversion stage by stage on three weak and three control clips. Believe a stage only if the controls do not drop there, and read its first-frame continuity check. FIGHTERMODEL4E (Cursor, base cursor/fightermodel4d): plan_bots 2 red -> 0, and the CI tests job inside its 18-minute limit. PRs 106, 113 and 117 stay open until 4E lands; 4D's own CI had not finished when S410 ended.
+TRAPS: the rule guard blocks a whole shell command that contains the console build's file name, even inside a brief's text. Hidden-desktop stills lose about 135 px at the right and are 1009 tall: measure the edges in a test at a true 1920x1080. A framing or pose check on a playing clip must cover a whole pass.
+E: 40.8 GB free (over the 85% rule); the 29 held agent worktrees are first to go.
+WAITING ON HIM: play the S410 build | the painted concepts | keep or cut Test day and dues bands | "yes, ARCHIVED".
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor Grok 4.7 High until 12-07.
+
 # S409 handover (written 2026-11-09, S409 main session)
 
 OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S410` and redraw the map (send only the changed cards; strip data-deleted lines; he has not approved deleting map cards).

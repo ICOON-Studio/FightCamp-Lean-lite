@@ -27,6 +27,7 @@
     clock: ['<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', 'Time'],
     weight: ['<path d="M12 3v18M5 21h14M3 7h18M5 7l-3 8a3 3 0 0 0 6 0zM19 7l-3 8a3 3 0 0 0 6 0z"/>', 'Weight now / class limit'],
     fresh: ['<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>', 'Freshness, 0 to 100'],
+    mood: ['<circle cx="12" cy="12" r="9"/><path d="M8 14s1.500 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>', 'Mood'],
     fatigue: ['<path d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-2 1-3.500 2-4.500 0 2 1 3 2 3 1-3 0-7 2-10.500z"/>', 'Fatigue this adds'],
     energy: ['<rect x="2" y="7" width="17" height="10" rx="2"/><path d="M22 11v2M6 11v2M10 11v2M14 11v2"/>', 'Energy left in this fight'],
     lock: ['<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>', 'Not available yet'],

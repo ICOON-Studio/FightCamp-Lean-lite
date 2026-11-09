@@ -16,7 +16,7 @@ const HitImpact := preload("res://scripts/fight3d/HitImpact.gd")
 const BG := Color("#f1eee8")
 const FLOOR := Color("#ebe7df")
 const PITCH_DEG := 35.0
-const LOOK_Y := 0.71
+const LOOK_Y := 0.24   # S410 measured over a whole pass of the clip: heads to feet read 63 to 315 of 300 px, 83 px a metre of aim; this centres them
 const DIST_M := 4.7    # S405: 3.6 cut a partner's foot off the 300 px hover card mid-step; S408: 4.15 still reached the bottom edge on CI
 ## The cover-up (mc_to_block) has its gloves up this far in at 1x; a slip's deepest point is MovePlayer.DEF_PEAK_S.
 const BLOCK_SET_S := 0.25
