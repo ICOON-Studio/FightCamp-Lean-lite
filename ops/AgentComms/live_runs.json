@@ -2168,7 +2168,7 @@
    "agent": "qwen",
    "id": "HITREACT4",
    "title": "TASK HITREACT4 - QWEN (qwen3-coder) - measure the conversion stages HITREACT3 did not run",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-09T11:55",
    "eta": "2026-11-09T13:45",
    "branch": "qwen/hitreact4",
@@ -2189,13 +2189,34 @@
     "runner_pid": 31328,
     "seat_pid": 39372
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #121",
+   "finished": "2026-11-09T12:43",
+   "pr": 121,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "MENUHOME2": {
    "agent": "cursor",
    "id": "MENUHOME2",
    "title": "TASK MENUHOME2 - CURSOR (Grok 4.7 High) - Home, round 2: the Needs-you board as drawn",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-09T11:55",
    "eta": "2026-11-09T13:45",
    "branch": "cursor/menuhome2",
@@ -2216,7 +2237,189 @@
     "runner_pid": 50916,
     "seat_pid": 42524
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 9/9 PASS; PR #120",
+   "finished": "2026-11-09T12:36",
+   "pr": 120,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/menu_home_test.gd",
+     "ok": true,
+     "last": "MENU_HOME failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/home_look_test.gd",
+     "ok": true,
+     "last": "HOME_LOOK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/home_row_injured_test.gd",
+     "ok": true,
+     "last": "HOME_ROW_INJURED failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/kit_icon_test.gd",
+     "ok": true,
+     "last": "KIT_ICON failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/first_week_test.gd",
+     "ok": true,
+     "last": "FIRST_WEEK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/save_load_test.gd",
+     "ok": true,
+     "last": "SAVE_LOAD checks=76 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plain_words_test.gd",
+     "ok": true,
+     "last": "PLAIN_WORDS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "FIGHTERMODEL4F": {
+   "agent": "cursor",
+   "id": "FIGHTERMODEL4F",
+   "title": "TASK FIGHTERMODEL4F - CURSOR (Grok 4.7 High) - the nine red tests the new fighter model leaves behind",
+   "status": "running",
+   "started": "2026-11-09T12:42",
+   "eta": "2026-11-09T14:32",
+   "branch": "cursor/fightermodel4f",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4F",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHTERMODEL4F",
+   "brief": "ops/research/TASK_FIGHTERMODEL4F.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHTERMODEL4F_dispatch_out.txt",
+   "match": "seat_dispatch.py run fightermodel4f",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHTERMODEL4F_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHTERMODEL4F_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHTERMODEL4F_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 52640,
+    "seat_pid": 14776
+   },
+   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
+  },
+  "HITREACT5": {
+   "agent": "qwen",
+   "id": "HITREACT5",
+   "title": "TASK HITREACT5 - QWEN (qwen3-coder) - the gap between the last bake stage and the saved clip",
+   "status": "landed",
+   "started": "2026-11-09T12:49",
+   "eta": "2026-11-09T14:39",
+   "branch": "qwen/hitreact5",
+   "worktree": "E:/FightCamp/wt/LEAN_HITREACT5",
+   "wt": "E:/FightCamp/wt/LEAN_HITREACT5",
+   "brief": "ops/research/TASK_HITREACT5.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HITREACT5_dispatch_out.txt",
+   "match": "seat_dispatch.py run hitreact5",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HITREACT5_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HITREACT5_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HITREACT5_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 47636,
+    "seat_pid": 38620
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #122",
+   "finished": "2026-11-09T12:59",
+   "pr": 122,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_knee_test.gd",
+     "ok": true,
+     "last": "GUARD_KNEE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "FLOOR1": {
+   "agent": "goose",
+   "id": "FLOOR1",
+   "title": "QWEN (qwen3-coder) - places free: the pure rule",
+   "status": "running",
+   "started": "2026-11-09T13:16",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_FLOOR1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-09T14:16",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
+   "issue": "123",
+   "branch": "goose/issue-123",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/123"
+  },
+  "GYM3D1": {
+   "agent": "antigravity",
+   "id": "GYM3D1",
+   "title": "TASK GYM3D1 - AGY (Argon High) - can the floor be a real 3D scene? A test, not a feature",
+   "status": "failed",
+   "started": "2026-11-09T13:16",
+   "eta": "2026-11-09T14:41",
+   "branch": "agy/gym3d1",
+   "worktree": "E:/FightCamp/wt/LEAN_GYM3D1",
+   "wt": "E:/FightCamp/wt/LEAN_GYM3D1",
+   "brief": "ops/research/TASK_GYM3D1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/GYM3D1_dispatch_out.txt",
+   "match": "seat_dispatch.py run gym3d1",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/GYM3D1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/GYM3D1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/GYM3D1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 25824,
+    "seat_pid": 25064
+   },
+   "note": "S368 seat_dispatch: agy exit 0, no commit on agy/gym3d1 (stray: -); output E:\\FightCamp\\wt\\GYM3D1_dispatch_out.txt",
+   "finished": "2026-11-09T13:17"
   }
  },
  "codex_budget": {

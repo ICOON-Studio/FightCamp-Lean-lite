@@ -1,0 +1,32 @@
+{
+  "assets": [
+    {
+      "file": "try1.webp",
+      "command": "image create",
+      "operation_id": "createImage",
+      "body": {
+        "image_type": "screenshot",
+        "art_style": "Illustration",
+        "aspect_ratio": "ar_16_9",
+        "prompt": "Full PC game screen, a boxing gym management game, fighter profile page of a newly signed young female boxer, warm painted illustration style, tan plaster wall with a whiteboard and polaroid. Left: large painted full-body portrait of the boxer in a guard stance. Right: ten attribute bars drawn as soft fading ranges on a gauge, wide fuzzy bars for unknown stats, narrow solid bars with a number for known stats, a question mark on the chin and heart rows with a padlock, a magnifier icon on the speed row. Few words, big pictures, handwritten marker labels: SPEED, STRENGTH, CHIN ?, HEART ?, plus a small sticky note 'Chin held up' and icons for hired coach and physio instruments beneath. Dark top bar. No clutter."
+      },
+      "job_id": "f68bfb04-72cd-4f5b-9323-bfcd4d97fd9e",
+      "credits": 0.5,
+      "created_at": "2026-11-09T11:31:05.296Z"
+    },
+    {
+      "file": "try1.png",
+      "command": "image create",
+      "operation_id": "createImage",
+      "body": {
+        "image_type": "screenshot",
+        "art_style": "Illustration",
+        "aspect_ratio": "ar_16_9",
+        "prompt": "Full PC game screen, a boxing gym management game, fighter profile page of a newly signed young female boxer, warm painted illustration style, tan plaster wall with a whiteboard and polaroid. Left: large painted full-body portrait of the boxer in a guard stance. Right: ten attribute bars drawn as soft fading ranges on a gauge, wide fuzzy bars for unknown stats, narrow solid bars with a number for known stats, a question mark on the chin and heart rows with a padlock, a magnifier icon on the speed row. Few words, big pictures, handwritten marker labels: SPEED, STRENGTH, CHIN ?, HEART ?, plus a small sticky note 'Chin held up' and icons for hired coach and physio instruments beneath. Dark top bar. No clutter."
+      },
+      "job_id": "f68bfb04-72cd-4f5b-9323-bfcd4d97fd9e",
+      "credits": 0.5,
+      "created_at": "2026-11-09T11:31:05.296Z"
+    }
+  ]
+}

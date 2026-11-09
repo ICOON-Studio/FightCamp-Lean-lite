@@ -5678,6 +5678,24 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-138_0_small_to_grown.jpg"
       ],
+      "answer": "Places free",
+      "note": null,
+      "answered_at": "2026-11-09T11:19:22Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-139",
+      "asked": "2026-11-09T11:32:35.331689+00:00",
+      "session": "S294",
+      "text": "Progressive knowledge: you choose what to find out about a boxer, and pay in money, risk or a session. Approve this design? (Attached. Nothing is built until the bots prove it matters and the fighter model is merged.)",
+      "options": [
+        "Yes",
+        "Change something"
+      ],
+      "attach": [
+        "research/KNOWLEDGE_S411.md"
+      ],
       "answer": null,
       "note": null,
       "answered_at": null,

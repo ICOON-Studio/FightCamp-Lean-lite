@@ -1,3 +1,13 @@
+# S411 addendum (read first)
+PROGRESSIVE KNOWLEDGE: design v2 in ops/research/KNOWLEDGE_S411.md, waiting on his yes on the board. John SQ30 running. Bots test comes before any screen; it needs the fighter model merged.
+
+# S411 last block (2026-11-09, supersedes the two S411 blocks below where they disagree)
+
+THE FLOOR, HIS DIRECTION: "i agree with this [smaller unit that grows] ... meter showing how many usage has left a bar showing stamina next to each fighters and things like that more graphic representation than text"; dots = "Places free"; then "what about top down view ?". He has been steering concept 1 of four (docs/mockups/s411/open) but has not formally picked: Q-S294-137 is open. "Build the mix" was withdrawn ("i do not like any of critics designs"). The rule: ops/research/FLOOR_PLACES_S411.md, three members a place, no money change. Pictures: docs/mockups/s411/open/floor (small_unit, grown_club, camera_compare). The image tool would not paint a true top-down.
+COLLECT: GYM3D1 (agy, running): the same 3D room from a cutaway, straight top-down and a 65-degree camera, with frame time. Open the stills and judge them yourself; show him; he picks the camera. FLOOR1 (Goose issue 123). FIGHTERMODEL4F (Cursor), then 4B. PR 120 Home is likely replaced by the floor: leave it until he has picked. MENUWEEK2, MENUPLAYBOOK2B, MENUFIGHT1B are still queued on Cursor.
+ANIMATION: hit reactions SETTLED. tools/hit_react_drawn.gd, read in skeleton_updated with modifiers off, equals the track keys (hook_v5 0.186 m), so HITREACT1-2's 0.109 was the probe. Real loss about 15% on every clip, from the shorter neck. Modifiers on not measured. NEXT ITEM, no seat yet: the 47 boxing clips scored under 6 in CLIP_SCORES_S390 predate the S401 re-bake: re-film and blind-judge them first.
+R28: eye numbers from tools/eye_band_probe.gd: 3 rounds: critical 2% after round 3; 6 rounds: critical 86% after round 5. Too rare early, far too common late. Fix the eye damage on real rounds, then the stop-or-go call.
+
 # S411 second stage (written 2026-11-09, read this before the block below)
 
 THE GYM: three sonnet critics gave it 5/10 and agree it feels small and that World and Playbook do not belong. ops/research/S411_GYM_CRITICS/SUMMARY.md; drawings docs/mockups/s411/gym_10. Waiting on Q-S294-136 and on his Miro comment, card 3458764689771063952: "what if can become core gameplay to avoid boring menus ?". PR 120 (Home) is mergeable but HELD for that answer: its known faults are sticky titles invisible, magnet colours, OFFER covering a face, a lone floating boxer, first_hour_walk red (FirstHourCard is gone from Home).

@@ -10,7 +10,7 @@ Updated 2026-11-09 by claude S294.
 
 **S411 — ?** *(claude)*
 
-S411: his yes on the four painted menus came with 'fewer words and bigger pictures, like Fighters'. page_ink turns that into bars; all four are briefed and queued on Cursor, Home running. Main's CI is green for the first time in days. FIGHTERMODEL4E not merged: 10 red tests the cancelled runs had hidden.
+S411: the floor direction: a small unit that grows, stamina bars over boxers, places-free dots over equipment. Concepts painted, nothing built. Rule designed (FLOOR_PLACES_S411). Main CI green. Hit-reaction loss settled: the earlier probe was wrong. Fighter model 4F running.
 
 ## Next
 
