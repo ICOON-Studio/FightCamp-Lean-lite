@@ -6,6 +6,7 @@ extends SceneTree
 ##   <godot.exe> --headless --path . --audio-driver Dummy --fixed-fps 30 --script res://tools/knee_plane_probe.gd -- [arm=GAME] [off=all|<names>] [phase=rest] [glb0=..] [glb1=..]
 ##   windowed on the hidden desktop, a front-on picture of each boxer in guard: -- still=<dir>
 ## Same maths on the source take: tools/knee_plane_raw.py.
+## LOCOKNEE1: clip=<name> plays that clip looped on both boxers and counts its frames instead of guard frames.
 
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const DT := 1.0 / 30.0
@@ -142,11 +143,20 @@ func _measure(stage: Node3D, bx: Array) -> void:
 	var arm := _arg("arm", "GAME")
 	var off := _arg("off", "")
 	var phase := _arg("phase", "")
+	var clip_name := _arg("clip", "")
 	var rows: Array = []
 	var clips: Array = [{}, {}]
 	var rig_w: Array = [0.0, 0.0]
 	for i in 2:
-		rows.append([{"off": [], "norm": [], "flex": []}, {"off": [], "norm": [], "flex": []}])
+		rows.append([{"off": [], "norm": [], "flex": [], "max_frame": -1}, {"off": [], "norm": [], "flex": [], "max_frame": -1}])
+	if clip_name != "":
+		for i in 2:
+			var ap: AnimationPlayer = bx[i]["ap"]
+			if ap.has_animation(clip_name):
+				ap.play(clip_name)
+				ap.seek(0.0, true)
+				ap.get_animation(clip_name).loop_mode = Animation.LOOP_LINEAR
+	var measure_frame := 0
 	for f in WARMUP + FRAMES:
 		if phase != "":
 			stage.aim({"phase": phase, "who": -1, "move": "jab"})
@@ -164,15 +174,22 @@ func _measure(stage: Node3D, bx: Array) -> void:
 			var clip := str((bx[i]["ap"] as AnimationPlayer).current_animation)
 			(clips[i] as Dictionary)[clip] = int((clips[i] as Dictionary).get(clip, 0)) + 1
 			rig_w[i] = float(rig_w[i]) + float(bx[i]["rig"].w) / float(FRAMES)
-			if not _is_guard(clip) or (drawn[i] as Array).size() < 2:
+			var counts := clip_name != "" and clip == clip_name
+			var guard_ok := clip_name == "" and _is_guard(clip)
+			if (not counts and not guard_ok) or (drawn[i] as Array).size() < 2:
 				continue
 			for j in 2:
 				var d: Dictionary = drawn[i][j]
 				var v := off_plane(d["hip"], d["knee"], d["ankle"], d["ball"], d["left"])
 				var leg: float = (d["hip"] as Vector3).distance_to(d["ankle"])
+				var norm_v := v / maxf(leg, 1e-4)
 				rows[i][j]["off"].append(v)
-				rows[i][j]["norm"].append(v / maxf(leg, 1e-4))
+				rows[i][j]["norm"].append(norm_v)
 				rows[i][j]["flex"].append(flex(d["hip"], d["knee"], d["ankle"]))
+				if norm_v > float(rows[i][j].get("max_norm", -INF)):
+					rows[i][j]["max_norm"] = norm_v
+					rows[i][j]["max_frame"] = measure_frame
+		measure_frame += 1
 	for i in 2:
 		var corner := "red orthodox" if i == 0 else "blue southpaw"
 		print("KNEEPLANE_CLIPS %s %s rig_w=%.2f %s" % [arm, corner, float(rig_w[i]), str(clips[i])])
@@ -181,8 +198,8 @@ func _measure(stage: Node3D, bx: Array) -> void:
 			var o := _stats(r["off"])
 			var n := _stats(r["norm"])
 			var fx := _stats(r["flex"])
-			print("KNEEPLANE %s %s %s frames=%d off=%.4f(%.4f..%.4f) norm=%.4f(%.4f..%.4f) flex=%.1f" % [arm, corner, "lead" if j == 0 else "rear",
-				(r["off"] as Array).size(), o["mean"], o["min"], o["max"], n["mean"], n["min"], n["max"], fx["mean"]])
+			print("KNEEPLANE %s %s %s frames=%d off=%.4f(%.4f..%.4f) norm=%.4f(%.4f..%.4f) flex=%.1f max_frame=%d" % [arm, corner, "lead" if j == 0 else "rear",
+				(r["off"] as Array).size(), o["mean"], o["min"], o["max"], n["mean"], n["min"], n["max"], fx["mean"], int(r.get("max_frame", -1))])
 
 
 func _stats(arr: Array) -> Dictionary:

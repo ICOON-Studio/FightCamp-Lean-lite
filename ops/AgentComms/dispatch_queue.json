@@ -660,6 +660,12 @@
    "brief": "LOCOKNEE1"
   },
   {
+   "id": "FIGHTERMODEL4C",
+   "seat": "cursor",
+   "title": "TASK FIGHTERMODEL4C - CURSOR (Grok 4.7 High) - the fighter model at the old speed",
+   "brief": "FIGHTERMODEL4C"
+  },
+  {
    "id": "MENUPLAYBOOK2",
    "seat": "cursor",
    "title": "TASK MENUPLAYBOOK2 - CURSOR (Grok 4.7 High) - the Playbook, round 2: to the mockup, on one screen",
@@ -676,6 +682,18 @@
    "seat": "cursor",
    "title": "TASK MENUWEEK2 - CURSOR (Grok 4.7 High) - the Fighter Week page, round 2: to the mockup, on one screen",
    "brief": "MENUWEEK2"
+  },
+  {
+   "id": "MENUPLAYBOOK2B",
+   "seat": "cursor",
+   "title": "TASK MENUPLAYBOOK2 - CURSOR (Grok 4.7 High) - the Playbook, round 2: to the mockup, on one screen",
+   "brief": "MENUPLAYBOOK2"
+  },
+  {
+   "id": "MENUFIGHT1B",
+   "seat": "cursor",
+   "title": "TASK MENUFIGHT1 - CURSOR (Grok 4.7 High) - Fight night's corner and result from the approved mockup",
+   "brief": "MENUFIGHT1"
   }
  ]
 }

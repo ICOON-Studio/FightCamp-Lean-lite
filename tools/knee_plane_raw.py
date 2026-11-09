@@ -3,8 +3,9 @@
 The knee's distance out of the plane through hip, ankle and foot direction. + = towards the actor's own midline.
 A straight leg in a wide stance reads 0.
 
-Run: blender -b --factory-startup --python tools/knee_plane_raw.py -- <fbx>
+Run: blender -b --factory-startup --python tools/knee_plane_raw.py -- <fbx> [start=<s>] [end=<s>]
 Blender is Z-up, right-handed; facing +Y the actor's right is +X.
+LOCOKNEE1: start=<s> end=<s> restricts measurement to frames within that time window.
 """
 import math
 import sys
@@ -56,12 +57,17 @@ def stats(xs):
     return sum(xs) / len(xs), min(xs), max(xs)
 
 
-def measure(path):
+def measure(path, start_s=None, end_s=None):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     bpy.ops.import_scene.fbx(filepath=path, automatic_bone_orientation=False)
     arm = next(o for o in bpy.context.scene.objects if o.type == "ARMATURE")
-    act = arm.animation_data.action
-    f0, f1 = int(act.frame_range[0]), int(act.frame_range[1])
+    act = arm.animation_data.action if arm.animation_data else None
+    f0, f1 = (int(act.frame_range[0]), int(act.frame_range[1])) if act else (1, 1)
+    fps = bpy.context.scene.render.fps
+    if start_s is not None:
+        f0 = max(f0, int(start_s * fps))
+    if end_s is not None:
+        f1 = min(f1, int(end_s * fps))
     sc = bpy.context.scene
     names = {"left": ["LeftUpLeg", "LeftLeg", "LeftFoot", "LeftToeBase"], "right": ["RightUpLeg", "RightLeg", "RightFoot", "RightToeBase"]}
     bones = {k: [bone(arm, n) for n in v] for k, v in names.items()}
@@ -71,7 +77,7 @@ def measure(path):
     used = 0
     for fr in range(f0, f1 + 1):
         sc.frame_set(fr)
-        if fr - f0 < 29:
+        if fr - f0 < 0:
             continue
         used += 1
         mw = arm.matrix_world
@@ -109,5 +115,16 @@ def measure(path):
 if not selftest():
     sys.exit(1)
 if "--" in sys.argv:
-    for p in sys.argv[sys.argv.index("--") + 1:]:
-        measure(p)
+    args = sys.argv[sys.argv.index("--") + 1:]
+    start_s = None
+    end_s = None
+    paths = []
+    for a in args:
+        if a.startswith("start="):
+            start_s = float(a[6:])
+        elif a.startswith("end="):
+            end_s = float(a[4:])
+        else:
+            paths.append(a)
+    for p in paths:
+        measure(p, start_s, end_s)

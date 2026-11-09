@@ -9,8 +9,8 @@
   "summary": "The guard knock-knee is settled: measured as distance out of the leg's plane, on guard frames only, the game stays within 0.02 of leg length of the source take; no knock-knee on the stills. PRs 78, 101, 102, 103 closed. World page merged and brought to the mockup. Move card camera fixed.",
   "last_working_commit": "d49c1235",
   "verified_playable": "guard_knee, menu_world, world_ladder_rules, golden_path, move_tip, move_book green; World rendered and compared with docs/mockups/s403/world.png",
-  "incomplete_blocked": "#106 fighter model waits on CI (never finished a run). Playbook #105 and Home #107 failed the mockup check: round 2 queued. boxer_footwork still red on main.",
-  "next_action": "Read #106 FIGHTERMODEL4A's CI (re-run in S408): if only boxer_footwork is red, merge it, then render the attribute screens and brief FIGHTERMODEL4B. Collect LOCOKNEE1 (Qwen), MENUPLAYBOOK2, MENUHOME2, MENUWEEK1 (Cursor): render each against its mockup. boxer_footwork torso lean: measure the source take before moving the bar."
+  "incomplete_blocked": "#106 fighter model not mergeable: 2-13x slower in the sim tests and CI over its limit; FIGHTERMODEL4C queued. Playbook #105, Home #107, Fighter Week #108 failed the mockup check: round 2 queued. Cursor signed out. boxer_footwork still red on main.",
+  "next_action": "Cursor needs the operator's `agent login` (Q-S294-132), then FIGHTERMODEL4C, MENUPLAYBOOK2, MENUHOME2, MENUWEEK2 launch. Collect LOCOKNEE1 (Qwen). Read main CI on e681be6c."
  },
  "next": "S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.",
  "assessment": {
@@ -4534,7 +4534,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-09",
+  "updated": "2026-11-09 03:42 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4788,13 +4788,6 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "TASK MENUWORLD2 - CURSOR (Grok 4.7 High) - the World page, round 2: names, width and the fit",
-    "who": "cursor",
-    "started": "2026-11-08T21:42",
-    "run": "MENUWORLD2",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "TASK KNEERAW2 - QWEN (qwen3-coder) - the knee table, round 2: make the two rulers agree",
     "who": "qwen",
     "started": "2026-11-08T22:00",
@@ -4830,17 +4823,24 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "TASK MENUFIGHT1 - CURSOR (Grok 4.7 High) - Fight night's corner and result, built from the approved mockup",
+    "title": "TASK LOCOKNEE1 - QWEN (qwen3-coder) - the walking clips against their source, with the ruler that works",
+    "who": "qwen",
+    "started": "2026-11-09T03:16",
+    "run": "LOCOKNEE1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUPLAYBOOK2 - CURSOR (Grok 4.7 High) - the Playbook, round 2: to the mockup, on one screen",
     "who": "cursor",
-    "started": "2026-11-09T03:11",
-    "run": "MENUFIGHT1"
+    "started": "2026-11-09T03:42",
+    "run": "MENUPLAYBOOK2"
    }
   ],
   "next": [
    {
-    "id": "FIGHTERMODEL4A",
-    "who": "claude",
-    "title": "Fighter model: read CI, merge if clean",
+    "id": "FIGHTERMODEL4C",
+    "who": "cursor",
+    "title": "Fighter model at the old speed, then merge",
     "after": ""
    },
    {
@@ -5107,6 +5107,11 @@
   },
   "done_recently": [
    {
+    "title": "TASK MENUWORLD2 - CURSOR (Grok 4.7 High) - the World page, round 2: names, width and the fit",
+    "who": "cursor",
+    "when": "2026-11-09"
+   },
+   {
     "title": "Guard knee measured properly: no knock-knee against the source take",
     "who": "claude"
    },
@@ -5153,26 +5158,6 @@
    },
    {
     "title": "TASK SPLIT500 - QWEN (qwen3-coder) - make room in the two files at the 500-line limit",
-    "who": "qwen",
-    "when": "2026-11-08"
-   },
-   {
-    "title": "TASK R11F - QWEN (qwen3-coder) - members who leave after a loss are named on the result",
-    "who": "qwen",
-    "when": "2026-11-08"
-   },
-   {
-    "title": "TASK R11E - QWEN (qwen3-coder) - a shot in the clinch says why it landed",
-    "who": "qwen",
-    "when": "2026-11-08"
-   },
-   {
-    "title": "TASK R11D - QWEN (qwen3-coder) - when a fighter pushes back, the card says why",
-    "who": "qwen",
-    "when": "2026-11-08"
-   },
-   {
-    "title": "TASK R11B - QWEN (qwen3-coder) - the week's member change says why",
     "who": "qwen",
     "when": "2026-11-08"
    }
@@ -5375,16 +5360,16 @@
    ],
    "now": [
     {
-     "text": "Fighter model: CI, then merge",
-     "who": "claude"
-    },
-    {
      "text": "Walking clips v source (Qwen)",
      "who": "agent"
     },
     {
-     "text": "Fighter Week page (Cursor)",
+     "text": "Fighter model speed (Cursor)",
      "who": "agent"
+    },
+    {
+     "text": "Cursor sign-in (you)",
+     "who": "operator"
     }
    ],
    "next": [
@@ -5491,6 +5476,6 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "d49c1235",
- "next_action": "Read #106 FIGHTERMODEL4A's CI (re-run in S408): if only boxer_footwork is red, merge it, then render the attribute screens and brief FIGHTERMODEL4B. Collect LOCOKNEE1 (Qwen), MENUPLAYBOOK2, MENUHOME2, MENUWEEK1 (Cursor): render each against its mockup. boxer_footwork torso lean: measure the source take before moving the bar.",
+ "next_action": "Cursor needs the operator's `agent login` (Q-S294-132), then FIGHTERMODEL4C, MENUPLAYBOOK2, MENUHOME2, MENUWEEK2 launch. Collect LOCOKNEE1 (Qwen). Read main CI on e681be6c.",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

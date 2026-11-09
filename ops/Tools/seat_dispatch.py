@@ -321,6 +321,32 @@ def goose_room() -> str:
     return ""
 
 
+CURSOR_AUTH_CHECK = True
+_cursor_auth: list = []
+
+
+def cursor_auth_why() -> str:
+    """S408: a signed-out Cursor exits in a second, and each failed launch used up its task id (MENUFIGHT1, MENUPLAYBOOK2).
+    `agent status` said "Logged in" while every real call was refused, so this asks with a one-word prompt, once a process.
+    Only a refusal holds the launch: a timeout or any other error does not."""
+    if not CURSOR_AUTH_CHECK:
+        return ""
+    if not _cursor_auth:
+        why = ""
+        ws = Path("E:/FightCamp/tmp/cursor_ping")
+        ws.mkdir(parents=True, exist_ok=True)
+        agent = Path(os.environ.get("LOCALAPPDATA", "")) / "cursor-agent" / "agent.cmd"
+        try:
+            run = subprocess.run(["cmd", "/c", str(agent), "-p", "--trust", "--model", SEATS["cursor"]["model"], "--workspace", str(ws)],
+                input="Reply with the single word ok.", capture_output=True, text=True, timeout=90, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+            if "Authentication required" in (run.stdout or "") + (run.stderr or ""):
+                why = "Cursor is signed out (run `agent login` once)"
+        except (OSError, subprocess.SubprocessError):
+            pass
+        _cursor_auth.append(why)
+    return _cursor_auth[0]
+
+
 def decide(rows: list[dict], procs: list, red: bool, red_line: str, e_free_gb: float) -> list[dict]:
     """Every queued row with its verdict: CLOUD (a pure qwen task to Goose, S380; one a cycle), LAUNCH (the first
     LAUNCHES_PER_CYCLE that pass the PC gates) or why it waits."""
@@ -348,6 +374,8 @@ def decide(rows: list[dict], procs: list, red: bool, red_line: str, e_free_gb: f
             why = f"E: has {e_free_gb:.0f} GB free (< {E_FREE_MIN_GB})"
         if not why and launches >= LAUNCHES_PER_CYCLE:
             why = f"one launch per cycle (next cycle)"
+        if not why and r["seat"] == "cursor":
+            why = cursor_auth_why()
         if not why:
             launches += 1
             used.add(r["seat"])
@@ -1183,6 +1211,8 @@ def selftest() -> int:
     saved = {k: g[k] for k in ("brief_why", "fresh_why", "seat_busy", "pc_agents", "cloud_why", "goose_room")}
     g.update(cloud_why=lambda t: "selftest: PC route", goose_room=lambda: "selftest: PC route")  # the PC-gate cases test the PC route
     g.update(brief_why=lambda t: "" if t else "no brief", fresh_why=lambda t, s: "", seat_busy=lambda s, p: "", pc_agents=lambda p: [])
+    global CURSOR_AUTH_CHECK
+    CURSOR_AUTH_CHECK = False   # no network in the selftest
     d = decide(rows, [], True, "RED 90C", 100.0)
     cases.append(("decide: RED holds every launch", all(x["verdict"] == "WAIT" for x in d)))
     film_proc = [(1, "c:/godot.exe --path . --windowed --write-movie x.avi")]
