@@ -142,6 +142,29 @@ static func hover_grow(b: Control, by: float = 1.04) -> void:
 	b.mouse_exited.connect(to.bind(1.0))
 
 
+## S408 operator: "apply the ludo filters textures to the game for all menus": Ludo's painted wall behind every page.
+static func wall() -> TextureRect:
+	var r := TextureRect.new()
+	r.name = "PaintedWall"
+	r.texture = load("res://assets/ui/art/menu_wall.jpg")
+	r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	r.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return r
+
+
+## ... and its painted paper grain laid over the whole page, cards, buttons and all (multiplied, so white turns to painted paper).
+static func paper_filter() -> TextureRect:
+	var r := wall()
+	r.name = "PaintedPaper"
+	r.texture = load("res://assets/ui/art/menu_paper.jpg")
+	var mul := CanvasItemMaterial.new()
+	mul.blend_mode = CanvasItemMaterial.BLEND_MODE_MUL
+	r.material = mul
+	return r
+
+
 ## A number that counts up to its value. `show` formats it.
 static func count(l: Label, to: int, show: Callable, seconds: float = 0.6) -> void:
 	l.text = str(show.call(to))

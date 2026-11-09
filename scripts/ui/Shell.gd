@@ -20,13 +20,15 @@ const AREA_SCENES := {
 
 const HomeRows := preload("res://scripts/ui/HomeRows.gd")
 const HomeNeeds := preload("res://scripts/ui/HomeNeeds.gd")
-const RAIL_W := 214.0
+const RAIL_W := 128.0
+const KitIcon := preload("res://scripts/ui/KitIcon.gd")
+const RAIL_ICON := {"home": "star", "fighters": "bag", "fights": "champion", "gym": "money", "world": "up"}
 const BADGE := "res://assets/ui/club_badge.svg"
 const RAIL := [["home", "Home"], ["fighters", "Fighters"], ["fights", "Fights"], ["gym", "Club"], ["world", "World"]]
 
 var _top: PanelContainer
 var _guide: VBoxContainer   # S387 FirstWeekStrip, only while the first-week guide runs
-var _rail: VBoxContainer
+var _rail: BoxContainer
 var _scroll: ScrollContainer
 var _content: MarginContainer
 var _gear_menu: PopupMenu
@@ -40,19 +42,15 @@ func _ready() -> void:
 	_top.theme_type_variation = "TopBar"
 	add_child(_top)
 	_guide = UI.vbox(0)
-	var body := UI.hbox(0)
+	# S408 operator: the HUD skips the side panel: one icon bar under the top bar, the page gets the full width.
+	var body := UI.vbox(0)
 	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	add_child(body)
-	var rail_panel := PanelContainer.new()
-	rail_panel.theme_type_variation = "RailPanel"
-	rail_panel.custom_minimum_size = Vector2(RAIL_W, 0)
-	body.add_child(rail_panel)
-	_rail = UI.vbox(4)
-	rail_panel.add_child(_rail)
 	# S397 rank 5 round 1 (blind: the guide strip ran the full width above the rail - double chrome): the guide is an inset
 	# banner at the top of the workspace column, right of the rail.
 	var col := UI.vbox(0)
 	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	col.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	body.add_child(col)
 	col.add_child(_guide)
 	_scroll = ScrollContainer.new()
@@ -120,6 +118,11 @@ func _build_top(main: Node) -> void:
 	date.custom_minimum_size = Vector2(176, 0)   # the speed buttons stay put as the date's length changes
 	Tips.card(date, func(): return TopCards.date(main.career))   # S362 J90 6g
 	h.add_child(date)
+	_rail = UI.hbox(6)   # S408 the five places are icons in the top bar, like a game's HUD
+	_rail.name = "IconBar"
+	_rail.alignment = BoxContainer.ALIGNMENT_CENTER
+	_rail.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	h.add_child(_rail)
 	# S397 blind rounds 3-4 ("Pause/1x/2x/3x beside CONTINUE reads as two time systems"): one clock - CONTINUE runs the
 	# days and pauses them; how fast it runs is a setting (Menu > Settings, "Days run at").
 	# S394 HOME shows every need itself, so the flags stay for the other pages.
@@ -203,16 +206,16 @@ func _build_rail(main: Node) -> void:
 		var on: bool = area == id or (id == "gym" and area == "money")
 		var b := UI.button(r[1], "RailOn" if on else "Rail", main.act.bind("go", "gym:1") if id == "gym" else main.act.bind("area", id))
 		b.name = "Rail_" + id
-		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		b.custom_minimum_size = Vector2(0, 52)
+		b.custom_minimum_size = Vector2(RAIL_W, 48)
+		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		b.add_theme_font_size_override("font_size", 19)
+		b.icon = KitIcon.tex(str(RAIL_ICON[id]), 24)
+		b.add_theme_constant_override("h_separation", 10)
+		for state in ["icon_normal_color", "icon_hover_color", "icon_pressed_color", "icon_focus_color"]:
+			b.add_theme_color_override(state, UI.RED if on else UI.GOLD)
 		_rail.add_child(b)
 		if id == "fights":
 			_offer_badge(b, main.career)
-	var gap := Control.new()
-	gap.custom_minimum_size = Vector2(0, 28)
-	_rail.add_child(gap)
-	_rail.add_child(_club_mark(main.career))
 
 
 ## The offers still to answer, a count on the Fights button.
@@ -229,7 +232,7 @@ func _offer_badge(b: Button, c: Career) -> void:
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	pill.add_child(l)
 	pill.custom_minimum_size = Vector2(22, 22)
-	pill.position = Vector2(RAIL_W - 50, 18)
+	pill.position = Vector2(RAIL_W - 24, 2)
 	b.add_child(pill)
 
 

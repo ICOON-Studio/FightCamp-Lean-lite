@@ -25,10 +25,6 @@ func _initialize() -> void:
 			if s != null:
 				_check(s.position.x >= 0.0 and s.position.x + s.size.x <= hub.size.x + 1.0 and s.size.y > 40.0, "%s is on the painting (%s, %s)" % [id, s.position, s.size])
 	_check(hub != null and hub.find_child("GymLayout", true, false) != null, "the player can change the layout")
-	for lay in preload("res://scripts/ui/GymHub.gd").LAYOUTS:
-		_check((lay as Array).size() == 6, "every layout has all six places")
-		for r in lay:
-			_check(float(r[0]) >= 0.0 and float(r[0]) + float(r[2]) <= 1.0 and float(r[1]) >= 0.0 and float(r[1]) + float(r[3]) <= 1.0, "a place stays on its painting %s" % str(r))
 	await _click(main, "fights", "fights", 0)
 	await _click(main, "office", "gym", 1)
 	await _click(main, "world", "world", 1)

@@ -67,7 +67,9 @@ func _ready() -> void:
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(bg)
+	add_child(preload("res://scripts/ui/MenuFx.gd").wall())
 	_screen_holder = _layer()
+	add_child(preload("res://scripts/ui/MenuFx.gd").paper_filter())   # over the menus, under the fight
 	_fight_layer = _layer()
 	_modal_layer = _layer()
 	_mat_layer = _layer()
