@@ -88,12 +88,21 @@ func _initialize() -> void:
 	if p != null:
 		# S382 round 2: a solid partner who reacts - the jab slipped or blocked, the cross taken.
 		_check(float(p.ghost_alpha()) > 0.99, "the partner is solid, not a ghost (alpha %.2f)" % float(p.ghost_alpha()))
-		_check(p.bodies_in_frame(), "both bodies head to feet in the studio camera")
 		var seen := await _partner_clips(p, 3.0)
 		_check(seen.any(func(c): return str(c).contains("dodge") or str(c).contains("block") or str(c) == "slip"),
 			"the partner slips or blocks the jab (%s)" % str(seen))
 		_check(seen.any(func(c): return str(c).contains("hit_by_cross") or str(c).contains("hit_jab") or str(c) == "react_head"),
 			"and takes the cross (%s)" % str(seen))
+		# S408: the clip runs on real time, so one instant on a slow runner proves nothing: count frames (red on CI at 1 instant, green here).
+		var framed := 0
+		var first_bad := ""
+		for k in 30:
+			await process_frame
+			if p.bodies_in_frame():
+				framed += 1
+			elif first_bad == "":
+				first_bad = _where(p)
+		_check(framed >= 27, "both bodies head to feet in the studio camera (%d of 30 frames) %s" % [framed, first_bad])
 	var r := card.get_global_rect()
 	var tr := tip.get_global_rect()
 	var screen := tip.get_viewport().get_visible_rect().size   # headless reports its own height; the card keeps to it
@@ -292,3 +301,20 @@ func _check(ok: bool, what: String) -> void:
 	print(("  ok   " if ok else "  FAIL ") + what)
 	if not ok:
 		_fails += 1
+
+
+## Where each body's head and feet land in the studio picture, for a failed framing check.
+func _where(p: Node) -> String:
+	var cam: Camera3D = p.get("_cam")
+	var vp: Viewport = p.get("_vp")
+	var st: Node = p.get("_stage")
+	if cam == null or vp == null or st == null:
+		return "(no studio)"
+	var bits: Array = ["view %s clip %s" % [str(vp.get_visible_rect().size), str(p.get("_move_id"))]]
+	for bx in st.boxers:
+		var skel: Skeleton3D = bx["skel"]
+		for bone in ["Head", "LeftFoot", "RightFoot"]:
+			var at: Vector3 = skel.global_transform * skel.get_bone_global_pose(skel.find_bone(bone)).origin
+			var px: Vector2 = cam.unproject_position(at)
+			bits.append("%s %d,%d" % [bone, int(px.x), int(px.y)])
+	return " ".join(bits)

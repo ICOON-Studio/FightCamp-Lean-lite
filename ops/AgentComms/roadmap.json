@@ -1,22 +1,16 @@
 {
  "_note": "SINGLE SOURCE OF TRUTH for the roadmap. The ops board reads this file directly and ROADMAP.md is GENERATED from it by Tools/render_roadmap.py. Do not hand-maintain a second copy anywhere - that is the defect R136/U62 named and it has cost this project eight times.",
- "updated": "2026-11-08",
+ "updated": "2026-11-09",
  "author": "claude S294",
  "now": {
-  "id": "S407",
+  "id": "S408",
   "owner": "claude",
-  "updated": "2026-11-08",
-  "summary": "Money page merged from the mockup: buttons and tabs were unreadable (styled before the theme loaded), fixed with frame margins and table columns. The S406 knock-knee test could not see the game's guard: KNEERAW1 on Qwen fixes the measure, then raw clip against ours. ring_feet intermittent red explained and fixed. Ziva back on main.",
-  "last_working_commit": "cdeab919",
-  "verified_playable": "menu_money, cash_forecast, truth_pass, file_limits, golden_path, ring_feet on the merged Money branch; Money stills viewed by Claude against docs/mockups/s403/money.png",
-  "incomplete_blocked": "KNEERAW1 finishing, KNEERAW2 (Qwen) starts after it. MENUWORLD2 (Cursor) running. #101 and #78 held for the knee answer; #99 World waits for round 2. Main CI on cdeab919 not read yet.",
-  "next_action": "Read KNEERAW2 (check the raw and game signs agree before believing any row), look at a still of the arm and frame it names, then set the knee bar or fix the layer it names; close #101 and #78 on that answer. Collect MENUWORLD2: render 30_rankings with tools/layout_snapshot.gd, compare with the mockup, close #99. Read main CI: move_tip now prints its FAIL line.",
-  "next_acceptance": "No screen is built without his OK on its Miro row and painted concept; mechanics ruled before menus are finalised; animation moves each session.",
-  "awaiting_operator": [
-   "Keep or cut Test day and dues bands (dues measured: premium best at every reputation)",
-   "Yes, ARCHIVED: copy 7 JPGs and 2 mockups to the ONE board, delete the old one",
-   "Play the S407 build: is the Money page clear? Can you tell what to buy next?"
-  ]
+  "updated": "2026-11-09",
+  "summary": "The guard knock-knee is settled: measured as distance out of the leg's plane, on guard frames only, the game stays within 0.02 of leg length of the source take; no knock-knee on the stills. PRs 78, 101, 102, 103 closed. World page merged and brought to the mockup. Move card camera fixed.",
+  "last_working_commit": "d49c1235",
+  "verified_playable": "guard_knee, menu_world, world_ladder_rules, golden_path, move_tip, move_book green; World rendered and compared with docs/mockups/s403/world.png",
+  "incomplete_blocked": "#106 fighter model waits on CI (never finished a run). Playbook #105 and Home #107 failed the mockup check: round 2 queued. boxer_footwork still red on main.",
+  "next_action": "Read #106 FIGHTERMODEL4A's CI (re-run in S408): if only boxer_footwork is red, merge it, then render the attribute screens and brief FIGHTERMODEL4B. Collect LOCOKNEE1 (Qwen), MENUPLAYBOOK2, MENUHOME2, MENUWEEK1 (Cursor): render each against its mockup. boxer_footwork torso lean: measure the source take before moving the bar."
  },
  "next": "S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.",
  "assessment": {
@@ -1617,6 +1611,11 @@
    "id": "S407",
    "date": "2026-11-08",
    "note": "Money page merged: buttons were unreadable (theme read before the tree), frame margins, table columns, net on price tags, prices on Hire, bars to size; one critic 6/10 before the last fixes. The S406 knee numbers were a broken ruler; KNEERAW1 round 1 flipped the sign and missed the read point, KNEERAW2 briefed. ring_feet red explained (test skipped guard). Ziva back on main. Build exported."
+  },
+  {
+   "id": "S408",
+   "date": "2026-11-09",
+   "note": "Guard knee measured properly: no knock-knee, four PRs closed, tests/guard_knee_test.gd holds the bar. World page merged, three layout faults fixed against the mockup. move_tip red was real: the card's camera aimed too high. Playbook and Home sent back for round 2. LOCOKNEE1 queued on Qwen. Build exported."
   }
  ],
  "blocked_on_operator": [],
@@ -4535,7 +4534,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-08 21:42 board_sync",
+  "updated": "2026-11-09",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4677,48 +4676,190 @@
   },
   "working_now": [
    {
+    "title": "TASK SOUTHPAW2 - CURSOR (GPT-5.6 Sol High) - the guard knock-knee, round 2: a test that FAILS on main first",
+    "who": "cursor",
+    "started": "2026-11-07T21:21",
+    "run": "SOUTHPAW2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK ANIMREBUILD1 - AGY (Argon High) - design draft: fight animation rebuilt around a clip library + one picker",
+    "who": "antigravity",
+    "started": "2026-11-07T22:09",
+    "run": "ANIMREBUILD1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK RETARGET1 - CURSOR (GPT-5.6 Sol High) - bring the purchased Punch PRO pack onto our boxer WITHOUT breaking it",
+    "who": "cursor",
+    "started": "2026-11-07T22:53",
+    "run": "RETARGET1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK RETARGET2 - CURSOR (GPT-5.6 Sol High) - RETARGET1 round 2: keep the wins, fix the stance and the end trim",
+    "who": "cursor",
+    "started": "2026-11-08T07:24",
+    "run": "RETARGET2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL3B - CURSOR (Grok 4.7 High) - the fighter model to 8/10 built, rule 2 held again (round 2)",
+    "who": "cursor",
+    "started": "2026-11-08T09:11",
+    "run": "FIGHTERMODEL3B",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK CORNERTRUST1 - QWEN (qwen3-coder) - a wrong corner call costs her trust; a Low fighter stops listening (rules only)",
+    "who": "qwen",
+    "started": "2026-11-08T10:16",
+    "run": "CORNERTRUST1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK OFFERGONE1 - QWEN (qwen3-coder) - an expired fight offer is never a dead end",
+    "who": "qwen",
+    "started": "2026-11-08T11:03",
+    "run": "OFFERGONE1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK GUIDEFLAG1 - QWEN (qwen3-coder) - the guide strip ends with the first week; the offer flag says what is needed",
+    "who": "qwen",
+    "started": "2026-11-08T12:10",
+    "run": "GUIDEFLAG1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK SWINGCENSUS1 - AGY (Argon High) - every random swing the player feels, and what they are told",
+    "who": "antigravity",
+    "started": "2026-11-08T12:41",
+    "run": "SWINGCENSUS1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK GUIDEFLAG2 - QWEN (qwen3-coder) - round 2: the guide must end, without breaking the first fight",
+    "who": "qwen",
+    "started": "2026-11-08T13:00",
+    "run": "GUIDEFLAG2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK R11A - QWEN (qwen3-coder) - an injury says why it happened",
+    "who": "qwen",
+    "started": "2026-11-08T13:34",
+    "run": "R11A",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "QWEN (qwen3-coder) - a standing count on the cards says what it cost",
+    "who": "goose",
+    "started": "2026-11-08T18:11",
+    "run": "R11C",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUMONEY1 - CURSOR (Grok 4.7 High) - the Money page, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-08T18:48",
+    "run": "MENUMONEY1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUWORLD1 - CURSOR (Grok 4.7 High) - the World page, rebuilt around the rankings",
+    "who": "cursor",
+    "started": "2026-11-08T19:34",
+    "run": "MENUWORLD1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK SOUTHPAW3 - QWEN (qwen3-coder) - the guard knock-knee fix, carried onto today's clips",
+    "who": "qwen",
+    "started": "2026-11-08T20:30",
+    "run": "SOUTHPAW3",
+    "state": "LANDED - Claude collects"
+   },
+   {
     "title": "TASK KNEERAW1 - QWEN (qwen3-coder) - the guard knock-knee: fix the measure, then raw clip against ours",
     "who": "qwen",
     "started": "2026-11-08T21:41",
-    "run": "KNEERAW1"
+    "run": "KNEERAW1",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK MENUWORLD2 - CURSOR (Grok 4.7 High) - the World page, round 2: names, width and the fit",
     "who": "cursor",
     "started": "2026-11-08T21:42",
-    "run": "MENUWORLD2"
+    "run": "MENUWORLD2",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK KNEERAW2 - QWEN (qwen3-coder) - the knee table, round 2: make the two rulers agree",
     "who": "qwen",
+    "started": "2026-11-08T22:00",
     "run": "KNEERAW2",
-    "state": "starts when KNEERAW1 closes"
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUPLAYBOOK1 - CURSOR (Grok 4.7 High) - the Playbook's game plan and Combos, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-08T22:42",
+    "run": "MENUPLAYBOOK1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTERMODEL4A - CURSOR (Grok 4.7 High) - the fighter model on the agreed 10 attributes and 5 boxing skills",
+    "who": "cursor",
+    "started": "2026-11-08T23:42",
+    "run": "FIGHTERMODEL4A",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUHOME1 - CURSOR (Grok 4.7 High) - the Home page, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-09T01:12",
+    "run": "MENUHOME1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUWEEK1 - CURSOR (Grok 4.7 High) - the Fighter Week page, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-09T02:12",
+    "run": "MENUWEEK1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUFIGHT1 - CURSOR (Grok 4.7 High) - Fight night's corner and result, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-09T03:11",
+    "run": "MENUFIGHT1"
    }
   ],
   "next": [
    {
-    "id": "MENUMONEY2",
-    "who": "cursor",
-    "title": "Money page round 2: bills bug, fits one screen",
+    "id": "FIGHTERMODEL4A",
+    "who": "claude",
+    "title": "Fighter model: read CI, merge if clean",
     "after": ""
    },
    {
-    "id": "MENUWORLD1",
-    "who": "cursor",
-    "title": "World page in the game, built around the rankings",
-    "after": "MENUMONEY1"
+    "id": "LOCOKNEE1",
+    "who": "qwen",
+    "title": "Walking clips against their source",
+    "after": ""
    },
    {
-    "id": "MENUWORLD2",
+    "id": "MENUPLAYBOOK2",
     "who": "cursor",
-    "title": "World page, round 2: names, width and the fit",
-    "after": "MENUMONEY2"
+    "title": "Playbook round 2: to the mockup, on one screen",
+    "after": ""
    },
    {
-    "id": "MENUPLAYBOOK1",
+    "id": "MENUHOME2",
     "who": "cursor",
-    "title": "Playbook game plan and Combos in the game",
-    "after": "MENUWORLD1"
+    "title": "Home round 2: the Needs-you board as drawn",
+    "after": "MENUPLAYBOOK2"
    },
    {
     "id": "TRUTH1",
@@ -4966,6 +5107,23 @@
   },
   "done_recently": [
    {
+    "title": "Guard knee measured properly: no knock-knee against the source take",
+    "who": "claude"
+   },
+   {
+    "title": "World page in the game, from the mockup",
+    "who": "cursor"
+   },
+   {
+    "title": "Move card camera: both bodies in frame",
+    "who": "claude"
+   },
+   {
+    "title": "TASK MENUMONEY2 - CURSOR (Grok 4.7 High) - the Money page, round 2: the bills bug and the fit",
+    "who": "cursor",
+    "when": "2026-11-08"
+   },
+   {
     "title": "Money page in the game, from the mockup (critic 6/10 before the last fixes)",
     "who": "claude"
    },
@@ -5017,31 +5175,6 @@
     "title": "TASK R11B - QWEN (qwen3-coder) - the week's member change says why",
     "who": "qwen",
     "when": "2026-11-08"
-   },
-   {
-    "title": "TASK BJJBEAT2 - CURSOR (Grok 4.7 High) - BJJBEAT1 round 2: the last two bars, with a key that does not trade them",
-    "who": "cursor",
-    "when": "2026-11-08"
-   },
-   {
-    "title": "TASK BJJBEAT1 - CURSOR (GPT-5.6 Sol High) - turn the two-sided BJJ beat ON and tune it into the real bars",
-    "who": "cursor",
-    "when": "2026-11-08"
-   },
-   {
-    "title": "TASK SOUTHPAW1 - CURSOR (Composer 2.5, Fast OFF) - a southpaw stands knock-kneed in guard (the operator saw it)",
-    "who": "cursor",
-    "when": "2026-11-07"
-   },
-   {
-    "title": "TASK FIGHTWALK3 - CURSOR (Composer 2.5, Fast OFF) - the corner minute a TV director would cut: 4 -> 8",
-    "who": "cursor",
-    "when": "2026-11-07"
-   },
-   {
-    "title": "TASK HITSELL4 - QWEN (qwen3-coder) - a blocked head shot shows on the fight's own path, a landed one keeps its snap",
-    "who": "qwen",
-    "when": "2026-11-07"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5170,6 +5303,14 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Money page merged",
+     "who": "claude"
+    },
+    {
+     "text": "ring_feet red explained, fixed",
+     "who": "claude"
+    },
+    {
      "text": "SPLIT500 merged (Qwen)",
      "who": "claude"
     },
@@ -5216,29 +5357,33 @@
     {
      "text": "Refuse Lucy: Danny comes in",
      "who": "claude"
-    },
-    {
-     "text": "Side holos back, hit numbers",
-     "who": "claude"
-    },
-    {
-     "text": "GUIDEFLAG2 and swing census in",
-     "who": "agent"
     }
    ],
    "done_session": [
     {
-     "text": "Money page merged",
+     "text": "Guard knee: no knock-knee",
      "who": "claude"
     },
     {
-     "text": "ring_feet red explained, fixed",
+     "text": "World page merged",
+     "who": "claude"
+    },
+    {
+     "text": "Move card camera fixed",
      "who": "claude"
     }
    ],
    "now": [
     {
-     "text": "Fighter model 4A queued",
+     "text": "Fighter model: CI, then merge",
+     "who": "claude"
+    },
+    {
+     "text": "Walking clips v source (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "Fighter Week page (Cursor)",
      "who": "agent"
     }
    ],
@@ -5334,14 +5479,18 @@
     {
      "text": "Money: warm shell, small text",
      "who": "claude"
+    },
+    {
+     "text": "Playbook + Home round 2",
+     "who": "agent"
     }
    ],
-   "session": "S407"
+   "session": "S408"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "89dc4c75",
- "next_action": "S385, in order (NEXT_SESSION_PROMPT.md): (0) list_sessions - S384 may be live, it owns GAMETREE1 stage 1 + DEFFLOW2; (1) merge claude/owned-mocap2 if not done (operator 'Yes, merge it': FootPlant sub-step/low-pass/soft reach + KneeTrack side hysteresis, the knee tremble fix; defflow1 + fight9base touch the same files - keep both); (2) collect loop PRs #40-#44; (3) training1 skeptic fixes (week-2 Monday phase bug, drag proof) then merge; (4) wire the 7 owned takes into the fight; (5) Playbook one page after training; (6) BJJ cards from 3D poses only (Ludo failed).",
+ "last_working_commit": "d49c1235",
+ "next_action": "Read #106 FIGHTERMODEL4A's CI (re-run in S408): if only boxer_footwork is red, merge it, then render the attribute screens and brief FIGHTERMODEL4B. Collect LOCOKNEE1 (Qwen), MENUPLAYBOOK2, MENUHOME2, MENUWEEK1 (Cursor): render each against its mockup. boxer_footwork torso lean: measure the source take before moving the bar.",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

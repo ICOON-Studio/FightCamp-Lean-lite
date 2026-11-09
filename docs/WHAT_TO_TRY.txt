@@ -1,3 +1,13 @@
+FIGHTCAMP - BUILD OF 2026-11-09 (S408): THE WORLD PAGE
+================================================================================
+
+ NEW.
+  a. World > Rankings is the page from your mockup: the rankings on a whiteboard across the whole board, win chance as a band, your fighter pinned at the bottom, side by side on the right, title route and key underneath.
+  b. Unscouted fighters have wide hatched bands, scouted ones narrower. Press a name to compare it side by side.
+  c. The moving card on a move no longer cuts the partner's feet at the bottom edge.
+ TRY: open World > Rankings around week 6. Can you tell who you could beat, and what a scout would change? Is anything hard to read?
+ Still plain: the top bar and the left menu are the old look. Playbook and Home come back next, round 2 is with the agents.
+
 FIGHTCAMP - BUILD OF 2026-11-08 (S407): THE MONEY PAGE
 ================================================================================
 

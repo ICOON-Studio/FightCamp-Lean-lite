@@ -1,3 +1,21 @@
+# S408 handover (written 2026-11-09, S408 main session)
+
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S409` and redraw the map (send only the changed cards; strip data-deleted lines; he has not approved deleting map cards).
+STANDING ORDER: animation progresses every session; name the item and seat in the first message.
+FULL TESTS at 05:00: read ops/AgentComms/nightly/latest.txt and reviews.md first (the 11-09 run had not happened when S408 ended).
+
+BUILT S408, on main:
+THE GUARD KNEE IS SETTLED (ops/research/KNEEPLANE_S408.md). Measured as a knock-knee really is: the knee's distance out of the hip-ankle-foot plane, guard frames only, one process per setup (tools/knee_plane_probe.gd, tools/knee_plane_raw.py). Share of leg length, + = inward: source lead -0.007, rear +0.029; game -0.022 / +0.011 (red), -0.024 / +0.014 (blue); worst frame +0.036. Stills look right too (E:/FightCamp/tmp/s408_knee/stills, on the review board). tests/guard_knee_test.gd holds the bar and trips on a knee pushed 8 cm in. In the guard the footwork rig, FootPlant, KneeTrack and FloorClear are inactive (rig.w 0.00): only JoinSmoother + RkJoinFeet touch the knee. PRs #78, #101, #102, #103 closed. Red's stance looks narrow from the front (feet nearly in line): a width question if he raises it.
+World page merged (#104): closed #99. Fixed on main: the table uses the whole board, names left, thin bands, plaster wall, whole-pixel columns (fractions were each rounded up: 8 px past the screen). Not re-scored by a critic.
+move_tip red was REAL, not timing: the 300 px card's camera aimed too high, partner's foot at 291 of 300. MoveStudio.LOOK_Y 0.85 -> 0.71; the check now counts 30 frames and prints where the bodies land.
+
+COLLECT (order): #106 FIGHTERMODEL4A: its CI had been cancelled, S408 re-ran it (run 42532493346): if only boxer_footwork is red, merge (merges clean; 45 files; 10 attributes + 5 skills, +10 raises win chance 0.015 to 0.087), render the attribute screens, then brief 4B (rule 2 + the scouting audit, on the new list). LOCOKNEE1 (Qwen): the four walking clips against their source with the same ruler; that is the standing animation item, the guard's high KNEERAW readings were walking frames. MENUPLAYBOOK2 (base cursor/menuplaybook1, #105 stays open until it lands): wall, cut ruler text, stretched bars, one screen, player on show, game_plan_test's 12 red checks. MENUHOME2 (base cursor/menuhome1, #107 likewise): board text over its frame, sticky notes as drawn, wall to the bottom, band not dots, THE JOB panel. MENUWEEK1 still running, MENUFIGHT1 queued.
+CI: main red on boxer_footwork only, as far as read (torso lean 11.3-14.0 v bar 8-12, mh_boxer_10 and _01). Not looked into: measure the source take's lean before touching the bar. S408's push has not had its CI read.
+E: 47.5 GB free (89% used), over the 85% rule; 21 held agent worktrees and the pagefile first.
+RENDER TRAP: hidden-desktop stills are 1009 px tall. Say so to any critic.
+WAITING ON HIM: keep or cut Test day and dues bands | "yes, ARCHIVED" | play the S408 build (World page) | does the guard still look knock-kneed to him (two stills sent).
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor Grok 4.7 High until 12-07.
+
 # S407 handover (written 2026-11-08, S407 main session)
 
 OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S408` and redraw the map (strip data-deleted lines; he has not approved deleting map cards).
