@@ -76,7 +76,7 @@ func _refused_both() -> void:
 	_check(msg.contains("Find a fighter"), "the message says where to look (%s)" % msg)
 	_check(str(Roster.prospect(c, "danny").get("state", "")) == "passed", "Danny is gone from the prospects")
 	_check(Needs.needs(c).all(func(n): return str(n.get("act", "")) != "interview"), "no reception row is left")
-	_check(c.guide == "sign" and FirstWeekStrip._word(c, "sign") == "Find a fighter", "the guide's step is Find a fighter")
+	_check(c.guide == "sign" and preload("res://scripts/rules/GuideLines.gd").line(c).contains("find a fighter"), "the guide's line says to find a fighter")
 	_check(FirstWeekStrip.why(c).contains("Find a fighter"), "the guide says where (%s)" % FirstWeekStrip.why(c))
 	_check(Roster.invite(c, "josh"), "a prospect can still be invited")
 	for i in 14:

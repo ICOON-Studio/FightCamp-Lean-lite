@@ -1,6 +1,6 @@
 extends RefCounted
 ## S396 screen cut (docs/STRUCTURE_DESIGN_S395.md 5.4 navigation rule: "every name anywhere is a link"): a line of text where
-## each name the game knows - our fighters and grapplers, the region's rivals - is underlined and opens her page or her file.
+## each name the game knows - our fighters and grapplers, the region's rivals - is in bold and opens her page or her file.
 ##   NameLinks.label(main, c, text, size, colour) -> RichTextLabel
 
 const UI := preload("res://scripts/ui/UI.gd")
@@ -25,7 +25,7 @@ static func bbcode(c: Career, text: String) -> String:
 	for p in people(c):
 		var n := str(p[0])
 		if n != "" and out.contains(n):
-			out = out.replace(n, "[url=%s|%s][u]%s[/u][/url]" % [p[1], p[2], n])
+			out = out.replace(n, "[url=%s|%s][b]%s[/b][/url]" % [p[1], p[2], n])
 	return out
 
 
@@ -37,6 +37,9 @@ static func label(main: Node, c: Career, text: String, size: int = UI.BODY, colo
 	r.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	r.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	r.add_theme_font_override("normal_font", UI.font("body"))
+	r.add_theme_font_override("bold_font", UI.font("bold"))
+	r.add_theme_font_size_override("bold_font_size", size)
+	r.meta_underlined = false   # S413 look round 2: an underlined blue name is a web page
 	r.add_theme_font_size_override("normal_font_size", size)
 	r.add_theme_color_override("default_color", colour)
 	r.text = bbcode(c, text)

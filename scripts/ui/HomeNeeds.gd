@@ -97,6 +97,8 @@ static func _note(main: Node, c: Career, x: Dictionary, i: int) -> Control:
 	v.add_child(push)
 	if str(x["label"]) != "":
 		var b := UI.button(str(x["label"]), "Ink" if i == 0 and level < 2 else "Btn", main.act.bind(str(x["act"]), str(x["arg"])))
+		if i == 0:
+			b.name = "GuideHomeAction"   # the top need: where the guide's light goes on Home
 		b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		v.add_child(b)
 	var pin := Pin.new()

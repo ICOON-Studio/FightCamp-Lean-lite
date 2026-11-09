@@ -2,7 +2,7 @@ extends RefCounted
 ## S408 operator: "Yes, paint it", then "you need to make the gym make sense": the gym is the menu, drawn from its plan
 ## (GymPlan, IsoGym), so a door can only be where the plan puts it. Each place carries a pin and its name; clicking it goes
 ## there; a red pin says the place needs the player.
-##   GymHub.build(main, career) -> Control   (fills the width, HEIGHT tall)
+##   GymHub.build(main, career) -> Control   (S413: fills the window under the top bar)
 
 const UI := preload("res://scripts/ui/UI.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
@@ -13,8 +13,10 @@ const HubFigures := preload("res://scripts/ui/HubFigures.gd")
 const GymPeople := preload("res://scripts/rules/GymPeople.gd")
 const GymBonus := preload("res://scripts/rules/GymBonus.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
+const HomeCorners := preload("res://scripts/ui/HomeCorners.gd")
 
-const HEIGHT := 700.0
+const MIN_HEIGHT := 560.0
+const ABOVE := 100.0   # the top bar and the page's top margin: the gym takes the rest of the window
 const PIN := 56.0
 const NAVY := Color(0.09, 0.14, 0.26, 0.92)
 const TAG := Vector2(170, 104)
@@ -28,7 +30,7 @@ const PLACES := [
 static func build(main: Node, c: Career) -> Control:
 	var hub := Control.new()
 	hub.name = "GymHub"
-	hub.custom_minimum_size = Vector2(0, HEIGHT)
+	hub.custom_minimum_size = Vector2(0, maxf(MIN_HEIGHT, main.get_viewport().get_visible_rect().size.y - ABOVE))
 	hub.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hub.clip_contents = true
 	var plan: Dictionary = GymBonus.plan(c.gym_plan)
@@ -51,6 +53,7 @@ static func build(main: Node, c: Career) -> Control:
 		var s := _spot(main, c, p, iso, _zone(plan, str(p[3])))
 		hub.add_child(s)
 		spots.append(s)
+	HomeCorners.add(hub, main, c)
 	hub.resized.connect(func(): _lay(iso, plan, spots))
 	MenuFx.arrive(spots, 0.1, 0.05)
 	return hub

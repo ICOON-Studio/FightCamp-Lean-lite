@@ -1,3 +1,29 @@
+# S413 handover (written 2026-11-09, S413 main session)
+
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S414` and redraw the map (send only changed cards; strip data-deleted lines; he has not approved deleting map cards).
+READ THE PULL'S OUTPUT. Animation progresses every session: name the item and seat in the first message. 11-10 05:00 is the first real full test run: read ops/AgentComms/nightly/latest.txt against main's CI.
+
+HIS ANSWERS S413: Q-137 "None: try again" (dropped: the gym picture replaces it). Q-140 "Yes, build him" (built). Q-141 "Yes, aim for this" (main screen target: his gym picture). Q-142 coaches "No" (no book, limit or bond: COACH1's area ratings stay).
+HIS WORDS ON HOME: "i dont like the design there is so much unused space and the playable area seems tiny" (looking at the review-board still). Done same turn: the gym fills the window. He has not said whether it is enough.
+
+BUILT S413, on main at d27d0ee7 or later, exported, HE HAS NOT PLAYED IT:
+THE GUIDE: scripts/rules/GuideLines.gd (lines, under 12 words, name only), scripts/ui/GuideLight.gd (dim + ring, never blocks a click, off under a pop-up or when the target is off screen or under the trainer), FirstWeekStrip.make now builds the corner. Portrait assets/ui/art/guide_trainer.png, a round cut of the approved concept. tests/guide_person_test.gd. tools/guide_still.gd renders the first hour. Not scored by a critic.
+HOME: GymHub fills the window under the top bar, scale about 1.29 against 0.89. HomeCorners.gd: The job or Next fight top left, Since last Monday top right, The club + More below bottom right, bottom left free for the trainer. The rest of Home is below the gym. Not scored by a critic. His picture 2 also has a right-hand panel and a Blueprint strip: not built.
+COACH1 + FLOOR2 merged. "Lucy, pad work: +0.00" was real: pad nights teach moves, not attribute points, and move learning read the overall rating. DrillWeek.pad_skill now reads the pad area, the line counts moves, the pads bar shows the learning lift. test_pad_week's pace is pinned at pad 58; Reid's real 74 is about 5% quicker.
+main's CI red was versus_test, stale since the S412 flip: fixed in the test. Main's last finished run before that showed only that one.
+Names bold not underlined (NameLinks), UI.MIN_TEXT 15 in UI.label. Direct font-size overrides (8 places) are not covered.
+
+WAITING ON HIM, READ FIRST:
+Q-S294-143 dark panels or cream pages (docs/mockups/s412/look_10.png). The rest of the look round 2 (critic items 1, 2, 5-7, then pages) waits on it.
+Q-S294-144 gym camera height (docs/mockups/s413/gym_cameras.jpg). GYM3D2's frame time was never printed. The main screen as his picture waits on it. GYM_EXPANSION_S412.md has the plan.
+
+ANIMATION: CLIPFULL1 merged, docs/CLIPFULL1_SCORES.md: one blind judge. None of the five benched takes goes back. pro_right_hook, which plays, scored lowest (4), under its two benched takes: one judge, so not swapped. REARHAND1 (Qwen, launched S413, PR to collect) measures the hand drop the judge described. Believe it only if its two controls pass. Then decide on pro_right_hook.
+COLLECT: REARHAND1. MENUWEEK2 (Cursor, running; built for the old look: read it against his dark or cream answer). FIGHTERMODEL4H then 4B queued next on Cursor (4G was cut off by the restart; 4F, 4H, 4B merge together; 4B's BASE is cursor/fightermodel4h). MENUPLAYBOOK2B and MENUFIGHT1B follow: hold them if he picks dark. Home PR 120 is likely superseded by the full-window gym.
+Map redrawn S413 (LEARN done).
+TRAPS: seat_dispatch.py without --act is a dry run but `--help` is not a flag: it just runs the dry run. Long shell heredocs fail: scripts in the scratchpad. Read prints a tab after the line number: count indent from the file, not the display. Critics' "draw your 10/10": the clip judge did not draw one (stills of a clip have no picture to draw); the list is there.
+E: 34 GB free (over the 85% rule); held agent worktrees are first to go.
+SETTINGS: Claude Opus 5.5, effort high, Fast OFF | critics sonnet | Cursor Grok 4.7 High until 12-07.
+
 # S412 last note (read first)
 He restarted the PC after raising the pagefile (commit free went from 7 to about 16 GB). FIGHTERMODEL4G (Cursor) was running then and is probably cut off: if so its branch and worktree block the same id, so re-run it as FIGHTERMODEL4H from the same brief (BASE stays cursor/fightermodel4f, and 4B's BASE follows it).
 COACH1 PR 127: opened the render of Club > People from its worktree: the five bars and "Best at" read true and the page fits. It was built before the new theme, so its own blues and pale cards will change on merge: render again after. Its CI has one red, move_tip (19 of 150 frames): not its files, read main's CI on e0c3382f first (it was in progress) to see if main shares it, then merge. "Lucy, pad work: +0.00" still needs a look.

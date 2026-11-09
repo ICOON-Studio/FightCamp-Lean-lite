@@ -54,7 +54,7 @@ func _fit() -> void:
 	var h := float(plan["h"])
 	var box_w := (w + h) * TW * 0.5
 	var box_h := (w + h) * TH * 0.5 + WALL
-	_scale = minf(size.x / box_w, size.y / box_h) * 0.97
+	_scale = minf(size.x / box_w, size.y / box_h) * 0.995   # S413 no border around the gym
 	_origin = Vector2((size.x - box_w * _scale) * 0.5 + h * TW * 0.5 * _scale, (size.y - box_h * _scale) * 0.5 + WALL * _scale)
 
 

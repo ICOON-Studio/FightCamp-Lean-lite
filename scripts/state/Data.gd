@@ -23,11 +23,14 @@ const AREAS: Array[Dictionary] = [
 
 ## Decided: the first coach is sessional at $450 a week; $1,000 to sign either. S397 rank 5: the player is the head coach, so
 ## both are assistants (docs/STRUCTURE_DESIGN_S395.md 5.8: "Luke Reid becomes your first assistant").
+## S411: `areas` average to `rating` exactly (58 and 74). Fight-plan lines keep reading `rating`.
 const COACHES: Array[Dictionary] = [
 	{"id": "reid", "name": "Luke Reid", "kind": "Sessional assistant coach", "salary": 450, "rating": 58, "spec": "Pad work",
-		"note": "three evenings a week"},
+		"note": "three evenings a week",
+		"areas": {"pads": 74, "bag": 64, "sparring": 58, "conditioning": 48, "strength": 46}},
 	{"id": "hale", "name": "Marcus Hale", "kind": "Full-time assistant coach", "salary": 1090, "rating": 74, "spec": "Conditioning",
-		"note": "every day, better gains"},
+		"note": "every day, better gains",
+		"areas": {"conditioning": 90, "strength": 84, "bag": 72, "sparring": 66, "pads": 58}},
 ]
 
 

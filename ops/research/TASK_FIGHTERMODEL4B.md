@@ -5,7 +5,7 @@ FIRST: merge origin/main into this branch. It merges together with FIGHTERMODEL4
 Start every Godot run through `python ops/Tools/godot_slot.py run --who cursor -- <godot cmd>`.
 
 ## Contract
-BASE: cursor/fightermodel4g
+BASE: cursor/fightermodel4h
 OWNS: scripts/rules/AttrGen.gd, scripts/rules/Attrs.gd, scripts/rules/BoutRead.gd, scripts/rules/Duels.gd, scripts/rules/Exchanges.gd, scripts/rules/Matchmaking.gd, tests/matchup_spread_test.gd
 RED_TEST: tests/matchup_spread_test.gd -> MATCHUP_SPREAD failures=0
 REGRESSION: matchmaking_bots_test, plan_bots_test, bout_read_test, world_years_test, golden_path_test

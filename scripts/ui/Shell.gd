@@ -21,13 +21,15 @@ const AREA_SCENES := {
 const HomeRows := preload("res://scripts/ui/HomeRows.gd")
 const HomeNeeds := preload("res://scripts/ui/HomeNeeds.gd")
 const RAIL_W := 128.0
+const PAGE_FOOT := 48
+const GUIDE_ROOM := 230
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 const RAIL_ICON := {"home": "star", "fighters": "bag", "fights": "champion", "gym": "money", "world": "up"}
 const BADGE := "res://assets/ui/club_badge.svg"
 const RAIL := [["home", "Home"], ["fighters", "Fighters"], ["fights", "Fights"], ["gym", "Club"], ["world", "World"]]
 
 var _top: PanelContainer
-var _guide: VBoxContainer   # S387 FirstWeekStrip, only while the first-week guide runs
+var _guide: Control   # S413 the old trainer: a zero-size slot, drawn over the page while the first-hour guide runs
 var _rail: BoxContainer
 var _scroll: ScrollContainer
 var _content: MarginContainer
@@ -41,24 +43,23 @@ func _ready() -> void:
 	_top = PanelContainer.new()
 	_top.theme_type_variation = "TopBar"
 	add_child(_top)
-	_guide = UI.vbox(0)
+	_guide = Control.new()
+	_guide.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	# S408 operator: the HUD skips the side panel: one icon bar under the top bar, the page gets the full width.
 	var body := UI.vbox(0)
 	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	add_child(body)
-	# S397 rank 5 round 1 (blind: the guide strip ran the full width above the rail - double chrome): the guide is an inset
-	# banner at the top of the workspace column, right of the rail.
 	var col := UI.vbox(0)
 	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	col.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	body.add_child(col)
-	col.add_child(_guide)
 	_scroll = ScrollContainer.new()
 	_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER   # S412 a game page has no browser bar; the wheel still scrolls
 	col.add_child(_scroll)
+	col.add_child(_guide)   # after the page, so it draws on top of it
 	_content = MarginContainer.new()
 	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	for side in ["left", "right"]:
@@ -86,7 +87,17 @@ func refresh(main: Node) -> void:
 	var area: Node = AREA_SCENES[main.route["area"]].instantiate()
 	_content.add_child(area)
 	area.build(main)
+	_guide_room.call_deferred()
 	_scroll.set_deferred("scroll_vertical", scroll)
+
+
+## S413 a page taller than the window can scroll clear of the old trainer. A page that fits keeps its normal margin.
+func _guide_room() -> void:
+	if _main == null or _main.career == null or not is_instance_valid(_content):
+		return
+	var now := _content.get_theme_constant("margin_bottom")
+	var tall := _content.get_combined_minimum_size().y - now + PAGE_FOOT > _scroll.size.y
+	_content.add_theme_constant_override("margin_bottom", GUIDE_ROOM if _main.career.guide != "" and tall else PAGE_FOOT)
 
 
 func scroll_top() -> void:

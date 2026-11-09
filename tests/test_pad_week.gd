@@ -33,7 +33,8 @@ func _initialize() -> void:
 
 func _lucy() -> Array:
 	var c := Career.quick_start()
-	c.coach = Data.coach("reid")   # Luke Reid, rated 58
+	c.coach = Data.coach("reid").duplicate(true)   # Luke Reid, overall 58
+	c.coach["areas"]["pads"] = 58   # S413 the pace below is read at 58 (his real pad rating, 74, is about 5% quicker: still usable Wednesday of week 2)
 	c.fighters.append(Data.fighter_state(Data.lucy(), c.day))
 	return [c, c.fighter()]
 

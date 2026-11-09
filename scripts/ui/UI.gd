@@ -40,7 +40,8 @@ const PURPLE := Color("#8a5cf0")
 
 const BODY := 19
 const SMALL := 16
-const TINY := 14
+const TINY := 15
+const MIN_TEXT := 15   # S413 look round 2: no word on any page smaller than this
 
 static var _fonts: Dictionary = {}
 static var _theme: Theme
@@ -261,7 +262,7 @@ static func _button(t: Theme, name: String, bg: Color, border: Color, fg: Color,
 static func label(text: String, size: int = BODY, color: Color = FG, kind: String = "body", wrap: bool = false) -> Label:
 	var l := Label.new()
 	l.text = text
-	l.add_theme_font_size_override("font_size", size)
+	l.add_theme_font_size_override("font_size", maxi(size, MIN_TEXT))
 	l.add_theme_color_override("font_color", color)
 	# S398 menus round 6 ("brush font for page titles only"): the brush (Permanent Marker) draws titles of 28 px and up;
 	# a smaller "marker" word is the plain bold face.

@@ -25,6 +25,16 @@ func _initialize() -> void:
 			_check(s != null, "the gym has " + id)
 			if s != null:
 				_check(s.position.x >= 0.0 and s.position.x + s.size.x <= hub.size.x + 1.0 and s.size.y > 40.0, "%s is on the painting (%s, %s)" % [id, s.position, s.size])
+	if hub != null:
+		_check(hub.size.y >= 1080.0 - 101.0, "the gym takes the whole window under the top bar (%.0f tall)" % hub.size.y)
+		var iso := hub.find_child("IsoGym", true, false)
+		_check(float(iso._scale) >= 1.2, "the gym is drawn big (scale %.2f)" % float(iso._scale))
+		for corner in ["CornerTopLeft", "CornerTopRight", "CornerBottomRight"]:
+			var box := hub.find_child(corner, true, false) as Control
+			_check(box != null and hub.get_global_rect().encloses(box.get_global_rect()), "%s is inside the window" % corner)
+			for id in ["reception", "training", "playbook", "fights", "office", "world"]:
+				var pin := hub.find_child("Place_" + id, true, false) as Control
+				_check(box != null and pin != null and not box.get_global_rect().intersects(pin.get_global_rect()), "%s does not cover %s" % [corner, id])
 	_check(hub != null and hub.find_child("GymLayout", true, false) == null, "the building is chosen at setup, not swapped for free on Home")
 	_figures(hub)
 	await _click(main, "fights", "fights", 0)

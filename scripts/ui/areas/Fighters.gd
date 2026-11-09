@@ -181,6 +181,7 @@ func _camps(main: Node, c: Career) -> void:
 			v.add_child(UI.label("No camp yet", UI.BODY, UI.AMBER, "bold"))
 			v.add_child(UI.label("vs %s, %s - %d days out" % [fb["opp"]["name"], Clock.fmt(int(fb["day"])), days_to_bout], UI.BODY))
 			var set_camp := UI.button("Set camp", "BtnSolid", main.act.bind("camp", f["id"]), camp_locked, camp_why)
+			set_camp.name = "SetCamp"
 			set_camp.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 			v.add_child(set_camp)
 		else:

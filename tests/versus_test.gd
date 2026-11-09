@@ -35,7 +35,11 @@ func _initialize() -> void:
 	var blue: Node = main.find_child("Side_blue", true, false)
 	if blue != null:
 		var body: TextureRect = blue.find_child("Body", true, false)
-		_check(body != null and body.texture != null and body.flip_h, "the right-hand boxer has a picture and faces the middle")
+		_check(body != null and body.texture != null and not body.flip_h, "the right-hand boxer has a picture and faces the middle")   # S412: the pictures already face left, so only the left side turns
+	var red: Node = main.find_child("Side_red", true, false)
+	if red != null:
+		var red_body: TextureRect = red.find_child("Body", true, false)
+		_check(red_body != null and red_body.texture != null and red_body.flip_h, "the left-hand boxer has a picture and is turned to face the middle")
 	for row in ["RECORD", "AGE", "ON THE DAY", "HEIGHT", "STANCE"]:
 		_check(main.find_child("Tape_" + row, true, false) != null, "the tape shows " + row)
 	var win: Label = main.find_child("VersusWin", true, false)

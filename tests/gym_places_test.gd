@@ -22,13 +22,19 @@ func _initialize() -> void:
 	quit(1 if failures > 0 else 0)
 
 
-## Each plan's total places should be reasonable (within ±10 of 47 given the different compositions).
+## Each plan's total places must be within 3 of 47, and each plan keeps its character.
 func _totals(plans: Array) -> void:
 	for plan in plans:
 		var result: Dictionary = GymPlaces.places(plan)
 		var total: int = int(result["total"])
 		var dev: int = absi(total - 47)
-		_check(dev <= 10, "%s total %d is within 10 of 47 (dev %d)" % [plan["id"], total, dev])
+		var parts: PackedStringArray = []
+		for kind in result:
+			if kind == "total":
+				continue
+			parts.append("%s=%d" % [kind, int((result[kind] as Dictionary)["places"])])
+		print("  %s: %s (total %d)" % [plan["id"], ", ".join(parts), total])
+		_check(dev <= 3, "%s total %d is within 3 of 47 (dev %d)" % [plan["id"], total, dev])
 
 
 ## 140 members at the busy hour: busy(140) = ceil(140/3) = 47, should fill a 47-place floor.

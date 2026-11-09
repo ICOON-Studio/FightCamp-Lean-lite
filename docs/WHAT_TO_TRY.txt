@@ -1,3 +1,15 @@
+FIGHTCAMP - BUILD OF 2026-11-09 (S413): THE OLD TRAINER, AND A BIGGER GYM
+================================================================================
+
+ NEW.
+  a. Home: the gym now fills the window. The job, the week's news and the club's numbers sit in the corners. "More below" takes you to the rest.
+  b. The first hour has a guide: an old trainer in the corner says one short line, and a light marks the thing to touch. Hover the bubble for the reason.
+  c. Club > People: each coach shows what they are good at. Pad work now teaches moves faster with a better pad coach.
+  d. The four gym layouts hold about the same number of people.
+  e. Fighter names are bold instead of underlined links, and no text is smaller than 15.
+ TRY: start a new career and follow the old trainer for the first week. Is the line enough to know what to do? Is the gym big enough now?
+ Still to come: your calls on the board (dark panels or cream pages, the gym camera).
+
 FIGHTCAMP - BUILD OF 2026-11-09 (S412): IT STOPS LOOKING LIKE A WEBSITE
 ================================================================================
 

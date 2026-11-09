@@ -79,8 +79,23 @@ static func inputs(career: Career, f: Dictionary) -> Dictionary:
 	var nights := PadWeek.nights_of(f)
 	var week := PadWeek.week_of(f, nights)
 	_lay_noted(f.get(NOTED, {}), nights, week)
-	return {"skill": float(career.coach.get("rating", 0.0)), "carded": carded, "nights": nights, "week": week,
+	return {"skill": pad_skill(career), "carded": carded, "nights": nights, "week": week,
 		"mults": {"move": float(tw.get("move_mult", 1.0)), "combo": float(tw.get("combo_mult", 1.0))}}
+
+
+## S413: a coach's pad rating is what teaches moves ("Best at: Pad work" has to mean something). No coach = 0, as before.
+static func pad_skill(career: Career) -> float:
+	return float((career.coach.get("areas", {}) as Dictionary).get("pads", career.coach.get("rating", 0.0)))
+
+
+## Mastery points this week's nights would add at this coach skill; nothing is saved.
+static func week_moves(career: Career, f: Dictionary, skill: float) -> float:
+	var inp := inputs(career, f)
+	var r: Dictionary = PadWeek.run_week(f.duplicate(true), inp["nights"], inp["week"], skill, PadWeek.STATION_TIER, inp["mults"], inp["carded"])
+	var total := 0.0
+	for row in r["log"]:
+		total += float(row[3]) - float(row[2])
+	return total
 
 
 ## S382 PLANTRAY1 review (the fight week drilled on Sunday what the board would lay AFTER the fight - the old coach's

@@ -40,8 +40,8 @@ func _strip() -> Node:
 ## The guide's two lines on screen hold these words.
 func _says(what: String, why: String) -> bool:
 	var a := main.find_child("GuideWhat", true, false) as Label
-	var b := main.find_child("GuideWhy", true, false) as Label
-	return a != null and b != null and a.text.contains(what) and b.text.contains(why)
+	var b := main.find_child("GuideBubble", true, false) as Control
+	return a != null and b != null and a.text.contains(what) and b.tooltip_text.contains(why)
 
 
 func _guided() -> void:
@@ -50,14 +50,14 @@ func _guided() -> void:
 	_check(c.guide == "sign", "a new career starts the guide")
 	_check(main.modal.is_empty(), "the career opens on the gym, nothing opens by itself (S275)")
 	_check(_strip() != null and main.find_child("GuideStep", true, false) != null, "the guide shows its step button")
-	_check(_says("Sign your first boxer", "No boxer, no fights"), "the guide says what to do and why: sign")
+	_check(_says("at the desk", "No boxer, no fights"), "the guide says what to do and why: sign")
 	main.on_go()
 	_check(str(main.modal.get("type", "")) == "interview", "the guide's button opens the boxer's interview")
 	_check(c.grapplers.is_empty(), "no grappler is signed at the start")
 	Sim.sign(c, ["Jab and move", "Pad rounds", "Hill sprints"])
 	main.close_modal()
 	_check(_strip() != null, "the strip shows")
-	_check(_says("Hire an assistant coach", "60%"), "the guide says what to do and why: an assistant coach")
+	_check(_says("assistant", "60%"), "the guide says what to do and why: an assistant coach")
 	_check(str(Needs.go_state(c, false)["t"]).begins_with("NEEDS YOU"), "signed, no coach: CONTINUE is blocked")
 	main.on_go()
 	_check(main.route["area"] == "gym" and int(main.route["tab"]) == 1, "CONTINUE goes to GYM > Staff")

@@ -708,6 +708,18 @@
    "status": "queued"
   },
   {
+   "task": "FIGHTERMODEL4H",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-09T15:20"
+  },
+  {
+   "task": "FIGHTERMODEL4B",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-09T14:28"
+  },
+  {
    "id": "MENUPLAYBOOK2B",
    "seat": "cursor",
    "title": "TASK MENUPLAYBOOK2 - CURSOR (Grok 4.7 High) - the Playbook, fewer words, bigger pictures",
@@ -739,6 +751,31 @@
    "title": "TASK HUBSPRITES1 - QWEN (qwen3-coder) - our real boxers as small moving figures for the painted gym",
    "brief": "HUBSPRITES1",
    "status": "landed"
+  },
+  {
+   "task": "CLIPRESCORE1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-09T14:06"
+  },
+  {
+   "task": "FIGHTERMODEL4G",
+   "seat": "cursor",
+   "status": "superseded",
+   "queued": "2026-11-09T14:28",
+   "note": "S413: cut off by the PC restart; re-run as FIGHTERMODEL4H"
+  },
+  {
+   "task": "FLOOR2",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-09T14:48"
+  },
+  {
+   "task": "CLIPFULL1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-09T15:20"
   }
  ]
 }

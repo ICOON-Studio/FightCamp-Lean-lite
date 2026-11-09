@@ -1,6 +1,7 @@
 extends RefCounted
-## S387 the guide's strip under the top bar: the steps of the stage being played, the one being done lit, what to do and why
-## (S388), and its button. It shows only while Career.guide is set; Skip ends the guide for this career.
+## S413 operator, Q-S294-140 "Yes, build him": the guide is a person. An old trainer in the corner says one short line (GuideLines),
+## its button beside it, and a warm light marks the thing to touch (GuideLight). The what and the why stay as the bubble's tooltip.
+## It shows only while Career.guide is set; Skip ends the guide for this career.
 ## S397 rank 5 (ops/research/RANK5_FIRST_HOUR_S397.md): three stages - FIRST WEEK, FIRST FIGHT, THE CLUB (FirstWeek.STAGES).
 ## Every reason is a rule the game runs: the coach share (Sim.NO_COACH_RATING), the show's weight forecast (Sim.weigh_forecast),
 ## the assistant's plan at the bell (CoachPlan), the club tasks (FirstHour.tasks).
@@ -9,6 +10,16 @@ const UI := preload("res://scripts/ui/UI.gd")
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const FirstHour := preload("res://scripts/rules/FirstHour.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
+const GuideLines := preload("res://scripts/rules/GuideLines.gd")
+const GuideLight := preload("res://scripts/ui/GuideLight.gd")
+
+const PORTRAIT := "res://assets/ui/art/guide_trainer.png"
+const PORTRAIT_PX := 190.0
+const TAIL_W := 24.0
+const BUBBLE_TEXT_W := 400.0
+const BUBBLE := Color("#fbf1df")
+const BUBBLE_EDGE := Color("#231f1b")
+const BUBBLE_INK := Color("#231f1b")
 
 const PREP_TAB := 5   # FighterPage "Fight prep"
 const PLAYBOOK_TAB := 7
@@ -18,74 +29,78 @@ const PLAN_PTAB := 1   # the Playbook's game plan
 static func make(main: Node) -> Control:
 	var c: Career = main.career
 	FirstWeek.sync(c)
-	var st := FirstWeek.stage(c)
-	# S397 rank 5 round 1 (blind: double chrome above the rail): an inset whiteboard banner in the workspace, blue left edge.
-	var outer := MarginContainer.new()
-	outer.name = "FirstWeekStrip"
-	for side in ["left", "right"]:
-		outer.add_theme_constant_override("margin_" + side, 28)
-	outer.add_theme_constant_override("margin_top", 18)
+	var light := GuideLight.new()
+	light.name = "FirstWeekStrip"
+	light.main = main
+	light.names = GuideLines.target_names(c)
+	var corner := UI.hbox(0)
+	corner.name = "GuideCorner"
+	corner.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	corner.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+	corner.offset_left = 14.0
+	corner.offset_bottom = -14.0
+	corner.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	light.add_child(corner)
+	corner.add_child(_portrait())
+	corner.add_child(_tail())
+	corner.add_child(_bubble(main, c))
+	return light
+
+
+static func _portrait() -> Control:
+	var t := TextureRect.new()
+	t.name = "GuideFace"
+	t.texture = load(PORTRAIT)
+	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	t.custom_minimum_size = Vector2(PORTRAIT_PX, PORTRAIT_PX)
+	t.size_flags_vertical = Control.SIZE_SHRINK_END
+	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return t
+
+
+## The speech bubble's point, aimed at the old trainer.
+static func _tail() -> Control:
+	var slot := Control.new()
+	slot.custom_minimum_size = Vector2(TAIL_W, 40)
+	slot.size_flags_vertical = Control.SIZE_SHRINK_END
+	slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for layer in [[BUBBLE_EDGE, 4.0], [BUBBLE, 0.0]]:
+		var p := Polygon2D.new()
+		var g := float(layer[1])
+		p.polygon = PackedVector2Array([Vector2(-2.0 - g, 22.0), Vector2(TAIL_W + 3.0, 2.0 - g), Vector2(TAIL_W + 3.0, 38.0 + g)])
+		p.color = layer[0]
+		slot.add_child(p)
+	return slot
+
+
+static func _bubble(main: Node, c: Career) -> Control:
 	var panel := PanelContainer.new()
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = UI.PANEL
-	sb.border_color = UI.LINE
-	sb.set_border_width_all(1)
-	sb.border_width_left = 6
-	sb.border_color = UI.GOLD
-	sb.set_corner_radius_all(10)
-	sb.content_margin_left = 20
-	sb.content_margin_right = 16
-	sb.content_margin_top = 12
-	sb.content_margin_bottom = 12
-	panel.add_theme_stylebox_override("panel", sb)
-	outer.add_child(panel)
-	var v := UI.vbox(8)
+	panel.name = "GuideBubble"
+	panel.size_flags_vertical = Control.SIZE_SHRINK_END
+	panel.add_theme_stylebox_override("panel", UI.box(BUBBLE, BUBBLE_EDGE, 24, 3, 22, 14))
+	panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	var why_text := why(c)
+	panel.tooltip_text = what(c) + ("\n" + why_text if why_text != "" else "")
+	var v := UI.vbox(10)
 	panel.add_child(v)
-	var h := UI.hbox(12)
-	v.add_child(h)
-	var title := UI.caps(str(st[0]) if not st.is_empty() else "FIRST WEEK")
-	title.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	h.add_child(title)
-	if c.guide == "club":
-		var done := FirstHour.tasks(c)
-		for k in FirstHour.TASKS:
-			var chip := UI.chip(("✓  " if bool(done[k]) else "") + str(FirstHour.TASK_WORDS[k]), "green" if bool(done[k]) else "gold")
-			chip.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-			h.add_child(chip)
-	else:
-		var steps: Array = st[1] if not st.is_empty() else []
-		var at := steps.find(c.guide)
-		for i in steps.size():
-			var chip := UI.chip("%d  %s" % [i + 1, _word(c, str(steps[i]))], "green" if i < at else ("gold" if i == at else ""))
-			chip.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-			h.add_child(chip)
-	h.add_child(UI.spacer())
-	var wc := _weight_chip(c)   # S398 round 3 (blind: "the weight sentence pasted onto four screens"): one chip
-	var skip := UI.button("Skip the guide", "BtnQuiet", main.act.bind("guideskip", ""))
-	skip.name = "GuideSkip"
-	skip.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	h.add_child(skip)
-	if wc != null:   # S408 operator: "text goes out side of screen": beside the chips this long line pushed the whole page past the window
-		wc.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-		v.add_child(wc)
-	# S388 operator: "there should be a guid explainaing to player what and why to do": the step, then the reason, on every screen.
+	var said := UI.label(GuideLines.line(c), 27, BUBBLE_INK, "handbold", true)
+	said.name = "GuideWhat"
+	said.custom_minimum_size = Vector2(BUBBLE_TEXT_W, 0)
+	v.add_child(said)
 	var row := UI.hbox(12)
 	v.add_child(row)
-	var say := UI.vbox(2)
-	say.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	row.add_child(say)
-	var what_line := UI.label(what(c), UI.BODY, UI.FG, "bold", true)
-	what_line.name = "GuideWhat"
-	say.add_child(what_line)
-	var why_line := UI.muted(why(c), UI.SMALL, true)
-	why_line.name = "GuideWhy"
-	say.add_child(why_line)
 	var b := _step_button(main, c)
 	if b != null:
 		b.name = "GuideStep"
 		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(b)
-	return outer
+	row.add_child(UI.spacer())
+	var skip := UI.button("Skip the guide", "BtnQuiet", main.act.bind("guideskip", ""))
+	skip.name = "GuideSkip"
+	skip.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	row.add_child(skip)
+	return panel
 
 
 ## What to do now, in one short line.
@@ -162,20 +177,6 @@ static func _weight_line(c: Career, f: Dictionary, day: int) -> String:
 	return line + " %.1f over even with the camp's cut: take the risk, or decline and wait for the next offer." % float(fc["over"])
 
 
-## The show's weight in one chip while the first fight is on: now -> the morning / the limit, green when made.
-static func _weight_chip(c: Career) -> Control:
-	var f := c.fighter()
-	if f.is_empty() or not ["offer", "prep", "fight"].has(c.guide) or float(f["weight"]) <= float(f["limit"]):
-		return null
-	var b: Dictionary = f.get("bout", {})
-	var fc := Sim.weigh_forecast(c, f, int(b["day"]) if b.has("day") else FirstHour.SHOW_DAY)
-	var chip := UI.chip("WEIGHT %.1f KG NOW, %.1f ON FIGHT MORNING, LIMIT %.1f" % [float(f["weight"]), float(fc["day"]), float(f["limit"])],
-		"green" if bool(fc["ok"]) else "red")
-	chip.name = "WeightChip"
-	chip.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	return chip
-
-
 static func _opp(f: Dictionary) -> String:
 	var b: Dictionary = f.get("bout", {})
 	if not b.is_empty():
@@ -188,25 +189,6 @@ static func _show_offer(c: Career) -> Dictionary:
 		if not bool(o["answered"]) and not bool(o["mismatch"]):
 			return o
 	return {}
-
-
-static func _word(c: Career, step: String) -> String:
-	match step:
-		"sign":
-			if c.applicant.is_empty() and c.fighters.is_empty():
-				return "Find a fighter"
-			return "Sign %s" % str(c.applicant.get("first", c.fighter().get("first", "the boxer")))
-		"coach":
-			return "Hire an assistant"
-		"week":
-			return "Set week 1"
-		"offer":
-			return "Take the show"
-		"prep":
-			return "Camp and plan"
-		"fight":
-			return "Weigh-in and fight"
-	return "Continue"
 
 
 ## S397 rank 5 round 1 (blind: "one task, five signals"): the banner's button shows only where the open screen does not already

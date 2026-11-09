@@ -8,7 +8,7 @@ extends RefCounted
 ##   project(days, ctx, weeks) -> the same week repeated: {weight, stats, peak, weeks}
 ##   goal_lines(goal, days, ctx, weeks) -> [{id, label, now, week, end, target, ok, short}]
 ##   evenings_for(spar_nights, pad_nights, film, film_from) -> [7 evening ids]   full_day(id, intensity, evening, ctx, fatigue)   hours(days, evenings)
-## ctx = {stats, pot, coach (rating), weight, diet: hold|cut, fatigue (carried in)}; days = [[id, intensity] x 7].
+## ctx = {stats, pot, coach (a rating, or the coach record so each session reads its area), weight, diet: hold|cut, fatigue (carried in)}; days = [[id, intensity] x 7].
 ## Real-world numbers:
 ## - Energy: kcal = MET x kg x hours (Compendium of Physical Activities 2024, checked by John S354): running 10 km/h 9.3,
 ##   high-intensity intervals 11.0, vigorous circuit weights 6.0, heavy bag 5.8. Body fat ~7,700 kcal a kg (it overstates
@@ -24,6 +24,7 @@ extends RefCounted
 
 const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
+const CoachAreas := preload("res://scripts/rules/CoachAreas.gd")
 
 ## id -> {name, stat, met, min (minutes at normal), rpe}. Rest trains nothing and is where fatigue drains.
 const SESSIONS := {
@@ -152,7 +153,7 @@ static func full_day(id: String, intensity: String, evening: String, ctx: Dictio
 		share = drill * tired
 	if r["stat2"] != "" and stats.has(r["stat2"]):
 		r["gain2"] = float(TrainingPreview.preview_gain(stats, int(ctx.get("pot", 70)), {"training_modifiers": [r["stat2"]]},
-			float(ctx.get("coach", 50.0)), 1.0, share).get(r["stat2"], 0.0))
+			coach_for(ctx, evening), 1.0, share).get(r["stat2"], 0.0))
 	r["fatigue"] = clampf(float(r["fatigue"]) + float(e["rpe"]) * float(e["min"]) * px * float(ctx.get("eve_load", 1.0)) / LOAD_PER_FATIGUE,
 		0.0, 100.0)
 	return r
@@ -174,6 +175,50 @@ static func session(id: String) -> Dictionary:
 	return SESSIONS.get(id, SESSIONS["rest"])
 
 
+## A float coach is the old single rating (tests and a save from before areas). A coach record reads the session's area.
+static func coach_for(ctx: Dictionary, session_id: String) -> float:
+	var c: Variant = ctx.get("coach", 50.0)
+	if c is Dictionary:
+		return CoachAreas.rating_for(c, session_id)
+	return float(c)
+
+
+## Points this week from sessions in `area` (mornings and evenings). Same sums week() adds to the stat.
+static func area_week(days: Array, evenings: Array, ctx: Dictionary, area: String) -> float:
+	var stats: Dictionary = (ctx.get("stats", {}) as Dictionary).duplicate()
+	var fat := float(ctx.get("fatigue", 20.0))
+	var total := 0.0
+	var use_eve := not evenings.is_empty()
+	for i in days.size():
+		var d: Array = days[i]
+		var c: Dictionary = ctx.duplicate()
+		c["stats"] = stats
+		var evening := str(evenings[i]) if use_eve else "rest"
+		var r: Dictionary = full_day(str(d[0]), str(d[1]), evening, c, fat) if use_eve else day(str(d[0]), str(d[1]), c, fat)
+		total += _area_bit(r, str(d[0]), "stat", "gain", area, ctx)
+		if use_eve:
+			total += _area_bit(r, evening, "stat2", "gain2", area, ctx)
+		for pair in [["stat", "gain"], ["stat2", "gain2"]]:
+			var st := str(r.get(pair[0], ""))
+			if st != "" and stats.has(st):
+				var g := float(r[pair[1]])
+				if st == str(ctx.get("camp_stat", "")):
+					g *= float(ctx.get("camp_mult", 1.0))
+				stats[st] = float(stats[st]) + g
+		fat = float(r["fatigue"])
+	return total
+
+
+static func _area_bit(r: Dictionary, session_id: String, stat_key: String, gain_key: String, area: String, ctx: Dictionary) -> float:
+	if CoachAreas.area_of(session_id) != area:
+		return 0.0
+	var g := float(r.get(gain_key, 0.0))
+	var st := str(r.get(stat_key, ""))
+	if st != "" and st == str(ctx.get("camp_stat", "")):
+		g *= float(ctx.get("camp_mult", 1.0))
+	return g
+
+
 static func day(id: String, intensity: String, ctx: Dictionary, fatigue: float) -> Dictionary:
 	var s := session(id)
 	var it: Dictionary = INTENSITY.get(intensity, INTENSITY["normal"])
@@ -186,7 +231,7 @@ static func day(id: String, intensity: String, ctx: Dictionary, fatigue: float) 
 	if stat != "" and stats.has(stat):
 		var share := SESSION_SHARE * float(it["gain"]) * (TIRED_GAIN if fatigue >= OVERREACHED else 1.0)
 		gain = float(TrainingPreview.preview_gain(stats, int(ctx.get("pot", 70)), {"training_modifiers": [stat]},
-			float(ctx.get("coach", 50.0)), 1.0, share).get(stat, 0.0))
+			coach_for(ctx, id), 1.0, share).get(stat, 0.0))
 		gain *= float((ctx.get("head_gain", {}) as Dictionary).get(stat, 1.0))   # S397 HeadCoach: the strength coach
 	# S397 HeadCoach: the old hand's cut runs deeper (head_cut kcal a day on top of the CUT diet).
 	var deficit := (CUT_DEFICIT + float(ctx.get("head_cut", 0.0))) if str(ctx.get("diet", "hold")) == "cut" else 0.0
