@@ -1,0 +1,109 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Gym at 10/10 (designer)</title>
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:1920px;height:1080px;overflow:hidden;position:relative;font-family:"Segoe UI",Arial,sans-serif;background:#2a2320;color:#2b2118}
+#bg{position:absolute;inset:0;background:url(../../../../assets/ui/art/gym_backdrop.jpg) center/cover;filter:brightness(.38) saturate(.8)}
+#bar{position:absolute;left:0;top:0;width:1920px;height:78px;background:#16100d;display:flex;align-items:center;gap:14px;padding:0 18px;color:#f3e9d8;z-index:20}
+#bar .name{font:italic 800 30px "Segoe Script",cursive;color:#4a7de0;margin-left:10px}
+.pill{background:#f4ede0;color:#2b2118;border-radius:8px;padding:12px 22px;font-weight:700;font-size:19px;position:relative}
+.pill.on{border-left:6px solid #d33}
+.pill b{position:absolute;right:-6px;top:-8px;background:#d33;color:#fff;border-radius:50%;width:22px;height:22px;font-size:13px;text-align:center;line-height:22px}
+.need{margin-left:auto;background:#c8302a;border-radius:30px;padding:10px 26px;color:#fff;font-weight:800;font-size:17px}
+.need small{display:block;font-weight:500;font-size:13px}
+.cash{color:#e6b24a;font-size:26px;font-weight:800;text-align:right}.cash small{display:block;color:#b9ac98;font-size:13px;font-weight:400}
+.menu{border:1px solid #888;border-radius:6px;padding:8px 12px}
+#scene{position:absolute;left:0;top:78px;width:1920px;height:1002px}
+.it{position:absolute;transform:translate(-50%,-100%)}
+.fig{position:absolute;width:128px;height:128px;transform:translate(-50%,-100%) scale(.62);transform-origin:50% 100%;background-size:1536px 128px}
+.lab{position:absolute;transform:translate(-50%,0);background:#1b1410;color:#fff;border-radius:7px;padding:4px 11px;font-weight:700;font-size:15px;white-space:nowrap;z-index:8}
+.badge{position:absolute;background:#d33;color:#fff;border-radius:50%;width:24px;height:24px;font-size:14px;font-weight:800;text-align:center;line-height:24px;z-index:9;box-shadow:0 0 0 3px rgba(255,255,255,.6)}
+.warn{display:inline-block;background:#e8a317;color:#222;font-size:10px;font-weight:900;width:15px;height:13px;clip-path:polygon(50% 0,100% 100%,0 100%);text-align:center;line-height:17px;vertical-align:middle;margin-left:4px}
+.card{position:absolute;background:#f8f0e1;border:2px solid #cdbb9a;border-radius:10px;padding:12px 16px;z-index:12;box-shadow:0 6px 18px rgba(0,0,0,.45);font-size:15px;line-height:1.35}
+.card h4{font:800 13px "Segoe UI";letter-spacing:.12em;color:#7a6548;margin-bottom:5px}
+.btn{display:inline-block;background:#2f64c9;color:#fff;border-radius:7px;padding:7px 14px;font-weight:700;margin-top:6px;font-size:14px}
+.btn.g{background:#fff;color:#2f64c9;border:1px solid #2f64c9}
+.wall{position:absolute;z-index:6;transform-origin:0 0}
+</style></head><body>
+<div id="bg"></div>
+<div id="bar"><span class="pill" style="padding:12px 14px">&lt;</span><span class="name">Anvil Street Gym</span><span style="font-size:15px">Mon 5 Jan 2026<br><span style="color:#b9ac98;font-size:13px">Week 1</span></span>
+<span class="pill on" style="margin-left:30px">Home</span><span class="pill">Fighters</span><span class="pill">Fights<b>1</b></span><span class="pill">Club</span><span class="pill">World</span>
+<span class="cash" style="margin-left:auto">$17,200<small>running -$2,130 a week</small></span><span class="need" style="margin-left:0">NEEDS YOU (1)<small>Answer Lucy's bout offer</small></span><span class="menu">Menu</span></div>
+<div id="scene">
+<svg id="floor" width="1920" height="1002" style="position:absolute;left:0;top:0"></svg>
+</div>
+<script>
+const TW=66,TH=33,OX=861,OY=205; // scene coords (inside #scene)
+const P=(x,y)=>[OX+(x-y)*TW/2, OY+(x+y)*TH/2];
+const svg=document.getElementById('floor'),sc=document.getElementById('scene');
+const NS='http://www.w3.org/2000/svg';
+function poly(pts,fill,extra={}){const e=document.createElementNS(NS,'polygon');e.setAttribute('points',pts.map(p=>p.join(',')).join(' '));e.setAttribute('fill',fill);for(const k in extra)e.setAttribute(k,extra[k]);svg.appendChild(e);return e}
+const rect=(x,y,w,h)=>[P(x,y),P(x+w,y),P(x+w,y+h),P(x,y+h)];
+// ghost extension (bigger unit)
+poly(rect(24,0,10,18),'rgba(255,255,255,.07)',{stroke:'#e8c46a','stroke-dasharray':'10 7','stroke-width':3});
+// outer lot shadow
+poly(rect(-.8,-.8,25.6,19.6),'#d9d0c4');
+poly(rect(0,0,24,18),'#e6bf8a');
+const Z=[[0,12,8,6,'#efe3cf'],[0,6,8,6,'#e9d9bd'],[0,0,8,6,'#cfd0cf'],[8,0,16,3,'#c93a33'],[20,3,4,9,'#3b3b44'],[10,5,8,8,'#2f62b8'],[8,14,16,4,'#3d7fd6']];
+Z.forEach(z=>poly(rect(z[0],z[1],z[2],z[3]),z[4]));
+// grid lines
+for(let i=0;i<=24;i++){const a=P(i,0),b=P(i,18);poly([a,b],'none',{stroke:'rgba(80,50,20,.08)'})}
+// back walls
+const wallH=96;function wall(a,b,fill){const A=P(...a),B=P(...b);poly([A,B,[B[0],B[1]-wallH],[A[0],A[1]-wallH]],fill)}
+wall([0,0],[24,0],'#f4f1ec');wall([0,0],[0,18],'#dcd6cf');
+// wall bands
+[[0,0],[24,0]].forEach(()=>{});
+// ---- items
+const items=[];
+function add(img,x,y,w,extra=''){items.push({y:x+y,html:`<img class="it" src="../../../../assets/ui/art/gym/${img}.png" style="left:${P(x,y)[0]}px;top:${P(x,y)[1]}px;width:${w}px;${extra}">`})}
+function fig(sheet,x,y,flip){const [px,py]=P(x,y);items.push({y:x+y+.5,html:`<div class="fig" style="left:${px}px;top:${py}px;background-image:url(../../../../assets/ui/art/hub_sprites/${sheet});${flip?'transform:translate(-50%,-100%) scale(-.62,.62);':''}"></div>`})}
+add('ring',16.2,11.6,420);
+add('lockers',2,1.9,54);add('lockers',6,1.9,54);
+for(let i=0;i<8;i++)add('bag',9.6+i*1.9,2.2,50);
+for(let i=0;i<3;i++)add('rack',22.6,5.2+i*3,90);
+add('office_desk',3.6,9.6,130);add('desk',3.4,14.6,130);add('sofa',6.6,17,112);add('door',3,18,84);
+for(let i=0;i<3;i++)add('mat',12+i*4,17.2,148);
+add('plant',22.6,16.8,54);
+const A=['mh_boxer_01','mh_boxer_02','mh_boxer_03','mh_boxer_07','mh_boxer_08','mh_boxer_10','mh_boxer_11','mh_boxer_12','mh_boxer_13','mh_boxer_14'];
+const pos=[[10.5,3.4,'idle'],[13.5,3.4,'jab'],[17.5,3.4,'jab'],[21,4.2,'idle'],[21.4,10,'idle'],[11,15.4,'idle'],[15,15.8,'jab'],[19,15.6,'idle'],[3.5,3.6,'idle'],[14,9,'idle'],[16.6,9.6,'jab'],[6,12.2,'idle'],[4.8,8.4,'idle'],[9.5,12.6,'idle'],[18.3,3.5,'idle'],[11.5,11.5,'idle']];
+pos.forEach((p,i)=>fig(`${A[i%A.length]}_${p[2]}.png`,p[0],p[1],i%3==1));
+items.sort((a,b)=>a.y-b.y);
+items.forEach(i=>sc.insertAdjacentHTML('beforeend',i.html));
+
+function html(h){sc.insertAdjacentHTML('beforeend',h)}
+function lab(t,x,y,bg,dx=0,dy=0){const [px,py]=P(x,y);html(`<div class="lab" style="left:${px+dx}px;top:${py+dy}px;${bg?'background:'+bg:''}">${t}</div>`)}
+// whiteboard on the left wall (x=0), y 8..11 ; TV on the right wall (y=0), x 15..18
+function wallObj(a,b,h,skew,inner,css){const [ax,ay]=P(...a),[bx,by]=P(...b);const left=Math.min(ax,bx);const top=(ax<bx?ay:by)-h-44;
+ html(`<div class="wall" style="left:${left}px;top:${top}px;width:${Math.abs(bx-ax)}px;height:${h}px;transform:skewY(${skew}deg);${css}">${inner}</div>`)}
+wallObj([0,8],[0,12],62,-26.6,'<svg width="128" height="56"><path d="M10 44 L34 16 L62 34 L96 10" stroke="#d33" stroke-width="3" fill="none"/><circle cx="34" cy="16" r="5" fill="#2f64c9"/><circle cx="96" cy="10" r="5" fill="#2f64c9"/></svg>','background:#fdfdfb;border:4px solid #9aa0a6;');
+wallObj([15,0],[19,0],56,26.6,'NEWS 2 new<br><span style="color:#fff;font-weight:500">Lucy: #6 on a win</span>','background:#10161c;border:4px solid #333;color:#9fe0ff;font:700 11px Segoe UI;padding:5px;line-height:1.25;');
+lab('Game plans<span class="warn">!</span>',0,10,'',-10,-34);
+lab('World: news, rankings<span class="warn">!</span>',17,0,'',10,-6);
+lab('Fights: ring',14,13,'#2f64c9',0,16);html(`<div class="badge" style="left:${P(14,13)[0]+60}px;top:${P(14,13)[1]-4}px">1</div>`);
+lab('Fighters: bags',17,3.2,'',20,30);lab('Club: desk',3.6,9.6,'',60,-8);lab('Reception',3.4,14.6,'',-30,-60);
+lab('Mat: no-gi athletes<span class="warn">!</span>',16,17.8,'#2d5d2d',0,10);
+lab('3 places: 1 used, 2 empty<span class="warn">!</span>',4,2,'#444',0,6);
+</script>
+<!-- clicked ring: what the gym does -->
+<div class="card" style="left:1000px;top:770px;width:400px;border-color:#2f64c9"><h4>YOU CLICKED THE RING</h4>
+<b>Lucy Jackson vs Maria Ortega</b><br>Wed 4 Feb, 3 x 3 min, $450 to the club<br>Win chance 51%, a rough guess. A win: enters at #6.<br>
+<span class="btn">Accept the bout</span> <span class="btn g">Pass</span> <span class="btn g">Full report</span><br>
+<span style="color:#7a6548;font-size:13px">Opens a small card on the gym, not a new page. Full report goes to Fights.</span></div>
+<!-- left: needs board -->
+<div class="card" style="left:24px;top:112px;width:300px;background:#fffaf0"><h4>NEEDS YOU (1)</h4>
+<div style="background:#fbe27a;padding:8px 10px;border-radius:3px;transform:rotate(-1.2deg);font-family:'Segoe Script',cursive;font-size:15px">Answer Lucy's bout offer</div>
+<div class="btn" style="margin-top:8px">Open the ring</div>
+<div style="margin-top:8px;color:#7a6548;font-size:13px">Each need glows on its object in the gym.<span class="warn">!</span></div></div>
+<!-- the job -->
+<div class="card" style="left:24px;top:318px;width:300px"><h4>THE JOB</h4>Keep the doors open. A club show on Sat 31 Jan has a lightweight slot for Lucy.<br><span style="color:#2f64c9;font-weight:700">Show in 26 days</span></div>
+<!-- right: what clicking does -->
+<div class="card" style="left:1560px;top:112px;width:336px;background:#201915;color:#f3e9d8;border-color:#4a3d33"><h4 style="color:#e6b24a">WHAT EACH THING DOES</h4>
+<div style="font-size:14px;line-height:1.6"><b>Ring</b>: bout offers and what is booked<br><b>Bags / a boxer</b>: that fighter's page<br><b>Desk</b>: money, staff, the club<br><b>Reception</b>: walk-ins, members<br><b>Whiteboard</b>: game plan of the next bout<span class="warn">!</span><br><b>TV</b>: news, rankings (World)<span class="warn">!</span><br><b>Empty locker</b>: find a fighter<span class="warn">!</span><br><b>Mat</b>: the no-gi athlete<span class="warn">!</span><br><b>Empty floor</b>: nothing</div></div>
+<!-- bottom left: next fight -->
+<div class="card" style="left:24px;top:830px;width:420px"><h4>NEXT FIGHT</h4><b style="font-size:19px">Lucy Jackson vs Maria Ortega</b><br>Wed 4 Feb, 3 x 3 min. Weight 59.7 kg, limit 60.0.<br><span class="btn">Set the camp</span></div>
+<!-- bottom right: club -->
+<div class="card" style="left:1472px;top:884px;width:424px;display:flex;gap:18px;text-align:center;padding:12px 18px"><div><b style="font-size:22px">30</b><br>Members</div><div><b style="font-size:22px">10</b><br>Reputation</div><div><b style="font-size:22px">$17,200</b><br>Cash</div><div><b style="font-size:22px">$9,488</b><br>Bills</div><div><b style="font-size:22px">2</b><br>Mail</div></div>
+<!-- premises growth -->
+<div class="card" style="left:1472px;top:790px;width:424px;background:#fff6dc;border-style:dashed"><h4>THIS UNIT: 70 MEMBERS, 3 PLACES</h4>Bigger unit: 140 members, 5 places, $3,400 rent, $12,000 to move. The dashed floor grows into the picture.<span class="warn">!</span></div>
+<!-- person click hint -->
+<div class="card" style="left:60px;top:560px;width:230px;padding:8px 12px;font-size:14px"><b>Click a boxer</b>: Lucy Jackson, 3-1, Fresh, Steady. Opens her page.<span class="warn">!</span></div>
+</body></html>

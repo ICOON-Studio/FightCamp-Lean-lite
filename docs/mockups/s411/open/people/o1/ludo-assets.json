@@ -1,0 +1,34 @@
+{
+  "assets": [
+    {
+      "file": "createImage-7a12e543.webp",
+      "command": "image create",
+      "operation_id": "createImage",
+      "body": {
+        "image_type": "screenshot",
+        "art_style": "Inked Painterly",
+        "aspect_ratio": "ar_16_9",
+        "prompt": "Full video game screen, wide cinematic, painted in bold inked painterly style like a graphic-novel boxing drama. A young woman boxer, 22, hands wrapped, sweat on her brow, fills the left half in a huge dramatic three-quarter portrait, warm amber tungsten light from the side, deep teal shadows, wrapped hands raised near her chin. Behind her on a cracked brick wall, a giant torn fight poster of her next opponent, a scowling tattooed rival with a shaved head, red tape slashed across it, big bold letters 'SATURDAY'. On the right, a vertical strip of four smaller painted portraits like a film strip: an old grizzled coach with a towel on his shoulder, a sharp-suited promoter with a cigar, a worried landlady holding an envelope, a young second boxer. A winding painted road of three poster thumbnails along the bottom leading to the fight night, the last one glowing red. Huge friendly interface, very few words, big painted icons, no tables, no lists, no small text. Moody, dramatic, alive.",
+        "n": 1
+      },
+      "job_id": "7a12e543-efea-4e97-8e18-1a0aa250e0b7",
+      "credits": 0.5,
+      "created_at": "2026-11-09T11:00:40.418Z"
+    },
+    {
+      "file": "createImage-7a12e543.png",
+      "command": "image create",
+      "operation_id": "createImage",
+      "body": {
+        "image_type": "screenshot",
+        "art_style": "Inked Painterly",
+        "aspect_ratio": "ar_16_9",
+        "prompt": "Full video game screen, wide cinematic, painted in bold inked painterly style like a graphic-novel boxing drama. A young woman boxer, 22, hands wrapped, sweat on her brow, fills the left half in a huge dramatic three-quarter portrait, warm amber tungsten light from the side, deep teal shadows, wrapped hands raised near her chin. Behind her on a cracked brick wall, a giant torn fight poster of her next opponent, a scowling tattooed rival with a shaved head, red tape slashed across it, big bold letters 'SATURDAY'. On the right, a vertical strip of four smaller painted portraits like a film strip: an old grizzled coach with a towel on his shoulder, a sharp-suited promoter with a cigar, a worried landlady holding an envelope, a young second boxer. A winding painted road of three poster thumbnails along the bottom leading to the fight night, the last one glowing red. Huge friendly interface, very few words, big painted icons, no tables, no lists, no small text. Moody, dramatic, alive.",
+        "n": 1
+      },
+      "job_id": "7a12e543-efea-4e97-8e18-1a0aa250e0b7",
+      "credits": 0.5,
+      "created_at": "2026-11-09T11:00:40.418Z"
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Gym at 10/10 (player)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;position:relative;font-family:Segoe UI,Arial,sans-serif;color:#2a2118;
+background:radial-gradient(ellipse at 40% 45%,#fbf1de 0%,#f1dfc0 60%,#e4cda6 100%)}
+#bar{position:absolute;left:0;top:0;width:1920px;height:78px;background:#16110d;color:#fff;display:flex;align-items:center;gap:14px;padding:0 18px;z-index:100}
+.nav{background:#f6ecd9;color:#2a2118;border-radius:8px;padding:12px 18px;font-weight:700;font-size:19px;border-left:6px solid #9b8e78}
+.nav.on{border-left-color:#d62d2d}
+.nav i{font-style:normal;background:#d62d2d;color:#fff;border-radius:50%;padding:1px 7px;font-size:14px;margin-left:6px}
+.logo{font:italic 700 30px Georgia,serif;color:#5b8cff;letter-spacing:1px}
+.big{background:#d62d2d;border-radius:30px;padding:9px 20px;font-weight:700;font-size:18px}
+.big small{display:block;font-weight:400;font-size:13px;opacity:.9}
+.cash{color:#f2c14e;font-weight:700;font-size:26px;text-align:right}.cash small{display:block;color:#bbb;font-size:13px;font-weight:400}
+.abs{position:absolute}
+.wallL{fill:#efe2c8;stroke:#8c7a5c;stroke-width:2}.wallR{fill:#f5ead3;stroke:#8c7a5c;stroke-width:2}
+.pin{position:absolute;transform:translate(-50%,-50%);border-radius:50%;background:#16202e;border:3px solid #fff;color:#fff;
+display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px #0006;z-index:50}
+.pin.red{background:#d62d2d}
+.tip{position:absolute;transform:translate(-50%,0);background:#16202e;color:#fff;font-weight:700;font-size:16px;padding:3px 10px;border-radius:6px;z-index:50;white-space:nowrap}
+.flag{position:absolute;transform:translate(-50%,-100%);background:#d62d2d;color:#fff;font-weight:700;font-size:14px;padding:4px 9px;border-radius:12px;z-index:60;white-space:nowrap;box-shadow:0 2px 6px #0007}
+.flag.amb{background:#e08a1e}
+.tri{display:inline-block;background:#f2c14e;color:#3a2a00;font-size:11px;font-weight:800;line-height:15px;width:17px;text-align:center;clip-path:polygon(50% 0,100% 100%,0 100%);padding-top:4px;height:17px;margin-left:5px;vertical-align:middle}
+.spr{position:absolute;transform:translate(-50%,-100%);filter:drop-shadow(0 6px 5px #0004)}
+.board{position:absolute;background:#fffaf0;border:6px solid #b9bcc0;border-radius:6px;font:700 15px Kalam,Comic Sans MS,cursive;padding:8px 10px;color:#2a2118;transform-origin:0 0;line-height:1.25}
+.panel{position:absolute;left:1370px;width:520px}
+.card{background:#fbf3e3;border:2px solid #cdb995;border-radius:10px;padding:14px 16px;box-shadow:0 3px 8px #0002}
+h3{font:700 15px Segoe UI;letter-spacing:2px;color:#6c5d45;margin-bottom:8px}
+.note{display:flex;gap:10px;align-items:center;border-radius:4px;padding:10px 12px;margin-bottom:9px;font-size:17px;font-weight:600;box-shadow:0 2px 4px #0003}
+.note b{display:block;font:700 19px Kalam,Comic Sans MS,cursive}
+.note.r{background:#fff0a8;border-top:7px solid #d62d2d}.note.a{background:#ffe3b8;border-top:7px solid #e08a1e}.note.s{background:#e8eef3;border-top:7px solid #7b8794}
+.note button,.btn{margin-left:auto;background:#2f6bd6;color:#fff;border:0;border-radius:7px;padding:8px 14px;font-weight:700;font-size:15px}
+.cap{position:absolute;left:30px;bottom:18px;font-size:15px;color:#5b4c36;width:1280px;line-height:1.35}
+</style></head><body>
+<div id="bar"><span class="nav">&lt;</span><span class="nav">&gt;</span><span class="logo">Anvil Street Gym</span>
+<div style="font-size:18px;margin-left:8px">Mon 5 Jan 2026<br><small style="color:#aaa;font-size:14px">Week 1</small></div>
+<span class="nav on" style="margin-left:26px">&#9733; Home</span><span class="nav">Fighters</span><span class="nav">Fights<i>1</i></span><span class="nav">Club</span><span class="nav">World</span>
+<div class="cash" style="margin-left:auto">$17,200<small>running -$2,130 a week</small></div>
+<div class="big">NEEDS YOU (1)<small>Answer Lucy's bout offer</small></div><span class="nav" style="background:#16110d;color:#fff;border:1px solid #888">Menu</span></div>
+
+<svg class="abs" style="left:0;top:0" width="1360" height="1080" id="svg"></svg>
+<div id="layer"></div>
+
+<div class="panel" style="top:100px">
+<div class="card" style="background:#d9dde1;border:8px solid #aeb3b8;padding:12px">
+<h3>NEEDS YOU, ON THE WHITEBOARD</h3>
+<div class="note r"><div><b>Bout offer</b>Lucy v Maria Ortega, Wed 4 Feb<br><span style="font-weight:400;font-size:15px">Answer by Sun 11 Jan</span></div><button>Open</button></div>
+<div class="note a"><div><b>Weight</b>Lucy is 1.4 kg over the 60.0 limit</div><button>Plan it</button></div>
+<div class="note s"><div><b>Club show</b>Sat 31 Jan, a lightweight slot for Lucy</div></div>
+</div>
+<div class="card" style="margin-top:14px;display:flex;gap:14px;align-items:center">
+<img src="../../../../assets/ui/art/fullbody/mh_boxer_01.png" style="height:170px;margin:-6px 0">
+<div style="flex:1"><h3>NEXT FIGHT</h3><div style="font:700 24px Georgia">Lucy Jackson<br>v Maria Ortega</div>
+<div style="margin:6px 0 10px;font-size:16px">3-1 v 4-2 · Wed 4 Feb · 3 x 3 min<br>Win chance 51%, a rough guess</div><button class="btn" style="margin:0">Open the versus</button></div></div>
+<div class="card" style="margin-top:14px"><h3>SINCE LAST MONDAY</h3>
+<div style="font-size:17px;line-height:1.45">Lucy Jackson signs on the club stipend.<br>Anvil Street Gym opens in London with 30 members on the books.</div></div>
+</div>
+<div class="cap"><b>Player's 10/10 Home.</b> One screen. The gym is the menu and shows state: flags sit on the boxers and doors they belong to, the next fight is a poster on the wall, the walk-in stands at the door. World is a noticeboard, Playbook a coach's whiteboard (not the mats). Icon bubbles are small; names show on hover. <span class="tri">!</span> = drawn as it will work, not in the game yet. Numbers from the real renders.</div>
+<script>
+const CX=700,TOP=340,HW=600,HH=290,WH=230;
+const P=(u,v)=>[CX+(u-v)*HW, TOP+(u+v)*HH];
+const svg=document.getElementById('svg'),L=document.getElementById('layer');
+const pts=a=>a.map(p=>p.join(',')).join(' ');
+const T=P(0,0),R=P(1,0),B=P(1,1),Lf=P(0,1);
+let s='';
+s+='<polygon class="wallL" points="'+pts([Lf,T,[T[0],T[1]-WH],[Lf[0],Lf[1]-WH]])+'"/>';
+s+='<polygon class="wallR" points="'+pts([T,R,[R[0],R[1]-WH],[T[0],T[1]-WH]])+'"/>';
+const poly=(c,a)=>'<polygon points="'+pts(a.map(q=>P(q[0],q[1])))+'" fill="'+c+'"/>';
+s+=poly('#e9c48a',[[0,0],[1,0],[1,1],[0,1]]);
+s+=poly('#c9423c',[[0.3,0.02],[0.98,0.02],[0.98,0.2],[0.3,0.2]]);
+s+=poly('#2f3a48',[[0.62,0.3],[0.98,0.3],[0.98,0.52],[0.62,0.52]]);
+s+=poly('#3b7fd9',[[0.7,0.62],[0.97,0.62],[0.97,0.97],[0.7,0.97]]);
+s+=poly('#3b63b8',[[0.3,0.3],[0.62,0.3],[0.62,0.62],[0.3,0.62]]);
+s+=poly('#f5ead3',[[0.02,0.02],[0.28,0.02],[0.28,0.3],[0.02,0.3]]);
+s+=poly('#d9c6a4',[[0.02,0.38],[0.28,0.38],[0.28,0.98],[0.02,0.98]]);
+s+='<polygon points="'+pts([Lf,B,[B[0],B[1]+16],[Lf[0],Lf[1]+16]])+'" fill="#b89a6a"/>';
+s+='<polygon points="'+pts([R,B,[B[0],B[1]+16],[R[0],R[1]+16]])+'" fill="#a68858"/>';
+for(let i=0;i<0;i++){const a=P(0.5+i*0.16,0),b=P(0.6+i*0.16,0);s+='<polygon points="'+pts([[a[0],a[1]-130],[b[0],b[1]-130],[b[0],b[1]-70],[a[0],a[1]-70]])+'" fill="#bfe3f2" stroke="#8c7a5c"/>'}
+svg.innerHTML=s;
+let h='';
+const A='../../../../assets/ui/art/';
+const sp=(src,u,v,w)=>{const p=P(u,v);h+='<img class="spr" src="'+A+'gym/'+src+'.png" style="left:'+p[0]+'px;top:'+p[1]+'px;width:'+w+'px">'};
+const bx=(n,u,v,hgt,flag)=>{const p=P(u,v);h+='<img class="spr" src="'+A+'fullbody/mh_boxer_'+n+'.png" style="left:'+p[0]+'px;top:'+p[1]+'px;height:'+hgt+'px">';
+ if(flag)h+='<div class="flag '+(flag[1]||'')+'" style="left:'+p[0]+'px;top:'+(p[1]-hgt-4)+'px">'+flag[0]+'</div>'};
+for(let i=0;i<7;i++)sp('bag',0.36+i*0.09,0.1,92);
+sp('lockers',0.06,0.5,100);sp('lockers',0.06,0.6,100);
+sp('office_desk',0.13,0.3,200);
+sp('ring',0.5,0.56,330);
+for(let i=0;i<3;i++)sp('rack',0.68+i*0.1,0.5,130);
+sp('mat',0.82,0.76,300);sp('mat',0.86,0.92,260);
+sp('door',0.04,0.9,110);sp('desk',0.17,0.8,220);sp('plant',0.04,0.97,70);
+bx('01',0.62,0.9,150,['Lucy: 1.4 kg over <span class="tri">!</span>','amb']);
+bx('03',0.5,0.25,130,null);bx('07',0.8,0.25,130,null);
+bx('10',0.9,0.5,120,null);bx('11',0.78,0.74,125,null);
+bx('12',0.1,0.96,130,['Walk-in waiting <span class="tri">!</span>','']);
+const wl=(v,w,hh,top,html,css)=>{const p=P(0,v);h+='<div class="board" style="left:'+p[0]+'px;top:'+(p[1]-top)+'px;width:'+w+'px;height:'+hh+'px;transform:skewY(-26.57deg);'+(css||'')+'">'+html+'</div>'};
+const wr=(u,w,hh,top,html,css)=>{const p=P(u,0);h+='<div class="board" style="left:'+p[0]+'px;top:'+(p[1]-top)+'px;width:'+w+'px;height:'+hh+'px;transform:skewY(26.57deg);'+(css||'')+'">'+html+'</div>'};
+wl(0.27,180,92,205,'Game plan<br><span style="font-weight:400;font-size:13px">At long range: one-two</span><br>When she presses: step back');
+wr(0.08,190,98,200,'<span style="color:#d62d2d">Sat 31 Jan</span> club show<br>Lucy v Maria Ortega<br>Wed 4 Feb <span class="tri">!</span>','background:#fff4d9;border-color:#c9423c');
+wr(0.78,200,96,215,'World news<br><span style="font-weight:400;font-size:13px">Rankings, other gyms</span>','background:#e8f0e0;border-color:#7a8f6a');
+wl(0.76,170,40,150,'Anvil Street Gym','background:#16202e;color:#fff;border-color:#16202e;text-align:center;font-size:18px');
+L.innerHTML=h;
+const pin=(x,y,ic,name,red,sz)=>{sz=sz||44;L.insertAdjacentHTML('beforeend','<div class="pin '+(red?'red':'')+'" style="left:'+x+'px;top:'+y+'px;width:'+sz+'px;height:'+sz+'px;font-size:21px">'+ic+'</div><div class="tip" style="left:'+x+'px;top:'+(y+sz/2+4)+'px">'+name+'</div>')};
+let p=P(0.24,0.8);pin(p[0],p[1]-110,'&#128101;','Reception');
+p=P(0.13,0.3);pin(p[0],p[1]-110,'$','Club office');
+p=P(0.5,0.56);pin(p[0],p[1]-60,'&#9733;','Fights',true);
+p=P(0.62,0.14);pin(p[0],p[1]-150,'&#9633;','Fighters');
+p=P(0,0.27);pin(p[0]+120,p[1]-170,'&#9998;','Playbook',false,40);
+p=P(0.78,0);pin(p[0]+150,p[1]-135,'&#9679;','World',false,40);
+p=P(0.9,0.66);pin(p[0],p[1]-60,'&#9638;','Training week <span class="tri">!</span>',false,40);
+</script></body></html>

@@ -5625,6 +5625,63 @@
       "answered_at": "2026-11-09T09:45:37Z",
       "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-136",
+      "asked": "2026-11-09T10:51:36.240635+00:00",
+      "session": "S294",
+      "text": "The gym at 10/10: three critics all gave it 5 and agree it feels small and World and Playbook do not belong. Which way? My pick mixes them: the art director's bigger gym and dark surround, the designer's wall TV, whiteboard, clickable boxers and a gym that grows when you move premises, and the player's flags on the floor. A two-day test of a 3D-rendered gym comes first.",
+      "options": [
+        "Yes, build your mix",
+        "Player's picture",
+        "Designer's picture",
+        "Art director's picture"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-136_0_three_10s.png"
+      ],
+      "answer": "Withdrawn",
+      "note": "In chat he said yes to the mix, then \"i do not like any of critics designs ... all designs look similar\". Replaced by the four open concepts.",
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-137",
+      "asked": "2026-11-09T11:02:18.432140+00:00",
+      "session": "S294",
+      "text": "Four very different main screens, each a painted concept (open the picture). Which one, if any, feels like the game you want?",
+      "options": [
+        "1 The floor is the game",
+        "2 People, no building",
+        "3 Through the coach's eyes",
+        "4 The week is a comic page",
+        "None: try again"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-137_0_four_concepts.jpg"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-138",
+      "asked": "2026-11-09T11:06:27.337529+00:00",
+      "session": "S294",
+      "text": "The pips over the training equipment (see the picture): what should they count? The game has no such limit yet. Places free: a bag or ring holds so many at once, a full floor is your reason to move to bigger premises. Wear: kit runs down with use and you pay to replace it.",
+      "options": [
+        "Places free",
+        "Wear and replace",
+        "Both"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-138_0_small_to_grown.jpg"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

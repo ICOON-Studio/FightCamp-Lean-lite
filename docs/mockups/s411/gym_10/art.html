@@ -1,0 +1,119 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Gym at 10/10 (art director)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#0d1114;font-family:'Segoe UI',Arial,sans-serif;color:#fff}
+#bg{position:absolute;inset:0;background:url(../../../../assets/ui/art/gym_backdrop.jpg) center/cover;filter:blur(7px) brightness(.5) saturate(.8);transform:scale(1.06)}
+#vig{position:absolute;inset:0;background:radial-gradient(ellipse 62% 58% at 50% 52%,rgba(255,214,150,.20),rgba(0,0,0,0) 60%),radial-gradient(ellipse at 50% 50%,rgba(0,0,0,0) 55%,rgba(0,0,0,.65))}
+#bar{position:absolute;left:0;top:0;width:1920px;height:78px;background:#16110d;display:flex;align-items:center;gap:10px;padding:0 18px}
+.pill{background:#f6efe4;color:#222;border-radius:8px;height:48px;padding:0 20px;display:flex;align-items:center;font-weight:700;font-size:19px}
+.pill.on{box-shadow:inset 6px 0 0 #d33}
+.t{font:italic 700 30px 'Segoe Print','Comic Sans MS',cursive;color:#4a79d8;margin:0 10px}
+#world{position:absolute;left:0;top:0;width:1920px;height:1080px}
+.it{position:absolute;transform:translate(-50%,-100%);pointer-events:none}
+.fig{position:absolute;width:128px;height:128px;transform:translate(-50%,-100%) scale(.95);transform-origin:50% 100%;background-size:1536px 128px;animation:f 1.2s steps(1) infinite}
+@keyframes f{0%{background-position:0 0}50%{background-position:-128px 0}}
+.shadow{position:absolute;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(0,0,0,.38),rgba(0,0,0,0) 70%);pointer-events:none}
+.warn{position:absolute;width:22px;height:20px;transform:translate(-50%,-50%);background:#f0a30a;color:#000;font:800 12px/16px Arial;text-align:center;clip-path:polygon(50% 0,100% 100%,0 100%);padding-top:5px}
+.tag{position:absolute;background:#122a52;color:#fff;border-radius:8px;padding:6px 14px;font-weight:700;font-size:20px;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.5);border:2px solid #ffe9b8}
+.tag small{font-weight:600;color:#ffd77a;margin-left:8px;font-size:16px}
+.dot{position:absolute;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;background:#e23b3b;border:3px solid #fff;box-shadow:0 0 12px rgba(255,80,80,.9)}
+.dot.b{background:#e8a317;box-shadow:0 0 12px rgba(255,190,60,.9)}
+.card{position:absolute;background:linear-gradient(#fbf3e4,#f1e5cd);color:#2a2118;border-radius:12px;border:2px solid #c9b48a;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+.legend{position:absolute;right:24px;top:92px;width:330px;background:rgba(10,12,16,.72);border:1px solid #556;border-radius:10px;padding:12px 14px;font-size:15px;line-height:1.4;color:#dde}
+</style></head><body>
+<div id="bg"></div><div id="vig"></div>
+<div id="world"></div>
+<div id="bar"><div class="pill" style="padding:0 14px">&lt;</div><div class="pill" style="padding:0 14px">&gt;</div><span class="t">Anvil Street Gym</span><span style="font-size:17px;margin-right:30px">Mon 5 Jan 2026<br><span style="opacity:.6;font-size:14px">Week 1</span></span>
+<div class="pill on">Home</div><div class="pill">Fighters</div><div class="pill">Fights</div><div class="pill">Club</div><div class="pill">World</div>
+<span style="flex:1"></span><span style="font-size:27px;font-weight:700;color:#e8b64a">$17,200</span><div class="pill" style="background:#d63b3b;color:#fff;height:54px;border-radius:27px;font-size:16px">NEEDS YOU (1) &nbsp;Answer the bout offer</div></div>
+
+<div class="card" style="left:24px;top:960px;width:900px;height:96px;padding:12px 20px;font-size:19px"><b style="font-size:13px;letter-spacing:2px;color:#7a6a50">THE JOB</b><br>Keep the doors open: 8 weeks in a row below $0 closes the gym.<br>A club show on Sat 31 Jan has a lightweight slot for Lucy.</div>
+<div class="card" style="left:940px;top:960px;width:480px;height:96px;padding:12px 20px;font-size:17px"><b style="font-size:13px;letter-spacing:2px;color:#7a6a50">SINCE LAST MONDAY</b><br>Lucy Jackson signs on the club stipend.<br>The club opens with 30 members on the books.</div>
+<div class="card" style="left:1436px;top:960px;width:460px;height:96px;padding:12px 20px;font-size:17px;display:flex;gap:26px;align-items:center;text-align:center"><div><b style="font-size:26px">30</b><br>Members</div><div><b style="font-size:26px">10</b><br>Reputation</div><div><b style="font-size:26px">$9,488</b><br>Bills</div><div><b style="font-size:26px">2</b><br>Mail</div></div>
+
+<div class="legend"><b>10/10 target.</b> Gym about 1390 px wide and 1000 px tall with walls: about 45% of the screen (today 20%). Boxer about 105 px (today 65). Ring 530 px (today 400). Labels hidden; hover shows one tag; dots only when the player must act.<br><br><span style="display:inline-block;width:16px;height:16px;background:#f0a30a;clip-path:polygon(50% 0,100% 100%,0 100%);vertical-align:middle"></span> = not in the game yet (tall walls, windows, street window for World, whiteboard for Playbook, extra equipment, shadows, light shafts, dark surround, hover labels).</div>
+
+<script>
+const W=33,H=16.5,OX=1030,OY=250,WALL=150;
+const P=(x,y,z=0)=>[OX+(x-y)*W,OY+(x+y)*H-z];
+const world=document.getElementById('world');
+const pt=(x,y,z)=>P(x,y,z).join(',');
+function svg(){
+ const a=P(0,0),b=P(24,0),c=P(24,18),d=P(0,18);
+ const L=(p)=>p.join(',');
+ let s=`<svg style="position:absolute;left:0;top:0" width="1920" height="1080">
+ <defs><linearGradient id="fl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8c08a"/><stop offset="1" stop-color="#d9a766"/></linearGradient>
+ <linearGradient id="wl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f1ea"/><stop offset="1" stop-color="#d9d4c8"/></linearGradient>
+ <linearGradient id="wr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbf8f1"/><stop offset="1" stop-color="#e4dfd2"/></linearGradient></defs>
+ <polygon points="${pt(-1.2,-1.2,0)} ${pt(25.2,-1.2,0)} ${pt(25.2,19.2,0)} ${pt(-1.2,19.2,0)}" fill="#2a2f35" opacity=".85"/>
+ <polygon points="${L(d)} ${L(c)} ${pt(24,18,-14)} ${pt(0,18,-14)}" fill="#6b4c2c"/>
+ <polygon points="${L(a)} ${L(b)} ${L(c)} ${L(d)}" fill="url(#fl)"/>`;
+ const zone=(x,y,w,h,col,op=1)=>`<polygon points="${pt(x,y)} ${pt(x+w,y)} ${pt(x+w,y+h)} ${pt(x,y+h)}" fill="${col}" opacity="${op}"/>`;
+ s+=zone(8,0,16,3,'#c4363a');
+ s+=zone(20,3,4,9,'#33363d');
+ s+=zone(8,14,16,4,'#2d6fd0');
+ s+=zone(10,5,8,8,'#2a5fbd');
+ s+=zone(0,12,8,6,'#cfe3f0',.5);
+ s+=zone(0,6,8,6,'#e9dcc0',.8);
+ s+=zone(0,0,8,6,'#cdd6dc',.6);
+ // plank lines
+ for(let i=1;i<24;i++){ s+=`<line x1="${P(i,0)[0]}" y1="${P(i,0)[1]}" x2="${P(i,18)[0]}" y2="${P(i,18)[1]}" stroke="rgba(110,60,15,.10)" stroke-width="1"/>`; }
+ for(let i=1;i<3;i++) s+=`<line x1="${P(8+i*5.33,14)[0]}" y1="${P(8+i*5.33,14)[1]}" x2="${P(8+i*5.33,18)[0]}" y2="${P(8+i*5.33,18)[1]}" stroke="rgba(255,255,255,.35)" stroke-width="2"/>`;
+ [[10,0.2],[15,0.2],[20,0.2]].forEach(([x,y])=>{s+=`<polygon points="${pt(x,y)} ${pt(x+2,y)} ${pt(x+4,y+5)} ${pt(x+2,y+5)}" fill="rgba(255,244,200,.17)"/>`;});
+ s+=`<polygon points="${pt(0,0,0)} ${pt(0,18,0)} ${pt(0,18,WALL)} ${pt(0,0,WALL)}" fill="url(#wl)"/>`;
+ s+=`<polygon points="${pt(0,0,0)} ${pt(24,0,0)} ${pt(24,0,WALL)} ${pt(0,0,WALL)}" fill="url(#wr)"/>`;
+ s+=`<polygon points="${pt(0,0,34)} ${pt(24,0,34)} ${pt(24,0,42)} ${pt(0,0,42)}" fill="#c4363a"/><polygon points="${pt(0,0,28)} ${pt(24,0,28)} ${pt(24,0,34)} ${pt(0,0,34)}" fill="#2a5fbd"/>`;
+ s+=`<polygon points="${pt(0,0,34)} ${pt(0,18,34)} ${pt(0,18,42)} ${pt(0,0,42)}" fill="#c4363a"/><polygon points="${pt(0,0,28)} ${pt(0,18,28)} ${pt(0,18,34)} ${pt(0,0,34)}" fill="#2a5fbd"/>`;
+ s+=`<polyline points="${pt(0,18,WALL)} ${pt(0,0,WALL)} ${pt(24,0,WALL)}" fill="none" stroke="#fff" stroke-width="6"/>`;
+ [[2,5.5],[7,10.5],[12,15.5]].forEach(([x1,x2])=>{ s+=`<polygon points="${pt(x1,0,78)} ${pt(x2,0,78)} ${pt(x2,0,134)} ${pt(x1,0,134)}" fill="#bfe3f7" stroke="#fff" stroke-width="3"/>`;});
+ s+=`<polygon points="${pt(17,0,66)} ${pt(23,0,66)} ${pt(23,0,138)} ${pt(17,0,138)}" fill="#9fd1ee" stroke="#fff" stroke-width="4"/>`;
+ let bx=17; [[0.7,38],[1.4,56],[0.9,46],[1.2,62],[1.1,40]].forEach(([w,h])=>{ s+=`<polygon points="${pt(bx,0,66)} ${pt(bx+w,0,66)} ${pt(bx+w,0,66+h)} ${pt(bx,0,66+h)}" fill="#6b8aa6"/>`; bx+=w+0.2;});
+ [[1.5,4.5],[6.5,9.5],[11.5,14.5]].forEach(([y1,y2])=>{ s+=`<polygon points="${pt(0,y1,78)} ${pt(0,y2,78)} ${pt(0,y2,134)} ${pt(0,y1,134)}" fill="#bfe3f7" stroke="#fff" stroke-width="3"/>`;});
+ s+=`<polygon points="${pt(0,16,70)} ${pt(0,17.4,70)} ${pt(0,17.4,112)} ${pt(0,16,112)}" fill="#c4363a" stroke="#fff" stroke-width="2"/>`;
+ s+='</svg>'; return s;
+}
+world.innerHTML=svg();
+const items=[];
+function add(img,x,y,wpx,warn){items.push({t:'i',img,x,y,wpx,warn});}
+function fig(n,kind,x,y){items.push({t:'f',n,kind,x,y});}
+const G='../../../../assets/ui/art/gym/', S='../../../../assets/ui/art/hub_sprites/';
+add('lockers',2.2,1.2,86);add('lockers',4.2,1.2,86);add('lockers',6.2,1.2,86);
+add('office_desk',3,8.4,150);add('desk',3.2,13.5,150);add('sofa',6.4,16.4,120);add('door',3.6,17.9,95);
+add('plant',0.8,17,52,true);add('plant',7.2,5.3,46,true);
+add('ring',18,13,528);
+for(let i=0;i<8;i++){add('bag',9.6+i*1.7,1.4,52);}
+for(let i=0;i<6;i++){add('bag',10.4+i*2.2,2.5,52,i==0);}
+for(let i=0;i<3;i++){add('rack',22.2,4.8+i*3,118);}
+add('rack',22.2,13.6,100,true);
+for(let i=0;i<3;i++){add('mat',11.5+i*4.5,16,170);}
+add('bench',20.6,10.6,120,true);
+fig('01','idle',4,16);fig('02','jab',12.8,2.4);fig('03','jab',16.2,2.4);fig('07','idle',22.5,5.6);fig('08','idle',22.3,8.6);
+fig('10','jab',12.6,16.5);fig('11','idle',18.5,15.6);fig('12','idle',9.2,9.3);fig('13','jab',20.4,2.3);fig('14','idle',6.4,3.8);
+fig('15','idle',3.8,10.8);fig('16','idle',9.6,12);fig('17','jab',21.5,13.6);
+items.sort((a,b)=>(a.x+a.y)-(b.x+b.y));
+for(const it of items){
+ const [px,py]=P(it.x,it.y);
+ if(it.t==='i'){
+  const d=document.createElement('div');d.className='shadow';d.style.cssText=`left:${px}px;top:${py}px;width:${it.wpx*0.9}px;height:${it.wpx*0.28}px`;world.appendChild(d);
+  const im=new Image();im.src=G+it.img+'.png';
+  im.className='it';im.style.cssText=`left:${px}px;top:${py+it.wpx*0.05}px;width:${it.wpx}px`;world.appendChild(im);
+  if(it.warn){const w=document.createElement('div');w.className='warn';w.textContent='!';w.style.cssText=`left:${px}px;top:${py+8}px`;world.appendChild(w);}
+ } else {
+  const d=document.createElement('div');d.className='shadow';d.style.cssText=`left:${px}px;top:${py}px;width:70px;height:20px`;world.appendChild(d);
+  const f=document.createElement('div');f.className='fig';f.style.cssText=`left:${px}px;top:${py+4}px;background-image:url(${S}mh_boxer_${it.n}_${it.kind}.png)`;world.appendChild(f);
+ }
+}
+function warn(x,y,z){const [px,py]=P(x,y,z);const w=document.createElement('div');w.className='warn';w.textContent='!';w.style.cssText=`left:${px}px;top:${py}px`;world.appendChild(w);}
+// Playbook easel (not in game yet)
+(function(){const [px,py]=P(9.2,13.6);const e=document.createElement('div');e.style.cssText=`position:absolute;left:${px-48}px;top:${py-135}px;width:96px;height:78px;background:#f7f7f2;border:5px solid #b9bcc2;border-radius:3px;transform:skewY(26.5deg)`;e.innerHTML='<svg width="86" height="68"><path d="M10 50 Q30 10 50 40 T80 14" stroke="#c4363a" stroke-width="3" fill="none"/><circle cx="14" cy="50" r="4" fill="#2a5fbd"/><circle cx="48" cy="38" r="4" fill="#2a5fbd"/></svg>';world.appendChild(e);
+ const l=document.createElement('div');l.style.cssText=`position:absolute;left:${px-3}px;top:${py-54}px;width:6px;height:54px;background:#777`;world.appendChild(l);
+ warn(9.2,13.6,160);})();
+warn(20,0,150);warn(4,0,142);warn(0,8,142);
+(function(){const a=P(10.2,5.2),b=P(18.8,5.2),c=P(18.8,13.8),d=P(10.2,13.8);
+ const s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('style','position:absolute;left:0;top:0');s.setAttribute('width',1920);s.setAttribute('height',1080);
+ s.innerHTML=`<polygon points="${a} ${b} ${c} ${d}" fill="rgba(255,233,184,.10)" stroke="#ffe9b8" stroke-width="4"/>`;world.appendChild(s);
+ const [rx,ry]=P(18.8,13.8);const t=document.createElement('div');t.className='tag';t.innerHTML='Fights<small>1 offer</small>';t.style.cssText=`left:${1195-70}px;top:${761+14}px`;world.appendChild(t);
+ const [ox,oy]=P(14,9);const dd=document.createElement('div');dd.className='dot';dd.style.cssText=`left:${ox}px;top:${oy-292}px`;world.appendChild(dd);
+ const [qx,qy]=P(3.2,13.5);const d2=document.createElement('div');d2.className='dot b';d2.style.cssText=`left:${qx+30}px;top:${qy-80}px`;world.appendChild(d2);
+})();
+</script></body></html>

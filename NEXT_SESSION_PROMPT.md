@@ -1,3 +1,11 @@
+# S411 second stage (written 2026-11-09, read this before the block below)
+
+THE GYM: three sonnet critics gave it 5/10 and agree it feels small and that World and Playbook do not belong. ops/research/S411_GYM_CRITICS/SUMMARY.md; drawings docs/mockups/s411/gym_10. Waiting on Q-S294-136 and on his Miro comment, card 3458764689771063952: "what if can become core gameplay to avoid boring menus ?". PR 120 (Home) is mergeable but HELD for that answer: its known faults are sticky titles invisible, magnet colours, OFFER covering a face, a lone floating boxer, first_hour_walk red (FirstHourCard is gone from Home).
+SKIPPED WORK, his question "when are you going to start implementing the miro mechanics and critics s405 ?": the S402 list (R11 done, R24 in flight, R28 R25 R37 R55 R58 NOT started) and both S405 critics' lists are now on roadmap plan.next. ops/research/TASK_R25/28/37/55/58.md are OLD unrelated briefs: write new ones under other names.
+R28: BodyMap (eyes, cuts) lives only in the picture and changes no result, the cutman works pro corners only, and body_map_test's realistic bout reads the doctor band in 0% of 300 bouts. Design it on real rounds first.
+NEW RULE: every critic draws its 10/10 (CLAUDE.md, memory).
+HITREACT4 (PR 121): RAW to FIT keeps about 84% on every clip, then SAVED reads 49-57% on weak and 94-121% on controls. HITREACT5 (Qwen, running) tests the frame window. PR 118 and 121 close when it lands.
+
 # S411 handover (written 2026-11-09, S411 main session)
 
 OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S412` and redraw the map (send only the changed cards; strip data-deleted lines; he has not approved deleting map cards).
