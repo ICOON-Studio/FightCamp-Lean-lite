@@ -12,12 +12,14 @@ const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const HomeFirstHour := preload("res://scripts/ui/HomeFirstHour.gd")
+const GymHub := preload("res://scripts/ui/GymHub.gd")
 
 const SIDE_W := 420.0
 
 
 func build(main: Node) -> void:
 	var c: Career = main.career
+	add_child(GymHub.build(main, c))   # S408 the gym is the menu
 	var grid := UI.hbox(26)
 	add_child(grid)
 	var left := UI.vbox(20)

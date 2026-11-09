@@ -90,25 +90,28 @@ func _kpis(c: Career, inc: Dictionary, cost: Dictionary, ahead: Array) -> Contro
 	var rw: Dictionary = WeekRead.runway(c.cash, c.accrued, int(inc["total"]), int(cost["total"]), c.day, c.weeks_below)
 	var weeks := int(rw["weeks"])
 	var hand := "grows" if weeks < 0 else "%d weeks" % weeks
-	var row := HFlowContainer.new()
-	row.add_theme_constant_override("h_separation", 12)
-	row.add_theme_constant_override("v_separation", 2)
+	# S408 operator on a line of handwritten numbers: "this is not how games present data": labelled tiles.
+	var row := UI.hbox(8)
+	row.name = "MoneyTiles"
 	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var cash := UI.label(UI.money(c.cash), 15, UI.GREEN if c.cash >= 0 else UI.RED, "handbold")
+	var cash_col := TILE_GOOD if c.cash >= 0 else TILE_BAD
+	var cash := UI.label(UI.money(c.cash), 26, cash_col, "bold")
 	cash.name = "PageCash"
-	row.add_child(_bit("money", cash, "Cash in the tin", UI.GREEN if c.cash >= 0 else UI.RED))
-	var members := UI.label("%d of %d members" % [c.members, GymSpend.member_cap(c)], 14, UI.FG, "handbold")
+	row.add_child(_tile("money", "CASH", cash, "Cash in the tin", cash_col))
+	var members := UI.label("%d / %d" % [c.members, GymSpend.member_cap(c)], 26, Color.WHITE, "bold")
 	var even := _break_even(c, inc, cost)
-	row.add_child(_bit("members", members, "Break-even: %d of your %d members cover what the other income leaves" % [even, c.members], UI.FG))
-	var runway := UI.label("%s in hand" % hand, 14, UI.AMBER if weeks >= 0 and weeks < GymBills.WARN_RUNWAY_WEEKS else UI.FG, "handbold")
-	row.add_child(_bit("runway", runway, "Runway: weeks of costs the tin covers. Under 8 weeks warns. " + GymBills.line(c.cash, net, c.weeks_below), UI.FG))
-	var net_lab := UI.label("Net %s a week" % UI.signed(net), 14, UI.GREEN if net >= 0 else UI.RED, "handbold")
-	row.add_child(_bit("money", net_lab, "Left over each week", UI.GREEN if net >= 0 else UI.RED))
-	var bills := UI.label("Next bills %s, %s" % [Clock.fmt(int(split["day"])), UI.money(int(split["amount"]))], 14, UI.RED, "handbold")
+	row.add_child(_tile("members", "MEMBERS", members, "Break-even: %d of your %d members cover what the other income leaves" % [even, c.members], Color.WHITE))
+	var runway_col := TILE_WARN if weeks >= 0 and weeks < GymBills.WARN_RUNWAY_WEEKS else Color.WHITE
+	var runway := UI.label(hand, 26, runway_col, "bold")
+	row.add_child(_tile("runway", "MONEY LASTS", runway, "Runway: weeks of costs the tin covers. Under 8 weeks warns. " + GymBills.line(c.cash, net, c.weeks_below), runway_col))
+	var net_col := TILE_GOOD if net >= 0 else TILE_BAD
+	var net_lab := UI.label(UI.signed(net), 26, net_col, "bold")
+	row.add_child(_tile("money", "NET A WEEK", net_lab, "Left over each week", net_col))
+	var bills := UI.label(UI.money(int(split["amount"])), 26, TILE_BAD, "bold")
 	bills.name = "NextBills"
 	bills.set_meta("day", int(split["day"]))
 	bills.set_meta("amount", int(split["amount"]))
-	row.add_child(_bit("calendar", bills, "Bills are paid every 28 days. Run up so far: %s." % UI.money(c.accrued), UI.RED))
+	row.add_child(_tile("calendar", "BILLS %s" % Clock.fmt(int(split["day"])).to_upper(), bills, "Bills are paid every 28 days. Run up so far: %s." % UI.money(c.accrued), TILE_BAD))
 	return row
 
 
@@ -265,13 +268,31 @@ func _net(net: int) -> Control:
 	return row
 
 
-func _bit(icon: String, lab: Control, tip: String, col: Color) -> Control:
-	var h := UI.hbox(4)
-	h.tooltip_text = tip
-	h.add_child(KitIcon.icon(icon, 20, col, tip))
+const TILE_GOOD := Color("#74e39f")
+const TILE_BAD := Color("#ff8f85")
+const TILE_WARN := Color("#ffc857")
+
+
+## One number on a dark plate: an icon, what it is, the number.
+func _tile(icon: String, caption: String, lab: Control, tip: String, col: Color) -> Control:
+	var p := PanelContainer.new()
+	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	p.tooltip_text = tip
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color("#1b2740")
+	sb.set_corner_radius_all(10)
+	sb.set_content_margin_all(10)
+	sb.content_margin_left = 14
+	p.add_theme_stylebox_override("panel", sb)
+	var h := UI.hbox(12)
+	p.add_child(h)
+	h.add_child(KitIcon.icon(icon, 34, col, tip))
+	var v := UI.vbox(0)
+	h.add_child(v)
+	v.add_child(UI.label(caption, UI.SMALL, Color("#b9c6dc"), "bold"))
 	lab.tooltip_text = tip
-	h.add_child(lab)
-	return h
+	v.add_child(lab)
+	return p
 
 
 func _break_even(c: Career, inc: Dictionary, cost: Dictionary) -> int:

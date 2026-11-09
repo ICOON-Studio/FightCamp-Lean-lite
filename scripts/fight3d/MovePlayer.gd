@@ -11,6 +11,8 @@ const FightStage := preload("res://scripts/fight3d/FightStage.gd")
 const MoveClips := preload("res://scripts/fight3d/MoveClips.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const Footwork := preload("res://scripts/fight3d/Footwork.gd")
+const RkLoco := preload("res://scripts/fight3d/RkLoco.gd")
+const Settings := preload("res://scripts/state/Settings.gd")
 const IdleMatch := preload("res://scripts/fight3d/IdleMatch.gd")
 const SM := preload("res://scripts/rules/StrikeMap.gd")
 const UI := preload("res://scripts/ui/UI.gd")
@@ -55,7 +57,8 @@ const DEF_HOLD_S := 0.10
 ## (its seconds come from the gap). Step in = the entry lunge, step back = the exit step.
 const TRAVEL := {"advance": [0.32, Footwork.LUNGE_SCALE], "retreat": [0.38, Footwork.EXIT_SCALE],
 	"strafe_left": [0.0, Footwork.PIVOT_SCALE], "strafe_right": [0.0, Footwork.PIVOT_SCALE]}
-var _clip_len := -1.0   # a step's length (no clip plays under it); -1 = the clip's own
+const LOCO := {"advance": "rk_loc_in", "retreat": "rk_loc_back", "strafe_left": "rk_loc_left", "strafe_right": "rk_loc_right"}
+var _clip_len := -1.0   # a step's length (one loop of a chained step clip, or no clip under it); -1 = the clip's own
 
 
 func _has_travel() -> bool:
@@ -135,7 +138,8 @@ func _build_stage() -> void:
 	# Hide the ring (ropes, posts, crowd) but keep the floor
 	_hide_ring()
 	# Apply ghost material to boxer 1 (S382 the studio's partner is solid and reacts: MoveStudio)
-	if not studio:
+	# S408 operator: "remove the holo from the previewer", then "add option to show it": solid unless Settings says holo.
+	if not studio and bool(Settings.read()["preview_holo"]):
 		_apply_ghost_material(_stage.boxers[1]["node"])
 	# Compute gap
 	_gap_m = _stage.gap_m
@@ -416,6 +420,17 @@ func _play_next_clip() -> void:
 	# S359 (operator: "the pivot animation completely breaks ... something like a backkick", "step in animation also look so
 	# weird"): advance / retreat / strafe are the old game's WALKING strides, which the fight stopped playing in S320 (glide
 	# steps: her guard plays on, the body moves, FootPlant takes the steps). The player now steps as the fight does.
+	# S408 operator: "this just turns the camera, there is no animation", "there is no stepping in": the glide below needs the
+	# footwork rig, which is off in this player. The fight's steps are captured clips (RkLoco) that carry her: play those.
+	var loco := str(LOCO.get(clip, ""))
+	if loco != "" and RkLoco.on() and ap.has_animation(loco):
+		_start_clip(who, loco, speed, 0.0, blend)
+		_clip_len = float(RkLoco.info(_stage.boxers[who]["skel"], loco).get("loop_s", ap.get_animation(loco).length))
+		_started_idx = maxi(_started_idx, _clip_idx + 1)
+		_clip_start_t = 0.0
+		if who == 0:
+			_stage.guard(1)
+		return
 	if TRAVEL.has(clip):
 		var secs := float(TRAVEL[clip][0])
 		var sc := float(TRAVEL[clip][1])

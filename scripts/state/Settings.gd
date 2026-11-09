@@ -14,7 +14,7 @@ const CLOCK := [["Normal", 1], ["Fast", 2], ["Fastest", 3]]
 ## The sound buses a player sets, with the label shown.
 const SOUND := [["Master", "Sound: all"], ["SFX", "Sound: punches, ring"], ["Crowd", "Sound: crowd"], ["Music", "Sound: music"]]
 const DEFAULTS := {"text": 1, "window": 0, "vol_Master": 100, "vol_SFX": 90, "vol_Crowd": 70, "vol_Music": 80,
-	"autosave": true, "clock": 1}
+	"autosave": true, "clock": 1, "preview_holo": false, "gym_layout": 2}
 
 
 static func read(path: String = PATH) -> Dictionary:
@@ -58,6 +58,7 @@ static func apply(d: Dictionary, tree: SceneTree) -> void:
 ## S408 operator's close-ups: a 1080-line interface squeezed into a shorter window drew every letter soft (measured: same
 ## label at 0.93 scale against true size). A window a little under 1080 tall gets the interface at its true pixels.
 static func _fit_pixels(root: Window) -> void:
-	var want := root.size if root.size.y >= 900 and root.size.y < 1080 else Vector2i(1920, 1080)
+	# Only at full width: the screens are built for 1920 across, and a narrower window pushed the top bar off its edge.
+	var want := root.size if root.size.x >= 1920 and root.size.y >= 900 and root.size.y < 1080 else Vector2i(1920, 1080)
 	if root.content_scale_size != want:
 		root.content_scale_size = want

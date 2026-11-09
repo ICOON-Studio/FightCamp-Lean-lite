@@ -18,6 +18,7 @@ var out_dir := "user://layout"
 
 
 func _initialize() -> void:
+	load("res://scripts/ui/MenuFx.gd").instant = true   # S408 a still shows a screen at rest, not half way through arriving
 	var args := OS.get_cmdline_user_args()
 	if not args.is_empty():
 		out_dir = args[0]

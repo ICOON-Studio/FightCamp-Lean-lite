@@ -138,16 +138,16 @@ static func _join(st: Dictionary) -> Control:
 static func totals(f: Dictionary, chain: Array, rated: Dictionary, bid: String) -> Control:
 	var g := GridContainer.new()
 	g.name = "Verdict"
-	g.columns = 5
+	g.columns = 6
 	g.add_theme_constant_override("h_separation", 10)
 	var word := str(rated["word"])
 	var col: Color = {"flows": UI.GREEN, "workable": UI.AMBER}.get(word, UI.RED)
-	g.add_child(_tile("STRENGTH", word.capitalize(), "how each punch sets up the next", col,
+	g.add_child(_tile("STRENGTH", "%s %d" % [word.capitalize(), int(rated["score"])], "out of 100: how each punch sets up the next", col,
 		{"title": "Combination strength", "rows": [["Score", "%d / 100" % int(rated["score"]), "", ""], ["Flows at", "70", "", ""],
 		["Workable at", "45", "", ""]], "means": "how well each punch sets up the next: the loaded hand on time, level changes, moving the head after. Each join on the strip shows its share."}))
 	var gas := CF.energy(chain, SkillAwards.economy_ids(f))
 	var share := 100.0 * gas / Combos.ROUND_COST
-	var tank := _tile("GAS", "Light" if share < 4.0 else ("Medium" if share < 8.0 else "Heavy"), "on the tank, each time", UI.AMBER if share >= 8.0 else UI.FG,
+	var tank := _tile("GAS", "%.1f%%" % share, "of a round's gas, each time", UI.AMBER if share >= 8.0 else UI.FG,
 		{"title": "Gas tank", "rows": [["This chain", "%.2f" % gas, "", ""], ["A whole round", "%.0f" % Combos.ROUND_COST, "", ""],
 		["Share", "%.0f%%" % share, "", "watch" if share >= 8.0 else ""]],
 		"means": "each throw takes %.0f%% of what a whole round of fighting costs. Long chains tire sooner." % share})
@@ -156,16 +156,37 @@ static func totals(f: Dictionary, chain: Array, rated: Dictionary, bid: String) 
 	var t := 0.0
 	for id in chain:
 		t += float(BeatClips.IMPACT_S.get(str(id), 0.0))
-	g.add_child(_tile("SPEED", "Quick" if t < 1.2 else ("Steady" if t < 2.0 else "Slow"), "first punch to last", UI.FG,
+	g.add_child(_tile("SPEED", "%.1f s" % t, "first punch to last", UI.FG,
 		{"title": "Speed", "rows": [], "means": "the time the punches take to land, one after another (shipped boxing games' median punch timing). The longer it runs, the longer the boxer stands there to be hit."}))
 	var dmg := _damage(chain)
 	var hurt: float = float(dmg["head"]) + float(dmg["ribs"])
-	g.add_child(_tile("DAMAGE", "Light" if hurt < 3.0 else ("Solid" if hurt < 6.0 else "Heavy"),
-		"head and body" if dmg["ribs"] > 0.0 and dmg["head"] > 0.0 else ("to the body" if dmg["ribs"] > 0.0 else "to the head"), UI.FG,
+	g.add_child(_tile("DAMAGE", "%.1f" % hurt,
+		"head %.1f, body %.1f if it all lands" % [float(dmg["head"]), float(dmg["ribs"])], UI.FG,
 		{"title": "Damage if it all lands", "rows": [["Head", "%.1f" % dmg["head"], "", ""], ["Ribs", "%.1f" % dmg["ribs"], "", ""]],
 		"means": "what the punches take off the opponent's body map when every one lands (a big shot doubles it). Ribs drain the gas too."}))
 	g.add_child(_odds_tile(f, bid))
+	g.add_child(_answer_tile(f, bid))
 	return g
+
+
+## S408 operator: "player needs to see numbers here too, possible counter, stamina cost": the kind of fighting this
+## combination does worst against, from the fight's own odds table.
+static func _answer_tile(f: Dictionary, bid: String) -> Control:
+	var bout: Dictionary = f.get("bout", {})
+	var opp: Dictionary = bout.get("opp", {}) if not bout.is_empty() and not bool(bout.get("done", false)) else {}
+	var tbl: Dictionary = ComboOdds.table(bid, f, opp) if bid != "" else {}
+	if tbl.is_empty():
+		return _tile("HARDEST AGAINST", "-", "book combinations only", UI.MUTED,
+			{"title": "Hardest against", "rows": [], "means": "the ring odds exist for the combinations in the book."})
+	var worst: Dictionary = tbl["rows"][0]
+	var rows: Array = []
+	for r in tbl["rows"]:
+		rows.append([str(r["label"]).capitalize(), "%d%%" % int(round(float(r["odds"]) * 100.0)), "", ""])
+		if float(r["odds"]) < float(worst["odds"]):
+			worst = r
+	var odds := int(round(float(worst["odds"]) * 100.0))
+	return _tile("HARDEST AGAINST", str(worst["label"]).capitalize(), "lands whole only %d%%" % odds, UI.RED,
+		{"title": "Hardest against", "rows": rows, "means": "how often it lands whole against each way of fighting. The lowest is the answer to watch for."})
 
 
 static func _odds_tile(f: Dictionary, bid: String) -> Control:
@@ -194,12 +215,12 @@ static func _odds_tile(f: Dictionary, bid: String) -> Control:
 static func _tile(caps: String, big: String, small: String, col: Color, tip: Dictionary) -> Control:
 	var p := PanelContainer.new()
 	p.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 10, 1, 12, 8))
-	p.custom_minimum_size = Vector2(150, 0)
+	p.custom_minimum_size = Vector2(128, 0)
 	var v := UI.vbox(2)
 	p.add_child(v)
 	v.add_child(UI.caps(caps))
 	v.add_child(UI.label(big, UI.BODY + 10, col, "bold"))
-	v.add_child(UI.muted(small, UI.TINY, true))
+	v.add_child(UI.muted(small, UI.SMALL, true))
 	Tips.card(p, func(): return tip)
 	return p
 

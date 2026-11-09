@@ -22,6 +22,10 @@ static func focus_of(picks: Array) -> String:
 	return ""
 
 
+const KitIcon := preload("res://scripts/ui/KitIcon.gd")
+const STAT_ICON := {"power": "hands", "speed": "energy", "technique": "pads", "defense": "guard", "conditioning": "roadwork", "fight_iq": "film", "chin": "injured"}
+
+
 static func build(main: Node, c: Career, a: Dictionary, picks: Array, act: String) -> VBoxContainer:
 	var f := Data.fighter_state(a.duplicate(true), c.day)
 	var v := UI.vbox(10)
@@ -32,15 +36,15 @@ static func build(main: Node, c: Career, a: Dictionary, picks: Array, act: Strin
 	var st := Recruit.stars(int(f["pot"]), eye)
 	var full := int(floor(float(st[1])))
 	var stars_txt := "★".repeat(full) + "☆".repeat(5 - full)
-	top.add_child(UI.label(stars_txt, UI.BODY + 4, UI.AMBER, "bold"))
+	top.add_child(UI.label(stars_txt, UI.BODY + 10, UI.AMBER, "bold"))
 	top.add_child(UI.muted("potential %s stars (your eye for talent: exact)" % _s(float(st[0])) if eye else
-		"potential %s to %s stars (a guess until the trial)" % [_s(float(st[0])), _s(float(st[1]))], UI.SMALL))
+		"potential %s to %s stars (a guess until the trial)" % [_s(float(st[0])), _s(float(st[1]))], UI.BODY))
 	v.add_child(top)
 	var grid := UI.hbox(22)
 	v.add_child(grid)
 	grid.add_child(_attributes(f))
 	grid.add_child(_who(main, f, picks, act))
-	grid.add_child(_perks(f))
+	v.add_child(_perks(f))
 	return v
 
 
@@ -50,8 +54,9 @@ static func _s(x: float) -> String:
 
 static func _attributes(f: Dictionary) -> VBoxContainer:
 	var col := UI.vbox(6)
-	col.custom_minimum_size = Vector2(430, 0)
-	col.add_child(UI.caps("ATTRIBUTES - GREEN NOW, BLUE = HOW HIGH IT CAN GO"))
+	col.custom_minimum_size = Vector2(500, 0)
+	col.add_child(UI.caps("ATTRIBUTES"))
+	col.add_child(UI.muted("Green is now, blue is how high it can go.", UI.SMALL))
 	# S398 menus (first-hour critics: "/84" six times read as a template): the ceiling most attributes share is said once
 	# under the bars; a row prints its own ceiling only when it differs.
 	var caps := {}
@@ -64,13 +69,14 @@ static func _attributes(f: Dictionary) -> VBoxContainer:
 			common = int(k)
 	for key in Data.STATS:
 		var row := UI.hbox(8)
-		var l := UI.label(str(Data.LABEL[key]), UI.SMALL)
-		l.custom_minimum_size = Vector2(110, 0)
+		row.add_child(KitIcon.icon(str(STAT_ICON.get(key, "star")), 24, UI.GOLD))
+		var l := UI.label(str(Data.LABEL[key]), UI.BODY)
+		l.custom_minimum_size = Vector2(130, 0)
 		row.add_child(l)
 		var now := float(f["stats"][key])
 		var cap := Recruit.ceiling(f, key)
 		var stack := Control.new()
-		stack.custom_minimum_size = Vector2(200, 12)
+		stack.custom_minimum_size = Vector2(220, 18)
 		stack.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		var ceil_bar: Control = Bar.new()
 		ceil_bar.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -83,9 +89,9 @@ static func _attributes(f: Dictionary) -> VBoxContainer:
 		now_bar.frac = now / 100.0
 		stack.add_child(now_bar)
 		row.add_child(stack)
-		row.add_child(UI.label("%d" % int(now) + ("  up to %d" % int(cap) if int(cap) != common else ""), UI.SMALL, UI.FG, "bold"))
+		row.add_child(UI.label("%d" % int(now) + ("  up to %d" % int(cap) if int(cap) != common else ""), UI.BODY, UI.FG, "bold"))
 		col.add_child(row)
-	col.add_child(UI.muted("Most can climb to about %d (a guess: training, sparring and fights show the truth)." % common, UI.TINY, true))
+	col.add_child(UI.muted("Most can climb to about %d (a guess until training shows the truth)." % common, UI.SMALL, true))
 	return col
 
 
@@ -112,7 +118,7 @@ static func _who(main: Node, f: Dictionary, picks: Array, act: String) -> VBoxCo
 		var fc: Dictionary = Recruit.FOCUS[id]
 		var gain := "%s +10 mastery now" % sig if id == "signature" and sig != "" else str(fc["short"])
 		var b := UI.button2(str(fc["name"]), "%s\n%s" % [gain, fc["cost"]], "ChoiceOn" if pick == id else "Choice",
-			main.act.bind(act, id), Vector2(196, 76), UI.FG, UI.MUTED, false, UI.SMALL + 1, UI.TINY)
+			main.act.bind(act, id), Vector2(216, 96), UI.FG, UI.MUTED, false, UI.BODY, UI.SMALL)
 		b.name = "Focus_" + id
 		b.tooltip_text = "%s. %s" % [fc["gain"], fc["why"]]
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -126,35 +132,33 @@ static func _line(tag: String, colour: String, name: String, effect: String) -> 
 	var c := UI.chip(tag, colour)
 	c.custom_minimum_size = Vector2(96, 0)
 	h.add_child(c)
-	var t := UI.label("%s - %s" % [name, effect], UI.SMALL, UI.FG, "body", true)
+	# S408 "tone of text": the name in big words, what it does on hover.
+	var t := UI.label(name, UI.BODY + 2, UI.FG, "semi", true)
 	t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	t.custom_minimum_size = Vector2(380, 0)
+	t.custom_minimum_size = Vector2(360, 0)
+	t.mouse_filter = Control.MOUSE_FILTER_PASS
+	t.tooltip_text = effect
+	h.tooltip_text = effect
 	h.add_child(t)
 	return h
 
 
-static func _perks(f: Dictionary) -> VBoxContainer:
-	var col := UI.vbox(4)
-	col.custom_minimum_size = Vector2(430, 0)
-	col.add_child(UI.caps("THE PERK ROAD - %s'S CLOSEST PERKS" % str(f["first"]).to_upper()))
+## S408: the closest perks as one row of chips; what each does is on hover.
+static func _perks(f: Dictionary) -> HFlowContainer:
+	var row := HFlowContainer.new()
+	row.name = "Perks"
+	row.add_theme_constant_override("h_separation", 10)
+	row.add_child(UI.caps("CLOSEST PERKS"))
 	# S398 menus (first-hour critics: every walk-in showed the same road): this fighter's open perks and the nearest ones,
 	# four at most; the rest wait on the fighter page.
 	var road: Array = PerkRoad.status(f)
 	road.sort_custom(func(a, b): return (0.0 if bool(a["open"]) else float(a["gap"])) < (0.0 if bool(b["open"]) else float(b["gap"])))
 	for s in road.slice(0, 4):
-		var row := UI.hbox(8)
-		var n := UI.label(str(s["name"]), UI.SMALL, UI.GREEN if bool(s["open"]) or bool(s["near"]) else UI.FG, "bold")
-		n.custom_minimum_size = Vector2(118, 0)
-		row.add_child(n)
-		var e := UI.label(str(s["effect"]), UI.TINY, UI.MUTED, "body", true)
-		e.custom_minimum_size = Vector2(190, 0)
-		e.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		row.add_child(e)
-		row.add_child(UI.label("OPEN" if bool(s["open"]) else str(s["need"]), UI.TINY, UI.GREEN if bool(s["open"]) or bool(s["near"]) else UI.MUTED, "mono"))
-		col.add_child(row)
-	if road.size() > 4:
-		col.add_child(UI.muted("%d more on the fighter page. Green = open, or a few weeks of training away." % (road.size() - 4), UI.TINY, true))
-	return col
+		var chip := UI.chip("%s - %s" % [str(s["name"]), "open" if bool(s["open"]) else str(s["need"])], "green" if bool(s["open"]) or bool(s["near"]) else "")
+		chip.tooltip_text = str(s["effect"])
+		chip.mouse_filter = Control.MOUSE_FILTER_PASS
+		row.add_child(chip)
+	return row
 
 
 static func _habit(id: String) -> Dictionary:

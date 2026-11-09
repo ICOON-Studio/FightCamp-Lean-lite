@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://scripts/ui/TitleScreen.gd" id="1"]
 
-[node name="Title" type="CenterContainer"]
+[node name="Title" type="Control"]
 script = ExtResource("1")

@@ -143,7 +143,10 @@ func _fit(main: Node) -> void:
 		var when := int(bills.get_meta("day", 0))
 		var amount := int(bills.get_meta("amount", 0))
 		_check(when > c.day and amount > 0, "mid-week next bill is after today and more than $0 (day %d, %d)" % [when, amount])
-		_check(bills.text.find(Clock.fmt(when)) >= 0 and bills.text.find(UI.money(amount)) >= 0, "the bill line shows that date and amount (%s)" % bills.text)
+		var tile := ""   # S408: the bills are a tile now: the date in its caption, the amount as its number
+		for l in bills.get_parent().get_children():
+			tile += (l as Label).text + " " if l is Label else ""
+		_check(tile.to_upper().find(Clock.fmt(when).to_upper()) >= 0 and bills.text.find(UI.money(amount)) >= 0, "the bill tile shows that date and amount (%s)" % tile)
 	var scroll := _page_scroll(main)
 	_check(scroll != null, "page scroll")
 	if scroll != null:

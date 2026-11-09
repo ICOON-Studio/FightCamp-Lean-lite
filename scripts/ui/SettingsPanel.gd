@@ -25,6 +25,10 @@ static func build(main: Node) -> VBoxContainer:
 		func(i): d["autosave"] = i == 0; keep.call())
 	auto.name = "Autosave"
 	v.add_child(_row("Autosave", auto))
+	var holo := _pick([["Solid boxer", false], ["Hologram", true]], 1 if bool(d["preview_holo"]) else 0,
+		func(i): d["preview_holo"] = i == 1; keep.call())
+	holo.name = "PreviewHolo"
+	v.add_child(_row("Move preview partner", holo))
 	var last := AutoSave.last(str(main.save_path))
 	v.add_child(UI.label(last if last != "" else "Autosave starts on the next Monday.", UI.SMALL, UI.MUTED))
 	return v

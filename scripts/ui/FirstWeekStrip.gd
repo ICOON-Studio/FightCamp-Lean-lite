@@ -61,12 +61,13 @@ static func make(main: Node) -> Control:
 			h.add_child(chip)
 	h.add_child(UI.spacer())
 	var wc := _weight_chip(c)   # S398 round 3 (blind: "the weight sentence pasted onto four screens"): one chip
-	if wc != null:
-		h.add_child(wc)
 	var skip := UI.button("Skip the guide", "BtnQuiet", main.act.bind("guideskip", ""))
 	skip.name = "GuideSkip"
 	skip.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(skip)
+	if wc != null:   # S408 operator: "text goes out side of screen": beside the chips this long line pushed the whole page past the window
+		wc.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		v.add_child(wc)
 	# S388 operator: "there should be a guid explainaing to player what and why to do": the step, then the reason, on every screen.
 	var row := UI.hbox(12)
 	v.add_child(row)

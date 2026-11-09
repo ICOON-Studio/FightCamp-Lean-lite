@@ -595,7 +595,8 @@
    "seat": "cursor",
    "title": "TASK MENUFIGHT1 - CURSOR (Grok 4.7 High) - Fight night's corner and result from the approved mockup",
    "brief": "MENUFIGHT1",
-   "held_why": "S405 operator: one adaptation per round replaces part of the corner minute; re-brief after the design passes critics"
+   "held_why": "S408 operator: hold until he approves a new look on the title, signing and the Money top line",
+   "status": "held"
   },
   {
    "id": "R11D",
@@ -669,31 +670,41 @@
    "id": "MENUPLAYBOOK2",
    "seat": "cursor",
    "title": "TASK MENUPLAYBOOK2 - CURSOR (Grok 4.7 High) - the Playbook, round 2: to the mockup, on one screen",
-   "brief": "MENUPLAYBOOK2"
+   "brief": "MENUPLAYBOOK2",
+   "status": "held",
+   "held_why": "S408 operator: hold until he approves a new look on the title, signing and the Money top line"
   },
   {
    "id": "MENUHOME2",
    "seat": "cursor",
    "title": "TASK MENUHOME2 - CURSOR (Grok 4.7 High) - Home, round 2: the Needs-you board as drawn",
-   "brief": "MENUHOME2"
+   "brief": "MENUHOME2",
+   "status": "held",
+   "held_why": "S408 operator: hold until he approves a new look on the title, signing and the Money top line"
   },
   {
    "id": "MENUWEEK2",
    "seat": "cursor",
    "title": "TASK MENUWEEK2 - CURSOR (Grok 4.7 High) - the Fighter Week page, round 2: to the mockup, on one screen",
-   "brief": "MENUWEEK2"
+   "brief": "MENUWEEK2",
+   "status": "held",
+   "held_why": "S408 operator: hold until he approves a new look on the title, signing and the Money top line"
   },
   {
    "id": "MENUPLAYBOOK2B",
    "seat": "cursor",
    "title": "TASK MENUPLAYBOOK2 - CURSOR (Grok 4.7 High) - the Playbook, round 2: to the mockup, on one screen",
-   "brief": "MENUPLAYBOOK2B"
+   "brief": "MENUPLAYBOOK2B",
+   "status": "held",
+   "held_why": "S408 operator: hold until he approves a new look on the title, signing and the Money top line"
   },
   {
    "id": "MENUFIGHT1B",
    "seat": "cursor",
    "title": "TASK MENUFIGHT1 - CURSOR (Grok 4.7 High) - Fight night's corner and result from the approved mockup",
-   "brief": "MENUFIGHT1B"
+   "brief": "MENUFIGHT1B",
+   "status": "held",
+   "held_why": "S408 operator: hold until he approves a new look on the title, signing and the Money top line"
   },
   {
    "id": "LOCOSLIDE2",
@@ -706,6 +717,13 @@
    "seat": "qwen",
    "title": "TASK BOXERLEAN1 - QWEN (qwen3-coder) - does the guard lean as far forward as the capture does?",
    "brief": "BOXERLEAN1"
+  },
+  {
+   "id": "HUBSPRITES1",
+   "seat": "qwen",
+   "title": "TASK HUBSPRITES1 - QWEN (qwen3-coder) - our real boxers as small moving figures for the painted gym",
+   "brief": "HUBSPRITES1",
+   "status": "queued"
   }
  ]
 }

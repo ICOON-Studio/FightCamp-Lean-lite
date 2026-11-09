@@ -103,6 +103,13 @@ static func _best(rows: Array) -> Array:
 static func _box_lines(d: Dictionary, f: Dictionary, combo: String, sm: Dictionary) -> void:
 	var lines: Array = d["lines"]
 	if combo != "":
+		# S408 operator: "you do not show how you unlock it".
+		var known: Dictionary = f.get("moves", {})
+		var to_learn: Array = []
+		for m in Combos.missing(combo, known):
+			to_learn.append("%s to %d (now %d)" % [m, int(Combos.LEARN_AT), int(float(known.get(str(m), 0.0)))])
+		if not to_learn.is_empty():
+			lines.append("To unlock: train %s on the pads." % ", ".join(to_learn))
 		var bout: Dictionary = f.get("bout", {})
 		var opp: Dictionary = bout.get("opp", {}) if not bout.is_empty() and not bool(bout.get("done", false)) else {}
 		var t := ComboOdds.table(combo, f, opp)
