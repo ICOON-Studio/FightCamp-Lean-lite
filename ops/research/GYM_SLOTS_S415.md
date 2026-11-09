@@ -24,6 +24,8 @@ Exercise bike $2,300: refurbished Lifecycle 95Ci $2,275, https://reach.dog/shop/
 Reflex bag $240: priced as a speed bag platform, Ringside adjustable $239.99, https://www.dickssportinggoods.com/o/boxing-equipment/speed-bag-training
 Teardrop bag $155: priced as a double-end bag, Ringside Heritage $154.99, https://www.walmart.com/c/kp/speed-bag
 Tall mirrors $800 for four 4x6 ft panels at $203: https://www.kijiji.ca/v-exercise-equipment/barrie/discount-oversized-mirror-walls-4x6ft-203-each-volume-discounts-wholesale-prices/cas_3582493 (a wholesale offer, thin)
-NO SOURCE, placeholders to replace: punching dummy $400, turf strip $600, conditioning set $400.
+Punching dummy $420 (S416): Century BOB XL $419.99 at Walmart, https://www.walmart.com/ip/Century-Bob-Body-Opponent-Bag/15077552
+Turf strip $1,400 (S416, was a $600 guess): GymTurf 5 x 25 ft roll $1,380 plus freight, https://theamericangym.com/gymturf.asp
+Conditioning set $550 (S416): Body-Solid steel plyo boxes, set of three, $329.99, https://reach.dog/shop/buy-sell-fitness/products/body-solid-tools-steel-plyo-box-set-3 plus four medicine balls at most $56.55 each (one 20 lb listing, https://tigermedical.com/products/rubber-medicine-ball-fei10-3146, so the balls are an estimate, thin).
 Places of cardio (1), mirrors (4), conditioning and turf (4), and the red floor's 3, are Claude's calls.
 Comes with the club, free: scales, timer and stool, treatment table, tape screen, bucket.

@@ -8,7 +8,8 @@ const DIR := "res://assets/ui/warm/"
 
 ## Nine-slice borders of each piece in its own pixels: {piece: [border kept unscaled, padding inside for content]}.
 ## Measured on the trimmed files (tools: scratchpad kit_pack, S403): the whiteboard's corner caps, the chalkboard's wood.
-const SLICE := {"board": [58, 60], "paper": [36, 24], "sticky": [70, 26], "chalk": [40, 46]}
+## S416 wood_panel: chalk.png at 62% with the board darkened (operator Q-S294-146: "dark looks nice , i like the wooden look of the menus").
+const SLICE := {"board": [58, 60], "paper": [36, 24], "sticky": [70, 26], "chalk": [40, 46], "wood_panel": [24, 36]}
 
 
 static func tex(piece: String) -> Texture2D:

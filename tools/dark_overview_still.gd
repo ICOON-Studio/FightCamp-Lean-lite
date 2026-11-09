@@ -37,6 +37,7 @@ func _initialize() -> void:
 	main.act("review")
 	await _settle(80)
 	main.act("close")
+	main.career.guide = ""   # S415 operator on the stills: "why do you have the guide on every screen you draw ?"
 	main.act("fighter", "lucy")
 	await _shot("overview_dark")
 	FighterPage.dark_overview = false

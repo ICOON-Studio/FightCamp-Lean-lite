@@ -39,7 +39,7 @@ SLOTS = [
     piece("cage", "Cage", "ring", 0, 10, (565, 150, 345, 272), locked=True),
     piece("mat_blue", "Mat area with circle", "mat", 2340, 18, (1262, 172, 312, 206)),
     piece("bag_floor", "Bag floor and rail", "mat", 2340, 3, (528, 420, 574, 330), start=True),
-    piece("dummy", "Punching dummy", "bag", 400, 1, (1012, 505, 52, 124)),
+    piece("dummy", "Punching dummy", "bag", 420, 1, (1012, 505, 52, 124)),
     piece("reflex", "Reflex bag", "bag", 240, 1, (1035, 622, 56, 110)) | {"move": (-84, -92)},   # the smaller floor ends above where it stood
 ]
 SLOTS += [piece("bag_f%d" % (i + 1), "Heavy bag", "bag", 570, 1, (int(c - BAG_W), BAG_TOP, BAG_W * 2 if i < 6 else 52, BAG_BOTTOM - BAG_TOP), start=True)
@@ -67,7 +67,7 @@ SLOTS += [
     piece("bench_3", "Bench", "bench", 400, 2, (1328, 624, 113, 30)),
     piece("bench_4", "Bench", "bench", 400, 2, (1283, 366, 76, 32)),
     piece("bench_5", "Bench", "bench", 400, 2, (1435, 366, 94, 32)),
-    piece("turf", "Turf strip with ladder", "mat", 600, 4, (1545, 615, 112, 134)),
+    piece("turf", "Turf strip with ladder", "mat", 1400, 4, (1545, 615, 112, 134)),
 ]
 ## S415 the kit his picture lacked, added to a copy of it by Ludo (kit_reg_v1.png, lined up on it): price 0 and start = comes with the club.
 ## S415 operator: "these items are out of position at the entrance": they stand along the front wall either side of a clear aisle to the
@@ -78,7 +78,7 @@ KIT = [
     piece("treatment", "Treatment table", "kit", 0, 0, (698, 636, 89, 108), start=True) | {"at": (526, 740)},
     piece("mirrors", "Tall mirrors", "mirror", 800, 4, (577, 606, 120, 138)) | {"at": (598, 740)},
     piece("tape_tv", "Screen for watching tape", "kit", 0, 0, (799, 614, 65, 128), start=True) | {"at": (945, 740)},
-    piece("conditioning", "Plyo boxes and medicine balls", "mat", 400, 4, (872, 658, 107, 80)) | {"at": (998, 740)},
+    piece("conditioning", "Plyo boxes and medicine balls", "mat", 550, 4, (872, 658, 107, 80)) | {"at": (998, 740)},
     piece("corner_kit", "Water bucket", "kit", 0, 0, (981, 687, 35, 48), start=True) | {"at": (1082, 740)},
     piece("timer", "Round timer and stool", "kit", 0, 0, (1018, 652, 46, 88), start=True) | {"at": (1110, 740)},
 ]

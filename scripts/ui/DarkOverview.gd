@@ -6,6 +6,7 @@ extends RefCounted
 
 const UI := preload("res://scripts/ui/UI.gd")
 const Plate := preload("res://scripts/ui/Plate.gd")
+const WarmKit := preload("res://scripts/ui/WarmKit.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
 const RosterCards := preload("res://scripts/ui/RosterCards.gd")
@@ -102,12 +103,10 @@ static func panel(title: String = "") -> Array:
 	var p := PanelContainer.new()
 	p.theme_type_variation = "Card"   # the page and its tests still find a card
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var s := UI.box(PANEL_BG, SIDE, 8, 1, 24, 18)
-	s.border_color = SIDE
-	s.border_width_top = 3
-	p.add_theme_stylebox_override("panel", s)
-	p.draw.connect(func():
-		p.draw_rect(Rect2(8, 0, p.size.x - 16, 3), EDGE))
+	var wood := WarmKit.box("wood_panel")
+	wood.content_margin_top = 26    # the frame is 19 px; 36 all round pushed the bottom row past 1080
+	wood.content_margin_bottom = 24
+	p.add_theme_stylebox_override("panel", wood)
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 8)
 	p.add_child(v)
