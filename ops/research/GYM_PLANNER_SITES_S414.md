@@ -57,3 +57,10 @@ Leave out: brands, hundreds of items, resize, custom room shapes, lighting, firs
 - The old repo's builder (BuildMode 133 KB, BuildWindow 37 KB) drove the old free 3D gym and breaks the 500-line rule. Do not port it. BuildRail and the S287 task are useful as a list of gestures.
 
 Depends on the camera answer (Q-S294-144): the editor works on the current drawn gym either way, but a real 3D gym would change how pieces are picked.
+
+## Third site: 3D Gym Design (https://3dgymdesign.com/, the owner sent it in S414)
+A planner for gymnastics clubs, also sold as a download and a done-for-you service. The free web version is a Unity app (about 25 s to load here), usable as a guest.
+SEEN in the app: size in metres or feet and currency at the start; "templates" offered only Blank; catalogue as a deep list (category, then type, then item: Gymnastics, Parkour, Ninja Warrior, General Fitness, Cheer, Wrestling, Climbing, Facility); bottom toolbar with separate select, move, rotate and scale tools plus grid, snap, undo; 3D, 2D and walk-through buttons; camera needs Alt + click and Shift + click.
+NOT TESTED: placing a piece. The drag and click tools here did not put a mat in the room, so its selecting, overlap and prices were not seen. From its own page, not checked: live price list, custom mat size and colour, position and rotation numbers on three axes, inspection checklists in the paid version.
+VERDICT: the weakest fit of the three. It is the heaviest to use (nested menus, separate tools for each action, keyboard camera), which is the opposite of "pretty simple". Boxing kit: Wrestling held only mats; no boxing category.
+WORTH TAKING, one idea: paint mats and the ring in the club's colours. Later maybe: equipment wear with inspections, as a new mechanic, only if the floor feels like decoration.
