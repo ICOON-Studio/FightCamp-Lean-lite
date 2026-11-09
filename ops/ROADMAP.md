@@ -10,7 +10,7 @@ Updated 2026-11-09 by claude S294.
 
 **S408 — ?** *(claude)*
 
-The guard knock-knee is settled: measured as distance out of the leg's plane, on guard frames only, the game stays within 0.02 of leg length of the source take; no knock-knee on the stills. PRs 78, 101, 102, 103 closed. World page merged and brought to the mockup. Move card camera fixed.
+S408: menus remade as a game after the operator's playtest: painted title and signing, MenuFx, Ludo textures on all menus, icon HUD with no side rail, the gym drawn from data (GymPlan, four presets, IsoGym). Critics had scored the first look 5-7 while he gave 1/10: critics must judge presentation first.
 
 ## Next
 

@@ -1,3 +1,15 @@
+FIGHTCAMP - BUILD OF 2026-11-09 (S408, late): IT STARTS TO LOOK LIKE A GAME
+================================================================================
+
+ NEW.
+  a. The title and the signing screen are painted, with moving light and dust. The signing screen shows the fighter.
+  b. Home opens on your club, drawn from a plan: click Reception, Fighters, Playbook, Fights, Club office or World.
+  c. Four club layouts: the button at the top right of the gym switches them. Bonuses are not on yet.
+  d. The side panel is gone: the five places are icons in the top bar. Money's top line is tiles. All menus have the painted texture.
+  e. Move previews play real steps, the partner is solid (Settings has the hologram), a locked move says what unlocks it.
+ TRY: start a new career, sign Lucy, then click around the gym. Does each place go where you expect? Does each layout read like a real gym?
+ Still to come: people walking in the gym, the bonuses, building your own, the game look on the other pages.
+
 FIGHTCAMP - BUILD OF 2026-11-09 (S408): THE WORLD PAGE
 ================================================================================
 

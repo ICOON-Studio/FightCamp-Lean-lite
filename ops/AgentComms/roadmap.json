@@ -6,11 +6,17 @@
     "id": "S408",
     "owner": "claude",
     "updated": "2026-11-09",
-    "summary": "The guard knock-knee is settled: measured as distance out of the leg's plane, on guard frames only, the game stays within 0.02 of leg length of the source take; no knock-knee on the stills. PRs 78, 101, 102, 103 closed. World page merged and brought to the mockup. Move card camera fixed.",
+    "summary": "S408: menus remade as a game after the operator's playtest: painted title and signing, MenuFx, Ludo textures on all menus, icon HUD with no side rail, the gym drawn from data (GymPlan, four presets, IsoGym). Critics had scored the first look 5-7 while he gave 1/10: critics must judge presentation first.",
     "last_working_commit": "d49c1235",
     "verified_playable": "guard_knee, menu_world, world_ladder_rules, golden_path, move_tip, move_book green; World rendered and compared with docs/mockups/s403/world.png",
     "incomplete_blocked": "#106 fighter model not mergeable: 2-13x slower in the sim tests and CI over its limit; FIGHTERMODEL4C queued. Playbook #105, Home #107, Fighter Week #108 failed the mockup check: round 2 queued. Cursor signed out. boxer_footwork still red on main.",
-    "next_action": "Cursor is signed in. The 30-min job launches MENUHOME2, MENUWEEK2, FIGHTERMODEL4C, MENUPLAYBOOK2B, MENUFIGHT1B and Qwen LOCOSLIDE2 once the PC is not RED on memory; collect each and compare screens with their mockups."
+    "next_action": "Collect HUBSPRITES1 (PR 114, Qwen: real boxers as figures) and FIGHTERMODEL4C (PR 113, Cursor: read its speed numbers against main before merging). Then: walking figures in the gym, the gym bonus on the career chosen at setup, the game look on the other pages (re-brief the held Cursor rows), then the player's own gym on GymPlan's rules.",
+    "next_acceptance": "HUBSPRITES1 and FIGHTERMODEL4C collected or sent back; people walking in the gym in the .exe; each gym's bonus chosen at career start and running in the rules; the operator plays it.",
+    "awaiting_operator": [
+      "Keep or cut Test day and the dues bands",
+      "Say yes, ARCHIVED, to copy and delete the old Miro board",
+      "Play the build: does each gym read like a real gym?"
+    ]
   },
   "next": "S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.",
   "assessment": {
@@ -1615,7 +1621,7 @@
     {
       "id": "S408",
       "date": "2026-11-09",
-      "note": "Guard knee measured properly: no knock-knee, four PRs closed, tests/guard_knee_test.gd holds the bar. World page merged, three layout faults fixed against the mockup. move_tip red was real: the card's camera aimed too high. Playbook and Home sent back for round 2. LOCOKNEE1 queued on Qwen. Build exported."
+      "note": "Guard knee measured properly: no knock-knee, four PRs closed, tests/guard_knee_test.gd holds the bar. World page merged, three layout faults fixed against the mockup. move_tip red was real: the card's camera aimed too high. Playbook and Home sent back for round 2. LOCOKNEE1 queued on Qwen. Build exported. Later the same day: the operator played it and rated the look 1/10, so title, signing, Money tiles, top-bar icons, Ludo textures and the gym as the main menu were rebuilt. The gym is data with layout rules after AI paintings put doors inside the building. Cursor screen rebuilds held for the new look. Full tests at 05:00 had never run; fixed."
     }
   ],
   "blocked_on_operator": [],
@@ -4534,7 +4540,7 @@
   },
   "plan": {
     "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-    "updated": "2026-11-09 08:11 board_sync",
+    "updated": "2026-11-09 09:42 board_sync",
     "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
     "titles": {
       "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4830,24 +4836,42 @@
         "state": "LANDED - Claude collects"
       },
       {
-        "title": "TASK BOXERLEAN1 - QWEN (qwen3-coder) - does the guard lean as far forward as the capture does?",
+        "title": "TASK HUBSPRITES1 - QWEN (qwen3-coder) - our real boxers as small moving figures for the painted gym",
         "who": "qwen",
-        "started": "2026-11-09T07:18",
-        "run": "BOXERLEAN1",
+        "started": "2026-11-09T08:37",
+        "run": "HUBSPRITES1",
         "state": "LANDED - Claude collects"
       }
     ],
     "next": [
       {
-        "id": "FIGHTERMODEL4C",
-        "who": "cursor",
-        "title": "Fighter model at the old speed, then merge",
+        "id": "GYMBUILDER",
+        "who": "claude",
+        "title": "The player builds their own gym on the same rules",
+        "after": "GYMBONUS"
+      },
+      {
+        "id": "GAMELOOK",
+        "who": "claude",
+        "title": "Game look on the other pages: full-body cards, picture tiles, versus screens",
         "after": ""
       },
       {
-        "id": "LOCOKNEE1",
-        "who": "qwen",
-        "title": "Walking clips against their source",
+        "id": "GYMBONUS",
+        "who": "claude",
+        "title": "Each gym's bonus, chosen at career start",
+        "after": ""
+      },
+      {
+        "id": "HUBSPRITES1",
+        "who": "claude",
+        "title": "Collect the boxers as figures, make them walk in the gym",
+        "after": ""
+      },
+      {
+        "id": "FIGHTERMODEL4C",
+        "who": "cursor",
+        "title": "Fighter model at the old speed, then merge",
         "after": ""
       },
       {
@@ -5108,6 +5132,11 @@
     },
     "done_recently": [
       {
+        "title": "TASK BOXERLEAN1 - QWEN (qwen3-coder) - does the guard lean as far forward as the capture does?",
+        "who": "qwen",
+        "when": "2026-11-09"
+      },
+      {
         "title": "TASK LOCOSLIDE2 - QWEN (qwen3-coder) - which way does the planted foot creep, and what brings it back to the source?",
         "who": "qwen",
         "when": "2026-11-09"
@@ -5154,11 +5183,6 @@
       },
       {
         "title": "ONE CHANGE in the corner (small version)",
-        "who": "claude",
-        "when": "2026-11-08"
-      },
-      {
-        "title": "SPLIT500 merged",
         "who": "claude",
         "when": "2026-11-08"
       }
@@ -5369,11 +5393,27 @@
         {
           "text": "Walking feet: no fault",
           "who": "agent"
+        },
+        {
+          "text": "Gym drawn from data",
+          "who": "claude"
+        },
+        {
+          "text": "Menus remade as a game",
+          "who": "claude"
         }
       ],
       "now": [
         {
-          "text": "Four screens round 2 (Cursor)",
+          "text": "Game look on other pages",
+          "who": "claude"
+        },
+        {
+          "text": "Collect boxer figures (Qwen)",
+          "who": "agent"
+        },
+        {
+          "text": "Collect fighter model (Cursor)",
           "who": "agent"
         }
       ],
@@ -5473,6 +5513,14 @@
         {
           "text": "Playbook + Home round 2",
           "who": "agent"
+        },
+        {
+          "text": "Gym bonuses at career start",
+          "who": "claude"
+        },
+        {
+          "text": "Player builds own gym",
+          "who": "claude"
         }
       ],
       "session": "S408"
@@ -5481,6 +5529,6 @@
   "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
   "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
   "last_working_commit": "d49c1235",
-  "next_action": "Cursor is signed in. The 30-min job launches MENUHOME2, MENUWEEK2, FIGHTERMODEL4C, MENUPLAYBOOK2B, MENUFIGHT1B and Qwen LOCOSLIDE2 once the PC is not RED on memory; collect each and compare screens with their mockups.",
+  "next_action": "Collect HUBSPRITES1 (PR 114, Qwen: real boxers as figures) and FIGHTERMODEL4C (PR 113, Cursor: read its speed numbers against main before merging). Then: walking figures in the gym, the gym bonus on the career chosen at setup, the game look on the other pages (re-brief the held Cursor rows), then the player's own gym on GymPlan's rules.",
   "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }
