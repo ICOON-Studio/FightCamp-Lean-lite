@@ -30,10 +30,10 @@ func _classes() -> void:
 	var lim: Array = ["wfw", "wlw", "www", "wmw"].map(func(d): return float(Data.DIVISIONS[d]["limit"]))
 	_check(lim == [57.0, 60.0, 65.0, 75.0], "the women's classes are 57 / 60 / 65 / 75 kg (%s)" % str(lim))
 	var lucy := Data.fighter_state(Data.lucy(), 0)
-	_check(is_equal_approx(float(lucy["limit"]), 60.0) and is_equal_approx(float(lucy["weight"]) - float(lucy["limit"]), 1.4),
-		"Lucy boxes at 60 kg and walks 1.4 kg over (%.1f)" % float(lucy["weight"]))
+	_check(is_equal_approx(float(lucy["limit"]), 60.0) and is_equal_approx(float(lucy["weight"]) - float(lucy["limit"]), 0.9),
+		"Lucy boxes at 60 kg and walks 0.9 kg over (%.1f)" % float(lucy["weight"]))
 	var sam: Dictionary = Data.PROSPECTS.filter(func(p): return str(p["id"]) == "samira")[0]
-	_check(is_equal_approx(float(sam["weight"]) - 65.0, 1.4), "Samira walks 1.4 kg over 65 (%.1f)" % float(sam["weight"]))
+	_check(is_equal_approx(float(sam["weight"]) - 65.0, 0.9), "Samira walks 0.9 kg over 65 (%.1f)" % float(sam["weight"]))
 
 
 func _old_save() -> void:
@@ -51,7 +51,7 @@ func _old_save() -> void:
 	_check(is_equal_approx(float(f["limit"]), 60.0) and is_equal_approx(float(f["weight"]), 61.4),
 		"an old save: Lucy 61.2 / 62.6 becomes 60.0 / 61.4, the same cut (%.1f / %.1f)" % [float(f["limit"]), float(f["weight"])])
 	var sam: Dictionary = l.prospects.filter(func(p): return str(p["id"]) == "samira")[0]
-	_check(is_equal_approx(float(sam["weight"]), 66.4), "an old save: Samira's 67.4 becomes 66.4 (%.1f)" % float(sam["weight"]))
+	_check(is_equal_approx(float(sam["weight"]), 65.9), "an old save: Samira's 67.4 becomes 65.9 (%.1f)" % float(sam["weight"]))
 	var again := SaveGame.from_dict(SaveGame.to_dict(l))
 	_check(is_equal_approx(float(again.fighters[0]["weight"]), 61.4) and is_equal_approx(float(again.fighters[0]["limit"]), 60.0),
 		"a second load moves nothing")

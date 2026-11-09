@@ -20,3 +20,11 @@ Q-S294-146, carried from S415: "dark looks nice , i like the wooden look of the 
 
 ## Launched
 REARHAND5 (Qwen). GYMFIGURES1 (Cursor). GYMKIND1 brief written, launch after FIGHTERMODEL4I is on main.
+
+## Later in S416 (live playtest)
+Merged: FIGHTERMODEL4I with 4F and 4H; GYMFIGURES1; GYMKIND1 (off for players); HEADAIM1 (measure only, ruler not shown). PR 140 REARHAND5B held for a film.
+Built from his notes: no fight no cut, boxers 0.5 kg lighter; one Gym button; Mail in the top bar; pins go to their own places; Training tab; game plan says what each choice does, no preview; People page in words; Fights has actions; floor people capped 6, 9, 12 by premises.
+His calls: Q-159 yes to the painted look. Q-161: the critic's corner 2/10, redo it as graphics.
+Disk: E: reached 4.4% free; worktree_retire no longer holds a worktree for line endings alone; 43.7 GB free after.
+HANDOFF: NEXT_SESSION_PROMPT.md, top three notes.
+
