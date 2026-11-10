@@ -462,7 +462,7 @@ func _play_next_clip() -> void:
 	if _is_punch_clip(clip) and not _is_forced and studio and MoveStudio.defends(_punch_kind(clip)):
 		_jabs += 1   # S382 the studio's partner slips or blocks it: no glove carried onto his face
 		var at := _clip_idx
-		MoveStudio.defend(self, _stage, _jabs, (contact_s - skip) / speed, speed, func(): return _playing and _clip_idx == at)
+		MoveStudio.defend(self, _stage, _jabs, (contact_s - skip) / speed, speed, func(): return _playing and _clip_idx == at, clip, (contact_s - skip) / speed)
 	elif _is_punch_clip(clip) and not _is_forced:
 		var is_body := clip.contains("body")
 		_stage.land(who, clip, is_body, 0.0, (contact_s - skip) / speed)

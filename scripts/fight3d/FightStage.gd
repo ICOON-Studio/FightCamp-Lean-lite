@@ -139,6 +139,22 @@ func land(who: int, clip: String, body: bool, at_s: float = 0.0, contact_s: floa
 		PunchRange.close_in(self, who, rest, at_s)
 
 
+## HEADAIM2: `who` throws `clip` and it does NOT land (blocked, slipped, missed): the glove front's HEIGHT is aimed at
+## the target's face, but depth and sideways are untouched (a blocked glove must not be carried onto the face).
+## No lunge, no step-in, no land_f (those belong to a landed punch). The target height is LATCHED at arming.
+func aim_height(who: int, clip: String, at_s: float, contact_s: float) -> void:
+	if OS.get_cmdline_user_args().has("noaim"):
+		return
+	var pr: Node = boxers[who].get("reach")
+	if pr == null: return
+	var row := BeatClips.contact_row(clip)
+	var hand := hand_of(who, str(row.get("hand", "LeftHand" if clip.contains("left_") or clip.contains("jab") else "RightHand")))
+	# Latch the target height at arming time (a slipping head ducks; the fist must go where the head was)
+	var face_y: float = target_point(1 - who, false).y
+	var cs: float = contact_s if contact_s >= 0.0 else BeatClips.contact(clip, CONTACT_S)
+	pr.aim_height(clip, hand, cs, face_y, float(boxers[who]["front"]))
+
+
 ## Pelvis to pelvis now, metres.
 func _gap() -> float:
 	return Vector2(boxers[0]["pos"].x - boxers[1]["pos"].x, boxers[0]["pos"].z - boxers[1]["pos"].z).length()

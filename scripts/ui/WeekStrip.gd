@@ -11,6 +11,7 @@ extends HBoxContainer
 ##   make(f, opp, bout_day, today, start, focus, film, spar_now, proto = the camp modal's pick, -1 = f's own) -> WeekStrip
 
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
@@ -101,7 +102,7 @@ func _build(f: Dictionary, opp: Dictionary, bout_day: int) -> void:
 	add_child(_poster(f, opp, bout_day))
 	_peek = PopupPanel.new()
 	_peek.name = "WeekPeek"
-	_peek.add_theme_stylebox_override("panel", UI.box(Color.WHITE, INK, 8, 2, 16, 12))
+	_peek.add_theme_stylebox_override("panel", WoodKit.slate(26, 18))
 	add_child(_peek)
 
 
@@ -113,10 +114,10 @@ func _cell(i: int, c: Dictionary) -> Button:
 	b.disabled = not bool(c["future"])
 	var now := bool(c["now"])
 	var bg := UI.YELLOW if now else Color(0, 0, 0, 0)
-	var edge := UI.YELLOW_EDGE if now else (Color(PENCIL, 0.5) if bool(c["past"]) else INK)
+	var edge := UI.YELLOW_EDGE if now else Color(WoodKit.SOFT, 0.55)
 	for k in ["normal", "hover", "pressed", "disabled", "focus"]:
 		var on_hover: bool = k == "hover" and not b.disabled
-		b.add_theme_stylebox_override(k, UI.box(Color(INK, 0.08) if on_hover else bg, edge, 6, 2, 6, 4))
+		b.add_theme_stylebox_override(k, UI.box(Color(WoodKit.INK, 0.12) if on_hover else bg, edge, 6, 2, 6, 4))
 	if bool(c["future"]):
 		b.tooltip_text = "Week %d to go: the coach's %s week" % [int(c["to_go"]), str(c["phase"])]
 		b.pressed.connect(peek.bind(i))
@@ -127,7 +128,7 @@ func _cell(i: int, c: Dictionary) -> Button:
 	v.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	v.alignment = BoxContainer.ALIGNMENT_CENTER
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var t := UI.label(str(c["word"]), UI.SMALL - 1, PENCIL if bool(c["past"]) else INK, "caps")
+	var t := UI.label(str(c["word"]), UI.SMALL - 1, UI.MUTED if bool(c["past"]) else UI.FG, "caps")
 	t.name = "Word"
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -162,7 +163,7 @@ func _poster(f: Dictionary, opp: Dictionary, bout_day: int) -> PanelContainer:
 		a.region = Rect2(s.x * 0.25, s.y * 0.12, s.x * 0.5, minf(s.y * 0.88, s.x * 0.5 * (CELL.y - 8) / 44.0))
 		face.texture = a
 		h.add_child(face)
-	var d := UI.label(Clock.fmt(bout_day).to_upper(), UI.SMALL - 2, Color.WHITE, "caps")
+	var d := UI.label(Clock.fmt(bout_day).to_upper(), UI.SMALL - 2, UI.FG, "caps")
 	d.name = "Date"
 	d.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(d)
@@ -178,10 +179,10 @@ func peek(i: int) -> void:
 	var v := UI.vbox(4)
 	v.name = "Lines"
 	_peek.add_child(v)
-	v.add_child(UI.label("%s - THE COACH'S WEEK" % str(c["word"]), UI.SMALL, INK, "caps"))
+	v.add_child(UI.label("%s - THE COACH'S WEEK" % str(c["word"]), UI.SMALL, WoodKit.INK, "caps"))
 	# S382: a week to come never holds the film night - the camp's one film night is in the week it opens (WeekPhase.film_night)
 	for line in week_lines(str(c["phase"]), _focus, false, _step, _camp):
-		v.add_child(UI.label(line, UI.SMALL, UI.FG, "body"))
+		v.add_child(UI.label(line, UI.SMALL, WoodKit.SOFT, "body"))
 	var b := get_child(i * 2) as Control
 	var at := Vector2i(b.get_screen_position() + Vector2(0, b.size.y + 6)) if b.is_inside_tree() else Vector2i.ZERO
 	_peek.popup(Rect2i(at, Vector2i(320, 0)))
@@ -222,6 +223,6 @@ class _Pips extends Control:
 		var x0 := size.x * 0.5 - (n * 14 - 4) * 0.5
 		for k in n:
 			var cx := x0 + k * 14 + 5
-			var c := INK if k < used else col
+			var c := WoodKit.fg(self) if k < used else col
 			draw_circle(Vector2(cx, 5), 5.0, c)
 			draw_rect(Rect2(cx - 3, 9, 6, 4), c)

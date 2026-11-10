@@ -15,6 +15,7 @@ extends PanelContainer
 ##   WeekBoard.picking / picking_eve (static "fid|dow": the morning / evening whose popover is open)
 
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const WB := preload("res://scripts/ui/WhiteboardKit.gd")
 const WeekDay := preload("res://scripts/ui/WeekDay.gd")
 const WeekCards := preload("res://scripts/ui/WeekCards.gd")
@@ -48,7 +49,7 @@ var _meter: Control = null   # WEEK FATIGUE, drawn on the totals row (S398: the 
 static func make(main: Node, c: Career, f: Dictionary) -> PanelContainer:
 	var p := new()
 	p.name = "WeekBoard"
-	p.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 14, 1, 18, 16))
+	p.theme_type_variation = "Card"   # one framed slate; the frame is 22 px, so the column gaps below are tighter
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	# S397 blind rounds 5-6: Saturday and Sunday plan next week. The board draws a view of her for next Monday
 	# (WeekPhase.ahead_view); the acts write that week's own exceptions, which WeekPhase.sync moves in on the Monday.
@@ -140,7 +141,7 @@ func _build(main: Node, c: Career, f: Dictionary) -> void:
 	var goal: Dictionary = pl["goal"]
 	_lines = pl["lines"]
 	_camp = WeekCamp.make(main, f, goal, _lines, teaching(f), func(g: Dictionary) -> Array: return plan_of(c, g)["lines"])
-	var v := UI.vbox(14)
+	var v := UI.vbox(10)
 	add_child(v)
 	var tired := tired_days(pl)
 	v.add_child(_head(c, f, goal, pl, tired))
@@ -197,7 +198,7 @@ func _head(c: Career, f: Dictionary, goal: Dictionary, pl: Dictionary, tired: Ar
 	var camp: Dictionary = f.get("camp", {})
 	if booked(goal):   # S398 (operator: nothing on screen the player cannot act on): the camp's weeks are Fight prep's
 		var left := UI.hbox(14)
-		left.add_child(WB.ink("THIS WEEK", 34, "marker"))
+		left.add_child(WB.ink("THIS WEEK", 34, "marker", UI.FG))
 		var ph: Dictionary = WeekPhase.PHASES.get(str(f.get("phase", "base")), WeekPhase.PHASES["base"])
 		var line := UI.label("%s - fight night %s, %d days" % [str(ph["name"]), Clock.fmt(int(bout["day"])), int(bout["day"]) - c.day], 17, UI.FG, "semi")
 		line.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -206,7 +207,7 @@ func _head(c: Career, f: Dictionary, goal: Dictionary, pl: Dictionary, tired: Ar
 	else:
 		var left := UI.hbox(14)
 		var ahead := bool(f.get("_ahead", false))
-		var t := WB.ink("NEXT WEEK" if ahead else "THIS WEEK", 34, "marker")
+		var t := WB.ink("NEXT WEEK" if ahead else "THIS WEEK", 34, "marker", UI.FG)
 		left.add_child(t)
 		var mon := int(f["phase_day"]) if ahead else c.day - posmod(c.day, 7)
 		var dates := UI.label("%s - %s" % [Clock.fmt(mon), Clock.fmt(mon + 6)], 17, UI.FG, "semi")
@@ -401,7 +402,7 @@ func _twist_bar(main: Node, f: Dictionary) -> Control:
 		return null
 	var p := PanelContainer.new()
 	p.name = "TwistBar"
-	p.add_theme_stylebox_override("panel", UI.box(Color("#fff4cf"), Color("#e0a400"), 10, 1, 14, 8))
+	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.HEAD, 0.9), 4, 2, 14, 8))
 	var h := UI.hbox(14)
 	p.add_child(h)
 	h.add_child(UI.label(("%s" if bool(t.get("ask", false)) else "TWIST: %s") % str(t["name"]).to_upper(), 16, WB.RED, "bold"))

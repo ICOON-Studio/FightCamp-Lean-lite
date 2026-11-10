@@ -5,7 +5,7 @@ extends SceneTree
 ##   Godot_v4.7.2-stable_win64.exe --headless --audio-driver Dummy --path . --script res://tools/layout_snapshot.gd -- <out_dir>
 ## Real pictures (<name>_real.png), rendered on the never-shown desktop:
 ##   python tools/hidden_desktop.py run --timeout=180 <godot.exe> --path . --windowed --resolution 1920x1080 \
-##       --script res://tools/layout_snapshot.gd -- <out_dir>
+##       --script res://tools/layout_snapshot.gd -- <out_dir> [noguide]   (noguide: stills for the operator, guide hidden)
 
 const W := 1920
 const H := 1080
@@ -291,6 +291,11 @@ func _settle(frames: int = 4) -> void:
 
 func _shot(name: String) -> void:
 	await _settle()
+	if OS.get_cmdline_user_args().has("noguide"):
+		# S415 operator on the stills: "why do you have the guide on every screen you draw ?" - `-- <out_dir> noguide`
+		var g := main.find_child("FirstWeekStrip", true, false)   # the dim + ring, the trainer and the bubble under it
+		if g != null:
+			(g as CanvasItem).visible = false
 	if DisplayServer.get_name() != "headless":
 		# A real window (on the hidden desktop): save the true picture too.
 		await RenderingServer.frame_post_draw

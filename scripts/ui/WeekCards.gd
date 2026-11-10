@@ -12,6 +12,7 @@ extends RefCounted
 ##   morning_pop(...)  evening_pop(...)  pop(anchor, body, left, on_close) -> Pop
 
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
 const Tips := preload("res://scripts/ui/Tips.gd")
@@ -27,8 +28,6 @@ const TILE := {"conditioning": "#be185d", "power": "#9a3412", "speed": "#7c3aed"
 const SPARE := ["#86198f", "#155e75", "#3f6212", "#7c2d12", "#1e3a8a", "#581c87"]
 const NIGHT_ICON := {"pads": "hand-fist", "film": "tv"}
 const BLUE := Color("#2f6fdb")
-const PALE := Color("#e6effc")
-const SLATE := Color("#7a8794")
 const OVER := 80.0
 const HEAVY := 70.0
 const AM_H := 96.0
@@ -57,14 +56,14 @@ static func tile(key: String, px := 52) -> PanelContainer:
 
 ## A small word chip: kind "light" / "normal" / "hard" (a morning's effort), "twist", "red", or "plain".
 static func chip(text: String, kind := "plain") -> PanelContainer:
-	var cols := {"light": ["#eef1f4", "#5e6773"], "normal": ["#e6effc", "#1d4fa8"], "hard": ["#fde9cf", "#a35b00"],
-		"twist": ["#fff1d6", "#a35b00"], "red": ["#fde4e2", "#b42318"], "plain": ["#eef1f4", "#5e6773"]}
-	var c: Array = cols.get(kind, cols["plain"])
+	var inks := {"light": WoodKit.SOFT, "normal": WoodKit.BLUE, "hard": WoodKit.HEAD, "twist": WoodKit.HEAD,
+		"red": UI.RED, "plain": WoodKit.SOFT}
+	var ink: Color = inks.get(kind, WoodKit.SOFT)
 	var p := PanelContainer.new()
-	p.add_theme_stylebox_override("panel", UI.box(Color(str(c[0])), Color(0, 0, 0, 0), 9, 0, 7, 1))
+	p.add_theme_stylebox_override("panel", UI.box(Color(ink, 0.16), Color(ink, 0.55), 9, 1, 7, 1))
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	p.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	p.add_child(UI.label(text, 12, Color(str(c[1])), "bold"))
+	p.add_child(UI.label(text, 12, ink, "bold"))
 	return p
 
 
@@ -155,7 +154,7 @@ static func night_body(spec: Dictionary) -> Control:
 			h.add_child(v)
 			if entries.is_empty():
 				v.add_child(UI.label("Pads", 18, UI.FG, "bold"))
-				v.add_child(UI.label("drop a drill here, or click", 14, BLUE, "body"))
+				v.add_child(UI.label("drop a drill here, or click", 14, WoodKit.BLUE, "body"))
 			elif entries.size() >= 2:   # a split night: one line per card, its share badge cycles 50/50 -> 70/30 -> 30/70
 				v.add_child(UI.label("Pads, split", 15, UI.FG, "bold"))
 				for at in entries.size():
@@ -189,8 +188,8 @@ static func night_body(spec: Dictionary) -> Control:
 				x.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 				x.add_theme_font_override("font", UI.font("bold"))
 				x.add_theme_font_size_override("font_size", 17)
-				x.add_theme_color_override("font_color", UI.MUTED)
-				x.add_theme_color_override("font_hover_color", BLUE)
+				x.add_theme_color_override("font_color", WoodKit.SOFT)
+				x.add_theme_color_override("font_hover_color", WoodKit.BLUE)
 				x.pressed.connect(func(): (spec["on_clear"] as Callable).call(i))
 				h.add_child(x)
 		"sparring":
@@ -255,7 +254,7 @@ static func _slot(spec: Dictionary, e: Dictionary, at: int) -> PanelContainer:
 	badge.add_theme_font_override("font", UI.font("bold"))
 	badge.add_theme_font_size_override("font_size", 12)
 	for k in ["font_color", "font_hover_color", "font_pressed_color"]:
-		badge.add_theme_color_override(k, Color.WHITE)
+		badge.add_theme_color_override(k, WoodKit.INK)
 	for st in ["normal", "hover", "pressed", "focus"]:
 		badge.add_theme_stylebox_override(st, UI.box(BLUE if st == "hover" else Color("#334155"), Color(0, 0, 0, 0), 8, 0, 6, 1))
 	badge.pressed.connect(func(): (spec["on_split"] as Callable).call(i))
@@ -292,7 +291,7 @@ static func tired_line(i: int, start: float, end: float, cost: float) -> HBoxCon
 
 
 static func zone(v: float) -> Color:
-	return UI.RED if v >= OVER else (UI.AMBER if v >= HEAVY else SLATE)
+	return UI.RED if v >= OVER else (UI.AMBER if v >= HEAVY else WoodKit.SOFT)
 
 
 static func zone_word(v: float) -> String:
@@ -342,7 +341,7 @@ static func totals(gains: Dictionary, usable: int) -> HBoxContainer:
 	return h
 
 
-## A card's button: white with a thin edge (rest: pale, flat); the edge turns blue under the cursor.
+## A card's button: see-through, a thin chalk edge (fainter on a rest); the edge turns blue under the cursor.
 static func shell(name: String, quiet := false) -> Button:
 	var b := Button.new()
 	b.name = name
@@ -350,7 +349,9 @@ static func shell(name: String, quiet := false) -> Button:
 	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	for st in ["normal", "hover", "pressed", "focus"]:
-		b.add_theme_stylebox_override(st, UI.box(Color("#f7f8fa") if quiet else UI.PANEL, BLUE if st == "hover" else UI.LINE, 9, 1, 0, 0))
+		var hot: bool = st == "hover"
+		var edge := Color(WoodKit.BLUE, 0.9) if hot else Color(WoodKit.SOFT, 0.2 if quiet else 0.35)
+		b.add_theme_stylebox_override(st, UI.box(Color(1, 1, 1, 0.04), edge, 4, 1, 0, 0))
 	return b
 
 
@@ -380,10 +381,13 @@ static func segments(prefix: String, words: Array, keys: Array, on: String, pick
 		b.add_theme_font_size_override("font_size", 15)
 		var lit := str(keys[n]) == on
 		for c in ["font_color", "font_hover_color", "font_pressed_color"]:
-			b.add_theme_color_override(c, Color.WHITE if lit else UI.FG)
-		b.add_theme_color_override("font_disabled_color", UI.MUTED)
+			b.add_theme_color_override(c, WoodKit.INK)
+		b.add_theme_color_override("font_disabled_color", WoodKit.SOFT)
 		for st in ["normal", "hover", "pressed", "focus", "disabled"]:
-			b.add_theme_stylebox_override(st, UI.box(BLUE if lit else (PALE if st == "hover" else UI.PANEL), BLUE if lit else UI.LINE, 0, 1, 0, 0))
+			var hot: bool = st == "hover" and not lit
+			var bg := Color(BLUE, 0.95) if lit else Color(1, 1, 1, 0.08 if hot else 0.04)
+			var edge := Color(WoodKit.HEAD if lit else (WoodKit.BLUE if hot else WoodKit.SOFT), 1.0 if lit or hot else 0.35)
+			b.add_theme_stylebox_override(st, UI.box(bg, edge, 0, 2 if lit else 1, 0, 0))
 		var key := str(keys[n])
 		b.pressed.connect(func(): pick.call(key))
 		if ghost.is_valid():
@@ -401,7 +405,9 @@ static func pop_row(name: String, key: String, title: String, gain: String, cost
 	b.focus_mode = Control.FOCUS_NONE
 	b.custom_minimum_size = Vector2(0, 44)
 	for st in ["normal", "hover", "pressed", "focus"]:
-		b.add_theme_stylebox_override(st, UI.box(PALE if on or st == "hover" else UI.PANEL, Color(0, 0, 0, 0), 7, 0, 0, 0))
+		var hot: bool = st == "hover" and not on
+		var edge := Color(WoodKit.HEAD if on else (WoodKit.BLUE if hot else WoodKit.SOFT), 1.0 if on or hot else 0.35)
+		b.add_theme_stylebox_override(st, UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if on else 1, 0, 0))
 	b.pressed.connect(pick)
 	if ghost.is_valid():
 		b.mouse_entered.connect(func(): ghost.call(true))
@@ -459,7 +465,7 @@ class Pop extends PanelContainer:
 		z_index = 50
 		custom_minimum_size = Vector2(360, 0)
 		mouse_filter = Control.MOUSE_FILTER_STOP
-		add_theme_stylebox_override("panel", UI.box(UI.PANEL, Color("#b9c4cf"), 12, 1, 12, 12))
+		add_theme_stylebox_override("panel", WoodKit.slate(26, 18))
 
 	func _ready() -> void:
 		_place.call_deferred()
@@ -498,15 +504,16 @@ class ZoneBar extends Control:
 	func _draw() -> void:
 		var w := size.x
 		var hh := size.y
-		draw_rect(Rect2(0, 0, w, hh), Color("#eceff2"))
-		draw_rect(Rect2(w * 0.7, 0, w * 0.1, hh), Color("#f8e6c4") if not zones else Color("#f5d9a8"))   # S398: the zones on every bar
-		draw_rect(Rect2(w * 0.8, 0, w * 0.2, hh), Color("#f7d3cf") if not zones else Color("#f3b8b2"))
+		var dark := WoodKit.on_dark(self)
+		draw_rect(Rect2(0, 0, w, hh), Color(WoodKit.SOFT, 0.22) if dark else Color("#eceff2"))
+		var amber := Color(UI.AMBER, 0.55) if dark else Color("#f5d9a8")
+		var red := Color(UI.RED, 0.5) if dark else Color("#f3b8b2")
+		draw_rect(Rect2(w * 0.7, 0, w * 0.1, hh), amber)   # S398: the zones on every bar
+		draw_rect(Rect2(w * 0.8, 0, w * 0.2, hh), red)
 		if zones:
-			draw_rect(Rect2(w * 0.7, 0, w * 0.1, hh), Color("#f5d9a8"))
-			draw_rect(Rect2(w * 0.8, 0, w * 0.2, hh), Color("#f3b8b2"))
-			draw_rect(Rect2(0, hh * 0.2, w * clampf(value / 100.0, 0.0, 1.0), hh * 0.6), Color("#22262e"))
+			draw_rect(Rect2(0, hh * 0.2, w * clampf(value / 100.0, 0.0, 1.0), hh * 0.6), WoodKit.fg(self))
 		else:
-			var col := Color("#e2483d") if value >= 80.0 else (Color("#d97a00") if value >= 70.0 else Color("#7a8794"))
+			var col := UI.RED if value >= 80.0 else (UI.AMBER if value >= 70.0 else (WoodKit.SOFT if dark else Color("#7a8794")))
 			draw_rect(Rect2(0, 0, w * clampf(value / 100.0, 0.0, 1.0), hh), col)
 
 
@@ -530,7 +537,9 @@ class GoalBar extends Control:
 
 	func _draw() -> void:
 		var hh := 12.0
-		draw_rect(Rect2(0, 0, size.x - 16.0, hh), Color("#eef0f2"))
+		var ink := WoodKit.fg(self)
+		var dark := WoodKit.on_dark(self)
+		draw_rect(Rect2(0, 0, size.x - 16.0, hh), Color(WoodKit.SOFT, 0.28) if dark else Color("#eef0f2"))
 		draw_rect(Rect2(0, 0, maxf(3.0, _x(week)), hh), Color("#e0a400"))
 		var px := _x(pace)
 		var y := -3.0
@@ -538,6 +547,6 @@ class GoalBar extends Control:
 			draw_line(Vector2(px, y), Vector2(px, minf(y + 3.0, hh + 3.0)), Color("#b07f00"), 2.0)
 			y += 5.0
 		var tx := size.x - 16.0
-		draw_line(Vector2(tx, -4), Vector2(tx, hh + 4), Color("#22262e"), 2.0)
+		draw_line(Vector2(tx, -4), Vector2(tx, hh + 4), ink, 2.0)
 		var f := ThemeDB.fallback_font
-		draw_string(f, Vector2(tx - 8, hh + 17), "%d" % roundi(target), HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("#22262e"))
+		draw_string(f, Vector2(tx - 8, hh + 17), "%d" % roundi(target), HORIZONTAL_ALIGNMENT_LEFT, -1, 13, ink)

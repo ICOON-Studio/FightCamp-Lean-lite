@@ -168,6 +168,11 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 			# the strike join's 0.06 s half-life added ~50 kinks/min up close) eases the glove onto the swing.
 			(stage.boxers[who]["js"] as Node).join(SHORT_JOIN.x, SHORT_JOIN.y)
 		v.body.land(b, at)
+		# HEADAIM2: un-landed head punches aim their height at the target's face (blocked, slipped, missed).
+		# Body punches (body_hook, kidney, body) are never aimed here.
+		var is_body := move == "body_hook" or clip.contains("kidney") or clip.contains("body")
+		if land != "lands" and not stopped and not is_body:
+			stage.aim_height(who, clip, at, contact)
 		var tree: SceneTree = v.get_tree()
 		if punch_id >= 0 and land != "lands" and not stopped:
 			# S390: at the glove's contact, and only for a punch that shows. A slip or weave is a miss, not a block.

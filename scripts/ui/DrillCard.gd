@@ -10,6 +10,7 @@ extends Button
 ##   DrillCard.picture(f, card) -> Texture2D   DrillCard.station(f, station) -> Texture2D (her body at that station)
 
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const PadEdit := preload("res://scripts/rules/PadEdit.gd")
@@ -52,9 +53,10 @@ static func make(f: Dictionary, card_id: String, proj: Dictionary, picked: bool,
 	var cross := PadEdit.crossing(f, card_id, proj)
 	var gold := not cross.is_empty()
 	for st in ["normal", "hover", "pressed", "disabled", "focus"]:
-		# S398 Week v8: white cards; blue = the card you hold (or the one under the cursor); the tier it reaches is a badge
-		var s := UI.box(UI.PANEL, Color("#2f6fdb") if picked or st == "hover" else UI.LINE, 10, 3 if picked else 1, 0, 0)
-		b.add_theme_stylebox_override(st, s)
+		# see-through chalk edge; the card you hold (or drag) takes the gold edge
+		var hot: bool = st == "hover" and not picked
+		var edge := Color(WoodKit.HEAD if picked else (WoodKit.BLUE if hot else WoodKit.SOFT), 1.0 if picked or hot else 0.35)
+		b.add_theme_stylebox_override(st, UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if picked else 1, 0, 0))
 	b.tooltip_text = "Drag onto an evening, or click it and then the evening."
 	b.pressed.connect(func(): on_pick.call(card_id))
 	var pad := MarginContainer.new()
@@ -95,20 +97,25 @@ static func make(f: Dictionary, card_id: String, proj: Dictionary, picked: bool,
 		held = []   # S398 critics: a cap far above this week's mastery is nothing to act on yet
 	if not held.is_empty():
 		# S398 Week v8: a cap is said in grey words with its number, and the way past it is a normal button
-		var chip := UI.vbox(4)
+		# S418: one row (the wooden button under a long sentence ran out of the card's bottom edge and the sentence
+		# was cut mid-word): the cap in a few words, what the button does in its tooltip.
+		var chip := UI.hbox(8)
 		chip.name = "Held"
 		var punch := str(held[0])
-		var hl := UI.label("Held at %d by the %s (%d): drill the %s to raise it" % [int(float(proj.get("cap", 100.0))), punch, roundi(PadWeek.mastery(f, "move:" + punch)), punch],
-			14, UI.MUTED, "body")
+		var hl := UI.label("Held at %d by the %s" % [int(float(proj.get("cap", 100.0))), punch], 14, UI.MUTED, "body")
 		hl.clip_text = true
+		hl.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		hl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		hl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		hl.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		hl.mouse_filter = Control.MOUSE_FILTER_PASS
+		hl.tooltip_text = "This combination cannot go past %d until the %s (now %d) is better. Drill the %s to raise it." % [
+			int(float(proj.get("cap", 100.0))), punch, roundi(PadWeek.mastery(f, "move:" + punch)), punch]
 		chip.add_child(hl)
 		var go := UI.button("Drill the %s" % punch, "Btn", func(): on_drill_it.call("move:" + punch))
 		go.name = "DrillIt"
 		go.focus_mode = Control.FOCUS_NONE
 		go.add_theme_font_size_override("font_size", 13)
-		go.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		go.size_flags_horizontal = Control.SIZE_SHRINK_END
 		go.tooltip_text = "Puts the %s on the next pad night you have not set" % punch.to_lower()
 		chip.add_child(go)
 		v.add_child(chip)
@@ -141,7 +148,7 @@ func _face(v: VBoxContainer, f: Dictionary, card_id: String, m: float, end: floa
 	words.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	top.add_child(words)
 	var tag := PanelContainer.new()
-	tag.add_theme_stylebox_override("panel", UI.box(Color("#e8efff"), Color(0, 0, 0, 0), 4, 0, 6, 1))
+	tag.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 6, 1))
 	tag.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var tw := UI.label(str(proj.get("tag", PadEdit.kind_word(f, card_id))), 12, UI.GOLD, "bold")
@@ -174,7 +181,7 @@ func _face(v: VBoxContainer, f: Dictionary, card_id: String, m: float, end: floa
 func _badge(v: VBoxContainer, cross: Dictionary, proj_pads: Array) -> void:
 	var p := PanelContainer.new()
 	p.name = "Badge"
-	p.add_theme_stylebox_override("panel", UI.box(Color("#e3f4ea"), Color(0, 0, 0, 0), 10, 0, 9, 2))
+	p.add_theme_stylebox_override("panel", UI.box(Color(UI.GREEN, 0.16), Color(UI.GREEN, 0.55), 10, 1, 9, 2))
 	p.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var w := UI.label("%s on %s" % [str(cross["tier"]).capitalize(), PadEdit.DAY_WORDS[int(cross["dow"])]], 14, UI.GREEN, "bold")
@@ -189,11 +196,11 @@ func _badge(v: VBoxContainer, cross: Dictionary, proj_pads: Array) -> void:
 static func _stamp(words: String) -> PanelContainer:
 	var st := PanelContainer.new()
 	st.name = "Stamp"
-	st.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.92), UI.RED, 3, 2, 5, 1))
+	st.add_theme_stylebox_override("panel", UI.box(Color(0.16, 0.05, 0.04, 0.92), UI.RED, 3, 2, 5, 1))
 	st.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	st.position = Vector2(0, PIC - 18)   # S398: inside the 64 px picture, never over the name
 	st.custom_minimum_size = Vector2(PIC, 0)
-	var l := UI.label(words.get_slice(" x", 0), 10, UI.RED, "bold")
+	var l := UI.label(words.get_slice(" x", 0), 10, WoodKit.INK, "bold")
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	st.add_child(l)
 	st.tooltip_text = words
@@ -211,8 +218,8 @@ func payload() -> Dictionary:
 
 func _get_drag_data(_at: Vector2) -> Variant:
 	var tag := PanelContainer.new()
-	tag.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.GOLD, 8, 3, 12, 6))
-	tag.add_child(UI.label(PadEdit.title({}, card) if PadWeek.kind(card) != "own" else "combination", 22, UI.FG, "bold"))
+	tag.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), WoodKit.HEAD, 4, 2, 12, 6))
+	tag.add_child(UI.label(PadEdit.title({}, card) if PadWeek.kind(card) != "own" else "combination", 22, WoodKit.INK, "bold"))
 	set_drag_preview(tag)
 	return payload()
 
@@ -265,13 +272,18 @@ class TierBar extends Control:
 		var w := size.x
 		var y := 4.0
 		var h := 10.0
-		draw_rect(Rect2(0, y, w, h), track)
-		draw_rect(Rect2(0, y, w * clampf(now, 0.0, 100.0) / 100.0, h), fill)
+		var dark := WoodKit.on_dark(self)
+		var track_col := Color(WoodKit.SOFT, 0.30) if dark and track == TRACK else track
+		var fill_col := WoodKit.INK if dark and track == TRACK else fill
+		var hatch_col := Color(WoodKit.SOFT, 0.16) if dark else Color("#d5dadf")
+		draw_rect(Rect2(0, y, w, h), track_col)
+		draw_rect(Rect2(0, y, w * clampf(now, 0.0, 100.0) / 100.0, h), fill_col)
 		if end > now:
 			draw_rect(Rect2(w * now / 100.0, y, w * (minf(end, 100.0) - now) / 100.0, h), gain)
 		if cap < 100.0:
 			var x0 := w * cap / 100.0
-			draw_rect(Rect2(x0, y, w - x0, h), Color("#d5dadf"))   # S398: past the cap is plain grey, no hatching
+			draw_rect(Rect2(x0, y, w - x0, h), hatch_col)   # S398: past the cap is a quiet band, no hatching
+		var tick := WoodKit.fg(self)
 		for t in [30.0, 60.0, 85.0]:
-			var col := (GOLD_EDGE if cap >= 85.0 else HATCH) if t == 85.0 else UI.FG
+			var col := (GOLD_EDGE if cap >= 85.0 else HATCH) if t == 85.0 else tick
 			draw_line(Vector2(w * t / 100.0, 0), Vector2(w * t / 100.0, size.y), col, 2.0)

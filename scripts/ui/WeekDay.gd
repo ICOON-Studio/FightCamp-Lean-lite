@@ -5,6 +5,7 @@ extends RefCounted
 ##   head(i, day, mine, coach_card, act, ghost)  pm(spec) -> PmCard  magnet_card(m, planned, r, red, mine, twist)  kind(m)
 
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const WB := preload("res://scripts/ui/WhiteboardKit.gd")
 const Tips := preload("res://scripts/ui/Tips.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -29,7 +30,7 @@ static func head(i: int, day: int, mine: bool, coach_card: Array, act: Callable,
 		undo.focus_mode = Control.FOCUS_NONE
 		undo.add_theme_font_override("font", UI.font("handbold"))
 		undo.add_theme_font_size_override("font_size", 15)
-		undo.add_theme_color_override("font_color", UI.GOLD)
+		undo.add_theme_color_override("font_color", WoodKit.BLUE)
 		undo.add_theme_color_override("font_hover_color", WB.RED)
 		for k in ["normal", "hover", "pressed", "focus"]:
 			undo.add_theme_stylebox_override(k, StyleBoxEmpty.new())
@@ -59,9 +60,8 @@ static func pm(spec: Dictionary) -> PmCard:
 	p.custom_minimum_size = Vector2(0, WeekCards.PM_H)
 	var held := bool(spec.get("picked", false)) and k != "film"
 	var empty_pads := k == "pads" and (spec.get("entries", []) as Array).is_empty()
-	var bg := WeekCards.PALE if held else (Color("#f7f8fa") if k == "rest" or k == "film" else UI.PANEL)
-	var edge := WeekCards.BLUE if held else (Color(0, 0, 0, 0) if empty_pads else UI.LINE)
-	p.add_theme_stylebox_override("panel", UI.box(bg, edge, 9, 2 if held else 1, 9, 9))
+	var edge := Color(WoodKit.HEAD) if held else (Color(0, 0, 0, 0) if empty_pads else Color(WoodKit.SOFT, 0.35))
+	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if held else 1, 9, 9))
 	p.add_child(WeekCards.night_body(spec))
 	if held and k != "pads":
 		p.tooltip_text = "Drop here to make this a pads night"
@@ -126,7 +126,7 @@ class PmCard extends PanelContainer:
 		var pts := [[r.position, Vector2(r.end.x, r.position.y)], [Vector2(r.end.x, r.position.y), r.end],
 			[r.end, Vector2(r.position.x, r.end.y)], [Vector2(r.position.x, r.end.y), r.position]]
 		for seg in pts:
-			draw_dashed_line(seg[0], seg[1], Color("#2f6fdb"), 2.0, 6.0)
+			draw_dashed_line(seg[0], seg[1], WoodKit.BLUE, 2.0, 6.0)
 
 	func _can_drop_data(_at: Vector2, data: Variant) -> bool:
 		return kind != "film" and data is Dictionary and (data as Dictionary).has("drill")

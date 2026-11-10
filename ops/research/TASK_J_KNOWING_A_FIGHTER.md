@@ -1,5 +1,7 @@
 # John: how long does a boxing coach take to really know a fighter?
 
+Kind: research
+
 For a boxing gym management game: research only, real sources with links, say where a number is an estimate.
 
 1. When a new amateur boxer joins a club, what can a coach judge in the first session, the first month, the first year? Which physical qualities can be measured quickly (strength, speed, conditioning, by what tests) and how long does a reliable read take?

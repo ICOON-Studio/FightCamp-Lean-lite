@@ -807,6 +807,36 @@
    "status": "launched",
    "queued": "2026-11-09T19:05",
    "launched": "2026-11-09T21:42"
+  },
+  {
+   "task": "LOOKSLATE3",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-10T05:25"
+  },
+  {
+   "task": "LOOKSLATE4",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-10T05:25"
+  },
+  {
+   "task": "LOOKSLATE5",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-10T05:25"
+  },
+  {
+   "task": "LOOKSLATE6",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-10T05:25"
+  },
+  {
+   "task": "LOOKSLATE7",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-10T05:32"
   }
  ]
 }

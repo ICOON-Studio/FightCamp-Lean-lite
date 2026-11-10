@@ -160,6 +160,13 @@ func _drill_it() -> void:
 	_check(btn != null, "the 1-1, in, 3 card is held by the Lead hook: + drill it")
 	if btn == null:
 		return
+	# S418: the wooden button hung out of the card's bottom edge and its sentence was cut mid-word
+	var card := go as Control
+	var over := btn.get_global_rect().end.y - card.get_global_rect().end.y
+	_check(over <= 0.5, "the Drill button sits inside its card (%.0f px past the bottom edge)" % over)
+	var held := card.find_child("Held", true, false)
+	var words := held.get_child(0) as Label if held != null else null
+	_check(words != null and words.text.length() <= 30, "the held line is a few words (%s)" % (words.text if words != null else "none"))
 	btn.pressed.emit()
 	await _frames(2)
 	var on := false

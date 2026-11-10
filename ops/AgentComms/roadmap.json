@@ -1,19 +1,20 @@
 {
  "_note": "SINGLE SOURCE OF TRUTH for the roadmap. The ops board reads this file directly and ROADMAP.md is GENERATED from it by Tools/render_roadmap.py. Do not hand-maintain a second copy anywhere - that is the defect R136/U62 named and it has cost this project eight times.",
- "updated": "2026-11-09",
+ "updated": "2026-11-10",
  "author": "claude S294",
  "now": {
-  "id": "S417",
+  "id": "S418",
   "owner": "claude",
-  "updated": "2026-11-09",
-  "summary": "S417: the approved wood and slate look is in the shared theme (WoodKit): every card, pop-up, tab, button and the top bar; words turn chalk on dark by themselves. Cursor's wording pass collected with two cuts. The grey-button test that kept main red is fixed. Punch head aim: found why (blocked and slipped punches are never aimed), round 1 void, round 2 running. Exported.",
-  "last_working_commit": "f7f08af6",
-  "verified_playable": "wood_kit + 45 tests that read colours, styles, words or play the path green (golden_path, first_week, first_hour_walk, grey_reason, words_on_screens, camp_cards, tape_room, versus, roster_cards); all 58 screens rendered and opened; exported 11-09 23:39.",
-  "incomplete_blocked": "Pages that paint their own cream panels are not on slate: Training week (LOOKSLATE1, Cursor, running), Club People, Fight camp, bout page, New game, Interview. Money and World: he said \"Yes, slate everywhere\" (Q-S294-162): move both off the whiteboard (LOOKSLATE5, to brief). PR 145 HEADAIM2 void, HEADAIM2B (Qwen) running on it. PR 140 REARHAND5B still to film. KNOW1 (goose/issue-139) not collected. Miro map not redrawn (cards updated). Hidden-desktop stills came out cropped about 65 px a side late in the session.",
-  "next_action": "Collect LOOKSLATE1 (render the Training tab, open it) and HEADAIM2B (believe it only if every row's gap is 0.9 m and flat is under 0.7 m; then film a blocked jab in the Moves preview). Brief LOOKSLATE2-4 (People, camp + bout, New game + Interview) and LOOKSLATE5 (Money and World off the whiteboard: his \"Yes, slate everywhere\") from TASK_LOOKSLATE1. Re-brief MENUPLAYBOOK2B and MENUFIGHT1B for slate. Redraw the critic's corner as a game screen (Ludo concept first). Collect KNOW1. Redraw the Miro map (LEARN first).",
-  "next_acceptance": "No page shows a cream sheet under wooden tabs; a blocked jab in the Moves preview goes to the face height.",
+  "updated": "2026-11-10",
+  "summary": "S418: three seat runs collected. The Training week page is on slate and wood (LOOKSLATE1, Cursor) with a fix at collect: a held drill's button hung out of its card. A blocked or slipped head punch is now thrown at face height (HEADAIM2B, Qwen): filmed in the Moves preview, the slipped jab flies where the face was. Knowledge.gd merged (KNOW1, Goose), nothing reads it yet. The first real 05:00 full run: 239 pass, 0 fail. Five more slate pages briefed with one shared checker; People is running on Cursor, four are queued. BLOCKMEET1 (Qwen) measures the blocked jab that ends at the chin under the blocking glove. Exported.",
+  "last_working_commit": "e4a7b6f3",
+  "verified_playable": "week_slate, week_board_clarity, week_strip, drill_card, drill_pick, wood_kit, head_aim, beat_clips, short_punch, move_tip, knowledge, fighter_model, file_limits and golden_path green in the session; all 58 screens rendered twice and opened; the jab filmed with and without the aim; exported 11-10 05:28. Not played in the exe.",
+  "incomplete_blocked": "Still cream: Club People (LOOKSLATE2 running), Fight camp + bout offer (3), New game + interview (4), Money (5), World (6), the Fighters page's Scouted strip and roster card feet, the week review's pad cards, the Playbook's game plan rows and combination builder. The blocked jab reads as a hit (BLOCKMEET1 measuring). Round 1's first frame shows the boxer bent back through the ropes (the walk-in; on the map as 'Red's leg past the rope'). John's chat seat has not answered since 11-06 (gbot: 'A Sandbox session is not permitted'): SQ29 and SQ30 wait. ZIVA still down (seats were running Godot).",
+  "next_action": "Collect LOOKSLATE2 (Cursor, Club People: render 05_gym_staff and 28_members with layout_snapshot noguide, open them) and BLOCKMEET1 (Qwen, measure only: believe it only if CTRL_LANDED reads to_face under 0.05 and every row prints a gap of 0.80 to 1.10; then decide the fix: the block clip raised to meet the punch, or the punch aimed at the blocking glove). LOOKSLATE3-6 are queued on Cursor and launch by themselves: collect each the same way (render, open, slate test green). LOOKSLATE7 is queued behind them: the Fighters page's Scouted strip, the roster cards' paper feet and the week review's white pad cards. Film both right hooks for PR 140 REARHAND5B. Playbook game plan and Fight night: a Ludo painted concept in the slate look first, his yes, then re-brief MENUPLAYBOOK2B and MENUFIGHT1B. The critic's corner as a game screen (Ludo concept first). Read PR 77 (ANIMREBUILD1 design draft).",
+  "next_acceptance": "No page shows a cream sheet under wooden tabs; a blocked punch is stopped by a glove, not by the chin.",
   "awaiting_operator": [
-   "play the S417 build"
+   "play the S418 build",
+   "Q-S294-163: may the map redraw delete its own spare cards"
   ]
  },
  "next": "S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.",
@@ -1665,6 +1666,11 @@
    "id": "S417",
    "date": "2026-11-09",
    "note": "S417: the approved look built into the shared theme; wording pass collected; grey-button red fixed; head aim root cause found, round 2 running; exported."
+  },
+  {
+   "id": "S418",
+   "date": "2026-11-10",
+   "note": "S418: LOOKSLATE1, HEADAIM2B and KNOW1 collected; first real 05:00 run 239 green; five slate pages briefed, People running; BLOCKMEET1 measuring the blocked jab; exported."
   }
  ],
  "blocked_on_operator": [],
@@ -2409,7 +2415,7 @@
    {
     "id": "NIGHTLY1",
     "owner": "claude",
-    "state": "[S292: 10-23 cloud nightly @4ddc99bf 1002/13 vs 10-22 @c4dc03a0: FIXED camp_pays, mastery_select_wire, q226_strands; NEW bag_mount, build_holds_clock hang, gym_club_clearance, iso_ceiling_fixtures, no_garage, profile_drawer, reception_keeps_gym, reception_street_door, room_camera_flow, room_draft_flow, room_walls_mgt2, skip_day_drawer; fight_identity still red. Fixed in S292: reception_street_door/room_draft_flow/room_walls_mgt2 (d3e6a40c), profile_drawer/skip_day_drawer/gym_club_clearance deferred apply (242870b7). Left = gym-building tests (parked by D48) + fight_identity.] [S286: S285 master cloud runs @ab5f6216: q226_strands, camp_pays, mastery_select_wire RED on master (fight_identity run in progress) - Qwen's earlier run had q226 green -> flips run to run. Qwen BOUTREPEAT1 r1 fd2e55fb: the BOUT ENGINE replays per seed 3/3 both arms -> noise is upstream (career route: world gen, camp, rollover). r2 running #341. Also as_game: creation_root + gym_step_layout_s238 fixed (ASGAMERED9 9a52acec route), creation_api C14 -> r2 #342.] [S285: 10-22 cloud nightly @c4dc03a0 1048/13 (10-21 @d2e7be87 = same set but fight_room_walkout) vs last check 10-20 @bb2108dc: 6 NEW red - camp_pays, mastery_select_wire, fight_identity, q226_strands (bout lever effects shrank together; suspect d5fe4376 ATTRWIRE1), equipment_training_rows (reception_desk has no day-lap row) -> Arena NIGHTLY13; fight_root_single_writer ('ON arm holds every bound') + fighter_gloves_both_corners (hang) NOT assigned yet; 6 FIXED (fight_clip_slice, fight_room_walkout, profile_overview, punch_retime, see_through_occluders, stat_vocabulary)] [S275: 10-20 cloud nightly @bb2108dc 990/15 vs 10-19 943/17: 9 NEW red (af_motion, asset_manifest, fight_room_walkout hang, iso_ceiling_fixtures, profile_overview, punch_retime, see_through_occluders, stat_vocabulary, switch_gate_contact_push_carry), 11 FIXED (composure_live, doctor_live, fight_room_positions, fight_strike_speed, first_corner, human2, mixamo_s215, pad_chain_fight, q226_strands, rig_convention_contract, switch_gate_hold_pair_geometry); 7 -> Goose NIGHTLY12 #303, the 2 floor tests -> Codex FLOORTPM1 gate] [S266: 10-19 cloud nightly 17 fails - 5 were platform (cloud vs PC digests): dual pins 69442854, PC 5/5 + cloud 5/5; the other 12 -> Cursor NIGHTLY11 #282] [S264: 2026-10-19 cloud nightly @61ca511a 943/17 vs 10-17 885/16: 13 NEW red (composure_live, doctor_live, pad_chain_fight, fight_strike_whole, human2 = OFF-arm pins moved; switch_gate_hold_pair_geometry, q226_strands, rig_convention_contract, mixamo_s215 121 vs 115 rows; hangs fight_strike_speed, first_corner, fight_grapple_seam, fight_room_positions), 11 FIXED (decision_pacing, fight_identity, fight_realtime, corner_instruction_contract, switch_gate_hands_smooth, promotions_board, fight_contact_stop ...). Cursor NIGHTLY10 issue #278 bisects each pin to its commit] [S256: NIGHTLYPARK1 82e26f37 - fight_contact_stop + promotions_board PARKED (tests/parked_tests.json), asset_manifest green; boxing reds left: camp_pays, decision_pacing, fight_clip_slice, fight_pair_live, fight_stage_realism, switch_gate_hands_smooth] [S255: 2026-10-18 nightly stopped after 25/918 (log 199 B, asset_manifest red as before) - nothing new; 10-17 set (885/16) to Qwen NIGHTLYLABEL1] [S250: no new nightly since 5b92bef2 (2026-10-17, 885/16) - nothing new to diff] [S244: NIGHTLY8 #246/#247 collected c9848f0e; fight_identity 'rivalry heat costs stamina' still red (cold 90.7 = hot 90.7 - heat has no effect)] [S242: NIGHTLY7 finished - c",
+    "state": "[S418: first real PC full run 11-10 05:00 @a5d7f66b: pass=239 fail=0, 8 minutes; main CI green at 09e9f598 (232 tests). No red to act on. week_slate, head_aim and knowledge tests join the list from 11-11.] [S292: 10-23 cloud nightly @4ddc99bf 1002/13 vs 10-22 @c4dc03a0: FIXED camp_pays, mastery_select_wire, q226_strands; NEW bag_mount, build_holds_clock hang, gym_club_clearance, iso_ceiling_fixtures, no_garage, profile_drawer, reception_keeps_gym, reception_street_door, room_camera_flow, room_draft_flow, room_walls_mgt2, skip_day_drawer; fight_identity still red. Fixed in S292: reception_street_door/room_draft_flow/room_walls_mgt2 (d3e6a40c), profile_drawer/skip_day_drawer/gym_club_clearance deferred apply (242870b7). Left = gym-building tests (parked by D48) + fight_identity.] [S286: S285 master cloud runs @ab5f6216: q226_strands, camp_pays, mastery_select_wire RED on master (fight_identity run in progress) - Qwen's earlier run had q226 green -> flips run to run. Qwen BOUTREPEAT1 r1 fd2e55fb: the BOUT ENGINE replays per seed 3/3 both arms -> noise is upstream (career route: world gen, camp, rollover). r2 running #341. Also as_game: creation_root + gym_step_layout_s238 fixed (ASGAMERED9 9a52acec route), creation_api C14 -> r2 #342.] [S285: 10-22 cloud nightly @c4dc03a0 1048/13 (10-21 @d2e7be87 = same set but fight_room_walkout) vs last check 10-20 @bb2108dc: 6 NEW red - camp_pays, mastery_select_wire, fight_identity, q226_strands (bout lever effects shrank together; suspect d5fe4376 ATTRWIRE1), equipment_training_rows (reception_desk has no day-lap row) -> Arena NIGHTLY13; fight_root_single_writer ('ON arm holds every bound') + fighter_gloves_both_corners (hang) NOT assigned yet; 6 FIXED (fight_clip_slice, fight_room_walkout, profile_overview, punch_retime, see_through_occluders, stat_vocabulary)] [S275: 10-20 cloud nightly @bb2108dc 990/15 vs 10-19 943/17: 9 NEW red (af_motion, asset_manifest, fight_room_walkout hang, iso_ceiling_fixtures, profile_overview, punch_retime, see_through_occluders, stat_vocabulary, switch_gate_contact_push_carry), 11 FIXED (composure_live, doctor_live, fight_room_positions, fight_strike_speed, first_corner, human2, mixamo_s215, pad_chain_fight, q226_strands, rig_convention_contract, switch_gate_hold_pair_geometry); 7 -> Goose NIGHTLY12 #303, the 2 floor tests -> Codex FLOORTPM1 gate] [S266: 10-19 cloud nightly 17 fails - 5 were platform (cloud vs PC digests): dual pins 69442854, PC 5/5 + cloud 5/5; the other 12 -> Cursor NIGHTLY11 #282] [S264: 2026-10-19 cloud nightly @61ca511a 943/17 vs 10-17 885/16: 13 NEW red (composure_live, doctor_live, pad_chain_fight, fight_strike_whole, human2 = OFF-arm pins moved; switch_gate_hold_pair_geometry, q226_strands, rig_convention_contract, mixamo_s215 121 vs 115 rows; hangs fight_strike_speed, first_corner, fight_grapple_seam, fight_room_positions), 11 FIXED (decision_pacing, fight_identity, fight_realtime, corner_instruction_contract, switch_gate_hands_smooth, promotions_board, fight_contact_stop ...). Cursor NIGHTLY10 issue #278 bisects each pin to its commit] [S256: NIGHTLYPARK1 82e26f37 - fight_contact_stop + promotions_board PARKED (tests/parked_tests.json), asset_manifest green; boxing reds left: camp_pays, decision_pacing, fight_clip_slice, fight_pair_live, fight_stage_realism, switch_gate_hands_smooth] [S255: 2026-10-18 nightly stopped after 25/918 (log 199 B, asset_manifest red as before) - nothing new; 10-17 set (885/16) to Qwen NIGHTLYLABEL1] [S250: no new nightly since 5b92bef2 (2026-10-17, 885/16) - nothing new to diff] [S244: NIGHTLY8 #246/#247 collected c9848f0e; fight_identity 'rivalry heat costs stamina' still red (cold 90.7 = hot 90.7 - heat has no effect)] [S242: NIGHTLY7 finished - c",
     "what": "Untracked chronic nightly reds (red 4 nights, no owner): fighter_gloves_both_corners (533 s then rc=127; FightClipRetarget._load_fbx 'Reading less data than requested' on every corner via build_silhouette_corrections - cache the FBX load); fight_readable_onset (hang); MMA off the demo path: fight_plan_ai_corner (GREAT coach won less often than POOR, pooled), fight_back_bands_contract (striker sub-finish 33.3% not in 12-32%), fight_footwork_economy (mma ON 9.3 m/min < 12)",
     "milestone": "B",
     "advances": "a nightly that can go green, so a new red is seen the day it lands",
@@ -4583,7 +4589,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-10 00:12 board_sync",
+  "updated": "2026-11-10",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4725,256 +4731,83 @@
   },
   "working_now": [
    {
-    "title": "TASK SOUTHPAW2 - CURSOR (GPT-5.6 Sol High) - the guard knock-knee, round 2: a test that FAILS on main first",
+    "title": "LOOKSLATE2 - Club People on slate and wood",
     "who": "cursor",
-    "started": "2026-11-07T21:21",
-    "run": "SOUTHPAW2",
-    "state": "LANDED - Claude collects"
+    "started": "2026-11-10T05:24",
+    "run": "LOOKSLATE2",
+    "state": "RUNNING"
+   },
+   {
+    "title": "BLOCKMEET1 - does a blocked punch meet the blocking glove? (measure only)",
+    "who": "qwen",
+    "started": "2026-11-10T05:25",
+    "run": "BLOCKMEET1",
+    "state": "RUNNING"
    },
    {
     "title": "TASK ANIMREBUILD1 - AGY (Argon High) - design draft: fight animation rebuilt around a clip library + one picker",
     "who": "antigravity",
     "started": "2026-11-07T22:09",
     "run": "ANIMREBUILD1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK RETARGET1 - CURSOR (GPT-5.6 Sol High) - bring the purchased Punch PRO pack onto our boxer WITHOUT breaking it",
-    "who": "cursor",
-    "started": "2026-11-07T22:53",
-    "run": "RETARGET1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK RETARGET2 - CURSOR (GPT-5.6 Sol High) - RETARGET1 round 2: keep the wins, fix the stance and the end trim",
-    "who": "cursor",
-    "started": "2026-11-08T07:24",
-    "run": "RETARGET2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK CORNERTRUST1 - QWEN (qwen3-coder) - a wrong corner call costs her trust; a Low fighter stops listening (rules only)",
-    "who": "qwen",
-    "started": "2026-11-08T10:16",
-    "run": "CORNERTRUST1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK OFFERGONE1 - QWEN (qwen3-coder) - an expired fight offer is never a dead end",
-    "who": "qwen",
-    "started": "2026-11-08T11:03",
-    "run": "OFFERGONE1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK GUIDEFLAG1 - QWEN (qwen3-coder) - the guide strip ends with the first week; the offer flag says what is needed",
-    "who": "qwen",
-    "started": "2026-11-08T12:10",
-    "run": "GUIDEFLAG1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK SWINGCENSUS1 - AGY (Argon High) - every random swing the player feels, and what they are told",
-    "who": "antigravity",
-    "started": "2026-11-08T12:41",
-    "run": "SWINGCENSUS1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK GUIDEFLAG2 - QWEN (qwen3-coder) - round 2: the guide must end, without breaking the first fight",
-    "who": "qwen",
-    "started": "2026-11-08T13:00",
-    "run": "GUIDEFLAG2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK R11A - QWEN (qwen3-coder) - an injury says why it happened",
-    "who": "qwen",
-    "started": "2026-11-08T13:34",
-    "run": "R11A",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "QWEN (qwen3-coder) - a standing count on the cards says what it cost",
-    "who": "goose",
-    "started": "2026-11-08T18:11",
-    "run": "R11C",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK MENUMONEY1 - CURSOR (Grok 4.7 High) - the Money page, built from the approved mockup",
-    "who": "cursor",
-    "started": "2026-11-08T18:48",
-    "run": "MENUMONEY1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK MENUWORLD1 - CURSOR (Grok 4.7 High) - the World page, rebuilt around the rankings",
-    "who": "cursor",
-    "started": "2026-11-08T19:34",
-    "run": "MENUWORLD1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK SOUTHPAW3 - QWEN (qwen3-coder) - the guard knock-knee fix, carried onto today's clips",
-    "who": "qwen",
-    "started": "2026-11-08T20:30",
-    "run": "SOUTHPAW3",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK KNEERAW1 - QWEN (qwen3-coder) - the guard knock-knee: fix the measure, then raw clip against ours",
-    "who": "qwen",
-    "started": "2026-11-08T21:41",
-    "run": "KNEERAW1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK KNEERAW2 - QWEN (qwen3-coder) - the knee table, round 2: make the two rulers agree",
-    "who": "qwen",
-    "started": "2026-11-08T22:00",
-    "run": "KNEERAW2",
-    "state": "LANDED - Claude collects"
+    "state": "LANDED, not collected"
    },
    {
     "title": "TASK MENUPLAYBOOK1 - CURSOR (Grok 4.7 High) - the Playbook's game plan and Combos, built from the approved mockup",
     "who": "cursor",
     "started": "2026-11-08T22:42",
     "run": "MENUPLAYBOOK1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK MENUHOME1 - CURSOR (Grok 4.7 High) - the Home page, built from the approved mockup",
-    "who": "cursor",
-    "started": "2026-11-09T01:12",
-    "run": "MENUHOME1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK MENUWEEK1 - CURSOR (Grok 4.7 High) - the Fighter Week page, built from the approved mockup",
-    "who": "cursor",
-    "started": "2026-11-09T02:12",
-    "run": "MENUWEEK1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK HUBSPRITES1 - QWEN (qwen3-coder) - our real boxers as small moving figures for the painted gym",
-    "who": "qwen",
-    "started": "2026-11-09T08:37",
-    "run": "HUBSPRITES1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK HITREACT1 - QWEN (qwen3-coder) - do the hit reactions move as much as the capture does?",
-    "who": "qwen",
-    "started": "2026-11-09T09:51",
-    "run": "HITREACT1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK HITREACT2 - QWEN (qwen3-coder) - where does a hit reaction lose its movement?",
-    "who": "qwen",
-    "started": "2026-11-09T10:20",
-    "run": "HITREACT2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK MENUHOME2 - CURSOR (Grok 4.7 High) - Home, round 2: the Needs-you board as drawn",
-    "who": "cursor",
-    "started": "2026-11-09T11:55",
-    "run": "MENUHOME2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK MENUWEEK2 - CURSOR (Grok 4.7 High) - the Fighter Week page, round 2: to the mockup, on one screen",
-    "who": "cursor",
-    "started": "2026-11-09T15:13",
-    "run": "MENUWEEK2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK REARHAND1 - QWEN (qwen3-coder) - does the hand really drop to the hip before a punch, and in how many clips",
-    "who": "qwen",
-    "started": "2026-11-09T15:36",
-    "run": "REARHAND1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK GYMBUY1 - QWEN (qwen3-coder) - does buying equipment change a club's results",
-    "who": "qwen",
-    "started": "2026-11-09T20:03",
-    "run": "GYMBUY1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK REARHAND5 - QWEN (qwen3-coder) - the plain right hook keeps the hand up before it swings",
-    "who": "qwen",
-    "started": "2026-11-09T20:30",
-    "run": "REARHAND5",
-    "state": "LANDED - Claude collects"
+    "state": "LANDED, not collected"
    },
    {
     "title": "TASK REARHAND5B - QWEN (qwen3-coder) - the plain right hook keeps the hand up: blend, do not solve",
     "who": "qwen",
     "started": "2026-11-09T20:43",
     "run": "REARHAND5B",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "QWEN (qwen3-coder) - Knowledge.gd: what the player can see of a boxer, and the range never lies",
-    "who": "goose",
-    "started": "2026-11-09T20:59",
-    "run": "KNOW1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK HEADAIM1 - QWEN (qwen3-coder) - do the punches aim at the head",
-    "who": "qwen",
-    "started": "2026-11-09T22:11",
-    "run": "HEADAIM1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK PRESENT1A - CURSOR (Grok 4.7 High) - every number and word on the screens says what it means",
-    "who": "cursor",
-    "started": "2026-11-09T22:30",
-    "run": "PRESENT1A",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK HEADAIM2 - QWEN (qwen3-coder) - a blocked or slipped head punch is still thrown at the head",
-    "who": "qwen",
-    "started": "2026-11-09T23:04",
-    "run": "HEADAIM2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK HEADAIM2B - QWEN (qwen3-coder) - the head aim, round 2: a ruler that holds, and joins",
-    "who": "qwen",
-    "started": "2026-11-09T23:24",
-    "run": "HEADAIM2B",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK LOOKSLATE1 - CURSOR (Grok 4.7 High) - the Training week page on slate and wood",
-    "who": "cursor",
-    "started": "2026-11-09T23:29",
-    "run": "LOOKSLATE1",
-    "state": "LANDED - Claude collects"
+    "state": "LANDED, not collected"
    }
   ],
   "next": [
    {
-    "id": "LOOKSLATE2",
+    "id": "LOOKSLATE3",
     "who": "cursor",
-    "title": "Club People, Fight camp, bout page, New game on slate",
-    "after": "LOOKSLATE1"
+    "title": "Fight camp and the bout offer on slate",
+    "after": "LOOKSLATE2"
+   },
+   {
+    "id": "LOOKSLATE4",
+    "who": "cursor",
+    "title": "New game and the reception interview on slate",
+    "after": "LOOKSLATE3"
    },
    {
     "id": "LOOKSLATE5",
     "who": "cursor",
-    "title": "Money and World off the whiteboard, onto slate (his yes)",
-    "after": "LOOKSLATE2"
+    "title": "Money off the whiteboard, onto slate (his yes)",
+    "after": "LOOKSLATE4"
+   },
+   {
+    "id": "LOOKSLATE6",
+    "who": "cursor",
+    "title": "World off the plaster wall, onto slate (his yes)",
+    "after": "LOOKSLATE5"
+   },
+   {
+    "id": "LOOKSLATE7",
+    "who": "cursor",
+    "title": "Scouted strip, roster card feet, week review pad cards on slate",
+    "after": "LOOKSLATE6"
+   },
+   {
+    "id": "BLOCKMEET2",
+    "who": "claude",
+    "title": "A blocked punch is stopped by a glove, not the chin (after the measure)",
+    "after": "BLOCKMEET1"
+   },
+   {
+    "id": "REARHAND5B",
+    "who": "claude",
+    "title": "Film both right hooks for PR 140 and judge",
+    "after": ""
    },
    {
     "id": "CORNER2",
@@ -5318,6 +5151,31 @@
   },
   "done_recently": [
    {
+    "title": "The Training week page on slate and wood (LOOKSLATE1), a hanging button fixed at collect",
+    "who": "cursor",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "A blocked or slipped head punch is thrown at face height (HEADAIM2B)",
+    "who": "qwen",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "Knowledge.gd: what the player can see of a boxer (KNOW1, step 1, nothing reads it yet)",
+    "who": "goose",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "First real 05:00 full test run: 239 pass, 0 fail",
+    "who": "claude",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "Five slate briefs with one shared checker; 36 finished runs off the collect list",
+    "who": "claude",
+    "when": "2026-11-10"
+   },
+   {
     "title": "The approved wood and slate look in the shared theme (all cards, pop-ups, tabs, buttons)",
     "who": "claude",
     "when": "2026-11-09"
@@ -5359,21 +5217,6 @@
    },
    {
     "title": "TASK FIGHTERMODEL4D - CURSOR (Grok 4.7 High) - the fighter model fits inside the test limit",
-    "who": "cursor",
-    "when": "2026-11-09"
-   },
-   {
-    "title": "TASK FIGHTERMODEL4C - CURSOR (Grok 4.7 High) - the fighter model at the old speed",
-    "who": "cursor",
-    "when": "2026-11-09"
-   },
-   {
-    "title": "TASK FIGHTERMODEL4A - CURSOR (Grok 4.7 High) - the fighter model on the agreed 10 attributes and 5 boxing skills",
-    "who": "cursor",
-    "when": "2026-11-09"
-   },
-   {
-    "title": "TASK FIGHTERMODEL3B - CURSOR (Grok 4.7 High) - the fighter model to 8/10 built, rule 2 held again (round 2)",
     "who": "cursor",
     "when": "2026-11-09"
    }
@@ -5423,7 +5266,7 @@
    "_codex_out": "Operator S227: 'codex out of the rotation when it finishes the current tasks' - OFFBAKE1B, GYMLOOK3B, ROOMS3B finish and are collected; then rooms (ROOMS3C office, ROOMS3D physio) and gym floor (GYMPLAY1) move to cloud Cursor, animation items are re-seated by Claude.",
    "_codex_replaced": "Operator S228: 'you take the tasks of codex from now on ? use more ludo for code and if possible ludo replace codex ?' -> LUDO writes the code (every round asks for complete paste-ready GDScript, part E); CLAUDE integrates on the PC (wires it in, tests, game-camera stills, Cascadeur, merges) - Ludo cannot run Godot/tests/Cascadeur. Cloud Cursor = UI builds, Arena = pure modules + tests. Codex: NO tasks."
   },
-  "session_started": "",
+  "session_started": "S418",
   "maps": [
    {
     "title": "P0 Where we are: DONE / NOW / NEXT (Miro)",
@@ -5504,6 +5347,18 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Wood + slate look in the theme",
+     "who": "claude"
+    },
+    {
+     "text": "Wording pass collected (Cursor)",
+     "who": "agent"
+    },
+    {
+     "text": "Grey-button red on main fixed",
+     "who": "claude"
+    },
+    {
      "text": "Dark + wood: fighter page",
      "who": "claude"
     },
@@ -5546,42 +5401,34 @@
     {
      "text": "Cage under repair, red floor less",
      "who": "claude"
-    },
-    {
-     "text": "REARHAND4: no better right hook",
-     "who": "claude"
-    },
-    {
-     "text": "One page in dark panels",
-     "who": "claude"
-    },
-    {
-     "text": "Both gym planners compared",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Wood + slate look in the theme",
-     "who": "claude"
-    },
-    {
-     "text": "Wording pass collected (Cursor)",
+     "text": "Training week on slate",
      "who": "agent"
     },
     {
-     "text": "Grey-button red on main fixed",
+     "text": "Blocked + slipped punch aims high",
+     "who": "agent"
+    },
+    {
+     "text": "Knowledge rule merged (step 1)",
+     "who": "agent"
+    },
+    {
+     "text": "First real 5 am run: 239 green",
+     "who": "claude"
+    },
+    {
+     "text": "5 slate briefs, one test helper",
      "who": "claude"
     }
    ],
    "now": [
     {
-     "text": "Play the S415 build (you)",
+     "text": "Play the S418 build (you)",
      "who": "operator"
-    },
-    {
-     "text": "Play the S416 build (you)",
-     "who": "claude"
     }
    ],
    "next": [
@@ -5702,24 +5549,28 @@
      "who": "claude"
     },
     {
-     "text": "Other cream pages to slate",
-     "who": "claude"
-    },
-    {
      "text": "Critic's corner as a game screen",
      "who": "claude"
     },
     {
-     "text": "Money + World to slate (his yes)",
+     "text": "Slate: camp, start, Money, World",
+     "who": "agent"
+    },
+    {
+     "text": "Slate: roster strip, review cards",
+     "who": "claude"
+    },
+    {
+     "text": "Playbook + fight night: concepts",
      "who": "claude"
     }
    ],
-   "session": "S417"
+   "session": "S418"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "f7f08af6",
- "next_action": "Collect LOOKSLATE1 (render the Training tab, open it) and HEADAIM2B (believe it only if every row's gap is 0.9 m and flat is under 0.7 m; then film a blocked jab in the Moves preview). Brief LOOKSLATE2-4 (People, camp + bout, New game + Interview) and LOOKSLATE5 (Money and World off the whiteboard: his \"Yes, slate everywhere\") from TASK_LOOKSLATE1. Re-brief MENUPLAYBOOK2B and MENUFIGHT1B for slate. Redraw the critic's corner as a game screen (Ludo concept first). Collect KNOW1. Redraw the Miro map (LEARN first).",
+ "last_working_commit": "e4a7b6f3",
+ "next_action": "Collect LOOKSLATE2 (Cursor, Club People: render 05_gym_staff and 28_members with layout_snapshot noguide, open them) and BLOCKMEET1 (Qwen, measure only: believe it only if CTRL_LANDED reads to_face under 0.05 and every row prints a gap of 0.80 to 1.10; then decide the fix: the block clip raised to meet the punch, or the punch aimed at the blocking glove). LOOKSLATE3-6 are queued on Cursor and launch by themselves: collect each the same way (render, open, slate test green). LOOKSLATE7 is queued behind them: the Fighters page's Scouted strip, the roster cards' paper feet and the week review's white pad cards. Film both right hooks for PR 140 REARHAND5B. Playbook game plan and Fight night: a Ludo painted concept in the slate look first, his yes, then re-brief MENUPLAYBOOK2B and MENUFIGHT1B. The critic's corner as a game screen (Ludo concept first). Read PR 77 (ANIMREBUILD1 design draft).",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

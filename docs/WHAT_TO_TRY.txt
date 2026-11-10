@@ -1,5 +1,20 @@
-FIGHTCAMP - BUILD OF 2026-11-09 (S417): THE LOOK YOU APPROVED, ON EVERY PAGE
+FIGHTCAMP - BUILD OF 2026-11-10 (S418): THE TRAINING WEEK ON SLATE, AND A JAB THAT GOES FOR THE HEAD
 ================================================================================
+
+ NEW.
+  a. A boxer's Training tab is on the slate and wood look: one framed board, day and drill cards with a chalk edge,
+     the card you hold edged in gold. A held drill's note is short now ("Held at 48 by the Cross") with its button
+     beside it; the full reason is in the tooltip.
+  b. A punch that is blocked or slipped is now thrown at face height. Before, only a punch that LANDED was aimed;
+     a blocked or slipped one played as recorded and often dipped to the shoulder. You saw this in the Moves preview.
+  c. STILL CREAM, being moved now one page at a time: Club > People, Fight camp, the bout offer, New game and the
+     interview, Money, World.
+  d. KNOWN, being measured: when the partner BLOCKS a jab, the glove ends at the chin under the blocking glove.
+ TRY: Fighters > a boxer > Training. Does it read as the same game as the Overview tab?
+ TRY: Playbook > Moves, click the Jab and watch three or four. Does the jab go for the head now?
+
+OLDER BUILD (S417):
+BUILD OF 2026-11-09 (S417): THE LOOK YOU APPROVED, ON EVERY PAGE
 
  NEW.
   a. The look you said yes to (wood with brass corners, slate boards, wooden tabs and buttons, a plank across the top)

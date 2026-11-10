@@ -36,7 +36,12 @@ var last_weight := 0.0   # for probes
 var lunge_m := 0.0       # how far her body carries in at full weight (FightStage reads lunge())
 var _w_now := 0.0
 var _armed_t := 0.0      # S386: seconds since arm(): a punch started mid-clip (BeatFire's skip) eases its reach in
-var _fades := {}         # hand -> {w, target, front, lunge}: a reach whose clip was cut off, falling to 0 over FADE_S
+var _fades := {}         # hand -> {w, target, front, lunge, height_only, aim_y}: a reach whose clip was cut off, falling to 0 over FADE_S
+## HEADAIM2: height-only mode for un-landed head punches. The glove front's Y is replaced by the latched target Y;
+## depth and sideways are untouched (a blocked glove must not be carried onto the face).
+## HEADAIM2B: each reach carries its own mode (stored in _fades at disarm, passed into _reach as arguments).
+var _height_only := false
+var _aim_target_y := 0.0   # latched at arming time (a slipping head ducks; the fist goes where the head was)
 
 
 func setup(skel: Skeleton3D, player: AnimationPlayer) -> bool:
@@ -59,11 +64,28 @@ func arm(clip: String, hand_bone: String, contact_s: float, target: Callable, gl
 	_contact = contact_s
 	_target = target
 	_front = glove_front_m
+	_height_only = false   # HEADAIM2: full aim by default
+
+
+## HEADAIM2: height-only mode for un-landed head punches. The glove front's Y is replaced by the latched target Y;
+## depth and sideways are untouched. The target height is LATCHED at arming (a slipping head ducks; the fist must
+## go where the head was, not chase it down).
+func aim_height(clip: String, hand_bone: String, contact_s: float, target_y_world: float, glove_front_m: float) -> void:
+	disarm()
+	_clip = clip
+	_armed_t = 0.0
+	_hand = hand_bone
+	_contact = contact_s
+	_front = glove_front_m
+	_height_only = true
+	_aim_target_y = target_y_world
+	_target = Callable()   # not used in height-only mode
 
 
 func disarm() -> void:
 	if _clip != "" and _w_now > 0.0:
-		_fades[_hand] = {"w": _w_now, "w0": _w_now, "t": 0.0, "target": _target, "front": _front, "lunge": lunge_m}
+		_fades[_hand] = {"w": _w_now, "w0": _w_now, "t": 0.0, "target": _target, "front": _front, "lunge": lunge_m,
+			"height_only": _height_only, "aim_y": _aim_target_y}
 	_clip = ""
 	_w_now = 0.0
 	lunge_m = 0.0
@@ -115,14 +137,15 @@ func _process_modification() -> void:
 		if float(f["w"]) <= 0.0:
 			_fades.erase(hand)
 		else:
-			_reach(skel, str(hand), float(f["w"]), f["target"], float(f["front"]))
+			_reach(skel, str(hand), float(f["w"]), f["target"], float(f["front"]),
+				bool(f.get("height_only", false)), float(f.get("aim_y", 0.0)))
 	if _clip != "" and _arms.has(_hand):
 		_armed_t += dt
 		var ramp := clampf(_armed_t / IN_S, 0.0, 1.0)
 		_w_now = weight(ap.current_animation_position, _contact) * ramp * ramp * (3.0 - 2.0 * ramp)
 		last_weight = _w_now
 		if _w_now > 0.0:
-			_reach(skel, _hand, _w_now, _target, _front)
+			_reach(skel, _hand, _w_now, _target, _front, _height_only, _aim_target_y)
 
 
 ## S331 (INSIDEMISS1): re-lands the armed glove after later modifiers moved her trunk (GloveClear's head lean, HitSnap):
@@ -131,19 +154,33 @@ static var SETTLE: bool = not OS.get_cmdline_user_args().has("nosettle")
 func settle() -> void:
 	var skel := get_skeleton()
 	if SETTLE and skel != null and _clip != "" and _w_now > 0.0:
-		_reach(skel, _hand, _w_now, _target, _front)
+		_reach(skel, _hand, _w_now, _target, _front, _height_only, _aim_target_y)
 
 
 ## Carries `hand`'s glove front onto the target by weight w.
-func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove_front: float) -> void:
-	if not target_fn.is_valid() or not _arms.has(hand):
+## HEADAIM2B: height_only and aim_y are passed per-call (each reach carries its own mode, no member flag read).
+func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove_front: float,
+		height_only: bool = false, aim_y: float = 0.0) -> void:
+	if not _arms.has(hand):
 		return
-	var target: Vector3 = skel.global_transform.affine_inverse() * (target_fn.call() as Vector3)
 	var ids: Array = _arms[hand]
 	var g_hd: Transform3D = skel.get_bone_global_pose(int(ids[2]))
 	var s: Vector3 = skel.get_bone_global_pose(int(ids[0])).origin
 	var l1 := s.distance_to(skel.get_bone_global_pose(int(ids[1])).origin)
 	var l2 := skel.get_bone_global_pose(int(ids[1])).origin.distance_to(g_hd.origin)
+	# HEADAIM2B: height-only mode - replace glove front Y with latched target Y, keep X/Z from clip.
+	# The glove front's X/Z may drift slightly (3-8cm) from the IK geometry change when solving for
+	# a different height; this is inherent to the two-bone solver.
+	var target: Vector3
+	if height_only:
+		var current_gf: Vector3 = g_hd.origin + _along(skel, ids) * glove_front
+		var to_skel := skel.global_transform.affine_inverse()
+		var latched_skel_y: float = (to_skel * Vector3(0, aim_y, 0)).y
+		target = Vector3(current_gf.x, latched_skel_y, current_gf.z)
+	else:
+		if not target_fn.is_valid():
+			return
+		target = skel.global_transform.affine_inverse() * (target_fn.call() as Vector3)
 	# Where the wrist must go for the glove front to sit on the target. S321: the glove's axis follows the forearm, and
 	# moving the wrist turns the forearm, so one step left the front 0.13-0.28 m off (hit_gap_probe, inside punches): the
 	# full-weight wrist is found by re-solving from the moved arm, then the pose is put back and eased in by the weight.

@@ -8,6 +8,7 @@ extends VBoxContainer
 ##   DrillTray.make(main, f, cards, projs, on_pick, on_drill_it) -> DrillTray "DrillTray"   DrillTray.picked (static)
 
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const WB := preload("res://scripts/ui/WhiteboardKit.gd")
 const DrillCard := preload("res://scripts/ui/DrillCard.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
@@ -117,7 +118,7 @@ static func _versus(head: HBoxContainer, f: Dictionary) -> void:
 		face.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		face.texture = a
 		head.add_child(face)
-	var who := WB.ink(str(opp.get("first", str(opp.get("name", "")).get_slice(" ", 0))).to_upper(), 18, "bold")
+	var who := WB.ink(str(opp.get("first", str(opp.get("name", "")).get_slice(" ", 0))).to_upper(), 18, "bold", UI.FG)
 	who.name = "OppName"
 	head.add_child(who)
 
@@ -131,8 +132,9 @@ static func _build(main: Node, f: Dictionary) -> Button:
 	b.custom_minimum_size = Vector2(0, DrillCard.CARD_H)
 	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	for st in ["normal", "hover", "pressed", "focus"]:
-		var s := UI.box(UI.PANEL if st == "normal" else Color("#f3f6fb"), UI.MUTED if st == "hover" else UI.LINE, 10, 2, 0, 0)
-		b.add_theme_stylebox_override(st, s)
+		var hot: bool = st == "hover"
+		var edge := Color(WoodKit.BLUE if hot else WoodKit.SOFT, 0.9 if hot else 0.35)
+		b.add_theme_stylebox_override(st, UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if hot else 1, 0, 0))
 	b.pressed.connect(func():
 		Playbook.pick = str(f["id"])
 		ComboBuilder.chain = []
