@@ -1,0 +1,211 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Corner minute (S425)</title>
+<style>
+:root{--gold:#f0bd4f;--chalk:#f3efe4;--red:#c9342a;--lucy:#e0493b;--rey:#4aa3df;--ok:#8fe3a2;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#0d0b0a;color:var(--chalk);font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;position:relative;
+ background-image:radial-gradient(ellipse at 20% 0,#3a2a1c 0,transparent 40%),radial-gradient(ellipse at 90% 0,#2e2218 0,transparent 40%)}
+.abs{position:absolute}
+.wood{background:linear-gradient(180deg,#7a5230,#4c2f1a 60%,#3c2514);border:2px solid #20120a;box-shadow:inset 0 2px 0 #9a6d42,0 4px 10px #000a}
+.board{position:absolute;border:12px solid #5b3a20;border-radius:6px;background:
+ radial-gradient(ellipse at 30% 20%,#2b2e31,transparent 60%),linear-gradient(#1d1f21,#161718);
+ box-shadow:0 0 0 2px #1d1008,inset 0 0 0 2px #8a5f36,inset 0 0 40px #000c,0 6px 14px #000a}
+.nav{top:0;left:0;width:1920px;height:64px}
+.navbtn{position:absolute;top:10px;height:46px;border-radius:5px;font-size:26px;display:flex;align-items:center;gap:10px;padding:0 20px;color:var(--chalk)}
+.h{font-weight:700;letter-spacing:.5px}
+.t{font-size:36px;font-weight:700;color:var(--gold);white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:8px;border-radius:20px;padding:2px 14px;font-size:24px;font-weight:700;background:#0008;border:2px solid #ffffff30;white-space:nowrap;line-height:32px}
+.chip.r{color:#ff8d80;border-color:#c9342a}.chip.g{color:var(--ok);border-color:#3d8d52}.chip.y{color:var(--gold);border-color:#a97a25}.chip.b{color:#aab1b9;border-color:#6a7078}
+.face{border-radius:50%;object-fit:cover;object-position:50% 18%;border:4px solid #0009;background:#333;flex-shrink:0}
+.g{color:var(--ok)}.r{color:#ff8d80}.y{color:var(--gold)}.o{color:#ffb07a}.dim{color:#aab1b9}
+.dt{position:absolute;top:6px;width:254px;height:106px;border-radius:10px;padding:6px 12px;background:#17191b;border:2px solid #3d4146}
+.dt .d{font-size:28px;font-weight:700;line-height:34px;white-space:nowrap}
+.dt .w{font-size:24px;font-weight:700;line-height:30px;white-space:nowrap;color:#cfc8b8}
+.dt.done{border-color:#3d8d52}.dt.done .d{color:var(--ok)}
+.dt.now{background:#3a3222;border:3px solid var(--gold);box-shadow:0 0 18px #f0bd4f66}.dt.now .d{color:var(--gold)}
+.dt.next{opacity:.7}
+.pc{position:absolute;top:350px;width:606px;height:566px}
+.pc .src{position:absolute;left:128px;top:10px;font-size:26px;font-weight:700;color:var(--gold);white-space:nowrap}
+.pc .hl{position:absolute;left:128px;top:46px;font-size:30px;font-weight:700;line-height:36px;width:440px}
+.pc .do{position:absolute;left:16px;right:16px;top:140px;height:96px;border-radius:10px;background:linear-gradient(#41381f,#2a2517);border:3px solid var(--gold);padding:8px 16px}
+.pc .do .a{font-size:30px;font-weight:700;color:var(--gold);line-height:40px;white-space:nowrap}
+.pc .do .b{font-size:26px;font-weight:700;line-height:34px;white-space:nowrap}
+.ln{position:absolute;left:16px;right:16px;height:58px}
+.ln .k{position:absolute;left:0;top:0;width:150px;font-size:24px;font-weight:700;color:#aab1b9;line-height:34px}
+.ln .v{position:absolute;left:150px;top:0;font-size:26px;font-weight:700;white-space:nowrap;line-height:34px}
+.bar{position:absolute;height:20px;border-radius:10px;background:#0c0d0e;border:2px solid #555}
+.bar .f{position:absolute;top:0;bottom:0;left:0;border-radius:8px;background:#8fe3a2}
+.bar .m{position:absolute;top:-7px;width:4px;height:30px;background:#ff8d80}
+.btn{position:absolute;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;background:linear-gradient(#d8483b,#8f2219);border:2px solid #3a0d09;box-shadow:inset 0 2px 0 #f08a7f;font-size:30px;white-space:nowrap}
+.btn.w{background:linear-gradient(180deg,#7a5230,#4c2f1a);box-shadow:inset 0 2px 0 #9a6d42;border-color:#20120a}
+.btn.off{background:#2a2d30;border-color:#565d64;color:#8d949c;box-shadow:none}
+.light{display:inline-block;width:28px;height:28px;border-radius:50%;vertical-align:middle;margin-right:8px;border:2px solid #0008}
+
+.big{position:absolute;font-size:76px;font-weight:700;line-height:80px}
+.cap{position:absolute;font-size:26px;font-weight:700;color:#cfc8b8;white-space:nowrap}
+.ico{position:absolute;font-size:46px;line-height:52px}
+.moon{font-size:34px;letter-spacing:4px}
+.pip{display:inline-block;width:26px;height:26px;border-radius:50%;background:var(--gold);border:3px solid #0008;margin-left:10px;vertical-align:middle}
+.pip.o{background:#0006;border-color:#f0bd4f}
+
+.col{position:absolute;top:92px;height:774px}
+.ttl{position:absolute;left:20px;top:10px;font-size:34px;font-weight:700;color:var(--gold);white-space:nowrap}
+.sub{position:absolute;font-size:24px;font-weight:700;color:#aab1b9;white-space:nowrap}
+.num{position:absolute;font-size:44px;font-weight:700;line-height:48px}
+.tug{position:absolute;height:34px;border-radius:17px;overflow:hidden;border:2px solid #000a;display:flex}
+.fig{position:absolute;object-fit:contain}
+.dot{position:absolute;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#14110c;border:3px solid #000a;box-shadow:0 0 14px #000}
+.opt{position:absolute;left:16px;right:16px;border-radius:10px;background:linear-gradient(#2c2f32,#1f2123);border:3px solid #3d4146}
+.opt.on{border-color:var(--gold);background:linear-gradient(#41381f,#2a2517);box-shadow:0 0 18px #f0bd4f44}
+.opt.lock{opacity:.5;border-style:dashed}
+.opt .n{position:absolute;left:16px;top:8px;font-size:30px;font-weight:700;white-space:nowrap}
+.sec{position:absolute;right:14px;top:10px;font-size:26px;font-weight:700;color:var(--gold);white-space:nowrap}
+.seg{position:absolute;height:54px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;background:#17191b;border:2px solid #565d64}
+.seg.on{background:linear-gradient(#f7cf6a,#c2902c);color:#2a1b06;border-color:#fff2c4}
+.pips{position:absolute;display:flex;gap:6px}.pips i{width:22px;height:22px;border-radius:50%;background:#ffffff22;border:2px solid #000a}.pips i.on{background:var(--ok)}
+.step{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;font-size:26px;font-weight:700;color:#14110c;border:3px solid #000a}
+.lane{position:absolute;left:210px;width:1000px;height:50px;border-radius:8px;background:repeating-linear-gradient(45deg,#00000066 0 10px,#ffffff0a 10px 20px);border:2px solid #3d4146}
+.blk{position:absolute;top:0;bottom:0;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#14110c;border:2px solid #000a;white-space:nowrap}
+.row{position:absolute;left:16px;right:16px;border-radius:10px;background:#17191b;border:2px solid #3d4146}
+</style></head><body>
+
+<!-- HEADER -->
+<div class="abs wood" style="left:0;top:0;width:1920px;height:76px"></div>
+<img class="face abs" style="left:24px;top:8px;width:60px;height:60px;border-color:var(--lucy,#e0493b)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg">
+<div class="abs h" style="left:96px;top:16px;font-size:34px">Lucy Jackson</div>
+<div class="abs h" style="left:800px;top:8px;font-size:40px;color:var(--gold)">Round 2</div>
+<div class="pips" style="left:980px;top:28px"><i style="background:#aab1b9" title="Round 1: close"></i><i style="border-color:var(--gold);background:#f0bd4f"></i><i></i></div>
+<div class="abs h" style="right:96px;top:16px;font-size:34px">Maria Ortega</div>
+<img class="face abs" style="right:24px;top:8px;width:60px;height:60px;border-color:#4aa3df" src="../../../assets/ui/face/studio/mh_boxer_13.jpg">
+
+<!-- LEFT: ROUND 1 -->
+<div class="board col" style="left:24px;width:520px">
+  <div class="ttl">Round 1</div>
+  <div class="abs chip b" style="right:16px;top:14px" title="The judges' cards stay closed until the end">&#9878;&#65039; close</div>
+  <div class="num" style="left:20px;top:66px;color:#ff8d80">3</div>
+  <div class="tug" style="left:70px;right:70px;top:74px"><div style="width:50%;background:#e0493b"></div><div style="width:50%;background:#4aa3df"></div></div>
+  <div class="num" style="right:20px;top:66px;color:#8ecbf0">3</div>
+  <div class="sub" style="left:0;right:0;top:112px;text-align:center">exchanges</div>
+
+  <img class="fig" style="left:10px;top:150px;width:240px;height:380px" src="../../../assets/ui/body/mh_boxer_11_red.png" title="Where Lucy was hit">
+  <div class="dot" style="left:142px;top:316px;width:58px;height:58px;background:#4aa3df;font-size:30px" title="8 hooks to the left ribs">8</div>
+  <div class="dot" style="left:112px;top:176px;width:34px;height:34px;background:#4aa3df;font-size:22px">2</div>
+  <img class="fig" style="left:262px;top:150px;width:240px;height:380px" src="../../../assets/ui/body/mh_boxer_13_blue.png" title="Where Maria was hit">
+  <div class="dot" style="left:362px;top:166px;width:62px;height:62px;background:#e0493b;font-size:30px;color:#fff" title="11 clean jabs to the head">11</div>
+
+  <div class="abs" style="left:20px;top:540px;font-size:36px">&#128267;</div>
+  <div class="bar" style="left:70px;width:330px;top:548px;height:26px"><div class="f" style="width:47%;background:#f0bd4f"></div></div>
+  <div class="num" style="right:20px;top:536px;font-size:36px">47</div>
+  <div class="abs" style="left:20px;top:590px;font-size:36px">&#128267;</div>
+  <div class="bar" style="left:70px;width:330px;top:598px;height:26px"><div class="f" style="width:31%;background:#4aa3df"></div></div>
+  <div class="num" style="right:20px;top:586px;font-size:36px;color:#8ecbf0">31</div>
+  <div class="abs chip g" style="left:70px;top:634px" title="Maria lost more energy than Lucy this round">&#8600; Maria tiring</div>
+
+  <img class="face abs" style="left:16px;top:686px;width:64px;height:64px;border-color:var(--gold)" src="../../../assets/ui/face/mh_staff_coach.jpg">
+  <div class="abs h" style="left:92px;top:686px;font-size:26px;line-height:32px;width:400px">&ldquo;Her hook still lands. Keep it long.&rdquo;</div>
+</div>
+
+<!-- MIDDLE: YOUR MINUTE -->
+<div class="board col" style="left:560px;width:800px">
+  <div class="ttl">Your minute</div>
+  <div class="abs chip y" style="right:16px;top:14px" title="How much of the corner's word Lucy takes in: her mood">&#128066; Lucy listens</div>
+  <div class="bar" style="right:20px;width:200px;top:60px;height:18px"><div class="f" style="width:85%"></div></div>
+
+  <div class="opt on" style="top:92px;height:150px">
+    <div class="n">&#128207; Range</div><div class="sec">&#128483; 20 s</div>
+    <div class="seg on" style="left:16px;top:56px;width:170px">Long</div>
+    <div class="seg" style="left:196px;top:56px;width:170px">Centre</div>
+    <div class="seg" style="left:376px;top:56px;width:170px">Press</div>
+    <div class="abs chip g" style="left:16px;top:112px;display:none"></div>
+    <div class="abs chip g" style="left:560px;top:54px" title="Her hook finds the body less">&#128737; her hook &#8595;</div>
+    <div class="abs chip o" style="left:560px;top:98px" title="Lucy throws less from long range">&#129354; you punch &#8595;</div>
+  </div>
+
+  <div class="opt on" style="top:254px;height:214px">
+    <div class="n">&#127919; Counter</div><div class="sec">&#128483; 25 s</div>
+    <img class="face abs" style="left:16px;top:58px;width:72px;height:72px;border-color:#4aa3df" src="../../../assets/ui/face/studio/mh_boxer_13.jpg">
+    <div class="abs chip b" style="left:98px;top:76px">right hook</div>
+    <div class="abs h" style="left:266px;top:70px;font-size:38px;color:var(--gold)">&#10140;</div>
+    <div class="abs chip y" style="left:318px;top:76px">slip out</div>
+    <div class="abs h" style="left:452px;top:70px;font-size:38px;color:var(--gold)">&#10140;</div>
+    <div class="abs" style="left:498px;top:68px;display:flex;gap:6px;align-items:center">
+      <span class="step" style="background:#f0bd4f">2</span><span class="chip">head</span>
+      <span class="step" style="background:#ff8d80">3</span><span class="chip">ribs</span></div>
+    <div class="sub" style="left:16px;top:150px">drilled</div>
+    <div class="bar" style="left:120px;width:330px;top:154px;height:24px" title="Raw under 30, usable, sharp from 60, signature from 85"><div class="f" style="width:64%;background:#f0bd4f"></div><div class="m" style="left:30%"></div><div class="m" style="left:60%"></div><div class="m" style="left:85%"></div></div>
+    <div class="abs h" style="left:462px;top:146px;font-size:28px;color:var(--gold)">Sharp</div>
+    <div class="sub" style="left:580px;top:150px">fires</div><div class="pips" style="left:650px;top:154px"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+  </div>
+
+  <div class="opt" style="top:480px;height:150px">
+    <div class="n">&#129657; Body</div><div class="sec" style="color:#8ecbf0">&#129306; the second</div>
+    <div class="seg" style="left:16px;top:60px;width:236px" title="Water and breath: +3 energy">&#128167; +3 &#128267; &nbsp; 10 s</div>
+    <div class="seg on" style="left:264px;top:60px;width:236px" title="Ice on the ribs: takes 3 body hits off">&#129482; ribs &minus;3 &nbsp; 20 s</div>
+    <div class="seg" style="left:512px;top:60px;width:226px;opacity:.45;border-style:dashed" title="No cutman in the corner tonight">&#128065; eye &nbsp; &#128274;</div>
+  </div>
+
+  <div class="opt lock" style="top:640px;height:98px">
+    <div class="n">&#128274; Check hook</div><div class="sec" style="color:#aab1b9">not drilled</div>
+    <div class="bar" style="left:16px;width:330px;top:62px;height:24px"><div class="f" style="width:18%;background:#e8823c"></div><div class="m" style="left:30%"></div><div class="m" style="left:60%"></div><div class="m" style="left:85%"></div></div>
+    <div class="abs h" style="left:360px;top:54px;font-size:28px;color:#ffb07a">Raw 18</div>
+    <div class="abs chip b" style="left:500px;top:54px" title="Pad nights with Reid would make it usable">&#127769;&#127769;&#127769; to usable</div>
+  </div>
+</div>
+
+<!-- RIGHT: ../../../assets/ui/face/studio/mh_boxer_13.jpg -->
+<div class="board col" style="left:1376px;width:520px">
+  <div class="ttl">Maria</div>
+  <div class="abs chip b" style="right:16px;top:14px">Pressure</div>
+
+  <div class="row" style="top:70px;height:178px;border-color:var(--gold)">
+    <div class="abs chip y" style="left:12px;top:10px">&#11088; new</div>
+    <div class="abs h" style="left:142px;top:12px;font-size:26px;white-space:nowrap">Loads up after the jab</div>
+    <div class="abs" style="left:12px;top:60px;display:flex;gap:12px">
+      <span class="chip" title="Seen 3 times this round">&#128065; 3</span><span class="chip r" title="2 of them landed">&#128165; 2</span><span class="chip g" title="1 opening to counter">&#128275; 1</span></div>
+    <div class="abs h" style="left:12px;top:116px;font-size:30px;color:var(--gold)">&#10140;</div>
+    <div class="abs chip g" style="left:56px;top:118px">&#10004; Counter &middot; Sharp</div>
+  </div>
+
+  <div class="row" style="top:260px;height:178px">
+    <div class="abs chip b" style="left:12px;top:10px">&#127916; tape</div>
+    <div class="abs h" style="left:142px;top:12px;font-size:26px;white-space:nowrap">Left hand drops, pressing</div>
+    <div class="abs" style="left:12px;top:60px;display:flex;gap:12px">
+      <span class="chip">&#128065; 5</span><span class="chip g">&#128275; 4</span></div>
+    <div class="abs h" style="left:12px;top:116px;font-size:30px;color:#aab1b9">&#10140;</div>
+    <div class="abs chip b" style="left:56px;top:118px">&#128274; Check hook &middot; Raw</div>
+  </div>
+
+  <div class="row" style="top:450px;height:104px;border-style:dashed">
+    <div class="abs h" style="left:16px;top:8px;font-size:60px;color:#6a7078;line-height:84px">?</div>
+    <div class="abs h" style="left:70px;top:14px;font-size:28px;color:#aab1b9;white-space:nowrap">Round 3 habit</div>
+    <div class="abs chip b" style="left:70px;top:54px" title="Tape study before the fight would have opened it">&#127916; not studied</div>
+  </div>
+
+  <div class="row" style="top:566px;height:180px">
+    <div class="abs h" style="left:16px;top:10px;font-size:28px;color:var(--gold);white-space:nowrap">Her corner</div>
+    <div class="abs chip r" style="left:16px;top:56px" title="Her coach's habit when a round is close">&#128483; &ldquo;Press!&rdquo; likely</div>
+    <div class="abs chip g" style="left:16px;top:108px" title="A pressing Maria walks onto the counter more">&#10140; Counter fires more</div>
+    <div class="abs chip o" style="left:300px;top:56px">&#128267; costs her</div>
+  </div>
+</div>
+
+<!-- BOTTOM: THE SIXTY SECONDS, THE FORECAST, GO -->
+<div class="board" style="left:24px;top:878px;width:1872px;height:178px;border-width:10px">
+  <img class="face abs" style="left:14px;top:10px;width:56px;height:56px;border-color:var(--gold)" src="../../../assets/ui/face/mh_staff_coach.jpg">
+  <div class="abs h" style="left:80px;top:20px;font-size:26px">Reid</div>
+  <div class="lane" style="top:12px"><div class="blk" style="left:0;width:33.3%;background:#f0bd4f">Range 20</div><div class="blk" style="left:33.3%;width:41.7%;background:#f0bd4f">Counter 25</div></div>
+  <div class="abs" style="left:14px;top:84px;width:56px;height:56px;border-radius:50%;background:#101112;border:4px solid #0009;display:flex;align-items:center;justify-content:center;font-size:30px">&#129306;</div>
+  <div class="abs h" style="left:80px;top:94px;font-size:26px">Second</div>
+  <div class="lane" style="top:86px"><div class="blk" style="left:0;width:33.3%;background:#8ecbf0">Ice 20</div></div>
+  <div class="abs h" style="left:1222px;top:22px;font-size:26px;color:var(--gold)">15 s</div>
+  <div class="abs h" style="left:1222px;top:96px;font-size:26px;color:#8ecbf0">40 s</div>
+
+  <div class="abs h" style="left:1312px;top:8px;font-size:26px;color:var(--gold)" title="Lucy's chance to win round 2 with these changes: a range, never a promise">Round 2</div>
+  <div class="bar" style="left:1312px;width:250px;top:50px;height:30px"><div class="f" style="left:44%;width:20%;background:#8fe3a2;border-radius:0"></div><div class="f" style="left:36%;width:8%;background:#8fe3a255;border-radius:0"></div><div class="m" style="left:50%"></div></div>
+  <div class="abs chip g" style="left:1312px;top:94px">&#9650; from 36 to 44</div>
+
+  <div class="btn w" style="left:1586px;top:14px;width:256px;height:56px;font-size:26px">Keep the plan</div>
+  <div class="btn" style="left:1586px;top:82px;width:256px;height:64px;font-size:30px">Seconds out &#9654;</div>
+</div>
+
+</body></html>

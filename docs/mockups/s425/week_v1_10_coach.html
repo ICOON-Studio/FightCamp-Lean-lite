@@ -1,0 +1,112 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Home - the week, coach 10 (S425)</title><style>
+:root{--gold:#f0bd4f;--chalk:#f3efe4;--red:#c9342a;--lucy:#e0493b;--rey:#4aa3df;--ok:#8fe3a2;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#0d0b0a;color:var(--chalk);font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;position:relative;
+ background-image:radial-gradient(ellipse at 20% 0,#3a2a1c 0,transparent 40%),radial-gradient(ellipse at 90% 0,#2e2218 0,transparent 40%)}
+.abs{position:absolute}
+.wood{background:linear-gradient(180deg,#7a5230,#4c2f1a 60%,#3c2514);border:2px solid #20120a;box-shadow:inset 0 2px 0 #9a6d42,0 4px 10px #000a}
+.board{position:absolute;border:12px solid #5b3a20;border-radius:6px;background:
+ radial-gradient(ellipse at 30% 20%,#2b2e31,transparent 60%),linear-gradient(#1d1f21,#161718);
+ box-shadow:0 0 0 2px #1d1008,inset 0 0 0 2px #8a5f36,inset 0 0 40px #000c,0 6px 14px #000a}
+.board.pin:before,.board.pin:after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f6d98a,#a97a25 60%,#5b3d0f);top:-17px;left:-17px;box-shadow:0 2px 3px #000}
+.board.pin:after{left:auto;right:-17px}
+.nav{top:0;left:0;width:1920px;height:64px}
+.navbtn{position:absolute;top:10px;height:46px;border-radius:5px;font-size:26px;display:flex;align-items:center;gap:10px;padding:0 20px;color:var(--chalk)}
+.h{font-weight:700;letter-spacing:.5px}
+.t{font-size:36px;font-weight:700;color:var(--gold);white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:8px;border-radius:20px;padding:2px 14px;font-size:24px;font-weight:700;background:#0008;border:2px solid #ffffff30;white-space:nowrap;line-height:32px}
+.chip.r{color:#ff8d80;border-color:#c9342a}.chip.g{color:var(--ok);border-color:#3d8d52}.chip.y{color:var(--gold);border-color:#a97a25}.chip.b{color:#cfd4da;border-color:#6a7078}
+.face{border-radius:50%;object-fit:cover;object-position:50% 18%;border:4px solid #0009;background:#333}
+.day{position:absolute;top:18px;width:112px;text-align:center;font-size:30px;font-weight:700}
+.row{position:absolute;left:24px;width:1192px;height:104px;border-radius:10px;background:linear-gradient(#2c2f32,#1f2123);border:3px solid #3d4146}
+.who{position:absolute;left:12px;top:6px;display:flex;gap:14px;align-items:center;height:86px;width:312px}
+.who img{flex-shrink:0}
+.who .n{font-size:30px;font-weight:700;line-height:36px;white-space:nowrap}
+.cell{position:absolute;top:7px;width:112px;height:84px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.cell.in{background:#3a3222;border:3px solid var(--gold);box-shadow:0 0 16px #f0bd4f55}
+.cell.off{background:repeating-linear-gradient(45deg,#00000055 0 10px,#ffffff08 10px 20px);border:2px solid #ffffff14}
+.cell.ask{border:4px dashed var(--gold);color:var(--gold);font-size:52px;font-weight:700;background:#f0bd4f1c;box-shadow:0 0 22px #f0bd4f88}
+.cell.th{background:#1b1d1f;border:3px solid #6a7078;font-size:36px;align-items:flex-start;padding-top:2px}
+.cell.th.g{border-color:#3d8d52}.cell.th.r{border-color:#c9342a}.cell.th.y{border-color:#a97a25}
+.lab{position:absolute;left:0;right:0;bottom:-2px;text-align:center;font-size:24px;font-weight:700;color:#14110c;background:var(--gold);border-radius:0 0 6px 6px;line-height:28px;white-space:nowrap}
+.lab.lg{background:#8fe3a2}.lab.lr{background:#ff8d80}
+.bx{position:absolute;left:1300px;width:590px;border:12px solid #5b3a20;border-radius:6px;background:linear-gradient(#1d1f21,#161718);box-shadow:0 0 0 2px #1d1008,inset 0 0 0 2px #8a5f36,inset 0 0 40px #000c,0 6px 14px #000a}
+.mbar{position:absolute;height:20px;border-radius:10px;background:#0c0d0e;border:2px solid #555}
+.mbar .f{position:absolute;top:0;bottom:0;left:0;border-radius:8px}
+.mbar .m{position:absolute;top:-7px;width:4px;height:30px;background:#fff}
+.lay{position:absolute;top:6px;height:170px;border-radius:10px;background:linear-gradient(#2c2f32,#1f2123);border:3px solid #565d64;padding:8px 14px}
+.lay.on{border-color:var(--gold);background:linear-gradient(#41381f,#2a2517);box-shadow:0 0 22px #f0bd4f55}
+.lay .n{font-size:30px;font-weight:700;color:var(--gold);line-height:44px;white-space:nowrap;display:flex;align-items:center;gap:10px}
+.lay .l{font-size:26px;font-weight:700;line-height:38px;white-space:nowrap}
+.g{color:var(--ok)}.r{color:#ff8d80}.y{color:var(--gold)}
+.opt{position:absolute;text-align:center;width:176px}
+.opt .c{font-size:24px;font-weight:700;line-height:28px;margin-top:2px;white-space:nowrap}
+.seg{position:absolute;height:48px;border-radius:8px;font-size:26px;font-weight:700;display:flex;align-items:center;justify-content:center;background:#2a2d30;border:2px solid #565d64;color:#cfd4da}
+.seg.on{background:linear-gradient(#f0bd4f,#b98a2c);color:#14110c;border-color:#f6d98a}
+.pl{position:absolute;left:16px;right:16px;height:46px}
+.pl .n{position:absolute;left:0;top:6px;font-size:26px;font-weight:700;white-space:nowrap}
+.pl .chip{position:absolute;right:0;top:4px}
+.tile{position:absolute;top:104px;width:140px;height:102px;border-radius:10px;background:#0007;border:2px solid #ffffff30;text-align:center}
+.tile .v{font-size:30px;font-weight:700;line-height:50px;white-space:nowrap}
+.tile .c{font-size:24px;font-weight:700;color:#cfc8b8;line-height:30px;white-space:nowrap}
+.btn{position:absolute;height:54px;border-radius:8px;padding:0 22px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#fff;background:linear-gradient(#d8483b,#8f2219);border:2px solid #3a0d09;box-shadow:inset 0 2px 0 #f08a7f}
+.btn.w{background:linear-gradient(180deg,#7a5230,#4c2f1a);box-shadow:inset 0 2px 0 #9a6d42;border-color:#20120a}
+.slot{position:absolute;width:150px;height:92px;border-radius:10px;border:4px dashed #8d949c;color:#8d949c;font-size:50px;font-weight:700;display:flex;align-items:center;justify-content:center}
+
+.card{position:absolute;left:12px;right:12px;height:132px;border-radius:10px;background:linear-gradient(#2c2f32,#1f2123);border:3px solid #565d64}
+.card.on{border-color:var(--gold);background:linear-gradient(#41381f,#2a2517);box-shadow:0 0 22px #f0bd4f55}
+.news{position:absolute;left:14px;right:14px;height:84px;border-radius:10px;background:#0007;border:3px solid #565d64}
+.pip{display:inline-block;width:30px;height:30px;border-radius:50%;margin-right:8px;vertical-align:middle}
+</style></head><body>
+<div class="abs nav wood"></div>
+<div class="abs h" style="left:36px;top:12px;font-size:40px;font-style:italic">Anvil Street Gym</div>
+<div class="navbtn wood" style="left:620px;box-shadow:inset 0 0 0 2px #e0493b">&#9733; Home</div>
+<div class="navbtn wood" style="left:790px">&#129354; Fighters</div>
+<div class="navbtn wood" style="left:995px">&#127942; Fights <span class="chip r" style="padding:0 10px;line-height:28px">1</span></div>
+<div class="navbtn wood" style="left:1210px">&#128176; Club</div>
+<div class="navbtn wood" style="left:1355px">&#127760; World</div>
+<div class="abs h" style="right:36px;top:10px;font-size:40px;color:var(--gold)">$18,700</div>
+<div class="abs chip y" style="left:36px;top:76px;font-size:26px;line-height:36px">Mon 2 Feb &middot; Week 5</div>
+<div class="abs chip g" style="left:330px;top:76px;font-size:26px;line-height:36px">&#10004; Last week: tap to read</div>
+<div class="board pin" style="left:30px;top:130px;width:1240px;height:500px">
+<div class="abs t" style="left:24px;top:12px">&#128197; This week</div><div class="day" style="left:358px">Mon</div><div class="day" style="left:480px">Tue</div><div class="day" style="left:602px">Wed</div><div class="day" style="left:724px">Thu</div><div class="day y" style="left:846px">Fri</div><div class="day" style="left:968px">Sat</div><div class="day" style="left:1090px">Sun</div>
+<div class="row" style="top:68px"><div class="who"><img class="face" style="width:78px;height:78px;border-color:var(--gold)" src="../../../assets/ui/face/mh_staff_coach.jpg"><div><div class="n">Reid</div><span class="chip y">evenings</span></div></div>
+<div class="cell in" style="left:334px"><img class="face" style="width:56px;height:56px;margin-bottom:26px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg"><div class="lab">Pads</div></div><div class="cell in" style="left:456px"><div style="font-size:40px;margin-bottom:24px">&#127916;</div><div class="lab">Tape</div></div><div class="cell in" style="left:578px"><img class="face" style="width:56px;height:56px;margin-bottom:26px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg"><div class="lab">Watch</div></div>
+<div class="cell off" style="left:700px"></div><div class="cell ask" style="left:822px">?</div>
+<div class="cell in" style="left:944px"><div style="font-size:40px;margin-bottom:24px">&#127915;</div><div class="lab">Club night</div></div><div class="cell off" style="left:1066px"></div></div>
+<div class="row" style="top:184px"><div class="who"><img class="face" style="width:78px;height:78px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg"><div><div class="n">Lucy</div><span class="chip y">&#128276; 19 days</span></div></div>
+<div class="cell th g" style="left:578px">&#127916;<div class="lab lg">His right</div></div><div class="cell th y" style="left:700px">&#128203;<div class="lab">News</div></div><div class="cell th r" style="left:822px">&#9878;&#65039;<div class="lab lr">+0.4 kg</div></div></div>
+<div class="row" style="top:300px"><div class="who"><img class="face" style="width:78px;height:78px;border-color:var(--rey)" src="../../../assets/ui/face/studio/mh_boxer_02.jpg"><div><div class="n">Danny</div><span class="chip r">Lost, flat</span></div></div>
+<div class="cell th y" style="left:822px">&#9993;&#65039;<div class="lab">Offer</div></div></div>
+<div class="abs" style="left:716px;top:58px;width:128px;height:354px;border:3px dashed var(--gold);border-radius:12px;z-index:3"></div>
+<div class="abs h y" style="left:24px;top:424px;font-size:28px">Thursday stops for news only. Friday: your call.</div>
+</div>
+<div class="bx" style="top:130px;height:500px">
+<div class="abs t" style="left:16px;top:6px;font-size:32px">Friday: Reid's evening</div>
+<div class="card on" style="top:58px"><img class="face abs" style="left:12px;top:12px;width:72px;height:72px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg"><div class="abs h" style="left:98px;top:10px;font-size:30px">Lucy back-up</div>
+<div class="abs h g" style="left:98px;top:54px;font-size:26px">+6 wins in 100</div><div class="abs h r" style="left:98px;top:88px;font-size:26px">Danny -3</div><div class="abs chip y" style="right:12px;top:12px">Reid's pick</div></div>
+<div class="card" style="top:204px"><img class="face abs" style="left:12px;top:12px;width:72px;height:72px;border-color:var(--rey)" src="../../../assets/ui/face/studio/mh_boxer_02.jpg"><div class="abs h" style="left:98px;top:10px;font-size:30px">Danny pads</div>
+<div class="abs h g" style="left:98px;top:54px;font-size:26px">answer ready by taper</div><div class="abs h r" style="left:98px;top:88px;font-size:26px">Lucy -6</div></div>
+<div class="card" style="top:350px"><div class="abs" style="left:18px;top:14px;font-size:60px">&#128101;</div><div class="abs h" style="left:98px;top:10px;font-size:30px">Newcomers</div>
+<div class="abs h g" style="left:98px;top:54px;font-size:26px">4 of 6 stay, +$115 class</div><div class="abs h r" style="left:98px;top:88px;font-size:26px">Both boxers wait</div></div>
+</div>
+<div class="board" style="left:30px;top:650px;width:620px;height:410px;border-width:10px">
+<img class="face abs" style="left:12px;top:10px;width:84px;height:84px;border-color:var(--rey)" src="../../../assets/ui/face/studio/mh_boxer_02.jpg"><div class="abs h" style="left:112px;top:12px;font-size:32px">Danny: tune-up</div><div class="abs chip y" style="left:112px;top:56px">answer by Fri</div>
+<div class="abs h" style="left:20px;top:118px;font-size:26px">Win chance</div><div class="mbar" style="left:220px;top:122px;width:360px;height:26px"><div class="f" style="width:58%;background:#f0bd4f"></div></div>
+<div class="abs h" style="left:20px;top:168px;font-size:26px">Answers by taper</div><div class="abs" style="left:260px;top:168px"><span class="pip" style="background:#8fe3a2"></span><span class="pip" style="background:#8fe3a2"></span><span class="pip" style="background:#555"></span><span class="pip" style="background:#555"></span></div>
+<div class="abs h" style="left:20px;top:218px;font-size:26px">His corner</div><div class="abs chip r" style="left:220px;top:214px">&#128065; has seen Jab-Jab</div>
+<div class="abs h" style="left:20px;top:268px;font-size:26px">Camp clash</div><div class="mbar" style="left:220px;top:274px;width:360px;height:26px"><div class="f" style="width:8%;background:#8fe3a2"></div></div>
+<div class="btn" style="left:20px;top:324px;width:270px">Take</div><div class="btn w" style="left:310px;top:324px;width:270px">Later</div></div>
+<div class="board" style="left:664px;top:650px;width:606px;height:410px;border-width:10px;border-color:#6b4a22">
+<div class="abs t" style="left:14px;top:6px;font-size:32px">&#9742; Thursday: the news</div>
+<div class="news" style="top:62px"><div class="abs" style="left:12px;top:12px;font-size:44px">&#129354;</div><div class="abs h" style="left:80px;top:24px;font-size:28px">Right hand drops after the jab</div></div>
+<div class="news" style="top:158px"><div class="abs" style="left:12px;top:12px;font-size:44px">&#128164;</div><div class="abs h" style="left:80px;top:24px;font-size:28px">Faded in round 3</div></div>
+<div class="news" style="top:254px"><div class="abs" style="left:12px;top:12px;font-size:44px">&#9878;&#65039;</div><div class="abs h r" style="left:80px;top:24px;font-size:28px">Scale +0.4 kg</div></div>
+<div class="abs h y" style="left:14px;top:352px;font-size:28px">Pick 2 fixes: evening, roadwork, plan, cut</div></div>
+<div class="bx" style="top:650px;height:410px;border-width:10px">
+<img class="face abs" style="left:14px;top:12px;width:84px;height:84px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg"><div class="abs h" style="left:106px;top:36px;font-size:28px">vs</div><img class="face abs" style="left:146px;top:12px;width:84px;height:84px;border-color:#888" src="../../../assets/ui/face/studio/mh_boxer_13.jpg">
+<div class="abs chip y" style="left:246px;top:12px;font-size:26px;line-height:36px">&#128276; 19 days</div><div class="abs chip r" style="left:246px;top:58px;font-size:26px;line-height:36px">taper in 12</div>
+<div class="abs h" style="left:14px;top:124px;font-size:28px;line-height:36px">Reid: "Back-up for Lucy Friday."</div>
+<div class="abs chip g" style="left:14px;top:222px;font-size:26px;line-height:36px">&#10004; Her house line frees one evening</div>
+<div class="btn" style="left:14px;right:14px;top:290px;height:92px;font-size:38px;justify-content:space-between;padding:0 26px"><span>Start week &#9654;</span><span style="font-size:26px">stops Thu</span></div></div>
+</body></html>

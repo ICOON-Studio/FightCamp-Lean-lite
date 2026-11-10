@@ -883,10 +883,11 @@
    "agent": "claude",
    "id": "ANIMFIX1",
    "title": "TASK ANIMFIX1 - CLAUDE SUBAGENT (Fable 5.2) - boxing leg tremble (round 5) and grappling matches the player can read; films on the review board",
-   "status": "running",
+   "status": "stale",
    "started": "2026-11-10T14:25",
    "eta": "2026-11-10T17:30",
-   "branch": "claude/grapplefix1"
+   "branch": "claude/grapplefix1",
+   "reconciled": "2026-11-10 14:41 board_reconcile: no process and no write for ? min (no worktree for branch 'claude/grapplefix1')"
   },
   "DUESCARD1": {
    "agent": "cursor",
@@ -919,7 +920,7 @@
    "agent": "qwen",
    "id": "READBACK1",
    "title": "TASK READBACK1 - QWEN (qwen3-coder) - she waits for your best plan line: where the points go, and what wins them back. Measure only",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-10T14:38",
    "eta": "2026-11-10T16:28",
    "branch": "qwen/readback1",
@@ -940,7 +941,70 @@
     "runner_pid": 3372,
     "seat_pid": 35052
    },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/3 PASS; PR #170",
+   "finished": "2026-11-10T14:48",
+   "pr": 170,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/read_back_probe.gd",
+     "ok": false,
+     "last": "--- PROBE COMPLETE ---"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_fight_test.gd",
+     "ok": true,
+     "last": "PLAN_FIGHT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_read_test.gd",
+     "ok": true,
+     "last": "PLAN_READ checks=7 failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "READBACK2": {
+   "agent": "qwen",
+   "id": "READBACK2",
+   "title": "TASK READBACK2 - QWEN (qwen3-coder) - she waits for your best plan line, round 2: two ways back as switched-off rules, measured",
+   "status": "running",
+   "started": "2026-11-10T14:50",
+   "eta": "2026-11-10T16:40",
+   "branch": "qwen/readback2",
+   "worktree": "E:/FightCamp/wt/LEAN_READBACK2",
+   "wt": "E:/FightCamp/wt/LEAN_READBACK2",
+   "brief": "ops/research/TASK_READBACK2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/READBACK2_dispatch_out.txt",
+   "match": "seat_dispatch.py run readback2",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/READBACK2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/READBACK2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/READBACK2_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 39288,
+    "seat_pid": 39992
+   },
    "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
+  },
+  "WEEKDESIGN2": {
+   "agent": "claude",
+   "id": "WEEKDESIGN2",
+   "title": "Week design v2 - lead designer subagent (Fable): a week worth playing, with pictures",
+   "status": "running",
+   "started": "2026-11-10T15:00",
+   "eta": "2026-11-10T15:40",
+   "branch": ""
   }
  },
  "codex_budget": {

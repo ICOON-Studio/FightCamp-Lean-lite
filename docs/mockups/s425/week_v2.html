@@ -1,0 +1,152 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Home on a Monday - the week board, v2 (S425)</title>
+<style>
+:root{--gold:#f0bd4f;--chalk:#f3efe4;--red:#c9342a;--lucy:#e0493b;--rey:#4aa3df;--ok:#8fe3a2;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#0d0b0a;color:var(--chalk);font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;position:relative;
+ background-image:radial-gradient(ellipse at 20% 0,#3a2a1c 0,transparent 40%),radial-gradient(ellipse at 90% 0,#2e2218 0,transparent 40%)}
+.abs{position:absolute}
+.wood{background:linear-gradient(180deg,#7a5230,#4c2f1a 60%,#3c2514);border:2px solid #20120a;box-shadow:inset 0 2px 0 #9a6d42,0 4px 10px #000a}
+.board{position:absolute;border:12px solid #5b3a20;border-radius:6px;background:
+ radial-gradient(ellipse at 30% 20%,#2b2e31,transparent 60%),linear-gradient(#1d1f21,#161718);
+ box-shadow:0 0 0 2px #1d1008,inset 0 0 0 2px #8a5f36,inset 0 0 40px #000c,0 6px 14px #000a}
+.board.pin:before,.board.pin:after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f6d98a,#a97a25 60%,#5b3d0f);top:-17px;left:-17px;box-shadow:0 2px 3px #000}
+.board.pin:after{left:auto;right:-17px}
+.nav{top:0;left:0;width:1920px;height:64px}
+.navbtn{position:absolute;top:10px;height:46px;border-radius:5px;font-size:26px;display:flex;align-items:center;gap:10px;padding:0 20px;color:var(--chalk)}
+.h{font-weight:700;letter-spacing:.5px}
+.t{font-size:36px;font-weight:700;color:var(--gold);white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:8px;border-radius:20px;padding:2px 14px;font-size:24px;font-weight:700;background:#0008;border:2px solid #ffffff30;white-space:nowrap;line-height:32px}
+.chip.r{color:#ff8d80;border-color:#c9342a}.chip.g{color:var(--ok);border-color:#3d8d52}.chip.y{color:var(--gold);border-color:#a97a25}.chip.b{color:#aab1b9;border-color:#6a7078}
+.face{border-radius:50%;object-fit:cover;object-position:50% 18%;border:4px solid #0009;background:#333;flex-shrink:0}
+.g{color:var(--ok)}.r{color:#ff8d80}.y{color:var(--gold)}.dim{color:#aab1b9}
+.day{position:absolute;top:10px;width:212px;text-align:center;font-size:28px;font-weight:700;white-space:nowrap}
+.day span{color:var(--gold);font-size:26px;margin-left:8px}
+.row{position:absolute;left:16px;width:1804px;height:168px;border-radius:10px;background:linear-gradient(#2c2f32,#1f2123);border:3px solid #3d4146}
+.who{position:absolute;left:10px;top:10px;width:236px;height:150px}
+.who img{position:absolute;left:0;top:0}
+.who .n{position:absolute;left:84px;top:0}
+.who .c1{position:absolute;left:84px;top:42px}
+.who .c2{position:absolute;left:0;top:92px}
+.who .n{font-size:32px;font-weight:700;line-height:40px}
+.cell{position:absolute;width:212px;border-radius:10px;padding:8px 10px;background:#17191b;border:2px solid #3d4146}
+.cell .p{height:66px;display:flex;align-items:center;gap:8px;font-size:46px}
+.cell .a{font-size:26px;font-weight:700;line-height:30px;white-space:nowrap}
+.cell .s{font-size:24px;font-weight:700;line-height:30px;white-space:nowrap;color:#cfc8b8}
+.cell.set{background:#3a3222;border:3px solid var(--gold)}
+.cell.wait{background:#1c2733;border:3px solid #4aa3df}
+.cell.wait .s{color:#9fd0f2}
+.cell.quiet .a,.cell.quiet .s{color:#8d949c}.cell.quiet .p{opacity:.6}
+.cell.ask{background:#2e2815;border:4px dashed var(--gold);box-shadow:0 0 26px #f0bd4f88}
+.cell.later{background:#1b1d1f;border:3px dashed #8d949c}
+.card{position:absolute;top:70px;width:392px;height:362px;border-radius:12px;background:linear-gradient(#2c2f32,#1f2123);border:3px solid #565d64}
+.card.on{border-color:var(--gold);background:linear-gradient(#41381f,#2a2517);box-shadow:0 0 22px #f0bd4f55}
+.card .n{position:absolute;left:132px;top:12px;font-size:32px;font-weight:700;white-space:nowrap}
+.card .c{position:absolute;left:132px;top:54px;font-size:26px;font-weight:700;color:var(--gold);white-space:nowrap;line-height:32px}
+.card .gt{position:absolute;left:16px;top:136px;font-size:26px;font-weight:700;white-space:nowrap}
+.card .lt{position:absolute;left:66px;top:300px;font-size:24px;font-weight:700;white-space:nowrap;color:#ff8d80;line-height:44px}
+.bar{position:absolute;height:22px;border-radius:11px;background:#0c0d0e;border:2px solid #555}
+.bar .f{position:absolute;top:0;bottom:0;left:0;border-radius:9px;background:#8fe3a2}
+.bar .n2{position:absolute;top:0;bottom:0;border-radius:0 9px 9px 0;background:repeating-linear-gradient(45deg,#f0bd4f 0 6px,#f0bd4f88 6px 12px)}
+.dot{display:inline-block;width:30px;height:30px;border-radius:50%;background:#3d4146;border:2px solid #666;margin-right:8px;vertical-align:middle}
+.dot.f{background:#8fe3a2;border-color:#3d8d52}.dot.nw{background:var(--gold);border-color:#a97a25}
+.op{position:absolute;left:16px;right:16px;height:68px}
+.op .i{position:absolute;left:0;top:4px;font-size:40px}
+.op .w{position:absolute;left:62px;top:0;font-size:26px;font-weight:700;white-space:nowrap}
+.op .bar{left:62px;right:0;top:40px}
+.btn{position:absolute;border-radius:8px;display:flex;align-items:center;font-weight:700;color:#fff;background:linear-gradient(#d8483b,#8f2219);border:2px solid #3a0d09;box-shadow:inset 0 2px 0 #f08a7f}
+</style></head><body>
+<div class="abs nav wood"></div>
+<div class="abs h" style="left:36px;top:12px;font-size:40px;font-style:italic;letter-spacing:1px">Anvil Street Gym</div>
+<div class="navbtn wood" style="left:620px;box-shadow:inset 0 0 0 2px #e0493b,inset 0 2px 0 #9a6d42">&#9733; Home</div>
+<div class="navbtn wood" style="left:790px">&#129354; Fighters</div>
+<div class="navbtn wood" style="left:995px">&#127942; Fights <span class="chip r" style="padding:0 10px;line-height:28px">1</span></div>
+<div class="navbtn wood" style="left:1210px">&#128176; Club</div>
+<div class="navbtn wood" style="left:1355px">&#127760; World</div>
+<div class="abs h" style="right:36px;top:10px;font-size:40px;color:var(--gold)">$18,700</div>
+<div class="abs chip y" style="left:36px;top:74px;font-size:26px;line-height:36px">Mon 2 Feb &nbsp;&middot;&nbsp; Week 5</div>
+<div class="abs chip g" style="left:330px;top:74px;font-size:26px;line-height:36px">&#128214; Last week &#9656;</div>
+
+<!-- THE WEEK BOARD -->
+<div class="board pin" style="left:30px;top:126px;width:1860px;height:442px">
+  <div class="abs t" style="left:24px;top:6px;font-size:34px">This week</div>
+  <div class="day" style="left:269px">Mon<span>Pads</span></div>
+  <div class="day" style="left:491px">Tue<span>Tape</span></div>
+  <div class="day" style="left:713px">Wed<span>Sparring</span></div>
+  <div class="day" style="left:935px">Thu<span>One change</span></div>
+  <div class="day" style="left:1157px">Fri<span>Pads</span></div>
+  <div class="day" style="left:1379px">Sat<span>Show night</span></div>
+  <div class="day" style="left:1601px">Sun<span>Rest</span></div>
+
+  <div class="row" style="top:56px">
+    <div class="who"><img class="face" style="width:74px;height:74px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg">
+      <div class="n">Lucy</div><span class="chip y c2">&#128276; Bell in 19 days</span></div>
+    <div class="cell set" style="left:250px;top:6px;height:150px"><div class="p">&#127919;<img class="face" style="width:58px;height:58px;border-color:var(--gold)" src="../../../assets/ui/face/mh_staff_coach.jpg"></div><div class="a">Pads with Reid</div><div class="s">Pivot out</div></div>
+    <div class="cell wait" style="left:472px;top:6px;height:150px"><div class="p">&#127916;<img class="face" style="width:58px;height:58px;border-color:#888" src="../../../assets/ui/face/studio/mh_boxer_13.jpg"></div><div class="a">Kovacs on tape</div><div class="s">1 thing to spot</div></div>
+    <div class="cell wait" style="left:694px;top:6px;height:150px"><div class="p">&#129354;<img class="face" style="width:58px;height:58px;border-color:var(--gold)" src="../../../assets/ui/face/mh_staff_coach.jpg"></div><div class="a">Sparring</div><div class="s">Reid's verdict</div></div>
+  </div>
+  <div class="row" style="top:232px">
+    <div class="who"><img class="face" style="width:74px;height:74px;border-color:var(--rey)" src="../../../assets/ui/face/studio/mh_boxer_02.jpg">
+      <div class="n">Danny</div><span class="chip r c1">Flat</span><span class="chip y c2">&#9993;&#65039; Offer: by Friday</span></div>
+    <div class="cell quiet" style="left:250px;top:6px;height:150px"><div class="p">&#129354;</div><div class="a">Bag work</div><div class="s">no coach</div></div>
+    <div class="cell quiet" style="left:472px;top:6px;height:150px"><div class="p">&#128564;</div><div class="a">Rest</div></div>
+    <div class="cell wait" style="left:694px;top:6px;height:150px"><div class="p">&#129354;<img class="face" style="width:58px;height:58px;border-color:var(--gold)" src="../../../assets/ui/face/mh_staff_coach.jpg"></div><div class="a">Sparring</div><div class="s">Reid's verdict</div></div>
+  </div>
+  <!-- cells that span both boxers -->
+  <div class="cell later" style="left:935px;top:62px;height:326px;z-index:3"><div class="p" style="height:120px;font-size:72px;justify-content:center">&#9742;</div><div class="a" style="text-align:center">Pending</div><div class="s" style="text-align:center"></div><div class="s" style="text-align:center"></div></div>
+  <div class="cell ask" style="left:1157px;top:62px;height:326px;z-index:3"><div class="p" style="height:120px;justify-content:center"><img class="face" style="width:92px;height:92px;border-color:var(--gold)" src="../../../assets/ui/face/mh_staff_coach.jpg"></div><div class="a y" style="text-align:center;font-size:30px;line-height:38px">Who gets<br>Reid?</div><div class="h y" style="text-align:center;font-size:64px;line-height:80px">&#9660;</div></div>
+  <div class="cell later" style="left:1379px;top:62px;height:326px;z-index:3"><div class="p" style="height:120px;font-size:72px;justify-content:center">&#127903;&#65039;</div><div class="a" style="text-align:center">Eastside show</div><div class="s" style="text-align:center">ringside</div><div class="s" style="text-align:center">or pads</div></div>
+  <div class="cell quiet" style="left:1601px;top:62px;height:326px;z-index:3"><div class="p" style="height:120px;font-size:72px;justify-content:center">&#128564;</div><div class="a" style="text-align:center">Rest</div></div>
+</div>
+
+<!-- THE ONE OPEN QUESTION -->
+<div class="board" style="left:30px;top:582px;width:1250px;height:472px;border-color:#6b4a22">
+  <div class="abs t" style="left:20px;top:10px;font-size:38px">Friday: Reid &#10140; ?</div>
+  <div class="abs chip b" style="right:16px;top:16px">&#128274; Senior on pads: 1 bout</div>
+
+  <div class="card on" style="left:14px">
+    <img class="face abs" style="left:14px;top:12px;width:104px;height:104px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg">
+    <div class="n">Lucy</div><div class="c">Jab-Jab<br>house line</div>
+    <div class="gt g">&#127968; House line: 62 &#8594; 65 of 85</div>
+    <div class="bar" style="left:16px;right:16px;top:178px"><div class="f" style="width:73%"></div><div class="n2" style="left:73%;width:4%"></div></div>
+    <div class="abs chip y" style="left:16px;top:222px">Reid's pick</div>
+    <img class="face abs" style="left:14px;top:300px;width:44px;height:44px;border-width:3px;border-color:var(--rey)" src="../../../assets/ui/face/studio/mh_boxer_02.jpg">
+    <div class="lt">3rd week without Reid</div>
+  </div>
+
+  <div class="card" style="left:416px">
+    <img class="face abs" style="left:14px;top:12px;width:104px;height:104px;border-color:var(--rey)" src="../../../assets/ui/face/studio/mh_boxer_02.jpg">
+    <div class="n">Danny</div><div class="c">1st evening<br>in 3 weeks</div>
+    <div class="gt g"><span class="dot f"></span><span class="dot f"></span><span class="dot nw"></span><span class="dot"></span>tune-up answers</div>
+    <div class="abs h g" style="left:16px;top:184px;font-size:26px;white-space:nowrap">&#128066; Listens</div>
+    <div class="abs h dim" style="left:16px;top:222px;font-size:24px;white-space:nowrap">3rd week alone: stops</div>
+    <img class="face abs" style="left:14px;top:300px;width:44px;height:44px;border-width:3px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg">
+    <div class="lt">House line waits a week</div>
+  </div>
+
+  <div class="card" style="left:818px">
+    <div class="abs" style="left:14px;top:12px;width:104px;height:104px;border-radius:50%;background:#101112;border:4px solid #0009;display:flex;align-items:center;justify-content:center;font-size:58px">&#128101;</div>
+    <div class="n">Newcomers</div><div class="c">6 new<br>members</div>
+    <div class="gt g"><span class="dot f"></span><span class="dot f"></span><span class="dot nw"></span><span class="dot nw"></span><span class="dot"></span><span class="dot"></span></div>
+    <div class="abs h g" style="left:16px;top:184px;font-size:26px;white-space:nowrap">4 stay, not 2</div>
+    <div class="abs h dim" style="left:16px;top:222px;font-size:24px;white-space:nowrap">+$70 a month</div>
+    <img class="face abs" style="left:14px;top:300px;width:44px;height:44px;border-width:3px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg">
+    <img class="face abs" style="left:44px;top:300px;width:44px;height:44px;border-width:3px;border-color:var(--rey)" src="../../../assets/ui/face/studio/mh_boxer_02.jpg">
+    <div class="lt" style="left:98px">Both wait a week</div>
+  </div>
+</div>
+
+<!-- OPENS NEXT -->
+<div class="board" style="left:1300px;top:582px;width:590px;height:318px;border-width:10px">
+  <div class="abs t" style="left:16px;top:6px;font-size:32px">&#128275; Opens next</div>
+  <div class="op" style="top:58px"><div class="i">&#127968;</div><div class="w">Jab-Jab: Lucy's house line</div><div class="bar"><div class="f" style="width:73%"></div></div></div>
+  <div class="op" style="top:136px"><div class="i">&#10133;</div><div class="w">5th plan place: Ring IQ 61 of 65</div><div class="bar"><div class="f" style="width:94%;background:#f0bd4f"></div></div></div>
+  <div class="op" style="top:214px"><div class="i">&#127942;</div><div class="w">Regional draw: 5 weeks</div><div class="bar"><div class="f" style="width:50%;background:#4aa3df"></div></div></div>
+</div>
+
+<!-- START -->
+<div class="board" style="left:1300px;top:914px;width:590px;height:140px;border-width:10px">
+  <div class="btn" style="left:12px;right:12px;top:12px;height:96px;font-size:38px;justify-content:space-between;padding:0 24px"><span>Start week &#9654;</span><span style="font-size:26px">next stop: Thu &#9742;</span></div>
+</div>
+
+</body></html>

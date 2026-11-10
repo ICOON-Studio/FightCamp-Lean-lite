@@ -30,17 +30,34 @@ Older handovers are in git (this file's history); S396 to S417 in ops/research/H
 - ANIMFIX1 (see above). KDFIX4 (Cursor, wt LEAN_KDFIX4, branch cursor/kdfix4). Chat seats: Kalli SQ35, John SQ31/33/34.
 - Cursor queue after KDFIX4: DUESCARD1, FIGHTDISPLAY2, TRAININGB1. Qwen is free.
 
+## After the first handover text (same session): the week design
+- His third ruling: "maybe review combine old ideas to rise their depth to +7 and maybe come with new things ? can other
+  free agents work on that , the focus needs to be for the player to have things to do during a week make him anticipate
+  the changes and be more interactive with deicions/choices and rewarding for keep playing and progressing".
+- Brief ops/research/WEEK_DEPTH_BRIEF_S425.md -> two designer pages (WEEK_DEPTH_SIMDESIGNER / COACHDESIGNER) -> joined
+  v1 (ops/research/WEEK_DESIGN_V1_S425.md, docs/mockups/s425/week_v1.png) -> two fresh critics, depth 5 each
+  (week_v1_critic_*.md) -> v2 being written by the lead designer subagent (WEEK_DESIGN_V2_S425.md, week_v2.png,
+  week_v2_thursday.png), with his outside playbook proposal (ops/research/PLAYBOOK_GAMBIT_IDEA_S425.md).
+- READBACK1 (Qwen) is on main: her corner waiting for your best plan line costs 7.0 points (41.3 -> 34.3), 5 to 6 in
+  round 2; drop +0.7, swap 0.0. READBACK2 (Qwen, qwen/readback2) adds set-up and wait-cost as switched-off rules
+  (scripts/rules/ReadBack.gd) and measures them.
+- KDFIX4 landed (cursor/kdfix4, PR 169, ten tests reported green, NOT merged): ANIMFIX1 reruns the tests and films it.
+  Cursor is on DUESCARD1 (cursor/duescard1). Digest: ops/research/S425_DIGEST.md.
+
 ## Order for S426
-1. Collect what ANIMFIX1 pushed (diff, the touched tests, LOOK at each film yourself), merge what is green, close PRs
-   162, 163, 166 when their fix is in. If the subagent did not finish, relaunch it from its brief and worktrees.
-2. KDFIX4: collect, film a knockdown, look, review board.
-3. R55 v3. Both rounds of critics say the same: sharing one coach's pad hands is too small alone (one week on one
-   card, the second coach pays for himself, a clash is self-made while nights can move). Direction: make it the coach's
-   whole week (R73 coach-hours, also on his IN list): his evenings spent across pads per boxer, the club class
-   ($350), sparring cover, film study with a boxer, the corner on show night; "sharp and signature pay on fight night"
-   first so pad time matters all camp. Measure each use's worth before writing. Two FRESH critics, 7+ on depth.
-4. Cutman v3 (Kalli SQ35) -> critics 7+ -> board. John SQ33 -> R37 map. John SQ34 -> dues sums, claude/duesband1 green.
-5. R58 map (a fighter leaves): the promise "the pads are yours next camp" is R55's link into it.
+1. Week design v2: two FRESH critics (ops/research/WEEK_DESIGN_CRITIC_BRIEF_S425.md, point it at v2 and week_v2*.png),
+   depth 7+ -> his board with the pictures; under 7, another round (resume the lead designer or start a new one from
+   the v2 page and the reviews). Fold in Kalli's page (SQ36) when it lands. Close Q-S294-178 (his chat message answered
+   it: combine the ideas).
+2. READBACK2: collect by diff; its controls must reproduce 41.3 / 34.3 / 35.0 / 34.3 to the decimal; an arm within 2
+   points of the plain plan and 3 above the waited arm keeps the full plan-reading part; no arm may beat the plain plan.
+3. ANIMFIX1: collect qwen/legtremble4 (PR 168) and claude/grapplefix1 by diff, the touched tests, LOOK at each film
+   yourself; merge KDFIX4 (PR 169) once its film is looked at; close PRs 162, 163, 166 when their fix is in. If the
+   subagent did not finish, relaunch it from ops/research/TASK_ANIMFIX1.md and the worktrees.
+4. DUESCARD1: collect, render Club > Money, compare with docs/mockups/s424/dues_painted_v4.png; then FIGHTDISPLAY2,
+   TRAININGB1 on Cursor.
+5. Cutman v3 (Kalli SQ35) -> critics 7+ -> board. John SQ33 -> R37 map. John SQ34 -> dues sums, claude/duesband1 green.
+   R58 map (a fighter leaves).
 
 ## Traps
 - `agent_comms.py ask --attach` resolves paths from ops/: pass absolute paths.

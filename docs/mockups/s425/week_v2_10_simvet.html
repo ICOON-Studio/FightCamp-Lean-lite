@@ -1,0 +1,83 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Home Monday 10 (simvet)</title><style>
+:root{--gold:#f0bd4f;--chalk:#f3efe4;--red:#c9342a;--lucy:#e0493b;--rey:#4aa3df;--ok:#8fe3a2;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#0d0b0a;color:var(--chalk);font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;position:relative;
+ background-image:radial-gradient(ellipse at 20% 0,#3a2a1c 0,transparent 40%),radial-gradient(ellipse at 90% 0,#2e2218 0,transparent 40%)}
+.abs{position:absolute}
+.wood{background:linear-gradient(180deg,#7a5230,#4c2f1a 60%,#3c2514);border:2px solid #20120a;box-shadow:inset 0 2px 0 #9a6d42,0 4px 10px #000a}
+.board{position:absolute;border:12px solid #5b3a20;border-radius:6px;background:
+ radial-gradient(ellipse at 30% 20%,#2b2e31,transparent 60%),linear-gradient(#1d1f21,#161718);
+ box-shadow:0 0 0 2px #1d1008,inset 0 0 0 2px #8a5f36,inset 0 0 40px #000c,0 6px 14px #000a}
+.nav{top:0;left:0;width:1920px;height:64px}
+.navbtn{position:absolute;top:10px;height:46px;border-radius:5px;font-size:26px;display:flex;align-items:center;gap:10px;padding:0 20px;color:var(--chalk)}
+.h{font-weight:700;letter-spacing:.5px}
+.t{font-size:36px;font-weight:700;color:var(--gold);white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:8px;border-radius:20px;padding:2px 14px;font-size:24px;font-weight:700;background:#0008;border:2px solid #ffffff30;white-space:nowrap;line-height:32px}
+.chip.r{color:#ff8d80;border-color:#c9342a}.chip.g{color:var(--ok);border-color:#3d8d52}.chip.y{color:var(--gold);border-color:#a97a25}.chip.b{color:#aab1b9;border-color:#6a7078}
+.face{border-radius:50%;object-fit:cover;object-position:50% 18%;border:4px solid #0009;background:#333;flex-shrink:0}
+.g{color:var(--ok)}.r{color:#ff8d80}.y{color:var(--gold)}.o{color:#ffb07a}.dim{color:#aab1b9}
+.dt{position:absolute;top:6px;width:254px;height:106px;border-radius:10px;padding:6px 12px;background:#17191b;border:2px solid #3d4146}
+.dt .d{font-size:28px;font-weight:700;line-height:34px;white-space:nowrap}
+.dt .w{font-size:24px;font-weight:700;line-height:30px;white-space:nowrap;color:#cfc8b8}
+.dt.done{border-color:#3d8d52}.dt.done .d{color:var(--ok)}
+.dt.now{background:#3a3222;border:3px solid var(--gold);box-shadow:0 0 18px #f0bd4f66}.dt.now .d{color:var(--gold)}
+.dt.next{opacity:.7}
+.pc{position:absolute;top:350px;width:606px;height:566px}
+.pc .src{position:absolute;left:128px;top:10px;font-size:26px;font-weight:700;color:var(--gold);white-space:nowrap}
+.pc .hl{position:absolute;left:128px;top:46px;font-size:30px;font-weight:700;line-height:36px;width:440px}
+.pc .do{position:absolute;left:16px;right:16px;top:140px;height:96px;border-radius:10px;background:linear-gradient(#41381f,#2a2517);border:3px solid var(--gold);padding:8px 16px}
+.pc .do .a{font-size:30px;font-weight:700;color:var(--gold);line-height:40px;white-space:nowrap}
+.pc .do .b{font-size:26px;font-weight:700;line-height:34px;white-space:nowrap}
+.ln{position:absolute;left:16px;right:16px;height:58px}
+.ln .k{position:absolute;left:0;top:0;width:150px;font-size:24px;font-weight:700;color:#aab1b9;line-height:34px}
+.ln .v{position:absolute;left:150px;top:0;font-size:26px;font-weight:700;white-space:nowrap;line-height:34px}
+.bar{position:absolute;height:20px;border-radius:10px;background:#0c0d0e;border:2px solid #555}
+.bar .f{position:absolute;top:0;bottom:0;left:0;border-radius:8px;background:#8fe3a2}
+.bar .m{position:absolute;top:-7px;width:4px;height:30px;background:#ff8d80}
+.btn{position:absolute;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;background:linear-gradient(#d8483b,#8f2219);border:2px solid #3a0d09;box-shadow:inset 0 2px 0 #f08a7f;font-size:30px;white-space:nowrap}
+.btn.w{background:linear-gradient(180deg,#7a5230,#4c2f1a);box-shadow:inset 0 2px 0 #9a6d42;border-color:#20120a}
+.btn.off{background:#2a2d30;border-color:#565d64;color:#8d949c;box-shadow:none}
+.light{display:inline-block;width:28px;height:28px;border-radius:50%;vertical-align:middle;margin-right:8px;border:2px solid #0008}
+
+.fc{position:absolute;border-radius:10px;background:#17191b;border:2px solid #3d4146}
+.row{position:absolute;left:16px;right:16px;font-size:26px;font-weight:700;line-height:34px;white-space:nowrap}
+.row b{display:inline-block;width:170px;color:#aab1b9;font-size:24px}
+.dot{display:inline-block;width:30px;height:30px;border-radius:50%;vertical-align:middle;margin-right:6px;border:2px solid #0008}
+</style></head><body>
+<div class="abs nav wood"></div>
+<div class="abs h" style="left:36px;top:12px;font-size:40px;font-style:italic">Anvil Street Gym</div>
+<div class="navbtn wood" style="left:620px;box-shadow:inset 0 0 0 2px #e0493b">&#9733; Home</div>
+<div class="navbtn wood" style="left:790px">&#129354; Fighters</div>
+<div class="navbtn wood" style="left:995px">&#127942; Fights</div>
+<div class="navbtn wood" style="left:1210px">&#128176; Club</div>
+<div class="navbtn wood" style="left:1355px">&#127760; World</div>
+<div class="abs h" style="right:36px;top:10px;font-size:40px;color:var(--gold)">$18,700</div>
+<div class="board" style="left:30px;top:80px;width:1860px;height:170px;border-width:10px">
+ <div class="abs h y" style="left:16px;top:8px;font-size:30px">Fight night forecast: Lucy v Kovacs, 19 days</div>
+ <div class="abs h" style="left:16px;top:56px;font-size:48px">46%</div>
+ <div class="abs h" style="left:150px;top:66px;font-size:26px;color:#aab1b9">range 41 to 51 (no tape on his corner yet)</div>
+ <div class="abs h" style="left:16px;top:116px;font-size:26px">Answers owned by taper &nbsp;<span class="dot" style="background:#8fe3a2"></span><span class="dot" style="background:#8fe3a2"></span><span class="dot" style="background:#555"></span><span class="dot" style="background:#555"></span></div>
+ <div class="abs h" style="left:860px;top:20px;font-size:26px;color:#aab1b9">Hover a choice below: this number moves, in ghost</div>
+ <div class="abs h" style="left:860px;top:62px;font-size:26px"><span class="light" style="background:#f0bd4f"></span>Weight &nbsp; <span class="light" style="background:#8fe3a2"></span>Technique &nbsp; <span class="light" style="background:#8fe3a2"></span>Tiredness</div>
+ <div class="abs h" style="left:860px;top:112px;font-size:26px">Peak camp: 3 lights = +bonus to every stat</div>
+ <div class="abs chip g" style="left:1480px;top:62px">Lucy listens: Steady</div>
+ <div class="abs chip y" style="left:1480px;top:108px">Danny listens: Flat 85%</div>
+</div></div>
+<div class="board" style="left:30px;top:262px;width:1860px;height:168px;border-width:10px"><div class="dt done" style="left:8px"><div class="d">&#10004; Mon</div><div class="w">Pads: pivot out</div></div><div class="dt " style="left:270px"><div class="d">Tue</div><div class="w">Tape: Kovacs</div></div><div class="dt " style="left:532px"><div class="d">Wed</div><div class="w">Sparring night</div></div><div class="dt now" style="left:794px"><div class="d">Thu</div><div class="w">One change</div></div><div class="dt " style="left:1056px"><div class="d">Fri</div><div class="w">Pads (you pick)</div></div><div class="dt " style="left:1318px"><div class="d">Sat</div><div class="w">Ringside / pads</div></div><div class="dt " style="left:1580px"><div class="d">Sun</div><div class="w">Rest</div></div>
+ <div class="abs h y" style="left:16px;top:118px;font-size:26px">Thursday decides the week. Saturday: ringside banks a weakness, or you hold pads.</div></div>
+<div class="board pc" style="left:30px;top:450px;height:470px">
+<img class="face abs" style="left:14px;top:10px;width:100px;height:100px;border-color:#888" src="../../../assets/ui/face/studio/mh_boxer_13.jpg">
+<div class="src">Lucy: the lead hook</div><div class="hl" style="font-size:28px">Kovacs drops his left when pressed</div><div class="row" style="top:200px"><b>Fight</b><span class="g">+6 wins in 100</span></div><div class="row" style="top:252px"><b>Right if</b><span class="">it lands before taper</span></div><div class="row" style="top:304px"><b>Cost</b><span class="o">Jab-Jab waits a week</span></div><div class="row" style="top:356px"><b>Worry</b><span class="r">tiredness 74 of 80</span></div>
+<div class="btn" style="left:16px;right:16px;top:392px;height:56px">Give Lucy Friday</div></div><div class="board pc" style="left:657px;top:450px;height:470px">
+<img class="face abs" style="left:14px;top:10px;width:100px;height:100px;border-color:#4aa3df" src="../../../assets/ui/face/studio/mh_boxer_02.jpg">
+<div class="src">Danny: first night in 3 weeks</div><div class="hl" style="font-size:28px">Flat. Offer runs out Friday</div><div class="row" style="top:200px"><b>Fight</b><span class="y">tune-up needs 3 answers: has 2</span></div><div class="row" style="top:252px"><b>Right if</b><span class="">you take the tune-up</span></div><div class="row" style="top:304px"><b>Cost</b><span class="o">Lucy waits a week</span></div><div class="row" style="top:356px"><b>Listens</b><span class="r">85% of your word</span></div>
+<div class="btn" style="left:16px;right:16px;top:392px;height:56px">Give Danny Friday</div></div><div class="board pc" style="left:1284px;top:450px;height:470px">
+<img class="face abs" style="left:14px;top:10px;width:100px;height:100px;border-color:#f0bd4f" src="../../../assets/ui/face/mh_staff_coach.jpg">
+<div class="src">Newcomers</div><div class="hl" style="font-size:28px">6 joined after the win</div><div class="row" style="top:200px"><b>Club</b><span class="g">4 stay, 2 do not: +$70 a month</span></div><div class="row" style="top:252px"><b>Right if</b><span class="">a win just brought them</span></div><div class="row" style="top:304px"><b>Cost</b><span class="o">both boxers wait</span></div><div class="row" style="top:356px"><b>Later</b><span class="dim">one may be a prospect</span></div>
+<div class="btn" style="left:16px;right:16px;top:392px;height:56px">Give newcomers Friday</div></div>
+<div class="board" style="left:30px;top:936px;width:1860px;height:124px;border-width:10px">
+ <div class="abs h y" style="left:16px;top:10px;font-size:28px">Opens next</div>
+ <div class="abs h" style="left:16px;top:54px;font-size:26px">Jab-Jab becomes Lucy's own line: 62 of 85 &nbsp;&middot;&nbsp; 5th plan place: Ring IQ 61 of 65</div>
+ <div class="btn" style="left:1380px;top:16px;width:420px;height:70px;font-size:34px">Start week &#9654;</div>
+</div>
+</body></html>

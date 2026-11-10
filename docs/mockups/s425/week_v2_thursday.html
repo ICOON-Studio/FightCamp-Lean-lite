@@ -1,0 +1,117 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Home on Thursday - the one change, v2 (S425)</title>
+<style>
+:root{--gold:#f0bd4f;--chalk:#f3efe4;--red:#c9342a;--lucy:#e0493b;--rey:#4aa3df;--ok:#8fe3a2;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#0d0b0a;color:var(--chalk);font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;position:relative;
+ background-image:radial-gradient(ellipse at 20% 0,#3a2a1c 0,transparent 40%),radial-gradient(ellipse at 90% 0,#2e2218 0,transparent 40%)}
+.abs{position:absolute}
+.wood{background:linear-gradient(180deg,#7a5230,#4c2f1a 60%,#3c2514);border:2px solid #20120a;box-shadow:inset 0 2px 0 #9a6d42,0 4px 10px #000a}
+.board{position:absolute;border:12px solid #5b3a20;border-radius:6px;background:
+ radial-gradient(ellipse at 30% 20%,#2b2e31,transparent 60%),linear-gradient(#1d1f21,#161718);
+ box-shadow:0 0 0 2px #1d1008,inset 0 0 0 2px #8a5f36,inset 0 0 40px #000c,0 6px 14px #000a}
+.nav{top:0;left:0;width:1920px;height:64px}
+.navbtn{position:absolute;top:10px;height:46px;border-radius:5px;font-size:26px;display:flex;align-items:center;gap:10px;padding:0 20px;color:var(--chalk)}
+.h{font-weight:700;letter-spacing:.5px}
+.t{font-size:36px;font-weight:700;color:var(--gold);white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:8px;border-radius:20px;padding:2px 14px;font-size:24px;font-weight:700;background:#0008;border:2px solid #ffffff30;white-space:nowrap;line-height:32px}
+.chip.r{color:#ff8d80;border-color:#c9342a}.chip.g{color:var(--ok);border-color:#3d8d52}.chip.y{color:var(--gold);border-color:#a97a25}.chip.b{color:#aab1b9;border-color:#6a7078}
+.face{border-radius:50%;object-fit:cover;object-position:50% 18%;border:4px solid #0009;background:#333;flex-shrink:0}
+.g{color:var(--ok)}.r{color:#ff8d80}.y{color:var(--gold)}.o{color:#ffb07a}.dim{color:#aab1b9}
+.dt{position:absolute;top:6px;width:254px;height:106px;border-radius:10px;padding:6px 12px;background:#17191b;border:2px solid #3d4146}
+.dt .d{font-size:28px;font-weight:700;line-height:34px;white-space:nowrap}
+.dt .w{font-size:24px;font-weight:700;line-height:30px;white-space:nowrap;color:#cfc8b8}
+.dt.done{border-color:#3d8d52}.dt.done .d{color:var(--ok)}
+.dt.now{background:#3a3222;border:3px solid var(--gold);box-shadow:0 0 18px #f0bd4f66}.dt.now .d{color:var(--gold)}
+.dt.next{opacity:.7}
+.pc{position:absolute;top:350px;width:606px;height:566px}
+.pc .src{position:absolute;left:128px;top:10px;font-size:26px;font-weight:700;color:var(--gold);white-space:nowrap}
+.pc .hl{position:absolute;left:128px;top:46px;font-size:30px;font-weight:700;line-height:36px;width:440px}
+.pc .do{position:absolute;left:16px;right:16px;top:140px;height:96px;border-radius:10px;background:linear-gradient(#41381f,#2a2517);border:3px solid var(--gold);padding:8px 16px}
+.pc .do .a{font-size:30px;font-weight:700;color:var(--gold);line-height:40px;white-space:nowrap}
+.pc .do .b{font-size:26px;font-weight:700;line-height:34px;white-space:nowrap}
+.ln{position:absolute;left:16px;right:16px;height:58px}
+.ln .k{position:absolute;left:0;top:0;width:150px;font-size:24px;font-weight:700;color:#aab1b9;line-height:34px}
+.ln .v{position:absolute;left:150px;top:0;font-size:26px;font-weight:700;white-space:nowrap;line-height:34px}
+.bar{position:absolute;height:20px;border-radius:10px;background:#0c0d0e;border:2px solid #555}
+.bar .f{position:absolute;top:0;bottom:0;left:0;border-radius:8px;background:#8fe3a2}
+.bar .m{position:absolute;top:-7px;width:4px;height:30px;background:#ff8d80}
+.btn{position:absolute;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;background:linear-gradient(#d8483b,#8f2219);border:2px solid #3a0d09;box-shadow:inset 0 2px 0 #f08a7f;font-size:30px;white-space:nowrap}
+.btn.w{background:linear-gradient(180deg,#7a5230,#4c2f1a);box-shadow:inset 0 2px 0 #9a6d42;border-color:#20120a}
+.btn.off{background:#2a2d30;border-color:#565d64;color:#8d949c;box-shadow:none}
+.light{display:inline-block;width:28px;height:28px;border-radius:50%;vertical-align:middle;margin-right:8px;border:2px solid #0008}
+
+.big{position:absolute;font-size:76px;font-weight:700;line-height:80px}
+.cap{position:absolute;font-size:26px;font-weight:700;color:#cfc8b8;white-space:nowrap}
+.ico{position:absolute;font-size:46px;line-height:52px}
+.moon{font-size:34px;letter-spacing:4px}
+.pip{display:inline-block;width:26px;height:26px;border-radius:50%;background:var(--gold);border:3px solid #0008;margin-left:10px;vertical-align:middle}
+.pip.o{background:#0006;border-color:#f0bd4f}
+</style></head><body>
+<div class="abs nav wood"></div>
+<div class="abs h" style="left:36px;top:12px;font-size:40px;font-style:italic;letter-spacing:1px">Anvil Street Gym</div>
+<div class="navbtn wood" style="left:620px;box-shadow:inset 0 0 0 2px #e0493b,inset 0 2px 0 #9a6d42">&#9733; Home</div>
+<div class="navbtn wood" style="left:790px">&#129354; Fighters</div>
+<div class="navbtn wood" style="left:995px">&#127942; Fights <span class="chip r" style="padding:0 10px;line-height:28px">1</span></div>
+<div class="navbtn wood" style="left:1210px">&#128176; Club</div>
+<div class="navbtn wood" style="left:1355px">&#127760; World</div>
+<div class="abs h" style="right:36px;top:10px;font-size:40px;color:var(--gold)">$18,700</div>
+<div class="abs chip y" style="left:36px;top:74px;font-size:26px;line-height:36px">Thu 5 Feb &nbsp;&middot;&nbsp; Week 5</div>
+<div class="abs chip y" style="left:330px;top:74px;font-size:26px;line-height:36px">&#128276; 16 days &nbsp;&middot;&nbsp; taper 9</div>
+
+<!-- THE WEEK SO FAR -->
+<div class="board" style="left:30px;top:126px;width:1860px;height:142px;border-width:10px">
+  <div class="dt done" style="left:8px"><div class="d">&#10004; Mon</div><div class="w">Pivot out 24 &#8594; 27</div></div>
+  <div class="dt done" style="left:270px"><div class="d">&#10004; Tue</div><div class="w">Kovacs on tape</div></div>
+  <div class="dt done" style="left:532px"><div class="d">&#10004; Wed</div><div class="w">Sparring</div></div>
+  <div class="dt now" style="left:794px"><div class="d">&#9742; Thu, today</div><div class="w" style="color:var(--chalk)">Pending 3</div></div>
+  <div class="dt next" style="left:1056px"><div class="d">Fri</div><div class="w">Reid: Lucy, Jab-Jab</div></div>
+  <div class="dt next" style="left:1318px"><div class="d">Sat</div><div class="w">Eastside show</div></div>
+  <div class="dt next" style="left:1580px;width:244px"><div class="d">Sun</div><div class="w">Rest</div></div>
+</div>
+
+
+<div class="abs t" style="left:36px;top:286px;font-size:48px">&#9742; Pending <span class="pip"></span><span class="pip"></span><span class="pip"></span></div>
+<div class="abs chip y" style="left:470px;top:296px;font-size:30px">pick 1</div>
+
+<div class="board pc" style="left:30px">
+  <img class="face abs" style="left:14px;top:10px;width:100px;height:100px;border-color:#888" src="../../../assets/ui/face/studio/mh_boxer_13.jpg">
+  <div class="src">&#127916; Tape</div>
+  <div class="hl">Kovacs: left hand drops</div>
+  <div class="do" title="What Friday would be spent on"><div class="a">&#10140; Lead hook</div><div class="b moon">&#127769;&#127769;</div></div>
+  <div class="ico" style="left:20px;top:262px" title="Wins in 100 against Kovacs">&#127942;</div><div class="big g" style="left:84px;top:248px">+6</div><div class="bar" style="left:230px;right:16px;top:278px;height:26px"><div class="f" style="width:60%"></div></div>
+  <div class="abs chip o" style="left:16px;top:352px" title="What waits a week if you pick this">&#9203; Jab-Jab +1 week</div>
+  <div class="abs chip r" style="left:16px;top:408px" title="After this it lands in taper: too late">&#9200; 9 days left</div>
+  <div class="btn" style="left:16px;right:16px;top:476px;height:58px">Pick</div>
+</div>
+
+<div class="board pc" style="left:657px">
+  <img class="face abs" style="left:14px;top:10px;width:100px;height:100px;border-color:var(--gold)" src="../../../assets/ui/face/mh_staff_coach.jpg">
+  <div class="src">&#129354; Sparring</div>
+  <div class="hl">Lucy: right hand drops</div>
+  <div class="do" title="What Friday would be spent on"><div class="a">&#10140; Fix the habit</div><div class="b moon">&#127769;&#127769;&#127769;&#127769;</div></div>
+  <div class="ico" style="left:20px;top:262px" title="Wins in 100, every fight from now on">&#127942;</div><div class="big g" style="left:84px;top:248px">+3</div><div class="bar" style="left:230px;right:16px;top:278px;height:26px"><div class="f" style="width:30%"></div></div><div class="abs chip g" style="right:16px;top:232px">&#9854; every fight</div>
+  <div class="abs chip o" style="left:16px;top:352px" title="What waits a week if you pick this">&#9203; Jab-Jab +1 week</div>
+  <div class="abs chip" style="left:16px;top:408px" title="No deadline: the habit stays until fixed">&#9200; no deadline</div>
+  <div class="btn" style="left:16px;right:16px;top:476px;height:58px">Pick</div>
+</div>
+
+<div class="board pc" style="left:1284px">
+  <div class="abs" style="left:14px;top:10px;width:100px;height:100px;border-radius:50%;background:#101112;border:4px solid #0009;display:flex;align-items:center;justify-content:center;font-size:56px">&#9878;&#65039;</div>
+  <div class="src">&#9878;&#65039; Scale</div>
+  <div class="hl">0.4 kg over the line</div>
+  <div class="do" title="What Friday would be spent on"><div class="a">&#10140; Roadwork</div><div class="b moon">&#9728;&#65039;&#9728;&#65039;</div></div>
+  <div class="ico" style="left:20px;top:262px" title="Weight against the line for the weigh-in">&#9878;&#65039;</div><div class="big g" style="left:84px;top:248px">&minus;0.4</div><div class="cap" style="left:300px;top:274px">kg by Sunday</div>
+  <div class="ico" style="left:20px;top:340px;font-size:38px" title="Tiredness: the red mark is overtired">&#128267;</div><div class="cap o" style="left:76px;top:348px;color:#ffb07a">74 &#8594; 79</div><div class="bar" style="left:250px;right:16px;top:352px;height:26px"><div class="f" style="width:79%;background:#ffb07a"></div><div class="m" style="left:80%"></div></div>
+  <div class="abs chip r" style="left:16px;top:408px" title="If it waits: a hard cut in fight week">&#128293; hard cut later</div>
+  <div class="btn" style="left:16px;right:16px;top:476px;height:58px">Pick</div>
+</div>
+
+<div class="board" style="left:30px;top:930px;width:1860px;height:124px;border-width:10px">
+  <div class="abs h y" style="left:16px;top:8px;font-size:28px;white-space:nowrap" title="All three green on fight night = a peak camp">&#11088; Peak camp</div>
+  <div class="abs h" style="left:16px;top:52px;font-size:26px;white-space:nowrap"><span class="light" style="background:#f0bd4f"></span>Weight &nbsp;&nbsp; <span class="light" style="background:#8fe3a2"></span>Technique &nbsp;&nbsp; <span class="light" style="background:#8fe3a2"></span>Fresh</div>
+  <div class="btn w" style="left:1186px;top:22px;width:200px;height:60px;font-size:26px" title="Change nothing this week">Skip</div>
+  <div class="btn off" style="left:1402px;top:14px;width:424px;height:76px;font-size:32px">Go on &#9654;</div>
+</div>
+
+</body></html>
