@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Corner minute - CUT card (cutman critic 10/10)</title>
+<style>
+:root{--bg:#14110e;--panel:#1d1813;--panel2:#241d17;--line:#3a3026;--ink:#efe6d4;--dim:#a99c85;--chalk:#d8ccb4;
+--ok:#6fae7a;--amb:#e0a93b;--org:#e07a35;--red:#d6453d;--blue:#5d9bd6;--gold:#e8c66a}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--ink);font-family:"Bahnschrift","Segoe UI",Arial,sans-serif}
+.note{font-family:"Kalam","Segoe Print","Bradley Hand",cursive;color:var(--chalk)}
+header{height:76px;display:flex;align-items:center;gap:28px;padding:0 32px;background:#0d0b09;border-bottom:2px solid var(--line)}
+header h1{font-size:30px;letter-spacing:2px;font-weight:700}
+header .chip{padding:6px 14px;border:1px solid var(--line);border-radius:20px;font-size:18px;color:var(--dim)}
+header .clock{margin-left:auto;font-size:44px;font-weight:700;color:var(--gold);letter-spacing:2px}
+header .clock small{font-size:16px;color:var(--dim);display:block;letter-spacing:1px;text-align:right}
+main{height:724px;display:grid;grid-template-columns:600px 720px 600px;gap:0}
+section{padding:18px 24px;border-right:2px solid var(--line);overflow:hidden}
+section:last-child{border-right:none}
+h2{font-size:20px;letter-spacing:3px;color:var(--dim);margin-bottom:12px;font-weight:600}
+.row{display:flex;align-items:center;gap:12px}
+.tag{display:inline-block;padding:3px 10px;border-radius:5px;font-size:17px;font-weight:700}
+.t-red{background:#4a1d1a;color:#ff9a8f}.t-amb{background:#4a3612;color:var(--amb)}.t-ok{background:#1d3a25;color:var(--ok)}.t-blue{background:#1b3045;color:#8fc4f0}.t-dim{background:#2a241d;color:var(--dim)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.big{font-size:26px;font-weight:700}
+.sm{font-size:16px;color:var(--dim)}
+.mid{font-size:19px}
+/* range bar */
+svg text{font-family:"Bahnschrift","Segoe UI",Arial,sans-serif}
+/* seats */
+.seat{display:grid;grid-template-columns:96px 1fr;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:12px}
+.face{width:96px;height:96px;border-radius:50%;border:3px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:700;background:var(--panel2)}
+.job{display:grid;grid-template-columns:150px 1fr 150px;align-items:center;gap:10px;margin:7px 0;font-size:19px}
+.pips{display:flex;gap:6px}
+.pip{width:38px;height:22px;border-radius:5px;border:2px solid #5a4a38;background:transparent}
+.pip.on{background:var(--gold);border-color:var(--gold)}
+.pip.on.w2{background:#c8a24a;border-color:#c8a24a}
+.pip.on.w3{background:#957a3a;border-color:#957a3a}
+.eff{font-size:16px;color:var(--ok);text-align:left}
+.eff.bad{color:var(--amb)}
+/* cards read */
+.rd{display:grid;grid-template-columns:70px 1fr 130px;gap:8px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);font-size:19px}
+.dots{display:flex;gap:5px;align-items:center}
+.dot{width:16px;height:16px;border-radius:50%;background:#3b3128}
+.dot.a{background:var(--ok)}.dot.b{background:var(--blue)}
+/* decision */
+footer{height:280px;background:#0d0b09;border-top:2px solid var(--line);padding:12px 32px;display:grid;grid-template-columns:1fr 1fr 1fr 320px;gap:16px}
+.opt{border:2px solid var(--line);border-radius:12px;padding:12px 16px;background:var(--panel);position:relative}
+.opt h3{font-size:25px;margin-bottom:4px;letter-spacing:1px}
+.opt .nums{display:grid;grid-template-columns:auto 1fr;gap:2px 8px;font-size:17px;margin-top:6px}
+.opt .nums span:nth-child(even){text-align:right}
+.opt .nums b{color:var(--gold);font-weight:700}
+.opt .nums .r{color:var(--amb);font-weight:700}
+.opt .nums .g{color:var(--ok);font-weight:700}
+.opt.pull{border-color:#5a3a37}.opt.surv{border-color:#355a40}.opt.race{border-color:#6a4a22}
+.div{position:absolute;left:0;right:0;top:-14px;text-align:center}
+.ready{border:2px dashed #5a4a38;border-radius:12px;padding:14px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:var(--dim);font-size:19px}
+.ready .btn{margin-top:10px;width:100%;padding:16px;border-radius:10px;background:#2a241d;color:#7e725f;font-size:26px;font-weight:700;letter-spacing:2px}
+.say{border-left:4px solid var(--gold);padding:6px 12px;margin:8px 0;font-size:24px}
+.btn2{display:inline-block;padding:8px 14px;border:2px solid var(--blue);color:#8fc4f0;border-radius:8px;font-size:17px;font-weight:700}
+.ghost{stroke-dasharray:5 4}
+</style></head><body>
+
+<header>
+  <h1>CORNER MINUTE</h1>
+  <span class="chip">Round 2 of 4 over &middot; pro debut &middot; scored 1-1 so far (your read)</span>
+  <span class="chip" style="color:#ff9a8f;border-color:#5a3a37">CUT &middot; left brow &middot; opened 0:50 into R2 by a PUNCH</span>
+  <div class="clock"><small>SECONDS LEFT BEFORE THE BELL</small>0:46</div>
+</header>
+
+<main>
+<!-- LEFT: THE CUT -->
+<section>
+  <h2>THE CUT (YOUR CUTMAN'S READ)</h2>
+  <div class="card" style="padding:10px 12px">
+    <svg width="548" height="268" viewBox="0 0 548 268">
+      <!-- zones: 5 px per depth point, x0=24 -->
+      <rect x="24" y="64" width="175" height="30" fill="#2c4a35"/>
+      <rect x="199" y="64" width="100" height="30" fill="#5a4617"/>
+      <rect x="299" y="64" width="50" height="30" fill="#6a3b19"/>
+      <rect x="349" y="64" width="175" height="30" fill="#5a1f1b"/>
+      <text x="30" y="85" font-size="16" fill="#cfe8d4">HOLDS</text>
+      <text x="224" y="85" font-size="16" fill="#f2d58a">MARKED</text>
+      
+      <text x="360" y="85" font-size="16" fill="#ffb0a8">STOPPED 70+</text>
+      <!-- scale -->
+      <g font-size="14" fill="#a99c85"><text x="20" y="108">0</text><text x="190" y="108">35</text><text x="288" y="108">55 doctor looks</text><text x="410" y="108">70</text><text x="512" y="108">100</text></g>
+      <!-- cutman's range 38-54 -> x=214..294 -->
+      <rect x="214" y="48" width="80" height="62" rx="4" fill="none" stroke="#e8c66a" stroke-width="4"/>
+      <text x="254" y="40" font-size="20" font-weight="700" fill="#e8c66a" text-anchor="middle">Seasoned read: 38-54</text>
+      <!-- hunt projection if left alone: 66-82 -> 354..434 -->
+      <rect x="354" y="124" width="80" height="22" rx="4" fill="#d6453d" opacity=".75"/>
+      <path d="M254 112 L254 120 L394 120 L394 124" stroke="#d6453d" stroke-width="2" fill="none" class="ghost"/>
+      <text x="300" y="166" font-size="16" fill="#ffb0a8">left alone and hunted: 66-82</text>
+      <!-- if closed 70% -> 20 -> x=124 -->
+      <rect x="104" y="190" width="40" height="22" rx="4" fill="#6fae7a" opacity=".85"/>
+      <path d="M254 112 L254 176 L124 176 L124 190" stroke="#6fae7a" stroke-width="2" fill="none" class="ghost"/>
+      <text x="152" y="207" font-size="16" fill="#cfe8d4">closed by 2 points: about 20, reopens</text>
+      <!-- reopen note -->
+      <text x="24" y="238" font-size="17" fill="#e8c66a">A closed cut is thin: the next clean shot on it puts</text>
+      <text x="24" y="258" font-size="17" fill="#e8c66a">it back to 40+ at once (their corner knows the spot).</text>
+    </svg>
+  </div>
+  <div class="card">
+    <div class="note" style="font-size:25px;line-height:1.25">"Old Dougie: I can hold it a round if nobody touches it. Not if he keeps jabbing that brow."</div>
+    <div class="sm" style="margin-top:6px">Dougie leans <b style="color:var(--amb)">hopeful</b>: his reads run about 5 low. Fear is cheaper than a stoppage.</div>
+  </div>
+  <div class="card">
+    <div class="row"><span class="tag t-red">PUNCH CUT</span><span class="mid">left brow, lead side &middot; <b>their jab lands here</b></span></div>
+    <div class="row" style="margin-top:8px"><span class="tag t-amb">SCAR 42</span><span class="mid">this brow, old cut &middot; <b>MARKS EASILY</b></span></div>
+    <div class="row" style="margin-top:8px"><span class="tag t-amb">EYE CLOSING</span><span class="mid">swelling under the cut: vision 70% &middot; <b>can split it</b></span></div>
+  </div>
+</section>
+
+<!-- MIDDLE: THE HANDS -->
+<section>
+  <h2>THE CORNER: THREE SEATS, ONE MINUTE</h2>
+  <div class="seat">
+    <div class="face" style="border-color:var(--gold)">C</div>
+    <div>
+      <div class="row"><span class="big">Cutman: Old Dougie</span><span class="tag t-dim">Seasoned &middot; $300</span><span class="tag t-ok">traded away: bucket man</span></div>
+      <div class="job"><span>Stop the bleed</span><span class="pips"><i class="pip on"></i><i class="pip on w2"></i><i class="pip"></i></span><span class="eff">70% closes, else -8</span></div>
+      <div class="job"><span>Flatten the eye</span><span class="pips"><i class="pip on"></i><i class="pip"></i><i class="pip"></i></span><span class="eff">eye loss halved</span></div>
+      <div class="job"><span>Vaseline the other brow</span><span class="pips"><i class="pip"></i><i class="pip"></i><i class="pip"></i></span><span class="eff bad">0: new cut 1.3x</span></div>
+      <div class="sm">3 points. A second point on the same job is worth 60%, a third 30%.</div>
+    </div>
+  </div>
+  <div class="seat">
+    <div class="face" style="border-color:var(--blue)">YOU</div>
+    <div>
+      <div class="row"><span class="big">Chief second: you</span><span class="tag t-blue">talk, call, plan</span></div>
+      <div class="job"><span>The call</span><span class="pips"><i class="pip on"></i><i class="pip"></i><i class="pip"></i></span><span class="eff">Jab to the body</span></div>
+      <div class="job"><span>Water and breath</span><span class="pips"><i class="pip on"></i><i class="pip"></i><i class="pip"></i></span><span class="eff bad">half: no bucket man</span></div>
+      <div class="job"><span>Talk</span><span class="pips"><i class="pip on"></i><i class="pip"></i><i class="pip"></i></span><span class="eff">calm: trust +</span></div>
+      <div class="sm">3 points. Dropping the bucket man for a cutman costs the breath, never both for free.</div>
+    </div>
+  </div>
+  <div class="card" style="display:flex;gap:14px;align-items:center">
+    <span class="btn2">ASK: "HOW MANY FINGERS?"</span>
+    <span class="mid" style="flex:1">costs 1 cutman point. Tells you if the boxer's "I can see" is truth or pride.</span>
+  </div>
+  <div class="card" style="display:flex;gap:14px;align-items:center">
+    <span class="btn2" style="border-color:var(--amb);color:var(--amb)">PREVIEW</span>
+    <span class="mid">As set: cut closed 70% &middot; eye flattened &middot; breath half &middot; next round the cut shows <b>20-35</b> if closed, <b>46-62</b> if not.</span>
+  </div>
+</section>
+
+<!-- RIGHT: CARDS AND THE DOCTOR -->
+<section>
+  <h2>THE CARDS AS YOUR CORNER READS THEM</h2>
+  <div class="card">
+    <div class="rd"><b>R1</b><span>yours, clean work</span><span class="dots"><i class="dot a"></i><i class="dot a"></i><i class="dot a"></i><i class="dot"></i></span></div>
+    <div class="rd"><b>R2</b><span>close, blood costs you the toss-up</span><span class="dots"><i class="dot b"></i><i class="dot b"></i><i class="dot"></i><i class="dot"></i></span></div>
+    <div class="note" style="font-size:23px;margin-top:8px">"1-1, maybe 2-0 to them if the judges see red." <span class="sm">(your read, not the cards)</span></div>
+  </div>
+  <h2 style="margin-top:6px">THE DOCTOR AND THE RULES</h2>
+  <div class="card">
+    <div class="row"><span class="tag t-amb">POSSIBLE</span><span class="mid">hunted, a look is likely by mid-round 3 (timeout, boxer to the doctor)</span></div>
+    <div class="sm" style="margin-top:8px">The doctor weighs the spot (brow), blood in the eye and vision. The ref rules the cause. Pro title nights get more rope than a club show.</div>
+  </div>
+  <div class="card">
+    <div class="mid" style="margin-bottom:6px"><b>If it is stopped now</b></div>
+    <div class="row"><span class="tag t-red">PUNCH</span><span class="mid">TKO loss on the record, 30-day layoff</span></div>
+    <div class="row" style="margin-top:6px"><span class="tag t-dim">CLASH</span><span class="mid">no contest this early. 4-rounder: cards from round 3</span></div>
+    <div class="sm" style="margin-top:6px">A clash cut that punches then work on is ruled a PUNCH cut.</div>
+  </div>
+  <div class="card">
+    <div class="row"><span class="tag t-red">THEIR CORNER</span><span class="mid">saw it. "Going for the brow" next round.</span></div>
+    <div class="sm" style="margin-top:6px">Your shout <b>Hands up, move your head</b> halves their hits on it. <b>Aim: the cut eye</b> is yours if theirs opens.</div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="opt pull">
+    <div class="div"><span class="tag t-dim">NOTHING IS PICKED FOR YOU</span></div>
+    <h3 style="color:#ff9a8f">PULL OUT</h3>
+    <div class="sm">Towel in. A corner retirement: a stoppage loss on the record.</div>
+    <div class="nums">
+      <span>Win chance</span><span class="r">0%, a loss</span>
+      <span>Eye and scar</span><span class="g">safe, +0</span>
+      <span>Layoff</span><span class="r">30 days</span><span>Trust</span><span class="r">-6 if "I'm fine" was true, +4 if not</span>
+    </div>
+  </div>
+  <div class="opt surv">
+    <h3 style="color:#8fd49c">SEND OUT: SURVIVE</h3>
+    <div class="sm">Pace Save, Protect the eye line on, hands high.</div>
+    <div class="nums">
+      <span>Win chance (cards)</span><span class="b">34% (their jab hunt -40%)</span>
+      <span>Doctor stops by R3</span><span class="r">38%</span>
+      <span>Scar / eye risk</span><span class="r">+8 / 3% lasting</span>
+    </div>
+  </div>
+  <div class="opt race">
+    <h3 style="color:#f0b673">SEND OUT: RACE</h3>
+    <div class="sm">Pace Push, Go for the finish, cut or not.</div>
+    <div class="nums">
+      <span>Win chance (stoppage/cards)</span><span class="b">41%</span>
+      <span>Doctor stops by R3</span><span class="r">61%</span>
+      <span>Scar / eye risk</span><span class="r">+14 / 7% lasting</span>
+    </div>
+  </div>
+  <div class="ready">
+    <div class="say note" style="color:var(--gold)">"I can see. Leave me in."</div>
+    <div class="sm">the boxer's say: pride or truth? one finger-test away</div>
+    <div class="btn">READY: PICK ONE</div>
+  </div>
+</footer>
+</body></html>

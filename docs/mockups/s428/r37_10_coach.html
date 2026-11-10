@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>R37 Ask for a fight - coach 10/10</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#d9c7a3;font-family:"Segoe UI",Arial,sans-serif;color:#2b2118;font-size:15px}
+.hand{font-family:"Segoe Print","Kalam","Comic Sans MS",cursive}
+.top{height:56px;background:#1e1b18;color:#eadfca;display:flex;align-items:center;padding:0 18px;gap:22px}
+.top b{font-size:17px}.top .sp{flex:1}.top .pill{padding:4px 10px;border-radius:12px;font-size:13px}
+.amber{background:#b9770e}.red{background:#a93226}.go{background:#c0392b;color:#fff;padding:9px 22px;border-radius:6px;font-weight:700}
+.rail{position:absolute;top:56px;left:0;width:92px;bottom:0;background:#2a2622;color:#cbbd9f;display:flex;flex-direction:column;gap:4px;padding-top:10px}
+.rail div{padding:16px 0;text-align:center;font-size:13px}.rail .on{background:#4a3f33;color:#fff;border-left:4px solid #e0a43a}
+.main{position:absolute;left:92px;top:56px;right:0;bottom:0;padding:14px 20px}
+.head{display:flex;align-items:center;gap:16px;height:74px}
+.face{width:62px;height:62px;border-radius:50%;background:#8a5a44;border:3px solid #f3e8d2;color:#fff;font-size:26px;display:flex;align-items:center;justify-content:center}
+.head h1{font-size:25px}.head .sub{color:#5b4a38;font-size:14px}
+.tabs{display:flex;gap:6px;margin-left:30px}.tabs span{padding:8px 16px;background:#c4b08a;border-radius:6px 6px 0 0;font-size:14px}.tabs .on{background:#f6edd9;font-weight:700}
+.goal{margin-left:auto;background:#f6edd9;border:1px solid #b9a27a;padding:8px 12px;border-radius:6px;font-size:13px;max-width:360px}
+.cols{display:grid;grid-template-columns:430px 760px 1fr;gap:16px;margin-top:6px}
+.paper{background:#f6edd9;border:1px solid #b9a27a;border-radius:4px;box-shadow:2px 3px 0 rgba(60,40,20,.25);padding:14px 16px;margin-bottom:14px}
+.paper h2{font-size:13px;letter-spacing:1.2px;text-transform:uppercase;color:#7a4f1e;margin-bottom:9px}
+.band{display:flex;gap:4px;margin:6px 0}.band i{flex:1;height:14px;border-radius:3px;background:#d8c9a8}.band i.f1{background:#c0392b}.band i.f2{background:#e0a43a}.band i.f3{background:#5e8c4a}
+.gate{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dotted #bba67f;font-size:14px}
+.ok{color:#3f7a2f;font-weight:700}.bad{color:#a93226;font-weight:700}.warn{color:#b9770e;font-weight:700}
+.coach{background:#fffbe9;border-left:4px solid #e0a43a;padding:8px 10px;margin-top:8px;font-size:15px}
+table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font-size:12px;color:#7a4f1e;padding:4px 6px;border-bottom:2px solid #b9a27a}td{padding:7px 6px;border-bottom:1px dotted #bba67f}
+tr.sel td{background:#f3d98f;font-weight:600}tr.dim td{color:#8d7f68}
+.fill{display:inline-block;width:70px;height:9px;background:#d8c9a8;border-radius:5px;vertical-align:middle;overflow:hidden}.fill b{display:block;height:100%;background:#7a4f1e}
+.chan{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.card{border:2px solid #c9b48c;border-radius:6px;background:#fffbf0;padding:9px 10px;font-size:13px;line-height:1.35}
+.card.sel{border-color:#c0392b;background:#fff1d6}.card h3{font-size:15px;margin-bottom:3px}.card .k{display:flex;justify-content:space-between}
+.tag{display:inline-block;font-size:11px;padding:1px 6px;border-radius:9px;background:#e6d8b8;margin-right:3px}
+.kinds{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.big{font-size:21px;font-weight:700}
+.dots span{display:inline-block;width:13px;height:13px;border-radius:50%;background:#5e8c4a;margin-right:3px}.dots span.x{background:#d8c9a8}.dots span.b{background:#c0392b}
+.ask{background:#c0392b;color:#fff;text-align:center;padding:14px;border-radius:6px;font-size:19px;font-weight:700;margin-top:6px}
+.cost{font-size:13px;color:#5b4a38;margin-top:6px;line-height:1.45}
+.mail{border:1px solid #bba67f;background:#fffbf0;padding:8px 10px;margin-top:7px;font-size:13px;border-radius:4px}
+.btns{display:flex;gap:6px;margin-top:6px}.btns span{padding:5px 10px;border:1px solid #8a6a3a;border-radius:4px;background:#f3e3bb;font-size:12px}
+.btns .p{background:#5e8c4a;color:#fff;border-color:#5e8c4a}
+.tape{height:6px;background:#d8c9a8;border-radius:3px;margin:6px 0}.tape b{display:block;height:100%;width:28%;background:#e0a43a;border-radius:3px}
+small{font-size:12px;color:#6a5a45}
+</style></head><body>
+<div class="top"><b>Docklands Boxing Club</b><span>Mon 9 Feb 2026 &middot; week 6</span><span class="pill amber">REQUEST OPEN (2d)</span><span class="pill amber">SET CAMP</span><span class="sp"></span><span>Cash $11,240 &middot; +$310 a week</span><span class="go">CONTINUE &middot; to Wed 11 Feb, reply due</span></div>
+<div class="rail"><div>Home</div><div class="on">Fighters</div><div>Fights<br><small style="color:#e0a43a">1</small></div><div>Club</div><div>World</div></div>
+<div class="main">
+ <div class="head"><div class="face">LJ</div><div><h1>Lucy Jackson</h1><div class="sub">Lightweight 60 kg &middot; 21 &middot; orthodox &middot; 3-0 &middot; 3 bouts, 1 skills bout (0.5) &middot; Novice class</div></div>
+  <div class="tabs"><span>Overview</span><span>Week</span><span class="on">Ask for a fight</span><span>Playbook</span><span>History</span></div>
+  <div class="goal"><b>Goal, 31 days:</b> two more bouts before the nationals entry closes (needs 5). <span class="warn">At risk: no bout booked.</span></div></div>
+
+ <div class="cols">
+ <div>
+  <div class="paper"><h2>1. Is she ready? The coach's read</h2>
+   <div class="big">Nearly ready for a step up <small>(your coach is Old hand: read is +/- 1 band)</small></div>
+   <div class="band"><i class="f1"></i><i class="f2"></i><i class="f3"></i></div>
+   <small>Not ready &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nearly &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ready</small>
+   <div class="gate"><span>Medical in date</span><span class="ok">to 14 Jun</span></div>
+   <div class="gate"><span>30 days of sparring</span><span class="ok">36 days, 14 rounds</span></div>
+   <div class="gate"><span>Suspension</span><span class="ok">none</span></div>
+   <div class="gate"><span>12 h rest after last bout</span><span class="ok">clear</span></div>
+   <div class="gate"><span>Season</span><span class="ok">3 of 18</span></div>
+   <div class="gate"><span>Week tiredness</span><span class="warn">62 (a bout in 3 weeks is fine)</span></div>
+   <div class="coach hand">"She has only sparred her own weight. Put a heavier partner in this week and I will tell you if she can take a step up."</div>
+   <div class="btns"><span class="p">Book heavier sparring</span><span>Why this read</span></div>
+  </div>
+  <div class="paper"><h2>Who is in reach at 60 kg</h2>
+   <div class="dots"><span></span><span></span><span></span><span></span><span class="x"></span><span class="x"></span></div>
+   <div style="margin-top:5px"><b>Thin: 4 women near you.</b> 2 are free before the nationals closes; 1 is a step up, 1 is like for like.</div>
+   <small>Within 40 miles, 56-64 kg, aged 19-40, medical current. The app sees 11 across the region; your network sees 3.</small>
+   <div class="mail"><b>If you go up a class (63 kg):</b> 9 in reach, but 3 kg heavier. <b>Down (57 kg):</b> 2 in reach, she must cut 3 kg.</div>
+  </div>
+  <div class="paper"><h2>Your favours</h2>
+   <table><tr><th>Club</th><th>Balance</th><th>Note</th></tr>
+   <tr><td>Eastside ABC</td><td class="ok">+2</td><td>you sent 2, they sent 1</td></tr>
+   <tr><td>Bow Road</td><td class="warn">0</td><td>clean show, 14 Feb</td></tr>
+   <tr><td>Canning Town</td><td class="bad">-1</td><td>you pulled out, 20 Dec</td></tr></table></div>
+ </div>
+
+ <div>
+  <div class="paper"><h2>2. Which show? (the fixtures: bouts are made show by show)</h2>
+   <table><tr><th>Sat</th><th>Host</th><th>Where</th><th>Card</th><th>Bout sheet closes</th><th>Her chance of a bout</th></tr>
+   <tr class="dim"><td>14 Feb</td><td>Bow Road</td><td>away, 4 mi</td><td><span class="fill"><b style="width:100%"></b></span> full</td><td>shut</td><td>none (spare list only)</td></tr>
+   <tr class="sel"><td>28 Feb</td><td>Eastside ABC</td><td>away, 6 mi</td><td><span class="fill"><b style="width:55%"></b></span> 8 of 15</td><td>Wed 18 Feb</td><td>likely (needs the call)</td></tr>
+   <tr><td>14 Mar</td><td>Your club (home)</td><td>home, ticket cut $450</td><td><span class="fill"><b style="width:20%"></b></span> 3 of 15</td><td>you decide</td><td>you pick the opponent</td></tr>
+   <tr><td>28 Mar</td><td>Canning Town</td><td>away, 9 mi</td><td><span class="fill"><b style="width:30%"></b></span> 4 of 15</td><td>Wed 18 Mar</td><td>only through the app (-1 favour)</td></tr></table>
+   <small>Nationals entry closes in week 10: 28 Feb or 14 Mar gives her the 5th bout in time. 28 Mar does not.</small></div>
+
+  <div class="paper"><h2>3. Who do you call?</h2>
+   <div class="chan">
+    <div class="card sel"><h3>Coach to coach</h3><div class="k"><span>Reach</span><b>3 clubs</b></div><div class="k"><span>Reply</span><b>1-3 days</b></div><div class="k"><span>Cost</span><b>1 favour</b></div><span class="tag">Eastside +2</span><br><small>Best odds of a fair match. Spends goodwill.</small></div>
+    <div class="card"><h3>Show matchmaker</h3><div class="k"><span>Reach</span><b>one card</b></div><div class="k"><span>Reply</span><b>by Wed 18</b></div><div class="k"><span>Cost</span><b>free</b></div><small>Slot not guaranteed; 7 spaces left.</small></div>
+    <div class="card"><h3>Regional coaches' group</h3><div class="k"><span>Reach</span><b>all clubs</b></div><div class="k"><span>Reply</span><b>same day, messy</b></div><div class="k"><span>Cost</span><b>free</b></div><small>Everyone sees her record and weight.</small></div>
+    <div class="card"><h3>Bout-finding app</h3><div class="k"><span>Reach</span><b>11 boxers</b></div><div class="k"><span>Reply</span><b>same day</b></div><div class="k"><span>Cost</span><b>$10 a month</b></div><small>Strangers: 1 in 5 pulls out. No favour.</small></div>
+   </div></div>
+
+  <div class="paper"><h2>4. What kind of fight?</h2>
+   <div class="kinds">
+    <div class="card"><h3>Like for like</h3><b>Win chance 62-74%</b><br><small>Equal bouts, 2 kg gap. Safe. Purse $450 ticket cut. Counts 1 bout.</small></div>
+    <div class="card sel"><h3>Step up</h3><b>Win chance 41-55%</b><br><small>More bouts (8+), up to 3 kg heavier. A win moves her up the regional table; a loss costs 2 reputation. The Supervisor may refuse on the night (18%).</small></div>
+    <div class="card"><h3>Named boxer</h3><b>Pick from the table</b><br><small>Rematch, a rival, or the one above her. Their club decides.</small></div>
+    <div class="card"><h3>Skills bout</h3><b>No result</b><br><small>No stake, counts 0.5. For the green only: she has 3 bouts, so it will not add much.</small></div>
+   </div>
+   <div style="margin-top:8px;display:flex;gap:26px;font-size:14px"><span><b>Class:</b> 60 kg (57 / 63 on the right)</span><span><b>Weight gap she takes:</b> up to 2 kg</span><span><b>Home / away:</b> away is fine</span><span><b>Spare list:</b> add her for 14 Feb</span></div>
+  </div>
+ </div>
+
+ <div>
+  <div class="paper"><h2>Your request</h2>
+   <div class="big hand">Step up, 60 kg, Sat 28 Feb, coach to coach with Eastside ABC</div>
+   <div class="cost">Reply in 1-3 days. Chance: <b>yes 58%</b> &middot; <b>counter 27%</b> (a kilo heavier, or 2 more bouts) &middot; <b>nobody 15%</b>.<br>
+   Costs: 1 favour with Eastside (balance +2 to +1). No money. Her camp can start only once a bout is booked; base weeks keep training.</div>
+   <div class="ask">Ask Eastside ABC</div>
+   <div class="btns"><span>Ask two shows at once (-1 favour each)</span></div>
+  </div>
+  <div class="paper"><h2>Open request, day 2 of 7</h2>
+   <div class="tape"><b></b></div>
+   <div class="cost">Sent Sat 7 Feb to Eastside ABC. Their matchmaker is also asked by 2 other clubs for 60 kg.</div>
+   <div class="mail"><b>Reply (mail, Mon):</b> a counter. "We have a girl at 61 kg, 7 bouts, 5-2. Her coach says she is strong early and fades. Saturday 28 Feb, home for us."<br>
+    <div class="btns"><span class="p">Accept (win 38-50%)</span><span>Ask again, same kg</span><span>Switch channel</span><span>Scout her first ($0, 1 day)</span></div></div>
+   <div class="mail"><b>If nobody:</b> the reason in words, then two ways out with their price: widen the gap to 3 kg (+9 in reach), or the app ($10, 11 boxers).</div>
+  </div>
+  <div class="paper"><h2>If it falls through on the night</h2>
+   <div class="cost">Opponent out, host offers a replacement 4 kg heavier, 11 bouts:<br>
+   <b>Take it</b> (win 22%, purse stays) &middot; <b>Ask the host for another</b> (spends a favour, 40% finds one) &middot; <b>Pull her</b> (the cut is wasted, -1 favour, ticket cut lost) &middot; <b>Spare slot at the next show</b> (14 Mar, she must hold weight 2 more weeks).</div></div>
+  <div class="paper"><h2>What it leaves behind</h2><div class="cost">Favours move with each clean show or pull-out. The Why will say: "You asked for a step up by phone and got a heavier boxer; the plan covered it."</div></div>
+ </div>
+ </div>
+</div>
+</body></html>

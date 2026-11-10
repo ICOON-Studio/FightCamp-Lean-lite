@@ -1,0 +1,164 @@
+<!doctype html><html><head><meta charset="utf-8"><title>BJJ live bout - coach's 10/10</title><style>
+@font-face{font-family:Barlow;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:BarlowB;src:url(file:///E:/FightCamp/Lean/assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Marker;src:url(file:///E:/FightCamp/Lean/assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Kalam;src:url(file:///E:/FightCamp/Lean/assets/fonts/Kalam-Regular.ttf)}
+@font-face{font-family:KalamB;src:url(file:///E:/FightCamp/Lean/assets/fonts/Kalam-Bold.ttf)}
+:root{--red:#e5543f;--blue:#3d7fe0;--gold:#E9B949;--green:#37b074;--amber:#e8891b;--ink:#e8e6df;--mut:#98a0ab;--panel:#14161b;--line:#2a2e36}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:#0b0c0f;color:var(--ink);font-family:Barlow;overflow:hidden;position:relative}
+.mono{font-family:BarlowB;letter-spacing:2px;font-size:13px;color:var(--mut);text-transform:uppercase}
+.dk{background:var(--panel);border:2px solid var(--line);border-radius:8px}
+.gold{color:var(--gold)}.red{color:var(--red)}.blue{color:var(--blue)}.grn{color:var(--green)}.amb{color:var(--amber)}
+.new{display:inline-block;background:var(--red);color:#fff;font-family:BarlowB;font-size:12px;letter-spacing:1px;padding:1px 7px;border-radius:4px;transform:rotate(-2deg);margin-left:8px;vertical-align:middle}
+.chip{display:inline-block;border:1.5px solid #66707c;border-radius:14px;padding:2px 11px;font-family:BarlowB;font-size:13px;letter-spacing:.6px;text-transform:uppercase;color:#bcc3cc;white-space:nowrap}
+.chip.g{border-color:var(--green);color:var(--green)}.chip.r{border-color:var(--red);color:var(--red)}.chip.a{border-color:var(--amber);color:var(--amber)}.chip.b{border-color:var(--blue);color:var(--blue)}.chip.y{border-color:var(--gold);color:var(--gold)}
+.pfw{overflow:hidden;position:relative;flex:none;border-radius:6px;background:#111}.pfw img{position:absolute;left:0;top:0;width:100%;height:auto;transform:scale(1.85);transform-origin:50% 9%}
+.bar{height:12px;background:#262a31;border-radius:6px;position:relative;overflow:hidden}.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
+/* plate */
+#plate{position:absolute;left:24px;top:18px;width:1872px;height:118px;display:grid;grid-template-columns:420px 1fr 420px 340px;align-items:center;padding:0 22px;gap:22px}
+.side{display:grid;grid-template-columns:70px 1fr 64px 64px 64px;align-items:center;gap:10px}
+.cell{text-align:center}.cell b{display:block;font-family:BarlowB;font-size:46px;line-height:1}.cell small{display:block;font-family:BarlowB;font-size:11px;letter-spacing:2px;color:var(--mut);margin-top:3px}
+.nm{white-space:nowrap;font-family:BarlowB;font-size:21px;letter-spacing:1px;line-height:1.05}.nm small{display:block;font-family:Barlow;font-size:14px;color:var(--mut);letter-spacing:.5px}
+.clock{text-align:center}.clock b{font-family:BarlowB;font-size:68px;line-height:1;color:var(--ink);letter-spacing:2px}
+.clock .l{font-size:14px}
+/* stage */
+#stage{position:absolute;left:24px;top:152px;width:1130px;height:470px;overflow:hidden;background:radial-gradient(ellipse at 40% 60%,#2c2420 0%,#15110f 58%,#0b0c0f 100%)}
+#ladder{position:absolute;left:24px;top:640px;width:1130px;height:150px;padding:14px 20px}
+#tl{position:absolute;left:24px;top:808px;width:1130px;height:150px;padding:12px 20px}
+#log{position:absolute;left:24px;top:976px;width:1130px;height:84px;padding:10px 20px;font-size:17px;line-height:1.4}
+/* right */
+#card{position:absolute;left:1176px;top:152px;width:720px;height:488px;padding:16px 20px}
+.opt{display:grid;grid-template-columns:44px 1fr 124px;gap:12px;border:2px solid var(--line);border-radius:8px;padding:9px 12px;margin-top:9px;background:#101216;align-items:center}
+.opt.top{border-color:var(--gold)}
+.opt h3{font-family:BarlowB;font-size:23px;line-height:1.1}.opt p{font-size:15px;color:#b8bec7;margin-top:2px;line-height:1.25}
+.key{width:40px;height:40px;border-radius:8px;border:2px solid #4a515c;font-family:BarlowB;font-size:22px;display:flex;align-items:center;justify-content:center;color:#cfd4da}
+.num{text-align:right;font-family:BarlowB}.num b{font-size:30px;display:block;line-height:1}.num small{font-size:12px;letter-spacing:1px;color:var(--mut)}
+#shout{position:absolute;left:1176px;top:656px;width:720px;height:300px;padding:14px 20px}
+.sh{display:inline-block;border:2px solid #4a515c;border-radius:8px;padding:6px 12px;font-family:KalamB;font-size:20px;margin:0 6px 8px 0;background:#101216}
+.sh.on{border-color:var(--gold);color:var(--gold)}
+.sh em{font-family:BarlowB;font-style:normal;font-size:12px;color:var(--mut);margin-left:6px;letter-spacing:1px}
+#orders{position:absolute;left:1176px;top:972px;width:720px;height:88px;padding:10px 20px;font-size:15px}
+</style></head><body>
+
+<!-- SCORE PLATE: points / advantages / penalties as the IBJJF board shows them, the clock, the count ring -->
+<div id="plate" class="dk">
+ <div class="side">
+  <div class="pfw" style="width:62px;height:70px;border:3px solid var(--red)"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_11.png"></div>
+  <div class="nm red">ANA RIBEIRO<small>white belt, on top</small></div>
+  <div class="cell"><b class="gold">2</b><small>POINTS</small></div>
+  <div class="cell"><b>0</b><small>ADV</small></div>
+  <div class="cell"><b>0</b><small>PEN</small></div>
+ </div>
+ <div class="clock"><div class="mono" style="font-size:12px">OPEN NIGHT - NO-GI - SEMI-FINAL (MATCH 2 OF 3)</div><b>3:52</b><div class="mono l"><span class="red">1:08 LEFT</span> &nbsp; LAST-MINUTE WORD AT 1:00</div></div>
+ <div class="side">
+  <div class="pfw" style="width:62px;height:70px;border:3px solid var(--blue)"><img src="file:///E:/FightCamp/Lean/assets/ui/style_b/portraits/mh_boxer_14.png"></div>
+  <div class="nm blue">DANI MOREAU<small>white belt, underneath</small></div>
+  <div class="cell"><b>0</b><small>POINTS</small></div>
+  <div class="cell"><b class="gold">1</b><small>ADV</small></div>
+  <div class="cell"><b>0</b><small>PEN</small></div>
+ </div>
+ <div style="display:flex;align-items:center;gap:16px">
+  <svg width="86" height="86" viewBox="0 0 86 86"><circle cx="43" cy="43" r="34" fill="none" stroke="#262a31" stroke-width="9"/><circle cx="43" cy="43" r="34" fill="none" stroke="#e8891b" stroke-width="9" stroke-linecap="round" stroke-dasharray="149.5 213.6" transform="rotate(-90 43 43)"/><text x="43" y="52" text-anchor="middle" font-family="BarlowB" font-size="28" fill="#e8e6df">14</text></svg>
+  <div><div class="mono amb">THE REF IS COUNTING</div><div style="font-size:16px;line-height:1.3;margin-top:3px">20 s, then a penalty on Ana.<br><span style="color:var(--mut)">Pins are exempt only when worked</span></div></div>
+ </div>
+</div>
+
+<!-- STAGE -->
+<div id="stage" class="dk">
+ <svg width="1130" height="470" viewBox="0 0 1130 470" style="position:absolute;left:0;top:0">
+  <!-- mat -->
+  <ellipse cx="565" cy="380" rx="470" ry="62" fill="#1c2a24" stroke="#2f4a3d" stroke-width="3"/>
+  <ellipse cx="565" cy="380" rx="300" ry="38" fill="none" stroke="#2f4a3d" stroke-width="2" stroke-dasharray="8 8"/>
+  <!-- two grapplers as simple shapes: Ana on top (red), Dani underneath (blue) -->
+  <g transform="translate(470 250)">
+   <ellipse cx="120" cy="108" rx="150" ry="22" fill="#0007"/>
+   <rect x="-10" y="64" width="270" height="34" rx="17" fill="#2f6bd0" stroke="#7fb0f5" stroke-width="3"/>
+   <circle cx="262" cy="80" r="26" fill="#d9b48f" stroke="#7fb0f5" stroke-width="3"/>
+   <rect x="20" y="-6" width="210" height="64" rx="32" fill="#c8402f" stroke="#ff8e7c" stroke-width="3" transform="rotate(-6 100 30)"/>
+   <circle cx="70" cy="2" r="28" fill="#c99a78" stroke="#ff8e7c" stroke-width="3"/>
+   <path d="M96 24 Q150 66 196 70" stroke="#ff8e7c" stroke-width="10" stroke-linecap="round" fill="none"/>
+  </g>
+  <text x="560" y="446" text-anchor="middle" font-family="KalamB" font-size="22" fill="#cfd4da">Ana in side control, 11 s held. Dani framing, hips turning to the near side.</text>
+ </svg>
+ <div style="position:absolute;left:18px;top:16px" class="mono">WHAT THE CORNER SEES</div>
+ <!-- reads: what the corner can read from the mat, free, from scouting and watching -->
+ <div style="position:absolute;right:18px;top:14px;width:340px;display:flex;flex-direction:column;gap:10px">
+  <div class="dk" style="padding:10px 14px;background:#0f1115"><div class="mono">DANI IS BREATHING HARD <span class="chip a" style="margin-left:6px">gas low</span></div><div class="bar" style="margin-top:7px"><i style="width:34%;background:var(--amber)"></i></div><div class="mono" style="margin-top:9px">ANA <span class="chip g" style="margin-left:6px">fresh enough</span></div><div class="bar" style="margin-top:7px"><i style="width:64%;background:var(--green)"></i></div><div style="font-size:13px;color:var(--mut);margin-top:6px">0.82 carried in from match 1, minus 0.18 so far</div></div>
+  <div class="dk" style="padding:10px 14px;background:#0f1115"><div class="mono">HABITS (SCOUTED)</div><div style="margin-top:7px;display:flex;flex-wrap:wrap;gap:6px"><span class="chip r">Guillotine x2</span><span class="chip y">Shrimps to the near hip x3</span><span class="chip">Never stands up</span></div></div>
+ </div>
+</div>
+
+<!-- POSITION LADDER: where Ana can go, what each rung pays and costs on the clock -->
+<div id="ladder" class="dk">
+ <div class="mono">THE LADDER FOR THE ONE ON TOP - WHAT EACH STEP PAYS, AND WHAT THE REF DOES WITH IT</div>
+ <svg width="1090" height="108" viewBox="0 0 1090 108" style="margin-top:6px">
+  <g font-family="BarlowB" text-anchor="middle">
+   <rect x="6" y="16" width="190" height="64" rx="8" fill="#16181d" stroke="#2a2e36" stroke-width="2"/><text x="101" y="42" font-size="20" fill="#9aa2ad">GUARD</text><text x="101" y="66" font-size="14" fill="#6d7580">pass pays 3</text>
+   <rect x="216" y="16" width="190" height="64" rx="8" fill="#16181d" stroke="#2a2e36" stroke-width="2"/><text x="311" y="42" font-size="20" fill="#9aa2ad">HALF GUARD</text><text x="311" y="66" font-size="14" fill="#6d7580">pass pays 3</text>
+   <rect x="426" y="10" width="210" height="76" rx="8" fill="#2a1614" stroke="#e5543f" stroke-width="3"/><text x="531" y="40" font-size="22" fill="#e8e6df">SIDE CONTROL</text><text x="531" y="62" font-size="14" fill="#e5543f">ANA IS HERE, 11 s - NOT EXEMPT</text><text x="531" y="80" font-size="12" fill="#98a0ab">count ring 14 of 20</text>
+   <rect x="656" y="16" width="190" height="64" rx="8" fill="#16181d" stroke="#2a2e36" stroke-width="2" stroke-dasharray="6 5"/><text x="751" y="42" font-size="20" fill="#e8e6df">KNEE ON BELLY</text><text x="751" y="66" font-size="14" fill="#E9B949">pays 2</text>
+   <rect x="866" y="16" width="100" height="64" rx="8" fill="#16181d" stroke="#2a2e36" stroke-width="2"/><text x="916" y="42" font-size="20" fill="#e8e6df">MOUNT</text><text x="916" y="66" font-size="14" fill="#37b074">pays 4, exempt</text>
+   <rect x="982" y="16" width="100" height="64" rx="8" fill="#16181d" stroke="#2a2e36" stroke-width="2"/><text x="1032" y="42" font-size="20" fill="#e8e6df">BACK</text><text x="1032" y="66" font-size="14" fill="#37b074">pays 4, exempt</text>
+  </g>
+  <path d="M198 48H214M408 48H424M638 48H654M848 48H864M968 48H980" stroke="#4a515c" stroke-width="3"/>
+ </svg>
+</div>
+
+<!-- TIMELINE: the five minutes, asks already used, asks coming (anticipation) -->
+<div id="tl" class="dk">
+ <div class="mono">THE FIVE MINUTES - WHAT YOU SAID, AND WHAT IS COMING <span class="chip" style="margin-left:10px">quiet is allowed: no ask is forced</span></div>
+ <svg width="1090" height="112" viewBox="0 0 1090 112" style="margin-top:4px">
+  <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#37b074"/><stop offset="1" stop-color="#e5543f"/></linearGradient></defs>
+  <rect x="0" y="52" width="1090" height="10" rx="5" fill="#262a31"/>
+  <rect x="0" y="52" width="843" height="10" rx="5" fill="#3b4350"/>
+  <rect x="873" y="52" width="217" height="10" rx="5" fill="#4a1d19"/>
+  <g font-family="BarlowB" font-size="12" fill="#98a0ab" text-anchor="middle"><text x="0" y="86" text-anchor="start">0:00</text><text x="218" y="86">1:00</text><text x="436" y="86">2:00</text><text x="545" y="86">2:30</text><text x="654" y="86">3:00</text><text x="873" y="86" fill="#e5543f">4:00 last minute</text><text x="1090" y="86" text-anchor="end">5:00</text></g>
+  <!-- used -->
+  <g font-family="BarlowB" font-size="12" text-anchor="middle">
+   <circle cx="14" cy="57" r="9" fill="#3d7fe0"/><text x="14" y="30" fill="#aab">Work</text>
+   <circle cx="130" cy="57" r="9" fill="#E9B949"/><text x="130" y="30" fill="#aab">Pass</text>
+   <circle cx="252" cy="57" r="9" fill="#E9B949"/><text x="252" y="30" fill="#aab">Sweep</text>
+   <circle cx="378" cy="57" r="9" fill="#3d7fe0"/><text x="378" y="30" fill="#aab">Push</text>
+   <circle cx="512" cy="57" r="9" fill="#37b074"/><text x="512" y="30" fill="#aab">Reached</text>
+   <circle cx="598" cy="57" r="9" fill="#E9B949"/><text x="598" y="30" fill="#aab">Points</text>
+   <circle cx="722" cy="57" r="9" fill="#E9B949"/><text x="722" y="30" fill="#aab">Pass 3</text>
+   <circle cx="843" cy="57" r="14" fill="#e8891b" stroke="#fff" stroke-width="3"/><text x="843" y="22" fill="#e8e6df" font-size="14">NOW</text>
+  </g>
+  <!-- coming: events the clock will bring, shown as dashed -->
+  <g font-family="BarlowB" font-size="12" text-anchor="middle" fill="#98a0ab">
+   <circle cx="873" cy="57" r="8" fill="none" stroke="#e5543f" stroke-width="2" stroke-dasharray="3 3"/><text x="900" y="34" fill="#e5543f">your word</text>
+   <circle cx="1010" cy="57" r="8" fill="none" stroke="#e5543f" stroke-width="2" stroke-dasharray="3 3"/><text x="1010" y="34" fill="#e5543f">if the score moved</text>
+  </g>
+  <g font-family="BarlowB" font-size="12" fill="#98a0ab"><circle cx="8" cy="104" r="5" fill="#3d7fe0"/><text x="20" y="108">pace</text><circle cx="78" cy="104" r="5" fill="#E9B949"/><text x="90" y="108">move call</text><circle cx="188" cy="104" r="5" fill="#37b074"/><text x="200" y="108">free word</text><text x="312" y="108" fill="#cfd4da">EAR spent so far: 5 of 7 asked, 2 turned off (quiet)</text></g>
+ </svg>
+</div>
+
+<!-- LOG -->
+<div id="log" class="dk"><span class="mono">JUST NOW</span><br><span class="grn">3:41</span> Ana passes to side control, held 3 s: <b class="gold">2 points</b> &nbsp; <span class="grn">3:44</span> Dani shrimps and frames, <b>no advantage</b> &nbsp; <span class="amb">3:48</span> Ref raises a hand: <b>the 20 second count</b> begins on Ana</div>
+
+<!-- THE CALL CARD -->
+<div id="card" class="dk">
+ <div style="display:flex;justify-content:space-between;align-items:baseline"><div><span class="mono gold">THE CALL - SIDE CONTROL, THE COUNT IS RUNNING</span></div><div class="chip y">costs 2 EAR</div></div>
+ <div style="font-family:KalamB;font-size:22px;margin-top:6px;color:#f2eee2">"Ana, you are not exempt here. Move or get marked. You lead by two."</div>
+ <div class="opt top"><div class="key">1</div><div><h3>Knee on belly <span class="chip g">Low risk</span></h3><p>Pays 2 and is a move, so the count ends. Dani is easy to ride and the knee is heavy.</p></div><div class="num"><b class="gold">46%</b><small>2 PTS - GAS -2</small></div></div>
+ <div class="opt"><div class="key">2</div><div><h3>Kimura from here <span class="chip r">High risk</span></h3><p>Dani's arm is out. A miss gives up the grip and the lead. A near miss is an <b class="gold">advantage</b> and ends the count.</p></div><div class="num"><b>31%</b><small>FINISH - GAS -4</small></div></div>
+ <div class="opt"><div class="key">3</div><div><h3>Stay, take the first penalty <span class="chip">Free now</span></h3><p>The first one is a mark and costs nothing. The next is an advantage to Dani, then 2 points. You can only do this once.</p></div><div class="num"><b class="grn">0%</b><small>0 PTS - GAS +1</small></div></div>
+ <div style="margin-top:9px;font-size:14px;color:var(--mut)">Odds are real: nothing here is the best pick by default. Dani is gassed, which favours the finish; the clock favours the safe knee.</div>
+</div>
+
+<!-- THE SHOUT BAR -->
+<div id="shout" class="dk">
+ <div style="display:flex;justify-content:space-between;align-items:center"><div class="mono">THE SHOUT BAR - ALWAYS LIVE, YOU START THESE</div><div style="display:flex;align-items:center;gap:10px"><span class="mono">EAR</span><div class="bar" style="width:170px"><i style="width:57%;background:var(--gold)"></i></div><b style="font-family:BarlowB;font-size:18px" class="gold">4 / 7</b></div></div>
+ <div class="mono" style="margin-top:12px;color:#cfd4da">PACE <span style="color:var(--mut)">(stays until you change it)</span></div>
+ <div style="margin-top:6px"><span class="sh">Push<em>drains gas x1.4</em></span><span class="sh on">Work</span><span class="sh">Slow it down<em>starts the count</em></span></div>
+ <div class="mono" style="margin-top:8px;color:#cfd4da">WORD <span style="color:var(--mut)">(1 EAR each, fades after 20 s)</span></div>
+ <div style="margin-top:6px"><span class="sh">Hips heavy<em>+ pins</em></span><span class="sh">Hand fight<em>+ grips</em></span><span class="sh">Frame<em>- escapes</em></span><span class="sh">Watch the guillotine<em>Dani x0.9</em></span><span class="sh">Time!<em>show the clock</em></span></div>
+ <div style="margin-top:4px;font-size:14px;color:var(--mut)">A word is right in some spots, wrong in others. A wrong one costs trust.</div>
+</div>
+
+<div id="orders" class="dk">
+ <div class="mono">STANDING ORDERS (PLAYBOOK) - ANA FOLLOWS THESE WHEN YOUR EAR IS GONE</div>
+ <div style="margin-top:6px;display:flex;gap:8px;flex-wrap:wrap"><span class="chip y">Choke: fight</span><span class="chip y">Joint lock: tap</span><span class="chip">After 4:00 ahead: ride</span><span class="chip">behind: finish</span></div>
+</div>
+</body></html>

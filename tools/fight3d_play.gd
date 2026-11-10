@@ -7,7 +7,7 @@ extends SceneTree
 ## Prints FIGHT3D_PLAY failures=<n>.
 ## S381 HOLOOFF: `gameplan` after <out_dir> plays the S378 jump=gameplan set-up - two of her own combinations drilled, the
 ## 3-punch signature named the GO-TO, the plan 1-1 / step in / body - and prints the go-to's throws a round (GOTO lines).
-## The live round shows no holo panels (checked on every still); the corner card's holo shows where the punches landed.
+## The live round's side holos follow the scorebug (S405, checked on every still). The corner card's holo shows where the punches landed.
 ## S382: `hold=<s>` keeps the corner card up that many more seconds (films), `end=corner` stops after the corner minute.
 
 const W := 1920
@@ -105,6 +105,7 @@ func _initialize() -> void:
 	view._toggle_speed()
 	await _shot("p01_round1_open", 3.0)
 	_holo_off(view, "round 1 opens")
+	_panel_rects(view)
 	print("CLOCK \"%s\"" % view._clock.text)
 	var cam: Camera3D = view.stage.camera
 	print("CAM pos=%s fov=%.0f close=%s scene=%s current=%s a=%s b=%s" % [cam.global_position, cam.fov, cam.close, view.stage.scene,
@@ -197,16 +198,13 @@ func _initialize() -> void:
 		"round 2 plays on the corner's plan")
 	await _shot("p06_round2_mid", 12.0)
 	_holo_off(view, "round 2")
-	# S381 HOLOOFF: the live round is the boxers - stills through round 2 (no holo, no close-up pops on any of them), and
-	# the mouse where her old body panel stood reaches no figure (S348 C199's hover moved to the corner card's figure).
+	# S405: the side holos stay with the scorebug (checked by _holo_off). The old S382 bar that the live round
+	# builds no holo at all is stale: main shows the two side figures, and that check failed with count 2.
 	for k in 4:
 		await _shot("p06%s_round2_live" % "bcde"[k], 6.0)
 		_holo_off(view, "round 2 still %d" % (k + 1))
 	var bl: Node = view.find_child("BodyLive", true, false)
 	if bl != null:
-		# S382: the live round builds no holo at all (no figure for the mouse to reach where the old panel stood).
-		var figs := view.find_children("*", "Control", true, false).filter(func(n): return n.has_method("set_portrait"))
-		_check(figs.is_empty(), "S382 no holo figure is built in the live round (%d)" % figs.size())
 		var landed := 0
 		for side in 2:
 			landed += int(bl.stats[side]["landed"])
@@ -258,7 +256,21 @@ func _shot(name: String, after_s: float) -> void:
 	print("wrote ", path)
 
 
-## S381 HOLOOFF: while a round plays no body panel (holo figure, close-ups) is on screen.
+## Every label on the two side panels, so a still run can be read without opening the picture.
+func _panel_rects(view: Node) -> void:
+	for n in ["SidePanel0", "SidePanel1"]:
+		var p: Control = view.find_child(n, true, false)
+		if p == null:
+			print("PANEL %s missing" % n)
+			continue
+		print("PANEL %s %s" % [n, p.get_global_rect()])
+		for lab in p.find_children("*", "Label", true, false):
+			var l := lab as Label
+			if l.visible:
+				print("LABEL %s %s \"%s\" %s" % [n, l.name, l.text, l.get_global_rect()])
+
+
+## S405: the side holos are on while the scorebug is on, and off when it is not.
 func _holo_off(view: Node, at: String) -> void:
 	var shown := 0
 	for n in ["BodyPanel0", "BodyPanel1"]:

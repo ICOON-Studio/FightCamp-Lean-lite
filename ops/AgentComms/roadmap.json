@@ -3,14 +3,14 @@
  "updated": "2026-11-10",
  "author": "claude S294",
  "now": {
-  "id": "S427",
+  "id": "S428",
   "owner": "claude",
   "updated": "2026-11-10",
-  "summary": "S427: his C273 'use proper outline effects throught all project not cheap solutions' -> ONE outline (scripts/ui/Halo.gd + halo.gdshader: glowing frame) on the dues boards, corner call in force, NOW plate, guide light; dues paintings cut out (Ludo) with a chalk figure line; HALOSWEEP1 briefed for the 12 other screens. His marks on the corner bar (Feedback 2026-11-10-20): calls and Say nothing small on the left, the right is a live round board (RoundBoard.gd: landed, her game now, calls with ticks). Feet clear the bar at a cut (TvShot.BAR_CLEAR), not yet when a boxer is right at the lens. Collected by diff: FIRELEVEL1 (no-key fix; rule on main, off), KDFIX5 (knockdown_still_test deterministic, 4 of 4). FIGHTDISPLAY2 (PR 177) NOT collected: a script error, overlapping words and a symbol box in a real render -> FIGHTDISPLAY3 launched on Cursor (name plate, intention chips over the heads). THURSDAY1 void (one camp 40 times) -> THURSDAY2 launched on Qwen. Week design v3 written (fight-night card on Home with a ghost, named problems with clocks, quiet-week block, Saturday) with two pictures; two fresh critics were reading it at session end. Kalli: BJJ in-fight choices (his C274), what else the corner can say. Exported; two stills on the review board. Week design v3 scored depth 5 and 5 by two fresh critics (not on his board): the squeeze has no fork, Wednesday and Thursday are one decision twice, the quiet week needs a weekly call, and Reid's hands being scarce is unmeasured. THURSDAY2 on main: 2+ problems open on only 34% of camp-week Thursdays.",
+  "summary": "S428: start-up, then collects and critic rounds. Collected by diff: MOODHABIT1 (mood under 1 point; habits 6 to 15), TRAININGB1 (PR 179, Training tab B with the tiredness curve), FIGHTDISPLAY3 (wooden side panels, intent chips; two overlaps still open). Ziva fixed (port 7012 up). Launched HALOSWEEP1 (Cursor) and HANDSPROBE1 (Qwen; first run void), BARGUARD1 queued. Critic rounds (docs/mockups/s428): BJJ live choices 4/5, 5/5, 5/6, v4 6 (economy critic; coach critic out), cutman v3 5/5, R37 ask-for-a-fight map 5/5: none at 7, so none on his board. Usage: weekly all-models 100%, extra usage EUR 24.41 of 40: no more critic rounds without his word on the money.",
   "last_working_commit": "de5183d8",
   "verified_playable": "people_slate, camp_slate, start_slate, camp_cards, versus, recruit, wood_kit, words_on_screens, plain_words, no_pronoun, gauges, attr_board, fighter_model green on the PC; the pages rendered and opened (E:/FightCamp/tmp/s419_screens, s419_screens2).",
   "incomplete_blocked": "MAIN CI: no finished run since e4a7b6f3 (red); three S419 pushes cancelled each other's runs, read the run on the wrap-up push. PR 140 REARHAND5B not judged: tools/head_aim_film.gd move=rear_hook printed no CONTACT line, so the film showed no punch. Luke Reid's portrait reads near black on Club People. Training week page untouched until his pick.",
-  "next_action": "1) Week design v4 from the two critics' to-10 lists (NEXT_SESSION_PROMPT has the five points) after a probe of how scarce Reid's hands really are; then two fresh critics, 7+ -> his board. 2) Collect FIGHTDISPLAY3 (render, read the log), TRAININGB1 (PR 179), THURSDAY2 as they land. 3) His marks on the two S427 stills (8787/review). 4) Kalli's pages (BJJ choices, corner options) and cutman v3 -> a map + picture each -> two critics 7+ -> his board. 5) Legs: retry qwen/legtremble4's code, the legs brief; a camera brief for feet under the bar up close. 6) Fix Ziva (down all S427). 7) E: is 92% full: find what can go and ask him.",
+  "next_action": "1) get_usage, then read the last critic reviews (BJJ v4 coach) and his marks on 8787/review. 2) Week design v4 from the S427 critics' five points + THURSDAY2 + MOODHABIT1 + a valid HANDSPROBE1; critics only after he agrees the money. 3) Collect HALOSWEEP1, HANDSPROBE1, BARGUARD1 (render first). 4) Ask him: which design goes on (BJJ v4, cutman v4, R37 v2) given each sits at 5 to 6 after rounds. 5) E: is 92% full: ask before deleting scratch renders under E:/FightCamp/tmp (about 31 GB).",
   "next_acceptance": "The week design scores depth 7+ from two fresh critics and is on his board with its pictures; a film of round 2 without trembling legs and a film of a readable BJJ match are on his review board.",
   "awaiting_operator": []
  },
@@ -1713,6 +1713,11 @@
    "id": "S427",
    "date": "2026-11-10",
    "summary": "S427: his C273 'use proper outline effects throught all project not cheap solutions' -> ONE outline (scripts/ui/Halo.gd + halo.gdshader: glowing frame) on the dues boards, corner call in force, NOW plate, guide light; dues paintings cut out (Ludo) with a chalk figure line; HALOSWEEP1 briefed for the 12 other screens. His marks on the corner bar (Feedback 2026-11-10-20): calls and Say nothing small on the left, the right is a live round board (RoundBoard.gd: landed, her game now, calls with ticks). Feet clear the bar at a cut (TvShot.BAR_CLEAR), not yet when a boxer is right at the lens. Collected by diff: FIRELEVEL1 (no-key fix; rule on main, off), KDFIX5 (knockdown_still_test deterministic, 4 of 4). FIGHTDISPLAY2 (PR 177) NOT collected: a script error, overlapping words and a symbol box in a real render -> FIGHTDISPLAY3 launched on Cursor (name plate, intention chips over the heads). THURSDAY1 void (one camp 40 times) -> THURSDAY2 launched on Qwen. Week design v3 written (fight-night card on Home with a ghost, named problems with clocks, quiet-week block, Saturday) with two pictures; two fresh critics were reading it at session end. Kalli: BJJ in-fight choices (his C274), what else the corner can say. Exported; two stills on the review board. Week design v3 scored depth 5 and 5 by two fresh critics (not on his board): the squeeze has no fork, Wednesday and Thursday are one decision twice, the quiet week needs a weekly call, and Reid's hands being scarce is unmeasured. THURSDAY2 on main: 2+ problems open on only 34% of camp-week Thursdays."
+  },
+  {
+   "id": "S428",
+   "date": "2026-11-10",
+   "summary": "S428: start-up, then collects and critic rounds. Collected by diff: MOODHABIT1 (mood under 1 point; habits 6 to 15), TRAININGB1 (PR 179, Training tab B with the tiredness curve), FIGHTDISPLAY3 (wooden side panels, intent chips; two overlaps still open). Ziva fixed (port 7012 up). Launched HALOSWEEP1 (Cursor) and HANDSPROBE1 (Qwen; first run void), BARGUARD1 queued. Critic rounds (docs/mockups/s428): BJJ live choices 4/5, 5/5, 5/6, v4 6 (economy critic; coach critic out), cutman v3 5/5, R37 ask-for-a-fight map 5/5: none at 7, so none on his board. Usage: weekly all-models 100%, extra usage EUR 24.41 of 40: no more critic rounds without his word on the money."
   }
  ],
  "blocked_on_operator": [],
@@ -4631,7 +4636,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-10",
+  "updated": "2026-11-10 S428 wrap-up",
   "goal": "MECHANICS FIRST (operator S422: 'ok prepare next session with your recommendations'): the seven mechanics the critics and you chose in S402 get built before more menu polish. Each mechanic starts with a DESIGN MAP (operator Q-173: 'what the player decides exactly and where does that happening ? which screens ? have you mapped the whole design for the mechanism ?'): the decision, the screen, what it changes, the numbers; your OK; then the build. Menus change only when a mechanic needs them. One playable .exe a week, judged by you.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4773,58 +4778,203 @@
   },
   "working_now": [
    {
-    "title": "Fight display round 3: the wooden side panels, name plates, intention chips over the heads",
+    "title": "TASK MENUPLAYBOOK1 - CURSOR (Grok 4.7 High) - the Playbook's game plan and Combos, built from the approved mockup",
     "who": "cursor",
-    "started": "2026-11-10T18:23",
-    "run": "FIGHTDISPLAY3",
-    "state": "RUNNING"
+    "started": "2026-11-08T22:42",
+    "run": "MENUPLAYBOOK1",
+    "state": "LANDED - Claude collects"
    },
    {
-    "title": "The Thursday count again, on camps that really differ",
+    "title": "QWEN (qwen3-coder) - a standing count on the cards says what it cost",
+    "who": "goose",
+    "started": "2026-11-10T05:41",
+    "run": "R11C",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK LOOKSLATE7 - CURSOR (Grok 4.7 High) - the Fighters page's paper pieces, the week review's pad cards and the Overview's flat buttons on slate and wood",
+    "who": "cursor",
+    "started": "2026-11-10T09:42",
+    "run": "LOOKSLATE7",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK KDFIX1 - QWEN (qwen3-coder) - a downed boxer's upper body sways",
+    "who": "qwen",
+    "started": "2026-11-10T10:11",
+    "run": "KDFIX1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTSLIDE2 - QWEN (qwen3-coder) - the fighters slide: measure each cause by switching it off. Measure only",
+    "who": "qwen",
+    "started": "2026-11-10T10:41",
+    "run": "FIGHTSLIDE2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK LEGTREMBLE3 - CURSOR (Grok 4.7 High) - the trembling legs, round 2 on a new seat: bake the smoothing into the shipped clips",
+    "who": "cursor",
+    "started": "2026-11-10T11:21",
+    "run": "LEGTREMBLE3",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK KDFIX2 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 2: a ruler that sees the layers",
+    "who": "qwen",
+    "started": "2026-11-10T11:22",
+    "run": "KDFIX2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTDISPLAY1 - CURSOR (Grok 4.7 High) - the live fight's corner bar, NOW! plate and scorebug from the veteran's drawing",
+    "who": "cursor",
+    "started": "2026-11-10T12:41",
+    "run": "FIGHTDISPLAY1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK KDFIX3 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 3: fix the two layers KDFIX2 named",
+    "who": "qwen",
+    "started": "2026-11-10T12:54",
+    "run": "KDFIX3",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "QWEN (qwen3-coder) - dues bands: what kind of club you run (pure rules + a 5-year sim test)",
+    "who": "goose",
+    "started": "2026-11-10T13:07",
+    "run": "DUESBAND1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK LEGTREMBLE4 - QWEN (qwen3-coder) - the trembling legs, round 4: why head_aim voids a row with the smoothed clips",
+    "who": "qwen",
+    "started": "2026-11-10T13:34",
+    "run": "LEGTREMBLE4",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK KDFIX4 - CURSOR (Grok 4.7 High) - a downed boxer's upper body sways, round 4: settle or sway, and block_meet",
+    "who": "cursor",
+    "started": "2026-11-10T13:35",
+    "run": "KDFIX4",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK DUESCARD1 - CURSOR (Grok 4.7 High) - the dues choice as three painted price boards on Club > Money",
+    "who": "cursor",
+    "started": "2026-11-10T14:37",
+    "run": "DUESCARD1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK READBACK1 - QWEN (qwen3-coder) - she waits for your best plan line: where the points go, and what wins them back. Measure only",
+    "who": "qwen",
+    "started": "2026-11-10T14:38",
+    "run": "READBACK1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK READBACK2 - QWEN (qwen3-coder) - she waits for your best plan line, round 2: two ways back as switched-off rules, measured",
+    "who": "qwen",
+    "started": "2026-11-10T14:50",
+    "run": "READBACK2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Week design v2 - lead designer subagent (Fable): a week worth playing, with pictures",
+    "who": "claude",
+    "started": "2026-11-10T15:00",
+    "run": "WEEKDESIGN2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK DUESCARD2 - CURSOR (Grok 4.7 High) - the dues boards are unreadable: give them their own tab at full size",
+    "who": "cursor",
+    "started": "2026-11-10T15:27",
+    "run": "DUESCARD2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK READBACK3 - QWEN (qwen3-coder) - READBACK2's set-up rule never forgets a win: fix it, measure again",
+    "who": "qwen",
+    "started": "2026-11-10T15:28",
+    "run": "READBACK3",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIRELEVEL1 - QWEN (qwen3-coder) - a plan line fires as well as it is drilled: a switched-off rule, measured",
+    "who": "qwen",
+    "started": "2026-11-10T16:02",
+    "run": "FIRELEVEL1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTDISPLAY2 - CURSOR (Grok 4.7 High) - the live fight's two side panels from the veteran's drawing",
+    "who": "cursor",
+    "started": "2026-11-10T16:15",
+    "run": "FIGHTDISPLAY2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK THURSDAY1 - QWEN (qwen3-coder) - how many real problems does a camp week throw up by Thursday? Measure only",
+    "who": "qwen",
+    "started": "2026-11-10T16:21",
+    "run": "THURSDAY1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK TRAININGB1 - CURSOR (Grok 4.7 High) - the Training tab rebuilt as approach B, with A's tiredness curve on top",
+    "who": "cursor",
+    "started": "2026-11-10T17:13",
+    "run": "TRAININGB1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK KDFIX5 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 5: Cursor's \"all green\" was false",
+    "who": "qwen",
+    "started": "2026-11-10T17:14",
+    "run": "KDFIX5",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK THURSDAY2 - QWEN (qwen3-coder) - the Thursday count again, on camps that really differ. Measure only",
     "who": "qwen",
     "started": "2026-11-10T18:03",
     "run": "THURSDAY2",
-    "state": "RUNNING"
+    "state": "LANDED - Claude collects"
    },
    {
-    "title": "Week design v3: two critics scored its depth 5 and 5; v4 next",
-    "who": "claude",
-    "started": "2026-11-10T18:21",
-    "run": "WEEKV3",
-    "state": "scored 5 and 5: v4 next"
+    "title": "TASK FIGHTDISPLAY3 - CURSOR (Grok 4.7 High) - the two wooden side panels, round 3: on today's main, no error, no overlap, no symbols",
+    "who": "cursor",
+    "started": "2026-11-10T18:23",
+    "run": "FIGHTDISPLAY3"
    },
    {
-    "title": "What the player decides during a BJJ bout (your C274)",
-    "who": "kalli",
-    "started": "2026-11-10T18:00",
-    "run": "SQ39",
-    "state": "sent"
-   },
-   {
-    "title": "What else the corner can say and change (your marks on the bar)",
-    "who": "kalli",
-    "started": "2026-11-10T18:25",
-    "run": "SQ40",
-    "state": "sent"
+    "title": "TASK MOODHABIT1 - QWEN (qwen3-coder) - what a boxer's mood and each habit are worth in wins. Measure only",
+    "who": "qwen",
+    "started": "2026-11-10T18:29",
+    "run": "MOODHABIT1"
    }
   ],
   "next": [
    {
-    "id": "HALOSWEEP1",
+    "id": "WEEK4",
+    "who": "claude",
+    "title": "Week design v4 from the critics' five points, after the hands probe",
+    "after": "HANDSPROBE1"
+   },
+   {
+    "id": "BARGUARD1",
     "who": "cursor",
-    "title": "The new outline on every other screen that marks a chosen thing (12 screens)",
-    "after": "FIGHTDISPLAY3"
+    "title": "Feet stay above the corner bar while a shot holds, even at the lens",
+    "after": "HALOSWEEP1"
    },
    {
-    "id": "TRAININGB1C",
+    "id": "CRITICMONEY",
     "who": "claude",
-    "title": "Collect Training tab B (PR 179): render it, judge the stills",
-    "after": ""
-   },
-   {
-    "id": "FEETBAR2",
-    "who": "claude",
-    "title": "Feet stay above the corner bar when a boxer stands right at the lens (camera brief)",
+    "title": "Ask you: more critic rounds cost real money (plan at its cap); which design goes on",
     "after": ""
    },
    {
@@ -5145,6 +5295,31 @@
   },
   "done_recently": [
    {
+    "title": "Training tab B with the tiredness curve collected (PR 179), real render read",
+    "who": "cursor",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "Fight screen side panels, intent chips over the heads collected (two overlaps open)",
+    "who": "cursor",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "Mood is worth under 1 point, habits 6 to 15: measured",
+    "who": "qwen",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "BJJ in-fight choices: four critic rounds, now at 6 of 10 (not on your board)",
+    "who": "claude",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "Cutman v3 and Ask-for-a-fight map: critics 5 and 5, lists in hand",
+    "who": "claude",
+    "when": "2026-11-10"
+   },
+   {
     "title": "One proper outline for the game (glowing frame), dues paintings cut out with a chalk line",
     "who": "claude",
     "when": "2026-11-10"
@@ -5326,6 +5501,30 @@
   "map": {
    "done_earlier": [
     {
+     "text": "One proper outline (your C273)",
+     "who": "claude"
+    },
+    {
+     "text": "Corner bar to your marks",
+     "who": "claude"
+    },
+    {
+     "text": "KD sway fixed and collected",
+     "who": "agent"
+    },
+    {
+     "text": "Lines fire by drill: on main, off",
+     "who": "agent"
+    },
+    {
+     "text": "Week design v3 + 2 pictures",
+     "who": "claude"
+    },
+    {
+     "text": "Thursday count: 2+ open only 34%",
+     "who": "agent"
+    },
+    {
      "text": "Pads for two: measured, 2 maps",
      "who": "claude"
     },
@@ -5356,69 +5555,29 @@
     {
      "text": "Leg tremble red traced: early read",
      "who": "claude"
-    },
-    {
-     "text": "KD sway 1.91 -> 0.76 cm, not yet",
-     "who": "agent"
-    },
-    {
-     "text": "Main CI green again (menus test)",
-     "who": "claude"
-    },
-    {
-     "text": "Fight display briefed, launched",
-     "who": "claude"
-    },
-    {
-     "text": "Cutman map v2 after critics",
-     "who": "claude"
-    },
-    {
-     "text": "Dues map on the board",
-     "who": "claude"
-    },
-    {
-     "text": "R25 measured: no way back yet",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "One proper outline (your C273)",
+     "text": "MOODHABIT1: mood <1, habits 6-15",
      "who": "claude"
-    },
-    {
-     "text": "Corner bar to your marks",
-     "who": "claude"
-    },
-    {
-     "text": "KD sway fixed and collected",
-     "who": "agent"
-    },
-    {
-     "text": "Lines fire by drill: on main, off",
-     "who": "agent"
-    },
-    {
-     "text": "Week design v3 + 2 pictures",
-     "who": "claude"
-    },
-    {
-     "text": "Thursday count: 2+ open only 34%",
-     "who": "agent"
     }
    ],
    "now": [
-    {
-     "text": "BJJ in-fight choices (Kalli)",
-     "who": "agent"
-    },
     {
      "text": "Corner: more to say (Kalli)",
      "who": "agent"
     },
     {
      "text": "Week v4: critics gave v3 5 of 10",
+     "who": "claude"
+    },
+    {
+     "text": "HANDSPROBE1 (Qwen): Reid's hands",
+     "who": "claude"
+    },
+    {
+     "text": "BJJ choices v1: critic 4, v2 next",
      "who": "claude"
     }
    ],
@@ -5456,12 +5615,12 @@
      "who": "claude"
     }
    ],
-   "session": "S427"
+   "session": "S428"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "de5183d8",
- "next_action": "1) Week design v4 from the two critics' to-10 lists (NEXT_SESSION_PROMPT has the five points) after a probe of how scarce Reid's hands really are; then two fresh critics, 7+ -> his board. 2) Collect FIGHTDISPLAY3 (render, read the log), TRAININGB1 (PR 179), THURSDAY2 as they land. 3) His marks on the two S427 stills (8787/review). 4) Kalli's pages (BJJ choices, corner options) and cutman v3 -> a map + picture each -> two critics 7+ -> his board. 5) Legs: retry qwen/legtremble4's code, the legs brief; a camera brief for feet under the bar up close. 6) Fix Ziva (down all S427). 7) E: is 92% full: find what can go and ask him.",
+ "next_action": "1) get_usage, then read the last critic reviews (BJJ v4 coach) and his marks on 8787/review. 2) Week design v4 from the S427 critics' five points + THURSDAY2 + MOODHABIT1 + a valid HANDSPROBE1; critics only after he agrees the money. 3) Collect HALOSWEEP1, HANDSPROBE1, BARGUARD1 (render first). 4) Ask him: which design goes on (BJJ v4, cutman v4, R37 v2) given each sits at 5 to 6 after rounds. 5) E: is 92% full: ask before deleting scratch renders under E:/FightCamp/tmp (about 31 GB).",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

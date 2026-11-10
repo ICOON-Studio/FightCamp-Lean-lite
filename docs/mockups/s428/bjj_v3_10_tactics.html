@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>BJJ live bout, tactics critic 10/10</title>
+<style>
+:root{--bg:#14110f;--panel:#1f1a17;--panel2:#2a231e;--line:#4a3d33;--ink:#f1e7d8;--dim:#a99a88;--gold:#e8b84a;--green:#6cc070;--red:#e0584a;--amber:#e39a3b;--blue:#5ea4d8;--ana:#d9a441;--kim:#c0504a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--bg);color:var(--ink);font:20px/1.25 "Segoe UI",Arial,sans-serif;overflow:hidden;position:relative}
+.hand{font-family:"Segoe Print","Bradley Hand ITC","Comic Sans MS",cursive}
+.panel{background:var(--panel);border:2px solid var(--line);border-radius:10px;position:absolute}
+.h{font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+.pill{display:inline-block;border-radius:20px;padding:2px 12px;font-size:16px;border:1.5px solid var(--line);color:var(--dim)}
+/* score plate */
+#plate{left:20px;top:14px;width:1880px;height:116px;display:flex;align-items:center;justify-content:space-between;padding:0 34px}
+.side{display:flex;align-items:center;gap:22px}
+.side .n{font-size:30px;font-weight:700}
+.pts{font-size:78px;font-weight:800;line-height:1}
+.sub2{font-size:17px;color:var(--dim)}
+.clock{text-align:center}.clock b{font-size:64px;font-weight:800;letter-spacing:.04em}
+.ring{width:78px;height:78px;border-radius:50%;border:8px solid var(--line);border-top-color:var(--amber);border-right-color:var(--amber);position:relative;text-align:center;font-size:30px;line-height:62px}
+/* left column */
+#mat{left:20px;top:144px;width:760px;height:430px}
+#intel{left:20px;top:588px;width:760px;height:352px;padding:16px 20px}
+#intel li{list-style:none;margin:5px 0;font-size:18px}
+.tag{font-size:13px;border-radius:4px;padding:1px 7px;margin-right:6px;font-weight:700}
+.t-sc{background:#27442a;color:var(--green)}.t-seen{background:#2b3a4d;color:var(--blue)}.t-bk{background:#4a2d1b;color:var(--amber)}
+/* centre card */
+#card{left:796px;top:144px;width:830px;height:566px;padding:16px 20px;border-color:var(--gold)}
+.arrow{display:grid;grid-template-columns:62px 1fr 150px;gap:12px;background:var(--panel2);border:2px solid var(--line);border-radius:8px;padding:11px 14px;margin-bottom:10px;align-items:center}
+.arrow .k{font-size:14px;font-weight:700;letter-spacing:.08em;text-align:center;border-radius:6px;padding:6px 0}
+.k-sw{background:#244034;color:var(--green)}.k-th{background:#2b3a4d;color:var(--blue)}.k-su{background:#4d2622;color:var(--red)}
+.arrow .t{font-size:23px;font-weight:700}.arrow .d{font-size:16px;color:var(--dim);margin-top:3px}
+.arrow .d b{color:var(--ink)}
+.odds{text-align:right}.odds .o{font-size:34px;font-weight:800}.odds .e{font-size:15px;color:var(--dim)}
+.chain{font-size:15px;color:var(--blue);margin-top:3px}
+.timer{height:10px;background:#000;border-radius:5px;overflow:hidden;margin:4px 0 10px}
+.timer i{display:block;height:100%;width:58%;background:var(--gold)}
+.skip{display:flex;gap:12px;font-size:17px;color:var(--dim)}
+.btn{border:2px solid var(--line);border-radius:8px;padding:6px 16px;background:var(--panel2);color:var(--ink);font-size:17px}
+/* predict */
+#predict{left:796px;top:724px;width:830px;height:216px;padding:14px 20px}
+.mode{display:inline-block;border:2px solid var(--line);border-radius:8px;padding:8px 14px;margin:4px 6px 4px 0;font-size:18px;background:var(--panel2)}
+.mode.sel{border-color:var(--gold);background:#3b3015}
+/* right column */
+#ear{left:1642px;top:144px;width:258px;height:150px;padding:12px 16px}
+.pip{display:inline-block;width:38px;height:38px;border-radius:50%;border:3px solid var(--gold);margin-right:6px}
+.pip.f{background:var(--gold)}.pip.r{background:conic-gradient(var(--gold) 0 55%,#000 55% 100%)}
+#orders{left:1642px;top:304px;width:258px;height:340px;padding:12px 16px}
+.ord{border:2px solid var(--line);border-radius:8px;padding:5px 10px;margin-bottom:6px;background:var(--panel2)}
+.ord.on{border-color:var(--gold);background:#3b3015}
+.ord b{font-size:18px}.ord div{font-size:13px;line-height:1.2;color:var(--dim)}
+#cue{left:1642px;top:654px;width:258px;height:286px;padding:12px 16px}
+.w{display:inline-block;border:2px solid var(--line);border-radius:8px;padding:6px 10px;margin:0 6px 8px 0;font-size:17px;background:var(--panel2)}
+.stamp{font-size:15px;margin-top:4px}
+.ok{color:var(--green)}.bad{color:var(--red)}
+/* bottom */
+#facts{left:20px;top:954px;width:1606px;height:50px;padding:0 20px;display:flex;align-items:center;font-size:20px}
+#time{left:20px;top:1016px;width:1880px;height:54px}
+#trust{left:1642px;top:954px;width:258px;height:50px;padding:0 16px;display:flex;align-items:center;font-size:17px;gap:10px}
+.bar{height:12px;width:110px;background:#000;border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;width:68%;background:var(--green)}
+svg text{font-family:"Segoe UI",Arial,sans-serif}
+</style></head><body>
+
+<div class="panel" id="plate">
+  <div class="side"><div class="n" style="color:var(--ana)">ANA</div><div class="pts" style="color:var(--ana)">2</div><div class="sub2">advantages 1<br>penalties 0 (1 idle hold)</div></div>
+  <div class="clock"><b>3:12</b><div class="sub2">of 5:00 &nbsp;·&nbsp; white belt &nbsp;·&nbsp; open day, match 2 of 3</div></div>
+  <div class="ring hand" title="the referee's raised hand: count 12 of 20 s">12</div>
+  <div class="side"><div class="sub2" style="text-align:right">advantages 0<br>penalties 1</div><div class="pts" style="color:var(--kim)">3</div><div class="n" style="color:var(--kim)">KIM DOYLE</div></div>
+</div>
+
+<div class="panel" id="mat"><svg width="756" height="426" viewBox="0 0 756 426">
+  <rect x="0" y="0" width="756" height="426" rx="8" fill="#241d19"/>
+  <ellipse cx="378" cy="230" rx="330" ry="150" fill="#2f2620" stroke="#4a3d33" stroke-width="3"/>
+  <ellipse cx="378" cy="230" rx="250" ry="105" fill="none" stroke="#4a3d33" stroke-dasharray="8 8"/>
+  <!-- Kim kneeling in front -->
+  <g transform="translate(470,170)"><ellipse cx="0" cy="0" rx="54" ry="30" fill="#c0504a"/><circle cx="-62" cy="-6" r="20" fill="#c0504a"/><rect x="-100" y="22" width="60" height="16" rx="8" fill="#c0504a"/><rect x="30" y="-16" width="66" height="14" rx="7" fill="#c0504a"/></g>
+  <!-- Ana on back, butterfly hooks -->
+  <g transform="translate(300,290)"><ellipse cx="0" cy="0" rx="62" ry="28" fill="#d9a441"/><circle cx="-76" cy="2" r="20" fill="#d9a441"/><rect x="40" y="-30" width="70" height="14" rx="7" fill="#d9a441" transform="rotate(-24 40 -30)"/><rect x="40" y="14" width="70" height="14" rx="7" fill="#d9a441" transform="rotate(22 40 14)"/></g>
+  <text x="22" y="40" fill="#f1e7d8" font-size="26" font-weight="700">Ana: butterfly guard, bottom</text>
+  <text x="22" y="68" fill="#a99a88" font-size="18">Kim kneels inside her hooks. Ana holds the initiative.</text>
+  <text x="22" y="384" fill="#a99a88" font-size="18">KIM'S TANK</text>
+  <rect x="22" y="394" width="260" height="14" rx="7" fill="#000"/><rect x="22" y="394" width="120" height="14" rx="7" fill="#c0504a"/>
+  <text x="296" y="407" fill="#e39a3b" font-size="18" font-weight="700">breathing hard</text>
+  <text x="470" y="384" fill="#a99a88" font-size="18">ANA'S TANK</text>
+  <rect x="470" y="394" width="260" height="14" rx="7" fill="#000"/><rect x="470" y="394" width="190" height="14" rx="7" fill="#d9a441"/>
+</svg></div>
+
+<div class="panel" id="intel">
+  <div class="h">Kim Doyle · Wrestler · scouted (2 tapes) · the book on her</div>
+  <ul>
+    <li><span class="tag t-sc">FILE</span>Pass stuffed: goes round the back 60% of the time, else stands up</li>
+    <li><span class="tag t-sc">FILE</span>Ahead on points: pins and waits (70%), never pulls guard</li>
+    <li><span class="tag t-sc">FILE</span>Her first answer to a hip-out sweep is to post the near hand</li>
+    <li><span class="tag t-seen">THIS MATCH</span>Posted the near hand 2 of 2 times Ana tried the butterfly</li>
+    <li><span class="tag t-seen">THIS MATCH</span>Back take tried once after a stuffed pass: stopped it</li>
+    <li><span class="tag t-bk">HER BOOK ON YOU</span>Ana swept twice with the same hooks. Kim now sits on it: her answer to that sweep +15%. Change the kind or the order and the book resets in 40 s.</li>
+  </ul>
+</div>
+
+<div class="panel" id="card">
+  <div class="h">Ana's move · her turn · 6 s to choose · the plan move runs when the bar ends</div>
+  <div class="timer"><i></i></div>
+  <div class="arrow"><div class="k k-sw">SWEEP</div>
+    <div><div class="t">Butterfly sweep <span class="pill">owned 45</span></div>
+      <div class="d">Scores <b>2</b> and the top. A miss: <b>she posts and passes (3)</b>. Gas <b>-2</b> hit, <b>-4</b> miss.</div>
+      <div class="chain">Missed: opens Kimura (posted arm) or Back take. She has stuffed this <b>2 of 2</b> this match.</div></div>
+    <div class="odds"><div class="o">38%</div><div class="e">your own skill, no mode in it<br>costs 2 ear</div></div></div>
+  <div class="arrow"><div class="k k-th">BAIT</div>
+    <div><div class="t">Kimura grip from the hooks <span class="pill">owned 40</span></div>
+      <div class="d">Scores <b>0</b>. Threatens the arm. <b>Scouted: she posts the near hand (60%).</b> Gas <b>-1</b>.</div>
+      <div class="chain">If she posts: the back take opens at <b>+15%</b>, the sweep at <b>+10%</b>. If she does not: the Kimura is live at 30%.</div></div>
+    <div class="odds"><div class="o">55%</div><div class="e">to get the grip<br>costs 2 ear</div></div></div>
+  <div class="arrow"><div class="k k-su">SUB</div>
+    <div><div class="t">Armbar from guard <span class="pill">owned 32</span></div>
+      <div class="d">Ends the match. A miss: <b>grips and initiative gone</b>, she is on top. Gas <b>-1</b> hit, <b>-3</b> miss.</div>
+      <div class="chain">A second try inside 60 s: odds x0.6 unless you came from a different threat.</div></div>
+    <div class="odds"><div class="o">21%</div><div class="e">from guard, hands free<br>costs 2 ear</div></div></div>
+  <div class="skip"><span class="btn">Skip (free): plan move, butterfly sweep</span><span class="btn">Hold and breathe, gas +6</span></div>
+</div>
+
+<div class="panel" id="predict">
+  <div class="h">Her next 20 to 40 seconds · her clue comes in 3 s · name it first for 1 ear</div>
+  <div><span class="mode">Pass the guard</span><span class="mode sel">Go round the back</span><span class="mode">Hunt a submission</span><span class="mode">Hold the lead</span><span class="mode">Scramble</span></div>
+  <div style="margin-top:8px;font-size:17px;color:var(--dim)">Right: the clue shows now and <b style="color:var(--green)">+2 ear back</b>. Wrong: <b style="color:var(--red)">you lose the 1 ear</b> and her real mode is shown 5 s late. Your file says she is 60% round the back when a pass is stuffed. Decoys are gone: you scouted her.</div>
+  <div class="hand" style="margin-top:10px;font-size:22px;color:var(--gold)">Coach (a guess, can be wrong): "She is up one and tired. I think she sits."</div>
+</div>
+
+<div class="panel" id="ear">
+  <div class="h">The corner's ear</div>
+  <div><span class="pip f"></span><span class="pip f"></span><span class="pip r"></span><span class="pip"></span></div>
+  <div style="font-size:16px;color:var(--dim);margin-top:8px">2 of 4. Next in 9 s quiet. At 0 your standing orders run.</div>
+</div>
+
+<div class="panel" id="orders">
+  <div class="h">Orders · change costs 1 ear</div>
+  <div class="ord"><b>SURVIVE</b><div>Lowest-loss moves, +gas. A pin you only hold gets easier to leave.</div></div>
+  <div class="ord on"><b>POINTS</b><div>Scoring moves first. Cash a pin in. First penalty free while ahead.</div></div>
+  <div class="ord"><b>FINISH</b><div>Subs first, odds +4%, gas x1.4. Under 35% gas: one arrow.</div></div>
+  <div style="font-size:14px;color:var(--dim)">Held 41 s. She reads it at 60 s.</div>
+</div>
+
+<div class="panel" id="cue">
+  <div class="h">Cue bar · 1 ear each</div>
+  <div><span class="w">Frame</span><span class="w">Hips out</span><span class="w">Underhook</span><span class="w">Hand fight</span><span class="w">Stay heavy</span><span class="w">Time</span></div>
+  <div class="stamp ok">2:41 Hand fight: READ RIGHT</div>
+  <div class="stamp bad">1:58 Frame: READ WRONG, -2</div>
+    
+</div>
+
+<div class="panel" id="facts"><span><b>Facts:</b> Down 1 point, 1:48 left. Ana has 1 idle hold; two is a penalty. Kim is breathing hard. Next moment due about 3:24.</span></div>
+<div class="panel" id="trust"><span>Trust</span><div class="bar"><i></i></div><span>+4</span></div>
+
+<div class="panel" id="time"><svg width="1876" height="50" viewBox="0 0 1876 50">
+  <line x1="20" y1="34" x2="1856" y2="34" stroke="#4a3d33" stroke-width="4"/>
+  <g font-size="13" fill="#a99a88"><text x="14" y="48">0:00</text><text x="372" y="48">1:00</text><text x="739" y="48">2:00</text><text x="1106" y="48">3:00</text><text x="1474" y="48">4:00</text><text x="1830" y="48">5:00</text></g>
+  <g font-size="13" font-weight="700">
+   <rect x="120" y="5" width="108" height="22" rx="4" fill="#6cc070"/><text x="128" y="21" fill="#10240f">Sweep LANDS</text>
+   <rect x="330" y="5" width="108" height="22" rx="4" fill="#e0584a"/><text x="338" y="21" fill="#2a0c08">Pass MISSED</text>
+   <rect x="560" y="5" width="108" height="22" rx="4" fill="#6cc070"/><text x="568" y="21" fill="#10240f">Sweep LANDS</text>
+   <rect x="790" y="5" width="116" height="22" rx="4" fill="#e0584a"/><text x="798" y="21" fill="#2a0c08">Kim penalty</text>
+   <rect x="1170" y="5" width="48" height="22" rx="4" fill="#e8b84a"/><text x="1178" y="21" fill="#2a1f08">NOW</text>
+   <circle cx="1268" cy="16" r="9" fill="none" stroke="#5ea4d8" stroke-width="3"/><text x="1284" y="21" fill="#5ea4d8">her tell due</text>
+  </g>
+</svg></div>
+</body></html>

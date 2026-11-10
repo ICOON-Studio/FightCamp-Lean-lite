@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>BJJ live bout - simvet 10/10</title>
+<style>
+:root{--bg:#120f0c;--wood:#2a1f16;--wood2:#3a2b1e;--chalk:#efe6d2;--dim:#a99c85;--ana:#4a8bd0;--kim:#d0533a;--gold:#e8b84a;--ok:#6fbf73;--bad:#e0604a;--amber:#e8a13a;--line:#4a3a2a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:radial-gradient(1200px 700px at 40% 30%,#1d1712,#0d0a08);color:var(--chalk);font-family:"Segoe UI",Arial,sans-serif}
+.hand{font-family:"Segoe Print","Bradley Hand ITC","Comic Sans MS",cursive}
+.frame{position:absolute;background:linear-gradient(#2b2017,#211812);border:2px solid var(--line);border-radius:10px;box-shadow:0 6px 18px #000a inset,0 2px 0 #5a4630}
+.lbl{font-size:13px;letter-spacing:.14em;color:var(--dim);text-transform:uppercase;font-weight:700}
+/* header */
+#plate{left:20px;top:14px;width:1880px;height:110px;display:flex;align-items:center;padding:0 26px;gap:26px}
+.fighter{display:flex;align-items:center;gap:18px;width:640px}
+.fighter.kim{flex-direction:row-reverse;text-align:right}
+.badge{width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800;border:3px solid}
+.ana .badge{border-color:var(--ana);background:#16283d}.kim .badge{border-color:var(--kim);background:#3b1a14}
+.fname{font-size:30px;font-weight:800}.sub{font-size:15px;color:var(--dim);margin-top:2px}
+.score{font-size:64px;font-weight:800;line-height:1;min-width:70px;text-align:center}
+.pips{display:flex;gap:6px;margin-top:6px}.fighter.kim .pips{justify-content:flex-end}
+.pip{width:14px;height:14px;border-radius:50%;border:2px solid var(--dim)}
+.pip.on{background:var(--amber);border-color:var(--amber)}.pip.adv{background:var(--gold);border-color:var(--gold)}
+.clock{flex:1;text-align:center}
+.clock .t{font-size:70px;font-weight:800;letter-spacing:.04em;line-height:1}
+.clock .s{font-size:14px;color:var(--dim)}
+.hand-ring{position:relative;width:96px;height:96px}
+/* mat */
+#mat{left:20px;top:136px;width:1130px;height:524px;overflow:hidden;background:#1b2a22}
+#mat svg{position:absolute;inset:0}
+.clue{position:absolute;left:0;right:0;bottom:0;height:66px;background:#0009;display:flex;align-items:center;padding:0 22px;gap:18px;border-top:2px solid var(--line)}
+.clue .txt{font-size:25px;flex:1}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:2px solid var(--line);background:#00000055;font-size:15px;font-weight:600;white-space:nowrap}
+.chip.k{border-color:var(--kim);color:#f3b9ac}.chip.a{border-color:var(--ana);color:#b9d6f3}.chip.g{border-color:var(--gold);color:var(--gold)}
+.poslab{position:absolute;left:20px;top:16px;font-size:15px}
+.stamps{position:absolute;right:18px;top:16px;display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.stamp{font-size:14px;font-weight:800;padding:4px 10px;border-radius:5px;border:2px solid;transform:rotate(-2deg)}
+.stamp.r{color:var(--ok);border-color:var(--ok);background:#11251a}.stamp.w{color:var(--bad);border-color:var(--bad);background:#2a130e}
+/* card */
+#card{left:1164px;top:136px;width:736px;height:524px;padding:16px 18px;border-color:var(--gold)}
+#card h2{font-size:24px;display:flex;justify-content:space-between;align-items:center}
+.timer{position:relative;width:62px;height:62px}
+.arrow{margin-top:10px;display:grid;grid-template-columns:62px 1fr 96px;gap:14px;align-items:center;background:#00000040;border:2px solid var(--line);border-radius:9px;padding:9px 12px}
+.arrow:hover,.arrow.sel{border-color:var(--gold)}
+.kind{width:62px;height:62px;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:13px;letter-spacing:.06em}
+.k-sweep{background:#1d3a5f}.k-sub{background:#5a1f2a}.k-stand{background:#3d4a1f}
+.kind b{font-size:26px;display:block;line-height:1}
+.aname{font-size:22px;font-weight:700}.meta{display:flex;gap:16px;margin-top:5px;font-size:14px;color:var(--dim);flex-wrap:wrap}
+.meta span b{color:var(--chalk)}
+.band{display:inline-flex;gap:3px;vertical-align:middle}.band i{width:11px;height:11px;background:var(--dim);display:block;opacity:.25;border-radius:2px}.band i.on{opacity:1;background:var(--amber)}.band i.q{opacity:1;background:transparent;border:1.5px dashed var(--dim)}
+.odds{text-align:right}.odds .p{font-size:36px;font-weight:800}.odds .r{font-size:12px;color:var(--dim)}
+.skip{margin-top:10px;display:flex;justify-content:space-between;align-items:center;border:2px dashed var(--dim);border-radius:9px;padding:10px 14px;color:var(--dim);font-size:15px}
+.skip b{color:var(--chalk)}
+.ear{margin-top:12px;display:flex;align-items:center;gap:14px}
+.ear .ps{display:flex;gap:8px}.ear .ps i{width:26px;height:26px;border-radius:50%;border:3px solid var(--gold);display:block}
+.ear .ps i.on{background:var(--gold)}.ear .ps i.next{background:conic-gradient(var(--gold) 0 58%,transparent 58%)}
+/* right lower: rival */
+#rival{left:20px;top:672px;width:690px;height:312px;padding:14px 18px}
+#rival h3,#orders h3,#shout h3,#tl h3{font-size:13px;letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
+.row{display:flex;align-items:center;gap:12px;margin-top:9px}
+.bar{flex:1;height:16px;background:#000a;border-radius:8px;overflow:hidden;border:1px solid var(--line)}.bar i{display:block;height:100%}
+.note{margin-top:10px;padding:7px 12px;background:#e8dcb8;color:#2a2012;border-radius:4px;transform:rotate(-.6deg);font-size:19px;box-shadow:0 3px 6px #0008}
+.modes{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.m{font-size:13px;padding:4px 10px;border-radius:6px;border:1.5px solid var(--line);color:var(--dim)}
+.m.now{border-color:var(--kim);color:#fff;background:#4a2018}.m.nxt{border-color:var(--gold);color:var(--gold);border-style:dashed}
+/* orders */
+#orders{left:724px;top:672px;width:704px;height:312px;padding:14px 18px}
+.ord{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.o{border:2px solid var(--line);border-radius:9px;padding:8px 12px;background:#00000040;min-height:104px;position:relative}
+.o.act{border-color:var(--gold);background:#3a2d12}
+.o .n{font-size:22px;font-weight:800}.o .g{font-size:13px;margin-top:5px;color:#cde6cf}.o .c{font-size:13px;margin-top:4px;color:#e9b3a6}
+.o.lock{opacity:.62;background:repeating-linear-gradient(135deg,#00000040 0 10px,#ffffff0a 10px 20px)}
+.o .lk{position:absolute;right:10px;top:10px;font-size:12px;color:var(--amber);font-weight:700}
+.facts{margin-top:11px;padding:10px 14px;border-left:4px solid var(--gold);background:#00000040;font-size:16px;line-height:1.35}
+.facts small{color:var(--dim);display:block;margin-top:3px;font-size:13px}
+/* shout */
+#shout{left:1442px;top:672px;width:458px;height:312px;padding:14px 18px}
+.cues{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.cue{padding:9px 14px;border-radius:8px;border:2px solid var(--line);background:#00000050;font-weight:700;font-size:17px}
+.cue small{color:var(--gold);font-size:11px;margin-left:6px}
+.trust{margin-top:12px}
+.so{margin-top:12px;font-size:15px;line-height:1.5;color:var(--dim)}
+.so b{color:var(--chalk)}
+/* timeline */
+#tl{left:20px;top:1062px;width:1880px;height:0}
+</style></head><body>
+
+<div id="plate" class="frame">
+  <div class="fighter ana">
+    <div class="badge">A</div>
+    <div><div class="fname">Ana Ribeiro</div><div class="sub">white belt - blue corner</div>
+      <div class="pips"><span class="lbl" style="margin-right:6px">ADV</span><span class="pip adv"></span><span class="pip"></span><span class="lbl" style="margin:0 6px 0 14px">PEN</span><span class="pip"></span><span class="pip"></span><span class="pip"></span></div></div>
+    <div class="score" style="color:var(--ana)">2</div>
+  </div>
+  <div class="clock">
+    <div class="t">2:31</div>
+    <div class="s">of 5:00 - Kim leads 3-2 on points, advantage Ana</div>
+  </div>
+  <div class="hand-ring">
+    <svg viewBox="0 0 96 96" width="96" height="96">
+      <circle cx="48" cy="48" r="40" fill="none" stroke="#4a3a2a" stroke-width="7"/>
+      <circle cx="48" cy="48" r="40" fill="none" stroke="#e8a13a" stroke-width="7" stroke-dasharray="251" stroke-dashoffset="251" transform="rotate(-90 48 48)"/>
+      <text x="48" y="45" text-anchor="middle" fill="#a99c85" font-size="11" font-weight="700">THE COUNT</text>
+      <text x="48" y="62" text-anchor="middle" fill="#efe6d2" font-size="15" font-weight="800">none</text>
+    </svg>
+  </div>
+  <div class="fighter kim">
+    <div class="badge">K</div>
+    <div><div class="fname">Kim Hale</div><div class="sub">white belt - red corner</div>
+      <div class="pips"><span class="pip"></span><span class="pip"></span><span class="lbl" style="margin:0 6px">ADV</span><span class="pip"></span><span class="pip"></span><span class="pip on"></span><span class="lbl" style="margin-left:6px">PEN</span></div></div>
+    <div class="score" style="color:var(--kim)">3</div>
+  </div>
+</div>
+
+<div id="mat" class="frame">
+  <svg viewBox="0 0 1130 560" preserveAspectRatio="xMidYMin slice">
+    <defs><pattern id="tat" width="70" height="70" patternUnits="userSpaceOnUse"><rect width="70" height="70" fill="#23382c"/><rect width="68" height="68" x="1" y="1" fill="none" stroke="#1a2b21" stroke-width="2"/></pattern>
+    <radialGradient id="sp" cx="50%" cy="42%" r="60%"><stop offset="0" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></radialGradient></defs>
+    <rect width="1130" height="560" fill="url(#tat)"/><rect width="1130" height="560" fill="url(#sp)"/>
+    <ellipse cx="565" cy="330" rx="330" ry="120" fill="none" stroke="#e8dcb855" stroke-width="3" stroke-dasharray="14 10"/>
+    <!-- Ana underneath (blue), on her back, guard open -->
+    <g transform="translate(470,330)">
+      <ellipse cx="0" cy="40" rx="150" ry="28" fill="#000" opacity=".35"/>
+      <rect x="-150" y="-4" width="190" height="44" rx="22" fill="#2f6fb5" stroke="#9ec6ee" stroke-width="3"/>
+      <circle cx="-170" cy="18" r="26" fill="#d9a98a" stroke="#9ec6ee" stroke-width="3"/>
+      <rect x="20" y="-30" width="110" height="26" rx="13" fill="#2f6fb5" stroke="#9ec6ee" stroke-width="3" transform="rotate(-24 20 -30)"/>
+      <rect x="30" y="20" width="120" height="26" rx="13" fill="#2f6fb5" stroke="#9ec6ee" stroke-width="3" transform="rotate(18 30 20)"/>
+    </g>
+    <!-- Kim on top (red) -->
+    <g transform="translate(590,250)">
+      <ellipse cx="0" cy="110" rx="130" ry="24" fill="#000" opacity=".3"/>
+      <rect x="-70" y="-30" width="160" height="70" rx="34" fill="#c24a33" stroke="#f0a898" stroke-width="3" transform="rotate(14)"/>
+      <circle cx="-86" cy="-34" r="26" fill="#d9a98a" stroke="#f0a898" stroke-width="3"/>
+      <rect x="-10" y="40" width="120" height="26" rx="13" fill="#c24a33" stroke="#f0a898" stroke-width="3" transform="rotate(60 -10 40)"/>
+    </g>
+    <path d="M520 300 Q560 270 610 285" fill="none" stroke="#e8b84a" stroke-width="5" stroke-dasharray="3 9" stroke-linecap="round"/>
+  </svg>
+  <div class="poslab"><span class="chip a">Ana underneath - half guard, Kim passing</span></div>
+  <div class="stamps"><div class="stamp r">READ RIGHT  1:58  turn-in  ear +1</div><div class="stamp w">MISSED  1:21  Armbar  (she answered it)</div></div>
+  <div class="clue">
+    <div class="txt hand">"Settling her weight, hunting for the neck."</div>
+    <span class="chip k">mode: Hunting the neck</span>
+    <span class="chip g">gas: steady</span>
+    <span class="chip k">habit: rushes the pass</span>
+  </div>
+</div>
+
+<div id="card" class="frame">
+  <h2><span>MOVE CARD <span class="lbl" style="margin-left:10px">she has the pass, Ana has a window</span></span>
+    <span class="timer"><svg viewBox="0 0 62 62" width="62" height="62"><circle cx="31" cy="31" r="26" fill="none" stroke="#4a3a2a" stroke-width="6"/><circle cx="31" cy="31" r="26" fill="none" stroke="#e8b84a" stroke-width="6" stroke-dasharray="163" stroke-dashoffset="62" transform="rotate(-90 31 31)"/><text x="31" y="37" text-anchor="middle" fill="#efe6d2" font-size="17" font-weight="800">4.1</text></svg></span></h2>
+  <div class="arrow sel">
+    <div class="kind k-sweep"><b>S</b>SWEEP</div>
+    <div><div class="aname">Butterfly sweep</div>
+      <div class="meta"><span>scores <b>+2</b></span><span>gas <b>●○○</b></span><span>a miss: <b>she finishes the pass (3)</b></span></div>
+      <div class="meta"><span>she answers it in this mode <span class="band"><i class="on"></i><i class="on"></i><i class="on"></i><i class="q"></i></span> <b>often?</b></span><span style="color:var(--amber)">tape: 2 of 4 tells</span></div></div>
+    <div class="odds"><div class="p">38%</div><div class="r">range 32-44</div></div>
+  </div>
+  <div class="arrow">
+    <div class="kind k-stand"><b>T</b>TURN IN</div>
+    <div><div class="aname">Turn in, back to guard</div>
+      <div class="meta"><span>scores <b>0</b></span><span>gas <b>●○○</b></span><span>a miss: <b>she takes side control</b></span></div>
+      <div class="meta"><span>she answers it in this mode <span class="band"><i class="on"></i><i class="on"></i><i class="q"></i><i class="q"></i></span> <b>sometimes?</b></span></div></div>
+    <div class="odds"><div class="p">57%</div><div class="r">range 51-62</div></div>
+  </div>
+  <div class="arrow">
+    <div class="kind k-sub"><b>X</b>FINISH</div>
+    <div><div class="aname">Kimura from half guard</div>
+      <div class="meta"><span>ends it <b>if it lands</b></span><span>gas <b>●●○</b></span><span>a miss: <b>grips and the initiative</b></span></div>
+      <div class="meta"><span>she answers it in this mode <span class="band"><i class="q"></i><i class="q"></i><i class="q"></i><i class="q"></i></span> <b>unscouted</b></span></div></div>
+    <div class="odds"><div class="p">21%</div><div class="r">range 15-28</div></div>
+  </div>
+  <div class="skip"><span><b>SKIP</b> is free. The plan move runs: <b>Kimura 21%</b> (mode-blind, it never reads her).</span><span class="chip">Space</span></div>
+  <div class="ear">
+    <span class="lbl" style="white-space:nowrap">Ear</span>
+    <span class="ps"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="next"></i><i></i></span>
+    <span style="font-size:14px;color:var(--dim)">4 of 6 - pick 2, word 1, order 1 - next in 7 s, any spend restarts it</span>
+  </div>
+  </div>
+
+<div id="rival" class="frame">
+  <h3>Kim - what you have read</h3>
+  <div class="row"><span style="width:92px">Her gas</span><div class="bar"><i style="width:71%;background:linear-gradient(90deg,#c9892f,#e8b84a)"></i></div><span style="width:70px;text-align:right"><b>steady</b></span></div>
+  <div class="row"><span style="width:92px">Ana's gas</span><div class="bar"><i style="width:58%;background:linear-gradient(90deg,#2f6fb5,#6aa8e8)"></i></div><span style="width:70px;text-align:right"><b>0.58</b></span></div>
+  <div class="row"><span style="width:92px">Her modes</span>
+    <div class="modes" style="margin-top:0"><span class="m">Smashing</span><span class="m now">Hunting the neck</span><span class="m">Wrestling up</span><span class="m">Sitting on it</span><span class="m">Sweeping</span></div></div>
+  <div class="row" style="margin-top:12px"><span style="width:92px">Tell</span>
+    <div class="bar" style="height:20px;position:relative"><i style="width:62%;background:repeating-linear-gradient(90deg,#e8b84a 0 10px,#c9962f 10px 20px)"></i></div>
+    <span class="chip g">mode may change in 2 s</span></div>
+  <div class="note hand" style="font-size:16px;margin-top:10px">She has beaten your sweep twice. She is waiting for it. <span style="font-size:12px;color:#6a5a3a">adapted note</span></div>
+  <div class="row" style="align-items:flex-start;margin-top:10px"><span style="width:92px">Her file</span>
+    <div style="font-size:15px;line-height:1.5;color:var(--dim)">Known: rushes the pass. Unknown: her sub chain, her answer to Finish.</div></div>
+</div>
+
+<div id="orders" class="frame">
+  <h3>Orders - set until you change them (lock 10 s, costs 1 ear)</h3>
+  <div class="ord">
+    <div class="o lock"><div class="n">SURVIVE</div><div class="lk">locks 0:06</div><div class="g">+gas, only low-loss moves</div><div class="c">she gets more beats; your score slows</div></div>
+    <div class="o act"><div class="n" style="color:var(--gold)">POINTS</div><div class="g">scoring moves weighted</div><div class="c">a stall count outside a pin counts on you</div></div>
+    <div class="o"><div class="n">FINISH</div><div class="g">subs weighted, +0.04 odds</div><div class="c">gas x1.4, a miss gives up grips; she reads it and answers it</div></div>
+  </div>
+  <div class="facts">2:29 left is about 7 beats each. Kim leads by 1 point; you hold 1 advantage. No count is running. Your penalties: 0. Hers: 1.
+    <small>The bar gives the facts, never the answer. A better coach reads you the count at 1:00.</small></div>
+</div>
+
+<div id="shout" class="frame">
+  <h3>Shout - always live, 1 ear each</h3>
+  <div class="cues"><span class="cue">Frame<small>1</small></span><span class="cue">Hips out<small>1</small></span><span class="cue">Underhook<small>1</small></span><span class="cue">Hand fight<small>1</small></span><span class="cue">Stay heavy<small>1</small></span><span class="cue">Head up<small>1</small></span></div>
+  <div class="trust"><div class="row"><span style="width:78px">Her trust</span><div class="bar"><i style="width:74%;background:linear-gradient(90deg,#4f8f55,#6fbf73)"></i></div><b>+4</b></div>
+    <div style="font-size:13px;color:var(--dim);margin-top:4px">A right cue +1, a wrong one -2. Each cue is right in 2 to 3 positions: +0.05 odds on that position's best kind for 12 s; wrong, -0.05.</div></div>
+  <div class="so" style="margin-top:8px"><b>Standing orders</b> (set in the Playbook; run at 0 ear)<br>
+    Choke: <b>fight it</b> | Joint lock: <b>tap</b> | Bell: <b>wrestle</b></div>
+</div>
+
+<div id="tl" class="frame" style="left:20px;top:992px;width:1880px;height:78px;padding:8px 20px">
+ <svg viewBox="0 0 1840 62" width="1840" height="62">
+  <rect x="0" y="26" width="1840" height="14" rx="7" fill="#000a" stroke="#4a3a2a"/>
+  <rect x="0" y="26" width="368" height="14" rx="7" fill="#7a3a2a"/><rect x="368" y="26" width="300" height="14" fill="#a8742a"/><rect x="668" y="26" width="258" height="14" fill="#7a3a2a"/>
+  <rect x="926" y="26" width="914" height="14" rx="7" fill="#222" opacity=".6"/>
+  <g font-size="12" fill="#a99c85" font-weight="700"><text x="0" y="58">0:00</text><text x="368" y="58">1:00</text><text x="736" y="58">2:00</text><text x="1104" y="58">3:00</text><text x="1472" y="58">4:00</text><text x="1806" y="58">5:00</text></g>
+  <g fill="#efe6d2" font-size="11" font-weight="800">
+   <rect x="60" y="12" width="12" height="12" transform="rotate(45 66 18)" fill="#6fbf73"/><text x="80" y="22">takedown LANDS</text>
+   <rect x="500" y="12" width="12" height="12" transform="rotate(45 506 18)" fill="#e0604a"/><text x="520" y="22">armbar MISSED</text>
+   <rect x="710" y="12" width="12" height="12" transform="rotate(45 716 18)" fill="#6fbf73"/><text x="730" y="22">turn-in read right</text>
+   <path d="M956 6 v34" stroke="#e8b84a" stroke-width="3" stroke-dasharray="4 3"/><text x="964" y="22" fill="#e8b84a">tell: her mode changes about 2:36</text>
+   <path d="M926 2 v46" stroke="#efe6d2" stroke-width="4"/><text x="860" y="58" fill="#efe6d2">NOW 2:31</text>
+   <path d="M1288 52 l9 0 l-4.5 -10z" fill="#a99c85"/><text x="1304" y="58" fill="#a99c85">1:00 left: a count runs 20 s</text>
+  </g>
+ </svg>
+ <div class="lbl" style="position:absolute;right:24px;top:3px;font-size:11px">match log - colour = her mode - dim = not yet played</div>
+</div>
+</body></html>

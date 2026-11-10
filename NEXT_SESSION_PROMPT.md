@@ -1,57 +1,48 @@
-# S428 handover: side panels round 3, the week design's critics, his marks on the fight screen (written 2026-11-10, end of S427)
+# S429 handover: the critics' round results, week design v4, collects (written 2026-11-10, end of S428)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S428` and redraw the Miro map.
-S427 has no digest: its facts are here, in roadmap.json `now` and in memory (project_s427_outline_cornerbar, feedback_proper_outlines_s427).
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S429` and redraw the Miro map.
+S428 has no digest: its facts are here, in roadmap.json `now` and in memory (project_s428_bjj_critics_collects).
+FIRST, BEFORE ANY CRITIC ROUND: run `get_usage` (ccd_session_mgmt). In S428 the plan showed weekly all-models 100% and extra usage EUR 24.41 of 40 spent; each round of two fresh critics is ~330k subagent tokens. Ask him about the money before another round.
 
-## His words in S427 (verbatim)
-- C273, Dues tab still: "use proper outline effects throught all project not cheap solutions."
-- C274, BJJ bout film: "looks ok but maybe add some options for te player to decide during the fight ? and also add the missing refinement art and add visual effects"
-- Corner bar marks (ops/Feedback/2026-11-10-20): calls box "make them smaller . and use the space to add some live stats ? or add more options (mechanic) or what else the coach can change/say during the corner minute for the player ?" + an arrow to the bottom-left; the name label "need better presentation"; Say nothing "same with 1 and 2".
-- Boxing Manager stills: chips over the heads "i like the status indicator showing intention we can improve this"; their corner "their stats screen is useful but other than that they do only offer 1 option to the player and leaving him a bit clueless."; their week skip "this means there is not much for the player to do ?"
+## His words in S428
+None new (the session was the start command, then the work in the handover below). His open marks: the two S427 stills (8787/review, 2026-11-10_1821), and the new posts (Training tab B, the fight screen: 2026-11-10_1854, _1858).
 
-## Done in S427 (main, pushed; exported again at the end with the final bar; WHAT_TO_TRY current)
-- ONE OUTLINE: scripts/ui/Halo.gd + halo.gdshader (Halo.ring / hover / cutout), on DuesBoards, CornerBar's call in force, NowPlate, GuideLight; tests/halo_test.gd. Dues paintings are cut-outs (assets/ui/dues/*_cut.png) with a chalk figure line (cutout.gdshader).
-- CORNER BAR: calls + Say nothing small on the left under Pace/Aim (CALL_Y 90, CALL_H 66); the right is scripts/fight3d/RoundBoard.gd (landed, her game now, your calls with ticks); tests/round_board_test.gd. NowPlate's cost in words.
-- TvShot.BAR_CLEAR 0.68: feet clear the bar at a cut. NOT enough when a boxer stands right at the lens (see corner_bar_board_real.png: Lucy's boots under the bar).
-- Collected by diff: FIRELEVEL1 (PR 175, with the no-key fix; rule on main, switched off), KDFIX5 (PR 178; knockdown_still_test holds the stage still: 4 of 4). PRs 162/166/169/175/176/177/178 closed.
-- WEEK DESIGN V3: ops/research/WEEK_DESIGN_V3_S427.md + docs/mockups/s427/week_v3_camp.png, week_v3_quiet.png. TWO FRESH CRITICS SCORED IT DEPTH 5 AND 5 (coach: look 6, clear 6, depth 5, to do 4, anticipation 6, reward 6; sim veteran: 6.5, 5.5, 5, 5, 6, 6). NOT on his board. Reviews + their 10/10 drawings: docs/mockups/s427/week_v3_critic_coach.md, week_v3_critic_simvet.md, week_v3_10_coach.png, week_v3_10_simvet.png.
-  What both say (v4 changes the MECHANIC, not the wording):
-  1. The squeeze has no fork: one claim on Friday can still land, one thing uses the body. Give each resource a rival: every tape find offers "teach the new move (raw, fires 1 in 2, costs evenings)" against "point an owned line at it (fires 3 in 4, free)" (coach); evenings cut into thirds so problems are part-paid (sim veteran; the game's pad night is 75 minutes).
-  2. Wednesday's tap and Thursday's stop are one decision made twice. ONE mid-week stop: Wednesday sparring gets a job the player sets before the rounds (an answer under fire, the habit, engine, light), it costs the body (so the scale has a rival inside 80), and it shows the line fire n of 6 with the fight's own plates.
-  3. The four answers as named tiles (situation, line, level, "fires 1 in 2", worth against this opponent), not dots: by the measured numbers sharpening an owned line (+2.8) beats the last missing answer.
-  4. The quiet week needs a call every week: from a block's second Friday "call the test" (pass chance as a band) or "one more week"; Saturday chosen after the result; in the open spar the player picks WHICH line is shown.
-  5. Everything rests on Reid's hands being scarce, unmeasured: the design says two evenings, the game has three pad nights; offers come 8 to 12 weeks out and a move is usable in week 2, so every answer may be owned before taper. MEASURE THIS FIRST (a probe: answers owned at taper on the coach's default week, with and without senior / bag nights).
+## Done in S428 (main, pushed)
+- MOODHABIT1 collected (docs/MOODHABIT1_RESULT.md): mood is under 1 point of win chance (Flat vs Steady -0.8, 0 with the corner silent); habits 6 to 15 points against the right opponent; HabitFix.cost is one flat cost so a habit's name only changes WHICH opponent punishes it; CornerTrust.lands is called nowhere in the fight (Low = Flat).
+- TRAININGB1 (PR 179) collected: Training tab B with the tiredness curve; week_b / slate / plan / coach / training_week / weekend_plan tests green; real render read.
+- FIGHTDISPLAY3 collected: wooden side panels, IntentChip over the heads, name plate, EnergyForecast; four new tests green; fight3d_play failures=0. STILL OPEN: the chip over the right fist covers the R3 card; the head tooltip ("HEAD 89 - ...") sits on the brain icon; the corner card's text overlaps ("Your coach has seen it..." over "Leave it"). Brief a small FIGHTDISPLAY4 or fold into HALOSWEEP1's review.
+- Ziva fixed: its worktree moved to main (old project.godot re-save on wip/ziva-s427), editor started hidden, port 7012 answers.
+- Briefed: HANDSPROBE1 (Qwen: how scarce Reid's hands are; first run VOID, spread rule), BARGUARD1 (Cursor, queued: boots above the corner bar while a shot holds; the ANIMATION item of the session, with the legs retry still to do), HALOSWEEP1 launched (Cursor).
+- Critic rounds (all in docs/mockups/s428: reviews + each critic's 10/10 drawing):
+  - BJJ live choices: Kalli's nine decisions 4 and 5; v2 (ops/research/BJJ_LIVE_CHOICES_V2_S428.md) 5 and 5; v3 5 and 6; v4 (V4 file: orders dial and cue bar cut; PREDICT, BAIT, work the grips, the 3 s hold, defender's card, hidden mode, ear) went to two critics at the end. Economy/hidden-information critic: 6 (ear and PREDICT 4; everything else 6; anticipation 7). Its list: write the mode x kind matrix with magnitudes per archetype; show the win-chance change per arrow; make PREDICT worth more than waiting 5 s for the free clue (lock the pick before the clue, show the bet's EV, fix the 3 s vs 5 s lag); state the defender's card cost and match its timer to the 3 s hold, show pin escape odds; the book should shift her MODE weights, not only her answer odds; make gas bind (as coded it ends near 0.58). The BJJ black-belt critic (bjj_v4_critic_bjj.md): 5.5 (rival mode 6.5; open day and corner minute 4; crises 4.5). Its list: the 3 s hold cannot fit a 6 to 8 s card and the clue is 3 s in one place, 5 s in another (slow the mat to 0.3x inside a hold, give the attacker a mini-card, resolve both sides at once); write the mode x move-kind matrix (spread 0.15 or more, each pick best against two modes; scouted reaction rows go stale with use); rebuild the ear (cap from Fight IQ and trust, one pip held for defence, one prediction per mode window); add Pace and a Chase / Even / Protect stance; a gas price on parking a pin and on grips. Dominant plays found: scout then always bait, spam the modal PREDICT, park a pin, take the first penalty free. So BJJ v4 stands at 5.5 and 6 (not 7).
+  - Cutman v3 (Kalli): 5 and 5 (cutman: a closed cut is a thin patch that reopens; seats not 3+3 hands; head-clash cannot trigger in a 4-round debut. Systems: a cut night is ~2 a gym-year, so put swelling and bruising in every bout, reprice tiers from EV, pin opening depth / close-reopen / hunt rate / doctor timing, hidden doctor temperament, send-out priced through InjuryRoll, finger test, a cut ledger in the Why).
+  - R37 ask for a fight (ops/research/R37_ASK_FOR_A_FIGHT_MAP_S428.md): coach/matchmaker critic 5 (make the SHOW the unit: ask against fixtures; a two-way favour ledger; targeted asks, host mode, incoming asks; the readiness read picks the kind for the player). The management-designer critic also 5 (r37_critic_designer.md): show the POOL (which clubs have a free fighter at her weight, who is booked or hurt); odds before the ask per channel (the app at $10 a month is a toggle that cuts "nobody" from 52% to 9% in a thin pool: give it a per-fight fee or a 12 to 18% pull-out rate); favours must buy something (a free sparring partner worth $160, a reserved slot); the wait must carry decisions (morale clock, two asks held, the pool moves); price each kind (amateurs have no purse: a step-up win needs a reward such as a shortcut to the pro offer).
+- Verified in code (BJJ): BjjMatch.can_call needs init == 0 (nothing is offered while she is being passed); BjjRef says pins never stall; tick() calls level points a draw and decide() passes advantages as [0,0].
 
 ## Running (yours to collect)
-- cursor/fightdisplay3 (TASK_FIGHTDISPLAY3): the wooden side panels on today's main: the 'stamina' script error, the overlap, the symbol box, the name plate, IntentChip over the heads, the stale S382 check in tools/fight3d_play.gd. RENDER IT and read the log before collecting.
-- THURSDAY2 LANDED AND IS ON MAIN (docs/THURSDAY2_RESULT.md, PR 180 closed): 10 opponents, 5 boxers, 525 camp-week Thursdays: 2 or more problems open in only 34% (0 open 28%, 1 open 38%); tiredness and cards NEVER a problem on the coach's default week; habit is nearly always the one open. So by v3's own gate the Thursday stop goes: the squeeze is laid on Monday with the named problems and clocks, and "the body" is not scarce in today's game (nothing pushes tiredness near 80). Its "lookup 100%" is by frequency, not priced: weak. WRITE THIS INTO v3/v4's gate table (not edited in S427: the critics were reading the file).
-- qwen/moodhabit1 (TASK_MOODHABIT1): what Flat against Steady and each habit are worth in wins (two of v3's "to run" gates).
-- Kalli: SQ39 BJJ in-fight choices, SQ40 what else the corner can say; John SQ37 belt ladder.
-- Queued for Cursor after FIGHTDISPLAY3: HALOSWEEP1 (the outline on 12 more screens; dispatch_queue).
-- PR 179 TRAININGB1 (Training tab B) landed, NOT looked at: render it, judge the stills, collect by diff.
+- qwen/handsprobe1 (TASK_HANDSPROBE1): Reid's hands; first result VOID (5 opponents, 20 rows): the spread rule needs 10 opponents and 12 distinct rows.
+- cursor/halosweep1 (TASK_HALOSWEEP1): the outline on 12 more screens. RENDER and read the log before collecting.
+- Queued: BARGUARD1 (Cursor). SQ40 (Kalli: what else the corner can say) sent; its answer lands in ops/research/K_CORNER_MORE_S427_BRIEF_KALLI.md.
 
 ## Open, in this order
-1. (export is current: nothing to do here.)
-2. His marks on the two new stills (8787/review, posts 2026-11-10_1821).
-3. Week v4 from the two critics' lists above (and THURSDAY2: no Thursday stop), the hands-scarcity probe first; then two FRESH critics; 7+ from both -> his board.
-4. Collect FIGHTDISPLAY3, TRAININGB1, THURSDAY2 as they land. RoundBoard's "<NAME> NOW" column goes when the chips are in (the brief says so).
-5. More to say in the corner / BJJ choices: Kalli's pages -> design map + picture each -> two critics 7+ -> his board. BJJ "refinement art and visual effects" is NOT briefed yet (the bout is on old cream panels and a bare mat): brief it to Cursor after the choices are designed.
-6. Cutman v3 (K_R28_CUTMAN_V3_PASTE_BRIEF_KALLI.md, unread by critics): make the map file, picture, two critics.
-7. Legs: qwen/legtremble4's code retry on today's main (look at its four films first), then the legs brief (fewer, longer clips). Feet under the bar up close: a camera brief (the lens must keep both boots above the bar's top while a shot holds, not only at the cut).
-8. Unread seat answers: SQ31 dues choice, SQ33 amateur ask (R37 map), SQ34 cheap club money, SQ38 small world (design only, after the week).
+1. Read the last critic reviews above (BJJ v4 x2, R37 designer), and his marks on the review board.
+2. WEEK DESIGN V4 (the recorded next action): from the two S427 critics' five points (see git show 42729e87 NEXT_SESSION_PROMPT, section "What both say") + THURSDAY2 (no Thursday stop) + MOODHABIT1 (mood claim goes, habit claim stays, priced by the opponent's file) + HANDSPROBE1 when it has a valid result. Then two fresh critics (money first), 7+ from both -> his board.
+3. Which design goes on? He decides taste and money: BJJ is at 5 to 6 after four rounds (not 7), cutman 5 and 5, R37 5. The pattern every critic finds: anything the card prints from the visible scoreboard is a lookup. Recommended: one more BJJ round only with the v4 fixes, then stop and show him the best picture and ask.
+4. Collect HALOSWEEP1, HANDSPROBE1 (valid result), BARGUARD1 when they land. Legs: retry qwen/legtremble4's code on main (its salvage is only code, no films in wt_salvage: re-render).
+5. Cutman v4 and R37 v2 from their critics' lists (above); Kalli's SQ40 corner options page.
+6. Unread seat answers: SQ31 dues choice, SQ34 cheap club money, SQ37 belt ladder, SQ38 small world (design only, after the week).
 
 ## Not done, say so
-- ZIVA is down (start said FIX IT NOW; no free Godot slot all session). Fix it first: the command is in `start`'s ZIVA DOWN line.
-- E: is 92% full (AMBER, 37 GB free). Rule is under 85%. Find what can go (wt_salvage, old tmp renders under E:\FightCamp\tmp) and ask him before deleting anything that is not a scratch render.
-- Miro P0 frame: cards updated, the frame resize was refused (it is 5210 tall with old surplus cards low in it). Deleting those needs his yes.
-- tools/fight3d_play.gd exits 1 on the stale S382 holo check (in FIGHTDISPLAY3's brief).
-- The LAST CALL box now repeats the round board's YOUR CALLS: fold one into the other when the side panels land.
+- E: is 92% full (35.8 GB free; AMBER). Scratch renders under E:\FightCamp\tmp: moss 11 GB, s390 6.6, s393 4.0, s392 3.5, s383 2.9, rokoko2 2.4. NOTHING deleted: ask him.
+- Miro P0 frame: map entries updated in where_we_are.py but NOT redrawn on Miro this session (token budget). The frame resize and deleting old surplus cards need his yes.
+- No Workflow or full test run; the nightly runs at 05:00. Export not rebuilt this session (TRAININGB1 and FIGHTDISPLAY3 landed after the S427 export): run `sh tools/export.sh` and refresh WHAT_TO_TRY.txt first thing if he wants to play them.
+- BJJ "refinement art and visual effects" (his C274) still not briefed to Cursor: after the design reaches 7+.
 
 ## Traps
-- Parse before test: a parse error in a preloaded module hangs a headless test; wrap runs in `timeout 240` and grep "Parse Error".
-- A shell command whose text holds the console exe's name is blocked, heredoc briefs too: write briefs with the Write tool.
-- `seat_dispatch.py --task <ID> --seat <seat> --act` launches at once; the brief must be on origin/main; REGRESSION must list real test names.
-- A seat's "all green" is a claim: FIGHTDISPLAY2's nine green tests hid a script error a real render printed twice.
-- RingCamera.gd is exactly 500 lines; CornerBar.gd is 492; SidePanel.gd (on the branch) 499.
+- A worktree command's cd changes the session's primary directory: use `git -C <path>` and absolute paths, `E:/` paths for review_add.py (an `/e/...` path is skipped).
+- Qwen's dispatch: seat_dispatch refuses while live_runs.json says a run is "running"; mark landed runs there (S428 did for MOODHABIT1, FIGHTDISPLAY3, TRAININGB1).
+- hidden_desktop renders print nothing on stdout: pass `--log-file <path>` to Godot before `--script`, and wrap the whole command in `godot_slot.py run --who claude --`.
+- A critic's copy of a design page must be stripped of earlier scores and of the words "earlier draft"; docs/mockups/s428/*_for_critics.md are the clean copies.
+- RingCamera.gd is exactly 500 lines; CornerBar.gd 492; SidePanel.gd 464; WeekBoard.gd 471.
 
-SETTINGS: S427 ran on Fable 5.2 and went long (two stages: the outline, then his fight-screen marks). Next session: Sonnet 5.5, high effort, Fast off (collecting, rendering, reading critics: no hard design problem unless the critics score under 7).
+SETTINGS: S428 ran on Sonnet 5.5 at default effort and spent heavily on critic subagents. Next session: Sonnet 5.5, high effort, Fast off, and decide with him the money for critics before spawning any (collecting, rendering and writing week v4 are cheap).

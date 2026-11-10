@@ -11,7 +11,8 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const ExchangeBeats := preload("res://scripts/fight3d/ExchangeBeats.gd")
 const BodyLive := preload("res://scripts/fight3d/BodyLive.gd")
 const BodyBurn := preload("res://scripts/fight3d/BodyBurn.gd")
-const HudBars := preload("res://scripts/fight3d/HudBars.gd")
+const SidePanel := preload("res://scripts/fight3d/SidePanel.gd")
+const IntentChip := preload("res://scripts/fight3d/IntentChip.gd")
 const ScoreBug := preload("res://scripts/fight3d/ScoreBug.gd")
 const CornerBar := preload("res://scripts/fight3d/CornerBar.gd")
 
@@ -24,10 +25,8 @@ static func scored(exchanges: Array, t: float) -> Array:
 
 static func build(view: Control) -> void:
 	ScoreBug.attach(view)   # the round box: clock, the two totals, six dots, the cards
-	view.bars = HudBars.attach(view)   # S345 the six bars a boxer + the round edge
-	view._bug_box.add_child(view.bars.edge)
-	view.bars.edge.visible = false   # the digits and the dots say who has the round
-	view.body = BodyLive.attach(view)   # S318 the body map; S405 its holo panels stand on each side (BodyPanels)
+	view.bars = SidePanel.attach(view)   # a card each side; the rings are no longer built
+	view.body = BodyLive.attach(view)   # S318 the body map; the holo is a child of each side panel
 	view.burn = BodyBurn.attach(view)   # S322 per-part Burn: guard, steps, punch snap
 	view._buttons = UI.hbox(8)
 	view._buttons.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -50,6 +49,7 @@ static func build(view: Control) -> void:
 	pin(view._banner, Vector4(0.5, 0, 0.5, 0), Vector4(-640, 226, 640, 326))
 	FightCalls.attach(view, pin)   # S395 the TV line and the big-shot moment
 	CornerBar.attach(view)   # the plank across the bottom, on for the whole round
+	IntentChip.attach(view)   # a status word over each head, up with the scorebug
 
 
 ## Anchors (left, top, right, bottom) and offsets in pixels from them.

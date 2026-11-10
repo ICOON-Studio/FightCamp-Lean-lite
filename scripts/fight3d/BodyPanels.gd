@@ -66,20 +66,35 @@ func _build() -> void:
 			co.set("line_fn", _spot_line.bind(side))
 			co.set("marks", live.map[CORNER_WHO[side]])
 			co.call("go_live")
-		view.add_child(panel)
-		if side == 0:
-			panel.position = Vector2(EDGE, TOP)
+		var home := _home(side)
+		if home != null:
+			fig.custom_minimum_size = home.get("figure_size")
+			home.add_child(panel)
+			panel.set_anchors_preset(Control.PRESET_TOP_LEFT)
+			panel.position = home.get("figure_pos")
 		else:
-			panel.anchor_left = 1.0
-			panel.anchor_right = 1.0
-			panel.grow_horizontal = Control.GROW_DIRECTION_BEGIN
-			panel.offset_left = -EDGE
-			panel.offset_right = -EDGE
-			panel.offset_top = TOP
+			view.add_child(panel)
+			if side == 0:
+				panel.position = Vector2(EDGE, TOP)
+			else:
+				panel.anchor_left = 1.0
+				panel.anchor_right = 1.0
+				panel.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+				panel.offset_left = -EDGE
+				panel.offset_right = -EDGE
+				panel.offset_top = TOP
 		panels.append(panel)
 		figures.append(fig)
 	_repaint(0)
 	_repaint(1)
+
+
+## The side panel this figure stands in, when the fight HUD built one. Null keeps the old edge place.
+func _home(side: int) -> Control:
+	var n := view.find_child("SidePanel%d" % side, true, false) as Control
+	if n != null and n.get("figure_size") is Vector2:
+		return n
+	return null
 
 
 ## The place whose organ pops: on a big punch the place that lost most, otherwise a place that just dropped a damage band;
@@ -161,3 +176,74 @@ func _process(delta: float) -> void:
 	_paint_left = PAINT_S
 	_repaint(0)
 	_repaint(1)
+
+
+## The side panel's drawn meters (SidePanel). They live here so that file stays under 500 lines.
+class Tank extends Control:
+	var fill := 1.0
+	var mark := -1.0
+	var hatched := false
+	var col := Color("#f2c14e")
+	var band_lo := -1.0
+	var band_hi := -1.0
+
+	func set_fill(v: float, dashed: float) -> void:
+		fill = clampf(v, 0.0, 1.0)
+		mark = dashed
+		hatched = false
+		band_lo = -1.0
+		band_hi = -1.0
+
+	func set_known(v: float, known: bool) -> void:
+		hatched = not known
+		fill = clampf(v, 0.0, 1.0)
+		mark = -1.0
+		band_lo = -1.0
+		band_hi = -1.0
+
+	func set_range(truth: float, scouted: bool) -> void:
+		var half := 3.0 if scouted else 8.0
+		band_lo = clampf((truth - half) / 100.0, 0.0, 1.0)
+		band_hi = clampf((truth + half) / 100.0, 0.0, 1.0)
+		hatched = false
+		mark = -1.0
+		fill = truth / 100.0
+
+	func _draw() -> void:
+		draw_rect(Rect2(Vector2.ZERO, size), Color("#0f0d0b"))
+		if hatched:
+			var y := 0.0
+			while y < size.y + size.x:
+				draw_line(Vector2(0, y), Vector2(size.x, y - size.x), Color("#2b2520"), 5.0)
+				y += 12.0
+			return
+		if band_lo >= 0.0:
+			var y0 := size.y * (1.0 - band_hi)
+			var y1 := size.y * (1.0 - band_lo)
+			draw_rect(Rect2(0, y0, size.x, maxf(4.0, y1 - y0)), col)
+			return
+		var h := size.y * fill
+		draw_rect(Rect2(0, size.y - h, size.x, h), col)
+		if mark < 0.0:
+			return
+		var my := size.y * (1.0 - clampf(mark, 0.0, 1.0))
+		var x := 0.0
+		while x < size.x:
+			draw_line(Vector2(x, my), Vector2(minf(x + 5.0, size.x), my), Color("#fff4cc"), 3.0)
+			x += 9.0
+
+
+class Ear extends Control:
+	var lit := true
+
+	func _draw() -> void:
+		var c := Color("#f2c14e") if lit else Color("#b8a88f")
+		draw_arc(size * 0.5, minf(size.x, size.y) * 0.38, -1.3, 1.3, 18, c, 4.0, true)
+		draw_circle(size * 0.55, 3.5, c)
+
+
+class Pip extends Control:
+	var on := false
+
+	func _draw() -> void:
+		draw_circle(size * 0.5, minf(size.x, size.y) * 0.42, Color("#f2c14e") if on else Color("#5a4a3a"))

@@ -26,8 +26,9 @@ func _initialize() -> void:
 	root.add_child(board)
 	var mine := board.find_child("LandedMine", true, false) as Label
 	_check(mine != null and mine.text == "6", "the board shows her punches landed")
-	_check(board.find_child("GameNow", true, false) != null and board.find_child("Used_hands", true, false) != null,
-		"the board shows her game now and the calls used")
+	_check(board.find_child("GameNow", true, false) == null, "the now column is gone (the chip and the panel say it)")
+	_check(board.find_child("Used_hands", true, false) != null and board.find_child("LandedMine", true, false) != null,
+		"the landed column and the calls column keep the width")
 	for n in board.find_children("*", "Label", true, false):
 		var l := n as Label
 		_check(l.get_theme_font_size("font_size") >= 20, "no text under 20 px (%s)" % l.text)

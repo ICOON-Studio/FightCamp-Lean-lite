@@ -1,0 +1,157 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>BJJ live bout - coach 10/10</title>
+<style>
+:root{--bg:#14110e;--panel:#1f1a15;--panel2:#272019;--wood:#6b4a2b;--chalk:#efe6d2;--dim:#a89b83;--ana:#3f8fd6;--kim:#d65a4a;--ok:#6fbf73;--warn:#e0b341;--bad:#e0604f;--ink:#0d0b09}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--bg);color:var(--chalk);font-family:"Segoe UI",Arial,sans-serif;position:relative;overflow:hidden}
+.marker{font-family:"Segoe Print","Bradley Hand ITC","Comic Sans MS",cursive}
+.box{position:absolute;background:var(--panel);border:3px solid var(--wood);border-radius:10px}
+.h{font-size:15px;letter-spacing:2px;color:var(--dim);text-transform:uppercase;padding:8px 14px 0}
+.abs{position:absolute}
+/* score plate */
+#plate{left:560px;top:14px;width:800px;height:150px;background:#0f0c09;border:3px solid var(--wood);border-radius:12px}
+.side{position:absolute;top:10px;width:250px;text-align:center}
+.side .n{font-size:26px;font-weight:700}.side .p{font-size:76px;font-weight:800;line-height:1}
+.side .s{font-size:15px;color:var(--dim)}
+.pip{display:inline-block;width:13px;height:13px;border-radius:50%;border:2px solid var(--dim);margin:0 2px}
+.pip.on{background:var(--bad);border-color:var(--bad)}.pip.adv{background:var(--warn);border-color:var(--warn);border-radius:3px}
+#clock{left:295px;top:12px;width:210px;text-align:center}
+#clock .t{font-size:62px;font-weight:800;letter-spacing:2px}
+#clock .l{font-size:14px;color:var(--dim)}
+/* timeline */
+#tl{left:40px;top:176px;width:1840px;height:62px}
+.tick{position:absolute;top:34px;font-size:12px;color:var(--dim)}
+.mk{position:absolute;top:8px;height:18px;border-radius:9px;font-size:11px;padding:1px 8px;white-space:nowrap}
+/* mat */
+#mat{left:40px;top:252px;width:1110px;height:516px;background:#241d16}
+#mat .floor{position:absolute;left:14px;top:34px;right:14px;bottom:96px;background:repeating-linear-gradient(90deg,#3a2f22 0 70px,#352a1e 70px 140px);border-radius:8px;border:2px solid #594531}
+.clue{position:absolute;left:14px;right:14px;bottom:12px;height:76px;background:#0f0c09;border:2px solid #594531;border-radius:8px;padding:8px 14px}
+.clue .line{font-size:23px}
+.chip{display:inline-block;padding:3px 10px;border-radius:12px;font-size:13px;margin-right:6px;border:1.5px solid}
+.bar{position:relative;height:12px;background:#0d0b09;border-radius:6px;border:1px solid #594531;overflow:hidden}
+.bar i{position:absolute;left:0;top:0;bottom:0}
+/* card */
+#card{left:1170px;top:252px;width:710px;height:516px;border-color:var(--warn)}
+.arrow{position:absolute;left:14px;right:14px;height:118px;background:var(--panel2);border:2px solid #594531;border-radius:8px;padding:8px 14px}
+.arrow .t{font-size:21px;font-weight:700}
+.arrow .k{font-size:13px;color:var(--dim);letter-spacing:1px;text-transform:uppercase}
+.arrow .o{position:absolute;right:14px;top:8px;font-size:36px;font-weight:800}
+.arrow .m{font-size:14px;line-height:1.35;color:#d8ccb4}
+.new{border-color:var(--ok)}
+/* bottom */
+.btn{display:inline-block;padding:10px 22px;border-radius:8px;border:2px solid #594531;font-size:22px;font-weight:700;margin-right:8px;background:#2c241b}
+.btn.sel{background:#7a5326;border-color:var(--warn)}
+.cue{display:inline-block;padding:6px 12px;border-radius:16px;border:2px solid #594531;font-size:17px;margin:0 6px 8px 0;background:#2c241b}
+.stamp{font-size:12px;font-weight:700;margin-left:6px}
+.right{color:var(--ok)}.wrong{color:var(--bad)}
+</style></head><body>
+
+<!-- score plate -->
+<div id="plate" class="abs">
+  <div class="side" style="left:20px"><div class="n" style="color:var(--ana)">ANA</div><div class="p">2</div>
+    <div class="s">adv <span class="pip adv"></span><span class="pip"></span> &nbsp; pen <span class="pip"></span><span class="pip"></span><span class="pip"></span></div></div>
+  <div id="clock" class="abs"><div class="l">OPEN DAY - SEMI-FINAL (2 of 3)</div><div class="t">2:41</div><div class="l">left of 5:00 - white belt no-gi</div></div>
+  <div class="side" style="right:20px"><div class="n" style="color:var(--kim)">KIM DOYLE</div><div class="p">0</div>
+    <div class="s">adv <span class="pip"></span><span class="pip"></span> &nbsp; pen <span class="pip on"></span><span class="pip"></span><span class="pip"></span></div></div>
+</div>
+<svg class="abs" style="left:1380px;top:14px" width="170" height="150" viewBox="0 0 170 150"><circle cx="85" cy="75" r="56" fill="none" stroke="#3a2f22" stroke-width="10"/><circle cx="85" cy="75" r="56" fill="none" stroke="#6b4a2b" stroke-width="10" stroke-dasharray="0 352"/><text x="85" y="70" fill="#a89b83" font-size="13" text-anchor="middle">REFEREE COUNT</text><text x="85" y="95" fill="#efe6d2" font-size="22" text-anchor="middle">none</text></svg>
+<div class="abs" style="left:40px;top:14px;width:500px;height:150px;padding:10px 4px">
+  <div class="h" style="padding-left:0">Ana's tank (carried in: 82)</div><div class="bar" style="margin:6px 0 2px"><i style="width:61%;background:var(--ana)"></i></div>
+  <div style="font-size:13px;color:var(--dim)">61 now. Round 1 cost 21 (Finish order). Left knee sore: no far-guard sweeps from the left.</div>
+  <div class="h" style="padding-left:0;margin-top:6px">Kim's tank (scouted from her match 1)</div><div class="bar" style="margin:6px 0 2px"><i style="width:48%;background:var(--kim)"></i></div>
+  <div style="font-size:13px;color:var(--dim)">About 48. She fades after 3:30 (found in the tape).</div>
+</div>
+<div class="abs" style="left:1570px;top:14px;width:310px;height:150px;padding:10px 4px">
+  <div class="h" style="padding-left:0">Trust in your voice</div><div class="bar" style="margin:6px 0 2px"><i style="width:72%;background:var(--ok)"></i></div>
+  <div style="font-size:13px;color:var(--dim)">Right read +1, wrong read -2. Under 40 she stops listening.</div>
+  <div class="h" style="padding-left:0;margin-top:8px">Next real moment</div>
+  <div style="font-size:18px">Kim mode change ~ 4 s</div>
+</div>
+
+<!-- timeline -->
+<div id="tl" class="box">
+  <div class="abs" style="left:20px;right:20px;top:30px;height:3px;background:#594531"></div>
+  <div class="abs" style="left:20px;width:786px;top:28px;height:7px;background:var(--wood);border-radius:3px"></div>
+  <div class="mk" style="left:60px;background:#2d4f33">0:12 pull guard LANDS</div>
+  <div class="mk" style="left:250px;background:#4d3d1b">0:58 underhook MISSED</div>
+  <div class="mk" style="left:500px;background:#2d4f33">1:20 sweep LANDS +2</div>
+  <div class="mk" style="left:690px;background:#4d3d1b;border:1px solid var(--warn)">1:58 advantage (Kimura near-miss)</div>
+  <div class="mk" style="left:1010px;background:#3a3a3a;border:1px dashed var(--chalk)">tell 2:45: Kim lifts hips</div>
+  <div class="mk" style="left:1330px;background:#3a1f1a;border:1px solid var(--bad)">her fade 3:30</div>
+  <div class="mk" style="left:1640px;background:#27304a;border:1px solid var(--ana)">last minute 4:00</div>
+  <div class="tick" style="left:20px">0:00</div><div class="tick" style="left:455px">1:00</div><div class="tick" style="left:900px">2:00</div><div class="tick" style="left:1340px">3:00</div><div class="tick" style="left:1560px">4:00</div><div class="tick" style="left:1780px">5:00</div>
+</div>
+
+<!-- mat -->
+<div id="mat" class="box"><div class="h">The mat - Ana bottom, Kim in top half guard, passing</div>
+  <div class="floor">
+    <svg width="1080" height="380" viewBox="0 0 1080 380" style="position:absolute;left:0;top:0">
+      <!-- Kim top (red) -->
+      <ellipse cx="640" cy="120" rx="46" ry="46" fill="#d65a4a"/>
+      <rect x="470" y="140" width="330" height="95" rx="46" fill="#c04b3d"/>
+      <rect x="760" y="170" width="170" height="38" rx="19" fill="#c04b3d" transform="rotate(18 760 170)"/>
+      <rect x="450" y="200" width="120" height="34" rx="17" fill="#c04b3d" transform="rotate(-20 450 200)"/>
+      <!-- Ana bottom (blue) -->
+      <ellipse cx="330" cy="290" rx="44" ry="44" fill="#3f8fd6"/>
+      <rect x="360" y="262" width="340" height="62" rx="31" fill="#357ec0"/>
+      <rect x="620" y="285" width="190" height="34" rx="17" fill="#357ec0" transform="rotate(-24 620 285)"/>
+      <rect x="560" y="300" width="210" height="32" rx="16" fill="#357ec0" transform="rotate(14 560 300)"/>
+      <rect x="470" y="238" width="140" height="26" rx="13" fill="#357ec0" transform="rotate(-38 470 238)"/>
+      <text x="330" y="360" fill="#3f8fd6" font-size="22" text-anchor="middle" font-weight="700">ANA</text>
+      <text x="640" y="40" fill="#d65a4a" font-size="22" text-anchor="middle" font-weight="700">KIM</text>
+      <!-- tell marker -->
+      <circle cx="700" cy="190" r="28" fill="none" stroke="#efe6d2" stroke-width="3" stroke-dasharray="6 6"/>
+      <text x="700" y="150" fill="#efe6d2" font-size="16" text-anchor="middle">hips lifting</text>
+    </svg>
+    <div class="abs marker" style="right:20px;top:14px;width:250px;font-size:19px;color:var(--chalk);background:#0f0c09;border:2px dashed #594531;padding:10px;border-radius:8px;transform:rotate(1.5deg)">Coach note: she lifts her hips 3 s before she goes for the neck. Be ready.</div>
+    <div class="abs" style="left:18px;top:14px;font-size:14px;color:var(--warn)">MAT RUNS AT 25% WHILE A CARD IS OPEN</div>
+  </div>
+  <div class="clue">
+    <div class="line">Kim: <b>settling her weight, looking to pass</b> <span style="color:var(--dim)">(Smashing the pass, 14 s in, usually 20-40 s)</span></div>
+    <div style="margin-top:6px"><span class="chip" style="border-color:var(--bad);color:var(--bad)">fading after 3:30</span><span class="chip" style="border-color:var(--warn);color:var(--warn)">posts her left hand when she passes</span><span class="chip" style="border-color:var(--dim);color:var(--dim)">file: 2 of 4 tells found</span><span class="chip" style="border-color:var(--ana);color:var(--ana)">next: Hunting the neck? (reading, not sure)</span></div>
+  </div>
+</div>
+
+<!-- move card -->
+<div id="card" class="box"><div class="h" style="color:var(--warn)">Defence card - Kim has the initiative - 5 s left to answer (skip is free)</div>
+  <div class="arrow" style="top:44px"><div class="k">escape / stand up</div><div class="t">Underhook, come up to the knees</div><div class="o" style="color:var(--warn)">44%</div>
+    <div class="m">Lands: back to standing, takedown chance next card. Miss: she flattens you, 3 pts pass, initiative stays hers.<br>Gas -3 / -5 &nbsp;|&nbsp; Kim answers this 38% in this mode &nbsp;|&nbsp; <span style="color:var(--bad)">you missed it at 0:58</span> (her head is lower now: +6)</div></div>
+  <div class="arrow" style="top:172px"><div class="k">retain guard</div><div class="t">Knee shield, frame, recover full guard</div><div class="o" style="color:var(--ok)">71%</div>
+    <div class="m">Lands: no points either way, Kim loses the pass. Miss: pass lands (3 pts + she takes side control).<br>Gas -1 / -2 &nbsp;|&nbsp; Kim answers 22% &nbsp;|&nbsp; Holding it too long draws a count (1st penalty free).</div></div>
+  <div class="arrow new" style="top:300px"><div class="k">submission - OPENED BY YOUR LAST MISS</div><div class="t">Kimura grip on her posted left hand</div><div class="o" style="color:var(--bad)">23%</div>
+    <div class="m">Lands: the bout ends. Miss: grips and initiative gone, she passes cleanly. A near miss earns an advantage (you are already 1-0 up).<br>Gas -4 / -6 &nbsp;|&nbsp; Kim answers 44% (she posts that hand) &nbsp;|&nbsp; Ana's Kimura: Sharp</div></div>
+  <div class="abs" style="left:14px;right:14px;bottom:10px;height:44px;border-top:2px solid #594531;padding-top:10px;font-size:17px">
+    <b>SKIP</b> (free): Ana plays her plan, the knee shield. &nbsp; <span style="color:var(--dim)">Repeating a pick that landed in the last 60 s loses 8 points of odds: Kim learns.</span></div>
+</div>
+
+<!-- orders -->
+<div id="ord" class="box" style="left:40px;top:786px;width:620px;height:262px"><div class="h">Orders - ahead 2-0 and 1 advantage, 2:41 left</div>
+  <div style="padding:10px 14px"><span class="btn">SURVIVE</span><span class="btn sel">POINTS</span><span class="btn">FINISH</span></div>
+  <div style="padding:0 14px;font-size:15px;line-height:1.45;color:#d8ccb4">Set by you at 1:40. Locked 12 s more. A change costs 1 ear.<br>
+  <b style="color:var(--chalk)">Arithmetic:</b> 2:41 is about 14 of Kim's beats. One pass (3) ties it on points, your advantage keeps you ahead.
+  Riding a pin is never a stall count; guard holds are: 2 holds = 1 penalty, the 1st is free.<br>
+  <b style="color:var(--warn)">Survive:</b> safest moves, tank back, Kim gets more beats. <b style="color:var(--warn)">Finish:</b> subs weighted, tank x1.4, a miss gives up grips. Kim fades after 3:30: Survive now, Finish at 3:30 is a plan, not a rule.</div>
+</div>
+
+<!-- ear + shouts -->
+<div id="ear" class="box" style="left:680px;top:786px;width:620px;height:262px"><div class="h">The corner's ear (one currency) - always live</div>
+  <div style="padding:8px 14px"><span class="pip on" style="background:var(--ok);border-color:var(--ok);width:22px;height:22px"></span><span class="pip on" style="background:var(--ok);border-color:var(--ok);width:22px;height:22px"></span><span class="pip on" style="background:var(--ok);border-color:var(--ok);width:22px;height:22px"></span><span class="pip on" style="background:var(--ok);border-color:var(--ok);width:22px;height:22px"></span><span class="pip" style="width:22px;height:22px"></span><span class="pip" style="width:22px;height:22px"></span>
+  <span style="font-size:14px;color:var(--dim);margin-left:10px">4 of 6. A move pick 2, a word or order 1. Back +1 at every restart and one clean read; a wrong word costs 2 and trust.</span></div>
+  <div style="padding:6px 14px">
+    <span class="cue">Frame <span class="stamp right">READ RIGHT +1</span></span><span class="cue">Hips out</span><span class="cue">Underhook</span><span class="cue">Hand fight</span><span class="cue">Stay heavy <span class="stamp wrong">WRONG -2</span></span><span class="cue">Time check</span><span class="cue">Breathe</span><span class="cue" style="border-color:var(--bad);color:var(--bad)">TAP!</span>
+    <div style="font-size:13px;color:var(--dim)">Nothing says which word fits. A word right in two spots is wrong in the rest, and wrong the moment Kim changes her game.</div>
+  </div>
+</div>
+
+<!-- crisis + standing + rival -->
+<div id="crisis" class="box" style="left:1320px;top:786px;width:560px;height:262px"><div class="h">Standing orders (set before the bell) and crisis cards</div>
+  <div style="padding:8px 14px;font-size:16px;line-height:1.5">
+    Caught in a choke: <b>fight it</b> <span style="color:var(--dim)">(sleep risk if held too late)</span><br>
+    Caught in a joint lock: <b>tap</b> <span style="color:var(--dim)">(a fought lock risks weeks out)</span><br>
+    Under mount: <b>frame, then elbow-knee escape</b><br>
+    Her best move shown twice: <b>name it</b><br>
+    <span style="color:var(--dim);font-size:13px">They run when the ear is empty, or when you skip. Crisis cards: the count (0 of 2), her best move (not yet), caught deep (not yet). A quiet stretch is quiet.</span>
+    <div style="margin-top:6px;font-size:14px;color:var(--warn)">After this match: 15 min rest. Warm-up, ice the knee, food, watch the final's other semi.</div>
+  </div>
+</div>
+</body></html>

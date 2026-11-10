@@ -1,0 +1,222 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>BJJ live bout - 10/10 (BJJ black belt)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0f1216;--p:#1a1f26;--p2:#222933;--line:#34404e;--tx:#ece5d3;--dim:#93a0ae;--am:#e2a53a;--rd:#d8553f;--gn:#62b36f;--bl:#5b95d6;--pu:#a98ad9}
+body{width:1920px;height:1080px;background:var(--bg);color:var(--tx);font:20px/1.25 "Segoe UI",Arial,sans-serif;overflow:hidden;position:relative}
+.abs{position:absolute}
+.panel{position:absolute;background:var(--p);border:2px solid var(--line);border-radius:10px;padding:14px 16px}
+h3{font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:700;margin-bottom:8px}
+.hand{font-family:"Kalam","Segoe Print","Comic Sans MS",cursive;color:#f1e3b6}
+.chip{display:inline-block;padding:3px 10px;border-radius:14px;font-size:16px;border:1.5px solid var(--line);background:var(--p2);margin:2px 4px 2px 0;white-space:nowrap}
+.chip.am{border-color:var(--am);color:var(--am)}.chip.rd{border-color:var(--rd);color:var(--rd)}.chip.gn{border-color:var(--gn);color:var(--gn)}.chip.bl{border-color:var(--bl);color:var(--bl)}.chip.pu{border-color:var(--pu);color:var(--pu)}
+.bar{height:14px;border-radius:7px;background:#0b0e12;border:1px solid var(--line);position:relative;overflow:hidden}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:7px}
+.row{display:flex;align-items:center;justify-content:space-between}
+.dim{color:var(--dim)}
+.small{font-size:16px}
+/* score plate */
+#score{left:420px;top:16px;width:1080px;height:116px;display:flex;align-items:center;justify-content:space-between;padding:10px 26px}
+.side{width:360px}
+.side .nm{font-size:26px;font-weight:700}
+.big{font-size:64px;font-weight:800;line-height:1}
+.clock{text-align:center}
+.clock .t{font-size:56px;font-weight:800;letter-spacing:.04em}
+/* mat */
+#mat{left:420px;top:146px;width:1080px;height:330px;padding:0;overflow:hidden;background:linear-gradient(#171c23,#10141a)}
+#hold{position:absolute;left:350px;top:14px;width:380px;text-align:center}
+/* card */
+#card{left:420px;top:490px;width:1080px;height:420px}
+.arrow{position:absolute;height:92px;background:var(--p2);border:2px solid var(--line);border-radius:10px;padding:8px 14px}
+.arrow .nm{font-size:22px;font-weight:700}
+.rng{position:relative;height:16px;background:#0b0e12;border-radius:8px;border:1px solid var(--line);margin-top:6px;width:300px}
+.rng b{position:absolute;top:0;bottom:0;background:var(--gn);opacity:.85;border-radius:8px}
+.rng u{position:absolute;top:-4px;bottom:-4px;width:3px;background:#fff;text-decoration:none}
+.keycap{display:inline-block;min-width:34px;text-align:center;background:#0b0e12;border:1.5px solid var(--dim);border-radius:6px;padding:0 6px;font-size:18px;margin-right:10px;color:var(--am)}
+/* ear */
+.pip{display:inline-block;width:34px;height:34px;border-radius:50%;border:3px solid var(--am);margin-right:10px;vertical-align:middle}
+.pip.on{background:var(--am)}.pip.res{border-color:var(--bl);background:var(--bl)}
+.pip.ring{border-style:dashed}
+.pred{display:inline-block;padding:6px 10px;border:1.5px solid var(--line);border-radius:8px;margin:3px 4px 3px 0;font-size:17px;background:var(--p2)}
+.pred.sel{border-color:var(--pu);color:var(--pu)}
+.tl{left:20px;top:926px;width:1480px;height:140px}
+</style></head><body>
+
+<!-- LEFT: the rival (no pronouns: name only) -->
+<div class="panel" style="left:20px;top:16px;width:384px;height:894px">
+  <h3>The rival</h3>
+  <div class="row"><span style="font-size:30px;font-weight:800">Kim Ostrow</span><span class="chip rd">Wrestler</span></div>
+  <div class="small dim" style="margin:2px 0 6px">White belt, no-gi. Scouted: film room, 2 sessions</div>
+  <div><span class="chip">Drops weight on the knee cut</span><span class="chip am">Ref: early stall calls</span></div>
+  <div style="margin:10px 0 4px" class="small">Gas</div>
+  <div class="bar"><i style="width:71%;background:var(--gn)"></i></div>
+  <div class="small dim" style="margin-top:2px">Kim: working. Ana: 58%, red under 35%</div>
+
+  <h3 style="margin-top:12px">Kim's book, this match</h3>
+  <div class="small" style="line-height:1.45">Shots <b>3 of 4</b> landed<br>Passes <b>1 of 2</b><br>Stuffed Ana's sweep <b>2 of 2</b><br>No guard pull, no sub try yet</div>
+
+  <h3 style="margin-top:12px">Kim's book on Ana (last 6 picks)</h3>
+  <div style="margin:2px 0 6px"><span class="chip bl">Sweep</span><span class="chip bl">Sweep</span><span class="chip bl">Sweep</span><span class="chip am">Sub</span><span class="chip bl">Sweep</span><span class="chip">Hands</span></div>
+  <div class="small">Sweeps 4 of 6: <b style="color:var(--rd)">Kim answers sweeps +12%</b><br><span class="dim">Mix a sub or a stand-up and it drops back.</span></div>
+
+  <h3 style="margin-top:12px">Scouted reactions (confidence)</h3>
+  <div class="small" style="line-height:1.5">
+   Ana stands up -> Kim shoots <b>70%</b><br>
+   Pass stuffed -> Kim takes the back <b>60%</b> <span class="chip pu">used 1x: now 45%</span><br>
+   Ana pulls guard -> Kim stands to pass <b>55%</b>
+  </div>
+  <div class="small dim" style="margin-top:4px">A reaction used twice goes stale.</div>
+
+  <h3 style="margin-top:12px">Clue line</h3>
+  <div class="small"><span class="chip gn">SCOUTED: shows at the start</span><br>
+  <b style="font-size:19px">1:58 Kim -> PASSING</b><br><span class="dim">Ends about 2:20 to 2:40. Scouted: no decoys.</span></div>
+</div>
+
+<!-- SCORE PLATE -->
+<div class="panel" id="score">
+  <div class="side"><div class="nm" style="color:var(--bl)">ANA</div><div class="small dim">Adv <b style="color:var(--tx)">1</b> &nbsp; Pen <b style="color:var(--tx)">0</b> &nbsp; <span class="chip">marked once</span></div></div>
+  <div class="big" style="color:var(--bl)">2</div>
+  <div class="clock"><div class="t">2:07</div><div class="small dim">of 5:00 &nbsp;&nbsp; Ref count: <span style="color:var(--gn)">none</span></div></div>
+  <div class="big" style="color:var(--rd)">0</div>
+  <div class="side" style="text-align:right"><div class="nm" style="color:var(--rd)">KIM</div><div class="small dim">Adv <b style="color:var(--tx)">0</b> &nbsp; Pen <b style="color:var(--tx)">0</b> &nbsp; <span class="chip">stall count 0</span></div></div>
+</div>
+
+<!-- MAT -->
+<div class="panel" id="mat">
+  <svg width="1080" height="330" viewBox="0 0 1080 330" style="position:absolute;left:0;top:0">
+    <defs><linearGradient id="m" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#24303b"/><stop offset="1" stop-color="#1a232c"/></linearGradient></defs>
+    <rect x="0" y="236" width="1080" height="94" fill="url(#m)"/>
+    <line x1="0" y1="236" x2="1080" y2="236" stroke="#3b4a59" stroke-width="3"/>
+    <!-- Ana on the back (blue) -->
+    <g stroke="#5b95d6" stroke-linecap="round" fill="none">
+      <circle cx="300" cy="212" r="24" fill="#5b95d6" stroke="none"/>
+      <line x1="335" y1="216" x2="520" y2="218" stroke-width="46"/>
+      <line x1="520" y1="214" x2="600" y2="160" stroke-width="26"/><line x1="600" y1="160" x2="660" y2="200" stroke-width="24"/>
+      <line x1="525" y1="224" x2="610" y2="228" stroke-width="24"/>
+      <line x1="390" y1="196" x2="470" y2="150" stroke-width="18"/>
+    </g>
+    <!-- Kim over Ana, knee cutting (red) -->
+    <g stroke="#d8553f" stroke-linecap="round" fill="none">
+      <circle cx="520" cy="86" r="24" fill="#d8553f" stroke="none"/>
+      <line x1="530" y1="118" x2="590" y2="176" stroke-width="46"/>
+      <line x1="590" y1="180" x2="528" y2="212" stroke-width="30"/>
+      <line x1="610" y1="180" x2="690" y2="224" stroke-width="28"/>
+      <line x1="500" y1="140" x2="440" y2="170" stroke-width="18"/>
+    </g>
+    <text x="40" y="60" fill="#93a0ae" font-size="18" font-family="Segoe UI">POSITION</text>
+    <text x="40" y="90" fill="#ece5d3" font-size="28" font-weight="700" font-family="Segoe UI">Knee cut pass</text>
+    <text x="40" y="120" fill="#93a0ae" font-size="18" font-family="Segoe UI">Kim on top, Ana framing</text>
+    <text x="800" y="60" fill="#93a0ae" font-size="18" font-family="Segoe UI">IF THE HOLD STANDS</text>
+    <text x="800" y="94" fill="#d8553f" font-size="30" font-weight="800" font-family="Segoe UI">Kim +3 (pass)</text>
+    <text x="800" y="122" fill="#93a0ae" font-size="18" font-family="Segoe UI">paid once</text>
+    <text x="800" y="144" fill="#93a0ae" font-size="18" font-family="Segoe UI">until Ana lands a move</text>
+  </svg>
+  <div class="chip am" style="position:absolute;left:40px;top:150px;font-size:15px">Mat at 0.3x while you decide</div>
+  <div class="hand" style="position:absolute;left:40px;bottom:14px;font-size:26px">Corner: "Frame first, Ana! Hands, not hips!"</div>
+  <div id="hold" style="left:300px;width:200px;text-align:left">
+    <div style="display:inline-block;position:relative;width:130px;height:130px">
+      <svg width="130" height="130" viewBox="0 0 130 130"><circle cx="65" cy="65" r="54" fill="none" stroke="#0b0e12" stroke-width="14"/>
+      <circle cx="65" cy="65" r="54" fill="none" stroke="#e2a53a" stroke-width="14" stroke-dasharray="340" stroke-dashoffset="136" transform="rotate(-90 65 65)" stroke-linecap="round"/></svg>
+      <div class="abs" style="left:0;top:34px;width:130px;text-align:center;font-size:34px;font-weight:800">1.8 s</div>
+      <div class="abs" style="left:0;top:76px;width:130px;text-align:center;font-size:14px;color:#93a0ae">of the 3 s hold</div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- DEFENDER'S CARD -->
+<div class="panel" id="card">
+  <div class="row"><h3 style="margin:0">Ana's defence to the knee cut (4 answers)</h3>
+  <span class="small dim">Bar = worst to best over Kim's modes. <b style="color:var(--tx)">Wide = a read pays</b></span></div>
+
+  <div class="arrow" style="left:14px;top:50px;width:508px;border-color:var(--am)">
+    <div class="row"><span class="nm"><span class="keycap">1</span>Frame and shrimp, recover guard</span><span class="chip am">PLAN</span></div>
+    <div class="rng"><b style="left:42%;width:16%"></b><u style="left:50%"></u></div>
+    <div class="small dim" style="margin-top:2px">gas 3 &nbsp; miss: pass paid +3 &nbsp; hit: back to guard</div>
+  </div>
+  <div class="arrow" style="left:538px;top:50px;width:508px">
+    <div class="row"><span class="nm"><span class="keycap">2</span>Underhook, up to knees</span><span class="chip pu">fits "Passing"</span></div>
+    <div class="rng"><b style="left:26%;width:44%"></b><u style="left:47%"></u></div>
+    <div class="small dim" style="margin-top:2px">gas 4 &nbsp; miss: pass +3, back exposed &nbsp; hit: scramble</div>
+  </div>
+  <div class="arrow" style="left:14px;top:152px;width:508px">
+    <div class="row"><span class="nm"><span class="keycap">3</span>Kimura trap on the cut</span><span class="chip bl">counter-attack</span></div>
+    <div class="rng"><b style="left:8%;width:30%"></b><u style="left:20%"></u></div>
+    <div class="small dim" style="margin-top:2px">gas 3 &nbsp; hit: sub threat &nbsp; miss: pass paid +3</div>
+  </div>
+  <div class="arrow" style="left:538px;top:152px;width:508px">
+    <div class="row"><span class="nm"><span class="keycap">4</span>Give the pass, guard the neck</span><span class="chip">safe</span></div>
+    <div class="rng"><b style="left:96%;width:3%;background:var(--am)"></b></div>
+    <div class="small dim" style="margin-top:2px">gas +1 back &nbsp; Kim +3 for sure, no back take or choke</div>
+  </div>
+
+  <div class="abs" style="left:14px;top:262px;width:1032px;height:146px;border-top:2px dashed var(--line);padding-top:8px">
+    <div class="small"><b>Ana's mini-card in the same 3 s:</b> Consolidate / Go for the finish / Transition. <span class="dim">Kim's pick stays hidden until the 3 s end.</span></div>
+    <div class="small" style="margin-top:6px"><span class="keycap">H</span><b>Win the hands</b> (underhook, wrist, head) <span class="dim">+0.03 once, gas 1; counts toward the stall in guard</span></div>
+    <div class="small" style="margin-top:4px"><span class="keycap">B</span><b>Bait</b>: stand-up feint <span class="chip gn">Kim shoots 70%</span> <span class="dim">next card: sprawl +0.15. Not available in a hold</span></div>
+    <div class="small dim" style="margin-top:4px">Skip: the Playbook line runs, <b style="color:var(--tx)">"When the knee cuts: frame and shrimp"</b>. Skip costs no ear.</div>
+  </div>
+</div>
+
+<!-- RIGHT: ear, predict, pace, stance, gas -->
+<div class="panel" style="left:1516px;top:16px;width:384px;height:894px">
+  <h3>Ear (the coach's voice)</h3>
+  <div><span class="pip on"></span><span class="pip on"></span><span class="pip ring"></span><span class="pip"></span></div>
+  <div class="small dim" style="margin:6px 0 2px">2 of 4. Next pip in 14 s of quiet. Cap 4 from Fight IQ 38, trust Steady</div>
+  <div class="small"><span class="chip bl">Reserve</span> Last pip is held for defence.</div>
+  <div class="small dim" style="margin-top:4px">Pick 2, predict 1, bait 1, hands 0.</div>
+
+  <h3 style="margin-top:14px">Predict Kim's next mode</h3>
+  <div>
+    <span class="pred">Passing <b class="dim">34%</b></span><span class="pred sel">Takes the back <b>22%</b></span><span class="pred">Hunts a sub <b class="dim">9%</b></span>
+    <span class="pred">Shoots <b class="dim">17%</b></span><span class="pred">Holds the lead <b class="dim">12%</b></span><span class="pred">Scrambles <b class="dim">6%</b></span>
+  </div>
+  <div class="small dim">Odds from the film room and the score. One per mode. Right: pip refunded, +0.12 on the fitting arrow. Wrong: pip lost, clue 5 s late.</div>
+
+  <h3 style="margin-top:14px">Standing orders</h3>
+  <div class="row small"><span>Pace</span><span><span class="chip">Save</span><span class="chip gn" style="font-weight:700">Steady</span><span class="chip">Push</span></span></div>
+  <div class="row small"><span>Stance</span><span><span class="chip">Chase</span><span class="chip gn" style="font-weight:700">Even</span><span class="chip">Protect</span></span></div>
+  <div class="small dim" style="margin-top:6px">Stance rewrites the plan move: Chase takes risks, Protect rides pins. Pace: Push burns gas for more moments, Save refills the ear faster.</div>
+
+  <h3 style="margin-top:14px">Gas</h3>
+  <div class="small">Ana</div><div class="bar"><i style="width:58%;background:var(--am)"></i></div>
+  <div class="small" style="margin-top:6px">Kim</div><div class="bar"><i style="width:71%;background:var(--gn)"></i></div>
+  <div class="small dim" style="margin-top:4px">Parking a pin drains the top 2x gas.</div>
+
+  </div>
+
+<!-- BOTTOM: timeline -->
+<div class="panel tl">
+  <div class="row"><h3 style="margin:0">The match so far (5:00 white belt)</h3><span class="small dim">Next moment: hold ends in 1.8 s</span></div>
+  <svg width="1448" height="70" viewBox="0 0 1850 86" style="margin-top:6px">
+    <rect x="0" y="40" width="1850" height="10" rx="5" fill="#0b0e12" stroke="#34404e"/>
+    <rect x="0" y="40" width="780" height="10" rx="5" fill="#34404e"/>
+    <!-- minute ticks -->
+    <g fill="#93a0ae" font-size="19" font-family="Segoe UI"><text x="0" y="78">0:00</text><text x="364" y="78">1:00</text><text x="734" y="78">2:00</text><text x="1104" y="78">3:00</text><text x="1474" y="78">4:00</text><text x="1790" y="78">5:00</text></g>
+    <!-- Ana picks (blue), Kim moves (red), predict markers (purple), tells -->
+    <g font-size="19" font-family="Segoe UI" fill="#ece5d3">
+      <circle cx="40" cy="26" r="9" fill="#5b95d6"/><text x="26" y="12">Pull?</text>
+      <circle cx="150" cy="26" r="9" fill="#5b95d6"/><text x="124" y="12">Shoot +2</text>
+      <circle cx="262" cy="64" r="9" fill="#d8553f"/>
+      <circle cx="372" cy="26" r="9" fill="#5b95d6"/><text x="344" y="12">Sweep x</text>
+      <circle cx="462" cy="26" r="9" fill="#5b95d6"/><text x="434" y="12">Sweep x</text>
+      <circle cx="560" cy="64" r="9" fill="#d8553f"/><text x="534" y="84" fill="#d8553f">stuff</text>
+      <path d="M648 22 l10 18 l-20 0 z" fill="#a98ad9"/><text x="620" y="12" fill="#a98ad9">read right</text>
+      <circle cx="690" cy="26" r="9" fill="#5b95d6"/>
+      <path d="M770 62 l10 -18 l-20 0 z" fill="#e2a53a"/><text x="796" y="84" fill="#e2a53a">tell</text>
+    </g>
+    <line x1="780" y1="22" x2="780" y2="58" stroke="#fff" stroke-width="3"/><text x="760" y="16" fill="#fff" font-size="19" font-family="Segoe UI">NOW</text>
+    <!-- forecast: unknown future shaded -->
+    <rect x="782" y="40" width="1068" height="10" fill="none" stroke="#34404e" stroke-dasharray="5 5"/>
+  </svg>
+  <div class="small dim" style="margin-top:2px">Blue = Ana, red = Kim, purple = a read that landed, amber = a tell. Each marker opens its Why line.</div>
+</div>
+
+<!-- bottom-right strip (below right panel): open day -->
+<div class="panel" style="left:1516px;top:926px;width:384px;height:140px;border-color:var(--am)">
+  <h3>Open day: match 1 of 3</h3>
+  <div class="small">Next: <b>Dana Reyes</b> <span class="chip gn">watched live</span></div>
+  <div class="small dim">Carry: gas, sore shoulder</div>
+</div>
+
+</body></html>

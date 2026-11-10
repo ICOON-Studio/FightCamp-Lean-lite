@@ -1,0 +1,171 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Ask for a fight - 10/10 (designer)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{background:#d9c3a0;font-family:"Segoe UI",Arial,sans-serif;color:#2b2118;font-size:15px}
+.hand{font-family:"Segoe Print","Kalam","Comic Sans MS",cursive}
+.top{position:absolute;left:0;top:0;width:1920px;height:52px;background:#1d1a17;color:#e9dcc6;display:flex;align-items:center;padding:0 20px;gap:22px;font-size:15px}
+.top b{color:#fff}
+.flag{background:#b7352b;color:#fff;border-radius:4px;padding:4px 10px;font-weight:700;font-size:13px}
+.flag.a{background:#c98a17}
+.big{margin-left:auto;background:#b7352b;color:#fff;padding:9px 22px;border-radius:6px;font-weight:800}
+.rail{position:absolute;left:0;top:52px;width:92px;height:1028px;background:#2a241e;color:#cdbfa8;display:flex;flex-direction:column;gap:6px;padding-top:12px;font-size:13px;text-align:center}
+.rail div{padding:16px 4px}.rail .on{background:#4a3c2c;color:#fff;border-left:4px solid #e0a53a}
+.main{position:absolute;left:92px;top:52px;width:1828px;height:1028px;padding:14px 22px;
+ background:radial-gradient(ellipse at 30% 10%,#e6d3b2,#d3b98f)}
+.head{display:flex;align-items:center;gap:18px;height:92px;background:#f6ecd8;border:3px solid #6b4a2a;border-radius:8px;padding:0 18px;box-shadow:3px 4px 0 #0003}
+.port{width:68px;height:68px;border-radius:50%;background:linear-gradient(#8a6a52,#5b4030);border:3px solid #fff;box-shadow:0 0 0 2px #6b4a2a}
+.head h1{font-family:"Segoe Print",cursive;font-size:30px}
+.head .sub{font-size:14px;color:#5a4a3a}
+.read{margin-left:auto;display:flex;gap:10px;align-items:center}
+.chip{background:#e7f1dd;border:2px solid #5f8a3c;color:#2d5a14;border-radius:14px;padding:4px 11px;font-size:13px;font-weight:600}
+.chip.w{background:#fbf0cf;border-color:#c99a1a;color:#7a5600}
+.chip.r{background:#f7dcd8;border-color:#b7352b;color:#8a1f16}
+.cols{display:grid;grid-template-columns:560px 740px 1fr;gap:16px;margin-top:14px;height:748px}
+.paper{background:#fbf5e6;border:3px solid #6b4a2a;border-radius:8px;box-shadow:3px 4px 0 #0003;padding:14px 16px;position:relative}
+.paper h2{font-family:"Segoe Print",cursive;font-size:21px;margin-bottom:2px}
+.paper .why{font-size:13px;color:#6a5844;margin-bottom:10px}
+.wood{background:linear-gradient(#7b5532,#6a4626);color:#f6ecd8;border-radius:6px 6px 0 0;margin:-14px -16px 10px;padding:7px 16px;font-weight:700;letter-spacing:.5px;font-size:14px}
+table{width:100%;border-collapse:collapse}
+td,th{padding:7px 6px;border-bottom:1px dashed #b9a688;text-align:left;font-size:14px;vertical-align:middle}
+th{font-size:12px;color:#6a5844;text-transform:uppercase}
+.pip{display:inline-block;width:12px;height:12px;border-radius:50%;border:2px solid #7b5532;margin-right:3px}
+.pip.f{background:#e0a53a}
+.sil{display:inline-block;width:14px;height:22px;border-radius:7px 7px 2px 2px;background:#7a6a58;margin-right:3px;vertical-align:middle}
+.sil.free{background:#3d7a2a}.sil.bk{background:#b9ad9c}.sil.hurt{background:#b7352b}
+.meter{height:12px;background:#e6d8bd;border-radius:6px;overflow:hidden;border:1px solid #9d8a6a}
+.meter i{display:block;height:100%;background:#c98a17}
+.sel{border:3px solid #6b4a2a;background:#fffaf0;border-radius:8px;padding:7px 12px;margin-bottom:8px;position:relative}
+.sel.on{border-color:#b7352b;background:#fff3de;box-shadow:0 0 0 3px #b7352b33}
+.sel h3{font-size:17px;display:flex;justify-content:space-between}
+.sel .l{display:grid;grid-template-columns:auto 1fr auto 1fr auto 1fr;gap:3px 10px;font-size:13px;margin-top:6px}
+.sel .l span{color:#6a5844}.sel .l b{color:#2b2118}
+.kinds{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.k{border:3px solid #6b4a2a;border-radius:8px;padding:8px 10px;background:#fffaf0;font-size:13px}
+.k.on{border-color:#b7352b;background:#fff3de}
+.k h4{font-size:15px;margin-bottom:3px}
+.sl{margin:6px 0;font-size:13px}
+.track{height:8px;background:#d8c7a4;border-radius:4px;position:relative;margin-top:6px}
+.track i{position:absolute;top:-5px;width:18px;height:18px;border-radius:50%;background:#b7352b;border:2px solid #fff}
+.track b{position:absolute;top:0;height:8px;background:#7b5532;border-radius:4px}
+.btn{display:inline-block;background:#b7352b;color:#fff;font-weight:800;padding:12px 26px;border-radius:7px;font-size:17px;box-shadow:0 3px 0 #7d2019}
+.btn.g{background:#ede0c4;color:#2b2118;box-shadow:0 3px 0 #b9a688;font-size:14px;padding:8px 14px;font-weight:700}
+.btn.s{font-size:14px;padding:8px 14px}
+.sticky{background:#f7e27a;border-radius:3px;padding:10px 12px;box-shadow:2px 3px 0 #0003;font-size:13px;margin-bottom:10px;transform:rotate(-.6deg)}
+.sticky.b{background:#bfe0f2;transform:rotate(.5deg)}
+.sticky.p{background:#f4c7c2;transform:rotate(-.3deg)}
+.req{border:3px solid #6b4a2a;border-radius:8px;background:#fffaf0;padding:10px 12px;margin-bottom:10px}
+.req h4{font-size:15px;display:flex;justify-content:space-between}
+.tl{position:absolute;left:92px;bottom:0;width:1828px;height:142px;padding:0 22px 8px}
+.tlbox{height:130px;background:#2a241e;border-radius:8px;border:3px solid #6b4a2a;padding:12px 20px;color:#e9dcc6;position:relative}
+.axis{position:absolute;left:30px;right:30px;top:50px;height:6px;background:#5a4c3c;border-radius:3px}
+.seg{position:absolute;top:0;height:6px;border-radius:3px}
+.mk{position:absolute;top:-30px;font-size:12px;transform:translateX(-50%);text-align:center;white-space:nowrap}
+.mk:after{content:"";position:absolute;left:50%;top:26px;width:2px;height:16px;background:#e9dcc6}
+.mk.dn{top:20px}.mk.dn:after{top:-16px}
+small{font-size:12px;color:#6a5844}
+.note{font-size:12px;color:#6a5844;margin-top:4px}
+.x{position:absolute;left:100px;bottom:2px;font-size:11px;background:#1d1a17;color:#f6ecd8;border-radius:3px;padding:2px 6px}
+</style></head><body>
+
+<div class="top"><b>Bow Road Boxing Club</b><span>Mon 9 Mar 2026, week 10</span><span class="flag a">REPLY IN: 1 ASK</span><span>Cash <b>$9,420</b> <small style="color:#cdbfa8">+$310 a week</small></span><div class="big">CONTINUE to Wed 11 Mar, reply due</div></div>
+<div class="rail"><div>Home</div><div class="on">Fighters</div><div>Fights<br><small style="color:#e0a53a">1 reply</small></div><div>Club</div><div>World</div></div>
+
+<div class="main">
+ <div class="head">
+  <div class="port"></div>
+  <div><h1>Ask for a fight</h1><div class="sub"><b>Sam Ortega</b>, 57 kg, orthodox, 3 W 1 L, age 21 &nbsp;|&nbsp; last fought Sat 14 Feb</div></div>
+  <div class="read">
+   <span class="chip">Ready: coach's read</span>
+   <span class="chip">Medical to 14 Jul</span><span class="chip">38 days sparring</span><span class="chip">Rested</span><span class="chip">Season 4 of 18</span>
+   <span class="chip w">No fight by 14 Mar: morale -6. Booked: +5</span>
+  </div>
+ </div>
+
+ <div class="cols">
+  <!-- LEFT: the pool -->
+  <div class="paper">
+   <div class="wood">WHO IS OUT THERE AT 57 KG, WOMEN, 3 TO 8 BOUTS</div>
+   <div class="why">Your network, club by club. Green is free to be asked, grey is booked, red is hurt. Hover a figure: their record and last bout once you have watched them.</div>
+   <table>
+    <tr><th>Club</th><th>In reach</th><th>Favours</th><th>They say</th></tr>
+    <tr><td><b>Eastside ABC</b><br><small>Frank Doyle, rival coach</small></td><td><span class="sil free"></span><span class="sil bk"></span></td><td><span class="pip f"></span><span class="pip"></span><span class="pip"></span></td><td>1 free: 58 kg, 6 bouts</td></tr>
+    <tr><td><b>Mile End BC</b></td><td><span class="sil free"></span></td><td><span class="pip f"></span><span class="pip f"></span><span class="pip"></span></td><td>1 free: 57 kg, 3 bouts</td></tr>
+    <tr><td><b>Stratford Gloves</b></td><td><span class="sil hurt"></span><span class="sil bk"></span></td><td><span class="pip"></span><span class="pip"></span><span class="pip"></span></td><td>Nobody until April</td></tr>
+    <tr><td><b>Canning Town</b></td><td><span class="sil bk"></span></td><td><span class="pip f"></span><span class="pip"></span><span class="pip"></span></td><td>Booked, card 25 Apr</td></tr>
+    <tr><td><b>Hackney Wick</b></td><td><small>not in your phone yet</small></td><td><span class="pip"></span><span class="pip"></span><span class="pip"></span></td><td>Meet them at a show</td></tr>
+    <tr><td colspan="4"><b>The app: 11 more</b> <small>anonymous, from 9 clubs, nothing known</small></td></tr>
+   </table>
+   <div style="margin-top:12px"><b>Pool word: THIN.</b> 4 free of 9 in reach across your clubs, 11 more on the app.
+    <div class="meter" style="margin-top:6px"><i style="width:30%"></i></div><div class="note">Last season at this weight: 7 asks, 5 yes, 1 counter, 1 nobody.</div></div>
+   <div class="sticky hand" style="margin-top:14px">Mile End's girl has the same 3 bouts as Sam. A fair fight, and they owe us. Eastside's is the one the table says is a step up.</div>
+   <div class="sticky b hand">Hackney Wick opens when you go to their show on Sat 28 Mar.</div>
+  </div>
+
+  <!-- MIDDLE: the ask -->
+  <div class="paper">
+   <div class="wood">1. WHO DO YOU CALL</div>
+   <div class="sel on"><h3><span>Mile End BC, coach to coach</span><span class="chip">Pick</span></h3>
+    <div class="l"><span>Reply</span><b>1 to 3 days</b><span>Chance of yes</span><b>about 6 in 10</b><span>Costs</span><b>1 of 2 favours</b>
+    <span>Fight date</span><b>their next show, Sat 25 Apr</b><span>Risk</span><b>pull-out 4 in 100</b><span>Venue</span><b>away, $120 travel</b></div></div>
+   <div class="sel"><h3><span>The Bow Road show matchmaker</span><span class="chip">free</span></h3>
+    <div class="l"><span>Reply</span><b>about a week</b><span>Chance of yes</span><b>about 4 in 10: card 11 of 15 full</b><span>Costs</span><b>nothing</b>
+    <span>Fight date</span><b>Sat 16 May, home</b><span>Risk</span><b>pull-out 3 in 100</b><span>Venue</span><b>home, $450 ticket cut</b></div></div>
+   <div class="sel"><h3><span>BoutMatch app</span><span class="chip w">$10 a month, on from today</span></h3>
+    <div class="l"><span>Reply</span><b>same day</b><span>Chance of yes</span><b>about 8 in 10</b><span>Costs</span><b>$10, no favour</b>
+    <span>Fight date</span><b>any Saturday</b><span>Risk</span><b>pull-out 15 in 100</b><span>Opponent</span><b>unknown, wide band</b></div></div>
+
+   <div class="wood" style="margin-top:6px">2. WHAT KIND OF FIGHT</div>
+   <div class="kinds">
+    <div class="k on"><h4>Like for like</h4>Same bouts, same weight.<br><b>Win chance about 52%</b> (band 44 to 60)<br>Win: +8 members, +5 rep<br>Counts as 1 bout</div>
+    <div class="k"><h4>Step up</h4>More bouts or heavier.<br><b>Win chance about 36%</b><br>Win: +5 rep and a place; 2 more to a top-3 pro offer<br>Loss: -12 morale, may be refused</div>
+    <div class="k"><h4>Skills bout</h4>No decision, no stake.<br><b>No win, no loss</b><br>Counts as half a bout toward the nationals<br>Only before 5 bouts</div>
+   </div>
+   <div class="sl">Weight gap she will take: <b>up to 1.5 kg heavier</b> <small>(wider = more names, tougher fights)</small><div class="track"><b style="left:0;width:38%"></b><i style="left:38%"></i></div></div>
+   <div class="sl">Window: <b>Saturdays in the next 6 weeks</b> <small>(wider = more names, longer camp, more morale lost waiting)</small><div class="track"><b style="left:0;width:45%"></b><i style="left:45%"></i></div></div>
+   <div style="display:flex;align-items:center;gap:16px;margin-top:10px"><span class="btn">Ask Mile End</span><span class="btn g">Ask two clubs at once: uses 2 favours, one reply is kept</span></div>
+  </div>
+
+  <!-- RIGHT: waiting -->
+  <div style="display:flex;flex-direction:column;gap:0">
+   <div class="paper" style="margin-bottom:14px">
+    <div class="wood">ON THE TABLE</div>
+    <div class="req"><h4><span>Eastside ABC, step up</span><span class="chip w">day 2 of 3</span></h4>
+     <small>Asked Sat 7 Mar by phone. Frank Doyle has not called back.</small>
+     <div class="note">If no answer by Tue 10 Mar the ask lapses, no favour spent.</div></div>
+    <div class="req" style="border-color:#b7352b"><h4><span>A counter from Mile End</span><span class="chip r">answer by Fri</span></h4>
+     Their fighter: <b>58 kg</b>, 6 bouts, on <b>Sat 25 Apr</b>.<div class="note">You asked: 57 kg, 3 bouts. They moved weight and bouts up, kept your date.</div>
+     <div style="display:flex;gap:8px;margin-top:8px"><span class="btn s">Take it</span><span class="btn g s">Ask for 57.5 kg</span><span class="btn g s">Ask the app</span></div>
+     <div class="note">Win chance 52% to 41%. Takes the step-up price with a like-for-like label.</div></div>
+    <div class="req"><h4><span>Replacement needed</span><span class="chip r">Sat 14 Mar</span></h4>
+     Opponent for Sam's last bout withdrew. Offered: 59 kg, 9 bouts.<div class="note">Take it: win chance 22%, purse stays. Pull out: lose the $450 cut and one Eastside favour.</div></div>
+   </div>
+   <div class="paper" style="flex:1">
+    <div class="wood">WHAT YOU ARE OWED</div>
+    <table><tr><td>Mile End BC</td><td><span class="pip f"></span><span class="pip f"></span><span class="pip"></span></td><td><small>clean show 17 Jan</small></td></tr>
+    <tr><td>Eastside ABC</td><td><span class="pip f"></span><span class="pip"></span><span class="pip"></span></td><td><small>spent on 7 Feb</small></td></tr>
+    <tr><td>Canning Town</td><td><span class="pip f"></span><span class="pip"></span><span class="pip"></span></td><td><small>you pulled out 21 Nov</small></td></tr></table>
+    <div class="note" style="margin-top:8px">A favour also buys a free sparring partner of the opponent's style from that club (camp partner, normally $160).</div>
+    <div class="sticky p hand" style="margin-top:12px">The Why will say: "You asked Mile End like for like and got a fair draw."</div>
+   </div>
+  </div>
+ </div>
+</div>
+
+<div class="tl"><div class="tlbox">
+ <b>If you ask Mile End today</b> <small style="color:#cdbfa8">the weeks, so you see what waiting costs</small>
+ <div class="axis">
+  <div class="seg" style="left:0;width:3%;background:#e0a53a"></div>
+  <div class="seg" style="left:3%;width:54%;background:#5f8a3c"></div>
+  <div class="seg" style="left:57%;width:36%;background:#b7352b"></div>
+  <div class="mk" style="left:0">Mon 9 Mar<br>ask</div>
+  <div class="mk dn" style="left:3%">Thu 12 Mar<br>reply</div>
+  <div class="mk" style="left:25%">Sat 14 Mar<br>morale -6 starts to bite</div>
+  <div class="mk dn" style="left:57%">Sat 28 Mar<br>camp must start</div>
+  <div class="mk" style="left:90%">Sat 25 Apr<br>fight night</div>
+  <div class="mk dn" style="left:80%">Fri 24 Apr<br>weigh-in, 1.1 kg to lose</div>
+ </div></div>
+</div></div>
+<div class="x">10/10 drawing, designer seat</div>
+</body></html>

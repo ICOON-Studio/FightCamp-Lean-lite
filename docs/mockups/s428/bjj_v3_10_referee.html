@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>BJJ live bout - referee's 10/10</title>
+<style>
+:root{--bg:#14110f;--panel:#1f1a17;--panel2:#2a231e;--ink:#f2e9dc;--dim:#a99a88;--line:#41372f;--gold:#e8b84a;--red:#d9534a;--green:#5fb36a;--amber:#e0983a;--blue:#5b8fd0;--chalk:#efe6cf}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Arial,sans-serif;overflow:hidden;position:relative}
+.hand{font-family:"Segoe Print","Kalam","Comic Sans MS",cursive;color:var(--chalk)}
+.abs{position:absolute}
+.panel{position:absolute;background:var(--panel);border:2px solid var(--line);border-radius:10px}
+h3{font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);font-weight:600}
+/* score plate */
+#plate{left:24px;top:16px;width:1872px;height:96px;display:flex;align-items:center;gap:0}
+.side{width:430px;padding:0 24px}
+.side .n{font-size:26px;font-weight:700}
+.side .s{font-size:15px;color:var(--dim)}
+.pts{font-size:64px;font-weight:800;width:120px;text-align:center}
+.chip{display:inline-block;padding:2px 10px;border-radius:12px;font-size:14px;border:1.5px solid var(--line);margin-right:6px;background:var(--panel2)}
+.clock{width:300px;text-align:center}
+.clock .t{font-size:54px;font-weight:800;letter-spacing:2px}
+.refbox{width:420px;padding:0 20px;font-size:15px;color:var(--dim);line-height:1.35}
+/* mat */
+#mat{left:24px;top:128px;width:1010px;height:560px}
+#card{left:1050px;top:128px;width:846px;height:560px}
+.arrow{position:absolute;left:18px;width:810px;height:132px;background:var(--panel2);border:2px solid var(--line);border-radius:10px;padding:12px 18px}
+.arrow .k{font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:700}
+.arrow .t{font-size:28px;font-weight:700;margin-top:2px}
+.arrow .m{font-size:16px;color:var(--dim);margin-top:6px;line-height:1.4;max-width:540px}
+.k-escape{color:var(--green)}.k-guard{color:var(--blue)}.k-give{color:var(--amber)}
+.odds{position:absolute;right:18px;top:12px;text-align:right;width:240px}.odds .bar{margin-left:auto;width:200px}
+.odds .o{font-size:40px;font-weight:800}
+.odds .r{font-size:14px;color:var(--dim)}
+.bar{height:12px;background:#0d0b0a;border-radius:6px;position:relative;width:300px;margin-top:4px}
+.bar i{position:absolute;top:0;height:12px;border-radius:6px;background:linear-gradient(90deg,#b88a2e,var(--gold));opacity:.9}
+.stamp{position:absolute;right:18px;bottom:10px;font-size:14px;font-weight:700;color:var(--dim);border:1.5px dashed var(--line);padding:2px 8px;border-radius:6px}
+/* bottom */
+#orders{left:24px;top:704px;width:620px;height:228px}
+#ear{left:660px;top:704px;width:420px;height:228px}
+#cues{left:1096px;top:704px;width:800px;height:228px}
+#timeline{left:24px;top:948px;width:1872px;height:116px}
+.seg{display:inline-block;padding:10px 0;text-align:center;font-size:17px;font-weight:700;border:2px solid var(--line);width:188px;background:var(--panel2)}
+.seg.on{background:#3a2d17;border-color:var(--gold);color:var(--gold)}
+.pip{display:inline-block;width:44px;height:44px;border-radius:50%;border:3px solid var(--gold);margin-right:10px}
+.pip.f{background:var(--gold)}
+.cue{display:inline-block;padding:7px 11px;margin:3px 5px 3px 0;border:2px solid var(--line);border-radius:8px;background:var(--panel2);font-size:17px;font-weight:600}
+.cue small{display:block;font-size:12px;color:var(--dim);font-weight:400}
+.crisis{position:absolute;left:520px;top:300px;width:470px;height:236px;background:#2a1412;border:3px solid var(--red);border-radius:12px;padding:14px 18px;box-shadow:0 8px 30px #000a}
+.tm{position:absolute;top:50px;height:52px}
+</style></head><body>
+
+<!-- SCORE PLATE -->
+<div id="plate" class="panel">
+  <div class="side"><div class="n">ANA RIBEIRO</div><div class="s">White belt, no-gi, orthodox. Open day, match 2 of 3</div>
+    <div style="margin-top:6px"><span class="chip">Adv 1</span><span class="chip">Pen 0</span><span class="chip" style="border-color:var(--gold);color:var(--gold)">Trust 6 / 10</span></div></div>
+  <div class="pts">2</div>
+  <div class="clock"><div class="t">1:52</div><div class="s" style="color:var(--dim);font-size:14px">of 5:00 left, ref's stall count: none</div></div>
+  <div class="pts" style="color:var(--red)">3</div>
+  <div class="side" style="text-align:right"><div class="n">KIM DOYLE</div><div class="s">Eastside ABC, 6-2, "Pin grinder" (from tape)</div>
+    <div style="margin-top:6px"><span class="chip">Adv 0</span><span class="chip">Pen 1 (marked)</span></div></div>
+  <div class="refbox"><b style="color:var(--ink)">Referee Okafor</b> (from the draw sheet)<br>Counts stalling early: 4 of his last 5 mat sessions. Gave advantages on 3 of 8 near sweeps.</div>
+</div>
+
+<!-- MAT -->
+<div id="mat" class="panel">
+  <div class="abs" style="left:18px;top:12px"><h3>The mat</h3></div>
+  <svg class="abs" style="left:0;top:34px" width="1010" height="330" viewBox="0 0 1010 330">
+    <rect x="20" y="6" width="970" height="318" rx="14" fill="#2e2822" stroke="#41372f" stroke-width="3"/>
+    <rect x="50" y="26" width="910" height="278" rx="10" fill="#3a3028" stroke="#5a4a3a" stroke-width="3" stroke-dasharray="14 8"/>
+    <ellipse cx="300" cy="190" rx="150" ry="34" fill="#274a7a" stroke="#5b8fd0" stroke-width="4"/>
+    <circle cx="180" cy="182" r="28" fill="#274a7a" stroke="#5b8fd0" stroke-width="4"/>
+    <ellipse cx="330" cy="135" rx="190" ry="38" fill="#7a2b26" stroke="#d9534a" stroke-width="4" transform="rotate(-8 330 135)"/>
+    <circle cx="210" cy="160" r="28" fill="#7a2b26" stroke="#d9534a" stroke-width="4"/>
+    <text x="300" y="240" fill="#a99a88" font-size="17" text-anchor="middle">Ana under side control, Kim's hips low</text>
+    <g transform="translate(925,110)"><circle r="54" fill="none" stroke="#41372f" stroke-width="11"/><circle r="54" fill="none" stroke="#d9534a" stroke-width="11" stroke-dasharray="204 340" transform="rotate(-90)"/>
+    <text y="-2" fill="#f2e9dc" font-size="26" font-weight="800" text-anchor="middle">1.8 s</text><text y="20" fill="#a99a88" font-size="12" text-anchor="middle">Kim holds for 3</text></g>
+    <text x="925" y="192" fill="#e0983a" font-size="13" text-anchor="middle">Pass not scored yet:</text>
+    <text x="925" y="209" fill="#e0983a" font-size="13" text-anchor="middle">escape inside the hold</text>
+    <text x="60" y="262" fill="#a99a88" font-size="13">Ana's wind: ok, 58%</text>
+    <rect x="60" y="270" width="240" height="12" rx="6" fill="#0d0b0a"/><rect x="60" y="270" width="140" height="12" rx="6" fill="#5fb36a"/>
+    <text x="560" y="262" fill="#a99a88" font-size="13">Kim: "breathing hard" (tape: fades after 3:30)</text>
+    <rect x="560" y="270" width="240" height="12" rx="6" fill="#0d0b0a"/><rect x="560" y="270" width="96" height="12" rx="6" fill="#d9534a"/>
+  </svg>
+  <!-- overheard corner -->
+  <div class="abs hand" style="left:560px;top:48px;width:300px;font-size:18px;line-height:1.25;background:#2b2118;border:2px solid #6a5339;border-radius:14px;padding:10px 14px">
+    From Kim's corner, heard 4 s ago:<br>"Stay heavy! Walk it to the knee!"
+    <div style="font-size:13px;color:var(--dim);font-family:'Segoe UI'">Her coach shouts true about 3 times in 4 (scouted: 4 of 6 in her last match)</div></div>
+  <div class="abs" style="left:120px;top:12px;font-size:14px;color:var(--dim)">Her lean (tape): knee on belly when the frame holds, the arm when it breaks. Her decoy tell: head turns away first.</div>
+</div>
+
+<!-- DEFENDER'S CARD -->
+<div id="card" class="panel">
+  <div class="abs" style="left:18px;top:12px"><h3>Defender's card, 5.1 s to pick, then the plan move</h3></div>
+  <div class="arrow" style="top:44px"><div class="k k-escape">Escape</div><div class="t">Frame and shrimp to half guard</div>
+    <div class="m">Costs 2 ear. Gas -3 on a hit, -5 on a miss. Miss: pass scores 3 and Kim keeps the hold.<br>Kim has stopped this 2 of 5 times today.</div>
+    <div class="odds"><div class="o">41%</div><div class="r">stated range 34-48, narrowed by tape</div><div class="bar"><i style="left:34%;width:14%"></i></div></div><div class="stamp">PLAN MOVE</div></div>
+  <div class="arrow" style="top:188px"><div class="k k-guard">Turn in</div><div class="t">Turn to knees, take the single leg</div>
+    <div class="m">Costs 2 ear. Gas -4 / -6. Hit: takedown for 2, back to neutral. Miss: she takes the back, 4 points.<br>Kim has stopped this 0 of 1 times.</div>
+    <div class="odds"><div class="o">27%</div><div class="r">stated range 20-34</div><div class="bar"><i style="left:20%;width:14%"></i></div></div></div>
+  <div class="arrow" style="top:332px"><div class="k k-give">Concede the hold</div><div class="t">Accept the 3 points, keep both guards</div>
+    <div class="m">Free, gas +2. Kim scores 3 (3 to 2 becomes 6 to 2) but you keep your frames for the next beat.<br>The price is the score, so it depends on the 1:52 left.</div>
+    <div class="odds"><div class="o">sure</div><div class="r">no roll</div></div></div>
+  <div class="abs hand" style="left:18px;top:476px;font-size:17px;line-height:1.35;width:810px">Work the grips (pips: 0 of 2) is on every card: +1 pip for the next attempt, costs no ear, uses up the clock. A free action with a real price: she scores meanwhile.</div>
+</div>
+
+<!-- CAUGHT DEEP crisis (only when it happens; shown here as a second state) -->
+<div class="crisis" style="left:44px;top:526px;width:960px;height:152px;z-index:5;padding:10px 16px">
+  <div style="color:var(--red);font-size:13px;letter-spacing:2px;font-weight:700">CAUGHT DEEP, ARM TRIANGLE (OPENS ONLY WHEN IT HAPPENS; SHOWN HERE AS THE SECOND STATE)</div>
+  <div style="font-size:15px;line-height:1.4;margin-top:4px">Escape odds fall each second she has it: 0 s 38%, 2 s 29%, 4 s 17%, 6 s 6% (lights out). Fought too long = a knock-out and 1 to 2 weeks. Next booked fight: none.
+  <span class="cue" style="border-color:var(--gold);padding:4px 12px;font-size:16px">Fight on (trust 6)</span><span class="cue" style="padding:4px 12px;font-size:16px">Tap now (trust +1)</span></div>
+</div>
+
+<!-- ORDERS -->
+<div id="orders" class="panel">
+  <div class="abs" style="left:18px;top:12px"><h3>Orders (1 ear to change, no lock)</h3></div>
+  <div class="abs" style="left:18px;top:44px"><span class="seg">SURVIVE</span><span class="seg on">POINTS</span><span class="seg">FINISH</span></div>
+  <div class="abs hand" style="left:18px;top:100px;width:590px;font-size:15px;line-height:1.4">1:52 left, 1 point down, 1 advantage.<br>Two idle holds in a row is a count: Ana none, Kim one marked.<br>Kim has been under half wind for 40 s.</div>
+  <div class="abs" style="left:18px;top:196px;font-size:13px;color:var(--dim)">Held 41 s. Kim's corner has started shouting for the answer to it.</div>
+</div>
+
+<!-- EAR -->
+<div id="ear" class="panel">
+  <div class="abs" style="left:18px;top:12px"><h3>The corner's ear (Ana listens to you, trust 6)</h3></div>
+  <div class="abs" style="left:18px;top:50px"><span class="pip f"></span><span class="pip f"></span><span class="pip"></span><span class="pip"></span></div>
+  <div class="abs" style="left:18px;top:116px;font-size:16px;line-height:1.5;color:var(--dim);width:380px">2 of 4. +1 back after 20 s with no spend (11 s so far).<br>Pick 2, order 1, word 1. Any cue that fits what she is doing gets 1 back; a wrong one costs 2 and trust.</div>
+  <div class="abs" style="left:18px;top:188px;font-size:14px;color:var(--amber)">At 0 her standing orders run: choke fight, joint lock tap.</div>
+</div>
+
+<!-- CUES -->
+<div id="cues" class="panel">
+  <div class="abs" style="left:18px;top:12px"><h3>Cue bar, always live (1 ear each)</h3></div>
+  <div class="abs" style="left:18px;top:44px;width:770px">
+    <span class="cue">Frame</span><span class="cue">Hips out</span><span class="cue">Underhook</span><span class="cue">Hand fight</span><span class="cue">Stay heavy</span><span class="cue">Breathe</span><span class="cue">Time (free)</span>
+  </div>
+  <div class="abs hand" style="left:18px;top:120px;width:770px;font-size:16px;line-height:1.4">A word is right when it answers what she is doing, not where you are lying. A decoy makes it wrong. After the bout the Why shows what she was doing every second.</div>
+</div>
+
+<!-- TIMELINE -->
+<div id="timeline" class="panel">
+  <div class="abs" style="left:18px;top:8px"><h3>The match so far (her mode stays hidden until the bell)</h3></div>
+  <div class="abs" style="left:18px;top:44px;width:1836px;height:48px;background:#0d0b0a;border-radius:6px"></div>
+  <div class="tm" style="left:18px;width:1170px;background:#1f2b3a;border-radius:6px 0 0 6px"></div>
+  <div class="tm" style="left:1188px;width:668px;background:repeating-linear-gradient(45deg,#1a1512,#1a1512 8px,#221c17 8px,#221c17 16px);border-radius:0 6px 6px 0"></div>
+  <div class="tm hand" style="left:30px;top:56px;font-size:14px;height:26px;white-space:nowrap">tie-up HIT, 0:34 sprawl HIT, 1:12 armbar MISSED, 1:40 Kim pass 3, 1:58 sweep 2 LANDED, 2:20 word READ RIGHT, 3:08 now</div>
+  <div class="abs" style="left:1210px;top:58px;font-size:14px;color:var(--dim)">1:52 left; tell markers land here</div>
+  <div class="abs" style="left:18px;top:96px;font-size:13px;color:var(--dim)">Red flags: stall count, 2nd advantage, gas under 35%. Used cards stay as small stamps: LANDS / MISSED, READ RIGHT / READ WRONG.</div>
+</div>
+</body></html>

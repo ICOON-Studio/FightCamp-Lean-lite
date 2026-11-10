@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>BJJ live bout 10/10 (sim veteran)</title>
+<style>
+:root{--bg:#14161a;--panel:#1d2026;--panel2:#252932;--line:#3a3f4a;--chalk:#f1ece0;--dim:#9aa0ab;--amber:#f0b44c;--red:#e0584a;--blue:#4f8fdc;--green:#5fbf7a;--wood:#6a4a2e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--bg);color:var(--chalk);font-family:"Segoe UI",Arial,sans-serif;overflow:hidden;position:relative}
+.hand{font-family:"Segoe Print","Bradley Hand ITC","Comic Sans MS",cursive}
+.abs{position:absolute}
+.panel{background:var(--panel);border:2px solid var(--line);border-radius:10px}
+.lbl{font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+/* score plate */
+#plate{left:40px;top:20px;width:1840px;height:110px;display:flex;align-items:center;padding:0 30px;gap:26px}
+.side{display:flex;align-items:center;gap:18px;width:640px}
+.side.opp{justify-content:flex-end;text-align:right}
+.name{font-size:34px;font-weight:700}
+.pts{font-size:74px;font-weight:800;line-height:1}
+.dots{display:flex;gap:6px;margin-top:6px;font-size:15px;color:var(--dim);align-items:center}
+.dot{width:16px;height:16px;border-radius:50%;display:inline-block;border:2px solid var(--dim)}
+.dot.adv{background:var(--amber);border-color:var(--amber)}
+.dot.pen{background:var(--red);border-color:var(--red)}
+#clock{flex:1;text-align:center;position:relative}
+#clock .t{font-size:64px;font-weight:800;letter-spacing:.04em}
+#clock .s{font-size:16px;color:var(--dim)}
+.ring{position:absolute;right:10px;top:-2px;width:96px;height:96px}
+/* left column */
+#left{left:40px;top:150px;width:400px;height:560px;padding:20px}
+.bar{height:22px;border-radius:11px;background:#0e1013;border:1px solid var(--line);overflow:hidden;position:relative;margin:6px 0 14px}
+.bar i{display:block;height:100%}
+.bar .mark{position:absolute;top:-2px;bottom:-2px;width:3px;background:var(--amber)}
+.row{display:flex;justify-content:space-between;align-items:center;font-size:19px}
+.chip{display:inline-block;padding:4px 12px;border-radius:14px;font-size:16px;font-weight:600;border:2px solid var(--line);background:var(--panel2)}
+.chip.amber{border-color:var(--amber);color:var(--amber)}
+.chip.red{border-color:var(--red);color:var(--red)}
+.chip.green{border-color:var(--green);color:var(--green)}
+.tok{display:flex;gap:10px;margin:8px 0 4px}
+.tok b{width:44px;height:44px;border-radius:50%;border:3px solid var(--amber);display:flex;align-items:center;justify-content:center;color:var(--amber);font-size:20px}
+.tok b.used{border-color:var(--line);color:var(--line);text-decoration:line-through}
+.tok b.held{background:var(--amber);color:#14161a}
+/* mat */
+#mat{left:460px;top:150px;width:720px;height:560px;overflow:hidden;background:linear-gradient(180deg,#232a33,#171b21)}
+#mat svg{position:absolute;inset:0}
+.tell{position:absolute;left:24px;right:24px;bottom:18px;background:rgba(10,12,15,.88);border:2px solid var(--red);border-radius:10px;padding:12px 16px}
+.tell .k{color:var(--red);font-size:15px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.tell .v{font-size:23px;margin-top:2px}
+/* call card */
+#card{left:1200px;top:150px;width:680px;height:570px;padding:14px 22px 18px;border-color:var(--amber)}
+#card h2{font-size:28px;margin:0 0 2px}
+.sub{color:var(--dim);font-size:16px;margin-bottom:8px}
+.opt{display:grid;grid-template-columns:1fr 170px;gap:4px 16px;border:2px solid var(--line);background:var(--panel2);border-radius:10px;padding:8px 14px;margin-bottom:8px}
+.opt .t{font-size:21px;font-weight:700}
+.opt .m{font-size:15px;color:var(--dim)}
+.opt .odds{text-align:right;font-size:34px;font-weight:800;color:var(--green)}
+.opt .odds small{display:block;font-size:14px;color:var(--dim);font-weight:400}
+.opt .cost{grid-column:1/3;display:flex;gap:8px;flex-wrap:wrap}
+.opt.sel{border-color:var(--amber);box-shadow:0 0 0 2px rgba(240,180,76,.35)}
+.key{display:inline-block;width:28px;height:28px;border-radius:6px;background:var(--amber);color:#14161a;font-weight:800;text-align:center;line-height:28px;margin-right:8px}
+.timer{position:absolute;right:22px;top:22px;font-size:17px;color:var(--amber)}
+.timerbar{position:absolute;left:22px;right:22px;bottom:8px;height:8px;border-radius:4px;background:#0e1013}
+.timerbar i{display:block;width:62%;height:100%;background:var(--amber);border-radius:4px}
+/* bottom */
+#orders{left:40px;top:730px;width:1140px;height:210px;padding:12px 22px}
+.seg{display:flex;gap:0;margin:6px 0 8px}
+.seg div{flex:1;text-align:center;padding:6px 0;border:2px solid var(--line);font-size:20px;font-weight:700;background:var(--panel2)}
+.seg div:first-child{border-radius:8px 0 0 8px}.seg div:last-child{border-radius:0 8px 8px 0}
+.seg div.on{background:var(--amber);color:#14161a;border-color:var(--amber)}
+.seg small{display:block;font-size:13px;font-weight:400;opacity:.8}
+.shouts{display:flex;gap:12px}
+.sh{flex:1;border:2px solid var(--line);background:var(--panel2);border-radius:8px;padding:8px 10px;font-size:18px;font-weight:600}
+.sh small{display:block;font-size:13px;color:var(--dim);font-weight:400}
+.sh.cd{opacity:.45}
+.sh.hot{border-color:var(--red)}
+#log{left:1200px;top:730px;width:680px;height:200px;padding:14px 20px;font-size:17px;line-height:1.55}
+#log .good{color:var(--green)}#log .bad{color:var(--red)}
+#tl{left:40px;top:955px;width:1840px;height:95px;padding:12px 22px}
+.track{position:absolute;left:22px;right:22px;top:52px;height:8px;border-radius:4px;background:#0e1013}
+.track i{position:absolute;top:0;bottom:0;background:var(--blue);border-radius:4px}
+.mk{position:absolute;top:36px;width:18px;height:38px;border-radius:5px;text-align:center;font-size:12px;font-weight:800;line-height:38px;color:#14161a}
+.now{position:absolute;top:22px;width:3px;height:66px;background:var(--chalk)}
+</style></head><body>
+
+<div id="plate" class="abs panel">
+  <div class="side">
+    <div class="pts" style="color:var(--blue)">4</div>
+    <div><div class="name">Ana Ribeiro</div>
+      <div class="dots"><span class="lbl" style="font-size:13px">Adv</span><span class="dot adv"></span><span class="dot"></span>
+      <span class="lbl" style="font-size:13px;margin-left:10px">Pen</span><span class="dot pen"></span><span class="dot"></span><span class="dot"></span>
+      <span class="chip amber" style="margin-left:14px">PUSH</span></div></div>
+  </div>
+  <div id="clock"><div class="t">3:12</div><div class="s">white belt, 5:00 match, half-way word given</div>
+    <svg class="ring" viewBox="0 0 96 96"><circle cx="48" cy="48" r="38" fill="none" stroke="#0e1013" stroke-width="10"/><circle cx="48" cy="48" r="38" fill="none" stroke="#e0584a" stroke-width="10" stroke-dasharray="238.8" stroke-dashoffset="150" transform="rotate(-90 48 48)"/><text x="48" y="45" text-anchor="middle" fill="#f1ece0" font-size="22" font-weight="800">9s</text><text x="48" y="64" text-anchor="middle" fill="#9aa0ab" font-size="11">her count</text></svg>
+  </div>
+  <div class="side opp">
+    <div><div class="name">Mara Okafor</div>
+      <div class="dots" style="justify-content:flex-end"><span class="chip red">GUILLOTINE x2</span><span class="lbl" style="font-size:13px;margin-left:10px">Adv</span><span class="dot"></span><span class="dot"></span>
+      <span class="lbl" style="font-size:13px;margin-left:10px">Pen</span><span class="dot pen"></span><span class="dot"></span><span class="dot"></span></div></div>
+    <div class="pts" style="color:var(--red)">2</div>
+  </div>
+</div>
+
+<div id="left" class="abs panel">
+  <div class="lbl">Ana, gas</div>
+  <div class="bar"><i style="width:58%;background:var(--green)"></i><span class="mark" style="left:50%"></span></div>
+  <div class="row"><span>Push drains 1.4x</span><span class="chip amber">tunnel vision under 35</span></div>
+  <div style="height:16px"></div>
+  <div class="lbl">Mara, gas (what you can read)</div>
+  <div class="bar"><i style="width:34%;background:var(--red)"></i></div>
+  <div class="row"><span>Breathing hard</span><span class="chip green">Push is working</span></div>
+  <div style="height:18px"></div>
+  <div class="lbl">Call tokens (4 a match, 1 back on a read that lands)</div>
+  <div class="tok"><b class="used">1</b><b class="used">2</b><b class="held">3</b><b>4</b></div>
+  <div class="row" style="font-size:16px;color:var(--dim)"><span>Skip this card to keep it: free</span></div>
+  <div style="height:16px"></div>
+  <div class="lbl">Corner trust (Steady)</div>
+  <div class="bar"><i style="width:62%;background:var(--amber)"></i></div>
+  <div class="row" style="font-size:16px;color:var(--dim)"><span>2 reads right, 1 wrong. Shows live.</span></div>
+</div>
+
+<div id="mat" class="abs panel">
+  <svg viewBox="0 0 720 560">
+    <defs><pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#2d3540" stroke-width="1"/></pattern></defs>
+    <rect width="720" height="560" fill="url(#g)"/>
+    <ellipse cx="360" cy="260" rx="270" ry="150" fill="none" stroke="#3a4350" stroke-width="3" stroke-dasharray="10 10"/>
+    <!-- position ladder -->
+    <g font-size="15" fill="#9aa0ab">
+      <text x="640" y="60">Back</text><text x="640" y="100">Mount</text><text x="640" y="140">Side control</text><text x="640" y="180">Half guard</text><text x="640" y="220">Guard</text><text x="640" y="260">Standing</text>
+    </g>
+    <g fill="none" stroke="#3a4350" stroke-width="2"><line x1="625" y1="50" x2="625" y2="255"/></g>
+    <circle cx="625" cy="175" r="8" fill="#4f8fdc"/>
+    <text x="605" y="180" fill="#4f8fdc" font-size="14" text-anchor="end">Ana</text><text x="0" y="0" display="none"></text>
+    <!-- Mara on top, Ana underneath -->
+    <g transform="translate(250 250)">
+      <ellipse cx="0" cy="40" rx="130" ry="34" fill="#4f8fdc" opacity=".9"/>
+      <circle cx="-120" cy="36" r="26" fill="#4f8fdc"/>
+      <rect x="40" y="52" width="110" height="18" rx="9" fill="#4f8fdc"/>
+      <ellipse cx="10" cy="-10" rx="115" ry="32" fill="#e0584a"/>
+      <circle cx="-95" cy="-18" r="26" fill="#e0584a"/>
+      <rect x="40" y="-34" width="120" height="18" rx="9" fill="#e0584a"/>
+    </g>
+    <text x="70" y="60" fill="#f1ece0" font-size="24" font-weight="700">Ana underneath, in half guard</text>
+    <text x="70" y="86" fill="#9aa0ab" font-size="17">Mara has been on top for 24 s. Ana has not had the initiative since 2:48.</text>
+    <!-- grip clues -->
+    <g font-size="15">
+      <rect x="300" y="205" width="150" height="26" rx="13" fill="#1d2026" stroke="#e0584a"/><text x="375" y="223" fill="#e0584a" text-anchor="middle">Mara: crossface</text>
+      <rect x="120" y="350" width="150" height="26" rx="13" fill="#1d2026" stroke="#4f8fdc"/><text x="195" y="368" fill="#4f8fdc" text-anchor="middle">Ana: underhook</text>
+    </g>
+  </svg>
+  <div class="tell"><div class="k">What she is doing (one clue, like the boxing mode)</div>
+    <div class="v hand">Settling her weight and looking for the neck. Her guillotine is coming again.</div></div>
+</div>
+
+<div id="card" class="abs panel">
+  <div class="timer">decide in 6 s, or the plan move runs</div>
+  <div class="lbl">Move card, costs 1 token</div>
+  <h2>Underneath. Three ways out.</h2>
+  <div class="sub">She leads 4 to 2. Every option shows what it risks, never which one is right.</div>
+  <div class="opt sel"><div><div class="t"><span class="key">1</span>Sweep to the top (butterfly)</div><div class="m">Lands in side control on top. Scores 2, then a pass is open.</div></div>
+    <div class="odds">41%<small>miss: she keeps the initiative</small></div>
+    <div class="cost"><span class="chip">gas -3</span><span class="chip red">miss: back exposed, -6 gas</span><span class="chip green">she answers it 30% of the time</span></div></div>
+  <div class="opt"><div><div class="t"><span class="key">2</span>Stand up to the feet</div><div class="m">Resets to standing. Scores nothing, keeps the lead.</div></div>
+    <div class="odds" style="color:var(--amber)">58%<small>miss: she takes the back</small></div>
+    <div class="cost"><span class="chip">gas -4</span><span class="chip red">miss: 4 points to her</span><span class="chip">takedown next at 44%</span></div></div>
+  <div class="opt"><div><div class="t"><span class="key">3</span>Armbar off the frame</div><div class="m">A hit ends the match. A near miss earns an advantage.</div></div>
+    <div class="odds" style="color:var(--red)">19%<small>near miss band: 14%</small></div>
+    <div class="cost"><span class="chip">gas -5</span><span class="chip red">miss: grips and initiative gone</span><span class="chip green">Mara's guillotine is exposed here</span></div></div>
+  <div class="timerbar"><i></i></div>
+</div>
+
+<div id="orders" class="abs panel">
+  <div class="lbl">Orders, stay set until you change them. Changing costs a shout. Two per minute at full strength.</div>
+  <div class="seg"><div>Survive<small>hold, frame, no risk</small></div><div>Points<small>stay heavy, take 2s and 3s</small></div><div class="on">Finish<small>subs weighted, gas x1.4</small></div></div>
+  <div class="shouts">
+    <div class="sh hot">Hips out<small>answers her guillotine, x0.8 on it. Owned: yes</small></div>
+    <div class="sh">Hand fight<small>grip beats go to Ana 60% for 20 s</small></div>
+    <div class="sh">Breathe<small>+gas, starts the count under bad spots</small></div>
+    <div class="sh cd">Time and score<small>cooling, back at 3:30</small></div>
+  </div>
+  <div style="margin-top:6px;font-size:14px;color:var(--dim)">Shout strength now: 2 of 2 left this minute. Third one lands at half.</div>
+</div>
+
+<div id="log" class="abs panel">
+  <div class="lbl" style="margin-bottom:4px">Last 40 seconds</div>
+  <div>2:41 Ana shouted <b>Finish</b>. <span class="good">Read right: Mara was breathing hard. +1 trust, +1 token.</span></div>
+  <div>2:52 Call: knee cut. <span class="bad">Missed (38%).</span> Mara took the initiative.</div>
+  <div>3:01 Mara's guillotine, near miss. <span class="good">Ana fought it. Mara +1 advantage.</span></div>
+  <div>3:08 Mara pressing. 20 s count on Ana: <b>9 s left</b>.</div>
+</div>
+
+<div id="tl" class="abs panel">
+  <div class="lbl">The match. Blue = a card or order you used, grey = quiet, red flag = a real swing</div>
+  <div class="track"><i style="left:0;width:63%"></i></div>
+  <div class="mk" style="left:3%;background:#f0b44c">O</div><div class="mk" style="left:14%;background:#f0b44c">1</div><div class="mk" style="left:24%;background:#5fbf7a">S</div>
+  <div class="mk" style="left:38%;background:#f0b44c">1</div><div class="mk" style="left:50%;background:#9aa0ab">W</div><div class="mk" style="left:57%;background:#e0584a">!</div>
+  <div class="mk" style="left:78%;background:#2d3540;color:#9aa0ab">?</div><div class="mk" style="left:92%;background:#2d3540;color:#9aa0ab">?</div>
+  <div class="now" style="left:63%"></div>
+  <div class="abs" style="right:22px;top:14px;font-size:15px;color:var(--dim)">? = a tell arrives 5 s before an ask: last minute word near 4:00, the choke window near 4:30</div>
+</div>
+</body></html>

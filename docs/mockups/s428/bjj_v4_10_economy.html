@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>BJJ live bout, 10/10 (economy seat)</title>
+<style>
+:root{--bg:#12100e;--panel:#1d1a17;--panel2:#25211d;--line:#4a4136;--ink:#f1e8d8;--mute:#a89c88;--gold:#e9b949;--red:#d9503f;--green:#6fbf73;--blue:#5aa5d6;--amber:#e08a2e;--chalk:#e8e2d0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Arial,sans-serif;font-size:19px}
+.wrap{padding:14px 16px;display:grid;grid-template-columns:470px 1fr 470px;grid-template-rows:92px 470px 372px 90px;gap:10px;height:1080px}
+.p{background:var(--panel);border:2px solid var(--line);border-radius:10px;padding:12px 14px;position:relative;overflow:hidden}
+h3{font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:700}
+.mute{color:var(--mute)}
+.top{grid-column:1 / 4;display:grid;grid-template-columns:470px 1fr 470px;gap:10px;padding:0;border:none;background:none}
+.top .p{display:flex;align-items:center;justify-content:space-between}
+.score{display:flex;align-items:center;justify-content:center;gap:30px;font-size:44px;font-weight:800;line-height:1}
+.score small{display:block;font-size:13px;line-height:1.3;font-weight:600;color:var(--mute);letter-spacing:.05em}
+.clock{font-size:54px;color:var(--gold)}
+.ring{width:64px;height:64px;border-radius:50%;background:conic-gradient(var(--amber) 0 58%,#3a332a 58% 100%);display:flex;align-items:center;justify-content:center}
+.ring i{width:46px;height:46px;border-radius:50%;background:var(--panel);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:15px;font-weight:700}
+.gasbar{height:14px;background:#2d2822;border-radius:7px;overflow:hidden;width:200px}
+.gasbar b{display:block;height:100%}
+.row{display:flex;align-items:center;gap:8px}
+.chip{display:inline-block;padding:3px 10px;border-radius:14px;font-size:15px;font-weight:700;border:1px solid var(--line);background:var(--panel2)}
+.chip.g{color:var(--green);border-color:#3f6b42}.chip.a{color:var(--amber);border-color:#7a5320}.chip.r{color:var(--red);border-color:#7a2f26}.chip.b{color:var(--blue);border-color:#2e5a78}.chip.y{color:var(--gold);border-color:#7a6221}
+.book li{list-style:none;margin:6px 0;font-size:17px;line-height:1.25}
+.pips{display:flex;gap:8px;margin-top:4px}
+.pip{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);background:#2d2822}
+.pip.on{background:var(--gold);border-color:#fff3c4}
+.pip.next{background:conic-gradient(var(--gold) 0 60%,#2d2822 60% 100%)}
+.mode{display:grid;grid-template-columns:150px 1fr 56px;align-items:center;gap:8px;margin:5px 0;font-size:17px}
+.mode .bar{height:14px;background:#2d2822;border-radius:7px;overflow:hidden}
+.mode .bar b{display:block;height:100%;background:var(--blue)}
+.mode.pick{outline:2px solid var(--gold);border-radius:6px;padding:2px 4px;background:#2f2818}
+.mat{grid-column:2;grid-row:2;background:linear-gradient(#26373a,#1a2a2c);padding:0}
+.mat svg{position:absolute;left:0;top:0}
+.clue{position:absolute;left:14px;right:14px;top:12px;background:rgba(10,10,10,.72);border:2px solid var(--blue);border-radius:8px;padding:8px 12px;font-size:20px}
+.tell{position:absolute;left:14px;right:14px;bottom:12px;background:rgba(10,10,10,.72);border-radius:8px;padding:8px 12px;font-size:16px;color:var(--mute)}
+.card{grid-column:1 / 4;grid-row:3;display:grid;grid-template-columns:1fr 1fr 1fr 360px;gap:12px;padding:12px}
+.arrow{background:var(--panel2);border:2px solid var(--line);border-radius:10px;padding:12px 14px;position:relative}
+.arrow.plan{border-color:var(--gold)}
+.arrow .k{font-size:15px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.arrow .t{font-size:27px;font-weight:800;margin:3px 0 6px}
+.big{font-size:40px;font-weight:800}
+.arrow .ln{display:flex;justify-content:space-between;font-size:17px;margin:3px 0}
+.arrow .why{font-size:16px;color:var(--mute);margin-top:6px;line-height:1.25}
+.star{position:absolute;right:12px;top:10px;font-size:14px;color:var(--gold);font-weight:700}
+.btn{display:block;background:#2b261f;border:2px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:18px}
+.btn b{display:block;font-size:20px}
+.btn.bait{border-color:var(--blue)}
+.timer{height:12px;background:#2d2822;border-radius:6px;overflow:hidden;margin-top:6px}
+.timer b{display:block;height:100%;width:64%;background:var(--amber)}
+.left2{grid-column:1;grid-row:2;display:flex;flex-direction:column;gap:10px;padding:0;background:none;border:none}
+.right2{grid-column:3;grid-row:2;display:flex;flex-direction:column;gap:10px;padding:0;background:none;border:none}
+.tl{grid-column:1 / 4;grid-row:4;display:flex;align-items:center;gap:0;padding:8px 16px}
+.tlline{position:relative;flex:1;height:60px;margin:0 10px}
+.tlline::before{content:"";position:absolute;left:0;right:0;top:10px;height:3px;background:var(--line)}
+.mk{position:absolute;top:2px;transform:translateX(-50%);text-align:center;font-size:14px;line-height:1.15;width:150px}
+.mk i{display:block;width:16px;height:16px;border-radius:50%;margin:0 auto 4px;border:2px solid #fff}
+.def{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:6px}
+.def div{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-size:15px;line-height:1.25}
+.def b{display:block;font-size:16px}
+</style></head><body>
+<div class="wrap">
+
+<div class="top">
+  <div class="p"><div><div style="font-size:24px;font-weight:800">Open day, match 2 of 3</div><div class="mute" style="font-size:16px">Quarterfinal vs Kim Doyle. Next: semi</div></div><span class="chip y">Wrestler</span></div>
+  <div class="p score">
+    <div style="text-align:right"><small>ANA</small>4<small>adv 1 · pen 0</small></div>
+    <div class="clock" style="font-size:50px">3:12</div>
+    <div style="text-align:left"><small>KIM</small>2<small>adv 0 · pen 1 (marked)</small></div>
+    <div class="row"><div class="ring"><i>14 s</i></div><div style="font-size:14px;line-height:1.2" class="mute">stall count<br>ref raises hand at 20</div></div>
+  </div>
+  <div class="p" style="gap:16px">
+    <div><div class="mute" style="font-size:14px">ANA gas 0.71, steady</div><div class="gasbar"><b style="width:71%;background:var(--green)"></b></div>
+    <div class="mute" style="font-size:14px;margin-top:6px">KIM gas 0.52, breathing hard</div><div class="gasbar"><b style="width:52%;background:var(--amber)"></b></div></div>
+    <div style="font-size:15px;line-height:1.3" class="mute">Carried from match 1:<br><span class="chip a">sore: left knee</span> <span class="chip g">gas start 0.83</span></div>
+  </div>
+</div>
+
+<div class="p left2" style="padding:12px 14px;background:var(--panel);border:2px solid var(--line)">
+  <div>
+  <h3>Kim's book (scouted)</h3>
+  <ul class="book">
+    <li><span class="chip y">Wrestler</span> <span class="chip">habit: drops weight on near hip</span> <span class="chip g">no decoys (scouted)</span></li>
+    <li><b>This match:</b> stuffed your sweep 2 of 2, took 1 takedown, 1 stall penalty.</li>
+    <li><b>Kim's book on you:</b> sweeps 4 of 6. Kim's answer to sweeps <span style="color:var(--red);font-weight:800">+8%</span> (4 over 2, 0.04 each).
+      <div class="row" style="margin-top:4px"><span class="chip r">S</span><span class="chip r">S</span><span class="chip r">S</span><span class="chip r">S</span><span class="chip b">P</span><span class="chip g">T</span></div></li>
+    <li><b>Reaction rows:</b><br>sweep stuffed, Kim passes <b>60%</b><br>you stand, Kim shoots <b>70%</b><br>pass stuffed, Kim takes the back <b>60%</b></li>
+    <li><b>Referee:</b> early stall calls, stingy advantages.</li>
+  </ul></div>
+</div>
+
+<div class="p mat">
+  <svg width="1060" height="470" viewBox="0 0 1060 470">
+    <rect x="0" y="310" width="1060" height="160" fill="#2f4f48"/>
+    <rect x="0" y="306" width="1060" height="8" fill="#1d332f"/>
+    <!-- Ana bottom -->
+    <ellipse cx="450" cy="352" rx="170" ry="26" fill="#3e8fbf"/>
+    <circle cx="300" cy="340" r="34" fill="#e9c9a1"/>
+    <rect x="500" y="332" width="130" height="30" rx="15" fill="#3e8fbf"/>
+    <!-- Kim top -->
+    <ellipse cx="560" cy="270" rx="150" ry="40" fill="#c9473a"/>
+    <circle cx="470" cy="228" r="34" fill="#e9c9a1"/>
+    <rect x="620" y="292" width="150" height="34" rx="17" fill="#c9473a"/>
+    <text x="300" y="392" fill="#cfe9ff" font-size="20" font-weight="700" text-anchor="middle">ANA (bottom, half guard)</text>
+    <text x="640" y="206" fill="#ffd6cf" font-size="20" font-weight="700" text-anchor="middle">KIM (top, driving crossface)</text>
+    <!-- hold ring -->
+    <circle cx="820" cy="130" r="46" fill="none" stroke="#4a4136" stroke-width="10"/>
+    <circle cx="820" cy="130" r="46" fill="none" stroke="#6fbf73" stroke-width="10" stroke-dasharray="289" stroke-dashoffset="289"/>
+    <text x="820" y="136" fill="#f1e8d8" font-size="18" text-anchor="middle" font-weight="700">no hold</text>
+    <text x="820" y="200" fill="#a89c88" font-size="15" text-anchor="middle">3 s hold ring</text>
+  </svg>
+  <div class="clue"><b style="color:var(--blue)">CLUE, 3 s ago, true (scouted):</b> Kim is flattening the crossface. Mode read: <b>PASSING</b>. Chance Kim lands a pass if nothing changes: <b>31%</b></div>
+  <div class="tell">Next moment due: the card closes in 5 s. Kim's mode ends in 12 to 28 s. Gas 0.52: shots from Kim get rarer from here.</div>
+</div>
+
+<div class="right2">
+  <div class="p">
+    <h3>Ear (3 of 4)</h3>
+    <div class="row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip next"></div></div><div style="font-size:16px" class="mute">next pip in 12 s of quiet.<br>Any spend restarts it. A score refills 1.</div></div>
+    <div class="mute" style="font-size:15px;margin-top:6px">Keep 2 for the defender's card. 1 spare right now.</div>
+  </div>
+  <div class="p" style="flex:1">
+    <h3>Predict the next mode of Kim (1 ear)</h3>
+    <div class="mode pick"><span>Passing</span><div class="bar"><b style="width:60%"></b></div><span>60%</span></div>
+    <div class="mode"><span>Holding a lead</span><div class="bar"><b style="width:16%"></b></div><span>16%</span></div>
+    <div class="mode"><span>Scrambling</span><div class="bar"><b style="width:12%"></b></div><span>12%</span></div>
+    <div class="mode"><span>Hunting a sub</span><div class="bar"><b style="width:6%"></b></div><span>6%</span></div>
+    <div class="mode"><span>Shooting</span><div class="bar"><b style="width:4%"></b></div><span>4%</span></div>
+    <div class="mode"><span>Escaping</span><div class="bar"><b style="width:2%"></b></div><span>2%</span></div>
+    <div class="mute" style="font-size:15px;margin-top:6px;line-height:1.3">Bars from the scouted rows plus this match. Value of the bet at 60%: <b style="color:var(--green)">+0.2 ear</b>, clue now, +5%. At 30% it would show <b style="color:var(--red)">-0.4</b>. This one is already on screen, so the clue already answers it. The bet that pays is the NEXT mode, named before the next clue.</div>
+  </div>
+</div>
+
+<div class="p card">
+  <div class="arrow plan">
+    <span class="star">PLAN RUNS THIS</span>
+    <div class="k" style="color:var(--green)">Sweep · 2 pts</div>
+    <div class="t">Knee shield sweep</div>
+    <div class="ln"><span>Odds</span><span class="big">29%</span></div>
+    <div class="ln mute"><span>before clue 24 to 36%</span><span>book -8%</span></div>
+    <div class="ln"><span>Win chance if it lands</span><b style="color:var(--green)">+7</b></div>
+    <div class="ln"><span>If it misses</span><b style="color:var(--red)">-3</b></div>
+    <div class="ln"><span>Gas</span><span>-1.5 / -4  · Ear 2</span></div>
+    <div class="why">Kim has studied the sweep (4 of 6 picks). A miss loses the initiative.</div>
+  </div>
+  <div class="arrow">
+    <div class="k" style="color:var(--amber)">Back take · 4 pts</div>
+    <div class="t">Arm drag to the back</div>
+    <div class="ln"><span>Odds</span><span class="big">37%</span></div>
+    <div class="ln mute"><span>before clue 30 to 42%</span><span>Kim is passing: +6</span></div>
+    <div class="ln"><span>Win chance if it lands</span><b style="color:var(--green)">+14</b></div>
+    <div class="ln"><span>If it misses</span><b style="color:var(--red)">-5</b></div>
+    <div class="ln"><span>Gas</span><span>-1.5 / -4  · Ear 2</span></div>
+    <div class="why">Chain: a miss opens the posted arm and the stand at <b>1 ear</b>, not 2. A hit pays 4 once.</div>
+  </div>
+  <div class="arrow">
+    <div class="k" style="color:var(--blue)">Recover · 0 pts</div>
+    <div class="t">Frame, recover guard</div>
+    <div class="ln"><span>Odds</span><span class="big">58%</span></div>
+    <div class="ln mute"><span>before clue 50 to 64%</span><span>pass stopped</span></div>
+    <div class="ln"><span>Win chance</span><b>+2</b></div>
+    <div class="ln"><span>If it fails</span><b style="color:var(--red)">-9 (pass lands)</b></div>
+    <div class="ln"><span>Gas</span><span>-1 / -3  · Ear 2</span></div>
+    <div class="why">You lead 4 to 2 with 1:48 to go. Safe line: every point you keep is worth more now.</div>
+  </div>
+  <div>
+    <div class="btn bait"><b>Bait: feint to stand (1 ear)</b>Row: you stand, Kim shoots 70%. Next card: sprawl and back take +15%.</div>
+    <div class="btn"><b>Work the grips (free)</b>+3% next pick, gas -0.5, counts as no attempt: stall count keeps running.</div>
+    <div class="btn"><b>Skip (free)</b>The plan move runs.</div>
+    <div class="timer"><b></b></div>
+    <div class="mute" style="font-size:14px;margin-top:3px">card closes in 5 s. The clock does not stop.</div>
+  </div>
+</div>
+
+<div class="p" style="grid-column:1;grid-row:3;display:none"></div>
+
+<div class="p tl">
+  <div style="width:230px;font-size:15px" class="mute">TIMELINE<br><b style="color:var(--ink)">Reads 2 of 3 right</b> · bait sprung 1</div>
+  <div class="tlline">
+    <div class="mk" style="left:4%"><i style="background:#888"></i>0:00 tie up</div>
+    <div class="mk" style="left:17%"><i style="background:var(--green)"></i>0:34 sweep +2</div>
+    <div class="mk" style="left:33%"><i style="background:var(--blue)"></i>1:10 read: back take, right</div>
+    <div class="mk" style="left:50%"><i style="background:var(--gold)"></i>1:48 bait: Kim shot, sprawl +2</div>
+    <div class="mk" style="left:66%"><i style="background:var(--red)"></i>2:20 pass paid, Kim +2, escape missed</div>
+    <div class="mk" style="left:80%"><i style="background:var(--blue)"></i>2:51 read: hunting a sub, wrong</div>
+    <div class="mk" style="left:94%"><i style="background:#fff"></i>3:12 now</div>
+  </div>
+</div>
+
+</div>
+</body></html>

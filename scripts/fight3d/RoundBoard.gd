@@ -9,14 +9,12 @@ extends RefCounted
 const TV := preload("res://scripts/ui/TV.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
-const Halo := preload("res://scripts/ui/Halo.gd")
 
 const RED := Color("#e2483d")
 const BLUE := Color("#5b9bff")
 const GREEN := Color("#2fae6e")
 const SLATE := Color("#1a1512")
 const EDGE := Color("#5a4a3a")
-const CHIP := Color("#2b241e")
 
 
 static func build(ex: Array, sit: String, names: Array, w: float, h: float) -> Control:
@@ -27,10 +25,11 @@ static func build(ex: Array, sit: String, names: Array, w: float, h: float) -> C
 	board.add_theme_stylebox_override("panel", _box(SLATE, EDGE, 10, 2))
 	var me := str(names[0]) if names.size() > 0 else "You"
 	var her := str(names[1]) if names.size() > 1 else "Opponent"
-	var col := (w - 32.0) / 3.0
+	# The "<name> NOW" column moved onto the head chip and the side panel. Its width goes to these two.
+	var col := (w - 24.0) / 2.0
 	_landed(board, ex, me, her, 12.0, col - 8.0, h)
-	_games(board, ex, sit, her, 12.0 + col + 4.0, col - 8.0, h)
-	_calls(board, ex, 12.0 + (col + 4.0) * 2.0, col - 8.0, h)
+	_calls(board, ex, 12.0 + col + 4.0, col - 8.0, h)
+	board.set_meta("sit", sit)
 	return board
 
 
@@ -102,29 +101,6 @@ static func _landed(board: Control, ex: Array, me: String, her: String, x: float
 	board.set_meta("landed", [mine, hers])
 
 
-static func _games(board: Control, ex: Array, sit: String, her: String, x: float, w: float, _h: float) -> void:
-	_put(board, _tag("%s NOW" % her.to_upper()), x, 6, w, 22)
-	var now := Panel.new()
-	now.name = "GameNow"
-	now.mouse_filter = Control.MOUSE_FILTER_PASS
-	now.add_theme_stylebox_override("panel", _box(CHIP, EDGE, 8, 2))
-	now.tooltip_text = "What she is doing in the exchange that is coming. Each call's grade is against this"
-	_put(board, now, x, 30, w, 44)
-	var word := TV.label(_game_word(sit), 26, WoodKit.HEAD, "bold")
-	word.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	word.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	word.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	now.add_child(word)
-	Halo.ring(now, WoodKit.HEAD, 8.0, 0.7)
-	var seen := games(ex).slice(0, 2)
-	for i in seen.size():
-		var g: Dictionary = seen[i]
-		var chip := TV.label("%s x%d" % [_game_word(str(g["sit"])), int(g["n"])], 20, WoodKit.INK, "bold")
-		chip.name = "Game_" + str(g["sit"])
-		_put(board, chip, x, 84.0 + 24.0 * float(i), w, 22)
-	board.set_meta("game", sit)
-
-
 static func _calls(board: Control, ex: Array, x: float, w: float, _h: float) -> void:
 	_put(board, _tag("YOUR CALLS"), x, 6, w, 22)
 	var rows := calls(ex)
@@ -145,10 +121,6 @@ static func _calls(board: Control, ex: Array, x: float, w: float, _h: float) -> 
 		ticks.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_put(board, ticks, x + w - 92.0, y + 2.0, 92, 26)
 		y += 36.0
-
-
-static func _game_word(sit: String) -> String:
-	return str((Exchanges.MODES.get(sit, {}) as Dictionary).get("label", "Feeling out")) if sit != "" else "Feeling out"
 
 
 static func _tag(text: String) -> Label:

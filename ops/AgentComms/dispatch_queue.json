@@ -997,6 +997,22 @@
    "brief": "MOODHABIT1",
    "status": "queued",
    "queued": "2026-11-10T18:40"
+  },
+  {
+   "id": "HANDSPROBE1",
+   "seat": "qwen",
+   "title": "TASK HANDSPROBE1 - QWEN (qwen3-coder) - how scarce are Reid's hands really? Measure only",
+   "brief": "HANDSPROBE1",
+   "status": "queued",
+   "queued": "2026-11-10T18:50"
+  },
+  {
+   "id": "BARGUARD1",
+   "seat": "cursor",
+   "title": "TASK BARGUARD1 - CURSOR (Grok 4.7 High) - the boots stay above the corner bar while a shot holds",
+   "brief": "BARGUARD1",
+   "status": "queued",
+   "queued": "2026-11-10T19:05"
   }
  ]
 }

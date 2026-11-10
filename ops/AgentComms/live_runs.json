@@ -1502,7 +1502,7 @@
     "runner_pid": 45884,
     "seat_pid": 39732
    },
-   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 8/8 PASS; PR #179; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache",
+   "note": "S428: PR 179 collected a0d9eb3c",
    "finished": "2026-11-10T17:59",
    "pr": 179,
    "checks": [
@@ -1703,7 +1703,7 @@
    "agent": "cursor",
    "id": "FIGHTDISPLAY3",
    "title": "TASK FIGHTDISPLAY3 - CURSOR (Grok 4.7 High) - the two wooden side panels, round 3: on today's main, no error, no overlap, no symbols",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-10T18:23",
    "eta": "2026-11-10T20:13",
    "branch": "cursor/fightdisplay3",
@@ -1723,6 +1723,108 @@
     "brief_copied": true,
     "runner_pid": 43772,
     "seat_pid": 42316
+   },
+   "note": "S428: collected by diff onto main c6bd79db; render read, tests green"
+  },
+  "MOODHABIT1": {
+   "agent": "qwen",
+   "id": "MOODHABIT1",
+   "title": "TASK MOODHABIT1 - QWEN (qwen3-coder) - what a boxer's mood and each habit are worth in wins. Measure only",
+   "status": "landed",
+   "started": "2026-11-10T18:29",
+   "eta": "2026-11-10T20:19",
+   "branch": "qwen/moodhabit1",
+   "worktree": "E:/FightCamp/wt/LEAN_MOODHABIT1",
+   "wt": "E:/FightCamp/wt/LEAN_MOODHABIT1",
+   "brief": "ops/research/TASK_MOODHABIT1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/MOODHABIT1_dispatch_out.txt",
+   "match": "seat_dispatch.py run moodhabit1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/MOODHABIT1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/MOODHABIT1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/MOODHABIT1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 28680,
+    "seat_pid": 30156
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #181",
+   "finished": "2026-11-10T18:57",
+   "pr": 181,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/mood_habit_probe.gd",
+     "ok": true,
+     "last": "RESULT: tools/mood_habit_probe.gd -> MOODHABIT1 cells=48 flat_gap=-0.8 best_habit_gap=-15.0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "HANDSPROBE1": {
+   "agent": "qwen",
+   "id": "HANDSPROBE1",
+   "title": "TASK HANDSPROBE1 - QWEN (qwen3-coder) - how scarce are Reid's hands really? Measure only",
+   "status": "running",
+   "started": "2026-11-10T18:47",
+   "eta": "2026-11-10T20:37",
+   "branch": "qwen/handsprobe1",
+   "worktree": "E:/FightCamp/wt/LEAN_HANDSPROBE1",
+   "wt": "E:/FightCamp/wt/LEAN_HANDSPROBE1",
+   "brief": "ops/research/TASK_HANDSPROBE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HANDSPROBE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run handsprobe1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HANDSPROBE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HANDSPROBE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HANDSPROBE1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 5612,
+    "seat_pid": 35060
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+  },
+  "HALOSWEEP1": {
+   "agent": "cursor",
+   "id": "HALOSWEEP1",
+   "title": "TASK HALOSWEEP1 - CURSOR (Grok 4.7 High) - every \"this one is chosen\" frame in the game uses the shared outline",
+   "status": "running",
+   "started": "2026-11-10T18:59",
+   "eta": "2026-11-10T20:49",
+   "branch": "cursor/halosweep1",
+   "worktree": "E:/FightCamp/wt/LEAN_HALOSWEEP1",
+   "wt": "E:/FightCamp/wt/LEAN_HALOSWEEP1",
+   "brief": "ops/research/TASK_HALOSWEEP1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/HALOSWEEP1_dispatch_out.txt",
+   "match": "seat_dispatch.py run halosweep1",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/HALOSWEEP1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/HALOSWEEP1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/HALOSWEEP1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 44404,
+    "seat_pid": 6812
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }
