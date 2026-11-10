@@ -36,7 +36,7 @@ func _rules() -> void:
 	_geometry(spots)
 	_check(_at(spots, "bag_floor").is_equal_approx(Vector2(813, 668)), "bag floor feet at (813, 668), got %s" % _at(spots, "bag_floor"))
 	_check(_at(spots, "bag_f1").is_equal_approx(Vector2(602, 530)), "front bag feet at (602, 530), got %s" % _at(spots, "bag_f1"))
-	_check(_at(spots, "tread_1").is_equal_approx(Vector2(1181, 760)), "treadmill feet at (1181, 760), got %s" % _at(spots, "tread_1"))
+	_check(_at(spots, "tread_1").distance_to(Vector2(1181, 731.34)) < 0.5, "treadmill feet on the belt at (1181, 731.3), got %s" % _at(spots, "tread_1"))   # S419: was (1181, 760), the floor in front
 	_check(_job_of(spots, "bag_f1") == "jab_back" and _job_of(spots, "bag_floor") == "idle" and _job_of(spots, "tread_1") == "stand", "bag jabs, mat idles, cardio stands")
 	rows.append({"id": "bag_b1", "day": 0})
 	var early: Array = GymFloorSpots.spots(rows, 6)
@@ -73,6 +73,8 @@ func _geometry(spots: Array) -> void:
 		var item: Dictionary = GymSlots.item(id)
 		var x: float = float(item["x"]) + float(item["w"]) * 0.5
 		var y: float = float(item["y"]) + float(item["h"]) + 6.0
+		if kind == "cardio":   # S419: on the belt, not on the floor in front
+			y = float(item["y"]) + float(item["h"]) * GymFloorSpots.ON_BELT
 		var want := Vector2(clampf(x, MARGIN, PIC.x - MARGIN), clampf(y, MARGIN, PIC.y - MARGIN))
 		_check(at.is_equal_approx(want), "%s feet match the piece (%s vs %s)" % [id, at, want])
 

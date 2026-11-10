@@ -9,6 +9,7 @@ const GymSlots := preload("res://scripts/rules/GymSlots.gd")
 const PICTURE := Vector2(1672, 941)
 const MARGIN := 20.0
 const BELOW := 6.0
+const ON_BELT := 0.78   # how far down a cardio piece its belt is, as a share of its height
 const KINDS := ["bag", "mat", "rack", "bench", "cardio"]
 
 
@@ -34,6 +35,8 @@ static func spots(rows: Array, day: int) -> Array:
 static func _feet(item: Dictionary) -> Vector2:
 	var x: float = float(item["x"]) + float(item["w"]) * 0.5
 	var y: float = float(item["y"]) + float(item["h"]) + BELOW
+	if str(item.get("kind", "")) == "cardio":
+		y = float(item["y"]) + float(item["h"]) * ON_BELT   # S419: on the treadmill's belt, not on the floor in front of it
 	var lo := Vector2(MARGIN, MARGIN)
 	var hi := PICTURE - lo
 	return Vector2(clampf(x, lo.x, hi.x), clampf(y, lo.y, hi.y))

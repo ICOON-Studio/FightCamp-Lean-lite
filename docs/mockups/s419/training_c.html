@@ -1,0 +1,179 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Training C</title><style>*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;position:relative;background:radial-gradient(ellipse at 50% 30%,#2a2d31 0,#14161a 70%);font-family:"Segoe UI",Arial,sans-serif;color:#ece6d6}
+.abs{position:absolute}
+.panel{position:absolute;border:24px solid transparent;border-image:url(../../../assets/ui/wood/panel.png) 48 fill/24px stretch}
+.tabs{position:absolute;left:30px;top:20px;display:flex;gap:10px}
+.tab{width:176px;height:62px;display:flex;align-items:center;justify-content:center;font-size:27px;font-weight:600;background:url(../../../assets/ui/wood/tab.png) 0 0/100% 100% no-repeat;color:#cbbd9e}
+.tab.on{background-image:url(../../../assets/ui/wood/tab_on.png);color:#fff;font-weight:800}
+h1{position:absolute;left:0;width:1920px;top:14px;text-align:center;font-size:48px;letter-spacing:2px;font-weight:800;color:#f1e9d4;text-shadow:0 3px 0 #000}
+.wk{position:absolute;right:300px;top:26px;font-size:40px;font-weight:800;display:flex;gap:10px;align-items:center;color:#e8b64a}
+.go{position:absolute;right:30px;top:12px;width:240px;height:76px;background:url(../../../assets/ui/wood/red.png) 0 0/100% 100% no-repeat;font-size:40px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:14px;text-shadow:0 2px 0 #000}
+.ic{flex:none;display:block}
+.tok{position:relative;width:176px;height:122px;background:url(../../../assets/ui/wood/plank.png) 0 0/100% 100% no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:25px;font-weight:700;border-bottom:5px solid var(--c)}
+.tok b{font-weight:700;font-size:25px;line-height:1}
+.tok .tg{position:absolute;left:12px;top:8px;font-size:22px;font-weight:800}
+.cost{font-size:28px;font-weight:800;color:#f0a53a}
+.tok .cost{position:absolute;right:12px;top:6px}
+.grid{position:absolute;display:grid;grid-template-columns:176px 176px;gap:12px}
+.lv{position:absolute;display:flex;gap:10px}
+.lv div{width:114px;height:86px;background:url(../../../assets/ui/wood/plank.png) 0 0/100% 100% no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:26px;font-weight:800;line-height:1.1}
+.lv small{font-size:24px;color:#e8b64a;font-weight:700}
+.lv .on{background-image:url(../../../assets/ui/wood/plank_on.png);outline:3px solid #e8b64a;color:#fff}
+#strip{position:absolute;left:468px;top:772px;width:984px;height:290px;display:flex;gap:8px;padding-left:46px}
+.col{width:124px;display:flex;flex-direction:column;gap:8px}
+.day{text-align:center;font-size:26px;font-weight:800;color:#cbbd9e;height:32px;line-height:32px}
+.slot{position:relative;height:110px;border-radius:12px;background:linear-gradient(#32373d,#22262b);border:3px solid #5a3f27;display:flex;flex-direction:column;align-items:center;padding-top:7px;box-shadow:inset 0 0 0 2px #00000055}
+.slot > .ic{position:absolute;left:8px;top:6px}
+.slot .cost{position:absolute;right:9px;top:6px;font-size:27px}
+.slot .nm{margin-top:50px;font-size:23px;font-weight:700;line-height:1;white-space:nowrap}
+.slot.dim{opacity:.55}
+.slot .pp{display:flex;gap:5px;margin-top:8px;height:14px}
+.slot .pp i{width:30px;height:11px;border-radius:3px;display:block}
+.slot .pp u{width:20px;height:14px;border-radius:3px;background:#f1e9d4;display:block;text-decoration:none;box-shadow:2px 2px 0 #00000088}
+.slot.sel{border-color:#e8b64a;box-shadow:0 0 0 4px #e8b64a55,0 0 28px #e8b64a88}
+.slot.sug{border:3px dashed #e8b64a}
+.tag{position:absolute;left:-14px;bottom:-24px;background:#e8b64a;color:#1a1206;font-style:normal;font-weight:800;font-size:23px;border-radius:8px;padding:3px 9px 3px 5px;display:flex;align-items:center;gap:6px;box-shadow:0 3px 0 #000}
+.rowic{position:absolute;left:472px;width:40px}
+#fig,#ring,#lead{position:absolute}
+#ring,#lead{left:0;top:0}
+.tmark{position:absolute;display:flex;align-items:center;gap:4px;font-size:60px;font-weight:800;color:#f0a53a;width:170px;justify-content:flex-end}
+.tmark b{line-height:1;text-shadow:0 3px 0 #000}
+.t80{position:absolute;font-size:28px;font-weight:800;color:#ff6a5a}
+.goal{position:absolute;left:835px;top:80px;width:250px;height:64px;background:url(../../../assets/ui/wood/plank.png) 0 0/100% 100% no-repeat;display:flex;align-items:center;justify-content:center;gap:8px;font-size:42px;font-weight:800;color:#e8b64a}
+.goal .w{font-size:30px;color:#ece6d6}
+.gauge{position:absolute;width:200px;height:200px}
+.gauge > svg{position:absolute;left:0;top:0}
+.gnum{font-size:34px;font-weight:800;fill:#fff}
+.gname{position:absolute;left:0;width:200px;top:158px;display:flex;justify-content:center;align-items:center;gap:6px;font-size:26px;font-weight:700}
+.gdelta{position:absolute;left:0;width:200px;top:196px;text-align:center;font-size:27px;font-weight:800;color:#7bdc7b}
+.box{position:absolute;background:#15181bcc;border:3px solid #5a3f27;border-radius:14px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;font-weight:800}
+.card{position:relative;width:176px;height:176px;border-radius:12px;background:#f0e8d2;color:#1c1a16;padding:10px 12px;box-shadow:3px 4px 0 #000a}
+.card b{display:block;font-size:26px;line-height:1.05;font-weight:800}
+.card .tier{font-size:22px;font-weight:700;color:#7a5a12}
+.mbar{position:absolute;left:12px;right:12px;bottom:12px;height:20px;background:#c9bf9f;border-radius:5px;overflow:hidden}
+.mbar i{position:absolute;top:0;bottom:0;display:block}
+.mbar s{position:absolute;top:0;bottom:0;width:3px;background:#1c1a16}
+.mnum{position:absolute;left:12px;bottom:40px;font-size:30px;font-weight:800}
+.mnum span{color:#2a8a3a}
+.mini{width:176px;height:84px;border-radius:12px;background:#d9d0b6;color:#1c1a16;padding:8px 12px;box-shadow:3px 4px 0 #000a;position:relative}
+.mini b{font-size:25px;font-weight:800;display:block;line-height:1.05}
+.mini .n{font-size:30px;font-weight:800}
+.split{position:absolute;display:flex;height:64px;border-radius:12px;overflow:hidden;border:3px solid #e8b64a;font-size:30px;font-weight:800}
+.split div{display:flex;align-items:center;justify-content:center}
+
+</style></head><body><h1>Lucy</h1>
+<div class="tabs"><div class="tab">Overview</div><div class="tab on">Training</div><div class="tab">Playbook</div><div class="tab">History</div></div>
+
+<div class="go">Go <svg class="ic " width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24h34M28 11l13 13-13 13"/></svg></div>
+
+<div class="panel" style="left:18px;top:106px;width:430px;height:950px"></div>
+<div class="abs" style="left:52px;top:132px"><svg class="ic " width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="#e8b64a" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="8"/><path d="M24 4v6M24 38v6M4 24h6M38 24h6M10 10l4 4M34 34l4 4M38 10l-4 4M14 34l-4 4"/></svg></div>
+<div class="grid" style="left:52px;top:176px"><div class="tok" style="--c:#e8b64a"><svg class="ic " width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 42L19 6M42 42L29 6"/><path d="M24 42v-7M24 30v-7M24 18v-6"/></svg><b>Roadwork</b><span class="tg" style="color:#e8b64a">Sta</span><span class="cost">+7</span></div><div class="tok" style="--c:#e8b64a"><svg class="ic " width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="28" r="15"/><path d="M24 28l8-8M19 6h10M24 6v7"/></svg><b>Intervals</b><span class="tg" style="color:#e8b64a">Sta</span><span class="cost">+11</span></div><div class="tok" style="--c:#e0563f"><svg class="ic " width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><rect x="15" y="12" width="18" height="30" rx="7"/><path d="M19 3v9M29 3v9"/></svg><b>Heavy bag</b><span class="tg" style="color:#e0563f">Str</span><span class="cost">+7</span></div><div class="tok" style="--c:#e0563f"><svg class="ic " width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18v12M11 12v24M37 12v24M44 18v12M11 24h26"/></svg><b>Weights</b><span class="tg" style="color:#e0563f">Str</span><span class="cost">+7</span></div><div class="tok" style="--c:#4fa8e8"><svg class="ic " width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8h32M24 8v8"/><ellipse cx="24" cy="29" rx="9" ry="12"/></svg><b>Speed bag</b><span class="tg" style="color:#4fa8e8">Spd</span><span class="cost">+4</span></div><div class="tok" style="--c:#9a7be0"><svg class="ic " width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10C0 44 48 44 38 10M8 3v9M40 3v9"/></svg><b>Slip rope</b><span class="tg" style="color:#9a7be0">Acc</span><span class="cost">+7</span></div><div class="tok" style="--c:#9a7be0"><svg class="ic " width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="13" r="6"/><path d="M9 42V31q0-9 11-9t11 9v11"/><g stroke-dasharray="3 4" opacity=".7"><circle cx="31" cy="13" r="6"/><path d="M42 42V31q0-9-11-9"/></g></svg><b>Shadow</b><span class="tg" style="color:#9a7be0">Acc</span><span class="cost">+7</span></div><div class="tok" style="--c:#6fc08a"><svg class="ic " width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="12" r="8"/><path d="M20 20v9M28 20v9M5 43q3-13 15-14M43 43q-3-13-15-14"/></svg><b>Neck</b><span class="tg" style="color:#6fc08a">Dur</span><span class="cost">+4</span></div></div>
+<div class="lv" style="left:52px;top:736px"><div>Light<small>&times;.6</small></div><div class="on">Normal<small>&times;1</small></div><div>Hard<small>&times;1.3</small></div></div>
+<div class="tok" style="position:absolute;left:52px;top:850px;width:364px;height:128px;--c:#8b8f94;flex-direction:row;gap:16px"><svg class="ic " width="52" height="52" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M33 7A17 17 0 1 0 42 33 13 13 0 0 1 33 7z"/></svg><b style="font-size:30px">Rest</b></div>
+
+<svg id="ring" width="1920" height="1080" viewBox="0 0 1920 1080">
+<path d="M960 142A262 306 0 1 1 960 754A262 306 0 1 1 960 142" fill="none" stroke="#1b1f23" stroke-width="30" opacity=".9"/>
+<path d="M960 142A262 306 0 1 1 960 754A262 306 0 1 1 960 142" fill="none" stroke="#3a3f45" stroke-width="22" pathLength="100"/>
+<path d="M960 142A262 306 0 1 1 960 754A262 306 0 1 1 960 142" fill="none" stroke="#e8b64a" stroke-width="22" pathLength="100" stroke-dasharray="50 100"/>
+<path d="M960 142A262 306 0 1 1 960 754A262 306 0 1 1 960 142" fill="none" stroke="#7bdc7b" stroke-width="22" pathLength="100" stroke-dasharray="14 100" stroke-dashoffset="-50"/>
+</svg>
+<div class="goal"><svg class="ic " width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#e8b64a" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 44V6M10 8h28l-6 8 6 8H10"/></svg><b>66</b><svg class="ic " width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="#e8b64a" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6v20M26 6v20M22 26q-4 12-14 12 0-14 6-24 6 2 8 12M26 26q4 12 14 12 0-14-6-24-6 2-8 12"/></svg><b class="w">4w</b></div><svg id="lead" width="1920" height="1080"><g stroke="#c9a05a" stroke-width="3" fill="#c9a05a" opacity=".85"><path d="M686 232L925 190" fill="none"/><circle cx="925" cy="190" r="6"/><path d="M686 470L882 360" fill="none"/><circle cx="882" cy="360" r="6"/><path d="M1234 262L990 327" fill="none"/><circle cx="990" cy="327" r="6"/><path d="M1234 512L997 569" fill="none"/><circle cx="997" cy="569" r="6"/></g></svg><svg id="fig" style="left:820.5px;top:132px" width="279.0" height="595.2" viewBox="0 0 300 640">
+<defs><linearGradient id="tg" gradientUnits="userSpaceOnUse" x1="0" y1="626" x2="0" y2="22"><stop offset="0" stop-color="#4caf50"/><stop offset=".5" stop-color="#8fc43f"/><stop offset=".72" stop-color="#e8a32c"/><stop offset=".8" stop-color="#e8702c"/><stop offset="1" stop-color="#d8332a"/></linearGradient>
+<mask id="bm" maskUnits="userSpaceOnUse" x="0" y="0" width="300" height="640"><g fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"><circle cx="150" cy="62" r="40" stroke-width="0"/><rect x="134" y="92" width="32" height="34" stroke-width="0"/>
+<path d="M92 128Q150 108 208 128L198 330Q150 346 102 330Z" stroke-width="6"/>
+<path d="M96 138L66 245" stroke-width="32" fill="none"/><path d="M66 245L104 142" stroke-width="28" fill="none"/>
+<path d="M204 138L234 245" stroke-width="32" fill="none"/><path d="M234 245L196 142" stroke-width="28" fill="none"/>
+<circle cx="104" cy="136" r="29" stroke-width="0"/><circle cx="196" cy="136" r="29" stroke-width="0"/>
+<path d="M128 335L115 470" stroke-width="50" fill="none"/><path d="M115 470L105 590" stroke-width="38" fill="none"/>
+<path d="M172 335L185 470" stroke-width="50" fill="none"/><path d="M185 470L195 590" stroke-width="38" fill="none"/>
+<ellipse cx="96" cy="612" rx="32" ry="15" stroke-width="0"/><ellipse cx="204" cy="612" rx="32" ry="15" stroke-width="0"/></g></mask></defs>
+<g fill="#8a6a44" stroke="#8a6a44" stroke-linecap="round" stroke-linejoin="round"><circle cx="150" cy="62" r="40" stroke-width="12"/><rect x="134" y="92" width="32" height="34" stroke-width="12"/>
+<path d="M92 128Q150 108 208 128L198 330Q150 346 102 330Z" stroke-width="18"/>
+<path d="M96 138L66 245" stroke-width="44" fill="none"/><path d="M66 245L104 142" stroke-width="40" fill="none"/>
+<path d="M204 138L234 245" stroke-width="44" fill="none"/><path d="M234 245L196 142" stroke-width="40" fill="none"/>
+<circle cx="104" cy="136" r="29" stroke-width="12"/><circle cx="196" cy="136" r="29" stroke-width="12"/>
+<path d="M128 335L115 470" stroke-width="62" fill="none"/><path d="M115 470L105 590" stroke-width="50" fill="none"/>
+<path d="M172 335L185 470" stroke-width="62" fill="none"/><path d="M185 470L195 590" stroke-width="50" fill="none"/>
+<ellipse cx="96" cy="612" rx="32" ry="15" stroke-width="12"/><ellipse cx="204" cy="612" rx="32" ry="15" stroke-width="12"/></g>
+<g fill="#23282d" stroke="#23282d" stroke-linecap="round" stroke-linejoin="round"><circle cx="150" cy="62" r="40" stroke-width="0"/><rect x="134" y="92" width="32" height="34" stroke-width="0"/>
+<path d="M92 128Q150 108 208 128L198 330Q150 346 102 330Z" stroke-width="6"/>
+<path d="M96 138L66 245" stroke-width="32" fill="none"/><path d="M66 245L104 142" stroke-width="28" fill="none"/>
+<path d="M204 138L234 245" stroke-width="32" fill="none"/><path d="M234 245L196 142" stroke-width="28" fill="none"/>
+<circle cx="104" cy="136" r="29" stroke-width="0"/><circle cx="196" cy="136" r="29" stroke-width="0"/>
+<path d="M128 335L115 470" stroke-width="50" fill="none"/><path d="M115 470L105 590" stroke-width="38" fill="none"/>
+<path d="M172 335L185 470" stroke-width="50" fill="none"/><path d="M185 470L195 590" stroke-width="38" fill="none"/>
+<ellipse cx="96" cy="612" rx="32" ry="15" stroke-width="0"/><ellipse cx="204" cy="612" rx="32" ry="15" stroke-width="0"/></g>
+<rect x="0" y="197" width="300" height="459" fill="url(#tg)" mask="url(#bm)"/>
+<g stroke="#ff4a3a" stroke-width="4" stroke-dasharray="12 8"><path d="M10 143H290"/></g>
+</svg><div class="tmark" style="top:281px;left:630px"><svg class="ic " width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="#e8a32c" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 3c7 11 15 15 13 28a13 13 0 0 1-26 0c0-8 6-10 8-19 3 4 5 0 5-9z"/></svg><b>71</b></div>
+<div class="t80" style="top:248px;left:1106px">80</div><div class="gauge" style="left:510px;top:132px">
+<svg width="200" height="200" viewBox="0 0 200 200"><circle cx="100" cy="100" r="52" fill="#171a1d" stroke="#2c3137" stroke-width="18"/>
+<circle cx="100" cy="100" r="52" fill="none" stroke="#9a7be0" stroke-width="18" pathLength="100" stroke-dasharray="58.0 100" transform="rotate(-90 100 100)"/>
+<circle cx="100" cy="100" r="52" fill="none" stroke="#7bdc7b" stroke-width="18" pathLength="100" stroke-dasharray="0.2 100" stroke-dashoffset="-58.0" transform="rotate(-90 100 100)"/>
+<text x="100" y="112" text-anchor="middle" class="gnum">58</text></svg>
+<div class="gname"><svg class="ic " width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#9a7be0" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17"/><circle cx="24" cy="24" r="8"/><circle cx="24" cy="24" r="1.5"/></svg>Acc <span style="color:#7bdc7b">+0.2</span></div></div><div class="gauge" style="left:510px;top:370px">
+<svg width="200" height="200" viewBox="0 0 200 200"><circle cx="100" cy="100" r="52" fill="#171a1d" stroke="#2c3137" stroke-width="18"/>
+<circle cx="100" cy="100" r="52" fill="none" stroke="#e0563f" stroke-width="18" pathLength="100" stroke-dasharray="54.0 100" transform="rotate(-90 100 100)"/>
+<circle cx="100" cy="100" r="52" fill="none" stroke="#7bdc7b" stroke-width="18" pathLength="100" stroke-dasharray="0.4 100" stroke-dashoffset="-54.0" transform="rotate(-90 100 100)"/>
+<text x="100" y="112" text-anchor="middle" class="gnum">54</text></svg>
+<div class="gname"><svg class="ic " width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#e0563f" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="14" width="28" height="22" rx="9"/><path d="M14 36v8h20v-8"/></svg>Str <span style="color:#7bdc7b">+0.4</span></div></div><div class="gauge" style="left:1210px;top:162px">
+<svg width="200" height="200" viewBox="0 0 200 200"><circle cx="100" cy="100" r="52" fill="#171a1d" stroke="#2c3137" stroke-width="18"/>
+<circle cx="100" cy="100" r="52" fill="none" stroke="#e8b64a" stroke-width="18" pathLength="100" stroke-dasharray="64.2 100" transform="rotate(-90 100 100)"/>
+<circle cx="100" cy="100" r="52" fill="none" stroke="#7bdc7b" stroke-width="18" pathLength="100" stroke-dasharray="0.5 100" stroke-dashoffset="-64.2" transform="rotate(-90 100 100)"/>
+<text x="100" y="112" text-anchor="middle" class="gnum">64.2</text></svg>
+<div class="gname"><svg class="ic " width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#e8b64a" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6v20M26 6v20M22 26q-4 12-14 12 0-14 6-24 6 2 8 12M26 26q4 12 14 12 0-14-6-24-6 2-8 12"/></svg>Sta <span style="color:#7bdc7b">+0.5</span></div></div><div class="gauge" style="left:1210px;top:412px">
+<svg width="200" height="200" viewBox="0 0 200 200"><circle cx="100" cy="100" r="52" fill="#171a1d" stroke="#2c3137" stroke-width="18"/>
+<circle cx="100" cy="100" r="52" fill="none" stroke="#4fa8e8" stroke-width="18" pathLength="100" stroke-dasharray="63.0 100" transform="rotate(-90 100 100)"/>
+<circle cx="100" cy="100" r="52" fill="none" stroke="#7bdc7b" stroke-width="18" pathLength="100" stroke-dasharray="0.1 100" stroke-dashoffset="-63.0" transform="rotate(-90 100 100)"/>
+<text x="100" y="112" text-anchor="middle" class="gnum">63</text></svg>
+<div class="gname"><svg class="ic " width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#4fa8e8" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M28 3L10 28h12l-4 17 20-27H26z"/></svg>Spd <span style="color:#7bdc7b">+0.1</span></div></div>
+
+<div class="box" style="left:476px;top:628px;width:222px;height:128px"></div>
+<div class="abs" style="left:484px;top:636px;width:206px;display:flex;flex-direction:column;gap:8px;align-items:center">
+ <div style="display:flex;gap:8px;align-items:center;font-size:30px;font-weight:800"><svg class="ic " width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="8" width="36" height="32" rx="6"/><path d="M14 22a10 10 0 0 1 20 0zM24 22l5-6"/></svg>61.4<span style="color:#7bdc7b">&minus;.4</span></div>
+ <div style="display:flex;gap:8px"><div class="tok btn" style="width:96px;height:56px;font-size:27px;--c:#e8b64a;border-bottom-width:4px">Hold</div><div class="tok btn" style="width:96px;height:56px;font-size:27px;--c:#8b8f94;border-bottom-width:0">Cut</div></div></div>
+<div class="box" style="left:1222px;top:628px;width:222px;height:128px"></div>
+<div class="abs" style="left:1230px;top:636px;width:206px;display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:800">
+ <div style="display:flex;align-items:center;gap:10px"><svg class="ic " width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#e0563f" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="10" width="28" height="26" rx="12"/><path d="M12 36v8h20v-8M30 20h12"/></svg><span style="font-size:48px">19</span></div><div style="font-size:28px;color:#e8b64a">Build</div></div>
+
+<div id="strip"><div class="col"><div class="day">Mon</div>
+<div class="slot "><svg class="ic " width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 42L19 6M42 42L29 6"/><path d="M24 42v-7M24 30v-7M24 18v-6"/></svg><b class="nm">Roadwork</b><span class="cost">+7</span><span class="pp"><i style="background:#e8b64a"></i><i style="background:#e8b64a"></i><i style="background:#3a3f45"></i></span></div>
+<div class="slot   "><svg class="ic " width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="6" width="30" height="36" rx="13"/><circle cx="24" cy="24" r="7"/></svg><b class="nm">Pads</b><span class="cost">+8</span><span class="pp"><u></u><u></u></span></div></div><div class="col"><div class="day">Tue</div>
+<div class="slot "><svg class="ic " width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><rect x="15" y="12" width="18" height="30" rx="7"/><path d="M19 3v9M29 3v9"/></svg><b class="nm">Heavy bag</b><span class="cost">+7</span><span class="pp"><i style="background:#e0563f"></i><i style="background:#e0563f"></i><i style="background:#3a3f45"></i></span></div>
+<div class="slot   "><svg class="ic " width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="12" width="38" height="28" rx="3"/><path d="M5 12l6-8h30M20 20l13 7-13 7z"/></svg><b class="nm">Film</b><span class="cost">+1</span><span class="pp"></span></div></div><div class="col"><div class="day">Wed</div>
+<div class="slot "><svg class="ic " width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="28" r="15"/><path d="M24 28l8-8M19 6h10M24 6v7"/></svg><b class="nm">Intervals</b><span class="cost">+11</span><span class="pp"><i style="background:#e8b64a"></i><i style="background:#e8b64a"></i><i style="background:#e8b64a"></i></span></div>
+<div class="slot   "><svg class="ic " width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="6" width="30" height="36" rx="13"/><circle cx="24" cy="24" r="7"/></svg><b class="nm">Pads</b><span class="cost">+8</span><span class="pp"><u></u></span></div></div><div class="col"><div class="day">Thu</div>
+<div class="slot "><svg class="ic " width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8h32M24 8v8"/><ellipse cx="24" cy="29" rx="9" ry="12"/></svg><b class="nm">Speed bag</b><span class="cost">+4</span><span class="pp"><i style="background:#4fa8e8"></i><i style="background:#3a3f45"></i><i style="background:#3a3f45"></i></span></div>
+<div class="slot   sug"><svg class="ic " width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="28" r="10"/><circle cx="33" cy="20" r="10"/></svg><b class="nm">Sparring</b><span class="cost">+14</span><span class="pp"></span><em class="tag"><svg class="ic " width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="#1a1206" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24h34M28 11l13 13-13 13"/></svg> Pads</em></div></div><div class="col"><div class="day">Fri</div>
+<div class="slot "><svg class="ic " width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18v12M11 12v24M37 12v24M44 18v12M11 24h26"/></svg><b class="nm">Weights</b><span class="cost">+7</span><span class="pp"><i style="background:#e0563f"></i><i style="background:#e0563f"></i><i style="background:#3a3f45"></i></span></div>
+<div class="slot dim  "><svg class="ic " width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M33 7A17 17 0 1 0 42 33 13 13 0 0 1 33 7z"/></svg><b class="nm">Rest</b><span class="cost">&ndash;</span><span class="pp"></span></div></div><div class="col"><div class="day">Sat</div>
+<div class="slot "><svg class="ic " width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="13" r="6"/><path d="M9 42V31q0-9 11-9t11 9v11"/><g stroke-dasharray="3 4" opacity=".7"><circle cx="31" cy="13" r="6"/><path d="M42 42V31q0-9-11-9"/></g></svg><b class="nm">Shadow</b><span class="cost">+4</span><span class="pp"><i style="background:#9a7be0"></i><i style="background:#3a3f45"></i><i style="background:#3a3f45"></i></span></div>
+<div class="slot  sel "><svg class="ic " width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="6" width="30" height="36" rx="13"/><circle cx="24" cy="24" r="7"/></svg><b class="nm">Pads</b><span class="cost">+8</span><span class="pp"><u></u><u></u></span></div></div><div class="col"><div class="day">Sun</div>
+<div class="slot dim"><svg class="ic " width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M33 7A17 17 0 1 0 42 33 13 13 0 0 1 33 7z"/></svg><b class="nm">Rest</b><span class="cost">&ndash;</span><span class="pp"></span></div>
+<div class="slot dim  "><svg class="ic " width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M33 7A17 17 0 1 0 42 33 13 13 0 0 1 33 7z"/></svg><b class="nm">Rest</b><span class="cost">&ndash;</span><span class="pp"></span></div></div></div>
+<div class="rowic" style="top:846px"><svg class="ic " width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="#e8b64a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="8"/><path d="M24 4v6M24 38v6M4 24h6M38 24h6M10 10l4 4M34 34l4 4M38 10l-4 4M14 34l-4 4"/></svg></div>
+<div class="rowic" style="top:966px"><svg class="ic " width="38" height="38" viewBox="0 0 48 48" fill="none" stroke="#9cb8ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M33 7A17 17 0 1 0 42 33 13 13 0 0 1 33 7z"/></svg></div>
+
+<div class="panel" style="left:1472px;top:106px;width:430px;height:950px"></div>
+<div class="abs" style="left:1506px;top:132px;width:362px;height:206px;background:#15181b;border:3px solid #e8b64a;border-radius:14px;padding:12px 14px">
+ <div style="display:flex;align-items:center;gap:14px"><div style="width:62px;height:62px;border-radius:50%;background:#7a5a3a;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800">LR</div>
+ <div style="font-size:30px;font-weight:800;line-height:1.1">Thu<br><span style="font-size:26px;color:#e8b64a;display:flex;gap:6px;align-items:center"><svg class="ic " width="26" height="26" viewBox="0 0 48 48" fill="none" stroke="#e8b64a" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="28" r="10"/><circle cx="33" cy="20" r="10"/></svg>&rarr;<svg class="ic " width="26" height="26" viewBox="0 0 48 48" fill="none" stroke="#e8b64a" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="6" width="30" height="36" rx="13"/><circle cx="24" cy="24" r="7"/></svg></span></div>
+ <div style="margin-left:auto;display:flex;align-items:center;gap:4px;font-size:44px;font-weight:800;color:#7bdc7b"><svg class="ic " width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="#e8a32c" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 3c7 11 15 15 13 28a13 13 0 0 1-26 0c0-8 6-10 8-19 3 4 5 0 5-9z"/></svg>&minus;6</div></div>
+ <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+  <div class="btn" style="flex:1;height:70px;background:url(../../../assets/ui/wood/red.png) 0 0/100% 100% no-repeat;font-size:32px">Do it</div>
+  <div class="btn" style="width:70px;height:70px;background:url(../../../assets/ui/wood/plank.png) 0 0/100% 100% no-repeat;font-size:40px;color:#ece6d6">&times;</div></div>
+ <div style="margin-top:8px;font-size:28px;font-weight:800;text-align:center">71 <span style="color:#e8b64a">&rarr;</span> <span style="color:#7bdc7b">65</span></div>
+</div>
+<div class="grid" style="left:1506px;top:358px"><div class="tok" style="--c:#8b8f94"><svg class="ic " width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="6" width="30" height="36" rx="13"/><circle cx="24" cy="24" r="7"/></svg><b>Pads</b><span class="tg" style="color:#8b8f94"></span><span class="cost">+8</span></div><div class="tok" style="--c:#8b8f94"><svg class="ic " width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="28" r="10"/><circle cx="33" cy="20" r="10"/></svg><b>Sparring</b><span class="tg" style="color:#8b8f94"></span><span class="cost">+14</span></div><div class="tok" style="--c:#8b8f94"><svg class="ic " width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="12" width="38" height="28" rx="3"/><path d="M5 12l6-8h30M20 20l13 7-13 7z"/></svg><b>Film</b><span class="tg" style="color:#8b8f94"></span><span class="cost">+1</span></div><div class="tok" style="--c:#8b8f94"><svg class="ic " width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M33 7A17 17 0 1 0 42 33 13 13 0 0 1 33 7z"/></svg><b>Rest</b><span class="tg" style="color:#8b8f94"></span><span class="cost">&ndash;</span></div></div>
+<div class="abs" style="left:1506px;top:616px;width:362px;height:2px;background:#5a3f27"></div>
+<div class="abs" style="left:1506px;top:630px;display:flex;align-items:center;gap:10px;font-size:30px;font-weight:800;color:#e8b64a"><svg class="ic " width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="#9cb8ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M33 7A17 17 0 1 0 42 33 13 13 0 0 1 33 7z"/></svg>Sat <svg class="ic " width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="#ece6d6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="6" width="30" height="36" rx="13"/><circle cx="24" cy="24" r="7"/></svg> 75&prime;</div>
+<div class="split" style="left:1506px;top:680px;width:362px"><div style="width:70%;background:#c9952e;color:#1a1206">52&prime;</div><div style="width:30%;background:#3b4046;color:#ece6d6">23&prime;</div></div>
+<div style="position:absolute;left:1506px;top:762px;display:flex;gap:10px">
+ <div class="card"><b>1-2-Hook</b><div class="tier">Usable</div><div class="mnum">52 <span>+1.8</span></div><div class="mbar"><i style="left:0;width:52%;background:#c9952e"></i><i style="left:52%;width:1.8%;background:#2aa84a"></i><s style="left:30%"></s><s style="left:60%"></s></div></div>
+ <div class="card"><b>Uppercut</b><div class="tier">Usable</div><div class="mnum">33 <span>+.8</span></div><div class="mbar"><i style="left:0;width:33%;background:#c9952e"></i><i style="left:33%;width:.8%;background:#2aa84a"></i><s style="left:30%"></s><s style="left:60%"></s></div></div></div>
+<div style="position:absolute;left:1506px;top:952px;display:flex;gap:10px">
+ <div class="mini"><b>Lead hook</b><span class="n">44</span></div><div class="mini"><b>Body hook</b><span class="n">41</span></div></div>
+
+</body></html>

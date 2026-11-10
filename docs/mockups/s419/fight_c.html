@@ -1,0 +1,313 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Fight display C</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#0b0d11}
+body{position:relative;font-family:'Bahnschrift','Arial Narrow','Segoe UI',sans-serif;font-weight:700;color:#f2ead8}
+.abs{position:absolute}
+svg.i{width:1em;height:1em;display:inline-block;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+svg.f{fill:currentColor;stroke:none}
+.sh{text-shadow:0 2px 0 rgba(0,0,0,.8),0 0 6px rgba(0,0,0,.7)}
+:root{--red:#e2473b;--red2:#ff8a54;--blue:#3b7de2;--blue2:#76b0ff;--gold:#f2c14e;--chalk:#f2ead8;--wood:#6b4a2f}
+
+/* names */
+.name{font-size:34px;letter-spacing:1px;height:36px;line-height:36px}
+.drain{font-size:28px;line-height:36px;display:flex;align-items:center;gap:4px;color:#ffb066}
+/* meter rows */
+.chip{display:flex;align-items:center;gap:8px;background:rgba(10,11,14,.82);border:2px solid var(--wood);border-radius:6px;padding:0 10px;color:var(--chalk)}
+.chip.e{height:56px;font-size:44px;width:125px}
+.chip.t{height:30px;font-size:24px;width:125px;line-height:26px}
+.chip .i{font-size:.62em}
+.chip.t .i{font-size:24px}
+.track{position:absolute;background:#15171c;border:2px solid #000;overflow:hidden;box-shadow:inset 0 0 0 2px rgba(255,255,255,.07)}
+.fill{position:absolute;top:0;bottom:0}
+.hatch{background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.5) 0 6px,rgba(255,255,255,0) 6px 12px)}
+.L .track{transform:skewX(-14deg)}
+.R .track{transform:skewX(14deg)}
+.L .fill{right:0}
+.R .fill{left:0}
+
+/* panels */
+.panel{background:rgba(12,13,17,.86);border:4px solid var(--wood);border-radius:8px;box-shadow:0 0 0 2px #2b1c10,inset 0 0 18px rgba(0,0,0,.7)}
+.pip{position:absolute;width:32px;height:32px;border-radius:50%;border:3px solid #000}
+.cnt{position:absolute;display:flex;gap:18px;align-items:baseline}
+.cnt .g{display:flex;align-items:center;gap:6px}
+.big{font-size:46px;line-height:46px}
+.mid{font-size:26px;color:#cfc6b0}
+.state{position:absolute;display:flex;align-items:center;gap:10px;height:46px;padding:0 16px;border-radius:23px;font-size:26px;border:3px solid}
+.pill{position:absolute;display:flex;align-items:center;gap:8px;height:44px;padding:0 12px;border-radius:22px;border:3px solid;background:rgba(10,10,12,.92);font-size:32px}
+.call{position:absolute;display:flex;align-items:center;gap:12px;height:56px;padding:0 18px;background:rgba(12,13,17,.86);border:3px solid var(--wood);border-radius:8px;font-size:28px}
+</style></head><body>
+
+<!-- icon set -->
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="bolt" viewBox="0 0 24 24"><path d="M13 2 5 14h6l-1 8 9-12h-6z" class="f" fill="currentColor"/></symbol>
+<symbol id="boot" viewBox="0 0 24 24"><path d="M8 2h6v10l6 3v6H5v-5l3-2z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="shield" viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.500-2-8-6-8-11V5z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="fist" viewBox="0 0 24 24"><path d="M5 9h13a2 2 0 0 1 2 2v5a5 5 0 0 1-5 5H9a4 4 0 0 1-4-4z" fill="currentColor" stroke="none"/><path d="M9 9v3M13 9v3M17 9v3" stroke="#000" stroke-width="1.4" opacity=".5"/><rect x="3" y="14" width="4" height="7" rx="1" fill="currentColor" stroke="none"/></symbol>
+<symbol id="head" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5.500" fill="currentColor" stroke="none"/><path d="M3 22c0-5 4-7 9-7s9 2 9 7z" fill="currentColor" stroke="none" opacity=".45"/></symbol>
+<symbol id="body" viewBox="0 0 24 24"><path d="M6 3h12l3 6v12H3V9z" fill="currentColor" stroke="none"/><path d="M12 3v18" stroke="#000" opacity=".4"/></symbol>
+<symbol id="drop" viewBox="0 0 24 24"><path d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0C19 10 12 2 12 2z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="eye" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke-width="2.200"/><circle cx="12" cy="12" r="3.500" fill="currentColor" stroke="none"/></symbol>
+<symbol id="clip" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="18" rx="2" stroke-width="2.200"/><rect x="8" y="2" width="8" height="4" rx="1" fill="currentColor" stroke="none"/><path d="M8 11h8M8 15h8M8 19h5"/></symbol>
+<symbol id="mega" viewBox="0 0 24 24"><path d="M3 9h5l9-5v16l-9-5H3z" fill="currentColor" stroke="none"/><path d="M20 9c1.500 1.500 1.500 4.500 0 6" stroke-width="2.200"/></symbol>
+<symbol id="check" viewBox="0 0 24 24"><path d="M3 12.500l6 6L21 6" stroke-width="3.500"/></symbol>
+<symbol id="down" viewBox="0 0 24 24"><path d="M12 3v15M5 11l7 8 7-8" stroke-width="3.500"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.500" stroke-width="2.500"/><path d="M12 6v6l4 3" stroke-width="2.500"/></symbol>
+<symbol id="rope" viewBox="0 0 24 24"><path d="M3 3v19M21 3v19M3 8h18M3 13h18M3 18h18" stroke-width="2.200"/></symbol>
+<symbol id="move" viewBox="0 0 24 24"><path d="M3 12h18M7 7l-4 5 4 5M17 7l4 5-4 5" stroke-width="2.800"/></symbol>
+<symbol id="clinch" viewBox="0 0 24 24"><path d="M2 12h8M22 12h-8M6 8l4 4-4 4M18 8l-4 4 4 4" stroke-width="2.800"/></symbol>
+<symbol id="counter" viewBox="0 0 24 24"><path d="M20 6c-7 0-13 2-13 9M7 15l-3-4M7 15l4-3" stroke-width="2.800"/></symbol>
+<symbol id="press" viewBox="0 0 24 24"><path d="M4 5l7 7-7 7M12 5l7 7-7 7" stroke-width="3"/></symbol>
+<symbol id="gut" viewBox="0 0 24 24"><path d="M5 7h14v9a7 7 0 0 1-14 0z" fill="currentColor" stroke="none"/><path d="M12 11v6M9 14l3 3 3-3" stroke="#000" stroke-width="2"/></symbol>
+<symbol id="clip2" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2" stroke-width="2.200"/><path d="M9 9h6M9 13h6"/></symbol>
+</defs></svg>
+
+<!-- ============ THE RING BEHIND (dark arena, canvas, two silhouettes) ============ -->
+<svg class="abs" style="left:0;top:0" width="1920" height="1080" viewBox="0 0 1920 1080">
+<defs>
+<radialGradient id="spot" cx="50%" cy="62%" r="55%"><stop offset="0" stop-color="#4a4f5c"/><stop offset=".45" stop-color="#1f232b"/><stop offset="1" stop-color="#07080b"/></radialGradient>
+<linearGradient id="can" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3040"/><stop offset="1" stop-color="#14171e"/></linearGradient>
+</defs>
+<rect width="1920" height="1080" fill="url(#spot)"/>
+<g opacity=".5" fill="#10131a">
+<rect x="80" y="300" width="60" height="120" rx="30"/><rect x="200" y="320" width="50" height="100" rx="25"/><rect x="1660" y="310" width="60" height="120" rx="30"/><rect x="1780" y="330" width="50" height="100" rx="25"/>
+<rect x="420" y="340" width="40" height="90" rx="20"/><rect x="1480" y="340" width="40" height="90" rx="20"/>
+</g>
+<!-- canvas -->
+<polygon points="360,860 1560,860 1760,1010 160,1010" fill="url(#can)"/>
+<polygon points="480,520 1440,520 1560,860 360,860" fill="#232938"/>
+<!-- ropes -->
+<g stroke-width="7" fill="none">
+<path d="M480,540H1440" stroke="#7a1d1d"/><path d="M440,640H1480" stroke="#e9e1cf" opacity=".85"/><path d="M400,750H1520" stroke="#2d5bb5"/>
+<path d="M480,520V860M1440,520V860" stroke="#2a2f3b" stroke-width="12"/>
+</g>
+<!-- boxers -->
+<g>
+<ellipse cx="770" cy="855" rx="110" ry="18" fill="#000" opacity=".4"/><ellipse cx="1150" cy="855" rx="110" ry="18" fill="#000" opacity=".4"/>
+<g fill="#8b2a26"><circle cx="770" cy="470" r="46"/><path d="M700 520h140l20 170-30 180h-40l-10-150-10 150h-40l-30-180z"/></g>
+<g fill="#e9e1cf"><circle cx="850" cy="545" r="34"/><circle cx="835" cy="610" r="30"/></g>
+<g fill="#2a56a8"><circle cx="1150" cy="480" r="44"/><path d="M1080 525h140l20 160-30 185h-40l-10-150-10 150h-40l-30-185z"/></g>
+<g fill="#e9e1cf"><circle cx="1070" cy="560" r="33"/><circle cx="1088" cy="620" r="30"/></g>
+</g>
+<rect width="1920" height="1080" fill="none"/>
+</svg>
+
+<!-- ============ LUCY (red) ============ -->
+<div class="L">
+ <!-- portrait -->
+ <svg class="abs" style="left:24px;top:18px" width="164" height="164" viewBox="0 0 164 164">
+  <defs><clipPath id="cl"><circle cx="82" cy="82" r="76"/></clipPath>
+  <radialGradient id="vg" cx="50%" cy="50%" r="55%"><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient></defs>
+  <g clip-path="url(#cl)">
+   <rect width="164" height="164" fill="#3b2026"/>
+   <path d="M20 170c0-35 25-48 62-48s62 13 62 48z" fill="#c9402f"/>
+   <rect x="68" y="104" width="28" height="26" fill="#7a4b30"/>
+   <ellipse cx="82" cy="78" rx="42" ry="50" fill="#8a5a3c"/>
+   <path d="M38 70C34 28 60 14 82 14s48 14 44 56c-6-22-22-32-44-32S44 48 38 70z" fill="#1a1210"/>
+   <path d="M44 40l-8 30M56 30l-6 34M108 30l6 34M120 40l8 30" stroke="#1a1210" stroke-width="5"/>
+   <!-- right eye (viewer left) fine -->
+   <ellipse cx="62" cy="80" rx="9" ry="6" fill="#f2ead8"/><circle cx="63" cy="80" r="3.500" fill="#1a1210"/>
+   <path d="M50 70q12-7 24 0" stroke="#1a1210" stroke-width="4" fill="none"/>
+   <!-- left eye (viewer right) swollen shut -->
+   <ellipse cx="102" cy="80" rx="17" ry="13" fill="#6a3a5c"/><ellipse cx="102" cy="82" rx="12" ry="8" fill="#52304d"/>
+   <path d="M91 82q11 5 22 0" stroke="#1a0c14" stroke-width="3" fill="none"/>
+   <path d="M90 68q12-8 26 0" stroke="#1a1210" stroke-width="4" fill="none"/>
+   <!-- cut on the brow, with the drip -->
+   <path d="M94 66l16 2" stroke="#e32b2b" stroke-width="4"/><path d="M104 68c2 10 1 18 6 26" stroke="#c71f1f" stroke-width="3.500" fill="none"/>
+   <!-- nose + blood -->
+   <path d="M82 84l-5 18h10z" fill="#74492f"/><path d="M78 103c0 8 2 12 4 16M86 103c0 7-1 10-2 14" stroke="#d62b2b" stroke-width="4" fill="none"/>
+   <path d="M62 124q20 8 40 0" stroke="#4a2a1c" stroke-width="5" fill="none"/>
+   <rect width="164" height="164" fill="url(#vg)"/>
+  </g>
+  <circle cx="82" cy="82" r="77" fill="none" stroke="#e2473b" stroke-width="6"/>
+  <circle cx="82" cy="82" r="81" fill="none" stroke="#000" stroke-width="2" opacity=".6"/>
+ </svg>
+
+ <div class="abs name sh" style="left:205px;top:18px">LUCY JACKSON</div>
+ <div class="abs drain sh" style="left:700px;top:18px"><svg class="i" style="font-size:26px"><use href="#down"/></svg>3</div>
+
+ <!-- energy -->
+ <div class="abs chip e" style="left:205px;top:60px"><svg class="i" style="font-size:36px;color:#ffd24a"><use href="#bolt"/></svg><span class="sh">66</span></div>
+ <div class="track" style="left:340px;top:60px;width:465px;height:56px">
+   <div class="fill" style="width:66%;background:linear-gradient(90deg,#ff8a54,#e2473b)"></div>
+   <div class="fill" style="right:66%;width:7%;background:rgba(255,255,255,.75)"></div>
+ </div>
+ <!-- legs -->
+ <div class="abs chip t" style="left:205px;top:124px"><svg class="i"><use href="#boot"/></svg><span>72</span></div>
+ <div class="track" style="left:340px;top:124px;width:465px;height:30px"><div class="fill" style="width:72%;background:#d96a52"></div></div>
+ <!-- guard -->
+ <div class="abs chip t" style="left:205px;top:162px"><svg class="i"><use href="#shield"/></svg><span>88</span></div>
+ <div class="track" style="left:340px;top:162px;width:465px;height:30px"><div class="fill" style="width:88%;background:#c9a24a"></div></div>
+
+ <!-- punches: this round, then the fight -->
+ <div class="cnt" style="right:1115px;top:206px;flex-direction:row-reverse"></div>
+ <div class="cnt" style="left:480px;top:204px;width:325px;justify-content:flex-end">
+   <div class="g"><svg class="i f" style="font-size:36px;color:#ff8a54"><use href="#fist"/></svg><span class="big sh">9</span><span class="mid">/22</span></div>
+   <div class="g"><svg class="i" style="font-size:32px;color:#f2ead8"><use href="#head"/></svg><span class="big sh" style="font-size:38px">6</span></div>
+   <div class="g"><svg class="i" style="font-size:32px;color:#f2ead8"><use href="#body"/></svg><span class="big sh" style="font-size:38px">3</span></div>
+ </div>
+ <div class="cnt mid" style="left:480px;top:256px;width:325px;justify-content:flex-end;gap:10px;align-items:center"><span>FIGHT</span><svg class="i f" style="font-size:26px"><use href="#fist"/></svg><span style="color:#f2ead8;font-size:30px">21</span><span>/58</span></div>
+
+ <!-- body badge: the six places -->
+ <svg class="abs" style="left:26px;top:208px" width="300" height="300" viewBox="0 0 300 300">
+  <defs><filter id="glowA"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <rect x="2" y="2" width="296" height="296" rx="10" fill="rgba(12,13,17,.82)" stroke="#6b4a2f" stroke-width="4"/>
+  <!-- head (hurt, amber) -->
+  <ellipse cx="118" cy="68" rx="52" ry="56" fill="#f0a21a" stroke="#000" stroke-width="3"/>
+  <!-- left eye of the boxer = viewer right, swollen -->
+  <ellipse cx="141" cy="66" rx="18" ry="13" fill="#f0a21a" stroke="#fff" stroke-width="3" filter="url(#glowA)"/>
+  <ellipse cx="141" cy="66" rx="12" ry="8" fill="#7a3a8a"/>
+  <!-- right eye fine -->
+  <ellipse cx="95" cy="66" rx="14" ry="9" fill="#3fae5a" stroke="#000" stroke-width="2.500"/>
+  <!-- nose -->
+  <path d="M118 74l-9 24h18z" fill="#3fae5a" stroke="#000" stroke-width="2.500"/>
+  <!-- cut mark -->
+  <path d="M130 46l22 2" stroke="#ff3030" stroke-width="5"/>
+  <!-- torso -->
+  <path d="M42 140h152l22 36v96H20V176z" fill="#2a2e38" stroke="#000" stroke-width="3" transform="translate(0,0)" opacity="0"/>
+  <path d="M52 140h132l24 34v86H28V174z" fill="#262a33" stroke="#000" stroke-width="3"/>
+  <!-- right ribs (liver side) = viewer left, hit once -->
+  <path d="M60 156h50v84H50l-8-60z" fill="#3fae5a" stroke="#000" stroke-width="3"/>
+  <path d="M60 156h50v84H50l-8-60z" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="7 5" filter="url(#glowA)"/>
+  <!-- left ribs = viewer right -->
+  <path d="M126 156h50l16 24-6 60h-60z" fill="#3fae5a" stroke="#000" stroke-width="3"/>
+  <!-- numbers on the two hurt places -->
+  <g font-family="Bahnschrift,Arial Narrow,sans-serif" font-weight="700">
+   <rect x="180" y="26" width="104" height="48" rx="24" fill="#0b0b0e" stroke="#f0a21a" stroke-width="3.500"/>
+   <text x="228" y="62" font-size="34" fill="#ffb84a" text-anchor="middle" stroke="#000" stroke-width="0">41</text>
+   <use href="#head" x="190" y="38" width="24" height="24" color="#ffb84a"/>
+   <rect x="38" y="246" width="96" height="42" rx="21" fill="#0b0b0e" stroke="#9be0ad" stroke-width="3.500"/>
+   <text x="92" y="278" font-size="32" fill="#c5f0cf" text-anchor="middle">68</text>
+   <path d="M80 240v6" stroke="#fff" stroke-width="3"/>
+  </g>
+  <use href="#drop" x="46" y="251" width="26" height="26" color="#ff6a6a" opacity="0"/>
+ </svg>
+ <div class="state" style="left:30px;top:520px;color:#ffb066;border-color:#ffb066;background:rgba(12,12,14,.9)"><svg class="i" style="font-size:28px"><use href="#rope"/></svg>ROPES</div>
+</div>
+
+<!-- ============ ERIN (blue) ============ -->
+<div class="R">
+ <svg class="abs" style="left:1732px;top:18px" width="164" height="164" viewBox="0 0 164 164">
+  <defs><clipPath id="cl2"><circle cx="82" cy="82" r="76"/></clipPath></defs>
+  <g clip-path="url(#cl2)">
+   <rect width="164" height="164" fill="#1e2740"/>
+   <path d="M20 170c0-35 25-48 62-48s62 13 62 48z" fill="#2f6bd0"/>
+   <rect x="68" y="104" width="28" height="26" fill="#d9a784"/>
+   <ellipse cx="82" cy="78" rx="42" ry="50" fill="#e8b894"/>
+   <path d="M40 66C36 30 58 16 82 16s46 14 42 50c-6-18-20-26-42-26S46 48 40 66z" fill="#c9a14a"/>
+   <ellipse cx="62" cy="80" rx="9" ry="5.500" fill="#f6efe2"/><circle cx="63" cy="81" r="3.200" fill="#3a5a7a"/>
+   <ellipse cx="102" cy="80" rx="9" ry="5.500" fill="#f6efe2"/><circle cx="101" cy="81" r="3.200" fill="#3a5a7a"/>
+   <path d="M50 77q12-5 24 2M90 79q12-7 24-2" stroke="#8a6a2a" stroke-width="3.500" fill="none"/>
+   <path d="M82 84l-5 16h10z" fill="#d49b78"/>
+   <ellipse cx="82" cy="116" rx="12" ry="7" fill="#7a2a2a"/>
+   <path d="M50 96q8 4 12 0M102 96q8 4 12 0" stroke="#e0806a" stroke-width="6" opacity=".6"/>
+   <path d="M126 50c4 6 4 10 0 14-4-4-4-8 0-14zM38 58c4 6 4 10 0 14-4-4-4-8 0-14z" fill="#9fd8ff"/>
+   <rect width="164" height="164" fill="url(#vg)"/>
+  </g>
+  <circle cx="82" cy="82" r="77" fill="none" stroke="#3b7de2" stroke-width="6"/>
+  <circle cx="82" cy="82" r="81" fill="none" stroke="#000" stroke-width="2" opacity=".6"/>
+ </svg>
+
+ <div class="abs name sh" style="right:205px;top:18px;text-align:right">ERIN DOYLE</div>
+ <div class="abs drain sh" style="right:705px;top:18px"><svg class="i" style="font-size:26px"><use href="#down"/></svg>6</div>
+
+ <div class="abs chip e" style="right:205px;top:60px;flex-direction:row-reverse;justify-content:flex-start"><svg class="i" style="font-size:36px;color:#ffd24a"><use href="#bolt"/></svg><span class="sh" style="font-size:36px;white-space:nowrap">40-56</span></div>
+ <div class="track" style="left:1115px;top:60px;width:465px;height:56px">
+   <div class="fill" style="width:40%;background:linear-gradient(270deg,#76b0ff,#3b7de2)"></div>
+   <div class="fill hatch" style="left:40%;width:16%;background-color:#3b7de2"></div>
+ </div>
+ <div class="abs chip t" style="right:205px;top:124px;flex-direction:row-reverse"><svg class="i"><use href="#boot"/></svg><span>?</span></div>
+ <div class="track hatch" style="left:1115px;top:124px;width:465px;height:30px;opacity:.55;background-color:#2a3a5a"></div>
+ <div class="abs chip t" style="right:205px;top:162px;flex-direction:row-reverse"><svg class="i"><use href="#shield"/></svg><span>?</span></div>
+ <div class="track hatch" style="left:1115px;top:162px;width:465px;height:30px;opacity:.55;background-color:#2a3a5a"></div>
+
+ <div class="cnt" style="left:1115px;top:204px;width:325px;justify-content:flex-start">
+   <div class="g"><svg class="i f" style="font-size:36px;color:#76b0ff"><use href="#fist"/></svg><span class="big sh">17</span><span class="mid">/30</span></div>
+   <div class="g"><svg class="i" style="font-size:32px"><use href="#head"/></svg><span class="big sh" style="font-size:38px">4</span></div>
+   <div class="g"><svg class="i" style="font-size:32px"><use href="#body"/></svg><span class="big sh" style="font-size:38px">1</span></div>
+ </div>
+ <div class="cnt mid" style="left:1115px;top:256px;width:325px;justify-content:flex-start;gap:10px;align-items:center"><svg class="i f" style="font-size:26px"><use href="#fist"/></svg><span style="color:#f2ead8;font-size:30px">29</span><span>/71</span><span>FIGHT</span></div>
+
+ <!-- Erin's body badge: seen, not measured -->
+ <svg class="abs" style="left:1594px;top:208px" width="300" height="300" viewBox="0 0 300 300">
+  <rect x="2" y="2" width="296" height="296" rx="10" fill="rgba(12,13,17,.82)" stroke="#6b4a2f" stroke-width="4"/>
+  <g transform="translate(64,0)" stroke-dasharray="8 5" stroke="#d7e6ff" stroke-width="3">
+   <ellipse cx="118" cy="68" rx="52" ry="56" fill="#3fae5a"/>
+   <ellipse cx="141" cy="66" rx="14" ry="9" fill="#3fae5a"/><ellipse cx="95" cy="66" rx="14" ry="9" fill="#3fae5a"/>
+   <path d="M118 74l-9 24h18z" fill="#3fae5a"/>
+   <path d="M52 140h132l24 34v86H28V174z" fill="#262a33" stroke="#000" stroke-dasharray="none"/>
+   <path d="M60 156h50v84H50l-8-60z" fill="#3fae5a"/>
+   <path d="M126 156h50l16 24-6 60h-60z" fill="#3fae5a"/>
+  </g>
+  <g font-family="Bahnschrift,Arial Narrow,sans-serif" font-weight="700">
+   <rect x="12" y="26" width="104" height="48" rx="24" fill="#0b0b0e" stroke="#9fb8e8" stroke-width="3.500"/>
+   <text x="84" y="62" font-size="34" fill="#cfe0ff" text-anchor="middle">?</text>
+   <use href="#head" x="24" y="38" width="24" height="24" color="#cfe0ff"/>
+  </g>
+ </svg>
+ <div class="state" style="right:30px;top:520px;color:#9fd8ff;border-color:#9fd8ff;background:rgba(12,12,14,.9)"><svg class="i" style="font-size:28px"><use href="#drop"/></svg>TIRED</div>
+</div>
+
+<!-- ============ THE SCOREBUG (centre top) ============ -->
+<div class="abs panel" style="left:830px;top:18px;width:260px;height:270px">
+  <div class="abs sh" style="left:0;top:4px;line-height:40px;width:100%;text-align:center;font-size:24px;letter-spacing:2px;color:#cfc6b0">ROUND <span style="font-size:38px;color:#f2ead8">2/3</span></div>
+  <div class="abs sh" style="left:0;top:48px;width:100%;text-align:center;font-size:72px;line-height:74px;letter-spacing:2px">1:40</div>
+  <!-- six exchanges: who won each so far, the running one ringed -->
+  <div class="abs" style="left:11px;top:130px;width:230px;height:34px">
+    <div class="pip" style="left:0;background:var(--blue)"></div>
+    <div class="pip" style="left:40px;background:var(--blue)"></div>
+    <div class="pip" style="left:80px;background:#1a1c22;border-color:var(--gold);box-shadow:0 0 10px var(--gold)"></div>
+    <div class="pip" style="left:120px;background:#1a1c22;border-color:#444"></div>
+    <div class="pip" style="left:160px;background:#1a1c22;border-color:#444"></div>
+    <div class="pip" style="left:200px;background:#1a1c22;border-color:#444"></div>
+  </div>
+  <!-- momentum: the tug of this round -->
+  <div class="abs" style="left:14px;top:178px;width:228px;height:26px">
+    <svg class="i f" style="position:absolute;left:-2px;top:-4px;font-size:30px;color:var(--red2)"><use href="#fist"/></svg>
+    <div class="abs" style="left:36px;top:5px;width:176px;height:16px;border-radius:8px;border:2px solid #000;background:linear-gradient(90deg,#e2473b,#7a3b6b 50%,#3b7de2)"></div>
+    <div class="abs" style="left:36px;top:0;width:176px;height:26px"><div class="abs" style="left:121px;top:-2px;width:10px;height:30px;background:#fff;border:2px solid #000;border-radius:3px;box-shadow:0 0 8px #fff"></div></div>
+    <svg class="i f" style="position:absolute;right:-8px;top:-4px;font-size:30px;color:var(--blue2)"><use href="#fist"/></svg>
+  </div>
+  <!-- cards: rounds taken so far -->
+  <div class="abs" style="left:0;top:222px;width:100%;display:flex;justify-content:center;align-items:center;gap:14px">
+    <svg class="i" style="font-size:30px;color:#cfc6b0"><use href="#clip"/></svg>
+    <span class="pip" style="position:relative;background:var(--red)"></span>
+    <span class="pip" style="position:relative;background:repeating-linear-gradient(45deg,#e2473b 0 7px,#3b7de2 7px 14px);border-color:var(--gold)"></span>
+    <span class="pip" style="position:relative;background:#1a1c22;border-color:#444"></span>
+  </div>
+</div>
+
+<!-- ============ THE CORNER (bottom) ============ -->
+<svg class="abs" style="left:800px;top:700px" width="320" height="310" viewBox="0 0 320 310">
+  <defs><radialGradient id="hub" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#3a2a18"/><stop offset="1" stop-color="#150f09"/></radialGradient>
+  <filter id="gl"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <circle cx="160" cy="165" r="128" fill="rgba(10,11,14,.8)" stroke="#6b4a2f" stroke-width="5"/>
+  <!-- time to the next call -->
+  <circle cx="160" cy="165" r="120" fill="none" stroke="#2a2118" stroke-width="10"/>
+  <circle cx="160" cy="165" r="120" fill="none" stroke="#f2c14e" stroke-width="10" stroke-linecap="round" stroke-dasharray="500 754" transform="rotate(-90 160 165)"/>
+  <circle cx="160" cy="165" r="62" fill="url(#hub)" stroke="#6b4a2f" stroke-width="4"/>
+  <!-- the five other calls, dim -->
+  <g fill="#2b2c33" stroke="#555" stroke-width="3">
+   <circle cx="256" cy="148" r="30"/><circle cx="224" cy="238" r="30"/><circle cx="96" cy="238" r="30"/><circle cx="64" cy="148" r="30"/>
+  </g>
+  <g color="#9a9aa6">
+   <use href="#move" x="242" y="134" width="28" height="28"/><use href="#gut" x="210" y="224" width="28" height="28"/>
+   <use href="#clinch" x="82" y="224" width="28" height="28"/><use href="#counter" x="50" y="134" width="28" height="28"/>
+  </g>
+  <!-- the one to shout -->
+  <circle cx="160" cy="68" r="40" fill="#f2c14e" stroke="#fff3c4" stroke-width="4" filter="url(#gl)"/>
+  <use href="#shield" x="136" y="44" width="48" height="48" color="#3a2406"/>
+  <g font-family="Bahnschrift,Arial Narrow,sans-serif" font-weight="700" text-anchor="middle" fill="#f2ead8">
+   <text x="160" y="160" font-size="23">COVER</text><text x="160" y="186" font-size="23">UP</text>
+  </g>
+</svg>
+<div class="call" style="left:1140px;top:900px;font-size:32px;color:var(--gold);border-color:var(--gold)"><svg class="i" style="font-size:32px"><use href="#clock"/></svg>0:20</div>
+<div class="call" style="left:600px;top:900px;font-size:26px;color:#ffb066;border-color:#a86a2a"><svg class="i f" style="font-size:28px"><use href="#head"/></svg>HEAD HURT</div>
+
+<!-- plan, last call, scouted habit -->
+<div class="call" style="left:30px;top:840px"><svg class="i" style="font-size:30px;color:var(--gold)"><use href="#mega"/></svg>MOVE<svg class="i" style="font-size:30px;color:#6fe08a"><use href="#check"/></svg></div>
+<div class="call" style="left:30px;top:910px"><svg class="i" style="font-size:30px;color:var(--gold)"><use href="#clip2"/></svg>OUT-BOX</div>
+<div class="call" style="right:30px;top:910px;border-color:#9fd8ff"><svg class="i" style="font-size:30px;color:#9fd8ff"><use href="#eye"/></svg>DROPS RIGHT HAND</div>
+
+</body></html>

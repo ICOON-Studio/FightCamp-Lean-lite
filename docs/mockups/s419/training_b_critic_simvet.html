@@ -1,0 +1,208 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Training B simvet</title>
+<style>
+:root{--gold:#f0bd4f;--chalk:#f3efe4;--red:#c9342a;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#0d0b0a;color:var(--chalk);font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;position:relative;
+ background-image:radial-gradient(ellipse at 20% 0,#3a2a1c 0,transparent 40%),radial-gradient(ellipse at 90% 0,#2e2218 0,transparent 40%)}
+.abs{position:absolute}
+.wood{background:linear-gradient(180deg,#7a5230,#4c2f1a 60%,#3c2514);border:2px solid #20120a;box-shadow:inset 0 2px 0 #9a6d42,0 4px 10px #000a}
+.board{position:absolute;border:12px solid #5b3a20;border-radius:6px;background:
+ radial-gradient(ellipse at 30% 20%,#2b2e31,transparent 60%),linear-gradient(#1d1f21,#161718);
+ box-shadow:0 0 0 2px #1d1008,inset 0 0 0 2px #8a5f36,inset 0 0 40px #000c,0 6px 14px #000a}
+.board:before,.board:after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f6d98a,#a97a25 60%,#5b3d0f);top:-17px;left:-17px;box-shadow:0 2px 3px #000}
+.board:after{left:auto;right:-17px}
+.nav{top:0;left:0;width:1920px;height:64px}
+.navbtn{position:absolute;top:10px;height:46px;border-radius:5px;font-size:26px;display:flex;align-items:center;gap:10px;padding:0 20px;color:var(--chalk)}
+.tab{position:absolute;top:72px;height:44px;border-radius:5px 5px 0 0;font-size:26px;display:flex;align-items:center;padding:0 24px}
+.tab.on{background:linear-gradient(#a26d3a,#6b4527);color:#fff;box-shadow:inset 0 0 0 2px var(--gold)}
+.h{font-weight:700;letter-spacing:.5px}
+.tile{position:relative;height:126px;border-radius:8px;background:linear-gradient(#2c2f32,#1f2123);border:3px solid #3d4146;display:flex;flex-direction:column;align-items:center;}
+.tile.sel{border-color:var(--gold);background:linear-gradient(#41381f,#2a2517);box-shadow:0 0 0 3px #0008,0 0 24px #f0bd4f66;}
+.tile.fight{border-color:#e0493b;background:linear-gradient(#5a1c18,#2c1210)}
+.tile .d{font-size:30px;font-weight:700;line-height:34px;margin-top:5px}
+.tile .halves{display:flex;width:100%;flex:1}
+.tile .half{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.tile .half+.half{border-left:2px dashed #ffffff24}
+.ico{font-size:56px;line-height:62px;filter:drop-shadow(0 2px 2px #000)}
+.pips{display:flex;gap:6px;height:16px}.pips i{width:16px;height:16px;border-radius:50%;background:#ffffff26;border:2px solid #0008}.pips i.on{background:var(--gold);}
+.pips.r i.on{background:#7fd0e8}
+.panel-t{font-size:44px;font-weight:700;color:var(--gold);letter-spacing:.5px}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:18px;padding:2px 14px;font-size:26px;font-weight:700;background:#0008;border:2px solid #ffffff30}
+.chip.r{color:#ff8d80;border-color:#c9342a}.chip.g{color:#8fe3a2;border-color:#3d8d52}
+.seg{position:absolute;bottom:0;width:176px;border-radius:8px 8px 0 0;display:flex;align-items:flex-start;justify-content:center;font-size:30px;font-weight:700;padding-top:10px;background:linear-gradient(#444a50,#2b2e32);border:3px solid #565d64;border-bottom:0}
+.seg.on{background:linear-gradient(#f7cf6a,#c2902c);color:#2a1b06;border-color:#fff2c4;box-shadow:0 0 22px #f0bd4f88}
+.stile{width:60px;height:60px;border-radius:8px;background:#2a2d30;border:3px solid #444a50;display:flex;align-items:center;justify-content:center;font-size:34px}
+.stile.on{border-color:var(--gold);background:#4a3c1c;box-shadow:0 0 14px #f0bd4f77}
+.card{position:absolute;width:360px;height:254px;border-radius:10px;background:linear-gradient(#2d3033,#202225);border:3px solid #4b5157;overflow:hidden;box-shadow:0 5px 10px #000a}
+.card .band{height:46px;font-size:30px;font-weight:700;display:flex;align-items:center;padding:0 14px;justify-content:space-between;color:#10100f}
+.disc{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#14110c;border:3px solid #0006}
+.mbar{position:relative;height:18px;border-radius:9px;background:#0c0d0e;border:2px solid #555}
+.mbar .f{position:absolute;top:0;bottom:0;left:0;border-radius:7px}
+.mbar .g{position:absolute;top:0;bottom:0;border-radius:0 7px 7px 0;background:repeating-linear-gradient(45deg,#fff 0 6px,#fff8 6px 12px)}
+.mbar .t{position:absolute;top:-6px;width:3px;height:26px;background:#ffffffcc}
+.btn{width:58px;height:58px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:700;background:linear-gradient(#7a5230,#4c2f1a);border:2px solid #20120a;box-shadow:inset 0 2px 0 #9a6d42;color:#fff}
+.hand{position:absolute;width:262px;height:130px;border-radius:10px;background:linear-gradient(#34383c,#222427);border:3px solid #596068;box-shadow:0 -4px 10px #0009;padding:8px 12px;font-size:28px;font-weight:700;transform-origin:50% 120%}
+.big{border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:700;color:#fff}
+
+.tool{position:absolute;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
+.plate{width:64px;height:60px;font-size:32px}
+</style></head><body>
+<div class="abs nav wood"></div>
+<div class="navbtn wood" style="left:18px;width:56px;padding:0;justify-content:center">&lsaquo;</div>
+<div class="navbtn wood" style="left:84px;width:56px;padding:0;justify-content:center">&rsaquo;</div>
+<div class="abs h" style="left:160px;top:12px;font-size:40px;font-style:italic">Anvil Street Gym</div>
+<div class="navbtn wood" style="left:620px">&#9733; Home</div>
+<div class="navbtn wood" style="left:790px;box-shadow:inset 0 0 0 2px #e0493b">&#129354; Fighters</div>
+<div class="navbtn wood" style="left:995px">&#127942; Fights</div>
+<div class="navbtn wood" style="left:1160px">&#128176; Club</div>
+<div class="navbtn wood" style="left:1305px">&#127760; World</div>
+<div class="abs h" style="right:36px;top:10px;font-size:40px;color:var(--gold)">$16,841</div>
+<div class="tab wood" style="left:36px">Overview</div>
+<div class="tab on" style="left:190px">Training</div>
+<div class="tab wood" style="left:350px">Playbook</div>
+<div class="tab wood" style="left:520px">History</div>
+<img class="abs" src="../../../assets/ui/style_b/portraits/mh_boxer_11.png" style="left:1590px;top:70px;width:46px;height:46px;border-radius:50%;object-fit:cover;border:3px solid var(--gold)">
+<div class="abs h" style="left:1648px;top:72px;font-size:32px">Lucy Jackson</div>
+
+<div class="board" style="left:30px;top:130px;width:1450px;height:300px;padding:14px">
+  <div id="tiles" style="display:grid;grid-template-columns:repeat(7,1fr);gap:14px"></div>
+  <svg id="graph" class="abs" style="left:14px;top:146px" width="1398" height="124"></svg>
+</div>
+
+<div class="board" style="left:1510px;top:130px;width:380px;height:300px;padding:10px 12px">
+  <div class="tool" style="left:12px;top:10px;width:340px;height:50px;background:linear-gradient(#7a5230,#4c2f1a);border:2px solid #20120a;font-size:28px;gap:10px">&#128203; Copy last week</div>
+  <div class="tool plate" style="left:12px;top:70px;background:linear-gradient(#a26d3a,#6b4527);box-shadow:inset 0 0 0 2px var(--gold)">1</div>
+  <div class="tool plate" style="left:84px;top:70px;background:linear-gradient(#7a5230,#4c2f1a)">2</div>
+  <div class="tool plate" style="left:156px;top:70px;background:linear-gradient(#7a5230,#4c2f1a)">3</div>
+  <div class="tool plate" style="left:228px;top:70px;background:#2a2d30;border:2px dashed #777;color:#bbb;font-size:34px">&#9733;+</div>
+  <div class="tool" style="left:300px;top:70px;width:52px;height:60px;background:#2a2d30;font-size:30px">&#128276;</div>
+  <div style="position:absolute;left:0;top:140px;width:332px;height:130px">
+    <div id="gb" style="position:absolute;left:0;top:0;width:210px;height:130px"></div>
+    <div style="position:absolute;left:214px;top:0;width:118px;text-align:center">
+      <div style="font-size:34px">&#129657;</div>
+      <div class="h" style="font-size:32px;color:#e8b04a">4% <span style="color:#ff8d80;font-size:26px">&#9650;1</span></div>
+      <div class="mbar" style="height:20px;margin-top:6px;border-color:#777"><div class="f" style="width:40%;background:linear-gradient(90deg,#4fb36a,#e39a2d)"></div></div>
+      <div class="h" style="font-size:30px;margin-top:8px;color:#8fe3a2">&#128176; $0</div>
+    </div>
+  </div>
+</div>
+
+<div class="board" style="left:30px;top:446px;width:628px;height:556px;padding:12px 18px">
+  <div style="display:flex;align-items:center;gap:18px">
+    <div class="ico" style="font-size:92px;line-height:96px">&#127939;</div>
+    <div><div class="panel-t" style="font-size:46px;line-height:50px">Roadwork</div><div style="font-size:28px;color:#bdb8a8">Wed</div></div>
+  </div>
+  <div style="position:relative;height:130px;margin-top:10px">
+    <div class="seg" style="left:0;height:70px">Light</div>
+    <div class="seg on" style="left:184px;height:100px">Normal</div>
+    <div class="seg" style="left:368px;height:130px">Hard</div>
+  </div>
+  <div style="position:relative;height:100px;margin-top:8px">
+    <div class="abs" style="left:0;width:176px;text-align:center;opacity:.8"><div class="chip r">&#128531; +9</div><br><div class="chip g" style="margin-top:6px">&#128170; +0.07</div></div>
+    <div class="abs" style="left:184px;width:176px;text-align:center"><div class="chip r">&#128531; +16</div><br><div class="chip g" style="margin-top:6px">&#128170; +0.11</div></div>
+    <div class="abs" style="left:368px;width:176px;text-align:center;opacity:.8"><div class="chip r">&#128531; +24</div><br><div class="chip g" style="margin-top:6px">&#128170; +0.15</div></div>
+  </div>
+  <div style="display:flex;gap:6px;margin-top:10px" id="sess"></div>
+  <div style="margin-top:12px;display:flex;align-items:center;gap:14px">
+    <div style="font-size:44px">&#129729;</div>
+    <div style="flex:1">
+      <div style="display:flex;justify-content:space-between;font-size:30px;font-weight:700"><span>64.2 &rarr; 66</span><span style="color:#8fe3a2">+0.44</span></div>
+      <div class="mbar" style="height:26px;margin-top:6px" id="goalbar"></div>
+    </div>
+  </div>
+</div>
+
+<div class="board" style="left:690px;top:446px;width:1200px;height:556px;padding:12px 18px;overflow:visible">
+  <div style="display:flex;align-items:center;gap:18px">
+    <div class="ico" style="font-size:80px;line-height:84px">&#127769;</div>
+    <div class="panel-t" style="font-size:46px;width:150px">Pads</div>
+    <div class="h" style="font-size:44px">75 min</div>
+    <div style="flex:1"></div>
+    <div style="display:flex;gap:10px">
+      <div class="stile on" style="width:70px;height:70px;font-size:40px">&#127919;</div>
+      <div class="stile" style="width:70px;height:70px;font-size:40px">&#129354;</div>
+      <div class="stile" style="width:70px;height:70px;font-size:40px">&#127916;</div>
+      <div class="stile" style="width:70px;height:70px;font-size:40px">&#128564;</div>
+    </div>
+  </div>
+  <div style="position:relative;height:56px;margin-top:10px;display:flex;border-radius:10px;overflow:hidden;border:3px solid #0008">
+    <div class="big" style="width:46.7%;background:linear-gradient(#e0493b,#a52b22)">35</div>
+    <div class="big" style="width:33.3%;background:linear-gradient(#f0bd4f,#b88726);color:#2a1b06;border-left:4px solid #0009">25</div>
+    <div class="big" style="width:20%;background:linear-gradient(#4fb3b3,#2d7777);border-left:4px solid #0009">15</div>
+  </div>
+  <div id="cards" style="position:relative;height:254px;margin-top:12px"></div>
+  <div id="hand" style="position:absolute;left:18px;right:18px;bottom:2px;height:104px;overflow:hidden"></div>
+</div>
+
+<div class="board" style="left:30px;top:1010px;width:1860px;height:62px;padding:0;border-width:8px;display:flex;align-items:center;">
+  <img src="../../../assets/ui/face/mh_staff_coach.jpg" style="width:58px;height:58px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);margin-left:14px">
+  <div style="margin-left:18px;display:flex;align-items:center;gap:10px;font-size:34px">
+    <span style="font-size:40px">&#129354;</span><span style="color:#bdb8a8">Tue</span><span style="font-size:30px">&rarr;</span><span style="font-size:40px">&#127919;</span></div>
+  <div style="margin-left:26px;display:flex;align-items:center;gap:10px;font-size:34px;font-weight:700"><span style="font-size:36px">&#128531;</span><span style="color:#ff8d80">82</span><span>&rarr;</span><span style="color:#8fe3a2">74</span><span style="font-size:36px;margin-left:10px">&#129657;</span><span style="color:#8fe3a2">4%&rarr;3%</span></div>
+  <div class="big" style="margin-left:30px;width:130px;height:44px;background:linear-gradient(#d23c30,#8c231b);border:2px solid #2a0a07;font-size:30px">Do it</div>
+  <div class="big" style="margin-left:12px;width:110px;height:44px;background:linear-gradient(#7a5230,#4c2f1a);border:2px solid #20120a;font-size:30px">Leave</div>
+  <div style="flex:1"></div>
+  <div style="display:flex;align-items:center;gap:12px;font-size:32px;font-weight:700"><span style="font-size:38px">&#128276;</span><span style="color:var(--gold)">4</span>
+    <span style="font-size:30px;color:#bdb8a8;margin-left:10px">60.9 / 61</span>
+    <div class="big" style="width:96px;height:44px;background:linear-gradient(#f7cf6a,#c2902c);color:#2a1b06;font-size:28px">Hold</div>
+    <div class="big" style="width:96px;height:44px;background:#2a2d30;border:2px solid #555;font-size:28px">Cut</div></div>
+  <div class="big" style="margin:0 12px 0 40px;width:260px;height:46px;background:linear-gradient(#d23c30,#8c231b);border:2px solid #2a0a07;font-size:34px">Start week &#9654;</div>
+</div>
+<script>
+const MS={rd:'\u{1F3C3}',iv:'⏱️'};
+const EV={pads:'\u{1F3AF}',spar:'\u{1F94A}',film:'\u{1F3AC}',rest:'\u{1F634}'};
+const ADD={L:9,N:16,H:24}, EVADD={pads:14,spar:22,film:3,rest:-8};
+const days=[{d:'Mon',m:'iv',lv:'H',e:'pads',dr:3},{d:'Tue',m:'rd',lv:'N',e:'spar',dr:0},{d:'Wed',m:'rd',lv:'N',e:'pads',dr:3},{d:'Thu',m:'rest',lv:0,e:'film',dr:0},{d:'Fri',m:'iv',lv:'L',e:'rest',dr:0},{d:'Sat',m:'rest',lv:0,e:'rest',dr:0},{d:'Sun',fight:1}];
+function sim(pl){let s=20,out=[];for(const D of pl){if(D.fight){out.push({s,m:s,e:s});continue}
+ const m=D.m==='rest'?Math.max(8,s-10):s+ADD[D.lv];const e=D.e==='rest'?Math.max(8,m-8):m+EVADD[D.e];out.push({s,m,e});s=Math.max(8,e-22);}return out}
+const cur=sim(days),alt=sim(days.map((D,i)=>i==1?Object.assign({},D,{e:'pads'}):D));
+const last=cur.map((r,i)=>({s:r.s,m:r.m-9,e:r.e-12}));
+const SEL=2,T=document.getElementById('tiles');
+days.forEach((D,i)=>{const t=document.createElement('div');t.className='tile'+(i==SEL?' sel':'')+(D.fight?' fight':'');
+ if(D.fight){t.innerHTML='<div class="d">'+D.d+'</div><div class="halves"><div class="half"><div class="ico" style="font-size:60px;line-height:66px">&#128276;</div></div></div>';}
+ else{const lv={L:1,N:2,H:3}[D.lv]||0;
+ const mp=lv?'<div class="pips">'+[1,2,3].map(k=>'<i class="'+(k<=lv?'on':'')+'"></i>').join('')+'</div>':'<div class="pips"></div>';
+ const ep=D.dr?'<div class="pips r">'+[1,2,3].map(k=>'<i class="on"></i>').join('')+'</div>':'<div class="pips"></div>';
+ t.innerHTML='<div class="d">'+D.d+'</div><div class="halves"><div class="half"><div class="ico">'+(D.m==='rest'?'\u{1F6CC}':MS[D.m])+'</div>'+mp+'</div><div class="half"><div class="ico">'+EV[D.e]+'</div>'+ep+'</div></div>';}
+ T.appendChild(t);});
+const W=1398,gap=14,colw=(W-6*gap)/7,H=124,Y=v=>116-v*1.04,X=(i,f)=>i*(colw+gap)+f*colw;
+function pts(a){const P=[];a.forEach((r,i)=>{if(days[i].fight){P.push([X(i,.5),Y(r.s)]);return}P.push([X(i,.04),Y(r.s)],[X(i,.46),Y(r.m)],[X(i,.9),Y(r.e)]);});return P}
+const c=pts(cur),a=pts(alt),l=pts(last);
+const o=v=>((Y(v)-Y(100))/(Y(8)-Y(100)));
+let svg='<defs><linearGradient id="gr" gradientUnits="userSpaceOnUse" x1="0" y1="'+Y(100)+'" x2="0" y2="'+Y(8)+'"><stop offset="0" stop-color="#e0493b"/><stop offset="'+o(80)+'" stop-color="#e0493b"/><stop offset="'+o(78)+'" stop-color="#e39a2d"/><stop offset="'+o(55)+'" stop-color="#d9b53a"/><stop offset="'+o(35)+'" stop-color="#4fb36a"/><stop offset="1" stop-color="#3a8f52"/></linearGradient></defs>';
+svg+='<rect x="'+(X(SEL,0)-6)+'" y="0" width="'+(colw+12)+'" height="'+H+'" rx="6" fill="#f0bd4f" opacity=".13"/>';
+svg+='<rect x="0" y="'+Y(100)+'" width="'+W+'" height="'+(Y(80)-Y(100))+'" fill="#c9342a" opacity=".28"/>';
+svg+='<line x1="0" x2="'+W+'" y1="'+Y(80)+'" y2="'+Y(80)+'" stroke="#ff8d80" stroke-width="3" stroke-dasharray="12 8"/>';
+const area='M'+c[0][0]+','+Y(0)+' '+c.map(p=>'L'+p[0]+','+p[1]).join(' ')+' L'+c[c.length-1][0]+','+Y(0)+' Z';
+svg+='<path d="'+area+'" fill="url(#gr)" opacity=".92"/>';
+svg+='<polyline points="'+l.map(p=>p.join(',')).join(' ')+'" fill="none" stroke="#7fb8ff" stroke-width="4" stroke-dasharray="14 8"/>';
+svg+='<polyline points="'+c.map(p=>p.join(',')).join(' ')+'" fill="none" stroke="#fff6dc" stroke-width="4" stroke-linejoin="round"/>';
+svg+='<polyline points="'+a.map(p=>p.join(',')).join(' ')+'" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="3 9" stroke-linecap="round"/>';
+const pk=Math.max(...cur.map(r=>r.e)),pi=cur.findIndex(r=>r.e===pk);
+svg+='<text x="'+(X(pi,.9)-8)+'" y="'+(Y(pk)+30)+'" text-anchor="end" font-size="32" font-weight="700" fill="#fff" stroke="#000" stroke-width="5" paint-order="stroke">'+Math.round(pk)+'</text>';
+svg+='<text x="'+(W-6)+'" y="'+(Y(80)-8)+'" text-anchor="end" font-size="26" font-weight="700" fill="#ff8d80">&#9888; 80</text>';
+document.getElementById('graph').innerHTML=svg;
+const sess=[['\u{1F3C3}','.11','#6fa8dc'],['⏱️','.14','#6fa8dc'],['\u{1F94A}','.12','#e0493b'],['\u{1F3CB}️','.10','#e0493b'],['\u{1F3AF}','.09','#c58fe3'],['➰','.08','#8fe3a2'],['\u{1FA9E}','.06','#c58fe3'],['\u{1F4AA}','.05','#e0493b'],['\u{1F6CC}','&minus;10','#8fe3a2']];
+document.getElementById('sess').innerHTML=sess.map((s,i)=>'<div style="width:62px;height:96px;border-radius:8px;background:'+(i==0?'#4a3c1c':'#2a2d30')+';border:3px solid '+(i==0?'#f0bd4f':s[2])+';display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:34px;gap:2px"><span>'+s[0]+'</span><span style="font-size:24px;font-weight:700;color:#d9d4c4">'+s[1]+'</span></div>').join('');
+const seg=[[.148,'#6fa8dc'],[.114,'#8fe3a2'],[.114,'#f0bd4f'],[.068,'#c58fe3']];
+let gx=0,gh='';seg.forEach(function(s){const w=s[0]/1.8*100;gh+='<div class="f" style="left:'+gx+'%;width:'+w+'%;background:'+s[1]+';border-radius:0;border-right:2px solid #000a"></div>';gx+=w});
+gh+='<div class="t" style="left:25%;height:34px;top:-6px"></div>';
+document.getElementById('goalbar').innerHTML=gh;
+const gbs=[['\u{1FAC1}',2.1,1.7,'#6fa8dc'],['\u{1F4AA}',0.9,0.9,'#e0493b'],['⚡',0.6,0.9,'#f0bd4f'],['\u{1F3AF}',1.4,0.8,'#c58fe3']];
+document.getElementById('gb').innerHTML=gbs.map((g,i)=>{const h=g[1]*30,hl=g[2]*30;return '<div style="position:absolute;left:'+(i*52)+'px;top:0;width:50px;height:130px"><div class="h" style="position:absolute;top:0;width:50px;text-align:center;font-size:24px">+'+g[1]+'</div><div style="position:absolute;bottom:34px;left:8px;width:34px;height:'+h+'px;background:'+g[3]+';border-radius:5px 5px 0 0"></div><div style="position:absolute;left:4px;width:42px;bottom:'+(34+hl)+'px;border-top:4px dashed #fff"></div><div style="position:absolute;bottom:0;width:50px;text-align:center;font-size:30px">'+g[0]+'</div></div>'}).join('');
+const cds=[
+ {n:'Jab Cross Hook',col:'#e0493b',disc:[['1','#f3efe4'],['2','#f0bd4f'],['3','#4fb3b3']],now:24,min:35,tier:'Raw',star:1},
+ {n:'Slip Counter',col:'#f0bd4f',disc:[['S','#9ab'],['2','#f0bd4f']],now:41,min:25,tier:'Usable'},
+ {n:'Body Hook',col:'#4fb3b3',disc:[['3','#4fb3b3']],now:58,min:15,tier:'Usable'}];
+document.getElementById('cards').innerHTML=cds.map(function(c,i){const g=2.1*c.min/60;const col=c.now<30?'#e0793b':c.now<60?'#f0bd4f':'#8fe3a2';
+ return '<div class="card" style="left:'+(i*390)+'px;top:0">'+
+ '<div class="band" style="background:'+c.col+'"><span>'+c.n+'</span><span style="font-size:36px">'+(c.star?'\u{1F3AF}':'&times;')+'</span></div>'+
+ '<div style="display:flex;gap:8px;align-items:center;padding:12px 14px 6px">'+c.disc.map(function(d){return '<div class="disc" style="background:'+d[1]+'">'+d[0]+'</div>'}).join('')+
+ '<div style="flex:1"></div><div class="chip" style="color:'+col+';border-color:'+col+'">'+c.tier+' '+c.now+'</div></div>'+
+ '<div style="padding:6px 14px 0"><div class="mbar"><div class="f" style="width:'+c.now+'%;background:'+col+'"></div><div class="g" style="left:'+c.now+'%;width:'+g+'%"></div><div class="t" style="left:30%"></div><div class="t" style="left:60%"></div><div class="t" style="left:85%"></div></div>'+
+ '<div style="font-size:26px;font-weight:700;margin-top:6px;color:#8fe3a2">&#128200; '+c.now+' &rarr; '+(c.now+g).toFixed(1)+'</div></div>'+
+ '<div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:2px"><div class="btn" style="height:46px">&minus;</div><div class="h" style="font-size:38px;width:150px;text-align:center;white-space:nowrap">'+c.min+' min</div><div class="btn" style="height:46px">+</div></div></div>'}).join('');
+const hand=[['Uppercut','Raw 12','#c58fe3','&#9660;'],['Double Jab','Usable 33','#6fa8dc',''],['Check Hook','Raw 18','#e0793b','&#9660;'],['Pivot Out','Sharp 62','#8fe3a2','']];
+document.getElementById('hand').innerHTML=hand.map(function(h,i){return '<div class="hand" style="left:'+(40+i*268)+'px;top:'+(10+Math.abs(i-1.5)*8)+'px;transform:rotate('+((i-1.5)*5)+'deg)"><div style="display:flex;justify-content:space-between"><span style="color:'+h[2]+'">'+h[0]+'</span><span style="font-size:40px;color:var(--gold);line-height:30px">+</span></div><div style="font-size:26px;color:#bdb8a8;margin-top:4px">'+h[1]+' <span style="color:#ff8d80">'+h[3]+'</span></div></div>'}).join('');
+</script></body></html>

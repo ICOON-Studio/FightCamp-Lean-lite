@@ -81,8 +81,7 @@ static func panel(t: String) -> Control:
 		elif i == 0:
 			col.add_child(UI.label(line, UI.SMALL, UI.FG, "bold"))
 		else:
-			col.add_child(UI.label(line, UI.TINY, UI.MUTED if line == "" else UI.FG, "mono" if line.begins_with("LANDED")
-				or line.begins_with("JABS") or line.begins_with("POWER") or line.begins_with("BODY") else "body"))
+			col.add_child(UI.label(line, UI.TINY, UI.MUTED if line == "" else UI.FG, "body"))   # S419: the punch lines are sentences now ("Jabs landed: 9 of 36"), no column font
 	return p
 
 

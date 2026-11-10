@@ -1,0 +1,227 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>People B - the staff wall</title>
+<style>
+:root{--gold:#f0bd4f;--chalk:#f3efe4;--red:#c9342a;--green:#6fd48a;--orange:#f0953a;--blue:#6aa8ff;--cyan:#52e0f0;--ink:#2a1a0e;
+ --a0:#e8574a;--a1:#f0953a;--a2:#6aa8ff;--a3:#6fd48a;--a4:#b98cf0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#17120e;color:var(--chalk);font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;position:relative}
+.abs{position:absolute}
+/* top bar */
+.bar{position:absolute;left:0;top:0;width:1920px;height:64px;background:url(../../../assets/ui/wood/bar.png) 0 0/1920px 64px}
+.brand{position:absolute;left:28px;top:12px;font-size:34px;font-weight:700;color:var(--chalk);font-style:italic;letter-spacing:1px;line-height:40px}
+.nav{position:absolute;top:10px;height:44px;padding:0 22px;font-size:26px;line-height:44px;background:url(../../../assets/ui/wood/plank.png) center/100% 100%;color:var(--chalk)}
+.nav.on{background-image:url(../../../assets/ui/wood/plank_on.png);color:#fff}
+.money{position:absolute;right:28px;top:8px;text-align:right;line-height:26px}
+.money b{font-size:30px;color:var(--gold);display:block;line-height:30px}
+.money span{font-size:22px;color:#e9856f}
+/* wall */
+.wall{position:absolute;left:12px;top:70px;width:1000px;height:1000px;border-radius:6px;
+ background:linear-gradient(#2a211a,#1d1712);box-shadow:inset 0 0 40px #000b}
+.cork{position:absolute;left:1030px;top:70px;width:878px;height:1000px;border-radius:8px;border:14px solid #5b3a20;
+ box-shadow:0 0 0 2px #1d1008,inset 0 0 0 2px #8a5f36,inset 0 0 40px #000a;
+ background:
+  radial-gradient(circle at 20% 30%,#c48a50 0 2px,transparent 3px) 0 0/23px 19px,
+  radial-gradient(circle at 70% 60%,#8d5a2c 0 2px,transparent 3px) 0 0/17px 21px,
+  radial-gradient(circle at 40% 80%,#d8a468 0 1.5px,transparent 2.5px) 0 0/13px 15px,
+  #b07c45}
+h1{position:absolute;font-size:46px;font-weight:700;color:var(--gold);letter-spacing:1px;line-height:50px;text-shadow:0 2px 0 #000a}
+/* frames */
+.frame{position:absolute;padding:14px;border-radius:4px;
+ background:linear-gradient(135deg,#9a6a38,#5f3c1e 45%,#85592c);box-shadow:0 8px 18px #000a,inset 0 0 0 2px #c9a05a,inset 0 0 0 5px #4a2d15}
+.frame .mat{position:absolute;left:14px;right:14px;top:14px;bottom:14px;background:#1b1713;border:2px solid #0008}
+.pimg{position:absolute;object-fit:cover;object-position:50% 20%;border:2px solid #000a}
+.name{font-size:32px;font-weight:700;line-height:36px;color:var(--chalk);white-space:nowrap}
+.role{font-size:24px;line-height:28px;color:#cdbf9f}
+.wage{font-size:30px;font-weight:700;color:var(--gold);line-height:34px}
+.seg{position:absolute;height:44px;display:flex;border:2px solid #0009;border-radius:6px;overflow:hidden}
+.seg span{flex:1;text-align:center;font-size:24px;line-height:40px;background:#2b231b;color:#bdb08f}
+.seg span.on{background:var(--gold);color:#2a1a0e;font-weight:700}
+.btnp{position:absolute;height:44px;font-size:24px;line-height:44px;text-align:center;background:url(../../../assets/ui/wood/plank.png) center/100% 100%;color:var(--chalk)}
+.btnr{position:absolute;height:50px;font-size:28px;font-weight:700;line-height:50px;text-align:center;background:url(../../../assets/ui/wood/red.png) center/100% 100%;color:#fff;text-shadow:0 2px 0 #0008}
+.x{position:absolute;width:44px;height:44px;border-radius:50%;background:#2b231b;border:2px solid #7a5a3a;color:#e9856f;font-size:26px;line-height:40px;text-align:center}
+.medal{position:absolute;border-radius:50%;background:#14110dd9;border:3px solid #c9a05a;box-shadow:0 3px 8px #000b}
+/* middle board */
+.board{position:absolute;padding:0;border:12px solid #5b3a20;border-radius:5px;
+ background:radial-gradient(ellipse at 30% 15%,#343a3e,transparent 60%),linear-gradient(#222527,#191a1b);
+ box-shadow:0 0 0 2px #1d1008,inset 0 0 0 2px #8a5f36,inset 0 0 30px #000c,0 8px 18px #000a}
+.lab{position:absolute;font-size:22px;font-weight:700;line-height:24px;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.disc{display:inline-block;width:30px;height:30px;border-radius:50%;flex:none}
+.disc svg{display:block}
+/* cards */
+.card{position:absolute;left:14px;width:822px;height:176px;background:linear-gradient(#f6ecd4,#e8d9b6);border-radius:3px;color:var(--ink);
+ box-shadow:0 6px 12px #0009;transition:transform .1s}
+.card.hot{box-shadow:0 0 0 5px var(--cyan),0 10px 20px #000b}
+.pin{position:absolute;left:50%;top:-8px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff9a8c,#b3231a 60%,#6c0f0a);box-shadow:0 3px 3px #0008}
+.card .name{color:var(--ink)}
+.card .role{color:#6b5636}
+.chip{position:absolute;display:flex;align-items:center;gap:5px;font-size:26px;font-weight:700;line-height:32px;color:var(--ink);white-space:nowrap}
+.chip .up{color:#1f7a3a}
+.badge{position:absolute;font-size:22px;font-weight:700;line-height:28px;padding:0 10px;border-radius:14px;background:#2a1a0e;color:var(--gold);white-space:nowrap}
+.tag{position:absolute;width:128px;height:50px;background:#caa24e;border:2px solid #6b4a14;border-radius:4px 20px 20px 4px;font-size:30px;font-weight:700;line-height:46px;padding-left:30px;color:#2a1a0e;
+ box-shadow:0 3px 4px #0006}
+.tag:before{content:"";position:absolute;left:10px;top:17px;width:12px;height:12px;border-radius:50%;background:#7a5a22;box-shadow:inset 0 2px 2px #000a}
+.run{position:absolute;font-size:24px;font-weight:700;line-height:26px;display:flex;align-items:center;gap:6px}
+.dot{width:16px;height:16px;border-radius:50%;display:inline-block}
+</style></head><body>
+
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <symbol id="i0" viewBox="0 0 30 30"><circle cx="15" cy="15" r="9" fill="none" stroke="#fff" stroke-width="3"/><circle cx="15" cy="15" r="3" fill="#fff"/></symbol>
+  <symbol id="i1" viewBox="0 0 30 30"><rect x="10" y="4" width="10" height="20" rx="4" fill="#fff"/><rect x="14" y="1" width="2" height="4" fill="#fff"/></symbol>
+  <symbol id="i2" viewBox="0 0 30 30"><path d="M6 6L24 24M24 6L6 24" stroke="#fff" stroke-width="4" stroke-linecap="round"/></symbol>
+  <symbol id="i3" viewBox="0 0 30 30"><path d="M15 25C4 17 5 8 10.500 8C13 8 14.500 10 15 11C15.500 10 17 8 19.500 8C25 8 26 17 15 25Z" fill="#fff"/></symbol>
+  <symbol id="i4" viewBox="0 0 30 30"><rect x="3" y="10" width="4" height="10" fill="#fff"/><rect x="23" y="10" width="4" height="10" fill="#fff"/><rect x="7" y="13" width="16" height="4" fill="#fff"/><rect x="0" y="12" width="3" height="6" fill="#fff"/><rect x="27" y="12" width="3" height="6" fill="#fff"/></symbol>
+  <symbol id="iph" viewBox="0 0 30 30"><path d="M11 3h8v8h8v8h-8v8h-8v-8H3v-8h8z" fill="#fff"/></symbol>
+  <symbol id="icut" viewBox="0 0 30 30"><path d="M15 3C21 12 24 16 24 20A9 9 0 0 1 6 20C6 16 9 12 15 3Z" fill="#fff"/></symbol>
+ </defs>
+</svg>
+
+<div class="bar"></div>
+<div class="brand">Anvil Street Gym</div>
+<div class="nav" style="left:560px">Home</div>
+<div class="nav" style="left:674px">Fighters</div>
+<div class="nav" style="left:822px">Fights</div>
+<div class="nav on" style="left:950px">Club</div>
+<div class="nav" style="left:1050px">World</div>
+<div class="money"><b>$18,700</b><span>-$600 a week</span></div>
+
+<h1 style="left:34px;top:78px">Your corner</h1>
+<h1 style="left:1060px;top:78px;color:#2a1a0e;text-shadow:0 2px 0 #ffffff55">On offer</h1>
+
+<div class="wall"></div>
+<div class="cork" id="cork"></div>
+<div id="stage"></div>
+
+<script>
+const AREAS=["Pads","Bag","Sparring","Conditioning","Strength"];
+const COL=["#e8574a","#f0953a","#6aa8ff","#6fd48a","#b98cf0"];
+const ang=i=>(-90+72*i)*Math.PI/180;
+const pt=(cx,cy,r,i)=>[cx+r*Math.cos(ang(i)),cy+r*Math.sin(ang(i))];
+const poly=(cx,cy,R,v)=>v.map((x,i)=>pt(cx,cy,R*x/100,i).map(n=>n.toFixed(1)).join(",")).join(" ");
+function rings(cx,cy,R,light){
+  let s="";
+  [33,66,100].forEach(k=>{s+=`<polygon points="${poly(cx,cy,R,[k,k,k,k,k])}" fill="none" stroke="${light?'#5a4528':'#ffffff33'}" stroke-width="2"/>`});
+  for(let i=0;i<5;i++){const p=pt(cx,cy,R,i);s+=`<line x1="${cx}" y1="${cy}" x2="${p[0].toFixed(1)}" y2="${p[1].toFixed(1)}" stroke="${COL[i]}" stroke-width="3" opacity="${light?.8:.9}"/>`}
+  return s;
+}
+function mini(size,v,light){
+  const c=size/2,R=size*0.40;
+  return `<svg width="${size}" height="${size}">${rings(c,c,R,light)}<polygon points="${poly(c,c,R,v)}" fill="${light?'#b8731f':'#f0bd4f'}" fill-opacity=".55" stroke="${light?'#6b3d0a':'#f0bd4f'}" stroke-width="3" stroke-linejoin="round"/></svg>`;
+}
+function ico(i,size){return `<span class="disc" style="background:${COL[i]};width:${size}px;height:${size}px"><svg width="${size}" height="${size}"><use href="#i${i}"/></svg></span>`}
+const P="../../../assets/ui/style_b/portraits/";
+const hiredCoaches=[
+ {n:"Luke Reid",role:"Pads",wage:"$450",v:[82,58,40,35,22],img:"mh_staff_coach",full:false,x:22},
+ {n:"Marcus Hale",role:"Conditioning",wage:"$1,090",v:[30,48,38,85,60],img:"mh_staff_coach_2",full:true,x:762}
+];
+const spec=[
+ {n:"Dee Okafor",role:"Strength",wage:"$100",img:"mh_boxer_17",icon:"i4",c:"#b98cf0",fx:"Fewer injuries"},
+ {n:"Priya Shah",role:"Physio",wage:"$75",img:"mh_boxer_19",icon:"iph",c:"#6fd48a",fx:"Heal faster"},
+ {n:"Tom Byrne",role:"Cutman",wage:"$150",img:"mh_staff_cutman_1",icon:"icut",c:"#e8574a",fx:"Shorter layoffs"}
+];
+const club=[82,58,40,85,90];
+const offers=[
+ {n:"Rosa Vidal",role:"Sparring",cost:900,v:[35,40,88,50,30],img:"mh_boxer_10",ch:[[2,"Lucy",28,36],[2,"Reyes",31,38]],badge:""},
+ {n:"Ken Adeyemi",role:"Bag",cost:620,v:[45,86,35,40,72],img:"mh_boxer_08",ch:[[1,"Lucy",33,41],[1,"Reyes",30,35]],badge:""},
+ {n:"Ilse Brandt",role:"Defence",cost:780,v:[62,50,70,66,28],img:"mh_boxer_21",ch:[[2,"Lucy",28,33],[2,"Reyes",31,35]],badge:""},
+ {n:"Joe Marsh",role:"Youth",cost:380,v:[40,45,30,55,38],img:"mh_boxer_02",ch:[[1,"Lucy",33,34],[3,"Reyes",40,41]],badge:"Evening +$350"},
+ {n:"Ana Costa",role:"Ex-pro",cost:1400,v:[74,60,66,52,40],img:"mh_boxer_12",ch:[[2,"Lucy",28,34],[0,"Reyes",50,53]],badge:"9 plan lines"}
+];
+let html="";
+/* hired coach frames */
+hiredCoaches.forEach(c=>{
+  html+=`<div class="frame" style="left:${c.x}px;top:128px;width:250px;height:568px">
+   <div class="mat"></div>
+   <img class="pimg" src="${P}${c.img}.png" style="left:20px;top:20px;width:210px;height:268px">
+   <div class="medal" style="left:116px;top:176px;width:128px;height:128px">${mini(122,c.v,false)}</div>
+   <div class="abs name" style="left:22px;top:300px;width:210px;font-size:30px">${c.n}</div>
+   <div class="abs role" style="left:22px;top:338px">${c.role}</div>
+   <div class="abs wage" style="left:22px;top:368px">${c.wage}</div>
+   <div class="seg" style="left:22px;top:412px;width:206px"><span class="${c.full?'':'on'}">Part</span><span class="${c.full?'on':''}">Full</span></div>
+   <div class="btnp" style="left:22px;top:466px;width:206px">Let go</div>
+  </div>`;
+});
+/* specialists */
+spec.forEach((s,i)=>{
+  const x=22+i*328;
+  html+=`<div class="frame" style="left:${x}px;top:722px;width:314px;height:330px">
+   <div class="mat"></div>
+   <img class="pimg" src="${P}${s.img}.png" style="left:22px;top:22px;width:130px;height:150px">
+   <div class="abs" style="left:168px;top:22px;width:130px"><div class="name" style="font-size:28px;line-height:32px;white-space:normal">${s.n}</div></div>
+   <div class="abs role" style="left:168px;top:90px">${s.role}</div>
+   <div class="abs wage" style="left:168px;top:122px;font-size:28px">${s.wage}</div>
+   <div class="abs" style="left:22px;top:190px;width:270px;height:96px;background:#0007;border:2px solid ${s.c}77;border-radius:10px"></div>
+   <div class="abs" style="left:34px;top:206px;width:64px;height:64px;border-radius:50%;background:${s.c}"><svg width="64" height="64" viewBox="0 0 30 30" style="padding:11px"><use href="#${s.icon}"/></svg></div>
+   <div class="abs" style="left:108px;top:204px;width:182px;font-size:24px;font-weight:700;line-height:30px;color:var(--chalk)">${s.fx}</div>
+   <div class="x" style="left:252px;top:28px;width:44px;height:44px;display:none">x</div>
+  </div>`;
+});
+/* middle board (filled by JS) */
+html+=`<div class="board" id="club" style="left:292px;top:128px;width:458px;height:568px">
+ <svg id="clubsvg" class="abs" style="left:0;top:0" width="434" height="450"></svg>
+ <div id="clublabs"></div>
+ <div class="abs" style="left:14px;top:440px;width:406px;height:108px;background:#0006;border-radius:8px;border:2px solid #ffffff22"></div>
+ <img class="pimg" src="${P}mh_staff_trainer.png" style="left:22px;top:454px;width:80px;height:80px;border-radius:6px">
+ <div class="abs name" style="left:114px;top:446px;font-size:30px">Sam Carter</div>
+ <div class="abs role" style="left:114px;top:482px;font-size:22px">Head coach</div><div class="badge" style="left:114px;top:508px;background:#f0bd4f22;border:2px solid #f0bd4f88">Easier weight cuts</div>
+</div>`;
+document.getElementById("stage").innerHTML=html;
+
+/* cork cards */
+const bank=18700,week=-600;
+let ch="";
+offers.forEach((o,i)=>{
+  const after=week-o.cost, wk=Math.floor(bank/-after);
+  const col=wk>=12?"#1f7a3a":wk>=8?"#b9660d":"#b3231a";
+  const rot=[-0.5,0.4,-0.3,0.5,-0.4][i];
+  ch+=`<div class="card" id="c${i}" data-i="${i}" style="top:${14+i*188}px;transform:rotate(${rot}deg)">
+   <div class="pin"></div>
+   <img class="pimg" src="${P}${o.img}.png" style="left:14px;top:23px;width:130px;height:130px">
+   <div class="abs name" style="left:160px;top:24px;font-size:32px">${o.n}</div>
+   <div class="abs role" style="left:160px;top:62px">${o.role}</div>
+   ${o.badge?`<div class="badge" style="left:160px;top:100px">${o.badge}</div>`:''}
+   <div class="abs" style="left:352px;top:24px">${mini(130,o.v,true)}</div>
+   ${o.ch.map((k,j)=>`<div class="chip" style="left:488px;top:${34+j*46}px">${ico(k[0],30)}<span>${k[1]}</span><span>${k[2]}</span><span>&rarr;</span><span class="up">${k[3]}</span></div>`).join("")}
+   <div class="tag" style="left:690px;top:16px">$${o.cost.toLocaleString()}</div>
+   <div class="run" style="left:696px;top:76px;color:${col}"><span class="dot" style="background:${col}"></span>${wk} wk</div>
+   <div class="btnr" style="left:690px;top:110px;width:122px">Hire</div>
+  </div>`;
+});
+document.getElementById("cork").innerHTML=ch;
+
+/* club star */
+const cx=217,cy=232,R=150;
+function drawClub(idx){
+  let s=rings(cx,cy,R,false);
+  const lowI=club.indexOf(Math.min(...club));
+  let after=club;
+  if(idx!=null){
+    const o=offers[idx];after=club.map((x,i)=>Math.max(x,o.v[i]));
+    s+=`<polygon points="${poly(cx,cy,R,after)}" fill="#52e0f0" fill-opacity=".38" stroke="#52e0f0" stroke-width="5" stroke-linejoin="round"/>`;
+    s+=`<polygon points="${poly(cx,cy,R,o.v)}" fill="none" stroke="#52e0f0" stroke-width="3" stroke-dasharray="8 6" stroke-linejoin="round"/>`;
+  }
+  s+=`<polygon points="${poly(cx,cy,R,club)}" fill="#f0bd4f" fill-opacity=".5" stroke="#f0bd4f" stroke-width="5" stroke-linejoin="round"/>`;
+  const gp=pt(cx,cy,R*club[lowI]/100,lowI);
+  s+=`<circle cx="${gp[0]}" cy="${gp[1]}" r="17" fill="none" stroke="#e8574a" stroke-width="5"/>`;
+  document.getElementById("clubsvg").innerHTML=s;
+  let l="";
+  for(let i=0;i<5;i++){
+    const p=pt(cx,cy,R+(i==0?30:40),i);
+    const w=[100,100,110,150,110][i];
+    let x=p[0]-w/2, y=p[1]-14;
+    if(i==1||i==2){x=p[0]-24}
+    if(i==3||i==4){x=p[0]-w+24}
+    if(i==0){x=p[0]-30;y=y+(i==0?0:0)}
+    l+=`<div class="lab" style="left:${x}px;top:${y}px;color:${COL[i]}">${AREAS[i]}</div>`;
+  }
+  const g=pt(cx,cy,R*club[lowI]/100,lowI);
+  l+=`<div class="lab" style="left:${g[0]+22}px;top:${g[1]-12}px;color:#ff7b6b;font-size:26px;background:#000a;padding:2px 8px;border-radius:6px">Gap`+(idx!=null?` <span style="color:#52e0f0">${club[lowI]}&rarr;${after[lowI]}</span>`:` ${club[lowI]}`)+`</div>`;
+  if(idx!=null) l+=`<div class="lab" style="left:16px;top:10px;color:#52e0f0;font-size:30px;line-height:34px">${offers[idx].n}</div>`;
+  document.getElementById("clublabs").innerHTML=l;
+}
+let cur=0;
+function hot(i){document.querySelectorAll(".card").forEach(c=>c.classList.remove("hot"));document.getElementById("c"+i).classList.add("hot");drawClub(i)}
+offers.forEach((o,i)=>document.getElementById("c"+i).addEventListener("mouseenter",()=>hot(i)));
+hot(0);
+</script>
+</body></html>

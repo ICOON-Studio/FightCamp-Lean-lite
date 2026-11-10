@@ -168,7 +168,9 @@ static func theme() -> Theme:
 	_panel(t, "Note", box(Color(0, 0, 0, 0.3), clear, 3, 0, 14, 12))
 	_panel(t, "Badge", box(RED, clear, 9, 0, 6, 0))
 	for chip in [["Chip", MUTED], ["ChipGreen", GREEN], ["ChipRed", RED], ["ChipAmber", AMBER], ["ChipGold", GOLD]]:   # S412 a stamped tag, not a pill
-		var tag := box(PANEL, chip[1], 2, 0, 10, 3)
+		# S419 (operator on the mail list's cream tags: "this looks bad"): a see-through dark tag with its colour on the
+		# left edge, so it sits in the slate; the ink pass reads the surface behind it for the word.
+		var tag := box(Color(0, 0, 0, 0.28), chip[1], 2, 0, 10, 3)
 		tag.border_width_left = 4
 		_panel(t, chip[0], tag)
 	var thumb := box(Color(1, 1, 1, 0.38), clear, 3, 0, 0, 0)   # S412 the page's scroll bar: a sliver, no track

@@ -44,7 +44,7 @@ Claude decides design and integrates; the operator approves (D49: Ludo makes ass
   build's stills. Dola parked. Codex: none (operator S228). Ludo: assets only.
 - CRITICS KNOW THE WHOLE GAME (operator S403: "i want every screen you design to have the right options so every critic needs to know the whole game design and mechanics to guide you"): every critic brief opens with `ops/research/CRITIC_PACK.md` and `ops/research/CRITIC_ACCESS.md` (the Miro board, real screens, mockups) and asks which options a screen is missing, which are useless and what each changes. The pack gives the game, never our proposal or an earlier score. Update it when a mechanic or screen lands.
 - CRITICS SAY HOW TO REACH 10 (operator S405: "i want the critics everytime to state what to change to reach 10/10"): every critic, on every score of anything, ends with the concrete list of changes that would take it to 10/10. Most important first, specific enough to build. A score without that list is not finished. S411 operator ("have them draw what would be their 10/10 on each occasion"): every critic also draws its 10/10, a 1920x1080 HTML page rendered with tools/render_mockup.py, and the review links the picture.
-- At most 3 PC agents at once (watchdog), cloud seats unlimited. Every brief names its owned files, the one test command,
+- At most 3 PC agents at once (watchdog; S419 operator: "i think thepc can handle more, change the rule ?" - seat_dispatch MAX_PC_AGENTS 2 -> 3, Godot jobs still two at a time in godot_slot), cloud seats unlimited. Every brief names its owned files, the one test command,
   and stays under the 500-line rule.
 
 ## PC rules (his machine)

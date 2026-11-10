@@ -830,16 +830,23 @@
    "launched": "2026-11-10T08:12"
   },
   {
-   "task": "LOOKSLATE6",
+   "task": "TAPEVERSUS1",
    "seat": "cursor",
-   "status": "queued",
-   "queued": "2026-11-10T05:25"
+   "status": "launched",
+   "queued": "2026-11-10T10:40",
+   "launched": "2026-11-10T08:59"
   },
   {
    "task": "LOOKSLATE7",
    "seat": "cursor",
    "status": "queued",
    "queued": "2026-11-10T05:32"
+  },
+  {
+   "task": "LOOKSLATE6",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-10T05:25"
   },
   {
    "task": "BLOCKMEET2",
@@ -851,8 +858,22 @@
   {
    "task": "LEGTREMBLE1",
    "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-10T09:30",
+   "launched": "2026-11-10T08:37"
+  },
+  {
+   "task": "FIGHTSLIDE1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-10T11:10",
+   "launched": "2026-11-10T08:59"
+  },
+  {
+   "task": "KDFIX1",
+   "seat": "qwen",
    "status": "queued",
-   "queued": "2026-11-10T09:30"
+   "queued": "2026-11-10T11:40"
   }
  ]
 }

@@ -6140,6 +6140,103 @@
         "No, leave them"
       ],
       "attach": [],
+      "answer": "Yes, delete its own spare cards",
+      "note": null,
+      "answered_at": "2026-11-10T06:34:21Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-164",
+      "asked": "2026-11-10T06:34:15.334214+00:00",
+      "session": "S294",
+      "text": "Training tab: you said you do not like the design and the type is small. Three different approaches are drawn (pictures). Which direction do I take to Ludo for a painted version?",
+      "options": [
+        "A: the week as one curve",
+        "B: one day opened big",
+        "C: the boxer in the middle",
+        "Mix: I say which parts",
+        "None of these"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-164_0_training_c.png"
+      ],
+      "answer": "A: the week as one curve",
+      "note": null,
+      "answered_at": "2026-11-10T06:37:17Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-165",
+      "asked": "2026-11-10T06:38:05.218051+00:00",
+      "session": "S294",
+      "text": "Fighter Overview, the At a glance panel you marked: two redraws with pictures in place of label rows (attached, shown at double size). Which one do I build?",
+      "options": [
+        "A: the ring diagram",
+        "B: the card with three badges",
+        "Neither, try again"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-165_0_glance.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-166",
+      "asked": "2026-11-10T06:40:22.237849+00:00",
+      "session": "S294",
+      "text": "Training tab, approach B (one day opened big), painted by Ludo in the slate and wood look (attached; the painter garbles some small words, the real ones are in the layout). Build the Training tab like this?",
+      "options": [
+        "Yes, build this",
+        "Yes, but change something",
+        "No"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-166_0_training_b.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-167",
+      "asked": "2026-11-10T06:57:00.520496+00:00",
+      "session": "S294",
+      "text": "Club People, drawn with ten coaches, two approaches (attached). Which direction do I take to Ludo for a painted version?",
+      "options": [
+        "A: the coverage board",
+        "B: the staff wall",
+        "Mix: I say which parts",
+        "Neither"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-167_0_people_b.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-168",
+      "asked": "2026-11-10T07:06:47.275605+00:00",
+      "session": "S294",
+      "text": "The fight's live display (you: 'looks like low-tier ai'), three approaches (attached). Which direction do I take to Ludo for a painted version?",
+      "options": [
+        "A: the telecast",
+        "B: the corner's eyes",
+        "C: the fighting-game bars",
+        "Mix: I say which parts",
+        "None"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-168_0_fight_c.png"
+      ],
       "answer": null,
       "note": null,
       "answered_at": null,

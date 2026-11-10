@@ -17,6 +17,8 @@ const FPS := {"walk": 16.0, "walk_back": 16.0, "jab_back": 16.0, "idle_back": 10
 const FRAMES := 16
 const FADE := 0.3
 const GAP := Vector2(8.0, 16.0)
+const FIG_FAR := 0.12    # the frame's share of the picture height at 40% down
+const FIG_NEAR := 0.16   # and at the bottom edge
 
 var people: Array = []
 var spots: Array = []
@@ -208,12 +210,14 @@ func _blit(p: Dictionary) -> void:
 	draw_texture_rect_region(tex, Rect2(-FEET, Vector2(FW, FH)), Rect2(float(frame) * FW, 0.0, FW, FH), Color(1, 1, 1, float(p["alpha"])))
 
 
-## 20% of the picture height on screen at the bottom edge, 15% at 40% down, linear in y.
+## S419 (operator: "these humans look too big compared to everything else in the gym"): a figure's frame is 16% of the
+## picture height at the bottom edge and 12% at 40% down, linear in y (it was 20% and 15%). At the bag row a head now
+## clears under the rack's bar; at the treadmills a boxer stands about a third taller than the console.
 ## The same y is the same height, so a row of figures matches.
 func _fig_h(y: float) -> float:
 	var picture_h: float = GymFloorSpots.PICTURE.y * _k
 	var t: float = y / GymFloorSpots.PICTURE.y
-	return lerpf(0.15, 0.20, (t - 0.40) / 0.60) * picture_h
+	return lerpf(FIG_FAR, FIG_NEAR, (t - 0.40) / 0.60) * picture_h
 
 
 func _strip(stem: String, clip: String) -> Texture2D:

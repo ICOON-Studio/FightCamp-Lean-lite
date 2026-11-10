@@ -88,7 +88,7 @@ SEATS = {"qwen": {"agent": "qwen", "who": ("qwen",), "model": "qwen3-coder", "mi
          "agy": {"agent": "antigravity", "who": ("antigravity", "agy"), "model": AGY_MODEL, "minutes": 65}}
 SEAT_PROCS = {"qwen": "qwen-code", "cursor": "cursor-agent", "agy": "agy.exe"}
 PC_AGENTS = ("qwen", "cursor", "antigravity", "agy", "codex", "cline", "ziva")
-MAX_PC_AGENTS = 2         # S218 (the PC hung with 3 agents + Godot tests): 2 PC agents at once
+MAX_PC_AGENTS = 3         # S419 operator: "i think thepc can handle more, change the rule ?" (was 2 since the S218 hang; the watchdog still refuses on RED and Godot jobs still queue two at a time in godot_slot)
 LAUNCHES_PER_CYCLE = 1    # one new agent per 30-min cycle - each launch seeds a cache and starts Godot imports
 E_FREE_MIN_GB = 20
 ## S380 (operator: "optimize workflow also for cloud agents until then" - E: is 91% full - and "careful to not run out of actions
@@ -1233,8 +1233,8 @@ def selftest() -> int:
     g["pc_agents"] = lambda p: ["agy pid 1"]
     d2 = decide(two, [], False, "t AMBER x", 100.0)
     cases.append(("decide: one launch per cycle, then the PC cap", d2[0]["verdict"] == "LAUNCH" and d2[1]["verdict"] == "WAIT"))
-    g["pc_agents"] = lambda p: ["agy pid 1", "qwen pid 2"]
-    cases.append(("decide: 2 PC agents hold a launch", "PC agents" in decide(rows[:1], [], False, "t GREEN x", 100.0)[0]["why"]))
+    g["pc_agents"] = lambda p: ["agy pid 1", "qwen pid 2", "cursor pid 3"]
+    cases.append(("decide: 3 PC agents hold a launch", "PC agents" in decide(rows[:1], [], False, "t GREEN x", 100.0)[0]["why"]))
     g.update(saved)
     fails = sum(1 for _, ok in cases if not ok)
     for name, ok in cases:

@@ -17,9 +17,9 @@ const PORTRAIT := "res://assets/ui/art/guide_trainer.png"
 const PORTRAIT_PX := 190.0
 const TAIL_W := 24.0
 const BUBBLE_TEXT_W := 400.0
-const BUBBLE := Color("#fbf1df")
-const BUBBLE_EDGE := Color("#231f1b")
-const BUBBLE_INK := Color("#231f1b")
+const BUBBLE := Color("#262a2d")       # S419 slate (operator: "the white ... doesn blend with the art style of other menus"); was cream
+const BUBBLE_EDGE := Color("#8a6a3d")  # worn brass
+const BUBBLE_INK := Color("#efe6d8")   # chalk (WoodKit.INK)
 
 const PREP_TAB := 5   # FighterPage "Fight prep"
 const PLAYBOOK_TAB := 7

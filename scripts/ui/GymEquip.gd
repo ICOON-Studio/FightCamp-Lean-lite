@@ -59,9 +59,11 @@ static func bar(main: Node, hub: Control, c: Career) -> void:
 	look.content_margin_left = 18
 	look.content_margin_right = 12
 	plate.add_theme_stylebox_override("panel", look)
-	plate.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	# S419 (operator: "the slots are hidden when you try to upgrade"): at the bottom, over the front wall, where no slot is.
+	plate.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
 	plate.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	plate.offset_top = 10
+	plate.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	plate.offset_bottom = -10
 	hub.add_child(plate)
 	var row := UI.hbox(18)
 	plate.add_child(row)

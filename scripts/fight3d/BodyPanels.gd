@@ -132,7 +132,7 @@ func _repaint(side: int) -> void:
 	fig.set_values(vals)
 	var st: Dictionary = live.stats[side]
 	var acc := 0 if int(st["thrown"]) == 0 else int(round(100.0 * int(st["landed"]) / int(st["thrown"])))
-	fig.set("extra_tip", "%s\nLANDED %d/%d %d%%\nJABS   %d/%d\nPOWER  %d/%d\nBODY   %d\n\n%s" % [
+	fig.set("extra_tip", "%s\nPunches landed: %d of %d thrown (%d%%)\nJabs landed: %d of %d\nPower punches landed: %d of %d\nLanded to the body: %d\n\n%s" % [
 		str(view.get("_names")[side]).to_upper(), st["landed"], st["thrown"], acc,
 		st["jab_l"], st["jab_t"], st["pow_l"], st["pow_t"], st["body"], KEY_WORDS])
 

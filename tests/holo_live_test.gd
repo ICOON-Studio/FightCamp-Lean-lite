@@ -89,7 +89,7 @@ func _initialize() -> void:
 	await process_frame
 	await process_frame
 	var nums: Array = (holo.words[0].get("drawn") as Array).map(func(d): return str(d[0]))
-	_check("3 the holo writes the count on the area", nums == ["head 1"], str(nums))
+	_check("3 the holo writes the count on the area", nums == ["1 hit to the head"], str(nums))
 	# 4. The corner minute: the card as FightCast hands it over (the map, what her places took, this round's hits).
 	view._bug_box.visible = false
 	await _secs(0.1)
@@ -124,7 +124,7 @@ func _initialize() -> void:
 		_check("4 the head's tint has a box on her head", (box[0] as Vector4).z > 0.0, str(box[0]))
 	var words: Control = co.round_words
 	var drawn: Array = (words.get("drawn") as Array).map(func(d): return str(d[0])) if words != null else []
-	_check("4 one word for the hot spot: \"head 1\", none for the ribs", drawn == ["head 1"], str(drawn))
+	_check("4 one tag for the hot spot: \"1 hit to the head\", none for the ribs", drawn == ["1 hit to the head"], str(drawn))
 	_check("4 the word sits inside the corner card", words != null and drawn.size() == 1
 		and co._card.get_global_rect().has_point(words.get_global_transform() * Vector2((words.drawn[0] as Array)[1])), "")
 	# The grading and the band on top: many punches turn it orange; a hurt place keeps its band colour.

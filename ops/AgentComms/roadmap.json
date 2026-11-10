@@ -3,15 +3,15 @@
  "updated": "2026-11-10",
  "author": "claude S294",
  "now": {
-  "id": "S418",
+  "id": "S419",
   "owner": "claude",
   "updated": "2026-11-10",
-  "summary": "S418: three seat runs collected. The Training week page is on slate and wood (LOOKSLATE1, Cursor) with a fix at collect: a held drill's button hung out of its card. A blocked or slipped head punch is now thrown at face height (HEADAIM2B, Qwen): filmed in the Moves preview, the slipped jab flies where the face was. Knowledge.gd merged (KNOW1, Goose), nothing reads it yet. The first real 05:00 full run: 239 pass, 0 fail. Five more slate pages briefed with one shared checker; People is running on Cursor, four are queued. BLOCKMEET1 (Qwen) measures the blocked jab that ends at the chin under the blocking glove. Exported.",
-  "last_working_commit": "e4a7b6f3",
-  "verified_playable": "week_slate, week_board_clarity, week_strip, drill_card, drill_pick, wood_kit, head_aim, beat_clips, short_punch, move_tip, knowledge, fighter_model, file_limits and golden_path green in the session; all 58 screens rendered twice and opened; the jab filmed with and without the aim; exported 11-10 05:28. Not played in the exe.",
-  "incomplete_blocked": "MAIN CI RED at e4a7b6f3 (head_aim join on a slow runner, move_tip 149 of 150 frames). Still cream: Club People (LOOKSLATE2 running), Fight camp + bout offer (3), New game + interview (4), Money (5), World (6), the Fighters page's Scouted strip and roster card feet, the week review's pad cards, the Playbook's game plan rows and combination builder. The blocked jab reads as a hit (BLOCKMEET1 measuring). Round 1's first frame shows the boxer bent back through the ropes (the walk-in; on the map as 'Red's leg past the rope'). John's chat seat has not answered since 11-06 (gbot: 'A Sandbox session is not permitted'): SQ29 and SQ30 wait. ZIVA still down (seats were running Godot).",
-  "next_action": "FIRST: main's CI went red on the S418 code push (e4a7b6f3), two tests. head_aim_test: 'join unlanded_jab_landed_cross jump=0.669 > noaim+0.300' (0.19 on the PC): the join check reads distance per FRAME, so a slow runner's long frame fails it. It is off tools/run_tests.sh until it reads speed (distance over the frame's real time) or a hitch is ruled out as a real one-frame jump. move_tip_test: 149 of 150 frames framed, and the lead hook read only 19 frames: green on PR 146's own CI with the same code, so likely the runner, NOT proved: read the next main run. Collect LOOKSLATE2 (Cursor, Club People: render 05_gym_staff and 28_members with layout_snapshot noguide, open them) and BLOCKMEET1 (Qwen, measure only: believe it only if CTRL_LANDED reads to_face under 0.05 and every row prints a gap of 0.80 to 1.10; then decide the fix: the block clip raised to meet the punch, or the punch aimed at the blocking glove). LOOKSLATE3-6 are queued on Cursor and launch by themselves: collect each the same way (render, open, slate test green). LOOKSLATE7 is queued behind them: the Fighters page's Scouted strip, the roster cards' paper feet and the week review's white pad cards. Film both right hooks for PR 140 REARHAND5B. Playbook game plan and Fight night: a Ludo painted concept in the slate look first, his yes, then re-brief MENUPLAYBOOK2B and MENUFIGHT1B. The critic's corner as a game screen (Ludo concept first). Read PR 77 (ANIMREBUILD1 design draft).",
-  "next_acceptance": "No page shows a cream sheet under wooden tabs; a blocked punch is stopped by a glove, not by the chin.",
+  "summary": "S419: LOOKSLATE2, 3 and 4 collected (Club People, Fight camp, the bout offer, New game, the interview on slate), with dark-on-dark notes and dial needles fixed at collect. BLOCKMEET1 collected: in the fight 11 of 12 blocked punches read as hits (the block starts 0.05 s before contact, the glove sits under the face); BLOCKMEET2 (Qwen) fixes it. His marks: the Overview line reworded; he rejected the Training week's design ('different approaches', 'fonts are small'), so three open-brief mockups are on the board (Q-164) and the At a glance panel is drawn two ways (Q-165). 'The legs tremble' on the animation page: LEGTREMBLE1 (Antigravity) finds where and fixes it. ANIMREBUILD1 draft taken as a reference. Dispatcher cap 2 -> 3 PC agents on his word. Ludo CLI 0.2.6 + skill. Exported.",
+  "last_working_commit": "8675277a",
+  "verified_playable": "people_slate, camp_slate, start_slate, camp_cards, versus, recruit, wood_kit, words_on_screens, plain_words, no_pronoun, gauges, attr_board, fighter_model green on the PC; the pages rendered and opened (E:/FightCamp/tmp/s419_screens, s419_screens2).",
+  "incomplete_blocked": "MAIN CI: no finished run since e4a7b6f3 (red); three S419 pushes cancelled each other's runs, read the run on the wrap-up push. PR 140 REARHAND5B not judged: tools/head_aim_film.gd move=rear_hook printed no CONTACT line, so the film showed no punch. Luke Reid's portrait reads near black on Club People. Training week page untouched until his pick.",
+  "next_action": "FIRST read his answers to Q-S294-164 (Training tab direction A/B/C) and Q-S294-165 (At a glance A/B): the pick goes to Ludo for a painted concept (ludo image edit of the mockup), his yes, then a Cursor brief. Read main's CI run on the wrap-up push; head_aim_test is still off the list until its join check reads speed. Collect BLOCKMEET2 (Qwen): read every comparison in tests/block_meet_test.gd, then film a blocked jab in the Moves preview and a fight. Collect LEGTREMBLE1 (agy): the two ruler controls first, then re-render the board films (clip_orbit) and look. Collect LOOKSLATE5 (Money), then 6 (World) and 7 launch by themselves. PR 140: find why head_aim_film plays no rear hook (MoveTip.info('rear_hook')), film main and the branch's two .res, judge. Then: Playbook game plan and Fight night Ludo concepts; the critic's corner as a game screen.",
+  "next_acceptance": "He has picked a Training direction and its painted concept is on the board; a blocked punch is stopped by a glove; the leg tremble has a named source.",
   "awaiting_operator": [
    "play the S418 build",
    "Q-S294-163: may the map redraw delete its own spare cards"
@@ -1671,6 +1671,11 @@
    "id": "S418",
    "date": "2026-11-10",
    "note": "S418: LOOKSLATE1, HEADAIM2B and KNOW1 collected; first real 05:00 run 239 green; five slate pages briefed, People running; BLOCKMEET1 measuring the blocked jab; exported."
+  },
+  {
+   "id": "S419",
+   "date": "2026-11-10",
+   "note": "S419: three slate pages collected; blocked jab measured, fix on Qwen; leg tremble on Antigravity; Training tab three approaches and At a glance two redraws on the board; dispatcher cap 3; exported."
   }
  ],
  "blocked_on_operator": [],
@@ -4589,7 +4594,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-10 07:12 board_sync",
+  "updated": "2026-11-10 08:41 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4783,21 +4788,40 @@
     "title": "TASK LOOKSLATE4 - CURSOR (Grok 4.7 High) - New game and the reception interview on slate and wood",
     "who": "cursor",
     "started": "2026-11-10T07:12",
-    "run": "LOOKSLATE4"
+    "run": "LOOKSLATE4",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK LOOKSLATE5 - CURSOR (Grok 4.7 High) - the Money page off the whiteboard, onto slate and wood",
+    "who": "cursor",
+    "started": "2026-11-10T08:12",
+    "run": "LOOKSLATE5"
+   },
+   {
+    "title": "TASK BLOCKMEET2 - QWEN (qwen3-coder) - a blocked head punch lands ON the blocking glove",
+    "who": "qwen",
+    "started": "2026-11-10T08:21",
+    "run": "BLOCKMEET2"
+   },
+   {
+    "title": "TASK LEGTREMBLE1 - AGY (Argon High) - the legs tremble in many clips: find where it comes from, fix it there",
+    "who": "antigravity",
+    "started": "2026-11-10T08:37",
+    "run": "LEGTREMBLE1"
    }
   ],
   "next": [
    {
-    "id": "LOOKSLATE3",
-    "who": "cursor",
-    "title": "Fight camp and the bout offer on slate",
-    "after": "LOOKSLATE2"
+    "id": "TRAINTAB",
+    "who": "claude",
+    "title": "Training tab: his pick of three, then Ludo paints it",
+    "after": "Q-164"
    },
    {
-    "id": "LOOKSLATE4",
-    "who": "cursor",
-    "title": "New game and the reception interview on slate",
-    "after": "LOOKSLATE3"
+    "id": "GLANCE",
+    "who": "claude",
+    "title": "Overview At a glance: build his pick of two",
+    "after": "Q-165"
    },
    {
     "id": "LOOKSLATE5",
@@ -4806,22 +4830,22 @@
     "after": "LOOKSLATE4"
    },
    {
-    "id": "LOOKSLATE6",
+    "id": "TAPEVERSUS1",
     "who": "cursor",
-    "title": "World off the plaster wall, onto slate (his yes)",
-    "after": "LOOKSLATE5"
+    "title": "Tale of the tape drawn as the bout offer screen",
+    "after": ""
    },
    {
     "id": "LOOKSLATE7",
     "who": "cursor",
     "title": "Scouted strip, roster card feet, week review pad cards on slate",
-    "after": "LOOKSLATE6"
+    "after": "TAPEVERSUS1"
    },
    {
-    "id": "BLOCKMEET2",
-    "who": "claude",
-    "title": "A blocked punch is stopped by a glove, not the chin (after the measure)",
-    "after": "BLOCKMEET1"
+    "id": "LOOKSLATE6",
+    "who": "cursor",
+    "title": "World off the plaster wall, onto slate (his yes)",
+    "after": "LOOKSLATE7"
    },
    {
     "id": "REARHAND5B",
@@ -5171,6 +5195,21 @@
   },
   "done_recently": [
    {
+    "title": "Club People, Fight camp, bout offer, New game, interview on slate (LOOKSLATE2-4)",
+    "who": "cursor",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "Blocked jab measured: in the fight 11 of 12 read as hits (BLOCKMEET1)",
+    "who": "qwen",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "Training tab drawn three ways, At a glance two ways, from open briefs",
+    "who": "claude",
+    "when": "2026-11-10"
+   },
+   {
     "title": "The Training week page on slate and wood (LOOKSLATE1), a hanging button fixed at collect",
     "who": "cursor",
     "when": "2026-11-10"
@@ -5222,21 +5261,6 @@
    },
    {
     "title": "TASK FIGHTERMODEL4H - CURSOR (Grok 4.7 High) - the camp's three levels mean something again on the new fighter model",
-    "who": "cursor",
-    "when": "2026-11-09"
-   },
-   {
-    "title": "TASK FIGHTERMODEL4F - CURSOR (Grok 4.7 High) - the nine red tests the new fighter model leaves behind",
-    "who": "cursor",
-    "when": "2026-11-09"
-   },
-   {
-    "title": "TASK FIGHTERMODEL4E - CURSOR (Grok 4.7 High) - the plan must beat the coach again on the new fighter model",
-    "who": "cursor",
-    "when": "2026-11-09"
-   },
-   {
-    "title": "TASK FIGHTERMODEL4D - CURSOR (Grok 4.7 High) - the fighter model fits inside the test limit",
     "who": "cursor",
     "when": "2026-11-09"
    }
@@ -5367,6 +5391,26 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Training week on slate",
+     "who": "agent"
+    },
+    {
+     "text": "Blocked + slipped punch aims high",
+     "who": "agent"
+    },
+    {
+     "text": "Knowledge rule merged (step 1)",
+     "who": "agent"
+    },
+    {
+     "text": "First real 5 am run: 239 green",
+     "who": "claude"
+    },
+    {
+     "text": "5 slate briefs, one test helper",
+     "who": "claude"
+    },
+    {
      "text": "Wood + slate look in the theme",
      "who": "claude"
     },
@@ -5401,53 +5445,41 @@
     {
      "text": "REARHAND2: the ruler stopped it",
      "who": "claude"
-    },
-    {
-     "text": "Home: your whole gym shows",
-     "who": "claude"
-    },
-    {
-     "text": "UFC off the bags",
-     "who": "claude"
-    },
-    {
-     "text": "Pieces cut from his picture work",
-     "who": "claude"
-    },
-    {
-     "text": "Gym you buy up, on his picture",
-     "who": "claude"
-    },
-    {
-     "text": "Cage under repair, red floor less",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Training week on slate",
+     "text": "People, camp, new game on slate",
      "who": "agent"
     },
     {
-     "text": "Blocked + slipped punch aims high",
+     "text": "Blocked jab measured: 11 of 12 hit",
      "who": "agent"
     },
     {
-     "text": "Knowledge rule merged (step 1)",
-     "who": "agent"
-    },
-    {
-     "text": "First real 5 am run: 239 green",
+     "text": "Overview: plain ring-style words",
      "who": "claude"
     },
     {
-     "text": "5 slate briefs, one test helper",
+     "text": "Rebuild draft read, taken",
+     "who": "claude"
+    },
+    {
+     "text": "Ludo CLI 0.2.6 + its skill",
+     "who": "claude"
+    },
+    {
+     "text": "Training tab: 3 ideas, B painted",
      "who": "claude"
     }
    ],
    "now": [
     {
-     "text": "Play the S418 build (you)",
+     "text": "LEGTREMBLE1 (agy)",
+     "who": "agent"
+    },
+    {
+     "text": "Play the S419 build (you)",
      "who": "operator"
     }
    ],
@@ -5573,19 +5605,35 @@
      "who": "claude"
     },
     {
-     "text": "Slate: camp, start, Money, World",
-     "who": "agent"
-    },
-    {
      "text": "Slate: roster strip, review cards",
      "who": "claude"
     },
     {
      "text": "Playbook + fight night: concepts",
      "who": "claude"
+    },
+    {
+     "text": "Right hook PR 140: film, judge",
+     "who": "claude"
+    },
+    {
+     "text": "Slate: Money, World (Cursor)",
+     "who": "agent"
+    },
+    {
+     "text": "Your call: build Training B?",
+     "who": "operator"
+    },
+    {
+     "text": "Your call: At a glance A or B",
+     "who": "operator"
+    },
+    {
+     "text": "Knockdown sway + KO count (Qwen)",
+     "who": "agent"
     }
    ],
-   "session": "S418"
+   "session": "S419"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

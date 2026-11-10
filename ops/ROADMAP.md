@@ -8,9 +8,9 @@ Updated 2026-11-10 by claude S294.
 
 ## Now
 
-**S418 — ?** *(claude)*
+**S419 — ?** *(claude)*
 
-S418: three seat runs collected. The Training week page is on slate and wood (LOOKSLATE1, Cursor) with a fix at collect: a held drill's button hung out of its card. A blocked or slipped head punch is now thrown at face height (HEADAIM2B, Qwen): filmed in the Moves preview, the slipped jab flies where the face was. Knowledge.gd merged (KNOW1, Goose), nothing reads it yet. The first real 05:00 full run: 239 pass, 0 fail. Five more slate pages briefed with one shared checker; People is running on Cursor, four are queued. BLOCKMEET1 (Qwen) measures the blocked jab that ends at the chin under the blocking glove. Exported.
+S419: LOOKSLATE2, 3 and 4 collected (Club People, Fight camp, the bout offer, New game, the interview on slate), with dark-on-dark notes and dial needles fixed at collect. BLOCKMEET1 collected: in the fight 11 of 12 blocked punches read as hits (the block starts 0.05 s before contact, the glove sits under the face); BLOCKMEET2 (Qwen) fixes it. His marks: the Overview line reworded; he rejected the Training week's design ('different approaches', 'fonts are small'), so three open-brief mockups are on the board (Q-164) and the At a glance panel is drawn two ways (Q-165). 'The legs tremble' on the animation page: LEGTREMBLE1 (Antigravity) finds where and fixes it. ANIMREBUILD1 draft taken as a reference. Dispatcher cap 2 -> 3 PC agents on his word. Ludo CLI 0.2.6 + skill. Exported.
 
 ## Next
 
@@ -303,3 +303,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S416**  |  |  | *none yet* |  |
 |  |  | **S417**  |  |  | *none yet* |  |
 |  |  | **S418**  |  |  | *none yet* |  |
+|  |  | **S419**  |  |  | *none yet* |  |

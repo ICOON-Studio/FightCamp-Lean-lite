@@ -74,7 +74,7 @@ func _draw() -> void:
 		var n := int(hits.get(key, 0))
 		if n <= 0:
 			continue
-		var text := "%s %d" % [WORDS[key], n]
+		var text := "%d %s to the %s" % [n, "hit" if n == 1 else "hits", WORDS[key]]   # S419 operator on "head 4", "liver 1": "wtf is that"
 		var g: Dictionary = fig.call("_geom_px", key)
 		var c: Vector2 = g["c"]
 		var w := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, size_px).x

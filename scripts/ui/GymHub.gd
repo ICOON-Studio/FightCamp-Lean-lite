@@ -18,6 +18,7 @@ const HomeCorners := preload("res://scripts/ui/HomeCorners.gd")
 const GymEquip := preload("res://scripts/ui/GymEquip.gd")
 const HomeRows := preload("res://scripts/ui/HomeRows.gd")
 const GymFloorPeople := preload("res://scripts/ui/GymFloorPeople.gd")
+const GuideLines := preload("res://scripts/rules/GuideLines.gd")
 
 const MIN_HEIGHT := 560.0
 const ABOVE := 100.0   # the top bar and the page's top margin: the gym takes the rest of the window
@@ -145,6 +146,8 @@ static func needs(c: Career, id: String) -> int:
 		for f in c.fighters:
 			n += HomeRows.open_offers(f).size()
 		return n
+	if id == GuideLines.place(c):   # S419: the place the guide is talking about is red and pulsing
+		return 1
 	return 1 if id == "reception" and not c.applicant.is_empty() else 0
 
 

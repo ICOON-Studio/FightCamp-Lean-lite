@@ -1,46 +1,52 @@
-# S418 handover (written 2026-11-10, S418 main session)
+# S419 handover (written 2026-11-10, S419 main session)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S419` and redraw the map.
-THIS FILE WAS CUT IN S418: it had grown to 988 lines. Every older handover (S396 to S417) is in ops/research/HANDOVERS_S349_S417.md: grep it by keyword, do not read it whole. What is still open from them is listed under STILL OPEN below.
-READ THE PULL'S OUTPUT: a file list after a session-start pull is the alarm.
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S420` and redraw the map.
+Older handovers (S396 to S417): ops/research/HANDOVERS_S349_S417.md, grep by keyword. S418's is in git (219c37ef).
+READ THE PULL'S OUTPUT: a file list after a session-start pull is the alarm. `start` printed only 5 of his 7 board marks: read ops/AgentComms/media_comments.json for `seen_by_claude: false` as well.
 
-## FIRST: main's CI went red on the S418 code push (e4a7b6f3)
-- head_aim_test: `join unlanded_jab_landed_cross jump=0.669 > noaim+0.300=0.524` on the runner (0.19 on the PC). The join check reads distance per FRAME, so one long frame on a slow runner fails it. Taken OFF tools/run_tests.sh. Make it read speed (distance over the frame's real time), or prove the 0.669 is a real one-frame jump of the glove when a height-only reach hands over to a landed one; then put it back.
-- move_tip_test: 149 of 150 frames framed, and the lead hook read only 19 frames. It was green on PR 146's own CI with the same code, so likely the runner. NOT proved: read main's next run first; if it is red again, the height aim is the suspect (MoveStudio.defend now arms it on every defended jab).
+## FIRST: his answers on the board
+- Q-S294-166: Training tab, approach B painted by Ludo. He said in chat "the B approach seems good , what do you think"; Claude agreed (B, plus approach A's peak-tiredness number on each evening option). On "Yes": brief Cursor from docs/mockups/s419/training_b.html (layout, real words) and training_b_painted_ludo.png (look); the emoji become KitIcon icons; type floor 20 px, at most 70 words (ops/research/TRAINING_TAB_BRIEF_S419.md). The current Training week page stays untouched until then.
+- Q-S294-164 (pick of A/B/C) is answered by the above: mark it. Q-S294-165: At a glance panel, A ring diagram or B card (docs/mockups/s419/glance.png); build his pick in DarkOverview._glance, tooltips from the designer's list in the S419 digest.
+- Q-S294-163 still open: may the map redraw delete its own spare cards.
 
-## Built S418, exported 05:28, HE HAS NOT PLAYED IT
-- LOOKSLATE1 (Cursor, PR 147) merged bbc6cbbd: the Training week page on slate. Fixed at collect: a held drill's wooden button hung out of its card and the sentence was cut. Now one row, "Held at 48 by the Cross" + the button, the reason in the tooltip (drill_card_test holds it).
-- HEADAIM2B (Qwen, PR 146) merged bc0a76b1: an un-landed head punch is thrown at face height, latched when the punch starts. head_aim_test: aimed within 0.016 m, raw 0.08 to 0.47 m off; level pair raw 0.21 to 0.29. Filmed in the Moves preview (E:/FightCamp/tmp/s418_headaim): the SLIPPED jab is right, it flies where the face was.
-- KNOW1 (Goose, issue 139) merged 40d0db6b: scripts/rules/Knowledge.gd, nothing reads it yet. Next step is in ops/research/KNOWLEDGE_S411.md's build order; the bots test comes before any screen.
-- 05:00 full run, the first real one: 239 pass, 0 fail, 8 minutes. Recorded in roadmap NIGHTLY1. week_slate and knowledge tests are on the list from 11-11 (head_aim came off again, see FIRST).
-- tests/slate_walk.gd: the slate checker, shared. `SlateWalk.faults(page)` after `WoodKit.ink(page)`.
-- tools/layout_snapshot.gd takes `noguide` after the out dir: stills he sees must have no guide. tools/head_aim_film.gd films a move in the Moves preview, every frame, `noaim` for the control.
-- 36 finished runs archived out of live_runs.json (the COLLECT NOW list at start was 36 stale lines). PRs 108 and 130 closed as superseded.
+## Late in S419: a run of his notes while playing (all in the second export unless said)
+- "these humans look too big compared to everything else in the gym": GymFloorPeople FIG_FAR 0.12 / FIG_NEAR 0.16 (was 0.15 / 0.20); a cardio spot is on the belt (GymFloorSpots.ON_BELT). Still sent, no answer yet.
+- "the guide says open people ... it has to be highlighted on the gym": GuideLines.place(c) names the step's gym place; that pin is ringed by the guide's light and turns red (GymHub.needs). NOT looked at on a still for the coach step.
+- "the white in the picture doesn blend": the guide's bubble is slate with chalk words; the small tags (UI.chip) are see-through dark. The roster card feet and the "Scouted for you" strip are still cream: LOOKSLATE7, moved ahead of World on Cursor.
+- "the slots are hidden when you try to upgrade": the Equip bar sits at the bottom of the picture. NOT looked at on a still.
+- "explain what to do about the weight ?": the guide's fight-week line now says "<name> makes weight Friday, fights Saturday" or "<name> is over the limit. Set the diet to Cut." and rings the Fighters place when over.
+- "how many tale of tape screens ... i saw at least 2" and "the offer screen can be uses also as a tale of the tape screen": there are four plus the offer. TAPEVERSUS1 (Cursor, RUNNING): one TapeRows rule, fight night drawn as the versus picture.
+- "LUCY JACKSON AHEAD ... wtf is that": the round bar now reads "LUCY IS WINNING THIS ROUND" / "THIS ROUND: EVEN".
+- Hologram "head 4 / liver 1 ... do we only have 2 hit points": tags now read "4 hits to the head". The honest answer: the fight tracks SIX places (head, two eyes, nose, left ribs, right ribs) and the hologram groups them into three. No jaw, temple, solar plexus or stomach. A design question for him, not asked on the board yet.
+- "the fighters are sliding a lot in the fight": FIGHTSLIDE1 (Qwen, RUNNING, measure only): metres slid per round, by cause.
+- "the people screen look very poorly ... populated with 10 coaches": docs/mockups/s419/people_a.png (coverage board) and people_b.png (staff wall), Q-S294-167.
+- Training B: three critics in. ops/research/TRAINING_B_DECISION_S419.md section 3 is the decision. NEXT: one consolidated drawing of it, Ludo's paint, his yes, the Cursor brief. Q-S294-166 was asked on the earlier drawing.
+- BLOCKMEET2 (PR 154) and LOOKSLATE5 (PR 153) have LANDED and are NOT collected.
 
-## Running and queued
-- CURSOR: LOOKSLATE2 (Club People) running. LOOKSLATE3 (Fight camp + bout offer), 4 (New game + interview), 5 (Money), 6 (World) are in dispatch_queue.json and launch by themselves every 30 min. Collect each: read the diff, run its slate test and regression, render with `layout_snapshot.gd -- <dir> noguide` on the hidden desktop, OPEN the page.
-  Cursor inverted a check to pass in LOOKSLATE1 (`>= 1080` for "fits the screen"): read every edge check in the new slate tests.
-- QWEN (the animation item): BLOCKMEET1, measure only. The Moves preview's BLOCKED jab ends at the partner's chin, under the raised blocking glove (E:/FightCamp/tmp/s418_headaim/jab2.jpg; same with and without the aim). Believe the table only if CTRL_LANDED reads to_face under 0.05 and every row prints a gap of 0.80 to 1.10. Then decide BLOCKMEET2: raise the block to meet the punch, or aim the blocked punch at the blocking glove. Film it, judge, then him.
+## Built S419, exported, HE HAS NOT PLAYED IT
+- LOOKSLATE2, 3, 4 (Cursor, PRs 150 to 152) merged: Club People, Fight camp, the bout offer, New game, the interview on slate. Fixed at collect: the bout offer's corner notes (VersusPanel._tag), the camp's small titles (Camp.gd KICKER) and the dial needles (GaugeRow.Dial._ink) were dark on dark.
+- Overview: "Wants the fight: keeps it long, steady pace" is "In the ring: Stays at range, steady pace" (Attrs.wants_words).
+- BLOCKMEET1 (Qwen, PR 148) merged: probe re-run here, CTRL_LANDED 0.001 to 0.021 m. Fight path: 11 of 12 blocked rows not between, glove 0.11 to 0.19 m under the face, the block starts at 0.8 of the contact time.
+- ANIMREBUILD1 (agy, PR 77) taken as docs/ANIM_REBUILD_DESIGN.md with a note on its stale parts (steps 1, 2, the clip counts).
+- seat_dispatch MAX_PC_AGENTS 2 -> 3 (his word). Ludo CLI 0.2.6, skill `ludo` installed (free offline toolbox).
 
-## Next for Claude, in order
-1. Collect what landed (above).
-2. LOOKSLATE7 is briefed and queued on Cursor after 6: the Fighters page's cream "Scouted for you" strip and the roster cards' paper feet (RosterCards.PAPER: his S410 pick, so show him a still before and after), the week review's white pad cards (FlipCard.gd), DarkOverview's flat red and dark buttons.
-3. PR 140 REARHAND5B: film both right hooks on its branch, judge, do not loosen bars.
-4. Playbook game plan (cream rows) and combination builder (cream cards), Fight night: a Ludo painted concept in the slate look first, his yes, then re-brief MENUPLAYBOOK2B and MENUFIGHT1B (held in dispatch_queue.json; base cursor/menuplaybook1, PR 105 stays open until it lands).
-5. The critic's corner as a game screen: NOT built. Body map with where the hits landed, numbers, choices proposed from what happened; Ludo concept first; score the look first with hard fails. His marks: ops/Feedback/2026-11-09-05.
-6. PR 77 ANIMREBUILD1 (agy design draft, docs/ANIM_REBUILD_DESIGN.md): unread since 11-07. Read it, take or close.
+## Running
+- QWEN BLOCKMEET2 (the animation item): the block set 0.25 s early, the blocked head punch carried onto the blocking glove. Collect: read every comparison in tests/block_meet_test.gd, re-run it, then film a blocked jab (tools/head_aim_film.gd) and a fight.
+- AGY LEGTREMBLE1: his "the legs treble ... in a lot of clips" on the board's animation page. Ruler controls first (a smooth sine reads 0, a 10 Hz wobble reads about 20), three-arm census, fix where it lives. Claude's quick census: 45 of 153 clips shake with no fight layers on (E:/FightCamp/tmp/s419_tremble). After the merge re-render the board films (153 date from 11-02) and look.
+- CURSOR LOOKSLATE5 (Money); 6 (World) and 7 (roster strip, review cards, Overview buttons) launch by themselves.
+- The animation page shows 1 of 169 clips because of its own rule (his OK or 9/10). He read that as "only 1 animation": consider showing all with their state.
 
-## Seen this session, not fixed
-- 19_round1 still (E:/FightCamp/tmp/s418_screens): the first frame of round 1 shows the red boxer bent back through the ropes, alone in shot. It is the walk-in; the map has it as "Red's leg past the rope: refine". Film the first five seconds before anyone outside sees a fight.
-- The Training week with a fight booked runs to y 1355 (1363 on the cream page): the camp chart pushes it past the first screen. A layout matter for the Training re-brief.
-- WeekCards.gd is 552 lines and MovePlayer.gd 664: over the 500 rule, allowed by file_limits_test's list. Split when either is next touched.
-- John's chat seat: gbot answers "A Sandbox session is not permitted on this endpoint" since 11-06. SQ29 (crossover) and SQ30 (knowing a fighter) wait. His account: tell him, do not chase.
-- ZIVA still down: two seats ran Godot all session, so the start line's own condition (no other Godot job) was not met.
-
-- THE MAP, redrawn S418 (4 created, 32 updated, ledger learned before and after, 139 ids). Stale cards left on it because nothing may be deleted until he answers Q-S294-163: DONE this session shows "Cage under repair, red floor less" and "REARHAND4: no better right hook" under the live cards; NOW shows "FIGHTERMODEL4E (Cursor)" and an empty "-" card. Two cards outside the ledger sit exactly on top of live NEXT cards with the same text (3458764689809187235 "Money: warm shell, small text", 3458764689809187237 "Playbook + Home round 2", each with a checkbox): `trim` will never remove those, delete them by id on his yes. The ledger also holds 8 old-format keys (wwa_card_...) whose ids are not on the board: that is why TRIM says 16 and only 8 are real.
+## Seen, not fixed
+- Luke Reid's portrait on Club People reads near black (mh_boxer_07 on a black ground, 160 x 210): a lighter ground behind portraits there, or a proper coach portrait.
+- A bare "roster places" icon at the right end of the staff strip, no number beside it.
+- The bout offer's left corner note sits over the boxer's boot.
+- PR 140 REARHAND5B not judged (see Traps). PR 105 MENUPLAYBOOK1 still open.
+- Main CI: no finished run since e4a7b6f3 (red). Read the run on the wrap-up push; head_aim_test stays off the list until its join check reads speed.
+- The 19_round1 walk-in through the ropes; WeekCards.gd 552 and MovePlayer.gd 664 lines; John's chat seat refused; ZIVA down.
+- THE MAP: stale cards as described in S418's handover (git 219c37ef) until Q-S294-163 is answered.
 
 ## Waiting on him
-Play the S418 build | Q-S294-163 may the map redraw delete its own spare cards | keep or cut Test day and dues bands | "yes, ARCHIVED" (finish moving, delete) | Builds holds about 700 MB of old folders he asked to remove.
+Q-166, Q-165, Q-163 | play the S419 build | keep or cut Test day and dues bands | "yes, ARCHIVED" | about 700 MB of old Builds folders.
 
 ## STILL OPEN from older handovers (details: grep ops/research/HANDOVERS_S349_S417.md)
 - Nested cards put a frame inside a frame (Fights offers, Find a fighter): judge on his reaction.
@@ -52,6 +58,10 @@ Play the S418 build | Q-S294-163 may the map redraw delete its own spare cards |
 - Held worktrees: LEAN_FIGHTERMODEL4G (1 unpushed), LEAN_GYM3D2 (1 dirty), LEAN_MONEYOD2 (3 dirty). All three are superseded work; look, then retire.
 
 ## Traps
+- tools/head_aim_film.gd with move=rear_hook printed no CONTACT line (S419): check MoveTip.info's name for the rear hook before filming PR 140.
+- seat_dispatch `films <task>` only films when the brief has a FILM: line or a tools/ probe as RED_TEST.
+- agent_comms `ask --attach` needs absolute paths; `--attach` repeats per file.
+- Each push to main cancels the last CI run: push once, at the end.
 - A `cd` outside the repo in the Bash tool moves the session folder: absolute paths.
 - Long shell heredocs fail, and a heredoc doubles backslashes: write scripts to the scratchpad and run them.
 - Every Godot command goes through `python ops/Tools/godot_slot.py run --who claude -- ...`; the hidden-desktop pair runs from the PowerShell tool. PowerShell swallows the job's stdout there: have the tool write files, do not rely on printed lines.
@@ -61,5 +71,5 @@ Play the S418 build | Q-S294-163 may the map redraw delete its own spare cards |
 - BodyCallouts.gd's `UI` is TV.gd, not UI.gd: no WoodKit calls there.
 - seat_dispatch worktrees start from origin/main: push the brief and anything it names before launching.
 
-E: 46 GB free (over the 85% rule).
-SETTINGS: this session ran on Claude Fable 5 | critics sonnet | Cursor Grok 4.7 High until 12-07.
+E: 44 GB free (over the 85% rule).
+SETTINGS: this session ran on Claude Fable 5 (weekly all-models use was at 82% on 11-10, resets 11-12) | critics sonnet | Cursor Grok 4.7 High until 12-07.
