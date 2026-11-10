@@ -4621,7 +4621,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-10 16:12 board_sync",
+  "updated": "2026-11-10 16:42 board_sync",
   "goal": "MECHANICS FIRST (operator S422: 'ok prepare next session with your recommendations'): the seven mechanics the critics and you chose in S402 get built before more menu polish. Each mechanic starts with a DESIGN MAP (operator Q-173: 'what the player decides exactly and where does that happening ? which screens ? have you mapped the whole design for the mechanism ?'): the decision, the screen, what it changes, the numbers; your OK; then the build. Menus change only when a mechanic needs them. One playable .exe a week, judged by you.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4872,13 +4872,14 @@
     "who": "claude",
     "started": "2026-11-10T15:00",
     "run": "WEEKDESIGN2",
-    "state": "STOPPED - Claude relaunches or closes"
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK DUESCARD2 - CURSOR (Grok 4.7 High) - the dues boards are unreadable: give them their own tab at full size",
     "who": "cursor",
     "started": "2026-11-10T15:27",
-    "run": "DUESCARD2"
+    "run": "DUESCARD2",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK READBACK3 - QWEN (qwen3-coder) - READBACK2's set-up rule never forgets a win: fix it, measure again",
@@ -4891,7 +4892,21 @@
     "title": "TASK FIRELEVEL1 - QWEN (qwen3-coder) - a plan line fires as well as it is drilled: a switched-off rule, measured",
     "who": "qwen",
     "started": "2026-11-10T16:02",
-    "run": "FIRELEVEL1"
+    "run": "FIRELEVEL1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIGHTDISPLAY2 - CURSOR (Grok 4.7 High) - the live fight's two side panels from the veteran's drawing",
+    "who": "cursor",
+    "started": "2026-11-10T16:15",
+    "run": "FIGHTDISPLAY2"
+   },
+   {
+    "title": "TASK THURSDAY1 - QWEN (qwen3-coder) - how many real problems does a camp week throw up by Thursday? Measure only",
+    "who": "qwen",
+    "started": "2026-11-10T16:21",
+    "run": "THURSDAY1",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
@@ -5519,12 +5534,12 @@
      "who": "agent"
     },
     {
-     "text": "Pads v3: needs critics 7 of 10",
-     "who": "claude"
-    },
-    {
      "text": "Cutman v3: Kalli to paste it",
      "who": "agent"
+    },
+    {
+     "text": "Week design v3: needs 7 of 10",
+     "who": "claude"
     }
    ],
    "next": [
@@ -5541,20 +5556,16 @@
      "who": "claude"
     },
     {
-     "text": "R25: find the way back first",
-     "who": "claude"
-    },
-    {
-     "text": "Fight display part 2 (Cursor)",
-     "who": "agent"
-    },
-    {
      "text": "Cutman v3: critics, then board",
      "who": "claude"
     },
     {
-     "text": "Dues boards build (Cursor)",
-     "who": "agent"
+     "text": "Collect legs + grappling fixes",
+     "who": "claude"
+    },
+    {
+     "text": "Small living world (after week)",
+     "who": "claude"
     }
    ],
    "session": "S425"
