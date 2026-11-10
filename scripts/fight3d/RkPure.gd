@@ -16,7 +16,9 @@ extends RefCounted
 const RkClips := preload("res://scripts/fight3d/RkClips.gd")
 
 const FADE_S := 0.15
-const KEEP := ["MetaHumanTwist", "JoinSmoother", "RkJoinFeet"]   # RkJoinFeet: the feet through a join (acts only then)
+## PoseRecorder is no layer: it keeps what was shown, and KnockdownReplay cuts in on its clock. Faded out with the rest, the
+## standing boxer's recorder stopped in his captured guard, no replay began and the count waited on it for ever (the KO hang).
+const KEEP := ["MetaHumanTwist", "JoinSmoother", "RkJoinFeet", "PoseRecorder"]   # RkJoinFeet: the feet through a join (acts only then)
 const LEGS := ["BoxerFootworkRig", "BoxerFootworkUpper", "FootPlant", "KneeTrack", "FloorClear"]
 
 

@@ -23,6 +23,16 @@ READ THE PULL'S OUTPUT: a file list after a session-start pull is the alarm. `st
 - Training B: three critics in. ops/research/TRAINING_B_DECISION_S419.md section 3 is the decision. NEXT: one consolidated drawing of it, Ludo's paint, his yes, the Cursor brief. Q-S294-166 was asked on the earlier drawing.
 - BLOCKMEET2 (PR 154) and LOOKSLATE5 (PR 153) have LANDED and are NOT collected.
 
+## The very last thing in S419
+- He asked each critic to "draw his own 10/10 with what he would expect to be in the game and currently isn't". Done for the FIGHT screen: docs/mockups/s419/fight_dream_newplayer|corner|feel.png (gold NEW tags), merged in ops/research/FIGHT_MISSING_S419.md. Sent to him, no answer yet. If he meant every screen, run the same round per screen. The big items in it (more body places, the opponent's corner, referee and fouls, momentum, a timed shout) are scope: ask, do not build.
+- He likes fight display B, "also a is not bad": Q-S294-168 is answered by that; mark it.
+
+## Last hour of S419
+- THE FIGHT DISPLAY: he called the live readout "low-tier ai". Three approaches drawn (docs/mockups/s419/fight_a|b|c.png, Q-S294-168); he said "i like b too , also a is not bad but i want it carefully designed what it will show and how , hint things to player by him looking numbers graphics visual effects". Three critics reviewed B; ops/research/FIGHT_DISPLAY_DECISION_S419.md is the decision (the screen, twelve hints as true / shown / done with timings, the moments). NEXT: check what LiveRound exposes for hints 1, 5 and 9, one consolidated drawing, Ludo's paint, his yes, two briefs.
+- KNOCKOUT HANG, FIXED and exported (third export): RkPure switched PoseRecorder off with the pose layers, so in the captured guard the standing boxer's recorder stopped, KnockdownReplay never began and KnockdownCount waited on it for ever. tests/ko_continues_test.gd (two real-path cases on the daily list, `-- all` for 14, about 9 minutes). NOT seen with a picture: film a knockout (tools/knockdown_film.gd) and look at the replay, which now has the standing boxer's full recording. A beaten knockdown of the opponent would have hung the same way: no case for it yet. The count still waits on the replay with no time limit.
+- KDFIX1 (Qwen, queued behind FIGHTSLIDE1): a downed boxer's upper body sways.
+- Punch stats tooltip reads "Jabs landed: 9 of 36" (after the second export: not in the build he has).
+
 ## Built S419, exported, HE HAS NOT PLAYED IT
 - LOOKSLATE2, 3, 4 (Cursor, PRs 150 to 152) merged: Club People, Fight camp, the bout offer, New game, the interview on slate. Fixed at collect: the bout offer's corner notes (VersusPanel._tag), the camp's small titles (Camp.gd KICKER) and the dial needles (GaugeRow.Dial._ink) were dark on dark.
 - Overview: "Wants the fight: keeps it long, steady pace" is "In the ring: Stays at range, steady pace" (Attrs.wants_words).

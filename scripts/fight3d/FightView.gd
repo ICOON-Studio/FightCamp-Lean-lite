@@ -131,11 +131,11 @@ func reveal() -> void:
 
 
 ## The 3D view plays wherever there is a picture to draw; `no3d` on the command line turns it off. S334: `show3d` plays it
-## headless too - the cloud probes (.github/workflows/fight-stills.yml) read bones, not pixels, and a software GPU ran the
-## windowed fight at 1 frame a second.
+## headless too (the cloud probes read bones, not pixels); a test that plays the ring sets `force3d` (tests take no args).
+static var force3d := false
 static func enabled() -> bool:
 	var args := OS.get_cmdline_user_args()
-	return (DisplayServer.get_name() != "headless" or args.has("show3d")) and not args.has("no3d")
+	return (DisplayServer.get_name() != "headless" or args.has("show3d") or force3d) and not args.has("no3d")
 
 
 func setup(m_main: Node, m: Dictionary) -> void:

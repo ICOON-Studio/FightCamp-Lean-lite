@@ -1,0 +1,132 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Fight display, corner critic 10/10</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#0d0b0c;font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;color:#f3ecdf;position:relative}
+.abs{position:absolute}
+.panel{position:absolute;top:128px;width:350px;height:760px;background:rgba(14,11,12,.9);border:3px solid #6b4a2a;border-radius:14px}
+.panel.red{left:24px;border-top:10px solid #d9443a}
+.panel.blue{right:24px;border-top:10px solid #3f7fe0}
+.name{position:absolute;top:6px;left:0;right:0;text-align:center;font-size:36px;font-weight:800;letter-spacing:1px}
+.chip{position:absolute;left:14px;right:14px;height:44px;border:2px solid #e3b341;border-radius:22px;font-size:26px;display:flex;align-items:center;padding-left:14px;gap:10px;background:#1c1510}
+.n{position:absolute;width:62px;height:62px;border-radius:50%;border:5px solid;background:#16110f;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800}
+.ok{border-color:#58c06a}.hurt{border-color:#f0a030}.crit{border-color:#ee3b3b}.unk{border:4px dashed #8a8078;color:#aaa}
+.tank{position:absolute;border:3px solid #5a4a3a;border-radius:20px;background:#0b0908;overflow:hidden}
+.fill{position:absolute;bottom:0;left:0;right:0}
+.tick{position:absolute;left:0;right:0;border-top:3px dashed rgba(255,255,255,.5)}
+.val{position:absolute;top:578px;width:54px;text-align:center;font-size:32px;font-weight:800}
+.mark{position:absolute;background:#f4d03f;color:#111;font-weight:800;font-size:22px;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.dot{width:20px;height:20px;border-radius:50%;background:#f0a030}
+</style></head><body>
+
+<svg class="abs" style="left:0;top:0" width="1920" height="1080" viewBox="0 0 1920 1080">
+<defs><radialGradient id="sp" cx="50%" cy="38%" r="60%"><stop offset="0" stop-color="#3b3028"/><stop offset="1" stop-color="#0d0b0c"/></radialGradient></defs>
+<rect width="1920" height="1080" fill="url(#sp)"/>
+<rect y="780" width="1920" height="300" fill="#2a221b"/>
+<g stroke="#b83a34" stroke-width="7"><line x1="0" y1="560" x2="1920" y2="560"/><line x1="0" y1="650" x2="1920" y2="650"/><line x1="0" y1="740" x2="1920" y2="740"/></g>
+<g fill="#6b1b17" stroke="#d9443a" stroke-width="3"><circle cx="810" cy="410" r="44"/><path d="M770 460 L880 460 L890 650 L780 650Z"/><path d="M870 480 L960 440 L975 470 L890 520Z"/><path d="M790 650 L850 650 L800 850 L765 850Z"/><path d="M850 650 L890 650 L950 770 L915 780Z"/></g>
+<g fill="#16305f" stroke="#3f7fe0" stroke-width="3"><circle cx="1130" cy="430" r="44"/><path d="M1085 480 L1190 480 L1180 660 L1085 660Z"/><path d="M1090 500 L1010 520 L1000 490 L1070 470Z"/><path d="M1085 660 L1140 660 L1095 860 L1060 860Z"/><path d="M1140 660 L1180 660 L1230 780 L1195 785Z"/></g>
+</svg>
+
+<!-- TOP -->
+<div class="abs" style="left:560px;top:10px;width:800px;height:110px;background:rgba(14,11,12,.92);border:3px solid #6b4a2a;border-radius:14px">
+  <div class="abs" style="left:24px;top:10px;font-size:32px;font-weight:800;color:#e3b341">R2/3</div>
+  <div class="abs" style="left:285px;top:2px;width:230px;text-align:center;font-size:68px;font-weight:800;line-height:72px">1:40</div>
+  <div class="abs" style="left:24px;top:62px;display:flex;gap:8px">
+   <div style="width:52px;height:30px;background:#3f7fe0;border-radius:6px"></div><div style="width:52px;height:30px;background:#3f7fe0;border-radius:6px"></div><div style="width:52px;height:30px;background:#d9443a;border-radius:6px"></div>
+  </div>
+  <div class="abs" style="left:590px;top:62px;display:flex;gap:8px;opacity:.6">
+   <div style="width:52px;height:30px;border:3px solid #e3b341;border-radius:6px"></div><div style="width:52px;height:30px;border:3px solid #555;border-radius:6px"></div><div style="width:52px;height:30px;border:3px solid #555;border-radius:6px"></div>
+  </div>
+  <div class="abs" style="left:230px;top:70px;width:340px;height:24px;border-radius:12px;background:linear-gradient(90deg,#d9443a 0 40%,#3f7fe0 40%)"></div>
+  <div class="abs" style="left:397px;top:64px;width:6px;height:36px;background:#fff"></div>
+</div>
+
+<!-- LUCY -->
+<div class="panel red">
+  <div class="name">LUCY</div>
+  <div class="chip" style="top:58px"><svg width="30" height="30"><rect x="6" y="2" width="18" height="26" rx="3" fill="#e3b341"/></svg>Work the body</div>
+  <svg class="abs" style="left:62px;top:112px" width="130" height="146" viewBox="0 0 190 210">
+   <ellipse cx="95" cy="105" rx="70" ry="86" fill="#8a5a3c"/>
+   <ellipse cx="60" cy="92" rx="26" ry="19" fill="#6a2a6e"/><ellipse cx="60" cy="92" rx="22" ry="3" fill="#120a14"/>
+   <ellipse cx="130" cy="92" rx="17" ry="12" fill="#f0e8e0"/><circle cx="130" cy="92" r="6" fill="#2a1a10"/>
+   <path d="M44 74 L76 70" stroke="#e02020" stroke-width="5" stroke-linecap="round"/>
+   <path d="M95 100 L88 135 L104 135" stroke="#5b3320" stroke-width="5" fill="none"/>
+   <ellipse cx="95" cy="40" rx="40" ry="24" fill="#c0392b" opacity=".55"/>
+  </svg>
+  <div class="n hurt" style="left:96px;top:92px">41</div>
+  <div class="n crit" style="left:6px;top:168px;box-shadow:0 0 0 8px rgba(238,59,59,.4),0 0 0 18px rgba(238,59,59,.16)">24</div>
+  <div class="abs" style="left:10px;top:244px;width:58px;height:44px;background:#ee3b3b;border-radius:8px;display:flex;align-items:center;justify-content:center"><svg width="30" height="30"><path d="M11 3h8v8h8v8h-8v8h-8v-8H3v-8h8z" fill="#fff"/></svg></div>
+  <div class="n ok" style="left:150px;top:196px">63</div>
+  <div class="n ok" style="left:96px;top:268px">58</div>
+  <svg class="abs" style="left:10px;top:350px" width="190" height="300" viewBox="0 0 210 330">
+   <path d="M70 0 L140 0 L190 40 L180 200 L150 210 L60 210 L30 200 L20 40Z" fill="#a8744f"/>
+   <rect x="0" y="40" width="40" height="40" rx="18" fill="#d9443a"/><rect x="170" y="40" width="40" height="40" rx="18" fill="#d9443a"/>
+   <path d="M52 205 L158 205 L158 290 L52 290Z" fill="#d9443a"/>
+   <ellipse cx="140" cy="110" rx="42" ry="40" fill="#b8302a" opacity=".45"/>
+  </svg>
+  <div class="n ok" style="left:30px;top:410px">90</div>
+  <div class="n hurt" style="left:104px;top:410px;box-shadow:0 0 0 6px rgba(240,160,48,.5)">74</div>
+  <div class="abs" style="left:112px;top:484px;display:flex;gap:6px"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  <svg class="abs" style="left:206px;top:100px" width="140" height="40" viewBox="0 0 150 36"><path d="M12 2 L2 20 H12 L8 34 L22 14 H12Z" fill="#f2c230"/><path d="M62 2 h8 l6 12 -4 20 h-10 l-4 -20z" fill="#58c06a"/><path d="M118 2 l16 4 v14 q0 10 -16 14 q-16 -4 -16 -14 v-14z" fill="#4aa0ff"/></svg>
+  <div class="tank" style="left:204px;top:150px;width:40px;height:420px"><div class="fill" style="height:58%;background:#f2c230"></div><div class="tick" style="bottom:35%"></div><div class="tick" style="bottom:55%"></div></div>
+  <div class="tank" style="left:252px;top:150px;width:40px;height:420px"><div class="fill" style="height:72%;background:#58c06a"></div><div class="tick" style="bottom:35%"></div><div class="tick" style="bottom:55%"></div></div>
+  <div class="tank" style="left:300px;top:150px;width:40px;height:420px"><div class="fill" style="height:61%;background:#4aa0ff"></div><div class="tick" style="bottom:35%"></div><div class="tick" style="bottom:55%"></div></div>
+  <div class="val" style="left:197px;color:#f2c230">58</div>
+  <div class="val" style="left:245px;color:#58c06a">72</div>
+  <div class="val" style="left:293px;color:#4aa0ff">61</div>
+  <div class="abs" style="left:202px;top:622px;font-size:28px;font-weight:800;color:#f0a030">&#9660; 4</div>
+</div>
+
+<!-- ERIN -->
+<div class="panel blue">
+  <div class="name">ERIN</div>
+  <div class="chip" style="top:58px;padding-left:10px"><svg width="32" height="30"><ellipse cx="16" cy="15" rx="14" ry="9" fill="none" stroke="#e3b341" stroke-width="3"/><circle cx="16" cy="15" r="5" fill="#e3b341"/></svg><svg width="130" height="34"><circle cx="12" cy="17" r="9" fill="#eee"/><path d="M24 17h22" stroke="#e3b341" stroke-width="4"/><circle cx="62" cy="17" r="9" fill="#3f7fe0" stroke="#fff" stroke-width="2"/><path d="M74 17h14" stroke="#e3b341" stroke-width="4" stroke-dasharray="4 4"/><circle cx="106" cy="25" r="9" fill="#3f7fe0" stroke="#fff" stroke-width="2"/></svg><span style="font-size:24px;font-weight:800">3/3</span></div>
+  <svg class="abs" style="left:62px;top:112px" width="130" height="146" viewBox="0 0 190 210">
+   <ellipse cx="95" cy="105" rx="70" ry="86" fill="#b07b55"/>
+   <ellipse cx="60" cy="92" rx="17" ry="12" fill="#f0e8e0"/><circle cx="60" cy="92" r="6" fill="#2a1a10"/>
+   <ellipse cx="130" cy="92" rx="17" ry="12" fill="#f0e8e0"/><circle cx="130" cy="92" r="6" fill="#2a1a10"/>
+   <ellipse cx="95" cy="155" rx="16" ry="11" fill="#5a1a1a"/>
+   <path d="M95 100 L88 135 L104 135" stroke="#7b4a30" stroke-width="5" fill="none"/>
+  </svg>
+  <svg class="abs" style="left:150px;top:200px" width="50" height="130"><path d="M22 6 q12 20 0 30 q-12 -10 0 -30z" fill="#6cc4ff"/><path d="M34 70 q12 20 0 30 q-12 -10 0 -30z" fill="#6cc4ff"/></svg>
+  <div class="n unk" style="left:96px;top:92px">?</div>
+  <div class="n unk" style="left:6px;top:168px">?</div>
+  <div class="n unk" style="left:96px;top:268px">?</div>
+  <svg class="abs" style="left:10px;top:350px" width="190" height="300" viewBox="0 0 210 330">
+   <path d="M70 0 L140 0 L190 40 L180 200 L150 210 L60 210 L30 200 L20 40Z" fill="#b07b55"/>
+   <rect x="0" y="40" width="40" height="40" rx="18" fill="#3f7fe0"/>
+   <rect x="170" y="130" width="40" height="40" rx="18" fill="#3f7fe0"/>
+   <path d="M52 205 L158 205 L158 290 L52 290Z" fill="#3f7fe0"/>
+  </svg>
+  <div class="n unk" style="left:30px;top:410px">?</div>
+  <div class="n unk" style="left:104px;top:410px">?</div>
+  <svg class="abs" style="left:206px;top:100px" width="140" height="40" viewBox="0 0 150 36"><path d="M12 2 L2 20 H12 L8 34 L22 14 H12Z" fill="#f2c230"/><path d="M62 2 h8 l6 12 -4 20 h-10 l-4 -20z" fill="#58c06a" opacity=".4"/><path d="M118 2 l16 4 v14 q0 10 -16 14 q-16 -4 -16 -14 v-14z" fill="#4aa0ff"/></svg>
+  <div class="tank" style="left:204px;top:150px;width:40px;height:420px"><div class="fill" style="height:48%;background:repeating-linear-gradient(45deg,#f2c230 0 8px,#7a6218 8px 16px)"></div></div>
+  <div class="tank" style="left:252px;top:150px;width:40px;height:420px"><div class="fill" style="height:100%;background:repeating-linear-gradient(45deg,#333 0 8px,#1a1a1a 8px 16px)"></div></div>
+  <div class="tank" style="left:300px;top:150px;width:40px;height:420px"><div class="fill" style="height:100%;background:repeating-linear-gradient(45deg,#333 0 8px,#1a1a1a 8px 16px)"></div><div style="position:absolute;left:0;right:0;top:0;height:44%;background:rgba(74,160,255,.35);border-bottom:3px dashed #4aa0ff"></div></div>
+  <div class="val" style="left:197px;color:#f2c230">~</div>
+  <div class="val" style="left:245px;color:#aaa">?</div>
+  <div class="val" style="left:293px;color:#aaa">?</div>
+  <div class="abs" style="left:202px;top:622px;font-size:28px;font-weight:800;color:#6cc4ff">&#9660;&#9660;</div>
+</div>
+
+<!-- BOTTOM -->
+<div class="abs" style="left:420px;top:968px;width:1080px;height:108px;background:rgba(14,11,12,.93);border:3px solid #6b4a2a;border-radius:14px">
+  <svg class="abs" style="left:14px;top:12px" width="84" height="84" viewBox="0 0 84 84"><circle cx="42" cy="42" r="34" fill="none" stroke="#333" stroke-width="9"/><circle cx="42" cy="42" r="34" fill="none" stroke="#e3b341" stroke-width="9" stroke-dasharray="130 214" transform="rotate(-90 42 42)"/><text x="42" y="52" text-anchor="middle" font-size="28" font-weight="800" fill="#fff">0:14</text></svg>
+  <div class="abs" style="left:112px;top:20px;width:200px;height:64px;border:2px solid #7a6a58;border-radius:10px;font-size:26px;font-weight:700;display:flex;align-items:center;justify-content:center">TIE UP</div>
+  <div class="abs" style="left:330px;top:6px;width:520px;height:92px;background:#8b2a22;border:4px solid #e3b341;border-radius:12px">
+    <div class="abs" style="left:56px;top:2px;font-size:34px;font-weight:800">GO TO THE BODY</div>
+    <svg class="abs" style="left:12px;top:10px" width="36" height="36"><path d="M4 14l16-8v26l-16-8z" fill="#fff"/></svg>
+    <div class="abs" style="left:14px;top:50px;display:flex;gap:26px;font-size:26px;font-weight:800">
+      <span>&#9650; +6 body</span><span>&#9660; -3 energy</span><span style="color:#ffe27a">&#9733;</span></div>
+  </div>
+  <div class="abs" style="left:868px;top:20px;width:200px;height:64px;border:2px solid #7a6a58;border-radius:10px;font-size:26px;font-weight:700;display:flex;align-items:center;justify-content:center">HANDS UP</div>
+</div>
+
+<!-- marks -->
+<div class="mark" style="left:400px;top:300px">A: eye pulses, doctor cross</div>
+<div class="mark" style="left:400px;top:590px">B: liver, 3 shots stacked</div>
+<div class="mark" style="left:1180px;top:700px">C: ghost guard drops when tired</div>
+<div class="mark" style="left:1000px;top:915px">D: call ring fills if working</div>
+</body></html>

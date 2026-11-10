@@ -4594,7 +4594,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-10 08:41 board_sync",
+  "updated": "2026-11-10 09:11 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4795,19 +4795,33 @@
     "title": "TASK LOOKSLATE5 - CURSOR (Grok 4.7 High) - the Money page off the whiteboard, onto slate and wood",
     "who": "cursor",
     "started": "2026-11-10T08:12",
-    "run": "LOOKSLATE5"
+    "run": "LOOKSLATE5",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK BLOCKMEET2 - QWEN (qwen3-coder) - a blocked head punch lands ON the blocking glove",
     "who": "qwen",
     "started": "2026-11-10T08:21",
-    "run": "BLOCKMEET2"
+    "run": "BLOCKMEET2",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK LEGTREMBLE1 - AGY (Argon High) - the legs tremble in many clips: find where it comes from, fix it there",
     "who": "antigravity",
     "started": "2026-11-10T08:37",
     "run": "LEGTREMBLE1"
+   },
+   {
+    "title": "TASK TAPEVERSUS1 - CURSOR (Grok 4.7 High) - fight night's Tale of the tape drawn as the bout offer screen",
+    "who": "cursor",
+    "started": "2026-11-10T08:59",
+    "run": "TAPEVERSUS1"
+   },
+   {
+    "title": "TASK FIGHTSLIDE1 - QWEN (qwen3-coder) - the boxers slide in the fight: measure where and what moves them. Measure only",
+    "who": "qwen",
+    "started": "2026-11-10T08:59",
+    "run": "FIGHTSLIDE1"
    }
   ],
   "next": [
@@ -5471,6 +5485,14 @@
     {
      "text": "Training tab: 3 ideas, B painted",
      "who": "claude"
+    },
+    {
+     "text": "Knockout hang fixed, exported",
+     "who": "claude"
+    },
+    {
+     "text": "Fight display decided, 3 critics",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5631,6 +5653,10 @@
     {
      "text": "Knockdown sway + KO count (Qwen)",
      "who": "agent"
+    },
+    {
+     "text": "Your call: what the fight lacks",
+     "who": "operator"
     }
    ],
    "session": "S419"

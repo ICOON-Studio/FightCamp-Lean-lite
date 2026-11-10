@@ -641,7 +641,7 @@
    "agent": "antigravity",
    "id": "LEGTREMBLE1",
    "title": "TASK LEGTREMBLE1 - AGY (Argon High) - the legs tremble in many clips: find where it comes from, fix it there",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-10T08:37",
    "eta": "2026-11-10T10:02",
    "branch": "agy/legtremble1",
@@ -662,7 +662,46 @@
     "runner_pid": 44460,
     "seat_pid": 16336
    },
-   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
+   "note": "S368 seat_dispatch: agy exit 0; 1 commit(s); checks 3/5 PASS; PR #156",
+   "finished": "2026-11-10T09:29",
+   "pr": 156,
+   "checks": [
+    {
+     "kind": "COMPILE",
+     "script": "Main.tscn boot",
+     "ok": false,
+     "last": "res://tests/leg_tremble_test.gd:54: Static function \"setup_clips()\" not found in base \"res://scripts/fight3d/FightClips.gd\"."
+    },
+    {
+     "kind": "RED_TEST",
+     "script": "tests/leg_tremble_test.gd",
+     "ok": false,
+     "last": "   at: load (modules/gdscript/gdscript_resource_format.cpp:46)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_tip_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/head_aim_test.gd",
+     "ok": true,
+     "last": "HEAD_AIM failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "TAPEVERSUS1": {
    "agent": "cursor",
@@ -695,7 +734,7 @@
    "agent": "qwen",
    "id": "FIGHTSLIDE1",
    "title": "TASK FIGHTSLIDE1 - QWEN (qwen3-coder) - the boxers slide in the fight: measure where and what moves them. Measure only",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-10T08:59",
    "eta": "2026-11-10T10:49",
    "branch": "qwen/fightslide1",
@@ -716,7 +755,40 @@
     "runner_pid": 40528,
     "seat_pid": 45852
    },
-   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 4/4 PASS; PR #155; NOT committed (outside OWNS): nul",
+   "finished": "2026-11-10T09:21",
+   "pr": 155,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/ring_feet_test.gd",
+     "ok": true,
+     "last": "RING_FEET_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_feet_test.gd",
+     "ok": true,
+     "last": "RING_FEET_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/boxer_footwork_test.gd",
+     "ok": true,
+     "last": "BOXER_FOOTWORK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/foot_plant_test.gd",
+     "ok": true,
+     "last": "FOOT_PLANT checks=14 failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   }
  },
  "codex_budget": {
