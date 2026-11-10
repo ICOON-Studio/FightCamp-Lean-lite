@@ -1,0 +1,175 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Fight display</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1920px;height:1080px;overflow:hidden;background:#070605;font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;position:relative}
+svg text{font-family:"Bahnschrift","Segoe UI",Arial,sans-serif}
+.note{position:absolute;font-size:15px;color:#f0bd4f;background:#000c;border:1px dashed #f0bd4f;border-radius:6px;padding:3px 8px}
+</style></head><body>
+<!-- S421 one drawing of ops/research/FIGHT_DISPLAY_DECISION_S419.md sections 2 and 3: B's corner eyes + A's scorebug.
+     Frozen in the frame: hint 1 (the last call is not working), hint 5 (the scouted habit just happened),
+     hint 9 (what the best call would change: energy + fit only, section 7). The dashed gold notes are for the reader. -->
+
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;left:0;top:0">
+<defs>
+ <radialGradient id="spot" cx="50%" cy="46%" r="55%"><stop offset="0" stop-color="#4a3f36"/><stop offset=".5" stop-color="#1c1714"/><stop offset="1" stop-color="#070605"/></radialGradient>
+ <linearGradient id="can" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#6a5a48"/><stop offset="1" stop-color="#2c241c"/></linearGradient>
+ <pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="10" fill="#1a1715"/><rect width="4" height="10" fill="#3a3530"/></pattern>
+ <pattern id="stripe" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" fill="#4a86dc"/><rect width="6" height="12" fill="#2b4f86"/></pattern>
+ <filter id="glow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="1920" height="1080" fill="url(#spot)"/>
+<path d="M300 760 L1620 760 L1840 1000 L80 1000 Z" fill="url(#can)"/>
+<path d="M360 560 L1560 560 M330 640 L1590 640 M300 720 L1620 720" stroke="#c9342a" stroke-width="7" opacity=".55"/>
+<path d="M360 560 L300 760 M1560 560 L1620 760" stroke="#3a3430" stroke-width="12"/>
+<!-- the 3D fight stands here: two boxers, never covered -->
+<g fill="#7a1f1a" stroke="#c9342a" stroke-width="3">
+ <circle cx="840" cy="400" r="40"/><path d="M800 450 Q840 430 880 450 L890 640 L800 640 Z"/>
+ <path d="M880 470 L960 430 L965 468 L890 520 Z"/><path d="M810 470 L850 520 L910 480 L900 450 Z"/>
+ <path d="M810 640 L790 840 L830 840 L850 650 Z"/><path d="M860 640 L920 760 L960 760 L890 640 Z"/></g>
+<g fill="#1f3f72" stroke="#4a86dc" stroke-width="3">
+ <circle cx="1110" cy="430" r="40"/><path d="M1070 480 Q1110 460 1150 480 L1160 660 L1070 660 Z"/>
+ <path d="M1070 500 L1000 470 L995 505 L1070 545 Z"/><path d="M1150 500 L1190 560 L1150 590 L1110 540 Z"/>
+ <path d="M1080 660 L1060 860 L1100 860 L1120 670 Z"/><path d="M1130 660 L1180 780 L1220 780 L1150 660 Z"/></g>
+<!-- HINT 5 in the ring: an eye pops over the glove that keeps waiting to counter (1.2 s) -->
+<g filter="url(#glow)"><circle cx="1172" cy="532" r="26" fill="#f0bd4f"/>
+ <path d="M1154 532 Q1172 516 1190 532 Q1172 548 1154 532Z" fill="#1b1714"/><circle cx="1172" cy="532" r="6" fill="#f0bd4f"/></g>
+
+<!-- ===== TOP CENTRE: the scorebug (from A) ===== -->
+<rect x="660" y="10" width="600" height="138" rx="14" fill="#0d0b0ae6" stroke="#5b4630" stroke-width="3"/>
+<text x="740" y="98" text-anchor="middle" font-size="76" font-weight="700" fill="#e2483d">1</text>
+<text x="1180" y="98" text-anchor="middle" font-size="76" font-weight="700" fill="#4a86dc">2</text>
+<rect x="872" y="18" width="176" height="62" rx="10" fill="#1b1714" stroke="#f0bd4f" stroke-width="3"/>
+<text x="960" y="64" text-anchor="middle" font-size="46" font-weight="700" fill="#f3efe4">1:40</text>
+<!-- six exchange pips: winner's colour, the running one ringed -->
+<g><circle cx="895" cy="96" r="8" fill="#4a86dc"/><circle cx="921" cy="96" r="8" fill="#e2483d"/><circle cx="947" cy="96" r="8" fill="#4a86dc"/>
+ <circle cx="973" cy="96" r="10" fill="none" stroke="#f3efe4" stroke-width="3"/><circle cx="999" cy="96" r="8" fill="#3a3530"/><circle cx="1025" cy="96" r="8" fill="#3a3530"/></g>
+<!-- three round cards: R1 red won, R2 the running one striped (an estimate, blue ahead), R3 empty -->
+<g transform="translate(910 112)"><rect width="34" height="28" rx="5" fill="#e2483d"/><text x="17" y="21" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">R1</text></g>
+<g transform="translate(948 112)"><rect width="34" height="28" rx="5" fill="url(#stripe)" stroke="#f3efe4" stroke-width="2"/><text x="17" y="21" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">R2</text></g>
+<g transform="translate(986 112)"><rect width="34" height="28" rx="5" fill="#2a2420" stroke="#5b4630" stroke-width="2"/><text x="17" y="21" text-anchor="middle" font-size="18" fill="#7d6e5c">R3</text></g>
+</svg>
+
+<!-- ===== LEFT: the club's boxer ===== -->
+<svg style="position:absolute;left:20px;top:140px" width="350" height="680" viewBox="0 0 350 680">
+<rect x="2" y="2" width="346" height="676" rx="14" fill="#0d0b0ad0" stroke="#d6453a" stroke-width="4"/>
+<rect x="2" y="2" width="346" height="10" rx="5" fill="#d6453a"/>
+<text x="175" y="52" text-anchor="middle" font-size="34" font-weight="700" fill="#f3efe4">LUCY JACKSON</text>
+<!-- the plan in force, one chip -->
+<rect x="62" y="66" width="226" height="38" rx="19" fill="#2a2418" stroke="#c9b9a2" stroke-width="2"/>
+<text x="175" y="92" text-anchor="middle" font-size="22" fill="#f3efe4">Plan: work the body</text>
+<!-- the bust, head to waist: six places; fine = colour only, under 55 = the number -->
+<g transform="translate(-6 128) scale(.8)">
+ <path d="M40 640 Q30 470 70 410 Q110 380 150 372 L160 330 L200 330 L210 372 Q250 380 290 410 Q330 470 320 640 Z" fill="#b98a68"/>
+ <rect x="150" y="300" width="60" height="50" fill="#b98a68"/>
+ <ellipse cx="180" cy="200" rx="92" ry="118" fill="#c79a7a"/>
+ <path d="M90 170 C96 60 264 60 270 170 C240 120 120 120 90 170Z" fill="#3a2418"/>
+ <!-- left eye 41: closing, stage 2 of 4, its number shown -->
+ <ellipse cx="140" cy="196" rx="26" ry="6" fill="#f3efe4"/><path d="M112 192 Q140 176 168 192 L168 198 Q140 186 112 198Z" fill="#7a3a6a"/>
+ <ellipse cx="140" cy="196" rx="34" ry="22" fill="#8a2f6a" opacity=".45"/>
+ <ellipse cx="220" cy="196" rx="26" ry="12" fill="#f3efe4"/><circle cx="220" cy="196" r="8" fill="#2a2320"/>
+ <path d="M180 214 L170 250 L192 250 Z" fill="#a8775a"/>
+ <path d="M150 276 Q180 288 210 276" stroke="#6a3a2a" stroke-width="5" fill="none"/>
+ <!-- ribs: left ribs 49 (number, three body dots), right ribs fine (green tint only) -->
+  <path d="M70 640 L74 470 Q90 420 120 400 L150 396 Q180 430 210 396 L240 400 Q270 420 286 470 L290 640 Z" fill="#c8402f"/>
+ <path d="M60 470 Q110 440 150 460 L150 600 Q100 610 66 590 Z" fill="#e2483d" opacity=".55"/>
+ <path d="M300 470 Q250 440 210 460 L210 600 Q260 610 294 590 Z" fill="#2fb56e" opacity=".22"/>
+ <g fill="#f08a24"><circle cx="86" cy="620" r="7"/><circle cx="106" cy="620" r="7"/><circle cx="126" cy="620" r="7"/></g>
+</g>
+<g><circle cx="44" cy="256" r="28" fill="#1b1714" stroke="#f08a24" stroke-width="4"/><text x="44" y="266" text-anchor="middle" font-size="30" font-weight="700" fill="#f3efe4">41</text></g>
+<g><circle cx="40" cy="520" r="28" fill="#1b1714" stroke="#e2483d" stroke-width="4"/><text x="40" y="530" text-anchor="middle" font-size="30" font-weight="700" fill="#f3efe4">49</text></g>
+<!-- three tanks with painted danger zones and a ghost line at the bell -->
+<g transform="translate(250 330)">
+ <g><path d="M6 -4 L14 -24 L12 -12 L22 -12 L12 10 L14 -2Z" fill="#f0bd4f" transform="translate(-4 -6)"/></g>
+ <rect x="0" y="0" width="24" height="300" rx="12" fill="#1a1715" stroke="#5b4630" stroke-width="2"/>
+ <rect x="0" y="240" width="24" height="60" rx="10" fill="#e2483d" opacity=".35"/>
+ <rect x="2" y="150" width="20" height="148" rx="10" fill="#f0bd4f"/>
+ <line x1="-6" y1="96" x2="30" y2="96" stroke="#f3efe4" stroke-width="2" opacity=".55"/>
+ <!-- HINT 9: the best call's forecast on energy, gold dashed (Draw the lead saves a little) -->
+ <rect x="-4" y="138" width="32" height="14" rx="4" fill="none" stroke="#f0bd4f" stroke-width="3" stroke-dasharray="6 4"/>
+ <g transform="translate(36 0)"><path d="M4 -30 l8 0 l0 16 l6 0 l0 8 l-20 0 l0 -8 l6 0z" fill="#2fb56e"/>
+  <rect x="0" y="0" width="24" height="300" rx="12" fill="#1a1715" stroke="#5b4630" stroke-width="2"/>
+  <rect x="0" y="240" width="24" height="60" rx="10" fill="#e2483d" opacity=".35"/>
+  <rect x="2" y="70" width="20" height="228" rx="10" fill="#2fb56e"/>
+  <line x1="-6" y1="56" x2="30" y2="56" stroke="#f3efe4" stroke-width="2" opacity=".55"/></g>
+</g>
+<g transform="translate(250 290)"><path d="M0 0 L12 -4 L24 0 L24 12 Q24 24 12 30 Q0 24 0 12Z" fill="#4a86dc" transform="translate(72 -20)"/></g>
+<g transform="translate(322 330)"><rect x="0" y="0" width="20" height="300" rx="10" fill="#1a1715" stroke="#5b4630" stroke-width="2"/>
+ <rect x="0" y="240" width="20" height="60" rx="10" fill="#e2483d" opacity=".35"/><rect x="2" y="120" width="16" height="178" rx="8" fill="#4a86dc"/></g>
+</svg>
+
+<!-- ===== RIGHT: the opponent, mirrored, only what has been SEEN ===== -->
+<svg style="position:absolute;left:1550px;top:140px" width="350" height="680" viewBox="0 0 350 680">
+<rect x="2" y="2" width="346" height="676" rx="14" fill="#0d0b0ad0" stroke="#3f7fe0" stroke-width="4"/>
+<rect x="2" y="2" width="346" height="10" rx="5" fill="#3f7fe0"/>
+<text x="175" y="52" text-anchor="middle" font-size="34" font-weight="700" fill="#f3efe4">MARIA ORTEGA</text>
+<!-- HINT 5: the scouted habit chip, two gloves (what she does, what follows), glowing for one beat -->
+<g filter="url(#glow)"><rect x="22" y="64" width="306" height="44" rx="22" fill="#3a2e14" stroke="#f0bd4f" stroke-width="3"/></g>
+<rect x="22" y="64" width="306" height="44" rx="22" fill="#3a2e14" stroke="#f0bd4f" stroke-width="3"/>
+<g transform="translate(40 72)"><path d="M2 14 Q2 2 14 2 L20 2 Q28 2 28 12 L28 22 Q28 28 20 28 L8 28 Q2 28 2 22Z" fill="#4a86dc"/></g>
+<path d="M76 86 L92 86 M86 80 L92 86 L86 92" stroke="#f0bd4f" stroke-width="3" fill="none"/>
+<g transform="translate(98 72)"><path d="M2 14 Q2 2 14 2 L20 2 Q28 2 28 12 L28 22 Q28 28 20 28 L8 28 Q2 28 2 22Z" fill="#e2483d"/></g>
+<text x="140" y="94" font-size="22" fill="#f3efe4">Waits to counter</text>
+<g transform="translate(66 128) scale(.8)">
+ <path d="M40 640 Q30 470 70 410 Q110 380 150 372 L160 330 L200 330 L210 372 Q250 380 290 410 Q330 470 320 640 Z" fill="#8f735f"/>
+ <rect x="150" y="300" width="60" height="50" fill="#8f735f"/>
+ <path d="M70 640 L74 470 Q90 420 120 400 L150 396 Q180 430 210 396 L240 400 Q270 420 286 470 L290 640 Z" fill="#2f62b5"/>
+ <ellipse cx="180" cy="200" rx="92" ry="118" fill="#9c806b"/>
+ <path d="M90 170 C96 60 264 60 270 170 C240 120 120 120 90 170Z" fill="#2a1a12"/>
+ <ellipse cx="140" cy="196" rx="26" ry="12" fill="#e9e2d6"/><circle cx="140" cy="196" r="8" fill="#2a2320"/>
+ <ellipse cx="220" cy="196" rx="26" ry="12" fill="#e9e2d6"/><circle cx="220" cy="196" r="8" fill="#2a2320"/>
+ <!-- the nose: damage SEEN, so it is coloured -->
+ <path d="M180 214 L170 250 L192 250 Z" fill="#e2483d" opacity=".8"/>
+ <path d="M150 276 Q180 288 210 276" stroke="#4a2a1a" stroke-width="5" fill="none"/>
+ <!-- tiring: she breathes through the mouth, sweat (true without scouting) -->
+ <ellipse cx="180" cy="282" rx="16" ry="9" fill="#2a1a12"/>
+ <path d="M262 150 q8 14 0 22 q-8 -8 0 -22z" fill="#8fd0ff"/><path d="M98 236 q7 12 0 19 q-7 -7 0 -19z" fill="#8fd0ff"/>
+</g>
+<!-- tanks: energy shown as a RANGE (the fight showed it), legs and guard hatched until known -->
+<g transform="translate(16 330)">
+ <rect x="0" y="0" width="24" height="300" rx="12" fill="#1a1715" stroke="#5b4630" stroke-width="2"/>
+ <rect x="0" y="240" width="24" height="60" rx="10" fill="#e2483d" opacity=".35"/>
+ <rect x="2" y="200" width="20" height="98" rx="10" fill="#f0bd4f" opacity=".55"/>
+ <path d="M-6 170 L-6 220 M-6 170 L2 170 M-6 220 L2 220" stroke="#f3efe4" stroke-width="3" fill="none"/>
+ <path d="M6 -10 L14 -30 L12 -18 L22 -18 L12 4 L14 -8Z" fill="#f0bd4f" transform="translate(-4 0)"/>
+ <g transform="translate(36 0)"><rect x="0" y="0" width="24" height="300" rx="12" fill="url(#hatch)" stroke="#5b4630" stroke-width="2"/>
+  <text x="12" y="160" text-anchor="middle" font-size="26" font-weight="700" fill="#c9b9a2">?</text></g>
+ <g transform="translate(72 0)"><rect x="0" y="0" width="20" height="300" rx="10" fill="url(#hatch)" stroke="#5b4630" stroke-width="2"/>
+  <text x="10" y="160" text-anchor="middle" font-size="26" font-weight="700" fill="#c9b9a2">?</text></g>
+</g>
+</svg>
+
+<!-- ===== BOTTOM CENTRE: the corner ===== -->
+<svg style="position:absolute;left:420px;top:944px" width="1080" height="126" viewBox="0 0 1080 126">
+<rect x="2" y="2" width="1076" height="122" rx="14" fill="#0d0b0ae6" stroke="#5b4630" stroke-width="3"/>
+<!-- the 30-second ring that drains -->
+<circle cx="64" cy="63" r="40" fill="#1b1714" stroke="#3a3530" stroke-width="8"/>
+<path d="M64 23 A40 40 0 1 1 26 76" stroke="#f0bd4f" stroke-width="8" fill="none"/>
+<text x="64" y="73" text-anchor="middle" font-size="28" font-weight="700" fill="#f3efe4">0:14</text>
+<!-- HINT 1: the last call is not working (2 of the last 3 lost): tick turns to a grey cross -->
+<rect x="120" y="22" width="190" height="82" rx="10" fill="#1b1714" stroke="#6e6256" stroke-width="2"/>
+<text x="136" y="50" font-size="17" fill="#9a8c7a" letter-spacing="1">LAST CALL</text>
+<text x="136" y="82" font-size="22" fill="#c9b9a2">To the body</text>
+<g transform="translate(268 62)"><circle r="20" fill="#3a3530"/><path d="M-8 -8 L8 8 M8 -8 L-8 8" stroke="#c9b9a2" stroke-width="4"/></g>
+<!-- two smaller calls -->
+<rect x="324" y="28" width="150" height="70" rx="10" fill="#2a2420" stroke="#6e6256" stroke-width="2"/>
+<text x="399" y="70" text-anchor="middle" font-size="20" font-weight="700" fill="#f3efe4">HANDS UP</text>
+<!-- the best call: HINT 5's gold line lands here; HINT 9 its effect: energy +0.5 forecast, the fit -->
+<g filter="url(#glow)"><rect x="488" y="10" width="420" height="106" rx="12" fill="#5a1d17" stroke="#f0bd4f" stroke-width="5"/></g>
+<rect x="488" y="10" width="420" height="106" rx="12" fill="#5a1d17" stroke="#f0bd4f" stroke-width="5"/>
+<text x="698" y="56" text-anchor="middle" font-size="32" font-weight="700" fill="#f3efe4">DRAW THE LEAD</text>
+<path d="M556 84 L564 66 L562 76 L572 76 L562 96 L564 86Z" fill="#f0bd4f"/>
+<text x="580" y="94" font-size="26" font-weight="700" fill="#2fb56e">+0.5</text>
+<rect x="660" y="70" width="236" height="34" rx="17" fill="#f0bd4f"/>
+<text x="778" y="95" text-anchor="middle" font-size="21" font-weight="700" fill="#2a1a12">★ FITS THE MOMENT</text>
+<rect x="922" y="28" width="140" height="70" rx="10" fill="#2a2420" stroke="#6e6256" stroke-width="2"/>
+<text x="992" y="70" text-anchor="middle" font-size="20" font-weight="700" fill="#f3efe4">TIE UP</text>
+</svg>
+<!-- HINT 5: the gold line from the habit chip to the call that answers it -->
+<svg style="position:absolute;left:0;top:0" width="1920" height="1080" viewBox="0 0 1920 1080">
+<path d="M1560 226 C1460 600 1420 900 1328 960" stroke="#f0bd4f" stroke-width="4" fill="none" stroke-dasharray="2 10" stroke-linecap="round" opacity=".9"/>
+</svg>
+
+<!-- reader's notes (not in the game) -->
+<div class="note" style="left:470px;top:150px">Hint 1 (bottom left): the last call lost 2 of 3, so its tick is a grey cross and the plate pulses amber</div>
+<div class="note" style="left:1180px;top:350px">Hint 5: the opponent's habit just showed; scouted, so the eye pops and a gold line lights the answer</div>
+<div class="note" style="left:470px;top:880px">Hint 9: before the shout, the best call's energy change is a gold dashed mark on the energy tank</div>
+</body></html>

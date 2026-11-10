@@ -255,8 +255,12 @@ static func _roles(main: Node, c: Career) -> Control:
 	row.name = "StaffJobs"
 	for r in StaffRoles.LIST:
 		row.add_child(_role(main, c, r))
-	var places := KitIcon.icon("members", 22, WoodKit.SOFT, "Roster places: %d of %d used" % [GymSpend.used(c), GymSpend.places(c)])
-	places.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	# S421: was a bare icon at the row's end (the number only on hover); now icon + number + caption like the other tiles.
+	var places := _tile("members", "%d / %d" % [GymSpend.used(c), GymSpend.places(c)],
+		"Roster places: %d of %d used" % [GymSpend.used(c), GymSpend.places(c)], INK, "roster places", true)   # the role cards' dark bed
+	places.name = "RosterPlaces"
+	places.size_flags_horizontal = Control.SIZE_SHRINK_END
+	places.custom_minimum_size = Vector2(130, 0)
 	row.add_child(places)
 	return row
 

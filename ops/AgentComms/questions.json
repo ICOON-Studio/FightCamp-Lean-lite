@@ -6259,6 +6259,23 @@
       "note": null,
       "answered_at": null,
       "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-170",
+      "asked": "2026-11-10T08:54:56.498990+00:00",
+      "session": "S294",
+      "text": "Fight display: one drawing of B with A's scorebug, three hints frozen in the frame (the last call failing, the opponent's habit spotted, the energy a call saves), painted by Ludo in the slate and wood look. Build it like this?",
+      "options": [
+        "Yes, build it",
+        "Change something first"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-170_0_fight_display_painted_ludo.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

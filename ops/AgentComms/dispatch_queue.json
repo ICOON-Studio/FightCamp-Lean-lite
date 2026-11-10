@@ -839,9 +839,10 @@
   {
    "task": "LOOKSLATE7",
    "seat": "cursor",
-   "status": "launched",
+   "status": "collected",
    "queued": "2026-11-10T05:32",
-   "launched": "2026-11-10T09:42"
+   "launched": "2026-11-10T09:42",
+   "collected": "S421 2ac030a7"
   },
   {
    "task": "LOOKSLATE6",
@@ -873,15 +874,17 @@
   {
    "task": "KDFIX1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-10T11:40"
+   "status": "launched",
+   "queued": "2026-11-10T11:40",
+   "launched": "2026-11-10T10:11"
   },
   {
    "id": "LEGTREMBLE2",
    "seat": "agy",
    "title": "TASK LEGTREMBLE2 - AGY (Argon High) - the trembling legs, round 2: bake the smoothing into the shipped clips",
    "brief": "LEGTREMBLE2",
-   "status": "queued"
+   "status": "launched",
+   "launched": "2026-11-10T10:28"
   },
   {
    "id": "FIGHTSLIDE2",
@@ -889,6 +892,18 @@
    "title": "TASK FIGHTSLIDE2 - QWEN (qwen3-coder) - the fighters slide: measure each cause by switching it off",
    "brief": "FIGHTSLIDE2",
    "status": "queued"
+  },
+  {
+   "task": "KDFIX2",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-10T10:56"
+  },
+  {
+   "task": "LEGTREMBLE3",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-10T11:01"
   }
  ]
 }

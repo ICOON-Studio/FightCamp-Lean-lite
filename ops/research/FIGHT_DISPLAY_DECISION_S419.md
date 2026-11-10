@@ -68,3 +68,27 @@ What must never animate: a place that is fine, a tank that moved under 5 points,
 
 ## 6. Next
 One consolidated drawing of sections 2 and 3 with three hints frozen in the frame, Ludo's paint of it, the operator's yes, then two briefs: the panels (Cursor) and the motion module with its gates and timings (one small script, events in, effects out).
+
+## 7. The data check (S421, read in scripts/state/LiveRound.gd `exchange()`, the record `rec` each 30-second exchange writes)
+- Hint 1, the last call is not working: HAS DATA. Each exchange records `call` (the call in force), `shout` (whether a shout
+  landed, CornerTrust), `won` and `margin`, `fit` (Exchanges.fit: how the call suits the situation) and `verdict` (one line).
+  "2 of the last 3 exchanges under this call lost" is a count over `ex`; no rules change.
+- Hint 5, the opponent's habit just happened: HAS DATA, under another name. The opponent's habit is her `mode` (the
+  Exchanges MODE she keeps playing, TheRead); every exchange records `mode`. Scouted = film study at
+  BoutRules.FILM_DEPTH_WITH_STUDY (preview's `mark` is then her favourite, Exchanges.favourite(style)) or the read meter
+  started (LiveRead). It fires when this exchange's `mode` is the habit and it is scouted; `read.result == "landed"` is
+  the counter that punished it (the "what follows" glove). Trap: `rec["habit"]` is OUR boxer's own bad habit being
+  punished (HabitFix), not the opponent's; do not wire the chip to it.
+- Hint 9, what a call would change: PART. Exact before the shout: the energy cost (Exchanges.CALLS[call].cost, drawn as a
+  dashed forecast on the energy tank) and how the call fits the situation (`fit`, good/ok/bad, and the boxer's own
+  grade per call in `preview().grades`). No per-place forecast exists (head hits down, ribs safer): the place arrows
+  are CUT from this build, never faked. After the shout, the result against the forecast is `won` + the energy change.
+Hints 2-4, 6, 8, 10-12 read values the fight already keeps (body map places, energy, legs, guard, hurt, clock).
+So the drawing keeps 1, 5 and 9 (energy + fit only) frozen in the frame.
+
+## 8. The drawing (S421)
+docs/mockups/s421/fight_display.html/.png (the layout, sections 2 and 3, reader notes on hints 1, 5, 9) and
+fight_display_painted_ludo.png (Ludo `image edit` over the notes-free copy, the Training B paint as the look reference,
+2 credits for two rounds). Round 1 painted the busts as photo-real bare torsos: the layout's busts had no vest; they wear
+the corner's vest now and the prompt asks for an illustrated body map. The paint drops the ribs' colour and the dots:
+the layout is the spec for what each place shows. Next: his yes (board), then the two briefs in section 6.

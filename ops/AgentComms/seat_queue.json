@@ -420,8 +420,8 @@
    "status": "queued",
    "queued_at": "2026-11-08 12:36",
    "tries": 0,
-   "skips": 82,
-   "last_error": "2026-11-10 05:11 gbot send rc=1: ['GROKBOT FAIL sendPrompt 502  {\"error\":\"A Sand box session may not make this request on this endpoint.\"}']"
+   "skips": 93,
+   "last_error": "2026-11-10 10:40 gbot send rc=1: ['GROKBOT FAIL sendPrompt 502  {\"error\":\"A Sand box session may not make this request on this endpoint.\"}']"
   },
   {
    "id": "SQ30",
@@ -430,6 +430,15 @@
    "stem": "J_KNOWING_A_FIGHTER_JOHN",
    "status": "queued",
    "queued_at": "2026-11-09 13:30",
+   "tries": 0
+  },
+  {
+   "id": "SQ31",
+   "seat": "john",
+   "brief": "research/J_DUES_CHOICE_S421_BRIEF.md",
+   "stem": "J_DUES_CHOICE_S421_BRIEF_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-10 11:02",
    "tries": 0
   }
  ]

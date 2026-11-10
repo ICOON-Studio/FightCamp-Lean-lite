@@ -199,8 +199,12 @@ def build() -> dict:
         out.append({"group": title, "rows": rows})
     total = sum(prog.values())
     in_fight = counts.get("IN GAME", 0)
-    shown = "Shown: clips that passed %s; %d of %d clips (%d of the %d play in the fight)." % (
-        bar or "a recorded 100%% check", prog["verified"], total, in_fight, total)
+    # S421: he read "1 of 169" as "only 1 animation". The game has all 169; this list holds only the ones checked 100%
+    # (his S379 rule), so the line says both, and what the others are waiting on.
+    shown = ("The game has %d boxing clips (%d play in the fight). Listed here: only the %d that passed %s (your S379 rule). "
+             "The other %d: %d being checked, %d not checked yet." % (
+        total, in_fight, prog["verified"], bar or "a recorded 100%% check", total - prog["verified"],
+        prog["in progress"], prog["not started"]))
     none = ("No boxing clip has passed a 100%% check yet. Recorded so far: %d clips with a partial check (a probe, a fix you "
             "OK'd on stills, or an Argon/Gemini score below 9/10) - see them under 'show all'." % prog["in progress"]
             if prog["verified"] == 0 else "")

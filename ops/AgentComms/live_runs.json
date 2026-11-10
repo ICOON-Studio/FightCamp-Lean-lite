@@ -119,7 +119,7 @@
    "agent": "cursor",
    "id": "LOOKSLATE7",
    "title": "TASK LOOKSLATE7 - CURSOR (Grok 4.7 High) - the Fighters page's paper pieces, the week review's pad cards and the Overview's flat buttons on slate and wood",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-10T09:42",
    "eta": "2026-11-10T11:32",
    "branch": "cursor/lookslate7",
@@ -140,13 +140,76 @@
     "runner_pid": 22468,
     "seat_pid": 1916
    },
-   "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 8/9 PASS; PR #158; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache",
+   "finished": "2026-11-10T10:19",
+   "pr": 158,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/roster_slate_test.gd",
+     "ok": true,
+     "last": "ROSTER_SLATE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/roster_cards_test.gd",
+     "ok": true,
+     "last": "ROSTER_CARDS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/roster_flag_test.gd",
+     "ok": true,
+     "last": "ROSTER_FLAG failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/roster_summary_test.gd",
+     "ok": true,
+     "last": "ROSTER_SUMMARY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/review_reveal_test.gd",
+     "ok": true,
+     "last": "REVIEW_REVEAL PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/card_flip_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/wood_kit_test.gd",
+     "ok": false,
+     "last": "WOOD_KIT failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/grey_reason_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "KDFIX1": {
    "agent": "qwen",
    "id": "KDFIX1",
    "title": "TASK KDFIX1 - QWEN (qwen3-coder) - a downed boxer's upper body sways",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-10T10:11",
    "eta": "2026-11-10T12:01",
    "branch": "qwen/kdfix1",
@@ -166,6 +229,132 @@
     "brief_copied": true,
     "runner_pid": 19656,
     "seat_pid": 44700
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/6 PASS; PR #159",
+   "finished": "2026-11-10T10:28",
+   "pr": 159,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/knockdown_still_test.gd",
+     "ok": false,
+     "last": "KNOCKDOWN_STILL failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/knockdowns_test.gd",
+     "ok": true,
+     "last": "KNOCKDOWNS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/knockdown_ring_test.gd",
+     "ok": true,
+     "last": "KNOCKDOWN_RING failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bout_stoppage_test.gd",
+     "ok": true,
+     "last": "BOUT_STOPPAGE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "LEGTREMBLE2": {
+   "agent": "antigravity",
+   "id": "LEGTREMBLE2",
+   "title": "TASK LEGTREMBLE2 - AGY (Argon High) - the trembling legs, round 2: bake the smoothing into the shipped clips",
+   "status": "running",
+   "started": "2026-11-10T10:29",
+   "eta": "2026-11-10T11:54",
+   "branch": "agy/legtremble2",
+   "worktree": "E:/FightCamp/wt/LEAN_LEGTREMBLE2",
+   "wt": "E:/FightCamp/wt/LEAN_LEGTREMBLE2",
+   "brief": "ops/research/TASK_LEGTREMBLE2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/LEGTREMBLE2_dispatch_out.txt",
+   "match": "seat_dispatch.py run legtremble2",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/LEGTREMBLE2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/LEGTREMBLE2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/LEGTREMBLE2_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 47628,
+    "seat_pid": 37392
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+  },
+  "LOOKSLATE6": {
+   "agent": "cursor",
+   "id": "LOOKSLATE6",
+   "title": "TASK LOOKSLATE6 - CURSOR (Grok 4.7 High) - the World page off the plaster wall, onto slate and wood",
+   "status": "running",
+   "started": "2026-11-10T10:34",
+   "eta": "2026-11-10T12:24",
+   "branch": "cursor/lookslate6",
+   "worktree": "E:/FightCamp/wt/LEAN_LOOKSLATE6",
+   "wt": "E:/FightCamp/wt/LEAN_LOOKSLATE6",
+   "brief": "ops/research/TASK_LOOKSLATE6.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/LOOKSLATE6_dispatch_out.txt",
+   "match": "seat_dispatch.py run lookslate6",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/LOOKSLATE6_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/LOOKSLATE6_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/LOOKSLATE6_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 47564,
+    "seat_pid": 47448
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+  },
+  "FIGHTSLIDE2": {
+   "agent": "qwen",
+   "id": "FIGHTSLIDE2",
+   "title": "TASK FIGHTSLIDE2 - QWEN (qwen3-coder) - the fighters slide: measure each cause by switching it off. Measure only",
+   "status": "running",
+   "started": "2026-11-10T10:41",
+   "eta": "2026-11-10T12:31",
+   "branch": "qwen/fightslide2",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHTSLIDE2",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHTSLIDE2",
+   "brief": "ops/research/TASK_FIGHTSLIDE2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHTSLIDE2_dispatch_out.txt",
+   "match": "seat_dispatch.py run fightslide2",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHTSLIDE2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHTSLIDE2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHTSLIDE2_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 20588,
+    "seat_pid": 42780
    },
    "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
   }

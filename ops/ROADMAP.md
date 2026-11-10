@@ -10,7 +10,7 @@ Updated 2026-11-10 by claude S294.
 
 **S420 — ?** *(claude)*
 
-S420: BLOCKMEET2 collected with fixes (BeatFire did not compile; the hand-only glove lift tore the wrist 8.5 cm, now the arm turns at the shoulder; test gained a wrist bar proven red on the old lift). LOOKSLATE5 Money on slate collected, prices whole. REARHAND5B right hooks collected on a frame-by-frame film (hand stays at chest height); its test left out (needs a copy only the seat had). TAPEVERSUS1 collected: one tale of the tape; the opponent's weight on both screens (operator: 'i meant weight'), reach on the offer, edge margin. FIGHTSLIDE1 collected (1.5 m a round, a floor). LEGTREMBLE1 sent back: never compiled, smoothed only in memory. wood_kit_test made current. Exported.
+S421: LOOKSLATE7 collected (roster cards, pad cards, Overview buttons on slate; the weight chip reads '+0.9 kg'); R11C's test joins the list; PR 105 MENUPLAYBOOK1 closed (259 behind, old warm look; the Playbook goes through a concept). Three seen defects fixed: stylised portraits re-keyed onto the S387 slate backdrop (dark faces read), Club People's roster-places tile, the offer's corner notes clear of the boots. Fight display: LiveRound checked for hints 1, 5, 9; one drawing + Ludo paint, Q-S294-170. KDFIX1 sent back as KDFIX2 (its ruler read the pose before the modifiers). Exported.
 
 ## Next
 
@@ -305,3 +305,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S418**  |  |  | *none yet* |  |
 |  |  | **S419**  |  |  | *none yet* |  |
 |  |  | **S420**  |  |  | *none yet* |  |
+|  |  | **S421**  |  |  | *none yet* |  |

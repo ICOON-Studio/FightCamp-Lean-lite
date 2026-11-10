@@ -59,10 +59,14 @@ static func build(main: Node, c: Career, f: Dictionary, o: Dictionary, opp: Dict
 	var poses: Array = FighterPose.pair(str(stems[0]), str(stems[1]), offer_id)
 	var crests: Array = ClubCrest.pair(c.gym_name, str(opp["club"]))
 	var tags: Array = tags_for(f, opp)
-	root.add_child(side(str(f["name"]), "%s · your fighter" % str(f["wc"]), str(stems[0]), "red", str(tags[0]), false, int(poses[0]), str(crests[0]), hash(offer_id + "r")))
+	root.add_child(side(str(f["name"]), "%s · your fighter" % str(f["wc"]), str(stems[0]), "red", str(tags[0]), false, int(poses[0]), str(crests[0]), hash(offer_id + "r"), 19, 17, OFFER_FOOT))
 	root.add_child(_card(main, c, f, o, opp, offer_id, wf, answer, str(stems[0])))
-	root.add_child(side(str(opp["name"]), "%s · %s" % [str(f["wc"]), str(opp["club"])], str(stems[1]), "blue", str(tags[1]), true, int(poses[1]), str(crests[1]), hash(offer_id + "b")))
+	root.add_child(side(str(opp["name"]), "%s · %s" % [str(f["wc"]), str(opp["club"])], str(stems[1]), "blue", str(tags[1]), true, int(poses[1]), str(crests[1]), hash(offer_id + "b"), 19, 17, OFFER_FOOT))
 	return root
+
+
+## S421: the offer's corner notes sat on the boots (the figure ran to the bottom); like fight night, the figure stops this far up.
+const OFFER_FOOT := 72.0
 
 
 ## One half. sub_px / tag_px / foot let fight night keep every word at 20 px and the tag clear of the feet.
