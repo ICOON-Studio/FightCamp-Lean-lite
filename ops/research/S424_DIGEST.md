@@ -34,3 +34,15 @@ Nothing in the shipped game. Collected: tools/fight_slide_probe.gd + docs/FIGHTS
 Next action and order: roadmap.json `now.next_action` and NEXT_SESSION_PROMPT.md. Running: DUESBAND1 (Goose #165), KDFIX3's
 runner checks (Qwen), FIGHTDISPLAY1 (Cursor, hung). Queued on Qwen: LEGTREMBLE4, KDFIX4. Chat seats: Kalli SQ32, John SQ33.
 Board: Q-177.
+
+## Stage 2 (S424b, same session: he asked "why you stopped this session ??" - the first ship was early)
+- FIGHTDISPLAY1 collected f3883134 (Cursor's run hung on "Connection lost" AFTER building; stopped by PID with his OK).
+  Windowed render E:/FightCamp/tmp/s424_fd1 looked at (bar at y 905-1075); corner_bar_test now checks against the fight
+  view's bottom (headless the view is 1920 tall); LiveRound.gd 473 -> 469 lines (file_limits was red on main since S423).
+  Tests green: corner_bar, hud_shown, hit_flash, holo_live, fight_flow, file_limits, words_on_screens, golden_path,
+  plan_fight, plan_read; cover_probe reads as before (34.5%).
+- Dues intake by band live 34826128 (membership, membership_why, gym_spend, golden_path green). 5-year balance test RED
+  (premium 9 of 9) kept on claude/duesband1; John SQ34. DUESCARD1 briefed (Q-177 "Yes, build it"), Ludo member paintings
+  in assets/ui/dues.
+- Old project research: every written doc already here; 2 PDFs added; ops/research/OLD_PROJECT_MEDIA.md.
+- Stopped at 402k context (rule ~420k). Running: LEGTREMBLE4 (Qwen), KDFIX4 (Cursor).

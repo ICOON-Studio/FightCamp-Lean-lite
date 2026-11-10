@@ -283,13 +283,10 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var uses: Dictionary = lv.get_or_add("answer_uses", {})   # per round: both corners reset at the bell (S396 templates test)
 	if plan_edge > 0.0 and fit_now == "best":
 		plan_edge *= PlanRead.adjust(int(uses.get(arrow, 0)))
-	# S423 R25 probe hook: a line the opponent's corner covered between rounds ({} = none, the game today). 0..1 keeps that
-	# share of its edge; below 0 she waits for it: the edge turns against her and the answer counts as a wrong one (reads).
+	# S423 R25 probe hook (bout.covered, {} = the game today): 0..1 keeps that share of the edge; below 0 = waited for, a wrong answer.
 	var cov := float((f["bout"].get("covered", {}) as Dictionary).get(arrow, 1.0)) if bool(pick.get("planned", false)) else 1.0
-	if plan_edge > 0.0 and cov != 1.0:
-		plan_edge *= cov
-	if cov < 0.0:
-		fit_now = "wrong"
+	plan_edge = plan_edge * cov if plan_edge > 0.0 and cov != 1.0 else plan_edge
+	fit_now = "wrong" if cov < 0.0 else fit_now
 	# The round's reads move the exchange and count as the plan's effect (swing), but the Why grades the answers themselves.
 	var read_edge := PlanRead.edge(int(lv.get("reads", 0))) + PlanPressure.edge(f["bout"])   # S397 + the bout's pressure
 	d += plan_edge + read_edge

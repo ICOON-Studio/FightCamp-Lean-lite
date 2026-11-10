@@ -6,7 +6,7 @@ Source: the operator picked the management-sim veteran's 10/10 drawing (Q-S294-1
 each boxer's panel at the side of the ring. Part 1 (FIGHTDISPLAY1) built the corner bar, the NOW! plate and the scorebug.
 
 ## Contract
-OWNS: scripts/fight3d/SidePanel.gd, scripts/rules/EnergyForecast.gd, tests/side_panel_test.gd, tests/energy_forecast_test.gd, scripts/fight3d/FightHud.gd, scripts/fight3d/BodyPanels.gd
+OWNS: scripts/fight3d/SidePanel.gd, scripts/rules/EnergyForecast.gd, tests/side_panel_test.gd, tests/energy_forecast_test.gd, scripts/fight3d/FightHud.gd, scripts/fight3d/BodyPanels.gd, scripts/fight3d/CornerBar.gd, tests/corner_bar_test.gd
 (SidePanel, EnergyForecast and both tests are new. FightHud.gd: only build the panels instead of HudBars' rings. BodyPanels.gd,
 163 lines, moves INTO the panel, see 3. HudBars.gd is 500 lines: do NOT add a line to it; stop building it from FightHud and
 leave the file, another task deletes it.)
@@ -17,6 +17,13 @@ VISUAL: yes (Claude renders and judges; you cannot see images)
 ## The picture
 docs/mockups/s422/fight_10_simvet.png and .html (left panel x 16-384, right 1536-1904, y 120-910). Critic's reasoning:
 docs/mockups/s422/fight_critic_simvet.md sections 3 and 7.
+
+## Two fixes on the corner bar (part 1, collected S424 in f3883134; Claude's look at the windowed render)
+1. Before the round's first call the last-call box is an empty frame with a lone tick. Show "No call yet" in its words
+   colour and no tick until a call is made.
+2. The drawing (docs/mockups/s422/fight_10_simvet.png) puts the call that BEATS the opponent's game first and frames it in
+   gold; today the calls keep the plan's order (a "Wrong" call first) and none is framed. Order: Beats it, Works, Wrong;
+   gold frame on the first. Add both to tests/corner_bar_test.gd (each red on main first).
 
 ## What to build
 1. OUR BOXER (left panel, wooden frame, WoodKit.slate):

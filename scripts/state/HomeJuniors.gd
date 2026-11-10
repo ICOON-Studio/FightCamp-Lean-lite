@@ -7,6 +7,7 @@ extends RefCounted
 ## Round 1 (club owner): ~80% a year was generous; two intakes at 35% is ~58% a year. GAME values.
 
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
+const Membership := preload("res://scripts/rules/Membership.gd")
 
 const INTAKE_WEEKS := [1, 35]
 const PREVIEW_WEEKS := 2
@@ -58,8 +59,10 @@ static func next_junior(c: Career) -> Dictionary:
 	return {}
 
 
-static func chance(assistant: bool) -> float:
-	return INTAKE_CHANCE + (ASSISTANT_CHANCE if assistant else 0.0)
+## S424 (his Q-176 yes on the dues mechanism): the dues band sets the base (cheap 0.50, standard 0.35 = INTAKE_CHANCE,
+## premium 0.20, Membership.intake_chance); a second club coach still adds ASSISTANT_CHANCE.
+static func chance(assistant: bool, band: String = "standard") -> float:
+	return Membership.intake_chance(band) + (ASSISTANT_CHANCE if assistant else 0.0)
 
 
 ## Called at each week's end (GymSpend.end_week).
@@ -69,11 +72,11 @@ static func end_week(c: Career, youth_on: bool, assistant: bool) -> void:
 		var j := next_junior(c)
 		if not j.is_empty() and INTAKE_WEEKS.has(posmod(w + PREVIEW_WEEKS - 1, 52) + 1):
 			c.add_news("The juniors' coach: %s turns 18 this term. About a %d%% chance of asking for a trial, and the potential looks %d-%d." % [
-				j["first"], roundi(chance(assistant) * 100), int(j["pot"]) + POT_BONUS - 5, int(j["pot"]) + POT_BONUS + 5])
+				j["first"], roundi(chance(assistant, c.dues_band) * 100), int(j["pot"]) + POT_BONUS - 5, int(j["pot"]) + POT_BONUS + 5])
 		if not j.is_empty() and INTAKE_WEEKS.has(w) and section_days(c) >= MIN_DAYS:
 			var rng := RandomNumberGenerator.new()
 			rng.seed = c.seed * 17 + c.day
-			if rng.randf() < chance(assistant):
+			if rng.randf() < chance(assistant, c.dues_band):
 				var p: Dictionary = j.duplicate(true)
 				p["pot"] = int(p["pot"]) + POT_BONUS
 				p["home"] = true

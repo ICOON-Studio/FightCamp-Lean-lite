@@ -21,9 +21,9 @@ const WEEKLY_DRIFT_FRACTION := 0.25
 ## clubs GBP 20-35 a month, premium boxing gyms GBP 50-80 (game dollars x 1.25). How many the band draws is GAME: cheap
 ## draws 15% more; premium 15% fewer, a gap a famous gym closes (reputation 100 = no gap).
 const DUES := {
-	"cheap": {"name": "Cheap", "fee": 25, "draw": 1.15},
-	"standard": {"name": "Standard", "fee": 35, "draw": 1.0},
-	"premium": {"name": "Premium", "fee": 45, "draw": 0.85},
+	"cheap": {"name": "Cheap", "fee": 25, "draw": 1.15, "intake": 0.50},
+	"standard": {"name": "Standard", "fee": 35, "draw": 1.0, "intake": 0.35},
+	"premium": {"name": "Premium", "fee": 45, "draw": 0.85, "intake": 0.20},
 }
 const DUES_ORDER := ["cheap", "standard", "premium"]
 const MAX_WEEKLY_MEMBER_CHANGE := 6
@@ -60,6 +60,13 @@ static func draw(band: String, reputation: int) -> float:
 
 static func fee(band: String) -> int:
 	return int((DUES.get(band, DUES["standard"]) as Dictionary)["fee"])
+
+
+## The chance a junior who turns 18 asks for a trial and passes, each January and September intake.
+## Cheap draws more (the community club model); premium draws fewer (fitness adults, rarely compete).
+## Unknown band falls back to standard.
+static func intake_chance(band: String) -> float:
+	return float((DUES.get(band, DUES["standard"]) as Dictionary)["intake"])
 
 
 static func weekly_dues(members: int, band: String = "standard") -> int:

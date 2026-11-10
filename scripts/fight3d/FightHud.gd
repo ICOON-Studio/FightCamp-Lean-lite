@@ -12,6 +12,8 @@ const ExchangeBeats := preload("res://scripts/fight3d/ExchangeBeats.gd")
 const BodyLive := preload("res://scripts/fight3d/BodyLive.gd")
 const BodyBurn := preload("res://scripts/fight3d/BodyBurn.gd")
 const HudBars := preload("res://scripts/fight3d/HudBars.gd")
+const ScoreBug := preload("res://scripts/fight3d/ScoreBug.gd")
+const CornerBar := preload("res://scripts/fight3d/CornerBar.gd")
 
 
 ## The round's exchanges scored by round time t. S312 (Ziva review: the caption said the 30 s was won while the score
@@ -21,22 +23,10 @@ static func scored(exchanges: Array, t: float) -> Array:
 
 
 static func build(view: Control) -> void:
-	var bug := PanelContainer.new()
-	bug.add_theme_stylebox_override("panel", UI.box(Color(0.06, 0.05, 0.05, 0.86), UI.LINE, 6, 1, 14, 8))
-	view.add_child(bug)
-	pin(bug, Vector4(0.5, 0, 0.5, 0), Vector4(0, 24, 0, 24))
-	bug.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	view._bug_box = bug
-	var bv := UI.vbox(3)
-	bug.add_child(bv)
-	view._bug = UI.label("", 22, UI.FG, "bold")
-	view._bug.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	bv.add_child(view._bug)
-	view._clock = UI.mono("", 30, UI.FG)
-	view._clock.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	bv.add_child(view._clock)
+	ScoreBug.attach(view)   # the round box: clock, the two totals, six dots, the cards
 	view.bars = HudBars.attach(view)   # S345 the six bars a boxer + the round edge
-	bv.add_child(view.bars.edge)
+	view._bug_box.add_child(view.bars.edge)
+	view.bars.edge.visible = false   # the digits and the dots say who has the round
 	view.body = BodyLive.attach(view)   # S318 the body map; S405 its holo panels stand on each side (BodyPanels)
 	view.burn = BodyBurn.attach(view)   # S322 per-part Burn: guard, steps, punch snap
 	view._buttons = UI.hbox(8)
@@ -47,7 +37,7 @@ static func build(view: Control) -> void:
 	view._cap_box.add_theme_stylebox_override("panel", UI.box(Color(0.04, 0.03, 0.03, 0.78), Color(0, 0, 0, 0), 6, 0, 22, 10))
 	view._cap_box.visible = false
 	view.add_child(view._cap_box)
-	pin(view._cap_box, Vector4(0.5, 1, 0.5, 1), Vector4(-620, -78, 620, -22))
+	pin(view._cap_box, Vector4(0.5, 1, 0.5, 1), Vector4(-620, -239, 620, -181))
 	view._caption = UI.label("", 26, UI.FG, "body", true)
 	view._caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	view._caption.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -59,6 +49,7 @@ static func build(view: Control) -> void:
 	view.add_child(view._banner)
 	pin(view._banner, Vector4(0.5, 0, 0.5, 0), Vector4(-640, 226, 640, 326))
 	FightCalls.attach(view, pin)   # S395 the TV line and the big-shot moment
+	CornerBar.attach(view)   # the plank across the bottom, on for the whole round
 
 
 ## Anchors (left, top, right, bottom) and offsets in pixels from them.
@@ -80,6 +71,10 @@ const FADE_S := 0.35
 static func draw_buttons(view: Control) -> void:
 	var row: HBoxContainer = view._buttons
 	UI.clear(row)
+	row.visible = false
+	if view.has_meta("corner"):
+		view.get_meta("corner").call("draw_speed")
+		return
 	var speed := UI.button("2x" if view.pace() > 1.0 else "1x", "BtnQuiet", view._toggle_speed)
 	speed.tooltip_text = "Speed (Space)"
 	row.add_child(speed)

@@ -61,7 +61,7 @@ var _quiet := 0.0
 var _amb_rng := RandomNumberGenerator.new()
 var _bell_left := -1.0
 var _bug: Label
-var _bug_box: PanelContainer
+var _bug_box: Control
 var _clock: Label
 var _caption: Label
 var _cap_box: PanelContainer
@@ -422,7 +422,7 @@ func _bell() -> void:
 
 
 func _hud() -> void:
-	_bug.text = FightHud.round_line(round_n, total, (main.modal.get("rounds", []) as Array).slice(0, round_n - 1), _names)
+	_bug.text = "ROUND %d / %d" % [round_n, total]
 	var left := ceilf(maxf(0.0, length - t))   # S395 reads 0:00 at the bell, not a second before it
 	_clock.text = "%d:%02d" % [int(left) / 60, int(left) % 60]
 	FightHud.paint(self, FightHud.shown(_exchanges(), t, FightHud.round_start(self)), FightHud.scored(_exchanges(), t))

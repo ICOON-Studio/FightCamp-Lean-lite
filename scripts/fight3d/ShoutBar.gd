@@ -33,6 +33,9 @@ const AIM_LABEL := {"": "Own game", "head": "Head", "body": "Body", "left_ribs":
 
 func setup(pv: Dictionary, round_n: int) -> void:
 	name = "ShoutBar"
+	# The corner plank is the bar the player sees. This node only keeps the pick window (real seconds).
+	visible = false
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_theme_stylebox_override("panel", UI.box(Color(0.05, 0.04, 0.04, 0.9), UI.LINE, 6, 1, 18, 12))
 	anchor_left = 0.0
 	anchor_right = 1.0
