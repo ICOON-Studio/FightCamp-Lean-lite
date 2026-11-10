@@ -908,8 +908,9 @@
   {
    "task": "FIGHTSLIDE3",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-10T11:32"
+   "status": "launched",
+   "queued": "2026-11-10T11:32",
+   "launched": "2026-11-10T12:11"
   },
   {
    "task": "TRAININGB1",
@@ -920,8 +921,27 @@
   {
    "task": "KDFIX3",
    "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-10T11:43",
+   "launched": "2026-11-10T12:54"
+  },
+  {
+   "task": "DUESBAND1",
+   "seat": "qwen",
    "status": "queued",
-   "queued": "2026-11-10T11:43"
+   "queued": "2026-11-10T13:07"
+  },
+  {
+   "task": "LEGTREMBLE4",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-10T13:09"
+  },
+  {
+   "task": "KDFIX4",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-10T13:15"
   }
  ]
 }

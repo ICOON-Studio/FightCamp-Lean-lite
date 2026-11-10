@@ -46,3 +46,13 @@ DUES card on Club > Money (Cursor) from dues_choice.png.
 
 ## The question
 The design as drawn: build it?
+
+## S424: the sums were wrong (the 5-year sim, branch claude/duesband1)
+His answer (Q-176): "ok for the mechanism but the design needs better presentation". Goose built the intake chance per band
+and the 5-year sim (tests/dues_bands_sim_test.gd). With the numbers above, PREMIUM has the top 5-year total in 9 of 9 cases
+(reputation 10/40/80 x cap 40/60/120); cheap and standard never. Two faults in the S423 sums: (1) once the gym is full the
+cap binds and cheap's extra members never arrive, so cheap is only a price cut (about $48,000 less than premium over 5 years
+at cap 40); (2) a home-grown boxer was valued at half a stipend ($6,500), and recruits arrive free at reception, so a home-
+grown boxer is worth little more. Not merged (a red test). Next: John SQ34 (what really funds a cheap community club:
+grants, free premises, volunteers; premium churn), then re-do the sums; full gym -> premium can stay a fair answer, but cheap
+and standard must each have a club where they win. The painted screen (Q-177 "Yes, build it") does not depend on the numbers.

@@ -417,20 +417,28 @@
    "seat": "john",
    "brief": "research/J_CROSSOVER_S402_BRIEF.md",
    "stem": "J_CROSSOVER_S402_BRIEF_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-08 12:36",
    "tries": 0,
-   "skips": 94,
-   "last_error": "2026-11-10 11:10 gbot send rc=1: ['GROKBOT FAIL sendPrompt 502  {\"error\":\"A Sand box session may not make this request on this endpoint.\"}']"
+   "skips": 98,
+   "last_error": "2026-11-10 12:01 gbot send rc=1: ['GROKBOT FAIL sendPrompt 502  {\"error\":\"A Sand box session may not make this request on this endpoint.\"}']",
+   "sent_at": "2026-11-10 12:10",
+   "sent_ms": 1794305434256,
+   "answered_at": "2026-11-10 12:40",
+   "answer": "research/J_CROSSOVER_S402_BRIEF_JOHN.md",
+   "chars": 17310,
+   "seen_by_claude": true
   },
   {
    "id": "SQ30",
    "seat": "john",
    "brief": "research/TASK_J_KNOWING_A_FIGHTER.md",
    "stem": "J_KNOWING_A_FIGHTER_JOHN",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-09 13:30",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-10 13:11",
+   "sent_ms": 1794309055206
   },
   {
    "id": "SQ31",
@@ -439,6 +447,33 @@
    "stem": "J_DUES_CHOICE_S421_BRIEF_JOHN",
    "status": "queued",
    "queued_at": "2026-11-10 11:02",
+   "tries": 0
+  },
+  {
+   "id": "SQ32",
+   "seat": "kalli",
+   "brief": "research/K_R28_CUTMAN_V3_BRIEF.md",
+   "stem": "K_R28_CUTMAN_V3_BRIEF_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-10 13:12",
+   "tries": 0
+  },
+  {
+   "id": "SQ33",
+   "seat": "john",
+   "brief": "research/J_AMATEUR_ASK_S424_BRIEF.md",
+   "stem": "J_AMATEUR_ASK_S424_BRIEF_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-10 13:13",
+   "tries": 0
+  },
+  {
+   "id": "SQ34",
+   "seat": "john",
+   "brief": "research/J_CHEAP_CLUB_MONEY_S424_BRIEF.md",
+   "stem": "J_CHEAP_CLUB_MONEY_S424_BRIEF_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-10 13:36",
    "tries": 0
   }
  ]

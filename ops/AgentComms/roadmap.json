@@ -3,14 +3,14 @@
  "updated": "2026-11-10",
  "author": "claude S294",
  "now": {
-  "id": "S423",
+  "id": "S424",
   "owner": "claude",
   "updated": "2026-11-10",
-  "summary": "S423: main CI green again (menus_round4 wanted BtnSolid; the Overview's primary is the wood Go piece). FIGHTDISPLAY1 (veteran's drawing, graded calls) LAUNCHED on Cursor, FIGHTDISPLAY2 queued. R28 Cutman map v2 after two critics (depth 4-5 -> coach's 10/10) on the board Q-175. R25 measured first: switching games and covering a line move nothing; she WAITS for your best line = -6.5 points, no counterplay recovers it yet (not asked) (tools/cover_probe.gd, hook bout.covered); map ops/research/R25_ADAPTS_DESIGN_MAP.md. Dues map Q-176. LEGTREMBLE3 HELD (its clips turn head_aim red, 0 on main's). FIGHTSLIDE3: no single slide cause (SideStep 13%). PR 162 held for KDFIX3.",
-  "last_working_commit": "beb1a3be",
+  "summary": "S424: FIGHTSLIDE3 collected (no single slide cause). Q-176 dues: his yes on the mechanism -> DUESBAND1 to Goose #165 (intake chance per band + 5-year sim, no band wins every case); presentation repainted by Ludo in the Overview look, Q-177. Q-175 R28 'improve the depth' (4/10) -> v3 to Kalli SQ32 (before/during/minute/after levers), critics next. LEGTREMBLE3's head_aim red is a VOID (hips gap read 3 frames after reset) -> LEGTREMBLE4 queued on Qwen. KDFIX3 not merged: sway 1.91 -> 0.76 cm, bar 0.68, block_meet red on the branch (green on main) -> KDFIX4 queued. R37: the pro ask exists (ProLadder); the amateur ask is the work -> John SQ33. FIGHTDISPLAY1 Cursor hung on a lost connection (no edits); killing it was refused by the permission check: the operator's call.",
+  "last_working_commit": "2dce6130",
   "verified_playable": "people_slate, camp_slate, start_slate, camp_cards, versus, recruit, wood_kit, words_on_screens, plain_words, no_pronoun, gauges, attr_board, fighter_model green on the PC; the pages rendered and opened (E:/FightCamp/tmp/s419_screens, s419_screens2).",
   "incomplete_blocked": "MAIN CI: no finished run since e4a7b6f3 (red); three S419 pushes cancelled each other's runs, read the run on the wrap-up push. PR 140 REARHAND5B not judged: tools/head_aim_film.gd move=rear_hook printed no CONTACT line, so the film showed no punch. Luke Reid's portrait reads near black on Club People. Training week page untouched until his pick.",
-  "next_action": "MECHANICS FIRST. 1) Read Q-175 (R28), Q-176 (dues): on a yes brief the pure module (Qwen/Goose) then the screen (Cursor). 2) Collect FIGHTDISPLAY1 (render the live round and LOOK), KDFIX3 (close PR 162 with it), FIGHTDISPLAY2. 3) LEGTREMBLE3: find the head_aim check its clips break, fix, collect, film the legs and LOOK. R25: probe a way back before asking. 4) Next maps: R37, R55 (with his staff-screen notes), R58: measure, map, two critics, board.",
+  "next_action": "1) Answers: Q-177 (dues look) -> on yes brief the DUES card to Cursor from docs/mockups/s424/dues_painted_v4.png (people above the numbers, try 1's layout). 2) Collect DUESBAND1 (Goose #165): read the 9-case table; then wire HomeJuniors.chance(band) + 'from next month' yourself. 3) FIGHTDISPLAY1 landed as PR 167 (built before the hang): fix corner_bar_test's 1 failure, render the live round, LOOK, collect. 4) Qwen: LEGTREMBLE4 then KDFIX4 (the reconcile launches them); collect, then films. 5) Kalli SQ32 R28 v3 -> two critics -> board. John SQ33 -> R37 amateur ask map. 6) R55, R58 maps.",
   "next_acceptance": "He has picked a Training direction and its painted concept is on the board; a blocked punch is stopped by a glove; the leg tremble has a named source.",
   "awaiting_operator": [
    "R28 cutman design map (written next session)"
@@ -1695,6 +1695,11 @@
    "id": "S423",
    "date": "2026-11-10",
    "summary": "S423: main CI green again (menus_round4 wanted BtnSolid; the Overview's primary is the wood Go piece). FIGHTDISPLAY1 (veteran's drawing, graded calls) LAUNCHED on Cursor, FIGHTDISPLAY2 queued. R28 Cutman map v2 after two critics (depth 4-5 -> coach's 10/10) on the board Q-175. R25 measured first: switching games and covering a line move nothing; she WAITS for your best line = -6.5 points, no counterplay recovers it yet (not asked) (tools/cover_probe.gd, hook bout.covered); map ops/research/R25_ADAPTS_DESIGN_MAP.md. Dues map Q-176. LEGTREMBLE3 HELD (its clips turn head_aim red, 0 on main's). FIGHTSLIDE3: no single slide cause (SideStep 13%). PR 162 held for KDFIX3."
+  },
+  {
+   "id": "S424",
+   "date": "2026-11-10",
+   "summary": "S424: FIGHTSLIDE3 collected (no single slide cause). Q-176 dues: his yes on the mechanism -> DUESBAND1 to Goose #165 (intake chance per band + 5-year sim, no band wins every case); presentation repainted by Ludo in the Overview look, Q-177. Q-175 R28 'improve the depth' (4/10) -> v3 to Kalli SQ32 (before/during/minute/after levers), critics next. LEGTREMBLE3's head_aim red is a VOID (hips gap read 3 frames after reset) -> LEGTREMBLE4 queued on Qwen. KDFIX3 not merged: sway 1.91 -> 0.76 cm, bar 0.68, block_meet red on the branch (green on main) -> KDFIX4 queued. R37: the pro ask exists (ProLadder); the amateur ask is the work -> John SQ33. FIGHTDISPLAY1 Cursor hung on a lost connection (no edits); killing it was refused by the permission check: the operator's call."
   }
  ],
  "blocked_on_operator": [],
@@ -4613,7 +4618,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-10 12:11 board_sync",
+  "updated": "2026-11-10 13:11 board_sync",
   "goal": "MECHANICS FIRST (operator S422: 'ok prepare next session with your recommendations'): the seven mechanics the critics and you chose in S402 get built before more menu polish. Each mechanic starts with a DESIGN MAP (operator Q-173: 'what the player decides exactly and where does that happening ? which screens ? have you mapped the whole design for the mechanism ?'): the decision, the screen, what it changes, the numbers; your OK; then the build. Menus change only when a mechanic needs them. One playable .exe a week, judged by you.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4755,66 +4760,71 @@
   },
   "working_now": [
    {
-    "title": "TASK MENUPLAYBOOK1 - CURSOR (Grok 4.7 High) - the Playbook's game plan and Combos, built from the approved mockup",
+    "title": "TASK FIGHTDISPLAY1 - CURSOR (Grok 4.7 High) - the live fight's corner bar, NOW! plate and scorebug from the veteran's drawing",
     "who": "cursor",
-    "started": "2026-11-08T22:42",
-    "run": "MENUPLAYBOOK1",
-    "state": "LANDED - Claude collects"
+    "started": "2026-11-10T12:41",
+    "run": "FIGHTDISPLAY1",
+    "state": "LANDED - PR 167, own test 1 red; Claude collects"
    },
    {
-    "title": "QWEN (qwen3-coder) - a standing count on the cards says what it cost",
+    "title": "TASK KDFIX3 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 3: fix the two layers KDFIX2 named",
+    "who": "qwen",
+    "started": "2026-11-10T12:54",
+    "run": "KDFIX3"
+   },
+   {
+    "title": "QWEN (qwen3-coder) - dues bands: what kind of club you run (pure rules + a 5-year sim test)",
     "who": "goose",
-    "started": "2026-11-10T05:41",
-    "run": "R11C",
-    "state": "LANDED - Claude collects"
+    "started": "2026-11-10T13:07",
+    "run": "DUESBAND1"
    },
    {
-    "title": "TASK LOOKSLATE7 - CURSOR (Grok 4.7 High) - the Fighters page's paper pieces, the week review's pad cards and the Overview's flat buttons on slate and wood",
+    "title": "Dues rules: juniors by dues band + a 5-year money test",
+    "who": "goose",
+    "started": "2026-11-10T13:07",
+    "run": "DUESBAND1",
+    "state": "running"
+   },
+   {
+    "title": "Fight display part 1 (corner bar, NOW!, scorebug)",
     "who": "cursor",
-    "started": "2026-11-10T09:42",
-    "run": "LOOKSLATE7",
-    "state": "LANDED - Claude collects"
+    "started": "2026-11-10T12:41",
+    "run": "FIGHTDISPLAY1",
+    "state": "LANDED - PR 167, own test 1 red; Claude collects"
    },
    {
-    "title": "TASK KDFIX1 - QWEN (qwen3-coder) - a downed boxer's upper body sways",
-    "who": "qwen",
-    "started": "2026-11-10T10:11",
-    "run": "KDFIX1",
-    "state": "LANDED - Claude collects"
+    "title": "Cutman v3: more depth (your 4/10)",
+    "who": "kalli",
+    "started": "2026-11-10T13:20",
+    "run": "SQ32",
+    "state": "queued"
    },
    {
-    "title": "TASK FIGHTSLIDE2 - QWEN (qwen3-coder) - the fighters slide: measure each cause by switching it off. Measure only",
-    "who": "qwen",
-    "started": "2026-11-10T10:41",
-    "run": "FIGHTSLIDE2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK LEGTREMBLE3 - CURSOR (Grok 4.7 High) - the trembling legs, round 2 on a new seat: bake the smoothing into the shipped clips",
-    "who": "cursor",
-    "started": "2026-11-10T11:21",
-    "run": "LEGTREMBLE3"
-   },
-   {
-    "title": "TASK KDFIX2 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 2: a ruler that sees the layers",
-    "who": "qwen",
-    "started": "2026-11-10T11:22",
-    "run": "KDFIX2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK FIGHTSLIDE3 - QWEN (qwen3-coder) - the fighters slide: switch off the five writers FIGHTSLIDE2 skipped. Measure only",
-    "who": "qwen",
-    "started": "2026-11-10T12:11",
-    "run": "FIGHTSLIDE3"
+    "title": "How an amateur club asks for a bout (real rules)",
+    "who": "john",
+    "started": "2026-11-10T13:25",
+    "run": "SQ33",
+    "state": "queued"
    }
   ],
   "next": [
    {
-    "id": "BOARD423",
+    "id": "BOARD424",
     "who": "operator",
-    "title": "Your calls: Cutman (Q-175) and dues (Q-176)",
+    "title": "Your call: the painted dues screen (Q-177)",
     "after": ""
+   },
+   {
+    "id": "LEGTREMBLE4",
+    "who": "qwen",
+    "title": "Leg tremble: why head_aim voids a row, then collect",
+    "after": ""
+   },
+   {
+    "id": "KDFIX4",
+    "who": "qwen",
+    "title": "Knockdown sway round 4: settle vs sway, block_meet",
+    "after": "LEGTREMBLE4"
    },
    {
     "id": "FIGHTDISPLAY1",
@@ -5152,6 +5162,26 @@
   },
   "done_recently": [
    {
+    "title": "Foot slide: no single cause (FIGHTSLIDE3 collected)",
+    "who": "qwen",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "Dues: your yes -> rules to Goose, screen repainted (Q-177)",
+    "who": "claude",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "Leg tremble's red test traced: a ruler read too early",
+    "who": "claude",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "TASK FIGHTSLIDE3 - QWEN (qwen3-coder) - the fighters slide: switch off the five writers FIGHTSLIDE2 skipped. Measure only",
+    "who": "qwen",
+    "when": "2026-11-10"
+   },
+   {
     "title": "The critics' 10/10 fight displays; you picked the veteran's",
     "who": "claude",
     "when": "2026-11-10"
@@ -5189,26 +5219,6 @@
    {
     "title": "PC crash traced to the AMD driver; governor fixed",
     "who": "claude",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Fight display drawn and painted, hints checked",
-    "who": "claude",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Roster places tile; offer notes clear of the boots",
-    "who": "claude",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Dark faces read: portraits on a slate backdrop",
-    "who": "claude",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Roster cards, pad cards, Overview buttons on slate (LOOKSLATE7)",
-    "who": "cursor",
     "when": "2026-11-10"
    }
   ],
@@ -5338,6 +5348,26 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Main CI green again (menus test)",
+     "who": "claude"
+    },
+    {
+     "text": "Fight display briefed, launched",
+     "who": "claude"
+    },
+    {
+     "text": "Cutman map v2 after critics",
+     "who": "claude"
+    },
+    {
+     "text": "Dues map on the board",
+     "who": "claude"
+    },
+    {
+     "text": "R25 measured: no way back yet",
+     "who": "claude"
+    },
+    {
      "text": "Slide ruler in; rig not the cause",
      "who": "agent"
     },
@@ -5372,54 +5402,42 @@
     {
      "text": "Plan reset: mechanics first",
      "who": "claude"
-    },
-    {
-     "text": "Roster + Overview on slate",
-     "who": "claude"
-    },
-    {
-     "text": "Dark faces read on slate",
-     "who": "claude"
-    },
-    {
-     "text": "Offer notes off the boots",
-     "who": "claude"
-    },
-    {
-     "text": "Fight display drawn, painted",
-     "who": "claude"
-    },
-    {
-     "text": "Blocked punch meets the glove",
-     "who": "agent"
     }
    ],
    "done_session": [
     {
-     "text": "Main CI green again (menus test)",
+     "text": "Slide: no single cause (collected)",
+     "who": "agent"
+    },
+    {
+     "text": "Dues rules to Goose (your yes)",
      "who": "claude"
     },
     {
-     "text": "Fight display briefed, launched",
+     "text": "Dues screen painted (Q-177)",
      "who": "claude"
     },
     {
-     "text": "Cutman map v2 after critics",
+     "text": "Leg tremble red traced: early read",
      "who": "claude"
     },
     {
-     "text": "Dues map on the board",
-     "who": "claude"
-    },
-    {
-     "text": "R25 measured: no way back yet",
-     "who": "claude"
+     "text": "KD sway 1.91 -> 0.76 cm, not yet",
+     "who": "agent"
     }
    ],
    "now": [
     {
-     "text": "Your calls: Q-175, Q-176",
+     "text": "Your call: dues look (Q-177)",
      "who": "operator"
+    },
+    {
+     "text": "Cutman v3 for depth (Kalli)",
+     "who": "agent"
+    },
+    {
+     "text": "Amateur ask research (John)",
+     "who": "agent"
     }
    ],
    "next": [
@@ -5440,28 +5458,32 @@
      "who": "claude"
     },
     {
-     "text": "Slide causes, KD sway (Qwen)",
-     "who": "agent"
-    },
-    {
-     "text": "Leg tremble: fix head aim, collect",
-     "who": "claude"
-    },
-    {
      "text": "R25: find the way back first",
      "who": "claude"
     },
     {
      "text": "Fight display part 2 (Cursor)",
      "who": "agent"
+    },
+    {
+     "text": "Leg tremble round 4 (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "KD sway round 4 (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "Cutman v3: critics, then board",
+     "who": "claude"
     }
    ],
-   "session": "S423"
+   "session": "S424"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "beb1a3be",
- "next_action": "FIRST: main's CI went red on the S418 code push (e4a7b6f3), two tests. head_aim_test: 'join unlanded_jab_landed_cross jump=0.669 > noaim+0.300' (0.19 on the PC): the join check reads distance per FRAME, so a slow runner's long frame fails it. It is off tools/run_tests.sh until it reads speed (distance over the frame's real time) or a hitch is ruled out as a real one-frame jump. move_tip_test: 149 of 150 frames framed, and the lead hook read only 19 frames: green on PR 146's own CI with the same code, so likely the runner, NOT proved: read the next main run. Collect LOOKSLATE2 (Cursor, Club People: render 05_gym_staff and 28_members with layout_snapshot noguide, open them) and BLOCKMEET1 (Qwen, measure only: believe it only if CTRL_LANDED reads to_face under 0.05 and every row prints a gap of 0.80 to 1.10; then decide the fix: the block clip raised to meet the punch, or the punch aimed at the blocking glove). LOOKSLATE3-6 are queued on Cursor and launch by themselves: collect each the same way (render, open, slate test green). LOOKSLATE7 is queued behind them: the Fighters page's Scouted strip, the roster cards' paper feet and the week review's white pad cards. Film both right hooks for PR 140 REARHAND5B. Playbook game plan and Fight night: a Ludo painted concept in the slate look first, his yes, then re-brief MENUPLAYBOOK2B and MENUFIGHT1B. The critic's corner as a game screen (Ludo concept first). Read PR 77 (ANIMREBUILD1 design draft).",
+ "next_action": "1) Answers: Q-177 (dues look) -> on yes brief the DUES card to Cursor from docs/mockups/s424/dues_painted_v4.png (people above the numbers, try 1's layout). 2) Collect DUESBAND1 (Goose #165): read the 9-case table; then wire HomeJuniors.chance(band) + 'from next month' yourself. 3) FIGHTDISPLAY1 landed as PR 167 (built before the hang): fix corner_bar_test's 1 failure, render the live round, LOOK, collect. 4) Qwen: LEGTREMBLE4 then KDFIX4 (the reconcile launches them); collect, then films. 5) Kalli SQ32 R28 v3 -> two critics -> board. John SQ33 -> R37 amateur ask map. 6) R55, R58 maps.",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

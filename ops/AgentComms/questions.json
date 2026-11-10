@@ -6377,10 +6377,11 @@
         "AgentComms/board_attach/Q-S294-175_3_cutman_10_simvet.png",
         "AgentComms/board_attach/Q-S294-175_1_cutman_corner.png"
       ],
-      "answer": null,
+      "answer": "need to improve the depth of the mechanic, , rated 4/10 does worth investing time i think",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-10T10:59:34Z",
+      "seen_by_claude": true,
+      "comment_only": true
     },
     {
       "id": "Q-S294-176",
@@ -6395,6 +6396,24 @@
       "attach": [
         "research/DUES_DESIGN_MAP_S423.md",
         "AgentComms/board_attach/Q-S294-176_1_dues_choice.png"
+      ],
+      "answer": "Yes, but change something (note)",
+      "note": "ok for the mechanism but the design needs better presentation",
+      "answered_at": "2026-11-10T11:02:22Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-177",
+      "asked": "2026-11-10T11:11:45.160879+00:00",
+      "session": "S294",
+      "text": "Dues screen, the better presentation you asked for (Q-176): the three prices become slate price boards in wooden frames on the gym wall, each painted with the members it brings (kids' class / mixed club / adults on the bags), the one in force has the brass IN FORCE plate, the explanation is a paper tag. Ludo painted it in the Overview look you liked; picture 1 is the pick (every number right), picture 2 the four tries. When built, the people go ABOVE the numbers (like try 1, top left) so the numbers stay clear. Build this look?",
+      "options": [
+        "Yes, build it",
+        "Change something (note)"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-177_0_dues_painted_four.jpg"
       ],
       "answer": null,
       "note": null,
