@@ -1,3 +1,6 @@
+# S417 very last note (read first)
+HIS ANSWER, Q-S294-162, in chat after the handover: "Yes, slate everywhere". Money and World come off the whiteboard and onto slate. Not briefed yet: write LOOKSLATE5 from TASK_LOOKSLATE1 (owned files: areas/Money.gd, MoneyPanels.gd, MoneyTags.gd, CashChart.gd, WorldLadder.gd, WorldCompare.gd, areas/World.gd; WarmKit.panel("board") and ("paper") go, the tan plaster wall behind World goes; CashChart draws with UI.FG, so it needs UI.WoodKit.fg(self)). Queue it on Cursor after LOOKSLATE1 lands. The S403 whiteboard mockups for those two pages are no longer the spec for their look; their layout and options still are.
+
 # S417 handover (written 2026-11-09, read first; it overrides the notes below where they disagree)
 
 OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `where_we_are.py roll S418` and redraw the map.

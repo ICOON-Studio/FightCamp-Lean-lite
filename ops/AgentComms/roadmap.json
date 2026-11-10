@@ -9,12 +9,11 @@
   "summary": "S417: the approved wood and slate look is in the shared theme (WoodKit): every card, pop-up, tab, button and the top bar; words turn chalk on dark by themselves. Cursor's wording pass collected with two cuts. The grey-button test that kept main red is fixed. Punch head aim: found why (blocked and slipped punches are never aimed), round 1 void, round 2 running. Exported.",
   "last_working_commit": "f7f08af6",
   "verified_playable": "wood_kit + 45 tests that read colours, styles, words or play the path green (golden_path, first_week, first_hour_walk, grey_reason, words_on_screens, camp_cards, tape_room, versus, roster_cards); all 58 screens rendered and opened; exported 11-09 23:39.",
-  "incomplete_blocked": "Pages that paint their own cream panels are not on slate: Training week (LOOKSLATE1, Cursor, running), Club People, Fight camp, bout page, New game, Interview. Money and World keep the whiteboard until he answers Q on the board. PR 145 HEADAIM2 void, HEADAIM2B (Qwen) running on it. PR 140 REARHAND5B still to film. KNOW1 (goose/issue-139) not collected. Miro map not redrawn (cards updated). Hidden-desktop stills came out cropped about 65 px a side late in the session.",
-  "next_action": "Collect LOOKSLATE1 (render the Training tab, open it) and HEADAIM2B (believe it only if every row's gap is 0.9 m and flat is under 0.7 m; then film a blocked jab in the Moves preview). Brief LOOKSLATE2-4 (People, camp + bout, New game + Interview) from TASK_LOOKSLATE1. Re-brief MENUPLAYBOOK2B and MENUFIGHT1B for slate. Redraw the critic's corner as a game screen (Ludo concept first). Collect KNOW1. Redraw the Miro map (LEARN first).",
+  "incomplete_blocked": "Pages that paint their own cream panels are not on slate: Training week (LOOKSLATE1, Cursor, running), Club People, Fight camp, bout page, New game, Interview. Money and World: he said \"Yes, slate everywhere\" (Q-S294-162): move both off the whiteboard (LOOKSLATE5, to brief). PR 145 HEADAIM2 void, HEADAIM2B (Qwen) running on it. PR 140 REARHAND5B still to film. KNOW1 (goose/issue-139) not collected. Miro map not redrawn (cards updated). Hidden-desktop stills came out cropped about 65 px a side late in the session.",
+  "next_action": "Collect LOOKSLATE1 (render the Training tab, open it) and HEADAIM2B (believe it only if every row's gap is 0.9 m and flat is under 0.7 m; then film a blocked jab in the Moves preview). Brief LOOKSLATE2-4 (People, camp + bout, New game + Interview) and LOOKSLATE5 (Money and World off the whiteboard: his \"Yes, slate everywhere\") from TASK_LOOKSLATE1. Re-brief MENUPLAYBOOK2B and MENUFIGHT1B for slate. Redraw the critic's corner as a game screen (Ludo concept first). Collect KNOW1. Redraw the Miro map (LEARN first).",
   "next_acceptance": "No page shows a cream sheet under wooden tabs; a blocked jab in the Moves preview goes to the face height.",
   "awaiting_operator": [
-   "play the S417 build",
-   "Money and World: whiteboard or slate (board)"
+   "play the S417 build"
   ]
  },
  "next": "S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.",
@@ -4584,7 +4583,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-09",
+  "updated": "2026-11-10 00:12 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4726,24 +4725,242 @@
   },
   "working_now": [
    {
+    "title": "TASK SOUTHPAW2 - CURSOR (GPT-5.6 Sol High) - the guard knock-knee, round 2: a test that FAILS on main first",
+    "who": "cursor",
+    "started": "2026-11-07T21:21",
+    "run": "SOUTHPAW2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK ANIMREBUILD1 - AGY (Argon High) - design draft: fight animation rebuilt around a clip library + one picker",
+    "who": "antigravity",
+    "started": "2026-11-07T22:09",
+    "run": "ANIMREBUILD1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK RETARGET1 - CURSOR (GPT-5.6 Sol High) - bring the purchased Punch PRO pack onto our boxer WITHOUT breaking it",
+    "who": "cursor",
+    "started": "2026-11-07T22:53",
+    "run": "RETARGET1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK RETARGET2 - CURSOR (GPT-5.6 Sol High) - RETARGET1 round 2: keep the wins, fix the stance and the end trim",
+    "who": "cursor",
+    "started": "2026-11-08T07:24",
+    "run": "RETARGET2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK CORNERTRUST1 - QWEN (qwen3-coder) - a wrong corner call costs her trust; a Low fighter stops listening (rules only)",
+    "who": "qwen",
+    "started": "2026-11-08T10:16",
+    "run": "CORNERTRUST1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK OFFERGONE1 - QWEN (qwen3-coder) - an expired fight offer is never a dead end",
+    "who": "qwen",
+    "started": "2026-11-08T11:03",
+    "run": "OFFERGONE1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK GUIDEFLAG1 - QWEN (qwen3-coder) - the guide strip ends with the first week; the offer flag says what is needed",
+    "who": "qwen",
+    "started": "2026-11-08T12:10",
+    "run": "GUIDEFLAG1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK SWINGCENSUS1 - AGY (Argon High) - every random swing the player feels, and what they are told",
+    "who": "antigravity",
+    "started": "2026-11-08T12:41",
+    "run": "SWINGCENSUS1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK GUIDEFLAG2 - QWEN (qwen3-coder) - round 2: the guide must end, without breaking the first fight",
+    "who": "qwen",
+    "started": "2026-11-08T13:00",
+    "run": "GUIDEFLAG2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK R11A - QWEN (qwen3-coder) - an injury says why it happened",
+    "who": "qwen",
+    "started": "2026-11-08T13:34",
+    "run": "R11A",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "QWEN (qwen3-coder) - a standing count on the cards says what it cost",
+    "who": "goose",
+    "started": "2026-11-08T18:11",
+    "run": "R11C",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUMONEY1 - CURSOR (Grok 4.7 High) - the Money page, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-08T18:48",
+    "run": "MENUMONEY1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUWORLD1 - CURSOR (Grok 4.7 High) - the World page, rebuilt around the rankings",
+    "who": "cursor",
+    "started": "2026-11-08T19:34",
+    "run": "MENUWORLD1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK SOUTHPAW3 - QWEN (qwen3-coder) - the guard knock-knee fix, carried onto today's clips",
+    "who": "qwen",
+    "started": "2026-11-08T20:30",
+    "run": "SOUTHPAW3",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK KNEERAW1 - QWEN (qwen3-coder) - the guard knock-knee: fix the measure, then raw clip against ours",
+    "who": "qwen",
+    "started": "2026-11-08T21:41",
+    "run": "KNEERAW1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK KNEERAW2 - QWEN (qwen3-coder) - the knee table, round 2: make the two rulers agree",
+    "who": "qwen",
+    "started": "2026-11-08T22:00",
+    "run": "KNEERAW2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUPLAYBOOK1 - CURSOR (Grok 4.7 High) - the Playbook's game plan and Combos, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-08T22:42",
+    "run": "MENUPLAYBOOK1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUHOME1 - CURSOR (Grok 4.7 High) - the Home page, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-09T01:12",
+    "run": "MENUHOME1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUWEEK1 - CURSOR (Grok 4.7 High) - the Fighter Week page, built from the approved mockup",
+    "who": "cursor",
+    "started": "2026-11-09T02:12",
+    "run": "MENUWEEK1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HUBSPRITES1 - QWEN (qwen3-coder) - our real boxers as small moving figures for the painted gym",
+    "who": "qwen",
+    "started": "2026-11-09T08:37",
+    "run": "HUBSPRITES1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HITREACT1 - QWEN (qwen3-coder) - do the hit reactions move as much as the capture does?",
+    "who": "qwen",
+    "started": "2026-11-09T09:51",
+    "run": "HITREACT1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HITREACT2 - QWEN (qwen3-coder) - where does a hit reaction lose its movement?",
+    "who": "qwen",
+    "started": "2026-11-09T10:20",
+    "run": "HITREACT2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUHOME2 - CURSOR (Grok 4.7 High) - Home, round 2: the Needs-you board as drawn",
+    "who": "cursor",
+    "started": "2026-11-09T11:55",
+    "run": "MENUHOME2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MENUWEEK2 - CURSOR (Grok 4.7 High) - the Fighter Week page, round 2: to the mockup, on one screen",
+    "who": "cursor",
+    "started": "2026-11-09T15:13",
+    "run": "MENUWEEK2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK REARHAND1 - QWEN (qwen3-coder) - does the hand really drop to the hip before a punch, and in how many clips",
+    "who": "qwen",
+    "started": "2026-11-09T15:36",
+    "run": "REARHAND1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK GYMBUY1 - QWEN (qwen3-coder) - does buying equipment change a club's results",
+    "who": "qwen",
+    "started": "2026-11-09T20:03",
+    "run": "GYMBUY1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK REARHAND5 - QWEN (qwen3-coder) - the plain right hook keeps the hand up before it swings",
+    "who": "qwen",
+    "started": "2026-11-09T20:30",
+    "run": "REARHAND5",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK REARHAND5B - QWEN (qwen3-coder) - the plain right hook keeps the hand up: blend, do not solve",
+    "who": "qwen",
+    "started": "2026-11-09T20:43",
+    "run": "REARHAND5B",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "QWEN (qwen3-coder) - Knowledge.gd: what the player can see of a boxer, and the range never lies",
+    "who": "goose",
+    "started": "2026-11-09T20:59",
+    "run": "KNOW1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HEADAIM1 - QWEN (qwen3-coder) - do the punches aim at the head",
+    "who": "qwen",
+    "started": "2026-11-09T22:11",
+    "run": "HEADAIM1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK PRESENT1A - CURSOR (Grok 4.7 High) - every number and word on the screens says what it means",
+    "who": "cursor",
+    "started": "2026-11-09T22:30",
+    "run": "PRESENT1A",
+    "state": "LANDED - Claude collects"
+   },
+   {
     "title": "TASK HEADAIM2 - QWEN (qwen3-coder) - a blocked or slipped head punch is still thrown at the head",
     "who": "qwen",
     "started": "2026-11-09T23:04",
-    "run": "HEADAIM2"
+    "run": "HEADAIM2",
+    "state": "LANDED - Claude collects"
    },
    {
-    "title": "LOOKSLATE1 - the Training week page on slate and wood",
-    "who": "cursor",
-    "started": "2026-11-09T23:30",
-    "run": "LOOKSLATE1",
-    "state": "running"
-   },
-   {
-    "title": "HEADAIM2B - blocked and slipped punches go to the head, round 2",
+    "title": "TASK HEADAIM2B - QWEN (qwen3-coder) - the head aim, round 2: a ruler that holds, and joins",
     "who": "qwen",
     "started": "2026-11-09T23:24",
     "run": "HEADAIM2B",
-    "state": "running"
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK LOOKSLATE1 - CURSOR (Grok 4.7 High) - the Training week page on slate and wood",
+    "who": "cursor",
+    "started": "2026-11-09T23:29",
+    "run": "LOOKSLATE1",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
@@ -4752,6 +4969,12 @@
     "who": "cursor",
     "title": "Club People, Fight camp, bout page, New game on slate",
     "after": "LOOKSLATE1"
+   },
+   {
+    "id": "LOOKSLATE5",
+    "who": "cursor",
+    "title": "Money and World off the whiteboard, onto slate (his yes)",
+    "after": "LOOKSLATE2"
    },
    {
     "id": "CORNER2",
@@ -5485,6 +5708,10 @@
     {
      "text": "Critic's corner as a game screen",
      "who": "claude"
+    },
+    {
+     "text": "Money + World to slate (his yes)",
+     "who": "claude"
     }
    ],
    "session": "S417"
@@ -5493,6 +5720,6 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "f7f08af6",
- "next_action": "Collect LOOKSLATE1 (render the Training tab, open it) and HEADAIM2B (believe it only if every row's gap is 0.9 m and flat is under 0.7 m; then film a blocked jab in the Moves preview). Brief LOOKSLATE2-4 (People, camp + bout, New game + Interview) from TASK_LOOKSLATE1. Re-brief MENUPLAYBOOK2B and MENUFIGHT1B for slate. Redraw the critic's corner as a game screen (Ludo concept first). Collect KNOW1. Redraw the Miro map (LEARN first).",
+ "next_action": "Collect LOOKSLATE1 (render the Training tab, open it) and HEADAIM2B (believe it only if every row's gap is 0.9 m and flat is under 0.7 m; then film a blocked jab in the Moves preview). Brief LOOKSLATE2-4 (People, camp + bout, New game + Interview) and LOOKSLATE5 (Money and World off the whiteboard: his \"Yes, slate everywhere\") from TASK_LOOKSLATE1. Re-brief MENUPLAYBOOK2B and MENUFIGHT1B for slate. Redraw the critic's corner as a game screen (Ludo concept first). Collect KNOW1. Redraw the Miro map (LEARN first).",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }
