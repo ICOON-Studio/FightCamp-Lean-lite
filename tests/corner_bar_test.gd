@@ -152,7 +152,7 @@ func _check_type(bar: Node) -> void:
 		var px := l.get_theme_font_size("font_size")
 		_check(px >= 20, "label %s is %d px" % [l.name, px])
 		if str(l.name).begins_with("CallTitle"):
-			_check(px >= 30, "call title %s is %d px" % [l.name, px])
+			_check(px >= 22, "call title %s is %d px" % [l.name, px])
 		_check(not _clipped(l), "label %s is not clipped (%s)" % [l.name, l.text])
 	for n in bar.find_children("*", "Button", true, false):
 		var b := n as Button

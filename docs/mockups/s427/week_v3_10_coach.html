@@ -1,0 +1,273 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Camp Thursday, the coach critic's 10 (S427)</title>
+<style>
+:root{--gold:#f0bd4f;--chalk:#f3efe4;--red:#c9342a;--lucy:#e0493b;--rey:#4aa3df;--ok:#8fe3a2;--amber:#ff9838;--dim:#aab1b9}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#0d0b0a;color:var(--chalk);font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;position:relative;
+ background-image:radial-gradient(ellipse at 20% 0,#3a2a1c 0,transparent 40%),radial-gradient(ellipse at 90% 0,#2e2218 0,transparent 40%)}
+.abs{position:absolute}
+.wood{background:linear-gradient(180deg,#7a5230,#4c2f1a 60%,#3c2514);border:2px solid #20120a;box-shadow:inset 0 2px 0 #9a6d42,0 4px 10px #000a}
+.board{position:absolute;border:12px solid #5b3a20;border-radius:6px;background:
+ radial-gradient(ellipse at 30% 20%,#2b2e31,transparent 60%),linear-gradient(#1d1f21,#161718);
+ box-shadow:0 0 0 2px #1d1008,inset 0 0 0 2px #8a5f36,inset 0 0 40px #000c,0 6px 14px #000a}
+.board.pin:before,.board.pin:after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f6d98a,#a97a25 60%,#5b3d0f);top:-17px;left:-17px;box-shadow:0 2px 3px #000}
+.board.pin:after{left:auto;right:-17px}
+.nav{top:0;left:0;width:1920px;height:64px}
+.navbtn{position:absolute;top:10px;height:46px;border-radius:5px;font-size:26px;display:flex;align-items:center;gap:10px;padding:0 20px;color:var(--chalk);white-space:nowrap}
+.h{font-weight:700;letter-spacing:.5px}
+.t{position:absolute;font-size:28px;line-height:36px;font-weight:700;color:var(--gold);white-space:nowrap}
+.tx{position:absolute;white-space:nowrap;font-weight:700}
+.lab{position:absolute;white-space:nowrap;font-size:24px;font-weight:700;letter-spacing:2px;color:#8d949c;text-transform:uppercase;line-height:28px}
+.chip{display:inline-flex;align-items:center;gap:8px;border-radius:20px;padding:2px 14px;font-size:24px;font-weight:700;background:#0008;border:2px solid #ffffff30;white-space:nowrap;line-height:32px}
+.chip.r{color:#ff8d80;border-color:#c9342a}.chip.g{color:var(--ok);border-color:#3d8d52}.chip.y{color:var(--gold);border-color:#a97a25}.chip.b{color:#aab1b9;border-color:#6a7078}
+.chip.k-fight{color:#ff8d80;border-color:#c9342a}.chip.k-career{color:#9fd0f2;border-color:#4aa3df}.chip.k-body{color:var(--ok);border-color:#3d8d52}.chip.k-club{color:#d9b8f5;border-color:#8a5fc0}
+.chip.am{color:var(--amber);border-color:#a85a10}
+.face{border-radius:50%;object-fit:cover;object-position:50% 18%;border:4px solid #0009;background:#333;flex-shrink:0}
+.g{color:var(--ok)}.r{color:#ff8d80}.y{color:var(--gold)}.dim{color:#aab1b9}.am{color:var(--amber)}
+.ic{fill:none;stroke:currentColor;stroke-width:3.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;display:block}
+.tile{position:absolute;border-radius:10px;background:linear-gradient(#2c2f32,#1f2123);border:2px solid #4a4f55}
+.glow{border:2px solid #ffe9b0!important;background:linear-gradient(#3b3524,#26231a)!important;box-shadow:0 0 0 1px #f0bd4f,0 0 26px 6px #f0bd4f80,inset 0 0 22px #f0bd4f30}
+.open{border:3px dashed #cfc8b8!important;background:#141618!important}
+.ghost{border:2px dashed #8d949c!important;background:#1a1c1e99!important}
+.hover{border:2px solid #f3efe4!important;background:linear-gradient(#383c40,#27292c)!important}
+.free{border:2px solid #3d8d52!important}
+.past{opacity:.7}
+.dot{position:absolute;width:28px;height:28px;border-radius:50%}
+.dot.f{background:radial-gradient(circle at 35% 30%,#c9f7d2,#8fe3a2 55%,#4cae68);border:2px solid #2f7d45}
+.dot.sharp{box-shadow:0 0 0 3px #1f2123,0 0 0 6px #f3efe4}
+.dot.e{background:#101112;border:2px dashed #ff9838}
+.band{position:absolute;height:28px;border-radius:14px;background:#0c0d0e;border:2px solid #5a5f66}
+.band i{position:absolute;display:block}
+.band .mid{left:50%;top:0;bottom:0;width:2px;background:#5a5f66}
+.band .span{top:1px;bottom:1px;border-radius:12px;background:linear-gradient(#ffe6a8,#f0bd4f)}
+.band .gh{top:-11px;height:8px;border-radius:4px;background:repeating-linear-gradient(90deg,#8fe3a2 0 10px,#3d8d52 10px 16px)}
+.lamp{position:absolute;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #000a}
+.lamp.gr{background:radial-gradient(circle at 35% 30%,#d6fadd,#6fd58a 60%,#2f7d45);box-shadow:0 0 14px #8fe3a280;color:#0d2a15}
+.lamp.a{background:radial-gradient(circle at 35% 30%,#ffe0b3,#ff9838 60%,#a85a10);box-shadow:0 0 14px #ff983880;color:#3a1c00}
+.plaque{position:absolute;border-radius:50%;background:#101112;border:3px solid #4a4f55;display:flex;align-items:center;justify-content:center;color:var(--chalk)}
+.clk{position:absolute;left:12px;right:12px;height:44px;border-radius:8px;background:#0c0d0e;border:1px solid #3d4146;display:flex;align-items:center;gap:8px;padding:0 10px;font-size:24px;font-weight:700;white-space:nowrap}
+.vr{position:absolute;width:2px;background:#3d4146}
+.hr{position:absolute;height:2px;background:#3d4146}
+.btn{position:absolute;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:12px;font-weight:700;color:#fff;background:linear-gradient(#d8483b,#8f2219);border:2px solid #3a0d09;box-shadow:inset 0 2px 0 #f08a7f;white-space:nowrap}
+.wbtn{position:absolute;border-radius:6px;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:700;white-space:nowrap}
+.row{position:absolute;left:14px;right:14px;height:52px;border-radius:8px;background:#0c0d0e;border:1px solid #3d4146}
+.d1{left:12px;top:6px;font-size:24px;line-height:28px}
+.d2{right:10px;top:6px;font-size:24px;line-height:28px}
+.l1{left:12px;top:38px;font-size:24px;line-height:28px}
+.l2{left:12px;top:66px;font-size:24px;line-height:28px;color:#aab1b9}
+.c-title{left:14px;top:78px;font-size:28px;line-height:34px}
+.c-sub{left:14px;top:114px;font-size:24px;line-height:28px;color:#aab1b9}
+.c-big{left:14px;top:158px;font-size:38px;line-height:44px}
+.c-line{left:14px;top:204px;font-size:24px;line-height:28px}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">
+<symbol id="i-mitt" viewBox="0 0 48 48"><g transform="rotate(-12 13 24)"><ellipse cx="13" cy="19" rx="9.500" ry="12.500"/><circle cx="13" cy="19" r="3.500"/><path d="M8 30.500v8h10v-8"/></g><g transform="rotate(12 35 24)"><ellipse cx="35" cy="19" rx="9.500" ry="12.500"/><circle cx="35" cy="19" r="3.500"/><path d="M30 30.500v8h10v-8"/></g></symbol>
+<symbol id="i-glove" viewBox="0 0 48 48"><path d="M15 31V17A11 11 0 0 1 26 6h3a11 11 0 0 1 11 11v6a8 8 0 0 1-8 8z"/><path d="M15 20h-2a5.500 5.500 0 0 0 0 11h2"/><path d="M17 31v11h17V31"/><path d="M17 37h17"/></symbol>
+<symbol id="i-hookp" viewBox="0 0 48 48"><path d="M5 30C5 15 17 6 31 9"/><path d="M24 3l8 6-7 7"/><g transform="translate(17 17) scale(.62)" stroke-width="4.6"><path d="M15 31V17A11 11 0 0 1 26 6h3a11 11 0 0 1 11 11v6a8 8 0 0 1-8 8z"/><path d="M15 20h-2a5.500 5.500 0 0 0 0 11h2"/><path d="M17 31v11h17V31"/></g></symbol>
+<symbol id="i-dropp" viewBox="0 0 48 48"><g transform="translate(1 3) scale(.66)" stroke-width="4.4"><path d="M15 31V17A11 11 0 0 1 26 6h3a11 11 0 0 1 11 11v6a8 8 0 0 1-8 8z"/><path d="M15 20h-2a5.500 5.500 0 0 0 0 11h2"/><path d="M17 31v11h17V31"/></g><path d="M38 14v28"/><path d="M31 35l7 7 7-7"/></symbol>
+<symbol id="i-heart" viewBox="0 0 48 48"><path d="M24 42S6 31 6 18a9.500 9.500 0 0 1 18-4 9.500 9.500 0 0 1 18 4c0 13-18 24-18 24z"/><path d="M11 25h7l3-6 5 11 3-5h8"/></symbol>
+<symbol id="i-scale" viewBox="0 0 48 48"><rect x="6" y="8" width="36" height="33" rx="7"/><path d="M14 22a10 10 0 0 1 20 0z"/><path d="M24 22l5-6"/></symbol>
+<symbol id="i-film" viewBox="0 0 48 48"><rect x="5" y="10" width="38" height="28" rx="4"/><path d="M20 17v14l11-7z"/><path d="M5 17h5M5 31h5M38 17h5M38 31h5"/></symbol>
+<symbol id="i-clock" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 12v12l8 5"/></symbol>
+<symbol id="i-shield" viewBox="0 0 48 48"><path d="M24 4l16 6v12c0 10-6 17-16 22C14 39 8 32 8 22V10z"/><path d="M16 23l6 6 10-11"/></symbol>
+<symbol id="i-swap" viewBox="0 0 48 48"><path d="M5 15h34M31 7l8 8-8 8"/><path d="M43 33H9M17 25l-8 8 8 8"/></symbol>
+<symbol id="i-person" viewBox="0 0 48 48"><circle cx="24" cy="16" r="8.500"/><path d="M7 44a17 17 0 0 1 34 0"/></symbol>
+<symbol id="i-lock" viewBox="0 0 48 48"><rect x="8" y="21" width="32" height="22" rx="4"/><path d="M15 21v-7a9 9 0 0 1 17-4"/></symbol>
+<symbol id="i-menu" viewBox="0 0 48 48"><path d="M7 12h34M7 24h34M7 36h34"/></symbol>
+<symbol id="i-check" viewBox="0 0 48 48"><path d="M7 25l11 11L41 11"/></symbol>
+<symbol id="i-right" viewBox="0 0 48 48"><path d="M5 24h37M29 11l13 13-13 13"/></symbol>
+<symbol id="i-home" viewBox="0 0 48 48"><path d="M24 4l6 12.500 13.500 1.700-10 9.300 2.600 13.500L24 34.300 11.900 41l2.600-13.500-10-9.300L18 16.500z"/></symbol>
+<symbol id="i-trophy" viewBox="0 0 48 48"><path d="M14 6h20v11a10 10 0 0 1-20 0z"/><path d="M14 10H6c0 8 4 11 9 11M34 10h8c0 8-4 11-9 11"/><path d="M24 27v8M15 43h18M18 35h12v8H18z"/></symbol>
+<symbol id="i-coin" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M30 17c-2-3-11-3-11 2s11 3 11 8-9 5-11 2M24 11v26"/></symbol>
+<symbol id="i-globe" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M6 24h36M24 6c-9 9-9 27 0 36M24 6c9 9 9 27 0 36"/></symbol>
+<symbol id="i-bell" viewBox="0 0 48 48"><path d="M8 35h32c-5-4-5-9-5-15a11 11 0 0 0-22 0c0 6 0 11-5 15z"/><path d="M19 40a5 5 0 0 0 10 0"/></symbol>
+<symbol id="i-cursor" viewBox="0 0 48 48"><path d="M9 3v36l10-9 7 15 7-3-7-15 13-1z" fill="#fff" stroke="#000" stroke-width="2.500"/></symbol>
+</svg>
+<div class="abs nav wood"></div>
+<div class="abs h" style="left:36px;top:12px;font-size:40px;font-style:italic;letter-spacing:1px;white-space:nowrap">Anvil Street Gym</div>
+<div class="abs chip y" style="left:374px;top:13px;font-size:24px;line-height:34px">Thu 5 Feb &nbsp;&middot;&nbsp; Week 5</div>
+<div class="navbtn wood" style="left:668px;box-shadow:inset 0 0 0 2px #e0493b,inset 0 2px 0 #9a6d42"><svg class="ic" width="24" height="24"><use href="#i-home"/></svg> Home</div>
+<div class="navbtn wood" style="left:822px"><svg class="ic" width="26" height="26"><use href="#i-glove"/></svg> Fighters</div>
+<div class="navbtn wood" style="left:1010px"><svg class="ic" width="26" height="26"><use href="#i-trophy"/></svg> Fights <span class="chip r" style="padding:0 10px;line-height:28px">1</span></div>
+<div class="navbtn wood" style="left:1210px"><svg class="ic" width="26" height="26"><use href="#i-coin"/></svg> Club</div>
+<div class="navbtn wood" style="left:1352px"><svg class="ic" width="26" height="26"><use href="#i-globe"/></svg> World</div>
+<div class="abs h" style="right:176px;top:10px;font-size:40px;color:var(--gold)">$18,700</div>
+<div class="navbtn wood" style="left:1764px"><svg class="ic" width="24" height="24"><use href="#i-menu"/></svg> Menu</div>
+
+<!-- 1. THE FIGHT: the card (ghost on the same bar) and the opponent on tape -->
+<div class="board pin" style="left:30px;top:76px;width:1860px;height:276px">
+ <div class="tile" style="left:10px;top:6px;width:1110px;height:240px">
+  <img class="face abs" style="left:12px;top:8px;width:76px;height:76px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg">
+  <div class="tx" style="left:100px;top:20px;font-size:40px;line-height:48px">Lucy Jackson <span class="dim" style="font-size:28px">v</span> Kovacs</div>
+  <img class="face abs" style="left:526px;top:8px;width:76px;height:76px;border-color:#8d949c" src="../../../assets/ui/face/studio/mh_boxer_13.jpg">
+  <div class="abs" style="right:12px;top:22px;display:flex;gap:8px"><span class="chip y" style="line-height:40px"><svg class="ic" width="24" height="24"><use href="#i-bell"/></svg> Bell in 15 days</span><span class="chip b" style="line-height:40px">Taper in 8</span></div>
+
+  <div class="lab" style="left:20px;top:106px">Wins in 100</div>
+  <div class="tx y" style="left:200px;top:86px;font-size:60px;line-height:64px">41 <span class="dim" style="font-size:28px">to</span> 49</div>
+  <div class="tx g" style="left:440px;top:108px;font-size:24px;line-height:28px">with the hook: 44 to 57</div>
+  <div class="band" style="left:20px;top:164px;width:680px"><i class="mid"></i><i class="span" style="left:41%;width:8%"></i><i class="gh" style="left:44%;width:13%"></i></div>
+  <div class="lab" style="left:20px;top:204px">Peak camp</div>
+  <div class="lamp a" style="left:180px;top:198px"><svg class="ic" width="22" height="22"><use href="#i-scale"/></svg></div>
+  <div class="lamp gr" style="left:226px;top:198px"><svg class="ic" width="22" height="22"><use href="#i-heart"/></svg></div>
+  <div class="lamp a" style="left:272px;top:198px"><svg class="ic" width="22" height="22"><use href="#i-shield"/></svg></div>
+  <div class="tx dim" style="left:324px;top:202px;font-size:24px;line-height:28px">1 of 3. All green: stats up</div>
+
+  <div class="vr" style="left:722px;top:92px;height:138px"></div>
+  <div class="lab" style="left:740px;top:90px">Answers, and how often</div>
+  <div class="dot f" style="left:740px;top:124px"></div>
+  <div class="tx" style="left:778px;top:120px;font-size:24px;line-height:28px">Step back</div>
+  <div class="tx dim" style="left:778px;top:148px;font-size:24px;line-height:28px">1 in 2</div>
+  <div class="dot f sharp" style="left:922px;top:124px"></div>
+  <div class="tx" style="left:962px;top:120px;font-size:24px;line-height:28px">One-two</div>
+  <div class="tx g" style="left:962px;top:148px;font-size:24px;line-height:28px">3 in 4</div>
+  <div class="dot f" style="left:740px;top:184px"></div>
+  <div class="tx" style="left:778px;top:180px;font-size:24px;line-height:28px">Body hook</div>
+  <div class="tx dim" style="left:778px;top:208px;font-size:24px;line-height:28px">1 in 2</div>
+  <div class="dot e" style="left:922px;top:184px"></div>
+  <div class="tx am" style="left:962px;top:180px;font-size:24px;line-height:28px">The jab</div>
+  <div class="tx am" style="left:962px;top:208px;font-size:24px;line-height:28px">none yet</div>
+ </div>
+
+ <div class="tile" style="left:1132px;top:6px;width:694px;height:240px">
+  <svg class="ic" width="34" height="34" style="position:absolute;left:14px;top:12px"><use href="#i-film"/></svg>
+  <div class="tx" style="left:60px;top:8px;font-size:30px;line-height:40px">Kovacs on tape</div>
+  <span class="chip b abs" style="right:12px;top:10px">2 of 3 found</span>
+  <div class="row" style="top:62px"><div class="tx" style="left:12px;top:10px;font-size:24px;line-height:30px">Drops the right after the jab</div><span class="chip am abs" style="right:8px;top:7px">no answer</span></div>
+  <div class="row" style="top:120px"><div class="tx" style="left:12px;top:10px;font-size:24px;line-height:30px">Punishes a low right hand</div><span class="chip r abs" style="right:8px;top:7px">Lucy's drops</span></div>
+  <div class="row" style="top:178px;border:2px dashed #6a7078;background:none"><svg class="ic dim" width="26" height="26" style="position:absolute;left:10px;top:11px"><use href="#i-lock"/></svg><div class="tx dim" style="left:46px;top:10px;font-size:24px;line-height:30px">Third thing: ringside Saturday, or Tuesday's tape</div></div>
+ </div>
+</div>
+
+<!-- 2. THE CAMP TO THE BELL: every evening left, as a slot -->
+<div class="board" style="left:30px;top:364px;width:1860px;height:146px">
+ <div class="tile past" style="left:10px;top:10px;width:220px;height:100px">
+  <div class="tx d1">Mon to Wed</div>
+  <div class="tx l1">Step back: in</div><div class="tx l2">2 new problems</div>
+ </div>
+ <div class="tile glow" style="left:238px;top:10px;width:220px;height:100px">
+  <div class="tx d1">Thu</div><div class="tx d2 y">TODAY</div>
+  <div class="tx l1">Your call</div><div class="tx l2">below</div>
+ </div>
+ <div class="tile open" style="left:466px;top:10px;width:220px;height:100px">
+  <div class="tx d1">Fri</div><div class="tx d2 dim">Pads</div>
+  <img class="face abs" style="left:10px;top:42px;width:46px;height:46px;border-width:3px;border-color:#e6d3b8" src="../../../assets/ui/face/mh_staff_coach.jpg">
+  <div class="tx" style="left:66px;top:38px;font-size:24px;line-height:28px;letter-spacing:2px">OPEN</div><div class="tx dim" style="left:66px;top:66px;font-size:24px;line-height:28px">Reid's hands</div>
+ </div>
+ <div class="tile open" style="left:694px;top:10px;width:220px;height:100px">
+  <div class="tx d1">Sat</div><div class="tx d2 dim">You</div>
+  <div class="tx l1">Show or pads</div><div class="tx l2">your hands</div>
+ </div>
+ <div class="tile ghost" style="left:922px;top:10px;width:220px;height:100px">
+  <div class="tx d1">Mon</div><div class="tx d2 dim">Pads</div>
+  <div class="tx l1 g">Hook, 2 of 2</div><div class="tx l2">if you teach it</div>
+ </div>
+ <div class="tile open" style="left:1150px;top:10px;width:220px;height:100px">
+  <div class="tx d1">Wed</div><div class="tx d2 dim">Rounds</div>
+  <div class="tx l1">Job open</div><div class="tx l2">costs the body</div>
+ </div>
+ <div class="tile" style="left:1378px;top:10px;width:220px;height:100px;border-color:#6a7078">
+  <div class="tx d1">Fri</div><div class="tx d2 dim">TAPER</div>
+  <div class="tx l1 dim">No new work</div><div class="tx l2">from here</div>
+ </div>
+ <div class="tile" style="left:1606px;top:10px;width:220px;height:100px;border-color:#a97a25">
+  <div class="tx d1 y">Fight night</div>
+  <svg class="ic y" width="40" height="40" style="position:absolute;left:12px;top:46px"><use href="#i-bell"/></svg>
+  <div class="tx" style="left:62px;top:38px;font-size:24px;line-height:28px">v Kovacs</div><div class="tx dim" style="left:62px;top:66px;font-size:24px;line-height:28px">15 days</div>
+ </div>
+</div>
+
+<!-- 3. THE CALL: hands and body, each with a true rival -->
+<div class="board" style="left:30px;top:522px;width:1860px;height:438px">
+ <div class="t" style="left:16px;top:4px">The jab: how to answer it</div>
+ <div class="t" style="left:634px;top:4px">Or Reid's Friday goes to</div>
+ <div class="t" style="left:1252px;top:4px">The body: room for one</div>
+ <div class="vr" style="left:618px;top:10px;height:336px"></div>
+ <div class="vr" style="left:1236px;top:10px;height:336px"></div>
+
+ <div class="tile hover" style="left:12px;top:46px;width:294px;height:300px">
+  <div class="plaque" style="left:12px;top:10px;width:60px;height:60px"><svg class="ic" width="40" height="40"><use href="#i-hookp"/></svg></div>
+  <span class="chip k-fight abs" style="left:84px;top:22px">THIS FIGHT</span>
+  <div class="tx c-title">Teach the hook</div>
+  <div class="tx c-sub">new: beats the jab</div>
+  <div class="hr" style="left:12px;right:12px;top:150px"></div>
+  <div class="tx c-big g">+3 <span class="dim" style="font-size:24px">to</span> +8</div>
+  <div class="tx c-line">fires 1 in 2</div>
+  <div class="clk" style="top:244px"><svg class="ic" width="28" height="28"><use href="#i-mitt"/></svg><svg class="ic" width="28" height="28"><use href="#i-mitt"/></svg><span>Fri + Mon</span></div>
+  <svg class="ic" width="38" height="38" style="position:absolute;left:236px;top:76px"><use href="#i-cursor"/></svg>
+ </div>
+ <div class="tile free" style="left:314px;top:46px;width:294px;height:300px">
+  <div class="plaque" style="left:12px;top:10px;width:60px;height:60px"><svg class="ic" width="38" height="38"><use href="#i-swap"/></svg></div>
+  <span class="chip k-fight abs" style="left:84px;top:22px">THIS FIGHT</span>
+  <div class="tx c-title">Use the one-two</div>
+  <div class="tx c-sub">owned, sharp: works</div>
+  <div class="hr" style="left:12px;right:12px;top:150px"></div>
+  <div class="tx c-big g">+2 <span class="dim" style="font-size:24px">to</span> +5</div>
+  <div class="tx c-line">fires 3 in 4</div>
+  <div class="clk g" style="top:244px;border-color:#3d8d52"><svg class="ic" width="28" height="28"><use href="#i-check"/></svg><span>no evening</span></div>
+ </div>
+
+ <div class="tile" style="left:630px;top:46px;width:294px;height:300px">
+  <div class="plaque" style="left:12px;top:10px;width:60px;height:60px"><svg class="ic" width="40" height="40"><use href="#i-dropp"/></svg></div>
+  <span class="chip k-career abs" style="left:84px;top:22px">CAREER</span>
+  <div class="tx c-title">Right hand drops</div>
+  <div class="tx c-sub">Kovacs punishes it</div>
+  <div class="hr" style="left:12px;right:12px;top:150px"></div>
+  <div class="tx c-big" style="color:#9fd0f2">+1 <span class="dim" style="font-size:24px">to</span> +4</div>
+  <div class="tx c-line">holds 2 rounds now</div>
+  <div class="clk" style="top:244px"><svg class="ic" width="28" height="28"><use href="#i-mitt"/></svg><span>Fri + Mon, 2 later</span></div>
+ </div>
+ <div class="tile" style="left:932px;top:46px;width:294px;height:300px">
+  <img class="face abs" style="left:12px;top:10px;width:60px;height:60px;border-color:var(--rey)" src="../../../assets/ui/face/studio/mh_boxer_02.jpg">
+  <span class="chip k-club abs" style="left:84px;top:22px">CLUB</span>
+  <div class="tx c-title">Danny gets Reid</div>
+  <div class="tx c-sub">3rd week without</div>
+  <div class="hr" style="left:12px;right:12px;top:150px"></div>
+  <div class="tx c-big" style="color:#d9b8f5">Listens 85</div>
+  <div class="tx c-line">else 70 on Monday</div>
+  <div class="clk" style="top:244px"><svg class="ic" width="28" height="28"><use href="#i-mitt"/></svg><span>Friday only</span></div>
+ </div>
+
+ <div class="tile" style="left:1248px;top:46px;width:578px;height:300px">
+  <svg class="ic" width="44" height="44" style="position:absolute;left:14px;top:8px"><use href="#i-heart"/></svg>
+  <div class="tx" style="left:68px;top:4px;font-size:44px;line-height:50px">74 <span class="dim" style="font-size:24px">of 80</span></div>
+  <div class="tx am" style="right:14px;top:20px;font-size:24px;line-height:28px">overtired at 80</div>
+  <div class="band" style="left:14px;top:62px;width:550px;height:22px;border-radius:6px">
+   <i style="left:0;top:1px;bottom:1px;width:82.2%;background:linear-gradient(#c9f7d2,#8fe3a2);border-radius:4px 0 0 4px"></i>
+   <i style="left:82.2%;top:1px;bottom:1px;width:5.6%;background:repeating-linear-gradient(45deg,#ff9838 0 5px,#a85a10 5px 10px)"></i>
+   <i style="left:87.8%;top:1px;bottom:1px;width:6.6%;background:repeating-linear-gradient(45deg,#ff6a5c 0 5px,#8f2219 5px 10px)"></i>
+   <i style="left:88.9%;top:-7px;bottom:-7px;width:3px;background:#f3efe4"></i>
+  </div>
+  <div class="tile" style="left:12px;top:94px;width:550px;height:80px;background:#141618">
+   <svg class="ic" width="40" height="40" style="position:absolute;left:10px;top:18px"><use href="#i-scale"/></svg>
+   <div class="tx" style="left:62px;top:8px;font-size:26px;line-height:30px">Roadwork x3 for the scale</div>
+   <div class="tx dim" style="left:62px;top:42px;font-size:24px;line-height:28px">60.4 to 60.0 kg, line met</div>
+   <div class="tx am" style="right:14px;top:18px;font-size:36px;line-height:42px">+5</div>
+  </div>
+  <div class="tile" style="left:12px;top:180px;width:550px;height:80px;background:#141618">
+   <svg class="ic" width="40" height="40" style="position:absolute;left:10px;top:18px"><use href="#i-glove"/></svg>
+   <div class="tx" style="left:62px;top:8px;font-size:26px;line-height:30px">Hard rounds Wed, one job</div>
+   <div class="tx dim" style="left:62px;top:42px;font-size:24px;line-height:28px">counts as one evening of pads</div>
+   <div class="tx r" style="right:14px;top:18px;font-size:36px;line-height:42px">+6</div>
+  </div>
+  <div class="tx am" style="left:14px;top:266px;font-size:24px;line-height:28px">Both: 85, overtired. Or cut on the plate: gains slow</div>
+ </div>
+
+ <div class="abs" style="left:0;top:358px;width:1836px;display:flex;justify-content:center;align-items:center;gap:12px;font-size:24px;font-weight:700;color:#e2dccd;white-space:nowrap;line-height:32px">
+  <svg class="ic" width="28" height="28"><use href="#i-mitt"/></svg> <span>Reid's Friday goes to one thing.</span> <svg class="ic" width="28" height="28"><use href="#i-heart"/></svg> <span>The body fits one.</span> <span class="dim">&nbsp;Nothing is marked best. What you leave comes back Monday.</span>
+ </div>
+</div>
+
+<!-- 4. LEFT FOR MONDAY, HANDS FOR MONEY, THE BUTTON -->
+<div class="board" style="left:30px;top:972px;width:1860px;height:96px">
+ <div class="t" style="left:20px;top:16px;font-size:30px">Left for Monday</div>
+ <div class="tile ghost" style="left:270px;top:5px;width:640px;height:60px">
+  <svg class="ic" width="34" height="34" style="position:absolute;left:12px;top:11px"><use href="#i-dropp"/></svg>
+  <div class="tx" style="left:54px;top:12px;font-size:26px;line-height:34px">Right hand drops</div>
+  <svg class="ic" width="32" height="32" style="position:absolute;left:330px;top:12px"><use href="#i-person"/></svg>
+  <div class="tx" style="left:372px;top:12px;font-size:26px;line-height:34px">Danny: listens 70</div>
+ </div>
+ <div class="wbtn wood" style="left:926px;top:5px;width:580px;height:60px;font-size:26px;color:#fbefd9"><svg class="ic" width="30" height="30"><use href="#i-coin"/></svg> Pad man for Saturday: $120, half Reid's rate</div>
+ <div class="btn" style="left:1522px;top:3px;width:302px;height:64px;font-size:32px">Go to Friday <svg class="ic" width="30" height="30"><use href="#i-right"/></svg></div>
+</div>
+
+</body></html>

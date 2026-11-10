@@ -12,6 +12,10 @@ const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const PaceAim := preload("res://scripts/rules/PaceAim.gd")
 const NowPlateSc := preload("res://scripts/fight3d/NowPlate.gd")
 const ShoutBar := preload("res://scripts/fight3d/ShoutBar.gd")
+const RoundBoard := preload("res://scripts/fight3d/RoundBoard.gd")
+const LAST_W := 276.0
+const CALL_Y := 90.0
+const CALL_H := 66.0
 
 const PACE_LABEL := {"push": "Push", "steady": "Steady", "save": "Save"}
 const AIM_LABEL := {"": "Own game", "head": "Head", "body": "Body", "left_ribs": "Left ribs",
@@ -169,32 +173,35 @@ func _rebuild(pv: Dictionary, wide: int) -> void:
 	x += 8.0
 	_ring = Ring.new()
 	_ring.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_place(_body, _ring, x, 10, 100, 100)
-	x += 108.0
+	_place(_body, _ring, x, 0, 86, 86)
+	x += 92.0
 	_last_call(x)
-	x += 168.0
+	x += LAST_W
+	# S427 (his marks on the bar, Feedback/2026-11-10-20): the calls are smaller and sit on the left under pace and aim;
+	# the right of the bar is the live round board.
 	var offers: Array = pv.get("offers", [])
 	var right := float(wide) - 156.0
-	var room := maxf(80.0, right - x - 8.0)
-	var say_w := 100.0
+	var say_w := 112.0
 	var gaps := 8.0 * float(offers.size())
-	var each := maxf(150.0, (room - say_w - gaps) / float(maxi(offers.size(), 1)))
+	var each := maxf(150.0, (x - 8.0 - say_w - gaps) / float(maxi(offers.size(), 1)))
 	_calls = Control.new()
 	_calls.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_body.add_child(_calls)
 	var sit := str(pv.get("sit", ""))
 	var names: Array = pv.get("names", [])
 	var force := _in_force()
-	var cx := x
+	var cx := 8.0
 	for call in offers:
 		var frame := _call(str(call), sit, names, str(call) == force, each)
-		_place(_calls, frame, cx, 8, each, 156)
+		_place(_calls, frame, cx, CALL_Y, each, CALL_H)
 		cx += each + 8.0
 	var say := _btn("Say nothing", "SayNothing", _shout.bind(""))
 	say.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	say.tooltip_text = "No shout. The boxer sticks to the plan"
 	_wood(say, false)
-	_place(_calls, say, cx, 8, say_w, 156)
+	say.add_theme_font_size_override("font_size", 20)
+	_place(_calls, say, cx, CALL_Y, say_w, CALL_H)
+	_place(_body, RoundBoard.build(_ex(), sit, names, right - x - 16.0, 150.0), x + 8.0, 6, right - x - 16.0, 150)
 
 
 func _call(call: String, sit: String, names: Array, on: bool, _wide: float) -> Control:
@@ -224,14 +231,14 @@ func _call(call: String, sit: String, names: Array, on: bool, _wide: float) -> C
 	frame.add_child(b)
 	var box := VBoxContainer.new()
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	box.add_theme_constant_override("separation", 4)
+	box.add_theme_constant_override("separation", 0)
 	box.alignment = BoxContainer.ALIGNMENT_CENTER
 	box.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	box.offset_left = 6
 	box.offset_right = -6
 	b.add_child(box)
 	var words := str(row["label"]).to_upper()
-	var title := TV.label(words, 30 if words.length() <= 18 else 24, WoodKit.INK if not on else WoodKit.DARK_INK, "bold", true)   # S427: a long call ran to three lines and pushed its grade off the plate
+	var title := TV.label(words, 22, WoodKit.INK if not on else WoodKit.DARK_INK, "bold")
 	title.name = "CallTitle_" + call
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	box.add_child(title)
@@ -243,7 +250,7 @@ func _call(call: String, sit: String, names: Array, on: bool, _wide: float) -> C
 	var fit := Exchanges.fit(call, sit)
 	var chip := Panel.new()
 	chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	chip.custom_minimum_size = Vector2(88, 30)
+	chip.custom_minimum_size = Vector2(88, 26)
 	var chip_box := StyleBoxFlat.new()
 	chip_box.bg_color = _fit_color(fit)
 	chip_box.set_corner_radius_all(6)
@@ -260,7 +267,7 @@ func _call(call: String, sit: String, names: Array, on: bool, _wide: float) -> C
 	var cost := float(row["cost"])
 	var spend := TV.label(_cost_word(cost), 20, WoodKit.HEAD if not on else Color("#6b3d00"), "bold")   # S427: gold on the lit plate could not be read
 	spend.name = "Cost_" + call
-	spend.custom_minimum_size = Vector2(60, 24)
+	spend.custom_minimum_size = Vector2(60, 22)
 	under.add_child(spend)
 	return frame
 
@@ -274,9 +281,9 @@ func _last_call(x: float) -> void:
 	sb.set_border_width_all(2)
 	sb.set_corner_radius_all(10)
 	panel.add_theme_stylebox_override("panel", sb)
-	_place(_body, panel, x, 10, 160, 116)
+	_place(_body, panel, x, 4, LAST_W - 8.0, 78)
 	var ex := _ex()
-	var words := "None yet"
+	var words := "No call yet"
 	var marks: Array = []
 	if not ex.is_empty():
 		var id := str((ex[-1] as Dictionary).get("call", ""))
@@ -294,17 +301,17 @@ func _last_call(x: float) -> void:
 	panel.mouse_filter = Control.MOUSE_FILTER_PASS
 	var head := TV.label("LAST CALL", 20, WoodKit.SOFT, "bold")
 	head.name = "LastCallTag"
-	_place(panel, head, 8, 4, 144, 22)
+	_place(panel, head, 8, 2, 144, 22)
 	var lab := TV.label(words, 22, WoodKit.INK, "bold", true)
 	lab.name = "LastCall"
-	_place(panel, lab, 6, 28, 148, 44)
-	var mx := 8.0
+	_place(panel, lab, 8, 24, 150, 50)
+	var mx := 162.0
 	for won in marks:
 		var mark := Mark.new()
 		mark.won = bool(won)
 		mark.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		_place(panel, mark, mx, 78, 32, 32)
-		mx += 36.0
+		_place(panel, mark, mx, 34, 32, 32)
+		mx += 34.0
 
 
 func _tick(waiting: bool, left: float) -> void:

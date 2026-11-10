@@ -1,3 +1,25 @@
+FIGHTCAMP - BUILD OF 2026-11-10 (S427): PROPER OUTLINES, AND THE CORNER BAR TO YOUR MARKS
+================================================================================
+
+ NEW.
+  a. YOUR NOTE "use proper outline effects ... not cheap solutions": the flat yellow rectangle is gone. One outline for
+     the whole game now: a glowing frame (a bright line, a soft glow, a slow light going round it). It is on the dues
+     board in force, the corner call in force, the NOW plate and the guide's light. Dues boards also light under the mouse.
+     The other screens with a "chosen" frame are queued (Cursor).
+  b. Club > Money > Dues: the three paintings are cut out of their dark squares and stand on the slate with a chalk
+     line round the figures.
+  c. THE CORNER BAR, your four marks: the three calls and Say nothing are smaller and sit on the LEFT under Pace and
+     Aim. The right of the bar is a live board for the round: punches landed (you against her), what she is doing NOW,
+     and each call you used with a tick or a cross. The NOW plate says its cost in words (no bolt, no arrows).
+  d. Feet: when a shot is framed, the boots must clear the bar. Better, NOT finished: with a boxer right at the lens her
+     boots still go under the bar.
+  e. A knocked-down boxer's chest no longer sways on the canvas (the test now reads the same four times running).
+  f. KNOWN: the name labels over the gauges are unchanged (your mark 3). The wooden side panels that carry the names
+     landed from Cursor with an error and overlapping words, so they are NOT in this build; they go back for a fix.
+ TRY: Club > Money > Dues. Hover a board, look at the one in force. Is this the outline you meant?
+ TRY: a fight (Test fight with film). Are the calls the right size on the left, and is the board on the right worth
+      its space? What would you rather see there?
+
 FIGHTCAMP - BUILD OF 2026-11-10 (S422): A KNOCKDOWN COUNT THAT NEVER HANGS
 ================================================================================
 

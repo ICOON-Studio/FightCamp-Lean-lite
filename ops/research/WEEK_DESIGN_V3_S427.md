@@ -1,6 +1,6 @@
 # The week, one design (v3, S427) - after two critics scored v2 at depth 5
 
-Pictures: docs/mockups/s427/week_v3_camp.png (Home on a camp Monday) and week_v3_quiet.png (Home on a quiet Monday).
+Pictures: docs/mockups/s427/week_v3_camp.png (Home on a camp Thursday) and week_v3_quiet.png (Home on a quiet Monday).
 v1 and v2 are untouched (WEEK_DESIGN_V1_S425.md, WEEK_DESIGN_V2_S425.md). Reviews of v2: docs/mockups/s425/week_v2_critic_coach.md
 and week_v2_critic_simvet.md (both depth 5: "a good chain and a calendar around it"; "claim-picking with visible numbers").
 

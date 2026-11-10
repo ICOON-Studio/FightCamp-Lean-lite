@@ -22,8 +22,7 @@ OWNS: scripts/grapple/BeltMatch.gd, scripts/ui/areas/GrapplerPage.gd, scripts/ui
 RED_TEST: tests/halo_test.gd -> HALO failures=0 with every converted file in its list (it is red the moment you add a
   file that still has `UI.GOLD if`/`WoodKit.HEAD` as a chosen border; extend the loop's banned patterns to catch
   `UI.box(` calls whose border argument is `UI.GOLD if <chosen>`)
-REGRESSION: file_limits_test, words_on_screens_test, and the one test each converted screen already has (grep tests/ for
-  the script's name; run only those)
+REGRESSION: file_limits_test, words_on_screens_test, bjj_tree_ui_test, tape_room_test, plan_screen_test, drill_card_test, week_board_clarity_test
 VISUAL: yes - for each converted screen one real still with something chosen on it (tools/layout_snapshot.gd pages, or a
   small still script like tools/halo_still.gd), saved under docs/mockups/s427/halosweep/. You cannot see images: list in
   the result, per still, the chosen control's global rect and that a child named "Halo" is visible on it (print it from

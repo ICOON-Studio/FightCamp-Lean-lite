@@ -1,0 +1,330 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Home on the Monday of a quiet week - the week, v3 (S427)</title>
+<style>
+:root{--gold:#f0bd4f;--chalk:#f3efe4;--red:#c9342a;--lucy:#e0493b;--rey:#4aa3df;--ok:#8fe3a2;--amber:#ff9838;--dim:#aab1b9}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#0d0b0a;color:var(--chalk);font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;position:relative;
+ background-image:radial-gradient(ellipse at 20% 0,#3a2a1c 0,transparent 40%),radial-gradient(ellipse at 90% 0,#2e2218 0,transparent 40%)}
+.abs{position:absolute}
+.wood{background:linear-gradient(180deg,#7a5230,#4c2f1a 60%,#3c2514);border:2px solid #20120a;box-shadow:inset 0 2px 0 #9a6d42,0 4px 10px #000a}
+.board{position:absolute;border:12px solid #5b3a20;border-radius:6px;background:
+ radial-gradient(ellipse at 30% 20%,#2b2e31,transparent 60%),linear-gradient(#1d1f21,#161718);
+ box-shadow:0 0 0 2px #1d1008,inset 0 0 0 2px #8a5f36,inset 0 0 40px #000c,0 6px 14px #000a}
+.board.pin:before,.board.pin:after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f6d98a,#a97a25 60%,#5b3d0f);top:-17px;left:-17px;box-shadow:0 2px 3px #000}
+.board.pin:after{left:auto;right:-17px}
+.nav{top:0;left:0;width:1920px;height:64px}
+.navbtn{position:absolute;top:10px;height:46px;border-radius:5px;font-size:26px;display:flex;align-items:center;gap:10px;padding:0 20px;color:var(--chalk);white-space:nowrap}
+.h{font-weight:700;letter-spacing:.5px}
+.t{position:absolute;font-size:34px;font-weight:700;color:var(--gold);white-space:nowrap}
+.tx{position:absolute;white-space:nowrap;font-weight:700}
+.lab{position:absolute;white-space:nowrap;font-size:20px;font-weight:700;letter-spacing:2px;color:#8d949c;text-transform:uppercase;line-height:24px}
+.chip{display:inline-flex;align-items:center;gap:8px;border-radius:20px;padding:2px 14px;font-size:24px;font-weight:700;background:#0008;border:2px solid #ffffff30;white-space:nowrap;line-height:32px}
+.chip.r{color:#ff8d80;border-color:#c9342a}.chip.g{color:var(--ok);border-color:#3d8d52}.chip.y{color:var(--gold);border-color:#a97a25}.chip.b{color:#aab1b9;border-color:#6a7078}
+.chip.k-fight{color:#ff8d80;border-color:#c9342a}.chip.k-career{color:#9fd0f2;border-color:#4aa3df}.chip.k-body{color:var(--ok);border-color:#3d8d52}.chip.k-club{color:#d9b8f5;border-color:#8a5fc0}
+.chip.am{color:var(--amber);border-color:#a85a10}
+.face{border-radius:50%;object-fit:cover;object-position:50% 18%;border:4px solid #0009;background:#333;flex-shrink:0}
+.g{color:var(--ok)}.r{color:#ff8d80}.y{color:var(--gold)}.dim{color:#aab1b9}.am{color:var(--amber)}
+.ic{fill:none;stroke:currentColor;stroke-width:3.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;display:block}
+.ic.faint{opacity:.45;stroke-dasharray:5 5}
+.tile{position:absolute;border-radius:10px;background:linear-gradient(#2c2f32,#1f2123);border:2px solid #4a4f55}
+.glow{border:2px solid #ffe9b0!important;background:linear-gradient(#3b3524,#26231a)!important;box-shadow:0 0 0 1px #f0bd4f,0 0 26px 6px #f0bd4f80,inset 0 0 22px #f0bd4f30}
+.open{border:3px dashed #cfc8b8!important;background:#141618!important}
+.ghost{border:2px dashed #8d949c!important;background:#1a1c1e99!important}
+.hover{border:2px solid #f3efe4!important;background:linear-gradient(#383c40,#27292c)!important}
+.past{opacity:.72}
+.dot{position:absolute;width:36px;height:36px;border-radius:50%}
+.dot.s{width:32px;height:32px}
+.dot.f{background:radial-gradient(circle at 35% 30%,#c9f7d2,#8fe3a2 55%,#4cae68);border:2px solid #2f7d45}
+.dot.sharp{box-shadow:0 0 0 4px #1f2123,0 0 0 7px #f3efe4}
+.dot.e{background:#101112;border:2px dashed #8d949c;display:flex;align-items:center;justify-content:center;color:#cfc8b8}
+.band{position:absolute;height:28px;border-radius:14px;background:#0c0d0e;border:2px solid #5a5f66}
+.band i{position:absolute;display:block}
+.band .mid{left:50%;top:0;bottom:0;width:2px;background:#5a5f66}
+.band .span{top:1px;bottom:1px;border-radius:12px;background:linear-gradient(#ffe6a8,#f0bd4f)}
+.band .was{top:-12px;height:5px;border-radius:3px;background:#cfc8b8}
+.band .gs{top:1px;bottom:1px;border-radius:12px;background:linear-gradient(#c9f7d2,#8fe3a2)}
+.meter{position:absolute;display:flex;gap:6px}
+.meter i{display:block;width:34px;height:14px;border-radius:4px;background:#101112;border:2px solid #5a5f66}
+.meter i.on{background:#8fe3a2;border-color:#3d8d52}
+.lamp{position:absolute;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #000a}
+.lamp.s{width:42px;height:42px}
+.lamp.gr{background:radial-gradient(circle at 35% 30%,#d6fadd,#6fd58a 60%,#2f7d45);box-shadow:0 0 14px #8fe3a280;color:#0d2a15}
+.lamp.a{background:radial-gradient(circle at 35% 30%,#ffe0b3,#ff9838 60%,#a85a10);box-shadow:0 0 14px #ff983880;color:#3a1c00}
+.eve{position:absolute;border-radius:8px;background:linear-gradient(180deg,#7a5230,#4c2f1a 70%,#3c2514);border:2px solid #b08050;box-shadow:inset 0 2px 0 #9a6d42;color:#fbefd9}
+.eve.open{background:#2a1c10;border:3px dashed #e6d3b8;box-shadow:none}
+.plaque{position:absolute;border-radius:50%;background:#101112;border:3px solid #4a4f55;display:flex;align-items:center;justify-content:center;color:var(--chalk)}
+.clk{position:absolute;left:14px;right:14px;height:46px;border-radius:8px;background:#0c0d0e;border:1px solid #3d4146;display:flex;align-items:center;gap:10px;padding:0 12px;font-size:24px;font-weight:700;white-space:nowrap}
+.n{font-size:36px;line-height:36px;font-weight:700}
+.vr{position:absolute;width:2px;background:#3d4146}
+.hr{position:absolute;height:2px;background:#3d4146}
+.btn{position:absolute;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:12px;font-weight:700;color:#fff;background:linear-gradient(#d8483b,#8f2219);border:2px solid #3a0d09;box-shadow:inset 0 2px 0 #f08a7f;white-space:nowrap}
+.wbtn{position:absolute;border-radius:6px;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:700;white-space:nowrap}
+.seg{position:absolute;display:flex;gap:6px}
+.seg i{display:block;width:46px;height:14px;border-radius:4px;background:#101112;border:2px solid #5a5f66}
+.seg i.on{background:#8fe3a2;border-color:#3d8d52}
+.slot{position:absolute;width:36px;height:36px;border-radius:6px;background:linear-gradient(#58606a,#3d444c);border:2px solid #8d949c}
+.slot.e{background:#101112;border:3px dashed #cfc8b8}
+.paper{position:absolute;border-radius:4px;background:#e9e1cc;color:#2a2620;border:2px solid #8a7f66}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">
+<symbol id="i-mitt" viewBox="0 0 48 48"><g transform="rotate(-12 13 24)"><ellipse cx="13" cy="19" rx="9.500" ry="12.500"/><circle cx="13" cy="19" r="3.500"/><path d="M8 30.500v8h10v-8"/></g><g transform="rotate(12 35 24)"><ellipse cx="35" cy="19" rx="9.500" ry="12.500"/><circle cx="35" cy="19" r="3.500"/><path d="M30 30.500v8h10v-8"/></g></symbol>
+<symbol id="i-glove" viewBox="0 0 48 48"><path d="M15 31V17A11 11 0 0 1 26 6h3a11 11 0 0 1 11 11v6a8 8 0 0 1-8 8z"/><path d="M15 20h-2a5.500 5.500 0 0 0 0 11h2"/><path d="M17 31v11h17V31"/><path d="M17 37h17"/></symbol>
+<symbol id="i-hookp" viewBox="0 0 48 48"><path d="M5 30C5 15 17 6 31 9"/><path d="M24 3l8 6-7 7"/><g transform="translate(17 17) scale(.62)" stroke-width="4.6"><path d="M15 31V17A11 11 0 0 1 26 6h3a11 11 0 0 1 11 11v6a8 8 0 0 1-8 8z"/><path d="M15 20h-2a5.500 5.500 0 0 0 0 11h2"/><path d="M17 31v11h17V31"/></g></symbol>
+<symbol id="i-dropp" viewBox="0 0 48 48"><g transform="translate(1 3) scale(.66)" stroke-width="4.4"><path d="M15 31V17A11 11 0 0 1 26 6h3a11 11 0 0 1 11 11v6a8 8 0 0 1-8 8z"/><path d="M15 20h-2a5.500 5.500 0 0 0 0 11h2"/><path d="M17 31v11h17V31"/></g><path d="M38 14v28"/><path d="M31 35l7 7 7-7"/></symbol>
+<symbol id="i-heart" viewBox="0 0 48 48"><path d="M24 42S6 31 6 18a9.500 9.500 0 0 1 18-4 9.500 9.500 0 0 1 18 4c0 13-18 24-18 24z"/><path d="M11 25h7l3-6 5 11 3-5h8"/></symbol>
+<symbol id="i-scale" viewBox="0 0 48 48"><rect x="6" y="8" width="36" height="33" rx="7"/><path d="M14 22a10 10 0 0 1 20 0z"/><path d="M24 22l5-6"/></symbol>
+<symbol id="i-film" viewBox="0 0 48 48"><rect x="5" y="10" width="38" height="28" rx="4"/><path d="M20 17v14l11-7z"/><path d="M5 17h5M5 31h5M38 17h5M38 31h5"/></symbol>
+<symbol id="i-clock" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 12v12l8 5"/></symbol>
+<symbol id="i-moon" viewBox="0 0 48 48"><path d="M38 29A17 17 0 1 1 19 7a13.500 13.500 0 0 0 19 22z"/></symbol>
+<symbol id="i-ticket" viewBox="0 0 48 48"><path d="M5 13h38v7a4 4 0 0 0 0 8v7H5v-7a4 4 0 0 0 0-8z"/><path d="M31 17v14" stroke-dasharray="3 5"/></symbol>
+<symbol id="i-squeeze" viewBox="0 0 48 48"><rect x="20" y="8" width="8" height="32" rx="3"/><path d="M3 24h12M10 17l6 7-6 7"/><path d="M45 24H33M38 17l-6 7 6 7"/></symbol>
+<symbol id="i-ear" viewBox="0 0 48 48"><path d="M14 21a10.500 10.500 0 0 1 21 0c0 8-7 9-7 15a6 6 0 0 1-11 3"/><path d="M20 21a4.500 4.500 0 0 1 9 0c0 3-3 4-4 7"/></symbol>
+<symbol id="i-shield" viewBox="0 0 48 48"><path d="M24 4l16 6v12c0 10-6 17-16 22C14 39 8 32 8 22V10z"/><path d="M16 23l6 6 10-11"/></symbol>
+<symbol id="i-sun" viewBox="0 0 48 48"><path d="M4 36h40"/><path d="M11 36a13 13 0 0 1 26 0"/><path d="M24 9v7M8 18l5 5M40 18l-5 5"/></symbol>
+<symbol id="i-bed" viewBox="0 0 48 48"><path d="M5 12v27"/><path d="M5 31h38v8"/><path d="M43 31v-4a6 6 0 0 0-6-6H20v10"/><circle cx="12.500" cy="24" r="3.500"/></symbol>
+<symbol id="i-target" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="10"/><circle cx="24" cy="24" r="2.500"/></symbol>
+<symbol id="i-star" viewBox="0 0 48 48"><path d="M24 4l6 12.500 13.500 1.700-10 9.300 2.600 13.500L24 34.300 11.900 41l2.600-13.500-10-9.300L18 16.500z"/></symbol>
+<symbol id="i-wrench" viewBox="0 0 48 48"><path d="M31 6a11 11 0 0 0-10.500 14L6 34.500a5 5 0 0 0 7.500 7.500L28 27.500A11 11 0 0 0 42 17l-7 6.500-6.500-2L27 15z"/></symbol>
+<symbol id="i-file" viewBox="0 0 48 48"><path d="M10 4h19l9 9v31H10z"/><path d="M29 4v9h9"/><path d="M16 23h16M16 30h16M16 37h10"/></symbol>
+<symbol id="i-eye" viewBox="0 0 48 48"><path d="M3 24s8-14 21-14 21 14 21 14-8 14-21 14S3 24 3 24z"/><circle cx="24" cy="24" r="6.500"/></symbol>
+<symbol id="i-swap" viewBox="0 0 48 48"><path d="M5 15h34M31 7l8 8-8 8"/><path d="M43 33H9M17 25l-8 8 8 8"/></symbol>
+<symbol id="i-person" viewBox="0 0 48 48"><circle cx="24" cy="16" r="8.500"/><path d="M7 44a17 17 0 0 1 34 0"/></symbol>
+<symbol id="i-door" viewBox="0 0 48 48"><rect x="11" y="4" width="26" height="40" rx="2"/><circle cx="31" cy="25" r="1.800"/><path d="M4 44h40"/></symbol>
+<symbol id="i-lock" viewBox="0 0 48 48"><rect x="8" y="21" width="32" height="22" rx="4"/><path d="M15 21v-7a9 9 0 0 1 17-4"/></symbol>
+<symbol id="i-menu" viewBox="0 0 48 48"><path d="M7 12h34M7 24h34M7 36h34"/></symbol>
+<symbol id="i-check" viewBox="0 0 48 48"><path d="M7 25l11 11L41 11"/></symbol>
+<symbol id="i-up" viewBox="0 0 48 48"><path d="M24 42V7M10 21L24 7l14 14"/></symbol>
+<symbol id="i-right" viewBox="0 0 48 48"><path d="M5 24h37M29 11l13 13-13 13"/></symbol>
+<symbol id="i-home" viewBox="0 0 48 48"><path d="M24 4l6 12.500 13.500 1.700-10 9.300 2.600 13.500L24 34.300 11.900 41l2.600-13.500-10-9.300L18 16.500z"/></symbol>
+<symbol id="i-trophy" viewBox="0 0 48 48"><path d="M14 6h20v11a10 10 0 0 1-20 0z"/><path d="M14 10H6c0 8 4 11 9 11M34 10h8c0 8-4 11-9 11"/><path d="M24 27v8M15 43h18M18 35h12v8H18z"/></symbol>
+<symbol id="i-coin" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M30 17c-2-3-11-3-11 2s11 3 11 8-9 5-11 2M24 11v26"/></symbol>
+<symbol id="i-globe" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M6 24h36M24 6c-9 9-9 27 0 36M24 6c9 9 9 27 0 36"/></symbol>
+<symbol id="i-bell" viewBox="0 0 48 48"><path d="M8 35h32c-5-4-5-9-5-15a11 11 0 0 0-22 0c0 6 0 11-5 15z"/><path d="M19 40a5 5 0 0 0 10 0"/></symbol>
+<symbol id="i-flag" viewBox="0 0 48 48"><path d="M9 44V6"/><path d="M9 8h28l-6 9 6 9H9"/></symbol>
+<symbol id="i-cursor" viewBox="0 0 48 48"><path d="M9 3v36l10-9 7 15 7-3-7-15 13-1z" fill="#fff" stroke="#000" stroke-width="2.500"/></symbol>
+</svg>
+<div class="abs nav wood"></div>
+<div class="abs h" style="left:36px;top:12px;font-size:40px;font-style:italic;letter-spacing:1px;white-space:nowrap">Anvil Street Gym</div>
+<div class="abs chip y" style="left:374px;top:13px;font-size:24px;line-height:34px">Mon 23 Feb &nbsp;&middot;&nbsp; Week 8</div>
+<div class="navbtn wood" style="left:668px;box-shadow:inset 0 0 0 2px #e0493b,inset 0 2px 0 #9a6d42"><svg class="ic" width="24" height="24"><use href="#i-home"/></svg> Home</div>
+<div class="navbtn wood" style="left:822px"><svg class="ic" width="26" height="26"><use href="#i-glove"/></svg> Fighters</div>
+<div class="navbtn wood" style="left:1010px"><svg class="ic" width="26" height="26"><use href="#i-trophy"/></svg> Fights</div>
+<div class="navbtn wood" style="left:1210px"><svg class="ic" width="26" height="26"><use href="#i-coin"/></svg> Club</div>
+<div class="navbtn wood" style="left:1352px"><svg class="ic" width="26" height="26"><use href="#i-globe"/></svg> World</div>
+<div class="abs h" style="right:176px;top:10px;font-size:40px;color:var(--gold)">$18,700</div>
+<div class="navbtn wood" style="left:1764px"><svg class="ic" width="24" height="24"><use href="#i-menu"/></svg> Menu</div>
+
+<!-- 1. NO BOUT BOOKED -->
+<div class="board pin" style="left:30px;top:76px;width:1860px;height:80px">
+ <div class="tx" style="left:20px;top:8px;font-size:30px;line-height:40px">No bout booked</div>
+ <div class="btn" style="left:262px;top:3px;width:270px;height:50px;font-size:28px">Ask for a fight</div>
+ <div class="tile" style="left:560px;top:1px;width:650px;height:54px">
+  <div class="plaque" style="left:6px;top:4px;width:42px;height:42px;border-width:2px"><svg class="ic" width="26" height="26"><use href="#i-person"/></svg></div>
+  <div class="tx" style="left:58px;top:7px;font-size:26px;line-height:36px">Ortiz</div>
+  <svg class="ic g" width="28" height="28" style="position:absolute;left:142px;top:11px"><use href="#i-eye"/></svg>
+  <div class="tx dim" style="left:178px;top:9px;font-size:22px;line-height:32px">1 weakness banked</div>
+  <div class="wbtn wood" style="left:404px;top:4px;width:234px;height:42px;font-size:24px">Ask for her by name</div>
+ </div>
+</div>
+
+<!-- 2. THE BLOCKS -->
+<div class="board" style="left:30px;top:168px;width:440px;height:372px">
+ <div class="t" style="left:16px;top:2px;font-size:32px">Blocks</div>
+ <div class="tile open" style="left:10px;top:48px;width:396px;height:142px">
+  <img class="face abs" style="left:12px;top:12px;width:76px;height:76px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg">
+  <div class="tx" style="left:102px;top:6px;font-size:30px;line-height:38px">Lucy</div>
+  <div class="tx" style="left:102px;top:46px;font-size:30px;line-height:38px;letter-spacing:1px">No block set</div>
+  <div class="tx dim" style="left:14px;top:98px;font-size:24px;line-height:30px">Pick one</div>
+  <svg class="ic" width="34" height="34" style="position:absolute;left:346px;top:96px"><use href="#i-right"/></svg>
+ </div>
+ <div class="tile" style="left:10px;top:200px;width:396px;height:140px">
+  <img class="face abs" style="left:12px;top:10px;width:76px;height:76px;border-color:var(--rey)" src="../../../assets/ui/face/studio/mh_boxer_02.jpg">
+  <div class="tx" style="left:102px;top:4px;font-size:30px;line-height:38px">Danny</div>
+  <svg class="ic" width="30" height="30" style="position:absolute;left:102px;top:48px"><use href="#i-bed"/></svg>
+  <div class="tx" style="left:140px;top:44px;font-size:26px;line-height:36px">Rest and heal</div>
+  <div class="tx dim" style="left:14px;top:96px;font-size:22px;line-height:30px">Week 1 of 2</div>
+  <div class="seg" style="left:144px;top:104px"><i class="on" style="width:40px"></i><i style="width:40px"></i></div>
+  <span class="chip g abs" style="left:248px;top:94px;font-size:22px;padding:2px 12px">ON TRACK</span>
+ </div>
+</div>
+
+<div class="board" style="left:482px;top:168px;width:1408px;height:372px">
+ <img class="face abs" style="left:14px;top:3px;width:42px;height:42px;border-width:3px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg">
+ <div class="t" style="left:68px;top:2px;font-size:32px">Lucy's block: pick one</div>
+ <div class="tx dim" style="right:16px;top:10px;font-size:22px">2 to 4 weeks, tested on Fridays</div>
+
+ <div class="tile" style="left:12px;top:52px;width:331px;height:288px">
+  <svg class="ic" width="50" height="50" style="position:absolute;left:12px;top:8px"><use href="#i-target"/></svg>
+  <div class="tx" style="left:74px;top:14px;font-size:28px;line-height:36px">Sharpen a line</div>
+  <div class="hr" style="left:12px;right:12px;top:66px"></div>
+  <div class="tx" style="left:12px;top:72px;font-size:42px;line-height:48px">7</div>
+  <div class="abs" style="left:46px;top:82px;display:flex;gap:3px"><svg class="ic" width="30" height="30"><use href="#i-mitt"/></svg><svg class="ic" width="30" height="30"><use href="#i-mitt"/></svg><svg class="ic" width="30" height="30"><use href="#i-mitt"/></svg><svg class="ic" width="30" height="30"><use href="#i-mitt"/></svg><svg class="ic" width="30" height="30"><use href="#i-mitt"/></svg><svg class="ic" width="30" height="30"><use href="#i-mitt"/></svg><svg class="ic" width="30" height="30"><use href="#i-mitt"/></svg></div>
+  <div class="tx dim" style="left:12px;top:120px;font-size:22px;line-height:28px">evenings of Reid's hands</div>
+  <div class="lab" style="left:12px;top:154px">Right when</div>
+  <div class="tx" style="left:12px;top:176px;font-size:24px;line-height:30px">answers are owned</div>
+  <div class="hr" style="left:12px;right:12px;top:212px"></div>
+  <div class="lab" style="left:12px;top:220px">Opens</div>
+  <div class="eve open" style="left:104px;top:218px;width:112px;height:56px"><svg class="ic" width="28" height="28" style="position:absolute;left:38px;top:11px"><use href="#i-moon"/></svg></div>
+  <div class="tx" style="left:228px;top:220px;font-size:22px;line-height:26px">a free<br>evening</div>
+ </div>
+
+ <div class="tile" style="left:355px;top:52px;width:331px;height:288px">
+  <svg class="ic" width="50" height="50" style="position:absolute;left:12px;top:8px"><use href="#i-star"/></svg>
+  <div class="tx" style="left:74px;top:14px;font-size:28px;line-height:36px">Chase a perk</div>
+  <div class="hr" style="left:12px;right:12px;top:66px"></div>
+  <div class="tx" style="left:12px;top:72px;font-size:42px;line-height:48px">3</div>
+  <div class="abs" style="left:46px;top:78px;display:flex;gap:6px"><svg class="ic" width="38" height="38"><use href="#i-sun"/></svg><svg class="ic" width="38" height="38"><use href="#i-sun"/></svg><svg class="ic" width="38" height="38"><use href="#i-sun"/></svg></div>
+  <div class="tx dim" style="left:12px;top:120px;font-size:22px;line-height:28px">weeks of mornings</div>
+  <div class="lab" style="left:12px;top:154px">Right when</div>
+  <div class="tx" style="left:12px;top:176px;font-size:24px;line-height:30px">perk 3 points away</div>
+  <div class="hr" style="left:12px;right:12px;top:212px"></div>
+  <div class="lab" style="left:12px;top:220px">Opens</div>
+  <div class="slot" style="left:104px;top:218px;width:34px;height:34px"></div><div class="slot" style="left:144px;top:218px;width:34px;height:34px"></div><div class="slot" style="left:184px;top:218px;width:34px;height:34px"></div><div class="slot" style="left:224px;top:218px;width:34px;height:34px"></div><div class="slot e" style="left:264px;top:218px;width:34px;height:34px"></div>
+  <div class="tx" style="left:104px;top:254px;font-size:22px;line-height:26px">a 5th plan place</div>
+ </div>
+
+ <div class="tile" style="left:698px;top:52px;width:331px;height:288px">
+  <svg class="ic" width="50" height="50" style="position:absolute;left:12px;top:8px"><use href="#i-wrench"/></svg>
+  <div class="tx" style="left:74px;top:14px;font-size:28px;line-height:36px">Fix a habit</div>
+  <div class="hr" style="left:12px;right:12px;top:66px"></div>
+  <div class="tx" style="left:12px;top:72px;font-size:42px;line-height:48px">4</div>
+  <div class="abs" style="left:46px;top:82px;display:flex;gap:3px"><svg class="ic" width="30" height="30"><use href="#i-mitt"/></svg><svg class="ic" width="30" height="30"><use href="#i-mitt"/></svg><svg class="ic" width="30" height="30"><use href="#i-mitt"/></svg><svg class="ic" width="30" height="30"><use href="#i-mitt"/></svg></div>
+  <div class="tx dim" style="left:12px;top:120px;font-size:22px;line-height:28px">evenings of Reid's hands</div>
+  <div class="lab" style="left:12px;top:154px">Right when</div>
+  <div class="tx" style="left:12px;top:176px;font-size:24px;line-height:30px">a rival lists it</div>
+  <div class="hr" style="left:12px;right:12px;top:212px"></div>
+  <div class="lab" style="left:12px;top:220px">Opens</div>
+  <div class="paper" style="left:104px;top:218px;width:210px;height:34px"><svg class="ic" width="22" height="22" style="position:absolute;left:6px;top:4px"><use href="#i-file"/></svg><div class="tx" style="left:34px;top:2px;font-size:20px;line-height:26px;text-decoration:line-through;text-decoration-color:#c9342a;text-decoration-thickness:3px">right hand drops</div></div>
+  <div class="tx" style="left:104px;top:254px;font-size:22px;line-height:26px">off every rival's file</div>
+ </div>
+
+ <div class="tile" style="left:1041px;top:52px;width:331px;height:288px">
+  <svg class="ic" width="50" height="50" style="position:absolute;left:12px;top:8px"><use href="#i-bed"/></svg>
+  <div class="tx" style="left:74px;top:14px;font-size:28px;line-height:36px">Rest and heal</div>
+  <div class="hr" style="left:12px;right:12px;top:66px"></div>
+  <div class="tx" style="left:12px;top:72px;font-size:42px;line-height:48px">2</div>
+  <div class="abs" style="left:46px;top:78px;display:flex;gap:8px"><svg class="ic" width="38" height="38"><use href="#i-bed"/></svg><svg class="ic" width="38" height="38"><use href="#i-bed"/></svg></div>
+  <div class="tx dim" style="left:12px;top:120px;font-size:22px;line-height:28px">weeks with no gains</div>
+  <div class="lab" style="left:12px;top:154px">Right when</div>
+  <div class="tx" style="left:12px;top:176px;font-size:24px;line-height:30px">Flat, hurt or stopped</div>
+  <div class="hr" style="left:12px;right:12px;top:212px"></div>
+  <div class="lab" style="left:12px;top:220px">Opens</div>
+  <span class="chip r abs" style="left:104px;top:216px;font-size:22px;padding:1px 10px">Flat</span>
+  <svg class="ic g" width="32" height="32" style="position:absolute;left:172px;top:218px"><use href="#i-up"/></svg>
+  <span class="chip g abs" style="left:212px;top:216px;font-size:22px;padding:1px 10px">Steady</span>
+  <div class="tx" style="left:104px;top:254px;font-size:22px;line-height:26px">mood up one band</div>
+ </div>
+</div>
+
+<!-- 3. THE ROW OF DAYS -->
+<div class="board" style="left:30px;top:552px;width:1860px;height:160px">
+ <div class="tile glow" style="left:10px;top:8px;width:294px;height:120px">
+  <div class="tx" style="left:12px;top:3px;font-size:26px">Mon</div>
+  <div class="tx y" style="right:12px;top:5px;font-size:22px;letter-spacing:2px">TODAY</div>
+  <div class="eve open" style="left:8px;top:40px;width:274px;height:68px">
+   <svg class="ic" width="26" height="26" style="position:absolute;left:6px;top:18px"><use href="#i-moon"/></svg>
+   <img class="face abs" style="left:40px;top:7px;width:46px;height:46px;border-width:3px;border-color:#e6d3b8" src="../../../assets/ui/face/mh_staff_coach.jpg">
+   <div class="tx" style="left:98px;top:0;font-size:30px;line-height:36px;letter-spacing:2px">OPEN</div>
+   <div class="tx" style="left:98px;top:35px;font-size:20px;line-height:24px;color:#e6d3b8">Reid's evening</div>
+  </div>
+ </div>
+ <div class="tile" style="left:314px;top:8px;width:294px;height:120px">
+  <div class="tx" style="left:12px;top:3px;font-size:26px">Tue</div>
+  <svg class="ic" width="52" height="52" style="position:absolute;left:12px;top:46px"><use href="#i-sun"/></svg>
+  <div class="tx" style="left:78px;top:42px;font-size:26px">Block work</div>
+  <div class="tx dim" style="left:78px;top:76px;font-size:22px">mornings</div>
+ </div>
+ <div class="tile" style="left:618px;top:8px;width:294px;height:120px">
+  <div class="tx" style="left:12px;top:3px;font-size:26px">Wed <span class="dim" style="font-size:22px">&nbsp;Sparring</span></div>
+  <svg class="ic" width="52" height="52" style="position:absolute;left:12px;top:46px"><use href="#i-glove"/></svg>
+  <div class="tx" style="left:78px;top:42px;font-size:26px">Reid's sentence</div>
+  <div class="tx dim" style="left:78px;top:76px;font-size:22px">can reorder a block</div>
+ </div>
+ <div class="tile" style="left:922px;top:8px;width:294px;height:120px">
+  <div class="tx" style="left:12px;top:3px;font-size:26px">Thu</div>
+  <svg class="ic" width="52" height="52" style="position:absolute;left:12px;top:46px"><use href="#i-sun"/></svg>
+  <div class="tx" style="left:78px;top:42px;font-size:26px">Block work</div>
+  <div class="tx dim" style="left:78px;top:76px;font-size:22px">mornings</div>
+ </div>
+ <div class="tile" style="left:1226px;top:8px;width:294px;height:120px">
+  <div class="tx" style="left:12px;top:3px;font-size:26px">Fri</div>
+  <div class="abs" style="right:10px;top:4px;display:flex;align-items:center;gap:6px;font-size:22px;font-weight:700;color:#9fd0f2;letter-spacing:1px;white-space:nowrap"><svg class="ic" width="22" height="22"><use href="#i-flag"/></svg> TEST DAY</div>
+  <div class="eve open" style="left:8px;top:40px;width:274px;height:68px">
+   <svg class="ic" width="26" height="26" style="position:absolute;left:6px;top:18px"><use href="#i-moon"/></svg>
+   <img class="face abs" style="left:40px;top:7px;width:46px;height:46px;border-width:3px;border-color:#e6d3b8" src="../../../assets/ui/face/mh_staff_coach.jpg">
+   <div class="tx" style="left:98px;top:0;font-size:30px;line-height:36px;letter-spacing:2px">OPEN</div>
+   <div class="tx" style="left:98px;top:35px;font-size:20px;line-height:24px;color:#e6d3b8">Reid's evening</div>
+  </div>
+ </div>
+ <div class="tile" style="left:1530px;top:8px;width:294px;height:120px">
+  <div class="tx" style="left:12px;top:3px;font-size:26px">Sat</div>
+  <svg class="ic" width="52" height="52" style="position:absolute;left:12px;top:46px"><use href="#i-glove"/></svg>
+  <div class="tx" style="left:78px;top:42px;font-size:26px">Open spar</div>
+  <div class="tx dim" style="left:78px;top:76px;font-size:22px">your call, below</div>
+ </div>
+</div>
+
+<!-- 4. SATURDAY'S STANDING CHOICE -->
+<div class="board" style="left:30px;top:724px;width:1270px;height:344px">
+ <div class="t" style="left:20px;top:4px">Saturday</div>
+ <div class="tx dim" style="left:176px;top:12px;font-size:24px">open spar: who comes?</div>
+
+ <div class="tile" style="left:12px;top:54px;width:398px;height:256px">
+  <div class="plaque" style="left:12px;top:10px;width:64px;height:64px"><svg class="ic" width="38" height="38"><use href="#i-person"/></svg></div>
+  <div class="tx" style="left:90px;top:6px;font-size:30px;line-height:38px">Invite Ortiz</div>
+  <div class="tx dim" style="left:90px;top:44px;font-size:22px;line-height:28px">one place above Lucy</div>
+  <svg class="ic g" width="48" height="48" style="position:absolute;left:92px;top:88px"><use href="#i-eye"/></svg>
+  <svg class="ic dim" width="38" height="38" style="position:absolute;left:178px;top:93px"><use href="#i-swap"/></svg>
+  <svg class="ic r" width="48" height="48" style="position:absolute;left:254px;top:88px"><use href="#i-glove"/></svg>
+  <div class="tx g" style="left:66px;top:138px;width:100px;text-align:center;font-size:20px;line-height:24px">her tell</div>
+  <div class="tx r" style="left:228px;top:138px;width:100px;text-align:center;font-size:20px;line-height:24px">your line</div>
+  <div class="tx" style="left:0;top:168px;width:394px;text-align:center;font-size:22px;line-height:28px">Her tell for one of your lines</div>
+  <div class="abs" style="left:0;top:206px;width:394px;text-align:center"><span class="chip am" style="font-size:22px"><svg class="ic" width="22" height="22"><use href="#i-heart"/></svg> injury risk</span></div>
+ </div>
+
+ <div class="tile" style="left:424px;top:54px;width:398px;height:256px">
+  <div class="plaque" style="left:12px;top:10px;width:64px;height:64px"><svg class="ic dim" width="38" height="38"><use href="#i-person"/></svg></div>
+  <div class="tx" style="left:90px;top:6px;font-size:30px;line-height:38px">Unranked visitor</div>
+  <div class="tx dim" style="left:90px;top:44px;font-size:22px;line-height:28px">nothing traded</div>
+  <svg class="ic" width="48" height="48" style="position:absolute;left:140px;top:88px"><use href="#i-glove"/></svg>
+  <svg class="ic" width="48" height="48" style="position:absolute;left:206px;top:88px;transform:scaleX(-1)"><use href="#i-glove"/></svg>
+  <div class="tx" style="left:0;top:168px;width:394px;text-align:center;font-size:22px;line-height:28px">Sparring only</div>
+  <div class="abs" style="left:0;top:206px;width:394px;text-align:center"><span class="chip am" style="font-size:22px"><svg class="ic" width="22" height="22"><use href="#i-heart"/></svg> injury risk</span></div>
+ </div>
+
+ <div class="tile" style="left:836px;top:54px;width:398px;height:256px">
+  <div class="plaque" style="left:12px;top:10px;width:64px;height:64px"><svg class="ic" width="38" height="38"><use href="#i-door"/></svg></div>
+  <div class="tx" style="left:90px;top:6px;font-size:30px;line-height:38px">Nobody</div>
+  <div class="tx dim" style="left:90px;top:44px;font-size:22px;line-height:28px">doors stay shut</div>
+  <svg class="ic g" width="48" height="48" style="position:absolute;left:173px;top:88px"><use href="#i-shield"/></svg>
+  <div class="tx" style="left:0;top:168px;width:394px;text-align:center;font-size:22px;line-height:28px">No injury risk</div>
+  <div class="abs" style="left:0;top:206px;width:394px;text-align:center"><span class="chip g" style="font-size:22px"><svg class="ic" width="22" height="22"><use href="#i-flag"/></svg> safe before a test</span></div>
+ </div>
+</div>
+
+<!-- 5. OPENS NEXT + START -->
+<div class="board" style="left:1312px;top:724px;width:578px;height:232px">
+ <svg class="ic y" width="30" height="30" style="position:absolute;left:16px;top:8px"><use href="#i-lock"/></svg>
+ <div class="t" style="left:56px;top:2px;font-size:30px">Opens next</div>
+ <div class="tile" style="left:12px;top:50px;width:259px;height:150px">
+  <div class="slot" style="left:12px;top:10px"></div><div class="slot" style="left:54px;top:10px"></div><div class="slot" style="left:96px;top:10px"></div><div class="slot" style="left:138px;top:10px"></div><div class="slot e" style="left:180px;top:10px"></div>
+  <div class="tx" style="left:12px;top:52px;font-size:24px;line-height:30px">5th plan place</div>
+  <div class="tx dim" style="left:12px;top:84px;font-size:22px;line-height:28px">Ring IQ 61 of 65</div>
+  <div class="band" style="left:12px;top:120px;width:230px;height:14px;border-radius:7px"><i class="gs" style="left:0;width:94%;border-radius:6px"></i></div>
+ </div>
+ <div class="tile" style="left:283px;top:50px;width:259px;height:150px">
+  <div class="eve" style="left:12px;top:8px;width:160px;height:46px">
+   <div class="tx" style="left:8px;top:8px;font-size:22px;line-height:28px">Fri</div>
+   <svg class="ic" width="22" height="22" style="position:absolute;left:50px;top:11px"><use href="#i-moon"/></svg>
+   <img class="face abs" style="left:100px;top:1px;width:40px;height:40px;border-width:3px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg">
+  </div>
+  <div class="tx" style="left:12px;top:58px;font-size:24px;line-height:30px">Lucy holds pads</div>
+  <div class="tx dim" style="left:12px;top:88px;font-size:22px;line-height:28px">1 bout to go</div>
+  <div class="seg" style="left:12px;top:122px"><i class="on" style="width:38px"></i><i class="on" style="width:38px"></i><i class="on" style="width:38px"></i><i class="on" style="width:38px"></i><i style="width:38px"></i></div>
+ </div>
+</div>
+<div class="board" style="left:1312px;top:968px;width:578px;height:100px">
+ <div class="btn" style="left:8px;top:6px;width:538px;height:64px;font-size:34px">Start week <svg class="ic" width="32" height="32"><use href="#i-right"/></svg></div>
+</div>
+
+</body></html>

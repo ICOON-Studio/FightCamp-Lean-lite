@@ -981,6 +981,22 @@
    "brief": "HALOSWEEP1",
    "status": "queued",
    "queued": "2026-11-10T18:40"
+  },
+  {
+   "id": "FIGHTDISPLAY3",
+   "seat": "cursor",
+   "title": "TASK FIGHTDISPLAY3 - CURSOR (Grok 4.7 High) - the two wooden side panels, round 3",
+   "brief": "FIGHTDISPLAY3",
+   "status": "queued",
+   "queued": "2026-11-10T18:25"
+  },
+  {
+   "id": "MOODHABIT1",
+   "seat": "qwen",
+   "title": "TASK MOODHABIT1 - QWEN (qwen3-coder) - what a boxer's mood and each habit are worth in wins",
+   "brief": "MOODHABIT1",
+   "status": "queued",
+   "queued": "2026-11-10T18:40"
   }
  ]
 }

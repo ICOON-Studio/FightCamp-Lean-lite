@@ -2054,16 +2054,67 @@
       "path": "_sent/2026-11-10_1614_dues_three_painted_price_boards_club_mon/dues_tab_real.png",
       "text": "use proper outline effects throught all project not cheap solutions.",
       "at": "2026-11-10T15:06:10Z",
-      "seen_by_claude": false,
-      "id": "C273"
+      "seen_by_claude": true,
+      "id": "C273",
+      "addressed": "cited by 8e4b6897 2026-11-10"
     },
     {
       "path": "_sent/2026-11-10_1613_bjj_live_bout_the_result_lands_with_the_/bjj_after_call_and_sweep.mp4",
       "text": "looks ok but maybe add some options for te player to decide during the fight ? and also add the missing refinement art and add visual effects",
       "at": "2026-11-10T15:08:07Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "at_s": 36.0,
-      "id": "C274"
+      "id": "C274",
+      "addressed": "cited by fdf92abb 2026-11-10"
+    },
+    {
+      "path": "_sent/2026-11-10_1742_boxing_manager_played_out_of_sight_their/112_corner1.png",
+      "text": "their stats screen is useful but other than that they do only offer 1 option to the player and leaving him a bit clueless.",
+      "at": "2026-11-10T15:45:47Z",
+      "seen_by_claude": true,
+      "id": "C275"
+    },
+    {
+      "id": "C276",
+      "path": "media:_sent/2026-11-10_1742_boxing_manager_played_out_of_sight_their/072_commentary.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-10-16/README.md",
+      "at": "2026-11-10T15:53:13Z",
+      "seen_by_claude": true
+    },
+    {
+      "path": "_sent/2026-11-10_1742_boxing_manager_played_out_of_sight_their/063_adv_b.png",
+      "text": "this means there is not much for the player to do ?",
+      "at": "2026-11-10T15:54:31Z",
+      "seen_by_claude": true,
+      "id": "C277"
+    },
+    {
+      "id": "C278",
+      "path": "media:_sent/2026-11-10_1714_live_fight_final_plain_corner_bar_feet_a/p02_shout_bar.png",
+      "text": "MARKUP: 2 marks -> Feedback/2026-11-10-17/README.md",
+      "at": "2026-11-10T15:55:46Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C279",
+      "path": "media:_sent/2026-11-10_1714_live_fight_final_plain_corner_bar_feet_a/p02_shout_bar.png",
+      "text": "MARKUP: 2 marks -> Feedback/2026-11-10-18/README.md",
+      "at": "2026-11-10T15:57:34Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C280",
+      "path": "media:_sent/2026-11-10_1714_live_fight_final_plain_corner_bar_feet_a/p02_shout_bar.png",
+      "text": "MARKUP: 4 marks -> Feedback/2026-11-10-19/README.md",
+      "at": "2026-11-10T15:58:53Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C281",
+      "path": "media:_sent/2026-11-10_1714_live_fight_final_plain_corner_bar_feet_a/p02_shout_bar.png",
+      "text": "MARKUP: 4 marks -> Feedback/2026-11-10-20/README.md",
+      "at": "2026-11-10T15:59:04Z",
+      "seen_by_claude": true
     }
   ]
 }
