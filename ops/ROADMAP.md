@@ -10,7 +10,7 @@ Updated 2026-11-10 by claude S294.
 
 **S428 — ?** *(claude)*
 
-S428: start-up, then collects and critic rounds. Collected by diff: MOODHABIT1 (mood under 1 point; habits 6 to 15), TRAININGB1 (PR 179, Training tab B with the tiredness curve), FIGHTDISPLAY3 (wooden side panels, intent chips; two overlaps still open). Ziva fixed (port 7012 up). Launched HALOSWEEP1 (Cursor) and HANDSPROBE1 (Qwen; first run void), BARGUARD1 queued. Critic rounds (docs/mockups/s428): BJJ live choices 4/5, 5/5, 5/6, v4 6 (economy critic; coach critic out), cutman v3 5/5, R37 ask-for-a-fight map 5/5: none at 7, so none on his board. Usage: weekly all-models 100%, extra usage EUR 24.41 of 40: no more critic rounds without his word on the money.
+SCOPE CHANGE (his S428 yes): four fighters at the start, amateur bouts with no camp, rank on every fight, a small hosted club show; full promotion after the small living world (ops/research/SCOPE_FOUR_FIGHTERS_S428.md). S428: start-up, then collects and critic rounds. Collected by diff: MOODHABIT1 (mood under 1 point; habits 6 to 15), TRAININGB1 (PR 179, Training tab B with the tiredness curve), FIGHTDISPLAY3 (wooden side panels, intent chips; two overlaps still open). Ziva fixed (port 7012 up). Launched HALOSWEEP1 (Cursor) and HANDSPROBE1 (Qwen; first run void), BARGUARD1 queued. Critic rounds (docs/mockups/s428): BJJ live choices 4/5, 5/5, 5/6, v4 6 (economy critic; coach critic out), cutman v3 5/5, R37 ask-for-a-fight map 5/5: none at 7, so none on his board. Usage: weekly all-models 100%, extra usage EUR 24.41 of 40: no more critic rounds without his word on the money.
 
 ## Next
 

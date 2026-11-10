@@ -6,11 +6,11 @@
   "id": "S428",
   "owner": "claude",
   "updated": "2026-11-10",
-  "summary": "S428: start-up, then collects and critic rounds. Collected by diff: MOODHABIT1 (mood under 1 point; habits 6 to 15), TRAININGB1 (PR 179, Training tab B with the tiredness curve), FIGHTDISPLAY3 (wooden side panels, intent chips; two overlaps still open). Ziva fixed (port 7012 up). Launched HALOSWEEP1 (Cursor) and HANDSPROBE1 (Qwen; first run void), BARGUARD1 queued. Critic rounds (docs/mockups/s428): BJJ live choices 4/5, 5/5, 5/6, v4 6 (economy critic; coach critic out), cutman v3 5/5, R37 ask-for-a-fight map 5/5: none at 7, so none on his board. Usage: weekly all-models 100%, extra usage EUR 24.41 of 40: no more critic rounds without his word on the money.",
+  "summary": "SCOPE CHANGE (his S428 yes): four fighters at the start, amateur bouts with no camp, rank on every fight, a small hosted club show; full promotion after the small living world (ops/research/SCOPE_FOUR_FIGHTERS_S428.md). S428: start-up, then collects and critic rounds. Collected by diff: MOODHABIT1 (mood under 1 point; habits 6 to 15), TRAININGB1 (PR 179, Training tab B with the tiredness curve), FIGHTDISPLAY3 (wooden side panels, intent chips; two overlaps still open). Ziva fixed (port 7012 up). Launched HALOSWEEP1 (Cursor) and HANDSPROBE1 (Qwen; first run void), BARGUARD1 queued. Critic rounds (docs/mockups/s428): BJJ live choices 4/5, 5/5, 5/6, v4 6 (economy critic; coach critic out), cutman v3 5/5, R37 ask-for-a-fight map 5/5: none at 7, so none on his board. Usage: weekly all-models 100%, extra usage EUR 24.41 of 40: no more critic rounds without his word on the money.",
   "last_working_commit": "de5183d8",
   "verified_playable": "people_slate, camp_slate, start_slate, camp_cards, versus, recruit, wood_kit, words_on_screens, plain_words, no_pronoun, gauges, attr_board, fighter_model green on the PC; the pages rendered and opened (E:/FightCamp/tmp/s419_screens, s419_screens2).",
   "incomplete_blocked": "MAIN CI: no finished run since e4a7b6f3 (red); three S419 pushes cancelled each other's runs, read the run on the wrap-up push. PR 140 REARHAND5B not judged: tools/head_aim_film.gd move=rear_hook printed no CONTACT line, so the film showed no punch. Luke Reid's portrait reads near black on Club People. Training week page untouched until his pick.",
-  "next_action": "1) get_usage, then read the last critic reviews (BJJ v4 coach) and his marks on 8787/review. 2) Week design v4 from the S427 critics' five points + THURSDAY2 + MOODHABIT1 + a valid HANDSPROBE1; critics only after he agrees the money. 3) Collect HALOSWEEP1, HANDSPROBE1, BARGUARD1 (render first). 4) Ask him: which design goes on (BJJ v4, cutman v4, R37 v2) given each sits at 5 to 6 after rounds. 5) E: is 92% full: ask before deleting scratch renders under E:/FightCamp/tmp (about 31 GB).",
+  "next_action": "1) get_usage; his marks on 8787/review. 2) FOURSTART1, AMATEURWEEK1, RANKSHOW1 design maps/briefs (RANKSHOW1 to Qwen first: pure ladder module + tests). 3) Re-base week design v4 on four fighters and fight weeks (HANDSPROBE1 valid result first). 4) Collect HALOSWEEP1, HANDSPROBE1, BARGUARD1 (render first). 5) Critics only after he agrees the money. 6) E: 92% full: ask before deleting scratch under E:/FightCamp/tmp.",
   "next_acceptance": "The week design scores depth 7+ from two fresh critics and is on his board with its pictures; a film of round 2 without trembling legs and a film of a readable BJJ match are on his review board.",
   "awaiting_operator": []
  },
@@ -4636,8 +4636,8 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-10 S428 wrap-up",
-  "goal": "MECHANICS FIRST (operator S422: 'ok prepare next session with your recommendations'): the seven mechanics the critics and you chose in S402 get built before more menu polish. Each mechanic starts with a DESIGN MAP (operator Q-173: 'what the player decides exactly and where does that happening ? which screens ? have you mapped the whole design for the mechanism ?'): the decision, the screen, what it changes, the numbers; your OK; then the build. Menus change only when a mechanic needs them. One playable .exe a week, judged by you.",
+  "updated": "2026-11-10 S428 scope change",
+  "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
    "NIGHTLY1B": "Fix the 4 tests that freeze some nights, so the nightly check can go green",
@@ -4774,7 +4774,12 @@
    "TIPSBAR": "Tips on the top bar",
    "PLAYBOOK2": "Playbook move book + game plan (done)",
    "WBOPP": "Whiteboard opponent line (done)",
-   "SOUND1": "Game sound: one agent (Qwen) makes and wires every sound, you judge each by ear"
+   "SOUND1": "Game sound: one agent (Qwen) makes and wires every sound, you judge each by ear",
+   "FOURSTART1": "Four fighters at the start: weights, a BJJ fighter, staggered first week, money re-measured for four",
+   "AMATEURWEEK1": "Amateur bouts without a camp: a light fight week, offers 1 to 2 weeks out",
+   "RANKSHOW1": "The ladder (pure module + tests), then the rank on every fight card, result and Why",
+   "HOSTSHOW1": "Host your own club show (small promotion): design map first, the show is the unit of Ask-for-a-fight",
+   "R37": "Ask for a fight: the show is the unit, a compare tab beside her boxer while searching for an opponent"
   },
   "working_now": [
    {
@@ -4925,13 +4930,6 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "TASK TRAININGB1 - CURSOR (Grok 4.7 High) - the Training tab rebuilt as approach B, with A's tiredness curve on top",
-    "who": "cursor",
-    "started": "2026-11-10T17:13",
-    "run": "TRAININGB1",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "TASK KDFIX5 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 5: Cursor's \"all green\" was false",
     "who": "qwen",
     "started": "2026-11-10T17:14",
@@ -4949,21 +4947,59 @@
     "title": "TASK FIGHTDISPLAY3 - CURSOR (Grok 4.7 High) - the two wooden side panels, round 3: on today's main, no error, no overlap, no symbols",
     "who": "cursor",
     "started": "2026-11-10T18:23",
-    "run": "FIGHTDISPLAY3"
+    "run": "FIGHTDISPLAY3",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK MOODHABIT1 - QWEN (qwen3-coder) - what a boxer's mood and each habit are worth in wins. Measure only",
     "who": "qwen",
     "started": "2026-11-10T18:29",
-    "run": "MOODHABIT1"
+    "run": "MOODHABIT1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HANDSPROBE1 - QWEN (qwen3-coder) - how scarce are Reid's hands really? Measure only",
+    "who": "qwen",
+    "started": "2026-11-10T18:47",
+    "run": "HANDSPROBE1"
+   },
+   {
+    "title": "TASK HALOSWEEP1 - CURSOR (Grok 4.7 High) - every \"this one is chosen\" frame in the game uses the shared outline",
+    "who": "cursor",
+    "started": "2026-11-10T18:59",
+    "run": "HALOSWEEP1"
    }
   ],
   "next": [
    {
+    "id": "FOURSTART1",
+    "who": "claude",
+    "title": "Four fighters at the start: weights, a BJJ fighter, staggered first week, money re-measured for four",
+    "after": "HANDSPROBE1"
+   },
+   {
+    "id": "AMATEURWEEK1",
+    "who": "claude",
+    "title": "Amateur bouts without a camp: a light fight week, offers 1 to 2 weeks out",
+    "after": ""
+   },
+   {
+    "id": "RANKSHOW1",
+    "who": "qwen",
+    "title": "The ladder (pure module + tests), then the rank on every fight card, result and Why",
+    "after": ""
+   },
+   {
+    "id": "HOSTSHOW1",
+    "who": "claude",
+    "title": "Host your own club show (small promotion): design map first, the show is the unit of Ask-for-a-fight",
+    "after": "RANKSHOW1"
+   },
+   {
     "id": "WEEK4",
     "who": "claude",
-    "title": "Week design v4 from the critics' five points, after the hands probe",
-    "after": "HANDSPROBE1"
+    "title": "Week design v4, re-based on four fighters and fight weeks (answers-by-taper gates apply to pro camps only)",
+    "after": "FOURSTART1"
    },
    {
     "id": "BARGUARD1",
@@ -4998,7 +5034,7 @@
    {
     "id": "R37",
     "who": "claude",
-    "title": "Mechanic: ask for a fight, a refusal says why. Design map + Fights screen mockup",
+    "title": "Mechanic: Ask for a fight, the SHOW is the unit, with a COMPARE tab while searching for an opponent (like Boxing Manager)",
     "after": "R25"
    },
    {
@@ -5295,6 +5331,11 @@
   },
   "done_recently": [
    {
+    "title": "TASK TRAININGB1 - CURSOR (Grok 4.7 High) - the Training tab rebuilt as approach B, with A's tiredness curve on top",
+    "who": "cursor",
+    "when": "2026-11-10"
+   },
+   {
     "title": "Training tab B with the tiredness curve collected (PR 179), real render read",
     "who": "cursor",
     "when": "2026-11-10"
@@ -5346,31 +5387,6 @@
    },
    {
     "title": "Corner bar in plain words, feet above the bar, blur 8 samples, grappling fixes collected",
-    "who": "claude",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Dues: three painted price boards on their own tab (Club > Money > Dues)",
-    "who": "cursor",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Read plan line: no answer wins it back (best +3.7 of 7); a line known from round 1 costs 15",
-    "who": "qwen",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "TASK ANIMFIX1 - CLAUDE SUBAGENT (Fable 5.2) - boxing leg tremble (round 5) and grappling matches the player can read; films on the review board",
-    "who": "claude",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Read plan line measured: 7 points, drop and swap win nothing back",
-    "who": "qwen",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Pads for two: measured, two maps, critics 4/10 (not yet good enough)",
     "who": "claude",
     "when": "2026-11-10"
    }
@@ -5561,6 +5577,18 @@
     {
      "text": "MOODHABIT1: mood <1, habits 6-15",
      "who": "claude"
+    },
+    {
+     "text": "Scope: 4 fighters, no-camp bouts",
+     "who": "claude"
+    },
+    {
+     "text": "Training tab B + side panels in",
+     "who": "claude"
+    },
+    {
+     "text": "BJJ choices: 4 rounds, 6 of 10",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5569,15 +5597,15 @@
      "who": "agent"
     },
     {
-     "text": "Week v4: critics gave v3 5 of 10",
+     "text": "Week v4 re-based on 4 fighters",
      "who": "claude"
     },
     {
-     "text": "HANDSPROBE1 (Qwen): Reid's hands",
+     "text": "BARGUARD1: boots above the bar",
      "who": "claude"
     },
     {
-     "text": "BJJ choices v1: critic 4, v2 next",
+     "text": "FOURSTART1: 4 fighters to start",
      "who": "claude"
     }
    ],
@@ -5603,15 +5631,15 @@
      "who": "claude"
     },
     {
-     "text": "Outline on all screens (Cursor)",
-     "who": "agent"
-    },
-    {
-     "text": "Collect Training tab B (PR 179)",
+     "text": "AMATEURWEEK1: bouts with no camp",
      "who": "claude"
     },
     {
-     "text": "Feet clear the bar up close",
+     "text": "RANKSHOW1: rank on every fight",
+     "who": "claude"
+    },
+    {
+     "text": "HOSTSHOW1: host a club show",
      "who": "claude"
     }
    ],
@@ -5621,6 +5649,6 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "de5183d8",
- "next_action": "1) get_usage, then read the last critic reviews (BJJ v4 coach) and his marks on 8787/review. 2) Week design v4 from the S427 critics' five points + THURSDAY2 + MOODHABIT1 + a valid HANDSPROBE1; critics only after he agrees the money. 3) Collect HALOSWEEP1, HANDSPROBE1, BARGUARD1 (render first). 4) Ask him: which design goes on (BJJ v4, cutman v4, R37 v2) given each sits at 5 to 6 after rounds. 5) E: is 92% full: ask before deleting scratch renders under E:/FightCamp/tmp (about 31 GB).",
+ "next_action": "1) get_usage; his marks on 8787/review. 2) FOURSTART1, AMATEURWEEK1, RANKSHOW1 design maps/briefs (RANKSHOW1 to Qwen first: pure ladder module + tests). 3) Re-base week design v4 on four fighters and fight weeks (HANDSPROBE1 valid result first). 4) Collect HALOSWEEP1, HANDSPROBE1, BARGUARD1 (render first). 5) Critics only after he agrees the money. 6) E: 92% full: ask before deleting scratch under E:/FightCamp/tmp.",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

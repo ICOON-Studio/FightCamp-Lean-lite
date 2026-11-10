@@ -4,6 +4,10 @@ OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py s
 S428 has no digest: its facts are here, in roadmap.json `now` and in memory (project_s428_bjj_critics_collects).
 FIRST, BEFORE ANY CRITIC ROUND: run `get_usage` (ccd_session_mgmt). In S428 the plan showed weekly all-models 100% and extra usage EUR 24.41 of 40 spent; each round of two fresh critics is ~330k subagent tokens. Ask him about the money before another round.
 
+## SCOPE CHANGE (his yes, late S428): read ops/research/SCOPE_FOUR_FIGHTERS_S428.md FIRST
+His words: "ok p[roceed with this plan and adjust miro opsboard and everything else". The plan: (1) FOUR FIGHTERS at the start (three boxers + one BJJ, four weight classes, a staggered first week); (2) amateur bouts need NO CAMP (a light fight week, offers 1 to 2 weeks out; camps stay for pro, title, nationals); (3) the RANK on every fight (a regional ladder first); (4) a small HOSTED CLUB SHOW after those; the full promotion waits until after the small living world; (5) a COMPARE TAB while searching for an opponent (his later message: "also during searching for opponent add a compare tab like boxing managers"), in R37. Task ids in the roadmap plan: FOURSTART1, AMATEURWEEK1, RANKSHOW1 (Qwen first: pure ladder module + tests), HOSTSHOW1; WEEK4 is re-based on four fighters and fight weeks. CLAUDE.md item 4 carries the change. DONE for it in S428: CLAUDE.md, the scope file, roadmap plan/now, the Miro P0 map redrawn (frame height still 5210: its resize is refused), memory. NOT done: the Miro P1-P9 production frames (cards not moved), any design map or brief for the four tasks, the money re-measure for four fighters (start cash, stipends, Reid's wage).
+FIRST MOVE of S429: write the FOURSTART1 and AMATEURWEEK1 design maps (menus table each), brief RANKSHOW1 to Qwen, and run the money re-measure for four fighters; ask him about critics money before any round.
+
 ## His words in S428
 None new (the session was the start command, then the work in the handover below). His open marks: the two S427 stills (8787/review, 2026-11-10_1821), and the new posts (Training tab B, the fight screen: 2026-11-10_1854, _1858).
 

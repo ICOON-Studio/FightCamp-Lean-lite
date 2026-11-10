@@ -35,6 +35,13 @@ Each ask names a kind, a weight gap she will accept and a window (Saturdays with
   0.5 of a bout).
 Home shows pay the club a ticket cut ($450); away shows pay travel and the club's cut is lower. The window trades date against pool.
 
+### 3b. The COMPARE tab (his S428 addition: "also during searching for opponent add a compare tab like boxing managers")
+While she searches for an opponent the candidates show on a SEARCH list; a COMPARE tab sets up to three candidates beside her own boxer, side by side, as Boxing
+Manager does: weight and weight gap, age, bouts and record, style word, what scouting has found (tells known, a "not scouted" gap), her recent form, the home or
+away, the club and the favour owed, and a win-chance BAND (narrower the better scouted). Rows that differ are lit; the player picks one to put the ask to. It is the
+place the player reads the pool (the designer critic's first ask: show the pool) before choosing a channel and a kind. Wired to: the candidate pool (Region / Roster
+fighters in reach), OppFile (what is found), FighterProfile, favours, Bouts.offer. The same tab shows on an incoming offer ("compare with the others I could ask").
+
 ### 4. The wait and the reply
 A request stays OPEN (a card on Home and in Mail) for up to 3 weeks; the reply is drawn from the pool: the fighters in reach of her weight class, sex, age and
 experience (the game's world roster, Region), reduced by who is booked, injured or suspended. Outcomes: YES (an offer card, as today); A COUNTER (heavier by
