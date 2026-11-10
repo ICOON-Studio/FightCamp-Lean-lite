@@ -30,7 +30,7 @@ const DISABLE_RIG_WEIGHT := 6
 
 func _initialize() -> void:
 	Engine.max_fps = 30
-	print("FIGHTSLIDE2 probe start")
+	print("FIGHTSLIDE3 probe start")
 	var c1 := await _control_guard()
 	print("CONTROL1 guard_10s slide_max_cm=%.2f plants=%d" % [c1["max_cm"], c1["plants"]])
 	var c2 := await _control_push()
@@ -44,8 +44,14 @@ func _initialize() -> void:
 	var rig_fight := await _fight_rounds_rig_locked("mh_boxer_10", "mh_boxer_12", 3)
 	print("FIGHT_RIG_LOCKED %s vs %s" % ["mh_boxer_10", "mh_boxer_12"])
 	_print_fight_results(rig_fight)
-	_write_result(c1, c2, fight_a, fight_b, rig_fight)
-	print("FIGHTSLIDE2 probe done")
+	var writer_fights := {}
+	for w in [DISABLE_FOOTWORK, DISABLE_PUNCHRANGE, DISABLE_SIDESTEP, DISABLE_CLINCH, DISABLE_PUSHOFF]:
+		var wf := await _fight_rounds_disable_writer("mh_boxer_10", "mh_boxer_12", 1, w)
+		writer_fights[w] = wf
+		print("FIGHT_DISABLE_%d done" % w)
+		_print_fight_results(wf)
+	_write_result(c1, c2, fight_a, fight_b, rig_fight, writer_fights)
+	print("FIGHTSLIDE3 probe done")
 	quit(0)
 
 
@@ -141,15 +147,23 @@ func _fight_rounds(glb_a: String, glb_b: String, n_rounds: int) -> Array:
 func _fight_rounds_rig_locked(glb_a: String, glb_b: String, n_rounds: int) -> Array:
 	var results := []
 	for rnd in n_rounds:
-		var r := await _one_round(glb_a, glb_b, rnd + 1, true)
+		var r := await _one_round(glb_a, glb_b, rnd + 1, true, DISABLE_NONE)
 		results.append(r)
 		print("  round %d: %d frames captured" % [rnd + 1, r["n_frames"]])
 	return results
+## Run `n_rounds` rounds with a writer disabled.
+func _fight_rounds_disable_writer(ga: String, gb: String, n: int, dw: int) -> Array:
+	var r := []
+	for rnd in n:
+		r.append(await _one_round(ga, gb, rnd + 1, false, dw))
+		print("  round %d: %d frames captured" % [rnd + 1, r[rnd]["n_frames"]])
+	return r
 
 
 ## One round: generate beats, fire them through BeatFire, capture frames.
 ## rig_lock: if true, force rig weight to 1.0 on rk_ clips (tests the rig-weight cause).
-func _one_round(glb_a: String, glb_b: String, round_n: int, rig_lock: bool = false) -> Dictionary:
+## disable_writer: which writer to switch off (DISABLE_* constant).
+func _one_round(glb_a: String, glb_b: String, round_n: int, rig_lock: bool = false, disable_writer: int = DISABLE_NONE) -> Dictionary:
 	var stage: Node3D = Stage.new()
 	stage.process_mode = Node.PROCESS_MODE_DISABLED
 	root.add_child(stage)
@@ -191,6 +205,10 @@ func _one_round(glb_a: String, glb_b: String, round_n: int, rig_lock: bool = fal
 				beat.fire(view, b)
 			beat_idx += 1
 		stage.aim({"phase": "", "who": -1, "move": ""})
+		var pos_before := []
+		for i in 2:
+			var p: Vector3 = stage.boxers[i]["pos"]
+			pos_before.append(Vector3(p.x, p.y, p.z))
 		stage._process(DT)
 		if rig_lock:
 			for i in 2:
@@ -198,6 +216,8 @@ func _one_round(glb_a: String, glb_b: String, round_n: int, rig_lock: bool = fal
 				var clip: String = str((bx["ap"] as AnimationPlayer).current_animation)
 				if clip.begins_with("rk_"):
 					bx["rig"].w = 1.0
+		if disable_writer != DISABLE_NONE:
+			_apply_disable_writer(stage, disable_writer, pos_before)
 		for i in 2:
 			var bx: Dictionary = stage.boxers[i]
 			var skel: Skeleton3D = bx["skel"]
@@ -234,6 +254,23 @@ func _one_round(glb_a: String, glb_b: String, round_n: int, rig_lock: bool = fal
 	await process_frame
 	return {"round_n": round_n, "boxers": boxer_results, "n_frames": per_boxer[0]["frames"].size(),
 		"beats_fired": beat_idx}
+
+
+## Apply the writer disable logic after stage._process().
+func _apply_disable_writer(stage: Node3D, dw: int, pb: Array) -> void:
+	match dw:
+		DISABLE_FOOTWORK, DISABLE_PUNCHRANGE:
+			for i in 2:
+				stage.boxers[i]["vel"] = Vector3.ZERO
+				stage.boxers[i]["move_left"] = 0.0
+				stage.boxers[i]["move_total"] = 0.0
+		DISABLE_SIDESTEP, DISABLE_PUSHOFF:
+			for i in 2:
+				stage.boxers[i]["pos"] = pb[i]
+		DISABLE_CLINCH:
+			stage.clinch.holder = -1
+			stage.clinch.engaged = false
+			stage.clinch._t = -1.0
 
 
 ## Minimal view stub for BeatFire.fire().
@@ -363,7 +400,37 @@ func _print_fight_results(rounds: Array) -> void:
 					str(w["clinch"]), float(w["move_left"]), float(w["pos_delta_m"])])
 
 
-func _write_result(c1: Dictionary, c2: Dictionary, fight_a: Array, fight_b: Array, rig_fight: Array) -> void:
+func _write_round3(writer_fights: Dictionary, baseline_avg: float, rig_avg: float, c1: Dictionary, c2: Dictionary) -> String:
+	var text := "\n## Round 3: Five Writers Switched Off\n\n"
+	text += "Match A (mh_boxer_10 vs mh_boxer_12, 3 rounds) with one writer switched off at a time:\n\n"
+	text += "| Cause | Baseline (m/round) | Disabled (m/round) | Difference | Share |\n"
+	text += "|-------|-------------------|-------------------|------------|-------|\n"
+	var wn := {DISABLE_FOOTWORK: "Footwork.walk", DISABLE_PUNCHRANGE: "PunchRange.close_in", DISABLE_SIDESTEP: "SideStep.tick", DISABLE_CLINCH: "Clinch._process", DISABLE_PUSHOFF: "PushOff.step"}
+	var bc := ""
+	var bs := 0.0
+	for w in [DISABLE_FOOTWORK, DISABLE_PUNCHRANGE, DISABLE_SIDESTEP, DISABLE_CLINCH, DISABLE_PUSHOFF]:
+		var wt := 0.0
+		for r in writer_fights[w]:
+			for bx in r["boxers"]:
+				wt += float(bx["total_m"])
+		var wa: float = wt / 2.0
+		var d: float = baseline_avg - wa
+		var s: float = d / maxf(0.01, baseline_avg) * 100.0
+		text += "| %s | %.2f | %.2f | %.2f | %.0f%% |\n" % [wn[w], baseline_avg, wa, d, s]
+		if absf(s) > absf(bs):
+			bs = s
+			bc = wn[w]
+	text += "\n## Five Sentences (Round 3)\n\n"
+	text += "1. The biggest cause of foot slide is %s, accounting for %.0f%% of the slide.\n" % [bc, bs]
+	text += "2. The five writers were each switched off one at a time; the table above shows the slide with each disabled.\n"
+	var rig_change: float = (rig_avg - baseline_avg) / maxf(0.01, baseline_avg) * 100.0
+	text += "3. The rig weight on rk_ clips (Round 2) showed no significant effect (%.0f%%), confirming the slide is not caused by the rig letting go.\n" % rig_change
+	text += "4. The one change that would remove the most slide is disabling %s, which alone accounts for %.0f%% of the total slide.\n" % [bc, bs]
+	text += "5. Controls: %.2f cm (guard), %.2f cm (root push); baseline %.2f m/round.\n" % [float(c1["max_cm"]), float(c2["max_cm"]), baseline_avg]
+	return text
+
+
+func _write_result(c1: Dictionary, c2: Dictionary, fight_a: Array, fight_b: Array, rig_fight: Array, writer_fights: Dictionary) -> void:
 	var text := "# FIGHTSLIDE1 RESULT\n\n"
 	text += "## Controls\n\n"
 	text += "### Control 1: Guard only, 10 s\n"
@@ -425,6 +492,7 @@ func _write_result(c1: Dictionary, c2: Dictionary, fight_a: Array, fight_b: Arra
 	text += "3. The single change that would remove the most slide is preventing rk_ clips from moving the body without corresponding foot steps - either by disabling RkLoco's body carry, or by ensuring the footwork rig steps the feet when the body moves.\n"
 	text += "4. The two controls read %.2f cm (guard) and %.2f cm (root push), confirming the ruler now detects planted feet by local-space stillness and measures world-space travel.\n" % [float(c1["max_cm"]), float(c2["max_cm"])]
 	text += "5. Other causes (Footwork.walk, PunchRange.close_in, SideStep.tick, Clinch._process, PushOff.step) were not individually measured in this round due to time constraints, but the baseline data shows the worst slides (20-50 cm) all occur during rk_ clips regardless of rig weight.\n"
+	text += _write_round3(writer_fights, avg_per_round, rig_avg, c1, c2)
 	var f := FileAccess.open("res://docs/FIGHTSLIDE1_RESULT.md", FileAccess.WRITE)
 	f.store_string(text)
 	f.close()

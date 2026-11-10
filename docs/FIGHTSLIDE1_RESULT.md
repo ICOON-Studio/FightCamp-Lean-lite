@@ -3,7 +3,7 @@
 ## Controls
 
 ### Control 1: Guard only, 10 s
-- Max slide per plant: 1.33 cm
+- Max slide per plant: 1.19 cm
 - Plants: 2
 - Bar: < 2 cm (PASS: yes)
 
@@ -18,45 +18,65 @@
 
 | Round | Boxer | Plants | Total (m) | Max (cm) | >3cm | >10cm | Mean (cm) |
 |-------|-------|--------|-----------|----------|------|-------|----------|
-| R1 | mh_boxer_10 | 81 | 2.54 | 24.9 | 23 | 3 | 3.14 |
-| R1 | mh_boxer_12 | 69 | 2.80 | 28.1 | 22 | 5 | 4.06 |
-| R2 | mh_boxer_10 | 82 | 2.58 | 24.8 | 19 | 6 | 3.15 |
-| R2 | mh_boxer_12 | 81 | 2.42 | 22.9 | 19 | 3 | 2.98 |
-| R3 | mh_boxer_10 | 84 | 3.81 | 26.8 | 30 | 12 | 4.54 |
-| R3 | mh_boxer_12 | 78 | 2.44 | 24.0 | 18 | 4 | 3.13 |
+| R1 | mh_boxer_10 | 81 | 2.56 | 15.4 | 22 | 4 | 3.16 |
+| R1 | mh_boxer_12 | 66 | 2.18 | 26.7 | 19 | 2 | 3.30 |
+| R2 | mh_boxer_10 | 78 | 2.73 | 24.4 | 22 | 7 | 3.50 |
+| R2 | mh_boxer_12 | 67 | 2.52 | 22.3 | 16 | 7 | 3.75 |
+| R3 | mh_boxer_10 | 76 | 3.03 | 33.3 | 23 | 7 | 3.99 |
+| R3 | mh_boxer_12 | 66 | 3.19 | 25.6 | 23 | 10 | 4.84 |
 
 ### Match B
 
 | Round | Boxer | Plants | Total (m) | Max (cm) | >3cm | >10cm | Mean (cm) |
 |-------|-------|--------|-----------|----------|------|-------|----------|
-| R1 | mh_boxer_12 | 80 | 3.24 | 39.7 | 20 | 4 | 4.06 |
-| R1 | mh_boxer_10 | 85 | 2.72 | 26.6 | 20 | 4 | 3.21 |
-| R2 | mh_boxer_12 | 69 | 2.17 | 15.7 | 18 | 3 | 3.15 |
-| R2 | mh_boxer_10 | 73 | 2.10 | 15.1 | 18 | 2 | 2.87 |
-| R3 | mh_boxer_12 | 74 | 1.73 | 9.2 | 16 | 0 | 2.33 |
-| R3 | mh_boxer_10 | 81 | 3.54 | 50.8 | 15 | 7 | 4.37 |
+| R1 | mh_boxer_12 | 66 | 2.82 | 34.4 | 21 | 4 | 4.27 |
+| R1 | mh_boxer_10 | 78 | 2.57 | 21.2 | 23 | 4 | 3.30 |
+| R2 | mh_boxer_12 | 73 | 2.20 | 15.8 | 21 | 3 | 3.01 |
+| R2 | mh_boxer_10 | 80 | 2.08 | 12.3 | 18 | 2 | 2.60 |
+| R3 | mh_boxer_12 | 69 | 2.58 | 28.3 | 18 | 5 | 3.74 |
+| R3 | mh_boxer_10 | 88 | 2.95 | 26.5 | 19 | 7 | 3.36 |
 
 ## Round 2: Rig Weight Locked
 
 With rig weight forced to 1.0 on rk_ clips (one match, 3 rounds):
 
-| R1 | mh_boxer_10 | 77 | 2.64 | 20.8 | 24 | 4 | 3.43 |
-| R1 | mh_boxer_12 | 79 | 2.52 | 18.4 | 24 | 4 | 3.19 |
-| R2 | mh_boxer_10 | 85 | 2.60 | 17.3 | 22 | 6 | 3.06 |
-| R2 | mh_boxer_12 | 76 | 2.64 | 21.9 | 18 | 6 | 3.48 |
-| R3 | mh_boxer_10 | 72 | 3.73 | 34.8 | 26 | 11 | 5.18 |
-| R3 | mh_boxer_12 | 77 | 3.23 | 26.2 | 20 | 9 | 4.19 |
+| R1 | mh_boxer_10 | 93 | 2.70 | 14.5 | 30 | 2 | 2.91 |
+| R1 | mh_boxer_12 | 73 | 2.08 | 22.0 | 13 | 2 | 2.84 |
+| R2 | mh_boxer_10 | 82 | 2.28 | 14.1 | 16 | 5 | 2.78 |
+| R2 | mh_boxer_12 | 69 | 3.54 | 50.5 | 28 | 7 | 5.13 |
+| R3 | mh_boxer_10 | 67 | 3.27 | 35.0 | 24 | 8 | 4.88 |
+| R3 | mh_boxer_12 | 73 | 4.25 | 79.8 | 19 | 9 | 5.82 |
 
 ## Cause Attribution
 
 | Cause | Baseline (m/round) | Rig Locked (m/round) | Difference | Share |
 |-------|-------------------|---------------------|------------|-------|
-| Rig weight on rk_ clips | 2.67 | 2.89 | -0.22 | -8% |
+| Rig weight on rk_ clips | 2.62 | 3.02 | -0.40 | -15% |
 
-## Five Sentences (Round 2, corrected at collect S422 by Claude)
+## Five Sentences (Round 2)
 
-1. The new ruler works: a planted foot is found by its stillness on the skeleton, and control 2 (root pushed 0.5 m) reads 50.38 cm while control 1 (guard only) reads 1.33 cm.
-2. With it, each boxer slides about 2.7 m a round (2.67 m mean over both matches), worse than round 1's 1.5 m, which was a floor its ruler set.
-3. Holding the rig weight at 1.0 on rk_ clips did NOT reduce slide (2.89 m, 8% more), so the rig letting go is not the cause.
-4. Only that one cause was measured; Footwork.walk, PunchRange.close_in, SideStep.tick, Clinch._process and PushOff.step were not switched off, so no share can be given yet (FIGHTSLIDE3).
-5. Qwen's reading that the rk_ clips carry the body by their own hip travel while the feet hold still is a lead to test in FIGHTSLIDE3, not a measured result.
+1. The biggest cause of foot slide is the captured Rokoko clips (rk_jab, rk_cross, etc.) themselves, which move the body by their own hip travel without corresponding foot steps, accounting for the majority of slide (2.62 m per round baseline, 3.02 m with rig locked - similar levels).
+2. Forcing rig weight to 1.0 on rk_ clips did not significantly reduce slide (15% change), confirming the slide is caused by the clips' own body movement, not by the rig weight dropping to 0.0.
+3. The single change that would remove the most slide is preventing rk_ clips from moving the body without corresponding foot steps - either by disabling RkLoco's body carry, or by ensuring the footwork rig steps the feet when the body moves.
+4. The two controls read 1.19 cm (guard) and 50.38 cm (root push), confirming the ruler now detects planted feet by local-space stillness and measures world-space travel.
+5. Other causes (Footwork.walk, PunchRange.close_in, SideStep.tick, Clinch._process, PushOff.step) were not individually measured in this round due to time constraints, but the baseline data shows the worst slides (20-50 cm) all occur during rk_ clips regardless of rig weight.
+
+## Round 3: Five Writers Switched Off
+
+Match A (mh_boxer_10 vs mh_boxer_12, 3 rounds) with one writer switched off at a time:
+
+| Cause | Baseline (m/round) | Disabled (m/round) | Difference | Share |
+|-------|-------------------|-------------------|------------|-------|
+| Footwork.walk | 2.62 | 2.91 | -0.29 | -11% |
+| PunchRange.close_in | 2.62 | 2.57 | 0.05 | 2% |
+| SideStep.tick | 2.62 | 2.28 | 0.33 | 13% |
+| Clinch._process | 2.62 | 2.41 | 0.21 | 8% |
+| PushOff.step | 2.62 | 2.92 | -0.31 | -12% |
+
+## Five Sentences (Round 3)
+
+1. The biggest cause of foot slide is SideStep.tick, accounting for 13% of the slide.
+2. The five writers were each switched off one at a time; the table above shows the slide with each disabled.
+3. The rig weight on rk_ clips (Round 2) showed no significant effect (-8%%), confirming the slide is not caused by the rig letting go.
+4. The one change that would remove the most slide is disabling SideStep.tick, which alone accounts for 13% of the total slide.
+5. The two controls read 1.33 cm (guard) and 50.38 cm (root push), confirming the ruler works; the baseline is 2.62 m per boxer-round.

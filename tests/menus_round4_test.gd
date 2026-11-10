@@ -25,7 +25,7 @@ func _initialize() -> void:
 	await _frames(4)
 	_check(main.find_child("EnterNationals", true, false) is Button, "1: Overview carries Enter for the nationals")
 	var e: Button = main.find_child("EnterNationals", true, false)
-	_check(e != null and e.theme_type_variation == "BtnSolid", "1: it is the page's filled button")
+	_check(e != null and str(e.theme_type_variation) in ["BtnSolid", "Go"], "1: it is the page's filled button")   # LOOKSLATE7: the Overview's primary is the wood Go piece
 	var prep_tab := false
 	for b in main.find_children("*", "Button", true, false):
 		prep_tab = prep_tab or str((b as Button).text) == "Fight prep"

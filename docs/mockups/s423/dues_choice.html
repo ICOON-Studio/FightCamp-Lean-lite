@@ -1,0 +1,57 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Dues choice</title>
+<style>
+/* S423 dues design map picture: Club > Money, the DUES card. Same kit as cutman_corner.html. */
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1920px;height:1080px;overflow:hidden;background:#0b0907;font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;color:#f3ead8;position:relative}
+.arena{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,#2a221b 0,#0b0907 75%)}
+.wood{position:absolute;border:14px solid #5a3a22;border-image:linear-gradient(#7a5233,#4a2f1b) 1;background:linear-gradient(#1d1a17f4,#121010f8);box-shadow:0 8px 30px #000a, inset 0 0 0 2px #2a201a}
+.wood:before,.wood:after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:radial-gradient(#d9b46a,#6b4b20);top:-14px;left:-14px}
+.wood:after{left:auto;right:-14px}
+.lbl{font-size:20px;letter-spacing:1px;color:#cdbb9c}
+.tab{position:absolute;top:18px;font-size:24px;padding:8px 22px;border-radius:8px;border:2px solid #6b5338;background:#2a2119}
+.tile{position:absolute;top:250px;width:520px;height:600px;border-radius:14px;border:3px solid #6b5338;background:linear-gradient(#33271d,#1d1610);box-shadow:0 6px 0 #000a;text-align:center}
+.tile.on{border-color:#e6b24a;box-shadow:0 0 26px #e6b24a66,0 6px 0 #000a}
+.name{font-size:44px;font-weight:800;margin-top:26px}
+.price{font-size:30px;color:#cdbb9c;margin-top:4px}
+.row{display:flex;align-items:center;gap:22px;margin:30px 0 0 56px;text-align:left}
+.ic{width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;background:#0f0c0a;border:3px solid #4a3e33}
+.num{font-size:48px;font-weight:800;line-height:1}
+.cap{font-size:22px;color:#cdbb9c}
+.g{color:#59d38a}.r{color:#ff6a5c}.a{color:#f2b544}.w{color:#f3ead8}
+.tip{position:absolute;left:1270px;top:470px;width:560px;padding:18px 22px;border-radius:10px;background:#0d0b09f4;border:2px solid #c9a46a;font-size:22px;line-height:1.5;box-shadow:0 8px 24px #000c}
+</style></head><body>
+<div class="arena"></div>
+<div class="wood" style="left:0;top:0;width:1920px;height:84px;border-top:none">
+ <div style="position:absolute;left:30px;top:16px;font-size:32px;font-weight:700">Anvil Street Gym</div>
+ <div class="tab" style="left:620px">Home</div><div class="tab" style="left:760px">Fighters</div><div class="tab" style="left:920px">Fights</div>
+ <div class="tab" style="left:1060px;border-color:#e6b24a">Club</div><div class="tab" style="left:1180px">World</div>
+ <div style="position:absolute;right:30px;top:12px;font-size:32px;font-weight:700" class="a">$18,700</div>
+</div>
+<div style="position:absolute;left:60px;top:110px;font-size:26px" class="lbl">CLUB &nbsp;›&nbsp; MONEY</div>
+<div style="position:absolute;left:60px;top:150px;font-size:46px;font-weight:800">DUES <span style="font-size:26px;color:#cdbb9c;font-weight:400">&nbsp;what kind of club you run</span></div>
+
+<div class="tile" style="left:60px">
+ <div class="name">CHEAP</div><div class="price">$25 a month</div>
+ <div class="row"><div class="ic">$</div><div><div class="num r">$1,150</div><div class="cap">a month</div></div></div>
+ <div class="row"><div class="ic">👥</div><div><div class="num g">46</div><div class="cap">members</div></div></div>
+ <div class="row"><div class="ic">🥊</div><div><div class="num g">5.0</div><div class="cap">home-grown boxers in 5 years</div></div></div>
+</div>
+<div class="tile on" style="left:700px">
+ <div class="name">STANDARD</div><div class="price">$35 a month</div>
+ <div class="row"><div class="ic">$</div><div><div class="num w">$1,400</div><div class="cap">a month</div></div></div>
+ <div class="row"><div class="ic">👥</div><div><div class="num w">40</div><div class="cap">members</div></div></div>
+ <div class="row"><div class="ic">🥊</div><div><div class="num w">3.5</div><div class="cap">home-grown boxers in 5 years</div></div></div>
+ <div style="position:absolute;left:0;right:0;bottom:22px;font-size:24px" class="a">● in force</div>
+</div>
+<div class="tile" style="left:1340px">
+ <div class="name">PREMIUM</div><div class="price">$45 a month</div>
+ <div class="row"><div class="ic">$</div><div><div class="num g">$1,530</div><div class="cap">a month</div></div></div>
+ <div class="row"><div class="ic">👥</div><div><div class="num r">34</div><div class="cap">members</div></div></div>
+ <div class="row"><div class="ic">🥊</div><div><div class="num r">2.0</div><div class="cap">home-grown boxers in 5 years</div></div></div>
+</div>
+<div class="tip" style="left:1300px;top:700px;width:560px">
+ <b>Premium</b>: adults who come for fitness. <span class="g">+$130</span> a month,
+ <span class="r">1 in 5</span> junior trials pass (now 1 in 3). From next month; members leave over 4 weeks.
+</div>
+<div style="position:absolute;left:60px;top:880px;font-size:24px;color:#cdbb9c">Green = better than now, red = worse. Hover a tile for what it means.</div>
+</body></html>

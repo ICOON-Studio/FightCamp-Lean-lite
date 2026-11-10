@@ -8,9 +8,9 @@ Updated 2026-11-10 by claude S294.
 
 ## Now
 
-**S422 — ?** *(claude)*
+**S423 — ?** *(claude)*
 
-S422: FIGHTSLIDE2 collected by diff (the ruler works, 2.7 m slide a boxer-round, rig weight not the cause; conclusion rewritten), FIGHTSLIDE3 queued (Qwen). Q-165 At a glance redrawn in the game's own words -> Q-171; Q-166/169 -> TRAININGB1 briefed (Cursor, B with A's curve); Q-167 staff wall painted by Ludo -> Q-172; Q-170 three critics + 10/10 drawings -> verdict Q-174 (coach's drawing as base, hint not grade); dues researched in-session (John unreachable: Grok Bot 'Sand box session' 502 since 11-05) -> Q-173; knockdown count can no longer hang (KdWait); KDFIX2 measured GuardWeave 1.21 cm + FighterLife 0.87 cm on a downed boxer, KDFIX3 queued. 8 worktrees retired (E: 35 -> 42 GB). Exported.
+S423: main CI green again (menus_round4 wanted BtnSolid; the Overview's primary is the wood Go piece). FIGHTDISPLAY1 (veteran's drawing, graded calls) LAUNCHED on Cursor, FIGHTDISPLAY2 queued. R28 Cutman map v2 after two critics (depth 4-5 -> coach's 10/10) on the board Q-175. R25 measured first: switching games and covering a line move nothing; she WAITS for your best line = -6.5 points, no counterplay recovers it yet (not asked) (tools/cover_probe.gd, hook bout.covered); map ops/research/R25_ADAPTS_DESIGN_MAP.md. Dues map Q-176. LEGTREMBLE3 HELD (its clips turn head_aim red, 0 on main's). FIGHTSLIDE3: no single slide cause (SideStep 13%). PR 162 held for KDFIX3.
 
 ## Next
 
@@ -307,3 +307,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S420**  |  |  | *none yet* |  |
 |  |  | **S421**  |  |  | *none yet* |  |
 |  |  | **S422**  |  |  | *none yet* |  |
+|  |  | **S423**  |  |  | *none yet* | S423: main CI green again (menus_round4 wanted BtnSolid; the Overview's primary is the wood Go piece). FIGHTDISPLAY1 (veteran's drawing, graded calls) LAUNCHED on Cursor, FIGHTDISPLAY2 queued. R28 Cutman map v2 after two critics (depth 4-5 -> coach's 10/10) on the board Q-175. R25 measured first: switching games and covering a line move nothing; she WAITS for your best line = -6.5 points, no counterplay recovers it yet (not asked) (tools/cover_probe.gd, hook bout.covered); map ops/research/R25_ADAPTS_DESIGN_MAP.md. Dues map Q-176. LEGTREMBLE3 HELD (its clips turn head_aim red, 0 on main's). FIGHTSLIDE3: no single slide cause (SideStep 13%). PR 162 held for KDFIX3. |

@@ -6360,6 +6360,46 @@
       "answered_at": "2026-11-10T09:58:19Z",
       "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-175",
+      "asked": "2026-11-10T10:32:39.436730+00:00",
+      "session": "S294",
+      "text": "R28 Cutman, design map v2 (mechanics first). Two critics scored my first map 4-5/10 on depth: the cutman always won and 'send out' always beat 'pull out'. v2 is the coach critic's 10/10 (2nd picture): the cutman has ONE job in the minute (the eye, or a cut, or the coach takes one and spends your one change); stop or go shows the win chance of each path, with a third path 'send out, work off the blind side'; the boxer has a say. Today a closing eye changes nothing in a fight; this makes it count. The cutman would also work amateur shows at $50 a night (pro stays $150). Build it?",
+      "options": [
+        "Yes, build v2 as drawn",
+        "Yes, but change something (note)",
+        "No"
+      ],
+      "attach": [
+        "research/R28_CUTMAN_DESIGN_MAP.md",
+        "AgentComms/board_attach/Q-S294-175_2_cutman_10_coach_v2.png",
+        "AgentComms/board_attach/Q-S294-175_3_cutman_10_simvet.png",
+        "AgentComms/board_attach/Q-S294-175_1_cutman_corner.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-176",
+      "asked": "2026-11-10T10:37:47.368440+00:00",
+      "session": "S294",
+      "text": "Dues, the design map you asked for (Q-173): the choice is what kind of club you run, on Club > Money. Cheap = more members and juniors (5 home-grown boxers in 5 years), less money; Premium = more money from fitness adults, 2 home-grown boxers; Standard between. Today Premium always wins. Each tile shows money, members and boxers in colour, words on hover; a change starts next month. Build it?",
+      "options": [
+        "Yes, build it as drawn",
+        "Yes, but change something (note)",
+        "No"
+      ],
+      "attach": [
+        "research/DUES_DESIGN_MAP_S423.md",
+        "AgentComms/board_attach/Q-S294-176_1_dues_choice.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

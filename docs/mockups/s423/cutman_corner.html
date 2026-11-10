@@ -1,0 +1,115 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Cutman corner</title>
+<style>
+/* S423 R28 design map picture: the corner minute after round 2 with a closing eye. Same kit as docs/mockups/s422. */
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1920px;height:1080px;overflow:hidden;background:#0b0907;font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;color:#f3ead8;position:relative}
+.arena{position:absolute;inset:0;background:url(../s421/fight_display_painted_ludo.png) center/1920px 1056px no-repeat;filter:brightness(.28) blur(3px)}
+.wood{position:absolute;border:14px solid #5a3a22;border-image:linear-gradient(#7a5233,#4a2f1b) 1;background:linear-gradient(#1d1a17f4,#121010f8);box-shadow:0 8px 30px #000a, inset 0 0 0 2px #2a201a}
+.wood:before,.wood:after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:radial-gradient(#d9b46a,#6b4b20);top:-14px;left:-14px}
+.wood:after{left:auto;right:-14px}
+.lbl{font-size:20px;letter-spacing:1px;color:#cdbb9c}
+.h{font-size:34px;font-weight:700;letter-spacing:1px}
+.opt{position:absolute;border-radius:12px;border:3px solid #6b5338;background:linear-gradient(#3a2c20,#241b14);box-shadow:0 4px 0 #000a;padding:16px 20px}
+.opt .t{font-size:30px;font-weight:700}
+.opt .s{font-size:22px;color:#e9dcc4;margin-top:8px;line-height:1.35}
+.on{border-color:#e6b24a;background:linear-gradient(#6b4a1e,#3e2a12);box-shadow:0 0 18px #e6b24a66,0 4px 0 #000a}
+.g{color:#59d38a}.r{color:#ff6a5c}.a{color:#f2b544}.b{color:#6aa8ff}
+.pill{display:inline-block;font-size:20px;font-weight:700;padding:3px 12px;border-radius:14px}
+.dash{position:absolute;left:560px;right:330px;border-top:3px dashed #8a6a44}
+</style></head><body>
+<div class="arena"></div>
+
+<!-- top: where we are -->
+<div class="wood" style="left:560px;top:0;width:800px;height:120px;border-top:none;text-align:center">
+ <div class="lbl" style="margin-top:12px">CORNER &nbsp;·&nbsp; AFTER ROUND 2 OF 3</div>
+ <div style="font-size:52px;font-weight:800;line-height:1.1">0:44 <span style="font-size:24px;color:#cdbb9c;font-weight:400">to the bell</span></div>
+</div>
+
+<!-- left: the eye -->
+<div class="wood" style="left:30px;top:150px;width:500px;height:760px">
+ <div class="h" style="text-align:center;margin-top:18px">LUCY JACKSON</div>
+ <svg width="472" height="330" viewBox="0 0 472 330" style="display:block;margin-top:10px">
+  <ellipse cx="236" cy="170" rx="128" ry="150" fill="#d79a4a"/>
+  <ellipse cx="190" cy="150" rx="30" ry="18" fill="#fff"/><circle cx="190" cy="150" r="10" fill="#222"/>
+  <ellipse cx="284" cy="150" rx="40" ry="30" fill="#7b3c6e"/>
+  <path d="M252 152 Q284 140 316 152" stroke="#2a1020" stroke-width="6" fill="none"/>
+  <path d="M296 120 l14 -10" stroke="#ff4433" stroke-width="5"/>
+  <circle cx="284" cy="150" r="58" fill="none" stroke="#ff6a5c" stroke-width="5" stroke-dasharray="10 8"/>
+  <path d="M236 175 l-10 30 h20 z" fill="#b97a34"/>
+  <path d="M200 240 q36 18 72 0" stroke="#6b3a1a" stroke-width="6" fill="none"/>
+ </svg>
+ <div style="text-align:center;margin-top:-6px"><span class="pill" style="background:#7a1d16;font-size:26px">LEFT EYE CLOSING</span></div>
+ <div style="display:flex;justify-content:center;align-items:baseline;gap:18px;margin-top:20px">
+  <span style="font-size:30px;color:#cdbb9c">52</span><span style="font-size:30px">→</span><span class="r" style="font-size:64px;font-weight:800">28</span>
+ </div>
+ <div class="lbl" style="text-align:center">this round: 9 punches on the left side</div>
+ <div style="margin:28px 30px 0;font-size:22px;line-height:1.6">
+  <div><span class="r">●</span> Cannot see Maria's right hand</div>
+  <div><span class="a">●</span> Doctor looks at the bell</div>
+  <div><span class="g">●</span> Cutman on staff: Tom Byrne</div>
+ </div>
+</div>
+
+<!-- middle: who works the eye -->
+<div class="lbl" style="position:absolute;left:560px;top:152px;font-size:24px">WHO WORKS THE EYE</div>
+<div class="opt on" style="left:560px;top:192px;width:330px;height:250px">
+ <div class="t">Cutman<br>ice + enswell</div>
+ <div class="s">Eye <b class="r">28</b> → <b class="a">38</b> next round<br>You keep your one change</div>
+</div>
+<div class="opt" style="left:910px;top:192px;width:330px;height:250px">
+ <div class="t">Coach<br>does it</div>
+ <div class="s">Eye <b class="r">28</b> → <b class="r">33</b><br>Uses your one change</div>
+</div>
+<div class="opt" style="left:1260px;top:192px;width:300px;height:250px">
+ <div class="t">Leave it</div>
+ <div class="s" style="margin-top:46px">Eye stays <b class="r">28</b><br>All your coaching</div>
+</div>
+
+<!-- divider + stop or go -->
+<div class="dash" style="top:478px"></div>
+<div class="lbl" style="position:absolute;left:560px;top:496px;font-size:24px">STOP OR GO &nbsp;<span style="color:#9c8a70">(the eye is closing)</span></div>
+<div class="opt" style="left:560px;top:536px;width:480px;height:330px">
+ <div class="t">Pull Lucy out</div>
+ <div class="s" style="margin-top:18px">
+  <div><span class="r">✖</span> Loses the bout (retired)</div>
+  <div><span class="g">✔</span> The eye is safe</div>
+  <div><span class="g">✔</span> Back training in 1 week</div>
+ </div>
+</div>
+<div class="opt" style="left:1060px;top:536px;width:500px;height:330px">
+ <div class="t">Send Lucy out</div>
+ <div class="s" style="margin-top:18px">
+  <div><span class="a">1 in 8</span> &nbsp;the doctor stops it <span style="color:#9c8a70">(1 in 4 without the cutman)</span></div>
+  <div><span class="r">+25%</span> &nbsp;punches land on the blind side</div>
+  <div><span class="r">1 in 5</span> &nbsp;lasting cut: out 3-4 weeks, marks easily</div>
+  <div><span class="g">✔</span> &nbsp;Round 3 can still win it</div>
+ </div>
+</div>
+
+<!-- right: the score -->
+<div class="wood" style="left:1590px;top:150px;width:300px;height:430px;text-align:center">
+ <div class="lbl" style="margin-top:20px">CARDS SO FAR</div>
+ <div style="display:flex;justify-content:center;gap:14px;margin-top:18px">
+  <span class="pill" style="background:#b8322a;font-size:30px;padding:8px 18px">R1</span>
+  <span class="pill" style="background:#2f6fd0;font-size:30px;padding:8px 18px">R2</span>
+  <span class="pill" style="background:#3a332c;font-size:30px;padding:8px 18px;color:#9c8a70">R3</span>
+ </div>
+ <div style="font-size:30px;font-weight:700;margin-top:34px;line-height:1.3">Level.<br>Round 3<br>decides it.</div>
+ <div class="lbl" style="margin-top:30px">MARIA ORTEGA</div>
+ <div style="font-size:22px;margin-top:8px">eyes <span class="g">fine</span></div>
+</div>
+
+<!-- right lower: the rest of the corner -->
+<div class="wood" style="left:1590px;top:610px;width:300px;height:300px">
+ <div class="lbl" style="margin:20px 0 0 22px">THE REST OF THE CORNER</div>
+ <div style="font-size:22px;margin:16px 22px;line-height:1.7;color:#cdbb9c">
+  One change<br>Recover (3 points)<br>Talk<br>Set-up
+ </div>
+</div>
+
+<!-- bottom -->
+<div class="wood" style="left:30px;top:935px;width:1860px;height:130px">
+ <div style="position:absolute;left:30px;top:30px;font-size:26px;color:#cdbb9c">Tom works the eye while you talk. &nbsp;Stop or go is never picked for you: Ready waits for it.</div>
+ <div class="opt on" style="right:24px;top:16px;width:300px;height:76px;text-align:center;padding:14px"><div class="t">Ready</div></div>
+</div>
+</body></html>
