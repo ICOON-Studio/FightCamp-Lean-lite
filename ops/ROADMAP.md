@@ -10,7 +10,7 @@ Updated 2026-11-10 by claude S294.
 
 **S420 — ?** *(claude)*
 
-S421: LOOKSLATE7 collected (roster cards, pad cards, Overview buttons on slate; the weight chip reads '+0.9 kg'); R11C's test joins the list; PR 105 MENUPLAYBOOK1 closed (259 behind, old warm look; the Playbook goes through a concept). Three seen defects fixed: stylised portraits re-keyed onto the S387 slate backdrop (dark faces read), Club People's roster-places tile, the offer's corner notes clear of the boots. Fight display: LiveRound checked for hints 1, 5, 9; one drawing + Ludo paint, Q-S294-170. KDFIX1 sent back as KDFIX2 (its ruler read the pose before the modifiers). Exported.
+S421: LOOKSLATE7 collected (roster cards, pad cards, Overview buttons on slate; the weight chip reads '+0.9 kg'); R11C's test joins the list; PR 105 MENUPLAYBOOK1 closed (259 behind, old warm look; the Playbook goes through a concept). Three seen defects fixed: stylised portraits re-keyed onto the S387 slate backdrop (dark faces read), Club People's roster-places tile, the offer's corner notes clear of the boots. Fight display: LiveRound checked for hints 1, 5, 9; one drawing + Ludo paint, Q-S294-170. KDFIX1 sent back as KDFIX2 (its ruler read the pose before the modifiers). Exported. Later: LOOKSLATE6 (World on slate) collected. The PC blue-screened ~11:12 (bugcheck D1 in amdkmdag.sys, AMD GPU driver 32.0.21045.16010) a minute after the heat governor froze a windowed render; the governor now never suspends --windowed jobs. LEGTREMBLE2 lost its seat (Antigravity credits) -> LEGTREMBLE3 on Cursor. FIGHTSLIDE2 finished (a08047c6, pushed by hand, no PR).
 
 ## Next
 

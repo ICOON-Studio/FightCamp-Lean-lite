@@ -3,7 +3,8 @@ extends RefCounted
 ## the kit's icons. It does not roll dice and it does not build the world.
 
 const UI := preload("res://scripts/ui/UI.gd")
-const WarmKit := preload("res://scripts/ui/WarmKit.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
+const Bars := preload("res://scripts/ui/WorldBars.gd")
 const Rules := preload("res://scripts/rules/WorldLadderRules.gd")
 const Compare := preload("res://scripts/ui/WorldCompare.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
@@ -32,7 +33,7 @@ static func build(main: Node, c: Career) -> Control:
 	var chips := Compare.faces(main, c, _sel(c), _choose_fighter)
 	chips.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top.add_child(chips)
-	page.add_child(top)
+	page.add_child(Compare.bed(top))
 	var f := _fighter(c)
 	if f.is_empty():
 		page.add_child(UI.muted("No fighter on the books.", UI.BODY))
@@ -63,7 +64,7 @@ static func build(main: Node, c: Career) -> Control:
 	key_p.size_flags_stretch_ratio = 2.0
 	foot.add_child(route_p)
 	foot.add_child(key_p)
-	left.add_child(foot)
+	left.add_child(Compare.bed(foot))
 	left.add_child(Compare.region_files(main, c, _gym_divs(c)))
 	body.add_child(left)
 	var right := UI.vbox(8)
@@ -75,10 +76,12 @@ static func build(main: Node, c: Career) -> Control:
 	return page
 
 static func _ladder(main: Node, c: Career, f: Dictionary, rows: Array, chosen: String, route: Dictionary) -> Control:
-	var board := WarmKit.panel("board")
+	var board := PanelContainer.new()
 	board.name = "Rankings_" + str(f["div"])
 	board.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	board.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	# The whiteboard padded 60. The frame is 22, so the pad is 38 and the board does not grow.
+	board.add_theme_stylebox_override("panel", WoodKit.slate(38, 38))
 	var v := UI.vbox(2)
 	board.add_child(v)
 	v.add_child(UI.caps(_caption(c, f)))
@@ -92,9 +95,9 @@ static func _ladder(main: Node, c: Career, f: Dictionary, rows: Array, chosen: S
 	list.name = "LadderRows"
 	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var line := str(route["line"])
-	for r in rows:
-		var row: Dictionary = r
-		list.add_child(_row(main, f, row, chosen, line if bool(row["ours"]) and int(row["rank"]) <= 0 else "", trend, ko))
+	for i in rows.size():
+		var row: Dictionary = rows[i]
+		list.add_child(_row(main, f, row, chosen, line if bool(row["ours"]) and int(row["rank"]) <= 0 else "", trend, ko, i))
 	v.add_child(list)
 	board.resized.connect(func(): Compare.align_columns(head, list))
 	return board
@@ -118,7 +121,7 @@ static func _header(trend: bool, ko: bool) -> HBoxContainer:
 		h.add_child(lab)
 	return h
 
-static func _row(main: Node, f: Dictionary, row: Dictionary, chosen: String, line: String, trend: bool, ko: bool) -> Control:
+static func _row(main: Node, f: Dictionary, row: Dictionary, chosen: String, line: String, trend: bool, ko: bool, stripe: int) -> Control:
 	var p := PanelContainer.new()
 	p.name = "LadderRow_" + str(row["id"]).replace(" ", "_")
 	var mine := bool(row["ours"])
@@ -129,9 +132,11 @@ static func _row(main: Node, f: Dictionary, row: Dictionary, chosen: String, lin
 	p.set_meta("booked_opp", bool(row.get("booked_opp", false)))
 	var fade := bool(row.get("pro", false)) and not mine and not bool(row.get("reach", false))
 	if mine:
-		_tint(p, Color(UI.GOLD, 0.16))
+		_tint(p, Color(0, 0, 0, 0), WoodKit.HEAD, 2)
 	elif str(row["id"]) == chosen:
-		_tint(p, Color(UI.RED, 0.14))
+		_tint(p, Color(0, 0, 0, 0), WoodKit.BLUE, 2)
+	elif stripe % 2 == 1:
+		_tint(p, Color(1, 1, 1, 0.03))
 	else:
 		_tint(p, Color(0, 0, 0, 0))
 	if fade:
@@ -174,7 +179,7 @@ static func _name(main: Node, f: Dictionary, row: Dictionary) -> Control:
 	b.tooltip_text = str(row.get("tip", ""))
 	Compare.wide_button(b, 120.0)
 	b.alignment = HORIZONTAL_ALIGNMENT_LEFT
-	b.size_flags_horizontal = Control.SIZE_FILL   # her marks sit right after her name
+	b.size_flags_horizontal = Control.SIZE_FILL   # the marks sit right after the name
 	h.add_child(b)
 	for m in row.get("marks", []):
 		h.add_child(Compare.icon(str(m), 14, _mark_col(str(m))))
@@ -189,7 +194,7 @@ static func _chance(row: Dictionary, line: String) -> Control:
 		return h
 	var lo := float(band["lo"])
 	var hi := float(band["hi"])
-	var bar := Compare.ChanceBar.new()
+	var bar := Bars.ChanceBar.new()
 	bar.name = "WinBand"
 	bar.lo = lo
 	bar.hi = hi
@@ -212,7 +217,7 @@ static func _scout(row: Dictionary) -> Control:
 	elif bool(row.get("partial", false)):
 		h.add_child(Compare.icon("scouted", 16, UI.AMBER))
 	else:
-		h.add_child(Compare.icon("unscouted", 16, UI.MUTED))
+		h.add_child(Compare.icon("unscouted", 16, WoodKit.SOFT))
 	return h
 
 static func _trend(row: Dictionary) -> Control:
@@ -234,7 +239,7 @@ static func _finishes(row: Dictionary) -> Control:
 		h.add_child(UI.muted("-", UI.TINY))
 		return h
 	h.add_child(UI.label("%d%%" % int(round(100.0 * float(row["ko"]) / float(int(row["w"])))), UI.SMALL, UI.FG, "bold"))
-	h.add_child(Compare.icon("hands", 14, UI.FG))
+	h.add_child(Compare.icon("hands", 14, WoodKit.INK))
 	return h
 
 static func _action(main: Node, f: Dictionary, row: Dictionary) -> Control:
@@ -484,13 +489,6 @@ static func _mark_col(id: String) -> Color:
 		return UI.GREEN
 	return UI.RED
 
-static func _tint(p: PanelContainer, col: Color) -> void:
-	var box := StyleBoxFlat.new()
-	box.bg_color = col
-	box.set_content_margin(SIDE_LEFT, 0)
-	box.set_content_margin(SIDE_RIGHT, 0)
-	box.set_content_margin(SIDE_TOP, 1)
-	box.set_content_margin(SIDE_BOTTOM, 1)
-	box.set_corner_radius_all(4)
-	p.add_theme_stylebox_override("panel", box)
+static func _tint(p: PanelContainer, bg: Color, edge: Color = Color(0, 0, 0, 0), w: int = 0) -> void:
+	p.add_theme_stylebox_override("panel", UI.box(bg, edge, 4, w, 0, 1))
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL

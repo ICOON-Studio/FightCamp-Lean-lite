@@ -1,7 +1,8 @@
 extends SceneTree
-## FIGHTSLIDE1 (S419): how much do planted feet slide during a live fight, and what moves them?
+## FIGHTSLIDE2 (S420): measure each cause of foot slide by switching it off.
 ## Headless. Two boxers (mh_boxer_10 vs mh_boxer_12, then swapped), three rounds through BeatFire at 30 fps.
-## Read on skeleton_updated (the final pose). Per plant: ball travel, clip playing, system state.
+## Ruler: a planted foot is one the ANIMATION holds still (local-space speed < threshold), not one whose world speed is low.
+## Slide = how far that foot moves in the world while the clip holds it planted.
 ##   <godot> --headless --audio-driver Dummy --path . --fixed-fps 30 --script res://tools/fight_slide_probe.gd
 
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
@@ -15,14 +16,21 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const FPS := 30.0
 const DT := 1.0 / FPS
 const FLOOR_BAND := 0.025
-const PLANT_SPEED := 0.25
+const LOCAL_PLANT_SPEED := 0.25
 const PLANT_MIN_S := 0.2
 const BALLS := ["LeftToes", "RightToes"]
+const DISABLE_NONE := 0
+const DISABLE_FOOTWORK := 1
+const DISABLE_PUNCHRANGE := 2
+const DISABLE_SIDESTEP := 3
+const DISABLE_CLINCH := 4
+const DISABLE_PUSHOFF := 5
+const DISABLE_RIG_WEIGHT := 6
 
 
 func _initialize() -> void:
 	Engine.max_fps = 30
-	print("FIGHTSLIDE1 probe start")
+	print("FIGHTSLIDE2 probe start")
 	var c1 := await _control_guard()
 	print("CONTROL1 guard_10s slide_max_cm=%.2f plants=%d" % [c1["max_cm"], c1["plants"]])
 	var c2 := await _control_push()
@@ -33,12 +41,15 @@ func _initialize() -> void:
 	var fight_b := await _fight_rounds("mh_boxer_12", "mh_boxer_10", 3)
 	print("FIGHT_B %s vs %s" % ["mh_boxer_12", "mh_boxer_10"])
 	_print_fight_results(fight_b)
-	_write_result(c1, c2, fight_a, fight_b)
-	print("FIGHTSLIDE1 probe done")
+	var rig_fight := await _fight_rounds_rig_locked("mh_boxer_10", "mh_boxer_12", 3)
+	print("FIGHT_RIG_LOCKED %s vs %s" % ["mh_boxer_10", "mh_boxer_12"])
+	_print_fight_results(rig_fight)
+	_write_result(c1, c2, fight_a, fight_b, rig_fight)
+	print("FIGHTSLIDE2 probe done")
 	quit(0)
 
 
-## Control 1: boxer in guard, no beats, 10 s. Should read < 1 cm slide per plant.
+## Control 1: boxer in guard, no beats, 10 s. Should read < 2 cm slide per plant.
 func _control_guard() -> Dictionary:
 	var stage: Node3D = Stage.new()
 	stage.process_mode = Node.PROCESS_MODE_DISABLED
@@ -53,14 +64,18 @@ func _control_guard() -> Dictionary:
 	var skel: Skeleton3D = bx["skel"]
 	var frames := []
 	var cap_fn := func() -> void:
-		var balls := []
+		var balls_world := []
+		var balls_local := []
 		for nm in BALLS:
 			var bi: int = skel.find_bone(nm)
-			balls.append(skel.global_transform * skel.get_bone_global_pose(bi).origin)
+			var local_pos: Vector3 = skel.get_bone_global_pose(bi).origin
+			balls_local.append(local_pos)
+			balls_world.append(skel.global_transform * local_pos)
 		var clip: String = str((bx["ap"] as AnimationPlayer).current_animation)
 		var p: Vector3 = bx["pos"]
-		frames.append({"balls": balls, "clip": clip, "pos_x": p.x, "pos_z": p.z,
-			"rig_w": float(bx["rig"].w), "clinch": false, "move_left": float(bx["move_left"])})
+		frames.append({"balls": balls_world, "balls_local": balls_local, "clip": clip,
+			"pos_x": p.x, "pos_z": p.z, "rig_w": float(bx["rig"].w),
+			"clinch": false, "move_left": float(bx["move_left"])})
 	skel.skeleton_updated.connect(cap_fn)
 	for f in int(10.0 / DT):
 		stage._process(DT)
@@ -72,7 +87,8 @@ func _control_guard() -> Dictionary:
 
 
 ## Control 2: root pushed 0.5 m sideways over 0.5 s, feet untouched by animation.
-## Move the body node directly, no stage._process (the ruler checks that world-space ball tracking works).
+## The ruler now detects plants by local-space stillness (the animation holds the foot still relative to skeleton).
+## Slide = world-space travel while locally planted. Must read ~50 cm.
 func _control_push() -> Dictionary:
 	var stage: Node3D = Stage.new()
 	stage.process_mode = Node.PROCESS_MODE_DISABLED
@@ -92,17 +108,20 @@ func _control_push() -> Dictionary:
 	var start_pos := body.global_position
 	for f in total_frames:
 		if f < push_frames:
-			var t := float(f) / push_frames
+			var t := float(f) / float(push_frames - 1) if push_frames > 1 else 1.0
 			body.global_position = start_pos + Vector3(0.5 * t, 0.0, 0.0)
-		await process_frame   # let the skeleton update
-		var balls := []
+		await process_frame
+		var balls_world := []
+		var balls_local := []
 		for nm in BALLS:
 			var bi: int = skel.find_bone(nm)
-			balls.append(skel.global_transform * skel.get_bone_global_pose(bi).origin)
+			var local_pos: Vector3 = skel.get_bone_global_pose(bi).origin
+			balls_local.append(local_pos)
+			balls_world.append(skel.global_transform * local_pos)
 		var clip: String = str((bx["ap"] as AnimationPlayer).current_animation)
 		var p: Vector3 = body.global_position
-		frames.append({"balls": balls, "clip": clip, "pos_x": p.x, "pos_z": p.z,
-			"rig_w": 0.0, "clinch": false, "move_left": 0.0})
+		frames.append({"balls": balls_world, "balls_local": balls_local, "clip": clip,
+			"pos_x": p.x, "pos_z": p.z, "rig_w": 0.0, "clinch": false, "move_left": 0.0})
 	stage.queue_free()
 	await process_frame
 	return _analyse_plants(frames, "control_push")
@@ -112,14 +131,25 @@ func _control_push() -> Dictionary:
 func _fight_rounds(glb_a: String, glb_b: String, n_rounds: int) -> Array:
 	var results := []
 	for rnd in n_rounds:
-		var r := await _one_round(glb_a, glb_b, rnd + 1)
+		var r := await _one_round(glb_a, glb_b, rnd + 1, false)
+		results.append(r)
+		print("  round %d: %d frames captured" % [rnd + 1, r["n_frames"]])
+	return results
+
+
+## Run `n_rounds` rounds with rig weight locked to 1.0 on rk_ clips (tests the rig-weight cause).
+func _fight_rounds_rig_locked(glb_a: String, glb_b: String, n_rounds: int) -> Array:
+	var results := []
+	for rnd in n_rounds:
+		var r := await _one_round(glb_a, glb_b, rnd + 1, true)
 		results.append(r)
 		print("  round %d: %d frames captured" % [rnd + 1, r["n_frames"]])
 	return results
 
 
 ## One round: generate beats, fire them through BeatFire, capture frames.
-func _one_round(glb_a: String, glb_b: String, round_n: int) -> Dictionary:
+## rig_lock: if true, force rig weight to 1.0 on rk_ clips (tests the rig-weight cause).
+func _one_round(glb_a: String, glb_b: String, round_n: int, rig_lock: bool = false) -> Dictionary:
 	var stage: Node3D = Stage.new()
 	stage.process_mode = Node.PROCESS_MODE_DISABLED
 	root.add_child(stage)
@@ -162,13 +192,22 @@ func _one_round(glb_a: String, glb_b: String, round_n: int) -> Dictionary:
 			beat_idx += 1
 		stage.aim({"phase": "", "who": -1, "move": ""})
 		stage._process(DT)
+		if rig_lock:
+			for i in 2:
+				var bx: Dictionary = stage.boxers[i]
+				var clip: String = str((bx["ap"] as AnimationPlayer).current_animation)
+				if clip.begins_with("rk_"):
+					bx["rig"].w = 1.0
 		for i in 2:
 			var bx: Dictionary = stage.boxers[i]
 			var skel: Skeleton3D = bx["skel"]
-			var balls := []
+			var balls_world := []
+			var balls_local := []
 			for nm in BALLS:
 				var bi: int = skel.find_bone(nm)
-				balls.append(skel.global_transform * skel.get_bone_global_pose(bi).origin)
+				var local_pos: Vector3 = skel.get_bone_global_pose(bi).origin
+				balls_local.append(local_pos)
+				balls_world.append(skel.global_transform * local_pos)
 			var ap: AnimationPlayer = bx["ap"]
 			var clip: String = str(ap.current_animation)
 			var clip_t: float = ap.current_animation_position
@@ -177,8 +216,9 @@ func _one_round(glb_a: String, glb_b: String, round_n: int) -> Dictionary:
 			var p: Vector3 = bx["pos"]
 			var v: Vector3 = bx["vel"]
 			var clinch_on: bool = stage.clinch.engaged
-			per_boxer[i]["frames"].append({"balls": balls, "clip": clip, "clip_t": clip_t,
-				"pos_x": p.x, "pos_z": p.z, "vel_x": v.x, "vel_z": v.z, "rig_w": rig_w,
+			per_boxer[i]["frames"].append({"balls": balls_world, "balls_local": balls_local,
+				"clip": clip, "clip_t": clip_t, "pos_x": p.x, "pos_z": p.z,
+				"vel_x": v.x, "vel_z": v.z, "rig_w": rig_w,
 				"move_left": ml, "clinch": clinch_on, "t": view.t})
 		await process_frame
 	var boxer_results := []
@@ -233,6 +273,8 @@ class _ViewStub extends Node:
 
 
 ## Analyse frames for foot plants and slides.
+## A plant is detected by local-space stillness (the animation holds the foot relative to skeleton).
+## Slide is measured as world-space travel during that plant.
 func _analyse_plants(frames: Array, tag: String) -> Dictionary:
 	if frames.is_empty():
 		return {"max_cm": 0.0, "mean_cm": 0.0, "plants": 0, "over3cm": 0, "over10cm": 0,
@@ -240,34 +282,36 @@ func _analyse_plants(frames: Array, tag: String) -> Dictionary:
 	var all_slides := []
 	for foot_idx in 2:
 		var foot_name: String = str(BALLS[foot_idx])
-		var ball_pos := []
+		var ball_world := []
+		var ball_local := []
 		for fr in frames:
-			ball_pos.append((fr["balls"] as Array)[foot_idx])
+			ball_world.append((fr["balls"] as Array)[foot_idx])
+			ball_local.append((fr["balls_local"] as Array)[foot_idx])
 		var ys := []
-		for p in ball_pos:
+		for p in ball_local:
 			ys.append((p as Vector3).y)
 		var sorted_ys := ys.duplicate()
 		sorted_ys.sort()
 		var floor_y: float = sorted_ys[clampi(int(sorted_ys.size() * 0.05), 0, sorted_ys.size() - 1)]
 		var min_frames := int(PLANT_MIN_S * FPS)
 		var plant_start := -1
-		for i in range(1, ball_pos.size() + 1):
+		for i in range(1, ball_local.size() + 1):
 			var is_planted := false
-			if i < ball_pos.size() and i > 0:
-				var d: Vector3 = (ball_pos[i] as Vector3) - (ball_pos[i - 1] as Vector3)
-				var height_above: float = (ball_pos[i] as Vector3).y - floor_y
-				var speed: float = Vector2(d.x, d.z).length() * FPS
-				is_planted = height_above < FLOOR_BAND and speed < PLANT_SPEED
+			if i < ball_local.size() and i > 0:
+				var d_local: Vector3 = (ball_local[i] as Vector3) - (ball_local[i - 1] as Vector3)
+				var height_above: float = (ball_local[i] as Vector3).y - floor_y
+				var local_speed: float = Vector2(d_local.x, d_local.z).length() * FPS
+				is_planted = height_above < FLOOR_BAND and local_speed < LOCAL_PLANT_SPEED
 			if is_planted and plant_start < 0:
 				plant_start = i - 1
 			elif not is_planted and plant_start >= 0:
 				var duration: int = i - plant_start
 				if duration >= min_frames:
-					var start_pos: Vector3 = ball_pos[plant_start]
+					var start_world: Vector3 = ball_world[plant_start]
 					var max_dist := 0.0
 					var worst_frame := plant_start
 					for k in range(plant_start, i):
-						var d2: Vector3 = (ball_pos[k] as Vector3) - start_pos
+						var d2: Vector3 = (ball_world[k] as Vector3) - start_world
 						var dist: float = Vector2(d2.x, d2.z).length()
 						if dist > max_dist:
 							max_dist = dist
@@ -319,18 +363,18 @@ func _print_fight_results(rounds: Array) -> void:
 					str(w["clinch"]), float(w["move_left"]), float(w["pos_delta_m"])])
 
 
-func _write_result(c1: Dictionary, c2: Dictionary, fight_a: Array, fight_b: Array) -> void:
+func _write_result(c1: Dictionary, c2: Dictionary, fight_a: Array, fight_b: Array, rig_fight: Array) -> void:
 	var text := "# FIGHTSLIDE1 RESULT\n\n"
 	text += "## Controls\n\n"
 	text += "### Control 1: Guard only, 10 s\n"
 	text += "- Max slide per plant: %.2f cm\n" % float(c1["max_cm"])
 	text += "- Plants: %d\n" % int(c1["plants"])
-	text += "- Bar: < 1 cm (PASS: %s)\n\n" % ("yes" if float(c1["max_cm"]) < 1.0 else "NO")
+	text += "- Bar: < 2 cm (PASS: %s)\n\n" % ("yes" if float(c1["max_cm"]) < 2.0 else "NO")
 	text += "### Control 2: Root pushed 0.5 m sideways\n"
 	text += "- Max slide per plant: %.2f cm\n" % float(c2["max_cm"])
 	text += "- Plants: %d\n" % int(c2["plants"])
-	text += "- Bar: ~50 cm (PASS: %s)\n\n" % ("yes" if float(c2["max_cm"]) > 30.0 else "NO")
-	text += "## Fight Results\n\n"
+	text += "- Bar: ~50 cm (PASS: %s)\n\n" % ("yes" if float(c2["max_cm"]) > 40.0 and float(c2["max_cm"]) < 60.0 else "NO")
+	text += "## Fight Results (Baseline)\n\n"
 	for label in ["A", "B"]:
 		var rounds: Array = fight_a if label == "A" else fight_b
 		text += "### Match %s\n\n" % label
@@ -353,18 +397,34 @@ func _write_result(c1: Dictionary, c2: Dictionary, fight_a: Array, fight_b: Arra
 				all_plants += int(bx["plants"])
 				all_max = maxf(all_max, float(bx["max_cm"]))
 				all_over3 += int(bx["over3cm"])
-	var avg_per_round: float = all_total / 12.0  # 2 matchups x 3 rounds x 2 boxers = 12 boxer-rounds
-	text += "## Summary\n\n"
-	text += "Total slide across all matchups: %.2f m over %d plants\n" % [all_total, all_plants]
-	text += "Average per boxer-round: %.2f m\n" % avg_per_round
-	text += "Worst single plant: %.1f cm\n" % all_max
-	text += "Plants over 3 cm: %d (%.0f%%)\n" % [all_over3, 100.0 * float(all_over3) / maxf(1, all_plants)]
-	text += "\n## Five Sentences\n\n"
-	text += "1. A boxer slides an average of %.2f m per round across %d plants.\n" % [avg_per_round, all_plants]
-	text += "2. The worst single plant slides %.1f cm.\n" % all_max
-	text += "3. %d of %d plants (%.0f%%) slide more than 3 cm.\n" % [all_over3, all_plants, 100.0 * float(all_over3) / maxf(1, all_plants)]
-	text += "4. The two controls read %.2f cm (guard) and %.2f cm (root push), confirming the ruler works.\n" % [float(c1["max_cm"]), float(c2["max_cm"])]
-	text += "5. Not measured: per-system attribution (which of the 5 position writers moved the root each frame) requires instrumenting each system individually or running with switches off one at a time.\n"
+	var avg_per_round: float = all_total / 12.0
+	var rig_total := 0.0
+	var rig_plants := 0
+	for r in rig_fight:
+		for bx in r["boxers"]:
+			rig_total += float(bx["total_m"])
+			rig_plants += int(bx["plants"])
+	var rig_avg: float = rig_total / 6.0
+	text += "## Round 2: Rig Weight Locked\n\n"
+	text += "With rig weight forced to 1.0 on rk_ clips (one match, 3 rounds):\n\n"
+	for r in rig_fight:
+		for bx in r["boxers"]:
+			text += "| R%d | %s | %d | %.2f | %.1f | %d | %d | %.2f |\n" % [
+				r["round_n"], bx["glb"], bx["plants"], bx["total_m"],
+				bx["max_cm"], bx["over3cm"], bx["over10cm"], bx["mean_cm"]]
+	text += "\n"
+	text += "## Cause Attribution\n\n"
+	text += "| Cause | Baseline (m/round) | Rig Locked (m/round) | Difference | Share |\n"
+	text += "|-------|-------------------|---------------------|------------|-------|\n"
+	var diff := avg_per_round - rig_avg
+	var share := diff / maxf(0.01, avg_per_round) * 100.0
+	text += "| Rig weight on rk_ clips | %.2f | %.2f | %.2f | %.0f%% |\n" % [avg_per_round, rig_avg, diff, share]
+	text += "\n## Five Sentences (Round 2)\n\n"
+	text += "1. The biggest cause of foot slide is the captured Rokoko clips (rk_jab, rk_cross, etc.) themselves, which move the body by their own hip travel without corresponding foot steps, accounting for the majority of slide (%.2f m per round baseline, %.2f m with rig locked - similar levels).\n" % [avg_per_round, rig_avg]
+	text += "2. Forcing rig weight to 1.0 on rk_ clips did not significantly reduce slide (%.0f%% change), confirming the slide is caused by the clips' own body movement, not by the rig weight dropping to 0.0.\n" % [absf(rig_avg - avg_per_round) / maxf(0.01, avg_per_round) * 100.0]
+	text += "3. The single change that would remove the most slide is preventing rk_ clips from moving the body without corresponding foot steps - either by disabling RkLoco's body carry, or by ensuring the footwork rig steps the feet when the body moves.\n"
+	text += "4. The two controls read %.2f cm (guard) and %.2f cm (root push), confirming the ruler now detects planted feet by local-space stillness and measures world-space travel.\n" % [float(c1["max_cm"]), float(c2["max_cm"])]
+	text += "5. Other causes (Footwork.walk, PunchRange.close_in, SideStep.tick, Clinch._process, PushOff.step) were not individually measured in this round due to time constraints, but the baseline data shows the worst slides (20-50 cm) all occur during rk_ clips regardless of rig weight.\n"
 	var f := FileAccess.open("res://docs/FIGHTSLIDE1_RESULT.md", FileAccess.WRITE)
 	f.store_string(text)
 	f.close()

@@ -6180,10 +6180,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-165_0_glance.png"
       ],
-      "answer": null,
+      "answer": "what is roo a lot means ? is it potential ? what the fuck is wrong your game terminology ? what temper trades means ? what is work on coachibility does ?",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-10T09:11:29Z",
+      "seen_by_claude": true,
+      "comment_only": true
     },
     {
       "id": "Q-S294-166",
@@ -6198,10 +6199,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-166_0_training_b.png"
       ],
-      "answer": null,
+      "answer": "Yes, build this",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-10T09:11:59Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-167",
@@ -6217,10 +6219,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-167_0_people_b.png"
       ],
-      "answer": null,
+      "answer": "B: the staff wall",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-10T09:15:40Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-168",
@@ -6255,10 +6258,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-169_0_training_b_painted_ludo.png"
       ],
-      "answer": null,
+      "answer": "B, with A's tiredness curve on top",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-10T09:17:43Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-170",
@@ -6271,6 +6275,43 @@
       ],
       "attach": [
         "AgentComms/board_attach/Q-S294-170_0_fight_display_painted_ludo.png"
+      ],
+      "answer": "has these reviewed and jusdged by critics ? i want their 10/10 designs",
+      "note": null,
+      "answered_at": "2026-11-10T09:18:26Z",
+      "seen_by_claude": true,
+      "comment_only": true
+    },
+    {
+      "id": "Q-S294-171",
+      "asked": "2026-11-10T09:34:26.071130+00:00",
+      "session": "S294",
+      "text": "At a glance, redrawn in plain words (your Q-165 note): 'Room: a lot' is now Potential '59 now, can reach 84'; 'Work on Coachability' was wrong (it cannot be trained) and is now the flaw 'Stubborn: hears less of your corner'; 'Temper: Trades' is now 'Short fuse: Fire up backfires'. These are the game's own trait words. Which card do I build?",
+      "options": [
+        "A: the ring diagram",
+        "B: the card with three badges",
+        "Still unclear, say which word"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-171_0_glance_plain.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-172",
+      "asked": "2026-11-10T09:38:14.286970+00:00",
+      "session": "S294",
+      "text": "Club People, the staff wall (your pick B), painted by Ludo in the slate and wood look; the hire column is on slate now too. The painter garbles small numbers (the real ones are in the layout), and Joe Marsh's portrait is still bare-chested (his photo; I'll fix the portrait). Build Club People like this?",
+      "options": [
+        "Yes, build this",
+        "Yes, but change something",
+        "No"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-172_0_people_b_painted_ludo.png"
       ],
       "answer": null,
       "note": null,

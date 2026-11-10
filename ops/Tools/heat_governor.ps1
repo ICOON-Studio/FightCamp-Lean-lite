@@ -71,7 +71,10 @@ while ($true) {
         # started 23:15 - his editor/game) at 23:52, 23:59 and 00:31 while he played; an interactive Godot is never touched.
         $jobs = @{}; Get-CimInstance Win32_Process -Filter "Name LIKE 'Godot%'" | ForEach-Object {
             $c = [string]$_.CommandLine
-            if (($c -match '--script|--headless') -and ($c -notmatch '--editor|\s-e(\s|$)|--remote-debug')) { $jobs[[int]$_.ProcessId] = $true } }
+            # S421: never a --windowed / --write-movie job (a render on the hidden desktop holding a live GPU device): the
+            # governor froze one mid-frame at 11:11:07 and the AMD driver (amdkmdag.sys) blue-screened the PC (bugcheck D1)
+            # within a minute. Renders are short and time-capped (hidden_desktop --timeout); headless jobs still pause.
+            if (($c -match '--script|--headless') -and ($c -notmatch '--editor|\s-e(\s|$)|--remote-debug|--windowed|--write-movie')) { $jobs[[int]$_.ProcessId] = $true } }
         $running = Get-Process | Where-Object { $_.ProcessName -like 'Godot*' -and $paused -notcontains $_.Id -and $jobs.ContainsKey([int]$_.Id) } |
             Sort-Object StartTime -Descending
         if ($running) {

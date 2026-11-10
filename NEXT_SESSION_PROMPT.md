@@ -3,6 +3,24 @@
 OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S422` and redraw the map (recipe: ops/Tools/where_we_are_svg.py docstring).
 Older handovers: S420's is in git (92404f23), S396 to S417 in ops/research/HANDOVERS_S349_S417.md.
 
+## FIRST: the PC crash (11:12) and what died with it
+- Blue screen, bugcheck D1 (DRIVER_IRQL_NOT_LESS_OR_EQUAL) in amdkmdag.sys (AMD Radeon RX 6800 XT driver 32.0.21045.16010,
+  16 Oct), amdfendr and dxgkrnl on the stack: read from C:/Windows/Minidump/111026-14546-01.dmp by parsing its driver list
+  (no debugger installed; the parser is easy to redo: TRIAGE_DUMP at 0x2000, driver entries 0x90 apart). It came about a
+  minute after heat_governor.ps1 SUSPENDED a windowed Godot render (cut_pages_still on the hidden desktop) mid-frame. Fixed:
+  the governor never suspends --windowed / --write-movie jobs now (restarted via its task). If it happens again with no
+  suspended render: an AMD driver update is his call (memory: PC freezes = AMD GPU driver, S287).
+- FIGHTSLIDE2 (Qwen) had FINISHED and committed a08047c6; the crash killed the runner before the push. Claude pushed
+  qwen/fightslide2 by hand: NO PR, collect by diff. Its finding: the captured rk_ clips (rk_jab, rk_cross) carry the body by
+  their own hip travel while the feet do not step. Its ruler changed (a planted foot = local stillness, not world speed):
+  prove it red on main before trusting the table.
+- LOOKSLATE6 (World on slate) collected after the crash (files checked whole, tests green, Rankings rendered).
+- LEGTREMBLE2: Antigravity's account stopped ("AI credits balance is too low"); PR 160 closed (did not compile). The job is
+  LEGTREMBLE3 on Cursor and KDFIX2 on Qwen were LAUNCHED at 11:20 (after the crash): collect them when they land.
+- John's dues research is queued (SQ31, ops/research/J_DUES_CHOICE_S421_BRIEF.md): premium dues always earn most
+  ($45 x 0.85 > $35 > $25 x 1.15), so the dues choice is fake; his answer -> a proposal on the board.
+- The board's animations page now says the game has all 169 clips and lists only the verified one (his S379 rule).
+
 ## FIRST: his answers on the board
 - Q-S294-170 NEW: the fight display, one drawing (docs/mockups/s421/fight_display.png, notes on hints 1, 5, 9) and Ludo's paint
   (fight_display_painted_ludo.png). On yes: the two briefs of ops/research/FIGHT_DISPLAY_DECISION_S419.md section 6 (the panels to
@@ -21,8 +39,8 @@ Older handovers: S420's is in git (92404f23), S396 to S417 in ops/research/HANDO
   -> a tile "2 / 3 roster places" on the role cards' dark bed; (3) the bout offer is VersusPanel.build, not TapeVersus (that is fight
   night): OFFER_FOOT 72 keeps the corner notes off the boots.
 
-## Running / queued
-- AGY LEGTREMBLE2 (the animation item, base agy/legtremble1, launched 10:29). Collect: the test must load the SHIPPED .res, red on
+## Running / queued (superseded by the crash section above)
+- (was) AGY LEGTREMBLE2. Collect: the test must load the SHIPPED .res, red on
   main's clips; then re-render the board films (clip_orbit) and LOOK.
 - CURSOR LOOKSLATE6 (World on slate, 10:34). QWEN FIGHTSLIDE2 (causes switched off one by one, 10:41).
 - QWEN KDFIX2 queued (round 2 of KDFIX1, PR 159 closed): round 1's test read get_bone_global_pose from the test (the pose BEFORE

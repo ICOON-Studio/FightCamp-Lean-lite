@@ -847,7 +847,7 @@
   {
    "task": "LOOKSLATE6",
    "seat": "cursor",
-   "status": "queued",
+   "status": "collected",
    "queued": "2026-11-10T05:25"
   },
   {
@@ -883,7 +883,7 @@
    "seat": "agy",
    "title": "TASK LEGTREMBLE2 - AGY (Argon High) - the trembling legs, round 2: bake the smoothing into the shipped clips",
    "brief": "LEGTREMBLE2",
-   "status": "launched",
+   "status": "failed",
    "launched": "2026-11-10T10:28"
   },
   {
@@ -891,7 +891,7 @@
    "seat": "qwen",
    "title": "TASK FIGHTSLIDE2 - QWEN (qwen3-coder) - the fighters slide: measure each cause by switching it off",
    "brief": "FIGHTSLIDE2",
-   "status": "queued"
+   "status": "landed"
   },
   {
    "task": "KDFIX2",

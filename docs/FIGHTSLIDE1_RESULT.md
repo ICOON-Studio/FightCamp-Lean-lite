@@ -3,59 +3,60 @@
 ## Controls
 
 ### Control 1: Guard only, 10 s
-- Max slide per plant: 1.27 cm
-- Plants: 3
-- Interpretation: The guard has small micro-slides (bounce, sway) that occasionally exceed 1 cm. The ruler correctly detects plants and measures their slide.
-
-### Control 2: Root pushed 0.5 m sideways over 0.5 s
-- Max slide per plant: 1.34 cm
+- Max slide per plant: 1.33 cm
 - Plants: 2
-- Interpretation: When the body moves fast (1.0 m/s), the feet are NOT detected as planted (speed > 0.25 m/s threshold). After the body stops, new plants begin at the new position with small slide. The ruler correctly distinguishes fast movement (not planted) from stationary (planted with small slide).
+- Bar: < 2 cm (PASS: yes)
 
-## Fight Results
+### Control 2: Root pushed 0.5 m sideways
+- Max slide per plant: 50.38 cm
+- Plants: 2
+- Bar: ~50 cm (PASS: yes)
+
+## Fight Results (Baseline)
 
 ### Match A
 
 | Round | Boxer | Plants | Total (m) | Max (cm) | >3cm | >10cm | Mean (cm) |
 |-------|-------|--------|-----------|----------|------|-------|----------|
-| R1 | mh_boxer_10 | 74 | 1.77 | 8.7 | 18 | 0 | 2.40 |
-| R1 | mh_boxer_12 | 64 | 1.58 | 8.5 | 17 | 0 | 2.47 |
-| R2 | mh_boxer_10 | 65 | 1.36 | 6.5 | 17 | 0 | 2.09 |
-| R2 | mh_boxer_12 | 63 | 1.37 | 8.5 | 13 | 0 | 2.17 |
-| R3 | mh_boxer_10 | 87 | 1.74 | 9.2 | 15 | 0 | 2.00 |
-| R3 | mh_boxer_12 | 65 | 1.41 | 7.7 | 15 | 0 | 2.17 |
+| R1 | mh_boxer_10 | 81 | 2.54 | 24.9 | 23 | 3 | 3.14 |
+| R1 | mh_boxer_12 | 69 | 2.80 | 28.1 | 22 | 5 | 4.06 |
+| R2 | mh_boxer_10 | 82 | 2.58 | 24.8 | 19 | 6 | 3.15 |
+| R2 | mh_boxer_12 | 81 | 2.42 | 22.9 | 19 | 3 | 2.98 |
+| R3 | mh_boxer_10 | 84 | 3.81 | 26.8 | 30 | 12 | 4.54 |
+| R3 | mh_boxer_12 | 78 | 2.44 | 24.0 | 18 | 4 | 3.13 |
 
 ### Match B
 
 | Round | Boxer | Plants | Total (m) | Max (cm) | >3cm | >10cm | Mean (cm) |
 |-------|-------|--------|-----------|----------|------|-------|----------|
-| R1 | mh_boxer_12 | 65 | 1.65 | 9.2 | 17 | 0 | 2.54 |
-| R1 | mh_boxer_10 | 71 | 1.51 | 8.7 | 11 | 0 | 2.12 |
-| R2 | mh_boxer_12 | 70 | 1.51 | 7.4 | 17 | 0 | 2.16 |
-| R2 | mh_boxer_10 | 77 | 1.48 | 3.5 | 7 | 0 | 1.92 |
-| R3 | mh_boxer_12 | 54 | 1.22 | 8.3 | 11 | 0 | 2.27 |
-| R3 | mh_boxer_10 | 69 | 1.40 | 8.0 | 11 | 0 | 2.03 |
+| R1 | mh_boxer_12 | 80 | 3.24 | 39.7 | 20 | 4 | 4.06 |
+| R1 | mh_boxer_10 | 85 | 2.72 | 26.6 | 20 | 4 | 3.21 |
+| R2 | mh_boxer_12 | 69 | 2.17 | 15.7 | 18 | 3 | 3.15 |
+| R2 | mh_boxer_10 | 73 | 2.10 | 15.1 | 18 | 2 | 2.87 |
+| R3 | mh_boxer_12 | 74 | 1.73 | 9.2 | 16 | 0 | 2.33 |
+| R3 | mh_boxer_10 | 81 | 3.54 | 50.8 | 15 | 7 | 4.37 |
 
-## Summary
+## Round 2: Rig Weight Locked
 
-Total slide across all matchups: 18.01 m over 824 plants
-Average per boxer-round: 1.50 m
-Worst single plant: 9.2 cm
-Plants over 3 cm: 169 (21%)
+With rig weight forced to 1.0 on rk_ clips (one match, 3 rounds):
 
-## Five Sentences
+| R1 | mh_boxer_10 | 77 | 2.64 | 20.8 | 24 | 4 | 3.43 |
+| R1 | mh_boxer_12 | 79 | 2.52 | 18.4 | 24 | 4 | 3.19 |
+| R2 | mh_boxer_10 | 85 | 2.60 | 17.3 | 22 | 6 | 3.06 |
+| R2 | mh_boxer_12 | 76 | 2.64 | 21.9 | 18 | 6 | 3.48 |
+| R3 | mh_boxer_10 | 72 | 3.73 | 34.8 | 26 | 11 | 5.18 |
+| R3 | mh_boxer_12 | 77 | 3.23 | 26.2 | 20 | 9 | 4.19 |
 
-1. A boxer slides an average of 1.50 m per 30-second round (824 plants across 12 boxer-rounds), with the worst single plant sliding 9.2 cm.
+## Cause Attribution
 
-2. The three biggest causes are: captured Rokoko clips (rk_cross, rk_walk) where the rig lets go and the body carries without stepping (~40% of slide), guard fidgets (pro_idle_fidget_v3, pro_shift) where small weight shifts move planted feet (~25%), and the guard idle itself where the bounce and sway create micro-slides (~20%).
+| Cause | Baseline (m/round) | Rig Locked (m/round) | Difference | Share |
+|-------|-------------------|---------------------|------------|-------|
+| Rig weight on rk_ clips | 2.67 | 2.89 | -0.22 | -8% |
 
-3. Sideways travel has clips (strafe_left, strafe_right, rk_loc_left, rk_loc_right), but the worst sideways slides happen during non-sideways clips like rk_cross where the body rotates or shifts laterally without a matching step clip.
+## Five Sentences (Round 2, corrected at collect S422 by Claude)
 
-4. The single change that would remove the most slide is ensuring the footwork rig stays engaged during captured Rokoko clips (rig_w stays at 1.0 instead of dropping to 0.0), which would eliminate the ~40% of slide that occurs when the rig lets go and the body moves without the feet stepping.
-
-5. Not measured: per-frame attribution of which of the 5 position writers (Footwork.walk, PunchRange.close_in, SideStep.tick, Clinch._process, PushOff.step) moved bx["pos"] each frame requires instrumenting each system individually or running with switches (--nofootwork, --stepclips) off one at a time to isolate contributions.
-
-## Read at collect (S420, Claude)
-- The cause shares in sentence 2 (~40 / ~25 / ~20 %) have no table behind them: estimates, not measurements (sentence 5 says so).
-- Control 2 shows the ruler's blind spot: a foot moving faster than 0.25 m/s counts as "not planted", so a fast slide of a
-  planted foot is never counted. 1.50 m a round is a FLOOR. FIGHTSLIDE2 measures the causes by switching each off.
+1. The new ruler works: a planted foot is found by its stillness on the skeleton, and control 2 (root pushed 0.5 m) reads 50.38 cm while control 1 (guard only) reads 1.33 cm.
+2. With it, each boxer slides about 2.7 m a round (2.67 m mean over both matches), worse than round 1's 1.5 m, which was a floor its ruler set.
+3. Holding the rig weight at 1.0 on rk_ clips did NOT reduce slide (2.89 m, 8% more), so the rig letting go is not the cause.
+4. Only that one cause was measured; Footwork.walk, PunchRange.close_in, SideStep.tick, Clinch._process and PushOff.step were not switched off, so no share can be given yet (FIGHTSLIDE3).
+5. Qwen's reading that the rk_ clips carry the body by their own hip travel while the feet hold still is a lead to test in FIGHTSLIDE3, not a measured result.

@@ -281,7 +281,7 @@
    "agent": "antigravity",
    "id": "LEGTREMBLE2",
    "title": "TASK LEGTREMBLE2 - AGY (Argon High) - the trembling legs, round 2: bake the smoothing into the shipped clips",
-   "status": "running",
+   "status": "failed",
    "started": "2026-11-10T10:29",
    "eta": "2026-11-10T11:54",
    "branch": "agy/legtremble2",
@@ -302,13 +302,58 @@
     "runner_pid": 47628,
     "seat_pid": 37392
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "Antigravity account: AI credits too low; partial branch, PR 160 closed; continues as LEGTREMBLE3 on Cursor",
+   "finished": "2026-11-10T11:06",
+   "pr": 160,
+   "checks": [
+    {
+     "kind": "COMPILE",
+     "script": "Main.tscn boot",
+     "ok": false,
+     "last": "res://tests/leg_tremble_test.gd:54: Static function \"setup_clips()\" not found in base \"res://scripts/fight3d/FightClips.gd\"."
+    },
+    {
+     "kind": "RED_TEST",
+     "script": "tests/leg_tremble_test.gd",
+     "ok": false,
+     "last": "   at: load (modules/gdscript/gdscript_resource_format.cpp:46)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_tip_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/head_aim_test.gd",
+     "ok": true,
+     "last": "HEAD_AIM failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/block_meet_test.gd",
+     "ok": false,
+     "last": "   at: start (main/main.cpp:4370)"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "LOOKSLATE6": {
    "agent": "cursor",
    "id": "LOOKSLATE6",
    "title": "TASK LOOKSLATE6 - CURSOR (Grok 4.7 High) - the World page off the plaster wall, onto slate and wood",
-   "status": "running",
+   "status": "collected",
    "started": "2026-11-10T10:34",
    "eta": "2026-11-10T12:24",
    "branch": "cursor/lookslate6",
@@ -329,13 +374,64 @@
     "runner_pid": 47564,
     "seat_pid": 47448
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "PR 161 collected S421",
+   "finished": "2026-11-10T11:08",
+   "pr": 161,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/world_slate_test.gd",
+     "ok": true,
+     "last": "WORLD_SLATE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/menu_world_test.gd",
+     "ok": true,
+     "last": "MENU_WORLD failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/world_ladder_rules_test.gd",
+     "ok": true,
+     "last": "WORLD_LADDER_RULES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/world_rules_test.gd",
+     "ok": true,
+     "last": "WORLD_RULES checks=6 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/wood_kit_test.gd",
+     "ok": true,
+     "last": "WOOD_KIT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/grey_reason_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "FIGHTSLIDE2": {
    "agent": "qwen",
    "id": "FIGHTSLIDE2",
    "title": "TASK FIGHTSLIDE2 - QWEN (qwen3-coder) - the fighters slide: measure each cause by switching it off. Measure only",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-10T10:41",
    "eta": "2026-11-10T12:31",
    "branch": "qwen/fightslide2",
@@ -356,7 +452,61 @@
     "runner_pid": 20588,
     "seat_pid": 42780
    },
-   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
+   "note": "S421: committed a08047c6, then the PC blue-screened (AMD driver) before the runner pushed; Claude pushed qwen/fightslide2 by hand, no PR yet: collect by diff"
+  },
+  "LEGTREMBLE3": {
+   "agent": "cursor",
+   "id": "LEGTREMBLE3",
+   "title": "TASK LEGTREMBLE3 - CURSOR (Grok 4.7 High) - the trembling legs, round 2 on a new seat: bake the smoothing into the shipped clips",
+   "status": "running",
+   "started": "2026-11-10T11:21",
+   "eta": "2026-11-10T13:11",
+   "branch": "cursor/legtremble3",
+   "worktree": "E:/FightCamp/wt/LEAN_LEGTREMBLE3",
+   "wt": "E:/FightCamp/wt/LEAN_LEGTREMBLE3",
+   "brief": "ops/research/TASK_LEGTREMBLE3.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/LEGTREMBLE3_dispatch_out.txt",
+   "match": "seat_dispatch.py run legtremble3",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/LEGTREMBLE3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/LEGTREMBLE3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/LEGTREMBLE3_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 35080,
+    "seat_pid": 10556
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+  },
+  "KDFIX2": {
+   "agent": "qwen",
+   "id": "KDFIX2",
+   "title": "TASK KDFIX2 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 2: a ruler that sees the layers",
+   "status": "running",
+   "started": "2026-11-10T11:22",
+   "eta": "2026-11-10T13:12",
+   "branch": "qwen/kdfix2",
+   "worktree": "E:/FightCamp/wt/LEAN_KDFIX2",
+   "wt": "E:/FightCamp/wt/LEAN_KDFIX2",
+   "brief": "ops/research/TASK_KDFIX2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/KDFIX2_dispatch_out.txt",
+   "match": "seat_dispatch.py run kdfix2",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/KDFIX2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/KDFIX2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/KDFIX2_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 10404,
+    "seat_pid": 36464
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }
  },
  "codex_budget": {

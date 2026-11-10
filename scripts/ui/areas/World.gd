@@ -9,18 +9,13 @@ const Fixtures := preload("res://scripts/ui/Fixtures.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const NationalsView := preload("res://scripts/ui/NationalsView.gd")
 const WorldLadder := preload("res://scripts/ui/WorldLadder.gd")
-const WarmKit := preload("res://scripts/ui/WarmKit.gd")
 
 var _main: Node
 
 
 func build(main: Node) -> void:
 	_main = main
-	var wall := WarmKit.wall()   # as Money: the page's holder carries the plaster, behind everything
-	var holder := get_parent()
-	if holder != null:
-		holder.add_child(wall)
-		holder.move_child(wall, 0)
+	# The page sits on the shared backdrop, the same way Club and Fighters do. No plaster band behind the title.
 	add_theme_constant_override("separation", 4)
 	var c: Career = main.career
 	AreaHead.add(self, main, "world")

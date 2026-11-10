@@ -4,7 +4,8 @@ extends RefCounted
 ## The numbers are BoutRead's. This file only draws them.
 
 const UI := preload("res://scripts/ui/UI.gd")
-const WarmKit := preload("res://scripts/ui/WarmKit.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
+const Bars := preload("res://scripts/ui/WorldBars.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 const Rules := preload("res://scripts/rules/WorldLadderRules.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -22,9 +23,7 @@ const HI := 95.0
 const FACE := Vector2(40, 46)
 
 static func build(main: Node, c: Career, f: Dictionary, row: Dictionary) -> Control:
-	var paper := WarmKit.panel("paper")
-	paper.name = "SideBySide"
-	paper.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	var paper := _slate("SideBySide")
 	var v := UI.vbox(6)
 	paper.add_child(v)
 	v.add_child(UI.caps("SIDE BY SIDE"))
@@ -95,7 +94,7 @@ static func _chance(row: Dictionary) -> Control:
 	if not band.is_empty():
 		var lo := float(band["lo"])
 		var hi := float(band["hi"])
-		var bar := RangeMark.new()
+		var bar := Bars.RangeMark.new()
 		bar.lo = lo
 		bar.hi = hi
 		bar.mark = (lo + hi) / 2.0
@@ -114,7 +113,7 @@ static func _stat(label: String, mine: float, lo: float, hi: float) -> Control:
 	num.custom_minimum_size = Vector2(32, 0)
 	num.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	h.add_child(num)
-	var bar := RangeMark.new()
+	var bar := Bars.RangeMark.new()
 	bar.lo = _frac(lo)
 	bar.hi = _frac(hi)
 	bar.mark = _frac(mine)
@@ -177,32 +176,6 @@ static func _noop() -> Callable:
 	return func() -> void: pass
 
 
-class RangeMark extends Control:
-	var lo := 0.0
-	var hi := 1.0
-	var mark := 0.5
-
-	func _ready() -> void:
-		custom_minimum_size = Vector2(140, 12)
-		mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-	func _draw() -> void:
-		var track := StyleBoxFlat.new()
-		track.bg_color = Color("e3d9c3")
-		track.set_corner_radius_all(6)
-		draw_style_box(track, Rect2(Vector2.ZERO, size))
-		var x := clampf(lo, 0.0, 1.0) * size.x
-		var w := maxf(4.0, (clampf(hi, 0.0, 1.0) - clampf(lo, 0.0, 1.0)) * size.x)
-		var box := StyleBoxFlat.new()
-		box.bg_color = Color(0.886, 0.282, 0.239, 0.35)
-		box.border_color = Color("e2483d")
-		box.set_border_width_all(1)
-		box.set_corner_radius_all(4)
-		draw_style_box(box, Rect2(Vector2(x, 1), Vector2(w, size.y - 2)))
-		var at := clampf(mark, 0.0, 1.0) * size.x
-		draw_rect(Rect2(Vector2(at - 2.0, -2.0), Vector2(4.0, size.y + 4.0)), Color("2f6fdb"))
-
-
 static func icon(id: String, px: int, colour: Color, why: String = "") -> TextureRect:
 	var r := KitIcon.icon(id, px, colour, why)
 	r.set_meta("icon", id)
@@ -212,11 +185,11 @@ static func icon(id: String, px: int, colour: Color, why: String = "") -> Textur
 static func sports() -> Control:
 	var h := UI.hbox(8)
 	h.name = "SportChips"
-	var live := _panel(UI.GOLD)
+	var live := _panel(true)
 	live.name = "ChipBoxing"
 	live.add_child(UI.label("Boxing", UI.SMALL, UI.GOLD, "bold"))
 	h.add_child(live)
-	var mma := _panel(UI.FG)
+	var mma := _panel(false)
 	mma.name = "ChipMma"
 	mma.tooltip_text = "Not built yet"
 	mma.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -245,7 +218,7 @@ static func faces(main: Node, c: Career, selected: String, on_pick: Callable) ->
 
 
 static func _face(main: Node, c: Career, f: Dictionary, selected: String, on_pick: Callable) -> Control:
-	var chip := _panel(UI.GOLD if str(f["id"]) == selected else Color("c8bfae"))
+	var chip := _panel(str(f["id"]) == selected)
 	chip.gui_input.connect(func(ev: InputEvent) -> void:
 		if ev is InputEventMouseButton and (ev as InputEventMouseButton).pressed and (ev as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
 			on_pick.call(main, str(f["id"])))
@@ -261,7 +234,7 @@ static func _face(main: Node, c: Career, f: Dictionary, selected: String, on_pic
 	text.add_child(name)
 	text.add_child(UI.muted(_place(c, f), UI.TINY))
 	h.add_child(text)
-	h.add_child(icon(Rules.chip_state(_flags(c, f)), 18, UI.FG))
+	h.add_child(icon(Rules.chip_state(_flags(c, f)), 18, WoodKit.INK))
 	chip.add_child(h)
 	return chip
 
@@ -291,9 +264,7 @@ static func _flags(c: Career, f: Dictionary) -> Dictionary:
 
 
 static func route_panel(route: Dictionary) -> Control:
-	var paper := WarmKit.panel("paper")
-	paper.name = "TitleRoute"
-	paper.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	var paper := _ghost("TitleRoute")
 	var v := UI.vbox(4)
 	paper.add_child(v)
 	v.add_child(UI.caps("TITLE ROUTE"))
@@ -314,9 +285,7 @@ static func route_panel(route: Dictionary) -> Control:
 
 
 static func key_panel() -> Control:
-	var paper := WarmKit.panel("paper")
-	paper.name = "Key"
-	paper.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	var paper := _ghost("Key")
 	var v := UI.vbox(4)
 	paper.add_child(v)
 	v.add_child(UI.caps("KEY"))
@@ -326,10 +295,10 @@ static func key_panel() -> Control:
 	flow.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	flow.custom_minimum_size = Vector2(480, 0)
 	for it in [["champion", "Champion", UI.GOLD], ["challenger", "Challenger", UI.RED], ["next_opp", "Next opponent", UI.RED],
-			["booked", "Booked", UI.GOLD], ["camp", "In camp", UI.FG], ["injured", "Injured", UI.RED], ["offer", "Offer waiting", UI.AMBER],
-			["contract", "Contract talks", UI.FG], ["free", "Free", UI.MUTED], ["leaving", "Leaving", UI.AMBER], ["retiring", "Retiring", UI.MUTED],
-			["scouted", "Scouted", UI.GREEN], ["unscouted", "Not scouted", UI.MUTED], ["up", "Rising", UI.GREEN], ["down", "Falling", UI.RED],
-			["hands", "Stoppages", UI.FG], ["warn", "Not built yet", Color("ffd54a")]]:
+			["booked", "Booked", UI.GOLD], ["camp", "In camp", WoodKit.INK], ["injured", "Injured", UI.RED], ["offer", "Offer waiting", UI.AMBER],
+			["contract", "Contract talks", WoodKit.INK], ["free", "Free", WoodKit.SOFT], ["leaving", "Leaving", UI.AMBER], ["retiring", "Retiring", WoodKit.SOFT],
+			["scouted", "Scouted", UI.GREEN], ["unscouted", "Not scouted", WoodKit.SOFT], ["up", "Rising", UI.GREEN], ["down", "Falling", UI.RED],
+			["hands", "Stoppages", WoodKit.INK], ["warn", "Not built yet", Color("ffd54a")]]:
 		var cell := UI.hbox(4)
 		cell.name = "Key_" + str(it[0])
 		cell.add_child(icon(str(it[0]), 14, it[2] as Color))
@@ -345,9 +314,7 @@ static func key_panel() -> Control:
 
 
 static func news_box(main: Node, c: Career) -> Control:
-	var paper := WarmKit.panel("paper")
-	paper.name = "NewsBox"
-	paper.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	var paper := _slate("NewsBox")
 	var v := UI.vbox(4)
 	paper.add_child(v)
 	v.add_child(UI.caps("NEWS"))
@@ -368,9 +335,7 @@ static func news_box(main: Node, c: Career) -> Control:
 
 
 static func region_files(main: Node, c: Career, divs: Array) -> Control:
-	var paper := WarmKit.panel("paper")
-	paper.name = "RegionFiles"
-	paper.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	var paper := _slate("RegionFiles")
 	var v := UI.vbox(4)
 	paper.add_child(v)
 	v.add_child(UI.caps("REGIONAL FILES"))
@@ -394,15 +359,38 @@ static func region_files(main: Node, c: Career, divs: Array) -> Control:
 	return paper
 
 
-static func _panel(border: Color) -> PanelContainer:
+static func _panel(on: bool) -> PanelContainer:
 	var p := PanelContainer.new()
-	var box := StyleBoxFlat.new()
-	box.bg_color = Color("fffaf0")
-	box.border_color = border
-	box.set_border_width_all(2)
-	box.set_corner_radius_all(12)
-	box.set_content_margin_all(6)
-	p.add_theme_stylebox_override("panel", box)
+	var edge := WoodKit.HEAD if on else Color(WoodKit.SOFT, 0.35)
+	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if on else 1, 6, 6))
+	return p
+
+
+## A framed slate. Paper padded 24; the frame is 22, so the pad stays 22 and the card does not grow.
+static func _slate(node_name: String) -> PanelContainer:
+	var p := PanelContainer.new()
+	p.name = node_name
+	p.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	p.add_theme_stylebox_override("panel", WoodKit.slate(22, 22))
+	return p
+
+
+## A small card: see-through, thin chalk outline. The selected chip uses _panel.
+static func _ghost(node_name: String) -> PanelContainer:
+	var p := PanelContainer.new()
+	p.name = node_name
+	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	p.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 14, 8))
+	return p
+
+
+## See-through chips and strips sit on this so the ink pass turns their words to chalk. No extra padding, so nothing grows.
+static func bed(child: Control) -> PanelContainer:
+	var p := PanelContainer.new()
+	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	p.add_theme_stylebox_override("panel", UI.box(Color(UI.DARK, 0.72), Color(0, 0, 0, 0), 0, 0, 0, 0))
+	p.add_child(child)
 	return p
 
 
@@ -462,38 +450,3 @@ static func _stamp(box: HBoxContainer, widths: Array[float]) -> void:
 		var cell := box.get_child(i) as Control
 		if absf(cell.custom_minimum_size.x - widths[i]) > 0.5:
 			cell.custom_minimum_size.x = widths[i]
-
-
-class ChanceBar extends Control:
-	var lo := 0.0
-	var hi := 1.0
-	var scouted := 0
-
-	func _ready() -> void:
-		custom_minimum_size = Vector2(64, 10)
-		mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-	func _draw() -> void:
-		draw_rect(Rect2(Vector2.ZERO, size), Color("e3d9c3"))
-		var x := clampf(lo, 0.0, 1.0) * size.x
-		var span := maxf(4.0, (clampf(hi, 0.0, 1.0) - clampf(lo, 0.0, 1.0)) * size.x)
-		var rect := Rect2(Vector2(x, 1.0), Vector2(span, maxf(1.0, size.y - 2.0)))
-		var full := scouted >= 2
-		var dark := Color("23935d") if full else (Color("c9770f") if scouted == 1 else Color("2f6fdb"))
-		var light := dark if full else (Color("f1d3a6") if scouted == 1 else Color("bcd0f3"))
-		draw_rect(rect, light)
-		if not full:
-			_hatch(rect, dark)
-		draw_rect(rect, dark, false, 1.0)
-
-	func _hatch(rect: Rect2, ink: Color) -> void:
-		var h := rect.size.y
-		var x := rect.position.x - h
-		var guard := 0
-		while x < rect.end.x and guard < 48:
-			var x0 := maxf(x, rect.position.x)
-			var x1 := minf(x + h, rect.end.x)
-			if x1 > x0:
-				draw_line(Vector2(x0, rect.position.y + (x0 - x)), Vector2(x1, rect.position.y + (x1 - x)), ink, 2.0)
-			x += 4.0
-			guard += 1
