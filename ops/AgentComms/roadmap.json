@@ -4623,7 +4623,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-10 15:11 board_sync",
+  "updated": "2026-11-10 15:42 board_sync",
   "goal": "MECHANICS FIRST (operator S422: 'ok prepare next session with your recommendations'): the seven mechanics the critics and you chose in S402 get built before more menu polish. Each mechanic starts with a DESIGN MAP (operator Q-173: 'what the player decides exactly and where does that happening ? which screens ? have you mapped the whole design for the mechanism ?'): the decision, the screen, what it changes, the numbers; your OK; then the build. Menus change only when a mechanic needs them. One playable .exe a week, judged by you.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4852,7 +4852,8 @@
     "title": "TASK DUESCARD1 - CURSOR (Grok 4.7 High) - the dues choice as three painted price boards on Club > Money",
     "who": "cursor",
     "started": "2026-11-10T14:37",
-    "run": "DUESCARD1"
+    "run": "DUESCARD1",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK READBACK1 - QWEN (qwen3-coder) - she waits for your best plan line: where the points go, and what wins them back. Measure only",
@@ -4874,6 +4875,18 @@
     "started": "2026-11-10T15:00",
     "run": "WEEKDESIGN2",
     "state": "STOPPED - Claude relaunches or closes"
+   },
+   {
+    "title": "TASK DUESCARD2 - CURSOR (Grok 4.7 High) - the dues boards are unreadable: give them their own tab at full size",
+    "who": "cursor",
+    "started": "2026-11-10T15:27",
+    "run": "DUESCARD2"
+   },
+   {
+    "title": "TASK READBACK3 - QWEN (qwen3-coder) - READBACK2's set-up rule never forgets a win: fix it, measure again",
+    "who": "qwen",
+    "started": "2026-11-10T15:28",
+    "run": "READBACK3"
    }
   ],
   "next": [
@@ -4884,16 +4897,10 @@
     "after": ""
    },
    {
-    "id": "READBACK3",
-    "who": "qwen",
-    "title": "The set-up rule never forgets a win: fix it and measure again",
-    "after": ""
-   },
-   {
     "id": "FIRELEVEL1",
     "who": "qwen",
     "title": "A plan line fires as well as it is drilled: switched-off rule, measured",
-    "after": "READBACK3"
+    "after": ""
    },
    {
     "id": "THURSDAY1",
@@ -5236,6 +5243,11 @@
    }
   },
   "done_recently": [
+   {
+    "title": "Read plan line: no answer wins it back (best +3.7 of 7); a line known from round 1 costs 15",
+    "who": "qwen",
+    "when": "2026-11-10"
+   },
    {
     "title": "TASK ANIMFIX1 - CLAUDE SUBAGENT (Fable 5.2) - boxing leg tremble (round 5) and grappling matches the player can read; films on the review board",
     "who": "claude",

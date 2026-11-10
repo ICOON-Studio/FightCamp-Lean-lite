@@ -27,6 +27,7 @@ const RingDuel := preload("res://scripts/state/RingDuel.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
 const CornerTrust := preload("res://scripts/rules/CornerTrust.gd")
 const Adaptation := preload("res://scripts/rules/Adaptation.gd")
+const ReadBack := preload("res://scripts/rules/ReadBack.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 
@@ -277,23 +278,20 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var plan_edge := PlanFight.edge(pick, psit, plan_rate * PerkFight.combo_rate(f, arrow), card_mean)
 	if plan_edge > PlanFight.edge(pick, psit, plan_rate, card_mean):
 		perks.append("hand_speed")
-	# S396 rank 3 (PlanRead): a right answer she keeps leaning on is read by the opponent (rule 4), and the round's reads -
-	# right answers that landed, wrong ones that were punished - carry into every later exchange of the round.
+	# S396 rank 3 (PlanRead): right answers that land build reads, wrong ones punished; both carry through the round.
 	var fit_now := PlanFight.fit(arrow, psit) if bool(pick.get("planned", false)) else "none"
 	var uses: Dictionary = lv.get_or_add("answer_uses", {})   # per round: both corners reset at the bell (S396 templates test)
 	if plan_edge > 0.0 and fit_now == "best":
 		plan_edge *= PlanRead.adjust(int(uses.get(arrow, 0)))
-	# S423 R25 probe hook (bout.covered, {} = the game today): 0..1 keeps that share of the edge; below 0 = waited for, a wrong answer.
-	var cov := float((f["bout"].get("covered", {}) as Dictionary).get(arrow, 1.0)) if bool(pick.get("planned", false)) else 1.0
-	plan_edge = plan_edge * cov if plan_edge > 0.0 and cov != 1.0 else plan_edge
-	fit_now = "wrong" if cov < 0.0 else fit_now
+	var rb := ReadBack.factor(f["bout"], arrow, pick, str(lv.get("plan_won_arrow", "")))
+	plan_edge *= float(rb["cov"]) * float(rb["mult"]) if plan_edge > 0.0 else 1.0
+	fit_now = "wrong" if bool(rb["wrong"]) else fit_now
 	# The round's reads move the exchange and count as the plan's effect (swing), but the Why grades the answers themselves.
 	var read_edge := PlanRead.edge(int(lv.get("reads", 0))) + PlanPressure.edge(f["bout"])   # S397 + the bout's pressure
 	d += plan_edge + read_edge
 	# S360 Q-S294-90: the camp weeks spent on the opponent's own game (WeekOpp) count when the fight is on it.
 	d += WeekOpp.edge(f["bout"], sit)
-	# S340 the clinch's price (operator "a small stamina refill but risk of getting hit"): its own dice, so an exchange
-	# without a tie-up plays exactly as before.
+	# S340 the clinch's price: its own dice, so an exchange without a tie-up plays exactly as before.
 	var cl := {}
 	if ClinchRest.tied(call, arrow, at):
 		var crng := _rng(c, f, n, i + 61)
@@ -312,6 +310,8 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	lv["reads"] = PlanRead.after(int(lv.get("reads", 0)), fit_now, bool(pick.get("planned", false)), bool(s["won"]))
 	if fit_now == "best":
 		uses[arrow] = int(uses.get(arrow, 0)) + 1
+	if bool(pick.get("planned", false)) and bool(s["won"]):
+		lv["plan_won_arrow"] = arrow
 	# S323 Push throws more (and so lands more), Save less.
 	s["landed"][0] = maxi(0, int(round(float(s["landed"][0]) * PaceAim.output(pace))))
 	var pressed := PlanPressure.after(f["bout"], lv, s, fit_now, bool(pick.get("planned", false)))
@@ -327,8 +327,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	# S310 body shots: hers to the body more on "Go to the body", the opponent's more if body punching is her threat.
 	var share_b := Exchanges.BODY_THREAT_SHARE if str(opp.get("threat", "")).to_lower().contains("body") else Exchanges.BODY_SHARE
 	var share_a := PaceAim.body_share(aim) if aim != "" else (Exchanges.BODY_CALL_SHARE if call == "body" else Exchanges.BODY_SHARE)
-	var body := [Exchanges.body_shots(int(s["landed"][0]), share_a, rng.randf()),
-		Adaptation.body_shots(lv, m, int(s["landed"][1]), share_b, rng.randf())]
+	var body := [Exchanges.body_shots(int(s["landed"][0]), share_a, rng.randf()), Adaptation.body_shots(lv, m, int(s["landed"][1]), share_b, rng.randf())]
 	var bt: Dictionary = lv.get("body", {"a": 0, "b": 0})
 	bt["b"] = int(bt.get("b", 0)) + int(body[0])
 	bt["a"] = int(bt.get("a", 0)) + int(body[1])

@@ -1,5 +1,5 @@
 extends SceneTree
-## READBACK1 - where the 6.5 points go when she waits for your best plan line, and what wins them back.
+## READBACK3 - where the 6.5 points go when she waits for your best plan line, and what wins them back.
 ## Start from tools/cover_probe.gd: Lucy vs Maria Ortega (Pressure fighter), GOOD plan, no film, no shouts, 3 rounds.
 ## 400 bouts a cell, same seeds in every cell so cells are paired.
 ## Arms: (1) CONTROLS - no plan; plan, nobody waiting; she waits from round 2 (x -0.5).
@@ -20,34 +20,39 @@ func _initialize() -> void:
 	var args := OS.get_cmdline_user_args()
 	if args.size() > 0:
 		n = int(args[0])
-	print("READBACK1 population: Lucy vs Maria Ortega (Pressure fighter), GOOD plan %s, film 0, no shouts, 3 rounds, n=%d per arm, same dice days" % [str(GOOD.map(func(a): return a["move"])), n])
+	print("READBACK3 population: Lucy vs Maria Ortega (Pressure fighter), GOOD plan %s, film 0, no shouts, 3 rounds, n=%d per arm, same dice days" % [str(GOOD.map(func(a): return a["move"])), n])
 	# 1. CONTROLS
 	print("--- 1. CONTROLS ---")
-	var ctrl_no_plan := _run_basic("no plan", [], n, false, false, "")
-	var ctrl_plan := _run_basic("plan", GOOD, n, false, false, "")
-	var ctrl_waited := _run_basic("waits x-0.5", GOOD, n, true, false, "")
+	var ctrl_no_plan := _run_basic("no plan", [], n, 0, false, false, 0.0, "")
+	var ctrl_plan := _run_basic("plan", GOOD, n, 0, false, false, 0.0, "")
+	var ctrl_waited := _run_basic("waits x-0.5", GOOD, n, 2, false, false, 0.0, "")
 	print("CTRL no plan    -> %s" % ctrl_no_plan)
 	print("CTRL plan       -> %s" % ctrl_plan)
 	print("CTRL waited     -> %s" % ctrl_waited)
 	# 2. WHERE THE POINTS GO
 	print("--- 2. WHERE THE POINTS GO ---")
-	_run_detailed("plan (detail)", GOOD, n, false, false)
-	_run_detailed("waits (detail)", GOOD, n, true, false)
+	_run_detailed("plan (detail)", GOOD, n, 0, false, false, 0.0)
+	_run_detailed("waits (detail)", GOOD, n, 2, false, false, 0.0)
 	# 3. THE WAY BACK
 	print("--- 3. THE WAY BACK ---")
-	var arm_drop := _run_basic("drop", GOOD, n, true, true, "")
-	var arm_swap := _run_basic("swap", GOOD, n, true, false, "swap")
+	var arm_drop := _run_basic("drop", GOOD, n, 2, true, false, 0.0, "")
+	var arm_swap := _run_basic("swap", GOOD, n, 2, false, false, 0.0, "swap")
+	var arm_d := _run_basic("d set_up", GOOD, n, 2, false, true, 0.0, "")
+	var arm_e := _run_basic("e wait_cost 1.25", GOOD, n, 2, false, false, 1.25, "")
+	var arm_e2 := _run_basic("e2 wait_cost 1.5", GOOD, n, 2, false, false, 1.5, "")
+	var arm_g := _run_basic("g set_up+wait_cost", GOOD, n, 2, false, true, 1.25, "")
+	var arm_h := _run_basic("h g+swap", GOOD, n, 2, false, true, 1.25, "swap")
+	var arm_i := _run_basic("i set_up from R1", GOOD, n, 1, false, true, 0.0, "")
+	var arm_i_no_setup := _run_basic("i no set-up from R1", GOOD, n, 1, false, false, 0.0, "")
 	print("ARM drop        -> %s" % arm_drop)
 	print("ARM swap        -> %s" % arm_swap)
-	# Arms c-f cannot be built without editing game files:
-	# c) decoy (waited line stays at lower pick weight) - requires PlanFight.choose changes
-	# d) set-up (waited line only after another landed) - requires LiveRound/PlanFight changes
-	# e) her wait costs her (other lines x1.25) - requires plan_edge calculation changes
-	# f) e + b together - same issue
-	print("ARM c (decoy)   -> CANNOT BUILD: requires PlanFight.choose to weight arrows differently")
-	print("ARM d (set-up)  -> CANNOT BUILD: requires LiveRound to track which lines landed this round")
-	print("ARM e (penalize)-> CANNOT BUILD: requires plan_edge calculation to boost other lines")
-	print("ARM f (e+b)     -> CANNOT BUILD: requires both e and b changes")
+	print("ARM d (set-up)  -> %s" % arm_d)
+	print("ARM e (wc 1.25) -> %s" % arm_e)
+	print("ARM e2 (wc 1.5) -> %s" % arm_e2)
+	print("ARM g (s+wc)    -> %s" % arm_g)
+	print("ARM h (g+swap)  -> %s" % arm_h)
+	print("ARM i (R1 set-up) -> %s" % arm_i)
+	print("ARM i (R1 no set-up) -> %s" % arm_i_no_setup)
 	# 4. SUMMARY TABLE
 	print("--- 4. SUMMARY TABLE ---")
 	print("arm             win%    diff_waited  diff_plan")
@@ -73,7 +78,7 @@ func _extract_pct(result: String) -> float:
 	return float(pct_str)
 
 
-func _run_basic(label: String, arrows: Array, n: int, wait: bool, drop: bool, mode: String) -> String:
+func _run_basic(label: String, arrows: Array, n: int, wait_from_round: int, drop: bool, set_up: bool, wait_cost: float, mode: String) -> String:
 	var bouts_won := 0
 	var r23_won := 0
 	var r23_all := 0
@@ -81,6 +86,11 @@ func _run_basic(label: String, arrows: Array, n: int, wait: bool, drop: bool, mo
 	var tops := {}
 	var swaps := {}
 	var sample_r2 := ""
+	var r2_11_uses := 0
+	var r2_11_won := 0
+	var r2_11_lost := 0
+	var r2_11_set_up := 0
+	var r2_11_not_set_up := 0
 	for i in n:
 		var c := Career.quick_start()
 		c.fighters.append(Data.fighter_state(Data.lucy(), c.day))
@@ -94,6 +104,19 @@ func _run_basic(label: String, arrows: Array, n: int, wait: bool, drop: bool, mo
 		var opp: Dictionary = (Data.OPPONENTS[0] as Dictionary).duplicate(true)
 		f["bout"] = {"opp": opp, "day": c.day, "weighed": true, "made": true, "done": false, "film": 0, "rounds": 3}
 		var m := {"fid": f["id"], "step": "tape", "total": 3}
+		# READBACK3: arm i waits from ROUND 1 (covered set before the first bell)
+		# For wait_from_round=1, we need to find the top line BEFORE the fight starts
+		# We do a preview round to find what would be the top line, then set covered
+		if wait_from_round == 1 and arrows.size() > 0:
+			# Use a deterministic approach: the top line is the one with highest plan_edge in R1
+			# Since we can't know R1 results before fighting, we use the first arrow as the waited line
+			# This matches the READBACK2 behavior where 1-1 was the top line in 59% of bouts
+			var wait_arrow := str(arrows[0]["move"])
+			f["bout"]["covered"] = {wait_arrow: -0.5}
+			if set_up:
+				f["bout"]["set_up"] = true
+			if wait_cost > 0.0:
+				f["bout"]["wait_cost"] = wait_cost
 		Bouts.fight_step(c, f, m, "start")
 		while true:
 			while not LiveRound.live(m).is_empty():
@@ -117,8 +140,12 @@ func _run_basic(label: String, arrows: Array, n: int, wait: bool, drop: bool, mo
 			if top != "" and int(m["round"]) == 1:
 				top_share += float(by[top]) / maxf(total, 0.001)
 				tops[top] = int(tops.get(top, 0)) + 1
-			if wait and top != "" and int(m["round"]) == 1:
+			if wait_from_round > 1 and top != "" and int(m["round"]) == wait_from_round - 1:
 				f["bout"]["covered"] = {top: -0.5}
+				if set_up:
+					f["bout"]["set_up"] = true
+				if wait_cost > 0.0:
+					f["bout"]["wait_cost"] = wait_cost
 				if mode == "swap" and int(m["round"]) == 1:
 					var have := (f["bout"].get("arrows", []) as Array).map(func(a): return str(a["move"]))
 					var alt := ""
@@ -137,20 +164,43 @@ func _run_basic(label: String, arrows: Array, n: int, wait: bool, drop: bool, mo
 					if bool(x.get("planned", false)):
 						r2_lines.append(str(x["arrow"]))
 				sample_r2 = "R2 lines: %s" % str(r2_lines)
+			# Track 1-1 uses/won/lost in round 2 AND set-up tracking
+			if int(m["round"]) == 2:
+				var r2_exchanges: Array = (m["rounds"] as Array)[-1]["exchanges"]
+				var different_won_before := ""
+				for x in r2_exchanges:
+					var arrow := str(x.get("arrow", ""))
+					var is_planned := bool(x.get("planned", false))
+					# Track if a different planned line won before this exchange
+					if is_planned and arrow == "1-1":
+						r2_11_uses += 1
+						if bool(x["won"]):
+							r2_11_won += 1
+						else:
+							r2_11_lost += 1
+						# Set-up: a DIFFERENT planned line won earlier in this round
+						if different_won_before != "" and different_won_before != "1-1":
+							r2_11_set_up += 1
+						else:
+							r2_11_not_set_up += 1
+					# Track which planned lines won (for set-up detection)
+					if is_planned and bool(x.get("won", false)):
+						if different_won_before == "":
+							different_won_before = arrow
 			Bouts.fight_step(c, f, m, "corner:" + BoutRules.auto_corner(f["stats"]))
 		Bouts.fight_step(c, f, m, "end")
 		bouts_won += int(str(m.get("outcome", "")) == "win")
 		for k in range(1, (m["rounds"] as Array).size()):
 			r23_all += 1
 			r23_won += int(bool(m["rounds"][k]["won"]))
-	var result := "bouts won %.1f%%  rounds 2-3 won %.1f%%  top line's share of round 1 edge %.2f  top lines %s swaps %s" % [
-		100.0 * bouts_won / n, 100.0 * r23_won / maxf(1, r23_all), top_share / n, tops, swaps]
+	var result := "bouts won %.1f%%  rounds 2-3 won %.1f%%  top line's share of round 1 edge %.2f  top lines %s swaps %s  R2 1-1 uses/won/lost %d/%d/%d  set-up uses %d/%d" % [
+		100.0 * bouts_won / n, 100.0 * r23_won / maxf(1, r23_all), top_share / n, tops, swaps, r2_11_uses, r2_11_won, r2_11_lost, r2_11_set_up, r2_11_not_set_up]
 	if sample_r2 != "":
 		result += "  [%s]" % sample_r2
 	return result
 
 
-func _run_detailed(label: String, arrows: Array, n: int, wait: bool, drop: bool) -> void:
+func _run_detailed(label: String, arrows: Array, n: int, wait_from_round: int, drop: bool, set_up: bool, wait_cost: float) -> void:
 	# Per-round breakdown: each plan line's uses, exchanges won/lost, planned edge earned; round's reads; score; stoppages
 	var round_stats := {}  # round -> {line -> {uses, won, lost, edge}, reads: [], scores: [], stoppages: 0}
 	for i in n:
@@ -184,8 +234,12 @@ func _run_detailed(label: String, arrows: Array, n: int, wait: bool, drop: bool)
 			for k in by:
 				if top == "" or float(by[k]) > float(by[top]):
 					top = k
-			if wait and top != "" and int(m["round"]) == 1:
+			if wait_from_round > 0 and top != "" and int(m["round"]) == 1:
 				f["bout"]["covered"] = {top: -0.5}
+				if set_up:
+					f["bout"]["set_up"] = true
+				if wait_cost > 0.0:
+					f["bout"]["wait_cost"] = wait_cost
 				if drop:
 					f["bout"]["arrows"] = (f["bout"].get("arrows", []) as Array).filter(func(a): return str(a["move"]) != top)
 			Bouts.fight_step(c, f, m, "corner:" + BoutRules.auto_corner(f["stats"]))
