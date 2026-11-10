@@ -5,6 +5,7 @@ extends RefCounted
 ##   RosterCards.head(parent, main, c)   RosterCards.build(main, c)   RosterCards.body(stem)
 
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
@@ -31,11 +32,11 @@ const EDGE := Color("#cdbba3")
 const INK := Color("#231f1b")
 const INK_SOFT := Color("#6e6256")
 const CREAM := Color("#e9dfd2")
-## tone -> [tile, ink]
+## tone -> [tile, ink]. The tile is see-through; the ink is a colour that reads on slate.
 const TILE := {
-	"good": [Color("#dcf1e0"), Color("#1a7a42")], "ok": [Color("#dcf1e0"), Color("#1a7a42")],
-	"watch": [Color("#fdecc9"), Color("#a96a08")], "bad": [Color("#f9d7d2"), Color("#bd2e22")],
-	"muted": [Color("#efe7da"), Color("#6e6256")],
+	"good": [Color(1, 1, 1, 0.04), UI.GREEN], "ok": [Color(1, 1, 1, 0.04), UI.GREEN],
+	"watch": [Color(1, 1, 1, 0.04), UI.AMBER], "bad": [Color(1, 1, 1, 0.04), UI.RED],
+	"muted": [Color(1, 1, 1, 0.04), WoodKit.SOFT],
 }
 
 ## "cards" or "table"; kept while the game runs.
@@ -104,7 +105,8 @@ static func _card(main: Node, c: Career, r: Dictionary) -> Button:
 	b.custom_minimum_size = CARD
 	b.pressed.connect(main.act.bind("fighter", id))
 	for st in ["normal", "hover", "pressed", "focus"]:
-		b.add_theme_stylebox_override(st, UI.box(PAPER, EDGE if st != "hover" else Color("#f2c14e"), 10, 3))
+		var edge := WoodKit.HEAD if st == "hover" else Color(WoodKit.SOFT, 0.45)
+		b.add_theme_stylebox_override(st, UI.box(Color(0.07, 0.06, 0.05, 0.92), edge, 6, 2))
 	MenuFx.hover_grow(b, 1.02)
 	var v := UI.vbox(0)
 	v.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -196,12 +198,12 @@ static func _picture(path: String, stretch: int) -> TextureRect:
 
 static func _plate(f: Dictionary, cells: Dictionary, grappler: bool) -> Control:
 	var v := UI.vbox(0)
-	var nm := UI.label(str(f["name"]), 20, INK, "bold")
+	var nm := UI.label(str(f["name"]), 20, UI.FG, "bold")
 	nm.clip_text = true
 	nm.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	v.add_child(nm)
 	var third := str(f.get("belt", "white")).capitalize() + " belt" if grappler else str(f["stance"]).capitalize()
-	v.add_child(UI.label("%s · %d · %s" % [str(cells["record"][0]), int(f.get("age", 0)), third], 15, INK_SOFT, "semi"))
+	v.add_child(UI.label("%s · %d · %s" % [str(cells["record"][0]), int(f.get("age", 0)), third], 15, UI.MUTED, "semi"))
 	return _inset(v, 12, 8, 6)
 
 
@@ -212,14 +214,18 @@ static func _tiles(cells: Dictionary, grappler: bool) -> Control:
 	h.add_child(_tile("fresh", str(cells["condition"][0]), str(cells["condition"][2]), "Condition"))
 	h.add_child(_tile("mood", str(cells["mood"][0]), str(cells["mood"][2]), "Mood"))
 	if not grappler:
-		h.add_child(_tile("weight", str(w[0]), str(w[2]), "kg against the class limit"))
+		# S421: "0.9 kg over" clipped to "0.9 kg ..." in a card tile; the tile says "+0.9 kg", the tooltip keeps the words.
+		var kg := "+%.1f kg" % float(w[1]) if float(w[1]) > 0.0 else str(w[0])
+		var t := _tile("weight", kg, str(w[2]), "Weight against the class limit")
+		t.tooltip_text = "Weight against the class limit: %s" % str(w[0]).to_lower()
+		h.add_child(t)
 	return _inset(h, 8, 2, 4)
 
 
 static func _tile(icon: String, word: String, tone: String, what: String) -> Control:
 	var look: Array = TILE.get(tone, TILE["ok"])
 	var p := PanelContainer.new()
-	p.add_theme_stylebox_override("panel", UI.box(look[0], Color(0, 0, 0, 0), 8, 0, 2, 4))
+	p.add_theme_stylebox_override("panel", UI.box(look[0], Color(WoodKit.SOFT, 0.35), 4, 1, 2, 4))
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	p.custom_minimum_size = Vector2(0, 62)
 	p.tooltip_text = "%s: %s" % [what, word.to_lower()]
@@ -241,8 +247,8 @@ static func _next(c: Career, f: Dictionary, cells: Dictionary, grappler: bool) -
 	var words := next_words(c, f, cells, grappler)
 	var v := UI.vbox(0)
 	v.name = "Next"
-	v.add_child(UI.label(str(words[0]), 17, INK, "bold"))
-	var small := UI.label(str(words[1]), UI.SMALL, INK_SOFT)
+	v.add_child(UI.label(str(words[0]), 17, UI.FG, "bold"))
+	var small := UI.label(str(words[1]), UI.SMALL, UI.MUTED)
 	small.clip_text = true
 	small.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	small.tooltip_text = Injuries.line(c, f) if str(words[0]) == "Injured" else str(words[1])
@@ -279,17 +285,18 @@ static func _inset(child: Control, side: int, top: int, bottom: int) -> MarginCo
 static func _scouted(main: Node, c: Career) -> Control:
 	var p := PanelContainer.new()
 	p.name = "ScoutedStrip"
-	p.add_theme_stylebox_override("panel", UI.box(PAPER, EDGE, 10, 3))
+	# The frame is 22 px a side, so the old 16/10 inset is trimmed away and the strip stays the same size.
+	p.add_theme_stylebox_override("panel", WoodKit.slate(22, 22))
 	var h := UI.hbox(12)
-	p.add_child(_inset(h, 16, 10, 10))
-	var title := UI.display("Scouted\nfor you", 30, INK)
+	p.add_child(h)
+	var title := UI.display("Scouted\nfor you", 30, UI.FG)
 	title.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(title)
 	var open := c.prospects.filter(func(x): return str(x.get("state", "")) in ["scout", "invited"])
 	for x in open.slice(0, SHOWN_PROSPECTS):
 		h.add_child(_prospect(main, x))
 	if open.is_empty():
-		var none := UI.label("No prospects yet: Find a fighter sends the scout.", UI.BODY, INK_SOFT)
+		var none := UI.label("No prospects yet: Find a fighter sends the scout.", UI.BODY, UI.MUTED)
 		none.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		h.add_child(none)
 	return p
@@ -304,7 +311,9 @@ static func _prospect(main: Node, x: Dictionary) -> Button:
 	b.custom_minimum_size = Vector2(0, 156)
 	b.pressed.connect(main.act.bind("go", "fighters:3"))
 	for st in ["normal", "hover", "pressed", "focus"]:
-		b.add_theme_stylebox_override(st, UI.box(PAPER_DEEP, Color(0, 0, 0, 0) if st != "hover" else EDGE, 10, 2))
+		var hot: bool = st == "hover"
+		var edge := Color(WoodKit.BLUE if hot else WoodKit.SOFT, 1.0 if hot else 0.35)
+		b.add_theme_stylebox_override(st, UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if hot else 1))
 	var h := UI.hbox(10)
 	h.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var pic := body(Faces.stem(x), Vector2(112, 150))
@@ -314,9 +323,9 @@ static func _prospect(main: Node, x: Dictionary) -> Button:
 	var v := UI.vbox(1)
 	v.alignment = BoxContainer.ALIGNMENT_CENTER
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	v.add_child(UI.label(str(x["name"]), 20, INK, "bold"))
-	v.add_child(UI.label("%d, %s, %d-%d" % [int(x["age"]), str(x["wc"]), int(x["w"]), int(x["l"])], 15, INK_SOFT))
-	var note := UI.label(str(x["note"]), 15, INK_SOFT, "body", true)
+	v.add_child(UI.label(str(x["name"]), 20, UI.FG, "bold"))
+	v.add_child(UI.label("%d, %s, %d-%d" % [int(x["age"]), str(x["wc"]), int(x["w"]), int(x["l"])], 15, UI.MUTED))
+	var note := UI.label(str(x["note"]), 15, UI.MUTED, "body", true)
 	note.max_lines_visible = 2
 	note.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	v.add_child(note)

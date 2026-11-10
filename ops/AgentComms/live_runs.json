@@ -2,54 +2,6 @@
  "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
  "seats": 3,
  "runs": {
-  "ANIMREBUILD1": {
-   "agent": "antigravity",
-   "id": "ANIMREBUILD1",
-   "title": "TASK ANIMREBUILD1 - AGY (Argon High) - design draft: fight animation rebuilt around a clip library + one picker",
-   "status": "landed",
-   "started": "2026-11-07T22:09",
-   "eta": "2026-11-07T23:34",
-   "branch": "agy/animrebuild1",
-   "worktree": "E:/FightCamp/wt/LEAN_ANIMREBUILD1",
-   "wt": "E:/FightCamp/wt/LEAN_ANIMREBUILD1",
-   "brief": "ops/research/TASK_ANIMREBUILD1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/ANIMREBUILD1_dispatch_out.txt",
-   "match": "seat_dispatch.py run animrebuild1",
-   "model": "gemini-4-argon-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/ANIMREBUILD1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/ANIMREBUILD1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/ANIMREBUILD1_dispatch_runner.log",
-    "source": "dispatch_queue.json",
-    "brief_copied": false,
-    "runner_pid": 7808,
-    "seat_pid": 42636
-   },
-   "note": "S368 seat_dispatch: agy exit 0; 1 commit(s); checks 2/2 PASS; PR #77",
-   "finished": "2026-11-07T22:28",
-   "pr": 77,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/plain_words_test.gd",
-     "ok": true,
-     "last": "GODOT_SLOT start after 5 s (dispatch:LEAN_ANIMREBUILD1)"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/plain_words_test.gd",
-     "ok": true,
-     "last": "GODOT_SLOT start after 0 s (dispatch:LEAN_ANIMREBUILD1)"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "MENUPLAYBOOK1": {
    "agent": "cursor",
    "id": "MENUPLAYBOOK1",
@@ -146,180 +98,6 @@
     "board": ""
    }
   },
-  "REARHAND5B": {
-   "agent": "qwen",
-   "id": "REARHAND5B",
-   "title": "TASK REARHAND5B - QWEN (qwen3-coder) - the plain right hook keeps the hand up: blend, do not solve",
-   "status": "landed",
-   "started": "2026-11-09T20:43",
-   "eta": "2026-11-09T22:33",
-   "branch": "qwen/rearhand5b",
-   "worktree": "E:/FightCamp/wt/LEAN_REARHAND5B",
-   "wt": "E:/FightCamp/wt/LEAN_REARHAND5B",
-   "brief": "ops/research/TASK_REARHAND5B.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/REARHAND5B_dispatch_out.txt",
-   "match": "seat_dispatch.py run rearhand5b",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/REARHAND5B_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/REARHAND5B_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/REARHAND5B_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 3100,
-    "seat_pid": 27984
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #140",
-   "finished": "2026-11-09T21:13",
-   "pr": 140,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/beat_clips_test.gd",
-     "ok": true,
-     "last": "BEATCLIPS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/beat_clips_test.gd",
-     "ok": true,
-     "last": "BEATCLIPS failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
-  "LOOKSLATE2": {
-   "agent": "cursor",
-   "id": "LOOKSLATE2",
-   "title": "TASK LOOKSLATE2 - CURSOR (Grok 4.7 High) - the Club People page on slate and wood",
-   "status": "landed",
-   "started": "2026-11-10T05:25",
-   "eta": "2026-11-10T07:15",
-   "branch": "cursor/lookslate2",
-   "worktree": "E:/FightCamp/wt/LEAN_LOOKSLATE2",
-   "wt": "E:/FightCamp/wt/LEAN_LOOKSLATE2",
-   "brief": "ops/research/TASK_LOOKSLATE2.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/LOOKSLATE2_dispatch_out.txt",
-   "match": "seat_dispatch.py run lookslate2",
-   "model": "grok-4.7-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/LOOKSLATE2_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/LOOKSLATE2_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/LOOKSLATE2_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 12640,
-    "seat_pid": 5656
-   },
-   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 6/6 PASS; PR #150",
-   "finished": "2026-11-10T05:59",
-   "pr": 150,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/people_slate_test.gd",
-     "ok": true,
-     "last": "PEOPLE_SLATE failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/coach_areas_test.gd",
-     "ok": true,
-     "last": "COACH_AREAS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/wood_kit_test.gd",
-     "ok": true,
-     "last": "WOOD_KIT failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/words_on_screens_test.gd",
-     "ok": true,
-     "last": "WORDS_ON_SCREENS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/grey_reason_test.gd",
-     "ok": true,
-     "last": "   at: clear (core/io/resource.cpp:822)"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/golden_path_test.gd",
-     "ok": true,
-     "last": "GOLDEN_PATH failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
-  "BLOCKMEET1": {
-   "agent": "qwen",
-   "id": "BLOCKMEET1",
-   "title": "TASK BLOCKMEET1 - QWEN (qwen3-coder) - does a blocked punch meet the blocking glove? Measure only",
-   "status": "landed",
-   "started": "2026-11-10T05:25",
-   "eta": "2026-11-10T07:15",
-   "branch": "qwen/blockmeet1",
-   "worktree": "E:/FightCamp/wt/LEAN_BLOCKMEET1",
-   "wt": "E:/FightCamp/wt/LEAN_BLOCKMEET1",
-   "brief": "ops/research/TASK_BLOCKMEET1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/BLOCKMEET1_dispatch_out.txt",
-   "match": "seat_dispatch.py run blockmeet1",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/BLOCKMEET1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/BLOCKMEET1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/BLOCKMEET1_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 21508,
-    "seat_pid": 36576
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #148",
-   "finished": "2026-11-10T05:40",
-   "pr": 148,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/head_aim_test.gd",
-     "ok": true,
-     "last": "HEAD_AIM failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/head_aim_test.gd",
-     "ok": true,
-     "last": "HEAD_AIM failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/beat_clips_test.gd",
-     "ok": true,
-     "last": "BEATCLIPS failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "R11C": {
    "agent": "goose",
    "id": "R11C",
@@ -337,458 +115,59 @@
    "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/149",
    "reconciled": "2026-11-10 06:10 board_reconcile: run finished (success), branch goose/issue-149 pushed"
   },
-  "LOOKSLATE3": {
+  "LOOKSLATE7": {
    "agent": "cursor",
-   "id": "LOOKSLATE3",
-   "title": "TASK LOOKSLATE3 - CURSOR (Grok 4.7 High) - Fight camp and the bout offer on slate and wood",
-   "status": "landed",
-   "started": "2026-11-10T06:12",
-   "eta": "2026-11-10T08:02",
-   "branch": "cursor/lookslate3",
-   "worktree": "E:/FightCamp/wt/LEAN_LOOKSLATE3",
-   "wt": "E:/FightCamp/wt/LEAN_LOOKSLATE3",
-   "brief": "ops/research/TASK_LOOKSLATE3.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/LOOKSLATE3_dispatch_out.txt",
-   "match": "seat_dispatch.py run lookslate3",
-   "model": "grok-4.7-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/LOOKSLATE3_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/LOOKSLATE3_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/LOOKSLATE3_dispatch_runner.log",
-    "source": "roadmap plan.next",
-    "brief_copied": true,
-    "runner_pid": 33804,
-    "seat_pid": 3940
-   },
-   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 7/7 PASS; PR #151; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache",
-   "finished": "2026-11-10T06:49",
-   "pr": 151,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/camp_slate_test.gd",
-     "ok": true,
-     "last": "CAMP_SLATE failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/camp_cards_test.gd",
-     "ok": true,
-     "last": "CAMP_CARDS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/camp_protocol_test.gd",
-     "ok": true,
-     "last": "CAMP_PROTOCOL failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/versus_test.gd",
-     "ok": true,
-     "last": "VERSUS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/wood_kit_test.gd",
-     "ok": true,
-     "last": "WOOD_KIT failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/grey_reason_test.gd",
-     "ok": true,
-     "last": "   at: clear (core/io/resource.cpp:822)"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/golden_path_test.gd",
-     "ok": true,
-     "last": "GOLDEN_PATH failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
-  "LOOKSLATE4": {
-   "agent": "cursor",
-   "id": "LOOKSLATE4",
-   "title": "TASK LOOKSLATE4 - CURSOR (Grok 4.7 High) - New game and the reception interview on slate and wood",
-   "status": "landed",
-   "started": "2026-11-10T07:12",
-   "eta": "2026-11-10T09:02",
-   "branch": "cursor/lookslate4",
-   "worktree": "E:/FightCamp/wt/LEAN_LOOKSLATE4",
-   "wt": "E:/FightCamp/wt/LEAN_LOOKSLATE4",
-   "brief": "ops/research/TASK_LOOKSLATE4.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/LOOKSLATE4_dispatch_out.txt",
-   "match": "seat_dispatch.py run lookslate4",
-   "model": "grok-4.7-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/LOOKSLATE4_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/LOOKSLATE4_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/LOOKSLATE4_dispatch_runner.log",
-    "source": "roadmap plan.next",
-    "brief_copied": true,
-    "runner_pid": 42552,
-    "seat_pid": 16632
-   },
-   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 7/7 PASS; PR #152; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache",
-   "finished": "2026-11-10T07:43",
-   "pr": 152,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/start_slate_test.gd",
-     "ok": true,
-     "last": "START_SLATE failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/recruit_test.gd",
-     "ok": true,
-     "last": "RECRUIT PASS fails=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/first_week_test.gd",
-     "ok": true,
-     "last": "FIRST_WEEK failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/guide_person_test.gd",
-     "ok": true,
-     "last": "GUIDE_PERSON failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/wood_kit_test.gd",
-     "ok": true,
-     "last": "WOOD_KIT failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/grey_reason_test.gd",
-     "ok": true,
-     "last": "   at: clear (core/io/resource.cpp:822)"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/golden_path_test.gd",
-     "ok": true,
-     "last": "GOLDEN_PATH failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
-  "LOOKSLATE5": {
-   "agent": "cursor",
-   "id": "LOOKSLATE5",
-   "title": "TASK LOOKSLATE5 - CURSOR (Grok 4.7 High) - the Money page off the whiteboard, onto slate and wood",
-   "status": "landed",
-   "started": "2026-11-10T08:12",
-   "eta": "2026-11-10T10:02",
-   "branch": "cursor/lookslate5",
-   "worktree": "E:/FightCamp/wt/LEAN_LOOKSLATE5",
-   "wt": "E:/FightCamp/wt/LEAN_LOOKSLATE5",
-   "brief": "ops/research/TASK_LOOKSLATE5.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/LOOKSLATE5_dispatch_out.txt",
-   "match": "seat_dispatch.py run lookslate5",
-   "model": "grok-4.7-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/LOOKSLATE5_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/LOOKSLATE5_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/LOOKSLATE5_dispatch_runner.log",
-    "source": "roadmap plan.next",
-    "brief_copied": true,
-    "runner_pid": 24256,
-    "seat_pid": 36268
-   },
-   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 7/7 PASS; PR #153; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache",
-   "finished": "2026-11-10T08:47",
-   "pr": 153,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/money_slate_test.gd",
-     "ok": true,
-     "last": "MONEY_SLATE failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/menu_money_test.gd",
-     "ok": true,
-     "last": "MENU_MONEY failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/cash_forecast_test.gd",
-     "ok": true,
-     "last": "CASH_FORECAST failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/gym_spend_test.gd",
-     "ok": true,
-     "last": "GYM_SPEND failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/wood_kit_test.gd",
-     "ok": true,
-     "last": "WOOD_KIT failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/grey_reason_test.gd",
-     "ok": true,
-     "last": "   at: clear (core/io/resource.cpp:822)"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/golden_path_test.gd",
-     "ok": true,
-     "last": "GOLDEN_PATH failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
-  "BLOCKMEET2": {
-   "agent": "qwen",
-   "id": "BLOCKMEET2",
-   "title": "TASK BLOCKMEET2 - QWEN (qwen3-coder) - a blocked head punch lands ON the blocking glove",
-   "status": "landed",
-   "started": "2026-11-10T08:21",
-   "eta": "2026-11-10T10:11",
-   "branch": "qwen/blockmeet2",
-   "worktree": "E:/FightCamp/wt/LEAN_BLOCKMEET2",
-   "wt": "E:/FightCamp/wt/LEAN_BLOCKMEET2",
-   "brief": "ops/research/TASK_BLOCKMEET2.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/BLOCKMEET2_dispatch_out.txt",
-   "match": "seat_dispatch.py run blockmeet2",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/BLOCKMEET2_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/BLOCKMEET2_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/BLOCKMEET2_dispatch_runner.log",
-    "source": "dispatch_queue.json",
-    "brief_copied": true,
-    "runner_pid": 25048,
-    "seat_pid": 38992
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/5 PASS; PR #154",
-   "finished": "2026-11-10T08:49",
-   "pr": 154,
-   "checks": [
-    {
-     "kind": "COMPILE",
-     "script": "Main.tscn boot",
-     "ok": false,
-     "last": "res://scripts/fight3d/BeatFire.gd:208: Identifier \"MoveStudio\" not declared in the current scope."
-    },
-    {
-     "kind": "RED_TEST",
-     "script": "tests/block_meet_test.gd",
-     "ok": true,
-     "last": "BLOCK_MEET failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/head_aim_test.gd",
-     "ok": true,
-     "last": "HEAD_AIM failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/beat_clips_test.gd",
-     "ok": true,
-     "last": "BEATCLIPS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/move_tip_test.gd",
-     "ok": false,
-     "last": "   at: clear (core/io/resource.cpp:822)"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
-  "LEGTREMBLE1": {
-   "agent": "antigravity",
-   "id": "LEGTREMBLE1",
-   "title": "TASK LEGTREMBLE1 - AGY (Argon High) - the legs tremble in many clips: find where it comes from, fix it there",
-   "status": "landed",
-   "started": "2026-11-10T08:37",
-   "eta": "2026-11-10T10:02",
-   "branch": "agy/legtremble1",
-   "worktree": "E:/FightCamp/wt/LEAN_LEGTREMBLE1",
-   "wt": "E:/FightCamp/wt/LEAN_LEGTREMBLE1",
-   "brief": "ops/research/TASK_LEGTREMBLE1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/LEGTREMBLE1_dispatch_out.txt",
-   "match": "seat_dispatch.py run legtremble1",
-   "model": "gemini-4-argon-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/LEGTREMBLE1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/LEGTREMBLE1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/LEGTREMBLE1_dispatch_runner.log",
-    "source": "dispatch_queue.json",
-    "brief_copied": true,
-    "runner_pid": 44460,
-    "seat_pid": 16336
-   },
-   "note": "S368 seat_dispatch: agy exit 0; 1 commit(s); checks 3/5 PASS; PR #156",
-   "finished": "2026-11-10T09:29",
-   "pr": 156,
-   "checks": [
-    {
-     "kind": "COMPILE",
-     "script": "Main.tscn boot",
-     "ok": false,
-     "last": "res://tests/leg_tremble_test.gd:54: Static function \"setup_clips()\" not found in base \"res://scripts/fight3d/FightClips.gd\"."
-    },
-    {
-     "kind": "RED_TEST",
-     "script": "tests/leg_tremble_test.gd",
-     "ok": false,
-     "last": "   at: load (modules/gdscript/gdscript_resource_format.cpp:46)"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/beat_clips_test.gd",
-     "ok": true,
-     "last": "BEATCLIPS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/move_tip_test.gd",
-     "ok": true,
-     "last": "   at: clear (core/io/resource.cpp:822)"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/head_aim_test.gd",
-     "ok": true,
-     "last": "HEAD_AIM failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
-  "TAPEVERSUS1": {
-   "agent": "cursor",
-   "id": "TAPEVERSUS1",
-   "title": "TASK TAPEVERSUS1 - CURSOR (Grok 4.7 High) - fight night's Tale of the tape drawn as the bout offer screen",
+   "id": "LOOKSLATE7",
+   "title": "TASK LOOKSLATE7 - CURSOR (Grok 4.7 High) - the Fighters page's paper pieces, the week review's pad cards and the Overview's flat buttons on slate and wood",
    "status": "running",
-   "started": "2026-11-10T08:59",
-   "eta": "2026-11-10T10:49",
-   "branch": "cursor/tapeversus1",
-   "worktree": "E:/FightCamp/wt/LEAN_TAPEVERSUS1",
-   "wt": "E:/FightCamp/wt/LEAN_TAPEVERSUS1",
-   "brief": "ops/research/TASK_TAPEVERSUS1.md",
+   "started": "2026-11-10T09:42",
+   "eta": "2026-11-10T11:32",
+   "branch": "cursor/lookslate7",
+   "worktree": "E:/FightCamp/wt/LEAN_LOOKSLATE7",
+   "wt": "E:/FightCamp/wt/LEAN_LOOKSLATE7",
+   "brief": "ops/research/TASK_LOOKSLATE7.md",
    "repo": "FightCamp-Lean",
    "where": "pc",
-   "log": "E:/FightCamp/wt/TAPEVERSUS1_dispatch_out.txt",
-   "match": "seat_dispatch.py run tapeversus1",
+   "log": "E:/FightCamp/wt/LOOKSLATE7_dispatch_out.txt",
+   "match": "seat_dispatch.py run lookslate7",
    "model": "grok-4.7-high",
    "dispatch": {
-    "prompt": "E:/FightCamp/wt/TAPEVERSUS1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/TAPEVERSUS1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/TAPEVERSUS1_dispatch_runner.log",
+    "prompt": "E:/FightCamp/wt/LOOKSLATE7_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/LOOKSLATE7_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/LOOKSLATE7_dispatch_runner.log",
     "source": "roadmap plan.next",
     "brief_copied": true,
-    "runner_pid": 40520,
-    "seat_pid": 44456
+    "runner_pid": 22468,
+    "seat_pid": 1916
    },
    "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
   },
-  "FIGHTSLIDE1": {
+  "KDFIX1": {
    "agent": "qwen",
-   "id": "FIGHTSLIDE1",
-   "title": "TASK FIGHTSLIDE1 - QWEN (qwen3-coder) - the boxers slide in the fight: measure where and what moves them. Measure only",
-   "status": "landed",
-   "started": "2026-11-10T08:59",
-   "eta": "2026-11-10T10:49",
-   "branch": "qwen/fightslide1",
-   "worktree": "E:/FightCamp/wt/LEAN_FIGHTSLIDE1",
-   "wt": "E:/FightCamp/wt/LEAN_FIGHTSLIDE1",
-   "brief": "ops/research/TASK_FIGHTSLIDE1.md",
+   "id": "KDFIX1",
+   "title": "TASK KDFIX1 - QWEN (qwen3-coder) - a downed boxer's upper body sways",
+   "status": "running",
+   "started": "2026-11-10T10:11",
+   "eta": "2026-11-10T12:01",
+   "branch": "qwen/kdfix1",
+   "worktree": "E:/FightCamp/wt/LEAN_KDFIX1",
+   "wt": "E:/FightCamp/wt/LEAN_KDFIX1",
+   "brief": "ops/research/TASK_KDFIX1.md",
    "repo": "FightCamp-Lean",
    "where": "pc",
-   "log": "E:/FightCamp/wt/FIGHTSLIDE1_dispatch_out.txt",
-   "match": "seat_dispatch.py run fightslide1",
+   "log": "E:/FightCamp/wt/KDFIX1_dispatch_out.txt",
+   "match": "seat_dispatch.py run kdfix1",
    "model": "qwen3-coder",
    "dispatch": {
-    "prompt": "E:/FightCamp/wt/FIGHTSLIDE1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/FIGHTSLIDE1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/FIGHTSLIDE1_dispatch_runner.log",
+    "prompt": "E:/FightCamp/wt/KDFIX1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/KDFIX1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/KDFIX1_dispatch_runner.log",
     "source": "dispatch_queue.json",
     "brief_copied": true,
-    "runner_pid": 40528,
-    "seat_pid": 45852
+    "runner_pid": 19656,
+    "seat_pid": 44700
    },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 4/4 PASS; PR #155; NOT committed (outside OWNS): nul",
-   "finished": "2026-11-10T09:21",
-   "pr": 155,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/ring_feet_test.gd",
-     "ok": true,
-     "last": "RING_FEET_TEST failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/ring_feet_test.gd",
-     "ok": true,
-     "last": "RING_FEET_TEST failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/boxer_footwork_test.gd",
-     "ok": true,
-     "last": "BOXER_FOOTWORK failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/foot_plant_test.gd",
-     "ok": true,
-     "last": "FOOT_PLANT checks=14 failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
+   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
   }
  },
  "codex_budget": {

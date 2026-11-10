@@ -8,6 +8,7 @@ extends PanelContainer
 ##   FlipCard.make(f, row) -> "PadCard_<card>"   grow() bar + number   flip() the turn   settle() all at once (skip)
 
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Sfx := preload("res://scripts/audio/Sfx.gd")
 const DrillCard := preload("res://scripts/ui/DrillCard.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
@@ -49,7 +50,7 @@ static func make(f: Dictionary, r: Dictionary) -> PanelContainer:
 	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	var capv := PadWeek.cap(f, id) if not f.is_empty() else 100.0
-	card.face = card._side("Face", UI.box(UI.PANEL, UI.LINE, 10, 2, 10, 8))
+	card.face = card._side("Face", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 10, 8))
 	card._face_body(f, id, capv)
 	if not (r.get("cross", {}) as Dictionary).is_empty():
 		card.back = card._side("Back", UI.box(DrillCard.GOLD_BG, DrillCard.GOLD_EDGE, 10, 2, 10, 8))
@@ -83,7 +84,7 @@ func _face_body(f: Dictionary, id: String, capv: float) -> void:
 	words.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top.add_child(words)
 	var tag := PanelContainer.new()
-	tag.add_theme_stylebox_override("panel", UI.box(Color("#e8efff"), Color(0, 0, 0, 0), 4, 0, 6, 1))
+	tag.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 6, 1))
 	tag.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	tag.add_child(UI.label(PadEdit.kind_word(f, id) if not f.is_empty() else "DRILL", 11, UI.GOLD, "bold"))

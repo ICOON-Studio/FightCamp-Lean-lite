@@ -8,9 +8,9 @@ Updated 2026-11-10 by claude S294.
 
 ## Now
 
-**S419 — ?** *(claude)*
+**S420 — ?** *(claude)*
 
-S419: LOOKSLATE2, 3 and 4 collected (Club People, Fight camp, the bout offer, New game, the interview on slate), with dark-on-dark notes and dial needles fixed at collect. BLOCKMEET1 collected: in the fight 11 of 12 blocked punches read as hits (the block starts 0.05 s before contact, the glove sits under the face); BLOCKMEET2 (Qwen) fixes it. His marks: the Overview line reworded; he rejected the Training week's design ('different approaches', 'fonts are small'), so three open-brief mockups are on the board (Q-164) and the At a glance panel is drawn two ways (Q-165). 'The legs tremble' on the animation page: LEGTREMBLE1 (Antigravity) finds where and fixes it. ANIMREBUILD1 draft taken as a reference. Dispatcher cap 2 -> 3 PC agents on his word. Ludo CLI 0.2.6 + skill. Exported.
+S420: BLOCKMEET2 collected with fixes (BeatFire did not compile; the hand-only glove lift tore the wrist 8.5 cm, now the arm turns at the shoulder; test gained a wrist bar proven red on the old lift). LOOKSLATE5 Money on slate collected, prices whole. REARHAND5B right hooks collected on a frame-by-frame film (hand stays at chest height); its test left out (needs a copy only the seat had). TAPEVERSUS1 collected: one tale of the tape; the opponent's weight on both screens (operator: 'i meant weight'), reach on the offer, edge margin. FIGHTSLIDE1 collected (1.5 m a round, a floor). LEGTREMBLE1 sent back: never compiled, smoothed only in memory. wood_kit_test made current. Exported.
 
 ## Next
 
@@ -304,3 +304,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S417**  |  |  | *none yet* |  |
 |  |  | **S418**  |  |  | *none yet* |  |
 |  |  | **S419**  |  |  | *none yet* |  |
+|  |  | **S420**  |  |  | *none yet* |  |

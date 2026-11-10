@@ -5,7 +5,6 @@ extends RefCounted
 ##   panel(title) -> [PanelContainer, VBoxContainer]   make(page, main, c, f, g)   ink(node)   dim_wall(main)   main_style(button)
 
 const UI := preload("res://scripts/ui/UI.gd")
-const Plate := preload("res://scripts/ui/Plate.gd")
 const WarmKit := preload("res://scripts/ui/WarmKit.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
@@ -27,10 +26,6 @@ const SIDE := Color("#3a2f28")
 const INK := Color("#f1e8da")
 const SOFT := Color("#c9b9a2")
 const HEAD := Color("#ffd54a")
-const RED_BTN := Color("#c8402f")
-const RED_LIP := Color("#7d1f14")
-const QUIET := Color("#3a3029")
-const QUIET_LIP := Color("#120d0a")
 const TRACK := Color(1, 1, 1, 0.09)
 const WALL_DARK := Color(0.30, 0.28, 0.27)
 const BAND := {"weak": Color("#e2483d"), "fair": Color("#f08a24"), "solid": Color("#3f7fe0"), "strong": Color("#2fb56e"), "elite": Color("#a36cff")}
@@ -103,7 +98,7 @@ static func panel(title: String = "") -> Array:
 	var p := PanelContainer.new()
 	p.theme_type_variation = "Card"   # the page and its tests still find a card
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var wood := UI.WoodKit.slate(34, 26)   # S417 Q-S294-159: the brass-cornered frame (22 px); the page still fits 1080
+	var wood := UI.WoodKit.slate(22, 26)   # the frame is 22 px; the old 34 px pad ran the page past 1920
 	wood.content_margin_bottom = 24
 	p.add_theme_stylebox_override("panel", wood)
 	var v := VBoxContainer.new()
@@ -114,21 +109,16 @@ static func panel(title: String = "") -> Array:
 	return [p, v]
 
 
-## The page's one red button.
+## The page's one primary button: the theme's Go piece. The others keep Btn.
 static func main_style(b: Button) -> void:
-	for pair in [["normal", RED_BTN, 4], ["hover", RED_BTN.lightened(0.12), 4], ["pressed", RED_BTN.darkened(0.15), 0]]:
-		b.add_theme_stylebox_override(pair[0], Plate.style(pair[1], RED_LIP, 8, 30, 15, pair[2]))
+	b.theme_type_variation = "Go"
 	b.add_theme_font_override("font", UI.font("bold"))
 	b.add_theme_font_size_override("font_size", 24)
-	b.add_theme_color_override("font_color", Color.WHITE)
-	b.add_theme_color_override("font_hover_color", Color.WHITE)
 	b.custom_minimum_size.y = 62.0
 
 
 static func _quiet(b: Button) -> Button:
-	for pair in [["normal", QUIET, 3], ["hover", QUIET.lightened(0.1), 3], ["pressed", QUIET.darkened(0.1), 0]]:
-		b.add_theme_stylebox_override(pair[0], Plate.style(pair[1], QUIET_LIP, 6, 16, 11, pair[2]))
-	b.add_theme_color_override("font_color", INK)
+	b.theme_type_variation = "Btn"
 	b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	return b
 
@@ -242,7 +232,7 @@ static func _row(r: Dictionary, pot: float) -> Control:
 	h.add_child(lab)
 	if key == "temper":
 		var tag := PanelContainer.new()
-		tag.add_theme_stylebox_override("panel", UI.box(col, Color(0, 0, 0, 0), 4, 0, 12, 3))
+		tag.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), col, 4, 1, 12, 3))
 		tag.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		tag.add_child(UI.label("Trades" if v >= 60.0 else ("Patient" if v <= 40.0 else "Even"), UI.SMALL, Color.WHITE, "bold"))
