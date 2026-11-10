@@ -904,6 +904,24 @@
    "seat": "cursor",
    "status": "queued",
    "queued": "2026-11-10T11:01"
+  },
+  {
+   "task": "FIGHTSLIDE3",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-10T11:32"
+  },
+  {
+   "task": "TRAININGB1",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-10T11:35"
+  },
+  {
+   "task": "KDFIX3",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-10T11:43"
   }
  ]
 }

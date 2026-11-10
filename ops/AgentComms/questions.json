@@ -6295,10 +6295,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-171_0_glance_plain.png"
       ],
-      "answer": null,
-      "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answer": "Still unclear, say which word",
+      "note": "S422 Claude: PARKED. Mechanics first (his S422 OK): At a glance is redrawn after R24 (10 attributes, 12 skills) lands, from the fighter model's own words.",
+      "answered_at": "2026-11-10T09:49:05Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-172",
@@ -6313,10 +6314,52 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-172_0_people_b_painted_ludo.png"
       ],
-      "answer": null,
-      "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answer": "you can make better personnel dashboard.",
+      "note": "S422 Claude: PARKED. A better personnel dashboard comes with R55 (who gets the pads) and R73 (coach hours), the mechanics that reshape Club People.",
+      "answered_at": "2026-11-10T09:54:38Z",
+      "seen_by_claude": true,
+      "comment_only": true
+    },
+    {
+      "id": "Q-S294-173",
+      "asked": "2026-11-10T09:39:50.174387+00:00",
+      "session": "S294",
+      "text": "The fake dues choice (premium always earned most): real community boxing clubs keep dues low on purpose to bring juniors in. Proposal: Cheap dues raise the youth section's chance of a home-grown boxer (58% -> ~75% a year), Premium lowers it (~36%). Premium = more money, Cheap = grow your own boxers. Build it?",
+      "options": [
+        "Yes, build this",
+        "Change the numbers",
+        "No"
+      ],
+      "attach": [
+        "research/DUES_CHOICE_S422.md"
+      ],
+      "answer": "so what the player decides exactly and where does that happening ? which screens ? have you mapped the whole design for the mechanism ?",
+      "note": "S422 Claude: not mapped yet. The dues choice gets a full design map (what the player decides, on which screen, what changes) before anything is built; it is not one of the S402 seven.",
+      "answered_at": "2026-11-10T09:53:02Z",
+      "seen_by_claude": true,
+      "comment_only": true
+    },
+    {
+      "id": "Q-S294-174",
+      "asked": "2026-11-10T09:42:44.339823+00:00",
+      "session": "S294",
+      "text": "Fight display (your Q-170): three critics judged it (corner coach, management-sim veteran, first-time player): look 4/10 from all three, because of numbers with no meaning. Their three 10/10 drawings are attached, with my verdict: build the coach's drawing (Pace/Aim on the bar, NOW!, 'caught you', landed/thrown, labelled bars), plus the new player's plain labels and speed buttons; the calls get a hint (the eye), not a grade. Build it?",
+      "options": [
+        "Yes, the coach's drawing as you say",
+        "Use the new player's drawing",
+        "Use the veteran's drawing"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-174_0_FIGHT_CRITICS_VERDICT_S422.md",
+        "AgentComms/board_attach/Q-S294-174_1_fight_10_coach.png",
+        "AgentComms/board_attach/Q-S294-174_2_fight_10_newplayer.png",
+        "AgentComms/board_attach/Q-S294-174_3_fight_10_simvet.png"
+      ],
+      "answer": "Use the veteran's drawing",
+      "note": "S422 Claude: BUILD the veteran's drawing (docs/mockups/s422/fight_10_simvet.html): FIGHTDISPLAY1 brief for Cursor next session.",
+      "answered_at": "2026-11-10T09:58:19Z",
+      "seen_by_claude": true,
+      "comment_only": false
     }
   ]
 }

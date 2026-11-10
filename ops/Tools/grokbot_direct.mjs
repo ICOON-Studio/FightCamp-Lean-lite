@@ -95,8 +95,17 @@ if (cmd === 'list') {
   if (!ref || !file) fail('usage: send <bot> <message-file>');
   const bot = await resolve(box, ref);
   const prompt = readFileSync(file, 'utf8');
-  const data = await call(box, 'sendPrompt', { agentId: bot.id, prompt, clientNonce: randomUUID() }, 300000);
-  console.log('GROKBOT SENT to ' + bot.name + ' (' + prompt.length + ' chars) ' + JSON.stringify(data).slice(0, 160));
+  // S422: the gateway's sendPrompt now refuses a sand-box session ("A Sand box session may not make this request on this
+  // endpoint"); app 0.79 sends through the backend instead: GrokBotService/SendGrokBotUserMessage with the Cursor login.
+  const res = await fetch(BACKEND + '/aiserver.v1.GrokBotService/SendGrokBotUserMessage', {
+    method: 'POST', redirect: 'error', signal: AbortSignal.timeout(300000),
+    headers: { 'content-type': 'application/json', 'connect-protocol-version': '1', authorization: 'Bearer ' + cursorToken(),
+      'x-cursor-client-type': 'sand', 'x-cursor-client-version': clientVersion(), 'x-sand-box-namespace': 'prod' },
+    body: JSON.stringify({ agentId: bot.id, messageId: randomUUID(), text: prompt, sentAtMs: String(Date.now()), isFork: false }),
+  });
+  const text = await res.text();
+  if (!res.ok) fail('SendGrokBotUserMessage ' + res.status + ' ' + text.replace(/[A-Za-z0-9_\-.]{40,}/g, '<long>').slice(0, 200));
+  console.log('GROKBOT SENT to ' + bot.name + ' (' + prompt.length + ' chars) ' + text.slice(0, 160));
 } else if (cmd === 'tail') {
   const ref = rest[0];
   const outAt = rest.indexOf('--out');

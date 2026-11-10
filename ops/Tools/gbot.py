@@ -45,7 +45,7 @@ def wake() -> bool:
     return r.returncode == 0
 
 
-GBOT_VERSION = "0.12.4"  # pinned: the version S180 proved against the gateway
+GBOT_VERSION = "0.12.5"  # pinned: the version S180 proved against the gateway
 GBOT_HOME = "E:/FightCamp/tools/gbot" if os.path.isdir("E:/") else os.path.join(
     os.environ.get("LOCALAPPDATA", os.path.expanduser("~/AppData/Local")), "FightCamp", "gbot")
 

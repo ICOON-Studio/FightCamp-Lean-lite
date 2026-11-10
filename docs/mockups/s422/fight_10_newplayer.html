@@ -1,0 +1,172 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Fight 10 new player</title>
+<style>
+:root{--red:#d8402f;--blue:#3d7fe0;--gold:#f2c14e;--amber:#f0952a;--crit:#e5372a;--ink:#f3ead8;--dim:#a99f8c;--slate:#1b1e21}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#0d0d0e;font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;color:var(--ink)}
+.ring{position:absolute;inset:0;background:url(../s421/fight_display_painted_ludo.png) center/1920px 1080px no-repeat}
+.wood{position:absolute;border:22px solid transparent;border-image:url(../../../assets/ui/wood/panel.png) 46 fill stretch;box-shadow:0 10px 30px rgba(0,0,0,.7)}
+.cap{font-size:20px;letter-spacing:2px;color:var(--dim);font-weight:600}
+/* scorebug */
+#bug{left:600px;top:4px;width:720px;height:176px;padding:4px 18px}
+#bug .row1{display:flex;align-items:center;justify-content:space-between}
+#bug .rnd{font-size:30px;font-weight:700;letter-spacing:1px}
+#bug .rnd b{color:var(--gold);font-size:38px}
+#bug .clock{font-size:60px;font-weight:700;line-height:1;padding:2px 18px;border:3px solid var(--gold);border-radius:10px;background:#111}
+#bug .cards{display:flex;gap:10px}
+.rc{width:64px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700}
+.rc.r{background:var(--red)}.rc.live{border:3px dashed var(--gold);color:var(--gold)}.rc.n{border:2px solid #555;color:#777}
+#bug .row2{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:10px}
+.pips{display:flex;gap:9px}.pip{width:22px;height:22px;border-radius:50%;background:#3a3a3a}
+.pip.r{background:var(--red)}.pip.b{background:var(--blue)}.pip.live{background:none;border:4px solid #fff;box-shadow:0 0 10px #fff}
+.sc{font-size:36px;font-weight:700}.sc.r{color:var(--red)}.sc.b{color:var(--blue)}
+/* speed */
+#speed{position:absolute;right:24px;top:22px;display:flex;gap:8px}
+#speed div{height:48px;padding:0 16px;border-radius:8px;background:#1d1d1f;border:2px solid #5b4a35;display:flex;align-items:center;font-size:22px;font-weight:600}
+#speed .on{border-color:var(--gold);color:var(--gold)}
+/* side panels */
+.side{top:128px;width:384px;height:714px;padding:4px 14px}
+#lucy{left:16px;border-top:6px solid var(--red)}
+#maria{right:16px}
+.name{font-size:36px;font-weight:700;text-align:center;letter-spacing:1px}
+.chip{margin:6px auto 0;width:fit-content;font-size:24px;padding:5px 16px;border-radius:24px;border:2px solid #8a7656;background:rgba(0,0,0,.4)}
+.chip.habit{position:relative;white-space:nowrap;font-size:23px;border-color:var(--gold);color:var(--gold);display:flex;align-items:center;gap:8px;box-shadow:0 0 18px rgba(242,193,78,.6)}
+.nowb{position:absolute;right:-10px;top:-16px;background:var(--gold);color:#111;font-size:20px;font-weight:700;padding:1px 8px;border-radius:6px}
+.bust{position:relative;height:330px;margin-top:14px}
+.bust svg{position:absolute;left:44px;top:0}
+.tag{position:absolute;display:flex;align-items:center;gap:8px;padding:4px 10px;border-radius:8px;background:rgba(10,10,10,.85);font-size:22px;font-weight:700}
+.tag.h{border:3px solid var(--amber);color:var(--amber)}
+.tag .n{font-size:32px;color:#fff}
+.mini{width:60px;height:10px;background:#333;border-radius:5px;overflow:hidden}.mini i{display:block;height:100%;background:var(--amber)}
+.state{position:absolute;padding:4px 14px;border-radius:8px;font-size:24px;font-weight:700}
+.tanks{margin-top:6px}
+.tank{display:flex;align-items:center;gap:10px;height:56px}
+.tank .ic{width:34px;text-align:center;font-size:28px}
+.tank .lb{width:96px;font-size:22px;font-weight:600;color:var(--dim)}
+.tank .bar{flex:1;height:24px;background:#2b2b2b;border-radius:12px;position:relative;overflow:hidden;border:1px solid #444}
+.tank .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:12px}
+.tank .bar .danger{position:absolute;left:0;top:0;bottom:0;width:25%;background:repeating-linear-gradient(135deg,rgba(229,55,42,.35) 0 6px,transparent 6px 12px)}
+.tank .v{width:56px;text-align:right;font-size:32px;font-weight:700}
+.hatch{position:absolute;inset:0;background:repeating-linear-gradient(135deg,#3a3a3a 0 8px,#222 8px 16px)}
+.q{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:22px;font-weight:700;color:#ddd}
+.fore{position:absolute;top:-3px;bottom:-3px;border:3px dashed var(--gold);border-radius:12px}
+/* corner bar */
+#corner{left:296px;top:900px;width:1328px;height:176px;padding:4px 14px;display:flex;align-items:center;gap:14px}
+.timer{width:100px;height:100px;border-radius:50%;background:conic-gradient(var(--gold) 0 47%,#333 47% 100%);display:flex;align-items:center;justify-content:center;flex:none}
+.timer div{width:80px;height:80px;border-radius:50%;background:#151515;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.timer b{font-size:34px}.timer span{font-size:20px;color:var(--dim);font-weight:600}
+.last{width:200px;flex:none}
+.last .t{font-size:24px;font-weight:600;margin:2px 0}
+.last .bad{display:flex;align-items:center;gap:6px;color:var(--crit);font-size:22px;font-weight:700}
+.dots{display:flex;gap:5px}.dots i{width:16px;height:16px;border-radius:50%;background:var(--blue)}.dots i.r{background:var(--red)}
+.call{height:124px;border-radius:12px;background:#1d1c1b;border:3px solid #5b4a35;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;padding:0 14px;flex:none}
+.call .k{font-size:20px;color:#111;background:#ccc;border-radius:5px;padding:0 7px;font-weight:700}
+.call .nm{font-size:28px;font-weight:700;text-align:center;line-height:1.05}
+.call .sub{display:flex;gap:12px;align-items:center;font-size:22px;font-weight:700}
+.fit{padding:1px 10px;border-radius:6px}
+.fit.best{background:var(--gold);color:#111}.fit.ok{background:#4b4b4b}
+.en{color:var(--gold)}
+.call.best{width:380px;white-space:nowrap;border-color:var(--gold);background:#5a1b16;box-shadow:0 0 24px rgba(242,193,78,.55)}
+.call.best .nm{font-size:32px}
+.quiet{width:120px;height:90px;border:2px dashed #6b5a44;border-radius:12px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:21px;color:var(--dim);font-weight:600;flex:none}
+.warn{color:var(--gold);font-size:20px}
+</style></head><body>
+<div class="ring"></div>
+<div class="ring" style="background-position:44px 0;clip-path:polygon(1500px 200px,1560px 200px,1395px 940px,1320px 940px)"></div>
+
+<!-- scorebug -->
+<div id="bug" class="wood">
+  <div class="row1">
+    <div class="rnd">ROUND <b>2</b> of 3</div>
+    <div class="clock">1:40</div>
+    <div class="cards"><div class="rc r">R1</div><div class="rc live">R2</div><div class="rc n">R3</div></div>
+  </div>
+  <div class="row2">
+    <div class="cap">THIS ROUND</div>
+    <span class="sc r">LUCY 1</span>
+    <div class="pips"><div class="pip b"></div><div class="pip r"></div><div class="pip b"></div><div class="pip live"></div><div class="pip"></div><div class="pip"></div></div>
+    <span class="sc b">2 MARIA</span>
+  </div>
+</div>
+
+<div id="speed"><div class="on">1x</div><div>2x</div><div>Skip round &#9197;</div></div>
+
+<!-- Lucy -->
+<div id="lucy" class="wood side">
+  <div class="name" style="color:#ff7a66">LUCY JACKSON</div>
+  <div class="chip">Plan: work the body</div>
+  <div class="bust">
+    <svg width="300" height="282" viewBox="0 0 352 330">
+      <!-- torso -->
+      <path d="M40 330 L60 200 Q90 168 176 166 Q262 168 292 200 L312 330 Z" fill="#c23a2a" stroke="#000" stroke-width="2"/>
+      <rect x="150" y="128" width="52" height="44" fill="#d9a77f"/>
+      <!-- ribs zones: left ribs fine, right ribs (liver side) hurt -->
+      <rect x="86" y="236" width="70" height="66" rx="14" fill="rgba(120,200,120,.18)" stroke="#6fbf73" stroke-width="3"/>
+      <rect x="196" y="236" width="70" height="66" rx="14" fill="rgba(240,149,42,.55)" stroke="#f0952a" stroke-width="4"/>
+      <!-- head -->
+      <ellipse cx="176" cy="88" rx="66" ry="78" fill="#d9a77f" stroke="#000" stroke-width="2"/>
+      <path d="M110 70 Q120 6 176 8 Q236 6 242 70 Q220 36 176 38 Q132 36 110 70Z" fill="#5a3a22"/>
+      <!-- left eye (boxer's left, viewer right?) drawn on viewer-left: swollen, hurt -->
+      <ellipse cx="148" cy="88" rx="24" ry="17" fill="#8e5a8c" stroke="#f0952a" stroke-width="4"/>
+      <path d="M130 90 Q148 84 166 90" stroke="#2a1a2a" stroke-width="4" fill="none"/>
+      <!-- right eye fine -->
+      <ellipse cx="204" cy="88" rx="16" ry="10" fill="#fff" stroke="#6fbf73" stroke-width="2"/>
+      <circle cx="204" cy="88" r="6" fill="#222"/>
+      <!-- nose fine -->
+      <path d="M176 96 L168 124 L184 124 Z" fill="#c58f68" stroke="#6fbf73" stroke-width="2"/>
+      <path d="M156 140 Q176 150 196 140" stroke="#7a4a3a" stroke-width="4" fill="none"/>
+    </svg>
+    <div class="tag h" style="left:-6px;top:52px">Eye <span class="n">41</span><span class="mini"><i style="width:41%"></i></span></div>
+    <div class="tag h" style="right:-6px;top:282px">Ribs <span class="n">49</span><span class="mini"><i style="width:49%"></i></span></div>
+    <div class="state" style="left:-6px;top:106px;background:var(--amber);color:#111">EYE HURT</div>
+  </div>
+  <div class="tanks">
+    <div class="tank"><div class="ic" style="color:var(--gold)">&#9889;</div><div class="lb">ENERGY</div><div class="bar"><div class="danger"></div><i style="width:58%;background:var(--gold)"></i><div class="fore" style="left:54%;width:7%"></div></div><div class="v">58</div></div>
+    <div class="tank"><div class="ic">&#129462;</div><div class="lb">LEGS</div><div class="bar"><div class="danger"></div><i style="width:74%;background:#4caf6a"></i></div><div class="v">74</div></div>
+    <div class="tank"><div class="ic">&#128737;</div><div class="lb">GUARD</div><div class="bar"><div class="danger"></div><i style="width:62%;background:var(--blue)"></i></div><div class="v">62</div></div>
+  </div>
+</div>
+
+<!-- Maria -->
+<div id="maria" class="wood side" style="border-top:6px solid var(--blue)">
+  <div class="name" style="color:#7fb0ff">MARIA ORTEGA</div>
+  <div class="chip habit"><span style="font-size:26px">&#128065;</span>Habit: waits to counter <span class="nowb">NOW</span></div>
+  <div class="bust">
+    <svg width="300" height="282" viewBox="0 0 352 330">
+      <path d="M40 330 L60 200 Q90 168 176 166 Q262 168 292 200 L312 330 Z" fill="#2f63b8" stroke="#000" stroke-width="2"/>
+      <rect x="150" y="128" width="52" height="44" fill="#a97a5a"/>
+      <rect x="86" y="236" width="70" height="66" rx="14" fill="none" stroke="#666" stroke-width="2" stroke-dasharray="6 6"/>
+      <rect x="196" y="236" width="70" height="66" rx="14" fill="none" stroke="#666" stroke-width="2" stroke-dasharray="6 6"/>
+      <ellipse cx="176" cy="88" rx="66" ry="78" fill="#a97a5a" stroke="#000" stroke-width="2"/>
+      <path d="M110 70 Q120 6 176 8 Q236 6 242 70 Q220 36 176 38 Q132 36 110 70Z" fill="#3a2a1a"/>
+      <ellipse cx="148" cy="86" rx="16" ry="10" fill="#fff"/><circle cx="148" cy="86" r="6" fill="#222"/>
+      <ellipse cx="204" cy="86" rx="16" ry="10" fill="#fff"/><circle cx="204" cy="86" r="6" fill="#222"/>
+      <path d="M176 96 L168 122 L184 122 Z" fill="#94654a"/>
+      <ellipse cx="176" cy="142" rx="14" ry="10" fill="#3a1010"/>
+      <!-- sweat -->
+      <path d="M118 60 q-6 12 0 16 q6 -4 0 -16Z" fill="#9fd4ff"/><path d="M238 70 q-6 12 0 16 q6 -4 0 -16Z" fill="#9fd4ff"/><path d="M226 112 q-5 10 0 13 q5 -3 0 -13Z" fill="#9fd4ff"/>
+    </svg>
+    <div class="state" style="left:-6px;top:186px;background:#2a5fae;color:#fff">TIRING &#128167;</div>
+  </div>
+  <div class="tanks">
+    <div class="tank"><div class="ic" style="color:var(--gold)">&#9889;</div><div class="lb">ENERGY</div><div class="bar"><div class="danger"></div><i style="left:18%;width:22%;background:rgba(242,193,78,.55);border-radius:4px"></i></div><div class="v" style="font-size:24px">LOW</div></div>
+    <div class="tank"><div class="ic">&#129462;</div><div class="lb">LEGS</div><div class="bar"><div class="hatch"></div><span class="q">?</span></div><div class="v">?</div></div>
+    <div class="tank"><div class="ic">&#128737;</div><div class="lb">GUARD</div><div class="bar"><div class="hatch"></div><span class="q">?</span></div><div class="v">?</div></div>
+  </div>
+</div>
+
+<!-- corner -->
+<div id="corner" class="wood">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:none"><div class="cap">NEXT SHOUT</div><div class="timer"><div><b>0:14</b></div></div></div>
+  <div class="last">
+    <div class="cap">LAST SHOUT</div>
+    <div class="t">Go to the body</div>
+    <div class="bad">&#10007; NOT WORKING</div>
+    <div class="dots" style="margin-top:4px"><i></i><i class="r"></i><i></i></div>
+  </div>
+  <div class="call"><div class="k">1</div><div class="nm">HANDS UP</div><div class="sub"><span class="fit ok">OK</span><span class="en">&#9889;&#9660;</span></div></div>
+  <div class="call best"><div class="k">2</div><div class="nm">&#128065; DRAW THE LEAD</div><div class="sub"><span class="fit best">BEST NOW</span><span class="en">&#9889;&#9650;</span></div></div>
+  <div class="call"><div class="k">3</div><div class="nm">TIE UP</div><div class="sub"><span class="fit ok">OK</span><span class="en">&#9889;&#9650;&#9650;</span></div></div>
+  <div class="quiet">SAY NOTHING</div>
+</div>
+</body></html>

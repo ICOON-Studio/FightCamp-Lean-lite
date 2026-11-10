@@ -3,24 +3,20 @@
  "updated": "2026-11-10",
  "author": "claude S294",
  "now": {
-  "id": "S420",
+  "id": "S422",
   "owner": "claude",
   "updated": "2026-11-10",
-  "summary": "S421: LOOKSLATE7 collected (roster cards, pad cards, Overview buttons on slate; the weight chip reads '+0.9 kg'); R11C's test joins the list; PR 105 MENUPLAYBOOK1 closed (259 behind, old warm look; the Playbook goes through a concept). Three seen defects fixed: stylised portraits re-keyed onto the S387 slate backdrop (dark faces read), Club People's roster-places tile, the offer's corner notes clear of the boots. Fight display: LiveRound checked for hints 1, 5, 9; one drawing + Ludo paint, Q-S294-170. KDFIX1 sent back as KDFIX2 (its ruler read the pose before the modifiers). Exported. Later: LOOKSLATE6 (World on slate) collected. The PC blue-screened ~11:12 (bugcheck D1 in amdkmdag.sys, AMD GPU driver 32.0.21045.16010) a minute after the heat governor froze a windowed render; the governor now never suspends --windowed jobs. LEGTREMBLE2 lost its seat (Antigravity credits) -> LEGTREMBLE3 on Cursor. FIGHTSLIDE2 finished (a08047c6, pushed by hand, no PR).",
-  "last_working_commit": "8675277a",
+  "summary": "S422: FIGHTSLIDE2 collected by diff (the ruler works, 2.7 m slide a boxer-round, rig weight not the cause; conclusion rewritten), FIGHTSLIDE3 queued (Qwen). Q-165 At a glance redrawn in the game's own words -> Q-171; Q-166/169 -> TRAININGB1 briefed (Cursor, B with A's curve); Q-167 staff wall painted by Ludo -> Q-172; Q-170 three critics + 10/10 drawings -> verdict Q-174 (coach's drawing as base, hint not grade); dues researched in-session (John unreachable: Grok Bot 'Sand box session' 502 since 11-05) -> Q-173; knockdown count can no longer hang (KdWait); KDFIX2 measured GuardWeave 1.21 cm + FighterLife 0.87 cm on a downed boxer, KDFIX3 queued. 8 worktrees retired (E: 35 -> 42 GB). Exported.",
+  "last_working_commit": "beb1a3be",
   "verified_playable": "people_slate, camp_slate, start_slate, camp_cards, versus, recruit, wood_kit, words_on_screens, plain_words, no_pronoun, gauges, attr_board, fighter_model green on the PC; the pages rendered and opened (E:/FightCamp/tmp/s419_screens, s419_screens2).",
   "incomplete_blocked": "MAIN CI: no finished run since e4a7b6f3 (red); three S419 pushes cancelled each other's runs, read the run on the wrap-up push. PR 140 REARHAND5B not judged: tools/head_aim_film.gd move=rear_hook printed no CONTACT line, so the film showed no punch. Luke Reid's portrait reads near black on Club People. Training week page untouched until his pick.",
-  "next_action": "Collect FIGHTSLIDE2 by diff (branch qwen/fightslide2, no PR: the crash killed the runner): its finding is that the captured rk_ clips carry the body by hip travel with no foot steps; check its ruler (local stillness, not world speed) is proven red first, then brief the fix. Collect LEGTREMBLE3 (Cursor) and KDFIX2 (Qwen), launched 11:20. Read Q-S294-170 (fight display) and Q-169/165/167/166. John's dues research (SQ31) -> a dues proposal on the board. Read Q-S294-170 (fight display, painted), Q-169 (Training A or B), Q-165, Q-167, Q-166.",
+  "next_action": "MECHANICS FIRST (operator S422 OK). 1) Collect KDFIX2 (the ruler only) and LEGTREMBLE3. 2) Brief FIGHTDISPLAY1 to Cursor from docs/mockups/s422/fight_10_simvet.html (his Q-174 pick: 'Use the veteran's drawing'); data check FIGHT_DISPLAY_DECISION_S419.md s7. 3) R28 Cutman: write the DESIGN MAP (what the player decides, on which screen, what it changes, the numbers, real-world cut rules) as one page + a picture, ask him on the board, then brief the pure module to Qwen/Goose. 4) R25 the same, after checking head punches count. 5) Q-173 dues: design map only. Menus wait unless a mechanic needs them.",
   "next_acceptance": "He has picked a Training direction and its painted concept is on the board; a blocked punch is stopped by a glove; the leg tremble has a named source.",
   "awaiting_operator": [
-   "Q-S294-170 fight display: build the painted drawing?",
-   "Q-S294-169 Training A or B",
-   "Q-S294-165 At a glance A or B",
-   "Q-S294-167 Club People direction",
-   "play the S420 build"
+   "R28 cutman design map (written next session)"
   ]
  },
- "next": "S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.",
+ "next": "MECHANICS FIRST (operator S422 OK). 1) Collect KDFIX2 (the ruler only) and LEGTREMBLE3. 2) Brief FIGHTDISPLAY1 to Cursor from docs/mockups/s422/fight_10_simvet.html (his Q-174 pick: 'Use the veteran's drawing'); data check FIGHT_DISPLAY_DECISION_S419.md s7. 3) R28 Cutman: write the DESIGN MAP (what the player decides, on which screen, what it changes, the numbers, real-world cut rules) as one page + a picture, ask him on the board, then brief the pure module to Qwen/Goose. 4) R25 the same, after checking head punches count. 5) Q-173 dues: design map only. Menus wait unless a mechanic needs them.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -1689,6 +1685,11 @@
    "id": "S421",
    "date": "2026-11-10",
    "note": "S421: LOOKSLATE7 + R11C collected, PR 105 closed; portraits re-keyed, roster-places tile, offer notes; fight display data check + drawing + Ludo paint (Q-170); KDFIX1 sent back as KDFIX2; exported. Then LOOKSLATE6 collected; PC blue-screen (AMD driver) traced, governor stops freezing windowed renders; FIGHTSLIDE2 pushed by hand."
+  },
+  {
+   "id": "S422",
+   "date": "2026-11-10",
+   "note": "S422: FIGHTSLIDE2 collected by diff (the ruler works, 2.7 m slide a boxer-round, rig weight not the cause; conclusion rewritten), FIGHTSLIDE3 queued (Qwen). Q-165 At a glance redrawn in the game's own words -> Q-171; Q-166/169 -> TRAININGB1 briefed (Cursor, B with A's curve); Q-167 staff wall painted by Ludo -> Q-172; Q-170 three critics + 10/10 drawings -> verdict Q-174 (coach's drawing as base, hint not grade); dues researched in-session (John unreachable: Grok Bot 'Sand box session' 502 since 11-05) -> Q-173; knockdown count can no longer hang (KdWait); KDFIX2 measured GuardWeave 1.21 cm + FighterLife 0.87 cm on a downed boxer, KDFIX3 queued. 8 worktrees retired (E: 35 -> 42 GB). Exported."
   }
  ],
  "blocked_on_operator": [],
@@ -4607,8 +4608,8 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-10 11:11 board_sync",
-  "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
+  "updated": "2026-11-10 11:24 board_sync",
+  "goal": "MECHANICS FIRST (operator S422: 'ok prepare next session with your recommendations'): the seven mechanics the critics and you chose in S402 get built before more menu polish. Each mechanic starts with a DESIGN MAP (operator Q-173: 'what the player decides exactly and where does that happening ? which screens ? have you mapped the whole design for the mechanism ?'): the decision, the screen, what it changes, the numbers; your OK; then the build. Menus change only when a mechanic needs them. One playable .exe a week, judged by you.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
    "NIGHTLY1B": "Fix the 4 tests that freeze some nights, so the nightly check can go green",
@@ -4749,186 +4750,84 @@
   },
   "working_now": [
    {
-    "title": "Trembling legs round 2 (LEGTREMBLE3)",
+    "title": "TASK LEGTREMBLE3 - CURSOR (Grok 4.7 High) - the trembling legs, round 2 on a new seat: bake the smoothing into the shipped clips",
     "who": "cursor",
-    "started": "2026-11-10T11:20",
-    "run": "LEGTREMBLE3",
-    "state": "running"
+    "started": "2026-11-10T11:21",
+    "run": "LEGTREMBLE3"
    },
    {
-    "title": "Downed boxer sways round 2 (KDFIX2)",
+    "title": "TASK KDFIX2 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 2: a ruler that sees the layers",
     "who": "qwen",
-    "started": "2026-11-10T11:20",
-    "run": "KDFIX2",
-    "state": "running"
+    "started": "2026-11-10T11:22",
+    "run": "KDFIX2"
    }
   ],
   "next": [
    {
-    "title": "Collect FIGHTSLIDE2 (slide causes)",
+    "id": "COLLECT422",
     "who": "claude",
+    "title": "Collect the knockdown ruler (KDFIX2) and the trembling legs (LEGTREMBLE3)",
     "after": ""
    },
    {
-    "title": "Your call: the fight display, painted (Q-170)",
-    "who": "operator",
-    "after": ""
-   },
-   {
-    "id": "TRAINTAB",
-    "who": "claude",
-    "title": "Training tab: his pick of three, then Ludo paints it",
-    "after": "Q-164"
-   },
-   {
-    "id": "GLANCE",
-    "who": "claude",
-    "title": "Overview At a glance: build his pick of two",
-    "after": "Q-165"
-   },
-   {
-    "id": "LOOKSLATE5",
+    "id": "FIGHTDISPLAY1",
     "who": "cursor",
-    "title": "Money off the whiteboard, onto slate (his yes)",
-    "after": "LOOKSLATE4"
+    "title": "Build the live fight display from the veteran's drawing (your Q-174 pick)",
+    "after": ""
    },
    {
-    "id": "TAPEVERSUS1",
+    "id": "TRAININGB1",
     "who": "cursor",
-    "title": "Tale of the tape drawn as the bout offer screen",
-    "after": ""
-   },
-   {
-    "id": "LOOKSLATE7",
-    "who": "cursor",
-    "title": "Scouted strip, roster card feet, week review pad cards on slate",
-    "after": "TAPEVERSUS1"
-   },
-   {
-    "id": "LOOKSLATE6",
-    "who": "cursor",
-    "title": "World off the plaster wall, onto slate (his yes)",
-    "after": "LOOKSLATE7"
-   },
-   {
-    "id": "REARHAND5B",
-    "who": "claude",
-    "title": "Film both right hooks for PR 140 and judge",
-    "after": ""
-   },
-   {
-    "id": "CORNER2",
-    "who": "claude",
-    "title": "The critic's corner as a game screen: body map, numbers, choices",
-    "after": ""
-   },
-   {
-    "id": "MENUREBRIEF",
-    "who": "claude",
-    "title": "Re-brief Playbook and Fight night menus for slate",
-    "after": ""
-   },
-   {
-    "id": "NOTWEB2",
-    "who": "claude",
-    "title": "The look, round 2, from the critic's list; the guide as a person after his yes",
-    "after": ""
-   },
-   {
-    "id": "COACHBOOK",
-    "who": "held",
-    "title": "Coaches: their own book, a limit, a bond you feel on fight night (waits on his yes and the fighter model)",
-    "after": "FIGHTERMODEL4B"
-   },
-   {
-    "id": "COACH1",
-    "who": "held",
-    "title": "What a coach is good at, by how much, and a proper staff screen (queued on Cursor)",
-    "after": ""
-   },
-   {
-    "id": "MENUS411",
-    "who": "held",
-    "title": "Home, Week, Playbook, Fight night: fewer words, bigger pictures (queued on Cursor)",
-    "after": ""
-   },
-   {
-    "id": "FIGHTERMODEL4F",
-    "who": "held",
-    "title": "Fighter model: the 10 red tests, then scouting (4B)",
-    "after": ""
-   },
-   {
-    "id": "KNOW1",
-    "who": "claude",
-    "title": "Progressive knowledge: APPROVED (Q-S294-139). After the fighter model: pure module, then bots, then screens",
-    "after": "FIGHTERMODEL4F"
-   },
-   {
-    "id": "GYM10",
-    "who": "held",
-    "title": "The floor: small unit that grows, stamina bars, places-free dots. Camera test running (GYM3D1), rule on Goose (FLOOR1)",
-    "after": ""
+    "title": "Training tab B with the tiredness curve on top (queued)",
+    "after": "FIGHTDISPLAY1"
    },
    {
     "id": "R28",
     "who": "claude",
-    "title": "R28 Cutman: a closing eye, stop it or go on (eye damage must reach the real bout first)",
+    "title": "Mechanic: Cutman - a closing eye, stop it or go on. Design map first, then build",
     "after": ""
    },
    {
     "id": "R25",
     "who": "claude",
-    "title": "R25 The opponent adapts to your plan by round 2 (after the fighter model)",
+    "title": "Mechanic: the opponent adapts to your plan by round 2. Design map first (head punches must count)",
     "after": "R28"
    },
    {
     "id": "R37",
     "who": "claude",
-    "title": "R37 Ask for a fight, a refusal gives its reason (mockup and his OK first)",
+    "title": "Mechanic: ask for a fight, a refusal says why. Design map + Fights screen mockup",
     "after": "R25"
    },
    {
     "id": "R55",
     "who": "claude",
-    "title": "R55 Two fighters, one coach: who gets the pads (mockup and his OK first)",
+    "title": "Mechanic: two fighters, one coach - who gets the pads; brings the better staff screen (Q-172)",
     "after": "R37"
    },
    {
     "id": "R58",
     "who": "claude",
-    "title": "R58 A fighter leaves for a bigger gym (after the world keeps running)",
+    "title": "Mechanic: a fighter leaves for a bigger gym (promises, loyalty, poaching). Design map first",
     "after": "R55"
    },
    {
-    "id": "S405FIX",
+    "id": "DUES2",
     "who": "claude",
-    "title": "S405 critics: turn both 14-page lists into per-page tasks",
+    "title": "Dues choice: full design map before any build (your Q-173)",
     "after": ""
    },
    {
-    "id": "GYMBUILDER",
-    "who": "claude",
-    "title": "The player builds their own gym on the same rules",
+    "id": "FIGHTSLIDE3",
+    "who": "qwen",
+    "title": "Fighters sliding: switch off each of five causes (queued)",
     "after": ""
    },
    {
-    "id": "TRUTH1",
-    "who": "claude",
-    "title": "Truth pass: autosave, Settings, Handbook v1",
-    "after": ""
-   },
-   {
-    "id": "FIGHTPOL",
-    "who": "claude",
-    "title": "Fight polish: walk joins, corner card, coach",
-    "after": ""
-   },
-   {
-    "id": "BJJ7",
-    "who": "claude",
-    "title": "BJJ fight to 7/10: real locks, guard submissions, gas",
-    "after": ""
+    "id": "KDFIX3",
+    "who": "qwen",
+    "title": "Downed boxer's body sways: fix the two layers found (queued)",
+    "after": "FIGHTSLIDE3"
    }
   ],
   "waiting_seat": [
@@ -4940,6 +4839,48 @@
    }
   ],
   "parked": [
+   {
+    "id": "GLANCE",
+    "who": "held",
+    "title": "Overview At a glance: redraw from the fighter model's own words (Q-171)",
+    "why": "S422 mechanics first"
+   },
+   {
+    "id": "MENUS",
+    "who": "held",
+    "title": "Menu polish rounds (corner screen, Playbook and fight night re-briefs, the look round 2, fewer words)",
+    "why": "S422 mechanics first; a menu changes when a mechanic needs it"
+   },
+   {
+    "id": "COACHBOOK",
+    "who": "held",
+    "title": "Coaches: their own book and a bond on fight night",
+    "why": "after R55"
+   },
+   {
+    "id": "KNOW1",
+    "who": "held",
+    "title": "Progressive knowledge (approved Q-139): pure module, bots, screens",
+    "why": "after R25"
+   },
+   {
+    "id": "GYMBUILDER",
+    "who": "held",
+    "title": "The player builds their own gym; the floor that grows",
+    "why": "after the seven mechanics"
+   },
+   {
+    "id": "TRUTH1",
+    "who": "held",
+    "title": "Autosave, Settings, Handbook",
+    "why": "before Early Access, after the mechanics"
+   },
+   {
+    "id": "BJJ7",
+    "who": "held",
+    "title": "BJJ fight to 7/10",
+    "why": "after the boxing mechanics"
+   },
    {
     "id": "GYMFLOOR",
     "who": "operator",
@@ -5158,6 +5099,36 @@
   },
   "done_recently": [
    {
+    "title": "The critics' 10/10 fight displays; you picked the veteran's",
+    "who": "claude",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "Knockdown count can no longer hang",
+    "who": "claude",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "Grok bots reach again (new send route)",
+    "who": "claude",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "Sliding fighters: the ruler works; the rig is not the cause",
+    "who": "qwen",
+    "when": "2026-11-10"
+   },
+   {
+    "title": "Fighter model on 10 attributes and 5 skills (R24, S416)",
+    "who": "cursor",
+    "when": "2026-11-09"
+   },
+   {
+    "title": "TASK LOOKSLATE6 - CURSOR (Grok 4.7 High) - the World page off the plaster wall, onto slate and wood",
+    "who": "cursor",
+    "when": "2026-11-10"
+   },
+   {
     "title": "World page on slate (LOOKSLATE6)",
     "who": "cursor",
     "when": "2026-11-10"
@@ -5184,36 +5155,6 @@
    },
    {
     "title": "Roster cards, pad cards, Overview buttons on slate (LOOKSLATE7)",
-    "who": "cursor",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Blocked punch meets the glove; arm lifts whole (BLOCKMEET2)",
-    "who": "qwen",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Money on slate, prices whole (LOOKSLATE5)",
-    "who": "cursor",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Right hook keeps the hand up (REARHAND5B)",
-    "who": "qwen",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "One tale of the tape, her weight shown (TAPEVERSUS1)",
-    "who": "cursor",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Slide measured: 1.5 m a round (FIGHTSLIDE1)",
-    "who": "qwen",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Club People, Fight camp, bout offer, New game, interview on slate (LOOKSLATE2-4)",
     "who": "cursor",
     "when": "2026-11-10"
    }
@@ -5344,6 +5285,22 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Roster + Overview on slate",
+     "who": "claude"
+    },
+    {
+     "text": "Dark faces read on slate",
+     "who": "claude"
+    },
+    {
+     "text": "Offer notes off the boots",
+     "who": "claude"
+    },
+    {
+     "text": "Fight display drawn, painted",
+     "who": "claude"
+    },
+    {
      "text": "Blocked punch meets the glove",
      "who": "agent"
     },
@@ -5382,212 +5339,96 @@
     {
      "text": "Ludo CLI 0.2.6 + its skill",
      "who": "claude"
-    },
-    {
-     "text": "Training tab: 3 ideas, B painted",
-     "who": "claude"
-    },
-    {
-     "text": "Knockout hang fixed, exported",
-     "who": "claude"
-    },
-    {
-     "text": "Fight display decided, 3 critics",
-     "who": "claude"
-    },
-    {
-     "text": "Training week on slate",
-     "who": "agent"
     }
    ],
    "done_session": [
     {
-     "text": "Roster + Overview on slate",
+     "text": "Slide ruler in; rig not the cause",
+     "who": "agent"
+    },
+    {
+     "text": "At a glance in game words (Q-171)",
      "who": "claude"
     },
     {
-     "text": "Dark faces read on slate",
+     "text": "Staff wall painted (Q-172)",
      "who": "claude"
     },
     {
-     "text": "Offer notes off the boots",
+     "text": "Dues choice proposal (Q-173)",
      "who": "claude"
     },
     {
-     "text": "Fight display drawn, painted",
+     "text": "Fight display: 3 critics' 10/10s",
+     "who": "claude"
+    },
+    {
+     "text": "Knockdown count never hangs",
+     "who": "claude"
+    },
+    {
+     "text": "8 old worktrees retired",
+     "who": "claude"
+    },
+    {
+     "text": "Old screens and questions cleared",
+     "who": "claude"
+    },
+    {
+     "text": "Plan reset: mechanics first",
      "who": "claude"
     }
    ],
    "now": [
     {
-     "text": "Play the S421 build (you)",
+     "text": "Play the S422 build (you)",
      "who": "operator"
     }
    ],
    "next": [
     {
-     "text": "Cursor Miro login in Lean",
-     "who": "operator"
-    },
-    {
-     "text": "Find 5 strangers to play",
-     "who": "operator"
-    },
-    {
-     "text": "MetaHuman licence check",
-     "who": "operator"
-    },
-    {
-     "text": "47 boxing clips under 6",
-     "who": "claude"
-    },
-    {
-     "text": "Your call: Camp Board direction",
-     "who": "operator"
-    },
-    {
-     "text": "Steps past Undisputed",
-     "who": "claude"
-    },
-    {
-     "text": "Fight card (C237)",
-     "who": "claude"
-    },
-    {
-     "text": "BJJ fight to 7/10 (was 3-4)",
-     "who": "claude"
-    },
-    {
-     "text": "Red's leg past the rope: refine",
-     "who": "claude"
-    },
-    {
-     "text": "Ana a full fighter everywhere",
-     "who": "claude"
-    },
-    {
-     "text": "Corner + Why: keep, improve",
-     "who": "claude"
-    },
-    {
-     "text": "Traits at 5/10: wrong-plan test",
-     "who": "claude"
-    },
-    {
-     "text": "Rule 4 after fighter model",
-     "who": "claude"
-    },
-    {
-     "text": "CPU: power plan 99% (you)",
-     "who": "operator"
-    },
-    {
-     "text": "5th staff MetaHuman (pro corner)",
-     "who": "claude"
-    },
-    {
-     "text": "Ropes give again (S391 stilled)",
-     "who": "claude"
-    },
-    {
-     "text": "Finish moving ARCHIVED, delete",
-     "who": "claude"
-    },
-    {
-     "text": "Fix the fake dues choice",
-     "who": "claude"
-    },
-    {
-     "text": "Six rule-breaks on our screens",
-     "who": "claude"
-    },
-    {
-     "text": "Skills layer with critics",
-     "who": "claude"
-    },
-    {
-     "text": "Brighten the murky fight",
-     "who": "claude"
-    },
-    {
-     "text": "Money: warm shell, small text",
-     "who": "claude"
-    },
-    {
-     "text": "Playbook + Home round 2",
+     "text": "Fight display: veteran's (Cursor)",
      "who": "agent"
     },
     {
-     "text": "Player builds own gym",
-     "who": "claude"
-    },
-    {
-     "text": "The look, round 2",
-     "who": "claude"
-    },
-    {
-     "text": "Your call: the painted gym",
-     "who": "operator"
-    },
-    {
-     "text": "What each kind of kit builds",
-     "who": "claude"
-    },
-    {
-     "text": "What each kind of kit builds: bots",
-     "who": "claude"
-    },
-    {
-     "text": "Move pages to dark + wood (Q-158)",
-     "who": "claude"
-    },
-    {
-     "text": "Critic's corner as a game screen",
-     "who": "claude"
-    },
-    {
-     "text": "Slate: roster strip, review cards",
-     "who": "claude"
-    },
-    {
-     "text": "Playbook + fight night: concepts",
-     "who": "claude"
-    },
-    {
-     "text": "Your call: At a glance A or B",
-     "who": "operator"
-    },
-    {
-     "text": "Your call: Training A or B (Q-169)",
-     "who": "operator"
-    },
-    {
-     "text": "Legs tremble round 2 (agy)",
+     "text": "Training tab B (Cursor)",
      "who": "agent"
     },
     {
-     "text": "Slide: each cause measured",
-     "who": "agent"
-    },
-    {
-     "text": "Slate: World, roster strip",
-     "who": "agent"
-    },
-    {
-     "text": "Your call: fight display (Q-170)",
+     "text": "R28 Cutman: design map, build",
      "who": "claude"
     },
     {
-     "text": "Knockdown sway, round 2 (Qwen)",
+     "text": "R25 Opponent adapts: map, build",
      "who": "claude"
+    },
+    {
+     "text": "R37 Ask for a fight: map, build",
+     "who": "claude"
+    },
+    {
+     "text": "R55 Pads for two + staff screen",
+     "who": "claude"
+    },
+    {
+     "text": "R58 A fighter leaves: map, build",
+     "who": "claude"
+    },
+    {
+     "text": "Dues: design map (Q-173)",
+     "who": "claude"
+    },
+    {
+     "text": "Slide causes, KD sway (Qwen)",
+     "who": "agent"
     }
    ],
-   "session": "S421"
+   "session": "S422"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "e4a7b6f3",
+ "last_working_commit": "beb1a3be",
  "next_action": "FIRST: main's CI went red on the S418 code push (e4a7b6f3), two tests. head_aim_test: 'join unlanded_jab_landed_cross jump=0.669 > noaim+0.300' (0.19 on the PC): the join check reads distance per FRAME, so a slow runner's long frame fails it. It is off tools/run_tests.sh until it reads speed (distance over the frame's real time) or a hitch is ruled out as a real one-frame jump. move_tip_test: 149 of 150 frames framed, and the lead hook read only 19 frames: green on PR 146's own CI with the same code, so likely the runner, NOT proved: read the next main run. Collect LOOKSLATE2 (Cursor, Club People: render 05_gym_staff and 28_members with layout_snapshot noguide, open them) and BLOCKMEET1 (Qwen, measure only: believe it only if CTRL_LANDED reads to_face under 0.05 and every row prints a gap of 0.80 to 1.10; then decide the fix: the block clip raised to meet the punch, or the punch aimed at the blocking glove). LOOKSLATE3-6 are queued on Cursor and launch by themselves: collect each the same way (render, open, slate test green). LOOKSLATE7 is queued behind them: the Fighters page's Scouted strip, the roster cards' paper feet and the week review's white pad cards. Film both right hooks for PR 140 REARHAND5B. Playbook game plan and Fight night: a Ludo painted concept in the slate look first, his yes, then re-brief MENUPLAYBOOK2B and MENUFIGHT1B. The critic's corner as a game screen (Ludo concept first). Read PR 77 (ANIMREBUILD1 design draft).",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

@@ -1,64 +1,50 @@
-# S421 handover (written 2026-11-10, S421 main session)
+# S423 handover: MECHANICS FIRST (written 2026-11-10 at the end of S422)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S422` and redraw the map (recipe: ops/Tools/where_we_are_svg.py docstring).
-Older handovers: S420's is in git (92404f23), S396 to S417 in ops/research/HANDOVERS_S349_S417.md.
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S423` and redraw the map (recipe: ops/Tools/where_we_are_svg.py docstring; Miro refuses to shrink the frame while cards sit low - harmless).
+Older handovers: S422's first version and S421's are in git; S396 to S417 in ops/research/HANDOVERS_S349_S417.md.
 
-## FIRST: the PC crash (11:12) and what died with it
-- Blue screen, bugcheck D1 (DRIVER_IRQL_NOT_LESS_OR_EQUAL) in amdkmdag.sys (AMD Radeon RX 6800 XT driver 32.0.21045.16010,
-  16 Oct), amdfendr and dxgkrnl on the stack: read from C:/Windows/Minidump/111026-14546-01.dmp by parsing its driver list
-  (no debugger installed; the parser is easy to redo: TRIAGE_DUMP at 0x2000, driver entries 0x90 apart). It came about a
-  minute after heat_governor.ps1 SUSPENDED a windowed Godot render (cut_pages_still on the hidden desktop) mid-frame. Fixed:
-  the governor never suspends --windowed / --write-movie jobs now (restarted via its task). If it happens again with no
-  suspended render: an AMD driver update is his call (memory: PC freezes = AMD GPU driver, S287).
-- FIGHTSLIDE2 (Qwen) had FINISHED and committed a08047c6; the crash killed the runner before the push. Claude pushed
-  qwen/fightslide2 by hand: NO PR, collect by diff. Its finding: the captured rk_ clips (rk_jab, rk_cross) carry the body by
-  their own hip travel while the feet do not step. Its ruler changed (a planted foot = local stillness, not world speed):
-  prove it red on main before trusting the table.
-- LOOKSLATE6 (World on slate) collected after the crash (files checked whole, tests green, Rankings rendered).
-- LEGTREMBLE2: Antigravity's account stopped ("AI credits balance is too low"); PR 160 closed (did not compile). The job is
-  LEGTREMBLE3 on Cursor and KDFIX2 on Qwen were LAUNCHED at 11:20 (after the crash): collect them when they land.
-- John's dues research is queued (SQ31, ops/research/J_DUES_CHOICE_S421_BRIEF.md): premium dues always earn most
-  ($45 x 0.85 > $35 > $25 x 1.15), so the dues choice is fake; his answer -> a proposal on the board.
-- The board's animations page now says the game has all 169 clips and lists only the verified one (his S379 rule).
+## The decision (operator S422: "ok prepare next session with your recommendations")
+The seven mechanics the critics scored 8+ and he chose (ops/research/S400_REVIEW/MECHANICS_DECISION_S402.md) come before any
+more menu polish. Where they stand (checked S422 in code and git, not from memory):
+- R11 readable reasons: MOSTLY DONE (R11A-F on main).
+- R24 fighters who fight differently: BUILT on main S416 (a1e9dcbc, FIGHTERMODEL4I: 10 attributes, 5 boxing skills). The other
+  7 skills of the agreed 12 are BJJ/MMA: later. (S422 told him "not built" first, then corrected it.)
+- R28 cutman, R25 the opponent adapts, R37 ask for a fight, R55 two fighters one coach, R58 a fighter leaves: NOT STARTED.
+EVERY MECHANIC STARTS WITH A DESIGN MAP (operator Q-173: "so what the player decides exactly and where does that happening ?
+which screens ? have you mapped the whole design for the mechanism ?"): one page + one picture: the decision the player makes,
+the screen it happens on (drawn), what it changes and by how much (real-world numbers first, prior_research.py), what the
+player sees after. On the board with --attach; build only after his OK. Critics judge the map (CRITIC_PACK) and draw a 10/10.
+Menus change ONLY when a mechanic needs them (parked: At a glance Q-171, the staff screen Q-172 -> with R55, menu rounds).
 
-## FIRST: his answers on the board
-- Q-S294-170 NEW: the fight display, one drawing (docs/mockups/s421/fight_display.png, notes on hints 1, 5, 9) and Ludo's paint
-  (fight_display_painted_ludo.png). On yes: the two briefs of ops/research/FIGHT_DISPLAY_DECISION_S419.md section 6 (the panels to
-  Cursor; the motion module, events in, effects out). Section 7 is the data check: hint 9 forecasts energy + fit only, the place
-  arrows are cut; hint 5's habit is the opponent's `mode` (rec["habit"] is OUR boxer's habit: never wire the chip to it).
-- Q-169 Training A or B (board said A, chat said B), Q-165 At a glance, Q-167 Club People, Q-166 Training B painted: still open.
+## Order for S423
+1. Collect KDFIX2 (PR #162): the ruler only (its fix is KDFIX3, queued on Qwen after FIGHTSLIDE3). Collect LEGTREMBLE3
+   (Cursor) when it lands: the test must load the SHIPPED .res, red on main; re-render the board films and LOOK.
+2. FIGHTDISPLAY1 brief for Cursor (his Q-174: "Use the veteran's drawing"): docs/mockups/s422/fight_10_simvet.html is the
+   spec; review fight_critic_simvet.md; data check FIGHT_DISPLAY_DECISION_S419.md section 7 (hint 5's habit = the OPPONENT's
+   `mode`, never rec["habit"]); the energy forecast to R3 is not built (keep its warning triangle or drop it). Queue it ahead of
+   TRAININGB1 (seat_dispatch queue order).
+3. R28 Cutman DESIGN MAP: a closing eye (eye damage must reach the real bout first: c64cead7 has the eye-band probe), stop it
+   or go on in the corner minute; real cut and swelling rules (England Boxing / ABC doctor stoppage, cutman tools). Picture
+   = the corner minute with the eye. Board question with the map attached.
+4. R25 DESIGN MAP: first check that head punches now count (S406: "no setting moves results; the head number must count
+   first", ops/research/*S406*), then what the opponent changes by round 2 and how the player sees it.
+5. Q-173 dues: design map only (ops/research/DUES_CHOICE_S422.md has the numbers; John's SQ31 answer may add evidence).
 
-## Collected S421 (on main, exported, HE HAS NOT PLAYED IT; WHAT_TO_TRY has an S421 section)
-- LOOKSLATE7 (Cursor, PR 158): roster cards, pad cards, Overview buttons on slate. Fixed at collect: the weight chip clipped
-  "0.9 kg over" -> "+0.9 kg" (tooltip keeps the words). 6 px more inside the Overview frame ran the page past 1920: 22 stays.
-- R11C (goose/issue-149): fight_why_counts_test joins tools/run_tests.sh (roster_slate_test too).
-- PR 105 MENUPLAYBOOK1 CLOSED unmerged: 259 commits behind, conflicts in GamePlan.gd and Playbook.gd, the old warm look. The Playbook
-  goes through the "Playbook + fight night: concepts" row. Branch kept.
-- Seen defects fixed: (1) the stylised portraits (assets/ui/style_b/portraits) were on a near-black backdrop, so dark faces vanished
-  on slate (Luke Reid): tools/portrait_backdrop.py keyed all 23 onto the S387 studio slate; (2) Club People's bare roster-places icon
-  -> a tile "2 / 3 roster places" on the role cards' dark bed; (3) the bout offer is VersusPanel.build, not TapeVersus (that is fight
-  night): OFFER_FOOT 72 keeps the corner notes off the boots.
+## Running / queued
+- Qwen: FIGHTSLIDE3 (five slide causes), then KDFIX3 (knockdown sway fix, BASE qwen/kdfix2). Cursor: LEGTREMBLE3 running,
+  then TRAININGB1 (Training tab B + the tiredness curve).
+- Grok bots WORK again (S422 fix: grokbot_direct.mjs sends via GrokBotService/SendGrokBotUserMessage). SQ29-31 go out on the
+  30-min cycle; EnsureSandBox answers 503 now and then (it retries).
 
-## Running / queued (superseded by the crash section above)
-- (was) AGY LEGTREMBLE2. Collect: the test must load the SHIPPED .res, red on
-  main's clips; then re-render the board films (clip_orbit) and LOOK.
-- CURSOR LOOKSLATE6 (World on slate, 10:34). QWEN FIGHTSLIDE2 (causes switched off one by one, 10:41).
-- QWEN KDFIX2 queued (round 2 of KDFIX1, PR 159 closed): round 1's test read get_bone_global_pose from the test (the pose BEFORE
-  the modifiers) with the stage frozen and seeked, so it could only pass; floor and case were the same code; its GuardWeave change
-  is a no-op (down clips were never in free_clips). Round 2 needs a standing control that reads the weave >= 3x the floor.
+## Where he sees the project
+- Ops board http://127.0.0.1:8787 : main page = goal, working now, next (in order), parked, done; Questions for you; /review
+  (cleared S422: only the fight critics' 10/10s left); /agents = who runs what.
+- Miro P0 "Where we are": https://miro.com/app/board/uXjVEV03QWA=/?moveToWidget=3458764689579200297 (DONE / NOW / NEXT).
 
-## Seen, not fixed
-- The hologram groups six hit places into three ("do we only have 2 hit points"): a design question, not asked yet.
-- The animation page shows 1 of 169 clips by its own rule; he read it as "only 1 animation".
-- The knockdown count waits on the replay with no time limit; no case for the opponent's knockdown.
-- Held worktrees LEAN_FIGHTERMODEL4G / GYM3D2 / MONEYOD2: superseded, look then retire.
-- Club People's lower strip (No-gi, hire cards, members tiles) is still the old brown, not slate.
+## Traps
+- A `cd` in a Bash call moves the session's working directory: give absolute paths.
+- seat_dispatch REGRESSION names must be `<name>_test`. `ask --attach` paths are relative to ops/, pipe-separated.
+- The idle guard reads a seat as idle when its CLI exited while the runner still tests: check the runner pid first.
+- KnockdownCount.gd is 527 lines (over 500): split it the next time it is touched.
 
-## Traps (new this session)
-- Ludo `image edit` over a layout with bare figures painted photo-real bare torsos: dress every figure in a layout before a paint
-  and ask for an "illustrated" body map.
-- A still tool's new career has a random seed: the offer's win chance differs between renders; the game's saved seed does not.
-- render_mockup.py, hidden_desktop.py: run any Godot still through `godot_slot.py run --who claude -- python tools/hidden_desktop.py ...`
-  (rule_guard blocks a bare one).
-
-SETTINGS: this session ran on Opus 5.5 | Cursor Grok 4.7 High.
+SETTINGS: S422 ran on Opus 5.5. Proposed for S423: Opus, high effort (design maps are the work), Fast off.

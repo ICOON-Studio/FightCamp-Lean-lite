@@ -8,13 +8,13 @@ Updated 2026-11-10 by claude S294.
 
 ## Now
 
-**S420 — ?** *(claude)*
+**S422 — ?** *(claude)*
 
-S421: LOOKSLATE7 collected (roster cards, pad cards, Overview buttons on slate; the weight chip reads '+0.9 kg'); R11C's test joins the list; PR 105 MENUPLAYBOOK1 closed (259 behind, old warm look; the Playbook goes through a concept). Three seen defects fixed: stylised portraits re-keyed onto the S387 slate backdrop (dark faces read), Club People's roster-places tile, the offer's corner notes clear of the boots. Fight display: LiveRound checked for hints 1, 5, 9; one drawing + Ludo paint, Q-S294-170. KDFIX1 sent back as KDFIX2 (its ruler read the pose before the modifiers). Exported. Later: LOOKSLATE6 (World on slate) collected. The PC blue-screened ~11:12 (bugcheck D1 in amdkmdag.sys, AMD GPU driver 32.0.21045.16010) a minute after the heat governor froze a windowed render; the governor now never suspends --windowed jobs. LEGTREMBLE2 lost its seat (Antigravity credits) -> LEGTREMBLE3 on Cursor. FIGHTSLIDE2 finished (a08047c6, pushed by hand, no PR).
+S422: FIGHTSLIDE2 collected by diff (the ruler works, 2.7 m slide a boxer-round, rig weight not the cause; conclusion rewritten), FIGHTSLIDE3 queued (Qwen). Q-165 At a glance redrawn in the game's own words -> Q-171; Q-166/169 -> TRAININGB1 briefed (Cursor, B with A's curve); Q-167 staff wall painted by Ludo -> Q-172; Q-170 three critics + 10/10 drawings -> verdict Q-174 (coach's drawing as base, hint not grade); dues researched in-session (John unreachable: Grok Bot 'Sand box session' 502 since 11-05) -> Q-173; knockdown count can no longer hang (KdWait); KDFIX2 measured GuardWeave 1.21 cm + FighterLife 0.87 cm on a downed boxer, KDFIX3 queued. 8 worktrees retired (E: 35 -> 42 GB). Exported.
 
 ## Next
 
-S397: collect Fight polish session + WORLD1 (Qwen); read Q-123; menus 5.5 -> 8 blind (Ana everywhere, Prep/History, names as links); then rank 3 Plan bites (P17), rank 4 Matchmaking (P1); Corner + Why keep and improve.
+MECHANICS FIRST (operator S422 OK). 1) Collect KDFIX2 (the ruler only) and LEGTREMBLE3. 2) Brief FIGHTDISPLAY1 to Cursor from docs/mockups/s422/fight_10_simvet.html (his Q-174 pick: 'Use the veteran's drawing'); data check FIGHT_DISPLAY_DECISION_S419.md s7. 3) R28 Cutman: write the DESIGN MAP (what the player decides, on which screen, what it changes, the numbers, real-world cut rules) as one page + a picture, ask him on the board, then brief the pure module to Qwen/Goose. 4) R25 the same, after checking head punches count. 5) Q-173 dues: design map only. Menus wait unless a mechanic needs them.
 
 ## Where the game actually is
 
@@ -306,3 +306,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S419**  |  |  | *none yet* |  |
 |  |  | **S420**  |  |  | *none yet* |  |
 |  |  | **S421**  |  |  | *none yet* |  |
+|  |  | **S422**  |  |  | *none yet* |  |

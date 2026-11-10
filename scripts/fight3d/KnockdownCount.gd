@@ -16,6 +16,7 @@ const TvShot := preload("res://scripts/fight3d/TvShot.gd")
 const UI := preload("res://scripts/ui/TV.gd")
 const StepRoot := preload("res://scripts/fight3d/StepRoot.gd")
 const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
+const KdWait := preload("res://scripts/rules/KdWait.gd")
 
 const DOWN_S := 1.0          # the count starts this long after the fall (and after the replay, when one plays)
 const TICK_S := 1.0          # one number a second
@@ -159,7 +160,9 @@ func _process(delta: float) -> void:
 				if not _walking_off:
 					_plan_walk()
 				_walk(delta)
-			if _wait >= _fall_in + DOWN_S and not _replay_due():
+			var r: Node = view.replay
+			if KdWait.count_ready(_wait, _fall_in, DOWN_S, _replay_due(), r != null and r.active()):
+				if r != null: r.set("_hit", -1.0)   # a late replay is dropped, never cut in mid-count
 				_begin_count()
 		"count":
 			_count(delta)

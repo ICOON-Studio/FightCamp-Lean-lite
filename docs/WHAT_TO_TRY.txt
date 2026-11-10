@@ -1,3 +1,14 @@
+FIGHTCAMP - BUILD OF 2026-11-10 (S422): A KNOCKDOWN COUNT THAT NEVER HANGS
+================================================================================
+
+ NEW.
+  a. A knockdown whose slow-motion replay fails to start no longer freezes the round: the count starts on its own a few
+     seconds later. A replay that plays is never cut. Try: fight until someone goes down; the count must always come.
+  b. Nothing else in the game changed this session. On the board for you: the fight display's three critics and their
+     10/10 drawings (Q-174), the dues choice (Q-173), the staff wall painted (Q-172), At a glance in plain words (Q-171).
+  c. KNOWN, being fixed by agents now: a downed boxer's upper body still sways a little (KDFIX3); the boxers' feet slide
+     (FIGHTSLIDE3 measures each cause); legs tremble in round 2 (LEGTREMBLE3).
+
 FIGHTCAMP - BUILD OF 2026-11-10 (S418): THE TRAINING WEEK ON SLATE, AND A JAB THAT GOES FOR THE HEAD
 ================================================================================
 

@@ -1,0 +1,220 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Fight 10 simvet</title>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+/* S422 sim-veteran critic's 10/10: the fight as a race screen - read the state, see the cost, make the call, see it land. */
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1920px;height:1080px;overflow:hidden;background:#0b0907;font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;color:#f3ead8;position:relative}
+.ring{position:absolute;left:380px;top:120px;width:1160px;height:810px;background:url(../s421/fight_display_painted_ludo.png) -380px -120px/1920px 1056px no-repeat}
+.ring:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,transparent 55%,#0b0907 100%)}
+.arena{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,#2a221b 0,#0b0907 70%)}
+.wood{position:absolute;border:14px solid #5a3a22;border-image:linear-gradient(#7a5233,#4a2f1b) 1;background:linear-gradient(#1d1a17ee,#121010f2);box-shadow:0 8px 30px #000a, inset 0 0 0 2px #2a201a}
+.wood:before,.wood:after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:radial-gradient(#d9b46a,#6b4b20);top:-14px;left:-14px}
+.wood:after{left:auto;right:-14px}
+.red{border-top-color:#b8322a}.blue{border-top-color:#2f6fd0}
+.name{font-size:34px;font-weight:700;letter-spacing:1px;text-align:center}
+.chip{display:inline-flex;align-items:center;gap:8px;font-size:22px;padding:4px 14px;border-radius:20px;border:2px solid #c9a46a;background:#2a221b}
+.lbl{font-size:20px;letter-spacing:1px;color:#cdbb9c}
+.big{font-size:40px;font-weight:700}
+.tank{position:absolute;width:46px;height:300px;border-radius:10px;background:#0f0d0b;border:3px solid #4a3e33;overflow:hidden}
+.tank .fill{position:absolute;left:0;right:0;bottom:0;border-radius:6px}
+.tank .danger{position:absolute;left:0;right:0;bottom:0;height:20%;background:repeating-linear-gradient(45deg,#7a1d16 0 6px,#4a120e 6px 12px);opacity:.8}
+.tank .ghost{position:absolute;left:-2px;right:-2px;height:4px;background:#fff8}
+.hatch{background:repeating-linear-gradient(45deg,#2b2520 0 8px,#17130f 8px 16px)!important}
+.tcol{position:absolute;text-align:center;width:80px}
+.btn{position:absolute;border-radius:10px;border:3px solid #6b5338;background:linear-gradient(#3a2c20,#241b14);text-align:center;box-shadow:0 4px 0 #000a}
+.on{border-color:#e6b24a;background:linear-gradient(#6b4a1e,#3e2a12);box-shadow:0 0 18px #e6b24a66,0 4px 0 #000a}
+.warn{display:inline-block;width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-bottom:19px solid #f0c040;position:relative;top:2px}
+.warn:after{content:"!";position:absolute;left:-3px;top:3px;font-size:14px;font-weight:900;color:#000}
+.marker{font-family:"Permanent Marker","Segoe Print",cursive}
+</style></head><body>
+<div class="arena"></div>
+<div class="ring"></div>
+
+<!-- ================= SCOREBUG ================= -->
+<div class="wood" style="left:640px;top:0;width:640px;height:170px;border-top:none">
+ <div style="position:absolute;left:24px;top:14px;width:120px;text-align:center">
+    <div style="font-size:84px;font-weight:800;color:#e2483d;line-height:1.6">1</div>
+ </div>
+ <div style="position:absolute;left:182px;top:8px;width:248px;text-align:center">
+  <div style="font-size:24px;color:#cdbb9c">ROUND 2 / 3</div>
+  <div style="font-size:58px;font-weight:800;line-height:1">1:40</div>
+  <svg width="248" height="34" viewBox="0 0 248 34" style="margin-top:6px">
+   <circle cx="24" cy="17" r="12" fill="#3a7ce0"/><circle cx="64" cy="17" r="12" fill="#e2483d"/><circle cx="104" cy="17" r="12" fill="#3a7ce0"/>
+   <circle cx="144" cy="17" r="12" fill="none" stroke="#f3ead8" stroke-width="4"/><circle cx="184" cy="17" r="10" fill="#3a332c"/><circle cx="224" cy="17" r="10" fill="#3a332c"/>
+  </svg>
+ </div>
+ <div style="position:absolute;right:24px;top:14px;width:120px;text-align:center">
+    <div style="font-size:84px;font-weight:800;color:#3a7ce0;line-height:1.6">2</div>
+ </div>
+</div>
+<!-- cards estimate strip under the bug -->
+<div style="position:absolute;left:770px;top:178px;width:380px;height:50px;display:flex;gap:10px;align-items:center;justify-content:center">
+ <span class="lbl" style="font-size:22px">CARDS</span>
+ <span style="font-size:24px;font-weight:700;background:#b8322a;border-radius:6px;padding:4px 12px">R1</span>
+ <span style="font-size:24px;font-weight:700;border:3px dashed #3a7ce0;border-radius:6px;padding:2px 10px;color:#9cc0ff">R2</span>
+ <span style="font-size:24px;font-weight:700;background:#2a241e;border-radius:6px;padding:4px 12px;color:#7a6e60">R3</span>
+</div>
+
+<!-- ================= LEFT: OUR BOXER ================= -->
+<div class="wood red" style="left:16px;top:120px;width:368px;height:790px">
+ <div class="name" style="margin-top:10px">LUCY JACKSON</div>
+ <div style="text-align:center;margin-top:8px"><span class="chip">&#9776; Plan: work the body</span></div>
+ <!-- body map -->
+ <svg width="176" height="317" viewBox="0 0 200 360" style="position:absolute;left:2px;top:130px">
+  <!-- torso -->
+  <path d="M20 360 Q14 230 44 196 Q74 176 92 172 L96 150 L120 150 L124 172 Q142 176 172 196 Q194 230 188 360 Z" fill="#3a2e26" stroke="#6b5844" stroke-width="2"/>
+  <!-- head: hurt (amber) -->
+  <ellipse cx="108" cy="88" rx="58" ry="72" fill="#d9902e" stroke="#ffcf7a" stroke-width="3"/>
+  <!-- left eye (viewer right side? boxer's left = viewer right) critical, closing -->
+  <ellipse cx="82" cy="80" rx="18" ry="11" fill="#fff"/><circle cx="82" cy="80" r="6" fill="#222"/>
+  <path d="M120 74 Q136 66 152 74 Q136 84 120 74Z" fill="#7b2b60"/><path d="M118 76 Q136 88 154 76" stroke="#e2483d" stroke-width="3" fill="none"/>
+  <circle cx="136" cy="78" r="24" fill="none" stroke="#e2483d" stroke-width="4" stroke-dasharray="6 5"/>
+  <!-- nose fine -->
+  <path d="M108 92 L100 116 L116 116Z" fill="#4fae5a"/>
+  <!-- ribs: right ribs (viewer left) fine, left ribs (viewer right) = liver side? boxer's right ribs on viewer left -->
+  <rect x="34" y="240" width="56" height="70" rx="14" fill="#d9902e" stroke="#ffcf7a" stroke-width="3"/>
+  <rect x="122" y="240" width="56" height="70" rx="14" fill="#4fae5a" opacity=".8"/>
+  <circle cx="48" cy="326" r="7" fill="#ffcf7a"/>
+ </svg>
+ <!-- worst place tag -->
+ <div style="position:absolute;left:96px;top:120px;background:#5a1612;border:3px solid #e2483d;border-radius:8px;padding:2px 10px;font-size:22px;font-weight:700">EYE &#10006;</div>
+ <!-- band key -->
+ <div style="position:absolute;left:6px;top:456px;display:flex;flex-direction:column;gap:2px;font-size:20px;color:#cdbb9c">
+  <span><b style="color:#4fae5a">&#9632;</b> fine</span><span><b style="color:#d9902e">&#9632;</b> hurt</span><span><b style="color:#e2483d">&#9632;</b> critical</span>
+ </div>
+ <!-- tanks -->
+ <div class="tank" style="left:192px;top:150px;width:36px;height:290px">
+  <div class="danger"></div><div class="fill" style="height:54%;background:linear-gradient(#f2c84a,#c8901c)"></div>
+  <div class="fill" style="height:4%;bottom:54%;background:none;border:3px dashed #ffd76a"></div>
+  <div class="ghost" style="bottom:70%"></div>
+ </div>
+ <div class="tank" style="left:240px;top:150px;width:36px;height:290px">
+  <div class="danger"></div><div class="fill" style="height:72%;background:linear-gradient(#5ac76a,#2e8a3c)"></div><div class="ghost" style="bottom:78%"></div>
+ </div>
+ <div class="tank" style="left:288px;top:150px;width:36px;height:290px">
+  <div class="danger"></div><div class="fill" style="height:61%;background:linear-gradient(#5a9cff,#2a5fb8)"></div><div class="ghost" style="bottom:80%"></div>
+ </div>
+ <!-- tank icons + numbers -->
+ <div style="position:absolute;left:186px;top:108px;width:146px;display:flex;justify-content:space-between;font-size:30px">
+  <span style="color:#f2c84a">&#9889;</span><span>&#128094;</span><span>&#128737;</span>
+ </div>
+ <div style="position:absolute;left:180px;top:446px;width:156px;display:flex;justify-content:space-between;font-size:30px;font-weight:700">
+  <span style="width:48px;text-align:center">54</span><span style="width:48px;text-align:center">72</span><span style="width:48px;text-align:center">61</span>
+ </div>
+ <div style="position:absolute;left:170px;top:486px;width:170px;display:flex;justify-content:space-between;font-size:20px;color:#cdbb9c">
+  <span>energy</span><span>legs</span><span>guard</span>
+ </div>
+ <div style="position:absolute;left:192px;top:516px;font-size:24px;color:#e2483d;font-weight:800">&#9660;&#9660;</div>
+ <!-- projection: not built -->
+ <div style="position:absolute;left:8px;top:560px;width:324px;padding:10px 12px;border-radius:10px;background:#241b14;border:2px solid #6b5338">
+  <div style="font-size:22px;color:#cdbb9c">&#9889; lasts to <span class="warn"></span></div>
+  <svg width="296" height="44" viewBox="0 0 316 44" style="margin-top:4px">
+   <rect x="0" y="12" width="96" height="20" rx="4" fill="#5a4a3a"/><rect x="104" y="12" width="96" height="20" rx="4" fill="#f2c84a"/><rect x="208" y="12" width="44" height="20" rx="4" fill="#f2c84a"/>
+   <rect x="252" y="12" width="56" height="20" rx="4" fill="#7a1d16"/>
+   <text x="48" y="28" text-anchor="middle" font-size="20" fill="#1a1410" font-weight="700">R1</text>
+   <text x="152" y="28" text-anchor="middle" font-size="20" fill="#1a1410" font-weight="700">R2</text>
+   <text x="280" y="28" text-anchor="middle" font-size="20" fill="#f3ead8" font-weight="700">R3</text>
+  </svg>
+ </div>
+ <!-- trust / ear -->
+ <div style="position:absolute;left:8px;top:676px;width:324px;display:flex;align-items:center;gap:12px;font-size:24px">
+  <span style="font-size:30px">&#128066;</span>
+  <span style="margin-left:auto;font-size:30px;letter-spacing:4px"><b style="color:#f2c84a">&#9679;</b><b style="color:#5a4a3a">&#9679;</b></span>
+  <span class="lbl">heard</span>
+ </div>
+</div>
+
+<!-- ================= RIGHT: OPPONENT ================= -->
+<div class="wood blue" style="left:1536px;top:120px;width:368px;height:790px">
+ <div class="name" style="margin-top:10px">MARIA ORTEGA</div>
+ <div style="text-align:center;margin-top:8px"><span class="chip" style="border-color:#f0c040;box-shadow:0 0 16px #f0c04088">&#128065; Waits to counter</span></div>
+ <!-- tanks (mirrored, left side) -->
+ <div class="tank" style="left:10px;top:150px;width:36px;height:290px">
+  <div class="danger"></div>
+  <div style="position:absolute;left:0;right:0;bottom:22%;height:16%;border:3px solid #f2c84a;border-radius:4px;background:#f2c84a55"></div>
+ </div>
+ <div class="tank hatch" style="left:58px;top:150px;width:36px;height:290px"></div>
+ <div class="tank hatch" style="left:106px;top:150px;width:36px;height:290px"></div>
+ <div style="position:absolute;left:4px;top:108px;width:146px;display:flex;justify-content:space-between;font-size:30px">
+  <span style="color:#f2c84a">&#9889;</span><span>&#128094;</span><span>&#128737;</span>
+ </div>
+ <div style="position:absolute;left:0px;top:446px;width:150px;display:flex;justify-content:space-between;font-size:28px;font-weight:700">
+  <span>22-38</span><span style="color:#8a7d6c">?</span><span style="color:#8a7d6c">?</span>
+ </div>
+ <div style="position:absolute;left:0px;top:486px;width:160px;display:flex;justify-content:space-between;font-size:20px;color:#cdbb9c">
+  <span>energy</span><span>legs</span><span>guard</span>
+ </div>
+ <div style="position:absolute;left:10px;top:516px;font-size:24px;color:#e2483d;font-weight:800">&#9660;&#9660;</div>
+ <!-- body map, seen damage only -->
+ <svg width="176" height="317" viewBox="0 0 200 360" style="position:absolute;left:160px;top:130px">
+  <path d="M12 360 Q6 230 36 196 Q66 176 84 172 L88 150 L112 150 L116 172 Q134 176 164 196 Q194 230 188 360 Z" fill="#2c3340" stroke="#4a5a74" stroke-width="2"/>
+  <ellipse cx="100" cy="88" rx="58" ry="72" fill="#4a5a74" stroke="#6b7c98" stroke-width="2"/>
+  <ellipse cx="74" cy="80" rx="16" ry="10" fill="#fff"/><circle cx="74" cy="80" r="5" fill="#222"/>
+  <ellipse cx="126" cy="80" rx="16" ry="10" fill="#fff"/><circle cx="126" cy="80" r="5" fill="#222"/>
+  <ellipse cx="100" cy="128" rx="14" ry="10" fill="#1a1410"/>
+  <path d="M150 50 q6 12 0 18 q-6 -6 0 -18Z M40 96 q6 12 0 18 q-6 -6 0 -18Z" fill="#9cd0ff"/>
+  <rect x="26" y="240" width="56" height="70" rx="14" fill="#5a5048" opacity=".7"/>
+  <rect x="118" y="240" width="56" height="70" rx="14" fill="#d9902e" stroke="#ffcf7a" stroke-width="3"/>
+  <circle cx="134" cy="326" r="7" fill="#ffcf7a"/><circle cx="152" cy="326" r="7" fill="#ffcf7a"/>
+ </svg>
+ <!-- habit: what she does -> what follows -->
+ <div style="position:absolute;left:8px;top:560px;width:324px;padding:10px 12px;border-radius:10px;background:#241b14;border:2px solid #f0c040">
+    <div style="display:flex;align-items:center;gap:12px;font-size:26px;margin-top:6px;font-weight:700">
+   <span style="background:#3a7ce0;border-radius:8px;padding:2px 10px">&#9995; waits</span><span style="color:#f0c040">&#10140;</span>
+   <span style="background:#b8322a;border-radius:8px;padding:6px 18px;font-size:40px">&#129354;</span><span style="margin-left:auto;font-size:40px;color:#f0c040">3&times;</span>
+  </div>
+ </div>
+</div>
+
+<!-- ================= MOMENT: set-up gap open ================= -->
+<div style="position:absolute;left:1180px;top:640px;width:330px;height:118px;border-radius:14px;border:4px solid #f0c040;background:linear-gradient(#6b4a1e,#2e1f0e);box-shadow:0 0 34px #f0c040aa;text-align:center">
+ <div style="font-size:44px;font-weight:900;color:#ffd76a;line-height:1.2">NOW! 1-2-3</div>
+ <div style="display:flex;justify-content:center;gap:10px;font-size:22px;margin-top:2px"><span>gap open</span><span style="color:#ffd76a;font-weight:700">0:03</span><span>&#9889;&#9660;&#9660;</span></div>
+</div>
+<svg width="200" height="140" viewBox="0 0 200 140" style="position:absolute;left:1120px;top:520px"><path d="M60 10 Q100 60 130 120" stroke="#f0c040" stroke-width="4" stroke-dasharray="8 6" fill="none"/></svg>
+
+<!-- ================= BOTTOM: THE CORNER ================= -->
+<div class="wood" style="left:16px;top:934px;width:1888px;height:146px;border-bottom:none">
+ <!-- standing orders -->
+ <div style="position:absolute;left:8px;top:6px" class="lbl">PACE</div>
+ <div class="btn" style="left:8px;top:36px;width:102px;height:44px;font-size:22px;line-height:38px">Push</div>
+ <div class="btn on" style="left:116px;top:36px;width:102px;height:44px;font-size:22px;line-height:38px">Steady</div>
+ <div class="btn" style="left:224px;top:36px;width:102px;height:44px;font-size:22px;line-height:38px">Save</div>
+ <div style="position:absolute;left:340px;top:6px" class="lbl">AIM</div>
+ <div class="btn" style="left:340px;top:36px;width:92px;height:44px;font-size:22px;line-height:38px">Head</div>
+ <div class="btn on" style="left:438px;top:36px;width:92px;height:44px;font-size:22px;line-height:38px">Body</div>
+
+ <!-- timer -->
+ <svg width="110" height="110" viewBox="0 0 110 110" style="position:absolute;left:556px;top:8px">
+  <circle cx="55" cy="55" r="46" fill="#120f0c" stroke="#3a3028" stroke-width="10"/>
+  <circle cx="55" cy="55" r="46" fill="none" stroke="#f0c040" stroke-width="10" stroke-dasharray="135 289" transform="rotate(-90 55 55)"/>
+  <text x="55" y="66" text-anchor="middle" font-size="32" font-weight="800" fill="#f3ead8">0:14</text>
+ </svg>
+
+ <!-- last call result -->
+ <div style="position:absolute;left:680px;top:10px;width:200px;height:104px;border-radius:10px;background:#1a1512;border:2px solid #5a4a3a;padding:6px 12px">
+    <div style="font-size:26px;font-weight:700;color:#bfb2a0;margin-top:8px">To the body</div>
+  <div style="font-size:34px;margin-top:4px"><span style="color:#4fae5a;font-weight:800">&#10003;</span> <span style="color:#e2483d;font-weight:800">&#10007; &#10007;</span> </div>
+ </div>
+
+ <!-- calls -->
+ <div class="btn on" style="left:898px;top:6px;width:330px;height:112px;border-width:4px">
+  <div style="font-size:34px;font-weight:800;margin-top:8px">DRAW THE LEAD</div>
+  <div style="display:flex;justify-content:center;gap:16px;font-size:22px;margin-top:6px;align-items:center">
+   <span style="background:#2e7a3a;border-radius:6px;padding:2px 10px;font-weight:700">Beats it</span><span style="color:#f2c84a">&#9889;&#9650;</span>
+  </div>
+ </div>
+ <div class="btn" style="left:1242px;top:6px;width:200px;height:112px">
+  <div style="font-size:28px;font-weight:800;margin-top:12px">HANDS UP</div>
+  <div style="display:flex;justify-content:center;gap:12px;font-size:22px;margin-top:8px"><span style="background:#8a6a1e;border-radius:6px;padding:2px 8px">Works</span><span style="color:#f2c84a">&#9889;&#9650;</span></div>
+ </div>
+ <div class="btn" style="left:1456px;top:6px;width:200px;height:112px">
+  <div style="font-size:28px;font-weight:800;margin-top:12px">TIE UP</div>
+  <div style="display:flex;justify-content:center;gap:12px;font-size:22px;margin-top:8px"><span style="background:#7a1d16;border-radius:6px;padding:2px 8px">Wrong</span><span style="color:#f2c84a">&#9889;&#9650;&#9650;</span></div>
+ </div>
+ <div class="btn" style="left:1670px;top:6px;width:96px;height:112px;font-size:22px;padding-top:24px;line-height:1.2">Say<br>nothing</div>
+ <!-- speed -->
+ <div class="btn" style="left:1780px;top:6px;width:84px;height:52px;font-size:24px;line-height:46px;font-weight:700">2&times;</div>
+ <div class="btn" style="left:1780px;top:66px;width:84px;height:52px;font-size:26px;line-height:46px">&#9197;</div>
+</div>
+</body></html>
