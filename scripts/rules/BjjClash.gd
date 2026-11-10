@@ -68,7 +68,17 @@ static func title(o: Dictionary, syllabus_name: String = "") -> String:
 		return str(o["title"])
 	if syllabus_name != "":
 		return syllabus_name
-	return str((ATTACK.get(str(o["kind"]), ATTACK["advance"]) as Array)[0])
+	var word := str((ATTACK.get(str(o["kind"]), ATTACK["advance"]) as Array)[0])
+	# S425: "Move up" three rows running said nothing: a move up or an escape says where it goes.
+	var to := str(WHERE.get(str(o.get("to", "")), ""))
+	if to != "" and str(o["kind"]) in ["advance", "escape"]:
+		return "%s to %s" % [word, to]
+	return word
+
+
+## S425: a position's class in the words on screen.
+const WHERE := {"guard": "guard", "half_guard": "half guard", "side_control": "side control", "mount": "the mount", "back": "the back",
+	"standing": "the feet", "turtle": "turtle"}
 
 
 ## Everything the clash shows for one attempt.

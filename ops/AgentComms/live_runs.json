@@ -1271,7 +1271,7 @@
    "agent": "qwen",
    "id": "FIRELEVEL1",
    "title": "TASK FIRELEVEL1 - QWEN (qwen3-coder) - a plan line fires as well as it is drilled: a switched-off rule, measured",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-10T16:02",
    "eta": "2026-11-10T17:52",
    "branch": "qwen/firelevel1",
@@ -1292,13 +1292,64 @@
     "runner_pid": 44512,
     "seat_pid": 39032
    },
-   "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/7 PASS; PR #175",
+   "finished": "2026-11-10T16:20",
+   "pr": 175,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/fire_level_test.gd",
+     "ok": true,
+     "last": "FIRE_LEVEL failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_fight_test.gd",
+     "ok": true,
+     "last": "PLAN_FIGHT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_read_test.gd",
+     "ok": true,
+     "last": "PLAN_READ checks=7 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/read_back_test.gd",
+     "ok": true,
+     "last": "READ_BACK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "FIGHTDISPLAY2": {
    "agent": "cursor",
    "id": "FIGHTDISPLAY2",
    "title": "TASK FIGHTDISPLAY2 - CURSOR (Grok 4.7 High) - the live fight's two side panels from the veteran's drawing",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-10T16:15",
    "eta": "2026-11-10T18:05",
    "branch": "cursor/fightdisplay2",
@@ -1319,7 +1370,166 @@
     "runner_pid": 18204,
     "seat_pid": 40948
    },
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 8/8 PASS; PR #177",
+   "finished": "2026-11-10T16:58",
+   "pr": 177,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/side_panel_test.gd",
+     "ok": true,
+     "last": "SIDE_PANEL failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hud_shown_test.gd",
+     "ok": true,
+     "last": "hud_shown_test failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/holo_live_test.gd",
+     "ok": true,
+     "last": "HOLO_LIVE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_flash_test.gd",
+     "ok": true,
+     "last": "HIT_FLASH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_bar_test.gd",
+     "ok": true,
+     "last": "CORNER_BAR failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "THURSDAY1": {
+   "agent": "qwen",
+   "id": "THURSDAY1",
+   "title": "TASK THURSDAY1 - QWEN (qwen3-coder) - how many real problems does a camp week throw up by Thursday? Measure only",
+   "status": "landed",
+   "started": "2026-11-10T16:21",
+   "eta": "2026-11-10T18:11",
+   "branch": "qwen/thursday1",
+   "worktree": "E:/FightCamp/wt/LEAN_THURSDAY1",
+   "wt": "E:/FightCamp/wt/LEAN_THURSDAY1",
+   "brief": "ops/research/TASK_THURSDAY1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/THURSDAY1_dispatch_out.txt",
+   "match": "seat_dispatch.py run thursday1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/THURSDAY1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/THURSDAY1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/THURSDAY1_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 45152,
+    "seat_pid": 40920
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #176",
+   "finished": "2026-11-10T16:33",
+   "pr": 176,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/thursday_probe.gd",
+     "ok": true,
+     "last": "RESULT: tools/thursday_probe.gd -> THURSDAY camps=40 camp weeks with 2+ open 50%"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "TRAININGB1": {
+   "agent": "cursor",
+   "id": "TRAININGB1",
+   "title": "TASK TRAININGB1 - CURSOR (Grok 4.7 High) - the Training tab rebuilt as approach B, with A's tiredness curve on top",
+   "status": "running",
+   "started": "2026-11-10T17:13",
+   "eta": "2026-11-10T19:03",
+   "branch": "cursor/trainingb1",
+   "worktree": "E:/FightCamp/wt/LEAN_TRAININGB1",
+   "wt": "E:/FightCamp/wt/LEAN_TRAININGB1",
+   "brief": "ops/research/TASK_TRAININGB1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/TRAININGB1_dispatch_out.txt",
+   "match": "seat_dispatch.py run trainingb1",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/TRAININGB1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/TRAININGB1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/TRAININGB1_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 45884,
+    "seat_pid": 39732
+   },
    "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
+  },
+  "KDFIX5": {
+   "agent": "qwen",
+   "id": "KDFIX5",
+   "title": "TASK KDFIX5 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 5: Cursor's \"all green\" was false",
+   "status": "running",
+   "started": "2026-11-10T17:14",
+   "eta": "2026-11-10T19:04",
+   "branch": "qwen/kdfix5",
+   "worktree": "E:/FightCamp/wt/LEAN_KDFIX5",
+   "wt": "E:/FightCamp/wt/LEAN_KDFIX5",
+   "brief": "ops/research/TASK_KDFIX5.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/KDFIX5_dispatch_out.txt",
+   "match": "seat_dispatch.py run kdfix5",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/KDFIX5_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/KDFIX5_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/KDFIX5_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 43668,
+    "seat_pid": 45072
+   },
+   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
   }
  },
  "codex_budget": {

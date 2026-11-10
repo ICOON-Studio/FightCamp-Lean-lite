@@ -130,6 +130,27 @@ func attempt(me: int, title: String, hit: bool, odds: float, roll: float, r: Dic
 	_clash(me, title, hit, odds, roll, r)
 
 
+## S425: who is trying what, while the bodies move (her chip comes in from her side and waits); attempt() brings the
+## result when they arrive.
+func trying(me: int, title: String, r: Dictionary) -> void:
+	if _tween != null and _tween.is_valid():
+		_tween.kill()
+	UI.clear(_stage)
+	_stage.modulate.a = 1.0
+	var big := bool(r["big"])
+	var a := _chip(str(r["attack"][1]), title, "TRYING", SIDE_COLOR[me], big)
+	_stage.add_child(a)
+	var w: float = a.custom_minimum_size.x
+	var meet := STAGE_W / 2.0 - w - 2.0 if me == 0 else STAGE_W / 2.0 + 2.0
+	a.position = Vector2(meet - (120.0 if me == 0 else -120.0), 0.0)
+	a.modulate.a = 0.0
+	var t := create_tween()
+	_tween = t
+	t.set_parallel(true)
+	t.tween_property(a, "modulate:a", 1.0, 0.12)
+	t.tween_property(a, "position:x", meet, 0.22).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+
 ## The result, big, once the bodies have finished.
 func banner(text: String, color: Color) -> void:
 	if _tween != null and _tween.is_valid():
@@ -175,7 +196,8 @@ func _chip(icon: String, title: String, sub: String, color: Color, big: bool) ->
 	var p := PanelContainer.new()
 	p.add_theme_stylebox_override("panel", UI.box(UI.PANEL, color, 12, 3, 12, 8))
 	# Fixed size, no wrapped text: a wrapped label measures tall before it has a width, and a free-standing panel never shrinks back.
-	p.custom_minimum_size = Vector2(CHIP_W if big else CHIP_W * 0.7, 78.0 if big else 50.0)
+	# S425: a small chip grows with its words ("Move up to side control" read "Move up to sid...")
+	p.custom_minimum_size = Vector2(CHIP_W if big else clampf(64.0 + title.length() * 8.5, CHIP_W * 0.7, CHIP_W * 1.15), 78.0 if big else 50.0)
 	p.size = p.custom_minimum_size
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var h := UI.hbox(10)

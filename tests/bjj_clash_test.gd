@@ -52,6 +52,9 @@ func _initialize() -> void:
 	_check(BjjClash.title({"kind": "sweep", "title": "Bottom Rolls Onto Side"}) == "Sweep", "a raw step reads by what it does")
 	_check(BjjClash.title({"kind": "pass", "title": "x"}, "Knee cut pass") == "Knee cut pass", "a drilled move reads by name")
 	_check(BjjClash.title({"kind": "sub", "title": "Armbar"}) == "Armbar", "a submission keeps its name")
+	_check(BjjClash.title({"kind": "advance", "title": "x", "to": "half_guard"}) == "Move up to half guard", "a move up says where it goes (S425)")
+	_check(BjjClash.title({"kind": "escape", "title": "x", "to": "guard"}) == "Escape to guard" and BjjClash.title({"kind": "advance", "title": "x", "to": "other"}) == "Move up",
+		"an escape too; a scramble has no name to give")
 
 	# Finishes read by the submission, never the raw step name.
 	_check(BjjMatch.sub_name(["armbar", "foo"]) == "Armbar" and BjjMatch.sub_name(["foo"]) == "Submission", "sub names come from the tag")

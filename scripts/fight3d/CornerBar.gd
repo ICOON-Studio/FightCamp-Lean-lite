@@ -239,7 +239,7 @@ func _call(call: String, sit: String, names: Array, on: bool, _wide: float) -> C
 	var fit := Exchanges.fit(call, sit)
 	var chip := Panel.new()
 	chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	chip.custom_minimum_size = Vector2(120, 30)
+	chip.custom_minimum_size = Vector2(88, 30)
 	var chip_box := StyleBoxFlat.new()
 	chip_box.bg_color = _fit_color(fit)
 	chip_box.set_corner_radius_all(6)
@@ -254,10 +254,10 @@ func _call(call: String, sit: String, names: Array, on: bool, _wide: float) -> C
 	chip.add_child(lab)
 	under.add_child(chip)
 	var cost := float(row["cost"])
-	var arrows := TV.label(NowPlateSc.arrows(cost), 20, WoodKit.HEAD, "bold")
-	arrows.name = "Cost_" + call
-	arrows.custom_minimum_size = Vector2(52, 24)
-	under.add_child(arrows)
+	var spend := TV.label(_cost_word(cost), 20, WoodKit.HEAD, "bold")
+	spend.name = "Cost_" + call
+	spend.custom_minimum_size = Vector2(60, 24)
+	under.add_child(spend)
 	return frame
 
 
@@ -272,28 +272,34 @@ func _last_call(x: float) -> void:
 	panel.add_theme_stylebox_override("panel", sb)
 	_place(_body, panel, x, 10, 160, 116)
 	var ex := _ex()
-	var words := ""
+	var words := "None yet"
 	var marks: Array = []
 	if not ex.is_empty():
 		var id := str((ex[-1] as Dictionary).get("call", ""))
 		var row: Dictionary = Exchanges.CALLS.get(id, {})
-		words = str(row.get("label", id))
-		var under: Array = []
-		for e in ex:
-			if str((e as Dictionary).get("call", "")) == id:
-				under.append(e)
-		var from := maxi(0, under.size() - 3)
-		for i in range(from, under.size()):
-			marks.append(bool((under[i] as Dictionary).get("won", false)))
-	var lab := TV.label(words, 22, WoodKit.SOFT, "bold", true)
+		words = str(row.get("label", id)) if id != "" else "Said nothing"
+		if id != "":
+			var under: Array = []
+			for e in ex:
+				if str((e as Dictionary).get("call", "")) == id:
+					under.append(e)
+			var from := maxi(0, under.size() - 3)
+			for i in range(from, under.size()):
+				marks.append(bool((under[i] as Dictionary).get("won", false)))
+	panel.tooltip_text = "Your last call, and whether it won the minute each time you used it (tick = won, cross = lost)"
+	panel.mouse_filter = Control.MOUSE_FILTER_PASS
+	var head := TV.label("LAST CALL", 20, WoodKit.SOFT, "bold")
+	head.name = "LastCallTag"
+	_place(panel, head, 8, 4, 144, 22)
+	var lab := TV.label(words, 22, WoodKit.INK, "bold", true)
 	lab.name = "LastCall"
-	_place(panel, lab, 6, 6, 148, 56)
+	_place(panel, lab, 6, 28, 148, 44)
 	var mx := 8.0
 	for won in marks:
 		var mark := Mark.new()
 		mark.won = bool(won)
 		mark.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		_place(panel, mark, mx, 70, 32, 32)
+		_place(panel, mark, mx, 78, 32, 32)
 		mx += 36.0
 
 
@@ -360,13 +366,26 @@ func _mark_key() -> String:
 	return bits
 
 
+## What the call does to her energy, in words (S426 operator on the bolt and arrows: "what are these symbols ??").
+func _cost_word(cost: float) -> String:
+	if cost <= -1.5:
+		return "Rests well"
+	if cost < 0.0:
+		return "Rests"
+	if cost >= 2.25:
+		return "Tires a lot"
+	if cost > 0.0:
+		return "Tires"
+	return "Even"
+
+
 func _grade_word(fit: String) -> String:
 	if fit == "best":
 		return "Beats it"
 	if fit == "ok":
 		return "Works"
 	if fit == "wrong":
-		return "Wrong"
+		return "Risky"
 	return ""
 
 

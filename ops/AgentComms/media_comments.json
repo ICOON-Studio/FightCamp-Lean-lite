@@ -2021,6 +2021,49 @@
       "text": "MARKUP for Q-S294-172: 1 marks -> Feedback/2026-11-10-11/README.md",
       "at": "2026-11-10T09:53:50Z",
       "seen_by_claude": true
+    },
+    {
+      "id": "C269",
+      "path": "media:_sent/2026-11-10_1347_live_fight_corner_bar_graded_calls_wood_/p02_shout_bar.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-10-12/README.md",
+      "at": "2026-11-10T13:41:28Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C270",
+      "path": "media:_sent/2026-11-10_1347_live_fight_corner_bar_graded_calls_wood_/p02_shout_bar.png",
+      "text": "MARKUP: 2 marks -> Feedback/2026-11-10-13/README.md",
+      "at": "2026-11-10T13:42:08Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C271",
+      "path": "media:_sent/2026-11-10_1347_live_fight_corner_bar_graded_calls_wood_/p02_shout_bar.png",
+      "text": "MARKUP: 3 marks -> Feedback/2026-11-10-14/README.md",
+      "at": "2026-11-10T13:42:48Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C272",
+      "path": "media:_sent/2026-11-10_1347_live_fight_corner_bar_graded_calls_wood_/p02_shout_bar.png",
+      "text": "MARKUP: 4 marks -> Feedback/2026-11-10-15/README.md",
+      "at": "2026-11-10T13:43:14Z",
+      "seen_by_claude": true
+    },
+    {
+      "path": "_sent/2026-11-10_1614_dues_three_painted_price_boards_club_mon/dues_tab_real.png",
+      "text": "use proper outline effects throught all project not cheap solutions.",
+      "at": "2026-11-10T15:06:10Z",
+      "seen_by_claude": false,
+      "id": "C273"
+    },
+    {
+      "path": "_sent/2026-11-10_1613_bjj_live_bout_the_result_lands_with_the_/bjj_after_call_and_sweep.mp4",
+      "text": "looks ok but maybe add some options for te player to decide during the fight ? and also add the missing refinement art and add visual effects",
+      "at": "2026-11-10T15:08:07Z",
+      "seen_by_claude": false,
+      "at_s": 36.0,
+      "id": "C274"
     }
   ]
 }

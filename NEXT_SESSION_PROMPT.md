@@ -1,74 +1,45 @@
-# S426 handover: collect the animation branches, the week design v3, the measurements (written 2026-11-10, end of S425)
+# S427 handover: block_meet red on main, KDFIX5, week design v3 (written 2026-11-10, end of S426)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S426` and redraw the map (a PARTIAL svg is enough: the frame, the changed cards; then `trim` / `learn` as the svg command prints).
-Digest of S425: ops/research/S425_DIGEST.md. Older handovers are in git.
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S427` and redraw the Miro map (partial svg is enough).
+Digests: ops/research/S425_DIGEST.md (S426 has none: its facts are here and in roadmap.json `now`).
 
-## His rulings in S425 (verbatim)
-- "i expect all new mechanics to be wired and shown properly on the correct menus and be deep enough for a critics +7/10" (CLAUDE.md).
-- "maybe review combine old ideas to rise their depth to +7 and maybe come with new things ? can other free agents work on
-  that , the focus needs to be for the player to have things to do during a week make him anticipate the changes and be
-  more interactive with deicions/choices and rewarding for keep playing and progressing".
-- On screens: he first asked for no sentences, then "maybe i have overdone with the sentences , i let you judge", then
-  "i do not want impose rules on your designs, remove it and do it as think it is better". NO rule: Claude's judgement.
-- Scope: asked "After the week is built, widen the scope to a small living world with a belt ladder?" -> "Yes, after the
-  week" (CLAUDE.md item 4). He bought Boxing Manager (Steam): ops/research/BOXING_MANAGER_COMPARE_S425.md.
+## His words in S426 (verbatim)
+- On the corner-bar still (marks, ops/Feedback/2026-11-10-12..15): "what is this ?" (the empty box beside the clock); "the number on the
+  head implies that the his is in the head no need for text"; "what do you mean wrong, are you saying to the player do not choose this ?
+  is this how games work ?"; "what are these symbols ??" (bolt + arrows). Q-S294-178 (pads for two): "how much is this designed rated ?".
+- "also the hud hides players feet"; "this background effects looks weird when there is motion in the front" (a crop: a hair edge ghosted
+  three times); "add this picture on the board so i can mark areas" (done: 8787/review, post 2026-11-10_1714).
 
-## State of the work
-- ON MAIN: the Dues tab (Club > Money > Dues, three painted boards, looked at: docs/mockups/s425/dues_tab_real.png; the
-  three fees do not sit on one line: small polish). ReadBack.gd (two switched-off rules, measured and rejected).
-  Probes: tools/pads_for_two_probe.gd, tools/read_back_probe.gd. EXPORTED 16:17 with the Dues tab (Builds/FightCamp.exe, WHAT_TO_TRY current): no need to run `sh tools/export.sh`
-  and update WHAT_TO_TRY (Club > Money > Dues) unless S425's last message says it was done.
-- WEEK DESIGN: v2 (ops/research/WEEK_DESIGN_V2_S425.md, docs/mockups/s425/week_v2.png, week_v2_thursday.png) scored depth
-  5 from two fresh critics (week_v2_critic_*.md). Measured since: the full plan-reading game is OUT (READBACK1-3 in
-  docs/READBACK1_RESULT.md: best answer +3.7 of 7 points; a line waited for from round 1 costs 15). v3 must reach 7 on:
-  lines that fire as they are drilled, the Thursday choice, the coach's evenings, rewards that open choices, and the
-  corner minute (Claude's mockup docs/mockups/s425/corner_v1.png from his reference; on the review board, no reaction yet).
-  Wait for FIRELEVEL1 and THURSDAY1 before writing v3. Ideas to take from Boxing Manager into "ask for a fight": risk
-  label on offers, refusal reasons, win chance from repeated sims, skip to next event.
-- MEASUREMENTS RUNNING (Qwen): FIRELEVEL1 (qwen/firelevel1), then THURSDAY1.
-- CURSOR: FIGHTDISPLAY2 running (cursor/fightdisplay2); then TRAININGB1.
-- ANIMFIX1 (the Fable subagent) FINISHED. Its full report is in the S425 transcript; the short of it:
-  * Boxing legs, branch qwen/legtremble4 (5b84d0fe, PR 168): the head_aim VOID was the test's own reset (fixed in the
-    test); the footwork rig dropped the hips 8 cm under every punch (fixed: BoxerFootworkRig.gd, RingFeet.gd,
-    FootPlant.gd; new tests/legs_level_test.gd, tools/round2_film.gd, tools/knee_zigzag.py). THE LEGS STILL TREMBLE: the
-    wobble sits at clip changes (1.1 to 1.5 a second per boxer). The 149 rewritten clips change nothing measurable
-    (collecting them is optional). block_meet_test is red on the branch and flaky on main. Films on the review board
-    (its rating 5/10). Next real step: fewer and longer clips, or one owner for the legs all round.
-  * Grappling, branch claude/grapplefix1 (18326652): fixed "Move up" shown for moves down, positions paid twice, the
-    score landing 2 s before the bodies, calls three in 13 s; BjjMatch.gd, BeltMatch.gd, MatHud.gd, BjjClash.gd.
-    STILL WRONG: 19 to 23 unnamed position changes a bout (BeltMatch._drift), bodies through each other, the "Mount" pose
-    is not a mount (data), only 1 or 2 calls in five minutes now (Claude decides the cadence: aim for one about every
-    30 to 40 s when the position changes), call cards cover the pair. Films on the review board (its rating 4/10).
-  * Cursor's KDFIX4 (cursor/kdfix4, PR 169): NOT green. knockdown_still_test red 3 runs of 3 (sway 2.30 cm against 0.5),
-    block_meet red. Cursor's "all green" was false. Do not merge; brief KDFIX5 with those exact lines.
-- CHAT SEATS queued or answered: Kalli SQ35 (cutman v3 pasted), SQ36 (her week page), SQ38 (small world); John SQ31
-  ANSWERED (J_DUES_CHOICE_S421_BRIEF_JOHN.md, unread), SQ33, SQ34, SQ37 (the real belt ladder).
-- Q-S294-178 is answered by his chat messages (combine the ideas): close it on the board.
+## Done in S426 (committed ec7d7940, de5183d8; exported 17:21; WHAT_TO_TRY current)
+- CornerBar.gd: LAST CALL box titled ("Said nothing" when no call); grade chip Risky (was Wrong; tooltip says it plays into her and can
+  still be picked); cost in words (Rests well / Rests / Even / Tires / Tires a lot). RoundHits.gd: a number badge on the spot, no words.
+- Feet: TvShot.BAR_DROP_M 0.3 (the lens looks lower; FOOT_M stays -0.2): two real stills show both boots above the bar.
+- Blur: RingCamera motion blur samples 3 -> 8, object multiplier 0.7. A STILL CANNOT SHOW IT: he judges it in motion.
+- claude/grapplefix1 collected by diff (bjj match/clash/mat/beat/finish tests green). Still wrong: drift (19-23 unnamed position changes),
+  bodies through each other, the Mount pose, call cadence (aim one per 30-40 s when the position changes), call cards cover the pair.
+- KDFIX5 launched on Qwen (qwen/kdfix5, brief ops/research/TASK_KDFIX5.md, from cursor/kdfix4).
 
-## Order for S426
-1. Collect qwen/legtremble4 and claude/grapplefix1 by diff: read each diff, run the touched tests, LOOK at the four films
-   on the review board yourself, merge what is green and visibly better; leave the 149 clips out unless a film shows a
-   gain. Then one new animation brief per track (legs: fewer and longer clips; grappling: drift, bodies, cadence) and
-   KDFIX5.
-2. FIRELEVEL1 and THURSDAY1 results -> week design v3 (a designer subagent, then two FRESH critics, 7+ -> his board).
-3. Export, WHAT_TO_TRY, his playing.
-4. Chat seat answers: cutman v3 -> critics; dues sums (claude/duesband1); R37 map; the small world.
+## Open, in this order
+1. block_meet_test (S426, FIXED): the red was a fluke (rhythm step/fidget mid-read; the test now holds the stage still) plus one real row (A_B
+   right cross 3.7 cm inside the block): FightStage CROSS_STANDOFF_M 0.015 in the block target; failures=0 in 3 runs of 3, head_aim, beat_clips,
+   move_tip, guard_weave, fight_flow green. BLOCKMEET3 (Qwen) superseded. The legs code (qwen/legtremble4, no clips, no leg_tremble_test) moved
+   block_meet to a different row (A_A left hook touch 0.050) when tried before this fix: retry it now; LOOK at its four films first.
+2. Collect KDFIX5 by diff (rerun knockdown_still_test and block_meet_test 3 times each; a green claim is not a pass).
+3. Briefs: legs (fewer, longer clips; the hip drop fix in BoxerFootworkRig is good), grappling (drift, bodies, cadence). PRs 162/163/166/168/169 are stale:
+   close them once their useful parts are on main or in a brief.
+4. FIRELEVEL1 (PR 175, rule + one line in LiveRound) HAS A BUG (S426, read PlanFight.can_do): today a combo is doable when its PUNCHES are
+   learned (Combos.LEARN_AT 30 on moves), not when the combo itself is drilled. FireLevel.mastery_of reads f["combos"][id] (0 if undrilled),
+   so with NO key an undrilled but doable combo gets share 0.0 and stops being planned: 'no key = today's game' is false. Fix at collect:
+   share() returns 1.0 when level_shares is empty, and a test for it; its 41.3 control only held because Lucy's combos were drilled. THURSDAY1 (PR 176): the 40 camps collapse to two identical results: rerun with real different seeds.
+   Then week design v3 (WEEK_DESIGN_V2_S425.md) -> two FRESH critics 7+ -> his board.
+5. Chat seats: SQ31-SQ36 answers unread (dues choice, cutman v3, amateur ask, cheap club money, her week page); SQ37 real belt ladder, SQ38 small world.
+6. His marks on the new corner still (review board), then the Dues tab polish.
 
 ## Traps
-- A seat's "all green" is a claim: KDFIX4 and DUESCARD1 both passed their tests and failed on the real screen or on a rerun.
-- A python heredoc with triple quotes breaks in this shell: write the script to the scratchpad and run it.
-- `git diff --stat` across branches: add `2>/dev/null`. A bare Godot start is blocked: use ops/Tools/godot_slot.py.
-- The dispatcher holds tests while a windowed render runs and the PC is not GREEN: run `seat_dispatch.py --act` again later.
-- Subagents die with the session: do not clear a session while one runs.
-- Two critics at the same low depth twice = change the mechanic; and measure before building (READBACK saved a build).
+- A seat's "all green" is a claim (KDFIX4, DUESCARD1). A test that is red on main is not "pre-existing" until you ran main.
+- RingCamera.gd is exactly 500 lines: any addition needs a cut elsewhere (file_limits_test).
+- `git apply -R` of a patch then re-apply is the safe way to compare main with a branch in this checkout (no stash).
+- fight3d_play.gd on the hidden desktop: ~1.5 min normally; it once timed out at 420 s while other jobs ran: rerun.
+- Subagents die with the session. Dispatcher holds seat launches while a windowed render runs and the PC is not GREEN.
 
-SETTINGS: S425 ran on Fable 5.2 and ended past 600k of context. Weekly plan use was 89% of all models before the session's subagents (resets 11-12): propose Sonnet 5.5, high effort, Fast off, until the reset.
-
-## Landed after the handover text
-- FIRELEVEL1 (Qwen, qwen/firelevel1 6748de49, PR 175, NOT collected): control 41.3 exact. With the rule on, the plan's one
-  combination at usable / sharp / signature wins 38.0 / 39.8 / 42.5% (shares 0.6 / 0.8 / 1.0) and 37.0 / 39.8 / 42.5%
-  (0.5 / 0.75 / 1.0): drilling one combination from usable to signature is worth 4.5 to 5.5 wins in 100 (today: 1). An
-  only-just-learned plan is 3.3 to 4.3 worse than today's game (a cost for new players). Only the combination can vary
-  in that plan (steps always fire): a plan with two or three combinations is unmeasured. Collect by diff (it touches
-  LiveRound.gd: check the line count and that no key = the game as before), then decide the shares for v3.
-- THURSDAY1 launched on Qwen after it (or queued: run `python ops/Tools/seat_dispatch.py --act`).
+SETTINGS: S426 ran on Sonnet 5.5; weekly plan use was high (resets 11-12). Next session: Sonnet 5.5, high effort, Fast off.

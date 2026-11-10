@@ -6437,7 +6437,7 @@
       "answer": "how much is this designed rated ?",
       "note": null,
       "answered_at": "2026-11-10T12:32:28Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": true
     }
   ]

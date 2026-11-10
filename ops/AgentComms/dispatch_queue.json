@@ -915,8 +915,9 @@
   {
    "task": "TRAININGB1",
    "seat": "cursor",
-   "status": "queued",
-   "queued": "2026-11-10T11:35"
+   "status": "launched",
+   "queued": "2026-11-10T11:35",
+   "launched": "2026-11-10T17:13"
   },
   {
    "task": "KDFIX3",
@@ -942,6 +943,28 @@
    "seat": "qwen",
    "status": "queued",
    "queued": "2026-11-10T13:15"
+  },
+  {
+   "task": "DUESCARD1",
+   "seat": "cursor",
+   "status": "launched",
+   "queued": "2026-11-10T13:51",
+   "launched": "2026-11-10T14:37"
+  },
+  {
+   "id": "KDFIX5",
+   "seat": "qwen",
+   "title": "TASK KDFIX5 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 5: Cursor's all-green was false",
+   "brief": "KDFIX5",
+   "status": "queued"
+  },
+  {
+   "id": "BLOCKMEET3",
+   "seat": "qwen",
+   "title": "TASK BLOCKMEET3 - QWEN (qwen3-coder) - a blocked right cross sinks 3.7 cm into the blocking glove",
+   "brief": "BLOCKMEET3",
+   "status": "superseded",
+   "note": "S426: Claude fixed it directly (FightStage CROSS_STANDOFF_M 0.015); block_meet_test failures=0 3 of 3"
   }
  ]
 }

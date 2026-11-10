@@ -77,11 +77,14 @@ func _hips_gap(stg: Node3D) -> float:
 	return Vector2(a.x - b.x, a.z - b.z).length()
 
 
+const STAND_S := 30.0
 func _reset(stg: Node3D) -> float:
 	stg.boxers[0]["pos"] = Vector3(0, 0, -stg.gap_m * 0.5)
 	stg.boxers[1]["pos"] = Vector3(0, 0, stg.gap_m * 0.5)
 	stg.guard(0)
 	stg.guard(1)
+	stg.feet._pause = [STAND_S, STAND_S]   # S426: no rhythm step or fidget starts mid-read (the rows' gap ran 0.84-1.05 run to run)
+	stg.life._quiet = [STAND_S, STAND_S]
 	for i in 3:
 		await process_frame
 	return _hips_gap(stg)

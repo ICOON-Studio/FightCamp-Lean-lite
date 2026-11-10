@@ -58,6 +58,15 @@ var _hold_left := 0.0
 var _finish_land := -1
 var _finish_rev := false
 var _finish_done := false
+## S425 ANIMFIX1 (the live bout on film: "+4" and the new score stood on screen 2 s before the bodies reached the mount, and
+## "LANDS" over a move that had not started): the screen says who is TRYING what when a move starts; its result and the
+## score land when the bodies do (RESULT_LEAD_S before the move ends; a miss after its feint's reach, RESULT_MISS_S).
+## `-- earlyresult` = the result at once (the control arm).
+const RESULT_LEAD_S := 0.3
+const RESULT_MISS_S := 0.7
+var _late: bool = not OS.get_cmdline_user_args().has("earlyresult")
+var _result: Dictionary = {}     # the attempt whose result is not on screen yet
+var _pts_shown: Array = [0, 0]
 
 
 func setup(b: Control, athlete: Dictionary, seed_n: int = 369, rival: Dictionary = {}, done: Callable = Callable()) -> void:
@@ -88,6 +97,7 @@ func setup(b: Control, athlete: Dictionary, seed_n: int = 369, rival: Dictionary
 func _process(delta: float) -> void:
 	if browser == null or st.is_empty():
 		return
+	_result_tick(delta)
 	if bool(st["over"]):
 		# S371 BJJ9: a submission's winning move plays out BEFORE the verdict shows, then the finished hold reads for
 		# VERDICT_HOLD_S before the banner (a tap's worth of stillness in the choke, not a verdict over a tangle).
@@ -144,7 +154,14 @@ func _act(me: int, o: Dictionary, called: bool) -> void:
 		hud.note(me, str(o["title"]))
 	else:
 		var r := BjjClash.read(before, me, o, hit, firsts)
-		hud.attempt(me, BjjClash.title(o, NoGi.move_name(str(o["syllabus"])) if str(o["syllabus"]) != "" else ""), hit, float(o["odds"]), roll, r)
+		var shown := BjjClash.title(o, NoGi.move_name(str(o["syllabus"])) if str(o["syllabus"]) != "" else "")
+		_show_result(before["pts"])   # one still waiting (the next move took over mid-feint) goes on screen first, on its own score
+		_result = {"me": me, "title": shown, "hit": hit, "odds": float(o["odds"]), "roll": roll, "r": r,
+			"left": RESULT_MISS_S if (not hit or int(o["i"]) < 0) else -1.0}
+		if _late and not bool(st["over"]):   # a won submission says LOCKED IN at once: its finish plays next
+			hud.trying(me, shown, r)
+		else:
+			_show_result()
 	_prev_title = Graph.clean(str(o["title"])).to_lower()
 	_last = "%s%s: %s - %s" % ["CALL " if called else "", who, Graph.clean(str(o["title"])),
 		("+%d" % int(o["pts"]) if int(o["pts"]) > 0 else "in") if hit else "missed"]
@@ -170,6 +187,30 @@ func _act(me: int, o: Dictionary, called: bool) -> void:
 		browser.play_feint(browser.graph.outs(browser.current)[int(o["i"])])
 	# Round 9: the settle is short - the blend windows of the next move cover the hand-over (was 1.0/0.6).
 	_wait = 0.5 if hit else 0.3
+
+
+## S425: the waiting result goes on screen when the bodies arrive (or its miss has shown), and the score with it.
+func _result_tick(delta: float) -> void:
+	if _result.is_empty():
+		return
+	var pl: Node = browser.get("player")
+	if float(_result["left"]) >= 0.0:
+		_result["left"] = float(_result["left"]) - delta
+		if float(_result["left"]) <= 0.0:
+			_show_result()
+	elif (browser.moving as Dictionary).is_empty() or pl == null or float(pl.length_s()) - float(pl.t()) <= RESULT_LEAD_S:
+		_show_result()
+
+
+func _show_result(pts: Array = []) -> void:
+	if not _result.is_empty():
+		var x: Dictionary = _result
+		_result = {}
+		hud.attempt(int(x["me"]), str(x["title"]), bool(x["hit"]), float(x["odds"]), float(x["roll"]), x["r"])
+	var now: Array = st["pts"] if pts.is_empty() else pts
+	_pts_shown = [int(now[0]), int(now[1])]
+	if _score != null:
+		_draw()
 
 
 ## No scoring move for the one with the initiative: a plain move out (a grip, a step) keeps the match flowing.
@@ -305,7 +346,7 @@ func _numbers(i: int) -> Dictionary:
 
 
 func _draw() -> void:
-	_score.text = "%s %d - %d %s" % [names[0], int(st["pts"][0]), int(st["pts"][1]), names[1]]
+	_score.text = "%s %d - %d %s" % [names[0], int(_pts_shown[0]), int(_pts_shown[1]), names[1]]
 	_clock.text = "%s of %s" % [BjjMatch.clock(minf(float(st["t"]), float(st["limit_s"]))), BjjMatch.clock(float(st["limit_s"]))]
 	var pos_c := BjjMatch.classify(_tags(browser.current))
 	var top := _top(pos_c)
@@ -354,13 +395,18 @@ func _offer_card(k: int, o: Dictionary) -> PanelContainer:
 	if k == 0:
 		top.add_child(UI.chip("%s'S PLAN" % str(f["first"]).to_upper(), "gold"))
 	var hold := str(o["kind"]) == "hold"
-	top.add_child(UI.label(str(o["title"]) if hold else Graph.clean(str(o["title"])), UI.BODY, UI.FG, "bold"))
+	# S425: what the call DOES first ("Take mount"), the technique's own name after it, small
+	var does := str(o["title"]) if hold else BjjClash.title(o, NoGi.move_name(str(o["syllabus"])) if str(o["syllabus"]) != "" else "")
+	top.add_child(UI.label(does, UI.BODY, UI.FG, "bold"))
+	if not hold and Graph.clean(str(o["title"])).to_lower() != does.to_lower():
+		top.add_child(UI.muted(Graph.clean(str(o["title"])), UI.SMALL))
 	v.add_child(top)
 	var cells := UI.hbox(18)
 	var gas := BjjMatch.gas_cost(st, 0, o)
 	var rk := BjjMatch.risk(o)
 	cells.add_child(_cell("CHANCE", "%d%%" % roundi(float(o["odds"]) * 100.0)))
-	cells.add_child(_cell("POINTS", ("+%d" % int(o["pts"])) if int(o["pts"]) > 0 else ("WIN" if str(o["kind"]) == "sub" else "0")))
+	cells.add_child(_cell("POINTS", ("+%d" % int(o["pts"])) if int(o["pts"]) > 0 else ("WIN" if str(o["kind"]) == "sub" else
+		("0, paid before" if BjjMatch.paid(st, 0, str(o["kind"])) else "0"))))
 	cells.add_child(_cell("GAS", ("+%d" % roundi(-gas.x)) if hold else ("-%d, miss -%d" % [roundi(gas.x), roundi(gas.y)])))
 	var rc := UI.vbox(2)
 	rc.add_child(UI.caps("RISK"))
@@ -390,6 +436,7 @@ func _close_call() -> void:
 func _end() -> void:
 	_ended = true
 	_close_call()
+	_show_result()
 	_draw()
 	var w := int(st["winner"])
 	var line := ("%s (RED) WINS - %s" % [str(f["first"]).to_upper(), st["how"]]) if w == 0 else \

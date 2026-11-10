@@ -3,14 +3,14 @@
  "updated": "2026-11-10",
  "author": "claude S294",
  "now": {
-  "id": "S425",
+  "id": "S426",
   "owner": "claude",
   "updated": "2026-11-10",
-  "summary": "S425: his three rulings (every new mechanic wired, shown, critics 7+; a Fable subagent for the boxing and grappling animations; combine the old ideas into a week with things to do, anticipation, choices and reward, using the free agents). R55 'who gets the pads' measured and mapped twice: depth 4 from four critics, too small alone. The week design: two designer pages joined into v1 (the coach's evenings, the film on you, the week board and Thursday call, the next fight's four prices), two fresh critics depth 5 each; v2 being written with his outside playbook proposal (state rules, drilled to fire, places by ring IQ). READBACK1 (Qwen, on main): her corner waiting for the best plan line costs 7.0 points, 5 to 6 in round 2; drop +0.7, swap 0.0. Digest ops/research/S425_DIGEST.md. Later in S425: week design v2 depth 5 (two fresh critics); READBACK1-3 on main: no answer wins back a read plan line (best +3.7 of 7), the full plan-reading game is out; the Dues tab on main (DUESCARD1+2); his corner-minute reference and Claude's corner_v1 mockup; Boxing Manager compared (they 7, we 5.9; world and career is the gap); scope widened: a small living world after the week ('Yes, after the week'); ANIMFIX1 finished: hips no longer drop 8 cm under punches but the legs still tremble at clip changes; grappling labels, double points and early scores fixed, drift and bodies not; KDFIX4 is red on a rerun.",
-  "last_working_commit": "eb352bfe",
+  "summary": "S426: his four marks on the corner bar fixed in the game (LAST CALL box titled, Risky for Wrong, energy words for the bolt and arrows, head counts as numbers); 'the hud hides players feet' fixed (TvShot.BAR_DROP_M: the lens looks 0.3 m lower; both boots above the bar in two stills); his blur still (ghost copies of a hair edge in motion) answered with 8 blur samples in RingCamera (judge it in motion); his still on the review board. claude/grapplefix1 collected by diff (bjj tests green). qwen/legtremble4 code NOT collected: block_meet_test is red on main (1 row, 3 of 3 runs, GY_FAIL) and on the legs patch 2 rows; the 149 clips left out. KDFIX5 launched on Qwen (qwen/kdfix5). FIRELEVEL1 (PR 175) held for week design v3: with no key a combo under mastery 30 gets share 0.0, check PlanFight already excludes it before merging. THURSDAY1 (PR 176): its 40 camps fall into two identical results, so 'half the camp weeks have two or more problems open' is unproven. Exported 17:21 with all of this; WHAT_TO_TRY current.",
+  "last_working_commit": "de5183d8",
   "verified_playable": "people_slate, camp_slate, start_slate, camp_cards, versus, recruit, wood_kit, words_on_screens, plain_words, no_pronoun, gauges, attr_board, fighter_model green on the PC; the pages rendered and opened (E:/FightCamp/tmp/s419_screens, s419_screens2).",
   "incomplete_blocked": "MAIN CI: no finished run since e4a7b6f3 (red); three S419 pushes cancelled each other's runs, read the run on the wrap-up push. PR 140 REARHAND5B not judged: tools/head_aim_film.gd move=rear_hook printed no CONTACT line, so the film showed no punch. Luke Reid's portrait reads near black on Club People. Training week page untouched until his pick.",
-  "next_action": "1) Collect qwen/legtremble4 (PR 168) and claude/grapplefix1 by diff, LOOK at the four films on the review board, merge what is green and visibly better; new briefs: legs (fewer, longer clips), grappling (unnamed drift, bodies, call cadence), KDFIX5 (knockdown_still red 2.30 cm, Cursor's green was false; PR 169 not merged). 2) FIRELEVEL1 and THURSDAY1 (Qwen) -> week design v3 -> two FRESH critics, 7+ -> his board. 3) Export with the Dues tab, WHAT_TO_TRY. 4) Chat seats: cutman v3, dues sums, R37, the small world (his 'Yes, after the week'). Full state: NEXT_SESSION_PROMPT.md.",
+  "next_action": "1) block_meet_test is now deterministic with one real red row (A_B right cross 3.7 cm inside the block, BLOCKMEET3 queued); look at the legs branch's films, then merge its code without leg_tremble_test. 2) KDFIX5 lands: collect by diff, rerun knockdown_still_test and block_meet_test 3x. 3) Briefs: legs (fewer, longer clips), grappling (drift, bodies, call cadence ~30-40 s). 4) FIRELEVEL1 check + THURSDAY1 rerun with real different seeds -> week design v3 -> two fresh critics 7+ -> his board. 5) Chat seats: cutman v3, dues sums, R37 map, the small world. 6) His marks on the review board (8787/review) on the new corner still.",
   "next_acceptance": "The week design scores depth 7+ from two fresh critics and is on his board with its pictures; a film of round 2 without trembling legs and a film of a readable BJJ match are on his review board.",
   "awaiting_operator": []
  },
@@ -1703,6 +1703,11 @@
    "id": "S425",
    "date": "2026-11-10",
    "summary": "S425: his three rulings (every new mechanic wired, shown, critics 7+; a Fable subagent for the boxing and grappling animations; combine the old ideas into a week with things to do, anticipation, choices and reward, using the free agents). R55 'who gets the pads' measured and mapped twice: depth 4 from four critics, too small alone. The week design: two designer pages joined into v1 (the coach's evenings, the film on you, the week board and Thursday call, the next fight's four prices), two fresh critics depth 5 each; v2 being written with his outside playbook proposal (state rules, drilled to fire, places by ring IQ). READBACK1 (Qwen, on main): her corner waiting for the best plan line costs 7.0 points, 5 to 6 in round 2; drop +0.7, swap 0.0. Digest ops/research/S425_DIGEST.md. Later in S425: week design v2 depth 5 (two fresh critics); READBACK1-3 on main: no answer wins back a read plan line (best +3.7 of 7), the full plan-reading game is out; the Dues tab on main (DUESCARD1+2); his corner-minute reference and Claude's corner_v1 mockup; Boxing Manager compared (they 7, we 5.9; world and career is the gap); scope widened: a small living world after the week ('Yes, after the week'); ANIMFIX1 finished: hips no longer drop 8 cm under punches but the legs still tremble at clip changes; grappling labels, double points and early scores fixed, drift and bodies not; KDFIX4 is red on a rerun."
+  },
+  {
+   "id": "S426",
+   "date": "2026-11-10",
+   "summary": "S426: his four marks on the corner bar fixed in the game (LAST CALL box titled, Risky for Wrong, energy words for the bolt and arrows, head counts as numbers); 'the hud hides players feet' fixed (TvShot.BAR_DROP_M: the lens looks 0.3 m lower; both boots above the bar in two stills); his blur still (ghost copies of a hair edge in motion) answered with 8 blur samples in RingCamera (judge it in motion); his still on the review board. claude/grapplefix1 collected by diff (bjj tests green). qwen/legtremble4 code NOT collected: block_meet_test is red on main (1 row, 3 of 3 runs, GY_FAIL) and on the legs patch 2 rows; the 149 clips left out. KDFIX5 launched on Qwen (qwen/kdfix5). FIRELEVEL1 (PR 175) held for week design v3: with no key a combo under mastery 30 gets share 0.0, check PlanFight already excludes it before merging. THURSDAY1 (PR 176): its 40 camps fall into two identical results, so 'half the camp weeks have two or more problems open' is unproven. Exported 17:21 with all of this; WHAT_TO_TRY current."
   }
  ],
  "blocked_on_operator": [],
@@ -4621,7 +4626,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-10 16:42 board_sync",
+  "updated": "2026-11-10 17:13 board_sync",
   "goal": "MECHANICS FIRST (operator S422: 'ok prepare next session with your recommendations'): the seven mechanics the critics and you chose in S402 get built before more menu polish. Each mechanic starts with a DESIGN MAP (operator Q-173: 'what the player decides exactly and where does that happening ? which screens ? have you mapped the whole design for the mechanism ?'): the decision, the screen, what it changes, the numbers; your OK; then the build. Menus change only when a mechanic needs them. One playable .exe a week, judged by you.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4899,7 +4904,8 @@
     "title": "TASK FIGHTDISPLAY2 - CURSOR (Grok 4.7 High) - the live fight's two side panels from the veteran's drawing",
     "who": "cursor",
     "started": "2026-11-10T16:15",
-    "run": "FIGHTDISPLAY2"
+    "run": "FIGHTDISPLAY2",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK THURSDAY1 - QWEN (qwen3-coder) - how many real problems does a camp week throw up by Thursday? Measure only",
@@ -4907,21 +4913,21 @@
     "started": "2026-11-10T16:21",
     "run": "THURSDAY1",
     "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK TRAININGB1 - CURSOR (Grok 4.7 High) - the Training tab rebuilt as approach B, with A's tiredness curve on top",
+    "who": "cursor",
+    "started": "2026-11-10T17:13",
+    "run": "TRAININGB1"
+   },
+   {
+    "title": "TASK KDFIX5 - QWEN - a downed boxer sways, round 5 (Cursor all-green was false)",
+    "who": "qwen",
+    "started": "2026-11-10T17:14",
+    "run": "KDFIX5"
    }
   ],
   "next": [
-   {
-    "id": "FIRELEVEL1",
-    "who": "qwen",
-    "title": "A plan line fires as well as it is drilled: switched-off rule, measured",
-    "after": ""
-   },
-   {
-    "id": "THURSDAY1",
-    "who": "qwen",
-    "title": "Count the real problems a camp week shows by Thursday (measure)",
-    "after": ""
-   },
    {
     "id": "FIGHTDISPLAY2",
     "who": "cursor",
@@ -4987,6 +4993,18 @@
     "who": "claude",
     "title": "A small living world: one belt ladder, rivals who move, judges with taste (his yes: after the week)",
     "after": "R55"
+   },
+   {
+    "id": "WEEKV3",
+    "who": "claude",
+    "title": "Week design v3: FIRELEVEL1 collect check, THURSDAY1 rerun on real seeds, then two fresh critics (7+)",
+    "after": "KDFIX5"
+   },
+   {
+    "id": "BLOCKMEET3",
+    "who": "claude",
+    "title": "block_meet_test is red on main: find the commit, then retry the legs patch",
+    "after": ""
    }
   ],
   "waiting_seat": [
@@ -5258,6 +5276,11 @@
   },
   "done_recently": [
    {
+    "title": "Corner bar in plain words, feet above the bar, blur 8 samples, grappling fixes collected",
+    "who": "claude",
+    "when": "2026-11-10"
+   },
+   {
     "title": "Dues: three painted price boards on their own tab (Club > Money > Dues)",
     "who": "cursor",
     "when": "2026-11-10"
@@ -5309,21 +5332,6 @@
    },
    {
     "title": "Leg tremble's red test traced: a ruler read too early",
-    "who": "claude",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "TASK FIGHTSLIDE3 - QWEN (qwen3-coder) - the fighters slide: switch off the five writers FIGHTSLIDE2 skipped. Measure only",
-    "who": "qwen",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "The critics' 10/10 fight displays; you picked the veteran's",
-    "who": "claude",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Knockdown count can no longer hang",
     "who": "claude",
     "when": "2026-11-10"
    }
@@ -5573,7 +5581,7 @@
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "eb352bfe",
- "next_action": "1) Collect qwen/legtremble4 (PR 168) and claude/grapplefix1 by diff, LOOK at the four films on the review board, merge what is green and visibly better; new briefs: legs (fewer, longer clips), grappling (unnamed drift, bodies, call cadence), KDFIX5 (knockdown_still red 2.30 cm, Cursor's green was false; PR 169 not merged). 2) FIRELEVEL1 and THURSDAY1 (Qwen) -> week design v3 -> two FRESH critics, 7+ -> his board. 3) Export with the Dues tab, WHAT_TO_TRY. 4) Chat seats: cutman v3, dues sums, R37, the small world (his 'Yes, after the week'). Full state: NEXT_SESSION_PROMPT.md.",
+ "last_working_commit": "de5183d8",
+ "next_action": "1) block_meet_test is now deterministic with one real red row (A_B right cross 3.7 cm inside the block, BLOCKMEET3 queued); look at the legs branch's films, then merge its code without leg_tremble_test. 2) KDFIX5 lands: collect by diff, rerun knockdown_still_test and block_meet_test 3x. 3) Briefs: legs (fewer, longer clips), grappling (drift, bodies, call cadence ~30-40 s). 4) FIRELEVEL1 check + THURSDAY1 rerun with real different seeds -> week design v3 -> two fresh critics 7+ -> his board. 5) Chat seats: cutman v3, dues sums, R37 map, the small world. 6) His marks on the review board (8787/review) on the new corner still.",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

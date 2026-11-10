@@ -86,6 +86,17 @@ const MISS_WORDS := {"sub": "a missed submission gives up the grips and the init
 const LOSS := {"sub": 1.0, "takedown": 0.8, "advance": 0.6, "sweep": 0.5, "pass": 0.5, "mount": 0.5, "back": 0.5,
 	"knee_on_belly": 0.5, "escape": 0.4, "hold": 0.0}
 const RISK_AT := Vector2(0.2, 0.4)   # under x Low, under y Medium, else High
+## S425 ANIMFIX1 (the live bout on film, 0:55-1:02: Ana took the mount for 4, left it herself - shown as "Move up, LANDS" -
+## and took it again for 4 more: 8-0 in five seconds off two moves, back and forth). Two rules of the sport were missing:
+## - THE LADDER: for the woman on top the positions rank guard < half guard < side control < mount < back. A move that takes
+##   her DOWN it gives ground: it is no "advance", so it is never her pick and never offered.
+## - PAID ONCE: a position's points (pass, knee on belly, mount, back) are paid once; she is paid for it again only after
+##   the other woman has landed a move of her own (IBJJF: no points for giving a position up and taking it back).
+const TOP_RANK := {"guard": 1, "half_guard": 2, "side_control": 3, "mount": 4, "back": 5}
+const PAID_ONCE := ["pass", "knee_on_belly", "mount", "back"]
+## S425: the film's three calls all came inside 13 seconds (0:42, 0:49, 0:52), each the same two choices, and the player
+## had no say for the four minutes left. A call opens at most once in CALL_GAP_S of match time.
+const CALL_GAP_S := 20.0
 
 
 ## A position's class from its GrappleMap tags. Open guards carry no guard tag in GrappleMap (bottom on her back, top
@@ -149,6 +160,8 @@ static func kind_of(tags: Array, from_c: String, to_c: String, top_before: int, 
 	if to_c == "side_control" and from_c in ["guard", "half_guard"]:
 		return "pass"
 	if to_c != from_c:
+		if top_before == me and TOP_RANK.has(from_c) and TOP_RANK.has(to_c) and int(TOP_RANK[to_c]) < int(TOP_RANK[from_c]):
+			return ""   # S425: down the ladder (mount back to guard) gives ground
 		return "advance"
 	return ""
 
@@ -207,7 +220,8 @@ static func start(f: Dictionary, opp: Dictionary) -> Dictionary:
 	return {"t": 0.0, "limit_s": float(BeltRoad.match_minutes(str(f.get("belt", "white")))) * 60.0, "pts": [0, 0],
 		"calls": CALLS_PER_MATCH, "gas": [1.0, 1.0], "init": 0, "over": false, "winner": -1, "how": "", "settle_s": 0.0,
 		"skill": [skill_of(f), float(opp.get("skill", 30.0))], "log": [],
-		"strength": [stat(f, "strength"), stat(opp, "strength")], "cardio": [stat(f, "cardio"), stat(opp, "cardio")]}
+		"strength": [stat(f, "strength"), stat(opp, "strength")], "cardio": [stat(f, "cardio"), stat(opp, "cardio")],
+		"paid": [[], []], "call_t": -CALL_GAP_S}
 
 
 static func stat(who: Dictionary, key: String) -> float:
@@ -217,7 +231,8 @@ static func stat(who: Dictionary, key: String) -> float:
 ## Can the player call now? Her initiative, a heavy settle held SETTLE_S, calls left, gas above TIRED_GAS.
 static func can_call(st: Dictionary, pos_class: String) -> bool:
 	return not bool(st["over"]) and int(st["init"]) == 0 and int(st["calls"]) > 0 and SETTLES.has(pos_class) \
-		and float(st["settle_s"]) >= SETTLE_S and float(st["gas"][0]) >= TIRED_GAS
+		and float(st["settle_s"]) >= SETTLE_S and float(st["gas"][0]) >= TIRED_GAS \
+		and float(st["t"]) - float(st.get("call_t", -CALL_GAP_S)) >= CALL_GAP_S
 
 
 ## The moves woman `me` may make out of here, each with odds, points and the cost of a miss, best expected points first.
@@ -249,11 +264,18 @@ static func offers(st: Dictionary, f: Dictionary, me: int, from_c: String, top_n
 		var p := odds(kind, m, float(st["skill"][me]), float(st["skill"][1 - me]), float(st["gas"][me]),
 			float(st["strength"][me]), float(st["strength"][1 - me]))
 		var pts := points(kind)
+		if paid(st, me, kind):
+			pts = 0   # S425: already paid for this position (PAID_ONCE)
 		var ev := p * (10.0 if kind == "sub" else float(pts) + 0.5) - (1.0 - p) * (1.5 if kind == "sub" else 0.5)
 		out.append({"i": c["i"], "title": sub_name(tags) if kind == "sub" else str(c["title"]), "kind": kind, "syllabus": syl, "m": m, "odds": p, "pts": pts,
-			"miss": str(MISS_WORDS.get(kind, "")), "ev": ev})
+			"to": str(c["to_c"]), "miss": str(MISS_WORDS.get(kind, "")), "ev": ev})
 	out.sort_custom(func(a, b): return float(a["ev"]) > float(b["ev"]))
 	return out.slice(0, OFFER_MAX)
+
+
+## S425: has woman `me` been paid for this position since the other woman last landed a move? (PAID_ONCE)
+static func paid(st: Dictionary, me: int, kind: String) -> bool:
+	return PAID_ONCE.has(kind) and ((st.get("paid", [[], []]) as Array)[me] as Array).has(kind)
 
 
 ## A call's choices: the moves (best first, her plan) and HOLD last.
@@ -285,6 +307,7 @@ static func risk(o: Dictionary) -> Dictionary:
 static func resolve(st: Dictionary, me: int, o: Dictionary, roll: float, called: bool = false) -> bool:
 	if called:
 		st["calls"] = int(st["calls"]) - 1
+		st["call_t"] = st["t"]
 	if str(o["kind"]) == "hold":
 		st["gas"][me] = minf(1.0, float(st["gas"][me]) + HOLD_GAS)
 		st["settle_s"] = 0.0
@@ -301,6 +324,12 @@ static func resolve(st: Dictionary, me: int, o: Dictionary, roll: float, called:
 			st["how"] = "submission (%s) %s" % [str(o["title"]).to_lower(), clock(float(st["t"]))]
 		else:
 			st["pts"][me] = int(st["pts"][me]) + int(o["pts"])
+		# S425 PAID_ONCE: her position is on the ledger; a move landed by her opens the other woman's ledger again
+		if not st.has("paid"):
+			st["paid"] = [[], []]
+		if PAID_ONCE.has(str(o["kind"])) and not (st["paid"][me] as Array).has(str(o["kind"])):
+			(st["paid"][me] as Array).append(str(o["kind"]))
+		st["paid"][1 - me] = []
 	else:
 		st["gas"][me] = maxf(0.0, float(st["gas"][me]) - MISS_GAS * drain)
 		st["init"] = 1 - me

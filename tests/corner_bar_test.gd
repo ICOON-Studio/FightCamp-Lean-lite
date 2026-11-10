@@ -9,7 +9,7 @@ const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 
 ## Exchanges.fit returns best / ok / wrong (the brief's good / ok / bad). The drawing's words for those three.
-const GRADE := {"best": "Beats it", "ok": "Works", "wrong": "Wrong"}
+const GRADE := {"best": "Beats it", "ok": "Works", "wrong": "Risky"}
 const RED := Color("#e2483d")
 const BLUE := Color("#3a7ce0")
 

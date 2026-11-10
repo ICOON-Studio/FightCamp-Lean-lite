@@ -2,8 +2,8 @@ extends Control
 ## S382 HOLOOFF R2 (skeptic on the corner card: a round-1 holo is all clean cyan - every place is still 'fine' (above
 ## BodyMap.HURT), so BodyFigure.SPOT_ALPHA paints nothing and the player reads "she is clean"): on the CORNER card the holo
 ## shows where she was hit THIS round even while fine - a light tint per spot graded by the punches that landed there this
-## round (warm amber for a few, orange for many); the band colours (hurt and worse) stay on top. One short word per hot spot
-## ("head 4", "ribs 2", "liver 1") beside it on the figure, nothing else.
+## round (warm amber for a few, orange for many); the band colours (hurt and worse) stay on top. One number per hot spot, on the spot (S426: no
+## words; the place it sits on says where).
 ##   count(log, round_n, struck_places)   tint(n) -> Color   lay_on(figure, hits) -> RoundHits (the words layer)
 ## Keys are each BodyFigure.SPOTS group's first place: "head" (head, eyes, nose), "left_ribs", "right_ribs" (the liver).
 
@@ -63,26 +63,28 @@ func _ready() -> void:
 	resized.connect(queue_redraw)
 
 
-## Each hot spot's word beside it, outside the body: the head's and her left ribs' on the viewer's right, the liver's on the
-## viewer's left; outlined so it reads on the holo and the dark plate.
+## Each hot spot's count ON the spot: a number in a small dark badge, nothing else (S426 operator on "3 hits to the head":
+## "the number on the head implies that the hit is in the head, no need for text"). The place is the place it sits on.
 func _draw() -> void:
 	drawn.clear()
 	if fig == null or fig.get("_tex") == null:
 		return
 	var font := get_theme_default_font()
+	var fs := size_px + 5
 	for key in WORDS:
 		var n := int(hits.get(key, 0))
 		if n <= 0:
 			continue
-		var text := "%d %s to the %s" % [n, "hit" if n == 1 else "hits", WORDS[key]]   # S419 operator on "head 4", "liver 1": "wtf is that"
+		var text := str(n)
 		var g: Dictionary = fig.call("_geom_px", key)
 		var c: Vector2 = g["c"]
-		var w := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, size_px).x
-		var x := c.x - float(g["rx"]) - 4.0 - w if key == "right_ribs" else c.x + float(g["rx"]) + 4.0
-		x = clampf(x, 2.0, maxf(2.0, size.x - w - 2.0))
-		var at := Vector2(x, c.y + size_px * 0.35)
-		draw_string_outline(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, size_px, 4, Color(0, 0, 0, 0.85))
+		var w := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
+		var r := maxf(float(fs) * 0.8, w * 0.5 + 5.0)
+		var mid := Vector2(clampf(c.x, r + 1.0, maxf(r + 1.0, size.x - r - 1.0)), c.y)
 		var col := tint(n).lerp(Color.WHITE, 0.35)
 		col.a = 1.0
-		draw_string(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, size_px, col)
+		draw_circle(mid, r, Color(0, 0, 0, 0.72))
+		draw_arc(mid, r, 0.0, TAU, 24, col, 2.0, true)
+		var at := Vector2(mid.x - w * 0.5, mid.y + float(fs) * 0.35)
+		draw_string(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, col)
 		drawn.append([text, at])

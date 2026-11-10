@@ -134,6 +134,34 @@ func _initialize() -> void:
 	_check(str(M.risk({"kind": "pass", "odds": 0.7})["word"]) == "Low", "a 70 % pass is Low risk")
 	_check(str(M.risk({"kind": "takedown", "odds": 0.5})["word"]) == "Medium", "a 50 % takedown is Medium risk")
 	_check(str(M.risk(M.HOLD)["word"]) == "None", "a hold has no risk")
+	# S425 ANIMFIX1: the ladder, paid once, calls spread out (the live bout on film: mount, "move up" out of it, mount again, 8-0)
+	_check(M.kind_of([], "mount", "guard", 0, 0, 0) == "", "on top, mount back to guard gives ground: no advance")
+	_check(M.kind_of([], "side_control", "half_guard", 0, 0, 0) == "", "on top, side control back to half guard: no advance")
+	_check(M.kind_of([], "half_guard", "side_control", 0, 0, 0) == "pass" and M.kind_of([], "guard", "half_guard", 0, 0, 0) == "advance",
+		"up the ladder still reads as a pass or an advance")
+	_check(M.kind_of([], "mount", "guard", 1, 1, 0) == "escape", "underneath, mount to guard is still her escape")
+	var ps := M.start(ana, {"name": "K", "skill": 30.0})
+	var mount_c := [{"i": 0, "title": "x", "tags": [], "to_c": "mount", "top_after": 0}]
+	var first: Dictionary = M.offers(ps, ana, 0, "side_control", 0, mount_c)[0]
+	_check(int(first["pts"]) == 4 and str(first["to"]) == "mount", "the mount pays 4 and the offer says where it goes")
+	M.resolve(ps, 0, first, 0.0)
+	_check(int(ps["pts"][0]) == 4 and M.paid(ps, 0, "mount"), "paid once: the mount is on her ledger")
+	var again: Dictionary = M.offers(ps, ana, 0, "side_control", 0, mount_c)[0]
+	_check(int(again["pts"]) == 0, "the same position again pays nothing while the other woman has landed no move")
+	M.resolve(ps, 0, again, 0.0)
+	_check(int(ps["pts"][0]) == 4, "taking it again adds no points")
+	M.resolve(ps, 1, {"i": 0, "title": "x", "kind": "escape", "syllabus": "", "odds": 1.0, "pts": 0}, 0.0)
+	_check(not M.paid(ps, 0, "mount") and int(M.offers(ps, ana, 0, "side_control", 0, mount_c)[0]["pts"]) == 4,
+		"after the other woman's escape lands, the mount pays again")
+	var cs := M.start(ana, {"name": "K", "skill": 30.0})
+	cs["settle_s"] = 1.0
+	_check(M.can_call(cs, "mount"), "the first call may open at once")
+	M.resolve(cs, 0, M.HOLD.duplicate(), 0.0, true)
+	cs["settle_s"] = 1.0
+	cs["t"] = float(cs["t"]) + M.CALL_GAP_S - 1.0
+	_check(not M.can_call(cs, "mount"), "no second call inside %d s of the last" % int(M.CALL_GAP_S))
+	cs["t"] = float(cs["t"]) + 2.0
+	_check(M.can_call(cs, "mount"), "... and it opens again after that")
 	print("BJJ_MATCH failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 

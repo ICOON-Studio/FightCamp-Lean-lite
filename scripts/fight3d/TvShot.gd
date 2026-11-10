@@ -34,6 +34,9 @@ const HIGH_H := 2.7
 ## head) with MARGIN_X metres beside them (they move while the lens rides behind them), as if they stood at least
 ## MIN_GAP_M apart; FOV_PAD on top. One FOV for the whole shot.
 const HEAD_M := 2.15
+## S426 operator: "the hud hides players feet" - the corner bar covers the bottom ~16% of the picture: the room under the
+## boots stays 0.2 m and place() looks BAR_DROP_M lower than the centred frame, so the pair rides above the bar.
+const BAR_DROP_M := 0.3
 const FOOT_M := -0.2
 const MARGIN_X := 0.45
 ## Only the open middle of the picture counts: the body-map panels (FightHud) cover the outer ~17.5 % of each side.
@@ -165,6 +168,7 @@ static func place(a: Vector3, b: Vector3, prefer: Vector3, dist: float, yaw: flo
 	var pts := pair_points(a, b)
 	if look_h < 0.0:
 		look_h = centre_h(lens3, mid, pts)
+	look_h -= BAR_DROP_M
 	var look := mid + Vector3.UP * look_h
 	var fov := clampf(frame_fov(lens3, look, pts, aspect, MARGIN_X) * FOV_PAD, FOV_MIN, FOV_MAX)
 	return {"lens": lens3, "look": look, "look_h": look_h, "fov": fov, "off": spot - mid, "high": high}

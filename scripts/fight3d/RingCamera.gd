@@ -84,10 +84,9 @@ const RING_HALF_M := TvShot.RING_HALF_M     # FightStage.RING_M * 0.5
 const IN_M := TvShot.IN_M
 const MIN_DIST_M := 1.9
 const TURNS := [0.0, 25.0, -25.0, 50.0, -50.0, 80.0, -80.0, 115.0, -115.0, 150.0, -150.0, 180.0]
-## S317 motion blur (operator: "go ahead" on the download): sphynx-owner's Godot Motion Blur Addon v1.1.1 (MIT, per-object
-## velocity blur as a compositor effect; needs his Easy Compositor Addon v1.0.4, MIT) - res://addons. The reference's fast
-## punches smear; ours stepped frame to frame. Camera rotation counts little (an orbit should not smear the ring); a cut
-## or a jump of the lens past JUMP_M gets no blur on that frame. `-- noblur` = the control arm; headless runs have none.
+## S317 motion blur (operator "go ahead"): sphynx-owner's Godot Motion Blur Addon v1.1.1 + Easy Compositor v1.0.4 (MIT, res://addons):
+## per-object velocity blur as a compositor effect, so fast punches smear. Camera rotation counts little; a cut or a jump of
+## the lens past JUMP_M gets no blur on that frame. `-- noblur` = the control arm; headless runs have none.
 const MOTION_BLUR := "res://addons/godot-motion-blur/guertin/guertin_motion_blur.gd"
 const BLUR := 1.0
 const JUMP_M := 0.4
@@ -96,8 +95,7 @@ const JUMP_M := 0.4
 const TOO_CLOSE_M := 1.3
 ## S369 (CAMCLINCH1): in a tie-up the heads sit side by side along the side-on line, so a side-on lens lets the near head
 ## hide the far one. While `clinch_heads` holds both heads the shot is SHOTS "clinch": turned its yaw off side-on toward the
-## side where lens -> far head clears the near head, lifted, looking at the midpoint of the heads (S379: placed at its cut,
-## no longer swung round while the lens held).
+## side where lens -> far head clears the near head, lifted, looking at the heads' midpoint (S379: placed at its cut, held).
 var avoid := Vector3.INF      # the referee (FightStage sets it every frame); INF = nobody to keep off
 var clinch_heads: Array = []  # [head_a, head_b] in world space while a clinch is held, else []
 
@@ -143,6 +141,8 @@ func _init() -> void:
 		_blur = (load(MOTION_BLUR) as Script).new() as CompositorEffect
 		_blur.set("intensity", BLUR)
 		_blur.set("multiplier_camera_rotation", 0.1)
+		_blur.set("samples", 8)   # S426 "background effects look weird with motion in front": 3 samples ghosted a hair edge 3 times
+		_blur.set("multiplier_object_movement", 0.7)   # lighter pull on moving objects: shorter smear
 		var comp := Compositor.new()
 		comp.compositor_effects = [_blur]
 		compositor = comp
