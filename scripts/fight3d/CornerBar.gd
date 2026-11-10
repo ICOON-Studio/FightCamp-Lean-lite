@@ -5,6 +5,7 @@ extends Control
 
 const TV := preload("res://scripts/ui/TV.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
+const Halo := preload("res://scripts/ui/Halo.gd")
 const Ink := preload("res://scripts/ui/UI.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
@@ -201,10 +202,12 @@ func _call(call: String, sit: String, names: Array, on: bool, _wide: float) -> C
 	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var edge := StyleBoxFlat.new()
 	edge.bg_color = Color(0, 0, 0, 0)
-	edge.border_color = WoodKit.HEAD if on else Color("#6b5338")
-	edge.set_border_width_all(4 if on else 3)
+	edge.border_color = Color("#6b5338")
+	edge.set_border_width_all(3)
 	edge.set_corner_radius_all(10)
 	frame.add_theme_stylebox_override("panel", edge)
+	if on:
+		Halo.ring(frame, WoodKit.HEAD, 10.0)
 	var b := Button.new()
 	b.name = "Call_" + call
 	b.focus_mode = Control.FOCUS_NONE
@@ -227,7 +230,8 @@ func _call(call: String, sit: String, names: Array, on: bool, _wide: float) -> C
 	box.offset_left = 6
 	box.offset_right = -6
 	b.add_child(box)
-	var title := TV.label(str(row["label"]).to_upper(), 30, WoodKit.INK if not on else WoodKit.DARK_INK, "bold", true)
+	var words := str(row["label"]).to_upper()
+	var title := TV.label(words, 30 if words.length() <= 18 else 24, WoodKit.INK if not on else WoodKit.DARK_INK, "bold", true)   # S427: a long call ran to three lines and pushed its grade off the plate
 	title.name = "CallTitle_" + call
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	box.add_child(title)
@@ -254,7 +258,7 @@ func _call(call: String, sit: String, names: Array, on: bool, _wide: float) -> C
 	chip.add_child(lab)
 	under.add_child(chip)
 	var cost := float(row["cost"])
-	var spend := TV.label(_cost_word(cost), 20, WoodKit.HEAD, "bold")
+	var spend := TV.label(_cost_word(cost), 20, WoodKit.HEAD if not on else Color("#6b3d00"), "bold")   # S427: gold on the lit plate could not be read
 	spend.name = "Cost_" + call
 	spend.custom_minimum_size = Vector2(60, 24)
 	under.add_child(spend)

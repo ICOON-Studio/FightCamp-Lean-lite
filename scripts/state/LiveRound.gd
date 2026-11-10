@@ -28,8 +28,8 @@ const Attrs := preload("res://scripts/rules/Attrs.gd")
 const CornerTrust := preload("res://scripts/rules/CornerTrust.gd")
 const Adaptation := preload("res://scripts/rules/Adaptation.gd")
 const ReadBack := preload("res://scripts/rules/ReadBack.gd")
+const FireLevel := preload("res://scripts/rules/FireLevel.gd")
 const HABITS_PATH := "res://assets/data/fight_habits.json"
-
 
 ## Her values a call is done with: the fight stats, her footwork and her personality.
 static func values(f: Dictionary) -> Dictionary:
@@ -271,6 +271,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var at := str(lv["at"])
 	var pick := PlanFight.choose(f["bout"].get("arrows", []), at, f.get("moves", {}), sit)
 	var arrow := str(pick["move"])
+	if bool(pick.get("planned", false)) and not FireLevel.fires(f["bout"].get("fire_level", {}), FireLevel.mastery_of(f, arrow), _rng(c, f, n, i + 173).randf()): pick["planned"] = false
 	# S342 real plans (Q-S294-67): a hurt opponent who still hits back, a waiter in the round's last exchange.
 	var psit := PlanFight.refine(sit, RoundStyle.opponent_habits(opp), i, Exchanges.EXCHANGES)
 	var card_mean := PlanFight.card_mean(at, psit, f.get("moves", {}), f.get("combos", {}))

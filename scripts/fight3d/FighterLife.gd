@@ -10,6 +10,7 @@ extends SkeletonModifier3D
 ## Clips that carry the whole body: the rest pose and the head look give way to them.
 const BUSY := ["jab", "cross", "hook", "upper", "punch", "hit", "react", "knock", "clinch", "block", "slip", "fall", "down",
 	"stagger", "roll", "duck", "weave", "body_"]
+const KnockdownLayers := preload("res://scripts/fight3d/KnockdownLayers.gd")
 ## The four rest poses a boxer drifts between: weight (-1 left .. 1 right), head tilt and chin added, shoulders, lean.
 const POSES := [
 	{"weight": 0.0, "tilt": 0.0, "chin": 0.0, "hunch": 0.0, "lean": 0.0},
@@ -98,7 +99,13 @@ func _process_modification() -> void:
 	if dt <= 0.0:
 		return
 	_t += dt
-	calm = move_toward(calm, 0.2 if _busy() else 1.0, dt / 0.25)
+	# KDFIX4: a finished knockdown clears current_animation and the life layer was coming back on the held pose.
+	# clip_of keeps the held clip, so calm stays 0 for the rest of the time on the canvas. Once it is there, stop writing.
+	var down := KnockdownLayers.is_down(KnockdownLayers.clip_of(ap))
+	# Standing ease stays the old 0.25 s. Only the drop to zero, while down, uses the short ease.
+	calm = move_toward(calm, 0.0 if down else (0.2 if _busy() else 1.0), dt / (0.15 if down else 0.25))
+	if down and calm <= 0.001:
+		return
 	var pose: Dictionary = look["pose"]
 	var hips_now: Vector3 = skel.get_bone_global_pose(int(_b["Hips"])).origin
 	var seated := hips_now.y < _stand_hips * 0.72
@@ -112,8 +119,10 @@ func _process_modification() -> void:
 	# Blind round 2 (both critics: "no breathing in the shoulders"): on the stool after three minutes she HEAVES - real
 	# recovery breathing runs ~28-34 a minute, deep, the shoulders and head riding each breath; standing, a calm breath.
 	var heave := 1.0 if seated and not crew else 0.0
-	_bp += dt * float(pose["breath_hz"]) * lerpf(1.0, 1.9, heave)
-	var breath := pow(0.5 + 0.5 * sin(TAU * _bp), 1.5)
+	# KDFIX3: stop breathing accumulation when down - only forward chest rise stays, and only when not down.
+	if not down:
+		_bp += dt * float(pose["breath_hz"]) * lerpf(1.0, 1.9, heave)
+	var breath := pow(0.5 + 0.5 * sin(TAU * _bp), 1.5) if not down else 0.0
 	var deep := lerpf(1.0, 2.3, heave)
 	_rot(skel, "Chest", fold, -deg_to_rad(1.6) * breath * deep)
 	_rot(skel, "UpperChest", fold, -deg_to_rad(0.9) * breath * deep)

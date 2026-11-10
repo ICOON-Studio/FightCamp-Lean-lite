@@ -37,6 +37,9 @@ const HEAD_M := 2.15
 ## S426 operator: "the hud hides players feet" - the corner bar covers the bottom ~16% of the picture: the room under the
 ## boots stays 0.2 m and place() looks BAR_DROP_M lower than the centred frame, so the pair rides above the bar.
 const BAR_DROP_M := 0.3
+## S427 (his feet still went under the bar when a boxer stood near the lens): a point below the lens's line of sight may
+## only use BAR_CLEAR of the lower half of the picture, the rest is the corner bar (bottom ~16% = 0.32 of that half).
+const BAR_CLEAR := 0.68
 const FOOT_M := -0.2
 const MARGIN_X := 0.45
 ## Only the open middle of the picture counts: the body-map panels (FightHud) cover the outer ~17.5 % of each side.
@@ -85,7 +88,7 @@ static func frame_fov(lens: Vector3, look: Vector3, pts: Array, aspect: float, m
 		var depth := -c.z
 		if depth < 0.3:
 			continue
-		need = maxf(need, absf(c.y) / depth)
+		need = maxf(need, absf(c.y) / depth / (BAR_CLEAR if c.y < 0.0 else 1.0))
 		need = maxf(need, (absf(c.x) + mx) / depth / (aspect * OPEN_W))
 	return rad_to_deg(2.0 * atan(need))
 

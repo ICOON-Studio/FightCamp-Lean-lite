@@ -965,6 +965,22 @@
    "brief": "BLOCKMEET3",
    "status": "superseded",
    "note": "S426: Claude fixed it directly (FightStage CROSS_STANDOFF_M 0.015); block_meet_test failures=0 3 of 3"
+  },
+  {
+   "id": "THURSDAY2",
+   "seat": "qwen",
+   "title": "TASK THURSDAY2 - QWEN (qwen3-coder) - the Thursday count again, on camps that really differ",
+   "brief": "THURSDAY2",
+   "status": "queued",
+   "queued": "2026-11-10T18:20"
+  },
+  {
+   "id": "HALOSWEEP1",
+   "seat": "cursor",
+   "title": "TASK HALOSWEEP1 - CURSOR (Grok 4.7 High) - every chosen frame in the game uses the shared outline",
+   "brief": "HALOSWEEP1",
+   "status": "queued",
+   "queued": "2026-11-10T18:40"
   }
  ]
 }

@@ -6,7 +6,10 @@ extends SkeletonModifier3D
 ## Structure benchmarked on Undisputed's names only (a weave position, a minimum time between changes of direction, a limit);
 ## the values below are ours. Runs after TiredSag, before GuardTuck, so the guard follows the
 ## face. Off (eased) while she punches, is hit, falls or clinches: only `free_clips` let it run. `-- noweave` = the control arm.
-##   setup(skel, ap, free_clips, seed)   pos   step(dt, free)
+## KDFIX1: also off while she is down (fall, countdown, knockout): a downed boxer's trunk does not weave.
+##   setup(skel, ap, free_clips, seed)   pos   step(dt, free, down)
+
+const KnockdownLayers := preload("res://scripts/fight3d/KnockdownLayers.gd")
 
 const SPOTS := [0.0, 0.25, -0.25, 0.5, -0.5]   # where a passive move settles, across the line
 const DIPS := [0.0, 0.0, 0.25, 0.45]           # and how far she sinks
@@ -46,22 +49,31 @@ func setup(skel: Skeleton3D, player: AnimationPlayer, clips: Array, seed: int) -
 	return true
 
 
-## One frame of the weave. Pure: no bones. `free` = she stands in a clip the weave may run over.
-func step(dt: float, free: bool) -> void:
+## One frame of the weave. Pure: no bones. `free` = standing in a clip the weave may run over.
+## `down` = on the canvas. Only then does the lean ease to zero. A punch or a block keeps the old
+## chase, so the guard moves the way it did before the knockdown work. When down, the random target
+## does not advance, so the layer is deterministic on the canvas.
+func step(dt: float, free: bool, down: bool = false) -> void:
 	weight = move_toward(weight, 1.0 if free else 0.0, dt / (EASE_S if free else EASE_OFF_S))
-	_hold -= dt
-	if _hold <= 0.0:
-		_hold = rng.randf_range(HOLD_S.x, HOLD_S.y)
-		_target = Vector2(SPOTS[rng.randi() % SPOTS.size()], DIPS[rng.randi() % DIPS.size()])
-	pos = pos.lerp(_target, 1.0 - exp(-dt / (RISE_TAU_S if _target.y < pos.y else PASSIVE_TAU_S)))
+	if not down:
+		_hold -= dt
+		if _hold <= 0.0:
+			_hold = rng.randf_range(HOLD_S.x, HOLD_S.y)
+			_target = Vector2(SPOTS[rng.randi() % SPOTS.size()], DIPS[rng.randi() % DIPS.size()])
+	if down:
+		pos = pos.lerp(Vector2.ZERO, 1.0 - exp(-dt / (EASE_OFF_S * 0.5)))
+	else:
+		pos = pos.lerp(_target, 1.0 - exp(-dt / (RISE_TAU_S if _target.y < pos.y else PASSIVE_TAU_S)))
 
 
 func _process_modification() -> void:
 	var skel := get_skeleton()
 	if skel == null or ap == null:
 		return
+	# assigned_animation, same as before: current_animation can differ for a frame during a seek.
 	var clip := str(ap.assigned_animation)
-	step(get_process_delta_time(), free_clips.has(clip))
+	var down := KnockdownLayers.is_down(clip)
+	step(get_process_delta_time(), free_clips.has(clip) and not down, down)
 	if weight <= 0.001:
 		return
 	var w := weight * weight * (3.0 - 2.0 * weight)

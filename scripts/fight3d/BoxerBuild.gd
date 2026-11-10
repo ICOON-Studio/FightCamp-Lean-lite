@@ -89,7 +89,7 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	# S323: a tired trunk folds, the head hangs, the shoulders heave (before the guard, so the gloves follow the face).
 	var ts := TiredSag.new()
 	ts.name = "TiredSag"
-	if ts.setup(skel, index * 17 + 3):
+	if ts.setup(skel, ap, index * 17 + 3):
 		skel.add_child(ts)
 		skel.move_child(ts, (js.get_index() + 1) if js != null else 0)
 	else:

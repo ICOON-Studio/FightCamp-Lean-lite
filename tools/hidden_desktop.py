@@ -10,6 +10,9 @@ started there are invisible to the owner; we capture them with PrintWindow and s
 
 Tested 2026-10-03 (session 9): the game runs there (OpenGL on the real GPU) and its --capture= picture is
 exact; Windows' PrintWindow returns a blank window there, so builds capture themselves.
+Corrected 2026-11-10 (S426): PrintWindow is blank only WITHOUT the full-content flag. With flag 3, called from a
+thread that joined this desktop, it returns the real picture, and posted mouse and key messages reach the window:
+tools/hidden_play.py plays any windowed program this way (photograph, click, type, film).
 """
 import ctypes
 import subprocess

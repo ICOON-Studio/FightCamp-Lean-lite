@@ -4,6 +4,7 @@ extends Button
 
 const TV := preload("res://scripts/ui/TV.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
+const Halo := preload("res://scripts/ui/Halo.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 
 const DIGIT := {
@@ -37,8 +38,8 @@ func setup(v: Node) -> void:
 	offset_bottom = 760.0
 	var plate := StyleBoxFlat.new()
 	plate.bg_color = Color("#3e2a12")
-	plate.border_color = WoodKit.HEAD
-	plate.set_border_width_all(4)
+	plate.border_color = Color("#6b5338")
+	plate.set_border_width_all(3)
 	plate.set_corner_radius_all(14)
 	plate.content_margin_left = 12
 	plate.content_margin_right = 12
@@ -49,6 +50,7 @@ func setup(v: Node) -> void:
 	add_theme_stylebox_override("pressed", plate)
 	add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 	add_theme_font_size_override("font_size", 22)
+	Halo.ring(self, WoodKit.HEAD, 14.0)
 	var box := VBoxContainer.new()
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -127,13 +129,10 @@ static func cost_of(id: String) -> float:
 	return Combos.combo_cost(maxi(moves.size(), 1))
 
 
-## One up arrow per 0.75 of cost, at most 3, when it costs energy. One down arrow when it rests.
+## What the combination costs her, in words (operator S426 on the bolt and arrows: "what are these symbols ??").
+## One step per 0.75 of cost, at most three.
 static func arrows(cost: float) -> String:
 	if cost <= 0.0:
-		return "⚡▼"
-	var n := int(floor(cost / 0.75 + 0.001))
-	if n < 1:
-		n = 1
-	if n > 3:
-		n = 3
-	return "⚡" + "▲".repeat(n)
+		return "Rests"
+	var n := clampi(int(floor(cost / 0.75 + 0.001)), 1, 3)
+	return ["Tires a little", "Tires", "Tires a lot"][n - 1]

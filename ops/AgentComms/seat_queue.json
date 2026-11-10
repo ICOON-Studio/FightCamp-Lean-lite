@@ -557,7 +557,17 @@
    "sent_ms": 1794321694585,
    "answered_at": "2026-11-10 17:11",
    "answer": "research/K_SMALL_WORLD_S425_BRIEF_KALLI.md",
-   "chars": 19007
+   "chars": 19007,
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ39",
+   "seat": "kalli",
+   "brief": "research/K_BJJ_LIVE_CHOICES_S427_BRIEF.md",
+   "stem": "K_BJJ_LIVE_CHOICES_S427_BRIEF_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-10 17:52",
+   "tries": 0
   }
  ]
 }

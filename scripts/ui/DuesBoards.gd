@@ -5,11 +5,12 @@ extends RefCounted
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
+const Halo := preload("res://scripts/ui/Halo.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const GymBonus := preload("res://scripts/rules/GymBonus.gd")
 
-const PAINT := "res://assets/ui/dues/dues_%s.jpg"
+const PAINT := "res://assets/ui/dues/dues_%s_cut.png"   # S427 cut out of their dark squares (Ludo), drawn with Halo.cutout
 const WHO := {
 	"cheap": "Juniors and the neighbourhood",
 	"standard": "The middle of the club",
@@ -63,16 +64,9 @@ static func _board(main: Node, c: Career, band: String, preview: Dictionary, now
 	_fill(wood)
 	b.add_child(wood)
 	if on:
-		var edge := PanelContainer.new()
-		edge.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		edge.z_index = 1
-		var gold := StyleBoxFlat.new()
-		gold.bg_color = Color(0, 0, 0, 0)
-		gold.border_color = GOLD
-		gold.set_border_width_all(5)
-		edge.add_theme_stylebox_override("panel", gold)
-		_fill(edge)
-		b.add_child(edge)
+		Halo.ring(b, GOLD, 8.0)
+	else:
+		Halo.hover(b, WoodKit.INK, 8.0)
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", 10)
 	col.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -115,11 +109,14 @@ static func _picture(band: String) -> TextureRect:
 	pic.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	pic.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	pic.texture = _paint(band)
+	Halo.cutout(pic)
 	return pic
 
 
-## The paintings are not imported yet, so the resource loader has no jpg entry for them.
+## An imported painting loads like any texture; a fresh checkout that has not imported it yet reads the file.
 static func _paint(band: String) -> Texture2D:
+	if ResourceLoader.exists(PAINT % band):
+		return load(PAINT % band) as Texture2D
 	var img := Image.new()
 	if img.load(ProjectSettings.globalize_path(PAINT % band)) != OK:
 		return null
@@ -158,6 +155,9 @@ static func _plate() -> Control:
 	var brass := StyleBoxFlat.new()
 	brass.bg_color = BRASS
 	brass.set_content_margin_all(8)
+	brass.content_margin_left = 16
+	brass.content_margin_right = 16
+	brass.set_corner_radius_all(8)
 	plate.add_theme_stylebox_override("panel", brass)
 	plate.add_child(_word("IN FORCE", GOLD, WORD_PX))
 	hold.add_child(plate)

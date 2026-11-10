@@ -4,6 +4,7 @@ extends Control
 ## anything in any order (operator S275, nothing interrupts).
 
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
+const Halo := preload("res://scripts/ui/Halo.gd")
 
 const DIM := Color(0.05, 0.03, 0.02, 0.38)
 const GOLD := Color("#f4c56a")
@@ -14,22 +15,19 @@ var names: Array = []
 var main: Node
 var _target: Control
 var _count := 0
-var _time := 0.0
-var _ring := StyleBoxFlat.new()
+var _ring: ColorRect   # the shared halo (Halo.gd), moved onto the thing to touch
 
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_ring.draw_center = false
-	_ring.set_corner_radius_all(14)
-	_ring.set_border_width_all(3)
-	_ring.shadow_size = 18
+	_ring = Halo.ring(self, GOLD, 14.0)
+	_ring.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	_ring.visible = false
 
 
 func _process(delta: float) -> void:
 	global_position = Vector2.ZERO   # the shell gives this a zero-size slot: it covers the whole window
 	size = get_viewport_rect().size
-	_time += delta
 	_count += 1
 	if _target == null or not is_instance_valid(_target) or _count >= LOOK_EVERY:
 		_count = 0
@@ -60,6 +58,7 @@ func target() -> Control:
 
 func _draw() -> void:
 	var t := target()
+	_ring.visible = t != null
 	if t == null:
 		return
 	var full := Rect2(Vector2.ZERO, size)
@@ -68,7 +67,6 @@ func _draw() -> void:
 	draw_rect(Rect2(0, hole.end.y, full.size.x, full.size.y - hole.end.y), DIM)
 	draw_rect(Rect2(0, hole.position.y, hole.position.x, hole.size.y), DIM)
 	draw_rect(Rect2(hole.end.x, hole.position.y, full.size.x - hole.end.x, hole.size.y), DIM)
-	var beat := 1.0 if MenuFx.instant else 0.72 + 0.28 * sin(_time * 3.2)
-	_ring.border_color = Color(GOLD, beat)
-	_ring.shadow_color = Color(GOLD, 0.55 * beat)
-	draw_style_box(_ring, hole)
+	var room := Vector2.ONE * Halo.MARGIN
+	_ring.position = hole.position - room
+	_ring.size = hole.size + room * 2.0

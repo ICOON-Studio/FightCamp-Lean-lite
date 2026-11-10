@@ -5,7 +5,10 @@ extends SkeletonModifier3D
 ## in-breath. `tired` (0..1, BodyBurn from the trunk, legs and shoulders' Burn) sets all three; at 0 it does nothing.
 ## Runs right after JoinSmoother, BEFORE GuardTuck: the guard is then drawn to the hunched face, the gloves follow the head
 ## down. `-- noburn` keeps `tired` at 0 (the control arm).
+## KDFIX1: also off while she is down (fall, countdown, knockout): a downed boxer's trunk does not sag.
 ##   setup(skel, seed)   tired
+
+const KnockdownLayers := preload("res://scripts/fight3d/KnockdownLayers.gd")
 
 ## The trunk's fold at tired 1 (degrees, half on the spine, half on the chest) and the neck's (the head forward and down).
 const HUNCH_DEG := 12.0
@@ -15,15 +18,19 @@ const BREATH_HZ := Vector2(0.45, 0.75)
 const SHRUG_DEG := 7.0
 const CHEST_DEG := 2.5
 ## Eases toward the wanted `tired` so a new exchange never pops the pose.
+## On the canvas the sag is gone inside the settle (0.4 s), not still breathing after 0.5 s.
 const EASE_S := 1.0
+const EASE_OFF_S := 0.4
 
 var tired := 0.0
 var _w := 0.0
 var _t := 0.0
 var _b := {}
+var ap: AnimationPlayer = null
 
 
-func setup(skel: Skeleton3D, seed: int) -> bool:
+func setup(skel: Skeleton3D, player: AnimationPlayer, seed: int) -> bool:
+	ap = player
 	for n in ["Hips", "Spine", "Chest", "Neck", "LeftShoulder", "RightShoulder", "LeftUpperArm", "RightUpperArm"]:
 		_b[n] = skel.find_bone(n)
 		if int(_b[n]) < 0:
@@ -37,7 +44,9 @@ func _process_modification() -> void:
 	if skel == null:
 		return
 	var dt := get_process_delta_time()
-	_w = move_toward(_w, clampf(tired, 0.0, 1.0), dt / EASE_S)
+	var down := ap != null and KnockdownLayers.is_down(str(ap.assigned_animation))
+	var target := 0.0 if down else clampf(tired, 0.0, 1.0)
+	_w = move_toward(_w, target, dt / (EASE_OFF_S if down else EASE_S))
 	if _w <= 0.001:
 		return
 	var w := _w * _w * (3.0 - 2.0 * _w)
