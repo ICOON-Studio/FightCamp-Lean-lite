@@ -6,6 +6,7 @@ extends RefCounted
 ##   make(f, focus, fc, before, day) -> PanelContainer "CampSide"   (fc = CampForecast.run for the chosen focus)
 
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const HomeBoard := preload("res://scripts/ui/HomeBoard.gd")
 const FighterCard := preload("res://scripts/ui/FighterCard.gd")
@@ -17,8 +18,6 @@ const W := 330.0
 const FACE := Vector2(298, 300)   # S380 bigger: the promo shot (tools/bake_promo.gd) head to folded arms
 const FACE_Y := 0.0   # where the crop sits down the face shot: from its top (the head, the arms below)
 const STATS := ["conditioning", "power", "technique", "defense", "speed", "chin"]
-const PAPER := Color("#fbfaf7")
-const INK2 := Color("#374151")
 
 
 static func make(f: Dictionary, focus: String, fc: Dictionary, before: Dictionary, day: int) -> PanelContainer:
@@ -26,14 +25,14 @@ static func make(f: Dictionary, focus: String, fc: Dictionary, before: Dictionar
 	p.name = "CampSide"
 	p.custom_minimum_size = Vector2(W, 0)
 	p.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
-	p.add_theme_stylebox_override("panel", UI.box(PAPER, UI.LINE, 12, 1, 16, 16))
+	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 16, 16))
 	var v := UI.vbox(3)
 	p.add_child(v)
 	v.add_child(_face(f))
 	var name := UI.label("%s %s" % [f["first"], FighterCard.record(f)], 30, UI.FG, "marker", true)
 	name.name = "Who"
 	v.add_child(name)
-	v.add_child(UI.label("%s - %s" % [f["wc"], FighterTile.mood_word(f).to_lower()], 21, INK2, "hand", true))
+	v.add_child(UI.label("%s - %s" % [f["wc"], FighterTile.mood_word(f).to_lower()], 21, UI.MUTED, "hand", true))
 	var gap := Control.new()
 	gap.custom_minimum_size = Vector2(0, 4)
 	v.add_child(gap)
@@ -70,13 +69,13 @@ static func _face(f: Dictionary) -> TextureRect:
 	return r
 
 
-## One stat row; the camp's stat (end >= 0) outlined in blue with "now -> fight night" in green.
+## One stat row; the camp's stat (end >= 0) takes a gold outline, with "now -> fight night" in green.
 static func _stat(k: String, now: float, end: float, from: float) -> PanelContainer:
 	var on := end >= 0.0
 	var row := PanelContainer.new()
 	row.name = "Stat_" + k
-	row.add_theme_stylebox_override("panel", UI.box(CampCard.BLUE_SOFT if on else Color(0, 0, 0, 0),
-		UI.GOLD if on else Color(0, 0, 0, 0), 6, 2, 8, 3))
+	row.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04) if on else Color(0, 0, 0, 0),
+		Color(WoodKit.HEAD) if on else Color(0, 0, 0, 0), 4, 2 if on else 0, 8, 3))
 	var h := UI.hbox(6)
 	row.add_child(h)
 	h.add_child(UI.label(str(Data.LABEL.get(k, k)), 18, UI.FG, "body"))

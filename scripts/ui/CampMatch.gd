@@ -48,7 +48,7 @@ static func partner_card(main: Node, f: Dictionary, opp: Dictionary, on: bool, h
 	title.name = "Title"
 	w.add_child(title)
 	var line := UI.label("other club - %d visits - %s" % [BoutRules.PARTNER_VISITS, UI.money(BoutRules.partner_fee())] if on
-		else "free (click: %s, %s)" % [mate, UI.money(BoutRules.partner_fee())], 15, CampCard.SUB, "body", true)
+		else "free (click: %s, %s)" % [mate, UI.money(BoutRules.partner_fee())], 15, UI.MUTED, "body", true)
 	line.name = "Line"
 	w.add_child(line)
 	var risk := risk_line(f, opp, on)

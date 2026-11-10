@@ -4,6 +4,7 @@ extends PanelContainer
 ## is pinned up large, and the card says who they are in big words (the detail is on hover).
 
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const RecruitPanel := preload("res://scripts/ui/RecruitPanel.gd")
 const Recruit := preload("res://scripts/rules/Recruit.gd")
@@ -28,14 +29,8 @@ func build(main: Node, m: Dictionary) -> void:
 	row.add_child(photo)
 	var card := PanelContainer.new()
 	card.name = "WalkInCard"
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color(1, 1, 1, 0.96)
-	sb.set_corner_radius_all(16)
-	sb.shadow_color = Color(0.05, 0.1, 0.2, 0.4)
-	sb.shadow_size = 22
-	sb.shadow_offset = Vector2(0, 8)
-	sb.set_content_margin_all(30)
-	card.add_theme_stylebox_override("panel", sb)
+	# The old card padded 30. slate() is 30 across and 26 down, so the frame sits in that pad and the card does not grow.
+	card.add_theme_stylebox_override("panel", WoodKit.slate())
 	row.add_child(card)
 	var v := UI.vbox(12)
 	card.add_child(v)

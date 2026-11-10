@@ -8,6 +8,7 @@ extends RefCounted
 ##   option(name, title, line, risk, risk_col, on, press, h) -> Button       count(l, from, to, fmt)   pulse(c)
 
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -16,9 +17,8 @@ const NightBar := preload("res://scripts/ui/NightBar.gd")
 const CARD_H := 340.0
 const PIC_H := 178.0
 const INSET := 6
-const BLUE_SOFT := Color("#e8efff")
-const BLUE_RING := Color("#c9d8ff")
-const SUB := Color("#4b5563")
+## The quiet line Camp.gd still asks for. On the slate that is the quiet chalk, not the old grey.
+const SUB := WoodKit.SOFT
 const TWEEN_S := 0.45
 ## The station picture for each camp focus (assets/ui/training/<body>_<station>.png, tools/bake_session_pics.gd).
 const STATION := {"conditioning": "roadwork", "power": "heavy_bag", "technique": "pads", "defense": "slip_rope",
@@ -63,7 +63,15 @@ static func card(main: Node, f: Dictionary, key: String, chosen: bool, now: floa
 	if words_at != "":
 		var cap := UI.label(words_at, 15, UI.GOLD if BoutRules.clears_night_line(key, end) else UI.MUTED, "bold")
 		cap.name = "NightLine"
-		w.add_child(cap)
+		# The line's colour is checked as the paper ink, so it sits on a light chip (a piece the look keeps) and the
+		# ink pass leaves it. Chalk fill, not the old cream. The rest of the card is chalk words on the slate.
+		var hold := PanelContainer.new()
+		hold.theme_type_variation = "Chip"
+		hold.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		hold.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		hold.add_theme_stylebox_override("panel", UI.box(WoodKit.INK, Color(WoodKit.SOFT, 0.45), 4, 1, 6, 1))
+		hold.add_child(cap)
+		w.add_child(hold)
 		b.tooltip_text += " - " + words_at
 	if chosen:
 		b.add_child(_check(pop))
@@ -92,7 +100,7 @@ static func option(name: String, title: String, line: String, risk: String, risk
 	var v := _fill(b, 14, 10)
 	v.add_child(UI.label(title, 20, UI.FG, "bold", true))
 	if line != "":
-		v.add_child(UI.label(line, 15, SUB, "body", true))
+		v.add_child(UI.label(line, 15, UI.MUTED, "body", true))
 	if risk != "":
 		var r := UI.label(risk, 14, risk_col, "body", true)
 		r.name = "Risk"
@@ -138,12 +146,11 @@ static func _shell(name: String, on: bool, press: Callable) -> Button:
 	return b
 
 
+## See-through on the slate. The chosen card takes a gold edge; the cursor turns the edge blue. The fill stays clear in
+## every state: the ink pass reads "normal", and a pale fill would keep dark words on the slate.
 static func _frame(on: bool, hover: bool) -> StyleBoxFlat:
-	var s := UI.box(BLUE_SOFT if on else UI.PANEL, UI.GOLD if on else (UI.MUTED if hover else UI.LINE), 12, 2, 0, 0)
-	if on:
-		s.shadow_color = BLUE_RING
-		s.shadow_size = 4
-	return s
+	var edge := Color(WoodKit.HEAD) if on else (Color(WoodKit.BLUE) if hover else Color(WoodKit.SOFT, 0.35))
+	return UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if on else 1, 0, 0)
 
 
 ## The box's inner column, filling the button with `pad` (sides) and `pad_v` (top and bottom).

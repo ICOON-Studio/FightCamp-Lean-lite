@@ -161,7 +161,7 @@ static func _glance(g: Dictionary) -> PanelContainer:
 	var pair := func(rs: Array) -> String: return " and ".join(rs.map(func(r): return str(r["name"])))
 	if str(g.get("signature", "")) != "":
 		v.add_child(UI.label(str(g["signature"]) + ".", UI.BODY, UI.FG, "handbold", true))
-	v.add_child(UI.label("Wants the fight: " + str(g.get("wants", "")) + ".", UI.BODY, UI.FG, "hand", true))
+	v.add_child(UI.label("In the ring: " + str(g.get("wants", "")) + ".", UI.BODY, UI.FG, "hand", true))
 	v.add_child(UI.label("Best: " + pair.call(g["best"]), UI.BODY, UI.FG, "hand", true))
 	v.add_child(UI.label("Work on: " + pair.call(g["work"]), UI.BODY, UI.FG, "hand", true))
 	if bool(g["hot"]):

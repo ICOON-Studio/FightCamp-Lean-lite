@@ -13,6 +13,7 @@ extends HBoxContainer
 
 const UI := preload("res://scripts/ui/UI.gd")
 const WB := preload("res://scripts/ui/WhiteboardKit.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Gauges := preload("res://scripts/rules/Gauges.gd")
 const CampCard := preload("res://scripts/ui/CampCard.gd")
@@ -90,7 +91,7 @@ func _column(id: String, cw: float, before: Dictionary) -> VBoxContainer:
 	col.custom_minimum_size = Vector2(cw, 0)
 	col.tooltip_text = _tip(id)
 	col.mouse_filter = Control.MOUSE_FILTER_PASS
-	var t := UI.label(str(TITLES[id]), 13, WB.INK, "caps")
+	var t := UI.label(str(TITLES[id]), 13, UI.MUTED, "caps")
 	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	col.add_child(t)
@@ -274,6 +275,10 @@ class Dial extends Control:
 			v = x
 			queue_redraw()
 
+	## S419: chalk on the slate, the navy marker on a light board (the needle was dark on dark).
+	func _ink() -> Color:
+		return WoodKit.INK if WoodKit.on_dark(self) else WB.INK
+
 	func _ang(x: float) -> float:
 		return PI + PI * clampf((x - lo) / maxf(0.001, hi - lo), 0.0, 1.0)
 
@@ -283,7 +288,7 @@ class Dial extends Control:
 			return
 		var r := minf(size.x * 0.5 - 8.0, size.y - 14.0)
 		var c := Vector2(size.x * 0.5, size.y - 6.0)
-		draw_arc(c, r + 5.0, PI, TAU, 40, Color(WB.INK, 0.55), 1.5, true)
+		draw_arc(c, r + 5.0, PI, TAU, 40, Color(_ink(), 0.55), 1.5, true)
 		for z in zones:
 			if float(z[1]) > float(z[0]):
 				draw_arc(c, r, _ang(float(z[0])), _ang(float(z[1])), 20, Color(z[2], 0.75), 6.0, true)
@@ -292,8 +297,8 @@ class Dial extends Control:
 			draw_line(c + a * (r - 9.0), c + a * (r + 8.0), WB.PENCIL, 2.0, true)
 		if not is_nan(ghost):
 			draw_line(c, c + Vector2.from_angle(_ang(ghost)) * (r - 3.0), Color(ghost_col, 0.85), 3.0, true)
-		draw_line(c, c + Vector2.from_angle(_ang(v)) * (r - 3.0), WB.INK, 3.0, true)
-		draw_circle(c, 4.0, WB.INK)
+		draw_line(c, c + Vector2.from_angle(_ang(v)) * (r - 3.0), _ink(), 3.0, true)
+		draw_circle(c, 4.0, _ink())
 
 	func _pips() -> void:
 		var font := UI.font("bold")
@@ -311,8 +316,8 @@ class Dial extends Control:
 			elif i < lit and out == "":
 				draw_circle(p, rad, col)
 			else:
-				draw_arc(p, rad, 0.0, TAU, 24, Color(WB.INK, 0.6), 1.5, true)
+				draw_arc(p, rad, 0.0, TAU, 24, Color(_ink(), 0.6), 1.5, true)
 			if ghost_lit > 0 and out == "" and (i < ghost_lit) != (i < lit):
 				draw_arc(p, rad + 3.0, 0.0, TAU, 24, ghost_col, 2.0, true)
 			var tw := font.get_string_size(slot.to_upper(), HORIZONTAL_ALIGNMENT_LEFT, -1, 11).x
-			draw_string(font, Vector2(p.x - tw * 0.5, p.y + rad + 15.0), slot.to_upper(), HORIZONTAL_ALIGNMENT_LEFT, -1, 11, WB.INK)
+			draw_string(font, Vector2(p.x - tw * 0.5, p.y + rad + 15.0), slot.to_upper(), HORIZONTAL_ALIGNMENT_LEFT, -1, 11, _ink())

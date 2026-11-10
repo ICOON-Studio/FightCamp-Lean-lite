@@ -6,6 +6,7 @@ extends CenterContainer
 ## Main.create holds the picks: {step, country, city, gym, name, coach, start}.
 
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
 const ClubStart := preload("res://scripts/rules/ClubStart.gd")
 const PromoShot := preload("res://scripts/ui/PromoShot.gd")
@@ -25,7 +26,7 @@ const CITIES := {
 const COACH_CARD := Vector2(392, 0)
 const START_CARD := Vector2(528, 0)
 const PLAN_CARD := Vector2(392, 0)
-const PLAN_PIC := Vector2(356, 150)
+const PLAN_PIC := Vector2(348, 142)   # 8 px less than the paper card: the slate frame is 22 px, the old pad was 18
 const IsoGym := preload("res://scripts/ui/IsoGym.gd")
 const GymPlan := preload("res://scripts/rules/GymPlan.gd")
 const GymBonus := preload("res://scripts/rules/GymBonus.gd")
@@ -40,14 +41,19 @@ func build(main: Node) -> void:
 	var step := int(s["step"])
 	var v := UI.vbox(14)
 	v.custom_minimum_size = Vector2(1640, 860)   # S397 round 1 (blind: "the bar sits at a different height on 02 and 03"): one fixed frame
-	add_child(v)
+	var board := PanelContainer.new()
+	board.name = "CreateBoard"
+	# The step sits on one framed slate. Pad is the 22 px frame, so the column grows by the frame only.
+	board.add_theme_stylebox_override("panel", WoodKit.slate(22, 22))
+	board.add_child(v)
+	add_child(board)
 	# S397 round 1 (blind: "the stepper sits at a different height on 02 and 03"): one labelled stepper, same place on both.
 	var steps := UI.hbox(8)
 	for i in 2:
 		var cell := UI.vbox(4)
 		cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		var bar := ColorRect.new()
-		bar.color = UI.GOLD if i <= step else UI.LINE
+		bar.color = WoodKit.HEAD if i <= step else Color(WoodKit.SOFT, 0.35)
 		bar.custom_minimum_size = Vector2(0, 5)
 		cell.add_child(bar)
 		cell.add_child(UI.label(["1  You, the head coach", "2  Your club and its start"][i], UI.SMALL, UI.GOLD if i == step else UI.MUTED, "semi"))
@@ -70,6 +76,11 @@ func build(main: Node) -> void:
 		skip.text = "Skip the first-hour guide"
 		skip.button_pressed = FirstWeek.skip_on()
 		skip.toggled.connect(FirstWeek.set_skip)
+		var skip_box := UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 10, 4)
+		for state in ["normal", "hover", "pressed", "disabled", "focus"]:
+			skip.add_theme_stylebox_override(state, skip_box)
+		for fc in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
+			skip.add_theme_color_override(fc, WoodKit.INK)
 		nav.add_child(skip)
 		var go := UI.button("Open the gym", "BtnSolid", func(): _keep(main); main.act("cstart", str(main.create.get("gym", ""))))
 		go.name = "CreateStart"
@@ -94,6 +105,7 @@ func _you(main: Node, v: VBoxContainer, s: Dictionary) -> void:
 	_name_edit.select_all_on_focus = true
 	_name_edit.max_length = 24
 	_name_edit.custom_minimum_size = Vector2(360, 48)
+	_dark_line(_name_edit)
 	name_box.add_child(_name_edit)
 	head.add_child(name_box)
 	v.add_child(head)
@@ -120,7 +132,7 @@ func _coach_card(main: Node, cd: Dictionary, on: bool) -> Control:
 	var box := _card_shell("Coach_" + str(cd["id"]), on, COACH_CARD)
 	var col := UI.vbox(8)
 	box.get_child(0).add_child(col)
-	var pic := PromoShot.picture(str(cd["photo"]), Vector2(COACH_CARD.x - 36, 300))
+	var pic := PromoShot.picture(str(cd["photo"]), Vector2(COACH_CARD.x - 44, 292))
 	if pic != null:
 		col.add_child(pic)
 	var top := UI.hbox(8)
@@ -161,6 +173,7 @@ func _club(main: Node, v: VBoxContainer, s: Dictionary) -> void:
 	_gym_edit.select_all_on_focus = true
 	_gym_edit.max_length = 28
 	_gym_edit.custom_minimum_size = Vector2(420, 48)
+	_dark_line(_gym_edit)
 	gym.add_child(_gym_edit)
 	gym.add_child(UI.muted("The city is your club's home: it is on the posters, the news and the prospects' list.", UI.SMALL, true))
 	where.add_child(gym)
@@ -201,7 +214,7 @@ func _plan_card(main: Node, p: Dictionary, on: bool) -> Control:
 
 
 func _start_card(main: Node, cd: Dictionary, on: bool) -> Control:
-	var box := _card_shell("Start_" + str(cd["id"]), on, START_CARD)
+	var box := _card_shell("Start_" + str(cd["id"]), on, START_CARD, false)
 	var col := UI.vbox(8)
 	box.get_child(0).add_child(col)
 	var top := UI.hbox(8)
@@ -241,24 +254,42 @@ func _start_card(main: Node, cd: Dictionary, on: bool) -> Control:
 	return box
 
 
-## A card: a paper panel, gold-edged when picked, with a margin child for the content.
-func _card_shell(id: String, on: bool, size: Vector2) -> PanelContainer:
+## A card on the slate. Coach and building cards are a framed slate with a 2 px gold rim when picked.
+## The start cards use the see-through chalk outline: a second wooden frame on that dense row is too tight.
+## Stylebox pad is 0 so the click covers the whole card; the margin child (still child 0) clears the frame.
+func _card_shell(id: String, on: bool, size: Vector2, framed: bool = true) -> PanelContainer:
 	var p := PanelContainer.new()
 	p.name = id
 	p.custom_minimum_size = size
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = UI.PANEL
-	sb.border_color = UI.GOLD if on else UI.LINE
-	sb.set_border_width_all(4 if on else 1)
-	sb.set_corner_radius_all(10)
-	sb.shadow_color = Color(0, 0, 0, 0.12 if on else 0.05)
-	sb.shadow_size = 10 if on else 4
-	p.add_theme_stylebox_override("panel", sb)
+	var pad := 22 if framed else 18
+	if framed:
+		p.add_theme_stylebox_override("panel", WoodKit.slate(0, 0))
+	else:
+		var edge := Color(WoodKit.HEAD) if on else Color(WoodKit.SOFT, 0.35)
+		p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if on else 1, 0, 0))
 	var m := MarginContainer.new()
 	for side in ["left", "right", "top", "bottom"]:
-		m.add_theme_constant_override("margin_" + side, 18)
+		m.add_theme_constant_override("margin_" + side, pad)
 	p.add_child(m)
+	if framed and on:
+		var rim := Panel.new()
+		rim.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		rim.add_theme_stylebox_override("panel", UI.box(Color(0, 0, 0, 0), WoodKit.HEAD, 4, 2, 0, 0))
+		p.add_child(rim)
 	return p
+
+
+## A name box on the slate: dark fill, chalk letters, in every LineEdit state.
+func _dark_line(edit: LineEdit) -> void:
+	for state in ["normal", "read_only"]:
+		edit.add_theme_stylebox_override(state, UI.box(Color(0, 0, 0, 0.35), Color(WoodKit.SOFT, 0.5), 4, 1, 12, 10))
+	edit.add_theme_stylebox_override("focus", UI.box(Color(0, 0, 0, 0.35), WoodKit.HEAD, 4, 1, 12, 10))
+	edit.add_theme_color_override("font_color", WoodKit.INK)
+	edit.add_theme_color_override("font_selected_color", WoodKit.DARK_INK)
+	edit.add_theme_color_override("font_placeholder_color", WoodKit.SOFT)
+	edit.add_theme_color_override("font_uneditable_color", WoodKit.SOFT)
+	edit.add_theme_color_override("caret_color", WoodKit.INK)
+	edit.add_theme_color_override("selection_color", WoodKit.HEAD)
 
 
 ## The whole card is the button.
@@ -293,15 +324,6 @@ func _choices(main: Node, items: Array, key: String, current: String) -> GridCon
 	g.add_theme_constant_override("v_separation", 10)
 	for item in items:
 		var b := UI.button(item, "ChoiceOn" if item == current else "Choice", func(): _keep(main); main.act("cpick", "%s|%s" % [key, item]))
-		if item == current:   # S397 round 1 (blind: "the country and city picks are barely visible"): a solid pick
-			var sb := StyleBoxFlat.new()
-			sb.bg_color = UI.GOLD
-			sb.set_corner_radius_all(10)
-			sb.content_margin_left = 14
-			for st in ["normal", "hover", "pressed"]:
-				b.add_theme_stylebox_override(st, sb)
-			for fc in ["font_color", "font_hover_color", "font_pressed_color"]:
-				b.add_theme_color_override(fc, Color.WHITE)
 		b.custom_minimum_size = Vector2(196, 50)
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		g.add_child(b)

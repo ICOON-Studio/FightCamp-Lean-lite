@@ -27,7 +27,7 @@ const OppFile := preload("res://scripts/rules/OppFile.gd")
 
 const W := 1620.0
 const OPTION_H := 132.0
-const KICKER := Color("#3b4250")
+const KICKER := UI.MUTED   # S419: a paper ink the slate pass turns to chalk (it was a fixed dark blue, unreadable on slate)
 
 ## The modal dict the last draw showed and its numbers: a pick redraws with the same dict, a new SET CAMP opens a new one.
 static var _last_m: Dictionary = {}

@@ -37,7 +37,7 @@ func _initialize() -> void:
 		_check(radars.size() == 0, "tab %s: no radar, the bars carry the numbers (S398) (%d)" % [tab, radars.size()])
 		var text := _texts(page)
 		for word in ["PHYSICAL", "SKILL", "MIND", "AT A GLANCE", "Footwork", "Heart", "Discipline", "Coachability", "Temper", "Fight IQ",
-				"Wants the fight", "Defence"]:
+				"In the ring", "Defence"]:
 			_check(text.contains(word), "tab %s shows %s" % [tab, word])
 		_check(not text.contains("BAR = WAY TO THE NEXT POINT"), "tab %s: the old bar card is gone" % tab)
 	print("PASS attr_board_test" if failures == 0 else "FAIL %d" % failures)

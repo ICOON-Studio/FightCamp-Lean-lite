@@ -281,7 +281,7 @@ static func _glance(f: Dictionary) -> PanelContainer:
 		var room := int(g["pot"]) - int(g["fight_avg"])
 		c[1].add_child(_note("Room to grow", "A lot" if room >= 20 else ("Some" if room >= 8 else "Close to the ceiling"), TONE["green"]))
 	if str(g.get("wants", "")) != "":
-		c[1].add_child(_note("Wants the fight", str(g["wants"]), TONE["green"]))
+		c[1].add_child(_note("In the ring", str(g["wants"]), TONE["green"]))
 	if str(g["style"]) != "":
 		c[1].add_child(_note("Style", str(g["style"]), TONE["amber"]))
 	return c[0]

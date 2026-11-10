@@ -6,6 +6,7 @@ extends RefCounted
 ##   VersusPanel.build(main, c, f, o, opp, offer_id, wf, answer) -> Control
 
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const BoutCompare := preload("res://scripts/ui/BoutCompare.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -20,11 +21,6 @@ const ClubCrest := preload("res://scripts/rules/ClubCrest.gd")
 const VersusLive := preload("res://scripts/ui/VersusLive.gd")
 const CARD_W := 640.0
 const NAME_COLOUR := Color("#f6dfb4")
-const PAPER := Color("#fbf1df")
-const PAPER_DEEP := Color("#efe0c6")
-const EDGE := Color("#c9b490")
-const INK := Color("#231f1b")
-const INK_SOFT := Color("#6e6256")
 ## Bodies baked in the blue kit by default (tools/bake_hub_sprites.gd BLUE_STEMS); their "_alt" picture is the red kit, and the
 ## other way round for the rest.
 const BLUE_KIT := ["02", "08", "12", "14", "17", "20", "23"]
@@ -110,8 +106,8 @@ static func _crest(crest: String, right: bool) -> TextureRect:
 
 static func _tag(text: String, right: bool) -> Control:
 	var p := PanelContainer.new()
-	p.add_theme_stylebox_override("panel", UI.box(PAPER, EDGE, 8, 2, 14, 8))
-	p.add_child(UI.label(text, 17, INK, "bold"))
+	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 14, 8))
+	p.add_child(UI.label(text, 17, WoodKit.INK, "bold"))   # S419: always on the red or blue side
 	p.anchor_top = 1.0
 	p.anchor_bottom = 1.0
 	p.anchor_left = 1.0 if right else 0.0
@@ -128,25 +124,26 @@ static func _card(main: Node, c: Career, f: Dictionary, o: Dictionary, opp: Dict
 	p.name = "VersusCard"
 	p.custom_minimum_size = Vector2(CARD_W, 0)
 	p.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	p.add_theme_stylebox_override("panel", UI.box(PAPER, EDGE, 12, 4, 26, 18))
+	# The frame is 22 px. Content inset stays 26 across and 22 down, so the words clear the brass and the card does not grow.
+	p.add_theme_stylebox_override("panel", WoodKit.slate(26, 22))
 	var v := UI.vbox(0)
 	p.add_child(v)
 	var day := int(o["day"])
-	v.add_child(_centre(UI.label("%s · 3 X 3 MIN" % Clock.fmt(day).to_upper(), 22, INK, "bold")))
+	v.add_child(_centre(UI.label("%s · 3 X 3 MIN" % Clock.fmt(day).to_upper(), 22, UI.FG, "bold")))
 	var weeks := int((day - c.day) / 7.0)
 	var time_words := "%d week%s to prepare" % [weeks, "" if weeks == 1 else "s"] if weeks >= 1 else "no time for a camp"
-	v.add_child(_centre(UI.label("%s to the club · %s · answer by %s" % [UI.money(BoutRules.TICKET_CUT), time_words, Clock.fmt(int(o["expires"]))], UI.TINY + 1, INK_SOFT)))
+	v.add_child(_centre(UI.label("%s to the club · %s · answer by %s" % [UI.money(BoutRules.TICKET_CUT), time_words, Clock.fmt(int(o["expires"]))], UI.TINY + 1, UI.MUTED)))
 	v.add_child(_centre(UI.display("VS", 64, UI.RED)))
 	var chip := UI.chip("Not safe" if bool(o["mismatch"]) else ("Weight at risk" if not bool(wf["ok"]) else "Legal, even match"),
 		"red" if bool(o["mismatch"]) else ("amber" if not bool(wf["ok"]) else "green"))
 	chip.name = "VersusChip"
 	chip.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	v.add_child(chip)
-	v.add_child(_gap(8))
+	v.add_child(_gap(4))
 	_rows(v, f, opp, wf, stem)
 	v.add_child(_gap(10))
 	v.add_child(_read(c, f, opp, day))
-	v.add_child(_gap(12))
+	v.add_child(_gap(8))
 	_answer(v, main, offer_id, answer)
 	return p
 
@@ -168,15 +165,15 @@ static func _rows(v: VBoxContainer, f: Dictionary, opp: Dictionary, wf: Dictiona
 	var theirs := int(opp.get("height", 0))
 	var heavy := not bool(wf["ok"])
 	var rows: Array = [
-		["RECORD", "%d-%d" % [int(f["w"]), int(f["l"])], "%d-%d" % [int(opp["w"]), int(opp["l"])], INK],
-		["AGE", str(int(f["age"])), str(int(opp["age"])), INK],
-		["ON THE DAY", "%.1f kg" % float(wf["day"]), "limit %.1f" % float(f["limit"]), UI.RED if heavy else INK],
-		["HEIGHT", "%d cm" % mine if mine > 0 else "-", "%d cm" % theirs if theirs > 0 else "-", UI.GREEN if mine > theirs and theirs > 0 else INK],
-		["STANCE", str(f["stance"]).capitalize(), str(opp["stance"]).capitalize(), INK],
+		["RECORD", "%d-%d" % [int(f["w"]), int(f["l"])], "%d-%d" % [int(opp["w"]), int(opp["l"])], UI.FG],
+		["AGE", str(int(f["age"])), str(int(opp["age"])), UI.FG],
+		["ON THE DAY", "%.1f kg" % float(wf["day"]), "limit %.1f" % float(f["limit"]), UI.RED if heavy else UI.FG],
+		["HEIGHT", "%d cm" % mine if mine > 0 else "-", "%d cm" % theirs if theirs > 0 else "-", UI.GREEN if mine > theirs and theirs > 0 else UI.FG],
+		["STANCE", str(f["stance"]).capitalize(), str(opp["stance"]).capitalize(), UI.FG],
 	]
 	for r in rows:
 		var line := ColorRect.new()
-		line.color = EDGE
+		line.color = Color(WoodKit.SOFT, 0.35)
 		line.custom_minimum_size = Vector2(0, 1)
 		line.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		v.add_child(line)
@@ -184,11 +181,11 @@ static func _rows(v: VBoxContainer, f: Dictionary, opp: Dictionary, wf: Dictiona
 		h.name = "Tape_" + str(r[0])
 		h.custom_minimum_size = Vector2(0, 50)
 		h.add_child(_cell(str(r[1]), r[3]))
-		var mid := _centre(UI.label(str(r[0]), UI.SMALL, INK_SOFT, "caps"))
+		var mid := _centre(UI.label(str(r[0]), UI.SMALL, UI.MUTED, "caps"))
 		mid.custom_minimum_size = Vector2(150, 0)
 		mid.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		h.add_child(mid)
-		h.add_child(_cell(str(r[2]), INK))
+		h.add_child(_cell(str(r[2]), UI.FG))
 		v.add_child(h)
 
 
@@ -203,16 +200,16 @@ static func _read(c: Career, f: Dictionary, opp: Dictionary, day: int) -> Contro
 	var read := BoutCompare.win_read(c, f, opp, BoutRead.camp_for(f, day - c.day))
 	var p := PanelContainer.new()
 	p.name = "VersusRead"
-	p.add_theme_stylebox_override("panel", UI.box(PAPER_DEEP, Color(0, 0, 0, 0), 8, 0, 14, 10))
+	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 14, 10))
 	var h := UI.hbox(12)
 	p.add_child(h)
-	var num := UI.mono("%d%%" % int(read["mid"]), 34, UI.GREEN if int(read["lo"]) >= 50 else (UI.RED if int(read["hi"]) <= 50 else INK))
+	var num := UI.mono("%d%%" % int(read["mid"]), 34, UI.GREEN if int(read["lo"]) >= 50 else (UI.RED if int(read["hi"]) <= 50 else UI.FG))
 	num.name = "VersusWin"
 	num.tooltip_text = "%d to %d%%" % [int(read["lo"]), int(read["hi"])]
 	num.mouse_filter = Control.MOUSE_FILTER_PASS
 	var tile := UI.vbox(0)
 	tile.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	tile.add_child(_centre(UI.label("WIN CHANCE", UI.TINY, INK_SOFT, "caps")))
+	tile.add_child(_centre(UI.label("WIN CHANCE", UI.TINY, UI.MUTED, "caps")))
 	tile.add_child(_centre(num))
 	h.add_child(tile)
 	var words := UI.vbox(2)
@@ -220,11 +217,11 @@ static func _read(c: Career, f: Dictionary, opp: Dictionary, day: int) -> Contro
 	words.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	words.add_child(UI.label("%s, %d%% to %d%%. Scouting report: %d of %d found" % [
 		str(read["sure"]).left(1).to_upper() + str(read["sure"]).substr(1), int(read["lo"]), int(read["hi"]),
-		int(read["found"]), int(read["all"])], 16, INK, "semi", true))
+		int(read["found"]), int(read["all"])], 16, UI.FG, "semi", true))
 	var stakes := UI.hbox(14)
 	stakes.name = "VersusStakes"
 	stakes.add_child(UI.label("A win: %s" % str(read["win_word"]), UI.SMALL, UI.GREEN, "bold"))
-	stakes.add_child(UI.label("A loss: %s" % str(read["loss_word"]), UI.SMALL, INK_SOFT, "bold"))
+	stakes.add_child(UI.label("A loss: %s" % str(read["loss_word"]), UI.SMALL, UI.MUTED, "bold"))
 	words.add_child(stakes)
 	h.add_child(words)
 	return p
@@ -244,10 +241,9 @@ static func _answer(v: VBoxContainer, main: Node, offer_id: String, answer: HBox
 		answer.remove_child(n)
 		(buttons if n is Button else reasons).append(n)
 	buttons.reverse()   # Pass, then Accept on the right, as the picture has it
+	# Pass stays BtnQuiet. The quiet tab vanished on the paper card, so it was forced onto the plank; on the slate the tab reads.
 	for b in buttons:
 		(b as Control).size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		if (b as Control).name == "Pass":   # the quiet style all but vanishes on paper
-			(b as Control).theme_type_variation = "Btn"
 		row.add_child(b)
 	answer.queue_free()
 	v.add_child(row)

@@ -1,13 +1,14 @@
 extends RefCounted
-## CLUB > People (S411). A coach card in the Fighters and Versus look: the face, one bar per area
-## with the lift against training alone, and the boxer's real week from WeekPlan. Staff jobs are
-## the same kind of card, smaller. Node names Hire_<id> stay, the first week presses them.
+## CLUB > People (S411). A coach card: the face, one bar per area with the lift against training alone,
+## and the boxer's real week from WeekPlan. Staff jobs are the same kind of card, smaller.
+## S418 the wood and slate look: the owner and each coach are a framed slate, and the small tiles are a
+## chalk outline. Node names Hire_<id> stay, the first week presses them.
 
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Bar := preload("res://scripts/ui/Bar.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 const PromoShot := preload("res://scripts/ui/PromoShot.gd")
-const RosterCards := preload("res://scripts/ui/RosterCards.gd")
 const Tips := preload("res://scripts/ui/Tips.gd")
 const TopCards := preload("res://scripts/ui/TopCards.gd")
 const Data := preload("res://scripts/state/Data.gd")
@@ -28,9 +29,9 @@ const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 const TABS := [["People", "gym", 1], ["Money", "money", 0], ["Records", "gym", 4]]
 const ROLE_WORD := {"assistant": "Second coach", "strength": "Strength coach", "physio": "Physio", "cutman": "Cutman"}
 const ROLE_ICON := {"assistant": "members", "strength": "weights", "physio": "Recovery", "cutman": "ice"}
-const INK := RosterCards.INK
-const SOFT := RosterCards.INK_SOFT
-const GREEN := Color("#1a7a42")
+const INK := UI.FG          # paper ink: WoodKit.ink turns it chalk on a slate
+const SOFT := UI.MUTED
+const GREEN := UI.GREEN
 
 
 static func page(parent: Container, main: Node, c: Career) -> void:
@@ -72,17 +73,13 @@ static func _head(main: Node) -> Control:
 			on = now_a == "gym" and now_t <= 2
 		var b := UI.button(str(t[0]), "TabOn" if on else "Tab", main.act.bind("go", "%s:%d" % [area, tab]))
 		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		if not on:
-			b.add_theme_color_override("font_color", RosterCards.CREAM)
-			b.add_theme_color_override("font_hover_color", Color.WHITE)
-			b.add_theme_color_override("font_pressed_color", Color.WHITE)
 		row.add_child(b)
 	return row
 
 
 static func _you(c: Career) -> Control:
 	var cd := HeadCoach.card(HeadCoach.of(c.head))
-	var p := _paper(false)
+	var p := _slate()
 	p.name = "HeadCoachRow"
 	p.tooltip_text = "%s. %s %s" % [cd.get("edge", ""), _no_file(str(cd.get("chip", ""))), _no_file(str(cd.get("plain", "")))]
 	var h := UI.hbox(12)
@@ -105,7 +102,7 @@ static func _you(c: Career) -> Control:
 
 static func _coach(main: Node, c: Career, coach: Dictionary, wide: bool) -> Control:
 	var who := _with_areas(coach)
-	var p := _paper(wide)
+	var p := _slate()
 	p.name = "Assistant_" + str(who.get("id", ""))
 	var h := UI.hbox(14)
 	p.add_child(h)
@@ -183,7 +180,7 @@ static func _bars(coach: Dictionary) -> Control:
 		if id == "pads":   # S413 pad nights teach moves, not attribute points
 			row.tooltip_text = "%s, rating %d. Moves are learned %s faster than with no coach." % [CoachAreas.label(id), roundi(rating), CoachAreas.pct_for(id, rating)]
 		row.mouse_filter = Control.MOUSE_FILTER_STOP
-		var ic := KitIcon.icon(CoachAreas.icon(id), 22, ink, row.tooltip_text)
+		var ic := _icon(CoachAreas.icon(id), 22, ink, row.tooltip_text)
 		ic.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(ic)
 		var nm := UI.label(CoachAreas.short(id), 16, ink, "bold")
@@ -196,8 +193,11 @@ static func _bars(coach: Dictionary) -> Control:
 			row.add_child(mark)
 		var bar := Bar.new()
 		bar.frac = rating / 100.0
-		bar.fill = ink
+		bar.fill = UI.GREEN if best else WoodKit.INK
+		bar.track = Color(WoodKit.SOFT, 0.30)
+		bar.mark_color = WoodKit.SOFT
 		bar.custom_minimum_size = Vector2(80, 12)
+		bar.ready.connect(_paint_bar.bind(bar, best), CONNECT_ONE_SHOT)
 		bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(bar)
@@ -255,7 +255,7 @@ static func _roles(main: Node, c: Career) -> Control:
 	row.name = "StaffJobs"
 	for r in StaffRoles.LIST:
 		row.add_child(_role(main, c, r))
-	var places := KitIcon.icon("members", 22, SOFT, "Roster places: %d of %d used" % [GymSpend.used(c), GymSpend.places(c)])
+	var places := KitIcon.icon("members", 22, WoodKit.SOFT, "Roster places: %d of %d used" % [GymSpend.used(c), GymSpend.places(c)])
 	places.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	row.add_child(places)
 	return row
@@ -264,13 +264,13 @@ static func _roles(main: Node, c: Career) -> Control:
 static func _role(main: Node, c: Career, r: Dictionary) -> Control:
 	var id := str(r["id"])
 	var on := c.staff_roles.has(id)
-	var p := _paper(on)
+	var p := _chip(on, 14, 12, true)
 	p.name = "Role_" + id
 	var pay := "%s a pro night" % UI.money(int(r["per_bout"])) if int(r["per_bout"]) > 0 else "%s a week" % UI.money(int(r["wage"]))
 	p.tooltip_text = "%s. %s. %s." % [r["name"], r["effect"], pay]
 	var h := UI.hbox(8)
-	p.add_child(h)
-	var ic := KitIcon.icon(str(ROLE_ICON.get(id, "coach")), 36, GREEN if on else INK, p.tooltip_text)
+	_host(p).add_child(h)
+	var ic := _icon(str(ROLE_ICON.get(id, "coach")), 36, GREEN if on else INK, p.tooltip_text)
 	ic.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(ic)
 	var v := UI.vbox(2)
@@ -310,12 +310,12 @@ static func _bjj(c: Career) -> Control:
 	if c.grapplers.is_empty():
 		return null
 	var money := int(Sim.bjj_money(c)["coach"])
-	var p := _paper(false)
+	var p := _chip(false, 14, 12, true)
 	p.name = "BjjCoach"
 	p.tooltip_text = "No-gi classes' coach, by the class. %s a class, %s a week." % [UI.money(BjjSide.COACH_CLASS), UI.money(money)]
 	var h := UI.hbox(8)
-	p.add_child(h)
-	h.add_child(KitIcon.icon("mat", 28, INK, p.tooltip_text))
+	_host(p).add_child(h)
+	h.add_child(_icon("mat", 28, INK, p.tooltip_text))
 	h.add_child(UI.label("No-gi", 16, INK, "bold"))
 	h.add_child(UI.label(UI.money(money), 16, INK, "bold"))
 	return p
@@ -330,24 +330,23 @@ static func _members(c: Career) -> Control:
 	var h := UI.hbox(8)
 	h.name = "Members"
 	Tips.card(h, func(): return TopCards.members(c))
-	h.add_child(_tile("members", str(c.members), "On the books: %d, %s." % [c.members, drift], INK, "members"))
-	h.add_child(_tile("reputation", rep_word, "Reputation: %s. Grows with wins (+%d each) and a well-kept gym." % [rep, BoutRules.WIN_REPUTATION], INK, "reputation"))
-	h.add_child(_tile("money", UI.money(Membership.fee(c.dues_band)), "Dues, %s a month each (%s, set on Money)." % [UI.money(Membership.fee(c.dues_band)), band], INK, "dues a month"))
+	h.add_child(_tile("members", str(c.members), "On the books: %d, %s." % [c.members, drift], INK, "members", true))
+	h.add_child(_tile("reputation", rep_word, "Reputation: %s. Grows with wins (+%d each) and a well-kept gym." % [rep, BoutRules.WIN_REPUTATION], INK, "reputation", true))
+	h.add_child(_tile("money", UI.money(Membership.fee(c.dues_band)), "Dues, %s a month each (%s, set on Money)." % [UI.money(Membership.fee(c.dues_band)), band], INK, "dues a month", true))
 	if c.coach.is_empty():
-		h.add_child(_tile("coach", "Need", "Evening classes need a coach.", INK, "a coach for classes"))
+		h.add_child(_tile("coach", "Need", "Evening classes need a coach.", INK, "a coach for classes", true))
 	return h
 
 
-static func _tile(icon: String, word: String, tip: String, ink: Color = INK, caption: String = "") -> Control:
-	var p := PanelContainer.new()
+static func _tile(icon: String, word: String, tip: String, ink: Color = INK, caption: String = "", on_gym: bool = false) -> Control:
+	var p := _chip(false, 4, 4, on_gym)
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	p.custom_minimum_size = Vector2(0, 72)
 	p.tooltip_text = tip
 	p.mouse_filter = Control.MOUSE_FILTER_STOP
-	p.add_theme_stylebox_override("panel", UI.box(RosterCards.PAPER_DEEP, Color(0, 0, 0, 0), 8, 0, 4, 4))
 	var v := UI.vbox(0)
 	v.alignment = BoxContainer.ALIGNMENT_CENTER
-	var ic := KitIcon.icon(icon, 18, ink, tip)
+	var ic := _icon(icon, 18, ink, tip)
 	ic.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	v.add_child(ic)
 	var l := UI.label(word, 14, ink, "bold")
@@ -359,7 +358,7 @@ static func _tile(icon: String, word: String, tip: String, ink: Color = INK, cap
 		var cap := UI.label(caption, 13, SOFT)
 		cap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		v.add_child(cap)
-	p.add_child(v)
+	_host(p).add_child(v)
 	return p
 
 
@@ -369,19 +368,71 @@ static func _no_file(s: String) -> String:
 
 
 static func _tag(text: String) -> Control:
-	var p := PanelContainer.new()
-	p.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	p.add_theme_stylebox_override("panel", UI.box(RosterCards.PAPER_DEEP, RosterCards.EDGE, 8, 1, 8, 3))
-	p.add_child(UI.label(text, 16, SOFT, "bold"))
+	var p := _chip(false, 8, 3, false, false)
+	_host(p).add_child(UI.label(text, 16, SOFT, "bold"))
 	return p
 
 
-static func _paper(hired: bool) -> PanelContainer:
+## The owner and each coach. The frame is 22 px a side; default slate pad is 30 x 26 and the paper card's own
+## pad was 14 x 12, so the words sit on the inner edge of the frame instead of stacking another margin on it.
+static func _slate() -> PanelContainer:
 	var p := PanelContainer.new()
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var edge := GREEN if hired else RosterCards.EDGE
-	p.add_theme_stylebox_override("panel", UI.box(RosterCards.PAPER, edge, 12, 2 if hired else 1, 14, 12))
+	p.theme_type_variation = "Card"
+	p.add_theme_stylebox_override("panel", WoodKit.slate(22, 22))
 	return p
+
+
+## A small tile: a see-through panel, thin chalk outline. Hired or selected: the outline is WoodKit.HEAD, 2 px.
+## On the painted gym a see-through chip would keep paper ink, and that ink is lost on the picture, so a dark
+## plate sits behind the words and the ink pass turns them chalk. On a slate the gym plate is left off.
+static func _chip(selected: bool, pad_h: int, pad_v: int, on_gym: bool, wide: bool = true) -> PanelContainer:
+	var p := PanelContainer.new()
+	if wide:
+		p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	else:
+		p.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var edge := WoodKit.HEAD if selected else Color(WoodKit.SOFT, 0.35)
+	var w := 2 if selected else 1
+	if on_gym:
+		p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), edge, 4, w, w, w))
+		var bed := PanelContainer.new()
+		bed.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		bed.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		bed.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		bed.add_theme_stylebox_override("panel", UI.box(UI.DARK, Color(0, 0, 0, 0), 4, 0, pad_h, pad_v))
+		p.add_child(bed)
+		p.set_meta("host", bed)
+	else:
+		p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), edge, 4, w, pad_h, pad_v))
+		p.set_meta("host", p)
+	return p
+
+
+static func _host(p: PanelContainer) -> Control:
+	return p.get_meta("host") as Control
+
+
+static func _icon(id: String, px: int, paper: Color, why: String) -> TextureRect:
+	var ic := KitIcon.icon(id, px, paper, why)
+	ic.ready.connect(_ink_icon.bind(ic, paper), CONNECT_ONE_SHOT)
+	return ic
+
+
+static func _ink_icon(ic: TextureRect, paper: Color) -> void:
+	if not WoodKit.on_dark(ic):
+		return
+	if paper == UI.FG:
+		ic.modulate = WoodKit.INK
+	elif paper == UI.MUTED:
+		ic.modulate = WoodKit.SOFT
+
+
+static func _paint_bar(bar: Bar, best: bool) -> void:
+	bar.track = Color(WoodKit.SOFT, 0.30)
+	bar.mark_color = WoodKit.muted(bar)
+	if not best:
+		bar.fill = WoodKit.fg(bar)
 
 
 static func _photo(c: Career, id: String) -> String:

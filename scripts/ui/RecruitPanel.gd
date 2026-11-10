@@ -7,6 +7,7 @@ extends RefCounted
 ##   RecruitPanel.build(main, career, applicant, picks, act) -> VBoxContainer   focus_of(picks) -> String
 
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Recruit := preload("res://scripts/rules/Recruit.gd")
 const PerkRoad := preload("res://scripts/rules/PerkRoad.gd")
@@ -31,7 +32,7 @@ static func build(main: Node, c: Career, a: Dictionary, picks: Array, act: Strin
 	var v := UI.vbox(10)
 	var top := UI.hbox(14)
 	var cl := Recruit.class_of(str(f.get("style", "")))
-	top.add_child(UI.chip("%s - %s; %s" % [str(f.get("style", "")).to_upper(), cl[0], cl[1]], "gold"))
+	top.add_child(_chip("%s - %s; %s" % [str(f.get("style", "")).to_upper(), cl[0], cl[1]], "gold"))
 	var eye := HeadCoach.sees_potential(c.head)   # S397 the amateur coach's eye for talent: the exact value, not a range
 	var st := Recruit.stars(int(f["pot"]), eye)
 	var full := int(floor(float(st[1])))
@@ -69,7 +70,7 @@ static func _attributes(f: Dictionary) -> VBoxContainer:
 			common = int(k)
 	for key in Data.STATS:
 		var row := UI.hbox(8)
-		row.add_child(KitIcon.icon(str(STAT_ICON.get(key, "star")), 24, UI.GOLD))
+		row.add_child(KitIcon.icon(str(STAT_ICON.get(key, "star")), 24, WoodKit.HEAD))
 		var l := UI.label(str(Data.LABEL[key]), UI.BODY)
 		l.custom_minimum_size = Vector2(130, 0)
 		row.add_child(l)
@@ -80,12 +81,14 @@ static func _attributes(f: Dictionary) -> VBoxContainer:
 		stack.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		var ceil_bar: Control = Bar.new()
 		ceil_bar.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		ceil_bar.fill = Color("#bfd8ff")
+		ceil_bar.track = Color(WoodKit.SOFT, 0.28)
+		ceil_bar.fill = WoodKit.BLUE
 		ceil_bar.frac = cap / 100.0
 		stack.add_child(ceil_bar)
 		var now_bar: Control = Bar.new()
 		now_bar.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		now_bar.track = Color(0, 0, 0, 0)
+		now_bar.fill = UI.GREEN
 		now_bar.frac = now / 100.0
 		stack.add_child(now_bar)
 		row.add_child(stack)
@@ -119,6 +122,7 @@ static func _who(main: Node, f: Dictionary, picks: Array, act: String) -> VBoxCo
 		var gain := "%s +10 mastery now" % sig if id == "signature" and sig != "" else str(fc["short"])
 		var b := UI.button2(str(fc["name"]), "%s\n%s" % [gain, fc["cost"]], "ChoiceOn" if pick == id else "Choice",
 			main.act.bind(act, id), Vector2(216, 96), UI.FG, UI.MUTED, false, UI.BODY, UI.SMALL)
+		_slate_choice(b, pick == id)
 		b.name = "Focus_" + id
 		b.tooltip_text = "%s. %s" % [fc["gain"], fc["why"]]
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -129,7 +133,7 @@ static func _who(main: Node, f: Dictionary, picks: Array, act: String) -> VBoxCo
 
 static func _line(tag: String, colour: String, name: String, effect: String) -> HBoxContainer:
 	var h := UI.hbox(8)
-	var c := UI.chip(tag, colour)
+	var c := _chip(tag, colour)
 	c.custom_minimum_size = Vector2(96, 0)
 	h.add_child(c)
 	# S408 "tone of text": the name in big words, what it does on hover.
@@ -154,11 +158,26 @@ static func _perks(f: Dictionary) -> HFlowContainer:
 	var road: Array = PerkRoad.status(f)
 	road.sort_custom(func(a, b): return (0.0 if bool(a["open"]) else float(a["gap"])) < (0.0 if bool(b["open"]) else float(b["gap"])))
 	for s in road.slice(0, 4):
-		var chip := UI.chip("%s - %s" % [str(s["name"]), "open" if bool(s["open"]) else str(s["need"])], "green" if bool(s["open"]) or bool(s["near"]) else "")
+		var chip := _chip("%s - %s" % [str(s["name"]), "open" if bool(s["open"]) else str(s["need"])], "green" if bool(s["open"]) or bool(s["near"]) else "")
 		chip.tooltip_text = str(s["effect"])
 		chip.mouse_filter = Control.MOUSE_FILTER_PASS
 		row.add_child(chip)
 	return row
+
+
+## A tag on the slate: see-through, a thin chalk edge. The word keeps its UI colour; the ink pass turns paper inks to chalk.
+static func _chip(text: String, colour_key: String) -> PanelContainer:
+	var p := UI.chip(text, colour_key)
+	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 10, 3))
+	return p
+
+
+## One starting focus: a see-through tile, the chosen one edged in gold. Pad stays 0 so the 216x96 size holds.
+static func _slate_choice(b: Button, on: bool) -> void:
+	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
+		var hot: bool = state == "hover" and not on
+		var edge := Color(WoodKit.HEAD) if on else (Color(WoodKit.BLUE) if hot else Color(WoodKit.SOFT, 0.35))
+		b.add_theme_stylebox_override(state, UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if on or hot else 1, 0, 0))
 
 
 static func _habit(id: String) -> Dictionary:

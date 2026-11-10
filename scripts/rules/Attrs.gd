@@ -405,7 +405,7 @@ static func signature(a: Dictionary) -> String:
 static func wants_words(a: Dictionary) -> String:
 	var fw := float(a.get("forward", 50.0))
 	var pace := float(a.get("pace", 55.0))
-	var where := "walks you down" if fw >= 65.0 else ("keeps it long" if fw <= 35.0 else "boxes in the middle of the ring")
-	var how := "relentless: throws more, tires faster" if pace >= 70.0 else ("patient: hard to counter, quiet on the cards" \
+	var where := "Walks forward" if fw >= 65.0 else ("Stays at range" if fw <= 35.0 else "Boxes mid-ring")
+	var how := "busy, tires faster" if pace >= 70.0 else ("patient, picks shots" \
 		if pace <= 35.0 else "steady pace")
 	return "%s, %s" % [where, how]
