@@ -4,6 +4,7 @@ extends VBoxContainer
 
 const UI := preload("res://scripts/ui/UI.gd")
 const WarmKit := preload("res://scripts/ui/WarmKit.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const CashChart := preload("res://scripts/ui/CashChart.gd")
@@ -46,11 +47,12 @@ func build(main: Node) -> void:
 
 
 func _board(main: Node, c: Career, inc: Dictionary, cost: Dictionary, ahead: Array) -> Control:
-	var board := WarmKit.panel("board")
+	var board := PanelContainer.new()
 	board.name = "BooksBoard"
 	board.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	board.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_inset(board, 30, 22, 32)   # clear of the aluminium frame
+	# The old sheet inset 30+22. The frame is 22 px, so the pad is the frame and the page stays inside 1080.
+	board.add_theme_stylebox_override("panel", WoodKit.slate(30, 22))
 	var v := UI.vbox(2)
 	board.add_child(v)
 	v.add_child(_head(c, inc, cost, ahead))
@@ -65,7 +67,7 @@ func _board(main: Node, c: Career, inc: Dictionary, cost: Dictionary, ahead: Arr
 func _head(c: Career, inc: Dictionary, cost: Dictionary, ahead: Array) -> Control:
 	var box := UI.vbox(2)
 	var top := UI.hbox(8)
-	var title := UI.label("The books, week %d" % Clock.week_of(c.day), 28, UI.GOLD, "marker")
+	var title := UI.label("The books, week %d" % Clock.week_of(c.day), 28, WoodKit.INK, "marker")
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top.add_child(title)
 	_books_tab = UI.button("The books", "BtnSolid", func(): _show_books(true))
@@ -94,24 +96,24 @@ func _kpis(c: Career, inc: Dictionary, cost: Dictionary, ahead: Array) -> Contro
 	var row := UI.hbox(8)
 	row.name = "MoneyTiles"
 	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var cash_col := TILE_GOOD if c.cash >= 0 else TILE_BAD
+	var cash_col := UI.GREEN if c.cash >= 0 else UI.RED
 	var cash := UI.label(UI.money(c.cash), 26, cash_col, "bold")
 	cash.name = "PageCash"
 	row.add_child(_tile("money", "CASH", cash, "Cash in the tin", cash_col))
-	var members := UI.label("%d / %d" % [c.members, GymSpend.member_cap(c)], 26, Color.WHITE, "bold")
+	var members := UI.label("%d / %d" % [c.members, GymSpend.member_cap(c)], 26, WoodKit.INK, "bold")
 	var even := _break_even(c, inc, cost)
-	row.add_child(_tile("members", "MEMBERS", members, "Break-even: %d of your %d members cover what the other income leaves" % [even, c.members], Color.WHITE))
-	var runway_col := TILE_WARN if weeks >= 0 and weeks < GymBills.WARN_RUNWAY_WEEKS else Color.WHITE
+	row.add_child(_tile("members", "MEMBERS", members, "Break-even: %d of your %d members cover what the other income leaves" % [even, c.members], WoodKit.INK))
+	var runway_col := UI.AMBER if weeks >= 0 and weeks < GymBills.WARN_RUNWAY_WEEKS else WoodKit.INK
 	var runway := UI.label(hand, 26, runway_col, "bold")
 	row.add_child(_tile("runway", "MONEY LASTS", runway, "Runway: weeks of costs the tin covers. Under 8 weeks warns. " + GymBills.line(c.cash, net, c.weeks_below), runway_col))
-	var net_col := TILE_GOOD if net >= 0 else TILE_BAD
+	var net_col := UI.GREEN if net >= 0 else UI.RED
 	var net_lab := UI.label(UI.signed(net), 26, net_col, "bold")
 	row.add_child(_tile("money", "NET A WEEK", net_lab, "Left over each week", net_col))
-	var bills := UI.label(UI.money(int(split["amount"])), 26, TILE_BAD, "bold")
+	var bills := UI.label(UI.money(int(split["amount"])), 26, UI.RED, "bold")
 	bills.name = "NextBills"
 	bills.set_meta("day", int(split["day"]))
 	bills.set_meta("amount", int(split["amount"]))
-	row.add_child(_tile("calendar", "BILLS %s" % Clock.fmt(int(split["day"])).to_upper(), bills, "Bills are paid every 28 days. Run up so far: %s." % UI.money(c.accrued), TILE_BAD))
+	row.add_child(_tile("calendar", "BILLS %s" % Clock.fmt(int(split["day"])).to_upper(), bills, "Bills are paid every 28 days. Run up so far: %s." % UI.money(c.accrued), UI.RED))
 	return row
 
 
@@ -268,28 +270,25 @@ func _net(net: int) -> Control:
 	return row
 
 
-const TILE_GOOD := Color("#74e39f")
-const TILE_BAD := Color("#ff8f85")
-const TILE_WARN := Color("#ffc857")
-
-
-## One number on a dark plate: an icon, what it is, the number.
+## One number on a dark plate: an icon, what it is, the number. The plate stays dark, with a chalk outline.
 func _tile(icon: String, caption: String, lab: Control, tip: String, col: Color) -> Control:
 	var p := PanelContainer.new()
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	p.tooltip_text = tip
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = Color("#1b2740")
+	sb.border_color = Color(WoodKit.SOFT, 0.35)
+	sb.set_border_width_all(1)
 	sb.set_corner_radius_all(10)
-	sb.set_content_margin_all(10)
-	sb.content_margin_left = 14
+	sb.set_content_margin_all(9)
+	sb.content_margin_left = 13
 	p.add_theme_stylebox_override("panel", sb)
 	var h := UI.hbox(12)
 	p.add_child(h)
 	h.add_child(KitIcon.icon(icon, 34, col, tip))
 	var v := UI.vbox(0)
 	h.add_child(v)
-	v.add_child(UI.label(caption, UI.SMALL, Color("#b9c6dc"), "bold"))
+	v.add_child(UI.label(caption, UI.SMALL, WoodKit.SOFT, "bold"))
 	lab.tooltip_text = tip
 	v.add_child(lab)
 	return p
@@ -301,18 +300,6 @@ func _break_even(c: Career, inc: Dictionary, cost: Dictionary) -> int:
 	if per <= 0.0:
 		return 0
 	return int(ceil(float(maxi(0, need)) / per))
-
-
-func _inset(panel: PanelContainer, top: float, bottom: float, side: float) -> void:
-	var src := panel.get_theme_stylebox("panel")
-	if not (src is StyleBoxTexture):
-		return
-	var copy := (src as StyleBoxTexture).duplicate() as StyleBoxTexture
-	copy.content_margin_top = top
-	copy.content_margin_bottom = bottom
-	copy.content_margin_left = side
-	copy.content_margin_right = side
-	panel.add_theme_stylebox_override("panel", copy)
 
 
 func _show_books(on: bool) -> void:

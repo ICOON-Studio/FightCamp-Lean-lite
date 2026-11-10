@@ -40,7 +40,7 @@ func _initialize() -> void:
 	if red != null:
 		var red_body: TextureRect = red.find_child("Body", true, false)
 		_check(red_body != null and red_body.texture != null and red_body.flip_h, "the left-hand boxer has a picture and is turned to face the middle")
-	for row in ["RECORD", "AGE", "ON THE DAY", "HEIGHT", "STANCE"]:
+	for row in ["RECORD", "AGE", "WEIGHT", "HEIGHT", "STANCE"]:
 		_check(main.find_child("Tape_" + row, true, false) != null, "the tape shows " + row)
 	var win: Label = main.find_child("VersusWin", true, false)
 	_check(win != null and win.text.ends_with("%"), "the win chance is on the card (%s)" % ("?" if win == null else win.text))

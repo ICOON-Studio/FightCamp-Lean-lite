@@ -90,6 +90,7 @@ static func defends(kind: String) -> bool:
 ## The partner slips (odd jabs) or covers up (even jabs) so the defence is deepest as her glove arrives `contact_real`
 ## seconds from now. `still` says the move is still the one that threw it when the timer fires.
 ## HEADAIM2: also aims the un-landed jab's height at the target's face (punch_clip and punch_contact_s for the aim).
+## BLOCKMEET2: blocked punches are carried onto the blocking glove (arm_block), not just aimed at face height.
 static func defend(p: Node, stage: Node3D, n: int, contact_real: float, speed: float, still: Callable, punch_clip: String = "", punch_contact_s: float = 0.0) -> String:
 	var has: Callable = stage.has_move
 	var clip := BeatClips.defence("slip", "jab", true, false, has) if n % 2 == 1 else BeatClips.first(BeatClips.DEFENCE["block"], has)
@@ -99,9 +100,12 @@ static func defend(p: Node, stage: Node3D, n: int, contact_real: float, speed: f
 	var deep := BLOCK_SET_S if clip.contains("block") else _peak(stage, clip)
 	var start := contact_real - DEF_LATE_S - deep / rate
 	var from_s := maxf(0.0, -start * rate)
-	# HEADAIM2: aim the un-landed jab's height at the target's face
+	# HEADAIM2/BLOCKMEET2: aim the un-landed jab - blocked goes to glove, slipped/missed goes to face height
 	if punch_clip != "":
-		stage.aim_height(0, punch_clip, 0.0, punch_contact_s)
+		if clip.contains("block"):
+			stage.arm_block(0, punch_clip, 0.0, punch_contact_s)
+		else:
+			stage.aim_height(0, punch_clip, 0.0, punch_contact_s)
 	_later(p, maxf(0.0, start), func():
 		if still.call():
 			stage.play(1, clip, rate, from_s))

@@ -4,6 +4,7 @@ extends RefCounted
 
 const UI := preload("res://scripts/ui/UI.gd")
 const WarmKit := preload("res://scripts/ui/WarmKit.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 
 
@@ -35,7 +36,7 @@ static func draw(parent: Node, items: Array) -> Control:
 	grid.columns = 2
 	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	grid.add_theme_constant_override("h_separation", 8)
-	grid.add_theme_constant_override("v_separation", 6)
+	grid.add_theme_constant_override("v_separation", 2)
 	parent.add_child(grid)
 	for it in items:
 		grid.add_child(_tag(it))
@@ -64,10 +65,12 @@ static func _tag(it: Dictionary) -> Control:
 	tag.set_meta("grey", bool(it.get("grey", false)))
 	tag.set_meta("reason", str(it.get("reason", "")))
 	tag.tooltip_text = str(it.get("effect", ""))
-	var paper := WarmKit.panel("paper")
+	var paper := PanelContainer.new()
 	paper.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	paper.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_inset(paper, 8, 6, 16)
+	var skin := UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 16, 8)
+	skin.content_margin_bottom = 6
+	paper.add_theme_stylebox_override("panel", skin)
 	if bool(it.get("grey", false)):
 		paper.modulate = Color(1, 1, 1, 0.6)
 		tag.tooltip_text = str(it.get("reason", ""))
@@ -76,7 +79,7 @@ static func _tag(it: Dictionary) -> Control:
 	paper.add_child(row)
 	var icon := str(it.get("icon", "money"))
 	if KitIcon.has_icon(icon):
-		row.add_child(KitIcon.icon(icon, 28, UI.FG))
+		row.add_child(KitIcon.icon(icon, 28, WoodKit.INK))
 	var text := UI.vbox(0)
 	text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(text)
@@ -86,30 +89,38 @@ static func _tag(it: Dictionary) -> Control:
 	title.max_lines_visible = 1
 	text.add_child(title)
 	var price_row := UI.hbox(4)
-	var price := UI.label(str(it.get("price_text", "")), 16, UI.GREEN if bool(it.get("owned", false)) or bool(it.get("held", false)) else UI.GOLD, "marker")
-	price.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	price.clip_text = true
-	price.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	var owned := bool(it.get("owned", false)) or bool(it.get("held", false))
+	var price := UI.label(str(it.get("price_text", "")), 16, UI.GREEN if owned else WoodKit.INK, "marker")
+	# S420: the price is never cut ("$12,00", "$280 a" on S419's page); the week line gives way instead.
 	price_row.add_child(price)
 	var from_net := int(it.get("net_from", 0))
 	var to_net := int(it.get("net_to", from_net))
 	if to_net != from_net:
 		var net := UI.label("Week %s to %s" % [UI.signed(from_net), UI.signed(to_net)], 12, UI.GREEN if to_net > from_net else UI.RED, "bold")
 		net.name = "TagNet"
+		net.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		net.clip_text = true
+		net.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		net.tooltip_text = "What is left over each week now, and after this"
 		price_row.add_child(net)
+	else:
+		var gap := Control.new()   # S420: keeps the button at the right edge when there is no week line
+		gap.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		gap.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		price_row.add_child(gap)
 	for b in it.get("buttons", []):
 		if b != null:
 			if bool(it.get("affordable", false)):
-				(b as Button).theme_type_variation = "BtnSolid"
+				(b as Button).theme_type_variation = "Go"
 			_short_button(b)
 			price_row.add_child(b)
 	text.add_child(price_row)
 	var body := UI.label(str(it.get("effect", "")), 12, UI.FG, "hand", true)
 	body.max_lines_visible = 2
+	body.text_overrun_behavior = TextServer.OVERRUN_TRIM_WORD_ELLIPSIS   # S420: a cut line shows it ("room for 10" read whole)
 	text.add_child(body)
 	var foot := UI.hbox(4)
-	foot.add_child(KitIcon.icon("runway", 14, UI.FG))
+	foot.add_child(KitIcon.icon("runway", 14, WoodKit.INK))
 	var runway := UI.label(str(it.get("runway", "")), 12, UI.FG, "body")
 	runway.clip_text = true
 	runway.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
@@ -133,18 +144,6 @@ static func _tag(it: Dictionary) -> Control:
 			pin.modulate = Color(0.62, 0.61, 0.58)
 		tag.add_child(pin)
 	return tag
-
-
-static func _inset(panel: PanelContainer, top: float, bottom: float, side: float) -> void:
-	var src := panel.get_theme_stylebox("panel")
-	if not (src is StyleBoxTexture):
-		return
-	var copy := (src as StyleBoxTexture).duplicate() as StyleBoxTexture
-	copy.content_margin_top = top
-	copy.content_margin_bottom = bottom
-	copy.content_margin_left = side
-	copy.content_margin_right = side
-	panel.add_theme_stylebox_override("panel", copy)
 
 
 static func _short_button(b: Button) -> void:

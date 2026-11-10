@@ -4,6 +4,7 @@ extends Control
 ## points: [{w, c}] the past, including today. future: the weeks CashForecast projected.
 
 const UI := preload("res://scripts/ui/UI.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 
 var points: Array = []
 var future: Array = []
@@ -19,6 +20,7 @@ func _ready() -> void:
 	custom_minimum_size = Vector2(0, height)
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	queue_redraw()
 
 
 func _notification(what: int) -> void:
@@ -43,7 +45,7 @@ func _rebuild_marks() -> void:
 		lab.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		lab.add_theme_font_override("font", UI.font("bold"))
 		lab.add_theme_font_size_override("font_size", 11)
-		lab.add_theme_color_override("font_color", Color.WHITE)
+		lab.add_theme_color_override("font_color", WoodKit.INK)
 		lab.custom_minimum_size = Vector2(16, 16)
 		lab.size = Vector2(16, 16)
 		lab.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -51,6 +53,12 @@ func _rebuild_marks() -> void:
 
 
 func _draw() -> void:
+	var ink := WoodKit.fg(self)
+	var quiet := WoodKit.muted(self)
+	var cash_col := WoodKit.blue(self)
+	for c in get_children():
+		if str(c.name).begins_with("Mark") and c is Label:
+			(c as Label).add_theme_color_override("font_color", ink)
 	var g := _geom()
 	if g.is_empty():
 		return
@@ -71,8 +79,8 @@ func _draw() -> void:
 		if absf(tv) < 0.5:
 			continue
 		var y: float = bottom - (tv - lo) / span * (bottom - top)
-		draw_dashed_line(Vector2(left, y), Vector2(right, y), Color(UI.MUTED, 0.45), 1.0, 4.0)
-		draw_string(font, Vector2(2, y + 4), _tick_text(tv), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, UI.MUTED)
+		draw_dashed_line(Vector2(left, y), Vector2(right, y), Color(quiet, 0.45), 1.0, 4.0)
+		draw_string(font, Vector2(2, y + 4), _tick_text(tv), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, quiet)
 	var zy := bottom - (0.0 - lo) / span * (bottom - top)
 	draw_dashed_line(Vector2(left, zy), Vector2(right, zy), UI.RED, 1.5, 6.0)
 	draw_string(font, Vector2(2, zy + 4), "$0", HORIZONTAL_ALIGNMENT_LEFT, -1, 12, UI.RED)
@@ -80,14 +88,15 @@ func _draw() -> void:
 		var a := Vector2(xs[i], ys[i])
 		var b := Vector2(xs[i + 1], ys[i + 1])
 		if bool(pts[i + 1]["ahead"]):
-			draw_dashed_line(a, b, UI.GOLD, 3.0, 5.0)
+			draw_dashed_line(a, b, quiet, 3.0, 5.0)
 		else:
-			draw_line(a, b, UI.GOLD, 3.0, true)
+			draw_line(a, b, cash_col, 3.0, true)
 	var today: int = g["today"]
 	for i in n:
-		draw_circle(Vector2(xs[i], ys[i]), 3.0 if i == today else 2.0, UI.GREEN if i == today else UI.GOLD)
+		var dot := UI.GREEN if i == today else (quiet if bool(pts[i]["ahead"]) else cash_col)
+		draw_circle(Vector2(xs[i], ys[i]), 3.0 if i == today else 2.0, dot)
 	if today >= 0:
-		draw_dashed_line(Vector2(xs[today], top), Vector2(xs[today], bottom), UI.FG, 1.0, 3.0)
+		draw_dashed_line(Vector2(xs[today], top), Vector2(xs[today], bottom), ink, 1.0, 3.0)
 		draw_arc(Vector2(xs[today], ys[today]), 8.0, 0, TAU, 24, UI.GREEN, 2.0)
 		draw_circle(Vector2(xs[today], ys[today]), 3.5, UI.GREEN)
 	for e in events:
@@ -100,12 +109,12 @@ func _draw() -> void:
 		if lab != null:
 			lab.position = at - Vector2(8, 8)
 	if today == 0:
-		_week(font, xs[0], "W%d today" % int(pts[0]["w"]))
+		_week(font, xs[0], "W%d today" % int(pts[0]["w"]), quiet)
 	elif today > 0:
-		_week(font, xs[0], "W%d" % int(pts[0]["w"]))
-		_week(font, xs[today], "W%d today" % int(pts[today]["w"]))
+		_week(font, xs[0], "W%d" % int(pts[0]["w"]), quiet)
+		_week(font, xs[today], "W%d today" % int(pts[today]["w"]), quiet)
 	if n > 1 and bool(pts[n - 1]["ahead"]):
-		_week(font, xs[n - 1], "W%d" % int(pts[n - 1]["w"]))
+		_week(font, xs[n - 1], "W%d" % int(pts[n - 1]["w"]), quiet)
 
 
 func _geom() -> Dictionary:
@@ -173,5 +182,5 @@ func _tick_text(v: float) -> String:
 	return UI.money(n)
 
 
-func _week(font: Font, x: float, text: String) -> void:
-	draw_string(font, Vector2(x - 22.0, size.y - 2.0), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, UI.MUTED)
+func _week(font: Font, x: float, text: String, col: Color) -> void:
+	draw_string(font, Vector2(x - 22.0, size.y - 2.0), text, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, col)

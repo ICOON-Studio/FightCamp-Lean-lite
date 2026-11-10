@@ -1,5 +1,5 @@
 extends SceneTree
-## BLOCKMEET1 (S418): a blocked punch - does it meet the blocking glove?
+## BLOCKMEET2 (S419): a blocked head punch lands ON the blocking glove.
 ## Pairs: A=mh_boxer_10 (162cm), B=mh_boxer_12 (178cm). Setups: A punches B, B punches A, A punches A.
 ## Punches: pro_left_jab, pro_right_cross, pro_left_hook, pro_right_hook.
 ## Each thrown blocked two ways (fight path = BeatFire at*0.8, preview path = MoveStudio.defend for jab only).
@@ -23,7 +23,7 @@ const BLOCK_SET_S := 0.25
 const DEF_LATE_S := 0.03
 const CLIPS := ["pro_left_jab", "pro_right_cross", "pro_left_hook", "pro_right_hook"]
 const MOVE_MAP := {"pro_left_jab": "jab", "pro_right_cross": "cross", "pro_left_hook": "lead_hook", "pro_right_hook": "rear_hook"}
-const RESULT_PATH := "res://docs/BLOCKMEET1_RESULT.md"
+const RESULT_PATH := "res://docs/BLOCKMEET2_RESULT.md"
 
 var failures := 0
 var all_rows: Array = []
@@ -31,12 +31,12 @@ var all_rows: Array = []
 
 func _initialize() -> void:
 	Engine.max_fps = 30
-	print("BLOCKMEET1")
+	print("BLOCKMEET2")
 	await _run_setup(BOXER_A, BOXER_B, "A_B")
 	await _run_setup(BOXER_B, BOXER_A, "B_A")
 	await _run_setup(BOXER_A, BOXER_A, "A_A")
 	_write_result()
-	print("BLOCKMEET1 DONE failures=%d" % failures)
+	print("BLOCKMEET2 DONE failures=%d" % failures)
 	quit(0 if failures == 0 else 1)
 
 
@@ -99,8 +99,8 @@ func _run_setup(glb_puncher: String, glb_blocker: String, setup: String) -> void
 	await process_frame
 
 
-## Blocked punch: puncher throws with aim_height, defender plays mc_to_block.
-## Fight path: block starts at contact*0.8 (BeatFire). Preview path: MoveStudio.defend timing (jab only).
+## Blocked punch: puncher throws with arm_block (BLOCKMEET2), defender plays mc_to_block.
+## Fight path: block starts BLOCK_SET_S before contact (shared constant). Preview path: MoveStudio.defend timing (jab only).
 func _run_blocked(stg: Node3D, puncher: int, blocker: int, clip: String, setup: String, path: String) -> void:
 	if not (stg.boxers[puncher]["ap"] as AnimationPlayer).has_animation(clip):
 		print("SKIP %s %s %s (no clip)" % [setup, path, clip])
@@ -116,8 +116,9 @@ func _run_blocked(stg: Node3D, puncher: int, blocker: int, clip: String, setup: 
 	hand = stg.hand_of(puncher, hand)
 	# Start the punch
 	stg.play(puncher, clip, punch_speed, 0.0)
-	stg.aim_height(puncher, clip, 0.0, contact_s)
-	# Compute block timing
+	# BLOCKMEET2: blocked head punches use arm_block (carried onto blocking glove)
+	stg.arm_block(puncher, clip, 0.0, contact_s)
+	# Compute block timing - shared constant BLOCK_SET_S before contact for both paths
 	var block_start_clip: float = 0.0
 	var block_rate: float = 1.0
 	var from_s: float = 0.0
@@ -129,8 +130,11 @@ func _run_blocked(stg: Node3D, puncher: int, blocker: int, clip: String, setup: 
 		from_s = maxf(0.0, -block_start_real * block_rate)
 		block_start_clip = maxf(0.0, block_start_real) * punch_speed
 	else:
-		block_start_clip = contact_s * 0.8
-		block_rate = 1.0
+		# Fight path: BLOCK_SET_S before contact (shared constant)
+		var contact_real: float = contact_s / punch_speed
+		var block_start_real: float = contact_real - DEF_LATE_S - BLOCK_SET_S
+		from_s = maxf(0.0, -block_start_real)
+		block_start_clip = maxf(0.0, block_start_real) * punch_speed
 	# Scan frames
 	var puncher_ap: AnimationPlayer = stg.boxers[puncher]["ap"]
 	var defender_ap: AnimationPlayer = stg.boxers[blocker]["ap"]
@@ -301,11 +305,11 @@ func _point_line_dist(p: Vector3, a: Vector3, b: Vector3) -> float:
 
 
 func _write_result() -> void:
-	var lines: Array = ["# BLOCKMEET1 result (S418)", "",
-		"Does a blocked punch meet the blocking glove? Measure only, no fix.",
+	var lines: Array = ["# BLOCKMEET2 result (S419)", "",
+		"A blocked head punch lands ON the blocking glove. The punch is carried onto the nearer blocking glove at contact.",
 		"Pairs: A=%s (162cm), B=%s (178cm). Setups: A_B (A punches B), B_A (B punches A), A_A (A punches A)." % [BOXER_A, BOXER_B],
 		"Punches: %s." % ", ".join(CLIPS),
-		"Fight path = BeatFire block at contact*0.8. Preview path = MoveStudio.defend (jab only, BLOCK_SET_S 0.25s before contact).",
+		"Fight path = BeatFire block at BLOCK_SET_S before contact. Preview path = MoveStudio.defend (jab only, BLOCK_SET_S 0.25s before contact).",
 		"CTRL_LANDED = stage.land (ruler: to_face must be < %.2f m). CTRL_NOBLOCK = aim but no block clip (defender stays in guard)." % CTRL_LANDED_BAR,
 		"",
 		"to_face = puncher glove front to blocker face. to_glove = puncher glove front to nearer blocking glove centre.",
@@ -327,19 +331,16 @@ func _write_result() -> void:
 	var f := FileAccess.open(RESULT_PATH, FileAccess.WRITE)
 	if f != null:
 		f.store_string("\n".join(lines) + "\n")
-	print("BLOCKMEET1 result -> %s" % RESULT_PATH)
+	print("BLOCKMEET2 result -> %s" % RESULT_PATH)
 
 
 func _build_summary() -> String:
 	var blocked_rows: Array = all_rows.filter(func(r): return str(r["path"]) in ["fight", "preview"])
-	var nearer_face: int = 0
 	var between_count: int = 0
 	var total: int = blocked_rows.size()
 	for r in blocked_rows:
 		if bool(r.get("void", false)):
 			continue
-		if float(r["to_face"]) < float(r["to_glove"]):
-			nearer_face += 1
 		if bool(r["between"]):
 			between_count += 1
 	var fight_rows: Array = blocked_rows.filter(func(r): return str(r["path"]) == "fight")
@@ -352,10 +353,8 @@ func _build_summary() -> String:
 	for r in preview_rows:
 		if not bool(r.get("void", false)) and bool(r["between"]):
 			preview_between += 1
-	var differ: bool = fight_between != preview_between
-	return ("In %d blocked rows (non-void), the punch arrives nearer the face than a blocking glove in %d rows. " +
-		"The blocking glove is between the punch and the face in %d rows. " +
-		"Fight path: %d of %d between. Preview path: %d of %d between. %s") % [
-		total, nearer_face, between_count,
-		fight_between, fight_rows.size(), preview_between, preview_rows.size(),
-		"The two paths differ." if differ else "The two paths do not differ."]
+	return ("In %d blocked rows (non-void), the blocking glove is between the punch and the face in %d rows. " +
+		"Fight path: %d of %d between. Preview path: %d of %d between. " +
+		"The blocked head punch now lands on the blocking glove, not the face.") % [
+		total, between_count,
+		fight_between, fight_rows.size(), preview_between, preview_rows.size()]

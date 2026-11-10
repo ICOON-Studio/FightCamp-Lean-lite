@@ -5,7 +5,7 @@ extends RefCounted
 ## no status pills that repeat the panels, no weeks strip, one call to action with its deadline, every opponent trait next
 ## to the answer the plan can give it. Top to bottom:
 ##   head      VS <opponent> (club, record, game), "19 days" to fight night and the weigh-in, the ONE primary button
-##   tale      the two fighters side by side (record, age, stance, style) and the win chance with how sure it is
+##   tale      the one tape (TapeRows), drawn like the versus card, and the win chance with how sure it is
 ##   answers   WHAT YOUR PLAN SHOULD ANSWER: each trait found with its answer and "Write it"; hidden ones say what opens
 ##             them; lines written of the coach's limit and the sparring nights left to test them
 ##   camp      CAMP AND WEIGHT: the goal attribute's line to fight night, the scale with its margin
@@ -23,6 +23,9 @@ const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
 const SparNights := preload("res://scripts/rules/SparNights.gd")
 const WeekBoard := preload("res://scripts/ui/WeekBoard.gd")
 const MatchupCards := preload("res://scripts/ui/MatchupCards.gd")
+const Faces := preload("res://scripts/rules/Faces.gd")
+const TapeRows := preload("res://scripts/rules/TapeRows.gd")
+const VersusPanel := preload("res://scripts/ui/VersusPanel.gd")
 
 ## Under this many kg to spare on the scale the forecast is a warning, not a pass.
 const SCALE_MARGIN := 0.5
@@ -109,26 +112,19 @@ static func _head(main: Node, c: Career, f: Dictionary, opp: Dictionary, bout_da
 	return card[0]
 
 
-## The tale of the tape: the two side by side, the stance clash said, and the win chance with how sure it is.
+static func tape_rows(f: Dictionary, opp: Dictionary, her_cm: float = 0.0) -> Array:
+	return TapeRows.rows(f, opp, her_cm)
+
+
+## The tale of the tape, the same rows and the same drawing as the versus card. Fight night is not one click away
+## while the camp is on, so the numbers stay on this page. The win chance sits under them.
 static func _tale(c: Career, f: Dictionary, opp: Dictionary, bout_day: int) -> PanelContainer:
 	var card := UI.card("THE TALE OF THE TAPE")
 	card[0].name = "PrepTale"
 	card[0].size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var grid := GridContainer.new()
-	grid.columns = 3
-	grid.add_theme_constant_override("h_separation", 24)
-	grid.add_theme_constant_override("v_separation", 6)
-	card[1].add_child(grid)
-	var rows := [["", str(f["name"]), str(opp.get("name", ""))],
-		["Record", "%d-%d" % [int(f.get("w", 0)), int(f.get("l", 0))], "%d-%d" % [int(opp.get("w", 0)), int(opp.get("l", 0))]],
-		["Stance", str(f.get("stance", "")), str(opp.get("stance", ""))],
-		["Style", str(f.get("style", "")), str(opp.get("style", ""))]]
-	for r in rows:
-		for k in 3:
-			grid.add_child(UI.label(str(r[k]), 16, UI.MUTED if k == 0 else UI.FG, "bold" if str(r[0]) == "" or k > 0 else "body"))
-	if str(f.get("stance", "")) != str(opp.get("stance", "")) and str(opp.get("stance", "")) != "":
-		card[1].add_child(UI.label("%s against a %s: plan for the lead hand and the angle." % [str(f.get("stance", "")).capitalize(), str(opp.get("stance", ""))],
-			15, UI.FG, "semi", true))
+	for r in tape_rows(f, opp, Faces.cm(Faces.stem(f))):
+		var row: Dictionary = r
+		VersusPanel.draw_fact(card[1], row, str(row["label"]).to_upper())
 	var b := BoutRead.band(f, opp, BoutRead.camp_for(f, bout_day - c.day), c.seed, float(c.coach.get("rating", 0.0)))
 	var lo := roundi(float(b["lo"]) * 100.0)
 	var hi := roundi(float(b["hi"]) * 100.0)

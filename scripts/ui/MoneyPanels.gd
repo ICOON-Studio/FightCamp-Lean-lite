@@ -3,7 +3,7 @@ extends RefCounted
 ## one warn mark, the buttons off. Numbers are the gym's, not the mockup's examples.
 
 const UI := preload("res://scripts/ui/UI.gd")
-const WarmKit := preload("res://scripts/ui/WarmKit.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 const CashForecast := preload("res://scripts/rules/CashForecast.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
@@ -15,7 +15,6 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const HomeLook := preload("res://scripts/ui/HomeLook.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 
-const CREAM := Color("F4F1E8")
 const NAME_W := 130
 const STIPEND_W := 150
 const EARNS_W := 96
@@ -28,17 +27,22 @@ const COACHES := [
 
 
 static func side(main: Node, c: Career, ahead: Array) -> Control:
+	var slate := PanelContainer.new()
+	slate.name = "BooksSide"
+	slate.custom_minimum_size = Vector2(200, 0)
+	slate.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	slate.size_flags_stretch_ratio = 0.34
+	# The column had no frame. Pad is the 22 px frame, so the outer size does not grow past it.
+	slate.add_theme_stylebox_override("panel", WoodKit.slate(22, 22))
 	var col := UI.vbox(4)
-	col.name = "BooksSide"
-	col.custom_minimum_size = Vector2(200, 0)
 	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	col.size_flags_stretch_ratio = 0.34
 	col.add_child(_talks(main, c))
 	col.add_child(_coaches())
 	col.add_child(_bills(ahead))
 	col.add_child(_sponsors(main, c))
 	col.add_child(_staff(main, c))
-	return col
+	slate.add_child(col)
+	return slate
 
 
 static func fighters(main: Node, c: Career) -> Control:
@@ -194,17 +198,16 @@ static func _dues(main: Node, c: Career, inc: Dictionary) -> Control:
 	board[1].add_child(row)
 	for band in Membership.DUES_ORDER:
 		var d: Dictionary = Membership.DUES[band]
-		var b := UI.button("%s %s" % [d["name"], UI.money(int(d["fee"]))], "BtnSolid" if c.dues_band == band else "Btn", main.act.bind("dues", band))
+		var b := UI.button("%s %s" % [d["name"], UI.money(int(d["fee"]))], "ChoiceOn" if c.dues_band == band else "Choice", main.act.bind("dues", band))
 		b.name = "Dues_" + str(band)
 		_short_button(b)
-		_on_chalk(b, c.dues_band == band)
 		if band == "cheap" and full:
 			b.modulate = Color(0.62, 0.62, 0.58)
 			b.tooltip_text = "The place is full, so cheaper dues cannot bring more members"
 		row.add_child(b)
 	var now := "now %s a week" % UI.money(int(inc.get("dues", 0)))
 	var note := "Cheap: the place is full" if full else now
-	board[1].add_child(UI.label(note if c.dues_band == "standard" or full else now, 13, CREAM, "hand", true))
+	board[1].add_child(UI.label(note if c.dues_band == "standard" or full else now, 13, UI.FG, "hand", true))
 	return board[0]
 
 
@@ -218,14 +221,13 @@ static func _kit(main: Node, c: Career) -> Control:
 	board[1].add_child(row)
 	for k in GymSpend.KIT_ORDER:
 		var kb: Dictionary = GymSpend.KIT[k]
-		var b := UI.button("%s %s" % [kb["name"], UI.money(int(kb["week"]))], "BtnSolid" if c.kit_level == k else "Btn", main.act.bind("kitbudget", k))
+		var b := UI.button("%s %s" % [kb["name"], UI.money(int(kb["week"]))], "ChoiceOn" if c.kit_level == k else "Choice", main.act.bind("kitbudget", k))
 		b.name = "Kit_" + str(k)
 		_short_button(b)
-		_on_chalk(b, c.kit_level == k)
 		row.add_child(b)
 	var r := GymSpend.train_risk(c)
 	var level := "low" if r <= 0.8 else ("high" if r > 1.05 else "standard")
-	board[1].add_child(UI.label("Injury risk now: %s." % level, 13, CREAM, "hand", true))
+	board[1].add_child(UI.label("Injury risk now: %s." % level, 13, UI.FG, "hand", true))
 	return board[0]
 
 
@@ -276,14 +278,17 @@ static func _next(f: Dictionary) -> String:
 
 
 static func _paper(title: String, icon: String, tip: String) -> Array:
-	var p := WarmKit.panel("paper")
+	var p := PanelContainer.new()
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_inset(p, 10, 8, 18)   # text clear of the torn paper edge
+	# Was 10+8 on torn paper. 5+4 pays back the column frame (22 px a side) across the five cards.
+	var sb := UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 8, 5)
+	sb.content_margin_bottom = 4
+	p.add_theme_stylebox_override("panel", sb)
 	var v := UI.vbox(2)
 	p.add_child(v)
 	var cap := UI.hbox(6)
 	if KitIcon.has_icon(icon):
-		cap.add_child(KitIcon.icon(icon, 16, UI.FG, tip))
+		cap.add_child(KitIcon.icon(icon, 16, WoodKit.SOFT, tip))
 	var lab := UI.label(title, 13, UI.MUTED, "bold")
 	lab.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	lab.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -293,24 +298,14 @@ static func _paper(title: String, icon: String, tip: String) -> Array:
 
 
 static func _chalk(title: String) -> Array:
-	var p := WarmKit.panel("chalk")
-	_inset(p, 8, 6, 8)
+	var p := PanelContainer.new()
+	var sb := UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 8, 8)
+	sb.content_margin_bottom = 6
+	p.add_theme_stylebox_override("panel", sb)
 	var v := UI.vbox(2)
 	p.add_child(v)
-	v.add_child(UI.label(title, 14, CREAM, "handbold"))
+	v.add_child(UI.label(title, 14, UI.FG, "handbold"))
 	return [p, v]
-
-
-static func _inset(panel: PanelContainer, top: float, bottom: float, side: float) -> void:
-	var src := panel.get_theme_stylebox("panel")
-	if not (src is StyleBoxTexture):
-		return
-	var copy := (src as StyleBoxTexture).duplicate() as StyleBoxTexture
-	copy.content_margin_top = top
-	copy.content_margin_bottom = bottom
-	copy.content_margin_left = side
-	copy.content_margin_right = side
-	panel.add_theme_stylebox_override("panel", copy)
 
 
 static func _short_button(b: Button) -> void:
@@ -318,21 +313,21 @@ static func _short_button(b: Button) -> void:
 	b.ready.connect(func(): _tighten(b), CONNECT_ONE_SHOT)   # the theme is only reachable in the tree
 
 
-## Blue on a blackboard cannot be read: the choices not taken are written in chalk.
-static func _on_chalk(b: Button, chosen: bool) -> void:
-	if chosen:
-		return
-	for state in ["font_color", "font_hover_color", "font_pressed_color"]:
-		b.add_theme_color_override(state, CREAM)
-
-
 static func _tighten(b: Button) -> void:
 	for state in ["normal", "hover", "pressed", "disabled"]:
 		var sb := b.get_theme_stylebox(state)
 		if sb is StyleBoxFlat:
-			var copy := (sb as StyleBoxFlat).duplicate() as StyleBoxFlat
-			copy.content_margin_top = 1
-			copy.content_margin_bottom = 1
-			copy.content_margin_left = 6
-			copy.content_margin_right = 6
-			b.add_theme_stylebox_override(state, copy)
+			var flat := (sb as StyleBoxFlat).duplicate() as StyleBoxFlat
+			flat.content_margin_top = 1
+			flat.content_margin_bottom = 1
+			flat.content_margin_left = 6
+			flat.content_margin_right = 6
+			b.add_theme_stylebox_override(state, flat)
+		elif sb is StyleBoxTexture:
+			var tex := (sb as StyleBoxTexture).duplicate() as StyleBoxTexture
+			# Choice is taller than the old plank. Clamp it back so the row does not grow.
+			if tex.content_margin_top > 8:
+				tex.content_margin_top = 8
+			if tex.content_margin_bottom > 10:
+				tex.content_margin_bottom = 10
+			b.add_theme_stylebox_override(state, tex)

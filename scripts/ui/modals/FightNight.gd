@@ -7,9 +7,8 @@ const Broadcast := preload("res://scripts/ui/Broadcast.gd")
 const WhyCard := preload("res://scripts/ui/WhyCard.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
-const Tape := preload("res://scripts/ui/Tape.gd")
+const TapeVersus := preload("res://scripts/ui/TapeVersus.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
-const OppFile := preload("res://scripts/rules/OppFile.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
 const CornerCard := preload("res://scripts/rules/CornerCard.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
@@ -22,17 +21,17 @@ const FightFlow := preload("res://scripts/rules/FightFlow.gd")
 const FlowView := preload("res://scripts/ui/FlowView.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const ShoutBar := preload("res://scripts/fight3d/ShoutBar.gd")
-const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 
 
 func build(main: Node, m: Dictionary) -> void:
+	if str(m["step"]) == "tape":
+		TapeVersus.mount(self, main, m)
+		return
 	theme_type_variation = "Modal"
 	custom_minimum_size = Vector2(1040, 0)
 	var v := UI.vbox(12)
 	add_child(v)
 	match str(m["step"]):
-		"tape":
-			_tape(main, v, m)
 		"round":
 			if LiveRound.live(m).is_empty():
 				# S323 (Q-S294-40 "Layout looks cheap / like a spreadsheet"): the round and result pages as broadcast graphics.
@@ -45,37 +44,6 @@ func build(main: Node, m: Dictionary) -> void:
 			remove_child(v)
 			v.queue_free()
 			_result(main, Broadcast.frame(self), m)
-
-
-func _tape(main: Node, v: VBoxContainer, m: Dictionary) -> void:
-	var c: Career = main.career
-	var f: Dictionary = c.fighter_by_id(str(m["fid"]))
-	var opp: Dictionary = f["bout"]["opp"]
-	v.add_child(UI.caps("FIGHT NIGHT, %s" % Clock.fmt(c.day).to_upper()))
-	v.add_child(UI.display("TALE OF THE TAPE", 48))
-	var camp := "none"
-	var fc: Dictionary = f["camp"]
-	if not fc.is_empty():
-		camp = "%s, %s" % [Data.LABEL[fc["focus"]], str(BoutRules.PROTOCOLS[int(fc["protocol"])]["name"]).to_lower()]
-	v.add_child(Tape.make(f["name"], "red corner", [
-		["Record", "%d-%d" % [f["w"], f["l"]]], ["Weight", "%.1f kg" % f["weight"]], ["Camp", camp],
-		["Film on the opponent", "%d/%d tells answered" % [int(FilmEdge.summary(f)["n"]), int(FilmEdge.summary(f)["of"])]],
-	], opp["name"], "blue corner, %s" % opp["club"], [
-		["Record", "%d-%d" % [opp["w"], opp["l"]]], ["Style", opp["style"]],
-		# S341 her file: what tape study found, else unknown until the fight shows it.
-		["Threat", opp["threat"] if OppFile.known(opp, "weapon") else "unknown: not on tape"],
-		["Weakness", opp["weak"] if OppFile.known(opp, "weakness") else "unknown: not on tape"],
-	]))
-	var total := int(m.get("total", BoutRules.ROUNDS))
-	v.add_child(UI.note("%s rounds of three minutes%s. Every 30 seconds you can shout a call; read the clue, pick what fits, watch it work. In the corner between rounds you set the plan." % [
-		"Three" if total == 3 else "Four", ", a pro debut" if total > BoutRules.ROUNDS else ""]))
-	var foot := UI.hbox(10)
-	foot.add_child(UI.spacer())
-	foot.add_child(UI.button("Sim to result", "BtnQuiet", main.act.bind("fightstep", "sim")))
-	var begin := UI.button("Begin fight", "BtnSolid", main.act.bind("fightstep", "start"))
-	begin.name = "Begin"
-	foot.add_child(begin)
-	v.add_child(foot)
 
 
 static func _energy_word(e: float) -> String:

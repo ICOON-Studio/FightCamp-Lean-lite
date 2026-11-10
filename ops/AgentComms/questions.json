@@ -6143,7 +6143,7 @@
       "answer": "Yes, delete its own spare cards",
       "note": null,
       "answered_at": "2026-11-10T06:34:21Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -6164,7 +6164,7 @@
       "answer": "A: the week as one curve",
       "note": null,
       "answered_at": "2026-11-10T06:37:17Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -6236,6 +6236,24 @@
       ],
       "attach": [
         "AgentComms/board_attach/Q-S294-168_0_fight_c.png"
+      ],
+      "answer": "B: the corner's eyes",
+      "note": "Answered in chat S419: 'i like b too , also a is not bad but i want it carefully designed what it will show and how' - B with A's parts (ops/research/FIGHT_DISPLAY_DECISION_S419.md)",
+      "answered_at": "2026-11-10T07:30:00Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "Q-S294-169",
+      "asked": "2026-11-10T07:59:52.015938+00:00",
+      "session": "S294",
+      "text": "Training tab: on the board you picked A (the week as one curve); in chat you said 'the B approach seems good'. Which one do I build? (both attached)",
+      "options": [
+        "A: the week as one curve",
+        "B: one day opened big",
+        "B, with A's tiredness curve on top"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-169_0_training_b_painted_ludo.png"
       ],
       "answer": null,
       "note": null,

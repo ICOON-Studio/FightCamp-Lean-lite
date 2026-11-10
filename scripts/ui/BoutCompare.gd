@@ -59,9 +59,10 @@ static func _swatch(colour: Color, text: String) -> HBoxContainer:
 
 
 ## S398 six rows, the fighter model's keys (where each wins: long game, pocket, inside, power, durability, engine): the
-## fighter's value against the opponent's estimate (BoutRead.key_ranges), so the tape shows the matchup, not one level.
+## fighter's value against the opponent's estimate (BoutRead.key_ranges). The tale of the tape is the versus picture,
+## one click back, so this card is the matchup and not a second tape.
 static func stats_card(f: Dictionary, opp: Dictionary, salt: int) -> PanelContainer:
-	var card := UI.card("TALE OF THE TAPE")
+	var card := UI.card("THE MATCHUP")
 	card[0].name = "BoutStats"
 	var v: VBoxContainer = card[1]
 	var key := UI.hbox(16)

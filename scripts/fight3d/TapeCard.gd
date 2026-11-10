@@ -4,11 +4,25 @@ extends RefCounted
 ##   build(rows, names) -> Control     show(card, on)
 
 const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
+const TapeRows := preload("res://scripts/rules/TapeRows.gd")
+
+const _ALIAS := {
+	"RECORD": "Record", "AGE": "Age", "WEIGHT": "Weight", "HEIGHT": "Height",
+	"REACH": "Reach", "STANCE": "Stance", "STYLE": "Style",
+	"Record": "Record", "Age": "Age", "Weight": "Weight", "Height": "Height",
+	"Reach": "Reach", "Stance": "Stance", "Style": "Style",
+}
 
 const RED := Color(0.95, 0.4, 0.35)
 const BLUE := Color(0.5, 0.65, 1.0)
 
 
+static func tape_rows(f: Dictionary, opp: Dictionary, her_cm: float = 0.0) -> Array:
+	return TapeRows.rows(f, opp, her_cm)
+
+
+## rows are TapeRows dicts, or the older [label, left, right] pairs (FightCast still sends those). Pairs are relabelled
+## into TapeRows order; Club is dropped; Reach is dropped when either side is unknown.
 static func build(rows: Array, names: Array) -> Control:
 	var panel := PanelContainer.new()
 	panel.name = "TaleOfTape"
@@ -34,10 +48,34 @@ static func build(rows: Array, names: Array) -> Control:
 	grid.add_theme_constant_override("v_separation", 6)
 	v.add_child(grid)
 	_row(grid, str(names[0]).to_upper(), "", str(names[1]).to_upper(), UI.BODY + 3, true)
-	for r in rows:
-		_row(grid, str(r[1]), str(r[0]), str(r[2]), UI.BODY, false)
+	var drawn: Array = rows if (not rows.is_empty() and rows[0] is Dictionary) else _from_pairs(rows)
+	for r in drawn:
+		var row: Dictionary = r
+		_row(grid, str(row["left"]), str(row["label"]), str(row["right"]), UI.BODY, false)
 	panel.modulate.a = 0.0
 	return panel
+
+
+static func _from_pairs(rows: Array) -> Array:
+	var by := {}
+	for r in rows:
+		if not (r is Array) or (r as Array).size() < 3:
+			continue
+		var key := str(_ALIAS.get(str(r[0]), ""))
+		if key == "":
+			continue
+		by[key] = r
+	var out: Array = []
+	for key in TapeRows.ORDER:
+		if not by.has(key):
+			continue
+		var pair: Array = by[key]
+		var left := str(pair[1])
+		var right := str(pair[2])
+		if key == "Reach" and (left == "-" or right == "-" or left == "" or right == "" or left == "?" or right == "?"):
+			continue
+		out.append({"label": key, "left": left, "right": right, "better": "", "why": ""})
+	return out
 
 
 static func _row(grid: GridContainer, red: String, label: String, blue: String, size: int, head: bool) -> void:

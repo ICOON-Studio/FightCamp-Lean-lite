@@ -76,7 +76,9 @@ func _initialize() -> void:
 	_check(red.get_theme_color("font_color") == UI.RED, "a coloured word keeps its colour")
 	_check((note.get_child(0) as Label).get_theme_color("font_color") == WoodKit.SOFT, "a note on a slate is see-through: chalk")
 	_check(on_sticky.get_theme_color("font_color") == UI.FG, "a word on a sticky keeps its ink")
-	_check((chip.get_child(0) as Label).get_theme_color("font_color") == UI.MUTED, "a tag keeps its ink")
+	# S420: since df7fe37a (S419, operator "the white in the picture doesn blend") a tag is see-through on a slate, so its
+	# quiet word turns the quiet chalk like any other (it read UI.MUTED while tags were cream).
+	_check((chip.get_child(0) as Label).get_theme_color("font_color") == WoodKit.SOFT, "a tag on a slate is the quiet chalk")
 	_check(in_dark.get_theme_color("font_color") == WoodKit.INK, "a word laid in a dark plank is chalk")
 	_check(in_light.get_theme_color("font_color") == UI.FG, "a word laid in the light plank keeps its ink")
 	_check(link.get_theme_color("font_color") == WoodKit.BLUE, "a link on a slate is the light blue")

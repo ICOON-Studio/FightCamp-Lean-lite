@@ -12,6 +12,7 @@ const ShortPunch := preload("res://scripts/rules/ShortPunch.gd")
 const TellPose := preload("res://scripts/fight3d/TellPose.gd")
 const PunchRange := preload("res://scripts/fight3d/PunchRange.gd")
 const FightSfx := preload("res://scripts/audio/FightSfx.gd")
+const MoveStudio := preload("res://scripts/fight3d/MoveStudio.gd")
 ## A short punch's join: half-life, length (s). Between the strike's (0.06, 0.3) and the guard return's (0.1, 0.45).
 const SHORT_JOIN := Vector2(0.09, 0.35)
 
@@ -171,14 +172,19 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 		# HEADAIM2: un-landed head punches aim their height at the target's face (blocked, slipped, missed).
 		# Body punches (body_hook, kidney, body) are never aimed here.
 		var is_body := move == "body_hook" or clip.contains("kidney") or clip.contains("body")
+		# BLOCKMEET2: blocked head punches are carried onto the blocking glove (arm_block), not just aimed at face height.
+		var is_block := land == "blocked" or str(b.get("def", "")) == "block"
 		if land != "lands" and not stopped and not is_body:
-			stage.aim_height(who, clip, at, contact)
+			if is_block:
+				stage.arm_block(who, clip, at, contact)
+			else:
+				stage.aim_height(who, clip, at, contact)
 		var tree: SceneTree = v.get_tree()
 		if punch_id >= 0 and land != "lands" and not stopped:
 			# S390: at the glove's contact, and only for a punch that shows. A slip or weave is a miss, not a block.
 			# S395: the punch must still be running (PunchRange.cut_off): 14 % of block/miss sounds fired after
 			# the punch clip was replaced by a reaction or another move.
-			if land == "blocked" or str(b.get("def", "")) == "block":
+			if is_block:
 				tree.create_timer(at).timeout.connect(func():
 					if not PunchRange.cut_off(stage, who, punch_id):
 						FightSfx.blocked())
@@ -196,7 +202,13 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 			tree.create_timer(at).timeout.connect(stage.hit.bind(other, hit, BeatClips.speed(hit, ""), who, move, bool(b.get("big", false)), punch_id))
 		elif d != "":
 			# Her defence (RoundStyle): a block meets the glove at contact; a slip, weave or step back starts early.
-			var when := at * (0.8 if d == "block" else 0.35)
+			# BLOCKMEET2: block uses shared constant BLOCK_SET_S (0.25s before contact), same as preview path.
+			var when: float
+			if d == "block":
+				var contact_real: float = contact / sp
+				when = maxf(0.0, contact_real - MoveStudio.BLOCK_SET_S)
+			else:
+				when = at * 0.35
 			# S305: the side comes from the hand that throws it (her left arrives on the other's right).
 			var lead := move in ["jab", "lead_hook", "lead_uppercut"]
 			var from_left: bool = stage.hand_of(who, hand if hand != "" else ("LeftHand" if lead else "RightHand")) == "LeftHand"

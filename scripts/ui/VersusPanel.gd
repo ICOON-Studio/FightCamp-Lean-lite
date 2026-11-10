@@ -19,6 +19,7 @@ const BACKDROP := "res://assets/ui/art/versus_backdrop.jpg"
 const FighterPose := preload("res://scripts/rules/FighterPose.gd")
 const ClubCrest := preload("res://scripts/rules/ClubCrest.gd")
 const VersusLive := preload("res://scripts/ui/VersusLive.gd")
+const TapeRows := preload("res://scripts/rules/TapeRows.gd")
 const CARD_W := 640.0
 const NAME_COLOUR := Color("#f6dfb4")
 ## Bodies baked in the blue kit by default (tools/bake_hub_sprites.gd BLUE_STEMS); their "_alt" picture is the red kit, and the
@@ -39,6 +40,17 @@ static func kit_stem(stem: String, corner: String) -> String:
 	return stem if worn == corner else stem + "_alt"
 
 
+static func tape_rows(f: Dictionary, opp: Dictionary, her_cm: float = 0.0) -> Array:
+	return TapeRows.rows(f, opp, her_cm)
+
+
+## Corner tags the offer and fight night share: Shape and Mood on the club side, Style on the other.
+static func tags_for(f: Dictionary, opp: Dictionary) -> Array:
+	var word: Array = WB_KIT.fatigue_word(FighterProfile.fatigue(f), false)
+	var shape := "Shape: %s · Mood: %s" % [str(word[0]).capitalize(), FighterProfile.mood(float(f.get("morale", FighterProfile.MORALE_START)))]
+	return [shape, "Style: %s" % str(opp.get("style", ""))]
+
+
 static func build(main: Node, c: Career, f: Dictionary, o: Dictionary, opp: Dictionary, offer_id: String, wf: Dictionary, answer: HBoxContainer) -> Control:
 	var root := UI.hbox(0)
 	root.name = "Versus"
@@ -46,28 +58,30 @@ static func build(main: Node, c: Career, f: Dictionary, o: Dictionary, opp: Dict
 	var stems: Array = Faces.pair(f, opp)
 	var poses: Array = FighterPose.pair(str(stems[0]), str(stems[1]), offer_id)
 	var crests: Array = ClubCrest.pair(c.gym_name, str(opp["club"]))
-	var word: Array = WB_KIT.fatigue_word(FighterProfile.fatigue(f), false)
-	var shape := "Shape: %s · Mood: %s" % [str(word[0]).capitalize(), FighterProfile.mood(float(f.get("morale", FighterProfile.MORALE_START)))]
-	root.add_child(_side(str(f["name"]), "%s · your fighter" % str(f["wc"]), str(stems[0]), "red", shape, false, int(poses[0]), str(crests[0]), hash(offer_id + "r")))
+	var tags: Array = tags_for(f, opp)
+	root.add_child(side(str(f["name"]), "%s · your fighter" % str(f["wc"]), str(stems[0]), "red", str(tags[0]), false, int(poses[0]), str(crests[0]), hash(offer_id + "r")))
 	root.add_child(_card(main, c, f, o, opp, offer_id, wf, answer, str(stems[0])))
-	root.add_child(_side(str(opp["name"]), "%s · %s" % [str(f["wc"]), str(opp["club"])], str(stems[1]), "blue", "Style: %s" % str(opp["style"]), true, int(poses[1]), str(crests[1]), hash(offer_id + "b")))
+	root.add_child(side(str(opp["name"]), "%s · %s" % [str(f["wc"]), str(opp["club"])], str(stems[1]), "blue", str(tags[1]), true, int(poses[1]), str(crests[1]), hash(offer_id + "b")))
 	return root
 
 
-static func _side(who: String, sub: String, stem: String, corner: String, tag_text: String, right: bool, pose: int = 0, crest: String = "", key: int = 0) -> Control:
+## One half. sub_px / tag_px / foot let fight night keep every word at 20 px and the tag clear of the feet.
+## foot 0 is the offer: the tag sits on the picture, as before.
+static func side(who: String, sub: String, stem: String, corner: String, tag_text: String, right: bool, pose: int = 0, crest: String = "", key: int = 0, sub_px: int = 19, tag_px: int = 17, foot: float = 0.0, bleed: bool = true) -> Control:
 	var col := Control.new()
 	col.name = "Side_" + corner
 	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	col.clip_contents = true
 	col.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if crest != "":   # S412 "behind the maybe the lgoos of each gym ?"
-		col.add_child(_crest(crest, right))
+		col.add_child(_crest(crest, right, bleed))
 	var pic: Control = VersusLive.make(stem, corner, right, key)   # S412 shadowboxing, live; no picture (a test): the baked pose
 	if pic == null:
 		pic = RosterCards.body(FighterPose.picture(kit_stem(stem, corner), pose))
 	if pic != null:
 		pic.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		pic.offset_top = 70
+		pic.offset_bottom = -foot
 		if pic is TextureRect:
 			(pic as TextureRect).flip_h = not right   # S412 the pictures face left: the left side turns, so both face the middle
 		col.add_child(pic)
@@ -79,41 +93,45 @@ static func _side(who: String, sub: String, stem: String, corner: String, tag_te
 	title.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.55))
 	title.add_theme_constant_override("shadow_offset_y", 3)
 	words.add_child(title)
-	var small := UI.label(sub, UI.BODY, Color.WHITE, "semi")
+	var small := UI.label(sub, sub_px, Color.WHITE, "semi")
 	small.horizontal_alignment = align
 	words.add_child(small)
 	col.add_child(words)
-	col.add_child(_tag(tag_text, right))
+	col.add_child(_tag(tag_text, right, tag_px, foot))
 	return col
 
 
-static func _crest(crest: String, right: bool) -> TextureRect:
+static func _crest(crest: String, right: bool, bleed: bool = true) -> TextureRect:
 	var t := TextureRect.new()
 	t.name = "Crest"
-	t.texture = load(ClubCrest.path(crest))
 	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	t.texture = load(ClubCrest.path(crest))
 	t.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	t.offset_top = 190
 	t.offset_bottom = -160
 	var outward := 70.0 if right else -70.0   # the boxer stands on its middle: slide it to the outer side
 	t.offset_left = outward
-	t.offset_right = outward
+	# The offer can bleed past its half. A full-screen page stops at x 1920, so the right crest stays inside.
+	t.offset_right = outward if bleed or not right else 0.0
 	t.modulate = Color(1, 1, 1, 0.26)
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return t
 
 
-static func _tag(text: String, right: bool) -> Control:
+static func _tag(text: String, right: bool, px: int = 17, foot: float = 0.0) -> Control:
 	var p := PanelContainer.new()
-	p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 14, 8))
-	p.add_child(UI.label(text, 17, WoodKit.INK, "bold"))   # S419: always on the red or blue side
+	p.name = "CornerTag"
+	# S419: chalk on the red or blue side. Fight night (foot > 0) puts it on a dark plate, 16 px under the figure.
+	var bg := Color(0.07, 0.05, 0.04, 0.88) if foot > 0.0 else Color(1, 1, 1, 0.04)
+	p.add_theme_stylebox_override("panel", UI.box(bg, Color(WoodKit.SOFT, 0.35), 4, 1, 14, 8))
+	p.add_child(UI.label(text, px, WoodKit.INK, "bold"))
 	p.anchor_top = 1.0
 	p.anchor_bottom = 1.0
 	p.anchor_left = 1.0 if right else 0.0
 	p.anchor_right = p.anchor_left
-	p.offset_top = -10
-	p.offset_bottom = -10
+	p.offset_top = -(foot - 16.0) if foot > 0.0 else -10.0
+	p.offset_bottom = -8.0 if foot > 0.0 else -10.0
 	p.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	p.grow_horizontal = Control.GROW_DIRECTION_BEGIN if right else Control.GROW_DIRECTION_END
 	return p
@@ -139,11 +157,11 @@ static func _card(main: Node, c: Career, f: Dictionary, o: Dictionary, opp: Dict
 	chip.name = "VersusChip"
 	chip.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	v.add_child(chip)
-	v.add_child(_gap(4))
+	v.add_child(gap(4))
 	_rows(v, f, opp, wf, stem)
-	v.add_child(_gap(10))
+	v.add_child(gap(10))
 	v.add_child(_read(c, f, opp, day))
-	v.add_child(_gap(8))
+	v.add_child(gap(8))
 	_answer(v, main, offer_id, answer)
 	return p
 
@@ -153,44 +171,66 @@ static func _centre(l: Label) -> Label:
 	return l
 
 
-static func _gap(px: float) -> Control:
+static func gap(px: float) -> Control:
 	var g := Control.new()
 	g.custom_minimum_size = Vector2(0, px)
 	g.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return g
 
 
+## Record, age, height, reach and stance come from TapeRows. The weight row: her forecast for the day against the opponent's weigh-in, the limit in the title.
 static func _rows(v: VBoxContainer, f: Dictionary, opp: Dictionary, wf: Dictionary, stem: String) -> void:
-	var mine := int(Faces.CM.get(stem, Faces.MEN_CM.get(stem, 0)))
-	var theirs := int(opp.get("height", 0))
+	var by := {}
+	for r in tape_rows(f, opp, Faces.cm(stem)):
+		by[str(r["label"])] = r
+	draw_fact(v, by["Record"], "RECORD")
+	draw_fact(v, by["Age"], "AGE")
 	var heavy := not bool(wf["ok"])
-	var rows: Array = [
-		["RECORD", "%d-%d" % [int(f["w"]), int(f["l"])], "%d-%d" % [int(opp["w"]), int(opp["l"])], UI.FG],
-		["AGE", str(int(f["age"])), str(int(opp["age"])), UI.FG],
-		["ON THE DAY", "%.1f kg" % float(wf["day"]), "limit %.1f" % float(f["limit"]), UI.RED if heavy else UI.FG],
-		["HEIGHT", "%d cm" % mine if mine > 0 else "-", "%d cm" % theirs if theirs > 0 else "-", UI.GREEN if mine > theirs and theirs > 0 else UI.FG],
-		["STANCE", str(f["stance"]).capitalize(), str(opp["stance"]).capitalize(), UI.FG],
-	]
-	for r in rows:
-		var line := ColorRect.new()
-		line.color = Color(WoodKit.SOFT, 0.35)
-		line.custom_minimum_size = Vector2(0, 1)
-		line.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		v.add_child(line)
-		var h := UI.hbox(0)
-		h.name = "Tape_" + str(r[0])
-		h.custom_minimum_size = Vector2(0, 50)
-		h.add_child(_cell(str(r[1]), r[3]))
-		var mid := _centre(UI.label(str(r[0]), UI.SMALL, UI.MUTED, "caps"))
-		mid.custom_minimum_size = Vector2(150, 0)
-		mid.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		h.add_child(mid)
-		h.add_child(_cell(str(r[2]), UI.FG))
-		v.add_child(h)
+	# S420 operator ("i meant weight"): her weight in her column; the limit moves into the row's title.
+	var ow := TapeRows.opp_weight(opp, float(f["limit"]))
+	pair_row(v, "WEIGHT, LIMIT %.0f" % float(f["limit"]), "%.1f kg" % float(wf["day"]), ("%.1f kg" % ow) if ow > 0.0 else "?", UI.RED if heavy else UI.FG, UI.FG)
+	v.get_child(v.get_child_count() - 1).name = "Tape_WEIGHT"   # a fixed name; the title carries the limit
+	draw_fact(v, by["Height"], "HEIGHT")
+	if by.has("Reach"):   # S420 operator: "reach is not shown in the still i saw" - fight night had it, the offer did not
+		draw_fact(v, by["Reach"], "REACH")
+	draw_fact(v, by["Stance"], "STANCE")
 
 
-static func _cell(text: String, colour: Color) -> Label:
-	var l := _centre(UI.label(text, 25, colour, "bold"))
+## One paired row, the same drawing the offer uses. The better side is tinted green by the caller.
+static func draw_fact(v: VBoxContainer, row: Dictionary, title: String, label_px: int = 16, value_px: int = 25, mid_w: float = 150.0) -> void:
+	var lc := UI.FG
+	var rc := UI.FG
+	if str(row.get("better", "")) == "left":
+		lc = UI.GREEN
+	elif str(row.get("better", "")) == "right":
+		rc = UI.GREEN
+	pair_row(v, title, str(row["left"]), str(row["right"]), lc, rc, str(row.get("why", "")), label_px, value_px, mid_w)
+
+
+static func pair_row(v: VBoxContainer, title: String, left: String, right: String, left_colour: Color, right_colour: Color, why: String = "", label_px: int = 16, value_px: int = 25, mid_w: float = 150.0) -> void:
+	var line := ColorRect.new()
+	line.color = Color(WoodKit.SOFT, 0.35)
+	line.custom_minimum_size = Vector2(0, 1)
+	line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	v.add_child(line)
+	var h := UI.hbox(0)
+	h.name = "Tape_" + title
+	h.custom_minimum_size = Vector2(0, 50)
+	h.add_child(_cell(left, left_colour, value_px))
+	var mid := _centre(UI.label(title, label_px, UI.MUTED, "caps"))
+	mid.custom_minimum_size = Vector2(mid_w, 0)
+	mid.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	h.add_child(mid)
+	var rv := _cell(right, right_colour, value_px)
+	if why != "":
+		rv.tooltip_text = why
+		rv.mouse_filter = Control.MOUSE_FILTER_PASS
+	h.add_child(rv)
+	v.add_child(h)
+
+
+static func _cell(text: String, colour: Color, px: int = 25) -> Label:
+	var l := _centre(UI.label(text, px, colour, "bold"))
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	return l
@@ -251,5 +291,5 @@ static func _answer(v: VBoxContainer, main: Node, offer_id: String, answer: HBox
 		var l := r as Label
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		v.add_child(_gap(6))
+		v.add_child(gap(6))
 		v.add_child(l)
