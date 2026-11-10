@@ -69,6 +69,17 @@ static func intake_chance(band: String) -> float:
 	return float((DUES.get(band, DUES["standard"]) as Dictionary)["intake"])
 
 
+## Members the band would draw today, the dues those members pay in a month, and home-grown boxers
+## expected over five years (two intakes a year). No youth section means no boxers.
+static func band_preview(reputation: int, cap: int, band: String, draw_mult: float, youth_on: bool) -> Dictionary:
+	var members := mini(roundi(float(natural_members(reputation, band)) * draw_mult), cap)
+	return {
+		"members": members,
+		"month": members * fee(band),
+		"home_5y": 10.0 * intake_chance(band) if youth_on else 0.0,
+	}
+
+
 static func weekly_dues(members: int, band: String = "standard") -> int:
 	return roundi(float(maxi(0, members)) * float(fee(band)) / GymBills.WEEKS_A_MONTH)
 

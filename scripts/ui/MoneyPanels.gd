@@ -1,6 +1,6 @@
 extends RefCounted
-## The books' side column, the fighter money table and the two chalkboards. Coaches are drawn and not built:
-## one warn mark, the buttons off. Numbers are the gym's, not the mockup's examples.
+## The books' side column, the fighter money table and the kit chalkboard. Dues has its own tab.
+## Coaches are drawn and not built: one warn mark, the buttons off. Numbers are the gym's, not the mockup's examples.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
@@ -8,7 +8,7 @@ const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 const CashForecast := preload("res://scripts/rules/CashForecast.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const StaffRoles := preload("res://scripts/rules/StaffRoles.gd")
-const Membership := preload("res://scripts/rules/Membership.gd")
+const DuesBoards := preload("res://scripts/ui/DuesBoards.gd")
 const StarDeal := preload("res://scripts/rules/StarDeal.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
@@ -71,11 +71,10 @@ static func fighters(main: Node, c: Career) -> Control:
 	return card[0]
 
 
-static func chalk(main: Node, c: Career, inc: Dictionary) -> Control:
-	var row := UI.hbox(10)
-	row.add_child(_dues(main, c, inc))
-	row.add_child(_kit(main, c))
-	return row
+static func chalk(main: Node, c: Career, _inc: Dictionary) -> Control:
+	# The board is still entering the tree here, so the tab is added on the next idle, once add_child is allowed.
+	(func() -> void: _mount_dues(main, c)).call_deferred()
+	return _kit(main, c)
 
 
 static func _talks(main: Node, c: Career) -> Control:
@@ -187,28 +186,76 @@ static func _staff(main: Node, c: Career) -> Control:
 	return card[0]
 
 
-static func _dues(main: Node, c: Career, inc: Dictionary) -> Control:
-	var board := _chalk("DUES - A MONTH")
-	board[0].name = "DuesBoard"
-	board[0].size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var full := c.members >= GymSpend.member_cap(c)
-	var row := HFlowContainer.new()
-	row.add_theme_constant_override("h_separation", 4)
-	row.add_theme_constant_override("v_separation", 2)
-	board[1].add_child(row)
-	for band in Membership.DUES_ORDER:
-		var d: Dictionary = Membership.DUES[band]
-		var b := UI.button("%s %s" % [d["name"], UI.money(int(d["fee"]))], "ChoiceOn" if c.dues_band == band else "Choice", main.act.bind("dues", band))
-		b.name = "Dues_" + str(band)
-		_short_button(b)
-		if band == "cheap" and full:
-			b.modulate = Color(0.62, 0.62, 0.58)
-			b.tooltip_text = "The place is full, so cheaper dues cannot bring more members"
-		row.add_child(b)
-	var now := "now %s a week" % UI.money(int(inc.get("dues", 0)))
-	var note := "Cheap: the place is full" if full else now
-	board[1].add_child(UI.label(note if c.dues_band == "standard" or full else now, 13, UI.FG, "hand", true))
-	return board[0]
+## The books row is The books / Cashbook. Dues is the third, and it takes the whole board.
+static func _mount_dues(main: Node, c: Career) -> void:
+	var books_tab := main.find_child("BooksTab", true, false) as Button
+	if books_tab == null:
+		return
+	var top := books_tab.get_parent()
+	if top.get_node_or_null("DuesTab") != null:
+		return
+	var host: Node = books_tab
+	while host.get_parent() != null and str(host.get_parent().name) != "BooksBoard":
+		host = host.get_parent()
+	if host.get_parent() == null:
+		return
+	var dues_tab := UI.button("Dues", "Btn", func() -> void: _open_dues(main))
+	dues_tab.name = "DuesTab"
+	top.add_child(dues_tab)
+	books_tab.pressed.connect(func() -> void: _shut_dues(main))
+	var cash_tab := top.get_node_or_null("CashbookTab") as Button
+	if cash_tab != null:
+		cash_tab.pressed.connect(func() -> void: _shut_dues(main))
+	var page := DuesBoards.build(main, c)
+	page.visible = false
+	page.resized.connect(func() -> void: _park(page))
+	host.add_child(page)
+	_park(page)
+
+
+## A hidden page cannot shrink below its boards, so the row is hidden too and the rect stays empty.
+static func _park(page: Control) -> void:
+	if page.visible:
+		return
+	if page.get_child_count() > 0:
+		var row := page.get_child(0) as CanvasItem
+		if row != null:
+			row.visible = false
+	if page.size != Vector2.ZERO:
+		page.size = Vector2.ZERO
+
+
+static func _open_dues(main: Node) -> void:
+	_page(main, "BooksPage", false)
+	_page(main, "CashbookPage", false)
+	var dues := main.find_child("DuesBoard", true, false) as Control
+	if dues != null:
+		if dues.get_child_count() > 0:
+			(dues.get_child(0) as CanvasItem).visible = true
+		dues.visible = true
+	_tab(main, "BooksTab", false)
+	_tab(main, "CashbookTab", false)
+	_tab(main, "DuesTab", true)
+
+
+static func _shut_dues(main: Node) -> void:
+	var dues := main.find_child("DuesBoard", true, false) as Control
+	if dues != null:
+		dues.visible = false
+		_park(dues)
+	_tab(main, "DuesTab", false)
+
+
+static func _page(main: Node, node_name: String, on: bool) -> void:
+	var node := main.find_child(node_name, true, false) as CanvasItem
+	if node != null:
+		node.visible = on
+
+
+static func _tab(main: Node, node_name: String, on: bool) -> void:
+	var b := main.find_child(node_name, true, false) as Button
+	if b != null:
+		b.theme_type_variation = "BtnSolid" if on else "Btn"
 
 
 static func _kit(main: Node, c: Career) -> Control:

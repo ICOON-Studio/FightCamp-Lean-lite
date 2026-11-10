@@ -6,15 +6,13 @@
   "id": "S425",
   "owner": "claude",
   "updated": "2026-11-10",
-  "summary": "S425: his three rulings (every new mechanic wired, shown, critics 7+; a Fable subagent for the boxing and grappling animations; combine the old ideas into a week with things to do, anticipation, choices and reward, using the free agents). R55 'who gets the pads' measured and mapped twice: depth 4 from four critics, too small alone. The week design: two designer pages joined into v1 (the coach's evenings, the film on you, the week board and Thursday call, the next fight's four prices), two fresh critics depth 5 each; v2 being written with his outside playbook proposal (state rules, drilled to fire, places by ring IQ). READBACK1 (Qwen, on main): her corner waiting for the best plan line costs 7.0 points, 5 to 6 in round 2; drop +0.7, swap 0.0. Digest ops/research/S425_DIGEST.md.",
-  "last_working_commit": "add0bb09",
+  "summary": "S425: his three rulings (every new mechanic wired, shown, critics 7+; a Fable subagent for the boxing and grappling animations; combine the old ideas into a week with things to do, anticipation, choices and reward, using the free agents). R55 'who gets the pads' measured and mapped twice: depth 4 from four critics, too small alone. The week design: two designer pages joined into v1 (the coach's evenings, the film on you, the week board and Thursday call, the next fight's four prices), two fresh critics depth 5 each; v2 being written with his outside playbook proposal (state rules, drilled to fire, places by ring IQ). READBACK1 (Qwen, on main): her corner waiting for the best plan line costs 7.0 points, 5 to 6 in round 2; drop +0.7, swap 0.0. Digest ops/research/S425_DIGEST.md. Later in S425: week design v2 depth 5 (two fresh critics); READBACK1-3 on main: no answer wins back a read plan line (best +3.7 of 7), the full plan-reading game is out; the Dues tab on main (DUESCARD1+2); his corner-minute reference and Claude's corner_v1 mockup; Boxing Manager compared (they 7, we 5.9; world and career is the gap); scope widened: a small living world after the week ('Yes, after the week'); ANIMFIX1 finished: hips no longer drop 8 cm under punches but the legs still tremble at clip changes; grappling labels, double points and early scores fixed, drift and bodies not; KDFIX4 is red on a rerun.",
+  "last_working_commit": "eb352bfe",
   "verified_playable": "people_slate, camp_slate, start_slate, camp_cards, versus, recruit, wood_kit, words_on_screens, plain_words, no_pronoun, gauges, attr_board, fighter_model green on the PC; the pages rendered and opened (E:/FightCamp/tmp/s419_screens, s419_screens2).",
   "incomplete_blocked": "MAIN CI: no finished run since e4a7b6f3 (red); three S419 pushes cancelled each other's runs, read the run on the wrap-up push. PR 140 REARHAND5B not judged: tools/head_aim_film.gd move=rear_hook printed no CONTACT line, so the film showed no punch. Luke Reid's portrait reads near black on Club People. Training week page untouched until his pick.",
-  "next_action": "1) Week design v2 (ops/research/WEEK_DESIGN_V2_S425.md + docs/mockups/s425/week_v2*.png, from the lead designer subagent): two FRESH critics with ops/research/WEEK_DESIGN_CRITIC_BRIEF_S425.md (point it at v2), depth 7+ -> his board with the pictures; under 7, another round. Fold Kalli's page in (SQ36) when it lands. 2) READBACK2 (Qwen, qwen/readback2): collect by diff; controls must reproduce 41.3 / 34.3 / 35.0 / 34.3; an arm within 2 points of the plain plan and 3 above waited keeps the full plan-reading part. 3) ANIMFIX1 (the Fable subagent, inside the S425 session): collect qwen/legtremble4 (PR 168) and claude/grapplefix1 by diff, LOOK at each film; it also checks and films Cursor's KDFIX4 (PR 169, not merged). If S425 was closed, restart it from ops/research/TASK_ANIMFIX1.md. 4) DUESCARD1 (Cursor): collect, render Club > Money, compare with docs/mockups/s424/dues_painted_v4.png; then FIGHTDISPLAY2, TRAININGB1. 5) Kalli SQ35 cutman v3 -> critics 7+; John SQ33 R37 map, SQ34 dues sums; R58 map.",
+  "next_action": "1) Collect qwen/legtremble4 (PR 168) and claude/grapplefix1 by diff, LOOK at the four films on the review board, merge what is green and visibly better; new briefs: legs (fewer, longer clips), grappling (unnamed drift, bodies, call cadence), KDFIX5 (knockdown_still red 2.30 cm, Cursor's green was false; PR 169 not merged). 2) FIRELEVEL1 and THURSDAY1 (Qwen) -> week design v3 -> two FRESH critics, 7+ -> his board. 3) Export with the Dues tab, WHAT_TO_TRY. 4) Chat seats: cutman v3, dues sums, R37, the small world (his 'Yes, after the week'). Full state: NEXT_SESSION_PROMPT.md.",
   "next_acceptance": "The week design scores depth 7+ from two fresh critics and is on his board with its pictures; a film of round 2 without trembling legs and a film of a readable BJJ match are on his review board.",
-  "awaiting_operator": [
-   "Q-S294-178 (answered in chat by his combine-the-ideas message; close it on the board)"
-  ]
+  "awaiting_operator": []
  },
  "next": "MECHANICS FIRST (operator S422 OK). 1) Collect KDFIX2 (the ruler only) and LEGTREMBLE3. 2) Brief FIGHTDISPLAY1 to Cursor from docs/mockups/s422/fight_10_simvet.html (his Q-174 pick: 'Use the veteran's drawing'); data check FIGHT_DISPLAY_DECISION_S419.md s7. 3) R28 Cutman: write the DESIGN MAP (what the player decides, on which screen, what it changes, the numbers, real-world cut rules) as one page + a picture, ask him on the board, then brief the pure module to Qwen/Goose. 4) R25 the same, after checking head punches count. 5) Q-173 dues: design map only. Menus wait unless a mechanic needs them.",
  "assessment": {
@@ -1704,7 +1702,7 @@
   {
    "id": "S425",
    "date": "2026-11-10",
-   "summary": "S425: his three rulings (every new mechanic wired, shown, critics 7+; a Fable subagent for the boxing and grappling animations; combine the old ideas into a week with things to do, anticipation, choices and reward, using the free agents). R55 'who gets the pads' measured and mapped twice: depth 4 from four critics, too small alone. The week design: two designer pages joined into v1 (the coach's evenings, the film on you, the week board and Thursday call, the next fight's four prices), two fresh critics depth 5 each; v2 being written with his outside playbook proposal (state rules, drilled to fire, places by ring IQ). READBACK1 (Qwen, on main): her corner waiting for the best plan line costs 7.0 points, 5 to 6 in round 2; drop +0.7, swap 0.0. Digest ops/research/S425_DIGEST.md."
+   "summary": "S425: his three rulings (every new mechanic wired, shown, critics 7+; a Fable subagent for the boxing and grappling animations; combine the old ideas into a week with things to do, anticipation, choices and reward, using the free agents). R55 'who gets the pads' measured and mapped twice: depth 4 from four critics, too small alone. The week design: two designer pages joined into v1 (the coach's evenings, the film on you, the week board and Thursday call, the next fight's four prices), two fresh critics depth 5 each; v2 being written with his outside playbook proposal (state rules, drilled to fire, places by ring IQ). READBACK1 (Qwen, on main): her corner waiting for the best plan line costs 7.0 points, 5 to 6 in round 2; drop +0.7, swap 0.0. Digest ops/research/S425_DIGEST.md. Later in S425: week design v2 depth 5 (two fresh critics); READBACK1-3 on main: no answer wins back a read plan line (best +3.7 of 7), the full plan-reading game is out; the Dues tab on main (DUESCARD1+2); his corner-minute reference and Claude's corner_v1 mockup; Boxing Manager compared (they 7, we 5.9; world and career is the gap); scope widened: a small living world after the week ('Yes, after the week'); ANIMFIX1 finished: hips no longer drop 8 cm under punches but the legs still tremble at clip changes; grappling labels, double points and early scores fixed, drift and bodies not; KDFIX4 is red on a rerun."
   }
  ],
  "blocked_on_operator": [],
@@ -4623,7 +4621,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-10 15:42 board_sync",
+  "updated": "2026-11-10 16:12 board_sync",
   "goal": "MECHANICS FIRST (operator S422: 'ok prepare next session with your recommendations'): the seven mechanics the critics and you chose in S402 get built before more menu polish. Each mechanic starts with a DESIGN MAP (operator Q-173: 'what the player decides exactly and where does that happening ? which screens ? have you mapped the whole design for the mechanism ?'): the decision, the screen, what it changes, the numbers; your OK; then the build. Menus change only when a mechanic needs them. One playable .exe a week, judged by you.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4886,16 +4884,17 @@
     "title": "TASK READBACK3 - QWEN (qwen3-coder) - READBACK2's set-up rule never forgets a win: fix it, measure again",
     "who": "qwen",
     "started": "2026-11-10T15:28",
-    "run": "READBACK3"
+    "run": "READBACK3",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FIRELEVEL1 - QWEN (qwen3-coder) - a plan line fires as well as it is drilled: a switched-off rule, measured",
+    "who": "qwen",
+    "started": "2026-11-10T16:02",
+    "run": "FIRELEVEL1"
    }
   ],
   "next": [
-   {
-    "id": "DUESCARD2",
-    "who": "cursor",
-    "title": "Dues boards unreadable on the real screen: their own tab at full size",
-    "after": ""
-   },
    {
     "id": "FIRELEVEL1",
     "who": "qwen",
@@ -5244,6 +5243,11 @@
   },
   "done_recently": [
    {
+    "title": "Dues: three painted price boards on their own tab (Club > Money > Dues)",
+    "who": "cursor",
+    "when": "2026-11-10"
+   },
+   {
     "title": "Read plan line: no answer wins it back (best +3.7 of 7); a line known from round 1 costs 15",
     "who": "qwen",
     "when": "2026-11-10"
@@ -5495,6 +5499,18 @@
     {
      "text": "Pads for two: measured, 2 maps",
      "who": "claude"
+    },
+    {
+     "text": "Dues boards in the game",
+     "who": "agent"
+    },
+    {
+     "text": "Plan-reading measured: stays small",
+     "who": "agent"
+    },
+    {
+     "text": "Boxing Manager compared",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5546,7 +5562,7 @@
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "add0bb09",
- "next_action": "1) Week design v2 (ops/research/WEEK_DESIGN_V2_S425.md + docs/mockups/s425/week_v2*.png, from the lead designer subagent): two FRESH critics with ops/research/WEEK_DESIGN_CRITIC_BRIEF_S425.md (point it at v2), depth 7+ -> his board with the pictures; under 7, another round. Fold Kalli's page in (SQ36) when it lands. 2) READBACK2 (Qwen, qwen/readback2): collect by diff; controls must reproduce 41.3 / 34.3 / 35.0 / 34.3; an arm within 2 points of the plain plan and 3 above waited keeps the full plan-reading part. 3) ANIMFIX1 (the Fable subagent, inside the S425 session): collect qwen/legtremble4 (PR 168) and claude/grapplefix1 by diff, LOOK at each film; it also checks and films Cursor's KDFIX4 (PR 169, not merged). If S425 was closed, restart it from ops/research/TASK_ANIMFIX1.md. 4) DUESCARD1 (Cursor): collect, render Club > Money, compare with docs/mockups/s424/dues_painted_v4.png; then FIGHTDISPLAY2, TRAININGB1. 5) Kalli SQ35 cutman v3 -> critics 7+; John SQ33 R37 map, SQ34 dues sums; R58 map.",
+ "last_working_commit": "eb352bfe",
+ "next_action": "1) Collect qwen/legtremble4 (PR 168) and claude/grapplefix1 by diff, LOOK at the four films on the review board, merge what is green and visibly better; new briefs: legs (fewer, longer clips), grappling (unnamed drift, bodies, call cadence), KDFIX5 (knockdown_still red 2.30 cm, Cursor's green was false; PR 169 not merged). 2) FIRELEVEL1 and THURSDAY1 (Qwen) -> week design v3 -> two FRESH critics, 7+ -> his board. 3) Export with the Dues tab, WHAT_TO_TRY. 4) Chat seats: cutman v3, dues sums, R37, the small world (his 'Yes, after the week'). Full state: NEXT_SESSION_PROMPT.md.",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

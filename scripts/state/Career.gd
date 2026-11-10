@@ -61,6 +61,8 @@ const GymSlots := preload("res://scripts/rules/GymSlots.gd")
 ## S397 round 2: the dues band (Membership.DUES), evening coaches beyond the staff jobs (each carries more members), and
 ## the year's grant bid ({} none; {due, amount} waiting for the answer; "last": the day of the last bid).
 @export var dues_band: String = "standard"
+## The band that takes over on the first week of the next calendar month. Empty means no change waiting.
+@export var dues_band_next: String = ""
 @export var extra_coaches: int = 0
 @export var grant: Dictionary = {}
 ## S397 rank 5 (ops/research/RANK5_FIRST_HOUR_S397.md): the player as head coach (HeadCoach: {name, bg}; {} = an old save, no

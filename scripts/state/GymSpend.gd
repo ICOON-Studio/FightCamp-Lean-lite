@@ -218,10 +218,35 @@ static func set_kit(c: Career, level: String) -> void:
 		c.kit_level = level
 
 
+## Calendar month, the same one GymBills.week reads off the clock. A new month starts on the first week
+## whose date falls in a different month from the week before.
+static func _dues_month(c: Career) -> bool:
+	if c.day < 7:
+		return false
+	return _month_index(c.day) != _month_index(c.day - 7)
+
+
+static func _month_index(day: int) -> int:
+	var d := Clock._date(day)
+	return int(d["year"]) * 12 + int(d["month"])
+
+
 static func set_dues(c: Career, band: String) -> void:
-	if Membership.DUES.has(band) and c.dues_band != band:
+	if not Membership.DUES.has(band):
+		return
+	if c.dues_band == band:
+		c.dues_band_next = ""
+		return
+	# end_week calls this once the month has turned and the pending band is already stored.
+	if c.dues_band_next == band and _dues_month(c):
 		c.dues_band = band
+		c.dues_band_next = ""
 		c.add_news("Dues are now %s a month (%s)." % [GameMoney.text(Membership.fee(band)), str(Membership.DUES[band]["name"]).to_lower()])
+		return
+	if c.dues_band_next == band:
+		return
+	c.dues_band_next = band
+	c.add_news("%s dues, %s a month, from next month." % [str(Membership.DUES[band]["name"]), GameMoney.text(Membership.fee(band))])
 
 
 ## An evening coach more (+1) or fewer (-1); letting one go costs a week's pay.
@@ -383,3 +408,5 @@ static func end_week(c: Career) -> void:
 		var talks: Dictionary = f.get("talks", {})
 		if not talks.is_empty() and c.day >= int(talks["until"]):
 			answer_talks(c, f, false)
+	if c.dues_band_next != "" and _dues_month(c):
+		set_dues(c, str(c.dues_band_next))
