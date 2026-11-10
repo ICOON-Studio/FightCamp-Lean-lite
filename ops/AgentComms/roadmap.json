@@ -4623,7 +4623,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-10 14:41 board_sync",
+  "updated": "2026-11-10 15:11 board_sync",
   "goal": "MECHANICS FIRST (operator S422: 'ok prepare next session with your recommendations'): the seven mechanics the critics and you chose in S402 get built before more menu polish. Each mechanic starts with a DESIGN MAP (operator Q-173: 'what the player decides exactly and where does that happening ? which screens ? have you mapped the whole design for the mechanism ?'): the decision, the screen, what it changes, the numbers; your OK; then the build. Menus change only when a mechanic needs them. One playable .exe a week, judged by you.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4849,13 +4849,6 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "TASK ANIMFIX1 - CLAUDE SUBAGENT (Fable 5.2) - boxing leg tremble (round 5) and grappling matches the player can read; films on the review board",
-    "who": "claude",
-    "started": "2026-11-10T14:25",
-    "run": "ANIMFIX1",
-    "state": "STOPPED - Claude relaunches or closes"
-   },
-   {
     "title": "TASK DUESCARD1 - CURSOR (Grok 4.7 High) - the dues choice as three painted price boards on Club > Money",
     "who": "cursor",
     "started": "2026-11-10T14:37",
@@ -4865,33 +4858,48 @@
     "title": "TASK READBACK1 - QWEN (qwen3-coder) - she waits for your best plan line: where the points go, and what wins them back. Measure only",
     "who": "qwen",
     "started": "2026-11-10T14:38",
-    "run": "READBACK1"
+    "run": "READBACK1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK READBACK2 - QWEN (qwen3-coder) - she waits for your best plan line, round 2: two ways back as switched-off rules, measured",
+    "who": "qwen",
+    "started": "2026-11-10T14:50",
+    "run": "READBACK2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "Week design v2 - lead designer subagent (Fable): a week worth playing, with pictures",
+    "who": "claude",
+    "started": "2026-11-10T15:00",
+    "run": "WEEKDESIGN2",
+    "state": "STOPPED - Claude relaunches or closes"
    }
   ],
   "next": [
    {
-    "id": "READBACK2",
+    "id": "DUESCARD2",
+    "who": "cursor",
+    "title": "Dues boards unreadable on the real screen: their own tab at full size",
+    "after": ""
+   },
+   {
+    "id": "READBACK3",
     "who": "qwen",
-    "title": "Two ways back from a read plan line, as switched-off rules, measured",
+    "title": "The set-up rule never forgets a win: fix it and measure again",
     "after": ""
    },
    {
     "id": "FIRELEVEL1",
     "who": "qwen",
     "title": "A plan line fires as well as it is drilled: switched-off rule, measured",
-    "after": "READBACK2"
+    "after": "READBACK3"
    },
    {
     "id": "THURSDAY1",
     "who": "qwen",
     "title": "Count the real problems a camp week shows by Thursday (measure)",
     "after": ""
-   },
-   {
-    "id": "DUESCARD1",
-    "who": "cursor",
-    "title": "Build the painted dues boards (your Q-177 yes)",
-    "after": "KDFIX4"
    },
    {
     "id": "FIGHTDISPLAY2",
@@ -4952,6 +4960,12 @@
     "who": "qwen",
     "title": "Downed boxer's body sways: fix the two layers found (queued)",
     "after": "FIGHTSLIDE3"
+   },
+   {
+    "id": "WORLD1",
+    "who": "claude",
+    "title": "A small living world: one belt ladder, rivals who move, judges with taste (his yes: after the week)",
+    "after": "R55"
    }
   ],
   "waiting_seat": [
@@ -5223,6 +5237,11 @@
   },
   "done_recently": [
    {
+    "title": "TASK ANIMFIX1 - CLAUDE SUBAGENT (Fable 5.2) - boxing leg tremble (round 5) and grappling matches the player can read; films on the review board",
+    "who": "claude",
+    "when": "2026-11-10"
+   },
+   {
     "title": "Read plan line measured: 7 points, drop and swap win nothing back",
     "who": "qwen",
     "when": "2026-11-10"
@@ -5275,16 +5294,6 @@
    {
     "title": "Knockdown count can no longer hang",
     "who": "claude",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Grok bots reach again (new send route)",
-    "who": "claude",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Sliding fighters: the ruler works; the rig is not the cause",
-    "who": "qwen",
     "when": "2026-11-10"
    }
   ],

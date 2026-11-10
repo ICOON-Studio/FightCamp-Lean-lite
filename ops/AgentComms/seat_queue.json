@@ -477,9 +477,11 @@
    "seat": "john",
    "brief": "research/J_AMATEUR_ASK_S424_BRIEF.md",
    "stem": "J_AMATEUR_ASK_S424_BRIEF_JOHN",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-10 13:13",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-10 15:11",
+   "sent_ms": 1794316265470
   },
   {
    "id": "SQ34",
@@ -495,11 +497,14 @@
    "seat": "kalli",
    "brief": "research/K_R28_CUTMAN_V3_PASTE_BRIEF.md",
    "stem": "K_R28_CUTMAN_V3_PASTE_BRIEF_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-10 14:11",
    "tries": 0,
    "sent_at": "2026-11-10 14:41",
-   "sent_ms": 1794314469305
+   "sent_ms": 1794314469305,
+   "answered_at": "2026-11-10 15:11",
+   "answer": "research/K_R28_CUTMAN_V3_PASTE_BRIEF_KALLI.md",
+   "chars": 16100
   },
   {
    "id": "SQ36",
@@ -508,6 +513,24 @@
    "stem": "K_WEEK_DEPTH_S425_BRIEF_KALLI",
    "status": "queued",
    "queued_at": "2026-11-10 14:25",
+   "tries": 0
+  },
+  {
+   "id": "SQ37",
+   "seat": "john",
+   "brief": "research/J_BELT_LADDER_S425_BRIEF.md",
+   "stem": "J_BELT_LADDER_S425_BRIEF_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-10 15:40",
+   "tries": 0
+  },
+  {
+   "id": "SQ38",
+   "seat": "kalli",
+   "brief": "research/K_SMALL_WORLD_S425_BRIEF.md",
+   "stem": "K_SMALL_WORLD_S425_BRIEF_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-10 15:40",
    "tries": 0
   }
  ]

@@ -11,10 +11,8 @@ patience for a decision that is not one.
 - On a mechanic a critic had scored 10: "need to improve the depth of the mechanic, , rated 4/10". Depth to him is
   decisions that lead into each other across the week, the camp, the fight and the career, each option with a case where
   it is the right one.
-- On screens: "do not write desciptions and useless text ... make the play understand what you want by using icons
-  graphics,meters,toolitps,animations and whatever aaa titles do , why you do not use the owrd pending instead of all htat
-  crap ?" A sentence or a description on a screen is a hard fail (look capped at 3): a word, an icon, a number, a meter,
-  a clock; explanations in tooltips. Your own drawing obeys this.
+- On screens: the owner leaves presentation to the designer's judgement ("i do not want impose rules on your designs").
+  Judge a screen by whether a player understands it in five seconds and can act on it.
 
 ## Read first, in this order
 1. `ops/research/CRITIC_PACK.md` (the whole game as it is today) and `ops/research/CRITIC_ACCESS.md`.
@@ -40,8 +38,7 @@ Open images with your file tool only; start no app, no Godot.
    the reward something that opens a new choice, or only a bigger number?
 4. WHAT RESTS ON INVENTED NUMBERS: which invented rule, if it measured badly, would collapse the design, and what is left.
 5. WIRED AND SHOWN: go through the menu table. Right place? Would the player find it? Anything shown he cannot act on?
-6. THE TWO SCREENS, element by element: KEEP, CHANGE (how) or CUT. Hard fails cap the look at 4: type under 20 px, a block of
-   text, a table of label and value rows, a label that needs a manual. Is it too much for one screen?
+6. THE TWO SCREENS, element by element: KEEP, CHANGE (how) or CUT. Say what a player would not understand in five seconds, and whether it is too much for one screen.
 7. Scores 0 to 10: look, clarity in five seconds, depth, things to do in a week, anticipation, reward for playing on.
 8. HOW TO REACH 10/10: the concrete list of changes, most important first, each specific enough to build.
 9. DRAW YOUR 10/10: one 1920x1080 HTML page at the path given in your prompt, self-contained CSS in the slate and wood look

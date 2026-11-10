@@ -13,10 +13,6 @@ in 3D). No-gi BJJ runs beside boxing.
 He is the playtester: 40 years of games, a boxing and BJJ background. Depth to him is decisions that lead into each
 other across the week, the camp, the fight and the career, each option with a case where it is the right one.
 
-- On screens (2026-11-10): "do not write desciptions and useless text ... make the play understand what you want by using
-  icons graphics,meters,toolitps,animations and whatever aaa titles do , why you do not use the owrd pending instead of all
-  htat crap ?" No sentence on any screen you describe or draw: a word, an icon, a number, a meter, a clock; tooltips explain.
-
 ## The problem to solve
 Single mechanics designed alone keep scoring 4 of 10 on depth with our critics: the cutman (one stop-or-go), the opponent
 adapting (only takes points away), who gets the coach's pad nights (worth one week on one card; four reviews, 4 each).

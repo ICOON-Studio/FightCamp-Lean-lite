@@ -1,6 +1,6 @@
 # TASK FIRELEVEL1 - QWEN (qwen3-coder) - a plan line fires as well as it is drilled: a switched-off rule, measured
 
-Status: OPEN (S425, Claude main). Discipline: boxing. Model: qwen3-coder. Start AFTER READBACK2 is on main (both touch
+Status: OPEN (S425, Claude main). Discipline: boxing. Model: qwen3-coder. Start AFTER READBACK3 is on main (both touch
 scripts/state/LiveRound.gd).
 Source: measured S425 (tools/pads_for_two_probe.gd): a plan answer she cannot do yet costs 2 to 14 wins in 100, but once
 it is usable (mastery 30) more drilling buys almost nothing (combinations at 60 to 70: 1 point). So pad time dies
