@@ -4,11 +4,15 @@ OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py s
 THIS FILE WAS CUT IN S418: it had grown to 988 lines. Every older handover (S396 to S417) is in ops/research/HANDOVERS_S349_S417.md: grep it by keyword, do not read it whole. What is still open from them is listed under STILL OPEN below.
 READ THE PULL'S OUTPUT: a file list after a session-start pull is the alarm.
 
+## FIRST: main's CI went red on the S418 code push (e4a7b6f3)
+- head_aim_test: `join unlanded_jab_landed_cross jump=0.669 > noaim+0.300=0.524` on the runner (0.19 on the PC). The join check reads distance per FRAME, so one long frame on a slow runner fails it. Taken OFF tools/run_tests.sh. Make it read speed (distance over the frame's real time), or prove the 0.669 is a real one-frame jump of the glove when a height-only reach hands over to a landed one; then put it back.
+- move_tip_test: 149 of 150 frames framed, and the lead hook read only 19 frames. It was green on PR 146's own CI with the same code, so likely the runner. NOT proved: read main's next run first; if it is red again, the height aim is the suspect (MoveStudio.defend now arms it on every defended jab).
+
 ## Built S418, exported 05:28, HE HAS NOT PLAYED IT
 - LOOKSLATE1 (Cursor, PR 147) merged bbc6cbbd: the Training week page on slate. Fixed at collect: a held drill's wooden button hung out of its card and the sentence was cut. Now one row, "Held at 48 by the Cross" + the button, the reason in the tooltip (drill_card_test holds it).
 - HEADAIM2B (Qwen, PR 146) merged bc0a76b1: an un-landed head punch is thrown at face height, latched when the punch starts. head_aim_test: aimed within 0.016 m, raw 0.08 to 0.47 m off; level pair raw 0.21 to 0.29. Filmed in the Moves preview (E:/FightCamp/tmp/s418_headaim): the SLIPPED jab is right, it flies where the face was.
 - KNOW1 (Goose, issue 139) merged 40d0db6b: scripts/rules/Knowledge.gd, nothing reads it yet. Next step is in ops/research/KNOWLEDGE_S411.md's build order; the bots test comes before any screen.
-- 05:00 full run, the first real one: 239 pass, 0 fail, 8 minutes. Recorded in roadmap NIGHTLY1. week_slate, head_aim and knowledge tests are on the list from 11-11.
+- 05:00 full run, the first real one: 239 pass, 0 fail, 8 minutes. Recorded in roadmap NIGHTLY1. week_slate and knowledge tests are on the list from 11-11 (head_aim came off again, see FIRST).
 - tests/slate_walk.gd: the slate checker, shared. `SlateWalk.faults(page)` after `WoodKit.ink(page)`.
 - tools/layout_snapshot.gd takes `noguide` after the out dir: stills he sees must have no guide. tools/head_aim_film.gd films a move in the Moves preview, every frame, `noaim` for the control.
 - 36 finished runs archived out of live_runs.json (the COLLECT NOW list at start was 36 stale lines). PRs 108 and 130 closed as superseded.

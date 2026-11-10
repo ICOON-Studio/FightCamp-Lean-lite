@@ -9,8 +9,8 @@
   "summary": "S418: three seat runs collected. The Training week page is on slate and wood (LOOKSLATE1, Cursor) with a fix at collect: a held drill's button hung out of its card. A blocked or slipped head punch is now thrown at face height (HEADAIM2B, Qwen): filmed in the Moves preview, the slipped jab flies where the face was. Knowledge.gd merged (KNOW1, Goose), nothing reads it yet. The first real 05:00 full run: 239 pass, 0 fail. Five more slate pages briefed with one shared checker; People is running on Cursor, four are queued. BLOCKMEET1 (Qwen) measures the blocked jab that ends at the chin under the blocking glove. Exported.",
   "last_working_commit": "e4a7b6f3",
   "verified_playable": "week_slate, week_board_clarity, week_strip, drill_card, drill_pick, wood_kit, head_aim, beat_clips, short_punch, move_tip, knowledge, fighter_model, file_limits and golden_path green in the session; all 58 screens rendered twice and opened; the jab filmed with and without the aim; exported 11-10 05:28. Not played in the exe.",
-  "incomplete_blocked": "Still cream: Club People (LOOKSLATE2 running), Fight camp + bout offer (3), New game + interview (4), Money (5), World (6), the Fighters page's Scouted strip and roster card feet, the week review's pad cards, the Playbook's game plan rows and combination builder. The blocked jab reads as a hit (BLOCKMEET1 measuring). Round 1's first frame shows the boxer bent back through the ropes (the walk-in; on the map as 'Red's leg past the rope'). John's chat seat has not answered since 11-06 (gbot: 'A Sandbox session is not permitted'): SQ29 and SQ30 wait. ZIVA still down (seats were running Godot).",
-  "next_action": "Collect LOOKSLATE2 (Cursor, Club People: render 05_gym_staff and 28_members with layout_snapshot noguide, open them) and BLOCKMEET1 (Qwen, measure only: believe it only if CTRL_LANDED reads to_face under 0.05 and every row prints a gap of 0.80 to 1.10; then decide the fix: the block clip raised to meet the punch, or the punch aimed at the blocking glove). LOOKSLATE3-6 are queued on Cursor and launch by themselves: collect each the same way (render, open, slate test green). LOOKSLATE7 is queued behind them: the Fighters page's Scouted strip, the roster cards' paper feet and the week review's white pad cards. Film both right hooks for PR 140 REARHAND5B. Playbook game plan and Fight night: a Ludo painted concept in the slate look first, his yes, then re-brief MENUPLAYBOOK2B and MENUFIGHT1B. The critic's corner as a game screen (Ludo concept first). Read PR 77 (ANIMREBUILD1 design draft).",
+  "incomplete_blocked": "MAIN CI RED at e4a7b6f3 (head_aim join on a slow runner, move_tip 149 of 150 frames). Still cream: Club People (LOOKSLATE2 running), Fight camp + bout offer (3), New game + interview (4), Money (5), World (6), the Fighters page's Scouted strip and roster card feet, the week review's pad cards, the Playbook's game plan rows and combination builder. The blocked jab reads as a hit (BLOCKMEET1 measuring). Round 1's first frame shows the boxer bent back through the ropes (the walk-in; on the map as 'Red's leg past the rope'). John's chat seat has not answered since 11-06 (gbot: 'A Sandbox session is not permitted'): SQ29 and SQ30 wait. ZIVA still down (seats were running Godot).",
+  "next_action": "FIRST: main's CI went red on the S418 code push (e4a7b6f3), two tests. head_aim_test: 'join unlanded_jab_landed_cross jump=0.669 > noaim+0.300' (0.19 on the PC): the join check reads distance per FRAME, so a slow runner's long frame fails it. It is off tools/run_tests.sh until it reads speed (distance over the frame's real time) or a hitch is ruled out as a real one-frame jump. move_tip_test: 149 of 150 frames framed, and the lead hook read only 19 frames: green on PR 146's own CI with the same code, so likely the runner, NOT proved: read the next main run. Collect LOOKSLATE2 (Cursor, Club People: render 05_gym_staff and 28_members with layout_snapshot noguide, open them) and BLOCKMEET1 (Qwen, measure only: believe it only if CTRL_LANDED reads to_face under 0.05 and every row prints a gap of 0.80 to 1.10; then decide the fix: the block clip raised to meet the punch, or the punch aimed at the blocking glove). LOOKSLATE3-6 are queued on Cursor and launch by themselves: collect each the same way (render, open, slate test green). LOOKSLATE7 is queued behind them: the Fighters page's Scouted strip, the roster cards' paper feet and the week review's white pad cards. Film both right hooks for PR 140 REARHAND5B. Playbook game plan and Fight night: a Ludo painted concept in the slate look first, his yes, then re-brief MENUPLAYBOOK2B and MENUFIGHT1B. The critic's corner as a game screen (Ludo concept first). Read PR 77 (ANIMREBUILD1 design draft).",
   "next_acceptance": "No page shows a cream sheet under wooden tabs; a blocked punch is stopped by a glove, not by the chin.",
   "awaiting_operator": [
    "play the S418 build",
@@ -4589,7 +4589,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-10",
+  "updated": "2026-11-10 07:12 board_sync",
   "goal": "RESTARTED SMALL (operator 2026-10-28: \"Yes, restart small\"): one playable .exe a week in E:\\FightCamp\\Lean, judged by you playing it. 2D menus and the simulation first; the 3D fight and gym come back later as views on the same data. Boxing only, one gym, a small roster, amateur to first pro fight.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4731,39 +4731,59 @@
   },
   "working_now": [
    {
-    "title": "LOOKSLATE2 - Club People on slate and wood",
-    "who": "cursor",
-    "started": "2026-11-10T05:24",
-    "run": "LOOKSLATE2",
-    "state": "RUNNING"
-   },
-   {
-    "title": "BLOCKMEET1 - does a blocked punch meet the blocking glove? (measure only)",
-    "who": "qwen",
-    "started": "2026-11-10T05:25",
-    "run": "BLOCKMEET1",
-    "state": "RUNNING"
-   },
-   {
     "title": "TASK ANIMREBUILD1 - AGY (Argon High) - design draft: fight animation rebuilt around a clip library + one picker",
     "who": "antigravity",
     "started": "2026-11-07T22:09",
     "run": "ANIMREBUILD1",
-    "state": "LANDED, not collected"
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK MENUPLAYBOOK1 - CURSOR (Grok 4.7 High) - the Playbook's game plan and Combos, built from the approved mockup",
     "who": "cursor",
     "started": "2026-11-08T22:42",
     "run": "MENUPLAYBOOK1",
-    "state": "LANDED, not collected"
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK REARHAND5B - QWEN (qwen3-coder) - the plain right hook keeps the hand up: blend, do not solve",
     "who": "qwen",
     "started": "2026-11-09T20:43",
     "run": "REARHAND5B",
-    "state": "LANDED, not collected"
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK LOOKSLATE2 - CURSOR (Grok 4.7 High) - the Club People page on slate and wood",
+    "who": "cursor",
+    "started": "2026-11-10T05:25",
+    "run": "LOOKSLATE2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK BLOCKMEET1 - QWEN (qwen3-coder) - does a blocked punch meet the blocking glove? Measure only",
+    "who": "qwen",
+    "started": "2026-11-10T05:25",
+    "run": "BLOCKMEET1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "QWEN (qwen3-coder) - a standing count on the cards says what it cost",
+    "who": "goose",
+    "started": "2026-11-10T05:41",
+    "run": "R11C",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK LOOKSLATE3 - CURSOR (Grok 4.7 High) - Fight camp and the bout offer on slate and wood",
+    "who": "cursor",
+    "started": "2026-11-10T06:12",
+    "run": "LOOKSLATE3",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK LOOKSLATE4 - CURSOR (Grok 4.7 High) - New game and the reception interview on slate and wood",
+    "who": "cursor",
+    "started": "2026-11-10T07:12",
+    "run": "LOOKSLATE4"
    }
   ],
   "next": [
@@ -5571,6 +5591,6 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "e4a7b6f3",
- "next_action": "Collect LOOKSLATE2 (Cursor, Club People: render 05_gym_staff and 28_members with layout_snapshot noguide, open them) and BLOCKMEET1 (Qwen, measure only: believe it only if CTRL_LANDED reads to_face under 0.05 and every row prints a gap of 0.80 to 1.10; then decide the fix: the block clip raised to meet the punch, or the punch aimed at the blocking glove). LOOKSLATE3-6 are queued on Cursor and launch by themselves: collect each the same way (render, open, slate test green). LOOKSLATE7 is queued behind them: the Fighters page's Scouted strip, the roster cards' paper feet and the week review's white pad cards. Film both right hooks for PR 140 REARHAND5B. Playbook game plan and Fight night: a Ludo painted concept in the slate look first, his yes, then re-brief MENUPLAYBOOK2B and MENUFIGHT1B. The critic's corner as a game screen (Ludo concept first). Read PR 77 (ANIMREBUILD1 design draft).",
+ "next_action": "FIRST: main's CI went red on the S418 code push (e4a7b6f3), two tests. head_aim_test: 'join unlanded_jab_landed_cross jump=0.669 > noaim+0.300' (0.19 on the PC): the join check reads distance per FRAME, so a slow runner's long frame fails it. It is off tools/run_tests.sh until it reads speed (distance over the frame's real time) or a hitch is ruled out as a real one-frame jump. move_tip_test: 149 of 150 frames framed, and the lead hook read only 19 frames: green on PR 146's own CI with the same code, so likely the runner, NOT proved: read the next main run. Collect LOOKSLATE2 (Cursor, Club People: render 05_gym_staff and 28_members with layout_snapshot noguide, open them) and BLOCKMEET1 (Qwen, measure only: believe it only if CTRL_LANDED reads to_face under 0.05 and every row prints a gap of 0.80 to 1.10; then decide the fix: the block clip raised to meet the punch, or the punch aimed at the blocking glove). LOOKSLATE3-6 are queued on Cursor and launch by themselves: collect each the same way (render, open, slate test green). LOOKSLATE7 is queued behind them: the Fighters page's Scouted strip, the roster cards' paper feet and the week review's white pad cards. Film both right hooks for PR 140 REARHAND5B. Playbook game plan and Fight night: a Ludo painted concept in the slate look first, his yes, then re-brief MENUPLAYBOOK2B and MENUFIGHT1B. The critic's corner as a game screen (Ludo concept first). Read PR 77 (ANIMREBUILD1 design draft).",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }
