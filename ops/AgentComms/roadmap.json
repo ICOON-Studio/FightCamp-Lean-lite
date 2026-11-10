@@ -3,18 +3,16 @@
  "updated": "2026-11-10",
  "author": "claude S294",
  "now": {
-  "id": "S424",
+  "id": "S425",
   "owner": "claude",
   "updated": "2026-11-10",
-  "summary": "S424: FIGHTSLIDE3 collected (no single slide cause). Q-176 dues: his yes on the mechanism -> DUESBAND1 to Goose #165 (intake chance per band + 5-year sim, no band wins every case); presentation repainted by Ludo in the Overview look, Q-177. Q-175 R28 'improve the depth' (4/10) -> v3 to Kalli SQ32 (before/during/minute/after levers), critics next. LEGTREMBLE3's head_aim red is a VOID (hips gap read 3 frames after reset) -> LEGTREMBLE4 queued on Qwen. KDFIX3 not merged: sway 1.91 -> 0.76 cm, bar 0.68, block_meet red on the branch (green on main) -> KDFIX4 queued. R37: the pro ask exists (ProLadder); the amateur ask is the work -> John SQ33. FIGHTDISPLAY1 Cursor hung on a lost connection (no edits); killing it was refused by the permission check: the operator's call. S424b (same session, his 'why you stopped'): FIGHTDISPLAY1 COLLECTED f3883134 (render looked at, test fixed, LiveRound back under 470 = file_limits green); dues intake by band LIVE 34826128 (HomeJuniors reads it); 5-year dues balance RED (premium 9/9, branch claude/duesband1) -> John SQ34 (cheap club money); old project research checked: every written doc already in ops/research, 2 PDFs added, OLD_PROJECT_MEDIA.md; DUESCARD1 briefed (Q-177 yes, Ludo member paintings); LEGTREMBLE4 (Qwen) and KDFIX4 (Cursor) running in parallel.",
-  "last_working_commit": "2dce6130",
+  "summary": "S425: R55 'two boxers, one coach: who gets the pads' measured (tools/pads_for_two_probe.gd): the coach's hands are worth one week on a card; a plan answer she cannot do yet on fight night costs 2 to 14 wins in 100 (no plan 18.7% against 40.0%); sharp over usable is 1 point. Map v1 -> two critics depth 4 (Hale a dead buy, the Monday magnets a chore) -> v2 (lays with a price, class money against pads, the bells timeline, a menu table) -> fresh critics: sim veteran depth 4 again (second coach pays for himself, a clash is self-made while nights can move, no corner night). NOT on his board: his new rule (S425, in CLAUDE.md): 'i expect all new mechanics to be wired and shown properly on the correct menus and be deep enough for a critics +7/10'. His second ask: 'assign a subagent to fix the boxing/grappling animation issues and using fable 5.2' -> ANIMFIX1 (ops/research/TASK_ANIMFIX1.md), a Fable subagent of the S425 session: track A the leg tremble on qwen/legtremble4 (Qwen's round 4 landed with head_aim still 1 VOID; its stated cause is unproven), track B grappling matches the player can read (claude/grapplefix1). Kalli's cutman v3 came back as a summary (the page stayed on her box): SQ35 asks her to paste it. PR 164 closed (on main).",
+  "last_working_commit": "44440bfe",
   "verified_playable": "people_slate, camp_slate, start_slate, camp_cards, versus, recruit, wood_kit, words_on_screens, plain_words, no_pronoun, gauges, attr_board, fighter_model green on the PC; the pages rendered and opened (E:/FightCamp/tmp/s419_screens, s419_screens2).",
   "incomplete_blocked": "MAIN CI: no finished run since e4a7b6f3 (red); three S419 pushes cancelled each other's runs, read the run on the wrap-up push. PR 140 REARHAND5B not judged: tools/head_aim_film.gd move=rear_hook printed no CONTACT line, so the film showed no punch. Luke Reid's portrait reads near black on Club People. Training week page untouched until his pick.",
-  "next_action": "1) Collect LEGTREMBLE4 (Qwen) and KDFIX4 (Cursor) as they land: diff, the touched tests, then FILM and LOOK, post on the review board (he asked when a second animation shows). 2) Cursor queue: DUESCARD1 (painted dues boards), then FIGHTDISPLAY2 (side panels + the two corner-bar fixes), then TRAININGB1. 3) John SQ34 -> redo the dues sums (grants exist in Grants.gd; cheap's member pull needs a real number), make claude/duesband1's test green honestly, merge. 4) Kalli SQ32 R28 v3 -> two critics -> board. John SQ33 -> R37 amateur ask map. 5) R55, R58 maps.",
-  "next_acceptance": "He has picked a Training direction and its painted concept is on the board; a blocked punch is stopped by a glove; the leg tremble has a named source.",
-  "awaiting_operator": [
-   "R28 cutman design map (written next session)"
-  ]
+  "next_action": "1) ANIMFIX1 (the Fable subagent) lives inside the S425 session: collect its branches by diff as it reports (qwen/legtremble4, claude/grapplefix1), LOOK at each film, merge what is green. If S425 was closed before it finished, restart it from ops/research/TASK_ANIMFIX1.md and the worktrees' state. 2) KDFIX4 (Cursor): collect, film a knockdown, look; then Cursor's queue DUESCARD1, FIGHTDISPLAY2, TRAININGB1. 3) R55 v3: the two v2 reviews (docs/mockups/s425/pads_v2_critic_*.md) say the sharing is too small alone: fold it into the coach's whole week (R73 coach-hours: pads per boxer, the club class money, sparring cover, film study, the corner on show night), sharp and signature pay first; two FRESH critics, depth 7+ before his board. 4) Kalli SQ35 (cutman v3 pasted) -> two critics, 7+ -> board. John SQ33 -> R37 amateur ask map; SQ34 -> dues sums, claude/duesband1 green honestly. 5) R58 map.",
+  "next_acceptance": "A film of round 2 without trembling legs and a film of a readable BJJ match are on his review board; R55 v3 scores depth 7+ from two fresh critics and is on his board.",
+  "awaiting_operator": []
  },
  "next": "MECHANICS FIRST (operator S422 OK). 1) Collect KDFIX2 (the ruler only) and LEGTREMBLE3. 2) Brief FIGHTDISPLAY1 to Cursor from docs/mockups/s422/fight_10_simvet.html (his Q-174 pick: 'Use the veteran's drawing'); data check FIGHT_DISPLAY_DECISION_S419.md s7. 3) R28 Cutman: write the DESIGN MAP (what the player decides, on which screen, what it changes, the numbers, real-world cut rules) as one page + a picture, ask him on the board, then brief the pure module to Qwen/Goose. 4) R25 the same, after checking head punches count. 5) Q-173 dues: design map only. Menus wait unless a mechanic needs them.",
  "assessment": {
@@ -1700,6 +1698,11 @@
    "id": "S424",
    "date": "2026-11-10",
    "summary": "S424: FIGHTSLIDE3 collected (no single slide cause). Q-176 dues: his yes on the mechanism -> DUESBAND1 to Goose #165 (intake chance per band + 5-year sim, no band wins every case); presentation repainted by Ludo in the Overview look, Q-177. Q-175 R28 'improve the depth' (4/10) -> v3 to Kalli SQ32 (before/during/minute/after levers), critics next. LEGTREMBLE3's head_aim red is a VOID (hips gap read 3 frames after reset) -> LEGTREMBLE4 queued on Qwen. KDFIX3 not merged: sway 1.91 -> 0.76 cm, bar 0.68, block_meet red on the branch (green on main) -> KDFIX4 queued. R37: the pro ask exists (ProLadder); the amateur ask is the work -> John SQ33. FIGHTDISPLAY1 Cursor hung on a lost connection (no edits); killing it was refused by the permission check: the operator's call. S424b (same session, his 'why you stopped'): FIGHTDISPLAY1 COLLECTED f3883134 (render looked at, test fixed, LiveRound back under 470 = file_limits green); dues intake by band LIVE 34826128 (HomeJuniors reads it); 5-year dues balance RED (premium 9/9, branch claude/duesband1) -> John SQ34 (cheap club money); old project research checked: every written doc already in ops/research, 2 PDFs added, OLD_PROJECT_MEDIA.md; DUESCARD1 briefed (Q-177 yes, Ludo member paintings); LEGTREMBLE4 (Qwen) and KDFIX4 (Cursor) running in parallel."
+  },
+  {
+   "id": "S425",
+   "date": "2026-11-10",
+   "summary": "S425: R55 'two boxers, one coach: who gets the pads' measured (tools/pads_for_two_probe.gd): the coach's hands are worth one week on a card; a plan answer she cannot do yet on fight night costs 2 to 14 wins in 100 (no plan 18.7% against 40.0%); sharp over usable is 1 point. Map v1 -> two critics depth 4 (Hale a dead buy, the Monday magnets a chore) -> v2 (lays with a price, class money against pads, the bells timeline, a menu table) -> fresh critics: sim veteran depth 4 again (second coach pays for himself, a clash is self-made while nights can move, no corner night). NOT on his board: his new rule (S425, in CLAUDE.md): 'i expect all new mechanics to be wired and shown properly on the correct menus and be deep enough for a critics +7/10'. His second ask: 'assign a subagent to fix the boxing/grappling animation issues and using fable 5.2' -> ANIMFIX1 (ops/research/TASK_ANIMFIX1.md), a Fable subagent of the S425 session: track A the leg tremble on qwen/legtremble4 (Qwen's round 4 landed with head_aim still 1 VOID; its stated cause is unproven), track B grappling matches the player can read (claude/grapplefix1). Kalli's cutman v3 came back as a summary (the page stayed on her box): SQ35 asks her to paste it. PR 164 closed (on main)."
   }
  ],
  "blocked_on_operator": [],
@@ -4618,7 +4621,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-10 13:41 board_sync",
+  "updated": "2026-11-10 13:59 board_sync",
   "goal": "MECHANICS FIRST (operator S422: 'ok prepare next session with your recommendations'): the seven mechanics the critics and you chose in S402 get built before more menu polish. Each mechanic starts with a DESIGN MAP (operator Q-173: 'what the player decides exactly and where does that happening ? which screens ? have you mapped the whole design for the mechanism ?'): the decision, the screen, what it changes, the numbers; your OK; then the build. Menus change only when a mechanic needs them. One playable .exe a week, judged by you.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4809,10 +4812,24 @@
     "state": "LANDED - Claude collects"
    },
    {
+    "title": "TASK FIGHTDISPLAY1 - CURSOR (Grok 4.7 High) - the live fight's corner bar, NOW! plate and scorebug from the veteran's drawing",
+    "who": "cursor",
+    "started": "2026-11-10T12:41",
+    "run": "FIGHTDISPLAY1",
+    "state": "LANDED - Claude collects"
+   },
+   {
     "title": "TASK KDFIX3 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 3: fix the two layers KDFIX2 named",
     "who": "qwen",
     "started": "2026-11-10T12:54",
     "run": "KDFIX3",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "QWEN (qwen3-coder) - dues bands: what kind of club you run (pure rules + a 5-year sim test)",
+    "who": "goose",
+    "started": "2026-11-10T13:07",
+    "run": "DUESBAND1",
     "state": "LANDED - Claude collects"
    },
    {
@@ -4826,30 +4843,15 @@
     "who": "cursor",
     "started": "2026-11-10T13:35",
     "run": "KDFIX4"
-   },
-   {
-    "title": "Leg tremble round 4: why head_aim voids a row",
-    "who": "qwen",
-    "started": "2026-11-10T13:35",
-    "run": "LEGTREMBLE4",
-    "state": "running"
-   },
-   {
-    "title": "Knockdown sway round 4: settle vs sway, block_meet",
-    "who": "cursor",
-    "started": "2026-11-10T13:35",
-    "run": "KDFIX4",
-    "state": "running"
-   },
-   {
-    "title": "What keeps a cheap club alive (grants, premises)",
-    "who": "john",
-    "started": "2026-11-10T13:40",
-    "run": "SQ34",
-    "state": "queued"
    }
   ],
   "next": [
+   {
+    "id": "READBACK1",
+    "who": "qwen",
+    "title": "She waits for your best plan line: where the points go and what wins them back (measure)",
+    "after": ""
+   },
    {
     "id": "DUESCARD1",
     "who": "cursor",
@@ -4889,7 +4891,7 @@
    {
     "id": "R55",
     "who": "claude",
-    "title": "Mechanic: two fighters, one coach - who gets the pads; brings the better staff screen (Q-172)",
+    "title": "Mechanic: who gets the pads - v3 inside the coach's whole week (critics 4/10 twice; needs 7+)",
     "after": "R37"
    },
    {
@@ -5186,6 +5188,11 @@
   },
   "done_recently": [
    {
+    "title": "Pads for two: measured, two maps, critics 4/10 (not yet good enough)",
+    "who": "claude",
+    "when": "2026-11-10"
+   },
+   {
     "title": "Live fight part 1: corner bar, graded calls, scorebug",
     "who": "cursor",
     "when": "2026-11-10"
@@ -5239,11 +5246,6 @@
     "title": "Sliding fighters: the ruler works; the rig is not the cause",
     "who": "qwen",
     "when": "2026-11-10"
-   },
-   {
-    "title": "Fighter model on 10 attributes and 5 skills (R24, S416)",
-    "who": "cursor",
-    "when": "2026-11-09"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5372,6 +5374,26 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Slide: no single cause (collected)",
+     "who": "agent"
+    },
+    {
+     "text": "Dues rules to Goose (your yes)",
+     "who": "claude"
+    },
+    {
+     "text": "Dues screen painted (Q-177)",
+     "who": "claude"
+    },
+    {
+     "text": "Leg tremble red traced: early read",
+     "who": "claude"
+    },
+    {
+     "text": "KD sway 1.91 -> 0.76 cm, not yet",
+     "who": "agent"
+    },
+    {
      "text": "Main CI green again (menus test)",
      "who": "claude"
     },
@@ -5406,61 +5428,25 @@
     {
      "text": "Dues choice proposal (Q-173)",
      "who": "claude"
-    },
-    {
-     "text": "Fight display: 3 critics' 10/10s",
-     "who": "claude"
-    },
-    {
-     "text": "Knockdown count never hangs",
-     "who": "claude"
-    },
-    {
-     "text": "8 old worktrees retired",
-     "who": "claude"
-    },
-    {
-     "text": "Old screens and questions cleared",
-     "who": "claude"
-    },
-    {
-     "text": "Plan reset: mechanics first",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Slide: no single cause (collected)",
-     "who": "agent"
-    },
-    {
-     "text": "Dues rules to Goose (your yes)",
+     "text": "Pads for two: measured, 2 maps",
      "who": "claude"
-    },
-    {
-     "text": "Dues screen painted (Q-177)",
-     "who": "claude"
-    },
-    {
-     "text": "Leg tremble red traced: early read",
-     "who": "claude"
-    },
-    {
-     "text": "KD sway 1.91 -> 0.76 cm, not yet",
-     "who": "agent"
     }
    ],
    "now": [
     {
-     "text": "Your call: dues look (Q-177)",
-     "who": "operator"
-    },
-    {
-     "text": "Cutman v3 for depth (Kalli)",
+     "text": "Amateur ask research (John)",
      "who": "agent"
     },
     {
-     "text": "Amateur ask research (John)",
+     "text": "Pads v3: needs critics 7 of 10",
+     "who": "claude"
+    },
+    {
+     "text": "Cutman v3: Kalli to paste it",
      "who": "agent"
     }
    ],
@@ -5471,10 +5457,6 @@
     },
     {
      "text": "R37 Ask for a fight: map, build",
-     "who": "claude"
-    },
-    {
-     "text": "R55 Pads for two + staff screen",
      "who": "claude"
     },
     {
@@ -5490,24 +5472,20 @@
      "who": "agent"
     },
     {
-     "text": "Leg tremble round 4 (Qwen)",
-     "who": "agent"
-    },
-    {
-     "text": "KD sway round 4 (Qwen)",
-     "who": "agent"
-    },
-    {
      "text": "Cutman v3: critics, then board",
      "who": "claude"
+    },
+    {
+     "text": "Dues boards build (Cursor)",
+     "who": "agent"
     }
    ],
-   "session": "S424"
+   "session": "S425"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "beb1a3be",
- "next_action": "1) Collect LEGTREMBLE4 (Qwen) and KDFIX4 (Cursor) as they land: diff, the touched tests, then FILM and LOOK, post on the review board (he asked when a second animation shows). 2) Cursor queue: DUESCARD1 (painted dues boards), then FIGHTDISPLAY2 (side panels + the two corner-bar fixes), then TRAININGB1. 3) John SQ34 -> redo the dues sums (grants exist in Grants.gd; cheap's member pull needs a real number), make claude/duesband1's test green honestly, merge. 4) Kalli SQ32 R28 v3 -> two critics -> board. John SQ33 -> R37 amateur ask map. 5) R55, R58 maps.",
+ "last_working_commit": "44440bfe",
+ "next_action": "1) ANIMFIX1 (the Fable subagent) lives inside the S425 session: collect its branches by diff as it reports (qwen/legtremble4, claude/grapplefix1), LOOK at each film, merge what is green. If S425 was closed before it finished, restart it from ops/research/TASK_ANIMFIX1.md and the worktrees' state. 2) KDFIX4 (Cursor): collect, film a knockdown, look; then Cursor's queue DUESCARD1, FIGHTDISPLAY2, TRAININGB1. 3) R55 v3: the two v2 reviews (docs/mockups/s425/pads_v2_critic_*.md) say the sharing is too small alone: fold it into the coach's whole week (R73 coach-hours: pads per boxer, the club class money, sparring cover, film study, the corner on show night), sharp and signature pay first; two FRESH critics, depth 7+ before his board. 4) Kalli SQ35 (cutman v3 pasted) -> two critics, 7+ -> board. John SQ33 -> R37 amateur ask map; SQ34 -> dues sums, claude/duesband1 green honestly. 5) R58 map.",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

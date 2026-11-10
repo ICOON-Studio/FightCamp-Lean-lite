@@ -1,46 +1,56 @@
-# S425 handover: collect the two animation fixes, film them, then the dues boards (written 2026-11-10, S424 + S424b)
+# S426 handover: collect the animation subagent's work, R55 v3 to depth 7, Cursor's queue (written 2026-11-10, S425)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S425` and redraw the map (recipe: ops/Tools/where_we_are_svg.py docstring; the frame refuses to resize - harmless; after a redraw run `learn` / `trim` as the svg command prints).
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S426` and redraw the map (recipe: ops/Tools/where_we_are_svg.py docstring; the frame refuses to resize - harmless; a PARTIAL svg is enough: the frame, the panels and the cards, then `trim` / `learn` as the svg command prints).
 Older handovers are in git (this file's history); S396 to S417 in ops/research/HANDOVERS_S349_S417.md.
 
-## What S424 did (one session, two stages: he asked "why you stopped this session ??" after the first ship - it was early)
-- His board answers: Q-176 dues "ok for the mechanism but the design needs better presentation"; Q-175 cutman "need to
-  improve the depth ... rated 4/10"; Q-177 the painted dues boards "Yes, build it".
-- FIGHTDISPLAY1 COLLECTED (f3883134): corner bar, graded calls, wood scorebug. Cursor's run hung on "Connection lost" AFTER
-  building; stopped by PID with his OK. Windowed render E:/FightCamp/tmp/s424_fd1 looked at; corner_bar_test fixed (headless
-  the fight view is 1920 tall); LiveRound.gd back under its 470 cap (S423's probe hook had file_limits red on main).
-- Dues: Membership.intake_chance + HomeJuniors reads the band (34826128, live). The 5-year balance test is RED (premium wins
-  9 of 9; S423's sums assumed the cap never binds and a home-grown boxer = half a stipend) - branch claude/duesband1, NOT
-  merged. John SQ34 asks what really funds a cheap community club. Grants already exist (Grants.gd, ~$1,700 a year
-  expected): not enough alone. Do not tune to pass.
-- DUESCARD1 briefed for Cursor (painted boards, true numbers, change from next month); Ludo painted the three member
-  pictures (assets/ui/dues). FIGHTDISPLAY2 now also fixes the empty last-call box and orders calls best-first in gold.
-- R28 v3 (depth) -> Kalli SQ32. R37: the pro ask exists (ProLadder); the amateur ask -> John SQ33.
-- Old project research (his "share the research of oldproject"): every written doc was already in ops/research; the two
-  research PDFs added; ops/research/OLD_PROJECT_MEDIA.md says where the 268 old stills/films live and how to fetch one.
-- FIGHTSLIDE3 collected (no single slide cause).
+## His two rulings in S425 (verbatim)
+- "i expect all new mechanics to be wired and shown properly on the correct menus and be deep enough for a critics +7/10"
+  -> in CLAUDE.md (Agent roles): a map reaches his board only at depth 7+ from two FRESH critics; every map has a menu
+  table (menu, what appears, wired to); a build is done when each menu shows it in the .exe and a golden-path test walks it.
+- "can you assign a subagent to fix the boxing/grappling animation issues and using fable 5.2 , i want to start seeing
+  animations on the board and grappling fights that make sens and make understand what is the action happening and how to
+  react as a player" -> ANIMFIX1, brief ops/research/TASK_ANIMFIX1.md.
+
+## What S425 did
+- R55 "who gets the pads": measured (tools/pads_for_two_probe.gd, 300 bouts a cell). The coach's hands = one week on a
+  card. A plan answer she cannot do yet on fight night: 38.0 / 36.0 / 31.0 / 26.3% won against 40.0% (tie up, pivot out,
+  Jab-Jab, step back); no plan 18.7%. Sharp over usable: 1 point. Map v1 -> critics depth 4, 4 -> v2
+  (ops/research/R55_PADS_DESIGN_MAP.md, docs/mockups/s425/pads_rota_v2.png) -> fresh sim veteran: depth 4 again
+  (pads_v2_critic_simvet.md); the fresh coach critic's review may have landed after this was written
+  (pads_v2_critic_coach.md). NOT on his board.
+- ANIMFIX1 launched (a Fable subagent INSIDE the S425 session; it dies if that session is cleared).
+  Track A: worktree LEAN_LEGTREMBLE4, branch qwen/legtremble4 (Qwen round 4, 0edc96fe: 122 clips hips-locked,
+  head_aim still 1 VOID; its "hold_root_xz never fires" cause is unproven: paths are prefixed before the check and main
+  is green on the same guard). A short film of that branch: E:/FightCamp/tmp/s425_lt4/round.avi.
+  Track B: worktree LEAN_GRAPPLEFIX1, branch claude/grapplefix1: a BJJ match the player can read.
+- Kalli SQ32 (cutman v3) answered with a summary only; SQ35 asks her to paste the page.
+- PR 164 closed (already on main). No game code changed on main: no new export, WHAT_TO_TRY unchanged.
 
 ## Running (yours)
-- LEGTREMBLE4 (Qwen, wt LEAN_LEGTREMBLE4, branch qwen/legtremble4): head_aim's VOID (hips gap read 3 frames after reset).
-- KDFIX4 (Cursor, wt LEAN_KDFIX4, branch cursor/kdfix4): knockdown sway 0.76 cm -> settle vs sway; block_meet red on the
-  KDFIX branches (green on main's nightly).
-- Cursor queue after KDFIX4: DUESCARD1, FIGHTDISPLAY2, TRAININGB1. Chat seats: Kalli SQ32, John SQ33, SQ34.
+- ANIMFIX1 (see above). KDFIX4 (Cursor, wt LEAN_KDFIX4, branch cursor/kdfix4). Chat seats: Kalli SQ35, John SQ31/33/34.
+- Cursor queue after KDFIX4: DUESCARD1, FIGHTDISPLAY2, TRAININGB1. Qwen is free.
 
-## Order for S425
-1. Collect LEGTREMBLE4 / KDFIX4 as they land (diff, the touched tests), FILM round 2 / a knockdown, LOOK, post on the
-   review board + SendUserFile. He asked "when do you think i will be able to see a second animation on the board ?".
-   Close PRs 162, 163, 166 when their fix is in.
-2. Collect DUESCARD1, render Club > Money, compare with docs/mockups/s424/dues_painted_v4.png.
-3. John SQ34 -> redo the dues sums -> make the 5-year test green honestly -> merge claude/duesband1's test.
-4. Kalli SQ32 -> two critics -> board (Q for R28 v3). John SQ33 -> R37 amateur ask map. Then R55, R58.
+## Order for S426
+1. Collect what ANIMFIX1 pushed (diff, the touched tests, LOOK at each film yourself), merge what is green, close PRs
+   162, 163, 166 when their fix is in. If the subagent did not finish, relaunch it from its brief and worktrees.
+2. KDFIX4: collect, film a knockdown, look, review board.
+3. R55 v3. Both rounds of critics say the same: sharing one coach's pad hands is too small alone (one week on one
+   card, the second coach pays for himself, a clash is self-made while nights can move). Direction: make it the coach's
+   whole week (R73 coach-hours, also on his IN list): his evenings spent across pads per boxer, the club class
+   ($350), sparring cover, film study with a boxer, the corner on show night; "sharp and signature pay on fight night"
+   first so pad time matters all camp. Measure each use's worth before writing. Two FRESH critics, 7+ on depth.
+4. Cutman v3 (Kalli SQ35) -> critics 7+ -> board. John SQ33 -> R37 map. John SQ34 -> dues sums, claude/duesband1 green.
+5. R58 map (a fighter leaves): the promise "the pads are yours next camp" is R55's link into it.
 
 ## Traps
 - `agent_comms.py ask --attach` resolves paths from ops/: pass absolute paths.
 - `seat_queue.py add --brief` takes the path from ops/ (research/<file>.md).
-- A REGRESSION test that lives only on the BASE branch fails brief_contract: keep it in the RESULT lines instead.
-- A seat calling a red test "pre-existing": check the nightly before believing it.
-- Goose's CI "success" does not run a new test: run it yourself (DUESBAND1's was red).
-- A hung agent may have finished its work: look at the worktree before relaunching.
-- Do not ship while a collectable PR or a free seat's work is in reach (he asked why the session stopped).
+- A chat seat's attached file never reaches us: ask for the page as text in the reply.
+- A bare Godot start is blocked by the hook: `python ops/Tools/godot_slot.py run --who claude -- <godot command>`.
+- `git diff --stat` across branches prints hundreds of .import warnings: add `2>/dev/null`.
+- A python heredoc with triple quotes breaks in this shell: write the script to the scratchpad and run it.
+- The Monitor on agent_events.py expires after 30 minutes without a notice you can count on: re-arm it, and check the
+  worktree itself when an ETA has passed.
+- Two critics at depth 4 twice means the mechanic is small, not the wording: change the mechanic.
 
-SETTINGS: S424 ran on Opus 5.5. Weekly plan use was ~88% at S423's end (resets 11-12): propose Sonnet, high effort, Fast off, until the reset.
+SETTINGS: S425 ran on Fable 5.2. Weekly plan use 89% all models (Fable 16%), resets 11-12: propose Sonnet 5.5, high effort, Fast off, until the reset; the animation subagent stays on Fable as he asked.

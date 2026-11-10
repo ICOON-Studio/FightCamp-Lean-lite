@@ -441,27 +441,33 @@
    "sent_ms": 1794309055206,
    "answered_at": "2026-11-10 13:41",
    "answer": "research/J_KNOWING_A_FIGHTER_JOHN.md",
-   "chars": 19360
+   "chars": 19360,
+   "seen_by_claude": true
   },
   {
    "id": "SQ31",
    "seat": "john",
    "brief": "research/J_DUES_CHOICE_S421_BRIEF.md",
    "stem": "J_DUES_CHOICE_S421_BRIEF_JOHN",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-10 11:02",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-10 14:10",
+   "sent_ms": 1794312651038
   },
   {
    "id": "SQ32",
    "seat": "kalli",
    "brief": "research/K_R28_CUTMAN_V3_BRIEF.md",
    "stem": "K_R28_CUTMAN_V3_BRIEF_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-10 13:12",
    "tries": 0,
    "sent_at": "2026-11-10 13:41",
-   "sent_ms": 1794310865864
+   "sent_ms": 1794310865864,
+   "answered_at": "2026-11-10 14:10",
+   "answer": "research/K_R28_CUTMAN_V3_BRIEF_KALLI.md",
+   "chars": 2289
   },
   {
    "id": "SQ33",
@@ -479,6 +485,15 @@
    "stem": "J_CHEAP_CLUB_MONEY_S424_BRIEF_JOHN",
    "status": "queued",
    "queued_at": "2026-11-10 13:36",
+   "tries": 0
+  },
+  {
+   "id": "SQ35",
+   "seat": "kalli",
+   "brief": "research/K_R28_CUTMAN_V3_PASTE_BRIEF.md",
+   "stem": "K_R28_CUTMAN_V3_PASTE_BRIEF_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-10 14:11",
    "tries": 0
   }
  ]

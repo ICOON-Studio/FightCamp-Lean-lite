@@ -1,0 +1,155 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Club People - coach's 10 (R55)</title>
+<style>
+:root{--gold:#f0bd4f;--chalk:#f3efe4;--red:#c9342a;--lucy:#e0493b;--rey:#4aa3df;--ok:#8fe3a2;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#0d0b0a;color:var(--chalk);font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;position:relative;
+ background-image:radial-gradient(ellipse at 20% 0,#3a2a1c 0,transparent 40%),radial-gradient(ellipse at 90% 0,#2e2218 0,transparent 40%)}
+.abs{position:absolute}
+.wood{background:linear-gradient(180deg,#7a5230,#4c2f1a 60%,#3c2514);border:2px solid #20120a;box-shadow:inset 0 2px 0 #9a6d42,0 4px 10px #000a}
+.board{position:absolute;border:12px solid #5b3a20;border-radius:6px;background:
+ radial-gradient(ellipse at 30% 20%,#2b2e31,transparent 60%),linear-gradient(#1d1f21,#161718);
+ box-shadow:0 0 0 2px #1d1008,inset 0 0 0 2px #8a5f36,inset 0 0 40px #000c,0 6px 14px #000a}
+.board:before,.board:after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f6d98a,#a97a25 60%,#5b3d0f);top:-17px;left:-17px;box-shadow:0 2px 3px #000}
+.board:after{left:auto;right:-17px}
+.nav{top:0;left:0;width:1920px;height:64px}
+.navbtn{position:absolute;top:10px;height:46px;border-radius:5px;font-size:26px;display:flex;align-items:center;gap:10px;padding:0 20px;color:var(--chalk)}
+.tab{position:absolute;top:72px;height:44px;border-radius:5px 5px 0 0;font-size:26px;display:flex;align-items:center;padding:0 24px}
+.tab.on{background:linear-gradient(#a26d3a,#6b4527);color:#fff;box-shadow:inset 0 0 0 2px var(--gold)}
+.h{font-weight:700;letter-spacing:.5px}
+.t{font-size:40px;font-weight:700;color:var(--gold)}
+.chip{display:inline-flex;align-items:center;gap:8px;border-radius:20px;padding:3px 16px;font-size:26px;font-weight:700;background:#0008;border:2px solid #ffffff30;white-space:nowrap}
+.chip.r{color:#ff8d80;border-color:#c9342a}.chip.g{color:var(--ok);border-color:#3d8d52}.chip.y{color:var(--gold);border-color:#a97a25}
+.face{border-radius:50%;object-fit:cover;object-position:50% 18%;border:4px solid #0009;background:#333}
+.day{position:absolute;top:84px;width:140px;text-align:center;font-size:32px;font-weight:700}
+.row{position:absolute;left:24px;width:1192px;height:112px;border-radius:10px;background:linear-gradient(#2c2f32,#1f2123);border:3px solid #3d4146}
+.who{position:absolute;left:14px;top:6px;display:flex;gap:14px;align-items:center;height:96px;width:310px}
+.who .n{font-size:30px;font-weight:700;line-height:34px}
+.who .s{font-size:26px;color:#cfc8b8;line-height:30px}
+.cell{position:absolute;top:6px;width:128px;height:96px;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:4px}
+.cell.in{background:#3a3222;border:3px solid var(--gold);box-shadow:0 0 16px #f0bd4f55;padding-bottom:26px}
+.cell.off{background:repeating-linear-gradient(45deg,#00000055 0 10px,#ffffff08 10px 20px);border:2px solid #ffffff14}
+.cell.add{border:3px dashed #6a7078;color:#8d949c;font-size:30px;font-weight:700}
+.lab{position:absolute;left:0;right:0;bottom:-2px;text-align:center;font-size:24px;font-weight:700;color:#14110c;background:var(--gold);border-radius:0 0 6px 6px;line-height:28px}
+.ghost{opacity:.55;filter:grayscale(1)}
+.bx{position:absolute;left:1300px;width:590px;border:12px solid #5b3a20;border-radius:6px;background:linear-gradient(#1d1f21,#161718);box-shadow:0 0 0 2px #1d1008,inset 0 0 0 2px #8a5f36,inset 0 0 40px #000c,0 6px 14px #000a}
+.mbar{position:absolute;height:22px;border-radius:11px;background:#0c0d0e;border:2px solid #555}
+.mbar .f{position:absolute;top:0;bottom:0;left:0;border-radius:9px}
+.mbar .m{position:absolute;top:-8px;width:4px;height:34px;background:#fff}
+.tl{position:absolute;left:24px;width:1192px;height:104px;border-radius:10px;background:linear-gradient(#2c2f32,#1f2123);border:3px solid #3d4146}
+.tl .bar{position:absolute;left:334px;width:836px;top:62px;height:26px;border-radius:13px;background:#0c0d0e;border:2px solid #555;overflow:visible}
+.tl .tp{position:absolute;top:0;bottom:0;background:#4a7fb855;border-left:3px solid #7fb2ee}
+.tl .f{position:absolute;left:0;top:0;bottom:0;border-radius:11px 0 0 11px;background:#e8823c}
+.tl .gh{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,#ff8d80 0 6px,#ff8d8055 6px 12px)}
+.tl .bell{position:absolute;top:-24px;font-size:36px;width:44px;text-align:center}
+.tl .st{position:absolute;left:334px;top:6px;font-size:28px;font-weight:700;white-space:nowrap}
+.wk{position:absolute;width:140px;text-align:center;font-size:28px;font-weight:700;color:#cfc8b8}
+.lay{position:absolute;top:4px;height:172px;width:342px;border-radius:10px;background:linear-gradient(#2c2f32,#1f2123);border:3px solid #565d64;padding:8px 14px}
+.lay.on{border-color:var(--gold);background:linear-gradient(#41381f,#2a2517);box-shadow:0 0 22px #f0bd4f55}
+.lay .n{font-size:32px;font-weight:700;color:var(--gold);line-height:38px;white-space:nowrap}
+.lay .l{font-size:26px;font-weight:700;line-height:36px;white-space:nowrap}
+.lay .c{font-size:26px;font-weight:700;line-height:36px;color:#cfc8b8;white-space:nowrap}
+.g{color:var(--ok)}.r{color:#ff8d80}
+</style></head><body>
+<div class="abs nav wood"></div>
+<div class="abs h" style="left:36px;top:12px;font-size:40px;font-style:italic;letter-spacing:1px">Anvil Street Gym</div>
+<div class="navbtn wood" style="left:620px">&#9733; Home</div>
+<div class="navbtn wood" style="left:790px">&#129354; Fighters</div>
+<div class="navbtn wood" style="left:995px">&#127942; Fights</div>
+<div class="navbtn wood" style="left:1160px;box-shadow:inset 0 0 0 2px #e0493b,inset 0 2px 0 #9a6d42">&#128176; Club</div>
+<div class="navbtn wood" style="left:1305px">&#127760; World</div>
+<div class="abs h" style="right:36px;top:10px;font-size:40px;color:var(--gold)">$18,700</div>
+<div class="tab wood" style="left:36px">Money</div>
+<div class="tab wood on" style="left:170px">People</div>
+<div class="tab wood" style="left:310px">Gym</div>
+
+<!-- THE ROTA + THE TIMELINE -->
+<div class="board" style="left:30px;top:130px;width:1240px;height:716px">
+  <div class="abs t" style="left:24px;top:14px">&#127919; Pads this week</div>
+  <div class="abs chip r" style="right:24px;top:20px">&#9888; Both need Mon + Wed. Fri is free</div>
+  <div class="day" style="left:352px">Mon</div><div class="day" style="left:492px">Tue</div><div class="day" style="left:632px">Wed</div>
+  <div class="day" style="left:772px">Thu</div><div class="day" style="left:912px">Fri</div><div class="day" style="left:1052px">Sat</div>
+
+  <!-- Reid: Mon Wed split in halves, Fri free -->
+  <div class="row" style="top:126px">
+    <div class="who"><img class="face" style="width:84px;height:84px;border-color:var(--gold)" src="../../../assets/ui/face/mh_staff_coach.jpg">
+      <div><div class="n">Luke Reid</div><div class="s">Hands 74</div></div></div>
+    <div class="cell in" style="left:334px"><img class="face" style="width:54px;height:54px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg"><img class="face" style="width:54px;height:54px;border-color:var(--rey)" src="../../../assets/ui/face/studio/mh_boxer_02.jpg"><div class="lab">half + half</div></div>
+    <div class="cell off" style="left:474px"></div>
+    <div class="cell in" style="left:614px"><img class="face" style="width:54px;height:54px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg"><img class="face" style="width:54px;height:54px;border-color:var(--rey)" src="../../../assets/ui/face/studio/mh_boxer_02.jpg"><div class="lab">half + half</div></div>
+    <div class="cell off" style="left:754px"></div>
+    <div class="cell add" style="left:894px">free</div>
+    <div class="cell off" style="left:1034px"></div>
+  </div>
+
+  <!-- Clubmate: Tue Thu, free, weaker hands -->
+  <div class="row" style="top:250px">
+    <div class="who"><img class="face" style="width:84px;height:84px;border-color:#8d949c" src="../../../assets/ui/face/mh_staff_trainer.jpg">
+      <div><div class="n">Joe, clubmate</div><div class="s">Hands 40</div></div></div>
+    <div class="cell off" style="left:334px"></div>
+    <div class="cell add" style="left:474px;font-size:54px">+</div>
+    <div class="cell off" style="left:614px"></div>
+    <div class="cell add" style="left:754px;font-size:54px">+</div>
+    <div class="cell off" style="left:894px"></div>
+    <div class="cell off" style="left:1034px"></div>
+  </div>
+
+  <div class="abs h" style="left:24px;top:386px;font-size:32px;color:var(--gold)">Ready by the bell?</div>
+  <div class="wk" style="left:396px;top:390px">Wk 1</div><div class="wk" style="left:605px;top:390px">Wk 2</div>
+  <div class="wk" style="left:814px;top:390px">Wk 3</div><div class="wk" style="left:1023px;top:390px">Wk 4</div>
+
+  <!-- Lucy: combo, not ready by taper under this lay -->
+  <div class="tl" style="top:428px;border-color:#c9342a">
+    <div class="who" style="top:4px;height:90px;width:320px"><img class="face" style="width:76px;height:76px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg">
+      <div><div class="n">Lucy</div><div class="s">Jab-Jab</div></div></div>
+    <div class="st r">&#10008; Not ready when taper starts: &minus;9 in 100</div>
+    <div class="bar"><div class="tp" style="left:537px;width:209px"></div><div class="f" style="width:537px"></div><div class="gh" style="left:537px;width:104px"></div><div class="bell" style="left:724px">&#128276;</div></div>
+  </div>
+  <!-- Danny: single move, ready in week 3 -->
+  <div class="tl" style="top:538px">
+    <div class="who" style="top:4px;height:90px;width:320px"><img class="face" style="width:76px;height:76px;border-color:var(--rey)" src="../../../assets/ui/face/studio/mh_boxer_02.jpg">
+      <div><div class="n">Danny</div><div class="s">Step back</div></div></div>
+    <div class="st g">&#10004; Ready in week 3, before taper</div>
+    <div class="bar"><div class="tp" style="left:565px;width:241px"></div><div class="f" style="width:448px"></div><div class="bell" style="left:784px">&#128276;</div></div>
+  </div>
+  <div class="abs" style="left:361px;top:648px;font-size:26px;font-weight:700;color:#9cc5f2">&#9608; Taper week: no pads, light work</div>
+</div>
+
+<!-- THE TWO BOXERS -->
+<div class="bx" style="top:130px;height:351px">
+  <img class="face abs" style="left:18px;top:14px;width:100px;height:100px;border-color:var(--lucy)" src="../../../assets/ui/face/studio/mh_boxer_11.jpg">
+  <div class="abs h" style="left:136px;top:10px;font-size:38px">Lucy Jackson</div>
+  <div class="abs chip y" style="left:136px;top:62px">&#128276; Fights in 25 days</div>
+  <div class="abs h" style="left:20px;top:122px;font-size:30px">Jab-Jab, two punches</div>
+  <div class="abs h" style="right:20px;top:122px;font-size:30px;color:#ffb07a">8 of 30</div>
+  <div class="mbar" style="left:20px;right:20px;top:166px"><div class="f" style="width:8%;background:#e8823c"></div><div class="m" style="left:30%"></div></div>
+  <div class="abs h" style="left:20px;top:198px;font-size:30px">Tired</div>
+  <div class="abs h" style="right:20px;top:198px;font-size:30px;color:#ffb07a">52 of 100</div>
+  <div class="mbar" style="left:20px;right:20px;top:242px"><div class="f" style="width:52%;background:#7fb2ee"></div><div class="m" style="left:80%;background:#ff8d80"></div></div>
+  <div class="abs chip y" style="left:20px;top:276px">&#11088; Plan needs it: &minus;9 in 100</div>
+</div>
+<div class="bx" style="top:495px;height:351px">
+  <img class="face abs" style="left:18px;top:14px;width:100px;height:100px;border-color:var(--rey)" src="../../../assets/ui/face/studio/mh_boxer_02.jpg">
+  <div class="abs h" style="left:136px;top:10px;font-size:38px">Danny Osei</div>
+  <div class="abs chip y" style="left:136px;top:62px">&#128276; Fights in 27 days</div>
+  <div class="abs h" style="left:20px;top:122px;font-size:30px">Step back, one move</div>
+  <div class="abs h" style="right:20px;top:122px;font-size:30px;color:#ffb07a">14 of 30</div>
+  <div class="mbar" style="left:20px;right:20px;top:166px"><div class="f" style="width:14%;background:#e8823c"></div><div class="m" style="left:30%"></div></div>
+  <div class="abs h" style="left:20px;top:198px;font-size:30px">Tired</div>
+  <div class="abs h" style="right:20px;top:198px;font-size:30px;color:#ff8d80">74 of 100</div>
+  <div class="mbar" style="left:20px;right:20px;top:242px"><div class="f" style="width:74%;background:#e8823c"></div><div class="m" style="left:80%;background:#ff8d80"></div></div>
+  <div class="abs chip y" style="left:20px;top:276px">&#11088; Plan needs it: &minus;14 in 100</div>
+</div>
+
+<!-- THE LAYS -->
+<div class="board" style="left:30px;top:858px;width:1860px;height:196px;border-width:10px">
+  <img class="face abs" style="left:16px;top:14px;width:84px;height:84px;border-color:var(--gold)" src="../../../assets/ui/face/mh_staff_coach.jpg">
+  <div class="abs h" style="left:112px;top:10px;font-size:30px;color:var(--gold)">Reid</div>
+  <div class="abs h" style="left:112px;top:48px;font-size:26px;line-height:32px;width:300px">&ldquo;A combo needs a whole night. A move lands on half.&rdquo;</div>
+  <div class="lay on" style="left:420px"><div class="n">Split the nights</div><div class="l g">&#10004; Danny ready</div><div class="l r">&#10008; Lucy &minus;9 in 100</div><div class="c">Free</div></div>
+  <div class="lay" style="left:776px"><div class="n">Danny takes Friday</div><div class="l g">&#10004; Both ready</div><div class="l r">&#10008; Danny tired 74 to 82</div><div class="c">Free</div></div>
+  <div class="lay" style="left:1132px"><div class="n">Both whole, no class</div><div class="l g">&#10004; Both ready</div><div class="l r">&#10008; &minus;$230, members drift</div><div class="c">Mon + Wed only</div></div>
+  <div class="lay" style="left:1488px;border-style:dashed"><div class="n">Hire second coach</div><div class="l g">&#10004; Both ready, class on</div><div class="l r">&#10008; &minus;$280 every week</div><div class="c">Combos stay with Reid</div></div>
+</div>
+
+</body></html>

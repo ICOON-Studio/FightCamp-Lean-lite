@@ -380,7 +380,7 @@
    "agent": "cursor",
    "id": "LEGTREMBLE3",
    "title": "TASK LEGTREMBLE3 - CURSOR (Grok 4.7 High) - the trembling legs, round 2 on a new seat: bake the smoothing into the shipped clips",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-10T11:21",
    "eta": "2026-11-10T13:11",
    "branch": "cursor/legtremble3",
@@ -401,13 +401,52 @@
     "runner_pid": 35080,
     "seat_pid": 10556
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 3/5 PASS; PR #163",
+   "finished": "2026-11-10T12:38",
+   "pr": 163,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/leg_tremble_test.gd",
+     "ok": true,
+     "last": "LEG_TREMBLE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_tip_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/head_aim_test.gd",
+     "ok": false,
+     "last": "HEAD_AIM failures=2"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/block_meet_test.gd",
+     "ok": false,
+     "last": "   at: start (main/main.cpp:4370)"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "KDFIX2": {
    "agent": "qwen",
    "id": "KDFIX2",
    "title": "TASK KDFIX2 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 2: a ruler that sees the layers",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-10T11:22",
    "eta": "2026-11-10T13:12",
    "branch": "qwen/kdfix2",
@@ -428,7 +467,480 @@
     "runner_pid": 10404,
     "seat_pid": 36464
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 6/8 PASS; PR #162",
+   "finished": "2026-11-10T11:47",
+   "pr": 162,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/knockdown_still_test.gd",
+     "ok": false,
+     "last": "KNOCKDOWN_STILL failures=4"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/knockdowns_test.gd",
+     "ok": true,
+     "last": "KNOCKDOWNS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/knockdown_ring_test.gd",
+     "ok": true,
+     "last": "KNOCKDOWN_RING failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bout_stoppage_test.gd",
+     "ok": true,
+     "last": "BOUT_STOPPAGE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/block_meet_test.gd",
+     "ok": false,
+     "last": "BLOCK_MEET failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/head_aim_test.gd",
+     "ok": true,
+     "last": "HEAD_AIM failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "FIGHTDISPLAY1": {
+   "agent": "cursor",
+   "id": "FIGHTDISPLAY1",
+   "title": "TASK FIGHTDISPLAY1 - CURSOR (Grok 4.7 High) - the live fight's corner bar, NOW! plate and scorebug from the veteran's drawing",
+   "status": "landed",
+   "started": "2026-11-10T12:41",
+   "eta": "2026-11-10T14:31",
+   "branch": "cursor/fightdisplay1",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHTDISPLAY1",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHTDISPLAY1",
+   "brief": "ops/research/TASK_FIGHTDISPLAY1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHTDISPLAY1_dispatch_out.txt",
+   "match": "seat_dispatch.py run fightdisplay1",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHTDISPLAY1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHTDISPLAY1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHTDISPLAY1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 19124,
+    "seat_pid": 21720
+   },
+   "note": "S368 seat_dispatch: cursor exit 1; 1 commit(s); checks 7/8 PASS; PR #167",
+   "finished": "2026-11-10T13:24",
+   "pr": 167,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/corner_bar_test.gd",
+     "ok": false,
+     "last": "CORNER_BAR failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hud_shown_test.gd",
+     "ok": true,
+     "last": "hud_shown_test failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_flash_test.gd",
+     "ok": true,
+     "last": "HIT_FLASH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/holo_live_test.gd",
+     "ok": true,
+     "last": "HOLO_LIVE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/words_on_screens_test.gd",
+     "ok": true,
+     "last": "WORDS_ON_SCREENS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "KDFIX3": {
+   "agent": "qwen",
+   "id": "KDFIX3",
+   "title": "TASK KDFIX3 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 3: fix the two layers KDFIX2 named",
+   "status": "landed",
+   "started": "2026-11-10T12:54",
+   "eta": "2026-11-10T14:44",
+   "branch": "qwen/kdfix3",
+   "worktree": "E:/FightCamp/wt/LEAN_KDFIX3",
+   "wt": "E:/FightCamp/wt/LEAN_KDFIX3",
+   "brief": "ops/research/TASK_KDFIX3.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/KDFIX3_dispatch_out.txt",
+   "match": "seat_dispatch.py run kdfix3",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/KDFIX3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/KDFIX3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/KDFIX3_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 36428,
+    "seat_pid": 35904
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 8/10 PASS; PR #166",
+   "finished": "2026-11-10T13:21",
+   "pr": 166,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/knockdown_still_test.gd",
+     "ok": false,
+     "last": "KNOCKDOWN_STILL failures=3"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/knockdowns_test.gd",
+     "ok": true,
+     "last": "KNOCKDOWNS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/knockdown_ring_test.gd",
+     "ok": true,
+     "last": "KNOCKDOWN_RING failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bout_stoppage_test.gd",
+     "ok": true,
+     "last": "BOUT_STOPPAGE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/block_meet_test.gd",
+     "ok": false,
+     "last": "BLOCK_MEET failures=2"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/head_aim_test.gd",
+     "ok": true,
+     "last": "HEAD_AIM failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_weave_test.gd",
+     "ok": true,
+     "last": "guard_weave_test: PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fighter_pose_test.gd",
+     "ok": true,
+     "last": "FIGHTER_POSE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "DUESBAND1": {
+   "agent": "goose",
+   "id": "DUESBAND1",
+   "title": "QWEN (qwen3-coder) - dues bands: what kind of club you run (pure rules + a 5-year sim test)",
+   "status": "landed",
+   "started": "2026-11-10T13:07",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_DUESBAND1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-10T14:07",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
+   "issue": "165",
+   "branch": "goose/issue-165",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/165",
+   "reconciled": "2026-11-10 13:32 board_reconcile: run finished (success), branch goose/issue-165 pushed"
+  },
+  "LEGTREMBLE4": {
+   "agent": "qwen",
+   "id": "LEGTREMBLE4",
+   "title": "TASK LEGTREMBLE4 - QWEN (qwen3-coder) - the trembling legs, round 4: why head_aim voids a row with the smoothed clips",
+   "status": "landed",
+   "started": "2026-11-10T13:34",
+   "eta": "2026-11-10T15:24",
+   "branch": "qwen/legtremble4",
+   "worktree": "E:/FightCamp/wt/LEAN_LEGTREMBLE4",
+   "wt": "E:/FightCamp/wt/LEAN_LEGTREMBLE4",
+   "brief": "ops/research/TASK_LEGTREMBLE4.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/LEGTREMBLE4_dispatch_out.txt",
+   "match": "seat_dispatch.py run legtremble4",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/LEGTREMBLE4_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/LEGTREMBLE4_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/LEGTREMBLE4_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 27780,
+    "seat_pid": 19076
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/4 PASS; PR #168",
+   "finished": "2026-11-10T14:22",
+   "pr": 168,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/head_aim_test.gd",
+     "ok": false,
+     "last": "HEAD_AIM failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_tip_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/block_meet_test.gd",
+     "ok": false,
+     "last": "   at: start (main/main.cpp:4370)"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "KDFIX4": {
+   "agent": "cursor",
+   "id": "KDFIX4",
+   "title": "TASK KDFIX4 - CURSOR (Grok 4.7 High) - a downed boxer's upper body sways, round 4: settle or sway, and block_meet",
+   "status": "landed",
+   "started": "2026-11-10T13:35",
+   "eta": "2026-11-10T15:25",
+   "branch": "cursor/kdfix4",
+   "worktree": "E:/FightCamp/wt/LEAN_KDFIX4",
+   "wt": "E:/FightCamp/wt/LEAN_KDFIX4",
+   "brief": "ops/research/TASK_KDFIX4.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/KDFIX4_dispatch_out.txt",
+   "match": "seat_dispatch.py run kdfix4",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/KDFIX4_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/KDFIX4_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/KDFIX4_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 3824,
+    "seat_pid": 20320
+   },
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 8/10 PASS; PR #169",
+   "finished": "2026-11-10T14:34",
+   "pr": 169,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/knockdown_still_test.gd",
+     "ok": false,
+     "last": "KNOCKDOWN_STILL failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/block_meet_test.gd",
+     "ok": false,
+     "last": "BLOCK_MEET failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/knockdowns_test.gd",
+     "ok": true,
+     "last": "KNOCKDOWNS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/knockdown_ring_test.gd",
+     "ok": true,
+     "last": "KNOCKDOWN_RING failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bout_stoppage_test.gd",
+     "ok": true,
+     "last": "BOUT_STOPPAGE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/head_aim_test.gd",
+     "ok": true,
+     "last": "HEAD_AIM failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_weave_test.gd",
+     "ok": true,
+     "last": "guard_weave_test: PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fighter_pose_test.gd",
+     "ok": true,
+     "last": "FIGHTER_POSE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "ANIMFIX1": {
+   "agent": "claude",
+   "id": "ANIMFIX1",
+   "title": "TASK ANIMFIX1 - CLAUDE SUBAGENT (Fable 5.2) - boxing leg tremble (round 5) and grappling matches the player can read; films on the review board",
+   "status": "running",
+   "started": "2026-11-10T14:25",
+   "eta": "2026-11-10T17:30",
+   "branch": "claude/grapplefix1"
+  },
+  "DUESCARD1": {
+   "agent": "cursor",
+   "id": "DUESCARD1",
+   "title": "TASK DUESCARD1 - CURSOR (Grok 4.7 High) - the dues choice as three painted price boards on Club > Money",
+   "status": "running",
+   "started": "2026-11-10T14:37",
+   "eta": "2026-11-10T16:27",
+   "branch": "cursor/duescard1",
+   "worktree": "E:/FightCamp/wt/LEAN_DUESCARD1",
+   "wt": "E:/FightCamp/wt/LEAN_DUESCARD1",
+   "brief": "ops/research/TASK_DUESCARD1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/DUESCARD1_dispatch_out.txt",
+   "match": "seat_dispatch.py run duescard1",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/DUESCARD1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/DUESCARD1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/DUESCARD1_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 38280,
+    "seat_pid": 35856
+   },
+   "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
+  },
+  "READBACK1": {
+   "agent": "qwen",
+   "id": "READBACK1",
+   "title": "TASK READBACK1 - QWEN (qwen3-coder) - she waits for your best plan line: where the points go, and what wins them back. Measure only",
+   "status": "running",
+   "started": "2026-11-10T14:38",
+   "eta": "2026-11-10T16:28",
+   "branch": "qwen/readback1",
+   "worktree": "E:/FightCamp/wt/LEAN_READBACK1",
+   "wt": "E:/FightCamp/wt/LEAN_READBACK1",
+   "brief": "ops/research/TASK_READBACK1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/READBACK1_dispatch_out.txt",
+   "match": "seat_dispatch.py run readback1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/READBACK1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/READBACK1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/READBACK1_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 3372,
+    "seat_pid": 35052
+   },
+   "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
   }
  },
  "codex_budget": {
