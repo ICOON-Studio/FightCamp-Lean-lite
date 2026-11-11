@@ -8,9 +8,9 @@ Updated 2026-11-11 by claude S294.
 
 ## Now
 
-**S434 — ?** *(claude)*
+**S436 — ?** *(claude)*
 
-S435 (2026-11-11 late): the S434 session was still open and its three workflows were alive (training v2 finished and sent by S434; weight map round 2 and the foundation's punch-start round 2 still running at 21:24): nothing re-run. Q-190 done: 'paid seat' is 'gym sponsorship' in the four build maps. GYMLIFE1 (Cursor) collected after its stills: the gym picture's people work out, your fighters at today's kit; GYMLIFE2 launched (shadow pop, walks round the kit, nobody under a button). INTROCORNER1 (Qwen) NOT collected: it did not compile and cut the intro to 6 s with no name call (read on stills with the new tools/intro_shots.gd); INTROCORNER2 queued. PR 211 CALLSPREAD1 not collectable as is (a wrong call costs less). ANIMATION: audit written (ANIM_AUDIT_S435.md: the seats wrote their own rulers, no test plays a real bout); D0 started: BEAT_TALLY (one bout: 20 of 22 special punches fall back to a plain clip), the lead uppercut's contact measured, skipped rows now fail (head_aim reads 3 of 12 rows, block_meet 1 of 21).
+S436 (2026-11-11 night): the fight intro starts in the corners, each boxer warming up their own way, the camera on the boxer being named (Qwen's INTROCORNER2 was read on stills and not collected: its camera ran 4.5 s ahead; Claude rewrote it). On his words the intro's tale of the tape is the bout offer's versus picture, no offer buttons, eight rows (from, record, age, weight, height, reach, stance, style), its two figures never on the same animation; the glove touch is one glove out, the other arm down, upright. GYMLIFE2 (Cursor) collected. ANIMATION D0 step 1: the two punch rulers hold their gap and read every row (head aim 12 of 12 green; blocked punch 27 of 27 with one real fault, a rear hook 3.3 cm into the blocking glove).
 
 ## Next
 
@@ -320,3 +320,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S433** answers in, six PRs reviewed blind (4 sent back), REST1 + STOPMULT1 on main, dispatcher re-run hole closed, pro tables on a branch |  |  | *none yet* |  |
 |  |  | **S434** main's red tests fixed; STANDDOWN1 (wired), CEIL14, DUESWIRE1 collected after blind review; pro tables on main (seed luck measured); foundation rework running | evening: KNOWN0, RIBHURT1; training scene drawn; weight map; voices cast |  |  | *none yet* |  |
 |  |  | **S435** gym sponsorship renamed (Q-190); GYMLIFE1 collected, GYMLIFE2 launched; INTROCORNER1 sent back (did not compile); animation audit + BEAT_TALLY, the punch rulers shown to read almost nothing; the S434 workflows were alive, nothing re-run |  |  | *none yet* |  |
+|  |  | **S436** the fight intro from the corners rewritten by Claude after two failed seat rounds; the tale of the tape is the versus picture (his words), eight rows, figures never on the same clip; glove touch pose fixed; GYMLIFE2 collected; the punch rulers hold their gap (12 of 12, 27 of 27, one real red) |  |  | *none yet* |  |

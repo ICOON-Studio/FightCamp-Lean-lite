@@ -1,3 +1,22 @@
+FIGHTCAMP - BUILD OF 2026-11-11 (S436): THE FIGHT STARTS IN THE CORNERS, THE TALE OF THE TAPE IS THE VERSUS PICTURE
+================================================================================
+
+ NEW.
+  - The fight intro starts in the corners (the walk through the ropes is out). Each boxer warms up their own way: a
+    confident or hot-headed one celebrates to the crowd, a disciplined one shadow-boxes, a nervous one cannot stand
+    still. The two are never on the same animation at the same time. When a name is called the camera is on that boxer:
+    a showman celebrates, the others raise a glove (a nervous one only for a moment).
+  - The tale of the tape in the intro is the versus picture from the bout offer: both boxers on the red and the blue
+    wall, no panel: see-through bands between them (from, record, age, weight, height, reach, stance, style). The two figures on it never play the same animation (this also
+    holds on the bout offer itself). "Skip to the bell" sits at the bottom while it is up.
+  - The glove touch: one glove out each, the other arm down, standing up out of the crouch.
+  - The gym picture: people walk round the kit on their way to the next station, and nobody stands under a button.
+ TRY: take a bout to fight night, press Begin fight and watch the intro to the bell (about 24 seconds).
+ KNOWN: an opponent without a height or reach on file shows a dash on the tape. In the gym picture's shadow boxing one
+ join (into the jab) still shows.
+ NOT IN THIS BUILD (on their way): the Cardio / Tank / punch foundation fixes, the punch animation work (the two
+ punch rulers were repaired this session: one real fault found, a rear hook sinking 3 cm into a blocking glove).
+
 FIGHTCAMP - BUILD OF 2026-11-11 (S434): THE DUES ON EVERY SCREEN, A REST AFTER A HARD NIGHT, EIGHT PRO TABLES
 ================================================================================
 

@@ -3,17 +3,19 @@
  "updated": "2026-11-11",
  "author": "claude S294",
  "now": {
-  "id": "S434",
+  "id": "S436",
   "owner": "claude",
-  "updated": "2026-11-11 21:40 S435",
-  "summary": "S435 (2026-11-11 late): the S434 session was still open and its three workflows were alive (training v2 finished and sent by S434; weight map round 2 and the foundation's punch-start round 2 still running at 21:24): nothing re-run. Q-190 done: 'paid seat' is 'gym sponsorship' in the four build maps. GYMLIFE1 (Cursor) collected after its stills: the gym picture's people work out, your fighters at today's kit; GYMLIFE2 launched (shadow pop, walks round the kit, nobody under a button). INTROCORNER1 (Qwen) NOT collected: it did not compile and cut the intro to 6 s with no name call (read on stills with the new tools/intro_shots.gd); INTROCORNER2 queued. PR 211 CALLSPREAD1 not collectable as is (a wrong call costs less). ANIMATION: audit written (ANIM_AUDIT_S435.md: the seats wrote their own rulers, no test plays a real bout); D0 started: BEAT_TALLY (one bout: 20 of 22 special punches fall back to a plain clip), the lead uppercut's contact measured, skipped rows now fail (head_aim reads 3 of 12 rows, block_meet 1 of 21).",
-  "last_working_commit": "9a338601",
-  "verified_playable": "Builds/FightCamp.exe exported 21:32 and smoke-run 35 s on the hidden desktop with no script error; the gym picture read on Cursor's three stills. Not played by the operator yet.",
-  "incomplete_blocked": "S434's weight map and foundation workflows (alive at 21:24). INTROCORNER2 and DUESSUMS3C queued for Qwen; GYMLIFE2 running on Cursor. head_aim_test and block_meet_test are red on main (they read almost nothing: ruler repair is next).",
-  "next_action": "0) get_usage; look at the S434 workflow folders' file times before touching the weight map or the foundation. 1) Collect GYMLIFE2 (stills) and INTROCORNER2 (only after tools/intro_shots.gd shows the name calls). 2) Animation D0, in the order of NEXT_SESSION_PROMPT section 3 (rulers hold their gap; short_m + the re-measured contact file with a hit-gap before/after; human_feet on the default route; layer-order test; the frozen real-bout ruler; the corner-face ruler), then the seat tasks CONTACT1, POPS1, REACH1, KNEE1. 3) After the foundation lands: PR 211 with a fix that keeps 'wrong calls lose clearly more'. 4) TURNPRO1, WRESTLE0, RESULTLOOK1 designs (critics cost money: ask first).",
-  "next_acceptance": "GYMLIFE2 and INTROCORNER2 collected only after Claude reads their stills (the intro's name calls visible in tools/intro_shots.gd); head_aim_test and block_meet_test read every row (no VOID) before any animation seat task is briefed; the operator plays the build and looks at the gym picture.",
+  "updated": "2026-11-11 23:05 S436",
+  "summary": "S436 (2026-11-11 night): the fight intro starts in the corners, each boxer warming up their own way, the camera on the boxer being named (Qwen's INTROCORNER2 was read on stills and not collected: its camera ran 4.5 s ahead; Claude rewrote it). On his words the intro's tale of the tape is the bout offer's versus picture, no offer buttons, eight rows (from, record, age, weight, height, reach, stance, style), its two figures never on the same animation; the glove touch is one glove out, the other arm down, upright. GYMLIFE2 (Cursor) collected. ANIMATION D0 step 1: the two punch rulers hold their gap and read every row (head aim 12 of 12 green; blocked punch 27 of 27 with one real fault, a rear hook 3.3 cm into the blocking glove).",
+  "last_working_commit": "dbf7c119",
+  "verified_playable": "Builds/FightCamp.exe exported 23:01 (S436, commit dbf7c119) and smoke-run 40 s on the hidden desktop with no script error; the intro, the see-through tale of the tape and the glove touch read on real-game stills. Not played by the operator yet.",
+  "incomplete_blocked": "His look at the S436 stills and build. S434's weight map and foundation workflows (last write 21:40). PR 211 CALLSPREAD1 waits on the foundation. Cursor idle with no brief (RANKSHOWUI first). DUESSUMS3C on Qwen. Men's opponents without height / reach on file show dashes on the tape.",
+  "next_action": "0) get_usage; his comments on the S436 stills (review board) first. 1) Brief RANKSHOWUI for Cursor. 2) Animation D0 in the order of NEXT_SESSION_PROMPT section 3 (short_m + the re-measured contact file with a hit-gap before/after; human_feet on the default route; layer-order test; the frozen real-bout ruler; the corner-face ruler), then CONTACT1 (bar: the block_meet red), POPS1, REACH1, KNEE1. 3) After the foundation lands: PR 211 with a fix that keeps 'wrong calls lose clearly more'. 4) TURNPRO1, WRESTLE0, RESULTLOOK1 designs (critics cost money: ask first).",
+  "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after.",
   "awaiting_operator": [
-   "Training scene v2 (sent by S434): his answer or pick"
+   "Training scene v2 (sent by S434): his answer or pick",
+   "S436 stills: the intro, the versus tale of the tape, the glove touch (review board)",
+   "Miro 'Where we are': yes to delete three old 'Added in S435' cards"
   ]
  },
  "next": "MECHANICS FIRST (operator S422 OK). 1) Collect KDFIX2 (the ruler only) and LEGTREMBLE3. 2) Brief FIGHTDISPLAY1 to Cursor from docs/mockups/s422/fight_10_simvet.html (his Q-174 pick: 'Use the veteran's drawing'); data check FIGHT_DISPLAY_DECISION_S419.md s7. 3) R28 Cutman: write the DESIGN MAP (what the player decides, on which screen, what it changes, the numbers, real-world cut rules) as one page + a picture, ask him on the board, then brief the pure module to Qwen/Goose. 4) R25 the same, after checking head punches count. 5) Q-173 dues: design map only. Menus wait unless a mechanic needs them.",
@@ -1759,6 +1761,12 @@
    "date": "2026-11-11",
    "title": "gym sponsorship renamed (Q-190); GYMLIFE1 collected, GYMLIFE2 launched; INTROCORNER1 sent back (did not compile); animation audit + BEAT_TALLY, the punch rulers shown to read almost nothing; the S434 workflows were alive, nothing re-run",
    "commit": "9a338601"
+  },
+  {
+   "id": "S436",
+   "date": "2026-11-11",
+   "title": "the fight intro from the corners rewritten by Claude after two failed seat rounds; the tale of the tape is the versus picture (his words), eight rows, figures never on the same clip; glove touch pose fixed; GYMLIFE2 collected; the punch rulers hold their gap (12 of 12, 27 of 27, one real red)",
+   "commit": "dbf7c119"
   }
  ],
  "blocked_on_operator": [],
@@ -4677,7 +4685,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-11 21:11 board_sync",
+  "updated": "2026-11-11",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4827,23 +4835,15 @@
   },
   "working_now": [
    {
-    "title": "TASK CALLSPREAD1 - QWEN (qwen3-coder) - a corner call's strength rises point by point from 56 to 62, not in one jump at 62 (one function + its test)",
+    "title": "TASK DUESSUMS3C - QWEN (qwen3-coder) - dues sums, third search fixed: a waiting list that can act, ROBUST without a dead lever, a PICK you can repeat (MEASURE O",
     "who": "qwen",
-    "started": "2026-11-11T19:42",
-    "run": "CALLSPREAD1",
-    "state": "LANDED - Claude collects"
+    "started": "2026-11-11T22:11",
+    "run": "DUESSUMS3C"
    },
    {
-    "title": "TASK INTROCORNER1 - QWEN (qwen3-coder) - the fight intro starts in the corners: each boxer shadow-boxes, bounces and celebrates the name call in a way of their ",
-    "who": "qwen",
-    "started": "2026-11-11T20:56",
-    "run": "INTROCORNER1"
-   },
-   {
-    "title": "TASK GYMLIFE2 - CURSOR (Grok 4.7 High) - the gym picture's three leftover faults: the shadow strip pops, walks cut corners, a person stands under a button",
-    "who": "cursor",
-    "started": "2026-11-11T21:11",
-    "run": "GYMLIFE2"
+    "title": "Animation D0: punch rulers repaired; next the reach data (short_m) and the real-bout ruler",
+    "who": "claude",
+    "started": "2026-11-11T21:50"
    }
   ],
   "next": [
@@ -4858,18 +4858,6 @@
     "who": "claude",
     "title": "Fight result page redrawn (his C295): the fighter after the bout with the fight's marks leads; why each round was lost before any breakdown; the towel line and bare numbers go - critics, then him",
     "after": "FOUNDATION"
-   },
-   {
-    "id": "GYMLIFE2",
-    "who": "cursor",
-    "title": "Gym picture, the leftovers: shadow boxing loops without a pop, walks go round the kit, nobody stands under a button",
-    "after": "GYMLIFE1"
-   },
-   {
-    "id": "INTROCORNER2",
-    "who": "qwen",
-    "title": "Fight intro from the corners, second round: it lasts, each name call shows its celebration, the two boxers never move alike (the first round did not compile and cut the intro to 6 seconds)",
-    "after": ""
    },
    {
     "id": "FOUNDATION",
@@ -5249,6 +5237,41 @@
   },
   "done_recently": [
    {
+    "title": "Fight intro from the corners: own warm-ups, the versus tale of the tape, the glove touch (his words, S436)",
+    "who": "claude",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "Punch rulers hold their gap and read every row (head aim 12 of 12, blocked punch 27 of 27)",
+    "who": "claude",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "GYMLIFE2 collected: gym people walk round the kit, nobody under a button",
+    "who": "cursor",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "TASK INTROCORNER2 - QWEN (qwen3-coder) - the fight intro from the corners, second round: it must compile, last, show each name call, and never play the two boxe",
+    "who": "qwen",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "TASK GYMLIFE2 - CURSOR (Grok 4.7 High) - the gym picture's three leftover faults: the shadow strip pops, walks cut corners, a person stands under a button",
+    "who": "cursor",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "TASK INTROCORNER1 - QWEN (qwen3-coder) - the fight intro starts in the corners: each boxer shadow-boxes, bounces and celebrates the name call in a way of their ",
+    "who": "qwen",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "TASK GYMLIFE1 - CURSOR (Grok 4.7 High) - the gym picture comes alive: real workouts at each piece of kit, and the club's fighters at the session they have today",
+    "who": "cursor",
+    "when": "2026-11-11"
+   },
+   {
     "title": "Fight animation: why the rounds stalled (audit) and a counter of what each punch really plays",
     "who": "claude",
     "when": "2026-11-11"
@@ -5270,61 +5293,6 @@
    },
    {
     "title": "What you know about a fighter: known groups and pips (KNOWN0)",
-    "who": "qwen",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "Voice cast picked by his ear: announcer, corner, the veteran-fighter guide",
-    "who": "operator",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "TASK RIBHURT1 - QWEN (qwen3-coder) - a boxer whose ribs (or face) took a beating is likelier to come out with a rib injury (or a cut)",
-    "who": "qwen",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "TASK CORNERFACE2 - QWEN (qwen3-coder) - the corner minute keeps the boxer's face in the open part of the screen, measured on the real bodies",
-    "who": "qwen",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "TASK HUMANFIGHT2B - CURSOR (Grok 4.7 High) - the stepping route without pops, with one-frame contact, and no fudges",
-    "who": "cursor",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "TASK KNOWN0 - QWEN (qwen3-coder) - Knowledge.gd: when a group is known, and the five steps of how well you know a fighter (pure rule + test)",
-    "who": "qwen",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "Main's red tests: the week plan counts a rest morning's Cardio; head_coach fixed",
-    "who": "claude",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "After a bout, no sparring for 5, 10 or 21 days (STANDDOWN1 collected and wired, news says until when)",
-    "who": "claude",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "Each ability's own ceiling (CEIL14 collected)",
-    "who": "qwen",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "The dues and the youth section on Home, Money, the boards and the week review (DUESWIRE1 collected with fixes)",
-    "who": "cursor",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "Featherweight and middleweight pro tables, women's and men's (PROTABLES1: the red was seed luck, measured)",
-    "who": "claude",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "TASK REST1 - QWEN (qwen3-coder) - a rest morning adds Recovery and takes nothing off Stamina (two lines out + a red test)",
     "who": "qwen",
     "when": "2026-11-11"
    }
@@ -5455,6 +5423,18 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Paid seat is gym sponsorship",
+     "who": "claude"
+    },
+    {
+     "text": "Gym people work out (GYMLIFE1)",
+     "who": "agent"
+    },
+    {
+     "text": "Animation audit + punch counter",
+     "who": "claude"
+    },
+    {
      "text": "Training v6 passed: 7 and 7",
      "who": "claude"
     },
@@ -5497,31 +5477,23 @@
     {
      "text": "Your answers Q-186/187/188 in",
      "who": "operator"
-    },
-    {
-     "text": "Faces whole in the menus",
-     "who": "agent"
-    },
-    {
-     "text": "Stop odds: both corners",
-     "who": "claude"
-    },
-    {
-     "text": "Fight file under its cap again",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Paid seat is gym sponsorship",
+     "text": "Intro from the corners (Claude)",
      "who": "claude"
     },
     {
-     "text": "Gym people work out (GYMLIFE1)",
-     "who": "agent"
+     "text": "Tale of the tape = versus picture",
+     "who": "claude"
     },
     {
-     "text": "Animation audit + punch counter",
+     "text": "Punch rulers read every row",
+     "who": "claude"
+    },
+    {
+     "text": "GYMLIFE2: walks round the kit",
      "who": "claude"
     }
    ],
@@ -5540,6 +5512,10 @@
     },
     {
      "text": "Fight rulers rebuilt (D0)",
+     "who": "claude"
+    },
+    {
+     "text": "RANKSHOWUI brief for Cursor",
      "who": "claude"
     }
    ],
@@ -5589,12 +5565,12 @@
      "who": "claude"
     }
    ],
-   "session": "S435"
+   "session": "S436"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "1e336b04",
- "next_action": "0) get_usage. 1) Re-run the three S434 design/foundation workflows (NEXT_SESSION_PROMPT section 1: training v2 with mark 8, the weight map, the foundation fixes). 2) Collect INTROCORNER1 / GYMLIFE1 / CALLSPREAD1 (after the foundation) through the review workflow. 3) Animation audit before any HUMANFIGHT re-brief. 4) TURNPRO1, GYMSPONSOR1, WRESTLE0, RESULTLOOK1 designs.",
- "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
+ "last_working_commit": "dbf7c119",
+ "next_action": "0) get_usage; his comments on the S436 stills (review board) first. 1) Brief RANKSHOWUI for Cursor. 2) Animation D0 in the order of NEXT_SESSION_PROMPT section 3 (short_m + the re-measured contact file with a hit-gap before/after; human_feet on the default route; layer-order test; the frozen real-bout ruler; the corner-face ruler), then CONTACT1 (bar: the block_meet red), POPS1, REACH1, KNEE1. 3) After the foundation lands: PR 211 with a fix that keeps 'wrong calls lose clearly more'. 4) TURNPRO1, WRESTLE0, RESULTLOOK1 designs (critics cost money: ask first).",
+ "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after."
 }
