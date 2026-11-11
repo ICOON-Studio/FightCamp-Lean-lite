@@ -13,14 +13,14 @@ const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
 ## S320 a glide step's speed eases in and out over this (Footwork.glide).
 const STEP_RAMP_S := 0.07
 ## S311: nobody closes inside this pelvis gap (gloves in guard would meet).
-const MIN_GAP_M := 0.62
+const MIN_GAP_M := 0.84   # HUMANFIGHT1: was 0.62 (the stances overlapped: RangeBreath.INSIDE_SPELL_M)
 ## S314: in an inside spell the heads pass each other's shoulder (Footwork.offset), so they may close to this.
-const INSIDE_FLOOR_M := 0.6   # S392: 0.48 sat under the 0.64 inside range (RangeBreath) and let the chests in
+const INSIDE_FLOOR_M := 0.84   # S392: 0.48 sat under the inside range (RangeBreath) and let the chests in; HUMANFIGHT1 0.6 -> 0.78
 ## S392 (two blind judges: "they walk through each other", chests merged, lead boots jammed; ring_feet_probe men: inside range shown
 ## down to 0.35 m, chests 0.23 m apart, though the fight's place held 0.58): the floors above guard `pos`, not the body as shown,
 ## and the feet's lag and a lunge carried it through. Shown bodies keep this far apart, each giving half; a lunge stops here too.
 ## `-- nobodykeep` = the control arm.
-const BODY_KEEP_M := 0.6
+const BODY_KEEP_M := 0.82   # HUMANFIGHT1: was 0.6
 static var body_keep: bool = not OS.get_cmdline_user_args().has("nobodykeep")
 ## S393 (two blind judges: "her face stays sunk in the other's torso"; fold_probe: 111 of 123 sunk frames were the gut-shot
 ## reactions): a boxer folding over a body shot needs room, or her head goes into the other's trunk. While one folds, the
@@ -57,6 +57,7 @@ static func compose(st: Node, delta: float) -> void:
 			bx["step_grace"] = float(bx["step_grace"]) - delta
 			if float(bx["step_grace"]) <= 0.0 and feet.STRIDE.has(str(ap.current_animation)):
 				st.guard(i)
+	_stop_at_range(st)
 	var a: Vector3 = boxers[0]["pos"]
 	var b: Vector3 = boxers[1]["pos"]
 	var dist := a.distance_to(b)
@@ -82,6 +83,31 @@ static func compose(st: Node, delta: float) -> void:
 		feet.aim_step(keep, a.length() > b.length())
 		feet.rhythm(delta, keep)
 	_place(st, delta)
+
+
+## HUMANFIGHT1: a captured step IN ends when the pair is at the range the fight keeps now. The clip played its whole
+## loops whatever the gap (S399: "no stop at the aimed gap"), so with one boxer walking in on it and the other carried in by
+## a punch the pair went straight through punching range to the floor: pelvis 0.8 m, heads 0.45 m, lead toes 0.2 m apart
+## in the "in" phase that asks for the jab gap (round 2 film, 13.6-15.0 s; round 1 critics: "they walk through each other").
+## Not in its first STEP_IN_MIN_S (the join into the clip), and she goes back to her guard where she stands.
+const STEP_IN_MIN_S := 0.3
+const STEP_IN_PAD_M := 0.03
+static var stop_at_range: bool = not OS.get_cmdline_user_args().has("nostopatrange")
+
+
+static func _stop_at_range(st: Node) -> void:
+	if not stop_at_range:
+		return
+	if not str(st.feet.phase()) in ["in", "pocket", "inside"]:
+		return   # at rest a half step in or out belongs to the rest band (Footwork.rhythm); the ranges that matter are the punching ones
+	var boxers: Array = st.boxers
+	var dist := (boxers[0]["pos"] as Vector3).distance_to(boxers[1]["pos"])
+	if dist > float(st.feet.want_m) + STEP_IN_PAD_M:
+		return
+	for i in boxers.size():
+		var ap: AnimationPlayer = boxers[i]["ap"]
+		if str(ap.current_animation) == "rk_loc_in" and ap.current_animation_position >= STEP_IN_MIN_S and float(boxers[i]["move_left"]) > 0.0:
+			st.feet.stop(i)
 
 
 ## Keeps the pair inside the ropes and puts each body where it is shown (lunge, clinch, inside offsets), facing the other.

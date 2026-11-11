@@ -15,7 +15,7 @@ func _check(ok: bool, what: String) -> void:
 
 func _initialize() -> void:
 	var keep := RingPlace.BODY_KEEP_M
-	_check(keep >= 0.58 and keep <= RingPlace.INSIDE_FLOOR_M + 0.001, "the shown floor sits with the inside floor, under the 0.64 m range")
+	_check(keep >= 0.58 and keep <= RingPlace.INSIDE_FLOOR_M + 0.001, "the shown floor sits with the inside floor, under the inside range")
 	var a := Vector3(-0.2, 0.0, 0.0)
 	var b := Vector3(0.2, 0.0, 0.0)
 	var a2 := RingPlace.kept(a, b, keep)
@@ -31,7 +31,8 @@ func _initialize() -> void:
 	var just := RingPlace.kept(Vector3(keep - 0.001 - 0.2, 0.0, 0.0), a, keep)
 	_check(absf(just.x - (keep - 0.001 - 0.2)) < 0.001, "the push starts from nothing: no pop at the floor")
 	_check(RingPlace.kept(a, a, keep) == a, "two bodies on one spot have no way back: left alone")
-	_check(is_equal_approx(RingPlace.lunge_room(0.3, 0.75, keep), 0.15), "a lunge stops at the floor")
+	# HUMANFIGHT1: the floor moved 0.6 -> 0.76 (bodies overlapped at 0.6); the lunge is measured from the floor, whatever it is
+	_check(is_equal_approx(RingPlace.lunge_room(0.3, keep + 0.15, keep), 0.15), "a lunge stops at the floor")
 	_check(is_equal_approx(RingPlace.lunge_room(0.1, 1.0, keep), 0.1), "a lunge with room is untouched")
 	_check(RingPlace.lunge_room(0.3, 0.5, keep) == 0.0, "no lunge inside the floor")
 	_check(Footwork.INSIDE_SIDE_M * 2.0 >= 0.24, "inside, the heads pass ear by ear: %.2f m apart sideways (a head is about 0.2 m)" % (Footwork.INSIDE_SIDE_M * 2.0))

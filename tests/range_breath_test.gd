@@ -90,7 +90,9 @@ func _initialize() -> void:
 	]
 	var spell := RB.phase(ins, 1, 4.7)
 	_check(str(spell["phase"]) == "inside" and int(spell["who"]) == 1, "the infighter's step in opens the spell (phase %s)" % spell["phase"])
-	_check(RB.want_m(spell, jab_gap, 0.5) < 0.65, "an inside spell stands inside range")
+	# HUMANFIGHT1: the inside range moved 0.64 -> 0.84 m (two blind critics on the real bout: at 0.64 the two stances stand
+	# inside each other, boots stacked, a face in a chest). Inside is still closer than the pocket's jab gap.
+	_check(RB.want_m(spell, jab_gap, 0.5) <= RB.INSIDE_SPELL_M + 0.001 and RB.want_m(spell, jab_gap, 0.5) < jab_gap, "an inside spell stands inside range")
 	_check(str(RB.phase(ins, 3, 6.9)["phase"]) == "inside", "between punches they stay inside")
 	_check(str(RB.phase(ins, 4, 9.5)["phase"]) == "rest", "after end_t they part to rest")
 	_check(str(RB.phase(ins, 0, 4.7)["phase"]) != "inside", "no spell before its beat fires")

@@ -278,8 +278,13 @@ def reconcile() -> dict:
     reg = load_runs()
     runs = reg.get("runs", {})
     cmds, wts = process_cmdlines(), worktrees()
-    prs = _gh_json("pr", "list", "--repo", "ICOON-Studio/FightCamp-Lean", "--state", "all", "--limit", "80", "--json",
+    prs = _gh_json("pr", "list", "--repo", "ICOON-Studio/FightCamp-Lean", "--state", "all", "--limit", "150", "--json",
                    "number,headRefName,state,title,body") or []
+    ## S432 (operator: "the session start ... starts to take too long"): runs collected BY DIFF (PR closed, files copied) never
+    ## reach master as commits, so they sat "landed" for days, re-checked on git/GitHub at every start (18 s) and listed as
+    ## COLLECT NOW. A landed/stale run whose PRs are all closed, or whose issue is closed, is finished: close it cheaply here.
+    closed_issues = {str(i.get("number")) for i in (_gh_json("issue", "list", "--repo", "ICOON-Studio/FightCamp-Lean", "--state",
+                                                              "closed", "--limit", "200", "--json", "number") or [])}
     master_log = _run(["git", "log", "origin/main", "-n", "800", "--format=%s %b"])
     heads = {}
     for line in _run(["git", "ls-remote", "origin", "refs/heads/arena/*", "refs/heads/goose/*", "refs/heads/qwen/*",
@@ -292,7 +297,12 @@ def reconcile() -> dict:
         if not isinstance(info, dict) or info.get("status") not in RECHECKED:
             continue
         agent = str(info.get("agent", "")).lower()
-        if agent in BROWSER_BOTS:
+        own = [p for p in prs if info.get("branch") and p.get("headRefName") == info.get("branch")]
+        if info.get("status") in ("landed", "stale") and own and all(p.get("state") != "OPEN" for p in own):
+            v, why = "merged", "PR %s closed" % ", ".join("#%s" % p["number"] for p in own)
+        elif info.get("status") in ("landed", "stale") and not own and str(info.get("issue") or "") in closed_issues:
+            v, why = "merged", "issue %s closed" % info["issue"]
+        elif agent in BROWSER_BOTS:
             v, why = "unknown", "browser bot - read its chat"
         elif str(info.get("where", "")).lower() == "pc" or (agent in PC_AGENTS and not info.get("gh_run") and not info.get("issue")
                                                               and not str(info.get("branch", "")).startswith(("arena/", "goose/", "grok/"))):

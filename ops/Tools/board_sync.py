@@ -85,7 +85,7 @@ def main() -> int:
         plan["updated"] = stamp + " board_sync"
         _save(ARCHIVE, archive)
         _save(RUNS, runs_reg)
-        ROADMAP.write_text(json.dumps(roadmap, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        ROADMAP.write_text(json.dumps(roadmap, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     print("BOARD_SYNC changes=%d applied=%s" % (len(changes), "--apply" in sys.argv))
     return 0
 

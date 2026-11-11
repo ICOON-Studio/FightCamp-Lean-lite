@@ -6516,7 +6516,7 @@
       "answer": "Yes, paint and build both",
       "note": null,
       "answered_at": "2026-11-11T09:56:27Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -6536,7 +6536,7 @@
       "answer": "Older stepping route",
       "note": "Answered in chat (S430 session, 2026-11-11): \"Older stepping route\". The next animation round builds on the route with the captured takes off (`-- norokoko`); captured takes come back one clip at a time once they pass the posture limits. First work: the four code items the six critics agree on (pop cap + blend at clip starts; a reach band per punch; one-frame contact with the reaction on that frame; posture limits).",
       "answered_at": "2026-11-11T10:01:52Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "status": "answered"
     },
     {

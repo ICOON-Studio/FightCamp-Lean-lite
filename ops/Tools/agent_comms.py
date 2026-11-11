@@ -1738,7 +1738,7 @@ def _collect_now():
         print("  nothing landed or stopped")
 
 
-def _ready_to_collect(path: Path = ROOT / "AgentComms" / "collect_ready.json", emit=print) -> None:
+def _ready_to_collect(path: Path = ROOT / "AgentComms" / "collect_ready.json", emit=print, full: bool = True) -> None:
     """S249: the 30-min reconcile (Tools/collect_ready.py) merges fast-lane PRs whose brief scope matches by itself; every other
     open PR waits here as a review packet with the one command to run."""
     try:
@@ -1752,6 +1752,10 @@ def _ready_to_collect(path: Path = ROOT / "AgentComms" / "collect_ready.json", e
     for m in merged:
         emit("  MERGED UNATTENDED #%s %s -> %s (%s)" % (m.get("pr"), m.get("task"), m.get("commit"), ", ".join(m.get("files", []))))
     for r in rows:
+        if not full:  ## S432: compact = one line a PR (COLLECT NOW above names the runs); --full prints the why-not detail
+            emit("  #%s %-12s CI %s   -> git fetch origin refs/pull/%s/head" % (r.get("pr"), r.get("task") or "-", ", ".join(
+                "%s %s" % (c.get("name"), c.get("state")) for c in r.get("ci", [])) or "none", r.get("pr")))
+            continue
         emit(_wrap("  #%s %s | task %s | brief %s | %s | CI %s" % (
             r.get("pr"), str(r.get("title", ""))[:70], r.get("task") or "-", "MATCH" if r.get("brief_match") else "no match",
             r.get("diff_stat") or "-", ", ".join("%s %s" % (c.get("name"), c.get("state")) for c in r.get("ci", [])) or "none"), indent="    "))
@@ -2279,32 +2283,6 @@ def _capture(fn, *a) -> str:
 _WARN_LINE = re.compile(r"DEFECT|REFUS|FAIL|MISSING|WARNING|!!|NOT WRITTEN|VIOLAT", re.I)
 
 
-def _print_workflow_compact() -> None:
-    lines = _capture(_print_workflow).splitlines()
-    for i, line in enumerate(lines):
-        if i < 8 or _WARN_LINE.search(line):
-            print(line)
-    if len(lines) > 8:
-        print("  (the whole milestone block: `start --full`)")
-
-
-def _triage_compact(report: str) -> None:
-    lines = report.splitlines()
-    section, counts = "", {}
-    for line in lines:
-        if line.startswith("== "):
-            section = line.strip("= ").strip()
-            counts[section] = 0
-        elif section and line.strip() and not line.strip().startswith("BRANCH-ONLY MAIL"):
-            counts[section] = counts.get(section, 0) + 1
-    for name, n in counts.items():
-        print(f"  {n:>3}  {name}")
-    for line in lines:
-        if line.startswith("TRIAGE") or _WARN_LINE.search(line):
-            print(line if len(line) <= 200 else line[:200] + " ...")
-    print("  (the lists: `start --full` or `python Tools/agent_comms.py triage`)")
-
-
 def start(args: argparse.Namespace) -> int:
     try:
         plan = json.loads(ROADMAP_JSON.read_text(encoding="utf-8"))
@@ -2324,12 +2302,14 @@ def start(args: argparse.Namespace) -> int:
         roster = {}
     available = [name for name, row in roster.items() if isinstance(row, dict) and row.get("in_rotation")]
     wants_gbot = any(n in available for n in ("kalli", "john", "maria"))
-    _prefetch(["reconcile", "git", "live", "gh", "triage"] + (["gbot"] if wants_gbot else []))
+    ## S432 (operator: "the session start ... starts to take too long"): triage is report-only (930 rows nobody acted on)
+    ## and was the slowest job (~25 s); it runs only with --full now. The live COLLECT NOW list above is the collect gate.
+    _prefetch(["reconcile", "git", "live", "gh"] + (["triage"] if full else []) + (["gbot"] if wants_gbot else []))
 
     _consume_board_questions()
     _consume_media_comments()
     _collect_now()
-    _ready_to_collect()
+    _ready_to_collect(full=full)
     _seat_answers()
     _disk_and_retired()
     ## S259: the nightly suite runs on GitHub runners (nightly-suite.yml) - bring its latest.txt onto the PC before anyone reads it.
@@ -2394,11 +2374,22 @@ def start(args: argparse.Namespace) -> int:
         _print_workflow()
     else:
         print("  ROUTE STATUS (quote it, never from memory): AgentComms/route_decisions.json or `start --full`")
-        _print_workflow_compact()
+        ## S432: the milestone block (old project's stage text, stale warn lines) is --full only.
     ## OPERATOR 2026-09-27 (S114): "on the session end list me the queued tasks and what everything does and on the
     ## new session state those tasks at the start so i can verify integrity". Printed here; the session's FIRST
     ## message repeats it to the operator before any work.
-    queue = plan.get("queue", {}).get("tasks", [])
+    queue = plan.get("queue", {}).get("tasks", []) if full else []
+    ## S432: compact prints the ops board's own plan (roadmap.json `plan`, what 8787 shows) - the old `queue` rows are
+    ## the cancelled project's (S2xx) and were 45 lines nobody worked from. `--full` still prints them.
+    board = plan.get("plan") or {}
+    if not full and (board.get("working_now") or board.get("next")):
+        _rule("THE QUEUE (ops board plan) - STATE IT TO THE OPERATOR IN YOUR FIRST MESSAGE")
+        for title, key in (("SEATS WORKING", "working_now"), ("NEXT", "next")):
+            items = [i for i in board.get(key) or [] if isinstance(i, dict)]
+            if items:
+                print("  " + title)
+            for it in items[:14]:
+                print("    %-12s %-8s %s" % (it.get("id") or "-", it.get("who", "?"), str(it.get("title", ""))[:110]))
     if queue:
         shown = queue if full else [t for t in queue if not _queue_closed(str(t.get("state", "")))]
         _rule("QUEUED TASKS - STATE THESE TO THE OPERATOR IN YOUR FIRST MESSAGE, BEFORE ANY WORK"
@@ -2492,7 +2483,7 @@ def start(args: argparse.Namespace) -> int:
                 mark = "(on disk)" if (ROOT / path).exists() else "** NOT WRITTEN YET **"
                 print(f"    {path}  {mark}")
 
-    nxt = plan.get("next") or {}
+    nxt = (plan.get("next") or {}) if full else {}  # S432: compact skips it (a stale S422 list; the queue above is current)
     if isinstance(nxt, str):
         print("\n  THEN")
         print(_wrap(nxt, indent="    "))
@@ -2547,14 +2538,11 @@ def start(args: argparse.Namespace) -> int:
         print("  The operator asked for this every session - fix it, do not"
               " skip it. `python Tools/clip_status.py report`")
 
-    _rule("UNCOLLECTED - collect before you assign anything new")
     ## the fetch already ran in the "git" job above (S241), so triage must not fetch a second time; S301: the "triage"
-    ## job ran it in the pool right after that fetch
-    report = _await("triage")
+    ## job ran it in the pool right after that fetch. S432: --full only (see the prefetch above).
     if full:
-        print(report, end="")
-    else:
-        _triage_compact(report)
+        _rule("UNCOLLECTED - collect before you assign anything new")
+        print(_await("triage"), end="")
 
     _rule("AGENTS - you drive every one of them, in this console, no human relay")
     try:
@@ -2573,21 +2561,22 @@ def start(args: argparse.Namespace) -> int:
     # roster.json also carries a top-level "note" string (CLAUDE.md s3: name
     # every run in flight there); only dict entries are agents.
     agent_names = {k for k, v in roster.items() if isinstance(v, dict)}
+    compact_in: list[str] = []
     for name in sorted(agent_names | set(open_by_agent)):
         entry = roster.get(name, {})
         if not isinstance(entry, dict):
             entry = {}
         rota = "IN " if entry.get("in_rotation") else "OUT"
         held = ", ".join(sorted(open_by_agent.get(name, []))) or "-"
-        if not full:
+        if not full:  # S432: one line for all; the per-seat notes were S137-S197 text
             if rota == "IN ":
-                note = " ".join(str(how.get(name, "")).split())
-                print(f"  {name:<7} IN   " + ((note[:150] + (" ..." if len(note) > 150 else "")) if note else "holds: " + held[:120]))
+                compact_in.append(name)
             continue
         print(f"  {name:<7} {rota}  holds: {held}")
         if how.get(name):
             print(_wrap(how[name], indent="          "))
     if not full:
+        print("  IN: " + ", ".join(compact_in) + "   (what each runs: THE QUEUE above / AGENT RUNS IN FLIGHT)")
         print("  (OUT agents, task holdings, SETTINGS, traps, already-decided, ending duties: `start --full`)")
     _arena_status()
     if full and hand.get("you_drive_every_agent"):
@@ -2628,7 +2617,7 @@ def start(args: argparse.Namespace) -> int:
                 "how_to_use", "start_sequence", "uncollected_deliverables",
                 "in_flight_uncommitted", "ops_board_caveat"}
     orphans = [k for k in hand.keys() if k not in rendered]
-    if orphans:
+    if orphans and full:  # S432: compact skips the 10-line note (107 old keys; the handover lives in NEXT_SESSION_PROMPT.md)
         print("")
         print(f"  NOTE  {len(orphans)} `handover` key(s) are NOT printed by this")
         print("        command, so a session never sees them. Newest first:")

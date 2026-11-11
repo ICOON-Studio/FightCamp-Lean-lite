@@ -8,17 +8,34 @@ extends RefCounted
 ## The fastest a step in with a punch carries her body, m/s (a step-jab covers ~0.5-0.7 m in ~0.25 s).
 const STEP_IN_MAX := 3.0
 const KEEP := 400
+## The nearest a punch's step in brings the pelvises (m): straight shots are thrown at arm's length, hooks, uppercuts and
+## body shots a little closer. `-- nocarryfloor` = the control arm.
+const STRAIGHT_FLOOR_M := 0.96
+const HOOK_FLOOR_M := 0.86
+static var carry_floor: bool = not OS.get_cmdline_user_args().has("nocarryfloor")
+
+
+static func floor_for(clip: String) -> float:
+	if not carry_floor:
+		return 0.0
+	return HOOK_FLOOR_M if clip.contains("hook") or clip.contains("uppercut") or clip.contains("body") else STRAIGHT_FLOOR_M
 
 
 ## Her body carries `m` closer by the contact `at_s` (an aimed step: no step clip, the punch plays on); a step away the
 ## other was taking stops - she is caught on the way out.
-static func close_in(stage: Node, who: int, m: float, at_s: float) -> void:
+static func close_in(stage: Node, who: int, m: float, at_s: float, floor_m: float = 0.0) -> void:
 	var bx: Dictionary = stage.boxers[who]
-	var t := maxf(at_s, m / STEP_IN_MAX)
 	var to: Vector3 = (stage.boxers[1 - who]["pos"] as Vector3) - (bx["pos"] as Vector3)
 	to.y = 0.0
 	if to.length() < 0.01:
 		return
+	# HUMANFIGHT1: she is never carried inside `floor_m` of the other to make a punch touch. The captured jab is short
+	# (its glove touches at a 0.8 m pelvis gap): carried there the two stood inside each other - heads 0.45 m, lead toes
+	# 0.2 m apart (round 2 film 13.6-15.0 s; round 1 critics' first defect). The reach's arm covers what is left.
+	m = minf(m, maxf(0.0, to.length() - floor_m))
+	if m < 0.03:
+		return
+	var t := maxf(at_s, m / STEP_IN_MAX)
 	bx["vel"] = to.normalized() * (m / t)
 	bx["move_left"] = t
 	bx["move_total"] = t

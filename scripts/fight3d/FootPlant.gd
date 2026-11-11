@@ -108,6 +108,8 @@ func _process_modification() -> void:
 	if f == _frame:
 		_load(_start)
 	else:
+		if _frame >= 0 and f - _frame > 1:
+			_wake()   # HUMANFIGHT1: switched off for a while (RkPure): the feet stand where they are shown now
 		_frame = f
 		_start = _save()
 	var free := false
@@ -232,6 +234,17 @@ func _target(i: int, anim: Vector3, vel: Vector3, delta: float, hip: Vector3, le
 		_swing[i] = {}
 		_plant[i] = anim
 	return Vector3(at.x, maxf(anim.y, float(_ground[i])) + LIFT_M * sin(PI * u), at.z)
+
+
+## Back on after frames switched off (a captured take played pure): the plants and the last frame are stale - holding
+## them would pull each foot back to where it stood seconds ago. Plant where the feet are now; the standing height stays.
+func _wake() -> void:
+	_last = {}
+	for i in _bones.size():
+		_plant[i] = null
+		_swing[i] = {}
+		_prev[i] = null
+		_out[i] = null
 
 
 ## The state a frame starts from (a repeat modifier pass in the same frame loads it back).

@@ -27,7 +27,8 @@ extends RefCounted
 ## ShadowBoxing jabs that never come home in the window, and Boxing 2.10-2.77 (the old "jab": it ends with the arm out).
 ##   rk_guard   FightingIdle 9.23-18.17 s |  rk_guard_b  FightingIdle 35.70-45.00 s   both mirrored (old GUARD_VARIANTS, S274:
 ##     fists within 0.50 m of the head every frame, head over hips steady to 5 mm, one posture and facing)
-## Switch: on by default; `-- norokoko` on the command line = the Punch PRO jab, cross and guard (the control arm).
+## Switch: OFF by default since S432 (operator Q-S294-183, after both films and six critics: "Older stepping route"); `-- rokoko`
+## on the command line = the captured takes back (each clip returns alone once it passes the posture limits). `-- norokoko` is the default.
 
 const RkRetarget := preload("res://scripts/fight3d/RkRetarget.gd")
 const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
@@ -73,7 +74,7 @@ static var carry_xz := not OS.get_cmdline_user_args().has("rkhold")
 
 
 ## A test of another layer may run on the Punch PRO set (tests/ring_feet_test.gd: the footwork rig on the Pro guard).
-static var enabled := not OS.get_cmdline_user_args().has("norokoko")
+static var enabled := OS.get_cmdline_user_args().has("rokoko")
 
 
 static func on() -> bool:

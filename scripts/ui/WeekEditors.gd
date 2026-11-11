@@ -166,12 +166,25 @@ static func _evening(v: Node, main: Node, f: Dictionary, pl: Dictionary, pack: D
 		kind = "sparring"
 	elif int(nights.get("film", -1)) == dow:
 		kind = "film"
+	var entries: Array = (inp["week"] as Dictionary).get(PadWeek.DAYS[dow], [])
+	var mins := PadWeek.night_minutes(nights, dow)
 	var head := UI.hbox(10)
 	v.add_child(head)
-	head.add_child(_ico(WeekTiles.evening_icon(kind), KIND_WORDS[KINDS.find(kind)]))
+	var ico := _ico(WeekTiles.evening_icon(kind), KIND_WORDS[KINDS.find(kind)])
+	ico.name = "EveningIcon"
+	head.add_child(ico)
 	var title := UI.label(KIND_WORDS[KINDS.find(kind)], 40, WoodKit.HEAD, "bold")
 	title.name = "EveningTitle"
+	title.size_flags_vertical = Control.SIZE_SHRINK_END
 	head.add_child(title)
+	if kind == "pads":
+		var unit := UI.label("%d min tonight" % roundi(mins), 26, WoodKit.INK, "bold")
+		unit.name = "PadMinutes"
+		unit.tooltip_text = "Minutes on the pads tonight."
+		unit.mouse_filter = Control.MOUSE_FILTER_PASS
+		unit.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		unit.size_flags_vertical = Control.SIZE_SHRINK_END
+		head.add_child(unit)
 	head.add_child(UI.spacer())
 	var kinds := UI.hbox(6)
 	head.add_child(kinds)
@@ -184,34 +197,44 @@ static func _evening(v: Node, main: Node, f: Dictionary, pl: Dictionary, pack: D
 		kinds.add_child(b)
 	if kind != "pads":
 		return
-	var entries: Array = (inp["week"] as Dictionary).get(PadWeek.DAYS[dow], [])
-	var mins := PadWeek.night_minutes(nights, dow)
-	v.add_child(_split(main, fid, dow, entries, mins))
+	if entries.size() >= 2:
+		v.add_child(_split(main, fid, dow, entries, mins))
 	var projs: Dictionary = pack["projs"]
 	var rows: Dictionary = PadEdit.night_rows(f, projs)
-	var on_now: Array = []
+	var shown: Array = []
 	for e in entries:
-		var card := str((e as Dictionary)["card"])
-		on_now.append(card)
-		v.add_child(_drill_row(main, f, fid, dow, card, rows, projs, false))
+		shown.append(str((e as Dictionary)["card"]))
+	for c in (pack["cards"] as Array):
+		var cid := str(c)
+		if shown.has(cid) or not PadWeek.drillable(f, cid):
+			continue
+		shown.append(cid)
+	var name_w := 48.0
+	var mast_w := 36.0
+	var word_w := 64.0
+	for id in shown:
+		var card := str(id)
+		name_w = maxf(name_w, _text_w(PadEdit.title(f, card), 24))
+		mast_w = maxf(mast_w, _text_w(_mast_text(f, card, rows, dow), 22))
+		word_w = maxf(word_w, _text_w(MoveMastery.word(PadWeek.mastery(f, card)), 22))
+	var on_now: Array = []
+	for e2 in entries:
+		var on := str((e2 as Dictionary)["card"])
+		on_now.append(on)
+		v.add_child(_drill_row(main, f, fid, dow, on, rows, projs, false, name_w, mast_w, word_w))
 	var tray := UI.vbox(6)
 	v.add_child(tray)
-	for c in (pack["cards"] as Array):
-		var id := str(c)
-		if on_now.has(id) or not PadWeek.drillable(f, id):
+	for id2 in shown:
+		var sid := str(id2)
+		if on_now.has(sid):
 			continue
-		tray.add_child(_drill_row(main, f, fid, dow, id, rows, projs, true))
+		tray.add_child(_drill_row(main, f, fid, dow, sid, rows, projs, true, name_w, mast_w, word_w))
 	var combo := _btn("Combo", "Btn", 26, _combo.bind(main, fid))
 	combo.tooltip_text = "Build a combination. Opens the Playbook."
 	tray.add_child(combo)
 
 
 static func _split(main: Node, fid: String, dow: int, entries: Array, mins: float) -> Control:
-	if entries.size() < 2:
-		var l := UI.label(str(roundi(mins)), 28, WoodKit.INK, "bold")
-		l.name = "PadMinutes"
-		l.tooltip_text = "Minutes on the pads."
-		return l
 	var row := UI.hbox(6)
 	row.name = "SplitBar"
 	for e in entries:
@@ -224,40 +247,69 @@ static func _split(main: Node, fid: String, dow: int, entries: Array, mins: floa
 	return row
 
 
-static func _drill_row(main: Node, f: Dictionary, fid: String, dow: int, card: String, rows: Dictionary, projs: Dictionary, add: bool) -> Control:
-	var h := UI.hbox(8)
-	var nm := UI.label(PadEdit.title(f, card), 24, WoodKit.INK, "bold")
-	nm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var proj: Dictionary = projs.get(card, {})
-	var eta: Dictionary = proj.get("eta", {})
-	nm.tooltip_text = str(eta.get("text", PadEdit.title(f, card)))
-	h.add_child(nm)
+static func _text_w(text: String, px: int) -> float:
+	return UI.font("bold").get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, px).x + 10.0
+
+
+## On the night and moving: "10 → 19". No change tonight: the mastery number on its own.
+static func _mast_text(f: Dictionary, card: String, rows: Dictionary, dow: int) -> String:
 	var one: Dictionary = rows.get(card, {})
 	if one.has(dow):
-		var g := UI.label("%d → %d" % [roundi(float(one[dow][0])), roundi(float(one[dow][1]))], 22, UI.GREEN, "bold")
-		g.tooltip_text = "Mastery this night."
-		h.add_child(g)
-	var step := UI.label(MoveMastery.word(PadWeek.mastery(f, card)), 22, WoodKit.SOFT, "bold")
-	step.tooltip_text = "Mastery step. " + MoveMastery.LADDER
-	h.add_child(step)
+		var a := roundi(float(one[dow][0]))
+		var b := roundi(float(one[dow][1]))
+		return str(a) if a == b else "%d → %d" % [a, b]
+	return str(roundi(PadWeek.mastery(f, card)))
+
+
+static func _fixed(text: String, px: int, color: Color, w: float, node_name: String) -> Label:
+	var l := UI.label(text, px, color, "bold")
+	l.name = node_name
+	l.custom_minimum_size = Vector2(w, 0)
+	l.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	l.mouse_filter = Control.MOUSE_FILTER_PASS   # UI.label ignores the mouse: the tooltip would never open
+	return l
+
+
+static func _drill_row(main: Node, f: Dictionary, fid: String, dow: int, card: String, rows: Dictionary, projs: Dictionary, add: bool, name_w: float, mast_w: float, word_w: float) -> Control:
+	var h := UI.hbox(12)
+	h.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var proj: Dictionary = projs.get(card, {})
+	var eta: Dictionary = proj.get("eta", {})
+	var nm := _fixed(PadEdit.title(f, card), 24, WoodKit.INK, name_w, "DrillName")
+	nm.tooltip_text = str(eta.get("text", PadEdit.title(f, card)))
+	h.add_child(nm)
+	var mt := _mast_text(f, card, rows, dow)
+	var g := _fixed(mt, 22, UI.GREEN if mt.find("→") >= 0 else WoodKit.INK, mast_w, "DrillMastery")
+	g.tooltip_text = "Mastery tonight." if mt.find("→") >= 0 else "Mastery now."
+	h.add_child(g)
+	var held := _held_line(main, f, fid, card, proj)
+	if held != null:
+		h.add_child(held)
+	else:
+		var step := _fixed(MoveMastery.word(PadWeek.mastery(f, card)), 22, WoodKit.SOFT, word_w, "DrillWord")
+		step.tooltip_text = "Mastery step. " + MoveMastery.LADDER
+		h.add_child(step)
+	h.add_child(UI.spacer())
 	if add:
 		var plus := _btn("+", "Btn", 28, _add.bind(main, fid, dow, card))
 		plus.tooltip_text = "Put this drill on the night."
+		plus.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		h.add_child(plus)
 		var drill := _btn("Drill", "Btn", 26, _drill_it.bind(main, fid, card))
 		drill.tooltip_text = "Drill %s." % PadEdit.title(f, card)
+		drill.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		h.add_child(drill)
 	else:
 		var minus := _btn("−", "Btn", 28, _drop.bind(main, fid, dow, card))
 		minus.name = "DropDrill"
 		minus.tooltip_text = "Take this drill off the night."
+		minus.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		h.add_child(minus)
 	var box := UI.vbox(4)
 	box.name = "Drill_" + card.replace(":", "_").replace(" ", "_")
+	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	box.add_child(h)
-	var held := _held_line(main, f, fid, card, proj)
-	if held != null:
-		box.add_child(held)
 	return box
 
 
@@ -276,11 +328,14 @@ static func _held_line(main: Node, f: Dictionary, fid: String, card: String, pro
 	var punch := str(held[0])
 	var line := UI.hbox(8)
 	line.name = "Held"
-	var words := UI.label("Held at %d by the %s" % [int(float(proj.get("cap", 100.0))), punch], 22, WoodKit.SOFT, "bold")
-	words.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var words := UI.label("Held at %d" % int(float(proj.get("cap", 100.0))), 22, WoodKit.SOFT, "bold")
+	words.tooltip_text = "This combination stops at %d until the %s is drilled." % [int(float(proj.get("cap", 100.0))), punch]
+	words.mouse_filter = Control.MOUSE_FILTER_PASS
+	words.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	line.add_child(words)
 	var go := _btn("Drill the %s" % punch, "Btn", 22, _drill_it.bind(main, fid, "move:" + punch))
 	go.name = "DrillIt"
+	go.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	go.tooltip_text = "Puts the %s on the next pad night not set yet." % punch
 	line.add_child(go)
 	return line

@@ -27,7 +27,11 @@ const CLINCH_M := 0.45
 ## A clinch beat is looked for this far back (ClinchBeats.DUR_MAX_S + a margin).
 const CLINCH_LOOK_S := 9.0
 ## S314 inside range: close enough for hooks and uppercuts without stepping inside each other's chests.
-const INSIDE_SPELL_M := 0.64   # S390: R16 had 0.68, past the real 0.65 inside range; main 0.55 overlapped chests
+## HUMANFIGHT1 (two blind critics, 3/10, the first defect of both: "they walk through each other", "boots stacked on boots
+## for a full second", "Liam's face sits in Danny's chest"): 0.64 m pelvis to pelvis puts two 0.5-0.6 m stances inside each
+## other - a coach's inside is lead toes 45-55 cm apart, heads outside each other's lead shoulder. The range was never
+## reached while steps were whole captured clips (the gap read 1.45 m "inside"), so nobody saw it. 0.92 keeps the boots apart (0.84 still read chest to chest on the round 2 frames).
+const INSIDE_SPELL_M := 0.92   # S390: R16 had 0.68, 0.64 after; main 0.55 overlapped chests
 const INSIDE_LOOK_S := 7.0
 
 

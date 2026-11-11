@@ -96,6 +96,20 @@ static func align(stage: Node, who: int) -> void:
 			(bx["joinfeet"] as Node).arm(now)
 		else:
 			(bx["joinfeet"] as Node).release()
+	# HUMANFIGHT1: laying the new clip's feet over hers must not walk her into the other boxer. The fit moved her place
+	# up to MAX_SHIFT_M any way it liked - at the join into a captured cross it took Liam 0.23 m at Danny in one frame,
+	# from the 1.01 m jab gap to the 0.78 m floor (round 2: heads 0.45 m, lead toes 0.2 m apart; round 1 critics' first
+	# defect, "they walk through each other"). The part of the shift that closes the gap past the range the fight keeps
+	# now is dropped; her feet take up that difference (RkJoinFeet, FootLock). `-- nojoinkeep` = the control arm.
+	if stage.get("feet") != null and not OS.get_cmdline_user_args().has("nojoinkeep"):
+		var to: Vector3 = (stage.boxers[1 - who]["pos"] as Vector3) - (bx["pos"] as Vector3)
+		to.y = 0.0
+		if to.length() > 0.01:
+			var ax := to.normalized()
+			var closing := shift.dot(ax)
+			var room := maxf(0.0, to.length() - float(stage.feet.want_m))
+			if closing > room:
+				shift -= ax * (closing - room)
 	if shift.length() > MAX_SHIFT_M or shift.length() < 0.005:
 		return
 	if bx.get("js") != null:

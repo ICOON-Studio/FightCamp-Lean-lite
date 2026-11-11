@@ -31,6 +31,7 @@ const HIP_FLOOR := 0.78
 const GAZE := 0.5              # share of the lean the head takes back (eyes stay on the man in front)
 const EASE_S := 0.2            # S391: in and out, like FootPlant's free clips
 const MAX_PITCH := 1.1         # S391: the heel's highest, radians (a lunge's rear foot)
+const SWING_PITCH := 0.3       # HUMANFIGHT1: a stepping foot's sole stays within ~17 deg of flat
 
 var plan                       # BoxerFootwork
 var body: Node3D
@@ -46,6 +47,11 @@ var last: Array = [{}, {}]
 var want := 1.0                # S391: 1 = the rig has the legs and hips, 0 = FootPlant and the clip have them
 var w := 1.0
 var upper: Node = null         # S391: the early half (class Upper)
+## HUMANFIGHT1: upper_want 0 = the legs only (eased like `w`: a switch in one frame dropped the hips 15 cm). Under a captured clip (RingFeet's carry) the take keeps its own hips and torso: the
+## rig's drop, bounce and lean belong to the Punch PRO clips' floating guard, and easing them in and out for a
+## quarter-second step moved the hips 4 cm down and up at every lunge.
+var upper_want := 1.0
+var upper_w := 1.0
 var _guard_lean := 0.0         # S391: the lean last topped up in her guard
 
 
@@ -121,8 +127,15 @@ func mid() -> Vector2:
 
 ## S391: the hips and the torso, from class Upper.
 func early(skel: Skeleton3D) -> void:
-	if w <= 0.0 or plan == null:
+	if w * upper_w <= 0.0 or plan == null:
 		return
+	var legs_w := w
+	w *= upper_w   # the hips and torso half's own weight (the legs keep `w`)
+	_early(skel)
+	w = legs_w
+
+
+func _early(skel: Skeleton3D) -> void:
 	var p: Dictionary = plan.pose()
 	var s := maxf(body.scale.x, 1e-3)
 	var hip: Vector3 = p["hip"]
@@ -139,6 +152,7 @@ func early(skel: Skeleton3D) -> void:
 ## One frame toward `want` (RingFeet, once a frame).
 func ease_w(delta: float) -> void:
 	w = move_toward(w, want, delta / EASE_S)
+	upper_w = upper_want if w <= 0.0 else move_toward(upper_w, upper_want, delta / EASE_S)
 
 
 func _process_modification() -> void:
@@ -156,7 +170,10 @@ func _process_modification() -> void:
 		var ball := inv * Vector3(ball_w.x, skel.global_position.y, ball_w.z)
 		ball.y = float(leg["toe_y"]) + ball_w.y / s
 		var turn := Basis(Vector3.UP, wrapf(float(f["yaw"]) - body_yaw, -PI, PI))
-		var pitch := _reach_pitch(skel, leg, ball, turn, float(f["pitch"]))
+		# HUMANFIGHT1 (two blind critics: "the lead boot hangs toe-down like a dancer's point"): the reach's heel lift is
+		# for a PLANTED ball the hips have left behind; a foot in the air keeps its sole near flat.
+		var swinging: bool = not ((plan.feet[i]["swing"] as Dictionary).is_empty())
+		var pitch := minf(float(f["pitch"]), SWING_PITCH) if swinging else _reach_pitch(skel, leg, ball, turn, float(f["pitch"]))
 		var tilt := turn * Basis(Vector3.RIGHT, pitch)
 		var ankle: Vector3 = ball + tilt * (leg["v"] as Vector3)
 		var toes_basis := (turn * Basis(Vector3.RIGHT, pitch * maxf(float(f["toe_pitch"]), 0.0)) * (leg["tb"] as Basis))

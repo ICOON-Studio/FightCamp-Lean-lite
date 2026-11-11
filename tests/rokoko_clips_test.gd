@@ -2,7 +2,7 @@ extends SceneTree
 ## S399 ROKOKO2 (operator S399: "these animations are good why you removed them and changed them with crap"): the Rokoko
 ## captured jab, cross and guard play in the fight, ON, as cleanly as the source take.
 ##   1. the fight picks them: the guard is the captured one, a plain jab / cross is a captured one (a big shot, a miss, a
-##      tired punch keep the Punch PRO takes), and `-- norokoko` is the only way to the Pro set
+##      tired punch keep the Punch PRO takes), and (since S432) `-- rokoko` turns this route on; the game plays the Pro set
 ##   2. each window, built on the boxer (RkRetarget = the old repo's MixamoMotion route), stands ORTHODOX (the actor fights
 ##      southpaw in most of the takes: those windows are mirrored), its toe balls on the canvas (not under it)
 ##   3. played in the fight stage, on the DRAWN pose (bones read inside skeleton_updated): every synthetic layer is off while
@@ -37,6 +37,7 @@ var failures := 0
 
 
 func _initialize() -> void:
+	RkClips.enabled = true   # S432: the captured takes are opt-in (`-- rokoko`); this test measures that route
 	var stage: Node3D = Stage.new()
 	stage.process_mode = Node.PROCESS_MODE_DISABLED
 	root.add_child(stage)
@@ -95,7 +96,7 @@ func _initialize() -> void:
 func _probe(args: Array) -> String:
 	var out: Array = []
 	var cmd := ["--headless", "--fixed-fps", "30", "--audio-driver", "Dummy", "--path", ProjectSettings.globalize_path("res://"),
-		"--script", "res://tools/rokoko_feet_probe.gd", "--", "noproguard"] + args   # these bars measure the Rokoko guard windows themselves
+		"--script", "res://tools/rokoko_feet_probe.gd", "--", "noproguard", "rokoko"] + args   # these bars measure the Rokoko guard windows themselves
 	OS.execute(OS.get_executable_path(), PackedStringArray(cmd), out, true)
 	return "
 ".join(out)

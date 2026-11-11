@@ -26,6 +26,8 @@ const TELEPORT_M := 0.15     # a director moved her body this far from where it 
 const WALK_LEAD_M := 0.35    # a director's walk stays this far ahead of her feet at most
 const BACK_MS := 0.6         # backing to the neutral corner
 const JUMP_M := 1.2          # her place this far from her feet was set, not stepped to (a film rewound, a scene's end)
+const CARRY_EASE_S := 0.12   # HUMANFIGHT1: the rig takes her legs this fast when her place is carried under a captured clip
+static var carry_on: bool = not OS.get_cmdline_user_args().has("norigcarry")
 
 
 static func on(st: Node, bx: Dictionary) -> bool:
@@ -43,9 +45,24 @@ static func tick(st: Node, i: int, delta: float) -> void:
 	var free: bool = st.clinch.engaged or int(st.clinch.holder) >= 0   # from the tie-up on: the hold's bars read the clip's own body
 	for w in FREE:
 		free = free or clip.contains(w)
-	free = free or RkClips.is_rk(clip)   # S399: a captured clip owns her legs and its steps carry her (RkLoco), not the rig
+	# S399: a captured clip owns her legs and its steps carry her (RkLoco), not the rig - HUMANFIGHT1: unless the fight is
+	# CARRYING her place under it (an aimed step to a range, a landed punch's step in): then her feet must step after her,
+	# and the rig's lunge pair is that step. It takes her feet where they are shown and keeps them until they stand
+	# under her again.
+	var rk := RkClips.is_rk(clip)
+	var carried: bool = rk and not free and carry_on and float(bx["move_left"]) > 0.0 and (bx["vel"] as Vector3).length() > 0.05 		and not clip.begins_with("rk_loc_")
+	if carried and not bool(bx.get("rig_carry", false)):
+		bx["rig_carry"] = true
+		if float(rig.w) <= 0.0:
+			_take_feet(bx, rig, _xz(bx["pos"]), atan2((st.boxers[1 - i]["pos"] as Vector3).x - (bx["pos"] as Vector3).x, (st.boxers[1 - i]["pos"] as Vector3).z - (bx["pos"] as Vector3).z))
+	if not rk or free:
+		bx["rig_carry"] = false
+	free = free or (rk and not bool(bx.get("rig_carry", false)))
+	rig.upper_want = 0.0 if bool(bx.get("rig_carry", false)) else 1.0   # under a captured clip the take keeps its own hips
 	rig.want = 0.0 if free else 1.0
 	rig.ease_w(delta)
+	if bool(bx.get("rig_carry", false)):
+		rig.w = move_toward(float(rig.w), 1.0, delta / CARRY_EASE_S)   # a step in is over in a quarter second
 	var plan: RefCounted = rig.plan
 	var pos: Vector3 = bx["pos"]
 	var other: Vector3 = st.boxers[1 - i]["pos"]
@@ -56,13 +73,34 @@ static func tick(st: Node, i: int, delta: float) -> void:
 		return
 	var dt := 0.0 if float(st._hold_left) > 0.0 else delta   # the hit-stop holds the feet too
 	plan.face(yaw)
-	plan.hold_want = 0.0 if _guarded(clip) else 1.0
+	# HUMANFIGHT1: under a captured clip (a carry) the take keeps its own hips, so the plan's bounce has no body to ride:
+	# its heels pumped alone under still hips and the knees stamped (a critic: "Liam's rear knee stamping"). Calm there.
+	plan.hold_want = 1.0 if bool(bx.get("rig_carry", false)) else (0.0 if _guarded(clip) else 1.0)
 	plan.pivot_want = _drive(clip)
 	var opp: Node = st.boxers[1 - i].get("rig")
 	plan.keep_off = opp.plan.spots() if opp != null else []
 	plan.bounce_share = BOUNCE_SHARE * float(bx.get("legs", 1.0))   # burning legs stop bouncing first
 	plan.tick(dt)
 	_chase(rig, goal, (bx["vel"] as Vector3).length() if float(bx["move_left"]) > 0.0 else 0.0, DEAD_M)
+	if bool(bx.get("rig_carry", false)) and not carried and (plan.pair as Dictionary).is_empty() and goal.distance_to(plan.centre()) <= DEAD_M 			and _guarded(clip):
+		# her feet stand under her and she is back in her guard: the captured clip has her legs back. Not mid-punch - the
+		# take's own feet stand a step away from where the rig just stepped hers, and letting go there dragged the lead
+		# foot 0.3 m along the canvas (tests/human_feet_test.gd).
+		bx["rig_carry"] = false
+
+
+## The rig takes her from a captured clip: it stands at her place, its two feet where hers are shown now (FootLock reads
+## them), so nothing moves when it eases in.
+static func _take_feet(bx: Dictionary, rig: Node, at: Vector2, yaw: float) -> void:
+	_stand(rig, at, yaw)
+	var lock: Node = bx.get("lock")
+	if lock == null or (lock.shown as Array).size() != 2:
+		return
+	var plan: RefCounted = rig.plan
+	var lead := 0 if float(plan.side) > 0.0 else 1   # plan foot 0 = her lead: the left leg on an orthodox
+	for k in 2:
+		var ball: Vector3 = lock.shown[lead if k == 0 else 1 - lead]
+		plan.feet[k]["at"] = Vector2(ball.x, ball.z)
 
 
 ## Stands her hips (her body node) on `at`, feet in her stance, no step.

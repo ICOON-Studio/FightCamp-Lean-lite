@@ -4654,7 +4654,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-11 11:42 board_sync",
+  "updated": "2026-11-11 12:45 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4802,66 +4802,10 @@
   },
   "working_now": [
    {
-    "title": "TASK MENUPLAYBOOK1 - CURSOR (Grok 4.7 High) - the Playbook's game plan and Combos, built from the approved mockup",
-    "who": "cursor",
-    "started": "2026-11-08T22:42",
-    "run": "MENUPLAYBOOK1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "QWEN (qwen3-coder) - a standing count on the cards says what it cost",
-    "who": "goose",
-    "started": "2026-11-10T05:41",
-    "run": "R11C",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK LOOKSLATE7 - CURSOR (Grok 4.7 High) - the Fighters page's paper pieces, the week review's pad cards and the Overview's flat buttons on slate and wood",
-    "who": "cursor",
-    "started": "2026-11-10T09:42",
-    "run": "LOOKSLATE7",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK KDFIX1 - QWEN (qwen3-coder) - a downed boxer's upper body sways",
-    "who": "qwen",
-    "started": "2026-11-10T10:11",
-    "run": "KDFIX1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK FIGHTSLIDE2 - QWEN (qwen3-coder) - the fighters slide: measure each cause by switching it off. Measure only",
-    "who": "qwen",
-    "started": "2026-11-10T10:41",
-    "run": "FIGHTSLIDE2",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "TASK LEGTREMBLE3 - CURSOR (Grok 4.7 High) - the trembling legs, round 2 on a new seat: bake the smoothing into the shipped clips",
     "who": "cursor",
     "started": "2026-11-10T11:21",
     "run": "LEGTREMBLE3",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK KDFIX2 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 2: a ruler that sees the layers",
-    "who": "qwen",
-    "started": "2026-11-10T11:22",
-    "run": "KDFIX2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK FIGHTDISPLAY1 - CURSOR (Grok 4.7 High) - the live fight's corner bar, NOW! plate and scorebug from the veteran's drawing",
-    "who": "cursor",
-    "started": "2026-11-10T12:41",
-    "run": "FIGHTDISPLAY1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK KDFIX3 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 3: fix the two layers KDFIX2 named",
-    "who": "qwen",
-    "started": "2026-11-10T12:54",
-    "run": "KDFIX3",
     "state": "LANDED - Claude collects"
    },
    {
@@ -4879,153 +4823,6 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "TASK KDFIX4 - CURSOR (Grok 4.7 High) - a downed boxer's upper body sways, round 4: settle or sway, and block_meet",
-    "who": "cursor",
-    "started": "2026-11-10T13:35",
-    "run": "KDFIX4",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK DUESCARD1 - CURSOR (Grok 4.7 High) - the dues choice as three painted price boards on Club > Money",
-    "who": "cursor",
-    "started": "2026-11-10T14:37",
-    "run": "DUESCARD1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK READBACK1 - QWEN (qwen3-coder) - she waits for your best plan line: where the points go, and what wins them back. Measure only",
-    "who": "qwen",
-    "started": "2026-11-10T14:38",
-    "run": "READBACK1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK READBACK2 - QWEN (qwen3-coder) - she waits for your best plan line, round 2: two ways back as switched-off rules, measured",
-    "who": "qwen",
-    "started": "2026-11-10T14:50",
-    "run": "READBACK2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "Week design v2 - lead designer subagent (Fable): a week worth playing, with pictures",
-    "who": "claude",
-    "started": "2026-11-10T15:00",
-    "run": "WEEKDESIGN2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK DUESCARD2 - CURSOR (Grok 4.7 High) - the dues boards are unreadable: give them their own tab at full size",
-    "who": "cursor",
-    "started": "2026-11-10T15:27",
-    "run": "DUESCARD2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK READBACK3 - QWEN (qwen3-coder) - READBACK2's set-up rule never forgets a win: fix it, measure again",
-    "who": "qwen",
-    "started": "2026-11-10T15:28",
-    "run": "READBACK3",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK FIRELEVEL1 - QWEN (qwen3-coder) - a plan line fires as well as it is drilled: a switched-off rule, measured",
-    "who": "qwen",
-    "started": "2026-11-10T16:02",
-    "run": "FIRELEVEL1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK FIGHTDISPLAY2 - CURSOR (Grok 4.7 High) - the live fight's two side panels from the veteran's drawing",
-    "who": "cursor",
-    "started": "2026-11-10T16:15",
-    "run": "FIGHTDISPLAY2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK THURSDAY1 - QWEN (qwen3-coder) - how many real problems does a camp week throw up by Thursday? Measure only",
-    "who": "qwen",
-    "started": "2026-11-10T16:21",
-    "run": "THURSDAY1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK KDFIX5 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 5: Cursor's \"all green\" was false",
-    "who": "qwen",
-    "started": "2026-11-10T17:14",
-    "run": "KDFIX5",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK THURSDAY2 - QWEN (qwen3-coder) - the Thursday count again, on camps that really differ. Measure only",
-    "who": "qwen",
-    "started": "2026-11-10T18:03",
-    "run": "THURSDAY2",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK FIGHTDISPLAY3 - CURSOR (Grok 4.7 High) - the two wooden side panels, round 3: on today's main, no error, no overlap, no symbols",
-    "who": "cursor",
-    "started": "2026-11-10T18:23",
-    "run": "FIGHTDISPLAY3",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK MOODHABIT1 - QWEN (qwen3-coder) - what a boxer's mood and each habit are worth in wins. Measure only",
-    "who": "qwen",
-    "started": "2026-11-10T18:29",
-    "run": "MOODHABIT1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK HANDSPROBE1 - QWEN (qwen3-coder) - how scarce are Reid's hands really? Measure only",
-    "who": "qwen",
-    "started": "2026-11-10T18:47",
-    "run": "HANDSPROBE1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK HALOSWEEP1 - CURSOR (Grok 4.7 High) - every \"this one is chosen\" frame in the game uses the shared outline",
-    "who": "cursor",
-    "started": "2026-11-10T18:59",
-    "run": "HALOSWEEP1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK WEEKTESTS1 - CURSOR - three tests still drive the old Training board that TRAININGB1 replaced",
-    "who": "cursor",
-    "started": "2026-11-11T07:14",
-    "run": "WEEKTESTS1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "QWEN (qwen3-coder) - the rank a fight earned, as a pure line the result, the Why and the news can show",
-    "who": "goose",
-    "started": "2026-11-11T08:04",
-    "run": "RANKSHOW1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK MONEYFOUR1 - QWEN (qwen3-coder) - what four fighters cost the club in a year. Measure only",
-    "who": "qwen",
-    "started": "2026-11-11T09:05",
-    "run": "MONEYFOUR1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "QWEN (qwen3-coder) - the coach's read: which training each fighter needs, from the numbers and the style",
-    "who": "goose",
-    "started": "2026-11-11T09:08",
-    "run": "TRAINREAD1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK FIGHTDISPLAY4 - CURSOR (Grok 4.7 High) - the fight screen: the two wooden side panels go, the bars move to the top, the see-through figures stand free agai",
-    "who": "cursor",
-    "started": "2026-11-11T09:33",
-    "run": "FIGHTDISPLAY4",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "TASK TRAININGB2 - CURSOR (Grok 4.7 High) - the Training tab: a tiredness curve that says something, and the pads list in straight rows",
     "who": "cursor",
     "started": "2026-11-11T10:23",
@@ -5033,25 +4830,38 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "QWEN (qwen3-coder) - dues: the sums that give each price a club where it wins (pure module + a 5-year sim, MEA",
-    "who": "goose",
-    "started": "2026-11-11T10:51",
-    "run": "DUESSUMS1",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "TASK AIMWIRE1 - QWEN (qwen3-coder) - the aim buttons: rib targets that never appear, a body bonus that never fires, and what a fight's tiredness does to a year",
     "who": "qwen",
     "started": "2026-11-11T11:42",
-    "run": "AIMWIRE1"
+    "run": "AIMWIRE1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK DUESSUMS2 - QWEN (qwen3-coder) - dues sums, second search: a REGION of balanced numbers, and a reason for the middle price (pure module + sim, MEASURE ONLY",
+    "who": "qwen",
+    "started": "2026-11-11T12:12",
+    "run": "DUESSUMS2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK CORNERFACE1 - QWEN (qwen3-coder) - the corner minute's camera keeps the boxer's face in the open part of the screen",
+    "who": "qwen",
+    "started": "2026-11-11T12:42",
+    "run": "CORNERFACE1"
    }
   ],
   "next": [
    {
     "id": "LOOK2",
     "who": "claude",
-    "title": "The matched look: he said yes (Q-182). Ludo paints the Fighters page and the Profile, then one Cursor task a page",
+    "title": "The matched look: Ludo painted both pages (3 each, on the review board); his pick is Q-185, then one Cursor task a page",
     "after": "next session"
+   },
+   {
+    "id": "HUMANFIGHT2",
+    "who": "cursor",
+    "title": "The fight moves like two boxers: no pops at clip starts, the range picks the punch, one-frame contact with the reaction on it, posture limits (ruler first)",
+    "after": "FIGHTROUTE"
    },
    {
     "id": "CAMLINE2",
@@ -5064,18 +4874,6 @@
     "who": "operator",
     "title": "Map v3 (club week with fight weeks, the road to professional): his answer on Q-184",
     "after": "his answer"
-   },
-   {
-    "id": "TRAININGB2",
-    "who": "claude",
-    "title": "Training tab curve and pads rows (Cursor, PR 194): collect, numbers off their lines",
-    "after": "review"
-   },
-   {
-    "id": "FIGHTROUTE",
-    "who": "claude",
-    "title": "Fight route: he chose the older stepping route (Q-183). Collect humanfight1, make it the default, brief the next round",
-    "after": "next session"
    },
    {
     "id": "DUESSUMS2",
@@ -5431,64 +5229,76 @@
   },
   "done_recently": [
    {
-    "title": "The look matched to the gym screen: Fighters page and fighter Profile drawn, three blind judges, asked as Q-182",
+    "id": "FIGHTROUTE",
     "who": "claude",
-    "when": "2026-11-11"
+    "title": "Fight route: the stepping route is the default (his Q-183); HUMANFIGHT1 collected, film read: 0 airborne, slide 0.7 m a minute",
+    "after": "S432"
    },
    {
-    "title": "CAMLINE1 reviewed and filmed: not collected, PR 192 closed, redone as CAMLINE2",
+    "id": "TRAININGB2",
     "who": "claude",
-    "when": "2026-11-11"
+    "title": "Training tab: tiredness numbers readable, the 80 line clear, Start week back on screen (PR 194 collected)",
+    "after": "S432"
    },
    {
-    "title": "Main CI green again (camp_protocol_test); four queued briefs repaired; dues sums measured (no balanced set yet)",
-    "who": "claude",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "Fight screens: stats on the result page, the fight so far in the corner, what pace and aim do",
-    "who": "claude",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "A fight leaves tiredness; the Overview shows it with rest days",
-    "who": "claude",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "TASK FIGHTDISPLAY4 - CURSOR - the side panels leave the ring (collected and fitted)",
+    "title": "TASK FIGHTDISPLAY4 - CURSOR (Grok 4.7 High) - the fight screen: the two wooden side panels go, the bars move to the top, the see-through figures stand free agai",
     "who": "cursor",
     "when": "2026-11-11"
    },
    {
-    "title": "Critics round 2 on the two maps: 5,5 and 5,5 (maps sent to him first, as he asked)",
-    "who": "claude",
+    "title": "QWEN (qwen3-coder) - the coach's read: which training each fighter needs, from the numbers and the style",
+    "who": "goose",
     "when": "2026-11-11"
    },
    {
-    "title": "TASK AMATEURPROBE1 - QWEN (qwen3-coder) - amateur bouts at 1 to 2 weeks' notice with no camp: what changes. Measure only",
+    "title": "TASK MONEYFOUR1 - QWEN (qwen3-coder) - what four fighters cost the club in a year. Measure only",
     "who": "qwen",
     "when": "2026-11-11"
    },
    {
-    "title": "TASK BARGUARD1 - CURSOR (Grok 4.7 High) - the boots stay above the corner bar while a shot holds, even when a boxer stands at the lens",
+    "title": "QWEN (qwen3-coder) - the rank a fight earned, as a pure line the result, the Why and the news can show",
+    "who": "goose",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "TASK WEEKTESTS1 - CURSOR - three tests still drive the old Training board that TRAININGB1 replaced",
     "who": "cursor",
     "when": "2026-11-11"
    },
    {
-    "title": "TASK TRAININGB1 - CURSOR (Grok 4.7 High) - the Training tab rebuilt as approach B, with A's tiredness curve on top",
+    "title": "TASK HALOSWEEP1 - CURSOR (Grok 4.7 High) - every \"this one is chosen\" frame in the game uses the shared outline",
     "who": "cursor",
-    "when": "2026-11-10"
+    "when": "2026-11-11"
    },
    {
-    "title": "Training tab B with the tiredness curve collected (PR 179), real render read",
-    "who": "cursor",
-    "when": "2026-11-10"
+    "title": "TASK HANDSPROBE1 - QWEN (qwen3-coder) - how scarce are Reid's hands really? Measure only",
+    "who": "qwen",
+    "when": "2026-11-11"
    },
    {
-    "title": "Fight screen side panels, intent chips over the heads collected (two overlaps open)",
+    "title": "TASK MOODHABIT1 - QWEN (qwen3-coder) - what a boxer's mood and each habit are worth in wins. Measure only",
+    "who": "qwen",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "TASK FIGHTDISPLAY3 - CURSOR (Grok 4.7 High) - the two wooden side panels, round 3: on today's main, no error, no overlap, no symbols",
     "who": "cursor",
-    "when": "2026-11-10"
+    "when": "2026-11-11"
+   },
+   {
+    "title": "TASK THURSDAY2 - QWEN (qwen3-coder) - the Thursday count again, on camps that really differ. Measure only",
+    "who": "qwen",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "TASK KDFIX5 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 5: Cursor's \"all green\" was false",
+    "who": "qwen",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "TASK THURSDAY1 - QWEN (qwen3-coder) - how many real problems does a camp week throw up by Thursday? Measure only",
+    "who": "qwen",
+    "when": "2026-11-11"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5617,64 +5427,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Result page: stats + 6 tiles",
-     "who": "claude"
-    },
-    {
-     "text": "Corner: the fight so far tab",
-     "who": "claude"
-    },
-    {
-     "text": "Bar: what pace and aim do",
-     "who": "claude"
-    },
-    {
-     "text": "A fight now leaves tiredness",
-     "who": "claude"
-    },
-    {
-     "text": "Overview: tiredness, no clip",
-     "who": "claude"
-    },
-    {
-     "text": "AMATEURPROBE1 in (sums fixed)",
-     "who": "claude"
-    },
-    {
-     "text": "Critics round 2: 5,5 and 5,5",
-     "who": "claude"
-    },
-    {
-     "text": "FIGHTDISPLAY4: panels off ring",
-     "who": "claude"
-    },
-    {
-     "text": "Overview: he picked A, body chart",
-     "who": "operator"
-    },
-    {
-     "text": "HALOSWEEP1 + WEEKTESTS1 in",
-     "who": "agent"
-    },
-    {
-     "text": "RANKSHOW1: rank line built",
-     "who": "agent"
-    },
-    {
-     "text": "FOURSTART1 map written",
-     "who": "claude"
-    },
-    {
-     "text": "AMATEURWEEK1 map written",
-     "who": "claude"
-    },
-    {
-     "text": "TRAINREAD1: guide's read built",
-     "who": "agent"
-    }
-   ],
-   "done_session": [
-    {
      "text": "CAMLINE1 reviewed: not collected",
      "who": "claude"
     },
@@ -5701,8 +5453,37 @@
     {
      "text": "Map v3 written, drawn, on board",
      "who": "claude"
+    },
+    {
+     "text": "Result page: stats + 6 tiles",
+     "who": "claude"
+    },
+    {
+     "text": "Corner: the fight so far tab",
+     "who": "claude"
+    },
+    {
+     "text": "Bar: what pace and aim do",
+     "who": "claude"
+    },
+    {
+     "text": "A fight now leaves tiredness",
+     "who": "claude"
+    },
+    {
+     "text": "Overview: tiredness, no clip",
+     "who": "claude"
+    },
+    {
+     "text": "AMATEURPROBE1 in (sums fixed)",
+     "who": "claude"
+    },
+    {
+     "text": "Critics round 2: 5,5 and 5,5",
+     "who": "claude"
     }
    ],
+   "done_session": [],
    "now": [
     {
      "text": "HUMANFIGHT1: human-like to 7/10",
@@ -5791,7 +5572,7 @@
      "who": "claude"
     }
    ],
-   "session": "S431"
+   "session": "S432"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

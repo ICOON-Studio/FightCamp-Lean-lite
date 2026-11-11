@@ -263,7 +263,12 @@ func walk(who: int, clip: String, seconds: float, scale: float = WALK_SCALE, aim
 	bx["move_total"] = seconds
 	# S399 ROKOKO2: a captured step clip carries her (RkLoco) - its own hip travel moves her, whole loops nearest the
 	# distance asked; her body never glides under a standing guard.
-	if RkLoco.on():
+	# HUMANFIGHT1: an AIMED step (to a range: the entry lunge, the step out, a correction) is not a captured step clip.
+	# The clip plays whole loops at its own pace - the step in takes 1.6 s where a lunge takes 0.3 - so the pair never
+	# reached the range it was sent to (the gap read 1.4 m in the pocket and inside phases, where 1.0 and 0.64 were asked)
+	# and landed punches then carried her 0.35-0.9 m in at up to 3 m/s. An aimed step glides her place at its stride speed
+	# and stops on the gap; the rig's step pairs carry her feet (RingFeet). `-- lococlipsaim` = the control arm.
+	if RkLoco.on() and (aim_m <= 0.0 or OS.get_cmdline_user_args().has("lococlipsaim")):
 		var body_dir: Vector3 = (bx["node"] as Node3D).global_transform.basis.inverse() * dir
 		var loco := RkLoco.pick(bx, body_dir, (bx["vel"] as Vector3).length() * seconds)
 		if not loco.is_empty():

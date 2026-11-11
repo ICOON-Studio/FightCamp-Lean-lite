@@ -30,6 +30,7 @@ const RkClips := preload("res://scripts/fight3d/RkClips.gd")
 const RkPure := preload("res://scripts/fight3d/RkPure.gd")
 const RkLoco := preload("res://scripts/fight3d/RkLoco.gd")
 const RkJoin := preload("res://scripts/fight3d/RkJoin.gd")
+const ShownRoot := preload("res://scripts/fight3d/ShownRoot.gd")
 
 const CONTACT_S := 8.0 / 30.0
 ## When the glove lands, seconds into each move (natives frame 8; baked: the old repo's clip_phases contact_s).
@@ -136,7 +137,7 @@ func land(who: int, clip: String, body: bool, at_s: float = 0.0, contact_s: floa
 	pr.lunge_m = clampf(need - LEAN_COVER_M, 0.0, LUNGE_MAX_M)
 	var rest := need - LEAN_COVER_M - float(pr.lunge_m)
 	if rest > 0.03 and at_s > 0.0:
-		PunchRange.close_in(self, who, rest, at_s)
+		PunchRange.close_in(self, who, rest, at_s, PunchRange.floor_for(clip))
 
 
 ## HEADAIM2: `who` throws `clip` and it does NOT land (blocked, slipped, missed): the glove front's HEIGHT is aimed at
@@ -281,6 +282,7 @@ func _process(delta: float) -> void:
 		_ropes.tick(delta, boxers.map(func(bx): return bx["skel"]))
 	if scene:
 		RingFeet.scene(self, delta)
+		ShownRoot.reset(self)
 		camera.nudge(delta)
 		return
 	stun.tick(delta)
@@ -289,6 +291,7 @@ func _process(delta: float) -> void:
 	life.tick(delta)
 	_hold(delta)
 	_compose(delta)
+	ShownRoot.smooth(self, delta)   # HUMANFIGHT1: a jump of her place is covered over ~0.3 s, never in one frame
 	if not camera.close:
 		broadcast(false, delta)
 	camera.nudge(delta)

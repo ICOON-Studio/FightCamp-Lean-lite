@@ -31,6 +31,8 @@ const FighterLook := preload("res://scripts/rules/FighterLook.gd")
 const FighterFace := preload("res://scripts/fight3d/FighterFace.gd")
 const FighterLife := preload("res://scripts/fight3d/FighterLife.gd")
 const RkJoinFeet := preload("res://scripts/fight3d/RkJoinFeet.gd")
+const FloorStand := preload("res://scripts/fight3d/FloorStand.gd")
+const FootLock := preload("res://scripts/fight3d/FootLock.gd")
 
 
 static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
@@ -165,6 +167,10 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 			rig.want = 0.0
 			rig.w = 0.0
 	var fc := FloorClear.attach(skel) if not OS.get_cmdline_user_args().has("nofloor") else null
+	# HUMANFIGHT1: a standing boxer always has a foot on the canvas and none under it - the last leg layer, on in pure takes too.
+	# ... and a foot that stands on it stays where it stands, whoever has the legs (before the floor layer).
+	var fl := FootLock.attach(skel, ap, stage, rig)
+	var fs := FloorStand.attach(skel, ap, stage)
 	# FIGHTERLOOK1: breath, weight shifts, her stance, head and eyes on a face, blinks - after the tired sag, before the guard.
 	var life: Node = null
 	if not look.is_empty():
@@ -182,7 +188,7 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	if tw != null:
 		skel.move_child(tw, skel.get_child_count() - 1)
 	ap.animation_finished.connect(stage._on_finished.bind(index))
-	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "joinfeet": jf, "weave": gw, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "rig": rig, "floor": fc, "life": life, "look": look, "south": south, "front": gl.front_m(),
+	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "joinfeet": jf, "weave": gw, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "rig": rig, "floor": fc, "stand": fs, "lock": fl, "life": life, "look": look, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,
 		"aim_m": 0.0, "aim_dir": 0.0, "hold_m": 0.0}
 
