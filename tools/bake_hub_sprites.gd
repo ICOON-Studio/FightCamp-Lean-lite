@@ -48,8 +48,16 @@ const SPAN := {
 	"bag_body": Vector2(0.374, 1.373),    # full body_hook pose delta 0.81; this window 0.41
 	"bag_upper": Vector2(0.250, 1.185),   # full rear_uppercut pose delta 0.81; this window 0.38
 }
-## shadow: slip, then pull, then a jab. Each piece is [anim, from, to, frames]. 5+5+6 = 16.
-const SHADOW := [["slip", 0.0, 0.560, 5], ["pull", 0.0, 0.560, 5], ["jab", 0.0, 0.667, 6]]
+## shadow, one row per frame: clip, seconds. 6 slip + 4 pull + 6 jab. The slip ends on the pose it
+## shares with the pull. The pull ends on its closest jab frame, and the jab ends on its closest slip frame.
+const SHADOW_FRAMES := [
+	["slip", 0.533], ["slip", 0.450], ["slip", 0.360], ["slip", 0.280], ["slip", 0.480], ["slip", 0.600],
+	["pull", 0.600], ["pull", 0.560], ["pull", 0.540], ["pull", 0.533],
+	["jab", 0.333], ["jab", 0.250], ["jab", 0.150], ["jab", 0.050], ["jab", 0.100], ["jab", 0.167],
+]
+## The previous strip's three joins, so a bake can print the gap before this cut.
+const SHADOW_BEFORE := [["slip", 0.448, "pull", 0.000], ["pull", 0.448, "jab", 0.000], ["jab", 0.556, "slip", 0.000]]
+const POSE_BONES := ["Hips", "Head", "LeftHand", "RightHand", "LeftFoot", "RightFoot"]
 const BLUE_STEMS := ["02", "08", "12", "14", "17", "20", "23"]   # some vests blue, so a busy gym is not one red team
 const CAM_PITCH_DEG := 30.0  # looking down
 const CAM_DIST := 6.0
@@ -106,7 +114,7 @@ func _initialize() -> void:
 				g.visible = bool(row[3])
 			var strip: Image
 			if str(clip_name) == "shadow":
-				strip = await _render_parts(body, skel, ap, SHADOW, false)
+				strip = await _paint(body, skel, ap, SHADOW_FRAMES, false)
 			else:
 				strip = await _render_strip(body, skel, ap, str(row[0]), bool(row[2]), SPAN.get(str(clip_name), Vector2(-1, -1)))
 			var margin := _check_strip(strip)
@@ -116,6 +124,8 @@ func _initialize() -> void:
 				continue
 			var path := ProjectSettings.globalize_path(OUT.path_join("%s_%s.png" % [stem, clip_name]))
 			strip.save_png(path)
+			if str(clip_name) == "shadow":
+				_shadow_json(skel, ap, path.trim_suffix(".png") + ".json")
 			var sz := FileAccess.get_file_as_bytes(path).size()
 			print("HUBSPRITE %s_%s %s %.2fs (%dx%d, %d bytes, margin=%.1f)" % [stem, clip_name, row[0], ap.get_animation(str(row[0])).length, strip.get_width(), strip.get_height(), sz, margin])
 			results.append({"stem": stem, "clip": clip_name, "w": strip.get_width(), "h": strip.get_height(), "bytes": sz, "margin": margin})
@@ -125,6 +135,58 @@ func _initialize() -> void:
 		_write_result_doc(results)
 	print("HUBSPRITES done strips=%d failures=%d" % [results.size(), _failures])
 	quit(0 if _failures == 0 else 1)
+
+
+## Sum of the six bone distances, in metres, after the hips' sideways shift is taken off.
+## That sum is the pose gap in the GYMLIFE1 table (a printed 0.81 is this sum, to two decimals).
+func _pose_gap(skel: Skeleton3D, ap: AnimationPlayer, anim_a: String, ta: float, anim_b: String, tb: float) -> float:
+	var a := _pose_norm(skel, ap, anim_a, ta)
+	var b := _pose_norm(skel, ap, anim_b, tb)
+	var total := 0.0
+	for i in POSE_BONES.size():
+		total += a[i].distance_to(b[i])
+	return total
+
+
+func _pose_norm(skel: Skeleton3D, ap: AnimationPlayer, anim: String, t: float) -> Array:
+	if not ap.has_animation(anim):
+		return []
+	ap.play(anim)
+	ap.seek(clampf(t, 0.0, ap.get_animation(anim).length), true)
+	var hips := skel.get_bone_global_pose(skel.find_bone("Hips")).origin
+	var out: Array = []
+	for bone_name in POSE_BONES:
+		var origin := skel.get_bone_global_pose(skel.find_bone(bone_name)).origin
+		out.append(origin - Vector3(hips.x, 0.0, hips.z))
+	return out
+
+
+func _shadow_json(skel: Skeleton3D, ap: AnimationPlayer, path: String) -> void:
+	var joins: Array = []
+	var n := SHADOW_FRAMES.size()
+	for i in n:
+		var here: Array = SHADOW_FRAMES[i]
+		var nxt: Array = SHADOW_FRAMES[(i + 1) % n]
+		if str(here[0]) == str(nxt[0]):
+			continue
+		var old: Array = SHADOW_BEFORE[joins.size()]
+		var before := _pose_gap(skel, ap, str(old[0]), float(old[1]), str(old[2]), float(old[3]))
+		var after := _pose_gap(skel, ap, str(here[0]), float(here[1]), str(nxt[0]), float(nxt[1]))
+		print("SHADOW join %s@%.3f -> %s@%.3f before=%.3f after=%.3f" % [here[0], here[1], nxt[0], nxt[1], before, after])
+		joins.append({
+			"from": str(here[0]), "from_t": float(here[1]),
+			"to": str(nxt[0]), "to_t": float(nxt[1]),
+			"before": snapped(before, 0.001), "gap": snapped(after, 0.001),
+		})
+	var body := {"frames": n, "wide": FRAME_W, "tall": FRAME_H, "joins": joins}
+	var f := FileAccess.open(path, FileAccess.WRITE)
+	if f == null:
+		push_error("cannot write " + path)
+		_failures += 1
+		return
+	f.store_string(JSON.stringify(body, "  "))
+	f.close()
+
 
 
 func _setup_scene() -> void:

@@ -1,18 +1,24 @@
 extends Node
 ## S307 the fight's intro, once before round 1 (docs/FIGHT_NIGHT_SCRIPT.md v2 "Intro", Q-S294-12): both boxers in their
-## corners with their teams on the apron, the announcer names each (caption: corner, club, record) while she raises a
-## glove, both walk to the centre and touch gloves, "seconds out", the bell. About 13 s; SKIP jumps to the bell. Same
-## film look as the corner minute (CornerOverlay's letterbox, CornerCrew's walking and hands).
+## corners with their teams behind them, each warming up HER way (IntroStyle: a showman celebrates, a worker
+## shadow-boxes, a nervous one fidgets; the two never on the same clip), the tale of the tape, the announcer names each
+## (caption: corner, club, record) while she celebrates or raises a glove, both walk to the centre and touch gloves,
+## "seconds out", the bell. About 24 s; SKIP jumps to the bell. Same film look as the corner minute.
+## S436: ONE clock. The camera's shots and the cues are written from the same T_ marks (the seat's round had the
+## camera 4.5 s ahead: the red name call was filmed on the blue boxer, the blue one on an empty ring).
+## S436 (operator on the dark tape card: "thats terrible i asked to be switched with the one that was shown when
+## negotiating a contract"): the tape beat is the bout offer's versus picture (TapeVersus), without its buttons.
 ##   run(view, stage, crew, ctx)   ctx = {names: [full names], intros: [caption lines]}   emits done
 
 const CornerShots := preload("res://scripts/fight3d/CornerShots.gd")
 const CornerOverlay := preload("res://scripts/fight3d/CornerOverlay.gd")
 const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
-const TapeCard := preload("res://scripts/fight3d/TapeCard.gd")
+const TapeVersus := preload("res://scripts/ui/TapeVersus.gd")
 const CornerStart := preload("res://scripts/fight3d/CornerStart.gd")
 const RkClips := preload("res://scripts/fight3d/RkClips.gd")
 const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
 const CornerWarm := preload("res://scripts/fight3d/CornerWarm.gd")
+const IntroStyle := preload("res://scripts/fight3d/IntroStyle.gd")
 
 signal done
 
@@ -20,36 +26,27 @@ signal done
 ## film tools or the user arg `fromcorners`. The game's own fight keeps the full intro.
 static var from_corners := false
 
-## S310 (operator: "add the tale of the tape when the fighters stand on their starting corners for a while"): after the
-## opening wide, both hold in their corners TAPE_S while the tale of the tape (TaleOfTape / TapeCard) sits between them
-## on a level side shot; the announcer's names follow.
-const TAPE_S := 5.5
-## S317 (operator S316: "the first animation is about entering the ring through the ropes"): each boxer first ducks in
-## through the ropes on the side of her corner that faces the camera (FightClips "entry_ring", played pure), red first,
-## blue BLUE_ENTER_S later, each on her own shot; then she walks to her corner mark. ENTER_S before the corners.
-const ENTER_S := 8.8
-const BLUE_ENTER_S := 2.4
-## The clip ducks between the ropes from DUCK.x to DUCK.y s (hips lowest at 2.7 s): her body crosses the rope line then,
-## from OUT_M outside the ropes to IN_M inside, ENTRY_ALONG_M from her corner post along that side.
-const DUCK := Vector2(2.1, 3.35)
-const OUT_M := 0.45                  # on the apron (FightStage APRON_M 0.6), not past its edge
-const IN_M := 0.65
-const ENTRY_ALONG_M := 1.45
-const E := ENTER_S
+## S310 (operator: "add the tale of the tape when the fighters stand on their starting corners for a while").
+const WARM_S := IntroStyle.SEG_S * 2.0     # 7.4 s: the wide, then one look at each corner's own warm-up
+const TAPE_S := 4.5
+const NAME_S := IntroStyle.NAME_S
 ## S391 the walk to the centre is a boxer's step pairs in her guard (RingFeet), slower than af_walk: the touch waits for it.
-const WALK_MORE_S := 1.9
+const WALK_S := 4.3
 const TOUCH_LEAN_M := 0.03   # S391: leaned in her stance the glove's face tips down, the touch reads 5 cm short (corner_film 0.139 vs 0.089)
-const LENGTH_S := 13.0 + WALK_MORE_S + TAPE_S + E
-## [start s, framing]. S379 (docs/TV_CAMERA_RULES.md: no shot under 2 s): the wide 0.6 s before the corners, the
-## glove-touch two-shot holds to the bell.
-const SHOTS := [[0.0, "entry_red"], [BLUE_ENTER_S + 1.0, "entry_blue"], [E - 0.6, "wide"], [1.5 + E, "tape"],
-	[2.0 + TAPE_S + E, "red"], [5.0 + TAPE_S + E, "blue"], [8.0 + TAPE_S + E, "broadcast"], [10.1 + WALK_MORE_S + TAPE_S + E, "two_shot"]]
+const T_TAPE := WARM_S
+const T_RED := T_TAPE + TAPE_S
+const T_BLUE := T_RED + NAME_S
+const T_WALK := T_BLUE + NAME_S
+const T_TOUCH := T_WALK + WALK_S
+const LENGTH_S := T_TOUCH + 2.6
+## [start s, framing] (docs/TV_CAMERA_RULES.md: no shot under 2 s).
+const SHOTS := [[0.0, "wide"], [2.6, "red"], [5.0, "blue"], [T_TAPE, "tape"], [T_RED, "red"], [T_BLUE, "blue"],
+	[T_WALK, "broadcast"], [T_TOUCH - 0.3, "two_shot"]]
 ## [s, cue]
-const CUES := [[0.0, "enter_red"], [BLUE_ENTER_S, "enter_blue"], [5.6, "to_corner_red"], [5.6 + BLUE_ENTER_S, "to_corner_blue"],
-	[E, "corners"], [1.8 + E, "tape"], [1.6 + TAPE_S + E, "untape"], [2.0 + TAPE_S + E, "name_red"], [2.6 + TAPE_S + E, "raise_red"],
-	[4.4 + TAPE_S + E, "lower_red"], [5.0 + TAPE_S + E, "name_blue"], [5.6 + TAPE_S + E, "raise_blue"], [7.4 + TAPE_S + E, "lower_blue"],
-	[8.0 + TAPE_S + E, "walk"], [10.4 + WALK_MORE_S + TAPE_S + E, "touch"], [11.3 + WALK_MORE_S + TAPE_S + E, "untouch"],
-	[11.6 + WALK_MORE_S + TAPE_S + E, "seconds_out"], [12.6 + WALK_MORE_S + TAPE_S + E, "bell"]]
+const CUES := [[0.0, "corners"], [T_TAPE, "tape"], [T_RED - 0.5, "untape"],
+	[T_RED, "name_red"], [T_RED + 0.3, "raise_red"], [T_BLUE - 0.3, "lower_red"],
+	[T_BLUE, "name_blue"], [T_BLUE + 0.3, "raise_blue"], [T_WALK - 0.3, "lower_blue"],
+	[T_WALK, "walk"], [T_TOUCH, "touch"], [T_TOUCH + 0.9, "untouch"], [T_TOUCH + 1.2, "seconds_out"], [T_TOUCH + 2.2, "bell"]]
 
 var view: Node
 var stage: Node3D
@@ -62,11 +59,13 @@ var _shot := ""
 var _shot_t0 := 0.0
 var _frame: Dictionary = {}
 var _tape: Control = null
-const WARM_S := 1.8
-var _entering := [-1.0, -1.0]   # per boxer: intro time her entry began (-1 = not entering)
 var corners: RefCounted = null  # S379: the corner-start opening (CornerStart) when it plays instead
-var _warm := [{}, {}]           # per boxer: {clip: String, win: Vector2}
+var _warm := [{}, {}]           # per boxer: the clip she is on now {clip, from, to} ({} = none)
 var _warming := false
+var _plans := [{}, {}]          # per boxer: IntroStyle's plan {style, warm, name, hold}
+var _seg := [-1, -1]            # per boxer: the warm-up segment she is on
+var _named := [false, false]    # per boxer: her name call is on (the warm-up leaves her alone)
+var _drop_at := [-1.0, -1.0]    # per boxer: when a raised glove comes down by itself (a nervous boxer's quick one)
 
 
 func run(v: Node, s: Node3D, c: CornerCrew, context: Dictionary) -> void:
@@ -84,6 +83,7 @@ func run(v: Node, s: Node3D, c: CornerCrew, context: Dictionary) -> void:
 	view.add_child(ui)
 	ui.build_intro()
 	ui.skip.connect(finish)
+	_plan_intros()
 	if from_corners or OS.get_cmdline_user_args().has("fromcorners"):
 		corners = CornerStart.new()
 		corners.start(self)
@@ -98,7 +98,6 @@ func _process(delta: float) -> void:
 	while _cue_i < CUES.size() and float(CUES[_cue_i][0]) <= t:
 		call("cue_" + str(CUES[_cue_i][1]))
 		_cue_i += 1
-	_carry_in()
 	crew.tick(delta)
 	_camera(delta)
 	if t >= LENGTH_S:
@@ -130,13 +129,6 @@ func _framing(shot: String) -> Dictionary:
 	var blue: Dictionary = crew.corner("blue")
 	var side := ((blue["seat"] as Vector3) - (red["seat"] as Vector3)).normalized().cross(Vector3.UP).normalized()
 	match shot:
-		"entry_red", "entry_blue":
-			# From inside the ring, along her rope side and a little in: she ducks in toward the lens's side.
-			var e := _entry(0 if shot == "entry_red" else 1)
-			var at: Vector3 = e["rope"]
-			var p := at + (e["along"] as Vector3) * 2.6 + (e["in"] as Vector3) * 1.4 + Vector3.UP * 1.15
-			var look := at + Vector3.UP * 0.95
-			return {"pos": p, "look": look, "fov": 40.0, "focus": p.distance_to(look), "drift": (e["in"] as Vector3) * 0.3}
 		"wide", "wide_out":
 			# The whole ring from high over the neutral corner, a slow crane down. S380 (operator on a still through the
 			# ropes: "i thought you fixed the ropes, why old problems appear again?"): it stood 7.2 m out, outside the ropes;
@@ -163,37 +155,6 @@ func _framing(shot: String) -> Dictionary:
 	return {}
 
 
-## S380 a wide from the neutral corner on `side`, INSIDE the ropes (WIDE_IN_M in from them), `h` m up, looking at the ring's
-## middle at `look_h`: the fov opens until both corner seats fit, head to foot (16:9, +12 %), at most 70 deg.
-const WIDE_IN_M := 0.4
-
-
-func _inside_wide(side: Vector3, h: float, look_h: float, drift: Vector3) -> Dictionary:
-	var half := 2.75 - WIDE_IN_M   # FightStage.RING_M * 0.5 (no preload: FightStage builds the intro)
-	var from := Vector3(clampf(side.x * 9.0, -half, half), h, clampf(side.z * 9.0, -half, half))
-	var look := Vector3.UP * look_h
-	var need := 0.0
-	for e in [from, from + drift]:
-		var inv := Basis.looking_at(look - e, Vector3.UP).inverse()
-		for c in [crew.corner("red"), crew.corner("blue")]:
-			for y in [0.0, 1.9]:
-				var q: Vector3 = inv * (Vector3((c["seat"] as Vector3).x, y, (c["seat"] as Vector3).z) - e)
-				if -q.z > 0.1:
-					need = maxf(need, maxf(absf(q.y) / -q.z, absf(q.x) / -q.z / (16.0 / 9.0)))
-	var fov := clampf(rad_to_deg(2.0 * atan(need)) * 1.12, 30.0, 70.0)
-	return {"pos": from, "look": look, "fov": fov, "focus": from.distance_to(look), "drift": drift}
-
-
-## Where boxer i comes in: her rope side is the one of her corner's two that faces the wide camera (red: x = -half,
-## blue: z = +half). rope = the crossing point on the rope line; in = into the ring; along = from the post along that side.
-func _entry(i: int) -> Dictionary:
-	var post: Vector3 = crew.corner("red" if i == 0 else "blue")["post"]
-	var inward := Vector3(1, 0, 0) if i == 0 else Vector3(0, 0, -1)
-	var along := Vector3(0, 0, 1) if i == 0 else Vector3(-1, 0, 0)
-	var rope := post + along * ENTRY_ALONG_M
-	return {"rope": rope, "in": inward, "along": along, "out_at": rope - inward * OUT_M, "in_at": rope + inward * IN_M}
-
-
 func _scales() -> Array:
 	return [(stage.boxers[0]["node"] as Node3D).scale.y, (stage.boxers[1]["node"] as Node3D).scale.y]
 
@@ -204,88 +165,11 @@ func _corner_mark(i: int) -> Vector3:
 	return (c["seat"] as Vector3) + (c["d"] as Vector3) * 0.2
 
 
-func cue_enter_red() -> void:
-	_enter(0)
-	_enter(1, true)
-
-
-func cue_enter_blue() -> void:
-	_enter(1)
-
-
-## On the apron outside her rope side, facing in; the entry clip plays pure from its first frame. `wait` = blue is not
-## drawn until her own entry.
-func _enter(i: int, wait: bool = false) -> void:
-	var a: Dictionary = stage.boxers[i]
-	var e := _entry(i)
-	crew.place(a, e["out_at"], crew.yaw_to(e["out_at"], e["in_at"]))
-	(a["node"] as Node3D).visible = not wait
-	if wait:
-		return
-	var ap: AnimationPlayer = a["ap"]
-	stage._ropes.calm = true
-	if ap.has_animation("entry_ring"):
-		ap.play("entry_ring", 0.0)
-	_entering[i] = t
-
-
-## Carries an entering boxer through the ropes while the clip ducks (eased, so she leaves and lands at rest).
-func _carry_in() -> void:
-	for i in 2:
-		if _entering[i] < 0.0:
-			continue
-		var e := _entry(i)
-		var dt_e := t - float(_entering[i])
-		var u := clampf((dt_e - DUCK.x) / (DUCK.y - DUCK.x), 0.0, 1.0)
-		var at: Vector3 = (e["out_at"] as Vector3).lerp(e["in_at"], u * u * (3.0 - 2.0 * u))
-		var n: Node3D = stage.boxers[i]["node"]
-		n.position = Vector3(at.x, 0.0, at.z)
-		var skel: Skeleton3D = stage.boxers[i]["skel"]
-		var head_y: float = (skel.global_transform * skel.get_bone_global_pose(skel.find_bone("Head")).origin).y
-		var hips: Vector3 = skel.global_transform * skel.get_bone_global_pose(skel.find_bone("Hips")).origin
-		var rope_pt: Vector3 = e["rope"]
-		var in_dir: Vector3 = e["in"]
-		var near := 1.0 - clampf((Vector2(hips.x, hips.z).distance_to(Vector2(rope_pt.x, rope_pt.z)) - 0.5) / 0.45, 0.0, 1.0)
-		var through: float = (hips - rope_pt).dot(in_dir)
-		var at_through: float = (at - rope_pt).dot(in_dir)
-		var time_duck := clampf(minf((dt_e - 1.35) / 0.4, (3.85 - dt_e) / 0.4), 0.0, 1.0)
-		var pos_duck := clampf(1.0 - absf(at_through) / 0.52, 0.0, 1.0)
-		var duck := maxf(time_duck, pos_duck)
-		stage.boxers[i]["ik"].set_duck(duck)
-		var stand_h := 1.44 * maxf(1.0, n.scale.y)
-		var held := clampf((stand_h - minf(head_y, lerpf(stand_h + 0.02, 0.94, duck))) / 0.3, 0.0, 1.0) * near * clampf(1.0 - through / 0.42, 0.0, 1.0)
-		if OS.get_cmdline_user_args().has("ropelog"):
-			print("ROPELOG %d t=%.2f head=%.3f through=%.2f held=%.2f" % [i, dt_e, head_y, through, held])
-		stage._ropes.part(i, rope_pt, near * clampf(1.0 - through / 0.42, 0.0, 1.0))
-
-
-func cue_to_corner_red() -> void:
-	_to_corner(0)
-
-
-func cue_to_corner_blue() -> void:
-	_to_corner(1)
-
-
-func _to_corner(i: int) -> void:
-	_entering[i] = -1.0
-	stage._ropes.part(i, Vector3.ZERO, 0.0)
-	stage.boxers[i]["ik"].upright(0.0)
-	var a: Dictionary = stage.boxers[i]
-	var mark := _corner_mark(i)
-	crew.walk(a, mark, _turn_in.bind(i))
-
-
-func _turn_in(i: int) -> void:
-	crew.turn(stage.boxers[i], crew.yaw_to(_corner_mark(i), Vector3.ZERO), stage.guard.bind(i))
-
-
 ## Both stand in front of their stools' place in their guard; each corner's coach and second on the apron behind.
 func cue_corners() -> void:
 	for side in ["red", "blue"]:
 		var c: Dictionary = crew.corner(side)
 		var i := 0 if side == "red" else 1
-		_entering[i] = -1.0
 		stage._ropes.part(i, Vector3.ZERO, 0.0)
 		stage.boxers[i]["ik"].upright(0.0)
 		(stage.boxers[i]["node"] as Node3D).visible = true
@@ -310,26 +194,21 @@ static func _has_nowarm() -> bool:
 	return OS.get_cmdline_user_args().has("nowarm") or OS.get_cmdline_user_args().has("--nowarm") or OS.get_cmdline_args().has("--nowarm")
 
 
+## Each boxer's own intro (IntroStyle): the player's fighter from her personality, the opponent from her name.
+func _plan_intros() -> void:
+	var ap: AnimationPlayer = stage.boxers[0]["ap"]
+	var segments := int(ceil(T_BLUE / IntroStyle.SEG_S)) + 1
+	_plans = IntroStyle.plan_pair(ctx.get("personality_red", {}), ctx.get("personality_blue", {}), int(ctx.get("seed", 0)),
+		ap.has_animation, func(c: String) -> float: return ap.get_animation(c).length if ap.has_animation(c) else 0.0, segments)
+
+
 func _start_warm() -> void:
-	_warming = false
-	for i in 2:
-		var ap: AnimationPlayer = stage.boxers[i]["ap"]
-		var seed := CornerWarm.seed_for(int(ctx.get("seed", 0)), i)
-		var clip := CornerWarm.pick(seed, ap.has_animation)
-		# S399 ("right leg looks wierd ... extended and twisted?"): not the broken S381 owned takes - the captured guard
-		var rk: Array = RkClips.guards().filter(func(n): return ap.has_animation(n))
-		if not rk.is_empty():
-			clip = str(rk[posmod(seed, rk.size())])
-		if clip != "" and ap.has_animation(clip):
-			var anim := ap.get_animation(clip)
-			var win := CornerWarm.window(anim.length, seed, WARM_S)
-			_warm[i] = {"clip": clip, "win": win}
-			crew.play(stage.boxers[i], clip, 1.0, win.x)
-			_warming = true
-		else:
-			_warm[i] = {}
+	_warming = true
+	_seg = [-1, -1]
+	_tick_warm()
 
 
+## The segment the clock is in, per boxer; a clip shorter than its segment loops inside it.
 func _tick_warm() -> void:
 	if not _warming:
 		return
@@ -337,18 +216,31 @@ func _tick_warm() -> void:
 		_end_warm()
 		return
 	for i in 2:
-		if _warm[i].is_empty():
+		if _drop_at[i] >= 0.0 and t >= _drop_at[i]:
+			_drop_at[i] = -1.0
+			_raise(i, false)
+		if _named[i]:
+			_loop(i)
 			continue
-		var ap: AnimationPlayer = stage.boxers[i]["ap"]
-		var clip: String = _warm[i]["clip"]
-		var win: Vector2 = _warm[i]["win"]
-		if ap.current_animation != clip or not ap.is_playing() or ap.current_animation_position >= win.y - 0.001:
-			var a: Dictionary = stage.boxers[i]
-			if a.get("js") != null:
-				(a["js"] as Node).join(0.1, 0.3)
-			ap.seek(win.x, true)
-			if not ap.is_playing() or ap.current_animation != clip:
-				ap.play(clip, 0.0)
+		var warm: Array = (_plans[i] as Dictionary).get("warm", [])
+		if warm.is_empty():
+			continue
+		var k := mini(int(t / IntroStyle.SEG_S), warm.size() - 1)
+		if k != _seg[i]:
+			_seg[i] = k
+			_warm[i] = warm[k]
+			crew.play(stage.boxers[i], str(_warm[i]["clip"]), 1.0, float(_warm[i]["from"]), Vector2(0.2, 0.45))
+		_loop(i)
+
+
+## Her clip ran to its window's end (or stopped): back to the window's start through a short join.
+func _loop(i: int) -> void:
+	if (_warm[i] as Dictionary).is_empty():
+		return
+	var ap: AnimationPlayer = stage.boxers[i]["ap"]
+	var clip := str(_warm[i]["clip"])
+	if ap.current_animation != clip or not ap.is_playing() or ap.current_animation_position >= float(_warm[i]["to"]) - 0.02:
+		crew.play(stage.boxers[i], clip, 1.0, float(_warm[i]["from"]), Vector2(0.15, 0.35))
 
 
 func _end_warm() -> void:
@@ -356,21 +248,50 @@ func _end_warm() -> void:
 		return
 	_warming = false
 	_warm = [{}, {}]
+	_named = [false, false]
 	for i in 2:
+		_drop_at[i] = -1.0
+		_raise(i, false)
 		stage.guard(i)
 
 
+## The tale of the tape: the bout offer's versus picture over the ring (no buttons: the bout is on), faded in and out.
 func cue_tape() -> void:
-	_end_warm()
-	if not ctx.has("tape"):
-		return
-	_tape = TapeCard.build(ctx["tape"], ctx.get("names", ["", ""]))
-	ui.add_child(_tape)
-	TapeCard.show(_tape, true)
+	if view.get("main") == null or str(view.get("fid")) == "":
+		return   # a film tool's stage without a career: no tape
+	_tape = PanelContainer.new()
+	_tape.name = "IntroTape"
+	_tape.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_tape.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_tape.modulate.a = 0.0
+	ui.add_child(_tape)   # over the film bars: the picture fills the screen as it does at the bout offer
+	ui.move_child(ui._skip, -1)   # SKIP stays on top and clickable ...
+	_skip_at(Vector4(0.5, 1, 0.5, 1), Vector4(-136, -64, 136, -16))   # ... at the bottom, off the blue corner's name
+	TapeVersus.mount(_tape, view.main, {"fid": str(view.fid), "total": int(view.get("total"))}, false)
+	_fade(_tape, true)
 
 
 func cue_untape() -> void:
-	TapeCard.show(_tape, false)
+	_fade(_tape, false)
+	_skip_at(Vector4(1, 0, 1, 0), Vector4(-300, 22, -28, 70))   # CornerOverlay's own place for it
+
+
+func _skip_at(anchors: Vector4, offsets: Vector4) -> void:
+	var b: Button = ui._skip
+	b.anchor_left = anchors.x
+	b.anchor_top = anchors.y
+	b.anchor_right = anchors.z
+	b.anchor_bottom = anchors.w
+	b.offset_left = offsets.x
+	b.offset_top = offsets.y
+	b.offset_right = offsets.z
+	b.offset_bottom = offsets.w
+
+
+func _fade(card: Control, on: bool) -> void:
+	if card == null:
+		return
+	card.create_tween().tween_property(card, "modulate:a", 1.0 if on else 0.0, 0.4)
 
 
 func cue_name_red() -> void:
@@ -382,19 +303,51 @@ func cue_name_blue() -> void:
 
 
 func cue_raise_red() -> void:
-	_raise(0, true)
+	_name_call(0)
 
 
 func cue_lower_red() -> void:
-	_raise(0, false)
+	_name_over(0)
 
 
 func cue_raise_blue() -> void:
-	_raise(1, true)
+	_name_call(1)
 
 
 func cue_lower_blue() -> void:
-	_raise(1, false)
+	_name_over(1)
+
+
+## Her name is called: a showman celebrates (a clip of her own), the others raise a glove over their bounce - a nervous
+## one only for a moment.
+func _name_call(i: int) -> void:
+	var nm: Dictionary = (_plans[i] as Dictionary).get("name", {})
+	_named[i] = true
+	if str(nm.get("clip", "")) != "":
+		_warm[i] = nm
+		crew.play(stage.boxers[i], str(nm["clip"]), 1.0, float(nm["from"]), Vector2(0.2, 0.45))
+		return
+	_hold(i)
+	_raise(i, true)
+	_drop_at[i] = t + float(nm.get("raise_s", 2.4))
+
+
+## After her call she stays loose on her hold clip until the walk.
+func _name_over(i: int) -> void:
+	_drop_at[i] = -1.0
+	_raise(i, false)
+	_hold(i)
+
+
+func _hold(i: int) -> void:
+	var hold := str((_plans[i] as Dictionary).get("hold", ""))
+	var ap: AnimationPlayer = stage.boxers[i]["ap"]
+	if hold == "" or not ap.has_animation(hold):
+		_warm[i] = {}
+		stage.guard(i)
+		return
+	_warm[i] = {"clip": hold, "from": 0.0, "to": ap.get_animation(hold).length}
+	crew.play(stage.boxers[i], hold, 1.0, 0.0, Vector2(0.2, 0.45))
 
 
 ## Her rear glove up to the crowd (her hand IK), then back to the guard.
@@ -436,10 +389,26 @@ func cue_touch() -> void:
 		var a: Dictionary = stage.boxers[i]
 		var hand: String = str(stage.hand_of(i, "LeftHand")).trim_suffix("Hand")
 		var rear: String = str(stage.hand_of(i, "RightHand")).trim_suffix("Hand")
-		var at := CornerShots.touch_at(stage.boxers, i, TOUCH_LEAN_M if RingFeet.on(stage, a) else 0.0)
-		a["ik"].reach(hand, func(): return at)
-		a["ik"].reach(rear, func(): return CornerShots.low_glove(a, rear))   # S399: the rear glove off her face
+		var lean := TOUCH_LEAN_M if RingFeet.on(stage, a) else 0.0
+		# S436: read every frame - she straightens up after this cue, and a point fixed here left the gloves 10 cm apart
+		a["ik"].reach(hand, func(): return CornerShots.touch_at(stage.boxers, i, lean))
+		# S436 (operator on the two-shot: "this pose is wrong, not normal"): the rear glove was held low beside the lead
+		# one, so both gloves pushed out together from a hunched back. A glove touch is ONE glove out; the other arm
+		# hangs loose by her own hip, and she stands up out of her crouch for it.
+		a["ik"].reach(rear, func(): return _rest_glove(a, rear))
+		a["ik"].upright(TOUCH_UPRIGHT_DEG)
 		crew.look(a, stage.boxers[1 - i])
+
+
+## Her resting glove at the touch: down by her own hip, a little forward and out (off her thigh).
+const TOUCH_UPRIGHT_DEG := 9.0
+const REST := Vector3(0.10, 0.02, 0.27)   # forward, below the hips bone, out to her side (m at scale 1)
+
+
+func _rest_glove(a: Dictionary, hand: String) -> Vector3:
+	var s: float = (a["node"] as Node3D).scale.x
+	var out := 1.0 if hand == "Left" else -1.0   # side() is her own left
+	return CornerShots.bone(a, "Hips") + (CornerShots.fwd(a) * REST.x - Vector3.UP * REST.y + CornerShots.side(a) * out * REST.z) * s
 
 
 func cue_untouch() -> void:
@@ -477,7 +446,6 @@ func finish() -> void:
 		a["ik"].upright(0.0)
 		crew.look(a, null)
 		(a["node"] as Node3D).visible = true
-	_entering = [-1.0, -1.0]
 	stage._ropes.calm = false
 	for i in 2:
 		stage._ropes.part(i, Vector3.ZERO, 0.0)

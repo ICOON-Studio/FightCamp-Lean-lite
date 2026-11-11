@@ -3,6 +3,7 @@ extends RefCounted
 ## teams (CornerCrew), and the corner minute between rounds (CornerMinute, docs/FIGHT_NIGHT_SCRIPT.md v2).
 ##   bodies_for(f, opp)  body_scales(f, opp)  crew(stage, pro)  intro(view) -> bool  corner(view) -> bool
 
+const IntroStyle := preload("res://scripts/fight3d/IntroStyle.gd")
 const HabitFix := preload("res://scripts/rules/HabitFix.gd")
 const Adaptation := preload("res://scripts/rules/Adaptation.gd")
 const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
@@ -152,7 +153,8 @@ static func intro(view: Node) -> bool:
 	# S310 the tale of the tape: her height is the body the ring draws her with until she has her own.
 	var tape := TaleOfTape.rows(f, opp, c.gym_name, Faces.cm(Faces.stem(f)))
 	fi.run(view, view.stage, view.crew, {"intros": intros, "tape": tape, "names": [str(f["name"]), str(opp["name"])],
-		"seed": c.day * 97 + str(opp["name"]).hash()})
+		"seed": c.day * 97 + str(opp["name"]).hash(), "personality_red": f.get("personality", {}),
+		"personality_blue": IntroStyle.from_name(str(opp["name"]))})
 	return true
 
 

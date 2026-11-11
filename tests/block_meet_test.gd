@@ -9,19 +9,18 @@ extends SceneTree
 ##   to_face >= 0.08 m (punch does not reach the face; a landed one reads <= 0.021)
 ##   wrist: the blocking elbow-to-wrist distance changes <= 0.01 m (S420: the lift may not tear the hand off the arm)
 ##   glove_y_minus_face_y: -0.08 to +0.06 m (block at face height)
-##   gap: 0.80-1.10 m, else VOID
+##   gap: within 0.04 m of the stage's own standing gap (tests/ruler_stand.gd, S436), else VOID
 ##   CTRL_LANDED < 0.05 m (landed punch ruler still holds)
 ##   python ops/Tools/godot_slot.py run --who qwen -- <godot.exe> --headless --audio-driver Dummy --path . --script res://tests/block_meet_test.gd
 
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
+const Stand := preload("res://tests/ruler_stand.gd")   # S436: the bodies stand at the stage's own gap, and the row knows it
 
 const HZ := 30.0
 const BOXER_A := "mh_boxer_10"
 const BOXER_B := "mh_boxer_12"
 const BLOCK_CLIP := "mc_to_block"
-const GAP_LO := 0.80
-const GAP_HI := 1.10
 const BETWEEN_TOL := 0.15
 const CTRL_LANDED_BAR := 0.05
 const SCAN_BEFORE := 0.10
@@ -39,6 +38,8 @@ const CLIPS := ["pro_left_jab", "pro_right_cross", "pro_left_hook", "pro_right_h
 const MOVE_MAP := {"pro_left_jab": "jab", "pro_right_cross": "cross", "pro_left_hook": "lead_hook", "pro_right_hook": "rear_hook"}
 
 var failures := 0
+var rows_read := 0
+var rows_total := 0
 
 
 func _initialize() -> void:
@@ -47,6 +48,7 @@ func _initialize() -> void:
 	await _run_setup(BOXER_A, BOXER_B, "A_B")
 	await _run_setup(BOXER_B, BOXER_A, "B_A")
 	await _run_setup(BOXER_A, BOXER_A, "A_A")
+	print("BLOCK_MEET rows read=%d of %d" % [rows_read, rows_total])
 	print("BLOCK_MEET failures=%d" % failures)
 	quit(0 if failures == 0 else 1)
 
@@ -71,27 +73,17 @@ func _bone_world(skel: Skeleton3D, bone: String) -> Vector3:
 	return skel.global_transform * skel.get_bone_global_pose(i).origin
 
 
-func _hips_gap(stg: Node3D) -> float:
-	var a: Vector3 = _bone_world(stg.boxers[0]["skel"], "Hips")
-	var b: Vector3 = _bone_world(stg.boxers[1]["skel"], "Hips")
-	return Vector2(a.x - b.x, a.z - b.z).length()
-
-
-const STAND_S := 30.0
+## Both back on their marks, held still until the hips gap stops moving (tests/ruler_stand.gd); returns that gap.
 func _reset(stg: Node3D) -> float:
-	stg.boxers[0]["pos"] = Vector3(0, 0, -stg.gap_m * 0.5)
-	stg.boxers[1]["pos"] = Vector3(0, 0, stg.gap_m * 0.5)
-	stg.guard(0)
-	stg.guard(1)
-	stg.feet._pause = [STAND_S, STAND_S]   # S426: no rhythm step or fidget starts mid-read (the rows' gap ran 0.84-1.05 run to run)
-	stg.life._quiet = [STAND_S, STAND_S]
-	for i in 3:
-		await process_frame
-	return _hips_gap(stg)
+	return await Stand.stand(stg, self)
 
 
 func _run_setup(glb_puncher: String, glb_blocker: String, setup: String) -> void:
 	var stg: Node3D = await _make_stage(glb_puncher, glb_blocker)
+	if not await Stand.open(stg, self):
+		failures += 1
+		print("FAIL STAND: two stands of the same pair disagree, no gap to hold the rows to")
+	print("PAIR %s stand=%.3f root_gap=%.3f" % [setup, Stand.ref(stg), stg.gap_m])
 	_wrists(stg.boxers[1]["skel"])   # S420: the wrist ruler's attachments, made once before any timeline
 	for clip in CLIPS:
 		await _run_blocked(stg, 0, 1, clip, setup, "fight")
@@ -106,15 +98,16 @@ func _run_setup(glb_puncher: String, glb_blocker: String, setup: String) -> void
 ## Fight path: block starts BLOCK_SET_S before contact (shared constant).
 ## Preview path: MoveStudio.defend timing (jab only).
 func _run_blocked(stg: Node3D, puncher: int, blocker: int, clip: String, setup: String, path: String) -> void:
+	rows_total += 1
 	# S435 (ANIM_AUDIT_S435 A10): a missing clip or a gap out of range is a failure, never a silent pass.
 	if not (stg.boxers[puncher]["ap"] as AnimationPlayer).has_animation(clip) or not (stg.boxers[blocker]["ap"] as AnimationPlayer).has_animation(BLOCK_CLIP):
 		failures += 1
 		print("FAIL SKIP %s %s %s: a clip is missing" % [setup, path, clip])
 		return
 	var gap: float = await _reset(stg)
-	if gap < GAP_LO or gap > GAP_HI:
+	if not Stand.held(stg, gap):
 		failures += 1
-		print("FAIL VOID %s %s %s gap=%.3f outside %.2f to %.2f" % [setup, path, clip, gap, GAP_LO, GAP_HI])
+		print("FAIL VOID %s %s %s gap=%.3f, the stage's own gap is %.3f (band %.2f)" % [setup, path, clip, gap, Stand.ref(stg), Stand.BAND_M])
 		return
 	var move: String = MOVE_MAP.get(clip, "jab")
 	var punch_speed: float = BeatClips.speed(clip, move)
@@ -200,7 +193,10 @@ func _run_blocked(stg: Node3D, puncher: int, blocker: int, clip: String, setup: 
 				"to_glove": to_glove, "touch": touch, "gy_minus_fy": gy_minus_fy,
 				"between": between, "gap": gap}
 	if best_row.is_empty():
+		failures += 1
+		print("FAIL SKIP %s %s %s: no frame was read" % [setup, path, clip])
 		return
+	rows_read += 1
 	var r: Dictionary = best_row
 	var touch_val: float = float(r["touch"])
 	var between_ok: bool = bool(r["between"])
@@ -231,15 +227,17 @@ func _run_blocked(stg: Node3D, puncher: int, blocker: int, clip: String, setup: 
 
 ## CTRL_LANDED: punch lands (stage.land). to_face must be under CTRL_LANDED_BAR.
 func _run_ctrl_landed(stg: Node3D, puncher: int, blocker: int, clip: String, setup: String) -> void:
+	rows_total += 1
 	if not (stg.boxers[puncher]["ap"] as AnimationPlayer).has_animation(clip):
 		failures += 1
 		print("FAIL SKIP %s ctrl %s: the clip is missing" % [setup, clip])
 		return
 	var gap: float = await _reset(stg)
-	if gap < GAP_LO or gap > GAP_HI:
+	if not Stand.held(stg, gap):
 		failures += 1
-		print("FAIL VOID %s ctrl %s gap=%.3f outside %.2f to %.2f" % [setup, clip, gap, GAP_LO, GAP_HI])
+		print("FAIL VOID %s ctrl %s gap=%.3f, the stage's own gap is %.3f (band %.2f)" % [setup, clip, gap, Stand.ref(stg), Stand.BAND_M])
 		return
+	rows_read += 1
 	var move: String = MOVE_MAP.get(clip, "jab")
 	var punch_speed: float = BeatClips.speed(clip, move)
 	var contact_s: float = BeatClips.contact(clip, 8.0 / 30.0)

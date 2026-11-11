@@ -43,7 +43,11 @@ func _initialize() -> void:
 		var clips: Array = []
 		for bx in view.stage.boxers:
 			clips.append(str((bx["ap"] as AnimationPlayer).current_animation))
-		print("INTRO_SHOT %02d t=%.1f clips=%s playing=%s" % [saved, t, clips, str(view.get("playing"))])
+		# S435: extend with game time, camera name, and cue name
+		var intro_t: float = view.get("t") if view.get("t") != null else 0.0
+		var shot: String = str(view.get("_shot")) if view.get("_shot") != null else ""
+		var cue_i: int = int(view.get("_cue_i")) if view.get("_cue_i") != null else 0
+		print("INTRO_SHOT %02d t=%.1f game_t=%.2f cam=%s cue_i=%d clips=%s playing=%s" % [saved, t, intro_t, shot, cue_i, clips, str(view.get("playing"))])
 		saved += 1
 		await create_timer(step).timeout
 		t += step

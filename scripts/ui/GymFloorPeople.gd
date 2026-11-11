@@ -17,8 +17,6 @@ const FRAMES := 16
 const FADE := 0.3
 const GAP := Vector2(6.0, 14.0)
 const WALK_PX := 160.0
-const FIG_FAR := 0.12
-const FIG_NEAR := 0.16
 const MORE := ["mh_boxer_02", "mh_boxer_10", "mh_boxer_12", "mh_boxer_14", "mh_boxer_15", "mh_boxer_18", "mh_boxer_20"]
 var people: Array = []
 var spots: Array = []
@@ -29,6 +27,9 @@ var _corner := Vector2.ZERO
 var _k := 0.0
 var _wait := 0.0
 var _minute := 0.0
+var _stems: Array = []
+var _pins: Array = []
+var salt := 0
 func _init() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 func _ready() -> void:
@@ -37,6 +38,7 @@ func _ready() -> void:
 	queue_redraw()
 func setup(c: Career, stems: Array) -> void:
 	_career = c
+	_stems = stems.duplicate()
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_minute = 0.0
 	_place(stems)
@@ -45,11 +47,14 @@ func setup(c: Career, stems: Array) -> void:
 func lay(corner: Vector2, k: float) -> void:
 	_corner = corner
 	_k = k
+	if _blocked_now():
+		_place(_stems)
 	queue_redraw()
 func _arm() -> void:
 	set_process(not MenuFx.instant and not people.is_empty())
 func _place(stems: Array) -> void:
 	spots = _read()
+	_pins = GymFloorSpots.pin_rects(self, _corner, _k)
 	var crowd: Array = GymPeople.crowd(_career.members, stems, _career.premises)
 	var n: int = mini(crowd.size(), spots.size())
 	_rng.seed = _seed()
@@ -82,7 +87,7 @@ func _place(stems: Array) -> void:
 				pool.append(stem)
 	var open: Array = []
 	for i in spots.size():
-		if not used.has(str(spots[i]["id"])):
+		if not used.has(str(spots[i]["id"])) and _stands(spots[i]["at"]):
 			open.append(i)
 	var picked := _shuffle(open, pool.size())
 	for i in picked.size():
@@ -92,13 +97,14 @@ func _person(stem: String, who: String, spot: Dictionary) -> Dictionary:
 	var kind := str(spot["kind"])
 	return {"stem": stem, "who": who, "id": str(spot["id"]), "kind": kind, "at": spot["at"], "clock": _rng.randf_range(0.0, 2.0), "alpha": 1.0, "phase": "hold", "dest": "", "path": [], "clip": GymWorkouts.pick(kind, who, 0.0), "fade": 0.0}
 func _seed() -> int:
-	var h := hash(",".join(PackedStringArray(GymSlots.owned(_career.gym_slots, _career.day))))
+	var text := ",".join(PackedStringArray(GymSlots.owned(_career.gym_slots, _career.day)))
+	var h := hash(text if salt == 0 else "%s#%d" % [text, salt])
 	return 1 if h == 0 else h
 func _read() -> Array:
 	return [] if _career == null else GymFloorSpots.spots(_career.gym_slots, _career.day)
 func _free_kind(kind: String, used: Dictionary) -> Dictionary:
 	for s in spots:
-		if str(s["kind"]) == kind and not used.has(str(s["id"])):
+		if str(s["kind"]) == kind and not used.has(str(s["id"])) and _stands(s["at"]):
 			return s
 	return {}
 func _shuffle(idx: Array, n: int) -> Array:
@@ -165,7 +171,7 @@ func _open_ids() -> Array:
 			taken[str(p["dest"])] = true
 	var free: Array = []
 	for s in spots:
-		if not taken.has(str(s["id"])):
+		if not taken.has(str(s["id"])) and _stands(s["at"]):
 			free.append(str(s["id"]))
 	return free
 func _count(phases: Array) -> int:
@@ -241,23 +247,17 @@ func _route_px(from_id: String, to_id: String) -> Array:
 	var route: Array = GymPeople.route(plan, a, b)
 	if route.size() < 2:
 		return []
-	var start: Vector2 = _spot(from_id)["at"]
-	var end: Vector2 = _spot(to_id)["at"]
-	var out: Array = []
-	for i in route.size():
-		out.append(start.lerp(end, float(i) / float(route.size() - 1)))
-	return out
+	return GymFloorSpots.route_px(route, _spot(from_id)["at"], _spot(to_id)["at"])
 func _tile(spot_id: String, plan: Dictionary) -> Vector2i:
-	var kind := str(_spot(spot_id).get("kind", ""))
-	if kind == "" or kind == "cardio":
-		return Vector2i(-999, -999)
-	var hits: Array = []
-	for s in GymPeople.spots(plan):
-		if str(s["kind"]) == kind:
-			hits.append(s["at"])
-	if hits.is_empty():
-		return Vector2i(-999, -999)
-	return hits[absi(hash(spot_id)) % hits.size()]
+	return GymFloorSpots.plan_tile(spot_id, str(_spot(spot_id).get("kind", "")), plan)
+func _stands(at) -> bool:
+	return not GymFloorSpots.covered(at, _corner, _k, _pins)
+func _blocked_now() -> bool:
+	_pins = GymFloorSpots.pin_rects(self, _corner, _k)
+	for p in people:
+		if not _stands(p["at"]):
+			return true
+	return false
 func _spot(id: String) -> Dictionary:
 	for s in spots:
 		if str(s["id"]) == id:
@@ -284,8 +284,7 @@ func _blit(p: Dictionary) -> void:
 	draw_set_transform(_corner + feet * _k, 0.0, Vector2(sc, sc))
 	draw_texture_rect_region(tex, Rect2(-FEET, Vector2(FW, FH)), Rect2(float(frame) * FW, 0.0, FW, FH), Color(1, 1, 1, float(p["alpha"])))
 func _fig_h(y: float) -> float:
-	var picture_h: float = GymFloorSpots.PICTURE.y * _k
-	return lerpf(FIG_FAR, FIG_NEAR, (y / GymFloorSpots.PICTURE.y - 0.40) / 0.60) * picture_h
+	return GymFloorSpots.fig_h(y, _k)
 func _strip(stem: String, clip: String) -> Texture2D:
 	var key := stem + clip
 	if not _tex.has(key):

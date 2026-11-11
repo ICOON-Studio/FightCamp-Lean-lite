@@ -1,6 +1,6 @@
 extends RefCounted
 ## Fight night's tale of the tape: the bout offer's versus picture, full screen, with the night's own lines.
-##   mount(panel, main, m) draws it on the fight-night panel.
+##   mount(panel, main, m) draws it on the fight-night panel; mount(.., false) = no buttons (the 3D intro, S436).
 ##   tape_rows(f, opp, her_cm) is the same list every tape screen reads (TapeRows).
 
 const UI := preload("res://scripts/ui/UI.gd")
@@ -26,7 +26,7 @@ static func tape_rows(f: Dictionary, opp: Dictionary, her_cm: float = 0.0) -> Ar
 	return TapeRows.rows(f, opp, her_cm)
 
 
-static func mount(panel: PanelContainer, main: Node, m: Dictionary) -> void:
+static func mount(panel: PanelContainer, main: Node, m: Dictionary, buttons: bool = true) -> void:
 	panel.theme_type_variation = ""
 	panel.custom_minimum_size = Vector2(1920, 1080)
 	panel.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
@@ -50,10 +50,12 @@ static func mount(panel: PanelContainer, main: Node, m: Dictionary) -> void:
 	pad.add_theme_constant_override("margin_top", 24)
 	pad.add_theme_constant_override("margin_bottom", 24)
 	panel.add_child(pad)
-	pad.add_child(_picture(main, c, f, opp, m))
+	pad.add_child(_picture(main, c, f, opp, m, buttons))
+	if not buttons:
+		WoodKit.ink(panel)   # outside the menus nobody runs the ink pass: the slate's words would stay in the paper ink
 
 
-static func _picture(main: Node, c: Career, f: Dictionary, opp: Dictionary, m: Dictionary) -> Control:
+static func _picture(main: Node, c: Career, f: Dictionary, opp: Dictionary, m: Dictionary, buttons: bool = true) -> Control:
 	var stems: Array = Faces.pair(f, opp)
 	var poses: Array = FighterPose.pair(str(stems[0]), str(stems[1]), str(f.get("id", "")) + str(c.day))
 	var crests: Array = ClubCrest.pair(c.gym_name, str(opp.get("club", "")))
@@ -61,12 +63,12 @@ static func _picture(main: Node, c: Career, f: Dictionary, opp: Dictionary, m: D
 	var root := UI.hbox(0)
 	root.name = "Versus"
 	root.add_child(VersusPanel.side(str(f["name"]), "%s · your fighter" % str(f["wc"]), str(stems[0]), "red", str(tags[0]), false, int(poses[0]), str(crests[0]), hash(str(f.get("id", "")) + "r"), 20, 20, FOOT, false))
-	root.add_child(_card(main, c, f, opp, m))
+	root.add_child(_card(main, c, f, opp, m, buttons))
 	root.add_child(VersusPanel.side(str(opp["name"]), "%s · %s" % [str(f["wc"]), str(opp.get("club", ""))], str(stems[1]), "blue", str(tags[1]), true, int(poses[1]), str(crests[1]), hash(str(opp.get("name", "")) + "b"), 20, 20, FOOT, false))
 	return root
 
 
-static func _card(main: Node, c: Career, f: Dictionary, opp: Dictionary, m: Dictionary) -> Control:
+static func _card(main: Node, c: Career, f: Dictionary, opp: Dictionary, m: Dictionary, buttons: bool = true) -> Control:
 	var p := PanelContainer.new()
 	p.name = "VersusCard"
 	p.custom_minimum_size = Vector2(VersusPanel.CARD_W, 0)
@@ -76,9 +78,18 @@ static func _card(main: Node, c: Career, f: Dictionary, opp: Dictionary, m: Dict
 	p.add_child(v)
 	var total := int(m.get("total", BoutRules.ROUNDS))
 	var day := int((f.get("bout", {}) as Dictionary).get("day", c.day))
-	v.add_child(_centre(UI.label(Clock.fmt(day).to_upper(), 22, UI.FG, "bold")))
-	v.add_child(VersusPanel.gap(4))
-	v.add_child(_centre(UI.label("%d x 3 min" % total, 22, UI.FG, "bold")))
+	if buttons:
+		v.add_child(_centre(UI.label(Clock.fmt(day).to_upper(), 22, UI.FG, "bold")))
+		v.add_child(VersusPanel.gap(4))
+		v.add_child(_centre(UI.label("%d x 3 min" % total, 22, UI.FG, "bold")))
+	else:
+		# S436 the 3D intro's tape (operator: "adjust without the contract offer options and refine it a little bit"): a
+		# broadcast card - its title, the bout in one line, the VS, the six rows. The camp and scouting lines are for the
+		# decision before the fight and stay on fight night's own page.
+		v.add_child(_centre(UI.caps("TALE OF THE TAPE")))
+		v.add_child(VersusPanel.gap(2))
+		v.add_child(_centre(UI.label("%s · %s · %d X 3 MIN" % [Clock.fmt(day).to_upper(), str(f.get("wc", "")).to_upper(), total], 20, UI.FG, "bold")))
+		v.add_child(_centre(UI.display("VS", 64, UI.RED)))
 	v.add_child(VersusPanel.gap(8))
 	var cm := Faces.cm(Faces.stem(f))
 	for r in tape_rows(f, opp, cm):
@@ -86,13 +97,16 @@ static func _card(main: Node, c: Career, f: Dictionary, opp: Dictionary, m: Dict
 		var key := str(row["label"])
 		if not SHOW.has(key):
 			continue
+		if not buttons and (str(row["left"]) in ["?", "-", ""] or str(row["right"]) in ["?", "-", ""]):
+			continue   # a broadcast card shows no question mark: a fact one corner lacks is left off
 		VersusPanel.draw_fact(v, row, str(TITLE[key]), 20, 25, 190.0)
-	v.add_child(VersusPanel.gap(8))
-	v.add_child(_camp_line(f))
-	v.add_child(VersusPanel.gap(4))
-	v.add_child(_scout_line(opp))
-	v.add_child(VersusPanel.gap(10))
-	v.add_child(_buttons(main, total))
+	if buttons:
+		v.add_child(VersusPanel.gap(8))
+		v.add_child(_camp_line(f))
+		v.add_child(VersusPanel.gap(4))
+		v.add_child(_scout_line(opp))
+		v.add_child(VersusPanel.gap(10))
+		v.add_child(_buttons(main, total))
 	return p
 
 

@@ -6,10 +6,10 @@ extends SceneTree
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
+const Stand := preload("res://tests/ruler_stand.gd")   # S436: the bodies stand at the stage's own gap, and the row knows it
 
 const HZ := 30.0
 const HEIGHT_BAR := 0.06
-const GAP_TOL := 0.05
 const FLAT_MAX := 0.7
 const SMOOTH_TOL := 0.30            # IK sensitivity: large height changes cause disproportionate wrist jumps
 const DEPTH_TOL := 0.20            # IK geometry: solving for a different height shifts _along, causing X/Z drift
@@ -19,6 +19,8 @@ const BOXER_B := "mh_boxer_12"  # 178 cm
 const CLIP_MAP := {"jab": "pro_left_jab", "cross": "pro_right_cross", "lead_hook": "pro_left_hook", "rear_hook": "pro_right_hook"}
 
 var failures := 0
+var rows_read := 0
+var rows_total := 0
 
 
 func _initialize() -> void:
@@ -47,6 +49,7 @@ func _initialize() -> void:
 	await _await_pair(s3, "jab", "jab", "landed_jab_unlanded_jab")
 	s3.queue_free()
 	await process_frame
+	print("HEAD_AIM rows read=%d of %d" % [rows_read, rows_total])
 	print("HEAD_AIM failures=%d" % failures)
 	quit(0 if failures == 0 else 1)
 
@@ -62,9 +65,12 @@ func _make_stage() -> Node3D:
 	stg.set_process(true)
 	for i in 3:
 		await process_frame
+	if not await Stand.open(stg, self):
+		failures += 1
+		print("FAIL STAND: two stands of the same pair disagree, no gap to hold the rows to")
 	var ha: float = _body_height(stg.boxers[0]["skel"])
 	var hb: float = _body_height(stg.boxers[1]["skel"])
-	print("PAIR A=%s(%.3f) B=%s(%.3f) gap=%.3f" % [BOXER_A, ha, BOXER_B, hb, stg.gap_m])
+	print("PAIR A=%s(%.3f) B=%s(%.3f) gap=%.3f stand=%.3f" % [BOXER_A, ha, BOXER_B, hb, stg.gap_m, Stand.ref(stg)])
 	return stg
 
 
@@ -79,9 +85,12 @@ func _make_stage_same() -> Node3D:
 	stg.set_process(true)
 	for i in 3:
 		await process_frame
+	if not await Stand.open(stg, self):
+		failures += 1
+		print("FAIL STAND: two stands of the same pair disagree, no gap to hold the rows to")
 	var ha: float = _body_height(stg.boxers[0]["skel"])
 	var hb: float = _body_height(stg.boxers[1]["skel"])
-	print("PAIR A=%s(%.3f) A=%s(%.3f) gap=%.3f" % [BOXER_A, ha, BOXER_A, hb, stg.gap_m])
+	print("PAIR A=%s(%.3f) A=%s(%.3f) gap=%.3f stand=%.3f" % [BOXER_A, ha, BOXER_A, hb, stg.gap_m, Stand.ref(stg)])
 	return stg
 
 
@@ -93,28 +102,9 @@ func _body_height(skel: Skeleton3D) -> float:
 	return (skel.get_bone_global_rest(hi).origin - skel.get_bone_global_rest(fi).origin).length()
 
 
-func _hips_gap(stage: Node3D) -> float:
-	var a: Vector3 = _bone_world(stage.boxers[0]["skel"], "Hips")
-	var b: Vector3 = _bone_world(stage.boxers[1]["skel"], "Hips")
-	return Vector2(a.x - b.x, a.z - b.z).length()
-
-
-func _bone_world(skel: Skeleton3D, bone: String) -> Vector3:
-	var i: int = skel.find_bone(bone)
-	if i < 0:
-		return Vector3.ZERO
-	return skel.global_transform * skel.get_bone_global_pose(i).origin
-
-
-## Reset positions, wait, return Hips gap.
+## Both back on their marks, held still until the hips gap stops moving (tests/ruler_stand.gd); returns that gap.
 func _reset(stage: Node3D) -> float:
-	stage.boxers[0]["pos"] = Vector3(0, 0, -stage.gap_m * 0.5)
-	stage.boxers[1]["pos"] = Vector3(0, 0, stage.gap_m * 0.5)
-	stage.guard(0)
-	stage.guard(1)
-	for i in 3:
-		await process_frame
-	return _hips_gap(stage)
+	return await Stand.stand(stage, self)
 
 
 ## Measure one punch (noaim or aim-on) at contact. Returns {dy, flat, jump}.
@@ -157,6 +147,7 @@ func _measure_one(stage: Node3D, who: int, other: int, clip: String, use_aim: bo
 
 ## Measure one clip BOTH noaim and aim-on, print results, check bars.
 func _await_measure_both(stage: Node3D, who: int, other: int, clip: String, setup: String) -> void:
+	rows_total += 1
 	# --- noaim pass ---
 	var gap_noaim: float = await _reset(stage)
 	var noaim: Dictionary = await _measure_one(stage, who, other, clip, false)
@@ -168,8 +159,8 @@ func _await_measure_both(stage: Node3D, who: int, other: int, clip: String, setu
 	# --- aim pass ---
 	var gap_aim: float = await _reset(stage)
 	var aim: Dictionary = await _measure_one(stage, who, other, clip, true)
-	var valid_noaim: bool = absf(gap_noaim - stage.gap_m) <= GAP_TOL and float(noaim["flat"]) >= 0.0 and float(noaim["flat"]) <= FLAT_MAX
-	var valid_aim: bool = absf(gap_aim - stage.gap_m) <= GAP_TOL and float(aim["flat"]) >= 0.0 and float(aim["flat"]) <= FLAT_MAX
+	var valid_noaim: bool = Stand.held(stage, gap_noaim) and float(noaim["flat"]) >= 0.0 and float(noaim["flat"]) <= FLAT_MAX
+	var valid_aim: bool = Stand.held(stage, gap_aim) and float(aim["flat"]) >= 0.0 and float(aim["flat"]) <= FLAT_MAX
 	var valid: bool = valid_noaim and valid_aim
 	# HEIGHT bar (aim-on)
 	var aim_dy: float = float(aim["dy"])
@@ -184,8 +175,8 @@ func _await_measure_both(stage: Node3D, who: int, other: int, clip: String, setu
 	var aim_jump: float = float(aim["jump"])
 	var smooth_ok: bool = aim_jump <= noaim_jump + SMOOTH_TOL
 	# Print
-	print("AIM %s %s dy=%.3f flat=%.3f noaim_dy=%.3f noaim_flat=%.3f gap=%.3f jump=%.3f noaim_jump=%.3f%s%s" % [
-		setup, clip, aim_dy, aim_flat, float(noaim["dy"]), noaim_flat, gap_aim, aim_jump, noaim_jump,
+	print("AIM %s %s dy=%.3f flat=%.3f noaim_dy=%.3f noaim_flat=%.3f gap=%.3f noaim_gap=%.3f jump=%.3f noaim_jump=%.3f%s%s" % [
+		setup, clip, aim_dy, aim_flat, float(noaim["dy"]), noaim_flat, gap_aim, gap_noaim, aim_jump, noaim_jump,
 		"" if valid else " VOID", "" if height_ok else " HEIGHT_FAIL"])
 	# INSTRUMENT check: noaim A_B_up jab must FAIL the height bar
 	if setup == "A_B_up" and clip == "jab":
@@ -197,7 +188,9 @@ func _await_measure_both(stage: Node3D, who: int, other: int, clip: String, setu
 			print("PASS instrument noaim jab dy=%.3f > %.3f" % [noaim_dy_val, HEIGHT_BAR])
 	if not valid:
 		failures += 1
+		print("FAIL VOID %s %s: stood at %.3f / %.3f, the stage's own gap is %.3f (band %.2f)" % [setup, clip, gap_noaim, gap_aim, Stand.ref(stage), Stand.BAND_M])
 		return
+	rows_read += 1
 	if not height_ok:
 		failures += 1
 		print("FAIL %s %s height dy=%.3f > %.3f" % [setup, clip, aim_dy, HEIGHT_BAR])

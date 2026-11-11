@@ -11,7 +11,11 @@ const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const Gloves := preload("res://scripts/fight3d/Gloves.gd")
 const CornerWarm := preload("res://scripts/fight3d/CornerWarm.gd")
 
-const TAKES := ["rk_shadowboxing_a", "rk_shadowboxing_b"]
+## S436 (operator on the tape: "animations on tale of tape cannot be identical at the same time for both fighters"): the
+## take came from each side's own key, so half the bouts put both boxers on the same take (and the short one plays whole:
+## in step). Each side has its own takes now; no take is in both lists.
+const TAKES_LEFT := ["rk_shadowboxing_a"]
+const TAKES_RIGHT := ["rk_shadowboxing_b", "rk_boxing"]
 const WINDOW_S := 12.0
 const SEAM_S := 0.4
 const TOWARD_CORNER_DEG := 20.0
@@ -84,8 +88,14 @@ func _build(glb: String, corner: String, right: bool, key: int) -> void:
 	vp.add_child(_body)
 	_skel = _body.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
 	_ap = _body.find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
-	_load_take(str(TAKES[absi(key) % TAKES.size()]), key)
+	_load_take(take_for(right, key), key)
 	_body.rotation.y = 0.0
+
+
+## The left figure's and the right figure's take for one bout: never the same one.
+static func take_for(right: bool, key: int) -> String:
+	var pool: Array = TAKES_RIGHT if right else TAKES_LEFT
+	return str(pool[absi(key) % pool.size()])
 
 
 ## The take goes in twice under two names: playing the other name is what lets the seam blend.

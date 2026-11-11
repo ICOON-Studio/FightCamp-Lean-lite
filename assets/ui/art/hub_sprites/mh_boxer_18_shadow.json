@@ -1,0 +1,31 @@
+{
+  "frames": 16,
+  "joins": [
+    {
+      "before": 1.752,
+      "from": "slip",
+      "from_t": 0.6,
+      "gap": 0.004,
+      "to": "pull",
+      "to_t": 0.6
+    },
+    {
+      "before": 1.141,
+      "from": "pull",
+      "from_t": 0.533,
+      "gap": 0.64,
+      "to": "jab",
+      "to_t": 0.333
+    },
+    {
+      "before": 1.668,
+      "from": "jab",
+      "from_t": 0.167,
+      "gap": 0.733,
+      "to": "slip",
+      "to_t": 0.533
+    }
+  ],
+  "tall": 128,
+  "wide": 96
+}

@@ -33,8 +33,7 @@ func _initialize() -> void:
 		print("INTRO no FightIntro")
 		quit(1)
 		return
-	var base := FightIntro.TAPE_S + FightIntro.E
-	for shot in [["s359_raise_red", 2.6 + base + 1.2], ["s359_raise_blue", 5.6 + base + 1.2], ["s359_touch", 10.4 + base + 0.5]]:
+	for shot in [["s359_raise_red", FightIntro.T_RED + 1.5], ["s359_raise_blue", FightIntro.T_BLUE + 1.5], ["s359_touch", FightIntro.T_TOUCH + 0.5]]:
 		while is_instance_valid(fi) and float(fi.t) < float(shot[1]):
 			await process_frame
 		await _shot(str(shot[0]))
