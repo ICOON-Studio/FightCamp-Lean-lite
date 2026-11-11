@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Condition after the bout</title>
+<style>
+:root{--bg:#0f1114;--panel:#171a1f;--panel2:#1d2128;--line:#2b313a;--ink:#e6e8eb;--dim:#8d96a3;--red:#e2483d;--amb:#e9a23b;--grn:#4fb06d;--blu:#4a90d9;--gold:#d8b45a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--bg);color:var(--ink);font:15px/1.35 "Segoe UI",Roboto,Arial,sans-serif;overflow:hidden}
+.top{height:56px;display:flex;align-items:center;gap:24px;padding:0 28px;background:#0a0b0d;border-bottom:1px solid var(--line)}
+.top b{font-size:18px;letter-spacing:.5px}.chip{padding:4px 10px;border-radius:4px;font-size:13px;font-weight:600}
+.r{background:#3a1715;color:#ff8b80}.a{background:#3a2a10;color:#ffc56a}.g{background:#13301e;color:#7fdc9c}.b{background:#142538;color:#8cc0f2}
+.wrap{display:grid;grid-template-columns:430px 1fr 470px;gap:16px;padding:16px 20px;height:1024px}
+.p{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px}
+h2{font-size:12px;letter-spacing:1.6px;color:var(--dim);font-weight:700;margin-bottom:10px;text-transform:uppercase}
+h3{font-size:16px;margin-bottom:6px}
+.small{font-size:12.5px;color:var(--dim)}
+.big{font-size:34px;font-weight:700}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.bar{height:8px;background:#262b33;border-radius:4px;overflow:hidden;position:relative}.bar i{display:block;height:100%}
+.tick{position:absolute;top:-3px;width:2px;height:14px;background:#fff8}
+.place{display:grid;grid-template-columns:88px 44px 1fr 92px;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid #222831;font-size:13.5px}
+.place:last-child{border:none}
+.col{display:flex;flex-direction:column;gap:14px}
+.opt{border:1px solid var(--line);border-radius:6px;padding:12px;background:var(--panel2);position:relative}
+.opt.sel{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.opt .k{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:8px 0}
+.kv{background:#12151a;border-radius:4px;padding:6px 8px}.kv span{display:block;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.8px}.kv b{font-size:17px}
+.btn{display:inline-block;padding:8px 14px;border-radius:4px;font-weight:700;font-size:13.5px;background:#2a3039;color:var(--ink);border:1px solid #3a424e}
+.btn.go{background:var(--gold);color:#1a1405;border:none}
+.week{display:grid;grid-template-columns:70px repeat(7,1fr);gap:4px;font-size:12px}
+.week div{padding:6px 4px;border-radius:3px;text-align:center;background:#20252d}
+.week .h{background:none;color:var(--dim);font-weight:700}
+.x{background:#2a1716!important;color:#c06a63;text-decoration:line-through}
+.ok{background:#16281c!important;color:#8fd6a5}.ph{background:#15263a!important;color:#9cc6f0}
+.led{font-size:13px}.led td{padding:4px 6px;border-bottom:1px solid #222831}.led th{font-size:11px;color:var(--dim);text-align:left;padding:4px 6px;font-weight:600}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle}
+svg text{font-family:"Segoe UI",Arial,sans-serif}
+</style></head><body>
+<div class="top">
+  <b>FIGHTER &gt; CONDITION</b><span class="small">Mon 16 Mar - 2 days after the bout</span>
+  <span class="chip r">RIGHT RIBS: BRUISED OR CRACKED - CHECK</span>
+  <span class="chip a">LEFT EYE: SWOLLEN</span>
+  <span class="chip b">NEXT BOUT: Sat 11 Apr (26 days) vs K. Moss - digs to the body</span>
+  <span style="margin-left:auto" class="small">Physio hours this week: <b style="color:var(--ink)">3 of 4 free</b> (2 fighters need him)</span>
+</div>
+<div class="wrap">
+<!-- LEFT: body map that carries over -->
+<div class="col">
+  <div class="p">
+    <h2>What the fight left - carries into the next weeks</h2>
+    <div class="row" style="align-items:flex-start">
+      <svg width="170" height="300" viewBox="0 0 170 300">
+        <circle cx="85" cy="40" r="28" fill="#2a3039" stroke="#e9a23b" stroke-width="3"/>
+        <circle cx="74" cy="36" r="5" fill="#e9a23b"/><circle cx="96" cy="36" r="5" fill="#4fb06d"/>
+        <rect x="80" y="44" width="10" height="9" rx="3" fill="#4fb06d"/>
+        <rect x="45" y="78" width="80" height="120" rx="18" fill="#2a3039"/>
+        <path d="M48 120 Q48 100 70 96 L70 160 Q50 160 48 140Z" fill="#4fb06d" opacity=".75"/>
+        <path d="M122 120 Q122 100 100 96 L100 160 Q120 160 122 140Z" fill="#e2483d" opacity=".9"/>
+        <rect x="18" y="86" width="22" height="80" rx="10" fill="#2a3039"/><rect x="130" y="86" width="22" height="80" rx="10" fill="#2a3039"/>
+        <circle cx="29" cy="174" r="11" fill="#4fb06d"/><circle cx="141" cy="174" r="11" fill="#e9a23b"/>
+        <rect x="52" y="200" width="28" height="92" rx="10" fill="#2a3039"/><rect x="90" y="200" width="28" height="92" rx="10" fill="#4fb06d" opacity=".6"/>
+        <text x="133" y="118" font-size="11" fill="#ff8b80">LIVER</text>
+      </svg>
+      <div style="flex:1">
+        <div class="big" style="color:var(--red)">41</div><div class="small">Right ribs (liver side) after the bell<br>was 100 at the first bell</div>
+        <div style="margin-top:10px" class="small">Sore line 55 / Injury line 35</div>
+        <div class="bar" style="margin-top:4px"><i style="width:41%;background:var(--red)"></i><span class="tick" style="left:55%"></span><span class="tick" style="left:35%"></span></div>
+        <div class="small" style="margin-top:10px">Heals <b style="color:var(--ink)">+4 a rest day</b>, +2 a train-around day, 0 with body sparring</div>
+      </div>
+    </div>
+    <div style="margin-top:8px">
+      <div class="place"><b>Right ribs</b><b style="color:var(--red)">41</b><div class="bar"><i style="width:41%;background:var(--red)"></i></div><span class="chip r">check</span></div>
+      <div class="place"><b>Left ribs</b><b>78</b><div class="bar"><i style="width:78%;background:var(--grn)"></i></div><span class="small">fine</span></div>
+      <div class="place"><b>Left eye</b><b style="color:var(--amb)">52</b><div class="bar"><i style="width:52%;background:var(--amb)"></i></div><span class="chip a">swollen</span></div>
+      <div class="place"><b>Nose</b><b>71</b><div class="bar"><i style="width:71%;background:var(--grn)"></i></div><span class="small">fine</span></div>
+      <div class="place"><b>Head</b><b style="color:var(--amb)">58</b><div class="bar"><i style="width:58%;background:var(--amb)"></i></div><span class="chip a">no spar 10 d</span></div>
+      <div class="place"><b>Rear hand</b><b style="color:var(--amb)">60</b><div class="bar"><i style="width:60%;background:var(--amb)"></i></div><span class="small">sore knuckle</span></div>
+    </div>
+  </div>
+  <div class="p">
+    <h2>Where the rib damage came from</h2>
+    <table class="led" style="width:100%"><tr><th>Round</th><th>Body shots in</th><th>Pts</th><th>Why</th></tr>
+      <tr><td>1</td><td>4</td><td>-11</td><td class="small">Steady, guard tight</td></tr>
+      <tr><td>2</td><td>7</td><td>-19</td><td class="small">Your call: Let your hands go</td></tr>
+      <tr><td>3</td><td>11</td><td>-29</td><td class="small">Tired (31): elbows dropped. You chose water, not ice.</td></tr>
+    </table>
+    <div class="small" style="margin-top:8px">Rib history: <b style="color:var(--amb)">2nd time this side in 5 months</b> - a 3rd makes her start bouts at 85 here for 12 weeks.</div>
+  </div>
+</div>
+
+<!-- MIDDLE: the decision -->
+<div class="col">
+  <div class="p">
+    <div class="row"><h2 style="margin:0">Step 1 - know what it is</h2><span class="small">Unknown until checked</span></div>
+    <div class="row" style="margin-top:10px;gap:14px">
+      <div style="flex:1">
+        <div class="row small"><span>Bruised (2-3 wks)</span><span>Cracked (5-7 wks)</span></div>
+        <svg width="100%" height="34" viewBox="0 0 600 34" preserveAspectRatio="none">
+          <rect x="0" y="12" width="600" height="10" fill="#262b33" rx="5"/>
+          <rect x="0" y="12" width="390" height="10" fill="#e9a23b" rx="5"/><rect x="390" y="12" width="210" height="10" fill="#e2483d" rx="5"/>
+          <text x="180" y="9" font-size="12" fill="#e6e8eb">65 in 100 bruised</text><text x="420" y="9" font-size="12" fill="#ff8b80">35 in 100 cracked</text>
+        </svg>
+      </div>
+      <div style="width:260px">
+        <span class="btn go">Send for an X-ray - $180</span>
+        <div class="small" style="margin-top:4px">Answer Wednesday. Or the physio looks free today: narrows it to 80/20.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="p" style="flex:1">
+    <h2>Step 2 - the rehab plan (sets her week, the bout and the next fight's ribs)</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+      <div class="opt">
+        <h3>Full rest</h3><div class="small">No training at all. Fastest heal.</div>
+        <div class="k"><div class="kv"><span>Ribs on 11 Apr</span><b style="color:var(--grn)">92</b></div><div class="kv"><span>Cardio lost</span><b style="color:var(--red)">-3</b></div><div class="kv"><span>Re-hurt</span><b>2%</b></div></div>
+        <div class="small">Usual load drops: weeks 4-5 back at Normal read as a spike (x2 risk) - ramp needed.</div>
+      </div>
+      <div class="opt sel">
+        <h3>Train around it</h3><div class="small">Legs, pads to the head, film. No sparring, no body bag, no situps.</div>
+        <div class="k"><div class="kv"><span>Ribs on 11 Apr</span><b style="color:var(--amb)">79</b></div><div class="kv"><span>Cardio lost</span><b>-1</b></div><div class="kv"><span>Re-hurt</span><b style="color:var(--amb)">9%</b></div></div>
+        <div class="small">Uses 2 physio hours a week. Body hook drills stop: mastery 41 &rarr; 38.</div>
+      </div>
+      <div class="opt">
+        <h3>Strap it, train on</h3><div class="small">Full camp with a rib guard in sparring.</div>
+        <div class="k"><div class="kv"><span>Ribs on 11 Apr</span><b style="color:var(--red)">58</b></div><div class="kv"><span>Cardio lost</span><b>0</b></div><div class="kv"><span>Re-hurt</span><b style="color:var(--red)">24%</b></div></div>
+        <div class="small">If cracked: becomes a 6-week injury and the bout is lost.</div>
+      </div>
+    </div>
+
+    <h2 style="margin-top:16px">Rib forecast to fight night (each plan)</h2>
+    <svg width="100%" height="190" viewBox="0 0 900 190">
+      <line x1="40" y1="10" x2="40" y2="170" stroke="#2b313a"/><line x1="40" y1="170" x2="890" y2="170" stroke="#2b313a"/>
+      <line x1="40" y1="78" x2="890" y2="78" stroke="#e9a23b" stroke-dasharray="5 5" opacity=".6"/><text x="44" y="73" font-size="11" fill="#e9a23b">55 sore: body shots cost 1.5x gas, guard drops</text>
+      <line x1="40" y1="110" x2="890" y2="110" stroke="#e2483d" stroke-dasharray="5 5" opacity=".6"/><text x="44" y="105" font-size="11" fill="#e2483d">35 injury line</text>
+      <polyline fill="none" stroke="#4fb06d" stroke-width="3" points="40,104 200,70 360,45 520,30 700,24 860,22"/>
+      <polyline fill="none" stroke="#d8b45a" stroke-width="4" points="40,104 200,86 360,70 520,56 700,46 860,44"/>
+      <polyline fill="none" stroke="#e2483d" stroke-width="3" points="40,104 200,100 360,92 520,88 700,80 860,76"/>
+      <line x1="860" y1="10" x2="860" y2="170" stroke="#4a90d9" stroke-width="2"/><text x="790" y="186" font-size="12" fill="#8cc0f2">11 Apr bout</text>
+      <text x="44" y="186" font-size="12" fill="#8d96a3">today</text>
+    </svg>
+  </div>
+
+  <div class="p">
+    <h2>Her week under "Train around it"</h2>
+    <div class="week">
+      <div class="h"></div><div class="h">Mon</div><div class="h">Tue</div><div class="h">Wed</div><div class="h">Thu</div><div class="h">Fri</div><div class="h">Sat</div><div class="h">Sun</div>
+      <div class="h">Morning</div><div class="ok">Roadwork L</div><div class="ph">Physio</div><div class="ok">Legs N</div><div class="x">Heavy bag</div><div class="ph">Physio</div><div class="ok">Shadow L</div><div>Rest</div>
+      <div class="h">Evening</div><div class="ok">Pads: head</div><div>Film</div><div class="x">Sparring</div><div class="ok">Pads: head</div><div>Rest</div><div class="x">Sparring</div><div>Rest</div>
+    </div>
+    <div class="small" style="margin-top:6px">Struck-through sessions are blocked by the ribs; the coach swaps them for the green ones. Head-only sparring opens on 26 Mar (stand-down).</div>
+  </div>
+</div>
+
+<!-- RIGHT: the bout + the fight plan link -->
+<div class="col">
+  <div class="p">
+    <h2>Step 3 - the booked bout</h2>
+    <div class="row"><div><h3>vs K. Moss (6-2)</h3><div class="small">Pressure fighter - <b style="color:#ff8b80">digs to the body (35%)</b>, hunts a sore side</div></div><div class="big" style="font-size:28px">26 d</div></div>
+    <div style="margin-top:10px">
+      <div class="row small"><span>Win chance with ribs at 79</span><b style="color:var(--ink)">51%</b></div>
+      <div class="bar"><i style="width:51%;background:var(--blu)"></i></div>
+      <div class="row small" style="margin-top:6px"><span>Win chance if fully healed (92)</span><b style="color:var(--ink)">57%</b></div>
+      <div class="bar"><i style="width:57%;background:#3a6ea5"></i></div>
+      <div class="row small" style="margin-top:6px"><span>Chance the ribs go under 35 in the bout</span><b style="color:var(--red)">18%</b></div>
+      <div class="bar"><i style="width:18%;background:var(--red)"></i></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+      <span class="btn go">Keep the date</span><span class="btn">Ask to move it +14 d</span><span class="btn">Pull out - $300</span>
+    </div>
+    <div class="small" style="margin-top:6px">Move: the promoter says yes 70 in 100; a no counts as a pull-out.</div>
+  </div>
+
+  <div class="p">
+    <h2>What the plan can do about it</h2>
+    <div class="opt" style="margin-bottom:8px"><div class="row"><b>Plan line: When she presses -&gt; Tie up</b><span class="chip g">+ add</span></div><div class="small">Rib shots taken -30%, but each clinch costs 2 edge vs a pressure fighter.</div></div>
+    <div class="opt" style="margin-bottom:8px"><div class="row"><b>Stance: right side away (stay long)</b><span class="chip g">+ add</span></div><div class="small">Liver side gets 45% of her body shots, not 60%. Costs jab power.</div></div>
+    <div class="opt"><div class="row"><b>Corner: ice ready on the ribs</b><span class="chip b">auto at sore</span></div><div class="small">The second offers ice the minute ribs drop under 55.</div></div>
+  </div>
+
+  <div class="p">
+    <h2>Her side of it</h2>
+    <div class="row"><span>Mood</span><b style="color:var(--amb)">Flat 44</b></div>
+    <div class="small" style="margin-top:4px">Wants to keep the date (ambition: turn pro this year). Pulling out: mood -6. Keeping it and losing on the ribs: trust in you -8.</div>
+    <div class="row" style="margin-top:10px"><span>Durability road</span><b>71 / ceiling 74</b></div>
+    <div class="small">A rib stoppage would lower the ceiling to 72.</div>
+  </div>
+
+  <div class="p" style="display:flex;justify-content:space-between;align-items:center">
+    <div class="small">Total this choice: <b style="color:var(--ink)">$0 + 2 physio h/wk</b>, fit for full work 4 Apr</div>
+    <span class="btn go" style="font-size:15px;padding:10px 18px">Lock the plan</span>
+  </div>
+</div>
+</div>
+</body></html>

@@ -7,7 +7,7 @@ const FightWhy := preload("res://scripts/rules/FightWhy.gd")
 const GRADE_COL := {"good": Color(0.35, 0.8, 0.5), "mixed": Color(0.95, 0.75, 0.3), "wrong": Color(0.95, 0.4, 0.35), "none": Color(0.7, 0.72, 0.76)}
 
 
-static func build(rounds: Array, first: String, opp: String) -> Control:
+static func build(rounds: Array, first: String, opp: String, rank_words: String = "") -> Control:
 	var read := FightWhy.read(rounds, first, opp)
 	var v := UI.vbox(8)
 	v.name = "WhyCard"
@@ -18,12 +18,18 @@ static func build(rounds: Array, first: String, opp: String) -> Control:
 	top.add_child(grade)
 	v.add_child(top)
 	for row in [["YOUR PLAN", "plan"], ["AGAINST YOU", "against"], ["NEXT", "next"]]:
-		var h := UI.hbox(16)
-		var head := UI.caps(str(row[0]))
-		head.custom_minimum_size = Vector2(150, 0)
-		h.add_child(head)
-		var line := UI.label(str(read[row[1]]), UI.BODY, UI.FG, "body", true)
-		line.name = "Why_" + str(row[1])
-		h.add_child(line)
-		v.add_child(h)
+		v.add_child(_row(str(row[0]), "Why_" + str(row[1]), str(read[row[1]])))
+	if rank_words != "":
+		v.add_child(_row("RANKING", "WhyRank", rank_words))
 	return v
+
+
+static func _row(head_text: String, line_name: String, body: String) -> HBoxContainer:
+	var h := UI.hbox(16)
+	var head := UI.caps(head_text)
+	head.custom_minimum_size = Vector2(150, 0)
+	h.add_child(head)
+	var line := UI.label(body, UI.BODY, UI.FG, "body", true)
+	line.name = line_name
+	h.add_child(line)
+	return h

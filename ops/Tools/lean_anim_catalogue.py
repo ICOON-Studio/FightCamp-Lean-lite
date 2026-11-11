@@ -180,7 +180,7 @@ def build() -> dict:
     rk_block = rk_src.split("const CLIPS := {", 1)[1].split("\n}", 1)[0] if "const CLIPS := {" in rk_src else ""
     rk_ids = list(dict.fromkeys(re.findall(r'"(rk_[a-z_0-9]+)"\s*:', rk_block)))
     if rk_ids:
-        groups.insert(0, ("Captured clips (Rokoko + Mixamo, play pure)", rk_ids))
+        groups.insert(0, ("Captured clips (Rokoko + Mixamo): switched off since S430", rk_ids))
     shown = {c for _, ids in groups for c in ids}
     groups.append(("In the library, never picked", [c for c in lib if c not in shown]))
     out = []
@@ -190,9 +190,11 @@ def build() -> dict:
         rows = [row(c) for c in ids]
         if title.startswith("Captured clips"):
             for r in rows:
-                r["status"] = "IN GAME"
+                # S437 (operator, on rk_jab / rk_cross tagged "In the fight"): the captured takes are OFF since his S430
+                # call (RkClips.on() is false by default); a take returns alone once it passes the posture limits.
+                r["status"] = "LOADED"
                 r["source"] = "Rokoko / Mixamo capture, old repo route (S399)"
-                r["why"] = r.get("why") or "Plays pure in the fight (RkClips.gd)"
+                r["why"] = "Captured take, switched off since S430 (the fight plays the Punch PRO clips). Not in the fight."
         for r in rows:
             counts[r["status"]] = counts.get(r["status"], 0) + 1
             prog[r["progress"]] += 1

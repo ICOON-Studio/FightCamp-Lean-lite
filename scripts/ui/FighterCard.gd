@@ -7,6 +7,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const HomeBoard := preload("res://scripts/ui/HomeBoard.gd")
 const FaceFrame := preload("res://scripts/ui/FaceFrame.gd")
 const Bar := preload("res://scripts/ui/Bar.gd")
+const RankRow := preload("res://scripts/ui/RankRow.gd")
 
 const FACE := Vector2(132, 166)
 
@@ -32,6 +33,10 @@ static func build(main: Node, f: Dictionary, tag: String) -> Array:
 	if int(f.get("rank", 0)) > 0:
 		top.add_child(UI.chip("#%d IN THE REGION" % int(f["rank"]), "gold"))
 	v.add_child(top)
+	var c: Career = main.get("career")
+	var standing: Control = RankRow.build(c, f)
+	if standing != null:
+		v.add_child(standing)
 	return [p, v]
 
 

@@ -62,6 +62,7 @@ func _initialize() -> void:
 	## `follow` = the orbit centre eases after the hips (a walk travels 1-2 m and left the frame round a fixed point).
 	var tail_s := TAIL_S
 	var follow := false
+	var side := 0.0
 	var once := false   # S399: the clip plays once, no repeat (a repeat restarts it: the judge reads that seam as a pop)
 	for a in OS.get_cmdline_user_args():
 		var s := str(a)
@@ -85,6 +86,10 @@ func _initialize() -> void:
 			follow = true
 		elif s == "once":
 			once = true
+		elif s == "side" or s.begins_with("side="):
+			# S437 (operator on rk_jab / rk_cross: "the fists have no power"): a circling camera hides how far and how fast
+			# the arm goes. `side` holds the camera still, square to her line of attack (side=-1 = her other side).
+			side = -1.0 if s == "side=-1" else 1.0
 		elif not s.begins_with("--"):
 			# S400: a brief wrote `clips=` - read as nothing, 0 clips filmed, a one-frame film went on the board
 			push_error("ORBIT unknown argument: " + s)
@@ -152,7 +157,7 @@ func _initialize() -> void:
 				c = c.lerp(Vector3(hp.x, 1.0, hp.z), 1.0 - exp(-(1.0 / FPS) / 0.6))
 			if not game_mods and not name.begins_with("rk_"):   # S399: a Rokoko clip plays pure (RkPure) - no knee layer
 				KneeTrack.align(skel, 1.0)   # once: with mods=game the KneeTrack modifier already runs
-			var ang := face + PI * 0.5 + Drift.angle(f, frames, 30.0)
+			var ang := face + PI * 0.5 * side if side != 0.0 else face + PI * 0.5 + Drift.angle(f, frames, 30.0)
 			cam.look_at_from_position(Vector3(c.x + sin(ang) * RADIUS, HEIGHT, c.z + cos(ang) * RADIUS), c, Vector3.UP)
 			await RenderingServer.frame_post_draw
 			root.get_texture().get_image().save_jpg(dir.path_join("f%04d.jpg" % f), 0.88)

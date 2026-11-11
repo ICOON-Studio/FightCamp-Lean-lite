@@ -22,7 +22,7 @@ static func snap(c: Career, f: Dictionary, opp: Dictionary) -> Dictionary:
 	return {"morale": morale, "mood": FighterProfile.mood(morale), "rank": Region.our_rank(c, f),
 		"cap": float(f.get("durability_cap", Attrs.HI)), "notes": (f.get("notes_seen", []) as Array).duplicate(),
 		"fatigue": FighterProfile.fatigue(f),
-		"rows": _rows(c, f), "hidden": OppFile.hidden(opp).size()}
+		"rows": rows(c, f), "hidden": OppFile.hidden(opp).size()}
 
 
 ## Books what the fight leaves in the legs (Aftermath.toll) and writes the tiles on the result modal.
@@ -31,6 +31,7 @@ static func book(c: Career, f: Dictionary, m: Dictionary, before: Dictionary, ba
 	var tank := float(((rounds[-1] as Dictionary).get("energy", {}) as Dictionary).get("a_end", 100.0)) if not rounds.is_empty() else 100.0
 	var stopped_loss := str(m.get("stopped", "")) != "" and str(m.get("outcome", "")) == "loss"
 	f["week_fatigue"] = Aftermath.toll(FighterProfile.fatigue(f), tank, stopped_loss)
+	m["rank_words"] = "" if bool(m.get("pro", false)) else rank_words(c, f, before)
 	m["aftermath"] = tiles(c, f, m, before, bank)
 
 
@@ -49,21 +50,34 @@ static func tiles(c: Career, f: Dictionary, m: Dictionary, before: Dictionary, b
 		facts["goal"] = "met" if bool(hist[-1]["met"]) else "missed"
 		facts["goal_title"] = str(hist[-1].get("title", ""))
 	if not pro:
-		facts["rank_words"] = str(RankLine.after(before["rows"], after["rows"], str(f["name"]), Region.RANK_MIN_WINS)["words"])
+		facts["rank_words"] = rank_words(c, f, before)
 	var out := Aftermath.tiles(before, after, facts)
 	if pro:   # a pro is off the amateur table: her ladder line is on the page already
 		out = out.filter(func(t): return str(t["id"]) != "rank")
 	return out
 
 
-## Her division's table rows with her in it whatever her wins (RankLine sorts and cuts it).
-static func _rows(c: Career, f: Dictionary) -> Array:
-	var rows: Array = []
+## The rank line for the Why panel. A pro is off the amateur table, so the words are empty.
+static func rank_words(c: Career, f: Dictionary, before: Dictionary) -> String:
+	if bool(f.get("pro", false)):
+		return ""
+	var before_rows: Array = before.get("rows", [])
+	var got: Dictionary = RankLine.after(before_rows, rows(c, f), str(f["name"]), Region.RANK_MIN_WINS)
+	return str(got["words"])
+
+
+## The division's table rows with the fighter in them whatever the wins (RankLine sorts and cuts it).
+static func rows(c: Career, f: Dictionary) -> Array:
+	var out: Array = []
 	for r in c.rivals:
 		if str(r["div"]) == str(f["div"]):
-			rows.append({"name": r["name"], "w": int(r["w"]), "l": int(r["l"]), "rating": float(r["rating"])})
-	rows.append({"name": f["name"], "w": int(f["w"]), "l": int(f["l"]), "rating": 0.0})
-	return rows
+			out.append({"name": r["name"], "w": int(r["w"]), "l": int(r["l"]), "rating": float(r["rating"])})
+	out.append({"name": f["name"], "w": int(f["w"]), "l": int(f["l"]), "rating": 0.0})
+	return out
+
+
+static func _rows(c: Career, f: Dictionary) -> Array:
+	return rows(c, f)
 
 
 ## {place, value} of her lowest place on the body map ({} when the bout drew no map).

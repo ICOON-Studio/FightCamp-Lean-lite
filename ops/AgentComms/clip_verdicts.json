@@ -556,6 +556,13 @@
     "note": "Rear hand: At 0:00.4, the rear hand is wide and not tucked at the chin.",
     "source": "previews/lean_anim/pro_left_jab_a.gemini_argon.md",
     "when": "2026-11-07"
+   },
+   {
+    "check": "Claude frame read S437: fixed SIDE camera (tools/clip_orbit.gd side once), 16 frames at 33 ms round the measured contact; film ops/previews/lean_anim_side/<id>.mp4. Not a pass under the bar (his OK or the Gemini judge).",
+    "result": "snap good, hangs",
+    "pass": false,
+    "frames": true,
+    "note": "straightens fully in about 0.10 s (3 frames) with the shoulder turning in: a real jab's snap. Then it stays out more than 0.20 s: no whip back inside the window."
    }
   ],
   "pro_left_jab_b": [
@@ -566,6 +573,13 @@
     "note": "Foot sliding: 0:01.6 - 0:01.8 (slight sliding during the extension of the jab).",
     "source": "previews/lean_anim/pro_left_jab_b.gemini_argon.md",
     "when": "2026-11-07"
+   },
+   {
+    "check": "Claude frame read S437: fixed SIDE camera (tools/clip_orbit.gd side once), 16 frames at 33 ms round the measured contact; film ops/previews/lean_anim_side/<id>.mp4. Not a pass under the bar (his OK or the Gemini judge).",
+    "result": "FIX: hangs",
+    "pass": false,
+    "frames": true,
+    "note": "out in about 0.13 s, straight, then held out for 0.27 s and more; the feet do not move. Reads as a pose, not a jab that comes home."
    }
   ],
   "pro_left_jab_special": [
@@ -644,6 +658,13 @@
     "note": "mirrored Boxing 5.80-6.37: \"high bent arm, hook-jab\"; a one-frame pop at the turntable repeat (control pro_left_jab 4)",
     "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
     "when": "2026-11-08"
+   },
+   {
+    "check": "Claude frame read S437 (15 fps contact sheet of the clip's own preview), on the operator's question 'the fists have no power, are the animations bad?'",
+    "result": "CUT as a punch",
+    "pass": false,
+    "frames": true,
+    "note": "the arm does straighten but takes about 0.27 s to get there and hangs out about 0.27 s more (a real jab is out and back in about 0.3 s in all), it goes out at shoulder height above the target, the trunk does not turn and there is no step. A push."
    }
   ],
   "rk_cross": [
@@ -654,6 +675,13 @@
     "note": "Boxing 9.93-10.53: \"short, bent; the glove never fully extends\" (control pro_right_cross 5)",
     "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
     "when": "2026-11-08"
+   },
+   {
+    "check": "Claude frame read S437 (15 fps contact sheet of the clip's own preview), on the operator's question 'the fists have no power, are the animations bad?'",
+    "result": "CUT as a punch",
+    "pass": false,
+    "frames": true,
+    "note": "the rear hand never extends: the elbow stays bent through the whole punch, the glove travels about a forearm's length from the guard, no hip or shoulder turn, feet still. A paw, not a cross."
    }
   ],
   "rk_cross_b": [
@@ -754,6 +782,60 @@
     "note": "Mixamo Standard Walk, corner to centre (fight_walkin2.mp4); per loop slide 0.040 vs raw 0.038",
     "source": "E:/FightCamp/tmp/rokoko2 (blind_* folders, *_KEY.txt); side-session notes ROKOKO2_handover.md",
     "when": "2026-11-08"
+   }
+  ],
+  "pro_right_cross": [
+   {
+    "check": "Claude frame read S437: fixed SIDE camera (tools/clip_orbit.gd side once), 16 frames at 33 ms round the measured contact; film ops/previews/lean_anim_side/<id>.mp4. Not a pass under the bar (his OK or the Gemini judge).",
+    "result": "FIX: both hands out",
+    "pass": false,
+    "frames": true,
+    "note": "the rear hand reaches full length with the hips turning, but the lead glove stays stuck out in front the whole time instead of coming back to the chin: both gloves forward at contact."
+   }
+  ],
+  "pro_right_cross_b": [
+   {
+    "check": "Claude frame read S437: fixed SIDE camera (tools/clip_orbit.gd side once), 16 frames at 33 ms round the measured contact; film ops/previews/lean_anim_side/<id>.mp4. Not a pass under the bar (his OK or the Gemini judge).",
+    "result": "CUT or replace: short and bent",
+    "pass": false,
+    "frames": true,
+    "note": "nothing moves for the first 0.27 s, then the hand goes out with the elbow still bent (about 120 degrees) and comes straight back: a short, bent-arm cross. This is the 'no power' punch."
+   }
+  ],
+  "pro_left_hook": [
+   {
+    "check": "Claude frame read S437: fixed SIDE camera (tools/clip_orbit.gd side once), 16 frames at 33 ms round the measured contact; film ops/previews/lean_anim_side/<id>.mp4. Not a pass under the bar (his OK or the Gemini judge).",
+    "result": "FIX: straight-arm swing",
+    "pass": false,
+    "frames": true,
+    "note": "the arm goes out nearly straight and stays there; a hook keeps the elbow bent near a right angle and turns through. From the side it reads as a stiff-arm swing held at full length."
+   }
+  ],
+  "pro_right_hook": [
+   {
+    "check": "Claude frame read S437: fixed SIDE camera (tools/clip_orbit.gd side once), 16 frames at 33 ms round the measured contact; film ops/previews/lean_anim_side/<id>.mp4. Not a pass under the bar (his OK or the Gemini judge).",
+    "result": "UNCLEAR from the side",
+    "pass": false,
+    "frames": true,
+    "note": "one glove goes out long and is held about 0.2 s while the other arm stays folded at the chest; from this camera I cannot tell the punching arm's bend. Needs a front three-quarter film before a verdict."
+   }
+  ],
+  "pro_right_uppercut": [
+   {
+    "check": "Claude frame read S437: fixed SIDE camera (tools/clip_orbit.gd side once), 16 frames at 33 ms round the measured contact; film ops/previews/lean_anim_side/<id>.mp4. Not a pass under the bar (his OK or the Gemini judge).",
+    "result": "good, a little telegraphed",
+    "pass": false,
+    "frames": true,
+    "note": "the hand drops to the hip (about 0.13 s), the knees dip and the glove drives up to head height with the body rising under it: reads as a real uppercut. The drop is the tell."
+   }
+  ],
+  "pro_body_shot": [
+   {
+    "check": "Claude frame read S437: fixed SIDE camera (tools/clip_orbit.gd side once), 16 frames at 33 ms round the measured contact; film ops/previews/lean_anim_side/<id>.mp4. Not a pass under the bar (his OK or the Gemini judge).",
+    "result": "FIX: bowed lunge",
+    "pass": false,
+    "frames": true,
+    "note": "a long lunge step with the trunk bowed nearly flat and the hand pushed straight out at chest height: a diving body straight, not a hook to the ribs, and she ends far over her front knee."
    }
   ]
  },

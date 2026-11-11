@@ -311,7 +311,7 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	if m.has("aftermath"):   # S430 the damage, the tiredness, what was learned, morale, the corner, the rank
 		v.add_child(AftermathTiles.build(m["aftermath"], str(f["first"])))
 	var why: Array = m["why"]
-	v.add_child(WhyCard.build(m["rounds"], str(f["first"]), str(opp["first"])))   # S388 the hook: what the plan really did
+	v.add_child(WhyCard.build(m["rounds"], str(f["first"]), str(opp["first"]), str(m.get("rank_words", ""))))   # S388 the hook: what the plan really did
 	v.add_child(_decided(main, m, why if not why.is_empty() else ["A close night: the rolls of the rounds decided it."]))
 	var foot := UI.hbox(10)
 	var take := []

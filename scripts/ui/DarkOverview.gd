@@ -5,6 +5,7 @@ extends RefCounted
 ##   panel(title) -> [PanelContainer, VBoxContainer]   make(page, main, c, f, g)   ink(node)   dim_wall(main)   main_style(button)
 
 const UI := preload("res://scripts/ui/UI.gd")
+const RankRow := preload("res://scripts/ui/RankRow.gd")
 const WarmKit := preload("res://scripts/ui/WarmKit.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
@@ -127,7 +128,7 @@ static func _quiet(b: Button) -> Button:
 static func make(page: Container, main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 	var root := UI.hbox(16)
 	root.name = "DarkOverview"
-	root.add_child(_boxer(f))
+	root.add_child(_boxer(f, c))
 	var right := UI.vbox(14)
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var top := UI.hbox(14)
@@ -143,12 +144,17 @@ static func make(page: Container, main: Node, c: Career, f: Dictionary, g: Dicti
 	page.add_child(root)
 
 
-static func _boxer(f: Dictionary) -> Control:
+static func _boxer(f: Dictionary, c: Career = null) -> Control:
 	var col := UI.vbox(0)
 	col.custom_minimum_size.x = LEFT_W
 	var nm := str(f["name"]).to_upper()
 	col.add_child(UI.display(nm, clampi(int(float(LEFT_W) / (float(nm.length()) * 0.62)), 36, 60), Color.WHITE))
 	col.add_child(UI.label("%s, %d, %s, amateur %d-%d" % [f["wc"], f["age"], f["stance"], f["w"], f["l"]], UI.BODY, SOFT, "semi"))
+	# S437 RANKSHOWUI: where she stands, always: a number, or how many wins from a number (RankLine's own words).
+	var standing: Control = RankRow.build(c, f) if c != null else null
+	if standing != null:
+		standing.add_theme_color_override("font_color", SOFT)
+		col.add_child(standing)
 	col.add_child(condition(f))
 	var holder := Control.new()
 	# S430 (operator: "this screen on the bottom is clipped"): 690 pushed the goal and body row off a 1080 screen.
