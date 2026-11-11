@@ -7,8 +7,7 @@ holds the boxers walk, and when one stands right at the lens his boots slide und
 docs/mockups/s427 corner_bar_board_real.png, Lucy's boots under the bar). Animation item of the session: the camera for the legs.
 
 ## Contract
-OWNS: scripts/fight3d/BarGuard.gd (new, pure), tests/bar_guard_test.gd (new); ONE call line added in scripts/fight3d/RingCamera.gd
-(it is exactly 500 lines: remove one comment or blank line elsewhere in the file for each line you add; it must stay at or under 500)
+OWNS: scripts/fight3d/BarGuard.gd, tests/bar_guard_test.gd, scripts/fight3d/RingCamera.gd (ONE call line only: it is exactly 500 lines, so remove one comment or blank line elsewhere in the file for each line you add; it must stay at or under 500)
 RED_TEST: tests/bar_guard_test.gd -> BAR_GUARD failures=0
 REGRESSION: ring_lens_test, corner_lens_test, promo_shot_test, round_board_test
 VISUAL: yes (stills on the game's own camera, see below)

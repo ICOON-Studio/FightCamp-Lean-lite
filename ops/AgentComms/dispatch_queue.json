@@ -1021,6 +1021,14 @@
    "brief": "WEEKTESTS1",
    "status": "queued",
    "queued": "2026-11-11T07:15"
+  },
+  {
+   "id": "RANKSHOW1",
+   "seat": "qwen",
+   "title": "TASK RANKSHOW1 - QWEN (qwen3-coder) - the rank a fight earned, as a pure line the result, the Why and the news can show",
+   "brief": "RANKSHOW1",
+   "status": "queued",
+   "queued": "2026-11-11T08:10"
   }
  ]
 }
