@@ -72,6 +72,12 @@ func _initialize() -> void:
 	_check(main.find_child("MovePlayer", true, false) == null, "test 3: no preview on the game plan (S416)")
 	if back != null:
 		_check(_text(back).contains(MoveWords.WORDS["step_back"]), "test 3: the card says what the move does (S416)")
+		var words: Control = back.get_child(0).get_child(0)
+		var light := true
+		for l in words.get_children():
+			light = light and (l as Label).get_theme_color("font_color").get_luminance() > 0.45
+		_check(light, "test 3b: an answer's words are light on the dark wood (S429: 'text is unreadable')")
+		_check(words.get_combined_minimum_size().y <= back.size.y + 0.5, "test 3c: the words fit inside the answer button (%d in %d) (S429: 'out of limits')" % [int(words.get_combined_minimum_size().y), int(back.size.y)])
 		_check(_text(back).contains("Beats it"), "test 3: step back beats a presser, said on the card")
 		var before_edge := float(PlanLines.strength(gp.arrows, "press", f.get("moves", {}), f.get("combos", {}))["edge"])
 		gp._pick("mid", "", "slip 2-3", false)

@@ -347,9 +347,9 @@ func _option(place: String, when: String, o: Dictionary, picked: bool) -> Contro
 %s" % [str(o["why"]), does]) if locked else "%s then at %s
 %s" % [
 		str(PlanLines.FIT_WORDS[fit]) + ":" if fit != "none" else "Goes", str(SM.card(str(o["to"])).get("name", "")).to_lower(), does]
-	var big_col: Color = UI.MUTED if locked else ({"best": UI.GREEN, "wrong": UI.RED}.get(fit, UI.FG) as Color)
+	var big_col: Color = Color("#b8a88f") if locked else ({"best": Color("#6fd39a"), "wrong": Color("#ff6b5e")}.get(fit, Color("#efe6d8")) as Color)   # S429 chalk on the dark wood
 	var b := UI.button2(str(o["name"]), small, "ChoiceOn" if picked else "Choice", func(): _pick(place, when, id, locked),
-		OPT, big_col, UI.MUTED, false, UI.SMALL, UI.TINY)
+		OPT, big_col, Color("#b8a88f"), false, UI.SMALL, UI.TINY)
 	if not locked and fit != "none":
 		b.tooltip_text = "%+.0f over improvising" % float(o["edge"])
 	b.name = "Opt_" + id.replace(" ", "_").replace("@", "_at_")

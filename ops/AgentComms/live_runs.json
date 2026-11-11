@@ -1980,72 +1980,6 @@
    "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/186",
    "reconciled": "2026-11-11 08:41 board_reconcile: run finished (success), branch goose/issue-186 pushed"
   },
-  "BARGUARD1": {
-   "agent": "cursor",
-   "id": "BARGUARD1",
-   "title": "TASK BARGUARD1 - CURSOR (Grok 4.7 High) - the boots stay above the corner bar while a shot holds, even when a boxer stands at the lens",
-   "status": "landed",
-   "started": "2026-11-11T08:59",
-   "eta": "2026-11-11T10:49",
-   "branch": "cursor/barguard1",
-   "worktree": "E:/FightCamp/wt/LEAN_BARGUARD1",
-   "wt": "E:/FightCamp/wt/LEAN_BARGUARD1",
-   "brief": "ops/research/TASK_BARGUARD1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/BARGUARD1_dispatch_out.txt",
-   "match": "seat_dispatch.py run barguard1",
-   "model": "grok-4.7-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/BARGUARD1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/BARGUARD1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/BARGUARD1_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": false,
-    "runner_pid": 25816,
-    "seat_pid": 27968
-   },
-   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 5/5 PASS; PR #189",
-   "finished": "2026-11-11T09:33",
-   "pr": 189,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/bar_guard_test.gd",
-     "ok": true,
-     "last": "BAR_GUARD failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/ring_lens_test.gd",
-     "ok": true,
-     "last": "ring_lens_test"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/corner_lens_test.gd",
-     "ok": true,
-     "last": "CORNER_LENS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/promo_shot_test.gd",
-     "ok": true,
-     "last": "PROMO_SHOT failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/round_board_test.gd",
-     "ok": true,
-     "last": "ROUND_BOARD failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "MONEYFOUR1": {
    "agent": "qwen",
    "id": "MONEYFOUR1",
@@ -2098,7 +2032,7 @@
    "agent": "goose",
    "id": "TRAINREAD1",
    "title": "QWEN (qwen3-coder) - the coach's read: which training each fighter needs, from the numbers and the style",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-11T09:08",
    "where": "cloud",
    "repo": "FightCamp-Lean",
@@ -2108,7 +2042,8 @@
    "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
    "issue": "187",
    "branch": "goose/issue-187",
-   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/187"
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/187",
+   "reconciled": "2026-11-11 09:40 board_reconcile: run finished (success), branch goose/issue-187 pushed"
   },
   "AMATEURPROBE1": {
    "agent": "qwen",

@@ -99,6 +99,12 @@ func _at_the_call() -> void:
 	if bug != null:
 		dot = bug.find_child("Dot0", true, false)
 	_check(dot != null, "the scorebug has six dots, the first one named")
+	var bare := 0
+	if bug != null:
+		for l in bug.find_children("*", "Label", true, false):
+			if (l as Label).is_visible_in_tree() and (l as Label).text.strip_edges().is_valid_int():
+				bare += 1
+	_check(bare == 0, "the scorebug shows no bare count that reads as rounds won (S429) (%d)" % bare)
 	if dot != null and ex.size() >= 1:
 		var want: Color = RED if bool((ex[0] as Dictionary)["won"]) else BLUE
 		var fill: Color = dot.get("fill")

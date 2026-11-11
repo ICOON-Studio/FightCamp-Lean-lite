@@ -51,6 +51,9 @@ func _mount() -> void:
 	_blue = _num(BLUE)
 	_place(_blue, 492, 16, 120, 136)
 	add_child(_blue)
+	# S429 operator: "remove the stupid scoring its round 1 and it shows 2-3 it confusing for the player": the two big
+	# counts of exchanges won read as rounds won. The dots stay; the numbers are not shown.
+	_red.visible = false; _blue.visible = false
 	var round_l := TV.label("", 24, WoodKit.SOFT, "bold")
 	round_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	round_l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER

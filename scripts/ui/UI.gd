@@ -329,6 +329,8 @@ static func button2(big: String, small: String, variation: String, on_press: Cal
 		v.add_child(label(small_line, small_size, small_col, "body"))
 	m.add_child(v)
 	b.add_child(m)
+	# S429 "text is unreadable and out of limits": a two-line button grows to hold its words, never words over its edge.
+	b.ready.connect(func(): b.custom_minimum_size.y = maxf(b.custom_minimum_size.y, v.get_combined_minimum_size().y + 12.0))
 	if disabled:
 		b.modulate = Color(1, 1, 1, 0.45)
 	return b

@@ -6,14 +6,15 @@
   "id": "S428",
   "owner": "claude",
   "updated": "2026-11-11",
-  "summary": "S429 (2026-11-11): collected by diff WEEKTESTS1 (PR 185), RANKSHOW1 (goose 186, RankLine.gd) and HALOSWEEP1 (PR 184, the shared outline on 11 more screens); PRs 181, 182, 184, 185 closed. BARGUARD1's first run died with no output and was archived as collected by mistake (branch tip = main): relaunched on Cursor. His S429 word: 'on the new 3-4 fighter start try to use the guide to pinpoint different trainings according to different ratings and styles of fighters'. Written: ops/research/FOURSTART1_MAP_S429.md (four starters Lucy, Samira, Tess, Ana; one stipend and three day jobs; six shared pad places; the coach's read per fighter: fight / rest / hole / weapon / craft) and ops/research/AMATEURWEEK1_MAP_S429.md (lead 1 to 2 weeks, no camp, a fight week of four linked jobs). Launched: TRAINREAD1 (the read as a pure rule, Goose issue 187), MONEYFOUR1 (Qwen, a year with four fighters in five stipend cells). Found in code: pad nights are PER FIGHTER today (no shared hands), the first unit has 3 places (four need 4). Usage: weekly 0% used, extra usage EUR 37.92 of 40. Q-S294-179 asks him whether to run the critics on the two maps.",
+  "summary": "S429 (2026-11-11): collected WEEKTESTS1, RANKSHOW1, HALOSWEEP1, TRAINREAD1 (the coach's read, 'weakness' not 'hole'), MONEYFOUR1 (one stipend keeps the four-fighter club at 1.9 to 2.9 months of costs; four close 8 clubs in 10; none is too easy), BARGUARD1 (tests + real render). Design maps FOURSTART1 and AMATEURWEEK1 written; critics round 1 (his 'yes run them'): 4 and 4, 3 and 4; both rewritten as v2 (ops/research/FOURSTART1_MAP_V2_S429.md, AMATEURWEEK1_MAP_V2_S429.md). His play notes fixed on main: Save above the lessons in the combo builder, the poster inside its frame, Engine -> Stamina, Raw -> Learning, readable game-plan answer buttons, no big counts on the scoreboard. Briefed: FIGHTDISPLAY4 (Cursor, running: side panels off the ring), TRAININGB2, GYMLIFE1 (queued Cursor), AMATEURPROBE1 (Qwen, running), CAMLINE1 (queued Qwen: gloves' blur first, then behind-the-boxer shots and far ropes). PADSANIM1 parked. Build exported to Builds/S429 (he was playing Builds/FightCamp.exe). Usage at the end: weekly all-models 5%, Fable 9%, extra EUR 37.92 of 40; his word: burn the weekly allowance but make it last to Thursday 16:00.",
   "last_working_commit": "de5183d8",
   "verified_playable": "people_slate, camp_slate, start_slate, camp_cards, versus, recruit, wood_kit, words_on_screens, plain_words, no_pronoun, gauges, attr_board, fighter_model green on the PC; the pages rendered and opened (E:/FightCamp/tmp/s419_screens, s419_screens2).",
   "incomplete_blocked": "MAIN CI: no finished run since e4a7b6f3 (red); three S419 pushes cancelled each other's runs, read the run on the wrap-up push. PR 140 REARHAND5B not judged: tools/head_aim_film.gd move=rear_hook printed no CONTACT line, so the film showed no punch. Luke Reid's portrait reads near black on Club People. Training week page untouched until his pick.",
-  "next_action": "1) Collect TRAINREAD1 (goose/issue-187: diff + train_read_test + no_pronoun_test), MONEYFOUR1 (qwen/moneyfour1: read docs/MONEYFOUR1_RESULT.md, check the population and the cells, then set start cash and the stipend rule in the FOURSTART1 map), BARGUARD1 (cursor/barguard1: RENDER stills through still_framing and read them before collecting). 2) His answer to Q-S294-179: yes = two fresh critics on each map (CRITIC_PACK first, clean copies, each draws its 10/10), 7+ from both before his board. 3) A picture for each map (1920x1080 HTML through tools/render_mockup.py). 4) Brief the next pure pieces: shared pad places (rule + probe), the amateur lead and no-camp probe. 5) Re-base week design v4 on four fighters and fight weeks. 6) E: 91% full: ask before deleting scratch under E:/FightCamp/tmp.",
+  "next_action": "1) get_usage. Collect FIGHTDISPLAY4 (render, read the stills) and AMATEURPROBE1 (check sums); the queue then launches TRAININGB2, GYMLIFE1 (Cursor) and CAMLINE1 (Qwen). 2) Two FRESH critics on each v2 map (clean copies; new seats), 7+ from both before his board. 3) AMATEURPROBE1's numbers into AMATEURWEEK v2 section 3. 4) Show where a hit lands (ribs): fold into FIGHTDISPLAY4's review or brief FIGHTDISPLAY5. 5) Tell him about Builds/S429 and move it to Builds/ when his game is closed. 6) Miro: redraw P0 (cards changed after the mid-session redraw). 7) E: 91% full: ask before deleting scratch under E:/FightCamp/tmp.",
   "next_acceptance": "The week design scores depth 7+ from two fresh critics and is on his board with its pictures; a film of round 2 without trembling legs and a film of a readable BJJ match are on his review board.",
   "awaiting_operator": [
-   "Q-S294-179: run the critics on the FOURSTART1 and AMATEURWEEK1 maps? (usage: weekly 0% used, extra EUR 37.92 of 40)"
+   "Miro P0: four surplus cards need his yes to delete",
+   "E: 91% full: which scratch renders under E:/FightCamp/tmp may go"
   ]
  },
  "next": "MECHANICS FIRST (operator S422 OK). 1) Collect KDFIX2 (the ruler only) and LEGTREMBLE3. 2) Brief FIGHTDISPLAY1 to Cursor from docs/mockups/s422/fight_10_simvet.html (his Q-174 pick: 'Use the veteran's drawing'); data check FIGHT_DISPLAY_DECISION_S419.md s7. 3) R28 Cutman: write the DESIGN MAP (what the player decides, on which screen, what it changes, the numbers, real-world cut rules) as one page + a picture, ask him on the board, then brief the pure module to Qwen/Goose. 4) R25 the same, after checking head punches count. 5) Q-173 dues: design map only. Menus wait unless a mechanic needs them.",
@@ -1720,6 +1721,11 @@
    "id": "S428",
    "date": "2026-11-10",
    "summary": "S428: start-up, then collects and critic rounds. Collected by diff: MOODHABIT1 (mood under 1 point; habits 6 to 15), TRAININGB1 (PR 179, Training tab B with the tiredness curve), FIGHTDISPLAY3 (wooden side panels, intent chips; two overlaps still open). Ziva fixed (port 7012 up). Launched HALOSWEEP1 (Cursor) and HANDSPROBE1 (Qwen; first run void), BARGUARD1 queued. Critic rounds (docs/mockups/s428): BJJ live choices 4/5, 5/5, 5/6, v4 6 (economy critic; coach critic out), cutman v3 5/5, R37 ask-for-a-fight map 5/5: none at 7, so none on his board. Usage: weekly all-models 100%, extra usage EUR 24.41 of 40: no more critic rounds without his word on the money."
+  },
+  {
+   "id": "S429",
+   "date": "2026-11-11",
+   "summary": "S429 (2026-11-11): collected WEEKTESTS1, RANKSHOW1, HALOSWEEP1, TRAINREAD1 (the coach's read, 'weakness' not 'hole'), MONEYFOUR1 (one stipend keeps the four-fighter club at 1.9 to 2.9 months of costs; four close 8 clubs in 10; none is too easy), BARGUARD1 (tests + real render). Design maps FOURSTART1 and AMATEURWEEK1 written; critics round 1 (his 'yes run them'): 4 and 4, 3 and 4; both rewritten as v2 (ops/research/FOURSTART1_MAP_V2_S429.md, AMATEURWEEK1_MAP_V2_S429.md). His play notes fixed on main: Save above the lessons in the combo builder, the poster inside its frame, Engine -> Stamina, Raw -> Learning, readable game-plan answer buttons, no big counts on the scoreboard. Briefed: FIGHTDISPLAY4 (Cursor, running: side panels off the ring), TRAININGB2, GYMLIFE1 (queued Cursor), AMATEURPROBE1 (Qwen, running), CAMLINE1 (queued Qwen: gloves' blur first, then behind-the-boxer shots and far ropes). PADSANIM1 parked. Build exported to Builds/S429 (he was playing Builds/FightCamp.exe). Usage at the end: weekly all-models 5%, Fable 9%, extra EUR 37.92 of 40; his word: burn the weekly allowance but make it last to Thursday 16:00."
   }
  ],
  "blocked_on_operator": [],
@@ -4638,7 +4644,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-11 09:11 board_sync",
+  "updated": "2026-11-11 09:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4989,22 +4995,30 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "TASK BARGUARD1 - CURSOR (Grok 4.7 High) - the boots stay above the corner bar while a shot holds, even when a boxer stands at the lens",
-    "who": "cursor",
-    "started": "2026-11-11T08:59",
-    "run": "BARGUARD1"
-   },
-   {
     "title": "TASK MONEYFOUR1 - QWEN (qwen3-coder) - what four fighters cost the club in a year. Measure only",
     "who": "qwen",
     "started": "2026-11-11T09:05",
-    "run": "MONEYFOUR1"
+    "run": "MONEYFOUR1",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "QWEN (qwen3-coder) - the coach's read: which training each fighter needs, from the numbers and the style",
     "who": "goose",
     "started": "2026-11-11T09:08",
-    "run": "TRAINREAD1"
+    "run": "TRAINREAD1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK AMATEURPROBE1 - QWEN (qwen3-coder) - amateur bouts at 1 to 2 weeks' notice with no camp: what changes. Measure only",
+    "who": "qwen",
+    "started": "2026-11-11T09:27",
+    "run": "AMATEURPROBE1"
+   },
+   {
+    "title": "TASK FIGHTDISPLAY4 - CURSOR (Grok 4.7 High) - the fight screen: the two wooden side panels go, the bars move to the top, the see-through figures stand free agai",
+    "who": "cursor",
+    "started": "2026-11-11T09:33",
+    "run": "FIGHTDISPLAY4"
    }
   ],
   "next": [
@@ -5644,6 +5658,22 @@
     {
      "text": "MONEYFOUR1: 1 stipend holds",
      "who": "agent"
+    },
+    {
+     "text": "BARGUARD1: boots above the bar",
+     "who": "agent"
+    },
+    {
+     "text": "Save button, poster, words fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Critics round 1: 4,4 and 3,4",
+     "who": "claude"
+    },
+    {
+     "text": "Both maps rewritten (v2)",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5652,7 +5682,7 @@
      "who": "claude"
     },
     {
-     "text": "Critics on the 2 maps (running)",
+     "text": "Critics round 2 on the v2 maps",
      "who": "claude"
     }
    ],
@@ -5703,6 +5733,10 @@
     },
     {
      "text": "GYMLIFE1: people work out in gym",
+     "who": "agent"
+    },
+    {
+     "text": "CAMLINE1: camera never behind",
      "who": "agent"
     }
    ],

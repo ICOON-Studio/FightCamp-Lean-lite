@@ -1053,6 +1053,14 @@
    "brief": "GYMLIFE1",
    "status": "queued",
    "queued": "2026-11-11T09:28"
+  },
+  {
+   "id": "CAMLINE1",
+   "seat": "qwen",
+   "title": "TASK CAMLINE1 - QWEN (qwen3-coder) - the fight camera: never straight behind one boxer; far ropes stop fading and smearing at head height",
+   "brief": "CAMLINE1",
+   "status": "queued",
+   "queued": "2026-11-11T09:44"
   }
  ]
 }
