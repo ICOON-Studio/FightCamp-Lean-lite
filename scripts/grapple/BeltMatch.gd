@@ -8,6 +8,7 @@ extends Node
 ## plan take every call (the film / probe run) and prints MATCH lines.
 
 const UI := preload("res://scripts/ui/UI.gd")
+const Halo := preload("res://scripts/ui/Halo.gd")
 const Graph := preload("res://scripts/grapple/GrappleGraph.gd")
 const DB := preload("res://scripts/grapple/GrappleMapDB.gd")
 const GrappleFinish := preload("res://scripts/grapple/GrappleFinish.gd")
@@ -384,7 +385,11 @@ func _open_call(offers: Array) -> void:
 func _offer_card(k: int, o: Dictionary) -> PanelContainer:
 	var b := PanelContainer.new()
 	b.name = "Call_%d" % k
-	b.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.GOLD if k == 0 else UI.LINE, 10, 2 if k == 0 else 1, 12, 8))
+	b.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 10, 1, 12, 8))
+	if k == 0:
+		Halo.ring(b, UI.GOLD, 10.0)
+	else:
+		Halo.hover(b, Halo.CHALK, 10.0)
 	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	b.tooltip_text = "Call it"
 	b.gui_input.connect(func(e: InputEvent):

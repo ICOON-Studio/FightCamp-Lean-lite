@@ -13,6 +13,7 @@ extends Control
 ##   var r := TapeRoom.new(); r.for_fighter(main, f); main.add_child(r)
 
 const UI := preload("res://scripts/ui/UI.gd")
+const Halo := preload("res://scripts/ui/Halo.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const TapeClips := preload("res://scripts/rules/TapeClips.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
@@ -317,7 +318,7 @@ func _toast(text: String) -> void:
 		main.toast(text)
 
 
-## One node on her flow: the arrow into it with its label, then the still, the title and the line. The tell is blue-edged;
+## One node on her flow: the arrow into it with its label, then the still, the title and the line. The tell wears the shared halo;
 ## a tell her file does not hold yet is a "?" until SPOT names it.
 func _add_node(n: Dictionary, i: int) -> void:
 	if i > 0:
@@ -356,7 +357,9 @@ func _add_node(n: Dictionary, i: int) -> void:
 func _fill_node(card: PanelContainer, n: Dictionary) -> void:
 	var tell := bool(n["tell"])
 	var hidden := tell and not TapeClips.known(opp, clips[idx])
-	card.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.GOLD if tell else UI.LINE, 10, 3 if tell else 1, 10, 8))
+	card.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 10, 1, 10, 8))
+	if tell:
+		Halo.ring(card, UI.GOLD, 10.0)
 	var words: VBoxContainer = card.get_node("Row/Words")
 	UI.clear(words)
 	var top := UI.hbox(6)
@@ -382,7 +385,8 @@ func _edge(text: String) -> Control:
 	h.add_child(line)
 	if text != "":
 		var pill := PanelContainer.new()
-		pill.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.GOLD, 12, 2, 10, 2))
+		pill.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 12, 1, 10, 2))
+		Halo.ring(pill, UI.GOLD, 12.0)
 		pill.add_child(UI.label(text, UI.TINY, UI.FG, "bold"))
 		pill.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		h.add_child(pill)

@@ -31,6 +31,7 @@ const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const GamePlanRows := preload("res://scripts/ui/GamePlanRows.gd")
 const FirstWeekStrip := preload("res://scripts/ui/FirstWeekStrip.gd")
 const MoveWords := preload("res://scripts/rules/MoveWords.gd")
+const Halo := preload("res://scripts/ui/Halo.gd")
 
 const PLACE_W := 250.0
 const OPT := Vector2(440, 76)   # S416: wide enough for what the choice does
@@ -268,7 +269,8 @@ func _line(place: String, when: String) -> Control:
 	var is_open := open == key
 	var card := PanelContainer.new()
 	card.name = "Line_" + key.replace("|", "_")
-	card.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.GOLD if is_open else UI.LINE, 10, 2 if is_open else 1, 14, 8))
+	card.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 10, 1, 14, 8))
+	if is_open: Halo.ring(card, UI.GOLD, 10.0)
 	var v := UI.vbox(8)
 	card.add_child(v)
 	var top := UI.hbox(10)

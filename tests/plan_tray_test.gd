@@ -55,31 +55,20 @@ func _plan() -> void:
 	_check(b != null, "the board is on the Training tab")
 	if b == null:
 		return
-	var title := b.find_child("TrayTitle", true, false) as Label
-	_check(title != null and title.text == "THE PLAN vs", "the tray title: THE PLAN vs (%s)" % (title.text if title else "none"))
-	var who := b.find_child("OppName", true, false) as Label
-	var first := str(f["bout"]["opp"].get("first", str(f["bout"]["opp"].get("name", "")).get_slice(" ", 0))).to_upper()
-	_check(who != null and who.text == first, "her name after vs (%s)" % (who.text if who else "none"))
-	_check(b.find_child("OppFace", true, false) != null, "her face after vs")
-	var tags := {}
-	for card in _cards(b):
-		var t := card.find_child("Tag", true, false) as Label
-		if t != null:
-			tags[str(card.card)] = t.text
-	print("  tray tags: ", tags)
+	# Approach B: the plan's cards are the evening editor's rows. The "THE PLAN vs" header, the face,
+	# and the GO-TO / R1 OPENER / ANSWER tags were dropped. A punch that will not be usable keeps the
+	# late line on the row's tooltip (the old Eta / NOT THROWN stamp).
+	var pads: Array = PadWeek.nights_of(f)["pads"]
+	_check(not pads.is_empty(), "a pad night to open")
+	if pads.is_empty():
+		return
+	await _day(int(pads[0]))
+	b = _board()
+	var hook := "move:Check hook"
 	var go := str(f["plan_combo"])
-	_check(str(tags.get(go, "")) == PlanCards.GO_TO, "the GO-TO combination is in the tray, tagged GO-TO")
-	_check(str(tags.get("combo:1-1", "")) == PlanCards.OPENER, "the 1-1 is the R1 OPENER")
-	_check(str(tags.get("move:Check hook", "")) == PlanCards.ANSWER, "the check hook card is the ANSWER to her hooks")
-	var ch := b.find_child("Drill_move_Check_hook", true, false)
-	var stamp := ch.find_child("Stamp", true, false) if ch != null else null
-	var eta := ch.find_child("Eta", true, false) as Label if ch != null else null
-	var sw := stamp.find_child("*", true, false) as Label if stamp != null else null
-	# S382 review: a punch's card stands for a line greyed on the night (StrikeMap.grey_reason), not one played at x0.8
-	_check(sw != null and sw.text == PlanCards.STAMP_PUNCH, "the check hook at 2 (a punch) wears the NOT THROWN stamp (%s)" % (sw.text if sw else "none"))
-	_check(eta != null and eta.text == PlanCards.LATE, "and reads 'not usable by fight night' (%s)" % (eta.text if eta else "none"))
-	var gc := b.find_child("Drill_" + go.replace(":", "_"), true, false)
-	_check(gc != null and gc.find_child("Stamp", true, false) == null, "the usable GO-TO wears no stamp")
+	var late := _tip(b, hook)
+	_check(late == PlanCards.LATE, "the check hook at 2 (a punch) reads 'not usable by fight night' (%s)" % late)
+	_check(_row(b, go) != null and _tip(b, go) != PlanCards.LATE, "the usable GO-TO wears no late line (%s)" % _tip(b, go))
 	var week := PadWeek.week_of(f, PadWeek.nights_of(f))
 	var on := PadWeek.cards_in(week)
 	_check(not on.is_empty() and on.all(func(x): return PlanCards.cards(f).has(x)), "the coach's pad nights drill the plan (%s)" % str(on))
@@ -106,27 +95,42 @@ func _after() -> void:
 	main.render()
 	await _frames(2)
 	var b := _board()
-	var title := b.find_child("TrayTitle", true, false) as Label
-	_check(title != null and title.text == "LEARN ON THE PADS", "after the fight: LEARN ON THE PADS (%s)" % (title.text if title else "none"))
 	_check(b.find_child("Stamp", true, false) == null and b.find_child("OppName", true, false) == null, "no stamp, no opponent")
 	var head := b.find_child("BoardHead", true, false)
 	_check(head != null and head.find_child("WeekStrip", true, false) == null, "the head is THIS WEEK again, no weeks strip")
-	var row := b.find_child("TrayCards", true, false) as Control
-	_check(row != null and row.modulate.a < 0.99, "the switch slides the cards in (alpha %.2f)" % (row.modulate.a if row else -1.0))
-	await create_timer(0.8).timeout
-	row = _board().find_child("TrayCards", true, false) as Control
-	_check(row != null and is_equal_approx(row.modulate.a, 1.0), "and they land")
-	for card in _cards(b):
-		var t := card.find_child("Tag", true, false) as Label
-		if t != null and [PlanCards.GO_TO, PlanCards.OPENER, PlanCards.ANSWER].has(t.text):
-			_check(false, "a plan tag left on %s" % str(card.card))
+	# The old tray's slide (LEARN ON THE PADS, TrayCards fading in) was dropped with the tray header.
+	var pads: Array = PadWeek.nights_of(f)["pads"]
+	if not pads.is_empty():
+		await _day(int(pads[0]))
+		b = _board()
+	var late := false
+	var rows := b.find_children("Drill_*", "", true, false)
+	for row in rows:
+		if _tip_of(row) == PlanCards.LATE:
+			late = true
+	_check(not late and rows.size() >= 1, "after the fight the rows are the learn list, with no late line (%d)" % rows.size())
 
 
-func _cards(n: Node) -> Array:
-	var tray := n.find_child("DrillTray", true, false)
-	if tray == null:
-		return []
-	return tray.find_children("Drill_*", "Button", true, false).filter(func(x): return x.get("card") != null)
+func _day(dow: int) -> void:
+	var tile := _board().find_child("DayTile_%d" % dow, true, false) as Button
+	if tile != null:
+		tile.pressed.emit()
+	await _frames(2)
+
+
+func _row(b: Node, card: String) -> Node:
+	return b.find_child("Drill_" + card.replace(":", "_").replace(" ", "_"), true, false)
+
+
+func _tip(b: Node, card: String) -> String:
+	return _tip_of(_row(b, card))
+
+
+func _tip_of(row: Node) -> String:
+	if row == null:
+		return ""
+	var labs := row.find_children("*", "Label", true, false)
+	return str((labs[0] as Label).tooltip_text) if not labs.is_empty() else ""
 
 
 func _board() -> Node:

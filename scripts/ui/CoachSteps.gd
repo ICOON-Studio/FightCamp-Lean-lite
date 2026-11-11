@@ -6,6 +6,7 @@ extends VBoxContainer
 ##   var s := CoachSteps.new(); s.setup(mat); add it; after mat.play_move(id): s.show_move(id, filmed)
 
 const UI := preload("res://scripts/ui/UI.gd")
+const Halo := preload("res://scripts/ui/Halo.gd")
 const BjjSteps := preload("res://scripts/rules/BjjSteps.gd")
 
 const SLOW := 0.5
@@ -72,6 +73,7 @@ func _row(i: int, cue: String, filmed: bool) -> PanelContainer:
 	var p := PanelContainer.new()
 	p.name = "Step_%d" % (i + 1)
 	var h := UI.hbox(10)
+	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var n := UI.label("%d" % (i + 1), UI.SMALL, UI.GOLD, "bold")
 	n.custom_minimum_size = Vector2(18, 0)
 	h.add_child(n)
@@ -111,8 +113,21 @@ func _restyle(i: int) -> void:
 	_lit = i
 	for k in _rows.size():
 		var on: bool = k == i
-		(_rows[k] as PanelContainer).add_theme_stylebox_override("panel",
-			UI.box(UI.SKY if on else UI.PANEL, UI.GOLD if on else UI.LINE, 8, 2 if on else 1, 10, 6))
+		var row := _rows[k] as PanelContainer
+		row.add_theme_stylebox_override("panel", UI.box(UI.SKY if on else UI.PANEL, UI.LINE, 8, 1, 10, 6))
+		_mark(row, on)
+
+
+func _mark(row: Control, on: bool) -> void:
+	for n in ["Halo", "HaloHover"]:
+		var old := row.get_node_or_null(n)
+		if old != null:
+			row.remove_child(old)
+			old.queue_free()
+	if on:
+		Halo.ring(row, UI.GOLD, 8.0)
+	elif row.mouse_default_cursor_shape == Control.CURSOR_POINTING_HAND:
+		Halo.hover(row, Halo.CHALK, 8.0)
 
 
 func _toggle() -> void:

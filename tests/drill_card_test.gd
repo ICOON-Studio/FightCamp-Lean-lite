@@ -16,7 +16,6 @@ const TestJump := preload("res://scripts/ui/TestJump.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
-const DrillTray := preload("res://scripts/ui/DrillTray.gd")
 
 var _fails := 0
 var main: Node
@@ -59,15 +58,23 @@ func _layout(b: Node) -> void:
 	var award := page.find_child("AwardCard", false, false) if page != null else null
 	_check(award != null and award.get_index() > b.get_index(), "the tab opens on the board, the awards card below it")
 	_check(page.find_child("ComboPlanner", true, false) == null, "no combo planner card (the tray replaced it)")
-	var tray := b.find_child("DrillTray", true, false)
-	_check(tray != null and tray.find_child("BuildCombo", true, false) != null, "the LEARN tray with + Build a combination")
-	_check(tray != null and _cards(tray).size() >= 2, "drill cards in the tray (%d)" % _cards(tray).size())
-	_check(b.find_child("Step_0", true, false) == null and b.find_child("WeekTired", true, false) != null and b.find_child("PlanTotals", true, false) != null,
-		"WEEK TIREDNESS and PLAN TOTALS, no Light / Standard / Hard")
+	var pads: Array = PadWeek.nights_of(f)["pads"]
+	if not pads.is_empty():
+		await _day(int(pads[0]))
+		b = _board()
+	var combo := _button_text(b.find_child("EveningEditor", true, false), "Combo")
+	_check(combo != null and str(combo.tooltip_text).contains("Build a combination"), "the evening editor builds a combination")
+	var drills := b.find_children("Drill_*", "", true, false).size()
+	_check(drills >= 2, "drill rows on the pad evening (%d)" % drills)
+	_check(b.find_child("Step_0", true, false) == null and b.find_child("WeekTired", true, false) != null,
+		"the tiredness curve, no old step row")
+	_check(_button_text(b.find_child("MorningEditor", true, false), "Light") != null
+		and _button_text(b.find_child("MorningEditor", true, false), "Normal") != null
+		and _button_text(b.find_child("MorningEditor", true, false), "Hard") != null, "Light, Normal and Hard")
 	var head := b.find_child("BoardHead", true, false)
 	_check(head != null and head.find_child("Gauges", true, false) != null and head.find_child("WeekStrip", true, false) == null,
 		"the gauges head the board; S398: the weeks strip is Fight prep's")
-	_check(b.find_child("GoalRow", true, false) != null and b.find_child("Intensity", true, false) == null, "GOAL, no blocks count")
+	_check(b.find_child("GoalLine", true, false) != null and b.find_child("Intensity", true, false) == null, "the goal line, no blocks count")
 	var am := 0
 	var pm := 0
 	for i in 7:
@@ -84,77 +91,93 @@ func _layout(b: Node) -> void:
 
 
 func _click_click() -> void:
+	# The two-click wait (pick a card, then an evening) was replaced by + and − on the row.
 	var nights := PadWeek.nights_of(f)
 	var p := int(nights["pads"][0])
 	var card := "move:Body hook"
 	_pin(card)
 	main.render()
 	await _frames(2)
+	await _day(p)
 	var b := _board()
-	var btn := b.find_child("Drill_move_Body_hook", true, false) as Button
-	_check(btn != null, "the pinned Body hook card is in the tray")
-	if btn == null:
+	var row := b.find_child("Drill_move_Body_hook", true, false)
+	_check(row != null, "the pinned Body hook card is on the evening")
+	if row == null:
 		return
-	btn.pressed.emit()
+	var plus := _button_text(row, "+")
+	_check(plus != null, "the row can put the card on the night")
+	if plus == null:
+		return
+	plus.pressed.emit()
 	await _frames(2)
-	_check(DrillTray.picked == "%s|%s" % [fid, card], "click 1: the card waits for a night")
+	_check(_on(p).has(card), "the card is on the pad night (%s)" % str(_on(p)))
 	b = _board()
-	var hint := b.find_child("TrayHint", true, false) as Label
-	_check(hint != null and hint.text.contains("now click an evening"), "the hint says click an evening")
-	(b.find_child("Drill_move_Body_hook", true, false) as Button).pressed.emit()
-	await _frames(2)
-	_check(DrillTray.picked == "", "clicking it again unpicks")
-	(_board().find_child("Drill_move_Body_hook", true, false) as Button).pressed.emit()
-	await _frames(2)
-	_left(_board().find_child("Night_%d" % p, true, false))
-	await _frames(2)
-	_check(_on(p).has(card) and DrillTray.picked == "", "click 2 on a PADS night: the card is on it (%s)" % str(_on(p)))
+	row = b.find_child("Drill_move_Body_hook", true, false)
+	var minus := row.find_child("DropDrill", true, false) as Button if row != null else null
+	if minus != null:
+		minus.pressed.emit()
+		await _frames(2)
+	_check(not _on(p).has(card), "taking it off clears it (%s)" % str(_on(p)))
 
 
 func _drag_split_clear() -> void:
+	# Drag onto a night became: Pads on that evening, then + on the row. − takes one card off.
 	var nights := PadWeek.nights_of(f)
-	var p := int(nights["pads"][0])
-	var b := _board()
-	var src := b.find_child("Drill_combo_1-1", true, false)
-	if src == null:
-		src = _cards(b.find_child("DrillTray", true, false)).filter(func(x): return not _on(p).has(str(x.card))).front()
-	var card := str(src.card)
-	var payload: Dictionary = src.payload()
 	var spar := -1
 	for d in nights["spar"]:
 		spar = int(d)
 	if spar >= 0:
-		var sn := b.find_child("Night_%d" % spar, true, false)
-		_check(sn._can_drop_data(Vector2.ZERO, payload), "S398: a sparring night takes the drop too (it becomes a pads night)")
-	var night := b.find_child("Night_%d" % p, true, false)
-	_check(night._can_drop_data(Vector2.ZERO, payload), "a PADS night takes the drag")
-	night._drop_data(Vector2.ZERO, payload)
+		await _day(spar)
+		var pads_btn := _board().find_child("Eve_pads", true, false) as Button
+		_check(pads_btn != null, "a sparring evening can become pads")
+		if pads_btn != null:
+			pads_btn.pressed.emit()
+			await _frames(2)
+			var added := _first_plus(_board(), [])
+			if added != "":
+				_press_plus(_board(), added)
+				await _frames(2)
+				_check(_on(spar).has(added) and (PadWeek.nights_of(f)["pads"] as Array).has(spar),
+					"the sparring night takes the drill and becomes pads (%s)" % added)
+			var back := _board().find_child("Eve_sparring", true, false) as Button
+			if back != null:
+				back.pressed.emit()
+				await _frames(2)
+	var p := int(PadWeek.nights_of(f)["pads"][0])
+	await _day(p)
+	var card := _first_plus(_board(), _on(p))
+	_check(card != "", "a card to add beside the night's drill")
+	if card == "":
+		return
+	_press_plus(_board(), card)
 	await _frames(2)
-	_check(_on(p).size() == 2 and _on(p).has(card), "the drop splits the night (%s)" % str(_on(p)))
-	b = _board()
-	var split := b.find_child("Split_%d" % p, true, false) as Button
-	_check(split != null and split.text == "50%", "the split badge reads 50%")
+	_check(_on(p).size() == 2 and _on(p).has(card), "the add splits the night (%s)" % str(_on(p)))
+	var list: Array = PadWeek.week_of(f, PadWeek.nights_of(f))[PadWeek.DAYS[p]]
+	_check(roundi(100.0 * float(list[0]["share"])) == 50 and roundi(100.0 * float(list[1]["share"])) == 50, "the split is 50/50")
+	var bar := _board().find_child("SplitBar", true, false)
+	var split := bar.get_child(0) as Button if bar != null and bar.get_child_count() > 0 else null
+	_check(split != null, "the split bar is on the pad night")
 	if split != null:
 		split.pressed.emit()
 		await _frames(2)
-		var list: Array = PadWeek.week_of(f, PadWeek.nights_of(f))[PadWeek.DAYS[p]]
+		list = PadWeek.week_of(f, PadWeek.nights_of(f))[PadWeek.DAYS[p]]
 		_check(roundi(100.0 * float(list[0]["share"])) == 70 and roundi(100.0 * float(list[1]["share"])) == 30, "a click: 70/30")
-	b = _board()
-	var slot := b.find_child("Slot_%d_%s" % [p, card.replace(":", "_").replace(" ", "_")], true, false) as Control
-	_check(slot != null, "the split night shows a slot per card")
-	if slot != null:
-		_right(slot, true)
-		await _frames(2)
-		_check(not _on(p).has(card) and _on(p).size() == 1, "right-click a slot: that card off (%s)" % str(_on(p)))
-	_right(_board().find_child("Night_%d" % p, true, false))
+	_take_off(card)
 	await _frames(2)
-	_check(_on(p).is_empty() and (f["pad_week"] as Dictionary).has(PadWeek.DAYS[p]), "right-click the night: it stays empty")
+	_check(not _on(p).has(card) and _on(p).size() == 1, "taking that card off (%s)" % str(_on(p)))
+	var left: Array = _on(p)
+	if not left.is_empty():
+		_take_off(str(left[0]))
+		await _frames(2)
+	_check(_on(p).is_empty() and (f["pad_week"] as Dictionary).has(PadWeek.DAYS[p]), "the night stays empty")
 
 
 func _drill_it() -> void:
 	var nights := PadWeek.nights_of(f)
-	main.act("drill", "%s|%d|own:1" % [fid, int(nights["pads"][0])])
+	var p := int(nights["pads"][0])
+	main.act("drill", "%s|%d|own:1" % [fid, p])
 	await _frames(2)
+	await _day(p)
 	var go := _board().find_child("Drill_own_1", true, false)
 	var btn := go.find_child("DrillIt", true, false) as Button if go != null else null
 	_check(btn != null, "the 1-1, in, 3 card is held by the Lead hook: + drill it")
@@ -188,42 +211,44 @@ func _steps() -> void:
 	if rest < 0:
 		return
 	var before := _pad_cards()
-	_left(_board().find_child("Night_%d" % rest, true, false))
-	await _frames(2)
-	var pop := _board().find_child("EveningPop", true, false)
-	_check(pop != null and pop.find_child("Eve_pads", true, false) != null, "a click on an evening opens its popover")
-	if pop == null:
+	await _day(rest)
+	var pads := _board().find_child("Eve_pads", true, false) as Button
+	_check(pads != null, "the evening editor offers Pads")
+	if pads == null:
 		return
-	(pop.find_child("Eve_pads", true, false) as Button).pressed.emit()
+	pads.pressed.emit()
 	await _frames(2)
 	var want: int = (PadWeek.nights_of(f)["pads"] as Array).size()
 	_check(_pad_cards() == want and want == before + 1, "Pads: that evening is a pads night (%d -> %d)" % [before, _pad_cards()])
-	pop = _board().find_child("EveningPop", true, false)
-	_check(pop != null, "the popover stays open on Pads, for its drill")
-	if pop != null:
-		(pop.find_child("Eve_rest", true, false) as Button).pressed.emit()
+	_check(_board().find_child("Eve_pads", true, false) != null, "the editor stays open on Pads, for its drill")
+	var back := _board().find_child("Eve_rest", true, false) as Button
+	if back != null:
+		back.pressed.emit()
 		await _frames(2)
-	_check(_pad_cards() == before and _board().find_child("EveningPop", true, false) == null, "Rest: back to %d pads nights, popover closed" % before)
+	var title := _board().find_child("EveningTitle", true, false) as Label
+	_check(_pad_cards() == before and title != null and title.text == "Rest", "Rest: back to %d pads nights" % before)
 
 
 func _picker() -> void:
+	# The 9 picture cards are the morning editor's session icons. The editor stays open; the title changes.
 	var c: Career = main.career
 	var days := WeekPlan.days_of(f)
 	var dow := posmod(c.day, 7)
-	var b := _board()
-	(b.find_child("Session_%d" % dow, true, false) as Button).pressed.emit()
-	await _frames(2)
-	var pk := _board().find_child("Picker", true, false)
-	var n := 0
-	if pk != null:
-		for k in pk.find_children("Pick_*", "Button", true, false):
-			n += 1
-	_check(pk != null and n == 9, "a click on a morning: 9 picture cards (%d)" % n)
+	await _day(dow)
+	var icons := _session_icons(_board())
+	_check(icons.size() == 9, "the morning editor has 9 session icons (%d)" % icons.size())
 	var pick := "shadow" if str(days[dow][0]) != "shadow" else "roadwork"
-	(pk.find_child("Pick_" + pick, true, false) as Button).pressed.emit()
-	await _frames(2)
-	_check(_board().find_child("Picker", true, false) == null and str(WeekPlan.days_of(f)[dow][0]) == pick,
-		"a pick changes the morning to %s and closes the picker" % pick)
+	var want := str(WeekPlan.session(pick)["name"])
+	var btn: Button = null
+	for ic in icons:
+		if str((ic as Button).tooltip_text) == want:
+			btn = ic
+	if btn != null:
+		btn.pressed.emit()
+		await _frames(2)
+	var title := _board().find_child("MorningTitle", true, false) as Label
+	_check(str(WeekPlan.days_of(f)[dow][0]) == pick and title != null and title.text == want,
+		"a pick changes the morning to %s" % pick)
 
 
 func _pin(card: String) -> void:
@@ -245,25 +270,68 @@ func _on(dow: int) -> Array:
 	return (PadWeek.week_of(f, PadWeek.nights_of(f)).get(PadWeek.DAYS[dow], []) as Array).map(func(e): return str(e["card"]))
 
 
-func _cards(tray: Node) -> Array:
-	return tray.find_children("Drill_*", "Button", true, false).filter(func(x): return x.get("card") != null)
+func _day(dow: int) -> void:
+	var tile := _board().find_child("DayTile_%d" % dow, true, false) as Button
+	if tile != null:
+		tile.pressed.emit()
+	await _frames(2)
 
 
-func _left(n: Node) -> void:
-	var ev := InputEventMouseButton.new()
-	ev.button_index = MOUSE_BUTTON_LEFT
-	ev.pressed = true
-	n._gui_input(ev)
+func _button_text(root: Node, text: String) -> Button:
+	if root == null:
+		return null
+	for n in root.find_children("*", "Button", true, false):
+		if str((n as Button).text) == text:
+			return n
+	return null
 
 
-func _right(n: Node, signal_only := false) -> void:
-	var ev := InputEventMouseButton.new()
-	ev.button_index = MOUSE_BUTTON_RIGHT
-	ev.pressed = true
-	if signal_only:
-		n.gui_input.emit(ev)
-	else:
-		n._gui_input(ev)
+func _session_icons(b: Node) -> Array:
+	var ed := b.find_child("MorningEditor", true, false)
+	var out: Array = []
+	if ed == null:
+		return out
+	for n in ed.find_children("*", "Button", true, false):
+		var btn := n as Button
+		if btn.text == "" and str(btn.tooltip_text) != "":
+			out.append(btn)
+	return out
+
+
+func _drill_name(card: String) -> String:
+	return "Drill_" + card.replace(":", "_").replace(" ", "_")
+
+
+func _card_of(row: Node) -> String:
+	var rest := str(row.name).trim_prefix("Drill_")
+	if rest == str(row.name):
+		return ""
+	for kind in ["move", "combo", "own"]:
+		var head := str(kind) + "_"
+		if rest.begins_with(head):
+			return kind + ":" + rest.substr(head.length()).replace("_", " ")
+	return ""
+
+
+func _first_plus(b: Node, skip: Array) -> String:
+	for row in b.find_children("Drill_*", "", true, false):
+		var id := _card_of(row)
+		if id != "" and not skip.has(id) and _button_text(row, "+") != null:
+			return id
+	return ""
+
+
+func _press_plus(b: Node, card: String) -> void:
+	var plus := _button_text(b.find_child(_drill_name(card), true, false), "+")
+	if plus != null:
+		plus.pressed.emit()
+
+
+func _take_off(card: String) -> void:
+	var row := _board().find_child(_drill_name(card), true, false)
+	var minus := row.find_child("DropDrill", true, false) as Button if row != null else null
+	if minus != null:
+		minus.pressed.emit()
 
 
 func _board() -> Node:

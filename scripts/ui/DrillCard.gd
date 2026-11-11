@@ -10,6 +10,7 @@ extends Button
 ##   DrillCard.picture(f, card) -> Texture2D   DrillCard.station(f, station) -> Texture2D (her body at that station)
 
 const UI := preload("res://scripts/ui/UI.gd")
+const Halo := preload("res://scripts/ui/Halo.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
@@ -53,10 +54,12 @@ static func make(f: Dictionary, card_id: String, proj: Dictionary, picked: bool,
 	var cross := PadEdit.crossing(f, card_id, proj)
 	var gold := not cross.is_empty()
 	for st in ["normal", "hover", "pressed", "disabled", "focus"]:
-		# see-through chalk edge; the card you hold (or drag) takes the gold edge
+		# see-through chalk edge; the card you hold wears the shared halo (hover keeps the blue edge)
 		var hot: bool = st == "hover" and not picked
-		var edge := Color(WoodKit.HEAD if picked else (WoodKit.BLUE if hot else WoodKit.SOFT), 1.0 if picked or hot else 0.35)
-		b.add_theme_stylebox_override(st, UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if picked else 1, 0, 0))
+		var edge := Color(WoodKit.BLUE if hot else WoodKit.SOFT, 1.0 if hot else 0.35)
+		b.add_theme_stylebox_override(st, UI.box(Color(1, 1, 1, 0.04), edge, 4, 1, 0, 0))
+	if picked:
+		Halo.ring(b, WoodKit.HEAD, 4.0)
 	b.tooltip_text = "Drag onto an evening, or click it and then the evening."
 	b.pressed.connect(func(): on_pick.call(card_id))
 	var pad := MarginContainer.new()
@@ -218,7 +221,8 @@ func payload() -> Dictionary:
 
 func _get_drag_data(_at: Vector2) -> Variant:
 	var tag := PanelContainer.new()
-	tag.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), WoodKit.HEAD, 4, 2, 12, 6))
+	tag.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 12, 6))
+	Halo.ring(tag, WoodKit.HEAD, 4.0)
 	tag.add_child(UI.label(PadEdit.title({}, card) if PadWeek.kind(card) != "own" else "combination", 22, WoodKit.INK, "bold"))
 	set_drag_preview(tag)
 	return payload()

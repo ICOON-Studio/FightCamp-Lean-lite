@@ -5,6 +5,7 @@ extends Control
 ## known yet, "bye" = a bye). Set rounds, her and champion_title, then queue_redraw.
 
 const UI := preload("res://scripts/ui/UI.gd")
+const Halo := preload("res://scripts/ui/Halo.gd")
 
 const HEAD := 46.0
 const ROW := 27.0
@@ -14,6 +15,7 @@ const COL_MAX := 290.0
 var rounds: Array = []
 var her := ""
 var champion_title := "Champion"
+var _mark_key := ""
 
 
 func _ready() -> void:
@@ -29,6 +31,7 @@ func set_rounds(r: Array) -> void:
 
 func _draw() -> void:
 	if rounds.is_empty():
+		_sync_halos([])
 		return
 	var cols := rounds.size() + 1
 	var colw := minf(size.x / cols, COL_MAX)
@@ -38,6 +41,7 @@ func _draw() -> void:
 	var bold := UI.font("bold")
 	var body := UI.font("body")
 	var final_winner := ""
+	var marks: Array = []
 	for j in rounds.size():
 		var r: Dictionary = rounds[j]
 		var x := j * colw
@@ -52,7 +56,10 @@ func _draw() -> void:
 			var p: Array = pairs[i]
 			var w := str(wins[i]) if i < wins.size() else ""
 			var ours := p.has(her)
-			draw_style_box(UI.box(UI.PANEL2 if not ours else Color(UI.GOLD, 0.14), UI.GOLD if ours else UI.LINE, 6, 1), Rect2(x, top, boxw, ROW * 2.0))
+			var bout := Rect2(x, top, boxw, ROW * 2.0)
+			draw_style_box(UI.box(UI.PANEL2 if not ours else Color(UI.GOLD, 0.14), UI.LINE, 6, 1), bout)
+			if ours:
+				marks.append(bout)
 			draw_line(Vector2(x + 6, cy), Vector2(x + boxw - 6, cy), UI.ROWLINE, 1.0)
 			for k in 2:
 				var name := str(p[k])
@@ -82,6 +89,34 @@ func _draw() -> void:
 	var champ_y := HEAD + 0.5 * slot * pow(2.0, rounds.size() - 1)
 	draw_string(caps, Vector2(cx, 16), champion_title.to_upper(), HORIZONTAL_ALIGNMENT_LEFT, colw - 8.0, UI.TINY, UI.GOLD)
 	var won := final_winner == her and her != ""
-	draw_style_box(UI.box(Color(UI.GOLD, 0.22) if won else UI.PANEL, UI.GOLD, 6, 2), Rect2(cx, champ_y - ROW * 0.75, boxw, ROW * 1.5))
+	var champ_rect := Rect2(cx, champ_y - ROW * 0.75, boxw, ROW * 1.5)
+	draw_style_box(UI.box(Color(UI.GOLD, 0.22) if won else UI.PANEL, UI.LINE, 6, 1), champ_rect)
+	marks.append(champ_rect)
 	var champ := final_winner if final_winner != "" else "?"
 	draw_string(bold, Vector2(cx + 10, champ_y + 6), champ, HORIZONTAL_ALIGNMENT_LEFT, boxw - 16.0, UI.BODY, UI.GOLD if won else UI.FG)
+	_sync_halos(marks)
+
+
+func _sync_halos(marks: Array) -> void:
+	var key := ""
+	for piece in marks:
+		var r: Rect2 = piece
+		key += "%.1f,%.1f,%.1f,%.1f;" % [r.position.x, r.position.y, r.size.x, r.size.y]
+	if key == _mark_key:
+		return
+	_mark_key = key
+	_lay_halos.call_deferred(marks.duplicate())
+
+
+## One shared-shader halo over each chosen box. Rebuilt when the draw's rects change, never a second shader.
+func _lay_halos(marks: Array) -> void:
+	for c in get_children():
+		if str(c.name) == "Halo":
+			remove_child(c)
+			c.queue_free()
+	for piece in marks:
+		var r: Rect2 = piece
+		var ring := Halo.ring(self, UI.GOLD, 6.0)
+		ring.set_anchors_preset(Control.PRESET_TOP_LEFT)
+		ring.position = r.position - Vector2.ONE * Halo.MARGIN
+		ring.size = r.size + Vector2.ONE * Halo.MARGIN * 2.0

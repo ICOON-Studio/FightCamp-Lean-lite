@@ -154,30 +154,33 @@ func _board() -> void:
 		_check(is_nan(float(dial.get("ghost"))), "leaving 'undo' clears it")
 		undo.pressed.emit()
 		await _frames(3)
-	# The morning's picker (S382 DRILLCARD1: 9 picture cards under the mornings): the card under the cursor ghosts it;
-	# leaving it clears; closing the picker clears.
+	# The 9 picture cards are the morning editor's session icons. Hovering one ghosts that morning;
+	# leaving it clears. The popup picker was dropped, so there is nothing to close.
 	b = main.find_child("WeekBoard", true, false)
 	plan_before = f.get("week_edits", {}).duplicate(true)
-	(b.find_child("Session_%d" % dow, true, false) as Button).pressed.emit()
+	var tile := b.find_child("DayTile_%d" % dow, true, false) as Button
+	_check(tile != null, "the day tile selects the morning")
+	if tile == null:
+		return
+	tile.pressed.emit()
 	await _frames(3)
 	b = main.find_child("WeekBoard", true, false)
 	gauge = b.find_child("Gauges", true, false)
+	if gauge == null:
+		_check(false, "the gauge row after the day is selected")
+		return
 	dial = gauge.find_child("Gauge_legs", true, false).find_child("Dial", true, false)
-	var rest := b.find_child("Picker", true, false).find_child("Pick_rest", true, false) as Button
+	var rest := _session_icon(b, "rest")
+	_check(rest != null, "the morning editor has Rest")
+	if rest == null:
+		return
 	rest.mouse_entered.emit()
 	await create_timer(0.3).timeout
-	_check(is_equal_approx(float(dial.get("ghost")), float(want["legs"])), "the picker's Rest under the cursor ghosts it (%.1f)" % float(dial.get("ghost")))
+	_check(is_equal_approx(float(dial.get("ghost")), float(want["legs"])), "Rest under the cursor ghosts it (%.1f)" % float(dial.get("ghost")))
 	rest.mouse_exited.emit()
 	await _frames(2)
-	_check(is_nan(float(dial.get("ghost"))), "off the card: no ghost")
-	rest.mouse_entered.emit()
-	await _frames(2)
-	(b.find_child("Session_%d" % dow, true, false) as Button).pressed.emit()   # a second click closes it
-	await _frames(3)
-	b = main.find_child("WeekBoard", true, false)
-	dial = b.find_child("Gauges", true, false).find_child("Gauge_legs", true, false).find_child("Dial", true, false)
-	_check(b.find_child("Picker", true, false) == null and is_nan(float(dial.get("ghost"))), "closing the picker clears the ghost")
-	_check(f.get("week_edits", {}) == plan_before, "the picker's hover changes no plan")
+	_check(is_nan(float(dial.get("ghost"))), "off the icon: no ghost")
+	_check(f.get("week_edits", {}) == plan_before, "the icon's hover changes no plan")
 
 
 func _camp_modal() -> void:
@@ -242,6 +245,18 @@ func _hover_matches(m: Node, gauge: Node, dial: Control, sdial: Control, card: S
 		"%s ghosts its dry run: LEGS %.1f, SCALE %.1f, %s" % [card, float(want["legs"]), float(want["kg"]), (gauge.deltas["legs"] as Label).text])
 	b.mouse_exited.emit()
 	_check(is_nan(float(dial.get("ghost"))) and (gauge.deltas["legs"] as Label).text == "", "%s: leaving clears the ghost" % card)
+
+
+func _session_icon(b: Node, sid: String) -> Button:
+	var ed := b.find_child("MorningEditor", true, false)
+	if ed == null:
+		return null
+	var want := str(WeekPlan.session(sid)["name"])
+	for n in ed.find_children("*", "Button", true, false):
+		var btn := n as Button
+		if btn.text == "" and str(btn.tooltip_text) == want:
+			return btn
+	return null
 
 
 func _frames(n: int) -> void:

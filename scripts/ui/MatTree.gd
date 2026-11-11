@@ -19,6 +19,7 @@ const UI := preload("res://scripts/ui/UI.gd")
 const BjjTree := preload("res://scripts/rules/BjjTree.gd")
 const Info := preload("res://scripts/ui/MatTreeInfo.gd")
 const MatGlyph := preload("res://scripts/ui/MatGlyph.gd")
+const Halo := preload("res://scripts/ui/Halo.gd")
 const MatCard := preload("res://scripts/ui/MatCard.gd")
 const MatMap := preload("res://scripts/ui/MatMap.gd")
 const PICS := "res://assets/ui/moves/%s.png"
@@ -152,13 +153,19 @@ func _goal_row() -> void:
 	if not opp.is_empty():
 		var chip := PanelContainer.new()
 		chip.name = "OppChip"
-		chip.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.GOLD, 14, 2, 10, 4))
+		chip.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 14, 1, 10, 4)); Halo.ring(chip, UI.GOLD, 14.0)
 		var v := UI.vbox(0)
 		v.add_child(UI.label("R1 %s" % str(opp.get("name", "")), UI.SMALL, UI.FG, "bold"))
 		v.add_child(UI.muted(str(opp.get("style", "")), UI.TINY))
 		chip.add_child(v)
 		_goals.add_child(chip)
 
+
+func _mark(host: Control, on: bool, tint: Color, radius: float, hover_ok: bool) -> void:
+	if on:
+		Halo.ring(host, tint, radius)
+	elif hover_ok:
+		Halo.hover(host, tint, radius)
 
 func _goal_tile(g: String, on: bool) -> Control:
 	var fl: Dictionary = _fills[g]
@@ -168,7 +175,7 @@ func _goal_tile(g: String, on: bool) -> Control:
 	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	b.custom_minimum_size = Vector2(132, 64)
 	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var sb := UI.box(UI.PANEL, UI.GOLD if on else UI.LINE, 8, 2 if on else 1, 6, 6)
+	var sb := UI.box(UI.PANEL, UI.LINE, 8, 1, 6, 6); _mark(b, on, UI.GOLD, 8.0, true)
 	for st in ["normal", "hover", "pressed"]:
 		b.add_theme_stylebox_override(st, sb)
 	var h := UI.hbox(6)
@@ -250,9 +257,10 @@ func _node_card(n: String, k: int) -> Control:
 	p.name = "PlanNode_%d" % k
 	p.custom_minimum_size = Vector2(NODE_W, STRIP_H - 14.0)
 	var on := n == sel()
-	p.add_theme_stylebox_override("panel", UI.box(CHARCOAL, Color("#ffd54a") if on else Color(0, 0, 0, 0), 8, 2, 4, 8))
+	p.add_theme_stylebox_override("panel", UI.box(CHARCOAL, Color(0, 0, 0, 0), 8, 2, 4, 8)); _mark(p, on, Color("#ffd54a"), 8.0, true)
 	var v := UI.vbox(8)
 	v.alignment = BoxContainer.ALIGNMENT_CENTER
+	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	v.add_child(MatGlyph.make(MatGlyph.node_kind(n, str(BjjTree.node(n).get("side", ""))), Vector2(NODE_W - 8.0, 56)))
 	var nm := "ANA WINS BY TAP" if n == "tap_win" else str(BjjTree.node(n).get("name", n)).to_upper()
 	var l := UI.label(nm, 11, Color("#eef0f3"), "display", true)
@@ -273,7 +281,7 @@ func _edge_card(i: int, ew: float) -> Control:
 	card.name = "Plan_%d" % i
 	card.corner = bool(inf["costly"])
 	card.custom_minimum_size = Vector2(ew, STRIP_H - 14.0)
-	card.add_theme_stylebox_override("panel", UI.box(UI.PANEL, Color("#ffd54a") if not bool(inf["base"]) else UI.LINE, 8, 2, 0, 0))
+	card.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 8, 2, 0, 0)); _mark(card, not bool(inf["base"]), Color("#ffd54a"), 8.0, false)
 	var b := Button.new()
 	b.name = "Edge_" + str(inf["id"])
 	b.flat = true

@@ -53,13 +53,75 @@ func _initialize() -> void:
 
 	# The screens that mark a chosen thing use Halo, and none of them paints a flat gold border for it any more.
 	for path in ["res://scripts/ui/DuesBoards.gd", "res://scripts/fight3d/CornerBar.gd", "res://scripts/fight3d/NowPlate.gd",
-			"res://scripts/ui/GuideLight.gd"]:
+			"res://scripts/ui/GuideLight.gd", "res://scripts/grapple/BeltMatch.gd", "res://scripts/ui/areas/GrapplerPage.gd",
+			"res://scripts/ui/Bracket.gd", "res://scripts/ui/CoachSteps.gd", "res://scripts/ui/CreateScreen.gd",
+			"res://scripts/ui/GamePlan.gd", "res://scripts/ui/MatSystems.gd", "res://scripts/ui/MatTree.gd",
+			"res://scripts/ui/TapeRoom.gd", "res://scripts/ui/FlowView.gd", "res://scripts/ui/DrillCard.gd"]:
 		var src := FileAccess.get_file_as_string(path)
+		var scr := load(path) as GDScript
+		_check(scr != null and scr.reload() == OK, "%s parses" % path.get_file())
 		_check(src.contains("Halo.ring("), "%s marks the chosen thing with Halo.ring" % path.get_file())
 		_check(not src.contains("border_color = GOLD") and not src.contains("border_color = WoodKit.HEAD"),
 			"%s has no flat gold border" % path.get_file())
+		var bad := _gold_box_border(src)
+		_check(bad == "", "%s chosen border is a halo, not UI.box(UI.GOLD if ...) (%s)" % [path.get_file(), bad])
 	print("HALO failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
+
+
+## The border argument of a UI.box( call. A chosen frame used to pass `UI.GOLD if <chosen>` (or WoodKit.HEAD / the
+## sticky gold) there. Text colours and a LineEdit focus style are not that argument, so they stay.
+func _gold_box_border(src: String) -> String:
+	var i := 0
+	while true:
+		var at := src.find("UI.box(", i)
+		if at < 0:
+			return ""
+		var open := at + 6
+		var close := _match_paren(src, open)
+		if close < 0:
+			return "unclosed UI.box"
+		var args := _split_args(src.substr(open + 1, close - open - 1))
+		if args.size() > 1 and _chosen_border(args[1]):
+			return args[1]
+		i = close + 1
+	return ""
+
+
+func _chosen_border(border: String) -> bool:
+	if not border.contains(" if "):
+		return false
+	return border.contains("UI.GOLD") or border.contains("WoodKit.HEAD") or border.contains("#ffd54a")
+
+
+func _match_paren(src: String, open: int) -> int:
+	var depth := 0
+	for k in range(open, src.length()):
+		var ch := src[k]
+		if ch == "(":
+			depth += 1
+		elif ch == ")":
+			depth -= 1
+			if depth == 0:
+				return k
+	return -1
+
+
+func _split_args(list: String) -> PackedStringArray:
+	var out: PackedStringArray = []
+	var depth := 0
+	var start := 0
+	for k in list.length():
+		var ch := list[k]
+		if ch == "(":
+			depth += 1
+		elif ch == ")":
+			depth -= 1
+		elif ch == "," and depth == 0:
+			out.append(list.substr(start, k - start).strip_edges())
+			start = k + 1
+	out.append(list.substr(start).strip_edges())
+	return out
 
 
 func _check(cond: bool, label: String) -> void:

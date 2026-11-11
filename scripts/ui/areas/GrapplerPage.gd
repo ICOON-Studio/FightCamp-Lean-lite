@@ -6,6 +6,7 @@ extends VBoxContainer
 ##   GrapplerPage.make(main, f) -> VBoxContainer   GrapplerPage.act(main, name, arg) -> handled
 
 const UI := preload("res://scripts/ui/UI.gd")
+const Halo := preload("res://scripts/ui/Halo.gd")
 const Bar := preload("res://scripts/ui/Bar.gd")
 const Clock := preload("res://scripts/state/Clock.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
@@ -142,7 +143,9 @@ func _road(f: Dictionary) -> Control:
 func _belt_bar(belt: String, stripes: int, mine: bool) -> Control:
 	var hold := PanelContainer.new()
 	hold.name = "Belt_" + belt
-	hold.add_theme_stylebox_override("panel", UI.box(BELT_COLOR[belt], UI.GOLD if mine else UI.LINE, 4, 3 if mine else 1, 0, 0))
+	hold.add_theme_stylebox_override("panel", UI.box(BELT_COLOR[belt], UI.LINE, 4, 1, 0, 0))
+	if mine:
+		Halo.ring(hold, UI.GOLD, 4.0)
 	hold.custom_minimum_size = Vector2(0, 36)
 	var h := UI.hbox(0)
 	hold.add_child(h)

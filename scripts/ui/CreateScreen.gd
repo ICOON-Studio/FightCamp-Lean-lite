@@ -6,6 +6,7 @@ extends CenterContainer
 ## Main.create holds the picks: {step, country, city, gym, name, coach, start}.
 
 const UI := preload("res://scripts/ui/UI.gd")
+const Halo := preload("res://scripts/ui/Halo.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
 const ClubStart := preload("res://scripts/rules/ClubStart.gd")
@@ -254,8 +255,8 @@ func _start_card(main: Node, cd: Dictionary, on: bool) -> Control:
 	return box
 
 
-## A card on the slate. Coach and building cards are a framed slate with a 2 px gold rim when picked.
-## The start cards use the see-through chalk outline: a second wooden frame on that dense row is too tight.
+## A card on the slate. Coach and building cards are a framed slate; a picked card wears the shared halo.
+## The start cards keep the see-through chalk edge, and the same halo when picked.
 ## Stylebox pad is 0 so the click covers the whole card; the margin child (still child 0) clears the frame.
 func _card_shell(id: String, on: bool, size: Vector2, framed: bool = true) -> PanelContainer:
 	var p := PanelContainer.new()
@@ -265,17 +266,15 @@ func _card_shell(id: String, on: bool, size: Vector2, framed: bool = true) -> Pa
 	if framed:
 		p.add_theme_stylebox_override("panel", WoodKit.slate(0, 0))
 	else:
-		var edge := Color(WoodKit.HEAD) if on else Color(WoodKit.SOFT, 0.35)
-		p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), edge, 4, 2 if on else 1, 0, 0))
+		p.add_theme_stylebox_override("panel", UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 0, 0))
 	var m := MarginContainer.new()
 	for side in ["left", "right", "top", "bottom"]:
 		m.add_theme_constant_override("margin_" + side, pad)
 	p.add_child(m)
-	if framed and on:
-		var rim := Panel.new()
-		rim.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		rim.add_theme_stylebox_override("panel", UI.box(Color(0, 0, 0, 0), WoodKit.HEAD, 4, 2, 0, 0))
-		p.add_child(rim)
+	if on:
+		Halo.ring(p, WoodKit.HEAD, 4.0)
+	else:
+		Halo.hover(p, Halo.CHALK, 4.0)
 	return p
 
 
@@ -300,6 +299,8 @@ func _overlay(box: Control, cb: Callable) -> void:
 	b.add_theme_stylebox_override("normal", StyleBoxEmpty.new())
 	b.add_theme_stylebox_override("hover", StyleBoxEmpty.new())
 	b.add_theme_stylebox_override("pressed", StyleBoxEmpty.new())
+	b.mouse_entered.connect(box.mouse_entered.emit)
+	b.mouse_exited.connect(box.mouse_exited.emit)
 	box.add_child(b)
 
 

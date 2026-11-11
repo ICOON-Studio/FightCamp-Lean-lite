@@ -4,6 +4,7 @@ extends RefCounted
 ##   MatSystems.cards(main, f) -> GridContainer "SystemCards", one Sys_<route> card each, its button Use_<route>
 
 const UI := preload("res://scripts/ui/UI.gd")
+const Halo := preload("res://scripts/ui/Halo.gd")
 const BjjTree := preload("res://scripts/rules/BjjTree.gd")
 const Info := preload("res://scripts/ui/MatTreeInfo.gd")
 const MatGlyph := preload("res://scripts/ui/MatGlyph.gd")
@@ -23,7 +24,9 @@ static func cards(m: Node, fd: Dictionary) -> Control:
 		var p := PanelContainer.new()
 		p.name = "Sys_" + str(rid)
 		p.custom_minimum_size = Vector2(360, 0)
-		p.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.GOLD if cur == steps else UI.LINE, 8, 2 if cur == steps else 1, 8, 8))
+		p.add_theme_stylebox_override("panel", UI.box(UI.PANEL, UI.LINE, 8, 1, 8, 8))
+		if cur == steps:
+			Halo.ring(p, UI.GOLD, 8.0)
 		var h := UI.hbox(10)
 		var first := ""
 		for id in steps:

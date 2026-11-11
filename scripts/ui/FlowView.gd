@@ -9,13 +9,14 @@ extends Control
 ## row by row and the arrows draw themselves in; then a dot keeps running along each arrow the way the fight flows.
 ## S346 (operator C189/C190: "make it look more game-like"): the fight broadcast's dark look (TV.gd) under a spotlight,
 ## place names in the display face with a step badge, glowing arrows with a comet running along them, cards that lift
-## under the mouse, the START card's gold edge breathing.
+## under the mouse, the START card in the shared halo.
 ##   var v := FlowView.new(); v.setup(flow, opts); main.add_child(v)
 ##   opts = {title, sub, place_name: Callable(id) -> String, move_name: Callable(id) -> String, lit: bool}
 
 ## S348 (operator C191/C192 "not in par with other menu colours"): the menus' whiteboard look (UI.gd: the gym-wall page,
 ## white cards, marker-blue titles), not the fight broadcast's dark TV.gd.
 const UI := preload("res://scripts/ui/UI.gd")
+const Halo := preload("res://scripts/ui/Halo.gd")
 const FightFlow := preload("res://scripts/rules/FightFlow.gd")
 const WrestleChains := preload("res://scripts/rules/WrestleChains.gd")
 const CARD := Vector2(480, 126)
@@ -388,7 +389,7 @@ func _card(id: String, r: Rect2, start: bool) -> PanelContainer:
 	var card := PanelContainer.new()
 	card.name = "Card_" + id
 	card.mouse_filter = Control.MOUSE_FILTER_PASS
-	var sb: StyleBoxFlat = UI.box(Color(UI.PANEL, 0.95), UI.GOLD if start else UI.LINE, 12, 3 if start else 2, 8, 8)
+	var sb: StyleBoxFlat = UI.box(Color(UI.PANEL, 0.95), UI.LINE, 12, 2, 8, 8)
 	sb.shadow_color = Color(0.13, 0.15, 0.18, 0.16)
 	sb.shadow_size = 10
 	sb.shadow_offset = Vector2(0, 4)
@@ -397,13 +398,11 @@ func _card(id: String, r: Rect2, start: bool) -> PanelContainer:
 	card.custom_minimum_size = r.size
 	card.size = r.size
 	card.pivot_offset = r.size * 0.5
-	# S346 game feel: the card lifts under the mouse; the START card's gold edge breathes.
+	# S346 game feel: the card lifts under the mouse. The START card wears the shared halo.
 	card.mouse_entered.connect(func(): card.create_tween().tween_property(card, "scale", Vector2(1.04, 1.04), 0.12))
 	card.mouse_exited.connect(func(): card.create_tween().tween_property(card, "scale", Vector2.ONE, 0.15))
 	if start:
-		var tw := card.create_tween().set_loops()
-		tw.tween_property(sb, "border_color", UI.GOLD.darkened(0.45), 0.9)
-		tw.tween_property(sb, "border_color", UI.GOLD, 0.9)
+		Halo.ring(card, UI.GOLD, 12.0)
 	var ideas: Array = FightFlow.IDEAS.get(id, [])
 	var tip: Array = ideas.map(func(s): return "- " + str(s))
 	var h := UI.hbox(12)

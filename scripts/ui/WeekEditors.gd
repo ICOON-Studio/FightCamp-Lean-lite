@@ -224,11 +224,12 @@ static func _split(main: Node, fid: String, dow: int, entries: Array, mins: floa
 	return row
 
 
-static func _drill_row(main: Node, f: Dictionary, fid: String, dow: int, card: String, rows: Dictionary, projs: Dictionary, add: bool) -> HBoxContainer:
+static func _drill_row(main: Node, f: Dictionary, fid: String, dow: int, card: String, rows: Dictionary, projs: Dictionary, add: bool) -> Control:
 	var h := UI.hbox(8)
 	var nm := UI.label(PadEdit.title(f, card), 24, WoodKit.INK, "bold")
 	nm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var eta: Dictionary = (projs.get(card, {}) as Dictionary).get("eta", {})
+	var proj: Dictionary = projs.get(card, {})
+	var eta: Dictionary = proj.get("eta", {})
 	nm.tooltip_text = str(eta.get("text", PadEdit.title(f, card)))
 	h.add_child(nm)
 	var one: Dictionary = rows.get(card, {})
@@ -251,7 +252,38 @@ static func _drill_row(main: Node, f: Dictionary, fid: String, dow: int, card: S
 		minus.name = "DropDrill"
 		minus.tooltip_text = "Take this drill off the night."
 		h.add_child(minus)
-	return h
+	var box := UI.vbox(4)
+	box.name = "Drill_" + card.replace(":", "_").replace(" ", "_")
+	box.add_child(h)
+	var held := _held_line(main, f, fid, card, proj)
+	if held != null:
+		box.add_child(held)
+	return box
+
+
+## A combination a punch holds back: the same line and button the tray card had. The button drills the punch.
+static func _held_line(main: Node, f: Dictionary, fid: String, card: String, proj: Dictionary) -> Control:
+	var held: Array = proj.get("held_by", [])
+	if held.is_empty():
+		return null
+	var m := PadWeek.mastery(f, card)
+	var end := m
+	var night: Dictionary = PadEdit.night_rows(f, {card: proj}).get(card, {})
+	for d in night:
+		end = maxf(end, float(night[d][1]))
+	if m >= 30.0 and end + 20.0 < float(proj.get("cap", 100.0)):
+		return null
+	var punch := str(held[0])
+	var line := UI.hbox(8)
+	line.name = "Held"
+	var words := UI.label("Held at %d by the %s" % [int(float(proj.get("cap", 100.0))), punch], 22, WoodKit.SOFT, "bold")
+	words.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	line.add_child(words)
+	var go := _btn("Drill the %s" % punch, "Btn", 22, _drill_it.bind(main, fid, "move:" + punch))
+	go.name = "DrillIt"
+	go.tooltip_text = "Puts the %s on the next pad night not set yet." % punch
+	line.add_child(go)
+	return line
 
 
 static func _ico(icon_name: String, tip: String) -> TextureRect:
