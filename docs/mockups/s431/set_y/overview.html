@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Lucy Jackson: Profile, the body chart (S431 set Y)</title>
+<style>
+@font-face{font-family:Marker;src:url(../../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../../assets/fonts/BebasNeue-Regular.ttf)}
+@font-face{font-family:Kalam;font-weight:700;src:url(../../../../assets/fonts/Kalam-Bold.ttf)}
+:root{--ink:#f1e8da;--soft:#c9b9a2;--gold:#ffd24a;--red:#dd4b3d;--blue:#4d8ef0;--green:#3fc07a;--amber:#f28d27;--purple:#ad80ff;
+ --track:rgba(255,255,255,.10);--weak:#dd4b3d;--fair:#f28d27;--solid:#4d8ef0;--strong:#3fc07a;--elite:#ad80ff;
+ --navy:#1c2640;--ring:#fdf9f1;--pinred:#e1473a;--strip:#252d45;--tagbg:#1a1f31;--tagbar:#275696;--tagink:#8eb8f2;--chalk:#efe2ce;--chalksoft:#b7a588}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:#120e0c;color:var(--ink);font:500 22px/1.2 Barlow,"Segoe UI",sans-serif}
+.ico{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.abs{position:absolute}
+.wall{position:absolute;left:0;right:0;top:76px;bottom:0;background:
+ radial-gradient(ellipse 760px 520px at var(--lamp,50%) 26%,rgba(255,190,110,.13),transparent 72%),
+ radial-gradient(ellipse 620px 420px at 4% 60%,rgba(221,75,61,.06),transparent 70%),
+ radial-gradient(ellipse 620px 420px at 97% 55%,rgba(77,142,240,.06),transparent 70%),
+ linear-gradient(#1b1512,#130f0d 62%,#0e0b09)}
+/* TOP BAR: the gym screen's bar, piece for piece (bar.png, plank.png, tab.png are the game's own). Its type sizes are the build's. */
+.top{position:absolute;left:0;top:0;width:1920px;height:76px;border-style:solid;border-width:0 0 8px 0;border-image:url(../../../../assets/ui/wood/bar.png) 0 0 8 0 fill/0 0 8px 0 stretch;color:var(--chalk)}
+.top>*{position:absolute;white-space:nowrap}
+.plank{border-style:solid;border-width:9px;border-image:url(../../../../assets/ui/wood/plank.png) 9 fill/9px stretch;color:var(--chalk)}
+.tabw{border-style:solid;border-width:9px;border-image:url(../../../../assets/ui/wood/tab.png) 9 fill/9px stretch;color:var(--chalk)}
+.top .nav{left:18px;top:20px;width:38px;height:40px}
+.top .nav i{position:absolute;left:0;right:0;top:-1px;font:600 20px/20px Barlow;font-style:normal;text-align:center}
+.top .nav.off{left:68px;opacity:.42}
+.top .gym{left:117px;top:15px;font:400 32px/48px Marker;color:#6e9fe7}
+.top .d1{left:403px;top:19px;font:500 19px/22px Barlow;color:#ede1cd}
+.top .d2{left:403px;top:41px;font:400 16px/18px Barlow;letter-spacing:-.5px;color:var(--chalksoft)}
+.top .tbtn{top:14px;height:48px;font:600 19px/19px Barlow;display:flex;align-items:center;justify-content:center;gap:24px}
+.top .tbtn span{position:relative;top:-2px}.top .tbtn .ico{position:relative;top:-2px}
+.top .cash{right:377px;top:16px;text-align:right}
+.top .cash b{display:block;font:700 24px/28px Barlow;color:#e5bc55}
+.top .cash i{display:block;font:400 16px/18px Barlow;letter-spacing:-.35px;font-style:normal;color:var(--chalksoft);margin-top:1px}
+.top .needs{left:1558px;top:13px;width:266px;height:51px}
+.top .needs b{position:absolute;left:7px;top:-3px;font:700 19px/22px Barlow;letter-spacing:-.15px}
+.top .needs i{position:absolute;left:7px;top:19px;font:400 16px/18px Barlow;letter-spacing:-.5px;font-style:normal;color:#eadcc6}
+.top .menu{left:1841px;top:19px;width:60px;height:40px;font:600 16px/16px Barlow;display:flex;align-items:center;justify-content:center}
+.top .menu span{position:relative;top:-2px}
+/* from the gym screen: the round white-ringed pin, the navy pill label, the blue-tag strip (type scaled up to 20 px and more) */
+.pin{border-radius:50%;background:var(--navy);border:3px solid var(--ring);display:grid;place-items:center;color:var(--ring);flex:none;box-shadow:0 2px 8px rgba(0,0,0,.45)}
+.pin.red{background:var(--pinred)}
+.npill{display:inline-flex;align-items:center;height:30px;padding:0 11px;border-radius:7px;background:var(--navy);color:#fffbf3;font-weight:600;font-size:20px;white-space:nowrap}
+.tag{display:inline-flex;align-items:center;height:28px;padding:0 11px;background:var(--tagbg);border-left:4px solid var(--tagbar);color:var(--tagink);font-weight:600;font-size:20px;letter-spacing:.02em;white-space:nowrap;flex:none}
+.strip{display:flex;align-items:center;gap:14px;height:50px;padding:0 18px 0 12px;border-radius:9px;background:var(--strip);white-space:nowrap}
+.strip b{font-weight:600;font-size:22px;color:#fffbf3}.strip span{font-size:20px;color:#b9c3dc}
+/* tabs, buttons, meters: as on overview_a */
+.tabs{position:absolute;display:flex;gap:6px}
+.tab{height:48px;padding:0 20px;border-radius:10px;display:flex;align-items:center;gap:10px;font-weight:600;color:var(--soft);background:rgba(255,255,255,.05);white-space:nowrap}
+.tab.on{color:#fff;background:rgba(255,214,120,.16);box-shadow:0 0 26px 2px rgba(255,205,90,.42)}
+.tab.dim{color:#7d7266;background:rgba(255,255,255,.03)}.tab small{font-size:20px;font-weight:500}
+.go{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:56px;padding:0 24px;border-radius:11px;background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06;font-weight:700;font-size:23px;box-shadow:0 3px 0 #9a6c10;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:12px;height:56px;padding:0 20px;border-radius:11px;background:rgba(255,255,255,.085);color:var(--ink);font-weight:600;font-size:22px;white-space:nowrap}
+.btn .ico{color:var(--gold)}
+.btn small{font-size:20px;color:var(--soft);font-weight:500}
+.bar{position:relative;height:16px;border-radius:8px;background:var(--track)}
+.bar b{position:absolute;left:0;top:0;bottom:0;border-radius:8px;background:var(--c)}
+.bar em{position:absolute;top:-5px;width:3px;height:26px;border-radius:2px;background:#fff}
+.bar u{position:absolute;top:-13px;margin-left:-14px;width:0;height:0;border:8px solid transparent;border-top:11px solid var(--gold)}
+.weak{--c:var(--weak)}.fair{--c:var(--fair)}.solid{--c:var(--solid)}.strong{--c:var(--strong)}.elite{--c:var(--elite)}
+.v{font-weight:700;font-size:28px;text-align:right;color:color-mix(in srgb,var(--c) 78%,#fff)}
+.gain{color:var(--green);font-weight:600;font-size:20px;white-space:nowrap}
+.cap{color:var(--soft);font-size:20px;white-space:nowrap}
+.pill{display:inline-flex;align-items:center;height:32px;padding:0 13px;border-radius:16px;background:rgba(255,210,74,.13);color:var(--gold);font-weight:600;font-size:20px;white-space:nowrap}
+.pill.hot{background:var(--gold);color:#2a1b06;box-shadow:0 0 22px 3px rgba(255,205,90,.55)}
+.key{display:flex;align-items:center;gap:8px;font-size:20px;color:var(--soft);white-space:nowrap}
+.key s{width:14px;height:14px;border-radius:4px;display:inline-block;margin-left:10px}
+.key em{display:inline-block;width:3px;height:20px;background:#fff;border-radius:2px}
+.key u{display:inline-block;width:0;height:0;border:8px solid transparent;border-top:11px solid var(--gold);margin-top:10px}
+.key i{display:inline-block;width:30px;height:14px;border-radius:7px;margin-left:16px;background:repeating-linear-gradient(135deg,var(--strong) 0 6px,#1f6a43 6px 10px)}
+.h{font-weight:700;font-size:22px;letter-spacing:.09em;color:var(--gold)}
+
+.name{font:400 52px/1 Marker;color:#fff;white-space:nowrap}
+.sub{display:flex;align-items:center;gap:10px;font-size:22px;color:var(--soft);margin-top:8px;white-space:nowrap}
+.ring{border-radius:50%;display:grid;place-items:center;background:radial-gradient(closest-side,#191412 78%,transparent 79% 100%),conic-gradient(var(--gold) 0 59%,var(--track) 59% 100%)}
+.ring b{display:block;font:400 46px/0.9 Bebas;color:#fff;text-align:center;letter-spacing:.02em}
+.ring i{display:block;font-style:normal;font-size:20px;color:var(--soft);text-align:center;line-height:1}
+.guide{position:absolute;left:14px;bottom:14px;display:flex;align-items:flex-end}
+.gface{width:190px;height:190px}
+.gtail{width:24px;height:40px;margin-bottom:34px;background:#8a6a3d;clip-path:polygon(0 55%,100% 0,100% 100%)}
+.gbub{width:452px;background:#262a2d;border:3px solid #8a6a3d;border-radius:24px;padding:14px 22px}
+.gbub p{font:700 27px/34px Kalam,"Segoe Print",cursive;color:#efe6d8}
+.gbub div{display:flex;justify-content:flex-end;margin-top:8px}
+.gskip{height:38px;padding:0 14px;border-radius:9px;background:rgba(255,255,255,.07);color:var(--soft);font-size:20px;font-weight:600;display:flex;align-items:center}
+.fig{position:absolute;filter:drop-shadow(-3px 0 0 rgba(255,214,160,.16)) drop-shadow(0 0 34px rgba(255,170,80,.10))}
+/* the floor under the figure: the gym screen's dark training floor, not boards */
+.floor{position:absolute;left:560px;right:560px;bottom:0;height:150px;background:
+ repeating-linear-gradient(90deg,rgba(0,0,0,.30) 0 2px,transparent 2px 112px),linear-gradient(#3b363a,#1b191b);
+ clip-path:polygon(9% 0,91% 0,100% 100%,0 100%);opacity:.9}
+.step{position:absolute;right:28px;top:88px;height:56px;display:flex;align-items:center;gap:12px}
+.cl{position:absolute;width:624px}
+.cl h3{height:40px;display:flex;align-items:baseline;gap:14px;font-weight:700;font-size:22px;letter-spacing:.09em;color:var(--gold);padding-top:6px}
+.cl h3 span{font-weight:500;font-size:20px;letter-spacing:0;color:var(--soft)}
+.r{display:grid;grid-template-columns:26px 164px 1fr 46px 168px;column-gap:10px;align-items:center;height:40px;border-radius:10px;padding:0 6px;margin:0 -6px}
+.r .ico{color:var(--soft)}.r .n{font-weight:600;white-space:nowrap}
+.r.char .bar b{background:repeating-linear-gradient(135deg,var(--c) 0 6px,color-mix(in srgb,var(--c) 55%,#000) 6px 10px)}
+.r.sel{background:rgba(255,210,74,.09);box-shadow:0 0 26px 2px rgba(255,205,90,.28)}
+.r.sc{grid-template-columns:26px 164px 120px 1fr}
+.r.sc .tail{display:flex;align-items:baseline;gap:8px;white-space:nowrap}
+.r.sc .tail .v{text-align:left}
+.r.sc .tail .pill{align-self:center;margin-left:4px}
+.tiredbar{background:linear-gradient(90deg,var(--track) 0 80%,rgba(221,75,61,.42) 80% 100%)}
+.word{font-weight:700;font-size:22px;color:#ff8d7f;text-align:right}
+.lead{position:absolute;left:0;top:0;pointer-events:none}
+.goal{position:absolute;left:1268px;top:784px;width:624px;display:grid;grid-template-columns:86px 1fr auto;column-gap:16px;align-items:center}
+.gr{width:86px;height:86px;border-radius:50%;display:grid;place-items:center;font:400 34px/1 Bebas;background:radial-gradient(closest-side,#191412 74%,transparent 75% 100%),conic-gradient(var(--green) 0 40%,var(--track) 40% 100%)}
+.goal b{display:block;font-size:26px;font-weight:700;white-space:nowrap}.goal span{display:block;color:var(--soft);white-space:nowrap;margin-top:2px}
+.ok{display:inline-flex;align-items:center;height:34px;padding:0 14px;border-radius:17px;background:rgba(63,192,122,.16);color:var(--green);font-weight:700;font-size:20px;white-space:nowrap}
+.acts{position:absolute;left:1268px;top:904px;width:624px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.acts .btn{height:64px}
+</style></head>
+<body><div class="wall" style="--lamp:50%"></div><div class="top"><span class="nav tabw"><i>&lt;</i></span><span class="nav off tabw"><i>&gt;</i></span><span class="gym">Anvil Street Gym</span><span class="d1">Mon 12 Jan 2026</span><span class="d2">Week 2</span><span class="tbtn plank" style="left:656px;width:124px"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style="stroke-width:1.6;margin-left:-14px"><path d="M12 2.5v3M8 5.5h8v10a4 4 0 0 1-8 0zM8 9.5h8"/></svg><span>Gym</span></span><span class="tbtn plank" style="left:790px;width:124px"><span>Mail (5 new)</span></span><span class="cash"><b>$16,841</b><i>running -$680 a week</i></span><span class="needs plank"><b>NEEDS YOU (1)</b><i>Answer Lucy's bout offer</i></span><span class="menu tabw"><span>Menu</span></span></div>
+<div class="tabs" style="left:28px;top:92px"><span class="tab on">Profile</span><span class="tab">Condition</span><span class="tab">Training</span><span class="tab">Playbook</span><span class="tab">Fight plan</span><span class="tab">History</span></div>
+<div class="floor"></div>
+<div class="step"><div class="strip"><span class="tag">SHOW IN 19 DAYS</span><b>Bout offer: Maria Ortega</b><span>the 5th bout opens the nationals</span></div><span class="go">Open the bout offer</span></div>
+<div class="abs" style="left:28px;top:156px"><div class="name">Lucy Jackson</div><div class="sub"><span class="npill">Lightweight</span>21, orthodox, amateur 3-1</div></div>
+<div class="abs ring" style="left:536px;top:150px;width:112px;height:112px"><div><b>59</b><i>of 100</i></div></div>
+<img class="fig" src="figure.png" style="left:772px;top:266px;width:287px;height:780px" alt="">
+<svg class="lead" width="1920" height="1080"><path d="M386 290 H700 L940 286" fill="none" stroke="rgba(241,232,218,.42)" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/><circle cx="940" cy="286" r="8" fill="#1c2640" stroke="#fdf9f1" stroke-width="3"/><path d="M234 582 H720 L832 355" fill="none" stroke="rgba(241,232,218,.42)" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/><circle cx="832" cy="355" r="8" fill="#1c2640" stroke="#fdf9f1" stroke-width="3"/><path d="M1264 172 H1200 L1028 418" fill="none" stroke="rgba(241,232,218,.42)" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/><circle cx="1028" cy="418" r="8" fill="#1c2640" stroke="#fdf9f1" stroke-width="3"/><path d="M1264 306 H1180 L985 503" fill="none" stroke="rgba(241,232,218,.42)" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/><circle cx="985" cy="503" r="8" fill="#1c2640" stroke="#fdf9f1" stroke-width="3"/><path d="M1264 480 H1210 L994 819" fill="none" stroke="rgba(241,232,218,.42)" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/><circle cx="994" cy="819" r="8" fill="#1c2640" stroke="#fdf9f1" stroke-width="3"/><path d="M1264 654 H1230 L1021 994" fill="none" stroke="rgba(241,232,218,.42)" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/><circle cx="1021" cy="994" r="8" fill="#1c2640" stroke="#fdf9f1" stroke-width="3"/></svg>
+<div class="cl" style="left:28px;top:268px"><h3>HEAD<span>reads the fight, keeps the plan</span></h3><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5V15h8v-1.5A6 6 0 0 0 12 3z"/></svg><span class="n">Fight IQ</span><span class="bar"><b style="width:61%"></b><em style="left:84%"></em></span><span class="v">61</span><span></span></div><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M3 9c3-3 6 3 9 0s6 3 9 0M3 15c3-3 6 3 9 0s6 3 9 0"/></svg><span class="n">Composure</span><span class="bar"><b style="width:56%"></b><em style="left:84%"></em></span><span class="v">56</span><span><span class="pill">+ Sparring</span></span></div><div class="r strong char"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M4 6l1.5 1.5L8 5M4 12l1.5 1.5L8 11M4 18l1.5 1.5L8 17M11 6h9M11 12h9M11 18h9"/></svg><span class="n">Discipline</span><span class="bar"><b style="width:69%"></b></span><span class="v">69</span><span><span class="cap">holds the plan</span></span></div><div class="r fair char"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg><span class="n">Confidence</span><span class="bar"><b style="width:51%"></b></span><span class="v">51</span><span><span class="cap">swings by round</span></span></div><div class="r fair char"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M4 5h16v10H10l-5 4v-4H4z"/></svg><span class="n">Coachability</span><span class="bar"><b style="width:45%"></b></span><span class="v">45</span><span><span class="cap">shouts land less</span></span></div><div class="r weak"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/></svg><span class="n">Temper</span><span class="word" style="grid-column:3/5">Trades</span><span><span class="cap">when hit</span></span></div></div><div class="cl" style="left:28px;top:560px"><h3>HANDS<span>what lands</span></h3><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M12 3a9 9 0 1 0 .01 0M12 7.5a4.5 4.5 0 1 0 .01 0M12 11.6a.4.4 0 1 0 .01 0"/></svg><span class="n">Accuracy</span><span class="bar"><b style="width:59%"></b><em style="left:84%"></em></span><span class="v">59</span><span><span class="gain">+0.3 a week</span></span></div><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M12 3a9 9 0 1 0 .01 0M12 7v5l3.5 2"/></svg><span class="n">Timing</span><span class="bar"><b style="width:61%"></b><em style="left:84%"></em></span><span class="v">61</span><span></span></div><div class="r solid sel"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M2 12h7M6 8l4 4-4 4M22 12h-7M18 8l-4 4 4 4"/></svg><span class="n">Inside fighting</span><span class="bar"><b style="width:55%"></b><em style="left:84%"></em></span><span class="v">55</span><span><span class="pill hot">+ Sparring</span></span></div><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M4 9v6M7 6v12M17 6v12M20 9v6M7 12h10"/></svg><span class="n">Strength</span><span class="bar"><b style="width:60%"></b><em style="left:84%"></em></span><span class="v">60</span><span><span class="gain">+0.1 a week</span></span></div><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span class="n">Explosiveness</span><span class="bar"><b style="width:57%"></b><em style="left:84%"></em></span><span class="v">57</span><span></span></div></div>
+<div class="abs key" style="left:28px;top:808px"><em></em>&nbsp;ceiling 84&nbsp;&nbsp;&nbsp;&nbsp;<u></u>&nbsp;goal<i></i>&nbsp;character, does not train</div>
+<div class="abs" style="left:28px;top:838px"><div class="key"><s style="background:var(--weak);margin-left:0"></s>Weak<s style="background:var(--fair)"></s>Fair<s style="background:var(--solid)"></s>Solid<s style="background:var(--strong)"></s>Strong<s style="background:var(--elite)"></s>Elite</div></div>
+<div class="cl" style="left:1268px;top:150px"><h3>GUARD<span>what gets through</span></h3><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM12 3v18"/></svg><span class="n">Defence</span><span class="bar"><b style="width:57%"></b><em style="left:84%"></em></span><span class="v">57</span><span><span class="gain">+0.1 a week</span></span></div><div class="r strong"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg><span class="n">Durability</span><span class="bar"><b style="width:66%"></b><em style="left:84%"></em></span><span class="v">66</span><span></span></div></div><div class="cl" style="left:1268px;top:284px"><h3>CARDIO<span>how long it lasts</span></h3><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M2 12h5l2-6 4 12 2-6h7"/></svg><span class="n">Stamina</span><span class="bar"><b style="width:57%"></b><em style="left:84%"></em><u style="left:60%"></u></span><span class="v">57</span><span><span class="gain">+0.4 a week</span></span></div><div class="r strong"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M20 11a8 8 0 1 0-2.3 5.7M20 5v6h-6"/></svg><span class="n">Recovery</span><span class="bar"><b style="width:66%"></b><em style="left:84%"></em></span><span class="v">66</span><span></span></div><div class="r elite char"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.500-7 10-7 10z"/></svg><span class="n">Heart</span><span class="bar"><b style="width:85%"></b></span><span class="v">85</span><span><span class="cap">gets up</span></span></div></div><div class="cl" style="left:1268px;top:458px"><h3>LEGS<span>where the fight happens</span></h3><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M4 6l6 6-6 6M12 6l6 6-6 6"/></svg><span class="n">Speed</span><span class="bar"><b style="width:63%"></b><em style="left:84%"></em></span><span class="v">63</span><span><span class="gain">+0.2 a week</span></span></div><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M8 3a3 5 0 1 0 .01 0M16 10a3 5 0 1 0 .01 0"/></svg><span class="n">Footwork</span><span class="bar"><b style="width:58%"></b><em style="left:84%"></em></span><span class="v">58</span><span><span class="gain">+0.2 a week</span></span></div><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M5 19c0-9 5-14 14-14M13 5h6v6"/></svg><span class="n">Flexibility</span><span class="bar"><b style="width:55%"></b><em style="left:84%"></em></span><span class="v">55</span><span><span class="pill">+ Mobility</span></span></div></div><div class="cl" style="left:1268px;top:632px"><h3>ON THE SCALE<span>limit 60.0 kg</span></h3><div class="r sc fair"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M6 4h12a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3zM8 9a5 5 0 0 1 8 0M12 9l2-2"/></svg><span class="n">Weight</span><span class="bar"><b style="width:88%"></b><em style="left:80%"></em></span><span class="tail"><span class="v">60.9</span><span class="cap">kg, 0.9 over</span><span class="pill">+ Cut</span></span></div><div class="r sc strong"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style=""><path d="M4 8h13a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2zM22 11v3M6 11v3M10 11v3"/></svg><span class="n">Tiredness</span><span class="bar tiredbar"><b style="width:38%"></b><em style="left:80%"></em></span><span class="tail"><span class="v">38</span><span class="cap">Fresh, 0 rest days needed</span></span></div></div>
+<div class="goal"><div class="gr">40%</div><div><b>Goal: Stamina for five rounds</b><span>Stamina 57 of 60, 18 days left</span></div><span class="ok">On track</span></div>
+<div class="acts"><span class="btn"><svg class="ico " width="28" height="28" viewBox="0 0 24 24" style=""><path d="M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zM3 10h18M8 3v4M16 3v4M8 14h2M14 14h2"/></svg> Plan the week</span><span class="btn"><svg class="ico " width="28" height="28" viewBox="0 0 24 24" style=""><path d="M4 19c4 0 4-12 9-12h5M15 3l4 4-4 4M5 4a2 2 0 1 0 .01 0"/></svg> Fight plan <small>5 arrows</small></span><span class="btn"><svg class="ico " width="28" height="28" viewBox="0 0 24 24" style=""><path d="M11 4a7 7 0 1 0 .01 0M16.5 16.5 21 21"/></svg> Find a bout</span><span class="btn"><svg class="ico " width="28" height="28" viewBox="0 0 24 24" style=""><path d="M4 5h16v10H10l-5 4v-4H4zM8 9h8M8 12h5"/></svg> Talk to Lucy</span></div>
+<div class="guide"><div class="gface"><svg width="190" height="190" viewBox="0 0 190 190"><defs><clipPath id="gc"><circle cx="95" cy="95" r="88"/></clipPath>
+<radialGradient id="gr" cx=".5" cy=".35" r=".8"><stop offset="0" stop-color="#5b4a3a"/><stop offset="1" stop-color="#231c17"/></radialGradient></defs>
+<circle cx="95" cy="95" r="88" fill="url(#gr)"/><g clip-path="url(#gc)"><path d="M22 200q4-62 73-62t73 62z" fill="#39424a"/>
+<rect x="82" y="112" width="26" height="30" fill="#b08a6c"/><ellipse cx="95" cy="88" rx="33" ry="38" fill="#c39b7a"/>
+<path d="M60 96q2 34 35 36 33-2 35-36-6 20-35 20T60 96z" fill="#e6e0d6"/>
+<path d="M56 70q4-34 40-34 34 0 40 30l14 6q-30 6-94-2z" fill="#2b3036"/></g>
+<circle cx="95" cy="95" r="88" fill="none" stroke="#8a6a3d" stroke-width="4"/></svg></div><div class="gtail"></div><div class="gbub"><p>Lucy has a bout offer. Answer it by Thursday.</p><div><span class="gskip">Skip the guide</span></div></div></div></body></html>

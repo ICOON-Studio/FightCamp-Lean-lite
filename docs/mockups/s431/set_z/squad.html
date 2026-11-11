@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Fighters: the squad (set Z)</title>
+<style>
+@font-face{font-family:Marker;src:url(../../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../../assets/fonts/BebasNeue-Regular.ttf)}
+@font-face{font-family:Kalam;font-weight:700;src:url(../../../../assets/fonts/Kalam-Bold.ttf)}
+:root{--ink:#f1e8da;--soft:#c9b9a2;--gold:#ffd24a;--red:#dd4b3d;--blue:#4d8ef0;--green:#3fc07a;--amber:#f28d27;--purple:#ad80ff;--track:rgba(255,255,255,.10)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:#120e0c;color:var(--ink);font:500 22px/1.2 Barlow,"Segoe UI",sans-serif}
+.ico{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.abs{position:absolute}
+/* the same dim wall and lamp as the fighter page (overview_a) */
+.wall{position:absolute;left:0;right:0;top:76px;bottom:0;background:
+ radial-gradient(ellipse 900px 520px at 50% 20%,rgba(255,190,110,.12),transparent 72%),
+ radial-gradient(ellipse 620px 420px at 4% 60%,rgba(221,75,61,.06),transparent 70%),
+ radial-gradient(ellipse 620px 420px at 97% 55%,rgba(77,142,240,.06),transparent 70%),
+ linear-gradient(#1b1512,#130f0d 62%,#0e0b09)}
+/* page head: brush title, tabs (the chosen one glows), the next step */
+.title{position:absolute;left:28px;top:90px;font:400 50px/56px Marker;color:#fff;white-space:nowrap}
+.tabs{position:absolute;left:300px;top:94px;display:flex;gap:6px}
+.tab{height:48px;padding:0 20px;border-radius:10px;display:flex;align-items:center;font-weight:600;color:var(--soft);background:rgba(255,255,255,.05);white-space:nowrap}
+.tab.on{color:#fff;background:rgba(255,214,120,.16);box-shadow:0 0 26px 2px rgba(255,205,90,.42)}
+.step{position:absolute;right:28px;top:90px;height:56px;display:flex;align-items:center;gap:14px}
+.go{display:inline-flex;align-items:center;justify-content:center;height:56px;padding:0 24px;border-radius:11px;background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06;font-weight:700;font-size:23px;box-shadow:0 3px 0 #9a6c10;white-space:nowrap}
+.h{font-weight:700;font-size:20px;letter-spacing:.09em;color:var(--gold);white-space:nowrap}
+.cap{color:var(--soft);font-size:20px;white-space:nowrap}
+/* column heads */
+.ch{position:absolute;top:160px;height:26px;line-height:26px}
+.ax{position:absolute;top:160px;height:26px;line-height:26px;font-size:20px;color:var(--soft);white-space:nowrap}
+/* one fighter = one row */
+.row{position:absolute;left:28px;width:1864px;height:162px;border-radius:16px;background:linear-gradient(90deg,rgba(255,255,255,.060),rgba(255,255,255,.035))}
+.row.sel{background:linear-gradient(90deg,rgba(255,210,74,.10),rgba(255,210,74,.045));box-shadow:0 0 28px 2px rgba(255,205,90,.20)}
+.face{position:absolute;left:18px;top:10px;width:116px;height:116px;border-radius:50%;border:3px solid #fffbf3;background-size:138%;background-position:50% 26%;box-shadow:0 3px 10px rgba(0,0,0,.5)}
+.cls{position:absolute;left:76px;top:110px;transform:translateX(-50%);height:34px;font-size:20px;padding:0 11px}
+.nm{position:absolute;left:170px;top:18px;font:400 33px/40px Marker;color:#fff;white-space:nowrap}
+.sub{position:absolute;left:170px;top:62px;font-size:22px;line-height:28px;color:var(--soft);white-space:nowrap}
+.rk{position:absolute;left:170px;top:98px;height:30px;display:flex;align-items:center;gap:9px;font-size:20px;font-weight:600;color:var(--ink);white-space:nowrap}
+.rk .ico{color:var(--soft)}
+.belt{position:relative;display:inline-block;width:76px;height:20px;border-radius:4px;background:#ece6da;flex:none;overflow:hidden}
+.belt u{position:absolute;right:15px;top:0;width:27px;height:20px;background:#3b3632}
+.belt s{position:absolute;top:0;width:3px;height:20px;background:#ece6da}
+/* rings */
+.rg{position:absolute;border-radius:50%;display:grid;place-items:center}
+.rg:before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--c) 0 calc(var(--p)*1%),var(--track) calc(var(--p)*1%) 100%);-webkit-mask:radial-gradient(closest-side,transparent 73%,#000 75%);mask:radial-gradient(closest-side,transparent 73%,#000 75%)}
+.rg b{font:400 42px/1 Bebas;color:#fff;letter-spacing:.02em;padding-top:4px}
+.rg.sm b{font-size:31px}
+.rg .ico{color:var(--c)}
+/* meter tiles: icon, big number, bar with a tick, two words */
+.tile{position:absolute;top:12px;width:136px;height:138px;border-radius:13px;background:rgba(255,255,255,.05)}
+.tile.hot{background:rgba(242,141,39,.13);box-shadow:0 0 22px 2px rgba(242,141,39,.38)}
+.tile .ico{position:absolute;left:13px;top:17px;color:var(--soft)}
+.tile b.n{position:absolute;left:46px;top:9px;font:400 50px/50px Bebas;letter-spacing:.01em;color:color-mix(in srgb,var(--c) 80%,#fff)}
+.tile .bar{position:absolute;left:14px;top:72px;width:108px}
+.tile i{position:absolute;left:14px;top:99px;font-style:normal;font-weight:600;font-size:20px;line-height:26px;white-space:nowrap;color:color-mix(in srgb,var(--c) 70%,#fff)}
+.bar{position:relative;height:13px;border-radius:7px;background:var(--track);display:block}
+.bar b{position:absolute;left:0;top:0;bottom:0;border-radius:7px;background:var(--c)}
+.bar em{position:absolute;top:-5px;width:3px;height:23px;border-radius:2px;background:#fff}
+.bar.tz{background:linear-gradient(90deg,var(--track) 0 50%,rgba(242,141,39,.30) 50% 80%,rgba(221,75,61,.45) 80% 100%)}
+.g{--c:var(--green)}.a{--c:var(--amber)}.r{--c:var(--red)}.b{--c:var(--blue)}.q{--c:#bfb3a2}
+/* goal */
+.gl{position:absolute;left:1098px;top:30px;white-space:nowrap}
+.gl b{display:block;font-weight:700;font-size:22px;line-height:28px}.gl span{display:block;font-size:20px;line-height:26px;color:var(--soft)}
+.gl em{display:block;font-style:normal;font-weight:700;font-size:20px;line-height:26px;color:var(--c)}
+/* the next four weeks */
+.tk{position:absolute;left:1290px;top:0;width:330px;height:162px}
+.tk .big{position:absolute;left:6px;top:14px;display:flex;align-items:baseline;gap:8px;white-space:nowrap;font-weight:600;font-size:22px}
+.tk .big b{font:400 44px/44px Bebas;color:#fff;letter-spacing:.01em}
+.tk .big u{text-decoration:none;font-size:20px;color:var(--soft);font-weight:500;margin-right:4px}
+.tk .l2{position:absolute;left:6px;top:62px;font-size:20px;line-height:26px;color:var(--soft);white-space:nowrap}
+.tk .none{position:absolute;left:6px;top:24px;font-weight:600;font-size:22px;color:#a39683}
+.ln{position:absolute;left:6px;top:116px;width:318px;height:5px;border-radius:3px;background:rgba(255,255,255,.20)}
+.ln s{position:absolute;top:-6px;width:2px;height:16px;background:rgba(255,255,255,.26)}
+.ln i{position:absolute;top:-4px;width:10px;height:10px;margin-left:-5px;margin-top:1px;transform:rotate(45deg);background:#8d7f6d}
+.ln .pin{position:absolute;top:-16px;margin-left:-18px}
+.ln .rest{position:absolute;left:0;top:-13px;height:30px;border-radius:8px;background:rgba(242,141,39,.26);box-shadow:0 0 14px 1px rgba(242,141,39,.30);display:flex;align-items:center;justify-content:center;color:var(--amber)}
+.ln .due{position:absolute;top:-21px;margin-left:-8px;width:0;height:0;border:8px solid transparent;border-top:12px solid var(--red)}
+/* the one action: the gym screen's pin with its label */
+.act{position:absolute;left:1640px;top:16px;width:186px;display:flex;flex-direction:column;align-items:center;gap:7px}
+.open{position:absolute;right:14px;top:66px;color:#8f8272}
+/* the guide, as on the fighter page */
+.guide{position:absolute;left:14px;bottom:14px;display:flex;align-items:flex-end}
+.gface{width:190px;height:190px}
+.gtail{width:24px;height:40px;margin-bottom:34px;background:#8a6a3d;clip-path:polygon(0 55%,100% 0,100% 100%)}
+.gbub{width:452px;background:#262a2d;border:3px solid #8a6a3d;border-radius:24px;padding:14px 22px}
+.gbub p{font:700 27px/34px Kalam,"Segoe Print",cursive;color:#efe6d8}
+.gbub div{display:flex;justify-content:flex-end;margin-top:8px}
+.gskip{height:38px;padding:0 14px;border-radius:9px;background:rgba(255,255,255,.07);color:var(--soft);font-size:20px;font-weight:600;display:flex;align-items:center}
+/* the hover card: the gym screen's navy and blue tag */
+.hov{position:absolute;left:704px;top:880px;width:608px;height:184px;border-radius:12px;background:#222a44;box-shadow:0 10px 34px rgba(0,0,0,.6),0 0 0 1px rgba(142,184,243,.20);z-index:4}
+.hov:before{content:"";position:absolute;left:22px;top:-12px;border:12px solid transparent;border-top:0;border-bottom:13px solid #222a44}
+.hov .hd{position:absolute;left:14px;top:14px;display:flex;align-items:center;gap:12px;font-weight:700;font-size:22px;color:#fffbf3;white-space:nowrap}
+.hov p{position:absolute;left:16px;top:60px;font-size:21px;line-height:29px;color:#dfe5f2;white-space:nowrap}
+.hov p b{color:#fff;font-weight:700}
+.mini{position:absolute;right:14px;top:14px;width:244px;height:154px}
+.mini .mc{position:absolute;right:2px;top:0;font-size:20px;line-height:24px;color:#aab6d0;white-space:nowrap}
+.mini .fr{position:absolute;left:0;width:190px;border-top:2px dashed rgba(120,230,160,.9)}
+.mini .fl{position:absolute;left:196px;font-weight:600;font-size:20px;line-height:22px;color:#78e6a0;white-space:nowrap}
+.mini .col{position:absolute;bottom:26px;width:40px;border-radius:5px 5px 0 0;z-index:1}
+.mini .col b{display:block;text-align:center;font-weight:700;font-size:20px;line-height:26px;color:#1b1206}
+.mini .d{position:absolute;bottom:0;width:40px;text-align:center;font-size:20px;line-height:22px;color:#aab6d0}
+.cur{position:absolute;z-index:5}
+/* the key */
+.key{position:absolute;left:1340px;display:flex;align-items:center;gap:10px;font-size:20px;color:var(--soft);white-space:nowrap;height:40px}
+.key .sp{width:22px}
+.key em{display:inline-block;width:3px;height:22px;background:#fff;border-radius:2px}
+.key i{display:inline-block;width:11px;height:11px;transform:rotate(45deg);background:#8d7f6d;margin:0 3px}
+.key .rest{display:inline-flex;width:40px;height:26px;border-radius:7px;background:rgba(242,141,39,.26);color:var(--amber);align-items:center;justify-content:center}
+.key .due{display:inline-block;width:0;height:0;border:8px solid transparent;border-top:12px solid var(--red);margin-top:10px}
+
+/* TOP BAR: a copy of the real gym screen's (ref/gym_screen.png): the game's own plank (assets/ui/wood), sizes and inks measured from the picture */
+.top{position:absolute;left:0;top:0;width:1920px;height:76px;box-sizing:border-box;border-style:solid;border-width:0 0 8px 0;border-image:url(../../../../assets/ui/wood/bar.png) 0 0 8 0 fill stretch;z-index:6}
+.pl{position:absolute;box-sizing:border-box;border:9px solid transparent;border-image:url(../../../../assets/ui/wood/plank.png) 9 fill stretch;display:flex;align-items:center;justify-content:center;gap:26px;color:#efe2ce;font-weight:600;font-size:19px;line-height:1;white-space:nowrap}
+.pl.off{opacity:.42}
+.pl.need{flex-direction:column;align-items:flex-start;justify-content:center;gap:5px;padding-left:7px}
+.pl.need b{font-weight:700;font-size:19px;letter-spacing:.01em}.pl.need i{font-style:normal;font-weight:400;font-size:15px}
+.gymname{position:absolute;left:118px;top:17px;font:400 32px/44px Marker;color:#6c9de6;white-space:nowrap}
+.tdate{position:absolute;left:402px;top:19px;white-space:nowrap}
+.tdate b{display:block;font-weight:600;font-size:19px;line-height:22px;color:#ede1cd}.tdate i{display:block;font-style:normal;font-weight:400;font-size:15px;line-height:18px;color:#b7a488}
+.tcash{position:absolute;right:376px;top:16px;text-align:right;white-space:nowrap}
+.tcash b{display:block;font-weight:700;font-size:24px;line-height:28px;color:#e7bd55}.tcash i{display:block;font-style:normal;font-weight:400;font-size:15px;line-height:19px;color:#b7a488}
+/* the gym screen's own marks, reused below the bar: the round white-ringed pin, its navy label, the blue-tag strip */
+.pin{box-sizing:border-box;border-radius:50%;background:#252b43;border:3px solid #fffbf3;box-shadow:0 3px 9px rgba(0,0,0,.5);display:inline-grid;place-items:center;color:#fffbf3;flex:none}
+.pin.red{background:#e1473a}
+.pin.maybe{border-style:dashed;border-width:2px;background:rgba(37,43,67,.72)}
+.lbl{display:inline-flex;align-items:center;height:36px;padding:0 12px;border-radius:7px;background:#1b253f;color:#fffbf3;font-weight:600;font-size:22px;line-height:1;white-space:nowrap}
+.strip{display:flex;align-items:center;gap:14px;height:46px;padding:0 16px 0 9px;border-radius:8px;background:#222a44;color:#fffbf3;font-weight:600;font-size:22px;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.35)}
+.tag{display:inline-flex;align-items:center;height:32px;padding:0 10px 0 9px;background:#1a1f31;border-left:4px solid #275696;color:#8eb8f3;font-weight:600;font-size:20px;letter-spacing:.02em;white-space:nowrap}
+.link{color:#8eb8f3}
+</style></head>
+<body><div class="wall"></div>
+<div class="top"><span class="pl" style="left:17px;top:17px;width:38px;height:43px;font-size:20px">&lt;</span><span class="pl off" style="left:67px;top:17px;width:38px;height:43px;font-size:20px">&gt;</span><span class="gymname">Anvil Street Gym</span><span class="tdate"><b>Mon 12 Jan 2026</b><i>Week 2</i></span><span class="pl" style="left:655px;top:15px;width:127px;height:46px"><svg class="ico " width="27" height="27" viewBox="0 0 24 24" style="stroke-width:1.7"><path d="M9 7h6v9a3 3 0 0 1-6 0zM12 3v4M10 7h4"/></svg>Gym</span><span class="pl" style="left:789px;top:15px;width:128px;height:46px">Mail (5 new)</span><span class="tcash"><b>$16,841</b><i>running -$680 a week</i></span><span class="pl need" style="left:1557px;top:13px;width:268px;height:50px"><b>NEEDS YOU (1)</b><i>Answer Lucy's bout offer</i></span><span class="pl" style="left:1840px;top:18px;width:59px;height:39px;font-size:16px">Menu</span></div>
+<div class="title">FIGHTERS</div>
+<div class="tabs"><span class="tab on">Roster</span><span class="tab">Compare</span><span class="tab">Find a fighter</span></div>
+<div class="step"><span class="strip"><span class="tag">SHOW IN 19 DAYS</span><span>Lucy has an offer: <span class="link">Maria Ortega</span>, Sat 31 Jan</span></span><span class="go">Answer the bout offer</span></div>
+<span class="ch h" style="left:474px">OVERALL</span>
+<span class="ch h" style="left:594px">TIREDNESS</span>
+<span class="ch h" style="left:740px">WEIGHT</span>
+<span class="ch h" style="left:886px">MOOD</span>
+<span class="ch h" style="left:1038px">GOAL</span>
+<span class="ax" style="left:1324.0px">12 Jan</span>
+<span class="ax" style="left:1403.5px">19</span>
+<span class="ax" style="left:1483.0px">26</span>
+<span class="ax" style="left:1562.5px">2 Feb</span>
+<span class="ch h" style="left:1668px;width:186px;text-align:center">DO NEXT</span>
+<div class="row" style="top:192px"><div class="face" style="background-image:url(face_lucy.jpg)"></div><span class="lbl cls">Lightweight</span><div class="nm">LUCY JACKSON</div><div class="sub">3-1 &middot; 21 &middot; orthodox</div><div class="rk"><svg class="ico " width="22" height="22" viewBox="0 0 24 24" style="stroke-width:2"><path d="M4 20V10h5v10M9 20V4h6v16M15 20v-7h5v7M2 20h20"/></svg>1 win to be ranked</div><div class="rg" style="left:446px;top:35px;width:92px;height:92px;--c:var(--gold);--p:60"><b>60</b></div><div class="tile g" style="left:566px"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style="stroke-width:2"><rect x="2" y="8" width="17" height="9" rx="2"/><path d="M22 11v3M6 11v3M10 11v3"/></svg><b class="n">38</b><span class="bar tz"><b style="width:38%"></b><em style="left:50%"></em></span><i>Fresh</i></div><div class="tile a" style="left:712px"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style="stroke-width:2"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 9a5 5 0 0 1 8 0M12 9l2-2"/></svg><b class="n">60.9</b><span class="bar"><b style="width:95%"></b><em style="left:86%"></em></span><i>0.9 kg over</i></div><div class="tile b" style="left:858px"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style="stroke-width:2"><circle cx="12" cy="12" r="9"/><path d="M8 14c1.200 1.600 6.800 1.600 8 0M9 9.500v.01M15 9.500v.01"/></svg><b class="n">62</b><span class="bar"><b style="width:62%"></b></span><i>Steady</i></div><div class="rg sm g" style="left:1010px;top:43px;width:76px;height:76px;--p:40"><b>40</b></div><div class="gl g"><b>Stamina to 61</b><span>18 days left</span><em>On track</em></div><div class="tk"><div class="big"><b>19</b><u>days</u><span class="link">Maria Ortega</span></div><div class="l2">offer: answer by Thu 15 Jan</div><div class="ln"><s style="left:0.0px"></s><s style="left:79.5px"></s><s style="left:159.0px"></s><s style="left:238.5px"></s><s style="left:318.0px"></s><i style="left:56.8px"></i><i style="left:215.8px"></i><span class="due" style="left:34.1px"></span><span class="pin maybe" style="left:215.8px;width:36px;height:36px"><svg class="ico " width="20" height="20" viewBox="0 0 24 24" style="stroke-width:2"><path d="M4 17 3 7l5 4 4-6 4 6 5-4-1 10zM4 20h16"/></svg></span></div></div><div class="act"><span class="pin red" style="width:60px;height:60px"><svg class="ico " width="30" height="30" viewBox="0 0 24 24" style="stroke-width:2"><path d="M4 17 3 7l5 4 4-6 4 6 5-4-1 10zM4 20h16"/></svg></span><span class="lbl">Answer offer</span></div><div class="open"><svg class="ico " width="30" height="30" viewBox="0 0 24 24" style="stroke-width:2"><path d="M10 6l6 6-6 6"/></svg></div></div>
+<div class="row" style="top:362px"><div class="face" style="background-image:url(face_samira.jpg)"></div><span class="lbl cls">Welterweight</span><div class="nm">SAMIRA KHAN</div><div class="sub">2-1 &middot; 18 &middot; orthodox</div><div class="rk"><svg class="ico " width="22" height="22" viewBox="0 0 24 24" style="stroke-width:2"><path d="M4 20V10h5v10M9 20V4h6v16M15 20v-7h5v7M2 20h20"/></svg>2 wins to be ranked</div><div class="rg" style="left:446px;top:35px;width:92px;height:92px;--c:var(--gold);--p:58"><b>58</b></div><div class="tile g" style="left:566px"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style="stroke-width:2"><rect x="2" y="8" width="17" height="9" rx="2"/><path d="M22 11v3M6 11v3M10 11v3"/></svg><b class="n">44</b><span class="bar tz"><b style="width:44%"></b><em style="left:50%"></em></span><i>Fresh</i></div><div class="tile q" style="left:712px"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style="stroke-width:2"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 9a5 5 0 0 1 8 0M12 9l2-2"/></svg><b class="n">65.9</b><span class="bar"><b style="width:95%"></b><em style="left:86%"></em></span><i>0.9 kg over</i></div><div class="tile g" style="left:858px"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style="stroke-width:2"><circle cx="12" cy="12" r="9"/><path d="M8 14c1.200 1.600 6.800 1.600 8 0M9 9.500v.01M15 9.500v.01"/></svg><b class="n">78</b><span class="bar"><b style="width:78%"></b></span><i>Fired up</i></div><div class="rg sm g" style="left:1010px;top:43px;width:76px;height:76px;--p:100"><svg class="ico " width="34" height="34" viewBox="0 0 24 24" style="stroke-width:2.6"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></div><div class="gl g"><b>Goal met</b><span>Defence to 52</span><em>Pick the next</em></div><div class="tk"><div class="none">No bout</div><div class="ln"><s style="left:0.0px"></s><s style="left:79.5px"></s><s style="left:159.0px"></s><s style="left:238.5px"></s><s style="left:318.0px"></s><i style="left:56.8px"></i><i style="left:215.8px"></i></div></div><div class="act"><span class="pin " style="width:60px;height:60px"><svg class="ico " width="30" height="30" viewBox="0 0 24 24" style="stroke-width:2"><path d="M5 21V4h12l-2.500 4L17 12H5"/></svg></span><span class="lbl">Set a goal</span></div><div class="open"><svg class="ico " width="30" height="30" viewBox="0 0 24 24" style="stroke-width:2"><path d="M10 6l6 6-6 6"/></svg></div></div>
+<div class="row" style="top:532px"><div class="face" style="background-image:url(face_ana.jpg)"></div><span class="lbl cls">Feather, no-gi</span><div class="nm">ANA RIBEIRO</div><div class="sub">4-2 in opens &middot; 22</div><div class="rk"><span class="belt"><u></u><s style="right:22px"></s><s style="right:31px"></s></span>White belt, 2 stripes</div><div class="rg" style="left:446px;top:35px;width:92px;height:92px;--c:var(--gold);--p:52"><b>52</b></div><div class="tile g" style="left:566px"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style="stroke-width:2"><rect x="2" y="8" width="17" height="9" rx="2"/><path d="M22 11v3M6 11v3M10 11v3"/></svg><b class="n">30</b><span class="bar tz"><b style="width:30%"></b><em style="left:50%"></em></span><i>Fresh</i></div><div class="tile g" style="left:712px"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style="stroke-width:2"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 9a5 5 0 0 1 8 0M12 9l2-2"/></svg><b class="n">57.2</b><span class="bar"><b style="width:72%"></b><em style="left:86%"></em></span><i>In class</i></div><div class="tile b" style="left:858px"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style="stroke-width:2"><circle cx="12" cy="12" r="9"/><path d="M8 14c1.200 1.600 6.800 1.600 8 0M9 9.500v.01M15 9.500v.01"/></svg><b class="n">55</b><span class="bar"><b style="width:55%"></b></span><i>Steady</i></div><div class="rg sm g" style="left:1010px;top:43px;width:76px;height:76px;--p:62"><b>62</b></div><div class="gl g"><b>Third stripe</b><span>6 classes left</span><em>On track</em></div><div class="tk"><div class="big"><b>12</b><u>days</u>London No-Gi Open</div><div class="l2">not entered yet</div><div class="ln"><s style="left:0.0px"></s><s style="left:79.5px"></s><s style="left:159.0px"></s><s style="left:238.5px"></s><s style="left:318.0px"></s><i style="left:56.8px"></i><i style="left:215.8px"></i><span class="pin maybe" style="left:136.3px;width:36px;height:36px"><svg class="ico " width="20" height="20" viewBox="0 0 24 24" style="stroke-width:2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 12h18M12 5v14"/></svg></span></div></div><div class="act"><span class="pin " style="width:60px;height:60px"><svg class="ico " width="30" height="30" viewBox="0 0 24 24" style="stroke-width:2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 12h18M12 5v14"/></svg></span><span class="lbl">Enter the open</span></div><div class="open"><svg class="ico " width="30" height="30" viewBox="0 0 24 24" style="stroke-width:2"><path d="M10 6l6 6-6 6"/></svg></div></div>
+<div class="row sel" style="top:702px"><div class="face" style="background-image:url(face_tess.jpg)"></div><span class="lbl cls">Middleweight</span><div class="nm">TESS REILLY</div><div class="sub">6-4 &middot; 23 &middot; southpaw</div><div class="rk"><svg class="ico " width="22" height="22" viewBox="0 0 24 24" style="stroke-width:2"><path d="M4 20V10h5v10M9 20V4h6v16M15 20v-7h5v7M2 20h20"/></svg>Number 8, London</div><div class="rg" style="left:446px;top:35px;width:92px;height:92px;--c:var(--gold);--p:61"><b>61</b></div><div class="tile a hot" style="left:566px"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style="stroke-width:2"><rect x="2" y="8" width="17" height="9" rx="2"/><path d="M22 11v3M6 11v3M10 11v3"/></svg><b class="n">72</b><span class="bar tz"><b style="width:72%"></b><em style="left:50%"></em></span><i>3 rest days</i></div><div class="tile q" style="left:712px"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style="stroke-width:2"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 9a5 5 0 0 1 8 0M12 9l2-2"/></svg><b class="n">76.1</b><span class="bar"><b style="width:96%"></b><em style="left:86%"></em></span><i>1.1 kg over</i></div><div class="tile b" style="left:858px"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style="stroke-width:2"><circle cx="12" cy="12" r="9"/><path d="M8 14c1.200 1.600 6.800 1.600 8 0M9 9.500v.01M15 9.500v.01"/></svg><b class="n">58</b><span class="bar"><b style="width:58%"></b></span><i>Steady</i></div><div class="rg sm g" style="left:1010px;top:43px;width:76px;height:76px;--p:45"><b>45</b></div><div class="gl g"><b>Speed to 57</b><span>16 days left</span><em>On track</em></div><div class="tk"><div class="none">No bout</div><div class="l2"><span style="color:var(--amber);font-weight:600">3 rest days first</span></div><div class="ln"><s style="left:0.0px"></s><s style="left:79.5px"></s><s style="left:159.0px"></s><s style="left:238.5px"></s><s style="left:318.0px"></s><i style="left:56.8px"></i><i style="left:215.8px"></i><span class="rest" style="width:34.1px"><svg class="ico " width="20" height="20" viewBox="0 0 24 24" style="stroke-width:2"><path d="M20 14.500A8 8 0 0 1 9.500 4 8 8 0 1 0 20 14.500z"/></svg></span></div></div><div class="act"><span class="pin " style="width:60px;height:60px"><svg class="ico " width="30" height="30" viewBox="0 0 24 24" style="stroke-width:2"><path d="M20 14.500A8 8 0 0 1 9.500 4 8 8 0 1 0 20 14.500z"/></svg></span><span class="lbl">Rest days</span></div><div class="open"><svg class="ico " width="30" height="30" viewBox="0 0 24 24" style="stroke-width:2"><path d="M10 6l6 6-6 6"/></svg></div></div>
+<div class="guide"><div class="gface"><svg width="190" height="190" viewBox="0 0 190 190"><defs><clipPath id="gc"><circle cx="95" cy="95" r="88"/></clipPath>
+<radialGradient id="gr" cx=".5" cy=".35" r=".8"><stop offset="0" stop-color="#5b4a3a"/><stop offset="1" stop-color="#231c17"/></radialGradient></defs>
+<circle cx="95" cy="95" r="88" fill="url(#gr)"/><g clip-path="url(#gc)"><path d="M22 200q4-62 73-62t73 62z" fill="#39424a"/>
+<rect x="82" y="112" width="26" height="30" fill="#b08a6c"/><ellipse cx="95" cy="88" rx="33" ry="38" fill="#c39b7a"/>
+<path d="M60 96q2 34 35 36 33-2 35-36-6 20-35 20T60 96z" fill="#e6e0d6"/>
+<path d="M56 70q4-34 40-34 34 0 40 30l14 6q-30 6-94-2z" fill="#2b3036"/></g>
+<circle cx="95" cy="95" r="88" fill="none" stroke="#8a6a3d" stroke-width="4"/></svg></div><div class="gtail"></div><div class="gbub"><p>Lucy's offer runs out on Thursday. Answer it first.</p><div><span class="gskip">Skip the guide</span></div></div></div>
+<div class="hov"><div class="hd"><span class="tag">TIREDNESS</span>Tess: 72 of 100</div><p>Under <b>50</b> is fresh.<br>A full rest day takes off an eighth.<br>Over <b>80</b>, training counts 60%.</p><div class="mini"><span class="mc">after rest days</span><span class="fr" style="top:80px"></span><span class="fl" style="top:69px">fresh</span><span class="col" style="left:0px;height:68px;background:var(--amber)"><b>72</b></span><span class="d" style="left:0px">now</span><span class="col" style="left:49px;height:60px;background:var(--amber)"><b>63</b></span><span class="d" style="left:49px">1</span><span class="col" style="left:98px;height:52px;background:#e0b040"><b>55</b></span><span class="d" style="left:98px">2</span><span class="col" style="left:147px;height:45px;background:var(--green)"><b>47</b></span><span class="d" style="left:147px">3</span></div></div>
+<svg class="cur" style="left:694px;top:752px" width="30" height="34" viewBox="0 0 30 34"><path d="M3 2v25l6.500-6 4.500 10.500 4.500-2L14 19h9z" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/></svg>
+<div class="key" style="top:884px"><span class="pin red" style="width:30px;height:30px"><svg class="ico " width="16" height="16" viewBox="0 0 24 24" style="stroke-width:2"><path d="M4 17 3 7l5 4 4-6 4 6 5-4-1 10zM4 20h16"/></svg></span>needs you now<span class="sp"></span><span class="pin " style="width:30px;height:30px"><svg class="ico " width="16" height="16" viewBox="0 0 24 24" style="stroke-width:2"><path d="M9 7h6v9a3 3 0 0 1-6 0zM12 3v4M10 7h4"/></svg></span>the next step</div>
+<div class="key" style="top:930px"><span class="pin maybe" style="width:30px;height:30px"><svg class="ico " width="16" height="16" viewBox="0 0 24 24" style="stroke-width:2"><path d="M4 17 3 7l5 4 4-6 4 6 5-4-1 10zM4 20h16"/></svg></span>offered, not booked<span class="sp"></span><span class="due"></span>answer by</div>
+<div class="key" style="top:976px"><i></i>club show night<span class="sp"></span><span class="rest"><svg class="ico " width="18" height="18" viewBox="0 0 24 24" style="stroke-width:2"><path d="M20 14.500A8 8 0 0 1 9.500 4 8 8 0 1 0 20 14.500z"/></svg></span>rest first<span class="sp"></span><em></em>&nbsp;limit, fresh line</div>
+<div class="key" style="top:1022px"><svg class="ico " width="24" height="24" viewBox="0 0 24 24" style="stroke-width:2"><path d="M10 6l6 6-6 6"/></svg>a row opens the fighter&rsquo;s page</div></body></html>

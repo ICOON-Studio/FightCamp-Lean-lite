@@ -6497,6 +6497,26 @@
       "answered_at": null,
       "seen_by_claude": true,
       "comment_only": true
+    },
+    {
+      "id": "Q-S294-182",
+      "asked": "2026-11-11T09:40:57.286420+00:00",
+      "session": "S294",
+      "text": "The look, redrawn to match the gym screen (the gym screen itself is untouched): the Fighters page and one fighter's Profile, which is your body chart with Engine now Cardio. Wood stays only on the top bar, as on the gym screen. No new menu bar: the gym's pins stay the way around, a Gym button brings you back, every fighter has six tabs. Three judges scored the base 8, 7 and 8 of 10. Added beyond your six changes because all three judges asked: mood, a Cut button on the weight, four faces to step between fighters. Paint and build these two pages?",
+      "options": [
+        "Yes, paint and build both",
+        "Yes, but change something (note)",
+        "No, another round"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-182_0_side_by_side.png",
+        "AgentComms/board_attach/Q-S294-182_1_overview.png",
+        "AgentComms/board_attach/Q-S294-182_2_squad.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

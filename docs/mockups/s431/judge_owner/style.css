@@ -1,0 +1,113 @@
+@font-face{font-family:Marker;src:url(@A@/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:400;src:url(@A@/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(@A@/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(@A@/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(@A@/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(@A@/fonts/BebasNeue-Regular.ttf)}
+@font-face{font-family:Kalam;font-weight:700;src:url(@A@/fonts/Kalam-Bold.ttf)}
+:root{--ink:#f1e8da;--soft:#c9b9a2;--gold:#ffd24a;--red:#dd4b3d;--blue:#4d8ef0;--green:#3fc07a;--amber:#f28d27;--purple:#ad80ff;
+ --track:rgba(255,255,255,.10);--weak:#dd4b3d;--fair:#f28d27;--solid:#4d8ef0;--strong:#3fc07a;--elite:#ad80ff;--navy:#1d2741}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:#120e0c;color:var(--ink);font:500 22px/1.2 Barlow,"Segoe UI",sans-serif}
+.ico{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.abs{position:absolute}
+.wall{position:absolute;left:0;right:0;top:78px;bottom:0;background:
+ radial-gradient(ellipse 760px 560px at 50% 30%,rgba(255,190,110,.14),transparent 72%),
+ radial-gradient(ellipse 620px 420px at 4% 60%,rgba(221,75,61,.05),transparent 70%),
+ radial-gradient(ellipse 620px 420px at 97% 55%,rgba(77,142,240,.06),transparent 70%),
+ linear-gradient(#1b1512,#130f0d 62%,#0e0b09)}
+/* the gym screen's top bar, unchanged */
+.top{position:absolute;left:0;top:0;width:1920px;height:78px;z-index:5;border-style:solid;border-width:0 0 8px 0;border-image:url(@A@/ui/wood/bar.png) 0 0 8 0 fill / 0 0 8px 0 / 0 stretch;display:flex;align-items:center;gap:14px;padding:8px 18px 0 18px;color:#efe6d8}
+.tab9{border:9px solid transparent;border-image:url(@A@/ui/wood/tab.png) 9 fill / 9px / 0 stretch}
+.plank9{border:9px solid transparent;border-image:url(@A@/ui/wood/plank.png) 9 fill / 9px / 0 stretch}
+.tnav{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font:500 20px/1 Barlow;color:#efe6d8;flex:none}
+.tnav.off{opacity:.42}
+.tmenu{width:auto;height:37px;padding:0 3px 2px 3px;font:500 16px/1 Barlow}
+.tgym{font:400 32px/1 Marker;color:#6ea2f2;white-space:nowrap;padding-top:2px}
+.tdate{min-width:176px}.tdate b{display:block;font:500 19px/23px Barlow;white-space:nowrap}.tdate i{display:block;font:400 15px/18px Barlow;font-style:normal;color:#b8a88f}
+.trail{flex:1;display:flex;justify-content:center;gap:6px}
+.rail{min-width:128px;height:48px;padding:0 5px 2px 5px;display:flex;align-items:center;justify-content:center;font:600 19px/1 Barlow;white-space:nowrap}
+.rail .ico{margin:0 -24px 0 4px}.rail u{flex:1;text-align:center;text-decoration:none}
+.tgrow{flex:1}
+.tcash{text-align:right}.tcash b{display:block;font:600 24px/28px Barlow;color:#e8c15a}.tcash i{display:block;font:400 15px/18px Barlow;font-style:normal;color:#b8a88f;white-space:nowrap}
+.tgo{width:270px;height:54px;padding:0 7px 2px 7px;display:flex;flex-direction:column;justify-content:center;flex:none}
+.tgo b{display:block;font:600 19px/23px Barlow;white-space:nowrap}.tgo i{display:block;font:400 15px/18px Barlow;font-style:normal;white-space:nowrap}
+/* the gym screen's pin, name plate and news strip: the only shapes this page uses for anything pressable, beside the gold button */
+.pin{width:56px;height:56px;border-radius:50%;background:#1c2640;border:3px solid #fff;display:grid;place-items:center;color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.45);flex:none}
+.plate{display:inline-flex;align-items:center;height:36px;padding:0 12px;border-radius:8px;background:var(--navy);color:#fff;font:700 22px/1 Barlow;white-space:nowrap}
+.strip{display:flex;align-items:center;gap:12px;height:48px;padding:0 14px 0 10px;border-radius:8px;background:#252d45;color:#fff;font:700 22px/1 Barlow;white-space:nowrap}
+.tag{display:inline-flex;align-items:center;height:32px;padding:0 10px;border-left:4px solid #275696;border-radius:3px;background:#1a2033;color:#8eb9f3;font:600 20px/1 Barlow;text-transform:uppercase;white-space:nowrap}
+.strip small{font:500 20px/1 Barlow;color:#b8c3de}
+.tabs{position:absolute;left:28px;top:92px;display:flex;gap:6px}
+.tab{height:48px;padding:0 17px;border-radius:8px;display:flex;align-items:center;font-weight:700;color:#b8c3de;background:var(--navy);white-space:nowrap}
+.tab.on{color:#fff;background:#275696;box-shadow:0 0 26px 2px rgba(255,205,90,.42)}
+.go{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:56px;padding:0 24px;border-radius:11px;background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06;font-weight:700;font-size:23px;box-shadow:0 3px 0 #9a6c10;white-space:nowrap}
+.go.sm{height:46px;font-size:22px;padding:0 20px;border-radius:10px}
+.step{position:absolute;right:28px;top:88px;height:56px;display:flex;align-items:center;gap:14px}
+/* header */
+.name{font:400 54px/1 Marker;color:#fff;white-space:nowrap}
+.sub{display:flex;align-items:center;gap:12px;font-size:22px;color:var(--soft);margin-top:8px;white-space:nowrap}
+.sub b{color:#fff;font-weight:700;font-size:24px}.sub em{font-style:normal;color:var(--gold);font-weight:600}
+.ring{border-radius:50%;display:grid;place-items:center;background:radial-gradient(closest-side,#191412 78%,transparent 79% 100%),conic-gradient(var(--gold) 0 59%,var(--track) 59% 100%)}
+.ring b{display:block;font:400 46px/0.9 Bebas;color:#fff;text-align:center;letter-spacing:.02em}
+.ring i{display:block;font-style:normal;font-size:20px;color:var(--soft);text-align:center;line-height:1}
+/* the squad, one click away: four faces over the figure */
+.squad{position:absolute;left:760px;width:400px;top:150px;display:flex;justify-content:center;align-items:flex-start;gap:18px}
+.sq{display:flex;flex-direction:column;align-items:center;gap:4px;width:72px}
+.sq img{width:54px;height:54px;border-radius:50%;border:3px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,.5);opacity:.8}
+.sq i{font-style:normal;font-size:20px;line-height:1;color:var(--soft);font-weight:600}
+.sq.on img{opacity:1;border-color:var(--gold);box-shadow:0 0 22px 3px rgba(255,205,90,.6)}
+.sq.on i{color:#fff}
+/* meters */
+.bar{position:relative;height:16px;border-radius:8px;background:var(--track)}
+.bar b{position:absolute;left:0;top:0;bottom:0;border-radius:8px;background:var(--c)}
+.bar em{position:absolute;top:-5px;width:3px;height:26px;border-radius:2px;background:#fff}
+.bar u{position:absolute;top:-13px;margin-left:-8px;width:0;height:0;border:8px solid transparent;border-top:11px solid var(--gold)}
+.bar.tired{background:linear-gradient(90deg,var(--track) 0 80%,rgba(221,75,61,.55) 80% 100%)}
+.weak{--c:var(--weak)}.fair{--c:var(--fair)}.solid{--c:var(--solid)}.strong{--c:var(--strong)}.elite{--c:var(--elite)}
+.v{font-weight:700;font-size:28px;text-align:right;color:color-mix(in srgb,var(--c) 78%,#fff)}
+.gain{color:var(--green);font-weight:600;font-size:21px;white-space:nowrap}
+.cap{color:var(--soft);font-size:21px;font-weight:500;white-space:nowrap}
+.pill{display:inline-flex;align-items:center;height:32px;padding:0 13px;border-radius:16px;background:rgba(255,210,74,.14);color:var(--gold);font-weight:700;font-size:21px;white-space:nowrap}
+.pill.hot{background:var(--gold);color:#2a1b06;box-shadow:0 0 22px 3px rgba(255,205,90,.55)}
+.key{display:flex;align-items:center;gap:8px;font-size:20px;color:var(--soft);white-space:nowrap}
+.key s{width:14px;height:14px;border-radius:4px;display:inline-block;margin-left:10px}
+.key em{display:inline-block;width:3px;height:20px;background:#fff;border-radius:2px}
+.key u{display:inline-block;width:0;height:0;border:8px solid transparent;border-top:11px solid var(--gold);margin:10px 0 0 12px}
+.key i{display:inline-block;width:30px;height:14px;border-radius:7px;margin-left:12px;background:repeating-linear-gradient(135deg,var(--strong) 0 6px,#1f6a43 6px 10px)}
+.cl{position:absolute;width:624px}
+.cl h3{height:40px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:23px;letter-spacing:.09em;color:var(--gold)}
+.cl h3 span:last-child{font-weight:500;font-size:21px;letter-spacing:0;color:var(--soft);margin-left:4px}
+.hpin{width:32px;height:32px;border-width:2px;box-shadow:none}
+.r{display:grid;grid-template-columns:26px 164px 1fr 46px 168px;column-gap:10px;align-items:center;height:40px;border-radius:10px;padding:0 6px;margin:0 -6px}
+.r .ico{color:var(--soft)}.r .n{font-weight:600;white-space:nowrap}
+.r.char .bar b{background:repeating-linear-gradient(135deg,var(--c) 0 6px,color-mix(in srgb,var(--c) 55%,#000) 6px 10px)}
+.r.sel{background:rgba(255,210,74,.09);box-shadow:0 0 26px 2px rgba(255,205,90,.28)}
+.r.day .v{grid-column:4/6;text-align:left;white-space:nowrap;display:flex;align-items:center;gap:9px}
+.word{font-weight:700;font-size:22px;color:#ff8d7f;text-align:right}
+.lead{position:absolute;left:0;top:0;pointer-events:none;z-index:2}
+.bpin{position:absolute;z-index:3;width:38px;height:38px;margin:-19px 0 0 -19px;border-width:2.5px}
+.fig{display:block;filter:drop-shadow(0 0 30px rgba(255,170,80,.12)) drop-shadow(0 14px 10px rgba(0,0,0,.5))}
+.floor{position:absolute;left:700px;right:668px;bottom:0;height:176px;background:linear-gradient(#a8343b,#6e2328);clip-path:polygon(8% 0,92% 0,100% 100%,0 100%);opacity:.92}
+.floor::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(0,0,0,.16) 0 2px,transparent 2px 100px),linear-gradient(#4c4549,#2b2729 70%,#211e20);clip-path:polygon(10% 10px,90% 10px,97.8% 100%,2.2% 100%)}
+/* goal */
+.goal{position:absolute;left:1268px;top:806px;width:624px;display:grid;grid-template-columns:86px 1fr auto;column-gap:16px;align-items:center}
+.gr{width:86px;height:86px;border-radius:50%;display:grid;place-items:center;font:400 34px/1 Bebas;background:radial-gradient(closest-side,#191412 74%,transparent 75% 100%),conic-gradient(var(--green) 0 40%,var(--track) 40% 100%)}
+.goal b{display:block;font-size:26px;font-weight:700;white-space:nowrap}.goal span{display:block;color:var(--soft);white-space:nowrap;margin-top:2px}
+.ok{display:inline-flex;align-items:center;height:34px;padding:0 14px;border-radius:17px;background:rgba(63,192,122,.16);color:var(--green);font-weight:700;font-size:21px;white-space:nowrap}
+/* actions: the gym screen's pin fused to its name plate */
+.acts{position:absolute;left:1268px;top:912px;width:624px;display:grid;grid-template-columns:1fr 1fr;gap:16px 14px}
+.act{position:relative;display:flex;align-items:center;gap:10px;height:56px;margin-left:24px;padding:0 14px 0 44px;border-radius:10px;background:var(--navy);color:#fff;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.35)}
+.act .pin{position:absolute;left:-24px;top:0}
+.act b{font-weight:700;font-size:23px}.act small{font-size:21px;color:#b8c3de;font-weight:500}
+/* Coach, bottom left: one change, with the button on it */
+.guide{position:absolute;left:14px;bottom:14px;display:flex;align-items:flex-end}
+.gface{position:relative;width:186px;height:190px}
+.gface img{display:block;width:172px;height:172px;margin:4px 7px;border-radius:50%;border:4px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+.gface .plate{position:absolute;left:50%;transform:translateX(-50%);bottom:0}
+.gtail{width:24px;height:40px;margin-bottom:58px;background:var(--navy);clip-path:polygon(0 55%,100% 0,100% 100%)}
+.gbub{width:468px;background:var(--navy);border-radius:14px;padding:14px 20px 16px 22px;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+.gbub p{font:700 28px/35px Kalam,"Segoe Print",cursive;color:#efe6d8}
+.gbub div{display:flex;justify-content:flex-end;align-items:center;gap:14px;margin-top:10px}
+.gbub div .cap{color:#b8c3de}
