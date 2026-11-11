@@ -1477,90 +1477,6 @@
     "board": ""
    }
   },
-  "TRAININGB1": {
-   "agent": "cursor",
-   "id": "TRAININGB1",
-   "title": "TASK TRAININGB1 - CURSOR (Grok 4.7 High) - the Training tab rebuilt as approach B, with A's tiredness curve on top",
-   "status": "landed",
-   "started": "2026-11-10T17:13",
-   "eta": "2026-11-10T19:03",
-   "branch": "cursor/trainingb1",
-   "worktree": "E:/FightCamp/wt/LEAN_TRAININGB1",
-   "wt": "E:/FightCamp/wt/LEAN_TRAININGB1",
-   "brief": "ops/research/TASK_TRAININGB1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/TRAININGB1_dispatch_out.txt",
-   "match": "seat_dispatch.py run trainingb1",
-   "model": "grok-4.7-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/TRAININGB1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/TRAININGB1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/TRAININGB1_dispatch_runner.log",
-    "source": "roadmap plan.next",
-    "brief_copied": true,
-    "runner_pid": 45884,
-    "seat_pid": 39732
-   },
-   "note": "S428: PR 179 collected a0d9eb3c",
-   "finished": "2026-11-10T17:59",
-   "pr": 179,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/week_b_test.gd",
-     "ok": true,
-     "last": "WEEK_B failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/week_board_clarity_test.gd",
-     "ok": true,
-     "last": "   at: clear (core/io/resource.cpp:822)"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/week_slate_test.gd",
-     "ok": true,
-     "last": "WEEK_SLATE failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/week_plan_test.gd",
-     "ok": true,
-     "last": "WEEK_PLAN PASS fails=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/week_coach_test.gd",
-     "ok": true,
-     "last": "WEEK_COACH PASS"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/training_week_test.gd",
-     "ok": true,
-     "last": "TRAINING_WEEK failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/weekend_plan_test.gd",
-     "ok": true,
-     "last": "   at: clear (core/io/resource.cpp:822)"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/golden_path_test.gd",
-     "ok": true,
-     "last": "GOLDEN_PATH failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "KDFIX5": {
    "agent": "qwen",
    "id": "KDFIX5",
@@ -1724,7 +1640,82 @@
     "runner_pid": 43772,
     "seat_pid": 42316
    },
-   "note": "S428: collected by diff onto main c6bd79db; render read, tests green"
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 11/11 PASS; PR #182",
+   "finished": "2026-11-10T19:01",
+   "pr": 182,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/side_panel_test.gd",
+     "ok": true,
+     "last": "SIDE_PANEL failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/energy_forecast_test.gd",
+     "ok": true,
+     "last": "ENERGY_FORECAST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/intent_chip_test.gd",
+     "ok": true,
+     "last": "INTENT_CHIP failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/round_board_test.gd",
+     "ok": true,
+     "last": "ROUND_BOARD failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_bar_test.gd",
+     "ok": true,
+     "last": "CORNER_BAR failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hud_shown_test.gd",
+     "ok": true,
+     "last": "hud_shown_test failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/holo_live_test.gd",
+     "ok": true,
+     "last": "HOLO_LIVE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_flash_test.gd",
+     "ok": true,
+     "last": "HIT_FLASH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "MOODHABIT1": {
    "agent": "qwen",
@@ -1778,7 +1769,7 @@
    "agent": "qwen",
    "id": "HANDSPROBE1",
    "title": "TASK HANDSPROBE1 - QWEN (qwen3-coder) - how scarce are Reid's hands really? Measure only",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-10T18:47",
    "eta": "2026-11-10T20:37",
    "branch": "qwen/handsprobe1",
@@ -1799,13 +1790,34 @@
     "runner_pid": 5612,
     "seat_pid": 35060
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #183",
+   "finished": "2026-11-10T19:19",
+   "pr": 183,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/hands_probe.gd",
+     "ok": true,
+     "last": "RESULT: tools/hands_probe.gd -> HANDSPROBE1 camps=10 all_owned_default=20%"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "HALOSWEEP1": {
    "agent": "cursor",
    "id": "HALOSWEEP1",
    "title": "TASK HALOSWEEP1 - CURSOR (Grok 4.7 High) - every \"this one is chosen\" frame in the game uses the shared outline",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-10T18:59",
    "eta": "2026-11-10T20:49",
    "branch": "cursor/halosweep1",
@@ -1825,6 +1837,330 @@
     "brief_copied": true,
     "runner_pid": 44404,
     "seat_pid": 6812
+   },
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 6/8 PASS; PR #184; NOT committed (outside OWNS): docs/mockups/s427/halosweep/belt_match.png, docs/mockups/s427/halosweep/bracket.png, docs/mockups/s427/halosweep/coach_steps.png, docs/mockups/s427/halosweep/create_card.png, docs/mockups/s427/halosweep/drill_card.png, docs/mockups/s427/halosweep/flow_view.png, docs/mockups/s427/halosweep/game_plan.png, docs/mockups/s427/halosweep/grappler_belt.png, docs/mockups/s427/halosweep/mat_systems.png, docs/mockups/s427/halosweep/mat_tree.png, docs/mockups/s427/halosweep/tape_room.png",
+   "finished": "2026-11-10T19:43",
+   "pr": 184,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/halo_test.gd",
+     "ok": false,
+     "last": "HALO failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/words_on_screens_test.gd",
+     "ok": true,
+     "last": "WORDS_ON_SCREENS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bjj_tree_ui_test.gd",
+     "ok": true,
+     "last": "BJJ_TREE_UI failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/tape_room_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_screen_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/drill_card_test.gd",
+     "ok": false,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/week_board_clarity_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "WEEKTESTS1": {
+   "agent": "cursor",
+   "id": "WEEKTESTS1",
+   "title": "TASK WEEKTESTS1 - CURSOR - three tests still drive the old Training board that TRAININGB1 replaced",
+   "status": "landed",
+   "started": "2026-11-11T07:14",
+   "eta": "2026-11-11T09:04",
+   "branch": "cursor/weektests1",
+   "worktree": "E:/FightCamp/wt/LEAN_WEEKTESTS1",
+   "wt": "E:/FightCamp/wt/LEAN_WEEKTESTS1",
+   "brief": "ops/research/TASK_WEEKTESTS1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/WEEKTESTS1_dispatch_out.txt",
+   "match": "seat_dispatch.py run weektests1",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/WEEKTESTS1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/WEEKTESTS1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/WEEKTESTS1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 31300,
+    "seat_pid": 7412
+   },
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 5/5 PASS; PR #185",
+   "finished": "2026-11-11T07:48",
+   "pr": 185,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/plan_tray_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/week_b_test.gd",
+     "ok": true,
+     "last": "WEEK_B failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/week_cause_test.gd",
+     "ok": true,
+     "last": "WEEK_CAUSE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_cards_test.gd",
+     "ok": true,
+     "last": "PLAN_CARDS PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "RANKSHOW1": {
+   "agent": "goose",
+   "id": "RANKSHOW1",
+   "title": "QWEN (qwen3-coder) - the rank a fight earned, as a pure line the result, the Why and the news can show",
+   "status": "landed",
+   "started": "2026-11-11T08:04",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_RANKSHOW1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-11T09:04",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
+   "issue": "186",
+   "branch": "goose/issue-186",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/186",
+   "reconciled": "2026-11-11 08:41 board_reconcile: run finished (success), branch goose/issue-186 pushed"
+  },
+  "BARGUARD1": {
+   "agent": "cursor",
+   "id": "BARGUARD1",
+   "title": "TASK BARGUARD1 - CURSOR (Grok 4.7 High) - the boots stay above the corner bar while a shot holds, even when a boxer stands at the lens",
+   "status": "landed",
+   "started": "2026-11-11T08:59",
+   "eta": "2026-11-11T10:49",
+   "branch": "cursor/barguard1",
+   "worktree": "E:/FightCamp/wt/LEAN_BARGUARD1",
+   "wt": "E:/FightCamp/wt/LEAN_BARGUARD1",
+   "brief": "ops/research/TASK_BARGUARD1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/BARGUARD1_dispatch_out.txt",
+   "match": "seat_dispatch.py run barguard1",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/BARGUARD1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/BARGUARD1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/BARGUARD1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": false,
+    "runner_pid": 25816,
+    "seat_pid": 27968
+   },
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 5/5 PASS; PR #189",
+   "finished": "2026-11-11T09:33",
+   "pr": 189,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/bar_guard_test.gd",
+     "ok": true,
+     "last": "BAR_GUARD failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_lens_test.gd",
+     "ok": true,
+     "last": "ring_lens_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_lens_test.gd",
+     "ok": true,
+     "last": "CORNER_LENS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/promo_shot_test.gd",
+     "ok": true,
+     "last": "PROMO_SHOT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/round_board_test.gd",
+     "ok": true,
+     "last": "ROUND_BOARD failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "MONEYFOUR1": {
+   "agent": "qwen",
+   "id": "MONEYFOUR1",
+   "title": "TASK MONEYFOUR1 - QWEN (qwen3-coder) - what four fighters cost the club in a year. Measure only",
+   "status": "landed",
+   "started": "2026-11-11T09:05",
+   "eta": "2026-11-11T10:55",
+   "branch": "qwen/moneyfour1",
+   "worktree": "E:/FightCamp/wt/LEAN_MONEYFOUR1",
+   "wt": "E:/FightCamp/wt/LEAN_MONEYFOUR1",
+   "brief": "ops/research/TASK_MONEYFOUR1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/MONEYFOUR1_dispatch_out.txt",
+   "match": "seat_dispatch.py run moneyfour1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/MONEYFOUR1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/MONEYFOUR1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/MONEYFOUR1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 37188,
+    "seat_pid": 28180
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/2 PASS; PR #188",
+   "finished": "2026-11-11T09:24",
+   "pr": 188,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/money_four_probe.gd",
+     "ok": true,
+     "last": "MONEYFOUR cell=FOUR_NONE career=9 closed=0 close_week=- cash_w13=$15539 cash_w26=$16832 cash_w39=$31891 cash_w52=$37253 bouts=43 ticket_income=$11250 stipends_paid=$0 weeks_below_zero=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "TRAINREAD1": {
+   "agent": "goose",
+   "id": "TRAINREAD1",
+   "title": "QWEN (qwen3-coder) - the coach's read: which training each fighter needs, from the numbers and the style",
+   "status": "running",
+   "started": "2026-11-11T09:08",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_TRAINREAD1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-11T10:08",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
+   "issue": "187",
+   "branch": "goose/issue-187",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/187"
+  },
+  "AMATEURPROBE1": {
+   "agent": "qwen",
+   "id": "AMATEURPROBE1",
+   "title": "TASK AMATEURPROBE1 - QWEN (qwen3-coder) - amateur bouts at 1 to 2 weeks' notice with no camp: what changes. Measure only",
+   "status": "running",
+   "started": "2026-11-11T09:27",
+   "eta": "2026-11-11T11:17",
+   "branch": "qwen/amateurprobe1",
+   "worktree": "E:/FightCamp/wt/LEAN_AMATEURPROBE1",
+   "wt": "E:/FightCamp/wt/LEAN_AMATEURPROBE1",
+   "brief": "ops/research/TASK_AMATEURPROBE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/AMATEURPROBE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run amateurprobe1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/AMATEURPROBE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/AMATEURPROBE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/AMATEURPROBE1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 41512,
+    "seat_pid": 39636
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+  },
+  "FIGHTDISPLAY4": {
+   "agent": "cursor",
+   "id": "FIGHTDISPLAY4",
+   "title": "TASK FIGHTDISPLAY4 - CURSOR (Grok 4.7 High) - the fight screen: the two wooden side panels go, the bars move to the top, the see-through figures stand free agai",
+   "status": "running",
+   "started": "2026-11-11T09:33",
+   "eta": "2026-11-11T11:23",
+   "branch": "cursor/fightdisplay4",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHTDISPLAY4",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHTDISPLAY4",
+   "brief": "ops/research/TASK_FIGHTDISPLAY4.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHTDISPLAY4_dispatch_out.txt",
+   "match": "seat_dispatch.py run fightdisplay4",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHTDISPLAY4_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHTDISPLAY4_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHTDISPLAY4_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 37732,
+    "seat_pid": 24356
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }

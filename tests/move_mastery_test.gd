@@ -29,9 +29,9 @@ func _check_tiers() -> void:
 	_check(MM.tier(84.9) == "SHARP", "tier 84.9 -> SHARP (<85)")
 	_check(MM.tier(85.0) == "SIGNATURE", "tier 85 -> SIGNATURE")
 	_check(MM.tier(100.0) == "SIGNATURE", "tier 100 -> SIGNATURE")
-	# S398 one word set on every page: New, Raw, Usable, Sharp, Signature (title case).
-	_check(MM.word(0.0) == "New" and MM.word(12.0) == "Raw" and MM.word(30.0) == "Usable" and MM.word(60.0) == "Sharp"
-		and MM.word(90.0) == "Signature", "word(): New / Raw / Usable / Sharp / Signature")
+	# S398 one word set on every page: New, Learning, Usable, Sharp, Signature (title case).
+	_check(MM.word(0.0) == "New" and MM.word(12.0) == "Learning" and MM.word(30.0) == "Usable" and MM.word(60.0) == "Sharp"
+		and MM.word(90.0) == "Signature", "word(): New / Learning / Usable / Sharp / Signature")
 	_check(MM.next_word(12.0) == ["Usable", 30.0] and MM.next_word(85.0) == ["", 0.0], "next_word(): Usable at 30; none past 85")
 
 
@@ -83,10 +83,10 @@ func _check_words() -> void:
 	# spec assigns to that mastery, at both tiers, so no check is weakened.
 	_check(MM.describe("Jab", 88.0) == "Signature Jab (M88)", "the brief's example at its spec tier: describe 88 -> \"Signature Jab (M88)\"")
 	_check(MM.describe("Jab", 78.0) == "Sharp Jab (M78)", "the brief's wording at a SHARP mastery: describe 78 -> \"Sharp Jab (M78)\"")
-	_check(MM.describe("Rear Uppercut", 18.0) == "Raw Rear Uppercut (M18)", "describe 18 -> \"Raw Rear Uppercut (M18)\"")
+	_check(MM.describe("Rear Uppercut", 18.0) == "Learning Rear Uppercut (M18)", "describe 18 -> \"Learning Rear Uppercut (M18)\"")
 	_check(MM.describe("Cross", 87.6) == "Signature Cross (M88)", "mastery is rounded (87.6 -> M88)")
 	_check(MM.describe("Hook", 45.0) == "Usable Hook (M45)", "the tier word is Title case (Usable)")
-	_check(MM.describe("Jab", 0.0) == "Unlearned Jab (M0)", "Unlearned is Title case too")
+	_check(MM.describe("Jab", 0.0) == "New Jab (M0)", "never drilled reads New, the same word every page shows")
 	_check(MM.describe("Overhand", 92.4) == "Signature Overhand (M92)", "Signature is Title case (92.4 -> M92)")
 
 

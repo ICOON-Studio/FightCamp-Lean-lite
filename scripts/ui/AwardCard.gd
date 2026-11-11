@@ -72,7 +72,7 @@ static func _wall(f: Dictionary) -> HBoxContainer:
 	Tips.card(h, func(): return {"title": "Records wall", "rows": rows.map(func(r): return [str(r["name"]), TestDay.text(r) + " " + TestDay.norm(str(r["id"]), float(r["best"]), sex).to_lower(),
 		("beat " + (str(r["fmt"]) % float(r["prev"]))) if float(r["prev"]) >= 0.0 else "first mark",
 		"day %d: %s" % [int(r["first_d"]), TestDay.text(r, "first")]]),
-		"means": "Every Sunday the coach times three tests: the bleep test (engine), punches in 10 seconds, the average of three tries (speed) and the rear hand's force on the bag sensor (power). The word beside each number is where it sits for a %s: beginner, club or elite. A new best goes up in chalk and the old one is crossed out. Train the stat and the number moves - no luck in it." % ("man" if sex == "m" else "woman")})
+		"means": "Every Sunday the coach times three tests: the bleep test (stamina), punches in 10 seconds, the average of three tries (speed) and the rear hand's force on the bag sensor (power). The word beside each number is where it sits for a %s: beginner, club or elite. A new best goes up in chalk and the old one is crossed out. Train the stat and the number moves - no luck in it." % ("man" if sex == "m" else "woman")})
 	return h
 
 
@@ -146,7 +146,7 @@ static func _engine(c: Career, f: Dictionary) -> HBoxContainer:
 	var per_day := float(Sim.daily_gain(c, f).get("conditioning", 0.0))
 	var then := SkillAwards.bleep(minf(100.0, cond + per_day * AHEAD_DAYS), sex)
 	var norms := SkillAwards.bleep_norms(sex)
-	h.add_child(UI.caps("ENGINE: BLEEP TEST"))
+	h.add_child(UI.caps("STAMINA: BLEEP TEST"))
 	var lv := UI.label("level %.1f" % now, UI.BODY + 4, UI.FG, "bold")
 	h.add_child(lv)
 	h.add_child(UI.muted(SkillAwards.bleep_words(now, sex), UI.SMALL))

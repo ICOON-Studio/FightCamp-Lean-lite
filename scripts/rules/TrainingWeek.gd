@@ -26,7 +26,7 @@ const SESSIONS: Array[Dictionary] = [
 	{"id": "slip_rope", "name": "Slip rope", "stat": "defense", "point": "core", "icon": "shield",
 		"why": "slips and rolls bend at the waist and knees"},
 	{"id": "roadwork", "name": "Roadwork", "stat": "conditioning", "point": "legs", "icon": "footprints",
-		"why": "the engine: legs and lungs for the last round"},
+		"why": "stamina: legs and lungs for the last round"},
 ]
 ## Morning card for flexibility (WeekPlan). Not one of the eight board sessions: the board stays one session per old stat.
 const MOBILITY := {"id": "mobility", "name": "Mobility", "stat": "", "point": "core", "icon": "user",

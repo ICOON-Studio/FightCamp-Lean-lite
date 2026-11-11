@@ -10527,6 +10527,121 @@
    "branch": "claude/grapplefix1",
    "reconciled": "2026-11-10 15:11 board_reconcile: branch claude/grapplefix1 commits are on master",
    "archived": "2026-11-10 15:11 board_sync"
+  },
+  {
+   "agent": "cursor",
+   "id": "TRAININGB1",
+   "title": "TASK TRAININGB1 - CURSOR (Grok 4.7 High) - the Training tab rebuilt as approach B, with A's tiredness curve on top",
+   "status": "collected",
+   "started": "2026-11-10T17:13",
+   "eta": "2026-11-10T19:03",
+   "branch": "cursor/trainingb1",
+   "worktree": "E:/FightCamp/wt/LEAN_TRAININGB1",
+   "wt": "E:/FightCamp/wt/LEAN_TRAININGB1",
+   "brief": "ops/research/TASK_TRAININGB1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/TRAININGB1_dispatch_out.txt",
+   "match": "seat_dispatch.py run trainingb1",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/TRAININGB1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/TRAININGB1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/TRAININGB1_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 45884,
+    "seat_pid": 39732
+   },
+   "note": "S428: PR 179 collected a0d9eb3c",
+   "finished": "2026-11-10T17:59",
+   "pr": 179,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/week_b_test.gd",
+     "ok": true,
+     "last": "WEEK_B failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/week_board_clarity_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/week_slate_test.gd",
+     "ok": true,
+     "last": "WEEK_SLATE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/week_plan_test.gd",
+     "ok": true,
+     "last": "WEEK_PLAN PASS fails=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/week_coach_test.gd",
+     "ok": true,
+     "last": "WEEK_COACH PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/training_week_test.gd",
+     "ok": true,
+     "last": "TRAINING_WEEK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/weekend_plan_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-10 19:10 board_reconcile: branch cursor/trainingb1 commits are on master",
+   "archived": "2026-11-10 19:11 board_sync"
+  },
+  {
+   "agent": "cursor",
+   "id": "BARGUARD1",
+   "title": "TASK BARGUARD1 - CURSOR (Grok 4.7 High) - the boots stay above the corner bar while a shot holds, even when a boxer stands at the lens",
+   "status": "collected",
+   "started": "2026-11-11T08:03",
+   "eta": "2026-11-11T09:53",
+   "branch": "cursor/barguard1",
+   "worktree": "E:/FightCamp/wt/LEAN_BARGUARD1",
+   "wt": "E:/FightCamp/wt/LEAN_BARGUARD1",
+   "brief": "ops/research/TASK_BARGUARD1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/BARGUARD1_dispatch_out.txt",
+   "match": "seat_dispatch.py run barguard1",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/BARGUARD1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/BARGUARD1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/BARGUARD1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": false,
+    "runner_pid": 40464,
+    "seat_pid": 23080
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off",
+   "reconciled": "2026-11-11 08:41 board_reconcile: branch cursor/barguard1 commits are on master",
+   "archived": "2026-11-11 08:41 board_sync"
   }
  ]
 }

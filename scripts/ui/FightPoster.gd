@@ -83,7 +83,10 @@ static func build(c: Career, f: Dictionary, w: float = 380.0) -> Control:
 ## Rank, record and style under a name.
 static func _line(ranks: Array, who: Dictionary) -> String:
 	var at := BoutRead.rank_of(ranks, str(who.get("name", "")))
-	var rec := "%d-%d  %s" % [int(who.get("w", 0)), int(who.get("l", 0)), str(who.get("style", ""))]
+	# S429 operator: "poster isnot centered correctly" - one long line a side made the poster wider than its slot, so the
+	# right half was cut. The style goes on its own line and the line may wrap.
+	var rec := "%d-%d
+%s" % [int(who.get("w", 0)), int(who.get("l", 0)), str(who.get("style", ""))]
 	return ("#%d  %s" % [at, rec]) if at > 0 else ("UNRANKED  %s" % rec)
 
 
@@ -112,7 +115,10 @@ static func _side(name: String, sub: String, k: float) -> VBoxContainer:
 	var s := UI.vbox(0)
 	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	s.add_child(_text(name.to_upper().replace(" ", "\n"), 34 * k, INK, true))
-	s.add_child(_text(sub, 13 * k, INK, false))
+	var under := _text(sub, 13 * k, INK, false)
+	under.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	under.custom_minimum_size = Vector2(1, 0)
+	s.add_child(under)
 	return s
 
 

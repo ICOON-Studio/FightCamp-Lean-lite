@@ -221,7 +221,7 @@ const PROSPECTS: Array[Dictionary] = [
 		"stats": {"power": 59.0, "speed": 62.0, "technique": 61.0, "defense": 56.5, "conditioning": 57.0, "fight_iq": 58.0, "chin": 62.0},
 		"personality": {"heart": 64.0, "discipline": 60.0, "confidence": 82.0, "coachability": 34.0, "loyalty": 58.0, "temper": 45.0}},
 	{"id": "josh", "name": "Josh Harper", "first": "Josh", "sex": "m", "age": 23, "wc": "Welterweight", "div": "mww", "weight": 71.4,
-		"stance": "southpaw", "style": "Pressure fighter", "w": 4, "l": 2, "pot": 79, "note": "big engine, wide hooks",
+		"stance": "southpaw", "style": "Pressure fighter", "w": 4, "l": 2, "pot": 79, "note": "never tires, wide hooks",
 		"stats": {"power": 63.0, "speed": 56.0, "technique": 55.5, "defense": 55.0, "conditioning": 65.0, "fight_iq": 56.0, "chin": 64.0},
 		"personality": {"heart": 66.0, "discipline": 80.0, "confidence": 38.0, "coachability": 64.0, "loyalty": 70.0, "temper": 35.0}},
 ]

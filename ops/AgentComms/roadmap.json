@@ -4638,7 +4638,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-11",
+  "updated": "2026-11-11 09:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4989,16 +4989,22 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "id": "TRAINREAD1",
-    "who": "qwen",
-    "title": "The guide reads each fighter and names the training (rule)",
-    "after": ""
+    "title": "TASK BARGUARD1 - CURSOR (Grok 4.7 High) - the boots stay above the corner bar while a shot holds, even when a boxer stands at the lens",
+    "who": "cursor",
+    "started": "2026-11-11T08:59",
+    "run": "BARGUARD1"
    },
    {
-    "id": "MONEYFOUR1",
+    "title": "TASK MONEYFOUR1 - QWEN (qwen3-coder) - what four fighters cost the club in a year. Measure only",
     "who": "qwen",
-    "title": "What four fighters cost the club in a year (measure)",
-    "after": ""
+    "started": "2026-11-11T09:05",
+    "run": "MONEYFOUR1"
+   },
+   {
+    "title": "QWEN (qwen3-coder) - the coach's read: which training each fighter needs, from the numbers and the style",
+    "who": "goose",
+    "started": "2026-11-11T09:08",
+    "run": "TRAINREAD1"
    }
   ],
   "next": [
@@ -5195,6 +5201,12 @@
     "title": "MetaHuman walk polish",
     "why": "MetaHumans are gym staff only; operator S155 on staff: 'Not yet, keep OFF' - resumes with STAFF1c",
     "who": ""
+   },
+   {
+    "id": "PADSANIM1",
+    "who": "cursor",
+    "title": "Pads view is broken (coach holds gloves not pads, sleeve tears through the arm, poses do not meet): fix when the pads mechanic is built",
+    "after": "the pads mechanic"
    }
   ],
   "agents": {
@@ -5620,6 +5632,18 @@
     {
      "text": "AMATEURWEEK1 map written",
      "who": "claude"
+    },
+    {
+     "text": "TRAINREAD1: guide's read built",
+     "who": "agent"
+    },
+    {
+     "text": "Raw is now Learning",
+     "who": "claude"
+    },
+    {
+     "text": "MONEYFOUR1: 1 stipend holds",
+     "who": "agent"
     }
    ],
    "now": [
@@ -5628,8 +5652,8 @@
      "who": "claude"
     },
     {
-     "text": "Critics: 2 maps (his word)",
-     "who": "operator"
+     "text": "Critics on the 2 maps (running)",
+     "who": "claude"
     }
    ],
    "next": [
@@ -5668,6 +5692,18 @@
     {
      "text": "Corner: Kalli's options page",
      "who": "claude"
+    },
+    {
+     "text": "FIGHTDISPLAY4: panels off the ring",
+     "who": "agent"
+    },
+    {
+     "text": "TRAININGB2: curve + pads rows",
+     "who": "agent"
+    },
+    {
+     "text": "GYMLIFE1: people work out in gym",
+     "who": "agent"
     }
    ],
    "session": "S429"

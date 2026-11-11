@@ -41,16 +41,16 @@ One pure rule, the COACH'S READ, looks at a fighter's numbers and style and retu
 |---|---|---|
 | FIGHT | a bout within 14 days | no building: tape, one plan line, light mornings |
 | REST | tiredness 70 or more, or hurt | a rest morning |
-| FIX THE HOLE | the lowest trainable number is 6 or more under the fighter's own average, and it still grows at full pace | the session that builds that number |
+| FIX THE WEAKNESS | the lowest trainable number is 6 or more under the fighter's own average, and it still grows at full pace | the session that builds that number |
 | SHARPEN THE WEAPON | the number the style is built on (Recruit.CLASSES) still grows at half pace or better | the session that builds the weapon |
 | TEACH A PUNCH | every number is near its ceiling | pads: a new move or a combination (numbers barely move, craft still does) |
 
 "Grows at pace" is the game's own rule: gain a focused week = clamp((potential - number) / 25, 0.10, 1.25).
 
 On the four starters, with today's numbers, the rule gives four different answers:
-- Samira: FIX THE HOLE. Defence 50.5, her average 57.9, gain 1.25 a week (the fastest gain in the gym).
+- Samira: FIX THE WEAKNESS. Defence 50.5, her average 57.9, gain 1.25 a week (the fastest gain in the gym).
   Guide: "Samira hits hard and gets hit. Slip rope first." The light rings the slip rope session on Samira's week.
-- Lucy: SHARPEN THE WEAPON. No hole (lowest is 3.5 under her average). An out-boxer is built on speed: 63.2, gain 0.83 a week.
+- Lucy: SHARPEN THE WEAPON. No weakness (lowest is 3.5 under her average). An out-boxer is built on speed: 63.2, gain 0.83 a week.
   Guide: "Lucy wins at range. Speed bag, and the jab on pads." The light rings the speed bag.
 - Tess: FIGHT now (the offer). After the bout: TEACH A PUNCH (conditioning gains only 0.48 a week).
   Guide: "Tess fights in ten days. Keep the legs fresh." Later: "Tess is what she is. Teach a new punch."
@@ -73,11 +73,16 @@ The Monday review says what the week gave and what the read's pick would have gi
 - Pad places: 3 pad evenings x 2 fighters = 6 a week for three boxers (today every fighter has her own 3 pad nights, which
   four fighters would turn into 12 evenings of one man's hands). To be measured before the build (how many answers a boxer
   owns by fight night with 2 pad evenings instead of 3; HANDSPROBE1 measured one fighter only: 6% of camps owned every answer).
-- Money: weekly costs today with one stipend are about $1,320 (rent $416, power $129 in winter, insurance $24, fees $7, kit
-  $45, Reid $450, stipend $250) against dues of $242 and classes $350. Four stipends would add $750 a week: the start cash
-  ($17,200 in the code) would last about 12 weeks. One stipend keeps today's balance. MONEYFOUR1 (Qwen, running) plays a year
-  in five stipend cells and gives the real numbers; the start cash and the ticket income of four fighters are set from it.
-- Bouts: four fighters bring more club shows (each amateur bout pays the club a $450 ticket cut). How many a year: MONEYFOUR1.
+- Money, measured (MONEYFOUR1, docs/MONEYFOUR1_RESULT.md: 10 careers a cell, a year each, a sensible player): with ONE
+  stipend and three day jobs the club holds 1.9 to 2.9 months of costs all year on today's start cash ($17,200): no change
+  to the start cash. TWO stipends: no club closes, but the bank falls to 1.2 months by week 52. FOUR stipends: 8 clubs in 10
+  close (median week 46). NO stipend: $31,000 in the bank at week 52 (5.5 months), which is too easy, so a fighter kept on a
+  day job for long needs a cost beyond the 15% slower gain (below).
+- Bouts and tickets, measured: four fighters box about 46 times a year between them (one fighter alone: 9.5) and bring about
+  $12,600 a year in ticket cuts (one alone: $2,475). That is roughly one stipend a year.
+- The day job's second cost (new, to stop "nobody on the stipend" being the best play): a day-job fighter cannot take a bout
+  on less than 10 days' notice (work), and loses patience: after 6 months without the stipend or a title shot the fighter
+  asks for it once; a no costs morale and, after a second no, the fighter may leave for another club.
 
 ## 5. Every menu the four fighters appear on, and what each is wired to
 | Menu | What it shows | Wired to |

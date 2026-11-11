@@ -546,7 +546,8 @@
    "sent_ms": 1794323495919,
    "answered_at": "2026-11-10 18:11",
    "answer": "research/J_BELT_LADDER_S425_BRIEF_JOHN.md",
-   "chars": 28439
+   "chars": 28439,
+   "seen_by_claude": true
   },
   {
    "id": "SQ38",
@@ -568,20 +569,30 @@
    "seat": "kalli",
    "brief": "research/K_BJJ_LIVE_CHOICES_S427_BRIEF.md",
    "stem": "K_BJJ_LIVE_CHOICES_S427_BRIEF_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-10 17:52",
    "tries": 0,
    "sent_at": "2026-11-10 18:12",
-   "sent_ms": 1794327116496
+   "sent_ms": 1794327116496,
+   "answered_at": "2026-11-10 18:40",
+   "answer": "research/K_BJJ_LIVE_CHOICES_S427_BRIEF_KALLI.md",
+   "chars": 19975,
+   "seen_by_claude": true
   },
   {
    "id": "SQ40",
    "seat": "kalli",
    "brief": "research/K_CORNER_MORE_S427_BRIEF.md",
    "stem": "K_CORNER_MORE_S427_BRIEF_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-10 18:22",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-10 19:02",
+   "sent_ms": 1794330133527,
+   "answered_at": "2026-11-10 19:41",
+   "answer": "research/K_CORNER_MORE_S427_BRIEF_KALLI.md",
+   "chars": 23818,
+   "seen_by_claude": true
   }
  ]
 }

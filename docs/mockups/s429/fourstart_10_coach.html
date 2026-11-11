@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Club week: four fighters (coach critic's 10/10)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}html{background:#1c120a}
+body{font-family:"Barlow","Segoe UI",Arial,sans-serif;color:#e9e4d6;font-size:15px;line-height:1.2;
+  background:linear-gradient(180deg,#2a1b10 0%,#1c120a 100%)}
+.abs{position:absolute}
+/* wood + slate */
+.wood{background:linear-gradient(180deg,#6b4526,#4a2e18);border:2px solid #2a190c;border-radius:6px;box-shadow:inset 0 1px 0 #8a5c36}
+.slate{background:linear-gradient(180deg,#262b30,#1c2024);border:3px solid #5a3a20;border-radius:8px;box-shadow:inset 0 0 0 1px #17110b,0 2px 6px rgba(0,0,0,.5)}
+.h{font-weight:800;color:#f0b63c;letter-spacing:.3px}
+.cap{color:#a9a595;font-size:13px}
+.gold{color:#f0b63c}.green{color:#58c58d}.red{color:#ee6a5a}.blue{color:#6fb0ea}.amber{color:#f2a33a}
+/* top bar */
+#top{left:0;top:0;width:1920px;height:64px;background:linear-gradient(180deg,#5d3c21,#3a2413);border-bottom:3px solid #1a1009;display:flex;align-items:center;padding:0 22px;gap:14px}
+#top .gym{font-size:30px;font-weight:800;font-style:italic;color:#f3ead6;margin-right:6px}
+#top .date{border:2px solid #f0b63c;border-radius:20px;padding:5px 14px;font-weight:700;color:#f0b63c;font-size:17px}
+.nav{padding:8px 18px;font-size:19px;font-weight:700;background:#2a2019;border:2px solid #1a1009;border-radius:6px;color:#e9e4d6}
+.nav.on{border-color:#f0b63c;color:#f0b63c}
+#top .cash{margin-left:auto;font-size:30px;font-weight:800;color:#f0b63c}
+/* strip */
+#strip{left:20px;top:76px;width:1880px;height:76px;display:flex;gap:10px}
+.tabs{width:250px;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:0 12px}
+.tabs .t{font-size:15px;font-weight:700;color:#bdb7a4}
+.tabs .t.on{font-size:22px;color:#f0b63c;font-weight:800}
+.tok{flex:1;padding:8px 12px;display:flex;flex-direction:column;justify-content:center;gap:4px;min-width:0}
+.tok .l{font-size:12.5px;font-weight:800;letter-spacing:.8px;color:#a9a595;text-transform:uppercase;white-space:nowrap}
+.tok .v{font-size:17px;font-weight:800;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.tok .s{font-size:13px;color:#a9a595;white-space:nowrap}
+.sq{display:inline-block;width:13px;height:13px;border-radius:3px}
+.sq.r{background:#f0b63c}.sq.y{background:#6fb0ea}.sq.a{background:#8a8f94}.sq.w{background:repeating-linear-gradient(45deg,#34383c,#34383c 3px,#24282b 3px,#24282b 6px);border:1px solid #454a4f}
+.coin{display:inline-flex;width:20px;height:20px;border-radius:50%;background:#f0b63c;color:#3a2413;font-weight:900;font-size:13px;align-items:center;justify-content:center;border:2px solid #b07f1c}
+/* rows */
+.row{left:20px;width:1326px;height:188px;padding:10px 12px;display:grid;grid-template-columns:214px 356px 250px 304px 1fr;gap:10px}
+.fgt .top{display:flex;gap:10px;align-items:center;height:62px}
+.av{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:#1c120a;border:3px solid #f3ead6;flex:none}
+.nm{font-size:19px;font-weight:800;white-space:nowrap}
+.sub{font-size:14px;color:#c9c3b0;white-space:nowrap}
+.job{margin-top:8px;height:30px;border-radius:5px;display:flex;align-items:center;gap:7px;padding:0 9px;font-size:14px;font-weight:700;white-space:nowrap;background:#2f3439;border:1px solid #454a4f;color:#c9c3b0}
+.job.full{background:#4a3a12;border-color:#f0b63c;color:#f0b63c}
+.free{margin-top:6px;font-size:13px;color:#a9a595;white-space:nowrap}
+.q{font-style:italic;font-size:15px;color:#f3ead6;height:20px;white-space:nowrap;overflow:hidden}
+.opt{margin-top:5px;height:44px;border-radius:6px;border:2px solid #3b4046;background:#20242a;display:flex;align-items:center;padding:0 8px 0 0;gap:8px}
+.opt.on{border-color:#f0b63c;background:#3a2f14}
+.opt .tag{width:78px;height:100%;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:900;letter-spacing:.6px;border-radius:4px 0 0 4px;background:#30353b;color:#c9c3b0;flex:none}
+.opt.on .tag{background:#f0b63c;color:#2a1b10}
+.opt .tx{flex:1;font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden}
+.opt .tx small{display:block;font-size:12.5px;font-weight:500;color:#a9a595}
+.opt .n{font-size:20px;font-weight:800;text-align:right;line-height:1;flex:none}
+.opt .n small{display:block;font-size:12px;font-weight:700;color:#a9a595;margin-top:2px}
+.chips{margin-top:6px;display:flex;gap:6px;height:26px}
+.chip{font-size:13px;font-weight:700;padding:0 9px;border-radius:13px;border:1px solid #555a60;color:#c9c3b0;display:flex;align-items:center;white-space:nowrap}
+.chip.am{border-color:#f2a33a;color:#f2a33a}.chip.bl{border-color:#6fb0ea;color:#6fb0ea}.chip.rd{border-color:#ee6a5a;color:#ee6a5a}
+.ttl{font-size:12.5px;font-weight:800;letter-spacing:.8px;color:#a9a595;text-transform:uppercase;height:18px;white-space:nowrap}
+.dl{display:grid;grid-template-columns:repeat(7,32px);gap:4px;margin-top:2px;font-size:12px;color:#8f8b7c;text-align:center;height:15px}
+.mor{display:grid;grid-template-columns:repeat(7,32px);gap:4px;margin-top:2px}
+.mc{height:50px;border-radius:5px;background:#2b3035;border:1px solid #454a4f;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:6px 0 0;font-size:13px;font-weight:800;overflow:hidden}
+.mc i{display:block;width:100%;height:9px;font-style:normal}
+.mc.r i{background:#f0b63c}.mc.y i{background:#6fb0ea}.mc.a i{background:#8a8f94}
+.mc.w{background:repeating-linear-gradient(45deg,#2a2e32,#2a2e32 4px,#1e2225 4px,#1e2225 8px);border-color:#34383c;color:#5d625f}
+.mc.rest{color:#8f8b7c;background:#1e2225}
+.mc.skip{border:1px dashed #f2a33a}
+.mnote{margin-top:6px;font-size:13px;color:#c9c3b0;line-height:1.3}
+.eve{display:grid;grid-template-columns:repeat(4,70px);gap:8px;margin-top:4px}
+.ec{height:84px;border-radius:6px;background:#2b3035;border:1px solid #454a4f;padding:6px 4px;text-align:center;overflow:hidden}
+.ec .d{font-size:12px;color:#8f8b7c;font-weight:700;letter-spacing:.6px}
+.ec .w{font-size:16px;font-weight:900;margin-top:3px}
+.ec .x{font-size:12.5px;color:#c9c3b0;margin-top:3px;line-height:1.15}
+.ec.r{border-color:#f0b63c}.ec.r .w{color:#f0b63c}
+.ec.y{border-color:#6fb0ea}.ec.y .w{color:#6fb0ea}
+.ec.s{border-color:#58c58d}.ec.s .w{color:#58c58d}
+.ec.b .w{color:#a9a595}
+.ec.no{border:1px dashed #ee6a5a}.ec.no .w{color:#ee6a5a}
+.ec.add{border:1px dashed #6b7076;color:#a9a595}
+.enote{margin-top:6px;font-size:13px;color:#c9c3b0;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:5px;font-weight:800;padding:0 10px;height:24px;font-size:13px;background:#4a2e18;border:1px solid #8a5c36;color:#f3ead6}
+.giv{border-left:1px solid #3b4046;padding-left:10px}
+.giv .big{font-size:32px;font-weight:800;line-height:1;margin-top:8px}
+.giv .w1{font-size:14px;font-weight:700;margin-top:3px}
+.giv .w2{font-size:13px;color:#a9a595;margin-top:8px;line-height:1.3}
+/* right column */
+.pn{left:1360px;width:540px;padding:12px 14px}
+.pn h2{font-size:21px;font-weight:800;color:#f0b63c}
+.pn .lead{font-size:14px;color:#c9c3b0;margin-top:3px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.bc{border-radius:7px;border:2px solid #3b4046;background:#20242a;padding:10px}
+.bc.on{border-color:#f0b63c;background:#332a14}
+.bc .who{font-size:18px;font-weight:800}
+.bc .vs{font-size:13.5px;color:#c9c3b0;margin-top:2px}
+.bc .pct{font-size:28px;font-weight:800;margin-top:8px;line-height:1}
+.bc .pct small{font-size:13px;font-weight:600;color:#a9a595;margin-left:6px}
+.bc ul{list-style:none;margin-top:8px}
+.bc li{font-size:14px;margin-top:5px;display:flex;gap:7px;align-items:baseline;white-space:nowrap}
+.bc li b{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none}
+.pick{margin-top:10px;height:34px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;background:#2f3439;border:1px solid #555a60;color:#c9c3b0}
+.bc.on .pick{background:#f0b63c;border-color:#f0b63c;color:#2a1b10}
+.pass{margin-top:10px;display:flex;justify-content:space-between;align-items:center;font-size:14px;color:#c9c3b0}
+table{width:100%;border-collapse:collapse;margin-top:8px}
+td,th{font-size:14.5px;padding:0 6px;height:34px;border-top:1px solid #33383d;text-align:left;white-space:nowrap}
+th{font-size:12.5px;letter-spacing:.7px;text-transform:uppercase;color:#a9a595;border-top:none;height:24px}
+td.n{font-weight:800}
+.foot{margin-top:8px;display:flex;justify-content:space-between;align-items:center;font-size:13.5px;color:#c9c3b0;gap:10px}
+.money{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.mt{border-radius:6px;background:#20242a;border:1px solid #3b4046;padding:7px 10px}
+.mt .l{font-size:12.5px;font-weight:800;letter-spacing:.7px;color:#a9a595}
+.mt .v{font-size:24px;font-weight:800;margin-top:2px}
+.go{margin-top:12px;height:66px;border-radius:8px;background:linear-gradient(180deg,#d64a3a,#a92c20);border:2px solid #6b150d;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:#fff3e6}
+.arr{display:inline-block;width:16px;height:16px;border-top:5px solid #fff3e6;border-right:5px solid #fff3e6;transform:rotate(45deg);margin-left:16px}
+/* bottom */
+#bot{left:20px;top:948px;width:1326px;height:112px;padding:10px 14px;display:grid;grid-template-columns:270px 1fr 1fr 1fr;gap:12px}
+#bot .leg div{font-size:13.5px;margin-top:5px;display:flex;align-items:center;gap:8px;color:#c9c3b0;white-space:nowrap}
+.gu{border-radius:7px;background:#20242a;border:1px solid #3b4046;padding:8px 10px;overflow:hidden}
+.gu .a{font-size:15.5px;font-weight:800;white-space:nowrap}
+.gu .b{font-size:13.5px;color:#c9c3b0;margin-top:4px;line-height:1.25}
+.gu .c{margin-top:6px}
+</style>
+</head>
+<body>
+
+<div id="top" class="abs">
+  <span class="gym">Anvil Street Gym</span>
+  <span class="date">Mon 5 Jan &middot; Week 1</span>
+  <span class="nav" style="margin-left:26px">Home</span>
+  <span class="nav on">Fighters</span>
+  <span class="nav">Fights</span>
+  <span class="nav">Club</span>
+  <span class="nav">World</span>
+  <span class="cash">$17,200</span>
+  <span class="nav">Menu</span>
+</div>
+
+<div id="strip" class="abs">
+  <div class="wood tabs">
+    <span class="t on">Club week</span>
+    <span class="t">Roster &nbsp;&middot;&nbsp; Find a fighter</span>
+  </div>
+  <div class="slate tok">
+    <span class="l">The stipend &middot; 1</span>
+    <span class="v gold"><span class="coin">$</span> Lucy</span>
+    <span class="s">can move again Mon 2 Feb</span>
+  </div>
+  <div class="slate tok">
+    <span class="l">Reid's pad places</span>
+    <span class="v"><span class="sq r"></span><span class="sq r"></span><span class="sq r"></span><span class="sq r"></span><span class="sq r"></span><span class="sq r"></span> 6 of 6</span>
+    <span class="s">Lucy 2 &middot; Samira 3 &middot; Tess 1</span>
+  </div>
+  <div class="slate tok">
+    <span class="l">Your pad places</span>
+    <span class="v"><span class="sq y"></span><span class="sq y"></span> 2 of 2</span>
+    <span class="s">Lucy's habit &middot; Tess's plan line</span>
+  </div>
+  <div class="slate tok">
+    <span class="l">Coached mornings</span>
+    <span class="v"><span class="sq r"></span> Reid 2 &nbsp;<span class="sq y"></span> You 4</span>
+    <span class="s">alone trains at 60%</span>
+  </div>
+  <div class="slate tok">
+    <span class="l">Thursday sparring</span>
+    <span class="v green">Lucy v Samira</span>
+    <span class="s">Tess: nobody within 10 kg</span>
+  </div>
+  <div class="slate tok">
+    <span class="l">Your corner</span>
+    <span class="v">Sat 17 Jan &middot; Tess</span>
+    <span class="s">Sat 24 Jan: Ana's open, free</span>
+  </div>
+</div>
+
+<!-- LUCY -->
+<div class="abs slate row" style="top:162px">
+  <div class="fgt">
+    <div class="top"><div class="av" style="background:#e7b76a">LJ</div><div><div class="nm">Lucy Jackson</div><div class="sub">Light &middot; Out-boxer</div><div class="sub">21 &middot; 3-1 &middot; 60.9 kg</div></div></div>
+    <div class="job full"><span class="coin">$</span> Full time &middot; $250 a week</div>
+    <div class="free">6 mornings &middot; left the call centre</div>
+  </div>
+  <div>
+    <div class="q">&ldquo;Lucy wins at range. Feed the speed.&rdquo;</div>
+    <div class="opt on"><span class="tag">SHARPEN</span><span class="tx">Speed bag &middot; Speed 60-66<small>the old trainer's pick</small></span><span class="n gold">+0.8<small>counts &times;1.5</small></span></div>
+    <div class="opt"><span class="tag">FIX</span><span class="tx">Slip rope &middot; Defence 54-60<small>next: a pressure fighter?</small></span><span class="n">+1.1<small>a full week</small></span></div>
+    <div class="chips"><span class="chip bl">Drops the right after the jab</span><span class="chip">Steady</span></div>
+  </div>
+  <div>
+    <div class="ttl">Mornings</div>
+    <div class="dl"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+    <div class="mor">
+      <div class="mc r">SB<i></i></div><div class="mc a">RW<i></i></div><div class="mc y">SB<i></i></div><div class="mc a">RW<i></i></div><div class="mc r">SB<i></i></div><div class="mc a">IN<i></i></div><div class="mc rest">rest<i></i></div>
+    </div>
+    <div class="mnote">3 speed bag, coached<br>3 runs alone (60%)</div>
+  </div>
+  <div>
+    <div class="ttl">Evenings</div>
+    <div class="eve">
+      <div class="ec r"><div class="d">MON</div><div class="w">REID</div><div class="x">Jab</div></div>
+      <div class="ec y"><div class="d">WED</div><div class="w">YOU</div><div class="x">Habit: right hand</div></div>
+      <div class="ec s"><div class="d">THU</div><div class="w">SPAR</div><div class="x">v Samira +6 tired</div></div>
+      <div class="ec r"><div class="d">FRI</div><div class="w">REID</div><div class="x">One-two</div></div>
+    </div>
+    <div class="enote">One-two Sharp in 3 weeks</div>
+  </div>
+  <div class="giv">
+    <div class="ttl">This week</div>
+    <div class="big gold">+0.5</div><div class="w1">speed</div>
+    <div class="w2">engine +0.2<br>habit: 1 of 4 weeks</div>
+  </div>
+</div>
+
+<!-- SAMIRA -->
+<div class="abs slate row" style="top:358px">
+  <div class="fgt">
+    <div class="top"><div class="av" style="background:#d98a6a">SK</div><div><div class="nm">Samira Khan</div><div class="sub">Welter &middot; Slugger</div><div class="sub">18 &middot; 2-1 &middot; 65.9 kg</div></div></div>
+    <div class="job">College &middot; evenings</div>
+    <div class="free">4 mornings: Tue, Thu, weekend</div>
+  </div>
+  <div>
+    <div class="q">&ldquo;Samira hits hard and gets hit. Hands up.&rdquo;</div>
+    <div class="opt on"><span class="tag">FIX</span><span class="tx">Slip rope &middot; Defence 48-54<small>the old trainer's pick</small></span><span class="n gold">+1.2<small>a full week</small></span></div>
+    <div class="opt"><span class="tag">SHARPEN</span><span class="tx">Heavy bag &middot; Power 66<small>watched on the pads</small></span><span class="n">+0.6<small>counts &times;1.5</small></span></div>
+    <div class="chips"><span class="chip am">Skips mornings alone</span><span class="chip am">Goal: a bout by 26 Jan</span></div>
+  </div>
+  <div>
+    <div class="ttl">Mornings</div>
+    <div class="dl"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+    <div class="mor">
+      <div class="mc w">&ndash;</div><div class="mc y">SR<i></i></div><div class="mc w">&ndash;</div><div class="mc y">SR<i></i></div><div class="mc w">&ndash;</div><div class="mc y">SR<i></i></div><div class="mc a skip">RW<i></i></div>
+    </div>
+    <div class="mnote">3 slip rope with you<br><span class="amber">Sunday alone: 1 in 3 missed</span></div>
+  </div>
+  <div>
+    <div class="ttl">Evenings</div>
+    <div class="eve">
+      <div class="ec r"><div class="d">MON</div><div class="w">REID</div><div class="x">Check hook</div></div>
+      <div class="ec r"><div class="d">WED</div><div class="w">REID</div><div class="x">Check hook</div></div>
+      <div class="ec s"><div class="d">THU</div><div class="w">SPAR</div><div class="x">v Lucy</div></div>
+      <div class="ec r"><div class="d">FRI</div><div class="w">REID</div><div class="x">Check hook</div></div>
+    </div>
+    <div class="enote">Check hook Usable in 2 weeks, not 3</div>
+  </div>
+  <div class="giv">
+    <div class="ttl">This week</div>
+    <div class="big gold">+0.8</div><div class="w1">defence</div>
+    <div class="w2">on the stipend:<br><b class="gold">+1.3</b> with 2 more</div>
+  </div>
+</div>
+
+<!-- TESS -->
+<div class="abs slate row" style="top:554px">
+  <div class="fgt">
+    <div class="top"><div class="av" style="background:#b9c2c9">TR</div><div><div class="nm">Tess Reilly</div><div class="sub">Middle &middot; Pressure</div><div class="sub">23 &middot; 6-4 &middot; 76.1 kg</div></div></div>
+    <div class="job">Warehouse shifts &middot; evenings</div>
+    <div class="free">2 mornings &middot; says no under $350</div>
+  </div>
+  <div>
+    <div class="q">&ldquo;Tess is a kilo over. Twelve days.&rdquo;</div>
+    <div class="opt on"><span class="tag">SCALE</span><span class="tx">Cut 500 a day &middot; 75 kg limit<small>costs tiredness on the night</small></span><span class="n gold">74.9<small>Fri 16 Jan</small></span></div>
+    <div class="opt"><span class="tag">FIX</span><span class="tx">Speed bag &middot; Speed 55<small>after the bout: 2 mornings only</small></span><span class="n">+0.3<small>a week</small></span></div>
+    <div class="chips"><span class="chip rd">1.1 kg over</span><span class="chip">Southpaw</span><span class="chip">Stubborn</span></div>
+  </div>
+  <div>
+    <div class="ttl">Mornings</div>
+    <div class="dl"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+    <div class="mor">
+      <div class="mc w">&ndash;</div><div class="mc w">&ndash;</div><div class="mc w">&ndash;</div><div class="mc w">&ndash;</div><div class="mc w">&ndash;</div><div class="mc a">RW<i></i></div><div class="mc rest">rest<i></i></div>
+    </div>
+    <div class="mnote">1 light run alone<br>75.4 kg by Sunday</div>
+  </div>
+  <div>
+    <div class="ttl">Evenings</div>
+    <div class="eve">
+      <div class="ec b"><div class="d">MON</div><div class="w">BAG</div><div class="x">Body hook, half</div></div>
+      <div class="ec r"><div class="d">WED</div><div class="w">REID</div><div class="x">Body hook</div></div>
+      <div class="ec no"><div class="d">THU</div><div class="w">NONE</div><div class="x">no partner</div></div>
+      <div class="ec y"><div class="d">FRI</div><div class="w">YOU</div><div class="x">Plan line</div></div>
+    </div>
+    <div class="enote"><span class="btn">Bring a middleweight $40</span></div>
+  </div>
+  <div class="giv">
+    <div class="ttl">This week</div>
+    <div class="big green">75.4</div><div class="w1">kg, on course</div>
+    <div class="w2">nothing new<br>lands by Sat 17</div>
+  </div>
+</div>
+
+<!-- ANA -->
+<div class="abs slate row" style="top:750px">
+  <div class="fgt">
+    <div class="top"><div class="av" style="background:#9ec7a2">AR</div><div><div class="nm">Ana Ribeiro</div><div class="sub">No-gi &middot; White belt</div><div class="sub">22 &middot; 4-2 in opens</div></div></div>
+    <div class="job">Barista &middot; evenings</div>
+    <div class="free">on the stipend: 5 classes</div>
+  </div>
+  <div>
+    <div class="q">&ldquo;Ana gets held down. Drill the way out.&rdquo;</div>
+    <div class="opt on"><span class="tag">FIX</span><span class="tx">Mount escape &middot; 24 of 30<small>the old trainer's pick</small></span><span class="n gold">+3.2<small>a week</small></span></div>
+    <div class="opt"><span class="tag">SHARPEN</span><span class="tx">Armbar from guard &middot; 41<small>Signature at 50</small></span><span class="n">+3.2<small>a week</small></span></div>
+    <div class="chips"><span class="chip am">Lost 3 of 6 from under mount</span><span class="chip">Open Sat 24 Jan</span></div>
+  </div>
+  <div>
+    <div class="ttl">Mornings</div>
+    <div class="dl"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+    <div class="mor">
+      <div class="mc w">&ndash;</div><div class="mc w">&ndash;</div><div class="mc w">&ndash;</div><div class="mc w">&ndash;</div><div class="mc w">&ndash;</div><div class="mc w">&ndash;</div><div class="mc rest">rest<i></i></div>
+    </div>
+    <div class="mnote">at work every morning<br>mat coach: $34 a class</div>
+  </div>
+  <div>
+    <div class="ttl">Evenings</div>
+    <div class="eve">
+      <div class="ec s"><div class="d">TUE</div><div class="w">MAT</div><div class="x">Mount escape</div></div>
+      <div class="ec s"><div class="d">THU</div><div class="w">MAT</div><div class="x">Mount escape</div></div>
+      <div class="ec s"><div class="d">SAT</div><div class="w">MAT</div><div class="x">Open rolls</div></div>
+      <div class="ec add"><div class="d">ADD</div><div class="w">+1</div><div class="x">class $34</div></div>
+    </div>
+    <div class="enote">3 classes &middot; $102 a week</div>
+  </div>
+  <div class="giv">
+    <div class="ttl">This week</div>
+    <div class="big gold">27</div><div class="w1">mount escape</div>
+    <div class="w2">owned in 1 week<br>before the open</div>
+  </div>
+</div>
+
+<!-- bottom: what you gave up -->
+<div id="bot" class="abs slate">
+  <div class="leg">
+    <div class="h" style="font-size:17px;margin-top:0;color:#f0b63c">What the week leaves out</div>
+    <div><span class="sq r"></span>Reid <span class="sq y" style="margin-left:8px"></span>You <span class="sq a" style="margin-left:8px"></span>alone <span class="sq w" style="margin-left:8px"></span>at work</div>
+    <div>Watched so far: 1 of 4 (ranges close)</div>
+  </div>
+  <div class="gu"><div class="a">Tess: Monday on the bag</div><div class="b">Half a pad night. Move a place from Samira: check hook a week later.</div></div>
+  <div class="gu"><div class="a">Tess: no sparring Thursday</div><div class="b">Lucy is 15 kg lighter. Next week Samira can take the southpaw look.</div></div>
+  <div class="gu"><div class="a">Lucy: three runs alone</div><div class="b">Your four mornings went to Samira's defence and one speed bag.</div></div>
+</div>
+
+<!-- right: one place on the card -->
+<div class="abs slate pn" style="top:162px;height:392px">
+  <h2>One place on the card</h2>
+  <div class="lead">York Hall club show, Sat 17 Jan. The matchmaker can use one of yours.</div>
+  <div class="cards">
+    <div class="bc on">
+      <div class="who">Tess</div><div class="vs">v Amy Croft &middot; 4-3 &middot; pressure</div>
+      <div class="pct green">55-65%<small>to win</small></div>
+      <ul>
+        <li><b style="background:#58c58d"></b>Club takes $450</li>
+        <li><b style="background:#58c58d"></b>A win: 6th to 4th</li>
+        <li><b style="background:#ee6a5a"></b>1.1 kg to lose</li>
+        <li><b style="background:#8a8f94"></b>Your corner</li>
+      </ul>
+      <div class="pick">Tess is going</div>
+    </div>
+    <div class="bc">
+      <div class="who">Samira</div><div class="vs">v Jade Okoro &middot; 2-1 &middot; straight right</div>
+      <div class="pct amber">40-55%<small>to win</small></div>
+      <ul>
+        <li><b style="background:#58c58d"></b>Club takes $450</li>
+        <li><b style="background:#58c58d"></b>Meets the goal: mood up</li>
+        <li><b style="background:#ee6a5a"></b>Defence 48-54</li>
+        <li><b style="background:#ee6a5a"></b>Stopped: 28 days out</li>
+      </ul>
+      <div class="pick">Send Samira</div>
+    </div>
+  </div>
+  <div class="pass"><span>Pass on both: the matchmaker's favour &minus;1, next call in 2 weeks</span><span class="btn">Pass</span></div>
+</div>
+
+<!-- right: the stipend -->
+<div class="abs slate pn" style="top:566px;height:254px">
+  <h2>If the stipend moved</h2>
+  <table>
+    <tr><th>Fighter</th><th>This week</th><th>With the stipend</th></tr>
+    <tr><td class="n gold">Lucy &nbsp;<span class="coin">$</span></td><td>speed +0.5</td><td class="cap">without it: +0.2</td></tr>
+    <tr><td class="n">Samira</td><td>defence +0.8</td><td><b class="gold">+1.3</b> <span class="cap">if you take 2 more mornings</span></td></tr>
+    <tr><td class="n">Tess</td><td>the scale</td><td class="cap">says no under $350</td></tr>
+    <tr><td class="n">Ana</td><td>3 classes</td><td><b class="gold">5 classes</b> <span class="cap">escape a week sooner</span></td></tr>
+  </table>
+  <div class="foot"><span>Moves on a Monday, then stays 4 weeks. Loser: mood &minus;8.</span><span class="btn">Nobody: +13 weeks</span></div>
+</div>
+
+<!-- right: money + go -->
+<div class="abs slate pn" style="top:832px;height:228px">
+  <h2>The week costs</h2>
+  <div class="money">
+    <div class="mt"><div class="l">IN</div><div class="v green">$795</div></div>
+    <div class="mt"><div class="l">OUT</div><div class="v red">$1,462</div></div>
+    <div class="mt"><div class="l">MONEY LASTS</div><div class="v">25 weeks</div></div>
+  </div>
+  <div class="go">Start week<span class="arr"></span></div>
+</div>
+
+</body>
+</html>

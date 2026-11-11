@@ -39,7 +39,7 @@ const NAMED_MAX := 2.0
 const OUTSIDE_SHARE := 0.5
 const STOP_DROP := 2.0
 const SPIKE_AT := 6.0
-const HIGH_WORD := {"strength": "strong", "explosiveness": "explosive", "speed": "fast", "stamina": "a big engine",
+const HIGH_WORD := {"strength": "strong", "explosiveness": "explosive", "speed": "fast", "stamina": "tireless",
 	"recovery": "recovers fast", "flexibility": "loose and rangy", "durability": "hard to hurt", "fight_iq": "reads a fight",
 	"composure": "never panics", "heart": "big heart", "accuracy": "accurate", "timing": "great timing",
 	"defence": "hard to hit", "footwork": "clever feet", "inside": "busy inside"}

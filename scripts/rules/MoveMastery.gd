@@ -23,9 +23,10 @@ static func tier(m: float) -> String:
 
 
 ## S398 menus round 6 ("Combos 'Usable' vs Week 'Raw' vs Moves 'RAW'"): the ONE word every page shows for a move or a
-## combination - New (never drilled), Raw, Usable (30), Sharp (60), Signature (85). Title case everywhere.
-const WORDS := {"UNLEARNED": "New", "RAW": "Raw", "USABLE": "Usable", "SHARP": "Sharp", "SIGNATURE": "Signature"}
-const LADDER := "New > Raw > Usable 30 > Sharp 60 > Signature 85"
+## combination - New (never drilled), Learning, Usable (30), Sharp (60), Signature (85). Title case everywhere.
+## S429 operator on the Training tab: "What raw means ?" - the word under 30 is Learning (was Raw).
+const WORDS := {"UNLEARNED": "New", "RAW": "Learning", "USABLE": "Usable", "SHARP": "Sharp", "SIGNATURE": "Signature"}
+const LADDER := "New > Learning > Usable 30 > Sharp 60 > Signature 85"
 
 
 static func word(m: float) -> String:
@@ -85,9 +86,7 @@ static func decay_week(m: float, drilled_this_week: bool) -> float:
 	return maxf(out, 0.0)
 
 
-## The move as the gym says it: "Sharp Jab (M88)", "Raw Rear Uppercut (M18)".
+## The move as the gym says it: "Sharp Jab (M88)", "Learning Rear Uppercut (M18)".
 ## Tier word in Title case, mastery rounded.
 static func describe(move_name: String, m: float) -> String:
-	var word: String = tier(m)
-	word = word.substr(0, 1) + word.substr(1).to_lower()
-	return "%s %s (M%d)" % [word, move_name, roundi(m)]
+	return "%s %s (M%d)" % [word(m), move_name, roundi(m)]

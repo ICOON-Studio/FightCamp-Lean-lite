@@ -36,7 +36,7 @@ const CARDS := [
 		"edge": "Eye for talent", "chip": "Exact potential, no range", "plain": "A prospect's true potential shows at first look, not a guess between two numbers.",
 		"felt": "when the second boxer walks in", "photo": "mh_staff_coach_2", "first": false},
 	{"id": "strength", "title": "Strength coach", "past": "Ran conditioning for a national team before boxing.",
-		"edge": "Builds engines, not craft", "chip": "+10% body, -10% craft mornings", "plain": "Conditioning, power and speed mornings gain 10% more; technique and defence mornings 10% less.",
+		"edge": "Builds fitness, not craft", "chip": "+10% body, -10% craft mornings", "plain": "Conditioning, power and speed mornings gain 10% more; technique and defence mornings 10% less.",
 		"felt": "in the first week's Monday report", "photo": "mh_staff_cutman_1", "first": false},
 ]
 

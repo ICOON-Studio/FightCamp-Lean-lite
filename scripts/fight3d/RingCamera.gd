@@ -128,7 +128,7 @@ var _behind_s := 0.0          # S379: seconds the lens has been under BEHIND_CUT
 var _axis := INF              # the pair's line a -> b (deg about +Y) last frame
 var _axis_w := 0.0            # how fast it turns (deg/s, eased over AXIS_TAU_S)
 var _slide_w := 0.0           # deg/s the young shot's lens slides round the pair (PROTECT_DEG)
-
+var _bar_drop := 0.0          # metres the held shot has lowered its look to clear the boots
 
 func _init() -> void:
 	# A broadcast lens: the ring sharp, the hall beyond it soft.
@@ -248,7 +248,7 @@ func _cut(a: Vector3, b: Vector3, mid: Vector3, why: String) -> void:
 	_pos = p["lens"]
 	_pos_v = Vector3.ZERO
 	_h = _pos.y
-	_look_h = float(p["look_h"])
+	_look_h = float(p["look_h"]); _bar_drop = 0.0
 	_behind_s = 0.0
 	_slide_w = 0.0
 	cut_why = "%s (old lens behind %.0f near %.2f) -> %.2f m out, yaw %.0f, behind %.0f, pair turning %.0f deg/s%s" % [why,
@@ -262,7 +262,7 @@ func _cut(a: Vector3, b: Vector3, mid: Vector3, why: String) -> void:
 
 
 ## The held shot: the pair's middle eases, the lens rides at its offset from it (stopped by the ropes: it slides along
-## them), and the lens pans toward the middle, eased and capped (TvShot.turn). The FOV never changes here.
+## them), and the lens pans toward the middle, eased and capped (TvShot.turn). The FOV never changes here; the boots stay above the bar.
 func _ride(a: Vector3, b: Vector3, dt: float) -> void:
 	if dt <= 0.0:
 		return
@@ -290,13 +290,13 @@ func _ride(a: Vector3, b: Vector3, dt: float) -> void:
 	_pos_v = p[1]
 	var look := _mid + Vector3.UP * _look_h
 	if shot_name == "clinch" and clinch_heads.size() == 2:
-		look = ((clinch_heads[0] as Vector3) + (clinch_heads[1] as Vector3)) * 0.5
+		look = ((clinch_heads[0] as Vector3) + (clinch_heads[1] as Vector3)) * 0.5 - Vector3(0.0, _bar_drop, 0.0)
+	var g: Dictionary = preload("res://scripts/fight3d/BarGuard.gd").fix(Transform3D(TvShot.basis_of(TvShot.aim(_pos, look)), _pos), fov, _aspect(), [a, b, a + Vector3(0.0, TvShot.FOOT_M, 0.0), b + Vector3(0.0, TvShot.FOOT_M, 0.0)], dt); var d := float(g["look_drop_m"]); _bar_drop += d; _h += float(g["raise_m"]); _pos.y = _h; _pos_v.y = 0.0; _look_h -= d; look.y -= d
 	var t := TvShot.turn(_ang, _ang_v, TvShot.aim(_pos, look), dt)
 	_ang = t[0]
 	_ang_v = t[1]
 	_set_lens(false)
 	_lost = 0.0 if _seen(a) and _seen(b) else _lost + dt
-
 
 ## No blur on a cut's frame (its motion vectors would smear the whole picture).
 func _set_lens(cut: bool) -> void:

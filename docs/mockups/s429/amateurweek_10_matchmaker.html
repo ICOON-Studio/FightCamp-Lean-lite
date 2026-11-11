@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Amateur week 10/10 - the matchmaker's offer screen</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{font-family:"Segoe UI",Arial,sans-serif;font-size:16px;color:#ece6d6;
+ background:radial-gradient(ellipse at 50% 110%,#4a3320 0%,#22180f 45%,#0f0c09 100%)}
+.chalk{font-family:"Ink Free","Segoe Print","Comic Sans MS",cursive;font-weight:700;letter-spacing:.5px}
+svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* top bar */
+.top{position:absolute;left:0;top:0;width:1920px;height:76px;display:flex;align-items:center;gap:14px;padding:0 20px;
+ background:repeating-linear-gradient(90deg,rgba(0,0,0,.10) 0 2px,transparent 2px 9px),linear-gradient(#3a2a1b,#22170e);
+ border-bottom:3px solid #120c07;box-shadow:0 4px 14px rgba(0,0,0,.6)}
+.nav{width:36px;height:36px;border-radius:5px;background:#2b2019;border:1px solid #5b432c;display:flex;align-items:center;justify-content:center;font-weight:700}
+.nav.dim{color:#6b5d4d}
+.gym{font-family:"Ink Free","Segoe Print",cursive;font-weight:700;font-style:italic;font-size:32px;color:#5b9bf5;margin:0 6px 0 8px;text-transform:uppercase}
+.date b{display:block;font-size:18px}.date span{font-size:14px;color:#b5ab97}
+.tb{padding:9px 20px;border-radius:5px;background:#2b2019;border:1px solid #6a4f33;font-weight:700;font-size:17px;box-shadow:0 2px 0 #120c07}
+.sp{flex:1}
+.cash{text-align:right}.cash b{display:block;font-size:24px;color:#f2c14e}.cash span{font-size:14px;color:#b5ab97}
+.needs{width:270px;padding:7px 16px;border-radius:5px;background:linear-gradient(#f0a13a,#c9741d);color:#231505;box-shadow:0 2px 0 #6b3a0a}
+.needs b{display:block;font-size:17px}.needs span{font-size:14px}
+
+/* wooden frame + slate */
+.frame{position:absolute;left:28px;top:92px;width:1864px;height:972px;padding:14px;border-radius:6px;
+ background:repeating-linear-gradient(90deg,rgba(0,0,0,.12) 0 3px,transparent 3px 13px),linear-gradient(#8d643a,#5a3d22);
+ box-shadow:0 12px 30px rgba(0,0,0,.65),inset 0 0 0 2px #2f1f10,inset 0 0 0 3px rgba(255,220,160,.12)}
+.slate{position:relative;width:1836px;height:944px;border:2px solid #121416;
+ background:radial-gradient(ellipse at 25% 15%,#3a4248 0%,#2b3136 50%,#21262a 100%)}
+.bolt{position:absolute;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#d9b77a,#6b4a24);box-shadow:0 1px 2px #000}
+
+.head{position:absolute;left:18px;top:8px;width:1800px;height:50px;display:flex;align-items:center;gap:14px}
+.head h1{font-size:34px;color:#f4efe2}
+.chip{padding:4px 12px;border-radius:14px;font-size:15px;font-weight:600;background:rgba(236,230,214,.10);color:#ddd6c4;white-space:nowrap}
+.chip.am{background:rgba(240,161,58,.18);color:#f6b860}
+.chip.gr{background:rgba(76,194,122,.16);color:#6fdc98}
+.chip.rd{background:rgba(236,91,82,.18);color:#ff8d84}
+
+.col{position:absolute;top:60px;height:870px}
+#L{left:14px;width:390px}#M{left:418px;width:800px}#R{left:1232px;width:590px}
+h2{font-size:15px;letter-spacing:2px;text-transform:uppercase;color:#cfc8b5;font-weight:700}
+.sub{font-size:14px;color:#a9a594}
+.pan{background:rgba(10,13,16,.42);border:1px solid rgba(236,230,214,.14);border-radius:6px}
+.glow{box-shadow:0 0 18px 3px rgba(242,184,75,.62),inset 0 0 26px rgba(242,184,75,.16);border-color:transparent;background:rgba(40,32,14,.55)}
+.gold{color:#f2c14e}.green{color:#6fdc98}.red{color:#ff8078}.amber{color:#f6b860}.muted{color:#a9a594}
+b.n{font-size:26px;font-weight:700}
+
+/* left list */
+.offer{position:absolute;left:0;width:390px;padding:12px 14px;display:flex;gap:12px}
+.offer .who{flex:1;min-width:0}
+.offer .nm{font-size:23px;color:#f4efe2;line-height:1.1}
+.offer .ln{font-size:15px;color:#cfc8b5;margin-top:3px}
+.offer .when{font-size:16px;font-weight:700;margin-top:7px}
+.marks{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.mark{display:flex;align-items:center;gap:5px;padding:3px 8px;border-radius:5px;font-size:14px;font-weight:600;background:rgba(236,230,214,.08);white-space:nowrap}
+.mark svg.i{width:17px;height:17px}
+.tag{position:absolute;right:12px;top:10px;font-size:13px;font-weight:700;letter-spacing:1px;padding:2px 8px;border-radius:4px}
+.dimcard{opacity:.62}
+
+/* versus */
+.vs{position:absolute;left:0;top:0;width:800px;height:280px;overflow:hidden}
+.wallr{position:absolute;left:0;top:0;width:400px;height:128px;background:linear-gradient(90deg,rgba(170,48,40,.62),rgba(170,48,40,.06))}
+.wallb{position:absolute;right:0;top:0;width:400px;height:128px;background:linear-gradient(270deg,rgba(40,84,170,.66),rgba(40,84,170,.06))}
+.vsname{position:absolute;top:22px;font-size:34px;color:#fff;line-height:1}
+.vsclub{position:absolute;top:66px;font-size:16px;color:#e6dfcd}
+.vsmid{position:absolute;left:350px;top:30px;width:100px;text-align:center;font-size:44px;color:#f2c14e}
+table.tale{position:absolute;left:20px;top:134px;width:760px;border-collapse:collapse}
+table.tale td{height:23px;font-size:16px;border-bottom:1px solid rgba(236,230,214,.10)}
+table.tale td:nth-child(1){text-align:right;font-weight:700;width:300px}
+table.tale td:nth-child(2){text-align:center;font-size:13px;letter-spacing:2px;color:#a9a594}
+table.tale td:nth-child(3){text-align:left;font-weight:700;width:300px}
+
+.night{position:absolute;left:0;top:294px;width:800px;height:112px;display:flex;gap:10px}
+.night .pan{flex:1;padding:9px 12px}
+.night .lab{font-size:13px;letter-spacing:1.5px;color:#a9a594;font-weight:700}
+.night .big{font-size:26px;font-weight:700;line-height:1.2;white-space:nowrap}
+.night .sm{font-size:14px;color:#cfc8b5;line-height:1.25}
+.band{height:9px;border-radius:5px;background:rgba(236,230,214,.14);position:relative;margin:5px 0 4px}
+.band i{position:absolute;top:0;height:9px;border-radius:5px;background:#5b9bf5}
+
+.know{position:absolute;left:0;top:420px;width:800px;height:148px;padding:10px 12px}
+.slots{display:flex;gap:10px;margin-top:8px}
+.slot{flex:1;height:96px;padding:8px 10px;border-radius:5px;background:rgba(236,230,214,.07)}
+.slot .lab{font-size:13px;letter-spacing:1.5px;color:#a9a594;font-weight:700;display:flex;align-items:center;gap:6px}
+.slot .val{font-size:19px;font-weight:700;margin-top:4px;line-height:1.15}
+.slot .how{font-size:14px;color:#a9a594;margin-top:3px;line-height:1.2}
+.slot.lock{border:1px dashed rgba(236,230,214,.28);background:none}
+
+.days{position:absolute;left:0;top:582px;width:800px;height:288px;padding:10px 12px}
+.grid{display:grid;grid-template-columns:106px repeat(11,1fr);gap:4px;margin-top:8px}
+.grid .rl{font-size:14px;color:#cfc8b5;font-weight:600;display:flex;align-items:center;line-height:1.1}
+.dh{font-size:14px;text-align:center;color:#cfc8b5;font-weight:700;height:22px}
+.dh.fw{color:#f2c14e}
+.c{height:38px;border-radius:4px;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.05;background:rgba(236,230,214,.06);color:#8f8b7d}
+.c.run{background:#8a2c57;color:#fff}.c.bag{background:#8a4a1f;color:#fff}.c.sh{background:#4d3f8f;color:#fff}.c.rest{background:rgba(236,230,214,.10);color:#cfc8b5}
+.c.pad{background:#2f5f8f;color:#fff}.c.film{background:#1f7a6b;color:#fff}.c.fight{background:#b8862b;color:#1c1204}
+.c.ex{box-shadow:0 0 10px 2px rgba(242,184,75,.7)}
+.c.two{font-size:13px;gap:3px}
+.pp{display:inline-flex;width:22px;height:22px;border-radius:50%;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff}
+.pp.t{background:#b0382f}.pp.l{background:#2f7fb0}.pp.s{background:#7a9a2f}.pp.x{background:none;border:1px dashed #8f8b7d;color:#8f8b7d;text-decoration:line-through}
+.w{height:24px;font-size:14px;text-align:center;color:#cfc8b5;font-weight:600}
+.fwbar{position:absolute;left:0;top:0;height:4px;border-radius:2px;background:#f2c14e}
+.legend{display:flex;gap:14px;align-items:center;font-size:14px;color:#cfc8b5;margin-top:8px}
+
+/* right jobs */
+.job{position:absolute;left:0;width:590px;height:150px;padding:9px 12px}
+.jt{display:flex;align-items:center;gap:9px;height:30px}
+.jt .ico{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff}
+.jt h3{font-size:24px;color:#f4efe2}
+.jt .note{margin-left:auto;font-size:14px;color:#cfc8b5;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.opts{display:flex;gap:8px;margin-top:9px}
+.opt{flex:1;height:92px;border-radius:6px;padding:7px 9px;background:rgba(236,230,214,.07);border:1px solid rgba(236,230,214,.12);position:relative}
+.opt .on{font-size:16px;font-weight:700;color:#f4efe2;line-height:1.15}
+.opt .p1{font-size:15px;font-weight:700;margin-top:3px;line-height:1.15}
+.opt .p2{font-size:14px;color:#cfc8b5;line-height:1.2;margin-top:2px}
+.opt.sel{box-shadow:0 0 14px 2px rgba(242,184,75,.65),inset 0 0 20px rgba(242,184,75,.16);border-color:transparent;background:rgba(40,32,14,.6)}
+.opt.no{opacity:.6}
+.sum{position:absolute;left:0;top:690px;width:590px;height:98px;padding:9px 12px;display:flex;gap:10px}
+.sum .b{flex:1}
+.sum .lab{font-size:13px;letter-spacing:1.5px;color:#a9a594;font-weight:700}
+.sum .big{font-size:26px;font-weight:700;line-height:1.15;white-space:nowrap}
+.sum .sm{font-size:14px;color:#cfc8b5;line-height:1.2}
+.btns{position:absolute;left:0;top:800px;width:590px;height:70px;display:flex;gap:10px}
+.take{flex:1;border-radius:6px;background:linear-gradient(#f2b84b,#c9841d);color:#231505;display:flex;flex-direction:column;justify-content:center;padding:0 18px;box-shadow:0 3px 0 #6b3a0a}
+.take b{font-size:24px;line-height:1.1}.take span{font-size:15px;font-weight:600}
+.pass{width:150px;border-radius:6px;background:#2b2019;border:1px solid #6a4f33;display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:0 3px 0 #120c07}
+.pass b{font-size:20px}.pass span{font-size:14px;color:#b5ab97}
+</style></head><body>
+
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <symbol id="scale" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M8 10a4 4 0 0 1 8 0z"/><path d="M12 10l2-3"/></symbol>
+  <symbol id="eye" viewBox="0 0 24 24"><path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="glove" viewBox="0 0 24 24"><path d="M8 21v-4c-2-1-4-3-4-7 0-4 3-6 7-6s7 2 7 6v4c0 2-1 3-3 3v4z"/><path d="M4 11h5"/></symbol>
+  <symbol id="film" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></symbol>
+  <symbol id="legs" viewBox="0 0 24 24"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></symbol>
+  <symbol id="chain" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1"/><path d="M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1"/></symbol>
+  <symbol id="lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="van" viewBox="0 0 24 24"><rect x="2" y="7" width="12" height="10"/><path d="M14 10h4l4 4v3h-8z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+  <symbol id="home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></symbol>
+  <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="bust" viewBox="0 0 120 130">
+   <path d="M6 130c2-30 22-40 54-40s52 10 54 40z" fill="var(--vest)" stroke="none"/>
+   <rect x="50" y="68" width="20" height="28" rx="8" fill="var(--skin)" stroke="none"/>
+   <ellipse cx="60" cy="50" rx="22" ry="27" fill="var(--skin)" stroke="none"/>
+   <path d="M36 52c-4-26 10-36 24-36s28 10 24 36c-3-13-10-20-24-20s-21 7-24 20z" fill="var(--hair)" stroke="none"/>
+   <path d="M82 40c8 6 10 20 6 30c-2-8-4-14-8-18z" fill="var(--hair)" stroke="none" style="display:var(--tail)"/>
+  </symbol>
+ </defs>
+</svg>
+
+<!-- TOP BAR -->
+<div class="top">
+ <div class="nav">&lt;</div><div class="nav dim">&gt;</div>
+ <div class="gym">Anvil Street Gym</div>
+ <div class="date"><b>Wed 4 Feb 2026</b><span>Week 5</span></div>
+ <div class="sp"></div>
+ <div class="tb">Gym</div><div class="tb">Mail (1 new)</div>
+ <div class="sp"></div>
+ <div class="cash"><b>$16,940</b><span>running &minus;$410 a week</span></div>
+ <div class="needs"><b>NEEDS YOU (1)</b><span>Answer Tess's offers by Fri 6 Feb</span></div>
+ <div class="tb">Menu</div>
+</div>
+
+<div class="frame"><div class="slate">
+ <div class="bolt" style="left:4px;top:4px"></div><div class="bolt" style="right:4px;top:4px"></div>
+ <div class="bolt" style="left:4px;bottom:4px"></div><div class="bolt" style="right:4px;bottom:4px"></div>
+
+ <div class="head">
+  <h1 class="chalk">A BOUT FOR TESS REILLY</h1>
+  <span class="chip">Middleweight, 75 kg</span>
+  <span class="chip">6-4</span>
+  <span class="chip am">Bout 11: Tess leaves the novices after this one</span>
+  <span class="sp"></span>
+  <span class="chip">2 offers on the table</span>
+  <span class="chip am">Answer by Fri 6 Feb</span>
+ </div>
+
+ <!-- LEFT: who is on the table -->
+ <div class="col" id="L">
+  <h2>Who is on the table</h2>
+  <div class="sub" style="margin-top:2px">Take one. The other show finds someone else.</div>
+
+  <div class="offer pan glow" style="top:52px;height:178px">
+   <svg width="74" height="80" style="--vest:#20355f;--skin:#d9a886;--hair:#6b4a2a;--tail:block"><use href="#bust"/></svg>
+   <div class="who">
+    <div class="nm chalk">Amy Croft</div>
+    <div class="ln">Dale Youth ABC &middot; 4-3 &middot; Pressure fighter</div>
+    <div class="when gold">Sat 14 Feb &middot; 10 days &middot; AWAY</div>
+    <div class="marks">
+     <span class="mark amber"><svg class="i"><use href="#scale"/></svg>0.4 over</span>
+     <span class="mark green"><svg class="i"><use href="#eye"/></svg>seen once</span>
+     <span class="mark green"><svg class="i"><use href="#glove"/></svg>answer in the hands</span>
+    </div>
+   </div>
+  </div>
+
+  <div class="offer pan" style="top:242px;height:178px">
+   <svg width="74" height="80" style="--vest:#20355f;--skin:#e8c3a4;--hair:#2a2420;--tail:none"><use href="#bust"/></svg>
+   <div class="who">
+    <div class="nm chalk">Siobhan Byrne</div>
+    <div class="ln">West Ham BC &middot; 5-2 &middot; Boxer-puncher</div>
+    <div class="when">Sat 21 Feb &middot; 17 days &middot; AT HOME</div>
+    <div class="marks">
+     <span class="mark green"><svg class="i"><use href="#scale"/></svg>makes 75.0</span>
+     <span class="mark red"><svg class="i"><use href="#eye"/></svg>never seen</span>
+     <span class="mark amber"><svg class="i"><use href="#glove"/></svg>answer 3 nights short</span>
+    </div>
+   </div>
+  </div>
+
+  <div class="offer pan dimcard" style="top:432px;height:112px">
+   <svg width="58" height="63" style="--vest:#33383d;--skin:#b98a6a;--hair:#1c1917;--tail:none"><use href="#bust"/></svg>
+   <div class="who">
+    <div class="nm chalk" style="font-size:20px">Leah Morgan</div>
+    <div class="ln">Fitzroy Lodge ABC &middot; 7-3 &middot; Southpaw</div>
+    <div class="ln green" style="font-weight:600">Boxes on the Dale Youth card: go, and you see one thing of Leah for free</div>
+   </div>
+  </div>
+
+  <div class="offer pan dimcard" style="top:556px;height:92px">
+   <svg width="58" height="63" style="--vest:#33383d;--skin:#e0b494;--hair:#8a3a22;--tail:block"><use href="#bust"/></svg>
+   <div class="who">
+    <div class="nm chalk" style="font-size:20px">Chantelle Reid</div>
+    <div class="ln">All Stars ABC &middot; 3-4 &middot; Volume puncher</div>
+    <div class="ln red" style="font-weight:600">Stopped 31 Jan: out until 28 Feb</div>
+   </div>
+  </div>
+
+  <div class="pan" style="position:absolute;left:0;top:660px;width:390px;height:210px;padding:12px 14px">
+   <h2>Tess's season</h2>
+   <div style="display:flex;gap:10px;margin-top:8px">
+    <div style="flex:1"><b class="n">3</b><span class="muted"> of about 9</span><div class="sub">bouts this season</div></div>
+    <div style="flex:1"><b class="n amber">11</b><span class="muted"> days</span><div class="sub">since the last bout</div></div>
+   </div>
+   <div style="margin-top:12px;font-size:15px;line-height:1.35;color:#ddd6c4">
+    <b>Pass both:</b> free today. Next list Mon 16 Feb.<br>
+    <span class="amber">30 days with no bout: mood &minus;6.</span><br>
+    Dale Youth remember a pass when you next ring.
+   </div>
+  </div>
+ </div>
+
+ <!-- MIDDLE -->
+ <div class="col" id="M">
+  <div class="vs pan">
+   <div class="wallr"></div><div class="wallb"></div>
+   <svg width="112" height="122" style="position:absolute;left:16px;top:6px;--vest:#7d1f1a;--skin:#e3b392;--hair:#7a3320;--tail:block"><use href="#bust"/></svg>
+   <div class="vsname chalk" style="left:140px">Tess Reilly</div>
+   <div class="vsclub" style="left:140px">Anvil Street Gym &middot; yours</div>
+   <div class="vsmid chalk">VS</div>
+   <svg width="112" height="122" style="position:absolute;right:16px;top:6px;--vest:#20355f;--skin:#d9a886;--hair:#6b4a2a;--tail:block"><use href="#bust"/></svg>
+   <div class="vsname chalk" style="right:140px;text-align:right">Amy Croft</div>
+   <div class="vsclub" style="right:140px;text-align:right">Dale Youth ABC &middot; their hall</div>
+   <table class="tale">
+    <tr><td>6-4</td><td>RECORD</td><td>4-3</td></tr>
+    <tr><td>10, novice</td><td>BOUTS</td><td>7, novice</td></tr>
+    <tr><td>Southpaw</td><td>STANCE</td><td>Orthodox</td></tr>
+    <tr><td>Pressure fighter</td><td>STYLE</td><td>Pressure fighter</td></tr>
+    <tr><td><span class="amber">76.1 kg</span></td><td>WALKS AT</td><td>76.4 kg</td></tr>
+    <tr><td>#6 in London</td><td>RANK</td><td>#4 in London</td></tr>
+   </table>
+  </div>
+
+  <div class="night">
+   <div class="pan"><div class="lab">WIN CHANCE</div><div class="big">44 &ndash; 58%</div>
+    <div class="band"><i style="left:44%;width:14%"></i></div><div class="sm">2 of 4 known: a wide guess</div></div>
+   <div class="pan"><div class="lab">A WIN</div><div class="big green">#6 &rarr; #4</div><div class="sm">+8 members<br>+5 name</div></div>
+   <div class="pan"><div class="lab">A LOSS</div><div class="big">#6 stays</div><div class="sm">&minus;1 member<br>&minus;2 name</div></div>
+   <div class="pan"><div class="lab" style="display:flex;align-items:center;gap:6px"><svg class="i" style="width:18px;height:18px"><use href="#van"/></svg>AWAY</div>
+    <div class="big amber">$0 &middot; &minus;$40</div><div class="sm">no ticket money, petrol<br>close rounds lean to Amy</div></div>
+  </div>
+
+  <div class="know pan">
+   <h2>What you know of Amy <span class="gold">&middot; 2 of 4</span></h2>
+   <div class="slots">
+    <div class="slot"><div class="lab">GAME</div><div class="val">Walks you down</div><div class="how">on the record, free</div></div>
+    <div class="slot"><div class="lab"><svg class="i green" style="width:17px;height:17px"><use href="#eye"/></svg>BEST PUNCH</div><div class="val">Overhand right</div><div class="how">seen at Fisher's show, 17 Jan</div></div>
+    <div class="slot lock"><div class="lab"><svg class="i" style="width:17px;height:17px"><use href="#lock"/></svg>HABIT</div><div class="val muted">?</div><div class="how">a film night can find it</div></div>
+    <div class="slot lock"><div class="lab"><svg class="i" style="width:17px;height:17px"><use href="#lock"/></svg>WEAKNESS</div><div class="val muted">?</div><div class="how">a film night can find it</div></div>
+   </div>
+  </div>
+
+  <div class="days pan">
+   <div style="display:flex;align-items:baseline;gap:12px"><h2>The ten days, with the picks on the right</h2><span class="sub">gold days = fight week</span></div>
+   <div class="grid">
+    <div></div>
+    <div class="dh">Wed 4</div><div class="dh">Thu 5</div><div class="dh">Fri 6</div><div class="dh">Sat 7</div><div class="dh">Sun 8</div>
+    <div class="dh fw">Mon 9</div><div class="dh fw">Tue 10</div><div class="dh fw">Wed 11</div><div class="dh fw">Thu 12</div><div class="dh fw">Fri 13</div><div class="dh fw">Sat 14</div>
+
+    <div class="rl">Tess, morning</div>
+    <div class="c run">Run</div><div class="c bag">Bag</div><div class="c run">Run</div><div class="c run">Run</div><div class="c rest">Rest</div>
+    <div class="c run">Run</div><div class="c bag">Bag</div><div class="c run">Run</div><div class="c sh">Shadow</div><div class="c rest">Rest</div><div class="c fight">Scale<br>4 pm</div>
+
+    <div class="rl">Tess, evening</div>
+    <div class="c pad ex">Pads</div><div class="c">&ndash;</div><div class="c pad ex">Pads</div><div class="c">&ndash;</div><div class="c">&ndash;</div>
+    <div class="c rest">Rest</div><div class="c">&ndash;</div><div class="c film">Film</div><div class="c">&ndash;</div><div class="c rest">Rest</div><div class="c fight">Bell<br>8 pm</div>
+
+    <div class="rl">Reid's 2 pad places</div>
+    <div class="c two"><span class="pp t">T</span><span class="pp l">L</span></div><div class="c">&ndash;</div><div class="c two"><span class="pp t">T</span><span class="pp s">S</span></div><div class="c">&ndash;</div><div class="c">&ndash;</div>
+    <div class="c two"><span class="pp l">L</span><span class="pp s">S</span></div><div class="c">&ndash;</div><div class="c two"><span class="pp x">L</span><span class="pp x">S</span></div><div class="c">&ndash;</div><div class="c two"><span class="pp l">L</span><span class="pp s">S</span></div><div class="c">&ndash;</div>
+
+    <div class="rl">Tess on the scale</div>
+    <div class="w">76.1</div><div class="w">76.0</div><div class="w">75.9</div><div class="w">75.8</div><div class="w">75.7</div>
+    <div class="w">75.6</div><div class="w">75.5</div><div class="w">75.4</div><div class="w">75.3</div><div class="w">75.1</div><div class="w green" style="font-weight:700">75.0</div>
+   </div>
+   <div class="legend">
+    <span><span class="pp t">T</span> Tess</span><span><span class="pp l">L</span> Lucy</span><span><span class="pp s">S</span> Samira</span>
+    <span class="amber" style="font-weight:600">Wed 4: Samira on the bag &middot; Fri 6: Lucy on the bag &middot; Wed 11: both on the bag (film)</span>
+   </div>
+  </div>
+ </div>
+
+ <!-- RIGHT: the week this yes buys -->
+ <div class="col" id="R">
+  <h2>The week this yes buys</h2>
+  <div class="sub" style="margin-top:2px">Four picks. Each shows its price. Change them until the day they run.</div>
+
+  <div class="job pan" style="top:52px">
+   <div class="jt"><div class="ico" style="background:#8a2c57"><svg class="i"><use href="#scale"/></svg></div><h3 class="chalk">THE SCALE</h3>
+    <div class="note"><svg class="i" style="width:17px;height:17px"><use href="#clock"/></svg>Sat 4 pm at the hall &middot; agreed 75.0 &middot; diet on</div></div>
+   <div class="opts">
+    <div class="opt no"><div class="on">Ease off</div><div class="p1 red">75.4 &middot; over by 0.4</div><div class="p2">the bout is off</div></div>
+    <div class="opt sel"><div class="on">Train through</div><div class="p1 green">75.0 &middot; made</div><div class="p2">legs 91 at the bell</div></div>
+    <div class="opt"><div class="on">Ask for a kilo</div><div class="p1 amber">76.0 agreed</div><div class="p2">a favour; Amy fresher</div></div>
+   </div>
+  </div>
+
+  <div class="job pan" style="top:212px">
+   <div class="jt"><div class="ico" style="background:#b8862b"><svg class="i"><use href="#legs"/></svg></div><h3 class="chalk">THE LEGS</h3>
+    <div class="note amber"><svg class="i" style="width:17px;height:17px"><use href="#chain"/></svg>tied to the scale</div></div>
+   <div class="opts">
+    <div class="opt no"><div class="on">Ease off</div><div class="p1">legs 100 at the bell</div><div class="p2">Conditioning +0.1 &middot; <span class="red">misses the scale</span></div></div>
+    <div class="opt sel"><div class="on">Train through</div><div class="p1 amber">legs 91 at the bell</div><div class="p2">Conditioning +0.2 banked</div></div>
+    <div class="opt" style="flex:.8;background:none;border:none;padding:6px 4px">
+     <div class="p2" style="font-weight:700;letter-spacing:1px;font-size:13px">AT THE FIRST BELL</div>
+     <div class="band" style="height:14px;border-radius:7px;margin-top:7px"><i style="left:0;width:91%;height:14px;border-radius:7px;background:#f2b84b"></i></div>
+     <div class="p2">91 of 100<br>&minus;3 wins in 100</div></div>
+   </div>
+  </div>
+
+  <div class="job pan" style="top:372px">
+   <div class="jt"><div class="ico" style="background:#1f7a6b"><svg class="i"><use href="#film"/></svg></div><h3 class="chalk">THE FILM</h3>
+    <div class="note">Wed 11 Feb &middot; one film, Reid's whole evening</div></div>
+   <div class="opts">
+    <div class="opt sel"><div class="on">Amy's habit</div><div class="p1 green">corner sees it, round 1</div><div class="p2">Lucy &minus;1, Samira &minus;1 pads</div></div>
+    <div class="opt"><div class="on">Amy's weakness</div><div class="p1">the round to push</div><div class="p2">Lucy &minus;1, Samira &minus;1 pads</div></div>
+    <div class="opt"><div class="on">No film</div><div class="p1">box what you know</div><div class="p2">Lucy, Samira keep pads</div></div>
+   </div>
+  </div>
+
+  <div class="job pan" style="top:532px">
+   <div class="jt"><div class="ico" style="background:#2f5f8f"><svg class="i"><use href="#glove"/></svg></div><h3 class="chalk">THE ANSWER</h3>
+    <div class="note">when Amy loads up the overhand</div></div>
+   <div class="opts">
+    <div class="opt"><div class="on">One-two</div><div class="p1 green">in the hands &middot; Works</div><div class="p2">+1 win in 100</div></div>
+    <div class="opt sel"><div class="on">Slip, cross, hook</div><div class="p1 amber">21 of 30 &middot; Beats it</div><div class="p2">+3 in 100 &middot; 2 pads by Fri 6</div></div>
+    <div class="opt"><div class="on">No line</div><div class="p1">Tess boxes on instinct</div><div class="p2">costs nobody anything</div></div>
+   </div>
+  </div>
+
+  <div class="sum pan">
+   <div class="b"><div class="lab">WIN CHANCE NOW</div><div class="big green">47 &ndash; 60%</div><div class="sm">was 44 &ndash; 58%</div></div>
+   <div class="b"><div class="lab">TESS AT THE BELL</div><div class="big amber">legs 91</div><div class="sm">75.0 kg, made</div></div>
+   <div class="b" style="flex:1.35"><div class="lab">THE OTHERS PAY</div><div class="big" style="font-size:20px;line-height:1.4">Lucy &minus;2 &middot; Samira &minus;2 pads</div><div class="sm">Samira's body hook: 2 days later</div></div>
+  </div>
+
+  <div class="btns">
+   <div class="take"><b>TAKE THE BOUT</b><span>Amy Croft &middot; Sat 14 Feb &middot; away at Dale Youth</span></div>
+   <div class="pass"><b>Pass</b><span>free today</span></div>
+  </div>
+ </div>
+</div></div>
+</body></html>

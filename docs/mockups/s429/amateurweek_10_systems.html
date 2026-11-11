@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Amateur fight week, 10 of 10 (systems seat): the bout sheet</title>
+<style>
+:root{
+  --slate:#222c32; --slate2:#1a2227; --line:#3a484f; --chalk:#ece8dc; --mute:#9fabad; --gold:#f2b632;
+  --green:#58c684; --red:#e5594d; --amber:#f0a03c; --blue:#5b9bff; --wood1:#7a5532; --wood2:#4b3019; --wood3:#2a1a0c;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{font-family:"Barlow","Segoe UI",Arial,sans-serif;color:var(--chalk);font-size:15px;line-height:1.25;
+  background:radial-gradient(1200px 500px at 50% 110%,#3a2a1c 0%,#17110c 60%,#0d0a07 100%)}
+.hand{font-family:"Permanent Marker","Segoe Print","Ink Free","Comic Sans MS",cursive;font-weight:700;letter-spacing:.5px}
+
+/* top bar */
+.top{position:absolute;left:0;top:0;width:1920px;height:72px;display:flex;align-items:center;gap:14px;padding:0 20px;
+  background:linear-gradient(#3b2816,#24170c);border-bottom:3px solid #120b05;box-shadow:0 4px 14px rgba(0,0,0,.6)}
+.nav{width:34px;height:34px;border-radius:6px;background:#1a110a;border:1px solid #5d4127;display:flex;align-items:center;justify-content:center;font-weight:700}
+.gym{font-size:27px;color:var(--blue);font-style:italic}
+.date b{display:block;font-size:17px}.date span{color:var(--mute);font-size:14px}
+.tbtn{padding:9px 18px;border-radius:6px;background:linear-gradient(#5a3d22,#3b2613);border:1px solid #7c5936;font-weight:700;font-size:16px}
+.cash{margin-left:auto;text-align:right}.cash b{font-size:23px;color:var(--gold);display:block}.cash span{font-size:13px;color:var(--mute)}
+.big{width:268px;padding:8px 16px;border-radius:6px;background:linear-gradient(#f0a03c,#c97a1c);color:#221405;border:1px solid #ffd08a}
+.big b{display:block;font-size:17px}.big span{font-size:13px}
+
+/* board */
+.board{position:absolute;left:22px;top:84px;width:1876px;height:980px;padding:10px;border-radius:6px;
+  background:linear-gradient(90deg,var(--wood2),var(--wood1) 12%,var(--wood2) 40%,var(--wood1) 70%,var(--wood2));
+  box-shadow:inset 0 0 0 2px var(--wood3),0 10px 30px rgba(0,0,0,.7)}
+.slate{width:100%;height:100%;padding:10px 12px;border-radius:3px;box-shadow:inset 0 0 0 2px #0e1417,inset 0 0 60px rgba(0,0,0,.55);
+  background:linear-gradient(135deg,#27333a,#1c252a 55%,#222d33);display:grid;grid-template-rows:48px 388px 34px 1fr;gap:10px}
+
+.head{display:flex;align-items:center;gap:12px}
+.head h1{font-size:30px}
+.head .sub{font-size:17px;color:var(--mute)}
+.chips{margin-left:auto;display:flex;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:12px;font-size:14px;font-weight:600;border:1px solid var(--line);color:var(--chalk);white-space:nowrap}
+.chip.g{border-color:var(--green);color:var(--green)}.chip.r{border-color:var(--red);color:var(--red)}
+.chip.a{border-color:var(--amber);color:var(--amber)}.chip.y{border-color:var(--gold);color:var(--gold)}
+.chip.s{font-size:13px;padding:2px 8px}
+
+.rowA{display:grid;grid-template-columns:372px 1fr 1fr 1fr;gap:12px}
+.rowB{display:grid;grid-template-columns:1fr 1fr 1fr 474px;gap:12px}
+.card{position:relative;border-radius:5px;padding:11px 13px;background:linear-gradient(160deg,#2a363d,#1e272c);
+  border:5px solid var(--wood2);box-shadow:inset 0 0 0 1px #0f1518,0 0 0 1px #8a6238;overflow:hidden}
+.card.on{border-color:#c9952a;box-shadow:inset 0 0 0 1px #0f1518,0 0 0 1px #ffd77a,0 0 18px rgba(242,182,50,.45)}
+.card h2{font-size:21px;line-height:1.1}
+.cap{font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:var(--mute);font-weight:700}
+.muted{color:var(--mute)}.gold{color:var(--gold)}.green{color:var(--green)}.red{color:var(--red)}.amber{color:var(--amber)}
+.face{width:58px;height:58px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-size:21px;
+  background:radial-gradient(circle at 35% 30%,#6f5a47,#33261b);border:2px solid #b08a56;color:#f3e6cf}
+.face.me{border-color:var(--blue)}
+.who{display:flex;gap:11px;align-items:center}
+.kv{display:grid;grid-template-columns:22px 1fr auto;align-items:center;gap:6px;padding:5px 0;border-bottom:1px dashed #36434a;font-size:15px}
+.kv:last-of-type{border-bottom:0}
+.kv b{font-weight:700}
+.ic{width:20px;height:20px;border-radius:4px;border:1.5px solid var(--mute);display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--mute)}
+.band{position:relative;height:16px;border-radius:8px;background:#11181c;border:1px solid #3a484f;margin:5px 0 3px}
+.band i{position:absolute;top:1px;bottom:1px;border-radius:7px;background:linear-gradient(90deg,#3f7ee0,#7fb2ff)}
+.band u{position:absolute;top:-3px;bottom:-3px;left:50%;width:2px;background:#ece8dc55}
+.tag{position:absolute;right:11px;top:10px}
+.pick{position:absolute;right:12px;bottom:10px;padding:5px 16px;border-radius:6px;font-weight:800;font-size:14px;border:1px solid #7c5936;background:linear-gradient(#5a3d22,#3b2613)}
+.pick.on{background:linear-gradient(#f2b632,#c88f16);color:#231605;border-color:#ffe09a}
+.dots{display:inline-flex;gap:4px;vertical-align:middle}
+.dots i{width:11px;height:11px;border-radius:50%;border:1.5px solid var(--mute)}
+.dots i.f{background:var(--green);border-color:var(--green)}
+.meter{height:12px;border-radius:6px;background:#11181c;border:1px solid #3a484f;position:relative;overflow:hidden}
+.meter i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
+.pips{display:flex;gap:5px;flex-wrap:wrap}
+.pip{padding:2px 7px;border-radius:5px;font-size:13px;font-weight:700;border:1px solid var(--line);color:var(--mute)}
+.pip.ok{border-color:var(--green);color:var(--green)}.pip.near{border-color:var(--amber);color:var(--amber)}
+
+.sect{display:flex;align-items:center;gap:12px;border-top:2px dashed #46555c;padding-top:6px}
+.sect h3{font-size:22px;color:var(--gold)}
+.sect span{color:var(--mute);font-size:15px}
+
+.opt{display:grid;grid-template-columns:20px 1fr;gap:9px;align-items:start;padding:7px 9px;border-radius:7px;border:1px solid var(--line);margin-top:7px;background:#1b2429}
+.opt.on{border-color:var(--gold);background:rgba(242,182,50,.09)}
+.rad{width:16px;height:16px;border-radius:50%;border:2px solid var(--mute);margin-top:2px}
+.opt.on .rad{border-color:var(--gold);background:radial-gradient(circle,var(--gold) 45%,transparent 50%)}
+.opt b{font-size:16px}
+.opt .row{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap}
+.note{font-size:14px;color:var(--mute);margin-top:8px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:8px}
+.eve{border:1px solid var(--line);border-radius:7px;padding:6px 7px;background:#1b2429}
+.eve .d{font-size:13px;letter-spacing:1.2px;text-transform:uppercase;color:var(--mute);font-weight:700;margin-bottom:4px}
+.slot{border-radius:5px;padding:4px 6px;font-size:14px;margin-top:4px;border:1px solid #3a484f;background:#232e34}
+.slot b{display:block;font-size:14px}
+.slot.me{border-color:var(--blue)}
+.slot.film{border-color:var(--gold);background:rgba(242,182,50,.12)}
+.slot.out{border-style:dashed;border-color:var(--red);color:var(--red)}
+.pills{display:flex;gap:6px;margin-top:5px;flex-wrap:wrap}
+.pill{padding:4px 10px;border-radius:14px;border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--mute)}
+.pill.on{border-color:var(--gold);color:#231605;background:var(--gold)}
+.tank{display:flex;align-items:flex-end;gap:12px;margin-top:4px}
+.tank .n{font-size:46px;font-weight:800;line-height:.95;color:var(--gold)}
+.tank .of{font-size:17px;color:var(--mute);padding-bottom:5px}
+.bigbar{height:18px;border-radius:9px;background:#11181c;border:1px solid #3a484f;position:relative;overflow:hidden;margin-top:6px}
+.bigbar i{position:absolute;left:0;top:0;bottom:0;width:86%;background:linear-gradient(90deg,#c88f16,#f2b632)}
+.bigbar u{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,#e5594d88 0 5px,#e5594d33 5px 10px)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:7px}
+.box{border:1px solid var(--line);border-radius:7px;padding:6px 8px;background:#1b2429;font-size:14px}
+.box .cap{font-size:12px;margin-bottom:3px}
+.box div{padding:1px 0}
+.btns{position:absolute;left:13px;right:13px;bottom:10px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:8px}
+.btn{padding:9px 8px;border-radius:6px;text-align:center;font-weight:800;font-size:15px;border:1px solid #7c5936;background:linear-gradient(#5a3d22,#3b2613)}
+.btn.go{background:linear-gradient(#f0a03c,#c97a1c);color:#221405;border-color:#ffd08a}
+.btn small{display:block;font-weight:600;font-size:12px;opacity:.85}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="nav">&lt;</div><div class="nav" style="opacity:.5">&gt;</div>
+  <div class="gym hand">ANVIL STREET GYM</div>
+  <div class="date"><b>Wed 4 Feb 2026</b><span>Week 5</span></div>
+  <div class="tbtn" style="margin-left:60px">Gym</div><div class="tbtn">Mail (1 new)</div>
+  <div class="cash"><b>$16,940</b><span>running -$310 a week</span></div>
+  <div class="big"><b>NEEDS YOU (1)</b><span>Tess: pick a name by Fri 6 Feb</span></div>
+  <div class="tbtn">Menu</div>
+</div>
+
+<div class="board"><div class="slate">
+
+  <div class="head">
+    <h1 class="hand">THE BOUT SHEET</h1>
+    <div class="sub">Fights &rsaquo; Anvil Street club show &rsaquo; Tess Reilly, middleweight</div>
+    <div class="chips">
+      <span class="chip y">Sat 14 Feb &middot; 10 days</span>
+      <span class="chip g">Home show: ticket cut $450</span>
+      <span class="chip">Top-5 name on the sheet: +$150</span>
+      <span class="chip a">Sheet closes Wed 11 Feb</span>
+      <span class="chip">No camp: a fight week</span>
+    </div>
+  </div>
+
+  <!-- ROW A: the fighter and the three names -->
+  <div class="rowA">
+
+    <div class="card">
+      <div class="who">
+        <div class="face me hand">TR</div>
+        <div><h2 class="hand">TESS REILLY</h2>
+          <div class="muted">6-4 &middot; southpaw &middot; pressure fighter</div>
+          <div class="gold" style="font-weight:700">No. 6 in the region</div></div>
+      </div>
+      <div style="margin-top:9px" class="cap">What Tess brings today</div>
+      <div class="kv"><span class="ic">kg</span><span>Scale <b>76.1</b> for 75.0</span><b class="amber">1.1 over</b></div>
+      <div class="kv"><span class="ic">L</span><span>Legs: tiredness <b>58</b></span><b class="amber">heavy from 50</b></div>
+      <div class="kv"><span class="ic">S</span><span>Sharp for round 1</span><b class="green">yes, pads Monday</b></div>
+      <div class="kv"><span class="ic">P</span><span>Plan lines walked this fortnight</span><b>3 of 4</b></div>
+      <div style="margin-top:8px" class="cap">Punches in the hands</div>
+      <div class="pips" style="margin-top:5px">
+        <span class="pip ok">Jab</span><span class="pip ok">Cross</span><span class="pip ok">Lead hook</span>
+        <span class="pip near">Body hook: 1 evening away</span><span class="pip">2 not learnt</span>
+      </div>
+      <div class="note">Full-time on the stipend: mornings count.<br>Can take a bout in 7 days: <b class="red">no</b>, the scale needs 9.</div>
+    </div>
+
+    <div class="card">
+      <span class="chip g s tag">SAFE, NO CLIMB</span>
+      <div class="who"><div class="face hand">AC</div>
+        <div><h2 class="hand">AMY CROFT</h2><div class="muted">Dale Youth ABC &middot; 4-3 &middot; <b class="gold">No. 9</b> &middot; pressure fighter</div></div></div>
+      <div class="band"><i style="left:58%;width:8%"></i><u></u></div>
+      <div style="font-size:14px"><b>Tess wins 58 to 66 in 100</b> <span class="muted">&middot; narrow: file known</span></div>
+      <div class="kv" style="margin-top:3px"><span class="ic">&uarr;</span><span>A win</span><b>stays No. 6, one more win</b></div>
+      <div class="kv"><span class="ic">&darr;</span><span>A loss</span><b class="red">down to No. 8</b></div>
+      <div class="kv"><span class="ic">$</span><span>Ticket cut</span><b class="green">$450</b></div>
+      <div class="kv"><span class="ic">!</span><span>Stopped: 30 days out</span><b>3 in 100</b></div>
+      <div class="kv"><span class="ic">F</span><span>File <span class="dots"><i class="f"></i><i class="f"></i><i></i></span> weapon, weakness</span><b></b></div>
+      <div style="font-size:14px;margin-top:4px;width:330px"><b>Overhand right.</b> <span class="green">Tess owns the answer.</span> Fades after round 2.</div>
+      <div class="pick">Pick</div>
+    </div>
+
+    <div class="card on">
+      <span class="chip y s tag">THE CLIMB</span>
+      <div class="who"><div class="face hand">SB</div>
+        <div><h2 class="hand">SIOBHAN BYRNE</h2><div class="muted">West Ham BC &middot; 5-2 &middot; <b class="gold">No. 4</b> &middot; boxer-puncher</div></div></div>
+      <div class="band"><i style="left:38%;width:22%"></i><u></u></div>
+      <div style="font-size:14px"><b>Tess wins 38 to 60 in 100</b> <span class="muted">&middot; wide: a stranger</span></div>
+      <div class="kv" style="margin-top:3px"><span class="ic">&uarr;</span><span>A win</span><b class="green">takes No. 4</b></div>
+      <div class="kv"><span class="ic">&darr;</span><span>A loss</span><b>stays No. 6</b></div>
+      <div class="kv"><span class="ic">$</span><span>Ticket cut</span><b class="green">$600</b></div>
+      <div class="kv"><span class="ic">!</span><span>Stopped: 30 days out</span><b>6 in 100</b></div>
+      <div class="kv"><span class="ic">F</span><span>File <span class="dots"><i></i><i></i><i></i></span> nothing found</span><b></b></div>
+      <div style="font-size:14px;margin-top:4px;width:330px"><b>Weapon hidden.</b> <span class="amber">One film evening shows one thing.</span></div>
+      <div class="pick on">PICKED</div>
+    </div>
+
+    <div class="card">
+      <span class="chip r s tag">LONG SHOT</span>
+      <div class="who"><div class="face hand">LM</div>
+        <div><h2 class="hand">LEAH MORGAN</h2><div class="muted">Fitzroy Lodge &middot; 7-3 &middot; <b class="gold">No. 2</b> &middot; southpaw counter</div></div></div>
+      <div class="band"><i style="left:24%;width:16%"></i><u></u></div>
+      <div style="font-size:14px"><b>Tess wins 24 to 40 in 100</b> <span class="muted">&middot; one tell known</span></div>
+      <div class="kv" style="margin-top:3px"><span class="ic">&uarr;</span><span>A win</span><b class="green">takes No. 2</b></div>
+      <div class="kv"><span class="ic">&darr;</span><span>A loss</span><b>stays No. 6</b></div>
+      <div class="kv"><span class="ic">$</span><span>Ticket cut</span><b class="green">$600</b></div>
+      <div class="kv"><span class="ic">!</span><span>Stopped: 30 days out</span><b class="red">14 in 100</b></div>
+      <div class="kv"><span class="ic">F</span><span>File <span class="dots"><i class="f"></i><i></i><i></i></span> weapon</span><b></b></div>
+      <div style="font-size:14px;margin-top:4px;width:330px"><b>Counter left hook.</b> <span class="red">Answer not walked:</span> the double jab line is stale.</div>
+      <div class="pick">Pick</div>
+    </div>
+  </div>
+
+  <div class="sect">
+    <h3 class="hand">THE TEN DAYS, PRICED</h3>
+    <span>if Tess takes Siobhan Byrne. Every pick is paid from the same tank. Change a pick and the right-hand card moves.</span>
+  </div>
+
+  <!-- ROW B: three budgets and the night -->
+  <div class="rowB">
+
+    <div class="card">
+      <div class="cap">1 &middot; The scale</div>
+      <h2 class="hand" style="margin-top:2px">1.1 kg in 9 days</h2>
+      <div class="meter" style="margin-top:8px"><i style="width:78%;background:linear-gradient(90deg,#58c684,#f0a03c)"></i></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px" class="muted"><span>75.0 limit</span><span>76.1 today</span></div>
+      <div class="opt on"><span class="rad"></span><div><b>Cut from today</b>
+        <div class="row"><span class="chip g s">scale 74.9, made by 0.1</span><span class="chip a s">6 off the tank</span></div></div></div>
+      <div class="opt"><span class="rad"></span><div><b>Cut from Monday, sweat on Friday</b>
+        <div class="row"><span class="chip a s">scale 75.0, no room</span><span class="chip r s">8 off the tank</span><span class="chip s">a normal week first</span></div></div></div>
+      <div class="opt"><span class="rad"></span><div><b>Ask West Ham for 76 kg</b>
+        <div class="row"><span class="chip s">about even they agree</span><span class="chip g s">nothing off the tank</span><span class="chip a s">a favour owed</span></div></div></div>
+      <div class="note">A no on Friday leaves 8 days: the cut then needs the sweat.</div>
+    </div>
+
+    <div class="card">
+      <div class="cap">2 &middot; Reid's evenings</div>
+      <h2 class="hand" style="margin-top:2px">3 nights, 2 places each</h2>
+      <div class="grid3">
+        <div class="eve"><div class="d">Mon 9</div>
+          <div class="slot me"><b>Tess</b>pads: walk 2 lines</div>
+          <div class="slot"><b>Lucy</b>pads: jab</div></div>
+        <div class="eve"><div class="d">Wed 11</div>
+          <div class="slot film"><b>Tess: FILM</b>takes both places</div>
+          <div class="slot out"><b>Samira</b>on the bag, half</div></div>
+        <div class="eve"><div class="d">Fri 13</div>
+          <div class="slot"><b>Lucy</b>pads: jab</div>
+          <div class="slot"><b>Samira</b>pads: uppercut</div></div>
+      </div>
+      <div class="cap" style="margin-top:9px">Tess on Wednesday</div>
+      <div class="pills"><span class="pill">Pads</span><span class="pill on">Film</span><span class="pill">Rest</span></div>
+      <div class="cap" style="margin-top:8px">The film looks for one thing</div>
+      <div class="pills"><span class="pill on">Best weapon &rarr; a plan line</span><span class="pill">A habit &rarr; the corner's read</span><span class="pill">When Siobhan fades &rarr; the week's shape</span></div>
+      <div class="note"><b class="red">Costs Samira:</b> uppercut usable Sat 28 Feb, not Sat 21.</div>
+    </div>
+
+    <div class="card">
+      <div class="cap">3 &middot; The legs</div>
+      <h2 class="hand" style="margin-top:2px">The shape of Tess's week</h2>
+      <div class="opt"><span class="rad"></span><div><b>Rest up</b>
+        <div class="row"><span class="chip g s">tank full</span><span class="chip r s">flat in round 1</span><span class="chip s">gains +0.1</span></div></div></div>
+      <div class="opt on"><span class="rad"></span><div><b>Tick over</b>
+        <div class="row"><span class="chip a s">8 off the tank</span><span class="chip g s">sharp in round 1</span><span class="chip s">gains +0.3</span></div></div></div>
+      <div class="opt"><span class="rad"></span><div><b>Stay sharp: train through it</b>
+        <div class="row"><span class="chip r s">20 off the tank</span><span class="chip g s">sharp in round 1</span><span class="chip g s">gains +0.5</span></div></div></div>
+      <div class="note">A slow starter gives away round 1 to a sharp boxer. One who fades gives away round 3 to a full tank. Siobhan is a stranger: the film could ask.</div>
+    </div>
+
+    <div class="card on">
+      <div class="cap">On the night, with these picks</div>
+      <div class="tank"><div class="n">86</div><div class="of">of 100 in the tank at the first bell</div></div>
+      <div class="bigbar"><i></i><u style="left:86%;width:8%"></u><u style="left:94%;width:6%;opacity:.6"></u></div>
+      <div style="font-size:13px;margin-top:3px" class="muted">legs 8 off &middot; the cut 6 off</div>
+      <div class="kv" style="margin-top:4px"><span class="ic">1</span><span>Round 1</span><b class="green">sharp</b></div>
+      <div class="kv"><span class="ic">P</span><span>Plan lines ready</span><b>3 of 4 <span class="muted">&middot; 4 if the film finds it</span></b></div>
+      <div class="kv"><span class="ic">kg</span><span>Scale on Friday</span><b class="green">74.9, made by 0.1</b></div>
+      <div class="kv"><span class="ic">%</span><span>Tess wins</span><b>38 to 60 <span class="muted">&rarr; 44 to 58 after the film</span></b></div>
+      <div class="two">
+        <div class="box"><div class="cap red">It costs the gym</div>
+          <div>Samira: one pad place</div><div>Tess: half a building week</div><div>Layoff risk: 6 in 100</div></div>
+        <div class="box"><div class="cap green">It pays</div>
+          <div>$600 ticket cut</div><div>A win takes No. 4</div><div>A home win: +8 members</div></div>
+      </div>
+      <div class="btns">
+        <div class="btn go">TAKE THE BOUT<small>Siobhan Byrne, Sat 14 Feb</small></div>
+        <div class="btn">Reid runs it<small>his picks, one click</small></div>
+        <div class="btn">Pass the show<small>next: Sat 28 Feb</small></div>
+      </div>
+    </div>
+
+  </div>
+</div></div>
+</body>
+</html>

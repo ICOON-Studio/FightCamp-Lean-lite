@@ -1029,6 +1029,30 @@
    "brief": "RANKSHOW1",
    "status": "queued",
    "queued": "2026-11-11T08:10"
+  },
+  {
+   "id": "FIGHTDISPLAY4",
+   "seat": "cursor",
+   "title": "TASK FIGHTDISPLAY4 - CURSOR (Grok 4.7 High) - the fight screen: side panels go, bars to the top, figures stand free",
+   "brief": "FIGHTDISPLAY4",
+   "status": "queued",
+   "queued": "2026-11-11T09:25"
+  },
+  {
+   "id": "TRAININGB2",
+   "seat": "cursor",
+   "title": "TASK TRAININGB2 - CURSOR (Grok 4.7 High) - the Training tab: a tiredness curve that says something, pads list in rows",
+   "brief": "TRAININGB2",
+   "status": "queued",
+   "queued": "2026-11-11T09:25"
+  },
+  {
+   "id": "GYMLIFE1",
+   "seat": "cursor",
+   "title": "TASK GYMLIFE1 - CURSOR (Grok 4.7 High) - the gym picture comes alive: real workouts at each kit, fighters at today's session",
+   "brief": "GYMLIFE1",
+   "status": "queued",
+   "queued": "2026-11-11T09:28"
   }
  ]
 }

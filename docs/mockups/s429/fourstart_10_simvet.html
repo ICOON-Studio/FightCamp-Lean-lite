@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The week</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{font-family:"Segoe UI",Arial,sans-serif;color:#efe6d2;background:
+ radial-gradient(520px 150px at 1500px 110px,rgba(255,214,150,.20),transparent 70%),
+ radial-gradient(420px 130px at 980px 120px,rgba(255,214,150,.13),transparent 70%),
+ radial-gradient(900px 500px at 300px 700px,rgba(120,50,30,.16),transparent 70%),
+ #0c0b0b;position:relative}
+.marker{font-family:"Segoe Print","Ink Free",cursive;font-weight:700;font-style:italic}
+.gold{color:#f2b23a}.mut{color:#9aa1a8}.blu{color:#6fb0ff}.grn{color:#45c986}.red{color:#ff7a66}.pur{color:#b592f5}
+b{font-weight:700}
+
+/* top bar */
+.top{position:absolute;left:0;top:0;width:1920px;height:74px;background:
+ repeating-linear-gradient(90deg,rgba(0,0,0,.10) 0 2px,transparent 2px 9px),
+ linear-gradient(#3a2a20,#261b15 60%,#1b1310);border-bottom:3px solid #0a0706;box-shadow:0 4px 14px rgba(0,0,0,.7)}
+.top .nav{position:absolute;top:19px;width:36px;height:36px;border-radius:5px;background:#2b211b;border:1px solid #5a4636;text-align:center;line-height:33px;font-weight:700;font-size:18px}
+.top .gym{position:absolute;left:118px;top:13px;font-size:30px;color:#4d8dff;letter-spacing:1px;white-space:nowrap}
+.top .date{position:absolute;left:470px;top:16px;font-size:19px;font-weight:600}
+.top .date small{display:block;font-size:14px;color:#9aa1a8;font-weight:400}
+.top .tbtn{position:absolute;top:17px;height:42px;padding:0 20px;border-radius:5px;background:linear-gradient(#3b2d24,#271d17);border:1px solid #6a5340;line-height:40px;font-weight:700;font-size:17px}
+.top .cash{position:absolute;right:340px;top:12px;text-align:right;font-size:26px;font-weight:700;color:#f2b23a}
+.top .cash small{display:block;font-size:14px;color:#b9b2a4;font-weight:400}
+.top .needs{position:absolute;right:92px;top:11px;width:232px;height:52px;border-radius:5px;background:linear-gradient(#c8372b,#8e1d18);border:1px solid #e0685a;padding:5px 14px;font-weight:800;font-size:17px}
+.top .needs small{display:block;font-size:13.5px;font-weight:500;color:#ffd9d2}
+.top .menu{position:absolute;right:14px;top:17px;width:66px;height:42px;border-radius:5px;background:#2b211b;border:1px solid #6a5340;line-height:40px;text-align:center;font-weight:700;font-size:15px}
+
+/* title */
+.title{position:absolute;left:28px;top:80px;height:64px;display:flex;align-items:center;gap:14px}
+.title h1{font-size:50px;color:#fff;letter-spacing:2px;line-height:64px;margin-right:6px}
+.tab{height:40px;padding:0 16px;border-radius:5px;background:linear-gradient(#33271f,#221915);border:1px solid #5d4937;line-height:38px;font-weight:700;font-size:17px;color:#e9dfca}
+.tab.on{background:linear-gradient(#e7c3a1,#c79f80);color:#2a1a12;border-color:#f2d7bd;box-shadow:0 3px 0 #a13b2c}
+.title .hint{margin-left:18px;font-size:16px;color:#c9c0ad;white-space:nowrap}
+
+/* wooden frame with slate */
+.frame{position:absolute;padding:8px;border-radius:3px;background:
+ repeating-linear-gradient(90deg,rgba(0,0,0,.14) 0 1px,transparent 1px 7px),
+ linear-gradient(#6b4a34,#4a3122 45%,#5c3f2c);box-shadow:0 3px 10px rgba(0,0,0,.75),inset 0 0 0 1px #2a1b12}
+.frame:before,.frame:after{content:"";position:absolute;top:1px;width:6px;height:6px;border-radius:50%;background:radial-gradient(#e2c58a,#7d6035);box-shadow:0 0 0 1px #2c1e12}
+.frame:before{left:2px}.frame:after{right:2px}
+.slate{width:100%;height:100%;background:
+ radial-gradient(600px 160px at 30% 20%,rgba(255,255,255,.035),transparent 70%),
+ radial-gradient(500px 140px at 80% 90%,rgba(255,255,255,.025),transparent 70%),
+ linear-gradient(#262a2d,#1d2023);box-shadow:inset 0 0 18px rgba(0,0,0,.75)}
+.hd{font-size:13px;font-weight:800;letter-spacing:2px;color:#f2b23a;text-transform:uppercase}
+
+/* shared strip */
+.sh{top:150px;height:96px}
+.sh .slate{padding:8px 14px}
+.sh .big{font-size:17px;font-weight:700;margin-top:3px;white-space:nowrap}
+.sh .sm{font-size:13.5px;color:#c4bcab;margin-top:4px;white-space:nowrap}
+.pill{display:inline-block;padding:1px 8px;border-radius:10px;border:1px solid #4d5358;font-size:13px;color:#aeb4ba;margin-right:4px}
+.pill.on{border-color:#f2b23a;color:#1c1408;background:#f2b23a;font-weight:800}
+.dot{display:inline-block;width:13px;height:13px;border-radius:50%;background:#f2b23a;margin-right:4px;vertical-align:-1px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.25)}
+.lnk{display:inline-block;padding:1px 9px;border-radius:4px;border:1px solid #6a5340;background:#2e241d;font-size:13px;font-weight:700;color:#efe6d2}
+
+/* fighter rows */
+.row{left:28px;width:1864px;height:168px}
+.row .slate{padding:8px 12px;display:grid;grid-template-columns:246px 140px 484px 548px 1fr;column-gap:14px}
+.who{display:flex;gap:11px}
+.pic{flex:none;width:84px;height:104px;border-radius:4px;position:relative;overflow:hidden;border:2px solid #0c0c0c;box-shadow:0 0 0 1px #5d4937}
+.pic i{position:absolute;left:25px;top:16px;width:34px;height:40px;border-radius:48%;background:rgba(0,0,0,.42)}
+.pic u{position:absolute;left:8px;top:60px;width:68px;height:62px;border-radius:34px 34px 0 0;background:rgba(0,0,0,.42)}
+.pic s{position:absolute;left:0;bottom:0;width:100%;height:18px;background:rgba(0,0,0,.62);font-size:11px;font-weight:800;text-align:center;line-height:18px;text-decoration:none;letter-spacing:1px;color:#efe6d2}
+.who h2{font-size:21px;font-weight:800;line-height:24px;color:#fff;white-space:nowrap}
+.who p{font-size:13.5px;color:#c4bcab;line-height:18px;white-space:nowrap}
+.flag{display:inline-block;margin-top:5px;padding:2px 8px;border-radius:3px;font-size:12.5px;font-weight:800;white-space:nowrap}
+.flag.r{background:#8e1d18;color:#ffe3dd}.flag.a{background:#8a5a12;color:#ffe9bd}.flag.s{background:#2f3a44;color:#cfe2f5}.flag.g{background:#1f4f37;color:#cdf3de}
+
+.seat{display:flex;flex-direction:column;gap:5px}
+.sbtn{height:46px;border-radius:5px;border:1px solid #4a4f54;background:#23272a;padding:3px 10px;color:#8f969d}
+.sbtn b{display:block;font-size:14.5px;letter-spacing:.5px}
+.sbtn span{font-size:12.5px}
+.sbtn.on{border-color:#f2b23a;background:linear-gradient(#4a3a18,#30260f);color:#fff}
+.sbtn.on b{color:#f2b23a}
+.seat em{font-style:normal;font-size:12px;color:#9aa1a8;line-height:14px}
+
+.read .hd{display:flex;justify-content:space-between;height:20px}
+.read .hd span{font-weight:600;letter-spacing:0;text-transform:none;color:#9aa1a8;font-size:12.5px;white-space:nowrap}
+.read .hd span b{color:#f8ecd2}
+.pull{display:flex;align-items:center;height:27px;margin-top:2px;border-radius:4px;border:1px solid transparent;padding:0 8px 0 0;font-size:14px;white-space:nowrap}
+.pull .tg{flex:none;width:84px;height:21px;margin-right:9px;border-radius:3px;font-size:11px;font-weight:800;letter-spacing:1px;text-align:center;line-height:21px;color:#111}
+.pull .tx{flex:1;overflow:hidden}
+.pull .rd{flex:none;width:15px;height:15px;border-radius:50%;border:2px solid #6a7076}
+.pull.on{border-color:#f2b23a;background:rgba(242,178,58,.12)}
+.pull.on .rd{border-color:#f2b23a;background:radial-gradient(#f2b23a 45%,transparent 50%)}
+.gd{flex:none;margin-right:8px;padding:0 6px;height:17px;border-radius:9px;background:#efe6d2;color:#2a1a12;font-size:11px;font-weight:800;line-height:17px}
+.t-weak{background:#ff8a70}.t-weap{background:#f2b23a}.t-goal{background:#45c986}.t-ahead{background:#6fb0ff}.t-mat{background:#b592f5}.t-grey{background:#b9bfc5}
+
+.wk{display:grid;grid-template-columns:30px repeat(7,70px);grid-template-rows:14px 57px 57px;gap:4px}
+.wk .d{font-size:11px;font-weight:800;letter-spacing:1px;color:#9aa1a8;text-align:center;line-height:14px}
+.wk .l{font-size:11px;font-weight:800;color:#9aa1a8;letter-spacing:1px;display:flex;align-items:center}
+.c{border-radius:4px;border:1px solid #454b50;background:#2a2f33;padding:4px 3px 0 5px;overflow:hidden}
+.c k{display:block;font-size:9.5px;font-weight:800;letter-spacing:.5px;color:#9aa1a8;line-height:12px;white-space:nowrap}
+.c b{display:block;font-size:11.5px;line-height:14px;margin-top:2px;color:#fff;white-space:nowrap}
+.c small{display:block;font-size:10.5px;color:#aeb4ba;line-height:13px;white-space:nowrap}
+.c.work{background:repeating-linear-gradient(135deg,#1c1f21 0 6px,#232628 6px 12px);border-color:#2f3336}
+.c.work k{color:#5d646a;margin-top:18px;text-align:center}
+.c.rest{background:transparent;border-style:dashed;border-color:#3a3f43}
+.c.rest k{color:#5d646a;margin-top:18px;text-align:center}
+.c.pads{border-color:#f2b23a;background:linear-gradient(#4a3a18,#2e250f)}.c.pads k{color:#f2b23a}
+.c.film{border-color:#6fb0ff;background:linear-gradient(#1f3350,#172538)}.c.film k{color:#8fc2ff}
+.c.spar{border-color:#ff8a70;background:linear-gradient(#4b241c,#321813)}.c.spar k{color:#ff9d87}
+.c.mat{border-color:#b592f5;background:linear-gradient(#35285a,#241b3d)}.c.mat k{color:#c9b0ff}
+.c.solo k{color:#cfd5da}
+
+.give .ln{font-size:14px;line-height:21px;margin-top:3px;white-space:nowrap;overflow:hidden}
+.give .ln:first-of-type{margin-top:4px}
+
+/* bottom */
+.guide{position:absolute;left:28px;top:960px;width:640px;height:106px}
+.face{position:absolute;left:0;top:2px;width:102px;height:102px;border-radius:50%;background:radial-gradient(circle at 50% 35%,#b98a62,#6a4a33 70%);border:4px solid #8a5a36;box-shadow:0 3px 10px rgba(0,0,0,.8);overflow:hidden}
+.face i{position:absolute;left:31px;top:26px;width:40px;height:44px;border-radius:46%;background:#e2b48a}
+.face u{position:absolute;left:23px;top:16px;width:56px;height:20px;border-radius:14px 14px 3px 3px;background:#5b4a3c}
+.face s{position:absolute;left:33px;top:54px;width:36px;height:18px;border-radius:0 0 18px 18px;background:#d9d4cc}
+.face q{position:absolute;left:10px;top:74px;width:82px;height:50px;border-radius:38px 38px 0 0;background:#3b4a57}
+.bub{position:absolute;left:118px;top:0;width:520px;height:106px;border-radius:14px;background:#f8ecd2;color:#2a1a12;padding:9px 16px;box-shadow:0 3px 10px rgba(0,0,0,.7)}
+.bub:before{content:"";position:absolute;left:-13px;top:42px;border:9px solid transparent;border-right:14px solid #f8ecd2;border-left:0}
+.bub .say{font-family:"Segoe Print","Ink Free",cursive;font-size:20px;line-height:26px;font-weight:700;white-space:nowrap}
+.bub .why{font-size:13px;color:#5a4634;margin-top:3px;white-space:nowrap}
+.bub .bt{position:absolute;left:16px;bottom:9px;display:flex;gap:10px}
+.rb{height:28px;padding:0 14px;border-radius:5px;background:linear-gradient(#c8372b,#8e1d18);color:#fff;font-weight:800;font-size:13.5px;line-height:27px}
+.db{height:28px;padding:0 14px;border-radius:5px;background:#3a2c22;color:#efe6d2;font-weight:700;font-size:13.5px;line-height:27px}
+.last{left:686px;top:960px;width:824px;height:106px}
+.last .slate{padding:9px 16px}
+.last .t{font-size:16.5px;line-height:23px;margin-top:5px;white-space:nowrap}
+.last .bt{position:absolute;right:22px;top:15px;display:flex;gap:8px}
+.lock{position:absolute;left:1528px;top:960px;width:364px;height:106px;border-radius:7px;background:linear-gradient(#d23f31,#8e1d18);border:2px solid #ee7f70;box-shadow:0 5px 0 #5a100d,0 8px 16px rgba(0,0,0,.7);padding:16px 22px}
+.lock b{display:block;font-size:27px;letter-spacing:1px;color:#fff;font-weight:800}
+.lock span{display:block;font-size:14.5px;color:#ffd9d2;margin-top:6px;white-space:nowrap}
+</style>
+</head>
+<body>
+
+<div class="top">
+ <div class="nav" style="left:18px">&lt;</div><div class="nav" style="left:66px;color:#6d655c">&gt;</div>
+ <div class="gym marker">ANVIL STREET GYM</div>
+ <div class="date">Mon 5 Jan 2026<small>Week 1</small></div>
+ <div class="tbtn" style="left:668px">Gym</div>
+ <div class="tbtn" style="left:764px">Mail (2 new)</div>
+ <div class="cash">$17,200<small>running -$728 a week</small></div>
+ <div class="needs">NEEDS YOU (2)<small>Deal the week, then two offers</small></div>
+ <div class="menu">Menu</div>
+</div>
+
+<div class="title">
+ <h1 class="marker">FIGHTERS</h1>
+ <div class="tab">Roster</div><div class="tab on">The week</div><div class="tab">Find a fighter</div>
+ <div class="hint">Mon 5 Jan to Sun 11 Jan. Four fighters, one coach, one paid seat. Nothing is fixed until the red button.</div>
+</div>
+
+<!-- shared things -->
+<div class="frame sh" style="left:28px;width:476px"><div class="slate">
+ <div class="hd">Paid seats</div>
+ <div class="big"><span class="gold">1 filled: Samira</span> &nbsp;$250 a week each</div>
+ <div class="sm">Cash lasts:&nbsp; <span class="pill">0: 36 wk</span><span class="pill on">1: 24 wk</span><span class="pill">2: 18 wk</span><span class="pill">3: 14 wk</span><span class="pill">4: 12 wk</span></div>
+</div></div>
+<div class="frame sh" style="left:516px;width:492px"><div class="slate">
+ <div class="hd">Reid's hands</div>
+ <div class="big"><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i> 6 of 6 places dealt</div>
+ <div class="sm">Lucy 2, Samira 2, Tess 2 (1 film) &nbsp; <span class="lnk">+ a 4th evening: -$115 classes</span></div>
+</div></div>
+<div class="frame sh" style="left:1020px;width:416px"><div class="slate">
+ <div class="hd">Sparring, Thursday</div>
+ <div class="big">Lucy 60 kg with Samira 65 kg</div>
+ <div class="sm"><span class="red">Tess 75 kg: nobody her size.</span> &nbsp;<span class="lnk">Outside mate $40</span> <span class="lnk">Skip</span></div>
+</div></div>
+<div class="frame sh" style="left:1448px;width:444px"><div class="slate">
+ <div class="hd">York Hall club show, Sat 17 Jan</div>
+ <div class="big">2 offers: <span class="gold">Tess</span> and <span class="gold">Samira</span>. Answer by Thu.</div>
+ <div class="sm">Both = 2 film evenings: 2 of next week's 6 places gone.</div>
+</div></div>
+
+<!-- SAMIRA -->
+<div class="frame row" style="top:254px"><div class="slate">
+ <div class="who">
+  <div class="pic" style="background:linear-gradient(#b0562e,#5c2a16)"><i></i><u></u><s>65 KG</s></div>
+  <div><h2>Samira Khan</h2><p>Welterweight, slugger</p><p>18, record 2-1</p><span class="flag a">Goal: 21 days</span><br><span class="flag s">Offer: v Okoro</span></div>
+ </div>
+ <div class="seat">
+  <div class="sbtn on"><b>FULL TIME</b><span>6 mornings, $250</span></div>
+  <div class="sbtn"><b>DAY JOB</b><span>2 mornings, $0</span></div>
+  <em>Off the seat inside 8 weeks: mood -10</em>
+ </div>
+ <div class="read">
+  <div class="hd">The read <span>The guide says <b>WEAKNESS</b>. Pick one: it writes the mornings.</span></div>
+  <div class="pull on"><span class="tg t-weak">WEAKNESS</span><span class="tx">Slip rope: Defence 50, <b class="grn">+1.2</b> a week</span><span class="rd"></span></div>
+  <div class="pull"><span class="tg t-weap">WEAPON</span><span class="tx">Heavy bag: Power 66, +0.6. <b>Finisher</b> in 7 weeks</span><span class="rd"></span></div>
+  <div class="pull"><span class="tg t-goal">GOAL</span><span class="tx">Roadwork: engine +3.1 in 21 days. Mood +10 / -20</span><span class="rd"></span></div>
+  <div class="pull"><span class="tg t-ahead">AHEAD</span><span class="tx">Okoro, Finch, Delgado. Answers owned 1 of 3</span><span class="rd"></span></div>
+ </div>
+ <div class="wk">
+  <div></div><div class="d">MON</div><div class="d">TUE</div><div class="d">WED</div><div class="d">THU</div><div class="d">FRI</div><div class="d">SAT</div><div class="d">SUN</div>
+  <div class="l">AM</div>
+  <div class="c"><k>NORMAL</k><b>Slip rope</b><small>defence</small></div>
+  <div class="c"><k>NORMAL</k><b>Roadwork</b><small>engine</small></div>
+  <div class="c"><k>NORMAL</k><b>Slip rope</b><small>defence</small></div>
+  <div class="c"><k>LIGHT</k><b>Slip rope</b><small>defence</small></div>
+  <div class="c"><k>NORMAL</k><b>Roadwork</b><small>engine</small></div>
+  <div class="c"><k>NORMAL</k><b>Slip rope</b><small>defence</small></div>
+  <div class="c rest"><k>REST</k></div>
+  <div class="l">PM</div>
+  <div class="c pads"><k>PADS, REID</k><b>Cross</b><small>31 to 35</small></div>
+  <div class="c rest"><k>REST</k></div>
+  <div class="c rest"><k>REST</k></div>
+  <div class="c spar"><k>SPAR</k><b>v Lucy</b><small>ring sense</small></div>
+  <div class="c pads"><k>PADS, REID</k><b>Cross</b><small>35 to 38</small></div>
+  <div class="c rest"><k>REST</k></div>
+  <div class="c rest"><k>REST</k></div>
+ </div>
+ <div class="give">
+  <div class="hd">This week gives</div>
+  <div class="ln">Defence <b class="grn">+0.9</b> &nbsp; Engine <b class="grn">+0.3</b> &nbsp; Ring sense <b class="grn">+0.2</b></div>
+  <div class="ln">Cross 31 to 38. <span class="mut">Sharp on Mon 9 Feb</span></div>
+  <div class="ln"><span class="red">Goal at risk:</span> wants 4 roadwork mornings, has 2</div>
+  <div class="ln">Tiredness peaks 58. <span class="grn">Fine</span></div>
+ </div>
+</div></div>
+
+<!-- LUCY -->
+<div class="frame row" style="top:430px"><div class="slate">
+ <div class="who">
+  <div class="pic" style="background:linear-gradient(#2f6fb5,#173a63)"><i></i><u></u><s>60 KG</s></div>
+  <div><h2>Lucy Jackson</h2><p>Lightweight, out-boxer</p><p>21, record 3-1</p><span class="flag g">Fresh</span><br><span class="flag s">No offer yet</span></div>
+ </div>
+ <div class="seat">
+  <div class="sbtn"><b>FULL TIME</b><span>6 mornings, $250</span></div>
+  <div class="sbtn on"><b>DAY JOB</b><span>2 mornings, $0</span></div>
+  <em>A 2nd seat: cash lasts 18 weeks</em>
+ </div>
+ <div class="read">
+  <div class="hd">The read <span>The guide says <b>WEAPON</b>. Pick one: it writes the mornings.</span></div>
+  <div class="pull on"><span class="tg t-weap">WEAPON</span><span class="tx">Speed bag: Speed 63, <b class="grn">+0.8</b>. <b>Fast hands</b> in 10 weeks</span><span class="rd"></span></div>
+  <div class="pull"><span class="tg t-weak">LOWEST</span><span class="tx">Slip rope: Defence 57, +1.1 a week</span><span class="rd"></span></div>
+  <div class="pull"><span class="tg t-goal">ROAD</span><span class="tx">Nationals need 5 bouts, has 4. Entries close week 10</span><span class="rd"></span></div>
+  <div class="pull"><span class="tg t-ahead">AHEAD</span><span class="tx">Ortega, Nair, Doyle. Answers owned 2 of 3</span><span class="rd"></span></div>
+ </div>
+ <div class="wk">
+  <div></div><div class="d">MON</div><div class="d">TUE</div><div class="d">WED</div><div class="d">THU</div><div class="d">FRI</div><div class="d">SAT</div><div class="d">SUN</div>
+  <div class="l">AM</div>
+  <div class="c work"><k>AT WORK</k></div><div class="c work"><k>AT WORK</k></div><div class="c work"><k>AT WORK</k></div><div class="c work"><k>AT WORK</k></div><div class="c work"><k>AT WORK</k></div>
+  <div class="c"><k>NORMAL</k><b>Speed bag</b><small>speed</small></div>
+  <div class="c"><k>NORMAL</k><b>Speed bag</b><small>speed</small></div>
+  <div class="l">PM</div>
+  <div class="c pads"><k>PADS, REID</k><b>Check hook</b><small>18 to 23</small></div>
+  <div class="c solo"><k>SOLO</k><b>Slip rope</b><small>light, defence</small></div>
+  <div class="c pads"><k>PADS, REID</k><b>Check hook</b><small>23 to 27</small></div>
+  <div class="c spar"><k>SPAR</k><b>v Samira</b><small>ring sense</small></div>
+  <div class="c solo"><k>SOLO</k><b>Speed bag</b><small>light, speed</small></div>
+  <div class="c rest"><k>REST</k></div>
+  <div class="c rest"><k>REST</k></div>
+ </div>
+ <div class="give">
+  <div class="hd">This week gives</div>
+  <div class="ln">Speed <b class="grn">+0.4</b> &nbsp; Defence <b class="grn">+0.1</b> &nbsp; Ring sense <b class="grn">+0.2</b></div>
+  <div class="ln">Check hook 18 to 27. <span class="gold">Usable Mon 19 Jan</span></div>
+  <div class="ln"><span class="mut">On the seat instead:</span> Speed +1.0 a week</div>
+  <div class="ln">Next show with room: Sat 31 Jan</div>
+ </div>
+</div></div>
+
+<!-- TESS -->
+<div class="frame row" style="top:606px"><div class="slate">
+ <div class="who">
+  <div class="pic" style="background:linear-gradient(#a02c28,#541514)"><i></i><u></u><s>75 KG</s></div>
+  <div><h2>Tess Reilly</h2><p>Middleweight, pressure</p><p>23, record 6-4, rank 4</p><span class="flag r">1.1 kg over</span><br><span class="flag s">Offer: 12 days out</span></div>
+ </div>
+ <div class="seat">
+  <div class="sbtn"><b>FULL TIME</b><span>6 mornings, $250</span></div>
+  <div class="sbtn on"><b>DAY JOB</b><span>2 mornings, $0</span></div>
+  <em>Mornings burn weight: 74.5 on the day</em>
+ </div>
+ <div class="read">
+  <div class="hd">The read <span>The guide says <b>THE SCALE</b>. A bout in 12 days: no building.</span></div>
+  <div class="pull on"><span class="tg t-weak">THE SCALE</span><span class="tx">76.1 kg for 75.0. Cut from today: <b class="gold">74.9</b> on the day</span><span class="rd"></span></div>
+  <div class="pull"><span class="tg t-grey">HOLD</span><span class="tx">No cut: 75.8 on the day. Bout off, club pays $300</span><span class="rd"></span></div>
+  <div class="pull"><span class="tg t-goal">STAKE</span><span class="tx">Win: 7-4, rank 4 to 3, a promoter may call</span></div>
+  <div class="pull"><span class="tg t-ahead">LATER</span><span class="tx">After the bout: Speed 55 still grows +0.8 a week</span></div>
+ </div>
+ <div class="wk">
+  <div></div><div class="d">MON</div><div class="d">TUE</div><div class="d">WED</div><div class="d">THU</div><div class="d">FRI</div><div class="d">SAT</div><div class="d">SUN</div>
+  <div class="l">AM</div>
+  <div class="c work"><k>AT WORK</k></div><div class="c work"><k>AT WORK</k></div><div class="c work"><k>AT WORK</k></div><div class="c work"><k>AT WORK</k></div><div class="c work"><k>AT WORK</k></div>
+  <div class="c"><k>NORMAL</k><b>Roadwork</b><small>-0.2 kg</small></div>
+  <div class="c"><k>LIGHT</k><b>Roadwork</b><small>-0.1 kg</small></div>
+  <div class="l">PM</div>
+  <div class="c solo"><k>SOLO</k><b>Roadwork</b><small>light, -0.1 kg</small></div>
+  <div class="c rest"><k>REST</k></div>
+  <div class="c film"><k>FILM, REID</k><b>Croft</b><small>1 tell</small></div>
+  <div class="c spar"><k>SPAR $40</k><b>outside</b><small>southpaw</small></div>
+  <div class="c pads"><k>PADS, REID</k><b>Body hook</b><small>44 to 47</small></div>
+  <div class="c rest"><k>REST</k></div>
+  <div class="c rest"><k>REST</k></div>
+ </div>
+ <div class="give">
+  <div class="hd">This week gives</div>
+  <div class="ln">Weight 76.1 to <b class="gold">75.5</b> by Sunday, on a cut</div>
+  <div class="ln">Film: one tell on Croft, Wednesday</div>
+  <div class="ln">Body hook 44 to 47 &nbsp; Ring sense <b class="grn">+0.1</b></div>
+  <div class="ln">Tiredness peaks 47. <span class="grn">Fresh for fight week</span></div>
+ </div>
+</div></div>
+
+<!-- ANA -->
+<div class="frame row" style="top:782px"><div class="slate">
+ <div class="who">
+  <div class="pic" style="background:linear-gradient(#6a4bb0,#33225c)"><i></i><u></u><s>NO-GI</s></div>
+  <div><h2>Ana Ribeiro</h2><p>No-gi featherweight</p><p>22, white, 2 stripes</p><span class="flag s">Open: Sat 24 Jan</span><br><span class="flag g">Opens 4-2</span></div>
+ </div>
+ <div class="seat">
+  <div class="sbtn"><b>FULL TIME</b><span>5 classes, $250</span></div>
+  <div class="sbtn on"><b>DAY JOB</b><span>3 classes, $0</span></div>
+  <em>Mat coach $34 a class</em>
+ </div>
+ <div class="read">
+  <div class="hd">The read <span>The guide says <b>THE HOLE</b>. Pick one: it sets the classes' drill.</span></div>
+  <div class="pull on"><span class="tg t-mat">THE HOLE</span><span class="tx">Held in side control. Elbow escape <b class="grn">owned</b> next week</span><span class="rd"></span></div>
+  <div class="pull"><span class="tg t-weap">STRIPE</span><span class="tx">Knee cut pass 27: stripe 3 two weeks sooner</span><span class="rd"></span></div>
+  <div class="pull"><span class="tg t-goal">SEAT</span><span class="tx">Full time: blue belt 9 weeks sooner, +3 mat members</span></div>
+  <div class="pull"><span class="tg t-ahead">OPEN</span><span class="tx">London no-gi open, Sat 24 Jan. Enter by Fri 16 Jan</span></div>
+ </div>
+ <div class="wk">
+  <div></div><div class="d">MON</div><div class="d">TUE</div><div class="d">WED</div><div class="d">THU</div><div class="d">FRI</div><div class="d">SAT</div><div class="d">SUN</div>
+  <div class="l">AM</div>
+  <div class="c work"><k>AT WORK</k></div><div class="c work"><k>AT WORK</k></div><div class="c work"><k>AT WORK</k></div><div class="c work"><k>AT WORK</k></div><div class="c work"><k>AT WORK</k></div>
+  <div class="c mat"><k>MAT, CLASS</k><b>Elbow esc.</b><small>26 to 28</small></div>
+  <div class="c rest"><k>REST</k></div>
+  <div class="l">PM</div>
+  <div class="c rest"><k>REST</k></div>
+  <div class="c mat"><k>MAT, CLASS</k><b>Elbow esc.</b><small>22 to 24</small></div>
+  <div class="c rest"><k>REST</k></div>
+  <div class="c mat"><k>MAT, CLASS</k><b>Elbow esc.</b><small>24 to 26</small></div>
+  <div class="c rest"><k>REST</k></div>
+  <div class="c rest"><k>REST</k></div>
+  <div class="c rest"><k>REST</k></div>
+ </div>
+ <div class="give">
+  <div class="hd">This week gives</div>
+  <div class="ln">Elbow escape 22 to <b class="pur">28</b>. <span class="mut">Owned at 30</span></div>
+  <div class="ln">Mat time 3 classes. <span class="mut">Stripe 3 in 9 more</span></div>
+  <div class="ln">Takes no pad place. <span class="mut">Mat dues in: $203 a week</span></div>
+  <div class="ln">Sat 24 Jan: no ring show that night. <span class="grn">Your corner</span></div>
+ </div>
+</div></div>
+
+<!-- bottom -->
+<div class="guide">
+ <div class="face"><q></q><i></i><s></s><u></u></div>
+ <div class="bub">
+  <div class="say">Samira hits hard and gets hit. Slip rope first.</div>
+  <div class="why">Slip rope: defence +1.2 a week. Heavy bag: power +0.6. The goal wants roadwork.</div>
+  <div class="bt"><div class="rb">Next: Lucy</div><div class="db">Skip the guide</div></div>
+ </div>
+</div>
+
+<div class="frame last"><div class="slate">
+ <div class="hd">Your last move, and who paid for it</div>
+ <div class="t"><b class="gold">Tess's film</b> took Wednesday's second place. Samira has two pad evenings, not three.</div>
+ <div class="t">Samira's cross turns Sharp on <b class="red">Mon 9 Feb</b>, not Mon 2 Feb. Tess gets one tell on Croft.</div>
+ <div class="bt"><div class="db">Undo</div><div class="db">Reid's own deal</div></div>
+</div></div>
+
+<div class="lock"><b>LOCK IN THE WEEK</b><span>All four. Then Continue to Thu 8 Jan: two offers.</span></div>
+
+</body>
+</html>

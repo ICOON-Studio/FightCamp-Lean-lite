@@ -484,5 +484,5 @@ static func keys(a: Dictionary) -> Array:
 	out.append({"name": "Defence", "value": defence})
 	out.append({"name": "Power", "value": v(a, "power")})
 	out.append({"name": "Durability", "value": v(a, "durability")})
-	out.append({"name": "Engine", "value": v(a, "stamina")})
+	out.append({"name": "Stamina", "value": v(a, "stamina")})
 	return out

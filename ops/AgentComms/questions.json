@@ -6439,6 +6439,22 @@
       "answered_at": "2026-11-10T12:32:28Z",
       "seen_by_claude": true,
       "comment_only": true
+    },
+    {
+      "id": "Q-S294-179",
+      "asked": "2026-11-11T07:10:10.308045+00:00",
+      "session": "S294",
+      "text": "Two new design maps are written: the four-fighter start (with the guide pointing at a different training per fighter) and the amateur fight week (no camp). The rule says two fresh critics score each before it reaches you. Usage now: weekly 0% used, extra usage EUR 37.92 of 40. Run the critics?",
+      "options": [
+        "Yes, run the critics",
+        "Show me the maps first, no critics",
+        "Wait"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

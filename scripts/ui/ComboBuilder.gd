@@ -274,7 +274,10 @@ func _refresh(play: bool) -> void:
 			"Every punch in the %s must be Usable first (mastery 30)" % bid)
 		drill.name = "DrillCombo"
 		btns.add_child(drill)
+	btns.name = "ComboButtons"
 	_rows.add_child(btns)
+	# S429 operator, on a six-move chain: "how do i save the combo ?" - the buttons sat under the lessons, off the panel.
+	_rows.move_child(btns, lessons.get_index())
 	if play:
 		_play()
 
