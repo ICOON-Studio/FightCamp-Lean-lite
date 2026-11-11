@@ -593,6 +593,15 @@
    "answer": "research/K_CORNER_MORE_S427_BRIEF_KALLI.md",
    "chars": 23818,
    "seen_by_claude": true
+  },
+  {
+   "id": "SQ41",
+   "seat": "john",
+   "brief": "research/J_FIGHT_ANIM_TECH_S431_BRIEF.md",
+   "stem": "J_FIGHT_ANIM_TECH_S431_BRIEF_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-11 12:33",
+   "tries": 0
   }
  ]
 }
