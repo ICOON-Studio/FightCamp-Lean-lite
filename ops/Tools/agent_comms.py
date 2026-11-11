@@ -1727,6 +1727,13 @@ def _collect_now():
             act.append({"id": run_id, "agent": info.get("agent", ""), "verdict": "landed" if info["status"] == "landed" else "dead",
                         "why": str(info.get("reconciled", info.get("status")))})
     unread = [r for r in rows if r.get("verdict") == "unknown"]
+    try:  ## S438 (operator S437: "whos verifying the boxing clips ?"): the count is printed every start so it cannot go quiet again
+        box = json.loads((ROOT / "AgentComms" / "clip_verdicts.json").read_text(encoding="utf-8")).get("boxing", {})
+        ok = sum(1 for v in box.values() if any(r.get("pass") for r in v))
+        print("CLIPS verified %d of %d checked boxing clips (owner: Claude reads the side films, Cursor fixes - CLIPFIX1; "
+              "a pass = his OK or the judge at 9+)" % (ok, len(box)))
+    except (OSError, ValueError):
+        print("CLIPS verified: clip_verdicts.json unreadable")
     print("COLLECT NOW - FIRST WORK OF THE SESSION (operator S232: \"always collect at start of session\")")
     for r in act:
         what = {"landed": "COLLECT (diff + parse + test)", "merged": "close the run", "dead": "STOPPED - relaunch or close"}[r["verdict"]]

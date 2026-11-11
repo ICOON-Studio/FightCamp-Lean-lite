@@ -4869,9 +4869,15 @@
     "after": "RIBS1"
    },
    {
+    "id": "PUNCHFORM1",
+    "who": "qwen",
+    "title": "The maths of a punch's form (did the arm straighten, did it hang, where was the other hand): one pure module + its test, for the clip ruler",
+    "after": ""
+   },
+   {
     "id": "CLIPFIX1",
     "who": "cursor",
-    "title": "The punches that read wrong on the side films: cross B (short, bent), the lead hook (straight arm), the body shot (bowed lunge)",
+    "title": "The punches that read wrong on the side films (12 of 15): a form ruler that agrees with the frame reads, then each clip fixed or cut",
     "after": "RIBS1"
    },
    {
@@ -5438,6 +5444,30 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Glove touch: shoulders, neck",
+     "who": "claude"
+    },
+    {
+     "text": "Re-measured punch contacts in",
+     "who": "claude"
+    },
+    {
+     "text": "Dues sums 3: no robust setting",
+     "who": "agent"
+    },
+    {
+     "text": "Rank shown: Why + fighter page",
+     "who": "agent"
+    },
+    {
+     "text": "Today's damage judged: 3 and 3.5",
+     "who": "claude"
+    },
+    {
+     "text": "Punch clips on side films",
+     "who": "claude"
+    },
+    {
      "text": "Intro from the corners (Claude)",
      "who": "claude"
     },
@@ -5468,58 +5498,9 @@
     {
      "text": "Training v6 passed: 7 and 7",
      "who": "claude"
-    },
-    {
-     "text": "Ana's mat plan passed: 7 and 7",
-     "who": "claude"
-    },
-    {
-     "text": "Main's red tests fixed",
-     "who": "claude"
-    },
-    {
-     "text": "No sparring after a hard bout",
-     "who": "claude"
-    },
-    {
-     "text": "Each ability's own ceiling",
-     "who": "agent"
-    },
-    {
-     "text": "Dues + youth on every screen",
-     "who": "agent"
-    },
-    {
-     "text": "Feather + middle pro tables",
-     "who": "claude"
     }
    ],
-   "done_session": [
-    {
-     "text": "Glove touch: shoulders, neck",
-     "who": "claude"
-    },
-    {
-     "text": "Re-measured punch contacts in",
-     "who": "claude"
-    },
-    {
-     "text": "Dues sums 3: no robust setting",
-     "who": "agent"
-    },
-    {
-     "text": "Rank shown: Why + fighter page",
-     "who": "agent"
-    },
-    {
-     "text": "Today's damage judged: 3 and 3.5",
-     "who": "claude"
-    },
-    {
-     "text": "Punch clips on side films",
-     "who": "claude"
-    }
-   ],
+   "done_session": [],
    "now": [
     {
      "text": "Foundation: Cardio, Tank, punches",
@@ -5538,12 +5519,16 @@
      "who": "claude"
     },
     {
-     "text": "Damage + injuries: judge, redesign",
+     "text": "Damage map split in two + critics",
      "who": "claude"
     },
     {
-     "text": "Voices PR 218: collect (Qwen)",
-     "who": "agent"
+     "text": "RIBS1 + voices PR: review, collect",
+     "who": "claude"
+    },
+    {
+     "text": "Punch side films: read the 7",
+     "who": "claude"
     }
    ],
    "next": [
@@ -5600,7 +5585,7 @@
      "who": "agent"
     }
    ],
-   "session": "S437"
+   "session": "S438"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

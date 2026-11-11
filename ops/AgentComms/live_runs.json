@@ -367,6 +367,22 @@
     "seat_pid": 3224
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+  },
+  "PUNCHFORM1": {
+   "agent": "goose",
+   "id": "PUNCHFORM1",
+   "title": "QWEN (qwen3-coder) - the maths of a punch's form: one pure module + its test",
+   "status": "running",
+   "started": "2026-11-12T01:02",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_PUNCHFORM1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-12T02:02",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (roadmap plan.next)",
+   "issue": "219",
+   "branch": "goose/issue-219",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/219"
   }
  },
  "codex_budget": {

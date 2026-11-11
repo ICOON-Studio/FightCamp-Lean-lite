@@ -36,6 +36,15 @@
     "note": "Foot sliding: Minor sliding visible at 0:01.6 and 0:01.8 as the weight shifts.",
     "source": "previews/lean_anim/pro_left_jab_c.gemini_argon.md",
     "when": "2026-11-07"
+   },
+   {
+    "check": "Claude's frame read, S438: side film at quarter speed, one tile per 66 ms (fixed side camera, preview route)",
+    "result": "FIX",
+    "pass": false,
+    "frames": true,
+    "note": "a real jab with a small step; out over two tiles, then held at full reach about 260 ms; rear heel lifts. No second punch seen on the side film.",
+    "source": "ops/previews/lean_anim_side/pro_left_jab_c.mp4",
+    "when": "2026-11-12"
    }
   ],
   "pro_hit_by_hook_v7_short": [
@@ -546,6 +555,15 @@
     "note": "Foot sliding: Significant sliding/drifting at 0:00.2 and 0:01.0.",
     "source": "previews/lean_anim/pro_left_jab.gemini_argon.md",
     "when": "2026-11-07"
+   },
+   {
+    "check": "Claude's frame read, S438: side film at quarter speed, one tile per 66 ms (fixed side camera, preview route)",
+    "result": "FIX",
+    "pass": false,
+    "frames": true,
+    "note": "reads as a real jab (arm straight, shoulder turned in, rear glove at the chin, out in one 66 ms tile) but it hangs at full reach about 330 ms before it comes back; a jab is out and back in about 200.",
+    "source": "ops/previews/lean_anim_side/pro_left_jab.mp4",
+    "when": "2026-11-12"
    }
   ],
   "pro_left_jab_a": [
@@ -836,6 +854,61 @@
     "pass": false,
     "frames": true,
     "note": "a long lunge step with the trunk bowed nearly flat and the hand pushed straight out at chest height: a diving body straight, not a hook to the ribs, and she ends far over her front knee."
+   }
+  ],
+  "pro_right_cross_a": [
+   {
+    "check": "Claude's frame read, S438: side film at quarter speed, one tile per 66 ms (fixed side camera, preview route)",
+    "result": "FIX",
+    "pass": false,
+    "frames": true,
+    "note": "short and bent like cross B: the rear arm never straightens (the glove stops about a forearm in front of the lead glove), three tiles only, almost no hip or shoulder turn.",
+    "source": "ops/previews/lean_anim_side/pro_right_cross_a.mp4",
+    "when": "2026-11-12"
+   }
+  ],
+  "pro_right_cross_c": [
+   {
+    "check": "Claude's frame read, S438: side film at quarter speed, one tile per 66 ms (fixed side camera, preview route)",
+    "result": "FIX",
+    "pass": false,
+    "frames": true,
+    "note": "the best of the crosses for reach (arm close to straight, held two tiles), but the lead glove drops to chest height while the cross is out and the hips barely turn.",
+    "source": "ops/previews/lean_anim_side/pro_right_cross_c.mp4",
+    "when": "2026-11-12"
+   }
+  ],
+  "pro_left_hook_v2": [
+   {
+    "check": "Claude's frame read, S438: side film at quarter speed, one tile per 66 ms (fixed side camera, preview route)",
+    "result": "FIX",
+    "pass": false,
+    "frames": true,
+    "note": "the lead glove drops to the hip first (about 200 ms, a tell), then swings with the arm almost straight at shoulder height before the elbow bends; she turns her whole back through the punch.",
+    "source": "ops/previews/lean_anim_side/pro_left_hook_v2.mp4",
+    "when": "2026-11-12"
+   }
+  ],
+  "pro_left_uppercut": [
+   {
+    "check": "Claude's frame read, S438: side film at quarter speed, one tile per 66 ms (fixed side camera, preview route)",
+    "result": "FIX",
+    "pass": false,
+    "frames": true,
+    "note": "good knee dip, but the glove waits at the thigh about 260 ms and finishes ABOVE her own head (out of frame); an uppercut ends at chin height. Body spins past square.",
+    "source": "ops/previews/lean_anim_side/pro_left_uppercut.mp4",
+    "when": "2026-11-12"
+   }
+  ],
+  "pro_kidney_shot": [
+   {
+    "check": "Claude's frame read, S438: side film at quarter speed, one tile per 66 ms (fixed side camera, preview route)",
+    "result": "FIX",
+    "pass": false,
+    "frames": true,
+    "note": "a long bowed lunge: the head goes past the lead knee, the glove travels from the hip to waist height with a long step in and about 700 ms to get back. Rear hand stays up (good).",
+    "source": "ops/previews/lean_anim_side/pro_kidney_shot.mp4",
+    "when": "2026-11-12"
    }
   ]
  },
