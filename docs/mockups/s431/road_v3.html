@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>The road v3: amateur to professional, both kinds side by side (the guide's step 2, on Fights) (S431)</title>
+<link rel="stylesheet" href="v3_shell.css">
+<style>
+.tabs{left:258px}
+.guide{display:flex;align-items:center;gap:12px;height:48px;padding:0 16px 0 10px;border-radius:8px;background:#252d45;font-weight:700;white-space:nowrap;box-shadow:0 0 0 2px var(--gold),0 0 22px 2px rgba(255,205,90,.35)}
+.tag{display:inline-flex;align-items:center;height:30px;padding:0 10px;border-left:4px solid var(--navy2);border-radius:3px;background:#1a2033;color:var(--sky);font-weight:600;text-transform:uppercase;white-space:nowrap}
+/* road strips */
+#road{left:28px;top:152px;width:1864px;height:168px;padding:4px 14px}
+.rd{display:grid;grid-template-columns:372px repeat(5,1fr);align-items:center;height:80px}
+.rd+.rd{border-top:1px solid var(--line)}
+.rd .who{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.rd .who .face{--d:58px}
+.rd .who div{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.stp{display:flex;align-items:center;gap:10px;white-space:nowrap;position:relative;height:60px}
+.stp::after{content:"";position:absolute;right:14px;top:22px;width:12px;height:12px;border-right:4px solid rgba(255,255,255,.2);border-top:4px solid rgba(255,255,255,.2);transform:rotate(45deg)}
+.stp.done::after{border-color:var(--green)}
+.rd .stp:last-child::after{display:none}
+.nd{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:none;border:3px solid rgba(255,255,255,.25);color:var(--soft);font:400 22px/1 Bebas;background:#1b1512;position:relative;z-index:1}
+.done .nd{background:var(--green);border-color:var(--green);color:#082a15}
+.now .nd{background:var(--gold);border-color:#fff;color:#2b1d05;box-shadow:0 0 18px 2px rgba(255,205,90,.6)}
+.nd .ico{width:22px;height:22px;stroke-width:3}
+.stp b{display:block;font-weight:700;line-height:24px}
+.stp span{display:block;color:var(--soft);line-height:23px}
+.now b{color:var(--gold)}.now span{color:var(--ink)}
+/* the tape */
+#tape{left:28px;top:328px;width:1864px;height:412px;padding:6px 14px}
+.tr{display:grid;grid-template-columns:1fr 300px 1fr;align-items:center;height:40px;white-space:nowrap}
+.tr+.tr{border-top:1px solid var(--line)}
+.tr.h{height:44px;border-bottom:1px solid rgba(255,255,255,.2)}
+.tr .a{display:flex;justify-content:flex-end;align-items:baseline;gap:12px}
+.tr .p{display:flex;align-items:baseline;gap:12px}
+.tr .m{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--gold);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.tr b{font:400 27px/30px Bebas;letter-spacing:.03em}
+.tr .p b{color:var(--gold)}
+.tr.h .a,.tr.h .p{align-items:center}
+.tr.h .face{--d:36px;border-width:2px}
+/* bottom */
+.bt{top:748px;height:318px;padding:8px 14px}
+.bt .h{display:flex;align-items:center;gap:8px;height:30px;white-space:nowrap}
+.bo{display:flex;align-items:center;gap:10px;height:82px;margin-top:6px;border-radius:9px;border:1px solid var(--line);background:rgba(0,0,0,.26);padding:0 10px;white-space:nowrap}
+.bo .face{--d:58px;border-radius:10px;height:62px}
+.bo .x{display:flex;flex-direction:column;gap:3px}
+.bo .x b{font-weight:700}
+.bo .y{margin-left:auto;text-align:right;display:flex;flex-direction:column;gap:2px}
+.bo .y b{font:400 26px/27px Bebas;letter-spacing:.03em}
+.hb{display:inline-flex;align-items:center;height:24px;padding:0 8px;border-radius:6px;font-weight:700;white-space:nowrap}
+.hb.home{background:var(--gold);color:#2b1d05}.hb.away{background:var(--navy);box-shadow:inset 0 0 0 2px #93a0c0}
+.g4{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+.g4 .tile{height:134px;justify-content:flex-start;padding:7px 10px}
+.g4 .tile .l{color:var(--gold);font-weight:700;letter-spacing:.06em;text-transform:uppercase;line-height:24px}
+.g4 .tile b{font-size:30px;line-height:32px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
+.g3 .tile{height:106px;border-style:dashed}
+.g3 .tile b{color:var(--gold)}
+.bk{border-color:var(--gold);background:rgba(255,210,74,.10)}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="tick" viewBox="0 0 24 24"><path d="M4 12l6 6L20 6"/></symbol>
+<symbol id="crown" viewBox="0 0 24 24"><path d="M3 8l4 4 5-7 5 7 4-4-2 11H5z"/></symbol>
+<symbol id="glove" viewBox="0 0 24 24"><path d="M12 2v3M8 5h8v14a4 4 0 0 1-8 0zM8 10h8"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></symbol>
+<symbol id="pads" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="6"/><circle cx="12" cy="12" r="3.5"/></symbol>
+<symbol id="scale" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 9a5 5 0 0 1 8 0M12 9l2-2"/></symbol>
+<symbol id="bell" viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4zM10 21h4"/></symbol>
+<symbol id="cash" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="ladder" viewBox="0 0 24 24"><path d="M8 2v20M16 2v20M8 7h8M8 12h8M8 17h8"/></symbol>
+<symbol id="seat" viewBox="0 0 24 24"><path d="M6 3v18M6 13h12v8M6 8h9"/></symbol>
+<symbol id="cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+<symbol id="run" viewBox="0 0 24 24"><circle cx="14" cy="4" r="2"/><path d="M6 21l4-6-2-4 5-3 3 4h4M9 8l-4 3"/></symbol>
+<symbol id="cross" viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></symbol>
+</defs></svg>
+<div class="wall"></div>
+<div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span><span class="tdate"><b>Mon 5 Jan 2026</b><i>Week 1</i></span><span class="trail"><span class="rail plank9"><svg class="ico"><use href="#glove"/></svg>Gym</span><span class="rail plank9">Mail (3 new)</span></span><span class="tcash"><b>$14,600</b><i>running +$150 a week</i></span><span class="tgo plank9"><b>NEEDS YOU (1)</b><i>Tess: pick a bout</i></span><span class="tnav tmenu tab9">Menu</span></div>
+
+<div class="title"><span class="pin" style="background:#e2483d"><svg class="ico" style="width:28px;height:28px"><use href="#crown"/></svg></span>Fights</div>
+<div class="tabs"><span class="tab">Bout sheets <small>1 open</small></span><span class="tab">Professional offers</span><span class="tab">Names at the weight</span><span class="tab on">The road</span></div>
+<div class="acts"><span class="guide"><i class="face cut f-you" style="--d:36px;border-width:2px"></i><span class="tag">Guide 2 of 5</span>"Tess boxes for a rank. Lucy boxes for a purse."</span></div>
+
+<!-- the road, the club's own two people on it -->
+<div class="pn" id="road"></div>
+
+<!-- what changes, side by side -->
+<div class="pn" id="tape"></div>
+
+<!-- both kinds on Fights -->
+<div class="pn bt" style="left:28px;width:600px">
+ <div class="h"><i class="bdg am">AMATEUR</i><span class="hd">Tess: bout sheet, Sat 17 Jan</span></div>
+ <div class="bo"><i class="face f-amy"></i><div class="x"><b>Amy Croft</b><span class="row"><span class="hb home">HOME</span><span class="cap">York Hall · No. 5</span></span></div><div class="y"><b class="good">+$450</b><span class="cap">win chance 44 to 56%</span></div></div>
+ <div class="bo"><i class="face f-siobhan"></i><div class="x"><b>Siobhan Byrne</b><span class="row"><span class="hb away">AWAY</span><span class="cap">West Ham · No. 3</span></span></div><div class="y"><b class="gold">No. 4 → No. 3</b><span class="cap">win chance 30 to 42%</span></div></div>
+ <div class="bo"><i class="face f-niamh"></i><div class="x"><b>Niamh Doyle</b><span class="row"><span class="hb away">AWAY</span><span class="cap">the unknown · No. 7</span></span></div><div class="y"><b class="gold">+1 favour</b><span class="cap">win chance 28 to 56%</span></div></div>
+</div>
+
+<div class="pn bt" style="left:636px;width:620px">
+ <div class="h"><span class="hd">The day a boxer turns professional</span></div>
+ <div class="g4">
+  <div class="tile"><span class="l">The offer comes at</span><b>7 wins + a top-3 rank</b><span class="cap">or 9 wins, or a national final</span><span class="cap gold">Tess: 6 wins, No. 4</span></div>
+  <div class="tile"><span class="l">The club pays</span><b class="bad">$1,105</b><span class="cap">licence $230 + medicals $875</span><span class="cap">the paid seat stops</span></div>
+  <div class="tile"><span class="l">The debut</span><b>4 weeks on, 4 rounds</b><span class="cap">paid from tickets:</span><span class="cap">under 60 of 100 sold pays $0</span></div>
+  <div class="tile"><span class="l">Saying no</span><b>back after 2 more wins</b><span class="cap">on 90% of the terms; a 2nd no:</span><span class="cap">only at No. 1; a 3rd: never</span></div>
+ </div>
+</div>
+
+<div class="pn bt" style="left:1264px;width:628px">
+ <div class="h"><i class="bdg pro">PRO</i><span class="hd">Lucy: booked, Sat 14 Feb</span></div>
+ <div class="bo bk"><i class="face f-kay"></i><div class="x"><b>Kayleigh Doran</b><span class="cap">York Hall · 4 rounds · camp week 1 of 6</span></div><div class="y"><b class="gold">purse $1,500</b><span class="cap">the club keeps $375</span></div></div>
+ <div class="cap" style="margin-top:8px">After the bout the promoter brings three offers (7 days to answer):</div>
+ <div class="g3">
+  <div class="tile"><b>Tune-up</b><span class="cap">likely win</span><span class="cap">6 weeks to the next</span></div>
+  <div class="tile"><b>Step up</b><span class="cap">about even</span><span class="cap">more purse</span></div>
+  <div class="tile"><b>Payday</b><span class="cap">long shot</span><span class="cap">the most money</span></div>
+ </div>
+</div>
+
+<script>
+const I=(n,st)=>`<svg class="ico"${st?` style="${st}"`:''}><use href="#${n}"/></svg>`;
+const steps=['First bout','Nationals ready','The nationals','Pro offer','Pro debut'];
+const R=[
+ {id:'tess',nm:'Tess Reilly',bd:['am','AMATEUR'],sub:'Middleweight · 6-4',st:[['done','10 bouts boxed'],['done','registered, age 23'],['todo','stay amateur to enter'],['now','1 more win and top 3'],['todo','4 weeks after signing']]},
+ {id:'lucy',nm:'Lucy Jackson',bd:['pro','PRO'],sub:'Lightweight · 1-0',st:[['done','amateur card 9-3'],['done','registered'],['done','boxed 2025'],['done','signed in October'],['done','won: now for the purse']]},
+];
+document.getElementById('road').innerHTML=R.map(r=>`<div class="rd"><div class="who"><i class="face cut f-${r.id}"></i><div><span class="plate">${r.nm}</span><span class="row"><i class="bdg ${r.bd[0]}">${r.bd[1]}</i><span class="cap">${r.sub}</span></span></div></div>`+
+ r.st.map((s,i)=>`<div class="stp ${s[0]}"><i class="nd">${s[0]=='done'?I('tick'):i+1}</i><div><b>${steps[i]}</b><span>${s[1]}</span></div></div>`).join('')+`</div>`).join('');
+const T=[
+ ['clock','Notice','12 days','the bout sheet: 3 bouts every Monday','6 weeks','3 offers from the promoter, 7 days to answer'],
+ ['cal','Getting ready','a fight week','on the Club week board, no camp','a camp','Light, Standard or Hard; a peak and a taper'],
+ ['pads','Takes from the club','2 to 4 pad places','in one week','2 to 3 pad places','a week for 6 weeks, plus sparring evenings'],
+ ['scale','Weight','1.0 kg gap','walking weight, 4 pm on the day','the class limit','weigh-in the day before'],
+ ['bell','Rounds','3','','4','then 6 ranked, 8 in the top 10, 10 for a title'],
+ ['cash','Money','$450','ticket cut at home, none away','$1,500 purse','the club keeps 25%: $375, less the camp bill $90'],
+ ['ladder','Ladder','regional','Tess: No. 4 of 8','national','Lucy: unranked; about 20 are ranked'],
+ ['seat','Paid seat','$250 a week','may hold a 4-week seat','none','the purse is the pay; the job stays'],
+ ['run','How often','up to 9 a year','no fixed wait: the tank decides','every 6, 8 or 12 weeks','by how hard the last night was'],
+];
+document.getElementById('tape').innerHTML=`<div class="tr h"><div class="a"><span class="cap">3 rounds for a rank</span><span class="plate">Tess Reilly</span><i class="bdg am">AMATEUR</i><i class="face cut f-tess"></i></div><div class="m" style="color:#fff">What changes</div><div class="p"><i class="face cut f-lucy"></i><i class="bdg pro">PRO</i><span class="plate">Lucy Jackson</span><span class="cap">4 rounds for a purse</span></div></div>`+
+ T.map(t=>`<div class="tr"><div class="a"><span class="cap">${t[3]}</span><b>${t[2]}</b></div><div class="m">${I(t[0])}${t[1]}</div><div class="p"><b>${t[4]}</b><span class="cap">${t[5]}</span></div></div>`).join('');
+</script>
+</body></html>

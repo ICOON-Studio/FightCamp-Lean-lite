@@ -1,0 +1,74 @@
+/* CLUBWEEK v3 drawings (S431): the gym screen's own top bar, a dark wall, flat panels, no wooden frames. Shared by clubweek_v3, fightweek_v3, road_v3. */
+@font-face{font-family:Marker;src:url(../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../assets/fonts/BebasNeue-Regular.ttf)}
+@font-face{font-family:Kalam;font-weight:700;src:url(../../../assets/fonts/Kalam-Bold.ttf)}
+:root{--ink:#f1e8da;--soft:#c9b9a2;--dim:#8f8474;--gold:#ffd24a;--red:#ee5a4b;--blue:#6ea6f5;--green:#3fc07a;--amber:#f5a33c;--teal:#55cfc4;
+ --navy:#1d2741;--navy2:#275696;--sky:#8eb8f2;--track:rgba(255,255,255,.11);--line:rgba(255,255,255,.085);--pn:rgba(255,255,255,.035)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:#120e0c;color:var(--ink);font:500 20px/1.2 Barlow,"Segoe UI",sans-serif}
+i,em,u,s{font-style:normal;text-decoration:none}
+.ico{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wall{position:absolute;left:0;right:0;top:78px;bottom:0;background:
+ radial-gradient(ellipse 900px 520px at 50% 22%,rgba(255,190,110,.10),transparent 72%),
+ radial-gradient(ellipse 620px 420px at 4% 60%,rgba(221,75,61,.05),transparent 70%),
+ radial-gradient(ellipse 620px 420px at 97% 55%,rgba(77,142,240,.05),transparent 70%),
+ linear-gradient(#1b1512,#130f0d 62%,#0e0b09)}
+/* the gym screen's top bar (Shell.gd: 78 px) */
+.top{position:absolute;left:0;top:0;width:1920px;height:78px;z-index:5;border-style:solid;border-width:0 0 8px 0;border-image:url(../../../assets/ui/wood/bar.png) 0 0 8 0 fill / 0 0 8px 0 / 0 stretch;display:flex;align-items:center;gap:14px;padding:8px 18px 0 18px;color:#efe6d8}
+.tab9{border:9px solid transparent;border-image:url(../../../assets/ui/wood/tab.png) 9 fill / 9px / 0 stretch}
+.plank9{border:9px solid transparent;border-image:url(../../../assets/ui/wood/plank.png) 9 fill / 9px / 0 stretch}
+.tnav{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font:500 20px/1 Barlow;flex:none}
+.tnav.off{opacity:.42}
+.tmenu{width:auto;height:37px;padding:0 3px 2px 3px;font:500 16px/1 Barlow}
+.tgym{font:400 32px/1 Marker;color:#6ea2f2;white-space:nowrap;padding-top:2px}
+.tdate{min-width:176px}.tdate b{display:block;font:500 19px/23px Barlow;white-space:nowrap}.tdate i{display:block;font:400 15px/18px Barlow;color:#b8a88f}
+.trail{flex:1;display:flex;justify-content:center;gap:6px}
+.rail{min-width:128px;height:48px;padding:0 5px 2px 5px;display:flex;align-items:center;justify-content:center;gap:8px;font:600 19px/1 Barlow;white-space:nowrap}
+.tcash{text-align:right}.tcash b{display:block;font:600 24px/28px Barlow;color:#e8c15a}.tcash i{display:block;font:400 15px/18px Barlow;color:#b8a88f;white-space:nowrap}
+.tgo{width:270px;height:54px;padding:0 7px 2px 7px;display:flex;flex-direction:column;justify-content:center;flex:none}
+.tgo b{display:block;font:600 19px/23px Barlow;white-space:nowrap}.tgo i{display:block;font:400 15px/18px Barlow;white-space:nowrap}
+/* the gym screen's pin and navy label */
+.pin{width:56px;height:56px;border-radius:50%;background:#1c2640;border:3px solid #fdfaf2;display:grid;place-items:center;color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.45);flex:none}
+.plate{display:inline-flex;align-items:center;height:32px;padding:0 10px;border-radius:8px;background:var(--navy);color:#fffbf3;font:700 22px/1 Barlow;white-space:nowrap}
+.title{position:absolute;left:28px;top:88px;height:56px;display:flex;align-items:center;gap:14px;font:400 44px/1 Marker;color:#fff;white-space:nowrap}
+.tabs{position:absolute;top:92px;display:flex;gap:6px}
+.tab{height:48px;padding:0 16px;border-radius:8px;display:flex;align-items:center;gap:9px;font-weight:700;color:#b8c3de;background:var(--navy);white-space:nowrap}
+.tab.on{color:#fff;background:var(--navy2);box-shadow:0 0 26px 2px rgba(255,205,90,.42)}
+.tab small{font:500 20px/1 Barlow;color:#93a0c0}
+.acts{position:absolute;right:28px;top:92px;display:flex;gap:8px;align-items:center}
+.go{display:flex;align-items:center;justify-content:center;gap:9px;height:48px;padding:0 18px;border-radius:11px;background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06;font-weight:700;box-shadow:0 3px 0 #9a6c10,0 0 26px 2px rgba(255,205,90,.30);white-space:nowrap}
+.go small{font:600 20px/1 Barlow;color:#5a3d08}
+/* flat panels, gold group titles */
+.pn{position:absolute;border-radius:14px;background:var(--pn);border:1px solid var(--line)}
+.hd{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;letter-spacing:.08em;color:var(--gold);white-space:nowrap;text-transform:uppercase}
+.hd .ico{color:var(--gold)}
+.cap{color:var(--soft);white-space:nowrap}
+.num{font-family:Bebas;font-weight:400;letter-spacing:.02em}
+.row{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.good{color:var(--green)}.bad{color:var(--red)}.gold{color:var(--gold)}.blue{color:var(--sky)}.warn{color:var(--amber)}
+.pill{display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:13px;font-weight:700;white-space:nowrap}
+.pill.red{background:var(--red);color:#2a0d08}.pill.gold{background:var(--gold);color:#2b1d05}.pill.green{background:var(--green);color:#082a15}.pill.amber{background:var(--amber);color:#2b1705}
+.bdg{display:inline-flex;align-items:center;height:24px;padding:0 8px;border-radius:5px;font-weight:700;letter-spacing:.04em;white-space:nowrap}
+.bdg.pro{background:var(--gold);color:#2b1d05}.bdg.am{box-shadow:inset 0 0 0 2px var(--ink)}.bdg.gr{box-shadow:inset 0 0 0 2px var(--teal);color:var(--teal)}
+.face{--d:56px;display:inline-block;width:var(--d);height:var(--d);border-radius:50%;flex:none;background-color:#1c2640;background-repeat:no-repeat;background-size:calc(var(--d)*2.3) auto;background-position:50% 24%;border:3px solid #fdfaf2}
+.face.cut{background-size:cover;background-position:50% 50%}
+.f-lucy{background-image:url(final/face_lucy.png)}.f-samira{background-image:url(final/face_samira.png)}.f-tess{background-image:url(final/face_tess.png)}
+.f-ana{background-image:url(final/face_ana.png)}.f-you{background-image:url(final/face_trainer.png)}
+.f-coach{background-image:url(../../../assets/ui/face/studio/mh_staff_coach.jpg)}.f-kira{background-image:url(../../../assets/ui/face/studio/mh_boxer_19.jpg)}
+.f-amy{background-image:url(../../../assets/ui/face/studio/mh_boxer_15.jpg)}.f-siobhan{background-image:url(../../../assets/ui/face/studio/mh_boxer_17.jpg)}
+.f-niamh{background-image:url(../../../assets/ui/face/studio/mh_boxer_21.jpg)}.f-kay{background-image:url(../../../assets/ui/face/studio/mh_boxer_22.jpg)}
+.r-you{border-color:var(--gold)}.r-coach{border-color:var(--blue)}.r-tess{border-color:var(--green)}.r-ana{border-color:var(--teal)}
+.dots{display:inline-flex;gap:4px;vertical-align:-1px}
+.dots u{display:inline-block;width:15px;height:15px;border-radius:50%;border:2px solid var(--gold)}
+.dots u.f{background:var(--gold)}
+.bar{display:block;position:relative;height:12px;border-radius:6px;background:var(--track);overflow:hidden}
+.bar b{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
+.tile{background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:9px;padding:4px 9px;display:flex;flex-direction:column;justify-content:center;overflow:hidden;position:relative}
+.tile b{font:400 26px/27px Bebas;letter-spacing:.03em;white-space:nowrap}
+.tile .cap{line-height:22px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 16px;border-radius:10px;background:var(--navy);color:#fffbf3;font-weight:700;white-space:nowrap}

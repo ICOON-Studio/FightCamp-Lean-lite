@@ -3,22 +3,18 @@
  "updated": "2026-11-11",
  "author": "claude S294",
  "now": {
-  "id": "S430",
+  "id": "S431",
   "owner": "claude",
   "updated": "2026-11-11",
-  "summary": "S430 (2026-11-11): the operator played and sent notes; built on main: the corner bar says what pace and aim do (LAST CALL box removed), the corner minute has 'The fight so far', the result page shows the fight's numbers between the figures and six tiles (damage, tiredness, learned, morale, corner, rank), a fight now leaves tiredness (Aftermath.toll, an estimate), the Overview shows tiredness with rest days and no longer clips. FIGHTDISPLAY4 collected and fitted (side panels off the ring). AMATEURPROBE1 collected with corrected sums (28 real bouts a year today, 37 at the short lead; the w+l count was 18 too high). Critics round 2: FOURSTART 5 and 5, AMATEURWEEK 5 and 5; his board answer on Q-179 arrived mid-round: 'Show me the maps first, no critics' (maps and drawings sent). His new directions: a serious AAA management look, the menu structure like Boxing Manager's scoped to our game, wooden panels to go (my rating of today's structure 4/10; three Overview drawings on the board as Q-180, shell and structure proposals in docs/mockups/s430); professionals in the starting line-up with the guide explaining amateur to professional (written into the FOURSTART map, section 7). Started: HUMANFIGHT1 (a separate Fable session: human-like boxing, critics loop to 7/10), CAMLINE1 (Qwen), TRAININGB2 (Cursor). Briefed and queued: AIMWIRE1, CORNERFACE1 (Qwen), DUESWIRE1, FACEFRAME1, GYMLIFE1 (Cursor). Build: Builds/S430.",
-  "last_working_commit": "c6b298fa",
-  "verified_playable": "fight_stats, pace_aim, corner_bar, side_panel, intent_chip, energy_forecast, round_board, hud_shown, golden_path, no_pronoun, plain_words, words_on_screens, balance_harness, save_load green; real fight film read (docs/playtest/S430)",
-  "incomplete_blocked": "MAIN CI: no finished run since e4a7b6f3 (red); three S419 pushes cancelled each other's runs, read the run on the wrap-up push. PR 140 REARHAND5B not judged: tools/head_aim_film.gd move=rear_hook printed no CONTACT line, so the film showed no punch. Luke Reid's portrait reads near black on Club People. Training week page untouched until his pick.",
-  "next_action": "0) HIS LAST WORD: the main gym screen stays as designed, unchanged, and the whole design matches it: redraw the shell and the Overview (A) in the gym screen's look before any build (NEXT_SESSION_PROMPT, top). 1) get_usage; read questions.json FIRST (a board answer can arrive after a chat answer). 2) His picks: Q-180 (Overview A/B/C) and the shell / menu structure (docs/mockups/s430/MENU_STRUCTURE_PROPOSAL.md, shell_a/b/c): the pick goes to Ludo to paint, then one screen a Cursor task; nothing of the shell is rebuilt before his pick. 3) Collect what landed: CAMLINE1 (Qwen: glove blur, render and read), TRAININGB2 (Cursor, render), HUMANFIGHT1 (branch claude/humanfight1, session local_f2068222: read its digest and last film, collect by diff). 4) The queue launches AIMWIRE1, CORNERFACE1, DUESWIRE1, FACEFRAME1, GYMLIFE1 by itself. 5) Maps: he asked to see them before more critics. After his word: ONE merged v3 (the club week with fight weeks, favours as a second currency, a rota that moves, professionals in the line-up, the guide on amateur to pro), then fresh critics. 6) Dues sums (Premium wins 9 of 9). 7) Move Builds/S430 to Builds/ when his game is closed. 8) E: 91% full: ask before deleting scratch under E:/FightCamp/tmp.",
-  "next_acceptance": "He picks an Overview and a shell; a film of the boxing fight scores 7/10 from two fresh critics; faces whole in every portrait and corner shot (two rulers green); the dues mechanic on every menu with a golden-path step.",
+  "summary": "S431 (2026-11-11): session start work, his board comments, three background jobs. Collected by review + film: CAMLINE1 (Qwen) REJECTED and PR 192 closed (the camera-angle fix was never connected to the game, nothing measured, the probe did not parse, each lens edit had a fault: ops/research/CAMLINE1_REVIEW_S431.md); redone ruler first as CAMLINE2 (Fable workflow, branch claude/camline2: the ruler is committed red on main, the fix was running at wrap-up). Main CI was red since S430 on camp_protocol_test (it read tiredness after the fight): fixed. Four queued briefs had invalid contracts: fixed, AIMWIRE1 started on Qwen. His board comments read: \"looks nice , change Engine to cardio\" on Overview A, \"stop using nicknames for people use cach instead\" (staff by role: Coach), \"looks nice\" on the football-manager club week board and the cards bout sheet. THE LOOK matched to the gym screen (his S430 ruling): three designers, three blind judges (base 8, 7, 8), one final set in docs/mockups/s431/final (Fighters page + fighter Profile = his body chart with Cardio), asked as Q-182 with the pictures. Dues sums: DUESSUMS1 (Goose) found 0 balanced sets of 243 (the volunteer saving swamps everything; Standard wins nothing in 203 sets): DUESSUMS2 briefed and queued. Map v3 (club week for four with fight weeks, fact-checkers only, no scoring critics) was in its revise pass at wrap-up. TRAININGB2 (Cursor, PR 194) landed: its still shows numbers struck through by their lines; review running, not collected. HUMANFIGHT1 (separate session) reports here now: feet fixed (0 airborne, 0 under the canvas), critics 3/10 twice (close range), last critic round on the route without captured takes; told to stop after it. Miro P0 redrawn and its leftover cards deleted on his yes. Usage: weekly Fable went 24% to 60% in about an hour of workflows; no new paid rounds until the reset (Thu 12 Nov 16:00).",
+  "last_working_commit": "bc473607",
+  "verified_playable": "camp_protocol_test green here after the fix; no game behaviour changed on main this session (the test fix only); Builds/ untouched",
+  "incomplete_blocked": "MAIN CI: read the run on the camp_protocol_test fix push (45f105cf) at the next start. CAMLINE2 fix + critics, map v3 revise and the TRAININGB2 review were still running at wrap-up (workflows of the S431 session: they die if that session is cleared). TRAININGB2 not collected (PR 194). HUMANFIGHT1 at 3/10. Ziva down (not restarted beside the films). Builds/S430 not moved into Builds/.",
+  "next_action": "0) get_usage FIRST (weekly Fable 60% at 12:10 on 11 Nov, reset Thu 12 Nov 16:00): no workflow or critic round before the reset. 1) HIS ANSWERS: Q-182 \"Yes, paint and build both\" -> Ludo paints the Fighters page and the Profile from docs/mockups/s431/final, he sees them, then one Cursor task a page. Q-183 \"Older stepping route\" -> collect claude/humanfight1 by diff (read the two edited tests first), make the stepping route the default on a film you read, then brief the next animation round (pop cap, reach band, one-frame contact, posture limits). Q-184 (map v3) not answered yet. 2) Collect CAMLINE2 (branch claude/camline2, worktree LEAN_CAMLINE2, docs/CAMLINE2_RESULT.md, stills E:/FightCamp/tmp/s431_camline2) and TRAININGB2 (PR 194, fixes in ops/research/TRAININGB2_REVIEW_S431.md, plus the Start week row pushed off screen on main). 3) DUESSUMS2 tables. 4) Seats: AIMWIRE1 then CORNERFACE1 (Qwen); FACEFRAME1, DUESWIRE1, GYMLIFE1 (Cursor). 5) Tell the HUMANFIGHT1 session the new main session id. 6) Ziva; Builds/S430; read the CI run on 45f105cf.",
+  "next_acceptance": "Ludo paintings of the two pages in front of him; humanfight1 collected and the stepping route the default on a film; CAMLINE2 and TRAININGB2 collected; his answer on map v3.",
   "awaiting_operator": [
-   "Q-181: the menu structure (the looks get redrawn to match the gym screen first, his word)",
-   "Q-180: which Overview drawing (A body chart / B clean sheet / C the tape)",
-   "The menu structure and shell look: his pick from docs/mockups/s430 (drawings sent)",
-   "The two maps: his read before any further critic round",
-   "Miro P0: four surplus cards need his yes to delete",
-   "E: 91% full: which scratch renders under E:/FightCamp/tmp may go"
+   "Q-184: map v3: two critics after the reset, or measure the prices first",
+   "E: 34 GB free: which scratch renders under E:/FightCamp/tmp may go"
   ]
  },
  "next": "MECHANICS FIRST (operator S422 OK). 1) Collect KDFIX2 (the ruler only) and LEGTREMBLE3. 2) Brief FIGHTDISPLAY1 to Cursor from docs/mockups/s422/fight_10_simvet.html (his Q-174 pick: 'Use the veteran's drawing'); data check FIGHT_DISPLAY_DECISION_S419.md s7. 3) R28 Cutman: write the DESIGN MAP (what the player decides, on which screen, what it changes, the numbers, real-world cut rules) as one page + a picture, ask him on the board, then brief the pure module to Qwen/Goose. 4) R25 the same, after checking head punches count. 5) Q-173 dues: design map only. Menus wait unless a mechanic needs them.",
@@ -1735,6 +1731,11 @@
    "id": "S430",
    "date": "2026-11-11",
    "summary": "S430 (2026-11-11): the operator played and sent notes; built on main: the corner bar says what pace and aim do (LAST CALL box removed), the corner minute has 'The fight so far', the result page shows the fight's numbers between the figures and six tiles (damage, tiredness, learned, morale, corner, rank), a fight now leaves tiredness (Aftermath.toll, an estimate), the Overview shows tiredness with rest days and no longer clips. FIGHTDISPLAY4 collected and fitted (side panels off the ring). AMATEURPROBE1 collected with corrected sums (28 real bouts a year today, 37 at the short lead; the w+l count was 18 too high). Critics round 2: FOURSTART 5 and 5, AMATEURWEEK 5 and 5; his board answer on Q-179 arrived mid-round: 'Show me the maps first, no critics' (maps and drawings sent). His new directions: a serious AAA management look, the menu structure like Boxing Manager's scoped to our game, wooden panels to go (my rating of today's structure 4/10; three Overview drawings on the board as Q-180, shell and structure proposals in docs/mockups/s430); professionals in the starting line-up with the guide explaining amateur to professional (written into the FOURSTART map, section 7). Started: HUMANFIGHT1 (a separate Fable session: human-like boxing, critics loop to 7/10), CAMLINE1 (Qwen), TRAININGB2 (Cursor). Briefed and queued: AIMWIRE1, CORNERFACE1 (Qwen), DUESWIRE1, FACEFRAME1, GYMLIFE1 (Cursor). Build: Builds/S430."
+  },
+  {
+   "id": "S431",
+   "date": "2026-11-11",
+   "summary": "S431 (2026-11-11): session start work, his board comments, three background jobs. Collected by review + film: CAMLINE1 (Qwen) REJECTED and PR 192 closed (the camera-angle fix was never connected to the game, nothing measured, the probe did not parse, each lens edit had a fault: ops/research/CAMLINE1_REVIEW_S431.md); redone ruler first as CAMLINE2 (Fable workflow, branch claude/camline2: the ruler is committed red on main, the fix was running at wrap-up). Main CI was red since S430 on camp_protocol_test (it read tiredness after the fight): fixed. Four queued briefs had invalid contracts: fixed, AIMWIRE1 started on Qwen. His board comments read: \"looks nice , change Engine to cardio\" on Overview A, \"stop using nicknames for people use cach instead\" (staff by role: Coach), \"looks nice\" on the football-manager club week board and the cards bout sheet. THE LOOK matched to the gym screen (his S430 ruling): three designers, three blind judges (base 8, 7, 8), one final set in docs/mockups/s431/final (Fighters page + fighter Profile = his body chart with Cardio), asked as Q-182 with the pictures. Dues sums: DUESSUMS1 (Goose) found 0 balanced sets of 243 (the volunteer saving swamps everything; Standard wins nothing in 203 sets): DUESSUMS2 briefed and queued. Map v3 (club week for four with fight weeks, fact-checkers only, no scoring critics) was in its revise pass at wrap-up. TRAININGB2 (Cursor, PR 194) landed: its still shows numbers struck through by their lines; review running, not collected. HUMANFIGHT1 (separate session) reports here now: feet fixed (0 airborne, 0 under the canvas), critics 3/10 twice (close range), last critic round on the route without captured takes; told to stop after it. Miro P0 redrawn and its leftover cards deleted on his yes. Usage: weekly Fable went 24% to 60% in about an hour of workflows; no new paid rounds until the reset (Thu 12 Nov 16:00)."
   }
  ],
  "blocked_on_operator": [],
@@ -4653,7 +4654,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-11 11:11 board_sync",
+  "updated": "2026-11-11 11:42 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5035,27 +5036,58 @@
     "title": "QWEN (qwen3-coder) - dues: the sums that give each price a club where it wins (pure module + a 5-year sim, MEA",
     "who": "goose",
     "started": "2026-11-11T10:51",
-    "run": "DUESSUMS1"
+    "run": "DUESSUMS1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK AIMWIRE1 - QWEN (qwen3-coder) - the aim buttons: rib targets that never appear, a body bonus that never fires, and what a fight's tiredness does to a year",
+    "who": "qwen",
+    "started": "2026-11-11T11:42",
+    "run": "AIMWIRE1"
    }
   ],
   "next": [
    {
-    "id": "SHELL1",
-    "who": "operator",
-    "title": "Menu structure like Boxing Manager's + the serious management look: his pick, then Ludo paints, then one screen a task",
-    "after": "his pick"
+    "id": "LOOK2",
+    "who": "claude",
+    "title": "The matched look: he said yes (Q-182). Ludo paints the Fighters page and the Profile, then one Cursor task a page",
+    "after": "next session"
    },
    {
-    "id": "OVERVIEW2",
+    "id": "CAMLINE2",
+    "who": "claude",
+    "title": "The fight camera redone ruler first: never behind one boxer, ropes fade whole, the glove blur by measurement",
+    "after": "collect"
+   },
+   {
+    "id": "MAPV3",
     "who": "operator",
-    "title": "Fighter Overview without wooden frames: his pick of three (Q-180)",
-    "after": "his pick"
+    "title": "Map v3 (club week with fight weeks, the road to professional): his answer on Q-184",
+    "after": "his answer"
+   },
+   {
+    "id": "TRAININGB2",
+    "who": "claude",
+    "title": "Training tab curve and pads rows (Cursor, PR 194): collect, numbers off their lines",
+    "after": "review"
+   },
+   {
+    "id": "FIGHTROUTE",
+    "who": "claude",
+    "title": "Fight route: he chose the older stepping route (Q-183). Collect humanfight1, make it the default, brief the next round",
+    "after": "next session"
+   },
+   {
+    "id": "DUESSUMS2",
+    "who": "qwen",
+    "title": "Dues sums, second search: a region of balanced numbers and a reason for the middle price",
+    "after": "AIMWIRE1"
    },
    {
     "id": "AIMWIRE1",
     "who": "qwen",
     "title": "Rib targets and the body bonus on a tired opponent work in the fight; a year measured with the tiredness rule",
-    "after": "CAMLINE1"
+    "after": "running"
    },
    {
     "id": "CORNERFACE1",
@@ -5067,19 +5099,13 @@
     "id": "FACEFRAME1",
     "who": "cursor",
     "title": "Every face picture in the menus shows the whole head",
-    "after": "TRAININGB2"
+    "after": "free seat"
    },
    {
     "id": "DUESWIRE1",
     "who": "cursor",
     "title": "The dues and youth choice on every menu it touches, with a golden-path step",
     "after": "FACEFRAME1"
-   },
-   {
-    "id": "MAPSV3",
-    "who": "claude",
-    "title": "One merged design: the club week for four with fight weeks, professionals in the line-up, the guide on amateur to pro",
-    "after": "his read of the maps"
    },
    {
     "id": "FOURSTART1",
@@ -5405,8 +5431,18 @@
   },
   "done_recently": [
    {
-    "title": "TASK CAMLINE1 - QWEN (qwen3-coder) - the fight camera: never straight behind one boxer, and the far ropes stop fading and smearing at head height",
-    "who": "qwen",
+    "title": "The look matched to the gym screen: Fighters page and fighter Profile drawn, three blind judges, asked as Q-182",
+    "who": "claude",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "CAMLINE1 reviewed and filmed: not collected, PR 192 closed, redone as CAMLINE2",
+    "who": "claude",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "Main CI green again (camp_protocol_test); four queued briefs repaired; dues sums measured (no balanced set yet)",
+    "who": "claude",
     "when": "2026-11-11"
    },
    {
@@ -5452,16 +5488,6 @@
    {
     "title": "Fight screen side panels, intent chips over the heads collected (two overlaps open)",
     "who": "cursor",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "Mood is worth under 1 point, habits 6 to 15: measured",
-    "who": "qwen",
-    "when": "2026-11-10"
-   },
-   {
-    "title": "BJJ in-fight choices: four critic rounds, now at 6 of 10 (not on your board)",
-    "who": "claude",
     "when": "2026-11-10"
    }
   ],
@@ -5659,6 +5685,22 @@
     {
      "text": "Look matched to gym screen: drawn",
      "who": "claude"
+    },
+    {
+     "text": "Main CI green: camp test fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Dues sums: no balanced set yet",
+     "who": "agent"
+    },
+    {
+     "text": "Miro map: old cards deleted",
+     "who": "claude"
+    },
+    {
+     "text": "Map v3 written, drawn, on board",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5671,11 +5713,11 @@
      "who": "claude"
     },
     {
-     "text": "Map v3: club week + fight weeks",
+     "text": "TRAININGB2: collect, fix labels",
      "who": "claude"
     },
     {
-     "text": "Your pick: the matched look Q-182",
+     "text": "Your answer: map v3 (Q-184)",
      "who": "operator"
     }
    ],
@@ -5737,7 +5779,15 @@
      "who": "agent"
     },
     {
-     "text": "Overview A: paint, then build",
+     "text": "DUESSUMS2: finer dues search",
+     "who": "agent"
+    },
+    {
+     "text": "Ludo paints Fighters + Profile",
+     "who": "claude"
+    },
+    {
+     "text": "Stepping route: collect, default",
      "who": "claude"
     }
    ],
@@ -5746,7 +5796,7 @@
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "c6b298fa",
- "next_action": "0) HIS LAST WORD: the main gym screen stays as designed, unchanged, and the whole design matches it: redraw the shell and the Overview (A) in the gym screen's look before any build (NEXT_SESSION_PROMPT, top). 1) get_usage; read questions.json FIRST (a board answer can arrive after a chat answer). 2) His picks: Q-180 (Overview A/B/C) and the shell / menu structure (docs/mockups/s430/MENU_STRUCTURE_PROPOSAL.md, shell_a/b/c): the pick goes to Ludo to paint, then one screen a Cursor task; nothing of the shell is rebuilt before his pick. 3) Collect what landed: CAMLINE1 (Qwen: glove blur, render and read), TRAININGB2 (Cursor, render), HUMANFIGHT1 (branch claude/humanfight1, session local_f2068222: read its digest and last film, collect by diff). 4) The queue launches AIMWIRE1, CORNERFACE1, DUESWIRE1, FACEFRAME1, GYMLIFE1 by itself. 5) Maps: he asked to see them before more critics. After his word: ONE merged v3 (the club week with fight weeks, favours as a second currency, a rota that moves, professionals in the line-up, the guide on amateur to pro), then fresh critics. 6) Dues sums (Premium wins 9 of 9). 7) Move Builds/S430 to Builds/ when his game is closed. 8) E: 91% full: ask before deleting scratch under E:/FightCamp/tmp.",
+ "last_working_commit": "bc473607",
+ "next_action": "0) get_usage FIRST (weekly Fable 60% at 12:10 on 11 Nov, reset Thu 12 Nov 16:00): no workflow or critic round before the reset. 1) HIS ANSWERS: Q-182 \"Yes, paint and build both\" -> Ludo paints the Fighters page and the Profile from docs/mockups/s431/final, he sees them, then one Cursor task a page. Q-183 \"Older stepping route\" -> collect claude/humanfight1 by diff (read the two edited tests first), make the stepping route the default on a film you read, then brief the next animation round (pop cap, reach band, one-frame contact, posture limits). Q-184 (map v3) not answered yet. 2) Collect CAMLINE2 (branch claude/camline2, worktree LEAN_CAMLINE2, docs/CAMLINE2_RESULT.md, stills E:/FightCamp/tmp/s431_camline2) and TRAININGB2 (PR 194, fixes in ops/research/TRAININGB2_REVIEW_S431.md, plus the Start week row pushed off screen on main). 3) DUESSUMS2 tables. 4) Seats: AIMWIRE1 then CORNERFACE1 (Qwen); FACEFRAME1, DUESWIRE1, GYMLIFE1 (Cursor). 5) Tell the HUMANFIGHT1 session the new main session id. 6) Ziva; Builds/S430; read the CI run on 45f105cf.",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

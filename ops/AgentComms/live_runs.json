@@ -2123,95 +2123,11 @@
     "board": ""
    }
   },
-  "CAMLINE1": {
-   "agent": "qwen",
-   "id": "CAMLINE1",
-   "title": "TASK CAMLINE1 - QWEN (qwen3-coder) - the fight camera: never straight behind one boxer, and the far ropes stop fading and smearing at head height",
-   "status": "collected",
-   "started": "2026-11-11T09:56",
-   "eta": "2026-11-11T11:46",
-   "branch": "qwen/camline1",
-   "worktree": "E:/FightCamp/wt/LEAN_CAMLINE1",
-   "wt": "E:/FightCamp/wt/LEAN_CAMLINE1",
-   "brief": "ops/research/TASK_CAMLINE1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/CAMLINE1_dispatch_out.txt",
-   "match": "seat_dispatch.py run camline1",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/CAMLINE1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/CAMLINE1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/CAMLINE1_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 49484,
-    "seat_pid": 3348
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/8 PASS; PR #192 | S431: NOT merged (review + film: angle fix not in the game, nothing measured, probe does not parse); PR 192 closed; redone as CAMLINE2",
-   "finished": "2026-11-11T10:23",
-   "pr": 192,
-   "checks": [
-    {
-     "kind": "COMPILE",
-     "script": "Main.tscn boot",
-     "ok": false,
-     "last": "res://tools/cam_line_probe.gd:115: There is already a variable named \"f\" declared in this scope."
-    },
-    {
-     "kind": "RED_TEST",
-     "script": "tests/cam_line_test.gd",
-     "ok": true,
-     "last": "CAM_LINE failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/ring_lens_test.gd",
-     "ok": true,
-     "last": "ring_lens_test"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/corner_lens_test.gd",
-     "ok": true,
-     "last": "CORNER_LENS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/bar_guard_test.gd",
-     "ok": true,
-     "last": "BAR_GUARD failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/promo_shot_test.gd",
-     "ok": true,
-     "last": "PROMO_SHOT failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/ring_ropes_entry_test.gd",
-     "ok": true,
-     "last": "ring_ropes_entry_test: PASS"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/file_limits_test.gd",
-     "ok": true,
-     "last": "FILE_LIMITS failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "TRAININGB2": {
    "agent": "cursor",
    "id": "TRAININGB2",
    "title": "TASK TRAININGB2 - CURSOR (Grok 4.7 High) - the Training tab: a tiredness curve that says something, and the pads list in straight rows",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-11T10:23",
    "eta": "2026-11-11T12:13",
    "branch": "cursor/trainingb2",
@@ -2232,23 +2148,102 @@
     "runner_pid": 9444,
     "seat_pid": 16404
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 7/7 PASS; PR #194",
+   "finished": "2026-11-11T11:02",
+   "pr": 194,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/week_b_test.gd",
+     "ok": true,
+     "last": "WEEK_B failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/drill_card_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hover_ghosts_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_tray_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/week_slate_test.gd",
+     "ok": true,
+     "last": "WEEK_SLATE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "DUESSUMS1": {
    "agent": "goose",
    "id": "DUESSUMS1",
    "title": "QWEN (qwen3-coder) - dues: the sums that give each price a club where it wins (pure module + a 5-year sim, MEA",
-   "status": "running",
+   "status": "collected",
    "started": "2026-11-11T10:51",
    "where": "cloud",
    "repo": "FightCamp-Lean",
    "brief": "ops/research/TASK_DUESSUMS1.md",
    "model": "Goose + Qwen token plan (GitHub Actions)",
    "eta": "2026-11-11T11:51",
-   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line) | S431: read and run here; 0 GOOD sets of 243 (ops/research/DUESSUMS1_RESULT_S431.md); stays on goose/issue-193 as the base of DUESSUMS2; not merged (its test is red by design)",
    "issue": "193",
    "branch": "goose/issue-193",
-   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/193"
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/193",
+   "reconciled": "2026-11-11 11:41 board_reconcile: run finished (success), branch goose/issue-193 pushed"
+  },
+  "AIMWIRE1": {
+   "agent": "qwen",
+   "id": "AIMWIRE1",
+   "title": "TASK AIMWIRE1 - QWEN (qwen3-coder) - the aim buttons: rib targets that never appear, a body bonus that never fires, and what a fight's tiredness does to a year",
+   "status": "running",
+   "started": "2026-11-11T11:42",
+   "eta": "2026-11-11T13:32",
+   "branch": "qwen/aimwire1",
+   "worktree": "E:/FightCamp/wt/LEAN_AIMWIRE1",
+   "wt": "E:/FightCamp/wt/LEAN_AIMWIRE1",
+   "brief": "ops/research/TASK_AIMWIRE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/AIMWIRE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run aimwire1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/AIMWIRE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/AIMWIRE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/AIMWIRE1_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 40064,
+    "seat_pid": 9696
+   },
+   "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
   }
  },
  "codex_budget": {

@@ -6513,6 +6513,48 @@
         "AgentComms/board_attach/Q-S294-182_1_overview.png",
         "AgentComms/board_attach/Q-S294-182_2_squad.png"
       ],
+      "answer": "Yes, paint and build both",
+      "note": null,
+      "answered_at": "2026-11-11T09:56:27Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-183",
+      "asked": "2026-11-11T09:57:15.988758+00:00",
+      "session": "S294",
+      "text": "The boxing fight, human-like: flying boxers are fixed (no boxer leaves the canvas, no foot under it, the pair reaches punching range). Six fresh critics still score it low because of close range: punches do not stop on the target and hits are barely felt. Two routes, same bout, every fix in both. Film 1 = the captured clips you asked back in S399: 3.5 and 3 of 10, and the standing foot slides 14 m in 75 seconds. Film 2 = the earlier stepping route with the captured clips off: 4 and 4 of 10, foot slide 0.7 m. Which route do I keep working on?",
+      "options": [
+        "Film 2: the stepping route",
+        "Film 1: keep the captured clips",
+        "Neither yet, show me more"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-183_0_men.mp4",
+        "AgentComms/board_attach/Q-S294-183_1_men.mp4"
+      ],
+      "answer": "Older stepping route",
+      "note": "Answered in chat (S430 session, 2026-11-11): \"Older stepping route\". The next animation round builds on the route with the captured takes off (`-- norokoko`); captured takes come back one clip at a time once they pass the posture limits. First work: the four code items the six critics agree on (pop cap + blend at clip starts; a reach band per punch; one-frame contact with the reaction on that frame; posture limits).",
+      "answered_at": "2026-11-11T10:01:52Z",
+      "seen_by_claude": false,
+      "status": "answered"
+    },
+    {
+      "id": "Q-S294-184",
+      "asked": "2026-11-11T10:03:16.671319+00:00",
+      "session": "S294",
+      "text": "Map v3 is written and drawn, as you asked to see it before any critics: ONE map, the club week for four with the fight weeks inside, favours as a second currency, a week's twist, professionals in the line-up, and the road from amateur to professional. Three fact-checkers went through it (62 points found and applied); no scoring critic has seen it. Every price in it is still a first guess and money falls with a professional in the four (about 6,500 dollars a year from bouts against 12,600). What next?",
+      "options": [
+        "Run two critics after Thursday's reset",
+        "Measure the prices first, no critics",
+        "Change something (note)"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-184_0_clubweek_v3.png",
+        "AgentComms/board_attach/Q-S294-184_1_fightweek_v3.png",
+        "AgentComms/board_attach/Q-S294-184_2_road_v3.png",
+        "research/CLUBWEEK_MAP_V3_S431.md"
+      ],
       "answer": null,
       "note": null,
       "answered_at": null,
