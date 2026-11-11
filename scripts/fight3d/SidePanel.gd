@@ -81,7 +81,7 @@ static func own_line(lv: Dictionary) -> String:
 	if label != "":
 		return label
 	var aim := PaceAim.aim_word(str(lv.get("aim", "")))
-	return aim if aim != "" else "Her own game"
+	return aim if aim != "" else "Own game"
 
 
 ## The opponent: her record, or the game her tape shows once it has been studied.
@@ -349,7 +349,7 @@ func _paint_forecast(lv: Dictionary, _f: Dictionary) -> void:
 func _paint_ear(f: Dictionary) -> void:
 	if _ear != null:
 		_ear.lit = CornerTrust.lands(f)
-		_ear.tooltip_text = "She takes the corner's word" if _ear.lit else "She has stopped listening"
+		_ear.tooltip_text = "Takes the corner's word" if _ear.lit else "Has stopped listening"
 		_ear.queue_redraw()
 	var got := _shouts()
 	var heard := 0

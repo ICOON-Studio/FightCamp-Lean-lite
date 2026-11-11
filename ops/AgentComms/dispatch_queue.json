@@ -1013,6 +1013,14 @@
    "brief": "BARGUARD1",
    "status": "queued",
    "queued": "2026-11-10T19:05"
+  },
+  {
+   "id": "WEEKTESTS1",
+   "seat": "cursor",
+   "title": "TASK WEEKTESTS1 - CURSOR - plan_tray, drill_card, hover_ghosts still drive the old Training board",
+   "brief": "WEEKTESTS1",
+   "status": "queued",
+   "queued": "2026-11-11T07:15"
   }
  ]
 }
