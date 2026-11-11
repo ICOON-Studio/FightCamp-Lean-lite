@@ -1,0 +1,124 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>RPG layer 10/10 - progression critic</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#17140f;color:#ece4d4;font-family:"Segoe UI",Arial,sans-serif;font-size:20px}
+.top{height:64px;background:#2a2118;display:flex;align-items:center;padding:0 24px;gap:24px;border-bottom:2px solid #4a3a28}
+.gym{font-size:30px;font-weight:800;color:#6fa8ff;letter-spacing:1px}
+.tabs{display:flex;gap:8px;margin-left:30px}
+.tab{padding:6px 16px;background:#24304a;border-radius:6px;font-weight:600}
+.tab.on{background:#2f6fd6}
+.flag{margin-left:auto;background:#5a3a14;border:1px solid #c98a2a;padding:6px 14px;border-radius:6px;font-weight:700}
+.head{display:flex;align-items:baseline;gap:18px;padding:10px 26px 4px}
+.name{font-size:38px;font-weight:900;letter-spacing:1px}
+.sub{color:#bdb3a0}
+.grid{display:grid;grid-template-columns:600px 640px 620px;gap:14px;padding:6px 20px}
+.box{background:#211c15;border:1px solid #3b3123;border-radius:10px;padding:12px 16px}
+.box.hot{border:2px solid #e7b23a}
+h2{font-size:22px;color:#e7b23a;letter-spacing:1px;margin-bottom:6px}
+h2 small{color:#bdb3a0;font-weight:400;letter-spacing:0;font-size:20px}
+.row{display:flex;justify-content:space-between;gap:10px;padding:3px 0;border-bottom:1px solid #2e271d}
+.g{color:#5fd27a}.r{color:#ff7a6b}.y{color:#e7b23a}.m{color:#a99f8c}.b{color:#7fb2ff}
+.trait{padding:5px 0;border-bottom:1px solid #2e271d}
+.bar{position:relative;height:12px;background:#34465f;border-radius:6px;margin:5px 0 2px}
+.fill{position:absolute;left:0;top:0;bottom:0;background:#4c8cf0;border-radius:6px}
+.tick{position:absolute;top:-4px;width:3px;height:20px;background:#ff7a6b}
+.tick.up{background:#5fd27a}
+.lines{display:flex;justify-content:space-between;font-size:20px}
+.cards{display:flex;gap:12px}
+.card{flex:1;background:#1c2537;border:1px solid #33456a;border-radius:8px;padding:10px 12px}
+.card.pick{border:2px solid #e7b23a}
+.ct{font-size:24px;font-weight:800}
+.btn{display:inline-block;margin-top:6px;background:#e7b23a;color:#1b140a;font-weight:800;padding:6px 14px;border-radius:6px}
+.btn.alt{background:#33456a;color:#ece4d4}
+.chip{display:inline-block;padding:1px 8px;border-radius:5px;background:#3a2e1a;color:#e7b23a;font-weight:700;font-size:20px}
+.pip{display:inline-block;width:26px;height:14px;border-radius:3px;background:#3b3a36;margin-right:3px}
+.pip.on{background:#4c8cf0}
+.note{position:absolute;right:20px;bottom:10px;width:1880px;font-size:20px;color:#bdb3a0;text-align:right}
+</style></head><body>
+<div class="top"><div class="gym">ANVIL STREET GYM</div><div class="m">Mon 7 Sep 2026, season 2</div>
+<div class="tabs"><div class="tab">Profile</div><div class="tab">Training</div><div class="tab">Playbook</div><div class="tab on">Character</div><div class="tab">History</div></div>
+<div class="flag">NEEDS YOU: Tess's season pick</div></div>
+<div class="head"><div class="name">TESS REILLY</div><div class="sub">Middleweight, 24, southpaw, 15-6, No. 2 London, 3 perks open, 2 more this season</div></div>
+<div class="grid">
+
+<div>
+<div class="box"><h2>TRAITS <small>both ways: what the next line up gives, and down costs</small></h2>
+ <div class="trait"><div class="row" style="border:0"><b>Coachability 52</b><span class="m">Known</span></div>
+  <div class="bar"><div class="fill" style="width:52%"></div><div class="tick" style="left:40%"></div><div class="tick up" style="left:70%"></div></div>
+  <div class="lines"><span class="r">40: fixes hold half</span><span class="g">70: a 3rd shout lands full</span></div>
+  <div class="m">18 to go: hear an ask +1, Loyal +1 / 4 wks</div></div>
+ <div class="trait"><div class="row" style="border:0"><b>Confidence 70</b><span class="m">Known</span></div>
+  <div class="bar"><div class="fill" style="width:70%"></div><div class="tick" style="left:45%"></div><div class="tick up" style="left:75%"></div></div>
+  <div class="lines"><span class="r">45: "the truth" turns</span><span class="g">75: shrugs off a lost round</span></div>
+  <div class="m">5 to go: a stoppage win +2, 3 wins running +2</div></div>
+ <div class="trait"><div class="row" style="border:0"><b>Temper 58</b><span class="m">Known</span></div>
+  <div class="bar"><div class="fill" style="width:58%"></div><div class="tick up" style="left:35%"></div><div class="tick" style="left:65%"></div></div>
+  <div class="lines"><span class="g">35: cool head, "Calm" free</span><span class="r">65: "Fire up" goes wild</span></div>
+  <div class="m">Hard sparring +1 / 2 evenings: 4 more = Short fuse</div></div>
+ <div class="trait"><div class="row" style="border:0"><b>Heart 70 to 90</b><span class="y">Fire not known yet</span></div>
+  <div class="bar"><div class="fill" style="width:80%;opacity:.5"></div><div class="tick up" style="left:70%"></div></div>
+  <div class="lines"><span class="m">exact after 2 more cornered bouts</span><span class="g">70: gets up from 1 count more</span></div></div>
+ <div class="trait" style="border:0"><div class="row" style="border:0"><b>Discipline ?</b><span class="m">opens at Known 4 (2 sessions)</span></div></div>
+</div>
+<div class="box" style="margin-top:12px"><h2>MARKS <small>4 held, all active</small></h2>
+ <div class="row"><span>Hardened</span><span class="g">waved off x0.85 after a count</span></div>
+ <div class="row"><span>Champion, London</span><span class="g">+3 fans a bout, to May</span></div>
+ <div class="row" style="border:0"><span>A 5th mark asks which to drop:</span><span class="r">its effect ends</span></div>
+</div>
+</div>
+
+<div>
+<div class="box hot"><h2>TESS'S SEASON PICK <small>3 perks open: grow one, for good</small></h2>
+ <div class="cards">
+  <div class="card pick"><div class="ct">DEEPEN THE DRAIN</div>
+   <div>body shots drain 15% <span class="g">to 25% more</span></div>
+   <div class="m">vs Moss, Ade, Okoro</div><div class="g">+2 to +4 in 100</div>
+   <div class="m">season so far</div><div class="g">+1 to +3</div>
+   <div class="btn">Deepen it</div></div>
+  <div class="card"><div class="ct">ALSO THE DROP</div>
+   <div>the closed side opens too</div>
+   <div class="r">price: 4 weeks with no new perk; loyalty -3</div>
+   <div class="m">vs Moss, Ade, Okoro</div><div class="g">+1 to +3 in 100</div>
+   <div class="btn alt">Open it</div></div>
+  <div class="card"><div class="ct">RAISE THE CEILING</div>
+   <div>Strength potential <span class="g">+3</span> (Tess is 2 from it)</div>
+   <div class="m">weeks sooner to the pro offer</div><div class="g">1 to 2</div>
+   <div class="btn alt">Raise it</div></div>
+ </div>
+ <div class="m" style="margin-top:6px">Every size is a range from PERKPICK1 and SEASON1. A pick whose range overlaps the others' by more than half is redrawn.</div>
+</div>
+<div class="box" style="margin-top:12px"><h2>BUILD DIRECTION <small>a commitment, not a weekly switch</small></h2>
+ <div class="row"><span><b>Walk them down</b>, week 9 of 12</span><span class="y">style word changes in 3 weeks</span></div>
+ <div class="row"><span>Trains faster: Stamina, Inside</span><span class="r">Footwork, Timing slower</span></div>
+ <div class="row"><span>Change now</span><span class="r">the 9 weeks of drift restart; loyalty -2</span></div>
+ <div class="row" style="border:0"><span>vs Saturday's out-boxer</span><span class="g">+0.5 to +1.5 in 100</span></div>
+</div>
+<div class="box" style="margin-top:12px"><h2>HOW WELL YOU KNOW TESS <small>Known 3 of 5</small></h2>
+ <div><span class="pip on"></span><span class="pip on"></span><span class="pip on"></span><span class="pip"></span><span class="pip"></span> Body known, Skills known, <span class="y">Fire 2 bouts away</span></div>
+ <div class="row" style="border:0"><span>Next pip: every trait, TRUST ME</span><span class="b">your sparring + 1 corner</span></div>
+</div>
+</div>
+
+<div>
+<div class="box"><h2>WHAT TESS'S PICKS WON <small>season 2, as ranges</small></h2>
+ <div class="row"><span>The drain, 14 bouts</span><span class="g">+1 to +3 in 100</span></div>
+ <div class="row"><span>Walk them down</span><span class="g">+0.5 to +2</span></div>
+ <div class="row"><span>Hardened, 2 counts waved on</span><span class="g">+1 to +3</span></div>
+ <div class="row" style="border:0"><span>Second wind: The bell</span><span class="m">-0.5 to +1: rethink</span></div>
+</div>
+<div class="box" style="margin-top:12px"><h2>YOUR LEVEL 4 PICK <small>sized by line-up, they differ</small></h2>
+ <div class="row"><span><b>Ringside voice</b></span><span>your squad <span class="g">+2 to +3</span></span></div>
+ <div class="row"><span class="m">two Stubborn, few combos</span><span class="m">other squads 0 to +1</span></div>
+ <div class="row"><span><b>The minute</b></span><span>your squad <span class="m">0 to +1</span></span></div>
+ <div class="row" style="border:0"><span class="m">3+ drilled combos</span><span class="m">those squads +2 to +3</span></div>
+ <div class="m">Experience: a win you cornered as the underdog pays more than a sure one.</div>
+</div>
+<div class="box" style="margin-top:12px"><h2>THE ROOM <small>one no-skip rule</small></h2>
+ <div class="row"><span>Captain Samira</span><span>nobody skips in those sessions</span></div>
+ <div class="row" style="border:0"><span>The room (yours)</span><span class="g">discipline +1 / 4 wks only</span></div>
+ <div class="m">Each effect lives in one place.</div>
+</div>
+</div>
+</div>
+</body></html>

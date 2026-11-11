@@ -1,0 +1,195 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Training 10/10 - sim critic</title>
+<style>
+:root{--wall:#1d1a17;--slate:#26292b;--slate2:#2f3336;--wood:#7a5232;--wood2:#5b3b22;--cream:#efe6d2;--dim:#a99f8c;--gold:#e8b44a;--red:#e0503c;--green:#7fc46a;--blue:#6aa8d8;--amber:#e8962e;--violet:#b58ae0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--wall);color:var(--cream);font-family:"Segoe UI",Arial,sans-serif;font-size:20px}
+.hand{font-family:"Segoe Print","Comic Sans MS",cursive}
+.top{height:58px;background:#121110;display:flex;align-items:center;padding:0 20px;gap:22px;border-bottom:3px solid var(--wood2)}
+.top .gym{font-family:"Segoe Print",cursive;color:var(--blue);font-size:26px;font-weight:700}
+.top .sp{flex:1}
+.cash{color:var(--gold);font-weight:700;font-size:24px}
+.btn{background:linear-gradient(#8a5d37,#6a4426);border:2px solid #3a2414;border-radius:6px;padding:6px 16px;color:var(--cream);font-weight:600;font-size:20px;white-space:nowrap}
+.btn.go{background:linear-gradient(#e0503c,#a8301f);color:#fff;font-size:24px;padding:10px 26px}
+.btn.gold{background:linear-gradient(#f0c35e,#c88f22);color:#2a1a08}
+.btn.ghost{background:#2f3336;border-color:#555}
+.title{height:82px;display:flex;align-items:center;padding:0 20px;gap:14px}
+.title h1{font-family:"Segoe Print",cursive;font-size:32px;color:var(--cream);margin-right:14px}
+.tab{padding:8px 16px;border-radius:6px 6px 0 0;background:#2f3336;color:var(--dim);font-weight:600}
+.tab.on{background:var(--cream);color:#2a1a08}
+.cnt{display:flex;gap:10px;margin-left:auto}
+.c{background:var(--slate2);border:2px solid #474b4e;border-radius:8px;padding:4px 12px;line-height:1.15}
+.c b{font-size:24px}
+.c .k{color:var(--dim);font-size:20px}
+.c.short{border-color:var(--red)}
+.main{display:flex;gap:14px;padding:0 20px;height:846px}
+.board{width:1310px;background:var(--slate);border:6px solid var(--wood);border-radius:6px;padding:8px 10px;position:relative}
+.colh{display:grid;grid-template-columns:228px repeat(7,1fr) 180px;gap:5px;color:var(--dim);font-weight:600;padding-bottom:4px}
+.colh div{text-align:center}
+.colh .fd{color:var(--red)}
+.row{display:grid;grid-template-columns:228px repeat(7,1fr) 180px;gap:5px;margin-bottom:6px;align-items:stretch}
+.who{background:#202325;border-radius:6px;padding:6px 8px;line-height:1.2;position:relative}
+.who .n{font-weight:700;font-size:22px}
+.who .t{color:var(--gold)}
+.who .m{color:var(--dim)}
+.badge{display:inline-block;border-radius:4px;padding:0 6px;font-size:20px;font-weight:700}
+.b-pro{background:#3b2f55;color:var(--violet)}.b-am{background:#22384a;color:var(--blue)}.b-bjj{background:#38301f;color:var(--gold)}
+.day{display:flex;flex-direction:column;gap:3px}
+.cell{border-radius:5px;padding:2px 5px;line-height:1.12;background:#33383b;border-left:6px solid #666;min-height:56px}
+.cell .s{font-weight:600}
+.cell .w{color:var(--dim)}
+.you{border-left-color:var(--gold)} .coach{border-left-color:var(--blue)} .alone{border-left-color:#666}
+.hard{background:#4a2d26}.light{background:#2c3a2d}
+.fight{background:#5a1f17;border-left-color:var(--red)}
+.rest{background:#24282a}
+.buys{background:#202325;border-radius:6px;padding:6px 8px;line-height:1.22}
+.buys .g{color:var(--green);font-weight:700}
+.buys .r{color:var(--amber)}
+.spark{grid-column:2 / 9;height:28px;position:relative;margin-top:-3px}
+.legend{position:absolute;bottom:8px;left:12px;right:12px;display:flex;gap:22px;color:var(--dim);align-items:center}
+.sw{display:inline-block;width:16px;height:22px;border-radius:3px;vertical-align:middle;margin-right:6px}
+.side{flex:1;display:flex;flex-direction:column;gap:10px}
+.card{background:var(--slate);border:5px solid var(--wood);border-radius:6px;padding:8px 12px;line-height:1.25}
+.card h3{font-size:22px;color:var(--gold);margin-bottom:4px;display:flex;justify-content:space-between;align-items:baseline}
+.card h3 span{color:var(--dim);font-weight:400;font-size:20px}
+.pill{display:inline-block;border:2px solid #5a5f63;border-radius:16px;padding:1px 12px;margin:2px 4px 2px 0}
+.pill.on{background:var(--cream);color:#2a1a08;border-color:var(--cream);font-weight:700}
+.ok{color:var(--green)} .bad{color:var(--red)} .amb{color:var(--amber)} .dim{color:var(--dim)}
+.bottom{position:absolute;left:20px;right:20px;bottom:10px;height:62px;display:flex;align-items:center;gap:14px}
+.note{font-family:"Segoe Print",cursive;color:var(--cream)}
+</style></head>
+<body>
+<div class="top">
+  <div class="btn ghost">&lt;</div><div class="gym">Anvil Street Gym</div><div>Mon 9 Feb 2026 <span class="dim">Week 6</span></div>
+  <div class="sp"></div>
+  <div class="cash">$17,940 <span class="dim" style="font-size:20px;font-weight:400">running -$410 a week</span></div>
+  <div class="btn gold">CONTINUE <span style="font-weight:400">to Thu, Danny's sparring</span></div>
+  <div class="btn ghost">Menu</div>
+</div>
+
+<div class="title">
+  <h1>Training</h1>
+  <div class="tab on">Squad week</div><div class="tab">Lucy</div><div class="tab">Danny</div><div class="tab">Kira</div><div class="tab">Ana</div>
+  <div class="cnt">
+    <div class="c short"><div class="k">Pad places</div><b>8</b> <span class="k">of 11 asked</span> <span class="bad">3 short</span></div>
+    <div class="c"><div class="k">Your mornings</div><b>4</b> <span class="k">of 4 used</span></div>
+    <div class="c"><div class="k">Coach's mornings</div><b>2</b> <span class="k">of 2 used</span></div>
+    <div class="c"><div class="k">Coach's evenings</div><b>3 pads</b> <span class="k">or class +$117</span></div>
+  </div>
+</div>
+
+<div class="main">
+<div class="board">
+  <div class="colh"><div style="text-align:left">Fighter, target</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div><div style="text-align:left">This week buys</div></div>
+
+  <!-- Lucy -->
+  <div class="row">
+    <div class="who"><div class="n">Lucy Jackson <span class="badge b-pro">PRO</span></div><div class="t">Ranked by 30 May</div><div class="m">Camp: BUILD, week 2</div><div class="m">Steady · <span class="ok">fresh</span></div></div>
+    <div class="day"><div class="cell coach"><div class="s">Roadwork</div><div class="w">Normal</div></div><div class="cell you"><div class="s">Pads</div><div class="w">1-2</div></div></div>
+    <div class="day"><div class="cell hard you"><div class="s">Intervals</div><div class="w">Hard</div></div><div class="cell alone"><div class="s">Spar</div><div class="w">Hard</div></div></div>
+    <div class="day"><div class="cell alone"><div class="s">Weights</div><div class="w">Normal</div></div><div class="cell coach"><div class="s">Pads</div><div class="w">3b-3</div></div></div>
+    <div class="day"><div class="cell light alone"><div class="s">Speed</div><div class="w">Light</div></div><div class="cell rest"><div class="s">Rest</div><div class="w">&nbsp;</div></div></div>
+    <div class="day"><div class="cell hard you"><div class="s">Roadwork</div><div class="w">Hard</div></div><div class="cell coach"><div class="s">Pads</div><div class="w">1-2</div></div></div>
+    <div class="day"><div class="cell alone"><div class="s">Shadow</div><div class="w">Normal</div></div><div class="cell alone"><div class="s">Spar</div><div class="w">Technical</div></div></div>
+    <div class="day"><div class="cell rest"><div class="s">Rest</div><div class="w">&nbsp;</div></div><div class="cell rest"><div class="s">Rest</div><div class="w">&nbsp;</div></div></div>
+    <div class="buys"><div>Stamina <span class="g">66→67</span></div><div>3b-3 <span class="g">Usable</span> Wed</div><div class="dim">Peak 74 Tue</div></div>
+  </div>
+  <!-- Danny -->
+  <div class="row">
+    <div class="who"><div class="n">Danny Osei <span class="badge b-am">AM</span></div><div class="t">Nationals, 15 Mar</div><div class="m">Fight week, Sat</div><div class="m">Fired up · <span class="ok">sharp</span></div></div>
+    <div class="day"><div class="cell you"><div class="s">Shadow</div><div class="w">Normal</div></div><div class="cell coach"><div class="s">Pads</div><div class="w">slip 2-3</div></div></div>
+    <div class="day"><div class="cell light alone"><div class="s">Roadwork</div><div class="w">Light</div></div><div class="cell rest"><div class="s">Rest</div><div class="w">&nbsp;</div></div></div>
+    <div class="day"><div class="cell light coach"><div class="s">Slip</div><div class="w">Light</div></div><div class="cell you"><div class="s">Pads</div><div class="w">the habit</div></div></div>
+    <div class="day"><div class="cell rest"><div class="s">Rest</div><div class="w">&nbsp;</div></div><div class="cell alone"><div class="s">Spar</div><div class="w">Body only</div></div></div>
+    <div class="day"><div class="cell light alone"><div class="s">Shadow</div><div class="w">Light</div></div><div class="cell rest"><div class="s">Weigh-in</div><div class="w">60.0 kg</div></div></div>
+    <div class="day"><div class="cell fight"><div class="s">FIGHT</div><div class="w">Repton</div></div><div class="cell fight"><div class="s">v K. Bell</div><div class="w">3x3</div></div></div>
+    <div class="day"><div class="cell rest"><div class="s">Rest</div><div class="w">&nbsp;</div></div><div class="cell rest"><div class="s">Rest</div><div class="w">&nbsp;</div></div></div>
+    <div class="buys"><div>Habit <span class="g">gone Wed</span></div><div><span class="g">+3 to +5</span> in 100</div><div class="dim">on Sat</div></div>
+  </div>
+  <!-- Kira -->
+  <div class="row">
+    <div class="who"><div class="n">Kira Mensah <span class="badge b-am">AM</span></div><div class="t">A year to grow: 2 perks</div><div class="m">BASE, no bout booked</div><div class="m"><span class="amb">Flat</span> · alone at 0.4</div></div>
+    <div class="day"><div class="cell alone"><div class="s">Bag</div><div class="w">Normal</div></div><div class="cell alone"><div class="s">Pads</div><div class="w"><span class="bad">no place</span></div></div></div>
+    <div class="day"><div class="cell you"><div class="s">Speed</div><div class="w">Hard</div></div><div class="cell coach"><div class="s">Pads</div><div class="w">Jab</div></div></div>
+    <div class="day"><div class="cell alone"><div class="s">Weights</div><div class="w">Normal</div></div><div class="cell alone"><div class="s">Pads</div><div class="w"><span class="bad">no place</span></div></div></div>
+    <div class="day"><div class="cell you"><div class="s">Speed</div><div class="w">Normal</div></div><div class="cell alone"><div class="s">Spar</div><div class="w">Body</div></div></div>
+    <div class="day"><div class="cell alone"><div class="s">Roadwork</div><div class="w">Normal</div></div><div class="cell coach"><div class="s">Pads</div><div class="w">1-1</div></div></div>
+    <div class="day"><div class="cell light alone"><div class="s">Mobility</div><div class="w">Light</div></div><div class="cell rest"><div class="s">Rest</div><div class="w">&nbsp;</div></div></div>
+    <div class="day"><div class="cell rest"><div class="s">Rest</div><div class="w">&nbsp;</div></div><div class="cell rest"><div class="s">Rest</div><div class="w">&nbsp;</div></div></div>
+    <div class="buys"><div>Speed <span class="g">63→64</span> Thu</div><div>Fast hands: <span class="r">5 wks</span></div><div class="bad">Short 2nd week</div></div>
+  </div>
+  <!-- Ana -->
+  <div class="row">
+    <div class="who"><div class="n">Ana Ribeiro <span class="badge b-bjj">BJJ</span></div><div class="t">Blue belt by 1 Jun</div><div class="m">Open: Sat 7 Mar</div><div class="m">Steady · <span class="ok">fresh</span></div></div>
+    <div class="day"><div class="cell alone"><div class="s">Cafe job</div><div class="w">&nbsp;</div></div><div class="cell coach"><div class="s">Class</div><div class="w">Passing</div></div></div>
+    <div class="day"><div class="cell you"><div class="s">Weights</div><div class="w">Normal</div></div><div class="cell rest"><div class="s">Rest</div><div class="w">&nbsp;</div></div></div>
+    <div class="day"><div class="cell alone"><div class="s">Cafe job</div><div class="w">&nbsp;</div></div><div class="cell coach"><div class="s">Class</div><div class="w">Back</div></div></div>
+    <div class="day"><div class="cell alone"><div class="s">Roadwork</div><div class="w">Normal</div></div><div class="cell alone"><div class="s">Rolling</div><div class="w">Position</div></div></div>
+    <div class="day"><div class="cell alone"><div class="s">Cafe job</div><div class="w">&nbsp;</div></div><div class="cell coach"><div class="s">Class</div><div class="w">Passing</div></div></div>
+    <div class="day"><div class="cell light alone"><div class="s">Mobility</div><div class="w">Light</div></div><div class="cell rest"><div class="s">Rest</div><div class="w">&nbsp;</div></div></div>
+    <div class="day"><div class="cell rest"><div class="s">Rest</div><div class="w">&nbsp;</div></div><div class="cell rest"><div class="s">Rest</div><div class="w">&nbsp;</div></div></div>
+    <div class="buys"><div>Pass <span class="g">owned Fri</span></div><div>Stripe 3 <span class="g">in 2 wks</span></div><div class="dim">Peak 58</div></div>
+  </div>
+
+  <div class="card" style="border-color:#3a6a8a;position:absolute;left:12px;right:12px;bottom:52px">
+    <h3>Coach says</h3>
+    <div class="note" style="font-size:22px">"Kira is flat and short of pads twice. Give Kira your Monday pad place, Lucy loses a 1-2 night and 3b-3 is still usable Wed."</div>
+    <div style="margin-top:6px"><span class="btn">Do it: Kira +0.3, Lucy 0</span> <span class="btn ghost">Leave it</span></div>
+  </div>
+
+  <div class="legend">
+    <span><span class="sw" style="background:var(--gold)"></span>You</span>
+    <span><span class="sw" style="background:var(--blue)"></span>Coach</span>
+    <span><span class="sw" style="background:#666"></span>Alone (mood rate)</span>
+    <span><span class="sw" style="background:#4a2d26"></span>Hard</span>
+    <span><span class="sw" style="background:#2c3a2d"></span>Light</span>
+    <span style="margin-left:auto">Click a cell to change it · drag a pad place between fighters</span>
+  </div>
+</div>
+
+<div class="side">
+  <div class="card">
+    <h3>Kira: the next 8 weeks <span>fitness and tiredness</span></h3>
+    <svg width="560" height="120" viewBox="0 0 560 120">
+      <line x1="0" y1="24" x2="560" y2="24" stroke="#e0503c" stroke-dasharray="8 6" stroke-width="2"/>
+      <text x="4" y="20" fill="#e0503c" font-size="20">80: too tired, injuries rise</text>
+      <polyline points="0,96 80,88 160,78 240,70 320,64 400,58 480,52 560,48" fill="none" stroke="#7fc46a" stroke-width="4"/>
+      <polyline points="0,70 80,52 160,60 240,44 320,58 400,40 480,74 560,86" fill="none" stroke="#e8962e" stroke-width="4"/>
+      <text x="410" y="112" fill="#7fc46a" font-size="20">fitness up</text>
+      <text x="200" y="112" fill="#e8962e" font-size="20">tiredness</text>
+    </svg>
+    <div>Repeating this week 6 times: <span class="amb">stale from week 5</span> (same mix), gains x0.8. <b>Swap one bag morning</b> to reset.</div>
+  </div>
+
+  <div class="card">
+    <h3>Weight <span>Danny, lightweight 60.0</span></h3>
+    <div>Walking <b>62.4</b> · today <b>60.6</b> · on the scale Fri <span class="ok"><b>59.9</b> made</span></div>
+    <div><span class="pill">Hold</span><span class="pill on">Cut steady</span><span class="pill">Cut fast: tank -2, mood -3</span></div>
+    <div class="dim">Up to 63.5 next season: no cut, 4 on the ladder</div>
+  </div>
+
+  <div class="card">
+    <h3>Thursday sparring <span>Kira and Danny</span></h3>
+    <div>Pair: <span class="pill on">Danny 60.6 kg</span><span class="pill">Lucy 61.2</span><span class="pill">Visiting club +1 favour</span></div>
+    <div>Setting: <span class="pill">Hard x1.3, cut 4 in 100</span><span class="pill">Technical x1.0</span><span class="pill on">Body only, no cut</span></div>
+    <div class="dim">Danny boxes Saturday: body only keeps the face clean.</div>
+  </div>
+
+  <div class="card">
+    <h3>Individual focus <span>one per fighter</span></h3>
+    <div>Danny: <b>Drops the right after the jab</b>, your pad places Wed: <span class="ok">gone Wed</span></div>
+    <div>Kira: <b>Speed for Fast hands</b>: <span class="amb">5 weeks</span>, 3 with one more of your mornings</div>
+    <div>Lucy: <b>Body hook to Sharp</b>: sharp is worth <span class="ok">+2 to +3 in 100</span></div>
+  </div>
+
+</div>
+</div>
+
+<div class="bottom">
+  <div class="btn ghost">Keep my changes</div>
+  <div class="btn ghost">Coach deals it <span class="dim">(1 to 2 in 100 below yours)</span></div>
+  <div class="dim" style="margin-left:14px">Last week: planned Stamina +1, got +1 · Kira's twist: rain, roadwork indoors</div>
+  <div style="flex:1"></div>
+  <div class="btn go">Start week</div>
+</div>
+</body></html>

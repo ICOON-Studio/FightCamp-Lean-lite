@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>Club, You tab: your level, the pick, your road, your style, Coach and Known (RPGLAYER1 v2)</title>
+<html lang="en"><head><meta charset="utf-8"><title>Club, You tab: your level from outcomes, the priced pick, your road, your style and the trial mat, what your picks won, Known, the squad (RPGLAYER1 v3)</title>
 <style>
 @font-face{font-family:Marker;src:url(../../../assets/fonts/PermanentMarker-Regular.ttf)}
 @font-face{font-family:Barlow;font-weight:400;src:url(../../../assets/fonts/Barlow-Regular.ttf)}
@@ -30,7 +30,6 @@ body{position:relative;background:#120e0c;color:var(--ink);font:500 21px/1.2 Bar
 .tab{height:46px;padding:0 17px;border-radius:8px;display:flex;align-items:center;font-weight:700;color:#b8c3de;background:#1d2741;white-space:nowrap}
 .tab.on{color:#fff;background:#275696;box-shadow:0 0 26px 2px rgba(255,205,90,.42)}
 .plate{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:8px;background:#1d2741;color:#fffbf3;font:700 20px/1 Barlow;white-space:nowrap}
-.tag{display:inline-flex;align-items:center;height:30px;padding:0 10px;border-left:4px solid #275696;border-radius:3px;background:#1a2033;color:#8eb8f2;font:600 19px/1 Barlow;text-transform:uppercase;white-space:nowrap}
 .go{display:flex;align-items:center;justify-content:center;height:48px;padding:0 18px;border-radius:11px;background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06;font-weight:700;font-size:21px;box-shadow:0 3px 0 #9a6c10,0 0 26px 2px rgba(255,205,90,.30);white-space:nowrap}
 .btn{display:flex;align-items:center;justify-content:center;height:48px;padding:0 16px;border-radius:11px;background:rgba(255,255,255,.09);color:var(--ink);font-weight:600;font-size:20px;white-space:nowrap}
 .name{font:400 46px/1 Marker;color:#fff;white-space:nowrap}
@@ -48,11 +47,13 @@ body{position:relative;background:#120e0c;color:var(--ink);font:500 21px/1.2 Bar
 .face{border-radius:50%;border:3px solid #fdfaf2;object-fit:cover;display:block}
 .row{display:grid;align-items:center;border-bottom:1px solid rgba(255,255,255,.07);font-size:20px}
 .xp{grid-template-columns:1fr 54px;height:34px}.xp b{text-align:right;color:var(--green);font-weight:700}
-.pick{position:absolute;top:186px;width:300px;height:408px;border-radius:16px;background:#1d2741;padding:14px 18px;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+.pick{position:absolute;top:186px;width:300px;height:410px;border-radius:16px;background:#1d2741;padding:14px 18px;box-shadow:0 6px 18px rgba(0,0,0,.45)}
 .pick.hot{box-shadow:0 0 0 3px var(--gold),0 0 30px 4px rgba(255,205,90,.35)}
-.pick h4{font:400 27px/1.05 Marker;color:#fff;margin:8px 0 8px}
-.pick .ln{font-size:20px;line-height:25px;margin-bottom:6px}
-.pick .wk{font-size:19px;line-height:24px;color:#b8c3de;border-top:1px solid rgba(255,255,255,.1);padding-top:7px;margin-top:6px}
+.pick h4{font:400 26px/1.05 Marker;color:#fff;margin:8px 0 8px}
+.pick .ln{font-size:20px;line-height:25px;margin-bottom:4px}
+.pick .wk{font-size:18px;line-height:23px;color:#b8c3de;border-top:1px solid rgba(255,255,255,.1);padding-top:6px;margin-top:6px}
+.pick .bf{font-size:18px;line-height:23px;border-top:1px solid rgba(255,255,255,.1);padding-top:6px;margin-top:6px}
+.pick .bf b{color:var(--gold)}
 .pick .go,.pick .btn{position:absolute;left:18px;right:18px;bottom:14px}
 .or{position:absolute;top:366px;left:921px;width:52px;height:52px;border-radius:50%;background:#120e0c;border:2px solid var(--gold);display:grid;place-items:center;font:700 21px/1 Barlow;color:var(--gold);z-index:2}
 .rd{display:grid;grid-template-columns:42px 1fr;column-gap:12px;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:19px;line-height:23px}
@@ -61,111 +62,122 @@ body{position:relative;background:#120e0c;color:var(--ink);font:500 21px/1.2 Bar
 .rd.now .n{background:var(--gold);color:#2a1b06;border-color:#fff;box-shadow:0 0 16px 3px rgba(255,205,90,.5)}
 .rd b{color:#fff}
 .bg{display:inline-block;padding:0 7px;border-radius:6px;background:#3b2a6b;color:#e3d4ff;font-weight:700;font-size:16px;letter-spacing:.04em;line-height:22px;vertical-align:1px}
-.sty3{display:flex;gap:8px;margin:2px 0 8px}
+.sty3{display:flex;gap:8px;margin:2px 0 6px}
 .sty3 span{height:36px;padding:0 12px;border-radius:9px;display:flex;align-items:center;background:rgba(255,255,255,.07);font:400 20px/1 Marker;color:var(--soft)}
 .sty3 span.on{background:#275696;color:#fff;box-shadow:0 0 0 2px var(--gold)}
-.sr{grid-template-columns:168px 1fr;height:36px;font-size:19px;white-space:nowrap}.sr span:last-child{text-align:right}
-.kn{display:grid;grid-template-columns:40px 76px 130px 1fr;column-gap:10px;align-items:center;height:48px;border-bottom:1px solid rgba(255,255,255,.07);font-size:19px}
+.sr{grid-template-columns:150px 1fr;height:36px;font-size:19px;white-space:nowrap}.sr span:last-child{text-align:right}
+.kn{display:grid;grid-template-columns:40px 76px 130px 1fr;column-gap:10px;align-items:center;height:46px;border-bottom:1px solid rgba(255,255,255,.07);font-size:19px}
 .kn img{width:38px;height:38px}
 .pips{display:flex;gap:5px}.pips s{width:20px;height:14px;border-radius:4px;background:var(--blue)}.pips s.o{background:var(--track)}
-.cg{grid-template-columns:1fr auto;height:34px}
+.cg{grid-template-columns:1fr auto;height:34px;font-size:19px}
+.lw{grid-template-columns:1fr auto;column-gap:10px;height:34px;font-size:19px;white-space:nowrap}
+.lw.off{opacity:.55}
+.cn{display:inline-block;padding:0 6px;margin-right:6px;border-radius:5px;background:rgba(255,210,74,.18);color:var(--gold);font:700 13px/19px Barlow;letter-spacing:.05em;vertical-align:2px}
+.chip{display:inline-block;padding:0 8px;border-radius:6px;background:rgba(63,192,122,.2);color:var(--green);font:700 15px/22px Barlow;letter-spacing:.04em;vertical-align:1px}
 </style></head>
 <body><div class="wall"></div>
 <div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span><span class="tdate"><b>Mon 6 Apr 2026</b><i>Week 14</i></span><span class="trail"><span class="rail plank9">Gym</span><span class="rail plank9">Mail (2 new)</span></span><span class="tgrow"></span><span class="tcash"><b>$9,480</b><i>running -$120 a week</i></span><span class="tgo plank9"><b>NEEDS YOU (3)</b><i>Level 4 pick, Tess's perk, a raise</i></span><span class="tnav tmenu tab9">Menu</span></div>
 <div class="tabs"><span class="tab">People</span><span class="tab">Money</span><span class="tab">Records</span><span class="tab on">You</span></div>
 
-<!-- A: you, experience, Known -->
+<!-- A: you, experience from outcomes, Known with what each step does -->
 <img class="abs face" src="../../../assets/ui/face/mh_staff_coach.jpg" style="left:28px;top:150px;width:112px;height:112px" alt="">
 <div class="abs" style="left:156px;top:156px"><div class="name">SAM CARTER</div>
  <div style="display:flex;gap:10px;align-items:center;margin-top:8px"><span class="plate">Head coach</span><span style="color:var(--soft)">Old hand</span></div>
  <div class="cap" style="margin-top:6px">Edge: every cut burns 120 kcal a day more</div></div>
 
-<div class="abs ring" style="left:28px;top:284px;width:128px;height:128px;background:radial-gradient(closest-side,#191412 80%,transparent 81% 100%),conic-gradient(var(--gold) 0 5%,var(--track) 5% 100%)"><div><b>4</b><i>level</i></div></div>
+<div class="abs ring" style="left:28px;top:284px;width:128px;height:128px;background:radial-gradient(closest-side,#191412 80%,transparent 81% 100%),conic-gradient(var(--gold) 0 31%,var(--track) 31% 100%)"><div><b>4</b><i>level</i></div></div>
 <div class="abs" style="left:174px;top:290px;width:414px">
- <div style="font-size:24px;font-weight:700">47 experience <span class="cap" style="font-weight:500">19 to level 5</span></div>
- <div class="bar" style="margin:10px 0 12px"><b style="width:5%"></b></div>
- <div style="display:flex;justify-content:space-between;font-weight:700"><span>This week's board can earn you</span><span class="gain">+9</span></div>
- <div class="cap" style="line-height:23px;margin-top:4px">Cornering Tess Sat +2 (+1 on a win), Samira's habit on your pads +3 when it goes, Lucy's camp +2, a promise due +1</div>
+ <div style="font-size:24px;font-weight:700">70 experience <span class="cap" style="font-weight:500">18 to level 5</span></div>
+ <div class="bar" style="margin:10px 0 12px"><b style="width:31%"></b></div>
+ <div class="cap" style="line-height:23px">Earned by what your own hours achieve: wins you cornered, points gained in your sessions, habits gone, promises kept.</div>
 </div>
 
 <div class="abs" style="left:28px;top:470px;width:560px">
  <div class="h">WHERE IT CAME FROM <span>last 4 weeks</span></div>
  <div class="row xp"><span>Cornered Samira, won</span><b>+3</b></div>
- <div class="row xp"><span>Samira's dropped right, trained out</span><b>+3</b></div>
- <div class="row xp"><span>Lucy picked The rangefinder</span><b>+1</b></div>
+ <div class="row xp"><span>Samira's dropped right, gone on your pads</span><b>+3</b></div>
+ <div class="row xp"><span>6 stat points in your sessions</span><b>+6</b></div>
  <div class="row xp"><span>Promise kept: Tess's pad place</span><b>+2</b></div>
- <div class="row xp"><span>Cornered Tess, lost</span><b>+2</b></div>
- <div class="cap" style="margin-top:6px">Only what you do in person counts. Coach's corner earns nothing.</div>
+ <div class="row xp"><span>Cornered Tess, lost</span><b>+1</b></div>
+ <div class="cap" style="margin-top:6px">Coach's corner and Coach's sessions earn you nothing.</div>
 </div>
 
-<div class="panel" style="left:28px;top:744px;width:560px;height:316px">
- <div class="h">KNOWN <span>how well you know each one, by your hours</span></div>
- <div class="kn"><img class="face" src="../s431/final/face_lucy.png" alt=""><b>Lucy</b><div class="pips"><s></s><s></s><s></s><s class="o"></s><s class="o"></s></div><span>pip 4 in <b class="gain">2</b> sessions: all traits</span></div>
- <div class="kn"><img class="face" src="../s431/final/face_samira.png" alt=""><b>Samira</b><div class="pips"><s></s><s></s><s></s><s></s><s class="o"></s></div><span>pip 5 in 9: the knockout odds</span></div>
- <div class="kn"><img class="face" src="../s431/final/face_tess.png" alt=""><b>Tess</b><div class="pips"><s></s><s></s><s class="o"></s><s class="o"></s><s class="o"></s></div><span>pip 3 in <b class="gain">4</b>: potential narrows</span></div>
- <div class="kn"><img class="face" src="../s431/final/face_ana.png" alt=""><b>Ana</b><div class="pips"><s></s><s class="o"></s><s class="o"></s><s class="o"></s><s class="o"></s></div><span>pip 2 in 3: a trait opens</span></div>
- <div class="cap" style="margin-top:8px;line-height:22px">Heart and composure show only in sparring and bouts. Coach's sessions teach you nothing.</div>
+<div class="panel" style="left:28px;top:752px;width:560px;height:308px">
+ <div class="h">KNOWN <span>by your hours; the next step does</span></div>
+ <div class="kn"><img class="face" src="../s431/final/face_lucy.png" alt=""><b>Lucy</b><div class="pips"><s></s><s></s><s></s><s class="o"></s><s class="o"></s></div><span>4 in <b class="gain">2</b>: TRUST ME opens</span></div>
+ <div class="kn"><img class="face" src="../s431/final/face_samira.png" alt=""><b>Samira</b><div class="pips"><s></s><s></s><s></s><s></s><s class="o"></s></div><span>5 in 9: Hardened +10</span></div>
+ <div class="kn"><img class="face" src="../s431/final/face_tess.png" alt=""><b>Tess</b><div class="pips"><s></s><s></s><s class="o"></s><s class="o"></s><s class="o"></s></div><span>3 in <b class="gain">4</b>: habit a week sooner</span></div>
+ <div class="kn"><img class="face" src="../s431/final/face_ana.png" alt=""><b>Ana</b><div class="pips"><s></s><s class="o"></s><s class="o"></s><s class="o"></s><s class="o"></s></div><span>2 in 3: a trait opens</span></div>
+ <div class="cap" style="margin-top:8px;line-height:22px">Body shows in weeks, skills in two months, heart only in sparring and bouts.</div>
 </div>
 
-<!-- B: the pick and the road -->
+<!-- B: the pick with BEST FOR, and the road -->
 <div class="abs h" style="left:620px;top:146px">LEVEL 4: PICK ONE <span>the corner, for good</span></div>
 <div class="pick hot" style="left:620px">
  <span class="plate" style="background:#275696">Ringside voice</span>
  <h4>Three shouts a round land</h4>
- <div class="ln"><span class="gain">3 shouts a round in full</span> <span class="cap">(now 2, then half)</span></div>
- <div class="ln"><span class="cost">Corner minute stays 2 fixes</span></div>
- <div class="wk">Your last 6 bouts: <b style="color:#fff">9 shouts</b> landed at half. Tess takes in 81 in 100 of a full shout, 40 at half.</div>
+ <div class="ln"><span class="gain">3 shouts a round in full</span> <span class="cap">(now 2)</span></div>
+ <div class="ln"><span class="cost">One set-up a minute</span></div>
+ <div class="wk">Your last 6 bouts: <b style="color:#fff">9 shouts</b> landed at half. Tess takes in 81 in 100 of a full one.</div>
+ <div class="bf"><b>Best for</b> a squad with two Stubborn fighters: <span class="gain">+1.8 in 100</span></div>
  <span class="go">Take Ringside voice</span>
 </div>
 <div class="or">OR</div>
 <div class="pick" style="left:980px">
  <span class="plate" style="background:#275696">The minute</span>
- <h4>Three fixes between rounds</h4>
- <div class="ln"><span class="gain">3 fixes in the corner minute</span> <span class="cap">(now 2)</span></div>
+ <h4>Two set-ups, a fix that holds</h4>
+ <div class="ln"><span class="gain">2 set-ups, fix holds 2 rounds</span></div>
  <div class="ln"><span class="cost">Shouts stay 2 a round in full</span></div>
- <div class="wk">Your last 6 bouts: <b style="color:#fff">4 minutes</b> with a third fix left waiting (a habit, ice, the cut).</div>
+ <div class="wk">Your last 6 bouts: <b style="color:#fff">5 rounds</b> a second gap opened with no NOW! armed.</div>
+ <div class="bf"><b>Best for</b> 3+ drilled combinations: <span class="gain">+1.6 in 100</span></div>
  <span class="btn">Take The minute</span>
 </div>
 
 <div class="panel" style="left:620px;top:612px;width:660px;height:448px">
  <div class="h">YOUR ROAD <span>both sides of every level, ahead of time</span></div>
  <div class="rd done"><span class="n">2</span><span><b>Your hours:</b> <span class="gain">Long evenings</span> <span class="cap">(Early starts closed)</span></span></div>
- <div class="rd done"><span class="n">3</span><span><b>The room:</b> <span class="gain">One on one</span>, a morning alone counts twice to Known, trains out a habit <span class="cap">(The room closed)</span></span></div>
+ <div class="rd done"><span class="n">3</span><span><b>The room:</b> <span class="gain">One on one</span>: a morning alone counts twice to Known, trains out a habit <span class="cap">(The room closed)</span></span></div>
  <div class="rd now"><span class="n">4</span><span><b>The corner:</b> Ringside voice or The minute <span style="color:var(--gold);font-weight:700">pick now</span></span></div>
- <div class="rd"><span class="n">5</span><span><b>What you see:</b> Eye for tape, Eye for people, or <span class="bg">OLD HAND</span> <b>Eye for the scale</b>: every weight forecast exact; one kilo a season asked for no favour</span></div>
+ <div class="rd"><span class="n">5</span><span><b>What you see:</b> Eye for tape, Eye for people, or <span class="bg">OLD HAND</span> <b>Eye for the scale</b>: Eat less costs half; a kilo a season with no favour</span></div>
  <div class="rd"><span class="n">6</span><span><b>Your name:</b> A name in the trade or A home for life</span></div>
- <div class="rd"><span class="n">+</span><span><b>Each season after 6:</b> deepen one perk you took, or <b>Second thoughts</b>: take back the side you closed at one level</span></div>
+ <div class="rd" style="border:0"><span class="n">+</span><span><b>Each season after 6:</b> deepen one perk you took, or <b>Second thoughts</b>: take back the side you closed at one level</span></div>
 </div>
 
-<!-- C: style, Coach, squad -->
-<div class="panel" style="left:1310px;top:146px;width:582px;height:404px">
+<!-- C: style and the trial mat, what your picks won, the squad, Coach -->
+<div class="panel" style="left:1310px;top:146px;width:582px;height:340px">
  <div class="h">YOUR STYLE <span>in this squad's weeks</span></div>
  <div class="sty3"><span>Hard school</span><span class="on">Craft first</span><span>Family club</span></div>
  <div class="row sr"><span>Pads teach more</span><span class="gain">Tess's body hook: Usable a week sooner</span></div>
- <div class="row sr"><span>One more plan line</span><span class="gain">Samira's plan: 6 lines, was 5</span></div>
+ <div class="row sr"><span>One more line</span><span class="gain">Samira's plan: 6 lines, was 5</span></div>
  <div class="row sr"><span>Cardio slower</span><span class="cost">Lucy: Stamina +0.36 a week, was +0.40</span></div>
- <div class="row sr"><span>Suits</span><span><b>Lucy</b>, Listens: <span class="gain">+1 loyalty every 4 weeks</span></span></div>
- <div class="row sr"><span>Clashes</span><span><b>Tess</b>, Stubborn: <span class="cost">-1 / 2 weeks: 60 by July</span></span></div>
- <div class="row sr"><span>Not known</span><span class="cap">Ana: two traits "?" yet</span></div>
- <div style="display:flex;align-items:center;gap:14px;margin-top:10px"><span class="btn">Change style</span><span class="cap" style="line-height:22px">once a season: every fighter loyalty -4,<br>the new plus half for 4 weeks</span></div>
+ <div class="row sr"><span>Suits, clashes</span><span><b>Lucy</b> <span class="gain">+1 / 4 wks</span>; <b>Tess</b> <span class="cost">-1 / 2 wks</span></span></div>
+ <div class="row sr"><span>Trial mat</span><span>2 in 3 Listens or Confident: <span class="cap">"came for it"</span></span></div>
+ <div style="display:flex;align-items:center;gap:14px;margin-top:8px"><span class="btn" style="height:44px">Change style</span><span class="cap" style="line-height:21px;font-size:18px">once a season: every fighter loyalty -4;<br>the new plus half for 4 weeks</span></div>
 </div>
 
-<div class="panel" style="left:1310px;top:566px;width:582px;height:258px">
- <div class="h">COACH GROWS <span>Luke Reid, with the sessions Coach runs</span></div>
- <div class="row cg"><span>Pads 58 <span class="cap">ceiling 66</span></span><span class="gain">59 in 3 sessions</span></div>
- <div class="row cg"><span>Conditioning 54 <span class="cap">ceiling 62</span></span><span class="cap">55 in 7 sessions</span></div>
- <div class="row cg"><span>Signature drill: body hook pads</span><span>31 of 40: <span class="gain">x1.2</span></span></div>
- <div style="display:flex;align-items:center;gap:10px;margin-top:10px"><span style="font-weight:700;white-space:nowrap">Raise: +$40 a week</span><span class="go" style="height:42px;font-size:19px">Pay it</span><span class="btn" style="height:42px;font-size:19px">No: growth stops 8 weeks</span></div>
+<div class="panel" style="left:1310px;top:500px;width:582px;height:212px">
+ <div class="h">WHAT YOUR PICKS WON <span>this season</span></div>
+ <div class="row lw"><span>Long evenings: +14 pad places</span><span class="gain">body hook 2 wks sooner</span></div>
+ <div class="row lw"><span>One on one: 2 habits gone</span><span class="gain">3 wks sooner each</span></div>
+ <div class="row lw"><span>Craft first: +31 mastery</span><span class="cost">Stamina -1.2</span></div>
+ <div class="row lw off" style="border:0"><span>Craft first, the extra line: unused in 4 plans</span><span class="cap">a pick to rethink</span></div>
+ <div class="cap" style="font-size:17px;line-height:20px;margin-top:4px">A pick under 0.5 in 100 a season greys out; Second thoughts after level 6.</div>
 </div>
 
-<div class="panel" style="left:1310px;top:840px;width:582px;height:220px">
- <div class="h">THE SQUAD <span>sparring pairs</span></div>
- <div class="row cg"><span><b>Lucy and Kira</b> <span class="gain">Partners</span> <span class="cap">7 of 8 weeks</span></span><span class="gain">+5% sparring</span></div>
- <div class="row cg"><span><b>Samira</b>: "Tess gets my pad place again"</span><span class="cap">3 weeks</span></div>
- <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;font-size:18px;line-height:22px">
-  <span class="btn" style="height:56px;flex-direction:column;font-size:18px">Swap one back<small class="cap" style="font-size:17px">Samira +3, Tess -2</small></span>
-  <span class="btn" style="height:56px;flex-direction:column;font-size:18px">Spar, Technical<small class="cap" style="font-size:17px">settled 1 in 2</small></span>
-  <span class="btn" style="height:56px;flex-direction:column;font-size:18px">Say nothing<small class="cap" style="font-size:17px">no sparring, 4 wks</small></span>
+<div class="panel" style="left:1310px;top:726px;width:582px;height:216px">
+ <div class="h">THE SQUAD</div>
+ <div class="row cg"><span><b>Samira</b> <span class="chip">CAPTAIN</span> <span class="cap">nobody skips in that room</span></span><span class="cap">own mornings 0.9</span></div>
+ <div class="row cg"><span><b>Lucy and Kira</b> <span class="gain">Partners</span> <span class="cap">7 of 8 weeks</span></span><span class="gain">x1.15 sparring</span></div>
+ <div style="font-size:19px;line-height:24px;margin-top:6px"><b>Danny:</b> "Tess gets my pad place again" <span class="cap">3 weeks</span></div>
+ <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px">
+  <span class="btn" style="height:54px;flex-direction:column;font-size:17px;line-height:21px"><span><span class="cn">PAD</span>Swap one back</span><small class="cap" style="font-size:16px">Danny +3, Tess -2</small></span>
+  <span class="btn" style="height:54px;flex-direction:column;font-size:17px;line-height:21px"><span><span class="cn">SPAR</span>Technical</span><small class="cap" style="font-size:16px">settled 1 in 2</small></span>
+  <span class="btn" style="height:54px;flex-direction:column;font-size:17px;line-height:21px"><span><span class="cn">LOYALTY</span>Say nothing</span><small class="cap" style="font-size:16px">-2, no sparring 4 wks</small></span>
  </div>
+</div>
+
+<div class="panel" style="left:1310px;top:956px;width:582px;height:104px">
+ <div class="h">COACH <span>Luke Reid, pads 59, drill 31 of 40</span></div>
+ <div style="display:flex;align-items:center;gap:10px;margin-top:2px"><span style="font-weight:700;white-space:nowrap;font-size:19px">Asks +$40 a week</span><span class="go" style="height:40px;font-size:18px">Pay it</span><span class="btn" style="height:40px;font-size:18px">No: growth stops 8 weeks</span></div>
 </div>
 </body></html>

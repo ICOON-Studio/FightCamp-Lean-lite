@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Fighter page, Fight plan tab: the Playbook v2 (PLAYBOOK_MAP_S432)</title>
+<style>
+@font-face{font-family:Marker;src:url(../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../assets/fonts/BebasNeue-Regular.ttf)}
+@font-face{font-family:Kalam;font-weight:700;src:url(../../../assets/fonts/Kalam-Bold.ttf)}
+:root{--ink:#f1e8da;--soft:#c9b9a2;--gold:#ffd24a;--red:#dd4b3d;--blue:#4d8ef0;--green:#3fc07a;--amber:#f28d27;--purple:#ad80ff;--track:rgba(255,255,255,.10)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:#120e0c;color:var(--ink);font:500 20px/1.2 Barlow,"Segoe UI",sans-serif}
+.abs{position:absolute}
+.wall{position:absolute;left:0;right:0;top:78px;bottom:0;background:radial-gradient(ellipse 760px 520px at 40% 26%,rgba(255,190,110,.12),transparent 72%),linear-gradient(#1b1512,#130f0d 62%,#0e0b09)}
+.top{position:absolute;left:0;top:0;width:1920px;height:78px;z-index:5;border-style:solid;border-width:0 0 8px 0;border-image:url(../../../assets/ui/wood/bar.png) 0 0 8 0 fill / 0 0 8px 0 / 0 stretch;display:flex;align-items:center;gap:14px;padding:8px 18px 0 18px;color:#efe6d8}
+.tab9{border:9px solid transparent;border-image:url(../../../assets/ui/wood/tab.png) 9 fill / 9px / 0 stretch}
+.plank9{border:9px solid transparent;border-image:url(../../../assets/ui/wood/plank.png) 9 fill / 9px / 0 stretch}
+.tnav{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font:500 20px/1 Barlow;color:#efe6d8;flex:none}.tnav.off{opacity:.42}
+.tmenu{width:auto;height:40px;padding:0 4px 2px 4px;font:500 20px/1 Barlow}
+.tgym{font:400 32px/1 Marker;color:#6ea2f2;white-space:nowrap;padding-top:2px}
+.tdate{min-width:176px}.tdate b{display:block;font:500 20px/23px Barlow;color:#efe6d8;white-space:nowrap}.tdate i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#b8a88f}
+.trail{flex:1;display:flex;justify-content:center;gap:6px}
+.rail{min-width:128px;height:48px;padding:0 8px 2px 8px;display:flex;align-items:center;justify-content:center;font:500 20px/1 Barlow;color:#efe6d8;white-space:nowrap}
+.tgrow{flex:1}
+.tcash{text-align:right}.tcash b{display:block;font:600 24px/27px Barlow;color:#e8c15a}.tcash i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#b8a88f;white-space:nowrap}
+.tgo{width:330px;height:60px;padding:0 7px 2px 7px;display:flex;flex-direction:column;justify-content:center;flex:none}
+.tgo b{display:block;font:600 20px/23px Barlow;color:#efe6d8;white-space:nowrap}.tgo i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#efe6d8;white-space:nowrap}
+.tabs{position:absolute;left:28px;top:92px;display:flex;gap:6px}
+.tab{height:46px;padding:0 16px;border-radius:8px;display:flex;align-items:center;font-weight:700;color:#b8c3de;background:#1d2741;white-space:nowrap}
+.tab.on{color:#fff;background:#275696;box-shadow:0 0 26px 2px rgba(255,205,90,.42)}
+.plate{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:8px;background:#1d2741;color:#fffbf3;font:700 20px/1 Barlow;white-space:nowrap}
+.go{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:10px;background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06;font-weight:700;font-size:20px;box-shadow:0 3px 0 #9a6c10,0 0 22px 2px rgba(255,205,90,.28);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 15px;border-radius:10px;background:rgba(255,255,255,.09);color:var(--ink);font-weight:600;font-size:20px;white-space:nowrap}
+.mini{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:9px;background:rgba(255,210,74,.16);color:var(--gold);font-weight:700;font-size:20px;white-space:nowrap}
+.name{font:400 46px/1 Marker;color:#fff;white-space:nowrap}
+.h{display:flex;align-items:baseline;gap:12px;height:32px;font-weight:700;font-size:21px;letter-spacing:.09em;color:var(--gold);white-space:nowrap}
+.h span{font-weight:500;font-size:20px;letter-spacing:0;color:var(--soft)}
+.cap{color:var(--soft);font-size:20px}
+.panel{position:absolute;border-radius:14px;background:rgba(20,24,36,.62);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);padding:12px 18px}
+.sw{position:absolute;left:1560px;top:140px;display:flex;gap:8px}
+.sw div{width:76px;text-align:center;font-size:20px;line-height:22px;font-weight:600;color:var(--soft)}
+.sw img{display:block;width:46px;height:46px;margin:4px auto 2px;border-radius:50%;border:2.5px solid #fdfaf2;opacity:.7}
+.sw .on{color:#fff}.sw .on img{width:54px;height:54px;margin:0 auto;border:3px solid var(--gold);opacity:1;box-shadow:0 0 18px 3px rgba(255,205,90,.55)}
+.vs{position:absolute;left:640px;top:146px;display:flex;align-items:center;gap:12px;height:52px;padding:0 16px 0 10px;border-radius:8px;background:#252d45;color:#fff;font:700 21px/1 Barlow;white-space:nowrap}
+.vs .tag{display:inline-flex;align-items:center;height:32px;padding:0 10px;border-left:4px solid #275696;border-radius:3px;background:#1a2033;color:#8eb8f2;font:600 20px/1 Barlow;text-transform:uppercase}
+.vs small{font:500 20px/1 Barlow;color:#b8c3de}
+.vs .link{color:#8eb8f2}
+/* chips */
+.c{display:inline-flex;align-items:center;height:30px;padding:0 11px;border-radius:15px;font-weight:700;font-size:20px;white-space:nowrap}
+.beat{background:rgba(63,192,122,.18);color:#5fe09a;box-shadow:inset 0 0 0 1.5px rgba(63,192,122,.55)}
+.works{background:rgba(77,142,240,.16);color:#8eb8f2;box-shadow:inset 0 0 0 1.5px rgba(77,142,240,.5)}
+.good{background:rgba(63,192,122,.18);color:#5fe09a}
+.okg{background:rgba(255,255,255,.10);color:#efe6d8}
+.poor{background:rgba(221,75,61,.22);color:#ff8d7f}
+.f3{background:rgba(63,192,122,.14);color:#5fe09a}
+.f2{background:rgba(242,141,39,.18);color:#ffad5c}
+.fa{background:rgba(255,255,255,.08);color:var(--soft)}
+.pr{background:rgba(255,255,255,.07);color:#e4d8c6;font-weight:600}
+.pr.risk{background:rgba(221,75,61,.16);color:#ff9c90}
+.pr.safe{background:rgba(63,192,122,.10);color:#9fe3bd}
+/* the plan table */
+.th{display:grid;grid-template-columns:196px 258px 110px 106px 210px 112px 128px 80px;column-gap:0;align-items:end;height:30px;font-size:20px;color:var(--soft);font-weight:600;border-bottom:1px solid rgba(255,255,255,.12)}
+.row{display:grid;grid-template-columns:196px 258px 110px 106px 210px 112px 128px 80px;align-items:center;min-height:76px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.row .w b{display:block;font-weight:700;font-size:20px;color:#fff;white-space:nowrap}
+.row .w span{display:flex;align-items:center;gap:8px;margin-top:5px;font-size:20px;color:var(--soft);white-space:nowrap}
+.mbar{display:inline-block;width:48px;height:10px;border-radius:5px;background:var(--track);position:relative;overflow:hidden}
+.mbar i{position:absolute;left:0;top:0;bottom:0;background:#8eb8f2;border-radius:5px}
+.pips{display:inline-flex;gap:4px}.pips s{display:inline-flex;align-items:center;justify-content:center;width:30px;height:22px;border-radius:5px;background:rgba(255,255,255,.07);color:#7f7466;font:700 20px/1 Bebas;text-decoration:none;letter-spacing:.02em}
+.pips s.on{background:rgba(255,210,74,.22);color:var(--gold)}
+.ln b{display:block;font:700 23px/1.1 Barlow;color:var(--gold);white-space:nowrap}
+.ln span{display:block;margin-top:4px;font-size:20px;color:var(--soft);white-space:nowrap}
+.ln span em{font-style:normal;color:#8eb8f2;font-weight:600}
+.att{display:block;margin-top:4px;font-size:20px;color:var(--soft);white-space:nowrap}
+.pc{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.wv{text-align:right;font:400 34px/1 Bebas;letter-spacing:.02em}
+.wv.g{color:#5fe09a}.wv.r{color:#ff8d7f}.wv.s{color:var(--soft)}
+.note{display:flex;align-items:center;gap:12px;min-height:42px;margin:6px 0;padding:4px 12px;border-radius:9px;font-size:20px;line-height:23px;white-space:nowrap}
+.note.am{background:rgba(242,177,52,.12);box-shadow:inset 4px 0 0 #f2b134}
+.note.rd{background:rgba(221,75,61,.12);box-shadow:inset 4px 0 0 var(--red)}
+.note b{color:#fff}
+.note .mini{margin-left:auto}
+/* round strip */
+.rs{display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:12px}
+.rc{border-radius:12px;background:rgba(255,255,255,.05);padding:9px 14px;height:142px}
+.rc h4{display:flex;align-items:baseline;gap:10px;font:400 30px/1 Bebas;letter-spacing:.03em;color:#fff}
+.rc h4 span{font:700 20px/1 Barlow;color:var(--gold)}
+.rc p{margin-top:7px;font-size:20px;line-height:24px;color:var(--ink)}
+.rc p.d{color:var(--soft)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+.split div{font-size:20px;line-height:24px}
+.split b{display:block;color:var(--gold);font-weight:700}
+/* right column */
+.tr{display:grid;grid-template-columns:52px 1fr auto;column-gap:10px;align-items:center;min-height:38px;border-top:1px solid rgba(255,255,255,.07);font-size:20px;line-height:22px}
+.tr i{font-style:normal;font:400 24px/1 Bebas;color:var(--gold);letter-spacing:.02em}
+.tr .ans{color:#5fe09a;font-weight:700}
+.ev{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:center;min-height:33px;border-top:1px solid rgba(255,255,255,.07);font-size:20px}
+.ev b{font-weight:700;color:#fff}.ev .g{color:#5fe09a;font-weight:700}.ev .a{color:#ffad5c;font-weight:700}
+.tot{display:flex;align-items:center;justify-content:space-between;height:40px;margin-top:2px;border-top:2px solid rgba(255,210,74,.35);font-weight:700}
+.tot b{font:400 34px/1 Bebas;color:#5fe09a}
+.mv{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:center;min-height:44px;font-size:20px;line-height:22px}
+.rcpt{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:center;min-height:52px;border-top:1px solid rgba(255,255,255,.07);font-size:20px;line-height:23px}
+.rcpt b{color:#fff}.rcpt .cap{display:block}
+.ico{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+</style></head>
+<body><div class="wall"></div>
+<div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span><span class="tdate"><b>Mon 20 Apr 2026</b><i>Week 16</i></span><span class="trail"><span class="rail plank9">Gym</span><span class="rail plank9">Mail (1 new)</span></span><span class="tgrow"></span><span class="tcash"><b>$10,215</b><i>running -$90 a week</i></span><span class="tgo plank9"><b>START WEEK</b><i>Tess boxes Sat 25 Apr</i></span><span class="tnav tmenu tab9">Menu</span></div>
+<div class="tabs"><span class="tab">Profile</span><span class="tab">Condition</span><span class="tab">Training</span><span class="tab">Playbook</span><span class="tab on">Fight plan</span><span class="tab">Character</span><span class="tab">Crowd</span><span class="tab">History</span></div>
+<div class="abs" style="left:28px;top:146px"><div class="name">TESS REILLY</div><div style="display:flex;align-items:center;gap:12px;margin-top:8px;color:var(--soft);white-space:nowrap"><span class="plate">Middleweight</span>23, southpaw, pressure fighter, 6-4 amateur</div></div>
+<div class="vs"><span class="tag">Sat 25 Apr, 5 days</span>vs <span class="link">Jo Marsh</span><small>Hull ABC, counter-puncher, 7-2</small></div>
+<div class="sw"><div><img src="../s431/final/face_lucy.png" alt="">Lucy</div><div><img src="../s431/final/face_samira.png" alt="">Samira</div><div class="on"><img src="../s431/final/face_tess.png" alt="">Tess</div><div><img src="../s431/final/face_ana.png" alt="">Ana</div></div>
+
+<!-- LEFT: the plan -->
+<div class="panel" style="left:28px;top:252px;width:1236px;height:566px;padding:10px 18px">
+ <div class="h">THE PLAN FOR JO<span>Tess brings <b style="color:#fff">4 a round</b> (Fight IQ 59) &middot; Coach holds 6 &middot; 5 written &middot; 2 score, 2 safe, 1 risky</span></div>
+ <div class="th"><span>Where, how often</span><span>Line</span><span>Rounds</span><span>The read</span><span>Tess does it</span><span>Fires</span><span>Price</span><span style="text-align:right">A use</span></div>
+
+ <div class="row">
+  <div class="w"><b>Jo waits to counter</b><span><span class="mbar"><i style="width:56%"></i></span>10 of 18</span></div>
+  <div class="ln"><b>The draw</b><span>own: feint, 1-1-2, step out</span></div>
+  <div><span class="pips"><s class="on">R1</s><s class="on">R2</s><s>R3</s></span></div>
+  <div><span class="c beat">Beats it</span></div>
+  <div><span class="c okg">OK</span><span class="att">moves' mean 55</span></div>
+  <div><span class="c f2">1 in 2</span><span class="att">Usable 41</span></div>
+  <div class="pc"><span class="c pr">Scores</span><span class="c pr safe">Safe exit</span></div>
+  <div class="wv g">+4.0</div>
+ </div>
+ <div class="note am"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" style="color:#f2b134"><path d="M12 3l9 16H3zM12 10v4M12 17v.5"/></svg><span><b>Jo adapts</b> (tape, 12 Apr): from R2 waits for your most-won line. <b>If read:</b> The draw goes behind the One-two.</span></div>
+
+ <div class="row">
+  <div class="w"><b>At long range</b><span><span class="mbar"><i style="width:22%"></i></span>4 of 18</span></div>
+  <div class="ln"><b>One-two</b><span>if read: <em>switch to Double jab</em></span></div>
+  <div><span class="pips"><s class="on">R1</s><s class="on">R2</s><s class="on">R3</s></span></div>
+  <div><span class="c beat">Beats it</span></div>
+  <div><span class="c okg">OK</span><span class="att">Accuracy 58, Speed 52</span></div>
+  <div><span class="c f3">3 in 4</span><span class="att">Sharp 66</span></div>
+  <div class="pc"><span class="c pr">Scores</span><span class="c pr safe">Cheap</span></div>
+  <div class="wv g">+2.7</div>
+ </div>
+
+ <div class="row">
+  <div class="w"><b>At mid range</b><span><span class="mbar"><i style="width:22%"></i></span>4 of 18</span></div>
+  <div class="ln"><b>Step back</b><span>when Jo presses or loads up</span></div>
+  <div><span class="pips"><s class="on">R1</s><s class="on">R2</s><s class="on">R3</s></span></div>
+  <div><span class="c beat">Beats it</span></div>
+  <div><span class="c poor">Poor</span><span class="att">Footwork 47, Speed 52</span></div>
+  <div><span class="c fa">always</span><span class="att">a step</span></div>
+  <div class="pc"><span class="c pr safe">Safe</span><span class="c pr">Few points</span></div>
+  <div class="wv r">-2.1</div>
+ </div>
+ <div class="note rd"><span><b>Tess improvises better here.</b> Slip, cross, check hook also beats it, done OK (Defence 58, Timing 57): <b style="color:#5fe09a">+1.8</b></span><span class="mini">Swap</span></div>
+
+ <div class="row" style="border-bottom:0">
+  <div class="w"><b>Jo tires</b><span><span class="mbar"><i style="width:11%"></i></span>2 of 18</span></div>
+  <div class="ln"><b>One-two-hook-cross</b><span>R3 only: Jo fades after R2</span></div>
+  <div><span class="pips"><s>R1</s><s>R2</s><s class="on">R3</s></span></div>
+  <div><span class="c beat">Beats it</span></div>
+  <div><span class="c okg">OK</span><span class="att">Speed 52, Stamina 64</span></div>
+  <div><span class="c f3">3 in 4</span><span class="att">Sharp 62</span></div>
+  <div class="pc"><span class="c pr">Scores big</span><span class="c pr risk">Risky</span></div>
+  <div class="wv g">+3.3</div>
+ </div>
+ <div class="note am" style="margin-bottom:0"><span><b>Feint and draw</b> from outside, <b>+0.7</b> &middot; Left at home: Body hook, head hook (not in R1, 80% after)</span><span class="mini">+ Write a line</span></div>
+</div>
+
+<!-- LEFT: round by round -->
+<div class="panel" style="left:28px;top:830px;width:1236px;height:166px;padding:10px 14px">
+ <div class="rs">
+  <div class="rc"><h4>R1<span>STEADY</span></h4><p>The draw, One-two, Step back, Feint.</p><p class="d">Jo starts patient: The draw's round.</p></div>
+  <div class="rc"><h4>R2<span>STEADY</span></h4><p>Jo waits for The draw: it goes behind the One-two.</p><p class="d">Others earn x1.25 while Jo waits.</p></div>
+  <div class="rc"><h4>R3<span>THE CORNER'S CALL</span></h4><div class="split"><div><b>IF AHEAD: SAVE</b>One-two, Feint, Step back</div><div><b>IF BEHIND: PUSH</b>One-two-hook-cross; Legs 61 throw it whole</div></div></div>
+ </div>
+</div>
+
+<!-- LEFT: bottom bar -->
+<div class="abs" style="left:28px;top:1008px;width:1236px;height:58px;display:flex;align-items:center;gap:10px">
+ <span style="font-size:21px;font-weight:600;white-space:nowrap">Your plan against Coach's: <b style="font:700 28px/1 Barlow;color:#5fe09a">+6 to +9</b> in 100</span>
+ <span style="flex:1"></span>
+ <span class="btn">Real plans: 2 fit Tess</span><span class="btn">Map</span><span class="btn">Save plan</span><span class="go">Test it: Thu spar, 2 left</span>
+</div>
+
+<!-- RIGHT: Jo's game -->
+<div class="panel" style="left:1280px;top:252px;width:612px;height:248px">
+ <div class="h">JO'S GAME<span>tape: 4 of 5 found</span></div>
+ <div class="tr"><i>ALL</i><span>Waits to counter, right over the jab</span><span class="ans">The draw</span></div>
+ <div class="tr"><i>ALL</i><span>Boxes at range if you stand off</span><span class="ans">One-two</span></div>
+ <div class="tr"><i>R2+</i><span>Adapts: waits for your most-won line</span><span class="ans">If read</span></div>
+ <div class="tr"><i>R3</i><span>Fades after round 2</span><span class="ans">1-2-3-2</span></div>
+ <div class="tr"><i>?</i><span class="cap">Weakness: film, 2 pad places</span><span class="mini">Book film</span></div>
+</div>
+
+<!-- RIGHT: the line (evidence) -->
+<div class="panel" style="left:1280px;top:512px;width:612px;height:332px">
+ <div class="h">THE LINE: THE DRAW<span>what its worth is made of</span></div>
+ <div class="ev"><span>Against waiting to counter (feint first)</span><span class="g">Beats it +9</span></div>
+ <div class="ev"><span>Tess does it: OK (moves' mean 55)</span><b>x0.85</b></div>
+ <div class="ev"><span>Tess with no plan at long range</span><b>+0.4</b></div>
+ <div class="ev"><span>Usable 41: fires 1 in 2</span><span class="a">x0.5</span></div>
+ <div class="ev"><span>From R2 waited for; behind the One-two</span><span class="g">full</span></div>
+ <div class="tot"><span>Worth a use</span><b>+4.0</b></div>
+ <div class="mv"><span>2 pad places: Sharp by Thu, fires 3 in 4, <b style="color:#5fe09a">+6.0</b></span><span class="mini">On the pads</span></div>
+ <div class="mv" style="color:var(--soft)">Exposure 1.0 s: under the 1.2 s a counter times</div>
+</div>
+
+<!-- RIGHT: after the last bout -->
+<div class="panel" style="left:1280px;top:856px;width:612px;height:210px">
+ <div class="h">AFTER THE LAST BOUT<span>vs Erin Doyle, won on points</span></div>
+ <div class="rcpt"><span><b>One-two: 5 of 7</b><span class="cap">+2 exchanges over improvising</span></span><span class="btn" style="height:40px">Keep</span></div>
+ <div class="rcpt"><span><b>Step back, Poor: 1 of 5</b><span class="cap">Footwork 48 makes it OK</span></span><span class="mini" style="height:40px">On the mornings</span></div>
+ <div class="rcpt"><span><b>The draw: read in R2</b><span class="cap">behind the One-two: 3 of 4</span></span><span class="btn" style="height:40px">Keep</span></div>
+</div>
+</body></html>

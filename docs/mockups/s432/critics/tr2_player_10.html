@@ -1,0 +1,147 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Training 10 of 10</title>
+<style>
+:root{--bg:#1b1714;--panel:#2a231e;--panel2:#332a23;--line:#4a3d33;--ink:#f1e7da;--dim:#b8a898;--gold:#f2c14e;--blue:#4c8dff;--red:#e8584a;--green:#4cc27a;--amber:#f0953a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Arial,sans-serif;font-size:20px}
+.top{height:56px;background:#120f0d;display:flex;align-items:center;padding:0 20px;gap:22px;border-bottom:2px solid #3a2f27}
+.gym{font-family:"Segoe Print","Comic Sans MS",cursive;color:#6fa0ff;font-size:28px;font-weight:700}
+.btn{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 14px;font-size:20px}
+.go{background:var(--gold);color:#241a10;font-weight:700;border-radius:8px;padding:6px 18px;font-size:20px}
+.row2{height:58px;display:flex;align-items:center;gap:10px;padding:0 20px}
+.tab{padding:8px 16px;border-radius:8px;background:var(--panel);font-size:21px;font-weight:600}
+.tab.on{background:#2f5ea8}
+.name{font-family:"Segoe Print","Comic Sans MS",cursive;font-size:32px;font-weight:700;margin-left:14px}
+.strip{display:flex;gap:6px;padding:0 20px;height:92px}
+.wk{flex:1;background:var(--panel);border-top:5px solid var(--blue);border-radius:6px;padding:6px 9px;font-size:20px;line-height:1.2}
+.wk b{display:block;font-size:20px}
+.wk.bout{border-top-color:var(--red)} .wk.rest{border-top-color:var(--green)} .wk.dl{border:2px dashed var(--gold);border-top:5px solid var(--gold)}
+.wk.now{background:#2f3a52}
+.r{color:var(--red)} .g{color:var(--green)} .y{color:var(--gold)} .a{color:var(--amber)} .d{color:var(--dim)} .bl{color:#7fb0ff}
+.main{display:grid;grid-template-columns:430px 1000px 446px;gap:12px;padding:10px 20px 0 20px;height:792px}
+.p{background:var(--panel);border-radius:10px;padding:10px 14px;margin-bottom:10px}
+h3{font-size:23px;letter-spacing:1px;color:var(--gold);margin-bottom:6px;font-weight:800}
+h3 span{font-size:20px;color:var(--dim);letter-spacing:0;font-weight:400}
+.ld{border:1px solid var(--line);border-radius:8px;padding:6px 10px;margin-bottom:6px}
+.ld.on{border:2px solid var(--gold);background:#3a2f22}
+.ld .t{display:flex;justify-content:space-between;font-weight:700}
+.kv{display:flex;justify-content:space-between;line-height:1.45}
+table.wkg{border-collapse:separate;border-spacing:5px;width:100%}
+.wkg th{font-size:20px;color:var(--gold)}
+.wkg td{background:var(--panel2);border-radius:6px;padding:4px 7px;font-size:20px;line-height:1.2;vertical-align:top;height:84px;border-left:5px solid #666}
+.wkg td.you{border-left-color:var(--gold)} .wkg td.co{border-left-color:var(--blue)} .wkg td.al{border-left-color:#777}
+.wkg td.lab{background:none;border:none;width:40px;color:var(--gold);font-weight:700;vertical-align:middle}
+.wkg td.lock{background:#3a2420;border-left-color:var(--red)}
+.pad{display:grid;grid-template-columns:150px 330px 1fr 260px;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--line)}
+.bar{height:16px;background:#1a1512;border-radius:8px;position:relative;overflow:hidden}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:8px}
+.gr{display:grid;grid-template-columns:118px 1fr 150px;gap:8px;align-items:center;padding:3px 0}
+.gbar{height:18px;background:#1a1512;border-radius:4px;position:relative}
+.gbar i{position:absolute;top:0;bottom:0;left:0;background:var(--blue);border-radius:4px}
+.gbar u{position:absolute;top:-3px;bottom:-3px;width:4px;background:var(--gold)}
+.gbar s{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,#5a4a3a 0 6px,#3a2f27 6px 12px)}
+.pill{display:inline-block;padding:3px 12px;border-radius:14px;background:var(--panel2);margin-right:6px;font-size:20px}
+.pill.on{background:var(--gold);color:#241a10;font-weight:700}
+.foot{position:absolute;left:20px;right:20px;bottom:10px;height:56px;display:flex;gap:12px;align-items:center}
+.foot .btn{padding:10px 16px}
+</style></head><body>
+<div class="top"><div class="btn">&lt;</div><div class="gym">ANVIL STREET GYM</div><div>Mon 16 Feb 2026 <span class="d">week 7</span></div>
+<div style="flex:1"></div><div class="y" style="font-size:24px;font-weight:700">$12,940</div><div class="go">START WEEK &rarr; Mon 23 Feb</div><div class="btn">Menu</div></div>
+
+<div class="row2"><div class="tab">Profile</div><div class="tab on">Training</div><div class="tab">Playbook</div><div class="tab">Fight plan</div><div class="tab">History</div>
+<div class="name">SAMIRA KHAN</div><div class="d">Welterweight &middot; 18 &middot; amateur 3-1 &middot; season target: THE NATIONALS</div>
+<div style="flex:1"></div><div class="pill">&lt; Tess</div><div class="pill">Kira &gt;</div></div>
+
+<div class="strip">
+<div class="wk now"><b class="bl">BUILD &middot; now</b>Defence 52 Wed</div>
+<div class="wk bout"><b class="r">Sat 28 Feb BOUT</b>Legs 86</div>
+<div class="wk"><b>2 Mar BUILD</b>Footwork 49</div>
+<div class="wk"><b>9 Mar BUILD</b><span class="a">entries close</span></div>
+<div class="wk"><b>16 Mar BUILD</b>Silver test</div>
+<div class="wk dl"><b class="y">23 Mar DELOAD</b>you placed it</div>
+<div class="wk bout"><b class="r">4 Apr REGIONAL</b>Legs 91</div>
+<div class="wk bout"><b class="r">11 Apr FINAL</b>Legs 74</div>
+<div class="wk rest"><b class="g">13 Apr REST</b>bleep test</div>
+<div class="wk bout"><b class="r">2 May NATIONALS</b>Legs 88</div>
+</div>
+
+<div class="main">
+<!-- LEFT -->
+<div>
+ <div class="p"><h3>THIS WEEK'S LOAD <span>Coach: Normal</span></h3>
+  <div class="ld"><div class="t"><span>Easy</span><span class="d">tired 46 &middot; injury 1 in 100</span></div><div class="d">Defence 52 on Thu &middot; Legs 92 Sat 28</div></div>
+  <div class="ld on"><div class="t"><span>Normal</span><span class="y">tired 61 &middot; injury 1 in 100</span></div><div>Defence 52 on Wed &middot; Legs 86 Sat 28</div></div>
+  <div class="ld"><div class="t"><span>Hard</span><span class="r">tired 74 &middot; injury 3 in 100</span></div><div class="d">Defence 52 Tue &middot; Legs 78 &middot; <span class="a">Discipline 34 pushes back</span></div></div>
+ </div>
+ <div class="p"><h3>BODY <span>train around it</span></h3>
+  <div class="kv"><span class="a">Right hand sore</span><span class="d">bag Fri, last week</span></div>
+  <div class="d" style="margin:2px 0 6px">Heavy bag and pads hurt it. Pick one:</div>
+  <div class="ld on"><div class="t"><span>Train around it</span><span class="g">gone Thu</span></div><div class="d">no bag; pads left hand only</div></div>
+  <div class="ld"><div class="t"><span>Train through it</span><span class="r">hand injury 8 in 100</span></div><div class="d">full week as dealt</div></div>
+ </div>
+ <div class="p"><h3>THE PERSON</h3>
+  <div class="kv"><span>Fired up</span><span class="d">alone x0.8</span></div>
+  <div class="kv"><span>Coachability 52</span><span class="d">your sessions x1.0</span></div>
+  <div class="kv"><span class="a">Discipline 34</span><span class="d">may skip Sat alone</span></div>
+ </div>
+</div>
+
+<!-- CENTRE -->
+<div>
+ <div class="p" style="padding-bottom:4px"><h3>THE WEEK <span>words on every cell &middot; gold = You, blue = Coach, grey = alone</span></h3>
+ <table class="wkg"><tr><th></th><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th><th>SUN</th></tr>
+ <tr><td class="lab">AM</td><td class="you">Slip rope<br><span class="d">You</span><br><span class="g">Defence</span></td>
+ <td class="al">Footwork<br><span class="d">alone x0.8</span><br><span class="d">Tess in room</span></td>
+ <td class="co">Slip rope<br><span class="d">Coach</span><br><span class="g">Defence 52</span></td>
+ <td class="al">Roadwork<br><span class="d">alone x0.8</span><br><span class="d">460 kcal</span></td>
+ <td class="lock">Bag: off<br><span class="a">sore hand</span><br><span class="d">Intervals</span></td>
+ <td class="al">Shadow<br><span class="d">alone</span><br><span class="a">may skip</span></td>
+ <td class="al">Rest<br><span class="d">legs back</span></td></tr>
+ <tr><td class="lab">PM</td><td class="co">Pads<br><span class="d">Coach</span><br>Check hook</td><td class="al">Rest</td>
+ <td class="you">Pads x2<br><span class="d">You</span><br><span class="y">Habit 5 of 6</span></td>
+ <td class="co">Sparring<br><span class="d">Technical</span><br>with Lucy</td><td class="al">Rest</td><td class="al">Rest</td><td class="al">Rest</td></tr></table></div>
+
+ <div class="p"><h3>PAD PLACES <span>75 minutes a night &middot; one card, or two at half</span></h3>
+  <div class="pad"><span>Mon &middot; Coach</span><span>Check hook 24 &rarr; 28</span><div class="bar"><i style="width:47%;background:var(--blue)"></i></div><span class="y">Usable in 2 places</span></div>
+  <div class="pad"><span>Wed &middot; You x2</span><span>Habit: right drops after jab</span><div class="bar"><i style="width:83%;background:var(--green)"></i></div><span class="g">Gone with 1 more</span></div>
+  <div class="pad"><span class="a">fading</span><span>Uppercut 33, undrilled 3 wks</span><div class="bar"><i style="width:55%;background:var(--amber)"></i></div><span class="a">Learning by 9 Mar</span></div>
+  <div class="pad" style="border:none"><span class="a">fading</span><span>1-2-3, undrilled 2 wks</span><div class="bar"><i style="width:64%;background:var(--amber)"></i></div><span class="a">loses Sharp 16 Mar</span></div>
+ </div>
+
+ <div class="p"><h3>SEASON SO FAR <span>since 5 Jan &middot; whole points and what made them</span></h3>
+  <div class="kv"><span>Defence 49 &rarr; 51</span><span class="d">slip rope 6 mornings &middot; Technical sparring 4</span></div>
+  <div class="kv"><span>Cardio 58 &rarr; 61</span><span class="d">roadwork 9 &middot; bout 2 and 3</span></div>
+  <div class="kv"><span>Check hook New &rarr; 24</span><span class="d">7 pad places (Coach 5, You 2)</span></div>
+  <div class="kv"><span class="r">Lost: Uppercut 41 &rarr; 33</span><span class="d">no pad place since 26 Jan</span></div>
+ </div>
+ <div class="p"><h3>THIS WEEK BUYS <span>against Coach's week</span></h3>
+  <div class="kv"><span>Defence 52 Wed &middot; Habit gone &middot; Check hook 28</span><span class="y">+1 to +2 in 100 on Sat 28 Feb</span></div>
+ </div>
+</div>
+
+<!-- RIGHT -->
+<div>
+ <div class="p"><h3>ROOM TO GROW <span>ceilings, Known 2/5</span></h3>
+  <div class="gr"><span>Defence</span><div class="gbar"><i style="width:51%"></i><s style="left:62%;width:8%"></s></div><span class="g">fast &middot; 62-70</span></div>
+  <div class="gr"><span>Footwork</span><div class="gbar"><i style="width:48%"></i><s style="left:66%;width:8%"></s></div><span class="g">fast &middot; 66-74</span></div>
+  <div class="gr"><span>Speed</span><div class="gbar"><i style="width:57%"></i><s style="left:60%;width:6%"></s></div><span class="a">slow &middot; 60-66</span></div>
+  <div class="gr"><span>Strength</span><div class="gbar"><i style="width:55%"></i><u style="left:57%"></u></div><span class="r">near cap 57</span></div>
+  <div class="gr"><span>Cardio</span><div class="gbar"><i style="width:61%"></i><s style="left:72%;width:6%"></s></div><span class="g">fast &middot; 72-78</span></div>
+  <div class="d" style="margin-top:4px">A morning on Strength gives a fifth of one on Defence.</div>
+ </div>
+ <div class="p"><h3>HABIT <span>HALF FIXED</span></h3>
+  <div style="font-weight:700">Drops the right after the jab</div>
+  <div class="kv"><span>In a bout</span><span>costs 6 &middot; now 3 &middot; gone 0</span></div>
+  <div class="kv"><span>Slips back</span><span class="a">3 weeks over 70 tired</span></div>
+  <div class="y">Sat 28 Feb, a counter-puncher: gone +2 to +4 in 100</div>
+ </div>
+ <div class="p"><h3>WEIGHT <span>class 65.0 &middot; weigh-in Fri 3 Apr</span></h3>
+  <div><b style="font-size:34px">65.9</b> kg walking <span class="a">0.9 over</span></div>
+  <div style="margin:6px 0"><span class="pill">Hold</span><span class="pill on">Lean -250</span><span class="pill">Cut -500</span></div>
+  <div class="kv"><span>Lean: 65.0 by Mon 16 Mar</span><span class="d">no cost</span></div>
+ </div>
+</div>
+</div>
+
+<div class="foot"><div class="btn">Back to Coach's week</div><div class="btn">Keep my changes next week</div><div class="btn">Coach runs Samira's week <span class="d">-1 to -2 in 100</span></div><div style="flex:1"></div><div class="go" style="padding:12px 24px">Back to Club week</div></div>
+</body></html>

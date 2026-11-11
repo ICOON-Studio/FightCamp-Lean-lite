@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>Fighter page, Character tab: loyalty, wants, marks, the perk pick, traits, Known, direction (RPGLAYER1 v2)</title>
+<html lang="en"><head><meta charset="utf-8"><title>Fighter page, Character tab: loyalty forecast, wants, marks, the priced perk pick, trait lines, Known by group, direction, picks won, a moment (RPGLAYER1 v3)</title>
 <style>
 @font-face{font-family:Marker;src:url(../../../assets/fonts/PermanentMarker-Regular.ttf)}
 @font-face{font-family:Barlow;font-weight:400;src:url(../../../assets/fonts/Barlow-Regular.ttf)}
@@ -47,123 +47,149 @@ body{position:relative;background:#120e0c;color:var(--ink);font:500 20px/1.2 Bar
 .lbar{position:relative;height:20px;border-radius:10px;background:linear-gradient(90deg,rgba(221,75,61,.35) 0 25%,rgba(242,141,39,.30) 25% 50%,rgba(77,142,240,.25) 50% 70%,rgba(63,192,122,.28) 70% 85%,rgba(173,128,255,.30) 85% 100%)}
 .lbar b{position:absolute;left:0;top:0;bottom:0;border-radius:10px;background:var(--blue)}
 .lbar em{position:absolute;top:-5px;width:3px;height:30px;background:rgba(255,255,255,.55);border-radius:2px}
+.lbar .fx{position:absolute;top:2px;bottom:2px;border-radius:8px;background:repeating-linear-gradient(135deg,rgba(63,192,122,.85) 0 6px,rgba(63,192,122,.35) 6px 12px)}
 .bands{position:relative;height:26px;margin-top:6px;font-size:18px;color:var(--soft)}
 .bands span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
 .bands .on{color:#fff;font-weight:700}
-.un{display:grid;grid-template-columns:44px 1fr;column-gap:10px;align-items:center;padding:5px 0;border-top:1px solid rgba(255,255,255,.07);font-size:19px;line-height:23px}
+.fc{display:flex;justify-content:space-between;font-size:19px;line-height:24px;padding:7px 0 6px;border-top:1px solid rgba(255,255,255,.07);margin-top:2px}
+.un{display:grid;grid-template-columns:44px 1fr;column-gap:10px;align-items:center;padding:4px 0;border-top:1px solid rgba(255,255,255,.07);font-size:19px;line-height:23px}
 .un b{font:400 30px/1 Bebas;color:var(--green)}.un b.p{color:var(--purple)}
-.mv{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-.mv span{display:inline-flex;align-items:center;height:32px;padding:0 10px;border-radius:16px;background:rgba(255,255,255,.07);font-size:18px;white-space:nowrap}
-.kv{display:grid;grid-template-columns:150px 1fr;align-items:center;height:36px;border-bottom:1px solid rgba(255,255,255,.07);font-size:19px}
+.kv{display:grid;grid-template-columns:150px 1fr;align-items:center;height:34px;border-bottom:1px solid rgba(255,255,255,.07);font-size:19px}
 .kv span:last-child{text-align:right}
-.mk{display:grid;grid-template-columns:44px 1fr;column-gap:12px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:19px;line-height:23px}
+.mk{display:grid;grid-template-columns:44px 1fr;column-gap:12px;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:19px;line-height:23px}
 .mk i{width:40px;height:40px;border-radius:9px;display:grid;place-items:center;font:700 20px/1 Barlow;font-style:normal;color:#fff}
-.pp{position:absolute;top:48px;width:276px;height:250px;border-radius:14px;background:#1d2741;padding:12px 16px}
+.pp{position:absolute;top:48px;width:276px;height:272px;border-radius:14px;background:#1d2741;padding:12px 16px}
 .pp.hot{box-shadow:0 0 0 3px var(--gold),0 0 24px 3px rgba(255,205,90,.3)}
-.pp h4{font:400 26px/1 Marker;color:#fff;margin-bottom:8px}
-.pp p{font-size:19px;line-height:23px;margin-bottom:6px}
+.pp h4{font:400 26px/1 Marker;color:#fff;margin-bottom:8px;white-space:nowrap}
+.pp p{font-size:19px;line-height:23px;margin-bottom:8px}
 .pp .go,.pp .btn{position:absolute;left:16px;right:16px;bottom:12px}
-.or{position:absolute;left:290px;top:150px;width:44px;height:44px;border-radius:50%;background:#120e0c;border:2px solid var(--gold);display:grid;place-items:center;font:700 18px/1 Barlow;color:var(--gold);z-index:2}
-.tr{display:grid;grid-template-columns:126px 146px 1fr;column-gap:12px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:19px;line-height:23px}
+.or{position:absolute;left:290px;top:160px;width:44px;height:44px;border-radius:50%;background:#120e0c;border:2px solid var(--gold);display:grid;place-items:center;font:700 18px/1 Barlow;color:var(--gold);z-index:2}
+.nm{display:grid;grid-template-columns:1fr 56px;font-size:18px;line-height:25px;border-bottom:1px solid rgba(255,255,255,.07)}
+.nm span:last-child{text-align:right;font-weight:700}
+.nm.sum{border:0;color:var(--soft)}.nm.sum span:last-child{color:#fff}
+.tg{display:inline-block;padding:0 6px;border-radius:5px;background:#3b2a6b;color:#e3d4ff;font:700 13px/20px Barlow;letter-spacing:.05em;vertical-align:4px;margin-left:4px}
+.tr{display:grid;grid-template-columns:126px 140px 1fr;column-gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:19px;line-height:23px}
 .tr .n{font-weight:700}
 .tr .m{display:block;color:var(--soft);font-size:18px}
-.rg{margin:6px 0 2px;display:flex;justify-content:space-between;font-size:19px}
+.tr .bt{display:inline-block;margin-top:4px;padding:0 8px;border-radius:6px;background:rgba(77,142,240,.22);color:#cfe0ff;font-size:16px;font-weight:700;line-height:22px}
+.rg{margin:6px 0 3px;display:flex;justify-content:space-between;font-size:19px}
 .rbar{position:relative;height:12px;border-radius:6px;background:var(--track)}
 .rbar b{position:absolute;top:0;bottom:0;border-radius:6px;background:rgba(77,142,240,.75)}
 .rbar em{position:absolute;top:-4px;width:3px;height:20px;background:#fff;border-radius:2px}
 .pips{display:flex;gap:6px}.pips s{width:34px;height:18px;border-radius:5px;background:var(--blue)}.pips s.o{background:var(--track)}
-.dirs{display:flex;gap:8px;margin:4px 0 8px}
-.dirs span{height:38px;padding:0 12px;border-radius:19px;display:flex;align-items:center;background:rgba(255,255,255,.07);font-weight:600;font-size:19px;white-space:nowrap}
+.dirs{display:flex;gap:8px;margin:2px 0 6px}
+.dirs span{height:36px;padding:0 12px;border-radius:18px;display:flex;align-items:center;background:rgba(255,255,255,.07);font-weight:600;font-size:19px;white-space:nowrap}
 .dirs span.on{background:#275696;color:#fff;box-shadow:0 0 0 2px var(--gold)}
+.ok{display:inline-block;padding:0 7px;border-radius:5px;background:rgba(63,192,122,.22);color:var(--green);font:700 14px/20px Barlow;letter-spacing:.05em;vertical-align:2px}
+.lw{display:grid;grid-template-columns:1fr auto;column-gap:10px;font-size:19px;line-height:28px;border-bottom:1px solid rgba(255,255,255,.07)}
+.lw.off{opacity:.55}
+.mo{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
+.mo div{height:74px;border-radius:11px;background:rgba(255,255,255,.09);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:600;font-size:19px;line-height:23px}
+.mo small{display:block;color:var(--soft);font-size:16px;font-weight:500;line-height:20px}
+.cn{display:inline-block;padding:0 6px;margin-right:6px;border-radius:5px;background:rgba(255,210,74,.18);color:var(--gold);font:700 13px/19px Barlow;letter-spacing:.05em;vertical-align:2px}
 </style></head>
 <body><div class="wall"></div>
-<div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span><span class="tdate"><b>Mon 6 Apr 2026</b><i>Week 14</i></span><span class="trail"><span class="rail plank9">Gym</span><span class="rail plank9">Mail (2 new)</span></span><span class="tgrow"></span><span class="tcash"><b>$9,480</b><i>running -$120 a week</i></span><span class="tgo plank9"><b>NEEDS YOU (3)</b><i>Tess's perk pick</i></span><span class="tnav tmenu tab9">Menu</span></div>
+<div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span><span class="tdate"><b>Mon 6 Apr 2026</b><i>Week 14</i></span><span class="trail"><span class="rail plank9">Gym</span><span class="rail plank9">Mail (2 new)</span></span><span class="tgrow"></span><span class="tcash"><b>$9,480</b><i>running -$120 a week</i></span><span class="tgo plank9"><b>NEEDS YOU (3)</b><i>Tess's perk pick, Called out</i></span><span class="tnav tmenu tab9">Menu</span></div>
 <div class="tabs"><span class="tab">Profile</span><span class="tab">Condition</span><span class="tab">Training</span><span class="tab">Playbook</span><span class="tab">Fight plan</span><span class="tab on">Character</span><span class="tab">History</span></div>
 
 <div class="abs" style="left:28px;top:152px"><div class="name">TESS REILLY</div>
  <div style="display:flex;gap:10px;align-items:center;margin-top:8px"><span class="plate">Middleweight</span><span style="color:var(--soft)">23, southpaw, pressure fighter, 8-5 amateur, No. 4 London</span></div></div>
 <div class="sw"><div><img src="../s431/final/face_lucy.png" alt="">Lucy</div><div><img src="../s431/final/face_samira.png" alt="">Samira</div><div class="on"><img src="../s431/final/face_tess.png" alt="">Tess</div><div><img src="../s431/final/face_ana.png" alt="">Ana</div></div>
 
-<!-- A: loyalty, wants, marks -->
-<div class="panel" style="left:28px;top:262px;width:600px;height:330px">
+<!-- A: loyalty with its forecast, what Tess wants (moved), marks with their way out -->
+<div class="panel" style="left:28px;top:262px;width:600px;height:300px">
  <div class="h">LOYALTY <span>you and Tess, one number</span></div>
  <div style="display:flex;align-items:flex-end;gap:14px;margin:2px 0 10px"><span class="big">66</span><span style="font-size:24px;font-weight:700;padding-bottom:5px">Settled</span><span class="cap" style="padding-bottom:7px">4 to Loyal</span></div>
- <div class="lbar"><b style="width:66%"></b><em style="left:25%"></em><em style="left:50%"></em><em style="left:70%"></em><em style="left:85%"></em></div>
+ <div class="lbar"><b style="width:66%"></b><span class="fx" style="left:66%;width:3%"></span><em style="left:25%"></em><em style="left:50%"></em><em style="left:70%"></em><em style="left:85%"></em></div>
  <div class="bands"><span style="left:12.5%">Leaving</span><span style="left:37.5%">Wavering</span><span class="on" style="left:60%">Settled</span><span style="left:77.5%">Loyal</span><span style="left:92.5%">Trusts you</span></div>
- <div class="un"><b>70</b><span>holds pads; one short week in four free; a third answer</span></div>
- <div class="un"><b class="p">85</b><span>TRUST ME: once a bout your talk lands in full; hurt, Recover 4</span></div>
- <div class="mv"><span><span class="gain">+5</span>&nbsp;promise kept</span><span><span class="cost">-3</span>&nbsp;went short wk 12</span><span><span class="cost">-1</span>&nbsp;Craft first vs Stubborn</span></div>
+ <div class="fc"><span><b>As dealt:</b> <span class="gain">69 in 4 weeks, Loyal in 5</span></span><span>short twice more: <span class="cost">60</span></span></div>
+ <div class="un"><b>70</b><span>holds pads; a short week in four free; can be captain</span></div>
+ <div class="un"><b class="p">85</b><span>TRUST ME, once a bout <span class="cap">needs Known 4 too (now 2)</span></span></div>
 </div>
 
-<div class="panel" style="left:28px;top:606px;width:600px;height:190px">
+<div class="panel" style="left:28px;top:576px;width:600px;height:218px">
  <div class="h">WHAT TESS WANTS</div>
+ <div class="cap" style="line-height:22px;margin-bottom:4px">Moved Mon 30 Mar after 3 wins running (was: a regional title)</div>
  <div class="kv"><span class="cap">Ambition</span><span>A pro debut before 25</span></div>
  <div class="kv"><span class="cap">Season target</span><span>The pro offer (7 wins, top 3)</span></div>
  <div class="kv"><span class="cap">Match</span><span class="gain">yes: met = loyalty +5 more</span></div>
  <div class="kv" style="border:0"><span class="cap">Still needs</span><span>1 more win, or No. 4 to top 3</span></div>
 </div>
 
-<div class="panel" style="left:28px;top:810px;width:600px;height:250px">
- <div class="h">MARKS <span>earned, for good: 3 of 4</span></div>
- <div class="mk"><i style="background:#2f7a4c">H</i><span><b>Hardened</b> <span class="cap">Mar 2026, stopped by K. Bell</span><br>gets up one count sooner</span></div>
- <div class="mk"><i style="background:#7a5a1c">1</i><span><b>First home win</b> <span class="cap">York Hall, Jan</span><br>+2 fans every home bout</span></div>
- <div class="mk" style="border:0"><i style="background:#3b4f8a">S</i><span><b>Sat with them</b> <span class="cap">Mar 2026</span><br>the next knockout card: Hardened +25</span></div>
+<div class="panel" style="left:28px;top:808px;width:600px;height:252px">
+ <div class="h">MARKS <span>3 of 4, each with its way out</span></div>
+ <div class="mk"><i style="background:#2f7a4c">H</i><span><b>Hardened</b> <span class="cap">Mar, stopped by K. Bell</span><br>stop odds after a count x0.85 <span class="cap">&middot; goes: a 2nd stoppage in a year</span></span></div>
+ <div class="mk"><i style="background:#7a5a1c">1</i><span><b>First home win</b> <span class="cap">York Hall, Jan</span><br>+2 fans every home bout <span class="cap">&middot; for good</span></span></div>
+ <div class="mk" style="border:0"><i style="background:#3b4f8a">S</i><span><b>Sat with them</b> <span class="cap">Mar</span><br>next knockout card: Hardened +25 <span class="cap">&middot; used by it</span></span></div>
+ <div style="font-size:18px;line-height:22px;padding-top:5px;border-top:1px solid rgba(255,255,255,.07)"><span class="cap">Sparring:</span> Danny 5 of 8 weeks, <span class="gain">Partners at 6</span> <span class="cap">(x1.15 together)</span></div>
 </div>
 
-<!-- B: perk pick, traits -->
-<div class="panel" style="left:648px;top:262px;width:624px;height:320px;box-shadow:0 0 0 2px var(--gold),0 0 26px 3px rgba(255,205,90,.22)">
- <div class="h">BODY SNATCHER OPENS <span>body hook 30: pick its version, for good</span></div>
+<!-- B: the perk pick priced on the next three names; traits at lines -->
+<div class="panel" style="left:648px;top:262px;width:624px;height:336px;box-shadow:0 0 0 2px var(--gold),0 0 26px 3px rgba(255,205,90,.22)">
+ <div class="h">BODY SNATCHER OPENS <span>wins in 100, for good</span></div>
  <div class="pp hot" style="left:18px">
-  <h4>The drain</h4>
+  <h4>The drain<span class="tg">WALK THEM DOWN</span></h4>
   <p class="gain">body shots drain 15% more energy</p>
-  <p class="cap">best against: out-boxers who run late</p>
-  <p class="cap">Walk them down lists it first</p>
+  <div class="nm"><span>Sat: J. Moss</span><span class="gain">+2.4</span></div>
+  <div class="nm"><span>sheet: R. Ade</span><span class="gain">+1.1</span></div>
+  <div class="nm"><span>sheet: C. Okoro</span><span class="gain">+0.3</span></div>
+  <div class="nm sum"><span>season so far</span><span>+1.6</span></div>
   <span class="go">Take The drain</span>
  </div>
  <div class="or">OR</div>
  <div class="pp" style="left:330px">
   <h4>The drop</h4>
-  <p class="gain">a body shot after a count: a second knockdown 1 in 10</p>
-  <p class="cap">best against: hurt pressers</p>
+  <p class="gain">after their first count, the next comes as easily</p>
+  <div class="nm"><span>Sat: J. Moss</span><span class="gain">+0.6</span></div>
+  <div class="nm"><span>sheet: R. Ade</span><span class="gain">+2.9</span></div>
+  <div class="nm"><span>sheet: C. Okoro</span><span class="gain">+1.8</span></div>
+  <div class="nm sum"><span>season so far</span><span>+1.2</span></div>
   <span class="btn">Take The drop</span>
  </div>
 </div>
 
-<div class="panel" style="left:648px;top:596px;width:624px;height:464px">
- <div class="h">TRAITS <span>what each does in a bout now</span></div>
- <div class="tr"><span class="n">Coachability</span><span class="cost">36 Stubborn &uarr;</span><span>takes in 81 in 100 of each full shout; at 40 the word goes<span class="m">+1 an ask heard; -2 an ask overruled</span></span></div>
- <div class="tr"><span class="n">Heart</span><span class="gain">84 Big heart</span><span>gets up at 5 on a count; a loss hurts mood x0.8<span class="m">+3 a win from behind</span></span></div>
- <div class="tr"><span class="n">Confidence</span><span class="gain">70 Confident &uarr;</span><span>"Fire up" +1.5 next round; a missed goal hurts mood x1.15<span class="m">+2 three wins running</span></span></div>
- <div class="tr"><span class="n">Temper</span><span class="cap">? not known</span><span>at 65+ "Fire up" goes wild<span class="m">a Hard spar shows it 1 in 2</span></span></div>
- <div class="tr" style="border:0"><span class="n">Discipline</span><span class="cap">? not known</span><span>under 45: skips 1 in 3 lone mornings<span class="m">opens at Known 4</span></span></div>
+<div class="panel" style="left:648px;top:612px;width:624px;height:448px">
+ <div class="h">TRAITS <span>the next line, and what moves it</span></div>
+ <div class="tr"><span class="n">Coachability</span><span class="cost">36 Stubborn</span><span>40: corner fixes hold in full <span class="cap">(now half)</span><span class="m">4 to go: <span class="bt">Hear Thursday's ask +1</span> <span class="bt">Loyal: +1 / 4 wks</span></span></span></div>
+ <div class="tr"><span class="n">Heart</span><span class="gain">84 Big heart</span><span>stop odds after a count x0.56<span class="m">every 10 points counts (x0.9 at 50)</span></span></div>
+ <div class="tr"><span class="n">Confidence</span><span class="gain">70 Confident</span><span>45: "the truth" turns, -2<span class="m">25 away; -4 a stoppage loss</span></span></div>
+ <div class="tr"><span class="n">Temper</span><span class="cap">? not known</span><span>65: "Fire up" goes wild<span class="m"><span class="bt">Hard spar: shows it 1 in 2</span></span></span></div>
+ <div class="tr" style="border:0"><span class="n">Discipline</span><span class="cap">? not known</span><span>45: skips 1 in 3 lone mornings<span class="m">opens at Known 4</span></span></div>
 </div>
 
-<!-- C: Known, direction, Coach -->
-<div class="panel" style="left:1292px;top:262px;width:600px;height:320px">
+<!-- C: Known by group, direction with its clash, what the picks won, a moment -->
+<div class="panel" style="left:1292px;top:262px;width:600px;height:250px">
  <div class="h">HOW WELL YOU KNOW TESS</div>
- <div style="display:flex;align-items:center;gap:14px;margin:2px 0 6px"><div class="pips"><s></s><s></s><s class="o"></s><s class="o"></s><s class="o"></s></div><span style="font-weight:700">Known 2</span><span class="cap">pip 3 in 4 sessions</span></div>
- <div class="rg"><span><b>Body</b> Strength</span><span>61 to 65</span></div>
- <div class="rbar"><b style="left:56%;width:9%"></b><em style="left:60%"></em></div>
- <div class="rg"><span><b>Skills</b> Timing</span><span>49 to 57</span></div>
+ <div style="display:flex;align-items:center;gap:14px;margin:0 0 4px"><div class="pips"><s></s><s></s><s class="o"></s><s class="o"></s><s class="o"></s></div><span style="font-weight:700">Known 2</span></div>
+ <div class="rg"><span><b>Body</b> <span class="ok">KNOWN</span> <span class="cap">Strength</span></span><span style="font-weight:700">63</span></div>
+ <div class="rg"><span><b>Skills</b> <span class="cap">Timing</span></span><span>49 to 57</span></div>
  <div class="rbar"><b style="left:44%;width:16%"></b><em style="left:51%"></em></div>
- <div class="rg"><span><b>Fire</b> Composure <span class="cap">spar Hard or corner</span></span><span>50 to 70</span></div>
+ <div class="rg"><span><b>Fire</b> <span class="cap">Composure: Hard spar or corner</span></span><span>50 to 70</span></div>
  <div class="rbar"><b style="left:42%;width:28%"></b><em style="left:58%"></em></div>
- <div class="kv" style="margin-top:8px;border:0"><span class="cap">This week</span><span class="gain">2 of your mornings, 1 pad place: +3</span></div>
+ <div class="kv" style="margin-top:4px;border:0;grid-template-columns:120px 1fr"><span class="cap">Pip 3 in 4</span><span class="gain">a habit trains out a week sooner</span></div>
 </div>
 
-<div class="panel" style="left:1292px;top:596px;width:600px;height:256px">
+<div class="panel" style="left:1292px;top:526px;width:600px;height:208px">
  <div class="h">BUILD DIRECTION</div>
  <div class="dirs"><span>Keep it long</span><span class="on">Walk them down</span><span>Counter</span><span>None</span></div>
- <div class="kv"><span class="cap">Faster x1.10</span><span class="gain">Stamina, Inside fighting</span></div>
- <div class="kv"><span class="cap">Slower x0.90</span><span class="cost">Footwork, Timing</span></div>
- <div class="kv"><span class="cap">Pressure dial</span><span>68 to 80, about 6 weeks</span></div>
- <div class="kv" style="border:0"><span class="cap">None instead</span><span>Adaptable: Switch it up in the minute</span></div>
+ <div class="kv" style="grid-template-columns:96px 1fr"><span class="cap">Trains</span><span><span class="gain">Stamina, Inside</span> <span class="cap">faster;</span> <span class="cost">Footwork, Timing</span> <span class="cap">slower</span></span></div>
+ <div class="kv" style="grid-template-columns:96px 1fr"><span class="cap">Clash</span><span class="cost">weak spot Timing: its fix 1 week longer</span></div>
+ <div class="kv" style="border:0;grid-template-columns:96px 1fr"><span class="cap">Saturday</span><span><span class="gain">+0.9 in 100</span> against J. Moss, out-boxer</span></div>
 </div>
 
-<div class="panel" style="left:1292px;top:866px;width:600px;height:194px">
- <div class="h">COACH AND TESS</div>
- <div class="kv"><span class="cap">Pads with Coach</span><span>22 sessions</span></div>
- <div class="kv"><span class="cap">Signature drill</span><span>Coach's body hook pads: <span class="gain">31 of 40</span></span></div>
- <div class="kv" style="border:0"><span class="cap">If Coach goes</span><span class="cost">Tess loyalty -6</span></div>
+<div class="panel" style="left:1292px;top:748px;width:600px;height:150px">
+ <div class="h">WHAT YOUR PICKS WON <span>Tess, this season</span></div>
+ <div class="lw"><span>Walk them down: 9 bouts</span><span class="gain">+1.2 in 100</span></div>
+ <div class="lw"><span>Hardened: 1 count waved on</span><span class="gain">+2.0 in 100</span></div>
+ <div class="lw off" style="border:0"><span>Switch it up: 2 rounds <span class="cap">a pick to rethink</span></span><span class="cap">+0.2</span></div>
+</div>
+
+<div class="panel" style="left:1292px;top:912px;width:600px;height:148px">
+ <div class="h">MOMENT: CALLED OUT <span>R. Ade, in the news</span></div>
+ <div class="mo">
+  <div><span><span class="cn">SHEET</span>Take it</span><small>the name above, +3 fans</small></div>
+  <div><span><span class="cn">LOYALTY</span>Let it go</span><small>confidence -2</small></div>
+  <div><span><span class="cn">PROMISE</span>A date</span><small>kept +5, broken -12</small></div>
+ </div>
 </div>
 </body></html>

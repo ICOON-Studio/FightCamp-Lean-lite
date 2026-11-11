@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Result 10/10 - player critic</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@500;600&family=Permanent+Marker&family=Kalam:wght@700&display=swap');
+:root{--bg:#121318;--panel:#1c1e26;--line:#2c2f3a;--ink:#eceae4;--dim:#a9a69c;--wk:#3fc47d;--nt:#f2b632;--who:#4f8ef7;--luck:#8d8b85;--red:#e8564a;--gold:#f2b632}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{background:linear-gradient(180deg,#1a1b21 0,#101116 100%);color:var(--ink);font-family:Barlow,sans-serif;font-size:20px}
+.top{height:64px;display:flex;align-items:center;padding:0 24px;gap:24px;background:#0b0c0f;border-bottom:1px solid #000}
+.top .gym{font-family:'Permanent Marker';font-size:28px;color:#6fa0ff}
+.top .date{color:var(--dim);font-size:20px;line-height:1.1}
+.top .mid{flex:1;text-align:center;font-family:'Barlow Condensed';font-weight:700;letter-spacing:3px;color:var(--red);font-size:24px}
+.top .cash{color:var(--gold);font-weight:600;font-size:22px}
+.btn{display:inline-block;background:#24324f;color:#fff;border-radius:8px;padding:6px 14px;font-weight:600;font-size:20px;white-space:nowrap}
+.btn.g{background:var(--gold);color:#1a1300}
+.head{display:flex;align-items:center;padding:12px 28px 6px;gap:20px}
+.face{width:84px;height:84px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed';font-weight:700;font-size:34px}
+.red{border:4px solid var(--red);background:#3a1e1e}.blue{border:4px solid var(--who);background:#1b2a48}
+.nm{font-family:'Permanent Marker';font-size:28px}
+.sub{color:var(--dim);font-size:20px}
+.res{flex:1;text-align:center}
+.res .big{font-family:'Permanent Marker';font-size:46px;color:#7aa6ff;line-height:1}
+.res .how{font-size:22px;color:var(--ink);margin-top:4px}
+.grid{display:grid;grid-template-columns:1150px 1fr;gap:20px;padding:6px 28px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+h3{font-family:'Barlow Condensed';font-weight:700;letter-spacing:2px;font-size:24px;color:var(--gold);display:flex;align-items:baseline;gap:12px}
+h3 small{font-family:Barlow;font-weight:500;letter-spacing:0;font-size:20px;color:var(--dim)}
+.turn{background:#2a2412;border-left:6px solid var(--gold);border-radius:8px;padding:10px 16px;font-size:22px;margin-bottom:10px}
+.turn b{color:var(--gold);font-family:'Barlow Condensed';letter-spacing:1px;font-size:24px}
+/* exchange timeline */
+.tl{display:flex;gap:14px;margin-top:8px}
+.rd{flex:1}
+.rd .lab{font-size:20px;color:var(--dim);display:flex;justify-content:space-between}
+.rd .lab b{color:var(--ink)}
+.tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin-top:4px}
+.t{height:54px;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:20px;font-weight:600;position:relative}
+.t.w{background:#1f4a33;color:#bff0d2}.t.l{background:#4d2422;color:#ffd0cb}
+.t.flip{outline:3px solid var(--gold)}
+.t span{font-size:20px;line-height:1}
+.key{display:flex;gap:18px;margin-top:8px;font-size:20px;color:var(--dim);flex-wrap:wrap}
+.key i{font-style:normal;color:var(--ink)}
+/* scales */
+.rows{margin-top:6px}
+.row{display:grid;grid-template-columns:8px 440px 150px 105px 140px 1fr;align-items:center;gap:10px;height:52px;border-bottom:1px solid var(--line)}
+.row .c{height:40px;border-radius:3px}
+.row .n{font-weight:600;font-size:21px;line-height:1.05}
+.row .n div{font-weight:500;color:var(--dim);font-size:20px}
+.bar{position:relative;height:22px}
+.bar .z{position:absolute;left:50%;top:-6px;bottom:-6px;width:2px;background:#555}
+.bar .b{position:absolute;top:0;height:22px;border-radius:3px}
+.num{font-family:'Barlow Condensed';font-weight:700;font-size:28px}
+.num small{font-family:Barlow;font-size:20px;font-weight:500;color:var(--dim)}
+.chips{display:flex;gap:4px}
+.ch{font-size:20px;padding:0 6px;border-radius:4px;background:#2a2c35;color:#777}
+.ch.on{background:#5a2420;color:#ffb3aa}.ch.ong{background:#1d4a31;color:#a9f0c8}
+.row .act{text-align:right}
+.season{font-size:20px;color:var(--dim);margin-top:6px}
+.season b{color:var(--ink)}
+/* right column */
+.judges{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.j{background:#15161c;border-radius:8px;padding:8px 10px;border-top:4px solid #555}
+.j .s{font-family:'Barlow Condensed';font-weight:700;font-size:34px;line-height:1}
+.j .why{font-size:20px;line-height:1.15;margin-top:4px}
+.j .rr{display:flex;gap:4px;margin-top:4px}
+.j .rr span{flex:1;height:8px;border-radius:2px}
+.stop{margin-top:10px}
+.meter{height:24px;background:#2a2c35;border-radius:6px;position:relative;margin:6px 0 4px;overflow:hidden}
+.meter .f{position:absolute;top:0;bottom:0}
+.places{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.p{background:#15161c;border-radius:8px;padding:8px 10px}
+.p .k{font-family:'Barlow Condensed';font-weight:700;letter-spacing:1px;font-size:21px;color:var(--dim)}
+.p .v{font-family:'Barlow Condensed';font-weight:700;font-size:30px}
+.p .d{font-size:20px;line-height:1.15}
+.coach{display:flex;gap:12px;align-items:center;margin-top:10px;background:#1e2a44;border-radius:10px;padding:10px 12px}
+.coach .q{font-family:Kalam;font-size:23px;line-height:1.15;flex:1}
+.foot{position:absolute;left:28px;right:28px;bottom:14px;display:flex;align-items:center;gap:14px}
+.foot .why{flex:1;background:#191a20;border:1px solid var(--line);border-radius:8px;padding:10px 14px;font-size:20px}
+.foot .why b{color:var(--gold);font-family:'Barlow Condensed';letter-spacing:2px;font-size:22px;margin-right:8px}
+</style></head>
+<body>
+<div class="top">
+  <span class="btn">&lt;</span>
+  <span class="gym">Anvil Street Gym</span>
+  <span class="date">Sat 31 Jan 2026<br>Week 5</span>
+  <span class="mid">FIGHT NIGHT - THE RESULT</span>
+  <span class="cash">$16,410</span>
+  <span class="btn g">BACK HOME after the result</span>
+</div>
+
+<div class="head">
+  <div class="face red">LJ</div>
+  <div><div class="nm">Lucy Jackson</div><div class="sub">Red corner · rank stays No. 7 (lost to a name above)</div></div>
+  <div class="res"><div class="big">PRIYA NAIR WINS</div>
+    <div class="how">Split decision, 2 judges to 1 · rounds: Lucy, Priya, Priya · Lucy won 10 of 18 exchanges</div></div>
+  <div style="text-align:right"><div class="nm">Priya Nair</div><div class="sub">Blue corner · Eastside ABC 8-2</div></div>
+  <div class="face blue">PN</div>
+</div>
+
+<div class="grid">
+ <div>
+  <div class="turn"><b>IT TURNED ON</b>&nbsp; the open habit in round 2. Without it Lucy wins round 2 and the bout, 2 judges to 1. Checked the hard way: the whole bout played again without the habit, not just the same dice.</div>
+
+  <div class="card">
+   <h3>THE BOUT, 30 SECONDS AT A TIME <small>click a tile: what decided that exchange</small></h3>
+   <div class="tl">
+    <div class="rd"><div class="lab"><span>Round 1</span><b>Lucy 4-2</b></div>
+     <div class="tiles"><div class="t w"><span>P</span></div><div class="t w"><span>P</span></div><div class="t l"><span>H</span></div><div class="t w"><span>C</span></div><div class="t w"><span>W</span></div><div class="t l"><span>?</span></div></div></div>
+    <div class="rd"><div class="lab"><span>Round 2</span><b>Priya 2-4</b></div>
+     <div class="tiles"><div class="t l flip"><span>H</span></div><div class="t w"><span>P</span></div><div class="t l flip"><span>H</span></div><div class="t l"><span>B</span></div><div class="t w"><span>C</span></div><div class="t l"><span>L</span></div></div></div>
+    <div class="rd"><div class="lab"><span>Round 3</span><b>Lucy 4-2, cards Priya*</b></div>
+     <div class="tiles"><div class="t w"><span>P</span></div><div class="t w"><span>W</span></div><div class="t l"><span>L</span></div><div class="t l"><span>B</span></div><div class="t w"><span>C</span></div><div class="t w"><span>P</span></div></div></div>
+   </div>
+   <div class="key" style="gap:12px"><span>Biggest part of each:</span><i>P plan</i><i>C corner</i><i>W the week</i><i>H habit</i><i>L legs</i><i>B build gap</i><i>? luck</i><span style="color:var(--gold)">gold = flipped</span></div>
+   <div class="key" style="margin-top:2px">*Round 3: Lucy won 4 exchanges, the judges gave it to Priya: Priya kept the pocket and landed the two big shots.</div>
+  </div>
+
+  <div class="card" style="margin-top:10px">
+   <h3>WHAT TURNED IT <small>exchanges won or lost, same night played again without each part</small></h3>
+   <div class="rows">
+    <div class="row"><div class="c" style="background:var(--red)"></div><div class="n">Habit: drops the right after the jab<div>Priya countered it 5 times</div></div><div class="bar"><div class="z"></div><div class="b" style="right:50%;width:40%;background:var(--red)"></div></div><div class="num" style="color:var(--red)">-3 <small>exch</small></div><div class="chips"><span class="ch">R1</span><span class="ch on">R2</span><span class="ch">R3</span></div><div class="act"><span class="btn g">Train it out (6 pads)</span></div></div>
+    <div class="row"><div class="c" style="background:var(--nt)"></div><div class="n">Your plan: step back on the press<div>9 right, 2 wrong · suits Lucy at range</div></div><div class="bar"><div class="z"></div><div class="b" style="left:50%;width:40%;background:var(--wk)"></div></div><div class="num" style="color:var(--wk)">+3 <small>exch</small></div><div class="chips"><span class="ch ong">R1</span><span class="ch">R2</span><span class="ch">R3</span></div><div class="act"><span class="btn">Open the plan</span></div></div>
+    <div class="row"><div class="c" style="background:var(--who)"></div><div class="n">Build gap in the pocket<div>Lucy's hooks 41 against Priya's guard 61</div></div><div class="bar"><div class="z"></div><div class="b" style="right:50%;width:27%;background:var(--red)"></div></div><div class="num" style="color:var(--red)">-2 <small>exch</small></div><div class="chips"><span class="ch">R1</span><span class="ch">R2</span><span class="ch">R3</span></div><div class="act"><span class="btn">Hooks on the pads</span></div></div>
+    <div class="row"><div class="c" style="background:var(--wk)"></div><div class="n">Last 4 weeks of training<div>Jab 52 to 60, Speed +1.2</div></div><div class="bar"><div class="z"></div><div class="b" style="left:50%;width:27%;background:var(--wk)"></div></div><div class="num" style="color:var(--wk)">+2 <small>exch</small></div><div class="chips"><span class="ch">R1</span><span class="ch">R2</span><span class="ch">R3</span></div><div class="act"><span class="btn">Open the week</span></div></div>
+    <div class="row"><div class="c" style="background:var(--wk)"></div><div class="n">Legs (tiredness 58 on Friday)<div>16 off the tank at the first bell</div></div><div class="bar"><div class="z"></div><div class="b" style="right:50%;width:27%;background:var(--red)"></div></div><div class="num" style="color:var(--red)">-2 <small>exch</small></div><div class="chips"><span class="ch">R1</span><span class="ch">R2</span><span class="ch on">R3</span></div><div class="act"><span class="btn">Rest up</span></div></div>
+    <div class="row"><div class="c" style="background:var(--nt)"></div><div class="n">Your corner<div>5 shouts: 3 right, 1 wrong, 1 not heard</div></div><div class="bar"><div class="z"></div><div class="b" style="left:50%;width:13%;background:var(--wk)"></div></div><div class="num" style="color:var(--wk)">+1 <small>exch</small></div><div class="chips"><span class="ch">R1</span><span class="ch">R2</span><span class="ch">R3</span></div><div class="act"><span class="btn">Replay shouts</span></div></div>
+    <div class="row" style="border-bottom:none"><div class="c" style="background:var(--luck)"></div><div class="n">Luck: the night and the dice<div>Lucy normal +0.4, Priya sharp +2.6</div></div><div class="bar"><div class="z"></div><div class="b" style="right:50%;width:13%;background:#777"></div></div><div class="num" style="color:#bbb">-1 <small>exch</small></div><div class="chips"><span class="ch">R1</span><span class="ch">R2</span><span class="ch">R3</span></div><div class="act" style="color:var(--dim)">named</div></div>
+   </div>
+   <div class="season">Your choices this month, all four fighters: <b>+7 exchanges, 2 rounds, 1 bout turned</b> · against Coach's week: <b>+4 exchanges</b></div>
+  </div>
+ </div>
+
+ <div>
+  <div class="card">
+   <h3>THE JUDGES <small>leans shown at the weigh-in</small></h3>
+   <div class="judges">
+    <div class="j" style="border-top-color:var(--red)"><div class="sub">1 · CLEAN</div><div class="s" style="color:var(--red)">29-28</div><div class="rr"><span style="background:var(--red)"></span><span style="background:var(--red)"></span><span style="background:var(--who)"></span></div><div class="why">Lucy: the cleaner jab, rounds 1 and 2</div></div>
+    <div class="j" style="border-top-color:var(--who)"><div class="sub">2 · WORK</div><div class="s" style="color:var(--who)">28-29</div><div class="rr"><span style="background:var(--red)"></span><span style="background:var(--who)"></span><span style="background:var(--who)"></span></div><div class="why">Priya threw more in 2 and 3</div></div>
+    <div class="j" style="border-top-color:var(--who)"><div class="sub">3 · RING</div><div class="s" style="color:var(--who)">28-29</div><div class="rr"><span style="background:var(--red)"></span><span style="background:var(--who)"></span><span style="background:var(--who)"></span></div><div class="why">Priya kept the pocket in 2 and 3</div></div>
+   </div>
+   <div class="sub" style="margin-top:6px">Your corner read round 2 as level: wrong, it was Priya's.</div>
+  </div>
+
+  <div class="card stop">
+   <h3>THE DAMAGE <small>what a stoppage would have needed</small></h3>
+   <div style="display:flex;justify-content:space-between;font-size:20px"><span>Lucy's head damage 46 of 60</span><span style="color:var(--dim)">counts 0 · went the distance</span></div>
+   <div class="meter"><div class="f" style="left:0;width:40%;background:#8a3a33"></div><div class="f" style="left:40%;width:22%;background:#c4554a"></div><div class="f" style="left:62%;width:15%;background:#5a2c2a"></div></div>
+   <div style="font-size:20px;line-height:1.2">Round 2 cost 18 (the open habit), round 3 cost 18 (empty legs). Priya's power 64 against Lucy's chin 62: count chance 1 in 9 a lost round.</div>
+  </div>
+
+  <div class="card" style="margin-top:10px">
+   <h3>THE THREE PLACES <small>fought and won by Lucy</small></h3>
+   <div class="places">
+    <div class="p"><div class="k">AT RANGE</div><div class="v" style="color:var(--wk)">6 of 8</div><div class="d">jab 60 v feet 54</div></div>
+    <div class="p"><div class="k">POCKET</div><div class="v" style="color:var(--red)">2 of 7</div><div class="d">hooks 41 v guard 61</div></div>
+    <div class="p"><div class="k">INSIDE</div><div class="v" style="color:var(--red)">1 of 3</div><div class="d">inside 55 v strength 63</div></div>
+   </div>
+  </div>
+
+  <div class="coach">
+   <div class="face red" style="width:64px;height:64px;font-size:24px;border-color:#6fa0ff;background:#2b3550">LR</div>
+   <div class="q">"Keep it long and fix that right hand. Two weeks of it and we win this one."</div>
+  </div>
+  <div style="margin-top:8px;text-align:right"><span class="btn g">Put both fixes on next week's board</span></div>
+ </div>
+</div>
+
+<div class="foot">
+  <div class="why"><b>THE WHY</b>Plan: good, 9 right, 2 wrong · Against you: the dropped right (-3) · Next: train it out, hooks on the pads, rest up before the next fight week</div>
+  <span class="btn">The plan, lit up</span>
+  <span class="btn">History</span>
+  <span class="btn g">Back home</span>
+</div>
+</body></html>

@@ -1,0 +1,200 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Training squad board</title>
+<style>
+:root{--slate:#1f2326;--slate2:#272c30;--wood:#7a5432;--wood2:#5c3e24;--ink:#ece6d8;--muted:#a9a395;--gold:#e8b44a;--red:#e0574a;--green:#7cc47a;--blue:#6fa8dc;--violet:#b48ee0;--amber:#e39a3b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#15181a;color:var(--ink);font-family:"Segoe UI",Arial,sans-serif;font-size:20px}
+.mark{font-family:"Segoe Print","Comic Sans MS",cursive}
+.top{height:56px;background:#0f1112;display:flex;align-items:center;padding:0 20px;gap:24px;border-bottom:2px solid #000}
+.top .gym{font-size:26px;color:var(--blue);font-weight:700}
+.top .cash{margin-left:auto;color:var(--gold);font-size:24px;font-weight:700}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:6px 16px;border-radius:6px;border:2px solid var(--wood);background:#3a2a1c;color:var(--ink);font-weight:600;font-size:20px;white-space:nowrap}
+.btn.go{background:#b8322a;border-color:#7a1d17;font-size:24px;padding:8px 22px}
+.btn.solid{background:#d6c3a1;color:#2a1c10;border-color:#8a6a45}
+.frame{position:absolute;left:12px;right:12px;top:62px;bottom:8px;border:6px solid var(--wood);border-radius:8px;background:var(--slate);box-shadow:inset 0 0 0 2px var(--wood2)}
+.title{display:flex;align-items:center;gap:14px;padding:6px 16px;height:54px;border-bottom:2px solid #3a3f44}
+.title h1{font-size:28px;color:var(--gold);white-space:nowrap}
+.ctr{padding:4px 12px;border-radius:6px;background:var(--slate2);border:2px solid #444a50;white-space:nowrap}
+.ctr b{color:var(--gold)}
+.ctr.short{border-color:var(--red)} .ctr.short b{color:var(--red)}
+/* season strip */
+.season{display:grid;grid-template-columns:290px repeat(12,1fr);margin:8px 16px 0;row-gap:4px;column-gap:3px}
+.season .h{font-size:20px;color:var(--muted);text-align:center;height:26px}
+.season .n{font-weight:700;height:34px;line-height:34px;white-space:nowrap;overflow:hidden}
+.blk{height:34px;line-height:34px;border-radius:4px;text-align:center;font-size:20px;font-weight:600;white-space:nowrap;overflow:hidden;color:#16191b}
+.base{background:#8c8f92}.build{background:#6fa8dc}.peak{background:#e39a3b}.taper{background:#d6c3a1}.fight{background:#e0574a;color:#fff}.rest{background:#7cc47a}.ready{background:#4d5359;color:var(--ink)}.test{background:#b48ee0}.drag{outline:3px dashed var(--gold);outline-offset:-3px}
+.stitle{display:flex;align-items:center;gap:16px;margin:6px 16px 0;color:var(--muted)}
+.stitle .t{color:var(--ink);font-weight:700}
+/* squad */
+.daysh{display:grid;grid-template-columns:290px repeat(7,148px) 1fr;column-gap:6px;margin:8px 16px 0;color:var(--muted);text-align:center;height:28px}
+.daysh div:first-child,.daysh div:last-child{text-align:left}
+.row{display:grid;grid-template-columns:290px repeat(7,148px) 1fr;column-gap:6px;margin:6px 16px 0;height:142px}
+.who{background:var(--slate2);border-radius:6px;padding:6px 10px;border-left:6px solid var(--blue);overflow:hidden}
+.who .nm{font-size:24px;font-weight:700;white-space:nowrap}
+.who .l{white-space:nowrap;line-height:26px}
+.badge{font-size:20px;color:#16191b;background:var(--gold);border-radius:4px;padding:0 6px;font-weight:700}
+.bar{display:inline-block;width:80px;height:12px;background:#444;border-radius:6px;vertical-align:middle;margin-left:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green)}
+.cell{background:var(--slate2);border-radius:6px;padding:6px 8px;overflow:hidden;line-height:26px;white-space:nowrap;border:2px solid transparent}
+.cell .am{font-weight:600}
+.cell .pm{color:var(--ink)}
+.cell .tag{color:var(--muted)}
+.you{color:var(--gold)} .coach{color:var(--blue)} .alone{color:var(--muted)}
+.cell.shortc{border-color:var(--red)}
+.cell.fightc{background:#4a1f1c;border-color:var(--red)}
+.cell.job{opacity:.55}
+.buys{background:#2c2620;border-radius:6px;padding:6px 12px;border:2px solid #5c4a35;line-height:27px;overflow:hidden}
+.chip{display:inline-block;padding:0 8px;border-radius:4px;background:#3b4a5a;color:#dbe9f7;font-weight:700;white-space:nowrap}
+.rng{color:var(--green);font-weight:700}
+.warn{color:var(--amber)}
+.bad{color:var(--red)}
+/* bottom */
+.bottom{position:absolute;left:16px;right:16px;bottom:10px;height:72px;display:flex;align-items:center;gap:14px;background:#2b2118;border:3px solid var(--wood);border-radius:8px;padding:0 14px}
+.face{flex-shrink:0;width:52px;height:52px;border-radius:50%;background:#6b5a48;border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px}
+.say{font-size:22px;white-space:nowrap}
+.sum{margin-left:auto;text-align:right;line-height:26px;white-space:nowrap}
+</style></head>
+<body>
+<div class="top">
+  <span class="gym mark">Anvil Street Gym</span>
+  <span>Mon 9 Feb 2026 &middot; Week 6</span>
+  <span class="cash">$17,940 <span style="font-size:20px;color:var(--muted);font-weight:400">running +$95 a week</span></span>
+  <span class="btn">Menu</span>
+</div>
+<div class="frame">
+  <div class="title">
+    <h1 class="mark">Training: the squad's week</h1>
+    <span class="ctr short">Coach's pad places <b>8</b> &middot; asked 11 &middot; <b>3 short</b></span>
+    <span class="ctr">Your coached mornings <b>6</b> &middot; asked 7</span>
+    <span class="ctr">Coach's evenings: Pads &middot; Pads &middot; <b>Class +$117</b></span>
+    <span class="ctr">Ring: Tue &middot; Thu</span>
+  </div>
+
+  <div class="stitle"><span class="t">THE SEASON</span><span>12 weeks. Drag a block: deload, longer base, rest after a hard night. The price shows before you drop it.</span></div>
+  <div class="season">
+    <div></div>
+    <div class="h">9 Feb</div><div class="h">16 Feb</div><div class="h">23 Feb</div><div class="h">2 Mar</div><div class="h">9 Mar</div><div class="h">16 Mar</div><div class="h">23 Mar</div><div class="h">30 Mar</div><div class="h">6 Apr</div><div class="h">13 Apr</div><div class="h">20 Apr</div><div class="h">27 Apr</div>
+
+    <div class="n">Lucy: ranked by June</div>
+    <div class="blk build">BUILD</div><div class="blk build">BUILD</div><div class="blk peak">PEAK</div><div class="blk peak">PEAK</div><div class="blk fight">&#9733; 14 Mar</div><div class="blk rest">REST</div><div class="blk rest drag">REST</div><div class="blk base">BASE</div><div class="blk test">TEST</div><div class="blk base">BASE</div><div class="blk build">BUILD</div><div class="blk build">BUILD</div>
+
+    <div class="n">Kira: the pro offer</div>
+    <div class="blk ready">READY</div><div class="blk fight">&#9733; 21 Feb</div><div class="blk rest">REST</div><div class="blk rest">REST</div><div class="blk ready">READY</div><div class="blk ready">READY</div><div class="blk test">AWARD</div><div class="blk ready">READY</div><div class="blk ready">READY</div><div class="blk ready">READY</div><div class="blk ready">READY</div><div class="blk ready">READY</div>
+
+    <div class="n">Tess: the nationals</div>
+    <div class="blk build">BUILD</div><div class="blk build">BUILD</div><div class="blk base drag">DELOAD</div><div class="blk build">BUILD</div><div class="blk peak">ENTRY</div><div class="blk fight">REGIONAL</div><div class="blk fight">FINAL</div><div class="blk peak">PEAK</div><div class="blk peak">PEAK</div><div class="blk fight">NATIONALS</div><div class="blk rest">REST</div><div class="blk rest">REST</div>
+
+    <div class="n">Ana: blue belt</div>
+    <div class="blk base">MAT</div><div class="blk base">MAT</div><div class="blk build">OPEN PREP</div><div class="blk fight">OPEN 7 Mar</div><div class="blk rest">REST</div><div class="blk base">MAT</div><div class="blk base">MAT</div><div class="blk test">STRIPE</div><div class="blk base">MAT</div><div class="blk build">OPEN PREP</div><div class="blk fight">OPEN</div><div class="blk rest">REST</div>
+  </div>
+
+  <div class="daysh">
+    <div>This week</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div><div>What this week buys</div>
+  </div>
+
+  <!-- Lucy -->
+  <div class="row">
+    <div class="who" style="border-left-color:var(--gold)">
+      <div class="nm">Lucy Jackson <span class="badge">PRO</span></div>
+      <div class="l">Camp week 2 of 6 &middot; Hard</div>
+      <div class="l">Steady &middot; Loyal <span class="bar"><i style="width:74%"></i></span></div>
+      <div class="l">61.9 &rarr; <b>59.9</b> kg, 13 Mar <span class="rng">&#10003;</span></div>
+    </div>
+    <div class="cell"><div class="am"><span class="you">&#9679;</span> Intervals H</div><div class="pm"><span class="coach">&#9679;</span> Pads: 1-2-3</div><div class="tag">tired 62</div></div>
+    <div class="cell"><div class="am"><span class="alone">&#9675;</span> Roadwork N</div><div class="pm">Spar: Josh</div><div class="tag">Technical</div></div>
+    <div class="cell"><div class="am"><span class="you">&#9679;</span> Slip rope H</div><div class="pm"><span class="coach">&#9679;</span> Pads: habit</div><div class="tag">tired 68</div></div>
+    <div class="cell"><div class="am"><span class="alone">&#9675;</span> Strength N</div><div class="pm">Spar: Josh</div><div class="tag warn">Hard, cut 4/100</div></div>
+    <div class="cell"><div class="am"><span class="you">&#9679;</span> Shadow N</div><div class="pm"><span class="coach">&#9679;</span> Pads: hook</div><div class="tag">tired 71</div></div>
+    <div class="cell"><div class="am"><span class="alone">&#9675;</span> Roadwork L</div><div class="pm">Rest</div><div class="tag">tired 64</div></div>
+    <div class="cell"><div class="am">Rest</div><div class="pm">Rest</div><div class="tag">tired 55</div></div>
+    <div class="buys">
+      <div><span class="chip">FOCUS: Defence, the weak spot</span></div>
+      <div>Defence 58 &rarr; 61 by 14 Mar &middot; <span class="rng">+3 to +5 in 100</span></div>
+      <div>Habit, drops the right: <b>4 of 6</b> pads</div>
+      <div>Peak tiredness 71 of 80 &middot; injury 1.4 in 100</div>
+    </div>
+  </div>
+
+  <!-- Kira -->
+  <div class="row">
+    <div class="who" style="border-left-color:var(--red)">
+      <div class="nm">Kira Mensah <span class="badge" style="background:var(--blue)">AMATEUR</span></div>
+      <div class="l">Fight week: Sat 21 Feb, Home</div>
+      <div class="l">Fired up &middot; Settled <span class="bar"><i style="width:58%;background:var(--amber)"></i></span></div>
+      <div class="l">Shifts: earlies this week</div>
+    </div>
+    <div class="cell job"><div class="am">Work 6-2</div><div class="pm"><span class="coach">&#9679;</span> Pads: 1-1-2</div><div class="tag">tired 44</div></div>
+    <div class="cell job"><div class="am">Work 6-2</div><div class="pm">Spar: Danny</div><div class="tag">Body only</div></div>
+    <div class="cell job"><div class="am">Work 6-2</div><div class="pm"><span class="you">&#9679;</span> Walk 2 lines</div><div class="tag">tired 49</div></div>
+    <div class="cell shortc"><div class="am">Work 6-2</div><div class="pm bad">Bag alone</div><div class="tag bad">no pad place</div></div>
+    <div class="cell job"><div class="am">Work 6-2</div><div class="pm">Rest</div><div class="tag">tired 41</div></div>
+    <div class="cell"><div class="am"><span class="you">&#9679;</span> Shadow L</div><div class="pm">Rest</div><div class="tag">tired 33</div></div>
+    <div class="cell"><div class="am">Rest</div><div class="pm">Rest</div><div class="tag">Legs 92 Sat</div></div>
+    <div class="buys">
+      <div><span class="chip">FOCUS: Ahead, answers 2 of 3</span></div>
+      <div>Two plan lines walked &middot; <span class="rng">+2 to +4 in 100</span> Sat</div>
+      <div class="bad">Short Thursday: loyalty -3 (second week: -6)</div>
+      <div>Weight 57.4, gap 1.0 kg: <span class="rng">inside</span></div>
+    </div>
+  </div>
+
+  <!-- Tess -->
+  <div class="row">
+    <div class="who" style="border-left-color:var(--blue)">
+      <div class="nm">Tess Reilly <span class="badge" style="background:var(--blue)">AMATEUR</span></div>
+      <div class="l">Building to the nationals</div>
+      <div class="l">Flat &middot; Wavering <span class="bar"><i style="width:44%;background:var(--red)"></i></span></div>
+      <div class="l">College: Tue, Thu free</div>
+    </div>
+    <div class="cell job"><div class="am">College</div><div class="pm shortc bad">Bag alone</div><div class="tag bad">short</div></div>
+    <div class="cell"><div class="am"><span class="you">&#9679;</span> Roadwork H</div><div class="pm">Spar: Lucy?</div><div class="tag warn">8 kg: half work</div></div>
+    <div class="cell job"><div class="am">College</div><div class="pm"><span class="coach">&#9679;</span> Pads: jab</div><div class="tag">tired 52</div></div>
+    <div class="cell"><div class="am"><span class="you">&#9679;</span> Strength N</div><div class="pm">Spar: Josh</div><div class="tag">Technical</div></div>
+    <div class="cell job"><div class="am">College</div><div class="pm"><span class="alone">&#9675;</span> Bag x0.4</div><div class="tag warn">Flat: may skip</div></div>
+    <div class="cell"><div class="am"><span class="alone">&#9675;</span> Run L</div><div class="pm">Rest</div><div class="tag">BLEEP TEST</div></div>
+    <div class="cell"><div class="am">Rest</div><div class="pm">Rest</div><div class="tag">tired 40</div></div>
+    <div class="buys">
+      <div><span class="chip">FOCUS: Cardio, the goal (12 days)</span></div>
+      <div>Cardio 61 &rarr; 63: goal <span class="warn">at risk, 2 days late</span></div>
+      <div class="bad">Wants a word: short 2 weeks running</div>
+      <div>Bleep test Sat: level 8.4 &rarr; grade Silver</div>
+    </div>
+  </div>
+
+  <!-- Ana -->
+  <div class="row">
+    <div class="who" style="border-left-color:var(--violet)">
+      <div class="nm">Ana Ribeiro <span class="badge" style="background:var(--violet)">GRAPPLER</span></div>
+      <div class="l">White belt, 2 stripes</div>
+      <div class="l">Steady &middot; Loyal <span class="bar"><i style="width:81%"></i></span></div>
+      <div class="l">Cafe: works Sat</div>
+    </div>
+    <div class="cell"><div class="am">Mat: drill</div><div class="pm">Guard pass</div><div class="tag">+3.2 owned</div></div>
+    <div class="cell"><div class="am">&mdash;</div><div class="pm">Positional</div><div class="tag">from mount</div></div>
+    <div class="cell"><div class="am">Mat morning</div><div class="pm">gives Tess</div><div class="tag">Cardio 0.8</div></div>
+    <div class="cell"><div class="am">&mdash;</div><div class="pm">Hard rolls</div><div class="tag warn">tired +10</div></div>
+    <div class="cell"><div class="am">&mdash;</div><div class="pm">Mat: drill</div><div class="tag">Back take</div></div>
+    <div class="cell job"><div class="am">Cafe</div><div class="pm">Rest</div><div class="tag">tired 38</div></div>
+    <div class="cell"><div class="am">Rest</div><div class="pm">Rest</div><div class="tag">tired 30</div></div>
+    <div class="buys">
+      <div><span class="chip">FOCUS: Open prep, white</span></div>
+      <div>Match chance 52 &rarr; 56 in 100 on 7 Mar</div>
+      <div>Third stripe: 3 weeks (5 weeks with hard rolls)</div>
+      <div>Classes 4 of 5 &middot; 1 to the mat morning</div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="face">C</div>
+    <div class="say mark">"Short twice: Thursday's pads to Tess?"</div>
+    <span class="btn solid">Do it</span>
+    <div class="sum">
+      <div>Your week against Coach's: <span class="rng">+2 to +4 in 100</span></div>
+      <div>peak tired 71 &middot; injury 1.4 in 100 &middot; +$117</div>
+    </div>
+    <span class="btn">Coach deals it</span>
+    <span class="btn">Keep my changes</span>
+    <span class="btn go">Start week</span>
+  </div>
+</div>
+</body></html>

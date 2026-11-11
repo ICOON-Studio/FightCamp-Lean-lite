@@ -1,0 +1,189 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Result: planned against happened</title>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0e1014;--panel:#171b22;--panel2:#1d222b;--line:#2c323d;--fg:#ece9e2;--mut:#a3abb7;--red:#e2493f;--blue:#4a86e8;--grn:#3fbf6a;--gold:#e9b23c;--grey:#8b929c;--chalk:#f4efe4}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--fg);font:22px/1.25 "Segoe UI",Arial,sans-serif}
+.bar{height:58px;display:flex;align-items:center;gap:22px;padding:0 28px;background:#1a1510;border-bottom:1px solid #3a2e20}
+.bar .gym{font:30px "Permanent Marker",Impact,sans-serif;color:#7fa8ff}
+.bar .d{font-size:20px;color:var(--mut)}
+.bar .mid{flex:1;text-align:center;font:700 22px "Segoe UI";letter-spacing:4px;color:#ff6f5e}
+.bar .cash{font-size:22px;color:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:42px;padding:0 16px;border-radius:7px;background:#22324e;color:#fff;font:600 20px "Segoe UI";white-space:nowrap}
+.btn.y{background:var(--gold);color:#1b1408}
+.btn.g{background:#1f3f2b;color:#c8f5d6}
+.head{height:104px;display:flex;align-items:center;padding:0 32px;gap:20px;border-bottom:4px solid;border-image:linear-gradient(90deg,var(--red) 50%,var(--blue) 50%) 1}
+.face{width:74px;height:74px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 28px "Segoe UI"}
+.face.r{border:4px solid var(--red);background:#3a1c1a}.face.b{border:4px solid var(--blue);background:#1a2640}
+.nm{font:30px "Permanent Marker",Impact,sans-serif}
+.nm.r{color:#ff8a80}.nm.b{color:#8fb4ff}
+.sub{font-size:20px;color:var(--mut)}
+.ver{flex:1;text-align:center}
+.ver .w{font:42px "Permanent Marker",Impact,sans-serif;color:#8fb4ff;line-height:1}
+.ver .s{font-size:21px;color:var(--mut);margin-top:6px}
+.main{display:flex;gap:22px;padding:16px 28px 0}
+.left{width:1190px}
+.right{width:654px;display:flex;flex-direction:column;gap:14px}
+h2{font:700 21px "Segoe UI";letter-spacing:2px;color:var(--gold)}
+h2 span{font-weight:400;letter-spacing:0;color:var(--mut);margin-left:10px}
+.split{display:flex;height:46px;border-radius:7px;overflow:hidden;margin:10px 0 6px}
+.split div{display:flex;align-items:center;padding-left:12px;font:700 20px "Segoe UI";color:#10130f}
+.legend{display:flex;justify-content:space-between;font-size:20px;color:var(--mut);margin-bottom:10px}
+.cols{display:grid;grid-template-columns:20px 430px 140px 300px 70px 190px;align-items:center;font-size:20px;color:var(--mut);padding:0 0 4px}
+.row{display:grid;grid-template-columns:20px 430px 140px 300px 70px 190px;align-items:center;height:64px;border-bottom:1px solid var(--line)}
+.row.top1{background:#2a2414;border:1px solid #6b5521;border-radius:6px}
+.tag{width:8px;height:44px;border-radius:3px}
+.t{font:600 22px "Segoe UI";white-space:nowrap}
+.t small{display:block;font:400 20px "Segoe UI";color:var(--mut)}
+.fc{font-size:22px;color:var(--mut);text-align:center}
+.track{position:relative;height:26px}
+.track .zero{position:absolute;left:150px;top:-6px;bottom:-6px;width:2px;background:#5a616c}
+.track .b{position:absolute;top:0;height:26px;border-radius:3px}
+.num{font:700 26px "Segoe UI";text-align:right;padding-right:6px}
+.neg{color:#ff7468}.pos{color:#5fd88a}
+.chips{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.chip{font-size:20px;padding:5px 12px;border-radius:16px;background:var(--panel2);border:1px solid var(--line)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:12px 16px}
+.judges{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px}
+.j{background:var(--panel2);border-radius:7px;padding:8px 10px}
+.j .l{font:700 20px "Segoe UI";color:var(--mut)}
+.j .sc{font:700 30px "Segoe UI"}
+.j .why{font-size:20px;color:var(--fg);line-height:1.2}
+.big{font:700 40px "Segoe UI";line-height:1}
+.kv{font-size:20px;color:var(--fg);line-height:1.35}
+.kv b{color:var(--chalk)}
+.note{display:flex;gap:12px;align-items:center;background:#1c2537;border:1px solid #33456a;border-radius:9px;padding:10px 14px}
+.note .q{font:24px "Kalam",cursive;line-height:1.15;color:#f5eedc}
+.foot{position:absolute;left:28px;right:28px;bottom:16px;display:flex;align-items:center;gap:14px}
+.why3{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:10px 16px;font-size:21px}
+.why3 b{color:var(--gold);letter-spacing:2px;margin-right:10px}
+</style></head>
+<body>
+<div class="bar"><span class="gym">Anvil Street Gym</span><span class="d">Sat 31 Jan 2026 · Week 5</span><span class="mid">FIGHT NIGHT · THE RESULT</span><span class="cash">$16,410</span><span class="btn">Menu</span></div>
+
+<div class="head">
+  <div class="face r">LJ</div>
+  <div><div class="nm r">Lucy Jackson</div><div class="sub">Red corner · rank stays No. 7</div></div>
+  <div class="ver"><div class="w">Priya Nair wins</div><div class="s">split decision 2 to 1 · rounds: Lucy, Priya, Priya · one count (Lucy, round 2)</div></div>
+  <div style="text-align:right"><div class="nm b">Priya Nair</div><div class="sub">Blue corner · Eastside ABC 8-2</div></div>
+  <div class="face b">PN</div>
+</div>
+
+<div class="main">
+ <div class="left">
+  <h2>WHAT TURNED IT <span>exchanges won or lost, same dice · the same rows as the bill before the fight</span></h2>
+  <div class="split">
+    <div style="width:46%;background:var(--grn)">Your prep: 6 of 13 turned</div>
+    <div style="width:23%;background:var(--gold)">Your night: 3</div>
+    <div style="width:23%;background:var(--blue);color:#fff">Who they are: 3</div>
+    <div style="width:8%;background:var(--grey)">1</div>
+  </div>
+  <div class="legend"><span>Prep = the weeks, the pads, the sparring, the build since you signed Lucy</span><span>Luck = the night's form, named</span></div>
+
+  <div class="cols"><span></span><span>row</span><span style="text-align:center">on the bill</span><span style="text-align:center">tonight: cost · won</span><span style="text-align:right">exch</span><span></span></div>
+
+  <div class="row top1"><div class="tag" style="background:var(--grn)"></div>
+    <div class="t">Habit: drops the right after the jab<small>Priya countered it 5 times · round 2</small></div>
+    <div class="fc">-2</div>
+    <div class="track"><div class="zero"></div><div class="b" style="left:60px;width:90px;background:var(--red)"></div></div>
+    <div class="num neg">-3</div><div><span class="btn y">Train it out</span></div></div>
+
+  <div class="row"><div class="tag" style="background:var(--grn)"></div>
+    <div class="t">Since you signed Lucy<small>hooks 33 to 41, jab 51 to 60 in 9 weeks</small></div>
+    <div class="fc">+2</div>
+    <div class="track"><div class="zero"></div><div class="b" style="left:152px;width:90px;background:var(--grn)"></div></div>
+    <div class="num pos">+3</div><div><span class="btn">Open the week</span></div></div>
+
+  <div class="row"><div class="tag" style="background:var(--grn)"></div>
+    <div class="t">Sparred as Priya: Dee pressed, 2 nights<small>Priya's pressing game: 4 of 6 won</small></div>
+    <div class="fc">+1</div>
+    <div class="track"><div class="zero"></div><div class="b" style="left:152px;width:60px;background:var(--grn)"></div></div>
+    <div class="num pos">+2</div><div><span class="btn">Club week</span></div></div>
+
+  <div class="row"><div class="tag" style="background:var(--grn)"></div>
+    <div class="t">Legs: tiredness 58 on Friday<small>12 off the tank at the first bell · round 3</small></div>
+    <div class="fc">-1</div>
+    <div class="track"><div class="zero"></div><div class="b" style="left:90px;width:60px;background:var(--red)"></div></div>
+    <div class="num neg">-2</div><div><span class="btn">Rest up</span></div></div>
+
+  <div class="row"><div class="tag" style="background:var(--gold)"></div>
+    <div class="t">Your plan: 9 right, 2 wrong<small>step back on Priya's press, round 1</small></div>
+    <div class="fc">+3</div>
+    <div class="track"><div class="zero"></div><div class="b" style="left:152px;width:90px;background:var(--grn)"></div></div>
+    <div class="num pos">+3</div><div><span class="btn">Open the plan</span></div></div>
+
+  <div class="row"><div class="tag" style="background:var(--gold)"></div>
+    <div class="t">Your corner: 4 shouts, 3 right<small>the call card read round 2 as a round up: wrong</small></div>
+    <div class="fc">?</div>
+    <div class="track"><div class="zero"></div><div class="b" style="left:152px;width:30px;background:var(--grn)"></div></div>
+    <div class="num pos">+1</div><div><span class="btn">See the rounds</span></div></div>
+
+  <div class="row"><div class="tag" style="background:var(--blue)"></div>
+    <div class="t">The pocket: hooks 41 against guard 61<small>who they are · 7 exchanges there, won 2</small></div>
+    <div class="fc">-3</div>
+    <div class="track"><div class="zero"></div><div class="b" style="left:60px;width:90px;background:var(--red)"></div></div>
+    <div class="num neg">-3</div><div><span class="btn">Hooks on pads</span></div></div>
+
+  <div class="row"><div class="tag" style="background:var(--grey)"></div>
+    <div class="t">The night<small>Lucy normal +0.4 · Priya sharp +2.6</small></div>
+    <div class="fc">±1</div>
+    <div class="track"><div class="zero"></div><div class="b" style="left:120px;width:30px;background:var(--red)"></div></div>
+    <div class="num neg">-1</div><div style="font-size:20px;color:var(--mut)">luck, named</div></div>
+
+  <div class="chips">
+    <span class="chip">Fired tonight:</span>
+    <span class="chip" style="border-color:#5a8a3a">Heart 71 beat the count, round 2</span>
+    <span class="chip" style="border-color:#5a8a3a">Counter sense x2 (+1 exch)</span>
+    <span class="chip" style="border-color:#8a3a3a">Composure 52: froze on the ropes once</span>
+  </div>
+  <div class="chips" style="margin-top:12px">
+    <span class="chip">Corner minute 2:</span>
+    <span class="chip">stoppage risk next round shown: 1 in 9</span>
+    <span class="chip">you kept Lucy in (towel not thrown)</span>
+    <span class="chip" style="border-color:#5a8a3a">Lucy won round 3 on the cards of 1 judge</span>
+  </div>
+ </div>
+
+ <div class="right">
+  <div class="card">
+    <h2>THE JUDGES <span>the coach knew 2 of 3 before the bell</span></h2>
+    <div class="judges">
+      <div class="j"><div class="l">CLEAN</div><div class="sc" style="color:#ff8a80">29-28</div><div class="why">Lucy's jab, rounds 1 and 3</div></div>
+      <div class="j"><div class="l">CLEAN</div><div class="sc" style="color:#8fb4ff">28-29</div><div class="why">the count, round 2 (10-8)</div></div>
+      <div class="j"><div class="l">RING</div><div class="sc" style="color:#8fb4ff">28-29</div><div class="why">Priya kept the pocket, rounds 2 and 3</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>THE COUNT <span>what put Lucy down in round 2</span></h2>
+    <div style="display:flex;gap:18px;align-items:center;margin-top:6px">
+      <div><div class="big neg">1</div><div class="sub">count</div></div>
+      <div class="kv">Priya's power <b>63</b> against Lucy's chin <b>58</b><br>head damage carried in: <b>34</b> (two lost exchanges)<br>the dropped right, again: the shot came after the jab</div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:10px"><span class="btn">Durability mornings</span><span class="btn">Hands up drill</span></div>
+  </div>
+
+  <div class="card">
+    <h2>WHO DECIDES LUCY'S FIGHTS <span>last 5 bouts</span></h2>
+    <div style="display:flex;gap:22px;margin-top:6px;align-items:flex-end">
+      <div><div class="big pos">58%</div><div class="sub">your prep</div></div>
+      <div><div class="big" style="color:var(--gold)">24%</div><div class="sub">your night</div></div>
+      <div><div class="big" style="color:#8fb4ff">11%</div><div class="sub">who they are</div></div>
+      <div><div class="big" style="color:var(--grey)">7%</div><div class="sub">luck</div></div>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="face r" style="width:62px;height:62px;font-size:22px;flex:none">LR</div>
+    <div><div class="q">The dropped right cost us round 2 and the count. Six pad places and it's gone.</div>
+      <div style="margin-top:8px;display:flex;gap:10px"><span class="btn y">Put 3 fixes on next week</span></div></div>
+  </div>
+ </div>
+</div>
+
+<div class="foot">
+  <div class="why3"><b>THE WHY</b>Plan good, 9 right · Against you: <span class="neg">the dropped right</span> · Next: <span style="color:var(--gold)">train it out before the next sheet</span></div>
+  <span class="btn">The plan, lit up</span><span class="btn">History</span><span class="btn y">Back home</span>
+</div>
+</body></html>

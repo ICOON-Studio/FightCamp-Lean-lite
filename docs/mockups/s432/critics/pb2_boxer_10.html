@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Fight plan 10/10 (critic pb2 boxer)</title>
+<style>
+@font-face{font-family:Marker;src:url(../../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../../assets/fonts/BebasNeue-Regular.ttf)}
+@font-face{font-family:Kalam;font-weight:700;src:url(../../../../assets/fonts/Kalam-Bold.ttf)}
+:root{--ink:#f1e8da;--soft:#bfae96;--gold:#ffd24a;--red:#e2574a;--blue:#5a98f2;--green:#46c47f;--amber:#f2952f;--panel:#211a16;--line:rgba(255,255,255,.10)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{background:linear-gradient(#1c1612,#110d0b);color:var(--ink);font:500 20px/1.2 Barlow,"Segoe UI",sans-serif;position:relative}
+.abs{position:absolute}
+.top{left:0;top:0;width:1920px;height:62px;background:linear-gradient(#4a3424,#2c1f16);border-bottom:6px solid #5c4330;display:flex;align-items:center;gap:22px;padding:0 20px}
+.gym{font:400 30px/1 Marker;color:#6ea2f2}
+.date{font:500 20px/1.1 Barlow;color:#efe6d8}
+.cash{margin-left:auto;text-align:right;font:700 24px/1 Barlow;color:var(--gold)}
+.cash i{display:block;font:400 20px/1.1 Barlow;color:var(--soft);font-style:normal}
+.big{background:linear-gradient(#e9c35a,#b98a2a);color:#1b130c;border-radius:6px;padding:6px 16px;font:700 20px/1.1 Barlow}
+.tabs{left:24px;top:72px;display:flex;gap:8px}
+.tab{padding:7px 16px;border-radius:6px;background:#2c241e;color:#d9cbb6;font:600 20px/1.2 Barlow}
+.tab.on{background:#2f5ea8;color:#fff}
+.name{left:24px;top:124px;font:400 44px/1 Marker;color:#fff}
+.sub{left:24px;top:174px;color:var(--soft)}
+.vs{left:600px;top:126px;background:#1f2b40;border:1px solid #35507d;border-radius:8px;padding:10px 16px;display:flex;gap:18px;align-items:center}
+.vs b{color:var(--gold);font:700 22px/1 Barlow}
+.chip{display:inline-block;border-radius:14px;padding:2px 10px;font:600 20px/1.2 Barlow;white-space:nowrap}
+.cg{background:rgba(70,196,127,.18);color:var(--green);border:1px solid rgba(70,196,127,.5)}
+.ca{background:rgba(242,149,47,.16);color:var(--amber);border:1px solid rgba(242,149,47,.5)}
+.cr{background:rgba(226,87,74,.18);color:#ff8a7c;border:1px solid rgba(226,87,74,.55)}
+.cb{background:rgba(90,152,242,.16);color:#8fb8f7;border:1px solid rgba(90,152,242,.5)}
+.cn{background:rgba(255,255,255,.08);color:#ddd;border:1px solid rgba(255,255,255,.2)}
+.panel{background:var(--panel);border:1px solid #3a2e25;border-radius:10px;padding:12px 16px}
+.h{font:400 26px/1 Bebas;letter-spacing:1px;color:var(--gold)}
+.h small{font:500 20px/1 Barlow;color:var(--soft);letter-spacing:0;margin-left:10px}
+table{border-collapse:collapse;width:100%}
+th{font:600 20px/1.1 Barlow;color:var(--soft);text-align:left;padding:6px 6px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:7px 6px 7px 0;vertical-align:middle;border-bottom:1px solid var(--line)}
+.ln{font:700 22px/1.1 Barlow;color:var(--gold)}
+.mut{color:var(--soft);font-weight:400}
+.wor{font:700 26px/1 Barlow;color:var(--green);text-align:right}
+.bar{display:inline-block;height:8px;border-radius:4px;background:var(--blue);vertical-align:middle}
+.track{display:inline-block;width:90px;height:8px;border-radius:4px;background:rgba(255,255,255,.1);vertical-align:middle;margin-right:6px}
+.btn{display:inline-block;background:#3a2f27;border:1px solid #5a4a3c;border-radius:6px;padding:7px 14px;font:600 20px/1.1 Barlow;color:#f1e8da;white-space:nowrap}
+.btn.go{background:linear-gradient(#f0cb5c,#c2932c);color:#1b130c;border-color:#c2932c}
+.note{border-radius:8px;padding:6px 12px;margin:6px 0}
+.na{background:rgba(242,149,47,.12);border-left:5px solid var(--amber)}
+.nr{background:rgba(226,87,74,.12);border-left:5px solid var(--red)}
+.ng{background:rgba(70,196,127,.10);border-left:5px solid var(--green)}
+.rcell{background:#2a211b;border-radius:8px;padding:8px 12px;flex:1}
+.rcell b{font:400 24px/1 Bebas;color:var(--gold);letter-spacing:1px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid var(--line)}
+.hand{font:700 22px/1.15 Kalam;color:#ffe9a8}
+.tank{display:flex;gap:10px;align-items:flex-end;margin-top:6px}
+.tk{flex:1}
+.tk .t{height:16px;border-radius:5px;background:rgba(255,255,255,.1);position:relative;overflow:hidden}
+.tk .f{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#46c47f,#9bd36a)}
+.tk .p{position:absolute;top:0;bottom:0;background:rgba(242,149,47,.85)}
+</style></head><body>
+
+<div class="abs top">
+  <div class="gym">Anvil Street Gym</div>
+  <div class="date">Mon 20 Apr 2026<br><span class="mut">Week 16</span></div>
+  <div class="cash">$10,215<i>running -$90 a week</i></div>
+  <div class="big">START WEEK<br><span style="font-weight:500">Tess boxes Sat 25 Apr</span></div>
+</div>
+
+<div class="abs tabs">
+  <div class="tab">Profile</div><div class="tab">Training</div><div class="tab">Playbook</div><div class="tab on">Fight plan</div><div class="tab">History</div>
+</div>
+
+<div class="abs name">TESS REILLY</div>
+<div class="abs sub">Middleweight, 23, <b style="color:#fff">southpaw</b>, pressure fighter, 6-4 amateur</div>
+<div class="abs vs"><b>SAT 25 APR, 5 DAYS</b><span>vs <b style="color:#8fb8f7">Jo Marsh</b> Hull ABC, counter-puncher, <b style="color:#fff">orthodox</b>, 7-2</span><span class="chip cb">Open stance: the straight left is on</span></div>
+
+<!-- LEFT: THE CARD -->
+<div class="abs panel" style="left:24px;top:220px;width:1250px;height:500px">
+  <div class="h">TESS'S CARD FOR JO <small>Takes 4 lines into the ring (Fight IQ 59) &middot; 2 score, 1 safe, 1 risky &middot; worth in exchanges won a bout</small></div>
+  <table style="margin-top:6px">
+    <tr><th style="width:200px">Where, how often</th><th style="width:330px">Line</th><th style="width:96px">Rounds</th><th style="width:110px">Read</th><th style="width:150px">Tess does it</th><th style="width:160px">Fires (tired)</th><th style="width:120px">Price</th><th style="text-align:right">Bout</th></tr>
+    <tr><td>Jo waits to counter<br><span class="track"><span class="bar" style="width:30px"></span></span><span class="mut">6 of 18</span></td>
+      <td><span class="ln">The draw</span><br><span class="mut">if read: behind the straight left</span></td>
+      <td><span class="chip cn">R1 R2</span></td><td><span class="chip cg">Beats it</span></td>
+      <td><span class="chip cn">OK</span> <span class="mut">55</span></td><td>1 in 2 <span class="mut">(1 in 3)</span></td>
+      <td><span class="chip cg">Safe exit</span></td><td class="wor">+0.9</td></tr>
+    <tr><td>At long range<br><span class="track"><span class="bar" style="width:25px"></span></span><span class="mut">5 of 18</span></td>
+      <td><span class="ln">Straight left, step out</span><br><span class="chip cb" style="margin-top:3px">open stance +</span></td>
+      <td><span class="chip cn">all</span></td><td><span class="chip cg">Beats it</span></td>
+      <td><span class="chip cg">Good</span> <span class="mut">64</span></td><td>3 in 4 <span class="mut">(1 in 2)</span></td>
+      <td><span class="chip cn">Scores, cheap</span></td><td class="wor">+0.8</td></tr>
+    <tr><td>At mid range<br><span class="track"><span class="bar" style="width:20px"></span></span><span class="mut">4 of 18</span></td>
+      <td><span class="ln">Slip, cross, check hook</span><br><span class="mut">swapped in for Step back</span></td>
+      <td><span class="chip cn">all</span></td><td><span class="chip cg">Beats it</span></td>
+      <td><span class="chip cn">OK</span> <span class="mut">57</span></td><td>always <span class="mut">(3 in 4)</span></td>
+      <td><span class="chip ca">Scores, gas</span></td><td class="wor">+0.4</td></tr>
+    <tr><td>Jo tires<br><span class="track"><span class="bar" style="width:10px"></span></span><span class="mut">2 of 18</span></td>
+      <td><span class="ln">One-two-hook-cross</span><br><span class="mut">R3, if behind only</span></td>
+      <td><span class="chip cn">R3</span></td><td><span class="chip cg">Beats it</span></td>
+      <td><span class="chip cn">OK</span> <span class="mut">58</span></td><td>3 in 4 <span class="mut">(1 in 2)</span></td>
+      <td><span class="chip cr">Risky, big gas</span></td><td class="wor">+0.3</td></tr>
+  </table>
+  <div class="note nr"><b>Against Tess's nature:</b> Step back. A pressure fighter told to back up fires it 1 in 2 until it is Sharp. That is why it was swapped.</div>
+  <div class="note na"><b>Left at home:</b> Body hook, head hook (not in R1, 80% after). <span class="btn" style="float:right;margin-top:-4px">+ Write a line</span></div>
+</div>
+
+<!-- GAS + HOLDS THE PLAN -->
+<div class="abs panel" style="left:24px;top:730px;width:1250px;height:150px">
+  <div class="h">GAS ACROSS THE ROUNDS <small>Legs 64 at the bell; orange = what the card costs</small></div>
+  <div class="tank">
+    <div class="tk"><span class="mut">R1</span><div class="t"><div class="f" style="width:100%"></div><div class="p" style="left:84%;width:16%"></div></div></div>
+    <div class="tk"><span class="mut">R2</span><div class="t"><div class="f" style="width:80%"></div><div class="p" style="left:64%;width:16%"></div></div></div>
+    <div class="tk"><span class="mut">R3</span><div class="t"><div class="f" style="width:61%"></div><div class="p" style="left:40%;width:21%"></div></div></div>
+  </div>
+  <div style="margin-top:10px">R3 opens at Legs 40: four punches whole 1 in 2. <b style="color:var(--gold)">Holds the plan:</b> Composure 55, hurt or under Legs 40, Tess fires 1 line in 3 fewer.</div>
+</div>
+
+<!-- ROUND STRIP -->
+<div class="abs" style="left:24px;top:890px;width:1250px;height:110px;display:flex;gap:10px">
+  <div class="rcell"><b>R1 STEADY</b><br>The draw, straight left. Jo starts patient.</div>
+  <div class="rcell"><b>R2 STEADY</b><br>Jo waits for the draw: it goes behind the straight left.</div>
+  <div class="rcell" style="flex:1.4"><b>R3 THE CORNER'S READ</b><br><span style="color:var(--green)">Ahead: Save</span>, same card. <span style="color:#ff8a7c">Behind: Push</span>, add the four punches.</div>
+</div>
+
+<!-- RIGHT COLUMN -->
+<div class="abs panel" style="left:1290px;top:220px;width:606px;height:270px">
+  <div class="h">JO'S GAME <small>tape: 4 of 5 found</small></div>
+  <div class="row"><span>Waits to counter, right over the jab</span><span class="chip cg">The draw</span></div>
+  <div class="row"><span>Orthodox: lead foot inside Tess's</span><span class="chip cg">Straight left</span></div>
+  <div class="row"><span>Adapts from R2: waits for the most-won line</span><span class="chip ca">If read</span></div>
+  <div class="row"><span>Fades after round 2</span><span class="chip cg">R3 four punches</span></div>
+  <div class="row" style="border:0"><span>? Weakness: film, 2 pad places</span><span class="btn">Book film</span></div>
+</div>
+
+<div class="abs panel" style="left:1290px;top:500px;width:606px;height:210px">
+  <div class="h">YOUR SHOUTS ON THE NIGHT <small>the card's lines</small></div>
+  <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:8px">
+    <span class="btn">The draw!</span><span class="btn">Straight left!</span><span class="btn">Slip and counter!</span><span class="btn">Four now!</span><span class="btn">Hands up</span><span class="btn">Tie up</span>
+  </div>
+  <div class="hand" style="margin-top:10px">A shout makes the next 30 seconds throw that line. Lines not on the card cannot be shouted.</div>
+</div>
+
+<div class="abs panel" style="left:1290px;top:720px;width:606px;height:280px">
+  <div class="h">AFTER THE LAST BOUT <small>vs Erin Doyle, won on points</small></div>
+  <div class="row"><span><b>Straight left: right answer 7 of 7</b><br><span class="mut">won 5; +2 exchanges over no plan</span></span><span class="btn">Keep</span></div>
+  <div class="row"><span><b>Step back: Poor, 1 of 5</b><br><span class="mut">against Tess's nature; Footwork 48</span></span><span class="btn">Swap</span></div>
+  <div class="row" style="border:0"><span><b>The draw: read in R2</b><br><span class="mut">behind the jab it won 3 of 4</span></span><span class="btn">On the pads</span></div>
+</div>
+
+<!-- BOTTOM -->
+<div class="abs" style="left:24px;top:1016px;width:1872px;display:flex;align-items:center;gap:12px">
+  <div style="font:600 22px/1 Barlow">Your card against Coach's: <b style="color:var(--green);font-size:28px">+1.4 exchanges a bout</b> <span class="mut">(about +7 wins in 100)</span></div>
+  <div style="margin-left:auto;display:flex;gap:10px">
+    <span class="btn">Real plans: 2 fit Tess</span><span class="btn">Map</span><span class="btn">Save card</span><span class="btn go">Test it: Thu spar vs Kira (orthodox counter), 2 left</span>
+  </div>
+</div>
+</body></html>

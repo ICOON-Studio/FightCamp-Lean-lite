@@ -1,0 +1,107 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Result: the scales</title>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0f13;--panel:#161a21;--line:#2a303b;--fg:#e8e6e1;--mut:#9aa3b0;--red:#e0483e;--blue:#3d7be0;--grn:#3fbf6a;--amb:#e8a93a;--chalk:#f3efe6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--fg);font:22px/1.25 "Segoe UI",Arial,sans-serif}
+.top{height:118px;display:flex;align-items:center;padding:0 40px;border-bottom:4px solid;border-image:linear-gradient(90deg,var(--red) 50%,var(--blue) 50%) 1}
+.nm{font:700 34px "Segoe UI";letter-spacing:1px}
+.nm.r{color:#ff7a70}.nm.b{color:#7fa8ff}
+.verdict{flex:1;text-align:center}
+.verdict .w{font:44px "Permanent Marker",Impact,sans-serif;color:#7fa8ff;line-height:1}
+.verdict .s{font-size:22px;color:var(--mut);margin-top:6px}
+.wrap{display:flex;gap:28px;padding:22px 40px 0}
+.col{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 22px}
+h2{font:700 21px "Segoe UI";letter-spacing:3px;color:var(--mut);margin-bottom:12px}
+.judge{display:grid;grid-template-columns:150px 1fr 74px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.lean{display:inline-block;font-size:20px;font-weight:700;padding:2px 10px;border-radius:5px;background:#252b36;color:var(--chalk)}
+.rds{display:flex;gap:8px}
+.rd{width:96px;text-align:center;font-size:20px;border-radius:5px;padding:3px 0}
+.rd.r{background:#3a1c1b;color:#ffb0a8}.rd.b{background:#18284a;color:#a9c4ff}
+.tot{font:700 26px Consolas,monospace;text-align:right}
+.why{font-size:20px;color:var(--mut);grid-column:2/4;margin-top:4px}
+.why b{color:var(--chalk);font-weight:600}
+table.rnd{width:100%;border-collapse:collapse;margin-top:6px;font-size:20px}
+table.rnd th{color:var(--mut);font-weight:600;text-align:left;padding:5px 4px}
+table.rnd td{padding:5px 4px;border-top:1px solid var(--line)}
+.n{font-family:Consolas,monospace}
+.scales{flex:1}
+.grp{font:700 20px "Segoe UI";letter-spacing:2px;color:var(--amb);margin:10px 0 2px}
+.row{display:grid;grid-template-columns:450px 470px 110px 1fr;align-items:center;height:54px}
+.lab{font-size:21px}
+.lab small{display:block;font-size:20px;color:var(--mut);line-height:1.1}
+.axis{position:relative;height:26px;background:linear-gradient(90deg,transparent 49.8%,#59606c 49.8%,#59606c 50.2%,transparent 50.2%)}
+.bar{position:absolute;top:3px;height:20px;border-radius:3px}
+.pos{left:50%;background:var(--grn)}.neg{right:50%;background:var(--red)}
+.val{font:700 22px Consolas,monospace;text-align:right;padding-right:14px}
+.val.p{color:var(--grn)}.val.m{color:#ff7a70}
+.btn{justify-self:start;font-size:20px;font-weight:600;padding:5px 14px;border-radius:6px;border:1px solid #3d7be0;color:#a9c4ff;background:#132038;white-space:nowrap}
+.btn.none{border-color:var(--line);color:var(--mut);background:transparent}
+.note{font:24px "Kalam",cursive;color:var(--chalk);margin-top:10px;border-left:4px solid var(--amb);padding-left:14px}
+.foot{position:absolute;left:40px;right:40px;bottom:22px;display:flex;gap:18px;align-items:center}
+.next{flex:1;display:flex;gap:16px}
+.card{flex:1;background:#141a24;border:1px solid #2f3a4c;border-radius:9px;padding:10px 16px;font-size:20px}
+.card b{display:block;font-size:22px;color:var(--chalk)}
+.card span{color:var(--mut)}
+.home{font:700 24px "Segoe UI";background:var(--blue);color:#fff;padding:16px 30px;border-radius:9px}
+</style></head>
+<body>
+<div class="top">
+  <div class="nm r">JO BELL<div style="font-size:20px;color:var(--mut);font-weight:400">red corner, your boxer</div></div>
+  <div class="verdict"><div class="w">Sam Ade wins: split decision, 2 judges to 1</div>
+    <div class="s">Jo landed more (61 to 56) and won the Work judge. Sam won the clean shots and the ring.</div></div>
+  <div class="nm b" style="text-align:right">SAM ADE<div style="font-size:20px;color:var(--mut);font-weight:400">blue corner, Leicester ABC</div></div>
+</div>
+
+<div class="wrap">
+  <div class="col" style="width:640px;height:780px">
+    <h2>THE CARDS (each judge scores the round their way)</h2>
+    <div class="judge"><span class="lean">WORK</span>
+      <div class="rds"><span class="rd r">R1 10-9</span><span class="rd r">R2 10-9</span><span class="rd b">R3 9-10</span></div><span class="tot" style="color:#ff7a70">29-28</span>
+      <div class="why">counts every punch landed: <b>Jo busier in 1 and 2</b></div></div>
+    <div class="judge"><span class="lean">CLEAN</span>
+      <div class="rds"><span class="rd r">R1 10-9</span><span class="rd b">R2 9-10</span><span class="rd b">R3 9-10</span></div><span class="tot" style="color:#7fa8ff">28-29</span>
+      <div class="why">big shots count double: <b>Sam's counters in 2 and 3</b></div></div>
+    <div class="judge"><span class="lean">RING</span>
+      <div class="rds"><span class="rd r">R1 10-9</span><span class="rd b">R2 9-10</span><span class="rd b">R3 9-10</span></div><span class="tot" style="color:#7fa8ff">28-29</span>
+      <div class="why">who controlled it: <b>Jo stepped back 9 times in 2 and 3</b></div></div>
+    <h2 style="margin-top:18px">ROUND BY ROUND</h2>
+    <table class="rnd">
+      <tr><th></th><th>R1</th><th>R2</th><th>R3</th></tr>
+      <tr><td>Clean punches</td><td class="n">22-17</td><td class="n">21-19</td><td class="n">18-20</td></tr>
+      <tr><td>Big shots</td><td class="n">1-0</td><td class="n">0-3</td><td class="n">0-2</td></tr>
+      <tr><td>Where it was fought</td><td>at range</td><td>pocket</td><td>pocket</td></tr>
+      <tr><td>Kept the place</td><td>Jo</td><td>Sam</td><td>Sam</td></tr>
+      <tr><td>Legs at the bell</td><td class="n">71 / 70</td><td class="n">52 / 61</td><td class="n">31 / 49</td></tr>
+    </table>
+    <div class="note">"We won the busy rounds and gave away the middle of the ring. Box at range next time."</div>
+  </div>
+
+  <div class="col scales" style="height:780px">
+    <h2>THE SCALES: WHAT MOVED THIS BOUT (same dice, each part taken out in turn)</h2>
+    <div class="grp">YOUR WEEK</div>
+    <div class="row"><div class="lab">The build in the pocket<small>Lead hook 41 against Sam's guard 58</small></div><div class="axis"><div class="bar neg" style="width:34%"></div></div><div class="val m">-4 ex</div><span class="btn">Hook on the pads</span></div>
+    <div class="row"><div class="lab">The build at range<small>Jab 62 against Sam's feet 55</small></div><div class="axis"><div class="bar pos" style="width:22%"></div></div><div class="val p">+3 ex</div><span class="btn none">keep it</span></div>
+    <div class="row"><div class="lab">Legs at the first bell<small>week tiredness 58: -16 energy</small></div><div class="axis"><div class="bar neg" style="width:18%"></div></div><div class="val m">-2 ex</div><span class="btn">Rest up next week</span></div>
+    <div class="grp">YOUR PLAN</div>
+    <div class="row"><div class="lab">Step back when Sam presses<small>won exchanges, lost the ring</small></div><div class="axis"><div class="bar neg" style="width:16%"></div></div><div class="val m">-1 rd</div><span class="btn">Change the line</span></div>
+    <div class="row"><div class="lab">One-two at range<small>right answer 7 times</small></div><div class="axis"><div class="bar pos" style="width:20%"></div></div><div class="val p">+2 ex</div><span class="btn none">keep it</span></div>
+    <div class="grp">YOUR CORNER</div>
+    <div class="row"><div class="lab">Shouts (6 right, 2 wrong)<small>wrong: "Go to the body" on a counter</small></div><div class="axis"><div class="bar pos" style="width:12%"></div></div><div class="val p">+1 ex</div><span class="btn none">see the round</span></div>
+    <div class="row"><div class="lab">Habit fix: drops the right<small>fixed in round 2, still paid twice</small></div><div class="axis"><div class="bar pos" style="width:10%"></div></div><div class="val p">+1 ex</div><span class="btn">Train it out</span></div>
+    <div class="grp">THE NIGHT</div>
+    <div class="row"><div class="lab">Form on the night<small>luck, not yours to change</small></div><div class="axis"><div class="bar neg" style="width:10%"></div></div><div class="val m">-1 ex</div><span class="btn none">nothing to do</span></div>
+    <div class="row"><div class="lab">Perk: Stiff jab<small>fired 4 times</small></div><div class="axis"><div class="bar pos" style="width:6%"></div></div><div class="val p">+1 ex</div><span class="btn none">keep it</span></div>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="next">
+    <div class="card"><b>Pads: Lead hook to 50</b><span>3 pad nights. Pocket -4 becomes about -1.</span></div>
+    <div class="card"><b>Plan: pivot, not step back</b><span>keeps the ring with a Ring judge.</span></div>
+    <div class="card"><b>Next bout: Forward 40, Busy 65</b><span>box at range; guard +3.</span></div>
+  </div>
+  <span class="home">Back home</span>
+</div>
+</body></html>
