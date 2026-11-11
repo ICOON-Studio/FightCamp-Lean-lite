@@ -17,6 +17,7 @@ const ComboBuilder := preload("res://scripts/ui/ComboBuilder.gd")
 const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
 const PlanCards := preload("res://scripts/rules/PlanCards.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
+const FaceFrame := preload("res://scripts/ui/FaceFrame.gd")
 
 const SLOTS := 4
 const FACES := "res://assets/ui/face/studio"
@@ -106,17 +107,11 @@ static func _versus(head: HBoxContainer, f: Dictionary) -> void:
 	var path := FACES.path_join(str(Faces.pair(f, opp)[1]) + ".jpg")
 	if ResourceLoader.exists(path):
 		var tex: Texture2D = load(path)
-		var a := AtlasTexture.new()   # the head: the middle half, from just above the hair
-		a.atlas = tex
-		var s := tex.get_size()
-		a.region = Rect2(s.x * 0.25, s.y * 0.12, s.x * 0.5, s.x * 0.5)
 		var face := TextureRect.new()
 		face.name = "OppFace"
-		face.custom_minimum_size = Vector2(44, 44)
-		face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 		face.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		face.texture = a
+		face.texture = tex
+		FaceFrame.fit(face, FaceFrame.box_for(tex), Vector2(44, 44))
 		head.add_child(face)
 	var who := WB.ink(str(opp.get("first", str(opp.get("name", "")).get_slice(" ", 0))).to_upper(), 18, "bold", UI.FG)
 	who.name = "OppName"

@@ -1,3 +1,14 @@
+FIGHTCAMP - BUILD OF 2026-11-11 (S433): WHOLE FACES IN THE MENUS, A FAIRER STOPPAGE RULE
+================================================================================
+
+ NEW.
+  - Every face picture in the menus shows the whole head (Home, the fighter cards, the week board, the camp side, the
+    drills, the fight poster). Look at the fight poster: the blue corner faces the red one and sits straight in its slot.
+  - The referee's stoppage odds now work for both corners the same way (it only worked one way before). Nothing you see
+    changes yet; it is the ground for the traits and perks that make a boxer harder or easier to stop.
+ NOT IN THIS BUILD (on their way): the fight animation round (the last one cheated its checks and was sent back), the
+ corner minute's camera on the face, featherweight and middleweight pro tables (built, one ranking check still red).
+
 FIGHTCAMP - BUILD OF 2026-11-11 (S432): THE STEPPING FIGHT, A CLEARER TRAINING TAB, THE RIB CALLS
 ================================================================================
 

@@ -1108,6 +1108,24 @@
    "status": "launched",
    "queued": "2026-11-11T11:45",
    "launched": "2026-11-11T12:12"
+  },
+  {
+   "task": "HUMANFIGHT2B",
+   "seat": "cursor",
+   "status": "queued",
+   "queued": "2026-11-11T17:02"
+  },
+  {
+   "task": "CORNERFACE2",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-11T17:02"
+  },
+  {
+   "task": "DUESSUMS3B",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-11T17:02"
   }
  ]
 }

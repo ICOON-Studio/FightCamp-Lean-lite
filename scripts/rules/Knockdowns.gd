@@ -128,7 +128,9 @@ static func puncher_chance(target: String, sides: Dictionary, damage: Dictionary
 	var p := minf(0.5, BASE_COUNT * COUNTER_SHARE * exp((power - chin) / POWER_CHIN_SCALE) * (1.0 + dmg / DAMAGE_SCALE))
 	if rng.randf() >= p:
 		return {"counts": 0, "stopped": false, "how": ""}
-	var stop_p := minf(0.9, REF_STOP * (1.0 + dmg / DAMAGE_SCALE) * (1.4 - heart / 100.0))
+	# S433 STOPMULT1: the referee reads the counted boxer's stop_mult here too (it was read only in round_counts).
+	var stop_p := minf(0.9, REF_STOP * (1.0 + dmg / DAMAGE_SCALE) * (1.4 - heart / 100.0)
+		* float((sides[target] as Dictionary).get("stop_mult", 1.0)))
 	var waved := rng.randf() < stop_p
 	var ko := waved and dmg >= KO_DAMAGE and rng.randf() < (1.0 - heart / 100.0) * KO_ODDS
 	var total := int(counts_so_far.get(target, 0)) + 1

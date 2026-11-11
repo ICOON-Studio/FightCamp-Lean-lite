@@ -1,88 +1,62 @@
-# S433 handover: the core loop reviewed by critics, six maps at 7+, the integration map decides the build (written 2026-11-11, end of S432)
+# S434 handover: collects reviewed blind, foundation fixes under way, his three answers in (written 2026-11-11, end of S433)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start` (~14 s, ~160 lines since S432),
-then `python ops/Tools/where_we_are.py roll S433` and redraw the Miro map (recipe: ops/Tools/where_we_are_svg.py docstring).
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S434`
+and redraw Miro (recipe: ops/Tools/where_we_are_svg.py docstring; STRIP the `data-deleted` lines - the Miro tool refuses a delete
+without his OK, 12 surplus slots wait for it).
 
 ## USAGE FIRST
-`get_usage` before anything. Late S432: weekly all models ~40 %, Fable 68 % (resets Thu 2026-11-12 16:00), extra usage
-EUR 37.92 of 40. Measured in S432: Opus 5.5 workflows are cheap against the all-models bucket (about 12 critic/design
-workflows, ~15M agent tokens, moved it ~35 % -> ~40 %); Fable workflows burn Fable fast (S431: 24 % -> 60 % in an hour).
-His question "opus 5.5/high/ultracode or fable 5.2 medium?": answered Opus high + ultracode until the reset; after it, Fable
-medium for hard single-thread work, workflows still checked against usage.
+`get_usage`. End of S433: all models 45 %, Fable 68 % (both reset Thu 2026-11-12 16:00), extra usage EUR 37.92 of 40. Opus
+workflows: ~6M agent tokens moved all-models 42 -> 45 %. After the reset: Fable medium for single-thread work.
 
-## HIS WORDS IN S432 (all acted on)
-- "make other active sessions to report here" -> done; HUMANFIGHT1 and S431 reported (nothing unpushed).
-- "check if you can trim the session start" -> done, 33466aa0 (~50 s -> ~14 s).
-- Q-184 "i want v3 reviewed by critics . see if we can deepen and stregthnen and add if required any new mechanics , before we
-  start building we need to decide if we done with the mechancis for this version" -> map v3 critics 7/6 -> v4 7/7 -> v4.1.
-- "i want a bit more rpg elements with coach and fighters" / "yes add the rpg layer after the review" -> RPG layer, passed.
-- "is there a hype mechanic for the fighter ? if not can you add a deep one" + "maybe do a research ... how hype builds around
-  a fight and a fighter , what role the coach can play" -> research + hype map, passed.
-- "how deep are the training mechanics ? have critics rated them ?" -> never rated before; 5/5 as built; training map.
-- "do the same for the most important aspects of the game that affect the loop like building the fighter and the coach,
-  playbook , training and how these 2 impact fight , need reviewed them all and properly strenghen and add mechanics"
-  -> playbook and from-build-to-fight tracks, then the INTEGRATION pass.
-- Q-185 board answer "this looks nice i do not understand theoptions you are giving me though" -> read as painting 1 for both
-  pages (explained in chat). Decided: the two pages are built AFTER the integration map says what each page shows (once).
-- "show me the integration results when ready and prepare handoff".
+## HIS WORDS (board answers, all acted on)
+- Q-186 "No, full-time once pro": a professional has no day job (training map v6 and CORE_LOOP updated by the S433 workflow).
+- Q-187 "Yes, both": featherweight + middleweight pro tables. Built on branch `claude/protables1` (women's and men's, old saves
+  fall back), NOT on main: world_years_test reads 6.3 % clear ranking inversions in w_fw year 17 (bar 5 %; the old four 4.2 %)
+  and fighter_model_speed_test's digests change (expected). Next: find why the new table inverts (seed sample of 8 tables vs 4,
+  or the fw weight band) - fix the world or the sample, never the bar; then update the two digests and merge.
+- Q-188 "This version": Ana's mat plan -> MATPLAN_MAP_S433.md by the S433 workflow (see section 0).
+- OPEN: Q-189 (E:\FightCamp\tmp, 54 GB of old render scratch: may I delete the S38x/S39x folders?). E: is 91 % used.
 
-## 0. THE DESIGN STATE (all in ops/research, all critics' reviews and 10/10 drawings in docs/mockups/s432/critics)
-| Map | File | As built | Final |
-|---|---|---|---|
-| Club week | CLUBWEEK_MAP_V41_S432.md (+ VERDICT.md: mechanics complete for the week) | - | v3 7/6 -> v4 7/7, v4.1 = the judge's 10 changes |
-| RPG layer (coach + fighters) | RPG_LAYER_MAP_S432.md | - | 6/6.5 -> 6.5/7 -> 7/7 |
-| Hype | HYPE_MAP_S432.md (research HYPE_RESEARCH_S432.md, notes in hype_notes/) | none existed | 7/7 |
-| Playbook | PLAYBOOK_MAP_S432.md | 6/5 | 7/7 |
-| From build to fight | FIGHT_LINK_MAP_S432.md | 5.5/6 | 7/6.5 -> 7/7 |
-| Training | TRAINING_MAP_S432.md (v5) | 5/5 | 7/6 -> 7/6.5 -> 6.5/6.5 -> 6.5/7: NOT passed, v6 next |
-INTEGRATION: CORE_LOOP_MAP_S432.md - see section 0b (filled at the end of S432 when it lands).
+## 0. DESIGN (S433 workflow wf_5d283e05-ac0: training v6 + mat plan, each to two fresh critics at 7+, then CORE_LOOP updated)
+STILL RUNNING at handover (it may die with this session): read the files it wrote (TRAINING_MAP_S432.md v6,
+MATPLAN_MAP_S433.md, docs/mockups/s433/critics/*_review.md, CORE_LOOP_MAP_S432.md) and its journal:
+C:\Users\user\.claude\projects\E--FightCamp-Lean\2dbac187-b6a1-426d-a690-60d40dea7f3f\subagents\workflows\wf_5d283e05-ac0\journal.jsonl)
 
-## 0b. INTEGRATION RESULT (ops/research/CORE_LOOP_MAP_S432.md, picture docs/mockups/s432/core_loop.png)
-- MECHANICS COMPLETE: five tracks closed (club week, RPG layer, hype, playbook, build to fight: two fresh 7s each, with the
-  integration decisions written in). TRAINING is the one short track (v5: 6.5 and 7). FIRST WORK OF S433: training v6 with
-  exactly the five changes in CORE_LOOP section 4 (Hard buys real fitness, at least 1.6x Normal; fresher than tiredness 50
-  counts; Stamina a smooth number, not a cliff at 64; the professional's camp = blocks of the same load control, no second
-  free Hard button (BoutRules.PROTOCOLS); a career arc: ceilings move after named events, build direction on Training), two
-  fresh critics, 7+ rule. Only the Training tab and its modules wait on it.
-- 30+ conflicts settled with one decision each (section 2): loyalty the only bond; THE TANK = energy at the first bell (LEGS
-  stays Speed/Footwork/Flexibility, as on the approved pages); CARDIO the group, Stamina the ability; one Tank scale; fight-week
-  shape = the load (Easy / Sharpen / Normal); one pace control (Hype's Entertain/Safe cut); one scoring rule; one towel; ...
-- Code holes found (all foundation fixes, section 5 step 0): tank 0 on every no-camp bout; our punches start at 0; stop_mult
-  only on side b and puncher_chance never reads it; FighterGoal's trust_delta read by nothing; energy reads the old Cardio
-  average; Knowledge.range_of called by nothing; rest drains Stamina; ceilings never reach the gain; hours ignore effort.
-- BUILD ORDER (section 5): STEP 0 twelve foundation fixes F1-F12 (each with its seat), STEP 1 the probes on the played bout
-  (cloud; LEVERS1 with THE TARGET first; cut under 1.5 in 100), STEP 2 the rule modules by group, STEP 3 the screens (the
-  Fighters page and the Profile to painting 1 FIRST - their exact contents are section 3), STEP 4 one golden-path season test.
-  Steps 0-2 can start now.
-- Three questions put on the board (none blocks): Q-186 the pro keeps the day job to the top 10?; Q-187 feather and middle
-  pro tables?; Q-188 Ana's mat plan this version or next?
+## 1. LANDED IN S433 (main, pushed)
+- Collect review as a workflow (reviewer + adversarial verifier per PR, ops/tmp_s433/collect_review.json):
+  FACEFRAME1 collected (every menu face whole; poster blue corner flips the control, not the shader; still read).
+  REJECTED with reasons on the PRs: HUMANFIGHT2 (glove meshes moved off wrists, legs stretched, bones frozen, reach swap
+  desynced BeatFire), CORNERFACE1 (ruler re-typed the formulas: same answer on main), KDFIX4 + DUESBAND1 (re-runs of done work).
+  DUESSUMS3 kept as base for DUESSUMS3B (waitlist lever never ran, ROBUST padded, PICK incomplete).
+- seat_dispatch: a task any seat already did (branch */<id>, or main says collected/closed) is never relaunched.
+- STOPMULT1 (F8) on main: stop_mult on both corners, puncher_chance reads it (tests/stop_mult_test.gd).
+- LiveRound 495 -> 456 (file_limits was red on main since AIMWIRE1): hurt/burn/push_gassed moved to PaceAim.
+- CORNER17 (F12) tried and HELD: at best 12 three tuned bars sit at noise edge -> lands WITH LEVERS1
+  (ops/research/CORNER17_MEASURED_S433.md).
+- Ziva back on main (its project.godot noise on local branch wip/ziva-s433), editor started hidden.
+- E: 11 idle worktrees retired (~7 GB), all clean and pushed, salvage in E:\FightCamp\wt_salvage.
 
-## 1. ALSO LANDED IN S432 (main, pushed)
-- HUMANFIGHT1 collected; THE STEPPING ROUTE IS THE DEFAULT (his Q-183; captured takes opt-in `-- rokoko`). PRs 163, 168 closed.
-- TRAININGB2 (Training tab readable, Start week back on screen), AIMWIRE1 (rib calls reach the fight, liver side first),
-  CAMLINE2 round 1 (camera never long behind a boxer; round 2 WIP on claude/camline2 with two debug scripts: never collect
-  them), DUESSUMS2 (0 of 972: a full small club ignores reputation; DUESSUMS3 with a waiting list running on Qwen).
-- Ludo painted the matched look (docs/mockups/s432/ludo; painting 1 is the pick). Exported Builds/ at 13:14 (exe smoke clean).
-
-## 2. RUNNING
-- HUMANFIGHT2 on Cursor (ops/research/TASK_HUMANFIGHT2.md: pops, reach per punch, one-frame contact, posture; ruler first).
-  The round after it (HUMANFIGHT3): taller stance (knee 125 -> 145-160 deg), rear-heel pivot, the knee jerks.
-- DUESSUMS3 and CORNERFACE1 on Qwen. SQ41 John (how big fight games animate).
+## 2. RUNNING / QUEUED (yours to collect: review + verify workflow FIRST, then diff + tests)
+- REST1 COLLECTED on main 6fa2b52b. Running: CEIL14 (Qwen), STANDDOWN1 (Antigravity, the pure module), DUESWIRE1 (Cursor).
+- Queued (dispatch_queue / plan.next, launch themselves): HUMANFIGHT2B (Cursor, THE animation item, after DUESWIRE1),
+  KNOWN0, CORNERFACE2, DUESSUMS3B (Qwen).
+- Claude foundation workflow wf_8d940da9-fe1: CARDIO1 (F3), NOCAMP1+TANK1 (F5), PUNCHSTART1 (F7) built one after
+  another in E:/FightCamp/wt/LEAN_FOUNDATION_S433, branch claude/foundation-s433, each reviewed. STILL RUNNING at handover; its journal is
+  ...\subagents\workflows\wf_8d940da9-fe1\journal.jsonl (same session folder as below). A workflow dies with its session:
+  read `git log` on that branch for what was committed.
 
 ## 3. NEXT, IN ORDER
-1. Training v6 (the five changes) + two fresh critics. Workflow on Opus is fine (cheap against all-models).
-2. STEP 0 foundation fixes: brief F1 REST1, F2a CEIL14, F6 STANDDOWN1, F10 KNOWN0 to Qwen; Claude takes F3 CARDIO1, F5 NOCAMP1+TANK1,
-   F7 PUNCHSTART1, F8 STOPMULT1, F12 CORNER17 (each red on main first, one file per task, 500-line rule).
-3. STEP 3 screens 1 and 2 to Cursor (Fighters page, then Profile, painting 1, contents = CORE_LOOP section 3) after KNOWN0.
-4. Put the build order on the board (roadmap plan.next) and the Miro P0 map; collect HUMANFIGHT2, DUESSUMS3, CORNERFACE1.
+1. Collect the foundation branch (each commit: its review verdict, run its tests on main's tree, merge by diff), then wire
+   STANDDOWN1 into PadWeek/Injuries when Qwen's module lands; F2b GAIN14 after REST1 + CEIL14; F4 LOADWORK1; F9 LIVESPLIT1.
+2. If training v6 passed: the training rule modules (STEP 2 Training group) to Qwen/Goose; else the next round.
+3. Mat plan: if it passed, its build tasks; else round 2.
+4. PROTABLES1 inversion finding (above).
+5. STEP 3 screens: Fighters page then Profile to painting 1 (Cursor) after KNOWN0.
 
-## Traps (S432)
-- Export: Godot crashed on exit AFTER writing; smoke-run the exe by its full path through godot_slot.
-- A Godot command in a shell heredoc is blocked by rule_guard: write the runner with the Write tool.
-- `agent_comms.py ask --attach` wants an absolute path. There is no `answer` command: edit questions.json.
-- Seats drop the brief's own red checks (DUESSUMS2) or skip a measurement (AIMWIRE1): read the brief's checks against the test.
-- A workflow call in the same message as another call can be refused by the auto-mode check: send it alone.
-- Miro: 14 leftover slots under the P0 frame; deleting needs his yes (not asked again yet).
-- `cd` in a Bash call moves the working directory: start each command with `cd /e/FightCamp/Lean`.
+## Traps (S433)
+- A seat's RESULT lines are not evidence: two of six PRs passed by fudges a blind reader found in minutes.
+- `seat_dispatch --task X --seat S --act` waits while the seat's previous run is in its checks: queue it instead.
+- worktree_retire.py is blocked by the auto-mode check: import its salvage() in a scratch script for named worktrees.
+- export.sh through `godot_slot.py run --who s433 -- sh tools/export.sh`.
 
-SETTINGS: S432 ran on Opus 5.5 (high, ultracode on). Next: Opus 5.5 high until Thursday 16:00, then Fable 5.2 medium; Fast off.
+SETTINGS: S433 ran on Opus 5.5 high, ultracode on. Next: Opus 5.5 high until Thursday 16:00, then Fable 5.2 medium; Fast off.

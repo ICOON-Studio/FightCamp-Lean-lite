@@ -25,6 +25,7 @@ const WeekTired := preload("res://scripts/ui/WeekTired.gd")
 const WeekTiles := preload("res://scripts/ui/WeekTiles.gd")
 const WeekEditors := preload("res://scripts/ui/WeekEditors.gd")
 const GaugeRow := preload("res://scripts/ui/GaugeRow.gd")
+const FaceFrame := preload("res://scripts/ui/FaceFrame.gd")
 
 const WEEKS_NO_BOUT := 4
 const COL_GAP := 12.0
@@ -367,11 +368,10 @@ func _bottom(main: Node, c: Career, f: Dictionary, pl: Dictionary, goal: Diction
 	bar.add_child(h)
 	var face := TextureRect.new()
 	face.name = "CoachFace"
-	face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-	face.custom_minimum_size = Vector2(52, 52)
-	face.texture = load("res://assets/ui/face/mh_staff_coach.jpg")
 	face.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var coach: Texture2D = load("res://assets/ui/face/mh_staff_coach.jpg")
+	face.texture = coach
+	FaceFrame.fit(face, FaceFrame.box_for(coach), Vector2(52, 52))
 	h.add_child(face)
 	var who := UI.label("Coach", 22, WoodKit.HEAD, "bold")
 	who.size_flags_vertical = Control.SIZE_SHRINK_CENTER

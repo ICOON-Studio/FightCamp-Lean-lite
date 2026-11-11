@@ -245,6 +245,15 @@ def fresh_why(task: str, seat: str) -> str:
     branch = f"{seat}/{task.lower()}"
     if git("rev-parse", "--verify", "-q", f"refs/heads/{branch}").strip() or git("ls-remote", "origin", f"refs/heads/{branch}").strip():
         return f"branch {branch} exists"
+    # S433: KDFIX4 and DUESBAND1 were relaunched on a NEW seat after another seat (or Claude) had done them: the checks above
+    # only look at this seat's branch and this id's run record. Any seat's branch for the task, or a commit on main that
+    # collected/closed it, means it already ran.
+    other = [ln.split()[-1] for ln in git("branch", "-a", "--list", f"*/{task.lower()}").splitlines() if ln.strip()]
+    if other:
+        return f"branch {other[0]} exists (another seat)"
+    for subj in git("log", "main", "-i", f"--grep={task}", "--format=%s", "-n", "30").splitlines():
+        if re.search(rf"{re.escape(task)}[^.]*(collected|closed|done|merged)", subj, re.I):
+            return f"main says it is done: {subj[:80]}"
     return ""
 
 

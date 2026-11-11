@@ -14,6 +14,7 @@ const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Region := preload("res://scripts/state/Region.gd")
 const HALFTONE := preload("res://assets/ui/halftone.gdshader")
+const FaceFrame := preload("res://scripts/ui/FaceFrame.gd")
 const BEBAS := "res://assets/fonts/BebasNeue-Regular.ttf"
 const FACES := "res://assets/ui/face/poster"   # S387 tools/poster_faces.py: head and shoulders, backdrop keyed out, tones stretched
 
@@ -93,20 +94,24 @@ static func _line(ranks: Array, who: Dictionary) -> String:
 ## A halftone headshot; the blue corner flipped to face the red one.
 static func _face(stem: String, flip: bool, size: float) -> Control:
 	var r := TextureRect.new()
-	r.custom_minimum_size = Vector2(size, size * 1.2)
-	r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var path := FACES.path_join(stem + ".jpg")
 	if ResourceLoader.exists(path):
 		r.texture = load(path)
 	var m := ShaderMaterial.new()
 	m.shader = HALFTONE
-	m.set_shader_parameter("flip", flip)
+	# S433 collect: flip the control, not the shader - with FaceFrame's AtlasTexture the shader's uv.x is in whole-file
+	# space, so `1 - uv.x` mirrored the face about the wrong centre (about 60 px off on the blue corner).
+	m.set_shader_parameter("flip", false)
+	r.flip_h = flip
 	m.set_shader_parameter("cells", clampf(size / 3.2, 34.0, 90.0))   # a dot ~3 px wide at any poster size
 	m.set_shader_parameter("paper", PAPER)
 	m.set_shader_parameter("ink", INK)
 	r.material = m
+	if r.texture != null:
+		FaceFrame.fit(r, FaceFrame.box_for(r.texture), Vector2(size, size * 1.2))
+	else:
+		r.custom_minimum_size = Vector2(size, size * 1.2)
 	return r
 
 

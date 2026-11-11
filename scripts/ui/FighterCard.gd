@@ -5,10 +5,10 @@ extends RefCounted
 
 const UI := preload("res://scripts/ui/UI.gd")
 const HomeBoard := preload("res://scripts/ui/HomeBoard.gd")
+const FaceFrame := preload("res://scripts/ui/FaceFrame.gd")
 const Bar := preload("res://scripts/ui/Bar.gd")
 
 const FACE := Vector2(132, 166)
-const HEAD_CROP := Rect2(0.22, 0.03, 0.56, 0.5)   # of a promo shot (S380): head and shoulders, the gloved arms (from ~0.58 down) left out
 
 
 ## [the card, the column beside her face to fill]. `tag` names the card (tag_<id>) so tools and tests can find it.
@@ -44,24 +44,18 @@ static func record(f: Dictionary) -> String:
 	return "%d-%d amateur" % [int(f["w"]), int(f["l"])]
 
 
-## Her face photo (HomeBoard's portrait: the face shot, else a render of her model), cropped to fill the frame.
+## Her face photo (HomeBoard's portrait: the face shot, else a render of her model), the whole head in the frame.
 static func face(f: Dictionary) -> Control:
 	var r := TextureRect.new()
 	r.name = "Face"
-	r.custom_minimum_size = FACE
-	r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	r.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
-	r.texture = HomeBoard.portrait(f)
-	# S376/S380: the face shots wear boxing gloves - a no-gi athlete shows head and shoulders only (above the gloves).
-	if str(f.get("sport", "")) == "bjj" and r.texture != null and not r.texture is AtlasTexture:
-		var a := AtlasTexture.new()
-		a.atlas = r.texture
-		var s := r.texture.get_size()
-		a.region = Rect2(HEAD_CROP.position * s, HEAD_CROP.size * s)
-		r.texture = a
 	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	HomeBoard.PromoShot.live(r)
+	r.texture = HomeBoard.portrait(f)
+	if r.texture != null:
+		FaceFrame.fit(r, FaceFrame.box_for(r.texture), FACE)
+		HomeBoard.PromoShot.live(r)
+	else:
+		r.custom_minimum_size = FACE
 	return r
 
 

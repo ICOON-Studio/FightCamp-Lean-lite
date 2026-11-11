@@ -1,6 +1,6 @@
 # TASK KDFIX4 - CURSOR (Grok 4.7 High) - a downed boxer's upper body sways, round 4: settle or sway, and block_meet
 
-Status: OPEN (S424, Claude main). Discipline: boxing. Model: grok-4.7-high (moved from Qwen to run beside LEGTREMBLE4). Animation item (operator S401).
+Status: DONE (KDFIX4 on Cursor PR 169 and KDFIX5 5cd6c1a1; a stale re-run on Qwen, PR 202, closed in S433).
 Source: the operator after watching fights, 2026-11-10: "the upeer boddy moves left and right when the fighter is knockdedown".
 Start your branch FROM qwen/kdfix3 (3f227d73).
 

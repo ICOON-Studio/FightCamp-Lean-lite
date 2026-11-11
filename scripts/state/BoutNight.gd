@@ -218,13 +218,21 @@ static func stopped(m: Dictionary) -> String:
 	return "" if rounds.is_empty() else str((rounds[-1] as Dictionary).get("stopped", ""))
 
 
+## S433 STOPMULT1: both corners for the counts. Each side's stop_mult = the OTHER side's Finisher on the referee's odds
+## (side "a" was never set: the opponent's perks and our own fighter's traits had no way in).
+static func count_sides(f: Dictionary, opp: Dictionary) -> Dictionary:
+	var sides := {"a": RingDuel.side(Attrs.of(f)), "b": RingDuel.side(RingDuel.opp(opp))}
+	sides["a"]["stop_mult"] = PerkFight.stop_mult(opp)
+	sides["b"]["stop_mult"] = PerkFight.stop_mult(f)
+	return sides
+
+
 ## Fight model step 2 (Knockdowns, Qwen KNOCKDOWN1): the round's loser may take standing counts; three in a round, four
 ## in the bout, or a count she does not beat, and the referee stops it. Damage and counts carry across the bout.
 static func _counts(c: Career, f: Dictionary, m: Dictionary, r: Dictionary) -> void:
 	var opp: Dictionary = f["bout"]["opp"]
 	# S398 both sides from their profiles (RingDuel.side: the punch, the chin, the heart); a chin weakness is in the shape.
-	var sides := {"a": RingDuel.side(Attrs.of(f)), "b": RingDuel.side(RingDuel.opp(opp))}
-	sides["b"]["stop_mult"] = PerkFight.stop_mult(f)
+	var sides := count_sides(f, opp)
 	var so_far: Dictionary = m.get("counts", {"a": 0, "b": 0})
 	var rng := RandomNumberGenerator.new()
 	rng.seed = c.day * 53 + int(r["n"]) * 11 + c.fighters.find(f) * 2003

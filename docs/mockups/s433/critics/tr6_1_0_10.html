@@ -1,0 +1,126 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Training 10/10 (S&C critic)</title>
+<style>
+:root{--bg:#17130f;--panel:#231d17;--panel2:#2c241c;--line:#4a3d2f;--ink:#f3eadc;--dim:#b9a990;--gold:#f2c14e;--green:#7fd18b;--amber:#f0a14a;--red:#ef6a5a;--blue:#6fa8f2;--violet:#b48cf2}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--ink);font:20px/1.3 "Segoe UI",Arial,sans-serif}
+.top{height:56px;background:#0e0b08;display:flex;align-items:center;padding:0 20px;gap:24px;border-bottom:2px solid #3a2e22}
+.gym{font:700 26px "Segoe UI";color:var(--blue);letter-spacing:1px}
+.top .sp{flex:1}.cash{color:var(--gold);font-weight:700;font-size:24px}
+.btn{background:#3a2e22;border:1px solid #6b5640;border-radius:6px;padding:6px 14px;font-size:20px}
+.btn.go{background:var(--gold);color:#1b140c;font-weight:700;border:0}
+.head{height:84px;display:flex;align-items:center;padding:0 20px;gap:22px}
+.name{white-space:nowrap;font:800 30px "Segoe UI";letter-spacing:1px}
+.chip{white-space:nowrap;background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:4px 12px}
+.chip.g{border-color:var(--gold);color:var(--gold)}
+.tabs{display:flex;gap:6px;margin-left:auto}
+.tab{padding:6px 14px;border-radius:6px;background:#2a3446;color:#c9d6ee}
+.tab.on{background:#3d5a8a;color:#fff;font-weight:700}
+.wrap{padding:0 20px;display:grid;gap:12px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 14px;overflow:hidden}
+h2{font:800 22px "Segoe UI";color:var(--gold);letter-spacing:1px;margin-bottom:6px}
+h2 small{font-weight:400;color:var(--dim);font-size:20px;letter-spacing:0;margin-left:8px}
+.dim{color:var(--dim)}.g{color:var(--green)}.a{color:var(--amber)}.r{color:var(--red)}.b{color:var(--blue)}.y{color:var(--gold)}.v{color:var(--violet)}
+/* strip */
+.strip{display:flex;gap:6px;height:104px}
+.blk{flex:1;border-radius:6px;padding:6px 10px;background:var(--panel2);border-top:5px solid var(--line);position:relative}
+.blk b{display:block;font-size:20px}
+.blk.base{border-top-color:var(--blue)}.blk.spec{border-top-color:var(--amber)}.blk.fw{border-top-color:var(--violet)}.blk.bout{border-top-color:var(--red)}.blk.rest{border-top-color:#777}
+.blk.now{outline:3px solid var(--gold)}
+.arrow{position:absolute;right:-16px;top:34px;z-index:2;color:var(--green);font-weight:800;font-size:24px}
+.row2{display:grid;grid-template-columns:720px 1fr 540px;gap:12px;height:300px}
+.row3{display:grid;grid-template-columns:800px 1fr 450px;gap:12px;height:372px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:3px 6px;text-align:left;white-space:nowrap}
+th{color:var(--dim);font-weight:400;font-size:20px}
+tr.pick td{background:#3a3020}
+tr.pick td:first-child{border-left:4px solid var(--gold)}
+.rule{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:1px solid #3a3026}
+.tog{width:44px;height:24px;border-radius:12px;background:var(--green);flex:none;margin-top:3px;position:relative}
+.tog::after{content:"";position:absolute;right:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#123}
+.tog.off{background:#555}.tog.off::after{left:3px;right:auto}
+.bar{display:inline-block;width:150px;height:14px;background:#3a3026;border-radius:7px;position:relative;vertical-align:middle}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:7px;background:var(--blue)}
+.bar u{position:absolute;top:0;bottom:0;border-radius:7px;background:rgba(127,209,139,.55)}
+.bar s{position:absolute;top:-4px;bottom:-4px;width:3px;background:#fff}
+.foot{position:absolute;left:20px;right:20px;bottom:12px;display:flex;gap:12px;justify-content:flex-end;align-items:center}
+.foot .dim{margin-right:auto}
+.en{display:flex;gap:16px;align-items:flex-end;height:150px;margin:10px 0 6px}
+.en div{display:flex;flex-direction:column;align-items:center;gap:2px}
+.en span.col{width:46px;border-radius:4px 4px 0 0}
+</style></head><body>
+<div class="top"><span class="btn">&lt;</span><span class="gym">ANVIL STREET GYM</span><span>Mon 16 Feb 2026 · Week 7</span><span class="sp"></span><span class="cash">$12,940</span><span class="btn go">CONTINUE to Mon 23 Feb</span><span class="btn">Menu</span></div>
+<div class="head"><span class="name">SAMIRA KHAN</span><span class="chip">Welterweight · out-boxer · 3-1</span><span class="chip g">Goal: Footwork 60 by Fri 13 Mar · on track</span><span class="chip">Responds: <span class="g">fast to skills</span> · <span class="a">slow to strength</span></span>
+<div class="tabs"><span class="tab">Profile</span><span class="tab">Condition</span><span class="tab on">Training</span><span class="tab">Playbook</span></div></div>
+<div class="wrap">
+ <div class="panel" style="padding:8px 12px"><h2>THE SEASON, BLOCK BY BLOCK <small>what each block builds, and what it hands to the next · drag a block to move it</small></h2>
+ <div class="strip">
+  <div class="blk base now"><b class="b">BASE · now</b>16 Feb, 1 wk<br>Recovery, Strength<span class="arrow">&rarr;</span></div>
+  <div class="blk fw"><b class="v">FIGHT WEEK</b>23 Feb · Sharpen<br>nothing fades</div>
+  <div class="blk bout"><b class="r">BOUT · Sat 28</b>Kayleigh Bell<br>Tank 95 · sharp</div>
+  <div class="blk rest"><b>REST</b>2 Mar · Easy<br>spar from Thu 5</div>
+  <div class="blk base"><b class="b">BASE</b>9 Mar, 1 wk<br>Recovery, Strength<span class="arrow">&rarr;</span></div>
+  <div class="blk spec"><b class="a">SPECIFIC</b>16 Mar, 2 wks<br><span class="g">x1.2 from the base</span></div>
+  <div class="blk fw"><b class="v">FIGHT WEEK</b>30 Mar · Sharpen<br>Tank 97 at the bell</div>
+  <div class="blk bout"><b class="r">REGIONAL · Sat 4 Apr</b>day-before scale<br>24 h to refill</div>
+ </div></div>
+
+ <div class="row2">
+  <div class="panel"><h2>THIS WEEK'S LOAD <small>usual 92 · safe to 120</small></h2>
+   <table><tr><th>Load</th><th>By the regional</th><th>In the ring</th><th>Injury</th><th>Tank</th></tr>
+   <tr><td>Easy</td><td>Footwork +0.6</td><td class="dim">no change</td><td>0.6</td><td>96</td></tr>
+   <tr><td>Normal</td><td>Footwork +1.2</td><td>Jab and move OK</td><td>1</td><td>95</td></tr>
+   <tr class="pick"><td class="y">Hard on Footwork</td><td class="g">Footwork +2.6</td><td class="g">Jab and move Good</td><td class="a">2</td><td>94</td></tr>
+   <tr><td>Sharpen</td><td>Footwork +0.3</td><td class="dim">deload</td><td>0.5</td><td>97</td></tr></table>
+   <div style="margin-top:6px">Hard picks the row with the most <b>worth x room</b>:<br><span class="dim">Footwork 57 of 72, fast room, tested x1.3 by Kayleigh</span></div>
+   <div style="margin-top:6px" class="a">Hard is right here: fresh start (tired 41), no spike</div>
+  </div>
+  <div class="panel"><h2>MY RULES <small>set once, run every morning, no stops</small></h2>
+   <div class="rule"><span class="tog"></span><div><b>Tired 72+ in the morning:</b> Hard becomes Normal<br><span class="g">fires Thu on the plan: peak 78, not 80</span></div></div>
+   <div class="rule"><span class="tog"></span><div><b>Sore after sparring:</b> next morning to mobility<br><span class="dim">fired 2 times this season</span></div></div>
+   <div class="rule"><span class="tog"></span><div><b>Hand day 3 running:</b> bag swaps to shadow<br><span class="dim">keeps the hand niggle away</span></div></div>
+   <div class="rule" style="border:0"><span class="tog off"></span><div><b>Mood Low:</b> the week turns Easy<br><span class="dim">off: the regional is close</span></div></div>
+  </div>
+  <div class="panel"><h2>SAT 28: WHAT THIS WEEK BUYS</h2>
+   <div>Ready on the night: <span class="g">sharp · Tank 95</span></div>
+   <div style="margin-top:6px">Round 3 energy: <b>61</b> <span class="dim">(after this block: 63)</span></div>
+   <div style="margin-top:6px">Between rounds refill: <b>+19</b> <span class="dim">(Recovery 50)</span></div>
+   <div style="margin-top:6px">Your goal, Footwork 60: <span class="g">met Wed 11 Mar</span></div>
+   <div style="margin-top:6px">Lands after the bout: <span class="a">Check hook Usable Mon 2 Mar</span></div>
+   <div style="margin-top:6px">Base hands to Specific: <span class="g">x1.2 on its points</span></div>
+  </div>
+ </div>
+
+ <div class="row3">
+  <div class="panel"><h2>ABILITIES <small>vs Kayleigh · green = this block, tick = ceiling</small></h2>
+   <table><tr><th>Ability</th><th>Now</th><th>This block</th><th>Room</th><th>Next line in the ring</th></tr>
+   <tr><td>Footwork</td><td>57</td><td><span class="bar"><i style="width:79%"></i><u style="left:79%;width:4%"></u><s style="left:100%"></s></span></td><td class="g">fast</td><td>Jab and move climbs from 56</td></tr>
+   <tr><td>Defence</td><td>51</td><td><span class="bar"><i style="width:73%"></i><u style="left:73%;width:2%"></u><s style="left:100%"></s></span></td><td class="g">fast</td><td>Hands up from 56</td></tr>
+   <tr><td>Timing</td><td>58</td><td><span class="bar"><i style="width:84%"></i><u style="left:84%;width:2%"></u><s style="left:100%"></s></span></td><td class="g">fast</td><td>Draw the lead from 56</td></tr>
+   <tr><td>Stamina</td><td>62</td><td><span class="bar"><i style="width:93%"></i><u style="left:93%;width:1%"></u><s style="left:100%"></s></span></td><td class="a">slow</td><td>fade 0.35 · none at 64</td></tr>
+   <tr><td>Recovery</td><td>50</td><td><span class="bar"><i style="width:72%"></i><u style="left:72%;width:5%"></u><s style="left:100%"></s></span></td><td class="g">fast</td><td>refill +1 a point</td></tr>
+   <tr><td>Strength</td><td>54</td><td><span class="bar"><i style="width:80%"></i><u style="left:80%;width:3%"></u><s style="left:100%"></s></span></td><td class="a">slow</td><td>lifts the Explosiveness ceiling</td></tr></table>
+  </div>
+  <div class="panel"><h2>TWO ENGINES <small>energy each round</small></h2>
+   <div><span class="b">Roadwork</span> builds <b>Recovery</b>: refill between rounds, clears tiredness at night</div>
+   <div style="margin-top:4px"><span class="a">Intervals</span> build <b>Stamina</b>: energy each round costs less</div>
+   <div class="en">
+    <div><span class="col" style="height:100px;background:var(--blue)"></span>R1</div>
+    <div><span class="col" style="height:82px;background:var(--blue)"></span>R2</div>
+    <div><span class="col" style="height:61px;background:var(--amber)"></span>R3</div>
+    <div style="margin-left:24px"><span class="col" style="height:100px;background:var(--green)"></span>R1</div>
+    <div><span class="col" style="height:86px;background:var(--green)"></span>R2</div>
+    <div><span class="col" style="height:66px;background:var(--green)"></span>R3</div>
+   </div>
+   <div><span class="dim">now</span> &nbsp; vs &nbsp; <span class="g">after base + specific</span></div>
+  </div>
+  <div class="panel"><h2>HEAD CONTACT <small>last 8 weeks</small></h2>
+   <div style="font-size:30px;font-weight:800">34 <span class="dim" style="font-size:20px;font-weight:400">of 48 hard rounds</span></div>
+   <div style="margin-top:6px">Past 48: <span class="r">Durability ceiling -1</span></div>
+   <div style="margin-top:6px">Stand-down after Sat 28: <span class="a">no sparring 10 days</span> if the head is hurt</div>
+   <div style="margin-top:6px" class="dim">Technical sparring counts half</div>
+  </div>
+ </div>
+</div>
+<div class="foot"><span class="dim">You set the block and the rules; the week runs by itself.</span><span class="btn">Back to Coach's week</span><span class="btn">Coach runs Samira</span><span class="btn go">Back to Club week</span></div>
+</body></html>

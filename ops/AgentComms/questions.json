@@ -6590,10 +6590,11 @@
         "No, full-time once pro"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "No, full-time once pro",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-11T14:22:42Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-187",
@@ -6605,10 +6606,11 @@
         "No, later"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "Yes, both",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-11T14:22:51Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-188",
@@ -6618,6 +6620,23 @@
       "options": [
         "This version",
         "Next version"
+      ],
+      "attach": [],
+      "answer": "This version",
+      "note": null,
+      "answered_at": "2026-11-11T14:23:16Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-189",
+      "asked": "2026-11-11T15:02:18.307350+00:00",
+      "session": "S294",
+      "text": "Drive E: is 91% full (your rule: under 85%). 54 GB sits in E:\\FightCamp\\tmp: old render and film scratch from sessions S383-S399 plus a 12 GB 'moss' folder. May I delete the S38x/S39x session folders, rokoko2 and fw2film after checking that nothing in them is the only copy of a film you kept? ('moss' stays until I know what it is.)",
+      "options": [
+        "Yes, delete them",
+        "No, keep them",
+        "Ask me folder by folder"
       ],
       "attach": [],
       "answer": null,

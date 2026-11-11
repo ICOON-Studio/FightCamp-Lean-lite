@@ -1,0 +1,122 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Training 10 of 10</title>
+<style>
+:root{--bg:#17130f;--panel:#231c16;--panel2:#2c241c;--line:#4a3c2e;--ink:#f1e7d8;--dim:#b8a892;--gold:#f2c14e;--green:#6fd08c;--amber:#f0a03c;--red:#e8665a;--blue:#5aa6ef;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Arial,sans-serif;font-size:20px;line-height:1.22}
+.top{height:64px;background:#0f0c09;border-bottom:2px solid var(--line);display:flex;align-items:center;padding:0 24px;gap:22px}
+.gym{font-family:"Segoe Print","Comic Sans MS",cursive;font-size:30px;color:var(--blue);font-weight:700}
+.date{font-size:20px;color:var(--dim)}
+.cash{margin-left:auto;font-size:26px;color:var(--gold);font-weight:700}
+.btn{background:#3a2e22;border:2px solid var(--line);border-radius:8px;padding:6px 16px;font-size:20px;color:var(--ink);font-weight:600}
+.btn.go{background:var(--gold);color:#1b140c;border-color:var(--gold)}
+.tabs{display:flex;gap:8px;padding:10px 24px 0;align-items:center}
+.tab{padding:6px 16px;border-radius:8px 8px 0 0;background:#2a2219;color:var(--dim);font-size:20px;font-weight:600}
+.tab.on{background:#3d6fb0;color:#fff}
+.hdr{display:flex;gap:26px;align-items:flex-end;padding:8px 24px 6px}
+.name{font-family:"Segoe Print","Comic Sans MS",cursive;font-size:34px;font-weight:700}
+.chip{display:inline-block;border:2px solid var(--line);border-radius:999px;padding:2px 12px;font-size:20px;color:var(--ink);background:#2a2219}
+.grid{display:grid;grid-template-columns:600px 690px 566px;gap:16px;padding:6px 24px}
+.p{background:var(--panel);border:2px solid var(--line);border-radius:10px;padding:12px 14px}
+.h{font-size:22px;font-weight:800;color:var(--gold);letter-spacing:.5px;text-transform:uppercase}
+.sub{font-size:20px;color:var(--dim)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.load{border:2px solid var(--line);border-radius:8px;padding:8px 12px;margin-top:8px;background:var(--panel2)}
+.load.pick{border-color:var(--gold);box-shadow:0 0 0 2px rgba(242,193,78,.25)}
+.big{font-size:24px;font-weight:800}
+.g{color:var(--green)}.a{color:var(--amber)}.r{color:var(--red)}.b{color:var(--blue)}.d{color:var(--dim)}
+.band{position:relative;height:16px;background:#3a3026;border-radius:8px;margin:4px 0}
+.band i{position:absolute;top:0;bottom:0;border-radius:8px}
+table{border-collapse:collapse;width:100%}
+td{padding:4px 4px;font-size:20px;border-bottom:1px solid #3a2f24;white-space:nowrap}
+.tag{font-size:20px;padding:1px 8px;border-radius:6px;font-weight:700}
+.tg{background:#1f3d2a;color:var(--green)}.ta{background:#43301a;color:var(--amber)}.tq{background:#33302b;color:var(--dim)}
+.foot{position:absolute;bottom:14px;right:24px;display:flex;gap:14px}
+</style></head><body>
+<div class="top"><span class="btn">&lt;</span><span class="gym">Anvil Street Gym</span><span class="date">Mon 16 Feb 2026 · Week 7</span>
+<span class="cash">$12,940</span><span class="btn go">CONTINUE · to Mon 23 Feb</span><span class="btn">Menu</span></div>
+<div class="tabs"><span class="tab">Profile</span><span class="tab">Condition</span><span class="tab on">Training</span><span class="tab">Playbook</span><span class="tab">History</span>
+<span style="margin-left:auto" class="chip">Build week · 12 days to Sat 28 Feb vs Kayleigh Bell (counter-puncher)</span></div>
+<div class="hdr"><span class="name">Samira Khan</span>
+<span class="sub">Welterweight · age 18 · out-boxer · 3-1</span>
+<span class="chip">Age 18: grows <b class="g">x1.2</b></span>
+<span class="chip">Discipline 72: trains <b class="g">x1.05</b>, skips none</span>
+<span class="chip">Goal: Stamina 63 by Fri 13 Mar · <b class="a">close</b></span></div>
+
+<div class="grid">
+<!-- LEFT: the load, with felt payoffs -->
+<div class="p" style="height:792px">
+ <div class="row"><span class="h">This week's training</span><span class="sub">kept until you change it</span></div>
+ <div class="sub" style="margin-top:2px">Each choice shows what it buys by the regional (Sat 4 Apr). Ranges narrow as you learn how Samira responds.</div>
+ <div class="load"><div class="row"><span class="big">Easy</span><span class="sub">74% of a usual week</span></div>
+  <div class="row"><span>Footwork <b>59</b></span><span>injury <b>1 in 100</b></span><span>energy at bell <b>96</b></span></div></div>
+ <div class="load"><div class="row"><span class="big">Normal</span><span class="sub">94% of a usual week</span></div>
+  <div class="row"><span>Footwork <b>60-61</b></span><span>injury <b>1 in 100</b></span><span>energy <b>95</b></span></div></div>
+ <div class="load pick"><div class="row"><span class="big g">Hard, aimed at Footwork</span><span class="sub">128% · safe</span></div>
+  <div class="row"><span>Footwork <b class="g">62-64</b></span><span>injury <b class="a">3 in 100</b></span><span>energy <b>93</b></span></div>
+  <div class="sub" style="margin-top:4px">Samira: "ease the Hard days" · overrule: mood -5</div></div>
+ <div class="load"><div class="row"><span class="big">Sharpen</span><span class="sub">55% · fight weeks</span></div>
+  <div class="row"><span>Footwork <b>59</b>, nothing fades</span><span>energy <b>97</b> · sharp</span></div></div>
+ <div class="p" style="margin-top:12px;background:#1d1712">
+  <div class="h" style="font-size:20px">Where Hard pays most (aim it)</div>
+  <table>
+   <tr><td>Footwork</td><td><span class="tag tg">fast</span></td><td class="g"><b>+3</b> points</td><td class="d">Jab and move</td></tr>
+   <tr><td>Defence</td><td><span class="tag tg">fast</span></td><td class="g"><b>+3</b></td><td class="d">Hands up</td></tr>
+   <tr><td>Stamina (goal)</td><td><span class="tag ta">slow</span></td><td class="a"><b>+1</b></td><td class="d">goal met</td></tr>
+   <tr><td>Explosiveness</td><td><span class="tag tq">at its top</span></td><td class="d"><b>+0</b></td><td class="d">needs a breakthrough</td></tr>
+  </table>
+  <div class="sub" style="margin-top:6px">The trade: the goal row grows slowly; Footwork beats Kayleigh.</div>
+ </div>
+</div>
+
+<!-- MIDDLE: how this fighter responds + abilities -->
+<div class="p" style="height:792px">
+ <div class="row"><span class="h">How Samira responds to training</span><span class="sub">learned from 6 weeks</span></div>
+ <table style="margin-top:4px">
+  <tr><td><b>Legs</b> (Speed, Footwork)</td><td><span class="tag tg">quick learner x1.3</span></td><td class="d">known</td></tr>
+  <tr><td><b>Cardio</b> (Stamina, Recovery)</td><td><span class="tag ta">slow x0.8</span></td><td class="d">likely (2 more weeks)</td></tr>
+  <tr><td><b>Guard</b> (Defence, Durability)</td><td><span class="tag tq">not known yet</span></td><td class="d">3 weeks to find out</td></tr>
+ </table>
+ <div class="h" style="margin-top:14px">Abilities · sorted by what Kayleigh tests</div>
+ <table style="margin-top:2px">
+  <tr class="sub"><td class="d">ability</td><td class="d">now</td><td class="d">to the regional (range)</td><td class="d">top</td><td class="d">what the next point does</td></tr>
+  <tr><td><b>Footwork</b></td><td>57</td><td><div class="band" style="width:160px"><i style="left:0;width:110px;background:#5aa6ef"></i><i style="left:110px;width:50px;background:rgba(111,208,140,.6)"></i></div></td><td>72</td><td>Jab and move: Good at 62</td></tr>
+  <tr><td><b>Timing</b></td><td>58</td><td><div class="band" style="width:160px"><i style="left:0;width:120px;background:#5aa6ef"></i><i style="left:120px;width:24px;background:rgba(111,208,140,.6)"></i></div></td><td>69</td><td>Draw the lead: Good at 62</td></tr>
+  <tr><td><b>Defence</b></td><td>51</td><td><div class="band" style="width:160px"><i style="left:0;width:90px;background:#5aa6ef"></i><i style="left:90px;width:40px;background:rgba(242,193,78,.5)"></i></div></td><td>66-74</td><td>Hands up helps from 56</td></tr>
+  <tr><td><b>Stamina</b></td><td>62</td><td><div class="band" style="width:160px"><i style="left:0;width:150px;background:#5aa6ef"></i><i style="left:150px;width:14px;background:rgba(240,160,60,.7)"></i></div></td><td>67</td><td>less tired in round 3</td></tr>
+  <tr><td><b>Speed</b></td><td>69</td><td><div class="band" style="width:160px"><i style="left:0;width:176px;background:#5aa6ef"></i><i style="left:176px;width:8px;background:rgba(111,208,140,.6)"></i></div></td><td>76</td><td>Fast hands perk at 70</td></tr>
+ </table>
+ <div class="sub" style="margin-top:4px">Blue = now · green = where this week's choice takes it · Show all 14</div>
+ <div class="p" style="margin-top:12px;background:#1d1712">
+  <div class="h" style="font-size:20px">Last week, against the forecast</div>
+  <div style="margin-top:4px">Footwork <b class="g">+0.9</b> (forecast +0.6): <b>it clicked</b> · Legs now known: quick learner</div>
+  <div style="margin-top:4px">Stamina <b class="a">+0.1</b> (forecast +0.3): <b>bad sleep Tue</b> · one off week</div>
+ </div>
+</div>
+
+<!-- RIGHT: goal, career arc, the person -->
+<div class="p" style="height:792px">
+ <div class="h">Goal: Stamina 63 by Fri 13 Mar</div>
+ <div style="margin-top:6px">On Hard at Footwork: <b class="a">62.8 · close</b></div>
+ <table style="margin-top:4px">
+  <tr><td>met (63+)</td><td class="g">mood +10</td></tr>
+  <tr><td>close (within 0.5)</td><td class="g">mood +3</td></tr>
+  <tr><td>short (within 1)</td><td class="a">mood -5</td></tr>
+  <tr><td>missed</td><td class="r">mood -20</td></tr>
+ </table>
+ <div class="h" style="margin-top:16px">Samira's career ahead</div>
+ <div style="margin-top:4px">Grows fastest until 23 · peaks 24-28</div>
+ <div class="band" style="width:520px;height:20px"><i style="left:0;width:130px;background:#6fd08c"></i><i style="left:130px;width:210px;background:#5aa6ef"></i><i style="left:340px;width:100px;background:#f0a03c"></i><i style="left:440px;width:80px;background:#e8665a"></i></div>
+ <div class="row sub" style="width:520px"><span>18</span><span>24</span><span>29</span><span>32+</span></div>
+ <div style="margin-top:8px">Footwork top <b>72 → 74</b>: the Kayleigh camp</div>
+ <div class="sub">Season breakthroughs: Legs +2 of 3</div>
+ <div class="h" style="margin-top:16px">Season plan</div>
+ <div style="margin-top:4px">Build <b>Legs</b>, then <b>Guard</b> · Direction: Keep it long</div>
+ <div class="sub">Coach lays Hard blocks on these; you change the aim any week.</div>
+ <div class="h" style="margin-top:16px">Body</div>
+ <div style="margin-top:4px">Right hand sore · <b>Rest it</b> (picked)</div>
+ <div class="sub">Push on: hand injury 4 in 100, habit gone by Sat 28</div>
+</div>
+</div>
+<div class="foot"><span class="btn">Back to Coach's week</span><span class="btn">Coach runs Samira</span><span class="btn">Season so far</span><span class="btn go">Back to Club week</span></div>
+</body></html>

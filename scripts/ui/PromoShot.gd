@@ -5,6 +5,7 @@ extends RefCounted
 ## S387 (operator: "black people on black background ?"): the menus show the set baked on a slate backdrop (STUDIO, tools/bake_promo.gd
 ## studio=... bg=0.50,0.55,0.60), so dark skin and hair read against it; the dark set stays for the posters and body close-ups.
 
+const FaceFrame := preload("res://scripts/ui/FaceFrame.gd")
 const FACES := "res://assets/ui/face"
 const STUDIO := "res://assets/ui/face/studio"
 const GYM := "res://assets/ui/face/gym"   # S395 tools/bake_gym_portraits.gd: already head and shoulders, the file IS the frame
@@ -68,7 +69,20 @@ static func ui_art() -> String:
 	return "b"
 
 
-## The photo of a body on the slate backdrop, null when it has none.
+## The photo file itself, with no crop. picture() frames it. null when the body has none.
+static func source(stem: String) -> Texture2D:
+	if ui_art() == "b":
+		var styled := STYLE_B.path_join(stem + ".png")
+		if ResourceLoader.exists(styled):
+			return load(styled)
+	var gym := GYM.path_join(stem + ".jpg")
+	if ResourceLoader.exists(gym):
+		return load(gym)
+	var path := STUDIO.path_join(stem + ".jpg")
+	return load(path) if ResourceLoader.exists(path) else null
+
+
+## The photo of a body on the slate backdrop, cropped on the face marks. region() and the promo test use this.
 static func shot(stem: String) -> Texture2D:
 	if ui_art() == "b":
 		var styled := STYLE_B.path_join(stem + ".png")
@@ -83,17 +97,15 @@ static func shot(stem: String) -> Texture2D:
 
 ## A breathing head-and-shoulders picture of this size; null when the body has no photo.
 static func picture(stem: String, size: Vector2) -> TextureRect:
-	var tex := shot(stem)
+	var tex := source(stem)
 	if tex == null:
 		return null
 	var r := TextureRect.new()
 	r.name = "Face"
-	r.custom_minimum_size = size
-	r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	r.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	r.texture = tex
+	FaceFrame.fit(r, FaceFrame.box_for(tex), size)
 	live(r)
 	return r
 

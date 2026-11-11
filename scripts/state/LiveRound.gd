@@ -110,46 +110,8 @@ static func state(lv: Dictionary, i: int) -> Dictionary:
 	return RingDuel.state(lv, i)
 
 
-## AIMWIRE1: the opponent's hurt places and burn for PaceAim. A side's ribs are hurt when body shots on that side >= 4.
-## S432 collect: the shots are NOT split 50/50 (two identical buttons): 60 % land on the liver side - the lead hook's side,
-## the opponent's right ribs when she is orthodox, the left when she is southpaw - so that side hurts first and the corner's
-## two rib calls mean different things. Burn: core from body shots (2.0 per shot), legs from energy drop (1.0 per point).
-const RIB_HURT_AT := 4
-const BURN_PER_BODY := 2.0
-const BURN_PER_ENERGY := 1.0
-const LIVER_SHARE := 0.6
-
-static func opp_hurt_dict(lv: Dictionary, stance: String = "orthodox") -> Dictionary:
-	var bt: Dictionary = lv.get("body", {})
-	var total := int(bt.get("b", 0))
-	var liver := roundi(float(total) * LIVER_SHARE)
-	var liver_side := "left_ribs" if stance.to_lower() == "southpaw" else "right_ribs"
-	var other_side := "right_ribs" if liver_side == "left_ribs" else "left_ribs"
-	return {"head": bool(lv.get("opp_hurt", false)), liver_side: liver >= RIB_HURT_AT, other_side: total - liver >= RIB_HURT_AT}
-
-static func opp_burn_dict(lv: Dictionary, i: int) -> Dictionary:
-	var bt: Dictionary = lv.get("body", {})
-	var body := int(bt.get("b", 0))
-	var energy := opp_energy(lv, i)
-	return {"core": float(body) * BURN_PER_BODY, "legs": (100.0 - energy) * BURN_PER_ENERGY}
-
-
 static func live(m: Dictionary) -> Dictionary:
 	return m.get("live", {})
-
-
-## S323 balance-check (tools/exchange_balance.gd: Push all fight won 0.88 vs Steady 0.67 - a dominant strategy; the tank
-## it spent never came back to bite): pushing on an empty tank is sloppy work that walks onto counters. Push's edge fades
-## from PUSH_GAS_FROM energy and turns against her by PUSH_GAS_ALL (PUSH_GAS off the edge there).
-const PUSH_GAS_FROM := 55.0
-const PUSH_GAS_ALL := 25.0
-const PUSH_GAS := 12.0
-
-
-static func push_gassed(pace: String, energy: float) -> float:
-	if pace != "push":
-		return 0.0
-	return PUSH_GAS * clampf((PUSH_GAS_FROM - energy) / (PUSH_GAS_FROM - PUSH_GAS_ALL), 0.0, 1.0)
 
 
 ## Her energy as exchange i starts (the round's start -> bell, less what the calls spent and the body shots she took).
@@ -192,7 +154,7 @@ static func preview(f: Dictionary, m: Dictionary) -> Dictionary:
 		"coach": coach, "mark": mark, "grades": grades, "at": i * Exchanges.EX_SECONDS, "i": i,
 		"shouts": int(lv["shouts"]), "names": names, "now": now_offer(lv, sit), "read": read_view(f, seen),
 		"read_call": str(lv.get("read_call", "")),
-		"pace": str(lv.get("pace", "steady")), "aim": str(lv.get("aim", "")), "aims": PaceAim.offers(opp_hurt_dict(lv, str(f.get("stance", "orthodox"))))}
+		"pace": str(lv.get("pace", "steady")), "aim": str(lv.get("aim", "")), "aims": PaceAim.offers(PaceAim.opp_hurt(lv, str(f.get("stance", "orthodox"))))}
 
 
 ## S310 the set-up's NOW button: {combo, gap, line} when the corner SEES the gap it waits for (seen = with film study her
@@ -239,8 +201,8 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		shout = ""
 	var pace := str(lv.get("pace", "steady"))
 	var aim := str(lv.get("aim", ""))
-	var opp_hurt := opp_hurt_dict(lv, str(f.get("stance", "orthodox")))
-	var opp_burn := opp_burn_dict(lv, i)
+	var opp_hurt := PaceAim.opp_hurt(lv, str(f.get("stance", "orthodox")))
+	var opp_burn := PaceAim.opp_burn(int((lv.get("body", {}) as Dictionary).get("b", 0)), opp_energy(lv, i))
 	var fire := shout == "now" and not (lv.get("setup", {}) as Dictionary).is_empty() and str(lv["setup"].get("used", "")) == ""
 	if shout == "now":
 		shout = ""
@@ -278,7 +240,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		if PerkFight.setup_edge(f, se) != se:
 			perks.append("hand_speed")
 		d += PerkFight.setup_edge(f, se)
-	d += PaceAim.edge(pace, aim, opp_hurt, opp_burn) - push_gassed(pace, her_energy(lv, i)) + PlanFile.cold_edge(opp, pace, n, i)
+	d += PaceAim.edge(pace, aim, opp_hurt, opp_burn) - PaceAim.push_gassed(pace, her_energy(lv, i)) + PlanFile.cold_edge(opp, pace, n, i)
 	var st := read_state(f)
 	var game := str(lv["mode"])
 	# A habit of hers the opponent is punishing right now (and the corner has not fixed) takes the counter away: she is

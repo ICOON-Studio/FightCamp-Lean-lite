@@ -152,3 +152,39 @@ static func offers(opp_hurt: Dictionary) -> Array:
 			elif place == "head":
 				out.append("head_hurt")
 	return out
+
+
+## S433: moved here from LiveRound (its 470-line cap, file_limits_test).
+## AIMWIRE1: the opponent's hurt places and burn for PaceAim. A side's ribs are hurt when body shots on that side >= 4.
+## S432 collect: the shots are NOT split 50/50 (two identical buttons): 60 % land on the liver side - the lead hook's side,
+## the opponent's right ribs when she is orthodox, the left when she is southpaw - so that side hurts first and the corner's
+## two rib calls mean different things. Burn: core from body shots (2.0 per shot), legs from energy drop (1.0 per point).
+const RIB_HURT_AT := 4
+const BURN_PER_BODY := 2.0
+const BURN_PER_ENERGY := 1.0
+const LIVER_SHARE := 0.6
+
+static func opp_hurt(lv: Dictionary, stance: String = "orthodox") -> Dictionary:
+	var bt: Dictionary = lv.get("body", {})
+	var total := int(bt.get("b", 0))
+	var liver := roundi(float(total) * LIVER_SHARE)
+	var liver_side := "left_ribs" if stance.to_lower() == "southpaw" else "right_ribs"
+	var other_side := "right_ribs" if liver_side == "left_ribs" else "left_ribs"
+	return {"head": bool(lv.get("opp_hurt", false)), liver_side: liver >= RIB_HURT_AT, other_side: total - liver >= RIB_HURT_AT}
+
+static func opp_burn(body_shots: int, opp_energy: float) -> Dictionary:
+	return {"core": float(body_shots) * BURN_PER_BODY, "legs": (100.0 - opp_energy) * BURN_PER_ENERGY}
+
+
+## S323 balance-check (tools/exchange_balance.gd: Push all fight won 0.88 vs Steady 0.67 - a dominant strategy; the tank
+## it spent never came back to bite): pushing on an empty tank is sloppy work that walks onto counters. Push's edge fades
+## from PUSH_GAS_FROM energy and turns against her by PUSH_GAS_ALL (PUSH_GAS off the edge there).
+const PUSH_GAS_FROM := 55.0
+const PUSH_GAS_ALL := 25.0
+const PUSH_GAS := 12.0
+
+
+static func push_gassed(pace: String, energy: float) -> float:
+	if pace != "push":
+		return 0.0
+	return PUSH_GAS * clampf((PUSH_GAS_FROM - energy) / (PUSH_GAS_FROM - PUSH_GAS_ALL), 0.0, 1.0)

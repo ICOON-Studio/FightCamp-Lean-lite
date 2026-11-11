@@ -1,6 +1,6 @@
 # TASK DUESBAND1 - QWEN (qwen3-coder) - dues bands: what kind of club you run (pure rules + a 5-year sim test)
 
-Status: OPEN (S424, Claude main). Discipline: boxing. Model: qwen3-coder.
+Status: DONE (S424: collected by Claude, 34826128; a re-run as PR 199 closed in S433 - nothing new). Discipline: boxing. Model: qwen3-coder.
 Source: the operator on the board, Q-S294-176 (11-10): "Yes, but change something" - "ok for the mechanism but the design
 needs better presentation". The mechanism is approved; the screen is redrawn separately (not this task).
 Design: ops/research/DUES_DESIGN_MAP_S423.md (read it whole, 60 lines). Numbers and sources: ops/research/DUES_CHOICE_S422.md.

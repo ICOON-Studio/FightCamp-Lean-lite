@@ -15,6 +15,7 @@ const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
+const FaceFrame := preload("res://scripts/ui/FaceFrame.gd")
 const SparNights := preload("res://scripts/rules/SparNights.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 
@@ -152,16 +153,10 @@ func _poster(f: Dictionary, opp: Dictionary, bout_day: int) -> PanelContainer:
 	if not opp.is_empty() and ResourceLoader.exists(path):
 		var face := TextureRect.new()
 		face.name = "Face"
-		face.custom_minimum_size = Vector2(44, CELL.y - 8)
-		face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 		face.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		var tex: Texture2D = load(path)
-		var a := AtlasTexture.new()   # the head, not the whole shot: the middle half, from just above the hair
-		a.atlas = tex
-		var s := tex.get_size()
-		a.region = Rect2(s.x * 0.25, s.y * 0.12, s.x * 0.5, minf(s.y * 0.88, s.x * 0.5 * (CELL.y - 8) / 44.0))
-		face.texture = a
+		face.texture = tex
+		FaceFrame.fit(face, FaceFrame.box_for(tex), Vector2(44, CELL.y - 8))
 		h.add_child(face)
 	var d := UI.label(Clock.fmt(bout_day).to_upper(), UI.SMALL - 2, UI.FG, "caps")
 	d.name = "Date"

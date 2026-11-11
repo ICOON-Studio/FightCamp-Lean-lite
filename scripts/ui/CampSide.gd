@@ -9,14 +9,14 @@ const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const HomeBoard := preload("res://scripts/ui/HomeBoard.gd")
+const FaceFrame := preload("res://scripts/ui/FaceFrame.gd")
 const FighterCard := preload("res://scripts/ui/FighterCard.gd")
 const FighterTile := preload("res://scripts/ui/FighterTile.gd")
 const CampCard := preload("res://scripts/ui/CampCard.gd")
 const GaugeRow := preload("res://scripts/ui/GaugeRow.gd")
 
 const W := 330.0
-const FACE := Vector2(298, 300)   # S380 bigger: the promo shot (tools/bake_promo.gd) head to folded arms
-const FACE_Y := 0.0   # where the crop sits down the face shot: from its top (the head, the arms below)
+const FACE := Vector2(298, 300)   # the head, framed by FaceFrame so the hair and chin stay in
 const STATS := ["conditioning", "power", "technique", "defense", "speed", "chin"]
 
 
@@ -48,24 +48,17 @@ static func make(f: Dictionary, focus: String, fc: Dictionary, before: Dictionar
 	return p
 
 
-## The face shot cropped to the frame (HomeBoard's portrait; a render of the model when there is no shot).
+## The face shot (HomeBoard's portrait; a render of the model when there is no shot), the whole head in the frame.
 static func _face(f: Dictionary) -> TextureRect:
 	var r := TextureRect.new()
 	r.name = "Face"
-	r.custom_minimum_size = FACE
-	r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var tex := HomeBoard.portrait(f)
-	if tex != null and not tex is AtlasTexture:
-		var s := tex.get_size()
-		var h := minf(s.y, s.x * FACE.y / FACE.x)
-		var a := AtlasTexture.new()
-		a.atlas = tex
-		a.region = Rect2(0.0, (s.y - h) * FACE_Y, s.x, h)
-		tex = a
-	r.texture = tex
-	HomeBoard.PromoShot.live(r)
+	r.texture = HomeBoard.portrait(f)
+	if r.texture != null:
+		FaceFrame.fit(r, FaceFrame.box_for(r.texture), FACE)
+		HomeBoard.PromoShot.live(r)
+	else:
+		r.custom_minimum_size = FACE
 	return r
 
 

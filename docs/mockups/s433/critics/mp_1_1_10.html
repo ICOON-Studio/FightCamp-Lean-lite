@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Mat plan 10/10 (critic mp_1_1)</title>
+<style>
+@font-face{font-family:Marker;src:url(../../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../../assets/fonts/BebasNeue-Regular.ttf)}
+:root{--ink:#f1e8da;--soft:#c3b39c;--gold:#ffd24a;--red:#e2574a;--blue:#5b97f2;--green:#46c47f;--amber:#f29a3a;--line:rgba(255,255,255,.10);--card:rgba(255,255,255,.045)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{background:linear-gradient(#1c1612,#110d0b);color:var(--ink);font:500 20px/1.2 Barlow,"Segoe UI",sans-serif;position:relative}
+.a{position:absolute}
+.top{left:0;top:0;width:1920px;height:60px;background:#2a1f18;border-bottom:4px solid #4a3626;display:flex;align-items:center;gap:22px;padding:0 20px}
+.gym{font:400 30px/1 Marker;color:#6ea2f2}
+.cash{margin-left:auto;text-align:right;color:var(--gold);font:700 24px/1 Barlow}
+.cash i{display:block;font:500 20px/1 Barlow;font-style:normal;color:var(--soft)}
+.big{background:#3b2a1e;border:2px solid #6a4c33;padding:6px 16px;font:700 20px/1.1 Barlow}
+.tabs{left:24px;top:72px;display:flex;gap:8px}
+.tab{padding:7px 16px;background:#2b2520;border-radius:6px;color:#9fb6d8;font:700 20px/1 Barlow}
+.tab.on{background:#2f5fa8;color:#fff}
+.name{left:24px;top:116px;font:400 46px/1 Marker}
+.sub{left:24px;top:170px;color:var(--soft)}
+.vs{left:560px;top:118px;background:#1e2a3d;border:2px solid #34507a;border-radius:8px;padding:10px 16px;display:flex;gap:16px;align-items:center}
+.vs b{color:#8fb8ff}
+h2{font:400 30px/1 Bebas;letter-spacing:1.5px;color:var(--gold)}
+h2 span{font:500 20px/1 Barlow;letter-spacing:0;color:var(--soft);margin-left:10px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px}
+.chip{display:inline-block;padding:2px 9px;border-radius:12px;font:700 20px/1.15 Barlow}
+.g{background:rgba(70,196,127,.18);color:var(--green)}.r{background:rgba(226,87,74,.2);color:#ff8b7f}.b{background:rgba(91,151,242,.2);color:#9cc0ff}
+.y{background:rgba(255,210,74,.16);color:var(--gold);border:1px solid rgba(255,210,74,.5)}.s{background:rgba(255,255,255,.08);color:var(--soft)}
+.gold{color:var(--gold)}.soft{color:var(--soft)}.grn{color:var(--green)}.red{color:#ff8b7f}
+/* A-game */
+.strip{display:flex;gap:8px;align-items:stretch;margin-top:8px}
+.st{border:2px solid #3d5a85;border-radius:8px;padding:6px 10px;min-width:150px}
+.st.y2{border-color:var(--gold)}
+.st b{display:block}.st i{display:block;font-style:normal;color:var(--soft)}
+.arr{align-self:center;color:var(--soft)}
+/* lines */
+table{border-collapse:collapse;width:100%}
+th{font:700 20px/1 Barlow;color:var(--soft);text-align:left;padding:4px 6px;border-bottom:1px solid var(--line)}
+td{padding:5px 6px;vertical-align:top;border-bottom:1px solid var(--line);line-height:1.18}
+td .k{font:700 20px/1.1 Barlow;color:var(--gold)}
+.num{font:400 40px/0.95 Bebas;text-align:right;white-space:nowrap}
+.score td{padding:6px 8px}
+.pill{display:inline-block;padding:3px 10px;border-radius:6px;background:#2b2621;margin-right:4px}
+.pill.on{background:rgba(255,210,74,.2);color:var(--gold);outline:2px solid rgba(255,210,74,.6)}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding:4px 0;border-bottom:1px solid var(--line)}
+.btn{display:inline-block;padding:8px 16px;background:#2f2722;border:2px solid #5b4632;border-radius:8px;font:700 20px/1 Barlow}
+.btn.p{background:#ffd24a;color:#1a120a;border-color:#ffd24a}
+.bar{height:12px;border-radius:6px;background:rgba(255,255,255,.1);position:relative;width:180px;display:inline-block;vertical-align:middle}
+.bar u{position:absolute;left:0;top:0;bottom:0;border-radius:6px;text-decoration:none}
+.bar s{position:absolute;top:-3px;bottom:-3px;width:3px;background:#fff;text-decoration:none}
+</style></head><body>
+<div class="a top"><span>&lt; &gt;</span><span class="gym">Anvil Street Gym</span><span>Mon 2 Feb 2026, week 5</span>
+ <div class="cash">$13,940<i>running -$120 a week</i></div><div class="big">CONTINUE<br><span class="soft">to Sat 7 Feb, Ana's open</span></div><span>Menu</span></div>
+<div class="a tabs"><span class="tab">Profile</span><span class="tab">Training</span><span class="tab">Playbook</span><span class="tab on">Fight plan</span><span class="tab">Character</span><span class="tab">History</span></div>
+<div class="a name">Ana Ribeiro</div>
+<div class="a sub">No-gi, featherweight, white belt 2 stripes, 4-2 at opens, Composure 45</div>
+<div class="a vs"><span class="chip s">R1</span><span>London No-Gi Open, Sat 7 Feb, 5 days</span><b>vs ROSA LUND</b><span class="soft">Guard player, white</span><span class="chip g">3 of 5 filmed</span></div>
+
+<!-- LEFT -->
+<div class="a panel" style="left:24px;top:206px;width:1236px;height:142px;padding:10px 16px">
+ <h2>THE A-GAME <span>chances are to the end of each step against Rosa as filmed; your changes in gold</span></h2>
+ <div class="strip">
+  <div class="st y2"><b class="gold">OPENING: Pull guard</b><i>94, free; Rosa pulls 1 in 3</i></div><span class="arr">&gt;</span>
+  <div class="st"><b>Closed guard</b><i>Rosa's home: 9 beats</i></div><span class="arr">&gt;</span>
+  <div class="st y2"><b class="gold">Kimura grip &gt; kimura</b><i>48 then 19: 9 to the tap</i></div><span class="arr">or</span>
+  <div class="st"><b>Hip bump sweep</b><i>50, +6; miss: open guard</i></div><span class="arr">&gt;</span>
+  <div class="st"><b>Mount</b><i>finish line below</i></div>
+ </div>
+</div>
+
+<div class="a panel" style="left:24px;top:358px;width:1236px;height:432px;padding:10px 16px">
+ <h2>THE LINES <span>Ana brings 3 (white belt), 4 written. Drag a row above the cut to bring it.</span></h2>
+ <table style="margin-top:6px">
+  <tr><th style="width:150px">WHERE</th><th style="width:240px">THE LINE</th><th style="width:230px">ROSA THERE</th><th style="width:190px">ANA HOLDS IT</th><th style="width:220px">PRICE</th><th style="width:100px;text-align:right">IN 100</th><th style="text-align:right">WORTH</th></tr>
+  <tr><td><span class="k">FINISH</span><br>Mount<br><span class="soft">3 of 27 beats</span></td>
+   <td>Americana<br><span class="chip y">SET IT UP</span> Owned 30</td>
+   <td><span class="chip b">Works</span> bridge 35<br><span class="soft">frames under mount</span></td>
+   <td>Follows 9 in 10<br><span class="soft">Composure 45</span></td>
+   <td>Tank -5<br><span class="soft" style="white-space:nowrap">miss: half guard</span></td>
+   <td class="num">15<br><span style="font:500 20px Barlow" class="soft" style="white-space:nowrap">12 at once</span></td><td class="num grn">+0.4</td></tr>
+  <tr><td><span class="k">ESCAPE</span><br>Side control<br><span class="soft">5 of 27 beats</span></td>
+   <td>Frame, recover guard<br><span class="chip y">FRAME FIRST</span> Own 36</td>
+   <td><span class="chip b">Works</span> mount step 21<br><span class="soft">attacks at once: 1 in 3</span></td>
+   <td>Follows 7 in 10<br><span class="red">panics 3 in 10</span></td>
+   <td>Tank -6, 22 s<br><span class="red" style="white-space:nowrap">miss: mount, gives 4</span></td>
+   <td class="num">36<br><span style="font:500 20px Barlow" class="soft" style="white-space:nowrap">30 at once</span></td><td class="num grn">+1.1</td></tr>
+  <tr><td><span class="k">ESCAPE</span><br>Back taken<br><span class="soft">2 of 27 beats</span></td>
+   <td>Seatbelt escape<br><span class="chip y">AT ONCE</span> Felt 22</td>
+   <td><span class="chip s">Not filmed</span> 20-24<br><span class="soft">FILM Thu opens it</span></td>
+   <td>Follows 9 in 10</td>
+   <td>Tank -6<br><span class="red" style="white-space:nowrap">miss: mount, gives 4</span></td>
+   <td class="num">22</td><td class="num">+0.2</td></tr>
+  <tr style="opacity:.55"><td colspan="2"><span class="k">LEFT AT HOME</span> Turtle: Stand up</td><td colspan="3">below the cut: improvised there</td><td class="num">31</td><td class="num">+0.1</td></tr>
+ </table>
+ <div style="margin-top:8px" class="soft">Rosa reads brought tries: the 3rd lands at x0.82. Chances count Rosa framing under a pin.</div>
+</div>
+
+<div class="a panel" style="left:24px;top:800px;width:1236px;height:200px;padding:10px 16px">
+ <h2>THE SCOREBOARD <span>Ana's pace by score and clock, read every beat</span></h2>
+ <table class="score" style="margin-top:4px">
+  <tr><th style="width:160px"></th><th>UNTIL THE LAST MINUTE</th><th>THE LAST MINUTE</th><th style="width:330px">WHAT IT DOES</th></tr>
+  <tr><td><b>LEVEL</b></td><td><span class="pill">Push</span><span class="pill on">Steady</span><span class="pill">Save</span></td><td><span class="pill on">Push</span><span class="pill">Steady</span><span class="pill">Save</span></td><td class="soft">Push: 1.25x the tries</td></tr>
+  <tr><td><b>AHEAD</b></td><td><span class="pill">Push</span><span class="pill on">Steady</span><span class="pill">Save</span></td><td><span class="pill">Push</span><span class="pill">Steady</span><span class="pill on">Save</span></td><td class="soft">Save: holds; Rosa gets 1.5x</td></tr>
+  <tr><td><b>BEHIND</b></td><td><span class="pill">Push</span><span class="pill on">Steady</span><span class="pill">Save</span></td><td><span class="pill on">Push</span><span class="pill">Steady</span><span class="pill">Save</span></td><td class="soft">Tank 58 by then: Push costs</td></tr>
+ </table>
+</div>
+
+<!-- RIGHT -->
+<div class="a panel" style="left:1276px;top:206px;width:620px;height:368px;padding:10px 16px">
+ <h2>ROSA'S PLAN <span>found by tape, 3 of 5</span></h2>
+ <div class="row"><span>Opening: pulls guard</span><span class="chip g">filmed</span></div>
+ <div class="row"><span>Go-to: closed guard sweep to mount</span><span class="chip g">filmed</span></div>
+ <div class="row"><span>Hole: no kimura defence</span><span class="chip g">filmed</span></div>
+ <div class="row"><span>Under side control: frames first</span><span class="chip s">FILM Thu</span></div>
+ <div class="row"><span>Ahead: holds from 2:00 left</span><span class="chip s">? 1 class</span></div>
+ <div style="margin-top:8px">FILM costs 1 of 3 classes: <span class="red">Seatbelt escape Owned a week later</span></div>
+</div>
+
+<div class="a panel" style="left:1276px;top:584px;width:620px;height:226px;padding:10px 16px">
+ <h2>TEST IT <span>200 matches vs Rosa as filmed, 2 of 3 tests left</span></h2>
+ <div class="row"><span>Your plan</span><span><span class="bar"><u style="width:57%;background:var(--green)"></u><s style="left:50%"></s></span> <b class="grn">wins 57</b> <span class="soft">(51-63)</span></span></div>
+ <div class="row"><span>Coach's draft</span><span><span class="bar"><u style="width:52%;background:var(--blue)"></u></span> <b>wins 52</b></span></div>
+ <div class="row"><span>Pinned underneath</span><span>5 beats <span class="grn">&gt; 3</span></span></div>
+ <div class="row"><span>Finished Rosa</span><span>14 in 100 <span class="grn">&gt; 21</span></span></div>
+</div>
+
+<div class="a panel" style="left:1276px;top:820px;width:620px;height:180px;padding:10px 16px">
+ <h2>THE LAST OPEN <span>receipts</span></h2>
+ <div class="row"><span>Frame, recover guard 1 of 2</span><span class="btn" style="padding:4px 12px">Keep</span></div>
+ <div class="row"><span>Seatbelt escape 0 of 1, tapped 4:40</span><span class="btn" style="padding:4px 12px">On the mats</span></div>
+ <div class="row"><span>Your plan vs Coach's, same rolls</span><span class="grn">+3 points, Good</span></div>
+</div>
+
+<div class="a" style="left:24px;top:1014px;width:1872px;display:flex;gap:14px;align-items:center">
+ <span class="soft">YOUR PLAN AGAINST COACH'S</span><span style="font:400 40px/1 Bebas" class="grn">+5 IN 100</span><span class="soft">tested vs Rosa</span>
+ <span style="flex:1"></span><span class="btn">Coach's draft</span><span class="btn">Systems</span><span class="btn">Test it (2 left)</span><span class="btn p">Save plan</span></div>
+</body></html>

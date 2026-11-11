@@ -326,10 +326,7 @@ static func train(f: Dictionary, stat: String, gain: float, names: Array = []) -
 	if kids.is_empty():
 		for n in names:
 			out[n] = gain
-		# Rest trains recovery and must not move conditioning, the mean of stamina and recovery (WeekPlan leaves the
-		# old stat at 0 on a rest day). The same points come off stamina.
-		if float(out.get("recovery", 0.0)) > 0.0 and not out.has("stamina"):
-			out["stamina"] = -float(out["recovery"])
+		# Rest adds Recovery and nothing else (S433 REST1): Conditioning, the mean of Stamina and Recovery, rises a little.
 	elif inside.is_empty():
 		for c in kids:
 			out[c] = gain

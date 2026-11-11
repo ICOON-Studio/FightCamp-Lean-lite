@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Fighter page (Ana), Fight plan tab: the mat plan v1 (MATPLAN_MAP_S433)</title>
+<style>
+@font-face{font-family:Marker;src:url(../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../assets/fonts/BebasNeue-Regular.ttf)}
+:root{--ink:#f1e8da;--soft:#c9b9a2;--gold:#ffd24a;--red:#dd4b3d;--blue:#4d8ef0;--green:#3fc07a;--amber:#f28d27;--track:rgba(255,255,255,.10)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:#120e0c;color:var(--ink);font:500 20px/1.2 Barlow,"Segoe UI",sans-serif}
+.abs{position:absolute}
+.wall{position:absolute;left:0;right:0;top:78px;bottom:0;background:radial-gradient(ellipse 760px 520px at 40% 26%,rgba(255,190,110,.12),transparent 72%),linear-gradient(#1b1512,#130f0d 62%,#0e0b09)}
+.top{position:absolute;left:0;top:0;width:1920px;height:78px;z-index:5;border-style:solid;border-width:0 0 8px 0;border-image:url(../../../assets/ui/wood/bar.png) 0 0 8 0 fill / 0 0 8px 0 / 0 stretch;display:flex;align-items:center;gap:14px;padding:8px 18px 0 18px;color:#efe6d8}
+.tab9{border:9px solid transparent;border-image:url(../../../assets/ui/wood/tab.png) 9 fill / 9px / 0 stretch}
+.plank9{border:9px solid transparent;border-image:url(../../../assets/ui/wood/plank.png) 9 fill / 9px / 0 stretch}
+.tnav{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font:500 20px/1 Barlow;color:#efe6d8;flex:none}.tnav.off{opacity:.42}
+.tmenu{width:auto;height:40px;padding:0 4px 2px 4px}
+.tgym{font:400 32px/1 Marker;color:#6ea2f2;white-space:nowrap;padding-top:2px}
+.tdate{min-width:176px}.tdate b{display:block;font:500 20px/23px Barlow;color:#efe6d8;white-space:nowrap}.tdate i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#b8a88f}
+.trail{flex:1;display:flex;justify-content:center;gap:6px}
+.rail{min-width:128px;height:48px;padding:0 8px 2px 8px;display:flex;align-items:center;justify-content:center;color:#efe6d8;white-space:nowrap}
+.tgrow{flex:1}
+.tcash{text-align:right}.tcash b{display:block;font:600 24px/27px Barlow;color:#e8c15a}.tcash i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#b8a88f;white-space:nowrap}
+.tgo{width:330px;height:60px;padding:0 7px 2px 7px;display:flex;flex-direction:column;justify-content:center;flex:none}
+.tgo b{display:block;font:600 20px/23px Barlow;color:#efe6d8;white-space:nowrap}.tgo i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#efe6d8;white-space:nowrap}
+.tabs{position:absolute;left:28px;top:92px;display:flex;gap:6px}
+.tab{height:46px;padding:0 16px;border-radius:8px;display:flex;align-items:center;font-weight:700;color:#b8c3de;background:#1d2741;white-space:nowrap}
+.tab.on{color:#fff;background:#275696;box-shadow:0 0 26px 2px rgba(255,205,90,.42)}
+.plate{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:8px;background:#1d2741;color:#fffbf3;font:700 20px/1 Barlow;white-space:nowrap}
+.go{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:10px;background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06;font-weight:700;box-shadow:0 3px 0 #9a6c10,0 0 22px 2px rgba(255,205,90,.28);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 15px;border-radius:10px;background:rgba(255,255,255,.09);color:var(--ink);font-weight:600;white-space:nowrap}
+.mini{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:9px;background:rgba(255,210,74,.16);color:var(--gold);font-weight:700;white-space:nowrap}
+.name{font:400 46px/1 Marker;color:#fff;white-space:nowrap}
+.h{display:flex;align-items:baseline;gap:12px;height:30px;font-weight:700;font-size:21px;letter-spacing:.09em;color:var(--gold);white-space:nowrap}
+.h span{font-weight:500;font-size:20px;letter-spacing:0;color:var(--soft)}
+.cap{color:var(--soft)}
+.panel{position:absolute;border-radius:14px;background:rgba(20,24,36,.62);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);padding:10px 18px}
+.sw{position:absolute;left:1560px;top:140px;display:flex;gap:8px}
+.sw div{width:76px;text-align:center;line-height:22px;font-weight:600;color:var(--soft)}
+.sw img{display:block;width:46px;height:46px;margin:4px auto 2px;border-radius:50%;border:2.5px solid #fdfaf2;opacity:.7;object-fit:cover}
+.sw .on{color:#fff}.sw .on img{width:54px;height:54px;margin:0 auto;border:3px solid var(--gold);opacity:1;box-shadow:0 0 18px 3px rgba(255,205,90,.55)}
+.vs{position:absolute;left:600px;top:146px;display:flex;align-items:center;gap:12px;height:52px;padding:0 16px 0 10px;border-radius:8px;background:#252d45;color:#fff;font:700 21px/1 Barlow;white-space:nowrap}
+.vs .tag{display:inline-flex;align-items:center;height:32px;padding:0 10px;border-left:4px solid #275696;border-radius:3px;background:#1a2033;color:#8eb8f2;font:600 20px/1 Barlow;text-transform:uppercase}
+.vs small{font:500 20px/1 Barlow;color:#b8c3de}
+.c{display:inline-flex;align-items:center;height:30px;padding:0 11px;border-radius:15px;font-weight:700;white-space:nowrap}
+.beat{background:rgba(63,192,122,.18);color:#5fe09a;box-shadow:inset 0 0 0 1.5px rgba(63,192,122,.55)}
+.works{background:rgba(77,142,240,.16);color:#8eb8f2;box-shadow:inset 0 0 0 1.5px rgba(77,142,240,.5)}
+.walks{background:rgba(221,75,61,.18);color:#ff8d7f;box-shadow:inset 0 0 0 1.5px rgba(221,75,61,.5)}
+.field{background:rgba(255,255,255,.06);color:var(--soft);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.18)}
+.good{background:rgba(63,192,122,.18);color:#5fe09a}
+.okg{background:rgba(255,255,255,.10);color:#efe6d8}
+.poor{background:rgba(221,75,61,.22);color:#ff8d7f}
+.tim{background:rgba(255,210,74,.14);color:var(--gold);box-shadow:inset 0 0 0 1.5px rgba(255,210,74,.6)}
+.pr{background:rgba(255,255,255,.07);color:#e4d8c6;font-weight:600}
+.pr.risk{background:rgba(221,75,61,.16);color:#ff9c90}
+.pr.safe{background:rgba(63,192,122,.10);color:#9fe3bd}
+/* the A-game strip */
+.goals{display:flex;gap:8px}
+.goal{height:40px;padding:0 16px;border-radius:9px;display:flex;align-items:center;font-weight:700;background:rgba(255,255,255,.07);color:var(--soft);white-space:nowrap}
+.goal.on{background:rgba(255,210,74,.2);color:var(--gold);box-shadow:inset 0 0 0 2px rgba(255,210,74,.7)}
+.strip{display:flex;align-items:center;gap:6px;margin-top:10px}
+.node{height:70px;padding:0 14px;border-radius:10px;display:flex;flex-direction:column;justify-content:center;background:rgba(77,142,240,.12);box-shadow:inset 0 0 0 1.5px rgba(77,142,240,.45);white-space:nowrap}
+.node b{font-weight:700;color:#fff}.node span{color:#8eb8f2}
+.edge{height:70px;padding:0 14px;border-radius:10px;display:flex;flex-direction:column;justify-content:center;background:rgba(255,255,255,.07);white-space:nowrap}
+.edge b{font-weight:700;color:var(--gold)}.edge span{color:var(--soft)}
+.edge.gold{box-shadow:inset 0 0 0 2px rgba(255,210,74,.75)}
+.arr{color:var(--soft);font:400 30px/1 Bebas}
+/* the lines table */
+.th{display:grid;grid-template-columns:200px 322px 176px 186px 196px 108px;align-items:end;height:30px;color:var(--soft);font-weight:600;border-bottom:1px solid rgba(255,255,255,.12);white-space:nowrap}
+.row{display:grid;grid-template-columns:200px 322px 176px 186px 196px 108px;align-items:center;min-height:74px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.row .sub{display:block;margin-top:5px;color:var(--soft);white-space:nowrap}
+.row .wh b{display:block;font-weight:700;color:#fff;white-space:nowrap}
+.row .wh .k{display:block;font-weight:700;color:var(--gold);letter-spacing:.06em;white-space:nowrap}
+.mbar{display:inline-block;width:48px;height:10px;border-radius:5px;background:var(--track);position:relative;overflow:hidden;vertical-align:middle;margin-right:8px}
+.mbar i{position:absolute;left:0;top:0;bottom:0;background:#8eb8f2;border-radius:5px}
+.ln{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.ln b{font:700 22px/1.1 Barlow;color:var(--gold)}
+.pc{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.ch{text-align:right}
+.ch b{display:block;font:400 38px/1 Bebas;color:#fff;letter-spacing:.02em}
+.ch span{display:block;color:var(--soft);white-space:nowrap}
+.note{display:flex;align-items:center;gap:12px;min-height:44px;margin:6px 0;padding:4px 12px;border-radius:9px;line-height:23px;white-space:nowrap}
+.note.am{background:rgba(242,177,52,.10);box-shadow:inset 4px 0 0 #f2b134}
+.note.rd{background:rgba(221,75,61,.12);box-shadow:inset 4px 0 0 var(--red)}
+.note b{color:#fff}
+.note .mini{margin-left:auto}
+/* scoreboard */
+.sb{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:6px}
+.sc{border-radius:12px;background:rgba(255,255,255,.05);padding:8px 14px;height:112px}
+.sc h4{font:400 30px/1 Bebas;letter-spacing:.03em;color:#fff}
+.pills{display:flex;gap:6px;margin-top:8px}
+.pill{height:32px;padding:0 12px;border-radius:8px;display:flex;align-items:center;font-weight:700;background:rgba(255,255,255,.07);color:var(--soft)}
+.pill.on{background:rgba(255,210,74,.22);color:var(--gold);box-shadow:inset 0 0 0 1.5px rgba(255,210,74,.7)}
+.sc p{margin-top:8px;color:var(--ink);white-space:nowrap}
+/* right column */
+.fr{display:grid;grid-template-columns:1fr auto;column-gap:10px;align-items:center;min-height:36px;border-top:1px solid rgba(255,255,255,.07);line-height:22px}
+.fr b{color:#fff}.fr .g{color:#5fe09a;font-weight:700}.fr .q{color:var(--soft);font-weight:700}
+.wb{display:grid;grid-template-columns:240px 1fr 40px;column-gap:10px;align-items:center;height:30px}
+.wb .bar{height:14px;border-radius:7px;background:var(--track);position:relative;overflow:hidden}
+.wb .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:7px;background:#8eb8f2}
+.wb .bar i.r{background:#ff8d7f}.wb .bar i.g{background:#5fe09a}
+.wb em{font-style:normal;text-align:right;font:400 26px/1 Bebas;color:#fff}
+.ev{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:center;min-height:31px;border-top:1px solid rgba(255,255,255,.07)}
+.ev b{font-weight:700;color:#fff}.ev .g{color:#5fe09a;font-weight:700}.ev .a{color:#ffad5c;font-weight:700}.ev .r{color:#ff8d7f;font-weight:700}
+.tot{display:flex;align-items:center;justify-content:space-between;height:38px;margin-top:2px;border-top:2px solid rgba(255,210,74,.35);font-weight:700}
+.tot b{font:400 34px/1 Bebas;color:#5fe09a}
+.rc{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:center;min-height:44px;border-top:1px solid rgba(255,255,255,.07);line-height:23px}
+.rc b{color:#fff}
+.foot{position:absolute;left:28px;top:1016px;width:1230px;height:54px;display:flex;align-items:center;gap:12px}
+.foot .big{font:400 36px/1 Bebas;color:#5fe09a;letter-spacing:.02em}
+</style></head>
+<body><div class="wall"></div>
+<div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span><span class="tdate"><b>Mon 2 Feb 2026</b><i>Week 5</i></span><span class="trail"><span class="rail plank9">Gym</span><span class="rail plank9">Mail (2 new)</span></span><span class="tgrow"></span><span class="tcash"><b>$13,940</b><i>running -$120 a week</i></span><span class="tgo plank9"><b>START WEEK</b><i>Ana's open Sat 7 Feb</i></span><span class="tnav tmenu tab9">Menu</span></div>
+<div class="tabs"><span class="tab">Profile</span><span class="tab">Condition</span><span class="tab">Training</span><span class="tab">Playbook</span><span class="tab on">Fight plan</span><span class="tab">Character</span><span class="tab">History</span></div>
+<div class="abs" style="left:28px;top:146px"><div class="name">ANA RIBEIRO</div><div style="display:flex;align-items:center;gap:12px;margin-top:8px;color:var(--soft);white-space:nowrap"><span class="plate">Featherweight (no-gi)</span>22, white belt, 2 stripes, 4-2 at opens</div></div>
+<div class="vs"><span class="tag">R1</span>London No-Gi Open, Sat 7 Feb <small>5 days</small><span style="color:#8eb8f2">ROSA LUND</span><small>Guard player, white</small></div>
+<div class="sw"><div><img src="../s431/final/face_lucy.png">Lucy</div><div><img src="../s431/final/face_tess.png">Tess</div><div><img src="../s431/final/face_samira.png">Samira</div><div class="on"><img src="../s431/final/face_ana.png">Ana</div></div>
+
+<!-- LEFT: the plan -->
+<div class="panel" style="left:28px;top:238px;width:1230px;height:772px">
+  <div class="h">THE A-GAME <span>where Ana aims: Coach's draft is Mount, your changes in gold</span></div>
+  <div style="display:flex;align-items:center;gap:16px;margin-top:6px">
+    <div class="goals"><span class="goal">Back</span><span class="goal on">Mount</span><span class="goal">Legs</span><span class="goal">Points</span></div>
+    <span class="cap">Legs at white: straight ankle lock only (IBJJF)</span>
+  </div>
+  <div class="strip">
+    <div class="edge gold"><b>OPENING: Pull guard</b><span>94 in 100, free, no points</span></div><span class="arr">&gt;</span>
+    <div class="node"><b>Closed guard</b><span>Ana underneath</span></div><span class="arr">&gt;</span>
+    <div class="edge"><b>Hip bump sweep</b><span>EVEN 50, +6 points</span></div><span class="arr">&gt;</span>
+    <div class="node"><b>Mount</b><span>Ana on top</span></div><span class="arr">&gt;</span>
+    <div class="edge gold"><b>FINISH line below</b><span>Americana</span></div>
+  </div>
+
+  <div class="h" style="margin-top:12px">THE LINES <span>Ana brings 3 (white belt) besides the A-game, 4 written</span></div>
+  <div class="th"><span>WHERE</span><span>THE LINE</span><span>READ VS ROSA</span><span>ANA DOES IT</span><span>PRICE</span><span style="text-align:right">IN 100</span></div>
+  <div class="row">
+    <div class="wh"><span class="k">FINISH</span><b>Mount</b><span class="sub"><span class="mbar"><i style="width:22%"></i></span>3 of 27 beats</span></div>
+    <div><div class="ln"><b>Americana</b></div><div class="ln" style="margin-top:6px"><span class="c tim">SET IT UP</span><span class="cap">Owned 30</span></div></div>
+    <div class="pc"><span class="c works">Works</span><span class="sub" style="margin-top:0">bridge about 35</span></div>
+    <div class="pc"><span class="c okg">OK</span><span class="sub" style="margin-top:0">Explosiveness 50</span></div>
+    <div class="pc"><span class="c pr">Tank -5</span><span class="c pr safe">Miss: half guard top</span></div>
+    <div class="ch"><b>20</b><span>15 at once</span></div>
+  </div>
+  <div class="row">
+    <div class="wh"><span class="k">ESCAPE</span><b>Side control</b><span class="sub"><span class="mbar"><i style="width:36%"></i></span>5 of 27 beats</span></div>
+    <div><div class="ln"><b>Frame, recover guard</b></div><div class="ln" style="margin-top:6px"><span class="c tim">FRAME FIRST</span><span class="cap">Owned 36</span></div></div>
+    <div class="pc"><span class="c works">Works</span><span class="sub" style="margin-top:0">slides 7 in 10</span></div>
+    <div class="pc"><span class="c okg">OK</span><span class="sub" style="margin-top:0">Explosiveness 50</span></div>
+    <div class="pc"><span class="c pr">Tank -6</span><span class="c pr risk">Miss: mount, gives 4</span></div>
+    <div class="ch"><b>42</b><span>35 at once</span></div>
+  </div>
+  <div class="row">
+    <div class="wh"><span class="k">ESCAPE</span><b>Back taken</b><span class="sub"><span class="mbar"><i style="width:15%"></i></span>2 of 27 beats</span></div>
+    <div><div class="ln"><b>Seatbelt escape</b></div><div class="ln" style="margin-top:6px"><span class="c tim">AT ONCE</span><span class="cap">Felt 22</span></div></div>
+    <div class="pc"><span class="c field">Not filmed</span><span class="sub" style="margin-top:0">answer unknown</span></div>
+    <div class="pc"><span class="c okg">OK</span><span class="sub" style="margin-top:0">Explosiveness 50</span></div>
+    <div class="pc"><span class="c pr">Tank -6</span><span class="c pr risk">Miss: mount, gives 4</span></div>
+    <div class="ch"><b>20-24</b><span>vs the field</span></div>
+  </div>
+  <div class="note rd"><b>Armbar from guard walks into Rosa's posture (38): 14 in 100.</b> Kimura grip beats Rosa (no kimura defence): 48 <span class="mini">Swap</span></div>
+  <div class="note am"><span style="color:var(--soft)">LEFT AT HOME:</span> <b>Turtle: Stand up, at once</b> <span style="color:var(--soft)">Felt 19.5, Ana improvises there</span><span class="mini">+ Write a line</span></div>
+
+  <div class="h" style="margin-top:10px">THE SCOREBOARD <span>the pace by the score, read every beat</span></div>
+  <div class="sb">
+    <div class="sc"><h4>LEVEL</h4><div class="pills"><span class="pill">Push</span><span class="pill on">Steady</span><span class="pill">Save</span></div><p>Ana's own pace</p></div>
+    <div class="sc"><h4>AHEAD</h4><div class="pills"><span class="pill">Push</span><span class="pill">Steady</span><span class="pill on">Save</span></div><p>Holds from 2:00 left; 20-s count off a pin</p></div>
+    <div class="sc"><h4>BEHIND</h4><div class="pills"><span class="pill on">Push</span><span class="pill">Steady</span><span class="pill">Save</span></div><p>Tries 1.27x as often, never holds</p></div>
+  </div>
+</div>
+<div class="foot"><span style="color:var(--soft);white-space:nowrap">YOUR PLAN AGAINST COACH'S</span><span class="big">+2 TO +6 IN 100</span><span class="cap" style="white-space:nowrap">a match, about</span><span style="flex:1"></span><span class="btn">Coach's draft</span><span class="btn">Systems</span><span class="btn">Test it: Sunday roll</span><span class="go">Save plan</span></div>
+
+<!-- RIGHT: the file, where it goes, the line, the last open -->
+<div class="panel" style="left:1280px;top:238px;width:612px;height:832px">
+  <div class="h">ROSA'S FILE <span>2 of 4 filmed</span></div>
+  <div class="fr"><span>Style: <b>Guard player</b></span><span class="q">free</span></div>
+  <div class="fr"><span>Go-to: <b>Closed guard sweep to mount</b></span><span class="g">filmed</span></div>
+  <div class="fr"><span>Hole: <b>no kimura defence</b></span><span class="g">filmed</span></div>
+  <div class="fr"><span>Answers to Ana's escapes</span><span class="q">?</span></div>
+  <div style="display:flex;justify-content:flex-end;margin-top:6px"><span class="mini">FILM Thu: 1 class</span></div>
+
+  <div class="h" style="margin-top:10px">WHERE THE MATCH GOES <span>27 beats, about</span></div>
+  <div class="wb"><span>Ana in guard</span><span class="bar"><i style="width:33%"></i></span><em>9</em></div>
+  <div class="wb"><span>Ana on top</span><span class="bar"><i class="g" style="width:22%"></i></span><em>6</em></div>
+  <div class="wb"><span>Pinned underneath</span><span class="bar"><i class="r" style="width:19%"></i></span><em>5</em></div>
+  <div class="wb"><span>Standing</span><span class="bar"><i style="width:15%"></i></span><em>4</em></div>
+  <div class="wb"><span>Scramble</span><span class="bar"><i style="width:11%"></i></span><em>3</em></div>
+
+  <div class="h" style="margin-top:10px">THE LINE <span>side control escape</span></div>
+  <div class="ev"><span>Even field</span><b>30</b></div>
+  <div class="ev"><span>Ana Owned 36</span><span class="g">x1.03</span></div>
+  <div class="ev"><span>Rosa's answer about 21</span><span class="g">x1.11</span></div>
+  <div class="ev"><span>Frames first, 2 beats</span><span class="g">+7</span></div>
+  <div class="ev"><span>Read by the 3rd scripted try</span><span class="a">x0.82</span></div>
+  <div class="ev"><span>A miss: mount, 7 in 10</span><span class="r">gives 4</span></div>
+  <div class="tot"><span>First try out of side control</span><b>42 IN 100</b></div>
+  <div class="cap" style="margin-top:4px;white-space:nowrap">Sit tight instead: no try, Rosa keeps top time</div>
+
+  <div class="h" style="margin-top:10px">THE LAST OPENS</div>
+  <div class="rc"><span><b>Frame, recover guard</b> 1 of 2</span><span class="mini">Keep</span></div>
+  <div class="rc"><span><b>Seatbelt escape</b> 0 of 1, tapped 4:40</span><span class="mini">On the mats</span></div>
+</div>
+</body></html>

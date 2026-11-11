@@ -99,11 +99,11 @@ func _test4_body_aim_against_burned_opponent() -> void:
 ## 5. S432: the two rib calls are not twins - the liver side (her lead hook's side) hurts first, and stance flips it.
 func _test5_liver_side_first() -> void:
 	var lv := {"body": {"a": 0, "b": 7}, "opp_hurt": false}
-	var ortho := LiveRound.opp_hurt_dict(lv, "orthodox")
+	var ortho := PaceAim.opp_hurt(lv, "orthodox")
 	_check(bool(ortho["right_ribs"]) and not bool(ortho["left_ribs"]), "orthodox, 7 body shots: the right ribs (liver) open first (%s)" % str(ortho))
-	var lefty := LiveRound.opp_hurt_dict(lv, "southpaw")
+	var lefty := PaceAim.opp_hurt(lv, "southpaw")
 	_check(bool(lefty["left_ribs"]) and not bool(lefty["right_ribs"]), "southpaw, 7 body shots: the left ribs open first (%s)" % str(lefty))
-	var both := LiveRound.opp_hurt_dict({"body": {"a": 0, "b": 10}, "opp_hurt": false}, "orthodox")
+	var both := PaceAim.opp_hurt({"body": {"a": 0, "b": 10}, "opp_hurt": false}, "orthodox")
 	_check(bool(both["right_ribs"]) and bool(both["left_ribs"]), "10 body shots: both sides hurt (%s)" % str(both))
-	var none := LiveRound.opp_hurt_dict({"body": {"a": 0, "b": 5}, "opp_hurt": false}, "orthodox")
+	var none := PaceAim.opp_hurt({"body": {"a": 0, "b": 5}, "opp_hurt": false}, "orthodox")
 	_check(not bool(none["right_ribs"]) and not bool(none["left_ribs"]), "5 body shots: no side yet (%s)" % str(none))
