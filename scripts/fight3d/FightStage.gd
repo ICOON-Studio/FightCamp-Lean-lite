@@ -39,7 +39,7 @@ const CLIP_S := 20.0 / 30.0
 ## The face, from the head bone (the skull's base): forward and up, metres on the unscaled body.
 const FACE_FWD_M := 0.09
 const FACE_UP_M := 0.07
-## A landed punch whose target sits beyond her straight arm (clip_contact.json short_m, tools/punch_reach.gd): the chest
+## A landed punch whose target sits beyond her straight arm (how far, tools/punch_reach.gd): the chest
 ## lean covers about LEAN_COVER_M, her body carries in for the rest, at most LUNGE_MAX_M, on the reach's ease in/out.
 const LEAN_COVER_M := 0.06
 const LUNGE_MAX_M := 0.26
@@ -131,9 +131,12 @@ func land(who: int, clip: String, body: bool, at_s: float = 0.0, contact_s: floa
 	boxers[who]["land_f"] = [Engine.get_process_frames(), at_s, (boxers[who]["ap"] as AnimationPlayer).current_animation_position]   # hit_gap_probe timing
 	# S320 (operator: "some hits seem to register even when opponent is way to far"; tools/hit_gap_probe.gd: the glove
 	# 0.21 m off the target at contact (p50), 66 % past 0.15 m, up to 0.98 m - punches landed from 1.6 m). The clip touches
-	# at the gap gap_m - short_m (clip_contact.json, measured at the jab gap); she must close the rest of today's gap by the
+	# at the gap gap_m; she must close the rest of today's gap by the
 	# contact: the lean and the reach's lunge take up to LEAN_COVER_M + LUNGE_MAX_M, a step in carries the remainder.
-	var need := _gap_shown() - (gap_m - float(row.get("short_m", 0.0)))
+	# S437: the per-clip "short_m" this read is gone for good. It had been missing from the data since S342 (always 0);
+	# restored with tools/punch_reach.gd and measured on the same bout (hit_gap_probe, 32 landed): p50 0.036 -> 0.038 m,
+	# p90 0.093 -> 0.172 m, far hits 3 -> 4. The punches that land off are off sideways or in height, not short.
+	var need := _gap_shown() - gap_m
 	pr.lunge_m = clampf(need - LEAN_COVER_M, 0.0, LUNGE_MAX_M)
 	var rest := need - LEAN_COVER_M - float(pr.lunge_m)
 	if rest > 0.03 and at_s > 0.0:

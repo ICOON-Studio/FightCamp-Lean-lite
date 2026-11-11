@@ -18,6 +18,8 @@ const CHAIN_SHARE := [0.14, 0.12, 0.14, 0.2, 0.2, 0.2]
 ## (eased like the look), BEFORE the look, so the look only has a small turn left for the neck.
 var _upright := {"deg": 0.0, "w": 0.0}
 var _duck := 0.0
+var _loose := {"amount": 0.0, "w": 0.0, "on": false}
+var _loose_bones: Array = []   # both collarbones and the neck
 var _spine := -1
 var _body: Node3D
 var _arms := {}            # "Left"/"Right" -> [upper, lower, hand]
@@ -59,6 +61,9 @@ func _setup(skel: Skeleton3D) -> bool:
 	_head = skel.find_bone("Head")
 	if _neck < 0 or _head < 0:
 		return false
+	for n in ["LeftShoulder", "RightShoulder", "Neck"]:
+		if skel.find_bone(n) >= 0:
+			_loose_bones.append(skel.find_bone(n))
 	_spine = skel.find_bone("Spine")
 	var chest := skel.find_bone("Chest")
 	var b := _head
@@ -106,6 +111,16 @@ func set_duck(w: float) -> void:
 	_duck = clampf(w, 0.0, 1.0)
 
 
+## S437 (operator's marks on the glove-touch still: shoulders "not smooth", "neck looks wierd"): the guard clip holds
+## the shoulders shrugged up to the chin and the neck pushed forward. An arm IK'd down from that guard hangs off a raised
+## collarbone (the skin folds between neck and shoulder), and the head juts out once the trunk is tipped upright.
+## loosen(w) eases both collarbones and the neck `w` of the way (0..1) to their rest turn, before the look and the hands.
+func loosen(w: float) -> void:
+	_loose["on"] = w > 0.0
+	if w > 0.0:
+		_loose["amount"] = clampf(w, 0.0, 1.0)
+
+
 func look(target: Variant) -> void:
 	_look["on"] = target != null
 	if target != null:
@@ -148,6 +163,11 @@ func _process_modification() -> void:
 			var par_s := skel.get_bone_parent(_spine)
 			var pq_s := skel.get_bone_global_pose(par_s).basis.get_rotation_quaternion() if par_s >= 0 else Quaternion.IDENTITY
 			skel.set_bone_pose_rotation(_spine, (pq_s.inverse() * (q_duck * gs.basis.get_rotation_quaternion())).normalized())
+	_loose["w"] = move_toward(float(_loose["w"]), 1.0 if bool(_loose["on"]) else 0.0, delta / EASE_S)
+	if float(_loose["w"]) > 0.0:
+		var lw := float(_loose["amount"]) * _smooth(float(_loose["w"]))
+		for b in _loose_bones:
+			skel.set_bone_pose_rotation(b, skel.get_bone_pose_rotation(b).slerp(skel.get_bone_rest(b).basis.get_rotation_quaternion(), lw))
 	# The look first: it turns the chest (S309), and the hands then still meet what they reach.
 	_look["w"] = move_toward(float(_look["w"]), 1.0 if bool(_look["on"]) else 0.0, delta / EASE_S)
 	if float(_look["w"]) > 0.0 and (_look["target"] as Callable).is_valid():

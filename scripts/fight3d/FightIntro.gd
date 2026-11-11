@@ -397,11 +397,13 @@ func cue_touch() -> void:
 		# hangs loose by her own hip, and she stands up out of her crouch for it.
 		a["ik"].reach(rear, func(): return _rest_glove(a, rear))
 		a["ik"].upright(TOUCH_UPRIGHT_DEG)
+		a["ik"].loosen(TOUCH_LOOSE)   # S437: shoulders down out of the guard's shrug, the neck back over the trunk
 		crew.look(a, stage.boxers[1 - i])
 
 
 ## Her resting glove at the touch: down by her own hip, a little forward and out (off her thigh).
 const TOUCH_UPRIGHT_DEG := 9.0
+const TOUCH_LOOSE := 0.8
 const REST := Vector3(0.10, 0.02, 0.27)   # forward, below the hips bone, out to her side (m at scale 1)
 
 
@@ -417,6 +419,7 @@ func cue_untouch() -> void:
 		a["ik"].reach("Left", null)
 		a["ik"].reach("Right", null)
 		a["ik"].upright(0.0)
+		a["ik"].loosen(0.0)
 
 
 func cue_seconds_out() -> void:
@@ -444,6 +447,7 @@ func finish() -> void:
 		a["ik"].reach("Left", null)
 		a["ik"].reach("Right", null)
 		a["ik"].upright(0.0)
+		a["ik"].loosen(0.0)
 		crew.look(a, null)
 		(a["node"] as Node3D).visible = true
 	stage._ropes.calm = false

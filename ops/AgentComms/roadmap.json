@@ -4685,7 +4685,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-11",
+  "updated": "2026-11-11 23:12 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4835,15 +4835,23 @@
   },
   "working_now": [
    {
+    "title": "TASK CALLSPREAD1 - QWEN (qwen3-coder) - a corner call's strength rises point by point from 56 to 62, not in one jump at 62 (one function + its test)",
+    "who": "qwen",
+    "started": "2026-11-11T19:42",
+    "run": "CALLSPREAD1",
+    "state": "LANDED - Claude collects"
+   },
+   {
     "title": "TASK DUESSUMS3C - QWEN (qwen3-coder) - dues sums, third search fixed: a waiting list that can act, ROBUST without a dead lever, a PICK you can repeat (MEASURE O",
     "who": "qwen",
     "started": "2026-11-11T22:11",
     "run": "DUESSUMS3C"
    },
    {
-    "title": "Animation D0: punch rulers repaired; next the reach data (short_m) and the real-bout ruler",
-    "who": "claude",
-    "started": "2026-11-11T21:50"
+    "title": "TASK RANKSHOWUI - CURSOR (Grok 4.7 High) - the rank a fight earned, shown in the Why and on the fighter's page",
+    "who": "cursor",
+    "started": "2026-11-11T23:12",
+    "run": "RANKSHOWUI"
    }
   ],
   "next": [
@@ -5423,6 +5431,22 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Intro from the corners (Claude)",
+     "who": "claude"
+    },
+    {
+     "text": "Tale of the tape = versus picture",
+     "who": "claude"
+    },
+    {
+     "text": "Punch rulers read every row",
+     "who": "claude"
+    },
+    {
+     "text": "GYMLIFE2: walks round the kit",
+     "who": "claude"
+    },
+    {
      "text": "Paid seat is gym sponsorship",
      "who": "claude"
     },
@@ -5461,39 +5485,11 @@
     {
      "text": "Feather + middle pro tables",
      "who": "claude"
-    },
-    {
-     "text": "Ribs injuries follow the damage",
-     "who": "agent"
-    },
-    {
-     "text": "Know a fighter: pips (KNOWN0)",
-     "who": "agent"
-    },
-    {
-     "text": "Voice cast picked by ear",
-     "who": "operator"
-    },
-    {
-     "text": "Your answers Q-186/187/188 in",
-     "who": "operator"
     }
    ],
    "done_session": [
     {
-     "text": "Intro from the corners (Claude)",
-     "who": "claude"
-    },
-    {
-     "text": "Tale of the tape = versus picture",
-     "who": "claude"
-    },
-    {
-     "text": "Punch rulers read every row",
-     "who": "claude"
-    },
-    {
-     "text": "GYMLIFE2: walks round the kit",
+     "text": "Glove touch: shoulders, neck",
      "who": "claude"
     }
    ],
@@ -5515,7 +5511,7 @@
      "who": "claude"
     },
     {
-     "text": "RANKSHOWUI brief for Cursor",
+     "text": "D0: reach data, hit gap",
      "who": "claude"
     }
    ],
@@ -5565,7 +5561,7 @@
      "who": "claude"
     }
    ],
-   "session": "S436"
+   "session": "S437"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

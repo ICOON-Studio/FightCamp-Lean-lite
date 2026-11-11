@@ -27,6 +27,8 @@ const SHOW_PER_BOXERS := [1000, 2000, 3000]
 const LOW_REP_DRAWS := [0.85, 0.75, 0.65]
 const STEADY_CANDIDATES := [1.0, 1.05, 1.10]
 const CHEAP_SHARE_CANDIDATES := [1.0, 0.75, 0.5]
+const STRENGTH_CANDIDATES := [0.0, 0.25, 0.50]
+const UPLIFT_CANDIDATES := [0.0, 0.10, 0.20]
 
 ## A yearly grant: chance x payout for cheap; half the chance for standard; 0 for premium.
 ## youth_open gates whether the club has a youth section (needed for most grants).
@@ -78,9 +80,32 @@ static func class_year(band: String, cheap_share: float) -> float:
 	return 0.0
 
 
+## Waitlist keep: a multiplier on the band's member-loss (churn). 1.0 when the club is NOT at
+## capacity or reputation < 40. When full: 1.0 - strength * (rep - 40) / 60. Premium gets the
+## full effect; Standard half; Cheap none (juniors, not payers).
+static func waitlist_keep(band: String, reputation: int, cap_full: bool, strength: float) -> float:
+	if not cap_full or reputation < 40:
+		return 1.0
+	var base: float = 1.0 - strength * (float(reputation) - 40.0) / 60.0
+	if band == "premium":
+		return base
+	elif band == "standard":
+		return 1.0 - (1.0 - base) * 0.5
+	return 1.0
+
+
+## Waitlist fee: dues multiplier. 1.0 unless the club is full and reputation >= 60,
+## then 1.0 + uplift for Premium only.
+static func waitlist_fee(band: String, reputation: int, cap_full: bool, uplift: float) -> float:
+	if not cap_full or reputation < 60 or band != "premium":
+		return 1.0
+	return 1.0 + uplift
+
+
 ## Five-year total for one band in one case (reputation, cap).
-## levers keys: grant_chance, youth_open, volunteer_share, show_per_boxer, low_rep_draw, steady, cheap_share.
-## Returns {dues, grant, volunteer, show, boxers, steady, classes, total}.
+## levers keys: grant_chance, youth_open, volunteer_share, show_per_boxer, low_rep_draw, steady,
+## cheap_share, strength, uplift.
+## Returns {dues, grant, volunteer, show, boxers, classes, waitlist_kept, waitlist_fee_extra, total}.
 static func five_year_total(reputation: int, cap: int, band: String, levers: Dictionary) -> Dictionary:
 	var grant_chance: float = float(levers.get("grant_chance", 0.0))
 	var youth_open: bool = levers.get("youth_open", true)
@@ -89,11 +114,9 @@ static func five_year_total(reputation: int, cap: int, band: String, levers: Dic
 	var low_rep_draw: float = float(levers.get("low_rep_draw", 0.85))
 	var steady: float = float(levers.get("steady", 1.0))
 	var cheap_share: float = float(levers.get("cheap_share", 1.0))
+	var strength: float = float(levers.get("strength", 0.0))
+	var uplift: float = float(levers.get("uplift", 0.0))
 
-	## Determine draw_mult for settle_week.
-	## For premium: replace the built-in draw with the lever's premium_draw.
-	## For standard: multiply by steady.
-	## For cheap: draw_mult = 1.0.
 	var draw_mult: float = 1.0
 	if band == "premium":
 		var base_draw: float = Membership.draw("premium", reputation)
@@ -109,15 +132,36 @@ static func five_year_total(reputation: int, cap: int, band: String, levers: Dic
 	var total_volunteer: float = 0.0
 	var total_show: float = 0.0
 	var total_classes: float = 0.0
+	var total_wl_kept: float = 0.0
+	var total_wl_fee: float = 0.0
 
 	var intake: float = Membership.intake_chance(band)
 
 	for week_idx in range(TOTAL_WEEKS):
+		var before: int = members
 		var result: Dictionary = Membership.settle_week(members, reputation, cap, band, draw_mult)
-		members = int(result["members"])
-		total_dues += float(result["dues"])
+		var after: int = int(result["members"])
+		var cap_full: bool = before >= cap
 
-		## Yearly levers at the end of each year (every 52 weeks).
+		var wk: float = waitlist_keep(band, reputation, cap_full, strength)
+		var adjusted: int = after
+		if wk < 1.0 and after < before:
+			var loss: int = before - after
+			var kept: int = loss - int(round(float(loss) * wk))
+			adjusted = mini(after + kept, cap)
+
+		var wf: float = waitlist_fee(band, reputation, cap_full, uplift)
+		var adj_dues: float = float(Membership.weekly_dues(adjusted, band))
+		var base_dues: float = float(Membership.weekly_dues(after, band))
+		var week_dues: float = adj_dues * wf
+		var kept_dues: float = adj_dues - base_dues
+		var fee_extra: float = adj_dues * (wf - 1.0)
+
+		members = adjusted
+		total_dues += week_dues
+		total_wl_kept += kept_dues
+		total_wl_fee += fee_extra
+
 		if (week_idx + 1) % WEEKS_IN_YEAR == 0:
 			var year_num: int = (week_idx + 1) / WEEKS_IN_YEAR
 			total_grant += grant_year(band, grant_chance, youth_open)
@@ -138,5 +182,7 @@ static func five_year_total(reputation: int, cap: int, band: String, levers: Dic
 		"show": total_show,
 		"boxers": boxer_value,
 		"classes": total_classes,
+		"waitlist_kept": total_wl_kept,
+		"waitlist_fee_extra": total_wl_fee,
 		"total": total,
 	}

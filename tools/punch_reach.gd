@@ -5,8 +5,8 @@ extends SceneTree
 ## sits beyond what the arm can reach from where the shoulder is, and the face-to-face gap in guard. Headless:
 ##   <godot.exe> --headless --path . --script res://tools/punch_reach.gd -- [prefix=pro_] [reach=1]
 ## `reach=1` turns the stage's landed-punch reach on (FightStage.land) so the same table reads after the fix; `write=1`
-## (control run only) stores each clip's "short_m" (target beyond the straight arm + glove) in clip_contact.json, which
-## FightStage.land reads to carry the body in.
+## stores each clip's "short_m" (target beyond the straight arm + glove) in clip_contact.json. S437: the game no longer
+## reads it (FightStage.land: restoring it did not bring the gloves closer); write=1 is for a study, never for a commit.
 
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")

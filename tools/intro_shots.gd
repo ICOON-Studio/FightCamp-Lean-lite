@@ -16,9 +16,12 @@ func _initialize() -> void:
 	var out_dir := str(args[0]) if not args.is_empty() else "user://intro_shots"
 	var secs := 24.0
 	var step := 1.5
+	var from := 0.0   # S437: from=<s> saves no still before that wall time (reading one late moment, e.g. the touch)
 	for a in args:
 		if str(a).begins_with("secs="):
 			secs = float(str(a).substr(5))
+		if str(a).begins_with("from="):
+			from = float(str(a).substr(5))
 		if str(a).begins_with("step="):
 			step = float(str(a).substr(5))
 	seed(7)
@@ -37,6 +40,10 @@ func _initialize() -> void:
 	var saved := 0
 	var t := 0.0
 	while t <= secs and is_instance_valid(view):
+		if t < from:
+			await create_timer(step).timeout
+			t += step
+			continue
 		await RenderingServer.frame_post_draw
 		var path := "%s/intro_%02d_%04.1fs.png" % [out_dir, saved, t]
 		root.get_texture().get_image().save_png(path)
