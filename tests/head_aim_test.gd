@@ -161,7 +161,9 @@ func _await_measure_both(stage: Node3D, who: int, other: int, clip: String, setu
 	var gap_noaim: float = await _reset(stage)
 	var noaim: Dictionary = await _measure_one(stage, who, other, clip, false)
 	if noaim.is_empty():
-		print("SKIP %s %s" % [setup, clip])
+		# S435 (ANIM_AUDIT_S435 A10): a clip that could not be measured is a failure, never a silent pass.
+		failures += 1
+		print("FAIL SKIP %s %s: the clip could not be measured" % [setup, clip])
 		return
 	# --- aim pass ---
 	var gap_aim: float = await _reset(stage)

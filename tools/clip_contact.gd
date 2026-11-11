@@ -9,6 +9,7 @@ const OUT := "res://assets/data/clip_contact.json"
 ## Clip names that throw a punch.
 const PUNCH_WORDS := ["jab", "cross", "hook", "uppercut", "body_shot", "kidney_shot", "combo_punch", "combo_lh"]
 const HZ := 60.0
+const GUARD_S := 0.15   # BeatClips.contact reads anything earlier as the guard
 
 
 func _initialize() -> void:
@@ -24,6 +25,12 @@ func _initialize() -> void:
 	stage.set_process(false)
 	var bx: Dictionary = stage.boxers[0]
 	var ap: AnimationPlayer = bx["ap"]
+	# S435 (ANIM_AUDIT_S435 A5): this tool rewrote the whole file and dropped the keys other tools store in a row
+	# (punch_reach.gd's short_m, gone since S342). A re-run now keeps every key it does not measure itself.
+	var old: Dictionary = {}
+	if FileAccess.file_exists(OUT):
+		var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(OUT))
+		old = parsed if parsed is Dictionary else {}
 	var out := {}
 	for n in ap.get_animation_list():
 		var name := str(n)
@@ -38,7 +45,10 @@ func _initialize() -> void:
 		var body := name.contains("body") or name.contains("kidney")
 		var target := Vector3(0.0, head_y - (0.5 if body else 0.0), stage.gap_m)
 		var best := {"t": 0.0, "hand": "", "reach": 99.0}
-		var t := 0.0
+		# S435 (ANIM_AUDIT_S435 C): the search starts past the guard. pro_left_uppercut read contact 0.0 (the guard glove sat
+		# nearer the target point than the rising punch ever came), BeatClips.contact threw that away (< 0.15 s) and every
+		# plain lead uppercut was armed on a guess.
+		var t := GUARD_S
 		while t <= length * 0.75:
 			for hand in hands:
 				var miss: float = Stage.IdleMatch.pose_point(bx, name, t, hand).distance_to(target)
@@ -47,6 +57,11 @@ func _initialize() -> void:
 			t += 1.0 / HZ
 		out[name] = {"contact_s": snappedf(float(best["t"]), 0.001), "hand": best["hand"], "reach_m": snappedf(float(best["reach"]), 0.001),
 			"length_s": snappedf(length, 0.001)}
+		var kept: Variant = old.get(name, null)
+		if kept is Dictionary:
+			for k in (kept as Dictionary):
+				if not (out[name] as Dictionary).has(k):
+					out[name][k] = kept[k]
 		print("CONTACT %s %.3fs %s %.2f m from the target (len %.2fs)" % [name, best["t"], best["hand"], best["reach"], length])
 	var f := FileAccess.open(OUT, FileAccess.WRITE)
 	f.store_string(JSON.stringify(out, "\t", true))

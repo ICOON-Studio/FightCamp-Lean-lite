@@ -1,12 +1,16 @@
-# S435 handover (written 2026-11-11 evening, end of S434)
+# S436 handover (written 2026-11-11 late evening, end of S435)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S435`
-and redraw Miro (ops/Tools/where_we_are_svg.py docstring; STRIP the `data-deleted` lines). S434's end redraw was SKIPPED: plan.map is
-current (3 new DONE, 3 NOW, 3 NEXT cards) - the start redraw creates them; run `where_we_are_svg.py learn` on the result_svg after
-it (LEARN printed 6 new widgets). Read ops/research/S434_DIGEST.md (morning + evening).
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S436`
+and redraw Miro. Read ops/research/S435_DIGEST.md and ops/research/ANIM_AUDIT_S435.md (sections A and G).
+TWO SESSIONS WROTE THIS FILE: S434 stayed open beside S435 and kept committing (training v2 sent, its own handover edits).
+If S434 is still open at your start, its workflows may still run: check before touching their work (section 1).
+MIRO: the "P0 Where we are" frame holds about 22 old surplus cards the tool wants deleted (they stop the frame shrinking;
+one shows "Wrestling" twice). A delete on his board needs his yes: asked at the end of S435; if he said yes, push the
+`data-deleted` lines of `where_we_are.py svg` and run `where_we_are_svg.py trim`. Until then STRIP those lines, send only the
+changed cards, and keep the frame's transform as Miro has it (translate(6000,-2647)).
 
 ## USAGE FIRST
-`get_usage`. End of S434: all models ~48 %, Fable 68 % (reset Thu 2026-11-12 16:00), extra usage EUR 37.92 of 40.
+`get_usage`. S435 at 21:05: all models 53 %, Fable 69 % (reset Thu 2026-11-12 16:00), extra usage EUR 37.92 of 40.
 
 ## HIS WORDS (S434)
 - TRAINING is a core mechanic he asked for special attention on (S354, S370): "i thought i told you to pay special attention to all
@@ -31,39 +35,66 @@ it (LEARN printed 6 new widgets). Read ops/research/S434_DIGEST.md (morning + ev
   fighter). Gemini TTS (ops/Tools/gemini_tts.py) waits on his API prepay top-up (402). VOICEWIRE1 (Qwen) puts the voices in the game.
 - GitHub: let the Grok Dev token expire; 2FA steps given.
 
-## 1. FIRST - three runs died with S434: re-run each (scripts persist; edit out finished phases; check partial output first)
-(... = C:\Users\user\.claude\projects\E--FightCamp-Lean\cc06cf94-1b7f-4ff3-ac8d-fa7ac72dd524)
-a. TRAINING v2 (his 8 marks): ...\workflows\scripts\trainscene-v2-s434-wf_dc1eb8f2-180.js - ADD mark 8 (the changed Saturday card: a
-   "your change" ribbon, the coach's old session faded behind, its effect on the card) to COMMON's marks list. Check
-   docs/mockups/s434/train/v2_* first. Then send v2 (SendUserFile the .html + .png, review_add); his pick before any build.
-b. WEIGHT map: ...\workflows\scripts\weight-map-s434-wf_0d235142-341.js (research -> map + 2 drawings -> 2 fresh critics 7+, up to 2
-   rounds). Check ops/research/WEIGHT_MAP_S434.md and docs/mockups/s434/weight/ first.
-c. FOUNDATION on claude/foundation-s433 (pushed 811efd15; worktree E:/FightCamp/wt/LEAN_FOUNDATION_S433): rebased on main; CARDIO1 and
-   NOCAMP1 each had 2 fix rounds, the skeptics still say "fix_again" (open lists in ...\subagents\workflows\wf_91da691c-70b\journal.jsonl);
-   PUNCHSTART1 round 1 was mid-run (uncommitted edits in BoutRead, ComboOdds, PlanPressure, PlanRead + tests/zz_probe2_ps434.gd - read
-   before keeping). Script ...\workflows\scripts\foundation-fixes-s434-wf_91da691c-70b.js (drop the Rebase phase; feed each item the
-   last skeptic's open list). Collect by diff only when each skeptic reads "ready".
+## HIS WORDS (S435)
+- None in chat after the start line. Board: Q-190 "Just rename it 'gym sponsorship', the club pays" - done in the four build maps.
 
-## 2. SEATS (collect through ...\workflows\scripts\collect-review-s434-wf_34f2c92c-33a.js: set PRS, re-invoke)
-- CALLSPREAD1 landed (PR 211, Qwen): collect AFTER the foundation lands (both move fight-balance tests).
-- INTROCORNER1 running on Qwen (moved from agy). VISUAL: read its stills yourself.
-- GYMLIFE1 running on Cursor (the dispatcher launched it from plan.next at 20:11).
-- DUESSUMS3B: Antigravity stopped at step 0 - it has NO shell (cannot git or Godot). Do step 0 for it (check out PR 198's two files
-  into E:/FightCamp/wt/LEAN_DUESSUMS3B and commit) or give it to Qwen. Antigravity = file-only tasks.
-- ANIMATION: HUMANFIGHT2B and CORNERFACE2 REJECTED (reasons on PRs 210 / 208). Two failed rounds on the stepping route -> AUDIT first
-  (why rounds stall: rulers that pass blind, fallback clips, taps), then one re-brief. Fab pack (month end) adds parries, body punches,
-  guard styles. Video mocap test: two CC BY clinch clips in his Downloads (ops/research/ANIM_ASSETS_S434/CLINCH_SOURCES.md); he uploads
-  clip 1 to DeepMotion (2 people, FBX); then Cascadeur cleanup and a film for him.
-- Collected in S434: STANDDOWN1 (wired), CEIL14, DUESWIRE1, KNOWN0, RIBHURT1; PROTABLES1 on main.
+## 1. THE S434 WORKFLOWS (they did NOT die: S434 was still open)
+Folder: C:\Users\user\.claude\projects\E--FightCamp-Lean\cc06cf94-1b7f-4ff3-ac8d-fa7ac72dd524\subagents\workflows
+FIRST look at the file times under each wf_ folder there and at the session's own .jsonl. Still moving = leave them, they
+are S434's. Stopped = read the journal.jsonl's last entries and re-run only what did not finish (scripts in the session
+folder's workflows\scripts; a Workflow run needs his word in this session, and check usage first).
+a. TRAINING v2 (wf_dc1eb8f2-180): FINISHED and SENT by S434 (docs/mockups/s434/train/v2_scene.*, v2_summary.*; his 8 marks
+   applied, mark 8 = the Saturday card reads "Changed"). Critics on the first v2: clarity 6 and 6 ("Normal 82% of a usual
+   week's work" unclear), depth 7, look 7; the final redraw is NOT scored. RISK: denser than v1 - read his answer first;
+   if he wants it lighter, move numbers into hovers. Then two fresh critics on clarity before his pick.
+b. WEIGHT (wf_0d235142-341): map round 2 running at 21:24 (docs/mockups/s434/weight/: CODE.md, REAL.md, r1 drawings, a
+   critic's 10). No ops/research/WEIGHT_MAP_S434.md yet.
+c. FOUNDATION (wf_91da691c-70b, worktree E:/FightCamp/wt/LEAN_FOUNDATION_S433): PUNCHSTART1 fix round 2 running at 21:24;
+   CARDIO1 and NOCAMP1 skeptics said "fix_again". Collect by diff only when each skeptic reads "ready".
 
-## 3. THEN (board plan.next)
-TURNPRO1 design; GYMSPONSOR1 rename; WRESTLE0 design; RESULTLOOK1 (his C295: the result page led by the fighter after the bout);
-VOICEWIRE1 (Qwen); after the foundation: F2b GAIN14, F4 LOADWORK1, F9 LIVESPLIT1; KNOWN0 wiring into the pages (Cursor).
+## 2. SEATS
+- GYMLIFE2 (Cursor) launched 21:11 (estimate 22:05): the shadow strip's pop, walks round the kit, nobody under a hub
+  button. VISUAL: read the stills (docs/mockups/s435/gymlife2/).
+- INTROCORNER2 (Qwen) queued behind INTROCORNER1's runner (still "running" its regression at 21:32). The first round did
+  not compile and cut the intro to 6 s (S435 digest). Collect ONLY after tools/intro_shots.gd on the branch shows the name
+  calls: `python ops/Tools/godot_slot.py run --who S436 -- python tools/hidden_desktop.py run --timeout=240 --log=<log>
+  <godot.exe> --path <worktree> --windowed --resolution 1920x1080 --audio-driver Dummy --script res://tools/intro_shots.gd
+  -- <out> secs=9 step=0.5`. If the runner opens a PR for qwen/introcorner1, close it with the digest's reasons.
+- DUESSUMS3C (Qwen) queued after it (the DUESSUMS3B brief under a new id).
+- PR 211 CALLSPREAD1: NOT collectable as is - its spread makes a wrong call cost less (exchanges_test "wrong calls lose
+  clearly more", golden_path "corner call: calm"). After the foundation: collect with a fix that keeps that bar.
+- Collected in S435: GYMLIFE1 (PR 212 closed). Fab pack at the month's end; the clinch mocap test waits on his DeepMotion upload.
 
-## Traps (S434)
-- Antigravity has no shell: a brief that needs git or Godot goes to Qwen or Cursor.
-- The dispatcher launches plan.next rows that have an OPEN brief whatever "after" says (CALLSPREAD1, GYMLIFE1).
-- A critic's 7 on depth is not "he can read it": every critic brief asks "would a player who never read the map understand this?"
-- Never open Explorer or any window on his screens (S434 slip).
+## 3. ANIMATION (every session): D0 is Claude's own work, before any seat brief
+Done: BEAT_TALLY (scripts/fight3d/BeatTally.gd; tools/human_fight_film.gd prints it); the lead uppercut's contact; SKIP /
+VOID fail in head_aim and block_meet; clip_contact.gd keeps other tools' keys.
+Measured: one real bout = 48 punches; 20 of the 22 that wanted a special take (miss / big / tired / step) fell back to a
+plain one. head_aim reads 3 of 12 rows, block_meet 1 of 21 (the hips gap, 0.73-0.79, sits under the test's 0.80 floor
+since the stepping route). Both are red on main and in the daily list now: the next nightly will show them.
+NEXT, in order: (1) head_aim and block_meet hold their gap (a band around the stage's own standing gap) and read every
+row; (2) restore short_m (tools/punch_reach.gd write=1) and take the re-measured contact file
+(ops/research/CLIP_CONTACT_REMEASURED_S435.json) with tools/hit_gap_probe.gd before / after; (3) human_feet on the default
+route; (4) a layer-order test; (5) tests/fight_bout_test.gd, the frozen real-bout ruler - `seed=` does NOT change the
+bout, so it needs a second settled round (the `women` bout, or a seed that reaches the round script); (6) the corner-face
+scene and ruler. THEN the seat tasks of the audit's section G: CONTACT1, POPS1, REACH1, KNEE1.
 
-SETTINGS: S434 ran on Opus 5.5 high, ultracode on. Next: Opus 5.5 high (design reruns + the foundation); Fast off.
+## 4. THEN (board plan.next)
+TURNPRO1 design (the offer screen exists, scripts/ui/modals/ProOffer.gd; the comparison leans on fans, loyalty and the
+season target, none built: a design page + critics first, critics cost money: ask), WRESTLE0, RESULTLOOK1, VOICEWIRE1 (no
+brief yet), RANKSHOWUI (the result page already shows the rank tile; the Why card and the fighter page are left), KNOWN0
+wiring (needs state first: no fighter carries a knowledge dict), after the foundation: F2b GAIN14, F4 LOADWORK1, F9
+LIVESPLIT1. Ziva is down: start it when no Godot job runs.
+
+## Traps (S434 + S435)
+- A handover's "died" can be wrong: check file times before re-running anything.
+- The 3D fight has no stage headless. Every Godot start goes through `python ops/Tools/godot_slot.py run --who <s> -- ...`;
+  windowed ones through tools/hidden_desktop.py with `--log=<file>` (without it nothing the game prints is kept) and the
+  exe's FULL path.
+- The clock moves slower than it feels: all of S435 ran 21:00 to 21:40.
+- idle_guard calls a seat idle while its runner still tests and pushes; the dispatcher refuses the launch: queue the task
+  (`seat_dispatch.py queue --task <ID> --seat <seat>`). A re-run of a task needs a new id.
+- A seat's green tests do not mean the game compiles: load Main.tscn (or run the real-game still tool) before a collect.
+- Antigravity has no shell. The dispatcher launches plan.next rows with an OPEN brief whatever "after" says.
+- A critic's 7 on depth is not "he can read it". Never open Explorer or any window on his screens.
+
+SETTINGS: S435 ran on Fable 5.2. Next: Opus 5.5 high (ruler code in the fight scripts, collects); Fast off.

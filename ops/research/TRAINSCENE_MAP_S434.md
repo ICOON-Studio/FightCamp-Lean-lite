@@ -291,3 +291,58 @@ Order: TRS2, TRS3 (pure, cloud) -> TRS1 -> TRS4, TRS5, TRS6 -> TRS7, TRS8 -> TRS
 - Two choices here go against one critic each, on purpose: Stamina (not Cardio) and BASE then FIGHT WEEK (not PEAK). Both follow
   the game's code and the owner's own rulings (S429, S431, S428).
 - The bench moved out of the scene (BRIEF E2) to Playbook > Combos: one home for combinations, as both critics asked.
+
+## 15. v2 (his marks)
+His marks on `final_scene.png` (board feedback `ops/Feedback/2026-11-11-14/marked.png`), then two fresh critics on the first v2
+(newplayer clarity 6 / depth 7 / look 7; coach 6 / 7 / 7). Both said marks 1-5 and 7 fixed, mark 6 only half. This round fixes
+mark 6 and the words they could not read. Drawings (saved over v2): `docs/mockups/s434/train/v2_scene.png` (bout booked, the dock
+open on Monday's pads) and `v2_summary.png` (the Training tab, the SAME week, bout booked; `v2_summary.html#nobout` and
+`v2_scene.html#nobout` swap to the no-bout case). Shared: `v2.css`, `v2_dock.js`.
+
+THE ONE VOCABULARY (both pages; a legend line says it once, one colour each)
+| Word | Means | Colour | Replaces |
+|---|---|---|---|
+| STAMINA | the fitness stat the mornings build; the goal (62.4 -> 63.1) | gold | "Cardio" (never on these pages) |
+| FATIGUE | 0-100, how worn out she is: the day's cards add, each night's sleep takes 10 off, a rest day 6 more; red mark 80 = overworked (gains x0.6, injury risk x3) | orange | "tiredness", "fresher" |
+| ENERGY | 0-100 fuel at the first bell; every 10 Fatigue over 20 on the night = -3, a same-morning weigh-in = -2 | green | "fresh", "Tank", "fresh at the first bell" |
+Also: weight is blue (kg); a session's owner is one word on the card (You run it / Coach + lock / Alone -20% / Rest) and a
+pencil "Changed" marks your change; move tiers are MoveMastery.WORDS (New, Learning, Usable 30, Sharp 60, Signature 85; a
+slipping move is "Sharp 61" with a red arrow, never a sixth word "Fading"); the fighter page tabs are Routes.gd's (Overview,
+Training = today's Week tab, Fight prep, Playbook, History).
+
+| # | His mark | What changed |
+|---|---|---|
+| 1 | "THE HAND drag a card onto a pad night": "what is this for" | "YOUR MOVES - drag one onto a pad night to practise it"; each tier word is underlined and explains itself on hover (what it means, the ladder with its numbers) |
+| 2 | "SAT 28: THIS WEEK BUYS": "you mean week gains ?" | "THIS WEEK'S GAINS, Mon 16 to Sun 22": only this week, every stat now -> Sun 22 with the card it comes from (Stamina 62.4 -> 62.8 Wed, Sat; Footwork 57.0 -> 57.3 Tue; ...), the habit by name, the new move, and the one loss (Explosiveness, if the hand rests). Fight-night numbers live in the Energy and Weight panels only |
+| 3 | "tiredness": "fatigue" | Fatigue everywhere; the word "tiredness" is gone from both pages |
+| 4 | "WHY": "use : What it does" | WHAT IT DOES / BUILDS / COSTS in the dock on both pages |
+| 5 | the sore hand panel "can be designed a bit better" | A choice card: the problem in one line ("4 hand days in a row last week"), two big buttons, each with what it gives and its price in numbers: REST IT (Coach's pick) "the 3 glove cards go easy", price Explosiveness 61.0 -> 60.5; PUSH ON "as planned, Explosiveness holds", price "4 in 100 the hand goes: the bout is off, out 3 weeks". The three hand days carry a glove on their evening cards. Same words on the tab |
+| 6 | weight: how is it lost, the end-of-week number, "stamina or energey (i am confused what we use" | WEIGHT leads with three numbers: today 65.9, END OF THIS WEEK 65.4 (Sun 22), the scale 65.1 (Sat 28, limit 66.0, "0.9 kg spare"); a day-by-day line (13 dots, day letters, this week / fight week); BURN MOST: Wed roadwork -0.2, Sat intervals -0.1; each diet with its scale number (Hold 65.5 "0.5 spare: risky", Lean 65.1 Coach's pick, Cut 64.6 "gains -10%"). Every card that takes weight off says its kg, so the cards add up to the panel. STAMINA: each morning card shows its Stamina gain where it has one (no "+0" lines), the week total sits on the lane header (Stamina +0.4, Fatigue +39, -0.3 kg). FATIGUE has its own line under the mornings: a 0-100 meter per day at bedtime (53 51 61 65 58 54 38) with the 80 mark, so the card sums and the peak agree. ENERGY is a number and its sum only (100, -3 for Fatigue 30 on the night, -2 same-morning weigh-in = 95; Coach's week 96), the rule printed once |
+| 7 | the YOUR CHANGE bar: "not sure what that means where these numbers come from" | Three plain lines: what you changed ("Saturday: shadow boxing -> intervals. Every number here is on the Sat card"), the gains (Stamina +0.3 -> the goal is met, 63.1 by 13 Mar, Coach's week 62.8; 0.1 kg more off) and the costs (no Accuracy +0.1, Fatigue +3 more, still there on fight night: Energy 96 -> 95). One Undo, here only |
+
+THE CRITICS' OTHER WORDS, and what was done
+| They could not read | Now |
+|---|---|
+| THE LOAD in percentages (82%, 64%, 106%, 47%) | No percentages: each stop says what it is and its two results, under one header "goal · Fatigue peak": EASY all Light (close, 56), NORMAL Coach 1 Hard (met, 65), HARD on Footwork with a chooser (met, 76, injury 2 in 100), SHARPEN fight weeks (close, 50) |
+| "RULES 3 of 4 on" | "SAFETY RULES 3 of 4 on", the four listed in the dock |
+| "nothing fades" | gone |
+| You / Yours, the lock, "You x2", GOAL badges, "+0 Stamina" | one owner word per card; lock explained on hover ("Coach's key session: change it on purpose"); Wed evening "2 places"; GOAL badges gone (the gold Stamina line does it); +0 lines gone |
+| Fatigue numbers that did not add up | every card's Fatigue plus the night's -10 gives the bedtime line (Mon: 49 - 10 + 8 + 6 = 53) |
+| Energy card drawing a Fatigue line | removed; Energy shows only its number and sum |
+| Weight sum on this week only, 12-day horizon | split: this week to Sun 22 (65.4), fight week to Sat 28 (65.1); fight-week roadwork counted |
+| Ring numbers that could not be reached by the bout (Stamina 63, Footwork 58) | WHAT THE RING GETS is merged into THIS WEEK'S GAINS with real decimals (62.8, 57.3) |
+| The Coach's quote taking credit for your change | "My week: Stamina 62.8 by 13 Mar, close. Your Saturday makes it 63.1: met" |
+| "Explosiveness slips a little" | 61.0 -> 60.5 by 9 Mar (Explosiveness and Recovery are Attrs.LABEL stats) |
+| Who picks the sparring partner | Thu card "partner: Lucy" with a chooser; hover: Coach picks the closest in weight and style |
+| "LIVE · SAMIRA" | "PREVIEW · SAMIRA" |
+| "Coach runs Samira" button vs toggle | one toggle on both pages, "Coach plans her week", with its meaning (every Monday; your changes stay); beside it "Keep my changes" |
+| Four commit controls, two Undos | TAKE COACH'S WEEK (puts every card back to his), one Undo (the change bar), DONE |
+| "3 pad places, set on Club week" | "Samira has 3 of Coach's pad places this week" |
+| Age 18 with the nationals (19-40) | Age 19: still growing |
+| Tabs Condition / Character / Crowd | the fighter page's real tabs |
+| Summary dieting to 1 Mar with no bout; "mood +10" | the summary now shows the same booked week (scale Sat 28: 65.1 kg, Energy 95); mood +10 lives in the goal's hover only |
+| Same-day weigh-in vs the pack's "day before" | kept: amateur club shows weigh in the same morning; the pack line is the pro fight prep |
+
+NOT TAKEN: Raw for Learning (MoveMastery.WORDS is Learning since S429); a ghost row of next week's cards (no room; the road and
+the fight-week numbers cover it); stills labelled as cases (no designer words on a game screen: both pages now show one case).
+Every number above is the worked example of this drawing; the build reads them from the week run (TR T24).

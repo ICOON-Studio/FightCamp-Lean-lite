@@ -6659,7 +6659,7 @@
       "answer": "Just rename it 'gym sponsorship', the club pays",
       "note": null,
       "answered_at": "2026-11-11T16:11:22Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     }
   ]

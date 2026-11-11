@@ -106,14 +106,15 @@ func _run_setup(glb_puncher: String, glb_blocker: String, setup: String) -> void
 ## Fight path: block starts BLOCK_SET_S before contact (shared constant).
 ## Preview path: MoveStudio.defend timing (jab only).
 func _run_blocked(stg: Node3D, puncher: int, blocker: int, clip: String, setup: String, path: String) -> void:
-	if not (stg.boxers[puncher]["ap"] as AnimationPlayer).has_animation(clip):
-		return
-	if not (stg.boxers[blocker]["ap"] as AnimationPlayer).has_animation(BLOCK_CLIP):
+	# S435 (ANIM_AUDIT_S435 A10): a missing clip or a gap out of range is a failure, never a silent pass.
+	if not (stg.boxers[puncher]["ap"] as AnimationPlayer).has_animation(clip) or not (stg.boxers[blocker]["ap"] as AnimationPlayer).has_animation(BLOCK_CLIP):
+		failures += 1
+		print("FAIL SKIP %s %s %s: a clip is missing" % [setup, path, clip])
 		return
 	var gap: float = await _reset(stg)
-	# VOID check
 	if gap < GAP_LO or gap > GAP_HI:
-		print("VOID %s %s %s gap=%.3f" % [setup, path, clip, gap])
+		failures += 1
+		print("FAIL VOID %s %s %s gap=%.3f outside %.2f to %.2f" % [setup, path, clip, gap, GAP_LO, GAP_HI])
 		return
 	var move: String = MOVE_MAP.get(clip, "jab")
 	var punch_speed: float = BeatClips.speed(clip, move)
@@ -231,9 +232,13 @@ func _run_blocked(stg: Node3D, puncher: int, blocker: int, clip: String, setup: 
 ## CTRL_LANDED: punch lands (stage.land). to_face must be under CTRL_LANDED_BAR.
 func _run_ctrl_landed(stg: Node3D, puncher: int, blocker: int, clip: String, setup: String) -> void:
 	if not (stg.boxers[puncher]["ap"] as AnimationPlayer).has_animation(clip):
+		failures += 1
+		print("FAIL SKIP %s ctrl %s: the clip is missing" % [setup, clip])
 		return
 	var gap: float = await _reset(stg)
 	if gap < GAP_LO or gap > GAP_HI:
+		failures += 1
+		print("FAIL VOID %s ctrl %s gap=%.3f outside %.2f to %.2f" % [setup, clip, gap, GAP_LO, GAP_HI])
 		return
 	var move: String = MOVE_MAP.get(clip, "jab")
 	var punch_speed: float = BeatClips.speed(clip, move)

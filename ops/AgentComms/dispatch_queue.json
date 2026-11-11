@@ -1142,6 +1142,18 @@
    "title": "TASK INTROCORNER1 - QWEN (qwen3-coder) - the fight intro starts in the corners: each boxer shadow-boxes, bounces and celebrates the name call in a way of their own (the rope entry out)",
    "brief": "INTROCORNER1",
    "status": "queued"
+  },
+  {
+   "task": "DUESSUMS3C",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-11T21:14"
+  },
+  {
+   "task": "INTROCORNER2",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-11T21:32"
   }
  ]
 }

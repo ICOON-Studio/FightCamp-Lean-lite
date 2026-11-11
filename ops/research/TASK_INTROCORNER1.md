@@ -1,6 +1,6 @@
 # TASK INTROCORNER1 - QWEN (qwen3-coder) - the fight intro starts in the corners: each boxer shadow-boxes, bounces and celebrates the name call in a way of their own (the rope entry out)
 
-Status: OPEN (S434, Claude main). Discipline: boxing. Model: qwen3-coder (moved from agy: it has no shell for Godot runs; Claude reads the stills at collect).
+Status: DONE - NOT COLLECTED (S435: did not compile, intro cut to 6 s, no name call shown; re-run as INTROCORNER2). Was OPEN (S434, Claude main). Discipline: boxing. Model: qwen3-coder (moved from agy: it has no shell for Godot runs; Claude reads the stills at collect).
 Operator S434, on the ring entry: "the animation when mounting the ropes to enter is not very good from their initial pose to
 how high the lift their legs ropes no weight", then on the plan to start in the corners: "ok add some celebrating animations or
 shadow boxing during the introduction and do not make each fighters animations identical".

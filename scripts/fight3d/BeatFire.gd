@@ -13,6 +13,7 @@ const TellPose := preload("res://scripts/fight3d/TellPose.gd")
 const PunchRange := preload("res://scripts/fight3d/PunchRange.gd")
 const FightSfx := preload("res://scripts/audio/FightSfx.gd")
 const MoveStudio := preload("res://scripts/fight3d/MoveStudio.gd")
+const BeatTally := preload("res://scripts/fight3d/BeatTally.gd")
 ## A short punch's join: half-life, length (s). Between the strike's (0.06, 0.3) and the guard return's (0.1, 0.45).
 const SHORT_JOIN := Vector2(0.09, 0.35)
 
@@ -114,6 +115,7 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 		"tired": tired[who], "step": stepped[who], "roll": rng.randf()}
 	stepped[who] = false
 	var clip := BeatClips.punch(move, ctx, stage.has_move)
+	BeatTally.take(move, ctx, clip)   # S435: what this beat really got (BEAT_TALLY)
 	var sp := BeatClips.speed(clip, move)
 	var contact := BeatClips.contact(clip, float(Stage.CONTACT.get(move, Stage.CONTACT_S)))
 	var hand := str(BeatClips.contact_row(clip).get("hand", ""))
@@ -163,7 +165,9 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 		# S321: a punch refused (she is locked in a hit reaction) never shows, so its hit or defence must not either.
 		var punch_id: int = int(stage.boxers[who]["play_id"]) if stage.play(who, clip, sp, skip) else -1
 		if punch_id < 0:
+			BeatTally.add("refused")
 			return
+		BeatTally.add("started")
 		if short and skip > 0.0 and stage.boxers[who].get("js") != null:
 			# Started mid-swing, the clip's glove is up to a metre from the guard's: a slower join (S319 smooth_probe:
 			# the strike join's 0.06 s half-life added ~50 kinks/min up close) eases the glove onto the swing.
@@ -179,6 +183,9 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 				stage.arm_block(who, clip, at, contact)
 			else:
 				stage.aim_height(who, clip, at, contact)
+			BeatTally.add("aim_block" if is_block else "aim_height")
+		elif land != "lands":
+			BeatTally.add("aim_none")
 		var tree: SceneTree = v.get_tree()
 		if punch_id >= 0 and land != "lands" and not stopped:
 			# S390: at the glove's contact, and only for a punch that shows. A slip or weave is a miss, not a block.
@@ -196,6 +203,7 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 			# S302: the glove is carried onto her face past the guard, and the contact holds, snaps and nudges.
 			# (FIGHT9: no half-speed close-up on the big shot - Argon read it as slow motion; S376 replays knockdowns.)
 			stage.land(who, clip, move == "body_hook" or clip.contains("kidney"), at, contact)
+			BeatTally.add("aim_land")
 			if bool(b.get("big", false)):
 				FightSfx.big_shot_ahead(at)
 			var hit := BeatClips.react(move, bool(b.get("knockback", false)), stage.has_move, rng.randf(), bool(b.get("big", false)))

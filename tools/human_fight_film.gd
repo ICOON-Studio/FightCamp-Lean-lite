@@ -8,11 +8,14 @@ extends SceneTree
 ## in a captured take, a punch or a reaction is never read. This one reads every in-round frame.
 ##   python tools/hidden_desktop.py run --timeout=600 <godot.exe> --path . --windowed --resolution 1280x720 --fixed-fps 30 \
 ##       --write-movie <out>.avi --audio-driver Dummy --script res://tools/human_fight_film.gd -- <out_dir> [women] [secs=60] [seed=7] [wide]
-## Headless (no film, the same log): --headless --fixed-fps 30 --script res://tools/human_fight_film.gd -- <out_dir> ...
+## No film, the same log: the same line without --write-movie. NOT --headless (S435: the 3D fight only exists with a
+## picture; headless the view has no stage and this tool stops with a script error).
+## Prints BEAT_TALLY and BEAT_FALLBACKS (BeatTally.gd) for the bout: what each punch beat really got.
 
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 const FightIntro := preload("res://scripts/fight3d/FightIntro.gd")
 const FastDraw := preload("res://tools/fast_draw.gd")
+const BeatTally := preload("res://scripts/fight3d/BeatTally.gd")
 const BONES := ["Hips", "Head", "LeftUpperLeg", "RightUpperLeg", "LeftLowerLeg", "RightLowerLeg", "LeftFoot", "RightFoot", "LeftToes", "RightToes", "LeftHand", "RightHand"]
 
 var main: Node
@@ -44,6 +47,7 @@ func _initialize() -> void:
 	root.add_child(main)
 	for i in 4:
 		await process_frame
+	BeatTally.reset()
 	print("HUMANFIGHT jump ", TestJump.run(main, "fight" if args.has("women") else "men_fight"), " seed ", sd, " args ", args)
 	seed(sd)   # again: the career's days before the bout drew from it
 	main.act("fightstep", "start")
@@ -96,6 +100,8 @@ func _initialize() -> void:
 		_frame += 1
 		_row(view)
 	_log.close()
+	print(BeatTally.line())   # S435: what the punch beats of this bout really got
+	print(BeatTally.fallback_line())
 	print("HUMANFIGHT filmed frames ", _frame - start, " fight t ", float(view.t) if is_instance_valid(view) else -1.0)
 	quit(0)
 

@@ -144,10 +144,10 @@
 		"reach_m": 0.214
 	},
 	"pro_left_uppercut": {
-		"contact_s": 0.0,
+		"contact_s": 0.733,
 		"hand": "LeftHand",
-		"length_s": 1.967,
-		"reach_m": 0.529
+		"length_s": 1.6,
+		"reach_m": 0.57
 	},
 	"pro_left_uppercut_ft": {
 		"contact_s": 0.533,

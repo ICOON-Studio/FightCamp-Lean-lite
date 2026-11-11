@@ -32,7 +32,24 @@ const CLIPS := {
 	"stand": ["af_idle_foldarms", 45.0, false, false],
 	"walk": ["rk_loc_walk", 45.0, true, false],
 	"walk_back": ["rk_loc_walk", 135.0, true, false],
+	# S429 workouts. Bag work faces away (135), the same angle as jab_back. Floor and rest face the room (45).
+	"bag_combo": ["pro_combo_punch", 135.0, false, true],
+	"bag_body": ["body_hook", 135.0, true, true],
+	"bag_upper": ["rear_uppercut", 135.0, true, true],
+	"guard_move": ["pro_block_loop", 45.0, false, true],
+	"rest_drink": ["af_drink", 45.0, false, false],
+	"rest_talk": ["af_talk", 45.0, false, false],
+	"stretch": ["af_crouch_idle", 45.0, false, false],
+	"shadow": ["slip", 45.0, false, true],
 }
+## Loop window in seconds where the whole clip does not close. Sampled the same way as a full clip: the end pose is the
+## point the next frame would land on, so it is not drawn. Numbers from a pose match on Hips, Head, both hands, both feet.
+const SPAN := {
+	"bag_body": Vector2(0.374, 1.373),    # full body_hook pose delta 0.81; this window 0.41
+	"bag_upper": Vector2(0.250, 1.185),   # full rear_uppercut pose delta 0.81; this window 0.38
+}
+## shadow: slip, then pull, then a jab. Each piece is [anim, from, to, frames]. 5+5+6 = 16.
+const SHADOW := [["slip", 0.0, 0.560, 5], ["pull", 0.0, 0.560, 5], ["jab", 0.0, 0.667, 6]]
 const BLUE_STEMS := ["02", "08", "12", "14", "17", "20", "23"]   # some vests blue, so a busy gym is not one red team
 const CAM_PITCH_DEG := 30.0  # looking down
 const CAM_DIST := 6.0
@@ -48,9 +65,12 @@ func _initialize() -> void:
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUT))
 	_setup_scene()
 	var stems: Array = STEMS.duplicate()
+	var only: Array = []
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("stems="):
 			stems = a.substr(6).split(",")
+		elif a.begins_with("clips="):
+			only = a.substr(6).split(",")
 	var results: Array = []
 	for stem in stems:
 		var glb: String = MH_DIR.path_join(str(stem) + ".glb")
@@ -74,6 +94,8 @@ func _initialize() -> void:
 		FightClips.load_into(ap, skel)
 		ap.speed_scale = 0.0   # a clip runs on real time; every frame here is placed by hand
 		for clip_name in CLIPS:
+			if not only.is_empty() and not only.has(str(clip_name)):
+				continue
 			var row: Array = CLIPS[clip_name]
 			if not ap.has_animation(str(row[0])):
 				push_error("missing clip %s (%s) on %s" % [clip_name, row[0], stem])
@@ -82,7 +104,11 @@ func _initialize() -> void:
 			_camera_at(float(row[1]))
 			for g in gloves.gloves.values():
 				g.visible = bool(row[3])
-			var strip := await _render_strip(body, skel, ap, str(row[0]), bool(row[2]))
+			var strip: Image
+			if str(clip_name) == "shadow":
+				strip = await _render_parts(body, skel, ap, SHADOW, false)
+			else:
+				strip = await _render_strip(body, skel, ap, str(row[0]), bool(row[2]), SPAN.get(str(clip_name), Vector2(-1, -1)))
 			var margin := _check_strip(strip)
 			if margin < 0.0:
 				push_error("strip %s_%s failed self-check (worst margin %.1f px)" % [stem, clip_name, margin])
@@ -95,7 +121,8 @@ func _initialize() -> void:
 			results.append({"stem": stem, "clip": clip_name, "w": strip.get_width(), "h": strip.get_height(), "bytes": sz, "margin": margin})
 		body.queue_free()
 		await process_frame
-	_write_result_doc(results)
+	if only.is_empty():
+		_write_result_doc(results)
 	print("HUBSPRITES done strips=%d failures=%d" % [results.size(), _failures])
 	quit(0 if _failures == 0 else 1)
 
@@ -131,13 +158,32 @@ func _setup_scene() -> void:
 		_vp.add_child(light)
 
 
-func _render_strip(body: Node3D, skel: Skeleton3D, ap: AnimationPlayer, anim_name: String, pin_each: bool) -> Image:
-	var strip := Image.create(FRAME_W * N_FRAMES, FRAME_H, false, Image.FORMAT_RGBA8)
-	var span: Vector2 = _stride(skel, ap, anim_name) if pin_each else Vector2(0.0, maxf(ap.get_animation(anim_name).length, 0.1))
-	var anchor := Vector2.INF
+func _render_strip(body: Node3D, skel: Skeleton3D, ap: AnimationPlayer, anim_name: String, pin_each: bool, span_override: Vector2 = Vector2(-1, -1), nudge: Vector2i = Vector2i.ZERO) -> Image:
+	var span := span_override if span_override.x >= 0.0 else (_stride(skel, ap, anim_name) if pin_each else Vector2(0.0, maxf(ap.get_animation(anim_name).length, 0.1)))
+	var parts: Array = []
 	for i in N_FRAMES:
-		ap.play(anim_name)
-		ap.seek(span.x + float(i) / float(N_FRAMES) * (span.y - span.x), true)
+		parts.append([anim_name, span.x + float(i) / float(N_FRAMES) * (span.y - span.x)])
+	return await _paint(body, skel, ap, parts, pin_each, nudge)
+
+
+## parts: [anim, time] per frame, or the SHADOW rows expanded by the caller. 16 frames, hips on one floor line.
+func _render_parts(body: Node3D, skel: Skeleton3D, ap: AnimationPlayer, rows: Array, pin_each: bool, nudge: Vector2i = Vector2i.ZERO) -> Image:
+	var parts: Array = []
+	for row in rows:
+		var count := int(row[3])
+		for i in count:
+			var t: float = float(row[1]) + float(i) / float(count) * (float(row[2]) - float(row[1]))
+			parts.append([str(row[0]), t])
+	return await _paint(body, skel, ap, parts, pin_each, nudge)
+
+
+func _paint(body: Node3D, skel: Skeleton3D, ap: AnimationPlayer, parts: Array, pin_each: bool, nudge: Vector2i = Vector2i.ZERO) -> Image:
+	var strip := Image.create(FRAME_W * N_FRAMES, FRAME_H, false, Image.FORMAT_RGBA8)
+	var anchor := Vector2.INF
+	for i in parts.size():
+		var part: Array = parts[i]
+		ap.play(str(part[0]))
+		ap.seek(float(part[1]), true)
 		body.position = Vector3.ZERO
 		var h := skel.global_transform * skel.get_bone_global_pose(skel.find_bone("Hips"))
 		if anchor == Vector2.INF or pin_each:
@@ -150,7 +196,52 @@ func _render_strip(body: Node3D, skel: Skeleton3D, ap: AnimationPlayer, anim_nam
 		img.fix_alpha_edges()
 		img.resize(FRAME_W, FRAME_H, Image.INTERPOLATE_LANCZOS)
 		strip.blit_rect(img, Rect2i(0, 0, FRAME_W, FRAME_H), Vector2i(i * FRAME_W, 0))
-	return strip
+	return _fit(strip)
+
+
+## Slide every frame by the same amount so a wide punch stays off the side and a crouch's feet sit on the jab line (y=111).
+func _fit(strip: Image) -> Image:
+	var left := 999
+	var right := 999
+	var top := 999
+	var bottom := -1
+	for f in N_FRAMES:
+		var used := strip.get_region(Rect2i(f * FRAME_W, 0, FRAME_W, FRAME_H)).get_used_rect()
+		if used.size.x <= 0:
+			continue
+		left = mini(left, used.position.x)
+		right = mini(right, FRAME_W - used.end.x)
+		top = mini(top, used.position.y)
+		bottom = maxi(bottom, used.end.y - 1)
+	var dx := 0
+	if left < 2 and right >= 2:
+		dx = mini(2 - left, right - 2)
+	elif right < 2 and left >= 2:
+		dx = -mini(2 - right, left - 2)
+	var dy := 0
+	if bottom > 111:
+		dy = 111 - bottom
+	if top + dy < 2:
+		dy = 2 - top
+	if dx == 0 and dy == 0:
+		return strip
+	var out := Image.create(strip.get_width(), strip.get_height(), false, Image.FORMAT_RGBA8)
+	for f in N_FRAMES:
+		var frame := strip.get_region(Rect2i(f * FRAME_W, 0, FRAME_W, FRAME_H))
+		out.blit_rect(_slide(frame, Vector2i(dx, dy)), Rect2i(0, 0, FRAME_W, FRAME_H), Vector2i(f * FRAME_W, 0))
+	print("HUBSPRITE fit dx=%d dy=%d left=%d right=%d top=%d bottom=%d" % [dx, dy, left, right, top, bottom])
+	return out
+
+
+func _slide(img: Image, d: Vector2i) -> Image:
+	var out := Image.create(FRAME_W, FRAME_H, false, Image.FORMAT_RGBA8)
+	var x0 := maxi(0, d.x)
+	var y0 := maxi(0, d.y)
+	var x1 := mini(FRAME_W, d.x + FRAME_W)
+	var y1 := mini(FRAME_H, d.y + FRAME_H)
+	if x1 > x0 and y1 > y0:
+		out.blit_rect(img, Rect2i(x0 - d.x, y0 - d.y, x1 - x0, y1 - y0), Vector2i(x0, y0))
+	return out
 
 
 ## One whole stride of a walk (from, to in seconds): between two passes of the left foot going in front of the right, past
@@ -194,11 +285,16 @@ func _check_strip(strip: Image) -> float:
 		var x0 := f * FRAME_W
 		for corner in [Vector2i(x0, 0), Vector2i(x0 + FRAME_W - 1, 0), Vector2i(x0, FRAME_H - 1), Vector2i(x0 + FRAME_W - 1, FRAME_H - 1)]:
 			if strip.get_pixelv(corner).a > 0.05:
+				print("CHECK corner frame %d px %s a=%.2f" % [f, corner - Vector2i(x0, 0), strip.get_pixelv(corner).a])
 				return -1.0
 		var used := strip.get_region(Rect2i(x0, 0, FRAME_W, FRAME_H)).get_used_rect()
 		if used.size.x <= 0:
+			print("CHECK empty frame %d" % f)
 			return -1.0
-		worst = minf(worst, minf(minf(float(used.position.y), float(FRAME_H - used.end.y)), minf(float(used.position.x), float(FRAME_W - used.end.x))))
+		var margin := minf(minf(float(used.position.y), float(FRAME_H - used.end.y)), minf(float(used.position.x), float(FRAME_W - used.end.x)))
+		if margin < 1.0:
+			print("CHECK tight frame %d margin %.1f rect %s" % [f, margin, used])
+		worst = minf(worst, margin)
 	return worst - 1.0 if worst <= 0.0 else worst
 
 

@@ -102,60 +102,6 @@
    "note": "S368 seat_dispatch: qwen exit 0, no commit on qwen/r11c (stray: -); output E:\\FightCamp\\wt\\R11C_dispatch_out.txt",
    "finished": "2026-11-11T14:13"
   },
-  "KNOWN0": {
-   "agent": "qwen",
-   "id": "KNOWN0",
-   "title": "TASK KNOWN0 - QWEN (qwen3-coder) - Knowledge.gd: when a group is known, and the five steps of how well you know a fighter (pure rule + test)",
-   "status": "landed",
-   "started": "2026-11-11T17:41",
-   "eta": "2026-11-11T19:31",
-   "branch": "qwen/known0",
-   "worktree": "E:/FightCamp/wt/LEAN_KNOWN0",
-   "wt": "E:/FightCamp/wt/LEAN_KNOWN0",
-   "brief": "ops/research/TASK_KNOWN0.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/KNOWN0_dispatch_out.txt",
-   "match": "seat_dispatch.py run known0",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/KNOWN0_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/KNOWN0_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/KNOWN0_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 51312,
-    "seat_pid": 6208
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #207",
-   "finished": "2026-11-11T17:52",
-   "pr": 207,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/knowledge_test.gd",
-     "ok": true,
-     "last": "KNOWLEDGE failures=0 (24 checks)"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/knowledge_test.gd",
-     "ok": true,
-     "last": "KNOWLEDGE failures=0 (24 checks)"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/no_pronoun_test.gd",
-     "ok": true,
-     "last": "NO_PRONOUN failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "RANKSHOW1": {
    "agent": "qwen",
    "id": "RANKSHOW1",
@@ -212,33 +158,6 @@
    "note": "S368 seat_dispatch: agy exit 0, no commit on agy/duessums3b (stray: -); output E:\\FightCamp\\wt\\DUESSUMS3B_dispatch_out.txt",
    "finished": "2026-11-11T17:43"
   },
-  "HUMANFIGHT2B": {
-   "agent": "cursor",
-   "id": "HUMANFIGHT2B",
-   "title": "TASK HUMANFIGHT2B - CURSOR (Grok 4.7 High) - the stepping route without pops, with one-frame contact, and no fudges",
-   "status": "running",
-   "started": "2026-11-11T17:45",
-   "eta": "2026-11-11T19:35",
-   "branch": "cursor/humanfight2b",
-   "worktree": "E:/FightCamp/wt/LEAN_HUMANFIGHT2B",
-   "wt": "E:/FightCamp/wt/LEAN_HUMANFIGHT2B",
-   "brief": "ops/research/TASK_HUMANFIGHT2B.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/HUMANFIGHT2B_dispatch_out.txt",
-   "match": "seat_dispatch.py run humanfight2b",
-   "model": "grok-4.7-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/HUMANFIGHT2B_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/HUMANFIGHT2B_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/HUMANFIGHT2B_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 10516,
-    "seat_pid": 46512
-   },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
-  },
   "DUESSUMS1": {
    "agent": "qwen",
    "id": "DUESSUMS1",
@@ -266,30 +185,288 @@
    },
    "note": "S434: a re-run of S431 Goose work (issue 193, read in bc473607); stopped by Claude, brief marked CLOSED"
   },
-  "CORNERFACE2": {
+  "CALLSPREAD1": {
    "agent": "qwen",
-   "id": "CORNERFACE2",
-   "title": "TASK CORNERFACE2 - QWEN (qwen3-coder) - the corner minute keeps the boxer's face in the open part of the screen, measured on the real bodies",
-   "status": "running",
-   "started": "2026-11-11T18:18",
-   "eta": "2026-11-11T20:08",
-   "branch": "qwen/cornerface2",
-   "worktree": "E:/FightCamp/wt/LEAN_CORNERFACE2",
-   "wt": "E:/FightCamp/wt/LEAN_CORNERFACE2",
-   "brief": "ops/research/TASK_CORNERFACE2.md",
+   "id": "CALLSPREAD1",
+   "title": "TASK CALLSPREAD1 - QWEN (qwen3-coder) - a corner call's strength rises point by point from 56 to 62, not in one jump at 62 (one function + its test)",
+   "status": "landed",
+   "started": "2026-11-11T19:42",
+   "eta": "2026-11-11T21:32",
+   "branch": "qwen/callspread1",
+   "worktree": "E:/FightCamp/wt/LEAN_CALLSPREAD1",
+   "wt": "E:/FightCamp/wt/LEAN_CALLSPREAD1",
+   "brief": "ops/research/TASK_CALLSPREAD1.md",
    "repo": "FightCamp-Lean",
    "where": "pc",
-   "log": "E:/FightCamp/wt/CORNERFACE2_dispatch_out.txt",
-   "match": "seat_dispatch.py run cornerface2",
+   "log": "E:/FightCamp/wt/CALLSPREAD1_dispatch_out.txt",
+   "match": "seat_dispatch.py run callspread1",
    "model": "qwen3-coder",
    "dispatch": {
-    "prompt": "E:/FightCamp/wt/CORNERFACE2_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/CORNERFACE2_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/CORNERFACE2_dispatch_runner.log",
+    "prompt": "E:/FightCamp/wt/CALLSPREAD1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CALLSPREAD1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CALLSPREAD1_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 15128,
+    "seat_pid": 52916
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/8 PASS; PR #211",
+   "finished": "2026-11-11T20:03",
+   "pr": 211,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/call_spread_test.gd",
+     "ok": true,
+     "last": "CALL_SPREAD checks=6 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/exchanges_test.gd",
+     "ok": false,
+     "last": "EXCHANGES failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/call_evidence_test.gd",
+     "ok": true,
+     "last": "CALL_EVIDENCE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/stripe_call_test.gd",
+     "ok": true,
+     "last": "STRIPE_CALL PASS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_why_test.gd",
+     "ok": true,
+     "last": "FIGHT_WHY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_bots_test.gd",
+     "ok": true,
+     "last": "PLAN_BOTS checks=26 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bout_read_test.gd",
+     "ok": true,
+     "last": "BOUT_READ PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_feel_test.gd",
+     "ok": true,
+     "last": "FIGHT_FEEL failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "GYMLIFE1": {
+   "agent": "cursor",
+   "id": "GYMLIFE1",
+   "title": "TASK GYMLIFE1 - CURSOR (Grok 4.7 High) - the gym picture comes alive: real workouts at each piece of kit, and the club's fighters at the session they have today",
+   "status": "landed",
+   "started": "2026-11-11T20:11",
+   "eta": "2026-11-11T22:01",
+   "branch": "cursor/gymlife1",
+   "worktree": "E:/FightCamp/wt/LEAN_GYMLIFE1",
+   "wt": "E:/FightCamp/wt/LEAN_GYMLIFE1",
+   "brief": "ops/research/TASK_GYMLIFE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/GYMLIFE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run gymlife1",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/GYMLIFE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/GYMLIFE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/GYMLIFE1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 47920,
+    "seat_pid": 43808
+   },
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 7/7 PASS; PR #212; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache, docs/mockups/s429/gymlife1/gym_0.png, docs/mockups/s429/gymlife1/gym_1.png, docs/mockups/s429/gymlife1/gym_2.png",
+   "finished": "2026-11-11T21:07",
+   "pr": 212,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/gym_workouts_test.gd",
+     "ok": true,
+     "last": "GYM_WORKOUTS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/gym_people_test.gd",
+     "ok": true,
+     "last": "GYM_PEOPLE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/gym_floor_people_test.gd",
+     "ok": true,
+     "last": "GYM_FLOOR_PEOPLE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/gym_hub_test.gd",
+     "ok": true,
+     "last": "GYM_HUB failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/gym_places_test.gd",
+     "ok": true,
+     "last": "GYM_PLACES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "INTROCORNER1": {
+   "agent": "qwen",
+   "id": "INTROCORNER1",
+   "title": "TASK INTROCORNER1 - QWEN (qwen3-coder) - the fight intro starts in the corners: each boxer shadow-boxes, bounces and celebrates the name call in a way of their ",
+   "status": "landed",
+   "started": "2026-11-11T20:56",
+   "eta": "2026-11-11T22:46",
+   "branch": "qwen/introcorner1",
+   "worktree": "E:/FightCamp/wt/LEAN_INTROCORNER1",
+   "wt": "E:/FightCamp/wt/LEAN_INTROCORNER1",
+   "brief": "ops/research/TASK_INTROCORNER1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/INTROCORNER1_dispatch_out.txt",
+   "match": "seat_dispatch.py run introcorner1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/INTROCORNER1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/INTROCORNER1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/INTROCORNER1_dispatch_runner.log",
     "source": "command line",
     "brief_copied": true,
-    "runner_pid": 53824,
-    "seat_pid": 19044
+    "runner_pid": 32080,
+    "seat_pid": 50728
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 8/10 PASS; PR #213",
+   "finished": "2026-11-11T21:34",
+   "pr": 213,
+   "checks": [
+    {
+     "kind": "COMPILE",
+     "script": "Main.tscn boot",
+     "ok": false,
+     "last": "res://scripts/fight3d/FightIntro.gd:81: Too few arguments for \"new()\" call. Expected at least 2 but received 0."
+    },
+    {
+     "kind": "RED_TEST",
+     "script": "tests/intro_style_test.gd",
+     "ok": false,
+     "last": "INTRO_STYLE checks=83 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_ropes_entry_test.gd",
+     "ok": true,
+     "last": "ring_ropes_entry_test: PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_warm_test.gd",
+     "ok": true,
+     "last": "CORNER_WARM_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_polish_test.gd",
+     "ok": true,
+     "last": "FIGHT_POLISH checks=9 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_flow_test.gd",
+     "ok": true,
+     "last": "PASS fight_flow_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hud_shown_test.gd",
+     "ok": true,
+     "last": "hud_shown_test failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_lens_test.gd",
+     "ok": true,
+     "last": "CORNER_LENS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/theatre_test.gd",
+     "ok": true,
+     "last": "THEATRE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "GYMLIFE2": {
+   "agent": "cursor",
+   "id": "GYMLIFE2",
+   "title": "TASK GYMLIFE2 - CURSOR (Grok 4.7 High) - the gym picture's three leftover faults: the shadow strip pops, walks cut corners, a person stands under a button",
+   "status": "running",
+   "started": "2026-11-11T21:11",
+   "eta": "2026-11-11T23:01",
+   "branch": "cursor/gymlife2",
+   "worktree": "E:/FightCamp/wt/LEAN_GYMLIFE2",
+   "wt": "E:/FightCamp/wt/LEAN_GYMLIFE2",
+   "brief": "ops/research/TASK_GYMLIFE2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/GYMLIFE2_dispatch_out.txt",
+   "match": "seat_dispatch.py run gymlife2",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/GYMLIFE2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/GYMLIFE2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/GYMLIFE2_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 51424,
+    "seat_pid": 4956
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }

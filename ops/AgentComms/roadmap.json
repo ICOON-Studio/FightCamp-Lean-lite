@@ -5,12 +5,17 @@
  "now": {
   "id": "S434",
   "owner": "claude",
-  "updated": "2026-11-11",
-  "summary": "S434 (2026-11-11): main's red tests fixed (the week plan counts a rest morning's Cardio; head_coach's fighter starts over the limit; guard_knee goes to HUMANFIGHT2B's thigh turn). Collected after blind review + skeptic: STANDDOWN1 (and wired: after a bout no sparring for 5/10/21 days, news says until when), CEIL14, DUESWIRE1 (with fixes: honest junior news, the card keeps the roll's dues and odds, golden step on the game's day step). PROTABLES1 on main: the 6.3% was seed luck (probe 8 seeds x 20 years, old tables alone reach 7.4%); world_years reads the spread. Foundation branch rebased and being fixed by workflow wf_91da691c-70b. CI limit 24 -> 32 min. A DUESSUMS1 re-run stopped. His Q-190: the paid seat's name and payer (he said no to a local sponsor paying the boxer). EVENING: KNOWN0 + RIBHURT1 collected, CORNERFACE2 + HUMANFIGHT2B rejected (animation audit next); training drawn as its own scene (his marks -> v2), weight map started, turning-pro / gym sponsorship / wrestling decisions, voices cast, Fab pack checked, CC clinch clips for video mocap.",
-  "last_working_commit": "HEAD",
-  "verified_playable": "Builds/FightCamp.exe 18:16 runs 300 frames headless with no script error; golden_path walks the dues step to the intake card",
-  "incomplete_blocked": "In flight: workflow wf_91da691c-70b (foundation fixes on claude/foundation-s433, worktree E:/FightCamp/wt/LEAN_FOUNDATION_S433); KNOWN0 review wf_df25220f-111 (PR 207); seats HUMANFIGHT2B cursor, DUESSUMS3B agy, CORNERFACE2 qwen.",
-  "next_action": "0) get_usage. 1) Re-run the three S434 design/foundation workflows (NEXT_SESSION_PROMPT section 1: training v2 with mark 8, the weight map, the foundation fixes). 2) Collect INTROCORNER1 / GYMLIFE1 / CALLSPREAD1 (after the foundation) through the review workflow. 3) Animation audit before any HUMANFIGHT re-brief. 4) TURNPRO1, GYMSPONSOR1, WRESTLE0, RESULTLOOK1 designs."
+  "updated": "2026-11-11 21:40 S435",
+  "summary": "S435 (2026-11-11 late): the S434 session was still open and its three workflows were alive (training v2 finished and sent by S434; weight map round 2 and the foundation's punch-start round 2 still running at 21:24): nothing re-run. Q-190 done: 'paid seat' is 'gym sponsorship' in the four build maps. GYMLIFE1 (Cursor) collected after its stills: the gym picture's people work out, your fighters at today's kit; GYMLIFE2 launched (shadow pop, walks round the kit, nobody under a button). INTROCORNER1 (Qwen) NOT collected: it did not compile and cut the intro to 6 s with no name call (read on stills with the new tools/intro_shots.gd); INTROCORNER2 queued. PR 211 CALLSPREAD1 not collectable as is (a wrong call costs less). ANIMATION: audit written (ANIM_AUDIT_S435.md: the seats wrote their own rulers, no test plays a real bout); D0 started: BEAT_TALLY (one bout: 20 of 22 special punches fall back to a plain clip), the lead uppercut's contact measured, skipped rows now fail (head_aim reads 3 of 12 rows, block_meet 1 of 21).",
+  "last_working_commit": "9a338601",
+  "verified_playable": "Builds/FightCamp.exe exported 21:32 and smoke-run 35 s on the hidden desktop with no script error; the gym picture read on Cursor's three stills. Not played by the operator yet.",
+  "incomplete_blocked": "S434's weight map and foundation workflows (alive at 21:24). INTROCORNER2 and DUESSUMS3C queued for Qwen; GYMLIFE2 running on Cursor. head_aim_test and block_meet_test are red on main (they read almost nothing: ruler repair is next). Miro: about 22 old surplus cards in the 'Where we are' frame wait for his yes to delete.",
+  "next_action": "0) get_usage; look at the S434 workflow folders' file times before touching the weight map or the foundation. 1) Collect GYMLIFE2 (stills) and INTROCORNER2 (only after tools/intro_shots.gd shows the name calls). 2) Animation D0, in the order of NEXT_SESSION_PROMPT section 3 (rulers hold their gap; short_m + the re-measured contact file with a hit-gap before/after; human_feet on the default route; layer-order test; the frozen real-bout ruler; the corner-face ruler), then the seat tasks CONTACT1, POPS1, REACH1, KNEE1. 3) After the foundation lands: PR 211 with a fix that keeps 'wrong calls lose clearly more'. 4) TURNPRO1, WRESTLE0, RESULTLOOK1 designs (critics cost money: ask first).",
+  "next_acceptance": "GYMLIFE2 and INTROCORNER2 collected only after Claude reads their stills (the intro's name calls visible in tools/intro_shots.gd); head_aim_test and block_meet_test read every row (no VOID) before any animation seat task is briefed; the operator plays the build and looks at the gym picture.",
+  "awaiting_operator": [
+   "Miro 'Where we are' frame: may the about 22 old surplus cards be deleted? (asked in chat, end of S435)",
+   "Training scene v2 (sent by S434): his answer or pick"
+  ]
  },
  "next": "MECHANICS FIRST (operator S422 OK). 1) Collect KDFIX2 (the ruler only) and LEGTREMBLE3. 2) Brief FIGHTDISPLAY1 to Cursor from docs/mockups/s422/fight_10_simvet.html (his Q-174 pick: 'Use the veteran's drawing'); data check FIGHT_DISPLAY_DECISION_S419.md s7. 3) R28 Cutman: write the DESIGN MAP (what the player decides, on which screen, what it changes, the numbers, real-world cut rules) as one page + a picture, ask him on the board, then brief the pure module to Qwen/Goose. 4) R25 the same, after checking head punches count. 5) Q-173 dues: design map only. Menus wait unless a mechanic needs them.",
  "assessment": {
@@ -1749,6 +1754,12 @@
    "date": "2026-11-11",
    "title": "main's red tests fixed; STANDDOWN1 (wired), CEIL14, DUESWIRE1 collected after blind review; pro tables on main (seed luck measured); foundation rework running | evening: KNOWN0, RIBHURT1; training scene drawn; weight map; voices cast",
    "commit": "1e336b04"
+  },
+  {
+   "id": "S435",
+   "date": "2026-11-11",
+   "title": "gym sponsorship renamed (Q-190); GYMLIFE1 collected, GYMLIFE2 launched; INTROCORNER1 sent back (did not compile); animation audit + BEAT_TALLY, the punch rulers shown to read almost nothing; the S434 workflows were alive, nothing re-run",
+   "commit": "9a338601"
   }
  ],
  "blocked_on_operator": [],
@@ -4667,7 +4678,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-11 20:11 board_sync",
+  "updated": "2026-11-11 21:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4811,38 +4822,29 @@
    "RANKSHOW1": "The ladder (pure module + tests), then the rank on every fight card, result and Why",
    "HOSTSHOW1": "Host your own club show (small promotion): design map first, the show is the unit of Ask-for-a-fight",
    "R37": "Ask for a fight: the show is the unit, a compare tab beside her boxer while searching for an opponent",
-   "RANKSHOWUI": "Rank earned shown after every fight (result, Why, fighter page)"
+   "RANKSHOWUI": "Rank earned shown after every fight (result, Why, fighter page)",
+   "GYMLIFE2": "Gym picture: smooth shadow boxing, walks round the kit, nobody under a button",
+   "INTROCORNER2": "Fight intro from the corners: each name call shown, never alike"
   },
   "working_now": [
    {
-    "title": "Training as its own scene - v2 with his 8 marks (one vocabulary: Stamina, Energy, Fatigue)",
-    "who": "claude",
-    "started": "2026-11-11T20:05",
-    "run": "TRAINSCENE1"
-   },
-   {
-    "title": "Weight mechanic made stronger: design map, drawings, two critics 7+",
-    "who": "claude",
-    "started": "2026-11-11T20:15",
-    "run": "WEIGHT1"
-   },
-   {
-    "title": "Foundation rework (Cardio fade, Tank, punch start) on its branch",
-    "who": "claude",
-    "started": "2026-11-11T18:05",
-    "run": "FOUNDATION"
-   },
-   {
-    "title": "TASK INTROCORNER1 - QWEN - the fight intro from the corners, each boxer their own way",
+    "title": "TASK CALLSPREAD1 - QWEN (qwen3-coder) - a corner call's strength rises point by point from 56 to 62, not in one jump at 62 (one function + its test)",
     "who": "qwen",
-    "started": "2026-11-11T20:25",
+    "started": "2026-11-11T19:42",
+    "run": "CALLSPREAD1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK INTROCORNER1 - QWEN (qwen3-coder) - the fight intro starts in the corners: each boxer shadow-boxes, bounces and celebrates the name call in a way of their ",
+    "who": "qwen",
+    "started": "2026-11-11T20:56",
     "run": "INTROCORNER1"
    },
    {
-    "title": "TASK GYMLIFE1 - CURSOR - people work out in the gym",
+    "title": "TASK GYMLIFE2 - CURSOR (Grok 4.7 High) - the gym picture's three leftover faults: the shadow strip pops, walks cut corners, a person stands under a button",
     "who": "cursor",
-    "started": "2026-11-11T20:11",
-    "run": "GYMLIFE1"
+    "started": "2026-11-11T21:11",
+    "run": "GYMLIFE2"
    }
   ],
   "next": [
@@ -4859,10 +4861,16 @@
     "after": "FOUNDATION"
    },
    {
-    "id": "INTROCORNER1",
-    "who": "antigravity",
-    "title": "Fight intro from the corners (his ask): the rope entry out (kept for a proper redo later), each boxer shadow-boxes / bounces / celebrates the name call their own way, never identical",
-    "after": "DUESSUMS3B"
+    "id": "GYMLIFE2",
+    "who": "cursor",
+    "title": "Gym picture, the leftovers: shadow boxing loops without a pop, walks go round the kit, nobody stands under a button",
+    "after": "GYMLIFE1"
+   },
+   {
+    "id": "INTROCORNER2",
+    "who": "qwen",
+    "title": "Fight intro from the corners, second round: it lasts, each name call shows its celebration, the two boxers never move alike (the first round did not compile and cut the intro to 6 seconds)",
+    "after": ""
    },
    {
     "id": "FOUNDATION",
@@ -4883,12 +4891,6 @@
     "after": "FOUNDATION"
    },
    {
-    "id": "RIBHURT1",
-    "who": "qwen",
-    "title": "Ribs and face: the injury after a bout follows where the damage went (his question S434; queued after CORNERFACE2)",
-    "after": "CORNERFACE2"
-   },
-   {
     "id": "CALLSPREAD1",
     "who": "qwen",
     "title": "F15: a corner call's strength rises point by point from 56 to 62 (briefed; after the foundation lands)",
@@ -4899,12 +4901,6 @@
     "who": "cursor",
     "title": "The rope entry done properly, later: feet over the middle rope at its real height, ropes that give under the body, a blend from the stance (after HUMANFIGHT2B; only back when it passes his eye)",
     "after": "HUMANFIGHT2B"
-   },
-   {
-    "id": "KNOWN0",
-    "who": "qwen",
-    "title": "F10: what you know about a fighter: exact numbers once known, a range before (Knowledge.known + pips)",
-    "after": "CORELOOP"
    },
    {
     "id": "PAGES2",
@@ -4965,12 +4961,6 @@
     "who": "cursor",
     "title": "BJJ bout: the look and visual effects (your C274), after its choices are designed",
     "after": "SQ39"
-   },
-   {
-    "id": "GYMSPONSOR1",
-    "who": "claude",
-    "title": "Gym sponsorship (his Q-190: 'Just rename it gym sponsorship, the club pays'): the paid seat renamed everywhere in the design and the screens",
-    "after": "FOUNDATION"
    },
    {
     "id": "WRESTLE0",
@@ -5260,6 +5250,21 @@
   },
   "done_recently": [
    {
+    "title": "Fight animation: why the rounds stalled (audit) and a counter of what each punch really plays",
+    "who": "claude",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "People on the gym picture work out, your fighters at today's kit (GYMLIFE1)",
+    "who": "cursor",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "The paid seat is now the gym sponsorship in the design maps (your Q-190)",
+    "who": "claude",
+    "when": "2026-11-11"
+   },
+   {
     "title": "Ribs: the injury after a bout follows where the damage went (RIBHURT1)",
     "who": "qwen",
     "when": "2026-11-11"
@@ -5451,64 +5456,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Your answers Q-186/187/188 in",
-     "who": "operator"
-    },
-    {
-     "text": "Faces whole in the menus",
-     "who": "agent"
-    },
-    {
-     "text": "Stop odds: both corners",
-     "who": "claude"
-    },
-    {
-     "text": "Fight file under its cap again",
-     "who": "claude"
-    },
-    {
-     "text": "No more reruns of done tasks",
-     "who": "claude"
-    },
-    {
-     "text": "Rest no longer drains Stamina",
-     "who": "agent"
-    },
-    {
-     "text": "Session start ~50 s -> ~14 s",
-     "who": "claude"
-    },
-    {
-     "text": "Rib calls reach the fight",
-     "who": "claude"
-    },
-    {
-     "text": "Fight camera: not behind a boxer",
-     "who": "claude"
-    },
-    {
-     "text": "Ludo painted the look (Q-185)",
-     "who": "agent"
-    },
-    {
-     "text": "Stepping route is the default",
-     "who": "claude"
-    },
-    {
-     "text": "Training tab readable",
-     "who": "claude"
-    },
-    {
-     "text": "Dues: 0 of 972, waiting list",
-     "who": "claude"
-    },
-    {
-     "text": "CAMLINE1 reviewed: not collected",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Training v6 passed: 7 and 7",
      "who": "claude"
     },
@@ -5547,6 +5494,36 @@
     {
      "text": "Voice cast picked by ear",
      "who": "operator"
+    },
+    {
+     "text": "Your answers Q-186/187/188 in",
+     "who": "operator"
+    },
+    {
+     "text": "Faces whole in the menus",
+     "who": "agent"
+    },
+    {
+     "text": "Stop odds: both corners",
+     "who": "claude"
+    },
+    {
+     "text": "Fight file under its cap again",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Paid seat is gym sponsorship",
+     "who": "claude"
+    },
+    {
+     "text": "Gym people work out (GYMLIFE1)",
+     "who": "agent"
+    },
+    {
+     "text": "Animation audit + punch counter",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5563,8 +5540,8 @@
      "who": "claude"
     },
     {
-     "text": "Intro from the corners (Qwen)",
-     "who": "agent"
+     "text": "Fight rulers rebuilt (D0)",
+     "who": "claude"
     }
    ],
    "next": [
@@ -5601,15 +5578,7 @@
      "who": "claude"
     },
     {
-     "text": "GYMLIFE1: people work out in gym",
-     "who": "agent"
-    },
-    {
      "text": "Build Fighters page to his pick",
-     "who": "claude"
-    },
-    {
-     "text": "Animation audit, then redo",
      "who": "claude"
     },
     {
@@ -5621,7 +5590,7 @@
      "who": "claude"
     }
    ],
-   "session": "S434"
+   "session": "S435"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

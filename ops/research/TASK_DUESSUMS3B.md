@@ -1,6 +1,6 @@
 # TASK DUESSUMS3B - QWEN (qwen3-coder) - dues sums, third search fixed: a waiting list that can act, ROBUST without a dead lever, a PICK you can repeat (MEASURE ONLY)
 
-Status: OPEN (S433, Claude main). Discipline: boxing. Model: qwen3-coder.
+Status: CANCELLED (S435: re-run as DUESSUMS3C on Qwen) - was OPEN (S433, Claude main). Discipline: boxing. Model: qwen3-coder.
 Source: PR 198 (DUESSUMS3, branch qwen/duessums3, commit 0be37335) is kept as the base, but the S433 review found three faults
 before it can go on main (review + second check in ops/tmp_s433/collect_review.json). Its headline "2 ROBUST sets of 8748"
 rests on a lever that does nothing. Nothing here is wired into the game. Read `ops/research/TASK_DUESSUMS3.md` (the levers,
