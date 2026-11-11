@@ -1,0 +1,141 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Club week 10/10 (owner critic)</title>
+<style>
+:root{--bg:#1d1611;--panel:#2a2019;--panel2:#33271e;--line:#4a3a2c;--ink:#f1e6d4;--dim:#b9a78f;--gold:#f2c14e;--green:#5cc98a;--red:#ef6a5a;--blue:#6fa8ff;--teal:#4cc9c0;--purple:#c79bff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--ink);font-family:Bahnschrift,"Segoe UI",Arial,sans-serif;font-size:20px;line-height:1.25}
+.top{height:62px;display:flex;align-items:center;gap:22px;padding:0 24px;background:linear-gradient(#3a2a1e,#241a13);border-bottom:2px solid #000}
+.gym{font-size:30px;font-weight:700;color:var(--blue);font-style:italic;letter-spacing:1px}
+.date{font-size:20px;color:var(--dim)} .date b{color:var(--ink);font-weight:600}
+.sp{flex:1}
+.cash{text-align:right}.cash b{font-size:28px;color:var(--gold)}.cash div{font-size:20px;color:var(--dim)}
+.needs{background:#5a3b22;border:1px solid #8a6a40;border-radius:6px;padding:4px 12px;font-size:20px}
+.go{background:var(--gold);color:#1b1208;font-weight:700;font-size:24px;padding:8px 20px;border-radius:8px}
+.tabs{height:56px;display:flex;align-items:center;gap:12px;padding:0 24px}
+.h1{font-size:32px;font-weight:700;font-style:italic;margin-right:14px}
+.tab{padding:8px 16px;border-radius:6px;background:#2c3550;color:#cfdcff;font-size:22px}
+.tab.on{background:#3d63c9;color:#fff}
+.btn{padding:8px 16px;border-radius:6px;background:#26314a;font-size:22px;color:#e6eeff}
+.wrap{padding:0 24px}
+.season{display:flex;gap:10px;height:74px}
+.s{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 12px}
+.s b{color:var(--gold)} .s .d{color:var(--dim)}
+.s.show{flex:1.25;border-color:var(--gold);background:#3a2c17}
+.lab{font-size:20px;font-weight:700;color:var(--gold);letter-spacing:1px}
+.counters{display:flex;gap:10px;height:90px;margin-top:8px}
+.c{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 12px;flex:1}
+.c .v{font-size:20px}
+.pill{display:inline-block;padding:1px 8px;border-radius:5px;font-size:20px;border:1px solid #6b5a44;margin-right:4px}
+.pill.g{border-color:var(--gold);color:var(--gold)} .pill.r{background:var(--red);color:#fff;border:none}
+.pill.t{border-color:var(--teal);color:var(--teal)}
+.rows{margin-top:8px;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+.hdr,.row{display:grid;grid-template-columns:300px 430px repeat(7,98px) 1fr;gap:6px;align-items:center;padding:0 8px}
+.hdr{height:30px;color:var(--gold);font-weight:700;font-size:20px;letter-spacing:1px;border-bottom:1px solid var(--line)}
+.row{height:102px;border-bottom:1px solid var(--line)} .row:last-child{border-bottom:none}
+.who b{font-size:22px}
+.badge{font-size:20px;border:1px solid var(--ink);border-radius:4px;padding:0 6px;margin-right:6px}
+.badge.pro{background:var(--gold);color:#1b1208;border:none}.badge.gr{border-color:var(--teal);color:var(--teal)}
+.loy{display:flex;align-items:center;gap:8px;font-size:20px}
+.bar{width:90px;height:10px;background:#46382a;border-radius:5px;overflow:hidden}.bar i{display:block;height:100%}
+.pull{display:flex;justify-content:space-between;border:1px solid #5b4a37;border-radius:6px;padding:1px 8px;margin:2px 0;font-size:20px;background:var(--panel2)}
+.pull.star{border-color:var(--gold)}
+.w{color:var(--green)} .wk{color:var(--blue)} .m{color:var(--gold)} .l{color:var(--purple)} .bad{color:var(--red)}
+.day{height:92px;border-radius:6px;background:var(--panel2);border:1px solid #4d3d2d;padding:3px 5px;font-size:20px;line-height:1.1;display:flex;flex-direction:column;justify-content:space-between}
+.day .am{color:var(--dim)} .day.pads{border-color:var(--blue)} .day.short{border-color:var(--red)} .day.show{border-color:var(--gold);background:#3a2c17}
+.gives{font-size:20px;line-height:1.3}
+.bottom{display:flex;gap:10px;margin-top:8px;height:300px}
+.p{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;display:flex;flex-direction:column;gap:5px}
+.p.show{width:560px;border-color:var(--gold)}
+.opt{display:flex;justify-content:space-between;background:#26314a;border-radius:6px;padding:4px 10px;font-size:20px}
+.opt.pick{outline:2px solid var(--gold)}
+.small{color:var(--dim);font-size:20px}
+.new{font-size:20px;color:#1b1208;background:var(--teal);border-radius:4px;padding:0 6px;margin-left:6px;font-weight:700}
+</style></head><body>
+<div class="top">
+  <div class="gym">ANVIL STREET GYM</div>
+  <div class="date"><b>Mon 2 Mar 2026</b> &middot; Week 9</div>
+  <div class="sp"></div>
+  <div class="cash"><b>$12,940</b><div>this week +$41 &middot; runway 11 weeks</div></div>
+  <div class="needs">NEEDS YOU (2): Ana wants a word &middot; fill our show</div>
+  <div class="go">START WEEK &middot; 1 goes short</div>
+</div>
+<div class="tabs">
+  <div class="h1">FIGHTERS</div>
+  <div class="tab">All four</div><div class="tab on">Club week</div><div class="tab">Compare two</div><div class="tab">Find a fighter</div>
+  <div class="sp"></div>
+  <div class="btn">Keep my changes</div><div class="btn">Coach deals it: 1.9 in 100 below yours, +$117</div>
+</div>
+<div class="wrap">
+  <div class="season">
+    <div class="s"><b>Lucy &middot; RANKED by 30 Jun</b><div class="d">camp 4 of 6 &middot; Sat 28 Mar</div></div>
+    <div class="s"><b>Samira &middot; THE NATIONALS</b><div class="d">5 of 5 bouts &middot; enter by 15 Mar</div></div>
+    <div class="s"><b>Tess &middot; THE PRO OFFER</b><div class="d">7 wins &middot; No. 4 &middot; 1 win + top 3</div></div>
+    <div class="s"><b>Ana &middot; A MEDAL by 30 Apr</b><div class="d">open Sat 7 Mar &middot; white</div></div>
+    <div class="s show"><b>OUR CLUB SHOW &middot; Sat 28 Mar</b><span class="new">NEW</span><div class="d">card 9 of 14 &middot; tickets 180 to 240</div></div>
+  </div>
+  <div class="counters">
+    <div class="c"><div class="lab">PAD PLACES <span class="pill r">1 SHORT</span></div><div class="v">asked 11 &middot; owned 10 (Tess +2)</div></div>
+    <div class="c"><div class="lab">COACH'S EVENINGS</div><div class="v"><span class="pill">Mon pads</span><span class="pill">Wed pads</span><span class="pill g">Fri class +$117, +1 member</span></div></div>
+    <div class="c"><div class="lab">HELPERS <span class="new">NEW</span></div><div class="v">Tess (Loyal 74) runs Monday's members' hour: +2 pad places</div></div>
+    <div class="c"><div class="lab">PAID SEAT</div><div class="v">Samira &middot; ends 23 Mar &middot; sponsor pays $60 a week</div></div>
+    <div class="c"><div class="lab">FAVOURS</div><div class="v">we hold: Repton <span class="m">&#9679;&#9679;&#9675;</span> West Ham <span class="m">&#9679;&#9675;&#9675;</span><br>owed to us: Fitzroy fills 2 on our show</div></div>
+  </div>
+  <div class="rows">
+    <div class="hdr"><div>FIGHTER &middot; MOOD &middot; LOYALTY</div><div>PULLS: <span class="w">wins</span> &middot; <span class="wk">weeks</span> &middot; <span class="m">$</span> &middot; <span class="l">loyalty</span></div>
+      <div>MON 2</div><div>TUE 3</div><div>WED 4</div><div>THU 5</div><div>FRI 6</div><div>SAT 7</div><div>SUN 8</div><div>THIS WEEK GIVES</div></div>
+    <div class="row">
+      <div class="who"><b>Lucy Jackson</b><div><span class="badge pro">PRO</span>1-0 &middot; Steady</div><div class="loy">64 Settled<div class="bar"><i style="width:64%;background:var(--green)"></i></div></div></div>
+      <div><div class="pull star"><span>Weapon: Speed to 70</span><span class="w">+2.5 on 28 Mar</span></div><div class="pull"><span>Ahead: Kayleigh, 2 of 3</span><span class="w">+1.8</span></div><div class="pull"><span>Fans 34: sponsor at 40</span><span class="m">+$60 a wk</span></div></div>
+      <div class="day pads"><span class="am">Office</span><span>Pads +2.6</span></div><div class="day"><span class="am">Office</span><span>Spar TECH</span></div><div class="day pads"><span class="am">Office</span><span>Pads +2.6</span></div><div class="day"><span class="am">Office</span><span>Spar HARD</span></div><div class="day"><span class="am">Office</span><span>Bag alone</span></div><div class="day"><span class="am">Run</span><span>Rest</span></div><div class="day"><span class="am">Rest</span><span>Rest</span></div>
+      <div class="gives">Speed 66.6 &rarr; 67.1<br>Tank on 28 Mar: 88<br><span class="m">Fans 34 &rarr; 36 if home</span></div>
+    </div>
+    <div class="row">
+      <div class="who"><b>Samira Khan</b><div><span class="badge">AMATEUR</span>4-1 &middot; Fired up</div><div class="loy">71 Loyal<div class="bar"><i style="width:71%;background:var(--green)"></i></div></div></div>
+      <div><div class="pull star"><span>Weak spot: Defence to 54</span><span class="w">+3.6</span></div><div class="pull"><span>Enter the nationals</span><span class="wk">by 15 Mar</span></div><div class="pull"><span>Home on our show</span><span class="m">+4 fans</span></div></div>
+      <div class="day"><span class="am">Slip rope</span><span>Rest</span></div><div class="day"><span class="am">Slip rope</span><span>Spar TECH</span></div><div class="day"><span class="am">Heavy bag</span><span>Rest</span></div><div class="day pads"><span class="am">Slip rope</span><span>Pads habit</span></div><div class="day"><span class="am">Run</span><span>Rest</span></div><div class="day"><span class="am">Rest</span><span>Rest</span></div><div class="day"><span class="am">Rest</span><span>Rest</span></div>
+      <div class="gives">Defence 52.0 &rarr; 52.6<br>Tiredness 30 &rarr; 41<br><span class="wk">Nationals entry: on</span></div>
+    </div>
+    <div class="row">
+      <div class="who"><b>Tess Reilly</b><div><span class="badge">AMATEUR</span>7-4 &middot; No. 4 &middot; Steady</div><div class="loy">74 Loyal<div class="bar"><i style="width:74%;background:var(--green)"></i></div></div></div>
+      <div><div class="pull star"><span>Ahead: Siobhan, 1 of 3</span><span class="w">+3.0</span></div><div class="pull"><span>Runs Monday's class</span><span class="l">+2 pad places</span></div><div class="pull"><span>Debut tickets: 61 today</span><span class="m">pays from 60</span></div></div>
+      <div class="day show"><span class="am">Shift</span><span>Runs class</span></div><div class="day"><span class="am">Shift</span><span>Bag alone</span></div><div class="day pads"><span class="am">Shift</span><span>Pads +2.6</span></div><div class="day pads"><span class="am">Shift</span><span>Pads +2.6</span></div><div class="day short"><span class="am">Shift</span><span>Short</span></div><div class="day"><span class="am">Run</span><span>Rest</span></div><div class="day"><span class="am">Bag</span><span>Rest</span></div>
+      <div class="gives">Answers 1 &rarr; 2 of 3<br><span class="l">Loyalty 74 &rarr; 71 if short Fri</span><br>Coach badge: 3 of 6 nights</div>
+    </div>
+    <div class="row">
+      <div class="who"><b>Ana Ribeiro</b><div><span class="badge gr">GRAPPLER</span>white &middot; Flat</div><div class="loy"><span class="bad">47 Wavering</span><div class="bar"><i style="width:47%;background:var(--red)"></i></div></div></div>
+      <div><div class="pull star"><span>Open Sat: stay white</span><span class="w">55 in 100</span></div><div class="pull"><span>Blue first: teaches</span><span class="m">35 &middot; +$68 a wk</span></div><div class="pull"><span>Stripe 3 is due</span><span class="l">now +3 &middot; hold -5</span></div></div>
+      <div class="day"><span class="am">Cafe</span><span>Class</span></div><div class="day"><span class="am">Cafe</span><span>Rest</span></div><div class="day"><span class="am">Cafe</span><span>Class</span></div><div class="day"><span class="am">Cafe</span><span>Rest</span></div><div class="day"><span class="am">Cafe</span><span>Class</span></div><div class="day show"><span class="am">OPEN</span><span>You corner</span></div><div class="day"><span class="am">Rest</span><span>Rest</span></div>
+      <div class="gives">Half guard 21 &rarr; 24<br>A match: 55 in 100<br><span class="bad">Wants a word</span></div>
+    </div>
+  </div>
+  <div class="bottom">
+    <div class="p show"><div class="lab">OUR CLUB SHOW &middot; SAT 28 MAR &middot; 14 BOUTS</div>
+      <div class="small">card 9 of 14 &middot; closes Wed 25 Mar &middot; hall, doctor, officials $3,500</div>
+      <div class="opt pick"><span>Fitzroy fills 2 bouts</span><span class="m">spend their 2 owed</span></div>
+      <div class="opt"><span>Ask Repton for 1 bout</span><span class="m">1 favour held</span></div>
+      <div class="opt"><span>Put Samira and Tess on it</span><span><span class="m">+50 tickets</span> &middot; <span class="wk">no climb</span></span></div>
+      <div class="small">tickets 180 to 240 at $25 + raffle &middot; net <span class="bad">-$400</span> to <span class="w">+$1,900</span> &middot; 1 member per 40 sold</div>
+    </div>
+    <div class="p" style="width:420px"><div class="lab">ANA WANTS A WORD &middot; <span class="bad">47</span></div>
+      <div class="small">stripe held 3 weeks &middot; talk costs your Thu</div>
+      <div class="opt"><span>Stripe now</span><span class="l">+3 &middot; drills 5% slower</span></div>
+      <div class="opt"><span>Promise blue, 30 Apr</span><span class="l">kept +5 &middot; broken -12</span></div>
+      <div class="opt"><span>Tell it straight</span><span class="l">+3, then 8 weeks no</span></div>
+      <div class="small">under 25 twice: leaves for Eastside ABC</div>
+    </div>
+    <div class="p" style="width:470px"><div class="lab">BIGGEST LEVERS &middot; THREE MONEYS</div>
+      <div class="opt"><span>Fri: class or pads</span><span><span class="m">+$117 +1 member</span> / <span class="w">+1.2 Lucy</span></span></div>
+      <div class="opt"><span>Fill the show: favours</span><span><span class="m">+$700 mid</span> / <span class="wk">keep 2</span></span></div>
+      <div class="opt"><span>Tess runs Monday</span><span><span class="l">+2 pads</span> / <span class="w">Tess -0.4</span></span></div>
+      <div class="small">your deal against Coach's: <span class="w">+1.9 in 100</span> &middot; <span class="m">-$117</span> &middot; <span class="l">Tess -3</span></div>
+    </div>
+    <div class="p" style="flex:1"><div class="lab">THIS WEEK'S TWIST</div>
+      <div><b>The minibus fails its test</b></div>
+      <div class="small">away bouts this month cost travel</div>
+      <div class="opt"><span>Fix it now</span><span class="bad">-$240</span></div>
+      <div class="opt"><span>Lifts from parents</span><span class="m">$40 an away bout</span></div>
+      <div class="opt"><span>Home only this month</span><span class="wk">no climb</span></div>
+    </div>
+  </div>
+</div>
+</body></html>

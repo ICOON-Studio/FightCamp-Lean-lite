@@ -4661,7 +4661,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-11 13:11 board_sync",
+  "updated": "2026-11-11 13:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4809,17 +4809,23 @@
   },
   "working_now": [
    {
-    "title": "TASK AIMWIRE1 - QWEN (qwen3-coder) - the aim buttons: rib targets that never appear, a body bonus that never fires, and what a fight's tiredness does to a year",
-    "who": "qwen",
-    "started": "2026-11-11T11:42",
-    "run": "AIMWIRE1",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "TASK CORNERFACE1 - QWEN (qwen3-coder) - the corner minute's camera keeps the boxer's face in the open part of the screen",
     "who": "qwen",
     "started": "2026-11-11T12:42",
-    "run": "CORNERFACE1"
+    "run": "CORNERFACE1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK HUMANFIGHT2 - CURSOR (Grok 4.7 High) - the stepping route moves like two boxers: no pops, a reach per punch, one-frame contact, posture limits",
+    "who": "cursor",
+    "started": "2026-11-11T13:12",
+    "run": "HUMANFIGHT2"
+   },
+   {
+    "title": "TASK DUESSUMS3 - QWEN (qwen3-coder) - dues sums, third search: a waiting list, the one thing reputation buys a FULL club (pure module + sim, MEASURE ONLY)",
+    "who": "qwen",
+    "started": "2026-11-11T13:19",
+    "run": "DUESSUMS3"
    }
   ],
   "next": [
@@ -4827,6 +4833,12 @@
     "id": "RPGLAYER1",
     "who": "claude",
     "title": "RPG layer on the reviewed map: the coach grows (either/or perks), a bond with each fighter, a coaching style, traits that change through play, fighter moments - then two fresh critics (7+ rule)",
+    "after": "MAPV3"
+   },
+   {
+    "id": "HYPE1",
+    "who": "claude",
+    "title": "Hype: the heat around a fighter that rises and cools (beside lasting fans) - design map, two fresh critics, 7+ rule (his S432 ask)",
     "after": "MAPV3"
    },
    {
@@ -5195,6 +5207,11 @@
   },
   "done_recently": [
    {
+    "title": "TASK AIMWIRE1 - QWEN (qwen3-coder) - the aim buttons: rib targets that never appear, a body bonus that never fires, and what a fight's tiredness does to a year",
+    "who": "qwen",
+    "when": "2026-11-11"
+   },
+   {
     "id": "AIMWIRE1",
     "who": "claude",
     "after": "S432",
@@ -5252,11 +5269,6 @@
    {
     "title": "TASK FIGHTDISPLAY4 - CURSOR (Grok 4.7 High) - the fight screen: the two wooden side panels go, the bars move to the top, the see-through figures stand free agai",
     "who": "cursor",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "QWEN (qwen3-coder) - the coach's read: which training each fighter needs, from the numbers and the style",
-    "who": "goose",
     "when": "2026-11-11"
    }
   ],

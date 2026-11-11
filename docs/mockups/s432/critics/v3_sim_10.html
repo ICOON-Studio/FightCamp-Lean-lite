@@ -1,0 +1,157 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Club week 10/10 (sim critic)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#15171c;color:#e9e4d8;font-family:Bahnschrift,'Segoe UI',sans-serif;font-size:20px}
+.top{height:58px;background:#2a211a;display:flex;align-items:center;padding:0 24px;gap:22px;border-bottom:2px solid #3a2e24}
+.gym{font-size:28px;color:#6f9bff;font-weight:700;letter-spacing:1px}
+.date{font-size:20px;line-height:22px}
+.sp{flex:1}
+.cash{font-size:28px;color:#f2c14e;font-weight:700;text-align:right;line-height:26px}
+.cash small{display:block;font-size:20px;color:#cfc6b4;font-weight:400}
+.go{background:#f2c14e;color:#1a1a1a;font-weight:700;font-size:22px;padding:8px 18px;border-radius:6px;line-height:24px}
+.go small{display:block;font-size:20px;font-weight:400}
+.wrap{padding:10px 24px}
+.counters{display:grid;grid-template-columns:1fr 1fr 1.35fr 1fr;gap:12px;margin-bottom:10px}
+.ctr{background:#1f232b;border:1px solid #333a46;border-radius:8px;padding:8px 14px;height:104px}
+.ctr h3{font-size:21px;color:#f2c14e;letter-spacing:1px;font-weight:700}
+.ctr .n{font-size:22px;margin-top:4px}
+.red{color:#ff6b5e}.grn{color:#6ed38a}.gold{color:#f2c14e}.blu{color:#7fb0ff}.dim{color:#a59e90}.teal{color:#5fd1c4}
+.tag{display:inline-block;padding:0 7px;border-radius:4px;font-weight:700}
+.tag.r{background:#5b1f1b;color:#ff8f84}.tag.g{background:#1f4a2c;color:#8fe3a6}.tag.y{background:#4d3d12;color:#f6cf6b}
+.eve{display:flex;gap:8px;margin-top:6px}
+.eve span{padding:2px 10px;border-radius:5px;border:2px solid #3f4756;font-size:20px;white-space:nowrap}
+.eve .pads{border-color:#4a76c8;color:#a9c4ff}
+.eve .cls{border-color:#d9a636;color:#f6cf6b;background:#3a2f12}
+table{border-collapse:separate;border-spacing:4px 3px;width:100%}
+th{font-size:20px;color:#f2c14e;text-align:left;font-weight:700;letter-spacing:1px;padding:0 4px}
+td{vertical-align:middle}
+.who{width:322px;background:#1f232b;border-radius:8px;padding:6px 10px}
+.who .nm{font-size:22px;font-weight:700}
+.badge{font-size:20px;font-weight:700;border:2px solid #ddd;padding:0 6px;border-radius:4px;margin-left:6px}
+.badge.pro{background:#f2c14e;color:#1a1a1a;border-color:#f2c14e}
+.badge.gr{color:#5fd1c4;border-color:#5fd1c4}
+.mood{height:10px;background:#333a46;border-radius:5px;margin:5px 0 3px;position:relative}
+.mood i{position:absolute;left:0;top:0;bottom:0;border-radius:5px}
+.mood b{position:absolute;top:-4px;width:3px;height:18px;background:#ff6b5e}
+.pull{width:318px;background:#2a2617;border:2px solid #7a6420;border-radius:8px;padding:6px 10px;font-size:20px;line-height:24px}
+.pull .v{color:#8fe3a6}
+.cell{width:116px;height:56px;border-radius:6px;font-size:20px;line-height:22px;padding:3px 6px;background:#20242c;border:1px solid #303744}
+.cell.job{color:#7d7768;background:repeating-linear-gradient(45deg,#1b1e24,#1b1e24 6px,#22262e 6px,#22262e 12px)}
+.cell.pd{border:2px solid #4a76c8}
+.cell.sp{border:2px solid #b4523f}
+.cell.al{border:2px dashed #ff6b5e}
+.cell.mt{border:2px solid #2f9c8f}
+.cell.cl{border:2px solid #d9a636;background:#3a2f12}
+.ampm{font-size:20px;color:#a59e90;width:40px;text-align:center}
+.gives{width:330px;background:#1f232b;border-radius:8px;padding:6px 10px;font-size:20px;line-height:25px}
+.bottom{display:grid;grid-template-columns:1.55fr 1fr 0.9fr;gap:12px;margin-top:8px}
+.box{background:#1f232b;border:1px solid #333a46;border-radius:8px;padding:10px 14px;height:262px}
+.box h3{font-size:21px;color:#f2c14e;letter-spacing:1px;margin-bottom:4px}
+.lv{display:grid;grid-template-columns:30px 1fr 210px;gap:6px;font-size:20px;line-height:24px;padding:6px 0;border-bottom:1px solid #2c323d}
+.lv .k{color:#f2c14e;font-weight:700}
+.lv .w{text-align:right}
+.ml{display:grid;grid-template-columns:110px 1fr;font-size:20px;line-height:26px;padding:3px 0}
+.ans{display:flex;justify-content:space-between;background:#272c36;border-radius:5px;padding:5px 10px;margin-top:8px;font-size:20px}
+</style></head><body>
+<div class="top">
+  <div class="gym">ANVIL STREET GYM</div>
+  <div class="date">Mon 19 Jan 2026<br><span class="dim">Week 3</span></div>
+  <div class="sp"></div>
+  <div class="cash">$14,150<small>this week: +$17 with Fri class</small></div>
+  <div class="go">START WEEK<small>4 go short · Samira's 3rd week short</small></div>
+</div>
+<div class="wrap">
+  <div class="counters">
+    <div class="ctr"><h3>PAD PLACES <span class="tag r">4 SHORT</span></h3>
+      <div class="n">asked 11 · covered 7<br><span class="dim">Fri as pads: 2 short</span></div></div>
+    <div class="ctr"><h3>COACHED MORNINGS <span class="tag r">2 SHORT</span></h3>
+      <div class="n">asked 9 · covered 7<br><span class="dim">2 shared at 0.8 each</span></div></div>
+    <div class="ctr"><h3>COACH'S EVENINGS: PADS OR CLASS</h3>
+      <div class="eve"><span class="pads">Mon pads</span><span class="pads">Wed pads</span><span class="cls">Fri class +$117</span></div></div>
+    <div class="ctr"><h3>MOOD WATCH <span class="tag r">1 AT THE EDGE</span></h3>
+      <div class="n">Samira: <span class="red">1 more short<br>week = Low</span></div></div>
+  </div>
+
+  <table>
+    <tr><th>FIGHTER · MOOD</th><th>THE PULL · WORTH</th><th></th>
+      <th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th><th>SUN</th><th>THIS WEEK GIVES</th></tr>
+
+    <tr><td class="who" rowspan="2"><span class="nm">Lucy Jackson</span><span class="badge pro">PRO</span><br>
+        <span class="dim">Lightweight 1-0 · camp 3 of 6</span>
+        <div class="mood"><i style="width:62%;background:#7fb0ff"></i><b style="left:30%"></b></div>Steady 62 · Office job</td>
+      <td class="pull" rowspan="2">Weapon: Speed for Fast hands<br><span class="v">+2.5 wins in 100</span> on 14 Feb<br><span class="dim">perk on 2 Mar</span></td>
+      <td class="ampm">AM</td>
+      <td><div class="cell job">Office</div></td><td><div class="cell job">Office</div></td><td><div class="cell job">Office</div></td><td><div class="cell job">Office</div></td><td><div class="cell job">Office</div></td>
+      <td><div class="cell pd">Roadwork<br>+0.16</div></td><td><div class="cell">Roadwork<br>+0.12</div></td>
+      <td class="gives" rowspan="2">Speed 66.1 → <span class="grn">66.6</span><br>Jab 58 → 66 · <span class="gold">Sharp at 60</span><br>Tiredness 22 → 61</td></tr>
+    <tr><td class="ampm">PM</td>
+      <td><div class="cell pd">Pads<br>+2.6</div></td><td><div class="cell sp">Sparring<br>full</div></td><td><div class="cell pd">Pads<br>+2.6</div></td><td><div class="cell">Rest</div></td><td><div class="cell al">Bag alone<br>0.6</div></td><td><div class="cell">Rest</div></td><td><div class="cell">Rest</div></td></tr>
+
+    <tr><td class="who" rowspan="2"><span class="nm">Samira Khan</span><span class="badge">AMATEUR</span><br>
+        <span class="dim">Welterweight 2-1 · seat to 2 Feb</span>
+        <div class="mood"><i style="width:34%;background:#ff6b5e"></i><b style="left:30%"></b></div><span class="red">Flat 34 · short 2 weeks</span></td>
+      <td class="pull" rowspan="2">Weak spot: Defence to 54<br><span class="v">+4.0 wins in 100</span> on 31 Jan<br><span class="dim">the weapon: +2.5, later</span></td>
+      <td class="ampm">AM</td>
+      <td><div class="cell pd">Slip rope<br>+0.25</div></td><td><div class="cell">Slip rope<br>+0.15</div></td><td><div class="cell pd">Slip rope<br>+0.25</div></td><td><div class="cell pd">Heavy bag<br>+0.22</div></td><td><div class="cell pd">Slip rope<br>+0.25</div></td>
+      <td><div class="cell mt">Mat (Ana)<br>+0.16</div></td><td><div class="cell">Rest</div></td>
+      <td class="gives" rowspan="2">Defence 50.5 → <span class="grn">51.4</span><br>Lines ready 2 of 4 · bout 31 Jan<br><span class="red">Fri short: Low next week</span></td></tr>
+    <tr><td class="ampm">PM</td>
+      <td><div class="cell pd">Pads<br>+2.6</div></td><td><div class="cell sp">Sparring<br>half</div></td><td><div class="cell pd">Plan lines<br>2 of 4</div></td><td><div class="cell pd">Pads<br>habit</div></td><td><div class="cell al">Bag alone<br>short</div></td><td><div class="cell">Rest</div></td><td><div class="cell">Rest</div></td></tr>
+
+    <tr><td class="who" rowspan="2"><span class="nm">Tess Reilly</span><span class="badge">AMATEUR</span><br>
+        <span class="dim">Middleweight 7-4 · No. 4</span>
+        <div class="mood"><i style="width:78%;background:#6ed38a"></i><b style="left:30%"></b></div>Fired up 78 · Earlies</td>
+      <td class="pull" rowspan="2">Ahead: Siobhan (No. 3)<br><span class="v">+3.0 wins in 100</span> next sheet<br><span class="dim">answers 1 of 3</span></td>
+      <td class="ampm">AM</td>
+      <td><div class="cell job">Shift</div></td><td><div class="cell job">Shift</div></td><td><div class="cell job">Shift</div></td><td><div class="cell job">Shift</div></td><td><div class="cell job">Shift</div></td>
+      <td><div class="cell pd">Roadwork<br>+0.16</div></td><td><div class="cell">Heavy bag<br>+0.18</div></td>
+      <td class="gives" rowspan="2">No. 4 · 7 wins · offer: top 3<br>Check hook 21 → 26 · <span class="gold">Usable 30</span><br>Tiredness 41 → 55</td></tr>
+    <tr><td class="ampm">PM</td>
+      <td><div class="cell">Slip rope<br>+0.10</div></td><td><div class="cell pd">Holds pads<br>for Kira</div></td><td><div class="cell">Heavy bag<br>+0.11</div></td><td><div class="cell pd">Pads<br>+2.6</div></td><td><div class="cell pd">Pads (You)<br>+2.6</div></td><td><div class="cell">Rest</div></td><td><div class="cell">Rest</div></td></tr>
+
+    <tr><td class="who" rowspan="2"><span class="nm">Ana Ribeiro</span><span class="badge gr">GRAPPLER</span><br>
+        <span class="dim">No-gi · white belt, 3 stripes</span>
+        <div class="mood"><i style="width:58%;background:#7fb0ff"></i><b style="left:30%"></b></div>Steady 58 · Café</td>
+      <td class="pull" rowspan="2">Ahead: open on 7 Feb<br><span class="teal">Division: white or blue</span><br><span class="dim">pick by Mon 26 Jan</span></td>
+      <td class="ampm">AM</td>
+      <td><div class="cell job">Café</div></td><td><div class="cell job">Café</div></td><td><div class="cell job">Café</div></td><td><div class="cell job">Café</div></td><td><div class="cell job">Café</div></td>
+      <td><div class="cell mt">Teaches<br>Samira</div></td><td><div class="cell">Rest</div></td>
+      <td class="gives" rowspan="2">Half guard 18 → 21<br>White: 61 in 100 a medal<br>Blue: 38 in 100, belt sooner</td></tr>
+    <tr><td class="ampm">PM</td>
+      <td><div class="cell mt">Class<br>+1.5</div></td><td><div class="cell">Rest</div></td><td><div class="cell mt">Class<br>+1.5</div></td><td><div class="cell">Rest</div></td><td><div class="cell cl">Teaches<br>+$60</div></td><td><div class="cell">Rest</div></td><td><div class="cell">Rest</div></td></tr>
+  </table>
+
+  <div class="bottom">
+    <div class="box"><h3>THIS WEEK'S BIGGEST LEVERS (sorted by what they move)</h3>
+      <div class="lv"><span class="k">1</span><span>Coach's Friday: the class (+$117) or pads (Samira not short)</span><span class="w"><span class="gold">+$117</span> / <span class="red">Samira Low</span></span></div>
+      <div class="lv"><span class="k">2</span><span>Samira's pull: weak spot now or the weapon later</span><span class="w grn">+4.0 / +2.5 in 100</span></div>
+      <div class="lv"><span class="k">3</span><span>Tess: film on Siobhan, then ask for her (1 favour)</span><span class="w grn">+3.0 in 100, rank</span></div>
+      <div class="lv"><span class="k">4</span><span>Ana's division: white or ask the coach for blue</span><span class="w teal">medal or belt sooner</span></div>
+      <div class="lv" style="border:0"><span class="k">5</span><span>Lucy's camp: Standard or Hard (Tess loses Thu pads)</span><span class="w grn">+3.0 / +4.1 in 100</span></div>
+    </div>
+    <div class="box"><h3>MOOD HAS TEETH</h3>
+      <div class="ml"><span class="grn">Fired up</span><span>alone mornings at 0.7; corner 1.05</span></div>
+      <div class="ml"><span class="blu">Steady</span><span>as planned</span></div>
+      <div class="ml"><span class="gold">Flat</span><span>alone mornings at 0.5; corner 0.85</span></div>
+      <div class="ml"><span class="red">Low</span><span>skips 1 alone morning in 2; passes a sheet</span></div>
+      <div class="ml"><span class="red">3 wks Low</span><span>asks to train at Repton: a talk, a promise, or let go</span></div>
+    </div>
+    <div class="box"><h3>THE CLUB TWIST</h3>
+      <div style="font-size:22px">Coach is off Wednesday</div>
+      <div class="dim">2 pad places gone: Lucy, Samira</div>
+      <div class="ans"><span>Both miss it</span><span class="red">-2.6 mastery</span></div>
+      <div class="ans"><span>Pay for cover</span><span class="gold">$80</span></div>
+      <div class="ans"><span>Swap Fri class to pads</span><span class="gold">-$117</span></div>
+    </div>
+  </div>
+  <div style="margin-top:12px;background:#2a2617;border:2px solid #7a6420;border-radius:8px;padding:10px 16px;display:flex;gap:34px;font-size:22px;align-items:center">
+    <span class="gold" style="font-weight:700;letter-spacing:1px">YOUR DEAL AGAINST COACH'S DEAL</span>
+    <span>Samira 31 Jan: <span class="grn">+2.1 in 100</span></span>
+    <span>Lucy 14 Feb: <span class="grn">+0.8 in 100</span></span>
+    <span>Tess next sheet: <span class="grn">+1.4 in 100</span></span>
+    <span>Cash: <span class="gold">+$117</span></span>
+    <span>Mood: <span class="red">Samira to the edge</span></span>
+  </div>
+</div>
+</body></html>

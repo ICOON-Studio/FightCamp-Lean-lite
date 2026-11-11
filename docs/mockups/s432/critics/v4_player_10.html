@@ -1,0 +1,150 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Club week, critic's 10/10</title>
+<style>
+:root{--bg:#191512;--wood:#2b231d;--panel:#26201b;--cell:#312923;--line:#4a3d33;--fg:#f3eadf;--mut:#bfb1a1;--gold:#f2c14e;--green:#63d491;--red:#ff6f5e;--blue:#5fa8ff;--teal:#45c9b5;--violet:#b892ff}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--fg);font-family:"Bahnschrift SemiCondensed","Bahnschrift","Segoe UI",sans-serif;font-size:20px;line-height:1.15}
+.top{height:58px;background:linear-gradient(#3a2d23,#231b15);display:flex;align-items:center;padding:0 18px;gap:22px;border-bottom:2px solid #000}
+.gym{font-size:28px;color:var(--blue);font-weight:700;letter-spacing:1px}
+.date{font-size:20px;color:var(--mut)}
+.sp{flex:1}
+.cash{font-size:26px;color:var(--gold);font-weight:700;text-align:right}
+.cash small{display:block;font-size:20px;color:var(--mut);font-weight:400}
+.start{background:var(--gold);color:#1b140c;font-weight:700;font-size:24px;padding:8px 18px;border-radius:6px}
+.start small{font-size:20px;font-weight:600}
+.wrap{padding:8px 14px;display:flex;flex-direction:column;gap:7px}
+.row{display:flex;gap:7px}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+.h{font-size:21px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase}
+.mut{color:var(--mut)} .g{color:var(--green)} .r{color:var(--red)} .b{color:var(--blue)} .gd{color:var(--gold)} .t{color:var(--teal)} .v{color:var(--violet)}
+.season .box{flex:1;display:flex;flex-direction:column;justify-content:center;height:62px}
+.season b{font-weight:700}
+.cnt .box{height:76px}
+.tog{display:inline-block;border:1px solid var(--blue);border-radius:5px;padding:0 6px;margin-right:4px}
+.tog.on{border-color:var(--gold);color:var(--gold)}
+.grid{display:grid;grid-template-columns:262px 396px repeat(7,98px) 1fr;gap:5px;align-items:stretch}
+.gh{font-size:20px;font-weight:700;color:var(--gold);text-align:center;padding:2px 0}
+.gh.l{text-align:left}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:4px 8px;display:flex;flex-direction:column;justify-content:space-between}
+.name{font-size:22px;font-weight:700}
+.badge{font-size:20px;border:1px solid currentColor;border-radius:4px;padding:0 4px;margin-right:4px}
+.bar{display:inline-block;width:70px;height:10px;background:#463a30;border-radius:5px;vertical-align:middle;margin:0 5px;overflow:hidden}
+.bar i{display:block;height:100%}
+.pulls{display:flex;flex-direction:column;gap:4px}
+.chip{background:var(--cell);border:1px solid var(--line);border-radius:6px;padding:3px 8px;display:flex;justify-content:space-between;height:39px;align-items:center}
+.chip.star{border-color:var(--gold)}
+.days{display:flex;flex-direction:column;gap:4px}
+.c{background:var(--cell);border:1px solid var(--line);border-radius:6px;height:60px;padding:2px 5px;font-size:20px;line-height:1.1;overflow:hidden}
+.c.you{border-color:var(--gold)} .c.coach{border-color:var(--blue)} .c.job{opacity:.45} .c.short{border-color:var(--red)} .c.mat{border-color:var(--teal)}
+.gives{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:4px 8px;display:flex;flex-direction:column;justify-content:space-around}
+.gives div{display:flex;justify-content:space-between}
+.bottom .box{height:280px;display:flex;flex-direction:column;gap:6px}
+.ans{background:var(--cell);border:1px solid var(--line);border-radius:6px;padding:4px 10px;display:flex;justify-content:space-between}
+.foot{margin-top:auto;color:var(--mut)}
+</style></head>
+<body>
+<div class="top">
+  <div class="gym">ANVIL STREET GYM</div><div class="date">Mon 2 Feb 2026 · Week 5 · Fighters › Club week</div>
+  <div class="sp"></div>
+  <div class="cash">$13,860<small>this week +$17 · Fri class adds 1 member by March</small></div>
+  <div class="start">START WEEK <small>· Tess short Fri · 1 talk</small></div>
+</div>
+<div class="wrap">
+  <!-- season strip: target + the style each fighter is built toward -->
+  <div class="row season">
+    <div class="box"><div><b>Lucy</b> · <span class="gd">RANKED by 30 Jun</span></div><div class="mut">built to <span class="v">Keep it long</span> · bout Sat 14 Feb</div></div>
+    <div class="box"><div><b>Samira</b> · <span class="gd">THE NATIONALS</span></div><div class="mut">built to <span class="v">Walk them down</span> · 4 of 5 bouts</div></div>
+    <div class="box"><div><b>Tess</b> · <span class="gd">THE PRO OFFER</span></div><div class="mut">built to <span class="v">Counter</span> · 7 wins, No. 4</div></div>
+    <div class="box"><div><b>Ana</b> · <span class="gd">A MEDAL by 30 Apr</span> <span class="mut">(stay white)</span></div><div class="mut">built to <span class="v">Guard player</span> · open Sat 7 Feb</div></div>
+  </div>
+  <!-- counters, all in one unit: sessions -->
+  <div class="row cnt">
+    <div class="box" style="flex:1.25"><div class="h">Your time <span class="mut" style="font-weight:400">sessions</span></div><div>mornings <b>4</b> · pads <b>2</b> · <span class="gd">each +1 note, +1 loyal</span></div></div>
+    <div class="box" style="flex:1.35"><div class="h">Coach's evenings</div><div><span class="tog on">Mon pads</span><span class="tog on">Wed pads</span><span class="tog">Fri class +$117</span></div></div>
+    <div class="box" style="flex:.8"><div class="h">Short this week</div><div><span class="r">2 of 15 asked</span> · Tess, Lucy</div></div>
+    <div class="box" style="flex:.9"><div class="h">Promises open</div><div>Tess: pad place by <b>16 Feb</b></div></div>
+    <div class="box" style="flex:.85"><div class="h">Paid seat</div><div>Samira · <span class="r">ends today</span></div></div>
+    <div class="box" style="flex:.85"><div class="h">Favours</div><div>Repton ●●● · W.Ham ●○○</div></div>
+  </div>
+  <!-- the board -->
+  <div class="grid">
+    <div class="gh l">FIGHTER · READ · LOYALTY</div><div class="gh l">THE PULLS <span class="mut" style="font-weight:400">wins in 100, band = Coach's read</span></div>
+    <div class="gh">MON</div><div class="gh">TUE</div><div class="gh">WED</div><div class="gh">THU</div><div class="gh">FRI</div><div class="gh">SAT</div><div class="gh">SUN</div>
+    <div class="gh l">THIS WEEK GIVES</div>
+
+    <!-- Lucy -->
+    <div class="f"><div class="name">Lucy Jackson</div><div><span class="badge gd">PRO</span>1-0 · Steady</div><div>Loyal<span class="bar"><i style="width:64%;background:var(--green)"></i></span><span class="g">64</span></div><div class="mut">Read <b class="fg">4 of 5</b> notes</div></div>
+    <div class="pulls"><div class="chip star"><span>★ Weapon: Speed 70</span><span class="g">+2 to +3</span></div><div class="chip"><span>Weak spot: Cardio 58</span><span class="g">+0.5 to +1.5</span></div><div class="chip"><span>Camp leave: last 2 wks</span><span class="gd">$240</span></div></div>
+    <div class="days"><div class="c job">Office</div><div class="c coach">Pads<br><span class="g">+2.6</span></div></div>
+    <div class="days"><div class="c job">Office</div><div class="c">Spar <span class="r">HARD</span><br>Kira</div></div>
+    <div class="days"><div class="c job">Office</div><div class="c coach">Pads<br><span class="g">+2.6</span></div></div>
+    <div class="days"><div class="c job">Office</div><div class="c">Spar <span class="b">TECH</span><br>Tess</div></div>
+    <div class="days"><div class="c job">Office</div><div class="c short">Bag alone<br><span class="r">0.6</span></div></div>
+    <div class="days"><div class="c you">Roadwork<br><span class="gd">You</span></div><div class="c">Rest</div></div>
+    <div class="days"><div class="c">Rest</div><div class="c">Rest</div></div>
+    <div class="gives"><div><span>Speed 66.1 → 66.6</span><span class="mut">perk 2 Mar</span></div><div><span>Legs 66 at Sat</span><span class="gd">rest at 70</span></div><div><span>Fans 34</span><span class="mut">~$1,100 a bout</span></div></div>
+
+    <!-- Samira -->
+    <div class="f"><div class="name">Samira Khan</div><div><span class="badge" style="color:var(--fg)">AM</span>3-1 · <span class="g">Fired up</span></div><div>Loyal<span class="bar"><i style="width:71%;background:var(--green)"></i></span><span class="g">71</span></div><div class="mut">Read <b>2 of 5</b> notes</div></div>
+    <div class="pulls"><div class="chip star"><span>★ Weak spot: Defence 54</span><span class="g">+1 to +6</span></div><div class="chip"><span>Target: 5th bout by 15 Mar</span><span class="gd">date</span></div><div class="chip"><span>Weapon: Power 70</span><span class="g">+1 to +4</span></div></div>
+    <div class="days"><div class="c you">Slip rope<br><span class="gd">You</span></div><div class="c">Rest</div></div>
+    <div class="days"><div class="c you">Slip rope<br><span class="gd">You</span></div><div class="c">Rest</div></div>
+    <div class="days"><div class="c coach">Heavy bag<br><span class="b">Coach</span></div><div class="c">Rest</div></div>
+    <div class="days"><div class="c you">Slip rope<br><span class="gd">You</span></div><div class="c you">Pads<br>habit</div></div>
+    <div class="days"><div class="c">Roadwork<br><span class="g">alone 0.7</span></div><div class="c">Rest</div></div>
+    <div class="days"><div class="c">Rest</div><div class="c">Rest</div></div>
+    <div class="days"><div class="c">Rest</div><div class="c">Rest</div></div>
+    <div class="gives"><div><span>Legs 37 → 70</span><span class="g">REST 2 wks</span></div><div><span>Defence 51.4 → 51.9</span><span class="mut">closed at 54</span></div><div><span>Read 2 → 3</span><span class="gd">3 of your sessions</span></div></div>
+
+    <!-- Tess -->
+    <div class="f"><div class="name">Tess Reilly</div><div><span class="badge" style="color:var(--fg)">AM</span>7-4 · <span class="r">Flat</span></div><div>Wavering<span class="bar"><i style="width:49%;background:var(--red)"></i></span><span class="r">49</span></div><div class="mut">Read <b>3 of 5</b> notes</div></div>
+    <div class="pulls"><div class="chip star"><span>★ Ahead: Siobhan, 1 of 3</span><span class="g">+2 to +4</span></div><div class="chip"><span>Weak spot: Speed 56.5</span><span class="g">+0.5 to +2.5</span></div><div class="chip"><span>Weight: walks 76.1, gap 1.0</span><span class="r">−0.3 kg/wk</span></div></div>
+    <div class="days"><div class="c job">Shift</div><div class="c coach">Pads<br><span class="g">+2.6</span></div></div>
+    <div class="days"><div class="c job">Shift</div><div class="c">Bag<br><span class="r">alone 0.5</span></div></div>
+    <div class="days"><div class="c job">Shift</div><div class="c">Slip rope<br><span class="r">alone 0.5</span></div></div>
+    <div class="days"><div class="c job">Shift</div><div class="c coach">Pads<br><span class="g">+2.6</span></div></div>
+    <div class="days"><div class="c job">Shift</div><div class="c short">Bag short<br><span class="r">0.5</span></div></div>
+    <div class="days"><div class="c you">Roadwork<br><span class="gd">You</span></div><div class="c">Rest</div></div>
+    <div class="days"><div class="c">Bag<br><span class="r">alone 0.5</span></div><div class="c">Rest</div></div>
+    <div class="gives"><div><span>Sheet today</span><span class="mut">3 bouts, Sat 14 Feb</span></div><div><span>Loyalty 49 → 44</span><span class="r">if short Fri</span></div><div><span>Fans 26 · debut 61</span><span class="mut">pays from 60</span></div></div>
+
+    <!-- Ana -->
+    <div class="f"><div class="name">Ana Ribeiro</div><div><span class="badge t">BJJ</span>white · Steady</div><div>Settled<span class="bar"><i style="width:58%;background:var(--green)"></i></span><span class="g">58</span></div><div class="mut">Read <b>4 of 5</b> notes</div></div>
+    <div class="pulls"><div class="chip star"><span>★ Open Sat: white</span><span class="t">50 to 60 a match</span></div><div class="chip"><span>Ahead: half guard 21/30</span><span class="g">+2 to +4</span></div><div class="chip"><span>Mat morning to Tess?</span><span class="mut">−1 class</span></div></div>
+    <div class="days"><div class="c job">Cafe</div><div class="c mat">Class<br><span class="t">+1.5</span></div></div>
+    <div class="days"><div class="c job">Cafe</div><div class="c">Rest</div></div>
+    <div class="days"><div class="c job">Cafe</div><div class="c mat">Class<br><span class="t">+1.5</span></div></div>
+    <div class="days"><div class="c job">Cafe</div><div class="c">Rest</div></div>
+    <div class="days"><div class="c job">Cafe</div><div class="c mat">Class<br><span class="t">+1.5</span></div></div>
+    <div class="days"><div class="c mat">OPEN<br><span class="gd">You corner</span></div><div class="c">Rest</div></div>
+    <div class="days"><div class="c">Rest</div><div class="c">Rest</div></div>
+    <div class="gives"><div><span>Half guard 18 → 20</span><span class="mut">owned at 30</span></div><div><span>Medal: 1 in 3</span><span class="mut">gold +2 members</span></div><div><span>No-gi members 9</span><span class="mut">blue +3</span></div></div>
+  </div>
+
+  <div class="row bottom">
+    <div class="box" style="flex:1.05">
+      <div class="h">Tess wants a word <span class="r">· Wavering 49</span></div>
+      <div class="ans"><span>Give Friday back <span class="mut">(1 pad place)</span></span><span class="g">+4 · Lucy short</span></div>
+      <div class="ans"><span>Promise: Ahead pull by 16 Feb</span><span>kept +5 · broken −12</span></div>
+      <div class="ans"><span>Tell it straight <span class="mut">(5 min, free)</span></span><span class="gd">+4 or −4 · Listens?</span></div>
+      <div class="foot">coachability not in Coach's notes yet · under 25 after two talks: leaves</div>
+    </div>
+    <div class="box" style="flex:1.25">
+      <div class="h">Biggest levers <span class="mut" style="font-weight:400">· your deal vs Coach's</span></div>
+      <div class="ans"><span>1 · Fri: class or pads</span><span><span class="g">$117 + 1 member</span> / <span class="b">Tess +1 to +2</span></span></div>
+      <div class="ans"><span>2 · Lucy Tue: Hard or Technical</span><span><span class="g">+1 to +3</span> · cut 4 in 100</span></div>
+      <div class="ans"><span>3 · Samira: rest or a sheet now</span><span>legs full / 5th bout sooner</span></div>
+      <div class="ans"><span>4 · Tess: promise or give back</span><span>loyalty now / Lucy short</span></div>
+      <div class="foot"><span class="gd">YOURS vs COACH'S: +1 to +4 in 100</span> · narrows as the read grows</div>
+    </div>
+    <div class="box" style="flex:1">
+      <div class="h">This week's twist</div>
+      <div><b>Coach can stay late Thursday</b></div>
+      <div class="mut">+2 pad places, Friday keeps its class</div>
+      <div class="ans"><span>Stay late</span><span class="r">−$60</span></div>
+      <div class="ans"><span>Not this week</span><span class="gd">Lucy, Tess short Fri</span></div>
+      <div class="foot">unanswered on Monday: Coach picks</div>
+    </div>
+  </div>
+</div>
+</body></html>
