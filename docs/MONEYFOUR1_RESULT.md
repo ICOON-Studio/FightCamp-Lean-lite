@@ -41,3 +41,5 @@ Months of costs calculated from weekly net cost ~$572 for ONE cell (start $17,20
 - Decisions taken from this for FOURSTART1: one stipend at the start; four stipends closes 8 clubs in 10 (median week 46);
   no stipend at all ends the year with $31,000 (5.5 months), which is too easy, so "nobody on the stipend" needs a cost
   beyond the 15% slower gain before it ships.
+
+- S430 correction: "46 bouts a year for four" counts the 18 bouts the four arrive with (Lucy 3-1, Kira 1-0, Samira 2-1, Tess 6-4). The real figure is 28 bouts a year (7 a fighter), which is what the ticket money says: $12,600 / $450 = 28. The cash figures are untouched by this.

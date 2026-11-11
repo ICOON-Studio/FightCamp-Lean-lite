@@ -3,8 +3,9 @@
 Source: the operator's S428 scope change: "make it so amateur fights do not require fight camp and can happen within a week".
 Real world: the 8 to 12 weeks is the SHOW's permit; the bout sheet closes 24 hours to 3 days before; a senior amateur can box
 about 18 times a season; bouts are matched by weight and experience, often at a week's notice; opponents pull out.
-Measured in the game: the mean camp today is 3.9 weeks from offer to bell (HANDSPROBE1); four fighters box about 46 times a
-year between them and bring about $12,600 in ticket cuts (MONEYFOUR1).
+Measured in the game: the mean camp today is 3.9 weeks from offer to bell (HANDSPROBE1); four fighters box 28 times a year
+between them (7 each) and bring about $12,600 in ticket cuts (MONEYFOUR1, bout count corrected in S430). At a lead of 1 to 2
+weeks with today's camps kept they box 37 times (9 each), bring $16,650, and win the same share, 41 in 100 (AMATEURPROBE1).
 
 ## 1. The idea in five lines
 - An amateur bout comes 1 to 2 weeks out and has no camp. Camps stay for pro fights, title fights and the nationals.
@@ -88,8 +89,10 @@ opponent). The weigh-in stops the clock only when the margin is under 0.2 kg.
 
 ## 3. The numbers and what must be measured before the build
 - Stakes: the best fight week against the laziest should be worth 10 to 12 wins in 100, and no single job more than half
-  of that. AMATEURPROBE1 (Qwen, running) measures today's game at the short lead with and without a camp; a second probe
-  sets the tank prices to hit the target.
+  of that. NOT MEASURED YET: today's game has no fight week, and a boxer who skips the camp never cuts weight in the
+  harness (every such bout was called off at the scale, AMATEURPROBE1), so the stake needs a model of this design: the
+  tank-price probe, which also sets the prices to hit the target. What AMATEURPROBE1 did measure: the short lead alone
+  (camps kept) gives 9 bouts a boxer a year at the same win share, 3 injuries a year against 2, 2 missed weights against 0.
 - Remove for amateurs: the 1.5-point "no camp" loss (BoutRules night_edge) and its line in the Why, the "Set camp" flag, the
   peak bonus, and the coach's Peak week ten days out. One stoppage ban: 30 days, in design and code.
 - Let the tape run without a camp (it needs one today). A fight-week phase on the week board that halves pad evenings.
@@ -117,9 +120,18 @@ opponent). The weigh-in stops the clock only when the margin is under 0.2 kg.
 | Money | ticket cut only at home; the van | Money.gd, GymBills |
 
 ## 5. What is built, in order
-1. Probes: AMATEURPROBE1 (running), then the tank-price probe to hit 10 to 12 wins in 100.
+1. Probes: AMATEURPROBE1 (done: the short lead alone), then the tank-price probe to hit 10 to 12 wins in 100.
 2. Pure rules with tests: the FightWeek rule (tank at the bell from weight, legs and shape; sharp; lines ready), the bout
    sheet (three names, home or away, the pass memory), plan-line upkeep, pull-outs, the rank rule by who was beaten.
 3. Clearing the camp rules for amateurs (section 3).
 4. Screens, one a task: the bout sheet, the Bout page's bill, the week board's shapes and film evening, the Why's sizes.
 5. The golden path: sheet, pick, the bill, the week, weigh-in at 4 pm, fight, the Why with sizes, the rank earned.
+
+## 6. S430: critics round 2 (docs/mockups/s430/amateurweek_critic_referee.md and amateurweek_critic_cards.md): 5 and 5
+Shared points: home beats away on every line; a pass is free; a loss to a name above costs nothing (a free roll at number
+1); "train through plus train the weight off" is free once the legs hit their cap of 12; "flat in round 1" has no price;
+"favour" is used three times and never defined (three of the four critics want it as a second currency); the size of
+Reid's purse is never stated; film runs out by the fifth fight week; the money line is wrong either way ($14,175 a year if
+the player always takes home, against the map's $8,000 and today's $12,600). Untrue to club boxing: nobody cuts to the
+class limit for a club show, bouts are made at walking weight with an allowed gap. The operator asked to see this map
+before any further critic round (board, Q-179).

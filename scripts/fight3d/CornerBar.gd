@@ -13,15 +13,14 @@ const PaceAim := preload("res://scripts/rules/PaceAim.gd")
 const NowPlateSc := preload("res://scripts/fight3d/NowPlate.gd")
 const ShoutBar := preload("res://scripts/fight3d/ShoutBar.gd")
 const RoundBoard := preload("res://scripts/fight3d/RoundBoard.gd")
-const LAST_W := 276.0
+const FX_W := 276.0
+const DOCK_W := 340.0   # FIGHTDISPLAY4: the heard pips and the habit card dock here (SidePanel._gap)
 const CALL_Y := 90.0
 const CALL_H := 66.0
 
 const PACE_LABEL := {"push": "Push", "steady": "Steady", "save": "Save"}
 const AIM_LABEL := {"": "Own game", "head": "Head", "body": "Body", "left_ribs": "Left ribs",
 	"right_ribs": "Right ribs", "head_hurt": "The hurt head"}
-const PACE_TIP := {"push": "Push now! Wins more exchanges, burns the tank faster",
-	"steady": "Stay steady. Own rhythm", "save": "Take this one easy. Gives exchanges away, gets the breath back"}
 
 var view: Node
 var _plate: Button
@@ -153,7 +152,7 @@ func _rebuild(pv: Dictionary, wide: int) -> void:
 	var pace := str(pv.get("pace", "steady"))
 	for p in PaceAim.PACES:
 		var b := _btn(str(PACE_LABEL[p]), "Pace_" + str(p), _set_pace.bind(str(p)))
-		b.tooltip_text = str(PACE_TIP[p])
+		b.tooltip_text = PaceAim.pace_tip(str(p))
 		_wood(b, str(p) == pace)
 		_place(_body, b, x, 36, 92, 44)
 		x += 96.0
@@ -166,7 +165,7 @@ func _rebuild(pv: Dictionary, wide: int) -> void:
 		var bw := 108.0 if str(a) == "" else 84.0
 		var named := "Aim_" + (str(a) if str(a) != "" else "own")
 		var b := _btn(label, named, _set_aim.bind(str(a)))
-		b.tooltip_text = PaceAim.aim_word(str(a)) if str(a) != "" else label
+		b.tooltip_text = PaceAim.aim_tip(str(a), _opp(pv))
 		_wood(b, str(a) == aim)
 		_place(_body, b, x, 36, bw, 44)
 		x += bw + 6.0
@@ -175,8 +174,8 @@ func _rebuild(pv: Dictionary, wide: int) -> void:
 	_ring.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_place(_body, _ring, x, 0, 86, 86)
 	x += 92.0
-	_last_call(x)
-	x += LAST_W
+	_effects(x, pace, aim, _opp(pv))
+	x += FX_W
 	# S427 (his marks on the bar, Feedback/2026-11-10-20): the calls are smaller and sit on the left under pace and aim;
 	# the right of the bar is the live round board.
 	var offers: Array = pv.get("offers", [])
@@ -201,6 +200,7 @@ func _rebuild(pv: Dictionary, wide: int) -> void:
 	_wood(say, false)
 	say.add_theme_font_size_override("font_size", 20)
 	_place(_calls, say, cx, CALL_Y, say_w, CALL_H)
+	x += DOCK_W
 	_place(_body, RoundBoard.build(_ex(), sit, names, right - x - 16.0, 150.0), x + 8.0, 6, right - x - 16.0, 150)
 
 
@@ -272,46 +272,37 @@ func _call(call: String, sit: String, names: Array, on: bool, _wide: float) -> C
 	return frame
 
 
-func _last_call(x: float) -> void:
+## S430 (operator: "do these affect anything , they take effect immediately or how they work ?"; and on the LAST CALL box
+## that sat here: "whats the point of htis ?" - the round board already shows every call with its ticks): what the pace
+## and the aim in force do, and when they count.
+func _effects(x: float, pace: String, aim: String, opp: String) -> void:
 	var panel := Panel.new()
-	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	panel.name = "Effects"
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = Color("#1a1512")
 	sb.border_color = Color("#5a4a3a")
 	sb.set_border_width_all(2)
 	sb.set_corner_radius_all(10)
 	panel.add_theme_stylebox_override("panel", sb)
-	_place(_body, panel, x, 4, LAST_W - 8.0, 78)
-	var ex := _ex()
-	var words := "No call yet"
-	var marks: Array = []
-	if not ex.is_empty():
-		var id := str((ex[-1] as Dictionary).get("call", ""))
-		var row: Dictionary = Exchanges.CALLS.get(id, {})
-		words = str(row.get("label", id)) if id != "" else "Said nothing"
-		if id != "":
-			var under: Array = []
-			for e in ex:
-				if str((e as Dictionary).get("call", "")) == id:
-					under.append(e)
-			var from := maxi(0, under.size() - 3)
-			for i in range(from, under.size()):
-				marks.append(bool((under[i] as Dictionary).get("won", false)))
-	panel.tooltip_text = "Your last call, and whether it won the minute each time you used it (tick = won, cross = lost)"
 	panel.mouse_filter = Control.MOUSE_FILTER_PASS
-	var head := TV.label("LAST CALL", 20, WoodKit.SOFT, "bold")
-	head.name = "LastCallTag"
-	_place(panel, head, 8, 2, 144, 22)
-	var lab := TV.label(words, 22, WoodKit.INK, "bold", true)
-	lab.name = "LastCall"
-	_place(panel, lab, 8, 24, 150, 50)
-	var mx := 162.0
-	for won in marks:
-		var mark := Mark.new()
-		mark.won = bool(won)
-		mark.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		_place(panel, mark, mx, 34, 32, 32)
-		mx += 34.0
+	panel.tooltip_text = "%s
+
+%s" % [PaceAim.pace_tip(pace), PaceAim.aim_tip(aim, opp)]
+	_place(_body, panel, x, 4, FX_W - 8.0, 80)
+	var head := TV.label("FROM THE NEXT EXCHANGE", 20, WoodKit.SOFT, "bold")
+	head.name = "EffectsTag"
+	_place(panel, head, 10, 2, FX_W - 28.0, 24)
+	var p := TV.label(PaceAim.pace_effect(pace), 20, WoodKit.HEAD if pace != "steady" else WoodKit.INK)
+	p.name = "PaceEffect"
+	_place(panel, p, 10, 26, FX_W - 28.0, 24)
+	var a := TV.label(PaceAim.aim_effect(aim, opp), 20, WoodKit.HEAD if aim != "" else WoodKit.INK)
+	a.name = "AimEffect"
+	_place(panel, a, 10, 50, FX_W - 28.0, 24)
+
+
+func _opp(pv: Dictionary) -> String:
+	var names: Array = pv.get("names", [])
+	return str(names[1]) if names.size() > 1 else "the opponent"
 
 
 func _tick(waiting: bool, left: float) -> void:
@@ -478,15 +469,3 @@ class Ring extends Control:
 		var px := 28
 		var ts := font.get_string_size(caption, HORIZONTAL_ALIGNMENT_LEFT, -1, px)
 		draw_string(font, c + Vector2(-ts.x * 0.5, px * 0.35), caption, HORIZONTAL_ALIGNMENT_LEFT, -1, px, col)
-
-
-class Mark extends Control:
-	var won := true
-
-	func _draw() -> void:
-		var col := Color("#23935d") if won else Color("#e2483d")
-		if won:
-			draw_polyline(PackedVector2Array([Vector2(4, 16), Vector2(12, 26), Vector2(28, 6)]), col, 4.0, true)
-		else:
-			draw_line(Vector2(6, 6), Vector2(26, 26), col, 4.0)
-			draw_line(Vector2(26, 6), Vector2(6, 26), col, 4.0)

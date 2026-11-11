@@ -81,7 +81,7 @@ static func _landed(board: Control, ex: Array, me: String, her: String, x: float
 	var t := tally(ex)
 	var mine := int(t["landed"][0])
 	var hers := int(t["landed"][1])
-	_put(board, _tag("LANDED THIS ROUND"), x, 6, w, 22)
+	_put(board, _tag("LANDED"), x, 6, w, 22)
 	var a := TV.label(str(mine), 44, RED, "bold")
 	a.name = "LandedMine"
 	_put(board, a, x, 28, 70, 52)

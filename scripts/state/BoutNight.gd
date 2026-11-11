@@ -39,6 +39,7 @@ const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const PeakCamp := preload("res://scripts/rules/PeakCamp.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
 const CornerTrust := preload("res://scripts/rules/CornerTrust.gd")
+const AfterFight := preload("res://scripts/state/AfterFight.gd")
 const NOTES_PATH := "res://assets/data/fight_habits.json"
 
 static var _notes_bank: Dictionary = {}
@@ -323,6 +324,7 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	var cards := BoutRules.scorecards(won, rounds.size())
 	var stop := stopped(m)
 	m["stopped"] = stop
+	var before := AfterFight.snap(c, f, opp)   # S430 the result page's "what the fight did" tiles read the change
 	var outcome := outcome_of(f, m)
 	var win := outcome == "win"
 	var focus_label := str(Data.LABEL.get(camp.get("focus", ""), ""))
@@ -445,6 +447,7 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	m["body_change"] = BodyReport.change_line(f.get("last_body_report", {}), report)
 	f["last_body_report"] = report
 	Injuries.after_bout(c, f, m)
+	AfterFight.book(c, f, m, before, notes_bank())
 	Roster.check_pro(c)
 
 

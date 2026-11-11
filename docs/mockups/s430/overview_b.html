@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Overview B - the clean sheet</title>
+<style>
+@font-face{font-family:Marker;src:url(../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../assets/fonts/BebasNeue-Regular.ttf)}
+@font-face{font-family:Kalam;font-weight:700;src:url(../../../assets/fonts/Kalam-Bold.ttf)}
+:root{--ink:#f1e8da;--soft:#c9b9a2;--gold:#ffd24a;--red:#dd4b3d;--blue:#4d8ef0;--green:#3fc07a;--amber:#f28d27;--purple:#ad80ff;
+ --track:rgba(255,255,255,.10);--slate:#22262a;--weak:#dd4b3d;--fair:#f28d27;--solid:#4d8ef0;--strong:#3fc07a;--elite:#ad80ff}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:#120e0c;color:var(--ink);font:500 22px/1.2 Barlow,"Segoe UI",sans-serif}
+.ico{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.abs{position:absolute}
+/* the gym behind the page: a dim painted wall, one warm lamp */
+.wall{position:absolute;left:0;right:0;top:78px;bottom:0;background:
+ radial-gradient(ellipse 760px 520px at var(--lamp,50%) 26%,rgba(255,190,110,.13),transparent 72%),
+ radial-gradient(ellipse 620px 420px at 4% 60%,rgba(221,75,61,.06),transparent 70%),
+ radial-gradient(ellipse 620px 420px at 97% 55%,rgba(77,142,240,.06),transparent 70%),
+ linear-gradient(#1b1512,#130f0d 62%,#0e0b09)}
+/* top bar: as the game draws it today, not part of the redesign */
+.top{position:absolute;left:0;top:0;width:1920px;height:78px;background:#0d0a09;border-bottom:1px solid rgba(255,255,255,.09);display:flex;align-items:center;gap:14px;padding:0 18px}
+.nav{width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,.08);display:grid;place-items:center;color:var(--ink)}
+.nav.off{color:#6d635a}
+.gym{font:400 31px/1 Marker;color:#5f9df4;margin:0 14px 0 8px;white-space:nowrap}
+.date b{display:block;font-weight:600;font-size:22px}.date i,.cash i,.cont i{display:block;font-style:normal;font-size:20px;color:var(--soft)}
+.tb{height:48px;padding:0 18px;border-radius:9px;background:rgba(255,255,255,.08);display:flex;align-items:center;gap:10px;font-weight:600;white-space:nowrap}
+.grow{flex:1}
+.cash{text-align:right}.cash b{display:block;font-size:27px;font-weight:700;color:var(--gold)}
+.cont{height:62px;padding:0 26px;border-radius:11px;background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06;display:flex;flex-direction:column;justify-content:center;box-shadow:0 3px 0 #9a6c10}
+.cont b{font-size:24px;font-weight:700;letter-spacing:.04em}.cont i{color:#4a3208;font-weight:600;margin-top:-2px}
+/* tabs: the chosen one glows, no flat border */
+.tabs{position:absolute;left:28px;top:92px;display:flex;gap:6px}
+.tab{height:48px;padding:0 20px;border-radius:10px;display:flex;align-items:center;font-weight:600;color:var(--soft);background:rgba(255,255,255,.05)}
+.tab.on{color:#fff;background:rgba(255,214,120,.16);box-shadow:0 0 26px 2px rgba(255,205,90,.42)}
+/* buttons */
+.go{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:56px;padding:0 24px;border-radius:11px;background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06;font-weight:700;font-size:23px;box-shadow:0 3px 0 #9a6c10;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:12px;height:56px;padding:0 20px;border-radius:11px;background:rgba(255,255,255,.085);color:var(--ink);font-weight:600;font-size:22px;white-space:nowrap}
+.btn .ico{color:var(--gold)}
+.btn small{font-size:20px;color:var(--soft);font-weight:500}
+/* name */
+.name{font:400 52px/1 Marker;color:#fff;white-space:nowrap}
+.sub{font-size:22px;color:var(--soft);margin-top:6px;white-space:nowrap}
+/* the overall ring */
+.ring{border-radius:50%;display:grid;place-items:center;background:radial-gradient(closest-side,#191412 78%,transparent 79% 100%),conic-gradient(var(--gold) 0 60%,var(--track) 60% 100%)}
+.ring b{display:block;font:400 46px/0.9 Bebas;color:#fff;text-align:center;letter-spacing:.02em}
+.ring i{display:block;font-style:normal;font-size:20px;color:var(--soft);text-align:center;line-height:1}
+/* meters */
+.bar{position:relative;height:16px;border-radius:8px;background:var(--track)}
+.bar b{position:absolute;left:0;top:0;bottom:0;border-radius:8px}
+.bar em{position:absolute;top:-5px;width:3px;height:26px;border-radius:2px;background:#fff}
+.bar u{position:absolute;top:-13px;margin-left:-8px;width:0;height:0;border:8px solid transparent;border-top:11px solid var(--gold)}
+.weak{--c:var(--weak)}.fair{--c:var(--fair)}.solid{--c:var(--solid)}.strong{--c:var(--strong)}.elite{--c:var(--elite)}
+.bar b{background:var(--c)}
+.v{font-weight:700;font-size:28px;text-align:right;color:color-mix(in srgb,var(--c) 78%,#fff)}
+.gain{color:var(--green);font-weight:600;font-size:20px;white-space:nowrap}
+.cap{color:var(--soft);font-size:20px;white-space:nowrap}
+.pill{display:inline-flex;align-items:center;height:32px;padding:0 13px;border-radius:16px;background:rgba(255,210,74,.13);color:var(--gold);font-weight:600;font-size:20px;white-space:nowrap}
+.pill.hot{background:var(--gold);color:#2a1b06;box-shadow:0 0 22px 3px rgba(255,205,90,.55)}
+.pips{display:flex;gap:7px;align-items:center}.pips s{width:26px;height:16px;border-radius:5px;background:var(--green)}.pips s.o{background:var(--track)}
+.key{display:flex;align-items:center;gap:8px;font-size:20px;color:var(--soft);white-space:nowrap}
+.key s{width:14px;height:14px;border-radius:4px;display:inline-block;margin-left:10px}
+.key em{display:inline-block;width:3px;height:20px;background:#fff;border-radius:2px}
+.key u{display:inline-block;width:0;height:0;border:8px solid transparent;border-top:11px solid var(--gold);margin-top:10px}
+.key i{display:inline-block;width:30px;height:14px;border-radius:7px;margin-left:16px;background:repeating-linear-gradient(135deg,var(--strong) 0 6px,#1f6a43 6px 10px)}
+.h{font-weight:700;font-size:22px;letter-spacing:.09em;color:var(--gold)}
+/* the guide: the old trainer, bottom left on every page while the guide runs */
+.guide{position:absolute;left:14px;bottom:14px;display:flex;align-items:flex-end}
+.gface{width:190px;height:190px}
+.gtail{width:24px;height:40px;margin-bottom:34px;background:#8a6a3d;clip-path:polygon(0 55%,100% 0,100% 100%)}
+.gbub{width:452px;background:#262a2d;border:3px solid #8a6a3d;border-radius:24px;padding:14px 22px}
+.gbub p{font:700 27px/34px Kalam,"Segoe Print",cursive;color:#efe6d8}
+.gbub div{display:flex;justify-content:flex-end;margin-top:8px}
+.gskip{height:38px;padding:0 14px;border-radius:9px;background:rgba(255,255,255,.07);color:var(--soft);font-size:20px;font-weight:600;display:flex;align-items:center}
+.fig{display:block;filter:drop-shadow(-3px 0 0 rgba(255,214,160,.20)) drop-shadow(0 0 34px rgba(255,170,80,.10))}
+.figtag{position:absolute;font-size:20px;color:#8f8272;white-space:nowrap}
+
+.sheet{position:absolute;left:14px;top:256px;width:1052px;height:604px;border-radius:16px;background:linear-gradient(rgba(38,42,46,.86),rgba(30,33,37,.86));box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.ledge{position:absolute;left:14px;top:856px;width:1052px;height:8px;border-radius:0 0 8px 8px;background:linear-gradient(#8a6038,#5a3c22)}
+.col{position:absolute;width:486px}
+.col h3{height:40px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:22px;letter-spacing:.09em;color:var(--gold)}
+.col h4{height:34px;display:flex;align-items:center;gap:8px;font-weight:500;font-size:20px;color:var(--soft);margin-top:4px}
+.r{display:grid;grid-template-columns:26px 152px 1fr 44px 88px;column-gap:10px;align-items:center;height:38px;border-radius:10px;padding:0 6px;margin:0 -6px}
+.r .ico{color:var(--soft)}.r .n{font-weight:600;white-space:nowrap}
+.r .bar{height:20px;border-radius:0;transform:skewX(-18deg)}.r .bar b{border-radius:0}.r .bar em{top:-4px;height:28px}
+.r .bar u{transform:skewX(18deg)}
+.r.sel{background:rgba(255,210,74,.09);box-shadow:0 0 26px 2px rgba(255,205,90,.28)}
+.word{font-weight:700;font-size:22px;color:#ff8d7f}
+.rail{position:absolute;left:1412px;top:150px;width:480px;display:flex;flex-direction:column;gap:14px}
+.card{border-radius:16px;background:linear-gradient(rgba(38,42,46,.9),rgba(30,33,37,.9));padding:18px 20px 20px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.card.first{background:linear-gradient(rgba(64,50,26,.92),rgba(38,32,24,.92));box-shadow:0 0 34px 2px rgba(255,205,90,.22)}
+.card .h{display:flex;align-items:center;gap:10px}
+.fact{display:grid;grid-template-columns:auto 1fr;column-gap:16px;align-items:center;margin:10px 0 14px}
+.big{font:400 66px/0.9 Bebas;color:#fff}
+.fact b{display:block;font-size:26px;font-weight:700;white-space:nowrap}.fact span{display:block;color:var(--soft);white-space:nowrap}
+.card .go,.card .btn{width:100%;justify-content:center}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gm{position:relative;height:16px;border-radius:8px;background:var(--track);margin:2px 0 14px}.gm b{position:absolute;left:0;top:0;bottom:0;width:40%;border-radius:8px;background:var(--green)}
+.ok{color:var(--green);font-weight:700}
+.line{margin:10px 0 14px}
+.line b{display:block;font-size:26px;font-weight:700;white-space:nowrap}.line i{display:block;font-style:normal;color:var(--soft);white-space:nowrap}
+</style></head>
+<body><div class="wall" style="--lamp:64%"></div><div class="top"><span class="nav"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6"/></svg></span><span class="nav off"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M10 6l6 6-6 6"/></svg></span><span class="gym">ANVIL STREET GYM</span><span class="date"><b>Tue 27 Jan 2026</b><i>Week 4</i></span><span style="width:18px"></span><span class="tb"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M5 10v10h14V10"/></svg> Gym</span><span class="tb"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg> Mail (13 new)</span><span class="grow"></span><span class="cash"><b>$18,702</b><i>running -$607 a week</i></span><span class="cont"><b>CONTINUE</b><i>to Mon 2 Feb, week review</i></span><span class="tb">Menu</span></div><div class="tabs"><span class="tab on">Overview</span><span class="tab">Training</span><span class="tab">Playbook</span><span class="tab">History</span></div>
+<div class="abs" style="left:28px;top:154px"><div class="name">LUCY JACKSON</div><div class="sub">Lightweight, 21, orthodox, amateur 3-2</div></div><div class="abs ring" style="left:452px;top:150px;width:98px;height:98px"><div><b style="font-size:40px">60</b><i>of 100</i></div></div><div class="sheet"></div><div class="ledge"></div><div class="col" style="left:36px;top:268px"><h3>PHYSICAL</h3><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M4 9v6M7 6v12M17 6v12M20 9v6M7 12h10"/></svg><span class="n">Strength</span><span class="bar"><b style="width:61%"></b><em style="left:84%"></em></span><span class="v">61</span><span class="gain">+0.1 wk</span></div><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span class="n">Explosiveness</span><span class="bar"><b style="width:58%"></b><em style="left:84%"></em></span><span class="v">58</span><span></span></div><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M4 6l6 6-6 6M12 6l6 6-6 6"/></svg><span class="n">Speed</span><span class="bar"><b style="width:63%"></b><em style="left:84%"></em></span><span class="v">63</span><span class="gain">+0.2 wk</span></div><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M2 12h5l2-6 4 12 2-6h7"/></svg><span class="n">Stamina</span><span class="bar"><b style="width:58%"></b><em style="left:84%"></em><u style="left:61%"></u></span><span class="v">58</span><span class="gain">+0.4 wk</span></div><div class="r strong"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 5v6h-6"/></svg><span class="n">Recovery</span><span class="bar"><b style="width:67%"></b><em style="left:84%"></em></span><span class="v">67</span><span></span></div><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M5 19c0-9 5-14 14-14M13 5h6v6"/></svg><span class="n">Flexibility</span><span class="bar"><b style="width:55%"></b><em style="left:84%"></em></span><span class="v">55</span><span><span class="pill">Train</span></span></div><div class="r strong"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg><span class="n">Durability</span><span class="bar"><b style="width:66%"></b><em style="left:84%"></em></span><span class="v">66</span><span></span></div><h3 style="margin-top:10px">SKILL</h3><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".6"/></svg><span class="n">Accuracy</span><span class="bar"><b style="width:60%"></b><em style="left:84%"></em></span><span class="v">60</span><span class="gain">+0.3 wk</span></div><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span class="n">Timing</span><span class="bar"><b style="width:61%"></b><em style="left:84%"></em></span><span class="v">61</span><span></span></div><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M12 3v18"/></svg><span class="n">Defence</span><span class="bar"><b style="width:57%"></b><em style="left:84%"></em></span><span class="v">57</span><span class="gain">+0.1 wk</span></div><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><ellipse cx="8" cy="8" rx="3" ry="5"/><ellipse cx="16" cy="15" rx="3" ry="5"/></svg><span class="n">Footwork</span><span class="bar"><b style="width:58%"></b><em style="left:84%"></em></span><span class="v">58</span><span class="gain">+0.2 wk</span></div><div class="r solid sel"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M2 12h7M6 8l4 4-4 4M22 12h-7M18 8l-4 4 4 4"/></svg><span class="n">Inside fighting</span><span class="bar"><b style="width:55%"></b><em style="left:84%"></em></span><span class="v">55</span><span><span class="pill hot">Train</span></span></div></div><div class="col" style="left:558px;top:268px"><h3>MIND</h3><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5V15h8v-1.5A6 6 0 0 0 12 3z"/></svg><span class="n">Fight IQ</span><span class="bar"><b style="width:62%"></b><em style="left:84%"></em></span><span class="v">62</span><span></span></div><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M3 9c3-3 6 3 9 0s6 3 9 0M3 15c3-3 6 3 9 0s6 3 9 0"/></svg><span class="n">Composure</span><span class="bar"><b style="width:57%"></b><em style="left:84%"></em></span><span class="v">57</span><span><span class="pill">Train</span></span></div><h4><svg class="ico " width="20" height="20" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Character: set at signing, training does not move it</h4><div class="r elite"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg><span class="n">Heart</span><span class="bar"><b style="width:85%"></b></span><span class="v">85</span><span></span></div><div class="r strong"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M4 6l1.5 1.5L8 5M4 12l1.5 1.5L8 11M4 18l1.5 1.5L8 17M11 6h9M11 12h9M11 18h9"/></svg><span class="n">Discipline</span><span class="bar"><b style="width:69%"></b></span><span class="v">69</span><span></span></div><div class="r fair"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg><span class="n">Confidence</span><span class="bar"><b style="width:51%"></b></span><span class="v">51</span><span></span></div><div class="r fair"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M4 5h16v10H10l-5 4v-4H4z"/></svg><span class="n">Coachability</span><span class="bar"><b style="width:45%"></b></span><span class="v">45</span><span></span></div><div class="r weak"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/></svg><span class="n">Temper</span><span class="word" style="grid-column:3/6">Trades when hit</span></div><h3 style="margin-top:10px">TODAY</h3><div class="r strong"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 9a5 5 0 0 1 8 0M12 9l2-2"/></svg><span class="n">Weight</span><span class="bar"><b style="width:92%"></b><em style="left:97%"></em></span><span class="v" style="grid-column:4/6;text-align:left;white-space:nowrap;font-size:24px">59.7 <span class="cap">of 60.0 kg</span></span></div><div class="r strong"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><rect x="2" y="8" width="17" height="9" rx="2"/><path d="M22 11v3M6 11v3M10 11v3"/></svg><span class="n">Freshness</span><span class="pips"><s></s><s></s><s></s><s></s><s></s></span><span class="v" style="grid-column:4/6;text-align:left;font-size:24px">Fresh</span></div><div class="r solid"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14c1.2 1.6 6.800 1.600 8 0M9 9.500v.01M15 9.500v.01"/></svg><span class="n">Mood</span><span class="bar"><b style="width:62%"></b></span><span class="v" style="grid-column:4/6;text-align:left;font-size:24px">Steady</span></div></div><div class="abs key" style="left:558px;top:792px"><em></em>&nbsp;ceiling 84&nbsp;&nbsp;&nbsp;&nbsp;<u></u>&nbsp;goal</div><div class="abs" style="left:558px;top:822px"><div class="key"><s style="background:var(--weak);margin-left:0"></s>Weak<s style="background:var(--fair)"></s>Fair<s style="background:var(--solid)"></s>Solid<s style="background:var(--strong)"></s>Strong<s style="background:var(--elite)"></s>Elite</div></div><div class="abs" style="left:1086px;top:246px"><svg class="fig" width="300" height="800" viewBox="0 0 300 800">
+<defs><linearGradient id="fb" gradientUnits="userSpaceOnUse" x1="70" x2="240" y1="0" y2="0"><stop offset="0" stop-color="#6a5a4c"/><stop offset=".5" stop-color="#40372f"/><stop offset="1" stop-color="#2a2420"/></linearGradient>
+<linearGradient id="fg" gradientUnits="userSpaceOnUse" x1="80" x2="220" y1="0" y2="0"><stop offset="0" stop-color="#ee5f50"/><stop offset="1" stop-color="#a02f26"/></linearGradient></defs>
+<ellipse cx="150" cy="778" rx="128" ry="15" fill="rgba(0,0,0,.6)"/>
+<g stroke="url(#fb)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M124 440 L108 592 L104 712" stroke-width="52"/><path d="M178 440 L196 592 L200 712" stroke-width="52"/></g>
+<path d="M76 700h52v54q0 16-16 16H66q-12 0-9-13 5-17 19-21z" fill="#191614"/>
+<path d="M176 700h52v36q14 4 19 21 3 13-9 13h-46q-16 0-16-16z" fill="#191614"/>
+<path d="M100 334H200L218 474 160 480 150 424 140 480 82 474Z" fill="#54483d"/>
+<path d="M98 148Q150 128 202 148L192 250Q188 296 196 336H104Q112 296 108 250Z" fill="url(#fb)"/>
+<path d="M100 150Q150 131 200 150L193 238Q150 252 107 238Z" fill="#7a342b"/>
+<rect x="100" y="326" width="100" height="18" rx="6" fill="#d8ccb8"/>
+<rect x="136" y="106" width="28" height="36" fill="#4a4037"/>
+<ellipse cx="150" cy="76" rx="36" ry="44" fill="url(#fb)"/>
+<path d="M113 72Q114 28 150 28 186 28 187 72 172 50 150 50 128 50 113 72Z" fill="#191614"/><circle cx="150" cy="24" r="14" fill="#191614"/>
+<g stroke="url(#fb)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M104 160L80 262 108 200" stroke-width="32"/><path d="M196 160L222 258 196 210" stroke-width="32"/></g>
+<rect x="80" y="208" width="36" height="17" rx="5" transform="rotate(-62 98 216)" fill="#e9dfcf"/>
+<rect x="186" y="216" width="36" height="17" rx="5" transform="rotate(62 204 224)" fill="#e9dfcf"/>
+<ellipse cx="114" cy="174" rx="31" ry="36" fill="url(#fg)"/><ellipse cx="190" cy="186" rx="31" ry="36" fill="url(#fg)"/>
+</svg></div><div class="figtag" style="left:1108px;top:1044px">the real 3D model stands here</div><div class="rail"><div class="card first"><div class="h"><svg class="ico " width="26" height="26" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H4c0 3 1.500 4.500 4 4.500M16 6h4c0 3-1.500 4.500-4 4.500M12 13v4M8 20h8M10 17h4"/></svg> NEXT STEP</div><div class="fact"><span class="big">44</span><div><b>The nationals</b><span>days until entries close</span></div></div><span class="go">Enter Lucy for the nationals</span></div><div class="card"><div class="h"><svg class="ico " width="26" height="26" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12l8-8M17 4h3v3"/></svg> GOAL</div><div class="fact" style="margin-bottom:8px"><span class="big">18</span><div><b>Stamina for five rounds</b><span>days left, Stamina 58 of 61, <i class="ok" style="font-style:normal">on track</i></span></div></div><div class="gm"><b></b></div><div class="two"><span class="btn"><svg class="ico " width="26" height="26" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h2M14 14h2"/></svg> Plan the week</span><span class="btn"><svg class="ico " width="26" height="26" viewBox="0 0 24 24"><path d="M4 5h16v10H10l-5 4v-4H4z"/><path d="M8 9h8M8 12h5"/></svg> Talk to Lucy</span></div></div><div class="card"><div class="h"><svg class="ico " width="26" height="26" viewBox="0 0 24 24"><path d="M5 21V4h12l-2.500 4L17 12H5"/></svg> NEXT BOUT</div><div class="line"><b>None booked</b><i>no offer on the table</i></div><span class="btn"><svg class="ico " width="26" height="26" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16.500 16.500 21 21"/></svg> Find a bout</span></div><div class="card"><div class="h"><svg class="ico " width="26" height="26" viewBox="0 0 24 24"><path d="M4 19c4 0 4-12 9-12h5M15 3l4 4-4 4"/><circle cx="5" cy="6" r="2"/></svg> FIGHT PLAN</div><div class="line"><b>5 arrows drawn</b><i>Out-boxer, stays at range, steady pace</i></div><span class="btn"><svg class="ico " width="26" height="26" viewBox="0 0 24 24"><path d="M4 19c4 0 4-12 9-12h5M15 3l4 4-4 4"/><circle cx="5" cy="6" r="2"/></svg> Fight plan</span></div></div>
+<div class="guide"><div class="gface"><svg width="190" height="190" viewBox="0 0 190 190"><defs><clipPath id="gc"><circle cx="95" cy="95" r="88"/></clipPath>
+<radialGradient id="gr" cx=".5" cy=".35" r=".8"><stop offset="0" stop-color="#5b4a3a"/><stop offset="1" stop-color="#231c17"/></radialGradient></defs>
+<circle cx="95" cy="95" r="88" fill="url(#gr)"/><g clip-path="url(#gc)"><path d="M22 200q4-62 73-62t73 62z" fill="#39424a"/>
+<rect x="82" y="112" width="26" height="30" fill="#b08a6c"/><ellipse cx="95" cy="88" rx="33" ry="38" fill="#c39b7a"/>
+<path d="M60 96q2 34 35 36 33-2 35-36-6 20-35 20T60 96z" fill="#e6e0d6"/>
+<path d="M56 70q4-34 40-34 34 0 40 30l14 6q-30 6-94-2z" fill="#2b3036"/></g>
+<circle cx="95" cy="95" r="88" fill="none" stroke="#8a6a3d" stroke-width="4"/></svg></div><div class="gtail"></div><div class="gbub"><p>Next job for the club: sign a second boxer.</p><div><span class="gskip">Skip the guide</span></div></div></div></body></html>

@@ -129,3 +129,20 @@ date: "the position the last open found" (fewer losses next open) or "the move c
   the game stays playable after each step.
 - Changing fight strength changes every measured balance number: the harness must be re-run and the bounds re-set.
 - Ana remains the lightest of the four until her live bout has more than one decision.
+
+## 7. S430: required changes for the next version (his words, not yet designed in)
+- "also add professionals to the starting line up (3-4 fighters) and amateurs to see the difference in affected menus and
+  explain how to transition from amateur to proffesional clearly use the guide too(adjust to all changes) to structure it
+  and explain it correctly" (operator, 2026-11-11).
+  So: the four who stayed are a MIX, at least one professional beside the amateurs (and the grappler). Every menu that
+  differs for a pro must show the difference side by side from day one: purse and the gym's share against the ticket cut,
+  the pro ladder against the regional table, a camp against a fight week, rounds, the licence, the stipend that stops.
+  The guide explains the road from amateur to professional in order (what the offer needs: 7 wins and a top-3 ranking, or 9
+  wins; what changes the day she turns over; what it costs and pays), using the pro in the gym as the example, and every
+  guide line is re-checked against the changes made since it was written.
+- Critics round 2 (S430, docs/mockups/s430/fourstart_critic_fm.md and fourstart_critic_owner.md): 5 and 5. Their shared
+  points: the board is solved in week 1 and nothing un-solves it (they ask for a rota that moves, one club twist a week, a
+  squad that changes); the shared things are not really short (nine pad places for nine wanted; how many fighters a
+  coached morning covers is never said); the weakness rule reaches one fighter of six; "Tess likely wins" is false on the
+  code's numbers (about 43 in 100); a missed goal is -20 in code, not -12; the week-3 corner clash is in week 10 on
+  today's calendar. The operator asked to see this map before any further critic round (board, Q-179).

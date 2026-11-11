@@ -153,6 +153,12 @@ func _initialize() -> void:
 	if cm != null:
 		await _until(func(): return cm.ui != null and cm.ui._card.visible, 40.0)
 		await _shot("p05_corner_card", 0.6)
+		var tab2: Button = cm.ui._card.find_child("TabSecond", true, false)   # S430 the fight so far (MatchStats)
+		_check(tab2 != null, "S430 the corner card has the fight-so-far tab")
+		if tab2 != null:
+			tab2.pressed.emit()
+			await _shot("p05c_corner_fight", 0.3)
+			(cm.ui._card.find_child("TabFirst", true, false) as Button).pressed.emit()
 		# S381 HOLOOFF: the holo is the corner card's - her body with the places that took punches coloured.
 		var fig: Control = cm.ui._card.find_child("*BodyFigure*", true, false)
 		if fig == null:

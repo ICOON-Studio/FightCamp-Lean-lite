@@ -85,6 +85,7 @@ static func corner(view: Node) -> bool:
 	card["stats"] = {"round": int(view.round_n), "won": bool(r.get("won", false)), "score": [won_a, done.size() - won_a],
 		"counts": int(r.get("counts", 0)), "tally": BodyMap.tally(view._round_beats),
 		"energy": {"a": _bell_energy(view, 0, float(en.get("a_end", 100.0))), "b": _bell_energy(view, 1, float(en.get("b_end", 100.0)))}}
+	card["fight_rounds"] = done   # S430 the fight so far in numbers (MatchStats), beside this round's
 	# S395 where the rest takes them (CornerRest): her tank before the second's points, and the number the opponent opens on
 	# (LiveRound.opp_energy: the tank less the body shots taken). CornerOverlay works hers out from the points picked.
 	var tank: Dictionary = (f["bout"] as Dictionary).get("energy", {})

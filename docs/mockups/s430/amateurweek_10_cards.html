@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bout sheet and the week's bill - a card designer's 10/10</title>
+<style>
+@font-face{font-family:"Marker";src:url("../../../assets/fonts/PermanentMarker-Regular.ttf")}
+@font-face{font-family:"Kalam";src:url("../../../assets/fonts/Kalam-Bold.ttf");font-weight:700}
+@font-face{font-family:"Kalam";src:url("../../../assets/fonts/Kalam-Regular.ttf");font-weight:400}
+@font-face{font-family:"Barlow";src:url("../../../assets/fonts/Barlow-Medium.ttf");font-weight:500}
+@font-face{font-family:"Barlow";src:url("../../../assets/fonts/Barlow-SemiBold.ttf");font-weight:600}
+@font-face{font-family:"Barlow";src:url("../../../assets/fonts/Barlow-Bold.ttf");font-weight:700}
+@font-face{font-family:"Bebas";src:url("../../../assets/fonts/BebasNeue-Regular.ttf")}
+:root{--ink:#efe6d8;--soft:#b8a88f;--head:#f2c14e;--blue:#8fbcff;--red:#ff7a66;--green:#9bd68f;--dark:#241f1a}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{font-family:"Barlow",sans-serif;font-weight:500;font-size:18px;line-height:1.15;color:var(--ink);background:#1b130d;position:relative}
+.wall{position:absolute;inset:0;background:url("../../../assets/ui/wood/bar.png") 0 0/1920px 64px repeat-y;filter:brightness(1.55) saturate(1.1)}
+.shade{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(0,0,0,0) 40%,rgba(0,0,0,.45) 100%)}
+svg.i{width:26px;height:26px;flex:none;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+svg.s{width:22px;height:22px}
+.mk{font-family:"Marker"}
+.num{font-family:"Bebas";letter-spacing:.5px}
+
+/* shell */
+.top{position:absolute;left:0;top:0;width:1920px;height:64px;background:url("../../../assets/ui/wood/bar.png") 0 0/1920px 64px;display:flex;align-items:center;padding:0 18px;gap:22px;box-shadow:0 3px 10px rgba(0,0,0,.6)}
+.top .gym{font-family:"Marker";font-size:30px;color:var(--blue)}
+.top .date{font-size:20px;font-weight:600}
+.top .cash{margin-left:auto;font-family:"Bebas";font-size:34px;color:var(--green)}
+.top .go{background:url("../../../assets/ui/wood/red.png") 0 0/100% 100%;height:50px;width:430px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:21px;color:#fff3e6}
+.rail{position:absolute;left:10px;top:76px;width:160px;display:flex;flex-direction:column;gap:8px}
+.rail div{height:50px;background:url("../../../assets/ui/wood/plank.png") 0 0/100% 100%;display:flex;align-items:center;padding-left:18px;font-weight:600;font-size:21px;color:var(--ink)}
+.rail div.on{background-image:url("../../../assets/ui/wood/plank_on.png");color:var(--head)}
+
+.slate{border:14px solid transparent;border-image:url("../../../assets/ui/wood/panel.png") 26 fill / 14px stretch;position:absolute;overflow:hidden}
+.ttl{font-family:"Marker";font-size:23px;color:var(--head);white-space:nowrap}
+.cap{color:var(--soft);font-size:18px}
+.row{display:flex;align-items:center;gap:8px}
+.face{--d:56px;display:inline-block;width:var(--d);height:var(--d);border-radius:50%;flex:none;background-color:#8f9db0;background-repeat:no-repeat;background-size:calc(var(--d)*3.2) auto;background-position:50% calc(var(--d)*-0.72);border:2px solid var(--ink)}
+.f12{background-image:url("../../../assets/ui/face/studio/mh_boxer_12.jpg")}
+.f15{background-image:url("../../../assets/ui/face/studio/mh_boxer_15.jpg")}
+.f17{background-image:url("../../../assets/ui/face/studio/mh_boxer_17.jpg")}
+.f20{background-image:url("../../../assets/ui/face/studio/mh_boxer_20.jpg")}
+.f21{background-image:url("../../../assets/ui/face/studio/mh_boxer_21.jpg")}
+.f22{background-image:url("../../../assets/ui/face/studio/mh_boxer_22.jpg")}
+.fc{background-image:url("../../../assets/ui/face/studio/mh_staff_coach.jpg")}
+
+/* header strip */
+#head{left:180px;top:70px;width:1730px;height:60px}
+#head .in{display:flex;align-items:center;gap:18px;height:100%;padding:0 6px}
+.sw{display:flex;margin-left:auto;border:2px solid var(--soft);border-radius:8px;overflow:hidden}
+.sw span{padding:3px 12px;font-weight:600;font-size:18px;color:var(--soft)}
+.sw span.on{background:var(--head);color:var(--dark)}
+.pip{display:inline-block;width:16px;height:16px;border-radius:50%;border:2px solid var(--head);margin-right:3px;vertical-align:-1px}
+.pip.f{background:var(--head)}
+.chip{border:2px solid var(--soft);border-radius:8px;padding:2px 10px;font-weight:600;font-size:18px;white-space:nowrap}
+
+/* draft cards */
+.bout{top:136px;width:570px;height:318px}
+.bout.pick{box-shadow:0 0 0 3px var(--head),0 0 26px 6px rgba(242,193,78,.55)}
+.bout .in{padding:2px 6px;display:flex;flex-direction:column;gap:7px;height:100%}
+.bout .who{display:flex;gap:12px;height:112px}
+.bout .who .face{--d:104px;border-radius:10px;height:112px}
+.bout .nm{font-family:"Marker";font-size:27px;line-height:1;white-space:nowrap}
+.badge{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:19px;padding:2px 10px;border-radius:7px;white-space:nowrap}
+.badge.home{background:var(--head);color:var(--dark)}
+.badge.away{background:#3d4652;color:var(--ink);border:2px solid var(--soft)}
+.tiles{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:6px}
+.tile{background:rgba(0,0,0,.30);border:1px solid rgba(239,230,216,.18);border-radius:8px;height:56px;padding:3px 8px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.tile b{font-family:"Bebas";font-weight:400;font-size:26px;line-height:1;letter-spacing:.5px;white-space:nowrap}
+.tile .cap{line-height:1.05;white-space:nowrap}
+.band{position:relative;height:12px;background:rgba(239,230,216,.16);border-radius:6px;margin-top:3px}
+.band i{position:absolute;top:0;height:12px;border-radius:6px;background:var(--blue)}
+.band u{position:absolute;top:-3px;width:2px;height:18px;background:var(--ink);left:50%}
+.foot{display:flex;align-items:center;gap:8px;font-size:18px;white-space:nowrap;height:28px}
+.good{color:var(--green)}.bad{color:var(--red)}.gold{color:var(--head)}.blue{color:var(--blue)}
+.sq{display:inline-block;width:15px;height:15px;border:2px solid var(--ink);margin-right:3px;vertical-align:-1px}
+.sq.f{background:var(--ink)}
+
+/* bill */
+.bill{top:462px;height:416px}
+.bill .in{padding:0 6px;height:100%;display:flex;flex-direction:column;gap:6px}
+.opt{display:flex;align-items:center;gap:8px;height:50px;border:1px solid rgba(239,230,216,.20);border-radius:8px;padding:0 8px;background:rgba(0,0,0,.28);white-space:nowrap}
+.opt.on{border:2px solid var(--head);background:rgba(242,193,78,.10)}
+.opt.off{opacity:.55}
+.opt b{font-weight:700}
+.opt .pr{margin-left:auto;font-family:"Bebas";font-size:25px;letter-spacing:.5px}
+.bar{height:14px;border-radius:7px;background:rgba(239,230,216,.16);position:relative;overflow:hidden}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:7px}
+
+/* evenings grid */
+.eg{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.ev{border:1px solid rgba(239,230,216,.20);border-radius:8px;background:rgba(0,0,0,.28);padding:4px 0 5px;display:flex;flex-direction:column;align-items:center;gap:4px;height:136px}
+.ev .d{font-weight:700;font-size:18px;white-space:nowrap}
+.ev .face{--d:46px}
+.ev .slot{display:block;height:46px;line-height:0}
+.ev.film{border:2px solid var(--blue);background:rgba(143,188,255,.12)}
+.ev.late{border-style:dashed;opacity:.8}
+.ev .slot{position:relative}
+.ev .tag{position:absolute;right:-9px;bottom:-4px;width:24px;height:24px;border-radius:50%;background:var(--dark);border:2px solid var(--head);color:var(--head);display:flex;align-items:center;justify-content:center}
+.ev .tag svg{width:15px;height:15px;stroke-width:3}
+.bagged{filter:grayscale(1) brightness(.6)}
+
+/* lines */
+.ln{display:flex;align-items:center;gap:8px;height:49px;border:1px solid rgba(239,230,216,.20);border-radius:8px;padding:0 8px;background:rgba(0,0,0,.28);white-space:nowrap}
+.ln.on{border:2px solid var(--head);background:rgba(242,193,78,.10)}
+.ln.off{opacity:.6}
+.ln .k{width:26px;height:26px;border-radius:5px;border:2px solid var(--ink);flex:none;display:flex;align-items:center;justify-content:center}
+.ln.on .k{background:var(--head);border-color:var(--head);color:var(--dark)}
+.ln .k svg{width:18px;height:18px;stroke-width:3.2}
+.ln .w{font-family:"Kalam";font-weight:700;font-size:20px}
+.ln .r{margin-left:auto;font-weight:700;font-size:18px}
+
+/* night */
+#night{left:180px;top:886px;width:1730px;height:184px}
+#night .in{display:flex;align-items:stretch;gap:14px;height:100%;padding:0 6px}
+.duel{width:470px;display:flex;flex-direction:column;justify-content:center;gap:5px}
+.tk{display:flex;align-items:center;gap:10px}
+.tk .face{--d:46px}
+.tk .bar{flex:1;height:26px;border-radius:6px}
+.tk .num{font-size:38px;width:52px;text-align:right;line-height:1}
+.nt{display:grid;grid-template-columns:1fr 1fr;gap:6px;width:400px;align-content:center}
+.nt .tile{height:62px}
+.cmp{width:400px;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.cmp .l{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.cmp .band{flex:1;height:18px;margin:0}
+.cmp .band i{height:18px}
+.cmp .band u{height:24px}
+.cmp .num{font-size:28px;width:98px;text-align:right}
+.btns{flex:1;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.yes{height:68px;background:url("../../../assets/ui/wood/red.png") 0 0/100% 100%;display:flex;align-items:center;justify-content:center;font-family:"Marker";font-size:30px;color:#fff3e6}
+.b2{display:flex;gap:8px}
+.b2 div{flex:1;height:52px;background:url("../../../assets/ui/wood/plank.png") 0 0/100% 100%;display:flex;align-items:center;justify-content:center;gap:6px;font-weight:700;font-size:19px;white-space:nowrap}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+ <symbol id="house" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10M10 20v-6h4v6"/></symbol>
+ <symbol id="van" viewBox="0 0 24 24"><path d="M2 6h12v10H2zM14 9h4l4 4v3h-8"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+ <symbol id="eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+ <symbol id="film" viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3"/></symbol>
+ <symbol id="bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+ <symbol id="scale" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 9a5 5 0 0 1 8 0M12 9l2-2"/></symbol>
+ <symbol id="lines" viewBox="0 0 24 24"><path d="M4 6h10M4 12h16M4 18h8M17 4l3 2-3 2"/></symbol>
+ <symbol id="plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
+ <symbol id="tick" viewBox="0 0 24 24"><path d="M4 12l6 6L20 6"/></symbol>
+ <symbol id="bag" viewBox="0 0 24 24"><path d="M12 2v3M8 5h8v14a4 4 0 0 1-8 0z"/></symbol>
+ <symbol id="up" viewBox="0 0 24 24"><path d="M12 20V5M5 11l7-7 7 7"/></symbol>
+ <symbol id="fork" viewBox="0 0 24 24"><path d="M6 3v7a3 3 0 0 0 6 0V3M9 3v18M17 3c-2 2-3 5-3 9h3v9"/></symbol>
+ <symbol id="run" viewBox="0 0 24 24"><circle cx="14" cy="4" r="2"/><path d="M6 21l4-6-2-4 5-3 3 4h4M9 8l-4 3"/></symbol>
+ <symbol id="hand" viewBox="0 0 24 24"><path d="M2 12l5-5 5 3 5-3 5 5-6 6-4-3-4 3z"/></symbol>
+ <symbol id="dice" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8" r="1"/><circle cx="16" cy="16" r="1"/><circle cx="12" cy="12" r="1"/></symbol>
+ <symbol id="cross" viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></symbol>
+</svg>
+
+<div class="wall"></div><div class="shade"></div>
+
+<div class="top">
+ <span class="gym">Anvil Street Gym</span>
+ <span class="date">Mon 14 Sep 2026 &nbsp;·&nbsp; Week 37</span>
+ <span class="cash">$9,240</span>
+ <span class="go">NEEDS YOU (1) &nbsp;Tess: pick a bout</span>
+</div>
+<div class="rail"><div>Home</div><div>Fighters</div><div class="on">Fights</div><div>Club</div><div>World</div></div>
+
+<!-- header -->
+<div class="slate" id="head"><div class="in">
+ <span class="face f12" style="--d:42px"></span>
+ <span class="mk" style="font-size:26px;white-space:nowrap">Tess Reilly: bout sheet</span>
+ <span class="chip">75 kg</span>
+ <span class="chip gold">Number 4</span>
+ <span class="chip">Bout 9</span>
+ <span class="chip">Nationals: 5 of 5 <svg class="i s good" style="vertical-align:-4px"><use href="#tick"/></svg></span>
+ <span class="row" style="gap:5px;white-space:nowrap"><svg class="i gold"><use href="#hand"/></svg><b class="gold">Favours</b>&nbsp;<i class="pip f"></i><i class="pip f"></i><i class="pip f"></i></span>
+ <span class="row" style="gap:5px"><svg class="i"><use href="#lines"/></svg><b style="white-space:nowrap">12 pad places to the bell</b></span>
+ <span class="sw"><span class="on">READY</span><span>BUILDING</span><span>RESTING</span></span>
+</div></div>
+
+<!-- the three bouts -->
+<div class="slate bout" style="left:180px"><div class="in">
+ <div class="who">
+  <span class="face f15"></span>
+  <div style="display:flex;flex-direction:column;gap:5px;justify-content:center">
+   <span class="nm">Amy Croft</span>
+   <span class="cap">6-4 · walks you down · Number 6</span>
+   <span class="row"><span class="badge home"><svg class="i s"><use href="#house"/></svg>HOME</span><b>Sat 26 Sep · 12 days</b></span>
+  </div>
+ </div>
+ <div class="tiles">
+  <div class="tile"><b>55 – 67%</b><div class="band"><i style="left:55%;width:12%"></i><u></u></div></div>
+  <div class="tile"><b>stays 4</b><span class="cap bad">loss: down to 6</span></div>
+  <div class="tile"><b class="good">+$450</b><span class="cap">win +8 members</span></div>
+  <div class="tile"><b><i class="sq f"></i><i class="sq f"></i><i class="sq f"></i><i class="sq f"></i></b><span class="cap">file 4 of 4</span></div>
+  <div class="tile"><b>100</b><span class="cap">tank: fresh</span></div>
+  <div class="tile"><b>3%</b><span class="cap">stopped: 30 days</span></div>
+ </div>
+ <div class="foot"><svg class="i s bad"><use href="#eye"/></svg><span class="bad">Croft's corner has seen the one-two: half</span></div>
+</div></div>
+
+<div class="slate bout pick" style="left:760px"><div class="in">
+ <div class="who">
+  <span class="face f21"></span>
+  <div style="display:flex;flex-direction:column;gap:5px;justify-content:center">
+   <span class="nm">Leah Morgan</span>
+   <span class="cap">9-3 · southpaw · waits to counter · Number 2</span>
+   <span class="row"><span class="badge away"><svg class="i s"><use href="#van"/></svg>AWAY</span><b>Sat 26 Sep · 12 days</b></span>
+  </div>
+ </div>
+ <div class="tiles">
+  <div class="tile"><b>34 – 52%</b><div class="band"><i style="left:34%;width:18%"></i><u></u></div></div>
+  <div class="tile"><b class="good">4 <svg class="i s" style="vertical-align:-2px"><use href="#up"/></svg> 2</b><span class="cap">loss: stays 4</span></div>
+  <div class="tile"><b class="bad">–$40</b><span class="cap">win +3 members</span></div>
+  <div class="tile"><b><i class="sq f"></i><i class="sq"></i><i class="sq"></i><i class="sq"></i></b><span class="cap">file 1 of 4</span></div>
+  <div class="tile"><b class="good">92</b><span class="cap">boxed 7 days ago</span></div>
+  <div class="tile"><b>6%</b><span class="cap">stopped: 30 days</span></div>
+ </div>
+ <div class="foot"><svg class="i s gold"><use href="#hand"/></svg><span class="gold">+1 favour, Fitzroy Lodge</span><svg class="i s blue" style="margin-left:10px"><use href="#eye"/></svg><span class="blue">you watch Byrne, Hale</span></div>
+</div></div>
+
+<div class="slate bout" style="left:1340px"><div class="in">
+ <div class="who">
+  <span class="face f17"></span>
+  <div style="display:flex;flex-direction:column;gap:5px;justify-content:center">
+   <span class="nm">Siobhan Byrne</span>
+   <span class="cap">7-3 · boxes at range · Number 3</span>
+   <span class="row"><span class="badge away"><svg class="i s"><use href="#van"/></svg>AWAY</span><b>Sat 3 Oct · 19 days</b></span>
+  </div>
+ </div>
+ <div class="tiles">
+  <div class="tile"><b>41 – 53%</b><div class="band"><i style="left:41%;width:12%"></i><u></u></div></div>
+  <div class="tile"><b class="good">4 <svg class="i s" style="vertical-align:-2px"><use href="#up"/></svg> 3</b><span class="cap">loss: stays 4</span></div>
+  <div class="tile"><b class="bad">–$40</b><span class="cap">win +3 members</span></div>
+  <div class="tile"><b><i class="sq f"></i><i class="sq f"></i><i class="sq"></i><i class="sq"></i></b><span class="cap">slow to start</span></div>
+  <div class="tile"><b>?</b><span class="cap">tank: not seen</span></div>
+  <div class="tile"><b>4%</b><span class="cap">stopped: 30 days</span></div>
+ </div>
+ <div class="foot"><svg class="i s gold"><use href="#hand"/></svg><span class="gold">+1 favour, West Ham</span><span class="face f20" style="--d:26px;margin-left:10px"></span><span class="bad">Samira boxes that night: one corner</span></div>
+</div></div>
+
+<!-- THE BILL -->
+<!-- scale -->
+<div class="slate bill" style="left:180px;width:372px"><div class="in">
+ <div class="row"><svg class="i gold"><use href="#scale"/></svg><span class="ttl">The scale</span><span class="num" style="margin-left:auto;font-size:30px;color:var(--red)">1.1 kg over</span></div>
+ <div style="position:relative;height:50px">
+  <div class="bar" style="position:absolute;left:0;right:0;top:26px;height:12px"><i style="width:62%;background:var(--green)"></i><i style="left:62%;width:38%;background:var(--red)"></i></div>
+  <span style="position:absolute;left:62%;top:20px;width:3px;height:24px;background:var(--ink)"></span>
+  <span class="num" style="position:absolute;left:calc(62% - 60px);top:0;font-size:24px">75.0 limit</span>
+  <span class="num" style="position:absolute;right:0;top:0;font-size:24px;color:var(--red)">76.1 now</span>
+ </div>
+ <div class="opt on"><svg class="i"><use href="#fork"/></svg><b>Eat less</b><span class="cap">0.6 kg</span><span class="pr bad">–7 tank</span></div>
+ <div class="opt on"><svg class="i"><use href="#run"/></svg><b>Train it off</b><span class="cap">0.6 kg</span><span class="pr bad">–3 tank</span></div>
+ <div class="opt"><svg class="i"><use href="#hand"/></svg><b>Ask a kilo</b><span class="cap"><i class="pip f"></i></span><span class="pr">Morgan +5</span></div>
+ <div class="opt off"><svg class="i"><use href="#dice"/></svg><b>Hold</b><span class="cap">swing ±0.2</span><span class="pr bad">miss 10 in 10</span></div>
+ <div class="row" style="margin-top:auto;white-space:nowrap"><span class="cap">Sat 4 pm</span><span class="num" style="font-size:30px">74.9 ±0.2</span><span class="num good" style="font-size:26px;margin-left:auto">made 3 in 4</span></div>
+</div></div>
+
+<!-- Reid's evenings -->
+<div class="slate bill" style="left:562px;width:566px"><div class="in">
+ <div class="row"><span class="face fc" style="--d:34px"></span><span class="ttl">Reid's evenings</span><span class="cap" style="margin-left:auto;white-space:nowrap">2 places a night · 12 to the bell</span></div>
+ <div class="eg">
+  <div class="ev"><span class="d">Mon 14</span>
+   <span class="slot"><span class="face f12"></span><span class="tag"><svg class="i"><use href="#lines"/></svg></span></span>
+   <span class="slot"><span class="face f20"></span></span></div>
+  <div class="ev film"><span class="d blue">Wed 16</span>
+   <svg class="i blue" style="width:46px;height:46px"><use href="#film"/></svg>
+   <span class="row" style="gap:2px"><span class="face f20 bagged" style="--d:38px"></span><span class="face f22 bagged" style="--d:38px"></span></span></div>
+  <div class="ev"><span class="d">Fri 18</span>
+   <span class="slot"><span class="face f12"></span><span class="tag"><svg class="i"><use href="#plus"/></svg></span></span>
+   <span class="slot"><span class="face f22"></span></span></div>
+  <div class="ev"><span class="d">Mon 21</span>
+   <span class="slot"><span class="face f12"></span><span class="tag"><svg class="i"><use href="#plus"/></svg></span></span>
+   <span class="slot"><span class="face f20"></span></span></div>
+  <div class="ev"><span class="d">Wed 23</span>
+   <span class="slot"><span class="face f12"></span><span class="tag"><svg class="i"><use href="#lines"/></svg></span></span>
+   <span class="slot"><span class="face f22"></span></span></div>
+  <div class="ev late"><span class="d">Fri 25</span>
+   <span class="slot"><span class="face f12"></span><span class="tag"><svg class="i"><use href="#bolt"/></svg></span></span>
+   <span class="slot"><span class="face f20"></span></span></div>
+ </div>
+ <div class="row cap" style="gap:6px;white-space:nowrap"><svg class="i s gold"><use href="#lines"/></svg>walk lines<svg class="i s gold" style="margin-left:10px"><use href="#plus"/></svg>finish a punch<svg class="i s gold" style="margin-left:10px"><use href="#bolt"/></svg>sharp only: too late for lines</div>
+ <div class="row" style="gap:6px;white-space:nowrap"><svg class="i blue"><use href="#film"/></svg><b class="blue">Film asks:</b>
+  <span class="chip" style="border-color:var(--blue);background:rgba(143,188,255,.18)">Best punch</span><span class="chip">A habit</span><span class="chip">Morgan's week</span></div>
+ <div class="row" style="white-space:nowrap"><span class="face f20" style="--d:38px"></span><svg class="i bad"><use href="#bag"/></svg><span class="bad"><b>Samira:</b> uppercut usable 1 week later</span></div>
+ <div class="row" style="white-space:nowrap"><span class="face f22" style="--d:38px"></span><svg class="i bad"><use href="#bag"/></svg><span class="bad"><b>Jo:</b> one-two-hook stays at 80%</span></div>
+ <div class="row" style="margin-top:auto;white-space:nowrap;gap:14px"><span class="cap">Places</span>
+  <span class="row" style="gap:4px"><span class="face f12" style="--d:28px"></span><b class="num" style="font-size:28px">7</b></span>
+  <span class="row" style="gap:4px"><span class="face f20" style="--d:28px"></span><b class="num bad" style="font-size:28px">3 (–1)</b></span>
+  <span class="row" style="gap:4px"><span class="face f22" style="--d:28px"></span><b class="num bad" style="font-size:28px">2 (–1)</b></span>
+  <span class="num" style="margin-left:auto;font-size:28px">12 of 12</span></div>
+</div></div>
+
+<!-- legs -->
+<div class="slate bill" style="left:1138px;width:330px"><div class="in">
+ <div class="row"><svg class="i gold"><use href="#run"/></svg><span class="ttl">The legs</span><span class="cap" style="margin-left:auto">tank · growth</span></div>
+ <div class="opt" style="height:104px;flex-direction:column;align-items:stretch;justify-content:center;gap:5px">
+  <div class="row"><b>Rest up</b><span class="badge" style="margin-left:auto;background:var(--red);color:var(--dark);font-size:18px">FLAT round 1</span></div>
+  <div class="row"><div class="bar" style="flex:1"><i style="width:100%;background:var(--green)"></i></div><span class="num" style="font-size:24px;width:42px;text-align:right">–0</span></div>
+  <div class="row"><div class="bar" style="flex:1"><i style="width:20%;background:var(--blue)"></i></div><span class="num" style="font-size:24px;width:42px;text-align:right">20%</span></div>
+ </div>
+ <div class="opt on" style="height:104px;flex-direction:column;align-items:stretch;justify-content:center;gap:5px">
+  <div class="row"><b>Tick over</b><span class="row gold" style="margin-left:auto;gap:3px"><svg class="i s"><use href="#bolt"/></svg><b>sharp: 1 place</b></span></div>
+  <div class="row"><div class="bar" style="flex:1"><i style="width:92%;background:var(--green)"></i></div><span class="num" style="font-size:24px;width:42px;text-align:right">–8</span></div>
+  <div class="row"><div class="bar" style="flex:1"><i style="width:50%;background:var(--blue)"></i></div><span class="num" style="font-size:24px;width:42px;text-align:right">50%</span></div>
+ </div>
+ <div class="opt" style="height:104px;flex-direction:column;align-items:stretch;justify-content:center;gap:5px">
+  <div class="row"><b>Train through</b><span class="row bad" style="margin-left:auto;gap:3px"><svg class="i s"><use href="#cross"/></svg><b>hurt ×1.5</b></span></div>
+  <div class="row"><div class="bar" style="flex:1"><i style="width:88%;background:var(--green)"></i></div><span class="num" style="font-size:24px;width:42px;text-align:right">–12</span></div>
+  <div class="row"><div class="bar" style="flex:1"><i style="width:100%;background:var(--blue)"></i></div><span class="num" style="font-size:24px;width:42px;text-align:right">100%</span></div>
+ </div>
+ <div class="row" style="margin-top:auto;white-space:nowrap"><span class="cap">Tess: 3 from the ceiling</span></div>
+</div></div>
+
+<!-- lines: the hand -->
+<div class="slate bill" style="left:1478px;width:432px"><div class="in">
+ <div class="row"><svg class="i gold"><use href="#lines"/></svg><span class="ttl">Bring 4 of 6</span><span class="cap" style="margin-left:auto;white-space:nowrap">1 place walks 2</span></div>
+ <div class="ln on"><span class="k"><svg class="i"><use href="#tick"/></svg></span><span class="w">Waits → feint, body hook</span><span class="r good">Beats it</span></div>
+ <div class="ln on"><span class="k"><svg class="i"><use href="#tick"/></svg></span><span class="w">Loads up → check hook</span><span class="r gold">2 places short</span></div>
+ <div class="ln on"><span class="k"><svg class="i"><use href="#tick"/></svg></span><span class="w">Pressed → step back</span><span class="r">Works</span></div>
+ <div class="ln on"><span class="k"><svg class="i"><use href="#tick"/></svg></span><span class="w">Inside → tie up</span><span class="r">Works</span></div>
+ <div class="ln off"><span class="k"></span><span class="w">Long → one-two</span><span class="r">80%</span></div>
+ <div class="ln off"><span class="k"></span><span class="w">Tires → let hands go</span><span class="r">80%</span></div>
+ <div class="row" style="margin-top:auto;white-space:nowrap"><svg class="i blue"><use href="#film"/></svg><span class="blue">Film opens a 5th: beats the best punch</span></div>
+</div></div>
+
+<!-- on the night -->
+<div class="slate" id="night"><div class="in">
+ <div class="duel">
+  <div class="row"><span class="ttl">At the first bell</span><span class="cap" style="margin-left:auto">the tank</span></div>
+  <div class="tk"><span class="face f12"></span><div class="bar"><i style="width:82%;background:var(--head)"></i></div><span class="num">82</span></div>
+  <div class="tk"><span class="face f21"></span><div class="bar"><i style="width:92%;background:var(--soft)"></i></div><span class="num">92</span></div>
+ </div>
+ <div class="nt">
+  <div class="tile"><b class="gold"><svg class="i s" style="vertical-align:-2px"><use href="#bolt"/></svg> SHARP</b><span class="cap">round 1</span></div>
+  <div class="tile"><b>4 ready</b><span class="cap">2 beat it</span></div>
+  <div class="tile"><b>74.9 ±0.2</b><span class="cap">made 3 in 4</span></div>
+  <div class="tile"><b class="bad">4 in 10</b><span class="cap">close rounds, away</span></div>
+ </div>
+ <div class="cmp">
+  <div class="l"><span class="face fc" style="--d:32px"></span><span class="cap" style="width:100px">Reid's week</span><div class="band"><i style="left:36%;width:14%;background:var(--soft)"></i><u></u></div><span class="num">36 – 50%</span></div>
+  <div class="l"><span class="face f12" style="--d:32px"></span><b style="width:100px">Your week</b><div class="band"><i style="left:41%;width:14%"></i><u></u></div><span class="num gold">41 – 55%</span></div>
+  <div class="l"><svg class="i good" style="margin-left:4px"><use href="#up"/></svg><b class="good">Win: Number 2, pro offer one win nearer</b></div>
+ </div>
+ <div class="btns">
+  <div class="yes">TAKE THIS BOUT</div>
+  <div class="b2"><div><span class="face fc" style="--d:30px"></span>Reid runs it</div><div>Pass: <i class="pip f" style="margin:0 2px"></i> or 7 days</div></div>
+ </div>
+</div></div>
+</body>
+</html>

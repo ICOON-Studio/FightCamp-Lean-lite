@@ -3,6 +3,9 @@ extends PanelContainer
 ## decided it. Bouts.fight_step moves it on; this draws whichever step the moment is at.
 
 const RoundGraphics := preload("res://scripts/ui/RoundGraphics.gd")
+const FightStats := preload("res://scripts/rules/FightStats.gd")
+const MatchStats := preload("res://scripts/ui/MatchStats.gd")
+const AftermathTiles := preload("res://scripts/ui/AftermathTiles.gd")
 const Broadcast := preload("res://scripts/ui/Broadcast.gd")
 const WhyCard := preload("res://scripts/ui/WhyCard.gd")
 const UI := preload("res://scripts/ui/UI.gd")
@@ -223,30 +226,35 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		v.add_child(foot)
 
 
-## S327 update 29 part B: which part of her went first, the change since her last bout, and one click to train it next week.
-func _body_report(main: Node, m: Dictionary) -> HBoxContainer:
-	var row := UI.hbox(18)
+## S430 the page ran off a 1080 screen once the fight's numbers and the tiles were on it (the money line and Back home were
+## cut): what decided it is one row of gold words, each with its sentence on the hover, and the body report keeps its one
+## action (train the part that went first) at the end of that row.
+func _decided(main: Node, m: Dictionary, why: Array) -> HBoxContainer:
+	var row := UI.hbox(22)
+	row.name = "Decided"
+	row.add_child(UI.caps("WHAT DECIDED IT"))
+	for line in why:
+		var text := str(line)
+		var title := "Why"
+		if text.contains(": "):
+			title = text.get_slice(": ", 0).trim_prefix("The ").capitalize()
+		elif text.begins_with("Your corner call"):
+			title = "Your corner"
+		var word := UI.label(title, 20, UI.GOLD, "bold")
+		word.mouse_filter = Control.MOUSE_FILTER_PASS
+		word.tooltip_text = text
+		row.add_child(word)
+	row.add_child(UI.spacer())
 	var rep: Dictionary = m.get("body_report", {})
-	if rep.is_empty():
-		return row
-	var col := UI.vbox(4)
-	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var t := UI.caps("BODY REPORT")
-	t.add_theme_color_override("font_color", UI.GOLD)
-	col.add_child(t)
-	col.add_child(UI.label(str(rep["line"]) + ("" if str(rep["advice"]) == "" else ". " + str(rep["advice"]) + "."), 20, UI.FG, "body", true))
-	if str(m.get("body_change", "")) != "":
-		col.add_child(UI.muted(str(m["body_change"]), UI.SMALL, true))
-	row.add_child(col)
 	var focus := str(rep.get("focus", ""))
 	if focus != "":
 		var f: Dictionary = main.career.fighter_by_id(str(m["fid"]))
 		var set_now := str(f.get("focus", "")) == focus
-		var btn := UI.button("Training %s next week" % str(Data.LABEL.get(focus, focus)).to_lower() if set_now else "Train %s next week" % str(Data.LABEL.get(focus, focus)).to_lower(),
-			"Btn", main.act.bind("bodyfocus", "%s|%s" % [m["fid"], focus]), set_now,
-			"Already set as next week's focus" if set_now else "")   # S417 grey_reason_test: a grey button says why
+		var btn := UI.button(("Training %s next week" if set_now else "Train %s next week") % str(Data.LABEL.get(focus, focus)).to_lower(),
+			"Btn", main.act.bind("bodyfocus", "%s|%s" % [m["fid"], focus]), set_now, "Already set as next week's focus" if set_now else "")
 		btn.name = "BodyFocus"
-		btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		if not set_now:
+			btn.tooltip_text = "%s. %s. %s" % [str(rep.get("line", "")), str(rep.get("advice", "")), str(m.get("body_change", ""))]
 		row.add_child(btn)
 	return row
 
@@ -270,11 +278,11 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	centre.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	centre.alignment = BoxContainer.ALIGNMENT_CENTER
 	var winner := str(f.get("name", f["first"])) if win else str(opp.get("name", opp["first"]))
-	var who := UI.display("A DRAW" if outcome == "draw" else winner.to_upper(), 72, colour.lightened(0.25))
+	var who := UI.display("A DRAW" if outcome == "draw" else winner.to_upper(), 60, colour.lightened(0.25))
 	who.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	centre.add_child(who)
 	if outcome != "draw":
-		var how := UI.display("WINS " + by, 40, UI.GOLD)
+		var how := UI.display("WINS " + by, 32, UI.GOLD)
 		how.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		centre.add_child(how)
 	if stop == "":
@@ -287,13 +295,24 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		var when := UI.mono("Stopped in round %d of %d" % [(m["rounds"] as Array).size(), int(m.get("total", BoutRules.ROUNDS))], 22, UI.FG)
 		when.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		centre.add_child(when)
+	# S430 (operator on this page: "you show the holos but no stats , you need to show stats to explain what happenned you
+	# can use holos to link them"): the fight in numbers between the two figures, each side's bars growing towards its own.
+	var names := [str(f["first"]), str(opp["first"])]
+	var st := FightStats.of(m["rounds"])
+	var strip := MatchStats.strip(st, names)
+	strip.alignment = BoxContainer.ALIGNMENT_CENTER
+	centre.add_child(strip)
+	var bars := MatchStats.bars(st, names)
+	bars.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	centre.add_child(bars)
 	hero.add_child(centre)
 	hero.add_child(Broadcast.corner(RoundGraphics.body(m.get("body_map", {}), "b", str(bodies[1]), "blue", m.get("body_track", {})), str(opp.get("name", opp["first"])), Broadcast.THEIRS, true))
 	v.add_child(hero)
+	if m.has("aftermath"):   # S430 the damage, the tiredness, what was learned, morale, the corner, the rank
+		v.add_child(AftermathTiles.build(m["aftermath"], str(f["first"])))
 	var why: Array = m["why"]
 	v.add_child(WhyCard.build(m["rounds"], str(f["first"]), str(opp["first"])))   # S388 the hook: what the plan really did
-	v.add_child(Broadcast.reasons(why if not why.is_empty() else ["A close night: the rolls of the rounds decided it."]))
-	v.add_child(_body_report(main, m))
+	v.add_child(_decided(main, m, why if not why.is_empty() else ["A close night: the rolls of the rounds decided it."]))
 	var foot := UI.hbox(10)
 	var take := []
 	if m.has("tickets"):

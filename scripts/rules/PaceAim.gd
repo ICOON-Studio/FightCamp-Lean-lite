@@ -95,6 +95,52 @@ static func aim_word(aim: String) -> String:
 	return ""
 
 
+## S430 (operator on the corner bar: "do these affect anything , they take effect immediately or how they work ?"): what the
+## setting in force does, in one short line for the bar, and the longer version for the hover.
+const WHEN := "Counts from the next exchange and stays on until you change it."
+const PACE_EFFECT := {"push": "Push: wins more, tires faster", "steady": "Steady: no gain, no cost",
+	"save": "Save: gives ground, rests"}
+const PACE_TIP := {
+	"push": "Push now! More exchanges won and about a quarter more punches landed; the tank drains about a third faster. On an empty tank it backfires.",
+	"steady": "Stay steady. The usual rhythm: nothing gained, nothing spent.",
+	"save": "Take this one easy. Exchanges given away and about a quarter fewer punches landed; the tank drains much slower and the breath comes back."}
+
+
+static func pace_effect(pace: String) -> String:
+	return str(PACE_EFFECT.get(pace, ""))
+
+
+static func pace_tip(pace: String) -> String:
+	return "%s
+%s" % [str(PACE_TIP.get(pace, "")), WHEN]
+
+
+static func aim_effect(aim: String, opp: String) -> String:
+	if aim == "head":
+		return "Head: upstairs, easy to read"
+	if aim == "body":
+		return "Body: drains %s for later" % opp
+	if aim == "left_ribs" or aim == "right_ribs":
+		return "%s: hurt, hits harder" % ("Left ribs" if aim == "left_ribs" else "Right ribs")
+	if aim == "head_hurt":
+		return "The hurt head: hits harder"
+	return "Own game: 1 in 5 to the body"
+
+
+static func aim_tip(aim: String, opp: String) -> String:
+	var t := "The usual game. About 1 punch in 5 goes to the body. Costs nothing."
+	if aim == "head":
+		t = "Head hunt. Nearly every punch goes upstairs. A named target is a little easier to read in every exchange."
+	elif aim == "body":
+		t = "Go to the body. Half the punches go downstairs; each one takes energy from %s for the rest of the fight. A named target is a little easier to read in every exchange." % opp
+	elif aim == "left_ribs" or aim == "right_ribs":
+		t = "The hurt ribs. More exchanges won and every punch there does about a third more damage."
+	elif aim == "head_hurt":
+		t = "Finish the head! %s is hurt there: more exchanges won and every punch there does about a third more damage." % opp
+	return "%s
+%s" % [t, WHEN]
+
+
 static func offers(opp_hurt: Dictionary) -> Array:
 	var out: Array = ["", "head", "body"]
 	for place in _HURT_PLACES:

@@ -1,62 +1,72 @@
-# S430 handover: two design maps at v2 waiting for fresh critics, his play fixes, seats running (written 2026-11-11, end of S429)
+# S431 handover: his play notes built into the fight screens; his picks pending on the look and the menus (written 2026-11-11, end of S430)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S430` and redraw the Miro map.
-S429 has no digest: its facts are here, in roadmap.json `now` and in memory (project_s429_four_fighters_maps).
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S431` and redraw the Miro map.
+S430 has no digest: its facts are here, in roadmap.json `now` and in memory (project_s430_fight_explains_itself, feedback_serious_sim_look_menu_structure_s430).
 
-## USAGE (his words, S429): "you have approximately 30 hours to burn all weekly credits , donot drain it before thursday 4pm"
-The weekly allowance resets Thursday 2026-11-12 16:00 local. Plan is Ultra. At the end of S429: weekly all-models 5%, Fable 9%, extra usage EUR 37.92 of 40 (unchanged all session). So: critic rounds and seat work are wanted, paced so the allowance lasts to the reset. Run `get_usage` at the start and before each critic round. A round of two fresh critics is about 600k subagent tokens.
+## USAGE
+Weekly allowance resets Thursday 2026-11-12 16:00 local; his word (S429): burn it, but make it last to the reset. Mid S430: weekly all-models 9%, Fable 17%, extra usage EUR 37.92 of 40 (unchanged). S430 spent about 2.4M subagent tokens (four critics, three designers). `get_usage` first.
+
+## HIS LAST WORD OF S430 (after the menu drawings went out), it overrides the drawings
+"FYI i wnat the main gym screen as designed unchanged so the whole design should much that"
+So: the main gym screen (the gym picture with its pins, GymHub, as it is in the build) STAYS as it is and stays the main
+screen. Every other screen's look is made to MATCH it; it is not the gym screen that changes. The three shell looks of
+Q-181 were drawn BEFORE this and treat the gym picture as one section (A, B) or a panel on Home (C): they must be redrawn.
+Do this first: render the real gym screen (`tools/layout_snapshot.gd` on the hidden desktop, `noguide`), give that picture
+to the designer, and redraw the frame so (1) Home IS the gym screen, untouched, (2) the sections, the gold next-step button
+and the pages take their colours, type and materials from that screen, (3) the Overview (his pick: A, the body chart) is
+redrawn in the same look. Whether that look keeps wood at all is read off the gym screen, not decided by us: he disliked
+the heavy riveted frames on the Overview, not the gym. Show him ONE matched set before any build. The structure (sections,
+six tabs a fighter) is still his to answer on Q-181.
 
 ## FIRST MOVES
-1. `get_usage`. Collect what landed: FIGHTDISPLAY4 (Cursor: RENDER and read its stills, VISUAL), AMATEURPROBE1 (Qwen, measure only: check its sums), then the queue launches by itself (Cursor: TRAININGB2, GYMLIFE1; Qwen: CAMLINE1). If a runner hangs after "SEAT exit 0" (it waits on a Godot slot), mark the run `landed` in ops/AgentComms/live_runs.json after you collect, then `seat_dispatch.py --task <ID> --seat <seat> --act`.
-2. TWO FRESH CRITICS ON EACH v2 MAP (he said "yes run them" for round 1; round 2 is the same work): ops/research/FOURSTART1_MAP_V2_S429.md and ops/research/AMATEURWEEK1_MAP_V2_S429.md. Make clean copies first (no scores, no "v2", no "critics"; docs/mockups/s429/*_for_critics.md are the round-1 copies: write new ones). Use the round-1 prompts as the shape (CRITIC_PACK.md + CRITIC_ACCESS.md first, depth score, dominant plays, menus, the list to 10/10, one 1920x1080 drawing through tools/render_mockup.py). New seats, never the same four: e.g. a Football Manager designer and an amateur club owner for FOURSTART; a boxing judge or referee and a roguelike or card-game designer for AMATEURWEEK. 7+ from both = his board, with a picture and the menus table. Under 7 = another revision, never the board.
-3. Read AMATEURPROBE1 into AMATEURWEEK v2 section 3 (the stakes: best fight week against the laziest should be 10 to 12 wins in 100).
-4. The build in Builds/S429 (see below): tell him, and move it to Builds/ when his game is closed.
+1. READ `ops/AgentComms/questions.json` BEFORE ANYTHING PAID. Trap of S430: Q-179 was recorded "yes run them" from chat at the end of S429; at 10:14 he set the board to "Show me the maps first, no critics" while round 2 was already running. Maps and two drawings were sent to him. NO further critic round on FOURSTART / AMATEURWEEK until he has read them and says so.
+2. HIS PICKS (nothing of the shell or the Overview is rebuilt before them):
+   - Q-S294-180 ANSWERED in chat: "A, body chart" (`docs/mockups/s430/overview_a.png`, write-up `OVERVIEW_APPROACHES.md`, generator `gen_overview.py`). NEXT for it: Ludo paints A (his S400 rule) in the look he picks with the shell drawings, then ONE Cursor task. In A the numbers are grouped by body part (Head, Hands, Guard, Engine, Legs, On the scale), the chalk lines must stay on the 3D figure (the biggest build of the three), "At a glance" is gone, the weakest trainable numbers carry a button for the session that raises them (`Attrs.SESSION_ATTRS`), character numbers are marked as not trainable. Add the S430 tiredness meter (bar, number, rest days) to "On the scale": the drawing has only the five freshness pips.
+   - Q-S294-181 ASKED (pictures sent and on the review board): the menu structure like Boxing Manager's and the serious management look. `docs/mockups/s430/MENU_STRUCTURE_PROPOSAL.md` (sections Home, Squad, Training, Fights, Gym, Money, World + a real Mail inbox + one gold button for the next step; every fighter the same six tabs: Profile, Condition, Training, Playbook, Fight plan, History; the gym picture stays as Gym > Floor; an 8-step build order) and `shell_a|b|c_dashboard.png` / `_squad.png`. The designer's pick and mine: B (sections across the top, the week always on the right). I opened the three dashboards, NOT the three squad pages. The designer rated today's structure 4/10 and Boxing Manager's 7/10. Nothing of the shell is rebuilt before his answer.
+   - `tools/render_mockup.py` sometimes returns a picture with its bottom 60 rows blank (the designer re-rendered until whole): worth a fix.
+   After a pick: Ludo paints it (his S400 rule), then one screen per Cursor task.
+3. COLLECT (diff + parse + test + real render, read the stills):
+   - HUMANFIGHT1: a separate Fable SESSION (id local_f2068222-ae6c-4eb3-8a8b-b3a826700139, worktree `E:\FightCamp\wt\LEAN_HUMANFIGHT1`, branch `claude/humanfight1`). Loop: measure, ruler red on main, fix, film, two fresh critics, until 7/10. First finding: the old foot rulers only read frames where the footwork rig holds the legs; one boxer stood up to 12 cm under the canvas, the other hovered. Read its `ops/research/HUMANFIGHT1_DIGEST.md` on the branch and its films on the review board; collect by diff; never trust the note alone.
+   - CAMLINE1 (Qwen, launched 09:56): the gloves' blur first, then camera lines. VISUAL: film it.
+   - TRAININGB2 (Cursor, launched 10:22): the Training tab's curve and pads rows. Render.
+   If a seat runner hangs after its seat exits (the FIGHTDISPLAY4 runner, pid 37732, was still alive at the end of S430), mark the run `collected` in live_runs.json after you collect and `seat_dispatch.py --task <ID> --seat <seat> --act`.
+4. The queue then launches by itself: Qwen AIMWIRE1, CORNERFACE1; Cursor GYMLIFE1, DUESWIRE1, FACEFRAME1 (all briefed in `ops/research/TASK_*.md`).
 
-## His words in S429 (all acted on unless marked)
-- "on the new 3-4 fighter start try to use the guide to pinpoint different trainings according to different ratings and styles of fighters" -> the coach's read (TrainRead.gd built), FOURSTART1 section 3.
-- "\"fix the hole\" i do not understand it , maybe use fix weakness ?" -> `weakness` everywhere.
-- "check my board comments and then yes run them" -> C282 to C286 read (seen flags set); critics round 1 ran.
-- Marks C282/C283 (fight screen): "remove these and restore the previous version and maybe put the bars at thebottom hud or fill up the top. Now these box panels blocking too much of the view" / "move bars uphere keep the holo as in previous version ?" -> TASK_FIGHTDISPLAY4 (Cursor, RUNNING).
-- Marks C284 to C286 (Training tab): "check alignement on the texts/icons. What raw means ?" / "what are these , i do not learn information by looking at them" -> "Raw" is now "Learning" (done); TASK_TRAININGB2 (queued).
-- "can you write scripts and animations for the fighters/customers that work out on the gym or this is work for later ?" -> TASK_GYMLIFE1 (queued, Cursor).
-- "the pads animation is broken btw but it is not important for now since there isno mechanic on it" -> PADSANIM1 parked in roadmap plan.parked.
-- "how do i save the combo ?" -> Save sat under the lessons, off the panel on a six-move chain: moved above (done).
-- "Can you change the word 'Engine\" to something more appropriate" -> Stamina / fitness / tireless on every screen (done; internal ids keep "engine").
-- "poster isnot centered correctly" -> the poster never grows wider than its slot (done, tests/fight_poster_test.gd; NOT proven red on the old code).
-- "text is unreadable and out of limits" (Playbook > Game plan answers) -> chalk words on the wood button; UI.button2 grows to hold its words (done).
-- "still i see bad camera angles and the fading effect you have on the background ropes looks weird when fighters head are at the same drawing height" -> TASK_CAMLINE1 (queued, Qwen: ruler on the game path first). Then his correction: "actually its the gloves that have a weird b;lur effect can yhou check that": the motion-blur add-on smears the gloves; CAMLINE1 step 3 measures it with and without `noblur` and is the task's first priority. NOT checked by Claude on a film: one guard still (E:/FightCamp/tmp/barguard1) cannot show it.
-- "hits never go to the ribs ? also remove the stupid scoring its round 1 and it shows 2-3 it confusing for the player" -> the two big counts on the scoreboard are hidden, the lights stay (done). RIBS: in the rules a body shot does land on left_ribs / right_ribs (BodyMap.gd line 67), but the screen only names the WORST place, so ribs rarely show. NOT fixed: show the place each hit landed (fold into FIGHTDISPLAY4's review or a small FIGHTDISPLAY5: a rib spot lights on the figure when a body shot lands, and the tag names the last place hit, not only the worst).
+## His words in S430 and what happened to each
+- (bar, LAST CALL box) "whats the point of htis ? during the corner time i asked to see more match analysis stats can this be arranged" -> box removed; corner tab "The fight so far" built.
+- (Pace / Aim) "do these affect anything , they take effect immediately or how they work ?" -> answered (six exchanges a round, counts from the next one, carries across rounds); the bar and the hovers now say so.
+- "i see some animations the fighters are off the ground flying , can you assign a fable 5.2 agent to make the boxing fight as close to human-like a spossible and rate the results using critics and loop until it is at 7/10" -> HUMANFIGHT1 session, running.
+- "after each fight it should show a summary of the damage on the fighter what he learned, morale effected etc" -> six tiles on the result page.
+- (result page) "in this screen you show the holos but no stats , you need to show stats to explain what happenned you can use holos to link them or remove the holos" -> the fight's numbers between the two figures.
+- (Overview) "this screen on the bottom is clipped , also it doesnt look good at all those wooden panels i think need to go and change the design" -> clip fixed (figure 690 -> 560); three drawings, Q-180.
+- "after the fight i need to clearly see somewhere i (probably in the fighters prifile ) his stamina level to figure out how long i need to rest him and plan his next training , can you fix all these notes i am giving you" -> a fight now leaves tiredness (it left none); Overview shows bar + number + rest days; a tile on the result page.
+- "make the game look a serious AAA simulator/management. the menus/submenus still do not make much , can you try and follow a structure like boxing managers scoped for our game . do you agree with this idea , or what do you rate the current menu structure ?" -> I agreed and rated today's structure 4/10; proposals drawn (see FIRST MOVES 2). This reverses S408 (no side panel) and S416 (one Gym button): his pick first.
+- "is the fight in real time ? are player decisions making a difference ?" -> yes to both, answered with the code's rules; the screen had not made it felt.
+- "check board for comments . you added the youth picture on the board , but have you implemented the mechanic accross all menus properly ?" -> NO: boards built, week review / Home / month report / golden path missing, and Premium still wins 9 of 9 (S424). DUESWIRE1 briefed for the menus; the SUMS are still open and unassigned.
+- "not sure why in all profiles and corner pictures the camera cuts the face , is it that hard to make a proper camera adjustment for all profile to show up correctly ?" -> FACEFRAME1 (Cursor, menus) and CORNERFACE1 (Qwen, the corner minute's camera) briefed, ruler first.
+- "also add professionals to the starting line up (3-4 fighters) and amateurs to see the difference in affected menus and explain how to transition from amateur to proffesional clearly use the guide too(adjust to all changes) to structure it and explain it correctly" -> written into `ops/research/FOURSTART1_MAP_V2_S429.md` section 7; NOT designed, NOT built.
 
-## Done in S429 (main, pushed)
-- Collected by diff: WEEKTESTS1 (PR 185), RANKSHOW1 (RankLine.gd), HALOSWEEP1 (PR 184), TRAINREAD1 (TrainRead.gd, reworded to weakness), MONEYFOUR1 (measure), BARGUARD1 (tests + a real fight render read: boots clear of the bar). PRs 181, 182, 184, 185, 188, 189 closed.
-- MONEYFOUR1 (docs/MONEYFOUR1_RESULT.md, read not re-run): ONE stipend keeps the four-fighter club at 1.9 to 2.9 months of costs on today's start cash ($17,200); two: 1.2 months by week 52; four: 8 clubs in 10 close; none: $31,000 at year end. 46 bouts a year for four, about $12,600 in tickets.
-- Critics round 1 (docs/mockups/s429, reviews + each one's 10/10 drawing): FOURSTART1 4 (sim veteran) and 4 (club coach); AMATEURWEEK1 3 (systems) and 4 (matchmaker). What all four found: fight strength is a plain average (`BoutRules.fight_power`), so "train the lowest number" beats the guide; the stipend switch is free and instant; a pass is free and the same name comes back in 5 days; the cut costs no tiredness; the tape only runs inside a camp and a no-camp bout still loses 1.5 (`night_edge`); a day job is only x0.85 in code; pad nights are per fighter; "read" clashes with TheRead.gd.
-- v2 of both maps written from the reviews (FOURSTART1_MAP_V2_S429.md: one Club week board, seats as mornings, coached mornings, weighted fight strength, one place two takers; AMATEURWEEK1_MAP_V2_S429.md: a bout sheet of three names, one "tank at the first bell" bar, three week shapes, a film evening that answers one question, plan-line upkeep, pull-outs).
-- Briefs written: FIGHTDISPLAY4, TRAININGB2, GYMLIFE1, CAMLINE1, AMATEURPROBE1, MONEYFOUR1, TRAINREAD1 (ops/research/TASK_*.md).
-- The 10/10 drawings were NOT opened by Claude (only the critics checked them): open them before quoting.
-
-## Running / queued at the end of S429
-- Cursor: FIGHTDISPLAY4 RUNNING (launched ~09:50); then TRAININGB2, GYMLIFE1 from ops/AgentComms/dispatch_queue.json.
-- Qwen: AMATEURPROBE1 RUNNING (launched 09:27); then CAMLINE1.
-- Open PRs not collected (old): 163 LEGTREMBLE3, 168 LEGTREMBLE4 (legs: retry qwen/legtremble4's code on main, re-render).
-
-## The build
-Builds/FightCamp.exe is the S427 build and he was PLAYING it during S429 (do not overwrite a running game). A fresh build with everything above was exported to Builds/S429/ (check `/e/FightCamp/tmp/export_s429.out` ends "built ..."; if not, run `OUT=E:/FightCamp/Lean/Builds/S429 sh tools/export.sh` through godot_slot). WHAT_TO_TRY for it: Builds/S429/WHAT_TO_TRY.txt.
+## Done in S430 (main, pushed)
+- `scripts/rules/FightStats.gd`, `Aftermath.gd`, `scripts/state/AfterFight.gd`, `scripts/ui/MatchStats.gd`, `AftermathTiles.gd`, `tests/fight_stats_test.gd` (in run_tests.sh). `PaceAim.gd` effect words. `CornerBar.gd` (Effects panel, the dock anchor for FIGHTDISPLAY4's heard pips and game card). `FightNight.gd` result page (what decided it = one row of words with hovers; the body report's button stays on that row). `DarkOverview.gd` condition meter.
+- NEW RULE, AN ESTIMATE: `Aftermath.toll` (45 on a full tank, +0.5 a point of tank missing, +10 a stoppage loss, max 95), booked in `AfterFight.book`. AIMWIRE1's second probe measures a year with and without it. Not yet balanced.
+- FIGHTDISPLAY4 collected by diff and fitted; real film read. AMATEURPROBE1 collected: the bout count was 18 too high in every cell (w + l counts the records the four ARRIVE with: 12-6); real figures 28 bouts a year today, 37 at the short lead, win share 41 in 100 both; the no-camp cells boxed nothing (the harness only cuts weight in a camp). The same over-count is in MONEYFOUR1 ("46" is 28).
+- Critics round 2 (reviews and drawings in `docs/mockups/s430/`): FOURSTART 5 (football-manager designer) and 5 (club owner); AMATEURWEEK 5 (referee) and 5 (card-game designer). Their shared points are appended to each map (FOURSTART section 7, AMATEURWEEK section 6). Round 1 was 4,4 and 3,4. Next step when he allows it: ONE merged v3 (the club week for four WITH the fight weeks; favours as a second currency; a rota that moves and one club twist a week; shortages that are really short; professionals in the line-up; the guide on amateur to pro), then fresh critics.
+- Build exported to `Builds/S430/` with its own WHAT_TO_TRY.txt (Builds/FightCamp.exe is still the S427 build he plays).
 
 ## Not done, say so
-- No picture for either map; nothing of FOURSTART or AMATEURWEEK is built except TrainRead.gd and RankLine.gd (neither is wired to a screen).
-- The Miro P0 map was redrawn once mid-session; the cards added after (TRAINREAD1, MONEYFOUR1, BARGUARD1 done; FIGHTDISPLAY4, TRAININGB2, GYMLIFE1, CAMLINE1 next) are in where_we_are.py but NOT on Miro. The frame resize is refused by Miro; four surplus cards (ids ...087362639, ...036993814, ...087362638, ...036993813) need his yes to delete. P1-P9 frames not touched.
-- E: 91% full (about 40 GB free, AMBER). Nothing deleted: ask him.
-- Week design v4 not started (it is re-based on the two maps once they pass).
-- Kalli's corner answer (ops/research/K_CORNER_MORE_S427_BRIEF_KALLI.md) is filed, not read.
+- The Miro P0 map was NOT redrawn in S430 (cards are current in where_we_are.py only). P1-P9 untouched. Four surplus cards still need his yes.
+- The round board on the fight bar is narrow since FIGHTDISPLAY4 (its head now reads LANDED): the "Boxing at range, 1 time" card beside it repeats the chip over the opponent's head; dropping it would give the board its room back. Not done.
+- The result page and the corner tab were read on film by me, never played by him. The tiles' first line can end in an ellipsis (the rest is on the hover).
+- Dues sums; week design v4; Kalli's corner answer (ops/research/K_CORNER_MORE_S427_BRIEF_KALLI.md) still unread.
+- E: 91% full (about 36 GB free, AMBER). Nothing deleted: ask him.
 - tests/head_aim_test.gd has an uncommitted change from before S429: not mine, left alone.
 
 ## Traps
-- A `cd` into another folder moves the session's working directory: use absolute paths.
-- Every Godot job goes through `python ops/Tools/godot_slot.py run --who claude -- <command>` (rule_guard blocks a bare start); headless tests two at a time on AMBER.
-- A Cursor run can die silently with a 0-byte out file; the 30-min reconcile then archives it as "collected" because its branch equals main. Check the worktree has a commit before trusting "collected".
-- The seat runner's own checks wait while one of your renders holds a Godot slot.
-- GamePlan.gd 499 lines, UI.gd 498, RingCamera.gd 500, CornerBar.gd 492, WeekBoard.gd 471.
-- MoveMastery words: New / Learning / Usable / Sharp / Signature.
+- Write briefs with the Write tool: a shell heredoc broke on an apostrophe again.
+- `agent_comms.py ask --attach` needs ABSOLUTE paths (a repo-relative docs/ path was "not found").
+- Every Godot job through `python ops/Tools/godot_slot.py run --who claude -- <command>`; the windowed film (`tools/fight3d_play.gd`) needs `--timeout=580` when seats are also rendering (400 timed out with no still).
+- Game text has no she / her (tests/no_pronoun_test.gd): names or neutral words.
+- CornerBar.gd 471 lines, SidePanel.gd 470, BoutNight.gd 471, LiveRound.gd 469, GamePlan.gd 499, UI.gd 498, RingCamera.gd 500.
+- A subagent dies with its session; HUMANFIGHT1 is a separate session and survives.
 
-SETTINGS: S429 ran on Fable 5.2. Next session: the same, default effort, Fast off: the work is critic rounds, collects with renders, and map revisions.
+SETTINGS: S430 ran on Fable 5.2. Next session: the same, default effort, Fast off: the work is his picks, collects with renders, and one merged design map.

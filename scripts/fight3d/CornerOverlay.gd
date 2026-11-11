@@ -8,6 +8,7 @@ const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the d
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const CallButtons := preload("res://scripts/ui/CallButtons.gd")
 const CornerStats := preload("res://scripts/ui/CornerStats.gd")
+const MatchStats := preload("res://scripts/ui/MatchStats.gd")
 const CornerRest := preload("res://scripts/fight3d/CornerRest.gd")
 
 signal chose(call: String)
@@ -104,7 +105,12 @@ func build(card: Dictionary, names: Array) -> void:
 	# then the three steps. The WORKED / HURT sentences only repeated the table, so they go when it is there.
 	var stats: Dictionary = card.get("stats", {})
 	if not stats.is_empty():
-		v.add_child(CornerStats.build(stats, names))
+		# S430 ("during the corner time i asked to see more match analysis stats"): this round, and the fight so far.
+		var fight: Array = card.get("fight_rounds", [])
+		if fight.is_empty():
+			v.add_child(CornerStats.build(stats, names))
+		else:
+			v.add_child(MatchStats.tabs(CornerStats.build(stats, names), MatchStats.build(fight, names, true), "This round", "The fight so far"))
 		v.add_child(UI.sep())
 	var head := UI.label("IN THE CORNER: WHAT DO YOU TELL %s?" % str(names[0]).to_upper(), UI.BODY + 2, UI.GOLD, "bold")
 	v.add_child(head)

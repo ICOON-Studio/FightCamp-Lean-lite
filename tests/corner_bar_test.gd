@@ -83,6 +83,16 @@ func _before_the_call() -> void:
 	if push != null:
 		push.pressed.emit()
 		_check(str(main.modal["live"]["pace"]) == "push", "Push sets the live pace to push (%s)" % str(main.modal["live"]["pace"]))
+		# S430 the bar says what the pace and the aim in force do; the LAST CALL box (a copy of the round board) is gone.
+		await _frames(2)
+		bar = _bar()
+		var fx := bar.find_child("PaceEffect", true, false) as Label
+		_check(fx != null and fx.text.begins_with("Push"), "the bar says what Push does (%s)" % ("" if fx == null else fx.text))
+		var ax := bar.find_child("AimEffect", true, false) as Label
+		_check(ax != null and ax.text != "", "the bar says what the aim does (%s)" % ("" if ax == null else ax.text))
+		_check(bar.find_child("LastCall", true, false) == null, "no LAST CALL box")
+		push = bar.find_child("Pace_push", true, false) as Button   # the bar rebuilt on the click
+		_check(push != null and push.tooltip_text.contains("next exchange"), "Push's hover says when it counts")
 
 
 ## After the opening exchange the first dot is that exchange's winner, and the shout window is open.

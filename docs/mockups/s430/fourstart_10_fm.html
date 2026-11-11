@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Club week, the 10/10 of the football-manager critic (S430)</title>
+<style>
+@font-face{font-family:Barlow;src:url(../../../assets/fonts/Barlow-Regular.ttf);font-weight:400}
+@font-face{font-family:Barlow;src:url(../../../assets/fonts/Barlow-Medium.ttf);font-weight:500}
+@font-face{font-family:Barlow;src:url(../../../assets/fonts/Barlow-SemiBold.ttf);font-weight:600}
+@font-face{font-family:Barlow;src:url(../../../assets/fonts/Barlow-Bold.ttf);font-weight:700}
+@font-face{font-family:Marker;src:url(../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Kalam;src:url(../../../assets/fonts/Kalam-Regular.ttf);font-weight:400}
+@font-face{font-family:Kalam;src:url(../../../assets/fonts/Kalam-Bold.ttf);font-weight:700}
+:root{--chalk:#efe9d9;--mute:#b4b0a2;--gold:#f0bd4a;--blue:#7dbdf0;--green:#86d693;--red:#ee6a55;--amber:#f0a652;--teal:#62d2c8;
+--slate:#2b2e30;--slate2:#34383a;--wood:#5d3b22;--wood2:#74492a}
+*{box-sizing:border-box}
+html,body{margin:0;width:1920px;height:1080px;overflow:hidden}
+body{font-family:Barlow,sans-serif;font-size:18px;line-height:22px;color:var(--chalk);
+background:repeating-linear-gradient(0deg,rgba(0,0,0,.34) 0 2px,transparent 2px 108px),
+repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 2px,transparent 2px 7px),linear-gradient(180deg,#5a3a23,#432a18)}
+.i{width:30px;height:30px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.f{display:block;border-radius:50%;background-size:230%;background-position:50% 24%;background-repeat:no-repeat;background-color:#8e9aa6;flex:none}
+.f-lucy{background-image:url(../../../assets/ui/face/studio/mh_boxer_11.jpg)}
+.f-samira{background-image:url(../../../assets/ui/face/studio/mh_boxer_20.jpg)}
+.f-tess{background-image:url(../../../assets/ui/face/studio/mh_boxer_16.jpg)}
+.f-ana{background-image:url(../../../assets/ui/face/studio/mh_boxer_14.jpg)}
+.f-kira{background-image:url(../../../assets/ui/face/studio/mh_boxer_19.jpg)}
+.f-reid{background-image:url(../../../assets/ui/face/studio/mh_staff_coach.jpg)}
+.f-you{background-image:url(../../../assets/ui/face/studio/mh_staff_trainer.jpg)}
+.r-you{border:3px solid var(--gold)}.r-reid{border:3px solid var(--blue)}.r-tess{border:3px solid var(--green)}.r-ana{border:3px solid var(--teal)}
+.r-lucy,.r-samira,.r-kira{border:3px solid var(--chalk)}
+.slate{position:absolute;border:8px solid var(--wood);border-radius:7px;
+background:radial-gradient(ellipse at 28% 12%,#3d4144 0,#2d3032 55%,#26282a 100%);
+box-shadow:inset 0 0 0 1px #24160c,inset 0 0 26px rgba(0,0,0,.45),0 4px 10px rgba(0,0,0,.55);
+border-image:linear-gradient(180deg,#7a4d2c,#55361f 50%,#6b4326) 1}
+.cap{font-weight:600;letter-spacing:.9px;color:var(--mute);text-transform:uppercase;font-size:18px}
+.mk{font-family:Marker,cursive}
+.pill{display:inline-block;padding:1px 10px;border-radius:14px;font-weight:700;font-size:18px;line-height:24px}
+.pill.red{background:var(--red);color:#2a0d08}.pill.gold{background:var(--gold);color:#2b1d05}.pill.grey{background:#565b5e;color:var(--chalk)}
+.pill.green{background:var(--green);color:#0c2a12}
+
+/* top bar */
+#top{position:absolute;left:0;top:0;width:1920px;height:60px;background:#14161a;border-bottom:2px solid #000;display:flex;align-items:center;padding:0 16px;gap:16px}
+#top .ar{width:38px;height:36px;border:2px solid #4b5056;border-radius:7px;color:var(--mute);font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center}
+#top .gym{font-family:Marker;font-size:30px;color:#8fc4f2;letter-spacing:1px;margin-left:6px}
+#top .date b{display:block;font-size:20px;font-weight:600}#top .date span{color:var(--mute)}
+#top .sp{flex:1}
+#top .cash{text-align:right}#top .cash b{display:block;font-size:26px;color:var(--green);font-weight:700;line-height:26px}#top .cash span{color:var(--mute)}
+#go{width:300px;height:50px;border-radius:25px;background:linear-gradient(#f0604a,#c93a28);color:#fff;padding:3px 26px;box-shadow:0 2px 0 #7c2014}
+#go b{display:block;font-size:22px;font-weight:700;line-height:23px;letter-spacing:.6px}#go span{font-size:18px;line-height:20px}
+#top .menu{border:2px solid #4b5056;border-radius:8px;padding:6px 14px;font-weight:600}
+
+/* rail */
+#rail{position:absolute;left:8px;top:74px;width:130px}
+#rail div{height:48px;margin-bottom:10px;border-radius:7px;background:linear-gradient(#8a5a34,#6c4426);border:1px solid #2c1a0d;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 2px 4px rgba(0,0,0,.5);
+font-weight:700;font-size:22px;line-height:46px;padding-left:16px;color:#f7ecd6;position:relative}
+#rail .on{border-left:7px solid var(--red);background:linear-gradient(#a26b3e,#7e502d)}
+#rail em{position:absolute;right:8px;top:11px;width:26px;height:26px;border-radius:50%;background:var(--red);color:#fff;font-style:normal;font-size:18px;line-height:26px;text-align:center;padding:0}
+
+/* scarce strip */
+.tile{top:68px;height:96px;padding:6px 12px}
+.tile .r1{display:flex;align-items:center;gap:10px;height:30px}
+.tile .r2{display:flex;align-items:center;gap:4px;height:42px;margin-top:2px}
+.tile .num{font-weight:700;font-size:20px;white-space:nowrap}
+.tok{width:34px;height:34px}
+.tile .r2 .i{width:26px;height:26px}
+.mit{width:26px;height:26px;stroke-width:2.4}
+
+/* board */
+#board{left:150px;top:172px;width:1760px;height:656px;display:grid;grid-template-columns:236px 356px repeat(7,116px) 340px;grid-template-rows:40px repeat(4,150px)}
+#board>div{border-bottom:1px dashed rgba(239,233,217,.2)}
+.hd{display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25)}
+.hd.l{justify-content:flex-start;padding-left:12px}
+.fi{padding:8px 8px 0 10px}
+.fi .a{display:flex;gap:9px}
+.fi .f{width:72px;height:72px}
+.fi .nm{font-family:Marker;font-size:25px;line-height:26px}
+.fi .ln{color:var(--mute);white-space:nowrap}
+.fi .md{display:flex;align-items:center;gap:6px;font-weight:600}
+.fi .md i{display:inline-block;width:52px;height:9px;border-radius:5px;background:#565b5e;position:relative;overflow:hidden}
+.fi .md i u{position:absolute;left:0;top:0;bottom:0;border-radius:5px}
+.fi .st{margin-top:8px;height:32px;border-radius:7px;display:flex;align-items:center;gap:6px;padding:0 8px;font-weight:700;white-space:nowrap}
+.fi .st .i{width:22px;height:22px}
+.st.seat{background:var(--gold);color:#2b1d05}.st.job{background:#4a4f52;color:var(--chalk);border:1px dashed #8a8f92}
+.pu{padding:6px 0 0 8px;display:grid;grid-template-columns:316px 24px;column-gap:4px}
+.pu .ch{height:42px;margin-bottom:4px;border-radius:9px;border:2px solid rgba(239,233,217,.25);background:rgba(255,255,255,.05);display:flex;align-items:center;gap:6px;padding:0 5px 0 7px;color:#d8d3c4;white-space:nowrap;position:relative}
+.pu .ch .i{width:26px;height:26px}
+.pu .ch span{flex:1;font-weight:500;letter-spacing:-.2px}
+.pu .ch .f{width:30px;height:30px;border-width:2px}
+.pu .ch.on{border-color:var(--gold);background:rgba(240,189,74,.2);color:#fff}
+.pu .ch.on span{font-weight:700}
+.pu .ch.urg{border-color:var(--red);background:rgba(238,106,85,.22);color:#fff}
+.pu .ch .star{position:absolute;right:-3px;top:-9px;color:var(--gold);font-size:20px;text-shadow:0 0 3px #000}
+.pu .ch .vi{width:30px;height:30px;border-radius:50%;border:2px solid var(--mute);display:flex;align-items:center;justify-content:center;flex:none}
+.pu .ch .vi .i{width:20px;height:20px}
+.pu .ap{display:flex;flex-direction:column;justify-content:space-around;height:136px;color:var(--mute)}
+.pu .ap .i{width:22px;height:22px}
+.dy{padding:7px 5px;display:flex;flex-direction:column;gap:6px;border-left:1px solid rgba(239,233,217,.1)}
+.s{height:65px;border-radius:7px;position:relative;display:flex;align-items:center;gap:3px;padding-left:4px;background:rgba(255,255,255,.085);border:1.5px solid rgba(239,233,217,.24)}
+.s .tx{display:flex;flex-direction:column;line-height:21px;white-space:nowrap}
+.s .tx b{font-weight:600}.s .tx span{font-weight:700;color:var(--green)}
+.s .b{position:absolute;right:-8px;top:-8px;width:26px;height:26px;border-width:2px}
+.s>.i{width:27px;height:27px}
+.s.alone{border-style:dashed}.s.alone .tx span{color:var(--amber)}
+.s.short{border-color:var(--red);border-style:solid}
+.s.short::after{content:"";position:absolute;right:-1px;top:-1px;border-top:20px solid var(--red);border-left:20px solid transparent;border-top-right-radius:6px}
+.s.work{background:repeating-linear-gradient(135deg,rgba(0,0,0,.28) 0 7px,rgba(255,255,255,.03) 7px 14px);border:1px solid rgba(239,233,217,.1);color:#8e8b80}
+.s.rest{background:none;border:1px solid rgba(239,233,217,.1);color:#8e8b80}
+.s.work .i,.s.rest .i{width:24px;height:24px;margin-left:3px}
+.s.work b,.s.rest b{font-weight:500}
+.s.you{border-color:var(--gold);background:rgba(240,189,74,.14)}
+.s.reid{border-color:var(--blue);background:rgba(125,189,240,.13)}
+.s.tess{border-color:var(--green);background:rgba(134,214,147,.12)}
+.s.ana{border-color:var(--teal);background:rgba(98,210,200,.13)}
+.s.spar{border-color:#f29a8b;background:rgba(238,106,85,.16)}
+.s.spar .tx span{color:#ffc0b5}
+.s.tw::before{content:"!";position:absolute;left:-6px;top:-8px;width:24px;height:24px;border-radius:50%;background:var(--amber);color:#2b1705;font-weight:700;font-size:18px;line-height:24px;text-align:center;z-index:2}
+.gv{padding:9px 12px 0 12px;border-left:1px solid rgba(239,233,217,.1)}
+.gv .g{margin-bottom:9px}
+.gv .g div{display:flex;justify-content:space-between;white-space:nowrap}
+.gv .g div b{font-weight:600}.gv .g div span{color:var(--mute)}
+.gv .g i{display:block;height:9px;border-radius:5px;background:#55595c;margin-top:3px;position:relative}
+.gv .g i u{position:absolute;left:0;top:0;bottom:0;border-radius:5px}
+.gv .g i s{position:absolute;top:-3px;bottom:-3px;width:3px;background:var(--chalk)}
+
+/* bottom */
+.bt{top:836px;height:236px;padding:6px 12px}
+.bt .h{display:flex;justify-content:space-between;align-items:center;height:28px}
+#card .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:2px}
+#card .sh{font-family:Marker;font-size:22px;line-height:26px;white-space:nowrap}
+#card .sh small{font-family:Barlow;font-size:18px;color:var(--mute);font-weight:500}
+#card .w{color:var(--amber);font-weight:600;white-space:nowrap}
+.tk{height:54px;margin-top:5px;border-radius:8px;border:2px solid rgba(239,233,217,.25);background:rgba(255,255,255,.05);display:flex;align-items:center;gap:7px;padding:0 6px;white-space:nowrap}
+.tk .f{width:42px;height:42px;border-width:2px}
+.tk .vi{width:42px;height:42px;border-radius:50%;border:2px solid var(--mute);display:flex;align-items:center;justify-content:center;flex:none;color:var(--mute)}
+.tk div{line-height:21px}.tk b{font-weight:700;display:block}.tk span{color:#d8d3c4}
+.tk.on{border-color:var(--gold);background:rgba(240,189,74,.2)}
+.tk.wait{border-style:dashed}.tk.wait span{color:var(--red);font-weight:600}
+.dots u{display:inline-block;width:16px;height:16px;border-radius:50%;background:var(--gold);margin-left:5px}
+#hand .mv{display:flex;align-items:center;gap:8px;height:42px;font-weight:700;font-size:20px;white-space:nowrap}
+#hand .mv .f{width:38px;height:38px}
+#hand .two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:2px}
+#hand .c{height:88px;border-radius:8px;border:2px solid;padding:4px 8px;display:grid;grid-template-columns:44px 1fr;column-gap:8px;white-space:nowrap}
+#hand .c .f{width:44px;height:44px;border-width:2px;margin-top:2px}
+#hand .c b{font-size:24px;font-weight:700;line-height:28px;display:block}
+#hand .c.up{border-color:var(--green);background:rgba(134,214,147,.12)}#hand .c.up b{color:var(--green)}
+#hand .c.dn{border-color:var(--red);background:rgba(238,106,85,.12)}#hand .c.dn b{color:#ff8e7c}
+#hand .c .d{grid-column:1/3;color:#d8d3c4}
+#hand .q{display:flex;align-items:center;gap:8px;margin-top:5px;font-family:Kalam;font-size:21px;white-space:nowrap}
+#hand .q .f{width:32px;height:32px;border-width:2px}
+#twist .t{font-family:Marker;font-size:24px;line-height:28px;white-space:nowrap}
+#twist .u{color:var(--amber);font-weight:600}
+#twist .an{height:36px;margin-top:6px;border-radius:8px;border:2px solid rgba(239,233,217,.4);display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-weight:600;white-space:nowrap}
+#twist .an em{font-style:normal;font-weight:700}
+#trial .p{display:flex;gap:9px;align-items:center;margin-top:2px}
+#trial .p .f{width:58px;height:58px}
+#trial .ls{margin-top:6px;line-height:25px;white-space:nowrap}
+#trial .ls b{color:var(--amber)}
+</style></head><body>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-road" viewBox="0 0 24 24"><path d="M4 21L9 3M20 21L15 3M12 5v3M12 11v3M12 17v3"/></symbol>
+<symbol id="i-bag" viewBox="0 0 24 24"><path d="M12 2v4"/><rect x="8" y="6" width="8" height="15" rx="3"/></symbol>
+<symbol id="i-rope" viewBox="0 0 24 24"><path d="M2 7h20"/><circle cx="12" cy="13" r="3.5"/><path d="M12 16.5V22M7 20l5-3 5 3"/></symbol>
+<symbol id="i-speed" viewBox="0 0 24 24"><path d="M4 3h16"/><path d="M12 4c-4 5-5 10 0 16c5-6 4-11 0-16z"/></symbol>
+<symbol id="i-pads" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="6"/><circle cx="12" cy="12" r="3.5"/></symbol>
+<symbol id="i-spar" viewBox="0 0 24 24"><circle cx="7.5" cy="12" r="5"/><circle cx="16.5" cy="12" r="5"/></symbol>
+<symbol id="i-rest" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13a8 8 0 0 1-6-13z"/></symbol>
+<symbol id="i-work" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M9 8V4h6v4"/></symbol>
+<symbol id="i-mat" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 12h18M12 5v14"/></symbol>
+<symbol id="i-solo" viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="3"/><path d="M12 9v7M7 21l5-5 5 5M7 12h10"/></symbol>
+<symbol id="i-scale" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="4"/><path d="M8 11a4 4 0 0 1 8 0M12 11l2-3"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L5 14h6l-1 8 9-13h-6z"/></symbol>
+<symbol id="i-fist" viewBox="0 0 24 24"><rect x="4" y="9" width="15" height="11" rx="3.5"/><path d="M8 9V6M12 9V5M16 9V6"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-4 8-8 9c-4-1-8-4-8-9V6z"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.5-7.5-10a4 4 0 0 1 7.5-2a4 4 0 0 1 7.5 2c0 5.500-7.500 10-7.500 10z"/></symbol>
+<symbol id="i-ladder" viewBox="0 0 24 24"><path d="M8 2v20M16 2v20M8 7h8M8 12h8M8 17h8"/></symbol>
+<symbol id="i-seat" viewBox="0 0 24 24"><path d="M6 3v18M6 13h12v8M6 8h9"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></symbol>
+<symbol id="i-stool" viewBox="0 0 24 24"><path d="M5 9h14M7 9L5 21M17 9l2 12M8 15h8"/></symbol>
+<symbol id="i-belt" viewBox="0 0 24 24"><rect x="2" y="9" width="20" height="6" rx="1"/><path d="M15 9v6M18 9v6"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></symbol>
+<symbol id="i-bus" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M3 11h18"/><circle cx="8" cy="19" r="1.7"/><circle cx="16" cy="19" r="1.7"/></symbol>
+</defs></svg>
+
+<div id="top">
+  <div class="ar">&lt;</div><div class="ar">&gt;</div>
+  <div class="gym">ANVIL STREET GYM</div>
+  <div class="date"><b>Mon 5 Jan 2026</b><span>Week 1</span></div>
+  <div class="sp"></div>
+  <div class="cash"><b>$14,600</b><span>running +$20 a week</span></div>
+  <div id="go"><b>START WEEK</b><span>3 go short · 1 twist to answer</span></div>
+  <div class="menu">Menu</div>
+</div>
+
+<div id="rail"><div>Home</div><div class="on">Fighters</div><div>Fights<em>1</em></div><div>Club</div><div>World</div></div>
+
+<!-- the three shared things -->
+<div class="slate tile" style="left:150px;width:270px">
+  <div class="mk" style="font-size:35px;line-height:46px;white-space:nowrap">CLUB WEEK</div>
+  <div style="color:var(--mute);white-space:nowrap">Mon 5 to Sun 11 January</div>
+</div>
+<div class="slate tile" style="left:430px;width:430px">
+  <div class="r1"><span class="cap">Coached mornings</span><span class="pill red">3 SHORT</span></div>
+  <div class="r2"><i class="f tok f-you r-you"></i><i class="f tok f-you r-you"></i><i class="f tok f-you r-you"></i><i class="f tok f-you r-you"></i><i class="f tok f-reid r-reid"></i><i class="f tok f-reid r-reid"></i>
+    <span class="num" style="margin-left:8px">asked 9 · have 6</span></div>
+</div>
+<div class="slate tile" style="left:870px;width:430px">
+  <div class="r1"><span class="cap">Pad places</span><span class="pill red">2 SHORT</span></div>
+  <div class="r2" style="gap:1px"><span id="mits" style="display:flex;gap:1px"></span><span class="num" style="margin-left:9px">asked 11 · have 9</span></div>
+</div>
+<div class="slate tile" style="left:1310px;width:340px">
+  <div class="r1"><span class="cap">Paid seats</span><span class="pill green">bank +$20 a week</span></div>
+  <div class="r2"><svg class="i" style="color:var(--gold);stroke-width:3"><use href="#i-seat"/></svg><svg class="i" style="color:#6d7275"><use href="#i-seat"/></svg><svg class="i" style="color:#6d7275"><use href="#i-seat"/></svg><svg class="i" style="color:#6d7275"><use href="#i-seat"/></svg>
+    <span class="num" style="margin-left:6px">1 seat · $250 a week</span></div>
+</div>
+<div class="slate tile" style="left:1660px;width:250px">
+  <div class="r1"><span class="cap">Next show</span><span class="pill gold">12 days</span></div>
+  <div class="r2"><span class="num">Sat 17 Jan · York Hall</span></div>
+</div>
+
+<div class="slate" id="board"></div>
+
+<!-- bottom -->
+<div class="slate bt" id="card" style="left:150px;width:760px">
+  <div class="h"><span class="cap">The card: one place a show</span><span class="dots"><span class="cap">Favours</span><u></u><u></u><u></u></span></div>
+  <div class="cols">
+    <div><div class="sh">Sat 17 Jan <small>York Hall</small></div><div class="w">wants a middle or a welter</div>
+      <div class="tk on"><i class="f f-tess r-tess"></i><div><b>Tess v Croft 4-3</b><span>64% · up 1 · learns +0.3</span></div></div>
+      <div class="tk"><i class="f f-samira r-samira"></i><div><b>Samira v Okoro 2-1</b><span>47% · up 2 · learns +1.0</span></div></div></div>
+    <div><div class="sh">Sat 31 Jan <small>London ABC</small></div><div class="w">wants a feather or a light</div>
+      <div class="tk"><i class="f f-lucy r-lucy"></i><div><b>Lucy v Nair 5-1</b><span>52% · up 2 · learns +1.0</span></div></div>
+      <div class="tk wait"><div class="vi"><svg class="i"><use href="#i-clock"/></svg></div><div><b>Samira waits</b><span>26 days · mood −6</span></div></div></div>
+    <div><div class="sh">Sat 14 Feb <small>Repton</small></div><div class="w">wants any class</div>
+      <div class="tk"><div class="vi"><svg class="i"><use href="#i-bus"/></svg></div><div><b>Away, same night</b><span>ranked · no ticket cut</span></div></div>
+      <div class="tk"><div class="vi"><svg class="i"><use href="#i-stool"/></svg></div><div><b>One corner</b><span>you, or Reid at 85%</span></div></div></div>
+  </div>
+</div>
+
+<div class="slate bt" id="hand" style="left:920px;width:450px">
+  <div class="h"><span class="cap">In your hand</span><span class="pill gold">drop to deal</span></div>
+  <div class="mv"><i class="f f-you r-you"></i>Your Saturday morning: Samira to Lucy</div>
+  <div class="two">
+    <div class="c up"><i class="f f-lucy r-lucy"></i><div>Speed a week<b>+0.7 to +0.8</b></div><div class="d">perk 23 Feb, not 2 Mar</div></div>
+    <div class="c dn"><i class="f f-samira r-samira"></i><div>Defence a week<b>+1.1 to +0.9</b></div><div class="d">alone she skips 1 in 3</div></div>
+  </div>
+  <div class="q"><i class="f f-reid r-reid"></i>"Lucy is the one with a future."</div>
+</div>
+
+<div class="slate bt" id="twist" style="left:1380px;width:300px">
+  <div class="h"><span class="cap">This week's twist</span></div>
+  <div class="t">Reid is off Wednesday</div>
+  <div class="u">2 pad places gone</div>
+  <div class="an"><span>Lucy, Samira miss out</span><em style="color:var(--red)">−2.6</em></div>
+  <div class="an"><span>Pay for cover</span><em style="color:var(--red)">$80</em></div>
+  <div class="an"><span>Tess holds both</span><em style="color:var(--amber)">mood −2</em></div>
+</div>
+
+<div class="slate bt" id="trial" style="left:1690px;width:220px">
+  <div class="h"><span class="cap">Trial mat</span></div>
+  <div class="p"><i class="f f-kira r-kira"></i><div><div class="mk" style="font-size:25px;line-height:28px">Kira</div><div style="color:var(--mute)">Feather 1-0</div></div></div>
+  <div class="ls">26 Jan, two weeks<br>takes <b>1 pad place</b><br>and <b>1 morning</b><br>Sign: one must go</div>
+</div>
+
+<script>
+const I=(n,st)=>`<svg class="i"${st?` style="${st}"`:''}><use href="#i-${n}"/></svg>`;
+// pad place tokens: 6 Reid, 2 you, 1 Tess
+document.getElementById('mits').innerHTML=['blue','blue','blue','blue','blue','blue','gold','gold','green'].map(c=>`<svg class="i mit" style="color:var(--${c})"><use href="#i-pads"/></svg>`).join('');
+
+const W=(l)=>['work',l,'','work'];const R=['rest','Rest','','rest'];
+const rows=[
+ {id:'lucy',nm:'Lucy',ln:'Light · 3-1',mood:'Steady',mp:62,mc:'--green',st:['seat','seat','Seat to 2 Feb · $250'],
+  pu:[['bolt','Speed +0.9 · perk 2 Mar','f-reid r-reid',1,1],['heart','Engine +3.1 by 26 Jan','f-lucy r-lucy',0,0],['ladder','Nair: answers 1 of 3','',0,0]],
+  am:[['speed','Speed','+0.13','alone short'],['speed','Speed','+0.20','reid','reid'],['rope','Rope','+0.13','alone'],['speed','Speed','+0.20','reid','reid'],['road','Road','+0.11','alone'],['speed','Speed','+0.13','alone short'],R],
+  pm:[['pads','Pads','+2.6','reid','reid'],['pads','Pads','+1.8','tess','tess'],['pads','Pads','+2.6','reid tw','reid'],['spar','Spar','full','spar'],['pads','Pads','+2.6','reid','reid'],R,R],
+  gv:[['Speed 63.2 → 63.9','perk at 70',39,'--green',100],['Jab 51 → 61','Sharp this week',100,'--gold',0],['Tired 8 → 64','rest at 80',64,'--amber',80]]},
+ {id:'samira',nm:'Samira',ln:'Welter · 2-1',mood:'Steady',mp:58,mc:'--green',st:['job','work','College · 4 mornings'],
+  pu:[['fist','Power +0.6 · perk 23 Feb','f-reid r-reid',0,1],['shield','Defence +1.1 · safe 9 Feb','',1,0],['spar','A bout by 26 Jan','f-samira r-samira',0,0]],
+  am:[W('Study'),['rope','Rope','+0.25','you','you'],W('Study'),['rope','Rope','+0.25','you','you'],W('Study'),['rope','Rope','+0.25','you','you'],['rope','Rope','+0.25','you','you']],
+  pm:[['pads','Pads','+2.6','reid','reid'],['solo','Solo','+0.15','alone short'],['pads','Pads','+2.6','reid tw','reid'],['spar','Spar','half','spar'],['pads','Pads','habit','you','you'],R,R],
+  gv:[['Defence 50.5 → 51.6','safe at 55.6',22,'--red',100],['Drops the right','week 1 of 4',25,'--gold',0],['Tired 10 → 52','rest at 80',52,'--amber',80]]},
+ {id:'tess',nm:'Tess',ln:'Middle · 6-4',mood:'Fired up',mp:76,mc:'--green',st:['job','work','Shifts · wants $350'],
+  pu:[['scale','Scale −1.1 kg by 16 Jan','f-reid r-reid',2,1],['pads','Hold pads for Lucy','f-tess r-tess',0,0],['ladder','Croft: answers 2 of 3','',0,0]],
+  am:[W('Shift'),W('Shift'),W('Shift'),W('Shift'),W('Shift'),['mat','Mat','+0.12','ana','ana'],['road','Road','+0.09','alone short']],
+  pm:[['solo','Solo','+0.10','alone'],['pads','Holds','Lucy','tess'],['solo','Solo','+0.10','alone short'],['pads','Pads','+2.6','you','you'],['pads','Pads','+2.6','reid','reid'],R,R],
+  gv:[['Scale 76.1 → 75.5','limit 75.0',55,'--red',100],['Speed 55.0 → 55.2','2 slots short',10,'--green',0],['Mood 76 → 79','holds pads +3',79,'--green',0]]},
+ {id:'ana',nm:'Ana',ln:'No-gi · white',mood:'Steady',mp:60,mc:'--green',st:['job','work','Café · 3 classes'],
+  pu:[['mat','Half guard · open 7 Feb','',1,0],['belt','Kimura · stripe 2 Feb','f-ana r-ana',0,0],['mat','Mat morning with Tess','f-tess r-tess',0,0]],
+  am:[W('Café'),W('Café'),W('Café'),W('Café'),W('Café'),['mat','Teach','Tess','ana'],R],
+  pm:[['mat','Class','+1.1','ana'],R,['mat','Class','+1.1','ana'],R,['mat','Class','+1.1','ana'],R,R],
+  gv:[['Half guard 18 → 21','open 7 Feb',70,'--teal',0],['Mat members 12 → 13','+$110 a month',52,'--green',0],['Teaches Saturday','her drill −1.1',30,'--amber',0]]},
+];
+const cell=c=>`<div class="s ${c[3]||''}">${I(c[0])}<div class="tx"><b>${c[1]}</b>${c[2]?`<span>${c[2]}</span>`:''}</div>${c[4]?`<i class="f b f-${c[4]} r-${c[4]}"></i>`:''}</div>`;
+let h=`<div class="hd l cap">Fighter · seat</div><div class="hd l cap">The pull: pick one &nbsp;<span style="color:var(--gold)">★</span>&nbsp;Reid's</div>`;
+['Mon 5','Tue 6','Wed 7','Thu 8','Fri 9','Sat 10','Sun 11'].forEach(d=>h+=`<div class="hd cap">${d}</div>`);
+h+=`<div class="hd l cap">This week gives</div>`;
+rows.forEach(r=>{
+ h+=`<div class="fi"><div class="a"><i class="f f-${r.id} r-${r.id}"></i><div><div class="nm">${r.nm}</div><div class="ln">${r.ln}</div><div class="md"><i><u style="width:${r.mp}%;background:var(${r.mc})"></u></i>${r.mood}</div></div></div>
+ <div class="st ${r.st[0]}">${I(r.st[1])}${r.st[2]}</div></div>`;
+ h+=`<div class="pu"><div>`+r.pu.map(p=>`<div class="ch ${p[3]==1?'on':p[3]==2?'urg':''}">${I(p[0])}<span>${p[1]}</span>${p[2]?`<i class="f ${p[2]}"></i>`:`<div class="vi">${I('ladder')}</div>`}${p[4]?'<b class="star">★</b>':''}</div>`).join('')+`</div><div class="ap">${I('sun')}${I('rest')}</div></div>`;
+ for(let d=0;d<7;d++)h+=`<div class="dy">${cell(r.am[d])}${cell(r.pm[d])}</div>`;
+ h+=`<div class="gv">`+r.gv.map(g=>`<div class="g"><div><b>${g[0]}</b><span>${g[1]}</span></div><i><u style="width:${g[2]}%;background:var(${g[3]})"></u>${g[4]?`<s style="left:${g[4]==100?'calc(100% - 3px)':g[4]+'%'}"></s>`:''}</i></div>`).join('')+`</div>`;
+});
+document.getElementById('board').innerHTML=h;
+</script>
+</body></html>

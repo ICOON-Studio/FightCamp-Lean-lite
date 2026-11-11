@@ -2121,7 +2121,8 @@
       "path": "media:_sent/2026-11-10_1858_fight_screen_wooden_side_panels_and_inte/p02_shout_bar.png",
       "text": "MARKUP: 2 marks -> Feedback/2026-11-11-01/README.md",
       "at": "2026-11-11T07:10:24Z",
-      "seen_by_claude": true
+      "seen_by_claude": true,
+      "addressed": "cited by 3d35a43b 2026-11-11"
     },
     {
       "id": "C283",
@@ -2149,7 +2150,8 @@
       "path": "media:_sent/2026-11-10_1854_training_tab_b_tiredness_curve_over_the_/23e_training_tab_real.png",
       "text": "MARKUP: 2 marks -> Feedback/2026-11-11-05/README.md",
       "at": "2026-11-11T07:17:15Z",
-      "seen_by_claude": true
+      "seen_by_claude": true,
+      "addressed": "cited by 3d35a43b 2026-11-11"
     }
   ]
 }

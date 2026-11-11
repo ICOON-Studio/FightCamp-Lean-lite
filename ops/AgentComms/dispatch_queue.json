@@ -1061,6 +1061,38 @@
    "brief": "CAMLINE1",
    "status": "queued",
    "queued": "2026-11-11T09:44"
+  },
+  {
+   "id": "AIMWIRE1",
+   "seat": "qwen",
+   "title": "TASK AIMWIRE1 - QWEN (qwen3-coder) - the aim buttons: rib targets that never appear, a body bonus that never fires, and what a fight's tiredness does to a year",
+   "brief": "AIMWIRE1",
+   "status": "queued",
+   "queued": "2026-11-11T10:40"
+  },
+  {
+   "id": "DUESWIRE1",
+   "seat": "cursor",
+   "title": "TASK DUESWIRE1 - CURSOR (Grok 4.7 High) - the dues choice and the youth section show on every menu they touch",
+   "brief": "DUESWIRE1",
+   "status": "queued",
+   "queued": "2026-11-11T11:05"
+  },
+  {
+   "id": "FACEFRAME1",
+   "seat": "cursor",
+   "title": "TASK FACEFRAME1 - CURSOR (Grok 4.7 High) - every face picture in the menus shows the whole head",
+   "brief": "FACEFRAME1",
+   "status": "queued",
+   "queued": "2026-11-11T11:20"
+  },
+  {
+   "id": "CORNERFACE1",
+   "seat": "qwen",
+   "title": "TASK CORNERFACE1 - QWEN (qwen3-coder) - the corner minute camera keeps the boxer's face in the open part of the screen",
+   "brief": "CORNERFACE1",
+   "status": "queued",
+   "queued": "2026-11-11T11:20"
   }
  ]
 }

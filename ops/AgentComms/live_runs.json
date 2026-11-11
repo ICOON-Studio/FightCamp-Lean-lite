@@ -2045,38 +2045,11 @@
    "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/187",
    "reconciled": "2026-11-11 09:40 board_reconcile: run finished (success), branch goose/issue-187 pushed"
   },
-  "AMATEURPROBE1": {
-   "agent": "qwen",
-   "id": "AMATEURPROBE1",
-   "title": "TASK AMATEURPROBE1 - QWEN (qwen3-coder) - amateur bouts at 1 to 2 weeks' notice with no camp: what changes. Measure only",
-   "status": "running",
-   "started": "2026-11-11T09:27",
-   "eta": "2026-11-11T11:17",
-   "branch": "qwen/amateurprobe1",
-   "worktree": "E:/FightCamp/wt/LEAN_AMATEURPROBE1",
-   "wt": "E:/FightCamp/wt/LEAN_AMATEURPROBE1",
-   "brief": "ops/research/TASK_AMATEURPROBE1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/AMATEURPROBE1_dispatch_out.txt",
-   "match": "seat_dispatch.py run amateurprobe1",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/AMATEURPROBE1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/AMATEURPROBE1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/AMATEURPROBE1_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 41512,
-    "seat_pid": 39636
-   },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
-  },
   "FIGHTDISPLAY4": {
    "agent": "cursor",
    "id": "FIGHTDISPLAY4",
    "title": "TASK FIGHTDISPLAY4 - CURSOR (Grok 4.7 High) - the fight screen: the two wooden side panels go, the bars move to the top, the see-through figures stand free agai",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-11T09:33",
    "eta": "2026-11-11T11:23",
    "branch": "cursor/fightdisplay4",
@@ -2096,6 +2069,168 @@
     "brief_copied": true,
     "runner_pid": 37732,
     "seat_pid": 24356
+   },
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 7/7 PASS; PR #191; NOT committed (outside OWNS): docs/mockups/s429/fightdisplay4/damage.png, docs/mockups/s429/fightdisplay4/guard.png, docs/mockups/s429/fightdisplay4/mid_punch.png",
+   "finished": "2026-11-11T10:23",
+   "pr": 191,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/side_panel_test.gd",
+     "ok": true,
+     "last": "SIDE_PANEL failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/intent_chip_test.gd",
+     "ok": true,
+     "last": "INTENT_CHIP failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/energy_forecast_test.gd",
+     "ok": true,
+     "last": "ENERGY_FORECAST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_bar_test.gd",
+     "ok": true,
+     "last": "CORNER_BAR failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/round_board_test.gd",
+     "ok": true,
+     "last": "ROUND_BOARD failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "CAMLINE1": {
+   "agent": "qwen",
+   "id": "CAMLINE1",
+   "title": "TASK CAMLINE1 - QWEN (qwen3-coder) - the fight camera: never straight behind one boxer, and the far ropes stop fading and smearing at head height",
+   "status": "landed",
+   "started": "2026-11-11T09:56",
+   "eta": "2026-11-11T11:46",
+   "branch": "qwen/camline1",
+   "worktree": "E:/FightCamp/wt/LEAN_CAMLINE1",
+   "wt": "E:/FightCamp/wt/LEAN_CAMLINE1",
+   "brief": "ops/research/TASK_CAMLINE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CAMLINE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run camline1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CAMLINE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CAMLINE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CAMLINE1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 49484,
+    "seat_pid": 3348
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/8 PASS; PR #192",
+   "finished": "2026-11-11T10:23",
+   "pr": 192,
+   "checks": [
+    {
+     "kind": "COMPILE",
+     "script": "Main.tscn boot",
+     "ok": false,
+     "last": "res://tools/cam_line_probe.gd:115: There is already a variable named \"f\" declared in this scope."
+    },
+    {
+     "kind": "RED_TEST",
+     "script": "tests/cam_line_test.gd",
+     "ok": true,
+     "last": "CAM_LINE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_lens_test.gd",
+     "ok": true,
+     "last": "ring_lens_test"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_lens_test.gd",
+     "ok": true,
+     "last": "CORNER_LENS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bar_guard_test.gd",
+     "ok": true,
+     "last": "BAR_GUARD failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/promo_shot_test.gd",
+     "ok": true,
+     "last": "PROMO_SHOT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ring_ropes_entry_test.gd",
+     "ok": true,
+     "last": "ring_ropes_entry_test: PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "TRAININGB2": {
+   "agent": "cursor",
+   "id": "TRAININGB2",
+   "title": "TASK TRAININGB2 - CURSOR (Grok 4.7 High) - the Training tab: a tiredness curve that says something, and the pads list in straight rows",
+   "status": "running",
+   "started": "2026-11-11T10:23",
+   "eta": "2026-11-11T12:13",
+   "branch": "cursor/trainingb2",
+   "worktree": "E:/FightCamp/wt/LEAN_TRAININGB2",
+   "wt": "E:/FightCamp/wt/LEAN_TRAININGB2",
+   "brief": "ops/research/TASK_TRAININGB2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/TRAININGB2_dispatch_out.txt",
+   "match": "seat_dispatch.py run trainingb2",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/TRAININGB2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/TRAININGB2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/TRAININGB2_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 9444,
+    "seat_pid": 16404
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }

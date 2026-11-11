@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Shell B, squad</title>
+<style>
+@font-face{font-family:'Barlow';font-weight:400;src:url('../../../assets/fonts/Barlow-Regular.ttf')}
+@font-face{font-family:'Barlow';font-weight:500;src:url('../../../assets/fonts/Barlow-Medium.ttf')}
+@font-face{font-family:'Barlow';font-weight:600;src:url('../../../assets/fonts/Barlow-SemiBold.ttf')}
+@font-face{font-family:'Barlow';font-weight:700;src:url('../../../assets/fonts/Barlow-Bold.ttf')}
+@font-face{font-family:'Bebas Neue';src:url('../../../assets/fonts/BebasNeue-Regular.ttf')}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+b{font-weight:700}
+
+:root{--bg:#161312;--top:#0D0B0A;--panel:#201C1A;--panel2:#2C2623;--line:#3D3531;--ink:#F4ECDD;--soft:#B8AB9B;
+--red:#DB3C30;--blue:#4885DE;--gold:#F1B535;--ok:#74BF80;--warn:#EF983F}
+body{background:var(--bg);color:var(--ink);font:500 22px/1.2 Barlow,'Segoe UI',sans-serif;position:relative}
+.soft{color:var(--soft)} .ic{width:28px;height:28px;flex:none} .ph{display:block;width:100%;height:100%}
+.top{position:absolute;left:0;top:0;width:1920px;height:80px;background:var(--top);display:flex;align-items:stretch;border-bottom:1px solid var(--line)}
+.crest{width:56px;height:56px;margin:12px 16px 12px 24px;background:linear-gradient(90deg,var(--red) 50%,var(--blue) 50%);display:grid;place-items:center}
+.crest b{display:block;width:40px;height:40px;background:var(--top);color:var(--ink);font-size:26px;text-align:center;line-height:40px}
+.club{font-size:28px;font-weight:700;align-self:center;white-space:nowrap;margin-right:36px;letter-spacing:-.3px}
+.secs{display:flex} .secs a{display:flex;align-items:center;gap:8px;padding:0 20px;font-size:26px;font-weight:600;color:var(--soft);border-bottom:5px solid transparent;border-top:5px solid transparent;white-space:nowrap}
+.secs a.on{color:var(--ink);border-bottom-color:var(--red);background:var(--bg)}
+.secs em,.subs em,.tb em{font-style:normal;background:var(--red);color:#fff;padding:0 8px;font-size:20px;font-weight:700;line-height:26px}
+.grow{flex:1}
+.tb{display:flex;align-items:center;gap:10px;align-self:center;height:48px;padding:0 16px;border:1px solid var(--line);font-size:22px;font-weight:600;white-space:nowrap}
+.cash{align-self:center;text-align:right;margin:0 22px;line-height:1.05;white-space:nowrap} .cash b{display:block;font-size:30px;letter-spacing:-.3px} .cash span{font-size:20px;color:var(--warn)}
+.subs{position:absolute;left:0;top:80px;width:1520px;height:56px;display:flex;align-items:center;gap:6px;padding:0 36px;border-bottom:1px solid var(--line)}
+.subs a{display:flex;align-items:center;gap:8px;height:56px;padding:0 16px;font-size:22px;font-weight:600;color:var(--soft);white-space:nowrap}
+.subs a.on{color:var(--ink);box-shadow:inset 0 -3px 0 var(--ink)} .subs a.off{color:#72675D}
+.subs .nav{display:flex;gap:6px;margin-left:auto} .subs .nav a{width:44px;height:40px;padding:0;justify-content:center;border:1px solid var(--line)}
+/* the week column */
+.week{position:absolute;left:1520px;top:80px;width:400px;bottom:0;background:var(--panel);border-left:1px solid var(--line);padding:22px 24px 0;overflow:hidden}
+.week h2{font-size:32px;font-weight:700;letter-spacing:-.4px} .week h2+p{font-size:21px;color:var(--soft);margin:2px 0 14px}
+.day{display:grid;grid-template-columns:92px 1fr;gap:14px;align-items:center;height:66px;border-top:1px solid var(--line)}
+.day b{font-size:22px;font-weight:700;white-space:nowrap} .day span{font-size:21px;line-height:1.15;color:var(--soft)}
+.day.now{background:var(--ink);margin:0 -24px;padding:0 24px;border-top:0} .day.now b,.day.now span{color:#171311} .day.now span{font-weight:600}
+.day.hot span{color:var(--ink);font-weight:600} .day.hot b{box-shadow:inset 4px 0 0 var(--red);padding-left:12px}
+.day.fight span{color:var(--ink);font-weight:600} .day.fight b{box-shadow:inset 4px 0 0 var(--gold);padding-left:12px}
+.after{font-size:21px;color:var(--soft);margin:16px 0 4px;font-weight:600}
+.later{display:grid;grid-template-columns:92px 1fr;gap:14px;height:36px;align-items:center;font-size:21px;white-space:nowrap} .later b{font-weight:700}
+.go{position:absolute;left:24px;right:24px;bottom:24px;height:92px;background:var(--gold);color:#17130A;display:flex;flex-direction:column;justify-content:center;padding:0 22px;line-height:1.1;white-space:nowrap}
+.go b{font-size:28px;font-weight:700;letter-spacing:-.3px} .go span{font-size:21px;font-weight:600}
+/* page */
+.page{position:absolute;left:0;top:136px;width:1520px;bottom:0;padding:24px 36px 0;overflow:hidden}
+.bar{height:10px;background:#0B0908;position:relative} .bar i{display:block;height:100%;background:#D5CCBE}
+.bar.t i{background:var(--ok)} .bar.t.mid i{background:#D5CCBE} .bar.t.hi i{background:var(--warn)}
+.chip{display:inline-block;font-size:20px;font-weight:700;line-height:28px;padding:0 10px;white-space:nowrap;background:var(--panel2);color:var(--ink)}
+.chip.red{background:var(--red);color:#fff} .chip.set{background:var(--ink);color:#171311} .chip.amber{background:var(--warn);color:#1B1206}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:50px;padding:0 20px;border:2px solid var(--ink);font-size:22px;font-weight:700;white-space:nowrap;color:var(--ink)}
+.btn.q2{border-color:var(--line);color:var(--soft);font-weight:600}
+.panel{background:var(--panel);border:1px solid var(--line)}
+.hl{display:flex;align-items:center;gap:18px;height:58px;margin-bottom:14px}
+.hl h1{font-size:40px;font-weight:700;letter-spacing:-.8px;white-space:nowrap} .hl .r{margin-left:auto;display:flex;gap:14px;align-items:center}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.opt{display:grid;grid-template-columns:150px 30px 150px 1fr;gap:12px;padding:18px;height:372px}
+.fc{display:flex;flex-direction:column} .fc .pic{height:226px;overflow:hidden;border-top:6px solid var(--red)} .fc.them .pic{border-top-color:var(--blue)}
+.fc b{font-size:23px;font-weight:700;margin-top:8px;line-height:1.1} .fc span{font-size:20px;color:var(--soft);line-height:1.2}
+.v{align-self:start;margin-top:100px;text-align:center;font-size:22px;font-weight:700;color:var(--soft)}
+.facts{padding-left:10px;display:flex;flex-direction:column}
+.fact{display:grid;grid-template-columns:80px 1fr;gap:10px;align-items:start;min-height:56px;padding:5px 0;border-bottom:1px solid var(--line);font-size:21px;line-height:1.2}
+.fact>span{color:var(--soft)} .fact b{font-weight:700} .fact small{font-size:20px;color:var(--soft);display:block}
+.seg{display:flex;gap:4px;margin:6px 0 2px} .seg i{display:block;width:34px;height:12px;background:#0B0908} .seg i.on{background:var(--ok)} .seg.mid i.on{background:#D5CCBE}
+.facts .btn{margin-top:auto}
+.lab{font-size:22px;font-weight:600;color:var(--soft);margin:18px 0 10px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tile{display:grid;grid-template-columns:128px 1fr;gap:16px;height:136px;align-items:center;padding-right:16px;border-left:5px solid var(--warn)}
+.tile .val{height:134px;background:#191614;display:grid;place-items:center;text-align:center}
+.tile .val b{font-size:40px;font-weight:700;letter-spacing:-1px;line-height:1;display:block} .tile .val span{font-size:20px;color:var(--soft)}
+.tile h3{font-size:24px;font-weight:700;line-height:1.1;white-space:nowrap} .tile p{font-size:20px;color:var(--soft);margin:2px 0 6px;white-space:nowrap}
+.tile u{font-size:21px;font-weight:700;text-underline-offset:5px;text-decoration-thickness:2px}
+.dots{display:inline-flex;gap:4px;vertical-align:middle} .dots i{display:block;width:13px;height:13px;background:#0B0908;border:1px solid var(--line)} .dots i.on{background:var(--ink);border-color:var(--ink)}
+.val .dots i{width:15px;height:15px}
+.minis{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.mini{display:grid;grid-template-columns:120px 1fr;gap:14px;height:178px;align-items:center;padding-right:14px}
+.mini .pic{height:176px;overflow:hidden;border-left:5px solid var(--red)}
+.mini b{font-size:26px;font-weight:700;display:block;line-height:1.1} .mini .cl{font-size:20px;color:var(--soft);display:block;margin-bottom:8px;white-space:nowrap}
+.mini .tw{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:20px;white-space:nowrap} .mini .tw .bar{flex:1} .hi{color:var(--warn)}
+/* squad rows */
+.hd{display:flex;align-items:flex-end;gap:18px;height:50px;margin-bottom:8px} .hd h1{font-size:40px;font-weight:700;letter-spacing:-.8px} .hd p{color:var(--soft);padding-bottom:5px}
+.legend{display:flex;gap:26px;font-size:20px;color:var(--soft);margin-left:auto;padding-bottom:6px;align-items:center} .legend i{display:inline-block;width:22px;height:10px;margin-right:8px}
+.cols,.row{display:grid;grid-template-columns:150px 222px 1fr 252px 304px 160px;gap:20px}
+.cols{font-size:20px;color:var(--soft);height:30px;align-items:center;padding-right:16px}
+.row{height:186px;margin-bottom:12px;align-items:center;padding-right:16px}
+.row .pic{height:184px;overflow:hidden;border-left:6px solid var(--red)}
+.row h3{font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1.05;white-space:nowrap} .row .id{font-size:20px;color:var(--soft);line-height:1.2;margin:4px 0 10px}
+.rr{display:flex;gap:14px;align-items:baseline;white-space:nowrap} .rr b{font-size:30px;font-weight:700;letter-spacing:-.5px} .rr span{font-size:20px;color:var(--soft)}
+.sts{display:grid;gap:3px} .st{display:grid;grid-template-columns:104px 1fr 34px;gap:10px;align-items:center;height:29px;font-size:21px}
+.st span{color:var(--soft)} .st b{text-align:right;font-weight:700}
+.st.best span{color:var(--ink)} .st.best .bar i{background:var(--ok)} .st.best b{color:var(--ok)}
+.st.weak .bar i{background:var(--warn)} .st.weak b{color:var(--warn)}
+.cr{display:grid;grid-template-columns:94px 1fr;gap:10px;align-items:center;height:34px;font-size:21px;white-space:nowrap} .cr>span{color:var(--soft)}
+.cr .tw{display:flex;align-items:center;gap:10px} .cr .tw .bar{flex:1} .cr b{font-weight:700} .bad{color:var(--warn)}
+.say{padding:8px 12px;background:var(--panel2);font-size:21px;line-height:1.2;white-space:nowrap;margin-top:10px}
+.say b{display:block} .say.warn,.say.weak{box-shadow:inset 4px 0 0 var(--warn)} .say.weapon{box-shadow:inset 4px 0 0 var(--ok)}
+.nxt{display:flex;flex-direction:column;gap:8px} .nxt .l{font-size:20px;color:var(--soft);line-height:1.15;height:46px} .nxt .btn{height:44px;padding:0}
+</style></head>
+<body>
+<div class="top"><div class="crest"><b>A</b></div><div class="club">Anvil Street Gym</div><div class="secs"><a class="">Home</a><a class="on">Squad</a><a class="">Training<em>1</em></a><a class="">Fights<em>1</em></a><a class="">Gym</a><a class="">Money</a><a class="">World</a></div>
+<div class="grow"></div><div class="tb"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square" stroke-linejoin="miter" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5.5" width="18" height="13"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg>Mail <em>3</em></div>
+<div class="cash"><b>$16,841</b><span>down $680 a week</span></div><div class="tb" style="margin-right:24px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square" stroke-linejoin="miter" xmlns="http://www.w3.org/2000/svg"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div></div><div class="subs"><a class="on">All four</a><a class="">Compare two</a><a class="off">Find a fighter</a><div class="nav"><a><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square" stroke-linejoin="miter" xmlns="http://www.w3.org/2000/svg"><path d="m14.5 5-7 7 7 7"/></svg></a><a><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square" stroke-linejoin="miter" xmlns="http://www.w3.org/2000/svg"><path d="m9.5 5 7 7-7 7"/></svg></a></div></div><div class="week"><h2>This week</h2><p>Week 2, Mon 12 to Sun 18 Jan</p><div class="day now"><b>Mon 12</b><span>Today. York Hall asks for one of yours</span></div><div class="day "><b>Tue 13</b><span>Pads: Lucy, Samira</span></div><div class="day "><b>Wed 14</b><span>Sparring: Tess and Samira</span></div><div class="day hot"><b>Thu 15</b><span>York Hall answer due</span></div><div class="day "><b>Fri 16</b><span>Weigh-in, if you box</span></div><div class="day fight"><b>Sat 17</b><span>York Hall show</span></div><div class="day "><b>Sun 18</b><span>Ana: her week on the mat</span></div>
+<div class="after">After this week</div>
+<div class="later"><b>Sat 31 Jan</b><span>London Open, Ana</span></div>
+<div class="later"><b>Mon 2 Feb</b><span>Bills, about $5,284</span></div>
+<div class="later"><b>Sat 14 Feb</b><span>Club show at home</span></div>
+<div class="go"><b>Next: York Hall's one place</b><span>then the week runs to Thu 15 Jan</span></div></div><div class="page"><div class="hd"><h1>Squad</h1><p>4 of 4 places taken</p>
+<div class="legend"><span><i style="background:var(--ok)"></i>the weapon</span><span><i style="background:var(--warn)"></i>the weak spot</span></div></div>
+<div class="cols"><span></span><span></span><span>Numbers</span><span>Condition</span><span>This week</span><span>Next</span></div>
+<div class="row panel"><div class="pic"><svg class="ph" viewBox="0 0 100 120" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="120" fill="#3A3531"/><g fill="#625A53"><path d="M6 120C8 94 26 84 50 84C74 84 92 94 94 120Z"/><rect x="43" y="64" width="14" height="24"/><ellipse cx="50" cy="48" rx="17" ry="21"/></g><g fill="#4C4540"><path d="M31 50C27 22 73 22 69 50C66 36 34 36 31 50Z"/><path d="M66 40c8 6 9 26 5 40l-5-2c3-12 2-26 0-38z"/></g></svg></div>
+<div><h3>Lucy Jackson</h3><div class="id">Lightweight<br>Out-boxer</div><div class="rr"><b>3-1</b><span>9th in London</span></div></div>
+<div class="sts "><div class="st weak"><span>Power</span><div class="bar"><i style="width:55%"></i></div><b>55</b></div><div class="st best"><span>Speed</span><div class="bar"><i style="width:63%"></i></div><b>63</b></div><div class="st "><span>Defence</span><div class="bar"><i style="width:57%"></i></div><b>57</b></div><div class="st "><span>Stamina</span><div class="bar"><i style="width:57%"></i></div><b>57</b></div><div class="st "><span>Chin</span><div class="bar"><i style="width:60%"></i></div><b>60</b></div></div>
+<div><div class="cr"><span>Tiredness</span><div class="tw"><div class="bar t "><i style="width:38%"></i></div><b class="">Fresh</b></div></div>
+  <div class="cr"><span>Weight</span><div><b class="">60.9 kg</b> <span class="soft">0.9 over</span></div></div>
+  <div class="cr"><span>Mood</span><b>Steady</b></div></div>
+<div><div class="cr"><span>Mornings</span><div><span class="dots"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span> <span class="soft">day job</span></div></div>
+  <div class="say weapon"><b>Coach says: sharpen</b>speed 63, +0.8 a week</div></div>
+<div class="nxt"><div><span class="chip amber">No bout</span></div><div class="l">wants one by 2 Feb</div><a class="btn">Open</a></div>
+</div><div class="row panel"><div class="pic"><svg class="ph" viewBox="0 0 100 120" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="120" fill="#3A3531"/><g fill="#625A53"><path d="M6 120C8 94 26 84 50 84C74 84 92 94 94 120Z"/><rect x="43" y="64" width="14" height="24"/><ellipse cx="50" cy="48" rx="17" ry="21"/></g><g fill="#4C4540"><path d="M31 50C27 22 73 22 69 50C66 36 34 36 31 50Z"/><circle cx="74" cy="38" r="8"/></g></svg></div>
+<div><h3>Samira Khan</h3><div class="id">Welterweight<br>Slugger</div><div class="rr"><b>2-1</b><span>14th in London</span></div></div>
+<div class="sts "><div class="st best"><span>Power</span><div class="bar"><i style="width:66%"></i></div><b>66</b></div><div class="st "><span>Speed</span><div class="bar"><i style="width:57%"></i></div><b>57</b></div><div class="st weak"><span>Defence</span><div class="bar"><i style="width:50%"></i></div><b>50</b></div><div class="st "><span>Stamina</span><div class="bar"><i style="width:60%"></i></div><b>60</b></div><div class="st "><span>Chin</span><div class="bar"><i style="width:63%"></i></div><b>63</b></div></div>
+<div><div class="cr"><span>Tiredness</span><div class="tw"><div class="bar t mid"><i style="width:55%"></i></div><b class="">Working</b></div></div>
+  <div class="cr"><span>Weight</span><div><b class="">65.9 kg</b> <span class="soft">on weight</span></div></div>
+  <div class="cr"><span>Mood</span><b>Fired up</b></div></div>
+<div><div class="cr"><span>Mornings</span><div><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span> <span class="soft">college</span></div></div>
+  <div class="say weak"><b>Coach says: fix</b>defence 50, +1.2 a week</div></div>
+<div class="nxt"><div><span class="chip red">Offer</span></div><div class="l">Okoro, Sat 17 Jan</div><a class="btn">Open</a></div>
+</div><div class="row panel"><div class="pic"><svg class="ph" viewBox="0 0 100 120" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="120" fill="#3A3531"/><g fill="#625A53"><path d="M6 120C8 94 26 84 50 84C74 84 92 94 94 120Z"/><rect x="43" y="64" width="14" height="24"/><ellipse cx="50" cy="48" rx="17" ry="21"/></g><g fill="#4C4540"><path d="M32 46C30 26 70 26 68 46C62 38 38 38 32 46Z"/></g></svg></div>
+<div><h3>Tess Reilly</h3><div class="id">Middleweight<br>Pressure fighter</div><div class="rr"><b>6-4</b><span>6th in London</span></div></div>
+<div class="sts "><div class="st "><span>Power</span><div class="bar"><i style="width:62%"></i></div><b>62</b></div><div class="st weak"><span>Speed</span><div class="bar"><i style="width:55%"></i></div><b>55</b></div><div class="st "><span>Defence</span><div class="bar"><i style="width:58%"></i></div><b>58</b></div><div class="st "><span>Stamina</span><div class="bar"><i style="width:64%"></i></div><b>64</b></div><div class="st best"><span>Chin</span><div class="bar"><i style="width:67%"></i></div><b>67</b></div></div>
+<div><div class="cr"><span>Tiredness</span><div class="tw"><div class="bar t hi"><i style="width:72%"></i></div><b class="bad">Heavy</b></div></div>
+  <div class="cr"><span>Weight</span><div><b class="bad">76.1 kg</b> <span class="soft">1.1 over</span></div></div>
+  <div class="cr"><span>Mood</span><b>Steady</b></div></div>
+<div><div class="cr"><span>Mornings</span><div><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span> <span class="soft">paid seat</span></div></div>
+  <div class="say warn"><b>Coach says: scale</b>1.1 kg over: start now</div></div>
+<div class="nxt"><div><span class="chip red">Offer</span></div><div class="l">Croft, Sat 17 Jan</div><a class="btn">Open</a></div>
+</div><div class="row panel"><div class="pic"><svg class="ph" viewBox="0 0 100 120" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="120" fill="#3A3531"/><g fill="#625A53"><path d="M6 120C8 94 26 84 50 84C74 84 92 94 94 120Z"/><rect x="43" y="64" width="14" height="24"/><ellipse cx="50" cy="48" rx="17" ry="21"/></g><g fill="#4C4540"><path d="M31 50C27 22 73 22 69 50C66 36 34 36 31 50Z"/><circle cx="50" cy="21" r="8"/></g></svg></div>
+<div><h3>Ana Ribeiro</h3><div class="id">No-gi grappler<br>Guard player</div><div class="rr"><b>4-2</b><span>white belt</span></div></div>
+<div class="sts "><div class="st "><span>Strength</span><div class="bar"><i style="width:54%"></i></div><b>54</b></div><div class="st "><span>Cardio</span><div class="bar"><i style="width:61%"></i></div><b>61</b></div><div class="st best"><span>Flexibility</span><div class="bar"><i style="width:66%"></i></div><b>66</b></div><div class="st weak"><span>Explosive</span><div class="bar"><i style="width:52%"></i></div><b>52</b></div><div class="st "><span>Composure</span><div class="bar"><i style="width:58%"></i></div><b>58</b></div></div>
+<div><div class="cr"><span>Tiredness</span><div class="tw"><div class="bar t "><i style="width:30%"></i></div><b class="">Fresh</b></div></div>
+  <div class="cr"><span>Belt</span><div><b class="">41 of 60 h</b> <span class="soft">to blue</span></div></div>
+  <div class="cr"><span>Mood</span><b>Flat</b></div></div>
+<div><div class="cr"><span>Mornings</span><div><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></span> <span class="soft">barista</span></div></div>
+  <div class="say weak"><b>Coach says: drill</b>guard passes, 2 losses</div></div>
+<div class="nxt"><div><span class="chip set">Entered</span></div><div class="l">London Open, 19 days</div><a class="btn">Open</a></div>
+</div></div>
+</body></html>

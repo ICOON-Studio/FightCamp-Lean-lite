@@ -33,13 +33,15 @@ static func build(view: Control) -> void:
 	view.add_child(view._buttons)
 	pin(view._buttons, Vector4(0.5, 0, 0.5, 0), Vector4(-320, 176, 320, 216))
 	view._cap_box = PanelContainer.new()
-	view._cap_box.add_theme_stylebox_override("panel", UI.box(Color(0.04, 0.03, 0.03, 0.78), Color(0, 0, 0, 0), 6, 0, 22, 10))
+	view._cap_box.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	view._cap_box.visible = false
 	view.add_child(view._cap_box)
 	pin(view._cap_box, Vector4(0.5, 1, 0.5, 1), Vector4(-620, -239, 620, -181))
 	view._caption = UI.label("", 26, UI.FG, "body", true)
 	view._caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	view._caption.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	view._caption.add_theme_constant_override("outline_size", 8)
+	view._caption.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
 	view._cap_box.add_child(view._caption)
 	view._banner = UI.display("", 64)
 	view._banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

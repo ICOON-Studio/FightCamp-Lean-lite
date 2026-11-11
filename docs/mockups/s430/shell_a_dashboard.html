@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Shell A, dashboard</title>
+<style>
+@font-face{font-family:'Barlow';font-weight:400;src:url('../../../assets/fonts/Barlow-Regular.ttf')}
+@font-face{font-family:'Barlow';font-weight:500;src:url('../../../assets/fonts/Barlow-Medium.ttf')}
+@font-face{font-family:'Barlow';font-weight:600;src:url('../../../assets/fonts/Barlow-SemiBold.ttf')}
+@font-face{font-family:'Barlow';font-weight:700;src:url('../../../assets/fonts/Barlow-Bold.ttf')}
+@font-face{font-family:'Bebas Neue';src:url('../../../assets/fonts/BebasNeue-Regular.ttf')}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+b{font-weight:700}
+
+:root{--bg:#121416;--rail:#0C0E10;--ctx:#171A1D;--panel:#1D2125;--panel2:#272C31;--line:#343A42;--ink:#ECEEF1;--soft:#A3ABB5;
+--red:#E0382F;--blue:#3D7DEB;--gold:#F4B62A;--ok:#48BB7E;--warn:#F09A2E}
+body{background:var(--bg);color:var(--ink);font:500 22px/1.2 Barlow,Bahnschrift,'Segoe UI',sans-serif;position:relative}
+.d{font-family:'Bebas Neue',Bahnschrift,Impact,sans-serif;font-weight:400;letter-spacing:.5px;line-height:1}
+.soft{color:var(--soft)} .ic{width:28px;height:28px;flex:none} .ph{display:block;width:100%;height:100%}
+/* top bar */
+.top{position:absolute;left:0;top:0;width:1920px;height:76px;background:var(--rail);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px 0 0}
+.crest{width:208px;height:76px;display:flex;align-items:center;justify-content:center;gap:0}
+.crest i{display:block;width:22px;height:44px;background:var(--red)} .crest i+i{background:var(--blue)}
+.club{font-size:40px;margin-left:24px;white-space:nowrap}
+.date{margin-left:28px;padding-left:28px;border-left:1px solid var(--line);line-height:1.1;white-space:nowrap}
+.date b{display:block;font-size:24px;font-weight:600} .date span{font-size:20px;color:var(--soft)}
+.nav{display:flex;gap:6px;margin-left:28px} .nav a{width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--line);color:var(--soft)}
+.grow{flex:1}
+.tb{display:flex;align-items:center;gap:10px;height:48px;padding:0 16px;border:1px solid var(--line);font-size:22px;font-weight:600;white-space:nowrap}
+.tb em{font-style:normal;background:var(--red);color:#fff;padding:0 9px;font-size:20px;font-weight:700}
+.cash{text-align:right;margin:0 24px;line-height:1.05;white-space:nowrap} .cash b{display:block;font-size:34px;font-family:'Bebas Neue',Bahnschrift;font-weight:400;letter-spacing:.5px}
+.cash span{font-size:20px;color:var(--warn)}
+.go{width:372px;height:58px;background:var(--gold);color:#17130A;display:flex;flex-direction:column;justify-content:center;padding:0 20px;line-height:1.05;white-space:nowrap}
+.go b{font-size:25px;font-weight:700} .go span{font-size:20px;font-weight:600}
+/* rail */
+.rail{position:absolute;left:0;top:76px;width:208px;bottom:0;background:var(--rail);border-right:1px solid var(--line);padding-top:14px}
+.rail a{display:flex;align-items:center;gap:14px;height:66px;padding:0 0 0 24px;font-size:25px;font-weight:600;color:var(--soft);border-left:5px solid transparent;position:relative}
+.rail a.on{color:var(--ink);background:var(--ctx);border-left-color:var(--red)}
+.rail a em{position:absolute;right:16px;font-style:normal;font-size:20px;font-weight:700;color:#fff;background:var(--red);padding:0 8px}
+.rail .foot{position:absolute;bottom:14px;left:0;right:0}
+/* context column */
+.ctx{position:absolute;left:208px;top:76px;width:292px;bottom:0;background:var(--ctx);border-right:1px solid var(--line);padding:24px 0 0}
+.ctx h2{font-size:22px;font-weight:600;color:var(--soft);padding:0 22px 8px}
+.ctx .pg{display:flex;justify-content:space-between;align-items:center;height:52px;padding:0 22px;font-size:24px;font-weight:600;color:var(--soft)}
+.ctx .pg.on{color:var(--ink);background:var(--panel2)} .ctx .pg.off{color:#6B737D}
+.ctx .pg em{font-style:normal;font-size:20px;font-weight:700;color:var(--ink)}
+.ctx hr{border:0;border-top:1px solid var(--line);margin:18px 0 18px}
+.q{display:grid;grid-template-columns:60px 1fr;gap:12px;align-items:center;padding:8px 22px;height:92px}
+.q.on{background:var(--panel2)}
+.q .pic{width:60px;height:72px;border-left:4px solid var(--red);overflow:hidden}
+.q .nm{display:flex;justify-content:space-between;align-items:baseline} .q b{font-size:24px;font-weight:600;line-height:1.1}
+.q .nm span{font-size:20px;color:var(--soft)} .q .nm span.hi{color:var(--warn)} .q .tm{margin-top:6px}
+/* shared bits */
+.bar{height:10px;background:#0B0D0F;position:relative} .bar i{display:block;height:100%;background:#C9CED4}
+.bar.t i{background:var(--ok)} .bar.t.mid i{background:#C9CED4} .bar.t.hi i{background:var(--warn)}
+.chip{display:inline-block;font-size:20px;font-weight:700;line-height:28px;padding:0 10px;white-space:nowrap;background:var(--panel2);color:var(--ink)}
+.chip.red{background:var(--red);color:#fff} .chip.set{background:var(--ink);color:#14171A} .chip.amber{background:var(--warn);color:#1B1206} .chip.ok{background:var(--ok);color:#08170F}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:50px;padding:0 20px;border:2px solid var(--ink);font-size:22px;font-weight:700;white-space:nowrap;color:var(--ink)}
+.btn.q2{border-color:var(--line);color:var(--soft);font-weight:600}
+.panel{background:var(--panel);border:1px solid var(--line)}
+.page{position:absolute;left:500px;top:76px;right:0;bottom:0;padding:26px 30px 0;overflow:hidden}
+.head{display:flex;align-items:flex-end;gap:18px;height:54px;margin-bottom:20px}
+.head h1{font-size:52px} .head p{font-size:22px;color:var(--soft);padding-bottom:6px}
+/* dashboard */
+.cols{display:grid;grid-template-columns:880px 452px;gap:28px}
+.need{display:grid;grid-template-columns:150px 1fr auto;gap:22px;align-items:center;height:164px;padding:0 22px 0 0;margin-bottom:14px;border-left:5px solid var(--warn)}
+.need.first{border-left-color:var(--red)}
+.need .vis{height:162px;background:#15181B;display:grid;place-items:center;overflow:hidden}
+.need h3{font-size:29px;font-weight:700;line-height:1.1;margin-bottom:6px} .need p{font-size:21px;color:var(--soft);line-height:1.25}
+.need .when{margin-top:8px}
+.duo{display:grid;grid-template-columns:1fr 1fr;width:100%;height:100%;gap:2px} .duo div{overflow:hidden}
+.big{font-size:60px} .unit{font-size:20px;color:var(--soft);display:block;text-align:center}
+.vis .dots i{width:16px;height:16px}
+.dots{display:inline-flex;gap:4px;vertical-align:middle} .dots i{display:block;width:13px;height:13px;background:#0B0D0F;border:1px solid var(--line)} .dots i.on{background:var(--ink);border-color:var(--ink)}
+.since{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.since div{padding:14px 18px;height:108px} .since b{font-size:40px;font-family:'Bebas Neue',Bahnschrift;font-weight:400;display:block;line-height:1}
+.since span{font-size:20px;color:var(--soft)} .up{color:var(--ok)} .dn{color:var(--warn)}
+.sub{font-size:22px;font-weight:600;color:var(--soft);margin:6px 0 10px}
+.side h4{font-size:24px;font-weight:700;padding:14px 18px 6px}
+.nx{display:grid;grid-template-columns:86px 1fr;align-items:center;padding:7px 18px;border-top:1px solid var(--line)}
+.nx .n{font-size:46px;text-align:left} .nx b{display:block;font-size:22px;font-weight:600;line-height:1.15} .nx span{font-size:20px;color:var(--soft)}
+.wk{padding:4px 18px 14px} .mrow{display:grid;grid-template-columns:76px 1fr 86px;gap:10px;align-items:center;height:34px;font-size:21px}
+.mrow .bar{height:14px} .mrow b{text-align:right;font-weight:600} .mrow .in i{background:var(--ok)} .mrow .out i{background:var(--warn)}
+.kv{display:flex;justify-content:space-between;font-size:21px;height:32px;align-items:center} .kv b{font-weight:600}
+.floor{height:356px;position:relative;overflow:hidden;background:#2E3339}
+.floor .cap{position:absolute;left:0;bottom:0;right:0;height:56px;align-items:center;padding:0 16px;background:rgba(12,14,16,.82);font-size:21px;font-weight:600;display:flex;justify-content:space-between}
+.floor .pin{position:absolute;width:34px;height:34px;border-radius:50%;background:var(--warn);color:#1B1206;font-style:normal;font-weight:700;font-size:20px;display:grid;place-items:center;border:3px solid #15181B}
+.floor svg{position:absolute;left:0;top:0;width:100%;height:300px}
+/* squad */
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{display:flex;flex-direction:column}
+.card .pic{height:258px;overflow:hidden;position:relative;border-top:5px solid var(--red)}
+.card .pic .chipbox{position:absolute;left:0;bottom:0;display:flex}
+.card .pic .chipbox span.l{background:rgba(12,14,16,.85);font-size:20px;line-height:28px;padding:0 10px;font-weight:600;white-space:nowrap}
+.card .in{padding:12px 15px 15px;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:40px;white-space:nowrap} .card .id{font-size:21px;color:var(--soft);margin-top:2px;white-space:nowrap}
+.rr{display:flex;gap:18px;align-items:baseline;margin:10px 0 10px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.rr b{font-size:38px;font-family:'Bebas Neue',Bahnschrift;font-weight:400;line-height:1} .rr span{font-size:20px;color:var(--soft)}
+.sts{display:grid;gap:4px} .st{display:grid;grid-template-columns:108px 1fr 34px;gap:10px;align-items:center;height:30px;font-size:21px}
+.st span{color:var(--soft)} .st b{text-align:right;font-weight:600}
+.st.best span,.st.best b{color:var(--ink)} .st.best .bar i{background:var(--ok)} .st.best b{color:var(--ok)}
+.st.weak .bar i{background:var(--warn)} .st.weak b{color:var(--warn)}
+.cond{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);display:grid;gap:6px}
+.cr{display:grid;grid-template-columns:92px 1fr;gap:10px;align-items:center;height:30px;font-size:21px;white-space:nowrap} .cr span{color:var(--soft)}
+.cr .tw{display:flex;align-items:center;gap:10px} .cr .tw .bar{flex:1} .cr b{font-weight:600} .bad{color:var(--warn)}
+.say{margin:12px 0 14px;padding:10px 12px;background:var(--panel2);font-size:21px;line-height:1.2;height:74px;white-space:nowrap}
+.say b{display:block;font-size:22px} .say.warn{box-shadow:inset 4px 0 0 var(--warn)} .say.weak{box-shadow:inset 4px 0 0 var(--warn)} .say.weapon{box-shadow:inset 4px 0 0 var(--ok)}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:auto} .acts .btn{height:46px;padding:0}
+.legend{display:flex;gap:26px;font-size:20px;color:var(--soft);margin-left:auto;padding-bottom:8px;align-items:center}
+.legend i{display:inline-block;width:22px;height:10px;margin-right:8px}
+</style></head>
+<body>
+<div class="top">
+  <div class="crest"><i></i><i></i></div>
+  <div class="club d">Anvil Street Gym</div>
+  <div class="date"><b>Mon 12 Jan 2026</b><span>Week 2</span></div>
+  <div class="nav"><a><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square" stroke-linejoin="miter" xmlns="http://www.w3.org/2000/svg"><path d="m14.5 5-7 7 7 7"/></svg></a><a><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square" stroke-linejoin="miter" xmlns="http://www.w3.org/2000/svg"><path d="m9.5 5 7 7-7 7"/></svg></a></div>
+  <div class="grow"></div>
+  <div class="tb"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square" stroke-linejoin="miter" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5.5" width="18" height="13"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg>Mail <em>3</em></div>
+  <div class="cash"><b>$16,841</b><span>down $680 a week</span></div>
+  <div class="go"><b>Next: York Hall's one place</b><span>then the week runs to Thu 15 Jan</span></div>
+  <div class="tb" style="margin-left:12px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square" stroke-linejoin="miter" xmlns="http://www.w3.org/2000/svg"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div>
+</div><div class="rail"><a class="on"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square" stroke-linejoin="miter" xmlns="http://www.w3.org/2000/svg"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/></svg>Home</a><a class=""><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square" stroke-linejoin="miter" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.6"/><path d="M2.5 20c.4-4 2.6-6 5.5-6s5.1 2 5.5 6"/><path d="M15 14.2c3.2-.5 5.6 1.400 6 5.3"/></svg>Squad</a><a class=""><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square" stroke-linejoin="miter" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 9.5v5M5.5 7v10M18.5 7v10M21.5 9.5v5M5.5 12h13"/></svg>Training<em>1</em></a><a class=""><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square" stroke-linejoin="miter" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="4.5" width="17" height="15"/><path d="M3.5 9.5h17M3.5 14.5h17"/></svg>Fights<em>1</em></a><a class=""><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square" stroke-linejoin="miter" xmlns="http://www.w3.org/2000/svg"><path d="M3 20V8l9-4 9 4v12"/><path d="M3 20h18"/><path d="M9.5 20v-6h5v6"/><path d="M7 10.5h2M15 10.5h2"/></svg>Gym</a><a class=""><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square" stroke-linejoin="miter" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9"/><path d="M15 9.3c-.6-1-1.7-1.6-3-1.6-1.7 0-3 .9-3 2.2 0 3 6 1.5 6 4.5 0 1.3-1.3 2.2-3 2.2-1.400 0-2.5-.6-3-1.6"/><path d="M12 5.800v12.400"/></svg>Money</a><a class=""><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="square" stroke-linejoin="miter" xmlns="http://www.w3.org/2000/svg"><path d="M3 20h4.5v-4.5H12V11h4.5V6.5H21"/></svg>World</a></div><div class="ctx"><h2>Home</h2><div class="pg on">Needs you<em>4</em></div><div class="pg ">Last week's review</div><hr><h2>Your four</h2><div class="q "><div class="pic"><svg class="ph" viewBox="0 0 100 120" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="120" fill="#353A41"/><g fill="#5B626C"><path d="M6 120C8 94 26 84 50 84C74 84 92 94 94 120Z"/><rect x="43" y="64" width="14" height="24"/><ellipse cx="50" cy="48" rx="17" ry="21"/></g><g fill="#474D56"><path d="M31 50C27 22 73 22 69 50C66 36 34 36 31 50Z"/><path d="M66 40c8 6 9 26 5 40l-5-2c3-12 2-26 0-38z"/></g></svg></div><div><div class="nm"><b>Lucy</b><span class="">Fresh</span></div><div class="tm"><span class="chip amber">No bout</span></div></div></div><div class="q "><div class="pic"><svg class="ph" viewBox="0 0 100 120" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="120" fill="#353A41"/><g fill="#5B626C"><path d="M6 120C8 94 26 84 50 84C74 84 92 94 94 120Z"/><rect x="43" y="64" width="14" height="24"/><ellipse cx="50" cy="48" rx="17" ry="21"/></g><g fill="#474D56"><path d="M31 50C27 22 73 22 69 50C66 36 34 36 31 50Z"/><circle cx="74" cy="38" r="8"/></g></svg></div><div><div class="nm"><b>Samira</b><span class="mid">Working</span></div><div class="tm"><span class="chip red">Offer</span></div></div></div><div class="q "><div class="pic"><svg class="ph" viewBox="0 0 100 120" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="120" fill="#353A41"/><g fill="#5B626C"><path d="M6 120C8 94 26 84 50 84C74 84 92 94 94 120Z"/><rect x="43" y="64" width="14" height="24"/><ellipse cx="50" cy="48" rx="17" ry="21"/></g><g fill="#474D56"><path d="M32 46C30 26 70 26 68 46C62 38 38 38 32 46Z"/></g></svg></div><div><div class="nm"><b>Tess</b><span class="hi">Heavy</span></div><div class="tm"><span class="chip red">Offer</span></div></div></div><div class="q "><div class="pic"><svg class="ph" viewBox="0 0 100 120" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="120" fill="#353A41"/><g fill="#5B626C"><path d="M6 120C8 94 26 84 50 84C74 84 92 94 94 120Z"/><rect x="43" y="64" width="14" height="24"/><ellipse cx="50" cy="48" rx="17" ry="21"/></g><g fill="#474D56"><path d="M31 50C27 22 73 22 69 50C66 36 34 36 31 50Z"/><circle cx="50" cy="21" r="8"/></g></svg></div><div><div class="nm"><b>Ana</b><span class="">Fresh</span></div><div class="tm"><span class="chip set">Entered</span></div></div></div></div><div class="page"><div class="head"><h1 class="d">Needs you</h1><p>4 things before the week can run</p></div>
+<div class="cols"><div>
+<div class="need first panel"><div class="vis"><div class="duo"><div><svg class="ph" viewBox="0 0 100 120" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="120" fill="#353A41"/><g fill="#5B626C"><path d="M6 120C8 94 26 84 50 84C74 84 92 94 94 120Z"/><rect x="43" y="64" width="14" height="24"/><ellipse cx="50" cy="48" rx="17" ry="21"/></g><g fill="#474D56"><path d="M32 46C30 26 70 26 68 46C62 38 38 38 32 46Z"/></g></svg></div><div><svg class="ph" viewBox="0 0 100 120" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="120" fill="#353A41"/><g fill="#5B626C"><path d="M6 120C8 94 26 84 50 84C74 84 92 94 94 120Z"/><rect x="43" y="64" width="14" height="24"/><ellipse cx="50" cy="48" rx="17" ry="21"/></g><g fill="#474D56"><path d="M31 50C27 22 73 22 69 50C66 36 34 36 31 50Z"/><circle cx="74" cy="38" r="8"/></g></svg></div></div></div>
+  <div><h3>York Hall: one place, two takers</h3><p>Tess against Amy Croft (4-3), or Samira against Jade Okoro (2-1).</p>
+  <div class="when"><span class="chip red">Answer by Thu 15 Jan</span></div></div><a class="btn">Pick the boxer</a></div>
+<div class="need panel"><div class="vis"><div><b class="d big">76.1</b><span class="unit">limit 75.0 kg</span></div></div>
+  <div><h3>Tess is 1.1 kg over</h3><p>If she boxes on Saturday the cut starts today.</p>
+  <div class="when"><span class="chip amber">5 days to the scales</span></div></div><a class="btn">Set her diet</a></div>
+<div class="need panel"><div class="vis"><div style="text-align:center"><span class="dots"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span><span class="unit" style="margin-top:10px">2 of 6 coached</span></div></div>
+  <div><h3>Lucy trains alone four mornings</h3><p>Alone she gains 60%. Reid has two mornings you have not placed.</p>
+  <div class="when"><span class="chip">This week</span></div></div><a class="btn">Open club week</a></div>
+<div class="need panel"><div class="vis"><div><b class="d big">$250</b><span class="unit">a week</span></div></div>
+  <div><h3>A sponsor is waiting</h3><p>Ironclad Supplements wants a banner on the gym wall.</p>
+  <div class="when"><span class="chip">Offer ends Mon 19 Jan</span></div></div><a class="btn">Read the deal</a></div>
+  <div class="sub">Since last Monday</div>
+  <div class="since"><div class="panel"><b class="up">+0.8</b><span>Lucy's speed, now 63</span></div>
+  <div class="panel"><b class="up">+6</b><span>members, 36 on the books</span></div>
+  <div class="panel"><b class="dn">-$680</b><span>cash, the week's result</span></div></div>
+</div><div>
+<div class="panel side"><h4>Coming up</h4>
+  <div class="nx"><b class="d n">5</b><div><b>York Hall show</b><span>days, Sat 17 Jan, place open</span></div></div>
+  <div class="nx"><b class="d n">19</b><div><b>London Open, Ana</b><span>days, Sat 31 Jan</span></div></div>
+  <div class="nx"><b class="d n">21</b><div><b>Bills, about $5,284</b><span>days, Mon 2 Feb</span></div></div>
+</div>
+<div class="panel side" style="margin-top:14px"><h4>The club this week</h4><div class="wk">
+  <div class="mrow"><span class="soft">In</span><div class="bar in"><i style="width:48%"></i></div><b>$641</b></div>
+  <div class="mrow"><span class="soft">Out</span><div class="bar out"><i style="width:100%"></i></div><b>$1,321</b></div>
+  <div class="kv" style="margin-top:6px"><span class="soft">Members</span><b>36 <span class="up">+6</span></b></div>
+  <div class="kv"><span class="soft">Cash lasts</span><b>24 weeks</b></div></div>
+</div>
+<div class="panel floor" style="margin-top:14px">
+  <svg viewBox="0 0 452 300" xmlns="http://www.w3.org/2000/svg"><rect width="452" height="300" fill="#2B3036"/>
+  <rect x="16" y="16" width="420" height="228" fill="#353B42"/><rect x="16" y="16" width="130" height="108" fill="#2F343A"/><rect x="16" y="124" width="130" height="120" fill="#3D444C"/>
+  <rect x="236" y="44" width="150" height="110" fill="#444B54"/><rect x="246" y="54" width="130" height="90" fill="none" stroke="#6A727D" stroke-width="3"/>
+  <g fill="#59606A"><circle cx="186" cy="196" r="11"/><circle cx="222" cy="196" r="11"/><circle cx="258" cy="196" r="11"/><circle cx="294" cy="196" r="11"/><rect x="340" y="182" width="70" height="30"/><rect x="40" y="170" width="80" height="26"/><rect x="40" y="52" width="60" height="30"/></g>
+  <g font-family="Barlow,Bahnschrift" font-size="20" font-weight="600" fill="#C9CED4"><text x="274" y="106">Ring</text><text x="44" y="222">Reception</text><text x="44" y="106">Office</text></g></svg>
+  <i class="pin" style="left:354px;top:36px">1</i><i class="pin" style="left:112px;top:150px">1</i>
+  <div class="cap"><span>The gym floor</span><span class="soft">2 places need you</span></div>
+</div></div></div></div></div>
+</body></html>

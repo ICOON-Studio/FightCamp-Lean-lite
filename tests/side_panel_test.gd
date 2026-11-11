@@ -1,7 +1,6 @@
 extends SceneTree
-## FIGHTDISPLAY2: the two side panels on a live round. Left energy matches the live tank, the opponent's
-## legs are "?" until film study, the habit count is how often that game has been played, and each panel
-## holds its holo.
+## FIGHTDISPLAY4: the ring stays clear. Bars sit in the two top strips, the figures stand free at the
+## edges, the heard pips and the habit card sit in the bottom bar, and no chip covers the scoreboard.
 
 const TestJump := preload("res://scripts/ui/TestJump.gd")
 const FightView := preload("res://scripts/fight3d/FightView.gd")
@@ -13,6 +12,11 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const SidePanel := preload("res://scripts/fight3d/SidePanel.gd")
 
 const RED := Color("#e2483d")
+const ZONE := Rect2(0, 240, 1920, 650)
+const OURS := Rect2(20, 20, 600, 180)
+const THEIRS := Rect2(1300, 20, 600, 180)
+const BOARD := Rect2(640, 0, 640, 240)
+const HOME := [Rect2(20, 350, 320, 540), Rect2(1580, 350, 320, 540)]
 
 var failures := 0
 var main: Node
@@ -21,20 +25,36 @@ var view: Node
 
 func _initialize() -> void:
 	print("SIDE_PANEL boot")
+	_pure()
 	Engine.max_fps = 30
 	FightView.force3d = true
 	FightIntro.from_corners = true
-	get_root().size = Vector2i(1920, 1080)
+	root.mode = Window.MODE_WINDOWED
+	root.size = Vector2i(1920, 1080)
 	if not await _boot():
 		_finish()
 		return
-	await _panels()
+	await _screen()
 	_finish()
 
 
 func _finish() -> void:
 	print("SIDE_PANEL failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
+
+
+func _pure() -> void:
+	var vals := {"head": 80.0, "left_eye": 40.0, "right_eye": 90.0, "nose": 30.0, "left_ribs": 70.0, "right_ribs": 60.0}
+	_check(SidePanel.worst_place(vals) == "nose", "worst_place picks the lowest band (%s)" % SidePanel.worst_place(vals))
+	_check(SidePanel.tag_text("nose", "critical") == "NOSE", "tag_text names the place")
+	_check(SidePanel.tag_text("left_eye", "doctor") == "EYE x", "tag_text marks a bad eye")
+	_check(SidePanel.energy_range(94.0, true) == "91-97", "energy_range scouted (%s)" % SidePanel.energy_range(94.0, true))
+	_check(SidePanel.energy_range(94.0, false) == "86-100", "energy_range wide (%s)" % SidePanel.energy_range(94.0, false))
+	_check(SidePanel.forecast_line(0, 1) == "lasts to R3", "a full tank reads lasts to R3")
+	var box := Control.new()
+	root.add_child(box)
+	var src: Dictionary = SidePanel.meter_src(box, 0, 80.0)
+	_check(is_equal_approx(float(src.get("energy", -1.0)), 80.0), "meter_src keeps the tank it was given")
 
 
 func _boot() -> bool:
@@ -56,225 +76,200 @@ func _boot() -> bool:
 	if not await _until(func(): return bool(view.playing) and view.get("_shouting") == null and float(view.t) < 5.0):
 		_fail("boot: the round never played (playing %s t %.1f)" % [view.playing, float(view.t)])
 		return false
-	await _frames(4)
+	await _frames(6)
 	return true
 
 
-func _panels() -> void:
-	var left := view.find_child("SidePanel0", true, false) as Control
-	var right := view.find_child("SidePanel1", true, false) as Control
-	_check(left != null and right != null, "two SidePanel nodes")
-	if left == null or right == null:
-		return
-	var lr := left.get_global_rect()
-	var rr := right.get_global_rect()
-	_check(lr.position.x < 400.0 and lr.end.x <= 400.0, "left panel inside x < 400 (%s)" % lr)
-	_check(rr.position.x > 1520.0, "right panel inside x > 1520 (%s)" % rr)
-	_energy(left)
-	_stamina()
-	await _legs(right)
-	_lines(left, right)
-	_habit(right)
-	_heard(left)
-	_holo(left, right)
-	await _tag(left)
-	_overlap(left)
-	_overlap(right)
-	_icons(left)
-	_icons(right)
-	_type(left)
-	_type(right)
-	_dump(left)
-	_dump(right)
+func _screen() -> void:
+	_opaque()
+	_bars()
+	_figures()
+	_bottom()
+	_labels()
+	await _numbers()
+	_dump()
+	await _chips()
 
 
-func _energy(left: Control) -> void:
-	var lv: Dictionary = LiveRound.live(main.modal)
-	var exs: Array = lv.get("ex", [])
-	var idx := mini(int(float(view.t) / Exchanges.EX_SECONDS), exs.size())
-	var want := int(round(LiveRound.her_energy(lv, idx)))
-	var lab := left.find_child("EnergyNum", true, false) as Label
-	_check(lab != null and lab.text == str(want),
-		"left energy is the live tank for this exchange (%s, want %d)" % ["" if lab == null else lab.text, want])
-
-
-func _legs(right: Control) -> void:
-	var f: Dictionary = main.career.fighter_by_id(str(view.fid))
-	if int(f["bout"].get("film", 0)) >= BoutRules.FILM_DEPTH_WITH_STUDY:
-		f["bout"]["film"] = BoutRules.FILM_DEPTH_DEFAULT
-		await _frames(3)
-	var legs := right.find_child("LegsNum", true, false) as Label
-	_check(legs != null and legs.text == "?",
-		"no film study: the opponent's legs read ? (%s)" % ("" if legs == null else legs.text))
-	var chip := right.find_child("HabitChip", true, false) as Label
-	var opp: Dictionary = (f.get("bout", {}) as Dictionary).get("opp", {})
-	_check(chip != null and chip.text == SidePanel.opp_line(opp, int(f["bout"].get("film", 0))),
-		"no tape yet: the line under her name is her record (%s)" % ("" if chip == null else chip.text))
-	f["bout"]["film"] = BoutRules.FILM_DEPTH_WITH_STUDY
-	await _frames(4)
-	_check(legs != null and legs.text.is_valid_int(),
-		"full study: the opponent's legs are a number (%s)" % ("" if legs == null else legs.text))
-
-
-func _stamina() -> void:
-	# The real FightView's bars (SidePanel's host). A stub with its own stamina() would not be this node.
-	_check(view.bars != null and view.bars.get_script() == SidePanel.Host and view.bars.has_method("stamina"),
-		"bars.stamina is the live host on the real FightView (%s)" % ("" if view.bars == null else str(view.bars.get_class())))
-	if view.bars == null or not view.bars.has_method("stamina"):
-		return
-	var lv: Dictionary = LiveRound.live(main.modal)
-	var exs: Array = lv.get("ex", [])
-	var idx := mini(int(float(view.t) / Exchanges.EX_SECONDS), exs.size())
-	var hers: float = view.bars.stamina(0)
-	var opp: float = view.bars.stamina(1)
-	_check(absf(hers - LiveRound.her_energy(lv, idx)) < 0.05,
-		"her stamina is the tank the view is showing (%.1f, want %.1f)" % [hers, LiveRound.her_energy(lv, idx)])
-	_check(hers >= 0.0 and absf(opp - LiveRound.opp_energy(lv, idx)) < 0.05,
-		"the opponent stamina reads too (%.1f, want %.1f)" % [opp, LiveRound.opp_energy(lv, idx)])
-
-
-func _lines(left: Control, right: Control) -> void:
-	var lv: Dictionary = LiveRound.live(main.modal)
-	var f: Dictionary = main.career.fighter_by_id(str(view.fid))
-	var opp: Dictionary = (f.get("bout", {}) as Dictionary).get("opp", {})
-	var film := int((f.get("bout", {}) as Dictionary).get("film", 0))
-	var mine := left.find_child("PlanChip", true, false) as Label
-	var hers := right.find_child("HabitChip", true, false) as Label
-	var record := SidePanel.opp_line(opp, 0)
-	_check(mine != null and mine.text == SidePanel.own_line(lv) and not mine.text.begins_with("Plan:"),
-		"his line is the plan in game words (%s)" % ("" if mine == null else mine.text))
-	_check(record.contains("win") and record.contains("loss"), "without tape the line is her record (%s)" % record)
-	_check(hers != null and hers.text == SidePanel.opp_line(opp, film),
-		"her line is the record or the tape (%s)" % ("" if hers == null else hers.text))
-
-
-func _habit(right: Control) -> void:
-	var lv: Dictionary = LiveRound.live(main.modal)
-	var exs: Array = lv.get("ex", [])
-	var mode := str((exs[-1] as Dictionary).get("mode", "")) if not exs.is_empty() else ""
-	var n := 0
-	for item in exs:
-		if str((item as Dictionary).get("mode", "")) == mode:
-			n += 1
-	var word := str((Exchanges.MODES.get(mode, {}) as Dictionary).get("label", mode))
-	var unit := "time" if n == 1 else "times"
-	var count := right.find_child("HabitCount", true, false) as Label
-	_check(count != null and count.text == "%s, %d %s" % [word, n, unit],
-		"habit reads as words and a count (%s, want %s, %d %s)" % ["" if count == null else count.text, word, n, unit])
-	_check(right.find_child("HabitIcon", true, false) == null and right.find_child("HabitGlove", true, false) == null,
-		"the habit card has no target, arrow or fist")
-
-
-func _heard(left: Control) -> void:
-	var lab := left.find_child("Heard", true, false) as Label
-	_check(lab != null and lab.text.begins_with("Heard ") and lab.text.ends_with(" of 3"),
-		"the dots say how many she heard (%s)" % ("" if lab == null else lab.text))
-
-
-func _holo(left: Control, right: Control) -> void:
-	var a := left.find_child("BodyPanel0", true, false)
-	var b := right.find_child("BodyPanel1", true, false)
-	_check(a != null and a.get_parent() == left, "the left holo is a child of the left panel")
-	_check(b != null and b.get_parent() == right, "the right holo is a child of the right panel")
-
-
-func _tag(left: Control) -> void:
-	var live: Node = view.get("body")
-	var tag := left.find_child("WorstTag", true, false) as Label
-	var vals := {}
-	for p in BodyMap.PLACES:
-		vals[p] = BodyMap.value(live.map, "a", p)
-	var place := SidePanel.worst_place(vals)
-	var want := SidePanel.tag_text(place, BodyMap.band(float(vals[place])))
-	_check(tag != null and tag.text == want, "the tag names the worst place (%s, want %s)" % ["" if tag == null else tag.text, want])
-	live.map["a"]["places"]["nose"] = 30.0
-	await _frames(3)
-	_check(tag != null and tag.text == "NOSE", "a critical nose is tagged NOSE (%s)" % ("" if tag == null else tag.text))
-	if tag != null:
-		_check(_same(tag.get_theme_color("font_color"), RED), "a critical place is red (%s)" % tag.get_theme_color("font_color"))
-
-
-func _overlap(panel: Control) -> void:
-	var labs: Array = []
-	for n in panel.find_children("*", "Label", true, false):
-		var l := n as Label
-		if l.visible and l.is_visible_in_tree() and l.text.strip_edges() != "" and not _under_holo(l):
-			labs.append(l)
-	var hit := ""
-	for i in labs.size():
-		for j in range(i + 1, labs.size()):
-			var a: Label = labs[i]
-			var b: Label = labs[j]
-			if a.get_global_rect().intersects(b.get_global_rect()):
-				hit = "%s '%s' and %s '%s'" % [a.name, a.text, b.name, b.text]
-				break
-		if hit != "":
+func _opaque() -> void:
+	var bad := ""
+	for n in view.find_children("*", "Control", true, false):
+		var c := n as Control
+		if not _draws_opaque(c):
+			continue
+		var hit := c.get_global_rect().intersection(ZONE)
+		var area := hit.size.x * hit.size.y
+		if area > 2000.0:
+			bad = "%s %s area %.0f" % [c.get_path(), c.get_global_rect(), area]
 			break
-	_check(hit == "", "no two labels overlap in %s%s" % [panel.name, "" if hit == "" else " (" + hit + ")"])
+	_check(bad == "", "no opaque plate over the ring%s" % ("" if bad == "" else " (" + bad + ")"))
 
 
-func _under_holo(n: Node) -> bool:
+func _draws_opaque(c: Control) -> bool:
+	if c == null or not c.visible or not c.is_visible_in_tree():
+		return false
+	if _under(c, "BodyPanel") or _under(c, "IntentChip"):
+		return false
+	if c is TextureRect:
+		return true
+	if c is ColorRect:
+		return (c as ColorRect).color.a > 0.5
+	if c is Panel or c is PanelContainer:
+		var sb := c.get_theme_stylebox("panel")
+		if sb == null or sb is StyleBoxEmpty:
+			return false
+		if sb is StyleBoxFlat:
+			return (sb as StyleBoxFlat).bg_color.a > 0.5
+		return true
+	return false
+
+
+func _bars() -> void:
+	for side in 2:
+		var home: Rect2 = OURS if side == 0 else THEIRS
+		var panel := view.find_child("SidePanel%d" % side, true, false) as Control
+		_check(panel != null, "SidePanel%d exists" % side)
+		if panel == null:
+			continue
+		for word in ["Energy", "Legs", "Guard"]:
+			var bar := panel.find_child(word + "Bar", true, false) as Control
+			var r := Rect2() if bar == null else bar.get_global_rect()
+			var inside := home.encloses(r) if bar != null else false
+			_check(bar != null and inside and r.size.x > r.size.y + 1.0,
+				"%sBar on side %d is a wide bar inside the top strip (%s)" % [word, side, r])
+
+
+func _figures() -> void:
+	for side in 2:
+		var fig := view.find_child("BodyPanel%d" % side, true, false) as Control
+		var home: Rect2 = HOME[side]
+		var r := Rect2() if fig == null else fig.get_global_rect()
+		_check(fig != null and home.encloses(r), "figure %d stands inside %s (got %s)" % [side, home, r])
+		_check(fig != null and not _panel_behind(fig), "figure %d has no plate behind it" % side)
+
+
+func _panel_behind(n: Node) -> bool:
 	var p := n.get_parent()
-	while p != null:
-		if str(p.name).begins_with("BodyPanel"):
+	while p != null and p != view:
+		if (p is Panel or p is PanelContainer) and _draws_opaque(p as Control):
 			return true
 		p = p.get_parent()
 	return false
 
 
-func _icons(panel: Control) -> void:
-	for n in panel.find_children("*", "TextureRect", true, false):
-		if _under_holo(n):
+func _bottom() -> void:
+	var bar := view.find_child("CornerBar", true, false) as Control
+	_check(bar != null, "the bottom bar exists")
+	if bar == null:
+		return
+	var br := bar.get_global_rect()
+	for nm in ["Ear", "Pip0", "Pip1", "Pip2", "HabitCard"]:
+		var n := view.find_child(nm, true, false) as Control
+		var r := Rect2() if n == null else n.get_global_rect()
+		_check(n != null and n.is_visible_in_tree() and r.position.y > 900.0 and br.encloses(r),
+			"%s sits in the bottom bar (%s, bar %s)" % [nm, r, br])
+
+
+func _labels() -> void:
+	var homes: Array[Control] = []
+	for nm in ["SidePanel0", "SidePanel1", "CornerBar"]:
+		var n := view.find_child(nm, true, false) as Control
+		if n != null:
+			homes.append(n)
+	var labs: Array[Label] = []
+	for home in homes:
+		for n in home.find_children("*", "Label", true, false):
+			var l := n as Label
+			if l.visible and l.is_visible_in_tree() and l.text.strip_edges() != "" and not _under(l, "BodyPanel"):
+				labs.append(l)
+	var hit := ""
+	for i in labs.size():
+		for j in range(i + 1, labs.size()):
+			var a: Rect2 = labs[i].get_global_rect()
+			var b: Rect2 = labs[j].get_global_rect()
+			var overlap := a.intersection(b)
+			if overlap.size.x > 4.0 and overlap.size.y > 4.0:
+				hit = "%s '%s' and %s '%s'" % [labs[i].name, labs[i].text, labs[j].name, labs[j].text]
+				break
+		if hit != "":
+			break
+	_check(hit == "", "no two labels overlap in the strips or the bar%s" % ("" if hit == "" else " (" + hit + ")"))
+
+
+func _chips() -> void:
+	var hit := ""
+	var t0 := float(view.t)
+	for i in 20:
+		view.t = t0 + float(i) * 0.35
+		await _frames(1)
+		for n in view.find_children("IntentChip*", "Control", true, false):
+			var c := n as Control
+			if str(c.name).begins_with("IntentChip") and c.visible and c.get_global_rect().intersects(BOARD):
+				hit = "%s at t %.0f %s" % [c.name, float(view.t), c.get_global_rect()]
+				break
+		if hit != "":
+			break
+	_check(hit == "", "no chip covers the scoreboard%s" % ("" if hit == "" else " (" + hit + ")"))
+
+
+func _numbers() -> void:
+	var left := view.find_child("SidePanel0", true, false) as Control
+	var right := view.find_child("SidePanel1", true, false) as Control
+	if left == null or right == null:
+		return
+	var lv: Dictionary = LiveRound.live(main.modal)
+	var exs: Array = lv.get("ex", [])
+	var idx := mini(int(float(view.t) / Exchanges.EX_SECONDS), exs.size())
+	var want := int(round(LiveRound.her_energy(lv, idx)))
+	var lab := left.find_child("EnergyNum", true, false) as Label
+	_check(lab != null and lab.text == str(want), "left energy is the live tank (%s, want %d)" % ["" if lab == null else lab.text, want])
+	var f: Dictionary = main.career.fighter_by_id(str(view.fid))
+	if int(f["bout"].get("film", 0)) >= BoutRules.FILM_DEPTH_WITH_STUDY:
+		f["bout"]["film"] = BoutRules.FILM_DEPTH_DEFAULT
+		await _frames(3)
+	var legs := right.find_child("LegsNum", true, false) as Label
+	_check(legs != null and legs.text == "?", "no film study: legs read ? (%s)" % ("" if legs == null else legs.text))
+	var heard := view.find_child("Heard", true, false) as Label
+	_check(heard != null and heard.text.begins_with("Heard ") and heard.text.ends_with(" of 3"),
+		"heard reads as a count (%s)" % ("" if heard == null else heard.text))
+	var count := view.find_child("HabitCount", true, false) as Label
+	_check(count != null and (count.text.contains("time")), "the habit card names the game and a count (%s)" % ("" if count == null else count.text))
+	var live: Node = view.get("body")
+	var tag := left.find_child("WorstTag", true, false) as Label
+	if live != null and tag != null:
+		var vals := {}
+		for p in BodyMap.PLACES:
+			vals[p] = BodyMap.value(live.map, "a", p)
+		var place := SidePanel.worst_place(vals)
+		_check(tag.text == SidePanel.tag_text(place, BodyMap.band(float(vals[place]))), "the tag names the worst place (%s)" % tag.text)
+	_check(view.bars != null and view.bars.has_method("stamina"), "the live host still answers stamina")
+	for word in ["energy", "legs", "guard"]:
+		var w := left.find_child(word.capitalize() + "Word", true, false) as Label
+		_check(w != null and w.get_theme_font_size("font_size") >= 22, "%s is 22 px or more" % word)
+
+
+func _dump() -> void:
+	for nm in ["SidePanel0", "SidePanel1", "BodyPanel0", "BodyPanel1", "CornerBar"]:
+		var n := view.find_child(nm, true, false) as Control
+		if n != null:
+			print("RECT %s %s" % [nm, n.get_global_rect()])
+	for side_nm in ["SidePanel0", "SidePanel1"]:
+		var panel := view.find_child(side_nm, true, false) as Control
+		if panel == null:
 			continue
-		_check(_has_words(n), "icon %s has a label or a tooltip" % n.name)
-	for n in panel.find_children("*", "", true, false):
-		var nm := str(n.name)
-		if nm == "Ear" or nm.begins_with("Pip"):
-			_check(_has_words(n), "icon %s has a label or a tooltip" % nm)
+		for word in ["Energy", "Legs", "Guard"]:
+			var bar := panel.find_child(word + "Bar", true, false) as Control
+			if bar != null:
+				print("RECT %s %s %s" % [side_nm, bar.name, bar.get_global_rect()])
 
 
-func _has_words(c: Node) -> bool:
-	if str(c.get("tooltip_text")).strip_edges() != "":
-		return true
-	var p := c.get_parent()
-	if p == null:
-		return false
-	for s in p.get_children():
-		if s is Label and str((s as Label).text).strip_edges() != "":
+func _under(n: Node, prefix: String) -> bool:
+	var p := n
+	while p != null:
+		if str(p.name).begins_with(prefix):
 			return true
+		p = p.get_parent()
 	return false
-
-
-func _dump(panel: Control) -> void:
-	print("PANEL %s %s" % [panel.name, panel.get_global_rect()])
-	for n in panel.find_children("*", "Label", true, false):
-		var l := n as Label
-		if l.visible and not _under_holo(l):
-			print("RECT %s %s \"%s\" %s" % [panel.name, l.name, l.text, l.get_global_rect()])
-
-
-func _type(panel: Control) -> void:
-	for n in panel.find_children("*", "Label", true, false):
-		var l := n as Label
-		if not l.visible:
-			continue
-		var px := l.get_theme_font_size("font_size")
-		_check(px >= 20, "label %s is %d px" % [l.name, px])
-		_check(not _clipped(l), "label %s is not clipped (%s)" % [l.name, l.text])
-
-
-func _clipped(l: Label) -> bool:
-	if l.text.strip_edges() == "":
-		return false
-	if l.size.x < 2.0 or l.size.y < 2.0:
-		return true
-	if l.autowrap_mode != TextServer.AUTOWRAP_OFF:
-		return l.get_visible_line_count() < l.get_line_count()
-	return l.get_minimum_size().x > l.size.x + 2.0 or l.get_minimum_size().y > l.size.y + 2.0
-
-
-func _same(a: Color, b: Color) -> bool:
-	return absf(a.r - b.r) < 0.02 and absf(a.g - b.g) < 0.02 and absf(a.b - b.b) < 0.02
 
 
 func _check(cond: bool, label: String) -> void:

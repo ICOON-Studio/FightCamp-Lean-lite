@@ -6451,9 +6451,50 @@
     "Wait"
    ],
    "attach": [],
-   "answer": "Yes, run the critics",
-   "note": "S429: answered in chat (\"check my board comments and then yes run them\"). Round 1 ran: FOURSTART1 4 and 4, AMATEURWEEK1 3 and 4.",
-   "answered_at": "2026-11-11T07:47:35Z",
+   "answer": "Show me the maps first, no critics",
+   "note": null,
+   "answered_at": "2026-11-11T08:14:06Z",
+   "seen_by_claude": false,
+   "comment_only": false
+  },
+  {
+   "id": "Q-S294-180",
+   "asked": "2026-11-11T08:24:43.942782+00:00",
+   "session": "S294",
+   "text": "Fighter Overview without the wooden frames: three drawings, which one do I build? A = the body chart (each number beside the part of the body it works in; biggest build). B = the clean sheet (numbers left, what to do next on the right; smallest build). C = her numbers against the region's best (needs data the game does not hold yet). My pick: A.",
+   "options": [
+    "A, the body chart",
+    "B, the clean sheet",
+    "C, the tape",
+    "None of these, try again"
+   ],
+   "attach": [
+    "AgentComms/board_attach/Q-S294-180_0_overview_c.png"
+   ],
+   "answer": "A, the body chart",
+   "note": "S430: answered in chat (\"A, body chart\"). Not built yet: the look (serious management, no wooden frames) is picked with the shell drawings first, then Ludo paints A in that look, then one Cursor task.",
+   "answered_at": "2026-11-11T08:28:25Z",
+   "seen_by_claude": false,
+   "status": "answered"
+  },
+  {
+   "id": "Q-S294-181",
+   "asked": "2026-11-11T08:30:10.743250+00:00",
+   "session": "S294",
+   "text": "The menus rebuilt like Boxing Manager's, scoped to our game: sections Home, Squad, Training, Fights, Gym, Money, World, a real Mail inbox, one gold button that always does the next step; every fighter has the same six tabs; the gym picture stays as Gym > Floor. Which frame and look? B = sections across the top, the week always on the right. A = a fixed rail on the left with your four beside it. C = icon rail, gym picture on Home, the next six weeks along the bottom. My pick: B.",
+   "options": [
+    "B, top sections and the week column",
+    "A, the left rail",
+    "C, the long view",
+    "The structure yes, the looks no: try again",
+    "Not this structure"
+   ],
+   "attach": [
+    "AgentComms/board_attach/Q-S294-181_0_MENU_STRUCTURE_PROPOSAL.md"
+   ],
+   "answer": null,
+   "note": "S430, his word in chat after the drawings went out: \"FYI i wnat the main gym screen as designed unchanged so the whole design should much that\". The three looks were drawn before it and will be redrawn to match the gym screen (Home stays the gym screen, untouched). The structure question still stands.",
+   "answered_at": null,
    "seen_by_claude": false
   }
  ]

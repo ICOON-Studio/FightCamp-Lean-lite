@@ -24,6 +24,7 @@ func _initialize() -> void:
 	_test11()
 	_test12()
 	_test13()
+	_test14()
 	print("PACE_AIM failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -283,3 +284,17 @@ func _test13() -> void:
 		if o1 != o2:
 			ok = false
 	_check(ok, "test 13: determinism")
+
+
+## 14. S430 every pace and aim says what it does and when it counts, and a target names the opponent.
+func _test14() -> void:
+	var ok := true
+	for pace in PA.PACES:
+		if PA.pace_effect(pace) == "" or not PA.pace_tip(pace).contains("next exchange"):
+			ok = false
+	for aim in PA.AIMS:
+		if PA.aim_effect(aim, "Erin") == "" or not PA.aim_tip(aim, "Erin").contains("next exchange"):
+			ok = false
+	if not PA.aim_effect("body", "Erin").contains("Erin") or PA.pace_effect("push") == PA.pace_effect("save"):
+		ok = false
+	_check(ok, "test 14: every pace and aim has its effect line and says when it counts")

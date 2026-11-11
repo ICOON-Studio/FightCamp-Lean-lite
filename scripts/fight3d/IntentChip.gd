@@ -2,7 +2,7 @@ extends Control
 ## A word over each boxer's head while the scorebug is up (S405: the same rule as the side holos).
 ## The opponent: her game in the coming exchange, Exchanges.MODES[sit]["label"] from LiveRound.preview.
 ## His boxer: "Hurt" / "Tired" when Exchanges.situation says so, else the call in force, else nothing.
-## Follows the head bone. Clamped to the open middle between the panels. Never takes a click.
+## Follows the head bone. Kept out of the scoreboard and the top strips. Never takes a click.
 
 const TV := preload("res://scripts/ui/TV.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
@@ -11,6 +11,8 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 
 const RED := Color("#e2483d")
+const CLEAR_Y := 268.0
+const KEEP_CLEAR := [Rect2(640, 0, 640, 240), Rect2(20, 20, 600, 180), Rect2(1300, 20, 600, 180)]
 
 var view: Control
 var side := 0
@@ -103,7 +105,24 @@ func place(cam: Camera3D, world: Vector3, open_l: float, open_r: float, view_siz
 	visible = shown(bug_on, _word.text, on_screen)
 	if not visible:
 		return
-	position = clamp_box(hit["pos"], size, open_l, open_r, view_size)
+	position = _off_board(clamp_box(hit["pos"], size, open_l, open_r, view_size))
+
+
+## Drop a chip that would cover the scoreboard or a top strip to just under that band.
+func _off_board(pos: Vector2) -> Vector2:
+	var origin := Vector2.ZERO
+	var parent := get_parent() as Control
+	if parent != null:
+		origin = parent.get_global_rect().position
+	var r := Rect2(origin + pos, size)
+	var hit := false
+	for box in KEEP_CLEAR:
+		if r.intersects(box as Rect2):
+			hit = true
+			break
+	if not hit:
+		return pos
+	return Vector2(pos.x, CLEAR_Y - origin.y)
 
 
 func _mount() -> void:
@@ -213,13 +232,4 @@ func _head() -> Vector3:
 
 
 func _open() -> Vector2:
-	var origin := view.get_global_rect().position
-	var lo := 384.0
-	var hi := maxf(lo + 8.0, view.size.x - 384.0)
-	var left := view.find_child("SidePanel0", true, false) as Control
-	var right := view.find_child("SidePanel1", true, false) as Control
-	if left != null:
-		lo = left.get_global_rect().end.x - origin.x
-	if right != null:
-		hi = right.get_global_rect().position.x - origin.x
-	return Vector2(lo, hi)
+	return Vector2(8.0, maxf(16.0, view.size.x - 8.0))

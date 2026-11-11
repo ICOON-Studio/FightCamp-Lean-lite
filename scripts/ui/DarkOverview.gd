@@ -18,6 +18,7 @@ const Data := preload("res://scripts/state/Data.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
+const Aftermath := preload("res://scripts/rules/Aftermath.gd")
 
 const PANEL_BG := Color(0.095, 0.075, 0.066, 0.94)
 const INSET := Color(0.05, 0.04, 0.035, 0.9)
@@ -148,8 +149,10 @@ static func _boxer(f: Dictionary) -> Control:
 	var nm := str(f["name"]).to_upper()
 	col.add_child(UI.display(nm, clampi(int(float(LEFT_W) / (float(nm.length()) * 0.62)), 36, 60), Color.WHITE))
 	col.add_child(UI.label("%s, %d, %s, amateur %d-%d" % [f["wc"], f["age"], f["stance"], f["w"], f["l"]], UI.BODY, SOFT, "semi"))
+	col.add_child(condition(f))
 	var holder := Control.new()
-	holder.custom_minimum_size = Vector2(LEFT_W, 690)
+	# S430 (operator: "this screen on the bottom is clipped"): 690 pushed the goal and body row off a 1080 screen.
+	holder.custom_minimum_size = Vector2(LEFT_W, 560)
 	holder.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var pic: Control = RosterCards.body(Faces.stem(f))
@@ -164,6 +167,32 @@ static func _boxer(f: Dictionary) -> Control:
 	holder.add_child(ring)
 	col.add_child(holder)
 	return col
+
+
+## S430 (operator: "after the fight i need to clearly see somewhere (probably in the fighters prifile) his stamina level
+## to figure out how long i need to rest him and plan his next training"): her tiredness as a bar and a number under her
+## name, with the rest days it takes to be fresh. The same number the week plan and a fight (Aftermath.toll) move.
+static func condition(f: Dictionary) -> Control:
+	var v: float = FighterProfile.fatigue(f)
+	var days: int = Aftermath.rest_days(v)
+	var tone: Color = TONE["green"] if days == 0 else (TONE["red"] if v >= 80.0 else TONE["amber"])
+	var row := UI.hbox(10)
+	row.name = "Condition"
+	row.mouse_filter = Control.MOUSE_FILTER_PASS
+	row.tooltip_text = "Tiredness %d of 100. Under 50 is fresh. A fight and hard training raise it; a full rest day takes off about an eighth. Over 80 the next morning's training counts only 60%%." % int(round(v))
+	row.add_child(UI.label("TIREDNESS", UI.BODY, SOFT, "bold"))
+	var bar := Bar.new()
+	bar.frac = v / 100.0
+	bar.tick = Aftermath.FRESH_UNDER / 100.0
+	bar.colour = tone
+	bar.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	bar.custom_minimum_size = Vector2(120, 22)
+	row.add_child(bar)
+	row.add_child(UI.label("%d" % int(round(v)), 26, tone, "bold"))
+	var words := UI.label(Aftermath.tired_word(v) if days == 0 else "%s: %d rest day%s" % [Aftermath.tired_word(v), days, "" if days == 1 else "s"], UI.BODY, INK, "semi")
+	words.name = "ConditionWords"
+	row.add_child(words)
+	return row
 
 
 static func _ring(frac: float, colour: Color, big: String, small: String, px: float) -> Control:
