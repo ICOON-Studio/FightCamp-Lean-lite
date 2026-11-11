@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Class choice, round 2 (S434 WEIGHT1)</title>
+<link rel="stylesheet" href="../train/final.css">
+<style>
+.tabs{position:absolute;left:400px;top:88px;display:flex;gap:6px}
+.tabs span{height:44px;padding:0 22px;display:flex;align-items:center;font:400 25px/1 Bebas;letter-spacing:.06em;color:var(--soft);background:rgba(255,255,255,.06);clip-path:polygon(10px 0,100% 0,100% 100%,0 100%,0 10px)}
+.tabs span.on{color:#2a1b06;background:linear-gradient(#ffe37a,#f0b32a)}
+/* left: the fighter */
+.me{left:20px;top:88px;width:364px;height:976px;padding:0;--acc:var(--gold)}
+.me .spot{position:absolute;left:-30px;top:20px;width:440px;height:460px;background:radial-gradient(circle,rgba(63,169,255,.32),transparent 65%)}
+.me .cut{position:absolute;left:22px;top:8px;width:320px;filter:drop-shadow(0 0 22px rgba(63,169,255,.35));animation:cutin .7s .1s ease-out both}
+.me .nmb{position:absolute;left:0;right:0;top:322px;bottom:0;padding:34px 18px 0;background:linear-gradient(transparent,rgba(10,12,20,.97) 12%)}
+.me .nm{font:400 40px/1 Marker;color:#fff;white-space:nowrap}
+.plate{display:inline-flex;align-items:center;height:28px;padding:0 9px;border-radius:6px;background:#1d2741;color:#fffbf3;font:700 17px/1 Barlow;white-space:nowrap}
+.me .ln{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.facts{margin-top:10px}
+.facts div{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.08);font:600 18px/1 Barlow;color:var(--soft);white-space:nowrap}
+.facts b{font:400 27px/1 Bebas;letter-spacing:.04em;color:#fff}
+.facts b.a{color:var(--amber)}.facts b.g{color:var(--green)}
+.ask{position:absolute;left:14px;right:14px;bottom:14px;height:196px;padding:12px 14px;background:linear-gradient(160deg,rgba(255,210,74,.18),rgba(255,210,74,.04));border:2px solid rgba(255,210,74,.6);clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);animation:deal .5s .6s cubic-bezier(.2,.9,.3,1.2) both}
+.ask .t{font:400 24px/1 Bebas;letter-spacing:.06em;color:var(--gold)}
+.ask .t small{font:600 14px/1 Barlow;letter-spacing:0;color:var(--soft);margin-left:6px}
+.ask .q{margin-top:8px;font:600 21px/1.25 Barlow;color:#fff}
+.ask .why{margin-top:5px;font:600 14px/1.25 Barlow;color:var(--soft)}
+.ask .bb{display:flex;gap:6px;margin-top:10px}
+.ask .bb span{flex:1;height:40px;display:flex;flex-direction:column;align-items:center;justify-content:center;font:400 20px/1 Bebas;letter-spacing:.05em;color:#fff;background:rgba(255,255,255,.1);clip-path:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px)}
+.ask .bb span i{font:600 13px/1 Barlow;font-style:normal;letter-spacing:0;color:var(--soft);margin-top:2px}
+.ask .bb span.y{background:linear-gradient(#ffe37a,#f0b32a);color:#2a1b06}.ask .bb span.y i{color:#4a3510}
+/* walking weight */
+.walk{left:400px;top:142px;width:1500px;height:200px;--acc:var(--blue);padding:10px 20px}
+.walk .big{position:absolute;left:20px;top:48px;width:290px}
+.walk .big .n{font:400 86px/1 Bebas;color:#fff;text-shadow:0 0 22px rgba(63,169,255,.5)}
+.walk .big .n small{font-size:36px;color:var(--soft);margin-left:6px}
+.walk .big .s{margin-top:4px;font:600 18px/1.25 Barlow;color:var(--soft)}
+.walk .big .s b{color:var(--gold)}
+.walk svg{position:absolute;left:300px;top:40px}
+.walk svg text{font-family:Barlow;font-weight:600}
+.walk .side{position:absolute;right:18px;top:44px;width:360px;height:140px;padding:10px 14px;background:rgba(255,157,46,.1);border-left:4px solid var(--amber)}
+.walk .side .k{font:400 21px/1 Bebas;letter-spacing:.06em;color:var(--amber)}
+.walk .side .d{margin-top:4px;font:400 40px/1 Bebas;letter-spacing:.04em;color:#fff}
+.walk .side .e{margin-top:4px;font:600 16px/1.25 Barlow;color:var(--soft)}
+.walk .side .e b{color:#fff}
+/* the three choices */
+.ch{top:354px;width:492px;height:710px;padding:0;animation:deal .55s cubic-bezier(.2,.9,.3,1.2) both}
+.ch .hdr{height:84px;padding:10px 16px 0;position:relative}
+.ch .dir{font:400 22px/1 Bebas;letter-spacing:.1em;color:var(--soft)}
+.ch .cls{margin-top:3px;font:400 42px/1 Bebas;letter-spacing:.04em;color:#fff;white-space:nowrap}
+.ch .cls small{font:400 28px/1 Bebas;color:var(--soft);margin-left:8px}
+.ch .tagn{position:absolute;right:14px;top:12px}
+.ch.on{background:linear-gradient(160deg,rgba(80,64,20,.95),rgba(30,24,10,.96) 55%,rgba(18,15,8,.97))}
+.ch.on::after{content:"";position:absolute;inset:0;border:3px solid var(--gold);clip-path:polygon(18px 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%,0 18px);pointer-events:none;background:none}
+.ch.on .cls{color:var(--gold)}
+.mlab{display:flex;justify-content:space-between;margin:0 16px;font:600 16px/1 Barlow;color:var(--soft)}
+.meter{position:relative;height:14px;margin:4px 16px 8px;background:rgba(255,255,255,.07);clip-path:polygon(5px 0,100% 0,calc(100% - 5px) 100%,0 100%)}
+.meter i{position:absolute;left:0;top:0;bottom:0;transform-origin:left;animation:grow .7s .6s ease-out both}
+.meter .z1{position:absolute;left:40%;top:-2px;bottom:-2px;width:2px;background:rgba(255,255,255,.5)}
+.meter .z2{position:absolute;left:66.7%;top:-2px;bottom:-2px;width:2px;background:var(--red)}
+.row{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:center;height:64px;padding:0 14px;border-top:1px solid rgba(255,255,255,.07)}
+.row .lb{font:400 17px/1.05 Bebas;letter-spacing:.08em;color:#8f99ad}
+.row b{display:block;font:700 18px/1.1 Barlow;color:#fff;white-space:nowrap}
+.row span{display:block;margin-top:2px;font:500 15px/1.15 Barlow;color:var(--soft);white-space:nowrap}
+.row b em{font-style:normal;color:#ff8a80}.row b u{text-decoration:none;color:var(--green)}.row b s{text-decoration:none;color:var(--amber)}
+.row.warn{background:rgba(255,81,71,.08)}
+.wins{display:flex;gap:10px}
+.wins i{font-style:normal}
+.wins i b{display:inline;font:400 22px/1 Bebas;letter-spacing:.02em}
+.acts{position:absolute;left:14px;right:14px;bottom:12px;display:flex;gap:8px}
+.acts .btn{height:52px;flex:1;font-size:18px;padding:0 10px}
+.acts .go{height:52px;flex:1;font-size:30px}
+.acts .btn sup{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.18);font:700 13px/1 Barlow;margin-left:4px}
+.tip{position:absolute;left:1418px;top:842px;width:476px;padding:10px 14px;background:rgba(10,14,24,.97);border:1px solid rgba(63,169,255,.7);box-shadow:0 10px 30px rgba(0,0,0,.6);font:600 15px/1.35 Barlow;color:#dfe6f2;z-index:4;animation:deal .4s 1.2s ease-out both}
+.tip b{display:block;font:400 19px/1 Bebas;letter-spacing:.06em;color:var(--blue);margin-bottom:4px}
+</style></head>
+<body>
+<div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span><span class="tdate"><b>Mon 2 Mar 2026</b><i>Week 9</i></span><span class="trail"><span class="rail plank9">Gym</span><span class="rail plank9">Mail (1 new)</span></span><span class="tgrow"></span><span class="tcash"><b>$13,410</b><i>this week: +$240</i></span><span class="tgo plank9"><b>CONTINUE</b><i>to Mon 9 Mar</i></span><span class="tnav tmenu tab9">Menu</span></div>
+<div class="wall"></div>
+
+<!-- LEFT: the fighter -->
+<div class="pan me">
+  <div class="spot"></div>
+  <img class="cut" src="../train/c_samira_cut.png">
+  <div class="nmb"><div class="nm">SAMIRA KHAN</div>
+    <div class="ln"><span class="plate">Welterweight 65.0</span><span class="plate">3-1</span><span class="plate" style="background:#2b3d1f;color:#c9f2a6">Age 18: still growing</span></div>
+    <div class="facts">
+      <div>Now<b>65.6 kg</b></div>
+      <div>Walks<b>66.8 kg</b></div>
+      <div>Discipline<b class="a">34 · slips 1 in 2</b></div>
+      <div>Clean camps in a row<b>1 of 3</b></div>
+      <div>Misses, 12 months<b class="g">none</b></div>
+      <div>Next bout<b>none booked</b></div>
+    </div>
+  </div>
+  <div class="ask">
+    <div class="t">SAMIRA ASKS <small>when you opened Down</small></div>
+    <div class="q">"Keep me at 65. Sixty would starve me."</div>
+    <div class="why">Loyal · wanders off the plan · a 10% cut</div>
+    <div class="bb"><span class="y">HEAR<i>morale +5</i></span><span>OVERRULE<i>morale -4 · loyalty -3</i></span></div>
+  </div>
+</div>
+
+<div class="tabs"><span>OVERVIEW</span><span>TRAINING</span><span class="on">BODY &amp; CLASS</span><span>PLAYBOOK</span><span>RECORD</span></div>
+
+<!-- WALKING WEIGHT -->
+<div class="pan walk">
+  <div class="hd">WALKING WEIGHT <span>the weight Samira's body goes back to between bouts</span></div>
+  <div class="big"><div class="n">66.8<small>KG</small></div>
+    <div class="s">1.8 kg over Welterweight<br><b>+0.8 kg a year</b> until 21</div></div>
+  <svg id="wk" width="820" height="156"></svg>
+  <div class="side">
+    <div class="k">STAY STOPS BEING CHEAP</div>
+    <div class="d">ABOUT APR 2027</div>
+    <div class="e">walk <b>67.7</b>: a <b>4%</b> cut every camp · Lean between camps pushes it back <b>2 months</b></div>
+  </div>
+</div>
+
+<!-- DOWN -->
+<div class="pan ch" style="left:400px;--acc:var(--red);animation-delay:.2s">
+  <div class="hdr"><div class="dir">&#9660; DOWN A CLASS</div><div class="cls">LIGHTWEIGHT<small>60.0 KG</small></div><span class="band close tagn">NOT TESTED</span></div>
+  <div class="mlab"><span>the cut from the walk</span><span style="color:var(--red)">10.2% · 6.8 kg</span></div>
+  <div class="meter"><i style="width:68%;background:linear-gradient(90deg,var(--amber),var(--red))"></i><span class="z1"></span><span class="z2"></span></div>
+  <div class="row"><span class="lb">THE CAMP</span><div><b><em>13 weeks of Cut</em> to get down</b><span>then about 4 weeks of Cut each bout</span></div></div>
+  <div class="row"><span class="lb">ENERGY</span><div><b><em>about 69</em> at the first bell</b><span>a 1.2 kg trim every bout</span></div></div>
+  <div class="row"><span class="lb">WIN · NEXT 3</span><div class="wins"><i><b>49</b> Adeyemi</i><i><b>46</b> Moss</i><i><b>52</b> Tran</i></div></div>
+  <div class="row"><span class="lb">SIZE</span><div><b>Level on the night</b><span>the top 5 walk 62.5-64.0 kg</span></div></div>
+  <div class="row"><span class="lb">THE LADDER</span><div><b><u>3rd of 12</u></b><span>Samira's 3-1 against that ladder</span></div></div>
+  <div class="row"><span class="lb">BUSINESS</span><div><b>5 offers in 8 weeks · <em>-$1,350</em></b><span>3 club shows missed getting down</span></div></div>
+  <div class="row warn"><span class="lb" style="color:#ff8a80">THE ROSTER</span><div><b><em>Lucy Jackson boxes at 60</em></b><span>same shows, same ladder: one sits out</span></div></div>
+  <div class="row"><span class="lb">AS A PRO</span><div><b>61.2 kg: <u>about 3 kg heavier</u></b><span>on the night, scale the day before</span></div></div>
+  <div class="acts"><span class="btn">Test at 63.0 kg<sup>i</sup></span><span class="btn">Down after next bout<sup>i</sup></span></div>
+</div>
+
+<!-- STAY -->
+<div class="pan ch on" style="left:904px;--acc:var(--gold);animation-delay:.3s">
+  <div class="hdr"><div class="dir" style="color:var(--gold)">&#9679; STAY</div><div class="cls">WELTERWEIGHT<small>65.0 KG</small></div><span class="band met tagn">NOW</span></div>
+  <div class="mlab"><span>the cut from the walk</span><span style="color:var(--green)">2.7% · 1.8 kg</span></div>
+  <div class="meter"><i style="width:18%;background:linear-gradient(90deg,var(--green),#9be8b8)"></i><span class="z1"></span><span class="z2"></span></div>
+  <div class="row"><span class="lb">THE CAMP</span><div><b><u>3 weeks of Lean</u> + a 0.6 trim</b><span>a club show every 3-4 weeks fits</span></div></div>
+  <div class="row"><span class="lb">ENERGY</span><div><b><u>about 86</u> at the first bell</b><span>the trim's price and Lean's Fatigue</span></div></div>
+  <div class="row"><span class="lb">WIN · NEXT 3</span><div class="wins"><i><b>54</b> Bell</i><i><b>58</b> Doyle</i><i><b>49</b> Okafor</i></div></div>
+  <div class="row"><span class="lb">SIZE</span><div><b>Level on the night</b><span>the top 5 walk 66.0-69.0 kg</span></div></div>
+  <div class="row"><span class="lb">THE LADDER</span><div><b><s>5th of 14</s></b><span>2 wins from the top 3</span></div></div>
+  <div class="row"><span class="lb">BUSINESS</span><div><b><u>7 offers in 8 weeks</u></b><span>no bouts lost</span></div></div>
+  <div class="row"><span class="lb">THE ROSTER</span><div><b>Alone at 65</b><span>no team-mate in the class</span></div></div>
+  <div class="row"><span class="lb">AS A PRO</span><div><b>66.7 kg: level</b><span>or 63.5 kg: about 2 kg heavier</span></div></div>
+  <div class="acts"><span class="go">STAY</span></div>
+</div>
+
+<!-- UP -->
+<div class="pan ch" style="left:1408px;--acc:var(--green);animation-delay:.4s">
+  <div class="hdr"><div class="dir">&#9650; UP A CLASS</div><div class="cls">LIGHT-MIDDLE<small>70.0 KG</small></div><span class="band info tagn">NEW CLASS</span></div>
+  <div class="mlab"><span>the cut from the walk</span><span style="color:var(--green)">none · 3.2 kg under</span></div>
+  <div class="meter"><i style="width:2%;background:var(--green)"></i><span class="z1"></span><span class="z2"></span></div>
+  <div class="row"><span class="lb">THE CAMP</span><div><b><u>Hold all year</u>: full training</b><span>no diet, no trim, no slips</span></div></div>
+  <div class="row"><span class="lb">ENERGY</span><div><b><u>96</u> at the first bell</b><span>nothing spent on the scale</span></div></div>
+  <div class="row"><span class="lb">WIN · NEXT 3</span><div class="wins"><i><b>44</b> Grant</i><i><b>47</b> Ruiz</i><i><b>41</b> Shaw</i></div></div>
+  <div class="row warn"><span class="lb" style="color:#ff8a80">SIZE</span><div><b><em>About 4 kg lighter</em> on the night</b><span>Power -2.4 · Durability -2.4 · top 5 walk 71-73</span></div></div>
+  <div class="row"><span class="lb">THE LADDER</span><div><b><u>2nd of 7</u></b><span>top 3 + 7 wins = the pro offer</span></div></div>
+  <div class="row"><span class="lb">BUSINESS</span><div><b><s>2 offers in 8 weeks</s></b><span>a thin class: fewer shows</span></div></div>
+  <div class="row"><span class="lb">THE ROSTER</span><div><b>Alone at 70</b><span>Tess Reilly boxes at 75</span></div></div>
+  <div class="row"><span class="lb">AS A PRO</span><div><b>69.9 kg: <em>the smallest</em></b><span>about 3 kg lighter on the night</span></div></div>
+  <div class="acts"><span class="btn">Up after next bout<sup>i</sup></span><span class="btn">Up now<sup>i</sup></span></div>
+</div>
+
+
+
+<script>
+(function(){
+  var x0=46,x1=800,y0=10,y1=118,kTop=68.0,kBot=64.4;
+  function Y(k){return y0+(y1-y0)*(kTop-k)/(kTop-kBot)}
+  var pts=[[0,66.5],[8,66.4],[12,65.6],[16,65.0],[17,65.0],[19,65.9],[22,66.3],[30,66.6],[36,66.5],[40,65.7],[43,65.0],[44,65.0],[46,65.9],[49,66.4],[52,66.6]];
+  var N=112; function X(w){return x0+(x1-x0)*w/N}
+  var s='';
+  [65,66,67,68].forEach(function(k){s+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Y(k)+'" y2="'+Y(k)+'" stroke="rgba(255,255,255,.07)"/><text x="'+(x0-8)+'" y="'+(Y(k)+6)+'" fill="#8f97a8" font-size="16" text-anchor="end">'+k+'</text>';});
+  s+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Y(65)+'" y2="'+Y(65)+'" stroke="#ff5147" stroke-width="2.5"/>';
+  s+='<rect x="'+X(52)+'" y="'+y0+'" width="'+(X(N)-X(52))+'" height="'+(y1-y0)+'" fill="rgba(255,210,74,.05)"/>';
+  var p='';pts.forEach(function(q,i){p+=(i?'L':'M')+X(q[0])+' '+Y(q[1])+' ';});
+  s+='<path d="'+p+'" fill="none" stroke="#3fa9ff" stroke-width="4" stroke-linejoin="round" style="filter:drop-shadow(0 0 5px rgba(63,169,255,.6))"/>';
+  s+='<path d="M'+X(0)+' '+Y(66.45)+' L'+X(52)+' '+Y(66.8)+'" stroke="#ffd24a" stroke-width="2.5" stroke-dasharray="3 5" fill="none"/>';
+  s+='<path d="M'+X(52)+' '+Y(66.8)+' L'+X(110)+' '+Y(67.7)+'" stroke="#ffd24a" stroke-width="3" stroke-dasharray="10 6" fill="none"/>';
+  // the 4% line: 67.7
+  s+='<line x1="'+X(52)+'" x2="'+x1+'" y1="'+Y(67.7)+'" y2="'+Y(67.7)+'" stroke="#ff9d2e" stroke-width="1.5" stroke-dasharray="4 4"/>';
+  s+='<text x="'+(X(52)+6)+'" y="'+(Y(67.7)-6)+'" fill="#ff9d2e" font-size="15">a 4% cut: 67.7</text>';
+  s+='<circle cx="'+X(110)+'" cy="'+Y(67.7)+'" r="8" fill="#ff9d2e" stroke="#110d0c" stroke-width="2"/>';
+  s+='<circle cx="'+X(52)+'" cy="'+Y(66.6)+'" r="7" fill="#fff" stroke="#110d0c" stroke-width="2"/>';
+  s+='<text x="'+X(52)+'" y="'+(Y(66.6)+26)+'" fill="#fff" font-size="16" text-anchor="middle">now</text>';
+  s+='<text x="'+(X(85))+'" y="'+(Y(67.2)+24)+'" fill="#ffd24a" font-size="15" text-anchor="middle">the walk, still growing</text>';
+  [[16.5,'SCALE 22 NOV'],[43.5,'SCALE 28 FEB']].forEach(function(b){s+='<text x="'+X(b[0])+'" y="'+(Y(65)+20)+'" fill="#3fd27f" font-size="15" text-anchor="middle">'+b[1]+'</text>';});
+  [['SEP 25',0],['DEC',26],['MAR 26',52],['JUN',78]].forEach(function(m){s+='<text x="'+X(m[1])+'" y="'+(y1+34)+'" fill="'+(m[1]>52?'#6f7686':'#9aa3b5')+'" font-size="15" text-anchor="middle">'+m[0]+'</text>';});
+  s+='<text x="'+x1+'" y="'+(y1+34)+'" fill="#ff9d2e" font-size="15" text-anchor="end">APR 27 →</text>';
+  document.getElementById('wk').innerHTML=s;
+})();
+setTimeout(function(){document.body.classList.add('done');},1700);
+</script>
+</body></html>

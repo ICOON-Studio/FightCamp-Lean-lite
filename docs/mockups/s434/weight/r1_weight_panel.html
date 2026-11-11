@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Weight panel, round 1 (S434 WEIGHT1)</title>
+<link rel="stylesheet" href="../train/final.css">
+<style>
+.bg{position:absolute;left:0;top:78px;width:1920px;height:1002px;object-fit:cover;object-position:0 -78px;filter:blur(7px) brightness(.28) saturate(.8)}
+.shade{position:absolute;left:0;top:78px;right:0;bottom:0;background:radial-gradient(ellipse 1100px 700px at 50% 50%,rgba(10,14,26,.35),rgba(5,6,10,.75))}
+/* the panel frame */
+.wp{left:24px;top:92px;width:1872px;height:974px;--acc:var(--blue);padding:0}
+.wp::before{height:4px}
+.head{position:absolute;left:0;top:0;right:0;height:86px;display:flex;align-items:center;gap:18px;padding:0 24px;background:linear-gradient(90deg,rgba(63,169,255,.16),transparent 60%);border-bottom:1px solid rgba(255,255,255,.08)}
+.head img{width:62px;height:62px;border-radius:50%;border:3px solid var(--gold);box-shadow:0 0 14px rgba(255,205,90,.5);object-fit:cover}
+.head .tt{font:400 46px/1 Bebas;letter-spacing:.05em;color:var(--gold);white-space:nowrap}
+.head .tt span{color:#fff}
+.head .sub{font:600 21px/1.2 Barlow;color:var(--soft);white-space:nowrap}
+.head .sub b{color:#fff}
+.head .grow{flex:1}
+.head .x{width:46px;height:46px;display:flex;align-items:center;justify-content:center;font:600 26px/1 Barlow;color:#fff;background:rgba(255,255,255,.1);clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
+.scalechip{display:flex;flex-direction:column;align-items:flex-end;gap:2px;padding:6px 14px;background:rgba(255,81,71,.14);border-left:4px solid var(--red)}
+.scalechip b{font:400 30px/1 Bebas;letter-spacing:.05em;color:#fff;white-space:nowrap}
+.scalechip i{font:600 18px/1 Barlow;font-style:normal;color:#ffb3ad;white-space:nowrap}
+.sec{position:absolute}
+.sh{display:flex;align-items:baseline;gap:12px;font:400 30px/1 Bebas;letter-spacing:.05em;color:var(--gold);white-space:nowrap}
+.sh span{font:500 19px/1 Barlow;letter-spacing:0;color:var(--soft)}
+/* the line to the scale */
+.chart{left:20px;top:100px;width:1160px;height:560px}
+.chart svg{position:absolute;left:0;top:40px}
+.chart text{font-family:Barlow;font-weight:600}
+.leg{position:absolute;right:20px;top:6px;display:flex;gap:16px;font:600 18px/1 Barlow;color:var(--soft);white-space:nowrap}
+.leg i{display:inline-block;width:26px;height:4px;vertical-align:5px;margin-right:6px}
+/* bottom left: the last 3 days + weekend, and size on the night */
+.knobs{left:20px;top:676px;width:560px;height:284px;overflow:hidden;padding:12px 16px;background:rgba(255,255,255,.04);clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px)}
+.krow{margin-top:12px}
+.krow .kl{display:flex;justify-content:space-between;font:400 24px/1 Bebas;letter-spacing:.05em;color:#fff;white-space:nowrap}
+.krow .kl em{font:600 18px/1 Barlow;font-style:normal;letter-spacing:0;color:var(--soft)}
+.step{display:flex;gap:4px;margin-top:7px}
+.step span{flex:1;height:38px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.07);font:600 19px/1 Barlow;color:var(--soft);white-space:nowrap;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)}
+.step span.on{background:linear-gradient(rgba(255,210,74,.32),rgba(255,210,74,.12));color:var(--gold);box-shadow:inset 0 -3px 0 var(--gold)}
+.step span.red{color:#ff8a80}
+.step.off span{opacity:.45}
+.price{margin-top:6px;font:600 18px/1.15 Barlow;color:var(--soft);white-space:nowrap}
+.price b{color:var(--amber)}.price g{color:var(--green);font-weight:700}
+.night{left:596px;top:676px;width:584px;height:284px;padding:12px 16px;background:rgba(255,255,255,.04);clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px)}
+.nrow{position:relative;height:74px;margin-top:10px;display:flex;align-items:center;gap:12px}
+.nrow img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #fdfaf2;flex:none}
+.nrow .nb{flex:1}
+.nrow .nn{display:flex;justify-content:space-between;font:700 20px/1 Barlow;color:#fff;white-space:nowrap}
+.nrow .nn span{font:600 18px/1 Barlow;color:var(--soft)}
+.nbar{position:relative;height:22px;margin-top:8px;background:rgba(255,255,255,.07)}
+.nbar .sc{position:absolute;top:0;bottom:0;background:rgba(63,169,255,.35);transform-origin:left;animation:grow .7s .7s ease-out both}
+.nbar .bk{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,rgba(63,210,127,.25),rgba(63,210,127,.7));transform-origin:left;animation:grow .6s 1.2s ease-out both}
+.nbar .wk{position:absolute;top:-5px;bottom:-5px;width:2px;background:#fff;opacity:.55}
+.nbar .lm{position:absolute;top:-7px;bottom:-7px;width:3px;background:var(--red);box-shadow:0 0 6px var(--red)}
+.nsc{display:flex;justify-content:space-between;margin-top:3px;font:600 18px/1 Barlow;color:var(--soft)}
+.verdict{margin-top:10px;display:flex;align-items:center;gap:10px;font:600 20px/1.15 Barlow;color:#fff}
+/* right column */
+.diets{left:1200px;top:100px;width:652px;height:430px}
+.dc{position:relative;height:118px;margin-top:10px;padding:10px 16px 0 16px;background:linear-gradient(170deg,#28324f,#151a2a);clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);animation:deal .5s cubic-bezier(.2,.9,.3,1.2) both}
+.dc.on{background:linear-gradient(170deg,#4a3a12,#1d1708);animation:deal .5s cubic-bezier(.2,.9,.3,1.2) both,daypulse 1s .9s ease-in-out infinite alternate}
+.dc.on::after{content:"";position:absolute;inset:0;border:3px solid var(--gold);clip-path:inherit;pointer-events:none}
+.dc .dn{display:flex;align-items:baseline;gap:10px;font:400 34px/1 Bebas;letter-spacing:.05em;color:#fff;white-space:nowrap}
+.dc.on .dn{color:var(--gold)}
+.dc .dn small{font:600 18px/1 Barlow;letter-spacing:0;color:var(--soft)}
+.dc .grid{display:grid;grid-template-columns:150px 150px 1fr;gap:10px;margin-top:8px}
+.dc .grid div{font:600 18px/1.15 Barlow;color:var(--soft);white-space:nowrap}
+.dc .grid b{display:block;font:400 30px/1 Bebas;letter-spacing:.03em;color:#fff}
+.dc .grid b.e{color:var(--green)}.dc .grid b.e.a{color:var(--amber)}
+.dc .cost{position:absolute;right:14px;top:12px;text-align:right;font:600 18px/1.25 Barlow;color:var(--soft);white-space:nowrap}
+.dc .cost b{color:var(--amber)}.dc .cost g{color:var(--green);font-weight:700}
+.burn{left:1200px;top:548px;width:652px;height:290px}
+.br{display:grid;grid-template-columns:210px 1fr 92px;align-items:center;gap:10px;height:28px;margin-top:5px;font:600 19px/1 Barlow;color:#e6ebf4;white-space:nowrap}
+.br .tr{position:relative;height:18px;background:rgba(255,255,255,.05)}
+.br .tr .z{position:absolute;left:62%;top:-3px;bottom:-3px;width:2px;background:rgba(255,255,255,.4)}
+.br .tr i{position:absolute;top:0;bottom:0;transform-origin:right;animation:grow .6s ease-out both}
+.br .tr i.up{transform-origin:left;background:linear-gradient(90deg,rgba(255,81,71,.5),var(--red))}
+.br .tr i.dn{background:linear-gradient(90deg,var(--blue),rgba(63,169,255,.45))}
+.br .tr i.gd{background:linear-gradient(90deg,var(--gold),rgba(255,210,74,.45))}
+.br .v{text-align:right;font:400 24px/1 Bebas;letter-spacing:.03em;color:#fff}
+.br.sel{color:var(--gold)}
+.bnote{margin-top:8px;font:500 18px/1.2 Barlow;color:var(--soft)}
+.coachline{left:1200px;top:850px;width:652px;height:110px;padding:0;background:linear-gradient(90deg,rgba(63,169,255,.18),rgba(63,169,255,.04));clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px)}
+.coachline img{position:absolute;left:-30px;top:-14px;width:170px}
+.coachline .q{position:absolute;left:118px;top:10px;width:316px;font:600 20px/1.2 Barlow;color:#fff}
+.coachline .q small{display:block;font:400 22px/1 Bebas;letter-spacing:.06em;color:var(--blue);margin-bottom:4px}
+.coachline .q b{color:var(--gold)}
+.coachline .go{position:absolute;right:14px;top:27px;height:56px;width:200px;font-size:34px}
+</style></head>
+<body>
+<svg style="display:none">
+  <symbol id="i-scale" viewBox="0 0 48 48"><g fill="none" stroke="#cfe6ff" stroke-width="4"><rect x="6" y="8" width="36" height="34" rx="6"/><path d="M15 22a10 10 0 0 1 18 0"/><path d="M24 22l4-6"/></g></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="#ffd24a"/></symbol>
+</svg>
+<div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span><span class="tdate"><b>Mon 16 Feb 2026</b><i>Week 7</i></span><span class="trail"><span class="rail plank9">Gym</span><span class="rail plank9">Mail (2 new)</span></span><span class="tgrow"></span><span class="tcash"><b>$12,940</b><i>this week: -$210</i></span><span class="tgo plank9"><b>CONTINUE</b><i>to Mon 23 Feb, fight week</i></span><span class="tnav tmenu tab9">Menu</span></div>
+<img class="bg" src="../train/final_scene.png"><div class="shade"></div>
+
+<div class="pan wp">
+  <div class="head">
+    <img src="../../s431/final/face_samira.png">
+    <div><div class="tt sweep">WEIGHT · <span>SAMIRA KHAN</span></div>
+      <div class="sub"><b>65.9 kg</b> now · walks <b>66.8</b> · Welterweight <b>65.0</b> · discipline 34: <b style="color:var(--amber)">slips 1 weekend in 2</b></div></div>
+    <div class="grow"></div>
+    <div class="scalechip"><b>THE SCALE · SAT 28 FEB · 4 PM</b><i>on the day, 1 h before the first bell · club show vs Kayleigh Bell</i></div>
+    <div class="x">&#10005;</div>
+  </div>
+
+  <!-- THE LINE TO THE SCALE -->
+  <div class="sec chart">
+    <div class="sh">THE LINE TO THE SCALE <span>kg each morning</span></div>
+    <div class="leg"><span><i style="background:var(--gold)"></i>Lean (yours)</span><span><i style="background:repeating-linear-gradient(90deg,#9aa6bd 0 8px,transparent 8px 13px)"></i>Hold · Cut, no trim</span><span><i style="background:rgba(255,157,46,.55);height:12px;vertical-align:1px"></i>if Samira slips</span></div>
+    <svg id="ch" width="1160" height="520"></svg>
+  </div>
+
+  <!-- THE LAST 3 DAYS + THE WEEKEND -->
+  <div class="sec knobs">
+    <div class="sh" style="font-size:28px">THE LAST 3 DAYS <span>Thu 26 to the scale</span></div>
+    <div class="krow"><div class="kl">FIGHT-WEEK TRIM<em>low-fibre, low-carb: gut and glycogen</em></div>
+      <div class="step"><span>0</span><span>0.3</span><span class="on">0.6 kg</span><span>0.9</span><span class="red">1.2</span></div>
+      <div class="price">0.6 kg = <b>ENERGY -7</b> at the first bell · all of it back by 5 pm</div></div>
+    <div class="krow"><div class="kl" style="color:#7f8796">THE LAST DAY'S WATER<em>professionals only</em></div></div>
+    <div class="krow"><div class="kl">THE WEEKEND · SAT 21 - SUN 22<em>slip chance</em></div>
+      <div class="step"><span>Free · 46</span><span class="on">Club dinner $40 · 23</span><span>+ Mon weigh-in · 12</span></div></div>
+  </div>
+
+  <!-- SIZE ON THE NIGHT -->
+  <div class="sec night">
+    <div class="sh" style="font-size:28px">ON THE NIGHT <span>the scale at 4 pm, the ring at 5 pm</span></div>
+    <div class="nrow"><img src="../../s431/final/face_samira.png"><div class="nb">
+      <div class="nn">SAMIRA<span>walks 66.8 · scale 64.9 · <b style="color:#fff">ring 65.8</b></span></div>
+      <div class="nbar"><i class="sc" style="left:0;width:38%"></i><i class="bk" style="left:38%;width:18%"></i><i class="lm" style="left:40%"></i><i class="wk" style="left:76%"></i></div></div></div>
+    <div class="nrow"><img src="../../../../assets/ui/face/poster/mh_boxer_07.jpg"><div class="nb">
+      <div class="nn">KAYLEIGH BELL<span>walks 67.6 · scale 64.9 · <b style="color:#fff">ring 66.1</b></span></div>
+      <div class="nbar"><i class="sc" style="left:0;width:38%"></i><i class="bk" style="left:38%;width:24%"></i><i class="lm" style="left:40%"></i><i class="wk" style="left:92%"></i></div>
+      <div class="nsc"><span>63.0</span><span style="color:var(--red)">limit 65.0</span><span>68.0 kg</span></div></div></div>
+    <div class="verdict"><span class="band info">LEVEL</span>Kayleigh about 0.3 kg heavier: no edge under 1 kg</div>
+    <div class="verdict" style="margin-top:6px"><span class="band close">TRIMS 0.9</span>Kayleigh starts on <b style="color:var(--amber)">&nbsp;ENERGY -9</b>: may fade late</div>
+  </div>
+
+  <!-- THE THREE DIETS -->
+  <div class="sec diets">
+    <div class="sh">THE THREE DIETS <span>what each leaves on the scale morning</span></div>
+    <div class="dc" style="animation-delay:.25s"><div class="dn">HOLD <small>+300 kcal · keeps the weight</small></div>
+      <div class="cost"><g>full training</g><br>no Fatigue</div>
+      <div class="grid"><div><b>65.9</b>Sat morning</div><div><b>1.0 kg</b>trim needed</div><div><b class="e a">ENERGY 79</b>at the first bell</div></div></div>
+    <div class="dc on" style="animation-delay:.35s"><div class="dn">LEAN <small>-250 kcal · -0.2 kg a week</small></div>
+      <div class="cost">gains <b>x0.97</b><br>Fatigue <b>+0.5</b> a day</div>
+      <div class="grid"><div><b>65.5</b>Sat morning</div><div><b>0.6 kg</b>trim needed</div><div><b class="e">ENERGY 86</b>at the first bell</div></div></div>
+    <div class="dc" style="animation-delay:.45s"><div class="dn">CUT <small>-500 kcal · -0.4 kg a week</small></div>
+      <div class="cost">gains <b>x0.9</b>: Stamina goal <b>close</b><br>Fatigue <b>+1.5</b> a day</div>
+      <div class="grid"><div><b>65.2</b>Sat morning</div><div><b>0.3 kg</b>trim needed</div><div><b class="e">ENERGY 85</b>at the first bell</div></div></div>
+  </div>
+
+  <!-- WHAT MOVES THE SCALE -->
+  <div class="sec burn">
+    <div class="sh">WHAT MOVES THE SCALE <span>kg a day at 65.9 kg, against Hold</span></div>
+    <div class="br"><span>Trim, last 3 days</span><span class="tr"><i class="gd" style="left:2%;width:60%;animation-delay:.5s"></i><span class="z"></span></span><span class="v">-0.43</span></div>
+    <div class="br"><span>Cut diet</span><span class="tr"><i class="dn" style="left:53%;width:9%;animation-delay:.55s"></i><span class="z"></span></span><span class="v">-0.065</span></div>
+    <div class="br"><span>Hard roadwork</span><span class="tr"><i class="dn" style="left:56.2%;width:5.8%;animation-delay:.6s"></i><span class="z"></span></span><span class="v">-0.042</span></div>
+    <div class="br sel"><span>Lean diet (yours)</span><span class="tr"><i class="dn" style="left:57.6%;width:4.4%;animation-delay:.65s"></i><span class="z"></span></span><span class="v" style="color:var(--gold)">-0.032</span></div>
+    <div class="br"><span>Normal roadwork</span><span class="tr"><i class="dn" style="left:59.1%;width:2.9%;animation-delay:.7s"></i><span class="z"></span></span><span class="v">-0.021</span></div>
+    <div class="br"><span>Heavy bag</span><span class="tr"><i class="up" style="left:62%;width:1%;animation-delay:.75s"></i><span class="z"></span></span><span class="v">+0.006</span></div>
+    <div class="br"><span>A rest day</span><span class="tr"><i class="up" style="left:62%;width:5.4%;animation-delay:.8s"></i><span class="z"></span></span><span class="v">+0.039</span></div>
+    <div class="bnote">The diet works every day; a session only on its morning. 7,700 kcal = 1 kg.</div>
+  </div>
+
+  <!-- COACH -->
+  <div class="sec coachline">
+    <img src="../train/c_coach_cut.png">
+    <div class="q"><small>COACH</small>"<b>Lean and a 0.6 kg trim.</b> Club dinner on Saturday: Samira slips one weekend in two."</div>
+    <span class="go">DONE</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  var W=1160,H=520,x0=100,x1=1010,y0=24,y1=430, kTop=66.5, kBot=64.5;
+  var days=['MON 16','TUE 17','WED 18','THU 19','FRI 20','SAT 21','SUN 22','MON 23','TUE 24','WED 25','THU 26','FRI 27','SAT 28'];
+  function X(t){return x0+(x1-x0)*t/12} function Y(k){return y0+(y1-y0)*(kTop-k)/(kTop-kBot)}
+  var lean=[],hold=[],cut=[];
+  for(var t=0;t<=12;t++){var d=65.9-0.03*t; var trim=t>=10?0.2*(t-9):0; lean.push(+(d-trim).toFixed(2)); hold.push(+(65.9+0.003*t).toFixed(2)); cut.push(+(65.9-0.062*t).toFixed(2));}
+  var s='';
+  // weekend columns
+  [[5,6],[12,12]].forEach(function(r){ s+='<rect x="'+(X(r[0])-34)+'" y="'+y0+'" width="'+(X(r[1])-X(r[0])+68)+'" height="'+(y1-y0)+'" fill="'+(r[0]==12?'rgba(255,81,71,.10)':'rgba(255,157,46,.07)')+'"/>'; });
+  // the trim days
+  s+='<rect x="'+(X(10)-34)+'" y="'+y0+'" width="'+(X(11)-X(10)+68-1)+'" height="'+(y1-y0)+'" fill="rgba(255,210,74,.06)"/>';
+  // grid lines
+  for(var k=64.5;k<=66.51;k+=0.5){ var yy=Y(k); s+='<line x1="'+x0+'" x2="'+x1+'" y1="'+yy+'" y2="'+yy+'" stroke="rgba(255,255,255,.08)"/><text x="'+(x0-12)+'" y="'+(yy+6)+'" fill="#8f97a8" font-size="18" text-anchor="end">'+k.toFixed(1)+'</text>'; }
+  // made zone + limit
+  s+='<rect x="'+x0+'" y="'+Y(65.0)+'" width="'+(x1-x0)+'" height="'+(y1-Y(65.0))+'" fill="rgba(63,210,127,.07)"/>';
+  s+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Y(65)+'" y2="'+Y(65)+'" stroke="#ff5147" stroke-width="3" style="filter:drop-shadow(0 0 5px #ff5147)"/>';
+  s+='<text x="'+(x0+10)+'" y="'+(Y(65)-10)+'" fill="#ff8a80" font-size="20">LIMIT 65.0 · on the scale at 4 pm Sat 28</text>';
+  s+='<text x="'+(x0+10)+'" y="'+(Y(65)+28)+'" fill="#3fd27f" font-size="19">MADE</text>';
+  // slip band on lean from Sun 22
+  var up='',dn='';
+  for(var t=6;t<=12;t++){ up+=X(t)+','+Y(lean[t]+0.6)+' '; }
+  for(var t=12;t>=6;t--){ dn+=X(t)+','+Y(lean[t]+0.3)+' '; }
+  s+='<polygon points="'+up+dn+'" fill="rgba(255,157,46,.28)" stroke="rgba(255,157,46,.6)" stroke-dasharray="5 5"/>';
+  s+='<text x="'+(X(6)+14)+'" y="'+(Y(lean[6]+0.6)-12)+'" fill="#ff9d2e" font-size="19">if Samira eats out Sat 21: +0.3 to 0.6 kg, trim 0.9-1.2, ENERGY 75-81</text>';
+  function path(a,from){var p='';for(var t=from;t<a.length;t++){p+=(t==from?'M':'L')+X(t)+' '+Y(a[t])+' ';}return p;}
+  s+='<path d="'+path(hold,0)+'" fill="none" stroke="#9aa6bd" stroke-width="3" stroke-dasharray="9 6" opacity=".8"/>';
+  s+='<path d="'+path(cut,0)+'" fill="none" stroke="#9aa6bd" stroke-width="3" stroke-dasharray="9 6" opacity=".8"/>';
+  s+='<text x="'+(X(12)+12)+'" y="'+(Y(hold[12])+6)+'" fill="#c3cad8" font-size="19">HOLD 65.9</text>';
+  s+='<text x="'+(X(12)+12)+'" y="'+(Y(cut[12])+6)+'" fill="#c3cad8" font-size="19">CUT 65.2</text>';
+  s+='<path d="'+path(lean,0)+'" fill="none" stroke="#ffd24a" stroke-width="5" stroke-linejoin="round" style="stroke-dasharray:1400;stroke-dashoffset:0;animation:draw2 1.2s .3s ease-out both;filter:drop-shadow(0 0 6px rgba(255,210,74,.6))"/>';
+  for(var t=0;t<=12;t++){
+    var big=(t==0||t==12||t==9);
+    s+='<circle cx="'+X(t)+'" cy="'+Y(lean[t])+'" r="'+(big?8:5)+'" fill="'+(t==12?'#3fd27f':'#ffd24a')+'" stroke="#110d0c" stroke-width="2"/>';
+    s+='<text x="'+X(t)+'" y="'+(t==0?Y(lean[t])+34:Y(lean[t])-16)+'" fill="'+(t>=10?'#ffd24a':'#fff')+'" font-size="'+(big?22:18)+'" text-anchor="middle">'+lean[t].toFixed(1)+'</text>';
+    s+='<text x="'+X(t)+'" y="'+(y1+30)+'" fill="'+(t==12?'#ff8a80':(t==5||t==6?'#ff9d2e':'#9aa3b5'))+'" font-size="18" text-anchor="middle">'+days[t]+'</text>';
+  }
+  s+='<text x="'+X(11)+'" y="'+(y1+58)+'" fill="#ffd24a" font-size="19" text-anchor="middle">TRIM -0.2 a day</text>';
+  s+='<text x="'+X(5.5)+'" y="'+(y1+58)+'" fill="#ff9d2e" font-size="19" text-anchor="middle">THE WEEKEND</text>';
+  s+='<text x="'+X(1.5)+'" y="'+(y1+58)+'" fill="#9aa3b5" font-size="19" text-anchor="middle">Lean: -0.03 a day</text>';
+  s+='<text x="'+(X(12)-12)+'" y="'+(Y(lean[12])+36)+'" fill="#3fd27f" font-size="22" text-anchor="end">64.9 · MADE, 0.1 spare</text>';
+  document.getElementById('ch').innerHTML=s;
+})();
+</script>
+<style>@keyframes draw2{from{stroke-dashoffset:1400}to{stroke-dashoffset:0}}</style>
+<script>setTimeout(function(){document.body.classList.add('done');},1700);</script>
+</body></html>

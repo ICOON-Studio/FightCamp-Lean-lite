@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Weight plan, critic 10/10 (sim design, S434 round 1)</title>
+<link rel="stylesheet" href="../train/final.css">
+<style>
+.bg{position:absolute;left:0;top:78px;width:1920px;height:1002px;object-fit:cover;object-position:0 -78px;filter:blur(7px) brightness(.25) saturate(.8)}
+.wp{left:24px;top:90px;width:1872px;height:980px;--acc:var(--blue);padding:0;animation:none}
+.head{position:absolute;left:0;top:0;right:0;height:80px;display:flex;align-items:center;gap:18px;padding:0 24px;background:linear-gradient(90deg,rgba(63,169,255,.16),transparent 60%);border-bottom:1px solid rgba(255,255,255,.08)}
+.head img{width:58px;height:58px;border-radius:50%;border:3px solid var(--gold);object-fit:cover}
+.head .tt{font:400 44px/1 Bebas;letter-spacing:.05em;color:var(--gold);white-space:nowrap}
+.head .tt span{color:#fff}
+.head .sub{font:600 20px/1.2 Barlow;color:var(--soft);white-space:nowrap}
+.head .sub b{color:#fff}
+.grow{flex:1}
+.scalechip{display:flex;flex-direction:column;align-items:flex-end;gap:3px;padding:6px 14px;background:rgba(255,81,71,.14);border-left:4px solid var(--red)}
+.scalechip b{font:400 30px/1 Bebas;letter-spacing:.05em;color:#fff;white-space:nowrap}
+.scalechip i{font:600 18px/1 Barlow;font-style:normal;color:#ffb3ad;white-space:nowrap}
+.x{width:44px;height:44px;display:flex;align-items:center;justify-content:center;font:600 24px/1 Barlow;color:#fff;background:rgba(255,255,255,.1)}
+.sec{position:absolute}
+.sh{display:flex;align-items:baseline;gap:12px;font:400 30px/1 Bebas;letter-spacing:.05em;color:var(--gold);white-space:nowrap}
+.sh span{font:500 19px/1 Barlow;letter-spacing:0;color:var(--soft)}
+.box{background:rgba(255,255,255,.045);clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);padding:12px 16px}
+/* chart */
+.chart{left:20px;top:92px;width:920px;height:380px}
+.chart svg{position:absolute;left:0;top:36px}
+.chart text{font-family:Barlow;font-weight:600}
+.leg{position:absolute;right:6px;top:6px;display:flex;gap:16px;font:600 18px/1 Barlow;color:var(--soft);white-space:nowrap}
+.leg i{display:inline-block;width:24px;height:4px;vertical-align:5px;margin-right:6px}
+/* the other corner */
+.corner{left:20px;top:478px;width:920px;height:268px}
+.corner .who{display:flex;gap:14px;align-items:center;margin-top:10px}
+.corner .who img{width:64px;height:64px;border-radius:50%;border:3px solid var(--red);object-fit:cover}
+.corner .who b{font:400 30px/1 Bebas;letter-spacing:.05em;color:#fff}
+.corner .who i{display:block;font:600 18px/1.2 Barlow;font-style:normal;color:var(--soft)}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.fact{background:rgba(0,0,0,.25);padding:8px 10px;border-top:3px solid var(--blue)}
+.fact.lock{border-top-color:#59606e}
+.fact em{display:block;font:400 19px/1 Bebas;font-style:normal;letter-spacing:.08em;color:var(--soft)}
+.fact b{display:block;margin-top:4px;font:700 22px/1.1 Barlow;color:#fff;white-space:nowrap}
+.fact small{display:block;margin-top:3px;font:500 17px/1.15 Barlow;color:var(--soft);white-space:nowrap}
+.fact.lock b{color:#9aa1ad}
+.cta{display:flex;align-items:center;gap:12px;margin-top:10px;font:600 19px/1.2 Barlow;color:#fff;white-space:nowrap}
+.cta .btn{height:40px;font-size:18px;padding:0 14px;background:linear-gradient(rgba(63,169,255,.45),rgba(63,169,255,.2))}
+/* house rules */
+.house{left:20px;top:756px;width:920px;height:206px}
+.hr{display:grid;grid-template-columns:230px 1fr;gap:10px;align-items:center;margin-top:10px}
+.hr .hl{font:400 23px/1 Bebas;letter-spacing:.05em;color:#fff;white-space:nowrap}
+.hr .hl small{display:block;font:500 16px/1.15 Barlow;letter-spacing:0;color:var(--soft);margin-top:3px;white-space:nowrap}
+.step{display:flex;gap:4px}
+.step span{flex:1;height:38px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.07);font:600 18px/1 Barlow;color:var(--soft);white-space:nowrap;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)}
+.step span.on{background:linear-gradient(rgba(255,210,74,.32),rgba(255,210,74,.12));color:var(--gold);box-shadow:inset 0 -3px 0 var(--gold)}
+.note{font:500 17px/1.2 Barlow;color:var(--soft);margin-top:5px;white-space:nowrap}
+.note b{color:#fff}
+/* plan table */
+.plans{left:960px;top:92px;width:892px;height:470px}
+.ctx{display:flex;gap:10px;margin-top:8px;font:600 18px/1 Barlow;color:var(--soft);white-space:nowrap}
+.ctx .chip{height:30px;font-size:17px}
+.tbl{margin-top:10px}
+.th,.tr{display:grid;grid-template-columns:262px 126px 124px 104px 104px 156px;align-items:center}
+.th{font:400 18px/1 Bebas;letter-spacing:.08em;color:var(--soft);padding:0 12px 6px 12px;border-bottom:1px solid rgba(255,255,255,.12)}
+.tr{height:82px;padding:0 12px;margin-top:6px;background:rgba(255,255,255,.045);border-left:4px solid transparent}
+.tr.on{background:linear-gradient(90deg,rgba(255,210,74,.2),rgba(255,210,74,.05));border-left-color:var(--gold);box-shadow:inset 0 0 0 2px rgba(255,210,74,.55)}
+.tr .pn{font:400 27px/1 Bebas;letter-spacing:.04em;color:#fff;white-space:nowrap}
+.tr .pn small{display:block;margin-top:4px;font:500 16px/1.1 Barlow;letter-spacing:0;color:var(--soft)}
+.tr .pn .tagG,.tr .pn .tagA{height:22px;font-size:15px;margin-left:6px;vertical-align:3px}
+.cell b{display:block;font:700 23px/1 Barlow;color:#fff;white-space:nowrap}
+.cell small{display:block;margin-top:4px;font:600 15px/1.1 Barlow;color:var(--soft);white-space:nowrap}
+.ok{color:var(--green)!important}.warn{color:var(--amber)!important}.bad{color:var(--red)!important}
+.win b{font:400 36px/1 Bebas;letter-spacing:.02em}
+.best{position:relative}
+.best::after{content:"";position:absolute;left:-6px;right:6px;top:-10px;bottom:-10px;border:2px solid rgba(63,210,127,.65);border-radius:6px}
+/* energy + trim */
+.energy{left:960px;top:574px;width:892px;height:210px}
+.ebar{display:flex;height:38px;margin-top:10px;font:700 17px/1 Barlow;white-space:nowrap}
+.ebar span{display:flex;align-items:center;justify-content:center;color:#071b0f}
+.etxt{display:flex;justify-content:space-between;margin-top:6px;font:600 17px/1 Barlow;color:var(--soft);white-space:nowrap}
+.trim{margin-top:14px}
+.trim .step span{height:46px;flex-direction:column;gap:3px;font-size:17px}
+.trim .step span i{font-style:normal;font-size:14px;font-weight:600}
+.trim .step span.miss{color:#ff8a80}
+.trim .step span.kilo{color:var(--amber)}
+.trim .step span.cap{opacity:.5}
+/* class strip + coach */
+.cls{left:960px;top:796px;width:892px;height:76px;display:flex;align-items:center;gap:16px}
+.cls .cv{font:600 18px/1.25 Barlow;color:var(--soft)}
+.cls .cv b{color:#fff}
+.coach{left:960px;top:884px;width:892px;height:78px;display:flex;align-items:center;gap:14px;padding:0 14px;background:linear-gradient(90deg,rgba(63,169,255,.18),rgba(63,169,255,.04));clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px)}
+.coach .q{flex:1;font:600 19px/1.22 Barlow;color:#fff}
+.coach .q small{display:block;font:400 20px/1 Bebas;letter-spacing:.06em;color:var(--blue);margin-bottom:3px}
+.coach .q b{color:var(--gold)}
+.coach .go{height:54px;width:210px;font-size:32px}
+</style></head>
+<body class="done">
+<div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span><span class="tdate"><b>Mon 16 Feb 2026</b><i>Week 7</i></span><span class="trail"><span class="rail plank9">Gym</span><span class="rail plank9">Mail (2 new)</span></span><span class="tgrow"></span><span class="tcash"><b>$12,940</b><i>this week: -$210</i></span><span class="tgo plank9"><b>CONTINUE</b><i>to Mon 23 Feb, fight week</i></span><span class="tnav tmenu tab9">Menu</span></div>
+<img class="bg" src="../train/final_scene.png">
+
+<div class="pan wp">
+  <div class="head">
+    <img src="../../s431/final/face_samira.png">
+    <div><div class="tt">WEIGHT PLAN · <span>SAMIRA KHAN</span></div>
+      <div class="sub"><b>65.9 kg</b> now · walks <b>66.8</b> · Welterweight <b>65.0</b> · 0.9 kg to lose in 12 days · discipline 34</div></div>
+    <div class="grow"></div>
+    <div class="scalechip"><b>THE SCALE · SAT 28 FEB · 4 PM</b><i>amateur: on the day, 1 h before the bell · no water allowed</i></div>
+    <div class="x">&#10005;</div>
+  </div>
+
+  <!-- THE LINE TO THE SCALE -->
+  <div class="sec chart">
+    <div class="sh">THE LINE TO THE SCALE <span>kg each morning</span></div>
+    <div class="leg"><span><i style="background:var(--gold)"></i>Lean + 0.6 trim</span><span><i style="background:repeating-linear-gradient(90deg,#9aa6bd 0 8px,transparent 8px 13px)"></i>other plans</span><span><i style="background:rgba(255,157,46,.55);height:12px;vertical-align:1px"></i>if she slips</span></div>
+    <svg id="ch" width="920" height="350"></svg>
+  </div>
+
+  <!-- THE OTHER CORNER -->
+  <div class="sec corner box">
+    <div class="sh" style="font-size:28px">THE OTHER CORNER <span>her weight is scouted, not given: tape study opens it</span></div>
+    <div class="who"><img src="../../../../assets/ui/face/poster/mh_boxer_07.jpg">
+      <div><b>KAYLEIGH BELL</b><i>2-1 · Welterweight · same-day scale</i></div>
+      <div class="grow"></div>
+      <div style="text-align:right"><span class="band info">ON THE NIGHT: LEVEL</span><div class="note" style="margin-top:4px">same-day scale: both refill about 1 kg · the size edge starts at 1 kg</div></div>
+    </div>
+    <div class="facts">
+      <div class="fact"><em>WALKS · tape 1 of 3</em><b>67 - 68 kg</b><small>seen at 67.6 before her last show</small></div>
+      <div class="fact"><em>HER CUT · from the walk</em><b class="warn">trims about 0.9 kg</b><small>starts on ENERGY about 81 (Samira 86)</small></div>
+      <div class="fact lock"><em>FADED IN ROUND 3? · locked</em><b>film night 2 opens it</b><small>Tue 24 · Watch the tape</small></div>
+    </div>
+    <div class="cta"><span>She starts 5 ENERGY under Samira: the gap grows each round.</span><span class="btn">Write it: Steady R1-2 · Push R3</span><span style="color:var(--green)">+2 win</span></div>
+  </div>
+
+  <!-- HOUSE RULES -->
+  <div class="sec house box">
+    <div class="sh" style="font-size:28px">HOUSE RULES FOR SAMIRA <span>set once, run every diet week</span></div>
+    <div class="hr"><div class="hl">WEEKENDS ON A DIET<small>slip = +0.3 to 0.6 kg</small></div>
+      <div><div class="step"><span>Free · 1 in 2</span><span class="on">Club dinner Sat $40 · 1 in 4</span><span>+ Monday weigh-in · 1 in 8</span></div>
+      <div class="note">4 club dinners: <b>loyalty +1</b> · Monday weigh-in: <b>mood -1</b> a week</div></div></div>
+    <div class="hr"><div class="hl">NUTRITIONIST<small>staff job, Club &gt; People</small></div>
+      <div style="display:flex;align-items:center;gap:12px"><span class="btn" style="height:40px;font-size:18px">Hire · $90 a week</span><span class="note" style="margin:0">slips halved · trim price x0.8 · line exact to 0.1 kg</span></div></div>
+    <div class="note" style="margin-top:8px">Made weight clean <b>1 of 3</b> camps in a row: the third gives <b style="color:var(--green)">discipline +2</b></div>
+  </div>
+
+  <!-- PICK THE PLAN -->
+  <div class="sec plans">
+    <div class="sh">PICK THE PLAN <span>every price in one currency: win chance against Kayleigh</span></div>
+    <div class="ctx"><span>Your fight plan:</span><span class="chip">Push R3 · pressure</span><span>ENERGY counts</span><span class="chip" style="color:var(--gold)">x1.4</span><span>· camp goal</span><span class="chip">Stamina +2.5 by Sat</span></div>
+    <div class="tbl">
+      <div class="th"><span>PLAN · 12 DAYS</span><span>THE SCALE</span><span>CAMP GOAL</span><span>ENERGY</span><span>WIN</span><span>IF SHE SLIPS SAT</span></div>
+      <div class="tr"><div class="pn">HOLD + TRIM 1.0<small>full training · no Fatigue</small></div>
+        <div class="cell"><b class="ok">64.9 MADE</b><small>0.1 spare</small></div>
+        <div class="cell"><b class="ok">MET</b><small>+2.6</small></div>
+        <div class="cell"><b class="warn">81</b><small>trim -15</small></div>
+        <div class="cell win"><b>52%</b></div>
+        <div class="cell"><b class="bad">0.2 OVER</b><small>trim cap 1.3 · ask a kilo</small></div></div>
+      <div class="tr on"><div class="pn">LEAN + TRIM 0.6<span class="tagG">COACH</span><small>gains x0.97 · Fatigue +0.5 a day</small></div>
+        <div class="cell"><b class="ok">64.9 MADE</b><small>0.1 spare</small></div>
+        <div class="cell"><b class="ok">MET</b><small>+2.5</small></div>
+        <div class="cell"><b>86</b><small>trim -7 · diet -3</small></div>
+        <div class="cell win"><b style="color:var(--gold)">54%</b></div>
+        <div class="cell"><b class="warn">trim 1.1</b><small>ENERGY 76 · 50%</small></div></div>
+      <div class="tr"><div class="pn">CUT + TRIM 0.3<small>gains x0.9 · Fatigue +1.5 a day</small></div>
+        <div class="cell"><b class="ok">64.9 MADE</b><small>0.1 spare</small></div>
+        <div class="cell"><b class="warn">CLOSE</b><small>+2.2 of 2.5</small></div>
+        <div class="cell"><b>85</b><small>trim -3 · diet -8</small></div>
+        <div class="cell win"><b>52%</b></div>
+        <div class="cell"><b class="ok">trim 0.8</b><small>ENERGY 79 · 51%</small></div></div>
+      <div class="tr"><div class="pn">LEAN + TRIM 0.3<span class="tagA">GAMBLE</span><small>0.2 over · ask a kilo: 1 of 2 favours</small></div>
+        <div class="cell"><b class="warn">65.2 OVER</b><small>favour asked</small></div>
+        <div class="cell"><b class="ok">MET</b><small>+2.5</small></div>
+        <div class="cell"><b class="ok">90</b><small>trim -3 · diet -3</small></div>
+        <div class="cell win"><b class="ok">56%</b></div>
+        <div class="cell"><b class="warn">0.7 OVER</b><small>still a favour · 53%</small></div></div>
+    </div>
+  </div>
+
+  <!-- ENERGY + TRIM -->
+  <div class="sec energy box">
+    <div class="sh" style="font-size:26px">ENERGY AT THE FIRST BELL · 86 <span>what the plan spends · 1 ENERGY = about 0.4 win in 100 here</span></div>
+    <div class="ebar"><span style="width:86%;background:linear-gradient(90deg,#3fd27f,#8be6a9)">86 left</span><span style="width:7%;background:var(--amber)">-7</span><span style="width:3%;background:#d9b14a">-3</span><span style="width:4%;background:#6b7385;color:#fff">-4</span></div>
+    <div class="etxt"><span>start 100</span><span><b style="color:var(--amber)">trim 0.6 kg -7</b> · <b style="color:#d9b14a">Lean, 12 days -3</b> · <b style="color:#c3c8d2">no bout in 5 weeks -4</b></span></div>
+    <div class="trim"><div class="step">
+      <span class="miss">0<i>0.6 over: walkover</i></span>
+      <span class="kilo">0.3<i>over: a favour · -3</i></span>
+      <span class="on">0.6 kg<i>made · -7</i></span>
+      <span>0.9<i>made · -13</i></span>
+      <span>1.2<i>made · -19</i></span>
+      <span class="cap">1.3<i>the 2% cap</i></span>
+    </div></div>
+  </div>
+
+  <!-- CLASS STRIP -->
+  <div class="sec cls box">
+    <span class="band info">CLASS</span>
+    <div class="cv">This cut <b>2.7%</b> of the walk · walk grows <b>+0.8 kg a year</b> to 21 · Welterweight stays cheap until about <b>Sep 2026</b>, then Lean every camp<br>Samira asks: <b style="color:var(--gold)">"Keep me at 65."</b> · ladder 5th of 14</div>
+    <span class="btn" style="height:44px;font-size:18px">Class card</span>
+  </div>
+
+  <!-- COACH -->
+  <div class="sec coach">
+    <img src="../train/c_coach_cut.png" style="height:96px;margin-top:-18px;margin-left:-14px">
+    <div class="q"><small>COACH</small>"<b>Lean and a 0.6 trim</b> makes it with 0.1 to spare. The gamble wins 2 more in 100 but spends a favour we may want at the nationals."</div>
+    <span class="go">DONE</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  var s=document.getElementById('ch'),ns='http://www.w3.org/2000/svg';
+  var x0=58,x1=880,y0=14,y1=262,kTop=66.4,kBot=64.6;
+  function X(t){return x0+(x1-x0)*t/12} function Y(k){return y0+(y1-y0)*(kTop-k)/(kTop-kBot)}
+  function el(n,a,txt){var e=document.createElementNS(ns,n);for(var k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;s.appendChild(e);return e}
+  function path(a){var p='';for(var t=0;t<a.length;t++){p+=(t?'L':'M')+X(t)+' '+Y(a[t])+' ';}return p}
+  // weekend + trim shading
+  el('rect',{x:X(4.5),y:y0,width:X(6.5)-X(4.5),height:y1-y0,fill:'rgba(255,157,46,.07)'});
+  el('rect',{x:X(9.5),y:y0,width:X(12)-X(9.5)+6,height:y1-y0,fill:'rgba(255,81,71,.08)'});
+  // grid
+  [66.4,66.0,65.5,65.0].forEach(function(k){el('line',{x1:x0,x2:x1,y1:Y(k),y2:Y(k),stroke:'rgba(255,255,255,.07)'});el('text',{x:x0-10,y:Y(k)+6,fill:'#8d95a6','font-size':17,'text-anchor':'end'},k.toFixed(1))});
+  // limit
+  el('rect',{x:x0,y:Y(65.0),width:x1-x0,height:y1-Y(65.0),fill:'rgba(63,210,127,.07)'});
+  el('line',{x1:x0,x2:x1,y1:Y(65.0),y2:Y(65.0),stroke:'#ff5147','stroke-width':3});
+  el('text',{x:x0+10,y:Y(65.0)-9,fill:'#ff8a80','font-size':19},'LIMIT 65.0 · 4 pm Sat 28');
+  // ghost plans
+  var hold=[65.9,65.92,65.9,65.92,65.9,65.95,65.95,65.9,65.92,65.9,65.47,65.2,64.9];
+  var cut =[65.9,65.84,65.77,65.71,65.64,65.6,65.55,65.45,65.39,65.32,65.25,65.2,64.9];
+  var lean=[65.9,65.87,65.84,65.81,65.78,65.76,65.74,65.7,65.67,65.6,65.4,65.2,64.9];
+  el('path',{d:path(hold),fill:'none',stroke:'#9aa6bd','stroke-width':2,'stroke-dasharray':'8 6',opacity:.75});
+  el('path',{d:path(cut),fill:'none',stroke:'#9aa6bd','stroke-width':2,'stroke-dasharray':'8 6',opacity:.75});
+  el('text',{x:X(2.6),y:Y(65.92)-8,fill:'#9aa6bd','font-size':16},'HOLD');
+  el('text',{x:X(9)+4,y:Y(65.32)+20,fill:'#9aa6bd','font-size':16},'CUT');
+  // slip band from Sat 21
+  var up='',dn='';
+  for(var t=5;t<=12;t++){up+=(t==5?'M':'L')+X(t)+' '+Y(lean[t]+0.6)+' ';}
+  for(var t=12;t>=5;t--){dn+='L'+X(t)+' '+Y(lean[t]+0.3)+' ';}
+  el('path',{d:up+dn+'Z',fill:'rgba(255,157,46,.32)',stroke:'rgba(255,157,46,.6)','stroke-width':1});
+  el('text',{x:X(5)+6,y:Y(66.36)+4,fill:'#ffb36b','font-size':17},'if she eats out Sat 21: +0.3 to 0.6 · trim 0.9-1.2 · still made');
+  // the line
+  el('path',{d:path(lean),fill:'none',stroke:'#ffd24a','stroke-width':4.5});
+  for(var t=0;t<13;t++){el('circle',{cx:X(t),cy:Y(lean[t]),r:t==12?8:4.5,fill:t==12?'#3fd27f':'#ffd24a',stroke:'#13161f','stroke-width':2});}
+  el('text',{x:X(0)+4,y:Y(65.9)+28,fill:'#fff','font-size':20,'text-anchor':'middle'},'65.9');
+  el('text',{x:X(9),y:Y(65.6)-12,fill:'#fff','font-size':18,'text-anchor':'middle'},'65.6');
+  el('text',{x:X(12)-14,y:Y(64.9)+30,fill:'#3fd27f','font-size':20,'text-anchor':'end'},'64.9 MADE · 0.1 spare · ring 65.8 at 5 pm');
+  // days
+  var d=['MON 16','TUE','WED','THU','FRI','SAT 21','SUN','MON 23','TUE','WED','THU 26','FRI','SAT 28'];
+  for(var t=0;t<13;t++){el('text',{x:X(t),y:y1+26,fill:(t==5||t==6)?'#ffb36b':(t>=10?'#ff8a80':'#aab2c2'),'font-size':16,'text-anchor':'middle'},d[t]);}
+  el('text',{x:X(5.5),y:y1+50,fill:'#ffb36b','font-size':17,'text-anchor':'middle'},'THE WEEKEND');
+  el('text',{x:X(11),y:y1+50,fill:'#ff8a80','font-size':17,'text-anchor':'middle'},'FIGHT-WEEK TRIM');
+  el('text',{x:X(2),y:y1+50,fill:'#aab2c2','font-size':17,'text-anchor':'middle'},'Lean: -0.03 a day');
+})();
+</script>
+</body></html>

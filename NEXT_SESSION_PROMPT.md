@@ -4,10 +4,8 @@ OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py s
 and redraw Miro. Read ops/research/S435_DIGEST.md and ops/research/ANIM_AUDIT_S435.md (sections A and G).
 TWO SESSIONS WROTE THIS FILE: S434 stayed open beside S435 and kept committing (training v2 sent, its own handover edits).
 If S434 is still open at your start, its workflows may still run: check before touching their work (section 1).
-MIRO: the "P0 Where we are" frame holds about 22 old surplus cards the tool wants deleted (they stop the frame shrinking;
-one shows "Wrestling" twice). A delete on his board needs his yes: asked at the end of S435; if he said yes, push the
-`data-deleted` lines of `where_we_are.py svg` and run `where_we_are_svg.py trim`. Until then STRIP those lines, send only the
-changed cards, and keep the frame's transform as Miro has it (translate(6000,-2647)).
+MIRO: the 24 old surplus cards in "P0 Where we are" were deleted on his yes (S435) and the frame shrank back
+(translate(6000,-2287), height 2210); where_we_are_miro.json is trimmed. A normal redraw works again; a new delete still needs his yes.
 
 ## USAGE FIRST
 `get_usage`. S435 at 21:05: all models 53 %, Fable 69 % (reset Thu 2026-11-12 16:00), extra usage EUR 37.92 of 40.
