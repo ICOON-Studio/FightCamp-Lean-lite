@@ -1,0 +1,20 @@
+{
+  "assets": [
+    {
+      "file": "createSpeechPreset-c71527e1.mp3",
+      "command": "audio speech-preset",
+      "operation_id": "createSpeechPreset",
+      "body": {
+        "text": "Every morning adds up. A hard week makes Samira fitter, but tired by Thursday. Watch the gauge, not the clock.",
+        "voice_preset_id": "Deep voice man",
+        "emotion": "Neutral"
+      },
+      "job_id": "c71527e1-6b70-488f-8d25-827a435ee7fa",
+      "credits": 1,
+      "created_at": "2026-11-11T17:40:27.352Z",
+      "result_urls": {
+        "url": "https://storage.googleapis.com/ludo-assets/api/6a9ff56a2427eccef2670a27-1218289f583f4b5b78d7ead2d0c4a180.mp3"
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "assets": [
+    {
+      "file": "createSpeechPreset-35498e99.mp3",
+      "command": "audio speech-preset",
+      "operation_id": "createSpeechPreset",
+      "body": {
+        "text": "And in the blue corner... fighting out of Eastside ABC... with a record of eight wins and two losses... Priya... Nair!",
+        "voice_preset_id": "Roger",
+        "delivery": "booming ring announcer, building up"
+      },
+      "job_id": "35498e99-1264-48d0-8d67-c951498f52fa",
+      "credits": 1,
+      "created_at": "2026-11-11T17:40:06.833Z",
+      "result_urls": {
+        "url": "https://storage.googleapis.com/ludo-assets/api/6a9ff56a2427eccef2670a27-cb95ffe88fdfe63aecb5159e38f95df0.mp3"
+      }
+    }
+  ]
+}

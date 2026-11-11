@@ -1,0 +1,20 @@
+{
+  "assets": [
+    {
+      "file": "createSpeechPreset-5f8f413d.mp3",
+      "command": "audio speech-preset",
+      "operation_id": "createSpeechPreset",
+      "body": {
+        "text": "Hands up, chin down. Breathe. You're winning the jab.",
+        "voice_preset_id": "Bill",
+        "delivery": "old trainer, low and steady, close to the ear"
+      },
+      "job_id": "5f8f413d-bd4f-4cdc-bf31-6e72e88a08f5",
+      "credits": 1,
+      "created_at": "2026-11-11T17:40:06.228Z",
+      "result_urls": {
+        "url": "https://storage.googleapis.com/ludo-assets/api/6a9ff56a2427eccef2670a27-f9d8ac177368f440479b26ec0a9a484b.mp3"
+      }
+    }
+  ]
+}

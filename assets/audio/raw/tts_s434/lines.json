@@ -1,0 +1,9 @@
+[
+ {"id": "01_announcer_fenrir", "voice": "Fenrir", "style": "an excited boxing ring announcer at a packed small-hall show, building up and stretching the name", "text": "Ladies and gentlemen... in the red corner... fighting out of Anvil Street Gym... with a record of three wins and one loss... Samira... Khaaan!"},
+ {"id": "02_announcer_algenib", "voice": "Algenib", "style": "a gravelly veteran boxing ring announcer, big and booming, building up and stretching the name", "text": "Ladies and gentlemen... in the red corner... fighting out of Anvil Street Gym... with a record of three wins and one loss... Samira... Khaaan!"},
+ {"id": "03_corner_jab_gacrux", "voice": "Gacrux", "style": "a boxing coach shouting from the corner over a loud crowd, urgent, short", "text": "Jab and move! Don't stand there!"},
+ {"id": "04_corner_hands_gacrux", "voice": "Gacrux", "style": "a calm boxing coach in the corner between rounds, low and steady, close to the fighter's ear", "text": "Hands up, chin down. Breathe. You're winning the jab."},
+ {"id": "05_corner_body_kore", "voice": "Kore", "style": "a female boxing coach shouting from the corner over a loud crowd, fierce, short", "text": "Go to the body! Now!"},
+ {"id": "06_guide_tip_achird", "voice": "Achird", "style": "a friendly, warm guide explaining a game to a new player, relaxed and clear", "text": "Every morning adds up. A hard week makes Samira fitter, but tired by Thursday. Watch the gauge, not the clock."},
+ {"id": "07_guide_tip_aoede", "voice": "Aoede", "style": "a friendly, warm guide explaining a game to a new player, relaxed and clear", "text": "Every morning adds up. A hard week makes Samira fitter, but tired by Thursday. Watch the gauge, not the clock."}
+]

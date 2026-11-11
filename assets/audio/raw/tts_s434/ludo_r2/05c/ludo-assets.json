@@ -1,0 +1,20 @@
+{
+  "assets": [
+    {
+      "file": "createSpeechPreset-3be96b26.mp3",
+      "command": "audio speech-preset",
+      "operation_id": "createSpeechPreset",
+      "body": {
+        "text": "Go to the body! Now!",
+        "voice_preset_id": "Jessica",
+        "delivery": "hoarse, urgent shout from the corner"
+      },
+      "job_id": "3be96b26-3b18-482d-98a8-1469546ff3a9",
+      "credits": 1,
+      "created_at": "2026-11-11T17:40:09.688Z",
+      "result_urls": {
+        "url": "https://storage.googleapis.com/ludo-assets/api/6a9ff56a2427eccef2670a27-798bddc3254867c9e45cfa8a4066ff97.mp3"
+      }
+    }
+  ]
+}

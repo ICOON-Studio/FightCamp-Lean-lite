@@ -1,0 +1,20 @@
+{
+  "assets": [
+    {
+      "file": "createSpeechPreset-6f0e631c.mp3",
+      "command": "audio speech-preset",
+      "operation_id": "createSpeechPreset",
+      "body": {
+        "text": "Ladies and gentlemen... in the red corner... fighting out of Anvil Street Gym... with a record of three wins and one loss... Samira... Khan!",
+        "voice_preset_id": "George",
+        "delivery": "big excited ring announcer"
+      },
+      "job_id": "6f0e631c-c03c-4234-818f-f2b0c30ac789",
+      "credits": 1,
+      "created_at": "2026-11-11T17:26:39.400Z",
+      "result_urls": {
+        "url": "https://storage.googleapis.com/ludo-assets/api/6a9ff56a2427eccef2670a27-f5e2b725e8f931dfdd65f054e88b1681.mp3"
+      }
+    }
+  ]
+}
