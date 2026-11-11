@@ -4691,7 +4691,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-12 00:11 board_sync",
+  "updated": "2026-11-12 01:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4859,6 +4859,12 @@
     "who": "cursor",
     "started": "2026-11-11T23:43",
     "run": "RIBS1"
+   },
+   {
+    "title": "QWEN (qwen3-coder) - the maths of a punch's form: one pure module + its test",
+    "who": "goose",
+    "started": "2026-11-12T01:02",
+    "run": "PUNCHFORM1"
    }
   ],
   "next": [
@@ -4867,12 +4873,6 @@
     "who": "claude",
     "title": "Damage and recovery built from DAMAGE_MAP_S437 once it passes: one damage truth, hurt places that change the fight, an injury per place, the Condition page with real choices",
     "after": "RIBS1"
-   },
-   {
-    "id": "PUNCHFORM1",
-    "who": "qwen",
-    "title": "The maths of a punch's form (did the arm straighten, did it hang, where was the other hand): one pure module + its test, for the clip ruler",
-    "after": ""
    },
    {
     "id": "CLIPFIX1",
@@ -4917,10 +4917,16 @@
     "after": "HUMANFIGHT2B"
    },
    {
+    "id": "ROSTERROW1",
+    "who": "qwen",
+    "title": "What one fighter's row on the Fighters page says (who, how good, today, Coach, next fight, the one thing to press): one pure module + its test",
+    "after": ""
+   },
+   {
     "id": "PAGES2",
     "who": "cursor",
     "title": "Fighters page then Profile to painting 1, contents from the core loop map",
-    "after": "FOUNDATION"
+    "after": "ROSTERROW1"
    },
    {
     "id": "LOOK2",

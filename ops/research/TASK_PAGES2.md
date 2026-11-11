@@ -9,11 +9,12 @@ table (scripts/ui/RosterTable.gd). This task replaces that table with the painte
 You cannot see pictures: the layout below is measured off the painting; Claude opens every still.
 
 ## Contract
-OWNS: scripts/rules/RosterRow.gd, scripts/ui/RosterRows.gd, scripts/ui/RosterRowBits.gd, scripts/ui/areas/Fighters.gd, tests/roster_row_test.gd, tests/roster_rows_page_test.gd, tests/roster_slate_test.gd, docs/PAGES2_RESULT.md
-RED_TEST: tests/roster_row_test.gd -> ROSTER_ROW failures=0
-REGRESSION: roster_rows_page_test, roster_slate_test, roster_cards_test, roster_flag_test, roster_summary_test, fighter_profile_test, file_limits_test, no_pronoun_test
+OWNS: scripts/ui/RosterRows.gd, scripts/ui/RosterRowBits.gd, scripts/ui/areas/Fighters.gd, tests/roster_rows_page_test.gd, tests/roster_slate_test.gd, docs/PAGES2_RESULT.md
+RED_TEST: tests/roster_rows_page_test.gd -> ROSTER_ROWS_PAGE failures=0
+REGRESSION: roster_row_test, roster_slate_test, roster_cards_test, roster_flag_test, roster_summary_test, fighter_profile_test, file_limits_test, no_pronoun_test
 VISUAL: ops/previews/pages2/fighters_real.png
-NOT YOURS: scripts/ui/RosterTable.gd (leave the file; `needs_line` stays in use; the Roster tab stops calling
+NOT YOURS: scripts/rules/RosterRow.gd and tests/roster_row_test.gd (Qwen's ROSTERROW1: step 1 below is ITS task; start
+only once it is on main, and build the rows from RosterRow.row), scripts/ui/RosterTable.gd (leave the file; `needs_line` stays in use; the Roster tab stops calling
 `RosterTable.build`), UI.gd, WoodKit.gd, Halo.gd, every rule module (read them; never change a rule to fill a cell).
 
 ## The row (1920 x 1080 page; a row is 1826 wide x 198 high, rows 200 apart, the first at y 190)

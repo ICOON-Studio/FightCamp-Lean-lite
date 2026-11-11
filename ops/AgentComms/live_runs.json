@@ -383,6 +383,22 @@
    "issue": "219",
    "branch": "goose/issue-219",
    "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/219"
+  },
+  "ROSTERROW1": {
+   "agent": "goose",
+   "id": "ROSTERROW1",
+   "title": "QWEN (qwen3-coder) - what one fighter's row on the Fighters page says: one pure module + its test",
+   "status": "running",
+   "started": "2026-11-12T01:34",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_ROSTERROW1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-12T02:34",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (roadmap plan.next)",
+   "issue": "220",
+   "branch": "goose/issue-220",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/220"
   }
  },
  "codex_budget": {
