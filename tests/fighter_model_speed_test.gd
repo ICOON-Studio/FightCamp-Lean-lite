@@ -13,8 +13,8 @@ const AttrGen := preload("res://scripts/rules/AttrGen.gd")
 
 ## Moved with the generated shapes (FIGHTERMODEL4I): a style is now wide enough to scout, so these seeded
 ## world bouts are not the old ones. The call caps below are the bar; the digests only name the new results.
-const FAST_DIGEST := -4444364443597094840
-const FIGHT_DIGEST := -381279913570291456
+const FAST_DIGEST := -748117240233963606   # S434 PROTABLES1: eight world tables
+const FIGHT_DIGEST := -2169524393975280768   # S434 PROTABLES1: eight world tables
 const LIVE_DIGEST := -1989922531601276332
 ## Once a fighter a bout, plus the one setup pass (alias is written twice inside a single migration).
 const WORLD_CAP := {"build": 2, "migrate": 1, "full": 2, "alias": 4, "moves": 2, "derived": 4, "scan": 0}

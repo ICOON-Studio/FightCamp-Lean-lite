@@ -1,3 +1,24 @@
+FIGHTCAMP - BUILD OF 2026-11-11 (S434): THE DUES ON EVERY SCREEN, A REST AFTER A HARD NIGHT, EIGHT PRO TABLES
+================================================================================
+
+ NEW.
+  - The dues price shows where it lands. Two weeks before a juniors' trial, Home has a line: "Juniors' trial in 14 days:
+    1 in 3 at today's dues" with a Dues button. Club > Money, the books: the dues line carries the price's picture, and in
+    the month a new price starts it says "from this month: Cheap" with about how many members it brought. The three dues
+    boards show the next trial date (no youth section: a 0, and the hover says where to buy one). On the intake week the
+    week review opens with the junior's face, the price and the chance the trial had, and whether the junior asks for a
+    trial or not this time.
+  - After a bout a boxer does not spar for a while: 5 days after a light night, 10 after a hard one, 21 after a beating.
+    The news says "<name>: no sparring until Thu 24 Jan: the head took 25 damage", and that week's sparring night rests.
+  - Featherweight and middleweight now have their own professional tables (women's and men's): a 57 kg professional is
+    ranked among featherweights, not lightweights. WORLD shows eight tables.
+  - A rest morning adds Recovery and no longer takes it off Stamina; the week review's plan counts it (Cardio rises a
+    little on a rest day).
+ TRY: take a bout, lose a close one, then open the week: Thursday's sparring is a rest, and the news says until when.
+ Club > Money > Dues: pick Cheap, play on to the next month, and look at the books.
+ NOT IN THIS BUILD (on their way): the fight animation round (Cursor is on it, with the guard knee), the Cardio / Tank /
+ punch foundation fixes (being reworked after their reviews), the "spar anyway" choice.
+
 FIGHTCAMP - BUILD OF 2026-11-11 (S433): WHOLE FACES IN THE MENUS, A FAIRER STOPPAGE RULE
 ================================================================================
 

@@ -461,7 +461,7 @@ static func _gym_divs(c: Career) -> Array:
 	return divs
 
 static func _weight(id: String) -> String:
-	return "welterweight" if id.ends_with("wr") else "lightweight"
+	return ProLadder.weight_of(id)
 
 static func _choose(main: Node, id: String) -> void:
 	pick_opp = id

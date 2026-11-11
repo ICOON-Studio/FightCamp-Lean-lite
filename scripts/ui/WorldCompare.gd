@@ -244,7 +244,7 @@ static func _place(c: Career, f: Dictionary) -> String:
 	var label := ""
 	if ProLadder.on_ladder(c, f):
 		rank = int(ProLadder.entry(c, f).get("rank", 0))
-		label = "welterweight" if ProLadder.division_for(f).ends_with("wr") else "lightweight"
+		label = ProLadder.weight_of(ProLadder.division_for(f, c.world))
 	else:
 		rank = Region.our_rank(c, f)
 		label = str(Data.DIVISIONS[str(f["div"])]["short"])

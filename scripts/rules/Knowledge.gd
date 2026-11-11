@@ -11,6 +11,9 @@ const FIRE_START := 25.0  # G
 const FLOOR := 0.5  # G
 const HALF := 12.0  # G
 const FIRE_SPAR_CAP := 12.5  # G - exposure at which fire width = half of FIRE_START
+const KNOWN_SHARE := 0.6  # G
+const PIP_SHARES: Array[float] = [0.2, 0.4, 0.6, 0.75, 5.0 / 6.0]  # G
+const EPS := 0.0001  # G
 
 # Group membership.
 const BODY_ATTRS: Array[String] = ["strength", "explosiveness", "speed", "stamina", "recovery", "flexibility"]
@@ -106,6 +109,55 @@ static func stale(k: Dictionary, why: String) -> void:
 		return
 	k["fire_spar"] = float(k.get("fire_spar", 0.0)) * factor
 	k["fire_bout"] = float(k.get("fire_bout", 0.0)) * factor
+
+
+## What fraction of the narrowable range is gone (0..1).
+## A group not in GROUPS -> 0.0; all_seen -> 1.0.
+static func share_gone(k: Dictionary, group: String) -> float:
+	if not GROUPS.has(group):
+		return 0.0
+	if k.get("seen_all", false):
+		return 1.0
+	var start: float = _start_of(group)
+	if start <= FLOOR:
+		return 0.0
+	var w: float = width(k, group)
+	return clampf(1.0 - (w - FLOOR) / (start - FLOOR), 0.0, 1.0)
+
+
+## A group is known when share_gone >= KNOWN_SHARE.
+static func known(k: Dictionary, group: String) -> bool:
+	return share_gone(k, group) >= KNOWN_SHARE - EPS
+
+
+## Average share_gone over body, skills, fire.
+static func known_share(k: Dictionary) -> float:
+	return (share_gone(k, "body") + share_gone(k, "skills") + share_gone(k, "fire")) / 3.0
+
+
+## How many PIP_SHARES thresholds known_share has reached (0..5).
+static func pip_of(k: Dictionary) -> int:
+	var ks: float = known_share(k)
+	var count: int = 0
+	for s in PIP_SHARES:
+		if ks >= s - EPS:
+			count += 1
+	return count
+
+
+## The screen-facing call: exact values when known, range otherwise.
+## An attribute outside GROUPS is always exact (range_of already gives that).
+static func shown(k: Dictionary, attr: String, truth: float, hype: float = 0.0) -> Dictionary:
+	var g: String = group_of(attr)
+	if g == "":
+		var r: Dictionary = range_of(k, attr, truth, hype)
+		r["known"] = true
+		return r
+	if known(k, g):
+		return {"lo": truth, "hi": truth, "centre": truth, "width": 0.0, "known": true}
+	var r2: Dictionary = range_of(k, attr, truth, hype)
+	r2["known"] = false
+	return r2
 
 
 # --- internal ---

@@ -39,6 +39,46 @@
       "max_kg": 66.7,
       "pro_rounds": 12,
       "amateur_rounds": 3
+    },
+    {
+      "id": "w_fw",
+      "name": "Women's Featherweight",
+      "sex": "women",
+      "weight_class": "featherweight",
+      "min_kg": 53.5,
+      "max_kg": 57.0,
+      "pro_rounds": 10,
+      "amateur_rounds": 3
+    },
+    {
+      "id": "w_mw",
+      "name": "Women's Middleweight",
+      "sex": "women",
+      "weight_class": "middleweight",
+      "min_kg": 66.7,
+      "max_kg": 72.6,
+      "pro_rounds": 10,
+      "amateur_rounds": 3
+    },
+    {
+      "id": "m_fw",
+      "name": "Men's Featherweight",
+      "sex": "men",
+      "weight_class": "featherweight",
+      "min_kg": 53.5,
+      "max_kg": 57.0,
+      "pro_rounds": 10,
+      "amateur_rounds": 3
+    },
+    {
+      "id": "m_mw",
+      "name": "Men's Middleweight",
+      "sex": "men",
+      "weight_class": "middleweight",
+      "min_kg": 66.7,
+      "max_kg": 72.6,
+      "pro_rounds": 12,
+      "amateur_rounds": 3
     }
   ]
 }

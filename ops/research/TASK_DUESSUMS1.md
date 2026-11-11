@@ -1,6 +1,7 @@
 # TASK DUESSUMS1 - QWEN (qwen3-coder) - dues: the sums that give each price a club where it wins (pure module + a 5-year sim, MEASURE ONLY)
 
-Status: OPEN (S431, Claude main). Discipline: boxing. Model: qwen3-coder.
+Status: CLOSED (S431: Goose ran it, issue 193; read and recorded in bc473607 "DUESSUMS1 read"; DUESSUMS2 and 3 followed. S434: a qwen re-run was stopped - never relaunch).
+Was: OPEN (S431, Claude main). Discipline: boxing. Model: qwen3-coder.
 Source: the operator approved the dues mechanism (board Q-S294-176: "ok for the mechanism but the design needs better
 presentation") and asked in S430 whether it is "implemented ... accross all menus properly". The menus are DUESWIRE1. THIS task
 is the numbers: with today's rules Premium has the best 5-year total in 9 of 9 clubs, so the choice has one right answer.

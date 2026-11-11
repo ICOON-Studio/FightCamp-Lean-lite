@@ -3,19 +3,14 @@
  "updated": "2026-11-11",
  "author": "claude S294",
  "now": {
-  "id": "S433",
+  "id": "S434",
   "owner": "claude",
   "updated": "2026-11-11",
-  "summary": "S433 (2026-11-11): his Q-186/187/188 acted on (pro = full-time; feather + middle pro tables built on claude/protables1, held: world_years 6.3% inversions in w_fw; Ana's mat plan mapped by workflow). Six landed PRs reviewed by a reviewer+verifier workflow: FACEFRAME1 collected (poster flip fixed, still read); HUMANFIGHT2 and CORNERFACE1 rejected (mesh fudges; a ruler that re-typed its formulas) and re-briefed (HUMANFIGHT2B, CORNERFACE2); KDFIX4/DUESBAND1 were re-runs (dispatcher hole closed); DUESSUMS3 -> 3B. Foundation: STOPMULT1 and REST1 on main; LiveRound under its cap; CORNER17 held for LEVERS1 (measured). Export 17:03 smoke-run clean. E: 11 worktrees retired.",
-  "last_working_commit": "6fa2b52b",
-  "verified_playable": "Builds/FightCamp.exe 13:14 runs 300 frames headless with no script error; fight film, Training tab still and camera stills read",
-  "incomplete_blocked": "In flight at handover: workflows wf_5d283e05-ac0 (training v6 + mat plan) and wf_8d940da9-fe1 (foundation build); seats CEIL14 qwen, STANDDOWN1 agy, DUESWIRE1 cursor.",
-  "next_action": "0) get_usage. 1) Read the two S433 workflow journals (paths in NEXT_SESSION_PROMPT): training v6 + mat plan critic scores and the CORE_LOOP update; foundation branch claude/foundation-s433 (CARDIO1, NOCAMP1+TANK1, PUNCHSTART1, each reviewed) - collect by diff + tests. 2) Collect CEIL14 (Qwen), STANDDOWN1 (Antigravity), DUESWIRE1 (Cursor) through a review+verify workflow; wire StandDown. 3) HUMANFIGHT2B launches on Cursor after DUESWIRE1 (animation). 4) PROTABLES1 inversion. 5) Q-189 answer (tmp folder).",
-  "next_acceptance": "His pick built as a page in the .exe; HUMANFIGHT2's bars green with a film you read; a dues lever that separates Premium's small famous club.",
-  "awaiting_operator": [
-   "Q-189: delete old render scratch in E:\\FightCamp\tmp (54 GB)?",
-   "Miro: 12 surplus map slots may be deleted?"
-  ]
+  "summary": "S434 (2026-11-11): main's red tests fixed (the week plan counts a rest morning's Cardio; head_coach's fighter starts over the limit; guard_knee goes to HUMANFIGHT2B's thigh turn). Collected after blind review + skeptic: STANDDOWN1 (and wired: after a bout no sparring for 5/10/21 days, news says until when), CEIL14, DUESWIRE1 (with fixes: honest junior news, the card keeps the roll's dues and odds, golden step on the game's day step). PROTABLES1 on main: the 6.3% was seed luck (probe 8 seeds x 20 years, old tables alone reach 7.4%); world_years reads the spread. Foundation branch rebased and being fixed by workflow wf_91da691c-70b. CI limit 24 -> 32 min. A DUESSUMS1 re-run stopped. His Q-190: the paid seat's name and payer (he said no to a local sponsor paying the boxer).",
+  "last_working_commit": "1e336b04",
+  "verified_playable": "Builds/FightCamp.exe 18:16 runs 300 frames headless with no script error; golden_path walks the dues step to the intake card",
+  "incomplete_blocked": "In flight: workflow wf_91da691c-70b (foundation fixes on claude/foundation-s433, worktree E:/FightCamp/wt/LEAN_FOUNDATION_S433); KNOWN0 review wf_df25220f-111 (PR 207); seats HUMANFIGHT2B cursor, DUESSUMS3B agy, CORNERFACE2 qwen.",
+  "next_action": "0) get_usage. 1) Foundation branch: read wf_91da691c-70b's journal (or the branch log if the workflow died) - collect by diff when every item reads ready, run the final list on main's tree. 2) KNOWN0 (PR 207): its review verdict, collect. 3) Collect HUMANFIGHT2B / DUESSUMS3B / CORNERFACE2 through the review workflow as they land. 4) After the foundation lands: dispatch CALLSPREAD1 (Qwen); F2b GAIN14, F4 LOADWORK1, F9 LIVESPLIT1 (Claude). 5) Q-190 answer: the seat/sponsorship design map + two critics."
  },
  "next": "MECHANICS FIRST (operator S422 OK). 1) Collect KDFIX2 (the ruler only) and LEGTREMBLE3. 2) Brief FIGHTDISPLAY1 to Cursor from docs/mockups/s422/fight_10_simvet.html (his Q-174 pick: 'Use the veteran's drawing'); data check FIGHT_DISPLAY_DECISION_S419.md s7. 3) R28 Cutman: write the DESIGN MAP (what the player decides, on which screen, what it changes, the numbers, real-world cut rules) as one page + a picture, ask him on the board, then brief the pure module to Qwen/Goose. 4) R25 the same, after checking head punches count. 5) Q-173 dues: design map only. Menus wait unless a mechanic needs them.",
  "assessment": {
@@ -1748,6 +1743,12 @@
    "date": "2026-11-11",
    "title": "answers in, six PRs reviewed blind (4 sent back), REST1 + STOPMULT1 on main, dispatcher re-run hole closed, pro tables on a branch",
    "commit": "6fa2b52b"
+  },
+  {
+   "id": "S434",
+   "date": "2026-11-11",
+   "title": "main's red tests fixed; STANDDOWN1 (wired), CEIL14, DUESWIRE1 collected after blind review; pro tables on main (seed luck measured); foundation rework running",
+   "commit": "1e336b04"
   }
  ],
  "blocked_on_operator": [],
@@ -4666,7 +4667,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-11",
+  "updated": "2026-11-11 18:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4814,26 +4815,37 @@
   },
   "working_now": [
    {
-    "title": "TASK DUESSUMS3 - QWEN (qwen3-coder) - dues sums, third search: a waiting list, the one thing reputation buys a FULL club (pure module + sim, MEASURE ONLY)",
-    "who": "qwen",
-    "started": "2026-11-11T13:19",
-    "run": "DUESSUMS3",
-    "state": "LANDED - Claude collects"
+    "title": "Foundation fixes rework: Cardio fade line, Tank, punch start (review lists, two skeptic rounds)",
+    "who": "claude",
+    "started": "2026-11-11T18:05",
+    "run": "FOUNDATION"
    },
    {
-    "title": "TASK DUESWIRE1 - CURSOR (Grok 4.7 High) - the dues choice and the youth section show on every menu they touch",
+    "title": "TASK HUMANFIGHT2B - CURSOR - the stepping route without pops, one-frame contact, the guard knee green",
     "who": "cursor",
-    "started": "2026-11-11T16:42",
-    "run": "DUESWIRE1"
+    "started": "2026-11-11T17:45",
+    "run": "HUMANFIGHT2B"
+   },
+   {
+    "title": "TASK DUESSUMS3B - AGY - dues sums, third search fixed (MEASURE ONLY)",
+    "who": "antigravity",
+    "started": "2026-11-11T17:41",
+    "run": "DUESSUMS3B"
+   },
+   {
+    "title": "TASK CORNERFACE2 - QWEN - the corner minute keeps the boxer's face in view, measured on the real bodies",
+    "who": "qwen",
+    "started": "2026-11-11T18:20",
+    "run": "CORNERFACE2"
+   },
+   {
+    "title": "KNOWN0 (PR 207) - what you know about a fighter: blind review, then collect",
+    "who": "claude",
+    "started": "2026-11-11T18:15",
+    "run": "KNOWN0"
    }
   ],
   "next": [
-   {
-    "id": "TRAINV6",
-    "who": "claude",
-    "title": "Training v6: Hard buys fitness, fresher counts, smooth Stamina, one camp control, a career arc - two fresh critics (7+)",
-    "after": "CORELOOP"
-   },
    {
     "id": "FOUNDATION",
     "who": "claude",
@@ -4841,16 +4853,22 @@
     "after": "CORELOOP"
    },
    {
-    "id": "CEIL14",
-    "who": "qwen",
-    "title": "F2a: each of the 14 abilities gets its own ceiling with a shape (Recruit.ceiling_of)",
-    "after": "CORELOOP"
+    "id": "TURNPRO1",
+    "who": "claude",
+    "title": "Turning pro (his yes: 'put the comparison on the cards'): a season as amateur vs as pro on the cards and the offer; the offer linked to record, rank, streak, hype, the boxer's ambition and morale, the season target; the Board licence, manager, promoter named - design page + two critics 7+, then build",
+    "after": "FOUNDATION"
    },
    {
-    "id": "STANDDOWN1",
+    "id": "CALLSPREAD1",
     "who": "qwen",
-    "title": "F6: no sparring for 5, 10 or 21 days after a bout, by the head (pure StandDown + test; Claude wires it)",
-    "after": "CORELOOP"
+    "title": "F15: a corner call's strength rises point by point from 56 to 62 (briefed; after the foundation lands)",
+    "after": "FOUNDATION"
+   },
+   {
+    "id": "SEATDESIGN",
+    "who": "claude",
+    "title": "The paid seat's name and who pays (his Q-190), then a design page and two critics 7+",
+    "after": "Q-190"
    },
    {
     "id": "KNOWN0",
@@ -4869,12 +4887,6 @@
     "who": "claude",
     "title": "The matched look: Ludo painted both pages (3 each, on the review board); his pick is Q-185, then one Cursor task a page",
     "after": "next session"
-   },
-   {
-    "id": "DUESWIRE1",
-    "who": "cursor",
-    "title": "The dues and youth choice on every menu it touches, with a golden-path step",
-    "after": "FACEFRAME1"
    },
    {
     "id": "FOURSTART1",
@@ -5200,6 +5212,41 @@
   },
   "done_recently": [
    {
+    "title": "Main's red tests: the week plan counts a rest morning's Cardio; head_coach fixed",
+    "who": "claude",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "After a bout, no sparring for 5, 10 or 21 days (STANDDOWN1 collected and wired, news says until when)",
+    "who": "claude",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "Each ability's own ceiling (CEIL14 collected)",
+    "who": "qwen",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "The dues and the youth section on Home, Money, the boards and the week review (DUESWIRE1 collected with fixes)",
+    "who": "cursor",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "Featherweight and middleweight pro tables, women's and men's (PROTABLES1: the red was seed luck, measured)",
+    "who": "claude",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "TASK REST1 - QWEN (qwen3-coder) - a rest morning adds Recovery and takes nothing off Stamina (two lines out + a red test)",
+    "who": "qwen",
+    "when": "2026-11-11"
+   },
+   {
+    "title": "TASK DUESSUMS3 - QWEN (qwen3-coder) - dues sums, third search: a waiting list, the one thing reputation buys a FULL club (pure module + sim, MEASURE ONLY)",
+    "who": "qwen",
+    "when": "2026-11-11"
+   },
+   {
     "title": "STOPMULT1: stoppage odds work for both corners (S433)",
     "who": "claude"
    },
@@ -5228,50 +5275,6 @@
    },
    {
     "title": "TASK HUMANFIGHT2 - CURSOR (Grok 4.7 High) - the stepping route moves like two boxers: no pops, a reach per punch, one-frame contact, posture limits",
-    "who": "cursor",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "TASK CORNERFACE1 - QWEN (qwen3-coder) - the corner minute's camera keeps the boxer's face in the open part of the screen",
-    "who": "qwen",
-    "when": "2026-11-11"
-   },
-   {
-    "id": "CORELOOP",
-    "who": "claude",
-    "title": "Core loop reviewed by critics and joined: five tracks at 7/7, build order written",
-    "after": "S432"
-   },
-   {
-    "title": "TASK AIMWIRE1 - QWEN (qwen3-coder) - the aim buttons: rib targets that never appear, a body bonus that never fires, and what a fight's tiredness does to a year",
-    "who": "qwen",
-    "when": "2026-11-11"
-   },
-   {
-    "id": "AIMWIRE1",
-    "who": "claude",
-    "after": "S432",
-    "title": "Rib calls and the body bonus reach the fight; the liver side opens first"
-   },
-   {
-    "id": "DUESSUMS2",
-    "who": "claude",
-    "after": "S432",
-    "title": "Dues sums: 0 balanced sets of 972 - a full small club ignores reputation; next lever a waiting list"
-   },
-   {
-    "id": "CAMLINE2",
-    "who": "claude",
-    "after": "S432",
-    "title": "Fight camera round 1 in: never behind one boxer for long, ropes fade whole (hidden 0.63 -> 0.23 s)"
-   },
-   {
-    "title": "TASK DUESSUMS2 - QWEN (qwen3-coder) - dues sums, second search: a REGION of balanced numbers, and a reason for the middle price (pure module + sim, MEASURE ONLY",
-    "who": "qwen",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "TASK TRAININGB2 - CURSOR (Grok 4.7 High) - the Training tab: a tiredness curve that says something, and the pads list in straight rows",
     "who": "cursor",
     "when": "2026-11-11"
    }
@@ -5402,6 +5405,30 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Your answers Q-186/187/188 in",
+     "who": "operator"
+    },
+    {
+     "text": "Faces whole in the menus",
+     "who": "agent"
+    },
+    {
+     "text": "Stop odds: both corners",
+     "who": "claude"
+    },
+    {
+     "text": "Fight file under its cap again",
+     "who": "claude"
+    },
+    {
+     "text": "No more reruns of done tasks",
+     "who": "claude"
+    },
+    {
+     "text": "Rest no longer drains Stamina",
+     "who": "agent"
+    },
+    {
      "text": "Session start ~50 s -> ~14 s",
      "who": "claude"
     },
@@ -5432,77 +5459,49 @@
     {
      "text": "CAMLINE1 reviewed: not collected",
      "who": "claude"
-    },
-    {
-     "text": "4 queued briefs: contracts fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Look matched to gym screen: drawn",
-     "who": "claude"
-    },
-    {
-     "text": "Main CI green: camp test fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Dues sums: no balanced set yet",
-     "who": "agent"
-    },
-    {
-     "text": "Miro map: old cards deleted",
-     "who": "claude"
-    },
-    {
-     "text": "Map v3 written, drawn, on board",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Your answers Q-186/187/188 in",
-     "who": "operator"
+     "text": "Training v6 passed: 7 and 7",
+     "who": "claude"
     },
     {
-     "text": "Faces whole in the menus",
+     "text": "Ana's mat plan passed: 7 and 7",
+     "who": "claude"
+    },
+    {
+     "text": "Main's red tests fixed",
+     "who": "claude"
+    },
+    {
+     "text": "No sparring after a hard bout",
+     "who": "claude"
+    },
+    {
+     "text": "Each ability's own ceiling",
      "who": "agent"
     },
     {
-     "text": "Stop odds: both corners",
-     "who": "claude"
-    },
-    {
-     "text": "Fight file under its cap again",
-     "who": "claude"
-    },
-    {
-     "text": "No more reruns of done tasks",
-     "who": "claude"
-    },
-    {
-     "text": "Rest no longer drains Stamina",
+     "text": "Dues + youth on every screen",
      "who": "agent"
+    },
+    {
+     "text": "Feather + middle pro tables",
+     "who": "claude"
     }
    ],
    "now": [
-    {
-     "text": "Training v6: two critics 7+",
-     "who": "claude"
-    },
-    {
-     "text": "Ana's mat plan: map + critics",
-     "who": "claude"
-    },
     {
      "text": "Foundation: Cardio, Tank, punches",
      "who": "claude"
     },
     {
-     "text": "Foundation: rest, ceilings (Qwen)",
-     "who": "agent"
+     "text": "KNOWN0: review, collect",
+     "who": "claude"
     },
     {
-     "text": "Fight moves: bones only (2B)",
+     "text": "DUESSUMS3B (Antigravity)",
      "who": "agent"
     }
    ],
@@ -5544,28 +5543,24 @@
      "who": "agent"
     },
     {
-     "text": "DUESWIRE1: dues on all menus",
-     "who": "claude"
-    },
-    {
      "text": "Build Fighters page to his pick",
      "who": "claude"
     },
     {
-     "text": "Corner face: real camera ruler",
-     "who": "claude"
+     "text": "Seat name + payer (Q-190)",
+     "who": "operator"
     },
     {
-     "text": "Pro tables: feather + middle",
-     "who": "claude"
+     "text": "CALLSPREAD1: call 56-62 (Qwen)",
+     "who": "agent"
     }
    ],
-   "session": "S433"
+   "session": "S434"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "bc473607",
- "next_action": "0) get_usage FIRST (weekly Fable 60% at 12:10 on 11 Nov, reset Thu 12 Nov 16:00): no workflow or critic round before the reset. 1) HIS ANSWERS: Q-182 \"Yes, paint and build both\" -> Ludo paints the Fighters page and the Profile from docs/mockups/s431/final, he sees them, then one Cursor task a page. Q-183 \"Older stepping route\" -> collect claude/humanfight1 by diff (read the two edited tests first), make the stepping route the default on a film you read, then brief the next animation round (pop cap, reach band, one-frame contact, posture limits). Q-184 (map v3) not answered yet. 2) Collect CAMLINE2 (branch claude/camline2, worktree LEAN_CAMLINE2, docs/CAMLINE2_RESULT.md, stills E:/FightCamp/tmp/s431_camline2) and TRAININGB2 (PR 194, fixes in ops/research/TRAININGB2_REVIEW_S431.md, plus the Start week row pushed off screen on main). 3) DUESSUMS2 tables. 4) Seats: AIMWIRE1 then CORNERFACE1 (Qwen); FACEFRAME1, DUESWIRE1, GYMLIFE1 (Cursor). 5) Tell the HUMANFIGHT1 session the new main session id. 6) Ziva; Builds/S430; read the CI run on 45f105cf.",
+ "last_working_commit": "1e336b04",
+ "next_action": "0) get_usage. 1) Foundation branch: read wf_91da691c-70b's journal (or the branch log if the workflow died) - collect by diff when every item reads ready, run the final list on main's tree. 2) KNOWN0 (PR 207): its review verdict, collect. 3) Collect HUMANFIGHT2B / DUESSUMS3B / CORNERFACE2 through the review workflow as they land. 4) After the foundation lands: dispatch CALLSPREAD1 (Qwen); F2b GAIN14, F4 LOADWORK1, F9 LIVESPLIT1 (Claude). 5) Q-190 answer: the seat/sponsorship design map + two critics.",
  "next_acceptance": "Each built fight change shown live in the exe with a still/film and its tests green: no referee in the ring - a clinch ends with both boxers pushing off back to range; a tired boxer's legs amber/red on the holo and her shots land lighter (a probe measures it); body shots draw a hit reaction; each bout's THE PLAN, LIT UP saved on the fighter page."
 }

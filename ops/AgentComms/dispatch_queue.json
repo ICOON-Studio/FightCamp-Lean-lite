@@ -1099,8 +1099,10 @@
   {
    "task": "DUESSUMS1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-11T10:50"
+   "status": "closed",
+   "queued": "2026-11-11T10:50",
+   "launched": "2026-11-11T18:11",
+   "note": "S434: done by Goose in S431 (issue 193); the qwen re-run was stopped"
   },
   {
    "task": "DUESSUMS2",

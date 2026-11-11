@@ -35,11 +35,21 @@ const ROUNDS_TITLE := 10
 const REVIEW_WINS := 5   # a winning newcomer enters the board's bottom seat even without being offered a ranked name
 
 
-## Which WORLD1 table she boxes on (four so far: women's and men's lightweight and welterweight).
-static func division_for(f: Dictionary) -> String:
-	var men := str(f.get("sex", "f")) == "m"
-	var heavy := float(f.get("limit", 60.0)) > 62.0
-	return ("m_" if men else "w_") + ("wr" if heavy else "lw")
+## Which WORLD1 table the fighter boxes on: featherweight, lightweight, welterweight or middleweight, by the amateur class's
+## limit (S433 Q-187 "Yes, both": featherweight and middleweight got their own professional tables). A world made before
+## S433 holds only lightweight and welterweight: pass it and the fighter stays on the old table it was ranked on.
+static func division_for(f: Dictionary, world: Dictionary = {}) -> String:
+	var side := "m_" if str(f.get("sex", "f")) == "m" else "w_"
+	var limit := float(f.get("limit", 60.0))
+	var key := side + ("fw" if limit <= 57.5 else ("lw" if limit <= 62.0 else ("wr" if limit <= 70.0 else "mw")))
+	if not world.is_empty() and not (world.get("divisions", {}) as Dictionary).has(key):
+		key = side + ("wr" if limit > 62.0 else "lw")
+	return key
+
+
+## The weight word of a table id (w_fw -> featherweight).
+static func weight_of(div_id: String) -> String:
+	return {"fw": "featherweight", "lw": "lightweight", "wr": "welterweight", "mw": "middleweight"}.get(div_id.right(2), "lightweight")
 
 
 static func on_ladder(c: Career, f: Dictionary) -> bool:
@@ -49,7 +59,7 @@ static func on_ladder(c: Career, f: Dictionary) -> bool:
 static func table(c: Career, f: Dictionary) -> Array:
 	if c.world.is_empty():
 		return []
-	return c.world["divisions"][division_for(f)]["boxers"]
+	return c.world["divisions"][division_for(f, c.world)]["boxers"]
 
 
 static func entry(c: Career, f: Dictionary) -> Dictionary:
@@ -350,7 +360,7 @@ static func result(c: Career, f: Dictionary, outcome: String, stopped: bool) -> 
 	var after := int(line["rank_after"])
 	if after != before:
 		c.add_news("%s %s: %s." % [f["name"], "moves up" if (after > 0 and (before == 0 or after < before)) else "drops",
-			"now #%d in the %s" % [after, str(c.world["divisions"][division_for(f)]["info"]["name"])] if after > 0 else "unranked"])
+			"now #%d in the %s" % [after, str(c.world["divisions"][division_for(f, c.world)]["info"]["name"])] if after > 0 else "unranked"])
 	return line
 
 
@@ -386,7 +396,7 @@ static func road(c: Career, f: Dictionary) -> Dictionary:
 	if bool(e.get("rebuild", false)):
 		next += " Coming off a loss: win a rebuild fight first."
 	return {"rows": rows, "you": you, "name": e.get("name", ""), "next": next, "fans": int(e.get("fans", 0)),
-		"ducks": int(e.get("ducks", 0)), "div": str(c.world["divisions"][division_for(f)]["info"]["name"]) if not c.world.is_empty() else ""}
+		"ducks": int(e.get("ducks", 0)), "div": str(c.world["divisions"][division_for(f, c.world)]["info"]["name"]) if not c.world.is_empty() else ""}
 
 
 ## The fight night a booking today would get (a six-week camp, then the Saturday).
