@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Fighter page, Training tab: the summary (approach B, S434)</title>
+<style>
+@font-face{font-family:Marker;src:url(../../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../../assets/fonts/BebasNeue-Regular.ttf)}
+@property --p{syntax:'<number>';inherits:false;initial-value:0}
+:root{--ink:#f1e8da;--soft:#c9b9a2;--mute:#8f8270;--gold:#ffd24a;--elec:#3fa9ff;--red:#ff4f3f;--green:#3fd27f;--amber:#f5a524;--purple:#b48cff;--track:rgba(255,255,255,.10)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:#120e0c;color:var(--ink);font:500 22px/1.2 Barlow,"Segoe UI",sans-serif}
+.abs{position:absolute}
+.ico{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wall{position:absolute;inset:78px 0 0 0;background:
+ radial-gradient(ellipse 760px 600px at 16% 55%,rgba(255,79,63,.18),transparent 70%),
+ radial-gradient(ellipse 900px 420px at 64% 0%,rgba(255,190,110,.11),transparent 72%),
+ radial-gradient(ellipse 700px 500px at 98% 80%,rgba(63,169,255,.08),transparent 70%),
+ linear-gradient(#1b1512,#130f0d 62%,#0d0a08)}
+.wall:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.012) 0 2px,transparent 2px 9px)}
+.top{position:absolute;left:0;top:0;width:1920px;height:78px;z-index:5;border-style:solid;border-width:0 0 8px 0;border-image:url(../../../../assets/ui/wood/bar.png) 0 0 8 0 fill / 0 0 8px 0 / 0 stretch;display:flex;align-items:center;gap:14px;padding:8px 18px 0 18px;color:#efe6d8}
+.tab9{border:9px solid transparent;border-image:url(../../../../assets/ui/wood/tab.png) 9 fill / 9px / 0 stretch}
+.plank9{border:9px solid transparent;border-image:url(../../../../assets/ui/wood/plank.png) 9 fill / 9px / 0 stretch}
+.tnav{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font:500 20px/1 Barlow;flex:none}
+.tnav.off{opacity:.42}.tmenu{width:auto;height:37px;padding:0 3px 2px 3px;font:500 18px/1 Barlow}
+.tgym{font:400 32px/1 Marker;color:#6ea2f2;white-space:nowrap;padding-top:2px}
+.tdate b{display:block;font:500 19px/23px Barlow;white-space:nowrap}.tdate i{display:block;font:400 18px/20px Barlow;font-style:normal;color:#b8a88f}
+.trail{flex:1;display:flex;justify-content:center;gap:6px}
+.rail{min-width:128px;height:48px;padding:0 8px 2px;display:flex;align-items:center;justify-content:center;font:600 19px/1 Barlow;white-space:nowrap}
+.tcash{text-align:right}.tcash b{display:block;font:600 24px/28px Barlow;color:#e8c15a}.tcash i{display:block;font:400 18px/20px Barlow;font-style:normal;color:#b8a88f;white-space:nowrap}
+.tgo{width:270px;height:54px;padding:0 7px 2px;display:flex;flex-direction:column;justify-content:center;flex:none}
+.tgo b{display:block;font:600 19px/23px Barlow;white-space:nowrap}.tgo i{display:block;font:400 18px/20px Barlow;font-style:normal;white-space:nowrap}
+.tabs{position:absolute;left:28px;top:92px;display:flex;gap:6px}
+.tab{height:48px;padding:0 17px;border-radius:8px;display:flex;align-items:center;font-weight:700;color:#b8c3de;background:#1d2741;white-space:nowrap}
+.tab.on{color:#fff;background:#275696;box-shadow:0 0 26px 2px rgba(255,205,90,.42)}
+.pins{position:absolute;left:820px;top:88px;display:flex;gap:12px}
+.pins img{width:52px;height:52px;border-radius:50%;border:3px solid #fdfaf2;object-fit:cover;box-shadow:0 3px 10px rgba(0,0,0,.5)}
+.pins img.on{border-color:var(--gold);box-shadow:0 0 16px rgba(255,210,74,.8)}
+.nob{position:absolute;right:28px;top:92px;display:flex;align-items:center;gap:12px;height:48px;padding:0 16px 0 10px;border-radius:8px;background:#252d45;font:700 21px/1 Barlow;white-space:nowrap}
+.nob .tag{display:inline-flex;align-items:center;height:32px;padding:0 10px;border-left:4px solid #275696;border-radius:3px;background:#1a2033;color:#8eb8f2;font:600 20px/1 Barlow;text-transform:uppercase}
+.nob small{font:500 20px/1 Barlow;color:#b8c3de}
+.name{font:400 58px/1 Marker;color:#fff;white-space:nowrap;text-shadow:0 3px 0 rgba(0,0,0,.5)}
+.plate{display:inline-flex;align-items:center;height:34px;padding:0 12px;border-radius:7px;background:#1d2741;color:#fffbf3;font:700 21px/1 Barlow;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 13px;border-radius:17px;background:rgba(255,255,255,.08);font:600 20px/1 Barlow;color:var(--ink);white-space:nowrap}
+.chip.gold{background:rgba(255,210,74,.16);color:var(--gold)}
+.hero{position:absolute;left:10px;top:250px;width:640px;height:830px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 72%,transparent 100%)}
+.hero img{position:absolute;left:0;top:0;width:640px;filter:drop-shadow(0 0 30px rgba(255,79,63,.35))}
+.heroback{position:absolute;left:40px;top:300px;width:600px;height:700px;background:linear-gradient(115deg,transparent 0 24%,rgba(255,79,63,.22) 24% 36%,transparent 36% 42%,rgba(63,169,255,.14) 42% 48%,transparent 48%)}
+.wc{position:absolute;left:24px;top:1060px;font:400 96px/1 Bebas;color:rgba(255,255,255,.06);letter-spacing:.08em;transform:rotate(-90deg);transform-origin:left top}
+.hv{font:500 18px/1.15 Barlow;font-style:italic;color:#8eb8f2;white-space:nowrap}
+.hv b{font-style:normal;font-weight:700;color:#6f9fe0;letter-spacing:.04em;font-size:18px;margin-right:6px;padding:0 6px;border:1px solid #3d5d8f;border-radius:4px}
+/* animations */
+@keyframes slide{0%{opacity:0;transform:translateX(120px) skewX(-6deg)}70%{opacity:1}100%{opacity:1;transform:none}}
+@keyframes sweep{0%{transform:translateX(-140%) skewX(-20deg)}100%{transform:translateX(1200%) skewX(-20deg)}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes rise{0%{opacity:0;transform:translateY(24px)}100%{opacity:1;transform:none}}
+@keyframes glowp{0%,100%{box-shadow:0 4px 0 #9a6c10,0 0 26px 4px rgba(255,205,90,.35)}50%{box-shadow:0 4px 0 #9a6c10,0 0 44px 12px rgba(255,205,90,.6)}}
+@keyframes pushin{0%{transform:scale(1)}100%{transform:scale(1.1) translateY(-4px)}}
+@keyframes bob{0%,100%{translate:0 0}25%{translate:-5px 2px}50%{translate:0 -3px}75%{translate:6px 1px}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes tipin{from{opacity:0;transform:translateY(6px) scale(.98)}to{opacity:1;transform:none}}
+.rise{animation:rise .5s ease-out backwards}
+/* the right side */
+.head{position:absolute;left:676px;top:166px}
+.sweepbox{position:relative;display:inline-block;overflow:hidden}
+.sweepbox:after{content:"";position:absolute;top:0;bottom:0;left:0;width:70px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:translateX(-140%) skewX(-20deg);animation:sweep 1.1s .3s ease-in-out forwards}
+.big{font:400 56px/1 Bebas;letter-spacing:.03em;color:#fff;white-space:nowrap}
+.tiles{position:absolute;left:676px;top:250px;width:1218px;display:flex;flex-direction:column;gap:12px}
+.tile{position:relative;height:118px;display:flex;align-items:center;gap:22px;padding:0 24px 0 14px;animation:slide .55s cubic-bezier(.2,.9,.3,1.05) backwards;
+ background:linear-gradient(100deg,rgba(255,255,255,.075),rgba(255,255,255,.025) 60%,rgba(255,255,255,.05));clip-path:polygon(22px 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%,0 22px);box-shadow:inset 4px 0 0 var(--c)}
+.tile:before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--c);box-shadow:0 0 18px var(--c)}
+.badge{width:92px;height:92px;flex:none;display:grid;place-items:center;border-radius:14px;background:radial-gradient(circle at 40% 30%,color-mix(in srgb,var(--c) 45%,#2a221d),#1d1815 75%);color:#fff;box-shadow:0 0 0 2px color-mix(in srgb,var(--c) 70%,transparent),0 0 20px color-mix(in srgb,var(--c) 40%,transparent)}
+.lbl{font:700 18px/1 Barlow;letter-spacing:.14em;color:var(--c);white-space:nowrap}
+.main{font:400 46px/1 Bebas;letter-spacing:.03em;color:#fff;white-space:nowrap;margin-top:6px}
+.main em{font-style:normal;color:var(--c)}
+.cap{font:500 22px/1.15 Barlow;color:var(--soft);white-space:nowrap;margin-top:4px}
+.cap b{color:var(--ink);font-weight:700}
+.vis{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.ring{--p:0;width:100px;height:100px;margin-left:-4px;border-radius:50%;flex:none;display:grid;place-items:center;
+ background:radial-gradient(closest-side,#1d1815 80%,transparent 81% 100%),conic-gradient(var(--amber) calc(var(--p)*1%),var(--track) 0);filter:drop-shadow(0 0 10px rgba(245,165,36,.5))}
+.ring b{display:block;font:400 42px/.9 Bebas;color:#fff;text-align:center}
+.ring i{display:block;font:700 18px/1 Barlow;font-style:normal;color:var(--amber);text-align:center;letter-spacing:0;margin-top:2px}
+.load4{display:flex;gap:6px}
+.load4 span{width:96px;height:40px;display:grid;place-items:center;font:700 19px/1 Barlow;color:var(--mute);background:rgba(255,255,255,.06);clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%)}
+.load4 span.on{background:var(--gold);color:#2a1b06;box-shadow:0 0 18px rgba(255,210,74,.6)}
+.track{position:relative;width:440px;height:22px;border-radius:5px;background:var(--track)}
+.seg{position:absolute;top:0;bottom:0;transform-origin:left;animation:grow .45s ease-out backwards}
+.lineMark{position:absolute;top:-8px;bottom:-8px;width:4px;background:#fff;border-radius:2px;box-shadow:0 0 8px #fff}
+.lad{display:flex;gap:6px}
+.lad div{width:76px;text-align:center}
+.lad s{display:block;height:12px;border-radius:3px;background:var(--track);position:relative;overflow:hidden}
+.lad s.f{background:var(--c)}
+.lad s.p:after{content:"";position:absolute;left:0;top:0;bottom:0;width:80%;background:var(--c);transform-origin:left;animation:grow .6s 1.1s ease-out backwards}
+.lad i{display:block;margin-top:5px;font:600 18px/1 Barlow;font-style:normal;color:var(--mute);white-space:nowrap}
+.lad div.on i{color:var(--c)}
+.movecard{width:92px;height:92px;flex:none;border-radius:12px;background:radial-gradient(circle at 50% 40%,rgba(255,255,255,.18),#1d1815 80%);box-shadow:0 0 0 2px var(--c),0 0 20px rgba(245,165,36,.4);overflow:hidden}
+.movecard img{width:92px;height:92px}
+.count27{font:400 64px/.9 Bebas;color:#fff;text-shadow:0 0 18px rgba(63,169,255,.6)}
+.link{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:9px;background:rgba(255,255,255,.08);font:700 20px/1 Barlow;color:var(--ink);white-space:nowrap}
+.link .ico{color:var(--gold)}
+.open{position:absolute;right:26px;top:910px;display:flex;align-items:center;gap:16px}
+.go{display:inline-flex;align-items:center;gap:14px;height:78px;padding:0 40px;border-radius:13px;background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06;font:400 40px/1 Bebas;letter-spacing:.06em;white-space:nowrap;animation:glowp 2.2s 1.4s ease-in-out infinite;box-shadow:0 4px 0 #9a6c10,0 0 26px 4px rgba(255,205,90,.35)}
+.btn{display:inline-flex;align-items:center;gap:10px;height:60px;padding:0 22px;border-radius:11px;background:rgba(255,255,255,.085);font:600 21px/1 Barlow;white-space:nowrap}
+.btn .ico{color:var(--gold)}
+.note{position:absolute;left:676px;top:910px;width:560px;font:500 18px/1.3 Barlow;font-style:italic;color:#8eb8f2}
+.note b{font-style:normal;color:#6f9fe0;letter-spacing:.04em;margin-right:6px}
+/* the shared hover card */
+#tip{position:absolute;z-index:60;width:340px;padding:0 0 10px;border-radius:12px;background:#f4efe6;color:#1d1712;box-shadow:0 18px 40px rgba(0,0,0,.7),0 0 0 2px rgba(255,255,255,.9);opacity:0;display:none;pointer-events:none}
+#tip.show{display:block;animation:tipin .2s ease-out forwards}
+#tip .clip{position:relative;height:128px;border-radius:12px 12px 0 0;overflow:hidden;background:#2b2724}
+#tip .mover{position:absolute;inset:0;animation:pushin 4s ease-in-out infinite alternate}
+#tip .mover img{width:100%;height:100%;object-fit:contain;animation:bob .9s ease-in-out infinite}
+#tip .live{position:absolute;left:10px;top:10px;display:flex;align-items:center;gap:6px;font:700 18px/1 Barlow;color:#fff;background:rgba(0,0,0,.55);padding:4px 8px;border-radius:5px}
+#tip .live s{width:9px;height:9px;border-radius:50%;background:#ff4f3f;animation:blink 1s infinite}
+#tip .lt{position:absolute;left:0;right:0;bottom:0;height:46px;padding:0 12px 7px;display:flex;align-items:flex-end;justify-content:space-between;background:linear-gradient(transparent,rgba(0,0,0,.85));color:#fff}
+#tip .lt b{font:400 30px/1 Bebas;letter-spacing:.04em}#tip .lt span{font:700 18px/1 Barlow;color:var(--gold)}
+#tip .te{padding:8px 14px 0;font:700 19px/1.2 Barlow}
+#tip .ts{padding:3px 14px 0;font:500 18px/1.2 Barlow;color:#6b5f52}
+#tip .nub{position:absolute;top:40px;left:-8px;width:18px;height:18px;background:#f4efe6;transform:rotate(45deg)}
+html.done .rise,html.done .deal,html.done .tile,html.done .change,html.done .seg,html.done .sweepbox:after,html.done .lad s.p:after,html.done .hovernote{animation:none!important}
+</style></head>
+<body>
+<div class="wall"></div>
+<div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span><span class="tdate"><b>Mon 16 Feb 2026</b><i>Week 7</i></span><span class="trail"><span class="rail plank9">Gym</span><span class="rail plank9">Mail (2 new)</span></span><span class="tcash"><b>$12,940</b><i>this week: -$210</i></span><span class="tgo plank9"><b>CONTINUE</b><i>to Mon 23 Feb</i></span><span class="tnav tmenu tab9">Menu</span></div>
+<div class="tabs"><span class="tab">Profile</span><span class="tab">Condition</span><span class="tab on">Training</span><span class="tab">Playbook</span><span class="tab">Fight plan</span><span class="tab">History</span></div>
+<div class="pins"><img src="../../s431/final/face_lucy.png" alt="" title="Lucy"><img class="on" src="../../s431/final/face_samira.png" alt="" title="Samira"><img src="../../s431/final/face_tess.png" alt="" title="Tess"><img src="../../s431/final/face_ana.png" alt="" title="Ana"></div>
+<div class="nob"><span class="tag">No bout booked</span>Next offers Mon 23 Feb<small>the season target leads</small></div>
+
+<!-- the fighter -->
+<div class="abs rise" style="left:40px;top:160px;animation-delay:.05s">
+ <div class="name">SAMIRA KHAN</div>
+ <div style="display:flex;gap:10px;align-items:center;margin-top:10px"><span class="plate">Welterweight</span><span style="font:500 22px/1 Barlow;color:var(--soft);white-space:nowrap">out-boxer · 2-1 amateur</span><span class="chip gold">18: grows x1.1</span></div>
+</div>
+<div class="heroback"></div>
+<div class="wc">WELTERWEIGHT</div>
+<div class="hero"><img src="samira_cut.png" alt=""></div>
+
+<!-- THE SUMMARY -->
+<div class="head rise" style="animation-delay:.1s">
+ <div class="sweepbox"><div class="big">THIS WEEK'S <span style="color:var(--gold)">TRAINING</span></div></div>
+ <span style="font:600 22px/1 Barlow;color:var(--soft);margin-left:16px;vertical-align:12px">five lines · the rest is one click in</span>
+</div>
+
+<div class="tiles">
+ <!-- 1 what kind of week -->
+ <div class="tile" style="--c:var(--gold);animation-delay:.2s">
+  <div class="badge"><svg class="ico" width="50" height="50" viewBox="0 0 24 24"><path d="M6 7v10M18 7v10M3 9v6M21 9v6M6 12h12"/></svg></div>
+  <div><div class="lbl">WHAT KIND OF WEEK</div><div class="main">BASE WEEK · <em>NORMAL</em></div><div class="cap">building the engine · <b>82% of a usual week</b> · Coach's week</div></div>
+  <div class="vis"><div class="load4"><span>Easy</span><span class="on">Normal</span><span>Hard</span><span>Sharpen</span></div><div class="hv"><b>HOVER</b>the seven mornings, Coach's rules</div></div>
+ </div>
+ <!-- 2 the goal -->
+ <div class="tile" style="--c:var(--amber);animation-delay:.3s">
+  <div class="ring"><div><b class="count" data-to="63">63</b><i>CLOSE</i></div></div>
+  <div><div class="lbl">YOUR GOAL</div><div class="main">STAMINA 62 <em>→ 63</em></div><div class="cap">by <b>Fri 13 Mar</b> · close</div></div>
+  <div class="vis">
+   <div class="track"><span class="seg" style="left:0;width:44%;background:#5a5047;animation-delay:.6s"></span><span class="seg" style="left:44%;width:28%;background:var(--elec);animation-delay:.8s"></span><span class="seg" style="left:72%;width:10%;background:#2ec4b6;animation-delay:1s"></span><span class="lineMark" style="left:90%"></span></div>
+   <div class="hv"><b>HOVER</b>62.4 now · 62.9 by the date · the line 63</div>
+  </div>
+ </div>
+ <!-- 3 on the pads -->
+ <div class="tile" style="--c:var(--amber);animation-delay:.4s">
+  <div class="movecard" id="padmove" data-tip='{"pic":"../../../../assets/ui/moves/lead_hook.png","name":"Check hook","who":"Mon pads · Coach","eff":"Learning 24 → Usable 30 on Mon 2 Mar","sub":"fires 1 in 2 once Usable"}'><img src="../../../../assets/ui/moves/lead_hook.png" alt=""></div>
+  <div><div class="lbl">ON THE PADS</div><div class="main">CHECK HOOK</div><div class="cap">Learning → <b>Usable Mon 2 Mar</b></div></div>
+  <div class="vis">
+   <div class="lad"><div><s class="f"></s><i>New</i></div><div class="on"><s class="p"></s><i>Learning</i></div><div><s></s><i>Usable</i></div><div><s></s><i>Sharp</i></div><div><s></s><i>Signature</i></div></div>
+   <span class="link" style="height:34px;font-size:19px">+ 2 more cards: Rear uppercut, a habit fix</span>
+  </div>
+ </div>
+ <!-- 4 next: no bout -->
+ <div class="tile" style="--c:var(--elec);animation-delay:.5s">
+  <div class="badge"><svg class="ico" width="50" height="50" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg></div>
+  <div><div class="lbl">NEXT</div><div class="main">NO BOUT · <em>TARGET THE NATIONALS</em></div><div class="cap">entries close <b>Sun 15 Mar</b> · 2 bouts to go</div></div>
+  <div class="vis" style="flex-direction:row;align-items:center;gap:12px"><span class="count27 count" data-to="27">27</span><span style="font:700 20px/1.1 Barlow;color:var(--soft)">days to<br>entries</span></div>
+ </div>
+ <!-- 5 last week -->
+ <div class="tile" style="--c:var(--green);animation-delay:.6s">
+  <div class="badge" id="lastroad" data-tip='{"pic":"../../../../assets/ui/training/mh_boxer_20_roadwork.png","name":"Roadwork","who":"Mon, Fri","eff":"Recovery: clears tiredness overnight","sub":"and a little Stamina: +1 last week"}'><svg class="ico" width="50" height="50" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg></div>
+  <div><div class="lbl">LAST WEEK</div><div class="main">STAMINA <em>+1</em></div><div class="cap">roadwork Mon, Fri</div></div>
+  <div class="vis"><span class="link">Week review <svg class="ico" width="20" height="20" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></span></div>
+ </div>
+</div>
+
+<div class="note rise" style="animation-delay:.9s"><b>ONLY WHEN IT EXISTS:</b>a red line "Right hand sore: answer on Monday" under line 5.<br><b>WEEK 1:</b>lines 1 and 3 and the button; the goal once one is set; Next with the first sheet; Last week from the first Monday.</div>
+<div class="open rise" style="animation-delay:.8s">
+ <span class="btn"><svg class="ico" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Coach runs Samira</span>
+ <span class="go">OPEN TRAINING <svg class="ico" width="30" height="30" viewBox="0 0 24 24" style="stroke-width:3"><path d="M9 18l6-6-6-6"/></svg></span>
+</div>
+<div class="abs hv" style="right:30px;top:1000px">mornings, the pads and the combinations, on one table</div>
+
+<div id="tip"><span class="nub"></span><div class="clip"><div class="mover"><img alt=""></div><span class="live"><s></s>LIVE</span><div class="lt"><b></b><span></span></div></div><div class="te"></div><div class="ts"></div></div>
+<script>
+setTimeout(function(){document.documentElement.classList.add("done");},1900);
+document.querySelectorAll('.count').forEach(function(el){
+ var to=+el.dataset.to,i=0,n=24; el.textContent='0';
+ var h=setInterval(function(){i++; el.textContent=Math.round(to*Math.min(1,i/n)); if(i>=n) clearInterval(h);},45);
+});
+(function(){var g=document.querySelector('.ring'),i=0,n=26;var h=setInterval(function(){i++;var k=Math.min(1,i/n),e=1-Math.pow(1-k,3);g.style.setProperty('--p',(80*e).toFixed(1));if(i>=n)clearInterval(h);},40);})();
+/* one shared hover card, 0.25 s hover intent, opens beside the item, never follows the cursor */
+var tip=document.getElementById('tip'),timer=null;
+function show(el){var d=JSON.parse(el.dataset.tip);
+ tip.querySelector('.mover img').src=d.pic; tip.querySelector('.lt b').textContent=d.name.toUpperCase(); tip.querySelector('.lt span').textContent=d.who||'';
+ tip.querySelector('.te').textContent=d.eff||''; tip.querySelector('.ts').textContent=d.sub||'';
+ tip.classList.add('show'); var r=el.getBoundingClientRect(); tip.style.left=(r.right+14)+'px'; tip.style.top=Math.min(r.top-6,1072-tip.offsetHeight)+'px';}
+function hide(){tip.classList.remove('show');}
+document.querySelectorAll('[data-tip]').forEach(function(el){
+ el.addEventListener('mouseenter',function(){clearTimeout(timer);timer=setTimeout(function(){show(el);},250);});
+ el.addEventListener('mouseleave',function(){clearTimeout(timer);hide();});
+});
+</script>
+</body></html>

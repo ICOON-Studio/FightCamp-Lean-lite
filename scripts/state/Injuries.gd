@@ -20,6 +20,7 @@ const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const StandDown := preload("res://scripts/rules/StandDown.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
+const BodyMap := preload("res://scripts/rules/BodyMap.gd")  # S434 RIBHURT1
 
 ## The fight model's head damage is one number for the whole bout; InjuryRoll reads the WORST of the body's places. A bout
 ## between equals carries ~22 damage (each loses ~1.5 rounds: 8-18 a lost round, 2 a won one); x2.2 puts its worst place
@@ -182,8 +183,15 @@ static func after_bout(c: Career, f: Dictionary, m: Dictionary) -> void:
 	if not sd.is_empty() and str(sd["band"]) != "fine":
 		c.add_news("%s: %s." % [f["first"], StandDown.reason(sd, Clock.fmt(int(sd["open_day"])))], false)
 	var history: Array = f.get("ko_history", [])
-	var roll := InjuryRoll.bout_roll(_seed(c, f, 7), {"places": {"head": clampf(100.0 - dmg * DAMAGE_TO_WORST, 0.0, 100.0)},
-		"rounds": (m["rounds"] as Array).size(), "head_stoppage": head_stop, "ko_history": history, "day": c.day})
+	# S434 RIBHURT1: build places once with head + body map (when the bout carried one).
+	var places: Dictionary = {"head": clampf(100.0 - dmg * DAMAGE_TO_WORST, 0.0, 100.0)}
+	var bm = m.get("body_map", {})
+	if bm is Dictionary and not (bm as Dictionary).is_empty() and (bm as Dictionary).has("a"):
+		for p in ["left_eye", "right_eye", "nose", "left_ribs", "right_ribs"]:
+			places[p] = BodyMap.value(bm as Dictionary, "a", p)
+	var dmg_dict: Dictionary = {"places": places, "rounds": (m["rounds"] as Array).size(),
+		"head_stoppage": head_stop, "ko_history": history, "day": c.day}
+	var roll := InjuryRoll.bout_roll(_seed(c, f, 7), dmg_dict)
 	if head_stop:
 		f["ko_history"] = history + [c.day]
 	# S397 the cutman: half the cut layoffs after a pro bout (a seeded coin, so a save replays the same).
@@ -191,8 +199,7 @@ static func after_bout(c: Career, f: Dictionary, m: Dictionary) -> void:
 		c.add_news("The cutman closed %s's cut on the night: no layoff." % f["first"])
 		return
 	if bool(roll["injured"]):
-		var bout_why := "" if str(roll["type"]) == "ko" else InjuryRoll.bout_cause({"places": {"head": clampf(100.0 - dmg * DAMAGE_TO_WORST, 0.0, 100.0)},
-			"rounds": (m["rounds"] as Array).size()})
+		var bout_why := "" if str(roll["type"]) == "ko" else InjuryRoll.bout_cause(dmg_dict)
 		_hurt(c, f, roll, "in the fight", bout_why)
 		m["injury"] = line(c, f)
 

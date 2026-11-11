@@ -1135,6 +1135,13 @@
    "title": "TASK RIBHURT1 - QWEN (qwen3-coder) - a boxer whose ribs or face took a beating is likelier to come out with a rib injury or a cut",
    "brief": "RIBHURT1",
    "status": "queued"
+  },
+  {
+   "id": "INTROCORNER1",
+   "seat": "agy",
+   "title": "TASK INTROCORNER1 - AGY (Argon High) - the fight intro starts in the corners: each boxer shadow-boxes, bounces and celebrates the name call in a way of their own (the rope entry out)",
+   "brief": "INTROCORNER1",
+   "status": "queued"
   }
  ]
 }

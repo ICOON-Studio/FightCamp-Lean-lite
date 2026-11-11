@@ -15,6 +15,8 @@ const KO_SECOND_DAYS := 90
 const KO_THIRD_WINDOW := 365
 const KO_THIRD_DAYS := 365
 const FACE_CUT_LINE := 35.0
+const RIB_HURT_LINE := 35.0  # S434 RIBHURT1
+const HURT_WEIGHT := 3  # S434 RIBHURT1
 const BOUT_TYPES := [["cut", 20, 14, 21], ["nose", 15, 21, 35], ["head", 37, 21, 35], ["hand", 18, 35, 56], ["ribs", 10, 21, 35]]
 const TRAIN_TYPES := [["hand", 40, 14, 28], ["ribs", 30, 14, 21], ["strain", 30, 7, 14]]
 const NAMES := {"cut": "Cut", "nose": "Broken nose", "head": "Head knock", "hand": "Hand injury", "ribs": "Rib injury", "strain": "Strain"}
@@ -65,11 +67,17 @@ static func bout_roll(seed: int, damage: Dictionary) -> Dictionary:
 	for fp in ["left_eye", "right_eye", "nose"]:
 		if places.has(fp) and float(places[fp]) <= FACE_CUT_LINE:
 			face_cut = true
+	var ribs_hurt: bool = false  # S434 RIBHURT1
+	for rp in ["left_ribs", "right_ribs"]:
+		if places.has(rp) and float(places[rp]) <= RIB_HURT_LINE:
+			ribs_hurt = true
 	var total: int = 0
 	for t in BOUT_TYPES:
 		var w: int = int(t[1])
 		if t[0] == "cut" and face_cut:
 			w *= 2
+		if t[0] == "ribs" and ribs_hurt:
+			w *= HURT_WEIGHT
 		total += w
 	var roll: float = rng.randf() * float(total)
 	var accum: int = 0
@@ -78,6 +86,8 @@ static func bout_roll(seed: int, damage: Dictionary) -> Dictionary:
 		var w: int = int(t[1])
 		if t[0] == "cut" and face_cut:
 			w *= 2
+		if t[0] == "ribs" and ribs_hurt:
+			w *= HURT_WEIGHT
 		accum += w
 		if roll < float(accum):
 			chosen = t

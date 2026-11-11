@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Fighter page, Training tab as a summary, approach C: coach-led, no bout booked (S434 TRAINSCENE1)</title>
+<style>
+
+@font-face{font-family:Marker;src:url(../../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../../assets/fonts/BebasNeue-Regular.ttf)}
+:root{--ink:#f3ecdf;--soft:#c3b6a2;--gold:#ffd24a;--gold2:#f0a81e;--blue:#3fa9ff;--blue2:#2a6fd6;--red:#ff5147;--green:#3fd27f;--amber:#ff9d2e;--grey:#8d929c;
+ --pan:linear-gradient(160deg,rgba(40,50,80,.94),rgba(18,22,36,.95) 55%,rgba(12,15,25,.97))}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:#110d0c;color:var(--ink);font:500 20px/1.2 Barlow,"Segoe UI",sans-serif}
+.abs{position:absolute}
+.wall{position:absolute;left:0;right:0;top:78px;bottom:0;background:
+ repeating-linear-gradient(115deg,rgba(255,255,255,.018) 0 2px,transparent 2px 22px),
+ radial-gradient(ellipse 900px 520px at 46% 30%,rgba(63,169,255,.10),transparent 70%),
+ radial-gradient(ellipse 700px 500px at 12% 30%,rgba(255,190,110,.12),transparent 72%),
+ linear-gradient(#1a1412,#130f0d 62%,#0d0a09)}
+/* the game's top bar */
+.top{position:absolute;left:0;top:0;width:1920px;height:78px;z-index:5;border-style:solid;border-width:0 0 8px 0;border-image:url(../../../../assets/ui/wood/bar.png) 0 0 8 0 fill / 0 0 8px 0 / 0 stretch;display:flex;align-items:center;gap:14px;padding:8px 18px 0 18px;color:#efe6d8}
+.tab9{border:9px solid transparent;border-image:url(../../../../assets/ui/wood/tab.png) 9 fill / 9px / 0 stretch}
+.plank9{border:9px solid transparent;border-image:url(../../../../assets/ui/wood/plank.png) 9 fill / 9px / 0 stretch}
+.tnav{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font:500 20px/1 Barlow;color:#efe6d8;flex:none}.tnav.off{opacity:.42}
+.tmenu{width:auto;height:40px;padding:0 4px 2px 4px}
+.tgym{font:400 32px/1 Marker;color:#6ea2f2;white-space:nowrap;padding-top:2px}
+.tdate{min-width:176px}.tdate b{display:block;font:500 20px/23px Barlow;color:#efe6d8;white-space:nowrap}.tdate i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#b8a88f}
+.trail{flex:1;display:flex;justify-content:center;gap:6px}
+.rail{min-width:128px;height:48px;padding:0 8px 2px 8px;display:flex;align-items:center;justify-content:center;color:#efe6d8;white-space:nowrap}
+.tgrow{flex:1}
+.tcash{text-align:right}.tcash b{display:block;font:600 24px/27px Barlow;color:#e8c15a}.tcash i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#b8a88f;white-space:nowrap}
+.tgo{width:330px;height:60px;padding:0 7px 2px 7px;display:flex;flex-direction:column;justify-content:center;flex:none}
+.tgo b{display:block;font:600 20px/23px Barlow;color:#efe6d8;white-space:nowrap}.tgo i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#efe6d8;white-space:nowrap}
+
+/* sport-sim panels: chamfered, gradient, a coloured top edge */
+.pan{position:absolute;background:var(--pan);clip-path:polygon(18px 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%,0 18px);padding:10px 16px;animation:panin .5s ease-out both}
+.pan::before{content:"";position:absolute;left:0;top:0;right:0;height:3px;background:linear-gradient(90deg,var(--acc,var(--blue)),transparent 70%)}
+.pan::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 20% 0%,rgba(255,255,255,.06),transparent 70%);pointer-events:none}
+@keyframes panin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.hd{display:flex;align-items:baseline;gap:12px;font:400 30px/1 Bebas;letter-spacing:.04em;color:var(--gold);white-space:nowrap}
+.hd span{font:500 20px/1 Barlow;letter-spacing:0;color:var(--soft)}
+.hover{font:italic 500 18px/1.15 Barlow;color:#8fa6c8}
+.cap{color:var(--soft)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:6px;background:rgba(255,255,255,.08);font:600 20px/1 Barlow;white-space:nowrap}
+.go{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 24px;clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);background:linear-gradient(#ffe37a,#f0b32a);color:#2a1b06;font:400 30px/1 Bebas;letter-spacing:.04em;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 20px;clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);background:linear-gradient(rgba(255,255,255,.14),rgba(255,255,255,.06));color:var(--ink);font:600 21px/1 Barlow;white-space:nowrap}
+.sweep{position:relative;overflow:hidden}
+.sweep::after{content:"";position:absolute;top:0;bottom:0;width:120px;left:-160px;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);animation:sweep 1.3s .35s ease-in-out forwards}
+@keyframes sweep{to{left:110%}}
+svg.ic{width:24px;height:24px;flex:none}
+
+/* the hover card (MoveTip for every session and move) */
+#tip{position:absolute;left:0;top:0;width:360px;height:232px;z-index:50;opacity:0;transform:translateY(8px) scale(.97);transition:opacity .18s ease-out,transform .18s ease-out;pointer-events:none;background:linear-gradient(#1c2540,#0f1320);border:2px solid rgba(63,169,255,.8);border-radius:10px;box-shadow:0 14px 40px rgba(0,0,0,.7),0 0 26px rgba(63,169,255,.35)}
+#tip.on{opacity:1;transform:none}
+#tip.isdemo{transition:none}
+#tip .clip{position:relative;height:108px;overflow:hidden;border-radius:8px 8px 0 0;background:#0b0c10}
+#tip .clip .bg{position:absolute;left:-20px;top:-20px;width:400px;height:150px;object-fit:cover;filter:blur(16px) brightness(.45)}
+#tip .clip .mv{position:absolute;left:50%;top:0;width:108px;height:108px;margin-left:-54px;animation:push 4s ease-in-out infinite alternate}
+#tip .clip .mv img,#tip .clip .mv svg{display:block;width:108px;height:108px;animation:bob .45s ease-in-out infinite alternate}
+#tip .clip .mv svg{padding:18px}
+@keyframes push{from{transform:scale(1)}to{transform:scale(1.14)}}
+@keyframes bob{from{transform:translateY(1px)}to{transform:translateY(-4px)}}
+#tip .live{position:absolute;left:8px;top:8px;display:flex;align-items:center;gap:6px;height:24px;padding:0 8px;border-radius:4px;background:rgba(0,0,0,.6);font:700 18px/1 Barlow;color:#fff}
+#tip .live i{width:10px;height:10px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red)}
+#tip .demo{position:absolute;right:8px;top:8px;display:none;height:26px;padding:0 9px;border-radius:4px;background:var(--gold);color:#2a1b06;font:400 20px/26px Bebas;letter-spacing:.06em}
+#tip.isdemo .demo{display:block}
+#tip .tx{padding:6px 14px 8px}
+#tip .tk{font:700 18px/1 Barlow;letter-spacing:.06em;color:var(--blue)}
+#tip .tn{margin-top:4px;font:400 30px/1 Bebas;letter-spacing:.03em;color:#fff}
+#tip .te{margin-top:3px;font:500 19px/1.18 Barlow;color:#dfe6f2}
+#tip .ar{position:absolute;width:18px;height:18px;background:#0f1320;transform:rotate(45deg)}
+#tip.up .ar{bottom:-10px;border-right:2px solid rgba(63,169,255,.8);border-bottom:2px solid rgba(63,169,255,.8)}
+#tip.dn .ar{top:-10px;border-left:2px solid rgba(63,169,255,.8);border-top:2px solid rgba(63,169,255,.8);background:#1c2540}
+#tip.rt .ar{left:-10px;border-left:2px solid rgba(63,169,255,.8);border-bottom:2px solid rgba(63,169,255,.8)}
+
+.tabs{position:absolute;left:28px;top:92px;display:flex;gap:6px;z-index:4}
+.tab{height:46px;padding:0 16px;border-radius:8px;display:flex;align-items:center;font-weight:700;color:#b8c3de;background:#1d2741;white-space:nowrap}
+.tab.on{color:#fff;background:#275696;box-shadow:0 0 26px 2px rgba(255,205,90,.42)}
+.sw{position:absolute;left:1556px;top:86px;display:flex;gap:8px;z-index:4}
+.sw div{width:76px;text-align:center;line-height:20px;font:600 18px/20px Barlow;color:var(--soft)}
+.sw img{display:block;width:40px;height:40px;margin:2px auto 2px;border-radius:50%;border:2.5px solid #fdfaf2;opacity:.7;object-fit:cover}
+.sw .on{color:#fff}.sw .on img{width:44px;height:44px;margin:0 auto;border:3px solid var(--gold);opacity:1;box-shadow:0 0 18px 3px rgba(255,205,90,.55)}
+.plate{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:6px;background:#1d2741;color:#fffbf3;font:700 20px/1 Barlow;white-space:nowrap}
+
+/* HERO */
+.hero{left:20px;top:150px;width:604px;height:912px;padding:0;--acc:var(--gold)}
+.hero .bigw{position:absolute;left:-10px;top:120px;font:400 250px/.8 Bebas;color:rgba(255,255,255,.035);writing-mode:vertical-rl;transform:rotate(180deg);height:780px;text-align:center}
+.hero .spot{position:absolute;left:60px;top:150px;width:560px;height:620px;background:radial-gradient(ellipse at 55% 45%,rgba(63,169,255,.30),transparent 65%)}
+.hero .cut{position:absolute;right:-48px;top:60px;width:650px;filter:drop-shadow(0 0 30px rgba(63,169,255,.35));animation:cutin .8s .1s ease-out both}
+@keyframes cutin{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+.hero .nm{position:absolute;left:24px;top:22px;font:400 62px/1 Marker;color:#fff;text-shadow:0 4px 18px rgba(0,0,0,.6);white-space:nowrap;z-index:2}
+.hero .ln{position:absolute;left:24px;top:102px;display:flex;gap:8px;z-index:2}
+.hero .foot{position:absolute;left:0;right:0;bottom:0;height:150px;padding:52px 24px 0;background:linear-gradient(transparent,rgba(10,12,20,.94) 45%);z-index:2}
+.hero .foot b{display:block;font:400 26px/1 Bebas;letter-spacing:.08em;color:var(--soft)}
+.hero .foot span{display:block;margin-top:6px;font:400 44px/1 Bebas;letter-spacing:.03em;color:#fff}
+
+/* COACH */
+.coach{left:640px;top:150px;width:1260px;height:140px;padding:0;--acc:var(--blue)}
+.coach .face{position:absolute;left:0;top:0;width:150px;height:140px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(63,169,255,.35),transparent 70%)}
+.coach .face img{position:absolute;left:-40px;top:-30px;width:236px}
+.coach .body{position:absolute;left:166px;top:12px;right:18px}
+.coach .lbl{display:flex;align-items:center;gap:12px;font:400 26px/1 Bebas;letter-spacing:.06em;color:var(--blue)}
+.coach .q{margin-top:10px;font:600 30px/1.18 Barlow;color:#fff}
+.coach .q b{color:var(--gold);font-weight:700}
+.kind{background:linear-gradient(90deg,rgba(63,169,255,.25),rgba(63,169,255,.06));color:#cfe6ff}
+
+/* the five lines */
+.line5{position:absolute;left:640px;width:1260px;display:flex;align-items:center;gap:18px;padding:0 20px 0 0;background:linear-gradient(90deg,rgba(40,50,80,.94),rgba(18,22,36,.92) 60%,rgba(14,17,28,.85));clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);animation:tilein .5s cubic-bezier(.2,.9,.3,1.1) both}
+@keyframes tilein{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:none}}
+.line5 .acc{align-self:stretch;width:8px;background:var(--a,var(--blue));box-shadow:0 0 14px var(--a,var(--blue))}
+.line5 .ico{flex:none;width:72px;height:72px;border-radius:50%;background:radial-gradient(circle at 40% 35%,rgba(255,255,255,.16),rgba(255,255,255,.03));display:flex;align-items:center;justify-content:center}
+.line5 .ico svg{width:40px;height:40px}
+.line5 .txt{min-width:0}
+.line5 .k{font:400 22px/1 Bebas;letter-spacing:.1em;color:var(--a,var(--blue))}
+.line5 .m{margin-top:4px;font:400 42px/1 Bebas;letter-spacing:.03em;color:#fff;white-space:nowrap}
+.line5 .c{margin-top:4px;font:500 20px/1.15 Barlow;color:var(--soft);white-space:nowrap}
+.line5 .c b{color:#fff}
+.band{display:inline-flex;align-items:center;height:30px;padding:0 10px;border-radius:5px;font:400 24px/1 Bebas;letter-spacing:.06em;vertical-align:4px;margin-left:10px}
+.band.close{background:var(--amber);color:#2a1300}
+.thumbs{margin-left:auto;display:flex;gap:6px}
+.th{width:66px;text-align:center;font:600 18px/1 Barlow;color:var(--soft)}
+.th .p{width:66px;height:66px;background:#0e0e10;border:2px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;margin-bottom:4px;animation:deal .45s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes deal{from{opacity:0;transform:translateY(24px) rotate(-6deg)}to{opacity:1;transform:none}}
+.th .p img{width:62px;height:62px}.th .p svg{width:36px;height:36px}
+.th.you .p{border-color:var(--gold)}.th.co .p{border-color:var(--blue)}
+.th.hov .p{outline:3px solid var(--blue)}
+.lad{display:flex;gap:4px;width:300px;margin-top:8px}
+.lad i{flex:1;height:12px;background:rgba(255,255,255,.12);transform:skewX(-20deg)}
+.lad i.d{background:var(--blue)}.lad i.p{background:linear-gradient(90deg,var(--blue) 70%,rgba(255,255,255,.12) 70%)}
+.padblk{display:flex;align-items:center;gap:16px;padding:6px 14px 6px 6px;border-radius:8px}
+.padblk.hov{background:rgba(63,169,255,.12);box-shadow:inset 0 0 0 2px rgba(63,169,255,.7)}
+.padblk img{width:86px;height:86px;background:#0e0e10;border:2px solid rgba(63,169,255,.55)}
+.more{display:inline-flex;align-items:center;height:34px;padding:0 12px;border-radius:6px;background:rgba(255,255,255,.08);font:600 20px/1 Barlow;color:#fff;white-space:nowrap}
+.count{margin-left:auto;text-align:center;padding-right:10px}
+.count b{display:block;font:400 76px/.85 Bebas;color:var(--gold);text-shadow:0 0 20px rgba(255,205,90,.5)}
+.count span{font:400 22px/1 Bebas;letter-spacing:.1em;color:var(--soft)}
+.tchip{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;margin-top:8px;border-radius:6px;background:rgba(63,169,255,.14);color:#cfe6ff;font:600 19px/1 Barlow;white-space:nowrap}
+.alert{position:absolute;left:640px;top:930px;width:600px;height:116px;display:flex;align-items:center;gap:16px;padding:0 18px;background:linear-gradient(90deg,rgba(255,81,71,.30),rgba(255,81,71,.06));clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);border-left:8px solid var(--red);animation:tilein .5s .7s both}
+.alert b{display:block;font:400 32px/1 Bebas;letter-spacing:.04em;color:#fff}
+.alert span{display:block;margin-top:4px;font:500 20px/1.15 Barlow;color:#ffc9c4}
+.open{position:absolute;left:1260px;top:930px;width:640px;height:116px;display:flex;align-items:center;justify-content:space-between;padding:0 34px;clip-path:polygon(20px 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%,0 20px);background:linear-gradient(#ffe37a,#f0b32a);color:#2a1b06;animation:tilein .5s .8s both,glow 1.2s 1.4s ease-in-out infinite alternate}
+@keyframes glow{from{filter:brightness(1)}to{filter:brightness(1.12)}}
+.open b{display:block;font:400 54px/1 Bebas;letter-spacing:.05em}
+.open span{display:block;font:600 20px/1.1 Barlow;color:#4a3410}
+.open i{font:400 70px/1 Bebas;font-style:normal}
+.done .open{animation:glow 1.2s ease-in-out infinite alternate!important}
+/* the still: after 1.6 s every one-shot animation is at its end state (the renderer's clock runs ahead of CSS) */
+.done *,.done *::before,.done *::after{animation:none!important}
+.done #tip .mv{animation:push 4s ease-in-out infinite alternate!important}
+.done #tip .mv img,.done #tip .mv svg{animation:bob .45s ease-in-out infinite alternate!important}
+
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <symbol id="i-feet" viewBox="0 0 48 48"><g fill="#cfe6ff"><ellipse cx="16" cy="14" rx="6" ry="9"/><ellipse cx="16" cy="29" rx="4.5" ry="4"/><ellipse cx="32" cy="22" rx="6" ry="9"/><ellipse cx="32" cy="37" rx="4.5" ry="4"/></g></symbol>
+  <symbol id="i-lift" viewBox="0 0 48 48"><g fill="#cfe6ff"><rect x="4" y="16" width="6" height="16" rx="2"/><rect x="38" y="16" width="6" height="16" rx="2"/><rect x="10" y="12" width="6" height="24" rx="2"/><rect x="32" y="12" width="6" height="24" rx="2"/><rect x="16" y="22" width="16" height="4"/></g></symbol>
+  <symbol id="i-watch" viewBox="0 0 48 48"><g fill="none" stroke="#ffd24a" stroke-width="4"><circle cx="24" cy="27" r="15"/><path d="M24 27 L24 18 M20 6 h8 M24 6 v6"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 48 48"><path d="M30 6a18 18 0 1 0 12 30A15 15 0 0 1 30 6z" fill="#9fb0d0"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="#cfe6ff" stroke-width="2.4"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></g></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="#ffd24a"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-3 4.5 4.5 0 0 1 8 3c0 6-8 11-8 11z" fill="#3fd27f"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M6 11V6a2 2 0 0 1 4 0v4h1V4a2 2 0 0 1 4 0v6h1V6a2 2 0 0 1 4 0v8a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-4l-2-4a2 2 0 0 1 3-2z" fill="#ff9d2e"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 3v18M5 4h12l-3 4 3 4H5" fill="none" stroke="#ff5147" stroke-width="2.4"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3 7 7 .6-5.4 4.7L18 21l-6-3.7L6 21l1.4-6.7L2 9.6 9 9z" fill="#ffd24a"/></symbol>
+ </defs>
+</svg>
+<svg width="0" height="0" style="position:absolute"><defs>
+ <symbol id="i-cal" viewBox="0 0 48 48"><g fill="none" stroke="#3fa9ff" stroke-width="4"><rect x="6" y="10" width="36" height="32" rx="4"/><path d="M6 20h36M16 5v10M32 5v10"/></g><g fill="#3fa9ff"><rect x="12" y="25" width="6" height="5"/><rect x="21" y="25" width="6" height="5"/><rect x="30" y="25" width="6" height="5"/><rect x="12" y="33" width="6" height="5"/></g></symbol>
+ <symbol id="i-glove" viewBox="0 0 48 48"><path d="M14 20c0-9 6-14 14-14s12 5 12 13v9c0 6-4 10-10 10H20c-4 0-6-3-6-6z" fill="#ffd24a"/><rect x="16" y="36" width="20" height="8" rx="2" fill="#e8b020"/><path d="M14 22c-5 0-8 3-8 7s3 6 8 6" fill="#f0c030"/></symbol>
+ <symbol id="i-trophy" viewBox="0 0 48 48"><g fill="#ffd24a"><path d="M14 6h20v12a10 10 0 0 1-20 0z"/><rect x="21" y="27" width="6" height="8"/><rect x="14" y="36" width="20" height="6" rx="2"/></g><g fill="none" stroke="#ffd24a" stroke-width="3"><path d="M14 10H7v4a7 7 0 0 0 7 7M34 10h7v4a7 7 0 0 1-7 7"/></g></symbol>
+ <symbol id="i-up" viewBox="0 0 48 48"><path d="M24 6 42 26H31v16H17V26H6z" fill="#3fd27f"/></symbol>
+</defs></svg>
+<div class="wall"></div>
+<div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span><span class="tdate"><b>Mon 16 Feb 2026</b><i>Week 7</i></span><span class="trail"><span class="rail plank9">Gym</span><span class="rail plank9">Mail (2 new)</span></span><span class="tgrow"></span><span class="tcash"><b>$12,940</b><i>this week: -$210</i></span><span class="tgo plank9"><b>CONTINUE</b><i>to Mon 23 Feb, fight week</i></span><span class="tnav tmenu tab9">Menu</span></div>
+<div class="tabs"><span class="tab">Profile</span><span class="tab">Condition</span><span class="tab on">Training</span><span class="tab">Playbook</span><span class="tab">Fight plan</span><span class="tab">Character</span><span class="tab">History</span></div>
+<div class="sw"><div><img src="../../s431/final/face_lucy.png">Lucy</div><div><img src="../../s431/final/face_tess.png">Tess</div><div class="on"><img src="../../s431/final/face_samira.png">Samira</div><div><img src="../../s431/final/face_ana.png">Ana</div></div>
+
+<!-- HERO -->
+<div class="pan hero">
+  <div class="spot"></div>
+  <div class="nm">SAMIRA KHAN</div>
+  <div class="ln"><span class="plate">Welterweight</span><span class="plate">Out-boxer</span><span class="plate" style="background:#2b3d1f;color:#c9f2a6">Age 18: grows x1.1</span></div>
+  <img class="cut" src="c_samira_cut.png">
+  <div class="foot"><b>SEASON TARGET</b><span>THE NATIONALS · 2 BOUTS TO GO</span></div>
+</div>
+
+<!-- COACH'S WEEK -->
+<div class="pan coach">
+  <div class="face"><img src="c_coach_cut.png"></div>
+  <div class="body">
+    <div class="lbl sweep">COACH'S WEEK <span class="chip kind" style="font:600 20px/1 Barlow;letter-spacing:0">Base week: building cardio and strength</span></div>
+    <div class="q">"No bout yet, so we build. <b>Normal week</b>: Cardio near <b>63 by Fri 13 Mar</b>. The right hand rests."</div>
+  </div>
+</div>
+
+<!-- 1 WHAT KIND OF WEEK -->
+<div class="line5" style="top:302px;height:112px;--a:var(--blue);animation-delay:.2s">
+  <div class="acc"></div><div class="ico"><svg><use href="#i-cal"/></svg></div>
+  <div class="txt"><div class="k">THIS WEEK</div><div class="m">BASE WEEK · NORMAL</div><div class="c"><b>82%</b> of a usual week · Coach's week</div></div>
+  <div class="thumbs">
+    <div class="th you" data-pic="../../../../assets/ui/training/mh_boxer_20_slip_rope.png" data-tk="MON MORNING · YOU COACH" data-tn="Slip rope" data-te="Defence: slips and rolls. Normal pace."><div class="p" style="animation-delay:.4s"><img src="../../../../assets/ui/training/mh_boxer_20_slip_rope.png"></div>Mon</div>
+    <div class="th" data-pic="icon:i-feet" data-tk="TUE MORNING · ALONE" data-tn="Footwork drills" data-te="Footwork: ring cutting, angles. Normal pace."><div class="p" style="animation-delay:.46s"><svg viewBox="0 0 48 48"><use href="#i-feet"/></svg></div>Tue</div>
+    <div class="th co" data-pic="../../../../assets/ui/training/mh_boxer_20_roadwork.png" data-tk="WED MORNING · COACH RUNS IT" data-tn="Roadwork" data-te="Recovery: refills between rounds. Feeds the Cardio goal too."><div class="p" style="animation-delay:.52s"><img src="../../../../assets/ui/training/mh_boxer_20_roadwork.png"></div>Wed</div>
+    <div class="th" data-pic="icon:i-lift" data-tk="THU MORNING · ALONE" data-tn="Strength circuit" data-te="Strength: more power room. Normal pace."><div class="p" style="animation-delay:.58s"><svg viewBox="0 0 48 48"><use href="#i-lift"/></svg></div>Thu</div>
+    <div class="th you" data-pic="../../../../assets/ui/training/mh_boxer_20_shadow.png" data-tk="FRI MORNING · YOU COACH" data-tn="Shadow boxing" data-te="Accuracy: form, shots that land. Light pace."><div class="p" style="animation-delay:.64s"><img src="../../../../assets/ui/training/mh_boxer_20_shadow.png"></div>Fri</div>
+    <div class="th you" data-pic="../../../../assets/ui/training/mh_boxer_20_shadow.png" data-tk="SAT MORNING · YOU COACH" data-tn="Shadow boxing" data-te="Accuracy: form, shots that land. Light pace."><div class="p" style="animation-delay:.7s"><img src="../../../../assets/ui/training/mh_boxer_20_shadow.png"></div>Sat</div>
+    <div class="th" data-pic="icon:i-moon" data-tk="SUN · REST" data-tn="Rest" data-te="Recovery and Flexibility: fresh legs for Monday."><div class="p" style="animation-delay:.76s"><svg viewBox="0 0 48 48"><use href="#i-moon"/></svg></div>Sun</div>
+  </div>
+</div>
+
+<!-- 2 THE GOAL -->
+<div class="line5" style="top:424px;height:112px;--a:var(--amber);animation-delay:.28s">
+  <div class="acc"></div>
+  <svg width="84" height="84" viewBox="0 0 84 84" style="flex:none">
+    <circle cx="42" cy="42" r="34" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="10"/>
+    <circle cx="42" cy="42" r="34" fill="none" stroke="#ff9d2e" stroke-width="10" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="25" transform="rotate(-90 42 42)" style="animation:ring .9s .4s ease-out both;filter:drop-shadow(0 0 6px #ff9d2e)"/>
+    <text x="42" y="52" text-anchor="middle" fill="#fff" font-family="Bebas" font-size="32">63</text>
+  </svg>
+  <div class="txt"><div class="k">THE GOAL</div><div class="m">CARDIO <span data-count="62" data-dec="0">62</span> &#8594; 63<span class="band close">CLOSE</span></div><div class="c">by <b>Fri 13 Mar</b> · met: mood +10</div></div>
+</div>
+<style>@keyframes ring{from{stroke-dashoffset:213.6}}</style>
+
+<!-- 3 ON THE PADS (hover: the move plays) -->
+<div class="line5" style="top:546px;height:112px;--a:var(--gold);animation-delay:.36s">
+  <div class="acc"></div>
+  <div class="padblk" id="demoHover" data-side="right" data-pic="../../../../assets/ui/moves/lead_hook.png" data-tk="MON PADS · COACH" data-tn="Check hook" data-te="A lead hook as you pivot out. Learning 24, Usable 30 on Mon 2 Mar.">
+    <img src="../../../../assets/ui/moves/lead_hook.png">
+    <div class="txt"><div class="k">ON THE PADS · +2 MORE CARDS</div><div class="m">CHECK HOOK</div><div class="c">Learning &#8594; <b>Usable Mon 2 Mar</b></div></div>
+    <div><div class="lad"><i class="d"></i><i class="p"></i><i></i><i></i><i></i></div><div class="c" style="margin-top:6px;font-size:18px">New · Learning · Usable · Sharp · Signature</div></div>
+  </div>
+</div>
+
+<!-- 4 NEXT: no bout booked -->
+<div class="line5" style="top:668px;height:130px;--a:var(--gold);animation-delay:.44s">
+  <div class="acc"></div><div class="ico"><svg><use href="#i-trophy"/></svg></div>
+  <div class="txt"><div class="k">NEXT · NO BOUT BOOKED</div><div class="m">TARGET THE NATIONALS</div><div class="c">entries close <b>Sun 15 Mar</b> · next offers Mon 23 Feb</div>
+    <div class="tchip">Tank: tiredness 41, fresh by Thu</div></div>
+  <div class="count"><b data-count="27" data-dec="0">27</b><span>DAYS TO ENTRIES</span></div>
+</div>
+
+<!-- 5 LAST WEEK -->
+<div class="line5" style="top:808px;height:108px;--a:var(--green);animation-delay:.52s">
+  <div class="acc"></div><div class="ico"><svg><use href="#i-up"/></svg></div>
+  <div class="txt"><div class="k">LAST WEEK</div><div class="m">CARDIO +1</div><div class="c">from roadwork Mon, Fri</div></div>
+  <span class="more" style="margin-left:auto">Week review &#8250;</span>
+</div>
+
+<!-- alert (only when a niggle exists) + the one button -->
+<div class="alert"><svg style="width:52px;height:52px;flex:none"><use href="#i-hand"/></svg><div><b>RIGHT HAND SORE</b><span>answer on Monday: rest it or push on</span></div></div>
+<div class="open"><div><b>OPEN TRAINING</b><span>the load, the mornings, the pads</span></div><i>&#8250;</i></div>
+
+<!-- THE HOVER CARD -->
+<div id="tip"><div class="clip"><img class="bg" alt=""><div class="mv"></div><span class="live"><i></i>LIVE</span><span class="demo">HOVER</span></div>
+<div class="tx"><div class="tk"></div><div class="tn"></div><div class="te"></div></div><div class="ar"></div></div>
+
+
+<script>
+
+// count-ups: the final number is in the HTML; this only runs it up from below
+document.querySelectorAll('[data-count]').forEach(function(el){
+  var to=parseFloat(el.dataset.count),dec=+el.dataset.dec,from=dec?to-1.5:Math.max(0,to-30),n=0,steps=24;
+  el.textContent=from.toFixed(dec);
+  var iv=setInterval(function(){n++;var v=from+(to-from)*(1-Math.pow(1-n/steps,3));el.textContent=v.toFixed(dec);if(n>=steps){clearInterval(iv);el.textContent=to.toFixed(dec);}},40);
+});
+// ONE shared hover card (MoveTip for every session and move): 250 ms hover intent, never follows the cursor, hides on leave
+var tip=document.getElementById('tip'),timer=null,cur=null;
+function fill(el){
+  var p=el.dataset.pic,mv=tip.querySelector('.mv'),bg=tip.querySelector('.bg');
+  if(p.indexOf('icon:')===0){mv.innerHTML='<svg viewBox="0 0 48 48"><use href="#'+p.slice(5)+'"/></svg>';bg.style.display='none';}
+  else{mv.innerHTML='<img src="'+p+'">';bg.src=p;bg.style.display='block';}
+  tip.querySelector('.tk').textContent=el.dataset.tk;tip.querySelector('.tn').textContent=el.dataset.tn;tip.querySelector('.te').textContent=el.dataset.te;
+}
+function show(el,demo){
+  fill(el);var r=el.getBoundingClientRect(),W=360,H=232,side=el.dataset.side||'up',x,y,ar=tip.querySelector('.ar');
+  tip.classList.remove('up','dn','rt');
+  if(side==='right'){x=r.right+16;y=r.bottom-H+6;tip.classList.add('rt');}
+  else{x=r.left+r.width/2-34;y=r.top-H-12;tip.classList.add('up');if(y<84){y=r.bottom+16;tip.classList.replace('up','dn');}}
+  x=Math.max(8,Math.min(1912-W,x));y=Math.max(84,Math.min(1072-H,y));
+  tip.style.left=x+'px';tip.style.top=y+'px';
+  if(side==='right'){ar.style.left='';ar.style.top=(r.top+r.height/2-y-9)+'px';}else{ar.style.top='';ar.style.left=(r.left+r.width/2-x-9)+'px';}
+  tip.classList.toggle('isdemo',!!demo);tip.classList.add('on');el.classList.add('hov');cur=el;
+}
+function hide(){tip.classList.remove('on');if(cur)cur.classList.remove('hov');cur=null;}
+document.querySelectorAll('[data-pic]').forEach(function(el){
+  el.addEventListener('mouseenter',function(){clearTimeout(timer);timer=setTimeout(function(){hide();show(el);},250);});
+  el.addEventListener('mouseleave',function(){clearTimeout(timer);hide();});
+});
+setTimeout(function(){document.body.classList.add('done');},1600);
+// the still: the card shown open on the pad card (the move plays)
+setTimeout(function(){show(document.getElementById('demoHover'),true);},1650);
+
+</script>
+</body></html>

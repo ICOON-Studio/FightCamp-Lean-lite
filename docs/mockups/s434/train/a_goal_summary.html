@@ -1,0 +1,199 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Fighter page, Training tab summary, goal first (a_goal)</title><script>if(/Headless/i.test(navigator.userAgent))document.documentElement.classList.add("still")</script><style>
+@font-face{font-family:Marker;src:url(../../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../../assets/fonts/BebasNeue-Regular.ttf)}
+:root{--ink:#f1e8da;--soft:#c9b9a2;--dim:#8f8270;--gold:#ffd24a;--gold2:#f0b32a;--red:#e2483d;--blue:#4d8ef0;--elec:#3cc4ff;
+ --green:#3fc07a;--amber:#f28d27;--purple:#ad80ff;--track:rgba(255,255,255,.10);--navy:#1d2741}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:#120e0c;color:var(--ink);font:500 22px/1.2 Barlow,"Segoe UI",sans-serif}
+.ico{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.abs{position:absolute}
+.wall{position:absolute;left:0;right:0;top:78px;bottom:0;background:
+ radial-gradient(ellipse 900px 560px at 38% 30%,rgba(255,190,110,.12),transparent 72%),
+ radial-gradient(ellipse 700px 500px at 96% 20%,rgba(60,196,255,.07),transparent 70%),
+ radial-gradient(ellipse 700px 420px at 4% 80%,rgba(226,72,61,.07),transparent 70%),
+ linear-gradient(#1b1512,#130f0d 62%,#0e0b09)}
+.wall::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.018) 0 2px,transparent 2px 22px)}
+/* top bar: the gym screen's (Shell.gd) */
+.top{position:absolute;left:0;top:0;width:1920px;height:78px;z-index:5;border-style:solid;border-width:0 0 8px 0;border-image:url(../../../../assets/ui/wood/bar.png) 0 0 8 0 fill / 0 0 8px 0 / 0 stretch;display:flex;align-items:center;gap:14px;padding:8px 18px 0 18px;color:#efe6d8}
+.tab9{border:9px solid transparent;border-image:url(../../../../assets/ui/wood/tab.png) 9 fill / 9px / 0 stretch}
+.plank9{border:9px solid transparent;border-image:url(../../../../assets/ui/wood/plank.png) 9 fill / 9px / 0 stretch}
+.tnav{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font:500 20px/1 Barlow;color:#efe6d8;flex:none}
+.tnav.off{opacity:.42}.tmenu{width:auto;height:37px;padding:0 3px 2px 3px;font:500 18px/1 Barlow}
+.tgym{font:400 32px/1 Marker;color:#6ea2f2;white-space:nowrap;padding-top:2px}
+.tdate b{display:block;font:500 19px/23px Barlow;color:#efe6d8;white-space:nowrap}.tdate i{display:block;font:400 18px/20px Barlow;font-style:normal;color:#b8a88f}
+.trail{flex:1;display:flex;justify-content:center;gap:6px}
+.rail{min-width:128px;height:48px;padding:0 5px 2px 5px;display:flex;align-items:center;justify-content:center;font:600 19px/1 Barlow;color:#efe6d8;white-space:nowrap}
+.tgrow{flex:1}
+.tcash{text-align:right}.tcash b{display:block;font:600 24px/28px Barlow;color:#e8c15a}.tcash i{display:block;font:400 18px/20px Barlow;font-style:normal;color:#b8a88f;white-space:nowrap}
+.tgo{width:280px;height:54px;padding:0 7px 2px 7px;display:flex;flex-direction:column;justify-content:center;flex:none}
+.tgo b{display:block;font:600 19px/22px Barlow;color:#efe6d8;white-space:nowrap}.tgo i{display:block;font:400 18px/20px Barlow;font-style:normal;color:#efe6d8;white-space:nowrap}
+/* sport-sim panels: chamfered, gradient, a lit top edge */
+.pan{position:absolute;clip-path:polygon(22px 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%,0 22px);
+ background:linear-gradient(165deg,rgba(44,58,92,.62),rgba(22,22,30,.88) 55%,rgba(16,13,12,.92));
+ box-shadow:inset 0 2px 0 rgba(255,210,74,.55),inset 0 0 0 1px rgba(255,255,255,.07)}
+.pan.blue{box-shadow:inset 0 2px 0 rgba(60,196,255,.75),inset 0 0 0 1px rgba(255,255,255,.07)}
+.pan.red{background:linear-gradient(165deg,rgba(110,30,26,.75),rgba(30,16,16,.92) 60%);box-shadow:inset 0 2px 0 rgba(255,120,100,.8),inset 0 0 0 1px rgba(255,255,255,.07)}
+.ptl{display:flex;align-items:center;gap:10px;font:400 30px/1 Bebas;letter-spacing:.05em;color:var(--gold);white-space:nowrap}
+.ptl::before{content:"";width:8px;height:24px;background:linear-gradient(var(--gold),var(--amber));transform:skewX(-18deg)}
+.ptl small{font:500 20px/1 Barlow;letter-spacing:0;color:var(--soft)}
+.hv{display:inline-block;font:600 18px/1 Barlow;color:#0e1420;background:#8fb7e8;border-radius:4px;padding:2px 6px;margin-right:6px;vertical-align:1px}
+.note{font:500 18px/1.25 Barlow;color:#a9b6cc}
+.chip{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:17px;background:rgba(255,255,255,.08);font:600 19px/1 Barlow;white-space:nowrap;color:var(--ink)}
+.chip.red{background:rgba(226,72,61,.22);color:#ff9b8f;box-shadow:inset 0 0 0 1px rgba(226,72,61,.6)}
+.chip.gold{background:rgba(255,210,74,.16);color:var(--gold);box-shadow:inset 0 0 0 1px rgba(255,210,74,.55)}
+.chip.green{background:rgba(63,192,122,.18);color:#7fe0a8;box-shadow:inset 0 0 0 1px rgba(63,192,122,.55)}
+.chip.amber{background:rgba(242,141,39,.18);color:#ffb26a;box-shadow:inset 0 0 0 1px rgba(242,141,39,.55)}
+.chip.blue{background:rgba(77,142,240,.18);color:#9cc2ff;box-shadow:inset 0 0 0 1px rgba(77,142,240,.55)}
+.go{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:56px;padding:0 28px;border-radius:11px;background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06;font-weight:700;font-size:24px;box-shadow:0 3px 0 #9a6c10,0 0 30px 3px rgba(255,205,90,.38);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 20px;border-radius:11px;background:rgba(255,255,255,.085);color:var(--ink);font-weight:600;font-size:21px;white-space:nowrap;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.btn .ico{color:var(--gold)}
+.name{font:400 46px/1 Marker;color:#fff;white-space:nowrap;text-shadow:0 3px 12px rgba(0,0,0,.7)}
+.plate{display:inline-flex;align-items:center;height:32px;padding:0 10px;border-radius:7px;background:#1d2741;color:#fffbf3;font:700 20px/1 Barlow;white-space:nowrap}
+.tag{display:inline-flex;align-items:center;height:30px;padding:0 10px;border-left:4px solid #275696;border-radius:3px;background:#1a2033;color:#8eb8f2;font:600 19px/1 Barlow;text-transform:uppercase;white-space:nowrap}
+.tag.gold{border-color:#c79a1e;background:#2a2312;color:var(--gold)}
+.tag.red{border-color:#a8261c;background:#2e1514;color:#ff8d80}
+.pins{display:flex;gap:14px}
+.pin{display:flex;flex-direction:column;align-items:center;gap:3px;font:600 18px/1 Barlow;color:var(--soft)}
+.pin img{width:52px;height:52px;border-radius:50%;border:3px solid rgba(255,255,255,.55);object-fit:cover;background:#1c2640}
+.pin.on img{border-color:var(--gold);box-shadow:0 0 18px 3px rgba(255,210,74,.55)}.pin.on{color:#fff}
+/* the fighter hero */
+.hero{position:absolute;overflow:hidden;clip-path:polygon(0 0,calc(100% - 60px) 0,100% 60px,100% 100%,60px 100%,0 calc(100% - 60px));
+ background:radial-gradient(ellipse 70% 55% at 50% 40%,rgba(60,196,255,.30),transparent 70%),
+ repeating-linear-gradient(120deg,rgba(255,255,255,.035) 0 3px,transparent 3px 26px),
+ linear-gradient(170deg,#25365a,#141826 60%,#0f0c0b)}
+.hero::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 2px rgba(60,196,255,.35)}
+.hero img.cut{position:absolute;filter:drop-shadow(0 0 24px rgba(60,196,255,.35)) drop-shadow(0 12px 18px rgba(0,0,0,.6))}
+.hero .shade{position:absolute;left:0;right:0;bottom:0;height:46%;background:linear-gradient(transparent,rgba(10,9,12,.94) 62%)}
+/* animation */
+@keyframes deal{from{opacity:0;transform:translateY(34px) rotate(-2.5deg) scale(.96)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}}
+@keyframes slideL{from{opacity:0;transform:translateX(-60px)}}
+@keyframes grow{from{width:0}}
+@keyframes arcIn{from{stroke-dasharray:0 100}}
+@keyframes sweep{0%{background-position:-120% 0}100%{background-position:220% 0}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 2px var(--gold),0 0 14px 2px rgba(255,210,74,.35)}50%{box-shadow:0 0 0 3px var(--gold),0 0 30px 8px rgba(255,210,74,.65)}}
+@keyframes segPulse{0%,100%{opacity:1}50%{opacity:.55}}
+@keyframes push{from{transform:scale(1.02)}to{transform:scale(1.14)}}
+@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -4px}}
+@keyframes glowIn{from{opacity:0;filter:blur(6px)}}
+.deal{animation:deal .55s cubic-bezier(.2,.9,.3,1.2) both}
+.fade{animation:fadeUp .6s ease-out both}
+.headline{font:400 70px/1 Bebas;letter-spacing:.03em;color:#fff;background:linear-gradient(100deg,#fff 0 40%,#ffe9a8 48%,#fff 56%) no-repeat;background-size:100% 100%;-webkit-background-clip:text;background-clip:text;position:relative;text-shadow:0 0 30px rgba(255,210,74,.25)}
+.sweep{position:relative;display:inline-block;overflow:hidden}
+.sweep::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 35%,rgba(255,255,255,.75) 50%,transparent 65%) no-repeat;background-size:60% 100%;mix-blend-mode:overlay;animation:sweep 1.5s .2s ease-out both;opacity:.9}
+/* the hover card (MoveTip's look, for every session and move) */
+.tip{position:absolute;z-index:40;width:360px;padding:10px;border-radius:14px;background:linear-gradient(170deg,#283a5e,#151b2a 70%);
+ box-shadow:0 0 0 2px rgba(60,196,255,.65),0 18px 40px rgba(0,0,0,.65),0 0 40px rgba(60,196,255,.25);opacity:0;transform:translateY(6px) scale(.98);transition:opacity .18s ease-out,transform .18s ease-out;pointer-events:none}
+.tip.show{opacity:1;transform:none}
+.tip .clip{position:relative;height:130px;border-radius:9px;overflow:hidden;background:#151313}
+.tip .clip img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 38%;animation:push 5s ease-in-out infinite alternate}
+.tip .clip .bobw{position:absolute;inset:0;animation:bob .62s ease-in-out infinite}
+.tip .clip .live{position:absolute;left:8px;top:8px;display:flex;align-items:center;gap:6px;height:26px;padding:0 9px;border-radius:13px;background:rgba(0,0,0,.6);font:700 18px/1 Barlow;color:#fff}
+.tip .clip .live i{width:9px;height:9px;border-radius:50%;background:#ff4b3a;box-shadow:0 0 8px #ff4b3a}
+.tip h4{margin-top:9px;font:700 23px/1.1 Barlow;color:#fff;display:flex;justify-content:space-between;gap:8px}
+.tip h4 span{font:600 19px/1.2 Barlow;color:var(--gold)}
+.tip p{margin-top:4px;font:500 19px/1.25 Barlow;color:#d6e2f4}
+.tip .tipnote{position:absolute;top:-34px;left:0;font:600 19px/1 Barlow;color:#8fb7e8;white-space:nowrap}
+.tip .arrow{position:absolute;left:-12px;top:60px;width:0;height:0;border:12px solid transparent;border-left:0;border-right-color:rgba(60,196,255,.8)}
+.tip.left .arrow{left:auto;right:-12px;border-right:0;border-left:12px solid rgba(60,196,255,.8)}
+[data-tip]{cursor:pointer}
+.still *,.still *::before,.still *::after{animation-duration:0s !important;animation-delay:0s !important;transition:none !important}
+.tipfoot{margin-top:8px;padding-top:7px;border-top:1px solid rgba(255,255,255,.12);font:600 18px/1 Barlow;color:#8fb7e8;white-space:nowrap}
+
+.tabs{position:absolute;left:28px;top:92px;display:flex;gap:6px}
+.tab{height:48px;padding:0 16px;border-radius:8px;display:flex;align-items:center;font-weight:700;color:#b8c3de;background:#1d2741;white-space:nowrap}
+.tab.on{color:#fff;background:#275696;box-shadow:0 0 26px 2px rgba(255,205,90,.42)}
+.strip{position:absolute;left:1176px;top:92px;width:716px;display:flex;align-items:center;gap:12px;height:48px;padding:0 14px 0 10px;border-radius:8px;background:#252d45;color:#fff;font:700 21px/1 Barlow;white-space:nowrap}
+.strip small{font:500 20px/1 Barlow;color:#b8c3de}
+.lab{font:600 19px/1 Barlow;letter-spacing:.06em;color:var(--soft);display:flex;align-items:center;gap:8px}
+.lab .ico{color:var(--gold)}
+.bigw{font:400 46px/1 Bebas;letter-spacing:.03em;color:#fff;white-space:nowrap}
+.line{font:500 21px/1.2 Barlow;color:#e6dccb;white-space:nowrap}
+.mcard{position:absolute;border-radius:12px;background:linear-gradient(170deg,rgba(48,60,92,.7),rgba(22,20,26,.95));box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);padding:12px}
+.pips{display:flex;gap:5px}
+.pips i{width:34px;height:12px;border-radius:3px;background:rgba(255,255,255,.14)}
+.pips i.d{background:#9cc2ff}.pips i.h{background:linear-gradient(90deg,#3cc4ff 55%,rgba(255,255,255,.14) 55%)}
+.lad{display:flex;gap:5px;margin-top:5px}
+.lad span{width:34px;text-align:center;font:600 18px/1 Barlow;color:var(--dim)}
+</style></head><body><div class="wall"></div><div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span>
+<span class="tdate"><b>Mon 16 Feb 2026</b><i>Week 7</i></span><span class="trail"><span class="rail plank9">Gym</span><span class="rail plank9">Mail (2 new)</span></span>
+<span class="tgrow"></span><span class="tcash"><b>$12,940</b><i>this week -$210</i></span><span class="tgo plank9"><b>CONTINUE</b><i>to Mon 23 Feb</i></span><span class="tnav tmenu tab9">Menu</span></div><div class="tabs"><span class="tab">Profile</span><span class="tab">Condition</span><span class="tab on">Training</span><span class="tab">Playbook</span><span class="tab">Fight plan</span><span class="tab">History</span><span class="tab">Character</span><span class="tab">Crowd</span></div><div class="strip fade"><span class="tag">No bout booked</span>Target: <span style="color:#8eb8f2">the nationals</span><small>next offers Mon 23 Feb</small></div><div class="abs fade" style="left:28px;top:158px"><div class="name" style="font-size:52px">SAMIRA KHAN</div>
+<div style="margin-top:8px;display:flex;gap:10px;align-items:center;white-space:nowrap"><span class="plate">Welterweight</span><span style="font:500 22px/1 Barlow;color:var(--soft)">18, out-boxer · 3-1 amateur</span></div></div><div class="abs fade" style="left:600px;top:160px;animation-delay:.15s"><div class="pins"><span class="pin"><img src="../../s431/final/face_lucy.png" alt="">Lucy</span><span class="pin on"><img src="../../s431/final/face_samira.png" alt="">Samira</span><span class="pin"><img src="../../s431/final/face_tess.png" alt="">Tess</span><span class="pin"><img src="../../s431/final/face_ana.png" alt="">Ana</span></div></div><div class="hero" style="left:20px;top:262px;width:540px;height:800px">
+<img class="cut" src="a_samira_cut.png" alt="" style="left:-50px;top:-40px;width:640px;animation:slideL .8s .1s ease-out both">
+<div class="shade" style="height:30%"></div></div><div class="pan" style="left:580px;top:262px;width:600px;height:500px">
+<div class="abs" style="left:26px;top:20px"><div class="ptl">YOUR GOAL <small>what the mornings add up to</small></div></div>
+<div class="abs" style="left:90px;top:62px;width:420px;height:340px"><svg class="abs" style="left:0;top:0" width="420" height="340" viewBox="0 0 420 340"><defs><filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="210" cy="175" r="134" fill="none" stroke="rgba(255,255,255,.09)" stroke-width="34" pathLength="100" style="stroke-dasharray:75 100" transform="rotate(135 210 175)"/><line x1="100.4" y1="284.6" x2="94.7" y2="290.3" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="84.6" y1="266.1" x2="82.2" y2="267.9" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="71.9" y1="245.4" x2="69.2" y2="246.7" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="62.6" y1="222.9" x2="59.7" y2="223.8" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="56.9" y1="199.2" x2="53.9" y2="199.7" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="55.0" y1="175.0" x2="52.0" y2="175.0" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="56.9" y1="150.8" x2="53.9" y2="150.3" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="62.6" y1="127.1" x2="59.7" y2="126.2" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="71.9" y1="104.6" x2="69.2" y2="103.3" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="84.6" y1="83.9" x2="82.2" y2="82.1" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="100.4" y1="65.4" x2="94.7" y2="59.7" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="118.9" y1="49.6" x2="117.1" y2="47.2" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="139.6" y1="36.9" x2="138.3" y2="34.2" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="162.1" y1="27.6" x2="161.2" y2="24.7" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="185.8" y1="21.9" x2="185.3" y2="18.9" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="210.0" y1="20.0" x2="210.0" y2="17.0" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="234.2" y1="21.9" x2="234.7" y2="18.9" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="257.9" y1="27.6" x2="258.8" y2="24.7" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="280.4" y1="36.9" x2="281.7" y2="34.2" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="301.1" y1="49.6" x2="302.9" y2="47.2" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="319.6" y1="65.4" x2="325.3" y2="59.7" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="335.4" y1="83.9" x2="337.8" y2="82.1" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="348.1" y1="104.6" x2="350.8" y2="103.3" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="357.4" y1="127.1" x2="360.3" y2="126.2" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="363.1" y1="150.8" x2="366.1" y2="150.3" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="365.0" y1="175.0" x2="368.0" y2="175.0" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="363.1" y1="199.2" x2="366.1" y2="199.7" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="357.4" y1="222.9" x2="360.3" y2="223.8" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="348.1" y1="245.4" x2="350.8" y2="246.7" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="335.4" y1="266.1" x2="337.8" y2="267.9" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="319.6" y1="284.6" x2="325.3" y2="290.3" stroke="rgba(255,255,255,.25)" stroke-width="2"/><circle class="" cx="210" cy="175" r="134" fill="none" stroke="#4d8ef0" stroke-width="34" pathLength="100" transform="rotate(135 210 175)" style="stroke-dasharray:35.00 100;stroke-dashoffset:-0.00;animation:arcIn .9s 0.35s cubic-bezier(.3,.8,.3,1) both;"/><circle class="" cx="210" cy="175" r="134" fill="none" stroke="rgba(242,141,39,.75)" stroke-width="34" pathLength="100" transform="rotate(135 210 175)" style="stroke-dasharray:12.50 100;stroke-dashoffset:-35.00;animation:arcIn .9s 0.70s cubic-bezier(.3,.8,.3,1) both;"/><line x1="288.5" y1="96.5" x2="321.0" y2="64.0" stroke="#ffd24a" stroke-width="5" stroke-linecap="round" filter="url(#glow)"/><line x1="131.5" y1="253.5" x2="99.0" y2="286.0" stroke="rgba(255,255,255,.5)" stroke-width="5" stroke-linecap="round" filter="url(#glow)"/><line x1="288.5" y1="253.5" x2="321.0" y2="286.0" stroke="rgba(255,255,255,.5)" stroke-width="5" stroke-linecap="round" filter="url(#glow)"/></svg><div class="abs" style="left:271px;top:30px;width:140px;text-align:center;font:700 19px/1.1 Barlow;color:#ffd24a;white-space:nowrap">LINE 63</div><div class="abs" style="left:9px;top:292px;width:140px;text-align:center;font:700 19px/1.1 Barlow;color:rgba(255,255,255,.5);white-space:nowrap">61</div><div class="abs" style="left:271px;top:292px;width:140px;text-align:center;font:700 19px/1.1 Barlow;color:rgba(255,255,255,.5);white-space:nowrap">64</div><div class="abs" style="left:0;top:118px;width:420px;text-align:center">
+<div style="font:600 21px/1 Barlow;color:var(--soft)">STAMINA</div>
+<div style="display:flex;justify-content:center;align-items:baseline;gap:8px;margin-top:4px"><span style="font:400 104px/1 Bebas;color:#fff" data-count="62" data-delay="300">62</span>
+<span style="font:400 52px/1 Bebas;color:var(--soft)">&#8594;</span><span style="font:400 104px/1 Bebas;color:var(--gold);text-shadow:0 0 22px rgba(255,210,74,.5)">63</span></div>
+<div style="font:600 22px/1.1 Barlow;color:var(--soft)">by Fri 13 Mar</div></div></div>
+<div class="abs" style="left:0;top:396px;width:600px;display:flex;justify-content:center"><span class="chip amber" style="height:42px;font-size:24px;box-shadow:inset 0 0 0 2px rgba(242,141,39,.8),0 0 22px rgba(242,141,39,.45)">CLOSE: just short at this pace</span></div>
+<div class="abs" style="left:30px;top:450px;width:540px;text-align:center;font:600 21px/1.2 Barlow;color:#e6dccb">Coach: <span style="color:var(--gold)">intervals on one more morning</span> makes it</div></div><div class="pan blue fade" style="left:1200px;top:160px;width:692px;height:138px;animation-delay:.2s">
+<div class="abs" style="left:26px;top:20px"><div class="lab"><svg class="ico " width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>THIS WEEK</div>
+<div style="display:flex;align-items:baseline;gap:14px;margin-top:10px"><span class="bigw">BASE WEEK</span><span style="font:700 25px/1 Barlow;color:#fff;white-space:nowrap">building the engine</span></div>
+<div class="line" style="margin-top:8px">Normal · 82% of a usual week · Coach's week</div></div></div><div class="pan fade" style="left:1200px;top:310px;width:692px;height:182px;animation-delay:.3s">
+<div class="abs" style="left:26px;top:20px"><div class="lab"><svg class="ico " width="20" height="20" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H4a3 3 0 0 0 4 4M16 6h4a3 3 0 0 1-4 4M12 13v4M8 21h8M9 17h6"/></svg>NEXT · NO BOUT BOOKED</div>
+<div style="display:flex;align-items:baseline;gap:14px;margin-top:10px"><span class="bigw">TARGET: THE NATIONALS</span></div>
+<div class="line" style="margin-top:8px">entries close Sun 15 Mar · 2 bouts to go</div>
+<div style="margin-top:12px;display:flex;gap:10px"><span class="chip blue"><svg class="ico " width="18" height="18" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Next offers Mon 23 Feb</span><span class="chip green"><svg class="ico " width="18" height="18" viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 10v4M5 10v4M8 10v4M11 10v4"/></svg>Tiredness 41, fresh by Thu</span></div></div></div><div class="pan fade" style="left:1200px;top:504px;width:692px;height:104px;animation-delay:.4s">
+<div class="abs" style="left:26px;top:20px"><div class="lab"><svg class="ico " width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>LAST WEEK</div>
+<div style="display:flex;align-items:baseline;gap:14px;margin-top:10px;white-space:nowrap"><span class="bigw" style="color:#7fe0a8;font-size:42px">STAMINA +1</span><span class="line">roadwork Mon, Fri</span></div></div></div><div class="pan red fade" style="left:1200px;top:620px;width:692px;height:62px;animation-delay:.5s">
+<div class="abs" style="left:26px;top:16px;display:flex;align-items:center;gap:12px;white-space:nowrap;font:700 23px/1 Barlow;color:#fff"><span style="color:#ff8d80"><svg class="ico " width="26" height="26" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg></span>Right hand sore: answer on Monday</div></div><div class="pan blue" style="left:580px;top:776px;width:1312px;height:186px">
+<div class="abs" style="left:26px;top:18px"><div class="ptl">ON THE PADS <small>moves and combinations</small></div></div></div><div class="mcard deal" style="left:604px;top:834px;width:380px;height:116px;animation-delay:.6s" data-tip="Check hook" data-sub="Learning 24" data-line="Hook while stepping off to the side" data-pic="../../../../assets/ui/moves/lead_hook.png" data-kind="the move, on a loop" data-demo>
+<div style="display:flex;gap:12px"><img src="../../../../assets/ui/moves/lead_hook.png" alt="" style="width:92px;height:92px;border-radius:8px;object-fit:cover">
+<div><div style="font:700 25px/1 Barlow;color:#fff">Check hook</div><div class="pips" style="margin-top:9px"><i class="d"></i><i class="h"></i><i></i><i></i><i></i></div>
+<div style="margin-top:9px;font:600 20px/1 Barlow;color:#9cc2ff;white-space:nowrap">Learning &#8594; Usable Mon 2 Mar</div></div></div></div><div class="abs" style="left:1390px;top:820px;font:600 20px/1 Barlow;color:var(--soft)">+ 2 more cards</div>
+<div class="mcard deal" style="left:1390px;top:852px;width:240px;height:96px;padding:10px;animation-delay:.7s" data-tip="Habit fix: the right hand" data-sub="Wed pads" data-line="The right hand drops after the jab. 3 pad places half fix it" data-pic="../../../../assets/ui/moves/jab.png" data-kind="the drill, on a loop">
+<div style="display:flex;gap:10px;align-items:center"><img src="../../../../assets/ui/moves/jab.png" alt="" style="width:72px;height:72px;border-radius:7px;object-fit:cover"><div><div style="font:700 21px/1.1 Barlow;color:#fff">Habit fix</div><div style="font:600 18px/1.2 Barlow;color:#9cc2ff">right hand drops</div></div></div></div>
+<div class="mcard deal" style="left:1640px;top:852px;width:236px;height:96px;padding:10px;animation-delay:.8s" data-tip="1-2-3" data-sub="Usable 34" data-line="Jab, cross, lead hook. Wed pads: Sharp 60 by about 30 Mar" data-pic="../../../../assets/ui/moves/1-2-3.png" data-kind="the combination, on a loop">
+<div style="display:flex;gap:10px;align-items:center"><img src="../../../../assets/ui/moves/1-2-3.png" alt="" style="width:72px;height:72px;border-radius:7px;object-fit:cover"><div><div style="font:700 21px/1.1 Barlow;color:#fff">1-2-3</div><div style="font:600 18px/1.2 Barlow;color:#9cc2ff">Usable 34</div></div></div></div><div class="abs fade" style="left:1376px;top:988px;animation-delay:.8s"><span class="btn">Coach runs Samira</span></div>
+<div class="abs" style="right:28px;top:980px;animation:fadeUp .6s 1s both"><span class="go" style="height:68px;font-size:30px;padding:0 44px">Open training &#8250;</span></div><div class="tip" id="tip"><div class="arrow"></div>
+<div class="clip"><div class="bobw"><img src="" alt=""></div><span class="live"><i></i><b>plays on a loop</b></span></div>
+<h4><span class="t" style="color:#fff;font:700 23px/1.1 Barlow"></span><span class="s"></span></h4><p></p><div class="tipfoot">HOVER CARD · opens after a quarter second</div></div><script>
+// ONE shared hover card (MoveTip): opens after 250 ms of hover intent beside the item, never over it, never follows the mouse.
+(function(){
+  const tip=document.getElementById('tip'); let timer=null, cur=null;
+  function place(el){
+    const r=el.getBoundingClientRect(), w=360, h=tip.offsetHeight||270, gap=14;
+    let left=r.right+gap, side='right';
+    if(left+w>1910){left=r.left-gap-w; side='left';}
+    let top=Math.max(84,Math.min(1080-h-8,r.top+r.height/2-h/2));
+    tip.style.left=left+'px'; tip.style.top=top+'px';
+    tip.classList.toggle('left',side==='left');
+    tip.querySelector('.arrow').style.top=Math.max(20,Math.min(h-40,r.top+r.height/2-top-12))+'px';
+  }
+  function fill(el){
+    tip.querySelector('img').src=el.dataset.pic;
+    tip.querySelector('.t').textContent=el.dataset.tip;
+    tip.querySelector('.s').textContent=el.dataset.sub||'';
+    tip.querySelector('p').textContent=el.dataset.line||'';
+    tip.querySelector('.live b').textContent=el.dataset.kind||'plays on a loop';
+  }
+  function show(el){ fill(el); tip.classList.add('show'); place(el); cur=el; }
+  function hide(){ tip.classList.remove('show'); cur=null; }
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ clearTimeout(timer); document.body.classList.add('live');
+      
+      if(cur){ hide(); }
+      timer=setTimeout(()=>show(el),250); });
+    el.addEventListener('mouseleave',()=>{ clearTimeout(timer); hide(); });
+  });
+  // the still: the card drawn open on one item
+  const demo=document.querySelector('[data-demo]');
+  if(demo){ fill(demo); tip.classList.add('show'); requestAnimationFrame(()=>place(demo)); }
+})();
+// numbers count up, bars and arcs grow (the from-only keyframes end on the drawn value)
+if(!document.documentElement.classList.contains('still'))document.querySelectorAll('[data-count]').forEach(el=>{
+  const to=parseFloat(el.dataset.count), dec=parseInt(el.dataset.dec||'0'), from=parseFloat(el.dataset.from||'0'), dur=1100, delay=parseInt(el.dataset.delay||'250');
+  const t0=performance.now();
+  el.textContent=from.toFixed(dec);
+  function step(t){ const k=Math.min(1,Math.max(0,(t-t0-delay)/dur)); const e=1-Math.pow(1-k,3);
+    el.textContent=(from+(to-from)*e).toFixed(dec); if(k<1) requestAnimationFrame(step); }
+  requestAnimationFrame(step);
+});
+</script></body></html>

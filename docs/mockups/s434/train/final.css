@@ -1,0 +1,105 @@
+/* S434 TRAINSCENE1 final: shared look for final_scene.html and final_summary.html (the matched dark gym look, sport-sim panels) */
+@font-face{font-family:Marker;src:url(../../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../../assets/fonts/BebasNeue-Regular.ttf)}
+:root{--ink:#f3ecdf;--soft:#c3b6a2;--gold:#ffd24a;--gold2:#f0a81e;--blue:#3fa9ff;--blue2:#2a6fd6;--red:#ff5147;--green:#3fd27f;--amber:#ff9d2e;--grey:#8d929c;
+ --pan:linear-gradient(160deg,rgba(40,50,80,.94),rgba(18,22,36,.95) 55%,rgba(12,15,25,.97))}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:#110d0c;color:var(--ink);font:500 20px/1.2 Barlow,"Segoe UI",sans-serif}
+.wall{position:absolute;left:0;right:0;top:78px;bottom:0;background:
+ repeating-linear-gradient(115deg,rgba(255,255,255,.018) 0 2px,transparent 2px 22px),
+ radial-gradient(ellipse 900px 520px at 46% 30%,rgba(63,169,255,.10),transparent 70%),
+ radial-gradient(ellipse 700px 500px at 12% 30%,rgba(255,190,110,.12),transparent 72%),
+ linear-gradient(#1a1412,#130f0d 62%,#0d0a09)}
+/* the game's top bar (wood) */
+.top{position:absolute;left:0;top:0;width:1920px;height:78px;z-index:5;border-style:solid;border-width:0 0 8px 0;border-image:url(../../../../assets/ui/wood/bar.png) 0 0 8 0 fill / 0 0 8px 0 / 0 stretch;display:flex;align-items:center;gap:14px;padding:8px 18px 0 18px;color:#efe6d8}
+.tab9{border:9px solid transparent;border-image:url(../../../../assets/ui/wood/tab.png) 9 fill / 9px / 0 stretch}
+.plank9{border:9px solid transparent;border-image:url(../../../../assets/ui/wood/plank.png) 9 fill / 9px / 0 stretch}
+.tnav{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font:500 20px/1 Barlow;color:#efe6d8;flex:none}.tnav.off{opacity:.42}
+.tmenu{width:auto;height:40px;padding:0 4px 2px 4px}
+.tgym{font:400 32px/1 Marker;color:#6ea2f2;white-space:nowrap;padding-top:2px}
+.tdate{min-width:176px}.tdate b{display:block;font:500 20px/23px Barlow;color:#efe6d8;white-space:nowrap}.tdate i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#b8a88f}
+.trail{flex:1;display:flex;justify-content:center;gap:6px}
+.rail{min-width:128px;height:48px;padding:0 8px 2px 8px;display:flex;align-items:center;justify-content:center;color:#efe6d8;white-space:nowrap}
+.tgrow{flex:1}
+.tcash{text-align:right}.tcash b{display:block;font:600 24px/27px Barlow;color:#e8c15a}.tcash i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#b8a88f;white-space:nowrap}
+.tgo{width:330px;height:60px;padding:0 7px 2px 7px;display:flex;flex-direction:column;justify-content:center;flex:none}
+.tgo b{display:block;font:600 20px/23px Barlow;color:#efe6d8;white-space:nowrap}.tgo i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#efe6d8;white-space:nowrap}
+
+/* sport-sim panels: chamfered, gradient, a coloured top edge, dealt in */
+.pan{position:absolute;background:var(--pan);clip-path:polygon(18px 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%,0 18px);padding:10px 16px;animation:panin .5s ease-out both}
+.pan::before{content:"";position:absolute;left:0;top:0;right:0;height:3px;background:linear-gradient(90deg,var(--acc,var(--blue)),transparent 70%)}
+.pan::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 20% 0%,rgba(255,255,255,.06),transparent 70%);pointer-events:none}
+@keyframes panin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.hd{display:flex;align-items:baseline;gap:12px;font:400 30px/1 Bebas;letter-spacing:.04em;color:var(--gold);white-space:nowrap}
+.hd span{font:500 19px/1 Barlow;letter-spacing:0;color:var(--soft)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:6px;background:rgba(255,255,255,.08);font:600 19px/1 Barlow;white-space:nowrap}
+.go{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 24px;clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);background:linear-gradient(#ffe37a,#f0b32a);color:#2a1b06;font:400 30px/1 Bebas;letter-spacing:.04em;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 20px;clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);background:linear-gradient(rgba(255,255,255,.14),rgba(255,255,255,.06));color:var(--ink);font:600 20px/1 Barlow;white-space:nowrap}
+.sweep{position:relative;overflow:hidden}
+.sweep::after{content:"";position:absolute;top:0;bottom:0;width:120px;left:-160px;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);animation:sweep 1.3s .35s ease-in-out forwards}
+@keyframes sweep{to{left:110%}}
+svg.ic{width:24px;height:24px;flex:none}
+.band{display:inline-flex;align-items:center;height:28px;padding:0 10px;border-radius:5px;font:400 22px/1 Bebas;letter-spacing:.06em;white-space:nowrap}
+.band.met{background:var(--green);color:#06210f;box-shadow:0 0 16px rgba(63,210,127,.6)}
+.band.close{background:var(--amber);color:#2a1300}
+.band.info{background:#3a4560;color:#dfe6f2}
+.band s{opacity:.65;margin-left:6px}
+.lad{display:flex;gap:3px}
+.lad i{flex:1;height:10px;background:rgba(255,255,255,.14);transform:skewX(-20deg)}
+.lad i.d{background:var(--blue)}.lad i.g{background:var(--gold)}
+.tagA{display:inline-flex;align-items:center;height:24px;padding:0 7px;border-radius:4px;background:rgba(255,157,46,.2);color:var(--amber);font:700 18px/1 Barlow;white-space:nowrap}
+.tagG{display:inline-flex;align-items:center;height:24px;padding:0 7px;border-radius:4px;background:rgba(63,210,127,.18);color:var(--green);font:700 18px/1 Barlow;white-space:nowrap}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;border:2px solid #110d0c}
+.dot.r{background:var(--red)}.dot.a{background:var(--amber)}.dot.g{background:var(--green)}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes deal{from{opacity:0;transform:translateY(40px) rotate(-6deg) scale(.9)}to{opacity:1;transform:none}}
+@keyframes draw{from{stroke-dashoffset:600}}
+@keyframes ringfill{from{stroke-dashoffset:var(--c)}}
+@keyframes minepulse{from{box-shadow:0 0 0 rgba(255,210,74,0)}to{box-shadow:0 0 18px rgba(255,210,74,.6)}}
+@keyframes daypulse{from{filter:brightness(1)}to{filter:brightness(1.22) drop-shadow(0 0 10px rgba(255,210,74,.8))}}
+@keyframes slidein{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes cutin{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+[data-pic]{cursor:pointer}
+.hov{outline:3px solid var(--blue);outline-offset:-3px;box-shadow:0 0 22px rgba(63,169,255,.55)}
+
+/* THE PREVIEW DOCK: the Playbook's MoveTip card, docked in the fighter's own frame (never over a card) */
+.dock{position:absolute;overflow:hidden}
+.dock .idle,.dock .act{position:absolute;inset:0;transition:opacity .18s ease-out}
+.dock .act{opacity:0;padding:12px 14px}
+.dock.open .idle{opacity:0}.dock.open .act{opacity:1}
+.dock .clip{position:relative;height:var(--clipH,200px);overflow:hidden;background:#0b0c10;clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);border-bottom:3px solid var(--blue)}
+.dock .clip .bg{position:absolute;inset:-30px;width:calc(100% + 60px);height:calc(100% + 60px);object-fit:cover;filter:blur(18px) brightness(.5)}
+.dock .clip .mv{position:absolute;left:50%;top:0;height:100%;aspect-ratio:1;transform-origin:50% 60%;translate:-50% 0;animation:push 4s ease-in-out infinite alternate}
+.dock .clip .mv img,.dock .clip .mv svg{display:block;width:100%;height:100%;animation:bob .45s ease-in-out infinite alternate}
+.dock .clip .mv svg{padding:22%}
+.dock.compact .clip{height:120px}
+@keyframes push{from{transform:scale(1)}to{transform:scale(1.13)}}
+@keyframes bob{from{transform:translateY(1px)}to{transform:translateY(-5px)}}
+.dock .live{position:absolute;left:10px;top:10px;display:flex;align-items:center;gap:7px;height:26px;padding:0 9px;border-radius:4px;background:rgba(0,0,0,.62);font:700 18px/1 Barlow;color:#fff}
+.dock .live i{width:10px;height:10px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red);animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:.25}}
+.dock.compact .live{display:none}
+.dock .tk{margin-top:10px;font:700 18px/1.1 Barlow;letter-spacing:.05em;color:var(--blue);text-transform:uppercase}
+.dock .tn{margin-top:4px;font:400 36px/1 Bebas;letter-spacing:.03em;color:#fff}
+.dock .tier{display:flex;align-items:center;gap:10px;margin-top:6px}
+.dock .tier .lad{width:150px}
+.dock .tier b{font:700 19px/1 Barlow;color:var(--gold);white-space:nowrap}
+.dock .rows{margin-top:8px}
+.dock .row{display:grid;grid-template-columns:92px 1fr;gap:8px;margin-top:6px;font:500 19px/1.2 Barlow;color:#e6ebf4}
+.dock .row em{font:400 20px/1.1 Bebas;font-style:normal;letter-spacing:.08em;color:var(--soft);padding-top:1px}
+.dock .row.b em{color:var(--green)}.dock .row.c em{color:var(--amber)}.dock .row.w em{color:var(--blue)}.dock .row.o em{color:var(--soft)}
+.cursor{position:absolute;width:30px;height:40px;z-index:60;display:none;pointer-events:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.8))}
+.demo .cursor{display:block}
+
+/* the still: once the deal is over every one-shot animation sits at its end; only the pulses and the clip keep moving */
+.done *,.done *::before,.done *::after{animation:none!important;transition:none!important}
+.done .mine-day{animation:daypulse 1s ease-in-out infinite alternate!important}
+.done .mine{animation:minepulse 1.1s ease-in-out infinite alternate!important}
+.done .dock .clip .mv{animation:push 4s ease-in-out infinite alternate!important}
+.done .dock .clip .mv img,.done .dock .clip .mv svg{animation:bob .45s ease-in-out infinite alternate!important}
+.done .dock .live i{animation:blink 1s steps(2) infinite!important}

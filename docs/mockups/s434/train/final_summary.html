@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Fighter page, Training tab summary, final (S434 TRAINSCENE1)</title>
+<link rel="stylesheet" href="final.css">
+<style>
+.tabs{position:absolute;left:28px;top:92px;display:flex;gap:6px;z-index:4}
+.tab{height:46px;padding:0 15px;border-radius:8px;display:flex;align-items:center;font-weight:700;color:#b8c3de;background:#1d2741;white-space:nowrap}
+.tab.on{color:#fff;background:#275696;box-shadow:0 0 26px 2px rgba(255,205,90,.42)}
+.sw{position:absolute;left:1556px;top:84px;display:flex;gap:8px;z-index:4}
+.sw div{position:relative;width:76px;text-align:center;font:600 18px/20px Barlow;color:var(--soft)}
+.sw img{display:block;width:40px;height:40px;margin:2px auto 2px;border-radius:50%;border:2.5px solid #fdfaf2;opacity:.72;object-fit:cover}
+.sw .on{color:#fff}.sw .on img{width:44px;height:44px;margin:0 auto;border:3px solid var(--gold);opacity:1;box-shadow:0 0 18px 3px rgba(255,205,90,.55)}
+.sw .dot{position:absolute;left:50px;top:0}
+.plate{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:6px;background:#1d2741;color:#fffbf3;font:700 19px/1 Barlow;white-space:nowrap}
+/* HERO = the preview dock */
+.hero{left:20px;top:150px;width:604px;height:912px;padding:0;--acc:var(--gold)}
+.hero .dock{inset:0;--clipH:440px}
+.hero .act{padding:18px 20px}
+.hero .tk{font-size:20px;margin-top:14px}.hero .tn{font-size:54px;margin-top:6px}
+.hero .row{grid-template-columns:110px 1fr;font-size:22px;margin-top:10px}.hero .row em{font-size:24px}
+.idle .bigw{position:absolute;left:-10px;top:120px;font:400 250px/.8 Bebas;color:rgba(255,255,255,.035);writing-mode:vertical-rl;transform:rotate(180deg);height:780px;text-align:center}
+.idle .spot{position:absolute;left:60px;top:150px;width:560px;height:620px;background:radial-gradient(ellipse at 55% 45%,rgba(63,169,255,.30),transparent 65%)}
+.idle .cut{position:absolute;right:-48px;top:60px;width:650px;filter:drop-shadow(0 0 30px rgba(63,169,255,.35));animation:cutin .8s .1s ease-out both}
+.idle .nm{position:absolute;left:24px;top:22px;font:400 62px/1 Marker;color:#fff;text-shadow:0 4px 18px rgba(0,0,0,.6);white-space:nowrap;z-index:2}
+.idle .ln{position:absolute;left:24px;top:102px;display:flex;gap:8px;z-index:2}
+.idle .ft2{position:absolute;left:0;right:0;bottom:0;height:150px;padding:52px 24px 0;background:linear-gradient(transparent,rgba(10,12,20,.94) 45%);z-index:2}
+.idle .ft2 b{display:block;font:400 26px/1 Bebas;letter-spacing:.08em;color:var(--soft)}
+.idle .ft2 span{display:block;margin-top:6px;font:400 44px/1 Bebas;letter-spacing:.03em;color:#fff}
+/* COACH */
+.coach{left:640px;top:150px;width:1260px;height:140px;padding:0;--acc:var(--blue)}
+.coach .face{position:absolute;left:0;top:0;width:150px;height:140px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(63,169,255,.35),transparent 70%)}
+.coach .face img{position:absolute;left:-40px;top:-30px;width:236px}
+.coach .body{position:absolute;left:166px;top:14px;width:830px}
+.coach .lbl{display:flex;align-items:center;gap:12px;font:400 26px/1 Bebas;letter-spacing:.06em;color:var(--blue)}
+.kind{background:linear-gradient(90deg,rgba(63,169,255,.28),rgba(63,169,255,.06));color:#cfe6ff}
+.coach .q{margin-top:10px;font:600 28px/1.18 Barlow;color:#fff}
+.coach .q b{color:var(--gold);font-weight:700}
+.coach .runs{position:absolute;right:18px;top:44px}
+.toggle{display:flex;align-items:center;gap:10px;font:600 20px/1.1 Barlow;color:#fff}
+.toggle i{width:52px;height:28px;border-radius:14px;background:rgba(255,255,255,.18);position:relative;flex:none}
+.toggle i::after{content:"";position:absolute;left:4px;top:4px;width:20px;height:20px;border-radius:50%;background:#cfd6e6}
+/* the five lines */
+.line5{position:absolute;left:640px;width:1260px;display:flex;align-items:center;gap:18px;padding:0 20px 0 0;background:linear-gradient(90deg,rgba(40,50,80,.94),rgba(18,22,36,.92) 60%,rgba(14,17,28,.85));clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);animation:tilein .5s cubic-bezier(.2,.9,.3,1.1) both}
+@keyframes tilein{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:none}}
+.line5 .acc{align-self:stretch;width:8px;background:var(--a,var(--blue));box-shadow:0 0 14px var(--a,var(--blue))}
+.line5 .ico{flex:none;width:76px;height:76px;border-radius:50%;background:radial-gradient(circle at 40% 35%,rgba(255,255,255,.16),rgba(255,255,255,.03));display:flex;align-items:center;justify-content:center}
+.line5 .ico svg{width:42px;height:42px}
+.line5 .k{font:400 22px/1 Bebas;letter-spacing:.1em;color:var(--a,var(--blue))}
+.line5 .m{margin-top:4px;font:400 44px/1 Bebas;letter-spacing:.03em;color:#fff;white-space:nowrap}
+.line5 .m .band{vertical-align:6px;margin-left:10px}
+.line5 .c{margin-top:4px;font:500 20px/1.15 Barlow;color:var(--soft);white-space:nowrap}
+.line5 .c b{color:#fff}
+.thumbs{margin-left:auto;display:flex;gap:6px}
+.th{width:68px;text-align:center;font:600 18px/1 Barlow;color:var(--soft)}
+.th .p{position:relative;width:68px;height:68px;background:#0e0e10;border:2px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;margin-bottom:4px;animation:deal .45s cubic-bezier(.2,.9,.3,1.2) both}
+.th .p img{width:64px;height:64px}.th .p svg{width:38px;height:38px}
+.th.you .p{border-color:var(--gold)}.th.co .p{border-color:var(--blue)}
+.th.mine .p{border:3px solid var(--gold);background:#2a2008}
+.th .gl{position:absolute;right:-6px;top:-8px;height:20px;padding:0 5px;border-radius:4px;background:var(--gold);color:#2a1b06;font:400 18px/20px Bebas;letter-spacing:.05em}
+.th.hov{outline:none;box-shadow:none}.th.hov .p{outline:3px solid var(--blue);box-shadow:0 0 18px rgba(63,169,255,.6)}
+.ringg{flex:none;width:96px;height:96px;position:relative;margin-left:4px}
+.ringg b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:400 40px/1 Bebas;color:#fff}
+.lad5{display:flex;gap:4px;width:300px}
+.lad5 i{flex:1;height:12px;background:rgba(255,255,255,.12);transform:skewX(-20deg)}
+.lad5 i.d{background:var(--blue)}
+.ladw{font:500 18px/1 Barlow;color:var(--soft);margin-top:6px;white-space:nowrap}
+.padblk{display:flex;align-items:center;gap:16px;padding:6px 14px 6px 6px;border-radius:8px}
+.padblk img{width:90px;height:90px;background:#0e0e10;border:2px solid rgba(63,169,255,.55)}
+.more{display:inline-flex;align-items:center;height:34px;padding:0 12px;border-radius:6px;background:rgba(255,255,255,.08);font:600 19px/1 Barlow;color:#fff;white-space:nowrap}
+.count{margin-left:auto;text-align:center;padding-right:10px}
+.count b{display:block;font:400 76px/.85 Bebas;color:var(--gold);text-shadow:0 0 20px rgba(255,205,90,.5)}
+.count span{font:400 22px/1 Bebas;letter-spacing:.1em;color:var(--soft)}
+.tchip{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;margin-top:8px;border-radius:6px;background:rgba(63,169,255,.14);color:#cfe6ff;font:600 19px/1 Barlow;white-space:nowrap}
+.alert{position:absolute;left:640px;top:928px;width:600px;height:120px;display:flex;align-items:center;gap:16px;padding:0 18px;background:linear-gradient(90deg,rgba(255,81,71,.30),rgba(255,81,71,.06));clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);border-left:8px solid var(--red);animation:tilein .5s .7s both}
+.alert b{display:block;font:400 32px/1 Bebas;letter-spacing:.04em;color:#fff}
+.alert span{display:block;margin-top:4px;font:500 20px/1.15 Barlow;color:#ffc9c4}
+.opentr{position:absolute;left:1260px;top:928px;width:640px;height:120px;display:flex;align-items:center;justify-content:space-between;padding:0 34px;clip-path:polygon(20px 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%,0 20px);background:linear-gradient(#ffe37a,#f0b32a);color:#2a1b06;animation:tilein .5s .8s both,glow 1.2s 1.4s ease-in-out infinite alternate}
+@keyframes glow{from{filter:brightness(1)}to{filter:brightness(1.12)}}
+.opentr b{display:block;font:400 56px/1 Bebas;letter-spacing:.05em}
+.opentr span{display:block;font:600 20px/1.1 Barlow;color:#4a3410}
+.opentr i{font:400 70px/1 Bebas;font-style:normal}
+.done .opentr{animation:glow 1.2s ease-in-out infinite alternate!important}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+  <symbol id="i-feet" viewBox="0 0 48 48"><g fill="#cfe6ff"><ellipse cx="16" cy="14" rx="6" ry="9"/><ellipse cx="16" cy="29" rx="4.5" ry="4"/><ellipse cx="32" cy="22" rx="6" ry="9"/><ellipse cx="32" cy="37" rx="4.5" ry="4"/></g></symbol>
+  <symbol id="i-lift" viewBox="0 0 48 48"><g fill="#cfe6ff"><rect x="4" y="16" width="6" height="16" rx="2"/><rect x="38" y="16" width="6" height="16" rx="2"/><rect x="10" y="12" width="6" height="24" rx="2"/><rect x="32" y="12" width="6" height="24" rx="2"/><rect x="16" y="22" width="16" height="4"/></g></symbol>
+  <symbol id="i-watch" viewBox="0 0 48 48"><g fill="none" stroke="#ffd24a" stroke-width="4"><circle cx="24" cy="27" r="15"/><path d="M24 27 L24 18 M20 6 h8 M24 6 v6"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 48 48"><path d="M30 6a18 18 0 1 0 12 30A15 15 0 0 1 30 6z" fill="#9fb0d0"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M6 11V6a2 2 0 0 1 4 0v4h1V4a2 2 0 0 1 4 0v6h1V6a2 2 0 0 1 4 0v8a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-4l-2-4a2 2 0 0 1 3-2z" fill="#ff9d2e"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3 7 7 .6-5.4 4.7L18 21l-6-3.7L6 21l1.4-6.7L2 9.6 9 9z" fill="#ffd24a"/></symbol>
+  <symbol id="i-target" viewBox="0 0 48 48"><g fill="none" stroke="#ffd24a" stroke-width="4"><circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="10"/></g><circle cx="24" cy="24" r="4" fill="#ffd24a"/></symbol>
+  <symbol id="i-coach" viewBox="0 0 48 48"><g fill="none" stroke="#3fa9ff" stroke-width="4"><circle cx="24" cy="16" r="8"/><path d="M8 42a16 16 0 0 1 32 0"/></g></symbol>
+  <symbol id="i-cal" viewBox="0 0 48 48"><g fill="none" stroke="#3fa9ff" stroke-width="4"><rect x="6" y="10" width="36" height="32" rx="4"/><path d="M6 20h36M16 5v10M32 5v10"/></g><g fill="#3fa9ff"><rect x="12" y="25" width="6" height="5"/><rect x="21" y="25" width="6" height="5"/><rect x="30" y="25" width="6" height="5"/><rect x="12" y="33" width="6" height="5"/></g></symbol>
+  <symbol id="i-trophy" viewBox="0 0 48 48"><g fill="#ffd24a"><path d="M14 6h20v12a10 10 0 0 1-20 0z"/><rect x="21" y="27" width="6" height="8"/><rect x="14" y="36" width="20" height="6" rx="2"/></g><g fill="none" stroke="#ffd24a" stroke-width="3"><path d="M14 10H7v4a7 7 0 0 0 7 7M34 10h7v4a7 7 0 0 1-7 7"/></g></symbol>
+  <symbol id="i-up" viewBox="0 0 48 48"><path d="M24 6 42 26H31v16H17V26H6z" fill="#3fd27f"/></symbol>
+</defs></svg>
+<div class="wall"></div>
+<div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span><span class="tdate"><b>Mon 16 Feb 2026</b><i>Week 7</i></span><span class="trail"><span class="rail plank9">Gym</span><span class="rail plank9">Mail (2 new)</span></span><span class="tgrow"></span><span class="tcash"><b>$12,940</b><i>this week: -$210</i></span><span class="tgo plank9"><b>CONTINUE</b><i>to Mon 23 Feb</i></span><span class="tnav tmenu tab9">Menu</span></div>
+
+<div class="tabs"><span class="tab">Profile</span><span class="tab">Condition</span><span class="tab on">Training</span><span class="tab">Playbook</span><span class="tab">Fight plan</span><span class="tab">History</span><span class="tab">Character</span><span class="tab">Crowd</span></div>
+<div class="sw">
+  <div data-pic="icon:i-coach" data-k="Lucy · set" data-n="Lucy's week is set" data-b="Green dot: nothing waits on you."><img src="../../s431/final/face_lucy.png">Lucy<span class="dot g"></span></div>
+  <div data-pic="icon:i-coach" data-k="Tess · needs you" data-n="Tess needs you" data-b="Red dot: no week planned yet. Open training or let Coach run it."><img src="../../s431/final/face_tess.png">Tess<span class="dot r"></span></div>
+  <div class="on" data-pic="icon:i-hand" data-k="Samira · one answer by Monday" data-n="The sore right hand" data-b="Amber dot: one question waits. Coach rests the hand if you do not answer."><img src="../../s431/final/face_samira.png">Samira<span class="dot a"></span></div>
+  <div data-pic="icon:i-coach" data-k="Ana · set" data-n="Ana's week is set" data-b="Green dot: nothing waits on you."><img src="../../s431/final/face_ana.png">Ana<span class="dot g"></span></div>
+</div>
+
+<!-- HERO: the fighter's frame is the preview dock -->
+<div class="pan hero"><div class="dock" data-live="LIVE · SAMIRA">
+  <div class="idle">
+    <div class="bigw">TRAINING</div><div class="spot"></div>
+    <img class="cut" src="c_samira_cut.png">
+    <div class="nm">SAMIRA KHAN</div>
+    <div class="ln"><span class="plate">Welterweight</span><span class="plate">Out-boxer</span><span class="plate">2-1</span><span class="plate" style="background:#2b3d1f;color:#c9f2a6">Age 18: grows faster</span></div>
+    <div class="ft2"><b>SEASON TARGET</b><span>THE NATIONALS · 2 BOUTS TO GO</span></div>
+  </div>
+  <div class="act">
+    <div class="clip"><img class="bg" alt=""><div class="mv"></div><span class="live"><i></i><b>LIVE</b></span></div>
+    <div class="tk"></div><div class="tn"></div><div class="tier"></div><div class="rows"></div>
+  </div>
+</div></div>
+
+<!-- COACH: the week in one line -->
+<div class="pan coach">
+  <div class="face"><img src="c_coach_cut.png"></div>
+  <div class="body">
+    <div class="lbl sweep">COACH'S WEEK <span class="chip kind">BASE WEEK · building the body</span></div>
+    <div class="q">"No bout yet, so we build. <b>Normal week:</b> Stamina near <b>63 by Fri 13 Mar</b>. The right hand rests."</div>
+  </div>
+  <div class="runs" data-pic="icon:i-coach" data-k="Hand the week over" data-n="Coach runs Samira" data-b="Coach plans every Monday with Coach's rules" data-c="You can still change any card"><span class="toggle"><i></i>Coach runs<br>Samira</span></div>
+</div>
+
+<!-- 1 WHAT KIND OF WEEK -->
+<div class="line5" style="top:302px;height:112px;--a:var(--blue);animation-delay:.15s">
+  <span class="acc"></span><span class="ico"><svg><use href="#i-cal"/></svg></span>
+  <div><div class="k">THIS WEEK · COACH'S WEEK + 1 CHANGE OF YOURS</div><div class="m">BASE WEEK · NORMAL</div><div class="c">building the body · <b>82%</b> of a usual week's work</div></div>
+  <div class="thumbs">
+    <div class="th you" data-pic="../../../../assets/ui/training/mh_boxer_20_slip_rope.png" data-k="Mon morning · you run it · Normal" data-n="Slip rope" data-b="Defence +0.2: slips and rolls, fewer clean shots taken" data-c="Tiredness 65 that day"><div class="p" style="animation-delay:.3s"><img src="../../../../assets/ui/training/mh_boxer_20_slip_rope.png"></div>Mon</div>
+    <div class="th" data-pic="icon:i-feet" data-big="1" data-k="Tue morning · alone · Normal" data-n="Footwork drills" data-b="Footwork +0.3: angles and cutting the ring" data-c="Alone: gains 20% smaller"><div class="p" style="animation-delay:.36s"><svg><use href="#i-feet"/></svg></div>Tue</div>
+    <div class="th co" id="demoHover" data-pic="../../../../assets/ui/training/mh_boxer_20_roadwork.png" data-k="Wed morning · Coach runs it · Hard" data-n="Roadwork" data-b="Recovery +0.3: refills between rounds. Stamina +0.1 for the goal" data-c="Tiredness 71 that day" data-w="Coach's mornings are set on Club week" data-ol="ON NORMAL" data-o="Recovery +0.2, tiredness 66"><div class="p" style="animation-delay:.42s"><img src="../../../../assets/ui/training/mh_boxer_20_roadwork.png"><span class="gl">GOAL</span></div>Wed</div>
+    <div class="th" data-pic="icon:i-lift" data-big="1" data-k="Thu morning · alone · Normal" data-n="Strength circuit" data-b="Strength +0.3: lifts how hard Samira can ever punch" data-c="Tiredness 73, the week's peak"><div class="p" style="animation-delay:.48s"><svg><use href="#i-lift"/></svg></div>Thu</div>
+    <div class="th you" data-pic="../../../../assets/ui/training/mh_boxer_20_shadow.png" data-k="Fri morning · you run it · Light" data-n="Shadow boxing" data-b="Accuracy +0.1: clean form, shots that land" data-c="Tiredness 66 that day"><div class="p" style="animation-delay:.54s"><img src="../../../../assets/ui/training/mh_boxer_20_shadow.png"></div>Fri</div>
+    <div class="th mine" data-pic="icon:i-watch" data-big="1" data-k="Sat morning · your change · Normal" data-n="Intervals" data-b="Stamina +0.3 for the goal: each round costs less" data-w="Was: shadow, Light. The goal goes from close to met"><div class="p mine" style="animation-delay:.6s"><svg><use href="#i-watch"/></svg><span class="gl">GOAL</span></div><span style="color:var(--gold)">Sat</span></div>
+    <div class="th" data-pic="icon:i-moon" data-big="1" data-k="Sunday" data-n="Rest" data-b="Tiredness drops to 53"><div class="p" style="animation-delay:.66s"><svg><use href="#i-moon"/></svg></div>Sun</div>
+  </div>
+</div>
+
+<!-- 2 THE GOAL -->
+<div class="line5" style="top:424px;height:112px;--a:var(--gold);animation-delay:.25s" data-pic="icon:i-target" data-k="The goal · set on Profile" data-n="Stamina 63 by Fri 13 Mar" data-b="62.4 now, 63.1 on this plan" data-w="Stamina: how long Samira holds the pace" data-ol="BANDS" data-o="met: mood +10 · close +3 · short -5 · missed -20">
+  <span class="acc"></span>
+  <span class="ringg"><svg width="96" height="96" viewBox="0 0 96 96"><circle cx="48" cy="48" r="38" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="10"/><circle cx="48" cy="48" r="38" fill="none" stroke="#3fd27f" stroke-width="10" stroke-linecap="round" stroke-dasharray="239" stroke-dashoffset="0" transform="rotate(-90 48 48)" style="--c:239;animation:ringfill 1s .4s ease-out both"/></svg><b data-count="63">63</b></span>
+  <div><div class="k">THE GOAL · THE MORNINGS ADD UP TO IT</div><div class="m">STAMINA 62 &#8594; 63<span class="band met">MET <s>CLOSE</s></span></div><div class="c">by <b>Fri 13 Mar</b> · your Saturday intervals made it · met: mood +10</div></div>
+</div>
+
+<!-- 3 ON THE PADS -->
+<div class="line5" style="top:546px;height:112px;--a:var(--blue);animation-delay:.35s">
+  <span class="acc"></span>
+  <div class="padblk" data-pic="../../../../assets/ui/moves/lead_hook.png" data-k="Mon evening · pads with Coach · 75 min" data-n="Check hook" data-lad="1.8" data-tier="Learning 24 · Usable at 30" data-b="Learning 24 → 27 this week. Usable on Mon 2 Mar" data-c="1 of 3 pad places" data-w="A lead hook while pivoting out: catches a counter-puncher stepping in"><img src="../../../../assets/ui/moves/lead_hook.png">
+    <div><div class="k">ON THE PADS · WHERE MOVES ARE LEARNED</div><div class="m">CHECK HOOK</div><div class="c">Learning 24 &#8594; <b>Usable Mon 2 Mar</b></div></div></div>
+  <div style="margin-left:auto;text-align:right"><div class="lad5"><i class="d"></i><i style="background:linear-gradient(90deg,var(--blue) 80%,rgba(255,255,255,.12) 0)"></i><i></i><i></i><i></i></div><div class="ladw">New · Learning · Usable · Sharp · Signature</div><div style="margin-top:8px"><span class="more">+2 more: habit fix, sparring</span></div></div>
+</div>
+
+<!-- 4 NEXT: no bout booked -> the season target -->
+<div class="line5" style="top:668px;height:140px;--a:var(--gold);animation-delay:.45s">
+  <span class="acc"></span><span class="ico"><svg><use href="#i-trophy"/></svg></span>
+  <div><div class="k">NEXT · NO BOUT BOOKED</div><div class="m">TARGET: THE NATIONALS</div><div class="c">entries close <b>Sun 15 Mar</b> · next offers <b>Mon 23 Feb</b> · 2 bouts to go</div><span class="tchip">tiredness peaks 73 on Thu, under 80</span></div>
+  <div class="count"><b data-count="27">27</b><span>DAYS TO ENTRIES</span></div>
+</div>
+
+<!-- 5 LAST WEEK -->
+<div class="line5" style="top:816px;height:102px;--a:var(--green);animation-delay:.55s" data-pic="icon:i-up" data-k="Last week" data-n="Stamina +1" data-b="Roadwork on Mon and Fri crossed a whole point" data-w="The Week review lists every point and its cause">
+  <span class="acc"></span><span class="ico"><svg><use href="#i-up"/></svg></span>
+  <div><div class="k">LAST WEEK</div><div class="m">STAMINA +1</div><div class="c">from roadwork Mon, Fri</div></div>
+  <span class="btn" style="margin-left:auto">Week review &#8250;</span>
+</div>
+
+<!-- ALERT (only when one exists) + THE ONE BUTTON -->
+<div class="alert" data-pic="icon:i-hand" data-k="One answer by Monday" data-n="Right hand sore" data-b="Rest it (Coach's pick): habit half fixed, no bag work" data-c="Push on: injury 4 in 100, a booked bout would be off"><svg style="width:52px;height:52px;flex:none"><use href="#i-hand"/></svg><div><b>RIGHT HAND SORE</b><span>Coach rests it · answer by Monday: rest it or push on</span></div></div>
+<div class="opentr"><div><b>OPEN TRAINING</b><span>the week, the load, the pads</span></div><i>&#8250;</i></div>
+
+<svg class="cursor" viewBox="0 0 30 40"><path d="M2 2 L2 32 L10 25 L16 38 L21 36 L15 23 L26 23 Z" fill="#fff" stroke="#111" stroke-width="2"/></svg>
+<script src="final_dock.js"></script>
+<script>
+setTimeout(function(){document.body.classList.add('done');},1600);
+// the still shows the card open on Wednesday's roadwork: the session Samira does
+setTimeout(function(){dockDemo(document.getElementById('demoHover'));},1650);
+</script>
+</body></html>

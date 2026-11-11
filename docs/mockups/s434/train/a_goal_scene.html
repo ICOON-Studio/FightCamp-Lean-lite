@@ -1,0 +1,283 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Training scene, goal first (a_goal)</title><script>if(/Headless/i.test(navigator.userAgent))document.documentElement.classList.add("still")</script><style>
+@font-face{font-family:Marker;src:url(../../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../../assets/fonts/BebasNeue-Regular.ttf)}
+:root{--ink:#f1e8da;--soft:#c9b9a2;--dim:#8f8270;--gold:#ffd24a;--gold2:#f0b32a;--red:#e2483d;--blue:#4d8ef0;--elec:#3cc4ff;
+ --green:#3fc07a;--amber:#f28d27;--purple:#ad80ff;--track:rgba(255,255,255,.10);--navy:#1d2741}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:#120e0c;color:var(--ink);font:500 22px/1.2 Barlow,"Segoe UI",sans-serif}
+.ico{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.abs{position:absolute}
+.wall{position:absolute;left:0;right:0;top:78px;bottom:0;background:
+ radial-gradient(ellipse 900px 560px at 38% 30%,rgba(255,190,110,.12),transparent 72%),
+ radial-gradient(ellipse 700px 500px at 96% 20%,rgba(60,196,255,.07),transparent 70%),
+ radial-gradient(ellipse 700px 420px at 4% 80%,rgba(226,72,61,.07),transparent 70%),
+ linear-gradient(#1b1512,#130f0d 62%,#0e0b09)}
+.wall::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.018) 0 2px,transparent 2px 22px)}
+/* top bar: the gym screen's (Shell.gd) */
+.top{position:absolute;left:0;top:0;width:1920px;height:78px;z-index:5;border-style:solid;border-width:0 0 8px 0;border-image:url(../../../../assets/ui/wood/bar.png) 0 0 8 0 fill / 0 0 8px 0 / 0 stretch;display:flex;align-items:center;gap:14px;padding:8px 18px 0 18px;color:#efe6d8}
+.tab9{border:9px solid transparent;border-image:url(../../../../assets/ui/wood/tab.png) 9 fill / 9px / 0 stretch}
+.plank9{border:9px solid transparent;border-image:url(../../../../assets/ui/wood/plank.png) 9 fill / 9px / 0 stretch}
+.tnav{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font:500 20px/1 Barlow;color:#efe6d8;flex:none}
+.tnav.off{opacity:.42}.tmenu{width:auto;height:37px;padding:0 3px 2px 3px;font:500 18px/1 Barlow}
+.tgym{font:400 32px/1 Marker;color:#6ea2f2;white-space:nowrap;padding-top:2px}
+.tdate b{display:block;font:500 19px/23px Barlow;color:#efe6d8;white-space:nowrap}.tdate i{display:block;font:400 18px/20px Barlow;font-style:normal;color:#b8a88f}
+.trail{flex:1;display:flex;justify-content:center;gap:6px}
+.rail{min-width:128px;height:48px;padding:0 5px 2px 5px;display:flex;align-items:center;justify-content:center;font:600 19px/1 Barlow;color:#efe6d8;white-space:nowrap}
+.tgrow{flex:1}
+.tcash{text-align:right}.tcash b{display:block;font:600 24px/28px Barlow;color:#e8c15a}.tcash i{display:block;font:400 18px/20px Barlow;font-style:normal;color:#b8a88f;white-space:nowrap}
+.tgo{width:280px;height:54px;padding:0 7px 2px 7px;display:flex;flex-direction:column;justify-content:center;flex:none}
+.tgo b{display:block;font:600 19px/22px Barlow;color:#efe6d8;white-space:nowrap}.tgo i{display:block;font:400 18px/20px Barlow;font-style:normal;color:#efe6d8;white-space:nowrap}
+/* sport-sim panels: chamfered, gradient, a lit top edge */
+.pan{position:absolute;clip-path:polygon(22px 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%,0 22px);
+ background:linear-gradient(165deg,rgba(44,58,92,.62),rgba(22,22,30,.88) 55%,rgba(16,13,12,.92));
+ box-shadow:inset 0 2px 0 rgba(255,210,74,.55),inset 0 0 0 1px rgba(255,255,255,.07)}
+.pan.blue{box-shadow:inset 0 2px 0 rgba(60,196,255,.75),inset 0 0 0 1px rgba(255,255,255,.07)}
+.pan.red{background:linear-gradient(165deg,rgba(110,30,26,.75),rgba(30,16,16,.92) 60%);box-shadow:inset 0 2px 0 rgba(255,120,100,.8),inset 0 0 0 1px rgba(255,255,255,.07)}
+.ptl{display:flex;align-items:center;gap:10px;font:400 30px/1 Bebas;letter-spacing:.05em;color:var(--gold);white-space:nowrap}
+.ptl::before{content:"";width:8px;height:24px;background:linear-gradient(var(--gold),var(--amber));transform:skewX(-18deg)}
+.ptl small{font:500 20px/1 Barlow;letter-spacing:0;color:var(--soft)}
+.hv{display:inline-block;font:600 18px/1 Barlow;color:#0e1420;background:#8fb7e8;border-radius:4px;padding:2px 6px;margin-right:6px;vertical-align:1px}
+.note{font:500 18px/1.25 Barlow;color:#a9b6cc}
+.chip{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:17px;background:rgba(255,255,255,.08);font:600 19px/1 Barlow;white-space:nowrap;color:var(--ink)}
+.chip.red{background:rgba(226,72,61,.22);color:#ff9b8f;box-shadow:inset 0 0 0 1px rgba(226,72,61,.6)}
+.chip.gold{background:rgba(255,210,74,.16);color:var(--gold);box-shadow:inset 0 0 0 1px rgba(255,210,74,.55)}
+.chip.green{background:rgba(63,192,122,.18);color:#7fe0a8;box-shadow:inset 0 0 0 1px rgba(63,192,122,.55)}
+.chip.amber{background:rgba(242,141,39,.18);color:#ffb26a;box-shadow:inset 0 0 0 1px rgba(242,141,39,.55)}
+.chip.blue{background:rgba(77,142,240,.18);color:#9cc2ff;box-shadow:inset 0 0 0 1px rgba(77,142,240,.55)}
+.go{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:56px;padding:0 28px;border-radius:11px;background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06;font-weight:700;font-size:24px;box-shadow:0 3px 0 #9a6c10,0 0 30px 3px rgba(255,205,90,.38);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 20px;border-radius:11px;background:rgba(255,255,255,.085);color:var(--ink);font-weight:600;font-size:21px;white-space:nowrap;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.btn .ico{color:var(--gold)}
+.name{font:400 46px/1 Marker;color:#fff;white-space:nowrap;text-shadow:0 3px 12px rgba(0,0,0,.7)}
+.plate{display:inline-flex;align-items:center;height:32px;padding:0 10px;border-radius:7px;background:#1d2741;color:#fffbf3;font:700 20px/1 Barlow;white-space:nowrap}
+.tag{display:inline-flex;align-items:center;height:30px;padding:0 10px;border-left:4px solid #275696;border-radius:3px;background:#1a2033;color:#8eb8f2;font:600 19px/1 Barlow;text-transform:uppercase;white-space:nowrap}
+.tag.gold{border-color:#c79a1e;background:#2a2312;color:var(--gold)}
+.tag.red{border-color:#a8261c;background:#2e1514;color:#ff8d80}
+.pins{display:flex;gap:14px}
+.pin{display:flex;flex-direction:column;align-items:center;gap:3px;font:600 18px/1 Barlow;color:var(--soft)}
+.pin img{width:52px;height:52px;border-radius:50%;border:3px solid rgba(255,255,255,.55);object-fit:cover;background:#1c2640}
+.pin.on img{border-color:var(--gold);box-shadow:0 0 18px 3px rgba(255,210,74,.55)}.pin.on{color:#fff}
+/* the fighter hero */
+.hero{position:absolute;overflow:hidden;clip-path:polygon(0 0,calc(100% - 60px) 0,100% 60px,100% 100%,60px 100%,0 calc(100% - 60px));
+ background:radial-gradient(ellipse 70% 55% at 50% 40%,rgba(60,196,255,.30),transparent 70%),
+ repeating-linear-gradient(120deg,rgba(255,255,255,.035) 0 3px,transparent 3px 26px),
+ linear-gradient(170deg,#25365a,#141826 60%,#0f0c0b)}
+.hero::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 2px rgba(60,196,255,.35)}
+.hero img.cut{position:absolute;filter:drop-shadow(0 0 24px rgba(60,196,255,.35)) drop-shadow(0 12px 18px rgba(0,0,0,.6))}
+.hero .shade{position:absolute;left:0;right:0;bottom:0;height:46%;background:linear-gradient(transparent,rgba(10,9,12,.94) 62%)}
+/* animation */
+@keyframes deal{from{opacity:0;transform:translateY(34px) rotate(-2.5deg) scale(.96)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}}
+@keyframes slideL{from{opacity:0;transform:translateX(-60px)}}
+@keyframes grow{from{width:0}}
+@keyframes arcIn{from{stroke-dasharray:0 100}}
+@keyframes sweep{0%{background-position:-120% 0}100%{background-position:220% 0}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 2px var(--gold),0 0 14px 2px rgba(255,210,74,.35)}50%{box-shadow:0 0 0 3px var(--gold),0 0 30px 8px rgba(255,210,74,.65)}}
+@keyframes segPulse{0%,100%{opacity:1}50%{opacity:.55}}
+@keyframes push{from{transform:scale(1.02)}to{transform:scale(1.14)}}
+@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -4px}}
+@keyframes glowIn{from{opacity:0;filter:blur(6px)}}
+.deal{animation:deal .55s cubic-bezier(.2,.9,.3,1.2) both}
+.fade{animation:fadeUp .6s ease-out both}
+.headline{font:400 70px/1 Bebas;letter-spacing:.03em;color:#fff;background:linear-gradient(100deg,#fff 0 40%,#ffe9a8 48%,#fff 56%) no-repeat;background-size:100% 100%;-webkit-background-clip:text;background-clip:text;position:relative;text-shadow:0 0 30px rgba(255,210,74,.25)}
+.sweep{position:relative;display:inline-block;overflow:hidden}
+.sweep::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 35%,rgba(255,255,255,.75) 50%,transparent 65%) no-repeat;background-size:60% 100%;mix-blend-mode:overlay;animation:sweep 1.5s .2s ease-out both;opacity:.9}
+/* the hover card (MoveTip's look, for every session and move) */
+.tip{position:absolute;z-index:40;width:360px;padding:10px;border-radius:14px;background:linear-gradient(170deg,#283a5e,#151b2a 70%);
+ box-shadow:0 0 0 2px rgba(60,196,255,.65),0 18px 40px rgba(0,0,0,.65),0 0 40px rgba(60,196,255,.25);opacity:0;transform:translateY(6px) scale(.98);transition:opacity .18s ease-out,transform .18s ease-out;pointer-events:none}
+.tip.show{opacity:1;transform:none}
+.tip .clip{position:relative;height:130px;border-radius:9px;overflow:hidden;background:#151313}
+.tip .clip img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 38%;animation:push 5s ease-in-out infinite alternate}
+.tip .clip .bobw{position:absolute;inset:0;animation:bob .62s ease-in-out infinite}
+.tip .clip .live{position:absolute;left:8px;top:8px;display:flex;align-items:center;gap:6px;height:26px;padding:0 9px;border-radius:13px;background:rgba(0,0,0,.6);font:700 18px/1 Barlow;color:#fff}
+.tip .clip .live i{width:9px;height:9px;border-radius:50%;background:#ff4b3a;box-shadow:0 0 8px #ff4b3a}
+.tip h4{margin-top:9px;font:700 23px/1.1 Barlow;color:#fff;display:flex;justify-content:space-between;gap:8px}
+.tip h4 span{font:600 19px/1.2 Barlow;color:var(--gold)}
+.tip p{margin-top:4px;font:500 19px/1.25 Barlow;color:#d6e2f4}
+.tip .tipnote{position:absolute;top:-34px;left:0;font:600 19px/1 Barlow;color:#8fb7e8;white-space:nowrap}
+.tip .arrow{position:absolute;left:-12px;top:60px;width:0;height:0;border:12px solid transparent;border-left:0;border-right-color:rgba(60,196,255,.8)}
+.tip.left .arrow{left:auto;right:-12px;border-right:0;border-left:12px solid rgba(60,196,255,.8)}
+[data-tip]{cursor:pointer}
+.still *,.still *::before,.still *::after{animation-duration:0s !important;animation-delay:0s !important;transition:none !important}
+.tipfoot{margin-top:8px;padding-top:7px;border-top:1px solid rgba(255,255,255,.12);font:600 18px/1 Barlow;color:#8fb7e8;white-space:nowrap}
+
+.strip6{position:absolute;left:470px;top:174px;display:flex;gap:10px}
+.wk{width:158px;height:62px;padding:6px 10px;border-radius:8px;background:rgba(255,255,255,.06);border-top:4px solid var(--c);position:relative}
+.wk b{display:block;font:400 25px/1 Bebas;letter-spacing:.04em;color:var(--c);white-space:nowrap}
+.wk i{display:block;font:500 18px/1.1 Barlow;font-style:normal;color:var(--soft);white-space:nowrap;margin-top:3px}
+.wk.now{background:rgba(255,210,74,.13);box-shadow:0 0 0 2px var(--gold),0 0 22px rgba(255,210,74,.35)}
+.wk .fl{position:absolute;right:6px;top:6px;color:var(--gold)}
+.lane{position:absolute;left:20px;display:flex;align-items:baseline;gap:14px;white-space:nowrap}
+.lane b{font:400 31px/1 Bebas;letter-spacing:.05em;color:var(--gold)}
+.lane span{font:500 20px/1 Barlow;color:var(--soft)}
+.day{position:absolute;width:200px;border-radius:10px;background:linear-gradient(170deg,rgba(48,60,92,.55),rgba(22,20,26,.92));
+ box-shadow:inset 0 0 0 1px rgba(255,255,255,.09);overflow:hidden;padding:8px 10px 8px 16px}
+.day::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--who)}
+.day .dh{display:flex;align-items:center;justify-content:space-between;font:400 26px/1 Bebas;letter-spacing:.05em;color:#fff}
+.day .dh small{font:600 18px/1 Barlow;letter-spacing:0;color:var(--soft);display:flex;align-items:center;gap:4px}
+.day .row{display:flex;gap:9px;margin-top:6px;align-items:center}
+.day .th{width:54px;height:54px;border-radius:7px;object-fit:cover;flex:none;background:#1a1716;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.day .thi{width:54px;height:54px;border-radius:7px;flex:none;display:grid;place-items:center;background:linear-gradient(160deg,#2b3d63,#18202f);color:#9cc2ff}
+.day .nm{font:700 22px/1.05 Barlow;color:#fff}
+.day .ab{margin-top:7px;font:500 18px/1.2 Barlow;color:#cbd6e8}
+.day .ab em{font-style:normal;color:#fff;font-weight:700}
+.day.feed{box-shadow:inset 0 0 0 1px rgba(255,255,255,.09),inset 0 -5px 0 var(--seg)}
+.day.feed .ab em{color:var(--seg)}
+.day.mine{animation:deal .55s cubic-bezier(.2,.9,.3,1.2) both,pulse 1.7s 1.6s ease-in-out infinite}
+.day.dim{opacity:.55}
+.newtag{position:absolute;right:8px;top:36px;font:700 18px/1 Barlow;color:#2a1b06;background:var(--gold);border-radius:5px;padding:3px 6px}
+.pips{display:flex;gap:4px;margin-top:6px}
+.pips i{width:20px;height:9px;border-radius:2px;background:rgba(255,255,255,.14)}
+.pips i.d{background:#9cc2ff}.pips i.h{background:linear-gradient(90deg,#3cc4ff 55%,rgba(255,255,255,.14) 55%)}
+.lockl{font:500 18px/1 Barlow;color:#8fb7e8;display:flex;align-items:center;gap:5px}
+.rg{display:flex;gap:12px;align-items:flex-start;margin-top:12px}
+.rg .ri{width:40px;height:40px;border-radius:9px;display:grid;place-items:center;background:rgba(77,142,240,.2);color:#9cc2ff;flex:none}
+.rg b{display:block;font:700 23px/1.1 Barlow;color:#fff;white-space:nowrap}.rg b u{text-decoration:none;color:#7fe0a8}
+.rg span{display:block;font:500 19px/1.2 Barlow;color:#cbd6e8}
+.buy{display:flex;gap:10px;align-items:center;margin-top:10px;font:500 20px/1.2 Barlow;color:#e6dccb}
+.buy .ico{color:var(--gold)}.buy b{color:#fff}
+.mini{width:120px;border-radius:9px;background:linear-gradient(170deg,rgba(48,60,92,.6),rgba(22,20,26,.92));box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);padding:7px;text-align:center}
+.mini img{width:104px;height:72px;object-fit:cover;border-radius:6px}
+.mini b{display:block;font:700 20px/1.1 Barlow;color:#fff;margin-top:4px;white-space:nowrap}
+.mini i{display:block;font:600 18px/1.15 Barlow;font-style:normal;color:#9cc2ff;white-space:nowrap}
+.mini.fd{box-shadow:inset 0 0 0 2px rgba(226,72,61,.7)}.mini.fd i{color:#ff9b8f}
+.slider{position:absolute;left:548px;top:592px;width:372px;height:40px}
+.slider .tr{position:absolute;left:12px;right:12px;top:10px;height:8px;border-radius:4px;background:linear-gradient(90deg,#3fc07a,#4d8ef0 40%,#f28d27 72%,#ad80ff)}
+.slider .st{position:absolute;top:24px;width:110px;margin-left:-55px;text-align:center;font:700 19px/1 Barlow;color:var(--soft)}
+.slider .st.on{color:#fff}
+.slider .dot{position:absolute;top:7px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:#0f0c0b;box-shadow:inset 0 0 0 3px rgba(255,255,255,.6)}
+.slider .knob{position:absolute;top:-1px;width:30px;height:30px;margin-left:-15px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff7d2,#ffd24a 45%,#c38b12);box-shadow:0 0 0 3px #2a1b06,0 0 22px 6px rgba(255,210,74,.6)}
+.eq{display:flex;align-items:center;gap:8px;flex-wrap:nowrap}
+.eq .op{font:400 34px/1 Bebas;color:var(--soft)}
+.eqc{display:flex;align-items:center;gap:8px;height:44px;padding:0 12px 0 6px;border-radius:9px;background:rgba(255,255,255,.07);box-shadow:inset 0 -4px 0 var(--seg);font:700 20px/1 Barlow;white-space:nowrap}
+.eqc img,.eqc .ei{width:34px;height:34px;border-radius:6px;object-fit:cover;display:grid;place-items:center;background:#22304d;color:var(--seg)}
+.eqc.mine{box-shadow:inset 0 -4px 0 var(--seg),0 0 0 2px var(--gold),0 0 18px rgba(255,210,74,.45)}
+.mt{display:flex;align-items:baseline;gap:10px;white-space:nowrap}
+.mt b{font:400 27px/1 Bebas;letter-spacing:.05em;color:var(--gold)}
+.mt .big{font:400 46px/1 Bebas;color:#fff}
+.mt .sm{font:600 20px/1 Barlow;color:var(--soft)}
+.change{position:absolute;left:560px;top:1012px;width:860px;height:56px;display:flex;align-items:center;justify-content:center;gap:12px;border-radius:12px;
+ background:linear-gradient(90deg,rgba(255,210,74,.04),rgba(255,210,74,.2) 18%,rgba(255,210,74,.2) 82%,rgba(255,210,74,.04));box-shadow:inset 0 0 0 2px rgba(255,210,74,.6),0 0 30px rgba(255,210,74,.25);
+ font:600 22px/1 Barlow;color:#fff;white-space:nowrap;animation:fadeUp .55s 1.25s cubic-bezier(.2,.9,.3,1.2) both}
+.change b{color:var(--gold)}.change u{text-decoration:none;color:#7fe0a8;font-weight:700}
+.tog{display:inline-flex;align-items:center;gap:10px;font:600 20px/1 Barlow;color:var(--ink);white-space:nowrap}
+.tog i{width:46px;height:26px;border-radius:13px;background:#3fc07a;position:relative;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.tog i::after{content:"";position:absolute;right:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff}
+.tog.off i{background:rgba(255,255,255,.18)}.tog.off i::after{right:auto;left:3px}
+.segpulse{animation:arcIn .9s 1.05s cubic-bezier(.3,.8,.3,1) both,segPulse 1.4s 2.2s ease-in-out infinite !important}
+</style></head><body><div class="wall"></div><div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span>
+<span class="tdate"><b>Mon 16 Feb 2026</b><i>Week 7</i></span><span class="trail"><span class="rail plank9">Gym</span><span class="rail plank9">Mail (2 new)</span></span>
+<span class="tgrow"></span><span class="tcash"><b>$12,940</b><i>this week -$210</i></span><span class="tgo plank9"><b>CONTINUE</b><i>to Mon 23 Feb, fight week</i></span><span class="tnav tmenu tab9">Menu</span></div><div class="abs fade" style="left:20px;top:94px"><span class="btn"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>Samira</span></div><div class="abs" style="left:168px;top:86px"><span class="sweep"><span class="headline">TRAINING</span></span></div><div class="abs fade" style="left:420px;top:92px;animation-delay:.15s"><div style="display:flex;align-items:center;gap:10px;white-space:nowrap"><span class="tag">Base week</span><span style="font:700 25px/1 Barlow;color:#fff">building the engine</span></div><div style="margin-top:8px;font:500 21px/1 Barlow;color:var(--soft);white-space:nowrap">Normal load · Coach's week, with <b style="color:var(--gold)">1 change of yours</b></div></div><div class="abs fade" style="left:1090px;top:88px;animation-delay:.2s"><div class="pins"><span class="pin"><img src="../../s431/final/face_lucy.png" alt="">Lucy</span><span class="pin on"><img src="../../s431/final/face_samira.png" alt="">Samira</span><span class="pin"><img src="../../s431/final/face_tess.png" alt="">Tess</span><span class="pin"><img src="../../s431/final/face_ana.png" alt="">Ana</span></div></div><div class="pan red fade" style="left:1484px;top:88px;width:408px;height:148px;animation-delay:.1s">
+<div class="abs" style="left:24px;top:16px"><span class="tag red"><svg class="ico " width="20" height="20" viewBox="0 0 24 24"><path d="M7 20v-4c-2-1-3-3-3-6a6 6 0 0 1 6-6h3a5 5 0 0 1 5 5v3a4 4 0 0 1-3 4v4z"/><path d="M7 16h10"/></svg>&nbsp;Bout</span></div>
+<div class="abs" style="left:24px;top:54px;font:400 44px/1 Bebas;letter-spacing:.03em;color:#fff;white-space:nowrap">SAT 28 FEB</div>
+<div class="abs" style="left:24px;top:102px;font:600 21px/1.15 Barlow;color:#ffd9d2;white-space:nowrap">vs Kayleigh Bell, counter-puncher</div>
+<div class="abs" style="right:22px;top:14px;text-align:center"><div style="font:400 72px/1 Bebas;color:#fff;text-shadow:0 0 20px rgba(255,120,100,.6)" data-count="12" data-delay="200">12</div><div style="font:700 18px/1 Barlow;color:#ffb3a8;margin-top:-4px">DAYS</div></div></div><div class="strip6"><div class="wk deal now" style="--c:#4d8ef0;animation-delay:0.15s"><b>BASE</b><i>16 Feb · safe 107</i></div><div class="wk deal" style="--c:#ffd24a;animation-delay:0.22s"><b>FIGHT WEEK</b><i>Sat 28 · Tank 94</i></div><div class="wk deal" style="--c:#9a9a9a;animation-delay:0.29s"><b>REST</b><i>2 Mar · spar Thu 5</i></div><div class="wk deal" style="--c:#4d8ef0;animation-delay:0.36s"><span class="fl"><svg class="ico " width="22" height="22" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></span><b>BASE</b><i>9 Mar · your goal</i></div><div class="wk deal" style="--c:#f28d27;animation-delay:0.43s"><b>FOR THE FIGHT</b><i>16 Mar · Hard</i></div><div class="wk deal" style="--c:#ad80ff;animation-delay:0.50s"><b>SHARPEN</b><i>23 Mar · deload</i></div></div><div class="hero" style="left:20px;top:174px;width:430px;height:466px">
+<img class="cut" src="a_samira_cut.png" alt="" style="left:20px;top:20px;width:400px;animation:slideL .8s .1s ease-out both">
+<div class="shade"></div>
+<div class="abs" style="left:18px;top:16px;display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+<span class="chip blue"><svg class="ico " width="18" height="18" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Age 18: grows faster</span>
+<span class="chip red"><svg class="ico " width="18" height="18" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg>Right hand sore · resting it</span></div>
+<div class="abs" style="left:22px;top:356px"><div class="name">SAMIRA KHAN</div>
+<div style="margin-top:8px;display:flex;gap:10px;align-items:center;white-space:nowrap"><span class="plate">Welterweight</span><span style="font:500 21px/1 Barlow;color:var(--soft)">out-boxer · 3-1</span></div></div></div><div class="pan" style="left:460px;top:248px;width:1012px;height:332px"><div class="abs" style="left:28px;top:16px;display:flex;align-items:center;gap:14px;white-space:nowrap">
+<span class="tag gold"><svg class="ico " width="18" height="18" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg>&nbsp;Your goal</span>
+<span style="font:400 40px/1 Bebas;letter-spacing:.03em;color:#fff">STAMINA 63 BY FRI 13 MAR</span>
+<span style="font:500 20px/1 Barlow;color:var(--soft)">each round costs less</span></div>
+<div class="abs" style="right:26px;top:14px;display:flex;align-items:center;gap:10px;animation:glowIn .6s 1.5s both">
+<span style="font:600 20px/1 Barlow;color:var(--dim);text-decoration:line-through">close</span><span style="font:400 30px/1 Bebas;color:var(--soft)">&#8594;</span>
+<span class="chip green" style="height:40px;font-size:24px;box-shadow:inset 0 0 0 2px rgba(63,192,122,.8),0 0 22px rgba(63,192,122,.55)">MET</span></div><div class="abs" style="left:14px;top:62px;width:300px;height:270px"><svg class="abs" style="left:0;top:0" width="300" height="270" viewBox="0 0 300 270"><defs><filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="150" cy="140" r="104" fill="none" stroke="rgba(255,255,255,.09)" stroke-width="28" pathLength="100" style="stroke-dasharray:75 100" transform="rotate(135 150 140)"/><line x1="63.7" y1="226.3" x2="58.1" y2="231.9" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="51.3" y1="211.7" x2="48.9" y2="213.5" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="41.3" y1="195.4" x2="38.6" y2="196.7" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="34.0" y1="177.7" x2="31.1" y2="178.6" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="29.5" y1="159.1" x2="26.5" y2="159.6" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="28.0" y1="140.0" x2="25.0" y2="140.0" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="29.5" y1="120.9" x2="26.5" y2="120.4" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="34.0" y1="102.3" x2="31.1" y2="101.4" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="41.3" y1="84.6" x2="38.6" y2="83.3" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="51.3" y1="68.3" x2="48.9" y2="66.5" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="63.7" y1="53.7" x2="58.1" y2="48.1" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="78.3" y1="41.3" x2="76.5" y2="38.9" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="94.6" y1="31.3" x2="93.3" y2="28.6" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="112.3" y1="24.0" x2="111.4" y2="21.1" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="130.9" y1="19.5" x2="130.4" y2="16.5" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="150.0" y1="18.0" x2="150.0" y2="15.0" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="169.1" y1="19.5" x2="169.6" y2="16.5" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="187.7" y1="24.0" x2="188.6" y2="21.1" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="205.4" y1="31.3" x2="206.7" y2="28.6" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="221.7" y1="41.3" x2="223.5" y2="38.9" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="236.3" y1="53.7" x2="241.9" y2="48.1" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="248.7" y1="68.3" x2="251.1" y2="66.5" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="258.7" y1="84.6" x2="261.4" y2="83.3" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="266.0" y1="102.3" x2="268.9" y2="101.4" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="270.5" y1="120.9" x2="273.5" y2="120.4" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="272.0" y1="140.0" x2="275.0" y2="140.0" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="270.5" y1="159.1" x2="273.5" y2="159.6" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="266.0" y1="177.7" x2="268.9" y2="178.6" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="258.7" y1="195.4" x2="261.4" y2="196.7" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="248.7" y1="211.7" x2="251.1" y2="213.5" stroke="rgba(255,255,255,.25)" stroke-width="2"/><line x1="236.3" y1="226.3" x2="241.9" y2="231.9" stroke="rgba(255,255,255,.25)" stroke-width="2"/><circle class="" cx="150" cy="140" r="104" fill="none" stroke="#4d8ef0" stroke-width="28" pathLength="100" transform="rotate(135 150 140)" style="stroke-dasharray:35.00 100;stroke-dashoffset:-0.00;animation:arcIn .9s 0.35s cubic-bezier(.3,.8,.3,1) both;"/><circle class="" cx="150" cy="140" r="104" fill="none" stroke="#3cc4ff" stroke-width="28" pathLength="100" transform="rotate(135 150 140)" style="stroke-dasharray:3.00 100;stroke-dashoffset:-35.00;animation:arcIn .9s 0.70s cubic-bezier(.3,.8,.3,1) both;filter:url(#glow)"/><circle class="segpulse" cx="150" cy="140" r="104" fill="none" stroke="#ffd24a" stroke-width="28" pathLength="100" transform="rotate(135 150 140)" style="stroke-dasharray:2.50 100;stroke-dashoffset:-38.00;animation:arcIn .9s 1.05s cubic-bezier(.3,.8,.3,1) both;filter:url(#glow)"/><circle class="" cx="150" cy="140" r="104" fill="none" stroke="rgba(127,224,168,.5)" stroke-width="28" pathLength="100" transform="rotate(135 150 140)" style="stroke-dasharray:14.50 100;stroke-dashoffset:-40.50;animation:arcIn .9s 1.40s cubic-bezier(.3,.8,.3,1) both;"/><line x1="209.4" y1="80.6" x2="237.7" y2="52.3" stroke="#ffd24a" stroke-width="5" stroke-linecap="round" filter="url(#glow)"/><line x1="90.6" y1="199.4" x2="62.3" y2="227.7" stroke="rgba(255,255,255,.5)" stroke-width="5" stroke-linecap="round" filter="url(#glow)"/><line x1="209.4" y1="199.4" x2="237.7" y2="227.7" stroke="rgba(255,255,255,.5)" stroke-width="5" stroke-linecap="round" filter="url(#glow)"/></svg><div class="abs" style="left:187px;top:19px;width:140px;text-align:center;font:700 19px/1.1 Barlow;color:#ffd24a;white-space:nowrap">LINE 63</div><div class="abs" style="left:-27px;top:233px;width:140px;text-align:center;font:700 19px/1.1 Barlow;color:rgba(255,255,255,.5);white-space:nowrap">61</div><div class="abs" style="left:187px;top:233px;width:140px;text-align:center;font:700 19px/1.1 Barlow;color:rgba(255,255,255,.5);white-space:nowrap">64</div><div class="abs" style="left:0;top:94px;width:300px;text-align:center">
+<div style="font:600 19px/1 Barlow;color:var(--soft)">NOW</div>
+<div style="display:flex;justify-content:center;align-items:baseline;gap:6px;margin-top:2px"><span style="font:400 78px/1 Bebas;color:#fff" data-count="62" data-delay="300">62</span>
+<span style="font:400 40px/1 Bebas;color:var(--soft)">&#8594;</span><span style="font:400 78px/1 Bebas;color:#7fe0a8;text-shadow:0 0 18px rgba(63,192,122,.6)">63</span></div>
+<div style="font:600 19px/1.1 Barlow;color:#7fe0a8">by Fri 13 Mar</div></div></div><div class="abs" style="left:338px;top:78px">
+<div style="font:600 20px/1 Barlow;color:var(--soft);white-space:nowrap">THIS WEEK'S MORNINGS ADD UP TO THE GOAL</div>
+<div class="eq" style="margin-top:10px">
+<span class="eqc" style="--seg:#3cc4ff"><img src="../../../../assets/ui/training/mh_boxer_20_roadwork.png" alt="">Wed roadwork</span><span class="op">+</span>
+<span class="eqc mine" style="--seg:#ffd24a"><span class="ei" style="color:var(--gold)"><svg class="ico " width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="14" r="7"/><path d="M12 14V10M10 3h4M12 3v4"/></svg></span>Sat intervals</span><span class="op">+</span>
+<span class="eqc" style="--seg:rgba(127,224,168,.7)"><span class="ei" style="color:#7fe0a8"><svg class="ico " width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>3 more weeks</span></div>
+<div class="note" style="margin-top:8px"><span class="hv">hover</span>62.4 now · 63.2 by Fri 13 Mar (62.9 before) · met: mood +10</div></div><div class="abs" style="left:338px;top:190px;width:318px;height:126px;padding:12px 14px;border-radius:12px;background:rgba(0,0,0,.25);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)">
+<div class="mt"><span style="color:#9cc2ff;align-self:center"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 9a5 5 0 0 1 8 0M12 9l2-2"/></svg></span><b>WEIGHT</b><span class="big" data-count="65.9" data-dec="1" data-from="66.4">65.9</span><span class="sm">&#8594; 65.0 kg</span></div>
+<div style="margin-top:12px"><div style="position:relative;width:288px;height:14px;border-radius:7px;background:var(--track);overflow:visible"><div class="" style="position:absolute;left:0.0px;top:0;height:14px;width:57.6px;background:#3cc4ff;border-radius:7px;animation:grow .8s 0.40s ease-out both"></div><div class="" style="position:absolute;left:57.6px;top:0;height:14px;width:28.8px;background:#ffd24a;border-radius:2px;animation:grow .8s 0.65s ease-out both"></div><div class="" style="position:absolute;left:86.4px;top:0;height:14px;width:201.6px;background:rgba(127,224,168,.45);border-radius:2px;animation:grow .8s 0.90s ease-out both"></div><div style="position:absolute;left:286.0px;top:-7px;width:4px;height:28px;background:var(--gold);border-radius:2px;box-shadow:0 0 10px var(--gold)"></div></div></div>
+<div style="margin-top:12px;display:flex;gap:6px;align-items:center"><span class="chip" style="height:30px">Hold</span><span class="chip gold" style="height:30px">Lean</span><span class="chip" style="height:30px">Cut</span><span style="font:600 19px/1 Barlow;color:var(--soft);white-space:nowrap">by 16 Mar</span></div></div><div class="abs" style="left:670px;top:190px;width:318px;height:126px;padding:12px 14px;border-radius:12px;background:rgba(0,0,0,.25);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)">
+<div class="mt"><span style="color:#7fe0a8;align-self:center"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 10v4M5 10v4M8 10v4M11 10v4"/></svg></span><b>TANK AT THE BELL</b><span class="big" data-count="94" data-delay="400">94</span></div>
+<div style="margin-top:12px"><div style="position:relative;width:288px;height:14px;border-radius:7px;background:var(--track);overflow:visible"><div class="" style="position:absolute;left:0.0px;top:0;height:14px;width:270.7px;background:linear-gradient(90deg,#2a9a5e,#3fc07a);border-radius:7px;animation:grow .8s 0.40s ease-out both"></div><div class="" style="position:absolute;left:270.7px;top:0;height:14px;width:17.3px;background:#e2483d;border-radius:2px;animation:grow .8s 0.65s ease-out both"></div></div></div>
+<div style="margin-top:10px;display:flex;gap:10px;align-items:center;white-space:nowrap"><span style="font:600 19px/1 Barlow;color:#ff9b8f">-6: tired at the bell</span>
+<svg width="150" height="40" viewBox="0 0 150 40"><polyline points="4.0,26.5 15.5,21.1 27.0,16.6 38.5,18.4 50.0,13.9 61.5,17.5 73.0,23.8 84.5,28.3 96.0,31.0 107.5,27.4 119.0,30.1 130.5,31.9 142.0,24.7" fill="none" stroke="#9cc2ff" stroke-width="2.5" stroke-linejoin="round"/><circle cx="142" cy="25.5" r="4" fill="var(--gold)"/></svg></div></div></div><div class="pan blue" style="left:460px;top:588px;width:1012px;height:56px;background:linear-gradient(90deg,rgba(28,40,66,.85),rgba(18,18,24,.9))"></div>
+<div class="abs" style="left:474px;top:597px;font:400 31px/1 Bebas;letter-spacing:.05em;color:var(--gold)">LOAD</div><div class="slider" style="top:589px"><div class="tr"></div><div class="dot" style="left:12px"></div><div class="st" style="left:12px">EASY</div><div class="dot" style="left:124px"></div><div class="st on" style="left:124px">NORMAL</div><div class="dot" style="left:236px"></div><div class="st" style="left:236px">HARD</div><div class="dot" style="left:348px"></div><div class="st" style="left:348px">SHARPEN</div><div class="knob" style="left:124px"></div></div><div class="abs" style="left:960px;top:594px;white-space:nowrap"><span style="font:700 21px/1 Barlow;color:#fff">Normal · <span data-count="82" data-delay="300">82</span>% of a usual week</span></div>
+<div class="abs note" style="left:960px;top:620px;white-space:nowrap"><span class="hv">hover</span>work 75 · usual 92 · safe to 120</div><div class="abs" style="left:1254px;top:599px"><span class="chip" style="height:34px;font-size:18px;padding:0 10px">Coach's rules: 3 of 4 on</span></div><div class="pan blue" style="left:1484px;top:248px;width:408px;height:282px">
+<div class="abs" style="left:22px;top:16px"><div class="ptl">WHAT THE RING GETS <small>vs Kayleigh</small></div>
+<div class="rg"><span class="ri"><svg class="ico " width="22" height="22" viewBox="0 0 24 24"><path d="M7 4c2 0 3 2 3 5s-1 5-3 5-3-2-3-5 1-5 3-5zM17 10c2 0 3 2 3 5s-1 5-3 5-3-2-3-5 1-5 3-5z"/></svg></span><div><b>Footwork 57 <u>&#8594; 58</u></b><span>Jab and move works better at 62</span></div></div>
+<div class="rg"><span class="ri" style="color:#7fe0a8;background:rgba(63,192,122,.18)"><svg class="ico " width="22" height="22" viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 10v4M5 10v4M8 10v4M11 10v4"/></svg></span><div><b>Stamina 62 <u>&#8594; 63</u></b><span>no tiring in round 3 from 64</span></div></div>
+<div class="rg"><span class="ri"><svg class="ico " width="22" height="22" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></span><div><b>Defence 51</b><span>"Hands up" helps from 56</span></div></div>
+<div style="margin-top:12px"><span class="chip red"><svg class="ico " width="18" height="18" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>Explosiveness fades Mon 9 Mar</span></div></div></div><div class="pan" style="left:1484px;top:540px;width:408px;height:198px">
+<div class="abs" style="left:22px;top:16px;width:370px"><div class="ptl">SAT 28: THIS WEEK BUYS</div>
+<div class="buy"><svg class="ico " width="22" height="22" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg><span><b>Sharp</b> on the night · Tank 94</span></div>
+<div class="buy"><svg class="ico " width="22" height="22" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg><span>Goal <b style="color:#7fe0a8">met</b> by Fri 13 Mar</span></div>
+<div class="buy"><svg class="ico " width="22" height="22" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg><span>Dropped right hand: <b>half fixed</b></span></div>
+<div class="buy"><svg class="ico " width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Last week: <b>Stamina +1</b> (roadwork) &#8250;</span></div></div></div><div class="pan" style="left:1484px;top:746px;width:408px;height:256px">
+<div class="abs" style="left:22px;top:16px"><div class="ptl">THE HAND <small>drag a card onto a pad place</small></div></div>
+<div class="abs" style="left:18px;top:56px;display:flex;gap:10px">
+<div class="mini fd" data-tip="Uppercut" data-sub="Sharp 61" data-line="Fades to Usable Mon 9 Mar unless it gets a pad place (1 place keeps it Sharp)" data-pic="../../../../assets/ui/moves/rear_uppercut.png" data-kind="the move, on a loop"><img src="../../../../assets/ui/moves/rear_uppercut.png" alt=""><b>Uppercut</b><i>fades 9 Mar</i></div>
+<div class="mini" data-tip="1-2-3" data-sub="Usable 34" data-line="Jab, cross, lead hook. Fires 1 in 2 at Usable" data-pic="../../../../assets/ui/moves/1-2-3.png" data-kind="the combination, on a loop"><img src="../../../../assets/ui/moves/1-2-3.png" alt=""><b>1-2-3</b><i>Usable 34</i></div>
+<div class="mini" data-tip="Jab" data-sub="Sharp 64" data-line="The lead hand's long shot. Sharp: fires most rounds" data-pic="../../../../assets/ui/moves/jab.png" data-kind="the move, on a loop"><img src="../../../../assets/ui/moves/jab.png" alt=""><b>Jab</b><i>Sharp 64</i></div></div>
+<div class="abs" style="left:18px;top:196px"><span class="btn" style="height:46px;box-shadow:inset 0 0 0 2px rgba(255,210,74,.7);color:var(--gold)"><svg class="ico " width="22" height="22" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Build a combination</span></div></div><div class="lane fade" style="top:656px;animation-delay:.3s"><b>MORNINGS</b><span>build the body and skills · click a card to swap it</span></div><div class="day deal" style="--who:#4d8ef0;left:20px;top:688px;height:158px;animation-delay:0.35s" data-tip="Slip rope · Normal" data-sub="Mon" data-line="Defence: slips and rolls · Coach runs it (dealt on Club week)" data-pic="../../../../assets/ui/training/mh_boxer_20_slip_rope.png" data-kind="the session, on a loop"><div class="dh">MON<span class="lockl"><svg class="ico " width="18" height="18" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Coach</span></div><div class="row"><img class="th" src="../../../../assets/ui/training/mh_boxer_20_slip_rope.png" alt=""><span class="nm">Slip rope</span></div><div class="ab"><em>Defence:</em> slips and rolls</div></div><div class="day deal" style="--who:#ffd24a;left:228px;top:688px;height:158px;animation-delay:0.43s"><div class="dh">TUE<small>Normal</small></div><div class="row"><span class="thi"><svg class="ico " width="30" height="30" viewBox="0 0 24 24"><path d="M7 4c2 0 3 2 3 5s-1 5-3 5-3-2-3-5 1-5 3-5zM17 10c2 0 3 2 3 5s-1 5-3 5-3-2-3-5 1-5 3-5z"/></svg></span><span class="nm">Footwork drills</span></div><div class="ab"><em>Footwork:</em> ring cutting, angles</div></div><div class="day deal feed" style="--who:#ffd24a;left:436px;top:688px;height:158px;animation-delay:0.51s;--seg:#3cc4ff" data-tip="Roadwork · Hard" data-sub="Wed · 460 kcal" data-line="Recovery and Stamina: feeds your goal" data-pic="../../../../assets/ui/training/mh_boxer_20_roadwork.png" data-kind="the session, on a loop" data-demo><div class="dh">WED<small>Hard</small></div><div class="row"><img class="th" src="../../../../assets/ui/training/mh_boxer_20_roadwork.png" alt=""><span class="nm">Roadwork</span></div><div class="ab"><em>Recovery, Stamina:</em> feeds your goal</div></div><div class="day deal" style="--who:#7a7a7a;left:644px;top:688px;height:158px;animation-delay:0.59s"><div class="dh">THU<small>Normal</small></div><div class="row"><span class="thi"><svg class="ico " width="30" height="30" viewBox="0 0 24 24"><path d="M3 12h18M6 8v8M18 8v8M3 10v4M21 10v4"/></svg></span><span class="nm">Strength circuit</span></div><div class="ab"><em>Strength:</em> raises the power ceiling</div></div><div class="day deal" style="--who:#7a7a7a;left:852px;top:688px;height:158px;animation-delay:0.67s" data-tip="Shadow boxing · Light" data-sub="Fri" data-line="Accuracy: shots that land · alone" data-pic="../../../../assets/ui/training/mh_boxer_20_shadow.png" data-kind="the session, on a loop"><div class="dh">FRI<small>Light</small></div><div class="row"><img class="th" src="../../../../assets/ui/training/mh_boxer_20_shadow.png" alt=""><span class="nm">Shadow boxing</span></div><div class="ab"><em>Accuracy:</em> shots that land</div></div><div class="day mine feed" style="--who:#ffd24a;left:1060px;top:688px;height:158px;animation-delay:0.75s;--seg:#ffd24a"><span class="newtag">YOURS</span><div class="dh">SAT<small>Normal</small></div><div class="row"><span class="thi" style="color:var(--gold)"><svg class="ico " width="30" height="30" viewBox="0 0 24 24"><circle cx="12" cy="14" r="7"/><path d="M12 14V10M10 3h4M12 3v4"/></svg></span><span class="nm">Intervals</span></div><div class="ab"><em>Stamina:</em> feeds your goal</div></div><div class="day deal dim" style="--who:#7a7a7a;left:1268px;top:688px;height:158px;animation-delay:0.83s"><div class="dh">SUN<small></small></div><div class="row"><span class="thi" style="color:#8f8270"><svg class="ico " width="30" height="30" viewBox="0 0 24 24"><path d="M3 18V7M3 14h18v4M21 14v-3a3 3 0 0 0-3-3h-7v6"/><circle cx="7" cy="11" r="2"/></svg></span><span class="nm">Rest</span></div><div class="ab"><em>Fresh legs</em></div></div><div class="lane fade" style="top:852px;animation-delay:.6s"><b>EVENINGS: THE PADS</b><span>where moves and combinations are learned</span></div><div class="abs fade" style="left:1100px;top:848px;animation-delay:.6s"><span class="chip blue" style="height:32px">3 pad places · more on Club week</span></div><div class="day deal" style="--who:#4d8ef0;left:20px;top:886px;width:408px;height:116px;animation-delay:.9s" data-tip="Check hook" data-sub="Learning 24" data-line="Hook while stepping off to the side" data-pic="../../../../assets/ui/moves/lead_hook.png" data-kind="the move, on a loop">
+<div class="dh">MON PADS<span class="lockl"><svg class="ico " width="18" height="18" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Coach</span></div>
+<div class="row" style="margin-top:4px"><img class="th" style="width:62px;height:62px" src="../../../../assets/ui/moves/lead_hook.png" alt="">
+<div><span class="nm">Check hook</span><div style="display:flex;align-items:center;gap:8px;margin-top:5px"><div class="pips" style="margin:0"><i class="d"></i><i class="h"></i><i></i><i></i><i></i></div><span style="font:600 18px/1 Barlow;color:#9cc2ff">Learning</span></div>
+<div style="margin-top:6px;font:600 18px/1 Barlow;color:#9cc2ff;white-space:nowrap">Usable Mon 2 Mar <span style="color:#ffb26a">· after the bout</span></div></div></div></div><div class="day deal" style="--who:#ffd24a;left:436px;top:886px;width:408px;height:116px;animation-delay:1s" data-tip="Habit fix: the right hand" data-sub="2 pad places" data-line="The right hand drops after the jab. Half fixed by Sat 28; Kayleigh punishes it" data-pic="../../../../assets/ui/moves/jab.png" data-kind="the drill, on a loop">
+<div class="dh">WED PADS x2<small>you</small></div>
+<div class="row" style="margin-top:4px"><img class="th" style="width:62px;height:62px" src="../../../../assets/ui/moves/jab.png" alt="">
+<div><span class="nm">Habit fix: right hand</span><div class="pips"><i class="d"></i><i class="d"></i><i class="d"></i><i></i><i></i><i></i></div>
+<div style="margin-top:6px;font:600 18px/1 Barlow;color:#9cc2ff;white-space:nowrap">drops after the jab · half fixed Sat 28</div></div></div></div><div class="day deal" style="--who:#4d8ef0;left:852px;top:886px;width:200px;height:116px;animation-delay:1.1s" data-tip="Sparring with Lucy" data-sub="Thu" data-line="Light sparring: trains every card already Usable (Jab, 1-2-3)" data-pic="../../../../assets/ui/training/mh_boxer_20_sparring.png" data-kind="the session, on a loop">
+<div class="dh">THU<span class="lockl"><svg class="ico " width="18" height="18" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Club</span></div>
+<div class="row" style="margin-top:4px"><img class="th" src="../../../../assets/ui/training/mh_boxer_20_sparring.png" alt=""><span class="nm">Sparring with Lucy</span></div></div><div class="day deal dim" style="--who:#7a7a7a;left:1060px;top:886px;width:408px;height:116px;animation-delay:1.15s">
+<div class="dh">TUE · FRI · SAT · SUN</div><div class="ab" style="margin-top:10px;font-size:20px">Evenings off: tiredness clears</div></div><div class="abs" style="left:20px;top:1014px;display:flex;gap:10px"><span class="btn">Back to Coach's week</span><span class="btn">Coach runs Samira</span></div>
+<div class="change"><span style="color:var(--gold)"><svg class="ico " width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="14" r="7"/><path d="M12 14V10M10 3h4M12 3v4"/></svg></span><b>Intervals on Sat:</b> Stamina goal close &#8594; <u>met</u> · Tank 95 &#8594; 94</div>
+<div class="abs" style="right:28px;top:1012px;display:flex;gap:18px;align-items:center"><span class="tog"><i></i>Keep next week</span><span class="go">Done</span></div><div class="tip" id="tip"><div class="arrow"></div>
+<div class="clip"><div class="bobw"><img src="" alt=""></div><span class="live"><i></i><b>plays on a loop</b></span></div>
+<h4><span class="t" style="color:#fff;font:700 23px/1.1 Barlow"></span><span class="s"></span></h4><p></p><div class="tipfoot">HOVER CARD · opens after a quarter second</div></div><script>
+// ONE shared hover card (MoveTip): opens after 250 ms of hover intent beside the item, never over it, never follows the mouse.
+(function(){
+  const tip=document.getElementById('tip'); let timer=null, cur=null;
+  function place(el){
+    const r=el.getBoundingClientRect(), w=360, h=tip.offsetHeight||270, gap=14;
+    let left=r.right+gap, side='right';
+    if(left+w>1910){left=r.left-gap-w; side='left';}
+    let top=Math.max(84,Math.min(1080-h-8,r.top+r.height/2-h/2));
+    tip.style.left=left+'px'; tip.style.top=top+'px';
+    tip.classList.toggle('left',side==='left');
+    tip.querySelector('.arrow').style.top=Math.max(20,Math.min(h-40,r.top+r.height/2-top-12))+'px';
+  }
+  function fill(el){
+    tip.querySelector('img').src=el.dataset.pic;
+    tip.querySelector('.t').textContent=el.dataset.tip;
+    tip.querySelector('.s').textContent=el.dataset.sub||'';
+    tip.querySelector('p').textContent=el.dataset.line||'';
+    tip.querySelector('.live b').textContent=el.dataset.kind||'plays on a loop';
+  }
+  function show(el){ fill(el); tip.classList.add('show'); place(el); cur=el; }
+  function hide(){ tip.classList.remove('show'); cur=null; }
+  document.querySelectorAll('[data-tip]').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ clearTimeout(timer); document.body.classList.add('live');
+      
+      if(cur){ hide(); }
+      timer=setTimeout(()=>show(el),250); });
+    el.addEventListener('mouseleave',()=>{ clearTimeout(timer); hide(); });
+  });
+  // the still: the card drawn open on one item
+  const demo=document.querySelector('[data-demo]');
+  if(demo){ fill(demo); tip.classList.add('show'); requestAnimationFrame(()=>place(demo)); }
+})();
+// numbers count up, bars and arcs grow (the from-only keyframes end on the drawn value)
+if(!document.documentElement.classList.contains('still'))document.querySelectorAll('[data-count]').forEach(el=>{
+  const to=parseFloat(el.dataset.count), dec=parseInt(el.dataset.dec||'0'), from=parseFloat(el.dataset.from||'0'), dur=1100, delay=parseInt(el.dataset.delay||'250');
+  const t0=performance.now();
+  el.textContent=from.toFixed(dec);
+  function step(t){ const k=Math.min(1,Math.max(0,(t-t0-delay)/dur)); const e=1-Math.pow(1-k,3);
+    el.textContent=(from+(to-from)*e).toFixed(dec); if(k<1) requestAnimationFrame(step); }
+  requestAnimationFrame(step);
+});
+</script></body></html>

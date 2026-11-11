@@ -4667,7 +4667,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-11 18:41 board_sync",
+  "updated": "2026-11-11 19:42 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4818,13 +4818,28 @@
     "title": "TASK HUMANFIGHT2B - CURSOR (Grok 4.7 High) - the stepping route without pops, with one-frame contact, and no fudges",
     "who": "cursor",
     "started": "2026-11-11T17:45",
-    "run": "HUMANFIGHT2B"
+    "run": "HUMANFIGHT2B",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK CORNERFACE2 - QWEN (qwen3-coder) - the corner minute keeps the boxer's face in the open part of the screen, measured on the real bodies",
     "who": "qwen",
     "started": "2026-11-11T18:18",
-    "run": "CORNERFACE2"
+    "run": "CORNERFACE2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK RIBHURT1 - QWEN (qwen3-coder) - a boxer whose ribs (or face) took a beating is likelier to come out with a rib injury (or a cut)",
+    "who": "qwen",
+    "started": "2026-11-11T19:11",
+    "run": "RIBHURT1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK CALLSPREAD1 - QWEN (qwen3-coder) - a corner call's strength rises point by point from 56 to 62, not in one jump at 62 (one function + its test)",
+    "who": "qwen",
+    "started": "2026-11-11T19:42",
+    "run": "CALLSPREAD1"
    }
   ],
   "next": [
@@ -4841,10 +4856,22 @@
     "after": "FOUNDATION"
    },
    {
+    "id": "INTROCORNER1",
+    "who": "antigravity",
+    "title": "Fight intro from the corners (his ask): the rope entry out (kept for a proper redo later), each boxer shadow-boxes / bounces / celebrates the name call their own way, never identical",
+    "after": "DUESSUMS3B"
+   },
+   {
     "id": "FOUNDATION",
     "who": "claude",
     "title": "Step 0: twelve foundation fixes in today's code (rest drains Stamina, ceilings, Cardio average, no-camp Tank, punch start, stop odds, ...)",
     "after": "CORELOOP"
+   },
+   {
+    "id": "VOICEWIRE1",
+    "who": "qwen",
+    "title": "Voices in the game with the cast he picked (docs/audio/VOICE_CAST_S434.md): the announcer on fight night, corner shouts on the calls, the veteran-fighter guide on the tips - each line on the sound board first",
+    "after": "CORNERFACE2"
    },
    {
     "id": "TURNPRO1",
@@ -4863,6 +4890,12 @@
     "who": "qwen",
     "title": "F15: a corner call's strength rises point by point from 56 to 62 (briefed; after the foundation lands)",
     "after": "FOUNDATION"
+   },
+   {
+    "id": "ROPEENTRY2",
+    "who": "cursor",
+    "title": "The rope entry done properly, later: feet over the middle rope at its real height, ropes that give under the body, a blend from the stance (after HUMANFIGHT2B; only back when it passes his eye)",
+    "after": "HUMANFIGHT2B"
    },
    {
     "id": "SEATDESIGN",

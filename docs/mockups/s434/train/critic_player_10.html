@@ -1,0 +1,288 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Training, critic player 10 of 10</title>
+<script>if(/Headless/i.test(navigator.userAgent))document.documentElement.classList.add("still")</script>
+<style>
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../../assets/fonts/BebasNeue-Regular.ttf)}
+@font-face{font-family:Marker;src:url(../../../../assets/fonts/PermanentMarker-Regular.ttf)}
+:root{--ink:#f1ece4;--soft:#c3b8a8;--dim:#8a8173;--gold:#ffd24a;--red:#e2483d;--blue:#4d8ef0;--green:#3fc07a;--amber:#f28d27;--purple:#ad80ff;
+ --panel:#1a1f2b;--panel2:#212838;--line:rgba(255,255,255,.09);--track:rgba(255,255,255,.10)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{background:radial-gradient(ellipse 1100px 700px at 40% 30%,#1d2233,#11141c 70%);color:var(--ink);font:500 18px/1.2 Barlow,"Segoe UI",sans-serif;position:relative}
+.bb{font-family:Bebas;letter-spacing:.5px;font-weight:400}
+.abs{position:absolute}
+.panel{position:absolute;background:linear-gradient(#1c2230,#171b26);border:1px solid var(--line);border-radius:10px}
+.lab{font:700 15px/1 Barlow;letter-spacing:1.6px;color:var(--dim);text-transform:uppercase}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:14px;font:600 16px/1 Barlow;background:rgba(255,255,255,.07)}
+/* top bar */
+.top{position:absolute;left:0;top:0;width:1920px;height:68px;background:linear-gradient(#2a1f17,#1b140f);border-bottom:2px solid #3b2c20;display:flex;align-items:center;gap:16px;padding:0 18px}
+.tnav{width:34px;height:34px;border-radius:6px;background:#3a2c21;display:flex;align-items:center;justify-content:center;font:700 18px Barlow}
+.gym{font:400 34px/1 Marker;color:#5aa0ff}
+.date{font:600 18px/1.15 Barlow}.date small{display:block;color:var(--dim);font-size:15px}
+.cash{margin-left:auto;text-align:right;font:700 26px/1 Barlow;color:var(--gold)}.cash small{display:block;font:500 15px Barlow;color:var(--dim);margin-top:3px}
+.cont{background:linear-gradient(#5a4430,#3b2c20);border:1px solid #6b5138;border-radius:6px;padding:7px 18px;width:300px;font:700 18px/1.1 Barlow}.cont small{display:block;font:500 15px Barlow;color:var(--soft)}
+/* tabs */
+.tabs{position:absolute;left:20px;top:80px;display:flex;gap:6px}
+.tab{padding:10px 16px;border-radius:7px;background:#232a3a;font:600 19px/1 Barlow;color:#9fb3d6}
+.tab.on{background:#2f4f86;color:#fff}
+.who{position:absolute;left:880px;top:76px;display:flex;gap:14px}
+.who div{text-align:center;font:600 14px/1 Barlow;color:var(--soft);position:relative}
+.who img{width:46px;height:46px;border-radius:50%;border:2px solid #3a4560;display:block;margin:0 auto 3px;object-fit:cover}
+.who .on img{border-color:var(--gold);box-shadow:0 0 12px rgba(255,210,74,.5)}.who .on{color:#fff}
+.dot{position:absolute;top:0;right:-2px;width:13px;height:13px;border-radius:50%;border:2px solid #11141c}
+/* dock */
+.dock{left:20px;top:138px;width:450px;height:864px;overflow:hidden}
+.dock .id{padding:14px 18px 10px}
+.name{font:400 42px/1 Marker;color:#fff}
+.stage{position:absolute;left:14px;top:118px;width:420px;height:400px;border-radius:8px;overflow:hidden;background:#0c0f15;border:2px solid var(--gold);box-shadow:0 0 0 4px rgba(255,210,74,.12)}
+.stage img.sess{position:absolute;left:50%;top:50%;width:400px;height:400px;margin:-200px 0 0 -200px;image-rendering:pixelated;animation:bob .5s ease-in-out infinite alternate}
+.stage .live{position:absolute;left:12px;top:12px;background:rgba(0,0,0,.6);padding:5px 10px;border-radius:5px;font:700 15px Barlow;letter-spacing:1px}
+.stage .live i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--red);margin-right:6px;animation:blink 1s infinite}
+.stage .loop{position:absolute;right:12px;top:12px;background:rgba(0,0,0,.6);padding:5px 10px;border-radius:5px;font:600 14px Barlow;color:var(--soft)}
+.stage .bar{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.1)}.stage .bar b{display:block;height:100%;width:60%;background:var(--gold);animation:prog 2.4s linear infinite}
+.pv{position:absolute;left:18px;top:530px;right:18px}
+.pv h3{font:400 34px/1 Bebas;letter-spacing:.6px}
+.pv h3 span{color:var(--gold)}
+.row{display:flex;align-items:center;gap:10px;margin-top:10px;font:600 18px/1.2 Barlow}
+.row .k{width:70px;color:var(--dim);font:700 14px Barlow;letter-spacing:1.4px}
+.up{color:var(--green)}.dn{color:var(--amber)}
+.hint{position:absolute;left:18px;right:18px;bottom:14px;padding:9px 12px;border-radius:7px;background:rgba(77,142,240,.12);border:1px dashed rgba(77,142,240,.5);font:600 15px/1.3 Barlow;color:#9fc0f4}
+/* center */
+.coach{left:490px;top:138px;width:950px;height:106px;display:flex;align-items:center;gap:16px;padding:0 16px 0 0}
+.coach img{width:110px;height:104px;object-fit:cover;object-position:50% 12%;border-radius:10px 0 0 10px}
+.q{flex:1;font:600 21px/1.25 Barlow}.q b{color:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:7px;font:700 18px/1 Barlow;padding:11px 16px;background:#2a3346;border:1px solid #3a4560;white-space:nowrap}
+.btn.gold{background:linear-gradient(#ffd24a,#e9a91f);color:#1a1206;border:none}
+.does{left:490px;top:254px;width:950px;height:132px;padding:12px 16px}
+.stats{display:flex;gap:10px;margin-top:10px}
+.st{width:150px;height:78px;border-radius:8px;background:var(--panel2);padding:9px 12px;position:relative;border:1px solid var(--line)}
+.st.goal{border-color:rgba(255,210,74,.6)}
+.st .v{font:400 34px/1 Bebas;color:var(--green)}.st .n{font:600 14px Barlow;color:var(--soft);margin-top:4px;white-space:nowrap}
+.st .fl{position:absolute;right:8px;top:8px;font:700 12px Barlow;color:#1a1206;background:var(--gold);padding:2px 6px;border-radius:4px}
+.tired{position:absolute;left:660px;top:12px;width:276px;height:108px}
+.load{left:490px;top:396px;width:950px;height:98px;display:flex;gap:10px;padding:10px;align-items:stretch}
+.lo{flex:1;border-radius:8px;background:var(--panel2);border:1px solid var(--line);padding:9px 12px}
+.lo h4{font:400 26px/1 Bebas;letter-spacing:.6px;display:flex;justify-content:space-between}
+.lo h4 small{font:600 15px Barlow;color:var(--soft)}
+.lo p{font:600 15px/1.35 Barlow;color:var(--soft);margin-top:5px}
+.lo.on{border:2px solid var(--gold);background:linear-gradient(#2e2a1e,#232838)}
+.lo .bad{color:var(--red)}.lo .ok{color:var(--green)}
+.lbl{position:absolute;font:400 28px/1 Bebas;letter-spacing:.8px}
+.lbl small{font:600 16px Barlow;color:var(--dim);letter-spacing:0;margin-left:10px}
+.days{position:absolute;left:490px;width:950px;display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.d{position:relative;border-radius:8px;background:var(--panel2);border:1px solid var(--line);overflow:hidden;animation:deal .45s cubic-bezier(.2,.9,.3,1.2) both}
+.d .h{display:flex;justify-content:space-between;padding:6px 9px 0;font:700 16px Barlow}
+.pips{display:flex;gap:3px;align-items:center}.pips i{width:7px;height:12px;border-radius:2px;background:var(--track)}.pips i.f{background:var(--soft)}.pips.hard i.f{background:var(--amber)}
+.d img{display:block;width:100%;height:78px;object-fit:cover;object-position:50% 30%;image-rendering:pixelated;margin-top:4px;background:#0c0f15}
+.d .nm{padding:6px 9px 0;font:700 17px/1.1 Barlow}
+.d .ef{padding:3px 9px 8px;font:600 15px/1.2 Barlow;color:var(--green)}
+.d.goal{border-color:rgba(255,210,74,.55)}
+.d .gf{position:absolute;right:6px;top:30px;font:700 12px Barlow;color:#1a1206;background:var(--gold);padding:2px 6px;border-radius:4px}
+.d .yours{position:absolute;left:6px;top:30px;font:700 12px Barlow;color:#fff;background:#2f4f86;padding:2px 6px;border-radius:4px}
+.d.hov{outline:3px solid var(--gold);outline-offset:-1px;box-shadow:0 0 18px rgba(255,210,74,.35)}
+.d.hov::after{content:"▶ in preview";position:absolute;left:0;right:0;top:82px;background:var(--gold);color:#1a1206;font:700 13px/22px Barlow;text-align:center}
+.d.rest{opacity:.65}
+.mbar{display:flex;gap:3px;padding:4px 9px 0}.mbar i{flex:1;height:6px;border-radius:2px;background:var(--track)}
+.ev .ef{color:var(--soft)}
+.hand{left:490px;top:900px;width:950px;height:102px;padding:9px 12px;display:flex;gap:8px;align-items:center}
+.mv{width:94px;height:84px;border-radius:7px;background:var(--panel2);border:1px solid var(--line);position:relative;overflow:hidden;text-align:center}
+.mv img{width:56px;height:40px;object-fit:cover;image-rendering:pixelated;margin-top:3px}
+.mv b{display:block;font:700 14px/1 Barlow}.mv span{display:block;font:700 12px/1.2 Barlow;margin-top:2px}
+.t-sig{color:var(--purple)}.t-sharp{color:var(--gold)}.t-use{color:var(--green)}.t-learn{color:#7fb2ff}.t-new{color:var(--dim)}.t-fade{color:var(--red)}
+/* right */
+.bout{left:1460px;top:138px;width:440px;height:178px;padding:14px 16px;background:linear-gradient(135deg,#3a1b1b,#1c1820 60%)}
+.ladder{display:flex;margin-top:14px;gap:4px}
+.ladder div{flex:1;text-align:center;padding:7px 2px;border-radius:5px;background:rgba(255,255,255,.06);font:700 14px/1.15 Barlow;color:var(--soft)}
+.ladder div small{display:block;font:500 13px Barlow;color:var(--dim)}
+.ladder .now{background:#2f4f86;color:#fff}.ladder .fn{background:rgba(226,72,61,.35);color:#fff}
+.goalp{left:1460px;top:326px;width:440px;height:168px;padding:14px 16px;display:flex;gap:16px;align-items:center}
+.ring{width:132px;height:132px;flex:none}
+.ringf{position:absolute;left:1460px;top:504px;width:440px;height:212px;padding:12px 16px}
+.fg{display:flex;align-items:center;gap:12px;margin-top:10px}
+.fg .ic{width:34px;height:34px;border-radius:8px;background:rgba(63,192,122,.15);display:flex;align-items:center;justify-content:center;font:700 16px Barlow;color:var(--green)}
+.fg b{font:700 19px Barlow}.fg span{display:block;font:500 15px Barlow;color:var(--soft)}
+.need{left:1460px;top:726px;width:440px;height:162px;padding:12px 16px;background:linear-gradient(#3a1c1a,#24171a);border-color:rgba(226,72,61,.5)}
+.ch{display:flex;gap:8px;margin-top:10px}
+.ch div{flex:1;border-radius:7px;padding:8px 10px;background:rgba(255,255,255,.06);border:1px solid var(--line);font:600 15px/1.3 Barlow;color:var(--soft)}
+.ch div b{display:block;font:700 18px Barlow;color:#fff;margin-bottom:2px}
+.ch .pick{border-color:var(--gold)}
+.last{left:1460px;top:898px;width:440px;height:104px;padding:12px 16px}
+/* bottom */
+.foot{position:absolute;left:20px;top:1014px;width:1880px;height:56px;display:flex;align-items:center;gap:12px}
+.chg{flex:1;height:56px;border-radius:8px;border:1px solid rgba(255,210,74,.45);background:rgba(255,210,74,.07);display:flex;align-items:center;gap:12px;padding:0 16px;font:600 19px Barlow}
+.chg .k{font:400 22px Bebas;color:var(--gold);letter-spacing:1px}
+.tog{display:flex;align-items:center;gap:8px;font:600 17px Barlow}.tog i{width:46px;height:26px;border-radius:13px;background:var(--green);position:relative}.tog i::after{content:"";position:absolute;right:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff}
+.done{width:180px;height:56px;font:400 32px/56px Bebas;letter-spacing:1px}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-6px)}}
+@keyframes blink{50%{opacity:.2}}
+@keyframes prog{from{width:0}to{width:100%}}
+@keyframes deal{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.grow{transform-origin:left;animation:grow .8s .3s ease-out both}
+.still *{animation-duration:0s!important;animation-delay:0s!important;animation-iteration-count:1!important}
+.still .stage .bar b{width:60%}
+</style></head><body>
+
+<div class="top">
+ <div class="tnav">&lt;</div><div class="tnav" style="opacity:.4">&gt;</div>
+ <div class="gym">Anvil Street Gym</div>
+ <div class="date">Mon 16 Feb 2026<small>Week 7</small></div>
+ <div class="cash">$12,940<small>running -$210 a week</small></div>
+ <div class="cont">CONTINUE<small>to Mon 23 Feb, fight week starts</small></div>
+ <div class="btn" style="padding:9px 14px">Menu</div>
+</div>
+
+<div class="tabs"><div class="tab">Profile</div><div class="tab">Condition</div><div class="tab on">Training</div><div class="tab">Playbook</div><div class="tab">Fight plan</div><div class="tab">History</div></div>
+<div class="who">
+ <div><img src="../../s431/final/face_lucy.png">Lucy<i class="dot" style="background:var(--green)"></i></div>
+ <div class="on"><img src="../../s431/final/face_samira.png">Samira<i class="dot" style="background:var(--amber)"></i></div>
+ <div><img src="../../s431/final/face_tess.png">Tess<i class="dot" style="background:var(--red)"></i></div>
+ <div><img src="../../s431/final/face_ana.png">Ana<i class="dot" style="background:var(--green)"></i></div>
+</div>
+<div class="abs" style="left:1460px;top:88px;font:600 16px Barlow;color:var(--soft)">dot: <span style="color:var(--red)">needs you</span> · <span style="color:var(--amber)">one answer by Mon</span> · <span style="color:var(--green)">set</span></div>
+
+<!-- PREVIEW DOCK: hover anything, it plays here; nothing pops over the board -->
+<div class="panel dock">
+ <div class="id"><div class="name">Samira Khan</div>
+  <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><span class="chip">Welterweight</span><span class="chip">Out-boxer</span><span class="chip">3-1</span><span class="chip" style="color:var(--green)">Age 18: grows faster</span></div></div>
+ <div class="stage" data-demo>
+  <img class="sess" src="../../../../assets/ui/training/mh_boxer_20_speed_bag.png">
+  <div class="live"><i></i>PREVIEW</div><div class="loop">plays on a loop</div>
+  <div class="bar"><b></b></div>
+ </div>
+ <div class="pv">
+  <div class="lab" style="color:var(--gold)">Wed morning · Coach's pick</div>
+  <h3 style="margin-top:6px">Speed bag <span>· Hard</span></h3>
+  <div class="row"><span class="k">TRAINS</span><span class="up">Speed +0.25</span><span style="color:var(--dim)">·</span><span class="up">Timing +0.1</span></div>
+  <div class="row"><span class="k">COSTS</span><span class="dn">Tiredness +9</span><span style="color:var(--dim)">·</span><span>easy on the sore hand</span></div>
+  <div class="row"><span class="k">WHY</span><span>quicker hands beat a counter-puncher</span></div>
+  <div class="row"><span class="k">SWAP</span><span style="color:var(--soft)">Heavy bag: Power +0.25, hand pain</span></div>
+ </div>
+ <div class="hint">Rest the mouse on a session, move or combo: it plays here. Leave it and her picture comes back. Click to change.</div>
+</div>
+
+<!-- COACH -->
+<div class="panel coach">
+ <img src="c_coach_cut.png">
+ <div class="q"><span class="lab" style="color:#7fb2ff">Coach's week · Build</span><br>"<b>Build week.</b> Stamina reaches <b>63 by Fri 13 Mar</b>. Speed bag, not heavy bag, while the hand heals."</div>
+ <div style="display:flex;flex-direction:column;gap:8px">
+  <div class="btn gold">✓ Take coach's week</div>
+  <div class="btn" style="font-size:16px;padding:8px 12px">1 change of yours ✕</div>
+ </div>
+</div>
+
+<!-- THIS WEEK DOES -->
+<div class="panel does">
+ <div class="lab">This week does</div>
+ <div class="stats">
+  <div class="st goal"><div class="fl">GOAL</div><div class="v count" data-to="0.6">+0.6</div><div class="n">Stamina 62.4 → 63.0</div></div>
+  <div class="st"><div class="v">+0.3</div><div class="n">Footwork 57 → 57.3</div></div>
+  <div class="st"><div class="v">+0.25</div><div class="n">Speed 61 → 61.3</div></div>
+  <div class="st"><div class="v" style="color:var(--gold)">Usable</div><div class="n">Check hook, Mon 2 Mar</div></div>
+ </div>
+ <svg class="tired" viewBox="0 0 276 108">
+  <text x="0" y="13" fill="#8a8173" font-family="Barlow" font-weight="700" font-size="13" letter-spacing="1.4">TIREDNESS THIS WEEK</text>
+  <rect x="0" y="22" width="276" height="16" fill="rgba(226,72,61,.16)"/><text x="6" y="34" fill="#e2483d" font-family="Barlow" font-weight="700" font-size="12">80+ overworked</text>
+  <polyline points="8,78 46,70 84,56 122,62 160,64 198,50 236,72 270,88" fill="none" stroke="#f28d27" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="198" cy="50" r="5" fill="#ffd24a"/><text x="198" y="70" fill="#ffd24a" font-family="Barlow" font-weight="700" font-size="13" text-anchor="middle">Sat 58</text>
+  <g fill="#8a8173" font-family="Barlow" font-weight="600" font-size="12" text-anchor="middle"><text x="8" y="104">M</text><text x="46" y="104">T</text><text x="84" y="104">W</text><text x="122" y="104">T</text><text x="160" y="104">F</text><text x="198" y="104">S</text><text x="236" y="104">S</text></g>
+ </svg>
+</div>
+
+<!-- LOAD -->
+<div class="panel load">
+ <div class="lo"><h4>Easy <small>64%</small></h4><p>fresh 97 · <span class="bad">goal missed</span></p></div>
+ <div class="lo on"><h4>Normal <small>82% · coach</small></h4><p>fresh 94 · <span class="ok">goal met Fri 13</span></p></div>
+ <div class="lo"><h4>Hard <small>106%</small></h4><p>tired peak 81 · <span class="bad">injury x2</span></p></div>
+ <div class="lo"><h4>Taper <small>47%</small></h4><p>fresh 99 · nothing new learned</p></div>
+</div>
+
+<div class="lbl" style="left:492px;top:506px">Mornings<small>build the body · one session each</small></div>
+<div class="days" style="top:538px;height:166px">
+ <div class="d"><div class="h">MON<span class="pips"><i class="f"></i><i class="f"></i><i></i></span></div><img src="../../../../assets/ui/training/mh_boxer_20_slip_rope.png"><div class="nm">Slip rope</div><div class="ef">Defence +0.2</div></div>
+ <div class="d" style="animation-delay:.05s"><div class="h">TUE<span class="pips"><i class="f"></i><i class="f"></i><i></i></span></div><img src="../../../../assets/ui/training/mh_boxer_20_shadow.png" style="filter:hue-rotate(20deg)"><div class="nm">Footwork</div><div class="ef">Footwork +0.3</div></div>
+ <div class="d hov" style="animation-delay:.1s"><div class="h">WED<span class="pips hard"><i class="f"></i><i class="f"></i><i class="f"></i></span></div><img src="../../../../assets/ui/training/mh_boxer_20_speed_bag.png"><div class="nm">Speed bag</div><div class="ef">Speed +0.25</div></div>
+ <div class="d goal" style="animation-delay:.15s"><span class="gf">GOAL</span><div class="h">THU<span class="pips"><i class="f"></i><i class="f"></i><i></i></span></div><img src="../../../../assets/ui/training/mh_boxer_20_roadwork.png"><div class="nm">Roadwork</div><div class="ef">Stamina +0.3</div></div>
+ <div class="d" style="animation-delay:.2s"><div class="h">FRI<span class="pips"><i class="f"></i><i></i><i></i></span></div><img src="../../../../assets/ui/training/mh_boxer_20_shadow.png"><div class="nm">Shadow</div><div class="ef">Timing +0.15</div></div>
+ <div class="d goal" style="animation-delay:.25s"><span class="gf">GOAL</span><span class="yours">YOURS</span><div class="h">SAT<span class="pips"><i class="f"></i><i class="f"></i><i></i></span></div><img src="../../../../assets/ui/training/mh_boxer_20_heavy_bag.png" style="filter:saturate(.6)"><div class="nm">Intervals</div><div class="ef">Stamina +0.3</div></div>
+ <div class="d rest" style="animation-delay:.3s"><div class="h">SUN<span class="pips"><i></i><i></i><i></i></span></div><div style="height:78px;margin-top:4px;background:#0c0f15;display:flex;align-items:center;justify-content:center;font-size:40px;color:#7fb2ff">☾</div><div class="nm">Rest</div><div class="ef" style="color:var(--soft)">Tiredness -20</div></div>
+</div>
+
+<div class="lbl" style="left:492px;top:714px">Evenings: the pads<small>where moves and combinations are learned · 3 pad nights · drag a card from the hand</small></div>
+<div class="days ev" style="top:746px;height:144px">
+ <div class="d"><div class="h">MON<span style="color:#7fb2ff;font-size:14px">PADS</span></div><img src="../../../../assets/ui/moves/lead_hook.png" style="height:50px"><div class="nm">Check hook</div><div class="mbar"><i style="background:#7fb2ff"></i><i style="background:#7fb2ff"></i><i></i><i></i><i></i></div><div class="ef t-learn">Usable 2 Mar</div></div>
+ <div class="d rest"><div class="h">TUE<span></span></div><div style="height:50px;margin-top:4px"></div><div class="nm">Off</div><div class="ef">fresher</div></div>
+ <div class="d"><div class="h">WED<span style="color:#7fb2ff;font-size:14px">PADS</span></div><img src="../../../../assets/ui/moves/jab.png" style="height:50px"><div class="nm">Habit fix</div><div class="mbar"><i style="background:var(--green)"></i><i style="background:var(--green)"></i><i style="background:var(--green)"></i><i></i><i></i></div><div class="ef">half fixed Sat</div></div>
+ <div class="d"><div class="h">THU<span style="color:var(--amber);font-size:14px">SPAR</span></div><img src="../../../../assets/ui/training/mh_boxer_20_sparring.png" style="height:50px"><div class="nm">Spar · Lucy</div><div class="ef">all moves +</div></div>
+ <div class="d"><div class="h">FRI<span style="color:#7fb2ff;font-size:14px">PADS</span></div><img src="../../../../assets/ui/moves/1-2-3.png" style="height:50px"><div class="nm">1-2-3</div><div class="mbar"><i style="background:var(--green)"></i><i style="background:var(--green)"></i><i style="background:var(--green)"></i><i></i><i></i></div><div class="ef t-use">34 → 38</div></div>
+ <div class="d rest"><div class="h">SAT<span></span></div><div style="height:50px;margin-top:4px"></div><div class="nm">Off</div><div class="ef">&nbsp;</div></div>
+ <div class="d rest"><div class="h">SUN<span></span></div><div style="height:50px;margin-top:4px"></div><div class="nm">Off</div><div class="ef">&nbsp;</div></div>
+</div>
+
+<div class="panel hand">
+ <div style="width:96px;font:400 26px/1 Bebas;letter-spacing:.6px">The hand<div style="font:600 14px/1.2 Barlow;color:var(--dim);letter-spacing:0;margin-top:4px">her moves and combos</div></div>
+ <div class="mv"><img src="../../../../assets/ui/moves/jab.png"><b>Jab</b><span class="t-sig">Signature</span></div>
+ <div class="mv"><img src="../../../../assets/ui/moves/cross.png"><b>Cross</b><span class="t-sharp">Sharp 64</span></div>
+ <div class="mv"><img src="../../../../assets/ui/moves/lead_hook.png"><b>Check hook</b><span class="t-learn">Learning 24</span></div>
+ <div class="mv"><img src="../../../../assets/ui/moves/body_hook.png"><b>Body hook</b><span class="t-new">New</span></div>
+ <div class="mv" style="border-color:rgba(226,72,61,.6)"><img src="../../../../assets/ui/moves/rear_uppercut.png"><b>Uppercut</b><span class="t-fade">fades 9 Mar</span></div>
+ <div class="mv"><img src="../../../../assets/ui/moves/1-2.png"><b>1-2</b><span class="t-sharp">Sharp 61</span></div>
+ <div class="mv"><img src="../../../../assets/ui/moves/1-2-3.png"><b>1-2-3</b><span class="t-use">Usable 34</span></div>
+ <div class="btn" style="height:84px;width:120px;white-space:normal;text-align:center;line-height:1.15;border:1px dashed #7fb2ff;color:#9fc0f4">+ Build a combination</div>
+</div>
+
+<!-- RIGHT -->
+<div class="panel bout">
+ <div style="display:flex;justify-content:space-between;align-items:flex-start">
+  <div><div class="lab" style="color:#ff8a80">Next bout · club show</div><div class="bb" style="font-size:38px;margin-top:6px">Sat 28 Feb</div><div style="font:600 17px Barlow;color:var(--soft)">vs Kayleigh Bell · counter-puncher</div></div>
+  <div style="text-align:right"><div class="bb" style="font-size:64px;line-height:.9;color:#ff6b5e">12</div><div class="lab">days</div></div>
+ </div>
+ <div class="ladder"><div class="now">BUILD<small>this week</small></div><div>FIGHT WEEK<small>Mon 23</small></div><div>WEIGH-IN<small>Fri 27</small></div><div class="fn">BOUT<small>Sat 28</small></div></div>
+</div>
+
+<div class="panel goalp">
+ <svg class="ring" viewBox="0 0 132 132"><circle cx="66" cy="66" r="54" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="12"/>
+  <circle cx="66" cy="66" r="54" fill="none" stroke="#3fc07a" stroke-width="12" stroke-linecap="round" stroke-dasharray="339" stroke-dashoffset="34" transform="rotate(-90 66 66)"/>
+  <text x="66" y="66" fill="#fff" font-family="Bebas" font-size="44" text-anchor="middle">63.0</text><text x="66" y="90" fill="#3fc07a" font-family="Barlow" font-weight="700" font-size="15" text-anchor="middle">ON TRACK</text></svg>
+ <div><div class="lab" style="color:var(--gold)">Her goal</div><div class="bb" style="font-size:32px;margin-top:5px">Stamina 63</div><div style="font:600 17px/1.3 Barlow;color:var(--soft)">by Fri 13 Mar · line 63<br>met: morale up · missed: down</div></div>
+</div>
+
+<div class="ringf panel">
+ <div class="lab">On fight night she brings</div>
+ <div class="fg"><div class="ic">63</div><div><b>Stamina 63</b><span>no tiring in round 3</span></div></div>
+ <div class="fg"><div class="ic">94</div><div><b>Fresh 94 of 100</b><span>tired at the bell costs output</span></div></div>
+ <div class="fg"><div class="ic" style="background:rgba(242,141,39,.15);color:var(--amber)">kg</div><div><b>Weight 65.9 → 65.0 · limit 65</b><span>Hold <b style="font-size:15px;color:var(--gold)">Cut 500</b> · makes it Fri</span></div></div>
+</div>
+
+<div class="panel need">
+ <div class="lab" style="color:#ff8a80">Right hand sore · answer by Mon</div>
+ <div class="ch">
+  <div class="pick"><b>Rest it</b>no heavy bag, speed bag instead · Power fades from 9 Mar</div>
+  <div><b>Push on</b>heavy bag back · injury 4 in 100, bout off if hurt</div>
+ </div>
+</div>
+
+<div class="panel last">
+ <div class="lab">Last week</div>
+ <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><div><span class="bb" style="font-size:34px;color:var(--green)">Stamina +1</span><div style="font:600 16px Barlow;color:var(--soft)">from roadwork Mon, Fri</div></div><div class="btn" style="font-size:16px">Week review ›</div></div>
+</div>
+
+<div class="foot">
+ <div class="btn">‹ Back to coach's week</div>
+ <div class="btn">Coach runs Samira</div>
+ <div class="chg"><span class="k">YOUR CHANGE</span>Intervals on Sat <span style="color:var(--dim)">→</span> goal <span style="color:var(--amber)">close</span> → <span style="color:var(--green)">on track</span> <span style="color:var(--dim)">·</span> fresh 95 → 94</div>
+ <div class="tog"><i></i>Keep my changes next week</div>
+ <div class="btn gold done">DONE</div>
+</div>
+
+<script>
+/* the real behaviour: 250 ms of rest on a card fills the dock; leaving for 400 ms brings her picture back; nothing floats over the board */
+(function(){var img=document.querySelector('.stage img.sess'),t=null,back=null;
+document.querySelectorAll('.d img,.mv img').forEach(function(el){
+ el.parentNode.addEventListener('mouseenter',function(){clearTimeout(back);clearTimeout(t);var p=el.parentNode;t=setTimeout(function(){document.querySelectorAll('.d.hov').forEach(function(x){x.classList.remove('hov')});if(p.classList.contains('d'))p.classList.add('hov');img.src=el.src;},250);});
+ el.parentNode.addEventListener('mouseleave',function(){clearTimeout(t);back=setTimeout(function(){},400);});
+});})();
+</script>
+</body></html>
