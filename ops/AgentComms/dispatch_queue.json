@@ -1128,6 +1128,13 @@
    "seat": "qwen",
    "status": "queued",
    "queued": "2026-11-11T17:02"
+  },
+  {
+   "id": "RIBHURT1",
+   "seat": "qwen",
+   "title": "TASK RIBHURT1 - QWEN (qwen3-coder) - a boxer whose ribs or face took a beating is likelier to come out with a rib injury or a cut",
+   "brief": "RIBHURT1",
+   "status": "queued"
   }
  ]
 }

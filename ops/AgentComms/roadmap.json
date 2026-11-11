@@ -4667,7 +4667,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-11 18:11 board_sync",
+  "updated": "2026-11-11 18:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4815,37 +4815,31 @@
   },
   "working_now": [
    {
-    "title": "Foundation fixes rework: Cardio fade line, Tank, punch start (review lists, two skeptic rounds)",
-    "who": "claude",
-    "started": "2026-11-11T18:05",
-    "run": "FOUNDATION"
-   },
-   {
-    "title": "TASK HUMANFIGHT2B - CURSOR - the stepping route without pops, one-frame contact, the guard knee green",
+    "title": "TASK HUMANFIGHT2B - CURSOR (Grok 4.7 High) - the stepping route without pops, with one-frame contact, and no fudges",
     "who": "cursor",
     "started": "2026-11-11T17:45",
     "run": "HUMANFIGHT2B"
    },
    {
-    "title": "TASK DUESSUMS3B - AGY - dues sums, third search fixed (MEASURE ONLY)",
-    "who": "antigravity",
-    "started": "2026-11-11T17:41",
-    "run": "DUESSUMS3B"
-   },
-   {
-    "title": "TASK CORNERFACE2 - QWEN - the corner minute keeps the boxer's face in view, measured on the real bodies",
+    "title": "TASK CORNERFACE2 - QWEN (qwen3-coder) - the corner minute keeps the boxer's face in the open part of the screen, measured on the real bodies",
     "who": "qwen",
-    "started": "2026-11-11T18:20",
+    "started": "2026-11-11T18:18",
     "run": "CORNERFACE2"
-   },
-   {
-    "title": "KNOWN0 (PR 207) - what you know about a fighter: blind review, then collect",
-    "who": "claude",
-    "started": "2026-11-11T18:15",
-    "run": "KNOWN0"
    }
   ],
   "next": [
+   {
+    "id": "TRAINSCENE1",
+    "who": "claude",
+    "title": "Training as its own scene (his C293): plan the week, learn moves, build combos, each change says what it does; the fighter's Training tab a summary; the load a slider + headline; abilities in plain words; no bout = the season target - critics, then him",
+    "after": "FOUNDATION"
+   },
+   {
+    "id": "RESULTLOOK1",
+    "who": "claude",
+    "title": "Fight result page redrawn (his C295): the fighter after the bout with the fight's marks leads; why each round was lost before any breakdown; the towel line and bare numbers go - critics, then him",
+    "after": "FOUNDATION"
+   },
    {
     "id": "FOUNDATION",
     "who": "claude",
@@ -4857,6 +4851,12 @@
     "who": "claude",
     "title": "Turning pro (his yes: 'put the comparison on the cards'): a season as amateur vs as pro on the cards and the offer; the offer linked to record, rank, streak, hype, the boxer's ambition and morale, the season target; the Board licence, manager, promoter named - design page + two critics 7+, then build",
     "after": "FOUNDATION"
+   },
+   {
+    "id": "RIBHURT1",
+    "who": "qwen",
+    "title": "Ribs and face: the injury after a bout follows where the damage went (his question S434; queued after CORNERFACE2)",
+    "after": "CORNERFACE2"
    },
    {
     "id": "CALLSPREAD1",
@@ -5212,6 +5212,11 @@
   },
   "done_recently": [
    {
+    "title": "TASK KNOWN0 - QWEN (qwen3-coder) - Knowledge.gd: when a group is known, and the five steps of how well you know a fighter (pure rule + test)",
+    "who": "qwen",
+    "when": "2026-11-11"
+   },
+   {
     "title": "Main's red tests: the week plan counts a rest morning's Cardio; head_coach fixed",
     "who": "claude",
     "when": "2026-11-11"
@@ -5261,21 +5266,6 @@
    {
     "title": "TASK KDFIX4 - CURSOR (Grok 4.7 High) - a downed boxer's upper body sways, round 4: settle or sway, and block_meet",
     "who": "qwen",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "TASK FACEFRAME1 - CURSOR (Grok 4.7 High) - every face picture in the menus shows the whole head",
-    "who": "cursor",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "TASK DUESBAND1 - QWEN (qwen3-coder) - dues bands: what kind of club you run (pure rules + a 5-year sim test)",
-    "who": "qwen",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "TASK HUMANFIGHT2 - CURSOR (Grok 4.7 High) - the stepping route moves like two boxers: no pops, a reach per punch, one-frame contact, posture limits",
-    "who": "cursor",
     "when": "2026-11-11"
    }
   ],

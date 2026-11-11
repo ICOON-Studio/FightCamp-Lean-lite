@@ -22,6 +22,16 @@ The review lists are in ops/tmp_s434/foundation_reviews.json; the developer deci
 Collect by diff only when each item's skeptic reads "ready" and the final list is green on main's tree.
 
 ## 2. THEN
+- HIS BOARD MARKS (S434, read and answered in chat; files ops/Feedback/2026-11-11-08 and -10, marked.png + README.md):
+  TRAINSCENE1 (C293 on training_v2.png): "too much room for a simple slider and headline weekload"; the abilities table "i dont
+  understand any of this"; "whatif the re is no fight booked ... the whole page needs better communication to the player and what
+  exactly happens when he changes or sets the program ? where is he learning the moves ;and the combos ? ... the training should be
+  seperate on a different scene i think and here only display a sumamry maybe ?" -> a Training scene + a summary tab, redrawn,
+  two critics, then him. RESULTLOOK1 (C295 on fightlink_v2.png): the towel box "useless info i would expect to see the fighter
+  after the fight tired with sign of the fight onhim/her , try to use more graphics and visual effects"; the four-part split
+  "what is that for ?"; "there are more greens that reds on the stats and still didnt win a signgle round" -> redraw led by the
+  fighter's picture, why each round was lost first. Both maps had passed critics at 7: his eye found what they missed - the
+  critics' brief must ask "would a player who never read the map understand this screen?"
 - TURNPRO1 (his words S434: "yes put the comparison on the cards"; then "So the choice to turn a fighter to pro should be linked
   to hype,wins,streak,morale and player goals ? proffesionals should be linked to an organization ?"): ONE design page "Turning
   pro" - the season-as-amateur vs season-as-pro comparison on the fighter cards and the pro offer (money, bouts, cost now,
