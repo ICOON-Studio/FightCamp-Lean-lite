@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Pro offer read through hype (HYPE1, S432)</title>
+<style>
+@font-face{font-family:Marker;src:url(../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../assets/fonts/BebasNeue-Regular.ttf)}
+:root{--ink:#f1e8da;--soft:#c9b9a2;--gold:#ffd24a;--red:#dd4b3d;--blue:#4d8ef0;--green:#3fc07a;--amber:#f28d27;--purple:#ad80ff;--track:rgba(255,255,255,.10);--warm:#f2b134;--hot:#f28d27}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:#120e0c;color:var(--ink);font:500 20px/1.2 Barlow,"Segoe UI",sans-serif}
+.abs{position:absolute}
+.wall{position:absolute;left:0;right:0;top:78px;bottom:0;background:radial-gradient(ellipse 760px 520px at 50% 26%,rgba(255,190,110,.13),transparent 72%),linear-gradient(#1b1512,#130f0d 62%,#0e0b09)}
+.top{position:absolute;left:0;top:0;width:1920px;height:78px;z-index:5;border-style:solid;border-width:0 0 8px 0;border-image:url(../../../assets/ui/wood/bar.png) 0 0 8 0 fill / 0 0 8px 0 / 0 stretch;display:flex;align-items:center;gap:14px;padding:8px 18px 0 18px;color:#efe6d8}
+.tab9{border:9px solid transparent;border-image:url(../../../assets/ui/wood/tab.png) 9 fill / 9px / 0 stretch}
+.plank9{border:9px solid transparent;border-image:url(../../../assets/ui/wood/plank.png) 9 fill / 9px / 0 stretch}
+.tnav{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font:500 20px/1 Barlow;color:#efe6d8;flex:none}.tnav.off{opacity:.42}
+.tmenu{width:auto;height:40px;padding:0 4px 2px 4px;font:500 20px/1 Barlow}
+.tgym{font:400 32px/1 Marker;color:#6ea2f2;white-space:nowrap;padding-top:2px}
+.tdate{min-width:176px}.tdate b{display:block;font:500 20px/23px Barlow;color:#efe6d8;white-space:nowrap}.tdate i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#b8a88f}
+.trail{flex:1;display:flex;justify-content:center;gap:6px}
+.rail{min-width:128px;height:48px;padding:0 8px 2px 8px;display:flex;align-items:center;justify-content:center;font:500 20px/1 Barlow;color:#efe6d8;white-space:nowrap}
+.tgrow{flex:1}
+.tcash{text-align:right}.tcash b{display:block;font:600 24px/27px Barlow;color:#e8c15a}.tcash i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#b8a88f;white-space:nowrap}
+.tgo{width:330px;height:60px;padding:0 7px 2px 7px;display:flex;flex-direction:column;justify-content:center;flex:none}
+.tgo b{display:block;font:600 20px/23px Barlow;color:#efe6d8;white-space:nowrap}.tgo i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#efe6d8;white-space:nowrap}
+.dim{position:absolute;left:0;right:0;top:78px;bottom:0;background:rgba(8,6,5,.66)}
+.modal{position:absolute;left:84px;top:100px;width:1752px;height:960px;border-radius:18px;background:linear-gradient(#1a1d2a,#141722);box-shadow:0 0 0 2px rgba(255,210,74,.35),0 20px 60px rgba(0,0,0,.6)}
+.plate{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:8px;background:#1d2741;color:#fffbf3;font:700 20px/1 Barlow;white-space:nowrap}
+.tag{display:inline-flex;align-items:center;height:34px;padding:0 12px;border-left:4px solid var(--gold);border-radius:3px;background:rgba(255,210,74,.12);color:var(--gold);font:700 20px/1 Barlow;letter-spacing:.06em;white-space:nowrap}
+.name{font:400 48px/1 Marker;color:#fff;white-space:nowrap}
+.h{display:flex;align-items:baseline;gap:12px;height:34px;font-weight:700;font-size:21px;letter-spacing:.09em;color:var(--gold);white-space:nowrap}
+.h span{font-weight:500;font-size:20px;letter-spacing:0;color:var(--soft)}
+.cap{color:var(--soft);font-size:20px}
+.gain{color:var(--green);font-weight:700}
+.cost{color:#ff8d7f;font-weight:700}
+.panel{position:absolute;border-radius:14px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);padding:14px 18px}
+.big{font:400 78px/0.85 Bebas;color:#fff}
+.hbar{position:relative;height:26px;border-radius:13px;background:var(--track);overflow:hidden}
+.hbar .bz{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#f2b134,#f28d27)}
+.hbar em{position:absolute;top:0;bottom:0;width:2px;background:rgba(0,0,0,.55)}
+.bands{position:relative;height:26px;margin-top:6px;font-size:20px;color:var(--soft)}
+.bands span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
+.bands .on{color:#fff;font-weight:700}
+.lgr{display:grid;grid-template-columns:40px 1fr;column-gap:10px;align-items:center;min-height:48px;padding:3px 0;border-top:1px solid rgba(255,255,255,.07);font-size:20px;line-height:23px}
+.lgr s{width:30px;height:6px;border-radius:3px;display:block}
+.card{position:absolute;top:150px;width:580px;height:666px;border-radius:16px;background:#1d2741;padding:16px 20px}
+.card.hot{box-shadow:0 0 0 3px var(--gold),0 0 30px 4px rgba(255,205,90,.28)}
+.card h2{font:400 34px/1 Marker;color:#fff;white-space:nowrap}
+.card .sub{font-size:20px;color:var(--soft);margin-top:6px;white-space:nowrap}
+.kv{display:grid;grid-template-columns:150px 1fr;column-gap:14px;align-items:center;min-height:50px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:20px;line-height:23px}
+.kv>span:first-child{color:var(--soft)}
+.kv b{font-weight:700}
+.tk{position:relative;height:16px;border-radius:8px;background:rgba(255,255,255,.10);margin-top:6px;overflow:hidden}
+.tk s{position:absolute;top:0;bottom:0}
+.tk em{position:absolute;top:0;bottom:0;width:3px;background:#fff}
+.money{display:flex;gap:10px;margin-top:4px}
+.money div{flex:1;border-radius:10px;background:rgba(255,255,255,.06);padding:8px 12px}
+.money b{display:block;font:400 34px/1 Bebas;color:#fff;letter-spacing:.02em}
+.money span{font-size:20px;color:var(--soft)}
+.br{border-radius:12px;background:rgba(255,255,255,.05);padding:8px 12px;margin-top:8px}
+.br .t{display:flex;justify-content:space-between;font-size:20px;font-weight:700}
+.br .l{font-size:20px;line-height:23px;color:var(--soft);margin-top:2px}
+.go{display:inline-flex;align-items:center;justify-content:center;height:58px;padding:0 26px;border-radius:12px;background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06;font-weight:700;font-size:22px;box-shadow:0 3px 0 #9a6c10,0 0 26px 2px rgba(255,205,90,.30);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:58px;padding:0 22px;border-radius:12px;background:rgba(255,255,255,.09);color:var(--ink);font-weight:600;font-size:22px;white-space:nowrap}
+.flame{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:16px;background:rgba(242,141,39,.18);color:var(--hot);font-weight:700;font-size:20px;white-space:nowrap}
+.ico{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+</style></head>
+<body><div class="wall"></div>
+<div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span><span class="tdate"><b>Mon 13 Apr 2026</b><i>Week 15</i></span><span class="trail"><span class="rail plank9">Gym</span><span class="rail plank9">Mail (1 new)</span></span><span class="tgrow"></span><span class="tcash"><b>$10,215</b><i>running -$90 a week</i></span><span class="tgo plank9"><b>NEEDS YOU (1)</b><i>Tess's pro offer</i></span><span class="tnav tmenu tab9">Menu</span></div>
+<div class="dim"></div>
+<div class="modal">
+ <!-- header -->
+ <img src="../s431/final/face_tess.png" alt="" class="abs" style="left:28px;top:22px;width:104px;height:104px;border-radius:50%;border:4px solid var(--gold);box-shadow:0 0 22px 3px rgba(255,205,90,.4)">
+ <div class="abs" style="left:152px;top:24px"><div style="display:flex;align-items:center;gap:14px"><span class="tag">PRO OFFER</span><span class="name">TESS REILLY</span></div>
+  <div style="display:flex;align-items:center;gap:12px;margin-top:10px;color:var(--soft);white-space:nowrap"><span class="plate">Middleweight</span>23, southpaw, 9-5 amateur, No. 3 London<span class="flame"><svg class="ico" width="20" height="20" viewBox="0 0 24 24"><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/></svg>Hot 64</span><span>Your stance: <b style="color:#fff">Sell</b></span></div></div>
+ <div class="abs" style="right:28px;top:30px;text-align:right"><div style="font-weight:700;font-size:24px">Bow Bells Promotions</div><div class="cap" style="margin-top:6px">answer by Sun 19 Apr</div></div>
+
+ <!-- left: the hype and its two roads -->
+ <div class="panel" style="left:28px;top:150px;width:504px;height:666px">
+  <div class="h">HYPE<span>what each answer does to it</span></div>
+  <div style="display:flex;align-items:flex-end;gap:16px;margin-top:4px"><span class="big">64</span><div style="padding-bottom:6px"><div style="font:700 30px/1 Barlow;color:var(--hot)">Hot</div><div class="cap" style="margin-top:4px">nothing booked: x0.85 a week</div></div></div>
+  <div class="hbar" style="margin-top:12px"><span class="bz" style="width:64%"></span><em style="left:20%"></em><em style="left:40%"></em><em style="left:60%"></em><em style="left:80%"></em></div>
+  <div class="bands"><span style="left:10%">Cold</span><span style="left:30%">Talked</span><span style="left:50%">Warm</span><span class="on" style="left:70%">Hot</span><span style="left:90%">On fire</span></div>
+  <svg width="468" height="244" viewBox="0 0 468 244" style="display:block;margin-top:10px">
+   <rect x="40" y="20" width="420" height="80" fill="rgba(242,141,39,.09)"/>
+   <line x1="40" y1="100" x2="460" y2="100" stroke="rgba(255,255,255,.35)" stroke-width="2" stroke-dasharray="5 6"/>
+   <g font-family="Barlow" font-size="20" fill="#c9b9a2"><text x="0" y="66">Hot</text><text x="0" y="106">60</text><text x="0" y="187">20</text></g>
+   <line x1="40" y1="180" x2="460" y2="180" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+   <polyline points="50,92 96,100 142,108 188,116 220,78" fill="none" stroke="#ffd24a" stroke-width="4" stroke-linejoin="round"/>
+   <circle cx="220" cy="78" r="9" fill="#ffd24a"/>
+   <polyline points="50,92 96,100 128,82 142,76 188,86 220,76 234,68 280,78 326,88 372,98 404,76" fill="none" stroke="#4d8ef0" stroke-width="4" stroke-linejoin="round"/>
+   <circle cx="404" cy="76" r="9" fill="#4d8ef0"/>
+   <polyline points="128,82 142,184 188,186 220,170 234,166 280,172 326,178 372,184" fill="none" stroke="#dd4b3d" stroke-width="4" stroke-dasharray="8 7" stroke-linejoin="round"/>
+   <circle cx="50" cy="92" r="7" fill="#fff"/>
+   <g font-family="Barlow" font-size="20" fill="#c9b9a2"><text x="34" y="236">now</text><text x="190" y="236">9 May</text><text x="372" y="236">6 Jun</text></g>
+  </svg>
+  <div class="lgr"><s style="background:#ffd24a"></s><span><b>Turn pro now:</b> debut 9 May, <b>71</b> on the night</span></div>
+  <div class="lgr"><s style="background:#4d8ef0"></s><span><b>Not yet, both won</b> (6 in 10): a debut in June, <b>72</b></span></div>
+  <div class="lgr"><s style="background:repeating-linear-gradient(90deg,#dd4b3d 0 8px,transparent 8px 13px)"></s><span><b>Not yet, one lost</b> (4 in 10): <b class="cost">18</b> with SELL</span></div>
+ </div>
+
+ <!-- the two answers -->
+ <div class="card hot" style="left:556px">
+  <h2>Cash it in now</h2><div class="sub">the bigger card and the terms are locked at Hot</div>
+  <div class="kv"><span>Debut</span><span><b>Sat 9 May</b>, 4 rounds, a bigger card</span></div>
+  <div class="kv"><span>Tickets</span><span><b>109 of 150</b><div class="tk"><s style="left:0;width:13.3%;background:#3fc07a"></s><s style="left:13.3%;width:27.3%;background:#2f9c62"></s><s style="left:40.6%;width:8.7%;background:#246a47"></s><s style="left:49.3%;width:23.3%;background:repeating-linear-gradient(135deg,#ffd24a 0 7px,#a8711a 7px 12px)"></s><em style="left:40%"></em></div></span></div>
+  <div class="kv"><span></span><span class="cap">family 20, fans 41, members 13, <span style="color:var(--gold)">hype 35</span>; pays from 60</span></div>
+  <div class="kv"><span>Terms</span><span>Tess's half above 60 <b>x1.32</b> (hype 64)</span></div>
+  <div class="kv"><span>Paid now</span><span class="cost">$1,105: licence $230, medicals $875</span></div>
+  <div class="kv"><span>The record</span><span>9-5 stays; amateur bouts end for good</span></div>
+  <div class="kv"><span>Won on the night</span><span>fans +4 and <b class="gain">+11 from hype</b>; they carry to every bout</span></div>
+  <div class="kv"><span>Lost on the night</span><span>hype 71 to <b class="cost">21</b> with SELL; the 41 fans stay</span></div>
+  <div class="money"><div><b>$404</b><span>the club, 25%</span></div><div><b>$1,213</b><span>Tess, the debut</span></div></div>
+ </div>
+
+ <div class="card" style="left:1156px">
+  <h2>Not yet: protect it</h2><div class="sub">back after 2 more wins, on 90% of the terms</div>
+  <div class="kv"><span>Next two</span><span>win chances <b>74</b> and <b>81</b> in 100</span></div>
+  <div class="br"><div class="t"><span style="color:#8eb8f2">Both won, 6 in 10</span><span>11-5, Hot 76</span></div><div class="l">June debut, 136 of 150 tickets, terms x1.24<br>the club <b style="color:#fff">$589</b>, Tess <b style="color:#fff">$1,767</b></div></div>
+  <div class="br"><div class="t"><span style="color:#ff8d7f">One lost, 4 in 10</span><span>10-6, hype 18</span></div><div class="l">one more win first; a 100 card, 100 of 100, x1.0<br>the club <b style="color:#fff">$250</b>, Tess <b style="color:#fff">$750</b>; mood -6, loyalty -3</div></div>
+  <div class="kv" style="margin-top:6px"><span>Meanwhile</span><span>two home bouts at Hot: ticket cuts <b class="gain">$761</b> and <b class="gain">$774</b></span></div>
+  <div class="kv"><span>The scalp</span><span>both home names drawn 2 points stronger (in the chances above)</span></div>
+  <div class="kv"><span>A manager</span><span>calls a Hot amateur inside 2 weeks; Tess's loyalty <b>58</b>: under 60, the club keeps <b class="cost">10%</b></span></div>
+  <div class="kv"><span>Next no</span><span>a second no: only No. 1 brings it back</span></div>
+ </div>
+
+ <!-- buttons -->
+ <div class="abs" style="left:556px;top:840px;display:flex;gap:20px;align-items:center"><span class="go">Turn Tess pro now</span><span class="btn">Not yet: after 2 more wins</span></div>
+ <div class="abs cap" style="left:556px;top:914px">Win chances are this week's; the June numbers are forecasts from the cooling and the two bouts.</div>
+</div>
+</body></html>

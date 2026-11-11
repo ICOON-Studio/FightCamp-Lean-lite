@@ -1,0 +1,131 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>RPG layer 10/10 - designer critic</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#120e0c}
+body{background:linear-gradient(#1b1512,#100c0a);color:#f1e8da;font:500 21px/1.22 "Segoe UI",Arial,sans-serif;position:relative}
+.top{height:62px;display:flex;align-items:center;gap:22px;padding:0 24px;background:#2a1d14;border-bottom:6px solid #4a3220}
+.gym{font:700 30px/1 Impact,"Arial Black",sans-serif;color:#6ea2f2;letter-spacing:1px}
+.date{font-size:20px;color:#d8c8b0}
+.grow{flex:1}
+.need{background:#5a2018;border:2px solid #dd4b3d;border-radius:8px;padding:6px 14px;font-size:20px;font-weight:700}
+.cash{color:#e8c15a;font-weight:700;font-size:24px}
+.cols{position:absolute;top:76px;left:20px;right:20px;bottom:14px;display:grid;grid-template-columns:600px 640px 620px;gap:20px}
+.panel{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:12px;padding:10px 16px;margin-bottom:10px}
+h2{font:700 23px/1.1 "Segoe UI",Arial;color:#ffd24a;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+h2 span{font-weight:500;letter-spacing:0;text-transform:none;color:#c9b9a2;font-size:20px;margin-left:8px}
+.name{font:700 36px/1 Impact,"Arial Black",sans-serif;letter-spacing:1px}
+.soft{color:#c9b9a2}
+.g{color:#3fc07a}.r{color:#ef6a5c}.b{color:#6ea2f2}.p{color:#b58cff}.y{color:#ffd24a}
+.row{display:flex;justify-content:space-between;gap:10px;border-top:1px solid rgba(255,255,255,.08);padding:5px 0}
+.lv{display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:start;border-top:1px solid rgba(255,255,255,.08);padding:6px 0}
+.dot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:21px;border:3px solid #555;color:#ddd}
+.dot.done{border-color:#3fc07a;background:#1f4a32}.dot.now{border-color:#ffd24a;background:#4a3a10;color:#ffd24a}
+.chip{display:inline-block;background:#3a2a5a;border:1px solid #8a6ad8;border-radius:6px;padding:1px 8px;font-size:20px;color:#e0d0ff}
+.pick{display:grid;grid-template-columns:1fr 54px 1fr;gap:0;align-items:stretch}
+.card{background:#1d2741;border-radius:12px;padding:12px 14px;border:3px solid transparent}
+.card.on{border-color:#ffd24a}
+.card b.t{display:block;font:700 26px/1.1 Impact,"Arial Black",sans-serif;letter-spacing:.5px;margin:4px 0 8px}
+.card .sq{border-top:1px solid rgba(255,255,255,.15);margin-top:8px;padding-top:8px;color:#d8c8b0}
+.or{display:flex;align-items:center;justify-content:center}
+.or i{font-style:normal;width:46px;height:46px;border-radius:50%;border:3px solid #ffd24a;display:flex;align-items:center;justify-content:center;font-weight:800;color:#ffd24a;background:#120e0c}
+.btn{margin-top:10px;text-align:center;border-radius:9px;padding:8px 0;font-weight:700;background:#2c3858}
+.btn.go{background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06}
+.tr{display:grid;grid-template-columns:150px 150px 1fr;gap:8px;border-top:1px solid rgba(255,255,255,.08);padding:5px 0;align-items:baseline}
+.pips{display:inline-flex;gap:5px;vertical-align:middle}.pips i{width:26px;height:14px;border-radius:4px;background:#333;display:inline-block}.pips i.f{background:#4d8ef0}
+.kn{display:grid;grid-template-columns:90px 160px 1fr;gap:8px;align-items:center;border-top:1px solid rgba(255,255,255,.08);padding:5px 0}
+</style></head><body>
+<div class="top">
+  <div class="gym">ANVIL STREET GYM</div><div class="date">Mon 6 Apr 2026, week 14</div>
+  <div class="grow"></div>
+  <div class="cash">$9,480</div>
+  <div class="need">NEEDS YOU (2): your level 4 pick, Tess's perk pick</div>
+</div>
+<div class="cols">
+
+<!-- COLUMN 1: YOU, the road shaped by your background -->
+<div>
+  <div class="panel">
+    <div class="name">SAM CARTER</div>
+    <div class="soft" style="margin:4px 0 8px">Head coach, <b class="y">Old hand</b>: every cut burns 120 kcal a day more</div>
+    <div class="row"><span><b>Level 4 reached</b> 47 experience</span><span class="soft">19 to level 5</span></div>
+    <div class="row"><span>This week's board can earn you</span><span class="g">+9</span></div>
+    <div class="soft" style="font-size:20px">Cornering Tess Sat +2 (+1 on a win), Samira's habit on your pads +3 when it goes, Lucy's camp +2</div>
+  </div>
+  <div class="panel">
+    <h2>Your road <span>both sides of every level, ahead of time</span></h2>
+    <div class="lv"><div class="dot done">2</div><div><b>Your hours:</b> <span class="g">Long evenings</span> <span class="soft">(Early starts closed)</span></div></div>
+    <div class="lv"><div class="dot done">3</div><div><b>The room:</b> <span class="g">One on one</span>: a morning alone with you counts twice toward knowing them <span class="soft">(The room: no skips with a team-mate there, closed)</span></div></div>
+    <div class="lv"><div class="dot now">4</div><div><b>The corner:</b> Ringside voice or The minute <span class="y">pick now</span></div></div>
+    <div class="lv"><div class="dot">5</div><div><b>What you see:</b> Eye for tape or <span class="chip">OLD HAND</span> <b>Eye for the scale</b>: every weight forecast exact, a kilo asked costs no favour once a season</div></div>
+    <div class="lv"><div class="dot">6</div><div><b>Your name:</b> A name in the trade or A home for life</div></div>
+    <div class="lv"><div class="dot">+</div><div><b>Second thoughts</b>, each season after 6: take one side you closed, for 40 experience</div></div>
+  </div>
+</div>
+
+<!-- COLUMN 2: the pick in this squad's numbers, the style in this squad's numbers -->
+<div>
+  <div class="panel">
+    <h2>Level 4: pick one <span>the corner, for good</span></h2>
+    <div class="pick">
+      <div class="card on"><span class="chip" style="background:#275696;border-color:#6ea2f2">Ringside voice</span>
+        <b class="t">THREE SHOUTS A ROUND LAND</b>
+        <div class="g">3 shouts a round in full (now 2)</div>
+        <div class="sq">Last 6 bouts: 9 shouts landed at half.</div>
+        <div class="btn go">Take Ringside voice</div></div>
+      <div class="or"><i>OR</i></div>
+      <div class="card"><span class="chip" style="background:#275696;border-color:#6ea2f2">The minute</span>
+        <b class="t">THREE FIXES IN THE MINUTE</b>
+        <div class="g">3 fixes between rounds (now 2)</div>
+        <div class="sq">Last 6 bouts: 4 minutes with a third fix waiting.</div>
+        <div class="btn">Take The minute</div></div>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Your style: Craft first <span>in this squad's weeks</span></h2>
+    <div class="row"><span>Pads teach more</span><span class="g">Tess's Body hook: Usable in 3 weeks, not 4</span></div>
+    <div class="row"><span>A plan holds one more line</span><span class="g">7 lines with Coach</span></div>
+    <div class="row"><span>Cardio mornings slower</span><span class="r">Lucy: Stamina +0.36 a week, was +0.40</span></div>
+    <div class="row"><span>Suits</span><span><b>Lucy</b> Listens <span class="g">+1 loyalty / 4 wk</span></span></div>
+    <div class="row"><span>Clashes</span><span><b>Tess</b> Stubborn <span class="r">-1 / 2 wk: a band by July</span></span></div>
+  </div>
+  <div class="panel">
+    <h2>Two of yours <span>a squad moment</span></h2>
+    <div><b>Samira</b>: "Tess gets my pad place again." <span class="soft">(3 weeks running)</span></div>
+    <div class="row" style="margin-top:6px"><span><b>Swap one back</b></span><span>Samira +3, Tess -2</span></div>
+    <div class="row"><span><b>Spar them, Technical</b></span><span>settled 1 in 2; temper +1</span></div>
+    <div class="row"><span><b>Say nothing</b></span><span class="r">they will not spar, 4 weeks</span></div>
+  </div>
+</div>
+
+<!-- COLUMN 3: the fighter's own promotion pick, traits that say what they do, knowing them -->
+<div>
+  <div class="panel">
+    <div class="name">TESS REILLY</div>
+    <div class="soft" style="margin:4px 0 8px">Walk them down (matches the class), loyalty 66 Settled</div>
+    <h2>Body snatcher opens <span>pick its version, for good</span></h2>
+    <div class="pick" style="grid-template-columns:1fr 54px 1fr">
+      <div class="card on"><b class="t" style="font-size:22px">THE DRAIN</b>body shots drain 15% more energy<div class="sq">best against: out-boxers</div></div>
+      <div class="or"><i>OR</i></div>
+      <div class="card"><b class="t" style="font-size:22px">THE DROP</b>a body shot after a count: knockdown 1 in 10<div class="sq">best against: hurt pressers</div></div>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Traits <span>what each does in a bout now</span></h2>
+    <div class="tr"><b>Coachability</b><span class="r">36 Stubborn &uarr;</span><span>takes in 81 in 100 of a shout; 40 opens Listens</span></div>
+    <div class="tr"><b>Heart</b><span class="g">84 Big heart</span><span>a loss hurts mood x0.8</span></div>
+    <div class="tr"><b>Confidence</b><span class="g">70 Confident &uarr;</span><span>wins lift mood x1.15</span></div>
+    <div class="tr"><b>Temper</b><span>? not known</span><span>Hard sparring shows it 1 in 2</span></div>
+    <div class="tr"><b>Discipline</b><span>? not known</span><span>at step 4 of knowing Tess</span></div>
+  </div>
+  <div class="panel">
+    <h2>Knowing them <span>sessions with you, to the next step</span></h2>
+    <div class="kn"><b>Lucy</b><span class="pips"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></span><span>step 4 in <b class="y">2</b> sessions</span></div>
+    <div class="kn"><b>Samira</b><span class="pips"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></span><span>step 5 in 9</span></div>
+    <div class="kn"><b>Tess</b><span class="pips"><i class="f"></i><i class="f"></i><i></i><i></i><i></i></span><span>step 3 in 4: potential to half a star</span></div>
+    <div class="kn"><b>Ana</b><span class="pips"><i class="f"></i><i></i><i></i><i></i><i></i></span><span>step 2 in 3: a trait opens</span></div>
+  </div>
+</div>
+
+</div>
+</body></html>

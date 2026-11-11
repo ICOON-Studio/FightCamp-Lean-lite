@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Fighter page, Crowd tab: hype (HYPE1, S432)</title>
+<style>
+@font-face{font-family:Marker;src:url(../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../assets/fonts/BebasNeue-Regular.ttf)}
+:root{--ink:#f1e8da;--soft:#c9b9a2;--gold:#ffd24a;--red:#dd4b3d;--blue:#4d8ef0;--green:#3fc07a;--amber:#f28d27;--purple:#ad80ff;--track:rgba(255,255,255,.10);
+ --cold:#5d7fb8;--talk:#4d8ef0;--warm:#f2b134;--hot:#f28d27;--fire:#e2483d}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:#120e0c;color:var(--ink);font:500 20px/1.2 Barlow,"Segoe UI",sans-serif}
+.abs{position:absolute}
+.wall{position:absolute;left:0;right:0;top:78px;bottom:0;background:radial-gradient(ellipse 760px 520px at 50% 26%,rgba(255,190,110,.13),transparent 72%),linear-gradient(#1b1512,#130f0d 62%,#0e0b09)}
+.top{position:absolute;left:0;top:0;width:1920px;height:78px;z-index:5;border-style:solid;border-width:0 0 8px 0;border-image:url(../../../assets/ui/wood/bar.png) 0 0 8 0 fill / 0 0 8px 0 / 0 stretch;display:flex;align-items:center;gap:14px;padding:8px 18px 0 18px;color:#efe6d8}
+.tab9{border:9px solid transparent;border-image:url(../../../assets/ui/wood/tab.png) 9 fill / 9px / 0 stretch}
+.plank9{border:9px solid transparent;border-image:url(../../../assets/ui/wood/plank.png) 9 fill / 9px / 0 stretch}
+.tnav{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font:500 20px/1 Barlow;color:#efe6d8;flex:none}.tnav.off{opacity:.42}
+.tmenu{width:auto;height:40px;padding:0 4px 2px 4px;font:500 20px/1 Barlow}
+.tgym{font:400 32px/1 Marker;color:#6ea2f2;white-space:nowrap;padding-top:2px}
+.tdate{min-width:176px}.tdate b{display:block;font:500 20px/23px Barlow;color:#efe6d8;white-space:nowrap}.tdate i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#b8a88f}
+.trail{flex:1;display:flex;justify-content:center;gap:6px}
+.rail{min-width:128px;height:48px;padding:0 8px 2px 8px;display:flex;align-items:center;justify-content:center;font:500 20px/1 Barlow;color:#efe6d8;white-space:nowrap}
+.tgrow{flex:1}
+.tcash{text-align:right}.tcash b{display:block;font:600 24px/27px Barlow;color:#e8c15a}.tcash i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#b8a88f;white-space:nowrap}
+.tgo{width:330px;height:60px;padding:0 7px 2px 7px;display:flex;flex-direction:column;justify-content:center;flex:none}
+.tgo b{display:block;font:600 20px/23px Barlow;color:#efe6d8;white-space:nowrap}.tgo i{display:block;font:400 20px/22px Barlow;font-style:normal;color:#efe6d8;white-space:nowrap}
+.tabs{position:absolute;left:28px;top:92px;display:flex;gap:6px}
+.tab{height:46px;padding:0 16px;border-radius:8px;display:flex;align-items:center;font-weight:700;color:#b8c3de;background:#1d2741;white-space:nowrap}
+.tab.on{color:#fff;background:#275696;box-shadow:0 0 26px 2px rgba(255,205,90,.42)}
+.plate{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:8px;background:#1d2741;color:#fffbf3;font:700 20px/1 Barlow;white-space:nowrap}
+.go{display:inline-flex;align-items:center;justify-content:center;height:42px;padding:0 16px;border-radius:10px;background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06;font-weight:700;font-size:20px;box-shadow:0 3px 0 #9a6c10,0 0 22px 2px rgba(255,205,90,.28);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:42px;padding:0 14px;border-radius:10px;background:rgba(255,255,255,.09);color:var(--ink);font-weight:600;font-size:20px;white-space:nowrap}
+.btn.off{color:#8a7e70;background:rgba(255,255,255,.04)}
+.name{font:400 46px/1 Marker;color:#fff;white-space:nowrap}
+.h{display:flex;align-items:baseline;gap:12px;height:34px;font-weight:700;font-size:21px;letter-spacing:.09em;color:var(--gold);white-space:nowrap}
+.h span{font-weight:500;font-size:20px;letter-spacing:0;color:var(--soft)}
+.cap{color:var(--soft);font-size:20px}
+.gain{color:var(--green);font-weight:700}
+.cost{color:#ff8d7f;font-weight:700}
+.panel{position:absolute;border-radius:14px;background:rgba(20,24,36,.62);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);padding:12px 18px}
+.sw{position:absolute;left:1560px;top:140px;display:flex;gap:8px}
+.sw div{width:76px;text-align:center;font-size:20px;line-height:22px;font-weight:600;color:var(--soft)}
+.sw img{display:block;width:46px;height:46px;margin:4px auto 2px;border-radius:50%;border:2.5px solid #fdfaf2;opacity:.7}
+.sw .on{color:#fff}.sw .on img{width:54px;height:54px;margin:0 auto;border:3px solid var(--gold);opacity:1;box-shadow:0 0 18px 3px rgba(255,205,90,.55)}
+.big{font:400 78px/0.85 Bebas;color:#fff}
+/* the hype bar: buzz solid, heat striped, band ticks */
+.hbar{position:relative;height:26px;border-radius:13px;background:var(--track);overflow:hidden}
+.hbar .bz{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#f2b134,#f28d27)}
+.hbar .ht{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(135deg,#ffd24a 0 7px,#a8711a 7px 12px)}
+.hbar .fc{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(135deg,rgba(255,210,74,.35) 0 7px,transparent 7px 12px);box-shadow:inset 0 0 0 2px rgba(255,210,74,.55);border-radius:0 13px 13px 0}
+.hbar em{position:absolute;top:0;bottom:0;width:2px;background:rgba(0,0,0,.55)}
+.bands{position:relative;height:26px;margin-top:6px;font-size:20px;color:var(--soft)}
+.bands span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
+.bands .on{color:#fff;font-weight:700}
+.lg{display:grid;grid-template-columns:34px 104px 1fr;align-items:center;height:34px;font-size:20px}
+.lg s{width:26px;height:18px;border-radius:5px;display:inline-block}
+.lg b{font-weight:700}
+.mv{display:grid;grid-template-columns:100px 1fr 62px;column-gap:12px;align-items:center;min-height:44px;padding:4px 0;border-top:1px solid rgba(255,255,255,.07);font-size:20px;line-height:23px}
+.mv .d{color:var(--soft)}.mv .n{font:400 32px/1 Bebas;text-align:right}
+.step3{display:flex;align-items:center;gap:6px;margin-top:8px;justify-content:center}
+.rg{width:168px;text-align:center}
+.rg .r{width:92px;height:92px;margin:0 auto;border-radius:50%;display:grid;place-items:center;background:radial-gradient(closest-side,#191412 76%,transparent 77% 100%),conic-gradient(var(--c) 0 var(--p),var(--track) var(--p) 100%)}
+.rg .r b{font:400 44px/1 Bebas;color:#fff}
+.rg div.w{font-weight:700;font-size:20px;margin-top:6px;color:var(--c)}
+.rg div.t{font-size:20px;color:var(--soft);line-height:22px}
+.arw{font:700 30px/1 Barlow;color:var(--soft);margin-top:-46px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.tile{position:relative;border-radius:12px;background:rgba(255,255,255,.055);padding:9px 10px 9px 60px;height:72px;white-space:nowrap}
+.tile .ic{position:absolute;left:12px;top:12px;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:rgba(255,210,74,.14);color:var(--gold)}
+.tile.lock{opacity:.62}.tile.lock .ic{background:rgba(255,255,255,.08);color:var(--soft)}
+.tile b{display:block;font:400 32px/1 Bebas;color:#fff;letter-spacing:.02em}
+.tile span{display:block;font-size:20px;line-height:22px;color:var(--soft)}
+.tile span.g{color:var(--green);font-weight:600}
+.ico{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cr{display:grid;grid-template-columns:46px 1fr;column-gap:12px;align-items:center;padding:6px 0;border-top:1px solid rgba(255,255,255,.07);font-size:20px;line-height:23px}
+.cr i{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:rgba(221,75,61,.18);color:#ff8d7f;font-style:normal}
+.cr.dim{opacity:.6}
+.st{display:grid;grid-template-columns:36px 116px 1fr;align-items:center;column-gap:10px;min-height:52px;padding:4px 10px;border-radius:12px;margin-bottom:6px;background:rgba(255,255,255,.045);font-size:20px;line-height:23px}
+.st .dot{width:26px;height:26px;border-radius:50%;border:3px solid var(--soft)}
+.st.on{background:#1d2741;box-shadow:0 0 0 3px var(--gold),0 0 22px 2px rgba(255,205,90,.25)}
+.st.on .dot{border-color:var(--gold);background:radial-gradient(circle,var(--gold) 0 42%,transparent 46%)}
+.st b{font:400 26px/1 Marker;color:#fff}
+.tw{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:center;min-height:56px;padding:5px 0;border-top:1px solid rgba(255,255,255,.07);font-size:20px;line-height:23px}
+.tw b{font-weight:700}.tw .cap{display:block}
+.chip{display:inline-flex;align-items:center;height:30px;padding:0 10px;border-radius:15px;background:rgba(255,255,255,.08);font-size:20px;font-weight:600;white-space:nowrap}
+.chip.on{background:#275696;color:#fff;box-shadow:0 0 0 2px var(--gold)}
+.flame{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:16px;background:rgba(242,177,52,.16);color:var(--warm);font-weight:700;font-size:20px;white-space:nowrap}
+</style></head>
+<body><div class="wall"></div>
+<div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span><span class="tdate"><b>Mon 6 Apr 2026</b><i>Week 14</i></span><span class="trail"><span class="rail plank9">Gym</span><span class="rail plank9">Mail (2 new)</span></span><span class="tgrow"></span><span class="tcash"><b>$9,480</b><i>running -$120 a week</i></span><span class="tgo plank9"><b>START WEEK</b><i>Samira boxes Sat 11 Apr</i></span><span class="tnav tmenu tab9">Menu</span></div>
+<div class="tabs"><span class="tab">Profile</span><span class="tab">Condition</span><span class="tab">Training</span><span class="tab">Playbook</span><span class="tab">Fight plan</span><span class="tab">Character</span><span class="tab on">Crowd</span><span class="tab">History</span></div>
+<div class="abs" style="left:28px;top:150px"><div class="name">SAMIRA KHAN</div><div style="display:flex;align-items:center;gap:12px;margin-top:8px;color:var(--soft);white-space:nowrap"><span class="plate">Welterweight</span>20, orthodox, pressure fighter, 6-2 amateur, No. 5 London<span class="flame"><svg class="ico" width="20" height="20" viewBox="0 0 24 24"><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/></svg>Warm, rising</span></div></div>
+<div class="sw"><div><img src="../s431/final/face_lucy.png" alt="">Lucy</div><div class="on"><img src="../s431/final/face_samira.png" alt="">Samira</div><div><img src="../s431/final/face_tess.png" alt="">Tess</div><div><img src="../s431/final/face_ana.png" alt="">Ana</div></div>
+
+<!-- COLUMN 1: the hype now, its line, what moved it -->
+<div class="panel" style="left:28px;top:256px;width:604px;height:300px">
+ <div class="h">HYPE<span>the heat around Samira right now</span></div>
+ <div style="display:flex;align-items:flex-end;gap:16px;margin-top:6px"><span class="big">58</span><div style="padding-bottom:6px"><div style="font:700 30px/1 Barlow;color:var(--warm)">Warm</div><div class="cap" style="margin-top:4px">2 to Hot &nbsp;<span class="gain">+3 since last Monday</span></div></div></div>
+ <div class="hbar" style="margin-top:14px"><span class="bz" style="width:47%"></span><span class="ht" style="left:47%;width:11%"></span><em style="left:20%"></em><em style="left:40%"></em><em style="left:60%"></em><em style="left:80%"></em></div>
+ <div class="bands"><span style="left:10%">Cold</span><span style="left:30%">Talked about</span><span class="on" style="left:50%">Warm</span><span style="left:70%">Hot</span><span style="left:90%">On fire</span></div>
+ <div class="lg" style="margin-top:4px"><s style="background:linear-gradient(90deg,#f2b134,#f28d27)"></s><b>Buzz 47</b><span class="cap">lasts; x0.93 a week while booked</span></div>
+ <div class="lg"><s style="background:repeating-linear-gradient(135deg,#ffd24a 0 7px,#a8711a 7px 12px)"></s><b>Heat 11</b><span class="cap">for Sat 11 Apr; spent on the night</span></div>
+</div>
+
+<div class="panel" style="left:28px;top:568px;width:604px;height:492px">
+ <div class="h">12 WEEKS<span>and what moved it</span></div>
+ <svg width="568" height="214" viewBox="0 0 568 214" style="display:block;margin-top:2px">
+  <rect x="104" y="15" width="450" height="37" fill="rgba(226,72,61,.10)"/><rect x="104" y="52" width="450" height="37" fill="rgba(242,141,39,.10)"/>
+  <rect x="104" y="89" width="450" height="37" fill="rgba(242,177,52,.07)"/><rect x="104" y="126" width="450" height="37" fill="rgba(77,142,240,.06)"/>
+  <rect x="104" y="163" width="450" height="37" fill="rgba(93,127,184,.05)"/>
+  <g font-family="Barlow" font-size="20" fill="#c9b9a2" font-weight="500"><text x="0" y="40">On fire</text><text x="0" y="77">Hot</text><text x="0" y="114" fill="#f2b134" font-weight="700">Warm</text><text x="0" y="151">Talked</text><text x="0" y="188">Cold</text></g>
+  <polyline points="120,174 156,163 192,167 228,157 264,159 300,139 336,146 372,172 408,163 444,137 480,96 516,93" fill="none" stroke="#f2b134" stroke-width="4" stroke-linejoin="round"/>
+  <polyline points="516,93 541,65" fill="none" stroke="#ffd24a" stroke-width="4" stroke-dasharray="6 6"/>
+  <circle cx="541" cy="65" r="8" fill="none" stroke="#ffd24a" stroke-width="3"/>
+  <g fill="#3fc07a"><circle cx="156" cy="163" r="8"/><circle cx="300" cy="139" r="8"/><circle cx="444" cy="137" r="8"/><circle cx="480" cy="96" r="8"/></g>
+  <circle cx="372" cy="172" r="8" fill="#dd4b3d"/>
+  <rect x="292" y="111" width="16" height="16" transform="rotate(45 300 119)" fill="#4d8ef0"/>
+  <polygon points="408,150 399,165 417,165" fill="#ad80ff"/>
+  <circle cx="516" cy="93" r="7" fill="#fff"/>
+  <g font-family="Barlow" font-size="20" fill="#c9b9a2"><text x="112" y="210">wk 3</text><text x="250" y="210">wk 8</text><text x="440" y="210">now</text></g>
+ </svg>
+ <div style="display:flex;gap:16px;font-size:20px;color:var(--soft);margin:2px 0 8px;white-space:nowrap"><span><b style="color:var(--green)">&#9679;</b> win</span><span><b style="color:var(--red)">&#9679;</b> loss</span><span><b style="color:var(--blue)">&#9670;</b> the paper</span><span><b style="color:var(--purple)">&#9650;</b> SELL set</span><span><b style="color:var(--gold)">&#9675;</b> Sat, with the paper</span></div>
+ <div class="mv"><span class="d">Sat 28 Mar</span><span>Stopped Erin Shaw at home: +14, <b style="color:var(--gold)">SELL x1.5</b></span><span class="n gain">+21</span></div>
+ <div class="mv"><span class="d">Mon 30 Mar</span><span>Booked for Sat 11 Apr: the poster (heat)</span><span class="n gain">+5</span></div>
+ <div class="mv"><span class="d">Thu 2 Apr</span><span>A clip on your pads (heat)</span><span class="n gain">+6</span></div>
+ <div class="mv"><span class="d">Mondays</span><span>Cooling while booked, x0.93 a week</span><span class="n cost">-8</span></div>
+</div>
+
+<!-- COLUMN 2: Saturday, what it buys, what it costs -->
+<div class="panel" style="left:648px;top:256px;width:620px;height:232px">
+ <div class="h">SATURDAY 11 APR<span>York Hall, home, vs Holly Brennan</span></div>
+ <div class="step3">
+  <div class="rg" style="--c:var(--warm);--p:58%"><div class="r"><b>58</b></div><div class="w">Warm</div><div class="t">now</div></div>
+  <span class="arw">&#8594;</span>
+  <div class="rg" style="--c:var(--hot);--p:73%"><div class="r"><b>73</b></div><div class="w">Hot</div><div class="t">+ the paper</div></div>
+  <span class="arw">&#8594;</span>
+  <div class="rg" style="--c:var(--fire);--p:88%"><div class="r"><b>88</b></div><div class="w">On fire</div><div class="t">+ call the stoppage</div></div>
+ </div>
+</div>
+
+<div class="panel" style="left:648px;top:500px;width:620px;height:300px">
+ <div class="h">WHAT IT BUYS<span>on Saturday, with the paper</span></div>
+ <div class="tiles">
+  <div class="tile"><span class="ic"><svg class="ico" width="22" height="22" viewBox="0 0 24 24"><path d="M3 8h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4zM9 8v10"/></svg></span><b>$779 ticket cut</b><span class="g">$329 of it from hype</span></div>
+  <div class="tile"><span class="ic"><svg class="ico" width="22" height="22" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-4 3-6 6-6s6 2 6 6M15.5 14c3 0 5.5 1.6 5.5 5"/></svg></span><b>+15 fans on a win</b><span class="g">11 of them from hype</span></div>
+  <div class="tile"><span class="ic"><svg class="ico" width="22" height="22" viewBox="0 0 24 24"><path d="M3 21h18M5 21V9l7-5 7 5v12M10 21v-6h4v6"/></svg></span><b>+2 members</b><span>a home win at Hot</span></div>
+  <div class="tile"><span class="ic"><svg class="ico" width="22" height="22" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg></span><b>Pro offer sooner</b><span>at Hot: 6 wins, top 3</span></div>
+  <div class="tile"><span class="ic"><svg class="ico" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9.2c-1-1.6-5.2-1.6-5.2.8 0 2.6 5.2 1.6 5.2 4.2 0 2.4-4.2 2.4-5.6.6M12 6v12"/></svg></span><b>A sponsor calls</b><span>$150 a week, 12 weeks</span></div>
+  <div class="tile"><span class="ic"><svg class="ico" width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></span><b>Mood +2 a week</b><span>while Warm or more</span></div>
+ </div>
+</div>
+
+<div class="panel" style="left:648px;top:812px;width:620px;height:248px">
+ <div class="h">WHAT IT COSTS<span>at 73 on the night</span></div>
+ <div class="cr"><i>!</i><span><b>Nerves:</b> confidence 51, round 1 at <span class="cost">-0.5 points</span></span></div>
+ <div class="cr"><i>&#8600;</i><span><b>A loss with SELL:</b> buzz 47 to <span class="cost">14</span>, mood -6, loyalty -3</span></div>
+ <div class="cr dim"><i>&#9679;</i><span><b>From the next sheet at Hot:</b> home names 2 points stronger, trained for Samira</span></div>
+</div>
+
+<!-- COLUMN 3: fans, your stance, this week -->
+<div class="panel" style="left:1284px;top:256px;width:608px;height:160px">
+ <div class="h">FANS 38<span>buy a ticket; they stay after a loss</span></div>
+ <div class="hbar" style="margin-top:8px;height:22px"><span class="bz" style="width:20%;background:#3fc07a"></span><span class="bz" style="left:20%;width:38%;background:#2f9c62"></span><span class="bz" style="left:58%;width:11%;background:#246a47"></span><span class="ht" style="left:69%;width:29%"></span><em style="left:60%;width:3px;background:#fff"></em></div>
+ <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:20px;white-space:nowrap"><span class="cap">Debut today: family 20, fans 38, members 11, <span style="color:var(--gold)">hype 29</span></span><b>98 of 100</b></div>
+ <div class="cap" style="margin-top:4px">break-even at 60 (the white line)</div>
+</div>
+
+<div class="panel" style="left:1284px;top:428px;width:608px;height:262px">
+ <div class="h">YOUR STANCE<span>on Samira</span></div>
+ <div class="st on"><span class="dot"></span><b>Sell</b><span>gains x1.5; a loss crashes deeper; ego can turn at On fire</span></div>
+ <div class="st"><span class="dot"></span><b>Quiet</b><span>as it comes</span></div>
+ <div class="st"><span class="dot"></span><b>Shield</b><span>gains x0.5, held under 50; no nerves, no paper</span></div>
+ <div class="cap">Set 3 weeks ago. Can change Mon 13 Apr.</div>
+</div>
+
+<div class="panel" style="left:1284px;top:702px;width:608px;height:358px">
+ <div class="h">THIS WEEK<span>for Saturday</span></div>
+ <div class="tw"><span><b>The paper</b>, Thu, one of your pad places<span class="cap">or Coach fronts it: Wed, 2 of Coach's</span></span><span class="go">+15 heat</span></div>
+ <div class="tw"><span><b>A clip</b>, Tue, on your pads with Samira</span><span class="btn">+6 heat</span></div>
+ <div class="tw"><span><b>On the bill:</b> <span class="chip on">Entertain</span> <span class="chip">Smart</span> <span class="chip">Safe</span><span class="cap">Entertain +6 buzz, about -1 in 100 to win</span></span><span class="btn">Your call</span></div>
+ <div class="tw" style="opacity:.6"><span><b>Call out</b> Jade Okafor, No. 3<span class="cap">not with a bout inside 7 days</span></span><span class="btn off">Call out</span></div>
+ <div class="tw" style="opacity:.6"><span><b>Talk Samira down</b>, one of your pad places<span class="cap">opens at Hot: buzz -15, no nerves</span></span><span class="btn off">Talk</span></div>
+</div>
+</body></html>

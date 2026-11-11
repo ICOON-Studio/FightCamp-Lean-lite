@@ -1,0 +1,147 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Character sheet 10/10</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#17120e;color:#efe6d6;font-family:"Segoe UI",Arial,sans-serif;font-size:20px}
+.top{height:62px;background:linear-gradient(#3a2a1d,#241a12);display:flex;align-items:center;padding:0 18px;gap:18px;border-bottom:2px solid #000}
+.arrow{width:38px;height:38px;border-radius:6px;background:#2a1f17;display:flex;align-items:center;justify-content:center;color:#cfc2ad}
+.gym{font-family:"Segoe Print","Comic Sans MS",cursive;font-size:30px;color:#6fa8ff;font-weight:700}
+.date{font-size:20px;line-height:22px}.date small{color:#a99a85;font-size:20px}
+.sp{flex:1}
+.cash{text-align:right;font-size:26px;color:#f5c542;font-weight:700;line-height:26px}.cash small{display:block;font-size:20px;color:#b9ab95;font-weight:400}
+.big{background:#7a2e22;border:2px solid #c0503c;border-radius:6px;padding:4px 16px;font-weight:700;font-size:21px;line-height:24px}.big small{display:block;font-weight:400;font-size:20px}
+.menu{background:#2a1f17;padding:6px 12px;border-radius:6px}
+.rail{position:absolute;left:0;top:62px;width:96px;height:1018px;background:#120d0a;border-right:2px solid #000;padding-top:14px}
+.rail div{height:74px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#a99a85}
+.rail .on{color:#fff;background:#2b4a7a;border-left:5px solid #6fa8ff}
+.main{position:absolute;left:96px;top:62px;width:1824px;height:1018px;padding:12px 22px}
+.head{display:flex;align-items:center;gap:20px;height:84px}
+.face{width:76px;height:76px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#c99a7a 0 30%,#3a2a20 31% 100%);border:3px solid #f5c542}
+.name{font-family:"Segoe Print","Comic Sans MS",cursive;font-size:40px;font-weight:700;line-height:44px}
+.sub{color:#cfc2ad}.chip{display:inline-block;background:#2b4a7a;border-radius:5px;padding:1px 10px;margin-right:8px;color:#fff;font-weight:600}
+.tabs{display:flex;gap:8px;margin-left:30px}
+.tabs div{background:#2a2a3a;padding:8px 16px;border-radius:6px;color:#b9c4e0;font-weight:600}
+.tabs .on{background:#3a6fd0;color:#fff}
+.grid{display:grid;grid-template-columns:550px 640px 558px;gap:16px;margin-top:8px}
+.card{background:#221b16;border:1px solid #3b3027;border-radius:10px;padding:12px 16px;margin-bottom:12px}
+h2{font-size:22px;color:#f5c542;letter-spacing:1px;font-weight:800}
+h2 span{color:#b9ab95;font-weight:400;letter-spacing:0;font-size:20px;margin-left:8px}
+.big2{font-size:44px;font-weight:800;line-height:48px}
+.bar{position:relative;height:20px;border-radius:10px;background:#3a3a46;margin:6px 0 4px;overflow:hidden}
+.fill{position:absolute;left:0;top:0;bottom:0;background:#4f8ff0}
+.tick{position:absolute;top:0;bottom:0;width:3px;background:#17120e}
+.bands{display:flex;justify-content:space-between;color:#a99a85;font-size:20px}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding:4px 0;border-bottom:1px solid #2f261f;line-height:25px}
+.row:last-child{border-bottom:none}
+.g{color:#6fd27a}.r{color:#ff7a6a}.y{color:#f5c542}.m{color:#a99a85}.b{color:#7fb0ff}
+.pill{display:inline-block;border-radius:14px;background:#2f2721;padding:1px 10px;margin:3px 4px 0 0}
+table{width:100%;border-collapse:collapse}
+td{padding:5px 4px;vertical-align:top;border-bottom:1px solid #2f261f;line-height:24px}
+th{text-align:left;color:#a99a85;font-weight:400;padding:2px 4px;font-size:20px}
+.tn{font-weight:700;width:136px}.tv{width:150px;font-weight:700}
+.rng{position:relative;height:16px;background:#2f2721;border-radius:8px;margin-top:4px}
+.rng i{position:absolute;top:0;bottom:0;background:#4f8ff0;border-radius:8px}
+.rng b{position:absolute;top:-3px;width:4px;height:22px;background:#fff}
+.btns{display:flex;gap:10px;margin-top:8px}
+.btn{flex:1;border-radius:8px;padding:6px 10px;background:#2b3550;line-height:24px}
+.btn.p{background:#f5c542;color:#1b1406}
+.btn b{display:block}
+.mark{display:flex;gap:12px;align-items:flex-start;padding:5px 0;border-bottom:1px solid #2f261f;line-height:24px}
+.badge{min-width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px}
+.moment{border:3px solid #f5c542}
+</style></head><body>
+<div class="top">
+ <div class="arrow">&lt;</div><div class="arrow">&gt;</div>
+ <div class="gym">Anvil Street Gym</div>
+ <div class="date">Mon 9 Mar 2026<br><small>Week 10</small></div>
+ <div class="sp"></div>
+ <div class="cash">$10,840<small>running -$90 a week</small></div>
+ <div class="big">NEEDS YOU (2)<small>Promise due: Tess</small></div>
+ <div class="menu">Menu</div>
+</div>
+<div class="rail"><div>Home</div><div class="on">Fighters</div><div>Fights</div><div>Club</div><div>World</div></div>
+<div class="main">
+ <div class="head">
+  <div class="face"></div>
+  <div><div class="name">Tess Reilly</div>
+   <div class="sub"><span class="chip">AMATEUR</span>Middleweight, 23, southpaw, 7-4, No. 5 London</div></div>
+  <div class="tabs"><div>Overview</div><div>Week</div><div>Fight prep</div><div>Playbook</div><div class="on">Character</div><div>History</div></div>
+ </div>
+ <div class="grid">
+  <!-- column 1 -->
+  <div>
+   <div class="card">
+    <h2>LOYALTY<span>you and Tess, one number</span></h2>
+    <div style="display:flex;align-items:baseline;gap:14px"><div class="big2">68</div><div style="font-size:24px;font-weight:700">Settled</div><div class="m">2 to Loyal</div></div>
+    <div class="bar"><div class="fill" style="width:68%"></div><div class="tick" style="left:25%"></div><div class="tick" style="left:50%"></div><div class="tick" style="left:70%"></div><div class="tick" style="left:85%"></div></div>
+    <div class="bands"><span>Leaving</span><span>Wavering</span><span>Settled</span><span>Loyal</span><span>Trusts you</span></div>
+    <div class="row"><span><b class="g">70</b> holds pads; one short week in four is free</span></div>
+    <div class="row"><span><b class="b">85</b> TRUST ME: once a bout your corner talk lands in full</span></div>
+    <div><span class="pill"><b class="g">+5</b> promise kept</span><span class="pill"><b class="r">-3</b> went short wk 9</span><span class="pill"><b class="g">+1</b> you cornered</span></div>
+   </div>
+   <div class="card">
+    <h2>WHAT TESS WANTS</h2>
+    <div class="row"><span>Ambition</span><b>A regional title within a year</b></div>
+    <div class="row"><span>Season target</span><b class="g">The nationals, entries 15 Mar</b></div>
+    <div class="row"><span>Matches the ambition</span><b class="g">yes: loyalty +5 held</b></div>
+    <div class="row"><span>Bouts to enter</span><b>5 of 5, enter now</b></div>
+   </div>
+   <div class="card">
+    <h2>MARKS<span>earned, for good</span></h2>
+    <div class="mark"><div class="badge" style="background:#2f6a3a">H</div><div><b>Hardened</b> <span class="m">Feb 2026, stopped by K. Bell</span><br>beats the count 1 second sooner</div></div>
+    <div class="mark"><div class="badge" style="background:#2b4a7a">P</div><div><b>Partners with Josh</b> <span class="m">7 evenings in 8 weeks</span><br>+5% sparring gain together; if Josh leaves, loyalty -4</div></div>
+    <div class="mark" style="border:none"><div class="badge" style="background:#5a3a1a">1</div><div><b>First home win</b> <span class="m">York Hall, Jan</span><br>+2 fans on every home bout</div></div>
+   </div>
+  </div>
+  <!-- column 2 -->
+  <div>
+   <div class="card">
+    <h2>TRAITS<span>4 read, 1 still hidden</span></h2>
+    <table>
+     <tr><th>Trait</th><th>Now</th><th>What it does</th></tr>
+     <tr><td class="tn">Heart</td><td class="tv g">84 Big heart</td><td>beats a count 2 s sooner; round 3 at full when behind<br><span class="m">&#8594; steady</span></td></tr>
+     <tr><td class="tn">Coachability</td><td class="tv r">41 Stubborn</td><td>takes in 0.82 of each shout (top 1.0)<br><span class="g">&#8593; +1 each bout you corner well; was 36</span></td></tr>
+     <tr><td class="tn">Confidence</td><td class="tv g">72 Confident</td><td>asks for the name above; a loss there -4<br><span class="g">&#8593; two wins running</span></td></tr>
+     <tr><td class="tn">Temper</td><td class="tv">58 Even</td><td>no sparring sparks; corner talk "fire up" works<br><span class="r">&#8593; +1 each 2 Hard evenings</span></td></tr>
+     <tr><td class="tn">Discipline</td><td class="tv y">? not read</td><td>under 45 skips 1 alone morning in 3<br><span class="m">opens with 4 more sessions with you</span></td></tr>
+    </table>
+   </div>
+   <div class="card moment">
+    <h2>YOU SAID MARCH<span>promise due Sun 15 Mar</span></h2>
+    <div style="line-height:26px;margin-top:4px">In January you promised Tess the paid seat by March. Kira holds it until 22 Mar.</div>
+    <div class="btns">
+     <div class="btn p"><b>Move the seat now</b>Tess +5, Kira -8, $0</div>
+     <div class="btn"><b>A second seat</b>$1,000, both kept</div>
+     <div class="btn"><b>Break it</b>Tess -12; next promise x1.5</div>
+    </div>
+   </div>
+  </div>
+  <!-- column 3 -->
+  <div>
+   <div class="card">
+    <h2>HOW WELL YOU KNOW TESS</h2>
+    <div class="m" style="line-height:24px">31 sessions in person. Coach's sessions teach you nothing.</div>
+    <div class="row" style="display:block"><b>Body</b> <span class="m">Strength 61 to 65</span><div class="rng"><i style="left:52%;width:10%"></i><b style="left:56%"></b></div></div>
+    <div class="row" style="display:block"><b>Skills</b> <span class="m">Timing 49 to 57</span><div class="rng"><i style="left:44%;width:18%"></i><b style="left:52%"></b></div></div>
+    <div class="row" style="display:block"><b>Fire</b> <span class="m">Composure 50 to 70: spar Hard to read it</span><div class="rng"><i style="left:40%;width:34%"></i><b style="left:58%"></b></div></div>
+    <div class="row"><span>Potential</span><b>3 to 3.5 stars</b></div>
+    <div class="row"><span>This week</span><b class="g">2 mornings, 1 pad place: Skills +1</b></div>
+   </div>
+   <div class="card">
+    <h2>BUILD DIRECTION</h2>
+    <div style="display:flex;gap:8px;margin:6px 0"><span class="pill">Keep it long</span><span class="pill" style="background:#3a6fd0;color:#fff;font-weight:700">Walk them down</span><span class="pill">Counter</span><span class="pill">None</span></div>
+    <div class="row"><span>Faster x1.10</span><b class="g">Stamina, Strength, Inside</b></div>
+    <div class="row"><span>Slower x0.90</span><b class="r">Footwork, Timing</b></div>
+    <div class="row"><span>Pressure dial</span><b>68 to 80, about 6 weeks</b></div>
+    <div class="row"><span>Against the bout on 28 Mar</span><b class="g">+1.6 in 100 (measured)</b></div>
+   </div>
+   <div class="card">
+    <h2>COACH AND TESS</h2>
+    <div class="row"><span>Pads with Coach</span><b>22 of 30 sessions</b></div>
+    <div class="row"><span>Coach's body hook pads</span><b class="g">level 3: x1.2</b></div>
+    <div class="row"><span>If Coach leaves</span><b class="y">Tess loyalty -6</b></div>
+   </div>
+  </div>
+ </div>
+</div>
+</body></html>

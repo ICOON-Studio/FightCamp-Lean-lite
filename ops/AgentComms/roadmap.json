@@ -4661,7 +4661,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-11 13:41 board_sync",
+  "updated": "2026-11-11 14:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4825,7 +4825,14 @@
     "title": "TASK DUESSUMS3 - QWEN (qwen3-coder) - dues sums, third search: a waiting list, the one thing reputation buys a FULL club (pure module + sim, MEASURE ONLY)",
     "who": "qwen",
     "started": "2026-11-11T13:19",
-    "run": "DUESSUMS3"
+    "run": "DUESSUMS3",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK R11C - QWEN (qwen3-coder) - a standing count on the cards says what it cost",
+    "who": "qwen",
+    "started": "2026-11-11T14:11",
+    "run": "R11C"
    }
   ],
   "next": [
@@ -4839,6 +4846,12 @@
     "id": "HYPE1",
     "who": "claude",
     "title": "Hype: the heat around a fighter that rises and cools (beside lasting fans) - design map, two fresh critics, 7+ rule (his S432 ask)",
+    "after": "MAPV3"
+   },
+   {
+    "id": "TRAINDEPTH1",
+    "who": "claude",
+    "title": "Training mechanics rated by critics for the first time (his S432 question); under 7 a training map deepens them",
     "after": "MAPV3"
    },
    {

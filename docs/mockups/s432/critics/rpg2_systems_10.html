@@ -1,0 +1,113 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>RPG 10/10 systems</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#17130f;color:#ece4d6;font:20px/1.3 "Segoe UI",Arial,sans-serif}
+.top{height:62px;background:#2a211a;display:flex;align-items:center;padding:0 24px;gap:26px;border-bottom:2px solid #3b2f25}
+.gym{font:700 30px "Segoe UI";color:#6fa3ff;letter-spacing:1px}
+.date{font-size:20px;color:#cfc5b4}
+.cash{margin-left:auto;font-size:26px;color:#f2c14e;font-weight:700}
+.need{background:#3a2b20;border:1px solid #6b5440;padding:6px 14px;border-radius:6px;font-size:20px}
+.tabs{display:flex;gap:10px;padding:12px 24px 0}
+.tab{background:#26324a;color:#c9d6f2;padding:8px 18px;border-radius:6px;font-weight:600}
+.tab.on{background:#2e5bb8;color:#fff}
+.name{padding:10px 24px 6px;display:flex;align-items:baseline;gap:18px}
+.name h1{font:800 40px "Segoe UI";letter-spacing:1px}
+.name span{color:#cfc5b4}
+.cols{display:grid;grid-template-columns:600px 640px 600px;gap:18px;padding:4px 24px}
+.box{background:#211b15;border:1px solid #3a2f25;border-radius:10px;padding:12px 16px;margin-bottom:12px}
+.box.gold{border:2px solid #f2c14e}
+h2{font:800 21px "Segoe UI";color:#f2c14e;letter-spacing:1px;margin-bottom:6px}
+h2 small{font-weight:400;color:#bfb4a2;letter-spacing:0;font-size:20px}
+.row{display:flex;justify-content:space-between;gap:10px;padding:3px 0;border-bottom:1px solid #2f271f}
+.row:last-child{border-bottom:none}
+.g{color:#6fd38a}.r{color:#ff7a6b}.y{color:#f2c14e}.b{color:#8fb6ff}.m{color:#bfb4a2}
+.btn{display:inline-block;background:#f2c14e;color:#1b1510;font-weight:700;padding:5px 12px;border-radius:6px;font-size:20px}
+.btn.dk{background:#33415e;color:#e6ecff}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:#1b2232;border:1px solid #33415e;border-radius:8px;padding:8px 10px}
+.card.pick{border:2px solid #f2c14e}
+.card b{display:block;font-size:21px}
+.note{color:#bfb4a2;font-size:20px}
+</style></head><body>
+<div class="top"><div class="gym">ANVIL STREET GYM</div><div class="date">Mon 6 Apr 2026 · Week 14</div>
+<div class="cash">$9,480</div><div class="need">NEEDS YOU (2): Tess's perk pick · after the knockout</div></div>
+<div class="tabs"><div class="tab">Profile</div><div class="tab">Condition</div><div class="tab">Training</div><div class="tab">Playbook</div><div class="tab">Fight plan</div><div class="tab on">Character</div><div class="tab">History</div></div>
+<div class="name"><h1>TESS REILLY</h1><span>Middleweight · 23 · southpaw · 8-5 amateur · No. 4 London · season target: the pro offer</span></div>
+<div class="cols">
+<!-- column 1 -->
+<div>
+ <div class="box gold"><h2>WHAT YOUR PICKS WON <small>this season, from Tess's 9 bouts</small></h2>
+  <div class="row"><span>The drain (perk)</span><span class="g">+2.1 in 100 · 14 rounds</span></div>
+  <div class="row"><span>Ringside voice (your level 4)</span><span class="g">+1.3 · 11 shouts in full</span></div>
+  <div class="row"><span>Walk them down (direction)</span><span class="g">+0.9 · Stamina +1.4</span></div>
+  <div class="row"><span>Hardened mark</span><span class="g">1 stoppage avoided</span></div>
+  <div class="row"><span>Craft first vs Stubborn</span><span class="r">loyalty -6</span></div>
+  <div class="note">Same table in the Why, bout by bout. A line under 0.5 turns grey: a pick worth re-thinking.</div>
+ </div>
+ <div class="box"><h2>LOYALTY <small>66 Settled · 4 to Loyal</small></h2>
+  <div class="row"><span>Next 4 weeks, as dealt</span><span class="y">68 → Loyal in 5 wks</span></div>
+  <div class="row"><span>If short twice more</span><span class="r">57 · Loyal in 11 wks</span></div>
+  <div class="row"><span>At 70: holds pads</span><span>+1 pad place a week</span></div>
+  <div class="row"><span>At 85 + Known 4: TRUST ME</span><span>hurt rounds +1.6 in 100</span></div>
+  <div style="margin-top:8px"><span class="btn">Deal Tess first (Club week)</span></div>
+ </div>
+ <div class="box"><h2>WHAT TESS WANTS</h2>
+  <div class="row"><span>A pro debut before 25</span><span class="g">target matches: +5 when met</span></div>
+  <div class="row"><span>Still needs</span><span>1 win, or No. 4 → top 3</span></div>
+  <div class="row"><span>Name above on Sat's sheet</span><span class="y">a win = No. 3 = the offer</span></div>
+ </div>
+</div>
+<!-- column 2 -->
+<div>
+ <div class="box gold"><h2>BODY SNATCHER OPENS <small>pick its version, for good</small></h2>
+  <div class="two">
+   <div class="card pick"><b>THE DRAIN</b>body shots drain 15% more<br><span class="g">next 3 names: +2.4 / +0.8 / +1.9</span><br><span class="g">this season's 9: +1.7 avg</span></div>
+   <div class="card"><b>THE DROP</b>after a count, 2nd count 1 in 10<br><span class="y">next 3 names: +0.6 / +2.8 / +0.4</span><br><span class="y">this season's 9: +1.1 avg</span></div>
+  </div>
+  <div class="note" style="margin:6px 0">Measured on Tess, not a boxer on average. The direction lists The drain first.</div>
+  <span class="btn">Take The drain</span> <span class="btn dk">Take The drop</span>
+ </div>
+ <div class="box"><h2>TRAITS <small>only lines that change a number you use</small></h2>
+  <div class="row"><span><b>Coachability 36</b> Stubborn ↑</span><span>at 40: a fix lands in 1 round, not 2</span></div>
+  <div class="row"><span class="m">moves it</span><span class="g">2 asks heard → 40 by May <span class="btn dk">Hear the ask</span></span></div>
+  <div class="row"><span><b>Heart 84</b> Big heart</span><span>referee stop x0.56 after a count</span></div>
+  <div class="row"><span><b>Confidence 70</b> Confident ↑</span><span>at 75: "Fire up" +2.0 a round</span></div>
+  <div class="row"><span class="m">moves it</span><span class="g">a stoppage win +2 · Sat's home card</span></div>
+  <div class="row"><span><b>Temper ?</b></span><span>Known 2 or 1 Hard spar opens it (1 in 2)</span></div>
+  <div class="row"><span><b>Discipline ?</b></span><span>Known 4 opens it · 2 sessions away</span></div>
+ </div>
+ <div class="box"><h2>MARKS <small>3 of 4, each with its count</small></h2>
+  <div class="row"><span>Hardened (Mar)</span><span>referee stop x0.85 · saved 1 bout</span></div>
+  <div class="row"><span>First home win (Jan)</span><span>+2 fans a home bout · +6 so far</span></div>
+  <div class="row"><span>Sat with them (Mar)</span><span>next knockout card: Hardened +25</span></div>
+ </div>
+</div>
+<!-- column 3 -->
+<div>
+ <div class="box gold"><h2>AFTER THE KNOCKOUT <small>answer by Start week</small></h2>
+  <div class="row"><span>Hardened now</span><span class="y">55 to 70 in 100 (Known 2)</span></div>
+  <div class="row"><span>Sit with them: 1 of your pad places</span><span class="g">→ 80 in 100</span></div>
+  <div class="row"><span>Two weeks off: Rest</span><span class="g">→ 70 · no sheet</span></div>
+  <div class="row"><span>Back on the sheet: Ready</span><span class="r">→ 35 · Sat's name above</span></div>
+  <div style="margin-top:8px"><span class="btn">Sit with them</span> <span class="btn dk">Rest</span> <span class="btn dk">Ready</span></div>
+ </div>
+ <div class="box"><h2>KNOWN 2 <small>what the next step DOES</small></h2>
+  <div class="row"><span>Known 3 · 4 sessions</span><span>habit fix 1 week sooner</span></div>
+  <div class="row"><span>Known 4 · 9 sessions</span><span>TRUST ME allowed · all traits</span></div>
+  <div class="row"><span>Known 5 · 24 sessions</span><span>knockout odds exact · +2 exp</span></div>
+  <div class="row"><span>This week</span><span class="g">2 of your mornings, 1 pad place: +3</span></div>
+ </div>
+ <div class="box"><h2>BUILD DIRECTION <small>Walk them down</small></h2>
+  <div class="row"><span>Faster x1.10</span><span class="g">Stamina, Inside fighting</span></div>
+  <div class="row"><span>Slower x0.90</span><span class="r">Footwork, Timing</span></div>
+  <div class="row"><span class="r">Clash: weak spot is Timing</span><span class="r">its fix 1 week longer</span></div>
+  <div class="row"><span>Against Sat's out-boxer</span><span class="g">+0.9 in 100</span></div>
+ </div>
+ <div class="box"><h2>COACH AND TESS</h2>
+  <div class="row"><span>Body hook pads 31 of 40</span><span>2 more pad nights on it: x1.2</span></div>
+  <div class="row"><span>If Coach goes</span><span class="r">loyalty -6</span></div>
+ </div>
+</div>
+</div>
+</body></html>
