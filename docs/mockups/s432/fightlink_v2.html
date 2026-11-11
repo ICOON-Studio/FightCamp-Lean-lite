@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>Fight result: what turned it (FIGHTLINK3 v2)</title>
+<html lang="en"><head><meta charset="utf-8"><title>Fight result: what turned it (FIGHTLINK3 v3)</title>
 <style>
 @font-face{font-family:Marker;src:url(../../../assets/fonts/PermanentMarker-Regular.ttf)}
 @font-face{font-family:Barlow;font-weight:400;src:url(../../../assets/fonts/Barlow-Regular.ttf)}
@@ -35,141 +35,190 @@ body{position:relative;background:#0e0b09;color:var(--ink);font:500 22px/1.2 Bar
 /* shared bits */
 .h{font-weight:700;font-size:22px;letter-spacing:.09em;color:var(--gold);white-space:nowrap}
 .hs{font-weight:500;font-size:20px;letter-spacing:0;color:var(--soft);white-space:nowrap}
-.go{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 20px;border-radius:11px;background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06;font-weight:700;font-size:21px;box-shadow:0 3px 0 #9a6c10,0 0 22px 2px rgba(255,205,90,.30);white-space:nowrap}
-.btn{display:inline-flex;align-items:center;justify-content:center;height:52px;padding:0 18px;border-radius:11px;background:rgba(255,255,255,.085);color:var(--ink);font-weight:600;font-size:21px;white-space:nowrap}
+.hd{display:flex;align-items:baseline;gap:14px;height:28px}
+.go{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 18px;border-radius:11px;background:linear-gradient(#ffe070,#f0b32a);color:#2a1b06;font-weight:700;font-size:21px;box-shadow:0 3px 0 #9a6c10,0 0 22px 2px rgba(255,205,90,.30);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 16px;border-radius:11px;background:rgba(255,255,255,.085);color:var(--ink);font-weight:600;font-size:21px;white-space:nowrap}
 .btn.navy{background:#1d2741;color:#fffbf3}
 .pill{display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:18px;background:rgba(255,255,255,.07);color:var(--ink);font-weight:600;font-size:20px;white-space:nowrap}
 .pill b{color:var(--gold);margin-left:6px}
 /* header */
-.face{width:116px;height:116px;border-radius:50%;border:4px solid #fdfaf2;box-shadow:0 4px 14px rgba(0,0,0,.5);object-fit:cover;display:block}
+.face{width:110px;height:110px;border-radius:50%;border:4px solid #fdfaf2;box-shadow:0 4px 14px rgba(0,0,0,.5);object-fit:cover;display:block}
 .face.red{border-color:#e2483d}.face.blue{border-color:#4d8ef0}
-.init{display:grid;place-items:center;background:#1c2640;font:400 46px/1 Bebas;color:#cfe0ff}
-.nm{font:400 34px/1 Marker;color:#fff;white-space:nowrap}
+.init{display:grid;place-items:center;background:#1c2640;font:400 44px/1 Bebas;color:#cfe0ff}
+.nm{font:400 32px/1 Marker;color:#fff;white-space:nowrap}
 .corner{font-size:20px;font-weight:700;letter-spacing:.1em;white-space:nowrap}
-.title{font:400 54px/1 Marker;color:#8eb8f2;text-align:center;white-space:nowrap}
-.sub{font-size:24px;color:var(--soft);text-align:center;white-space:nowrap;margin-top:8px}
-/* headline flag */
-.flag{position:absolute;left:28px;top:262px;width:1160px;height:58px;border-radius:10px;background:rgba(255,210,74,.12);border-left:6px solid var(--gold);display:flex;align-items:center;gap:16px;padding:0 18px;font-size:23px;white-space:nowrap}
-.flag b{color:var(--gold);letter-spacing:.06em}
+.title{font:400 50px/1 Marker;color:#8eb8f2;text-align:center;white-space:nowrap}
+.sub{font-size:22px;color:var(--soft);text-align:center;white-space:nowrap;margin-top:6px}
+.sub b{color:#ff8d7f}
+/* the bout strip */
+.bout{position:absolute;left:28px;top:236px;width:1160px}
+.tiles{display:flex;align-items:center;gap:6px;margin-top:6px}
+.rl{width:34px;font:400 26px/1 Bebas;color:var(--soft);text-align:center;flex:none}
+.t{position:relative;width:50px;height:42px;border-radius:6px;display:grid;place-items:center;font:700 21px/1 Barlow;flex:none}
+.t.w{background:rgba(63,192,122,.26);color:#9df0c0}.t.l{background:rgba(221,75,61,.30);color:#ffb0a6}
+.t.gd{box-shadow:inset 0 0 0 3px var(--gold)}
+.t .ct{position:absolute;top:-11px;right:-6px;height:20px;padding:0 5px;border-radius:5px;background:#ff8d7f;color:#2a0d08;font:700 14px/20px Barlow}
+.gap{width:10px;flex:none}
+.leg{font-size:20px;color:var(--soft);white-space:nowrap}
+.leg b{color:var(--ink);font-weight:700}
 /* the scales */
-.scales{position:absolute;left:28px;top:334px;width:1160px}
-.shead{display:flex;align-items:center;gap:14px;height:44px}
-.groups{display:flex;gap:10px;margin-left:auto}
-.g{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 12px;border-radius:8px;background:rgba(255,255,255,.06);font-size:20px;font-weight:600;white-space:nowrap}
+.scales{position:absolute;left:28px;top:342px;width:1160px}
+.shead{display:flex;align-items:center;gap:12px;height:40px}
+.groups{display:flex;gap:8px;margin-left:auto}
+.g{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 9px;border-radius:8px;background:rgba(255,255,255,.06);font-size:20px;font-weight:600;white-space:nowrap}
 .g i{width:12px;height:12px;border-radius:3px;display:inline-block}
 .g b{font-weight:700}
-.axis{display:grid;grid-template-columns:372px 300px 1fr;height:30px;align-items:end;font-size:20px;color:var(--soft)}
-.axis div:nth-child(2){display:flex;justify-content:space-between;padding:0 6px}
-.row{position:relative;display:grid;grid-template-columns:10px 362px 300px 106px 118px 1fr;column-gap:8px;align-items:center;height:66px;border-bottom:1px solid rgba(255,255,255,.06)}
-.row.top1{background:rgba(255,210,74,.07);box-shadow:inset 0 0 0 2px rgba(255,210,74,.35);border-radius:10px}
-.strip{height:48px;border-radius:4px}
-.lab b{display:block;font-weight:700;font-size:22px;white-space:nowrap;line-height:26px}
-.lab span{display:block;font-size:20px;color:var(--soft);white-space:nowrap;line-height:24px}
-.bar{position:relative;height:26px}
-.bar::before{content:'';position:absolute;left:150px;top:-10px;bottom:-10px;width:2px;background:rgba(255,255,255,.35)}
-.bar s{position:absolute;top:0;height:26px;border-radius:5px}
-.bar s.p{left:151px;background:var(--green)}
-.bar s.n{right:151px;background:var(--red)}
-.num{font:400 36px/1 Bebas;text-align:right;white-space:nowrap}
-.num small{font:600 20px/1 Barlow;color:var(--soft);margin-left:4px}
+.axis{display:grid;grid-template-columns:358px 240px 1fr;column-gap:8px;height:26px;align-items:end;font-size:20px;color:var(--soft)}
+.axis div:nth-child(2){display:flex;justify-content:space-between;padding:0 2px}
+.row{position:relative;display:grid;grid-template-columns:10px 340px 240px 74px 84px 150px 1fr;column-gap:8px;align-items:center;height:54px;border-bottom:1px solid rgba(255,255,255,.06)}
+.row.top1{height:84px;align-items:start;padding-top:6px;background:rgba(255,210,74,.07);box-shadow:inset 0 0 0 2px rgba(255,210,74,.40);border-radius:10px;border-bottom:none}
+.row.top1 > *{margin-top:2px}
+.headl{position:absolute;left:18px;right:12px;bottom:6px;font-size:20px;white-space:nowrap;color:var(--ink)}
+.headl b{color:var(--gold);letter-spacing:.06em;margin-right:8px}
+.headl em{font-style:normal;color:#6fdc9e;font-weight:700}
+.stp{height:42px;border-radius:4px}
+.lab b{display:block;font-weight:700;font-size:21px;white-space:nowrap;line-height:24px}
+.lab span{display:block;font-size:20px;color:var(--soft);white-space:nowrap;line-height:23px}
+.bar{position:relative;height:24px}
+.bar::before{content:'';position:absolute;left:120px;top:-9px;bottom:-9px;width:2px;background:rgba(255,255,255,.35)}
+.bar s{position:absolute;top:0;height:24px;border-radius:5px}
+.bar s.p{left:121px;background:var(--green)}
+.bar s.n{right:121px;background:var(--red)}
+.bar u{position:absolute;top:-7px;width:3px;height:38px;background:#fff;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.5)}
+.num{font:400 34px/1 Bebas;text-align:right;white-space:nowrap}
+.num small{font:600 20px/1 Barlow;color:var(--soft);margin-left:3px}
 .num.p{color:#6fdc9e}.num.n{color:#ff8d7f}
-.rc{display:flex;gap:6px}
-.rc u{display:inline-flex;align-items:center;justify-content:center;width:44px;height:32px;border-radius:7px;text-decoration:none;font-size:20px;font-weight:700;background:rgba(255,255,255,.06);color:#7d7466}
+.bill{font-size:20px;color:var(--soft);white-space:nowrap}
+.bill b{color:var(--ink)}
+.rc{display:flex;gap:5px}
+.rc u{display:inline-flex;align-items:center;justify-content:center;width:44px;height:30px;border-radius:7px;text-decoration:none;font-size:20px;font-weight:700;background:rgba(255,255,255,.06);color:#7d7466}
 .rc u.p{background:rgba(63,192,122,.22);color:#6fdc9e}.rc u.n{background:rgba(221,75,61,.25);color:#ff8d7f}
 .act{justify-self:end}
-.act .btn,.act .go{height:46px;font-size:20px;padding:0 14px}
+.act .btn,.act .go{height:42px;font-size:20px;padding:0 13px}
 .luck{font-size:20px;color:var(--grey);justify-self:end;padding-right:6px;white-space:nowrap}
-.small{height:44px;display:flex;align-items:center;gap:12px;font-size:20px;color:var(--soft);padding-left:18px;white-space:nowrap}
+.line{display:flex;align-items:center;gap:10px;height:36px;font-size:20px;color:var(--soft);white-space:nowrap;padding-left:18px}
+.chip{display:inline-flex;align-items:center;height:30px;padding:0 10px;border-radius:7px;background:rgba(255,255,255,.07);color:var(--ink);font-weight:600;font-size:20px}
+.chip.p{background:rgba(63,192,122,.18);color:#9df0c0}.chip.n{background:rgba(221,75,61,.22);color:#ffb0a6}
+.share{display:flex;width:360px;height:22px;border-radius:5px;overflow:hidden;flex:none}
+.share s{display:block;height:22px}
 /* right column */
-.rcol{position:absolute;left:1216px;top:262px;width:676px}
-.judges{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px}
-.jc{border-radius:12px;background:rgba(255,255,255,.055);padding:12px 14px 12px;height:200px;border-top:5px solid var(--c)}
-.jc .lean{font-size:20px;font-weight:700;letter-spacing:.08em;color:var(--soft)}
+.rcol{position:absolute;left:1216px;top:236px;width:676px}
+.judges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+.jc{border-radius:11px;background:rgba(255,255,255,.055);padding:9px 12px;height:128px;border-top:5px solid var(--c)}
+.jc .lean{font-size:20px;font-weight:700;letter-spacing:.06em;color:var(--soft);white-space:nowrap}
 .jc .lean b{color:var(--gold)}
-.jc .sc{font:400 52px/1 Bebas;color:var(--c);margin:4px 0 2px}
-.jc .why{font-size:20px;line-height:24px;color:var(--ink)}
-.places{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px}
-.pc{border-radius:12px;background:rgba(255,255,255,.055);padding:12px 14px;height:178px}
-.pc .pn{font-size:20px;font-weight:700;letter-spacing:.08em;color:var(--soft);white-space:nowrap}
-.pc .won{font:400 46px/1 Bebas;margin-top:4px;white-space:nowrap}
-.pc .won small{font:500 20px/1 Barlow;color:var(--soft);margin-left:6px}
-.pips{display:flex;gap:4px;margin:6px 0 8px}.pips s{flex:1;height:12px;border-radius:3px;background:var(--track)}.pips s.w{background:var(--green)}.pips s.l{background:var(--red)}
-.pc .tool{font-size:20px;line-height:24px;color:var(--ink);white-space:nowrap}
+.jc .lean i{font-style:normal;font-weight:600;letter-spacing:0;color:#9df0c0;margin-left:4px}
+.jc .lean i.q{color:#ffb070}
+.jc .sc{font:400 40px/1 Bebas;color:var(--c);margin:3px 0 2px}
+.jc .why{font-size:20px;line-height:23px;color:var(--ink)}
+.count{margin-top:6px;border-radius:12px;background:rgba(221,75,61,.10);box-shadow:inset 0 0 0 2px rgba(221,75,61,.45);padding:8px 14px;height:200px}
+.cr{display:grid;grid-template-columns:176px 1fr;align-items:center;height:32px;font-size:20px;white-space:nowrap}
+.cr span{color:var(--soft);font-weight:600;letter-spacing:.04em}
+.cr b{color:var(--ink);font-weight:600}
+.dmg{display:flex;height:22px;width:150px;border-radius:5px;overflow:hidden;margin-right:10px}
+.dmg s{display:block;height:22px}
+.towel{margin-top:10px;border-radius:12px;background:rgba(255,255,255,.055);border-left:6px solid #ff8d7f;padding:8px 14px;height:64px;font-size:20px;line-height:24px;white-space:nowrap}
+.towel b{color:#ffb0a6;letter-spacing:.06em}
+.places{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+.pc{border-radius:11px;background:rgba(255,255,255,.055);padding:7px 12px;height:96px}
+.pc .pn{font-size:20px;font-weight:700;letter-spacing:.06em;color:var(--soft);white-space:nowrap}
+.pc .won{font:400 32px/1 Bebas;white-space:nowrap;display:block;margin:2px 0}
+.pc .tool{font-size:20px;line-height:24px;color:var(--ink);white-space:nowrap;display:block}
 .pc .tool span{color:var(--soft)}
-.next{display:flex;align-items:flex-end;margin-top:14px}
-.cface{width:96px;height:96px;border-radius:50%;border:3px solid #fdfaf2;display:block;box-shadow:0 4px 12px rgba(0,0,0,.5);flex:none}
-.tail{width:20px;height:34px;margin-bottom:30px;background:#1d2741;clip-path:polygon(0 55%,100% 0,100% 100%);flex:none}
-.bub{flex:1;background:#1d2741;border-radius:14px;padding:12px 18px 12px}
-.bub p{font:700 25px/31px Kalam,"Segoe Print",cursive;color:#efe6d8}
-.bub div{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:8px}
-.bub small{font-size:20px;color:#b8c3de}
-.bottom{position:absolute;right:28px;bottom:22px;display:flex;gap:12px}
+.next{display:flex;align-items:center;margin-top:10px;gap:0}
+.cface{width:76px;height:76px;border-radius:50%;border:3px solid #fdfaf2;display:block;box-shadow:0 4px 12px rgba(0,0,0,.5);flex:none}
+.tail{width:16px;height:28px;background:#1d2741;clip-path:polygon(0 50%,100% 0,100% 100%);flex:none}
+.bub{flex:1;background:#1d2741;border-radius:14px;padding:8px 16px}
+.bub p{font:700 22px/28px Kalam,"Segoe Print",cursive;color:#efe6d8;white-space:nowrap}
+.why1{position:absolute;left:28px;top:996px;width:1160px;height:50px;display:flex;align-items:center;gap:12px;padding:0 16px;border-radius:10px;background:rgba(255,255,255,.05);font-size:21px;white-space:nowrap}
+.bottom{position:absolute;right:28px;top:996px;display:flex;gap:10px}
 </style></head>
 <body><div class="wall"></div>
 <div class="top"><span class="tnav tab9">&lt;</span><span class="tnav tab9 off">&gt;</span><span class="tgym">Anvil Street Gym</span><span class="tdate"><b>Sat 31 Jan 2026</b><i>Week 5</i></span><span class="tgrow"></span><span class="fn">FIGHT NIGHT</span><span class="tgrow"></span><span class="tcash"><b>$16,410</b><i>running -$680 a week</i></span><span class="tgo plank9"><b>BACK HOME</b><i>after the result</i></span><span class="tnav tmenu tab9">Menu</span></div>
 
 <!-- header: the two corners and the verdict -->
-<div class="abs" style="left:28px;top:104px;display:flex;align-items:center;gap:18px">
+<div class="abs" style="left:28px;top:98px;display:flex;align-items:center;gap:16px">
  <img class="face red" src="../s431/final/face_lucy.png" alt="">
- <div><div class="nm">LUCY JACKSON</div><div class="corner" style="color:#ff8d7f;margin-top:8px">RED CORNER</div><div class="pill" style="margin-top:10px">Rank: stays No. 7<b>lost to a name above</b></div></div>
+ <div><div class="nm">LUCY JACKSON</div><div class="corner" style="color:#ff8d7f;margin-top:7px">RED CORNER</div><div class="pill" style="margin-top:8px">Rank: stays No. 7<b>lost to a name above</b></div></div>
 </div>
-<div class="abs" style="left:560px;top:110px;width:800px">
+<div class="abs" style="left:520px;top:100px;width:880px">
  <div class="title">PRIYA NAIR WINS</div>
- <div class="sub">split decision, 2 judges to 1 &nbsp;&middot;&nbsp; rounds: Lucy, Priya, Priya</div>
- <div style="display:flex;justify-content:center;gap:10px;margin-top:12px"><span class="pill">Judges tonight: Clean, Work, Ring</span></div>
+ <div class="sub">majority decision 28-28, 27-29, 27-29 &nbsp;&middot;&nbsp; <b>count on Lucy, round 2</b></div>
+ <div style="display:flex;justify-content:center;gap:10px;margin-top:10px"><span class="pill">Judges: Clean, Ring, Initiative<b>2 known: home show</b></span></div>
 </div>
-<div class="abs" style="right:28px;top:104px;display:flex;align-items:center;gap:18px;text-align:right">
- <div><div class="nm">PRIYA NAIR</div><div class="corner" style="color:#8eb8f2;margin-top:8px">BLUE CORNER</div><div class="pill" style="margin-top:10px">Eastside ABC<b>8-2</b></div></div>
+<div class="abs" style="right:28px;top:98px;display:flex;align-items:center;gap:16px;text-align:right">
+ <div><div class="nm">PRIYA NAIR</div><div class="corner" style="color:#8eb8f2;margin-top:7px">BLUE CORNER</div><div class="pill" style="margin-top:8px">Eastside ABC<b>8-2</b></div></div>
  <div class="face blue init">PN</div>
 </div>
 
-<!-- the one that turned it -->
-<div class="flag"><b>IT TURNED ON</b>the open habit: without it Lucy wins round 2 and the bout, 2 judges to 1.</div>
+<!-- THE BOUT: 18 tiles -->
+<div class="bout">
+ <div class="hd"><span class="h">THE BOUT</span><span class="leg">one tile = 30 seconds; the letter is what decided it: <b>H</b> habit <b>W</b> weeks <b>L</b> legs <b>G</b> gap signed <b>P</b> plan <b>C</b> corner <b>?</b> luck</span></div>
+ <div class="tiles">
+  <span class="rl">R1</span><span class="t w">P</span><span class="t w">W</span><span class="t l">H</span><span class="t w">P</span><span class="t w">C</span><span class="t l">G</span><span class="gap"></span>
+  <span class="rl">R2</span><span class="t l gd">H</span><span class="t l">G</span><span class="t w">P</span><span class="t l gd">H<span class="ct">count</span></span><span class="t l">L</span><span class="t w">W</span><span class="gap"></span>
+  <span class="rl">R3</span><span class="t w">P</span><span class="t l">L</span><span class="t w">C</span><span class="t l">L</span><span class="t w">W</span><span class="t l">?</span>
+ </div>
+</div>
 
 <!-- THE SCALES -->
 <div class="scales">
- <div class="shead"><span class="h">WHAT TURNED IT</span><span class="hs">exchanges won or lost, same dice</span>
-  <span class="groups"><span class="g"><i style="background:var(--amber)"></i>Your week <b style="color:#ff8d7f">-3</b></span><span class="g"><i style="background:var(--gold)"></i>Your night <b style="color:#6fdc9e">+3</b></span><span class="g"><i style="background:var(--blue)"></i>Who they are <b style="color:#ff8d7f">-2</b></span><span class="g"><i style="background:var(--grey)"></i>Luck <b style="color:#ff8d7f">-1</b></span></span></div>
+ <div class="shead"><span class="h">WHAT TURNED IT</span><span class="hs">exchanges; tick = the bill</span>
+  <span class="groups"><span class="g"><i style="background:var(--amber)"></i>Your work <b style="color:#ff8d7f">-2</b></span><span class="g"><i style="background:var(--gold)"></i>Your night <b style="color:#6fdc9e">+5</b></span><span class="g"><i style="background:var(--blue)"></i>Who they are <b style="color:#ff8d7f">-2</b></span><span class="g"><i style="background:var(--grey)"></i>Luck <b style="color:#ff8d7f">-1</b></span></span></div>
  <div class="axis"><div></div><div><span>cost Lucy</span><span>won for Lucy</span></div><div></div></div>
 
- <div class="row top1"><i class="strip" style="background:var(--amber)"></i><div class="lab"><b>Habit: drops the right after the jab</b><span>Priya countered it 5 times</span></div><div class="bar"><s class="n" style="width:111px"></s></div><div class="num n">-3<small>exch</small></div><div class="rc"><u>R1</u><u class="n">R2</u><u>R3</u></div><div class="act"><span class="go">Train it out</span></div></div>
+ <div class="row top1"><i class="stp" style="background:var(--amber);height:68px"></i><div class="lab"><b>Habit: drops the right</b><span>after the jab: countered 5 times</span></div><div class="bar"><s class="n" style="width:111px"></s><u style="left:45px"></u></div><div class="num n">-3<small>ex</small></div><div class="bill">bill <b>-2</b></div><div class="rc"><u>R1</u><u class="n">R2</u><u>R3</u></div><div class="act"><span class="go">Habit card on</span></div>
+  <div class="headl"><b>IT TURNED ON</b>without it, no count in round 2 and Lucy wins on two cards &nbsp;<em>&#10003; checked: the whole bout re-run</em></div></div>
 
- <div class="row"><i class="strip" style="background:var(--gold)"></i><div class="lab"><b>Your plan</b><span>step back on her press: 9 right, 2 wrong</span></div><div class="bar"><s class="p" style="width:111px"></s></div><div class="num p">+3<small>exch</small></div><div class="rc"><u class="p">R1</u><u>R2</u><u>R3</u></div><div class="act"><span class="btn navy">Open the plan</span></div></div>
+ <div class="row"><i class="stp" style="background:var(--gold)"></i><div class="lab"><b>Your plan</b><span>step back on the press: 9 right, 2 wrong</span></div><div class="bar"><s class="p" style="width:111px"></s><u style="left:194px"></u></div><div class="num p">+3<small>ex</small></div><div class="bill">bill <b>+2</b></div><div class="rc"><u class="p">R1</u><u>R2</u><u>R3</u></div><div class="act"><span class="btn navy">Open the plan</span></div></div>
 
- <div class="row"><i class="strip" style="background:var(--blue)"></i><div class="lab"><b>The build gap</b><span>her guard 61 against Lucy's hooks 41</span></div><div class="bar"><s class="n" style="width:74px"></s></div><div class="num n">-2<small>exch</small></div><div class="rc"><u>R1</u><u>R2</u><u>R3</u></div><div class="act"><span class="btn navy">Hooks on the pads</span></div></div>
+ <div class="row"><i class="stp" style="background:var(--blue)"></i><div class="lab"><b>The gap you signed</b><span>Priya's guard 61, Lucy's hooks 34 then</span></div><div class="bar"><s class="n" style="width:74px"></s><u style="left:45px"></u></div><div class="num n">-2<small>ex</small></div><div class="bill">bill <b>-2</b></div><div class="rc"><u>R1</u><u>R2</u><u>R3</u></div><div class="act"><span class="btn navy">Hooks on the pads</span></div></div>
 
- <div class="row"><i class="strip" style="background:var(--amber)"></i><div class="lab"><b>Last 4 weeks of training</b><span>Jab 52 to 60, Speed +1.2</span></div><div class="bar"><s class="p" style="width:74px"></s></div><div class="num p">+2<small>exch</small></div><div class="rc"><u>R1</u><u>R2</u><u>R3</u></div><div class="act"><span class="btn navy">Open the week</span></div></div>
+ <div class="row"><i class="stp" style="background:var(--amber)"></i><div class="lab"><b>Last 4 weeks</b><span>Jab 52 to 60, Lead hook 34 to 41</span></div><div class="bar"><s class="p" style="width:74px"></s><u style="left:194px"></u></div><div class="num p">+2<small>ex</small></div><div class="bill">bill <b>+2</b></div><div class="rc"><u>R1</u><u>R2</u><u>R3</u></div><div class="act"><span class="btn navy">Open the week</span></div></div>
 
- <div class="row"><i class="strip" style="background:var(--amber)"></i><div class="lab"><b>Legs</b><span>tiredness 58 on Friday: 16 off the tank</span></div><div class="bar"><s class="n" style="width:74px"></s></div><div class="num n">-2<small>exch</small></div><div class="rc"><u>R1</u><u>R2</u><u class="n">R3</u></div><div class="act"><span class="btn navy">Rest up next week</span></div></div>
+ <div class="row"><i class="stp" style="background:var(--amber)"></i><div class="lab"><b>Legs</b><span>tired 58 on Friday: 9 off the tank</span></div><div class="bar"><s class="n" style="width:74px"></s><u style="left:82px"></u></div><div class="num n">-2<small>ex</small></div><div class="bill">bill <b>-1</b></div><div class="rc"><u>R1</u><u>R2</u><u class="n">R3</u></div><div class="act"><span class="btn navy">Rest up next week</span></div></div>
 
- <div class="row"><i class="strip" style="background:var(--gold)"></i><div class="lab"><b>Your corner</b><span>5 shouts: 3 right, 1 wrong, 1 not heard</span></div><div class="bar"><s class="p" style="width:37px"></s></div><div class="num p">+1<small>exch</small></div><div class="rc"><u>R1</u><u>R2</u><u>R3</u></div><div class="act"><span class="btn navy">See the rounds</span></div></div>
+ <div class="row"><i class="stp" style="background:var(--gold)"></i><div class="lab"><b>Your corner</b><span>5 shouts: 3 right, 1 wrong, 1 not heard</span></div><div class="bar"><s class="p" style="width:74px"></s></div><div class="num p">+2<small>ex</small></div><div class="bill">bill <b>&ndash;</b></div><div class="rc"><u>R1</u><u>R2</u><u class="p">R3</u></div><div class="act"><span class="btn navy">Replay the shouts</span></div></div>
 
- <div class="row"><i class="strip" style="background:var(--gold)"></i><div class="lab"><b>The aim: mid-ring</b><span>7 exchanges in her pocket, won 2</span></div><div class="bar"><s class="n" style="width:37px"></s></div><div class="num n">-1<small>exch</small></div><div class="rc"><u>R1</u><u>R2</u><u>R3</u></div><div class="act"><span class="btn navy">Aim long next time</span></div></div>
+ <div class="row"><i class="stp" style="background:var(--amber)"></i><div class="lab"><b>Since you signed</b><span>Defence 51 to 55, Body hook 30 to 38</span></div><div class="bar"><s class="p" style="width:37px"></s><u style="left:157px"></u></div><div class="num p">+1<small>ex</small></div><div class="bill">bill <b>+1</b></div><div class="rc"><u>R1</u><u>R2</u><u>R3</u></div><div class="act"><span class="btn navy">Season plan</span></div></div>
 
- <div class="row"><i class="strip" style="background:var(--grey)"></i><div class="lab"><b>The night</b><span>Lucy normal +0.4, Priya sharp +2.6</span></div><div class="bar"><s class="n" style="width:37px"></s></div><div class="num n">-1<small>exch</small></div><div class="rc"><u>R1</u><u>R2</u><u>R3</u></div><div class="luck">luck, named</div></div>
+ <div class="row"><i class="stp" style="background:var(--grey)"></i><div class="lab"><b>The night</b><span>form, the dice, the referee: hover</span></div><div class="bar"><s class="n" style="width:37px"></s></div><div class="num n">-1<small>ex</small></div><div class="bill">bill <b>&ndash;</b></div><div class="rc"><u>R1</u><u>R2</u><u>R3</u></div><div class="luck">luck, named</div></div>
 
- <div class="small">Small things: perks, film, the clinch <b style="color:#6fdc9e;margin-left:4px">+1 exch</b></div>
+ <div class="line" style="margin-top:6px"><span>Fired:</span><span class="chip p">Heart 71: up at 6</span><span class="chip n">Priya's Counter sense: 2 counters</span><span style="margin-left:8px">Small things <b style="color:#6fdc9e">+1</b>: film +1, where 0, ready for the style 0</span></div>
+ <div class="line"><span>To Priya:</span><span style="color:var(--ink)">slow start punished in round 1 (+2) &middot; Legs 92 at the bell &middot; 2 tells answered</span></div>
+ <div class="line"><span>Who decides Lucy's fights, last 5:</span><span class="share"><s style="width:58%;background:var(--amber)"></s><s style="width:29%;background:var(--gold)"></s><s style="width:13%;background:var(--grey)"></s></span><span style="color:var(--ink)">your work 58 &middot; your night 29 &middot; luck 13</span></div>
 </div>
 
-<!-- right column: judges, places, next -->
+<!-- right column: judges, the count, the towel, places, next -->
 <div class="rcol">
- <div style="display:flex;align-items:baseline;gap:14px"><span class="h">THE JUDGES</span><span class="hs">one reason each</span></div>
+ <div class="hd"><span class="h">THE JUDGES</span><span class="hs">one reason each</span></div>
  <div class="judges">
-  <div class="jc" style="--c:#ff8d7f"><div class="lean">JUDGE 1 &middot; <b>CLEAN</b></div><div class="sc">29-28</div><div class="why">Lucy: the cleaner jab, rounds 1 and 3</div></div>
-  <div class="jc" style="--c:#8eb8f2"><div class="lean">JUDGE 2 &middot; <b>WORK</b></div><div class="sc">28-29</div><div class="why">Priya: threw more in rounds 2 and 3</div></div>
-  <div class="jc" style="--c:#8eb8f2"><div class="lean">JUDGE 3 &middot; <b>RING</b></div><div class="sc">28-29</div><div class="why">Priya: kept the pocket in rounds 2 and 3</div></div>
+  <div class="jc" style="--c:#c9b9a2"><div class="lean">1 &middot; <b>CLEAN</b><i>known</i></div><div class="sc">28-28</div><div class="why">Lucy cleaner in rounds 1 and 3</div></div>
+  <div class="jc" style="--c:#8eb8f2"><div class="lean">2 &middot; <b>RING</b><i>known</i></div><div class="sc">27-29</div><div class="why">Priya kept the pocket, rounds 2, 3</div></div>
+  <div class="jc" style="--c:#8eb8f2"><div class="lean">3 &middot; <b>INITIATIVE</b><i class="q">?</i></div><div class="sc">27-29</div><div class="why">Priya came forward and won it, R3</div></div>
  </div>
 
- <div style="display:flex;align-items:baseline;gap:14px;margin-top:18px"><span class="h">THE THREE PLACES</span><span class="hs">fought and won by Lucy</span></div>
+ <div class="hd" style="margin-top:12px"><span class="h" style="color:#ff8d7f">THE COUNT</span><span class="hs">round 2, at 1:30, on Lucy</span></div>
+ <div class="count">
+  <div class="cr"><span>THE PUNCH</span><b>Priya's cross: power 63 against Lucy's chin 57</b></div>
+  <div class="cr"><span>CARRIED IN</span><div style="display:flex;align-items:center"><div class="dmg"><s style="width:42%;background:var(--amber)"></s><s style="width:35%;background:var(--blue)"></s><s style="width:23%;background:#6d6458"></s></div><b>26 carried: habit 11, gap 9, other 6</b></div></div>
+  <div class="cr"><span>THE CHANCE</span><b>a count 16 in 100 that round (a clear round lost)</b></div>
+  <div class="cr"><span>HEART 71</span><b>up at 6; waved on (a stop was 18 in 100): luck</b></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px"><span style="font-size:20px;color:#6fdc9e;font-weight:700;white-space:nowrap">Without the open habit: no count</span><span class="btn navy" style="height:42px;font-size:20px">Chin and defence mornings</span></div>
+ </div>
+
+ <div class="towel"><b>THE TOWEL, BEFORE ROUND 3</b>&nbsp; risk 14 in 100, your line 20<br><span style="color:var(--soft)">One more round: Lucy won it on one card, no second count.</span></div>
+
+ <div class="hd" style="margin-top:12px"><span class="h">THE THREE PLACES</span><span class="hs">exchanges fought and won by Lucy</span></div>
  <div class="places">
-  <div class="pc"><div class="pn">AT RANGE</div><div class="won" style="color:#6fdc9e">6 of 8<small>won</small></div><div class="pips"><s class="w"></s><s class="w"></s><s class="w"></s><s class="w"></s><s class="w"></s><s class="w"></s><s class="l"></s><s class="l"></s></div><div class="tool">jab 60 <span>v</span> feet 54</div></div>
-  <div class="pc"><div class="pn">IN THE POCKET</div><div class="won" style="color:#ff8d7f">2 of 7<small>won</small></div><div class="pips"><s class="w"></s><s class="w"></s><s class="l"></s><s class="l"></s><s class="l"></s><s class="l"></s><s class="l"></s></div><div class="tool">hooks 41 <span>v</span> guard 61</div></div>
-  <div class="pc"><div class="pn">INSIDE</div><div class="won" style="color:#ff8d7f">1 of 3<small>won</small></div><div class="pips"><s class="w"></s><s class="l"></s><s class="l"></s></div><div class="tool">inside 55 <span>v</span> strength 63</div></div>
+  <div class="pc"><div class="pn">AT RANGE</div><span class="won" style="color:#6fdc9e">6 of 8</span><span class="tool">jab 60 <span>v</span> feet 54</span></div>
+  <div class="pc"><div class="pn">IN THE POCKET</div><span class="won" style="color:#ff8d7f">2 of 7</span><span class="tool">hooks 41 <span>v</span> guard 61</span></div>
+  <div class="pc"><div class="pn">INSIDE</div><span class="won" style="color:#ff8d7f">1 of 3</span><span class="tool">inside work 55 <span>v</span> 63</span></div>
  </div>
 
- <div class="next"><img class="cface" src="../s431/final/face_trainer.png" alt=""><div class="tail"></div><div class="bub"><p>The dropped right cost us round 2. Six pad places and it's gone.</p><div><small>half-way halves its cost</small><span class="go" style="height:44px;font-size:20px">Put it on the pads</span></div></div></div>
+ <div class="next"><img class="cface" src="../s431/final/face_trainer.png" alt=""><div class="tail"></div><div class="bub"><p>That dropped right cost us the count. Habit card on.</p></div></div>
 </div>
 
-<div class="abs" style="left:28px;bottom:30px;width:1390px;height:52px;display:flex;align-items:center;gap:14px;padding:0 16px;border-radius:10px;background:rgba(255,255,255,.05);font-size:21px;white-space:nowrap"><span class="h" style="font-size:21px">THE WHY</span><span>Plan: <b style="color:#6fdc9e">GOOD</b>, 9 right, 2 wrong</span><span style="color:var(--soft)">&middot;</span><span>Against you: <b style="color:#ff8d7f">the dropped right</b></span><span style="color:var(--soft)">&middot;</span><span>Next: <b style="color:var(--gold)">train it out before the next sheet</b></span></div>
-<div class="bottom"><span class="btn navy">The plan, lit up</span><span class="btn navy">History</span><span class="go">Back home</span></div>
+<div class="why1"><span class="h" style="font-size:21px">THE WHY</span><span>Plan: <b style="color:#6fdc9e">GOOD</b>, 9 right, 2 wrong</span><span style="color:var(--soft)">&middot;</span><span>Against you: <b style="color:#ff8d7f">the dropped right, the count</b></span><span style="color:var(--soft)">&middot;</span><span>Next: <b style="color:var(--gold)">both fixes on next week's board</b></span></div>
+<div class="bottom"><span class="btn navy">History</span><span class="go">Put both on next week</span><span class="go" style="background:linear-gradient(#e8dcc6,#c9b9a2);box-shadow:0 3px 0 #6e6250">Back home</span></div>
 </body></html>

@@ -1,0 +1,159 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Training 10/10 (reviewer)</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Kalam:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#17130f;--panel:#221c16;--panel2:#2b231b;--line:#4a3d2f;--ink:#efe6d8;--dim:#b2a48f;--gold:#f2c14e;--green:#7fd18b;--amber:#f0a040;--red:#ef6b5b;--blue:#6fb2ff;--violet:#c39bff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--ink);font-family:"Barlow Semi Condensed","Segoe UI",Arial,sans-serif;font-size:20px;line-height:1.2}
+.top{height:54px;background:#0f0c09;display:flex;align-items:center;padding:0 18px;gap:18px;border-bottom:2px solid #3a2e22}
+.top .gym{font-family:Kalam,cursive;font-size:30px;color:var(--blue)}
+.top .date{font-size:20px;color:var(--dim)}
+.top .cash{margin-left:auto;color:var(--green);font-size:26px;font-weight:700}
+.btn{background:#3a2f24;border:1px solid #6a573f;border-radius:6px;padding:6px 14px;font-size:20px;font-weight:600;color:var(--ink)}
+.go{background:var(--gold);color:#1a1208;border:none}
+.head{height:62px;display:flex;align-items:center;gap:14px;padding:0 18px}
+.name{font-family:Kalam,cursive;font-size:32px;color:#fff;white-space:nowrap}
+.chip{border:1px solid var(--line);border-radius:6px;padding:3px 10px;font-size:20px;background:var(--panel)}
+.tabs{display:flex;gap:6px;margin-left:10px}
+.tab{padding:6px 14px;border-radius:6px 6px 0 0;background:#2a2219;color:var(--dim);font-size:20px;font-weight:600}
+.tab.on{background:#3b5f8f;color:#fff}
+.vs{margin-left:auto;background:#1e2a3a;border:1px solid #3b5f8f;border-radius:6px;padding:5px 12px;font-size:21px}
+.strip{height:70px;display:flex;gap:6px;padding:0 18px}
+.blk{flex:1;background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:6px;padding:4px 8px;font-size:20px;line-height:1.1}
+.blk b{display:block}
+.blk.fw{border-top-color:var(--violet)} .blk.bout{border-top-color:var(--red)} .blk.rest{border-top-color:var(--green)} .blk.now{outline:2px solid var(--gold)}
+.main{display:grid;grid-template-columns:420px minmax(0,1fr) 455px;gap:12px;padding:10px 18px 0 18px;height:830px}
+.pan{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
+h3{font-size:22px;color:var(--gold);letter-spacing:.5px;font-weight:700;margin-bottom:4px}
+h3 span{color:var(--dim);font-weight:500;font-size:20px;letter-spacing:0}
+.load{border:1px solid var(--line);border-radius:6px;padding:5px 9px;margin-top:6px;background:var(--panel2);font-size:20px}
+.load.sel{border:2px solid var(--gold)}
+.lt{display:flex;justify-content:space-between;font-weight:700;font-size:22px}
+.h1{color:var(--dim)} .g{color:var(--green)} .a{color:var(--amber)} .r{color:var(--red)} .v{color:var(--violet)} .bl{color:var(--blue)} .gd{color:var(--gold)}
+.hand{font-family:Kalam,cursive;color:#ffd98a;font-size:20px}
+table{border-collapse:collapse;width:100%}
+.ab td,.ab th{padding:2px 4px;font-size:20px;white-space:nowrap}
+.ab th{color:var(--dim);font-weight:500;text-align:left;border-bottom:1px solid var(--line)}
+.ab tr.goal td{background:#2f2617}
+.dots{color:var(--gold);letter-spacing:-2px}
+.bar{display:inline-block;width:90px;height:12px;background:#3a3026;border-radius:6px;position:relative;vertical-align:middle}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--blue);border-radius:6px}
+.pip{display:inline-block;width:11px;height:14px;margin-right:2px;background:#3a3026;vertical-align:middle;border-radius:2px}
+.pip.f{background:var(--green)}
+.wk{display:grid;grid-template-columns:44px repeat(7,1fr);gap:4px;margin-top:4px}
+.c{background:var(--panel2);border-radius:5px;padding:3px 6px;font-size:20px;line-height:1.1;border-left:4px solid var(--blue);min-height:50px}
+.c.you{border-left-color:var(--gold)} .c.al{border-left-color:#888} .c.rs{border-left-color:#444;color:var(--dim)} .c.ch{outline:2px solid var(--gold)}
+.dh{color:var(--gold);font-weight:700;text-align:center;font-size:20px}
+.row{display:flex;justify-content:space-between;gap:8px}
+.mid{border:2px dashed var(--violet);border-radius:8px;padding:6px 10px;background:#251d2e}
+.foot{position:absolute;left:18px;right:18px;bottom:10px;height:52px;display:flex;align-items:center;gap:12px}
+</style></head><body>
+<div class="top"><span class="btn">&lt;</span><span class="btn">&gt;</span><span class="gym">Anvil Street Gym</span><span class="date">Mon 16 Feb 2026 · Week 7</span>
+<span class="cash">$12,940</span><span class="btn go">CONTINUE · to Thu 19 Feb, after sparring</span><span class="btn">Menu</span></div>
+
+<div class="head"><span class="name">Samira Khan</span><span class="chip" style="white-space:nowrap">Welter · 18 · out-boxer · 3-1</span>
+<span class="chip" style="white-space:nowrap">GOAL <b class="gd">Condition 64</b> · 6 Mar · <span class="g">on track</span></span>
+<div class="tabs"><span class="tab">Profile</span><span class="tab">Condition</span><span class="tab on">Training</span><span class="tab">Playbook</span><span class="tab">History</span></div>
+<span class="vs" style="white-space:nowrap">12 days to <b>Sat 28</b> vs Kayleigh Bell, counter-puncher</span></div>
+
+<div class="strip">
+<div class="blk now"><b>16 Feb BUILD</b>safe 10.1 h</div>
+<div class="blk fw"><b>23 Feb FIGHT WEEK</b>Sharpen</div>
+<div class="blk bout"><b>Sat 28 BOUT</b>Legs 99</div>
+<div class="blk rest"><b>2 Mar REST</b>Easy</div>
+<div class="blk"><b>9 Mar BUILD</b>entries close</div>
+<div class="blk"><b>16 Mar BUILD</b>Hard · 10.4 h</div>
+<div class="blk fw"><b>23 Mar DELOAD</b>Sharpen</div>
+<div class="blk fw"><b>30 Mar FIGHT WK</b>Sharpen</div>
+<div class="blk bout"><b>Fri 3 Apr REGIONAL</b>Legs 98</div>
+<div class="blk bout"><b>Sat 11 Apr FINAL</b>the target</div>
+</div>
+
+<div class="main">
+<!-- LEFT: the load with two horizons -->
+<div class="pan">
+<h3>THIS WEEK'S LOAD <span>· usual 7.8 h · safe to 10.1 h</span></h3>
+<div class="h1">Recovery 50: clears 12% a night · Discipline 80: trains x1.1</div>
+<div class="h1" style="font-size:20px">each: <b class="ink">the bout Sat 28</b> / <b class="gd">the season, final Sat 11 Apr</b></div>
+<div class="load"><div class="lt"><span>Easy</span><span class="h1">5.1 h · 0.65</span></div>
+Sat 28: Legs 100 · goal <span class="a">at risk</span><br><span class="gd">By 11 Apr: +2.3 points · safe 8.9 h</span></div>
+<div class="load sel"><div class="lt"><span>Normal · Coach's</span><span class="h1">7.4 h · 0.95</span></div>
+Sat 28: Legs 99 · goal <span class="g">on track</span> · injury 1<br><span class="gd">By 11 Apr: +3.6 points · Footwork 62 on 14 Apr</span></div>
+<div class="load"><div class="lt"><span>Hard</span><span class="h1">9.8 h · 1.25</span></div>
+Sat 28: Legs 94 · <span class="r">injury 4 in 100</span> (from tired 61)<br><span class="gd">By 11 Apr: +4.8 points · Footwork 62 on 6 Apr · safe 10.6 h</span><br>
+<span class="hand">Samira: "ease the Hard mornings" · overrule: mood -5</span></div>
+<div class="load"><div class="lt"><span class="v">Sharpen</span><span class="h1">4.8 h · 0.62</span></div>
+Sat 28: Legs 100 · keeps Speed, Explosiveness<br><span class="gd">By 11 Apr: +2.6 points (the fight-week shape)</span></div>
+<h3 style="margin-top:10px">BODY <span class="r">· right hand sore</span></h3>
+<div class="load sel" style="border-color:var(--green)"><div class="lt"><span>Rest the hand</span><span class="g">picked</span></div>
+habit only HALF FIXED by Sat 28: -2 to -4 in 100</div>
+<div class="load"><div class="lt"><span>Push on</span></div>hand injury 4 in 100: the bout off, $300</div>
+</div>
+
+<!-- CENTRE: abilities and the week -->
+<div style="display:flex;flex-direction:column;gap:10px">
+<div class="pan">
+<h3>ABILITIES <span>· worth against Kayleigh · whole points · decimals as pips</span><span style="float:right" class="bl">Show all 14</span></h3>
+<table class="ab">
+<tr><th>worth</th><th>ability</th><th>now</th><th>own ceiling</th><th>this week</th><th>4 wks</th><th>next in the ring · day</th><th>kept by</th></tr>
+<tr><td class="dots">●●●●</td><td>Footwork x1.3</td><td>57</td><td><span class="bar" style="width:70px"><i style="width:62%"></i></span> 71 <span class="g">fast</span></td><td><span class="pip f"></span><span class="pip f"></span><span class="pip f"></span><span class="pip"></span></td><td class="g">▲ +1</td><td>Jab and move Good · 14 Apr</td><td>Tue drills</td></tr>
+<tr><td class="dots">●●●●</td><td>Defence</td><td>51</td><td><span class="bar" style="width:70px"><i style="width:48%"></i></span> 63-69 <span class="g">fast</span></td><td><span class="pip f"></span><span class="pip f"></span><span class="pip f"></span><span class="pip f"></span></td><td class="g">▲ +2</td><td class="g">52 Wed · weak spot gone at 54</td><td>Mon rope</td></tr>
+<tr><td class="dots">●●●</td><td>Timing x1.4</td><td>58</td><td><span class="bar" style="width:70px"><i style="width:66%"></i></span> 69 <span class="g">fast</span></td><td><span class="pip f"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span></td><td class="h1">= 0</td><td>move top 74 · Signature at 83</td><td>Thu spar</td></tr>
+<tr><td class="dots">●●●</td><td>Speed</td><td>69</td><td><span class="bar" style="width:70px"><i style="width:88%"></i></span> 74 <span class="a">slow</span></td><td><span class="pip f"></span><span class="pip f"></span><span class="pip"></span><span class="pip"></span></td><td class="g">▲ +1</td><td class="g">Fast hands 70 · Thu 26 Feb</td><td>Fri bag</td></tr>
+<tr><td class="dots">●●</td><td>Explosiveness</td><td>60</td><td><span class="bar" style="width:70px"><i style="width:96%"></i></span> 62 <span class="r">near top</span></td><td><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span></td><td class="r">▼ -1</td><td class="h1">Finisher 70: over ceiling</td><td class="a">fades Sat 28</td></tr>
+<tr><td class="dots">●●</td><td>Inside</td><td>50</td><td><span class="bar" style="width:70px"><i style="width:40%"></i></span> 66 <span class="g">fast</span></td><td><span class="pip f"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span></td><td class="h1">= 0</td><td>Tie up Good 62 · June</td><td>Thu spar</td></tr>
+<tr class="goal"><td class="dots">●</td><td>Condition x0.8</td><td>61</td><td><span class="bar" style="width:70px"><i style="width:76%"></i></span> 68 <span class="a">slow</span></td><td><span class="pip f"></span><span class="pip f"></span><span class="pip f"></span><span class="pip"></span></td><td class="g">▲ +1</td><td class="gd">GOAL 64 · no round-3 fade · 6 Mar</td><td>Wed, Thu</td></tr>
+<tr><td></td><td class="h1" colspan="7" style="font-size:20px">Condition = Stamina 63 + Recovery 59 (the fade and the goal read it) · rest no longer costs Stamina</td></tr>
+</table>
+</div>
+<div class="pan" style="flex:1">
+<h3>THE WEEK <span>· who runs it, how well, why · gold = your change</span></h3>
+<div class="wk">
+<div></div><div class="dh">MON</div><div class="dh">TUE</div><div class="dh">WED</div><div class="dh">THU</div><div class="dh">FRI</div><div class="dh">SAT</div><div class="dh">SUN</div>
+<div class="dh">AM</div>
+<div class="c you">Slip rope<br>You +48%</div><div class="c al ch">Footwork<br>alone x0.8</div><div class="c">Intervals<br>Coach +30%</div><div class="c al">Roadwork<br>alone x0.8</div><div class="c you">Speed bag<br>You +48%</div><div class="c al">Shadow<br>alone x0.8</div><div class="c rs">Rest<br>Recovery</div>
+<div class="dh">PM</div>
+<div class="c">Pads<br>Check hook</div><div class="c rs">Rest</div><div class="c you">Footwork x2<br>hand rested</div><div class="c">Sparring<br>Lucy x1.2</div><div class="c rs">Rest</div><div class="c rs">Rest</div><div class="c rs">Rest</div>
+</div>
+<div class="row" style="margin-top:8px"><span>PAD PLACES: <b>Check hook</b> lead 24 → Usable Mon 2 Mar <span class="a">after Sat 28</span> · +1 place Thu: Fri 27</span><span class="bl">Build a combination</span></div>
+<div class="row" style="margin-top:4px"><span class="a">FADING: Uppercut Sharp 61 → loses Sharp Mon 9 Mar · 1 place keeps it</span><span class="h1">Lucy spars down: Composure +0.1</span></div>
+<h3 style="margin-top:12px">SEASON SO FAR <span>· since 5 Jan, each point with its cause</span></h3>
+<div class="row"><span>+3 Defence</span><span class="h1">slip rope 9 · technical sparring 4</span><span>+2 Condition</span><span class="h1">roadwork 11 · 4 bouts</span><span class="r">-1 Speed</span><span class="h1">no dose 3 weeks</span></div>
+<div class="row" style="margin-top:4px"><span class="h1">Your weeks against Coach's this season:</span><span class="gd">+3 to +6 in 100 over 4 bouts</span><span class="h1">reveal: Show all 14 opens in week 3</span></div>
+</div>
+</div>
+
+<!-- RIGHT: buys, coach's report, mid-week, weight -->
+<div style="display:flex;flex-direction:column;gap:10px">
+<div class="pan">
+<h3>SAT 28: WHAT THIS WEEK BUYS</h3>
+<div style="font-size:30px;font-weight:700" class="gd">+1 to +3 <span style="font-size:20px;color:var(--ink)">in 100 against Coach's week</span></div>
+<div>Legs at the bell <b>99</b> · tired 51 · weight 0</div>
+<div>The habit: <span class="a">HALF FIXED</span>, costs 3 an exchange</div>
+<div>Biggest lever: <span class="gd">habit pads Wed, +2 to +4</span></div>
+</div>
+<div class="pan">
+<h3>COACH'S REPORT <span>· reads skills well, Cardio less</span></h3>
+<div class="hand" style="font-size:20px;line-height:1.25">"Feet are ahead of where I thought: Footwork up a point this month.<br>Explosiveness is near the top: keep it, don't build it.<br>Condition 64 by the 6th, give or take a point."</div>
+</div>
+<div class="mid">
+<h3 class="v" style="color:var(--violet)">MID-WEEK STOP <span>· Thu, only if it happens</span></h3>
+<div>The hand flares: rest Friday's bag, or push on (x3)</div>
+<div>A card clicks early: move its pad place on</div>
+<div class="h1">The clock stops once; quiet weeks never</div>
+</div>
+<div class="pan">
+<h3>WEIGHT <span>· class 65.0 · walking 65.9</span></h3>
+<div class="row" style="justify-content:flex-start"><span class="btn">Hold</span><span class="btn go">Lean -250</span><span class="btn">Cut -500 · x0.9</span></div>
+<div class="row" style="margin-top:4px"><span>Sat 28 club scale</span><span class="g">inside the 1.0 kg gap</span></div>
+<div class="row"><span>Regional 3 Apr, day before</span><span class="g">Lean: 65.0 by 16 Mar</span></div>
+</div>
+</div>
+</div>
+
+<div class="foot">
+<span class="h1">blue = Coach · gold = You · grey = alone</span>
+<span class="btn" style="margin-left:auto">Keep my changes into the fight week</span><span class="btn">Back to Coach's week</span>
+<span class="btn">Coach runs Samira · -1 to -2 in 100</span><span class="btn go">Back to Club week</span>
+</div>
+</body></html>

@@ -1,0 +1,211 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Training 10/10 (tr3 fm)</title>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#17130f;--panel:#231d17;--panel2:#2c241c;--line:#3d3226;--ink:#efe6d8;--dim:#b3a58f;--gold:#f2c14e;--blue:#5aa2f0;--green:#5fd08a;--amber:#f0a040;--red:#ef6a5a;--cream:#f6ecd8}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--ink);font-family:"Barlow Condensed","Segoe UI",Arial,sans-serif;font-size:20px;line-height:1.15}
+.top{height:58px;background:#0d0b09;display:flex;align-items:center;padding:0 16px;gap:18px;border-bottom:2px solid #000}
+.top .gym{font-family:"Permanent Marker",cursive;font-size:28px;color:var(--blue)}
+.top .date{font-size:21px}.top .sp{flex:1}
+.cash{font-size:26px;color:var(--gold);font-weight:700}
+.btn{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:6px 14px;font-size:21px;font-weight:600;color:var(--ink)}
+.go{background:var(--gold);color:#1b1408;border:none}
+.hdr{height:62px;display:flex;align-items:center;padding:0 16px;gap:10px}
+.tab{padding:8px 16px;border-radius:6px;background:var(--panel);font-size:22px;font-weight:600;color:#9cc4f0}
+.tab.on{background:#2f5f99;color:#fff}
+.name{font-family:"Permanent Marker",cursive;font-size:32px;margin-left:14px}
+.sub{color:var(--dim);font-size:21px}
+.chip{border-radius:5px;padding:4px 10px;font-size:20px;font-weight:600}
+.strip{height:84px;display:flex;gap:8px;padding:0 16px}
+.blk{flex:1;background:var(--panel);border-radius:6px;border-top:4px solid var(--blue);padding:5px 9px;position:relative}
+.blk b{display:block;font-size:20px}.blk span{font-size:20px;color:var(--dim)}
+.blk.now{outline:2px solid var(--gold)}
+.blk.bout{border-top-color:var(--red)}.blk.rest{border-top-color:var(--green)}.blk.del{border:2px dashed var(--gold);border-top:4px dashed var(--gold)}
+.main{display:grid;grid-template-columns:452px 948px 456px;gap:16px;padding:10px 16px 0 16px;height:806px}
+.col{display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.card{background:var(--panel);border-radius:8px;padding:9px 12px;border:1px solid var(--line)}
+h3{font-size:23px;letter-spacing:.5px;color:var(--gold);font-weight:700;margin-bottom:5px;display:flex;justify-content:space-between;align-items:baseline}
+h3 small{font-size:20px;color:var(--dim);font-weight:500}
+.opt{border-radius:6px;padding:5px 10px;margin-top:6px;background:var(--panel2);border:1px solid transparent}
+.opt.sel{border:2px solid var(--gold);background:#3a2f1c}
+.opt .t{display:flex;justify-content:space-between;font-size:21px}
+.opt .t b{font-size:23px}
+.g{color:var(--green)}.r{color:var(--red)}.a{color:var(--amber)}.d{color:var(--dim)}.y{color:var(--gold)}.bl{color:var(--blue)}
+.voice{font-family:"Permanent Marker",cursive;font-size:21px;color:var(--cream);line-height:1.25}
+.grid7{display:grid;grid-template-columns:44px repeat(7,1fr);gap:5px}
+.dh{text-align:center;color:var(--gold);font-weight:700;font-size:21px}
+.rl{color:var(--dim);font-size:20px;align-self:center}
+.cell{background:var(--panel2);border-radius:5px;padding:3px 6px;height:86px;border-left:4px solid #777;font-size:20px;line-height:1.08;overflow:hidden}
+.cell b{display:block;font-size:20px}
+.you{border-left-color:var(--gold)}.co{border-left-color:var(--blue)}.al{border-left-color:#8a7d6b}
+.mine{outline:2px solid var(--gold)}
+.cell.restc{color:#7d705f}
+table{width:100%;border-collapse:collapse}
+td,th{padding:2px 4px;font-size:20px;text-align:left;white-space:nowrap}
+th{color:var(--dim);font-weight:500}
+tr.hl td{background:#2f2718}
+.bar{display:inline-block;width:110px;height:12px;background:#3a3127;border-radius:6px;position:relative;vertical-align:middle}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--blue);border-radius:6px}
+.dots{color:var(--gold);letter-spacing:1px}
+.foot{height:60px;display:flex;align-items:center;gap:12px;padding:0 16px}
+.big{font-size:44px;font-weight:700;line-height:1}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding:2px 0;border-bottom:1px solid #2f271e}
+.row:last-child{border-bottom:none}
+.pill{display:inline-block;padding:2px 10px;border-radius:14px;background:var(--panel2);margin-right:4px;font-size:20px}
+.pill.sel{background:var(--gold);color:#1b1408;font-weight:700}
+</style></head><body>
+
+<div class="top">
+  <span class="btn">&lt;</span><span class="btn">&gt;</span>
+  <span class="gym">ANVIL STREET GYM</span>
+  <span class="date">Mon 16 Feb 2026 · Week 7</span>
+  <span class="sp"></span>
+  <span class="cash">$12,940</span><span class="d" style="font-size:20px">this week −$210</span>
+  <span class="btn go">CONTINUE · to Sat 28 Feb, the bout</span>
+  <span class="btn">Menu</span>
+</div>
+
+<div class="hdr">
+  <span class="tab">Overview</span><span class="tab">Condition</span><span class="tab on">Training</span><span class="tab">Playbook</span><span class="tab">History</span>
+  <span class="name">SAMIRA KHAN</span>
+  <span class="sub">Welterweight amateur · 18 · out-boxer · 2-1</span>
+  <span style="flex:1"></span>
+  <span class="chip" style="background:#3a2f1c;color:var(--gold)">GOAL · Defence 54 by Sun 8 Mar · on track (Fri 6)</span>
+  <span class="chip" style="background:#1f3550;color:#bcd8f5">SEASON · the nationals · 4 of 5 bouts</span>
+</div>
+
+<div class="strip">
+  <div class="blk now"><b>16 Feb BUILD</b><span>Fitness 93</span></div>
+  <div class="blk bout"><b>Sat 28 BOUT 5</b><span>Legs 92 of 93</span></div>
+  <div class="blk rest"><b>2 Mar REST</b><span>2 weeks</span></div>
+  <div class="blk"><b>16 Mar BUILD</b><span>entries closed</span></div>
+  <div class="blk del"><b>23 Mar DELOAD</b><span>you placed it</span></div>
+  <div class="blk bout"><b>Fri 3 Apr REGIONAL</b><span>Legs 92 of 93</span></div>
+  <div class="blk bout"><b>Sat 11 Apr FINAL</b><span>Legs 79 of 93</span></div>
+  <div class="blk bout"><b>Sat 2 May NATIONALS</b><span>Legs 90 of 94</span></div>
+</div>
+
+<div class="main">
+<!-- LEFT -->
+<div class="col">
+  <div class="card">
+    <h3>THIS WEEK'S LOAD <small>Coach's pick: Normal</small></h3>
+    <div class="opt"><div class="t"><b>Easy</b><span>injury under 1 in 100</span></div>
+      <div class="t"><span>Legs 93 on Sat 28</span><span>Fitness 91 <span class="r">−2</span></span></div></div>
+    <div class="opt sel"><div class="t"><b>Normal</b><span>injury 1 in 100</span></div>
+      <div class="t"><span>Legs 92 on Sat 28</span><span>Fitness 93 · Defence 52 Wed</span></div></div>
+    <div class="opt"><div class="t"><b>Hard</b><span>injury <span class="r">6 in 100</span></span></div>
+      <div class="t"><span>Legs 84 on Sat 28</span><span>Fitness 96 <span class="g">+3</span> · Def 52 Tue</span></div></div>
+    <div style="margin-top:7px" class="voice">Samira on Hard: "My hand's not right. Hard, and I want Friday off." <span class="d" style="font-family:inherit">(discipline 46)</span></div>
+  </div>
+
+  <div class="card" style="border-color:#6b3a2f">
+    <h3>BODY · NIGGLE <small>from your load</small></h3>
+    <div style="font-size:21px"><b>Right hand sore</b> <span class="d">· hand days Mon, Wed, Fri</span></div>
+    <div class="opt sel"><div class="t"><b>Rest it</b><span>usual risk</span></div>
+      <div class="a">Wed habit pads become shadow,</div><div class="a">so the habit is HALF FIXED on Sat 28</div></div>
+    <div class="opt"><div class="t"><b>Push on</b><span>hand injury <span class="r">4 in 100</span></span></div>
+      <div class="t"><span>habit GONE on Sat 28</span><span class="g">+2 to +4 in 100</span></div></div>
+    <div style="margin-top:5px" class="d">Unanswered by Monday: Coach rests it.</div>
+  </div>
+
+  <div class="card" style="flex:1">
+    <h3>SEASON SO FAR <small>since 5 Jan</small></h3>
+    <div class="row"><span>+3 Defence</span><span class="d">slip rope 9 · Technical spars 4</span></div>
+    <div class="row"><span>+2 Cardio · +1 Fight IQ</span><span class="d">roadwork 11 · 4 bouts</span></div>
+    <div class="row"><span class="r">−1 Speed</span><span class="d">faded: no speed bag 3 weeks</span></div>
+    <div class="row"><span>Your weeks against Coach's</span><span class="g">+5 to +8 in 100</span></div>
+  </div>
+</div>
+
+<!-- CENTRE -->
+<div class="col">
+  <div class="card" style="padding-bottom:7px">
+    <h3>THE WEEK <small>every cell: what · who and how good · why</small></h3>
+    <div class="grid7">
+      <span></span><span class="dh">MON</span><span class="dh">TUE</span><span class="dh">WED</span><span class="dh">THU</span><span class="dh">FRI</span><span class="dh">SAT</span><span class="dh">SUN</span>
+      <span class="rl">AM</span>
+      <div class="cell you"><b>Slip rope</b>You · bag B<br><span class="y">weak spot</span></div>
+      <div class="cell al"><b>Footwork</b>alone x0.8<br><span class="bl">Kayleigh</span></div>
+      <div class="cell co"><b>Slip rope</b>Coach · bag A<br><span class="y">Def 52</span></div>
+      <div class="cell al"><b>Roadwork</b>alone x0.8<br>Cardio</div>
+      <div class="cell you mine"><b>Shadow</b>You<br><span class="a">hand rested</span></div>
+      <div class="cell al"><b>Speed bag</b>alone<br><span class="g">keeps Speed</span></div>
+      <div class="cell restc"><b>Rest</b>Legs back</div>
+      <span class="rl">PM</span>
+      <div class="cell co"><b>Pads</b>Coach · pads A<br>Check hook</div>
+      <div class="cell restc"><b>Rest</b></div>
+      <div class="cell you mine"><b>Shadow</b>You<br><span class="a">habit waits</span></div>
+      <div class="cell co"><b>Sparring</b>Technical<br>Lucy · Timing</div>
+      <div class="cell restc"><b>Rest</b></div>
+      <div class="cell restc"><b>Rest</b></div>
+      <div class="cell restc"><b>Rest</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>ABILITIES · WHAT KAYLEIGH TESTS FIRST <small>counter-puncher · Sat 28 · show all 14</small></h3>
+    <table>
+      <tr><th>ability</th><th>now · ceiling</th><th>grows</th><th>next line in the ring · day</th><th>a point vs Kayleigh</th><th>keeps</th></tr>
+      <tr class="hl"><td><b>Timing</b> 58.2</td><td><span class="bar"><i style="width:72%"></i></span> 66</td><td class="g">fast</td><td>62: Draw the lead goes Good · 17 Mar</td><td class="dots">●●●●</td><td>21 days</td></tr>
+      <tr class="hl"><td><b>Fight IQ</b> 60.3</td><td><span class="bar"><i style="width:80%"></i></span> 68</td><td class="g">fast</td><td>65: finds the answer alone · 20 Apr</td><td class="dots">●●●●</td><td>never fades</td></tr>
+      <tr class="hl"><td><b>Footwork</b> 57.0</td><td><span class="bar"><i style="width:70%"></i></span> 68</td><td class="g">fast</td><td>62: Jab and move goes Good · 30 Mar</td><td class="dots">●●●○</td><td>21 days</td></tr>
+      <tr><td><b>Defence</b> 51.6</td><td><span class="bar"><i style="width:55%"></i></span> 65-71</td><td class="g">fast</td><td>54: your goal · Fri 6 Mar</td><td class="dots">●●○○</td><td>21 days</td></tr>
+      <tr><td><b>Speed</b> 69.2</td><td><span class="bar"><i style="width:90%"></i></span> 74</td><td class="a">slow</td><td>70: Fast hands · Thu 26 Feb</td><td class="dots">●●○○</td><td class="g">Sat speed bag</td></tr>
+      <tr><td><b>Cardio</b> 61.6</td><td><span class="bar"><i style="width:78%"></i></span> 68</td><td class="g">fast</td><td>64: no fade from round 3 · 13 Mar</td><td class="dots">●○○○</td><td>30 days</td></tr>
+      <tr><td><b>Explosiveness</b> 57.9</td><td><span class="bar"><i style="width:93%"></i></span> 59</td><td class="r">near cap</td><td>70: Finisher · over the ceiling</td><td class="dots">●○○○</td><td class="a">fades Sat 21</td></tr>
+    </table>
+  </div>
+
+  <div class="card" style="flex:1">
+    <h3>PAD PLACES <small>3 of yours and Coach's this week · set on Club week</small></h3>
+    <div class="row"><span><b>Mon · Coach</b> Check hook 24 → 28</span><span class="a">Usable Mon 2 Mar: after the bout</span></div>
+    <div class="row"><span><b>Wed · You</b> Habit: right drops after the jab</span><span class="a">rested: gone Wed 4 Mar</span></div>
+    <div class="row"><span><b>Fading</b> Lead uppercut Sharp 61</span><span class="r">loses Sharp 9 Mar · keep it?</span></div>
+    <div class="row"><span><b>Ask for +1</b> on Check hook</span><span class="g">Usable Fri 27, before the bout</span></div>
+    <div class="row"><span class="d">Costs on Club week</span><span class="d">Tess goes short Thu · loyalty −3</span></div>
+  </div>
+</div>
+
+<!-- RIGHT -->
+<div class="col">
+  <div class="card" style="border:2px solid var(--gold)">
+    <h3>SAT 28 FEB: WHAT THIS WEEK BUYS</h3>
+    <div class="row"><span class="d">vs Kayleigh Bell, win chance</span><span><b class="y" style="font-size:26px">54 to 58</b> in 100</span></div>
+    <div class="row"><span class="d">Coach's week would give</span><span>51 to 55</span></div>
+    <div class="row"><span>Legs at the bell</span><span>92 of 93</span></div>
+    <div class="row"><span>The habit</span><span class="a">HALF FIXED (rested hand)</span></div>
+    <div class="row"><span>Timing line 62</span><span class="a">17 Mar: after the bout</span></div>
+    <div class="row"><span>Check hook</span><span class="a">Usable 2 Mar: after the bout</span></div>
+    <div class="row"><span class="d">Biggest lever left</span><span class="g">Push on: +2 to +4</span></div>
+  </div>
+
+  <div class="card">
+    <h3>WEIGHT <small>regional Fri 3 Apr · class 65.0</small></h3>
+    <div style="display:flex;align-items:baseline;gap:10px"><span class="big">65.9</span><span>kg walking · 0.9 over</span></div>
+    <div style="margin:6px 0"><span class="pill">Hold</span><span class="pill sel">Lean −250</span><span class="pill">Cut −500</span></div>
+    <div class="row"><span>Lean: 65.0 by 16 Mar</span><span class="g">nothing left to the day</span></div>
+    <div class="row"><span>Hold: 0.9 kg left to the day</span><span class="r">Legs −13</span></div>
+  </div>
+
+  <div class="card" style="flex:1">
+    <h3>HABIT <small>Coach's notes, from bout 3</small></h3>
+    <div style="font-size:21px"><b>Drops the right after the jab</b></div>
+    <div class="row"><span>In a bout</span><span>costs 6 · half 3 · gone 0</span></div>
+    <div class="row"><span>Coachability 52</span><span>3 pad places a step</span></div>
+    <div class="row"><span>Kayleigh punishes it</span><span class="y">gone: +2 to +4 in 100</span></div>
+    <div class="row"><span>Slips back</span><span>3 worn weeks, or tired in a bout</span></div>
+  </div>
+</div>
+</div>
+
+<div class="foot">
+  <span class="d">Who: <span class="y">▌You</span> <span class="bl">▌Coach</span> <span style="color:#8a7d6b">▌alone</span> · gold box = your change</span>
+  <span style="flex:1"></span>
+  <span class="btn">Keep my changes into the fight week</span>
+  <span class="btn">Back to Coach's week</span>
+  <span class="btn">Coach runs Samira · −1 to −2 in 100</span>
+  <span class="btn go">Back to Club week</span>
+</div>
+</body></html>

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Fight result 10/10: the engine critic (FL3)</title>
+<style>
+@font-face{font-family:Marker;src:url(../../../../assets/fonts/PermanentMarker-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../../assets/fonts/BebasNeue-Regular.ttf)}
+@font-face{font-family:Kalam;font-weight:700;src:url(../../../../assets/fonts/Kalam-Bold.ttf)}
+:root{--ink:#f1e8da;--soft:#c9b9a2;--gold:#ffd24a;--red:#dd4b3d;--blue:#4d8ef0;--green:#3fc07a;--amber:#f28d27;--grey:#9a8f80;--panel:rgba(255,255,255,.045);--line:rgba(255,255,255,.10)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:linear-gradient(#17120f,#0c0a08);color:var(--ink);font:500 21px/1.2 Barlow,"Segoe UI",sans-serif}
+.abs{position:absolute}
+.top{left:0;top:0;width:1920px;height:66px;background:#2a1e15;border-bottom:6px solid #4a3220;display:flex;align-items:center;gap:22px;padding:0 22px}
+.gym{font:400 30px/1 Marker;color:#6ea2f2}
+.date{font:500 20px/1.1 Barlow;color:#efe6d8}
+.tag{margin-left:auto;margin-right:auto;font:600 26px/1 Bebas;letter-spacing:2px;color:var(--red);font-family:Bebas}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:7px 16px;border-radius:7px;font:600 20px/1.1 Barlow;background:#20304f;color:#e8eefc;border:1px solid #3d5a8f;white-space:nowrap}
+.btn.gold{background:var(--gold);color:#241a08;border-color:#b8952a}
+.btn.cream{background:#e9dcc5;color:#2a1e12;border-color:#bfae90}
+h3{font:400 30px/1 Bebas;letter-spacing:1.5px;color:var(--gold)}
+h3 small{font:500 20px/1 Barlow;letter-spacing:0;color:var(--soft);margin-left:10px}
+.face{width:92px;height:92px;border-radius:50%;object-fit:cover;border:4px solid var(--red)}
+.init{width:92px;height:92px;border-radius:50%;border:4px solid var(--blue);display:flex;align-items:center;justify-content:center;font:400 46px/1 Bebas;background:#13213a}
+.nm{font:400 34px/1 Marker}
+.res{font:400 70px/1 Marker;color:#6ea2f2;text-align:center}
+.tile{width:50px;height:50px;border-radius:6px;display:flex;align-items:center;justify-content:center;font:700 22px/1 Barlow;position:relative}
+.w{background:#1f5a39;color:#dff7e8}.l{background:#6a2620;color:#ffe2dc}
+.cnt{outline:4px solid var(--gold);outline-offset:-2px}
+.hurt::after{content:"";position:absolute;right:3px;top:3px;width:10px;height:10px;border-radius:50%;background:var(--amber)}
+.rl{font:400 30px/50px Bebas;color:var(--soft);width:40px}
+.pnl{background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.row{display:grid;grid-template-columns:400px 300px 80px 150px 1fr;align-items:center;height:60px;border-bottom:1px solid var(--line);padding:0 10px}
+.row b{font:600 22px/1.05 Barlow;display:block}
+.row i{font-style:normal;color:var(--soft);font-size:20px}
+.bar{position:relative;height:22px}
+.bar .mid{position:absolute;left:150px;top:-6px;width:2px;height:34px;background:#777}
+.bar .f{position:absolute;top:0;height:22px;border-radius:3px}
+.bar .tick{position:absolute;top:-6px;width:3px;height:34px;background:#fff}
+.bar .band{position:absolute;top:8px;height:6px;background:rgba(255,255,255,.28)}
+.num{font:400 34px/1 Bebas;text-align:right}
+.exp{font:500 20px/1.1 Barlow;color:var(--soft);text-align:right}
+.pos{color:var(--green)}.neg{color:#ff7a6c}
+.hl{background:rgba(255,210,74,.10);border:2px solid rgba(255,210,74,.65);border-radius:8px}
+.k{color:var(--soft)}
+.chip{display:inline-block;padding:4px 10px;border-radius:6px;background:#2a231d;border:1px solid #4a3e33;font:500 20px/1.15 Barlow;margin:0 6px 6px 0}
+.chip.g{border-color:#2f7d52}.chip.r{border-color:#93402f}
+.pp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px 10px}
+.pc{padding:6px 10px;border-radius:7px;background:#1d1814;border:1px solid #3a3029;font-size:20px;line-height:1.2}
+.pc b{font:600 21px/1.1 Barlow}
+.note{font:700 26px/1.15 Kalam;color:#e9eefc}
+</style></head><body>
+
+<div class="abs top">
+  <span class="btn" style="padding:4px 12px">&lt;</span>
+  <span class="gym">Anvil Street Gym</span>
+  <span class="date">Sat 31 Jan 2026<br><span class="k">Week 5</span></span>
+  <span class="tag">FIGHT NIGHT · THE RESULT</span>
+  <span class="date" style="text-align:right">$16,410<br><span class="k">running -$680 a week</span></span>
+  <span class="btn cream">Back home</span>
+</div>
+
+<!-- header -->
+<div class="abs" style="left:30px;top:84px;display:flex;gap:16px;align-items:center">
+  <img class="face" src="../../../../assets/ui/face/poster/mh_boxer_02.jpg">
+  <div><div class="nm">Lucy Jackson</div><div style="color:var(--red);font:600 21px Barlow;margin-top:6px">RED · 6-2 · rank 7, stays 7</div></div>
+</div>
+<div class="abs" style="left:600px;top:78px;width:650px">
+  <div class="res">Priya Nair wins</div>
+  <div style="text-align:center;font-size:22px;margin-top:4px">majority 28-28 · 27-29 · 27-29 · <span style="color:#ff7a6c">count on Lucy, R2</span></div>
+  <div style="text-align:center;font-size:21px;margin-top:6px;color:var(--soft)">Bill: Lucy <b style="color:var(--ink)">54 in 100</b>, about <b style="color:var(--ink)">10 of 18</b> exchanges. Got <b style="color:#ff7a6c">8</b>.</div>
+</div>
+<div class="abs" style="right:30px;top:84px;display:flex;gap:16px;align-items:center">
+  <div style="text-align:right"><div class="nm">Priya Nair</div><div style="color:var(--blue);font:600 21px Barlow;margin-top:6px">BLUE · Eastside ABC · 8-2</div></div>
+  <div class="init">PN</div>
+</div>
+
+<!-- the bout strip -->
+<div class="abs" style="left:30px;top:200px;width:1210px">
+  <h3>THE BOUT <small>one tile = 30 seconds; letter = what decided it; gold = the count; dot = hurt</small></h3>
+  <div style="display:flex;align-items:center;gap:6px;margin-top:10px">
+    <span class="rl">R1</span>
+    <span class="tile w">P</span><span class="tile w">W</span><span class="tile l">H</span><span class="tile w">P</span><span class="tile w">C</span><span class="tile l">G</span>
+    <span style="width:30px;height:50px;border-left:4px dashed var(--blue);margin-left:10px"></span>
+    <span class="rl">R2</span>
+    <span class="tile l">T</span><span class="tile l">G</span><span class="tile w">P</span><span class="tile l cnt">H</span><span class="tile l hurt">?</span><span class="tile l hurt">G</span>
+    <span style="width:30px;height:50px;border-left:4px dashed var(--blue);margin-left:10px"></span>
+    <span class="rl">R3</span>
+    <span class="tile w">P</span><span class="tile l">L</span><span class="tile w">C</span><span class="tile l">L</span><span class="tile w">W</span><span class="tile w">A</span>
+  </div>
+  <div style="display:flex;gap:14px;margin-top:10px;font-size:20px">
+    <span class="chip" style="border-color:var(--blue)">Blue line: Priya's corner went <b>into the pocket</b> after R1 (T)</span>
+    <span class="chip">After the count: hurt 2 exchanges, lost both</span>
+  </div>
+</div>
+
+<!-- what turned it -->
+<div class="abs pnl" style="left:30px;top:360px;width:1210px;height:438px;padding:10px 10px 0 10px">
+  <div style="display:flex;align-items:baseline;justify-content:space-between;padding:0 10px 6px 10px">
+    <h3>WHAT TURNED IT <small>exchanges for Lucy; white tick = the bill; grey band = normal luck</small></h3>
+    <span style="font-size:20px" class="k">tonight &nbsp;&nbsp; bill &nbsp;&nbsp; next step</span>
+  </div>
+  <div class="row hl">
+    <div><b>Habit: drops the right</b><i>countered 5 times; the count came off it</i></div>
+    <div class="bar"><span class="mid"></span><span class="f" style="left:60px;width:90px;background:var(--red)"></span><span class="tick" style="left:105px"></span></div>
+    <div class="num neg">-3</div><div class="exp">bill -1.5</div>
+    <div style="text-align:right"><span class="btn gold">Habit card on</span></div>
+  </div>
+  <div class="row">
+    <div><b>Your plan</b><i>step back on the press: 9 right, 2 wrong</i></div>
+    <div class="bar"><span class="mid"></span><span class="f" style="left:152px;width:90px;background:var(--green)"></span><span class="tick" style="left:212px"></span></div>
+    <div class="num pos">+3</div><div class="exp">bill +2</div>
+    <div style="text-align:right"><span class="btn">Open the plan</span></div>
+  </div>
+  <div class="row">
+    <div><b>Their corner's change</b><i>into the pocket after R1; you did not move</i></div>
+    <div class="bar"><span class="mid"></span><span class="f" style="left:90px;width:60px;background:var(--red)"></span></div>
+    <div class="num neg">-2</div><div class="exp">no bill row</div>
+    <div style="text-align:right"><span class="btn">Add a switch line</span></div>
+  </div>
+  <div class="row">
+    <div><b>Your weeks</b><i>last 4: jab 52 to 60, lead hook 34 to 41</i></div>
+    <div class="bar"><span class="mid"></span><span class="f" style="left:152px;width:60px;background:var(--green)"></span><span class="tick" style="left:212px"></span></div>
+    <div class="num pos">+2</div><div class="exp">bill +2</div>
+    <div style="text-align:right"><span class="btn">Open the week</span></div>
+  </div>
+  <div class="row">
+    <div><b>Legs</b><i>tired 58 on Friday: 9 off the tank</i></div>
+    <div class="bar"><span class="mid"></span><span class="f" style="left:90px;width:60px;background:var(--red)"></span><span class="tick" style="left:120px"></span></div>
+    <div class="num neg">-2</div><div class="exp">bill -1</div>
+    <div style="text-align:right"><span class="btn">Rest up next week</span></div>
+  </div>
+  <div class="row" style="border-bottom:none">
+    <div><b>Luck, named</b><i>dice -1, form 0, referee waved on (18 in 100)</i></div>
+    <div class="bar"><span class="mid"></span><span class="f" style="left:120px;width:30px;background:var(--grey)"></span><span class="band" style="left:100px;width:100px"></span></div>
+    <div class="num" style="color:var(--grey)">-1</div><div class="exp">±2 normal</div>
+    <div style="text-align:right;color:var(--soft);font-size:20px">inside normal luck</div>
+  </div>
+  <div style="padding:6px 10px;font-size:20px" class="k">Folded: the gap you signed -2 · your corner +2 · since you signed +1 · Heart 71: up at 6 · Priya's Counter sense: 2</div>
+</div>
+
+<!-- punch by punch -->
+<div class="abs pnl" style="left:30px;top:810px;width:1210px;height:132px;padding:6px 12px">
+  <h3 style="font-size:26px">PUNCH BY PUNCH <small>landed / thrown, where, against what; the pad card that moves it</small></h3>
+  <div class="pp" style="margin-top:6px">
+    <div class="pc"><b>Jab 14 / 31</b> at range<br>v feet 54 · <span class="pos">won the range</span></div>
+    <div class="pc"><b>Lead hook 3 / 11</b> in the pocket<br>v guard 61 · <span class="neg">pads: 41 to 47</span></div>
+    <div class="pc"><b>Cross 6 / 17</b> after the jab<br><span class="neg">countered 5 (the habit)</span></div>
+  </div>
+</div>
+
+<!-- right column: the count -->
+<div class="abs pnl" style="left:1265px;top:200px;width:625px;height:278px;padding:10px 14px;border-color:rgba(221,75,61,.6)">
+  <h3>THE COUNT <small>R2, exchange 10 of 18, at 1:30</small></h3>
+  <div style="margin-top:8px;font-size:21px;line-height:1.35">
+    <div><span class="k">The punch</span> Priya's counter right, over Lucy's jab (the habit)</div>
+    <div><span class="k">Power v chin</span> 63 against 57</div>
+    <div><span class="k">Carried in</span> 26 from head shots landed: R1 9, R2 17</div>
+    <div><span class="k">The chance</span> 16 in 100 on that punch · <span class="k">Heart 71</span> up at 6</div>
+    <div class="pos" style="margin-top:4px">Re-run without the habit: no count, Lucy wins two cards</div>
+  </div>
+  <div style="position:absolute;right:14px;bottom:10px"><span class="btn">Chin and defence mornings</span></div>
+</div>
+
+<!-- their corner and yours -->
+<div class="abs pnl" style="left:1265px;top:490px;width:625px;height:190px;padding:10px 14px;border-color:rgba(77,142,240,.6)">
+  <h3 style="color:#8fb6f5">BOTH CORNERS <small>the same rules on both sides</small></h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;margin-top:8px;font-size:20px;line-height:1.3">
+    <div><b>Priya's corner</b><br>R1: into the pocket<br>R2: kept it<br>Towel line: Normal</div>
+    <div><b>Your corner</b><br>R1: said nothing<br>R2: Gloves high<br>Before R3: risk 14 in 100,<br>one more round</div>
+  </div>
+</div>
+
+<!-- judges -->
+<div class="abs pnl" style="left:1265px;top:692px;width:625px;height:150px;padding:10px 14px">
+  <h3>THE JUDGES <small>one reason each</small></h3>
+  <div style="font-size:20px;line-height:1.38;margin-top:6px">
+    <div><b>Clean</b> (known) 28-28 · Lucy cleaner in R1 and R3</div>
+    <div><b>Ring</b> (known) 27-29 · Priya kept the pocket R2, R3</div>
+    <div><b>Initiative</b> (?) 27-29 · Priya came forward and won R3</div>
+  </div>
+</div>
+
+<!-- coach -->
+<div class="abs" style="left:1265px;top:856px;width:625px;height:82px;display:flex;align-items:center;gap:12px">
+  <img src="../../../../assets/ui/face/mh_staff_coach.jpg" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #bfae90">
+  <div class="note" style="background:#1b2a44;border-radius:10px;padding:8px 14px;flex:1">They switched, we didn't. And that right hand. Both on Monday.</div>
+</div>
+
+<!-- why + buttons -->
+<div class="abs pnl" style="left:30px;top:952px;width:1860px;height:100px;padding:12px 16px;display:flex;align-items:center;gap:20px">
+  <div style="flex:1;font-size:22px;line-height:1.3">
+    <b style="font:400 30px Bebas;color:var(--gold);letter-spacing:1px">THE WHY</b>&nbsp; Plan: <b class="pos">GOOD</b> until they switched ·
+    Against you: <b class="neg">the dropped right, the count</b> · Next: <b style="color:var(--gold)">habit card + an if-they-switch line</b><br>
+    <span class="k" style="font-size:20px">Who decides Lucy's fights, last 5: your work 58 · your night 27 · luck 15 of every 100 exchanges turned</span>
+  </div>
+  <span class="btn">History</span>
+  <span class="btn gold">Put both on next week</span>
+</div>
+
+</body></html>
