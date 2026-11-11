@@ -8,6 +8,7 @@
 ## Then a second career where she misses weight.
 ## Every area and tab draws, mid-camp and at the end.
 
+const GoldenDues := preload("res://tests/golden_dues_step.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
@@ -29,7 +30,7 @@ func _initialize() -> void:
 	main = load("res://scenes/Main.tscn").instantiate()
 	root.add_child(main)
 	await process_frame
-	_play()
+	await _play()
 	print("GOLDEN_PATH failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -87,6 +88,7 @@ func _play() -> void:
 	_week_four(main.career)
 	_draw_everything()
 	_missed_weight()
+	await GoldenDues.run(self, main, _check)   # DUESWIRE1 (S434: its own file, the game's day step)
 	main.act("settings")
 	_check(main.modal.get("type", "") == "info", "Settings opens")
 	main.act("close")

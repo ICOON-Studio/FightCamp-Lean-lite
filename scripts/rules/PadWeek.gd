@@ -30,6 +30,7 @@ const TrainingPlan := preload("res://scripts/rules/TrainingPlan.gd")
 const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
+const StandDown := preload("res://scripts/rules/StandDown.gd")
 const PLAN_CARDS := "res://scripts/rules/PlanCards.gd"
 
 ## Drill minutes a pad night (game units, the scale of the old lumps: 2 nights = 480 vs LEARN_MINUTES 420, 1 = COMBO 240).
@@ -96,7 +97,24 @@ static func nights_for(step: int, camp: bool, film := false, taper := false) -> 
 ## (WeekPlan.evenings_of with the twist card unless twist = false): sparring on her real sparring evenings (the board's spar
 ## pills, the phase, a twist), film on her film evening, the pad nights on the first evenings still "pads" in PAD_ORDER.
 static func nights_of(f: Dictionary, twist := true) -> Dictionary:
-	return with_evenings(coach_nights(f, twist), WeekPhase.edits(f).get("eve", {}))
+	return stood_down(f, with_evenings(coach_nights(f, twist), WeekPhase.edits(f).get("eve", {})))
+
+
+## S434 STANDDOWN1 (F6): a sparring night inside the stand-down after a bout rests, whoever laid it (the coach or the
+## player). The week is the one f["phase_day"] belongs to (WeekPhase.sync, the Monday Sim.step_day steps onto), so the
+## board, the forecasts and the night that runs read the same nights.
+static func stood_down(f: Dictionary, n: Dictionary) -> Dictionary:
+	var sd: Dictionary = f.get("stand_down", {})
+	var spar: Array = n.get("spar", [])
+	if sd.is_empty() or spar.is_empty() or not f.has("phase_day"):
+		return n
+	var monday := int(f["phase_day"]) - posmod(int(f["phase_day"]), 7)
+	var keep := spar.filter(func(d): return not StandDown.locked(sd, monday + int(d)))
+	if keep.size() == spar.size():
+		return n
+	var out := n.duplicate(true)
+	out["spar"] = keep
+	return out
 
 
 ## S398 Week redesign (approved rule change, no new mechanic): the evenings the player set on the Week page (WeekPhase

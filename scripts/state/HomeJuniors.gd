@@ -71,8 +71,8 @@ static func end_week(c: Career, youth_on: bool, assistant: bool) -> void:
 		var w := week_of_year(c.day)
 		var j := next_junior(c)
 		if not j.is_empty() and INTAKE_WEEKS.has(posmod(w + PREVIEW_WEEKS - 1, 52) + 1):
-			c.add_news("The juniors' coach: %s turns 18 this term. About a %d%% chance of asking for a trial, and the potential looks %d-%d." % [
-				j["first"], roundi(chance(assistant, c.dues_band) * 100), int(j["pot"]) + POT_BONUS - 5, int(j["pot"]) + POT_BONUS + 5])
+			c.add_news("The juniors' coach: %s turns 18 in %d days. About a %d%% chance at today's dues, and the potential looks %d-%d." % [
+				j["first"], PREVIEW_WEEKS * 7, roundi(chance(assistant, c.dues_band) * 100), int(j["pot"]) + POT_BONUS - 5, int(j["pot"]) + POT_BONUS + 5])
 		if not j.is_empty() and INTAKE_WEEKS.has(w) and section_days(c) >= MIN_DAYS:
 			var rng := RandomNumberGenerator.new()
 			rng.seed = c.seed * 17 + c.day
@@ -83,9 +83,11 @@ static func end_week(c: Career, youth_on: bool, assistant: bool) -> void:
 				p["state"] = "scout"
 				p["trial_day"] = -1
 				c.prospects.append(p)
-				c.add_news("Home-grown: %s from the juniors asks for a trial (Fighters > Find a fighter). Half the stipend for a year." % j["name"])
+				c.add_news("Came up through the youth section: %s asks for a trial (Fighters > Find a fighter). Half the stipend for a year." % j["name"])
+				_stamp(c, assistant)
 			else:
-				c.add_news("No junior is ready this term. The next intake is in the new term.")
+				c.add_news("%s from the juniors: not this time. The next intake is in the new term." % j["first"])
+				_stamp(c, assistant)
 	# Half the stipend for a home-grown signing's first year.
 	for f in c.fighters:
 		if bool(f.get("home", false)) and int(f.get("home_until", 0)) > 0 and c.day >= int(f["home_until"]) and not bool(f.get("pro", false)):
@@ -100,3 +102,12 @@ static func on_sign(c: Career, raw: Dictionary, f: Dictionary) -> void:
 		f["home"] = true
 		f["weekly_salary"] = roundi(float(f["weekly_salary"]) * HALF)
 		f["home_until"] = c.day + HALF_STIPEND_DAYS
+
+
+## S434 (DUESWIRE1 collect): the intake's own dues and odds ride on its news line. A dues change that starts the same Monday
+## lands after the roll (GymSpend.end_week), so the week review's card must show the price the roll used, not today's.
+static func _stamp(c: Career, assistant: bool) -> void:
+	if c.news.is_empty():
+		return
+	c.news[0]["band"] = c.dues_band
+	c.news[0]["chance"] = chance(assistant, c.dues_band)

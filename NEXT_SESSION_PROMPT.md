@@ -44,7 +44,13 @@ C:\Users\user\.claude\projects\E--FightCamp-Lean\2dbac187-b6a1-426d-a690-60d40de
 
 ## 2. RUNNING / QUEUED (yours to collect: review + verify workflow FIRST, then diff + tests)
 - REST1 COLLECTED on main 6fa2b52b (PR 203 closed). LANDED, READY TO COLLECT: PR 204 STANDDOWN1, PR 205 CEIL14, PR 206 DUESWIRE1.
-- Foundation branch claude/foundation-s433 is pushed (CARDIO1 f4e4c697 at handover; NOCAMP1 and PUNCHSTART1 may follow).
+- Foundation branch claude/foundation-s433 FINISHED and pushed: CARDIO1 f4e4c697, NOCAMP1 967e632b, PUNCHSTART1 016136d8.
+  All three reviews say FIX FIRST (full text: journal wf_8d940da9-fe1): CARDIO1 - measure FADESHARE (migrated Stamina starts
+  ~5 under the old mean, so more fighters fade), BoutRead caches keyed on the old stats, the fade line shown nowhere;
+  NOCAMP1 - fight_why 53/60 and exchanges_test 'wrong calls' red, handbook 'camp' text and BoutRead's tank still old;
+  PUNCHSTART1 - plan_bots 0.160 > 0.156 and bout_read gap 0.067 > 0.06 (balance moved: Claude's call, never loosen),
+  BoutRead._re cache never cleared. Pre-existing on main (not ours): head_coach_test 1 failure, gym_kinds_bots 81k SCRIPT ERRORs
+  ('id' on a Dictionary, Sim.gd:378 / Bouts.gd:126) - fix those too.
 - Queued (dispatch_queue / plan.next, launch themselves): HUMANFIGHT2B (Cursor, THE animation item, after DUESWIRE1),
   KNOWN0, CORNERFACE2, DUESSUMS3B (Qwen).
 - Claude foundation workflow wf_8d940da9-fe1: CARDIO1 (F3), NOCAMP1+TANK1 (F5), PUNCHSTART1 (F7) built one after

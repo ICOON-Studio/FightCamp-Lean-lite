@@ -296,6 +296,7 @@ static func week(days: Array, ctx: Dictionary, evenings: Array = []) -> Dictiona
 				var g := float(r[k[1]]) * (float(ctx.get("camp_mult", 1.0)) if st == str(ctx.get("camp_stat", "")) else 1.0)
 				stats[st] = float(stats[st]) + g
 				gains[st] = float(gains.get(st, 0.0)) + g
+		_attr_to_old(stats, gains, str(d[0]), float(r.get("attr_gain", 0.0)))
 		weight += float(r["kg"])
 		fat = float(r["fatigue"])
 		if fat > peak:
@@ -307,6 +308,21 @@ static func week(days: Array, ctx: Dictionary, evenings: Array = []) -> Dictiona
 		out_days.append(r)
 	return {"days": out_days, "gains": gains, "kg": weight - float(ctx.get("weight", 60.0)), "weight_end": weight,
 		"fatigue_end": fat, "peak": peak, "peak_day": peak_day, "red": red, "stats_end": stats}
+
+
+## S434: a rest or mobility morning trains an ability (Recovery, Flexibility) and Sim.step_day applies it. Since REST1 that
+## raises the old stat whose mean holds it (Conditioning = mean of Stamina and Recovery), so the plan projects the same.
+static func _attr_to_old(stats: Dictionary, gains: Dictionary, sid: String, ag: float) -> void:
+	if ag <= 0.0:
+		return
+	var at: GDScript = load("res://scripts/rules/Attrs.gd")
+	for n in (at.SESSION_ATTRS.get(sid, []) as Array):
+		for st in at.LEGACY:
+			var kids: Array = at.LEGACY[st]
+			if kids.has(n) and stats.has(st):
+				var g := ag / float(kids.size())
+				stats[st] = float(stats[st]) + g
+				gains[st] = float(gains.get(st, 0.0)) + g
 
 
 ## The camp to fight night: this week, then `later` ([days, evenings] a week - S356 the coming phases' coach weeks; none =

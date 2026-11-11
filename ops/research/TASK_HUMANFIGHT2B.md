@@ -88,6 +88,10 @@ come after, only if each lands cleanly within the bans. A part not done keeps it
    Never inside `FightStage.play` (line 366): `HitImpact.hit` (line 45) plays reactions through it.
 6. PostureLimit.gd (only if clean): rotation-only clamps on the shown pose (trunk lean, the thigh turned about the
    hip-to-ankle axis so the knee sits over the foot, the arm chain for gloves in the guard). No translation of any bone.
+   S434: guard_knee_test is RED ON MAIN since HUMANFIGHT1 made the stepping route the default (79665239, FootLock /
+   FloorStand): both rear knees bow OUT in the settled guard (boxer 0 -0.0685, boxer 1 -0.0670 against the source take's
+   +0.0291, bar 0.03). It passed on 099d6393 (before). This thigh turn must bring both rear knees back inside the bar; its
+   RESULT line quotes the four GUARD_KNEE numbers before and after. Never move SOURCE or MEAN_BAR.
 7. Each fix ships ON with a control arm (`-- nopopcap`, `-- nocontactbeat`, `-- noreachband`, `-- noposture`); the ruler
    runs one OFF arm (all four switches off, same seed and window; the starts bar in 1c compares against it) and prints
    it. AFTER numbers beside BEFORE. FightStage gets only calls (it is 478 lines).

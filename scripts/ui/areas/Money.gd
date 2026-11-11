@@ -17,6 +17,7 @@ const WeekRead := preload("res://scripts/rules/WeekRead.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
+const DuesWire := preload("res://scripts/ui/DuesWire.gd")
 
 var _books: Control
 var _cashbook: Control
@@ -44,6 +45,7 @@ func build(main: Node) -> void:
 	add_child(row)
 	row.add_child(_board(main, c, inc, cost, ahead))
 	row.add_child(MoneyPanels.side(main, c, ahead))
+	DuesWire.mark_boards.call_deferred(main)
 
 
 func _board(main: Node, c: Career, inc: Dictionary, cost: Dictionary, ahead: Array) -> Control:
@@ -125,7 +127,7 @@ func _books_page(main: Node, c: Career, inc: Dictionary, cost: Dictionary, ahead
 	left.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	left.size_flags_stretch_ratio = 1.05
 	left.add_child(_chart(c, ahead))
-	left.add_child(_io(inc, cost))
+	left.add_child(_io(c, inc, cost))
 	left.add_child(_net(int(inc["total"]) - int(cost["total"])))
 	left.add_child(MoneyPanels.fighters(main, c))
 	page.add_child(left)
@@ -172,18 +174,18 @@ func _chart(c: Career, ahead: Array) -> Control:
 	return box
 
 
-func _io(inc: Dictionary, cost: Dictionary) -> Control:
+func _io(c: Career, inc: Dictionary, cost: Dictionary) -> Control:
 	var row := UI.hbox(10)
 	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var scale := 1   # the bars compare the lines with each other: the biggest line is the longest bar
 	for pair in _in_lines(inc) + _out_lines(cost):
 		scale = maxi(scale, int(pair[1]))
-	row.add_child(_col("In, a week", "InWeek", "InLine", "InTotal", _in_lines(inc), int(inc["total"]), scale, true))
-	row.add_child(_col("Out, a week", "OutWeek", "OutLine", "OutTotal", _out_lines(cost), int(cost["total"]), scale, false))
+	row.add_child(_col(c, "In, a week", "InWeek", "InLine", "InTotal", _in_lines(inc), int(inc["total"]), scale, true))
+	row.add_child(_col(c, "Out, a week", "OutWeek", "OutLine", "OutTotal", _out_lines(cost), int(cost["total"]), scale, false))
 	return row
 
 
-func _col(title: String, box_name: String, line_name: String, total_name: String, lines: Array, total: int, scale: int, inn: bool) -> Control:
+func _col(c: Career, title: String, box_name: String, line_name: String, total_name: String, lines: Array, total: int, scale: int, inn: bool) -> Control:
 	var box := UI.vbox(1)
 	box.name = box_name
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -194,6 +196,11 @@ func _col(title: String, box_name: String, line_name: String, total_name: String
 		var line := UI.hbox(6)
 		line.name = "%s%d" % [line_name, i]
 		line.set_meta("amount", amount)
+		if str(pair[0]) == "Members' dues":
+			_fill_dues(c, line, amount, scale)
+			box.add_child(line)
+			i += 1
+			continue
 		var name := UI.label(str(pair[0]), 13, UI.FG, "hand")
 		name.custom_minimum_size = Vector2(96, 0)
 		line.add_child(name)
@@ -225,6 +232,33 @@ func _col(title: String, box_name: String, line_name: String, total_name: String
 	sum.add_child(tot)
 	box.add_child(sum)
 	return box
+
+
+func _fill_dues(c: Career, line: HBoxContainer, amount: int, scale: int) -> void:
+	line.add_child(DuesWire.mark(c.dues_band, 32))
+	var words := UI.vbox(0)
+	var title := UI.label("Members' dues", 20, UI.FG, "bold")
+	title.name = "DuesTitle"
+	words.add_child(title)
+	var shift := DuesWire.month_shift(c)
+	if not shift.is_empty():
+		var from := UI.label("from this month: %s" % str(shift["name"]), 20, UI.FG, "bold")
+		from.name = "DuesMonth"
+		words.add_child(from)
+		var delta := int(shift["delta"])
+		var mem := UI.label(DuesWire.member_words(delta), 20, UI.GREEN if delta >= 0 else UI.RED, "bold")
+		mem.name = "DuesMembers"
+		words.add_child(mem)
+	line.add_child(words)
+	var bar := ColorRect.new()
+	bar.custom_minimum_size = Vector2(maxf(4.0, 90.0 * float(amount) / float(scale)) if amount > 0 else 0.0, 6)
+	bar.color = UI.GREEN
+	bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	line.add_child(bar)
+	var shown := UI.label("+" + UI.money(amount), 20, UI.GREEN, "bold")
+	shown.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	shown.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	line.add_child(shown)
 
 
 func _in_lines(inc: Dictionary) -> Array:

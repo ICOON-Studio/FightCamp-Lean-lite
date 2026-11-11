@@ -18,6 +18,7 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
+const StandDown := preload("res://scripts/rules/StandDown.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
 
 ## The fight model's head damage is one number for the whole bout; InjuryRoll reads the WORST of the body's places. A bout
@@ -174,6 +175,12 @@ static func after_bout(c: Career, f: Dictionary, m: Dictionary) -> void:
 		m["injury"] = line(c, f)
 	var head_stop := str(m.get("stopped", "")) != "" and str(m.get("outcome", "")) == "loss"
 	var dmg := float((m.get("damage", {}) as Dictionary).get("a", 0.0))
+	# S434 STANDDOWN1 (F6): no sparring for 5, 10 or 21 days by the head the bout left (a head-stoppage loss has its
+	# suspension instead). PadWeek.stood_down rests the locked nights.
+	var sd := StandDown.make(c.day, dmg, head_stop)
+	f["stand_down"] = sd
+	if not sd.is_empty() and str(sd["band"]) != "fine":
+		c.add_news("%s: %s." % [f["first"], StandDown.reason(sd, Clock.fmt(int(sd["open_day"])))], false)
 	var history: Array = f.get("ko_history", [])
 	var roll := InjuryRoll.bout_roll(_seed(c, f, 7), {"places": {"head": clampf(100.0 - dmg * DAMAGE_TO_WORST, 0.0, 100.0)},
 		"rounds": (m["rounds"] as Array).size(), "head_stoppage": head_stop, "ko_history": history, "day": c.day})

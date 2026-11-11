@@ -21,6 +21,7 @@ const GrapplerPage := preload("res://scripts/ui/areas/GrapplerPage.gd")
 const Bar := preload("res://scripts/ui/Bar.gd")
 const PadReview := preload("res://scripts/rules/PadReview.gd")
 const FlipCard := preload("res://scripts/ui/FlipCard.gd")
+const DuesWire := preload("res://scripts/ui/DuesWire.gd")
 ## S382 CARDFLIP1: a crossed card turns gold this long after its row lands (its bar has grown first), and the next row waits.
 const FLIP_AT := 0.75
 const FLIP_HOLD := 0.5
@@ -66,6 +67,9 @@ func build(main: Node, m: Dictionary) -> void:
 	var two_up := reports.size() > 1
 	var step := ReviewReveal.STEP_TWO if two_up else ReviewReveal.STEP
 	var t := 0.3
+	var trial := DuesWire.trial_card(main, c)
+	if trial != null:
+		t = _land(v, trial, t, step)
 	for fr in reports:
 		var head := ReviewReveal.headline(fr, Data.LABEL)
 		headlines.append(head)

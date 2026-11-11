@@ -75,6 +75,9 @@ func _initialize() -> void:
 		c.seed = 1
 		Sim.sign(c, ["habit"])
 		Sim.hire(c, "reid")
+		# S434: the cut stops 0.15 kg under the limit, so a fighter who makes weight either way shows no difference on the
+		# morning. Start her 4 kg over so the cut runs every day of the dry run and the deeper cut can show.
+		c.fighter()["weight"] = float(c.fighter()["limit"]) + 4.0
 	var fa := Sim.weigh_forecast(a, a.fighter(), 19)
 	var fb := Sim.weigh_forecast(b, b.fighter(), 19)
 	_check(float(fb["day"]) < float(fa["day"]) - 0.1, "the old hand's walk-in weighs less on the show's morning (%.2f vs %.2f)" % [fb["day"], fa["day"]])

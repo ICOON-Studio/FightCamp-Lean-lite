@@ -34,8 +34,19 @@ func _initialize() -> void:
 	var five := [["roadwork", "normal"], ["roadwork", "normal"], ["roadwork", "normal"], ["roadwork", "normal"],
 		["roadwork", "normal"], ["rest", "normal"], ["rest", "normal"]]
 	var focused := float(TrainingPreview.plan_gain(_ctx()["stats"], 80, "conditioning", 60.0)["conditioning"])
-	var got := float(WP.week(five, _ctx())["gains"].get("conditioning", 0.0))
+	var wk: Dictionary = WP.week(five, _ctx())
+	# S434: since REST1 the two rest mornings add Recovery, so Conditioning (the mean of Stamina and Recovery) also rises on
+	# them. The bar compares the five roadwork mornings alone, as it always did; the rest days are checked on their own.
+	var got := 0.0
+	var rest_attr := 0.0
+	for r in (wk["days"] as Array):
+		if str(r["stat"]) == "conditioning":
+			got += float(r["gain"])
+		rest_attr += float(r.get("attr_gain", 0.0))
 	_check(absf(got - focused) / focused < 0.15, "5 roadwork mornings = a focused week within 15%% (%.2f vs %.2f)" % [got, focused])
+	var all_cond := float(wk["gains"].get("conditioning", 0.0))
+	_check(rest_attr > 0.0 and absf(all_cond - got - rest_attr / 2.0) < 0.01,
+		"the two rest mornings add Recovery, half of it shows on Conditioning (%.2f = %.2f + %.2f / 2)" % [all_cond, got, rest_attr])
 	# The diet: hold keeps her weight, cut loses 0.5-1 % of body weight a week (0.3-0.65 kg at 61 kg).
 	var hold := WP.week(WP.COACH_WEEK, _ctx("hold"))
 	var cut := WP.week(WP.COACH_WEEK, _ctx("cut"))

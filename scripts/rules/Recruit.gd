@@ -1,10 +1,16 @@
 extends RefCounted
+const Attrs := preload("res://scripts/rules/Attrs.gd")
+const AttrGen := preload("res://scripts/rules/AttrGen.gd")
+const CLASS_BIAS := 6.0
+const TILT_HALF := 0.5
+const HOLD := 8.0
+const CEIL_MAX := 99.0
 ## S354 (operator on the reception's three week cards: "i do not even understand why am choosing those. get it more rpg
 ## elements to this"; Kalli KALLI_RECEPTION_RPG_S354.md): a new fighter read as an RPG recruit - a class from the style, a
 ## potential in stars (a range until the fighter is known), each attribute's ceiling, two visible traits from the
 ## personality (with the effect the game already gives them), one habit, a signature move, an ambition; and ONE starting
 ## focus that replaces the cards. Pure static; the fighter dict is a Data.fighter_state (personality/habits by id).
-##   class_of(style)  stars(pot) -> [lo, hi]  ceiling(f, stat)  traits(personality) -> [good, bad]  signature(f)
+##   class_of(style)  stars(pot) -> [lo, hi]  ceiling(f, stat)  ceiling_of(f, ability)  traits(personality) -> [good, bad]  signature(f)
 ##   ambition(f)  FOCUS  apply_focus(f, id, day) -> String (news line)  default_cards(style)
 
 ## style -> [strength, weakness, the stat it is built on, the stat it lacks].
@@ -59,6 +65,32 @@ static func ceiling(f: Dictionary, stat: String) -> float:
 	var bias := 6.0 if stat == str(c[2]) else (-6.0 if stat == str(c[3]) else 0.0)
 	var now := float((f.get("stats", {}) as Dictionary).get(stat, 50.0))
 	return clampf(float(f.get("pot", 70)) + bias, now + 2.0, 99.0)
+
+
+## How high one of the 14 abilities can go: potential shaped by the class (bias on the parent stat) and the archetype
+## tilt (half, centred). Reads only; never writes to the fighter dict.
+static func ceiling_of(f: Dictionary, ability: String) -> float:
+	var style := str(f.get("style", ""))
+	var cl := class_of(style)
+	var parent := ""
+	for k in Attrs.LEGACY:
+		if (Attrs.LEGACY[k] as Array).has(ability):
+			parent = str(k)
+			break
+	var bias: float = CLASS_BIAS if parent == str(cl[2]) else (-CLASS_BIAS if parent == str(cl[3]) else 0.0)
+	var tilt: float = float(AttrGen.tilt_of(style).get(ability, 0.0))
+	var pot: float = float(f.get("pot", 70))
+	var c: float = clampf(pot + bias + TILT_HALF * tilt, pot - HOLD, pot + HOLD)
+	var attrs: Dictionary = f.get("attrs", {})
+	var stats: Dictionary = f.get("stats", {})
+	var now: float
+	if attrs.has(ability):
+		now = float(attrs.get(ability, 50.0))
+	elif parent != "" and stats.has(parent):
+		now = float(stats.get(parent, 50.0))
+	else:
+		now = 50.0
+	return minf(CEIL_MAX, maxf(c, now + 2.0))
 
 
 ## The two traits on show: the best personality score as a strength, the worst (or a high temper) as a flaw. [[name, effect]].

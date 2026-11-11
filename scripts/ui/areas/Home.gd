@@ -13,12 +13,16 @@ const Champs := preload("res://scripts/state/Champs.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const HomeFirstHour := preload("res://scripts/ui/HomeFirstHour.gd")
 const GymHub := preload("res://scripts/ui/GymHub.gd")
+const DuesWire := preload("res://scripts/ui/DuesWire.gd")
 
 const SIDE_W := 420.0
 
 
 func build(main: Node) -> void:
 	var c: Career = main.career
+	var soon := DuesWire.trial_row(main, c)
+	if soon != null:
+		add_child(soon)
 	add_child(GymHub.build(main, c))   # S408 the gym is the menu
 	var grid := UI.hbox(26)
 	add_child(grid)
