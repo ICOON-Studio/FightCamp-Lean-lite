@@ -165,8 +165,10 @@ static func place(a: Vector3, b: Vector3, prefer: Vector3, dist: float, yaw: flo
 		if spot.is_finite():
 			break
 	var high := not spot.is_finite()
-	if high:
+	if high:   # CAMLINE2: of the two side-on spots (clamped inside the ropes), the one least behind a boxer
 		spot = clamp_in(mid + perp * dist)
+		if behind_deg(a, b, clamp_in(mid - perp * dist)) > behind_deg(a, b, spot) + 10.0:
+			spot = clamp_in(mid - perp * dist)
 	var lens3 := spot + Vector3.UP * (HIGH_H if high else h)
 	var pts := pair_points(a, b)
 	if look_h < 0.0:
@@ -238,3 +240,145 @@ static func anchored(anchor: Vector3, mid: Vector3) -> Vector3:
 	var dead := DEAD_M if calm else 0.0
 	var away := mid - anchor
 	return anchor if away.length() <= dead else mid - away.normalized() * dead
+
+
+## ---- CAMLINE2: what the lens can see of the two bodies (RingCamera reads FightStage.boxers through these) ----
+## The camera rules judged the pair by two points on the canvas. Two things need a body: where a boxer's hips really
+## are while a captured clip plays pure (hips_of), and whether one body covers the other from a lens (cover).
+const BODY_BONES := {"head": "Head", "sh_l": "LeftUpperArm", "sh_r": "RightUpperArm", "el_l": "LeftLowerArm",
+	"el_r": "RightLowerArm", "hand_l": "LeftHand", "hand_r": "RightHand", "hips": "Hips"}
+const HEAD_MID_M := 0.1        # the skull's base (the Head bone) to the head's middle
+const HEAD_R_M := 0.1
+const ARM_R_M := 0.05
+const SHOULDER_PAD_M := 0.05   # the deltoid outside the shoulder joint
+const COVER_GAP_M := 0.05      # a part covers only what is at least this much farther from the lens
+const COVER_ROWS := [0.1, 0.37, 0.63, 0.9]   # down the trunk, shoulders to hips
+const COVER_COLS := [-0.65, 0.0, 0.65]       # across it, in half shoulder widths
+
+
+## Boxer `bx` (a row of FightStage.boxers: skel, gclear) as world points {head (its middle), sh_l, sh_r, el_l, el_r,
+## hand_l, hand_r, hips}: the animation's pose - and while the synthetic layers run (GloveClear active), moved to where
+## that layer showed the hips, with the head it showed. {} without a skeleton or a bone.
+static func body_of(bx: Dictionary) -> Dictionary:
+	var skel: Skeleton3D = bx.get("skel")
+	if skel == null:
+		return {}
+	var xf := skel.global_transform
+	var out := {}
+	for key in BODY_BONES:
+		var id := skel.find_bone(BODY_BONES[key])
+		if id < 0:
+			return {}
+		out[key] = xf * skel.get_bone_global_pose(id).origin
+	out["head"] = (out["head"] as Vector3) + Vector3.UP * HEAD_MID_M * xf.basis.get_scale().y
+	var gc: Variant = bx.get("gclear")
+	if gc != null and (gc as SkeletonModifier3D).active and (gc.shown_hips as Vector3).is_finite():
+		var shift: Vector3 = (gc.shown_hips as Vector3) - (out["hips"] as Vector3)
+		for part in out:
+			out[part] = (out[part] as Vector3) + shift
+		if (gc.shown_head as Vector3).is_finite():
+			out["head"] = gc.shown_head
+	return out
+
+
+## Where boxer `bx` stands for the lens (the hips, on the canvas), given the point FightStage hands in (`given`: the hips
+## as GloveClear last showed them). While a captured clip plays pure, RkPure switches that layer off and its read stands
+## still - the lens was blind to a pair turning through a captured step (CAMLINE2: up to 0.8 s straight behind a boxer).
+## Then no layer acts and the animation's own hips are the hips shown.
+static func hips_of(bx: Dictionary, given: Vector3) -> Vector3:
+	var gc: Variant = bx.get("gclear")
+	var skel: Skeleton3D = bx.get("skel")
+	if gc == null or skel == null or (gc as SkeletonModifier3D).active or flat_gap(given, gc.shown_hips) > 0.001:
+		return given
+	var id := skel.find_bone("Hips")
+	if id < 0:
+		return given
+	var h := skel.global_transform * skel.get_bone_global_pose(id).origin
+	return Vector3(h.x, given.y, h.z)
+
+
+## How much (0..1) of `me`'s head and trunk the body of `other` covers, seen from `lens`: two points on the head and
+## COVER_ROWS x COVER_COLS over the trunk, each covered when the line from the lens to it passes through a part of the
+## other body (trunk, legs, head, arms: capsules) that is nearer the lens. Both bodies as body_of gives them.
+static func cover(lens: Vector3, me: Dictionary, other: Dictionary) -> float:
+	if me.is_empty() or other.is_empty():
+		return 0.0
+	var mine: Vector3 = me["hips"]
+	var theirs: Vector3 = other["hips"]
+	if flat_gap(lens, theirs) > flat_gap(lens, mine) + 0.4:
+		return 0.0   # the other body stands behind this one
+	var w := 0.5 * (other["sh_l"] as Vector3).distance_to(other["sh_r"]) + SHOULDER_PAD_M
+	var chest: Vector3 = ((other["sh_l"] as Vector3) + (other["sh_r"] as Vector3)) * 0.5
+	var head: Vector3 = other["head"]
+	var caps: Array = [[chest, theirs, w], [theirs, Vector3(theirs.x, 0.0, theirs.z), w * 0.8],
+		[head - Vector3.UP * 0.02, head + Vector3.UP * 0.02, HEAD_R_M]]
+	for s in ["l", "r"]:
+		caps.append([other["sh_" + s], other["el_" + s], ARM_R_M])
+		caps.append([other["el_" + s], other["hand_" + s], ARM_R_M * 1.5])
+	var my_w := 0.5 * (me["sh_l"] as Vector3).distance_to(me["sh_r"]) + SHOULDER_PAD_M
+	var top: Vector3 = ((me["sh_l"] as Vector3) + (me["sh_r"] as Vector3)) * 0.5
+	var across := (top - lens).cross(Vector3.UP).normalized()
+	var pts: Array = [(me["head"] as Vector3) + Vector3.UP * 0.04, (me["head"] as Vector3) - Vector3.UP * 0.04]
+	for r in COVER_ROWS:
+		for c in COVER_COLS:
+			pts.append(top.lerp(mine, float(r)) + across * float(c) * my_w)
+	var covered := 0
+	for p in pts:
+		var far := lens.distance_to(p) - COVER_GAP_M
+		for cap in caps:
+			var q := Geometry3D.get_closest_points_between_segments(lens, p, cap[0], cap[1])
+			if q[0].distance_to(q[1]) < float(cap[2]) and lens.distance_to(q[1]) < far:
+				covered += 1
+				break
+	return float(covered) / pts.size()
+
+
+## The lens's sight line from `xf` to where it leaves the ring on the canvas: metres (the far rope behind the pair).
+## -1 when the lens does not look across the ring (straight down, or a film shot looking away from it).
+static func far_rope_m(xf: Transform3D) -> float:
+	var fwd := -xf.basis.z
+	var flat := Vector2(fwd.x, fwd.z)
+	if flat.length() < 0.05:
+		return -1.0
+	var dir := flat.normalized()
+	var t := INF
+	for ax in 2:
+		if absf(dir[ax]) > 0.001:
+			var start := xf.origin.x if ax == 0 else xf.origin.z
+			t = minf(t, (RING_HALF_M * signf(dir[ax]) - start) / dir[ax])
+	return minf(t, RING_HALF_M * 4.0) / maxf(0.5, flat.length()) if t > 0.5 else -1.0
+
+
+## CAMLINE2 the broadcast lens's far blur, set in ONE place (it was set in RingCamera._init, at every cut, on every
+## ride frame and in the close-up, with three different starts): it starts FAR_PAST_M beyond the rope behind the pair
+## (far_rope_m) and is full FAR_RAMP_M further - before the crowd's first row, 2.85 m beyond the ropes (RingSet). Was:
+## from 1.6 m beyond the pair, so the far ropes sat at 0.15 of the 0.22 on average (the probe's read on main).
+const FAR_PAST_M := 0.4
+const FAR_RAMP_M := 1.6
+const FAR_BLUR := 0.22   # S317: the hall behind the ring properly soft (0.14 read sharp and cheap)
+static func far_blur(attributes: CameraAttributes, xf: Transform3D, subject_m: float) -> void:
+	var lens := attributes as CameraAttributesPractical
+	var rope := far_rope_m(xf)
+	# A lens that does not look across the ring (a walk-in shot): from FAR_RAMP_M beyond what it looks at, as before.
+	lens.dof_blur_far_distance = rope + FAR_PAST_M if rope > 0.0 else subject_m + FAR_RAMP_M
+	lens.dof_blur_far_transition = FAR_RAMP_M
+	lens.dof_blur_amount = FAR_BLUR
+
+
+## How much of either body of `bodies` ([body_of, body_of]) the other covers from a lens at `lens`.
+static func cover_pair(lens: Vector3, bodies: Array) -> float:
+	return maxf(cover(lens, bodies[0], bodies[1]), cover(lens, bodies[1], bodies[0]))
+
+
+## The side-on side of the pair a, b (flat) from which the bodies cover each other least, for a lens `dist` out and `h`
+## high: the `here` side (where the lens stands: the 180-degree line), unless the other covers SIDE_GAIN less. ZERO
+## when no side covers less than `need`.
+const SIDE_GAIN := 0.1
+static func open_side(a: Vector3, b: Vector3, here: Vector3, bodies: Array, dist: float, h: float, need: float = 9.0) -> Vector3:
+	var mid := Vector3((a.x + b.x) * 0.5, 0.0, (a.z + b.z) * 0.5)
+	var side := side_on(a, b, here)
+	var c0 := cover_pair(clamp_in(mid + side * dist) + Vector3.UP * h, bodies)
+	var c1 := cover_pair(clamp_in(mid - side * dist) + Vector3.UP * h, bodies)
+	if minf(c0, c1) >= need:
+		return Vector3.ZERO
+	return -side if c1 + SIDE_GAIN < c0 else side

@@ -5,20 +5,10 @@ extends Camera3D
 ##   broadcast(a, b, snap, delta)  film(pos, look, fov, focus)  close_up(a, b, head_y, hit)  shake(m)  nudge(delta)  clear_view(ring_side, a, b, delta)
 
 const TvShot := preload("res://scripts/fight3d/TvShot.gd")
+const RopeFade := preload("res://scripts/fight3d/RopeFade.gd")
 
 ## The nudge decays with this time constant (seconds).
 const SHAKE_TAU_S := 0.09
-## S311 clear view: a rope or post within this of the line from the lens to a boxer (stopped this short of her, so the
-## ropes behind her stay) is hidden.
-const SIGHT_MARGIN_M := 0.3
-const SIGHT_SHORT_M := 0.25
-## S311 (operator: "make the ropes transparent when they block in the view"): a blocking rope or post fades to SEE_ALPHA
-## over FADE_S instead of vanishing, and back to solid when the view clears.
-const SEE_ALPHA := 0.18
-const FADE_S := 0.2
-## S320: a piece this far toward the lens from the pair's middle starts to fade, and is see-through from the second (it
-## was see-through at once past 1.2 m).
-const NEAR_FADE := Vector2(0.9, 1.5)
 
 ## S379 C222 TV coverage (operator on the FIGHT9 round-9 film: "the camera movement makes me dizzy, watch what angles are
 ## used in televised events and try to do the same, why you keep zooming in and out and rotate all at the same time"; the
@@ -88,8 +78,20 @@ const TURNS := [0.0, 25.0, -25.0, 50.0, -50.0, 80.0, -80.0, 115.0, -115.0, 150.0
 ## per-object velocity blur as a compositor effect, so fast punches smear. Camera rotation counts little; a cut or a jump of
 ## the lens past JUMP_M gets no blur on that frame. `-- noblur` = the control arm; headless runs have none.
 const MOTION_BLUR := "res://addons/godot-motion-blur/guertin/guertin_motion_blur.gd"
+## CAMLINE2 (operator: "its the gloves that have a weird blur effect"; measured, docs/CAMLINE2_RESULT.md): BLUR is the ONE
+## live intensity, for every shot kind (ride, close-up, film: _shutter). The add-on smears by the distance moved in one
+## FRAME, so at the 2x pace the same punch smeared twice as long (median 2.82 glove widths, up to 3.58, ghosts on 5 of 10
+## punches, against 1.13 / 1.31 at 1x): the intensity is divided by the pace, a shutter of real time. BLUR_OBJECT is the
+## add-on's pull on moving objects (was 0.7: 1.31 widths at 1x, over the 1.3 bar). 8 samples stay (S426).
 const BLUR := 1.0
+const BLUR_OBJECT := 0.5
 const JUMP_M := 0.4
+## CAMLINE2: a boxer covered by the other body (TvShot.cover at HIDDEN_AT or more of the head and trunk) for
+## HIDDEN_HOLD_S: the shot cuts to side-on, on the side that covers least (TvShot.open_side) - once per MIN_SHOT_S, and
+## only when a side covers less than HIDDEN_AT. The ruler's bar is 0.6 of its screen boxes for under 0.4 s (CamLine): on
+## a body folded at the waist those boxes read about twice TvShot.cover's capsules (0.63 against 0.36), so 0.3 here.
+const HIDDEN_AT := 0.3
+const HIDDEN_HOLD_S := 0.15
 ## S348 (S348 round-1 still: "Step back" walked her into the over-the-shoulder lens, her back hid the other woman's face):
 ## a boxer this close to the lens (flat) cuts to the next shot.
 const TOO_CLOSE_M := 1.3
@@ -129,30 +131,38 @@ var _axis := INF              # the pair's line a -> b (deg about +Y) last frame
 var _axis_w := 0.0            # how fast it turns (deg/s, eased over AXIS_TAU_S)
 var _slide_w := 0.0           # deg/s the young shot's lens slides round the pair (PROTECT_DEG)
 var _bar_drop := 0.0          # metres the held shot has lowered its look to clear the boots
+var _hid_s := 0.0             # CAMLINE2: seconds a boxer has been covered by the other body
+var _hid_wait := 0.0          # seconds until the next "hidden" cut may come
+var _bodies: Array = [{}, {}] # both bodies this frame (TvShot.body_of; {} when the stage has none to read)
 
 func _init() -> void:
-	# A broadcast lens: the ring sharp, the hall beyond it soft.
+	# A broadcast lens: the ring sharp, the hall beyond it soft (TvShot.far_blur sets the numbers, at every placing).
 	var lens := CameraAttributesPractical.new()
 	lens.dof_blur_far_enabled = true
-	lens.dof_blur_far_transition = 2.0
-	lens.dof_blur_amount = 0.22
 	attributes = lens
 	if DisplayServer.get_name() != "headless" and not OS.get_cmdline_user_args().has("noblur") and ResourceLoader.exists(MOTION_BLUR):
 		_blur = (load(MOTION_BLUR) as Script).new() as CompositorEffect
 		_blur.set("intensity", BLUR)
 		_blur.set("multiplier_camera_rotation", 0.1)
 		_blur.set("samples", 8)   # S426 "background effects look weird with motion in front": 3 samples ghosted a hair edge 3 times
-		_blur.set("multiplier_object_movement", 0.7)   # lighter pull on moving objects: shorter smear
+		_blur.set("multiplier_object_movement", BLUR_OBJECT)
 		var comp := Compositor.new()
 		comp.compositor_effects = [_blur]
 		compositor = comp
 
 
 ## No blur on a frame whose lens jumped (a cut): its motion vectors would smear the whole picture.
-func _place_lens(pos: Vector3, look: Vector3) -> void:
-	if _blur != null:
-		_blur.set("intensity", 0.0 if position.distance_to(pos) > JUMP_M else BLUR)
+func _place_lens(pos: Vector3, look: Vector3, shallow: bool = false) -> void:
+	_shutter(position.distance_to(pos) > JUMP_M)
 	look_at_from_position(pos, look, Vector3.UP)
+	if not shallow:
+		TvShot.far_blur(attributes, global_transform, pos.distance_to(look))
+
+
+## The motion blur's live intensity (BLUR, a shutter of real time: divided by the 2x pace), none on a `cut`'s frame.
+func _shutter(cut: bool) -> void:
+	if _blur != null:
+		_blur.set("intensity", 0.0 if cut else BLUR / maxf(1.0, Engine.time_scale))
 
 
 ## S379 the TV lens (SHOTS): a cut places a shot once (TvShot.place, its FOV fixed till the next cut); while it holds it
@@ -161,20 +171,30 @@ func _place_lens(pos: Vector3, look: Vector3) -> void:
 func broadcast(a: Vector3, b: Vector3, snap: bool = false, delta: float = 0.0) -> void:
 	var was_film := close
 	close = false
+	a = TvShot.hips_of(_boxer(0), a)
+	b = TvShot.hips_of(_boxer(1), b)
 	# Real seconds: the 2x pace must not turn the lens faster. At most one 30 fps frame (MAX_DT_S): the frame the shout's
 	# slow motion starts divides an unscaled delta by the new time scale.
 	var dt := minf(delta / maxf(Engine.time_scale, 0.05), MAX_DT_S)
 	_shot_t += dt
 	var mid := Vector3((a.x + b.x) * 0.5, 0.0, (a.z + b.z) * 0.5)
+	_bodies = [TvShot.body_of(_boxer(0)), TvShot.body_of(_boxer(1))]
+	_hid_s = _hid_s + dt if TvShot.cover_pair(global_position, _bodies) >= HIDDEN_AT else 0.0
+	_hid_wait = maxf(0.0, _hid_wait - dt)
 	var why := ""
+	var prefer := Vector3.ZERO
 	if _shot < 0 or was_film:
 		why = "start"
 	elif snap and mid.distance_to(_mid) > JUMP_MID_M:
 		why = "jump"
 	else:
 		why = _due(a, b)
+	if why == "hidden":
+		_hid_wait = MIN_SHOT_S
+		prefer = TvShot.open_side(a, b, _here(mid), _bodies, float(SHOTS[0]["dist"]), float(SHOTS[0]["h"]), HIDDEN_AT)
+		why = "" if prefer == Vector3.ZERO else why
 	if why != "":
-		_cut(a, b, mid, why)
+		_cut(a, b, mid, why, prefer)
 	else:
 		_ride(a, b, dt)
 
@@ -186,6 +206,8 @@ func _due(a: Vector3, b: Vector3) -> String:
 	var near := minf(TvShot.flat_gap(lens, a), TvShot.flat_gap(lens, b))
 	if behind < BEHIND_HARD_DEG or near < NEAR_HARD_M:
 		return "emergency"
+	if _hid_s >= HIDDEN_HOLD_S and _hid_wait <= 0.0:
+		return "hidden"
 	if _shot_t < MIN_SHOT_S:
 		return ""
 	if _behind_s >= BEHIND_HOLD_S:
@@ -203,7 +225,7 @@ func _due(a: Vector3, b: Vector3) -> String:
 
 ## A straight cut to a fresh shot: "main" again after anything but a held main (which hands over to the apron for a
 ## while), "clinch" while the heads are tied up. Same side of the pair as the lens on screen (the 180-degree line).
-func _cut(a: Vector3, b: Vector3, mid: Vector3, why: String) -> void:
+func _cut(a: Vector3, b: Vector3, mid: Vector3, why: String, to_side: Vector3 = Vector3.ZERO) -> void:
 	if _shot < 0:
 		_rng.seed = 379
 	var k := 0
@@ -213,9 +235,10 @@ func _cut(a: Vector3, b: Vector3, mid: Vector3, why: String) -> void:
 		k = 1
 	var sh: Dictionary = SHOTS[k]
 	var here := Vector3(global_position.x - mid.x, 0.0, global_position.z - mid.z)
-	var prefer := here if here.length() > 0.3 else _side
-	# Ahead of the pair's turn: the lens direction stays put while their side-on line turns at _axis_w.
-	var lead := signf(_axis_w) * minf(absf(_axis_w) * LEAD_S, LEAD_MAX_DEG)
+	var prefer := to_side if to_side != Vector3.ZERO else _here(mid)
+	# Ahead of the pair's turn: the lens direction stays put while their side-on line turns at _axis_w. A "hidden" cut
+	# goes side-on (a lead turns the lens toward a back again).
+	var lead := 0.0 if why == "hidden" else signf(_axis_w) * minf(absf(_axis_w) * LEAD_S, LEAD_MAX_DEG)
 	var yaw := lead
 	if k == 1:
 		_apron_s = signf(_axis_w) if absf(_axis_w) > 3.0 else -_apron_s
@@ -250,6 +273,7 @@ func _cut(a: Vector3, b: Vector3, mid: Vector3, why: String) -> void:
 	_h = _pos.y
 	_look_h = float(p["look_h"]); _bar_drop = 0.0
 	_behind_s = 0.0
+	_hid_s = 0.0
 	_slide_w = 0.0
 	cut_why = "%s (old lens behind %.0f near %.2f) -> %.2f m out, yaw %.0f, behind %.0f, pair turning %.0f deg/s%s" % [why,
 		TvShot.behind_deg(a, b, here + mid), minf(TvShot.flat_gap(here + mid, a), TvShot.flat_gap(here + mid, b)),
@@ -259,6 +283,18 @@ func _cut(a: Vector3, b: Vector3, mid: Vector3, why: String) -> void:
 	_ang_v = Vector2.ZERO
 	_lens(false)
 	_set_lens(true)
+
+
+## The stage's boxer `i` (FightStage.boxers: skel, gclear); {} when the lens has no stage with two boxers above it.
+func _boxer(i: int) -> Dictionary:
+	var all: Variant = get_parent().get("boxers") if get_parent() != null else null
+	return all[i] if all is Array and (all as Array).size() == 2 and all[i] is Dictionary else {}
+
+
+## The side of the pair's middle `mid` the lens is on (flat; the side it last chose when it stands over them).
+func _here(mid: Vector3) -> Vector3:
+	var here := Vector3(global_position.x - mid.x, 0.0, global_position.z - mid.z)
+	return here if here.length() > 0.3 else _side
 
 
 ## The held shot: the pair's middle eases, the lens rides at its offset from it (stopped by the ropes: it slides along
@@ -300,10 +336,9 @@ func _ride(a: Vector3, b: Vector3, dt: float) -> void:
 
 ## No blur on a cut's frame (its motion vectors would smear the whole picture).
 func _set_lens(cut: bool) -> void:
-	if _blur != null:
-		_blur.set("intensity", 0.0 if cut else BLUR)
+	_shutter(cut)
 	global_transform = Transform3D(TvShot.basis_of(_ang), _pos)
-	(attributes as CameraAttributesPractical).dof_blur_far_distance = Vector2(_off.x, _off.z).length() + 1.6
+	TvShot.far_blur(attributes, global_transform, _off.length())
 
 
 ## A boxer standing at `p` (feet) is in the frame head to feet.
@@ -341,15 +376,17 @@ func _clinch_yaw(mid: Vector3, side: Vector3, dist: float, h: float, yaw: float)
 
 
 ## Low at the side, both heads in frame (`head_y` = the hit boxer's head height), held until broadcast() is called again.
+## CAMLINE2: on the side of the pair the lens is on (it took a fixed side of their line, whichever the lens stood on),
+## unless the bodies cover each other less from the other (TvShot.open_side).
 func close_up(a: Vector3, b: Vector3, head_y: float, hit: int) -> void:
 	close = true
 	shot_name = "close"
 	_lens(false)
 	var mid := (a + b) * 0.5 + Vector3(0, head_y - 0.12, 0)
 	var axis := (b - a).normalized()
-	var side := _side_of(a, b)
+	_bodies = [TvShot.body_of(_boxer(0)), TvShot.body_of(_boxer(1))]
+	var side := TvShot.open_side(a, b, _here(mid), _bodies, 2.5, mid.y + 0.08)
 	fov = 32.0
-	(attributes as CameraAttributesPractical).dof_blur_far_distance = 2.5 + 1.2
 	var hitter := axis if hit == 1 else -axis
 	var flat := Vector3(mid.x, 0.0, mid.z) - hitter * 0.15
 	var arc := Vector2(-SIDE_ARC_DEG, SIDE_ARC_DEG)
@@ -410,10 +447,6 @@ static func high_spot(mid: Vector3, dir: Vector3, dist: float) -> Array:
 	return [Vector3(mid.x, 0.0, mid.z) + dir * far, far, 0.0, false]
 
 
-func _side_of(a: Vector3, b: Vector3) -> Vector3:
-	return (b - a).normalized().cross(Vector3.UP).normalized()
-
-
 ## S302: a power shot nudges the lens (the framing itself is untouched).
 func shake(m: float) -> void:
 	_shake = maxf(_shake, m)
@@ -430,48 +463,9 @@ func nudge(delta: float) -> void:
 	_shake *= exp(-delta / SHAKE_TAU_S)
 
 
-## A TV camera shoots between the ropes: every rope or post nearer the camera than the boxers is hidden.
+## The ropes and posts in the lens's way go see-through (RopeFade; FightStage and the count call this every frame).
 func clear_view(ring_side: Array, a: Vector3, b: Vector3, delta: float = 0.0) -> void:
-	var mid := (a + b) * 0.5
-	var to_cam := Vector3(global_position.x - mid.x, 0, global_position.z - mid.z).normalized()
-	var cam := Vector2(global_position.x, global_position.z)
-	var hidden := {}
-	var ropes := {}
-	var near := {}
-	for n in ring_side:
-		var node := n as Node3D
-		var at := node.global_position
-		var d := Vector3(at.x - mid.x, 0, at.z - mid.z)
-		var hide := false
-		# S320: nearer the lens than the pair, a piece fades by how near (a ramp along the rope, not a cut into stubs).
-		near[node] = smoothstep(NEAR_FADE.x, NEAR_FADE.y, d.dot(to_cam))
-		# S311: the range breathes and the pair reaches the ropes (~110 m a round): from a corner angle the side next to
-		# the camera crossed both bodies. A rope or post that crosses the camera's line to either boxer goes too.
-		var along := node.global_transform.basis.y
-		var half := Vector2(along.x, along.z) * float(((node as MeshInstance3D).mesh as CylinderMesh).height) * 0.5
-		var c := Vector2(at.x, at.z)
-		for p in [a, b]:
-			var to := Vector2(p.x, p.z)
-			var end := to + (cam - to).normalized() * SIGHT_SHORT_M
-			var q := Geometry2D.get_closest_points_between_segments(c - half, c + half, cam, end)
-			hide = hide or q[0].distance_to(q[1]) < SIGHT_MARGIN_M
-		hidden[node] = hide
-		if hide and node.has_meta("rope"):
-			ropes[node.get_meta("rope")] = true
-	# S320 (the smooth ropes, 40 pieces a side): a rope fades WHOLE when any piece of it is in the way - faded piece by
-	# piece it broke into floating stubs.
-	for n in ring_side:
-		var hide: bool = hidden[n] or ((n as Node).has_meta("rope") and ropes.has((n as Node).get_meta("rope")))
-		_fade(n as MeshInstance3D, SEE_ALPHA if hide else lerpf(1.0, SEE_ALPHA, float(near[n])), delta)
-
-
-## Eases a ring piece's own material toward `want` alpha (delta 0 = at once); solid pieces stay opaque.
-static func _fade(m: MeshInstance3D, want: float, delta: float) -> void:
-	var mat := m.material_override as StandardMaterial3D
-	var c := mat.albedo_color
-	c.a = want if delta <= 0.0 else move_toward(c.a, want, delta / FADE_S)
-	mat.albedo_color = c
-	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA if c.a < 0.999 else BaseMaterial3D.TRANSPARENCY_DISABLED
+	RopeFade.clear(global_position, ring_side, a, b, delta)
 
 
 ## S307 the corner minute's film shots: a lens at `pos` on `look`, sharp only around `focus` metres (shallow depth of
@@ -481,7 +475,7 @@ func film(pos: Vector3, look: Vector3, lens_fov: float, focus: float) -> void:
 	shot_name = "film"
 	fov = lens_fov
 	_lens(focus > 0.0, focus)
-	_place_lens(pos, look)
+	_place_lens(pos, look, focus > 0.0)
 
 
 func _lens(shallow: bool, focus: float = 0.0) -> void:
@@ -494,7 +488,3 @@ func _lens(shallow: bool, focus: float = 0.0) -> void:
 		lens.dof_blur_far_distance = focus * 1.35 + 0.2
 		lens.dof_blur_far_transition = 1.2
 		lens.dof_blur_amount = 0.2
-	else:
-		# S317: the hall behind the ring goes properly soft (was 0.14: the crowd read sharp and cheap).
-		lens.dof_blur_far_transition = 2.0
-		lens.dof_blur_amount = 0.22

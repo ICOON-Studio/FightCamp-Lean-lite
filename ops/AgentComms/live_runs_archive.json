@@ -12822,6 +12822,290 @@
    },
    "reconciled": "2026-11-11 12:45 board_reconcile: PR #191 closed",
    "archived": "2026-11-11 12:45 board_sync"
+  },
+  {
+   "agent": "cursor",
+   "id": "LEGTREMBLE3",
+   "title": "TASK LEGTREMBLE3 - CURSOR (Grok 4.7 High) - the trembling legs, round 2 on a new seat: bake the smoothing into the shipped clips",
+   "status": "closed",
+   "started": "2026-11-10T11:21",
+   "eta": "2026-11-10T13:11",
+   "branch": "cursor/legtremble3",
+   "worktree": "E:/FightCamp/wt/LEAN_LEGTREMBLE3",
+   "wt": "E:/FightCamp/wt/LEAN_LEGTREMBLE3",
+   "brief": "ops/research/TASK_LEGTREMBLE3.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/LEGTREMBLE3_dispatch_out.txt",
+   "match": "seat_dispatch.py run legtremble3",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/LEGTREMBLE3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/LEGTREMBLE3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/LEGTREMBLE3_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 35080,
+    "seat_pid": 10556
+   },
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 3/5 PASS; PR #163",
+   "finished": "2026-11-10T12:38",
+   "pr": 163,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/leg_tremble_test.gd",
+     "ok": true,
+     "last": "LEG_TREMBLE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_tip_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/head_aim_test.gd",
+     "ok": false,
+     "last": "HEAD_AIM failures=2"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/block_meet_test.gd",
+     "ok": false,
+     "last": "   at: start (main/main.cpp:4370)"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-11 13:10 board_reconcile: PR #163 closed",
+   "archived": "2026-11-11 13:11 board_sync"
+  },
+  {
+   "agent": "goose",
+   "id": "DUESBAND1",
+   "title": "QWEN (qwen3-coder) - dues bands: what kind of club you run (pure rules + a 5-year sim test)",
+   "status": "collected",
+   "started": "2026-11-10T13:07",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_DUESBAND1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-10T14:07",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
+   "issue": "165",
+   "branch": "goose/issue-165",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/165",
+   "reconciled": "2026-11-11 S432: collected by diff in S424 (34826128)",
+   "archived": "2026-11-11 13:11 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "LEGTREMBLE4",
+   "title": "TASK LEGTREMBLE4 - QWEN (qwen3-coder) - the trembling legs, round 4: why head_aim voids a row with the smoothed clips",
+   "status": "closed",
+   "started": "2026-11-10T13:34",
+   "eta": "2026-11-10T15:24",
+   "branch": "qwen/legtremble4",
+   "worktree": "E:/FightCamp/wt/LEAN_LEGTREMBLE4",
+   "wt": "E:/FightCamp/wt/LEAN_LEGTREMBLE4",
+   "brief": "ops/research/TASK_LEGTREMBLE4.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/LEGTREMBLE4_dispatch_out.txt",
+   "match": "seat_dispatch.py run legtremble4",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/LEGTREMBLE4_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/LEGTREMBLE4_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/LEGTREMBLE4_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 27780,
+    "seat_pid": 19076
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/4 PASS; PR #168",
+   "finished": "2026-11-10T14:22",
+   "pr": 168,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/head_aim_test.gd",
+     "ok": false,
+     "last": "HEAD_AIM failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_tip_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/block_meet_test.gd",
+     "ok": false,
+     "last": "   at: start (main/main.cpp:4370)"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-11 13:10 board_reconcile: PR #168 closed",
+   "archived": "2026-11-11 13:11 board_sync"
+  },
+  {
+   "agent": "cursor",
+   "id": "TRAININGB2",
+   "title": "TASK TRAININGB2 - CURSOR (Grok 4.7 High) - the Training tab: a tiredness curve that says something, and the pads list in straight rows",
+   "status": "closed",
+   "started": "2026-11-11T10:23",
+   "eta": "2026-11-11T12:13",
+   "branch": "cursor/trainingb2",
+   "worktree": "E:/FightCamp/wt/LEAN_TRAININGB2",
+   "wt": "E:/FightCamp/wt/LEAN_TRAININGB2",
+   "brief": "ops/research/TASK_TRAININGB2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/TRAININGB2_dispatch_out.txt",
+   "match": "seat_dispatch.py run trainingb2",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/TRAININGB2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/TRAININGB2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/TRAININGB2_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 9444,
+    "seat_pid": 16404
+   },
+   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 7/7 PASS; PR #194",
+   "finished": "2026-11-11T11:02",
+   "pr": 194,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/week_b_test.gd",
+     "ok": true,
+     "last": "WEEK_B failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/drill_card_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hover_ghosts_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_tray_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/week_slate_test.gd",
+     "ok": true,
+     "last": "WEEK_SLATE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-11 13:10 board_reconcile: PR #194 closed",
+   "archived": "2026-11-11 13:11 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "DUESSUMS2",
+   "title": "TASK DUESSUMS2 - QWEN (qwen3-coder) - dues sums, second search: a REGION of balanced numbers, and a reason for the middle price (pure module + sim, MEASURE ONLY",
+   "status": "closed",
+   "started": "2026-11-11T12:12",
+   "eta": "2026-11-11T14:02",
+   "branch": "qwen/duessums2",
+   "worktree": "E:/FightCamp/wt/LEAN_DUESSUMS2",
+   "wt": "E:/FightCamp/wt/LEAN_DUESSUMS2",
+   "brief": "ops/research/TASK_DUESSUMS2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/DUESSUMS2_dispatch_out.txt",
+   "match": "seat_dispatch.py run duessums2",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/DUESSUMS2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/DUESSUMS2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/DUESSUMS2_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 47924,
+    "seat_pid": 20680
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/3 PASS; PR #196",
+   "finished": "2026-11-11T12:29",
+   "pr": 196,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/dues_levers_test.gd",
+     "ok": false,
+     "last": "DUES_LEVERS checks=43 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/membership_test.gd",
+     "ok": true,
+     "last": "MEMBERSHIP checks=17 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/membership_why_test.gd",
+     "ok": true,
+     "last": "MEMBERSHIP_WHY failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-11 13:10 board_reconcile: PR #196 closed",
+   "archived": "2026-11-11 13:11 board_sync"
   }
  ]
 }

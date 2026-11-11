@@ -6555,6 +6555,25 @@
         "AgentComms/board_attach/Q-S294-184_2_road_v3.png",
         "research/CLUBWEEK_MAP_V3_S431.md"
       ],
+      "answer": "Critics now, deepen, add mechanics if needed",
+      "note": "Answered in chat (S432, 2026-11-11): \"i want v3 reviewed by critics . see if we can deepen and stregthnen and add if required any new mechanics , before we start building we need to decide if we done with the mechancis for this version\"",
+      "answered_at": "2026-11-11T13:40:00+00:00",
+      "seen_by_claude": true
+    },
+    {
+      "id": "Q-S294-185",
+      "asked": "2026-11-11T10:54:10.888310+00:00",
+      "session": "S294",
+      "text": "Ludo painted your matched look (Q-182), 3 paintings a page, on 8787/review. Same layout and words; it adds a painted leather-and-wood backdrop, raised tabs and lamp glow (small numbers come out garbled in a painting: the game draws the real ones). Build to which painting?",
+      "options": [
+        "Painting 1 for both",
+        "Fighters 2, Profile 1",
+        "Another mix (say which)",
+        "Build the plain mockups, no backdrop"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-185_0_profile_paint-v1.png"
+      ],
       "answer": null,
       "note": null,
       "answered_at": null,

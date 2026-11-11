@@ -1,3 +1,19 @@
+FIGHTCAMP - BUILD OF 2026-11-11 (S432): THE STEPPING FIGHT, A CLEARER TRAINING TAB, THE RIB CALLS
+================================================================================
+
+ NEW.
+  a. YOUR PICK (Q-183, "Older stepping route"): the fight plays the stepping route again - the Punch PRO punches with
+     the footwork, the captured takes off. Feet stay on the canvas (no flying, nothing under the floor), the standing
+     foot barely slides, and the two no longer stand inside each other at close range. Not done: punches still rest on
+     the target and hits are not felt enough - that round is with Cursor now (HUMANFIGHT2).
+  b. The fight camera: it no longer sits straight behind one boxer and hides the other, and a rope fades whole or not
+     at all (no rope cut in two). Measured on the men's bout: the longest time a boxer was hidden went 0.63 s -> 0.23 s.
+  c. A fighter > Training: the week's tiredness numbers sit above their dots on dark plates, the "80: too tired" line
+     is readable (nothing crossed out), hover a day for morning and evening. With two "Held at 48" drills the bottom
+     row (Do it, Leave, Start week) is back on the screen: the held line now sits on the drill's own row.
+  d. In a fight, Aim: after about seven body shots the corner offers the opponent's RIBS - first the liver side (her
+     right ribs when you are orthodox), both sides after ten - and going to the body on a tired opponent now pays.
+
 FIGHTCAMP - BUILD OF 2026-11-10 (S427): PROPER OUTLINES, AND THE CORNER BAR TO YOUR MARKS
 ================================================================================
 
