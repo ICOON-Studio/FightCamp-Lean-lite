@@ -1146,14 +1146,22 @@
   {
    "task": "DUESSUMS3C",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-11T21:14"
+   "status": "launched",
+   "queued": "2026-11-11T21:14",
+   "launched": "2026-11-11T22:11"
   },
   {
    "task": "INTROCORNER2",
    "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-11T21:32",
+   "launched": "2026-11-11T21:41"
+  },
+  {
+   "task": "VOICEWIRE1",
+   "seat": "qwen",
    "status": "queued",
-   "queued": "2026-11-11T21:32"
+   "queued": "2026-11-11T23:21"
   }
  ]
 }

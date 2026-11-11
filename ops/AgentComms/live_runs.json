@@ -269,64 +269,58 @@
     "board": ""
    }
   },
-  "GYMLIFE1": {
-   "agent": "cursor",
-   "id": "GYMLIFE1",
-   "title": "TASK GYMLIFE1 - CURSOR (Grok 4.7 High) - the gym picture comes alive: real workouts at each piece of kit, and the club's fighters at the session they have today",
+  "VOICEWIRE1": {
+   "agent": "qwen",
+   "id": "VOICEWIRE1",
+   "title": "TASK VOICEWIRE1 - QWEN (qwen3-coder), the sound engineer - the cast's voices made this month and wired into fight night",
    "status": "landed",
-   "started": "2026-11-11T20:11",
-   "eta": "2026-11-11T22:01",
-   "branch": "cursor/gymlife1",
-   "worktree": "E:/FightCamp/wt/LEAN_GYMLIFE1",
-   "wt": "E:/FightCamp/wt/LEAN_GYMLIFE1",
-   "brief": "ops/research/TASK_GYMLIFE1.md",
+   "started": "2026-11-11T23:31",
+   "eta": "2026-11-12T01:21",
+   "branch": "qwen/voicewire1",
+   "worktree": "E:/FightCamp/wt/LEAN_VOICEWIRE1",
+   "wt": "E:/FightCamp/wt/LEAN_VOICEWIRE1",
+   "brief": "ops/research/TASK_VOICEWIRE1.md",
    "repo": "FightCamp-Lean",
    "where": "pc",
-   "log": "E:/FightCamp/wt/GYMLIFE1_dispatch_out.txt",
-   "match": "seat_dispatch.py run gymlife1",
-   "model": "grok-4.7-high",
+   "log": "E:/FightCamp/wt/VOICEWIRE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run voicewire1",
+   "model": "qwen3-coder",
    "dispatch": {
-    "prompt": "E:/FightCamp/wt/GYMLIFE1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/GYMLIFE1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/GYMLIFE1_dispatch_runner.log",
-    "source": "dispatch_queue.json",
+    "prompt": "E:/FightCamp/wt/VOICEWIRE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/VOICEWIRE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/VOICEWIRE1_dispatch_runner.log",
+    "source": "command line",
     "brief_copied": true,
-    "runner_pid": 47920,
-    "seat_pid": 43808
+    "runner_pid": 46872,
+    "seat_pid": 34684
    },
-   "note": "S368 seat_dispatch: cursor exit 0; 1 commit(s); checks 7/7 PASS; PR #212; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache, docs/mockups/s429/gymlife1/gym_0.png, docs/mockups/s429/gymlife1/gym_1.png, docs/mockups/s429/gymlife1/gym_2.png",
-   "finished": "2026-11-11T21:07",
-   "pr": 212,
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 6/6 PASS; PR #218",
+   "finished": "2026-11-11T23:53",
+   "pr": 218,
    "checks": [
     {
      "kind": "RED_TEST",
-     "script": "tests/gym_workouts_test.gd",
+     "script": "tests/voice_lines_test.gd",
      "ok": true,
-     "last": "GYM_WORKOUTS failures=0"
+     "last": "VOICE_LINES failures=0"
     },
     {
      "kind": "REGRESSION",
-     "script": "tests/gym_people_test.gd",
+     "script": "tests/sound_bank_test.gd",
      "ok": true,
-     "last": "GYM_PEOPLE failures=0"
+     "last": "SOUND_BANK checks=321 failures=0"
     },
     {
      "kind": "REGRESSION",
-     "script": "tests/gym_floor_people_test.gd",
+     "script": "tests/sound_sync_test.gd",
      "ok": true,
-     "last": "GYM_FLOOR_PEOPLE failures=0"
+     "last": "SOUND_SYNC checks=30 failures=0"
     },
     {
      "kind": "REGRESSION",
-     "script": "tests/gym_hub_test.gd",
+     "script": "tests/intro_style_test.gd",
      "ok": true,
-     "last": "GYM_HUB failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/gym_places_test.gd",
-     "ok": true,
-     "last": "GYM_PLACES failures=0"
+     "last": "INTRO_STYLE pairs=640 checks=8560 failures=0"
     },
     {
      "kind": "REGRESSION",
@@ -347,126 +341,30 @@
     "board": ""
    }
   },
-  "INTROCORNER1": {
-   "agent": "qwen",
-   "id": "INTROCORNER1",
-   "title": "TASK INTROCORNER1 - QWEN (qwen3-coder) - the fight intro starts in the corners: each boxer shadow-boxes, bounces and celebrates the name call in a way of their ",
-   "status": "landed",
-   "started": "2026-11-11T20:56",
-   "eta": "2026-11-11T22:46",
-   "branch": "qwen/introcorner1",
-   "worktree": "E:/FightCamp/wt/LEAN_INTROCORNER1",
-   "wt": "E:/FightCamp/wt/LEAN_INTROCORNER1",
-   "brief": "ops/research/TASK_INTROCORNER1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/INTROCORNER1_dispatch_out.txt",
-   "match": "seat_dispatch.py run introcorner1",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/INTROCORNER1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/INTROCORNER1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/INTROCORNER1_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 32080,
-    "seat_pid": 50728
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 8/10 PASS; PR #213",
-   "finished": "2026-11-11T21:34",
-   "pr": 213,
-   "checks": [
-    {
-     "kind": "COMPILE",
-     "script": "Main.tscn boot",
-     "ok": false,
-     "last": "res://scripts/fight3d/FightIntro.gd:81: Too few arguments for \"new()\" call. Expected at least 2 but received 0."
-    },
-    {
-     "kind": "RED_TEST",
-     "script": "tests/intro_style_test.gd",
-     "ok": false,
-     "last": "INTRO_STYLE checks=83 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/ring_ropes_entry_test.gd",
-     "ok": true,
-     "last": "ring_ropes_entry_test: PASS"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/corner_warm_test.gd",
-     "ok": true,
-     "last": "CORNER_WARM_TEST failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/fight_polish_test.gd",
-     "ok": true,
-     "last": "FIGHT_POLISH checks=9 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/file_limits_test.gd",
-     "ok": true,
-     "last": "FILE_LIMITS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/fight_flow_test.gd",
-     "ok": true,
-     "last": "PASS fight_flow_test"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/hud_shown_test.gd",
-     "ok": true,
-     "last": "hud_shown_test failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/corner_lens_test.gd",
-     "ok": true,
-     "last": "CORNER_LENS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/theatre_test.gd",
-     "ok": true,
-     "last": "THEATRE failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
-  "GYMLIFE2": {
+  "RIBS1": {
    "agent": "cursor",
-   "id": "GYMLIFE2",
-   "title": "TASK GYMLIFE2 - CURSOR (Grok 4.7 High) - the gym picture's three leftover faults: the shadow strip pops, walks cut corners, a person stands under a button",
+   "id": "RIBS1",
+   "title": "TASK RIBS1 - CURSOR (Grok 4.7 High) - the ribs take damage normally (the defect, before the redesign)",
    "status": "running",
-   "started": "2026-11-11T21:11",
-   "eta": "2026-11-11T23:01",
-   "branch": "cursor/gymlife2",
-   "worktree": "E:/FightCamp/wt/LEAN_GYMLIFE2",
-   "wt": "E:/FightCamp/wt/LEAN_GYMLIFE2",
-   "brief": "ops/research/TASK_GYMLIFE2.md",
+   "started": "2026-11-11T23:43",
+   "eta": "2026-11-12T01:33",
+   "branch": "cursor/ribs1",
+   "worktree": "E:/FightCamp/wt/LEAN_RIBS1",
+   "wt": "E:/FightCamp/wt/LEAN_RIBS1",
+   "brief": "ops/research/TASK_RIBS1.md",
    "repo": "FightCamp-Lean",
    "where": "pc",
-   "log": "E:/FightCamp/wt/GYMLIFE2_dispatch_out.txt",
-   "match": "seat_dispatch.py run gymlife2",
+   "log": "E:/FightCamp/wt/RIBS1_dispatch_out.txt",
+   "match": "seat_dispatch.py run ribs1",
    "model": "grok-4.7-high",
    "dispatch": {
-    "prompt": "E:/FightCamp/wt/GYMLIFE2_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/GYMLIFE2_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/GYMLIFE2_dispatch_runner.log",
+    "prompt": "E:/FightCamp/wt/RIBS1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/RIBS1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/RIBS1_dispatch_runner.log",
     "source": "command line",
     "brief_copied": true,
-    "runner_pid": 51424,
-    "seat_pid": 4956
+    "runner_pid": 51188,
+    "seat_pid": 3224
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }

@@ -1,5 +1,5 @@
 # FightCamp ops board snapshot for the project manager
-Taken 2026-11-11 10:14 at commit a1fe823c.
+Taken 2026-11-11 18:11 at commit c24db390.
 
 ## THE OPERATOR WRITES TO YOU DIRECTLY - answer these first, in section 0 TO THE OPERATOR
 - P12 (operator, 2026-10-17 03:22): OPERATOR S237 SCOPE CALL - read research/LOOP1_SCOPE_S237.md (on master). He wants ONE simple core loop and everything else switched off: fighter walks in -> goal with a deadline (e.g. a fight within a month) -> set training -> watch him train -> hire/assign a coach and watch them work -> gains and attrition meters (his BIG emphasis: the player must see when to change the plan) -> check progress vs the goal, small fixes for fatigue/stress -> light customers + equipment -> find the right opponent -> scouting/film/move learning -> the fight. No story for now. Paul: review the draft keep/off table, say what is wrong or missing, order the build into the smallest playable steps, name which seat builds each, and write the FOR LUDO section as the exact question for Ludo.

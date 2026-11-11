@@ -606,7 +606,8 @@
    "sent_ms": 1794393668110,
    "answered_at": "2026-11-11 13:10",
    "answer": "research/J_FIGHT_ANIM_TECH_S431_BRIEF_JOHN.md",
-   "chars": 23434
+   "chars": 23434,
+   "seen_by_claude": true
   }
  ]
 }

@@ -1531,6 +1531,48 @@
       "at": "2026-11-11 10:14",
       "text": "BOARD ANSWER Q-S294-179 - question: Two new design maps are written: the four-fighter start (with the guide pointing at a different training per fighter) and the amateur fight week (no camp). The rule says two fresh critics score each before it reaches you. Usage now: weekly 0% used, extra usage EUR 37.92 of 40. Run the critics? | answer: Show me the maps first, no critics | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
       "status": "waiting"
+    },
+    {
+      "id": "P212",
+      "from": "board",
+      "at": "2026-11-11 11:56",
+      "text": "BOARD ANSWER Q-S294-182 - question: The look, redrawn to match the gym screen (the gym screen itself is untouched): the Fighters page and one fighter's Profile, which is your body chart with Engine now Cardio. Wood stays only on the top bar, as on the gym screen. No new menu bar: the gym's pins stay the way around, a Gym button brings you back, every fighter has six tabs. Three judges scored the base 8, 7 and 8 of 10. Added beyond your six changes because all three judges asked: mood, a Cut button on the weight, four faces to step between fighters. Paint and build these two pages? | answer: Yes, paint and build both | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P213",
+      "from": "board",
+      "at": "2026-11-11 15:22",
+      "text": "BOARD ANSWER Q-S294-185 - question: Ludo painted your matched look (Q-182), 3 paintings a page, on 8787/review. Same layout and words; it adds a painted leather-and-wood backdrop, raised tabs and lamp glow (small numbers come out garbled in a painting: the game draws the real ones). Build to which painting? | answer: this looks nice i do not understand theoptions you are giving me though | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P214",
+      "from": "board",
+      "at": "2026-11-11 16:22",
+      "text": "BOARD ANSWER Q-S294-186 - question: Does a professional fighter keep the day job until they reach the top 10? | answer: No, full-time once pro | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P215",
+      "from": "board",
+      "at": "2026-11-11 16:22",
+      "text": "BOARD ANSWER Q-S294-187 - question: Should featherweight and middleweight get their own professional ranking tables in this version? | answer: Yes, both | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P216",
+      "from": "board",
+      "at": "2026-11-11 16:23",
+      "text": "BOARD ANSWER Q-S294-188 - question: Ana's own fight plan for the mat (the grappler's plan rules): this version or the next? | answer: This version | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P217",
+      "from": "board",
+      "at": "2026-11-11 18:11",
+      "text": "BOARD ANSWER Q-S294-190 - question: 'Paid seat' (an amateur trains six mornings a week for 4 weeks, $1,000) - you said 'gym sponsorship', and that a local sponsor paying the boxer is not right. Which is closer? | answer: Just rename it 'gym sponsorship', the club pays | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
     }
   ]
 }

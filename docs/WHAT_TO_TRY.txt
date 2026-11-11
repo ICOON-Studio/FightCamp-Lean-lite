@@ -1,3 +1,20 @@
+FIGHTCAMP - BUILD OF 2026-11-12 (S437): THE GLOVE TOUCH LOOSENED, THE RANK AFTER EVERY FIGHT
+================================================================================
+
+ NEW.
+  - The glove touch (your three marks: shoulders "not smooth", "neck looks wierd"): at the touch both boxers let their
+    shoulders down out of the guard and the neck comes back over the trunk. No fold between neck and shoulder.
+  - The rank a fight earned: the result page's WHY has a RANKING row ("Enters the rankings at number 6", "Now number 3,
+    up from 5; she passed ..."). A fighter's own page and the fighter cards always say where the boxer stands: a number,
+    or "Unranked: 1 win from entering."
+  - Landed body hooks arrive on the body (their contact time was re-measured: none landed off target in the test bout).
+ TRY: take a bout to fight night, watch the intro to the glove touch, play or skip the bout, read WHY on the result
+ page, then open the fighter's page (the line under the record).
+ KNOWN: the result page still says "Nothing lasting" after 21 body shots: the ribs do not take damage properly yet.
+ The fix is being built (both sides hit, a body shot that matters) and the deeper damage and recovery design is with
+ the critics. A lead hook and a jab can still land a hand's width off the face.
+ NOT IN THIS BUILD: the cast's voices (wired by Qwen, the lines not generated yet), the ribs fix, the damage redesign.
+
 FIGHTCAMP - BUILD OF 2026-11-11 (S436): THE FIGHT STARTS IN THE CORNERS, THE TALE OF THE TAPE IS THE VERSUS PICTURE
 ================================================================================
 

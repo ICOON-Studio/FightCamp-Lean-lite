@@ -2285,6 +2285,21 @@
       "seen_by_claude": "True",
       "claude_note": "S434: read. Marks 1-7 as C299; mark 8 = the Saturday morning card he changed (\"presentation can be improved\"): a changed card gets a \"your change\" ribbon, the coach's old session faded behind it, its effect on the card (+Stamina, +Fatigue), the same layout as the week. Applied in a follow-up pass after the v2 redraw.",
       "addressed": "cited by 7b695d1d 2026-11-11"
+    },
+    {
+      "id": "C302",
+      "path": "media:_sent/2026-11-11_2229_glove_touch_corrected_pose/07_touch.png",
+      "text": "MARKUP: 3 marks -> Feedback/2026-11-11-17/README.md",
+      "at": "2026-11-11T21:01:24Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 4042d37a 2026-11-11"
+    },
+    {
+      "path": "_sent/2026-11-11_2205_tale_of_the_tape_as_it_is_in_the_game_to/tape_today.png",
+      "text": "no",
+      "at": "2026-11-11T21:04:02Z",
+      "seen_by_claude": true,
+      "id": "C303"
     }
   ]
 }
