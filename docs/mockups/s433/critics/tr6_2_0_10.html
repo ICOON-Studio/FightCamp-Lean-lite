@@ -1,0 +1,179 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Training 10/10 (S&C critic)</title>
+<style>
+:root{--bg:#17130f;--panel:#231d17;--panel2:#2c241c;--line:#4a3d2f;--ink:#f1e6d4;--dim:#b9a88f;--gold:#f2c14e;--green:#7ccf6a;--red:#ec6a5c;--amber:#f39a3c;--blue:#6aa8ec;--violet:#b48cf0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--ink);font:20px/1.25 "Segoe UI",Arial,sans-serif}
+.top{height:60px;background:#2a1f16;border-bottom:2px solid #000;display:flex;align-items:center;padding:0 20px;gap:22px}
+.gym{font:700 28px "Segoe UI";color:var(--blue);font-style:italic}
+.top .date{color:var(--dim)}
+.cash{margin-left:auto;color:var(--gold);font-weight:700;font-size:24px}
+.btn{background:#3a2c1f;border:1px solid #6b5640;border-radius:6px;padding:6px 14px}
+.go{background:var(--gold);color:#201608;font-weight:700;border-radius:6px;padding:8px 18px}
+.tabs{position:absolute;top:70px;left:20px;display:flex;gap:6px}
+.tab{background:#26324a;color:#cfe0ff;padding:6px 14px;border-radius:6px}
+.tab.on{background:#3d6fb8;color:#fff;font-weight:700}
+.head{position:absolute;top:70px;left:720px;right:20px;height:44px;display:flex;gap:18px;align-items:center;justify-content:flex-end}
+.chip{white-space:nowrap;background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:5px 12px}
+.p{position:absolute;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+h2{font-size:22px;color:var(--gold);letter-spacing:1px;margin-bottom:6px}
+h2 small{color:var(--dim);font-weight:400;letter-spacing:0;font-size:20px}
+.dim{color:var(--dim)} .g{color:var(--green)} .r{color:var(--red)} .a{color:var(--amber)} .b{color:var(--blue)} .v{color:var(--violet)} .y{color:var(--gold)}
+.row{display:flex;justify-content:space-between;gap:10px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:3px 6px;text-align:left;white-space:nowrap}
+th{color:var(--dim);font-weight:400}
+.cell{border:1px solid var(--line);border-radius:6px;padding:4px 6px;background:var(--panel2);height:72px;overflow:hidden}
+.cell.warn{border:2px solid var(--amber)}
+.cell.gold{border:2px solid var(--gold)}
+.grid{display:grid;grid-template-columns:52px repeat(7,1fr);gap:5px;align-items:stretch}
+.lab{color:var(--dim);display:flex;align-items:center}
+.dname{text-align:center;color:var(--gold);font-weight:700}
+.cards{display:flex;gap:10px}
+.card{flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.card.on{border:2px solid var(--gold)}
+.big{font-size:26px;font-weight:700}
+.gate td{padding:2px 6px}
+</style></head><body>
+<div class="top">
+  <span class="btn">&lt;</span><span class="gym">Anvil Street Gym</span><span class="date">Mon 16 Feb 2026 · Week 7</span>
+  <span class="btn">Mail (2 new)</span>
+  <span class="cash">$12,940</span>
+  <span class="go">CONTINUE to Mon 23 Feb</span>
+</div>
+<div class="tabs"><span class="tab">Profile</span><span class="tab">Condition</span><span class="tab on">Training</span><span class="tab">Playbook</span><span class="tab">Fight plan</span><span class="tab">Character</span></div>
+<div class="head">
+  <span style="font:700 28px 'Segoe UI';white-space:nowrap">SAMIRA KHAN</span>
+  <span class="chip">18 · out-boxer</span>
+  <span class="chip">Stamina 63 by 13 Mar · <span class="a">close</span></span>
+  <span class="chip">vs Kayleigh Bell · <b>Sat 28 Feb</b></span>
+</div>
+
+<!-- LEFT: the camp as a periodised chart -->
+<div class="p" style="top:124px;left:20px;width:620px;height:430px">
+  <h2>THE CAMP TO THE REGIONAL <small>· volume bars, intensity line</small></h2>
+  <svg width="588" height="270" viewBox="0 0 588 270">
+    <line x1="40" y1="20" x2="580" y2="20" stroke="#4a3d2f" stroke-dasharray="4 4"/>
+    <text x="0" y="26" fill="#ec6a5c" font-size="20">120</text>
+    <line x1="40" y1="110" x2="580" y2="110" stroke="#4a3d2f" stroke-dasharray="4 4"/>
+    <text x="0" y="116" fill="#b9a88f" font-size="20">80</text>
+    <!-- bars: work per week -->
+    <g fill="#6aa8ec">
+      <rect x="50" y="62" width="44" height="158"/>
+      <rect x="117" y="140" width="44" height="80" fill="#8a7a64"/>
+      <rect x="184" y="190" width="44" height="30" fill="#ec6a5c"/>
+      <rect x="251" y="150" width="44" height="70" fill="#8a7a64"/>
+      <rect x="318" y="48" width="44" height="172" fill="#7ccf6a"/>
+      <rect x="385" y="40" width="44" height="180" fill="#7ccf6a"/>
+      <rect x="452" y="130" width="44" height="90" fill="#b48cf0"/>
+      <rect x="519" y="150" width="44" height="70" fill="#b48cf0"/>
+    </g>
+    <!-- intensity line -->
+    <polyline points="72,140 139,170 206,60 273,175 340,95 407,80 474,55 541,50" fill="none" stroke="#f2c14e" stroke-width="4"/>
+    <g fill="#f2c14e"><circle cx="474" cy="55" r="6"/><circle cx="541" cy="50" r="6"/></g>
+    <text x="198" y="182" fill="#ec6a5c" font-size="20">bout</text>
+    <g fill="#f1e6d4" font-size="20">
+      <text x="48" y="246">BASE</text><text x="119" y="246">FW</text><text x="186" y="246">28F</text><text x="252" y="246">REST</text>
+      <text x="320" y="246">SPEC</text><text x="387" y="246">SPEC</text><text x="452" y="246">SHRP</text><text x="519" y="246">SHRP</text>
+    </g>
+    <text x="250" y="268" fill="#b9a88f" font-size="20">volume falls, intensity holds</text>
+  </svg>
+  <div class="row" style="margin-top:4px"><span>Readiness on 4 Apr</span><span class="g big">PEAKED</span></div>
+  <div class="row"><span class="dim">Tank 97 · speed and snap fresh · never over 80</span><span class="y">3 of 3 lines</span></div>
+</div>
+
+<!-- LEFT BOTTOM: the load cards -->
+<div class="p" style="top:566px;left:20px;width:620px;height:300px">
+  <h2>THIS WEEK'S LOAD <small>· BASE block · aim Footwork</small></h2>
+  <div class="cards">
+    <div class="card"><b>Easy</b><div class="dim">64%</div><div>FW 58</div><div class="g">inj 0.6</div></div>
+    <div class="card"><b>Normal</b><div class="dim">82%</div><div>FW 58</div><div>inj 1</div></div>
+    <div class="card on"><b>Hard</b><div class="dim">106%</div><div class="g">FW 60</div><div class="a">inj 2</div></div>
+    <div class="card"><b>Sharpen</b><div class="dim">47%</div><div>FW 58</div><div class="g">inj 0.5</div></div>
+  </div>
+  <div style="margin-top:10px">Hard on Footwork: <span class="g">Jab and move turns Good</span> by 16 Mar</div>
+  <div class="dim">On the night: <span class="y">+2.4 exchanges won</span> vs Normal (measured)</div>
+  <div class="dim">Samira asks to ease Hard · overrule: mood -5</div>
+</div>
+
+<!-- MIDDLE: the week grid with interference and specific sparring -->
+<div class="p" style="top:124px;left:654px;width:700px;height:430px">
+  <h2>THE WEEK <small>· the order of sessions matters</small></h2>
+  <div class="grid">
+    <div></div><div class="dname">MON</div><div class="dname">TUE</div><div class="dname">WED</div><div class="dname">THU</div><div class="dname">FRI</div><div class="dname">SAT</div><div class="dname">SUN</div>
+    <div class="lab">AM</div>
+    <div class="cell">Slip<br><span class="dim">Normal</span></div>
+    <div class="cell gold">Feet<br><span class="g">Hard</span></div>
+    <div class="cell">Road<br><span class="dim">Normal</span></div>
+    <div class="cell warn">Lift<br><span class="a">x0.8</span></div>
+    <div class="cell gold">Feet<br><span class="g">Hard</span></div>
+    <div class="cell">Shadow<br><span class="dim">Light</span></div>
+    <div class="cell">Rest</div>
+    <div class="lab">PM</div>
+    <div class="cell">Pads<br><span class="dim">75 min</span></div>
+    <div class="cell">Pads<br><span class="dim">75 min</span></div>
+    <div class="cell warn">Spar<br><span class="a">Hard</span></div>
+    <div class="cell">Rest</div>
+    <div class="cell">Pads<br><span class="dim">75 min</span></div>
+    <div class="cell">Rest</div>
+    <div class="cell">Rest</div>
+  </div>
+  <div style="margin-top:12px" class="a">Thu: lifting the morning after hard sparring: Strength gain x0.8</div>
+  <div class="dim">Swap Thu and Sat mornings: <span class="g">Strength +0.3 back</span>, peak tiredness same</div>
+  <div style="margin-top:8px">Wed sparring: <b>Lucy boxes like Kayleigh</b> (counter)</div>
+  <div class="dim">Specific sparring: <span class="g">Timing x1.2</span> · tape tell 1 in 3 · head contact 6</div>
+  <div style="margin-top:8px">Rules: <span class="g">72+ no Hard</span> · <span class="g">hard spar: rest</span> · <span class="g">3rd hand day</span></div>
+</div>
+
+<!-- MIDDLE BOTTOM: abilities, only what moves the night -->
+<div class="p" style="top:566px;left:654px;width:700px;height:300px">
+  <h2>WHAT MOVES THE NIGHT <small>· sorted by what Kayleigh tests</small></h2>
+  <table>
+    <tr><th></th><th>now</th><th>by 4 Apr</th><th>the next line</th></tr>
+    <tr><td>Footwork</td><td>57</td><td class="g">60 fast</td><td>Jab and move Good at 62</td></tr>
+    <tr><td>Timing</td><td>58</td><td class="g">61 fast</td><td>Draw the lead Good at 62</td></tr>
+    <tr><td>Stamina</td><td>62</td><td>64 slow</td><td>output holds in round 3</td></tr>
+    <tr><td>Recovery</td><td>50</td><td>53 fast</td><td>refill +4 a minute</td></tr>
+    <tr><td>Strength</td><td>50</td><td>52 fast</td><td>lifts the Explosiveness cap</td></tr>
+    <tr><td>Durability</td><td>55</td><td>55 kept</td><td class="a">head contact 33 of 48</td></tr>
+  </table>
+</div>
+
+<!-- RIGHT: on the night -->
+<div class="p" style="top:124px;left:1368px;width:532px;height:430px">
+  <h2>ON THE NIGHT <small>· what conditioning buys</small></h2>
+  <table>
+    <tr><th>round</th><th>1</th><th>2</th><th>3</th></tr>
+    <tr><td>Energy, Normal</td><td>95</td><td>71</td><td class="a">49</td></tr>
+    <tr><td>Energy, Hard on Stamina</td><td>95</td><td>75</td><td class="g">57</td></tr>
+    <tr><td>Punches thrown</td><td>48</td><td>46</td><td class="g">44 (38)</td></tr>
+    <tr><td>Guard holds</td><td>yes</td><td>yes</td><td class="g">yes (drops)</td></tr>
+  </table>
+  <div style="margin-top:10px">Round 3 on Hard on Stamina:</div>
+  <div class="g big">+1.6 exchanges won</div>
+  <div class="dim">numbers in brackets: on Normal</div>
+  <div style="margin-top:8px">Knockdown, Recovery 53: <span class="g">up at 6</span> (at 8)</div>
+</div>
+
+<!-- RIGHT BOTTOM: weight and the water, with the Durability price -->
+<div class="p" style="top:566px;left:1368px;width:532px;height:300px">
+  <h2>WEIGHT <small>· 65.0 class · day-before scale</small></h2>
+  <div class="row"><span class="big">65.9</span><span><span class="chip">Hold</span> <span class="chip" style="border-color:#f2c14e">Lean</span> <span class="chip">Cut</span></span></div>
+  <table style="margin-top:8px">
+    <tr><th>plan</th><th>Tank</th><th>Durability</th></tr>
+    <tr><td>Lean, no water</td><td>97</td><td class="g">55</td></tr>
+    <tr><td>Hold + 0.9 kg water</td><td class="a">93</td><td class="a">53 night</td></tr>
+    <tr><td>Cut 3 weeks</td><td>97</td><td class="g">55</td></tr>
+  </table>
+  <div class="dim" style="margin-top:6px">Cut costs mornings x0.9 for 3 weeks</div>
+</div>
+
+<!-- BOTTOM: the measured gate and buttons -->
+<div class="p" style="top:878px;left:20px;width:1880px;height:120px">
+  <h2>MEASURED, NOT GUESSED <small>· 400 bouts a cell, on the fixed engine</small></h2>
+  <div class="row"><span>Hard vs Normal on a fast row: <span class="g">+2.1 pts</span></span><span>Base before Specific: <span class="g">+1.8 in 100</span></span><span>Stamina block: <span class="g">+3.4 in 100</span></span><span>You vs Coach runs it: <span class="g">+5 in 100</span></span></div>
+</div>
+<div style="position:absolute;top:1010px;left:20px;right:20px;display:flex;gap:14px;justify-content:flex-end">
+  <span class="btn">Back to Coach's week</span><span class="btn">Coach runs Samira</span><span class="btn">Season so far</span><span class="go">Back to Club week</span>
+</div>
+</body></html>

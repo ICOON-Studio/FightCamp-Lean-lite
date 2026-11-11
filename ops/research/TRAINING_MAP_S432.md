@@ -387,7 +387,7 @@ already under it buy, so 63.8 is never worth nothing. Words are the game's: "hel
 | HARD | Composure, Inside, Fight IQ | a hidden habit 1 in 3, a trait 1 in 2 (WEEK) | 6 rounds |
 | TECHNICAL | Timing, Defence, Fight IQ | a hidden habit 1 in 5, a trait 35 in 100 (CODE) | 3 |
 | BODY ONLY | Inside, Stamina, body punches; a ribs day (T19) | a hidden habit 1 in 10 | 0 |
-- PARTNER LEVEL (NEW): 5 or more above teaches x1.2, 5 or more below x0.8 (a chip on the pair picker; the cell reads "Lucy, technical"). SPARLEVEL1.
+- PARTNER LEVEL (NEW): 5 or more above teaches x1.2, 5 or more below x0.8 (a chip on the pair picker; the cell reads "Spar: Lucy · technical"). SPARLEVEL1.
 
 ### T5, T6, T7. HABITS, OWN TAPE, THE PERSON (kept; C19)
 - HABITS in your pad places: THERE (6 power where punished, CODE) -> HALF FIXED after 3 -> GONE after 3 more; coachability under 40 one more a step,
@@ -660,7 +660,7 @@ Cursor brief; every row that fails makes its cut, and the drawing loses that pan
 | tr6_1_0 6: trainability per group | T38 (on Known's three groups, C12; the five profile groups REJECTED) |
 | tr6_1_0 7: head contact over a season | T39, T34, T4 |
 | tr6_1_0 8: the professional's water | T8 (day-before scale only, priced by T8's own Tank row) |
-| tr6_1_0 9: draw the quiet states, Lucy and Ana; clipped cells; 20 px | section 11 step 4; the drawing's cells re-cut (Lucy's cell reads "Lucy, technical") |
+| tr6_1_0 9: draw the quiet states, Lucy and Ana; clipped cells; 20 px | section 11 step 4; the drawing's cells re-cut (the sparring cell reads "Spar: Lucy · technical") |
 | tr6_1_0 10: Ana's mat on the same rules; BJJCLASS1 | 8c |
 | tr6_1_0 slips: "Learning" not "Raw"; which shares the F2b test reads | WORDS line; section 0's shares table in two columns |
 | tr6_1_1 1: make the load felt; PACE1 pass line; where Hard pays most | T1, F7 PACE1. The SLOW row's +1 as a cut trigger: REJECTED |

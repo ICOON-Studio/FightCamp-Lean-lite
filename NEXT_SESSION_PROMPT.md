@@ -17,7 +17,13 @@ workflows: ~6M agent tokens moved all-models 42 -> 45 %. After the reset: Fable 
 - Q-188 "This version": Ana's mat plan -> MATPLAN_MAP_S433.md by the S433 workflow (see section 0).
 - OPEN: Q-189 (E:\FightCamp\tmp, 54 GB of old render scratch: may I delete the S38x/S39x folders?). E: is 91 % used.
 
-## 0. DESIGN (S433 workflow wf_5d283e05-ac0: training v6 + mat plan, each to two fresh critics at 7+, then CORE_LOOP updated)
+## 0. DESIGN - DONE: training v6.1 PASSED (round 2, fresh critics 7 and 7; round 1 was 7 and 6.5), Ana's mat plan PASSED (7 and 7),
+CORE_LOOP_MAP_S432 updated with Q-186/187/188 (all on main e197e709). So the Training tab and the training rule modules (STEP 2
+Training group) are unblocked, and the mat plan's build tasks are in CORE_LOOP section 5. Critics' lists to 10 in
+docs/mockups/s433/critics/tr6_2_*_review.md and mp_1_*_review.md (top asks: run the gate table PACE1/DOSE1/BLOCKORDER1/SEASON1,
+make conditioning show on fight night, put the training cost on the bout offer).
+Q-189 answered "Yes, delete them": 28 GB deleted, E: 86 % used; the kept verdict film is in E:/FightCamp/kept_from_tmp.
+(Older note follows.)
 STILL RUNNING at handover (it may die with this session): read the files it wrote (TRAINING_MAP_S432.md v6,
 MATPLAN_MAP_S433.md, docs/mockups/s433/critics/*_review.md, CORE_LOOP_MAP_S432.md) and its journal:
 C:\Users\user\.claude\projects\E--FightCamp-Lean\2dbac187-b6a1-426d-a690-60d40dea7f3f\subagents\workflows\wf_5d283e05-ac0\journal.jsonl)
@@ -37,7 +43,8 @@ C:\Users\user\.claude\projects\E--FightCamp-Lean\2dbac187-b6a1-426d-a690-60d40de
 - E: 11 idle worktrees retired (~7 GB), all clean and pushed, salvage in E:\FightCamp\wt_salvage.
 
 ## 2. RUNNING / QUEUED (yours to collect: review + verify workflow FIRST, then diff + tests)
-- REST1 COLLECTED on main 6fa2b52b. Running: CEIL14 (Qwen), STANDDOWN1 (Antigravity, the pure module), DUESWIRE1 (Cursor).
+- REST1 COLLECTED on main 6fa2b52b (PR 203 closed). LANDED, READY TO COLLECT: PR 204 STANDDOWN1, PR 205 CEIL14, PR 206 DUESWIRE1.
+- Foundation branch claude/foundation-s433 is pushed (CARDIO1 f4e4c697 at handover; NOCAMP1 and PUNCHSTART1 may follow).
 - Queued (dispatch_queue / plan.next, launch themselves): HUMANFIGHT2B (Cursor, THE animation item, after DUESWIRE1),
   KNOWN0, CORNERFACE2, DUESSUMS3B (Qwen).
 - Claude foundation workflow wf_8d940da9-fe1: CARDIO1 (F3), NOCAMP1+TANK1 (F5), PUNCHSTART1 (F7) built one after

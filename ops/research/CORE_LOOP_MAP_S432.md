@@ -1,12 +1,14 @@
-# CORE LOOP: the six S432 maps joined into one loop (S432, integration)
+# CORE LOOP: the S432 maps and the S433 mat plan joined into one loop (S432 integration, updated S433)
 
 The operator's ask (S432): review and strengthen everything that drives the loop (building the fighter and the coach, the playbook, training, and how
 they decide the fight) and, before building, decide whether the mechanics for this version are done.
-Read whole: CLUBWEEK v4.1 (CW), RPG layer v3 (RPG), HYPE v1 (HY), PLAYBOOK (PB), TRAINING v5 (TR), FIGHT LINK v3 (FL), the club week VERDICT, the twelve
+Read whole: CLUBWEEK v4.1 (CW), RPG layer v3 (RPG), HYPE v1 (HY), PLAYBOOK (PB), TRAINING v5 (TR; v6.1 since S433), FIGHT LINK v3 (FL), MAT PLAN v1 (MP, S433), the club week VERDICT, the twelve
 final critic reviews (v4_*, rpg3_*, hype_*, pb2_*, fl3_*, tr5_*), CRITIC_PACK, CRITIC_ACCESS, and the approved paintings (docs/mockups/s432/ludo, painting 1;
 words from docs/mockups/s431/final/squad.html and overview.html). Code checked where maps disagree (listed in section 2).
 Drawn: `docs/mockups/s432/core_loop.html` / `.png` (the loop on one page). Game text never says he, she, her or him. "You" is the head coach (the player);
 "Coach" is the hired assistant coach.
+S433: training v6.1 passed (7, 7); Ana's mat plan v1 (MP, `MATPLAN_MAP_S433.md`) passed (7, 7); the owner's three answers are in: Q-186 "No,
+full-time once pro" (C31), Q-187 featherweight and middleweight professional tables "Yes, both" (C32), Q-188 Ana's mat plan "This version" (C33).
 
 ## 1. THE LOOP IN ONE PAGE
 | Station | The player decides | What flows to the next station |
@@ -27,6 +29,10 @@ Data.START_MOVE_SHARE (uppercut and check hook 0), Knockdowns (stop_mult read on
 puncher_chance never reads it), FighterGoal (writes a trust_delta nothing reads), FighterProfile.trust (reads morale), PerkRoad needs (already the 14
 abilities), Combos.spend_factor / refill (read the old conditioning mean, passed from BoutNight 302 and BoutRead 187), Exchanges.round_of and
 BoutRules.scorecards, Exchanges.FULL_SHOUTS 2, CornerJobs.RECOVER_POINTS 3; Knowledge.gd is called by no script; LiveRound.gd 494 lines, BoutRead.gd 497.
+S433 also: Roster.turn_pro (240) leaves f["day_job"] set, so GymSpend.gain keeps DAY_JOB_GAIN x0.85 on a professional; ProLadder.division_for (39)
+picks the world table by limit over 62 kg, so a featherweight professional lands on the lightweight table and a middleweight on the welterweight;
+assets/data/world/divisions.json holds four tables (women's and men's lightweight and welterweight); WorldLadder._weight (463) and WorldCompare (247)
+know only "lightweight" and "welterweight".
 | # | The conflict | The one decision | Maps that change |
 |---|---|---|---|
 | C1 | The bond: loyalty (CW, RPG), "trust +25" on a goal (TR T25, FighterGoal), "you sold me" (HY), the towel's answer (FL) | LOYALTY (0-100) is the bond, the only one. MOOD is this week (morale; its corner uptake is the code's FighterProfile.trust). FighterGoal's dead trust_delta is deleted; a goal moves mood (code) and a met season target moves loyalty (CW). Every other price on a person names loyalty or mood | TR T25; code FighterGoal |
@@ -59,6 +65,9 @@ BoutRules.scorecards, Exchanges.FULL_SHOUTS 2, CornerJobs.RECOVER_POINTS 3; Know
 | C28 | The pro offer and the club's share, set in three maps | One function each: Roster.check_pro reads CW's rule, HY's Hot (one win sooner) and SHIELD's PROTECTED (one more); the share reads the loyalty band (under 50: 10%) and HY's manager line (60 if LET IT RIDE) | none |
 | C29 | The luck knob (FL 2.2 FORM_SD) is on the small term (engine critic: the 18 exchange dice dwarf form) | LUCK over 20 in the target: EX_SPREAD 66 -> 58 first, FORM_SD only for form. The corner's best call 17 -> 12 now (its size is known too big); LEVERS1 sets the final number | FL 2.2, M10 |
 | C30 | THE COUNT card names an exchange and a minute the code never rolls (both FL critics) | Counts move into the exchange stream (KDEXCH1, section 5): a hurt exchange rolls the count from power against chin and damage carried, the round's total chance kept (KDRATE2). Until it lands the card names the round only | FL M12 |
+| C31 | The professional's day: CW 3.3 kept a professional under the top 10 on the job rota (with CAMP LEAVE, CW 3.9); the code keeps day_job after turn_pro | Q-186 "No, full-time once pro": an AMATEUR keeps the job rota (dim "at work" mornings; a paid seat frees six); a PROFESSIONAL trains full time from the debut: every morning free, no job row, no camp leave. Counted once: DAY_JOB_GAIN x0.85 retires when JobRota lands; until then turn_pro clears day_job (CAMPLOAD1) | CW 3.3, 3.9, 12; TR 5b (done) |
+| C32 | Professional tables: four in the world data; the start has four fighters in four weight classes (S428) | Q-187 "Yes, both": EIGHT professional tables, women's and men's featherweight, lightweight, welterweight, middleweight, each about 20 ranked with belts as now; the amateur class maps to its table by NAME, never by kg (PROTABLES1) | CRITIC_PACK 4.14 |
+| C33 | Two fight plans: the boxers' (PB) and the grappler's (MP) | One page logic and one set of words: lines on places, rated BEATS IT / WORKS / WALKS INTO IT, priced, a receipt after; Push / Steady / Save (MP's scoreboard rows); the Tank (C2); Coach's draft with your changes in gold; ON THE MATS beside ON THE PADS; the corner's grade by replay on the same dice (the Why's words). Units (C13): a mat choice in points and beats of the match, chances in 100. The grappler's Fight plan tab is MP's MatPlanPanel; the boxers' tab is PB's | PB; MP; FL M11; TR 8c |
 
 ## 3. THE PAGES (each built once; [map] says where its content comes from)
 FIGHTERS PAGE, approved (painting 1, `ludo/fighters_paint-v1.png`, words of `s431/final/squad.html`). Exactly:
@@ -98,26 +107,32 @@ TRAINING: header (goal on an ability, Recovery's clear rate, the direction); the
 (four buttons, work and clock, this week and the block to the target, the fighter's ask); the week grid (session, pace, who coaches with the lift, reason;
 your changes gold; shared slots locked "change on Club week"; alone cells at the mood rate); abilities sorted by worth against the booked opponent with
 room, next line, trend and the dose that keeps them; pad places (dates, fire share, the habit with its hand); <DAY>: WHAT THIS WEEK BUYS (the week's
-part of YOU AGAINST COACH); the 13 days to the bell; weight with the weigh-in's hour [TR 8, CW 3.7]. Built only after training v6 passes (section 4).
+part of YOU AGAINST COACH); the 13 days to the bell; weight with the weigh-in's hour [TR 8, CW 3.7]. A professional's grid has no job row (C31); Ana's
+tab is the class kinds with FILM and "THE OPEN: WHAT THIS WEEK BUYS" [TR 8c, MP 4.8]. Training v6.1 passed (section 4); built after its stills (TR 11.4).
 PLAYBOOK (Moves, Combos) and FIGHT PLAN: Moves with each move's two attributes and the grade; Combos with fit rows, place, exposure, fire share, record and
 "Put in the plan" [PB 6]. Fight plan: header with THE THREE PLACES strip, WHERE and its price [FL M3, M5]; the lines (where with x of 18, round pips only when
 not all, read, grade, suit, fires, price chips, worth in exchanges a bout, a range while a tell is hidden, IF READ); ROUND BY ROUND with pace per phase
 and the Tank forecast; the opponent's game; THE LINE (the evidence); the last receipt; the plan's part of YOU AGAINST COACH; Test it, Real plans that
 fit, Map, Coach's draft with your changes marked (pb2_player) [PB 5, C7, C10, C13, C14].
+ANA'S FIGHT PLAN (the grappler's tab, MatPlanPanel): the A-game strip with the OPENING; the lines (where with beats of 27, line and timing, read vs the
+opponent, grade, level, price chips, chance, worth); the hand by belt; THE SCOREBOARD rows Level / Ahead / Behind; the opponent's file with FILM; where
+the match goes; THE LINE; the last open's receipt; plan against Coach's; Coach's draft, Systems, Test it in Sunday's roll [MP 5, 6, C33].
 CHARACTER: the loyalty bar with bands and the forecast; what they want (ambition against the season target); marks; the perk pick priced on the next three
 names (in exchanges, ranges); traits with their next line and the button that moves it; Known by group with "N more sessions with you"; the direction;
-what your picks won (exchanges and rounds turned); who decides this fighter's fights (FL M1); a waiting moment card [RPG 15, FL M1].
+what your picks won (exchanges and rounds turned; for Ana, mat plans in points and matches turned, MP 4.7); who decides this fighter's fights (FL M1); a waiting moment card [RPG 15, FL M1].
 CROWD: the hype gauge (buzz solid, heat striped, band word), the 12-week line, what moved it, fans with "+N on a home win", receipts and costs as tiles, the
 stance (Sell, Shield), the call-out; no Entertain buttons, no clip button [HY 6, C7, C25].
 HISTORY: each bout with its scales and count card, marks beside the bouts that made them, CHAMPION at the season's end [FL M1, RPG 9].
 CLUB WEEK: the season strip; counters in one unit (asked, covered, short) for pad places, coached mornings, Coach's evenings (pads or class with the cash),
-the seat, favours, the trial mat; a row a fighter: role badge, mood word, loyalty bar with forecast, seat or job, diet cell, load chip, tiredness, pulls
+the seat, favours, the trial mat; a row a fighter: role badge, mood word, loyalty bar with forecast, seat or job (amateurs only, C31), diet cell, load chip, tiredness, pulls
 with size ranges in their own colours, seven days with the pair picker and setting, the crowd cell, direction and captain chips, moment cards with coin
 tags; the talk card; PROMISES OPEN; the twist; your deal against Coach's; three deal buttons; Start week [CW 6, RPG 15, HY 6, TR 8, C17].
 CLUB > YOU and CLUB > PEOPLE: your level, experience by outcome, the either/or pick with BEST FOR, the road, your style in this squad's numbers, what your picks
 won, Known per fighter, the squad; Coach's card with evenings as pads or class, the signature drill, the raise [RPG 15, CW 6].
 FIGHTS, THE SHEET AND THE BILL: the sheet's three cards (win chance, rank, pay or travel, fans, stoppage risk, file, the strip line, the judges' leans known or
-"?", the Tank of the other corner when known, hype on the cut) and Ana's open; the professional's three offers [CW 6, FL 7, HY 6]. THE BILL (one page): the scale
+"?", the Tank of the other corner when known, hype on the cut) and Ana's open (bracket names, file dots, "Plan for R1: ready / Coach's draft", MP 6);
+the professional's three offers [CW 6, FL 7, HY 6]. OPEN NIGHT (Ana): YOUR PLAN in one line; between bouts ONE CHANGE or WATCH THE OTHER SEMI;
+the result's line receipts and the corner's word [MP 4.9, 6]. THE BILL (one page): the scale
 (eat less, train it off, a kilo); Coach's evenings before the bout; film; bring 4 lines; both Tanks at the first bell; the scales' forecast rows in
 exchanges; WHERE and the pace (links to the Fight plan); the towel line; your prediction; YOU AGAINST COACH with its three parts; Take / Coach runs it / Pass.
 FIGHT NIGHT: tale of the tape (readiness word in exchanges, leans, WHERE, the towel line, the crowd line, Begin); the round (shouts, pace and aim, the live
@@ -128,8 +143,9 @@ reason each, THE COUNT when one came, what you did to them, the rank earned, fan
 stand-down day; the Why in one line. Money lines go to Home and Money [FL M1, PB 4.11, HY 6, CW 6].
 WEEK REVIEW (Monday, a need on Home, never a pop-up): whole points with causes, lines crossed, fades, habits moved, who went short and its loyalty price,
 experience by outcome, traits crossing lines, hype moves, "your choices this month: +N exchanges; Coach's week would have given +M" [all six].
-HOME: needs only, one line a fighter, the next fight. PRO OFFER: the debut's tickets from fans and hype, the $1,105, the share by loyalty, cash it in or not
-yet with each path's expected club money and the manager risk priced inside it (hype designer) [CW 6, HY 6].
+HOME: needs only, one line a fighter, the next fight. PRO OFFER: the debut's tickets from fans and hype, the $1,105, the share by loyalty, what ends (the
+stipend and the day job: full time from the debut, C31), cash it in or not yet with each path's expected club money and the manager risk priced inside
+it (hype designer) [CW 6, HY 6]. WORLD > RANKINGS: the professional table of each division the gym has a professional in, eight in all (C32).
 
 ## 4. MECHANICS COMPLETE FOR THIS VERSION
 | Track | Final scores | Verdict |
@@ -139,20 +155,13 @@ yet with each path's expected club money and the manager risk priced inside it (
 | Hype (HY v1) | 7, 7 | YES, with C7, C16, C24, C25, YOUR WORD (calls landed this season scale the next call's heat) and WHO CARRIES A LOSS (On me / On the fighter on the Why after a hyped loss) |
 | Playbook (PB) | 7, 7 | YES, with C8 to C14; the price built in the exchange (LinePrice into the round's cost and the opponent's landed punches); worth in exchanges with ranges while a tell is hidden; Coach's draft for every booked boxer with your changes marked and "keep last plan, re-rated"; HOLDS THE PLAN (fire share x0.7 hurt, x0.8 under Tank 40, Composure gives it back) |
 | Fight link (FL v3) | 7, 7 | YES, with C26, C29, C30, the amateur / professional rule branch (C8), and a referee's book left for later (section 6) |
-| Training (TR v5) | 6.5, 7 | NOT YET |
-WHAT TRAINING AT 6.5 MEANS FOR THE BUILD. The set is closed for five tracks; nothing new enters them, the probes only cut. Training's foundations F1 to F6
-are defects in today's code, so they are built first anyway and do not wait. The Training tab and the training rule modules (TrainWeek.run, Detrain, OppTests,
-Niggle, TrainAround, HabitWork, SeasonStrip, Sharpen) are NOT briefed until a v6 passes two fresh critics at 7 or more. v6 is these five changes and nothing else:
-1. DOSE1, the load buys fitness: a dose-response term so a Hard block buys at least 1.6 times Normal's points on the abilities it doses (unit test across
-   7 weeks; PACE1 sets the constant). Today Hard against Normal over the block differs by about 0.06 Stamina (tr5_perf, from the code's rule).
-2. NO DEAD ZONE: the Tank gets a freshness slope under tiredness 50 (ESTIMATE 0.3 a point from 20; FITLEGS1 sets or cuts it), at most 25 off as now. Sharpen
-   earns "sharp" (readiness +1) and the 7-day Speed and Explosiveness fade does not run inside a fight week or a deload.
-3. STAMINA IS CONTINUOUS: spend_factor on Stamina, refill on Recovery (C3); the round-3 fade a slope 0.25 x (64 - Stamina), 0 to 2; a call's OK-to-Good step
-   spread across 56 to 62. The row prints what a point below a line still buys.
-4. THE CAMP IS THE LOAD (C15).
-5. A CAREER ARC: CEILINGSHIFT (C23) and the build direction on the Training header (C22); draw Lucy's camp and Ana's mat on the frame (TR 8b).
-Also fix TR's wrong usual-load arithmetic (Hard at about 129 reaches 102 in two weeks, 110 in four) and remove drawn sizes in wins in 100 until their probes report.
-MECHANICS DONE: YES for this version once training v6 passes. Building starts now with section 5 steps 0 to 2; only the training screens wait.
+| Training (TR v6.1) | 7, 7 (2 rounds in S433: v6 7 / 6.5, v6.1 7 / 7; tr6_2_0, tr6_2_1) | YES: v6's five changes (the load buys fitness, no dead zone, Stamina continuous, the camp is the load, a career arc) plus blocks that build (T35), two engines (T36), morning rules (T37), response and age (T38), head contact (T39), the professional's last day's water (T8), the goal in four bands (T25), Hard aimed where it pays (T1), Ana on the same rules (8c), the gate table before any pixel (TR 10), full time once professional (5b, C31) |
+| Ana's mat plan (MP v1, MATPLAN_MAP_S433) | 7, 7 (mp_1_0, mp_1_1) | YES, with two fixes from the critics folded into their tasks: the improviser's pin value for both sides in M4 before MATPLAN0 runs (an unlined pin tries escapes at a sane rate; GAMETREE bands kept), and the defender's hand-fighting stack counted in every chance, so M3's worked numbers are what the walk plays |
+WHAT PASSING MEANS FOR THE BUILD. The set is closed for all seven tracks; nothing new enters them, the probes only cut. Training's rule modules and the
+Training tab are UNBLOCKED (section 5 step 2 and screen 14); each module waits only on its own foundation tasks and its gate-table row (TR 10), and the
+tab's Cursor brief on the three stills TR 11.4 names (week 1, Lucy's camp, Ana's mat week). Ana's mat plan joins as its own group (MP 9, section 5).
+Sizes in wins in 100 stay off every screen until their probes report.
+MECHANICS DONE: YES. Every track for this version is at 7 and 7; building goes by section 5.
 
 ## 5. THE BUILD ORDER
 Seats: pure module + test -> Qwen (PC) or Goose (cloud); probes -> Goose or Arena (cloud); screen -> Cursor (Claude checks the stills); fight code and core
@@ -173,12 +182,19 @@ STEP 0, FOUNDATION FIXES IN TODAY'S CODE (nothing measured or drawn before these
 | F10 KNOWN0 | Knowledge.known() and the pip bands (Qwen); range_of wired into the attribute board, Profile, trial card, bout sheet (Cursor) | RPG 8, C12 | Qwen, Cursor | none |
 | F11 KDEXCH1 | counts rolled inside the exchange stream, the round's chance kept (KDRATE2 within 10% on 600 bouts) | FL, C30 | Claude | F9 |
 | F12 CORNER17 | the corner's best call 17 -> 12 (one constant; LEVERS1 sets the final) | FL, C29 | Claude | none |
+| F13 DOSE1 | the load buys fitness: Hard's gain 1.6, the block's dose x1.3, Hard laid on the aim (WeekPlan; tests/dose_test.gd) | TR F8 | Claude | F4 (WeekPlan) |
+| F14 CAMPLOAD1 | PROTOCOLS' levels become one Camp row (edge 0; PEAK CAMP = readiness +1); Roster.turn_pro clears day_job (BoutRules, modals/Camp.gd, Roster; tests/camp_load_test.gd) | TR F9, C15, C31 | Claude | F5 (BoutRules) |
+| F15 CALLSPREAD1 | a call's OK-to-Good step spread across 56 to 62 (Exchanges.grade; tests/call_spread_test.gd) | TR F10 | Qwen | none |
+| F16 PROTABLES1 | eight professional tables: divisions.json gains w_fw, m_fw (57.2 kg) and w_mw, m_mw (72.6 kg); ProLadder.division_for maps the amateur class by its name (Data.DIVISIONS "short"), not limit > 62; WorldLadder._weight and WorldCompare read the table's name; a save whose world lacks a table gets it generated on load (WorldGen). New tests/pro_tables_test.gd, red on main (a 57 kg professional sits on the lightweight table): each class on its own table, eight tables of about 20 ranked; pro_ladder_test, world_years_test, matchmaking_bots_test, save_load_test stay green | C32 | Claude | none |
+Then MORNINGS1 (the session shares, after F2b) and GOALBAND1 (FighterGoal, after F3), as TR 11.1.
 STEP 1, PROBES ON THE PLAYED BOUT (cloud; each prints today's game first; each writes levers.json; the cut rule of C27 applies; no size on any screen before
 its row exists): LEVERS1 with THE TARGET first (preparation 55-70, the night 20-30, luck 10-20 of every 100 exchanges turned; its Tank rows are
 TANKPRICE1); PUNCHFLOOR1; PLANTUNE1 and LINEGRADE1 (they move every plan number); FIRELEVEL2; JUDGES1; SEASON1 (four arms); LOYAL1, SHORTWEEK1, FOLLOW1,
 MONEYFOUR2 (with TICKETCUT1), MOODRATE1, SPARSET1, SHEETDEAL1; LINEPRICE1, ADAPT1, PHASE1, OWNLINE1, CARRY1; AIM1, FORM1, CARDREAD1, TOWEL1, DAMAGE1, SPARAS1;
 HYPEFLOW1, SELLSHIELD1, CASHIN1, CALLOUT1, CRASH1; COACHPICK1, PERKPICK1, TRAITLINE1, KOTURN1, KNOWN1, DIRECTION1, STYLE1, MOMENT1, COACHXP1. Training's
-PACE1, DOSE1, FITLEGS1, DETRAIN1, HORIZON1 run once v6's rules are in. All Goose or Arena. They wait on Step 0.
+gate table (TR 10): PACE1, DOSE1, BLOCKORDER1, MORNRULES1, RESPONSE1, AGEGAIN1, CONTACT1, WATERCUT1, FITLEGS1, HORIZON1, BJJCLASS1. The mat (MP 8):
+MATPLAN0 once M4's pin fix is in, then on M4 MATKNOW1, TRAILFIX1, MATLINE1, MATFRAME1, MATFINISH1, MATCLOCK1, MATCARRY1. All Goose or Arena. They wait on
+Step 0.
 STEP 2, RULE MODULES (pure, unit tests; Qwen or Goose; wiring into fight code by Claude, one task per file touched)
 | Group | Modules | Waits on |
 |---|---|---|
@@ -187,19 +203,24 @@ STEP 2, RULE MODULES (pure, unit tests; Qwen or Goose; wiring into fight code by
 | Playbook | LineGrade, LinePrice (into the round's cost and landed punches), PlanPhase, OwnLine, PlanWhere, suit in PlanFight; FireLevel on in GAME_ON; ReadBack on only if ADAPT1 passes | PLANTUNE1, LINEGRADE1, FIRELEVEL2 |
 | RPG | CoachLevel, CoachStyle, TraitDrift, BuildDirection, PerkPick (eight pairs + Ana's), Moments, Marks, SquadBonds, Ambition, Ledger, CoachGrowth, CeilingShift | Loyalty, ClubDeal, KNOWN0, STOPMULT1 |
 | Hype | Hype (buzz, heat, the show read from the fight, conversion to fans and tickets), HypeStance, CallOut; ProDebut, Matchmaking.pay_of, Roster.check_pro changes | Fans, BoutSheet, Loyalty |
-| Training | TrainWeek.run, Sharpen and Pattern in WeekPlan, Detrain, OppTests, Niggle, TrainAround, HabitWork, SeasonStrip | training v6 at 7 and 7 |
+| Training (UNBLOCKED: v6.1 passed 7 and 7) | TrainWeek.run (ONERUN1), MorningRules, SeasonStrip (emphasis, aim, x1.2), Sharpen and Pattern in WeekPlan, Detrain, OppTests, Niggle, TrainAround, HabitWork, the weigh-in hour and the water, head contact in SparSet, bouts teach, partner level, NoGi class kinds (with FILM, MP 4.4), FireLevel on | F1-F4, F13, MORNINGS1; each module on its gate-table row (TR 10); CeilingShift, BuildDirection and the response in Knowledge from the RPG group |
+| Ana's mat plan (MP 9) | M0 MATSPLIT1 (Claude: MatTreeInfo 502 split, MatTree slot; tests/mat_split_test.gd); M2 MatLines, M3 MatPrice (with the defender's stack), M6 MatFile (+ FILM in NoGi.classes_of), M7 MatReceipt (Qwen); wiring M4 MATWALK1 (with the pin value for both sides), M5 MATKNOW1 + TRAILFIX1, M7's BOUTTEACH in Grapplers._close, M10 MATLIVE1 (Claude) | M0, M2 at once; M3, M4, M6 on M2; M5 on its probes; M7 on M4 |
 STEP 3, SCREENS (Cursor, one a task, from the drawings; Claude opens every still): 1 Fighters page and 2 Profile to painting 1 (they read existing data and
 KNOWN0, so they come first); 3 Club week; 4 Fights, the sheet and the bill; 5 Fight plan and Playbook; 6 the result page with the scales and the count card
 (Ziva shows a count on its exchange in 3D); 7 the corner minute with the towel; 8 Character; 9 Club > You and People; 10 Crowd; 11 Condition; 12 Pro offer;
-13 Week review and Home needs; 14 Training (after v6). Each waits on its rule modules and the levers.json rows it prints.
+13 Week review and Home needs; 14 Training (unblocked; after TR 11.4's three stills); 15 Ana's Fight plan (M8 MATPLANUI1, from matplan_v1);
+16 the open night with ONE CHANGE and the receipts (M9 MATOPEN1, with GrapplerPage, Club week and Training hooks). World > Rankings needs no new screen:
+it lists the eight tables once PROTABLES1 lands. Each waits on its rule modules and the levers.json rows it prints.
 STEP 4, ONE GOLDEN-PATH TEST (Grok Dev), walking a season: create with a professional and two amateurs; the guide's reveal to week 5; a season target; a seat
 placed and renewed; a class night; two pulls followed; a fighter dealt short twice and the talk answered; a Hard sparring evening with a partner chip; the
 load card's work equal to Injuries.week_work; a Poor line swapped by its grade and a line taken to Sharp on the pads; a sheet; a no-camp amateur bout after a
 hard week with a non-zero TANK row and no NO_CAMP_EDGE part; WHERE and pace by round; the bill's YOU AGAINST COACH with its three parts; a home win adding
 fans and hype; the scales naming LAST 4 WEEKS with the pad card's mastery in it; the judges' reasons; a bout with a count on its exchange, THE COUNT card and
 the towel card at the line, pulled out once (no durability loss, 14 days); the stand-down locking Thursday's sparring; a level and a pick; a perk version
-picked on named opponents; Known making Body plain; a trait crossing a line; a moment and its memory card; the pro offer read through hype; the next Monday's
-review with "your choices this month".
+picked on named opponents; Known making Body plain; a trait crossing a line; a moment and its memory card; the pro offer read through hype; turning
+professional with every morning free and no job row (C31); a featherweight or middleweight professional on its own table (C32); the next Monday's
+review with "your choices this month". Ana's open walks its own path (M11, tests/mat_plan_path_test.gd, Grok Dev, after M9): Coach's draft, film once,
+the swap hint, FRAME FIRST on side control, BEHIND Push, the receipt naming the line, the corner's word, ON THE MATS, Sunday's roll on the same plan.
 
 ## 6. LEFT FOR LATER (one list)
 - HOSTSHOW1: filling our own card with owed favours, a two-way favours ledger, the house counted in seats and its sales curve, club v club nights.
@@ -210,9 +231,9 @@ review with "your choices this month".
 - Damage counted from landed punches in place of round bands; a punch-by-punch box on the result.
 - A hidden load tolerance read through a morning check (sleep, soreness, effort felt); discipline scaling every session; the coach's report.
 - Off-plan by temper and coachability (pb2_player); stance on lines (pb2_boxer); shouts that are the card's lines (pb2_boxer); a line that answers "if they switch".
-- Ana's mat plan with the grade, a price per move and its own critic (the mat receipt, M11, and the training frame, TR 8b, are in this version).
+- The mat plan's next layer (MP 12 and its critics): opponents who bring their own lines by style, a B-game route, one Tank across the bracket's day,
+  Ana's Composure holding a timing line under a pin, a grade and receipt for a live bout, the field filming Ana, the live bout on the tree.
 - The club's terms at turning professional as a choice; a boxer's own sponsor earned by fans; strike while hot; the comeback heat; a ticket night.
 - Scars, prime and decline, retirement talk, retired fighters as coaches; crossover training; coach award names on the levels.
-- The full promotion (pro cards, belts, TV), professional tables for featherweight and middleweight (the owner's call), a club season frame and the year review.
-OPEN FOR THE OPERATOR (scope or taste, asked on the board, nothing above waits on them): a professional keeps the day job until the top 10 (camp leave with it);
-featherweight and middleweight professional tables; Ana's mat plan in this version or the next.
+- The full promotion (pro cards, belts, TV), a club season frame and the year review.
+OPEN FOR THE OPERATOR: none. Answered S433: Q-186 (C31), Q-187 (C32, F16), Q-188 (C33, section 4, the mat plan group in section 5).

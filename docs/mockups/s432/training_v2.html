@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>Fighter page, Training tab v6 (TRAINDEPTH1, S433)</title>
+<html lang="en"><head><meta charset="utf-8"><title>Fighter page, Training tab v6.1 (TRAINDEPTH1, S433)</title>
 <style>
 @font-face{font-family:Marker;src:url(../../../assets/fonts/PermanentMarker-Regular.ttf)}
 @font-face{font-family:Kalam;font-weight:700;src:url(../../../assets/fonts/Kalam-Bold.ttf)}
@@ -69,7 +69,7 @@ body{position:relative;background:#120e0c;color:var(--ink);font:500 20px/1.2 Bar
 .h span{font-weight:500;font-size:20px;letter-spacing:0;color:var(--soft)}
 .h .lock{margin-left:auto;font-size:20px;letter-spacing:0;color:#8eb8f2;font-weight:600}
 .cap{font-size:20px;line-height:23px;color:var(--soft);white-space:nowrap}.cap s{text-decoration:none;color:var(--ink)}
-.lc{display:grid;grid-template-columns:96px 70px 58px 52px 1fr;column-gap:6px;font-size:20px;line-height:23px;white-space:nowrap}
+.lc{display:grid;grid-template-columns:150px 66px 50px 1fr;column-gap:6px;font-size:20px;line-height:23px;white-space:nowrap}
 .lc.hd{color:var(--soft);font-size:19px;margin-top:2px;padding:0 10px}
 .lc span{font-weight:700}
 .load{display:block;border-radius:10px;padding:3px 10px 4px;margin-top:5px;background:rgba(255,255,255,.06);border:2px solid transparent}
@@ -93,6 +93,15 @@ body{position:relative;background:#120e0c;color:var(--ink);font:500 20px/1.2 Bar
 .chip{display:inline-flex;align-items:center;height:26px;padding:0 9px;border-radius:13px;font-weight:700;font-size:19px;letter-spacing:0}
 .chip.r{background:rgba(221,75,61,.22);color:#ff8d7f}
 .aft{display:inline-flex;align-items:center;height:24px;padding:0 7px;border-radius:12px;background:rgba(242,141,39,.18);color:var(--amber);font-weight:700;font-size:19px;margin-left:6px}
+.pop{margin-top:6px;border-radius:10px;padding:3px 10px 4px;background:rgba(255,210,74,.07);border:2px dashed rgba(255,210,74,.55)}
+.pop .t{font-weight:700;font-size:20px;line-height:24px;color:var(--gold);white-space:nowrap}
+.pop .t span{font-weight:500;color:var(--soft)}
+.pp{display:grid;grid-template-columns:100px 78px 1fr;column-gap:6px;font-size:20px;line-height:23px;white-space:nowrap}
+.rules{position:absolute;left:486px;top:506px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.rules .lab{font-weight:700;font-size:20px;letter-spacing:.06em;color:var(--gold);margin-right:2px}
+.tg{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 10px;border-radius:15px;background:rgba(63,192,122,.14);color:#bfeed3;font-weight:600;font-size:20px}
+.tg i{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--green)}
+.tg.off{background:rgba(255,255,255,.06);color:var(--soft)}.tg.off i{background:transparent;border:2px solid var(--soft);width:8px;height:8px}
 /* the week */
 .grid{position:absolute;left:478px;top:322px;display:grid;grid-template-columns:40px repeat(7,125px);grid-template-rows:26px 70px 70px;gap:6px 6px}
 .dh{font-weight:700;font-size:20px;letter-spacing:.06em;color:var(--gold);text-align:center;align-self:end}
@@ -107,7 +116,7 @@ body{position:relative;background:#120e0c;color:var(--ink);font:500 20px/1.2 Bar
 .cell.mine{outline:2px solid rgba(255,210,74,.8);outline-offset:-2px}
 .cell.sore{background:rgba(221,75,61,.13)}
 /* abilities */
-.ab{display:grid;grid-template-columns:50px 130px 44px 34px 176px 1fr 50px 104px;align-items:center;column-gap:8px;height:28px;font-size:20px;white-space:nowrap;border-bottom:1px solid rgba(255,255,255,.06)}
+.ab{display:grid;grid-template-columns:50px 130px 44px 34px 176px 1fr 50px 122px;align-items:center;column-gap:8px;height:27px;font-size:20px;white-space:nowrap;border-bottom:1px solid rgba(255,255,255,.06)}
 .ab:last-child{border-bottom:0}
 .ab.hd{height:24px;color:var(--soft);font-size:19px}
 .ab .n{font-weight:700}
@@ -166,18 +175,18 @@ body{position:relative;background:#120e0c;color:var(--ink);font:500 20px/1.2 Bar
 <div class="abs" style="left:28px;top:142px">
  <div class="name">SAMIRA KHAN</div>
  <div class="sub"><b>Welterweight</b> · 18 · out-boxer · 3-1</div>
- <div class="goal">GOAL Stamina 63 · Fri 13 Mar<span class="amb">at risk</span></div>
- <div class="rec"><b>Recovery 50:</b> clears 12% a night</div>
+ <div class="goal">GOAL Stamina 63 · Fri 13 Mar<span class="amb">close</span></div>
+ <div class="rec"><b>Age 18:</b> grows x1.1 · <span class="amb">asks to ease Hard</span></div>
  <div class="rec dir"><b>Direction</b> from Mon 23: Keep it long</div>
 </div>
 <!-- season strip: bout days print the Tank, build weeks the safe work, REST the day sparring opens -->
 <div class="season">
- <div class="wk build now"><i>16 Feb</i><b>BUILD</b><u>safe 120</u></div>
+ <div class="wk build now" style="padding-right:2px"><i>16 Feb</i><b>BASE</b><u>safe 120</u><u class="sft" style="letter-spacing:-.02em">aim Footwork</u></div>
  <div class="wk fw"><i>23 Feb</i><b>FIGHT WEEK</b><u class="pur">Sharpen</u></div>
  <div class="wk fight"><i>Sat 28 Feb</i><b>BOUT 5</b><u>Tank 95</u><span class="lg"><s style="width:95%"></s></span></div>
  <div class="wk rest"><i>2 Mar</i><b>REST</b><u class="a">spar Thu 5</u></div>
- <div class="wk build"><i>9 Mar</i><b>BUILD</b><u>entries close</u></div>
- <div class="wk build"><i>16 Mar</i><b>BUILD</b><u>safe 107</u></div>
+ <div class="wk build"><i>9 Mar</i><b>SPECIFIC</b><u class="g">x1.2 base</u><u>entries close</u></div>
+ <div class="wk build"><i>16 Mar</i><b>SPECIFIC</b><u class="g">x1.2 base</u><u>safe 107</u></div>
  <div class="wk deload"><i>23 Mar</i><b>DELOAD</b><u>you placed</u></div>
  <div class="wk fw"><i>30 Mar</i><b>FIGHT WEEK</b><u class="pur">Sharpen</u></div>
  <div class="wk fight"><i>Sat 4 Apr</i><b>REGIONAL</b><u class="g">Tank 98</u><span class="lg"><s style="width:98%"></s></span></div>
@@ -186,14 +195,18 @@ body{position:relative;background:#120e0c;color:var(--ink);font:500 20px/1.2 Bar
 </div>
 
 <!-- left: the load in columns (this week and the block to the regional), the body -->
-<div class="card" style="left:28px;top:292px;width:430px;height:462px">
- <div class="h">THIS WEEK'S LOAD<span>usual 92 · safe to 120</span></div>
- <div class="cap">kept until changed · pattern <s>varied</s></div>
- <div class="lc hd"><span style="font-weight:500">Defence 52</span><span style="font-weight:500">peak</span><span style="font-weight:500">injury</span><span style="font-weight:500">Tank</span><span style="font-weight:500">regional</span></div>
- <div class="load"><b>Easy<em>work 59 · 6 h 15</em></b><div class="lc"><span>Mon 23</span><span>62</span><span>0.6</span><span>96</span><span>63.0</span></div><p>goal <span class="red">missed</span></p></div>
- <div class="load on"><b>Normal<em>work 75 · 6 h 15</em></b><div class="lc"><span>Thu 19</span><span>73</span><span>1</span><span>95</span><span>63.2</span></div><p>goal <span class="amb">at risk</span>: <s>62.9</s> on Fri 13</p></div>
- <div class="load"><b>Hard on Stamina<em>work 102 · 7 h 45</em></b><div class="lc"><span class="grn">today</span><span class="red">80 Thu</span><span class="red">3</span><span>94</span><span class="grn">63.5</span></div><p>goal <span class="grn">met Wed 11</span> · <span class="red">a spike on 9 Mar</span></p><div class="voice">Samira: "ease the Hard days" · mood -5</div></div>
- <div class="load sh"><b>Sharpen<em>work 44 · 2 h 45</em></b><div class="lc"><span>Mon 23</span><span>62</span><span>0.5</span><span>97</span><span>63.1</span></div><p>a deload: <s>40</s> by Sun · nothing fades</p></div>
+<div class="card" style="left:28px;top:292px;width:430px;height:464px">
+ <div class="h">THIS WEEK'S LOAD<span>% of a usual week</span></div>
+ <div class="lc hd"><span style="font-weight:500">Footwork, 4 Apr</span><span style="font-weight:500">injury</span><span style="font-weight:500">Tank, first bell</span><span></span></div>
+ <div class="load"><b>Easy<em>64%</em></b><div class="lc"><span>58</span><span>0.6</span><span>96</span><span class="sft" style="font-weight:500">goal close</span></div></div>
+ <div class="load on"><b>Normal<em>82%</em></b><div class="lc"><span>58</span><span>1</span><span>95</span><span class="sft" style="font-weight:500">goal close</span></div></div>
+ <div class="load"><b>Hard on Footwork<em>106%</em></b><div class="lc"><span class="grn">60 Good</span><span class="amb">2</span><span>94</span><span class="sft" style="font-weight:500">rule 1 Fri</span></div><div class="voice">Samira: "ease the Hard days" · mood -5</div></div>
+ <div class="load sh"><b>Sharpen<em>47%</em></b><div class="lc"><span>58</span><span>0.5</span><span>97</span><span class="sft" style="font-weight:500">a deload</span></div></div>
+ <div class="pop"><div class="t">WHERE HARD PAYS MOST <span>4 Apr, vs Normal</span></div>
+  <div class="pp"><span style="font-weight:700">Footwork</span><span>60 <span class="sft">(58)</span></span><span>Jab and move <span class="grn">Good</span></span></div>
+  <div class="pp"><span style="font-weight:700">Defence</span><span>54 <span class="sft">(52)</span></span><span class="sft">Hands up: not yet</span></div>
+  <div class="pp"><span style="font-weight:700" class="gld">Stamina</span><span>64 <span class="sft">(63)</span></span><span>goal <span class="grn">met</span>: mood +10</span></div>
+ </div>
 </div>
 <div class="card" style="left:28px;top:764px;width:430px;height:222px">
  <div class="h">BODY<span class="chip r">NIGGLE</span><span class="lock">from your load</span></div>
@@ -203,16 +216,16 @@ body{position:relative;background:#120e0c;color:var(--ink);font:500 20px/1.2 Bar
 </div>
 
 <!-- centre: the week, each cell with its pace -->
-<div class="card" style="left:470px;top:284px;width:976px;height:214px">
- <div class="h">THE WEEK<span>session, pace, who and how well, why</span><span class="lock">the hand rested</span></div>
+<div class="card" style="left:470px;top:284px;width:976px;height:258px">
+ <div class="h">THE WEEK<span>a BASE week: session, pace, who and how well, why</span><span class="lock">the hand rested</span></div>
 </div>
 <div class="grid">
  <span></span><span class="dh">MON</span><span class="dh">TUE</span><span class="dh">WED</span><span class="dh">THU</span><span class="dh">FRI</span><span class="dh">SAT</span><span class="dh">SUN</span>
  <span class="ap">AM</span>
  <div class="cell you"><b>Slip rope</b><i><span class="pc">Normal</span> +48%</i><span class="r">weak spot</span></div>
  <div class="cell alone mine"><b>Footwork</b><i><span class="pc">Normal</span> x0.8</i><span class="r">Kayleigh</span></div>
- <div class="cell coach"><b>Intervals</b><i><span class="pc hp">Hard</span> +30%</i><span class="r">your goal</span></div>
- <div class="cell alone"><b>Roadwork</b><i><span class="pc">Normal</span> x0.8</i><span class="r">weight</span></div>
+ <div class="cell coach"><b>Roadwork</b><i><span class="pc hp">Hard</span> +30%</i><span class="r">base</span></div>
+ <div class="cell alone"><b>Strength</b><i><span class="pc">Normal</span> x0.8</i><span class="r">base</span></div>
  <div class="cell you sore"><b>Shadow</b><i><span class="pc l">Light</span> +48%</i><span class="r red">hand rested</span></div>
  <div class="cell alone sore"><b>Shadow</b><i><span class="pc l">Light</span> x0.8</i><span class="r red">hand rested</span></div>
  <div class="cell rest"><b>Rest</b><span class="r">Recovery</span></div>
@@ -220,32 +233,32 @@ body{position:relative;background:#120e0c;color:var(--ink);font:500 20px/1.2 Bar
  <div class="cell coach"><b>Pads</b><i>75 min +24%</i><span class="r">Check hook</span></div>
  <div class="cell rest"><b>Rest</b></div>
  <div class="cell you sore"><b>Footwork x2</b><i>75 min +48%</i><span class="r red">habit paused</span></div>
- <div class="cell coach"><b>Sparring</b><i>30 min +41%</i><span class="r">Lucy x1.2</span></div>
+ <div class="cell coach"><b>Spar: Lucy</b><i>30 min +41%</i><span class="r">technical</span></div>
  <div class="cell rest"><b>Rest</b></div>
  <div class="cell rest"><b>Rest</b></div>
  <div class="cell rest"><b>Rest</b></div>
 </div>
 
-<div class="card" style="left:470px;top:506px;width:976px;height:294px">
- <div class="h">ABILITIES<span>by worth against Kayleigh · each to its own ceiling</span><span class="lock">Show all 14</span></div>
+<div class="rules"><span class="lab">RULES</span><span class="tg"><i></i>Day after 72+: no Hard</span><span class="tg"><i></i>Hard sparring: rest</span><span class="tg"><i></i>3rd hand day: shadow</span><span class="tg off"><i></i>Mood Low: Easy</span></div>
+<div class="card" style="left:470px;top:550px;width:976px;height:292px">
+ <div class="h">ABILITIES<span>by worth vs Kayleigh · Skills: <span class="grn">quick</span> · Body: not known yet</span><span class="lock">Show all 14</span></div>
  <div class="ab hd"><span>worth</span><span></span><span>tests</span><span>now</span><span>room · to the regional</span><span>next line · what the points under it buy</span><span class="tr">4 wks</span><span>kept by</span></div>
- <div class="ab"><span class="dots"><s></s><s></s><s></s><s></s></span><span class="n">Footwork</span><span class="x">x1.3</span><span class="v">57</span><span class="room"><i><s style="width:54%"></s><q style="left:54%;width:2%"></q><em style="left:69%"></em></i><b>72 <span class="w f">fast</span></b></span><span>Jab and move 62, with the jab · <span class="amb">June</span></span><span class="tr grn">+0.9</span><span class="sft">Tue drills</span></div>
- <div class="ab"><span class="dots"><s></s><s></s><s></s><s class="o"></s></span><span class="n">Defence</span><span></span><span class="v">51</span><span class="room"><i><s style="width:35%"></s><q style="left:35%;width:2%"></q><u style="left:76%;width:24%"></u><em style="left:50%"></em></i><b>66-74 <span class="w f">fast</span></b></span><span><span class="grn">52 Thu</span> · Hands up 57-66, Flex 55</span><span class="tr grn">+0.7</span><span class="sft">Mon rope</span></div>
- <div class="ab"><span class="dots"><s></s><s></s><s></s><s class="o"></s></span><span class="n">Timing</span><span class="x">x1.4</span><span class="v">58</span><span class="room"><i><s style="width:62%"></s><q style="left:62%;width:2%"></q><em style="left:83%"></em></i><b>69 <span class="w f">fast</span></b></span><span>Draw the lead 80%, IQ 60 · <span class="amb">May</span></span><span class="tr grn">+0.4</span><span class="sft">Thu sparring</span></div>
- <div class="ab"><span class="dots"><s></s><s></s><s></s><s class="o"></s></span><span class="n">Speed</span><span></span><span class="v">69</span><span class="room"><i><s style="width:81%"></s><em style="left:83%"></em></i><b>76 <span class="w s">slow</span></b></span><span>Fast hands 70 · Mon 9 Mar<span class="aft">after Sat 28</span></span><span class="tr grn">+0.2</span><span class="sft">fight week</span></div>
- <div class="ab"><span class="dots"><s></s><s></s><s class="o"></s><s class="o"></s></span><span class="n">Explosiveness</span><span></span><span class="v">60</span><span class="room"><i><s style="width:91%"></s></i><b>62 <span class="w c">near cap</span></b></span><span class="sft">Finisher 70: over ceiling 62</span><span class="tr sft">0.0</span><span class="amb">fades 9 Mar</span></div>
- <div class="ab"><span class="dots"><s></s><s></s><s class="o"></s><s class="o"></s></span><span class="n">Durability</span><span></span><span class="v">55</span><span class="room"><i><s style="width:56%"></s></i><b>67 <span class="w f">fast</span></b></span><span class="sft">Iron chin 70: over ceiling 67</span><span class="tr grn">+0.2</span><span class="amb">fades 5 Mar</span></div>
- <div class="ab"><span class="dots"><s></s><s></s><s class="o"></s><s class="o"></s></span><span class="n">Inside</span><span></span><span class="v">50</span><span class="room"><i><s style="width:43%"></s><em style="left:70%"></em></i><b>63 <span class="w f">fast</span></b></span><span>Tie up climbs from 56, with Heart</span><span class="tr grn">+0.3</span><span class="sft">Thu sparring</span></div>
- <div class="ab goalrow"><span class="dots"><s></s><s class="o"></s><s class="o"></s><s class="o"></s></span><span class="n gld">Stamina</span><span class="x">x0.8</span><span class="v">62</span><span class="room"><i><s style="width:84%"></s><q style="left:84%;width:2.5%"></q><em style="left:89%"></em></i><b>67 <span class="w s">slow</span></b></span><span>fade 0.35 · none at 64 · <span class="amb">May</span></span><span class="tr grn">+0.5</span><span class="sft">Wed, Thu</span></div>
+ <div class="ab"><span class="dots"><s></s><s></s><s></s><s></s></span><span class="n">Footwork</span><span class="x">x1.3</span><span class="v">57</span><span class="room"><i><s style="width:54%"></s><q style="left:54%;width:3%"></q><em style="left:69%"></em></i><b>72 <span class="w f">fast</span></b></span><span>Jab and move 90%, with the jab</span><span class="tr grn">+0.9</span><span class="sft">Tue drills</span></div>
+ <div class="ab"><span class="dots"><s></s><s></s><s></s><s class="o"></s></span><span class="n">Defence</span><span></span><span class="v">51</span><span class="room"><i><s style="width:35%"></s><q style="left:35%;width:2%"></q><u style="left:76%;width:24%"></u><em style="left:50%"></em></i><b>66-74 <span class="w f">fast</span></b></span><span><span class="grn">52 Thu</span> · Hands up helps from 56</span><span class="tr grn">+0.7</span><span class="sft">Mon rope</span></div>
+ <div class="ab"><span class="dots"><s></s><s></s><s></s><s class="o"></s></span><span class="n">Timing</span><span class="x">x1.4</span><span class="v">58</span><span class="room"><i><s style="width:62%"></s><q style="left:62%;width:2%"></q><em style="left:83%"></em></i><b>69 <span class="w f">fast</span></b></span><span>Draw the lead 80%, with IQ 60</span><span class="tr grn">+0.4</span><span class="sft">Thu sparring</span></div>
+ <div class="ab"><span class="dots"><s></s><s></s><s></s><s class="o"></s></span><span class="n">Speed</span><span></span><span class="v">69</span><span class="room"><i><s style="width:81%"></s><em style="left:83%"></em></i><b>76 <span class="w s">slow</span></b></span><span>Fast hands 70 · 9 Mar<span class="aft">after Sat 28</span></span><span class="tr grn">+0.2</span><span class="sft">fight week</span></div>
+ <div class="ab"><span class="dots"><s></s><s></s><s class="o"></s><s class="o"></s></span><span class="n">Explosiveness</span><span></span><span class="v">60</span><span class="room"><i><s style="width:100%"></s></i><b>60 <span class="w c">held</span></b></span><span>held by Strength 50 · <span class="blu">Base lifts it</span></span><span class="tr sft">0.0</span><span class="amb">fades 9 Mar</span></div>
+ <div class="ab"><span class="dots"><s></s><s></s><s class="o"></s><s class="o"></s></span><span class="n">Durability</span><span></span><span class="v">55</span><span class="room"><i><s style="width:56%"></s></i><b>67 <span class="w f">fast</span></b></span><span>head contact <span class="amb">33 of 48</span> in 8 wks</span><span class="tr grn">+0.2</span><span class="amb">fades 5 Mar</span></div>
+ <div class="ab goalrow"><span class="dots"><s></s><s class="o"></s><s class="o"></s><s class="o"></s></span><span class="n gld">Stamina</span><span class="x">x0.8</span><span class="v">62</span><span class="room"><i><s style="width:84%"></s><u style="left:84%;width:4%"></u><em style="left:89%"></em></i><b>67 <span class="w s">slow</span></b></span><span>fade 0.35 · none at 64</span><span class="tr grn">+0.5</span><span class="sft">Wed roadwork</span></div>
+ <div class="ab"><span class="dots"><s></s><s class="o"></s><s class="o"></s><s class="o"></s></span><span class="n">Recovery</span><span></span><span class="v">50</span><span class="room"><i><s style="width:48%"></s><u style="left:48%;width:5%"></u></i><b>66 <span class="w f">fast</span></b></span><span>clears 12% a night · +0.3%</span><span class="tr grn">+0.4</span><span class="sft">Wed roadwork</span></div>
 </div>
 
-<div class="card" style="left:470px;top:808px;width:976px;height:176px">
+<div class="card" style="left:470px;top:850px;width:976px;height:134px">
  <div class="h">PAD PLACES<span>75 minutes a night · the card's hand</span><span class="lock">Build a combination</span></div>
  <div class="pblock"><div class="pr"><span class="who"><s class="c"></s>Mon · Coach</span><span><b>Check hook</b> <span class="sft">lead · 24</span></span><span class="mbar"><b style="width:24%"></b><u style="left:24%;width:4%"></u><em style="left:30%"></em></span><span>Usable Mon 2 Mar<span class="aft">after Sat 28</span></span></div>
-  <div class="pnote"><s>Hard's extra pad night, Tue: Usable Fri 27</s> · Lucy goes short on Club week</div></div>
+</div>
  <div class="pblock"><div class="pr"><span class="who"><s></s>Wed · You x2</span><span><b>Habit:</b> right drops after the jab</span><span class="pips"><s></s><s></s><s></s><s class="n"></s><s class="n"></s><s class="o"></s></span><span><span class="red">paused (rear hand)</span> · HALF FIXED Sat 28</span></div></div>
- <div class="pblock"><div class="pr"><span class="who"><s class="f"></s>FADING</span><span><b>Uppercut</b> <span class="sft">rear · Sharp 61</span></span><span class="mbar"><b style="width:61%;background:var(--amber)"></b><em style="left:60%"></em></span><span class="amb">loses Sharp Mon 9 Mar</span></div>
-  <div class="pnote"><s>Keep it: 1 pad place, Sharp to 23 Mar</s> · takes Mon's: Check hook Usable Thu 5 Mar</div></div>
+ <div class="pblock"><div class="pr"><span class="who"><s class="f"></s>FADING</span><span><b>Uppercut</b> <span class="sft">rear · Sharp 61</span></span><span class="mbar"><b style="width:61%;background:var(--amber)"></b><em style="left:60%"></em></span><span class="amb">loses Sharp 9 Mar · <span class="gld">keep it: 1 place</span></span></div></div>
 </div>
 
 <!-- right: what this week buys (no sizes before LEVERS1), the 13 days to the bell, weight -->
@@ -253,7 +266,7 @@ body{position:relative;background:#120e0c;color:var(--ink);font:500 20px/1.2 Bar
  <div class="h">SAT 28: WHAT THIS WEEK BUYS</div>
  <div class="bi"><i>Ready on the night</i><b><span class="grn">sharp</span> <span class="sft">(a Sharpen fight week)</span> · Tank 95</b></div>
  <div class="bi"><i>The habit, where Kayleigh punishes it</i><b><span class="amb">HALF FIXED</span> <span class="sft">· half its cost</span></b></div>
- <div class="bi"><i>Your goal, Stamina 63 by Fri 13 Mar</i><b><span class="amb">at risk</span> <span class="sft">· on Hard: met Wed 11</span></b></div>
+ <div class="bi"><i>Your goal, Stamina 63 by Fri 13 Mar</i><b><span class="amb">close: mood +3</span> <span class="sft">· aimed at it: met</span></b></div>
  <div class="bi"><i>Lands after the bout</i><b>Check hook <span class="sft">(on Hard: Fri 27)</span> · Fast hands</b></div>
  <div class="bi"><i>Biggest lever still open</i><b><span class="gld">Push on the hand: habit GONE</span></b></div>
 </div>
@@ -273,9 +286,9 @@ body{position:relative;background:#120e0c;color:var(--ink);font:500 20px/1.2 Bar
    <rect x="115" y="88.2" width="12" height="23.8"/><rect x="142" y="107.8" width="12" height="4.2"/><rect x="169" y="107.8" width="12" height="4.2"/>
    <rect x="223" y="82.6" width="12" height="29.4"/><rect x="277" y="102.2" width="12" height="9.8"/>
   </g>
-  <polyline fill="none" stroke="#f28d27" stroke-width="2.5" stroke-dasharray="6 4" points="40,48.7 67,41.2 94,26.3 121,24.9 148,27.7 175,40.5 202,54.8 229,44.7 256,58.4 283,63.4 310,75.1 337,85.3 364,94.3"/>
+  <polyline fill="none" stroke="#f28d27" stroke-width="2.5" stroke-dasharray="6 4" points="40,49.6 67,46.1 94,37.4 121,32.2 148,42.6 175,54.8 202,66.9 229,51.3 256,63.4 283,68.6 310,79.0 337,87.7 364,94.6"/>
   <polyline fill="none" stroke="#e9dfcf" stroke-width="3" points="40,51.3 67,58.3 94,40.9 121,37.5 148,49.6 175,60 202,72.1 229,60 256,72.1 283,75.6 310,86 337,94.7 364,103.3"/>
-  <circle cx="121" cy="24.9" r="5" fill="#dd4b3d"/>
+  <circle cx="148" cy="42.6" r="6" fill="#f28d27" stroke="#120e0c" stroke-width="2"/><text x="124" y="19" fill="#f28d27" font-size="19" font-family="Barlow" font-weight="700">rule 1</text>
   <circle cx="121" cy="37.5" r="4" fill="#e9dfcf"/>
   <circle cx="364" cy="103.3" r="6" fill="#3fc07a"/>
   <g fill="#c9b9a2" font-size="19" font-family="Barlow" font-weight="600" text-anchor="middle">
@@ -283,7 +296,7 @@ body{position:relative;background:#120e0c;color:var(--ink);font:500 20px/1.2 Bar
    <text x="229" y="134">M</text><text x="256" y="134">T</text><text x="283" y="134">W</text><text x="310" y="134">T</text><text x="337" y="134">F</text><text x="372" y="134" fill="#3fc07a">Sat</text>
   </g>
  </svg>
- <div class="lgnd"><span><s></s>Normal · Tank 95</span><span><s class="d"></s>Hard: over 80 · Tank 94</span></div>
+ <div class="lgnd"><span><s></s>Normal · Tank 95</span><span><s class="d"></s>Hard · Tank 94</span></div>
 </div>
 <div class="card" style="left:1458px;top:808px;width:434px;height:176px">
  <div class="h">WEIGHT<span>65.0 class · Sat 28: in the gap</span></div>
