@@ -2127,7 +2127,7 @@
    "agent": "qwen",
    "id": "CAMLINE1",
    "title": "TASK CAMLINE1 - QWEN (qwen3-coder) - the fight camera: never straight behind one boxer, and the far ropes stop fading and smearing at head height",
-   "status": "landed",
+   "status": "collected",
    "started": "2026-11-11T09:56",
    "eta": "2026-11-11T11:46",
    "branch": "qwen/camline1",
@@ -2148,7 +2148,7 @@
     "runner_pid": 49484,
     "seat_pid": 3348
    },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/8 PASS; PR #192",
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/8 PASS; PR #192 | S431: NOT merged (review + film: angle fix not in the game, nothing measured, probe does not parse); PR 192 closed; redone as CAMLINE2",
    "finished": "2026-11-11T10:23",
    "pr": 192,
    "checks": [
@@ -2233,6 +2233,22 @@
     "seat_pid": 16404
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+  },
+  "DUESSUMS1": {
+   "agent": "goose",
+   "id": "DUESSUMS1",
+   "title": "QWEN (qwen3-coder) - dues: the sums that give each price a club where it wins (pure module + a 5-year sim, MEA",
+   "status": "running",
+   "started": "2026-11-11T10:51",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_DUESSUMS1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-11T11:51",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
+   "issue": "193",
+   "branch": "goose/issue-193",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/193"
   }
  },
  "codex_budget": {

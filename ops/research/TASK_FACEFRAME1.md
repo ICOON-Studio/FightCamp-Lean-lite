@@ -8,10 +8,11 @@ Discipline: boxing (the demo).
 adjustment for all profile to show up correctly ?"
 
 ## Contract
-OWNS: a new shared helper scripts/ui/FaceFrame.gd, the call sites that draw a face or head-and-shoulders picture (list them
-in the result page before you change them), tests/face_frame_test.gd (new), docs/FACEFRAME1_RESULT.md (new)
+OWNS: scripts/ui/FaceFrame.gd (new shared helper), scripts/ui/ (only the call sites that draw a face or head-and-shoulders
+picture: list them in the result page before you change them), tests/face_frame_test.gd (new), docs/FACEFRAME1_RESULT.md (new)
 RED_TEST: tests/face_frame_test.gd -> FACE_FRAME failures=0   (red on main first: paste both runs)
 REGRESSION: faces_test, promo_shot_test, roster_cards_test, home_look_test, fight_poster_test, words_on_screens_test
+VISUAL: yes
 Run one test: `python ops/Tools/godot_slot.py run --who cursor -- "%LOCALAPPDATA%\Programs\Godot\Godot_v4.7.2-stable_win64.exe" --headless --audio-driver Dummy --path . --script res://tests/<name>.gd`
 Parse first: the same command with `--check-only --script res://<file>`. No script over 500 lines.
 

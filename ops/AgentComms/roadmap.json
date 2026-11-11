@@ -4653,7 +4653,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-11",
+  "updated": "2026-11-11 10:40 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5021,13 +5021,21 @@
     "title": "TASK FIGHTDISPLAY4 - CURSOR (Grok 4.7 High) - the fight screen: the two wooden side panels go, the bars move to the top, the see-through figures stand free agai",
     "who": "cursor",
     "started": "2026-11-11T09:33",
-    "run": "FIGHTDISPLAY4"
+    "run": "FIGHTDISPLAY4",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK CAMLINE1 - QWEN (qwen3-coder) - the fight camera: never straight behind one boxer, and the far ropes stop fading and smearing at head height",
     "who": "qwen",
     "started": "2026-11-11T09:56",
-    "run": "CAMLINE1"
+    "run": "CAMLINE1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK TRAININGB2 - CURSOR (Grok 4.7 High) - the Training tab: a tiredness curve that says something, and the pads list in straight rows",
+    "who": "cursor",
+    "started": "2026-11-11T10:23",
+    "run": "TRAININGB2"
    }
   ],
   "next": [
@@ -5583,64 +5591,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "HALOSWEEP1 + WEEKTESTS1 in",
-     "who": "agent"
-    },
-    {
-     "text": "RANKSHOW1: rank line built",
-     "who": "agent"
-    },
-    {
-     "text": "FOURSTART1 map written",
-     "who": "claude"
-    },
-    {
-     "text": "AMATEURWEEK1 map written",
-     "who": "claude"
-    },
-    {
-     "text": "TRAINREAD1: guide's read built",
-     "who": "agent"
-    },
-    {
-     "text": "Raw is now Learning",
-     "who": "claude"
-    },
-    {
-     "text": "MONEYFOUR1: 1 stipend holds",
-     "who": "agent"
-    },
-    {
-     "text": "BARGUARD1: boots above the bar",
-     "who": "agent"
-    },
-    {
-     "text": "Save button, poster, words fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Critics round 1: 4,4 and 3,4",
-     "who": "claude"
-    },
-    {
-     "text": "Both maps rewritten (v2)",
-     "who": "claude"
-    },
-    {
-     "text": "MOODHABIT1: mood <1, habits 6-15",
-     "who": "claude"
-    },
-    {
-     "text": "Scope: 4 fighters, no-camp bouts",
-     "who": "claude"
-    },
-    {
-     "text": "Training tab B + side panels in",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Result page: stats + 6 tiles",
      "who": "claude"
     },
@@ -5675,24 +5625,58 @@
     {
      "text": "Overview: he picked A, body chart",
      "who": "operator"
+    },
+    {
+     "text": "HALOSWEEP1 + WEEKTESTS1 in",
+     "who": "agent"
+    },
+    {
+     "text": "RANKSHOW1: rank line built",
+     "who": "agent"
+    },
+    {
+     "text": "FOURSTART1 map written",
+     "who": "claude"
+    },
+    {
+     "text": "AMATEURWEEK1 map written",
+     "who": "claude"
+    },
+    {
+     "text": "TRAINREAD1: guide's read built",
+     "who": "agent"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "CAMLINE1 reviewed: not collected",
+     "who": "claude"
+    },
+    {
+     "text": "4 queued briefs: contracts fixed",
+     "who": "claude"
     }
    ],
    "now": [
-    {
-     "text": "Week v4 re-based on 4 fighters",
-     "who": "claude"
-    },
     {
      "text": "HUMANFIGHT1: human-like to 7/10",
      "who": "claude"
     },
     {
-     "text": "CAMLINE1 (Qwen): glove blur",
+     "text": "Redraw looks to match gym screen",
      "who": "claude"
     },
     {
-     "text": "Menus + look: his pick (Q-181)",
-     "who": "operator"
+     "text": "CAMLINE2: camera, ruler first",
+     "who": "claude"
+    },
+    {
+     "text": "Map v3: club week + fight weeks",
+     "who": "claude"
+    },
+    {
+     "text": "DUESSUMS1 (Goose): dues sums",
+     "who": "agent"
     }
    ],
    "next": [
@@ -5749,27 +5733,15 @@
      "who": "claude"
     },
     {
-     "text": "Maps v3 after his read",
-     "who": "claude"
-    },
-    {
-     "text": "Dues sums: premium always wins",
-     "who": "claude"
-    },
-    {
      "text": "Faces whole: menus + corner cam",
      "who": "agent"
     },
     {
      "text": "Overview A: paint, then build",
      "who": "claude"
-    },
-    {
-     "text": "Redraw looks to match gym screen",
-     "who": "claude"
     }
    ],
-   "session": "S430"
+   "session": "S431"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

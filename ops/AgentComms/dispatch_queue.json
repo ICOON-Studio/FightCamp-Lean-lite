@@ -1093,6 +1093,12 @@
    "brief": "CORNERFACE1",
    "status": "queued",
    "queued": "2026-11-11T11:20"
+  },
+  {
+   "task": "DUESSUMS1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-11T10:50"
   }
  ]
 }

@@ -13,11 +13,12 @@ His rule (S425): a mechanic is done only when every menu it appears on shows it 
 walks it.
 
 ## Contract
-OWNS: scripts/ui/modals/WeekReview.gd (one new block only), scripts/ui/areas/Home.gd or scripts/ui/HomeNeeds.gd (one row),
+OWNS: scripts/ui/modals/WeekReview.gd (one new block only), scripts/ui/areas/Home.gd, scripts/ui/HomeNeeds.gd (one row, in whichever of the two draws the needs rows),
 scripts/ui/areas/Money.gd (the month's report line only), scripts/state/HomeJuniors.gd (the words of its lines only, no
 number), tests/dues_wire_test.gd (new), tests/golden_path_test.gd (one added step), docs/DUESWIRE1_RESULT.md (new)
 RED_TEST: tests/dues_wire_test.gd -> DUES_WIRE failures=0   (red on main first: paste both runs)
 REGRESSION: dues_card_test, golden_path_test, words_on_screens_test, no_pronoun_test, plain_words_test, home_look_test
+VISUAL: yes
 Run one test: `python ops/Tools/godot_slot.py run --who cursor -- "%LOCALAPPDATA%\Programs\Godot\Godot_v4.7.2-stable_win64.exe" --headless --audio-driver Dummy --path . --script res://tests/<name>.gd`
 Parse first: the same command with `--check-only --script res://<file>`. No script over 500 lines (WeekReview.gd is long:
 put the new block in a small new file under scripts/ui/ if it would pass 500).

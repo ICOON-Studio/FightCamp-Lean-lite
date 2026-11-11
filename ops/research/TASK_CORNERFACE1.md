@@ -15,6 +15,7 @@ OWNS: scripts/fight3d/CornerShots.gd, scripts/fight3d/CornerMinute.gd (shot choi
 tests/corner_face_test.gd (new), tools/corner_face_probe.gd (new), docs/CORNERFACE1_RESULT.md (new)
 RED_TEST: tests/corner_face_test.gd -> CORNER_FACE failures=0   (red on main first: paste both runs)
 REGRESSION: corner_lens_test, corner_card_test, corner_warm_test, corner_crew_bodies_test, fight_flow_test
+VISUAL: yes
 Run one test: `python ops/Tools/godot_slot.py run --who qwen -- "%LOCALAPPDATA%\Programs\Godot\Godot_v4.7.2-stable_win64.exe" --headless --audio-driver Dummy --path . --script res://tests/<name>.gd`
 Parse first: the same command with `--check-only --script res://<file>`. Do NOT touch scripts/fight3d/RingCamera.gd
 (CAMLINE1) or the corner card's layout (scripts/fight3d/CornerOverlay.gd).

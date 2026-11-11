@@ -77,10 +77,14 @@ func _initialize() -> void:
 	_check(absf(float(f["week_fatigue"]) - float(hard["fatigue_end"])) < 1.5,
 		"fight night as forecast: fatigue %.1f (forecast %.1f)" % [float(f["week_fatigue"]), float(hard["fatigue_end"])])
 	var m := {}
+	# S431: read the tiredness and the camp BEFORE the bell: since S430 the fight itself leaves tiredness (Aftermath.toll),
+	# so after fight_step week_fatigue is the fight's toll, not what she carried in.
+	var fat_in := float(f["week_fatigue"])
+	var camp_in: Dictionary = (f["camp"] as Dictionary).duplicate(true)
 	BoutNight.fight_step(c, f, m, "sim")
 	var stale := float(f["bout"].get("stale", 0.0))
 	var en: Dictionary = (m["rounds"][0] as Dictionary).get("energy", {}) if not (m.get("rounds", []) as Array).is_empty() else {}
-	_check(absf(stale - BoutRules.stale_energy(float(f["week_fatigue"]), f["camp"])) < 0.001 and not en.is_empty()
+	_check(absf(stale - BoutRules.stale_energy(fat_in, camp_in)) < 0.001 and not en.is_empty()
 		and absf(float(en["a"]) - (Combos.TANK - float(f["bout"].get("hurt", 0.0)) - stale)) < 0.001,
 		"the first bell opens with %.1f energy (tank %.0f, heavy legs %.1f)" % [float(en.get("a", -1.0)), Combos.TANK, stale])
 	_done()

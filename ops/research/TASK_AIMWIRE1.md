@@ -10,6 +10,7 @@ Discipline: boxing (the demo).
 OWNS: scripts/state/LiveRound.gd (only the two places named below), tests/aim_wire_test.gd (new), tools/fight_toll_probe.gd (new), docs/AIMWIRE1_RESULT.md (new)
 RED_TEST: tests/aim_wire_test.gd -> AIM_WIRE failures=0   (it must print failures > 0 on today's main first: prove it red, paste both runs)
 REGRESSION: pace_aim_test, exchanges_test, corner_bar_test, golden_path_test, balance_harness_test
+VISUAL: no
 Run one test: `python ops/Tools/godot_slot.py run --who qwen -- "%LOCALAPPDATA%\Programs\Godot\Godot_v4.7.2-stable_win64.exe" --headless --audio-driver Dummy --path . --script res://tests/<name>.gd`
 Parse first (a parse error hangs a headless test): the same command with `--check-only --script res://<file>`.
 

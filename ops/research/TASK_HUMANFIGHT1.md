@@ -7,6 +7,12 @@ Discipline: boxing (the demo). Grappling is out of scope here.
 "i see some animations the fighters are off the ground flying , can you assign a fable 5.2 agent to make the boxing fight as
 close to human-like a spossible and rate the results using critics and loop until it is at 7/10"
 
+## Contract
+OWNS: scripts/fight3d/ (the feet, the place and the leg layers: FootLock, FloorStand, ShownRoot, FootPlant, Footwork, RingFeet, RkPure, RkJoin, SideStep, BoxerFootworkRig, the wiring in BoxerBuild and FightStage; never RingCamera, TvShot, RopeFade, CamLine: CAMLINE2), tests/human_feet_test.gd, tools/human_fight_film.gd, tools/human_fight_report.py, tools/film_sheets.py, tools/rest_feet_probe.gd, docs/HUMANFIGHT1_RESULT.md
+RED_TEST: tests/human_feet_test.gd
+REGRESSION: ring_feet_test, rokoko_clips_test, foot_plant_test, knockdown_still_test, corner_warm_test, boxer_footwork_test, file_limits_test
+VISUAL: yes
+
 ## What done looks like
 1. A film of a REAL bout from the game's own camera (the route the .exe plays, `-- as_game`), where two FRESH critics each
    score "does this move like two human boxers" 7/10 or more. Gemini (the video judge) is the third opinion when reachable.
