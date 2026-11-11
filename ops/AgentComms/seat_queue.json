@@ -599,9 +599,14 @@
    "seat": "john",
    "brief": "research/J_FIGHT_ANIM_TECH_S431_BRIEF.md",
    "stem": "J_FIGHT_ANIM_TECH_S431_BRIEF_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-11 12:33",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-11 12:41",
+   "sent_ms": 1794393668110,
+   "answered_at": "2026-11-11 13:10",
+   "answer": "research/J_FIGHT_ANIM_TECH_S431_BRIEF_JOHN.md",
+   "chars": 23434
   }
  ]
 }

@@ -6579,6 +6579,51 @@
       "answered_at": "2026-11-11T13:22:45Z",
       "seen_by_claude": true,
       "comment_only": true
+    },
+    {
+      "id": "Q-S294-186",
+      "asked": "2026-11-11T14:16:16.496934+00:00",
+      "session": "S294",
+      "text": "Does a professional fighter keep the day job until they reach the top 10?",
+      "options": [
+        "Yes, job until top 10",
+        "No, full-time once pro"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-187",
+      "asked": "2026-11-11T14:16:16.725526+00:00",
+      "session": "S294",
+      "text": "Should featherweight and middleweight get their own professional ranking tables in this version?",
+      "options": [
+        "Yes, both",
+        "No, later"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-188",
+      "asked": "2026-11-11T14:16:16.952066+00:00",
+      "session": "S294",
+      "text": "Ana's own fight plan for the mat (the grappler's plan rules): this version or the next?",
+      "options": [
+        "This version",
+        "Next version"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

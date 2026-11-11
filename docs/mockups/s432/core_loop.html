@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Core Loop</title>
+<style>
+  :root {
+    --wall: #191411; --wall2: #241c17; --navy: #1c2640; --navy2: #252d44; --ring: #fdf9f2;
+    --ink: #ede0cc; --quiet: #b19f84; --gold: #e7bd56; --blue: #6e9fe7; --tag: #8fb9f3;
+    --red: #e1473a; --green: #6cc27a; --amber: #e8963a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; }
+  body {
+    background: radial-gradient(ellipse 900px 520px at 960px 520px, #3a2c20 0%, var(--wall2) 45%, var(--wall) 100%);
+    color: var(--ink); font-family: Bahnschrift, "Segoe UI", Arial, sans-serif; position: relative;
+  }
+  .title { position: absolute; left: 40px; top: 18px; font-size: 46px; letter-spacing: 2px; color: var(--blue); font-weight: 700; }
+  .sub { position: absolute; left: 44px; top: 74px; font-size: 22px; color: var(--quiet); }
+  .verdict { position: absolute; right: 40px; top: 26px; width: 1000px; text-align: right; font-size: 22px; line-height: 30px; }
+  .verdict b { color: var(--green); } .verdict i { color: var(--amber); font-style: normal; font-weight: 700; }
+  .card {
+    position: absolute; width: 460px; background: linear-gradient(180deg, #222c47 0%, var(--navy) 100%);
+    border: 2px solid #34405f; border-radius: 14px; padding: 16px 20px 14px 20px; box-shadow: 0 10px 28px rgba(0,0,0,.55);
+  }
+  .head { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+  .pin {
+    flex: 0 0 52px; height: 52px; border-radius: 50%; background: var(--navy); border: 4px solid var(--ring);
+    display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 700; color: var(--ring);
+  }
+  .name { font-size: 23px; font-weight: 700; color: var(--gold); letter-spacing: .5px; line-height: 28px; white-space: nowrap; }
+  .where { font-size: 20px; color: var(--tag); line-height: 24px; }
+  ul { list-style: none; }
+  li { font-size: 21px; line-height: 29px; padding-left: 18px; position: relative; }
+  li::before { content: ""; position: absolute; left: 2px; top: 12px; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+  .warn { position: absolute; right: 14px; top: 14px; background: #4a2a14; border: 2px solid var(--amber); color: var(--amber);
+    font-size: 20px; padding: 2px 10px; border-radius: 8px; font-weight: 700; }
+  .flow { position: absolute; font-size: 21px; line-height: 27px; color: var(--ink); text-align: center; }
+  .flow b { color: var(--gold); display: block; font-size: 20px; letter-spacing: 1px; }
+  .center {
+    position: absolute; left: 560px; top: 452px; width: 800px; height: 156px; background: rgba(37,45,68,.92);
+    border: 2px solid #275696; border-radius: 12px; padding: 10px 22px; text-align: center;
+  }
+  .center .t { font-size: 22px; color: var(--tag); letter-spacing: 2px; font-weight: 700; margin-bottom: 4px; }
+  .center p { font-size: 20px; line-height: 30px; }
+  .center em { color: var(--gold); font-style: normal; font-weight: 700; }
+  .build { position: absolute; left: 40px; top: 954px; width: 1840px; height: 112px; background: rgba(28,38,64,.85);
+    border: 2px solid #34405f; border-radius: 12px; padding: 10px 20px; }
+  .build .t { font-size: 22px; color: var(--gold); letter-spacing: 2px; font-weight: 700; margin-bottom: 8px; }
+  .chips { display: flex; align-items: center; gap: 12px; }
+  .chip { background: var(--navy2); border: 2px solid var(--ring); border-radius: 30px; padding: 6px 16px; font-size: 21px; white-space: nowrap; }
+  .chip span { color: var(--gold); font-weight: 700; margin-right: 6px; }
+  .arrow { font-size: 26px; color: var(--gold); }
+  svg { position: absolute; left: 0; top: 0; }
+</style>
+</head>
+<body>
+<div class="title">THE CORE LOOP</div>
+<div class="sub">One week, one bout, what it pays: the six S432 maps joined into one loop.</div>
+<div class="verdict">COMPLETE? <b>Club week, RPG, hype, playbook, fight link: yes (7 and 7)</b><br>
+  <i>Training 6.5 and 7: five changes (v6) before its tab</i></div>
+
+<svg width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <marker id="h" markerUnits="userSpaceOnUse" markerWidth="28" markerHeight="28" refX="22" refY="14" orient="auto">
+      <path d="M0,0 L28,14 L0,28 z" fill="#e7bd56"/>
+    </marker>
+  </defs>
+  <g stroke="#e7bd56" stroke-width="6" fill="none" marker-end="url(#h)">
+    <line x1="510" y1="352" x2="720" y2="352"/>
+    <line x1="1200" y1="352" x2="1410" y2="352"/>
+    <line x1="1660" y1="450" x2="1660" y2="614"/>
+    <line x1="1410" y1="850" x2="1200" y2="850"/>
+    <line x1="720" y1="850" x2="510" y2="850"/>
+    <line x1="260" y1="614" x2="260" y2="450"/>
+  </g>
+</svg>
+
+<!-- top row -->
+<div class="card" style="left:40px; top:124px; height:318px;">
+  <div class="head"><div class="pin">1</div><div><div class="name">THE WEEK</div><div class="where">Club week, every Monday</div></div></div>
+  <ul>
+    <li>8 pad places, 6 mornings, the paid seat</li>
+    <li>Coach's evenings: pads or a class</li>
+    <li>the sparring pair and its setting</li>
+    <li>the twist; each fighter's season target</li>
+    <li>each fighter's load: Easy to Hard, Sharpen</li>
+    <li>loyalty forecast before Start week</li>
+  </ul>
+</div>
+<div class="flow" style="left:512px; top:200px; width:206px;"><b>FLOWS</b>sessions, pace,<br>who coaches,<br>the pair</div>
+
+<div class="card" style="left:730px; top:124px; height:318px;">
+  <div class="warn">6.5 / 7</div>
+  <div class="head"><div class="pin">2</div><div><div class="name">TRAINING AND PADS</div><div class="where">Training tab</div></div></div>
+  <ul>
+    <li>each ability grows to its own ceiling</li>
+    <li>pads: Usable fires 1 in 2, Sharp 3 in 4</li>
+    <li>your pad places train a habit out</li>
+    <li>tiredness, niggles, fade by dose</li>
+    <li>the 13 days to the bell</li>
+    <li>v6: Hard buys fitness, no dead zone</li>
+  </ul>
+</div>
+<div class="flow" style="left:1202px; top:200px; width:206px;"><b>FLOWS</b>points, mastery,<br>habits gone,<br>tiredness, Known</div>
+
+<div class="card" style="left:1420px; top:124px; height:318px;">
+  <div class="head"><div class="pin">3</div><div><div class="name">FIGHTER AND COACH GROW</div><div class="where">Profile, Character, Club &gt; You</div></div></div>
+  <ul>
+    <li>a perk opens: pick its version</li>
+    <li>traits cross lines at named numbers</li>
+    <li>Known grows only by your own hours</li>
+    <li>build direction; loyalty bands</li>
+    <li>your level: one either/or pick</li>
+    <li>hype: buzz that lasts, heat for one night</li>
+  </ul>
+</div>
+
+<!-- middle band -->
+<div class="flow" style="left:284px; top:470px; width:264px; text-align:left;"><b>FLOWS</b>fixes on the board,<br>Rest or Ready, cash,<br>fans, the next sheet</div>
+<div class="center">
+  <div class="t">ONE WORD, ONE NUMBER</div>
+  <p><em>0-100</em> what a fighter is · <em>exchanges</em> what a choice did · <em>N in 100</em> a chance</p>
+  <p><em>Tank</em> = energy at the first bell · Legs, Cardio = groups · <em>loyalty</em> is the bond</p>
+  <p>Money: dues, class nights, ticket cut, purse → seats, staff, rent</p>
+</div>
+<div class="flow" style="left:1372px; top:470px; width:266px; text-align:right;"><b>FLOWS</b>how well each line<br>is done, how often<br>it fires, lines brought</div>
+
+<!-- bottom row -->
+<div class="card" style="left:40px; top:622px; height:318px;">
+  <div class="head"><div class="pin">6</div><div><div class="name">WHAT IT TEACHES AND PAYS</div><div class="where">the result, the Why, Monday</div></div></div>
+  <ul>
+    <li>the scales: what turned it, in exchanges</li>
+    <li>the count card; one reason per judge</li>
+    <li>ticket cut, fans, rank earned, members</li>
+    <li>experience, loyalty, marks, a trait moved</li>
+    <li>the stand-down; Ready, Building or Rest</li>
+    <li>each row's button puts a fix on Monday</li>
+  </ul>
+</div>
+<div class="flow" style="left:512px; top:700px; width:206px;"><b>FLOWS</b>exchanges won,<br>rounds, counts,<br>the result</div>
+
+<div class="card" style="left:730px; top:622px; height:318px;">
+  <div class="head"><div class="pin">5</div><div><div class="name">THE FIGHT</div><div class="where">fight night</div></div></div>
+  <ul>
+    <li>18 exchanges, every part stored</li>
+    <li>a shout every 30 seconds; pace, aim</li>
+    <li>the corner minute: one change, a line</li>
+    <li>the towel card, behind a divider</li>
+    <li>judges: clean punches, control, a count</li>
+    <li>a count on its exchange: power v chin</li>
+  </ul>
+</div>
+<div class="flow" style="left:1202px; top:700px; width:206px;"><b>FLOWS</b>lines, where, pace,<br>the Tank, readiness,<br>the towel line</div>
+
+<div class="card" style="left:1420px; top:622px; height:318px;">
+  <div class="head"><div class="pin">4</div><div><div class="name">THE PLAN AND THE BILL</div><div class="where">Fight plan, the bout page</div></div></div>
+  <ul>
+    <li>lines: the read x how it is done x fires</li>
+    <li>where to fight; pace by round; if read</li>
+    <li>the sheet's card; the scale; film</li>
+    <li>bring 4 lines; the towel line</li>
+    <li>your prediction</li>
+    <li>YOU AGAINST COACH: one chance, in 100</li>
+  </ul>
+</div>
+
+<div class="build">
+  <div class="t">THE BUILD ORDER</div>
+  <div class="chips">
+    <div class="chip"><span>1</span>Fix today's code (12 tasks)</div><div class="arrow">→</div>
+    <div class="chip"><span>2</span>Measure every choice: cut under 1.5 in 100</div><div class="arrow">→</div>
+    <div class="chip"><span>3</span>Rule modules</div><div class="arrow">→</div>
+    <div class="chip"><span>4</span>Screens: Fighters, Profile first</div><div class="arrow">→</div>
+    <div class="chip"><span>5</span>One golden-path test</div>
+  </div>
+</div>
+</body>
+</html>

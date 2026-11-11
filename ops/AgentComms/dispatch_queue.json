@@ -929,8 +929,9 @@
   {
    "task": "DUESBAND1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-10T13:07"
+   "status": "launched",
+   "queued": "2026-11-10T13:07",
+   "launched": "2026-11-11T14:41"
   },
   {
    "task": "LEGTREMBLE4",
@@ -941,8 +942,9 @@
   {
    "task": "KDFIX4",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-10T13:15"
+   "status": "launched",
+   "queued": "2026-11-10T13:15",
+   "launched": "2026-11-11T15:42"
   },
   {
    "task": "DUESCARD1",
@@ -1103,8 +1105,9 @@
   {
    "task": "DUESSUMS2",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-11T11:45"
+   "status": "launched",
+   "queued": "2026-11-11T11:45",
+   "launched": "2026-11-11T12:12"
   }
  ]
 }

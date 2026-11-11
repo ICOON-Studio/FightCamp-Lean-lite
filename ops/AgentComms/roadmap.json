@@ -6,16 +6,18 @@
   "id": "S432",
   "owner": "claude",
   "updated": "2026-11-11",
-  "summary": "S432 (2026-11-11): his two asks done first. Other sessions told to report to this one (HUMANFIGHT1 and the busy start session; neither answered, both idle). Session start trimmed: ~50 s -> ~14 s, ~300 -> ~160 lines (30 runs collected by hand sat 'landed' and were re-checked on GitHub every start; triage is --full only; THE QUEUE is the board plan). Collected by diff, each with its tests and a film or still read: HUMANFIGHT1 + the stepping route as the game's default (his Q-183; captured takes opt-in with -- rokoko; film: 0 airborne, slide 0.7 m a minute); TRAININGB2 with the S431 review's fixes (numbers off the curve, the 80 line readable, Start week back on the 1080 screen); AIMWIRE1 (rib calls and the body-on-tired bonus reach the fight; the liver side opens first by her stance); CAMLINE2 round 1 (hidden 0.63 -> 0.23 s, behind 0.80 -> 0 s, split ropes 1,889 -> 0); DUESSUMS2 (0 balanced sets of 972: a full 40-place club ignores reputation - next lever a waiting list). PRs 163, 168, 194, 195, 196 closed; DUESBAND1 closed (collected S424). Q-182: Ludo painted both pages, 3 each, on the review board; his pick asked as Q-185. HUMANFIGHT2 (the animation round: pops, reach per punch, one-frame contact, posture limits, ruler first) briefed and launched on Cursor. Exported Builds/ (exe smoke-run clean; the exporter crashed on exit after writing).",
+  "summary": "S432 (2026-11-11): his two asks done first. Other sessions told to report to this one (HUMANFIGHT1 and the busy start session; neither answered, both idle). Session start trimmed: ~50 s -> ~14 s, ~300 -> ~160 lines (30 runs collected by hand sat 'landed' and were re-checked on GitHub every start; triage is --full only; THE QUEUE is the board plan). Collected by diff, each with its tests and a film or still read: HUMANFIGHT1 + the stepping route as the game's default (his Q-183; captured takes opt-in with -- rokoko; film: 0 airborne, slide 0.7 m a minute); TRAININGB2 with the S431 review's fixes (numbers off the curve, the 80 line readable, Start week back on the 1080 screen); AIMWIRE1 (rib calls and the body-on-tired bonus reach the fight; the liver side opens first by her stance); CAMLINE2 round 1 (hidden 0.63 -> 0.23 s, behind 0.80 -> 0 s, split ropes 1,889 -> 0); DUESSUMS2 (0 balanced sets of 972: a full 40-place club ignores reputation - next lever a waiting list). PRs 163, 168, 194, 195, 196 closed; DUESBAND1 closed (collected S424). Q-182: Ludo painted both pages, 3 each, on the review board; his pick asked as Q-185. HUMANFIGHT2 (the animation round: pops, reach per punch, one-frame contact, posture limits, ruler first) briefed and launched on Cursor. Exported Builds/ (exe smoke-run clean; the exporter crashed on exit after writing). LATER IN S432 (his asks): map v3 reviewed by critics (v4 7/7, v4.1), RPG layer 7/7, hype researched and designed 7/7, training rated for the first time (5/5 as built; map v5 6.5/7, v6 next), playbook 7/7, build-to-fight 7/7; integration CORE_LOOP_MAP_S432: 30+ conflicts settled, every page's contents, build order (12 foundation fixes, probes, modules, screens, golden path).",
   "last_working_commit": "b2568842",
   "verified_playable": "Builds/FightCamp.exe 13:14 runs 300 frames headless with no script error; fight film, Training tab still and camera stills read",
   "incomplete_blocked": "HUMANFIGHT2 running on Cursor (worktree LEAN_HUMANFIGHT2). Q-184 (map v3) and Q-185 (which painting) open. CAMLINE2 round 2 saved on the branch, not collected; one faded-rope read left. AIMWIRE1 did not measure the aim plans over a year. Ziva down.",
-  "next_action": "0) get_usage (Fable reset Thu 12 Nov 16:00; workflows only after it). 1) His answers: Q-185 -> one Cursor task a page from the painting he picks (the Fighters page first, then the Profile); Q-184 -> measure or critics as he says. 2) Collect HUMANFIGHT2 when it lands: its ruler red on main, every bar in its result page, its film read by you. 3) DUESSUMS3 brief: the waiting-list lever (a full famous club keeps members longer), the same 972-set search. 4) The aim plans measured over a year (own game / body / head / body then ribs). 5) Ziva back up when no render runs.",
+  "next_action": "0) get_usage. 1) Training v6 (five changes in CORE_LOOP section 4) + two fresh critics. 2) STEP 0 foundation fixes F1-F12 (Qwen: REST1, CEIL14, STANDDOWN1, KNOWN0; Claude: CARDIO1, NOCAMP1+TANK1, PUNCHSTART1, STOPMULT1, CORNER17). 3) Fighters page then Profile to painting 1 (Cursor), contents = CORE_LOOP section 3. 4) Collect HUMANFIGHT2, DUESSUMS3, CORNERFACE1. 5) His answers Q-186/187/188.",
   "next_acceptance": "His pick built as a page in the .exe; HUMANFIGHT2's bars green with a film you read; a dues lever that separates Premium's small famous club.",
   "awaiting_operator": [
-   "Q-185: which Ludo painting to build the two pages to",
-   "Q-184: map v3, critics after the reset or measure the prices first",
-   "E: 35 GB free: which scratch renders under E:/FightCamp/tmp may go"
+   "Q-186: pro keeps the day job to the top 10?",
+   "Q-187: feather and middle pro tables?",
+   "Q-188: Ana's mat plan now or next version?",
+   "Miro: delete 14 leftover slots?",
+   "E: scratch renders to delete?"
   ]
  },
  "next": "MECHANICS FIRST (operator S422 OK). 1) Collect KDFIX2 (the ruler only) and LEGTREMBLE3. 2) Brief FIGHTDISPLAY1 to Cursor from docs/mockups/s422/fight_10_simvet.html (his Q-174 pick: 'Use the veteran's drawing'); data check FIGHT_DISPLAY_DECISION_S419.md s7. 3) R28 Cutman: write the DESIGN MAP (what the player decides, on which screen, what it changes, the numbers, real-world cut rules) as one page + a picture, ask him on the board, then brief the pure module to Qwen/Goose. 4) R25 the same, after checking head punches count. 5) Q-173 dues: design map only. Menus wait unless a mechanic needs them.",
@@ -4661,7 +4663,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-11 14:11 board_sync",
+  "updated": "2026-11-11 15:42 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4819,7 +4821,8 @@
     "title": "TASK HUMANFIGHT2 - CURSOR (Grok 4.7 High) - the stepping route moves like two boxers: no pops, a reach per punch, one-frame contact, posture limits",
     "who": "cursor",
     "started": "2026-11-11T13:12",
-    "run": "HUMANFIGHT2"
+    "run": "HUMANFIGHT2",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "TASK DUESSUMS3 - QWEN (qwen3-coder) - dues sums, third search: a waiting list, the one thing reputation buys a FULL club (pure module + sim, MEASURE ONLY)",
@@ -4829,30 +4832,43 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "TASK R11C - QWEN (qwen3-coder) - a standing count on the cards says what it cost",
+    "title": "TASK DUESBAND1 - QWEN (qwen3-coder) - dues bands: what kind of club you run (pure rules + a 5-year sim test)",
     "who": "qwen",
-    "started": "2026-11-11T14:11",
-    "run": "R11C"
+    "started": "2026-11-11T14:41",
+    "run": "DUESBAND1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK FACEFRAME1 - CURSOR (Grok 4.7 High) - every face picture in the menus shows the whole head",
+    "who": "cursor",
+    "started": "2026-11-11T15:12",
+    "run": "FACEFRAME1"
+   },
+   {
+    "title": "TASK KDFIX4 - CURSOR (Grok 4.7 High) - a downed boxer's upper body sways, round 4: settle or sway, and block_meet",
+    "who": "qwen",
+    "started": "2026-11-11T15:42",
+    "run": "KDFIX4"
    }
   ],
   "next": [
    {
-    "id": "RPGLAYER1",
+    "id": "TRAINV6",
     "who": "claude",
-    "title": "RPG layer on the reviewed map: the coach grows (either/or perks), a bond with each fighter, a coaching style, traits that change through play, fighter moments - then two fresh critics (7+ rule)",
-    "after": "MAPV3"
+    "title": "Training v6: Hard buys fitness, fresher counts, smooth Stamina, one camp control, a career arc - two fresh critics (7+)",
+    "after": "CORELOOP"
    },
    {
-    "id": "HYPE1",
+    "id": "FOUNDATION",
     "who": "claude",
-    "title": "Hype: the heat around a fighter that rises and cools (beside lasting fans) - design map, two fresh critics, 7+ rule (his S432 ask)",
-    "after": "MAPV3"
+    "title": "Step 0: twelve foundation fixes in today's code (rest drains Stamina, ceilings, Cardio average, no-camp Tank, punch start, stop odds, ...)",
+    "after": "CORELOOP"
    },
    {
-    "id": "TRAINDEPTH1",
-    "who": "claude",
-    "title": "Training mechanics rated by critics for the first time (his S432 question); under 7 a training map deepens them",
-    "after": "MAPV3"
+    "id": "PAGES2",
+    "who": "cursor",
+    "title": "Fighters page then Profile to painting 1, contents from the core loop map",
+    "after": "FOUNDATION"
    },
    {
     "id": "LOOK2",
@@ -4871,12 +4887,6 @@
     "who": "qwen",
     "title": "Dues sums with a waiting list: a full famous club keeps members longer - does it let each price win its club?",
     "after": "DUESSUMS2"
-   },
-   {
-    "id": "MAPV3",
-    "who": "operator",
-    "title": "Map v3: two critics, a designer deepens it to v4, fresh critics, a verdict on mechanics complete (running, his Q-184 answer)",
-    "after": "his answer"
    },
    {
     "id": "CORNERFACE1",
@@ -5220,6 +5230,12 @@
   },
   "done_recently": [
    {
+    "id": "CORELOOP",
+    "who": "claude",
+    "title": "Core loop reviewed by critics and joined: five tracks at 7/7, build order written",
+    "after": "S432"
+   },
+   {
     "title": "TASK AIMWIRE1 - QWEN (qwen3-coder) - the aim buttons: rib targets that never appear, a body bonus that never fires, and what a fight's tiredness does to a year",
     "who": "qwen",
     "when": "2026-11-11"
@@ -5278,11 +5294,6 @@
     "who": "claude",
     "title": "Training tab: tiredness numbers readable, the 80 line clear, Start week back on screen (PR 194 collected)",
     "after": "S432"
-   },
-   {
-    "title": "TASK FIGHTDISPLAY4 - CURSOR (Grok 4.7 High) - the fight screen: the two wooden side panels go, the bars move to the top, the see-through figures stand free agai",
-    "who": "cursor",
-    "when": "2026-11-11"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",

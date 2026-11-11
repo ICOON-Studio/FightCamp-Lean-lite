@@ -1,0 +1,223 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Training 10/10 (tr5 series critic)</title>
+<style>
+:root{--bg:#15130f;--panel:#221e18;--panel2:#2b261e;--line:#4a4033;--ink:#f1e9da;--dim:#b9ad98;--gold:#f0c548;--amber:#f29a3a;--red:#e2574c;--green:#7fcf6a;--blue:#5aa7e8;--violet:#b48ef0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Bahnschrift,sans-serif;font-size:20px;line-height:1.25}
+.num{font-family:Bahnschrift,"Segoe UI",sans-serif}
+.top{height:60px;background:#0d0c0a;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 24px;gap:28px}
+.top .gym{font-family:Bahnschrift;font-size:28px;color:var(--blue);font-weight:700;letter-spacing:1px}
+.top .cash{margin-left:auto;font-size:26px;color:var(--gold)}
+.btn{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:6px 14px}
+.cont{background:#3a3220;border:1px solid var(--gold);border-radius:6px;padding:4px 16px;font-size:20px}
+.head{position:absolute;top:72px;left:24px;right:24px;height:60px;display:flex;align-items:center;gap:16px;white-space:nowrap}
+.name{font-family:Bahnschrift;font-size:32px;font-weight:700;letter-spacing:1px}
+.chip{border-radius:16px;padding:3px 14px;border:1px solid var(--line);background:var(--panel)}
+.tabs{margin-left:auto;display:flex;gap:6px}
+.tabs div{padding:6px 14px;border-radius:6px;background:var(--panel)}
+.tabs .on{background:#2f5f8f}
+.panel{position:absolute;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+h2{font-family:Bahnschrift;font-size:22px;letter-spacing:1px;color:var(--gold);font-weight:700;margin-bottom:6px}
+h2 span{color:var(--dim);font-weight:400;letter-spacing:0;font-family:"Segoe UI"}
+.dim{color:var(--dim)} .g{color:var(--green)} .a{color:var(--amber)} .r{color:var(--red)} .y{color:var(--gold)} .b{color:var(--blue)}
+/* load */
+.load{border:1px solid var(--line);border-radius:8px;padding:6px 12px;margin-top:7px;background:var(--panel2)}
+.load.on{border:2px solid var(--gold)}
+.load .t{display:flex;justify-content:space-between;font-weight:700}
+.hz{display:flex;align-items:center;gap:10px;margin-top:4px}
+.hz .lbl{width:84px;color:var(--dim)}.hz{white-space:nowrap}
+.bar{height:12px;border-radius:6px;background:#3a3329;flex:none;position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}
+/* strip */
+.strip{display:flex;gap:6px}
+.blk{flex:1;border-radius:6px;padding:4px 6px;font-family:Bahnschrift;white-space:nowrap;background:var(--panel2);border-top:4px solid var(--blue);height:78px}
+.blk b{display:block;font-family:Bahnschrift}
+/* abilities */
+.row{display:flex;align-items:center;height:47px;border-bottom:1px solid #332c23}
+.row .w{width:48px;color:var(--gold);letter-spacing:-2px}
+.row .n{width:176px;white-space:nowrap;font-weight:600}
+.row .v{width:40px;text-align:right;font-family:Bahnschrift;font-size:24px;margin-right:10px}
+.trk{position:relative;width:240px;height:26px;background:#2f291f;border-radius:4px;flex:none}
+.trk .fill{position:absolute;left:0;top:6px;height:14px;background:var(--blue);border-radius:3px}
+.trk .gh{position:absolute;top:6px;height:14px;background:repeating-linear-gradient(90deg,#f0c54899 0 6px,transparent 6px 10px);border-radius:3px}
+.trk .wall{position:absolute;top:0;bottom:0;right:0;background:repeating-linear-gradient(135deg,#5a4e3e 0 4px,#2a241c 4px 9px)}
+.trk .ln{position:absolute;top:-3px;width:3px;height:32px;background:var(--ink)}
+.row .nx{margin-left:12px;width:226px;white-space:nowrap;overflow:hidden}
+.legend{display:flex;gap:18px;margin-top:6px;color:var(--dim)}
+.sw{display:inline-block;width:22px;height:12px;border-radius:3px;vertical-align:middle;margin-right:5px}
+/* week */
+.wk{display:grid;grid-template-columns:64px repeat(7,1fr);gap:5px;margin-top:4px}
+.wk div{background:var(--panel2);border-radius:5px;padding:3px 6px;min-height:52px}
+.wk .h{background:none;min-height:0;text-align:center;color:var(--dim);font-weight:700}
+.wk .lab{background:none;color:var(--dim);display:flex;align-items:center}
+.you{border-left:5px solid var(--gold)} .coach{border-left:5px solid var(--blue)} .alone{border-left:5px solid #8a8070}
+.chg{outline:2px solid var(--gold)}
+.lock{opacity:.55}
+.foot{position:absolute;bottom:14px;left:24px;right:24px;display:flex;gap:12px;align-items:center}
+.foot .btn{font-size:20px;padding:10px 16px}
+.foot .main{margin-left:auto;background:var(--gold);color:#1a1408;font-weight:700;border:none}
+</style></head><body>
+
+<div class="top">
+  <div class="btn">&lt;</div><div class="gym">ANVIL STREET GYM</div>
+  <div>Mon 16 Feb 2026 <span class="dim">· week 7</span></div>
+  <div class="cash num">$12,940 <span class="dim" style="font-size:20px">-$210 a week</span></div>
+  <div class="cont">CONTINUE <span class="dim">to Mon 23 Feb, fight week</span></div>
+  <div class="btn">Menu</div>
+</div>
+
+<div class="head">
+  <div class="name">SAMIRA KHAN</div>
+  <div class="dim">Welter · 18 · 3-1</div>
+  <div class="chip">Goal <b class="y">Cardio 63</b> Fri 13 Mar <span class="g">on track</span></div>
+  <div class="chip" style="border-color:var(--violet)">Aim <b style="color:var(--violet)">Ring-cutter</b> 2 of 3</div>
+  <div class="tabs"><div>Profile</div><div>Condition</div><div class="on">Training</div><div>Playbook</div><div>History</div></div>
+</div>
+
+<!-- LEFT: the load -->
+<div class="panel" style="top:144px;left:24px;width:540px;height:600px">
+  <h2>THE LOAD <span>kept until you change it</span></h2>
+  <div class="dim">usual work 92 · safe to 120 · from tired 61</div>
+  <div class="hz" style="margin-top:2px"><span class="lbl"></span><span class="dim" style="width:126px">this week</span><span class="dim">kept to Sat 4 Apr</span></div>
+
+  <div class="load"><div class="t"><span>Easy</span><span class="num dim">work 59 · 6 h 15</span></div>
+   <div class="hz"><span class="lbl">Cardio</span><div class="bar" style="width:100px"><i style="width:25%;background:var(--blue)"></i></div><div class="bar" style="width:110px"><i style="width:55%;background:var(--amber)"></i></div><span class="a">63 · fades</span></div>
+   <div class="hz"><span class="lbl">injury</span><span style="width:226px">under 1 in 100</span><span class="dim">goal at risk</span></div></div>
+
+  <div class="load"><div class="t"><span>Normal</span><span class="num dim">work 75 · 6 h 15</span></div>
+   <div class="hz"><span class="lbl">Cardio</span><div class="bar" style="width:100px"><i style="width:40%;background:var(--blue)"></i></div><div class="bar" style="width:110px"><i style="width:70%;background:var(--amber)"></i></div><span class="a">63 · fades</span></div>
+   <div class="hz"><span class="lbl">injury</span><span style="width:226px">1 in 100</span><span class="dim">peak 73 Thu</span></div></div>
+
+  <div class="load on"><div class="t"><span class="y">Hard <span class="dim" style="font-weight:400">picked</span></span><span class="num dim">work 96 · 7 h 30</span></div>
+   <div class="hz"><span class="lbl">Cardio</span><div class="bar" style="width:100px"><i style="width:55%;background:var(--blue)"></i></div><div class="bar" style="width:110px"><i style="width:100%;background:var(--green)"></i></div><span class="g">64 Fri 3 Apr</span></div>
+   <div class="hz"><span class="lbl">injury</span><span class="a" style="width:226px">3 in 100</span><span class="a">over 80 Thu</span></div>
+   <div style="margin-top:4px;font-style:italic">Samira: "ease the Hard days" <span class="r">· overruled, mood -5</span></div></div>
+
+  <div class="load"><div class="t"><span style="color:var(--violet)">Sharpen</span><span class="num dim">work 44 · 2 h 45</span></div>
+   <div class="hz"><span class="lbl">keeps</span><span style="width:226px">Speed, Explosive</span><span class="dim">tiredness 40 Sun</span></div></div>
+  <div style="margin-top:12px">Pattern <b class="g">VARIED</b> <span class="dim">· Hard days never back to back</span></div>
+</div>
+
+<!-- LEFT: body -->
+<div class="panel" style="top:754px;left:24px;width:540px;height:250px">
+  <h2>BODY <span class="r" style="font-family:Bahnschrift;letter-spacing:1px">NIGGLE</span> <span>right hand · 4 hand days</span></h2>
+  <div class="load on" style="border-color:var(--green)"><div class="t"><span>Rest it</span><span class="g">picked</span></div>
+   <div>habit HALF FIXED on Sat 28 <span class="a">-2 to -4 in 100</span></div>
+   <div>no bag: Explosive <span class="a">-0.5</span> on the night</div></div>
+  <div class="load"><div class="t"><span>Push on</span><span class="r">hand injury 4 in 100</span></div>
+   <div>habit GONE · out 2-4 weeks: bout off, $300</div></div>
+</div>
+
+<!-- MIDDLE: strip -->
+<div class="panel" style="top:144px;left:580px;width:780px;height:124px">
+  <div class="strip">
+   <div class="blk" style="border-top-color:var(--gold)"><b>16 Feb</b>BUILD<br>Hard</div>
+   <div class="blk" style="border-top-color:var(--violet)"><b>23 Feb</b>FIGHT WK</div>
+   <div class="blk" style="border-top-color:var(--red)"><b>Sat 28</b>Legs 100</div>
+   <div class="blk"><b>2 Mar</b>REST<br>spar Thu 5</div>
+   <div class="blk"><b>9 Mar</b>BUILD</div>
+   <div class="blk" style="border-top-color:var(--violet)"><b>23 Mar</b>DELOAD</div>
+   <div class="blk" style="border-top-color:var(--red)"><b>Sat 4 Apr</b>REGIONAL</div>
+  </div>
+</div>
+
+<!-- MIDDLE: abilities as tracks -->
+<div class="panel" style="top:278px;left:580px;width:780px;height:470px">
+  <h2>ABILITIES <span>sorted by worth against Kayleigh Bell, counter-puncher</span> </h2>
+  <div class="row"><span class="w">●●●●</span><span class="n">Footwork <span class="y">x1.3</span></span><span class="v">57</span>
+    <div class="trk"><div class="fill" style="width:102px;"></div><div class="gh" style="left:102px;width:8px"></div><div class="ln" style="left:132px"></div><div class="wall" style="width:48px;opacity:1"></div></div>
+    <span class="nx">62 Jab and move <span class="a">June</span></span></div>
+  <div class="row"><span class="w">●●●</span><span class="n">Defence</span><span class="v">51</span>
+    <div class="trk"><div class="fill" style="width:66px;"></div><div class="gh" style="left:66px;width:18px"></div><div class="ln" style="left:72px"></div><div class="ln" style="left:132px"></div><div class="wall" style="width:84px;opacity:0.6"></div></div>
+    <span class="nx">62 Hands up <span class="a">July</span></span></div>
+  <div class="row"><span class="w">●●●</span><span class="n">Timing <span class="y">x1.4</span></span><span class="v">58</span>
+    <div class="trk"><div class="fill" style="width:108px;"></div><div class="gh" style="left:108px;width:9px"></div><div class="ln" style="left:144px"></div><div class="wall" style="width:66px;opacity:1"></div></div>
+    <span class="nx">64 Draw the lead <span class="a">May</span></span></div>
+  <div class="row"><span class="w">●●●</span><span class="n">Speed</span><span class="v">69</span>
+    <div class="trk"><div class="fill" style="width:174px;"></div><div class="gh" style="left:174px;width:6px"></div><div class="ln" style="left:180px"></div><div class="wall" style="width:24px;opacity:1"></div></div>
+    <span class="nx">70 Fast hands 9 Mar</span></div>
+  <div class="row"><span class="w">●●●</span><span class="n">Cardio <span class="dim">goal</span></span><span class="v">62</span>
+    <div class="trk"><div class="fill" style="width:132px;"></div><div class="gh" style="left:132px;width:12px"></div><div class="ln" style="left:144px;background:var(--green)"></div><div class="wall" style="width:78px;opacity:1"></div></div>
+    <span class="nx">64 no fade <span class="g">Hard 3 Apr</span></span></div>
+  <div class="row"><span class="w">●●</span><span class="n">Explosive</span><span class="v">60</span>
+    <div class="trk"><div class="fill" style="width:120px;background:var(--amber)"></div><div class="wall" style="width:108px;opacity:1"></div></div>
+    <span class="nx"><span class="a">fades Sat 28</span> cap</span></div>
+  <div class="row"><span class="w">●●</span><span class="n">Durability</span><span class="v">55</span>
+    <div class="trk"><div class="fill" style="width:90px;"></div><div class="wall" style="width:78px;opacity:1"></div></div>
+    <span class="nx"><span class="a">fades 5 Mar</span> neck</span></div>
+  <div class="row" style="border:none"><span class="w">●●</span><span class="n">Inside</span><span class="v">50</span>
+    <div class="trk"><div class="fill" style="width:60px;"></div><div class="gh" style="left:60px;width:7px"></div><div class="ln" style="left:132px"></div><div class="wall" style="width:102px;opacity:1"></div></div>
+    <span class="nx">62 Tie up · 2027</span></div>
+  <div class="legend"><span><i class="sw" style="background:var(--blue)"></i>now</span><span><i class="sw" style="background:repeating-linear-gradient(90deg,#f0c548 0 5px,transparent 5px 8px)"></i>by Sat 4 Apr, Hard</span><span><i class="sw" style="background:var(--ink);width:4px"></i>a line in the ring</span><span><i class="sw" style="background:repeating-linear-gradient(135deg,#5a4e3e 0 4px,#2a241c 4px 9px)"></i>ceiling</span><span class="b" style="margin-left:auto">Show all 14</span></div>
+</div>
+
+<!-- MIDDLE: the week -->
+<div class="panel" style="top:758px;left:580px;width:780px;height:246px">
+  <h2>THE WEEK <span>pace · who · lift</span></h2>
+  <div class="wk">
+    <div class="h"></div><div class="h">MON</div><div class="h">TUE</div><div class="h">WED</div><div class="h">THU</div><div class="h">FRI</div><div class="h">SAT</div><div class="h">SUN</div>
+    <div class="lab">AM</div>
+    <div class="coach">Slip rope<br><span class="a">Hard</span></div>
+    <div class="alone chg">Footwork<br>Normal</div>
+    <div class="you">Intervals<br><span class="dim">Normal</span></div>
+    <div class="coach">Roadwork<br><span class="a">Hard</span></div>
+    <div class="coach">Shadow<br>Light</div>
+    <div class="you">Strength<br><span class="a">Hard</span></div>
+    <div class="dim">Rest</div>
+    <div class="lab">PM</div>
+    <div class="coach">Pads<br>75 min</div>
+    <div class="dim">Rest</div>
+    <div class="you">Pads<br>75 min</div>
+    <div class="coach">Sparring<br>Lucy x1.2</div>
+    <div class="coach chg">Pads<br>75 min</div>
+    <div class="dim">Rest</div>
+    <div class="dim">Rest</div>
+  </div>
+</div>
+
+<!-- RIGHT: what it buys -->
+<div class="panel" style="top:144px;left:1376px;width:520px;height:250px">
+  <h2>SAT 28: WHAT THIS WEEK BUYS</h2>
+  <div style="display:flex;align-items:baseline;gap:12px"><span class="num y" style="font-size:52px;font-weight:700">+1 to +2</span><span>in 100 against<br>Coach's week</span></div>
+  <div>Habit <b class="a">HALF FIXED</b> · costs 3 an exchange</div>
+  <div>Cardio 64 <span class="dim">not by Sat 28 at any load</span></div>
+  <div>Open lever: <b class="y">habit GONE</b>, +2 to +4</div>
+</div>
+
+<!-- RIGHT: 13 days -->
+<div class="panel" style="top:404px;left:1376px;width:520px;height:344px">
+  <h2>TO THE BELL <span>13 days · tiredness</span> <span class="g" style="float:right;font-family:Bahnschrift">Legs 100</span></h2>
+  <svg width="488" height="240" viewBox="0 0 500 240">
+    <rect x="292" y="20" width="200" height="170" fill="#b48ef022"/>
+    <text x="300" y="40" fill="#b48ef0" font-size="20">fight week</text>
+    <line x1="30" x2="490" y1="40" y2="40" stroke="#e2574c" stroke-dasharray="6 5"/>
+    <line x1="30" x2="490" y1="70" y2="70" stroke="#f29a3a" stroke-dasharray="6 5"/>
+    <text x="0" y="46" fill="#e2574c" font-size="20">80</text><text x="0" y="76" fill="#f29a3a" font-size="20">70</text><text x="0" y="136" fill="#b9ad98" font-size="20">50</text>
+    <g fill="#5aa7e888">
+      <rect x="32" y="160" width="16" height="30"/><rect x="68" y="168" width="16" height="22"/><rect x="104" y="140" width="16" height="50"/><rect x="140" y="150" width="16" height="40"/>
+      <rect x="176" y="172" width="16" height="18"/><rect x="212" y="170" width="16" height="20"/><rect x="284" y="172" width="16" height="18"/><rect x="320" y="178" width="16" height="12"/><rect x="392" y="180" width="16" height="10"/>
+    </g>
+    <polyline fill="none" stroke="#f0c548" stroke-width="3" stroke-dasharray="8 6" points="40,79 76,67 112,43 148,40 184,55 220,76 256,100 292,82 328,106 364,112 400,133 436,148 472,163"/>
+    <polyline fill="none" stroke="#f1e9da" stroke-width="3" points="40,85 76,97 112,67 148,61 184,82 220,100 256,121 292,100 328,121 364,127 400,145 436,160 472,175"/>
+    <circle cx="148" cy="40" r="6" fill="#e2574c"/><circle cx="472" cy="175" r="7" fill="#7fcf6a"/>
+    <text x="40" y="222" fill="#b9ad98" font-size="20" text-anchor="middle">M</text><text x="76" y="222" fill="#b9ad98" font-size="20" text-anchor="middle">T</text><text x="112" y="222" fill="#b9ad98" font-size="20" text-anchor="middle">W</text><text x="148" y="222" fill="#b9ad98" font-size="20" text-anchor="middle">T</text><text x="184" y="222" fill="#b9ad98" font-size="20" text-anchor="middle">F</text><text x="220" y="222" fill="#b9ad98" font-size="20" text-anchor="middle">S</text><text x="256" y="222" fill="#b9ad98" font-size="20" text-anchor="middle">S</text><text x="292" y="222" fill="#b9ad98" font-size="20" text-anchor="middle">M</text><text x="328" y="222" fill="#b9ad98" font-size="20" text-anchor="middle">T</text><text x="364" y="222" fill="#b9ad98" font-size="20" text-anchor="middle">W</text><text x="400" y="222" fill="#b9ad98" font-size="20" text-anchor="middle">T</text><text x="436" y="222" fill="#b9ad98" font-size="20" text-anchor="middle">F</text><text x="472" y="222" fill="#b9ad98" font-size="20" text-anchor="middle">S</text>
+  </svg>
+  <div><span class="dim">—</span> Normal: peak 73 <span class="y">- - Hard: 80 Thu</span>, x0.6 Fri</div>
+</div>
+
+<!-- RIGHT: weight -->
+<div class="panel" style="top:758px;left:1376px;width:520px;height:246px">
+  <h2>WEIGHT <span>65.0 class · same-day scale Sat 28</span></h2>
+  <div style="display:flex;align-items:center;gap:12px"><span class="num" style="font-size:46px;font-weight:700">65.9</span>
+   <span class="btn">Hold</span><span class="btn" style="border-color:var(--gold);color:var(--gold)">Lean</span><span class="btn">Cut</span></div>
+  <div>Lean: 65.0 by Mon 16 Mar · <span class="g">nothing left</span></div>
+  <div>Hold: 0.9 kg left on the day · <span class="r">Legs -5</span></div>
+  <div class="dim">Regional Fri 3 Apr: day before, 24 h to refill</div>
+</div>
+
+<div class="foot">
+  <span><i class="sw" style="background:var(--gold)"></i>You</span><span><i class="sw" style="background:var(--blue)"></i>Coach</span><span><i class="sw" style="background:#8a8070"></i>alone</span>
+  <div class="btn" style="margin-left:24px">Keep changes into fight week</div><div class="btn">Back to Coach's week</div><div class="btn">Coach runs Samira <span class="dim">-1 to -2</span></div><div class="btn">Season so far</div>
+  <div class="btn main">Back to Club week</div>
+</div>
+</body></html>

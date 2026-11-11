@@ -34,11 +34,28 @@ medium for hard single-thread work, workflows still checked against usage.
 | Hype | HYPE_MAP_S432.md (research HYPE_RESEARCH_S432.md, notes in hype_notes/) | none existed | 7/7 |
 | Playbook | PLAYBOOK_MAP_S432.md | 6/5 | 7/7 |
 | From build to fight | FIGHT_LINK_MAP_S432.md | 5.5/6 | 7/6.5 -> 7/7 |
-| Training | TRAINING_MAP_S432.md | 5/5 | 7/6 -> 7/6.5 -> round 4 (see INTEGRATION below) |
+| Training | TRAINING_MAP_S432.md (v5) | 5/5 | 7/6 -> 7/6.5 -> 6.5/6.5 -> 6.5/7: NOT passed, v6 next |
 INTEGRATION: CORE_LOOP_MAP_S432.md - see section 0b (filled at the end of S432 when it lands).
 
-## 0b. INTEGRATION RESULT
-(pending at the time of writing: filled in before the handover block is given)
+## 0b. INTEGRATION RESULT (ops/research/CORE_LOOP_MAP_S432.md, picture docs/mockups/s432/core_loop.png)
+- MECHANICS COMPLETE: five tracks closed (club week, RPG layer, hype, playbook, build to fight: two fresh 7s each, with the
+  integration decisions written in). TRAINING is the one short track (v5: 6.5 and 7). FIRST WORK OF S433: training v6 with
+  exactly the five changes in CORE_LOOP section 4 (Hard buys real fitness, at least 1.6x Normal; fresher than tiredness 50
+  counts; Stamina a smooth number, not a cliff at 64; the professional's camp = blocks of the same load control, no second
+  free Hard button (BoutRules.PROTOCOLS); a career arc: ceilings move after named events, build direction on Training), two
+  fresh critics, 7+ rule. Only the Training tab and its modules wait on it.
+- 30+ conflicts settled with one decision each (section 2): loyalty the only bond; THE TANK = energy at the first bell (LEGS
+  stays Speed/Footwork/Flexibility, as on the approved pages); CARDIO the group, Stamina the ability; one Tank scale; fight-week
+  shape = the load (Easy / Sharpen / Normal); one pace control (Hype's Entertain/Safe cut); one scoring rule; one towel; ...
+- Code holes found (all foundation fixes, section 5 step 0): tank 0 on every no-camp bout; our punches start at 0; stop_mult
+  only on side b and puncher_chance never reads it; FighterGoal's trust_delta read by nothing; energy reads the old Cardio
+  average; Knowledge.range_of called by nothing; rest drains Stamina; ceilings never reach the gain; hours ignore effort.
+- BUILD ORDER (section 5): STEP 0 twelve foundation fixes F1-F12 (each with its seat), STEP 1 the probes on the played bout
+  (cloud; LEVERS1 with THE TARGET first; cut under 1.5 in 100), STEP 2 the rule modules by group, STEP 3 the screens (the
+  Fighters page and the Profile to painting 1 FIRST - their exact contents are section 3), STEP 4 one golden-path season test.
+  Steps 0-2 can start now.
+- Three questions put on the board (none blocks): Q-186 the pro keeps the day job to the top 10?; Q-187 feather and middle
+  pro tables?; Q-188 Ana's mat plan this version or next?
 
 ## 1. ALSO LANDED IN S432 (main, pushed)
 - HUMANFIGHT1 collected; THE STEPPING ROUTE IS THE DEFAULT (his Q-183; captured takes opt-in `-- rokoko`). PRs 163, 168 closed.
@@ -53,11 +70,11 @@ INTEGRATION: CORE_LOOP_MAP_S432.md - see section 0b (filled at the end of S432 w
 - DUESSUMS3 and CORNERFACE1 on Qwen. SQ41 John (how big fight games animate).
 
 ## 3. NEXT, IN ORDER
-1. Read 0b. The integration map's build order is the plan; put it on the board (roadmap plan.next) and the Miro P0 map.
-2. Probes first (the maps agree: measure every priced choice on the played bout before building; cut under 1.5 in 100).
-   Brief them to the seats (Qwen / Goose for pure modules + tests).
-3. The two pages in painting 1's look, built with the contents the integration map assigns them (one Cursor task a page).
-4. Collect what lands: HUMANFIGHT2, DUESSUMS3, CORNERFACE1.
+1. Training v6 (the five changes) + two fresh critics. Workflow on Opus is fine (cheap against all-models).
+2. STEP 0 foundation fixes: brief F1 REST1, F2a CEIL14, F6 STANDDOWN1, F10 KNOWN0 to Qwen; Claude takes F3 CARDIO1, F5 NOCAMP1+TANK1,
+   F7 PUNCHSTART1, F8 STOPMULT1, F12 CORNER17 (each red on main first, one file per task, 500-line rule).
+3. STEP 3 screens 1 and 2 to Cursor (Fighters page, then Profile, painting 1, contents = CORE_LOOP section 3) after KNOWN0.
+4. Put the build order on the board (roadmap plan.next) and the Miro P0 map; collect HUMANFIGHT2, DUESSUMS3, CORNERFACE1.
 
 ## Traps (S432)
 - Export: Godot crashed on exit AFTER writing; smoke-run the exe by its full path through godot_slot.

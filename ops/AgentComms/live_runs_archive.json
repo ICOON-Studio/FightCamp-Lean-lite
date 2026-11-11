@@ -13106,6 +13106,80 @@
    },
    "reconciled": "2026-11-11 13:10 board_reconcile: PR #196 closed",
    "archived": "2026-11-11 13:11 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "AIMWIRE1",
+   "title": "TASK AIMWIRE1 - QWEN (qwen3-coder) - the aim buttons: rib targets that never appear, a body bonus that never fires, and what a fight's tiredness does to a year",
+   "status": "closed",
+   "started": "2026-11-11T11:42",
+   "eta": "2026-11-11T13:32",
+   "branch": "qwen/aimwire1",
+   "worktree": "E:/FightCamp/wt/LEAN_AIMWIRE1",
+   "wt": "E:/FightCamp/wt/LEAN_AIMWIRE1",
+   "brief": "ops/research/TASK_AIMWIRE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/AIMWIRE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run aimwire1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/AIMWIRE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/AIMWIRE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/AIMWIRE1_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 40064,
+    "seat_pid": 9696
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 6/6 PASS; PR #195",
+   "finished": "2026-11-11T12:04",
+   "pr": 195,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/aim_wire_test.gd",
+     "ok": true,
+     "last": "AIM_WIRE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/pace_aim_test.gd",
+     "ok": true,
+     "last": "PACE_AIM failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/exchanges_test.gd",
+     "ok": true,
+     "last": "EXCHANGES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_bar_test.gd",
+     "ok": true,
+     "last": "CORNER_BAR failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/balance_harness_test.gd",
+     "ok": true,
+     "last": "BALANCE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-11 13:40 board_reconcile: PR #195 closed",
+   "archived": "2026-11-11 13:41 board_sync"
   }
  ]
 }
