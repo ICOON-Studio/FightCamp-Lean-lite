@@ -1,6 +1,6 @@
-# TASK INTROCORNER1 - AGY (Argon High) - the fight intro starts in the corners: each boxer shadow-boxes, bounces and celebrates the name call in a way of their own (the rope entry out)
+# TASK INTROCORNER1 - QWEN (qwen3-coder) - the fight intro starts in the corners: each boxer shadow-boxes, bounces and celebrates the name call in a way of their own (the rope entry out)
 
-Status: OPEN (S434, Claude main). Discipline: boxing. Model: gemini-4-argon-high.
+Status: OPEN (S434, Claude main). Discipline: boxing. Model: qwen3-coder (moved from agy: it has no shell for Godot runs; Claude reads the stills at collect).
 Operator S434, on the ring entry: "the animation when mounting the ropes to enter is not very good from their initial pose to
 how high the lift their legs ropes no weight", then on the plan to start in the corners: "ok add some celebrating animations or
 shadow boxing during the introduction and do not make each fighters animations identical".
@@ -14,11 +14,11 @@ boxer (scripts/fight3d/CornerWarm.gd: owned takes, two seeds that differ), and a
 (the same gesture for both boxers).
 
 ## Contract
-OWNS: scripts/fight3d/FightIntro.gd, scripts/fight3d/IntroEntry.gd (NEW: the rope entry moved out, kept behind an opt-in),
-scripts/fight3d/IntroStyle.gd (NEW, pure static: who does what), scripts/fight3d/CornerWarm.gd, tests/intro_style_test.gd (NEW),
-tests/ring_ropes_entry_test.gd (only: opt into the entry with the new arg), tools/intro_still.gd (NEW, the still tool)
-NOT YOURS (Cursor's HUMANFIGHT2B owns them now): FightStage.gd, BoxerBuild.gd, BeatClips.gd, BeatFire.gd, PunchReach.gd. Call
-FightStage's existing functions; never edit it.
+OWNS: scripts/fight3d/FightIntro.gd, scripts/fight3d/IntroEntry.gd, scripts/fight3d/IntroStyle.gd, scripts/fight3d/CornerWarm.gd, tests/intro_style_test.gd, tests/ring_ropes_entry_test.gd, tools/intro_still.gd
+(IntroEntry.gd NEW: the rope entry moved out behind an opt-in; IntroStyle.gd NEW, pure static: who does what; intro_style_test.gd NEW;
+ring_ropes_entry_test.gd only to opt into the entry with the new arg; intro_still.gd NEW, the still tool.
+Not yours: FightStage.gd, BoxerBuild.gd, BeatClips.gd, BeatFire.gd, PunchReach.gd - the animation route owns them. Call
+FightStage's existing functions; never edit it.)
 RED_TEST: tests/intro_style_test.gd -> INTRO_STYLE checks=%d failures=0
 REGRESSION: ring_ropes_entry_test, corner_warm_test, fight_polish_test, file_limits_test, fight_flow_test, hud_shown_test,
 corner_lens_test, theatre_test
@@ -80,7 +80,7 @@ the crowd and raises both gloves when the announcer says the name. No two boxers
 The clips are ours already (Mixamo win/idle/fidget set, ShadowBoxing_mixamo, the owned takes). No new download.
 
 ## Rules
-Godot through `python ops/Tools/godot_slot.py run --who agy -- <godot.exe> ...`; windowed only on the hidden desktop (never on his
+Godot through `python ops/Tools/godot_slot.py run --who qwen -- <godot.exe> ...`; windowed only on the hidden desktop (never on his
 monitors; never the _console exe). Parse first. No file over 500 lines (FightIntro under 470). Never he or she in text. Do not add
 tests to tools/run_tests.sh. The game switches: new behaviour ships ON (GameSwitches / the default path).
 THE TRAPS: a celebration clip that travels moves the boxer off the corner mark (clamp or skip it); the win clips were captured

@@ -2194,7 +2194,8 @@
    "text": "MARKUP: 1 marks -> Feedback/2026-11-11-06/README.md",
    "at": "2026-11-11T16:52:10Z",
    "seen_by_claude": "True",
-   "claude_note": "S434: read with C293 (same marks)."
+   "claude_note": "S434: read with C293 (same marks).",
+   "addressed": "cited by c68f4493 2026-11-11"
   },
   {
    "id": "C292",
@@ -2202,7 +2203,8 @@
    "text": "MARKUP: 3 marks -> Feedback/2026-11-11-07/README.md",
    "at": "2026-11-11T16:53:28Z",
    "seen_by_claude": "True",
-   "claude_note": "S434: read with C293 (same marks)."
+   "claude_note": "S434: read with C293 (same marks).",
+   "addressed": "cited by c68f4493 2026-11-11"
   },
   {
    "id": "C293",
@@ -2210,7 +2212,8 @@
    "text": "MARKUP: 4 marks -> Feedback/2026-11-11-08/README.md",
    "at": "2026-11-11T16:55:53Z",
    "seen_by_claude": "True",
-   "claude_note": "S434: read. 1 the load becomes one slider + one headline (detail in the hover). 2-3 the abilities table goes to plain words a line. 4 training becomes its own scene (plan the week, learn moves, build combos, each change says what it does); the fighter Training tab is a summary; no bout booked = the season target. TRAINSCENE1 redesign, critics, then him."
+   "claude_note": "S434: read. 1 the load becomes one slider + one headline (detail in the hover). 2-3 the abilities table goes to plain words a line. 4 training becomes its own scene (plan the week, learn moves, build combos, each change says what it does); the fighter Training tab is a summary; no bout booked = the season target. TRAINSCENE1 redesign, critics, then him.",
+   "addressed": "cited by c68f4493 2026-11-11"
   },
   {
    "id": "C294",
@@ -2218,7 +2221,8 @@
    "text": "MARKUP: 2 marks -> Feedback/2026-11-11-09/README.md",
    "at": "2026-11-11T17:03:28Z",
    "seen_by_claude": "True",
-   "claude_note": "S434: read with C295 (same marks)."
+   "claude_note": "S434: read with C295 (same marks).",
+   "addressed": "cited by c68f4493 2026-11-11"
   },
   {
    "id": "C295",
@@ -2226,7 +2230,56 @@
    "text": "MARKUP: 3 marks -> Feedback/2026-11-11-10/README.md",
    "at": "2026-11-11T17:04:20Z",
    "seen_by_claude": "True",
-   "claude_note": "S434: read. 1 the result page leads with the fighter after the bout, the fight's marks on face and body; the towel line goes. 2 the four-part split becomes a labelled picture or goes. 3 a real fault: bars count exchanges, the result is rounds and judges - the page shows why each round was lost first. RESULTLOOK1 redesign, critics, then him."
+   "claude_note": "S434: read. 1 the result page leads with the fighter after the bout, the fight's marks on face and body; the towel line goes. 2 the four-part split becomes a labelled picture or goes. 3 a real fault: bars count exchanges, the result is rounds and judges - the page shows why each round was lost first. RESULTLOOK1 redesign, critics, then him.",
+   "addressed": "cited by c68f4493 2026-11-11"
+  },
+  {
+   "id": "C296",
+   "path": "media:_sent/2026-11-11_2002_training_as_its_own_scene_the_summary_ta/final_scene.png",
+   "text": "MARKUP: 2 marks -> Feedback/2026-11-11-11/README.md",
+   "at": "2026-11-11T18:39:57Z",
+   "seen_by_claude": "True",
+   "claude_note": "S434: read with C299."
+  },
+  {
+   "id": "C297",
+   "path": "media:_sent/2026-11-11_2002_training_as_its_own_scene_the_summary_ta/final_scene.png",
+   "text": "MARKUP: 4 marks -> Feedback/2026-11-11-12/README.md",
+   "at": "2026-11-11T18:41:59Z",
+   "seen_by_claude": "True",
+   "claude_note": "S434: read with C299."
+  },
+  {
+   "id": "C298",
+   "path": "media:_sent/2026-11-11_2002_training_as_its_own_scene_the_summary_ta/final_scene.png",
+   "text": "MARKUP: 6 marks -> Feedback/2026-11-11-13/README.md",
+   "at": "2026-11-11T18:45:49Z",
+   "seen_by_claude": "True",
+   "claude_note": "S434: read with C299."
+  },
+  {
+   "id": "C299",
+   "path": "media:_sent/2026-11-11_2002_training_as_its_own_scene_the_summary_ta/final_scene.png",
+   "text": "MARKUP: 7 marks -> Feedback/2026-11-11-14/README.md",
+   "at": "2026-11-11T18:46:47Z",
+   "seen_by_claude": "True",
+   "claude_note": "S434: read and answered mark by mark in chat. One vocabulary: Stamina (stat), Energy (fight-night fuel), Fatigue (day-to-day); \"What it does\"; \"This week's gains\"; \"Your moves - drag onto a pad night\"; weight projection day by day with the sessions that burn and each diet's scale; the sore hand as a two-button choice; the change line as a plain sentence. Redrawn as v2 (workflow), critics, then him."
+  },
+  {
+   "id": "C300",
+   "path": "media:_sent/2026-11-11_2002_training_as_its_own_scene_the_summary_ta/final_scene.png",
+   "text": "MARKUP: 7 marks -> Feedback/2026-11-11-15/README.md",
+   "at": "2026-11-11T18:47:39Z",
+   "seen_by_claude": "True",
+   "claude_note": "S434: read with C301."
+  },
+  {
+   "id": "C301",
+   "path": "media:_sent/2026-11-11_2002_training_as_its_own_scene_the_summary_ta/final_scene.png",
+   "text": "MARKUP: 8 marks -> Feedback/2026-11-11-16/README.md",
+   "at": "2026-11-11T18:48:35Z",
+   "seen_by_claude": "True",
+   "claude_note": "S434: read. Marks 1-7 as C299; mark 8 = the Saturday morning card he changed (\"presentation can be improved\"): a changed card gets a \"your change\" ribbon, the coach's old session faded behind it, its effect on the card (+Stamina, +Fatigue), the same layout as the week. Applied in a follow-up pass after the v2 redraw."
   }
  ]
 }

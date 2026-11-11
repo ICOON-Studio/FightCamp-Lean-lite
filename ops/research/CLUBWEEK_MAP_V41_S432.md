@@ -1,4 +1,6 @@
 # CLUBWEEK v4.1: one map. The club week for four, with the fight weeks inside it, and the season around it (S432)
+> NAME (operator Q-190, S434/S435): "Just rename it 'gym sponsorship', the club pays". What earlier maps and drawings call the PAID SEAT is the GYM SPONSORSHIP here (short: sponsorship): the CLUB pays its own amateur for a 4-week block. It is not a Sponsor deal (Club > Money), where an outside business pays the club; no screen may mix the two words.
+
 
 v4.1 (S432): v4 with the ten changes of the verdict written in (`docs/mockups/s432/critics/VERDICT.md`, "The ten changes to write into the map
 before the build"): Tell it straight, loyalty's upside, HOME on our own show, Sell tickets cut, class nights bring members, away travel, mood rates
@@ -17,11 +19,11 @@ stand, with the changes listed in section 4 and section 6.
 
 ## 1. The idea in six lines
 - Four fighters stayed at the club you take over, in four weight classes: one PROFESSIONAL boxer, two AMATEUR boxers and one GRAPPLER.
-- Every Monday ONE board, Club week, deals three short things between them: PAD PLACES, COACHED MORNINGS and PAID SEATS. Asked is always more than owned,
+- Every Monday ONE board, Club week, deals three short things between them: PAD PLACES, COACHED MORNINGS and GYM SPONSORSHIPS. Asked is always more than owned,
   and Coach's evenings can be sold as a class instead: the board's money lever.
 - A bout is not a separate game: an amateur's FIGHT WEEK (12 days' notice, no camp) and a professional's CAMP (6 weeks) sit on that same board.
 - FAVOURS are the second currency: earned by helping other clubs, spent to bend the terms of a bout. Never a win.
-- What lasts past the week (NEW): each fighter's LOYALTY to you (going short, promises, the seat), their FANS (home bouts build the crowd that pays the
+- What lasts past the week (NEW): each fighter's LOYALTY to you (going short, promises, the sponsorship), their FANS (home bouts build the crowd that pays the
   professional debut), and one SEASON TARGET each (the nationals, the pro offer, or a year to grow) that every Monday is dealt toward.
 - No Monday repeats the last: the jobs' rota moves, one club twist lands, a trial fighter comes every 4 weeks, the other corner has had a week too.
 
@@ -32,7 +34,7 @@ WHO STAYED (Create, step 2). The six boxers in the data are already in six divis
   welterweight, 23, southpaw pressure fighter: potential 79, discipline 80, 22 fans; spars in full with Tess; a southpaw in the gym. Opens with the second bout
   booked 6 weeks out.
 - TWO AMATEURS, picked from four: Kira Mensah (featherweight, 1-0), Samira Khan (welterweight, 2-1), Tess Reilly (middleweight, 6-4), Danny Osei (lightweight,
-  2-1). Each card shows the job, the free mornings, the seat line, who can spar whom, the fans and the ambition (Recruit.ambition, today shown and unused).
+  2-1). Each card shows the job, the free mornings, the sponsorship line, who can spar whom, the fans and the ambition (Recruit.ambition, today shown and unused).
 - THE GRAPPLER, Ana Ribeiro (no-gi, white belt, 2 stripes): already there, not a pick. First open: Saturday 7 February.
 Four fighters at the first unit (the code has 3). The two boxers not picked come back on the trial mat. The start is staggered: the professional is in camp, one
 amateur has the first sheet (for Saturday 17 January), the other has a goal due. Each fighter's SEASON TARGET starts as the one their ambition names (section 3.9);
@@ -43,19 +45,19 @@ THE GUIDE IN WEEK 1 (one step at a time; the light rings the thing to press; it 
    - "AMATEUR: 3 rounds, no purse. A home bout pays the club a $450 ticket cut and builds the boxer's own fans. The regional ladder."
    - "THE OFFER comes at 7 wins and a top-3 rank on the regional ladder, or at 9 wins at any rank. A national finalist is offered at once."
    - "SAYING NO: the offer returns after 2 more wins, on 90% of the terms. A second no: only No. 1 brings it back. A third: never."
-   - "THE DAY A BOXER TURNS PROFESSIONAL the club pays $1,105: licence $230, medicals $875. The paid seat stops; amateur bouts end for good."
+   - "THE DAY A BOXER TURNS PROFESSIONAL the club pays $1,105: licence $230, medicals $875. The gym sponsorship stops; amateur bouts end for good."
    - "THE DEBUT: 4 weeks after signing, 4 rounds, paid from tickets: 100 tickets at $50, sold to the boxer's family (20), the boxer's fans and a quarter of the
      club's members; under 60 sold pays nothing; the boxer keeps half of what is above, the club 25% of that half." ("Tess: 26 fans. The debut would sell 61 today.")
    - "FROM THE SECOND BOUT: a purse ($1,500 unranked; ranked, $400 more for each rank from No. 20 up), the club keeps 25%; 6 weeks' notice and a camp; three
      offers from the promoter; 4 rounds, then 6, 8 and 10 up the national ladder." ("Lucy turned professional in October: this is the card after.")
-3. DEAL THE WEEK: the light walks the board in order: the seat, each pull, the pad places, the card. 4. ANSWER THE CALL. 5. START WEEK.
+3. DEAL THE WEEK: the light walks the board in order: the sponsorship, each pull, the pad places, the card. 4. ANSWER THE CALL. 5. START WEEK.
 After week 1 the guide names the trade and never the answer ("Film for Tess means the bag for Samira. Your call.") and goes quiet after the third fight week.
 THE REVEAL ORDER (NEW; the guide names each on the day it arrives; until then the board does not show it and its numbers do not move):
 | Week | Arrives | What the guide says |
 |---|---|---|
 | 1 | pad places, the first sheet, the season strip (targets set from each fighter's ambition, not yet changeable) | "Eight pad places, eleven asked." |
 | 2 | coached mornings; Coach's evenings: pads or the class | "A class pays the rent. Pads win bouts." |
-| 3 | the club twist, the paid seat, the sparring setting | "Hard sparring builds more and cuts more." |
+| 3 | the club twist, the gym sponsorship, the sparring setting | "Hard sparring builds more and cuts more." |
 | 4 | favours (the first is earned on that week's sheet); loyalty starts to move and its bar appears | "Whoever goes short remembers it." |
 | 5 | the trial mat; season targets can be changed; the talk card can come | "One target a fighter: the date the week is built toward." |
 
@@ -70,9 +72,9 @@ THE REVEAL ORDER (NEW; the guide names each on the day it arrives; until then th
 - COACHED MORNINGS. You 4, Coach 2: 6. One coached morning covers ONE fighter in full; TWO fighters on the same session share it AUTOMATICALLY, at 0.8 each (counted as 2
   fighter-sessions covered; v4.1, not a choice). Alone trains at the mood rate (section 3.7). Every slot shows what THIS coach adds to THIS session (Coach is a pad and bag coach, weaker on Cardio
   work). A fighter with discipline under 45 skips 1 alone morning in 3 unless a team-mate trains in the room.
-- PAID SEATS. A seat is a 4-week block: $1,000, six mornings a week, no job rota. A professional cannot hold one: the purse is the pay. Seat given: loyalty +5.
+- GYM SPONSORSHIPS. A sponsorship is a 4-week block: $1,000, six mornings a week, no job rota. A professional cannot hold one: the purse is the pay. Sponsorship given: loyalty +5.
   At the block's end (NEW) the Monday card asks: RENEW ($1,000 more, loyalty +2), PASS IT ON (to another fighter, loyalty +5 to them, nothing lost by the
-  holder) or LET IT END (nothing lost). Pulled before its end: loyalty -8. A fighter with potential 80 or more and no seat for 8 weeks asks for one: loyalty -3
+  holder) or LET IT END (nothing lost). Pulled before its end: loyalty -8. A fighter with potential 80 or more and no sponsorship for 8 weeks asks for one: loyalty -3
   a week until seated or given a dated promise (kept +5, broken -12).
 ### 3.1a Coach's evenings: pads or a second class (NEW, the board's money lever)
 - WHAT YOU DECIDE: for each of Coach's 3 evenings, the second hour is PADS (2 pad places) or a SECOND CLASS, the beginners' class (+$117 that night, and about one new member every 4 weeks it is taught; v4.1). Shown as
@@ -80,8 +82,8 @@ THE REVEAL ORDER (NEW; the guide names each on the day it arrives; until then th
   members the same way, your 2 pad places gone).
 - WHAT IT CHANGES: cash against training, every week, on the same board. Two class nights pay $234 that week, bring about two new members every 4 weeks later, and leave 4 pad places for 10 to 13 asked.
 - NUMBERS: ESTIMATE $117 = the code's $350 a week over three nights; real basis, pay-as-you-go beginners' classes at about GBP 6 for 15 to 18 people (GBP x 1.25).
-  MONEYFOUR2 tests both the night's $117 and the members it brings later (v4.1): one paid seat plus one class night a week should leave the bank about level (the v3 estimate is one seat = -$100 a week).
-- LINKS: the seat (cash out) against the class (cash in); every class night takes 2 pad places, so somebody goes short and loyalty pays; a twist can take an
+  MONEYFOUR2 tests both the night's $117 and the members it brings later (v4.1): one gym sponsorship plus one class night a week should leave the bank about level (the v3 estimate is one sponsorship = -$100 a week).
+- LINKS: the sponsorship (cash out) against the class (cash in); every class night takes 2 pad places, so somebody goes short and loyalty pays; a twist can take an
   evening; "Coach deals it" picks pads unless the bank has under 8 weeks of runway, then one class night.
 ### 3.2 What is dealt: each fighter's pulls
 Coach reads each fighter in order: THE SCALE (over, with a bout inside 14 days), FIGHT (the last 7 days), REST (tiredness forecast 70 or more, or hurt), A HABIT the
@@ -94,7 +96,7 @@ star, the fighter's ask, the ladder) and its SIZE (NEW):
 - WEAPON: the number the next perk hangs on ("Fast hands at Speed 70: about 4 weeks").
 - GOAL: what the fighter asked for (met: mood +10; missed: -20; code). A bout goal is met when the bout is FOUGHT.
 - AHEAD: the next name up the ladder and the answers owned ("Siobhan: answers 1 of 3").
-A pull asks 2 slots a week: a weak spot, a weapon or a goal asks 2 coached mornings on its session; Ahead asks 2 pad places. A seat holder carries two pulls, a
+A pull asks 2 slots a week: a weak spot, a weapon or a goal asks 2 coached mornings on its session; Ahead asks 2 pad places. A sponsored fighter carries two pulls, a
 day-job fighter one. THE SIZE ON EVERY CHIP (NEW): each pull prints what it is worth, in wins in 100 on the next booked bout, in weeks sooner to the season
 target, in dollars or in loyalty, ALWAYS AS A RANGE, never as one exact number (v4.1: "+3 to +5 in 100 on 31 Jan"). Each kind keeps its own colour and
 is never added to another kind (wins in 100, weeks to the target, dollars, loyalty). The sizes come only from the probes (section 8); a number the probes have not measured is not shown, never
@@ -102,7 +104,7 @@ guessed on screen. Coach has a taste (the weapon and the pads, 2 times in 3) and
 MY CHANGES (your edits from last week stay, the new rota and twist come in; replaces "Same as last week"), COACH DEALS IT (its line on the button: "Coach's deal:
 2 to 3 in 100 below yours this week").
 
-### 3.3 The rota that moves (each fighter's row names this week and the next; a seat removes it)
+### 3.3 The rota that moves (each fighter's row names this week and the next; a sponsorship removes it)
 - SHIFTS: earlies and lates alternate by the week. Earlies: weekday mornings at work. Lates: mornings free, no weekday evenings, so no Coach pads.
 - COLLEGE: term (Tuesday and Thursday mornings free), an exam fortnight twice a year (two sessions a week in all), holidays (every morning free).
 - OFFICE: weekday mornings at work. CAFE (Ana): works every other Saturday. (Overtime left the rota: it is a twist card now, section 3.4.)
@@ -127,7 +129,7 @@ pads: a pad place, +1 member"; "A quiet week".
 - SPEND 1: ask a kilo (below); re-deal a bout sheet now; ask for a named opponent on their next show; move a bout by a week.
 - ONE KILO RULE, BOTH WAYS (replaces v3's two): when a boxer is over the 1.0 kg gap on the day, that corner may ask for one kilo more. The corner that asks
   spends 1 favour with the other club; the corner that gives earns 1. The heavier boxer then has +2 tank for each 0.5 kg over the agreed weight (WEIGHTGAP1).
-- CANNOT BUY: a win, a judge, a rank, training, a pad place, a seat. Favours bend terms, never bouts.
+- CANNOT BUY: a win, a judge, a rank, training, a pad place, a sponsorship. Favours bend terms, never bouts.
 
 ### 3.6 The squad changes, sparring and Ana
 TRIAL MAT: every 4 weeks one prospect trains with the club for 2 weeks and takes 1 pad place a week from the four. WATCH sits on the trial card only (moved off
@@ -144,7 +146,7 @@ SPARRING SETTING (NEW), one per sparring evening, both boxers pay it:
 ESTIMATE; real basis: how hard to spar is the main weekly call in a club; body-only sparring is a common club drill. The bill's "sparring cut" line reads from it;
 the shape of the week (section 4) no longer carries its own cut. SPARSET1 must show Hard worth at least 1.5 wins in 100 to a boxer 3+ weeks out, or Hard goes.
 ANA (the grappler; every number below is in the code unless marked):
-- CLASSES: on the cafe job 3 a week (NoGi.CLASSES_PER_WEEK); on a seat 5 (NEW; drills 5/3 as fast, the stripe date printed for both); each class over 3 adds 6
+- CLASSES: on the cafe job 3 a week (NoGi.CLASSES_PER_WEEK); on a sponsorship 5 (NEW; drills 5/3 as fast, the stripe date printed for both); each class over 3 adds 6
   tiredness. Classes are free for Ana (the $34 is what the club pays the members' class coach, BjjSide.COACH_CLASS).
 - MAT MORNING: Ana can give one boxer a week a coached Cardio morning at 0.8; it costs Ana one class.
 - THE DIVISION AT AN OPEN (NEW on the board; promotion exists): enter at WHITE (Ana's chance a match about 55 in 100 today, NoGi.win_chance at 65% of the way to
@@ -179,17 +181,17 @@ So a short week costs more when the fighter is down, and a loss echoes into the 
   WHAT LOYAL GIVES (v4.1, no new counter): only a Loyal fighter can hold pads (3.1), and a Loyal fighter takes one short week in four without losing
   loyalty. The bar reads "Loyal: can hold pads".
 - WHAT MOVES IT (ESTIMATE): went short a week -3, -6 when it is the second week running or more (a Loyal fighter's one short week in four costs nothing, v4.1); a week dealt in full +1; a dated promise kept +5, broken -12; the
-  seat given +5, pulled early -8, renewed +2; holding pads +3 a week (4 weeks at most); a READY fighter's sheet passed by you -2; the season target set to their
+  sponsorship given +5, pulled early -8, renewed +2; holding pads +3 a week (4 weeks at most); a READY fighter's sheet passed by you -2; the season target set to their
   ambition +5, against it -5; the season target met +10, missed -5; the stripe call (Ana, code: now +3, hold -5); overtime refused -2.
 - WHAT IT DOES: UNDER 50, a "WANTS A WORD" card on Club week. The talk takes 1 of YOUR pad places that week, except Tell it straight. Three answers: GIVE THE PAD PLACE BACK (that fighter
-  is dealt first next week, loyalty +4), A DATED PROMISE (a pad place, a bout or the seat by a named date: kept +5, broken -12), TELL IT STRAIGHT (v4.1:
+  is dealt first next week, loyalty +4), A DATED PROMISE (a pad place, a bout or the sponsorship by a named date: kept +5, broken -12), TELL IT STRAIGHT (v4.1:
   free, no pad place; the result is a roll on coachability, loyalty +4 or -4, written in the Coach's notes (CoachNotes); it cannot be used on that fighter
   again for 8 weeks; the screen never shows the coachability threshold). UNDER 25 after two talks, the fighter leaves the next Monday for Eastside ABC (the rival club already named in the news).
   AT TURNING PROFESSIONAL, a boxer under 50 signs with an outside manager: the club keeps the trainer's 10%, not 25% (code Roster.GYM_SHARE is manager 15% +
   trainer 10%). Real basis: the commonest way a club loses a good amateur is a boxer who feels second in line moving gyms; amateurs who turn professional often
   sign with a manager outside the club.
-- PROMISES OPEN (v4.1): every dated promise (the talk's, the seat's) sits on one list on Club week: who, what, by which date, until kept or broken.
-- LINKS: every pad place dealt away, every class night and every seat now has a price that lasts; the talk spends your own pad places (Tell it straight
+- PROMISES OPEN (v4.1): every dated promise (the talk's, the sponsorship's) sits on one list on Club week: who, what, by which date, until kept or broken.
+- LINKS: every pad place dealt away, every class night and every sponsorship now has a price that lasts; the talk spends your own pad places (Tell it straight
   excepted); coachability (a trait)
   prices the plain answer; loyalty decides who the club keeps and what the professional pays the club. RPGLAYER1 (the bond, coaching style, the coach growing)
   builds on this number later; this map adds nothing more to it.
@@ -275,7 +277,7 @@ HOW A PROFESSIONAL DIFFERS (shown side by side wherever both appear):
 | Rounds | 3 | 4, then 6 ranked, 8 in the top 10, 10 for a title |
 | Money | $450 ticket cut at home; away about $40 in travel (v4.1) | purse $1,500 unranked (+$400 a rank from No. 20 up; +$150 a rank for a name above; ticket money from fans); the club keeps 25% (10% if the boxer signed with an outside manager; 20% in the top 10, 17% with a belt) and pays the camp bill, 6% of the purse, and the cutman, $150, if hired |
 | Fans | +4 a home win, none away (v4.1) | carried over; every bout's tickets follow them (code) |
-| Ladder and seat | the regional ladder; may hold a paid seat | the national ladder (about 20 ranked); no seat |
+| Ladder and sponsorship | the regional ladder; may hold a gym sponsorship | the national ladder (about 20 ranked); no sponsorship |
 | Season target | the nationals, the pro offer, a year to grow | ranked (a 6-week camp, the step-up), or busy (a 4-week Light camp, tune-ups) |
 | How often; stopped | about 18 a season allowed (England Boxing), about 9 expected (v4.1); 30 days out, then 90 | every 6, 8 or 12 weeks by how hard the last night was; stopped: 8 weeks more |
 
@@ -288,9 +290,9 @@ critics. IT IS NEVER PRINTED on a screen, a hover or the guide (the game would p
 | B, week 5 then after each championship | Each fighter's season target | Amateur: the nationals, the pro offer, a year to grow. Professional: ranked (a 6-week camp, the step-up) or busy (a 4-week Light camp, tune-ups). Grappler: a medal or blue belt. Matching the ambition: loyalty +5; against it -5; met +10, missed -5 | Nationals: 5 bouts reachable before 15 Mar and the class limit is near. Pro offer: inside 2 wins of a step. Grow: 8 or more under potential, aged under 20. Ranked: fresh, winning. Busy: the bank is short. Medal: Ana far from blue. Blue: the bank needs the teaching |
 | B, Monday | How to deal the board | By hand. Keep my changes: last week's edits, this week's rota. Coach deals it: Coach's taste, toward each target; its line on the button gives Coach's deal against yours | By hand: a fight week, a camp peak or a twist. Keep: nothing big changed. Coach: Coach's deal is within 1 in 100 of yours |
 | B, Monday | Coach's evenings (NEW) | Each of 3: pads (2 pad places) or a second class (+$117 that night, about one new member every 4 weeks later, v4.1). Your own evening: pads (2) or a class (the same) | Class: under 8 weeks of runway, or asked is 9 or under. Pads: a fight week or a camp peak this week |
-| B, Monday | Who holds the paid seat | An amateur: $1,000 for 4 weeks, 6 mornings, no rota, loyalty +5. Ana: $1,000, 5 classes a week. Nobody | Amateur: 10 or more under potential with two bouts inside the block. Ana: a stripe inside the block and no open in its last week. Nobody: under 2 months of costs in the bank |
-| B, block end (NEW) | The seat's end | Renew: $1,000, loyalty +2. Pass it on: to another, loyalty +5 to them. Let it end: nothing lost | Renew: the holder's target date is inside the next block. Pass: another fighter's loyalty is under 50 or their target is nearer. End: the bank |
-| B, Monday | The talent asks for a seat | Seat now. A dated promise: kept +5, broken -12. Neither: loyalty -3 a week | Seat: the bank holds 3 months. Promise: the seat frees inside 4 weeks. Neither: loyalty is 70 or more and a bout is 2 weeks off |
+| B, Monday | Who holds the gym sponsorship | An amateur: $1,000 for 4 weeks, 6 mornings, no rota, loyalty +5. Ana: $1,000, 5 classes a week. Nobody | Amateur: 10 or more under potential with two bouts inside the block. Ana: a stripe inside the block and no open in its last week. Nobody: under 2 months of costs in the bank |
+| B, block end (NEW) | The sponsorship's end | Renew: $1,000, loyalty +2. Pass it on: to another, loyalty +5 to them. Let it end: nothing lost | Renew: the holder's target date is inside the next block. Pass: another fighter's loyalty is under 50 or their target is nearer. End: the bank |
+| B, Monday | The talent asks for a sponsorship | Sponsorship now. A dated promise: kept +5, broken -12. Neither: loyalty -3 a week | Sponsorship: the bank holds 3 months. Promise: the sponsorship frees inside 4 weeks. Neither: loyalty is 70 or more and a bout is 2 weeks off |
 | B, Monday | Each coached morning (6) | One fighter: 1.0 against the mood rate alone. Two fighters on one session share it automatically, 0.8 each (v4.1: not a choice) | One: the fastest-growing number, or a Flat or Low fighter |
 | B, Monday | Each fighter's pull | Weak spot, weapon, goal, ahead: each with its size as a range (v4.1; sell tickets cut) | Weak spot: third bout or later, a bout inside 3 weeks, and its size is over the weapon's. Weapon: the perk is under 4 weeks away. Goal: under 3 weeks left. Ahead: under 2 of 3 answers owned |
 | B, Monday | A plan line to cover the weak spot | Cover: the gain is gone while that line is brought; one of the four lines is spent. Train it: 2 mornings a week | Cover: the bout is inside 2 weeks. Train: 3 weeks or more to the bout |
@@ -298,9 +300,9 @@ critics. IT IS NEVER PRINTED on a screen, a hover or the guide (the game would p
 | B, Monday | A Loyal senior holds pads (loyalty 70 or more, v4.1) | Yes: +1 pad place at 0.7, the holder's evening gone, loyalty +3 a week (4 weeks at most). No | Yes: a camp and a fight week in the same week. No: the holder's own fight week |
 | B, Monday | The sparring pair and its setting (pair picker NEW, setting NEW) | Pair by weight: full / full and half / +10 tiredness. Hard x1.3, +12, cut 4 in 100. Technical x1.0, +6, 1 in 100. Body only: body and Cardio x0.8, +8, no cut. A trip to another club: one of your 2 pad places, +1 favour | Hard: both are 3 weeks or more from a bout. Technical: one boxes inside 3 weeks. Body only: one boxes inside 10 days, or has a cut healing. Trip: no fair pair, a southpaw is needed, or favours are at 0 |
 | B, Monday | The club twist | 2 or 3 priced answers (the deck, 3.4) | Each card's answers are tested by ROTATWIST1: no answer best in more than 2 weeks of 3 |
-| B, Monday (NEW) | A fighter wants a word (loyalty under 50) | The talk takes 1 of your pad places, except Tell it straight. Give the pad place back: dealt first next week, +4. A dated promise: kept +5, broken -12, kept on PROMISES OPEN. Tell it straight (v4.1): free, a roll on coachability, +4 or -4, written in the Coach's notes, not again for that fighter for 8 weeks; the threshold is never shown | Back: the fighter's target date is near. Promise: a free pad place or seat is coming inside 4 weeks. Straight: coachability 60 or more |
+| B, Monday (NEW) | A fighter wants a word (loyalty under 50) | The talk takes 1 of your pad places, except Tell it straight. Give the pad place back: dealt first next week, +4. A dated promise: kept +5, broken -12, kept on PROMISES OPEN. Tell it straight (v4.1): free, a roll on coachability, +4 or -4, written in the Coach's notes, not again for that fighter for 8 weeks; the threshold is never shown | Back: the fighter's target date is near. Promise: a free pad place or sponsorship is coming inside 4 weeks. Straight: coachability 60 or more |
 | B, every 4 weeks | The trial fighter | Watch: 2 of your coached mornings over the fortnight, true numbers. Do not watch: ranges stay wide. Sign: second coach $280 a week, bigger premises, or one leaves. Pass | Watch: a weight the club lacks. No watch: two bouts that fortnight. Sign: potential above the lowest of the four and the bank over 3 months. Pass: otherwise |
-| B, Monday | Ana's classes; the mat morning; teaching (from blue) | 3 classes; 5 on a seat; 2 when a mat morning is given (a boxer's Cardio at 0.8). Teaching: +$68 a week and about one new member every 4 weeks (v4.1), one class fewer | 5: a stripe inside 4 weeks and no open that week. 3: the week of an open. Mat morning: a Cardio pull with no coached morning left. Teach: the bank is short and no open inside 2 weeks |
+| B, Monday | Ana's classes; the mat morning; teaching (from blue) | 3 classes; 5 on a sponsorship; 2 when a mat morning is given (a boxer's Cardio at 0.8). Teaching: +$68 a week and about one new member every 4 weeks (v4.1), one class fewer | 5: a stripe inside 4 weeks and no open that week. 3: the week of an open. Mat morning: a Cardio pull with no coached morning left. Teach: the bank is short and no open inside 2 weeks |
 | B, Ana's open (NEW on the board) | Enter or Skip (v4.1); the division; who corners (shown only when a boxer of yours boxes that day, v4.1) | Skip: no open this time. White: about 55 in 100 a match, gold +2 members. Promote to blue first: about 35 in 100, +3 members at once, teaching opens, a quarter of the blue mat time owed. Corner: you (no boxing corner that Saturday) or the mat coach, $100 | Skip: Ana's chance is under 35 in 100 in both divisions. White: the target is a medal. Blue: the target is blue belt, or the bank needs the teaching. You: no boxer of yours boxes that day |
 | B, sheet | Which bout | Home (a local show near the club; on the Saturday of our own show every READY boxer's home card is on it, v4.1): $450, +8 members, +4 fans, no climb. Name above, away: that rank (at most 3 up), +1 favour, about $40 travel, the lowest win chance. The unknown, away: a wide band, +1 favour, about $40 travel, the file opened. Pass: 7 days, loyalty -2 | Home: the bank is under 2 months, or the debut forecast is under 60. Name above: 7 wins and outside the top 3. Unknown: wins are the road, or both known names are under 40 in 100. Pass: tiredness over 50 on Monday |
 | B, sheet | Spend a favour on the sheet | Re-deal now. A named opponent on that club's next show. Move the bout a week | Re-deal: all three are under 35 in 100. Name: one win over that name brings the offer. Move: a team-mate's camp peaks that week |
@@ -319,7 +321,7 @@ critics. IT IS NEVER PRINTED on a screen, a hover or the guide (the game would p
 | B, professional | The sparring partner | A club mate: free, takes that fighter's evening. Outside: $160 for 4 visits | Club mate: the bank is under 2 months and nobody is in a fight week. Outside: an amateur is in a fight week |
 | D, the bout | Corner calls, the minute, the cutman | As in the game today | Unchanged by this map |
 | A, the Why | Next week from the result | "Walk this line next week", "Train X", "Give Samira the pad place back", "Rest 2 weeks" | Walk: the line came up and lost. Train: a weak spot was found. Give back: a team-mate went short for this bout. Rest: tiredness 60 or more |
-| A, the offer | Turn professional or stay amateur | Turn: $1,105, the seat stops, the debut in 4 weeks; under loyalty 50 the club keeps 10%, not 25%. Stay: the nationals stay open; first no, back after 2 more wins at 90%; second, only at No. 1; third, never | Turn: the bank holds 2 months after the fee and the debut forecast is 60 or more. Stay: the nationals are inside 10 weeks and it is the first no |
+| A, the offer | Turn professional or stay amateur | Turn: $1,105, the sponsorship stops, the debut in 4 weeks; under loyalty 50 the club keeps 10%, not 25%. Stay: the nationals stay open; first no, back after 2 more wins at 90%; second, only at No. 1; third, never | Turn: the bank holds 2 months after the fee and the debut forecast is 60 or more. Stay: the nationals are inside 10 weeks and it is the first no |
 Removed in v4.1: Sell tickets; the choice of two fighters on one coached morning (now automatic).
 Removed from v3's table: overtime (now a twist card), Coach's 3 extra evenings (a twist answer), watch on every morning (on the trial card), Hold on the scale, the
 second kilo row, the one left without a bout (now the talk card and loyalty).
@@ -327,12 +329,12 @@ second kilo row, the one left without a bout (now the talk card and loyalty).
 ## 6. Every menu it appears on, and what each is wired to
 | Menu | What it shows | Wired to |
 |---|---|---|
-| Create, step 2 | one professional of two, two amateurs of four, Ana fixed; lines between the picks: full spar, half spar, who can hold pads; job, free mornings, seat line, fans, ambition | CreateScreen, ClubStart, Data.lucy, Data.PROSPECTS, Roster.sign_fighter, Recruit.ambition; new data: Lucy's and Josh's rows as professionals with fans |
+| Create, step 2 | one professional of two, two amateurs of four, Ana fixed; lines between the picks: full spar, half spar, who can hold pads; job, free mornings, sponsorship line, fans, ambition | CreateScreen, ClubStart, Data.lucy, Data.PROSPECTS, Roster.sign_fighter, Recruit.ambition; new data: Lucy's and Josh's rows as professionals with fans |
 | The guide, weeks 1 to 5 | the five steps of section 2; the road strip with the club's own two people and their fans; the reveal order | GuideLight, GuideLines, FirstWeekStrip, FirstWeek, FirstHour, NextStep.STEPS, Roster.pro_ready, ProDebut; new Reveal table |
-| Fighters > Club week | THE SEASON strip (each target and date, Enter the nationals when eligible); counters in one unit (fighter-sessions: asked, covered, short; v4.1): pad places, coached mornings (shared automatically), Coach's evenings (pads or class with the week's cash), paid seat (with the block-end card), favours, trial mat; four rows (badge, mood word, loyalty bar, seat or job, the diet cell Hold or Cut (v4.1), pulls with sizes as ranges, seven days with the sparring pair and setting, what the week gives); the talk card; PROMISES OPEN (v4.1); the twist; the biggest levers and your deal against Coach's; three deal buttons; Start week | new: ClubWeek screen; ClubDeal rule (shared pad places, mornings, pulls, Coach's evenings); WeakSpot; JobRota; ClubTwist (replaces WeekTwist, TwistCard, TwistSwing); Favours; TrialMat; Loyalty; SeasonTarget; SparSet; LeverSize (the probes' tables); reads WeekPlan (the diet cell), PadWeek, CoachAreas, TrainRead, WeekPhase, GymSpend, Attrs, FighterProfile.mood, DuesLevers.CLASS_WEEKLY, SeasonPath, BjjSide, CoachNotes (Tell it straight) |
+| Fighters > Club week | THE SEASON strip (each target and date, Enter the nationals when eligible); counters in one unit (fighter-sessions: asked, covered, short; v4.1): pad places, coached mornings (shared automatically), Coach's evenings (pads or class with the week's cash), gym sponsorship (with the block-end card), favours, trial mat; four rows (badge, mood word, loyalty bar, sponsorship or job, the diet cell Hold or Cut (v4.1), pulls with sizes as ranges, seven days with the sparring pair and setting, what the week gives); the talk card; PROMISES OPEN (v4.1); the twist; the biggest levers and your deal against Coach's; three deal buttons; Start week | new: ClubWeek screen; ClubDeal rule (shared pad places, mornings, pulls, Coach's evenings); WeakSpot; JobRota; ClubTwist (replaces WeekTwist, TwistCard, TwistSwing); Favours; TrialMat; Loyalty; SeasonTarget; SparSet; LeverSize (the probes' tables); reads WeekPlan (the diet cell), PadWeek, CoachAreas, TrainRead, WeekPhase, GymSpend, Attrs, FighterProfile.mood, DuesLevers.CLASS_WEEKLY, SeasonPath, BjjSide, CoachNotes (Tell it straight) |
 | Fighters > Find a fighter, the trial | the prospect, the ranges, Watch (2 of your mornings), sign or pass, what a fifth fighter needs | RecruitPanel, Recruit, Trial, Roster.invite / trial_read / sign_prospect / pass_on, GymSpend.place_blocked, new TrialMat |
-| Home | one line a fighter: the open pick with its size, days to the bout, "wants a word" as a need; the call with its answer-by day; the seat's end | Home, HomeRows, HomeNeeds, Needs, Loyalty |
-| Fighters cards | badge PROFESSIONAL / AMATEUR / GRAPPLER; loyalty word; seat block end or the job's week; corner flag "Fight week" (amateur), "Set camp" (professional), "Wants a word" | Fighters, RosterCards, FighterCard, RosterFlag, CoachCheck, Loyalty |
+| Home | one line a fighter: the open pick with its size, days to the bout, "wants a word" as a need; the call with its answer-by day; the sponsorship's end | Home, HomeRows, HomeNeeds, Needs, Loyalty |
+| Fighters cards | badge PROFESSIONAL / AMATEUR / GRAPPLER; loyalty word; sponsorship block end or the job's week; corner flag "Fight week" (amateur), "Set camp" (professional), "Wants a word" | Fighters, RosterCards, FighterCard, RosterFlag, CoachCheck, Loyalty |
 | Fighter page, Overview | the season target with its date; the pulls with sizes as ranges and buttons; the weak spot's cost; the Cardio group; mood with what it does alone; loyalty with its last three moves ("Loyal: can hold pads"); fans and the debut forecast; the road strip | FighterPage, DarkOverview, AttrBoard, Attrs, Duels, TrainRead, PerkRoad, NextStep, Loyalty, Fans, SeasonTarget, ProDebut |
 | Fighter page, Training | that fighter's own slots at the mood rate; shared slots (coach, pad place, sparring and its setting) locked with "change on Club week" | WeekBoard, WeekEditors, WeekDay, WeekCards, SparSet |
 | Fighter page, Fight prep | amateur: the fight-week bill with the one number; professional: the camp, 4 weeks Light on the BUSY target or 6 on RANKED, with the sparring setting and camp leave while the job stays (v4.1) | FightPrep, new FightWeek rule, LeverSize; Camp, CampCard, PeakCamp, CampForecast, SparSet, SeasonTarget, GymSpend (camp leave) |
@@ -343,10 +345,10 @@ second kilo row, the one left without a bout (now the talk card and loyalty).
 | Tape room | the name, the one question and its answer; "their week"; a stale mark | TapeRoom, OppFile, TapeClips |
 | Playbook, Game plan | a tick "bring this line", an eye on a line a corner has seen, "2 pad places short" | Playbook, GamePlan, GamePlanRows, PlanBoard, PlanLines, MoveMastery |
 | Club > People | Coach's card: the week's evenings as pads or class, the pad places as faces; the second coach as "opens a fifth fighter"; Ana as the beginners' teacher from blue | Gym, StaffCard, StaffRoles, CoachAreas, ClubDeal, BjjSide |
-| Club > Money | class nights and what they brought (cash that night, members later); seats as 4-week blocks and what each brought; the ticket cut only at home, away travel; our own show's HOME cards; Ana's teaching; the professional's purse, the club's 25% (or 10%), the camp bill and camp leave | Money, MoneyPanels, GymBills, GymSpend.pro_camp, CashForecast, StarDeal, DuesLevers, BjjSide, ClubShow, Membership |
+| Club > Money | class nights and what they brought (cash that night, members later); sponsorships as 4-week blocks and what each brought; the ticket cut only at home, away travel; our own show's HOME cards; Ana's teaching; the professional's purse, the club's 25% (or 10%), the camp bill and camp leave | Money, MoneyPanels, GymBills, GymSpend.pro_camp, CashForecast, StarDeal, DuesLevers, BjjSide, ClubShow, Membership |
 | World > Rankings | the regional ladder (new rule) and the national ladder, the club's fighters lit; favour dots on each club | World, WorldLadder, WorldLadderRules, Region, RankLine, ProLadder |
 | World > Championships | the nationals: entry, the run as fight weeks, the season strip's date | NationalsView, Champs, ChampDraw, SeasonPath, SeasonTarget |
-| Top bar and Continue | flags FIGHT WEEK, SET CAMP (professional only), PRO OFFER, WANTS A WORD; stops for a pull-out, a 4-day call, the scale over the gap, an unanswered twist, a seat's end | Shell, Needs, Clock |
+| Top bar and Continue | flags FIGHT WEEK, SET CAMP (professional only), PRO OFFER, WANTS A WORD; stops for a pull-out, a 4-day call, the scale over the gap, an unanswered twist, a sponsorship's end | Shell, Needs, Clock |
 | Fight night | the scale as the first step with both weights and the kilo; the corner picked | FightNight, WeighIn, Bouts.weigh, BoutNight, CornerTrust, CornerJobs |
 | Result and the Why | sizes ("Legs: 9 off the tank, round 3 lost"), the rank earned, fans earned, your week against Coach's, buttons for next week including Rest 2 weeks | FightWhy, WhyCard, AftermathTiles, Aftermath, RankLine, AfterFight, Fans, LeverSize |
 | Week review (Monday) | who went short with its loyalty price and "give it back"; your deal against Coach's over the month (one number, money, loyalty); the trial fighter's read; targets met or at risk | WeekReview, ReviewReveal, WeekActual, WeekCause, Loyalty, SeasonTarget, LeverSize |
@@ -363,19 +365,19 @@ THE NEW MECHANICS, MENU BY MENU (the rule: each shows on every menu below in the
 | Sizes as ranges and one number | every pull chip; the bill; Coach deals it button; Week review; the Why | new LeverSize (probe tables); BoutRead; ClubDeal.coach_deal |
 | Ana's division, Enter or Skip, and teaching | Club week (Ana's row); Grappler page; Fights (Ana's open card); Club > Money | NoGi.win_chance, BeltRoad, BjjSide, BjjOpen |
 | Ready / Building / Rest | Fights sheet; Overview; the Why's button | BoutSheet, Aftermath |
-| Seat block end | Club week seat counter; Home need; Club > Money | ClubDeal, GymSpend, Loyalty |
+| Sponsorship block end | Club week sponsorship counter; Home need; Club > Money | ClubDeal, GymSpend, Loyalty |
 | HOME on our own show (v4.1) | Fights sheet (HOME cards for that Saturday); Club > Money (Book the show) | ClubShow, BoutSheet, Fans |
 | Away travel (v4.1) | Fights sheet cards; Club > Money | BoutSheet, GymBills |
 
 ## 7. The numbers
 MEASURED, ON FOUR AMATEUR BOXERS (Lucy, Kira, Samira, Tess; AMATEURPROBE1, MONEYFOUR1): 28 bouts a year today and 37 at a lead of 1 to 2 weeks, 41 wins in 100 in both;
-the short lead brings 3 injuries a year against 2 and 2 missed weights against 0; gates $12,600 a year today. Seats over a year: none, $31,000 in the bank (about
+the short lead brings 3 injuries a year against 2 and 2 missed weights against 0; gates $12,600 a year today. Sponsorships over a year: none, $31,000 in the bank (about
 +$270 a week); one, 1.9 to 2.9 months of costs; two, 1.2 months of costs left at week 52; four, 8 clubs in 10 close. A bout leaves tiredness 45 on a full tank, more
 when the tank was low, +10 after a stoppage loss, at most 95 (Aftermath.toll). A planned line fires 1 time in 2 at Usable, 3 in 4 at Sharp, always at Signature,
 about 2.8 wins in 100 a step (S427, built and switched off). A good plan wins 59 in 100, none 45, a bad one 41; 5 points better wins 72 in 100.
 ESTIMATE FOR THIS START (not measured): two amateurs at about 9 bouts each, half at home: about $4,200 a year in ticket cuts; six professional bouts at 25% of $1,500
 plus ticket money, less a $90 camp bill each: $2,000 to $3,000. About $6,000 a year less than the measured four amateurs. So nobody seated and all pads is about +$150
-a week; one seat about -$100 a week; each class night +$117 and about one new member every 4 weeks; Ana teaching (from blue) +$68 and members the same way; each away bout about -$40
+a week; one sponsorship about -$100 a week; each class night +$117 and about one new member every 4 weeks; Ana teaching (from blue) +$68 and members the same way; each away bout about -$40
 in travel (v4.1).
 IN THE CODE TODAY, AND WHAT v4 DOES TO IT (v3's list stands; v4 adds): evening classes +$350 a week with a coach (DuesLevers.CLASS_WEEKLY: stays, the first hour);
 the second hour as a class is new. Morale moves by the code's events and changes only the corner's uptake (CornerTrust) and Ana's match chance (NoGi): v4 adds the
@@ -408,7 +410,7 @@ is cut, not drawn.
 - SHEETDEAL1: 1,000 dealt sheets. No card beats another on all five lines (fans added); always-home, always-pass and always-unknown bots all finish behind a bot that
   mixes. WEIGHTGAP1: +2 tank for each 0.5 kg heavier at the bell, +1 point for each 3 bouts more. HOMELEAN1: close rounds going home 7 times in 10.
 - MONEYFOUR2: a year with this line-up: the gate only at home, away travel (about $40 a bout), our own show's HOME cards, the purses, the camp bills, camp leave,
-  class nights and the members they bring later, Ana's teaching and the members it brings (v4.1). Target: one seat plus one
+  class nights and the members they bring later, Ana's teaching and the members it brings (v4.1). Target: one sponsorship plus one
   class night a week leaves the bank level over the year; if not, the class night's $117 is re-priced first, then the home ticket cut. PROCAMP1: what one 6-week
   camp costs two amateurs in bouts and pad places.
 
@@ -419,13 +421,13 @@ is cut, not drawn.
    lines, the scale against the gap, the one number); BoutSheet (three kinds, no best card, the ladder, Ready / Building / Rest, away travel, HOME cards on our own show); TrialMat; Loyalty; SeasonTarget;
    Fans (with the ProDebut, Matchmaking and ClubShow changes); SparSet; LeverSize.
 3. Clear the camp rules for amateurs: the 1.5-point loss and its line in the Why, the "Set camp" flag, the peak bonus, tape that needs a camp; the bout goal met when
-   fought; 4 fighters at the first unit; seats as blocks; WeekTwist's cards retired; the alone rate by mood.
+   fought; 4 fighters at the first unit; sponsorships as blocks; WeekTwist's cards retired; the alone rate by mood.
 4. The start: Lucy's and Josh's rows as professionals (1-0, licensed, unranked, fans); Create's three picks with fans and ambition; FirstWeek.STEPS rewritten to the
    five steps and the reveal order; FirstHour's offer day, show day, second walk-in and Ana's joining day removed; the road strip with fans; the Pro offer screen's
    purse line and ticket forecast. New data: 3 more names a weight, the Saturday show calendar.
 5. Screens, one a task, from the drawings: Club week (`clubweek_v4.png`); the bout sheet; the Bout page's bill with the one number; the road and Fights with both
    kinds; the badges and loyalty on the cards and Overview; Coach's card; Money's lines; the Grappler page's division and teaching; the Why's sizes and buttons.
-6. ONE golden-path test: Create with a professional and two amateurs, the guide's five steps and the reveal to week 5, a season target set, a seat placed and renewed,
+6. ONE golden-path test: Create with a professional and two amateurs, the guide's five steps and the reveal to week 5, a season target set, a sponsorship placed and renewed,
    a class night sold, two pulls followed and one refused, a fighter dealt short twice and the talk answered, a sparring evening set to Hard, a twist answered, a sheet,
    a home win adding fans, a bout picked away for a favour, the bill with film, four lines and the one number, the scale at 4 pm, the fight, the Why with sizes and the
    rank earned, the favour spent on the next sheet, Ana entered white at an open, the professional's camp run to its own bout, the debut forecast moving.
@@ -451,7 +453,7 @@ is cut, not drawn.
 | Sizes on every chip; the bill's one number with its parts; the three biggest levers; "your deal against Coach's" replaces Coach's score | Systems designer: "no screen shows which choice moved the win chance most"; "Coach's score is never defined" |
 | The sparring setting and a pair picker | Club coach: "the biggest weekly call a real coach makes"; systems designer: "nowhere to pick the pair" |
 | Ana: the division at an open, teaching from blue, the open on the sheet tab | Systems designer: "Ana has almost no choices" |
-| Seat block end: renew, pass on, let it end | Systems designer |
+| Sponsorship block end: renew, pass on, let it end | Systems designer |
 | Rest 2 weeks after a bout | Club coach |
 | Cut: overtime row (twist card), Same as last week (Keep my changes), Coach's extra evenings (twist answer), watch on every morning (trial card), Hold, the second kilo rule, the senior's mood curve, Coach's score; dim job cells | Both critics' useless lists |
 | The reveal order; the "right when" column never printed; the cut rule and four new probes | Both critics |
@@ -479,7 +481,7 @@ ASKS NOT TAKEN AS WRITTEN, AND WHY:
 ## MECHANICS FOR THIS VERSION
 The complete list, one line each. With these the set is closed for this version: after the probes, choices are cut, never added.
 1. THE FOUR: one professional of two, two amateurs of four, Ana the grappler; four places at the first unit.
-2. CLUB WEEK: one Monday board dealing pad places, coached mornings (shared automatically) and paid seats (4-week blocks with renew, pass on, let end);
+2. CLUB WEEK: one Monday board dealing pad places, coached mornings (shared automatically) and gym sponsorships (4-week blocks with renew, pass on, let end);
    every counter in one unit (fighter-sessions: asked, covered, short); PROMISES OPEN; the diet cell on each boxer's row; by hand, keep my changes, Coach deals it.
 3. COACH'S EVENINGS: each one pads or a second class (+$117 that night, about one new member every 4 weeks later), the board's money lever.
 4. PULLS: weak spot, weapon, goal, ahead; each with its measured size shown as a range, each kind in its own colour, never added to another.

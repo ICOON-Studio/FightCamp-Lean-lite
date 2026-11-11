@@ -1,4 +1,6 @@
 # TRAINDEPTH1: the training map, v6.1 (S433)
+> NAME (operator Q-190, S434/S435): "Just rename it 'gym sponsorship', the club pays". What earlier maps and drawings call the PAID SEAT is the GYM SPONSORSHIP here (short: sponsorship): the CLUB pays its own amateur for a 4-week block. It is not a Sponsor deal (Club > Money), where an outside business pays the club; no screen may mix the two words.
+
 
 The owner's question: "how deep are the training mechanics ? have critics rated them ?"
 Round 1: two blind critics scored the training as built 5 and 5 (`docs/mockups/s432/critics/train_coach_review.md`, `train_sim_review.md`).
@@ -21,7 +23,7 @@ row, line and goal; CARDIO is the profile group (Stamina, Recovery, Heart). THE 
 A move under 30 is "Learning" (MoveMastery.WORDS, S429; the pack's "Raw" is stale). Sizes: 0-100 for what a fighter is, N in 100 for a chance,
 exchanges of the bout for what a choice does (after LEVERS1); a multiplier shows as a word (quick, slow) with its size on hover. Game text never
 says he, she, her or him.
-Drawn: `docs/mockups/s432/training_v2.png` (the Training tab, Samira Khan, Monday 16 Feb, week 7, a BASE week, the hand rested, on a seat block).
+Drawn: `docs/mockups/s432/training_v2.png` (the Training tab, Samira Khan, Monday 16 Feb, week 7, a BASE week, the hand rested, on a sponsorship block).
 TAGS on every effect: CODE = in the game's code today (file and name given); WEEK = designed in an agreed sister map, not built; NEW = new in
 this map. ESTIMATE = a number a probe sets.
 
@@ -125,7 +127,7 @@ Normal's one alone drill +0.08.
 ## 4. Where training is decided (one place each)
 | Decision | Screen | Why there |
 |---|---|---|
-| Who gets the pad places, coached mornings and the seat; the sparring pair and setting (C17, with the head-contact chip); the club twist; the season target | Fighters > Club week (WEEK) | shared between the four |
+| Who gets the pad places, coached mornings and the sponsorship; the sparring pair and setting (C17, with the head-contact chip); the club twist; the season target | Fighters > Club week (WEEK) | shared between the four |
 | The LOAD (Easy / Normal / Hard / Sharpen, carried; in a fight week Easy, Sharpen or Normal); Hard's aim; the MORNING RULES; morning exceptions; each pad place's card; the diet and a professional's last-day water; the deload; the niggle and injury answer; spar anyway; Coach runs this fighter | Fighter page > Training (this map) | one fighter only |
 | Each build block's EMPHASIS (BASE / SPECIFIC) and AIM; a deload's place | the season strip on the Training tab (T35) | one fighter's season |
 | A professional's camp: its length, focus (= the PEAK block's aim), partner, film | the camp card (T33) and the strip | one fighter |
@@ -453,7 +455,7 @@ already under it buy, so 63.8 is never worth nothing. Words are the game's: "hel
 
 ### 5b. WORK HOURS (the owner's S433 answer Q-186: "No, full-time once pro")
 - AN AMATEUR keeps the job rota (CLUBWEEK 3.3): the job's mornings are dim cells "at work"; the load lays its sessions on the free mornings only. A
-  paid seat (CLUBWEEK 3.1) frees six mornings; the drawn Samira is on a seat block.
+  gym sponsorship (CLUBWEEK 3.1) frees six mornings; the drawn Samira is on a sponsorship block.
 - A PROFESSIONAL trains full time from the debut: every morning free, no job row, no camp leave. COUNTED ONCE: DAY_JOB_GAIN x0.85 retires when
   JobRota lands; until then turn_pro clears `day_job` (F9).
 - Q-187 ("Yes, both": featherweight and middleweight professional tables): no training rule changes; the ranking tables are the world's.

@@ -1,15 +1,17 @@
 # FOURSTART1 v2: a career starts with four fighters, and the week is dealt on one board (S429)
+> NAME (operator Q-190, S434/S435): "Just rename it 'gym sponsorship', the club pays". What earlier maps and drawings call the PAID SEAT is the GYM SPONSORSHIP here (short: sponsorship): the CLUB pays its own amateur for a 4-week block. It is not a Sponsor deal (Club > Money), where an outside business pays the club; no screen may mix the two words.
+
 
 Source: the operator's S428 scope change: "we sshould force the player to have 4 fighters,different weight classes and bjj so
 menus shows better and players has more things to do", and S429: "on the new 3-4 fighter start try to use the guide to
 pinpoint different trainings according to different ratings and styles of fighters"; "fix the hole" became "fix the weakness".
-Measured (MONEYFOUR1, a year, 10 careers a cell): one paid seat keeps the club at 1.9 to 2.9 months of costs on today's start
+Measured (MONEYFOUR1, a year, 10 careers a cell): one gym sponsorship keeps the club at 1.9 to 2.9 months of costs on today's start
 cash; two: 1.2 months by week 52; four: 8 clubs in 10 close; none: $31,000 in the bank.
 
 ## 1. The idea in five lines
 - You take over a club. Four fighters stayed: three boxers in three weight classes and one grappler. You pick which three
   boxers (from six), and each one's starting focus.
-- Three things are scarce and shared: PAID SEATS (money), COACHED TIME (Reid's and your own mornings and pad evenings), and
+- Three things are scarce and shared: GYM SPONSORSHIPS (money), COACHED TIME (Reid's and your own mornings and pad evenings), and
   PLACES ON THE CARD (one bout offered, two who want it; one corner, two shows).
 - The whole week for all four is dealt on ONE board, "Club week". Every move shows what it gives one fighter and what it
   costs another, before you let go.
@@ -22,23 +24,23 @@ cash; two: 1.2 months by week 52; four: 8 clubs in 10 close; none: $31,000 in th
   grappler). Roster places at the first unit: 4 (3 today).
 - STARTING FOCUS for each, as the guide introduces them one at a time (the three that exist: signature +10 now, a habit gone
   in 4 weeks, ceiling +5).
-- THE START CARDS differ in seats: Fresh doors: cash for one seat; In debt: none, and the loan; Backed: two seats, and the
+- THE START CARDS differ in sponsorships: Fresh doors: cash for one sponsorship; In debt: none, and the loan; Backed: two sponsorships, and the
   backers want the first show won.
 - Week 1 numbers are shown as a RANGE of plus or minus 3 that closes once you have watched that fighter on the pads or in
   sparring. The trainer's note on each is certain in tone and wrong about one of the four (set by the save).
 
 ## 3. What the player decides, all on the Club week board
-### 3.1 The paid seat, shown as mornings
+### 3.1 The gym sponsorship, shown as mornings
 - Full time = six mornings. Day job = two mornings (Saturday, Sunday). The hidden x0.85 goes.
 - Every weekday evening a day-job boxer is not on the pads is a SOLO evening: one light session (0.6 of a morning) or bag
   work on a card (half the pad gain).
-- A seat moves only on a Monday and then stays four weeks. The fighter who loses it: mood -8.
-- No cap on seats, and "nobody" is allowed. The switch shows the money for each count from MONEYFOUR1 (none: the bank grows
+- A sponsorship moves only on a Monday and then stays four weeks. The fighter who loses it: mood -8.
+- No cap on sponsorships, and "nobody" is allowed. The switch shows the money for each count from MONEYFOUR1 (none: the bank grows
   about $270 a week; one: steady; two: thin by the year's end; four: most clubs close).
 - Each fighter has a line of their own: Lucy (call centre) would hand in notice tomorrow. Samira (college) has Tuesday and
-  Thursday mornings free even without it. Tess (warehouse shifts) turns it down under $350. Ana (barista) on a seat takes
+  Thursday mornings free even without it. Tess (warehouse shifts) turns it down under $350. Ana (barista) on a sponsorship takes
   five classes a week, not three: the belt and new mat members come sooner (a mat member pays $110 a month, a boxing
-  member $35). So the seat is a choice between the best sport play, the best money play and the best people play.
+  member $35). So the sponsorship is a choice between the best sport play, the best money play and the best people play.
 
 ### 3.2 Coached time
 - Reid's $450 buys three pad evenings (two places each: six) and TWO mornings, which you place. You have four mornings and
@@ -95,33 +97,33 @@ In week 3 Ana's open night and the next club show fall on the same Saturday: you
 land at 0.85).
 
 ### 3.6 Ana is inside the club
-She can hold a seat (3.1). Her classes are a dial: 2, 3 or 5 a week at $34 a class. Her open can clash with your corner
+She can hold a sponsorship (3.1). Her classes are a dial: 2, 3 or 5 a week at $34 a class. Her open can clash with your corner
 (3.5). The mat keeps a tally of the position she lost each match from, so her COACH SAYS has two true drills, each with its
 date: "the position the last open found" (fewer losses next open) or "the move closest to owned" (the stripe sooner).
 
 ## 4. Every menu it appears on, and what each is wired to
 | Menu | What it shows | Wired to |
 |---|---|---|
-| Create, step 2 | pick three boxers from six (no two in one class) plus Ana; the start cards show their seats | CreateScreen, ClubStart.CARDS, Data.PROSPECTS, Career.start_cash |
+| Create, step 2 | pick three boxers from six (no two in one class) plus Ana; the start cards show their sponsorships | CreateScreen, ClubStart.CARDS, Data.PROSPECTS, Career.start_cash |
 | The guide (week 1) | introduces one fighter at a time: the note, the range of each number, the starting focus pick | GuideLines, FirstWeek steps, Recruit.FOCUS |
-| Fighters > Club week (the new board) | four rows: seat, COACH SAYS pulls, mornings (open, at work, coached), evenings; across: six plus two pad places, the sparring pair, the place on the card, the seats and the runway; every move shows both fighters' change; one Start week button | new ClubWeek screen; WeekPlan, PadWeek (shared places), CoachAreas, TrainRead, GymSpend, GymBills |
+| Fighters > Club week (the new board) | four rows: sponsorship, COACH SAYS pulls, mornings (open, at work, coached), evenings; across: six plus two pad places, the sparring pair, the place on the card, the sponsorships and the runway; every move shows both fighters' change; one Start week button | new ClubWeek screen; WeekPlan, PadWeek (shared places), CoachAreas, TrainRead, GymSpend, GymBills |
 | Home | one line a fighter, the open pick with its price; link to Club week | Home.gd rows |
 | Fighters cards | "6 mornings / 2 mornings", the favourite pull as an icon and a word, mood, discipline chip | Fighters.gd, TrainRead, GymSpend |
-| Fighter page, Overview | the pulls with numbers and dates; the number ranges in week 1; the fighter's own line about the seat | FighterPage.gd, TrainRead, Recruit.ceiling, PerkRoad |
+| Fighter page, Overview | the pulls with numbers and dates; the number ranges in week 1; the fighter's own line about the sponsorship | FighterPage.gd, TrainRead, Recruit.ceiling, PerkRoad |
 | Fighter page, Training | the same week as the board, for fine edits; the light on the picked session; solo evenings for a day job | WeekBoard, WeekEditors, GuideLight |
-| Grappler page (Ana) | two drills with dates; the classes dial; the seat | GrapplerPage.gd, BjjTree, BjjOpen tally, BjjSide |
+| Grappler page (Ana) | two drills with dates; the classes dial; the sponsorship | GrapplerPage.gd, BjjTree, BjjOpen tally, BjjSide |
 | Fights | the one place and the two takers side by side; what the fight week takes from the others; the corner clash | Fights.gd, Bouts, BoutCompare, RankLine |
-| Money | the runway for each number of seats; Reid's hours; a fourth pad evening's price | Money.gd, GymBills, GymSpend |
+| Money | the runway for each number of sponsorships; Reid's hours; a fourth pad evening's price | Money.gd, GymBills, GymSpend |
 | Week review (Monday) | per fighter: what the week gave and what it cost another ("Lucy trained alone twice: speed +0.5, not +0.8") | the week review |
 | The Why after a bout | the week's choice that showed in the ring (the weakness found, the weapon that counted) | FightWhy, BoutRules |
 
 ## 5. What is built, in order
 1. Probes and rule changes first (Qwen / cloud): the fight-strength weights and the weakness rule on the balance harness
-   with the three bots; a year with seats as mornings (replaces x0.85); pads for three boxers on 6 + 2 + 1 places.
-2. Pure rules with tests: TrainRead v2 (the order and the pulls), shared pad places, coached mornings, the seat rules.
+   with the three bots; a year with sponsorships as mornings (replaces x0.85); pads for three boxers on 6 + 2 + 1 places.
+2. Pure rules with tests: TrainRead v2 (the order and the pulls), shared pad places, coached mornings, the sponsorship rules.
 3. The four starters and the pick at Create; the guide's introductions.
 4. The Club week board (one screen, Cursor), then the cards, the Fights page's one place, the Monday review lines.
-5. One golden-path test: Create with three picks, the introductions, a seat placed, two pulls followed and one refused,
+5. One golden-path test: Create with three picks, the introductions, a sponsorship placed, two pulls followed and one refused,
    the pads dealt, one offer taken, Start week, the Monday lines.
 
 ## 6. Risks, said plainly

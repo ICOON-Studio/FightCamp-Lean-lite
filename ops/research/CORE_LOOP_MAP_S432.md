@@ -1,4 +1,6 @@
 # CORE LOOP: the S432 maps and the S433 mat plan joined into one loop (S432 integration, updated S433)
+> NAME (operator Q-190, S434/S435): "Just rename it 'gym sponsorship', the club pays". What earlier maps and drawings call the PAID SEAT is the GYM SPONSORSHIP here (short: sponsorship): the CLUB pays its own amateur for a 4-week block. It is not a Sponsor deal (Club > Money), where an outside business pays the club; no screen may mix the two words.
+
 
 The operator's ask (S432): review and strengthen everything that drives the loop (building the fighter and the coach, the playbook, training, and how
 they decide the fight) and, before building, decide whether the mechanics for this version are done.
@@ -13,13 +15,13 @@ full-time once pro" (C31), Q-187 featherweight and middleweight professional tab
 ## 1. THE LOOP IN ONE PAGE
 | Station | The player decides | What flows to the next station |
 |---|---|---|
-| 1 THE WEEK (Club week, Monday) | who gets the 8 pad places, the 6 coached mornings and the paid seat; Coach's evenings as pads or a class; the sparring pair and setting; the twist; each fighter's season target and load | -> PAD PLACES, MORNINGS AND THE LOAD: which sessions each fighter gets, at which pace, with whom, coached by whom; cash from class nights |
+| 1 THE WEEK (Club week, Monday) | who gets the 8 pad places, the 6 coached mornings and the gym sponsorship; Coach's evenings as pads or a class; the sparring pair and setting; the twist; each fighter's season target and load | -> PAD PLACES, MORNINGS AND THE LOAD: which sessions each fighter gets, at which pace, with whom, coached by whom; cash from class nights |
 | 2 TRAINING AND PADS (Training tab) | the load (Easy, Normal, Hard, Sharpen), morning exceptions, each pad place's card, the diet, the niggle's answer | -> POINTS, MASTERY AND WEAR: ability points toward each ability's own ceiling, move mastery (and its fire share), habits half fixed or gone, tiredness, niggles; Known from your own sessions |
 | 3 THE FIGHTER AND THE COACH GROW (Profile, Character, Club > You) | a perk's version, the build direction, your either/or level pick and style, the talk, the stance on hype | -> WHAT THE PLAN CAN ASK: how well each line is done (grade), how often it fires, how many lines are brought, which perks fire, which traits cross a line, how much of the corner gets through (mood, loyalty) |
 | 4 THE PLAN AND THE BILL (Fight plan, the bout page) | which card on the sheet; lines, rounds and IF READ; WHERE and the pace by round; the scale, film, the four lines brought, the towel line, your prediction | -> THE NIGHT'S STARTING POINT: lines with their worth, WHERE and pace, the Tank at the first bell, readiness, the towel line, the judges you know |
 | 5 THE FIGHT (fight night) | shouts every 30 seconds, the corner minute (one change, the line change, recover, set-up, talk, TRUST ME), the towel when it comes | -> WHAT HAPPENED: 18 exchanges (24 in four rounds) with every part stored, rounds scored by the judges, counts, damage, the result |
 | 6 WHAT IT TEACHES AND PAYS (the result, the Why, Monday) | each receipt row's button; Ready, Building or Rest; the talk after a loss; cash it in or protect the record | -> NEXT WEEK: the fix put on the board, the stand-down, tiredness, ticket cut and fans, rank and reputation, members, experience, loyalty and mood, marks and traits moved, the Monday snapshot |
-Two slower loops run under it: MONEY (dues, class nights, the ticket cut, the purse's 25% -> seats, staff, rent: CW) and THE SEASON (the target, fans,
+Two slower loops run under it: MONEY (dues, class nights, the ticket cut, the purse's 25% -> sponsorships, staff, rent: CW) and THE SEASON (the target, fans,
 the regional ladder and the pro offer: CW, HY). Every station prints its price in the next station's terms (TR T24 one run, FL M1 the bill as a forecast
 of the receipt), so the player can always see how a Monday choice reached Saturday.
 
@@ -65,7 +67,7 @@ know only "lightweight" and "welterweight".
 | C28 | The pro offer and the club's share, set in three maps | One function each: Roster.check_pro reads CW's rule, HY's Hot (one win sooner) and SHIELD's PROTECTED (one more); the share reads the loyalty band (under 50: 10%) and HY's manager line (60 if LET IT RIDE) | none |
 | C29 | The luck knob (FL 2.2 FORM_SD) is on the small term (engine critic: the 18 exchange dice dwarf form) | LUCK over 20 in the target: EX_SPREAD 66 -> 58 first, FORM_SD only for form. The corner's best call 17 -> 12 now (its size is known too big); LEVERS1 sets the final number | FL 2.2, M10 |
 | C30 | THE COUNT card names an exchange and a minute the code never rolls (both FL critics) | Counts move into the exchange stream (KDEXCH1, section 5): a hurt exchange rolls the count from power against chin and damage carried, the round's total chance kept (KDRATE2). Until it lands the card names the round only | FL M12 |
-| C31 | The professional's day: CW 3.3 kept a professional under the top 10 on the job rota (with CAMP LEAVE, CW 3.9); the code keeps day_job after turn_pro | Q-186 "No, full-time once pro": an AMATEUR keeps the job rota (dim "at work" mornings; a paid seat frees six); a PROFESSIONAL trains full time from the debut: every morning free, no job row, no camp leave. Counted once: DAY_JOB_GAIN x0.85 retires when JobRota lands; until then turn_pro clears day_job (CAMPLOAD1) | CW 3.3, 3.9, 12; TR 5b (done) |
+| C31 | The professional's day: CW 3.3 kept a professional under the top 10 on the job rota (with CAMP LEAVE, CW 3.9); the code keeps day_job after turn_pro | Q-186 "No, full-time once pro": an AMATEUR keeps the job rota (dim "at work" mornings; a gym sponsorship frees six); a PROFESSIONAL trains full time from the debut: every morning free, no job row, no camp leave. Counted once: DAY_JOB_GAIN x0.85 retires when JobRota lands; until then turn_pro clears day_job (CAMPLOAD1) | CW 3.3, 3.9, 12; TR 5b (done) |
 | C32 | Professional tables: four in the world data; the start has four fighters in four weight classes (S428) | Q-187 "Yes, both": EIGHT professional tables, women's and men's featherweight, lightweight, welterweight, middleweight, each about 20 ranked with belts as now; the amateur class maps to its table by NAME, never by kg (PROTABLES1) | CRITIC_PACK 4.14 |
 | C33 | Two fight plans: the boxers' (PB) and the grappler's (MP) | One page logic and one set of words: lines on places, rated BEATS IT / WORKS / WALKS INTO IT, priced, a receipt after; Push / Steady / Save (MP's scoreboard rows); the Tank (C2); Coach's draft with your changes in gold; ON THE MATS beside ON THE PADS; the corner's grade by replay on the same dice (the Why's words). Units (C13): a mat choice in points and beats of the match, chances in 100. The grappler's Fight plan tab is MP's MatPlanPanel; the boxers' tab is PB's | PB; MP; FL M11; TR 8c |
 
@@ -124,7 +126,7 @@ CROWD: the hype gauge (buzz solid, heat striped, band word), the 12-week line, w
 stance (Sell, Shield), the call-out; no Entertain buttons, no clip button [HY 6, C7, C25].
 HISTORY: each bout with its scales and count card, marks beside the bouts that made them, CHAMPION at the season's end [FL M1, RPG 9].
 CLUB WEEK: the season strip; counters in one unit (asked, covered, short) for pad places, coached mornings, Coach's evenings (pads or class with the cash),
-the seat, favours, the trial mat; a row a fighter: role badge, mood word, loyalty bar with forecast, seat or job (amateurs only, C31), diet cell, load chip, tiredness, pulls
+the sponsorship, favours, the trial mat; a row a fighter: role badge, mood word, loyalty bar with forecast, sponsorship or job (amateurs only, C31), diet cell, load chip, tiredness, pulls
 with size ranges in their own colours, seven days with the pair picker and setting, the crowd cell, direction and captain chips, moment cards with coin
 tags; the talk card; PROMISES OPEN; the twist; your deal against Coach's; three deal buttons; Start week [CW 6, RPG 15, HY 6, TR 8, C17].
 CLUB > YOU and CLUB > PEOPLE: your level, experience by outcome, the either/or pick with BEST FOR, the road, your style in this squad's numbers, what your picks
@@ -211,7 +213,7 @@ KNOWN0, so they come first); 3 Club week; 4 Fights, the sheet and the bill; 5 Fi
 13 Week review and Home needs; 14 Training (unblocked; after TR 11.4's three stills); 15 Ana's Fight plan (M8 MATPLANUI1, from matplan_v1);
 16 the open night with ONE CHANGE and the receipts (M9 MATOPEN1, with GrapplerPage, Club week and Training hooks). World > Rankings needs no new screen:
 it lists the eight tables once PROTABLES1 lands. Each waits on its rule modules and the levers.json rows it prints.
-STEP 4, ONE GOLDEN-PATH TEST (Grok Dev), walking a season: create with a professional and two amateurs; the guide's reveal to week 5; a season target; a seat
+STEP 4, ONE GOLDEN-PATH TEST (Grok Dev), walking a season: create with a professional and two amateurs; the guide's reveal to week 5; a season target; a sponsorship
 placed and renewed; a class night; two pulls followed; a fighter dealt short twice and the talk answered; a Hard sparring evening with a partner chip; the
 load card's work equal to Injuries.week_work; a Poor line swapped by its grade and a line taken to Sharp on the pads; a sheet; a no-camp amateur bout after a
 hard week with a non-zero TANK row and no NO_CAMP_EDGE part; WHERE and pace by round; the bill's YOU AGAINST COACH with its three parts; a home win adding

@@ -39,3 +39,14 @@
 - The dispatcher relaunches a brief whose Status still says OPEN when the earlier run was on another seat's branch name
   (goose/...): close the brief when its work is read.
 - Miro P0: the frame cannot shrink while the 14 surplus slots stay (deleting needs his OK); the cards update fine.
+
+## Evening (after the first handover)
+- Collected: KNOWN0 (PR 207), RIBHURT1 (PR 209: the fight's body map reaches the injury roll; pounded ribs x2.4 rib injuries).
+  Rejected: CORNERFACE2 (PR 208), HUMANFIGHT2B (PR 210: ReachBand made every punch fall back to generic clips; taps on 9 of 2700 rows).
+- Training: his marks C291-C293 and his "i thought i told you to pay special attention to all the training mechanic" -> TRAINSCENE1
+  drawn by workflow (three approaches, two blind critics, coach-led chosen), sent; his 8 more marks -> v2 running at handover.
+- His asks: sport-sim look with motion; hover previews; Q-190 gym sponsorship; turning pro comparison; wrestling its own sport;
+  weight mechanic stronger (map running at handover); the ring entry out (INTROCORNER1 on Qwen).
+- Voices: cast picked (Ludo voices, VOICE_CAST_S434.md); Gemini TTS tool ready, API prepay empty (402).
+- Assets: the Fab Boxing Animation Pack checked (adds parries, body punches, guard styles; licence OK; he buys at month end);
+  Punch Perfect skipped; RTK dropped; GrappleMap is the wrestling base. Two CC BY clinch clips downloaded for a DeepMotion test.
