@@ -35,17 +35,24 @@ coordinates and pushes, the others report to it by SendMessage (S443 did this: w
 - Qwen PR 238 Judges + PR 239 WorldNews collected after a blind review with fixes (50e1c92d, aaa73bc0, c4053f4c).
 
 ## IN FLIGHT AT WRITING (check each: `git log`, the review board, the session list)
-- PUSHPROBE2 (S443 helper, dies with S443 if it is closed first): arms A-E at 3 and 6 rounds, 300 bouts a cell, ends ~20:40,
-  result docs/PUSHPROBE2_RESULT.md, tools/pushprobe2*.gd. Then: show him the table; v3 design only from the numbers.
-- Session "Result page: summary + tabs" (local_b9e2a770): Q-199 build.
-- Session "Blind review + collect Qwen PRs 238 and 239" (local_4e39ebee): now wiring Judges to the fight night and
-  WorldNews to the ladder.
-- S439 lead (POWER1, worktree LEAN_POWER1, branch claude/power1): step 4 committed 17:39, blind read pending, never reported
-  back (estimated 18:15). Collect against his C314/C315 ("no power behind the shot"); steps 2-3 fixes were never re-read.
+- PUSHPROBE2 LANDED (0482c24b, 386,100 real bouts, docs/PUSHPROBE2_RESULT.md): the bars FAIL the pass line - pace is
+  still decided by wind alone ("Push while wind > 45" best in 14 of 19 cells at 3 rounds; the coach 1-2.4 points behind a
+  habit); removing Coast's free refill DOES end "Push five, Save one"; Press costs 2-5 points, Move = Hold (feet only nudge
+  the forward dial: forcing the place needs a scripts/ change); the hurt state lasts one exchange; neck ice CHANGES results
+  (+1.5 / +2.5) but "always ice" is best in 14/19 and 17/20 cells (the cold penalty is too cheap) and no corner ever ran
+  past seconds out (jobs too cheap in time). The coach's edge comes from the corner CALLS (+2), not the bars.
+  DECIDED (his "up to you to decide", Q-205): PARKED until Ask for a fight is on screen; the v3 starts from these levers.
+- Result page summary + tabs DONE (a01f5785). Judges stored, HELD from deciding (99d87c68; TASK_JUDGES1.md). World news wired (9a2b91cd).
+- Build exported 19:56 (Builds/FightCamp.exe, WHAT_TO_TRY current), smoke-started headless, not played on screen.
+- S439 lead (POWER1, worktree LEAN_POWER1, branch claude/power1), report 20:35: step 4 REJECTED by its blind reader at 19:23
+  (punch_range_test failures=48; footwork looks ahead so contact gap ignores the range table, median 0.93 m, uppercuts 0.81-0.84
+  not 0.70-0.74; punch_weight_test 0 -> 3 failures; 26% of landed head punches show as grazes; lead toes cross 25 times; the
+  0.30 m reach cap not enforced, 0.397 m). A fix helper was still working (uncommitted in the worktree); the lead stops before
+  step 5. COLLECT ONLY STEP 1 (fa3bbf7e, clean read); steps 2-4 not until a fresh blind read passes. Judge against C314/C315.
 
 ## NEXT, IN ORDER
 1. Collect what landed above; push.
-2. PUSHPROBE2 table to him (cooling: keep or drop by the numbers).
+2. Ask for a fight on a screen (his order, mechanic 1): the map, picks above only, prices from the season probe.
 3. Q-196: the fight-screen regroup shown in the game as stills (not shipped) - docs/mockups/s442/ux/ux_c_fight_hud.*.
 4. Ask for a fight: the screen (map ASKFIGHT_MAP_S441.md, prices from the probe).
 5. BLOCKLOOK1 with C324/C325; POWER1 collect.

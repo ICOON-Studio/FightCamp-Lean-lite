@@ -6751,7 +6751,7 @@
       "answer": "Stamina",
       "note": null,
       "answered_at": "2026-11-12T11:24:06Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -6770,7 +6770,7 @@
       "answer": "Show me it in the game first",
       "note": null,
       "answered_at": "2026-11-12T11:27:10Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -6789,7 +6789,7 @@
       "answer": "Yes, build it",
       "note": null,
       "answered_at": "2026-11-12T11:29:08Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -6807,7 +6807,7 @@
       "answer": "check markup",
       "note": null,
       "answered_at": "2026-11-12T11:35:41Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": true
     },
     {
@@ -6826,7 +6826,7 @@
       "answer": "Yes, summary + tabs",
       "note": null,
       "answered_at": "2026-11-12T11:34:44Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -6846,7 +6846,7 @@
       "answer": "All three",
       "note": null,
       "answered_at": "2026-11-12T11:35:13Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -6862,10 +6862,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-201_0_nosparring.md"
       ],
-      "answer": null,
+      "answer": "Yes, ease it as proposed",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-12T15:24:52Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-202",
@@ -6878,10 +6879,11 @@
         "Neither"
       ],
       "attach": [],
-      "answer": null,
+      "answer": "Delete both",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-12T15:22:04Z",
+      "seen_by_claude": true,
+      "comment_only": false
     },
     {
       "id": "Q-S294-203",
@@ -6896,10 +6898,47 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-203_0_fight_bars_v2.png"
       ],
-      "answer": null,
+      "answer": "Measure it now",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-12T15:26:56Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-204",
+      "asked": "2026-11-12T16:56:47.748336+00:00",
+      "session": "S294",
+      "text": "Ask for a fight, measured in 33,739 real bouts: asking is a real choice for a player chasing the record (+0.3 to +0.8 wins in 10 weeks). But a ranked fighter can pick a name up to 4 places BELOW, and that wins almost every case. Should a picked opponent be only above or level?",
+      "options": [
+        "Only above or level (recommended)",
+        "Allow below, raise the gate to about $1,800",
+        "Show me the numbers first"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-204_0_ASKPROBE1_RESULT.md"
+      ],
+      "answer": "Only above or level (recommended)",
+      "note": "S443: AskBout.picks now above only; test updated",
+      "answered_at": "2026-11-12T17:15:33Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-205",
+      "asked": "2026-11-12T18:29:15.165592+00:00",
+      "session": "S294",
+      "text": "Fight bars measured in 386,100 real bouts: they FAIL (energy alone still decides the pace), but the numbers name the fix (no free refill, feet that decide the place, a hurt that lasts, ice that stiffens enough, corner jobs that cost real seconds). Redesign now (~2-3% of the week) or park until Ask for a fight is done?",
+      "options": [
+        "Redesign from the numbers",
+        "Park it until Ask for a fight is done"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-205_0_PUSHPROBE2_RESULT.md"
+      ],
+      "answer": "Park it until Ask for a fight is done",
+      "note": "operator in chat S443: \"up to you to decide\" - Claude decided: park (his order; the corner calls already hold the decisions; findings saved in docs/PUSHPROBE2_RESULT.md)",
+      "answered_at": "2026-11-12T18:30:52Z",
+      "seen_by_claude": true
     }
   ]
 }

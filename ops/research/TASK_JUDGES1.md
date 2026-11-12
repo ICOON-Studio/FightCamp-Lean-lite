@@ -41,7 +41,7 @@ A shown chance off by 9 in 100 is a number the player cannot trust (operator rul
 
 ## Contract
 OWNS: scripts/rules/Judges.gd (WEIGHTS, LEAN_MULT only), scripts/rules/BoutRead.gd, scripts/state/JudgeNight.gd (DECIDES),
-tools/judges_agree_probe.gd, tests/bout_read_test.gd (new cases only, never a loosened bar).
+tools/judges_agree_probe.gd, tests/bout_read_test.gd (new cases only, never a loosened bar)
 RED_TEST: `tests/bout_read_test.gd` run with `-- judgesdecide` -> today FAIL 4; must read `BOUT_READ PASS`.
 REGRESSION: judges_test, bout_rules_test, bout_stoppage_test, result_defects_test, plan_bout_test, ask_bout_test,
 golden_path_test (its `_judged` check), file_limits_test - each with and without `judgesdecide`.
