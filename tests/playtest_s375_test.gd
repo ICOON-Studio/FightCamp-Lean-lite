@@ -42,10 +42,13 @@ func _initialize() -> void:
 	# 2. Ana on the Roster (S396 RosterTable): a row with her face; the row opens her page, whose Playbook is her mat.
 	main.act("go", "fighters:0")
 	await _frames()
-	var ana: Button = main.find_child("Row_ana", true, false)
+	var ana: Control = main.find_child("Row_ana", true, false)
 	_check(ana != null and ana.find_children("*", "TextureRect", true, false).size() > 0, "Ana is a row with her face on the Roster")
-	if ana != null:
-		ana.pressed.emit()
+	if ana != null:   # S440 the painted row opens the athlete's page on a left click
+		var click := InputEventMouseButton.new()
+		click.button_index = MOUSE_BUTTON_LEFT
+		click.pressed = true
+		ana.gui_input.emit(click)
 		await _frames()
 		main.act("ftab", "7")
 		await _frames()

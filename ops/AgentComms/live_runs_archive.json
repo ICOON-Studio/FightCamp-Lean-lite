@@ -14816,6 +14816,616 @@
    },
    "reconciled": "2026-11-12 00:10 board_reconcile: PR #217 closed",
    "archived": "2026-11-12 00:11 board_sync"
+  },
+  {
+   "agent": "goose",
+   "id": "PUNCHFORM1",
+   "title": "QWEN (qwen3-coder) - the maths of a punch's form: one pure module + its test",
+   "status": "closed",
+   "started": "2026-11-12T01:02",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_PUNCHFORM1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-12T02:02",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (roadmap plan.next)",
+   "issue": "219",
+   "branch": "goose/issue-219",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/219",
+   "reconciled": "2026-11-12 02:10 board_reconcile: issue 219 closed",
+   "archived": "2026-11-12 02:12 board_sync"
+  },
+  {
+   "agent": "goose",
+   "id": "ROSTERROW1",
+   "title": "QWEN (qwen3-coder) - what one fighter's row on the Fighters page says: one pure module + its test",
+   "status": "closed",
+   "started": "2026-11-12T01:34",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_ROSTERROW1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-12T02:34",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (roadmap plan.next)",
+   "issue": "220",
+   "branch": "goose/issue-220",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/220",
+   "reconciled": "2026-11-12 02:40 board_reconcile: issue 220 closed",
+   "archived": "2026-11-12 02:41 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "VOICEWIRE1",
+   "title": "TASK VOICEWIRE1 - QWEN (qwen3-coder), the sound engineer - the cast's voices made this month and wired into fight night",
+   "status": "closed",
+   "started": "2026-11-11T23:31",
+   "eta": "2026-11-12T01:21",
+   "branch": "qwen/voicewire1",
+   "worktree": "E:/FightCamp/wt/LEAN_VOICEWIRE1",
+   "wt": "E:/FightCamp/wt/LEAN_VOICEWIRE1",
+   "brief": "ops/research/TASK_VOICEWIRE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/VOICEWIRE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run voicewire1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/VOICEWIRE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/VOICEWIRE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/VOICEWIRE1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 46872,
+    "seat_pid": 34684
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 6/6 PASS; PR #218",
+   "finished": "2026-11-11T23:53",
+   "pr": 218,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/voice_lines_test.gd",
+     "ok": true,
+     "last": "VOICE_LINES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/sound_bank_test.gd",
+     "ok": true,
+     "last": "SOUND_BANK checks=321 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/sound_sync_test.gd",
+     "ok": true,
+     "last": "SOUND_SYNC checks=30 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/intro_style_test.gd",
+     "ok": true,
+     "last": "INTRO_STYLE pairs=640 checks=8560 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-12 03:10 board_reconcile: PR #218 closed",
+   "archived": "2026-11-12 03:11 board_sync"
+  },
+  {
+   "agent": "cursor",
+   "id": "RIBS1",
+   "title": "TASK RIBS1 - CURSOR (Grok 4.7 High) - the ribs take damage normally (the defect, before the redesign)",
+   "status": "closed",
+   "started": "2026-11-11T23:43",
+   "eta": "2026-11-12T01:33",
+   "branch": "cursor/ribs1",
+   "worktree": "E:/FightCamp/wt/LEAN_RIBS1",
+   "wt": "E:/FightCamp/wt/LEAN_RIBS1",
+   "brief": "ops/research/TASK_RIBS1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/RIBS1_dispatch_out.txt",
+   "match": "seat_dispatch.py run ribs1",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/RIBS1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/RIBS1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/RIBS1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 51188,
+    "seat_pid": 3224
+   },
+   "note": "S368 seat_dispatch: cursor exit 1; 1 commit(s); checks 8/9 PASS; PR #221; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache",
+   "finished": "2026-11-12T02:02",
+   "pr": 221,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/rib_damage_test.gd",
+     "ok": false,
+     "last": null
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/body_map_test.gd",
+     "ok": true,
+     "last": "BODY_MAP failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/body_tip_test.gd",
+     "ok": true,
+     "last": "BODY_TIP failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/body_figure_test.gd",
+     "ok": true,
+     "last": "BODY_FIGURE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/body_report_test.gd",
+     "ok": true,
+     "last": "BODY_REPORT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/injuries_test.gd",
+     "ok": true,
+     "last": "INJURIES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_stats_test.gd",
+     "ok": true,
+     "last": "FIGHT_STATS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-12 03:10 board_reconcile: PR #221 closed",
+   "archived": "2026-11-12 03:11 board_sync"
+  },
+  {
+   "agent": "arena",
+   "status": "collected",
+   "title": "TASK FACE3D1 - ARENA - which marks a hurt face shows in 3D: one pure module + its test",
+   "started": "2026-11-12T08:38",
+   "eta": "2026-11-12T09:45",
+   "branch": "arena/91be6c05-fightcamp-lean-lite",
+   "url": "https://arena.ai/agent/01a1ce7a-1f1c-712a-a270-218c91be6c05",
+   "brief": "ops/research/TASK_FACE3D1.md",
+   "note": "S439: launched in his Chrome after 'you can also use arena' + 'Signed in'. PR lands on FightCamp-Lean-lite and is relayed; never Arena's Merge button. Collected S439 by diff (lite PR 2 closed).",
+   "id": "FACE3D1",
+   "where": "cloud",
+   "repo": "FightCamp-Lean-lite",
+   "archived": "2026-11-12 09:11 board_sync"
+  },
+  {
+   "agent": "goose",
+   "id": "MATLINES1",
+   "title": "QWEN (qwen3-coder) - the no-gi athlete's plan lines: one pure module + its test",
+   "status": "collected",
+   "started": "2026-11-12T07:54",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_MATLINES1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-12T08:54",
+   "note": "S440: collected on main 983b7c29 after blind review + fix round + fresh reader",
+   "issue": "225",
+   "branch": "goose/issue-225",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/225",
+   "reconciled": "2026-11-12 08:10 board_reconcile: run finished (success), branch goose/issue-225 pushed",
+   "archived": "2026-11-12 10:42 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "PUNCHSNAP1",
+   "title": "TASK PUNCHSNAP1 - ARENA - the maths of a punch's POWER read: one pure module + its test",
+   "status": "collected",
+   "started": "2026-11-12T08:30",
+   "eta": "2026-11-12T10:20",
+   "branch": "qwen/punchsnap1",
+   "worktree": "E:/FightCamp/wt/LEAN_PUNCHSNAP1",
+   "wt": "E:/FightCamp/wt/LEAN_PUNCHSNAP1",
+   "brief": "ops/research/TASK_PUNCHSNAP1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/PUNCHSNAP1_dispatch_out.txt",
+   "match": "seat_dispatch.py run punchsnap1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/PUNCHSNAP1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/PUNCHSNAP1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/PUNCHSNAP1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 28916,
+    "seat_pid": 35364
+   },
+   "note": "S440: collected on main 983b7c29 after blind review + fix round + fresh reader",
+   "finished": "2026-11-12T09:01",
+   "pr": 226,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/punch_snap_test.gd",
+     "ok": true,
+     "last": "PUNCH_SNAP failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/punch_form_rules_test.gd",
+     "ok": true,
+     "last": "PUNCH_FORM_RULES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "archived": "2026-11-12 10:42 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "CALLSPREAD1",
+   "title": "TASK CALLSPREAD1 - QWEN (qwen3-coder) - a corner call's strength rises point by point from 56 to 62, not in one jump at 62 (one function + its test)",
+   "status": "closed",
+   "started": "2026-11-11T19:42",
+   "eta": "2026-11-11T21:32",
+   "branch": "qwen/callspread1",
+   "worktree": "E:/FightCamp/wt/LEAN_CALLSPREAD1",
+   "wt": "E:/FightCamp/wt/LEAN_CALLSPREAD1",
+   "brief": "ops/research/TASK_CALLSPREAD1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CALLSPREAD1_dispatch_out.txt",
+   "match": "seat_dispatch.py run callspread1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CALLSPREAD1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CALLSPREAD1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CALLSPREAD1_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 15128,
+    "seat_pid": 52916
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/8 PASS; PR #211",
+   "finished": "2026-11-11T20:03",
+   "pr": 211,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/call_spread_test.gd",
+     "ok": true,
+     "last": "CALL_SPREAD checks=6 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/exchanges_test.gd",
+     "ok": false,
+     "last": "EXCHANGES failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/call_evidence_test.gd",
+     "ok": true,
+     "last": "CALL_EVIDENCE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/stripe_call_test.gd",
+     "ok": true,
+     "last": "STRIPE_CALL PASS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_why_test.gd",
+     "ok": true,
+     "last": "FIGHT_WHY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_bots_test.gd",
+     "ok": true,
+     "last": "PLAN_BOTS checks=26 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bout_read_test.gd",
+     "ok": true,
+     "last": "BOUT_READ PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_feel_test.gd",
+     "ok": true,
+     "last": "FIGHT_FEEL failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-12 11:10 board_reconcile: PR #211 closed",
+   "archived": "2026-11-12 11:12 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "CLIPFIX2",
+   "title": "TASK CLIPFIX2 - QWEN (qwen3-coder) - the fight's punches that read wrong get a form ruler, then a fix or a cut",
+   "status": "closed",
+   "started": "2026-11-12T02:35",
+   "eta": "2026-11-12T04:25",
+   "branch": "qwen/clipfix2",
+   "worktree": "E:/FightCamp/wt/LEAN_CLIPFIX2",
+   "wt": "E:/FightCamp/wt/LEAN_CLIPFIX2",
+   "brief": "ops/research/TASK_CLIPFIX2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLIPFIX2_dispatch_out.txt",
+   "match": "seat_dispatch.py run clipfix2",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLIPFIX2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLIPFIX2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLIPFIX2_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 31492,
+    "seat_pid": 28660
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/5 PASS; PR #222; films Argon - -> -/10",
+   "finished": "2026-11-12T02:49",
+   "pr": 222,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/punch_form_test.gd",
+     "ok": true,
+     "last": "PUNCH_FORM failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_tally_test.gd",
+     "ok": true,
+     "last": "BEAT_TALLY_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/short_punch_test.gd",
+     "ok": true,
+     "last": "SHORT_PUNCH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {
+     "film": "",
+     "why": "no FILM: line and RED_TEST is not a tools/ probe - Claude films it"
+    },
+    "after": {
+     "film": "",
+     "why": "no FILM: line and RED_TEST is not a tools/ probe - Claude films it"
+    },
+    "board": ""
+   },
+   "reconciled": "2026-11-12 11:10 board_reconcile: PR #222 closed",
+   "archived": "2026-11-12 11:12 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "CLIPFIX3",
+   "title": "TASK CLIPFIX3 - QWEN (qwen3-coder) - the punch ruler made honest, then the three hanging jabs retimed",
+   "status": "closed",
+   "started": "2026-11-12T02:54",
+   "eta": "2026-11-12T04:44",
+   "branch": "qwen/clipfix3",
+   "worktree": "E:/FightCamp/wt/LEAN_CLIPFIX3",
+   "wt": "E:/FightCamp/wt/LEAN_CLIPFIX3",
+   "brief": "ops/research/TASK_CLIPFIX3.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLIPFIX3_dispatch_out.txt",
+   "match": "seat_dispatch.py run clipfix3",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLIPFIX3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLIPFIX3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLIPFIX3_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 41864,
+    "seat_pid": 54784
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/7 PASS; PR #223",
+   "finished": "2026-11-12T03:23",
+   "pr": 223,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/jab_retime_test.gd",
+     "ok": true,
+     "last": "JAB_RETIME failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/punch_form_test.gd",
+     "ok": true,
+     "last": "PUNCH_FORM failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_tally_test.gd",
+     "ok": true,
+     "last": "BEAT_TALLY_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/short_punch_test.gd",
+     "ok": true,
+     "last": "SHORT_PUNCH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/punch_form_rules_test.gd",
+     "ok": true,
+     "last": "PUNCH_FORM_RULES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-12 11:10 board_reconcile: PR #223 closed",
+   "archived": "2026-11-12 11:12 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "CLIPFIX4",
+   "title": "TASK CLIPFIX4 - QWEN (qwen3-coder) - the punch ruler and the three retimed jabs: every defect of the two reviews",
+   "status": "closed",
+   "started": "2026-11-12T03:30",
+   "eta": "2026-11-12T05:20",
+   "branch": "qwen/clipfix4",
+   "worktree": "E:/FightCamp/wt/LEAN_CLIPFIX4",
+   "wt": "E:/FightCamp/wt/LEAN_CLIPFIX4",
+   "brief": "ops/research/TASK_CLIPFIX4.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLIPFIX4_dispatch_out.txt",
+   "match": "seat_dispatch.py run clipfix4",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLIPFIX4_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLIPFIX4_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLIPFIX4_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 3224,
+    "seat_pid": 8144
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/7 PASS; PR #224",
+   "finished": "2026-11-12T04:01",
+   "pr": 224,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/jab_retime_test.gd",
+     "ok": true,
+     "last": "JAB_RETIME failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/punch_form_test.gd",
+     "ok": true,
+     "last": "PUNCH_FORM failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_tally_test.gd",
+     "ok": true,
+     "last": "BEAT_TALLY_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/short_punch_test.gd",
+     "ok": true,
+     "last": "SHORT_PUNCH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/punch_form_rules_test.gd",
+     "ok": true,
+     "last": "PUNCH_FORM_RULES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-12 11:10 board_reconcile: PR #224 closed",
+   "archived": "2026-11-12 11:12 board_sync"
   }
  ]
 }

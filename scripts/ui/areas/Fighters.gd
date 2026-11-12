@@ -5,23 +5,19 @@ extends VBoxContainer
 const UI := preload("res://scripts/ui/UI.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const Data := preload("res://scripts/state/Data.gd")
-const Sim := preload("res://scripts/state/Sim.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
-const FighterTile := preload("res://scripts/ui/FighterTile.gd")
 const FighterCard := preload("res://scripts/ui/FighterCard.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const FIGHTER_PAGE_SCRIPT := preload("res://scripts/ui/areas/FighterPage.gd")
 const FIGHTER_PAGE := preload("res://scenes/areas/FighterPage.tscn")
 const GrapplerPage := preload("res://scripts/ui/areas/GrapplerPage.gd")
-const NoGi := preload("res://scripts/rules/NoGi.gd")
-const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
 const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
-const RosterSummary := preload("res://scripts/ui/RosterSummary.gd")
-const RosterTable := preload("res://scripts/ui/RosterTable.gd")
+const RosterRows := preload("res://scripts/ui/RosterRows.gd")
 const RosterCards := preload("res://scripts/ui/RosterCards.gd")
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
+const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 
 
 func build(main: Node) -> void:
@@ -117,39 +113,25 @@ func _roster(main: Node, c: Career) -> void:
 		cards.name = "Roster"
 		add_child(cards)
 		return
-	var card := UI.card()
-	add_child(card[0])
 	if c.fighters.is_empty():
-		var h := UI.hbox(12)
-		h.add_child(UI.muted("Nobody signed yet.", UI.BODY))
-		h.add_child(UI.button("Meet the walk-in", "Btn", main.act.bind("interview", ""), c.applicant.is_empty(),
+		var empty := UI.hbox(12)
+		empty.add_child(UI.label("No boxer signed yet.", UI.BODY, WoodKit.SOFT))
+		empty.add_child(UI.button("Meet the walk-in", "Btn", main.act.bind("interview", ""), c.applicant.is_empty(),
 			"Nobody is waiting at reception. Try the Find a fighter tab."))
-		card[1].add_child(h)
-		_mat(main, c, card[1])
-		return
-	# S396 screen cut (mock-up #roster): one sortable table, a row per fighter and the no-gi athlete, built for eight; the
-	# tall tiles (S330, S387) fitted two to a screen and repeated the eight-line checklist on each. Her page has the detail.
-	var table := RosterTable.build(main, c)
-	table.name = "Roster"
-	card[1].add_child(table)
-	# S397 blind round 4 ("Find a fighter is both a tab and a button"): the tab is the way; this line says what waits there.
+		add_child(empty)
+		if c.grapplers.is_empty():
+			return
+	# S440: with no boxer yet, the no-gi athlete still gets her painted row below (was the S362 mat card).
+	# PAGES2B: painted rows from RosterRow.row (the default view since S440). The old Needs-you chips and WhoIsBooked line are gone:
+	# each row's badge, DO NEXT pin and NEXT FIGHT column already say those things. Rows sit on a dark slate plate.
+	# S397 blind round 4 ("Find a fighter is both a tab and a button"): the tab is the way; the foot line says what waits there.
 	var open := c.prospects.filter(func(p): return str(p.get("state", "")) != "signed").size()
-	card[1].add_child(UI.muted("%d prospect%s scouted, waiting under Find a fighter." % [open, "" if open == 1 else "s"] if open > 0
-		else "No prospects scouted yet: Find a fighter sends the scout.", UI.SMALL, true))
-
-
-## S387 (operator: "an overview so players knows whos has booked fight"): one line, every boxer and the fight in front of them.
-func _fight_card(c: Career) -> Control:
-	var row := UI.hbox(8)
-	row.name = "WhoIsBooked"
-	row.add_child(UI.caps("BOOKED FIGHTS"))
-	for f in c.fighters:
-		var b: Dictionary = f.get("bout", {})
-		if b.has("day") and b.has("opp"):
-			row.add_child(UI.chip("%s vs %s, %s" % [f["first"], str(b["opp"]["name"]), Clock.fmt(int(b["day"]))], "green"))
-		else:
-			row.add_child(UI.chip("%s: no fight booked" % str(f["first"]), "amber"))
-	return row
+	var scout_line := "%d prospect%s scouted, waiting under Find a fighter." % [open, "" if open == 1 else "s"] if open > 0 \
+		else "No prospects scouted yet: Find a fighter sends the scout."
+	add_theme_constant_override("separation", 4)   # S440 round 2: the first row near the painting's y 190
+	var rows := RosterRows.build(main, c, scout_line)
+	rows.name = "Roster"
+	add_child(rows)
 
 
 func _camps(main: Node, c: Career) -> void:
@@ -245,33 +227,3 @@ func _scouting(main: Node, c: Career) -> void:
 		grid.add_child(pc)
 	card[1].add_child(grid)
 	card[1].add_child(UI.muted("Scouted ranges: a club fighter reads about 50-60. A trial is free: the fighter comes in on the Monday. Signing costs the %s club stipend a week." % UI.money(250), UI.SMALL, true))
-
-
-## S362 the no-gi athletes on the mat: belt, stripes, opens record; the name opens her belt road.
-func _mat(main: Node, c: Career, parent: Container) -> void:
-	if c.grapplers.is_empty():
-		return
-	# S376 (operator's S375 playtest: "Ana a text row on Roster"): a no-gi athlete gets the boxers' face card - her belt,
-	# opens record, classes this belt, the move her classes drill, and her mat in the Playbook.
-	parent.add_child(UI.caps("ON THE MAT - NO-GI"))
-	var grid := FighterCard.grid("MatCards")
-	grid.columns = 1   # S388 C236 a summary row, the full width like the boxers
-	for g in c.grapplers:
-		var fc := FighterCard.build(main, g, "Grappler")
-		var v: VBoxContainer = fc[1]
-		var stripes := int(g["stripes"])
-		v.add_child(UI.label("%s belt, %d stripe%s" % [str(g["belt"]).capitalize(), stripes, "" if stripes == 1 else "s"], UI.BODY, UI.FG, "bold"))
-		v.add_child(UI.label("%d classes this belt" % int(g.get("mat_classes", 0)), UI.BODY))
-		var drill := NoGi.drilling(g, c.day)
-		if drill != "":
-			v.add_child(UI.label("Drilling: %s" % NoGi.move_name(drill).to_lower(), UI.SMALL, UI.GREEN, "bold"))
-		v.add_child(RosterSummary.grappler(c, g))
-		var id := str(g["id"])
-		var mat := UI.button("%s's mat: Playbook" % str(g["first"]), "Btn", func():
-			Playbook.pick = id
-			main.act("go", "playbook:0"))
-		mat.name = "Mat_" + id
-		mat.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-		v.add_child(mat)
-		grid.add_child(fc[0])
-	parent.add_child(grid)

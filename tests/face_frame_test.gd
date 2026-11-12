@@ -54,7 +54,7 @@ func _screens() -> void:
 	main.act("go", "fighters:0")
 	await _settle()
 	await _shoot("roster")
-	var to_table: Button = main.find_child("View_table", true, false)
+	var to_table: Button = main.find_child("View_rows", true, false)
 	if to_table != null:
 		to_table.pressed.emit()
 		await _settle()

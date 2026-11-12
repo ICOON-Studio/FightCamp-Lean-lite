@@ -1,3 +1,19 @@
+FIGHTCAMP - BUILD OF 2026-11-12 (S440): THE ANNOUNCER ON THE PA, HONEST JUDGES, THE FOUNDATION, THE FIXED JABS
+================================================================================
+
+ NEW
+  - Fight night sounds like an arena: the ring announcer speaks through the hall's PA (the microphone's colour, a slap
+    off the far wall, the arena's tail) over the crowd. The crowd starts with his first line, eases down under each
+    line and roars as he finishes a name and the winner. Your kept voices play: the announcer (15 lines) and the
+    corner's shouts (8). The three between-rounds lines are remade in the shout voice and wait for your ear.
+  - The judges: a 2-1 fight is a UNANIMOUS decision unless a round was 3-3 on exchanges; only then does the third
+    judge see that round the other way (every 2-1 fight used to read SPLIT). Each judge's round chips add up to the card.
+  - The foundation (Cardio, the no-camp Tank, how a punch starts, the ribs) is in the game.
+  - A corner call's strength now rises point by point between 56 and 62 (it used to jump at 62).
+  - The jab, jab B and jab C come back to guard sooner (their arms hung out 0.39 / 0.23 / 0.27 s; now 0.165 / 0.14 / 0.14).
+ TRY: book a bout, listen to the walk-in and the result; read the three cards (split or unanimous) and judge 3's chips.
+ On the review board: the announcer and the corner minute recorded from the game's own sound; the three jabs before/after.
+
 FIGHTCAMP - BUILD OF 2026-11-12 (S439): THE RESULT PAGE SHOWS THE MARKS OF THE FIGHT
 ================================================================================
 

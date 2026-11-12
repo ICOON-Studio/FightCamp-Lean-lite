@@ -185,90 +185,6 @@
    },
    "note": "S434: a re-run of S431 Goose work (issue 193, read in bc473607); stopped by Claude, brief marked CLOSED"
   },
-  "CALLSPREAD1": {
-   "agent": "qwen",
-   "id": "CALLSPREAD1",
-   "title": "TASK CALLSPREAD1 - QWEN (qwen3-coder) - a corner call's strength rises point by point from 56 to 62, not in one jump at 62 (one function + its test)",
-   "status": "landed",
-   "started": "2026-11-11T19:42",
-   "eta": "2026-11-11T21:32",
-   "branch": "qwen/callspread1",
-   "worktree": "E:/FightCamp/wt/LEAN_CALLSPREAD1",
-   "wt": "E:/FightCamp/wt/LEAN_CALLSPREAD1",
-   "brief": "ops/research/TASK_CALLSPREAD1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/CALLSPREAD1_dispatch_out.txt",
-   "match": "seat_dispatch.py run callspread1",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/CALLSPREAD1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/CALLSPREAD1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/CALLSPREAD1_dispatch_runner.log",
-    "source": "roadmap plan.next",
-    "brief_copied": true,
-    "runner_pid": 15128,
-    "seat_pid": 52916
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/8 PASS; PR #211",
-   "finished": "2026-11-11T20:03",
-   "pr": 211,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/call_spread_test.gd",
-     "ok": true,
-     "last": "CALL_SPREAD checks=6 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/exchanges_test.gd",
-     "ok": false,
-     "last": "EXCHANGES failures=1"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/call_evidence_test.gd",
-     "ok": true,
-     "last": "CALL_EVIDENCE failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/stripe_call_test.gd",
-     "ok": true,
-     "last": "STRIPE_CALL PASS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/fight_why_test.gd",
-     "ok": true,
-     "last": "FIGHT_WHY failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/plan_bots_test.gd",
-     "ok": true,
-     "last": "PLAN_BOTS checks=26 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/bout_read_test.gd",
-     "ok": true,
-     "last": "BOUT_READ PASS"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/fight_feel_test.gd",
-     "ok": true,
-     "last": "FIGHT_FEEL failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "CLIPFIX1": {
    "agent": "cursor",
    "id": "CLIPFIX1",
@@ -324,251 +240,6 @@
    },
    "note": "S368 seat_dispatch: cursor exit 1, no commit on cursor/pages2 (stray: -); output E:\\FightCamp\\wt\\PAGES2_dispatch_out.txt",
    "finished": "2026-11-12T02:12"
-  },
-  "CLIPFIX2": {
-   "agent": "qwen",
-   "id": "CLIPFIX2",
-   "title": "TASK CLIPFIX2 - QWEN (qwen3-coder) - the fight's punches that read wrong get a form ruler, then a fix or a cut",
-   "status": "landed",
-   "started": "2026-11-12T02:35",
-   "eta": "2026-11-12T04:25",
-   "branch": "qwen/clipfix2",
-   "worktree": "E:/FightCamp/wt/LEAN_CLIPFIX2",
-   "wt": "E:/FightCamp/wt/LEAN_CLIPFIX2",
-   "brief": "ops/research/TASK_CLIPFIX2.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/CLIPFIX2_dispatch_out.txt",
-   "match": "seat_dispatch.py run clipfix2",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/CLIPFIX2_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/CLIPFIX2_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/CLIPFIX2_dispatch_runner.log",
-    "source": "roadmap plan.next",
-    "brief_copied": true,
-    "runner_pid": 31492,
-    "seat_pid": 28660
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/5 PASS; PR #222; films Argon - -> -/10",
-   "finished": "2026-11-12T02:49",
-   "pr": 222,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/punch_form_test.gd",
-     "ok": true,
-     "last": "PUNCH_FORM failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/beat_clips_test.gd",
-     "ok": true,
-     "last": "BEATCLIPS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/beat_tally_test.gd",
-     "ok": true,
-     "last": "BEAT_TALLY_TEST failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/short_punch_test.gd",
-     "ok": true,
-     "last": "SHORT_PUNCH failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/file_limits_test.gd",
-     "ok": true,
-     "last": "FILE_LIMITS failures=0"
-    }
-   ],
-   "films": {
-    "before": {
-     "film": "",
-     "why": "no FILM: line and RED_TEST is not a tools/ probe - Claude films it"
-    },
-    "after": {
-     "film": "",
-     "why": "no FILM: line and RED_TEST is not a tools/ probe - Claude films it"
-    },
-    "board": ""
-   }
-  },
-  "CLIPFIX3": {
-   "agent": "qwen",
-   "id": "CLIPFIX3",
-   "title": "TASK CLIPFIX3 - QWEN (qwen3-coder) - the punch ruler made honest, then the three hanging jabs retimed",
-   "status": "landed",
-   "started": "2026-11-12T02:54",
-   "eta": "2026-11-12T04:44",
-   "branch": "qwen/clipfix3",
-   "worktree": "E:/FightCamp/wt/LEAN_CLIPFIX3",
-   "wt": "E:/FightCamp/wt/LEAN_CLIPFIX3",
-   "brief": "ops/research/TASK_CLIPFIX3.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/CLIPFIX3_dispatch_out.txt",
-   "match": "seat_dispatch.py run clipfix3",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/CLIPFIX3_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/CLIPFIX3_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/CLIPFIX3_dispatch_runner.log",
-    "source": "roadmap plan.next",
-    "brief_copied": true,
-    "runner_pid": 41864,
-    "seat_pid": 54784
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/7 PASS; PR #223",
-   "finished": "2026-11-12T03:23",
-   "pr": 223,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/jab_retime_test.gd",
-     "ok": true,
-     "last": "JAB_RETIME failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/punch_form_test.gd",
-     "ok": true,
-     "last": "PUNCH_FORM failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/beat_clips_test.gd",
-     "ok": true,
-     "last": "BEATCLIPS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/beat_tally_test.gd",
-     "ok": true,
-     "last": "BEAT_TALLY_TEST failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/short_punch_test.gd",
-     "ok": true,
-     "last": "SHORT_PUNCH failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/punch_form_rules_test.gd",
-     "ok": true,
-     "last": "PUNCH_FORM_RULES failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/file_limits_test.gd",
-     "ok": true,
-     "last": "FILE_LIMITS failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
-  "CLIPFIX4": {
-   "agent": "qwen",
-   "id": "CLIPFIX4",
-   "title": "TASK CLIPFIX4 - QWEN (qwen3-coder) - the punch ruler and the three retimed jabs: every defect of the two reviews",
-   "status": "landed",
-   "started": "2026-11-12T03:30",
-   "eta": "2026-11-12T05:20",
-   "branch": "qwen/clipfix4",
-   "worktree": "E:/FightCamp/wt/LEAN_CLIPFIX4",
-   "wt": "E:/FightCamp/wt/LEAN_CLIPFIX4",
-   "brief": "ops/research/TASK_CLIPFIX4.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/CLIPFIX4_dispatch_out.txt",
-   "match": "seat_dispatch.py run clipfix4",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/CLIPFIX4_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/CLIPFIX4_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/CLIPFIX4_dispatch_runner.log",
-    "source": "roadmap plan.next",
-    "brief_copied": true,
-    "runner_pid": 3224,
-    "seat_pid": 8144
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/7 PASS; PR #224",
-   "finished": "2026-11-12T04:01",
-   "pr": 224,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/jab_retime_test.gd",
-     "ok": true,
-     "last": "JAB_RETIME failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/punch_form_test.gd",
-     "ok": true,
-     "last": "PUNCH_FORM failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/beat_clips_test.gd",
-     "ok": true,
-     "last": "BEATCLIPS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/beat_tally_test.gd",
-     "ok": true,
-     "last": "BEAT_TALLY_TEST failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/short_punch_test.gd",
-     "ok": true,
-     "last": "SHORT_PUNCH failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/punch_form_rules_test.gd",
-     "ok": true,
-     "last": "PUNCH_FORM_RULES failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/file_limits_test.gd",
-     "ok": true,
-     "last": "FILE_LIMITS failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
-  "MATLINES1": {
-   "agent": "goose",
-   "id": "MATLINES1",
-   "title": "QWEN (qwen3-coder) - the no-gi athlete's plan lines: one pure module + its test",
-   "status": "landed",
-   "started": "2026-11-12T07:54",
-   "where": "cloud",
-   "repo": "FightCamp-Lean",
-   "brief": "ops/research/TASK_MATLINES1.md",
-   "model": "Goose + Qwen token plan (GitHub Actions)",
-   "eta": "2026-11-12T08:54",
-   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
-   "issue": "225",
-   "branch": "goose/issue-225",
-   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/225",
-   "reconciled": "2026-11-12 08:10 board_reconcile: run finished (success), branch goose/issue-225 pushed"
   },
   "PAGES2B": {
    "agent": "cursor",
@@ -660,46 +331,196 @@
     "board": ""
    }
   },
-  "PUNCHSNAP1": {
+  "R26TOWEL1": {
    "agent": "qwen",
-   "id": "PUNCHSNAP1",
-   "title": "TASK PUNCHSNAP1 - ARENA - the maths of a punch's POWER read: one pure module + its test",
+   "id": "R26TOWEL1",
+   "title": "TASK R26TOWEL1 - QWEN (qwen3-coder) - THE TOWEL: when the card comes in the corner minute, the risk it shows, and what each answer costs (one pure module + its ",
    "status": "landed",
-   "started": "2026-11-12T08:30",
-   "eta": "2026-11-12T10:20",
-   "branch": "qwen/punchsnap1",
-   "worktree": "E:/FightCamp/wt/LEAN_PUNCHSNAP1",
-   "wt": "E:/FightCamp/wt/LEAN_PUNCHSNAP1",
-   "brief": "ops/research/TASK_PUNCHSNAP1.md",
+   "started": "2026-11-12T10:38",
+   "eta": "2026-11-12T12:28",
+   "branch": "qwen/r26towel1",
+   "worktree": "E:/FightCamp/wt/LEAN_R26TOWEL1",
+   "wt": "E:/FightCamp/wt/LEAN_R26TOWEL1",
+   "brief": "ops/research/TASK_R26TOWEL1.md",
    "repo": "FightCamp-Lean",
    "where": "pc",
-   "log": "E:/FightCamp/wt/PUNCHSNAP1_dispatch_out.txt",
-   "match": "seat_dispatch.py run punchsnap1",
+   "log": "E:/FightCamp/wt/R26TOWEL1_dispatch_out.txt",
+   "match": "seat_dispatch.py run r26towel1",
    "model": "qwen3-coder",
    "dispatch": {
-    "prompt": "E:/FightCamp/wt/PUNCHSNAP1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/PUNCHSNAP1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/PUNCHSNAP1_dispatch_runner.log",
-    "source": "command line",
+    "prompt": "E:/FightCamp/wt/R26TOWEL1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/R26TOWEL1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/R26TOWEL1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
     "brief_copied": true,
-    "runner_pid": 28916,
-    "seat_pid": 35364
+    "runner_pid": 36224,
+    "seat_pid": 35212
    },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #226",
-   "finished": "2026-11-12T09:01",
-   "pr": 226,
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 6/6 PASS; PR #228",
+   "finished": "2026-11-12T11:09",
+   "pr": 228,
    "checks": [
     {
      "kind": "RED_TEST",
-     "script": "tests/punch_snap_test.gd",
+     "script": "tests/towel_test.gd",
      "ok": true,
-     "last": "PUNCH_SNAP failures=0"
+     "last": "TOWEL failures=0"
     },
     {
      "kind": "REGRESSION",
-     "script": "tests/punch_form_rules_test.gd",
+     "script": "tests/knockdowns_test.gd",
      "ok": true,
-     "last": "PUNCH_FORM_RULES failures=0"
+     "last": "KNOCKDOWNS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/injury_roll_test.gd",
+     "ok": true,
+     "last": "INJURY_ROLL failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/body_map_test.gd",
+     "ok": true,
+     "last": "BODY_MAP failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_jobs_test.gd",
+     "ok": true,
+     "last": "CORNERJOBS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "R58LOYAL1": {
+   "agent": "antigravity",
+   "id": "R58LOYAL1",
+   "title": "TASK R58LOYAL1 - GOOSE (cloud) - each fighter's LOYALTY made live: bands, dated reasons and a forecast (one pure module + its test)",
+   "status": "landed",
+   "started": "2026-11-12T10:42",
+   "eta": "2026-11-12T12:07",
+   "branch": "agy/r58loyal1",
+   "worktree": "E:/FightCamp/wt/LEAN_R58LOYAL1",
+   "wt": "E:/FightCamp/wt/LEAN_R58LOYAL1",
+   "brief": "ops/research/TASK_R58LOYAL1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/R58LOYAL1_dispatch_out.txt",
+   "match": "seat_dispatch.py run r58loyal1",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/R58LOYAL1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/R58LOYAL1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/R58LOYAL1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 33944,
+    "seat_pid": 38008
+   },
+   "note": "S368 seat_dispatch: agy exit 0; 1 commit(s); checks 5/5 PASS; PR #229",
+   "finished": "2026-11-12T11:09",
+   "pr": 229,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/loyalty_test.gd",
+     "ok": true,
+     "last": "LOYALTY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/stripe_call_test.gd",
+     "ok": true,
+     "last": "STRIPE_CALL PASS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fighter_profile_test.gd",
+     "ok": true,
+     "last": "FIGHTER_PROFILE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/recruit_test.gd",
+     "ok": true,
+     "last": "RECRUIT PASS fails=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "R26SWAP1": {
+   "agent": "qwen",
+   "id": "R26SWAP1",
+   "title": "TASK R26SWAP1 - QWEN (qwen3-coder) - the corner minute's line change: the line that lost most, and two rated lines to swap in (one pure module + its test)",
+   "status": "landed",
+   "started": "2026-11-12T11:12",
+   "eta": "2026-11-12T13:02",
+   "branch": "qwen/r26swap1",
+   "worktree": "E:/FightCamp/wt/LEAN_R26SWAP1",
+   "wt": "E:/FightCamp/wt/LEAN_R26SWAP1",
+   "brief": "ops/research/TASK_R26SWAP1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/R26SWAP1_dispatch_out.txt",
+   "match": "seat_dispatch.py run r26swap1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/R26SWAP1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/R26SWAP1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/R26SWAP1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 41232,
+    "seat_pid": 38152
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/5 PASS; PR #230",
+   "finished": "2026-11-12T11:26",
+   "pr": 230,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/line_swap_test.gd",
+     "ok": true,
+     "last": "LINE_SWAP failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_fight_test.gd",
+     "ok": true,
+     "last": "PLAN_FIGHT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_lines_test.gd",
+     "ok": true,
+     "last": "PLAN_LINES PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/corner_jobs_test.gd",
+     "ok": true,
+     "last": "CORNERJOBS failures=0"
     },
     {
      "kind": "REGRESSION",

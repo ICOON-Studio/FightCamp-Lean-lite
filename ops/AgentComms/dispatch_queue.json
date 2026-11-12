@@ -1173,8 +1173,9 @@
   {
    "task": "R26SWAP1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-12T10:36"
+   "status": "launched",
+   "queued": "2026-11-12T10:36",
+   "launched": "2026-11-12T11:12"
   },
   {
    "task": "R50TRAIT1",

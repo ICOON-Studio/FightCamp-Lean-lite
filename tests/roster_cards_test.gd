@@ -1,6 +1,7 @@
 extends SceneTree
 ## S410 Fighters > Roster as painted full-body cards: every fighter has a card that opens the fighter's page, the three tiles, a
 ## scouted strip, the painted gym behind, and the table one click away (nothing the table shows is lost).
+## S440 (PAGES2B): the painted rows (RosterRows) are the Roster's default; the cards are the other view, one click away.
 
 const MAIN := preload("res://scenes/Main.tscn")
 const Sim := preload("res://scripts/state/Sim.gd")
@@ -14,6 +15,8 @@ var main: Node
 
 func _initialize() -> void:
 	MenuFx.instant = true
+	_check(RosterCards.view == "rows", "the Roster opens on the painted rows")
+	RosterCards.view = "cards"   # this test is about the cards, one click away
 	root.size = Vector2i(1920, 1080)
 	main = MAIN.instantiate()
 	root.add_child(main)
@@ -49,21 +52,21 @@ func _initialize() -> void:
 		_check(strip.get_global_rect().end.x <= 1920.0, "the strip is on the screen (ends at %.0f)" % strip.get_global_rect().end.x)
 		_check(strip.get_global_rect().end.y <= 1080.0, "the page fits without scrolling (ends at %.0f)" % strip.get_global_rect().end.y)
 	_check(main.find_child("StripInvite_kira", true, false) != null, "a scouted prospect can be invited from the strip")
-	var to_end: Control = main.find_child("View_table", true, false)
-	_check(to_end != null and to_end.get_global_rect().end.x <= 1920.0, "the Table button is on the screen")
+	var to_end: Control = main.find_child("View_rows", true, false)
+	_check(to_end != null and to_end.get_global_rect().end.x <= 1920.0, "the Rows button is on the screen")
 	var wall: TextureRect = main.get_node_or_null("PaintedWall")
 	_check(wall != null and wall.texture.resource_path == RosterCards.BACKDROP, "the painted gym is behind the page")
 
-	var to_table: Button = main.find_child("View_table", true, false)
-	_check(to_table != null, "the table is one click away")
+	var to_table: Button = main.find_child("View_rows", true, false)
+	_check(to_table != null, "the painted rows are one click away")
 	if to_table != null:
 		to_table.pressed.emit()
 		await process_frame
-		_check(main.find_child("Sort_condition", true, false) != null, "the table still sorts")
+		_check(main.find_child("RowHeaders", true, false) != null and main.find_child("CardLine", true, false) == null, "the rows replace the cards")
 		var to_cards: Button = main.find_child("View_cards", true, false)
 		to_cards.pressed.emit()
 		await process_frame
-		_check(main.find_child("Sort_condition", true, false) == null, "and back to the cards")
+		_check(main.find_child("RowHeaders", true, false) == null and main.find_child("CardLine", true, false) != null, "and back to the cards")
 
 	lucy = main.find_child("Row_lucy", true, false)
 	if lucy != null:

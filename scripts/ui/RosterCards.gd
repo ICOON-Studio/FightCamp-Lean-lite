@@ -39,15 +39,16 @@ const TILE := {
 	"muted": [Color(1, 1, 1, 0.04), WoodKit.SOFT],
 }
 
-## "cards" or "table"; kept while the game runs.
-static var view := "cards"
+## "rows" (the painted rows, RosterRows) or "cards"; kept while the game runs. S440 (PAGES2B review): the approved
+## Fighters painting is the rows, so the Roster opens on them; the cards are one click away.
+static var view := "rows"
 
 
 ## The page's head on the painted gym: a white title, the tabs, and on the Roster the count and the Cards / Table switch.
 static func head(parent: Container, main: Node, c: Career) -> void:
 	var row := UI.hbox(14)
 	row.name = "FightersHead"
-	row.add_child(UI.display("Fighters", 56, Color.WHITE))
+	row.add_child(UI.display("Fighters", 46, Color.WHITE))   # S440 round 2: the painting's title size; the rows start near its y 190
 	var tabs: Array = Data.area("fighters")["tabs"]
 	var now := int(main.route["tab"])
 	for i in tabs.size():
@@ -59,7 +60,7 @@ static func head(parent: Container, main: Node, c: Career) -> void:
 		var n := UI.label("%d fighter%s" % [count, "" if count == 1 else "s"], UI.BODY, CREAM, "semi")
 		n.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(n)
-		for pair in [["cards", "Cards"], ["table", "Table"]]:
+		for pair in [["rows", "Rows"], ["cards", "Cards"]]:
 			var b := _tab(str(pair[1]), view == str(pair[0]), _set_view.bind(main, str(pair[0])))
 			b.name = "View_" + str(pair[0])
 			row.add_child(b)
