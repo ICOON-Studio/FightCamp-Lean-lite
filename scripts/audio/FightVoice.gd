@@ -4,44 +4,59 @@ extends RefCounted
 ## Uses literal event ids in Sfx.play() calls so the sound test can verify them.
 
 const Sfx := preload("res://scripts/audio/Sfx.gd")
+const FightSfx := preload("res://scripts/audio/FightSfx.gd")
 
 
-## Announcer opening.
+## Announcer opening. S440: every announcer line plays over the arena crowd (FightSfx.announcer_line); names and the
+## winner get the roar after them.
 static func intro_opening() -> bool:
-	return Sfx.play("voice_announcer_opening")
+	return _room(Sfx.play("voice_announcer_opening"), "voice_announcer_opening", true)
 
 
 ## Announcer calls a corner (take 0-2).
 static func intro_corner(corner: String, take: int) -> bool:
 	if corner == "red":
-		if take == 0: return Sfx.play("voice_announcer_red_0")
-		if take == 1: return Sfx.play("voice_announcer_red_1")
-		return Sfx.play("voice_announcer_red_2")
+		if take == 0: return _room(Sfx.play("voice_announcer_red_0"), "voice_announcer_red_0", true)
+		if take == 1: return _room(Sfx.play("voice_announcer_red_1"), "voice_announcer_red_1", true)
+		return _room(Sfx.play("voice_announcer_red_2"), "voice_announcer_red_2", true)
 	if corner == "blue":
-		if take == 0: return Sfx.play("voice_announcer_blue_0")
-		if take == 1: return Sfx.play("voice_announcer_blue_1")
-		return Sfx.play("voice_announcer_blue_2")
+		if take == 0: return _room(Sfx.play("voice_announcer_blue_0"), "voice_announcer_blue_0", true)
+		if take == 1: return _room(Sfx.play("voice_announcer_blue_1"), "voice_announcer_blue_1", true)
+		return _room(Sfx.play("voice_announcer_blue_2"), "voice_announcer_blue_2", true)
 	return false
 
 
-## Announcer: seconds out.
+## Announcer: seconds out (the bell answers it, not the crowd).
 static func intro_seconds_out() -> bool:
-	return Sfx.play("voice_announcer_seconds")
+	return _room(Sfx.play("voice_announcer_seconds"), "voice_announcer_seconds", false)
 
 
-## Announcer reads the result.
+## Announcer reads the result (on the menus, after the ring has gone: the bed comes back for it, then fades).
 static func intro_result(kind: String, corner: String) -> bool:
 	if kind == "draw":
-		return Sfx.play("voice_announcer_draw")
+		return _result(Sfx.play("voice_announcer_draw"), "voice_announcer_draw")
 	if corner == "red":
-		if kind == "decision": return Sfx.play("voice_announcer_red_decision")
-		if kind == "ko": return Sfx.play("voice_announcer_red_ko")
-		if kind == "stoppage": return Sfx.play("voice_announcer_red_stoppage")
+		if kind == "decision": return _result(Sfx.play("voice_announcer_red_decision"), "voice_announcer_red_decision")
+		if kind == "ko": return _result(Sfx.play("voice_announcer_red_ko"), "voice_announcer_red_ko")
+		if kind == "stoppage": return _result(Sfx.play("voice_announcer_red_stoppage"), "voice_announcer_red_stoppage")
 	if corner == "blue":
-		if kind == "decision": return Sfx.play("voice_announcer_blue_decision")
-		if kind == "ko": return Sfx.play("voice_announcer_blue_ko")
-		if kind == "stoppage": return Sfx.play("voice_announcer_blue_stoppage")
+		if kind == "decision": return _result(Sfx.play("voice_announcer_blue_decision"), "voice_announcer_blue_decision")
+		if kind == "ko": return _result(Sfx.play("voice_announcer_blue_ko"), "voice_announcer_blue_ko")
+		if kind == "stoppage": return _result(Sfx.play("voice_announcer_blue_stoppage"), "voice_announcer_blue_stoppage")
 	return false
+
+
+## The crowd only answers a line that really played (a kept file).
+static func _room(ok: bool, id: String, cheer: bool) -> bool:
+	if ok:
+		FightSfx.announcer_line(id, cheer)
+	return ok
+
+
+static func _result(ok: bool, id: String) -> bool:
+	if ok:
+		FightSfx.announcer_result(id)
+	return ok
 
 
 ## Between-rounds coach line.

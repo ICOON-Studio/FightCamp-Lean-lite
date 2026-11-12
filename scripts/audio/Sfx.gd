@@ -7,7 +7,7 @@ extends Node
 const SoundBank := preload("res://scripts/audio/SoundBank.gd")
 const POOL_SIZE := 16
 const LOOP_COUNT := 2
-const BUS_DEFS := {"Music": -14.0, "SFX": -4.0, "Crowd": -12.0, "UI": -10.0, "Voice": -6.0}
+const BUS_DEFS := {"Music": -14.0, "SFX": -4.0, "Crowd": -12.0, "UI": -10.0, "Voice": -6.0, "PA": -6.0}
 const LIMIT_DB := -1.0        # SOUND_BENCHMARK R11: Master ends in a hard limiter at -1 dB
 const DUCK_ATTACK_S := 0.02   # R7: attack 10-20 ms, release 0.4-0.8 s
 const DUCK_RELEASE_S := 0.4
@@ -81,12 +81,21 @@ static func stop(id: String, fade: float = 0.5) -> void:
 		_node._do_stop(id, fade)
 
 
+## S440: a loop fades out after `seconds` (the crowd bed under the result, which plays after the ring has gone).
+static func stop_after(id: String, seconds: float, fade: float = 1.5) -> void:
+	var n := ensure()
+	if n == null or not n.is_inside_tree():
+		return
+	n.get_tree().create_timer(maxf(seconds, 0.0)).timeout.connect(func() -> void: stop(id, fade))
+
+
 ## Drops a bus `db` under its mix level for `seconds`, then eases it back.
-static func duck(bus_name: String, db: float, seconds: float) -> void:
+## S440: `attack` / `release` let the crowd ease under the announcer instead of snapping (his C312).
+static func duck(bus_name: String, db: float, seconds: float, attack: float = DUCK_ATTACK_S, release: float = DUCK_RELEASE_S) -> void:
 	var n := ensure()
 	if n == null:
 		return
-	n._do_duck(bus_name, db, seconds)
+	n._do_duck(bus_name, db, seconds, attack, release)
 
 
 func _init_buses() -> void:
@@ -104,10 +113,43 @@ func _init_buses() -> void:
 		rev.wet = 0.3
 		rev.dry = 0.0
 		AudioServer.add_bus_effect(room_idx, rev)
+	_init_pa()
 	if AudioServer.get_bus_effect_count(0) == 0:
 		var limiter := AudioEffectHardLimiter.new()
 		limiter.ceiling_db = LIMIT_DB
 		AudioServer.add_bus_effect(0, limiter)
+
+
+## S440 his C312, "the announcer voice needs to simulate the microphone feeling and echo": the PA bus is a hall
+## speaker - no lows, no top, pushed mids, squeezed, a slap off the far wall and the arena's tail.
+func _init_pa() -> void:
+	var idx := AudioServer.get_bus_index("PA")
+	if idx < 0 or AudioServer.get_bus_effect_count(idx) > 0:
+		return
+	var hp := AudioEffectHighPassFilter.new()
+	hp.cutoff_hz = 220.0
+	var lp := AudioEffectLowPassFilter.new()
+	lp.cutoff_hz = 5200.0
+	var eq := AudioEffectEQ6.new()
+	eq.set_band_gain_db(3, 4.0)   # the 3.2 kHz band: the horn's bite
+	var comp := AudioEffectCompressor.new()
+	comp.threshold = -18.0
+	comp.ratio = 4.0
+	var slap := AudioEffectDelay.new()
+	slap.dry = 1.0
+	slap.tap1_delay_ms = 140.0
+	slap.tap1_level_db = -10.0
+	slap.tap2_delay_ms = 290.0
+	slap.tap2_level_db = -16.0
+	slap.feedback_active = false
+	var hall := AudioEffectReverb.new()
+	hall.room_size = 0.85
+	hall.damping = 0.45
+	hall.predelay_msec = 40.0
+	hall.wet = 0.32
+	hall.dry = 1.0
+	for fx in [hp, lp, eq, comp, slap, hall]:
+		AudioServer.add_bus_effect(idx, fx)
 
 
 func _ensure_bus(bname: String, vol_db: float) -> void:
@@ -230,7 +272,7 @@ func _do_stop(id: String, fade: float) -> void:
 
 
 ## The newest duck takes the bus over from where it stands, so overlapping ducks never strand it low.
-func _do_duck(bus_name: String, db: float, seconds: float) -> void:
+func _do_duck(bus_name: String, db: float, seconds: float, attack: float = DUCK_ATTACK_S, release: float = DUCK_RELEASE_S) -> void:
 	var idx := AudioServer.get_bus_index(bus_name)
 	if idx < 0 or not is_inside_tree():
 		return
@@ -240,9 +282,9 @@ func _do_duck(bus_name: String, db: float, seconds: float) -> void:
 	var base: float = level(bus_name)
 	var set_db := func(v: float) -> void: AudioServer.set_bus_volume_db(idx, v)
 	var tw := create_tween()
-	tw.tween_method(set_db, AudioServer.get_bus_volume_db(idx), base + db, DUCK_ATTACK_S)
-	tw.tween_interval(seconds)
-	tw.tween_method(set_db, base + db, base, DUCK_RELEASE_S)
+	tw.tween_method(set_db, AudioServer.get_bus_volume_db(idx), base + db, attack)
+	tw.tween_interval(maxf(seconds - attack, 0.0))
+	tw.tween_method(set_db, base + db, base, release)
 	_ducks[bus_name] = tw
 
 

@@ -208,7 +208,7 @@
    "cooldown": 2.0
   },
   "voice_announcer_opening": {
-   "bus": "Voice",
+   "bus": "PA",
    "kind": "voice",
    "priority": 3,
    "files": [
@@ -219,7 +219,7 @@
    "loop": false
   },
   "voice_announcer_red_0": {
-   "bus": "Voice",
+   "bus": "PA",
    "kind": "voice",
    "priority": 3,
    "files": [
@@ -230,7 +230,7 @@
    "loop": false
   },
   "voice_announcer_red_1": {
-   "bus": "Voice",
+   "bus": "PA",
    "kind": "voice",
    "priority": 3,
    "files": [
@@ -241,7 +241,7 @@
    "loop": false
   },
   "voice_announcer_red_2": {
-   "bus": "Voice",
+   "bus": "PA",
    "kind": "voice",
    "priority": 3,
    "files": [
@@ -252,7 +252,7 @@
    "loop": false
   },
   "voice_announcer_blue_0": {
-   "bus": "Voice",
+   "bus": "PA",
    "kind": "voice",
    "priority": 3,
    "files": [
@@ -263,7 +263,7 @@
    "loop": false
   },
   "voice_announcer_blue_1": {
-   "bus": "Voice",
+   "bus": "PA",
    "kind": "voice",
    "priority": 3,
    "files": [
@@ -274,7 +274,7 @@
    "loop": false
   },
   "voice_announcer_blue_2": {
-   "bus": "Voice",
+   "bus": "PA",
    "kind": "voice",
    "priority": 3,
    "files": [
@@ -285,7 +285,7 @@
    "loop": false
   },
   "voice_announcer_seconds": {
-   "bus": "Voice",
+   "bus": "PA",
    "kind": "voice",
    "priority": 3,
    "files": [
@@ -296,7 +296,7 @@
    "loop": false
   },
   "voice_announcer_red_decision": {
-   "bus": "Voice",
+   "bus": "PA",
    "kind": "voice",
    "priority": 3,
    "files": [
@@ -307,7 +307,7 @@
    "loop": false
   },
   "voice_announcer_blue_decision": {
-   "bus": "Voice",
+   "bus": "PA",
    "kind": "voice",
    "priority": 3,
    "files": [
@@ -318,7 +318,7 @@
    "loop": false
   },
   "voice_announcer_red_stoppage": {
-   "bus": "Voice",
+   "bus": "PA",
    "kind": "voice",
    "priority": 3,
    "files": [
@@ -329,7 +329,7 @@
    "loop": false
   },
   "voice_announcer_blue_stoppage": {
-   "bus": "Voice",
+   "bus": "PA",
    "kind": "voice",
    "priority": 3,
    "files": [
@@ -340,7 +340,7 @@
    "loop": false
   },
   "voice_announcer_red_ko": {
-   "bus": "Voice",
+   "bus": "PA",
    "kind": "voice",
    "priority": 3,
    "files": [
@@ -351,7 +351,7 @@
    "loop": false
   },
   "voice_announcer_blue_ko": {
-   "bus": "Voice",
+   "bus": "PA",
    "kind": "voice",
    "priority": 3,
    "files": [
@@ -362,7 +362,7 @@
    "loop": false
   },
   "voice_announcer_draw": {
-   "bus": "Voice",
+   "bus": "PA",
    "kind": "voice",
    "priority": 3,
    "files": [
@@ -1186,7 +1186,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/announcer/announcer_red_0.ogg": {
    "event": "voice_announcer_red_0",
@@ -1203,7 +1205,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/announcer/announcer_red_1.ogg": {
    "event": "voice_announcer_red_1",
@@ -1220,7 +1224,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/announcer/announcer_red_2.ogg": {
    "event": "voice_announcer_red_2",
@@ -1237,7 +1243,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/announcer/announcer_blue_0.ogg": {
    "event": "voice_announcer_blue_0",
@@ -1254,7 +1262,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/announcer/announcer_blue_1.ogg": {
    "event": "voice_announcer_blue_1",
@@ -1271,7 +1281,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/announcer/announcer_blue_2.ogg": {
    "event": "voice_announcer_blue_2",
@@ -1288,7 +1300,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/announcer/announcer_seconds.ogg": {
    "event": "voice_announcer_seconds",
@@ -1305,7 +1319,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/announcer/announcer_red_decision.ogg": {
    "event": "voice_announcer_red_decision",
@@ -1322,7 +1338,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/announcer/announcer_blue_decision.ogg": {
    "event": "voice_announcer_blue_decision",
@@ -1339,7 +1357,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/announcer/announcer_red_stoppage.ogg": {
    "event": "voice_announcer_red_stoppage",
@@ -1356,7 +1376,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/announcer/announcer_blue_stoppage.ogg": {
    "event": "voice_announcer_blue_stoppage",
@@ -1373,7 +1395,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/announcer/announcer_red_ko.ogg": {
    "event": "voice_announcer_red_ko",
@@ -1390,7 +1414,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/announcer/announcer_blue_ko.ogg": {
    "event": "voice_announcer_blue_ko",
@@ -1407,7 +1433,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/announcer/announcer_draw.ogg": {
    "event": "voice_announcer_draw",
@@ -1424,58 +1452,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
-  },
-  "assets/audio/voice/between/between_long.ogg": {
-   "event": "voice_between_long",
-   "prompt": "Stay long. Jab and move, make every punch reach.",
-   "source": "ludo audio speech-preset",
-   "voice": "Brian",
-   "credits": 1,
-   "made": "2026-11-12 02:50",
-   "mmax": -4.0,
-   "lufs": -21.0,
-   "tp": -3.96,
-   "dur": 6.531,
-   "lead_silence": 0.184,
-   "codec": "vorbis",
-   "rate": 48000,
-   "channels": "mono",
-   "heard": false
-  },
-  "assets/audio/voice/between/between_body.ogg": {
-   "event": "voice_between_body",
-   "prompt": "Go downstairs. Dig to the body, the head comes later.",
-   "source": "ludo audio speech-preset",
-   "voice": "Brian",
-   "credits": 1,
-   "made": "2026-11-12 02:50",
-   "mmax": -2.17,
-   "lufs": -21.53,
-   "tp": -2.16,
-   "dur": 4.049,
-   "lead_silence": 0.096,
-   "codec": "vorbis",
-   "rate": 48000,
-   "channels": "mono",
-   "heard": false
-  },
-  "assets/audio/voice/between/between_calm.ogg": {
-   "event": "voice_between_calm",
-   "prompt": "Breathe. Slow it down and pick your shots.",
-   "source": "ludo audio speech-preset",
-   "voice": "Brian",
-   "credits": 1,
-   "made": "2026-11-12 02:50",
-   "mmax": -6.14,
-   "lufs": -23.38,
-   "tp": -6.14,
-   "dur": 3.709,
-   "lead_silence": 0.066,
-   "codec": "vorbis",
-   "rate": 48000,
-   "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/shout_m/shout_m_long.ogg": {
    "event": "voice_shout_m_long",
@@ -1492,7 +1471,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/shout_m/shout_m_body.ogg": {
    "event": "voice_shout_m_body",
@@ -1509,7 +1490,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/shout_m/shout_m_lead.ogg": {
    "event": "voice_shout_m_lead",
@@ -1526,7 +1509,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/shout_m/shout_m_hands.ogg": {
    "event": "voice_shout_m_hands",
@@ -1543,7 +1528,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/shout_m/shout_m_let_go.ogg": {
    "event": "voice_shout_m_let_go",
@@ -1560,7 +1547,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/shout_m/shout_m_calm.ogg": {
    "event": "voice_shout_m_calm",
@@ -1577,7 +1566,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/shout_m/shout_m_tie.ogg": {
    "event": "voice_shout_m_tie",
@@ -1594,7 +1585,9 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
   },
   "assets/audio/voice/shout_m/shout_m_finish.ogg": {
    "event": "voice_shout_m_finish",
@@ -1611,7 +1604,63 @@
    "codec": "vorbis",
    "rate": 48000,
    "channels": "mono",
-   "heard": false
+   "heard": true,
+   "verdict": "keep",
+   "verdict_note": "operator chat S440 2026-11-12: \"the announcer voices are fine the second voice for the manager is fine\" (sound board S438 #1-15, #19-26)"
+  },
+  "assets/audio/voice/between/between_long.ogg": {
+   "event": "voice_between_long",
+   "prompt": "Stay long. Jab and move, make every punch reach.",
+   "source": "ludo audio speech-preset",
+   "voice": "Callum",
+   "credits": 1,
+   "made": "2026-11-12 10:04",
+   "mmax": -4.62,
+   "lufs": -21.87,
+   "tp": -4.61,
+   "dur": 5.878,
+   "lead_silence": 0.205,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false,
+   "verdict_note": "S440 remade in Callum's voice on his \"Redo in shout voice\"; levelled to about -22 LUFS; unheard"
+  },
+  "assets/audio/voice/between/between_body.ogg": {
+   "event": "voice_between_body",
+   "prompt": "Go downstairs. Dig to the body, the head comes later.",
+   "source": "ludo audio speech-preset",
+   "voice": "Callum",
+   "credits": 1,
+   "made": "2026-11-12 10:04",
+   "mmax": -1.9,
+   "lufs": -21.49,
+   "tp": -1.88,
+   "dur": 4.284,
+   "lead_silence": 0.239,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false,
+   "verdict_note": "S440 remade in Callum's voice on his \"Redo in shout voice\"; levelled to about -22 LUFS; unheard"
+  },
+  "assets/audio/voice/between/between_calm.ogg": {
+   "event": "voice_between_calm",
+   "prompt": "Breathe. Slow it down and pick your shots.",
+   "source": "ludo audio speech-preset",
+   "voice": "Callum",
+   "credits": 1,
+   "made": "2026-11-12 10:04",
+   "mmax": -4.55,
+   "lufs": -20.63,
+   "tp": -4.55,
+   "dur": 3.866,
+   "lead_silence": 0.197,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false,
+   "verdict_note": "S440 remade in Callum's voice on his \"Redo in shout voice\"; levelled to about -22 LUFS; unheard"
   }
  }
 }

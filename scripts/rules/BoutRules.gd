@@ -252,6 +252,43 @@ static func scorecards(rounds_won: int, total: int = ROUNDS) -> Array:
 	return [exact, exact, "%d-%d" % [hers + swing, theirs - swing]]
 
 
+## S440 (the result page's audit: every 2-1 fight read as a split decision, since the third judge above always swings a
+## round): the cards from the played rounds. Two judges score it round for round; the third sees the CLOSEST round the
+## other way, and only when it was close: 3-3 on exchanges (a live round's won_n), or a margin under CLOSE_MARGIN (a
+## harness round's mine - theirs). A fight with no close round reads three same cards. The two exact cards always
+## agree, so the verdict is the one scorecards() gives; only split versus unanimous changes.
+const CLOSE_MARGIN := 3.0
+const EXCHANGES_A_ROUND := 6   # Exchanges.EXCHANGES (this file preloads nothing)
+
+static func cards_of(rounds: Array) -> Array:
+	var won := 0
+	var pick := -1
+	var best := INF
+	for i in rounds.size():
+		var r: Dictionary = rounds[i]
+		if bool(r.get("won", false)):
+			won += 1
+		var how_close := INF
+		if r.has("won_n"):
+			if int(r["won_n"]) * 2 == EXCHANGES_A_ROUND:
+				how_close = absf(float(r.get("mine", 0.0)))
+		else:
+			var gap := absf(float(r.get("mine", 0.0)) - float(r.get("theirs", 0.0)))
+			if gap < CLOSE_MARGIN:
+				how_close = gap
+		if how_close < best:
+			best = how_close
+			pick = i
+	var total := rounds.size()
+	var hers := 10 * won + 9 * (total - won)
+	var theirs := 9 * won + 10 * (total - won)
+	var exact := "%d-%d" % [hers, theirs]
+	if pick < 0:
+		return [exact, exact, exact]
+	var swing := -1 if bool((rounds[pick] as Dictionary).get("won", false)) else 1
+	return [exact, exact, "%d-%d" % [hers + swing, theirs - swing]]
+
+
 ## "win", "loss" or "draw" from the cards: a majority of judges decides; anything else is a draw.
 static func verdict(cards: Array) -> String:
 	var her := 0

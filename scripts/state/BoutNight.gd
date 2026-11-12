@@ -122,7 +122,7 @@ static func _box_out(c: Career, f: Dictionary, m: Dictionary) -> void:
 static func outcome_of(f: Dictionary, m: Dictionary) -> String:
 	var rounds: Array = m["rounds"]
 	var won := rounds.filter(func(r): return bool(r["won"])).size()
-	var outcome := BoutRules.verdict(BoutRules.scorecards(won, rounds.size()))
+	var outcome := BoutRules.verdict(BoutRules.cards_of(rounds))   # S440: same verdict, honest split/unanimous
 	if stopped(m) != "":
 		outcome = "loss" if str((rounds[-1] as Dictionary)["down"]) == "a" else "win"
 	if outcome == "draw" and f["bout"].has("champ"):
@@ -329,7 +329,7 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	var rounds: Array = m["rounds"]
 	var won := rounds.filter(func(r): return bool(r["won"])).size()
 	var pro := bool(f["bout"].get("pro", false))
-	var cards := BoutRules.scorecards(won, rounds.size())
+	var cards := BoutRules.cards_of(rounds)   # S440: the third judge differs only on a close round
 	var stop := stopped(m)
 	m["stopped"] = stop
 	var before := AfterFight.snap(c, f, opp)   # S430 the result page's "what the fight did" tiles read the change

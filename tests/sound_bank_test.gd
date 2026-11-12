@@ -11,6 +11,7 @@ extends SceneTree
 const SoundBank := preload("res://scripts/audio/SoundBank.gd")
 const SfxScript := preload("res://scripts/audio/Sfx.gd")
 const FightSfx := preload("res://scripts/audio/FightSfx.gd")
+const FightVoice := preload("res://scripts/audio/FightVoice.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 
 ## Round 0 keeps 1,3,4,6,7,8,9,10 plus the round 1 picks punch_power_head_2, punch_miss_4, knockdown_fall_4, footwork_canvas_2, ui_click_2.
@@ -35,6 +36,7 @@ func _initialize() -> void:
 	_test_levels()
 	await _test_sfx()
 	await _test_fightsfx()
+	await _test_announcer_crowd()
 	_test_code()
 	print("SOUND_BANK checks=%d failures=%d" % [checks, failures])
 	if failures == 0:
@@ -74,8 +76,16 @@ func _test_final_set() -> void:
 		# S440: unheard rows are allowed (S438's 26 voices wait on the sound board); a KEPT row must have been heard.
 		if str(row.get("verdict", "")) == "keep":
 			_check(row.get("heard") == true, "%s is kept, so it was heard" % rel)
-			kept += 1
-	_check(kept == FINAL.size(), "%d rows are kept (got %d)" % [FINAL.size(), kept])
+			if not rel.begins_with("assets/audio/voice/"):
+				kept += 1
+	_check(kept == FINAL.size(), "%d sound-effect rows are kept (got %d)" % [FINAL.size(), kept])
+	# S440 his ear: the announcer (15) and the corner's shouts (8) kept; the between-rounds voice (3) not.
+	var voices_kept := 0
+	for rel in SoundBank.all_file_data():
+		if rel.begins_with("assets/audio/voice/") and SoundBank.kept("res://" + rel):
+			voices_kept += 1
+	_check(voices_kept == 23, "23 voice lines are kept (got %d)" % voices_kept)
+	_check(not SoundBank.kept("res://assets/audio/voice/between/between_long.ogg"), "the between-rounds voice is not kept")
 	# An unheard row in the manifest still cannot play.
 	var evs: Dictionary = SoundBank._data["events"]
 	evs["planted"] = {"bus": "SFX", "files": ["res://assets/audio/fight/punch_miss_1.ogg"]}
@@ -259,6 +269,29 @@ func _delta(n: Node, was: Dictionary, id: String) -> int:
 
 
 ## Every id a script hands to Sfx is a kept row; anything but a literal is FightSfx's own lookup, tested above.
+## S440 his "i want to hear the announcer mixed with the arena crowd": the bed starts with the first announcer line (not
+## the first bell), a name gets the roar after the line, "Seconds out" does not.
+func _test_announcer_crowd() -> void:
+	SfxScript.stop("crowd_arena_loop", 0.0)
+	var n = SfxScript.ensure()
+	_check(n != null and not n._loops.has("crowd_arena_loop"), "the bed is off before the walk-in")
+	await create_timer(2.1).timeout   # crowd_roar has a 2 s cooldown; the checks above just played it
+	var roars := int(n.played.get("crowd_roar", 0))
+	_check(FightVoice.intro_opening(), "the kept opening line plays")
+	_check(n._loops.has("crowd_arena_loop"), "the arena crowd runs under the announcer's opening")
+	var pa := AudioServer.get_bus_index("PA")
+	_check(SoundBank.bus("voice_announcer_opening") == "PA" and pa >= 0 and AudioServer.get_bus_effect_count(pa) == 6, "the announcer plays through the PA bus: filters, horn bite, squeeze, slap, hall (C312)")
+	var dur := FightSfx.line_seconds("voice_announcer_opening")
+	_check(absf(dur - 4.127) < 0.01, "the duck lasts the line (%.3f s)" % dur)
+	await create_timer(dur + 0.3).timeout
+	_check(int(n.played.get("crowd_roar", 0)) == roars + 1, "the crowd roars once the opening line ends")
+	var r2 := int(n.played.get("crowd_roar", 0))
+	_check(FightVoice.intro_seconds_out(), "the kept Seconds out plays")
+	await create_timer(FightSfx.line_seconds("voice_announcer_seconds") + 0.3).timeout
+	_check(int(n.played.get("crowd_roar", 0)) == r2, "no roar after Seconds out (the bell answers it)")
+	SfxScript.stop("crowd_arena_loop", 0.0)
+
+
 func _test_code() -> void:
 	var call := RegEx.create_from_string("\\bSfx\\.(play|loop|stop)\\(([^,)]*)")
 	var seen := {}

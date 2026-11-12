@@ -123,7 +123,8 @@ func _test_text_rules() -> void:
 func _test_events_in_manifest() -> void:
 	for id in VoiceLines.all_event_ids():
 		_check(SoundBank.has(id), "'%s' is in sounds.json events" % id)
-		_check(SoundBank.bus(id) == "Voice", "'%s' is on bus 'Voice' (got '%s')" % [id, SoundBank.bus(id)])
+		var want := "PA" if id.begins_with("voice_announcer_") else "Voice"   # S440 C312: the announcer is on the hall speaker
+		_check(SoundBank.bus(id) == want, "'%s' is on bus '%s' (got '%s')" % [id, want, SoundBank.bus(id)])
 
 
 ## All event ids are unique.

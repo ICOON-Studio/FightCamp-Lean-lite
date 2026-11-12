@@ -32,7 +32,8 @@ from pathlib import Path
 # The cast (docs/audio/VOICE_CAST_S434.md)
 VOICES = {
     "announcer": {"voice": "Roger", "delivery": "booming ring announcer, building up"},
-    "between": {"voice": "Brian", "delivery": "gruff veteran trainer, calm, between rounds"},
+    # S440 operator: Brian's 3 lines not kept, "Redo in shout voice" - the corner is ONE voice (Callum), calm in the minute.
+    "between": {"voice": "Callum", "delivery": "corner coach, close and calm, firm, not shouting"},
     "shout_m": {"voice": "Callum", "delivery": "coach shouting over a loud crowd"},
     "shout_f": {"voice": "Sarah", "delivery": "fierce coach shouting over a loud crowd"},
     "guide": {"voice": "Bill", "delivery": "old ex-boxer, gravelly, warm, unhurried"},

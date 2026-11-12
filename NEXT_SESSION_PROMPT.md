@@ -210,3 +210,30 @@ wf_fb343d74-fd1 ran four rounds: words 104-110, logic 2-4 mistakes each round, t
 wording points by hand: unchecked). What the critic still faults is mostly THE KEPT TOP, which he likes: the headline is
 the opponent's name, the round chips (punches landed) have no label, "Tank" is jargon, damage shows twice. That is a
 taste call for him: keep the top exactly, or allow those small changes. Ask once, with final3; then Ludo paints.
+
+## ADDED 11:35 (lead S439): HIS ANSWER on the result page top: "Allow small fixes"
+wf_b55a7037-642 (in flight) draws final4.png: the headline names OUR fighter ("LUCY JACKSON / LOSES ON POINTS" in her
+colour), the round chips labelled as punches landed, "Energy left at the last bell", the goal tile's big number = what
+she gained, the Damage tile = the consequence only, captions 18 px near-white; one logic check, one fix pass. Send
+final4 to him if its last check is sound (say so if it is not), then Ludo paints the concept, then one build task.
+
+## ADDED 12:00 (lead S439): final4.png posted and sent
+docs/mockups/s439/result/final4.png (small top fixes + the two lower fixes). Its last logic check still listed six
+points; I fixed the one false statement by hand ("threw less" -> "landed less": 49 to 78 are punches LANDED). Left:
+the Why strip repeats the top's round chips and numbers, the plan block shows no grade and no "you wrote none", the next
+fight is said twice in the Damage tile, about 124 words against 110, one patched label a shade too bright. Wait for his
+look; do not loop it again unasked. Then Ludo paints.
+
+## ADDED 12:25 (lead S439): foundation = COLLECT; ruler one ruling away; the result page's CONTENT is the issue
+- Sent to the S440 session as a message (it owns the main checkout; the lead merges nothing): FOUNDATION is "collect"
+  (claude/foundation-s433 at 8a317458: rib_damage_test on eight windows, bars unmoved, BodyMap FACE_HIT 1.18, HEAD_HIT
+  0.59, RIB_HIT 2.9; then PR 211). The RULER (qwen/clipfix4 at 0723ff65) fails one line: jab C's fixed take, other
+  glove far 0.319 > 0.30, the original 0.321. Lead ruling: a FIXED row must pass the bar of the fault that was fixed and
+  must not be WORSE than its original elsewhere; a fault the original already had prints "STILL FAULTY" and does not
+  fail; jab C stays on the faulty list for the rear glove. Then merge, film, post, close PRs 222-224.
+- HIS WORDS on the result page: "why you display her goals at the end fight screen, the issue is what it is shown in
+  that screen". The fault was CONTENT, not looks. Proposed to him (no answer yet): the end-of-fight screen shows only the
+  fight and what it decided (result, cards, rounds, punch stats, marks, why in one line, record, ranking); tiredness,
+  morale, her goal and the sparring ban move to where the player acts on them (an "after the fight" card on Home);
+  club money and members are his call. Draw nothing until he answers. Lesson for memory: decide WHAT a screen is for
+  and what belongs on it with him BEFORE any drawing or critic round.

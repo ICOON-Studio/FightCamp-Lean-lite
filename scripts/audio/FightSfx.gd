@@ -146,6 +146,36 @@ static func _reaction_volume(kind: String) -> float:
 	return base + lerpf(-3.0, 3.0, _share)
 
 
+## S440 operator: "i want to hear the announcer mixed with the arena crowd". The bed runs from the walk-in, not the first
+## bell; under each announcer line it drops ANNOUNCE_DUCK_DB for the line's length, and a name or a winner gets the roar.
+const ANNOUNCE_DUCK_DB := -5.0       # S440 C312: a softer dip, eased in and out, so the room stays under him
+const ANNOUNCE_ATTACK_S := 0.35
+const ANNOUNCE_RELEASE_S := 1.2
+const ROAR_OVERLAP_S := 0.35         # the crowd starts to rise on his last word, not after a gap
+const RESULT_BED_TAIL_S := 4.0   # the result reads after the ring has gone: the bed plays on this long after the line
+
+static func announcer_line(event: String, cheer: bool) -> void:
+	Sfx.loop("crowd_arena_loop")   # no-op when the bed already runs
+	var dur := line_seconds(event)
+	Sfx.duck("Crowd", ANNOUNCE_DUCK_DB, dur, ANNOUNCE_ATTACK_S, ANNOUNCE_RELEASE_S)
+	if cheer:
+		Sfx.play("crowd_roar", {"delay": maxf(dur - ROAR_OVERLAP_S, 0.0)})
+
+
+## The result is read on the menus, after the ring left (crowd_off): the bed comes back for it, then fades.
+static func announcer_result(event: String) -> void:
+	announcer_line(event, true)
+	Sfx.stop_after("crowd_arena_loop", line_seconds(event) + RESULT_BED_TAIL_S)
+
+
+## The length of the event's first kept file (0 when nothing is kept).
+static func line_seconds(event: String) -> float:
+	var fl: Array = SoundBank.files(event)
+	if fl.is_empty():
+		return 0.0
+	return float(SoundBank.file_data(str(fl[0]).trim_prefix("res://")).get("dur", 0.0))
+
+
 ## S395: the corner minute. `start` true: the crowd drops under the coach's voice.
 ## `start` false: "Seconds out" - the crowd comes back.
 static func corner_minute(start: bool) -> void:

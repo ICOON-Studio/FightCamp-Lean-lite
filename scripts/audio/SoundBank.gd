@@ -4,7 +4,7 @@ extends RefCounted
 ## EAR RULE: files() serves only rows the operator heard and kept, so nothing unheard can reach a speaker.
 
 const MANIFEST := "res://assets/audio/sounds.json"
-const VALID_BUSES := ["Master", "Music", "SFX", "Crowd", "UI", "Voice", "Room"]
+const VALID_BUSES := ["Master", "Music", "SFX", "Crowd", "UI", "Voice", "Room", "PA"]
 const NEUTRAL := 0.6   # the power that plays a file as it was heard: 0 dB, no pitch change
 
 static var _data: Dictionary = {}

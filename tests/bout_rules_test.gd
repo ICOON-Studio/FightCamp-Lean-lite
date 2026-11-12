@@ -139,6 +139,20 @@ func _test_rounds() -> void:
 func _test_cards_and_why() -> void:
 	_check(BoutRules.scorecards(3) == ["30-27", "30-27", "29-28"], "three rounds: 30-27 30-27 29-28")
 	_check(BoutRules.scorecards(1)[0] == "28-29", "one round: she loses 28-29")
+	# S440: the third judge differs only on a close round (every 2-1 fight read as a split before).
+	var clear21 := [{"won": true, "won_n": 5, "mine": 6.0}, {"won": true, "won_n": 4, "mine": 3.0}, {"won": false, "won_n": 1, "mine": -7.0}]
+	_check(BoutRules.cards_of(clear21) == ["29-28", "29-28", "29-28"], "a clear 2-1: three same cards, unanimous (%s)" % str(BoutRules.cards_of(clear21)))
+	var close21 := [{"won": true, "won_n": 3, "mine": 0.4}, {"won": true, "won_n": 5, "mine": 5.0}, {"won": false, "won_n": 2, "mine": -2.0}]
+	_check(BoutRules.cards_of(close21) == ["29-28", "29-28", "28-29"], "a 2-1 with a 3-3 round she took: the third judge gives it away, split (%s)" % str(BoutRules.cards_of(close21)))
+	var close_lost := [{"won": true, "won_n": 4, "mine": 2.0}, {"won": true, "won_n": 5, "mine": 5.0}, {"won": false, "won_n": 3, "mine": -0.3}]
+	_check(BoutRules.cards_of(close_lost) == ["29-28", "29-28", "30-27"], "a 2-1 whose lost round was 3-3: the third judge gives it to her (%s)" % str(BoutRules.cards_of(close_lost)))
+	var two_close := [{"won": true, "won_n": 3, "mine": 1.5}, {"won": false, "won_n": 3, "mine": -0.2}, {"won": true, "won_n": 6, "mine": 8.0}]
+	_check(BoutRules.cards_of(two_close)[2] == "30-27", "two close rounds: the third judge flips the closest one only (%s)" % str(BoutRules.cards_of(two_close)))
+	for rs in [clear21, close21, close_lost, two_close]:
+		var won_n := (rs as Array).filter(func(r): return bool(r["won"])).size()
+		_check(BoutRules.verdict(BoutRules.cards_of(rs)) == BoutRules.verdict(BoutRules.scorecards(won_n, 3)), "the verdict does not change")
+	var harness := [{"won": true, "mine": 50.0, "theirs": 40.0}, {"won": false, "mine": 40.0, "theirs": 41.0}, {"won": true, "mine": 45.0, "theirs": 30.0}]
+	_check(BoutRules.cards_of(harness) == ["29-28", "29-28", "30-27"], "harness rounds: close means a gap under CLOSE_MARGIN (%s)" % str(BoutRules.cards_of(harness)))
 	var rounds := [{"n": 1, "won": true, "corner": ""}, {"n": 2, "won": true, "corner": "body"}, {"n": 3, "won": false, "corner": "calm"}]
 	var why := BoutRules.why(rounds, true, 2, "Conditioning", 3, "left hook to the body", "Lucy")
 	_check(why.size() == 3, "three reasons")
