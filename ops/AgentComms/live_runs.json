@@ -345,7 +345,7 @@
    "agent": "cursor",
    "id": "RIBS1",
    "title": "TASK RIBS1 - CURSOR (Grok 4.7 High) - the ribs take damage normally (the defect, before the redesign)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-11T23:43",
    "eta": "2026-11-12T01:33",
    "branch": "cursor/ribs1",
@@ -366,13 +366,76 @@
     "runner_pid": 51188,
     "seat_pid": 3224
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "S368 seat_dispatch: cursor exit 1; 1 commit(s); checks 8/9 PASS; PR #221; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache",
+   "finished": "2026-11-12T02:02",
+   "pr": 221,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/rib_damage_test.gd",
+     "ok": false,
+     "last": null
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/body_map_test.gd",
+     "ok": true,
+     "last": "BODY_MAP failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/body_tip_test.gd",
+     "ok": true,
+     "last": "BODY_TIP failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/body_figure_test.gd",
+     "ok": true,
+     "last": "BODY_FIGURE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/body_report_test.gd",
+     "ok": true,
+     "last": "BODY_REPORT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/injuries_test.gd",
+     "ok": true,
+     "last": "INJURIES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_stats_test.gd",
+     "ok": true,
+     "last": "FIGHT_STATS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "PUNCHFORM1": {
    "agent": "goose",
    "id": "PUNCHFORM1",
    "title": "QWEN (qwen3-coder) - the maths of a punch's form: one pure module + its test",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-12T01:02",
    "where": "cloud",
    "repo": "FightCamp-Lean",
@@ -382,7 +445,8 @@
    "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (roadmap plan.next)",
    "issue": "219",
    "branch": "goose/issue-219",
-   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/219"
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/219",
+   "reconciled": "2026-11-12 01:40 board_reconcile: run finished (success), branch goose/issue-219 pushed"
   },
   "ROSTERROW1": {
    "agent": "goose",
@@ -399,6 +463,33 @@
    "issue": "220",
    "branch": "goose/issue-220",
    "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/220"
+  },
+  "CLIPFIX1": {
+   "agent": "cursor",
+   "id": "CLIPFIX1",
+   "title": "TASK CLIPFIX1 - CURSOR (Grok 4.7 High) - the fight's punches that read wrong get a form ruler, then a fix or a cut",
+   "status": "running",
+   "started": "2026-11-12T02:07",
+   "eta": "2026-11-12T03:57",
+   "branch": "cursor/clipfix1",
+   "worktree": "E:/FightCamp/wt/LEAN_CLIPFIX1",
+   "wt": "E:/FightCamp/wt/LEAN_CLIPFIX1",
+   "brief": "ops/research/TASK_CLIPFIX1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLIPFIX1_dispatch_out.txt",
+   "match": "seat_dispatch.py run clipfix1",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLIPFIX1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLIPFIX1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLIPFIX1_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": false,
+    "runner_pid": 27036,
+    "seat_pid": 54472
+   },
+   "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
   }
  },
  "codex_budget": {

@@ -4691,7 +4691,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-12 01:11 board_sync",
+  "updated": "2026-11-12 01:42 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4864,7 +4864,14 @@
     "title": "QWEN (qwen3-coder) - the maths of a punch's form: one pure module + its test",
     "who": "goose",
     "started": "2026-11-12T01:02",
-    "run": "PUNCHFORM1"
+    "run": "PUNCHFORM1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "QWEN (qwen3-coder) - what one fighter's row on the Fighters page says: one pure module + its test",
+    "who": "goose",
+    "started": "2026-11-12T01:34",
+    "run": "ROSTERROW1"
    }
   ],
   "next": [
