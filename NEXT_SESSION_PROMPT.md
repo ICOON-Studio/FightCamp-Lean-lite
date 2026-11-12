@@ -194,3 +194,19 @@ the elbow at 150-165 and never locked, hooks pass THROUGH contact at 9-10 m/s wi
 at about 90-110; no frozen wind-up (the hand moves from the first frame); a power punch = a quiet hand while the body
 loads, then the same fast arm. POWER1's steps 3 and 6 were briefed before this sheet existed: check their numbers
 against it at collect, and brief the clip fixes (crosses, hooks, uppercuts, body shots) from it.
+
+## ADDED 11:00 (lead S439): the animation gap list is in
+ops/research/ANIMATION_GAPS_S439.md (331 lines; names and counts only; every "we have / we lack" checked against our
+files). 7 MUST, 7 SHOULD, 8 LATER, 1 not for our game. The MUSTs: punches that fit the distance with the body going in
+(about 12, POWER1 covers the first part); the dazed idle (0 new: pro_idle_hurt_v1-3 are loaded and never played: WIRE
+THEM, cheapest win); staggers (4); a loser's reaction and ANY reaction on a points decision (today the ring freezes
+under the result screen); a body punch for each hand (5); a body knockdown to a knee and falls by direction (3-4); hit
+reactions by body side and for uppercuts (5-6). Most can come from clips we already own on disk and do not use (17
+listed) or from owned Mixamo clips; brief them as small wiring tasks, each with a film for the board.
+
+## ADDED 11:25 (lead S439): the result page loop did NOT pass
+wf_fb343d74-fd1 ran four rounds: words 104-110, logic 2-4 mistakes each round, the player critic 7/7.5/8 falling to
+6.5/7/7. STOP looping this shape. docs/mockups/s439/result/final3.png is posted as "not passed" (I fixed the last two
+wording points by hand: unchecked). What the critic still faults is mostly THE KEPT TOP, which he likes: the headline is
+the opponent's name, the round chips (punches landed) have no label, "Tank" is jargon, damage shows twice. That is a
+taste call for him: keep the top exactly, or allow those small changes. Ask once, with final3; then Ludo paints.

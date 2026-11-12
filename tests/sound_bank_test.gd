@@ -71,8 +71,9 @@ func _test_final_set() -> void:
 	var kept := 0
 	for rel in SoundBank.all_file_data():
 		var row: Dictionary = SoundBank.all_file_data()[rel]
-		_check(row.get("heard") == true, "%s was heard" % rel)
+		# S440: unheard rows are allowed (S438's 26 voices wait on the sound board); a KEPT row must have been heard.
 		if str(row.get("verdict", "")) == "keep":
+			_check(row.get("heard") == true, "%s is kept, so it was heard" % rel)
 			kept += 1
 	_check(kept == FINAL.size(), "%d rows are kept (got %d)" % [FINAL.size(), kept])
 	# An unheard row in the manifest still cannot play.
