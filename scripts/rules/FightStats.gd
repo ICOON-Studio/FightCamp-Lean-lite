@@ -53,7 +53,8 @@ static func rows(st: Dictionary) -> Array:
 	out.append(_pair("To the body", st["body"]))
 	out.append(_pair("Exchanges won", st["xwon"]))
 	var t: Array = st["tank"]
-	out.append({"label": "Tank at the last bell", "a": "%d" % int(round(float(t[0]))), "b": "%d" % int(round(float(t[1]))),
+	out.append({"label": "Energy left at the last bell",   # DEFECTS1: "Tank" was jargon
+		"a": "%d" % int(round(float(t[0]))), "b": "%d" % int(round(float(t[1]))),
 		"fa": clampf(float(t[0]) / 100.0, 0.0, 1.0), "fb": clampf(float(t[1]) / 100.0, 0.0, 1.0),
 		"lead": 0 if float(t[0]) > float(t[1]) + 0.5 else (1 if float(t[1]) > float(t[0]) + 0.5 else -1)})
 	return out

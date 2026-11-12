@@ -9,6 +9,7 @@ extends RefCounted
 ## tone: "good" | "bad" | "flat". lines = everything behind the tile, for the hover.
 
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
+const BandWords := preload("res://scripts/rules/BandWords.gd")   # DEFECTS1: one table of band words
 
 const PLACE_WORDS := {"head": "Head", "left_eye": "Left eye", "right_eye": "Right eye", "nose": "Nose",
 	"left_ribs": "Left ribs", "right_ribs": "Liver"}   # S439 the liver side, as the close-ups name it
@@ -106,7 +107,7 @@ static func damage(before: Dictionary, after: Dictionary, facts: Dictionary) -> 
 	var marks: Array = []   # the short sentence under the big words
 	if not sore.is_empty():
 		var bad := _band(str(sore[0][1]), float(sore[0][0]), sd) != "hurt"
-		big = "%s %s" % [str(PLACE_WORDS[sore[0][1]]), "badly hurt" if bad else "sore"]
+		big = "%s %s" % [str(PLACE_WORDS[sore[0][1]]), _word(str(sore[0][1]), float(sore[0][0]), sd)]
 		tone = "bad" if bad else "flat"
 		var also: PackedStringArray = []
 		for k in range(1, sore.size()):
@@ -115,7 +116,7 @@ static func damage(before: Dictionary, after: Dictionary, facts: Dictionary) -> 
 			marks.append("Sore too: %s." % ", ".join(also))
 		for row in sore:
 			lines.append("%s: %d of 100 left at the final bell (%s)." % [str(PLACE_WORDS[row[1]]), int(round(float(row[0]))),
-				"sore" if _band(str(row[1]), float(row[0]), sd) == "hurt" else "badly hurt"])
+				_word(str(row[1]), float(row[0]), sd)])
 	if not sd.is_empty() and str(sd.get("band", "fine")) != "fine":
 		var words := str(sd.get("words", ""))
 		lines.append(words.substr(0, 1).to_upper() + words.substr(1) + ".")
@@ -144,6 +145,13 @@ static func damage(before: Dictionary, after: Dictionary, facts: Dictionary) -> 
 
 ## A place's band; the head with a stand-down takes the stand-down's own band (StandDown: fine >= 55, hurt >= 35), so
 ## the tile and the no-sparring days never disagree on the line.
+## The level word for a place: ONE table for every screen (BandWords), read off the band the tile uses (the head's comes
+## from the no-sparring rule when there is one).
+static func _word(place: String, v: float, sd: Dictionary) -> String:
+	var w := BandWords.of_band(_band(place, v, sd))
+	return w if w != "" else BandWords.word(v)
+
+
 static func _band(place: String, v: float, sd: Dictionary) -> String:
 	if place == "head" and not sd.is_empty():
 		return str(sd.get("band", BodyMap.band(v)))

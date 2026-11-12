@@ -2,6 +2,7 @@ extends RefCounted
 ## FACE3D1: pure stepped face-mark descriptions for later 3D presentation.
 
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
+const BandWords := preload("res://scripts/rules/BandWords.gd")   # DEFECTS1: the result page's words, one table
 
 const SPOTS: Dictionary = {
 	"brow_l": "boxer's left brow",
@@ -153,12 +154,12 @@ static func summary(vals: Dictionary, side: Dictionary) -> String:
 		)
 		if place == "nose":
 			if step > 0:
-				entries.append({"priority": step, "text": "nose " + BodyMap.band(v)})
+				entries.append({"priority": step, "text": "nose " + BandWords.word(v)})
 		else:
 			if bool(closed.get(place, false)):
 				entries.append({"priority": 4, "text": location + " shut"})
 			elif step > 0:
-				entries.append({"priority": step, "text": location + " " + BodyMap.band(v)})
+				entries.append({"priority": step, "text": location + " " + BandWords.word(v)})
 		if bool(cuts.get(place, false)):
 			var cut_text: String = (
 				"cut over the " + location if place != "nose" else "cut on the nose"
@@ -180,3 +181,13 @@ static func summary(vals: Dictionary, side: Dictionary) -> String:
 		return ""
 	var result: String = ", ".join(words)
 	return result.substr(0, 1).to_upper() + result.substr(1)
+
+
+## DEFECTS1: the corner card's line under her figure - what her face shows, in the result page's words. A pro corner's
+## cutman has nothing to do when this runs (no cut, no eye at HURT), so he waits; an amateur corner has no cutman at all
+## and states the marks only.
+static func corner_line(vals: Dictionary, side: Dictionary, pro: bool) -> String:
+	var said := summary(vals, side)
+	if said == "":
+		said = "No cut, no swollen eye"
+	return said + (": the cutman waits." if pro else ".")

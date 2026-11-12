@@ -12,7 +12,7 @@ const UI := preload("res://scripts/ui/TV.gd")   # fight graphics keep the dark T
 ## Her right side holds the liver (a lead hook to the body from an orthodox boxer lands there).
 const NAMES := {"head": "Head", "left_eye": "Left eye", "right_eye": "Right eye", "nose": "Nose",
 	"left_ribs": "Left ribs", "right_ribs": "Liver (right ribs)"}
-const BAND_WORDS := {"fine": "fine", "hurt": "hurt", "critical": "badly hurt", "doctor": "the doctor may stop it"}
+const BandWords := preload("res://scripts/rules/BandWords.gd")   # DEFECTS1: the band words, one table for every screen
 const BAND_COLOURS := {"fine": Color("#6cc27a"), "hurt": Color("#f0a020"), "critical": Color("#e0503c"),
 	"doctor": Color("#a050e0")}
 const MOVE_WORDS := {"jab": ["jab", "jabs"], "cross": ["cross", "crosses"], "lead_hook": ["lead hook", "lead hooks"],
@@ -38,7 +38,7 @@ static func log_hit(log: Dictionary, place: String, move: String, big: bool, rou
 static func text(place: String, value: float, entry: Dictionary, head_value: float = -1.0, cut: bool = false,
 		closed: bool = false) -> String:
 	var b: String = BM.band(value)
-	var lines: PackedStringArray = ["%s: %s (%d/100)" % [NAMES.get(place, place), BAND_WORDS[b], int(round(value))]]
+	var lines: PackedStringArray = ["%s: %s (%d/100)" % [NAMES.get(place, place), BandWords.of_band(b, "live"), int(round(value))]]
 	var n := int(entry.get("n", 0))
 	if n == 0:
 		lines.append("Nothing landed here yet")
@@ -57,7 +57,7 @@ static func text(place: String, value: float, entry: Dictionary, head_value: flo
 	if cut:
 		lines.append("Cut - closed by the cutman" if closed else "Cut open - punches here do more damage")
 	if head_value >= 0.0 and place in BM.FACE_PLACES:
-		lines.append("Head: %s (%d/100)" % [BAND_WORDS[BM.band(head_value)], int(round(head_value))])
+		lines.append("Head: %s (%d/100)" % [BandWords.live(head_value), int(round(head_value))])
 	return "\n".join(lines)
 
 
@@ -87,7 +87,7 @@ static func panel(t: String) -> Control:
 
 static func _band_colour(words: String) -> Color:
 	for b in ["doctor", "critical", "hurt", "fine"]:
-		if words.begins_with(BAND_WORDS[b]):
+		if words.begins_with(BandWords.of_band(b, "live")):
 			return BAND_COLOURS[b]
 	return UI.FG
 

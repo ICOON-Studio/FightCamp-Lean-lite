@@ -5,6 +5,7 @@ extends SceneTree
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const FaceMarks := preload("res://scripts/ui/FaceMarks.gd")
 const FaceMark3D := preload("res://scripts/rules/FaceMark3D.gd")
+const BandWords := preload("res://scripts/rules/BandWords.gd")
 
 var failures: int = 0
 
@@ -261,21 +262,30 @@ func _test_summary() -> void:
 	var side: Dictionary = {"closed": {"left_eye": true}, "cuts": {"right_eye": true}}
 	var text: String = FaceMark3D.summary(vals, side)
 	_check(text.begins_with("Left eye shut"), "summary names the worst place first: %s" % text)
+	# DEFECTS1: the summary speaks the result page's words (BandWords.word), never BodyMap.band's own names.
 	_check(
 		(
 			text.find("cut over the right eye") >= 0
-			and text.find(BodyMap.band(34.0)) >= 0
-			and text.find(BodyMap.band(54.0)) >= 0
+			and text.find("right eye " + BandWords.word(34.0)) >= 0
+			and text.find("nose " + BandWords.word(54.0)) >= 0
 		),
-		"summary uses BodyMap's band words for hurt levels: %s" % text
+		"summary uses the result page's band words (BandWords.word): %s" % text
 	)
 	var nose_first: String = FaceMark3D.summary(
 		{"left_eye": 55.0, "right_eye": 100.0, "nose": 0.0}, {}
 	)
 	_check(
-		nose_first.begins_with("Nose ") and nose_first.find(BodyMap.band(0.0)) >= 0,
-		"worst nose is first and named with BodyMap's band word"
+		nose_first.begins_with("Nose " + BandWords.word(0.0)),
+		"worst nose is first and named with the result page's word: %s" % nose_first
 	)
+	for v in [54.0, 35.0, 34.0, 15.0, 0.0]:
+		var one: String = FaceMark3D.summary({"left_eye": float(v)}, {})
+		_check(
+			one == "Left eye " + BandWords.word(float(v)),
+			"left eye at %.0f reads '%s' (%s)" % [float(v), BandWords.word(float(v)), one]
+		)
+		for internal in ["critical", "doctor"]:
+			_check(one.find(str(internal)) < 0, "no internal band name '%s' in '%s'" % [internal, one])
 
 
 func _test_mutants() -> void:

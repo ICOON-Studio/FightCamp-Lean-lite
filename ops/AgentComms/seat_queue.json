@@ -614,11 +614,14 @@
    "seat": "kalli",
    "brief": "research/ASKFIGHT_CRITIC_S442_BRIEF.md",
    "stem": "ASKFIGHT_CRITIC_S442_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-12 11:47",
    "tries": 0,
    "sent_at": "2026-11-12 12:10",
-   "sent_ms": 1794478223983
+   "sent_ms": 1794478223983,
+   "answered_at": "2026-11-12 12:40",
+   "answer": "research/ASKFIGHT_CRITIC_S442_KALLI.md",
+   "chars": 16600
   },
   {
    "id": "SQ43",
@@ -628,19 +631,22 @@
    "status": "queued",
    "queued_at": "2026-11-12 11:47",
    "tries": 0,
-   "skips": 2,
-   "last_error": "2026-11-12 12:14 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+   "skips": 5,
+   "last_error": "2026-11-12 13:27 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
   },
   {
    "id": "SQ44",
    "seat": "john",
    "brief": "research/ASKFIGHT_CRITIC_S442_BRIEF.md",
    "stem": "ASKFIGHT_CRITIC_S442_JOHN",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-12 12:14",
    "tries": 0,
    "sent_at": "2026-11-12 12:14",
-   "sent_ms": 1794478452464
+   "sent_ms": 1794478452464,
+   "answered_at": "2026-11-12 12:40",
+   "answer": "research/ASKFIGHT_CRITIC_S442_JOHN.md",
+   "chars": 15703
   }
  ]
 }

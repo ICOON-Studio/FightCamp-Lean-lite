@@ -20,6 +20,7 @@ var jobs := {}               # S310 the corner jobs picked (CornerJobsRow sel)
 var _menu := {}
 var _jobs_box: VBoxContainer = null
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
+const FaceMark3D := preload("res://scripts/rules/FaceMark3D.gd")
 const BodyFigure := preload("res://scripts/ui/BodyFigure.gd")
 const BodyTip := preload("res://scripts/ui/BodyTip.gd")
 const BodyCallouts := preload("res://scripts/ui/BodyCallouts.gd")
@@ -322,8 +323,9 @@ func _body_column(_her: String, glb: String = "") -> VBoxContainer:
 		col.add_child(_cut_box)
 		_draw_cutman(opts)
 	else:
-		# S382: not "clean" - she may have taken a dozen shots (the holo shows them); nothing for the cutman to work on.
-		col.add_child(UI.muted("No cut, no swollen eye: the cutman waits.", UI.TINY))
+		# S382: not "clean" - she may have taken a dozen shots (the holo shows them). DEFECTS1: an amateur corner always
+		# came here (no cutman jobs) and said "No cut, no swollen eye" over a cut eye: the line now says what the face shows.
+		col.add_child(UI.muted(FaceMark3D.corner_line(vals, _map.get("a", {}), _pro), UI.TINY))
 	return col
 
 

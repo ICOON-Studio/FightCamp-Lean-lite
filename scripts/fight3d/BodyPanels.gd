@@ -8,6 +8,7 @@ extends Node
 ##   attach(view, live) -> BodyPanels   struck(side, before, lost, move, big)   critical_place(before, after, lost, big)
 
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
+const BandWords := preload("res://scripts/rules/BandWords.gd")
 const BodyFigure := preload("res://scripts/ui/BodyFigure.gd")
 const BodyTurn := preload("res://scripts/ui/BodyTurn.gd")
 const BodyTip := preload("res://scripts/ui/BodyTip.gd")
@@ -20,7 +21,6 @@ const CORNER := ["red", "blue"]
 const CORNER_WHO := ["a", "b"]
 const PAINT_S := 0.5   # the corner's jobs and the tired parts change between punches
 const KEY_WORDS := "Own colours = fresh. Green = warm, yellow = hot, red = burning: how hard that part has worked.\nRed skin on the face or ribs = hurt there."
-const BAND_KEY := "Fine: fresh. Hurt: sore. Critical: badly hurt."
 
 var view: Control
 var live: Node   # BodyLive: the bout's map, what each place took, the punch stats
@@ -130,7 +130,7 @@ func _repaint(side: int) -> void:
 	var acc := 0 if int(st["thrown"]) == 0 else int(round(100.0 * int(st["landed"]) / int(st["thrown"])))
 	fig.set("extra_tip", "%s\nPunches landed: %d of %d thrown (%d%%)\nJabs landed: %d of %d\nPower punches landed: %d of %d\nLanded to the body: %d\n\n%s\n%s" % [
 		str(view.get("_names")[side]).to_upper(), st["landed"], st["thrown"], acc,
-		st["jab_l"], st["jab_t"], st["pow_l"], st["pow_t"], st["body"], KEY_WORDS, BAND_KEY])
+		st["jab_l"], st["jab_t"], st["pow_l"], st["pow_t"], st["body"], KEY_WORDS, BandWords.key()])   # DEFECTS1: the band legend from the one table
 
 
 func _place_tip(place: String, side: int) -> String:

@@ -2,6 +2,12 @@
  "_doc": "Tasks for the CLI seats, drained by ops/Tools/seat_dispatch.py (30-min reconcile).",
  "items": [
   {
+   "task": "ASKPROBE1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-12T12:58"
+  },
+  {
    "id": "HITREACT4",
    "seat": "qwen",
    "title": "TASK HITREACT4 - QWEN (qwen3-coder) - measure the conversion stages HITREACT3 did not run",
@@ -1180,8 +1186,9 @@
   {
    "task": "R50TRAIT1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-12T10:36"
+   "status": "launched",
+   "queued": "2026-11-12T10:36",
+   "launched": "2026-11-12T11:41"
   },
   {
    "task": "R58LOYAL1",
@@ -1193,20 +1200,23 @@
   {
    "task": "R17PHASE1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-12T10:36"
+   "status": "launched",
+   "queued": "2026-11-12T10:36",
+   "launched": "2026-11-12T12:11"
   },
   {
    "task": "R24GRADE1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-12T10:36"
+   "status": "launched",
+   "queued": "2026-11-12T10:36",
+   "launched": "2026-11-12T12:30"
   },
   {
    "task": "R73DEAL1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-12T10:36"
+   "status": "launched",
+   "queued": "2026-11-12T10:36",
+   "launched": "2026-11-12T13:11"
   },
   {
    "task": "R19WORTH1",

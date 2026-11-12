@@ -14,6 +14,7 @@ extends SceneTree
 const BF := preload("res://scripts/ui/BodyFigure.gd")
 const BodyTurn := preload("res://scripts/ui/BodyTurn.gd")
 const BodyTip := preload("res://scripts/ui/BodyTip.gd")
+const BandWords := preload("res://scripts/rules/BandWords.gd")   # DEFECTS1: the band words, one table
 const Faces := preload("res://scripts/rules/Faces.gd")
 
 var failures := 0
@@ -37,7 +38,7 @@ func _test1() -> void:
 	BodyTip.log_hit(log, "head", "lead_hook", true, 2)
 	var t := BodyTip.text("head", 48.0, log["head"])
 	var lines := t.split("\n")
-	_check("1 first line is place, band, value", str(lines[0]) == "Head: hurt (48/100)", str(lines[0]))
+	_check("1 first line is place, band, value", str(lines[0]) == "Head: %s (48/100)" % BandWords.live(48.0), str(lines[0]))
 	_check("1 what landed, by kind", t.contains("Took 4: 3 jabs, 1 lead hook"), t)
 	_check("1 the big shot and the last punch with its round", t.contains("1 big shot - Last: lead hook, round 2"), t)
 
@@ -56,7 +57,7 @@ func _test2() -> void:
 
 ## 3. Face.
 func _test3() -> void:
-	_check("3 a face place gives the head", BodyTip.text("nose", 80.0, {}, 52.0).ends_with("Head: hurt (52/100)"), "")
+	_check("3 a face place gives the head", BodyTip.text("nose", 80.0, {}, 52.0).ends_with("Head: %s (52/100)" % BandWords.live(52.0)), "")
 	_check("3 the head does not repeat itself", not BodyTip.text("head", 52.0, {}, 52.0).contains("\nHead:"), "")
 
 

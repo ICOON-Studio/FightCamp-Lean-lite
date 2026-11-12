@@ -26,16 +26,24 @@ const MOVE_MAP := {"pro_left_jab": "jab", "pro_right_cross": "cross", "pro_left_
 const RESULT_PATH := "res://docs/BLOCKMEET2_RESULT.md"
 
 var failures := 0
+## S442: `-- shots=<dir>` (windowed, hidden desktop) saves the game camera's picture of each blocked punch at contact.
+var shots := ""
 var all_rows: Array = []
 
 
 func _initialize() -> void:
 	Engine.max_fps = 30
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("shots="):
+			shots = arg.trim_prefix("shots=")
+			DirAccess.make_dir_recursive_absolute(shots)
+			root.size = Vector2i(1920, 1080)
 	print("BLOCKMEET2")
 	await _run_setup(BOXER_A, BOXER_B, "A_B")
 	await _run_setup(BOXER_B, BOXER_A, "B_A")
 	await _run_setup(BOXER_A, BOXER_A, "A_A")
-	_write_result()
+	if shots == "":
+		_write_result()
 	print("BLOCKMEET2 DONE failures=%d" % failures)
 	quit(0 if failures == 0 else 1)
 
@@ -156,6 +164,9 @@ func _run_blocked(stg: Node3D, puncher: int, blocker: int, clip: String, setup: 
 			defender_ap.seek(block_t, true)
 		for w in 2:
 			await process_frame
+		if shots != "" and path == "fight" and fr == cf:
+			await RenderingServer.frame_post_draw
+			root.get_texture().get_image().save_png(shots.path_join("block_%s_%s.png" % [setup, clip]))
 		var gf: Vector3 = stg.glove_front(puncher, hand)
 		var face: Vector3 = stg.target_point(blocker, false)
 		var to_face: float = gf.distance_to(face)

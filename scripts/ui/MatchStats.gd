@@ -31,7 +31,7 @@ static func build(rounds: Array, names: Array, compact: bool = false) -> VBoxCon
 static func strip(st: Dictionary, names: Array) -> HBoxContainer:
 	var h := UI.hbox(8)
 	h.name = "RoundStrip"
-	var tag := UI.caps("ROUNDS")
+	var tag := UI.caps("PUNCHES LANDED")   # DEFECTS1: the chips are punches landed, not scores
 	tag.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(tag)
 	for r in st["rounds"]:
@@ -42,7 +42,7 @@ static func strip(st: Dictionary, names: Array) -> HBoxContainer:
 		chip.add_theme_stylebox_override("panel", UI.box(col.darkened(0.55), col, 6, 2, 10, 2))
 		var l: Array = r["landed"]
 		var t: Array = r["tank"]
-		chip.tooltip_text = "Round %d: %s's round. Landed %d to %d, exchanges %d to %d, tanks at the bell %d and %d." % [int(r["n"]),
+		chip.tooltip_text = "Round %d: %s's round. Landed %d to %d, exchanges %d to %d, energy left at the bell %d and %d." % [int(r["n"]),
 			str(names[0] if won else names[1]), int(l[0]), int(l[1]), int(r["xwon"][0]), int(r["xwon"][1]), int(round(float(t[0]))),
 			int(round(float(t[1])))]
 		chip.add_child(UI.label("%d   %d-%d" % [int(r["n"]), int(l[0]), int(l[1])], TEXT, UI.FG, "bold"))

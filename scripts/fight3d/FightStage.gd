@@ -164,7 +164,11 @@ func aim_height(who: int, clip: String, at_s: float, contact_s: float) -> void:
 ## The glove position is read at CONTACT time (via Callable), not at arm time, so the block animation has settled.
 ## The blocker's gloves are also lifted by BlockGloveLift during the block animation.
 const BlockGloveLift := preload("res://scripts/fight3d/BlockGloveLift.gd")
-const CROSS_STANDOFF_M := 0.015
+## DEFECTS1: the carry aimed the punching glove's FRONT at the blocking glove's mount point (the point the ruler,
+## tests/block_meet_test.gd, calls the glove's centre), i.e. by design ~4 cm inside the blocking glove; whether a row passed
+## depended on how far short the reach fell. The front now stops at that glove's surface: the mount point plus this radius
+## toward the puncher - the ruler's own GLOVE_RADIUS, for every punch (it replaces S426's cross-only 1.5 cm standoff).
+const BLOCK_SURFACE_M := 0.04
 func arm_block(who: int, clip: String, at_s: float, contact_s: float) -> void:
 	if OS.get_cmdline_user_args().has("noaim"):
 		return
@@ -207,8 +211,7 @@ func arm_block(who: int, clip: String, at_s: float, contact_s: float) -> void:
 			if punch_dir.length() < 0.01:
 				punch_dir = (puncher_glove_pos - face_pos).normalized()
 			block_pos = face_pos + punch_dir * 0.14
-		if clip.contains("cross"):   # S426: the straight rear hand overshoots 1-2 cm deeper than the others (block_meet_test)
-			block_pos += (puncher_glove_pos - block_pos).normalized() * CROSS_STANDOFF_M
+		block_pos += (puncher_glove_pos - block_pos).normalized() * BLOCK_SURFACE_M
 		return block_pos
 	# Arm the punch to target the blocking glove (position read at contact time)
 	pr.arm(clip, hand, cs, get_block_target, float(boxers[who]["front"]))

@@ -16,7 +16,7 @@ const SIZE := Vector2(330, 320)   # the body in the middle, a strip each side fo
 const HEAD_R := 46.0
 const PLACE := {"head": "HEAD", "left_eye": "LEFT EYE", "right_eye": "RIGHT EYE", "nose": "NOSE", "left_ribs": "LEFT RIBS",
 	"right_ribs": "LIVER"}
-const WORD := {"fine": "fine", "hurt": "sore", "critical": "badly hurt", "doctor": "badly hurt"}
+const BandWords := preload("res://scripts/rules/BandWords.gd")   # DEFECTS1: the band words live in one table
 
 
 static func figure(map: Dictionary, side: String, glb: String, corner: String, track: Dictionary = {}) -> Control:
@@ -43,4 +43,4 @@ static func line(map: Dictionary, side: String, s: Dictionary) -> String:
 			worst = str(p)
 		cut = cut or bool(((map.get(side, {}) as Dictionary).get("cuts", {}) as Dictionary).get(p, false))
 	var v := BodyMap.value(map, side, worst)
-	return "%s %d - %s%s" % [PLACE[worst], int(round(v)), WORD[BodyMap.band(v)], ", cut" if cut else ""]
+	return "%s %d - %s%s" % [PLACE[worst], int(round(v)), BandWords.word(v), ", cut" if cut else ""]

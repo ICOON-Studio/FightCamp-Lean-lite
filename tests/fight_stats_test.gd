@@ -4,6 +4,7 @@ extends SceneTree
 
 const FS := preload("res://scripts/rules/FightStats.gd")
 const AM := preload("res://scripts/rules/Aftermath.gd")
+const MS := preload("res://scripts/ui/MatchStats.gd")
 
 var _fails := 0
 
@@ -31,7 +32,15 @@ func _initialize() -> void:
 	_check(by.size() == 5 and str(by["Punches landed"]["a"]) == "11" and int(by["Punches landed"]["lead"]) == 1,
 		"five paired bars; the opponent leads on punches landed")
 	_check(float(by["To the body"]["fb"]) == 1.0 and int(by["To the head"]["lead"]) == -1, "the longer bar is full; a tie has no leader")
-	_check(str(by["Tank at the last bell"]["a"]) == "61", "the tank row reads 61")
+	# DEFECTS1: plain words on the result page - "Tank" was jargon; the round chips are punches landed and say so.
+	_check(by.has("Energy left at the last bell") and str(by.get("Energy left at the last bell", {}).get("a", "")) == "61",
+		"the energy row reads 61 (%s)" % [by.keys()])
+	_check(not by.keys().any(func(k): return str(k).to_lower().find("tank") >= 0), "no row says tank")
+	var strip: Control = MS.strip(st, ["Lucy", "Mara"])
+	var shown: Array = strip.find_children("*", "Label", true, false).map(func(l): return str((l as Label).text))
+	_check(shown.size() == 3 and str(shown[0]).to_lower() == "punches landed" and str(shown[1]) == "1   8-6",
+		"the round chips carry a plain label: punches landed (%s)" % [shown])
+	strip.free()
 	_check(FS.call_word("long") != "" and FS.game_word("press") == "Pressing" and FS.answer("press") == FS.call_word("long"),
 		"words: a call, a game, and the call that beats it")
 	_check((FS.of([])["rounds"] as Array).is_empty() and FS.rows(FS.of([])).size() == 5, "no rounds: empty, never an error")

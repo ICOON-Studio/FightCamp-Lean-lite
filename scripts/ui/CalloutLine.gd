@@ -13,16 +13,15 @@ const COUNT := ["no", "one", "two", "three", "four", "five", "six", "seven", "ei
 ## Short punch words when the full ones (BodyTip.MOVE_WORDS) do not fit: at the ribs a hook is a body hook.
 const SHORT := {"jab": ["jab", "jabs"], "cross": ["cross", "crosses"], "lead_hook": ["hook", "hooks"],
 	"body_hook": ["hook", "hooks"], "rear_uppercut": ["uppercut", "uppercuts"]}
-## What a band means. Every body shot costs gas for the rest of the fight (Exchanges.BODY_COST); at DOCTOR the doctor looks.
-const BODY_WORDS := {"fine": "costs gas", "hurt": "gas drains faster", "critical": "badly hurt, gas going",
-	"doctor": "doctor may stop it"}
-const HEAD_WORDS := {"fine": "holding up", "hurt": "hurt", "critical": "badly hurt", "doctor": "doctor may stop it"}
+## What a band means (BandWords, DEFECTS1: one table): every body shot costs gas for the rest of the fight
+## (Exchanges.BODY_COST), so a rib place says what it does to her gas; at DOCTOR the doctor looks.
+const BandWords := preload("res://scripts/rules/BandWords.gd")
 
 
 static func line(name: String, value: float, entry: Dictionary, body: bool, cut: bool = false) -> String:
 	var head := "%s %d" % [name, int(round(value))]
 	var b := BM.band(value)
-	var band: String = (BODY_WORDS if body else HEAD_WORDS)[b]
+	var band: String = BandWords.of_band(b, "body" if body else "live")
 	# What it means, longest first: an open cut on a hurt face keeps the band words as long as they fit.
 	var whats: Array = [band]
 	if cut:
