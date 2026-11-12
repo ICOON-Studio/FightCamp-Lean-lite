@@ -431,28 +431,11 @@
     "board": ""
    }
   },
-  "PUNCHFORM1": {
-   "agent": "goose",
-   "id": "PUNCHFORM1",
-   "title": "QWEN (qwen3-coder) - the maths of a punch's form: one pure module + its test",
-   "status": "landed",
-   "started": "2026-11-12T01:02",
-   "where": "cloud",
-   "repo": "FightCamp-Lean",
-   "brief": "ops/research/TASK_PUNCHFORM1.md",
-   "model": "Goose + Qwen token plan (GitHub Actions)",
-   "eta": "2026-11-12T02:02",
-   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (roadmap plan.next)",
-   "issue": "219",
-   "branch": "goose/issue-219",
-   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/219",
-   "reconciled": "2026-11-12 01:40 board_reconcile: run finished (success), branch goose/issue-219 pushed"
-  },
   "ROSTERROW1": {
    "agent": "goose",
    "id": "ROSTERROW1",
    "title": "QWEN (qwen3-coder) - what one fighter's row on the Fighters page says: one pure module + its test",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-12T01:34",
    "where": "cloud",
    "repo": "FightCamp-Lean",
@@ -462,13 +445,14 @@
    "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (roadmap plan.next)",
    "issue": "220",
    "branch": "goose/issue-220",
-   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/220"
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/220",
+   "reconciled": "2026-11-12 02:10 board_reconcile: run finished (success), branch goose/issue-220 pushed"
   },
   "CLIPFIX1": {
    "agent": "cursor",
    "id": "CLIPFIX1",
    "title": "TASK CLIPFIX1 - CURSOR (Grok 4.7 High) - the fight's punches that read wrong get a form ruler, then a fix or a cut",
-   "status": "running",
+   "status": "failed",
    "started": "2026-11-12T02:07",
    "eta": "2026-11-12T03:57",
    "branch": "cursor/clipfix1",
@@ -489,7 +473,36 @@
     "runner_pid": 27036,
     "seat_pid": 54472
    },
-   "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
+   "note": "S368 seat_dispatch: cursor exit 1, no commit on cursor/clipfix1 (stray: -); output E:\\FightCamp\\wt\\CLIPFIX1_dispatch_out.txt",
+   "finished": "2026-11-12T02:07"
+  },
+  "PAGES2": {
+   "agent": "cursor",
+   "id": "PAGES2",
+   "title": "TASK PAGES2 - CURSOR (Grok 4.7 High) - the Fighters page as painted: one wide row a fighter",
+   "status": "failed",
+   "started": "2026-11-12T02:12",
+   "eta": "2026-11-12T04:02",
+   "branch": "cursor/pages2",
+   "worktree": "E:/FightCamp/wt/LEAN_PAGES2",
+   "wt": "E:/FightCamp/wt/LEAN_PAGES2",
+   "brief": "ops/research/TASK_PAGES2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/PAGES2_dispatch_out.txt",
+   "match": "seat_dispatch.py run pages2",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/PAGES2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/PAGES2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/PAGES2_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 54624,
+    "seat_pid": 47188
+   },
+   "note": "S368 seat_dispatch: cursor exit 1, no commit on cursor/pages2 (stray: -); output E:\\FightCamp\\wt\\PAGES2_dispatch_out.txt",
+   "finished": "2026-11-12T02:12"
   }
  },
  "codex_budget": {
