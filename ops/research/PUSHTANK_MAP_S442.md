@@ -280,3 +280,13 @@ The golden-path test walks step 3-5 end to end before the build is called done.
 - A temperature bar: only work rate is band-shaped in the code; it lives in arm C's hover if C wins.
 - Crowd excitement and members from an exciting fight: no such rule exists.
 - Numbers on the bars: words and ticks on the panel, numbers in the hover (the plates' style).
+
+## Addendum (S442, after his next message): more meters fed by stamina
+His words: "Need ideas to add more meters affected by like stamina to make it a bit more engaging for the player ?"
+Claude's answer to him, to be folded into v2 with the critics' second pair: THREE meters, each with its own control and
+its own cliff, stamina feeding all three (a low tank wears the legs faster; tired legs make composure harder to hold):
+TANK (fuel; Push on/off; tired), LEGS (tyres; move or plant; "the legs went": dragged inside and onto the ropes), HEAT
+(composure, bad at both ends like a tyre temperature; the corner's Calm down / Fire up; too cold = passive and marked down,
+too hot = wild and countered; traits get a visible job). Moments, not meters: the guard dropping, a second wind, body
+shots as an investment, stealing the last 30 seconds of a close round. Today's legs and guard bars follow the 3D
+animation and the result never reads them: Legs and Heat need new rules and a probe through real bouts before any build.

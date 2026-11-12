@@ -1,0 +1,133 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Push and tank 10/10</title>
+<style>
+:root{--bg:#0d0f13;--panel:#171a21;--line:#2a2f3a;--txt:#e9e6df;--dim:#9aa1ad;--wind:#e8b830;--legs:#2fbfa8;--head:#d9483b;--blue:#3a6fd8;--red:#d23c32;--good:#3fae5a;--ok:#c98a1e;--bad:#c8372d}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--bg);color:var(--txt);font-family:"Segoe UI",Arial,sans-serif;overflow:hidden;position:relative}
+.ring{position:absolute;left:0;top:0;width:1440px;height:750px;background:linear-gradient(#1b1f27 0,#1b1f27 300px,#2a4fa8 300px,#1e3f8f 760px)}
+.rope{position:absolute;left:0;width:1440px;height:5px}
+.f{position:absolute;bottom:120px;width:70px}
+.f .hd{width:56px;height:56px;border-radius:50%;margin:0 auto;background:#6b4a33}
+.f .bd{width:64px;height:150px;margin:4px auto 0;border-radius:18px}
+.f .lg{width:52px;height:120px;margin:0 auto;border-radius:6px}
+.halo{position:absolute;bottom:104px;width:150px;height:34px;border-radius:50%;border:4px solid var(--legs);opacity:.9;box-shadow:0 0 18px var(--legs)}
+.halo .tag{position:absolute;top:2px;left:170px;white-space:nowrap;background:#0d0f13e6;border:1px solid var(--legs);color:var(--legs);font-size:16px;font-weight:700;padding:2px 8px;border-radius:4px}
+.top{position:absolute;left:500px;top:14px;width:440px;height:110px;background:#111419ee;border:2px solid #3a3f4a;border-radius:6px;text-align:center}
+.top .r{font-size:18px;color:var(--dim);margin-top:6px;letter-spacing:1px}
+.top .c{font-size:44px;font-weight:700;line-height:46px}
+.dots{display:flex;gap:8px;justify-content:center;margin-top:2px}.dots i{width:14px;height:14px;border-radius:50%;background:#333a46;display:block}
+.pn{position:absolute;top:14px;width:470px;background:#111419f0;border:1px solid var(--line);border-radius:6px;padding:12px 16px}
+.pn h2{font-size:22px;display:flex;justify-content:space-between;align-items:baseline}
+.pn h2 small{font-size:15px;color:var(--dim);font-weight:400}
+.row{display:grid;grid-template-columns:62px 1fr 150px;align-items:center;gap:8px;margin-top:20px;font-size:16px}
+.row b{font-size:15px;letter-spacing:1px;color:var(--dim)}
+.bar{position:relative;height:16px;background:#262b35;border-radius:3px}
+.bar .v{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
+.bar .mk{position:absolute;top:-4px;bottom:-4px;width:2px;background:#fff}
+.bar .mk span{position:absolute;top:-16px;left:-8px;font-size:11px;color:var(--dim)}
+.bar .hatch{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,#ffffff55 0 4px,transparent 4px 8px)}
+.bar .rng{position:absolute;top:0;bottom:0;background:#ffffff30;border-left:1px solid #fff8;border-right:1px solid #fff8}
+.st{font-size:15px;text-align:right}
+.next{margin-top:11px;padding:8px 10px;background:#1f2430;border-left:4px solid var(--wind);font-size:16px;line-height:21px}
+.next em{font-style:normal;color:var(--wind);font-weight:700}
+.tell{margin-top:10px;font-size:16px;color:#f0c27a}
+.bot{position:absolute;left:0;top:762px;width:1440px;height:214px;background:#14171d;border-top:2px solid var(--line);padding:10px 16px}
+.bot h3{font-size:14px;letter-spacing:1px;color:var(--dim);font-weight:600;margin-bottom:6px}
+.ctl{display:flex;gap:6px;margin-bottom:10px;align-items:stretch}
+.ctl .lab{width:70px;font-weight:700;font-size:17px;display:flex;align-items:center}
+.btn{width:250px;background:#222833;border:1px solid #3a4250;border-radius:5px;padding:5px 8px;font-size:15px;line-height:19px}
+.btn.on{background:#3a3220;border-color:var(--wind)}
+.btn.onl{background:#173430;border-color:var(--legs)}
+.btn .t{font-weight:700;font-size:16px}
+.btn .g{color:#9fd99f}.btn .c{color:#e7b0a8}
+.calls{position:absolute;left:880px;top:10px;width:545px}
+.callrow{display:flex;gap:8px}
+.call{flex:1;background:#222833;border:1px solid #3a4250;border-radius:5px;padding:7px 8px;font-size:16px;text-align:center;font-weight:700}
+.call i{display:block;font-style:normal;font-size:13px;margin-top:3px;font-weight:600;padding:1px 4px;border-radius:3px}
+.clk{display:flex;gap:16px;align-items:center;margin-top:12px;font-size:16px;color:var(--dim)}
+.clk .big{font-size:30px;color:var(--txt);font-weight:700}
+.side{position:absolute;left:1456px;top:14px;width:450px;height:958px;background:#14171d;border:1px solid var(--line);border-radius:6px;padding:12px 16px}
+.side h2{font-size:18px;letter-spacing:1px;color:var(--wind);margin-bottom:4px}
+.side p{font-size:15px;color:var(--dim);line-height:20px}
+.pt{display:grid;grid-template-columns:140px 1fr 70px;gap:6px;align-items:center;font-size:15px;margin-top:7px}
+.pips{display:flex;gap:4px}.pips i{width:16px;height:16px;border-radius:50%;border:2px solid var(--wind);display:block}.pips i.on{background:var(--wind)}
+.give{margin-top:10px;font-size:15px;line-height:21px;background:#1f2430;padding:8px 10px;border-radius:4px}
+.sep{height:1px;background:var(--line);margin:12px 0}
+.mini{display:grid;grid-template-columns:70px 1fr;gap:6px;font-size:15px;margin-top:6px;align-items:center}
+.seg{display:flex;gap:4px}.seg span{flex:1;text-align:center;background:#222833;border:1px solid #3a4250;border-radius:4px;padding:3px 0;font-size:14px}
+.seg span.on{border-color:var(--wind);background:#3a3220}.seg span.onl{border-color:var(--legs);background:#173430}
+.foot{position:absolute;left:0;top:984px;width:1892px;height:86px;border:1px dashed #4a6aa8;border-radius:6px;margin-left:14px;padding:6px 14px;font-size:15px;line-height:20px;color:#cfd6e3}
+.foot b{color:#7fa6ff}
+</style></head><body>
+<div class="ring">
+  <div class="rope" style="top:250px;background:#d8d8d8"></div>
+  <div class="rope" style="top:275px;background:var(--red)"></div>
+  <div class="rope" style="top:300px;background:#d8d8d8"></div>
+  <div class="f" style="left:610px"><div class="hd"></div><div class="bd" style="background:var(--blue)"></div><div class="lg" style="background:#2b56b0"></div></div>
+  <div class="f" style="left:760px"><div class="hd"></div><div class="bd" style="background:var(--red)"></div><div class="lg" style="background:#b8332b"></div></div>
+  <div class="halo" style="left:720px"><div class="tag">Ortega's legs: 52, about to go</div></div>
+</div>
+
+<div class="top"><div class="r">ROUND 2 OF 3 · CARDS 1-0 · 2-1</div><div class="c">1:30</div>
+<div class="dots"><i style="background:var(--blue)"></i><i style="background:var(--red)"></i><i style="background:var(--blue)"></i><i></i><i></i><i></i></div></div>
+
+<div class="pn" style="left:14px">
+  <h2>LUCY JACKSON <small>Blue corner</small></h2>
+  <div class="row"><b>WIND</b><div class="bar"><div class="v" style="width:62%;background:var(--wind)"></div><div class="hatch" style="left:55%;width:7%"></div><div class="mk" style="left:55%"><span>55</span></div><div class="mk" style="left:40%"><span>40</span></div></div><div class="st">62 · fades in 1</div></div>
+  <div class="row"><b>LEGS</b><div class="bar"><div class="v" style="width:71%;background:var(--legs)"></div><div class="mk" style="left:50%"><span>50</span></div></div><div class="st">71 · fine</div></div>
+  <div class="row"><b>HEAD</b><div class="bar"><div class="v" style="width:22%;background:var(--head)"></div></div><div class="st">22 · counts x1.4</div></div>
+  <div class="next"><em>Next line:</em> wind 55 after this exchange at Push; from there Push wins less each 30 s. <em>After the fight:</em> head 22 = no sparring 7 days.</div>
+</div>
+
+<div class="pn" style="left:956px">
+  <h2>MARIA ORTEGA <small>Red corner · on film</small></h2>
+  <div class="row"><b>WIND</b><div class="bar"><div class="v" style="width:48%;background:var(--wind)"></div><div class="rng" style="left:45%;width:6%"></div><div class="mk" style="left:55%"><span>55</span></div><div class="mk" style="left:40%"><span>40</span></div></div><div class="st">45-51</div></div>
+  <div class="row"><b>LEGS</b><div class="bar"><div class="v" style="width:52%;background:var(--legs)"></div><div class="rng" style="left:49%;width:6%"></div><div class="mk" style="left:50%"><span>50</span></div></div><div class="st">49-55 · going</div></div>
+  <div class="row"><b>HEAD</b><div class="bar"><div class="v" style="width:36%;background:var(--head)"></div></div><div class="st">36 · counts x1.6</div></div>
+  <div class="tell">Ortega's corner: pushing since round 2; Ortega waits to counter (clue).</div>
+</div>
+
+<div class="bot">
+  <h3>SET FROM THE NEXT EXCHANGE · FREE · ONE EXCHANGE TO SETTLE · A LOW FIGHTER KEEPS THE MINUTE'S SETTING</h3>
+  <div class="ctl"><div class="lab" style="color:var(--wind)">HANDS</div>
+    <div class="btn"><div class="t">Coast</div><span class="c">-1 exch in 6</span> · <span class="g">+2 wind</span></div>
+    <div class="btn"><div class="t">Steady</div><span>no gain, no cost</span></div>
+    <div class="btn on"><div class="t">Push</div><span class="g">+1 exch in 11</span> · <span class="c">-2 wind, risky vs a counter</span></div>
+  </div>
+  <div class="ctl"><div class="lab" style="color:var(--legs)">FEET</div>
+    <div class="btn"><div class="t">Back off</div><span class="g">takes Ortega's place</span> · <span class="c">-3 legs</span></div>
+    <div class="btn"><div class="t">Hold</div><span>own place · -1.5 legs</span></div>
+    <div class="btn onl"><div class="t">Walk down</div><span class="g">+1 exch in 9</span> · <span class="c">-4 legs, Ortega -4</span></div>
+  </div>
+  <div class="calls">
+    <h3>SHOUT · 2 OF 2 FULL (calls only)</h3>
+    <div class="callrow">
+      <div class="call">Draw the lead<i style="background:var(--good)">Beats it</i></div>
+      <div class="call">Jab and move<i style="background:var(--ok)">Works</i></div>
+      <div class="call">Let your hands go<i style="background:var(--bad)">Risky</i></div>
+    </div>
+    <div class="clk"><span class="big">0:12</span><span>to the next exchange</span><span>Landed 7-5</span><span>2x · Skip round</span></div>
+  </div>
+</div>
+
+<div class="side">
+  <h2>THE CORNER MINUTE: THE PIT STOP</h2>
+  <p>Free back by itself: wind +15, legs +4, head 0. Three points to spend on top: pick what the next round needs.</p>
+  <div class="pt"><span>Water</span><div class="pips"><i class="on"></i><i class="on"></i><i></i></div><span>+3 wind</span></div>
+  <div class="pt"><span>Rub the legs</span><div class="pips"><i class="on"></i><i></i><i></i></div><span>+6 legs</span></div>
+  <div class="pt"><span>Ice the ribs</span><div class="pips"><i></i><i></i><i></i></div><span>-3 body</span></div>
+  <div class="pt"><span style="color:var(--dim)">Clear the head</span><div class="pips"><i style="border-color:#555"></i></div><span style="color:var(--dim)">not hurt</span></div>
+  <div class="mini"><b style="color:var(--wind)">HANDS</b><div class="seg"><span>Coast</span><span>Steady</span><span class="on">Push</span></div></div>
+  <div class="mini"><b style="color:var(--legs)">FEET</b><div class="seg"><span>Back off</span><span>Hold</span><span class="onl">Walk down</span></div></div>
+  <div class="give"><b>Round 3 at this setting:</b> wind 55 at 0:30, 40 at 1:45 (Push worth nothing after); legs 50 at 2:30. Ortega's legs go at 1:00 at Walk down.</div>
+  <div class="sep"></div>
+  <h2>THE TRADE THIS ROUND</h2>
+  <div class="give">Both buy exchanges. <span style="color:var(--wind)">Push</span> costs 2 wind for 1 exchange in 11. <span style="color:var(--legs)">Walk down</span> costs 4 legs for 1 in 9 and takes 4 of Ortega's. <b>Cheaper now: Walk down</b> (legs 71, Ortega's going; wind near the 55 line).</div>
+  <div class="give">Against a counter-puncher Push is the risk: Ortega waits for it. Walk down takes Ortega's place instead.</div>
+  <div class="sep"></div>
+  <h2>WEAR THAT LEAVES THE RING</h2>
+  <div class="give">Head 22 now: no sparring 7 days. One more lost round by a lot: 13 days, and the next camp starts short.</div>
+</div>
+
+<div class="foot"><b>10/10:</b> two controls that buy the SAME thing (exchanges) with different tanks, each step showing its gain and its cost per 30 s, so the question is which tank is cheaper now. Push is risky against a counter, not only costly. Changes are free and settle over one exchange; shouts stay for calls. The pit stop is a choice between wind, legs and ribs. Head shows its real rule (count risk grows with damage, no line) and what it costs after the fight. Rings under the feet only flash when a line is about to be crossed.</div>
+</body></html>

@@ -1,0 +1,193 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Pace and Guard panel</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#15110d;font-family:"Segoe UI",Arial,sans-serif;color:#efe6d6;position:relative}
+.abs{position:absolute}
+.panel{background:#221a13;border:2px solid #3b2e22;border-radius:8px;padding:12px 16px}
+.panel.ours{border-left:8px solid #2f63d6}
+.panel.theirs{border-right:8px solid #d0392b}
+.name{font-size:24px;font-weight:700;letter-spacing:.5px}
+.sub{font-size:15px;color:#b9a98f}
+.row{display:flex;align-items:center;gap:6px;margin-top:8px;height:32px}
+.lab{width:62px;font-size:14px;font-weight:700;color:#b9a98f;letter-spacing:1px}
+.seg{display:flex;border:1px solid #4a3a2b;border-radius:5px;overflow:hidden}
+.seg div{padding:4px 12px;font-size:15px;font-weight:700;background:#17110c;color:#cbbba1;border-right:1px solid #4a3a2b}
+.seg div:last-child{border-right:none}
+.seg .on{background:#f1e4c6;color:#1b140e}
+.val{font-size:14px;color:#9fd38a;margin-left:6px;white-space:nowrap}
+.val.warn{color:#f0b23c}
+.barlab{display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:#b9a98f;margin-top:10px;letter-spacing:1px}
+.bar{position:relative;height:20px;background:#0f0b08;border:1px solid #4a3a2b;border-radius:3px;margin-top:3px}
+.fill{position:absolute;top:0;bottom:0;left:0}
+.tick{position:absolute;top:-4px;bottom:-4px;width:2px}
+.tlab{position:absolute;top:24px;font-size:12px;transform:translateX(-50%);white-space:nowrap}
+.read{font-size:16px;font-weight:700;margin-top:20px}
+.green{color:#8fd16f}.amber{color:#f0b23c}.red{color:#ff6a55}
+.hatch{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,#f2c641 0 4px,#3a2c18 4px 8px)}
+.hatchr{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,#e0533f 0 4px,#3a1a14 4px 8px)}
+.xline{margin-top:6px;font-size:14px;background:#17110c;border:1px solid #3b2e22;border-radius:4px;padding:5px 8px}
+.xline b{color:#f1e4c6}
+.btn{background:#2a2017;border:1px solid #4a3a2b;border-radius:5px;text-align:center;font-weight:700}
+.note{font-size:15px;line-height:21px;color:#d9ccb5}
+.note b{color:#7fb0ff}
+</style></head><body>
+
+<!-- ===== OUR PANEL ===== -->
+<div class="abs panel ours" style="left:16px;top:14px;width:640px;height:356px">
+  <div style="display:flex;justify-content:space-between;align-items:baseline">
+    <div class="name">LUCY JACKSON</div><div class="sub">Stamina 58 · Chin 61 · blue corner</div>
+  </div>
+  <div class="row"><div class="lab">PACE</div>
+    <div class="seg"><div>Coast</div><div>Steady</div><div class="on">Push</div></div>
+    <div class="val warn">Push worth +3 now (fades from 55, nothing at 40)</div></div>
+  <div class="row"><div class="lab">GUARD</div>
+    <div class="seg"><div class="on">High</div><div>Normal</div><div>Open</div></div>
+    <div class="val">head hits x0.6 · costs a little fuel</div></div>
+  <div class="row"><div class="lab">AIM</div>
+    <div class="seg"><div>Own game</div><div class="on">Body</div></div>
+    <div class="val" style="color:#b9a98f">Ortega's tank greys 1.2 a body shot</div></div>
+
+  <div class="barlab"><span>FUEL</span><span>the minute refills up to the grey</span></div>
+  <div class="bar">
+    <div class="fill" style="width:48%;background:#e9b632"></div>
+    <div class="hatch" style="left:41%;width:7%"></div>
+    <div class="fill" style="left:91%;width:9%;background:#5d5348"></div>
+    <div class="tick" style="left:55%;background:#f0b23c"></div>
+    <div class="tick" style="left:40%;background:#efe6d6"></div>
+    <div class="tick" style="left:35%;background:#ff6a55"></div>
+    <div class="tlab amber" style="left:57%">push fades</div>
+    <div class="tlab" style="left:40%;transform:translateX(-100%);color:#efe6d6">push 0&nbsp;</div>
+    <div class="tlab red" style="left:35%;transform:translateX(-100%);margin-left:-50px">tired</div>
+    <div class="tlab" style="left:95%;color:#9d9184">gone</div>
+  </div>
+  <div class="read amber">To the bell: 1 exchange short with Push on · 3 spare on Steady</div>
+
+  <div class="barlab" style="margin-top:8px"><span>HEAD</span><span>damage taken · counts can finish it from the line</span></div>
+  <div class="bar">
+    <div class="fill" style="width:38%;background:#c9483a"></div>
+    <div class="hatchr" style="left:38%;width:5%"></div>
+    <div class="tick" style="left:60%;background:#ff6a55"></div>
+    <div class="tlab red" style="left:60%">KO line 60</div>
+  </div>
+  <div class="read" style="color:#e9d8bd">Head 38: a clear round lost adds 18 (11 with High guard)</div>
+</div>
+
+<!-- ===== CENTRE: CLOCK AND ROUND TALLY ===== -->
+<div class="abs panel" style="left:676px;top:14px;width:568px;height:356px;text-align:center">
+  <div style="font-size:18px;font-weight:700;color:#b9a98f;letter-spacing:2px">ROUND 3 / 3 · CORNER'S READ 1 - 1</div>
+  <div style="font-size:64px;font-weight:700;line-height:74px">1:30</div>
+  <div style="display:flex;justify-content:center;gap:14px;margin-top:6px">
+    <div style="width:30px;height:30px;border-radius:50%;background:#2f63d6"></div>
+    <div style="width:30px;height:30px;border-radius:50%;background:#d0392b"></div>
+    <div style="width:30px;height:30px;border-radius:50%;background:#2f63d6"></div>
+    <div style="width:30px;height:30px;border-radius:50%;border:2px dashed #b9a98f"></div>
+    <div style="width:30px;height:30px;border-radius:50%;background:#3b2e22"></div>
+    <div style="width:30px;height:30px;border-radius:50%;background:#3b2e22"></div>
+  </div>
+  <div style="font-size:20px;font-weight:700;margin-top:12px">This round <span style="color:#7fb0ff">2</span> - <span style="color:#ff7a68">1</span> · 4 takes it</div>
+  <div class="sub" style="margin-top:4px">Round still open: every exchange counts</div>
+  <div class="xline" style="margin:14px auto 0;width:540px;font-size:13px;text-align:left">NEXT EXCHANGE, as set: <b>edge +3</b> (Push) <b>-3</b> (High) <b>-1.5</b> (Body) · <b>fuel -8</b> · <b>head x0.6</b></div>
+  <div class="xline" style="margin:8px auto 0;width:520px;text-align:left">Ortega on film: <b>Pressing</b> · her corner has her <b>pushing</b> since round 2</div>
+</div>
+
+<!-- ===== THEIR PANEL (read-only) ===== -->
+<div class="abs panel theirs" style="left:1264px;top:14px;width:640px;height:356px">
+  <div style="display:flex;justify-content:space-between;align-items:baseline">
+    <div class="name">MARIA ORTEGA</div><div class="sub">Swarmer · 6-2 · red corner</div>
+  </div>
+  <div class="row"><div class="lab">PACE</div>
+    <div class="seg"><div>Coast</div><div>Steady</div><div class="on">Push</div></div>
+    <div class="val" style="color:#b9a98f">seen on film</div></div>
+  <div class="row"><div class="lab">GUARD</div>
+    <div class="seg"><div>High</div><div class="on">Normal</div><div>Open</div></div>
+    <div class="val" style="color:#b9a98f">read only</div></div>
+  <div class="row"><div class="lab">BODY</div>
+    <div style="font-size:15px;color:#efe6d6">9 body shots landed on her · ribs not hurt yet (needs 4 one side)</div></div>
+
+  <div class="barlab"><span>FUEL (range from film)</span><span>tiring under 45</span></div>
+  <div class="bar">
+    <div class="fill" style="width:44%;background:#e9b632"></div>
+    <div class="fill" style="left:44%;width:6%;background:#8a6e2a"></div>
+    <div class="fill" style="left:89%;width:11%;background:#5d5348"></div>
+    <div class="tick" style="left:45%;background:#ff6a55"></div>
+    <div class="tlab red" style="left:45%">tiring</div>
+    <div class="tlab" style="left:94%;color:#9d9184">gone</div>
+  </div>
+  <div class="read green">At her pace she is tiring by the next exchange</div>
+
+  <div class="barlab" style="margin-top:8px"><span>HEAD</span><span>damage we gave</span></div>
+  <div class="bar">
+    <div class="fill" style="width:30%;background:#c9483a"></div>
+    <div class="tick" style="left:60%;background:#ff6a55"></div>
+    <div class="tlab red" style="left:60%">KO line 60</div>
+  </div>
+  <div class="read" style="color:#e9d8bd">Head 30: two clear rounds from the line</div>
+</div>
+
+<!-- ===== RING ===== -->
+<div class="abs" style="left:16px;top:384px;width:1888px;height:436px;background:#1f1812;border-radius:6px;overflow:hidden">
+  <div class="abs" style="left:250px;top:120px;width:1388px;height:316px;background:#2b55b8;clip-path:polygon(16% 0,84% 0,100% 100%,0 100%)"></div>
+  <div class="abs" style="left:420px;top:40px;width:1048px;height:3px;background:#e8e2d6"></div>
+  <div class="abs" style="left:420px;top:66px;width:1048px;height:3px;background:#d0392b"></div>
+  <div class="abs" style="left:420px;top:92px;width:1048px;height:3px;background:#e8e2d6"></div>
+  <div class="abs" style="left:412px;top:28px;width:14px;height:96px;background:#2f63d6"></div>
+  <div class="abs" style="left:1462px;top:28px;width:14px;height:96px;background:#d0392b"></div>
+
+  <!-- floor rings under the feet: outer gold arc = fuel, inner red arc = head damage -->
+  <svg class="abs" style="left:700px;top:340px" width="220" height="80" viewBox="0 0 220 80">
+    <ellipse cx="110" cy="40" rx="100" ry="30" fill="none" stroke="#1a2f66" stroke-width="10"/>
+    <path d="M10 40 A100 30 0 0 1 166 13" fill="none" stroke="#e9b632" stroke-width="10"/>
+    <ellipse cx="110" cy="40" rx="78" ry="21" fill="none" stroke="#1a2f66" stroke-width="6"/>
+    <path d="M32 40 A78 21 0 0 1 80 20" fill="none" stroke="#e0533f" stroke-width="6"/>
+  </svg>
+  <svg class="abs" style="left:960px;top:340px" width="220" height="80" viewBox="0 0 220 80">
+    <ellipse cx="110" cy="40" rx="100" ry="30" fill="none" stroke="#1a2f66" stroke-width="10"/>
+    <path d="M10 40 A100 30 0 0 1 120 10" fill="none" stroke="#e9b632" stroke-width="10"/>
+    <ellipse cx="110" cy="40" rx="78" ry="21" fill="none" stroke="#1a2f66" stroke-width="6"/>
+    <path d="M32 40 A78 21 0 0 1 70 22" fill="none" stroke="#e0533f" stroke-width="6"/>
+  </svg>
+
+  <!-- blue boxer (ours) -->
+  <div class="abs" style="left:778px;top:120px;width:56px;height:56px;border-radius:50%;background:#6b4a32"></div>
+  <div class="abs" style="left:766px;top:176px;width:80px;height:130px;background:#2f5fcf;border-radius:18px"></div>
+  <div class="abs" style="left:826px;top:138px;width:34px;height:34px;border-radius:50%;background:#3a74f0"></div>
+  <div class="abs" style="left:818px;top:170px;width:34px;height:34px;border-radius:50%;background:#3a74f0"></div>
+  <div class="abs" style="left:776px;top:300px;width:24px;height:76px;background:#2a4fa8"></div>
+  <div class="abs" style="left:812px;top:300px;width:24px;height:76px;background:#2a4fa8"></div>
+  <div class="abs" style="left:768px;top:370px;width:38px;height:16px;border-radius:50%;background:#0c0c0c"></div>
+  <div class="abs" style="left:806px;top:370px;width:38px;height:16px;border-radius:50%;background:#0c0c0c"></div>
+  <!-- red boxer -->
+  <div class="abs" style="left:1046px;top:118px;width:56px;height:56px;border-radius:50%;background:#6b4a32"></div>
+  <div class="abs" style="left:1034px;top:174px;width:80px;height:132px;background:#c8402f;border-radius:18px"></div>
+  <div class="abs" style="left:1012px;top:136px;width:34px;height:34px;border-radius:50%;background:#e04a35"></div>
+  <div class="abs" style="left:1020px;top:168px;width:34px;height:34px;border-radius:50%;background:#e04a35"></div>
+  <div class="abs" style="left:1046px;top:300px;width:24px;height:76px;background:#a8362a"></div>
+  <div class="abs" style="left:1082px;top:300px;width:24px;height:76px;background:#a8362a"></div>
+  <div class="abs" style="left:1038px;top:370px;width:38px;height:16px;border-radius:50%;background:#0c0c0c"></div>
+  <div class="abs" style="left:1076px;top:370px;width:38px;height:16px;border-radius:50%;background:#0c0c0c"></div>
+
+  <div class="abs note" style="left:1270px;top:300px;width:600px;background:#15110dcc;border:1px solid #3b2e22;border-radius:6px;padding:8px 12px">
+    <b>Floor rings</b>: under the feet only, drawn on the canvas before the bodies, so a head, glove or foot is never covered. Outer gold arc = fuel, inner red arc = head damage. The panels above carry the controls.
+  </div>
+</div>
+
+<!-- ===== BOTTOM BAR (calls, as today) ===== -->
+<div class="abs panel" style="left:16px;top:832px;width:1888px;height:104px;display:flex;gap:12px;align-items:center">
+  <div class="btn" style="width:250px;height:66px;padding-top:8px">LET YOUR HANDS GO<div style="font-size:14px;color:#8fd16f">Beats it · fuel -3</div></div>
+  <div class="btn" style="width:250px;height:66px;padding-top:8px">GO TO THE BODY<div style="font-size:14px;color:#f0b23c">Works · fuel -1.5</div></div>
+  <div class="btn" style="width:250px;height:66px;padding-top:8px">BREATHE, PICK YOUR SHOTS<div style="font-size:14px;color:#ff6a55">Risky · fuel +3</div></div>
+  <div class="btn" style="width:140px;height:66px;padding-top:20px">Say nothing</div>
+  <div style="width:84px;height:84px;border-radius:50%;border:5px solid #e9b632;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;margin-left:20px">0:12</div>
+  <div class="note" style="width:470px;margin-left:16px">Hover a call or a step: its fuel slice is hatched on the bar and the readout says what it becomes, before you press.</div>
+  <div class="btn" style="width:110px;height:66px;padding-top:20px;margin-left:auto">2x</div>
+  <div class="btn" style="width:140px;height:66px;padding-top:20px">Skip round</div>
+</div>
+
+<!-- ===== NOTES ===== -->
+<div class="abs note" style="left:16px;top:946px;width:1888px;height:122px;border:1px dashed #4a3a2b;border-radius:6px;padding:8px 14px">
+  <div><b>TWO CONTROLS, TWO RESOURCES.</b> PACE (Coast / Steady / Push) buys exchanges with FUEL. GUARD (High / Normal / Open) buys exchanges with HEAD. Both buy the same thing, so every 30 seconds the question is which currency is cheaper now: fuel left against exchanges left, or head damage against her power and our chin.</div>
+  <div><b>LINKED.</b> Under 65 fuel the guard drops, so head hits grow (up to x1.5 when empty); High guard costs 0.5 fuel an exchange. <b>PIT STOP:</b> the minute's 3 points go to water (fuel), ice (body), or head (-8 damage a point).
+  <b>COAST</b> has no flat refill (the +6 is gone): it is for a round already settled, and coasting a lost round costs head.</div>
+</div>
+</body></html>

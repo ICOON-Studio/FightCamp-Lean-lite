@@ -1,0 +1,112 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Corner 10 of 10</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:#121012;color:#efe6d6;font-family:"Segoe UI",Arial,sans-serif;overflow:hidden;position:relative}
+.ring{position:absolute;left:470px;top:150px;width:980px;height:560px;background:linear-gradient(#1b1a20 0,#1b1a20 30%,#2448a8 30%,#1f3d90 100%);border-radius:6px;overflow:hidden}
+.rope{position:absolute;left:0;right:0;height:4px}
+.f{position:absolute;bottom:120px;width:80px}
+.f .h{width:56px;height:56px;border-radius:50%;margin:0 auto}
+.f .b{width:70px;height:170px;margin:4px auto 0;border-radius:14px}
+.f .l{width:60px;height:150px;margin:0 auto;border-radius:6px}
+.fr{position:absolute;bottom:90px;width:200px;height:60px;border-radius:50%}
+.panel{position:absolute;top:150px;width:440px;background:#1d1a1c;border-radius:6px;padding:14px 16px}
+.panel h2{font-size:22px;margin-bottom:2px}
+.sub{font-size:14px;color:#a99f90;margin-bottom:10px}
+.row{display:flex;align-items:center;margin:7px 0}
+.lab{width:80px;font-size:15px;font-weight:700;color:#cfc3ae}
+.seg{display:flex;border:1px solid #5a5048;border-radius:4px;overflow:hidden}
+.seg span{padding:5px 12px;font-size:15px;background:#2a2527}
+.seg span.on{background:#e8c25a;color:#1a1414;font-weight:700}
+.seg span.rec{outline:2px dashed #7fd3a6;outline-offset:-3px}
+.note{font-size:13px;color:#a99f90;margin-left:10px}
+.bar{position:relative;width:232px;height:16px;background:#2c2729;border-radius:3px;margin-left:4px}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
+.bar b{position:absolute;top:-4px;bottom:-4px;width:2px;background:#fff}
+.bar u{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,#ffffff55 0 4px,transparent 4px 8px)}
+.val{font-size:14px;margin-left:10px;width:90px}
+.read{font-size:14px;margin:0 0 6px 80px;color:#e8d9b8}
+.warn{color:#ff8a6a}.good{color:#7fd3a6}.gold{color:#e8c25a}.teal{color:#4fd0c0}
+.tells{margin-top:8px;border-top:1px solid #3a3335;padding-top:8px}
+.tell{display:flex;font-size:14px;margin:4px 0}
+.tell .k{width:84px;color:#a99f90}
+.tell .t{flex:1}
+.tell .s{width:96px;text-align:right;font-size:12px;color:#a99f90}
+.score{position:absolute;left:470px;top:10px;width:980px;text-align:center}
+.score .r{font-size:16px;color:#cfc3ae}
+.score .c{font-size:40px;font-weight:700}
+.score .y{font-size:14px;color:#e8c25a}
+.bottom{position:absolute;left:20px;right:20px;top:722px;height:128px;background:#1d1a1c;border-radius:6px;padding:12px 16px}
+.bottom h3{font-size:15px;color:#cfc3ae;margin-bottom:8px}
+.calls{display:flex;gap:10px}
+.call{width:200px;height:74px;background:#2a2527;border:1px solid #5a5048;border-radius:5px;text-align:center;padding-top:8px;font-size:15px;font-weight:700}
+.call small{display:inline-block;margin-top:4px;padding:1px 8px;border-radius:3px;font-size:12px;color:#111}
+.side{position:absolute;right:20px;top:728px}
+.foot{position:absolute;left:20px;right:20px;top:862px;height:200px;display:flex;gap:14px}
+.box{flex:1;background:#1a1719;border:1px dashed #4a4247;border-radius:6px;padding:10px 14px;font-size:14px;line-height:1.45}
+.box h4{font-size:15px;color:#e8c25a;margin-bottom:6px}
+.hurt{position:absolute;left:20px;top:20px;width:330px;background:#3a1612ee;border:2px solid #ff8a6a;border-radius:6px;padding:10px 12px;font-size:14px}
+</style></head><body>
+
+<div class="score"><div class="r">ROUND 3 of 3 &middot; 1:10 left</div><div class="c">1:10</div>
+<div class="y">Your read: R1 yours (clear), R2 close, could go either way. No cards shown: amateur corners never see them.</div></div>
+
+<div class="ring">
+  <div class="rope" style="top:150px;background:#ddd"></div><div class="rope" style="top:175px;background:#c33"></div><div class="rope" style="top:200px;background:#ddd"></div>
+  <div class="fr" style="left:300px;border:8px solid #e8c25a;border-right-color:#3a3335;border-bottom-color:#3a3335"></div>
+  <div class="fr" style="left:310px;width:180px;height:44px;bottom:98px;border:6px solid #4fd0c0;border-left-color:#3a3335;border-bottom-color:#3a3335;border-right-color:#3a3335"></div>
+  <div class="f" style="left:360px"><div class="h" style="background:#7a5233"></div><div class="b" style="background:#2c55c8"></div><div class="l" style="background:#2c55c8"></div></div>
+  <div class="fr" style="left:530px;border:8px dashed #e8c25a99"></div>
+  <div class="fr" style="left:540px;width:180px;height:44px;bottom:98px;border:6px dashed #4fd0c099"></div>
+  <div class="f" style="left:590px"><div class="h" style="background:#7a5233"></div><div class="b" style="background:#c8402c"></div><div class="l" style="background:#c8402c"></div></div>
+  <div class="hurt"><b class="warn">YOUR BOXER IS HURT</b> (stiff legs after the right hand).<br>Corner says: hands home, feet away, hold if caught.<br>Suggested: <b>Coast + Move</b>, then <b>Tie up</b>. Push here is how fighters get stopped.</div>
+</div>
+
+<div class="panel" style="left:20px;border-top:4px solid #2c55c8">
+  <h2>BLUE &middot; your boxer</h2><div class="sub">Set in the minute: Push + Centre. 1 of 2 shouts left.</div>
+  <div class="row"><span class="lab">HANDS</span><div class="seg"><span class="rec">Coast</span><span>Steady</span><span class="on">Push</span></div></div>
+  <div class="row"><span class="lab">FEET</span><div class="seg"><span>Press</span><span>Centre</span><span class="on rec">Move</span></div><span class="note">shout sent</span></div>
+  <div class="row"><span class="lab gold">WIND</span><div class="bar"><i style="width:44%;background:#e8c25a"></i><u style="left:38%;width:6%"></u><b style="left:40%"></b><b style="left:35%;background:#ff8a6a"></b></div><span class="val gold">slowing</span></div>
+  <div class="read">Gassed around 0:30 left at Push; reaches the bell at Coast.</div>
+  <div class="row"><span class="lab teal">LEGS</span><div class="bar"><i style="width:41%;background:#4fd0c0"></i><b style="left:30%;background:#ff8a6a"></b></div><span class="val teal">heavy</span></div>
+  <div class="read">Heavy since the body shots in R2. Off the ropes still possible.</div>
+  <div class="row"><span class="lab warn">DAMAGE</span><div class="bar"><i style="width:52%;background:#d9503a"></i><b style="left:60%;background:#fff"></b></div><span class="val warn">52 of 60</span></div>
+  <div class="read">One more bad round and a count can end it. The minute never brings it back.</div>
+  <div class="tells"><div class="tell"><span class="k">Hover Push</span><span class="t">next 30 s: wind -9, damage taken more if hit while open</span></div></div>
+</div>
+
+<div class="panel" style="right:20px;left:auto;border-top:4px solid #c8402c">
+  <h2>RED &middot; Ortega</h2><div class="sub">Not scouted: bars are your eye's guess, they narrow with each tell.</div>
+  <div class="row"><span class="lab gold">WIND</span><div class="bar"><i style="width:30%;background:#e8c25a"></i><i style="left:30%;width:18%;background:#e8c25a55"></i></div><span class="val gold">low, 30 to 48</span></div>
+  <div class="row"><span class="lab teal">LEGS</span><div class="bar"><i style="width:55%;background:#4fd0c0"></i><i style="left:55%;width:14%;background:#4fd0c055"></i></div><span class="val teal">fair, 55 to 69</span></div>
+  <div class="row"><span class="lab warn">DAMAGE</span><div class="bar"><i style="width:26%;background:#d9503a"></i></div><span class="val warn">26 (we saw it)</span></div>
+  <div class="tells">
+    <div class="tell"><span class="k">Breathing</span><span class="t">mouth open after the jab</span><span class="s">wind, R3 0:40</span></div>
+    <div class="tell"><span class="k">Hands</span><span class="t">right hand slow coming home</span><span class="s">wind, R3 1:10</span></div>
+    <div class="tell"><span class="k">Feet</span><span class="t">still bouncing, cuts the ring well</span><span class="s">legs, R3 0:20</span></div>
+    <div class="tell"><span class="k">Holding</span><span class="t">grabbed twice this round</span><span class="s">wind, R3 1:30</span></div>
+    <div class="tell"><span class="k">Their stool</span><span class="t">corner worked the thighs at the break</span><span class="s">legs, minute 2</span></div>
+    <div class="tell"><span class="k">Their corner</span><span class="t">heard: "Let your hands go, you need it"</span><span class="s">hands: Push</span></div>
+    <div class="tell"><span class="k">Film</span><span class="t">2 of 3 bouts faded in R3</span><span class="s">prior</span></div>
+  </div>
+</div>
+
+<div class="bottom">
+  <h3>SHOUT &middot; 1 of 2 left this round (a HANDS or FEET change is one)</h3>
+  <div class="calls">
+    <div class="call">TIE UP<br><small style="background:#7fd3a6">Beats it</small></div>
+    <div class="call">JAB AND MOVE<br><small style="background:#e8c25a">Works</small></div>
+    <div class="call">HANDS UP, MOVE YOUR HEAD<br><small style="background:#e8c25a">Works</small></div>
+    <div class="call" style="width:120px">Say nothing</div>
+    <div class="call" style="width:330px;text-align:left;padding:8px 12px;font-weight:400;font-size:14px">Ortega's game now: <b>Pressing, loading up</b><br><span class="warn">Hurt: Push and Let your hands go are off the list</span></div>
+  </div>
+</div>
+<div class="side" style="width:230px;right:40px;top:760px;font-size:14px;text-align:right;color:#a99f90">0:12 to the next exchange<br>Landed this round 5 - 7<br>2x &middot; Skip round &middot; Skip bout</div>
+
+<div class="foot">
+  <div class="box"><h4>THE MINUTE (pit stop)</h4>Set HANDS and FEET for the next round, free. Wind comes back about half, by Recovery. Legs a quarter, more with the second working the thighs (one of the 3 recover points). Damage: none. Read their stool: thighs rubbed, sits heavy, breathing hard, eye being worked.</div>
+  <div class="box"><h4>WHAT CHANGED FROM THE DRAWN v2</h4>Feet "Hold" is now <b>Centre</b> (hold means clinch in boxing). Head is <b>DAMAGE x of 60</b>. Cards replaced by your read of each round. Hurt boxer: Push is off the list, Coast + Move + Tie up. Opponent bars are ranges narrowed by live tells, film only sets the prior.</div>
+  <div class="box"><h4>THREE BODY RULES</h4>A liver shot takes the legs at once (rare, big), ordinary body work takes them later. A drained weight cut takes chin too: damage taken x1.15 at the first bell. Pressing a mover costs the presser less when Footwork and Ring IQ are higher: cutting the ring, not chasing.</div>
+  <div class="box"><h4>READOUTS IN CLOCK TIME</h4>Own boxer: one time, exact as camp sparring measured it ("gassed around 0:30 left"). Opponent: a window that narrows with tells ("tires between 2:00 of R2 and 1:00 of R3"). One pulse: the line about to be crossed.</div>
+</div>
+</body></html>

@@ -6866,6 +6866,22 @@
       "note": null,
       "answered_at": null,
       "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-202",
+      "asked": "2026-11-12T14:51:48.300284+00:00",
+      "session": "S294",
+      "text": "E: is 87% full, which keeps the PC on AMBER and holds Qwen behind every render. Two folders would free 17 GB: old review-board items already marked Removed (5.3 GB, 498 posts) and tmp/moss (12 GB: a model's repo, venv and weights from 7 Nov). Delete them for good?",
+      "options": [
+        "Delete both",
+        "Only the Removed review items",
+        "Neither"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }
