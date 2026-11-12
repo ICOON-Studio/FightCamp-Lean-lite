@@ -11,10 +11,13 @@ extends RefCounted
 ## - the weight: the cut while over the limit (Sim.week_ctx), clamped as the real day clamps it; the fatigue: the camp's peak.
 ## - S380 the protocol's evenings (BoutRules.camp_evening through Sim.week_ctx: pads drill the camp's stat, their load
 ##   scales fatigue and hours), the injury chance of the week-end training rolls before the bout (Injuries.end_week:
-##   InjuryRoll.training_chance on the week's hours, ratio to her usual and peak fatigue) and the heavy legs on the night.
-##   run(c, f, focus, protocol, film) -> {stats, kg (weigh-in morning), limit, weigh_ok, fatigue_now, fatigue_end, peak, days,
-##     injury (0..1 over the camp), stale (energy lost at the first bell)}
+##   InjuryRoll.training_chance on the week's hours, ratio to her usual and peak fatigue) and the Tank off at the first bell
+##   (S433 BoutRules.tank_for, camp or not: the bout reads the same number).
+##   run(c, f, focus, protocol, film) -> {stats, attrs (her abilities on fight night), kg (weigh-in morning), limit, weigh_ok, fatigue_now, fatigue_end, peak, days,
+##     injury (0..1 over the camp), stale (the Tank off at the first bell), tank_why (its parts in words)}
+##   S434: protocol 0 for a fighter with no camp forecasts her real week (no camp set), not a protocol-0 "camp".
 ##   all(c, f, protocol) -> {focus: run(...)} for every BoutRules.CAMP_FOCUSES entry
+##   for_read(c, f, opp) -> f, or a copy whose booked bout carries "tank_ahead" (the bout page's chance reads fight night)
 
 const Sim := preload("res://scripts/state/Sim.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
@@ -26,6 +29,7 @@ const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 
 
 static func run(c: Career, f: Dictionary, focus: String, protocol: int, film := false) -> Dictionary:
@@ -34,6 +38,8 @@ static func run(c: Career, f: Dictionary, focus: String, protocol: int, film := 
 	# start, else the camp opens today
 	g["camp"] = {"focus": focus, "protocol": protocol, "film": film,
 		"start": int((f.get("camp", {}) as Dictionary).get("start", c.day))}
+	if protocol < 1 and (f.get("camp", {}) as Dictionary).is_empty():
+		g["camp"] = {}   # S434 no camp is no camp: a protocol-0 "camp" cut weight (Sim.week_ctx) where her real week does not
 	var bout: Dictionary = g.get("bout", {})
 	var n := maxi(0, int(bout.get("day", c.day)) - c.day)   # fight night is stepped to, never trained on
 	var inj: Dictionary = g.get("injury", {})
@@ -60,10 +66,15 @@ static func run(c: Career, f: Dictionary, focus: String, protocol: int, film := 
 		var r := WeekPlan.full_day(str(m[0]), str(m[1]), "rest" if resting else str(evs[dow]), Sim.week_ctx(c, g),
 			float(g.get("week_fatigue", 20.0)))
 		var mult := TrainingLoad.gain("rest") if resting else 1.0
+		# S434 as Sim.step_day trains: through her attributes (Attrs.apply_session), so Recovery's gain reaches the next
+		# day's fatigue as it does on the real days (the Training tab's Tank is the bout's)
 		for k in [["stat", "gain"], ["stat2", "gain2"]]:
 			var st := str(r.get(k[0], ""))
 			if st != "" and (g["stats"] as Dictionary).has(st):
-				g["stats"][st] = minf(Sim.STAT_CAP, float(g["stats"][st]) + float(r[k[1]]) * BoutRules.camp_gain_mult(g["camp"], st) * mult * GymSpend.gain(c, st, g))
+				var gain := minf(Sim.STAT_CAP - float(g["stats"][st]), float(r[k[1]]) * BoutRules.camp_gain_mult(g["camp"], st) * mult * GymSpend.gain(c, st, g))
+				Attrs.apply_session(g, str(m[0]) if k[0] == "stat" else str(r.get("evening", "")), st, maxf(0.0, gain))
+		if float(r.get("attr_gain", 0.0)) > 0.0:
+			Attrs.apply_session(g, str(m[0]), "", float(r["attr_gain"]) * mult)
 		var lo := minf(float(g["weight"]), lim - 1.5)
 		var hi := maxf(float(g["weight"]), lim + 1.6)
 		g["weight"] = clampf(float(g["weight"]) + float(r["kg"]), lo, hi)
@@ -80,8 +91,10 @@ static func run(c: Career, f: Dictionary, focus: String, protocol: int, film := 
 				safe *= pow(1.0 - InjuryRoll.training_chance(h, h / usual if usual > 0.0 else 1.0, wpeak, GymSpend.train_risk(c)), int(WeekTwist.active(g).get("risk", 1)))
 			g["chronic"] = TrainingLoad.next_chronic(usual, h)
 	var fe := float(g.get("week_fatigue", fat0))
-	return {"stats": g["stats"], "kg": kg, "limit": lim, "weigh_ok": BoutRules.made_weight(kg, lim), "fatigue_now": fat0,
-		"fatigue_end": fe, "peak": peak, "days": n, "injury": 1.0 - safe, "stale": BoutRules.stale_energy(fe, g["camp"])}
+	var tp := BoutRules.tank_parts_for(c.results, g, fe, int(bout.get("day", c.day)))   # S433 the Tank, camp or not
+	# S439 CARDIO1 round 3: her attributes on fight night too (the Cardio card reads Stamina here, the number the bout reads)
+	return {"stats": g["stats"], "attrs": (Attrs.of(g) as Dictionary).duplicate(), "kg": kg, "limit": lim, "weigh_ok": BoutRules.made_weight(kg, lim), "fatigue_now": fat0,
+		"fatigue_end": fe, "peak": peak, "days": n, "injury": 1.0 - safe, "stale": float(tp["off"]), "tank_why": BoutRules.tank_words(tp)}
 
 
 static func all(c: Career, f: Dictionary, protocol: int, film := false) -> Dictionary:
@@ -90,3 +103,18 @@ static func all(c: Career, f: Dictionary, protocol: int, film := false) -> Dicti
 		out[key] = run(c, f, key, protocol, film)
 	return out
 
+
+
+## S434 the fighter as the bout page's chance reads her (BoutRead through BoutRules.tank_read): with a bout booked and not
+## fought, a copy whose bout carries the Tank her own forecast puts on fight night ("tank_ahead": her camp, else her real
+## week - the Training tab's number), not today's tiredness. opp another than the booked one (an offer): f as she is.
+static func for_read(c: Career, f: Dictionary, opp: Dictionary = {}) -> Dictionary:
+	var b: Dictionary = f.get("bout", {})
+	if b.is_empty() or bool(b.get("done", false)) or b.has("stale") or int(b.get("day", -1)) < c.day:
+		return f
+	if not opp.is_empty() and str(opp.get("name", "")) != str((b.get("opp", {}) as Dictionary).get("name", "")):
+		return f
+	var cp: Dictionary = f.get("camp", {})
+	var g := f.duplicate(true)
+	g["bout"]["tank_ahead"] = float(run(c, f, str(cp.get("focus", "")), int(cp.get("protocol", 0)), bool(cp.get("film", false)))["stale"])
+	return g

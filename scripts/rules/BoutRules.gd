@@ -34,6 +34,15 @@ const PROTOCOLS := [
 const FRESH_FATIGUE := 50.0
 const STALE_PER_POINT := 2.0
 const STALE_MAX := 20.0
+## S433 NOCAMP1 + TANK1 (CORE_LOOP_MAP_S432 C4): THE TANK at the first bell is one rule on every bout, camp or not - the
+## tiredness part above, plus the weight left to the day (CLUBWEEK 4's scale: weighed the same day 1 a 0.1 kg, 2 past
+## 0.5 kg; the day before 1 a 0.2 kg) and the boxer's own last bout (7 days ago -8, 14 days ago -4); all added, at most
+## TANK_MAX off. The freshness slope under 50 waits for training v6 (FITLEGS1).
+const TANK_MAX := 25.0
+const EAT_SAME_DAY := 10.0
+const EAT_PAST_KG := 0.5
+const EAT_DAY_BEFORE := 5.0
+const LAST_BOUT := [[7, 8.0], [14, 4.0]]
 const CAMP_FOCUSES: Array[String] = ["conditioning", "power", "technique", "defense", "speed"]
 ## S381 C229 stage 2: film is a phone video of her at a club show - free; it takes one Build-week pad night (WeekPhase.film_night).
 ## The only camp cash is the outside sparring partner from another club: travel and a favour, $40 a visit, 4 visits (design
@@ -53,6 +62,7 @@ const FILM_DEPTH_DEFAULT := 1
 ## to FILM_EDGE_MAX (design values; the old flat film edge was the same +1.2 for anyone).
 const FILM_PER_ANSWER := 0.4
 const FILM_EDGE_MAX := 1.2
+## S433 NOCAMP1: a professional with no camp only (night_edge); an amateur fight week has no camp and pays nothing.
 const NO_CAMP_EDGE := -1.5
 ## A camp is worth setting with at least a week to go.
 const CAMP_MIN_DAYS := 7
@@ -60,8 +70,22 @@ const CAMP_MIN_DAYS := 7
 ## slight edge, ~75% clear, ~88% big, ~95% at +13 (tools/balance_targets.gd measured spread 27).
 const ROUND_SPREAD := 27.0
 const ROUNDS := 3
-## Round 3: her engine fades below this conditioning; an opponent who "fades" loses this much.
-const FADE_CONDITIONING := 64.0
+## Round 3: she fades below this Stamina (S433 CARDIO1: Stamina, never the mean with Recovery), on a slope (TRAINING_MAP F3):
+## OWN_FADE x clamp(FADE_PER_POINT x (FADE_STAMINA - Stamina), 0, FADE_MAX); an opponent who "fades" loses OPP_FADE.
+## S434 FADESHARE (tools/fade_share.gd; Data.PROSPECTS + Lucy + 200 AttrGen recruits, signed through Attrs.from_stats, whose
+## Stamina starts 5 under the old mean). The bar (TRAINING_MAP F3): the share of FADING AMATEUR BOUTS within 5 points of
+## main's (the mean under 64, a flat 1.0). Measured AT FIGHT TIME: each signing through Sim.step_day's own week (no camp),
+## a bout on days 28, 35, 42, 49 and 56 (1,030 bouts). Main fades 64.6% of them. Line 59 fades 58.5% (-6.0, outside the
+## bar: Stamina trains 0.086 a day on the own week, the mean 0.050, so the split rule pulls away after signing); 60 fades
+## 63.6% (-1.0); 61 66.9% (+2.3); 64 74.4% (+9.8). On signing day 60 is +1.9 (70.9% vs 68.9%). THE LINE IS 60.
+## A player who answers a Stamina goal (the Cardio week: Tue intervals, Thu roadwork) fades 52.8% of bouts at 60, main's
+## rule 59.9%: the split pays the Stamina work more, as F3 wants. SIZE (the design slope kept, the developer decision):
+## a fading bout loses 1.49 on average at 60 (main: a flat 1.0), every bout 0.95 (main 0.65); holding main's size would
+## need OWN_FADE 0.68, which breaks F3's own points (62: 0.5, 60: 1.0, 56: 2 on the old 64). The deep end costs more,
+## the near miss less (TRAINING_MAP risks: "Stamina under 60 cost more than today"); LINES1 prices it in exchanges.
+const FADE_STAMINA := 60.0
+const FADE_PER_POINT := 0.25
+const FADE_MAX := 2.0
 const OWN_FADE := 1.0
 const OPP_FADE := 1.5
 
@@ -76,12 +100,12 @@ const CORNER_LONG_TECHNIQUE := 61.0
 const CORNER_CALM := 0.6
 ## S381 G1 (gym idea 5, the threshold bar on each camp card): the stat number that changes the night, one per stat that has
 ## one - the body call goes strong past CORNER_BODY_POWER, "Jab and move" past CORNER_LONG_TECHNIQUE, no round-3 fade from
-## FADE_CONDITIONING. above = strictly past it (fight_power's >), else at it or past (play_round's fade is < it). word = the
+## FADE_STAMINA. above = strictly past it (fight_power's >), else at it or past (play_round's fade is < it). word = the
 ## card's caption. Defence and hand speed have no line. fight_power and play_round read clears_night_line, so they never drift.
 const NIGHT_LINES := {
 	"power": {"at": CORNER_BODY_POWER, "word": "body call", "above": true},
 	"technique": {"at": CORNER_LONG_TECHNIQUE, "word": "jab and move", "above": true},
-	"conditioning": {"at": FADE_CONDITIONING, "word": "no round-3 fade", "above": false},
+	"stamina": {"at": FADE_STAMINA, "word": "no fade from round 3", "above": false, "name": "Stamina"},
 }
 
 const WEIGH_TOLERANCE := 0.05
@@ -160,12 +184,69 @@ static func camp_level(protocol: int) -> String:
 	return str(PROTOCOLS[clampi(protocol, 0, 3)]["level"])
 
 
-## Energy lost at the first bell to the fatigue she carries in (0 when fresh). Only after a camp (protocol >= 1): a
-## normal week settles near 60, and a fight without a camp is not taxed for the club's usual training.
-static func stale_energy(fatigue: float, camp: Dictionary = {"protocol": 1}) -> float:
-	if int(camp.get("protocol", 0)) < 1:
-		return 0.0
-	return clampf((fatigue - FRESH_FATIGUE) * STALE_PER_POINT, 0.0, STALE_MAX)
+## S433 the Tank's parts at the first bell: {tired, weight, bout, off (their sum, at most TANK_MAX)}. eat_kg = the kilos
+## left to eat off on the weigh-in day; days = since the boxer's own last bout (-1 none).
+static func tank_parts(fatigue: float, eat_kg: float = 0.0, days: int = -1, same_day: bool = true) -> Dictionary:
+	var tired := clampf((fatigue - FRESH_FATIGUE) * STALE_PER_POINT, 0.0, STALE_MAX)
+	var kg := maxf(0.0, eat_kg)
+	var weight := (kg + maxf(0.0, kg - EAT_PAST_KG)) * EAT_SAME_DAY if same_day else kg * EAT_DAY_BEFORE
+	var bout := 0.0
+	for row in LAST_BOUT:
+		if days >= 0 and days <= int(row[0]):
+			bout = float(row[1])
+			break
+	return {"tired": tired, "weight": weight, "bout": bout, "off": minf(TANK_MAX, tired + weight + bout)}
+
+
+## The energy off at the first bell (tank_parts' off).
+static func tank(fatigue: float, eat_kg: float = 0.0, days: int = -1, same_day: bool = true) -> float:
+	return float(tank_parts(fatigue, eat_kg, days, same_day)["off"])
+
+
+## The Tank off at the first bell of f's booked bout on `day` at this tiredness (BoutNight._peak and CampForecast, so the
+## Training tab and the bout read one number): the kilos the scale left to the day (bout "eat_kg"; an amateur weighs in on
+## the day, CLUBWEEK 4) and the boxer's own last bout (results = Career.results).
+static func tank_for(results: Array, f: Dictionary, fatigue: float, day: int) -> float:
+	return float(tank_parts_for(results, f, fatigue, day)["off"])
+
+
+## tank_for's parts (tank_parts). Her last bout is the newer of results and her own "last_bout_day" (BoutNight writes both;
+## a scratch career with no results - PlanTest, the bout page's read - still knows it).
+static func tank_parts_for(results: Array, f: Dictionary, fatigue: float, day: int) -> Dictionary:
+	var b: Dictionary = f.get("bout", {})
+	var days := days_since_bout(results, str(f.get("id", "")), day)
+	var own := int(f.get("last_bout_day", -1))
+	if own >= 0 and own <= day:
+		days = day - own if days < 0 else mini(days, day - own)
+	return tank_parts(fatigue, float(b.get("eat_kg", 0.0)), days, not (bool(f.get("pro", false)) or bool(b.get("pro", false))))
+
+
+## S434 the Tank off the bout page's read assumes (BoutRead): once fight night has set it, the played number; before, the
+## fight-night forecast the bout page put on its copy (bout "tank_ahead", CampForecast.for_read: the Training tab's number);
+## without one, the same rule on today's tiredness and her last bout. All with the hurt she fights with (Injuries.fight_hurt).
+static func tank_read(f: Dictionary) -> float:
+	var b: Dictionary = f.get("bout", {})
+	var off := float(b["stale"]) if b.has("stale") else (float(b["tank_ahead"]) if b.has("tank_ahead") else
+		tank_for([], f, float(f.get("week_fatigue", 20.0)), int(b.get("day", -1))))
+	return float(b.get("hurt", 0.0)) + off
+
+
+## The parts that cost something, in words: "tiredness 20, the last bout 8" ("" when nothing).
+static func tank_words(parts: Dictionary) -> String:
+	var out: Array = []
+	for k in [["tired", "tiredness"], ["weight", "the scale"], ["bout", "the last bout"]]:
+		if float(parts.get(k[0], 0.0)) >= 0.5:
+			out.append("%s %d" % [k[1], int(round(float(parts[k[0]])))])
+	return ", ".join(out)
+
+
+## Days from the boxer's newest bout in `results` (Career.results: {d, fid}) to `day`; -1 when none.
+static func days_since_bout(results: Array, fid: String, day: int) -> int:
+	var last := -1
+	for r in results:
+		if str((r as Dictionary).get("fid", "")) == fid:
+			last = maxi(last, int(r.get("d", -1)))
+	return day - last if last >= 0 else -1
 
 
 static func made_weight(weight: float, limit: float) -> bool:
@@ -179,12 +260,12 @@ static func film_edge(answered: int) -> float:
 
 ## Her strength on the night: the six fighting stats (chin aside), the camp, the film (answered = found tells her plan or
 ## drilled combos answer, FilmEdge.answered) and the corner call.
-static func fight_power(stats: Dictionary, camp: Dictionary, answered: int, corner: String) -> float:
+static func fight_power(stats: Dictionary, camp: Dictionary, answered: int, corner: String, pro: bool = false) -> float:
 	var p := 0.0
 	for k in ["power", "speed", "technique", "defense", "conditioning", "fight_iq"]:
 		p += float(stats.get(k, 55.0))
 	p /= 6.0
-	p += night_edge(camp, answered)
+	p += night_edge(camp, answered, pro)
 	match corner:
 		"body":
 			p += CORNER_STRONG if clears_night_line("power", float(stats.get("power", 0.0))) else CORNER_WEAK
@@ -196,21 +277,48 @@ static func fight_power(stats: Dictionary, camp: Dictionary, answered: int, corn
 
 
 ## S398 the night's edges without the stats (the watched bout fights the stats as duels, RingDuel): the camp and the film.
-static func night_edge(camp: Dictionary, answered: int) -> float:
-	var p := float(PROTOCOLS[clampi(int(camp.get("protocol", 0)), 0, 3)]["edge"]) if not camp.is_empty() else NO_CAMP_EDGE
+## S433 NOCAMP1: NO_CAMP_EDGE only for a professional with no camp; an amateur fight week needs none.
+static func night_edge(camp: Dictionary, answered: int, pro: bool = false) -> float:
+	var p := float(PROTOCOLS[clampi(int(camp.get("protocol", 0)), 0, 3)]["edge"]) if not camp.is_empty() else (NO_CAMP_EDGE if pro else 0.0)
 	return p + film_edge(answered)
 
 
-## One round. roll_a / roll_b are in [0, 1). Returns {n, won, mine, theirs, corner}.
+## One round. roll_a / roll_b are in [0, 1); stats carries "stamina" (the fade's one number). Returns {n, won, mine, theirs, corner}.
 static func play_round(n: int, stats: Dictionary, camp: Dictionary, answered: int, corner: String, opp: Dictionary,
 		roll_a: float, roll_b: float, weapons_bonus: float = 0.0) -> Dictionary:
 	var mine := fight_power(stats, camp, answered, corner) + weapons_bonus + (roll_a - 0.5) * ROUND_SPREAD
-	if n >= ROUNDS and not clears_night_line("conditioning", float(stats.get("conditioning", 0.0))):
-		mine -= OWN_FADE
+	if n >= ROUNDS:   # S434: no default; a caller without her Stamina is a script error, never a silent fade
+		mine -= own_fade(float(stats["stamina"]))
 	var theirs := float(opp.get("rating", 60.0)) + (roll_b - 0.5) * ROUND_SPREAD
 	if n >= ROUNDS and str(opp.get("weak", "")).begins_with("Fades"):
 		theirs -= OPP_FADE
 	return {"n": n, "won": mine >= theirs, "mine": mine, "theirs": theirs, "corner": corner}
+
+
+## Her own fade from round 3 at this Stamina: 0 at the line, 0.25 a point under it, at most 2 (OWN_FADE x the slope).
+static func own_fade(stamina: float) -> float:
+	return OWN_FADE * clampf(FADE_PER_POINT * (FADE_STAMINA - stamina), 0.0, FADE_MAX)
+
+
+## The Stamina row's fade line in words a player reads (fight_power is the plain average of the stats, so a fade is that
+## many points off every stat): "tires from round 3, every stat 0.50 lower; no fade from Stamina 60" or "no fade from
+## round 3 (Stamina 60 or more)".
+## S439 T17 ("Printed on the row"): the same line short enough for the Stamina row itself, in game words (no bare "fade",
+## S422): "From round 3: fights 0.61 weaker; Stamina 60 stops it" or "From round 3: fights no weaker (Stamina 60 or more)" (the
+## number is own_fade, points off her fight strength from round 3 on, play_round's n >= ROUNDS; S439: not "every stat", which
+## the live fight only approximates); fade_words stays the hover's sentence.
+static func fade_row(stamina: float) -> String:
+	var fd := own_fade(stamina)
+	if fd > 0.0:
+		return "From round %d: fights %.2f weaker; Stamina %d stops it" % [ROUNDS, fd, int(FADE_STAMINA)]
+	return "From round %d: fights no weaker (Stamina %d or more)" % [ROUNDS, int(FADE_STAMINA)]
+
+
+static func fade_words(stamina: float) -> String:
+	var fd := own_fade(stamina)
+	if fd > 0.0:
+		return "tires from round 3, every stat %.2f lower; no fade from Stamina %d" % [fd, int(FADE_STAMINA)]
+	return "no fade from round 3 (Stamina %d or more)" % int(FADE_STAMINA)
 
 
 ## S381 G1 the stat's night line ({at, word, above}, NIGHT_LINES) or {} when the stat has none.
@@ -226,12 +334,12 @@ static func clears_night_line(stat: String, value: float) -> bool:
 	return value > float(l["at"]) if bool(l["above"]) else value >= float(l["at"])
 
 
-## The card's caption: "past 60: body call", "at 64: no round-3 fade" ("" for a stat with no line).
+## The card's caption: "past 60: body call", "Stamina 60: no fade from round 3" (a line that names its row) ("" for none).
 static func night_line_words(stat: String) -> String:
 	var l := night_line(stat)
 	if l.is_empty():
 		return ""
-	return "%s %d: %s" % ["past" if bool(l["above"]) else "at", int(l["at"]), str(l["word"])]
+	return "%s %d: %s" % [str(l.get("name", "past" if bool(l["above"]) else "at")), int(l["at"]), str(l["word"])]
 
 
 ## The call the corner makes when the player sims to the result: her better tool.
@@ -261,13 +369,25 @@ const CLOSE_MARGIN := 3.0
 const EXCHANGES_A_ROUND := 6   # Exchanges.EXCHANGES (this file preloads nothing)
 
 static func cards_of(rounds: Array) -> Array:
-	var won := 0
+	var won := rounds.filter(func(r): return bool((r as Dictionary).get("won", false))).size()
+	var total := rounds.size()
+	var hers := 10 * won + 9 * (total - won)
+	var theirs := 9 * won + 10 * (total - won)
+	var exact := "%d-%d" % [hers, theirs]
+	var pick := flip_round(rounds)
+	if pick < 0:
+		return [exact, exact, exact]
+	var swing := -1 if bool((rounds[pick] as Dictionary).get("won", false)) else 1
+	return [exact, exact, "%d-%d" % [hers + swing, theirs - swing]]
+
+
+## The round the third judge scores the other way (-1 = none): the closest CLOSE round. The cards, the result page's
+## round chips (Broadcast.judge_rounds) and the fight's judge tiles (RoundGraphics.judges) all read this one choice.
+static func flip_round(rounds: Array) -> int:
 	var pick := -1
 	var best := INF
 	for i in rounds.size():
 		var r: Dictionary = rounds[i]
-		if bool(r.get("won", false)):
-			won += 1
 		var how_close := INF
 		if r.has("won_n"):
 			if int(r["won_n"]) * 2 == EXCHANGES_A_ROUND:
@@ -279,14 +399,7 @@ static func cards_of(rounds: Array) -> Array:
 		if how_close < best:
 			best = how_close
 			pick = i
-	var total := rounds.size()
-	var hers := 10 * won + 9 * (total - won)
-	var theirs := 9 * won + 10 * (total - won)
-	var exact := "%d-%d" % [hers, theirs]
-	if pick < 0:
-		return [exact, exact, exact]
-	var swing := -1 if bool((rounds[pick] as Dictionary).get("won", false)) else 1
-	return [exact, exact, "%d-%d" % [hers + swing, theirs - swing]]
+	return pick
 
 
 ## "win", "loss" or "draw" from the cards: a majority of judges decides; anything else is a draw.
@@ -308,19 +421,13 @@ static func verdict(cards: Array) -> String:
 
 ## Up to three one-line reasons. rounds: the played rounds; camp_focus_label e.g. "Conditioning"; threat in lower case.
 ## answered: the found tells her plan answered (S381 C229 stage 4: the film counts only when the plan used it).
-static func why(rounds: Array, has_camp: bool, protocol: int, camp_focus_label: String, answered: int, threat: String,
+## S433 NOCAMP1: the canned lines are gone ("The camp: ... held up", "No camp: ... a step slow", "Your corner call ...
+## won that round" - said whatever happened); the camp, the Tank and the calls speak through their own sized lines.
+static func why(_rounds: Array, _has_camp: bool, _protocol: int, _camp_focus_label: String, answered: int, threat: String,
 		first: String) -> Array:
 	var out: Array = []
 	if answered >= 1:
 		out.append("The film study: %s knew the %s was coming." % [first, threat])
-	if has_camp and protocol >= 2:
-		out.append("The camp: %s held up when it mattered." % camp_focus_label.to_lower())
-	if not has_camp:
-		out.append("No camp: %s looked a step slow from round 2." % first)
-	for r in rounds:
-		if bool(r["won"]) and str(r["corner"]) != "":
-			out.append("Your corner call before round %d (\"%s\") won that round." % [int(r["n"]), CORNER[r["corner"]]])
-			break
 	return out.slice(0, 3)
 
 

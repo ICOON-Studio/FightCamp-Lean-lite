@@ -1,0 +1,222 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Our show - critic 10/10</title>
+<style>
+:root{--bg:#101418;--panel:#181e25;--panel2:#1e252d;--line:#2b343e;--text:#e9e6df;--mut:#8f99a4;--gold:#e2b64c;--red:#d8473e;--blue:#4a82dc;--green:#46b86f;--amber:#e08a2e}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--text);font-family:"Segoe UI",Arial,sans-serif;font-size:15px}
+.num{font-family:Bahnschrift,"Segoe UI",sans-serif;font-variant-numeric:tabular-nums}
+.cap{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700}
+.mut{color:var(--mut)}
+.g{color:var(--green)} .r{color:#ef7a70} .y{color:var(--gold)}
+.top{position:absolute;left:0;top:0;width:1920px;height:60px;background:#0a0d10;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px;gap:22px}
+.arrow{width:32px;height:32px;border:1px solid var(--line);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:18px}
+.gym{font-weight:700;font-size:18px}.date{color:var(--mut)}
+.flag{background:#3a2a10;color:var(--gold);border:1px solid #6b4f1c;border-radius:3px;padding:4px 10px;font-size:12px;letter-spacing:1.5px;font-weight:700}
+.sp{flex:1}
+.cash{font-size:20px;font-weight:700}.cash small{display:block;font-size:11px;color:var(--mut);font-weight:400;letter-spacing:1px}
+.cont{background:var(--red);border-radius:4px;padding:8px 18px;font-weight:700;font-size:16px;line-height:1.1}.cont small{display:block;font-weight:400;font-size:12px;opacity:.9}
+.rail{position:absolute;left:0;top:60px;width:88px;height:1020px;background:#0c1014;border-right:1px solid var(--line);padding-top:18px}
+.rail div{height:64px;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:14px;border-left:3px solid transparent}
+.rail .on{color:var(--text);border-left-color:var(--red);background:#151b21;font-weight:700}
+.main{position:absolute;left:112px;top:70px;width:1784px}
+.tabs{display:flex;gap:6px;height:30px}
+.tab{padding:4px 18px;border:1px solid var(--line);border-bottom:none;border-radius:4px 4px 0 0;color:var(--mut)}
+.tab.on{background:var(--panel);color:var(--text);font-weight:700;border-color:#3a4450}
+.head{background:var(--panel);border:1px solid #3a4450;border-radius:0 6px 6px 6px;padding:8px 20px 6px}
+.h1row{display:flex;align-items:center;gap:12px}
+.h1{font-family:Bahnschrift,"Segoe UI";font-size:26px;font-weight:700;letter-spacing:1px}
+.chip{border:1px solid var(--line);border-radius:3px;padding:3px 10px;font-size:13.5px;background:var(--panel2)}
+.chip b{color:var(--gold)}
+.chip.slot{border-color:#6b5420;background:#241d0f}
+.days{margin-left:auto;font-family:Bahnschrift;font-size:28px;color:var(--gold);font-weight:700}
+.days small{font-size:13px;color:var(--mut);letter-spacing:2px;margin-left:6px}
+.tl{display:flex;position:relative;margin-top:7px}
+.tl:before{content:"";position:absolute;left:8px;right:8px;top:6px;height:2px;background:var(--line)}
+.node{position:relative;flex:1;font-size:12.5px;color:var(--mut);line-height:1.3}
+.node i{display:block;width:13px;height:13px;border-radius:50%;background:var(--bg);border:2px solid var(--line);margin-bottom:3px}
+.node.now i{border-color:var(--gold);background:var(--gold)}
+.node.now{color:var(--text);font-weight:700}
+.node b{color:var(--text);font-weight:600}
+.node.reg{flex:2.6}
+.node.reg i{border-color:var(--blue)}
+.node:last-child{flex:0 0 120px;text-align:right}.node:last-child i{margin-left:auto;border-color:var(--red)}
+.cols{display:flex;gap:16px;margin-top:8px}
+.left{width:1150px}.right{width:618px}
+.row{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:6px 14px;margin-bottom:6px}
+.row.live{border-color:#6b5420;box-shadow:inset 3px 0 0 var(--gold)}
+.rh{display:flex;align-items:center;gap:10px}
+.disc{width:36px;height:36px;border-radius:50%;flex:0 0 36px;display:flex;align-items:center;justify-content:center;font-family:Bahnschrift;font-weight:700;font-size:15px;background:#3b1d1b;border:2px solid var(--red);color:#f3c2bd}
+.nm{font-weight:700;font-size:17px}.sub{font-size:13px;color:var(--mut)}
+.st{display:flex;gap:6px;margin-left:auto}
+.s{font-size:12.5px;border:1px solid var(--line);border-radius:3px;padding:2px 8px;color:var(--mut)}
+.s b{color:var(--text);font-weight:600}
+.s.warn{border-color:#7a4a1a;background:#2a1d10;color:#e8b07a}.s.warn b{color:#f1c08c}
+.strip{margin-top:6px;background:#1d1a10;border:1px solid #5c4a1c;border-radius:4px;padding:4px 10px;font-size:13.5px}
+.strip b{color:var(--gold)}
+table.rt{width:100%;border-collapse:collapse;margin-top:6px;font-size:13.5px}
+.rt th{font-size:11.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);font-weight:600;text-align:right;padding:3px 8px;border-bottom:1px solid var(--line)}
+.rt th:first-child,.rt td:first-child{text-align:left}
+.rt td{padding:3px 8px;border-bottom:1px solid #222a33;text-align:right}
+.rt td.w{text-align:left;color:var(--mut);font-size:12.5px;max-width:290px}
+.rt tr.pick td{background:#232014}
+.rt tr.pick td:first-child{box-shadow:inset 3px 0 0 var(--gold)}
+.rt .big{font-family:Bahnschrift;font-size:18px;font-weight:700;color:var(--gold)}
+.rt .opt b{font-weight:700}
+.rt .opt span{display:block;color:var(--mut);font-size:12px}
+.btn{display:inline-block;border:1px solid #6b5420;background:#2c2412;color:var(--gold);border-radius:3px;padding:2px 10px;font-size:12.5px;font-weight:700}
+.btn.on{background:var(--gold);color:#16120a}
+.btn.grey{border-color:var(--line);background:var(--panel2);color:var(--mut)}
+.tiles{display:flex;gap:9px;margin-top:6px}
+.tile{flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:5px 10px}
+.tile.pick{border-color:var(--gold);box-shadow:inset 0 0 0 1px #6b5420}
+.tile .tn{font-weight:700;font-size:14.5px;display:flex;justify-content:space-between;align-items:center}
+.kv{display:grid;grid-template-columns:70px 1fr;font-size:12.8px;line-height:1.4;margin-top:2px}
+.kv dt{color:var(--mut)}
+.all{margin-top:5px;font-size:13px;color:var(--mut)}
+.all b{color:var(--text)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:8px 14px;margin-bottom:7px}
+.bar{display:flex;height:24px;border-radius:3px;overflow:hidden;margin-top:6px;font-size:12.5px;font-weight:700}
+.bar div{display:flex;align-items:center;justify-content:center}
+.ln{display:flex;justify-content:space-between;font-size:13.5px;line-height:1.5}
+.ln.t{border-top:1px solid var(--line);margin-top:3px;padding-top:3px;font-weight:700}
+.fv{display:grid;grid-template-columns:170px 58px 1fr;font-size:13px;line-height:1.55;align-items:center}
+.dots b{color:var(--gold)}
+.note{font-size:12.5px;color:var(--mut);margin-top:3px}
+.pair{font-size:13px;line-height:1.5}
+</style></head><body>
+<div class="top">
+  <div class="arrow">&lsaquo;</div><div class="arrow">&rsaquo;</div>
+  <div class="gym">Anvil Street Gym</div><div class="date">Thu 9 Jul 2026 &middot; Week 27</div>
+  <div class="flag">SHOW CARD</div><div class="sp"></div>
+  <div class="cash num">$11,400<small>RUNNING +$140 A WEEK</small></div>
+  <div class="cont">NEEDS YOU (1)<small>Lucy: ask again before the posters, Mon 13 Jul</small></div>
+  <div class="mut" style="font-size:16px">Menu</div>
+</div>
+<div class="rail"><div>Home</div><div>Fighters</div><div class="on">Fights</div><div>Club</div><div>World</div></div>
+
+<div class="main">
+ <div class="tabs"><div class="tab">Bouts</div><div class="tab on">Our show</div><div class="tab">Results</div></div>
+ <div class="head">
+  <div class="h1row">
+   <div class="h1">ANVIL STREET CLUB SHOW</div>
+   <div class="chip"><b>Sat 25 Jul</b></div>
+   <div class="chip">Community hall &middot; <b>250</b> seats &middot; <b>$25</b></div>
+   <div class="chip">Card <b>9 of 9</b>: 2 ours, 7 visiting</div>
+   <div class="chip">Deposit <b>$300</b> paid &middot; $2,840 due on the night</div>
+   <div class="days">16<small>DAYS</small></div>
+  </div>
+  <div class="tl">
+   <div class="node now"><i></i>Today<br>Priya Nair said no</div>
+   <div class="node"><i></i><b>Sun 12 Jul</b><br>answer to an ask made today</div>
+   <div class="node"><i></i><b>Mon 13 Jul</b><br>posters print &middot; ticket read</div>
+   <div class="node reg"><i></i><b>Sat 18 Jul, region's show</b> (not ours)<br>6 free at 60 kg, 2 bouts drawn: <b>Priya Nair boxes 2 in 3</b></div>
+   <div class="node"><i></i><b>Mon 20 Jul</b><br>fight week</div>
+   <div class="node"><i></i><b>Wed 22 Jul</b><br>bout sheet closes</div>
+   <div class="node"><i></i><b>Fri 24 Jul</b><br>weigh-in</div>
+   <div class="node"><i></i><b>Show night</b><br>Sat 25 Jul</div>
+  </div>
+ </div>
+
+ <div class="cols">
+ <div class="left">
+  <!-- LUCY -->
+  <div class="row live">
+   <div class="rh"><div class="disc">LJ</div>
+    <div><div class="nm">Lucy Jackson &nbsp;6-1</div><div class="sub">No. 4, women's 60 kg &middot; novice, 7 bouts &middot; brings 28 tickets &middot; Priya Nair said no (spent)</div></div>
+    <div class="st"><div class="s">Weight <b>59.6</b> of 60.0</div><div class="s">Fresh</div><div class="s">Morale <b>Fired up</b></div></div>
+   </div>
+   <div class="strip">One more win with a top-3 place = <b>7 wins: a pro offer on the night</b>. One ask now; a no leaves one more before the sheet closes.</div>
+   <table class="rt">
+    <tr><th>Whom and how</th><th>Says yes</th><th>Lucy wins</th><th>Pro offer</th><th>Seats</th><th>Favours</th><th>What else it decides</th><th></th></tr>
+    <tr class="pick"><td class="opt"><b>Erin Doyle</b>, No. 2, as it is<span>Belfast Gloves ABC &middot; main event</span></td><td class="num">6 in 10</td><td class="num">45 <span class="mut">(38-52)</span></td><td class="big">39</td><td class="num g">+44</td><td class="num">none</td><td class="w">Win: No. 2 or 3 either way. Loss: No. 5 or 6, the pro offer months off.</td><td><span class="btn on">Ask</span></td></tr>
+    <tr><td class="opt"><b>Erin Doyle</b>, with a Belfast favour<span>the only Belfast favour</span></td><td class="num">9 in 10</td><td class="num">45</td><td class="big">44</td><td class="num g">+44</td><td class="num r">Belfast -1</td><td class="w">Belfast then 0: no free sparring partner from them for the pro debut camp ($160).</td><td><span class="btn">Ask</span></td></tr>
+    <tr><td class="opt"><b>Erin Doyle</b>, promise a return bout<span>away at Belfast's show by Sat 17 Oct</span></td><td class="num">9 in 10</td><td class="num">45</td><td class="big">44</td><td class="num g">+44</td><td class="num r">-2 if Lucy turns pro</td><td class="w">The pro offer and the promise clash: take the offer and Belfast is owed (their yes -2 in 10).</td><td><span class="btn">Ask</span></td></tr>
+    <tr><td class="opt"><b>Maria Ortega</b>, No. 7, as it is</td><td class="num">9 in 10</td><td class="num">65 <span class="mut">(58-72)</span></td><td class="big">34</td><td class="num g">+31</td><td class="num">none</td><td class="w">A win is No. 3 only if Chloe beats Erin here (42 in 100) or Priya loses on Sat 18 Jul (1 in 5).</td><td><span class="btn">Ask</span></td></tr>
+    <tr><td class="opt"><b>Maria Ortega</b> + swap Erin v Priya<span>both clubs say yes 7 in 10 &middot; Supervisor allows (48-62)</span></td><td class="num">9 in 10</td><td class="num">65</td><td class="big">53</td><td class="num g">+31</td><td class="num r">Belfast -1, Leicester -1</td><td class="w">One name above Lucy must lose: a win is No. 3. Both favours gone before the pro camp.</td><td><span class="btn">Ask all three</span></td></tr>
+   </table>
+  </div>
+
+  <!-- SAMIRA -->
+  <div class="row">
+   <div class="rh"><div class="disc">SK</div>
+    <div><div class="nm">Samira Khan &nbsp;4-2 &nbsp;<span class="mut" style="font-weight:400;font-size:13px">v Laura Finch (said yes), No. 3, Islington BC</span></div><div class="sub">No. 4, women's 65 kg &middot; win: No. 3 &middot; loss: No. 5, or No. 6 if Tia Benson wins on Sat 18 Jul</div></div>
+    <div class="st"><div class="s warn">Weight <b>64.9</b> of 65.0 on the day</div><div class="s">Morale <b>Steady</b></div></div>
+   </div>
+   <div class="tiles">
+    <div class="tile pick"><div class="tn">Keep the cut <span class="btn on">Picked</span></div><dl class="kv"><dt>Weight</dt><dd>misses <b>1 in 6</b>: bout off on Fri 24 Jul</dd><dt>On a miss</dt><dd>reputation -2, Islington favour -1, seats -25</dd><dt>Wins</dt><dd>38 in 100 if made</dd></dl></div>
+    <div class="tile"><div class="tn">Harder fight week <span class="btn">Choose</span></div><dl class="kv"><dt>Weight</dt><dd>Tue, Thu Hard intervals: misses <b>1 in 25</b></dd><dt>Night</dt><dd>Energy -12 at the first bell</dd><dt>Wins</dt><dd>33 in 100 if made</dd></dl></div>
+    <div class="tile"><div class="tn">Stand down <span class="btn">Stand down</span></div><dl class="kv"><dt>Seats</dt><dd>-25 (about -$560)</dd><dt>Favour</dt><dd>Islington -1 now, for sure</dd><dt>After</dt><dd>offers again from Tue 14 Jul</dd></dl></div>
+   </div>
+   <div class="all">All told, Samira wins on the night: <b>keep 32 in 100</b> &middot; <b>harder 32 in 100</b> &middot; stand down 0. Keep risks reputation and a favour; harder spends Energy.</div>
+  </div>
+
+  <!-- DANNY -->
+  <div class="row">
+   <div class="rh"><div class="disc">DO</div>
+    <div><div class="nm">Danny Osei &nbsp;4-1</div><div class="sub">No. 4, men's 60 kg &middot; novice, 5 bouts &middot; no novice left in the region: outside novices only ($80, no tape)</div></div>
+    <div class="st"><div class="s">Morale <b>Flat 41</b></div><div class="s warn">Goal: Conditioning <b>+1.3 of +2.5</b>, judged at the next bout</div></div>
+   </div>
+   <div class="strip">A bout judges the goal: met <b>+10</b> morale, not met <b>-20</b>. With a fight week (light, 3 rest days) it stands at 2.2 on the night; training through meets it Thu 23 Jul.</div>
+   <div class="tiles">
+    <div class="tile"><div class="tn">Novice, train through <span class="btn">Book</span></div><dl class="kv"><dt>Wins</dt><dd>44 in 100 (Energy -10 from the full week)</dd><dt>Win</dt><dd>No. 3 if Liam beats Dean, else No. 4</dd><dt>Morale</dt><dd>win 64 Steady &middot; loss 44 Flat &middot; seats +22</dd></dl></div>
+    <div class="tile"><div class="tn">Skills bout, train through <span class="btn">Book</span></div><dl class="kv"><dt>Result</dt><dd>no winner, no rank move, no members</dd><dt>Morale</dt><dd>booked +5, goal met +10: 56 Steady</dd><dt>Risk</dt><dd>hurt 1 in 16, as any bout &middot; seats +22</dd></dl></div>
+    <div class="tile pick"><div class="tn">Leave off the card <span class="btn on">Picked</span></div><dl class="kv"><dt>Morale</dt><dd>41 now; +10 at the next bout</dd><dt>Slot</dt><dd>a visiting pair takes it: +6 seats, $80</dd></dl></div>
+   </div>
+  </div>
+
+  <div class="row">
+   <div class="cap" style="margin-bottom:3px">The rest of the card: 7 visiting pairs</div>
+   <div class="pair"><b>Erin Doyle v Chloe Bennett</b> <span class="mut">&middot; ends if Erin says yes to Lucy (Chloe then meets Ellie Ward). Moves Lucy only on the Maria routes; the swap is priced in Lucy's table.</span></div>
+   <div class="pair"><b>Dean Clarke v Liam Doherty</b> <span class="mut">(+5 pairs on no ladder of ours) &middot; Danny's rank on a win depends on it (Liam wins 38 in 100). No swap: at 4 wins a rank opens nothing.</span></div>
+   
+  </div>
+ </div>
+
+ <!-- RIGHT -->
+ <div class="right">
+  <div class="panel">
+   <div class="cap">The night, with the picks above</div>
+   <div class="bar">
+    <div style="width:44%;background:#3a4450">Club 105</div>
+    <div style="width:12%;background:var(--gold);color:#16120a">Ours 50</div>
+    <div style="width:10%;background:var(--amber);color:#16120a">24</div>
+    <div style="width:20%;background:var(--blue)">Visitors 48</div>
+    <div style="width:14%;background:#1a2027;color:var(--mut)">empty</div>
+   </div>
+   <div class="note">Club, ours, posters (amber), visitors. Sold <b class="num" style="color:var(--text)">208</b> likely &middot; 175 on a bad night (1 in 10) &middot; full room (213) 42 in 100</div>
+   <div class="ln" style="margin-top:4px"><span>Tickets 208 x $25</span><span class="num">$5,200</span></div>
+   <div class="ln"><span>Raffle, about</span><span class="num">$1,000</span></div>
+   <div class="ln"><span>Hall, officials, doctor, medals</span><span class="num r">-$2,500</span></div>
+   <div class="ln"><span>Travel, 16 visitors x $40</span><span class="num r">-$640</span></div>
+   <div class="ln t"><span>Likely net &middot; 1 night in 10 under +$2,200</span><span class="num g">+$3,060</span></div>
+   <div class="ln" style="margin-top:3px"><span class="mut">The same bouts away: Lucy and Samira, $450 each</span><span class="num">$900</span></div>
+  </div>
+
+  <div class="panel">
+   <div class="cap">If Lucy gets the pro offer</div>
+   <div class="ln"><span>Stipend stops</span><span class="num g">+$250 a week</span></div>
+   <div class="ln"><span>Licence, medicals, trainer's licence (once)</span><span class="num r">-$1,245</span></div>
+   <div class="ln"><span>Gym's 25% of the $1,500 debut purse</span><span class="num g">+$375</span></div>
+   <div class="ln"><span>Lucy leaves the amateur table and the club's shows</span><span class="num r">-28 seats next show</span></div>
+   <div class="note">The offer can be turned down; a second one needs more wins.</div>
+  </div>
+
+  <div class="panel">
+   <div class="cap">Favours: what each one is worth</div>
+   <div class="fv"><span>Belfast Gloves ABC</span><span class="dots"><b>&#9679;</b>&#9675;&#9675;</span><span>Erin's yes +3 in 10 &middot; half the swap &middot; a free camp partner ($160)</span></div>
+   <div class="fv"><span>Leicester ABC</span><span class="dots"><b>&#9679;</b>&#9675;&#9675;</span><span>half the swap &middot; a free camp partner ($160)</span></div>
+   <div class="fv"><span>Islington BC</span><span class="dots"><b>&#9679;</b>&#9675;&#9675;</span><span>at risk: Samira's miss or stand-down takes it</span></div>
+   <div class="note">Earn one: a clean bout of ours against their boxer (at most 3). Below 0 their yes is -2 in 10 on everything.</div>
+  </div>
+
+  <div class="panel">
+   <div class="cap">Reputation 24 and members</div>
+   <div class="ln"><span>Lucy v Erin, main event: win / loss</span><span class="num"><span class="g">+8</span> / <span class="r">-5</span></span></div>
+   <div class="ln"><span>Samira v Laura: win / loss / misses weight</span><span class="num"><span class="g">+5</span> / <span class="r">-2</span> / <span class="r">-2</span></span></div>
+   <div class="ln"><span>Full room (42 in 100)</span><span class="num g">+4</span></div>
+   <div class="note">Members 58, room for 66 (the equipment: 22 places). Past reputation 30 a win adds no members. <span class="btn" style="margin-left:6px">Add places</span></div>
+  </div>
+ </div>
+ </div>
+</div>
+</body></html>

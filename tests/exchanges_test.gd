@@ -151,7 +151,17 @@ func _initialize() -> void:
 	var behind := XB.share(-10.0, "oracle", 1)
 	print("  even fight: none %.2f, the corner's read %.2f, wrong %.2f; 10 points behind with perfect calls %.2f" % [none, seen, wrong, behind])
 	_check(seen >= none + 0.05, "shouting the read wins more than saying nothing")
-	_check(wrong <= none - 0.15, "wrong calls lose clearly more")
+	# S434 CARDIO1 round 2: this pair on 2,000 bouts (the same days, 5x as many). On 400 the bar sits inside one standard
+	# error of the gap (~0.028): the fade line moving 59 -> 60 (0.25 more round-3 fade for Lucy, Stamina 56.4) moved the
+	# 400-bout gap 0.15 -> 0.14 and turned it red. Measured on 2,000: line 59 none 0.2775 wrong 0.1185 gap 0.1590; line 60
+	# none 0.2735 wrong 0.1170 gap 0.1565. The bar (0.15) is unchanged and still reads red if the gap shrinks below it.
+	# S434 NOCAMP1 control arm (tools/nocamp_probe.gd "exch", 1,200 bouts, rested each bout): main's code none 0.2717 wrong
+	# 0.1125 gap 0.1592; the branch without NOCAMP1 0.3208 / 0.1492 gap 0.1717; with it 0.2950 / 0.1292 gap 0.1658. Here, on
+	# 2,000: 0.2735 / 0.1170 gap 0.1565 (exchange_balance now also clears her last_bout_day: the bout writes it, -8 Tank).
+	var none_n := XB.share(0.0, "none", 1, null, {}, 2000)
+	var wrong_n := XB.share(0.0, "wrong", 1, null, {}, 2000)
+	print("  even fight on 2,000 bouts: none %.4f, wrong %.4f" % [none_n, wrong_n])
+	_check(wrong_n <= none_n - 0.15, "wrong calls lose clearly more (%.4f vs %.4f, 2,000 bouts)" % [wrong_n, none_n])
 	_check(behind < 0.4, "no call beats a fighter 10 points better")
 	# 10. S310: with film study, reading the clue beats following the coach's pick blindly; the pick still helps.
 	var f_none := XB.share(0.0, "none", 3)

@@ -1,0 +1,274 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Ask for a fight r3</title>
+<style>
+:root{--bg:#141a21;--panel:#1b232c;--panel2:#212b36;--line:#2e3a47;--ink:#e6ebf0;--mute:#8d9aa8;--dim:#5f6b78;--gold:#e0b04a;--green:#5cbf7a;--red:#d9604f;--amber:#e09a3a;--blue:#5a9bd8;--navy:#24364b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Arial,sans-serif;font-size:14px}
+.top{height:56px;background:#0e1318;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 18px;gap:22px}
+.arrows{display:flex;gap:6px}.arrows span{width:30px;height:30px;border:1px solid var(--line);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--mute)}
+.gym{font-weight:600;font-size:18px}.date{color:var(--mute);font-size:15px}
+.flag{font-size:12px;font-weight:700;letter-spacing:1px;padding:4px 9px;border-radius:3px;background:#3a2a14;color:var(--amber);border:1px solid #6b4a1e}
+.spacer{flex:1}
+.cash{text-align:right;line-height:1.15}.cash b{font-size:19px}.cash small{display:block;color:var(--red);font-size:13px}
+.go{background:var(--gold);color:#1b1407;font-weight:700;padding:7px 18px;border-radius:5px;line-height:1.1;font-size:17px}.go small{display:block;font-weight:500;font-size:12.5px}
+.menu{color:var(--mute);border:1px solid var(--line);padding:8px 14px;border-radius:5px}
+.rail{position:absolute;left:0;top:56px;bottom:0;width:88px;background:#10161c;border-right:1px solid var(--line);padding-top:12px}
+.rail div{height:66px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--mute);font-size:13px;gap:6px}
+.rail i{width:22px;height:22px;border:2px solid var(--dim);border-radius:5px;display:block}
+.rail .on{color:var(--ink);background:var(--panel2);border-left:3px solid var(--gold)}.rail .on i{border-color:var(--gold)}
+.main{position:absolute;left:88px;top:56px;right:0;bottom:0;padding:9px 16px}
+h1{font-size:23px;font-weight:700;white-space:nowrap}h1 span{color:var(--mute);font-weight:500}
+.cap{font-size:11.5px;letter-spacing:1.3px;color:var(--mute);font-weight:700;text-transform:uppercase}
+.head{display:flex;align-items:center;gap:18px;margin-bottom:7px}
+.pins{display:flex;gap:8px}
+.pin{display:flex;align-items:center;gap:8px;padding:4px 11px 4px 4px;border:1px solid var(--line);border-radius:22px;background:var(--panel)}
+.pin .face{width:28px;height:28px;border-radius:50%;background:#3a4756;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
+.pin b{font-size:13.5px;display:block;line-height:1.1}.pin small{color:var(--mute);font-size:11.5px}
+.pin.sel{border-color:var(--gold);background:#2a2618}
+.pin .mini{border:1px solid var(--line);background:var(--panel2);font-size:12px;padding:3px 9px;border-radius:4px;margin-left:4px}
+.grid{display:grid;grid-template-columns:1fr 384px;gap:12px;height:974px}
+.col{display:flex;flex-direction:column;gap:7px;min-width:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:7px 12px}
+.who{display:flex;gap:16px;align-items:center}
+.who .big{width:44px;height:44px;border-radius:50%;background:#3a4756;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700}
+.name{font-size:20px;font-weight:700;white-space:nowrap}.sub{color:var(--mute);font-size:12.5px;white-space:nowrap}
+.stat b{font-size:17px;display:block;white-space:nowrap}.stat small{color:var(--mute);font-size:11.5px;white-space:nowrap}
+.vline{width:1px;align-self:stretch;background:var(--line)}
+/* timeline */
+.tl{position:relative;margin-top:6px;border-top:1px solid var(--line);padding-top:4px;height:118px}
+.tl .lab{position:absolute;left:0;width:150px;font-size:12px;color:var(--mute);text-align:right;padding-right:10px;white-space:nowrap}
+.track{position:absolute;left:150px;top:4px;width:1090px;height:112px}
+.tick{position:absolute;top:0;font-size:11.5px;color:var(--mute);transform:translateX(-50%);white-space:nowrap}
+.tick.now{color:var(--ink);font-weight:700}
+.vl{position:absolute;top:16px;bottom:0;width:2px}
+.vl.close{background:var(--gold)}.vl.reg{background:var(--blue)}
+.vtag{position:absolute;top:0;font-size:11px;font-weight:700;letter-spacing:.6px;white-space:nowrap}
+.bar{position:absolute;height:17px;border-radius:3px;font-size:11.5px;line-height:17px;padding:0 7px;white-space:nowrap;overflow:hidden;color:#10161c;font-weight:600}
+.bar.g{background:#5cbf7a}.bar.a{background:#e0a64a}.bar.r{background:#d9604f;color:#fff}.bar.p{background:#2b3f33;color:#9fd3ae;font-weight:500}
+.dot{position:absolute;height:17px;font-size:11px;line-height:17px;padding:0 6px;border-radius:3px;background:#22303f;color:#a9c8e8;white-space:nowrap}
+.enter{position:absolute;right:0;top:20px;width:150px}
+.ask-own{display:flex;align-items:center;gap:10px;background:#262014;border:1px solid #5b4a22;border-radius:7px;padding:6px 12px}
+.ask-own .q{flex:1;font-size:14.5px;min-width:0}.ask-own .q small{display:block;color:var(--mute);font-size:12px}
+.btn{border:1px solid var(--line);background:var(--panel2);padding:4px 10px;border-radius:5px;font-size:13px;white-space:nowrap;display:inline-block;line-height:1.25}
+.btn.solid{background:var(--gold);color:#1b1407;border-color:var(--gold);font-weight:700}
+.btn.chosen{border:2px solid var(--gold);background:#3a3218}
+.btn.grey{color:var(--dim);border-style:dashed}
+.btn small{display:block;font-size:11px;font-weight:500;color:inherit;opacity:.85}
+.btn.xs{font-size:11.5px;padding:1px 7px}
+.step-h{display:flex;align-items:baseline;gap:9px}
+.num{display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--gold);color:#1b1407;font-weight:800;font-size:12.5px;align-items:center;justify-content:center;transform:translateY(3px)}
+.row4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.show{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:6px 10px;font-size:12.6px;line-height:1.4}
+.show.sel{border:2px solid var(--gold);padding:5px 9px;background:#22241c}
+.show.off{opacity:.5}
+.show .d{font-size:15px;font-weight:700}.show .d span{color:var(--mute);font-weight:500;font-size:12.5px}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.7px;padding:1px 6px;border-radius:3px;margin:2px 0 1px}
+.tag.share{background:#1f3b2a;color:var(--green)}.tag.keep{background:#3a2a1a;color:var(--amber)}.tag.nov{background:#22303f;color:var(--blue)}
+.ok{color:var(--green)}.warn{color:var(--amber)}.bad{color:var(--red)}.mu{color:var(--mute)}.gd{color:var(--gold)}
+table{border-collapse:collapse;width:100%;font-size:13px;table-layout:fixed}
+th,td{text-align:left;padding:3px 8px;border-bottom:1px solid #26313c;vertical-align:top;line-height:1.3}
+th{font-weight:600;font-size:12px;color:var(--mute);width:132px}
+td.pick{background:#272519;border-left:2px solid var(--gold);border-right:2px solid var(--gold)}
+thead td{border-bottom:1px solid var(--line);padding-bottom:5px}
+thead .k{font-size:10.5px;letter-spacing:1px;font-weight:700;color:var(--mute)}
+thead .k.g{color:var(--gold)}
+thead b{font-size:14.5px;display:block}
+thead small{display:block;color:var(--mute);font-size:11.3px;margin-bottom:3px}
+tr.last td,tr.last th{border-bottom:none}
+sup.n{font-size:9px;color:var(--blue);font-weight:700;margin-left:2px}
+.foot{font-size:11.8px;color:var(--mute);padding:4px 8px 0;line-height:1.35}
+.send{display:flex;align-items:center;gap:12px;background:#1d2a22;border:1px solid #2f5a3d;border-radius:7px;padding:7px 12px}
+.send .s{flex:1;font-size:13.5px;min-width:0}.send .s b{font-size:15.5px}.send .s small{display:block;color:var(--mute);font-size:12px}
+.send .big{font-size:16px;padding:8px 20px}
+.seg{display:flex;flex-direction:column;gap:3px}.seg .cap{font-size:10.5px}
+.side{display:flex;flex-direction:column;gap:7px}
+.side .card{font-size:12.8px;line-height:1.4}
+.out{display:grid;grid-template-columns:78px 1fr;gap:1px 8px;padding:3px 0;border-bottom:1px solid #26313c}
+.out:last-of-type{border-bottom:none}
+.out .o{font-weight:700}
+.call{background:#2a2112;border:1px solid #6b4a1e}
+.fav{display:grid;grid-template-columns:112px 22px 1fr;gap:6px;padding:2px 0;border-bottom:1px solid #26313c}
+.fav b{text-align:right}
+.small{font-size:11.6px;color:var(--mute);line-height:1.35}
+</style></head>
+<body>
+<div class="top">
+  <div class="arrows"><span>&lt;</span><span>&gt;</span></div>
+  <div class="gym">Anvil Street Gym</div>
+  <div class="date">Mon 2 Feb 2026 &middot; Week 5</div>
+  <div class="flag">CALL</div>
+  <div class="spacer"></div>
+  <div class="cash"><b>$13,140</b><small>running -$290 a week</small></div>
+  <div class="go">CONTINUE<small>to Wed 4 Feb, Fitzroy Lodge's call ends</small></div>
+  <div class="menu">Menu</div>
+</div>
+<div class="rail">
+  <div><i></i>Home</div><div><i></i>Fighters</div><div><i></i>Playbook</div><div class="on"><i></i>Fights</div><div><i></i>Club</div><div><i></i>World</div>
+</div>
+<div class="main">
+  <div class="head">
+    <h1>Fights <span>&rsaquo;</span> Ask for a fight</h1>
+    <div class="pins">
+      <div class="pin sel"><div class="face">LJ</div><div><b>Lucy Jackson</b><small>no bout &middot; asks for a name</small></div></div>
+      <div class="pin"><div class="face">SK</div><div><b>Samira Khan</b><small>a host is calling</small></div></div>
+      <div class="pin"><div class="face">TR</div><div><b>Tess Reilly</b><small>asked &middot; reply Thu 5 Feb</small></div></div>
+      <div class="pin"><div class="face">AR</div><div><b>Ana Ribeiro</b><small>no-gi open Sat 7 Feb</small></div><span class="mini">Enter</span></div>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="col">
+      <!-- fighter + season timeline -->
+      <div class="card">
+        <div class="who">
+          <div class="big">LJ</div>
+          <div><div class="name">Lucy Jackson</div><div class="sub">Lightweight 60 kg &middot; Out-boxer, orthodox &middot; 21</div></div>
+          <div class="vline"></div>
+          <div class="stat"><b>4-1 &middot; #6</b><small>London lightweight ladder</small></div>
+          <div class="stat"><b>5 bouts</b><small>novice: 5 more before open</small></div>
+          <div class="stat"><b>60.4 kg</b><small>Fri 13 Feb: 59.9, makes it</small></div>
+          <div class="stat"><b>Steady 58</b><small>heart 62: a loss about -11</small></div>
+          <div class="stat"><b>Durability 71 / 99</b><small>a stoppage takes 2 off the top, for good</small></div>
+          <div class="stat"><b>Pro offer</b><small>3 more wins and top 3, or 5 more</small></div>
+        </div>
+        <div class="tl">
+          <div class="lab" style="top:22px">Stopped on Sat 14 Feb</div>
+          <div class="lab" style="top:44px">Stopped on Sat 28 Feb</div>
+          <div class="lab" style="top:66px">Stopped on Sat 7 Mar</div>
+          <div class="lab" style="top:88px">Wait: one date, 1 in 3 each</div>
+          <div class="track">
+            <div class="tick now" style="left:0;transform:none">Mon 2 Feb</div>
+            <div class="tick" style="left:204px">Sat 14 Feb</div>
+            <div class="tick" style="left:323px">21 Feb</div>
+            <div class="tick" style="left:442px">28 Feb</div>
+            <div class="tick" style="left:561px">7 Mar</div>
+            <div class="tick" style="left:680px">14 Mar</div>
+            <div class="vl close" style="left:713px"></div>
+            <div class="vtag gd" style="left:720px">ENTRIES CLOSE MON 16 MAR</div>
+            <div class="vl reg" style="left:951px"></div>
+            <div class="vtag" style="left:958px;color:var(--blue)">REGIONAL MON 30 MAR</div>
+            <div class="bar g" style="left:204px;top:18px;width:509px">out 30 days, back Mon 16 Mar: enter that day (the clock stops for it)</div>
+            <div class="bar a" style="left:442px;top:40px;width:509px">back Mon 30 Mar: regional only if entered before the bout</div>
+            <div class="bar r" style="left:561px;top:62px;width:529px">back Mon 6 Apr: misses the regional either way</div>
+            <div class="dot" style="left:136px;top:84px">offer Tue 10 Feb</div>
+            <div class="dot" style="left:424px;top:84px">28 Feb</div>
+            <div class="dot" style="left:546px;top:84px">7 Mar</div>
+            <div class="dot" style="left:660px;top:84px">14 Mar</div>
+          </div>
+          <div class="enter"><span class="btn" style="width:150px;white-space:normal">Enter now<small>seed from #6 now; no asks or offers after; a booked bout still goes ahead</small></span></div>
+        </div>
+      </div>
+
+      <!-- fighter's own ask -->
+      <div class="ask-own">
+        <div class="q">Lucy asks for <b>Erin Doyle (#2)</b> after Saturday's win: confident, wants the big night.<small>A top-3 name: 2 favours with one host make it certain (you hold 1 with West Ham). Erin boxes for Belfast Gloves ABC, free on every card.</small></div>
+        <span class="btn">Hear it: ask for Erin<small>3 in 10 with 1 favour &middot; mood +5</small></span>
+        <span class="btn chosen">Promise the next one<small>nothing now &middot; about -7 if not booked by 16 Mar</small></span>
+        <span class="btn">Overrule<small>mood about -5 for Lucy</small></span>
+      </div>
+
+      <!-- step 1 -->
+      <div class="step-h"><span class="num">1</span><span class="cap">Pick the night</span><span class="small">Sat 7 Feb (Fitzroy Lodge) is past its bout sheet: only its call can fill it</span></div>
+      <div class="row4">
+        <div class="show sel">
+          <div class="d">Sat 14 Feb <span>12 days &middot; York Hall &middot; host West Ham BC</span></div>
+          <span class="tag share">SHARES TICKETS: $450</span> <span class="mu">1.5 weeks of the loss</span><br>
+          Above Lucy and free: Erin #2, Priya #4, Chloe #5<br>
+          Scale Fri 13: 59.9, makes it &middot; 1 fight week of pads<br>
+          Stopped: <span class="ok">box first OK</span> (enter 16 Mar) &middot; <span class="ok">enter first OK</span><br>
+          West Ham favours: <b>1</b> of 2
+        </div>
+        <div class="show off">
+          <div class="d">Sat 21 Feb <span>19 days &middot; London ABC novices</span></div>
+          <span class="tag nov">BOXERS NOT YET RANKED</span><br>
+          Lucy is ranked #6: this night is for boxers under 4 wins (Samira's night: $450, a fair match in turn)
+        </div>
+        <div class="show">
+          <div class="d">Sat 28 Feb <span>26 days &middot; Repton &middot; host Repton BC</span></div>
+          <span class="tag keep">HOST KEEPS TICKETS: +1 REPTON FAVOUR</span> <span class="mu">van $40</span><br>
+          Above Lucy and free: Erin #2, Priya #4<br>
+          Scale: makes it &middot; 3 fight weeks of pads<br>
+          Stopped: <span class="bad">box first: no entry</span> &middot; <span class="warn">enter first OK</span><br>
+          Repton favours: <b>1</b> of 2
+        </div>
+        <div class="show">
+          <div class="d">Sat 7 Mar <span>33 days &middot; Fitzroy Lodge</span></div>
+          <span class="tag keep">HOST KEEPS TICKETS: +1 FITZROY FAVOUR</span> <span class="mu">van $40</span><br>
+          Above Lucy and free: Erin #2, Priya #4, Chloe #5<br>
+          Scale: makes it &middot; 4 fight weeks &middot; Tess boxes here<br>
+          Stopped: <span class="bad">misses the regional either way</span><br>
+          Fitzroy favours: <b>0</b> &middot; Samira's call: +2
+        </div>
+      </div>
+
+      <!-- step 2 compare -->
+      <div class="step-h"><span class="num">2</span><span class="cap">Pick who to ask West Ham for &middot; York Hall, Sat 14 Feb</span><span class="small">every column has the same rows; waiting is the last one; hover a name for who cannot be asked and why</span></div>
+      <div class="card" style="padding:5px 4px 5px">
+        <table>
+          <thead><tr><td style="width:132px"></td>
+            <td><div class="k">A FAIR MATCH &middot; FREE</div><b>Aisha Rahman #9</b><small>West Ham's own &middot; counter-puncher, southpaw</small><span class="btn xs">Ask for Aisha</span></td>
+            <td><div class="k">A STEP UP &middot; FREE</div><b>Chloe Bennett #5</b><small>traveller &middot; boxer-puncher, orthodox</small><span class="btn xs">Ask for Chloe</span> <span class="btn xs">Make it certain: 1 favour</span></td>
+            <td class="pick"><div class="k g">A NAME &middot; 1 WEST HAM FAVOUR</div><b>Priya Nair #4</b><small>traveller &middot; counter-puncher, orthodox</small><span class="btn xs chosen">Ask for Priya: chosen</span></td>
+            <td><div class="k">LUCY'S ASK &middot; A TOP-3 NAME</div><b>Erin Doyle #2</b><small>traveller &middot; volume puncher, orthodox</small><span class="btn xs">Hear it (above)</span></td>
+            <td><div class="k">WAIT FOR THE OFFERS &middot; FREE</div><b>Priya Nair #4</b><small>next in turn &middot; offered Tue 10 Feb</small><span class="btn xs">Wait</span></td></tr></thead>
+          <tr><th>They say yes<sup class="n">N</sup></th><td>9 in 10, reply Wed</td><td><span class="warn">6 in 10</span>, else a later date or another name</td><td class="pick">certain, reply Thu</td><td><span class="warn">3 in 10</span>; certain with 2 favours</td><td>it is their offer</td></tr>
+          <tr><th>Win chance</th><td>about 55 (48-62)</td><td>about 44 (37-51)</td><td class="pick">about 40 (33-47)</td><td>about 33 (26-40)</td><td>about 41 (34-48): 2-4 weeks of pads</td></tr>
+          <tr><th>Your plan has</th><td><span class="bad">no southpaw answer</span> <span class="btn xs">Write it</span></td><td><span class="ok">"At long range: One-two" works</span></td><td class="pick"><span class="bad">nothing for "waits to counter"</span> <span class="btn xs">Write it</span></td><td><span class="warn">nothing for a volume puncher</span> <span class="btn xs">Write it</span></td><td><span class="ok">time to write the counter line</span></td></tr>
+          <tr><th>A win / a loss<sup class="n">N</sup></th><td>stays #6 / #6 to #8</td><td>#6 to #5 / #6 to #7</td><td class="pick"><b>#6 to #4</b> / #6 to #7</td><td><b>#6 to #2</b>: top 3 / #6 to #7</td><td>#6 to #4 / #6 to #7</td></tr>
+          <tr><th>Places, average<sup class="n">N</sup></th><td class="bad">-0.9</td><td>-0.1</td><td class="pick ok">+0.2</td><td class="ok">+0.7</td><td class="ok">+0.2</td></tr>
+          <tr><th>Stopped<sup class="n">N</sup></th><td>5 in 100</td><td class="warn">19 in 100: a puncher</td><td class="pick">12 in 100</td><td class="warn">19 in 100</td><td>12 in 100; <span class="bad">2 of the 3 dates miss the regional</span></td></tr>
+          <tr><th>Regional, box first<sup class="n">N</sup></th><td>win 64 &middot; loss <span class="bad">36</span>: enter first (64)</td><td>win 76 &middot; loss 50</td><td class="pick">win <b>87</b> &middot; loss 50</td><td>win <b>100</b> &middot; loss 50</td><td>box first unsafe: enter first, 64</td></tr>
+          <tr><th>Money, favours<sup class="n">N</sup></th><td>$450 &middot; West Ham stays 1</td><td>$450 &middot; certain: West Ham 1 to 0</td><td class="pick">$450 &middot; West Ham 1 to 0, calls back in 4 weeks</td><td>$450 &middot; needs 2 with one host</td><td>28 Feb +1 Repton &middot; 7 Mar +1 Fitzroy &middot; 14 Mar $450</td></tr>
+          <tr class="last"><th>Date</th><td>Sat 14 Feb</td><td>Sat 14 Feb</td><td class="pick">Sat 14 Feb</td><td>Sat 14 Feb</td><td>28 Feb, 7 Mar or 14 Mar</td></tr>
+        </table>
+        <div class="foot">Every loss: mood about -11 for Lucy, 1 member leaves, reputation -2. A stoppage: 30 days out (90 if a second within 3 months), durability ceiling -2 for good, 2 members, reputation -4. Every bout: no sparring for 5, 10 or 21 days after, by the head damage. Regional row: the chance the semi-final is against a lower seed (entering first keeps 64). <sup class="n">N</sup> = a part this design adds.</div>
+      </div>
+
+      <!-- step 3 send -->
+      <div class="send">
+        <span class="num" style="transform:none">3</span>
+        <div class="s"><b>Send: Priya Nair &middot; York Hall &middot; Sat 14 Feb</b><small>1 West Ham favour (1 to 0) &middot; reply Thu 5 Feb &middot; Lucy's Tue 10 Feb offer waits for the reply &middot; Withdraw is free until then</small></div>
+        <div class="seg"><span class="cap">Then the nationals</span><div><span class="btn chosen">Box first, enter Mon 16 Feb<small>a win: seed 87 &middot; promise still open</small></span> <span class="btn">Enter once booked<small>seed 64 now &middot; promise broken</small></span></div></div>
+        <span class="btn solid big">SEND THE ASK</span>
+      </div>
+    </div>
+
+    <!-- right column -->
+    <div class="side">
+      <div class="card">
+        <div class="cap" style="margin-bottom:2px">If you send this &middot; by what Lucy is chasing</div>
+        <div class="out"><span class="o gd">Nationals</span><span>A win (about 40): seed odds 87. A points loss: 50 (entering first would keep 64). Stopped (about 12): back Mon 16 Mar, enter that day or lose the season.</span></div>
+        <div class="out"><span class="o gd">Pro offer</span><span>A win, #4: 2 more wins and one more place, or 4 more wins. A loss, #7: 3 more and four places, or 5 more.</span></div>
+        <div class="out"><span class="o gd">Lucy</span><span>Booked: 58 to 63. A win 71, a loss 52 (Steady). The promise: Erin by 16 Mar needs a second bout before the regional.</span></div>
+        <div class="out"><span class="o gd">The club</span><span>$450 either way. A win +8 members, reputation +5.</span></div>
+        <div class="out"><span class="o gd">Cost</span><span>The last West Ham favour. West Ham calls within 4 weeks: saying no then costs 1 and its names for 6 weeks.</span></div>
+      </div>
+
+      <div class="card call">
+        <div class="cap" style="color:var(--amber);margin-bottom:2px">A host is calling &middot; answer by Wed 4 Feb</div>
+        <b>Fitzroy Lodge, Sat 7 Feb (5 days)</b><br>
+        Samira Khan against Laura Finch (4-2, pressure fighter), welterweight 65 kg. About 47 (41-53) to win.<br>
+        Scale on Fri 6 Feb: 65.3 on Hold, <span class="ok">65.0 on Cut from today: makes it</span>.<br>
+        Host keeps the tickets: no $450, van $40. No fight week of pads.<br>
+        <span class="ok">Send: Fitzroy 0 to 2</span>: what Lucy's promise needs for Erin at Fitzroy on 7 Mar, the night Tess boxes there (one van).
+        <div style="margin-top:5px;display:flex;gap:6px;flex-wrap:wrap"><span class="btn">Send Samira<small>diet to Cut today</small></span><span class="btn grey">Ask a kilo<small>needs 1 Fitzroy favour (0)</small></span><span class="btn">Say no<small>nothing moves</small></span></div>
+      </div>
+
+      <div class="card">
+        <div class="cap" style="margin-bottom:2px">Open asks</div>
+        <b>Tess Reilly: Leah Morgan #2</b> (Fitzroy's own), Sat 7 Mar<br>
+        A step up made certain: 1 Fitzroy favour spent &middot; reply Thu 5 Feb<br>
+        <span class="warn">Bout 11 makes Tess an open boxer: then 1 open name at 75 kg (Victoria Hale, 16-2).</span>
+        <div style="margin-top:4px"><span class="btn xs">Withdraw: the favour comes back</span></div>
+      </div>
+
+      <div class="card">
+        <div class="cap" style="margin-bottom:2px">Favours &middot; at most 2 a host<sup class="n">N</sup></div>
+        <div class="fav"><span>West Ham BC</span><b>1</b><span class="mu">wanted now: Priya</span></div>
+        <div class="fav"><span>Repton BC</span><b>1</b><span class="mu">spare</span></div>
+        <div class="fav"><span>Fitzroy Lodge</span><b>0</b><span class="mu">Samira's call +2; Lucy's promise needs 2</span></div>
+        <div class="small" style="margin-top:4px">Spend: a name 2+ places up 1, a top-3 name 2, a step up made certain 1, a kilo over the class 1. Earn: a host's call answered +2, a bout where the host keeps the tickets +1. A host you used calls you within 4 weeks. One unused favour fades every 12 weeks.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

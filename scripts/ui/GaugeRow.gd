@@ -240,9 +240,9 @@ func _stop(id: String) -> void:
 
 func _tip(id: String) -> String:
 	if id == "legs":
-		return "Fight night fatigue %d of 100 (%s) - today %d, the camp peaks near %d. Over %d costs energy at the first bell (-%d now); %d+ is overreached." % [
-			int(round(float(_d["legs"]))), str(_d["legs_band"]["word"]), int(round(float(_d["legs_now"]))), int(round(float(_d["peak"]))),
-			int(Gauges.LEGS_HEAVY), int(round(float(_d["stale"]))), int(Gauges.LEGS_OVER)]
+		return "Fight night tiredness %d of 100 (%s) - today %d, the week peaks near %d; %d+ is overreached. The Tank at the first bell: %d of 100 (tiredness over %d, a bout in the last 14 days and fighting hurt each take some)." % [
+			int(round(float(_d["legs"]))), str(_d["legs_band"]["tired"]), int(round(float(_d["legs_now"]))), int(round(float(_d["peak"]))),
+			int(Gauges.LEGS_OVER), int(round(float(_d["tank"]))), int(Gauges.LEGS_HEAVY)]
 	if id == "scale":
 		return "Weigh-in forecast %.1f kg against the agreed %.1f kg (the class window %.1f-%.1f) - today %.1f kg. Weigh-in %s, 1 h before; diet only." % [
 			float(_d["kg"]), float(_d["limit"]), float(_d["floor"]), float(_d["limit"]), float(_d["kg_now"]), Clock.fmt(int(_d["bout_day"]))]

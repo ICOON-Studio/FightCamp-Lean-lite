@@ -25,6 +25,23 @@ static func win_odds(d: float) -> float:
 	return 1.0 - (1.0 + x) * (1.0 + x) / 2.0 if x <= 0.0 else (1.0 - x) * (1.0 - x) / 2.0
 
 
+## The chance of a round at edge e (BoutRead): most of six exchanges; a 3-3 split goes to the bigger margin, which leans her
+## way as often.
+static func round_odds(e: float) -> float:
+	var p := win_odds(e)
+	var total := 0.0
+	var ways := 1.0
+	var six := Exchanges.EXCHANGES
+	for k in range(0, six + 1):
+		var share := ways * pow(p, k) * pow(1.0 - p, six - k)
+		if k * 2 > six:
+			total += share
+		elif k * 2 == six:
+			total += share * p
+		ways = ways * float(six - k) / float(k + 1)
+	return total
+
+
 ## The fight model's move for a book combination ("" when none).
 static func move_of(combo_id: String) -> String:
 	for m in StrikeMap.MOVES:
@@ -42,7 +59,7 @@ static func gap(f: Dictionary, opp: Dictionary) -> float:
 
 ## S398 the night's edges alone (camp, film, weapons): what LiveRound.open's base holds before the duels.
 static func night_gap(f: Dictionary) -> float:
-	return BoutRules.night_edge(f.get("camp", {}), FilmEdge.answered(f)) + BoutRules.weapons_edge(BoutRules.weapons(f.get("moves", {})))
+	return BoutRules.night_edge(f.get("camp", {}), FilmEdge.answered(f), bool(f.get("pro", false))) + BoutRules.weapons_edge(BoutRules.weapons(f.get("moves", {})))
 
 
 ## The lab's table for one book combination against one opponent ({} = an even opponent; {} back when no such move).

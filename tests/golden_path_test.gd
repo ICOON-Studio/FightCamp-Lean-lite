@@ -8,6 +8,7 @@
 ## Then a second career where she misses weight.
 ## Every area and tab draws, mid-camp and at the end.
 
+const BoutNight := preload("res://scripts/state/BoutNight.gd")
 const GoldenDues := preload("res://tests/golden_dues_step.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
@@ -533,10 +534,14 @@ func _week_four(c: Career) -> void:
 	var debut_gym := int(ProDebut.night(ProDebut.tickets_sold(c.members, int(lucy["w"]), Roster.titles(lucy)), 1.0)["gym"])
 	_press(_modal_button("Begin"), "Begin the debut")
 	_shout_round()
+	# S440: a bout can end inside the distance (PR 211 made a 56-62 call count more): call the corner while it goes on.
 	for k in ["long", "body", "calm"]:
+		if BoutNight.stopped(main.modal) != "" or _modal_button("Corner_" + k) == null:
+			break
 		_press(_modal_button("Corner_" + k), "corner call: " + k)
 		_shout_round()
-	_check(int(main.modal.get("round", 0)) == 4, "four rounds played")
+	var stopped_in := BoutNight.stopped(main.modal)
+	_check(int(main.modal.get("round", 0)) == 4 or stopped_in != "", "the debut went four rounds or was stopped (round %d, %s)" % [int(main.modal.get("round", 0)), stopped_in if stopped_in != "" else "distance"])
 	_press(_modal_button("Scorecards"), "To the scorecards")
 	print("  pro debut: %s, %s" % [main.modal.get("outcome", "?"), ", ".join(main.modal.get("cards", []))])
 	_check(int(lucy.get("pro_w", 0)) + int(lucy.get("pro_l", 0)) + int(lucy.get("pro_d", 0)) == 1 and int(lucy["w"]) == 9,

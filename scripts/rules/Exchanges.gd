@@ -23,6 +23,8 @@ const EDGE_WORD := {"best": "Big edge", "ok": "Small edge", "none": "No edge", "
 ## "She can": the mean of the values a call needs. Good from GOOD_AT, OK from OK_AT, else Poor (x mult on a positive edge).
 const GOOD_AT := 62.0
 const OK_AT := 50.0
+## CALLSPREAD1 (TRAINING_MAP F10): the OK-to-Good step spreads from SPREAD_FROM to GOOD_AT, not in one jump.
+const SPREAD_FROM := 56.0
 const GRADE := {"Good": 1.0, "OK": 0.6, "Poor": 0.3}
 ## S310 (operator: "need a mechanic to prevent the player to pick always the green options"): she commits to a call as
 ## well as she can do it - a WRONG call she is good at costs more, one she is weak at she half-does. Green is "she does
@@ -194,7 +196,16 @@ static func grade(call: String, vals: Dictionary) -> Dictionary:
 		sum += float(vals.get(k, 55.0))
 	var mean := sum / float(needs.size())
 	var word := "Good" if mean >= GOOD_AT else ("OK" if mean >= OK_AT else "Poor")
-	return {"word": word, "mult": float(GRADE[word])}
+	var mult: float
+	if mean < OK_AT:
+		mult = float(GRADE["Poor"])
+	elif mean < SPREAD_FROM:
+		mult = float(GRADE["OK"])
+	elif mean < GOOD_AT:
+		mult = float(GRADE["OK"]) + (float(GRADE["Good"]) - float(GRADE["OK"])) * (mean - SPREAD_FROM) / (GOOD_AT - SPREAD_FROM)
+	else:
+		mult = float(GRADE["Good"])
+	return {"word": word, "mult": mult}
 
 
 ## How much of a shout reaches her: coachability 0..100 -> 0.7..1.0, halved after the round's first FULL_SHOUTS.

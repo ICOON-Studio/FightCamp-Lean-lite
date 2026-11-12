@@ -13,6 +13,7 @@ const Data := preload("res://scripts/state/Data.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const NightBar := preload("res://scripts/ui/NightBar.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 
 const CARD_H := 340.0
 const PIC_H := 178.0
@@ -24,14 +25,26 @@ const TWEEN_S := 0.45
 const STATION := {"conditioning": "roadwork", "power": "heavy_bag", "technique": "pads", "defense": "slip_rope",
 	"speed": "speed_bag"}
 const PICS := "res://assets/ui/training/"
+## S434 CARDIO1 (CORE_LOOP C3): the Cardio camp (conditioning, the mean of Stamina and Recovery) shows the Stamina line, on
+## Stamina's own number, never the mean's: the face's forecast ("Stamina 57.6 -> 62.4 by fight night"), the bar and the
+## caption. S439 round 3: its fight-night end is the forecast's own Stamina (CampForecast.run "attrs", the days trained as
+## Sim.step_day trains them), never Stamina now + the mean's gain (the camp's roadwork and intervals train Stamina by name,
+## so Stamina moves more than the mean: 57.6 -> 62.4 where the mean's gain said 60.6). Others show their own.
+const LINE_OF := {"conditioning": "stamina"}
 const FALLBACK := "mh_boxer_10"
 
 
 static func card(main: Node, f: Dictionary, key: String, chosen: bool, now: float, end: float, from: float,
-		pop: bool) -> Button:
+		pop: bool, night: Dictionary = {}, line_from := -1.0) -> Button:
 	var b := _shell("Focus_" + key, chosen, main.act.bind("cfocus", key))
 	b.custom_minimum_size = Vector2(0, CARD_H)
-	b.tooltip_text = "%s camp: %s %.1f now, %.1f by fight night" % [Data.LABEL[key], str(Data.LABEL[key]).to_lower(), now, end]
+	# S434 CARDIO1 round 2 (C3: Stamina is the number on every row, line and goal): a card whose line reads another number
+	# (the Cardio card, LINE_OF) prints THAT number, named, on its face, so the forecast, the bar and the caption agree.
+	var ln := line_numbers(f, key, now, end, from, night, line_from)
+	var named := str(ln["key"]) != key
+	var nm := (str(Attrs.LABEL[ln["key"]]) + " ") if named else ""
+	b.tooltip_text = "%s camp: %s %.1f now, %.1f by fight night" % [Data.LABEL[key],
+		(nm.strip_edges() if named else str(Data.LABEL[key])).to_lower(), float(ln["now"]), float(ln["end"])]
 	var v := _fill(b, INSET, 0)
 	var pic := TextureRect.new()
 	pic.name = "Pic"
@@ -54,14 +67,15 @@ static func card(main: Node, f: Dictionary, key: String, chosen: bool, now: floa
 	w.add_child(UI.label("%s ++" % Data.LABEL[key], 17, UI.GREEN, "bold"))
 	var fc := UI.label("", 16, UI.FG, "body")
 	fc.name = "Forecast"
-	count(fc, from, end, func(x: float) -> String: return "%.1f -> %.1f by fight night" % [now, x])
+	var ln_now := float(ln["now"])
+	count(fc, float(ln["from"]), float(ln["end"]), func(x: float) -> String: return "%s%.1f -> %.1f by fight night" % [nm, ln_now, x])
 	w.add_child(fc)
 	_gap(w, 4)
-	var bar := NightBar.make(key, now, end, from)   # S381 G1: replaces the line on what the camp does
+	var bar := NightBar.make(str(ln["key"]), float(ln["now"]), float(ln["end"]), float(ln["from"]))   # S381 G1: replaces the line on what the camp does
 	w.add_child(bar)
-	var words_at := BoutRules.night_line_words(key)
+	var words_at := BoutRules.night_line_words(str(ln["key"]))
 	if words_at != "":
-		var cap := UI.label(words_at, 15, UI.GOLD if BoutRules.clears_night_line(key, end) else UI.MUTED, "bold")
+		var cap := UI.label(words_at, 15, UI.GOLD if BoutRules.clears_night_line(str(ln["key"]), float(ln["end"])) else UI.MUTED, "bold")
 		cap.name = "NightLine"
 		# The line's colour is checked as the paper ink, so it sits on a light chip (a piece the look keeps) and the
 		# ink pass leaves it. Chalk fill, not the old cream. The rest of the card is chalk words on the slate.
@@ -76,6 +90,20 @@ static func card(main: Node, f: Dictionary, key: String, chosen: bool, now: floa
 	if chosen:
 		b.add_child(_check(pop))
 	return b
+
+
+## The number the card's night bar and caption read: {key, now, end, from} - the card's own stat, or the line's ability
+## (LINE_OF): today's value and fight night's from `night` (CampForecast.run's "attrs"); `line_from` is the end the card
+## showed before (the count starts there), -1 for none. A Cardio card with no forecast's attributes is a caller's error:
+## it shows today's Stamina as the end rather than a number derived from the mean.
+static func line_numbers(f: Dictionary, key: String, now: float, end: float, from: float, night: Dictionary = {},
+		line_from := -1.0) -> Dictionary:
+	if not LINE_OF.has(key):
+		return {"key": key, "now": now, "end": end, "from": from}
+	var lk := str(LINE_OF[key])
+	var v := float(Attrs.of(f)[lk])
+	var e := float(night.get(lk, v))
+	return {"key": lk, "now": v, "end": e, "from": line_from if line_from >= 0.0 else v}
 
 
 ## The fighter's own body's picture for the focus; another boxer's when it is missing (S380: the five men are baked too).

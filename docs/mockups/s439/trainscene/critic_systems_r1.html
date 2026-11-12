@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Training scene - systems critic 10/10</title>
+<!-- S439 critic (systems) drawing of a 10/10 Training scene. Same fighter, same Monday as screen_r1. What changed: a BY THE BELL
+     strip that prices every change in the lines that matter (goal, weigh-in chance, weapons, win chance, mood band); the fight week
+     on the board; the gym's card priced for the whole gym; the coach's pad nights shared by four fighters; a diet with a real
+     second option (Hard cut) and a scale band; sparring nights and their cards; pad cards sorted by "by the bell".
+     Numbers: CODE where the map's run gives them; NEW/ESTIMATE ones are marked * on screen and listed in the footer note. -->
+<style>
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../../assets/fonts/BebasNeue-Regular.ttf)}
+:root{--bg:#0c1117;--pan:#151d27;--line:#2b394a;--ink:#e9eef4;--soft:#9fb1c4;--dim:#6e8196;
+ --gold:#f2c14e;--fat:#ff8a3d;--kg:#4aa8ff;--green:#3fd27f;--red:#ff5a4f;--amber:#ffb23e;--mv:#b99cff}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:radial-gradient(ellipse 1100px 600px at 50% 20%,#132030,transparent 70%),linear-gradient(#0e141c,#0a0e13);color:var(--ink);font:500 17px/1.22 Barlow,"Segoe UI",sans-serif}
+.p{position:absolute;background:linear-gradient(165deg,#18222e,#121a24);border:1px solid var(--line);border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.h{font:400 25px/1 Bebas;letter-spacing:.6px;color:var(--ink)}
+.h small{font:500 16px Barlow;color:var(--soft);letter-spacing:0;margin-left:8px}
+.soft{color:var(--soft)}.dim{color:var(--dim)}.g{color:var(--gold)}.f{color:var(--fat)}.k{color:var(--kg)}.gr{color:var(--green)}.r{color:var(--red)}.a{color:var(--amber)}.mv{color:var(--mv)}
+b{font-weight:700}
+.chip{display:inline-block;font:700 14px/1 Barlow;padding:4px 7px;border-radius:4px;letter-spacing:.3px}
+.cg{background:#1f5a38;color:#9ff0c0}.cb{background:#173f66;color:#a9d6ff}.cr{background:#5a2420;color:#ffb3ad}.ca{background:#5a4115;color:#ffd99a}.cy{background:#3a3418;color:var(--gold)}
+.top{position:absolute;left:0;top:0;width:1920px;height:64px;background:linear-gradient(#1a2330,#121922);border-bottom:1px solid #2e3d50;display:flex;align-items:center;gap:16px;padding:0 16px}
+.nav{width:36px;height:36px;border:1px solid #33465c;border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--soft)}
+.gym{font:400 30px/1 Bebas;color:#7fb4ff;letter-spacing:1px}
+.date b{display:block;font:600 19px/22px Barlow}.date i{font:400 16px Barlow;font-style:normal;color:var(--soft)}
+.crumb{font:500 18px Barlow;color:var(--soft)}.crumb b{color:var(--ink)}
+.grow{flex:1}
+.cash{text-align:right}.cash b{display:block;font:700 22px/24px Barlow;color:var(--gold)}.cash i{font:400 16px Barlow;font-style:normal;color:var(--soft)}
+.go{width:320px;height:54px;border-radius:5px;background:linear-gradient(#3a8e5a,#2a6b43);border:1px solid #57b47c;padding:4px 12px}
+.go b{display:block;font:400 24px/22px Bebas;letter-spacing:1px}.go i{font:500 16px Barlow;font-style:normal;color:#d8f3e2}
+.menu{height:40px;padding:0 14px;border:1px solid #33465c;border-radius:4px;display:flex;align-items:center;color:var(--soft)}
+/* faces */
+.faces{display:flex;gap:12px;margin-top:4px}
+.face{width:70px;text-align:center;font:600 15px/1.05 Barlow;color:var(--soft)}
+.face .ring{width:50px;height:50px;border-radius:50%;border:2px solid #3a4b60;overflow:hidden;margin:0 auto 3px;background:#223}
+.face .ring img{width:100%;height:100%;object-fit:cover}
+.face.sel{color:var(--gold)}.face.sel .ring{border:3px solid var(--gold)}
+.face i{display:block;font:600 13px Barlow;font-style:normal;margin-top:2px}
+/* stakes */
+.stk{position:absolute;top:34px;height:132px;border:1px solid #33465c;border-radius:5px;background:#16202b;padding:7px 10px}
+.stk .t{font:700 13px Barlow;letter-spacing:.6px;color:var(--soft)}
+.stk .v{font:400 34px/1.05 Bebas;letter-spacing:.5px;margin-top:3px}
+.stk .s{font:500 14px/1.22 Barlow;white-space:nowrap;color:var(--soft);margin-top:2px}
+.stk.ok{border-color:#2f7a4e}.stk.edge{border-color:#8a6a22}
+/* cards */
+.lab{position:absolute;font:400 22px/1 Bebas;letter-spacing:.6px}
+.lab small{font:500 15px Barlow;color:var(--soft);letter-spacing:0;margin-left:8px}
+.row{position:absolute;display:flex;gap:8px}
+.c{width:154px;border:1px solid #2f3e51;border-radius:5px;background:#17212c;padding:5px 8px;font-size:15px;line-height:1.28;position:relative}
+.c .d{display:flex;justify-content:space-between;font:400 19px/1 Bebas;letter-spacing:.5px;margin-bottom:3px}
+.c .d span{font:600 13px/1.3 Barlow;color:var(--soft);letter-spacing:0}
+.c .n{font:700 16px Barlow}
+.c.ch{border:2px solid var(--gold);background:#23210f}
+.c.rest{opacity:.62}
+.c .old{font-size:13px;color:var(--dim);text-decoration:line-through}
+.c .rib{position:absolute;right:6px;top:4px;font:700 11px Barlow;background:var(--gold);color:#1b1b0e;padding:2px 4px;border-radius:3px}
+.fw .c{background:#141c26;border-style:dashed;font-size:14px}
+.bell{width:154px;border:2px solid var(--red);border-radius:5px;background:#2a1718;padding:6px 8px;font-size:15px}
+/* controls */
+.opt{flex:1;border:1px solid #33465c;border-radius:5px;padding:4px 7px;background:#18212c;font-size:14px;line-height:1.25}
+.opt .o1{font:400 19px/1 Bebas;letter-spacing:.5px;margin-bottom:2px}
+.opt.on{border:2px solid var(--gold);background:#262415}.opt.on .o1{color:var(--gold)}
+/* table */
+table{border-collapse:collapse;width:100%}
+td,th{padding:3px 8px;text-align:left;font-size:15px;white-space:nowrap}
+th{font:700 13px Barlow;letter-spacing:.6px;color:var(--soft);border-bottom:1px solid #2f3e51}
+tr+tr td{border-top:1px solid #1f2a37}
+/* right */
+.pc{display:flex;gap:8px;align-items:center;border:1px solid #2f3e51;border-radius:5px;background:#17212c;padding:5px 8px;margin-top:6px}
+.pc img{width:46px;height:46px;object-fit:cover;border-radius:4px;background:#0d1319}
+.pc .m{flex:1;font-size:15px;line-height:1.25}
+.pc .m b{font-size:16px}
+.pc .add{font:400 24px/1 Bebas;color:var(--kg);width:52px;text-align:right}
+.pc.best{border:2px solid var(--green);background:#14261c}
+.bt{font:700 13px Barlow;letter-spacing:.3px;padding:2px 5px;border-radius:3px}
+.btn{display:flex;align-items:center;justify-content:center;border-radius:5px;font:400 22px/1 Bebas;letter-spacing:1px}
+.ir{font-size:15px;line-height:1.26;margin-top:5px}
+.ir .l{font:700 13px Barlow;color:var(--gold);letter-spacing:.5px;margin-right:5px}
+.ans{border:1px solid #33465c;border-radius:5px;padding:5px 9px;margin-top:6px;font-size:15px;line-height:1.28}
+.ans.pick{border:2px solid var(--gold);background:#23210f}
+.ans .t{display:flex;justify-content:space-between;font:400 21px/1.1 Bebas;letter-spacing:.6px}
+.bar{height:12px;border-radius:3px;background:#0e151d;border:1px solid #2b394a;position:relative;margin-top:3px}
+.bar i{position:absolute;top:0;bottom:0;border-radius:2px}
+</style></head><body>
+
+<div class="top">
+ <div class="nav">&lsaquo;</div><div class="nav" style="opacity:.45">&rsaquo;</div>
+ <div class="gym">ANVIL STREET GYM</div>
+ <div class="date"><b>Mon 16 Feb 2026</b><i>Week 7</i></div>
+ <div class="crumb" style="margin-left:18px">Fighters &rsaquo; Samira Khan &rsaquo; <b>Training</b></div>
+ <div class="grow"></div>
+ <div class="cash"><b>$12,940</b><i>running &minus;$210 a week &middot; 61 weeks of cash</i></div>
+ <div class="go"><b>CONTINUE</b><i>to Mon 23 Feb, fight week</i></div>
+ <div class="menu">Menu</div>
+</div>
+
+<!-- ============ LEFT ============ -->
+<div class="p" style="left:16px;top:76px;width:340px;height:124px;padding:8px 12px">
+ <div class="h">WHOSE WEEK</div>
+ <div class="faces">
+  <div class="face"><div class="ring"><img src="../../s431/final/face_lucy.png"></div>Lucy<i class="gr">set</i></div>
+  <div class="face"><div class="ring"><img src="../../s431/final/face_tess.png"></div>Tess<i class="a">weight</i></div>
+  <div class="face sel"><div class="ring"><img src="../../s431/final/face_samira.png"></div>Samira<i class="a">card</i></div>
+  <div class="face"><div class="ring"><img src="../../s431/final/face_ana.png"></div>Ana<i class="gr">set</i></div>
+ </div>
+</div>
+
+<!-- the gym's card, priced for the whole gym -->
+<div class="p" style="left:16px;top:210px;width:340px;height:330px;padding:8px 12px">
+ <div class="h">THE GYM'S CARD <small>before CONTINUE</small></div>
+ <div style="font:700 19px Barlow;margin-top:5px">Heating breaks <span class="soft" style="font:500 15px Barlow">&middot; hits all four</span></div>
+ <div class="ans pick"><div class="t">FIX IT &middot; $600 <span class="chip cy">COACH'S PICK</span></div>
+  Cash $12,940 &rarr; <b>$12,340</b>; 61 &rarr; <b>58</b> weeks of cash.<br>Every week runs as planned.</div>
+ <div class="ans"><div class="t">WAIT &middot; KEEP THE CASH</div>
+  Every fighter's mornings run Light this week:<br>
+  <b>Samira</b> goal <b class="r">61.81 missed</b> (Steady &rarr; Flat)<br>
+  <b>Tess</b> weigh-in Fri 6 Mar <b class="a">57.62, 58% to make*</b><br>
+  <b>Lucy</b> Power &minus;0.05 &middot; <b>Ana</b> on the mats: none</div>
+ <div class="dim" style="font-size:13px;margin-top:5px">Unanswered on Monday = Coach's pick.</div>
+</div>
+
+<!-- the coach's pad nights, shared -->
+<div class="p" style="left:16px;top:550px;width:340px;height:196px;padding:8px 12px">
+ <div class="h">LUKE REID'S PAD NIGHTS <small>12 a week*</small></div>
+ <div style="font-size:15px;margin-top:6px;line-height:1.5">
+  <div style="display:flex;justify-content:space-between"><span>Lucy</span><span>3 &middot; Mon Wed Fri</span></div>
+  <div style="display:flex;justify-content:space-between"><span>Tess</span><span>3 &middot; Tue Thu Sat</span></div>
+  <div style="display:flex;justify-content:space-between" class="g"><b>Samira</b><b>3 &middot; Mon Wed Fri</b></div>
+  <div style="display:flex;justify-content:space-between" class="dim"><span>Ana (mats, no-gi coach)</span><span>0</span></div>
+ </div>
+ <div class="bar" style="margin-top:6px"><i style="left:0;width:25%;background:#5a7da6"></i><i style="left:25%;width:25%;background:#7c6aa8"></i><i style="left:50%;width:25%;background:var(--gold)"></i></div>
+ <div style="font-size:14px;margin-top:5px" class="soft">3 free. Samira on HARD takes 1 of them; Tess on HARD too would leave none.</div>
+</div>
+
+<!-- preview dock -->
+<div class="p" style="left:16px;top:756px;width:340px;height:308px;padding:8px 12px">
+ <div style="display:flex;gap:10px;align-items:center">
+  <img src="../../../../assets/ui/moves/body_hook.png" style="width:84px;height:84px;object-fit:cover;border-radius:4px;background:#0d1319">
+  <div><div class="h" style="font-size:28px">BODY HOOK</div><div class="k" style="font:700 16px Barlow">Learning 29.1 &middot; on Fri, yours</div></div>
+ </div>
+ <div class="ir"><span class="l">WHAT IT DOES</span>a hook to the ribs; the fight's "Go to the body" call throws it.</div>
+ <div class="ir"><span class="l">ONE NIGHT ADDS</span><b class="k">+6.6</b> (29.1 &rarr; 35.7): <b>Usable Fri 20</b>, a weapon on Sat 28.</div>
+ <div class="ir"><span class="l">TAKES</span>Friday from 1-2-3 (&minus;3.8; the 1-2-3 cannot reach Usable before the bell either way).</div>
+ <div class="ir"><span class="l">OPENS</span>3b-3 and 1-2-3b to drill; the Body snatcher perk.</div>
+ <div class="ir"><span class="l">NOT DRILLED</span>&minus;0.75 a week (28.4 on Sunday).</div>
+</div>
+
+<!-- ============ CENTRE ============ -->
+<!-- by the bell -->
+<div class="p" style="left:372px;top:76px;width:1128px;height:176px;padding:6px 12px">
+ <div class="h">BY THE BELL &middot; SAT 28 FEB <small>what this week and the fight week land; every change re-runs it</small></div>
+ <div class="stk ok edge" style="left:12px;width:216px">
+  <div class="t">GOAL &middot; CARDIO 62.0</div><div class="v gr">62.06 &middot; MET</div>
+  <div class="s">by 0.06, mornings to the bell<br>met: Steady <b class="gr">71</b> &middot; missed: <b class="r">Flat 41</b><br>Flat takes in 85% of your calls</div></div>
+ <div class="stk edge" style="left:236px;width:200px">
+  <div class="t">WEIGH-IN &middot; FRI 27 &middot; 65.0</div><div class="v k">64.96 &middot; 80%</div>
+  <div class="s">chance to make it*<br>the scale moves &plusmn;0.15 kg<br>missed: bout off, $300</div></div>
+ <div class="stk ok" style="left:444px;width:206px">
+  <div class="t">WEAPONS ON THE NIGHT</div><div class="v mv">+2 &middot; 5 IN ALL</div>
+  <div class="s">Check hook Usable Mon 23<br>Body hook Usable Fri 20<br>with Jab, Cross, Lead hook</div></div>
+ <div class="stk ok" style="left:658px;width:200px">
+  <div class="t">WIN VS JADE OKORO*</div><div class="v gr">56% &middot; +2</div>
+  <div class="s">Coach's week 54%<br>band 49-63, not scouted<br>a 5-point stat gap is ~72%</div></div>
+ <div class="stk ok" style="left:866px;width:238px">
+  <div class="t">FATIGUE &middot; PEAK 56 SAT</div>
+  <div style="position:relative;height:30px;margin-top:6px;background:#0e151d;border:1px solid #2b394a;border-radius:3px">
+   <i style="position:absolute;left:0;top:0;bottom:0;width:56%;background:linear-gradient(90deg,#7a4a22,var(--fat));border-radius:2px"></i>
+   <i style="position:absolute;left:72%;top:-3px;bottom:-3px;width:2px;background:var(--amber)"></i>
+   <i style="position:absolute;left:80%;top:-3px;bottom:-3px;width:2px;background:var(--red)"></i></div>
+  <div class="s"><b class="a">72</b> injury risk starts, x2 at 76<br><b class="r">80</b> gains x0.6, injury x3<br>16 points of room left</div></div>
+</div>
+
+<!-- coach strip -->
+<div class="p" style="left:372px;top:262px;width:1128px;height:46px;padding:6px 12px;display:flex;align-items:center;gap:14px">
+ <img src="../../s434/train/c_coach_cut.png" style="width:34px;height:34px;border-radius:50%;object-fit:cover">
+ <div style="font-size:16px;flex:1">COACH'S WEEK &middot; base week, a club show needs no camp: <span class="r">goal 61.90, missed</span>; Check hook Usable Mon 23; Body hook fades to 28.4.</div>
+ <div class="chip cy" style="font-size:15px">2 CHANGES OF YOURS</div>
+ <div class="btn" style="width:230px;height:34px;background:linear-gradient(#f3c24e,#d9a12c);color:#1c1406;font-size:20px">BACK TO COACH'S WEEK</div>
+</div>
+
+<!-- mornings -->
+<div class="lab" style="left:374px;top:318px">MORNINGS <small>this week &middot; click a card: session and pace</small></div>
+<div class="lab" style="left:1060px;top:320px;font:600 15px Barlow;letter-spacing:0" ><span class="gr">Cardio +0.59</span> &middot; Power +0.11 &middot; <span class="k">&minus;0.46 kg</span> &middot; <span class="f">Fatigue +31</span></div>
+<div class="row" style="left:372px;top:344px">
+ <div class="c"><div class="d">MON <span>Normal</span></div><div class="n">Roadwork</div><div class="gr">+0.13 Cardio</div><div class="k">&minus;0.09 kg &middot; 65.71</div><div class="f">+5.1 Fatigue</div></div>
+ <div class="c"><div class="d">TUE <span>Normal</span></div><div class="n">Heavy bag</div><div>+0.11 Power</div><div class="k">&minus;0.06 kg &middot; 65.66</div><div class="f">+5.5 Fatigue</div></div>
+ <div class="c"><div class="d">WED <span>Normal</span></div><div class="n">Intervals</div><div class="gr">+0.12 Cardio</div><div class="k">&minus;0.07 kg &middot; 65.58</div><div class="f">+5.5 Fatigue</div></div>
+ <div class="c"><div class="d">THU <span>Light</span></div><div class="n">Speed bag</div><div>+0.10 Hand speed</div><div class="k">&minus;0.04 kg &middot; 65.54</div><div class="f">+1.6 Fatigue</div></div>
+ <div class="c"><div class="d">FRI <span>Normal</span></div><div class="n">Roadwork</div><div class="gr">+0.12 Cardio</div><div class="k">&minus;0.09 kg &middot; 65.45</div><div class="f">+5.1 Fatigue</div></div>
+ <div class="c ch"><div class="rib">YOURS &times;</div><div class="d">SAT <span style="margin-right:52px">Hard</span></div><div class="old">Strength circuit</div><div class="n">Intervals</div><div class="gr">+0.16 Cardio</div><div class="k">&minus;0.09 kg &middot; 65.37</div><div class="f">+8.2 Fatigue</div></div>
+ <div class="c rest"><div class="d">SUN <span>Rest</span></div><div class="n">Rest</div><div class="gr">+0.06 Cardio</div><div class="k">&minus;0.03 kg &middot; 65.34</div><div class="soft">sleep only</div></div>
+</div>
+
+<!-- evenings -->
+<div class="lab" style="left:374px;top:498px">EVENINGS <small>drag a pad night card onto a night; drop on a busy night to split 50/50</small></div>
+<div class="row" style="left:372px;top:522px">
+ <div class="c"><div class="d">MON <span>Pads</span></div><div class="n">Check hook</div><div class="mv">12 &rarr; 21.1</div><div class="f">+8.5 Fatigue</div></div>
+ <div class="c rest"><div class="d">TUE <span>Rest</span></div><div class="n">No session</div><div class="soft">HARD puts a pad night here</div></div>
+ <div class="c"><div class="d">WED <span>Pads</span></div><div class="n">Check hook</div><div class="mv">21.1 &rarr; 28.9</div><div class="f">+8.5 Fatigue</div></div>
+ <div class="c"><div class="d">THU <span>Sparring</span></div><div class="n">Jab, 1-2 (pinned)</div><div class="mv">+0.9 &middot; +0.7</div><div class="f">+4.8 &middot; Ring IQ +0.2</div></div>
+ <div class="c ch"><div class="rib">YOURS &times;</div><div class="d">FRI <span style="margin-right:52px">Pads</span></div><div class="old">1-2-3</div><div class="n">Body hook</div><div class="mv">29.1 &rarr; <b>35.7 Usable</b></div><div class="f">+8.5 Fatigue</div></div>
+ <div class="c rest"><div class="d">SAT <span>Rest</span></div><div class="n">No session</div><div class="soft">sleep only</div></div>
+ <div class="c rest"><div class="d">SUN <span>Rest</span></div><div class="n">No session</div><div class="soft">sleep only</div></div>
+</div>
+
+<!-- fight week -->
+<div class="lab" style="left:374px;top:648px">FIGHT WEEK <small>Coach's draft, yours to change now (it carries the goal and the scale); pad nights are half nights</small></div>
+<div class="row fw" style="left:372px;top:672px">
+ <div class="c"><div class="d">MON 23 <span>Light</span></div>Roadwork <span class="gr">+0.08</span><br><span class="mv">Check hook 32.2</span></div>
+ <div class="c"><div class="d">TUE 24 <span>Light</span></div>Shadow +0.06 Tech<br>Rest</div>
+ <div class="c"><div class="d">WED 25 <span>Rest</span></div>Rest <span class="gr">+0.06</span><br><span class="mv">Body hook 38.7*</span></div>
+ <div class="c"><div class="d">THU 26 <span>Light</span></div>Speed bag<br>Rest</div>
+ <div class="c"><div class="d">FRI 27 <span class="k">Weigh-in</span></div>Roadwork <span class="gr">+0.08</span><br><span class="k">scale 64.96</span></div>
+ <div class="c rest" style="opacity:.8"><div class="d">SAT 28 <span>Rest</span></div>Rest <span class="gr">+0.06</span><br>before the bell</div>
+ <div class="bell"><div class="d" style="display:flex;justify-content:space-between;font:400 19px/1 Bebas;letter-spacing:.5px"><span class="r">THE BELL</span></div>Cardio <b class="gr">62.06</b><br>Fatigue 36: no cost<br>without a camp</div>
+</div>
+
+<!-- controls -->
+<div class="p" style="left:372px;top:770px;width:418px;height:124px;padding:6px 10px">
+ <div class="h" style="font-size:21px">PAD NIGHTS <small>injury in 100 &middot; peak</small></div>
+ <div style="display:flex;gap:6px;margin-top:4px">
+  <div class="opt"><div class="o1">LIGHT &middot; 2</div>0.9 &middot; 49<br>Check hook after<br>the bell</div>
+  <div class="opt on"><div class="o1">NORMAL &middot; 3</div>1.0 &middot; 56<br>both hooks by<br>the bell</div>
+  <div class="opt"><div class="o1">HARD &middot; 4</div>1.2 &middot; 61 &middot; 1 of Luke's<br>Check hook<br>Usable Wed 18</div>
+ </div>
+</div>
+<div class="p" style="left:798px;top:770px;width:250px;height:124px;padding:6px 10px">
+ <div class="h" style="font-size:21px">SPARRING <small>nights</small></div>
+ <div style="display:flex;gap:6px;margin-top:4px">
+  <div class="opt"><div class="o1">NONE</div>&minus;4.8<br>Fatigue</div>
+  <div class="opt on"><div class="o1">THU</div>Ring IQ<br>+0.2</div>
+  <div class="opt"><div class="o1">TUE, THU</div>+0.2<br>more</div>
+ </div>
+ <div style="font-size:13px;margin-top:3px" class="soft">pinned for sparring: Jab, 1-2</div>
+</div>
+<div class="p" style="left:1056px;top:770px;width:444px;height:124px;padding:6px 10px">
+ <div class="h" style="font-size:21px">DIET <small>weigh-in Fri 27, to make it &middot; mornings teach</small></div>
+ <div style="display:flex;gap:6px;margin-top:4px">
+  <div class="opt"><div class="o1">HOLD</div><span class="r">65.90 &middot; 0%</span><br>x1.0<br>bout off, $300</div>
+  <div class="opt on"><div class="o1">CUT 500</div><span class="k">64.96 &middot; 80%</span><br>x0.9<br><span class="gr">goal met</span></div>
+  <div class="opt"><div class="o1">HARD CUT 900*</div><span class="k">64.39 &middot; 100%</span><br>x0.8, Fatigue +2 daily<br><span class="r">goal 61.96, missed</span></div>
+ </div>
+</div>
+
+<!-- change table -->
+<div class="p" style="left:372px;top:902px;width:1128px;height:162px;padding:6px 12px">
+ <div style="display:flex;justify-content:space-between;align-items:center">
+  <div class="h">WHAT YOUR CHANGES DID <small>Sat morning: strength &rarr; intervals Hard &middot; Fri night: 1-2-3 &rarr; Body hook</small></div>
+  <div class="btn" style="width:150px;height:30px;border:1px solid #4a5d74;color:var(--ink);font-size:19px">UNDO LAST</div></div>
+ <table style="margin-top:3px">
+  <tr><th>BY THE BELL</th><th>COACH'S WEEK</th><th>YOURS</th><th>FROM WHICH CARD</th></tr>
+  <tr><td>Cardio goal 62.0</td><td class="r">61.90 &middot; missed, Flat</td><td class="gr">62.06 &middot; met, Steady</td><td>Sat intervals +0.16; strength gave none</td></tr>
+  <tr><td>Weapons on the night</td><td>4 (Check hook joins)</td><td class="mv">5 (+ Body hook)</td><td>Fri night: Body hook 35.7; 1-2-3 stays 18, Learning either way</td></tr>
+  <tr><td>Win vs Jade Okoro*</td><td>54%</td><td class="gr">56%</td><td>the Body hook in the plan's "she presses" line</td></tr>
+  <tr><td>Weigh-in Fri 27</td><td>64.99 &middot; 70%</td><td class="k">64.96 &middot; 80%</td><td>Sat intervals burn 486 kcal, strength 295</td></tr>
+ </table>
+</div>
+
+<!-- ============ RIGHT ============ -->
+<div class="p" style="left:1516px;top:76px;width:388px;height:226px;padding:8px 12px">
+ <div style="display:flex;justify-content:space-between"><div class="h r" style="color:var(--red)">NEXT BOUT &middot; CLUB SHOW</div><div class="h r" style="color:var(--red)">12 DAYS</div></div>
+ <div class="h" style="font-size:27px;margin-top:4px">SAT 28 FEB &middot; VS JADE OKORO</div>
+ <div class="soft" style="font-size:15px">Haringey Police CC &middot; Boxer-puncher &middot; 2-1 &middot; limit 65.0</div>
+ <div class="ir"><span class="l">HER FILE</span>presses at mid range (found); best weapon: not found</div>
+ <div class="ir"><span class="l">YOUR PLAN</span>4 lines; "she presses &rarr; Check hook" needs it Usable: <b class="gr">Mon 23</b></div>
+ <div class="ir"><span class="l">MOOD</span>Steady 61; a win +8, a loss &minus;12, the goal +10 / &minus;20</div>
+</div>
+
+<div class="p" style="left:1516px;top:312px;width:388px;height:570px;padding:8px 12px">
+ <div style="display:flex;justify-content:space-between;align-items:baseline"><div class="h">PAD NIGHT CARDS</div><div class="soft" style="font-size:14px">one night adds &middot; by the bell</div></div>
+ <div class="pc best"><img src="../../../../assets/ui/moves/body_hook.png"><div class="m"><b>Body hook</b> <span class="soft">29.1</span><br><span class="bt cg">USABLE IN 1 NIGHT</span> on Fri</div><div class="add">+6.6</div></div>
+ <div class="pc"><img src="../../../../assets/ui/moves/lead_hook.png"><div class="m"><b>Check hook</b> <span class="soft">12</span> &middot; Mon, Wed<br><span class="bt cg">USABLE MON 23</span> &frac12; night</div><div class="add">+9.1</div></div>
+ <div class="pc"><img src="../../../../assets/ui/moves/lead_hook.png"><div class="m"><b>Lead hook</b> <span class="soft">Usable 38</span><br>lifts the 1-2-3's ceiling</div><div class="add">+5.2</div></div>
+ <div class="pc"><img src="../../../../assets/ui/moves/1-2-3.png"><div class="m"><b>1-2-3</b> <span class="soft">18</span> &middot; held by Lead hook 38<br><span class="bt cr">NOT BY THE BELL</span> 3 nights</div><div class="add">+3.8</div></div>
+ <div class="pc"><img src="../../../../assets/ui/moves/1-2.png"><div class="m"><b>1-2</b> <span class="soft">Usable 34</span> &middot; held by Cross 44<br>Sharp at 60: months away</div><div class="add">+2.5</div></div>
+ <div class="pc"><img src="../../../../assets/ui/moves/rear_uppercut.png"><div class="m"><b>Uppercut</b> <span class="soft">New</span><br><span class="bt cr">NOT BY THE BELL</span> opens 1-6-3 at 30</div><div class="add">+10.9</div></div>
+ <div class="soft" style="font-size:13px;margin-top:8px">A pad night is 75 minutes with Luke Reid; its gain falls as a card nears her ceiling (73.2 for a punch).</div>
+</div>
+
+<div class="btn" style="position:absolute;left:1516px;top:892px;width:388px;height:52px;border:1px solid #4a7fc1;background:#14243a;color:#cfe3ff">+ BUILD A COMBINATION &middot; PLAYBOOK</div>
+<div class="btn" style="position:absolute;left:1516px;top:954px;width:388px;height:110px;background:linear-gradient(#f3c24e,#d9a12c);color:#1c1406;font-size:40px;flex-direction:column">DONE<span style="font:600 15px Barlow;letter-spacing:0;margin-top:4px">goal met &middot; scale 80% &middot; 5 weapons</span></div>
+
+<div style="position:absolute;left:16px;top:1066px;font:500 12px Barlow;color:var(--dim)">* NEW or ESTIMATE: win chance (Matchmaking band re-run), scale &plusmn;0.15, Hard cut, Luke's 12 pad nights, Tess's and Lucy's lines, mood 61. All else: the map's section 5 run.</div>
+</body></html>

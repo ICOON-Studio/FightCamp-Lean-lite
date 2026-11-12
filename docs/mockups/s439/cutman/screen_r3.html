@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Corner minute, priced</title>
+<style>
+  :root { --bg:#0b0d10; --panel:#11151a; --panel2:#161b21; --line:#262d35; --line2:#38414b; --fg:#e9ecef; --muted:#9aa4af;
+    --dim:#66707a; --gold:#d9b45a; --red:#d8574b; --amber:#e0a24a; --green:#6fbf73; --blue:#5b8fd6; --sel:#1d2a1f; --selb:#6fbf73; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { width:1920px; height:1080px; overflow:hidden; background:var(--bg); color:var(--fg);
+    font-family:"Segoe UI", system-ui, sans-serif; }
+  .caps { font-family:Bahnschrift,"Segoe UI",sans-serif; letter-spacing:.08em; text-transform:uppercase; font-weight:600; }
+  .num { font-family:Bahnschrift,"Segoe UI",sans-serif; font-variant-numeric:tabular-nums; }
+  .muted { color:var(--muted); } .dim { color:var(--dim); } .g { color:var(--green); } .r { color:var(--red); } .a { color:var(--amber); }
+
+  .top { position:absolute; left:0; right:0; top:0; height:88px; background:#050608; border-bottom:1px solid var(--line);
+    display:flex; align-items:center; padding:0 24px; gap:26px; }
+  .title { font-size:13px; color:var(--gold); }
+  .title b { display:block; font-size:21px; color:var(--fg); letter-spacing:0; text-transform:none; font-weight:600; margin-top:2px; }
+  .tanks { width:470px; display:flex; flex-direction:column; gap:7px; }
+  .tank { display:flex; align-items:center; gap:10px; font-size:14px; }
+  .tank .who { width:50px; }
+  .meter { position:relative; flex:1; height:10px; background:#1d2228; border-radius:5px; }
+  .meter i { position:absolute; top:0; bottom:0; left:0; border-radius:5px; }
+  .meter s { position:absolute; top:-3px; bottom:-3px; width:2px; background:#c8ccd0; }
+  .tank .v { width:210px; white-space:nowrap; color:var(--muted); }
+  .tank .v b { color:var(--fg); }
+  .yc { border:1px solid var(--line2); border-radius:6px; padding:7px 12px; background:#0c0f13; }
+  .yc .t { font-size:11px; color:var(--gold); margin-bottom:5px; }
+  .chips { display:flex; gap:5px; align-items:center; }
+  .chip { font-size:13px; padding:3px 7px; border-radius:3px; white-space:nowrap; }
+  .chip.d { background:#16301a; color:#9fd8a2; } .chip.k { background:#3a1715; color:#f0a39b; } .chip.o { border:1px dashed var(--line2); color:var(--dim); }
+  .score { font-size:21px; margin-left:8px; }
+  .btn { height:46px; padding:0 22px; border-radius:4px; display:flex; align-items:center; font-size:16px; white-space:nowrap; }
+  .btn.q { border:1px solid var(--line2); color:var(--muted); background:#111418; }
+  .btn.p { background:var(--gold); color:#16120a; font-weight:600; }
+  .btns { margin-left:auto; display:flex; gap:12px; align-items:center; }
+
+  .col { position:absolute; top:102px; bottom:20px; background:var(--panel); border:1px solid var(--line); border-radius:6px; }
+  .left { left:20px; width:440px; padding:14px 16px; }
+  .mid { left:474px; width:900px; padding:12px 18px; }
+  .right { left:1388px; right:20px; padding:14px 18px; }
+  .h { font-size:12.5px; color:var(--gold); margin-bottom:7px; display:flex; align-items:baseline; gap:10px; }
+  .h .n { display:inline-flex; width:20px; height:20px; border-radius:50%; background:#2a2412; color:var(--gold); align-items:center;
+    justify-content:center; font-size:12px; }
+  .h .sub { color:var(--dim); text-transform:none; letter-spacing:0; font-weight:400; font-family:"Segoe UI",sans-serif; font-size:13px; }
+  .sep { border-top:1px solid var(--line); margin:15px 0 13px; }
+
+  /* figure */
+  .fig { position:relative; height:330px; }
+  .co { position:absolute; font-size:13px; line-height:1.3; color:var(--muted); }
+  .co b { display:block; font-size:16px; color:var(--fg); }
+  /* mix */
+  .mix { display:grid; grid-template-columns:118px 1fr 74px; gap:8px 10px; align-items:center; font-size:14px; }
+  .bar { height:12px; background:#1d2228; border-radius:3px; position:relative; }
+  .bar i { position:absolute; left:0; top:0; bottom:0; border-radius:3px; background:#7d8792; }
+  .bar u { position:absolute; top:-3px; bottom:-3px; width:2px; background:var(--gold); }
+  .note { font-size:13px; color:var(--muted); line-height:1.4; margin-top:7px; }
+  .cut { border:1px solid #5a2a26; border-radius:5px; background:rgba(216,87,75,.07); padding:11px 12px; font-size:14.5px; line-height:1.5; }
+  .cut div + div { margin-top:4px; }
+
+  /* mid */
+  .row { display:flex; gap:8px; }
+  .opt { border:1px solid var(--line2); border-radius:5px; padding:8px 11px; background:var(--panel2); font-size:14px; line-height:1.35; color:var(--muted); }
+  .opt b { display:block; color:var(--fg); font-size:16px; font-weight:600; }
+  .opt.on { border-color:var(--selb); background:var(--sel); }
+  .opt .tag { font-size:11px; color:var(--gold); font-family:Bahnschrift,sans-serif; letter-spacing:.06em; text-transform:uppercase; }
+  .pace { display:grid; grid-template-columns:330px 1fr; gap:16px; }
+  .prow { display:flex; align-items:center; gap:7px; margin-bottom:7px; font-size:14px; }
+  .prow .lab { width:72px; color:var(--muted); }
+  .pb { border:1px solid var(--line2); border-radius:4px; padding:5px 12px; font-size:14px; color:var(--muted); background:var(--panel2); }
+  .pb.on { border-color:var(--selb); background:var(--sel); color:var(--fg); font-weight:600; }
+  .prices { font-size:12.5px; color:var(--muted); line-height:1.45; }
+  .calls { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; }
+  .calls .opt { min-height:118px; }
+  .calls .w { color:var(--fg); }
+  .change { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; }
+  .change .opt { min-height:96px; }
+  .talk { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; }
+  .second { display:flex; align-items:center; gap:12px; font-size:14px; border:1px solid var(--line); border-radius:5px; padding:7px 12px; background:#0e1216; }
+  .second .lk { margin-left:auto; border:1px solid var(--line2); border-radius:4px; padding:3px 12px; color:var(--muted); font-size:13px; }
+
+  /* right */
+  .stack { display:flex; height:26px; border-radius:4px; overflow:hidden; font-size:12.5px; }
+  .stack div { display:flex; align-items:center; justify-content:center; color:#0b0d10; font-weight:600; white-space:nowrap; }
+  .sw { background:#6fbf73; } .sd { background:#b9c0c7; } .sl { background:#e0a24a; } .ss { background:#d8574b; color:#fff !important; }
+  .fl { font-size:13.5px; margin:8px 0 4px; display:flex; justify-content:space-between; }
+  .legend { display:flex; gap:12px; font-size:12px; color:var(--muted); margin-top:7px; }
+  .legend i { display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:4px; vertical-align:-1px; }
+  table { width:100%; border-collapse:collapse; font-size:14.5px; }
+  td { padding:7px 0; border-bottom:1px solid #1d232a; vertical-align:top; }
+  td.v { text-align:right; white-space:nowrap; padding-left:8px; }
+  th { font-size:11.5px; color:var(--muted); font-weight:500; text-align:right; padding-bottom:3px; }
+  th:first-child { text-align:left; }
+  .end { display:grid; grid-template-columns:110px 1fr; gap:10px 10px; font-size:14.5px; line-height:1.4; }
+  .end .k { font-weight:600; }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="title caps">Corner minute<b>Before round 5 of 6 · Dana Holt v Kerry Moss</b></div>
+  <div class="tanks">
+    <div class="tank"><span class="who">Dana</span><span class="meter"><i style="width:48%;background:var(--amber)"></i><s style="left:35%"></s></span>
+      <span class="v num"><b>39</b> at the bell, <b>48</b> after the rest</span></div>
+    <div class="tank"><span class="who">Kerry</span><span class="meter"><i style="width:60%;background:#7d8792"></i><s style="left:35%"></s></span>
+      <span class="v num"><b>51</b> at the bell, <b>60</b> after the rest</span></div>
+  </div>
+  <div class="yc">
+    <div class="t caps">Your card (rounds won)</div>
+    <div class="chips num"><span class="chip d">R1 Dana</span><span class="chip k">R2 Kerry</span><span class="chip d">R3 Dana</span>
+      <span class="chip k">R4 Kerry</span><span class="chip o">R5</span><span class="chip o">R6</span><span class="score">2 - 2</span></div>
+  </div>
+  <div class="btns">
+    <div class="btn q">Skip to the bell (the coach's minute)</div>
+    <div class="btn p">Ready</div>
+  </div>
+</div>
+
+<!-- LEFT -->
+<div class="col left">
+  <div class="h caps">Dana at the bell</div>
+  <div class="fig">
+    <svg width="408" height="330" viewBox="0 0 408 300">
+      <g fill="#2a3139" stroke="#4a545e" stroke-width="1.5">
+        <ellipse cx="204" cy="58" rx="34" ry="42"/>
+        <rect x="190" y="98" width="28" height="18" rx="4"/>
+        <path d="M150 122 Q204 108 258 122 L270 230 Q204 248 138 230 Z"/>
+        <path d="M150 124 L116 196 L128 202 L160 146 Z"/>
+        <path d="M258 124 L292 196 L280 202 L248 146 Z"/>
+      </g>
+      <!-- Dana's right eye is on the viewer's left -->
+      <circle cx="190" cy="52" r="7" fill="#d8574b"/>
+      <circle cx="218" cy="52" r="6" fill="#3d4650"/>
+      <path d="M160 186 Q170 176 186 182" stroke="#e0a24a" stroke-width="0" fill="none"/>
+      <ellipse cx="166" cy="196" rx="15" ry="11" fill="#5d6a52" opacity=".9"/>
+      <!-- hook lines out of the body -->
+      <g stroke="#9aa4af" stroke-width="1.3" fill="none">
+        <path d="M183 52 L120 52 L104 34"/>
+        <path d="M232 30 L292 30 L306 16"/>
+        <path d="M152 198 L100 198 L86 214"/>
+      </g>
+      <circle cx="183" cy="52" r="2.5" fill="#9aa4af"/><circle cx="232" cy="30" r="2.5" fill="#9aa4af"/><circle cx="152" cy="198" r="2.5" fill="#9aa4af"/>
+    </svg>
+    <div class="co" style="left:0;top:0;width:110px"><b class="r num">33 · cut</b>Right eye, open</div>
+    <div class="co" style="left:300px;top:0;width:110px"><b class="num">56</b>Head (damage 20)</div>
+    <div class="co" style="left:0;top:216px;width:120px"><b class="num">58</b>Right ribs, fine</div>
+  </div>
+
+  <div class="h caps" style="margin-top:2px">Kerry's games <span class="sub">24 exchanges · gold = usual share</span></div>
+  <div class="mix num">
+    <span>Pressing</span><span class="bar"><i style="width:54%"></i><u style="left:55%"></u></span><span class="muted">13 · 54%</span>
+    <span>Loading up</span><span class="bar"><i style="width:25%"></i><u style="left:20%"></u></span><span class="muted">6 · 25%</span>
+    <span>Countering</span><span class="bar"><i style="width:17%"></i><u style="left:15%"></u></span><span class="muted">4 · 17%</span>
+    <span>At range</span><span class="bar"><i style="width:4%"></i><u style="left:10%"></u></span><span class="muted">1 · 4%</span>
+  </div>
+  <div class="note">The coach's star reads the last 3 exchanges (all loading up). Round 5 opens on a fresh roll of Kerry's usual games.</div>
+
+  <div class="sep"></div>
+  <div class="h caps">The cut</div>
+  <div class="cut">
+    <div><b>Right eye 33, open:</b> loses 1.5 times as much. It changes no exchange tonight.</div>
+    <div><b>After the bout</b> it is Dana's worst place: injury chance about 19% whatever this minute does; the likeliest injury is a cut, out 2-3 weeks.</div>
+    <div class="muted">No cutman on staff, so nobody closes it.</div>
+  </div>
+</div>
+
+<!-- MIDDLE -->
+<div class="col mid">
+  <div class="h caps"><span class="n">1</span>The plan for two rounds <span class="sub">pace, carried into the next round</span></div>
+  <div class="pace">
+    <div>
+      <div class="prow"><span class="lab">Round 5</span><span class="pb on">Push</span><span class="pb">Steady</span><span class="pb">Save</span></div>
+      <div class="prow"><span class="lab">Round 6</span><span class="pb on">Push</span><span class="pb">Steady</span><span class="pb">Save</span></div>
+      <div class="prices">Push: +6 an exchange, uses energy 1.35x, fades under 55.<br>Save: -4 an exchange, +6 energy back every exchange.</div>
+    </div>
+    <svg width="520" height="112" viewBox="0 0 520 112" class="num">
+      <rect x="40" y="6" width="470" height="84" fill="#0e1216" stroke="#262d35"/>
+      <!-- y: energy 20..65 -> 90..6 ; y = 90 - (e-20)*84/45 -->
+      <line x1="40" x2="510" y1="62" y2="62" stroke="#d8574b" stroke-dasharray="4 3"/>
+      <text x="36" y="66" fill="#d8574b" font-size="11" text-anchor="end">35</text>
+      <line x1="40" x2="510" y1="25.2" y2="25.2" stroke="#e0a24a" stroke-dasharray="4 3"/>
+      <text x="36" y="29" fill="#e0a24a" font-size="11" text-anchor="end">55</text>
+      <line x1="275" x2="275" y1="6" y2="90" stroke="#38414b"/>
+      <!-- your minute: R5 57 -> 36, R6 45 -> 23 -->
+      <polyline points="40,20.9 270,60.1" stroke="#6fbf73" stroke-width="2.5" fill="none"/>
+      <polyline points="280,42.6 510,84.4" stroke="#6fbf73" stroke-width="2.5" fill="none"/>
+      <!-- coach's minute: R5 57 -> 40, R6 43 -> 26 -->
+      <polyline points="40,20.9 270,52.7" stroke="#9aa4af" stroke-width="1.5" stroke-dasharray="5 3" fill="none"/>
+      <polyline points="280,47.1 510,78.8" stroke="#9aa4af" stroke-width="1.5" stroke-dasharray="5 3" fill="none"/>
+      <text x="150" y="104" fill="#9aa4af" font-size="12" text-anchor="middle">Round 5</text>
+      <text x="395" y="104" fill="#9aa4af" font-size="12" text-anchor="middle">Round 6</text>
+      <text x="505" y="18" fill="#9aa4af" font-size="11.5" text-anchor="end">Dana's energy · green: this plan · grey: the coach's</text>
+      <circle cx="384" cy="62" r="4" fill="#6fbf73"/><text x="392" y="40" fill="#e9ecef" font-size="11.5">under 35 from about 1:30</text>
+    </svg>
+  </div>
+
+  <div class="sep"></div>
+  <div class="h caps"><span class="n">2</span>The call, round 5 <span class="sub">worth on Kerry's games so far; a wrong call Dana follows and loses costs 2 morale</span></div>
+  <div class="calls">
+    <div class="opt on"><b>Jab and move</b>Dana is good at this.<br><span class="w num">About +9 an exchange.</span><br>Wrong at range (4%): -13.</div>
+    <div class="opt"><span class="tag">Coach's read</span><b>Hands up, move your head</b>Dana can do this.<br><span class="w num">About +2 an exchange.</span><br>Never wrong against Kerry.</div>
+    <div class="opt"><b>Go to the body</b>Dana can do this.<br><span class="w num">About 0 an exchange.</span><br>Wrong when Kerry loads up (25%).</div>
+    <div class="opt"><b>Breathe, pick your shots</b>Dana is good at this.<br><span class="w num">+15 when Dana is under 35, else 0.</span><br>Gives energy back.</div>
+  </div>
+
+  <div class="sep"></div>
+  <div class="h caps"><span class="n">3</span>One change, round 5 only</div>
+  <div class="change">
+    <div class="opt on"><b>Fix: low lead hand</b>Each loading-up exchange: -10.5 becomes 0. Kerry loaded up 6 of 24.</div>
+    <div class="opt"><b>Gloves high</b>4 fewer to the head (head damage -8). 4 more to the body: energy -4 in rounds 5 and 6.</div>
+    <div class="opt"><b>Elbows in</b>2 fewer to the body: energy +2 in rounds 5 and 6. 2 more to the head (head damage +4).</div>
+    <div class="opt"><b>Leave it</b>Nothing changes.</div>
+  </div>
+
+  <div class="sep"></div>
+  <div class="h caps"><span class="n">4</span>Set-up <span class="sub">one combination, fired on your NOW</span></div>
+  <div class="row" style="align-items:center">
+    <div class="pb on">1-2-3b · Sharp 64</div><span class="muted" style="font-size:14px">for</span>
+    <div class="pb">when Kerry presses</div><div class="pb on">when Kerry loads up</div><div class="pb">when Kerry tires</div>
+    <div class="prices" style="margin-left:6px">Into the gap: +11.5, and if won, head damage +30 on Kerry.<br>Into another game: -9.</div>
+  </div>
+
+  <div class="sep"></div>
+  <div class="h caps"><span class="n">5</span>Talk</div>
+  <div class="talk">
+    <div class="opt on"><b>Tell the truth</b>+1.2 an exchange. If Dana loses the round anyway: -2 morale.</div>
+    <div class="opt"><b>Calm down</b>No edge. Energy +2.4 a round. Dana gets hurt less (x0.6).</div>
+    <div class="opt"><b>Fire up</b>+1.5 an exchange. Energy -4.8 a round. Hurt more (x1.3).</div>
+    <div class="opt"><b>Say nothing</b>No edge, no cost.</div>
+  </div>
+
+  <div class="sep"></div>
+  <div class="h caps"><span class="n">6</span>Plan line <span class="sub">one change to Dana's plan for the rest of the bout</span></div>
+  <div class="row" style="align-items:center;font-size:14px">
+    <span>Round 4's weakest line: <b>Inside &#8594; Lead hook</b>, won 1 of 4 there.</span>
+    <div class="pb">Swap for Uppercut</div><div class="pb">Swap for Body hook</div><div class="pb on">Keep the plan</div>
+  </div>
+
+  <div class="second" style="margin-top:12px">
+    <span class="caps" style="font-size:12px;color:var(--gold)">The second</span>
+    <span>Ice 3: <b class="num">+3.1</b> energy a point in rounds 5 and 6. Water would be +3 a point, this round only.</span>
+    <span class="lk">Change</span>
+  </div>
+</div>
+
+<!-- RIGHT -->
+<div class="col right">
+  <div class="h caps">This minute against the coach's <span class="sub">forecast, about ±5</span></div>
+  <div class="fl"><span>This plan</span><span class="muted num">win 52 · draw 40 · loss 7 · stopped 1</span></div>
+  <div class="stack num"><div class="sw" style="width:52%">52</div><div class="sd" style="width:40%">40</div><div class="sl" style="width:7%">7</div><div class="ss" style="width:1%"></div></div>
+  <div class="fl"><span>The coach's minute</span><span class="muted num">win 21 · draw 48 · loss 29 · stopped 3</span></div>
+  <div class="stack num"><div class="sw" style="width:21%">21</div><div class="sd" style="width:47%">48</div><div class="sl" style="width:29%">29</div><div class="ss" style="width:3%"></div></div>
+  <div class="legend"><span><i class="sw"></i>Win</span><span><i class="sd"></i>Draw</span><span><i class="sl"></i>Loss on points</span><span><i class="ss"></i>Stopped</span></div>
+
+  <table style="margin-top:10px" class="num">
+    <tr><th></th><th>This plan</th><th>Coach's</th></tr>
+    <tr><td>Round 5 won</td><td class="v">about 83%</td><td class="v">about 42%</td></tr>
+    <tr><td>No sparring for 21 days</td><td class="v">48%</td><td class="v">79%</td></tr>
+    <tr><td>Wrong calls followed and lost</td><td class="v">about 1</td><td class="v">0</td></tr>
+  </table>
+
+  <div class="sep"></div>
+  <div class="h caps">What each ending costs</div>
+  <div class="end">
+    <span class="k g">Win</span><span>Kerry's place, 14 · +8 members · +5 reputation · morale +8</span>
+    <span class="k">Draw</span><span class="muted">Nothing moves</span>
+    <span class="k a">Lose on points</span><span>-1 member · -2 reputation · morale -12 (Flat: the corner's word 0.85 next bout) · drops to 17</span>
+    <span class="k r">Stopped</span><span>-2 members · -4 reputation · morale -12 · suspended 30 days · next fight 8 weeks later · durability -2 for good</span>
+  </div>
+
+  <div class="sep"></div>
+  <div class="h caps">After the bout</div>
+  <table>
+    <tr><td>Wins both rounds (head damage 24)</td><td class="v">no sparring 10 days</td></tr>
+    <tr><td>Loses either round (head damage 30 or more)</td><td class="v">no sparring 21 days</td></tr>
+    <tr><td>Injury chance (the cut eye)</td><td class="v">about 19%</td></tr>
+  </table>
+</div>
+
+</body>
+</html>

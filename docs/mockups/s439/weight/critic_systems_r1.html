@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Weight for this bout - systems critic 10/10 (S439 r1)</title>
+<style>
+:root{--bg:#10141c;--panel:#171d28;--panel2:#1d2431;--line:#2b3445;--fg:#e9edf3;--soft:#a9b3c2;--mute:#7c8799;--gold:#f2c14e;--green:#46c97f;--red:#ff5b4f;--blue:#5aa9ff;--amber:#ffab3d}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--fg);font-family:"Segoe UI",Arial,sans-serif;position:relative}
+.hd{font-family:Bahnschrift,"Segoe UI",Arial,sans-serif;letter-spacing:.03em}
+.abs{position:absolute}
+.top{left:0;top:0;width:1920px;height:56px;background:#0a0d13;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:22px;padding:0 20px;font-size:17px}
+.top .nav{color:var(--soft);font-size:22px;width:20px}
+.top .gym{font-weight:700;font-size:19px}
+.top .date{color:var(--soft)}
+.top .cash{margin-left:auto}
+.top .cash i{font-style:normal;color:var(--red);font-size:15px;margin-left:8px}
+.cont{height:40px;padding:0 18px;background:var(--gold);color:#1a1405;font-weight:700;display:flex;align-items:center;gap:10px;font-size:17px}
+.cont span{font-weight:500;font-size:15px}
+.menu{color:var(--soft)}
+.rail{left:0;top:56px;width:92px;height:1024px;background:#0d1118;border-right:1px solid var(--line);padding-top:18px}
+.rail div{height:64px;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--soft)}
+.rail .on{color:var(--fg);background:var(--panel2);border-left:3px solid var(--gold);font-weight:700}
+.fh{left:92px;top:56px;width:1828px;height:78px;display:flex;align-items:center;gap:18px;padding:0 24px;background:linear-gradient(90deg,#1b2230,#121721)}
+.face{width:58px;height:58px;border-radius:50%;background:#3a3f4c;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--gold);font-size:19px}
+.fh .nm{font-size:28px;font-weight:700}
+.fh .sub{color:var(--soft);font-size:16px;margin-top:2px}
+.fh .next{margin-left:auto;text-align:right;font-size:16px;color:var(--soft)}
+.fh .next b{color:var(--fg)}
+.tabs{left:92px;top:134px;width:1828px;height:42px;display:flex;gap:2px;padding:0 24px;border-bottom:1px solid var(--line);background:#121721}
+.tabs div{padding:0 16px;display:flex;align-items:center;font-size:16px;color:var(--soft)}
+.tabs .on{color:var(--fg);border-bottom:3px solid var(--gold);font-weight:700}
+.sub2{left:116px;top:184px;width:1780px;height:40px;display:flex;gap:10px;align-items:center}
+.chip{padding:6px 14px;border:1px solid var(--line);font-size:15px;color:var(--soft);background:var(--panel)}
+.chip.on{border-color:var(--gold);color:var(--fg);background:rgba(242,193,78,.12);font-weight:700}
+.chip b{color:var(--amber)}
+.sub2 .r{margin-left:auto;font-size:15px;color:var(--soft)}
+.sub2 .r b{color:var(--fg)}
+.box{background:var(--panel);border:1px solid var(--line)}
+.sh{font-size:20px;color:var(--gold);display:flex;align-items:baseline;gap:12px}
+.sh span{font-family:"Segoe UI",Arial,sans-serif;letter-spacing:0;font-size:14px;color:var(--soft)}
+.ph{left:116px;top:232px;width:1080px;height:46px;display:flex;align-items:center;gap:18px}
+.ph .t{font-size:28px;color:var(--gold)}
+.ph .s{font-size:17px;color:var(--soft)}
+.ph .s b{color:var(--fg)}
+.plan{left:116px;top:282px;width:1080px;height:370px;padding:12px 16px}
+table{border-collapse:collapse;width:100%;margin-top:8px}
+th{font-size:13px;font-weight:600;color:var(--mute);text-align:left;padding:4px 8px;border-bottom:1px solid var(--line)}
+td{font-size:15px;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.28}
+td small{display:block;font-size:12.5px;color:var(--soft)}
+tr.ch td{background:rgba(242,193,78,.09)}
+tr.ch td:first-child{border-left:4px solid var(--gold)}
+tr.dim td{color:var(--mute)}
+tr.dim td small{color:#5f6a7b}
+.pn{font-weight:700;font-size:16px}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:1px 6px;margin-left:6px;background:var(--gold);color:#1a1405;vertical-align:middle}
+.radio{display:inline-block;width:14px;height:14px;border-radius:50%;border:2px solid var(--soft);margin-right:8px;vertical-align:-1px}
+.radio.on{border-color:var(--gold);background:radial-gradient(circle,var(--gold) 45%,transparent 50%)}
+.big{font-size:21px;font-weight:700}
+.win{font-size:24px;font-weight:700;color:var(--green)}
+.cost{color:var(--amber);font-weight:600}
+.note{margin-top:8px;font-size:14.5px;color:var(--soft);line-height:1.35}
+.note b{color:var(--fg)}
+.line{left:116px;top:660px;width:1080px;height:240px;padding:10px 16px}
+.chk{left:116px;top:908px;width:530px;height:156px;padding:10px 16px}
+.strip{left:658px;top:908px;width:538px;height:156px;padding:10px 16px;border-left:4px solid var(--blue)}
+.opt{display:flex;align-items:center;gap:8px;font-size:15px;margin-top:7px;color:var(--soft)}
+.opt b{color:var(--fg)}
+.kv{display:grid;grid-template-columns:150px 1fr;row-gap:5px;margin-top:8px;font-size:14.5px}
+.kv div:nth-child(odd){color:var(--mute)}
+.btn{display:inline-flex;align-items:center;height:34px;padding:0 14px;border:1px solid var(--blue);color:#cfe5ff;background:rgba(90,169,255,.12);font-size:15px;font-weight:600;white-space:nowrap}
+.btn.gold{border-color:var(--gold);color:var(--gold);background:rgba(242,193,78,.12)}
+.en{left:1214px;top:232px;width:682px;height:372px;padding:12px 16px}
+.seg{display:flex;gap:0;margin-top:8px}
+.seg div{padding:5px 12px;border:1px solid var(--line);font-size:14px;color:var(--soft)}
+.seg .on{border-color:var(--gold);color:var(--fg);background:rgba(242,193,78,.12);font-weight:700}
+.opp{left:1214px;top:614px;width:682px;height:212px;padding:12px 16px}
+.oppg{display:flex;gap:22px;margin-top:8px}
+.oppg div{font-size:13px;color:var(--mute)}
+.oppg b{display:block;font-size:17px;color:var(--fg);margin-top:2px}
+.day{left:1214px;top:836px;width:682px;height:228px;padding:12px 16px}
+.tl{display:flex;margin-top:12px;position:relative}
+.tl:before{content:"";position:absolute;left:10px;right:10px;top:31px;height:2px;background:var(--line)}
+.st{flex:1;text-align:center;position:relative}
+.st .h{font-size:14px;font-weight:700;color:var(--soft)}
+.st .d{width:12px;height:12px;border-radius:50%;background:var(--soft);margin:7px auto 7px;position:relative;z-index:1}
+.st .x{font-size:13px;line-height:1.3;color:var(--soft);padding:0 4px}
+.st .x b{color:var(--fg)}
+.st.key .d{background:var(--gold);width:16px;height:16px;margin:5px auto 5px}
+.st.key .h{color:var(--gold)}
+.st.bell .d{background:var(--green)}
+svg text{font-family:"Segoe UI",Arial,sans-serif}
+</style></head>
+<body>
+
+<div class="abs top">
+  <div class="nav">&lt;</div><div class="nav">&gt;</div>
+  <div class="gym">Anvil Street Gym</div>
+  <div class="date">Mon 16 Feb 2026 · Week 7</div>
+  <div class="cash">$12,940<i>running -$280 a week</i></div>
+  <div class="cont">CONTINUE <span>to Mon 23 Feb, Samira's weight check</span></div>
+  <div class="menu">Menu</div>
+</div>
+
+<div class="abs rail"><div>Home</div><div class="on">Fighters</div><div>Fights</div><div>Club</div><div>World</div></div>
+
+<div class="abs fh">
+  <div class="face">SK</div>
+  <div><div class="nm hd">SAMIRA KHAN</div>
+  <div class="sub">Welterweight 65.0 · 18 · Orthodox · 2-1 · Slugger · Stamina 60 · Discipline 34</div></div>
+  <div class="next">Next bout <b>Kayleigh Bell, club show Sat 28 Feb</b><br>12 days · accepted today</div>
+</div>
+
+<div class="abs tabs">
+  <div>Overview</div><div>Attributes and moves</div><div>Body and class</div><div>Training</div><div>History</div><div class="on">Fight prep</div><div>Contract and goals</div><div>Playbook</div>
+</div>
+
+<div class="abs sub2">
+  <div class="chip on">Make weight</div>
+  <div class="chip">Game plan answers <b>2 found</b></div>
+  <div class="chip">Tape <b>1 of 2</b></div>
+  <div class="chip">Fight week</div>
+  <div class="r">What this bout is worth: a win makes Samira <b>3-1, one win from the regional table</b> (enters at 4)</div>
+</div>
+
+<div class="abs ph">
+  <div class="t hd">MAKE WEIGHT</div>
+  <div class="s"><b>65.9 now</b> · limit 65.0 · <b>0.9 to lose</b> · scale <b>Sat 28 Feb, 4 pm, on the day</b> · 12 days · one diet weekend (Sat 21)</div>
+</div>
+
+<!-- PLAN TABLE -->
+<div class="abs box plan">
+  <div class="sh hd">PICK THE PLAN <span>one answer column: Win, with slips and misses counted in · the cost beside it is what you give for it</span></div>
+  <table>
+    <tr><th style="width:290px">Plan</th><th style="width:150px">Energy at the first bell</th><th style="width:120px">Miss the scale</th><th style="width:110px">Win, all in</th><th style="width:220px">What it costs besides</th><th>Why the number</th></tr>
+    <tr class="ch">
+      <td><span class="radio on"></span><span class="pn">Lean + meal prep</span><span class="tag">COACH</span><small>meal prep for these 12 days only · slip 1 in 4</small></td>
+      <td><span class="big">88</span><small>90, or 80 if Samira slips</small></td>
+      <td><span class="big">2</span> in 100</td>
+      <td><span class="win">53</span></td>
+      <td><span class="cost">$140</span><small>2 weeks x $70, then back to Free</small></td>
+      <td><small>fewest slips; nothing taken from training</small></td>
+    </tr>
+    <tr>
+      <td><span class="radio"></span><span class="pn">Lean, house rules Free</span><small>slip 1 in 2 on Sat 21</small></td>
+      <td><span class="big">85</span><small>90, or 80 if Samira slips</small></td>
+      <td><span class="big">3</span> in 100</td>
+      <td><span class="win">51</span></td>
+      <td>nothing</td>
+      <td><small>a slip grows the trim to 1.1</small></td>
+    </tr>
+    <tr>
+      <td><span class="radio"></span><span class="pn">Burn it on the road</span><small>no diet: 2 extra Hard roadworks, Tue 17 and Thu 19</small></td>
+      <td><span class="big">86</span><small>trim 0.4 -4 · legs heavy -10</small></td>
+      <td><span class="big">1</span> in 100</td>
+      <td><span class="win">52</span></td>
+      <td><span class="cost">injury risk x2 this week</span><small>Week tiredness 55 at the bell</small></td>
+      <td><small>no diet, so no slip; tired legs instead</small></td>
+    </tr>
+    <tr class="dim">
+      <td><span class="radio"></span><span class="pn">Hold + big trim</span><small>drifts up toward the walking weight 66.8</small></td>
+      <td><span class="big">79</span><small>66.2 by Thu: trim 1.2 -19</small></td>
+      <td>6 in 100</td>
+      <td>48</td>
+      <td>nothing</td>
+      <td><small>worth it only at 0.5 or less to lose</small></td>
+    </tr>
+  </table>
+  <div class="note">Cut is not listed: at 0.9 to lose in 12 days Lean always beats it. It appears when the gap is past the 1.3 trim limit.
+  <b>5 Energy at the bell = about 0.4 power every round = about 2 in 100.</b> Hover any number for its sum.</div>
+</div>
+
+<!-- LINE TO THE SCALE -->
+<div class="abs box line">
+  <div class="sh hd">THE LINE TO THE SCALE <span>the picked plan, each morning · the dashed line is a slip on Sat 21 · the coach weighs Samira every Monday</span></div>
+  <svg width="1048" height="200" viewBox="0 0 1048 200" style="margin-top:4px">
+    <rect x="838" y="6" width="202" height="168" fill="rgba(242,193,78,.07)"/>
+    <text x="846" y="22" font-size="13" fill="#f2c14e" font-weight="700">FIGHT-WEEK TRIM · 3 days</text>
+    <rect x="434" y="6" width="162" height="168" fill="rgba(90,169,255,.06)"/>
+    <text x="442" y="168" font-size="13" fill="#5aa9ff" font-weight="700">DIET WEEKEND · slip 1 in 4</text>
+    <g stroke="#2b3445"><line x1="70" y1="20" x2="1040" y2="20"/><line x1="70" y1="62" x2="1040" y2="62"/><line x1="70" y1="104" x2="1040" y2="104"/><line x1="70" y1="174" x2="1040" y2="174"/></g>
+    <g font-size="12" fill="#7c8799" text-anchor="end"><text x="62" y="24">66.4</text><text x="62" y="66">65.9</text><text x="62" y="108">65.4</text><text x="62" y="178">64.6</text></g>
+    <line x1="70" y1="140" x2="1040" y2="140" stroke="#ff5b4f" stroke-width="2"/>
+    <text x="76" y="134" font-size="13" fill="#ff5b4f" font-weight="700">LIMIT 65.0 · no allowance</text>
+    <polyline fill="none" stroke="#ffab3d" stroke-width="2" stroke-dasharray="7 5" points="474,72 515,44 636,49 797,54 878,85 959,116 1040,148.4"/>
+    <text x="520" y="36" font-size="13" fill="#ffab3d">slip +0.4: trim 1.1, Energy 80 at the bell</text>
+    <polyline fill="none" stroke="#f2c14e" stroke-width="4" points="70,62 474,72 636,79 797,84 878,103 959,122 1040,148.4"/>
+    <polygon points="636,69 646,79 636,89 626,79" fill="#5aa9ff"/>
+    <text x="620" y="112" font-size="13" fill="#cfe5ff" font-weight="700" text-anchor="end">Mon 23: 65.7 or under</text>
+    <circle cx="1040" cy="148.4" r="6" fill="#46c97f"/>
+    <text x="1030" y="166" font-size="13" fill="#46c97f" font-weight="700" text-anchor="end">64.9 · 0.1 spare</text>
+    <g font-size="12" fill="#a9b3c2" text-anchor="middle">
+      <text x="70" y="194">Mon 16</text><text x="232" y="194">Wed 18</text><text x="393" y="194">Fri 20</text><text x="474" y="194">Sat 21</text>
+      <text x="636" y="194">Mon 23</text><text x="797" y="194">Wed 25</text><text x="878" y="194">Thu 26</text><text x="1005" y="194">Sat 28, 4 pm</text>
+    </g>
+  </svg>
+</div>
+
+<!-- MONDAY CHECK ORDER -->
+<div class="abs box chk">
+  <div class="sh hd">IF MONDAY READS OVER <span>set it now; only "Ask me" stops the clock</span></div>
+  <div class="opt"><span class="radio on"></span><b>Switch to Cut</b> · about -1 Energy, miss falls to 1 in 100</div>
+  <div class="opt"><span class="radio"></span><b>Keep the plan</b> · bigger trim, about -3 Energy, miss 4 in 100</div>
+  <div class="opt"><span class="radio"></span><b>Ask me</b> · the card waits on Monday with the day's numbers</div>
+  <div class="opt" style="color:var(--mute)">Over the 1.3 trim limit: always a card, with Pull out ($300 empty slot)</div>
+</div>
+
+<!-- BODY AND CLASS STRIP -->
+<div class="abs box strip">
+  <div class="sh hd" style="color:#9fcbff">STANDING, ON BODY AND CLASS <span>runs between bouts</span></div>
+  <div class="kv">
+    <div>House rules</div><div><b>Free</b> · slip 1 in 2 a diet weekend</div>
+    <div>Between bouts</div><div><b>Lean</b> · walks 66.8, now 65.9</div>
+    <div>Discipline</div><div><b>34</b> · clean bouts in a row 0 of 3 (+2 at 3)</div>
+  </div>
+  <div style="margin-top:8px"><span class="btn">Open Body and class</span></div>
+</div>
+
+<!-- ENERGY CURVE -->
+<div class="abs box en">
+  <div class="sh hd">ENERGY ROUND BY ROUND <span>the fight's own rules · Stamina 60 vs 58</span></div>
+  <div class="seg"><div style="border:0;color:var(--mute);padding-left:0">Game plan pace</div><div class="on">Steady</div><div>Push round 3</div><div>Save round 1</div></div>
+  <svg width="650" height="214" viewBox="0 0 650 214" style="margin-top:6px">
+    <rect x="30" y="20" width="480" height="34" fill="rgba(70,201,127,.06)"/>
+    <line x1="30" y1="54" x2="510" y2="54" stroke="#46c97f" stroke-opacity=".7" stroke-dasharray="4 4"/>
+    <line x1="30" y1="105" x2="510" y2="105" stroke="#ffab3d" stroke-opacity=".7" stroke-dasharray="4 4"/>
+    <line x1="30" y1="173" x2="510" y2="173" stroke="#2b3445"/>
+    <g font-size="12" fill="#a9b3c2"><text x="2" y="58">70</text><text x="2" y="109">40</text><text x="8" y="177">0</text></g>
+    <g font-size="12.5">
+      <text x="516" y="44" fill="#46c97f">no cost above 70</text>
+      <text x="516" y="60" fill="#46c97f">under 70: power lost,</text>
+      <text x="516" y="75" fill="#46c97f">up to 6 when empty</text>
+      <text x="516" y="104" fill="#ffab3d">under 40: own</text>
+      <text x="516" y="119" fill="#ffab3d">combinations decide</text>
+      <text x="516" y="134" fill="#ffab3d">less of the round</text>
+    </g>
+    <polyline fill="none" stroke="#a9b3c2" stroke-opacity=".5" stroke-width="2" stroke-dasharray="3 4" points="50,38.7 180,89.4 215,73 345,123.4 380,99.1 510,150.2"/>
+    <polyline fill="none" stroke="#5aa9ff" stroke-width="2.5" points="50,30.2 180,81.2 215,64.9 345,115.9 380,91.7 510,142.9"/>
+    <polyline fill="none" stroke="#f2c14e" stroke-width="4" points="50,23.4 180,74 215,58.6 345,109.1 380,85.3 510,136"/>
+    <g fill="#5aa9ff"><circle cx="215" cy="58.6" r="0"/></g>
+    <text x="198" y="48" font-size="11.5" fill="#cfe5ff" text-anchor="middle">water can add 9</text>
+    <text x="363" y="77" font-size="11.5" fill="#cfe5ff" text-anchor="middle">water can add 9</text>
+    <g font-size="12" fill="#7c8799" text-anchor="middle"><text x="115" y="196">Round 1</text><text x="280" y="196">Round 2</text><text x="445" y="196">Round 3</text></g>
+  </svg>
+  <div style="display:flex;gap:16px;font-size:13.5px;color:var(--soft);margin-top:-6px;flex-wrap:wrap">
+    <div><b style="color:var(--gold)">━</b> Samira, picked plan: <b style="color:var(--fg)">88 → 22</b></div>
+    <div><b style="color:var(--blue)">━</b> Kayleigh, about: <b style="color:var(--fg)">84 → 18</b></div>
+    <div><b style="color:var(--soft)">┅</b> Hold + big trim: <b style="color:var(--fg)">79 → 13</b></div>
+  </div>
+  <div style="font-size:13.5px;color:var(--soft);margin-top:6px">Corner water is 3 a point at the minute (3 points, shared with ice). The 6 Energy over Kayleigh is worth about 2 water points.</div>
+</div>
+
+<!-- OTHER CORNER -->
+<div class="abs box opp">
+  <div class="sh hd">THE OTHER CORNER · KAYLEIGH BELL <span>2-1 · same scale, 4 pm</span></div>
+  <div class="oppg">
+    <div>Energy at the bell<b>about 84 (81 to 87)</b></div>
+    <div>Why<b>trims about 0.9</b></div>
+    <div>Fades late?<b style="color:var(--mute)">tape 2 tells</b></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-top:12px">
+    <div class="btn">Watch tape 2 · Wed evening</div>
+    <div style="font-size:13.5px;color:var(--soft)">narrows 81-87 to one number</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
+    <div class="btn gold">Write it: "When Kayleigh tires → let your hands go"</div>
+    <div style="font-size:13.5px;color:var(--soft)">+1 to 2 in 100 · takes plan line 4 of 5</div>
+  </div>
+</div>
+
+<!-- SCALE DAY -->
+<div class="abs box day">
+  <div class="sh hd">SCALE DAY · SAT 28 FEB <span>amateur: on the day, no water cut</span></div>
+  <div class="tl">
+    <div class="st"><div class="h">8:00</div><div class="d"></div><div class="x"><b>Home scale 65.1</b><br>0.2 to go</div></div>
+    <div class="st"><div class="h">12:00</div><div class="d"></div><div class="x"><b>Small meal</b><br>sips of water</div></div>
+    <div class="st key"><div class="h">4:00 pm</div><div class="d"></div><div class="x"><b>THE SCALE 64.9</b><br>made</div></div>
+    <div class="st"><div class="h">to 4:45</div><div class="d"></div><div class="x">up to 0.3 over: sweat it off, <b>-2 Energy a 0.1</b><br>more: <b>walkover loss</b></div></div>
+    <div class="st bell"><div class="h">5:00 pm</div><div class="d"></div><div class="x"><b>First bell</b><br>Energy 88</div></div>
+  </div>
+</div>
+
+</body></html>

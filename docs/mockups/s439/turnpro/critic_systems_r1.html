@@ -1,0 +1,154 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Pro offer - critic systems 10 of 10</title>
+<style>
+:root{--bg:#0d1218;--panel:#151c25;--panel2:#1b2430;--line:#2a3646;--fg:#e9eef4;--mut:#8d9bad;--dim:#6f7d8f;--red:#ff7a72;--blue:#3d8ee8;--lb:#7ab6ff;--green:#3fbf6f;--gold:#e8c35a;--teal:#4fc2b5}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--fg);font-family:Bahnschrift,"Segoe UI",Arial,sans-serif}
+.a{position:absolute}
+.num{font-weight:700;font-variant-numeric:tabular-nums}
+.top{left:0;top:0;width:1920px;height:60px;background:#0a0e13;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 18px}
+.arw{width:32px;height:32px;border:1px solid var(--line);border-radius:5px;display:flex;align-items:center;justify-content:center;color:var(--mut)}
+.gym{font-size:22px;font-weight:700;letter-spacing:.04em}
+.date{font-size:16px;line-height:1.15;margin-left:10px}.date span{color:var(--mut);font-size:14px}
+.flag{border:1px solid #e2433d;color:#ff8a83;font-weight:700;font-size:14px;letter-spacing:.1em;padding:5px 10px;border-radius:4px;margin-left:16px;background:rgba(226,67,61,.15)}
+.cash{margin-left:auto;text-align:right;line-height:1.15}.cash b{font-size:21px;color:var(--gold)}.cash span{display:block;font-size:13px;color:var(--mut)}
+.big{background:#e2433d;color:#fff;border-radius:6px;padding:6px 16px;line-height:1.1;min-width:220px}.big b{font-size:17px;display:block}.big span{font-size:13px}
+.rail{left:0;top:60px;width:80px;height:960px;background:#0a0e13;border-right:1px solid var(--line);opacity:.4}
+.rail div{height:66px;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--mut)}
+.dimbg{left:80px;top:60px;width:1840px;height:960px;background:rgba(5,8,12,.72)}
+.modal{left:104px;top:68px;width:1712px;height:942px;background:linear-gradient(180deg,#17202b,#121921);border:1px solid #33435a;border-radius:12px}
+.name{font-size:40px;font-weight:700;letter-spacing:.03em}
+.sub{font-size:17px}.sub i{font-style:normal;color:var(--mut)}
+.tag{display:inline-block;border:1px solid var(--gold);color:var(--gold);font-weight:700;letter-spacing:.14em;font-size:14px;padding:3px 8px;border-radius:3px;background:rgba(232,195,90,.12)}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:6px 12px;font-size:15px;white-space:nowrap}
+.chip i{font-style:normal;color:var(--mut)}
+.k{font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.h{font-size:13px;color:var(--dim);margin-top:3px;line-height:1.25}
+.colh{top:196px;height:78px;border-radius:8px 8px 0 0;padding:9px 16px}
+.colh .t{font-size:21px;font-weight:700;letter-spacing:.05em}
+.colh .s{font-size:13px;color:var(--mut);margin-top:2px}
+.pro{border-top:4px solid var(--gold);background:rgba(232,195,90,.07)}
+.dj{border-top:4px solid var(--teal);background:rgba(79,194,181,.07)}
+.st{border-top:4px solid var(--blue);background:rgba(61,142,232,.06)}
+.pick{position:absolute;right:12px;top:10px;display:flex;border:1px solid var(--line);border-radius:5px;overflow:hidden;font-size:13px}
+.pick span{padding:4px 9px;color:var(--mut)}.pick .on{background:#3a4a60;color:#fff;font-weight:700}
+.row{left:30px;width:1652px;border-top:1px solid var(--line)}
+.lab{position:absolute;left:0;top:0;width:220px;padding:10px 0 0 4px}
+.c{position:absolute;top:0;padding:9px 16px 0 16px;width:470px}
+.c1{left:226px}.c2{left:702px}.c3{left:1178px}
+.v{font-size:19px}.d{font-size:14px;color:var(--mut);margin-top:3px;line-height:1.3}
+.bn{font-size:30px;font-weight:700;font-variant-numeric:tabular-nums}
+.g{color:var(--green)}.r{color:var(--red)}.y{color:var(--gold)}.bl{color:var(--lb)}.tl2{color:var(--teal)}.w{color:var(--fg)}
+.best{display:inline-block;font-size:11px;letter-spacing:.1em;font-weight:700;padding:2px 6px;border-radius:3px;background:rgba(63,191,111,.18);color:var(--green);margin-left:8px;vertical-align:middle}
+.tlx{position:absolute;left:16px;top:52px;width:430px;height:46px}
+.axis{position:absolute;left:0;top:16px;width:430px;height:3px;background:#2a3646}
+.dot{position:absolute;top:8px;width:18px;height:18px;border-radius:50%;transform:translateX(-50%);border:3px solid;font-size:0}
+.pct{position:absolute;top:-8px;transform:translateX(-50%);font-size:12px;color:var(--fg);white-space:nowrap}
+.mo{position:absolute;top:28px;transform:translateX(-50%);font-size:11px;color:var(--dim);white-space:nowrap}
+.btn{position:absolute;height:54px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700}
+.bg{background:linear-gradient(180deg,#f2cf6a,#d7ad3f);color:#1a1405;box-shadow:0 3px 0 #8f6f1d}
+.bt{background:rgba(79,194,181,.16);border:2px solid var(--teal);color:#d4f5f1}
+.bq{background:var(--panel2);border:1px solid var(--line);color:var(--fg)}
+.bc{position:absolute;font-size:13px;color:var(--mut);line-height:1.3}
+.note{font-size:12px;color:var(--dim)}
+</style></head><body>
+<div class="a top"><div class="arw">&lt;</div><div class="arw">&gt;</div><div class="gym">ANVIL STREET GYM</div>
+<div class="date">Mon 11 Jan 2027<br><span>Week 54</span></div><div class="flag">PRO OFFER</div>
+<div class="cash"><b class="num">$8,420</b><span>running +$135 a week</span></div><div class="big"><b>NEEDS YOU (1)</b><span>Jade's pro offer</span></div><div class="arw" style="width:auto;padding:0 12px">Menu</div></div>
+<div class="a rail"><div>Home</div><div>Fighters</div><div>Fights</div><div>Club</div><div>World</div></div>
+<div class="a dimbg"></div>
+
+<div class="a modal">
+  <svg class="a" style="left:28px;top:20px" width="92" height="92" viewBox="0 0 104 104"><circle cx="52" cy="52" r="50" fill="#22303f" stroke="#e8c35a" stroke-width="3"/><circle cx="52" cy="42" r="18" fill="#9fb0c4"/><path d="M18 94 C22 68 38 62 52 62 C66 62 82 68 86 94 Z" fill="#9fb0c4"/></svg>
+  <div class="a" style="left:138px;top:18px"><span class="tag">BOW LANE PROMOTIONS CALLS</span>
+    <div class="name">JADE KIRWAN</div>
+    <div class="sub">Lightweight 60 kg, 22, orthodox <i>|</i> amateur <b>7-2</b> <i>|</i> <b>No. 2</b> London <i>|</i> Cardio 63, Power 58, Defence 61</div></div>
+  <div class="a" style="right:28px;top:22px;display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+    <div class="chip" style="border-color:var(--gold)"><i>Jade wants</i> <b class="y">the nationals first</b> <i>(heard +10 mood, overruled -10)</i></div>
+    <div class="chip"><i>Debut</i> <b>Sat 13 Feb</b> <span class="pick" style="position:static;margin-left:6px"><span class="on">4 weeks</span><span>8 weeks: full camp, 68 in 100</span></span></div>
+  </div>
+
+  <div class="a" style="left:30px;top:136px;width:1652px;display:flex;gap:10px;align-items:center">
+    <div class="k" style="color:var(--fg);font-size:16px">The next 26 weeks</div><div class="note">&nbsp;Mon 11 Jan to Mon 12 Jul. Every number counts the chance of winning each bout (no "if each is won"). Hover any number for its sum.</div>
+    <div class="chip" style="margin-left:auto"><i>Cash after signing</i> <b>$7,175</b> <i>runway 31 weeks</i></div>
+  </div>
+
+  <!-- column heads -->
+  <div class="a colh pro" style="left:256px;width:470px"><div class="t y">AS A PRO</div><div class="s">full-time training, no stipend</div>
+    <div class="pick" style="top:40px;right:12px"><span class="on">Tune-ups</span><span>Step up at bout 2</span></div></div>
+  <div class="a colh dj" style="left:732px;width:470px"><div class="t tl2">AMATEUR, DAY JOB</div><div class="s">no stipend, training 15% slower</div></div>
+  <div class="a colh st" style="left:1208px;width:470px"><div class="t bl">AMATEUR, CLUB STIPEND</div><div class="s">$250 a week, full-time training (Jade's setting now)</div></div>
+
+  <!-- R1 bouts -->
+  <div class="a row" style="top:274px;height:104px">
+    <div class="lab"><div class="k">Bouts</div><div class="h">dot = date, number = win chance in 100</div></div>
+    <div class="c c1"><div class="v"><b>3</b> bouts, about <b>2.3</b> wins</div>
+      <div class="tlx"><div class="axis"></div>
+        <div class="dot" style="left:52px;border-color:var(--gold);background:var(--gold)"></div><div class="pct" style="left:52px">62</div>
+        <div class="dot" style="left:186px;border-color:var(--gold)"></div><div class="pct" style="left:186px">82</div>
+        <div class="dot" style="left:318px;border-color:var(--gold)"></div><div class="pct" style="left:318px">82</div>
+        <div class="mo" style="left:52px">13 Feb</div><div class="mo" style="left:186px">10 Apr</div><div class="mo" style="left:318px">5 Jun</div><div class="mo" style="left:400px">next: 31 Jul</div></div></div>
+    <div class="c c2"><div class="v"><b>5 to 9</b> bouts, about <b>3.9</b> wins</div>
+      <div class="tlx"><div class="axis"></div>
+        <div class="dot" style="left:52px;border-color:var(--teal)"></div><div class="pct" style="left:52px">63</div>
+        <div class="dot" style="left:150px;border-color:var(--teal);background:var(--teal)"></div><div class="pct" style="left:150px">63</div>
+        <div class="dot" style="left:168px;border-color:var(--teal);background:var(--teal)"></div><div class="pct" style="left:176px">53</div>
+        <div class="dot" style="left:224px;border-color:var(--teal);background:var(--teal)"></div><div class="pct" style="left:228px">45</div>
+        <div class="dot" style="left:330px;border-color:var(--teal)"></div><div class="pct" style="left:330px">63</div>
+        <div class="dot" style="left:410px;border-color:var(--teal)"></div><div class="pct" style="left:410px">63</div>
+        <div class="mo" style="left:52px">13 Feb</div><div class="mo" style="left:160px">regional</div><div class="mo" style="left:230px">nationals</div><div class="mo" style="left:330px">Jun</div><div class="mo" style="left:410px">Jul</div></div></div>
+    <div class="c c3"><div class="v">same dates, about <b>4.1</b> wins</div><div class="d" style="margin-top:12px">full-time training: each bout about 2 in 100 better than on the day job</div></div>
+  </div>
+
+  <!-- R2 money -->
+  <div class="a row" style="top:378px;height:112px">
+    <div class="lab"><div class="k">The club's money</div><div class="h">26 weeks, after bills; new members' dues counted</div></div>
+    <div class="c c1"><div class="bn r">-$590</div><div class="d">licences <span class="r">-$1,245</span> today; debut <span class="g">+$138</span>; tune-ups <span class="g">+$399</span>, <span class="g">+$422</span> x chance;<br>wins bring members: dues <span class="g">+$1,100</span>; stipend <b class="w">$0</b></div></div>
+    <div class="c c2"><div class="bn g">+$2,710<span class="best">MOST CASH</span></div><div class="d">ticket cuts 3 x <span class="g">$450</span> (none in the championships);<br>wins bring members: dues <span class="g">+$1,360</span></div></div>
+    <div class="c c3"><div class="bn r">-$3,690</div><div class="d">as the day job, less stipend 26 x <span class="r">$250</span>;<br>dues <span class="g">+$1,450</span> (a few more wins)</div></div>
+  </div>
+
+  <!-- R3 strength -->
+  <div class="a row" style="top:490px;height:84px">
+    <div class="lab"><div class="k">Fight strength</div><div class="h">week 26 against an even pro from today</div></div>
+    <div class="c c1"><div class="v"><b class="g">66 in 100</b><span class="best">STRONGEST</span></div><div class="d">training full time + 0.6 from two pro tune-ups</div></div>
+    <div class="c c2"><div class="v"><b>58 in 100</b></div><div class="d">training 15% slower; amateur bouts teach nothing extra</div></div>
+    <div class="c c3"><div class="v"><b>61 in 100</b></div><div class="d">training full time; amateur bouts teach nothing extra</div></div>
+  </div>
+
+  <!-- R4 opens -->
+  <div class="a row" style="top:574px;height:84px">
+    <div class="lab"><div class="k">What it opens</div><div class="h">titles and rank</div></div>
+    <div class="c c1"><div class="v">Unranked; a seat at <b>5 pro wins</b></div><div class="d">about 2.3 of the 5 by July; a step up could take No. 14</div></div>
+    <div class="c c2"><div class="v">Regional champion: <b class="tl2">31 in 100</b></div><div class="d">a title = a <b class="w">ranked pro start (No. 20)</b>, skips the 5-win wait; nationals 26 Apr</div></div>
+    <div class="c c3"><div class="v">Regional champion: <b class="bl">34 in 100</b></div><div class="d">same prize; full-time training lifts each bout</div></div>
+  </div>
+
+  <!-- R5 mood -->
+  <div class="a row" style="top:658px;height:78px">
+    <div class="lab"><div class="k">Jade's mood</div><div class="h">band sets how much of your corner lands</div></div>
+    <div class="c c1"><div class="v">Steady 64 to <b class="r">Flat 49</b></div><div class="d">overruled -10, low coachability -5 more: <b class="r">corner 85%</b> until 2 wins</div></div>
+    <div class="c c2"><div class="v">Steady 64 to <b class="g">Fired up 76</b></div><div class="d">heard +10, day job -2 at the next Monday: <b class="g">corner 105%</b></div></div>
+    <div class="c c3"><div class="v">Steady 64 to <b class="g">Fired up 78</b></div><div class="d">heard +10, stipend kept: <b class="g">corner 105%</b></div></div>
+  </div>
+
+  <!-- R6 risk -->
+  <div class="a row" style="top:736px;height:78px">
+    <div class="lab"><div class="k">If it goes wrong</div><div class="h">the price of a loss on each road</div></div>
+    <div class="c c1"><div class="v">Debut loss <b class="r">38 in 100</b></div><div class="d">a rebuild: no step up offered, -1 fan, next bout 8 weeks on</div></div>
+    <div class="c c2" style="width:946px"><div class="v">Out before a title <b class="r">69 in 100</b> on the day job, <b class="r">66</b> on the stipend</div><div class="d">then only a <b class="w">No. 1</b> London rank brings a promoter back, and Harrow &amp; Finch pay 10% less: about <span class="r">-$50</span> a pro bout to the club</div></div>
+  </div>
+
+  <!-- buttons -->
+  <div class="a" style="left:30px;top:814px;width:1652px;border-top:1px solid var(--line)"></div>
+  <div class="btn bg" style="left:256px;top:846px;width:470px">Turn Jade pro: pay $1,245</div>
+  <div class="bc" style="left:258px;top:904px;width:466px">Debut Sat 13 Feb with Bow Lane, full terms. Jade overruled.</div>
+  <div class="a" style="left:732px;top:818px;display:flex;align-items:center;gap:10px;font-size:14px;color:var(--mut)">Stay amateur on
+    <span class="pick" style="position:static"><span class="on">Day job</span><span>Club stipend $250 a week</span></span></div>
+  <div class="btn bt" style="left:732px;top:846px;width:470px">Hold the offer for the nationals</div>
+  <div class="bc" style="left:734px;top:904px;width:466px">Waits to 4 May. Title: full terms, ranked start. Out: only No. 1 calls.</div>
+  <div class="btn bq" style="left:1208px;top:846px;width:470px">Not yet: 2 more wins</div>
+  <div class="bc" style="left:1210px;top:904px;width:466px">Harrow &amp; Finch at 9 wins and top 3, 10% less a purse. Jade heard.</div>
+  <div class="a note" style="left:30px;top:862px;width:210px;line-height:1.35">Green tags mark the best column on that row. No column wins every row.</div>
+</div>
+</body></html>

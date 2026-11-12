@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Corner minute, cut (critic 10/10)</title>
+<style>
+  :root { --bg:#0b0d10; --panel:#11151a; --panel2:#161b22; --line:#262d35; --line2:#3a434d; --fg:#e9ecef; --muted:#97a1ad;
+    --dim:#5f6873; --gold:#d9b45a; --red:#d8574b; --amber:#e0a24a; --green:#6fbf73; --blue:#5b8fd6; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { width:1920px; height:1080px; overflow:hidden; background:var(--bg); color:var(--fg);
+    font-family:"Segoe UI", system-ui, sans-serif; font-size:15px; }
+  .caps { font-family:Bahnschrift,"Segoe UI",sans-serif; letter-spacing:.08em; text-transform:uppercase; font-weight:600; }
+  .num { font-family:Bahnschrift,"Segoe UI",sans-serif; font-variant-numeric:tabular-nums; }
+  .muted { color:var(--muted); } .dim { color:var(--dim); } .g { color:var(--green); } .r { color:var(--red); } .a { color:var(--amber); } .gold { color:var(--gold); }
+
+  .top { position:absolute; left:0; right:0; top:0; height:104px; background:#050608; border-bottom:1px solid var(--line);
+    display:flex; align-items:center; padding:0 22px; gap:20px; }
+  .clock { font-size:20px; color:var(--muted); white-space:nowrap; } .clock b { color:var(--fg); }
+  .tanks { width:470px; display:flex; flex-direction:column; gap:7px; }
+  .tank { display:flex; align-items:center; gap:10px; font-size:14px; }
+  .tank .who { width:46px; }
+  .meter { position:relative; flex:1; height:11px; background:#1d2228; border-radius:6px; overflow:hidden; }
+  .meter i { position:absolute; top:0; bottom:0; border-radius:6px; }
+  .tank .v { width:210px; white-space:nowrap; color:var(--muted); } .tank .v b { color:var(--fg); }
+  .cardbox { border:1px solid var(--line2); border-radius:6px; padding:6px 12px; background:#0c0f13; display:flex; gap:14px; align-items:center; }
+  .chip { display:inline-block; padding:3px 8px; border-radius:3px; font-size:13px; margin-right:4px; }
+  .chip.us { background:#183a22; color:#9fe0a3; } .chip.them { background:#43181a; color:#f1a19a; } .chip.next { border:1px dashed var(--line2); color:var(--muted); }
+  .stakes { font-size:12.5px; line-height:1.4; width:520px; color:var(--muted); border-left:1px solid var(--line2); padding-left:12px; }
+  .stakes b { color:var(--fg); font-weight:600; }
+  .skip { margin-left:auto; white-space:nowrap; border:1px solid var(--line2); border-radius:5px; padding:12px 18px; font-size:14px; color:var(--fg); }
+
+  .col { position:absolute; top:116px; bottom:52px; background:var(--panel); border:1px solid var(--line); border-radius:8px; }
+  .left { left:16px; width:470px; padding:16px 18px; }
+  .right { left:500px; right:16px; padding:14px 20px; }
+  h3 { font-size:13px; color:var(--gold); margin-bottom:8px; }
+  h3 .muted { text-transform:none; letter-spacing:0; font-weight:400; font-family:"Segoe UI",sans-serif; margin-left:8px; }
+
+  .fig { position:relative; height:318px; }
+  .callout { position:absolute; font-size:13px; line-height:1.3; }
+  .callout b { font-size:16px; }
+  .vs { display:flex; gap:10px; margin-top:6px; }
+  .mini { flex:1; background:var(--panel2); border:1px solid var(--line); border-radius:6px; padding:9px 11px; font-size:13.5px; line-height:1.45; }
+  .mini .t { font-size:12px; color:var(--muted); margin-bottom:3px; }
+  .mix { display:flex; height:16px; border-radius:3px; overflow:hidden; margin:5px 0 3px; font-size:10.5px; }
+  .mix span { display:flex; align-items:center; justify-content:center; color:#0b0d10; font-weight:600; }
+
+  .doc { margin-top:12px; background:#1a1213; border:1px solid #4a2a2a; border-radius:6px; padding:10px 12px; }
+  .bars { display:grid; grid-template-columns:190px 1fr 46px; gap:9px 8px; align-items:center; font-size:14px; margin-top:6px; }
+  .bar { height:12px; background:#2a1d1e; border-radius:3px; position:relative; }
+  .bar i { position:absolute; left:0; top:0; bottom:0; border-radius:3px; }
+  .note { font-size:12.5px; color:var(--muted); line-height:1.4; margin-top:7px; }
+
+  .strip { display:grid; grid-template-columns:1.35fr repeat(5, 1fr); border:1px solid var(--gold); border-radius:7px; background:#16140d; }
+  .strip > div { padding:8px 12px; border-left:1px solid #3a3420; }
+  .strip > div:first-child { border-left:none; }
+  .strip .k { font-size:11.5px; color:var(--muted); }
+  .strip .v { font-size:26px; margin-top:2px; } .strip .s { font-size:12px; color:var(--muted); }
+
+  .steps { display:grid; grid-template-columns:1fr 1fr; gap:14px 16px; margin-top:14px; }
+  .step { background:var(--panel2); border:1px solid var(--line); border-radius:7px; padding:12px 14px; }
+  .step h4 { font-size:14px; color:var(--fg); margin-bottom:7px; } .step h4 .n { color:var(--gold); margin-right:6px; }
+  .step h4 .muted { font-weight:400; text-transform:none; letter-spacing:0; font-family:"Segoe UI",sans-serif; font-size:12.5px; margin-left:6px; }
+  .opts { display:flex; gap:8px; }
+  .opt { flex:1; border:1px solid var(--line2); border-radius:5px; padding:9px 11px; font-size:14px; line-height:1.4; color:var(--muted); background:#0f1317; }
+  .opt .nm { font-size:16px; color:var(--fg); margin-bottom:2px; display:flex; justify-content:space-between; }
+  .opt.on { border-color:var(--gold); background:#1b1910; }
+  .opt .cost { color:var(--red); } .opt .gain { color:var(--green); }
+  .pts { font-family:Bahnschrift,sans-serif; color:var(--gold); }
+  table.cmp { width:100%; border-collapse:collapse; font-size:14.5px; }
+  table.cmp th { text-align:left; font-weight:400; color:var(--muted); font-size:12px; padding:3px 6px; }
+  table.cmp td { padding:6px 6px; border-top:1px solid var(--line); }
+  table.cmp td.on { background:#1b1910; }
+  .calls { display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; }
+  .call { border:1px solid var(--line2); border-radius:5px; padding:8px 9px; font-size:13px; color:var(--muted); line-height:1.3; background:#0f1317; }
+  .call .nm { font-size:15px; color:var(--fg); }
+  .call.on { border-color:var(--gold); background:#1b1910; }
+  .pill { display:inline-block; border:1px solid var(--line2); border-radius:12px; padding:2px 10px; font-size:12.5px; margin-right:5px; color:var(--muted); }
+  .pill.on { border-color:var(--gold); color:var(--fg); background:#1b1910; }
+  .foot { position:absolute; left:20px; right:20px; bottom:10px; font-size:12px; color:var(--dim); display:flex; justify-content:space-between; }
+  .go { border:1px solid var(--gold); color:#0b0d10; background:var(--gold); border-radius:5px; padding:8px 18px; font-weight:600; font-size:14px; }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="clock caps">Corner <b class="num">0:48</b> &nbsp; Round 5 of 6 next</div>
+  <div class="tanks">
+    <div class="tank"><span class="who">Dana</span><div class="meter"><i style="left:0;width:39%;background:#d98b3a"></i><i style="left:39%;width:9%;background:#8a6a3a"></i><i style="left:48%;width:6%;background:#e8c46a"></i></div>
+      <span class="v num"><b>39</b> bell · +9 rest · +6 points = <b>54</b></span></div>
+    <div class="tank"><span class="who">Kerry</span><div class="meter"><i style="left:0;width:51%;background:#5b8fd6"></i><i style="left:51%;width:8%;background:#3c5f90"></i></div>
+      <span class="v num"><b>51</b> bell · +8 rest = <b>59</b></span></div>
+  </div>
+  <div class="cardbox">
+    <div><div class="caps muted" style="font-size:11px;margin-bottom:4px">Your card (rounds won)</div>
+      <span class="chip us">R1 Dana</span><span class="chip us">R2 Dana</span><span class="chip them">R3 Kerry</span><span class="chip them">R4 Kerry</span><span class="chip next">R5</span><span class="chip next">R6</span>
+      <b class="num" style="font-size:20px;margin-left:6px">2-2</b></div>
+    <div class="stakes">
+      <b>Win both</b>: a win, Dana takes Kerry's place (14), +8 members, $1,100 to the gym<br>
+      <b>Split</b>: a draw, nothing moves &nbsp; <b>Lose both</b>: -1 member, -2 reputation<br>
+      <b class="r">Doctor stops it</b>: a loss whatever the card, -2 members, -4 reputation, out 2-3 weeks
+    </div>
+  </div>
+  <div class="skip caps">Skip to the bell</div>
+</div>
+
+<!-- LEFT: the two boxers and the doctor -->
+<div class="col left">
+  <h3 class="caps">Dana after round 4</h3>
+  <div class="fig">
+    <svg width="434" height="318" viewBox="0 0 434 318" style="position:absolute;left:0;top:0">
+      <ellipse cx="217" cy="70" rx="40" ry="48" fill="#2a3038"/>
+      <rect x="203" y="114" width="28" height="18" fill="#2a3038"/>
+      <path d="M150 140 Q217 122 284 140 L300 260 L134 260 Z" fill="#2a3038"/>
+      <circle cx="198" cy="64" r="9" fill="#d8574b"/><path d="M188 52 L208 49" stroke="#ff7a6e" stroke-width="3"/>
+      <circle cx="236" cy="64" r="8" fill="#a98a4a"/>
+      <circle cx="198" cy="200" r="13" fill="#c49a4a" opacity=".85"/>
+      <path d="M190 62 L120 46 L10 46" stroke="#d8574b" stroke-width="2" fill="none"/>
+      <path d="M244 62 L310 46 L424 46" stroke="#c49a4a" stroke-width="2" fill="none"/>
+      <path d="M188 206 L120 262 L10 262" stroke="#c49a4a" stroke-width="2" fill="none"/>
+    </svg>
+    <div class="callout" style="left:0;top:2px"><b class="r">Right eye 34 · cut</b><br><span class="muted">jab and left hook land here</span></div>
+    <div class="callout" style="right:0;top:2px;text-align:right"><b class="a">Left eye 71</b><br><span class="muted">the big right lands here</span></div>
+    <div class="callout" style="left:0;top:268px"><b class="a">Liver side 61</b><br><span class="muted">a rib injury gets likely under 35</span></div>
+    <div class="callout" style="right:0;top:268px;text-align:right"><b>Head damage 54</b><br><span class="muted">knockdowns come 1.9x easier</span></div>
+  </div>
+
+  <div class="vs">
+    <div class="mini">
+      <div class="t caps">Kerry's game (Pressure fighter)</div>
+      <div class="mix"><span style="width:55%;background:#7aa6e0"></span><span style="width:20%;background:#e0a24a"></span><span style="width:15%;background:#8fb98f"></span><span style="width:10%;background:#9aa3ad"></span></div><div style="font-size:12px" class="muted">presses 55 · loads up 20 · counters 15 · range 10</div>
+      Last 3 exchanges: <b>loaded up</b> 2, pressed 1.<br><span class="muted">She keeps a game 6 times in 10, then goes back to her mix.</span>
+    </div>
+    <div class="mini" style="flex:.8">
+      <div class="t caps">Kerry's worst places</div>
+      Nose <b class="num">58</b> · Liver side <b class="num">66</b><br>
+      <span class="muted">No cut. Aim at the body to tire her into "tiring" (R6).</span>
+    </div>
+  </div>
+
+  <div class="doc">
+    <h3 class="caps" style="color:#f1a19a;margin-bottom:2px">The doctor looks at the cut <span class="muted">at the end of each minute</span></h3>
+    <div class="bars num">
+      <span>Now (eye 34), closed</span><div class="bar"><i style="width:3%;background:#d8574b"></i></div><b>3%</b>
+      <span>Next minute, if closed now</span><div class="bar"><i style="width:25%;background:#e0a24a"></i></div><b>25%</b>
+      <span>Next minute, if left open</span><div class="bar"><i style="width:36%;background:#d8574b"></i></div><b>36%</b>
+      <span class="muted">with a hired cutman</span><div class="bar"><i style="width:14%;background:#6f8f6f"></i></div><span class="muted">14%</span>
+    </div>
+    <div class="note">Closed, round 5 takes about 16 off the eye; open, about 24. A cut stays a cut: it must be closed every minute.</div>
+  </div>
+</div>
+
+<!-- RIGHT: the minute -->
+<div class="col right">
+  <div class="strip">
+    <div><div class="k caps">Your minute, forecast</div><div class="v num"><span class="g">13</span> / 35 / <span class="r">52</span></div><div class="s">win / draw / loss · coach's minute 11 / 35 / 54</div></div>
+    <div><div class="k">Round 5 won</div><div class="v num">46%</div><div class="s">coach's 41%</div></div>
+    <div><div class="k">Doctor next minute</div><div class="v num a">25%</div><div class="s">open: 36%</div></div>
+    <div><div class="k">Dana at the R6 bell</div><div class="v num">37</div><div class="s">tired under 35</div></div>
+    <div><div class="k">Knocked down in R5</div><div class="v num">7.6%</div><div class="s">head damage 54</div></div>
+    <div><div class="k">Injury after the bout</div><div class="v num">19%</div><div class="s">a third would be the cut</div></div>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <h4 class="caps"><span class="n">1</span>The cut <span class="muted">no cutman tonight: someone must give something up</span></h4>
+      <div class="opts">
+        <div class="opt on"><div class="nm">Coach closes it <span class="muted">x0.7</span></div><span class="cost">No talk this minute</span> (the coach's hands are busy)<br><span class="gain">Doctor next minute 25%</span></div>
+        <div class="opt"><div class="nm">Second closes it <span class="pts">1 pt</span></div><span class="cost">One of the 3 points</span>, worse close (x0.85)<br><span class="gain">Doctor next minute 30%</span></div>
+        <div class="opt"><div class="nm">Leave it open</div><span class="cost">Doctor next minute 36%</span><br>Eye takes 1.5x in round 5</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <h4 class="caps"><span class="n">2</span>The second's 3 points <span class="pts num">3 of 3 used</span><span class="muted">Dana is at 48 after the rest, so water gives +3</span></h4>
+      <div class="opts">
+        <div class="opt on"><div class="nm">Water <span class="pts num">2</span></div><span class="gain">+3 a point</span>, round 5 only<br><span class="muted">+6 a point under 40</span></div>
+        <div class="opt on"><div class="nm">Ice on the ribs <span class="pts num">1</span></div><span class="gain">+3.1 in round 5 AND round 6</span><br><span class="muted">ribs stay 61</span></div>
+        <div class="opt" style="flex:.6;opacity:.55"><div class="nm">Clear the head</div>only when hurt</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <h4 class="caps"><span class="n">3</span>One change for the rest of the fight</h4>
+      <table class="cmp num">
+        <tr><th></th><th class="gold">Fix: keep the left hand high</th><th>Gloves high (4 punches to the body)</th><th>No change</th></tr>
+        <tr><td class="muted">Round 5 won</td><td class="on g">46%</td><td>42%</td><td>42%</td></tr>
+        <tr><td class="muted">Energy, R5 and R6</td><td class="on">no cost</td><td class="r">-4.2 each round</td><td>-</td></tr>
+        <tr><td class="muted">Doctor next minute</td><td class="on">25%</td><td class="g">22%</td><td>25%</td></tr>
+        <tr><td class="muted">Liver side after</td><td class="on">61</td><td class="r">48 · rib injury closer</td><td>61</td></tr>
+        <tr><td class="muted">Comes up</td><td class="on">when Kerry loads up (1 in 5)</td><td>every exchange</td><td></td></tr>
+      </table>
+    </div>
+
+    <div class="step">
+      <h4 class="caps"><span class="n">4</span>Talk <span class="muted">off: the coach is on the cut</span></h4>
+      <div class="opts" style="opacity:.5">
+        <div class="opt"><div class="nm">Calm down</div>no edge (temper 48) · saves 2 energy · hurt less</div>
+        <div class="opt"><div class="nm">Fire up</div>small edge · costs 5 energy · hurt more</div>
+        <div class="opt"><div class="nm">Tell the truth</div>small edge · if round 5 is lost: morale -3</div>
+      </div>
+      <div class="note" style="margin-top:6px">Hire a cutman at camp ($150 a pro night) and the coach keeps his voice.</div>
+    </div>
+
+    <div class="step" style="grid-column:1 / span 2">
+      <h4 class="caps"><span class="n">5</span>Round 5 orders <span class="muted">the call opens the round; pace and the set-up last the round</span></h4>
+      <div style="display:flex;gap:18px;align-items:flex-start">
+        <div style="flex:1">
+          <div class="calls">
+            <div class="call"><div class="nm">Jab and move</div>Kerry presses (55% of her game) · good at it</div>
+            <div class="call"><div class="nm">Go to the body</div>Kerry boxes at range · costs energy</div>
+            <div class="call"><div class="nm">Draw the lead</div>Kerry waits to counter · can do it</div>
+            <div class="call on"><div class="nm">★ Hands up, move your head</div>Kerry loads up (last 3) · good at it</div>
+            <div class="call"><div class="nm">Let your hands go</div>Kerry tires · weak at it, costs a lot</div>
+            <div class="call"><div class="nm">Breathe, pick your shots</div>Dana is tired · good at it</div>
+            <div class="call"><div class="nm">Tie up</div>Dana is hurt · can do it</div>
+            <div class="call"><div class="nm">Go for the finish</div>Kerry is hurt · costs a lot</div>
+          </div>
+        </div>
+        <div style="width:430px;font-size:13px;line-height:1.5">
+          <div class="muted caps" style="font-size:11px">Pace</div>
+          <span class="pill">Push · +output, -6 energy</span><span class="pill on">Steady</span><span class="pill">Save · +5 for R6</span>
+          <div class="muted caps" style="font-size:11px;margin-top:7px">Set-up</div>
+          <span class="pill on">1-2-3 (Sharp) when Kerry loads up</span><span class="pill">none</span>
+          <div class="muted caps" style="font-size:11px;margin-top:7px">Plan line</div>
+          <span class="muted">"When she loads up -> Slip and counter" stopped working (0 of 3).</span> <span class="pill">Change it</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <span>Forecasts are replays of this exact minute. Hover any number for its sum. The doctor's look and the coach's close are rules that wait on the owner's yes.</span>
+  <span class="go">Back to the stool: ring the bell</span>
+</div>
+</body>
+</html>

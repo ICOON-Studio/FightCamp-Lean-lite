@@ -136,7 +136,8 @@ static func _bar(name: String, frac: float, value: String, ok: bool, tip: String
 	return row
 
 
-## The engine as the bleep test (that sex's norms): now, and in four weeks on this week's plan.
+## The engine as the bleep test (that sex's norms): now, and in four weeks on this week's plan. S434 CARDIO1: it reads
+## conditioning, the mean of Stamina and Recovery, so the row says CARDIO (the group, CORE_LOOP C3), never Stamina.
 static func _engine(c: Career, f: Dictionary) -> HBoxContainer:
 	var h := UI.hbox(14)
 	h.name = "Engine"
@@ -146,7 +147,7 @@ static func _engine(c: Career, f: Dictionary) -> HBoxContainer:
 	var per_day := float(Sim.daily_gain(c, f).get("conditioning", 0.0))
 	var then := SkillAwards.bleep(minf(100.0, cond + per_day * AHEAD_DAYS), sex)
 	var norms := SkillAwards.bleep_norms(sex)
-	h.add_child(UI.caps("STAMINA: BLEEP TEST"))
+	h.add_child(UI.caps("CARDIO: BLEEP TEST"))
 	var lv := UI.label("level %.1f" % now, UI.BODY + 4, UI.FG, "bold")
 	h.add_child(lv)
 	h.add_child(UI.muted(SkillAwards.bleep_words(now, sex), UI.SMALL))
@@ -154,5 +155,5 @@ static func _engine(c: Career, f: Dictionary) -> HBoxContainer:
 	h.add_child(UI.label("in 4 weeks on this plan: %.1f" % then, UI.SMALL, UI.GREEN if then > now else UI.MUTED, "bold"))
 	Tips.card(h, func(): return {"title": "Bleep test", "rows": [["Average adult %s (21-30)" % ("man" if sex == "m" else "woman"), "%.1f" % norms.x, "", ""],
 		["A national team", "%.1f" % norms.y, "", ""], ["Level now", "%.1f" % now, "", ""], ["In 4 weeks", "%.1f" % then, "", ""]],
-		"means": "20 m shuttles to a beep that speeds up; the level reached. It follows conditioning: change the week's roadwork and intervals and watch the 4-week number move."})
+		"means": "20 m shuttles to a beep that speeds up; the level reached. It follows Cardio, Stamina and Recovery together: change the week's roadwork and intervals and watch the 4-week number move."})
 	return h

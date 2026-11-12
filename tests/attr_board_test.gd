@@ -7,6 +7,7 @@ const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
 const AttrRadar := preload("res://scripts/ui/AttrRadar.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
+const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 
 var failures := 0
 var main: Node
@@ -40,6 +41,16 @@ func _initialize() -> void:
 				"In the ring", "Defence"]:
 			_check(text.contains(word), "tab %s shows %s" % [tab, word])
 		_check(not text.contains("BAR = WAY TO THE NEXT POINT"), "tab %s: the old bar card is gone" % tab)
+		# S439 CARDIO1 round 3 (TRAINING_MAP T17: "Printed on the row", not on hover): the Stamina row's own line in a label
+		# the player reads without hovering - what her points under it cost and where it ends, in game words (S439 merge prep:
+		# "From round 3: fights 0.61 weaker; Stamina 60 stops it", never the bare "fade 0.61 · none at 60"; S439: not "every stat
+		# 0.61 lower" either - in the live fight the fade comes off her fight strength, which only approximates every stat).
+		var st := float(Attrs.of(c.fighter())["stamina"])
+		var want := ("From round 3: fights %.2f weaker; Stamina %d stops it" % [BoutRules.own_fade(st), int(BoutRules.FADE_STAMINA)]) \
+			if BoutRules.own_fade(st) > 0.0 else ("From round 3: fights no weaker (Stamina %d or more)" % int(BoutRules.FADE_STAMINA))
+		_check(not text.contains("none at %d" % int(BoutRules.FADE_STAMINA)), "tab %s: no old 'fade · none at' caption" % tab)
+		_check(not text.contains("From round 3: every stat"), "tab %s: no old 'every stat ... lower' caption" % tab)
+		_check(text.contains(want), "tab %s: the Stamina row prints its line on the row (Stamina %.2f): '%s'" % [tab, st, want])
 	print("PASS attr_board_test" if failures == 0 else "FAIL %d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -72,6 +83,10 @@ func _pure() -> void:
 		"bands by value")
 	for key in all:
 		_check(str(all[key]["why"]) != "", "%s says what it does" % key)
+	# S434 CARDIO1 (TRAINING_MAP T17): the Stamina row's hover carries its own fade line, read on its own number.
+	var fade_line := "In a bout: " + BoutRules.fade_words(float(a["stamina"]))
+	_check(str(all["stamina"]["why"]).ends_with(fade_line) and str(all["stamina"]["why"]).contains("from round 3"),
+		"the Stamina row says its fade line (%s)" % str(all["stamina"]["why"]).get_slice("\n", 1))
 	_check(is_equal_approx(AttrRadar.frac(25.0), 0.0) and is_equal_approx(AttrRadar.frac(90.0), 1.0) and is_equal_approx(AttrRadar.frac(57.5), 0.5),
 		"radar scale 25..90")
 	var g := AttrBoard.glance(f)

@@ -78,10 +78,10 @@
   "reach_m": 0.482
  },
  "pro_left_jab": {
-  "contact_s": 0.5,
+  "contact_s": 0.483,
   "hand": "LeftHand",
-  "length_s": 1.067,
-  "reach_m": 0.286
+  "length_s": 0.841,
+  "reach_m": 0.284
  },
  "pro_left_jab_a": {
   "contact_s": 0.433,
@@ -90,16 +90,16 @@
   "reach_m": 0.344
  },
  "pro_left_jab_b": {
-  "contact_s": 0.333,
+  "contact_s": 0.317,
   "hand": "LeftHand",
-  "length_s": 0.9,
-  "reach_m": 0.303
+  "length_s": 0.808,
+  "reach_m": 0.301
  },
  "pro_left_jab_c": {
-  "contact_s": 0.333,
+  "contact_s": 0.317,
   "hand": "LeftHand",
-  "length_s": 0.967,
-  "reach_m": 0.328
+  "length_s": 0.838,
+  "reach_m": 0.326
  },
  "pro_left_jab_ft": {
   "contact_s": 0.383,

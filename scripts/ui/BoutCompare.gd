@@ -11,6 +11,7 @@ const Icons := preload("res://scripts/ui/Icons.gd")
 const RangeBar := preload("res://scripts/ui/RangeBar.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const CampForecast := preload("res://scripts/state/CampForecast.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Region := preload("res://scripts/state/Region.gd")
 
@@ -112,7 +113,8 @@ static func _move_words(now: int, after: int) -> String:
 
 ## The win chance in the words both the full report and the versus card use.
 static func win_read(c: Career, f: Dictionary, opp: Dictionary, camp: Dictionary) -> Dictionary:
-	var b := BoutRead.band(f, opp, camp, c.seed, float(c.coach.get("rating", 0.0)))   # S397 rank 3: the coach's plan counts
+	# S397 rank 3: the coach's plan counts; S434 the booked bout reads fight night's Tank (CampForecast.for_read)
+	var b := BoutRead.band(CampForecast.for_read(c, f, opp), opp, camp, c.seed, float(c.coach.get("rating", 0.0)))
 	var lo := roundi(float(b["lo"]) * 100.0)
 	var hi := roundi(float(b["hi"]) * 100.0)
 	var s := BoutRead.stage(opp)

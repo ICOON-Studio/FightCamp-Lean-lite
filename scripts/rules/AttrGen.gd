@@ -4,9 +4,10 @@ extends RefCounted
 ## generate() makes a new boxer's shape from three correlated base traits, an archetype tilt, a signature and a flaw
 ## (sports-sim critic); shape_of() gives any opponent dict its shape: the stored one, else one read from its style and
 ## scouting words with a spread seeded by its name, so a fixed opponent is the same person every time.
-## Pure static; zero preloads. Numbers are game values (GV) unless cited.
+## Pure static; two preloads (Attrs, PunchStart). Numbers are game values (GV) unless cited.
 
 const Attrs := preload("res://scripts/rules/Attrs.gd")
+const PunchStart := preload("res://scripts/rules/PunchStart.gd")
 
 ## Archetype tilts (boxing critic's table, round 1): attribute -> points. dials = {pace, forward}.
 const TILTS := {
@@ -74,8 +75,8 @@ static func _stamp(b: Dictionary) -> String:
 	var sh: Dictionary = b.get("shape", {})
 	var shape_s := str(sh) if not sh.is_empty() else "w|%s|%s|%s" % [str(b.get("name", "")), str(b.get("threat", "")), str(b.get("weak", ""))]
 	var stops := int((b.get("damage_ledger", {}) as Dictionary).get("stoppage_losses", 0))
-	return "%s|%s|%.4f|%d|%d|%d|%.4f|%.4f|%.4f" % [shape_s, str(b.get("style", "")), float(b.get("rating", 60.0)),
-		int(b.get("age", -1)), 1 if b.has("peak_age") else 0, stops,
+	return "%s|%s|%.4f|%d|%d|%d|%d|%.4f|%.4f|%.4f" % [shape_s, str(b.get("style", "")), float(b.get("rating", 60.0)),
+		int(b.get("age", -1)), 1 if b.has("peak_age") else 0, stops, PunchStart.bouts_of(b),
 		float(b.get("pace", -1.0)) if b.has("pace") else -1.0, float(b.get("forward", -1.0)) if b.has("forward") else -1.0,
 		float(b.get("heart", 55.0))]
 
@@ -201,9 +202,18 @@ static func _attrs_build(b: Dictionary) -> Dictionary:
 	var a := {}
 	for k in Attrs.ABILITIES:
 		a[k] = clampf(lvl + float(shape.get(k, 0.0)) + float(wear.get(k, 0.0)), Attrs.LO, Attrs.HI)
+	# S433 PUNCHSTART1: the punches start on our fighter's rule from the rating (PunchStart) and grow to rating + shape
+	# with the bouts, so a novice opponent carries a new signing's gaps. S434: the shape (her weapon, her weak punch) sits on
+	# the start too - only the level grows - so a scouted "left hook" is her best punch from her first bout.
+	# S434 round 2: the shape never takes a punch under the raw floor (our fighter's never goes there; one rule, M8), at the
+	# start or at the full level.
+	var fl := PunchStart.raw_floor(a)
+	var start := PunchStart.start_levels(lvl, fl)
+	var bouts := PunchStart.bouts_of(b)
 	var punches := {}
 	for k in Attrs.PUNCHES:
-		punches[k] = clampf(lvl + float(shape.get(k, 0.0)) + float(wear.get(k, 0.0)), Attrs.LO, Attrs.HI)
+		var off := float(shape.get(k, 0.0)) + float(wear.get(k, 0.0))
+		punches[k] = PunchStart.grown(maxf(clampf(float(start[k]) + off, Attrs.LO, Attrs.HI), fl), maxf(clampf(lvl + off, Attrs.LO, Attrs.HI), fl), bouts)
 	Attrs.lay(a, punches)
 	var d := dials_of(b)
 	a["pace"] = d[0]

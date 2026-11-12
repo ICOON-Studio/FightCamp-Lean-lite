@@ -19,6 +19,7 @@ const COACHED := ["pads", "sparring"]
 
 const Combos := preload("res://scripts/rules/Combos.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 
 ## The six grades (J_TESTS1 Q4: what each tests), and what the game asks for each assessment.
 const AWARDS: Array[Dictionary] = [
@@ -110,10 +111,10 @@ static func extra_combos_r3(f: Dictionary) -> int:
 	var econ := bout_economy(f, RoundStyle.SHARE)
 	if econ >= 1.0:
 		return 0
-	var cond := float((f.get("stats", {}) as Dictionary).get("conditioning", 55.0))
+	var own := Attrs.of(f)   # S433 CARDIO1: the bout's cost reads Stamina, the minute's refill Recovery
 	var combos: Dictionary = f.get("combos", {})
-	var spend_g := Combos.round_spend(combos, "", cond, econ)
-	var spend_p := Combos.round_spend(combos, "", cond, 1.0)
+	var spend_g := Combos.round_spend(combos, "", float(own["stamina"]), econ)
+	var spend_p := Combos.round_spend(combos, "", float(own["stamina"]), 1.0)
 	var eg := Combos.TANK
 	var ep := Combos.TANK
 	var dg := 0.0
@@ -121,8 +122,8 @@ static func extra_combos_r3(f: Dictionary) -> int:
 	var bg := 0.0
 	var bp := 0.0
 	for r in 3:
-		var ag := Combos.after_round(eg, dg, spend_g, cond)
-		var ap := Combos.after_round(ep, dp, spend_p, cond)
+		var ag := Combos.after_round(eg, dg, spend_g, float(own["recovery"]))
+		var ap := Combos.after_round(ep, dp, spend_p, float(own["recovery"]))
 		bg = float(ag["bell"])
 		bp = float(ap["bell"])
 		eg = float(ag["next"])

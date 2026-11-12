@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Corner minute with a cut</title>
+<style>
+  :root {
+    --bg: #0b0d10; --slate: #14181d; --panel: rgba(13,11,11,0.90); --line: #2c333b; --line2: #3a434d;
+    --fg: #e9ecef; --muted: #8d97a3; --dim: #5d6670; --gold: #d9b45a; --red: #d8574b; --amber: #e0a24a; --green: #6fbf73;
+    --blue: #5b8fd6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); color: var(--fg);
+    font-family: "Segoe UI", system-ui, sans-serif; }
+  .caps { font-family: Bahnschrift, "Segoe UI", sans-serif; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+  .num { font-family: Bahnschrift, "Segoe UI", sans-serif; font-variant-numeric: tabular-nums; }
+
+  /* the ring corner behind the card (the 3D shot) */
+  .scene { position: absolute; inset: 0; background:
+      radial-gradient(ellipse 700px 520px at 300px 560px, #2a2420 0%, #17140f 45%, #0b0b0c 80%),
+      linear-gradient(#0b0b0c, #0b0b0c); }
+  .post { position: absolute; left: 150px; top: 230px; width: 34px; height: 560px; background: linear-gradient(90deg,#5a1d1a,#8c2a24 50%,#4a1614); border-radius: 4px; }
+  .rope { position: absolute; left: 0; width: 640px; height: 7px; background: linear-gradient(#b8b2a8,#6e6a63); border-radius: 4px; transform-origin: left center; }
+  .stool { position: absolute; left: 230px; top: 690px; width: 170px; height: 26px; background: #2b2b2e; border-radius: 6px; }
+  .boxer { position: absolute; left: 238px; top: 420px; width: 150px; height: 290px; border-radius: 70px 70px 30px 30px;
+    background: radial-gradient(ellipse at 50% 18%, #8a5f48 0 38px, transparent 39px), linear-gradient(#3a2c26 0 40%, #7a1f1c 40% 72%, #2b2b2e 72%); opacity: 0.85; }
+  .coach { position: absolute; left: 400px; top: 380px; width: 120px; height: 330px; border-radius: 60px 60px 20px 20px;
+    background: radial-gradient(ellipse at 50% 15%, #6d4c3c 0 34px, transparent 35px), linear-gradient(#20242a 0 30%, #20242a 100%); opacity: 0.8; }
+
+  /* letterbox */
+  .bar { position: absolute; left: 0; right: 0; height: 138px; background: #000; }
+  .bar.top { top: 0; } .bar.bot { bottom: 0; }
+  .clock { position: absolute; left: 32px; top: 30px; font-size: 22px; color: var(--muted); }
+  .skip { position: absolute; right: 28px; top: 22px; width: 272px; height: 48px; border: 1px solid var(--line2); border-radius: 4px;
+    background: #111418; color: var(--muted); font-size: 18px; display: flex; align-items: center; justify-content: center; }
+  .rest { position: absolute; left: 530px; top: 24px; width: 860px; height: 42px; display: flex; gap: 40px; }
+  .tank { flex: 1; display: flex; align-items: center; gap: 12px; font-size: 16px; color: var(--muted); }
+  .tank .who { width: 70px; color: var(--fg); }
+  .tank .meter { flex: 1; height: 12px; background: #1d2228; border-radius: 6px; overflow: hidden; }
+  .tank .meter i { display: block; height: 100%; border-radius: 6px; }
+  .tank .v { width: 120px; text-align: right; font-size: 18px; color: var(--fg); }
+  .restline { position: absolute; left: 530px; top: 76px; width: 860px; text-align: center; font-size: 15px; color: var(--dim); }
+  .caption { position: absolute; left: 154px; right: 154px; bottom: 0; height: 138px; display: flex; align-items: center; justify-content: center;
+    font-size: 28px; color: var(--fg); text-align: center; }
+
+  /* the corner card */
+  .card { position: absolute; left: 634px; right: 24px; top: 150px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 6px; padding: 14px 18px; display: flex; gap: 18px; }
+  .bodycol { width: 236px; flex: none; display: flex; flex-direction: column; gap: 6px; }
+  .fig { position: relative; width: 236px; height: 300px; }
+  .fig svg { position: absolute; inset: 0; }
+  .callout { position: absolute; font-size: 14px; line-height: 1.25; }
+  .callout b { display: block; font-size: 15px; }
+  .main { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .tabs { display: flex; gap: 6px; }
+  .tab { padding: 4px 12px; font-size: 13px; border: 1px solid var(--line); border-radius: 3px; color: var(--muted); }
+  .tab.on { color: var(--fg); border-color: var(--gold); }
+  table.stats { width: 100%; border-collapse: collapse; font-size: 16px; }
+  table.stats th { text-align: left; font-weight: 500; color: var(--muted); font-size: 13px; padding: 3px 0; }
+  table.stats td { padding: 4px 0; border-top: 1px solid #1f252c; }
+  table.stats td.r, table.stats th.r { text-align: right; }
+  .sep { height: 1px; background: var(--line); margin: 2px 0; }
+  .head { font-size: 18px; color: var(--gold); }
+  .row { display: flex; gap: 10px; align-items: baseline; font-size: 18px; }
+  .row .tag { width: 84px; flex: none; font-size: 13px; }
+  .step { font-size: 14px; color: var(--gold); margin-top: 2px; }
+
+  .cut { border: 1px solid #5a2a26; background: linear-gradient(90deg, rgba(216,87,75,0.14), rgba(216,87,75,0.03)); border-radius: 4px;
+    padding: 8px 12px; display: grid; grid-template-columns: 84px 1fr auto; gap: 4px 10px; align-items: baseline; }
+  .cut .tag { color: var(--red); font-size: 13px; }
+  .cut .big { font-size: 19px; }
+  .cut .sub { grid-column: 2 / 4; font-size: 15px; color: var(--muted); }
+  .cut .fig2 { font-size: 26px; color: var(--red); text-align: right; }
+
+  .jobs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 22px; }
+  .job { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+  .job .lab { flex: 1; }
+  .job .lab small { display: block; color: var(--muted); font-size: 13px; }
+  .pm { width: 26px; height: 26px; border: 1px solid var(--line2); border-radius: 3px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 16px; }
+  .pts { width: 22px; text-align: center; font-size: 18px; }
+  .pill { border: 1px solid var(--line2); border-radius: 4px; padding: 6px 10px; font-size: 15px; background: #13171c; color: var(--fg); }
+  .pill.on { border-color: var(--gold); background: #231d10; }
+  .pill small { display: block; color: var(--muted); font-size: 13px; }
+  .pill .eye { color: var(--amber); }
+  .chg { display: flex; gap: 8px; }
+  .chg .pill { flex: 1; }
+  .calls { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .call { border: 1px solid var(--line2); border-radius: 4px; padding: 8px 10px; background: #13171c; font-size: 16px; }
+  .call small { display: block; font-size: 13px; margin-top: 2px; }
+  .best { color: var(--green); } .ok { color: var(--muted); } .wrong { color: var(--red); }
+  .talks { display: flex; gap: 6px; }
+  .talks .pill { padding: 4px 10px; font-size: 14px; }
+</style>
+</head>
+<body>
+  <div class="scene">
+    <div class="rope" style="top:330px; transform: rotate(4deg)"></div>
+    <div class="rope" style="top:440px; transform: rotate(3deg)"></div>
+    <div class="rope" style="top:550px; transform: rotate(2deg)"></div>
+    <div class="post"></div>
+    <div class="boxer"></div>
+    <div class="coach"></div>
+    <div class="stool"></div>
+  </div>
+
+  <div class="bar top"></div>
+  <div class="bar bot"></div>
+  <div class="clock caps num">Corner&nbsp;&nbsp; 0:41 &nbsp;&nbsp;Round 4 next</div>
+  <div class="rest">
+    <div class="tank"><span class="who">Dana</span><span class="meter"><i style="width:37%; background: var(--amber)"></i></span><span class="v num">Energy 37</span></div>
+    <div class="tank"><span class="who">Kerry</span><span class="meter"><i style="width:58%; background: var(--blue)"></i></span><span class="v num">Energy 58</span></div>
+  </div>
+    <div class="skip caps">Skip to the bell</div>
+  <div class="caption">"Kerry's right hand is coming over your jab. Turn off it, don't stand there."</div>
+
+  <div class="card">
+    <div class="bodycol">
+      <div class="fig">
+        <svg viewBox="0 0 236 300" width="236" height="300">
+          <defs>
+            <linearGradient id="skin" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3b4048"/><stop offset="1" stop-color="#2a2e34"/></linearGradient>
+          </defs>
+          <!-- head and torso, front view: her right eye is on the viewer's left -->
+          <ellipse cx="118" cy="62" rx="34" ry="42" fill="url(#skin)" stroke="#4a515b"/>
+          <path d="M78 116 Q118 100 158 116 L172 210 Q118 228 64 210 Z" fill="url(#skin)" stroke="#4a515b"/>
+          <path d="M64 120 L36 196 L50 200 L78 140 Z M172 120 L200 196 L186 200 L158 140 Z" fill="#2e333a" stroke="#4a515b"/>
+          <!-- right eye (viewer's left): critical and cut -->
+          <ellipse cx="104" cy="56" rx="9" ry="6" fill="#d8574b"/>
+          <path d="M96 46 L112 44" stroke="#ff8a7a" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- left eye: fine -->
+          <ellipse cx="132" cy="56" rx="8" ry="5" fill="#59626d"/>
+          <!-- hooked line out of the body to the label -->
+          <polyline points="104,56 60,40 20,40" fill="none" stroke="#d8574b" stroke-width="1.6"/>
+          <circle cx="104" cy="56" r="2.5" fill="#fff"/>
+          <!-- ribs: hurt band, hooked line -->
+          <ellipse cx="88" cy="176" rx="10" ry="12" fill="#e0a24a" opacity="0.75"/>
+          <polyline points="88,176 40,232 8,232" fill="none" stroke="#e0a24a" stroke-width="1.6"/>
+          <circle cx="88" cy="176" r="2.5" fill="#fff"/>
+        </svg>
+        <div class="callout" style="left:0; top:0; width:120px;"><b class="num" style="color:var(--red)">Right eye 33</b><span style="color:var(--muted)">cut</span></div>
+        <div class="callout" style="left:0; top:236px; width:120px;"><b class="num" style="color:var(--amber)">Right ribs 52</b><span style="color:var(--muted)">sore</span></div>
+      </div>
+      <div class="caps" style="font-size:13px; color:var(--gold); margin-top:4px;">Cutman</div>
+      <div style="font-size:15px;">Closing the cut over the right eye</div>
+      <div style="font-size:13px; color:var(--muted); line-height:1.35;">Holds for round 4 only. Each punch on that eye back to normal damage.</div>
+    </div>
+
+    <div class="main">
+      <div class="tabs"><span class="tab on caps">This round</span><span class="tab caps">The fight so far</span></div>
+      <table class="stats">
+        <tr><th></th><th class="r">Dana</th><th class="r">Kerry</th></tr>
+        <tr><td>Punches landed</td><td class="r num">9 of 38</td><td class="r num">31 of 55</td></tr>
+        <tr><td>To the body</td><td class="r num">2</td><td class="r num">3</td></tr>
+        <tr><td>Energy</td><td class="r num">37</td><td class="r num">58</td></tr>
+        <tr><td>Worst spot</td><td class="r num" style="color:var(--red)">Right eye 33, cut</td><td class="r num">Nose 74</td></tr>
+      </table>
+      <div class="sep"></div>
+      <div class="head caps">In the corner: what do you tell Dana?</div>
+      <div class="row"><span class="tag caps" style="color:var(--amber)">Coach</span><span>Kerry lands the right hand over the jab and keeps finding the same eye.</span></div>
+
+      <div class="cut">
+        <span class="tag caps">The cut</span>
+        <span class="big">Right eye <span class="num">57 &rarr; 33</span> this round. Cut at 35.</span>
+        <span class="fig2 num">33</span>
+        <span class="sub">Open, a punch there does 1.5 times the damage. The cutman closes it for round 4; it opens again at the bell.</span>
+      </div>
+
+      <div class="step caps">1 &nbsp; The minute</div>
+      <div class="jobs">
+        <div class="job"><span class="lab">Water and breathing<small>+6 energy a point</small></span><span class="pm">&minus;</span><span class="pts num">2</span><span class="pm">+</span></div>
+        <div class="job"><span class="lab">Ice on the ribs<small>&minus;3 body hits a point</small></span><span class="pm">&minus;</span><span class="pts num">1</span><span class="pm">+</span></div>
+        <div class="job"><span class="lab">Set-up<small>A combination for a gap Kerry opens</small></span><span class="pill">1-2 when Kerry loads up</span></div>
+        <div class="job"><span class="lab">Talk</span><span class="talks"><span class="pill">Calm down</span><span class="pill">Fire up</span><span class="pill">Tell the truth</span></span></div>
+      </div>
+
+      <div class="step caps">2 &nbsp; One change (optional)</div>
+      <div class="chg">
+        <div class="pill">Gloves high<small>4 fewer head, 4 more body, &minus;5 energy</small><small class="eye">About 3 fewer on the cut eye</small></div>
+        <div class="pill">Fix: drops the right after the jab<small>Coach's habit fix, one round</small></div>
+        <div class="pill">No change<small>Keep the slot</small></div>
+      </div>
+
+      <div class="step caps">3 &nbsp; Pick the plan &mdash; it starts the round</div>
+      <div class="calls">
+        <div class="call">Tie up<small class="best">Best against loading up</small></div>
+        <div class="call">Jab and move<small class="ok">OK</small></div>
+        <div class="call">Hands up, move your head<small class="ok">OK</small></div>
+        <div class="call">Let your hands go<small class="wrong">Wrong: walks into the right</small></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

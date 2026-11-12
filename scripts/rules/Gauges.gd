@@ -2,20 +2,23 @@ extends RefCounted
 ## S382 G4 (gym idea 1, without Peak): the fight-night gauge row's rules - three dials, one word each, all read from one
 ## CampForecast.run (the camp modal's left column and the whiteboard's THIS CAMP column draw it with GaugeRow.gd):
 ## - LEGS = her fatigue on fight night: green under BoutRules.FRESH_FATIGUE "fresh", amber to WeekPlan.OVERREACHED
-##   "heavy legs -N" (N = the energy BoutRules.stale_energy takes at the first bell), red from it "overreached".
+##   "heavy legs", red from it "overreached"; the word is "Tank N" (the energy left at the first bell, BoutRules.tank_for)
+##   whenever the Tank costs anything (S434). read() also gives "tank": the first bell's energy, less the hurt she fights with.
 ## - SCALE = the class window (the next class down to the limit, at most WINDOW_KG of it) as a band, the needle the
 ##   weigh-in forecast, a ghost tick for today: green at or under limit + BoutRules.WEIGH_TOLERANCE, amber to limit + SCALE_NEAR, red beyond.
 ## - RISK = three pips, cut / hand / head: 1 lit under RISK_TWO camp injury chance, 2 to RISK_THREE, 3 from it (the camp
 ##   modal's old red line); while she is injured the pip of her injury goes solid red with the days left.
-##   legs(fatigue, stale) -> {band, word}   scale(kg, limit) -> {band, word}   pips(chance) -> 1..3   slot(type) -> cut|hand|head
+##   legs(fatigue, stale) -> {band, word, tired}   scale(kg, limit) -> {band, word}   pips(chance) -> 1..3   slot(type) -> cut|hand|head
 ##   class_floor(limit, limits) -> kg   read(fc, f, day, limits) -> the row's numbers
 ## Pure static.
 
 const GREEN := "green"
 const AMBER := "amber"
 const RED := "red"
-## BoutRules.FRESH_FATIGUE: over it the camp's fatigue costs energy at the first bell.
+## BoutRules.FRESH_FATIGUE: over it the tiredness costs energy at the first bell.
 const LEGS_HEAVY := 50.0
+## Combos.TANK: the full tank at the first bell.
+const TANK_FULL := 100.0
 ## WeekPlan.OVERREACHED.
 const LEGS_OVER := 80.0
 ## BoutRules.WEIGH_TOLERANCE: the scale's own tolerance.
@@ -32,12 +35,13 @@ const SLOT_OF := {"cut": "cut", "nose": "cut", "hand": "hand", "ribs": "hand", "
 const WINDOW_KG := 3.0
 
 
+## S434 the band is the dial's (tiredness alone, so needle and word agree); the word names the Tank once it costs anything
+## (CORE_LOOP C2: "Tank 92" - a bout 7 days ago on a fresh week is green, "Tank 92"); "tired" = the tiredness word alone.
 static func legs(fatigue: float, stale: float) -> Dictionary:
-	if fatigue >= LEGS_OVER:
-		return {"band": RED, "word": "overreached"}
-	if fatigue >= LEGS_HEAVY:
-		return {"band": AMBER, "word": "heavy legs -%d" % int(round(stale))}
-	return {"band": GREEN, "word": "fresh"}
+	var tired := "overreached" if fatigue >= LEGS_OVER else ("heavy legs" if fatigue >= LEGS_HEAVY else "fresh")
+	var band := RED if fatigue >= LEGS_OVER else (AMBER if fatigue >= LEGS_HEAVY else GREEN)
+	var word := tired if band == RED or stale < 0.5 else "Tank %d" % int(round(TANK_FULL - stale))
+	return {"band": band, "word": word, "tired": tired}
 
 
 static func scale(kg: float, limit: float) -> Dictionary:
@@ -72,9 +76,10 @@ static func read(fc: Dictionary, f: Dictionary, day: int, limits: Array) -> Dict
 		left = maxi(0, int(inj.get("until_day", day)) - day)
 	var fat := float(fc["fatigue_end"])
 	var st := float(fc.get("stale", 0.0))
+	var hurt := float((f.get("bout", {}) as Dictionary).get("hurt", 0.0))   # S434 she fights hurt: the bell's Tank has it too
 	var kg := float(fc["kg"])
 	var ch := float(fc["injury"])
-	return {"legs": fat, "legs_now": float(fc.get("fatigue_now", fat)), "peak": float(fc.get("peak", fat)), "stale": st,
-		"legs_band": legs(fat, st), "kg": kg, "kg_now": float(f.get("weight", kg)), "limit": lim,
+	return {"legs": fat, "legs_now": float(fc.get("fatigue_now", fat)), "peak": float(fc.get("peak", fat)), "stale": st, "tank": TANK_FULL - st - hurt,
+		"legs_band": legs(fat, st + hurt), "kg": kg, "kg_now": float(f.get("weight", kg)), "limit": lim,
 		"floor": class_floor(lim, limits), "scale_band": scale(kg, lim), "injury": ch, "pips": pips(ch),
 		"out": slot(str(inj.get("type", ""))) if left > 0 else "", "out_days": left}

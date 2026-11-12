@@ -6,6 +6,7 @@
 ##   strip(exchanges)  versus(rows, names)  energy(a, b)  rounds(rounds)  judges(rounds, cards)  decided(lines)
 ##   tile(title, value, colour)  totals(exchanges)
 
+const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const BodyFigure := preload("res://scripts/ui/BodyFigure.gd")
@@ -136,14 +137,8 @@ static func totals(exchanges: Array) -> Dictionary:
 ## two judges score every round to its winner; the third gives the closest round of the majority the other way.
 static func judges(all: Array, cards: Array) -> HBoxContainer:
 	var won: Array = all.map(func(r): return bool(r["won"]))
-	var her := won.count(true)
-	var flip := -1
-	if cards.size() >= 3 and str(cards[2]) != str(cards[0]):
-		var best := INF
-		for i in all.size():
-			if bool(won[i]) == (her * 2 >= all.size()) and absf(float(all[i].get("mine", 0.0))) < best:
-				best = absf(float(all[i].get("mine", 0.0)))
-				flip = i
+	# S440: the same round BoutRules.cards_of flips (the closest 3-3 round), so judge 3's chips add up to his card.
+	var flip := BoutRules.flip_round(all) if cards.size() >= 3 and str(cards[2]) != str(cards[0]) else -1
 	var row := UI.hbox(10)
 	for j in cards.size():
 		var card := PanelContainer.new()

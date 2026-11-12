@@ -50,16 +50,21 @@ func _initialize() -> void:
 	quit(0)
 
 
-## habits: Lucy's habits replaced by these (S309), null = her own.
-static func share(edge: float, pol: String, film: int, habits: Variant = null, stats: Dictionary = {}) -> float:
+## habits: Lucy's habits replaced by these (S309), null = her own. n = bouts (the same days 20.. as N, more of them).
+static func share(edge: float, pol: String, film: int, habits: Variant = null, stats: Dictionary = {}, n: int = N) -> float:
 	var c := Career.quick_start()
 	c.fighters.append(Data.fighter_state(Data.lucy(), c.day))
 	var wins := 0
-	for i in N:
+	for i in n:
 		c.day = 20 + i
 		var f: Dictionary = c.fighter()
 		f["camp"] = {}
 		f["morale"] = 60.0   # S401 CornerTrust: morale now carries between bouts; each measured bout starts level
+		# S433 NOCAMP1: the Tank is on every bout now - a bout a day would carry the last bout (-8) and the fight's own
+		# tiredness (Aftermath.toll) into the next; each measured bout starts rested, as it did before the Tank reached it
+		f["week_fatigue"] = 20.0
+		c.results.clear()
+		f.erase("last_bout_day")   # S434 the bout writes it too (BoutRules.tank_read)
 		if habits != null:
 			f["habits"] = habits
 		if pol.begins_with("setup"):
@@ -74,7 +79,7 @@ static func share(edge: float, pol: String, film: int, habits: Variant = null, s
 		wins += 1 if str(m.get("outcome", "")) == "win" else 0
 		if str(m.get("outcome", "")) == "win" and str(m.get("stopped", "")) != "":
 			stats["stops"] = int(stats.get("stops", 0)) + 1
-	return float(wins) / N
+	return float(wins) / n
 
 
 ## One bout with a corner that shouts by policy; the corner minute's plan is its read of the last exchange.

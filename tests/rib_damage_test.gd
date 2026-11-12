@@ -4,6 +4,9 @@ extends SceneTree
 ## The hooks counted below are the beats handed to add_beats, not a second tally.
 ## Population: Lucy Jackson (orthodox out-boxer, a step plan) vs Priya Nair (orthodox counter-puncher). They differ in
 ## stats, technique and plan. 200 seeds, 3-round amateur. Arms: default share 0.2, body plan share 0.5, head share 0.08.
+## S439: the two rates that sit near their bars ("body plan target more-hit rib at or under 35", "S318 loser hurt") are
+## judged on the MEAN of EIGHT disjoint 200-day windows (days 1000..2599; one window's sd is about 3 points), every
+## window printed (RIB_WINDOW). The other checks read the first window (days 1000..1199) as before.
 
 const Data := preload("res://scripts/state/Data.gd")
 const BoutNight := preload("res://scripts/state/BoutNight.gd")
@@ -15,6 +18,7 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const RoundScript := preload("res://scripts/rules/RoundScript.gd")
 
 const SEEDS := 200
+const WINDOWS := 8
 const SOUTH := {"a": false, "b": false}
 
 var failures := 0
@@ -28,6 +32,8 @@ var _rounds := 0
 var _short := 0
 var _short_worst := 0
 var _short_gap_sum := 0
+var _day0 := 1000
+var _quiet := false
 
 
 func _initialize() -> void:
@@ -48,7 +54,27 @@ func _initialize() -> void:
 	_emit(plain)
 	_emit(body)
 	_emit(head)
-	_judge(plain, body, head)
+	var crit_w: Array = [float(body["critical_pct"])]
+	var loser_w: Array = [float(plain["loser_hurt"])]
+	print("RIB_WINDOW 0 days %d..%d body_crit=%.1f loser_hurt=%.1f" % [_day0, _day0 + SEEDS - 1, crit_w[0], loser_w[0]])
+	var keep: Array = [_worst, _worst_where, _rounds, _short, _short_worst, _short_gap_sum]
+	_quiet = true
+	for w in range(1, WINDOWS):
+		_day0 = 1000 + w * SEEDS
+		var p2: Dictionary = _arm(c, "default", "", "")
+		var b2: Dictionary = _arm(c, "body", "body", "")
+		crit_w.append(float(b2["critical_pct"]))
+		loser_w.append(float(p2["loser_hurt"]))
+		print("RIB_WINDOW %d days %d..%d body_crit=%.1f loser_hurt=%.1f" % [w, _day0, _day0 + SEEDS - 1, crit_w[w], loser_w[w]])
+	_quiet = false
+	_day0 = 1000
+	_worst = keep[0]
+	_worst_where = keep[1]
+	_rounds = keep[2]
+	_short = keep[3]
+	_short_worst = keep[4]
+	_short_gap_sum = keep[5]
+	_judge(plain, body, head, crit_w, loser_w)
 	print("RIB_MATCH worst=%d %s" % [_worst, _worst_where])
 	print("RIB_SHORT rounds=%d of %d worst_gap=%d mean_gap=%.2f (settled body count out of the free singles' reach; not judged)" % [
 		_short, _rounds, _short_worst, float(_short_gap_sum) / float(maxi(_short, 1))])
@@ -73,7 +99,7 @@ func _fresh(c: Career, day: int) -> Dictionary:
 
 ## One bout. Returns the map BodyMap built from the ring beats, plus the round tallies.
 func _fight(c: Career, f: Dictionary, plan: String, aim: String, tag: String) -> Dictionary:
-	BoutNight._peak(f)
+	BoutNight._peak(c, f)
 	var m: Dictionary = {"fid": str(f["id"]), "step": "tape", "round": 0, "rounds": [], "total": 3, "type": "fight"}
 	var map: Dictionary = BodyMap.fresh()
 	var a_wins := 0
@@ -206,7 +232,7 @@ func _probe(c: Career) -> void:
 
 ## One default bout: how far the settled body count sits above the landed punches the ring actually has.
 func _gaps(c: Career, f: Dictionary) -> Dictionary:
-	BoutNight._peak(f)
+	BoutNight._peak(c, f)
 	var m: Dictionary = {"fid": str(f["id"]), "step": "tape", "round": 0, "rounds": [], "total": 3, "type": "fight"}
 	var over_punch := 0
 	var over_after := 0
@@ -307,9 +333,9 @@ func _arm(c: Career, name: String, plan: String, aim: String) -> Dictionary:
 	var winner_fine := 0
 	var short := 0
 	for s in SEEDS:
-		if s % 50 == 0:
+		if s % 50 == 0 and not _quiet:
 			print("RIB_PROGRESS %s %d" % [name, s])
-		var f: Dictionary = _fresh(c, 1000 + s)
+		var f: Dictionary = _fresh(c, _day0 + s)
 		var bout: Dictionary = _fight(c, f, plan, aim, name)
 		if int(bout["rounds_n"]) != 3:
 			short += 1
@@ -351,7 +377,8 @@ func _arm(c: Career, name: String, plan: String, aim: String) -> Dictionary:
 			doctor_n += 1
 		if bool(marks["fine"]):
 			winner_fine += 1
-	_check(short == 0, "%s: every bout went 3 rounds (%d stopped early)" % [name, short])
+	if not _quiet:
+		_check(short == 0, "%s: every bout went 3 rounds (%d stopped early)" % [name, short])
 	var bf: float = float(maxi(bouts, 1))
 	var pf: float = float(maxi(places, 1))
 	return {"name": name, "liver_mean": liver_sum / pf, "other_mean": other_sum / pf,
@@ -390,7 +417,14 @@ func _emit(row: Dictionary) -> void:
 		float(row["target_other"]), float(row["any35"])])
 
 
-func _judge(plain: Dictionary, body: Dictionary, head: Dictionary) -> void:
+func _mean(xs: Array) -> float:
+	var t := 0.0
+	for x in xs:
+		t += float(x)
+	return t / float(maxi(xs.size(), 1))
+
+
+func _judge(plain: Dictionary, body: Dictionary, head: Dictionary, crit_w: Array, loser_w: Array) -> void:
 	var loss_l: float = float(plain["liver_loss"])
 	var loss_o: float = float(plain["other_loss"])
 	var loss_all: float = loss_l + loss_o
@@ -403,14 +437,17 @@ func _judge(plain: Dictionary, body: Dictionary, head: Dictionary) -> void:
 	_check(mh >= 62.0 and mh <= 82.0, "default more-hit rib averages %.1f (62-82)" % mh)
 	_check(float(plain["hurt_pct"]) <= 15.0, "default more-hit rib under 55 in %.1f%% (at most 15)" % float(plain["hurt_pct"]))
 	_check(float(body["hurt_pct"]) >= 60.0, "body plan target more-hit rib at or under 55 in %.1f%% (at least 60)" % float(body["hurt_pct"]))
-	_check(float(body["critical_pct"]) <= 20.0, "body plan target more-hit rib at or under 35 in %.1f%% (at most 20)" % float(body["critical_pct"]))
+	var cm: float = _mean(crit_w)
+	_check(cm <= 20.0, "body plan target more-hit rib at or under 35 in %.1f%% (at most 20; mean of %d windows: %s)" % [cm, crit_w.size(),
+		" ".join(PackedStringArray(crit_w.map(func(x): return "%.1f" % x)))])
 	_check(float(head["target_liver"]) > 85.0 and float(head["target_other"]) > 85.0,
 		"head-only target ribs average %.1f and %.1f (both above 85)" % [float(head["target_liver"]), float(head["target_other"])])
-	_check(float(plain["loser_hurt"]) >= 40.0 and float(plain["loser_hurt"]) <= 90.0,
-		"S318 loser hurt %.1f%% (40-90)" % float(plain["loser_hurt"]))
+	var lm: float = _mean(loser_w)
+	_check(lm >= 40.0 and lm <= 90.0, "S318 loser hurt %.1f%% (40-90; mean of %d windows: %s)" % [lm, loser_w.size(),
+		" ".join(PackedStringArray(loser_w.map(func(x): return "%.1f" % x)))])
 	_check(float(plain["doctor"]) <= 8.0, "S318 doctor %.1f%% (at most 8)" % float(plain["doctor"]))
 	_check(float(plain["winner_fine"]) >= 50.0, "S318 winner fine %.1f%% (at least 50)" % float(plain["winner_fine"]))
-	print("S318 loser_hurt=%.1f doctor=%.1f winner_fine=%.1f" % [float(plain["loser_hurt"]), float(plain["doctor"]), float(plain["winner_fine"])])
+	print("S318 loser_hurt=%.1f (first window; mean %.1f) doctor=%.1f winner_fine=%.1f" % [float(plain["loser_hurt"]), lm, float(plain["doctor"]), float(plain["winner_fine"])])
 	print("RIB_INJURY default_any35=%.1f body_any35=%.1f" % [float(plain["any35"]), float(body["any35"])])
 
 

@@ -3,6 +3,9 @@ extends SceneTree
 ## Old bare strings stay gone, and a disabled button shows its reason without a hover.
 ## Prints WORDS_ON_SCREENS failures=<n>.
 
+const Attrs := preload("res://scripts/rules/Attrs.gd")
+const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+
 var bare_pct := RegEx.create_from_string("^[+\\-]\\d+%$")
 var bare_over := RegEx.create_from_string("\\d\\.\\d over")
 var bare_gap := RegEx.create_from_string("(^|\\s)Gap [+\\-]?\\d")
@@ -49,6 +52,18 @@ func _initialize() -> void:
 	main.act("fighter", "lucy")
 	await _settle()
 	_page("overview", ["OF 100", "kg"], [])
+	# S439 merge prep (house rule S422, game words): the Stamina row's caption says what she loses and where it stops,
+	# never the bare "fade 0.61 · none at 60".
+	var st := float(Attrs.of(c.fighter_by_id("lucy"))["stamina"])
+	var fd := BoutRules.own_fade(st)
+	var want := ("From round 3: fights %.2f weaker; Stamina 60 stops it" % fd) if fd > 0.0 \
+		else "From round 3: fights no weaker (Stamina 60 or more)"
+	var lines: Array = []
+	for node in _walk(main):
+		if node is Label and str(node.name) == "RowLine" and (node as Label).is_visible_in_tree():
+			lines.append((node as Label).text)
+	_check(lines.has(want), "overview: the Stamina row reads '%s' (rows %s)" % [want, str(lines)])
+	_check(lines.filter(func(t): return str(t).to_lower().contains("fade")).is_empty(), "overview: no row caption says 'fade' (%s)" % str(lines))
 	print("WORDS_ON_SCREENS failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 

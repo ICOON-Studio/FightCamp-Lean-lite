@@ -36,7 +36,7 @@ own; CORE_LOOP section 5 step 0 carries the same tasks by id and adds DOSE1, CAM
 | F1 REST1 | REST MORNINGS DRAIN STAMINA. WeekPlan.day gives a rest morning an `attr_gain`; Sim.step_day (~213) hands it to Attrs.train, which adds it to Recovery AND takes the same off Stamina (Attrs.gd ~329-334, "The same points come off stamina") | Delete the take-off: rest adds Recovery and nothing else | `scripts/rules/Attrs.gd` (two lines removed) | `tests/rest_keeps_stamina_test.gd`: the code's taper week stepped through WeekPlan.full_day and Attrs.apply_session; Stamina ends where it began, Recovery up. Red on main: Stamina falls |
 | F2a CEIL14 | ONE CEILING FOR SEVEN, NONE FOR THREE. Sim.week_ctx passes one `pot`; Recruit.ceiling covers the old seven only; Footwork, Inside, Flexibility have none | Recruit.ceiling_of(f, ability) for all 14: pot + the class bias of the ability's parent (+6 / -6; none for Footwork, Inside, Flexibility) + half the archetype's centred tilt (AttrGen.tilt_of), held inside -8 to +8 of pot and never under now + 2; THEN + the fighter's ceiling shifts (T34, CeilingShift, RPG); THEN the one hold, Explosiveness at most Strength + 10 (T35). Samira (out-boxer, pot 68): Footwork 72, Speed 76, Defence 70, Timing 69, Stamina and Durability 67, Recovery 66, Inside 63, Explosiveness 62 held at 60 by Strength 50 | `scripts/rules/Recruit.gd` (one function, ~26 lines; file 123) | `tests/ceiling_shape_test.gd`: Footwork, Inside, Flexibility get ceilings; an out-boxer's Footwork above its Inside; a slugger's Explosiveness above its Speed; a shift of +2 on Legs lifts Footwork's ceiling 2; Strength 50 holds Explosiveness at 60. Red on main: no function |
 | F2b GAIN14 | THE GAIN IS WORKED ON THE OLD STAT (preview_gain on power, technique... against one pot, then shared among the children) | Each session names its abilities with a SHARE (below); each ability's gain = share x SESSION_SHARE x the pace's gain x tired x coach factor x head-coach edge x room(ITS ceiling, ITS value) | `scripts/rules/WeekPlan.gd`, `scripts/rules/Attrs.gd`, `scripts/state/Sim.gd` (week_ctx builds `ceil` for 14) | `tests/gain_each_test.gd`, on TODAY'S shares (the table's first column): (a) at equal room each ability gets today's gain; (b) one heavy bag gives Strength with 15 points of room more than Explosiveness with 2. Red on main: (b) equal |
-| F3 CARDIO1 (with C3) | STAMINA IS NOT ONE NUMBER IN THE RING. The round-3 fade (LiveRound 65, BoutRules.play_round ~208, BoutRead 325), each round's energy cost (Combos.spend_factor) and the minute's refill (Combos.refill, both passed from BoutNight 302 and BoutRead 187) all read the OLD conditioning, the mean of Stamina and Recovery; the fade is a cliff (OWN_FADE 1.0 under 64, 0 at 64); FighterGoal keys are the old seven and write a trust_delta nothing reads | ONE ROW, ONE NUMBER, AS A SLOPE: the fade reads Stamina, OWN_FADE x clamp(0.25 x (64 - Stamina), 0, 2) (64: none; 62: 0.5; 60: 1.0; 56 or under: 2); spend_factor reads Stamina, refill reads Recovery; NIGHT_LINES' key "stamina"; FighterGoal's keys move to the 14 abilities and its trust_delta is deleted (C1); FADESHARE (section 10) holds the share of fading amateur bouts within 5 points of today's | `scripts/state/LiveRound.gd` (456 since 6ee496fc), `scripts/rules/BoutRead.gd` (497): one-line swaps, no growth; `scripts/rules/BoutRules.gd`; `scripts/state/BoutNight.gd` (one argument); `scripts/rules/FighterGoal.gd` | `tests/cardio_line_test.gd`: Stamina 64, Recovery 50: no fade; Stamina 62: fade 0.5; Stamina 50: 2; spend_factor changes with Stamina and not Recovery, refill with Recovery and not Stamina; a goal "Stamina 63" is met at Stamina 63. Red on main: Stamina 62 gives 1.0 and spend_factor follows Recovery |
+| F3 CARDIO1 (with C3) | STAMINA IS NOT ONE NUMBER IN THE RING. The round-3 fade (LiveRound 65, BoutRules.play_round ~208, BoutRead 325), each round's energy cost (Combos.spend_factor) and the minute's refill (Combos.refill, both passed from BoutNight 302 and BoutRead 187) all read the OLD conditioning, the mean of Stamina and Recovery; the fade is a cliff (OWN_FADE 1.0 under 64, 0 at 64); FighterGoal keys are the old seven and write a trust_delta nothing reads | ONE ROW, ONE NUMBER, AS A SLOPE: the fade reads Stamina, OWN_FADE x clamp(0.25 x (60 - Stamina), 0, 2) (60: none; 58: 0.5; 56: 1.0; 52 or under: 2; S434 FADESHARE moved the line from the drafted 64 to 60, the share of fading bouts 63.6% against main's 64.6% - BoutRules.FADE_STAMINA); spend_factor reads Stamina, refill reads Recovery; NIGHT_LINES' key "stamina"; FighterGoal's keys move to the 14 abilities and its trust_delta is deleted (C1); FADESHARE (section 10) holds the share of fading amateur bouts within 5 points of today's | `scripts/state/LiveRound.gd` (456 since 6ee496fc), `scripts/rules/BoutRead.gd` (497): one-line swaps, no growth; `scripts/rules/BoutRules.gd`; `scripts/state/BoutNight.gd` (one argument); `scripts/rules/FighterGoal.gd` | `tests/cardio_line_test.gd`: Stamina at the line (60), Recovery 50: no fade; 2 under the line: fade 0.5; 10 under: 2; spend_factor changes with Stamina and not Recovery, refill with Recovery and not Stamina; a goal "Stamina 63" is met at Stamina 63. Red on main: Stamina 62 gives 1.0 and spend_factor follows Recovery |
 | F4 LOADWORK1 | THE INJURY HOURS IGNORE EFFORT (WeekPlan.hours: minutes x the pace's load, no effort; TrainingLoad.SETTINGS and START_HOURS feed a new fighter's usual, so every first week reads 0.8) | ONE LOAD UNIT, WORK: effort x minutes x the pace's load, as tiredness uses it, mornings and evenings. 100 work = Coach's base week (2,607 effort-minutes). Work feeds tiredness, the usual (the 42-day average), the ratio and the injury chance, re-anchored so Coach's base week reads today's 1.04 in 100. Clock time beside it | `scripts/rules/WeekPlan.gd`, `scripts/state/Injuries.gd`, `scripts/rules/TrainingLoad.gd`, `scripts/rules/InjuryRoll.gd` | `tests/load_work_test.gd`: the card's work = Injuries.week_work; a sparring night adds more injury work than 30 min of slip rope; a new fighter's first Coach's week reads ratio 1.0. Red on main: 0.8 |
 | F5 TANK1 (inside the fight link map's NOCAMP1) | TWO SCALES AND A DEAD ZONE. BoutRules.stale_energy: 2 energy a point of tiredness over 50, at most 20, 0 with no camp; under 50 costs nothing | ONE TANK, NO DEAD ZONE: energy off at the first bell = 0.3 a point of tiredness from 20 to 50 (at most 9; ESTIMATE, FITLEGS1) + 2 a point over 50 (code, at most 20) + weight left to the day + your own last bout (7 days -8, 14 days -4); all at most 25; on every bout, camp or not; the other corner's Tank by the same rule | `scripts/rules/BoutRules.gd` (tank() in place of stale_energy; NOCAMP1 swaps the call in BoutNight._peak) | `tests/tank_scale_test.gd`: tiredness 20: 0 off; 35: 4.5; 50: 9; 60: 25 (capped); the same amateur at 60 is 25 down with or without a camp. Red on main: 35 gives 0 |
 | F6 STANDDOWN1 | NO STAND-DOWN FROM CONTACT (only a stoppage loss suspends, KO_DAYS 30) | After every bout, no sparring for 5 / 10 / 21 days by the head band the bout left (fine 55+, hurt 35-55, critical under 35); a stoppage keeps its suspension; SPAR ANYWAY in fine and hurt at a head-knock roll (2 / 6 in 100, ESTIMATE) | `scripts/rules/StandDown.gd` (NEW, ~40), `scripts/rules/PadWeek.gd` (two lines; 464), `scripts/state/Injuries.gd` (one line) | `tests/stand_down_test.gd`: damage 25 (head 45, hurt): no sparring for 10 days, one on day 11. Red on main: day 5 |
@@ -113,7 +113,7 @@ Normal's one alone drill +0.08.
 | Injury | 1.3 in 100 a 10 h week, x hours; ratio x1 to 1.3, rising to x3 at 1.5; x1 to x3 by the week's peak tiredness from 72 to 80; hand 40, ribs 30, strain 30 | InjuryRoll.training_chance, load_mult, fatigue_mult |
 | The Tank (DEFECT, F5) | stale_energy: 2 a point over 50, at most 20, 0 when camp.protocol < 1 | BoutRules.stale_energy, BoutNight._peak 108 |
 | Energy in the ring (DEFECT, F3) | each round costs (18 + punches) x spend_factor(1.2 - 0.4 x conditioning/100); the minute refills 52% of the fast debt (60% of what was spent) x (0.8 + 0.4 x conditioning/100) | Combos.round_spend, spend_factor, refill, after_round |
-| The fade (DEFECT, F3) | -1 power from round 3 when the mean is under 64; 0 at 64 | LiveRound 65, BoutRules.play_round, BoutRead 325 |
+| The fade (DEFECT, F3; fixed S434: Stamina alone, 0.25 a point under 60) | -1 power from round 3 when the mean is under 64; 0 at 64 (main before F3) | LiveRound 65, BoutRules.play_round, BoutRead 325 |
 | Calls (DEFECT, F10) | graded on the mean of their needs (Jab and move: the jab and Footwork); Good 62, OK 50, Poor; Fight IQ 65 finds the answer | Exchanges.CALLS, grade, IQ_FINDS |
 | The camp (DEFECT, F9) | PROTOCOLS Light / Standard / Hard, all $0, focus x1.1 / 1.2 / 1.35, night edge +0.25 / +0.6 / +1.0 | BoutRules.PROTOCOLS, camp_power, camp_evening |
 | Day job | an amateur off the stipend gains x0.85; turn_pro does not clear `day_job` | GymSpend.gain; Roster.turn_pro |
@@ -152,7 +152,7 @@ price on the tab reads them.
 |---|---|---|
 | Footwork (fast, Kayleigh tests x1.3) | 60 (58): +2 | Jab and move Good (the mean with the jab 64 reaches 62) |
 | Defence (fast, ceiling 66-74) | 54 (52): +2 | Hands up still under 56: no line yet |
-| Stamina (slow, the goal) | 64 (63): +1 | the goal met (mood +10, not +3); no round-3 fade at the regional |
+| Stamina (slow, the goal) | 64 (63): +1 | the goal met (mood +10, not +3); no round-3 fade at the regional (the line is 60) |
   So the aim is a real pick: what the regional's names test, or the goal and its mood. A SLOW row shows its smaller number honestly.
 - THE LAYS (BASE week, the hand rested; work: 100 = Coach's base week):
 | Load | How Coach lays it | Samira's week | % of the usual 92 |
@@ -206,12 +206,12 @@ price on the tab reads them.
 ### T36. TWO ENGINES (NEW in v6.1; tr6_1_0 point 2; MORNINGS1 changes T3)
 - ROADWORK builds RECOVERY 1.5 + Stamina 0.5; INTERVALS build STAMINA 2.0. Rest builds Recovery 1.0 (+ Flexibility 0.5).
 - WHAT EACH DOES (after F3, CODE numbers): STAMINA sets each round's energy cost (spend_factor 1.2 - 0.4 x Stamina/100) and the round-3 fade (0.25 a
-  point under 64). RECOVERY sets the minute's refill (52% of the fast debt x (0.8 + 0.4 x Recovery/100)) AND the night's clearance in training
+  point under 60). RECOVERY sets the minute's refill (52% of the fast debt x (0.8 + 0.4 x Recovery/100)) AND the night's clearance in training
   (fatigue_keep: each point over 55 clears 0.3% more a night).
 - THE LINK THE PLAYER MEETS: a BASE block's roadwork lifts Recovery, which clears the next block's tiredness faster, so its Hard weeks stay under 72
   (rule 1) and 80. Samira Recovery 50 -> 53 by the regional on Normal: the night keeps 87.6% not 88.5%, about 2 off a Hard week's peak (ESTIMATE).
 - ON EACH MORNING CARD (printed at the choice): Roadwork "Recovery: clears tiredness overnight, refills between rounds"; Intervals "Stamina: each
-  round costs less; no fade from 64".
+  round costs less; no fade from 60".
 - ROUND BY ROUND (the Stamina row's hover and the bill): energy at the start of rounds 1, 2, 3 from the Tank, worked from Combos: Samira now 95 /
   74 / 57; after Hard on Stamina kept 95 / 74 / 57.5. The energy part is small; the fade (0.35 now, 0.04 then) is the size. LINES1 prices both;
   if the energy part is under the cut rule the hover prints the fade only.
@@ -323,7 +323,7 @@ THE RULE (F3, F10): a row prints only lines that read its own number; a line tha
 already under it buy, so 63.8 is never worth nothing. Words are the game's: "helps from 56", "Good at 62", never a range of two numbers.
 | Ability | Its lines (CODE after F3, F10) | Printed on the row |
 |---|---|---|
-| Stamina | 64: no fade from round 3; Second wind 70 (PerkRoad) | "fade 0.35 · none at 64"; hover: rounds 1-3 energy (T36) |
+| Stamina | 60: no fade from round 3; Second wind 70 (PerkRoad) | "fade 0.35 · none at 60" (built S439: BoutRules.fade_row under the row); hover: rounds 1-3 energy (T36) |
 | Recovery | the minute's refill; the night's clearance | "clears 12% a night · +0.3% a point" |
 | Explosiveness | Finisher 70 (PerkRoad); the hold (T35) | "held by Strength 50" or "over ceiling 62" |
 | Accuracy | Stiff jab 65; the move ceiling | "every move's top 74" |
@@ -374,7 +374,7 @@ already under it buy, so 63.8 is never worth nothing. Words are the game's: "hel
 | Morning | Trains | Printed at the choice | Block |
 |---|---|---|---|
 | Roadwork | Recovery 1.5, Stamina 0.5 | "Recovery: clears tiredness overnight, refills between rounds · about 460 kcal" | BASE |
-| Intervals | Stamina 2.0 | "Stamina: each round costs less; no fade from 64 · about 360 kcal" | SPECIFIC |
+| Intervals | Stamina 2.0 | "Stamina: each round costs less; no fade from 60 · about 360 kcal" | SPECIFIC |
 | Strength circuit | Strength 2.0 | "Strength: lifts the Explosiveness ceiling" | BASE |
 | Heavy bag | Explosiveness + Inside | "Power punching, up close · hand day" | SPECIFIC |
 | Neck work | Durability 1.0 | "Takes a punch" | BASE |
@@ -430,7 +430,7 @@ already under it buy, so 63.8 is never worth nothing. Words are the game's: "hel
 ### T20, T21, T22. TREND, BOUTS TEACH, THE PROFESSIONAL'S STAMINA (kept)
 - Each row shows its last 4 weeks ("+0.9", "-0.4" in red); "Season so far" opens the ledger of whole points with causes (rules, response, blocks).
 - A fought bout: Fight IQ +0.5 and Composure +0.5; a step-up or a points loss +1 each. BOUTTEACH1.
-- The fade hits every round from the third: for Lucy each point under 64 costs a quarter in each of them. PROFADE1.
+- The fade hits every round from the third: for Lucy each point under 60 costs a quarter in each of them. PROFADE1.
 
 ### T33. THE CAMP IS THE LOAD (kept; the blocks now carry their emphasis)
 - A professional's camp is the strip's blocks, BUILD (BASE) / PEAK (SPECIFIC) / TAPER (Sharpen), each a load: default Hard, Hard, Sharpen; PEAK's aim
@@ -585,7 +585,7 @@ THE NEW AND CHANGED MECHANICS, MENU BY MENU (each shows on every menu listed, in
 FROM THE CODE: the gain rule and room; today's shares; Recruit's class bias and AttrGen's tilts; Light 0.6 / Normal 1.0 gain and the load 0.6 / 1.0
 / 1.5; session minutes and RPE; Coach's base week 2,607 effort-minutes; tiredness 0.87 - 0.003 a Recovery point over 55 (0.70 to 0.95), 44 and 80;
 the usual 0.1535 a week; 1.3 / 1.5 and x3; fatigue_mult from 72; the energy model (ROUND_COST 18, PUNCHES 54, spend_factor 1.2 - 0.4, QUICK_SHARE 0.6,
-refill 52% x 0.8 to 1.2); the Tank 100 and 2 a point over 50; the fade line 64; the call grades and EDGE 17; KO_DAYS 30; MoveMastery's numbers and
+refill 52% x 0.8 to 1.2); the Tank 100 and 2 a point over 50; the fade line 60 (S434 FADESHARE, was 64); the call grades and EDGE 17; KO_DAYS 30; MoveMastery's numbers and
 words; Attrs.VALUE; CoachAreas; FighterGoal's +10 / -20; PushBack; HABIT_COST 6; the ages; Knowledge's three groups; NoGi's 3.2, 0.6, 0.3 and 90;
 PROTOCOLS (retired by F9); DAY_JOB_GAIN 0.85 (retired by JobRota); the signing +5.
 ESTIMATE (each set by a probe): Hard's gain 1.6 and the dose x1.3 (DOSE1 with PACE1); the base x1.2 and the Strength + 10 hold (BLOCKORDER1); the
@@ -712,7 +712,11 @@ Cursor brief; every row that fails makes its cut, and the drawing loses that pan
 - The two engines' energy part is small (+0.5 energy at round 3 for a block); the size is the fade and the night's clearance. LINES1 decides.
 - The rules make a Hard week cheaper in injury; DOSE1's balance bar catches Hard becoming the only answer.
 - The freshness slope costs most bouts a few energy; the other corner reads the same rule; FITLEGS1 cuts it if it changes no decision.
-- The fade slope makes Stamina under 60 cost more than today; FADESHARE holds the share and size of fading bouts.
+- The fade slope makes Stamina under 60 cost more than today; FADESHARE holds the SHARE of fading bouts (S434/S439, 1,030 amateur bouts at
+  fight time: 63.6% at line 60 against main's 64.6%) but NOT their size: a fading bout loses 1.49 (main a flat 1.0), every bout 0.95 (main
+  0.65), because signings start with Stamina 5 under the old mean (Attrs.from_stats) and a fading bout sits ~6 points under the line (1.49 /
+  0.25). Holding main's size too needs 0.17 a point (OWN_FADE 0.68), which breaks F3's own slope (2 under the line: 0.5). The slope is the
+  spec, the size follows it: LINES1 prices it in exchanges.
 - F2b, F4, F8 and MorningRules' read all touch WeekPlan.gd (347 lines): one after the other, growth under 80 lines in all; MorningRules is its
   own file.
 - LiveRound.gd (456) and BoutRead.gd (497): F3 is a one-line swap in each, never an addition.

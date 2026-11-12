@@ -2,10 +2,13 @@ extends RefCounted
 ## The fixed content: the six areas, stat names, the walk-in, the coaches, the week cards, the opponents.
 
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
+const PunchStart := preload("res://scripts/rules/PunchStart.gd")
 const STATS: Array[String] = ["power", "speed", "technique", "defense", "conditioning", "fight_iq", "chin"]
+## S434 CARDIO1 (CORE_LOOP C3): conditioning is the mean of Stamina and Recovery, so its word is the group's, Cardio; the word
+## Stamina belongs to the Stamina ability alone (the fade's number).
 const LABEL := {
 	"power": "Power", "speed": "Speed", "technique": "Technique", "defense": "Defence",
-	"conditioning": "Stamina", "fight_iq": "Fight IQ", "chin": "Durability",
+	"conditioning": "Cardio", "fight_iq": "Fight IQ", "chin": "Durability",
 }
 const CARDS: Array[String] = ["Jab and move", "Body work", "Pad rounds", "Hill sprints", "Defence drills", "Film study"]
 
@@ -229,15 +232,16 @@ const PROSPECTS: Array[Dictionary] = [
 ## Move mastery: the punches the gym teaches, which week card drills which, and where a fighter starts.
 const MOVES: Array[String] = ["Jab", "Cross", "Lead hook", "Body hook", "Uppercut", "Check hook"]
 const CARD_MOVES := {"Jab and move": "Jab", "Body work": "Body hook", "Pad rounds": "Cross", "Defence drills": "Check hook"}
-## Starting mastery as a share of her technique: the jab is her best, the last two she has never drilled.
-const START_MOVE_SHARE := {"Jab": 0.85, "Cross": 0.75, "Lead hook": 0.62, "Body hook": 0.5, "Uppercut": 0.0, "Check hook": 0.0}
+## Starting mastery as a share of Technique: the jab is the best, the last two never drilled. One rule for both corners
+## (PunchStart, S433 PUNCHSTART1): the duel reads each punch through its raw floor; this mastery stays for plans.
+const START_MOVE_SHARE := PunchStart.START_SHARE
 
 
 ## The per-fighter career state every signed fighter carries (week 4: bouts, camps and talks are per fighter).
 static func fighter_state(f: Dictionary, day: int) -> Dictionary:
 	var moves := {}
 	for m in MOVES:
-		moves[m] = snappedf(float(f["stats"]["technique"]) * float(START_MOVE_SHARE[m]), 0.1)
+		moves[m] = PunchStart.mastery(float(f["stats"]["technique"]), m)
 	var div := str(f.get("div", "wlw"))
 	# Fight model step 1: footwork, style dials, personality, habits and morale (old saves get theirs here too).
 	return FighterProfile.ensure(f.merged({

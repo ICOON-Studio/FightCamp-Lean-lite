@@ -46,6 +46,8 @@ static func of_fighter(f: Dictionary) -> Dictionary:
 		"combos": own.all_mastery(f), "own_rows": own.rows_for_ring(f)}
 	if f.has("footwork"):
 		p["footwork"] = float(f["footwork"])
+	if f.has("stats"):   # S434 CARDIO1: the 3D minute's refill reads Recovery (BodyBurn), as BoutNight's does
+		p["recovery"] = float(AttrGen.Attrs.of(f)["recovery"])
 	return p
 
 

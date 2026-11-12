@@ -1,0 +1,235 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Training scene - coach critic 10/10</title>
+<style>
+:root{--bg:#10151c;--panel:#18202a;--panel2:#1e2834;--line:#2c3a4a;--ink:#e8edf2;--dim:#93a3b5;--mute:#64748a;
+--green:#46d17a;--red:#f05a4f;--gold:#f2c230;--blue:#5aa9ff;--amber:#f29a30}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Arial,sans-serif;font-size:15px}
+.h{font-family:Bahnschrift,"Arial Narrow",Arial,sans-serif;font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+.top{height:58px;display:flex;align-items:center;gap:18px;padding:0 18px;background:#0b0f14;border-bottom:1px solid var(--line)}
+.top .gym{font-size:26px;color:var(--blue)}
+.top .date{line-height:1.1}.top .date b{font-size:17px}.top .date span{color:var(--dim);font-size:13px}
+.crumb{color:var(--dim);font-size:16px}.crumb b{color:var(--ink)}
+.cash{margin-left:auto;text-align:right;line-height:1.15}.cash b{color:var(--gold);font-size:22px}.cash span{color:var(--dim);font-size:13px}
+.cont{background:#2f8f4e;border-radius:4px;padding:6px 16px;line-height:1.1;width:300px}.cont .h{font-size:20px}.cont span{font-size:13px}
+.wrap{display:grid;grid-template-columns:372px 1fr 418px;gap:12px;padding:12px;height:1022px}
+.p{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.p h2{font-size:20px;margin-bottom:4px}.sub{color:var(--dim);font-size:13px}
+.col{display:flex;flex-direction:column;gap:12px;min-height:0}
+.g{color:var(--green)}.r{color:var(--red)}.y{color:var(--gold)}.d{color:var(--dim)}.m{color:var(--mute)}
+/* pool */
+.face{display:grid;grid-template-columns:46px 1fr auto;gap:10px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:5px;margin-top:8px;background:var(--panel2)}
+.face.on{border-color:var(--gold)}
+.av{width:46px;height:46px;border-radius:50%;background:linear-gradient(160deg,#6b4a3a,#2a1d18);border:2px solid #3b4b5e}
+.face .n{font-weight:700;font-size:16px}.face .s{font-size:12.5px;color:var(--dim);line-height:1.3}
+.slots{display:flex;gap:3px}.slot{width:13px;height:24px;border-radius:2px;background:var(--blue)}.slot.ot{background:var(--gold)}.slot.e{background:transparent;border:1px dashed var(--mute)}
+.stake{font-size:12.5px;margin-top:3px;line-height:1.3}
+.ot{font-size:13px;margin-top:10px;padding:8px;border-radius:5px;background:#2a2412;border:1px solid #5a4a18;line-height:1.35}
+/* hero */
+.hero{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:10px}
+.tile{background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:10px 12px}
+.tile .k{font-size:13px;color:var(--dim)}
+.big{font-size:54px;line-height:1}.strike{text-decoration:line-through;color:var(--mute);font-size:34px;margin-right:8px}
+.mid{font-size:34px;line-height:1.05}
+.tile .w{font-size:13px;color:var(--dim);margin-top:4px;line-height:1.35}
+.ok{display:flex;gap:10px;margin-top:8px;font-size:13.5px;flex-wrap:wrap}
+.chip{padding:3px 9px;border-radius:12px;background:#163322;color:#9fe8b8;border:1px solid #2a6b44}
+.chip.w{background:#33260f;color:#f5cf86;border-color:#6b5420}
+/* decisions */
+.dec{display:grid;grid-template-columns:1.08fr 1fr 1fr;gap:10px;margin-top:10px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:9px 10px}
+.card .t{font-size:16.5px}.card .q{font-size:12.5px;color:var(--dim);margin:2px 0 6px;line-height:1.3}
+.colh{display:grid;grid-template-columns:1fr 54px 54px;font-size:11px;color:var(--mute);padding:0 6px;text-transform:uppercase;letter-spacing:.4px}
+.opt{display:grid;grid-template-columns:1fr 54px 54px;align-items:center;gap:0;padding:5px 6px;border:1px solid #2a3644;border-radius:4px;margin-top:4px;font-size:13.5px;line-height:1.25}
+.opt .x{font-size:12px;color:var(--dim)}
+.opt .v{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.opt.pick{border-color:var(--gold);background:#2a2412}
+.opt.dead{opacity:.45}
+.tag{font-size:10.5px;padding:1px 6px;border-radius:3px;margin-left:5px;vertical-align:1px;font-weight:700}
+.tag.c{background:#2c3a4a;color:#c7d3df}.tag.y{background:var(--gold);color:#1a1405}
+.toggle{display:flex;margin:4px 0 2px;border:1px solid var(--line);border-radius:4px;overflow:hidden;font-size:12.5px}
+.toggle div{flex:1;padding:5px 7px;line-height:1.25}.toggle .on{background:#2a2412;outline:1px solid var(--gold)}
+.band{height:8px;border-radius:4px;background:linear-gradient(90deg,#5a2a26 0 10%,#2f6b45 10% 90%,#5a2a26 90%);position:relative;margin:4px 0 2px}
+.band i{position:absolute;left:50%;top:-4px;width:6px;height:16px;background:var(--gold);border-radius:2px}
+.link{margin-top:6px;font-size:12.5px;padding:6px 7px;border-left:3px solid var(--blue);background:#15202c;line-height:1.3}
+/* week */
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:6px}
+.day{background:var(--panel2);border:1px solid var(--line);border-radius:4px;padding:6px 7px;font-size:12.5px;line-height:1.3;height:118px}
+.day.y{border-color:var(--gold)}
+.day .dn{font-size:14px;display:flex;justify-content:space-between}
+.day .ev{margin-top:5px;padding-top:4px;border-top:1px dashed #33445a}
+.fw{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px}
+.fw div{background:#151c25;border:1px solid var(--line);border-radius:4px;padding:5px 7px;font-size:12px;line-height:1.3}
+.fw .bell{border-color:var(--red)}
+/* right */
+.line{padding:7px 9px;border-left:3px solid var(--green);background:var(--panel2);margin-top:7px;font-size:13.5px;line-height:1.35}
+.line.a{border-color:var(--amber)}
+.st{font-size:11px;font-weight:700;padding:1px 6px;border-radius:3px}
+.st.g{background:#1f5a36;color:#bff2d0}.st.a{background:#5a4214;color:#fbe1a8}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}
+td,th{padding:5px 3px;border-bottom:1px solid #26323f;vertical-align:top;text-align:left}
+th{font-size:11px;color:var(--mute);font-weight:600;text-transform:uppercase}
+td.v,th.v{text-align:right;white-space:nowrap;font-weight:700}
+.done{margin-top:auto;background:var(--gold);color:#1a1405;border-radius:6px;padding:12px;text-align:center}
+.done .h{font-size:34px}.done div{font-size:13.5px;font-weight:600}
+.mast{font-size:12.5px;line-height:1.4}
+.mast b{color:var(--ink)}
+</style></head><body>
+<div class="top">
+  <div class="h gym">Anvil Street Gym</div>
+  <div class="date"><b>Mon 16 Feb 2026</b><br><span>Week 7</span></div>
+  <div class="crumb">Fighters › Samira Khan › <b>Training</b></div>
+  <div class="cash"><b>$12,940</b><br><span>running −$210 a week · this week's changes −$163</span></div>
+  <div class="cont"><div class="h">Continue</div><span>to Mon 23 Feb · the fight week</span></div>
+</div>
+<div class="wrap">
+<!-- LEFT -->
+<div class="col">
+  <div class="p">
+    <h2 class="h">Club pad nights</h2>
+    <div class="sub">Luke Reid holds pads 8 nights a week, plus 1 overtime. Drag a night between boxers. A night only counts for a bout if it lands by the Sunday before it.</div>
+    <div class="face"><div class="av"></div><div><div class="n">Tess · Sat 28</div>
+      <div class="s">A win: regional rank 4 → 3 (pro offer needs top 3)</div>
+      <div class="stake">Her next night: <b class="g">+1.5</b> on her Sat 28</div></div>
+      <div class="slots"><i class="slot"></i><i class="slot"></i><i class="slot"></i><i class="slot e"></i></div></div>
+    <div class="face on"><div class="av" style="background:linear-gradient(160deg,#7a5440,#2a1d18)"></div><div><div class="n">Samira · Sat 28 <span class="d" style="font-weight:400">· open</span></div>
+      <div class="s">A win: unranked → enters the table at 4 wins (she has 3)</div>
+      <div class="stake">Overtime Tue: film on Jade <b class="g">+2.5</b></div></div>
+      <div class="slots"><i class="slot"></i><i class="slot"></i><i class="slot"></i><i class="slot ot"></i></div></div>
+    <div class="face"><div class="av" style="background:linear-gradient(160deg,#5a3c30,#1d1512)"></div><div><div class="n">Lucy · Sat 7 Mar</div>
+      <div class="s">A win: keeps her 5th bout for the nationals entry</div>
+      <div class="stake">Lend 1 night: <b class="r">−2.0</b> on her Sat 7 Mar</div></div>
+      <div class="slots"><i class="slot"></i><i class="slot"></i></div></div>
+    <div class="ot"><b class="y">OVERTIME 1 OF 1 · Samira, Tue</b><br>Costs <b>$75</b> and Luke's Tuesday fitness class (<b>−$88</b> of the $350 a week). Tess's Uppercut stays at 24.<br>
+      <span class="d">More nights for good: Second club coach, $280 a week, +4 nights · Club › People</span></div>
+  </div>
+  <div class="p">
+    <h2 class="h">Samira's card <span class="sub" style="text-transform:none">· answer by Mon 23</span></h2>
+    <div style="font-size:14px;margin:2px 0 4px"><b>Rival talks trash.</b> Jade talks in the local paper.</div>
+    <div class="colh"><span></span><span style="text-align:right">Sat 28</span><span style="text-align:right">Club</span></div>
+    <div class="opt pick"><div><b>Stay quiet</b><span class="tag c">COACH'S PICK</span><div class="x">a calm week</div></div><div class="v">0</div><div class="v d">—</div></div>
+    <div class="opt"><div><b>Fire back</b><div class="x">her habit fix lands half as well on the night</div></div><div class="v r">−0.8</div><div class="v g">+3<span style="font-size:10px"> mem</span></div></div>
+    <div class="sub" style="margin-top:5px">+3 members = running −$210 → −$186 a week. Runway is 61 weeks: the club does not need them.</div>
+  </div>
+  <div class="p" style="flex:1">
+    <h2 class="h">Hovered: Body hook</h2>
+    <div class="mast"><b>What it does:</b> a hook to the ribs; each one landed costs Jade Energy. At 30 it is a weapon and opens the perk Body snatcher (+15% Energy cost per landed body shot).<br>
+    <b>Mastery</b> (not win points): 29.1 now · half of Wednesday → 32.4 · lands Sunday night.<br>
+    <b>Takes:</b> the Wednesday 1-2-3 (next bout: one more night).<br>
+    <b>Opens:</b> 3b-3 and 1-2-3b in the book. Never falls under 30 again.</div>
+  </div>
+</div>
+
+<!-- CENTRE -->
+<div class="col">
+  <div class="p">
+    <div style="display:flex;align-items:baseline;gap:12px"><h2 class="h">Sat 28 vs Jade Okoro</h2><span class="sub">coach's week → yours · every figure is the game's own read, re-run on each change</span>
+      <span style="margin-left:auto" class="sub">4 changes · <b style="color:var(--ink)">UNDO LAST</b> · <b style="color:var(--ink)">BACK TO COACH'S WEEK</b></span></div>
+    <div class="hero" style="margin-top:8px">
+      <div class="tile"><div class="k h">Win on Sat 28</div><div><span class="strike">48%</span><span class="big g">55%</span></div>
+        <div class="w">Bout page read 55% (weapons 5, both plan lines thrown) × makes weight × 98.5% unhurt.</div></div>
+      <div class="tile"><div class="k h">Next bout (about Sat 21 Mar)</div><div class="mid"><span class="m" style="font-size:24px;text-decoration:line-through">44%</span> <span class="g">46%</span></div>
+        <div class="w">Mood after Sat 28: <b>Steady</b> on a loss, not <b>Flat</b> (goal met +10 instead of −20): the corner's word lands in full, not 85%. 1-2-3 one night later: −0.4.</div></div>
+      <div class="tile"><div class="k h">The club</div><div class="mid r">−$163</div>
+        <div class="w">Overtime $75 and Tuesday's fitness class $88. Tess's Uppercut waits a week (her Sat 28 −1.5).</div></div>
+    </div>
+    <div class="ok"><span class="chip">Makes weight: 64.98 on Fri 27, nothing to sweat</span><span class="chip">Energy 100 at the first bell</span><span class="chip">98.5% unhurt</span><span class="chip w">Goal met by 0.08: one morning less and it is missed</span></div>
+  </div>
+
+  <div class="p" style="padding-top:10px">
+    <div style="display:flex;align-items:baseline;gap:10px"><h2 class="h">This week's decisions</h2><span class="sub">the last pad week before Sat 28 · every option against the coach's week, in win points now and at the next bout</span></div>
+    <div class="dec">
+      <div class="card">
+        <div class="t h">1 · The answer to "Jade loads up"</div>
+        <div class="q">Slip 2-3 needs the Check hook at 30 by Sun 22 (it is 21.1 after Monday). Or change the line to one she can throw now.</div>
+        <div class="toggle"><div class="on"><b>Slip, cross, check hook</b><br><span class="d">best answer, needs Wednesday</span></div><div><b>Step back</b><br><span class="d">ready now, scores less: +1.2</span></div></div>
+        <div class="colh" style="margin-top:6px"><span>Wednesday night</span><span style="text-align:right">Sat 28</span><span style="text-align:right">Next</span></div>
+        <div class="opt"><div>1-2-3 full <span class="tag c">COACH</span><div class="x">slip 2-3 not thrown (Check hook 28.9)</div></div><div class="v">0</div><div class="v">0</div></div>
+        <div class="opt pick"><div>Body hook / Check hook <span class="tag y">YOURS</span><div class="band"><i></i></div><div class="x">50 / 50 · safe from 20/80 to 80/20</div></div><div class="v g">+3.5</div><div class="v r">−0.4</div></div>
+        <div class="opt"><div>Check hook full<div class="x">slip 2-3 thrown, Body hook stays 28.4</div></div><div class="v g">+2.0</div><div class="v r">−0.4</div></div>
+        <div class="opt"><div>Film with the coach<div class="x">opens Jade's best weapon; you write the answer</div></div><div class="v g">+2.5</div><div class="v">0</div></div>
+        <div class="link">With <b>Step back</b> chosen, Wednesday is free: 1-2-3 for the next bout, or Body hook full (+1.5).</div>
+      </div>
+      <div class="card">
+        <div class="t h">2 · Diet to the weigh-in, Fri 27</div>
+        <div class="q">65.80 now, limit 65.0. Kilos over on the scale morning are sweated off (up to 1.0) and cost Energy at the first bell.</div>
+        <div class="colh"><span></span><span style="text-align:right">Sat 28</span><span style="text-align:right">Next</span></div>
+        <div class="opt"><div>Hold <span class="tag c">COACH</span><div class="x">65.90: sweats 0.85 kg, Energy −4</div></div><div class="v">0</div><div class="v">0</div></div>
+        <div class="opt"><div>Cut from Mon 23<div class="x">65.44: sweats 0.39 kg, Energy −2</div></div><div class="v g">+0.5</div><div class="v">0</div></div>
+        <div class="opt pick"><div>Cut today <span class="tag y">YOURS</span><div class="x">64.98, no sweat · mornings 90%</div></div><div class="v g">+0.9</div><div class="v r">−1.8</div></div>
+        <div class="opt dead"><div>Hard cut<div class="x">not needed: Cut today makes weight</div></div><div class="v">—</div><div class="v">—</div></div>
+        <div class="link">Cut today leaves the goal 59.81 of 60 (missed, mood −20, next bout −1.8). <b>Fix it:</b> Saturday Strength → Intervals: goal 60.08 met, Sat 28 −0.1. <b class="y">APPLIED</b></div>
+      </div>
+      <div class="card">
+        <div class="t h">3 · A 4th pad night</div>
+        <div class="q">The 8 nights are shared. A 4th for Samira is the overtime or a teammate's night.</div>
+        <div class="colh"><span></span><span style="text-align:right">Sat 28</span><span style="text-align:right">Club</span></div>
+        <div class="opt"><div>None <span class="tag c">COACH</span><div class="x">overtime free for Tess</div></div><div class="v">0</div><div class="v">0</div></div>
+        <div class="opt pick"><div>Overtime: Tue film <span class="tag y">YOURS</span><div class="x">Jade's best weapon opens Tue night</div></div><div class="v g">+2.5</div><div class="v r">−$163</div></div>
+        <div class="opt"><div>Lucy's 2nd night: Tue film<div class="x">Lucy −2.0 on Sat 7 Mar</div></div><div class="v g">+2.5</div><div class="v">$0</div></div>
+        <div class="opt"><div>Overtime to Tess instead<div class="x">her Uppercut 24 → 30.6</div></div><div class="v d">Tess +1.5</div><div class="v r">−$163</div></div>
+        <div class="link">The +2.5 needs the answer written: the Game plan asks on Wednesday. Unwritten, the read only moves toward the truth (up or down).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="p" style="flex:1;padding-top:9px">
+    <div style="display:flex;align-items:baseline;gap:10px"><h2 class="h">This week</h2><span class="sub">morning over evening · gold = yours · click a day to change it</span></div>
+    <div class="days">
+      <div class="day"><div class="dn h"><span>Mon</span></div>Roadwork Normal<br><span class="g">Stamina +0.20</span> · 65.71<div class="ev">Pads: Check hook<br><span class="d">mastery 12 → 21.1</span></div></div>
+      <div class="day y"><div class="dn h"><span>Tue</span><span class="y">YOURS</span></div>Heavy bag Normal<br><span class="g">Power +0.09</span> · 65.66<div class="ev">Film on Jade (overtime)<br><span class="d">opens her best weapon</span></div></div>
+      <div class="day y"><div class="dn h"><span>Wed</span><span class="y">YOURS</span></div>Intervals Normal<br><span class="g">Stamina +0.24</span> · 65.58<div class="ev">Pads: Body hook / Check hook<br><span class="d">32.4 · 25.0</span></div></div>
+      <div class="day"><div class="dn h"><span>Thu</span></div>Speed bag Light<br><span class="g">Hand speed +0.08</span> · 65.54<div class="ev">Sparring<br><span class="d">Body hook 35.6</span></div></div>
+      <div class="day"><div class="dn h"><span>Fri</span></div>Roadwork Normal<br><span class="g">Stamina +0.20</span> · 65.45<div class="ev">Pads: Check hook<br><span class="d">25.0 → 32.1</span></div></div>
+      <div class="day y"><div class="dn h"><span>Sat</span><span class="y">YOURS</span></div><s class="m">Strength</s> Intervals Normal<br><span class="g">Stamina +0.24</span> · 65.38<div class="ev">Rest</div></div>
+      <div class="day"><div class="dn h"><span>Sun</span></div>Rest · 65.36<div class="ev"><b class="g">Tonight the week's pads land</b><br><span class="d">Body hook and Check hook Usable</span></div></div>
+    </div>
+    <div style="margin-top:8px" class="sub"><b class="h" style="color:var(--ink);font-size:14px">Fight week</b> · its mornings and the scale count for Sat 28; its pad nights land after the bout</div>
+    <div class="fw">
+      <div><b>Mon 23</b><br>Light roadwork <span class="g">+0.11</span><br><span class="m">pads: next bout</span></div>
+      <div><b>Tue 24</b><br>Light shadow<br><span class="m">rest</span></div>
+      <div><b>Wed 25</b><br>Rest<br><span class="m">pads: next bout</span></div>
+      <div><b>Thu 26</b><br>Light speed bag<br><span class="m">rest</span></div>
+      <div><b>Fri 27 · weigh-in</b><br>Light roadwork<br><span class="g">64.98: made</span></div>
+      <div class="bell"><b class="r">Sat 28 · the bell</b><br>Stamina 60.08<br>Energy 100</div>
+    </div>
+  </div>
+</div>
+
+<!-- RIGHT -->
+<div class="col">
+  <div class="p">
+    <div style="display:flex;justify-content:space-between;align-items:baseline"><h2 class="h r">Next bout · club show</h2><span class="h r" style="font-size:28px">12 days</span></div>
+    <div class="h" style="font-size:19px">Sat 28 Feb vs Jade Okoro</div>
+    <div class="sub">Haringey Police CC · Boxer-puncher · 2-1 · file: nothing found yet</div>
+    <div class="sub" style="margin-top:8px;color:var(--gold)">YOUR PLAN AT THE BELL</div>
+    <div class="line">"When Jade loads up → slip, cross, check hook" <span class="st g">THROWN</span><br><span class="d">Check hook 32.1 by Sun 22. A new combination: 80% strength until drilled to 30.</span></div>
+    <div class="line a">"At mid range → 1-2-3" <span class="st a">80% STRENGTH</span><br><span class="d">combination 17.3, under 30 either way: no change this week. Next bout: 5 nights to 30.</span></div>
+    <div class="line" style="border-color:var(--mute)">Jade's best weapon <span class="st a">OPENS TUE</span><br><span class="d">write the answer on Wednesday: Playbook › Game plan</span></div>
+  </div>
+  <div class="p">
+    <h2 class="h">What your changes did</h2>
+    <table>
+      <tr><th>Change</th><th class="v">Sat 28</th><th class="v">Next</th><th class="v">Club</th></tr>
+      <tr><td>Diet: Hold → Cut today</td><td class="v g">+0.9</td><td class="v r">−1.8</td><td class="v">—</td></tr>
+      <tr><td>Sat: Strength → Intervals (goal met)</td><td class="v r">−0.1</td><td class="v g">+1.8</td><td class="v">—</td></tr>
+      <tr><td>Wed: 1-2-3 → Body hook / Check hook</td><td class="v g">+3.5</td><td class="v r">−0.4</td><td class="v">—</td></tr>
+      <tr><td>Tue: film on Jade (overtime)</td><td class="v g">+2.5</td><td class="v">—</td><td class="v r">−$163</td></tr>
+      <tr><td><b>Mood after Sat 28</b></td><td class="v">—</td><td class="v g">+2.4</td><td class="v">—</td></tr>
+      <tr><td><b>Coach's week → yours</b></td><td class="v g">48 → 55</td><td class="v g">44 → 46</td><td class="v r">−$163</td></tr>
+    </table>
+    <div class="sub" style="margin-top:5px">Points of win. Tess's Sat 28: −1.5 (no overtime night).</div>
+  </div>
+  <div class="p">
+    <h2 class="h">Pad cards <span class="sub" style="text-transform:none">· mastery a full night adds</span></h2>
+    <table>
+      <tr><td>Check hook <span class="d">21.1</span></td><td class="d">crosses 30 with 1 more night</td><td class="v">+7.8</td></tr>
+      <tr><td>Body hook <span class="d">29.1</span></td><td class="d">crosses 30 with a tenth of a night</td><td class="v">+6.6</td></tr>
+      <tr><td>1-2-3 <span class="d">18.0</span></td><td class="d">next bout only · held at 38</td><td class="v">+3.8</td></tr>
+      <tr><td>Uppercut <span class="d">new</span></td><td class="d">next bout only · 4 nights to 30</td><td class="v">+10.9</td></tr>
+    </table>
+  </div>
+  <div class="done"><div class="h">Done</div><div>Sat 28: 55% · next bout 46% · −$163 · goal met by 0.08<br>Continue runs the week; Sunday night the pads land</div></div>
+</div>
+</div>
+</body></html>

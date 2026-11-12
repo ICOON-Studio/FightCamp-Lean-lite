@@ -20,6 +20,7 @@ const BAKED := {
 }
 const BAKED_DIR := "res://assets/anim/baked/"
 const OWNED_DIR := "res://assets/anim/baked/owned/"
+const FIXED_DIR := "res://assets/anim/baked/fixed/"
 ## MoCap Online Punch Starter, baked as mc_Punch_M3_<Name>.res: our name -> file stem.
 const MOCAP_ONLINE := {
 	"mc_idle": "Punch_M3_Idle", "mc_fidget": "Punch_M3_Idle_Fidget_V1", "mc_jab": "Punch_M3_Left_Jab",
@@ -81,8 +82,13 @@ static func load_into(ap: AnimationPlayer, skel: Skeleton3D, corner_only: bool =
 			var file := str(f).trim_suffix(".remap")
 			if file.ends_with(".res"):
 				baked[file.trim_suffix(".res")] = OWNED_DIR + file
+	# S438 CLIPFIX3: a fixed version in fixed/ overrides the original (one-line lookup per clip).
 	for name in baked:
-		if _add_baked(lib, skel, prefix, str(name), str(baked[name])):
+		var path: String = str(baked[name])
+		var fixed_path: String = path.replace(BAKED_DIR, FIXED_DIR)
+		if fixed_path != path and ResourceLoader.exists(fixed_path):
+			path = fixed_path
+		if _add_baked(lib, skel, prefix, str(name), path):
 			added.append(name)
 	for name in ([] if corner_only else PAIR):
 		if _add_baked(lib, skel, prefix, str(name), BAKED_DIR + str(name) + ".res"):

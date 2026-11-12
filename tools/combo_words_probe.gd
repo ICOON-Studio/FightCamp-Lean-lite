@@ -1,5 +1,6 @@
 extends SceneTree
-## S303 probe: what the ring shows of combos and energy, by round and conditioning. Three boxers (different stats and
+## S303 probe: what the ring shows of combos and energy, by round, Stamina and Recovery (S434 CARDIO1: the round's cost reads
+## Stamina, the minute's refill Recovery, never their mean; the opponent's tank reads its conditioning). Three boxers (different stats and
 ## combos, never identical) against one opponent profile, energy run by Combos.after_round over 3 rounds, 40 seeded
 ## rounds each through RoundScript.build + ComboWords.caption. Prints per round: energy start->bell, combo runs, mean run
 ## length, unfinished runs, ring_tired and ring_lands captions.
@@ -16,24 +17,28 @@ func _initialize() -> void:
 	var opp := {"stats": {"speed": 62.0, "conditioning": 60.0, "defense": 58.0, "technique": 60.0, "power": 61.0},
 		"moves": {"Jab": 55.0, "Cross": 48.0, "Lead hook": 40.0, "Body hook": 30.0, "Uppercut": 20.0}, "combos": {"1-2": 45.0}}
 	var boxers := [
-		{"name": "Lucy (cond 35, sharp)", "stats": {"speed": 70.0, "conditioning": 35.0, "defense": 55.0, "technique": 62.0, "power": 66.0},
+		{"name": "Lucy (Stamina 32, Recovery 38, sharp)", "stamina": 32.0, "recovery": 38.0,
+			"stats": {"speed": 70.0, "conditioning": 35.0, "defense": 55.0, "technique": 62.0, "power": 66.0},
 			"combos": {"1-1": 64.0, "1-2": 70.0, "1-1-2": 61.0}},
-		{"name": "Maria (cond 55, signature)", "stats": {"speed": 74.0, "conditioning": 55.0, "defense": 60.0, "technique": 80.0, "power": 58.0},
+		{"name": "Maria (Stamina 50, Recovery 60, signature)", "stamina": 50.0, "recovery": 60.0,
+			"stats": {"speed": 74.0, "conditioning": 55.0, "defense": 60.0, "technique": 80.0, "power": 58.0},
 			"combos": {"1-1": 88.0, "1-2": 92.0, "1-2-3": 86.0, "3b-3": 70.0}},
-		{"name": "Rosa (cond 82, signature)", "stats": {"speed": 66.0, "conditioning": 82.0, "defense": 70.0, "technique": 75.0, "power": 52.0},
+		{"name": "Rosa (Stamina 80, Recovery 84, signature)", "stamina": 80.0, "recovery": 84.0,
+			"stats": {"speed": 66.0, "conditioning": 82.0, "defense": 70.0, "technique": 75.0, "power": 52.0},
 			"combos": {"1-2": 90.0, "2-3": 85.0, "1-2-3b": 64.0}},
 	]
 	for bx in boxers:
 		print("== %s" % bx["name"])
 		var moves := {"Jab": 80.0, "Cross": 75.0, "Lead hook": 70.0, "Body hook": 65.0, "Uppercut": 50.0, "Check hook": 40.0}
 		var pa := {"moves": moves, "stats": bx["stats"], "combos": bx["combos"]}
-		var cond := float(bx["stats"]["conditioning"])
+		var st := float(bx["stamina"])
+		var rc := float(bx["recovery"])
 		var ea := C.TANK
 		var da := 0.0
 		var eb := C.TANK
 		var db := 0.0
 		for n in range(1, 4):
-			var ra := C.after_round(ea, da, C.round_spend(bx["combos"], "", cond), cond)
+			var ra := C.after_round(ea, da, C.round_spend(bx["combos"], "", st), rc)
 			var rb := C.after_round(eb, db, C.round_spend(opp["combos"], "", 60.0), 60.0)
 			var runs := 0
 			var run_len := 0

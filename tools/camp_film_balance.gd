@@ -1,6 +1,7 @@
 extends SceneTree
 ## S381 C229 stage 4: what the camp protocol and the film are worth on the night, through the game's real round path
-## (BalanceHarness.round_shares: Bouts._energy + BoutRules.play_round). A power-leaning fighter (cond 65, all moves 30) at
+## (BalanceHarness.round_shares: Bouts._energy + BoutRules.play_round). A power-leaning fighter (conditioning 65, all moves 30;
+## S434 CARDIO1: the fade and the tank read the Stamina and Recovery that summary migrates to, printed in the header) at
 ## an even paper rating against Priya (OPPONENTS[1]); each row sets her camp protocol and the film answers (tells a plan
 ## line or a drilled combo answers, BoutRules.film_edge). One RNG seed per column, the same across rows (common random
 ## numbers), so a row's difference is the rule's, not the dice.
@@ -14,7 +15,9 @@ const N := 2000
 
 func _initialize() -> void:
 	var opp: Dictionary = Data.OPPONENTS[1]
-	print("CFB fighter avg 59 (power-leaning, cond 65) vs %s %.1f, n=%d, corners body/body" % [opp["name"], float(opp["rating"]), N])
+	var a: Dictionary = H.Attrs.of(H.make_fighter(59, 65.0, {}, 1))
+	print("CFB fighter avg 59 (power-leaning, conditioning 65: Stamina %.1f, Recovery %.1f) vs %s %.1f, n=%d, corners body/body" % [
+		float(a["stamina"]), float(a["recovery"]), opp["name"], float(opp["rating"]), N])
 	print("CFB protocol  film  power_edge  bout")
 	for proto in [0, 1, 2, 3]:
 		for answered in [0, 1, 2, 3]:

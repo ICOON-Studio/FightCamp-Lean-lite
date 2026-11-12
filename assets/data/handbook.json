@@ -174,10 +174,10 @@
   "id": "camp",
   "name": "Fight camp",
   "def": "The weeks of training set for a booked bout.",
-  "why": "No camp costs 1.5 power on the night, and a camp needs at least 7 days to go.",
+  "why": "A professional with no camp loses 1.5 power on the night. An amateur bout needs no camp: the fight week is enough. A camp needs at least 7 days to go.",
   "group": "The plan",
   "area": "fighters",
-  "src": "BoutRules.NO_CAMP_EDGE, BoutRules.CAMP_MIN_DAYS"
+  "src": "BoutRules.NO_CAMP_EDGE (professionals only), BoutRules.CAMP_MIN_DAYS"
  },
  {
   "id": "camp_focus",
@@ -253,12 +253,12 @@
  },
  {
   "id": "heavy_legs",
-  "name": "Heavy legs",
-  "def": "Camp fatigue still in the legs on fight night.",
-  "why": "Each fatigue point over 50 costs 2 energy at the first bell, up to 20.",
+  "name": "The Tank",
+  "def": "The energy a boxer has at the first bell of every bout, camp or not: 100 when fresh.",
+  "why": "Each point of tiredness over 50 takes 2 off the Tank (up to 20). A bout of the boxer's own in the last 7 days takes 8, in the last 14 days 4. At most 25 off in all; fighting hurt takes more on top.",
   "group": "Fight night",
   "area": "fighters",
-  "src": "BoutRules.FRESH_FATIGUE, BoutRules.STALE_PER_POINT, BoutRules.STALE_MAX"
+  "src": "BoutRules.tank_parts: FRESH_FATIGUE, STALE_PER_POINT, STALE_MAX, LAST_BOUT, TANK_MAX; Injuries.HURT_ENERGY"
  },
  {
   "id": "energy",

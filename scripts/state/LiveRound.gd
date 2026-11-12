@@ -57,13 +57,13 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 		f["bout"]["answered"] = FilmEdge.answered(f)
 	# S398 the fighter model: no averaged stats against a rating any more - the base holds the night's edges (camp, film,
 	# weapons, combinations and tiredness); who is better is fought exchange by exchange in RingDuel's duels.
-	var base := BoutRules.night_edge(f["camp"], int(f["bout"]["answered"])) \
+	var base := BoutRules.night_edge(f["camp"], int(f["bout"]["answered"]), bool(f.get("pro", false))) \
 		+ BoutRules.weapons_edge(BoutRules.weapons(f.get("moves", {}))) + float(e.get("bonus", 0.0))
 	if n == 1 or not f["bout"].has("form"):
 		f["bout"].erase("form")
 		RingDuel.form(f, c.day * 31 + c.fighters.find(f) * 7)
-	if n >= BoutRules.ROUNDS and float(f["stats"].get("conditioning", 0.0)) < BoutRules.FADE_CONDITIONING:
-		base -= BoutRules.OWN_FADE
+	if n >= BoutRules.ROUNDS:   # S434 CARDIO1: the fade's slope on her Stamina
+		base -= BoutRules.own_fade(float(Attrs.of(f)["stamina"]))
 	if n >= BoutRules.ROUNDS and str(opp.get("weak", "")).begins_with("Fades"):
 		base += BoutRules.OPP_FADE
 	# S356 a week with the southpaw partner (WeekTwist "Take him"): an edge on a southpaw.

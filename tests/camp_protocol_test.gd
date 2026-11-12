@@ -2,7 +2,7 @@ extends SceneTree
 ## S380 CAMPPROTO1 (S379: Hard vs Standard moved the camp stat 60.12 vs 59.98 and changed no fatigue): the protocol sets
 ## the camp's evenings (BoutRules.camp_evening - pads drill the camp's stat, their load scales fatigue and hours), the
 ## week-end injury rolls read the week's peak fatigue (InjuryRoll.fatigue_mult) and fatigue still carried on fight night
-## costs energy at the first bell (BoutRules.stale_energy). Population: the golden path's quick-start career (seed 1) -
+## costs energy at the first bell (S433: BoutRules.tank_for, the Tank). Population: the golden path's quick-start career (seed 1) -
 ## Lucy signed, Luke Reid hired, her first even offer accepted; CampForecast.run for Light / Standard / Hard.
 ##   1. The gains spread: Hard - Standard and Standard - Light each >= 0.025 power a camp day (power and technique).
 ##   2. Fatigue spreads: Hard ends the camp >= 8 more tired than Light; Light is fresh on the night; the coach's Hard
@@ -80,13 +80,14 @@ func _initialize() -> void:
 	# S431: read the tiredness and the camp BEFORE the bell: since S430 the fight itself leaves tiredness (Aftermath.toll),
 	# so after fight_step week_fatigue is the fight's toll, not what she carried in.
 	var fat_in := float(f["week_fatigue"])
-	var camp_in: Dictionary = (f["camp"] as Dictionary).duplicate(true)
+	var res_in: Array = c.results.duplicate(true)
+	var f_in: Dictionary = f.duplicate(true)   # S434 the bout writes her last_bout_day (BoutRules.tank_read): read the Tank's inputs before it
 	BoutNight.fight_step(c, f, m, "sim")
 	var stale := float(f["bout"].get("stale", 0.0))
 	var en: Dictionary = (m["rounds"][0] as Dictionary).get("energy", {}) if not (m.get("rounds", []) as Array).is_empty() else {}
-	_check(absf(stale - BoutRules.stale_energy(fat_in, camp_in)) < 0.001 and not en.is_empty()
+	_check(absf(stale - BoutRules.tank_for(res_in, f_in, fat_in, bd)) < 0.001 and not en.is_empty()
 		and absf(float(en["a"]) - (Combos.TANK - float(f["bout"].get("hurt", 0.0)) - stale)) < 0.001,
-		"the first bell opens with %.1f energy (tank %.0f, heavy legs %.1f)" % [float(en.get("a", -1.0)), Combos.TANK, stale])
+		"the first bell opens with %.1f energy (tank %.0f, the Tank off %.1f)" % [float(en.get("a", -1.0)), Combos.TANK, stale])
 	_done()
 
 

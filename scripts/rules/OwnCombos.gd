@@ -35,6 +35,7 @@ const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 
 ## ComboFlow punch id -> Data.MOVES name (the punch he must have as a weapon).
 const PUNCH_OF := {"jab": "Jab", "cross": "Cross", "lead_hook": "Lead hook", "body_hook": "Body hook", "rear_uppercut": "Uppercut"}
@@ -227,15 +228,15 @@ static func gas(f: Dictionary, e: Dictionary) -> float:
 
 
 ## Rounds 1..3 his tank still throws it whole mid-round: his hand-speed cap (+1 for a signature) at the mid-round energy of
-## a bout at his conditioning (Combos' own round spend and rest).
+## a bout at his Stamina and Recovery (Combos' own round spend and rest; S433 CARDIO1).
 static func whole_by_round(f: Dictionary, e: Dictionary) -> Array:
-	var cond := float((f.get("stats", {}) as Dictionary).get("conditioning", 55.0))
+	var own := Attrs.of(f)
 	var mine := all_mastery(f)
 	var energy := Combos.TANK
 	var debt := 0.0
 	var out: Array = []
 	for r in ROUNDS:
-		var a := Combos.after_round(energy, debt, Combos.round_spend(mine, "", cond), cond)
+		var a := Combos.after_round(energy, debt, Combos.round_spend(mine, "", float(own["stamina"])), float(own["recovery"]))
 		out.append(whole_at(f, e, (energy + float(a["bell"])) / 2.0))
 		energy = float(a["next"])
 		debt = float(a["debt"])

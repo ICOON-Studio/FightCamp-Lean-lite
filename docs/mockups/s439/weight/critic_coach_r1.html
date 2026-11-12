@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Weight plan, critic coach 10</title>
+<style>
+:root{--bg:#10141c;--panel:#171d28;--panel2:#1d2431;--line:#2b3445;--fg:#e9edf3;--soft:#a9b3c2;--mute:#7c8799;--gold:#f2c14e;--green:#46c97f;--red:#ff5b4f;--blue:#5aa9ff;--amber:#ffab3d;--grey:#5b6578}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--fg);font-family:"Segoe UI",Arial,sans-serif;position:relative}
+.hd{font-family:Bahnschrift,"Segoe UI",Arial,sans-serif;letter-spacing:.03em}
+.abs{position:absolute}
+.top{left:0;top:0;width:1920px;height:56px;background:#0a0d13;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:22px;padding:0 20px;font-size:17px}
+.top .gym{font-weight:700;font-size:19px}.top .date{color:var(--soft)}
+.top .cash{margin-left:auto}.top .cash i{font-style:normal;color:var(--red);font-size:15px;margin-left:8px}
+.cont{height:40px;padding:0 18px;background:var(--gold);color:#1a1405;font-weight:700;display:flex;align-items:center;gap:10px;font-size:17px}
+.cont span{font-weight:500;font-size:15px}
+.rail{left:0;top:56px;width:92px;height:1024px;background:#0d1118;border-right:1px solid var(--line);padding-top:18px}
+.rail div{height:64px;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--soft)}
+.rail .on{color:var(--fg);background:var(--panel2);border-left:3px solid var(--gold);font-weight:700}
+.fh{left:92px;top:56px;width:1828px;height:74px;display:flex;align-items:center;gap:18px;padding:0 24px;background:linear-gradient(90deg,#1b2230,#121721)}
+.face{width:54px;height:54px;border-radius:50%;background:#3a3f4c;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--gold);font-size:19px}
+.fh .nm{font-size:27px;font-weight:700}.fh .sub{color:var(--soft);font-size:16px}
+.fh .next{margin-left:auto;text-align:right;font-size:16px;color:var(--soft)}.fh .next b{color:var(--fg)}
+.tabs{left:92px;top:130px;width:1828px;height:40px;display:flex;gap:4px;padding:0 24px;border-bottom:1px solid var(--line);background:#121721}
+.tabs div{padding:0 18px;display:flex;align-items:center;font-size:16px;color:var(--soft)}
+.tabs .on{color:var(--fg);border-bottom:3px solid var(--gold);font-weight:700}
+.ph{left:116px;top:180px;width:1780px;height:54px;display:flex;align-items:center;gap:20px}
+.ph .t{font-size:28px;color:var(--gold)}.ph .s{font-size:17px;color:var(--soft)}.ph .s b{color:var(--fg)}
+.lock{margin-left:auto;padding:6px 16px;border:2px solid var(--amber);background:rgba(255,171,61,.10);text-align:center;font-size:14px;color:#ffd9a6}
+.lock b{display:block;font-size:19px;color:var(--amber)}
+.box{background:var(--panel);border:1px solid var(--line)}
+.sh{font-size:20px;color:var(--gold);display:flex;align-items:baseline;gap:12px}
+.sh span{font-family:"Segoe UI",Arial,sans-serif;letter-spacing:0;font-size:14px;color:var(--soft)}
+/* plan cards */
+.plans{left:116px;top:240px;width:1100px;height:428px;padding:12px 14px}
+.cards{display:flex;gap:10px;margin-top:10px}
+.card{flex:1;background:var(--panel2);border:1px solid var(--line);padding:9px 12px;position:relative;height:316px}
+.card.pick{border:2px solid var(--gold);background:#232a1f}
+.card.beaten{opacity:.55}
+.card .nm{font-size:19px;font-weight:700}
+.card .how{font-size:13px;color:var(--soft);margin-top:2px;height:20px}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:1px 7px;margin-left:6px;background:var(--gold);color:#1a1405;vertical-align:middle}
+.tag.g{background:var(--grey);color:#e9edf3}
+.sc{display:flex;gap:6px;margin-top:6px}
+.sc>div{flex:1;padding:4px 8px;background:#121822;border:1px solid var(--line)}
+.sc .k{font-size:12px;color:var(--mute)}
+.sc .e{font-size:22px;font-weight:700;line-height:1.15}
+.sc .w{font-size:13px;color:var(--soft)}
+.sc .w b{color:var(--fg)}
+.bar{height:8px;background:#0c1018;margin-top:8px;position:relative}
+.bar i{position:absolute;top:0;height:8px}
+.pr{margin-top:8px;font-size:13.5px;line-height:1.45;color:var(--soft)}
+.pr b{color:var(--fg)}
+.best{margin-top:6px;font-size:13.5px;color:#d7e6ff;border-top:1px dashed var(--line);padding-top:6px}
+.btn{display:inline-block;padding:5px 12px;border:1px solid var(--blue);color:#cfe4ff;font-size:14px;margin-top:6px}
+.btn.on{background:var(--gold);border-color:var(--gold);color:#1a1405;font-weight:700}
+.coach{margin-top:8px;font-size:15px;color:var(--soft);line-height:1.35}
+.coach b{color:var(--fg)}
+/* energy */
+.en{left:116px;top:676px;width:1100px;height:388px;padding:12px 14px}
+.pace{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--soft);margin-top:6px}
+.chip{padding:3px 10px;border:1px solid var(--line);background:#121822;color:var(--fg);font-size:13px}
+.chip.p{border-color:var(--red);color:#ffb4ae}
+.legend{display:flex;gap:22px;font-size:14px;color:var(--soft);margin-top:4px}
+.legend b{color:var(--fg)}
+.sw{display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:6px}
+.read{font-size:14.5px;line-height:1.4;color:var(--soft);margin-top:6px}
+.read b{color:var(--fg)}
+/* right column */
+.day{left:1230px;top:240px;width:666px;height:304px;padding:12px 14px}
+.tl{margin-top:8px;font-size:14.5px}
+.tl .r{display:flex;gap:12px;padding:4px 0;border-bottom:1px solid #222a37}
+.tl .t{width:76px;color:var(--soft);text-align:right;flex:none}
+.tl .t.k{color:var(--gold);font-weight:700}
+.tl b{color:var(--fg)}
+.chk{left:1230px;top:552px;width:666px;height:150px;padding:12px 14px}
+.opp{left:1230px;top:710px;width:666px;height:186px;padding:12px 14px}
+.grid{display:flex;gap:18px;margin-top:6px}
+.grid div{font-size:13px;color:var(--mute)}
+.grid b{display:block;font-size:18px;color:var(--fg)}
+.wr{display:flex;align-items:center;gap:10px;margin-top:8px}
+.write{padding:6px 12px;border:1px solid var(--gold);color:var(--gold);font-weight:700;font-size:14.5px}
+.bc{left:1230px;top:904px;width:666px;height:156px;padding:12px 14px}
+.bcg{display:flex;gap:10px;margin-top:6px}
+.bcg>div{flex:1;font-size:13px;color:var(--mute)}
+.bcg b{display:block;font-size:17px;color:var(--fg)}
+.small{font-size:13.5px;color:var(--soft);line-height:1.4}
+.small b{color:var(--fg)}
+</style></head><body>
+<div class="abs top"><span style="color:#a9b3c2;font-size:22px">&lt;</span><span style="color:#a9b3c2;font-size:22px">&gt;</span><span class="gym">Anvil Street Gym</span><span class="date">Mon 16 Feb 2026 · Week 7</span>
+<span class="cash">$12,940<i>running -$280 a week</i></span><div class="cont">CONTINUE <span>to Mon 23 Feb, weight check</span></div><span style="color:#a9b3c2">Menu</span></div>
+<div class="abs rail"><div>Home</div><div class="on">Fighters</div><div>Fights</div><div>Club</div><div>World</div></div>
+<div class="abs fh"><div class="face">SK</div><div><div class="nm hd">SAMIRA KHAN</div><div class="sub">Welterweight 65.0 · 18 · Orthodox · 2-1 · Slugger · Stamina 60 · Discipline 34</div></div>
+<div class="next">Next bout <b>Kayleigh Bell, club show Sat 28 Feb</b><br>12 days · accepted today</div></div>
+<div class="abs tabs"><div>Overview</div><div>Training</div><div class="on">Fight prep</div><div>Body and class</div><div>Playbook</div><div>History</div></div>
+
+<div class="abs ph"><div class="t hd">WEIGHT FOR THIS BOUT</div>
+<div class="s"><b>65.9 kg now</b> · limit 65.0 · <b>0.9 to lose</b> · the scale <b>Sat 28, 4 pm, on the day</b> · 12 days</div>
+<div class="lock"><b>PICK BY WED 25</b>the trim starts; the plan locks</div></div>
+
+<!-- PLANS -->
+<div class="abs box plans">
+ <div class="sh hd">PICK THE PLAN <span>each card: Energy at the first bell and the win if Samira stays clean or slips once (slip chance 1 in 2 on Free house rules)</span></div>
+ <div class="cards">
+  <div class="card pick">
+   <div class="nm">Hold + trim 1.0 <span class="tag">COACH</span></div>
+   <div class="how">Eat as now. All 1.0 kg comes off in the last 3 days.</div>
+   <div class="sc"><div><div class="k">Clean</div><div class="e">85</div><div class="w">win <b>52</b> in 100</div></div>
+   <div><div class="k">If Samira slips</div><div class="e">85</div><div class="w">win <b>52</b> · no diet to break</div></div></div>
+   <div class="bar"><i style="left:0;width:85%;background:var(--gold)"></i></div>
+   <div class="pr">Price: <b>15 Energy</b> to the trim · miss <b>1 in 100</b><br>Mornings: <b>full</b> · Mood: <b>none</b> · Cash: <b>none</b></div>
+   <div class="best">Best when the slip chance is <b>1 in 2 or worse</b>.</div>
+   <div class="btn on">Picked</div>
+  </div>
+  <div class="card">
+   <div class="nm">Lean + trim 0.6</div>
+   <div class="how">0.21 kg a week of eating less, then a smaller trim.</div>
+   <div class="sc"><div><div class="k">Clean</div><div class="e" style="color:var(--green)">90</div><div class="w">win <b>54</b> in 100</div></div>
+   <div><div class="k">If Samira slips</div><div class="e" style="color:var(--red)">80</div><div class="w">win <b>50</b> · trim grows to 1.1</div></div></div>
+   <div class="bar"><i style="left:0;width:80%;background:var(--red)"></i><i style="left:80%;width:10%;background:var(--green)"></i></div>
+   <div class="pr">Price: <b>3 Energy</b> + <b>7</b> to the trim · miss <b>2 in 100</b><br>Mornings: <b>Power 0.1 less</b> by the bout · Mood: <b>none</b></div>
+   <div class="best">Best when the slip chance is <b>1 in 4 or better</b>: Meal prep makes it 1 in 4.</div>
+   <div class="btn">Pick Lean</div>
+  </div>
+  <div class="card beaten">
+   <div class="nm">Cut + trim 0.3 <span class="tag g">BEATEN TODAY</span></div>
+   <div class="how">0.43 kg a week of eating less, the smallest trim.</div>
+   <div class="sc"><div><div class="k">Clean</div><div class="e">89</div><div class="w">win <b>54</b> in 100</div></div>
+   <div><div class="k">If Samira slips</div><div class="e">81</div><div class="w">win <b>50</b> · trim grows to 0.8</div></div></div>
+   <div class="bar"><i style="left:0;width:81%;background:var(--red)"></i><i style="left:81%;width:8%;background:var(--green)"></i></div>
+   <div class="pr">Price: <b>8 Energy</b> + <b>3</b> to the trim · miss <b>1 in 100</b><br>Mornings: <b>Power 0.4 less</b> · Mood: <b>Steady to Flat</b> by the bout</div>
+   <div class="best">Best when Samira is <b>1.3 kg or more over</b>, or slips most weekends.</div>
+   <div class="btn">Pick Cut</div>
+  </div>
+ </div>
+ <div class="coach"><b>Coach Luke Reid:</b> "Hold. Samira slips one weekend in two, so Lean is a coin toss between 90 and 80. Put meal prep on and I would go Lean."</div>
+</div>
+
+<!-- ENERGY -->
+<div class="abs box en">
+ <div class="sh hd">ENERGY ROUND BY ROUND <span>the picked plan against Kayleigh, with your game plan's pace</span></div>
+ <div class="pace">Game plan pace: <span class="chip">R1 Steady</span><span class="chip">R2 Steady</span><span class="chip p">R3 Push (spends a third more)</span><span style="margin-left:auto" class="btn">Change pace in Game plan</span></div>
+ <svg width="1070" height="232" viewBox="0 0 1070 252" style="margin-top:6px">
+  <!-- bands -->
+  <rect x="60" y="20" width="900" height="73" fill="rgba(70,201,127,.05)"/>
+  <rect x="60" y="93" width="900" height="63" fill="rgba(255,171,61,.05)"/>
+  <rect x="60" y="156" width="900" height="42" fill="rgba(255,91,79,.05)"/>
+  <rect x="60" y="198" width="900" height="42" fill="rgba(255,91,79,.12)"/>
+  <g font-size="12" fill="#7c8799"><text x="20" y="25">100</text><text x="28" y="97">70</text><text x="28" y="160">40</text><text x="28" y="202">20</text><text x="34" y="243">0</text></g>
+  <line x1="60" y1="93" x2="960" y2="93" stroke="#46c97f" stroke-dasharray="4 4"/>
+  <line x1="60" y1="156" x2="960" y2="156" stroke="#ffab3d" stroke-dasharray="4 4"/>
+  <line x1="60" y1="198" x2="960" y2="198" stroke="#ff5b4f" stroke-dasharray="4 4"/>
+  <g font-size="12.5"><text x="966" y="97" fill="#46c97f">under 70: punches</text><text x="966" y="111" fill="#46c97f">start to lose power</text>
+  <text x="966" y="160" fill="#ffab3d">under 40: combos</text><text x="966" y="174" fill="#ffab3d">break off</text>
+  <text x="966" y="202" fill="#ff5b4f">under 20: combos</text><text x="966" y="216" fill="#ff5b4f">slow, power gone</text></g>
+  <!-- round rails: x R1 60-330, rest 330-370, R2 370-640, rest 640-680, R3 680-950 -->
+  <rect x="330" y="20" width="40" height="220" fill="#0c1018"/><rect x="640" y="20" width="40" height="220" fill="#0c1018"/>
+  <g font-size="12.5" fill="#a9b3c2"><text x="170" y="250">Round 1</text><text x="480" y="250">Round 2</text><text x="780" y="250">Round 3 · Push</text><text x="334" y="34">min</text><text x="644" y="34">min</text></g>
+  <!-- y = 240 - v*2.2 -->
+  <!-- Kayleigh 84-54 | 64-34 | 48-18 -->
+  <polyline points="60,55.2 330,121.2 370,99.2 640,165.2 680,134.4 950,200.4" fill="none" stroke="#5aa9ff" stroke-width="3" stroke-dasharray="7 5"/>
+  <!-- Samira Hold 85-55 | 65-35 | 49-9 (push) -->
+  <polyline points="60,53 330,119 370,97 640,163 680,132.2 950,220.2" fill="none" stroke="#f2c14e" stroke-width="4"/>
+  <!-- Samira Lean slipped 80-50 | 60-30 | 44-4 -->
+  <polyline points="60,64 330,130 370,108 640,174 680,143.2 950,231.2" fill="none" stroke="#ff5b4f" stroke-width="2" stroke-dasharray="3 4" opacity=".8"/>
+  <g font-size="13" font-weight="700"><text x="64" y="44" fill="#f2c14e">85</text><text x="954" y="226" fill="#f2c14e">9</text><text x="936" y="192" fill="#5aa9ff">18</text></g>
+  <rect x="830" y="198" width="120" height="42" fill="rgba(255,91,79,.22)"/>
+  <text x="560" y="236" font-size="13" fill="#ffb4ae">last 40 s: Samira under 20, Kayleigh not</text>
+ </svg>
+ <div class="legend"><span><i class="sw" style="background:#f2c14e"></i><b>Samira, Hold + 1.0</b> 85 to 9</span><span><i class="sw" style="background:#ff5b4f"></i>Lean if Samira slips: 80 to 4</span><span><i class="sw" style="background:#5aa9ff"></i>Kayleigh (tape 1 of 2): about 84 to 18, Steady</span></div>
+ <div class="read"><b>Read:</b> Push in round 3 needs about 61 Energy at that bell; no plan here gets there, so Samira ends under 20 on any of them. <b>Steady in round 3</b> ends Hold at 19 and Lean clean at 24.</div>
+</div>
+
+<!-- SCALE DAY -->
+<div class="abs box day">
+ <div class="sh hd">THE SCALE DAY · SAT 28 <span>amateur: on the day, no allowance over 65.0</span></div>
+ <div class="tl">
+  <div class="r"><span class="t">8:00</span><span><b>Home scale 65.6</b> · 0.6 to come off by 4 pm (Hold's trim, last part)</span></div>
+  <div class="r"><span class="t">12:00</span><span><b>Last small meal</b>, sips of water</span></div>
+  <div class="r"><span class="t k">4:00 pm</span><span><b>THE SCALE: 64.9 made</b> · forecast 1 in 100 to miss</span></div>
+  <div class="r"><span class="t">to 4:45</span><span>Over by up to 0.3: the coach sweats it off, <b>2 Energy a 0.1 kg</b>. More: <b>walkover loss on the record</b></span></div>
+  <div class="r"><span class="t">4:05</span><span><b>Eats and drinks back</b> to about 65.4 · Kayleigh about 65.5</span></div>
+  <div class="r"><span class="t k">5:00 pm</span><span><b>First bell · Energy 85</b> (Hold: trim 1.0 cost 15)</span></div>
+ </div>
+</div>
+
+<!-- MONDAY CHECKS -->
+<div class="abs box chk">
+ <div class="sh hd">THE COACH'S CHECKS <span>the clock stops on a miss; you answer then</span></div>
+ <div class="small" style="margin-top:8px"><b>Mon 23: 65.9 or under</b> on Hold (65.7 or under on Lean, 65.6 on Cut) · <b>Wed 25: the trim starts</b>, the plan locks</div>
+ <div class="small" style="margin-top:6px">Over on Monday: <b>Keep the plan</b> (a bigger trim: 2 Energy a 0.1 kg past 0.5) · <b>Switch to Cut</b> (Cut's price from that day) · <b>Pull out</b> ($300 empty slot, next offer in 6 days)</div>
+</div>
+
+<!-- OTHER CORNER -->
+<div class="abs box opp">
+ <div class="sh hd">THE OTHER CORNER · KAYLEIGH BELL <span>2-1 · tape 1 of 2 watched</span></div>
+ <div class="grid"><div>Walks<b>67.2 to 68.0</b></div><div>Trims<b>about 0.9</b></div><div>Energy at the bell<b>about 84</b></div><div>Pace she keeps<b>Steady</b></div><div>Faded late before?<b style="color:#7c8799">tape 2</b></div></div>
+ <div class="wr"><span class="write">Write it: "When Kayleigh tires, let your hands go" · +2 in 100</span><span class="small">takes plan line 4 of 5</span></div>
+ <div class="wr" style="margin-top:6px"><span class="btn" style="margin-top:0">Watch tape 2 in camp (one evening)</span><span class="small">shows if Kayleigh fades: the +2 becomes a range</span></div>
+</div>
+
+<!-- BODY AND CLASS -->
+<div class="abs box bc">
+ <div class="sh hd">SET ON BODY AND CLASS <span>runs every week; it moves the slip chance above</span></div>
+ <div class="bcg">
+  <div>House rules<b>Free</b>slip 1 in 2</div>
+  <div>Between fights<b>Lean</b>why Samira is 0.9 over, not 1.8</div>
+  <div>Clean bouts<b>0 of 3</b>3 = Discipline +2</div>
+  <div>Class<b>Welterweight</b>the only one in reach</div>
+ </div>
+ <div class="wr" style="margin-top:6px"><span class="btn" style="margin-top:0">Meal prep, $70 a week: slip 1 in 4, Lean becomes best (88 on average)</span><span class="btn" style="margin-top:0">Open Body and class</span></div>
+</div>
+</body></html>

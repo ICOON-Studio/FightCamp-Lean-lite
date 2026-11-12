@@ -15,7 +15,9 @@ const AttrGen := preload("res://scripts/rules/AttrGen.gd")
 ## world bouts are not the old ones. The call caps below are the bar; the digests only name the new results.
 const FAST_DIGEST := -748117240233963606   # S434 PROTABLES1: eight world tables
 const FIGHT_DIGEST := -2169524393975280768   # S434 PROTABLES1: eight world tables
-const LIVE_DIGEST := -1989922531601276332
+## S434 CARDIO1: the live bouts' round 3 now fades on the slope from Stamina 60 (Lucy 56.4: 0.90, was a flat 1.0 under
+## conditioning 64), so their rounds read differently; the call caps (the bar) are unchanged and pass.
+const LIVE_DIGEST := 5008265558203378471
 ## Once a fighter a bout, plus the one setup pass (alias is written twice inside a single migration).
 const WORLD_CAP := {"build": 2, "migrate": 1, "full": 2, "alias": 4, "moves": 2, "derived": 4, "scan": 0}
 const LIVE_CAP := {"build": 2, "migrate": 1, "full": 4, "alias": 12, "moves": 4, "derived": 4, "scan": 0}

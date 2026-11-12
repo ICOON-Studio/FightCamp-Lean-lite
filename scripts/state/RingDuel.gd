@@ -28,13 +28,18 @@ const PLACE_MODES := [["range"], ["counter", "loadup"], ["press"]]
 const BIAS := 1.0
 
 
-## Stats and footwork to the nearest point, so a day's training reuses the page's last read of the same fighter.
+## Stats and footwork to the nearest point, so a day's training reuses the page's last read of the same fighter. S434
+## CARDIO1: Stamina and Recovery too (the fade and the refill read them, not their mean, conditioning), from her stored
+## attributes (-1 before they are built: never the same key as a built fighter). Stamina to the TENTH (CARDIO1 round 2):
+## the fade is 0.25 a point at the line, so a whole point let a cached read sit up to 0.125 off the live fade (58.6 read
+## as 59); a tenth leaves at most 0.0125.
 static func stat_bucket(f: Dictionary) -> String:
 	var s := ""
 	var stats: Dictionary = f.get("stats", {})
 	for k in stats:
 		s += "%s%d" % [str(k), int(round(float(stats[k])))]
-	return s + "f%d" % int(round(float(f.get("footwork", 0.0))))
+	var a: Dictionary = f.get("attrs", {})
+	return s + "f%dst%drc%d" % [int(round(float(f.get("footwork", 0.0)))), int(round(float(a.get("stamina", -1.0)) * 10.0)), int(round(float(a.get("recovery", -1.0))))]
 
 
 ## The opponent's attributes (level = rating, shape from the file's words or the world's own shape).

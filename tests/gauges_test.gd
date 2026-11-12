@@ -1,6 +1,7 @@
 extends SceneTree
 ## S382 G4 (gym idea 1, without Peak): the fight-night gauge row (scripts/rules/Gauges.gd, scripts/ui/GaugeRow.gd).
-##   1. Pure bands: LEGS green < 50 'fresh', amber 50-79 'heavy legs -N', red 80+ 'overreached'; SCALE green at or under
+##   1. Pure bands: LEGS green < 50 'fresh', amber 50-79 'heavy legs', red 80+ 'overreached' - the band is the dial's
+##      (tiredness alone) and the word is 'Tank N' whenever the Tank costs anything (S434, CORE_LOOP C2); SCALE green at or under
 ##      limit + 0.05 kg, amber to + 0.5, red beyond; RISK 1 pip < 4 %, 2 at 4-8 %, 3 from 8 %; the injury types on the pips.
 ##   2. The class window: the next class down of her own sex (women's 60 -> 57), at most 3 kg drawn (and under the lightest).
 ##   3. read(): the forecast's numbers; an injured fighter's pip and the days left.
@@ -32,9 +33,11 @@ func _initialize() -> void:
 
 
 func _bands() -> void:
-	_check(Gauges.legs(49.9, 0.0) == {"band": "green", "word": "fresh"}, "LEGS 49.9: fresh")
-	_check(Gauges.legs(54.0, 8.0) == {"band": "amber", "word": "heavy legs -8"}, "LEGS 54: heavy legs -8")
-	_check(Gauges.legs(79.9, 20.0)["band"] == "amber" and Gauges.legs(80.0, 20.0) == {"band": "red", "word": "overreached"}, "LEGS 80: overreached")
+	_check(Gauges.legs(49.9, 0.0) == {"band": "green", "word": "fresh", "tired": "fresh"}, "LEGS 49.9: fresh")
+	_check(Gauges.legs(54.0, 8.0) == {"band": "amber", "word": "Tank 92", "tired": "heavy legs"}, "LEGS 54: heavy legs, the word Tank 92")
+	# S434 the review: the last bout alone (-8) under 50 turned the word amber while the dial's needle sat green
+	_check(Gauges.legs(40.0, 8.0) == {"band": "green", "word": "Tank 92", "tired": "fresh"}, "LEGS 40 with the last bout: green, Tank 92 (%s)" % str(Gauges.legs(40.0, 8.0)))
+	_check(Gauges.legs(79.9, 20.0)["band"] == "amber" and Gauges.legs(80.0, 20.0) == {"band": "red", "word": "overreached", "tired": "overreached"}, "LEGS 80: overreached")
 	_check(Gauges.scale(60.05, 60.0)["band"] == "green" and Gauges.scale(60.0, 60.0)["word"] == "60.0 kg", "SCALE at the limit + 0.05: green")
 	_check(Gauges.scale(60.06, 60.0)["band"] == "amber" and Gauges.scale(60.5, 60.0)["band"] == "amber", "SCALE to + 0.5: amber")
 	_check(Gauges.scale(60.51, 60.0)["band"] == "red", "SCALE beyond + 0.5: red")
@@ -85,7 +88,7 @@ func _widget() -> void:
 		titles.append((col.get_child(0) as Label).text if col != null else "?")
 	_check(titles == ["LEGS", "SCALE", "RISK"], "titles: %s" % str(titles))
 	var w := _word(row, "legs")
-	_check(w.text == "heavy legs -8" and w.get_theme_color("font_color") == UI.AMBER, "LEGS word amber: %s" % w.text)
+	_check(w.text == "Tank 92" and w.get_theme_color("font_color") == UI.AMBER, "LEGS word amber: %s" % w.text)
 	w = _word(row, "scale")
 	_check(w.text == "59.9 kg" and w.get_theme_color("font_color") == UI.GREEN, "SCALE word green: %s" % w.text)
 	w = _word(row, "risk")

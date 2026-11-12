@@ -1162,6 +1162,62 @@
    "seat": "qwen",
    "status": "queued",
    "queued": "2026-11-11T23:21"
+  },
+  {
+   "task": "R26TOWEL1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-12T10:36",
+   "launched": "2026-11-12T10:38"
+  },
+  {
+   "task": "R26SWAP1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-12T10:36"
+  },
+  {
+   "task": "R50TRAIT1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-12T10:36"
+  },
+  {
+   "task": "R58LOYAL1",
+   "seat": "agy",
+   "status": "launched",
+   "queued": "2026-11-12T10:36",
+   "launched": "2026-11-12T10:42"
+  },
+  {
+   "task": "R17PHASE1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-12T10:36"
+  },
+  {
+   "task": "R24GRADE1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-12T10:36"
+  },
+  {
+   "task": "R73DEAL1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-12T10:36"
+  },
+  {
+   "task": "R19WORTH1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-12T10:36"
+  },
+  {
+   "task": "MATPRICE1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-12T10:59"
   }
  ]
 }

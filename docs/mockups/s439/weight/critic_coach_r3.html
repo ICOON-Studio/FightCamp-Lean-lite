@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Fight prep - The weight (critic coach 10/10, round 3)</title>
+<style>
+:root{--bg:#10141c;--panel:#171d28;--panel2:#1d2431;--line:#2b3445;--fg:#e9edf3;--soft:#a9b3c2;--mute:#7c8799;--gold:#f2c14e;--green:#46c97f;--red:#ff6b5f;--blue:#5aa9ff;--amber:#ffab3d}
+*{box-sizing:border-box;margin:0;padding:0}
+html{width:1920px;height:1080px;overflow:hidden;background:#10141c}
+body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--fg);font-family:"Segoe UI",Arial,sans-serif;position:relative;font-size:14px}
+.abs{position:absolute}
+.hd{font-family:Bahnschrift,"Segoe UI",Arial,sans-serif;letter-spacing:.03em}
+.top{left:0;top:0;width:1920px;height:52px;background:#0a0d13;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:22px;padding:0 20px;font-size:16px}
+.top .gym{font-weight:700;font-size:18px}.top .date{color:var(--soft)}.top .cash{margin-left:auto}
+.top .cash i{font-style:normal;color:var(--soft);font-size:14px;margin-left:8px}
+.cont{height:38px;padding:0 18px;background:var(--gold);color:#1a1405;font-weight:700;display:flex;align-items:center;gap:10px;font-size:16px}
+.cont span{font-weight:500;font-size:14px}
+.rail{left:0;top:52px;width:92px;height:1028px;background:#0d1118;border-right:1px solid var(--line);padding-top:14px}
+.rail div{height:60px;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--soft)}
+.rail .on{color:var(--fg);background:var(--panel2);border-left:3px solid var(--gold);font-weight:700}
+.fh{left:92px;top:52px;width:1828px;height:60px;display:flex;align-items:center;gap:16px;padding:0 24px;background:linear-gradient(90deg,#1b2230,#121721)}
+.face{width:46px;height:46px;border-radius:50%;background:#3a3f4c;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--gold)}
+.fh .nm{font-size:23px;font-weight:700}.fh .sb{color:var(--soft);font-size:13.5px}
+.tabs{left:92px;top:112px;width:1828px;height:36px;display:flex;gap:4px;padding:0 24px;border-bottom:1px solid var(--line);background:#121721}
+.tabs div{padding:0 15px;display:flex;align-items:center;font-size:15px;color:var(--soft)}
+.tabs .on{color:var(--fg);border-bottom:3px solid var(--gold);font-weight:700}
+.ph{left:116px;top:156px;width:1780px;height:56px;display:flex;align-items:center;gap:18px}
+.vs{font-size:25px;font-weight:700}
+.sm{font-size:13px;color:var(--soft)}
+.subt{display:flex;gap:6px;margin-left:24px}
+.subt div{padding:6px 13px;border:1px solid var(--line);background:#141a24;color:var(--soft);font-size:14px}
+.subt .on{background:var(--gold);color:#1a1405;font-weight:700;border-color:var(--gold)}
+.prim{margin-left:auto;height:50px;padding:0 20px;background:var(--gold);color:#1a1405;font-weight:700;font-size:17px;display:flex;flex-direction:column;justify-content:center;line-height:1.15}
+.prim span{font-size:12px;font-weight:600}
+.pan{background:var(--panel);border:1px solid var(--line);padding:11px 15px}
+.pt{font-size:17px;font-weight:700;color:var(--gold)}
+.pt i{font-style:normal;font-weight:400;color:var(--soft);font-size:13px;margin-left:10px;letter-spacing:0}
+.q{font-size:14.5px;color:var(--fg);font-weight:600;margin:2px 0 6px}
+.q small{font-weight:400;color:var(--soft);font-size:12.5px}
+.opts{display:flex;gap:6px}
+.o{flex:1;border:1px solid var(--line);background:#141a24;padding:6px 9px;font-size:12.5px;line-height:1.35;color:var(--soft)}
+.o .h{color:var(--fg);font-weight:700;font-size:13.5px}
+.o.pick{border:2px solid var(--gold);background:#2a2516}
+.o.off{opacity:.5}
+.cost{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+.c{font-size:11.5px;padding:1px 6px;border-radius:2px;background:#232b3a;color:var(--soft)}
+.c.e{background:#1e3350;color:#a8cdff}.c.s{background:#3a2b1c;color:#ffc98a}.c.f{background:#3a1f22;color:#ffa49b}.c.m{background:#2c2440;color:#cdb8ff}.c.d{background:#1f3a2b;color:#9fe0bb}
+.new{display:inline-block;font-size:10px;font-weight:700;color:#d9c6ff;border:1px solid #6a52a8;padding:0 4px;margin-left:4px;vertical-align:1px}
+.meter{position:relative;height:22px;background:#0e131b;border:1px solid var(--line);margin-top:6px}
+.meter .fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#3d3452,#6a52a8)}
+.meter .tick{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--red)}
+.meter .lab{position:absolute;top:2px;font-size:12px;color:var(--fg)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{color:var(--mute);font-weight:400;text-align:left;font-size:11.5px;padding:3px 5px;border-bottom:1px solid var(--line)}
+td{padding:4px 5px;border-bottom:1px solid #222a38;color:var(--soft);white-space:nowrap}
+td b{color:var(--fg)}
+tr.mine td{background:#231f14}tr.mine td:first-child{border-left:3px solid var(--gold)}
+.red{color:var(--red)}.grn{color:var(--green)}.amb{color:var(--amber)}.gold{color:var(--gold)}
+.grid{display:grid;grid-template-columns:62px repeat(18,1fr);gap:2px;font-size:11.5px;margin-top:6px}
+.grid div{background:#141a24;text-align:center;padding:3px 0;color:var(--soft)}
+.grid .rh{background:none;text-align:left;color:var(--mute)}
+.grid .w{background:#1e3350;color:#cfe3ff;font-weight:700}
+.grid .t{background:#4a2224;color:#ffb3ab;font-weight:700}
+.grid .gap{border-left:3px solid var(--bg)}
+.pace{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--soft);margin-top:7px}
+.pace .p{padding:2px 9px;border:1px solid var(--line);background:#141a24}
+.pace .p.on{border:2px solid var(--gold);color:var(--gold);font-weight:700}
+.btn{display:inline-block;border:1px solid var(--gold);color:var(--gold);padding:3px 11px;font-weight:700;font-size:13px}
+.leg{font-size:11.5px;color:var(--mute)}
+</style></head><body>
+
+<div class="abs top"><span style="color:var(--soft);font-size:20px">&lt; &gt;</span><span class="gym">Anvil Street Gym</span><span class="date">Mon 16 Feb 2026 · Week 7</span>
+<span class="cash">$12,940<i>running -$280 a week</i></span><div class="cont">CONTINUE <span>to Sat 21, if Samira asks to eat</span></div><span style="color:var(--soft)">Menu</span></div>
+<div class="abs rail"><div>Home</div><div class="on">Fighters</div><div>Fights</div><div>Club</div><div>World</div></div>
+
+<div class="abs fh"><div class="face">SK</div><div><div class="nm hd">SAMIRA KHAN</div><div class="sb">Welterweight 65.0 · 2-1 · Slugger · Stamina 60 · Defence 50.5 · Technique 54.5 · discipline 34 · coachability 52</div></div></div>
+<div class="abs tabs"><div>Overview</div><div>Body and class</div><div>Training</div><div class="on">Fight prep</div><div>Playbook</div><div>History</div></div>
+
+<div class="abs ph">
+<div><div class="vs hd">VS KAYLEIGH BELL</div><div class="sm">Pressure fighter · 2-1 · club show <b style="color:var(--fg)">Sat 28</b> · scale 4 pm on the day<span class="new">NEW</span> · 12 days</div></div>
+<div class="subt"><div class="on">The weight · 0.9 to lose</div><div>Your plan's answers</div><div>The tape · 1 of 2</div></div>
+<div class="prim">SET THIS PLAN<span>Sat 21 into the week · answers stand until Fri 27</span></div>
+</div>
+
+<!-- LEFT COLUMN: FOUR CHOICES -->
+<div class="abs pan" style="left:116px;top:222px;width:1000px;height:848px">
+<div class="pt hd">FOUR CHOICES THIS WEEK<i>every price in its own colour:</i>
+<span class="c e">Energy at the bell</span> <span class="c s">a stat</span> <span class="c f">tiredness</span> <span class="c m">mood</span> <span class="c d">cash</span></div>
+
+<div class="q" style="margin-top:9px">1 · Where does the extra running come from? <small>0.9 kg to lose; the coach's eating takes 0.36 of it. Pick none, one or two.</small></div>
+<div class="opts">
+<div class="o"><div class="h">Tue · Slip rope → roadwork</div>-0.06 kg<div class="cost"><span class="c e">+1</span><span class="c s">Defence -0.23</span><span class="c s">the Defence goal missed: mood -20 after</span><span class="c f">+5</span></div></div>
+<div class="o pick"><div class="h">Sat · Shadow → roadwork</div>-0.06 kg<div class="cost"><span class="c e">+1</span><span class="c s">Technique -0.12</span><span class="c f">+6: week peak 76</span></div></div>
+<div class="o"><div class="h">Sun · Rest → easy roadwork</div>-0.06 kg · nothing trained lost<div class="cost"><span class="c e">+1</span><span class="c f">+5, and no rest day: starts fight week at 61</span></div></div>
+<div class="o"><div class="h">Fri · after pads, a 20-min run</div>-0.03 kg<div class="cost"><span class="c e">+0.5</span><span class="c f">+3</span></div></div>
+</div>
+<div class="leg" style="margin-top:4px">Tiredness: at 75 Samira asks for a day off in the fight week; at 80 she gains 40% less and gets hurt three times as often. The coach's week peaks at 70. Thu slip rope also feeds the goal (not shown: same price as Tue).</div>
+
+<div class="q" style="margin-top:12px">2 · Samira's mood has room for one "No" this week <small>Steady 54.2 · Flat under 50 (the corner's calls land x0.85)</small></div>
+<div class="meter"><div class="fill" style="width:54.2%"></div><div class="tick" style="left:50%"></div>
+<span class="lab" style="left:8px">Mood 54.2</span><span class="lab" style="left:50.6%;color:#ffb3ab">Flat 50</span><span class="lab" style="left:62%">one "No" -4.6 → 49.6 Flat · one "Yes" +5.2 → 59.4</span></div>
+<div class="opts" style="margin-top:7px">
+<div class="o" style="flex:1.05"><div class="h">If she asks for the heavy bag (Slugger; about 2 weeks in 5)</div>
+<div class="opts" style="margin-top:4px"><div class="o"><b style="color:var(--fg)">Let her</b><div class="cost"><span class="c m">+5.2</span><span class="c s">slip rope and shadow become bag: goal missed, Sat run gone</span></div></div>
+<div class="o pick"><b style="color:var(--fg)">Keep the plan</b><div class="cost"><span class="c m">-4.6</span></div></div></div></div>
+<div class="o" style="flex:1.2"><div class="h">If she asks to eat, Sat 21 (discipline 34; about 2 weekends in 5)<span class="new">NEW</span></div>
+<div class="opts" style="margin-top:4px"><div class="o pick"><b style="color:var(--fg)">Let her eat</b><div class="cost"><span class="c m">+5.2</span><span class="c e">-10</span></div></div>
+<div class="o"><b style="color:var(--fg)">Half a plate</b><div class="cost"><span class="c m">-2.3</span><span class="c e">-4</span></div></div>
+<div class="o"><b style="color:var(--fg)">No</b><div class="cost"><span class="c m">-4.6</span><span class="c e">0</span></div></div></div></div>
+</div>
+<div class="leg" style="margin-top:4px">Your pair: No to the bag, Yes to the food. If both asks come she ends 54.8 Steady; two "No"s would leave her 45 Flat on the night. Meal prep ($300, <span class="c d">-$300</span>) halves the eat ask: worth it only with two "No"s.</div>
+
+<div class="q" style="margin-top:12px">3 · If the Monday check reads over 65.7 (Mon 23) <small>a standing answer; the clock does not stop. Past the 1.3 cap the clock stops for you.</small></div>
+<div class="opts">
+<div class="o pick"><div class="h">Trust the 3-day trim (coach's)</div><div class="cost"><span class="c e">trim 1.03: 84</span><span>room under the cap 0.27 · miss 4 in 100</span></div></div>
+<div class="o"><div class="h">Cut 5 days</div><div class="cost"><span class="c e">83</span><span class="c m">eat ask 1.5x on a Cut</span><span>room 0.43 · miss 1 in 100</span></div></div>
+</div>
+
+<div class="q" style="margin-top:12px">4 · Which plan line makes room for "When Kayleigh tires → 1-2-3"? <small>the plan holds 6; worth = exchanges it fires x its edge</small></div>
+<table>
+<tr><th>Line</th><th>Fires about</th><th>Edge</th><th>Worth</th><th></th></tr>
+<tr><td>When she presses → Step back</td><td>7 of 18</td><td>best 9</td><td><b>63</b></td><td class="red">keep</td></tr>
+<tr><td>At long range → 1-2</td><td>4</td><td>best 9</td><td><b>36</b></td><td>keep</td></tr>
+<tr class="mine"><td>When she waits to counter → 1-1</td><td>1 (a pressure fighter rarely waits)</td><td>best 9</td><td><b>9</b></td><td class="gold">drop this one</td></tr>
+<tr><td><b>New: When Kayleigh tires → 1-2-3</b> (mastery 27: x0.8)</td><td>window x 3 in 4</td><td>best 9</td><td><b>27</b> at 5 · 16 at 3</td><td><span class="btn">WRITE IT</span></td></tr>
+</table>
+<div class="leg" style="margin-top:3px">Two pad nights on the 1-2-3 (Training) take it to 30: worth 34 at a window of 5.</div>
+</div>
+
+<!-- RIGHT: RESULT -->
+<div class="abs pan" style="left:1128px;top:222px;width:768px;height:304px">
+<div class="pt hd">WHAT YOUR CHOICES BUY<i>clean week / if both asks come</i></div>
+<div style="display:flex;gap:14px;margin-top:8px">
+<div style="flex:1"><div class="leg">On the scale, Sat 4 pm</div><div style="font-size:24px;font-weight:700">64.95 <span class="sm">/ 65.45 → trim</span></div></div>
+<div style="flex:1"><div class="leg">Energy at the bell<span class="new">NEW</span></div><div style="font-size:24px;font-weight:700">94 <span class="sm">/ 84</span></div></div>
+<div style="flex:1"><div class="leg">Mood on the night</div><div style="font-size:24px;font-weight:700">54 <span class="sm">/ 55 Steady</span></div></div>
+<div style="flex:1"><div class="leg">Tiredness peak</div><div style="font-size:24px;font-weight:700">76 <span class="sm amb">asks rest</span></div></div>
+</div>
+<div class="leg" style="margin-top:10px">What can still go wrong, in 100 bouts like this</div>
+<table style="margin-top:2px">
+<tr><th>Plan</th><th>Flat on the night</th><th>Misses the scale</th><th>Goal missed</th><th>Asks for rest, fight week</th><th>Window (avg)</th></tr>
+<tr><td>Coach's: no run · every ask "No"</td><td class="red"><b>16</b></td><td>2</td><td>0</td><td>0</td><td>4.6</td></tr>
+<tr class="mine"><td>Yours: Sat run · bag No · food Yes</td><td><b>0</b></td><td>3</td><td>0</td><td class="amb">16</td><td>4.6</td></tr>
+<tr><td>Sun run · bag No · food Half</td><td><b>0</b></td><td>2</td><td>0</td><td>0</td><td>4.8</td></tr>
+</table>
+<div class="leg" style="margin-top:5px">The win chance moves 1-2 in 100 between these plans (band 46-62): read the risks, not the win.</div>
+</div>
+
+<!-- RIGHT: ROUND BY ROUND -->
+<div class="abs pan" style="left:1128px;top:536px;width:768px;height:334px">
+<div class="pt hd">ENERGY, EXCHANGE BY EXCHANGE<i>your plan, Steady pace, no shouts</i></div>
+<div class="grid">
+<div class="rh"></div>
+<div>R1</div><div></div><div></div><div></div><div></div><div></div>
+<div class="gap">R2</div><div></div><div></div><div></div><div></div><div></div>
+<div class="gap">R3</div><div></div><div></div><div></div><div></div><div></div>
+<div class="rh gold">Samira</div>
+<div>94</div><div>89</div><div>84</div><div>79</div><div>74</div><div>69</div>
+<div class="gap">74</div><div>69</div><div>64</div><div>59</div><div>54</div><div>49</div>
+<div class="gap">58</div><div>53</div><div>48</div><div>43</div><div>38</div><div class="t">33</div>
+<div class="rh" style="color:var(--blue)">Kayleigh<span class="new">NEW</span></div>
+<div>86</div><div>81</div><div>76</div><div>71</div><div>66</div><div>61</div>
+<div class="gap">65</div><div>60</div><div>55</div><div>50</div><div>45</div><div class="w">40</div>
+<div class="gap">49</div><div class="w">44</div><div class="w">39</div><div class="w">34</div><div class="w">29</div><div>24</div>
+</div>
+<div class="leg" style="margin-top:5px"><span class="c e">blue</span> THE WINDOW, 5 exchanges: Kayleigh under 45 (she tires 3 in 4) and Samira 35 or more. <span class="c f">red</span> Samira under 35: her plan lines stop, Breathe is the only good call.</div>
+<div class="pace"><span style="color:var(--mute)">Opening pace</span>
+<span>R1</span><span class="p">Push</span><span class="p on">Steady</span><span class="p">Save</span>
+<span style="margin-left:8px">R2</span><span class="p">Push</span><span class="p on">Steady</span><span class="p">Save</span>
+<span style="margin-left:8px">R3</span><span class="p">Push</span><span class="p on">Steady</span><span class="p">Save</span></div>
+<table style="margin-top:7px">
+<tr><th>Pace change</th><th>Edge it adds, exchange by exchange</th><th>Window</th><th>Tired</th></tr>
+<tr><td>Push R1</td><td>+6 +6 +6 +6 +6 +6 = <b>+36</b></td><td class="red">3</td><td class="red">3</td></tr>
+<tr><td>Push R3</td><td>+6 +5 +2 -1 -4 = <b>+8</b> (it fades from 55)</td><td>4</td><td>2</td></tr>
+<tr><td>Save R1<span class="new">NEW</span></td><td>-4 x 6 = <b>-24</b>: round 1 likely lost 10-9</td><td class="grn">6</td><td class="grn">0</td></tr>
+</table>
+<div class="leg" style="margin-top:4px">Round tell on Kayleigh's file: none found yet. Tape 2 (free) may find "slow to start" or "fades late".</div>
+</div>
+
+<!-- RIGHT: OTHER CORNER -->
+<div class="abs pan" style="left:1128px;top:880px;width:768px;height:190px">
+<div class="pt hd">THE OTHER CORNER<i>what tape 2 can change</i></div>
+<div style="display:flex;gap:24px;margin-top:8px;font-size:12.5px;color:var(--mute)">
+<div>Kayleigh at the bell<span class="new">NEW</span><br><b style="font-size:20px;color:var(--fg)">83 to 89</b></div>
+<div>Her round tell<br><b style="font-size:20px;color:var(--fg)">not found</b></div>
+<div style="margin-left:auto;text-align:right"><span class="btn">WATCH TAPE 2</span><br><span style="color:var(--soft)">free · narrows her Energy to ±1</span></div>
+</div>
+<div class="leg" style="margin-top:10px">If she fades late: Push R3 rises to +14 and the window to 6. If she is slow to start: Push R1 adds +6 more in its first two exchanges. Watch it before Fri 20; the pace stays open until fight night.</div>
+</div>
+
+</body></html>

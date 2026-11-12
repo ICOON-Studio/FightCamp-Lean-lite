@@ -6,6 +6,13 @@ extends SceneTree
 ##   4. a stronger fighter gets a higher band, a tougher opponent a lower one (control arm),
 ##   5. nothing leaks: a hidden tell moves nothing, the truth does not sit at a fixed place, a find does not point at it,
 ##   6. mismatch, the assumed camp, rank impact.
+##   7. S434 NOCAMP1 review: the shown chance starts at the played Tank - a tired amateur with no camp (tiredness 60:
+##      Tank 80) against real bouts, and the drop from the same boxer fresh read as the real bouts drop.
+##   1b. S434 PUNCHSTART1: the same plan against Priya (a counter-puncher): its double jab holds the long card it lives on,
+##      which the read on the game's card alone missed (chance 0.314 against 0.439 real on 1,000 bouts).
+##   8. S434 round 2: the bout page reads FIGHT NIGHT's Tank, not today's - Tuesday (tiredness 60) for Saturday's bout, no
+##      camp: the Tank the read assumes (CampForecast.for_read) is the Tank Saturday's bout opens on after Sim.step_day ran
+##      the real days, and chance() on Tuesday reads real bouts of the Saturday boxer.
 ## Population: Lucy (Data.lucy) as signed, weaker and stronger, with and without a plan; every OPPONENT + MISMATCH + RIVALS.
 
 const Data := preload("res://scripts/state/Data.gd")
@@ -13,6 +20,9 @@ const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 const BoutNight := preload("res://scripts/state/BoutNight.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const Region := preload("res://scripts/state/Region.gd")
+const Sim := preload("res://scripts/state/Sim.gd")
+const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const CampForecast := preload("res://scripts/state/CampForecast.gd")
 
 const SIMS := 500
 const CAMP := {"protocol": 2, "focus": "conditioning", "film": false, "partner": false, "start": 0}
@@ -28,6 +38,8 @@ var _fails := 0
 
 func _initialize() -> void:
 	_real_bouts()
+	_tired()
+	_ahead()
 	_every_salt()
 	_narrows()
 	_stronger()
@@ -53,7 +65,7 @@ func _opps() -> Array:
 
 
 ## The share of SIMS bouts she wins, on the fight night's own rounds (PlanTest's scratch career: nothing is booked).
-func _measured(f0: Dictionary, opp: Dictionary) -> float:
+func _measured(f0: Dictionary, opp: Dictionary, camp: Dictionary = CAMP) -> float:
 	var wins := 0
 	for k in SIMS:
 		var sc := Career.new()
@@ -61,7 +73,7 @@ func _measured(f0: Dictionary, opp: Dictionary) -> float:
 		sc.seed = 387
 		sc.coach = {"rating": COACH}
 		var sf: Dictionary = f0.duplicate(true)
-		sf["camp"] = CAMP.duplicate(true)
+		sf["camp"] = camp.duplicate(true)
 		sf["bout"] = {"opp": opp.duplicate(true), "day": sc.day, "weighed": true, "made": true, "done": false, "film": 1}
 		sc.fighters = [sf]
 		var m := BoutNight.fight_modal(sf)
@@ -74,7 +86,8 @@ func _real_bouts() -> void:
 	var planned := _lucy()
 	planned["arrows"] = GOOD_PLAN.duplicate(true)
 	var cases := [["Lucy", _lucy(), 0], ["Lucy", _lucy(), 1], ["Lucy", _lucy(), 2], ["Lucy", _lucy(), 3],
-		["Lucy -6", _lucy(-6.0), 0], ["Lucy +6", _lucy(6.0), 2], ["Lucy +10", _lucy(10.0), 3], ["Lucy, a plan", planned, 0]]
+		["Lucy -6", _lucy(-6.0), 0], ["Lucy +6", _lucy(6.0), 2], ["Lucy +10", _lucy(10.0), 3], ["Lucy, a plan", planned, 0],
+		["Lucy, a plan", planned, 1]]   # S434 PlanChain: her double jab keeps her at long against a counter-puncher
 	var all := Data.OPPONENTS + [Data.MISMATCH]
 	for row in cases:
 		var f: Dictionary = row[1]
@@ -89,6 +102,56 @@ func _real_bouts() -> void:
 			_check(real >= float(b["lo"]) - dice and real <= float(b["hi"]) + dice,
 				"%s vs %s, %d found: band %.2f-%.2f holds real %.3f" % [row[0], opp["first"], found, b["lo"], b["hi"], real])
 			OppFile.tape(scouted)
+
+
+## 7. Lucy as an amateur with no camp, fresh (20) and tired (60: the Tank 20 down at the first bell), against Priya.
+func _tired() -> void:
+	var opp: Dictionary = (Data.OPPONENTS[1] as Dictionary).duplicate(true)
+	var fresh := _lucy()
+	fresh["week_fatigue"] = 20.0
+	var tired := _lucy()
+	tired["week_fatigue"] = 60.0
+	var rf := _measured(fresh, opp, {})
+	var rt := _measured(tired, opp, {})
+	var cf := BoutRead.chance(fresh, opp, {}, COACH)
+	var ct := BoutRead.chance(tired, opp, {}, COACH)
+	print("  tired amateur vs %s, no camp: fresh chance() %.3f real %.3f; tiredness 60 chance() %.3f real %.3f" % [opp["first"], cf, rf, ct, rt])
+	_check(absf(ct - rt) <= CALIBRATED, "tiredness 60, no camp: chance() %.3f reads the real bouts %.3f" % [ct, rt])
+	_check(absf((cf - ct) - (rf - rt)) <= CALIBRATED, "the Tank's drop: chance() %.3f, real bouts %.3f" % [cf - ct, rf - rt])
+
+
+## 8. Lucy booked for Saturday (day 33) against Priya, read on Tuesday (day 29) at tiredness 60 with no camp; the real days
+## run through Sim.step_day, then SIMS real bouts of the Saturday boxer (_measured: fight night's own rounds).
+func _ahead() -> void:
+	var opp: Dictionary = (Data.OPPONENTS[1] as Dictionary).duplicate(true)
+	var c := Career.quick_start()
+	c.day = 29
+	c.cash = 1000000
+	c.coach = {"rating": COACH}
+	var f: Dictionary = Data.fighter_state(Data.lucy(), c.day)
+	f["weight"] = float(f["limit"])
+	c.fighters = [f]
+	c.results = []
+	f["week_fatigue"] = 60.0
+	f["camp"] = {}
+	f["offers"] = []
+	f["next_offer_day"] = 999
+	f["bout"] = {"opp": opp.duplicate(true), "day": 33, "weighed": false, "made": false, "done": false, "film": 1}
+	var today := BoutRules.tank_read(f)   # the read before S434 round 2: today's tiredness
+	var fr := CampForecast.for_read(c, f, opp)
+	var shown := BoutRules.tank_read(fr)
+	var ch := BoutRead.chance(fr, opp, {}, COACH)
+	var ch_today := BoutRead.chance(f, opp, {}, COACH)
+	while c.day < 33:
+		Sim.step_day(c)
+	var played := BoutRules.tank_for(c.results, f, float(f["week_fatigue"]), c.day)   # BoutNight._peak's number tonight
+	var sat: Dictionary = f.duplicate(true)
+	sat.erase("bout")
+	var real := _measured(sat, opp, {})
+	print("  Tuesday for Saturday, no camp, tiredness 60 -> %.1f: Tank off read %.2f (today's rule %.2f), played %.2f; chance() %.3f (today's rule %.3f), real bouts %.3f" % [
+		float(f["week_fatigue"]), shown, today, played, ch, ch_today, real])
+	_check(absf(shown - played) < 0.01, "Tuesday's read assumes Saturday's Tank: %.2f off, the bout opens %.2f off" % [shown, played])
+	_check(absf(ch - real) <= CALIBRATED, "Tuesday's chance() %.3f reads Saturday's real bouts %.3f" % [ch, real])
 
 
 func _every_salt() -> void:

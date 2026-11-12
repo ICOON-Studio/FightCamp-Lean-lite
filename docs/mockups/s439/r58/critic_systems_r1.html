@@ -1,0 +1,241 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>R58 critic systems 10 of 10</title>
+<style>
+:root{--bg:#0f141a;--panel:#171e26;--panel2:#1d2630;--panel3:#222c37;--line:#2a3642;--fg:#e8edf2;--mut:#8a98a6;--red:#e5534b;--blue:#4a8fe7;--green:#4cc38a;--amber:#e8a93a;--gold:#d9b45a;--teal:#3fb6b0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--fg);font-family:"Segoe UI",Arial,sans-serif}
+.num{font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;font-weight:700}
+.cap{font-size:13px;letter-spacing:2px;color:var(--mut);font-weight:600;text-transform:uppercase}
+.bar{position:absolute;left:0;top:0;width:1920px;height:60px;background:#0a0e12;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px;gap:18px;font-size:17px}
+.arrows{color:var(--mut);font-size:20px;letter-spacing:10px}
+.gym{font-weight:700;font-size:19px}.date span{color:var(--mut)}
+.flag{padding:5px 11px;border-radius:5px;font-weight:700;font-size:14px;letter-spacing:1.5px;background:var(--red);color:#fff}
+.cash{margin-left:auto;text-align:right;line-height:1.1}.cash .num{font-size:21px}.cash small{display:block;font-size:13px;color:var(--red)}
+.go{background:var(--red);color:#fff;font-weight:700;padding:8px 20px;border-radius:6px;font-size:17px;letter-spacing:1px}
+.go small{display:block;font-weight:500;font-size:12px;letter-spacing:0}
+.menu{color:var(--mut);font-size:16px;border:1px solid var(--line);padding:7px 13px;border-radius:6px}
+.rail{position:absolute;left:0;top:60px;width:96px;height:1020px;background:#0c1116;border-right:1px solid var(--line);padding-top:12px}
+.rail div{height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--mut);font-size:13px;gap:6px}
+.rail div i{width:24px;height:24px;border:2px solid currentColor;border-radius:6px;display:block}
+.rail .on{color:var(--fg);background:var(--panel);border-left:4px solid var(--red)}
+.head{position:absolute;left:120px;top:68px;width:1776px;height:84px;display:flex;align-items:center;gap:18px}
+.face{width:72px;height:72px;border-radius:50%;background:var(--panel2);border:2px solid var(--line);overflow:hidden}
+.who .name{font-size:30px;font-weight:700;line-height:1.05}
+.who .sub{font-size:16px;color:var(--mut);margin-top:4px}.who .sub b{color:var(--fg);font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:6px;background:var(--panel);border:1px solid var(--amber);font-size:15px}
+.chip .num{font-size:20px;color:var(--amber)}
+.worth{display:flex;gap:10px;margin-left:10px}
+.w{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:5px 11px;font-size:13px;color:var(--mut);line-height:1.25}
+.w b{display:block;color:var(--fg);font-size:16px;font-weight:600}
+.tabs{margin-left:auto;display:flex;gap:4px;align-self:flex-end}
+.tabs div{padding:8px 18px;font-size:17px;color:var(--mut);border-bottom:3px solid transparent}.tabs .on{color:var(--fg);border-bottom-color:var(--red)}
+.card{position:absolute;left:120px;top:160px;width:1776px;height:676px;background:var(--panel);border-radius:10px;border-top:5px solid var(--red)}
+.ctop{display:flex;align-items:flex-start;padding:16px 26px 0 26px;height:74px}
+.ctop h1{font-size:28px;letter-spacing:.4px}
+.ctop .offer{font-size:17px;margin-top:3px}.ctop .offer span{color:var(--mut)}
+.by{margin-left:auto;text-align:right}.by .num{font-size:23px;color:var(--red)}.by div{font-size:14px;color:var(--mut);margin-top:2px}
+.why{position:absolute;left:26px;top:84px;width:392px;bottom:18px;background:var(--panel2);border-radius:8px;padding:14px 18px}
+.lbar{position:relative;height:14px;margin:30px 0 4px;display:flex}
+.lbar b{display:block;height:100%}
+.z1{width:25%;background:#5a2724;border-radius:4px 0 0 4px}.z2{width:25%;background:#5a4420}.z3{width:20%;background:#26404f}.z4{width:30%;background:#244735;border-radius:0 4px 4px 0}
+.mark{position:absolute;top:-7px;width:4px;height:28px;background:#fff;border-radius:2px}
+.mark span{position:absolute;top:-22px;left:-14px;font-size:15px;font-family:Bahnschrift,Arial;font-weight:700;white-space:nowrap}
+.ghost{position:absolute;top:-3px;width:3px;height:20px;background:#6d7c8a}
+.ghost span{position:absolute;top:-20px;left:-14px;font-size:13px;color:var(--mut);white-space:nowrap}
+.tgt{position:absolute;top:-3px;width:3px;height:20px;background:var(--teal)}
+.bands{display:flex;font-size:12px;color:var(--mut)}.bands div{text-align:center}
+.r{display:flex;align-items:center;font-size:14px;padding:6px 0;border-top:1px solid var(--line)}
+.r .t{flex:1;line-height:1.25}.r .t small{color:var(--mut);font-size:12px;display:block}
+.r .v{width:36px;text-align:right;font-family:Bahnschrift,Arial;font-weight:700;color:var(--red);font-size:16px}
+.r .v.g{color:var(--green)}
+.sub2{margin-top:10px;font-size:13px;color:var(--mut);line-height:1.35}
+.earn{margin-top:10px;background:var(--panel3);border-radius:6px;padding:9px 12px;font-size:13px;line-height:1.4;color:var(--mut)}
+.earn b{color:var(--fg);font-weight:600}
+/* comparison */
+.cmp{position:absolute;left:436px;top:84px;right:26px;bottom:18px;display:grid;grid-template-columns:150px repeat(4,1fr);grid-template-rows:122px repeat(6,66px) 1fr;column-gap:10px}
+.lab{font-size:13px;color:var(--mut);letter-spacing:.3px;padding-top:10px;border-top:1px solid var(--line);line-height:1.25}
+.lab b{display:block;color:var(--fg);font-size:14px;font-weight:600;letter-spacing:0}
+.hd{border-radius:8px 8px 0 0;padding:12px 14px 6px;background:var(--panel2);border-top:4px solid var(--blue)}
+.hd h2{font-size:19px;letter-spacing:.6px}
+.hd p{font-size:13px;color:var(--mut);margin-top:3px;line-height:1.3}
+.hd.m2{border-top-color:var(--teal)}.hd.p{border-top-color:var(--gold)}.hd.l{border-top-color:var(--red)}
+.pick{display:flex;gap:6px;margin-top:6px}
+.pick span{white-space:nowrap;font-size:12px;padding:3px 7px;border-radius:4px;border:1px solid var(--line);color:var(--mut)}
+.pick span.on{border-color:var(--gold);color:var(--gold);background:#2b2616}
+.c{background:var(--panel2);padding:7px 14px;border-top:1px solid var(--line);font-size:14px;line-height:1.3}
+.c .big{font-family:Bahnschrift,Arial;font-weight:700;font-size:18px}
+.c small{display:block;color:var(--mut);font-size:12px}
+.red{color:var(--red)}.grn{color:var(--green)}.amb{color:var(--amber)}.mut{color:var(--mut)}.tea{color:var(--teal)}
+.foot{background:var(--panel2);border-radius:0 0 8px 8px;padding:8px 14px 12px;display:flex;flex-direction:column;justify-content:flex-end;border-top:1px solid var(--line)}
+.btn{display:block;text-align:center;padding:9px 0;border-radius:6px;font-size:16px;font-weight:600}
+.b1{background:var(--blue);color:#fff}.b2{background:#1f5b58;color:#fff;border:1px solid var(--teal)}.b3{background:#3a3016;color:var(--gold);border:1px solid var(--gold)}.b4{border:1px solid var(--red);color:var(--red)}
+.empty{background:transparent}
+/* bottom */
+.bot{position:absolute;left:120px;top:850px;width:1776px;height:214px;display:grid;grid-template-columns:900px 1fr 1fr;gap:16px}
+.tile{background:var(--panel);border-radius:10px;padding:14px 20px;position:relative}
+.tl{position:relative;height:104px;margin-top:16px}
+.axis{position:absolute;left:0;right:0;top:26px;height:2px;background:var(--line)}
+.ev{position:absolute;top:0;width:118px;margin-left:-59px;text-align:center;font-size:12px;line-height:1.25;color:var(--mut)}
+.ev b{display:block;color:var(--fg);font-size:13px;white-space:nowrap}
+.ev i{display:block;width:12px;height:12px;border-radius:50%;margin:5px auto 4px;background:var(--mut)}
+.ev.rd i{background:var(--red)}.ev.s i{background:var(--blue)}.ev.k i{background:var(--amber)}.ev.e i{background:var(--red);border-radius:2px}
+.ev .v{display:block;font-family:Bahnschrift;font-weight:700;font-size:14px}
+.line2{font-size:15px;margin-top:8px;line-height:1.4}
+.tbtn{position:absolute;right:18px;bottom:14px;border:1px solid var(--line);background:var(--panel2);padding:7px 14px;border-radius:6px;font-size:15px}
+.mate{display:flex;align-items:center;font-size:15px;padding:6px 0;border-top:1px solid var(--line)}
+.mate .n{width:76px;font-weight:600}.mate .bb{flex:1;height:8px;background:#26313c;border-radius:4px;margin:0 10px;position:relative}
+.mate .bb b{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+.mate .x{width:150px;text-align:right;font-size:13px;color:var(--mut)}
+.note{position:absolute;left:120px;top:1066px;font-size:11px;color:#5d6b78}
+</style></head><body>
+
+<div class="bar">
+  <div class="arrows">&lsaquo; &rsaquo;</div>
+  <div class="gym">Anvil Street Gym</div>
+  <div class="date">Mon 6 Apr 2026 <span>&middot; Week 14</span></div>
+  <div class="flag">APPROACHED</div>
+  <div class="cash"><div class="num">$9,860</div><small>running -$140 a week</small></div>
+  <div class="go">NEEDS YOU (1)<small>Eastside's answer, by Sun 12 Apr</small></div>
+  <div class="menu">Menu</div>
+</div>
+
+<div class="rail">
+  <div><i></i>Home</div><div class="on"><i></i>Fighters</div><div><i></i>Fights</div><div><i></i>Club</div><div><i></i>World</div>
+</div>
+
+<div class="head">
+  <div class="face"><svg width="72" height="72" viewBox="0 0 72 72"><rect width="72" height="72" fill="#25313d"/><circle cx="36" cy="28" r="13" fill="#7a4a2c"/><path d="M12 72c2-18 12-26 24-26s22 8 24 26z" fill="#2f5d8a"/></svg></div>
+  <div class="who">
+    <div class="name">Danny Osei</div>
+    <div class="sub"><b>Lightweight, men's amateur</b> &middot; Age 20 &middot; Orthodox &middot; <b>3-2</b> &middot; Day job</div>
+  </div>
+  <div class="chip">Loyalty <span class="num">34</span> Wavering</div>
+  <div class="worth">
+    <div class="w"><b>Potential 85</b>top of the club</div>
+    <div class="w"><b>1 win</b>to the regional table</div>
+    <div class="w"><b>4 wins</b>to a pro offer (7 + top 3)</div>
+  </div>
+  <div class="tabs"><div class="on">Overview</div><div>Week</div><div>Playbook</div><div>History</div></div>
+</div>
+
+<div class="card">
+  <div class="ctop">
+    <div>
+      <h1>EASTSIDE ABC WANTS DANNY</h1>
+      <div class="offer"><span>Frank Doyle's offer:</span> full time at Eastside, the club's backers pay Danny's keep.</div>
+    </div>
+    <div class="by"><div class="num">Answer by Sun 12 Apr</div><div>6 days &middot; no answer: Danny leaves Mon 13 Apr</div></div>
+  </div>
+
+  <div class="why">
+    <div class="cap">Why Danny would go &middot; last 12 weeks</div>
+    <div class="lbar"><b class="z1"></b><b class="z2"></b><b class="z3"></b><b class="z4"></b>
+      <div class="mark" style="left:34%"><span>34 now</span></div>
+      <div class="ghost" style="left:58%"><span>58 signed</span></div>
+    </div>
+    <div class="bands"><div style="width:25%">Leaving</div><div style="width:25%">Wavering</div><div style="width:20%">Settled</div><div style="width:30%">Loyal</div></div>
+    <div style="margin-top:12px">
+      <div class="r"><div class="t">Day job while Lucy holds the stipend<small>Lucy 5 wins, Danny 3 &middot; 3 times</small></div><div class="v">-9</div></div>
+      <div class="r"><div class="t">Offers you passed<small>Arjun Patel (weight), Liam Doherty</small></div><div class="v">-6</div></div>
+      <div class="r"><div class="t">Asks to spar you overruled<small>2 times &middot; Stubborn: overruling costs more</small></div><div class="v">-6</div></div>
+      <div class="r"><div class="t">Told it straight, 9 Mar<small>Stubborn: did not land</small></div><div class="v">-4</div></div>
+      <div class="r"><div class="t">Results<small>beat Dean Clarke, lost to Liam Doherty</small></div><div class="v g">+1</div></div>
+    </div>
+    <div class="sub2">Eastside offers what costs Danny most: the day job. Under 50 at a pro offer, Danny signs with an outside manager and the club keeps 10%, not 25%.</div>
+    <div class="earn">Danny's last 12 weeks for the club: <b>2 bouts, $900</b> in ticket cuts, <b>+8 members</b> (one win).</div>
+  </div>
+
+  <div class="cmp">
+    <!-- header row -->
+    <div></div>
+    <div class="hd"><h2>MATCH IT</h2><p>Danny back on the stipend today, held to Mon 29 Jun.</p></div>
+    <div class="hd m2"><h2>MOVE LUCY'S STIPEND</h2><p>One stipend, to Danny. Lucy takes the day job.</p></div>
+    <div class="hd p"><h2>PROMISE IT</h2><p>Nothing paid now. The promise binds a choice to 29 Jun.</p>
+      <div class="pick"><span class="on">Every show</span><span>Stipend from 4 May</span></div></div>
+    <div class="hd l"><h2>LET DANNY GO</h2><p>Danny boxes for Eastside from Mon 13 Apr. No fee: a transfer form.</p></div>
+
+    <!-- cash -->
+    <div class="lab"><b>Cash to 29 Jun</b>12 weeks</div>
+    <div class="c"><span class="big red">-$3,000</span><small>$250 a week &middot; running -$390 a week</small></div>
+    <div class="c"><span class="big">$0</span><small>running stays -$140 a week</small></div>
+    <div class="c"><span class="big grn">+$2,250</span><small>5 shows x $450 ticket cut, if each is made</small></div>
+    <div class="c"><span class="big">$0</span><small>reputation -2: about 1 member, $35 a month</small></div>
+
+    <!-- training -->
+    <div class="lab"><b>Training</b>to 29 Jun, all stats</div>
+    <div class="c">Danny full time: <span class="big grn">+1.8</span> points<small>more than on the day job</small></div>
+    <div class="c">Danny <span class="grn">+1.8</span> &middot; Lucy <span class="red">-1.8</span><small>points against today's plan</small></div>
+    <div class="c">Day job stays (gains x0.85)<small>5 fight weeks: little camp time</small></div>
+    <div class="c">A place frees: trial Mon 13 Apr<small>a new signing trains from week 16</small></div>
+
+    <!-- loyalty -->
+    <div class="lab"><b>Danny's loyalty on 29 Jun</b>with every tick due</div>
+    <div class="c"><span class="big amb">46</span> Wavering<small>34 +12 today; day-job ticks stop</small></div>
+    <div class="c"><span class="big amb">46</span> Wavering<small>34 +12 today; day-job ticks stop</small></div>
+    <div class="c"><span class="big red">34</span> Eastside may ask again<small>38 today, day job -3 x3, +5 kept on 29 Jun</small></div>
+    <div class="c"><span class="mut">Gone.</span> On the men's lightweight table for Eastside, every tell on file</div>
+
+    <!-- team-mates -->
+    <div class="lab"><b>The rest of the club</b>loyalty</div>
+    <div class="c mut">No change</div>
+    <div class="c">Lucy <span class="big amb">64 &rarr; 47</span><small>-8 today, day job -3 x3: a word by June</small></div>
+    <div class="c mut">No change</div>
+    <div class="c mut">No change<small>(Let go yourself: under-50 team-mates -2)</small></div>
+
+    <!-- pro share -->
+    <div class="lab"><b>Pro share</b>when the offer comes</div>
+    <div class="c">Danny <span class="red">10%</span><small>under 50: an outside manager</small></div>
+    <div class="c">Danny <span class="red">10%</span> &middot; Lucy <span class="red">25% &rarr; 10%</span><small>Lucy is 2 wins from a pro offer</small></div>
+    <div class="c">Danny <span class="red">10%</span><small>under 50: an outside manager</small></div>
+    <div class="c mut">Danny's road goes<small>it paid 10% at this loyalty</small></div>
+
+    <!-- binds -->
+    <div class="lab"><b>What it binds</b>and the risk</div>
+    <div class="c">Stipend locked to 29 Jun<small>stop it after: Danny -8</small></div>
+    <div class="c">Nothing locked<small>Lucy may want a word in June</small></div>
+    <div class="c">Pass locked to 29 Jun<small>broken: Danny leaves, no warning. Offers over 1 kg at the scale do not count</small></div>
+    <div class="c">Instead: <b>Kira Mensah</b> pot 86, 1-0, loyalty 60<small>or Josh Harper pot 79, 4-2, loyalty 70</small></div>
+
+    <!-- buttons -->
+    <div></div>
+    <div class="foot"><div class="btn b1">Match it &middot; $250 a week</div></div>
+    <div class="foot"><div class="btn b2">Move the stipend to Danny</div></div>
+    <div class="foot"><div class="btn b3">Promise: every show to 29 Jun</div></div>
+    <div class="foot"><div class="btn b4">Let Danny go</div></div>
+  </div>
+</div>
+
+<div class="bot">
+  <div class="tile">
+    <div class="cap">Danny's next 12 weeks if nothing changes</div>
+    <div class="tl">
+      <div class="axis"></div>
+      <div class="ev s" style="left:5%"><b>Sat 11 Apr</b><i></i>show, no bout</div>
+      <div class="ev rd" style="left:18%"><b>Mon 13 Apr</b><i></i><span class="v red">-3</span> no bout in 4 weeks</div>
+      <div class="ev s" style="left:31%"><b>Sat 25 Apr</b><i></i>show: offer open</div>
+      <div class="ev rd" style="left:44%"><b>Mon 27 Apr</b><i></i><span class="v red">-3</span> day job</div>
+      <div class="ev rd" style="left:62%"><b>Mon 25 May</b><i></i><span class="v red">-3</span> day job</div>
+      <div class="ev rd" style="left:80%"><b>Mon 22 Jun</b><i></i><span class="v red">-3</span> day job</div>
+      <div class="ev e" style="left:94%"><b>Mon 29 Jun</b><i></i>Eastside can ask again</div>
+    </div>
+    <div class="line2 mut">Each offer passed <span class="red num">-3</span>. A bout booked stops the no-bout tick; the stipend stops the day-job tick.</div>
+  </div>
+  <div class="tile">
+    <div class="cap">Danny's next offer</div>
+    <div class="line2"><b>Ryan Walsh</b> (Repton ABC) &middot; 4-3 &middot; Sat 25 Apr</div>
+    <div class="line2 mut">Win chance <span style="color:var(--fg)">45-60%</span> &middot; weight on the day <span class="amb">60.4 of 60 kg</span>: a cut from today</div>
+    <div class="line2 mut">Answer by Fri 10 Apr. Passing it: <span class="red">-3</span>; locked if you promise.</div>
+    <div class="tbtn">See the offer</div>
+  </div>
+  <div class="tile">
+    <div class="cap">Team-mates' loyalty</div>
+    <div style="margin-top:10px">
+      <div class="mate"><div class="n">Lucy</div><div class="bb"><b style="width:64%;background:#3d7fa8"></b></div><div class="x">64 Settled &middot; stipend</div></div>
+      <div class="mate"><div class="n">Samira</div><div class="bb"><b style="width:76%;background:var(--green)"></b></div><div class="x">76 Loyal &middot; day job</div></div>
+      <div class="mate"><div class="n">Ana</div><div class="bb"><b style="width:55%;background:#3d7fa8"></b></div><div class="x">55 Settled &middot; mats</div></div>
+    </div>
+    <div class="tbtn">Find a fighter</div>
+  </div>
+</div>
+<div class="note">Critic's 10/10 drawing. Lucy, Samira and Ana's loyalty, the next offer and the stat-point gains are illustrative; the LOYAL1 probe sets the real sizes.</div>
+</body></html>

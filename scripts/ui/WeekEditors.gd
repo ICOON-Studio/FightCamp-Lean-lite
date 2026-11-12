@@ -14,6 +14,7 @@ const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const PadEdit := preload("res://scripts/rules/PadEdit.gd")
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 const Playbook := preload("res://scripts/ui/areas/Playbook.gd")
 const ComboBuilder := preload("res://scripts/ui/ComboBuilder.gd")
 
@@ -140,10 +141,8 @@ static func _goal(v: Node, f: Dictionary, pl: Dictionary, usable: int) -> void:
 	var tip := ", ".join(bits)
 	for ln in (pl["lines"] as Array):
 		if str(ln["id"]) == stat:
-			tip += "\nTarget %d. On pace for %.1f." % [roundi(float(ln["target"])), float(ln["end"])]
-	var night := BoutRules.night_line_words(stat)
-	if night != "":
-		tip += "\n" + night
+			tip += "\n%s target %d. On pace for %.1f." % [WeekCards.label_of(stat), roundi(float(ln["target"])), float(ln["end"])]
+	tip += line_tip(f, pl, stat)
 	if usable > 0:
 		tip += "\n%d move%s reach%s Usable." % [usable, "" if usable == 1 else "s", "es" if usable == 1 else ""]
 	line.tooltip_text = tip
@@ -153,6 +152,22 @@ static func _goal(v: Node, f: Dictionary, pl: Dictionary, usable: int) -> void:
 	gain.tooltip_text = "This week's gain."
 	row.add_child(gain)
 	v.add_child(row)
+
+
+## S434 CARDIO1 round 2 (C3): the stat's night line under the goal, on the number it reads. Cardio (the mean) names
+## Stamina's own now -> end of week beside Stamina's line, so the line never sits under the mean's numbers alone.
+static func line_tip(f: Dictionary, pl: Dictionary, stat: String) -> String:
+	var key := "stamina" if stat == "conditioning" else stat
+	var night := BoutRules.night_line_words(key)
+	if night == "":
+		return ""
+	if key == stat:
+		return "\n" + night
+	var wk: Dictionary = pl["wk"]
+	var ctx: Dictionary = pl["ctx"]
+	var now := float(Attrs.of(f)[key])
+	var rate := float(Attrs.week_rates(f, wk["days"], str(ctx.get("camp_stat", "")), float(ctx.get("camp_mult", 1.0)))[key])
+	return "\n%s %.1f → %.1f this week. %s." % [Attrs.LABEL[key], now, now + rate * float((wk["days"] as Array).size()), night]
 
 
 static func _evening(v: Node, main: Node, f: Dictionary, pl: Dictionary, pack: Dictionary, dow: int) -> void:

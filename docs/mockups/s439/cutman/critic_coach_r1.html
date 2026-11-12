@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Corner minute with a cut, critic 10 of 10</title>
+<style>
+  :root { --bg:#0b0d10; --slate:#14181d; --panel:#111519; --line:#2a3138; --line2:#3a434d; --fg:#e9ecef; --muted:#8d97a3;
+    --dim:#5d6670; --gold:#d9b45a; --red:#d8574b; --amber:#e0a24a; --green:#6fbf73; --blue:#5b8fd6; --new:#b48ce0; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { width:1920px; height:1080px; overflow:hidden; background:var(--bg); color:var(--fg); font-family:"Segoe UI",system-ui,sans-serif; }
+  .caps { font-family:Bahnschrift,"Segoe UI",sans-serif; letter-spacing:.08em; text-transform:uppercase; font-weight:600; }
+  .num { font-family:Bahnschrift,"Segoe UI",sans-serif; font-variant-numeric:tabular-nums; }
+  .top { position:absolute; left:0; right:0; top:0; height:92px; background:#000; border-bottom:1px solid var(--line); }
+  .clock { position:absolute; left:28px; top:30px; font-size:22px; color:var(--muted); }
+  .clock b { color:var(--fg); }
+  .tanks { position:absolute; left:450px; top:16px; width:790px; }
+  .tank { display:flex; align-items:center; gap:12px; font-size:16px; height:28px; }
+  .tank .who { width:62px; } .tank .m { flex:1; height:11px; background:#1d2228; border-radius:6px; position:relative; overflow:hidden; }
+  .tank .m i { position:absolute; left:0; top:0; bottom:0; border-radius:6px; }
+  .tank .m s { position:absolute; top:0; bottom:0; width:2px; background:#fff6; }
+  .tank .v { width:250px; white-space:nowrap; color:var(--muted); }
+  .card { position:absolute; left:1250px; top:12px; width:410px; height:64px; border:1px solid var(--line2); border-radius:4px; padding:7px 12px; background:#0f1215; }
+  .card .t { font-size:12px; color:var(--gold); }
+  .card .r { display:flex; gap:5px; margin-top:5px; font-size:13px; white-space:nowrap; }
+  .card .r span { padding:2px 8px; border-radius:3px; background:#1b2026; }
+  .card .r .k { background:#3a1d1b; color:#f1b3ab; } .card .r .d { background:#1d2f22; color:#a8e0ad; }
+  .card .need { font-size:15px; color:var(--amber); margin-left:6px; align-self:center; }
+  .bell { position:absolute; right:24px; top:20px; width:220px; height:52px; border-radius:4px; background:#7a2620; color:#fff; font-size:18px; display:flex; align-items:center; justify-content:center; }
+
+  .left { position:absolute; left:24px; top:110px; width:470px; height:948px; background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:18px; }
+  .fig { position:relative; height:430px; }
+  .head { position:absolute; left:200px; top:30px; width:84px; height:104px; border-radius:42px 42px 38px 38px; background:#2c333b; }
+  .eye { position:absolute; top:44px; width:16px; height:9px; border-radius:6px; background:#11161b; }
+  .torso { position:absolute; left:165px; top:150px; width:154px; height:200px; border-radius:40px 40px 18px 18px; background:#2c333b; }
+  .arm { position:absolute; top:160px; width:34px; height:150px; border-radius:16px; background:#262c33; }
+  .hook { position:absolute; border-top:2px solid; }
+  .hookv { position:absolute; border-left:2px solid; }
+  .tip { position:absolute; width:7px; height:7px; border-radius:50%; }
+  .lab { position:absolute; font-size:15px; line-height:1.25; }
+  .lab b { font-size:17px; }
+  .sub { font-size:13px; color:var(--muted); }
+  h3 { font-size:13px; color:var(--gold); margin:10px 0 6px; }
+  .eyebar { position:relative; height:46px; margin:6px 0 4px; }
+  .eyebar .axis { position:absolute; left:0; right:0; top:20px; height:6px; background:#1d2228; border-radius:3px; }
+  .eyebar .mk { position:absolute; top:10px; width:2px; height:26px; }
+  .eyebar .mk span { position:absolute; top:-14px; left:-30px; width:60px; text-align:center; font-size:11px; }
+  .eyebar .pt { position:absolute; top:16px; width:14px; height:14px; border-radius:50%; margin-left:-7px; border:2px solid #000; }
+  .eyebar .pl { position:absolute; top:33px; font-size:11px; margin-left:-30px; width:60px; text-align:center; }
+  .legend { font-size:13px; color:var(--muted); line-height:1.5; }
+  .crew { margin-top:12px; border-top:1px solid var(--line); padding-top:10px; font-size:14px; line-height:1.45; }
+  .tag { display:inline-block; font-size:10px; padding:1px 5px; border-radius:3px; border:1px solid var(--new); color:var(--new); vertical-align:2px; margin-left:6px; letter-spacing:.06em; }
+
+  .main { position:absolute; left:510px; top:110px; width:1386px; height:948px; background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 22px; }
+  .coach { font-size:19px; margin-bottom:10px; } .coach .caps { font-size:13px; color:var(--gold); margin-right:14px; }
+  .sec { display:flex; align-items:baseline; gap:12px; margin:12px 0 7px; }
+  .sec .n { font-size:14px; color:var(--gold); } .sec .h { font-size:14px; color:var(--gold); } .sec .w { font-size:13px; color:var(--muted); }
+  .grid { display:grid; gap:10px; }
+  .opt { border:1px solid var(--line2); border-radius:4px; padding:9px 12px; background:#0e1114; }
+  .opt.on { border-color:var(--gold); background:#1a1710; }
+  .opt .nm { font-size:16px; } .opt .ln { font-size:13px; color:var(--muted); margin-top:3px; line-height:1.35; }
+  .opt .g { color:var(--green); } .opt .r { color:var(--red); } .opt .a { color:var(--amber); }
+  .pts { display:flex; align-items:center; gap:8px; float:right; margin-top:-2px; }
+  .pts i { width:26px; height:26px; border:1px solid var(--line2); border-radius:3px; display:flex; align-items:center; justify-content:center; font-style:normal; color:var(--muted); }
+  .pts b { width:22px; text-align:center; font-size:18px; }
+  table.cmp { width:100%; border-collapse:collapse; font-size:14px; }
+  table.cmp th { text-align:left; font-weight:600; font-size:15px; padding:8px 10px; border:1px solid var(--line2); background:#0e1114; vertical-align:top; }
+  table.cmp th.on { border-color:var(--gold); background:#1a1710; }
+  table.cmp th .ln { font-size:12px; color:var(--muted); font-weight:400; margin-top:2px; }
+  table.cmp td { padding:6px 10px; border:1px solid var(--line); color:var(--fg); }
+  table.cmp td.rl { color:var(--muted); width:250px; }
+  .g { color:var(--green); } .r { color:var(--red); } .a { color:var(--amber); }
+  .foot { position:absolute; left:22px; right:22px; bottom:14px; display:flex; justify-content:space-between; align-items:center; font-size:13px; color:var(--muted); }
+  .stop { border:1px solid #6a2a25; color:#f1b3ab; padding:9px 16px; border-radius:4px; font-size:15px; }
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="clock caps">Corner <b class="num">0:41</b> &nbsp; Round 4 of 4 next</div>
+  <div class="tanks">
+    <div class="tank"><span class="who">Dana</span><span class="m"><i style="width:37%;background:var(--amber)"></i><s style="left:35%"></s></span><span class="v num">Energy 37 &rarr; 49 after water</span></div>
+    <div class="tank"><span class="who">Kerry</span><span class="m"><i style="width:58%;background:var(--blue)"></i></span><span class="v num">Energy 58</span></div>
+  </div>
+  <div class="card"><div class="t caps">Coach's card (rounds)</div>
+    <div class="r"><span class="d">R1 Dana</span><span class="k">R2 Kerry</span><span class="k">R3 Kerry</span><span class="need">Winning R4 alone: a draw</span></div></div>
+  <div class="bell caps">Ring the bell</div>
+</div>
+
+<div class="left">
+  <div class="fig">
+    <div class="head"><div class="eye" style="left:18px"></div><div class="eye" style="left:50px;background:#7a2620"></div></div>
+    <div class="arm" style="left:128px"></div><div class="arm" style="left:322px"></div>
+    <div class="torso"></div>
+    <!-- right eye callout, hooked line out of the body -->
+    <div class="tip" style="left:255px;top:75px;background:var(--red)"></div>
+    <div class="hook" style="left:262px;top:78px;width:80px;border-color:var(--red)"></div>
+    <div class="hookv" style="left:342px;top:46px;height:32px;border-color:var(--red)"></div>
+    <div class="lab" style="left:300px;top:0px;color:var(--red);white-space:nowrap"><b class="num">Right eye 33, cut</b><br><span class="sub">57 &rarr; 33 this round</span></div>
+    <!-- right ribs callout -->
+    <div class="tip" style="left:180px;top:285px;background:var(--amber)"></div>
+    <div class="hook" style="left:110px;top:288px;width:70px;border-color:var(--amber)"></div>
+    <div class="hookv" style="left:110px;top:288px;height:60px;border-color:var(--amber)"></div>
+    <div class="lab" style="left:20px;top:352px;color:var(--amber)"><b class="num">Right ribs 52</b><br><span class="sub">sore</span></div>
+    <div class="lab" style="left:20px;top:60px;width:150px" ><span class="sub">Kerry's jab and left hook land on this side; the right hand lands on the other eye.</span></div>
+  </div>
+  <h3 class="caps">The cut eye at the final bell (0 to 50)</h3>
+  <div class="eyebar">
+    <div class="axis"></div>
+    <div class="mk" style="left:70%;background:var(--amber)"><span class="a">cut 35</span></div>
+    <div class="mk" style="left:30%;background:var(--red)"><span class="r">doctor 15</span></div>
+    <div class="pt" style="left:6%;background:var(--red)"></div><div class="pl r num" style="left:6%">open 3</div>
+    <div class="pt" style="left:26%;background:var(--amber)"></div><div class="pl a num" style="left:24%">closed 13</div>
+    <div class="pt" style="left:42%;background:var(--green)"></div><div class="pl g num" style="left:44%;width:80px;margin-left:-40px">off side 21</div>
+    <div class="pt" style="left:66%;background:#fff"></div><div class="pl num" style="left:60%">now 33</div>
+  </div>
+  <div class="legend">At 15 or under at a bell the doctor looks. <span class="tag caps">needs the ruling lifted</span><br>
+    If the doctor stops it: a loss and a cut layoff of 3-6 weeks.<br>
+    After the fight: cut layoff risk <span class="num">12%</span> open, <span class="num">11%</span> closed.</div>
+  <div class="crew">
+    <span class="caps" style="font-size:13px;color:var(--gold)">Cutman, hired ($150 a pro night)</span><br>
+    Works the cut: closed for round 4 (normal damage on the eye). That leaves all 3 of the second's points free.<br>
+    <span class="sub">No cutman: closing it takes 1 of the second's 3 points.</span> <span class="tag caps">needs the ruling lifted</span>
+  </div>
+</div>
+
+<div class="main">
+  <div class="coach"><span class="caps">Coach</span>Kerry loads up the left hook when Dana drops the right after the jab, and keeps finding the cut.</div>
+
+  <div class="sec"><span class="n caps">1</span><span class="h caps">The second's 3 points</span><span class="w">One round left: what helps now beats what helps later.</span></div>
+  <div class="grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="opt on"><span class="pts"><i>&minus;</i><b class="num">2</b><i>+</i></span><div class="nm">Water and breathing</div><div class="ln">+6 energy a point (Dana is under 40). 2 points: 37 &rarr; 49, tired 40 s later.</div></div>
+    <div class="opt on"><span class="pts"><i>&minus;</i><b class="num">1</b><i>+</i></span><div class="nm">Ice on the ribs</div><div class="ln">Takes back 3 body hits = <span class="a">about 4 energy over the last round</span>. Less than a water point now.</div></div>
+    <div class="opt"><span class="pts"><i>&minus;</i><b class="num">0</b><i>+</i></span><div class="nm">Close the cut</div><div class="ln">The cutman is doing it. Without him: 1 point, eye ends 13 not 3.</div></div>
+    <div class="opt" style="opacity:.45"><div class="nm">Clear the head</div><div class="ln">Only when Dana is hurt at the bell. Not now.</div></div>
+  </div>
+
+  <div class="sec"><span class="n caps">2</span><span class="h caps">One change for round 4</span><span class="w">Same five lines for every choice. Estimates from this round's punches.</span></div>
+  <table class="cmp">
+    <tr><th style="border:none;background:none"></th>
+      <th class="on">Fix: drops the right after the jab<div class="ln">Coach's habit fix, Dana takes in 86%</div></th>
+      <th>Gloves high<div class="ln">4 head punches move to the body</div></th>
+      <th>Fight off the cut side <span class="tag caps">new rule</span><div class="ln">Circle away from the left hook</div></th>
+      <th>No change</th></tr>
+    <tr><td class="rl">Round 4 exchanges Dana wins (of 6)</td><td class="g num">about 3 (+1)</td><td class="num">about 2</td><td class="r num">about 1.5 (&minus;0.5)</td><td class="num">about 2</td></tr>
+    <tr><td class="rl">Dana's knockdown risk this round</td><td class="num">9%</td><td class="g num">6%</td><td class="g num">7%</td><td class="num">9%</td></tr>
+    <tr><td class="rl">Energy at the final bell</td><td class="num">22</td><td class="r num">17 (&minus;5, tired 30 s sooner)</td><td class="r num">19</td><td class="num">22</td></tr>
+    <tr><td class="rl">Cut eye at the final bell</td><td class="num">16</td><td class="num">16</td><td class="g num">21</td><td class="num">13</td></tr>
+    <tr><td class="rl">Cut layoff risk after</td><td class="num">11.3%</td><td class="num">11.3%</td><td class="g num">11.0%</td><td class="num">11.6%</td></tr>
+  </table>
+
+  <div class="sec"><span class="n caps">3</span><span class="h caps">The call that starts the round</span><span class="w">Kerry is loading up. Under 35 energy, Dana's tiredness decides the call, not Kerry.</span></div>
+  <div class="grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="opt on"><div class="nm">Hands up, move your head</div><div class="ln"><span class="g">Best against loading up.</span> Dana is good at this.</div></div>
+    <div class="opt"><div class="nm">Jab and move</div><div class="ln"><span class="a">OK against loading up.</span> Costs a little energy.</div></div>
+    <div class="opt"><div class="nm">Go to the body</div><div class="ln"><span class="r">Wrong: walks into the hook.</span></div></div>
+    <div class="opt"><div class="nm">Breathe, pick your shots</div><div class="ln"><span class="g">Best once Dana is tired</span> (about 1:30 in; 1:00 with Gloves high).</div></div>
+  </div>
+
+  <div class="sec"><span class="n caps">4</span><span class="h caps">Set-up and talk</span><span class="w">Each says what it does, read from Dana's personality.</span></div>
+  <div class="grid" style="grid-template-columns:1.3fr 1fr 1fr 1fr">
+    <div class="opt on"><div class="nm">Set-up: 1-2 when Kerry loads up</div><div class="ln">Usable (mastery 41). A knockdown chance if it lands into the gap.</div></div>
+    <div class="opt"><div class="nm">Calm down</div><div class="ln">Hurt less often (x0.6); no extra edge. Dana is not a hothead.</div></div>
+    <div class="opt on"><div class="nm">Fire up</div><div class="ln"><span class="g">+1.5 edge an exchange</span>, <span class="r">&minus;0.8 energy an exchange</span>, hurt more often (x1.3).</div></div>
+    <div class="opt"><div class="nm">Tell the truth</div><div class="ln">+1.2 edge (discipline 64). Safe at confidence 58.</div></div>
+  </div>
+
+  <div class="foot">
+    <span>Every number above is the game's own rule; "about" marks an estimate from this round. Hover any line for how it is worked out.</span>
+    <span class="stop caps">Retire Dana on the stool <span class="tag">new rule</span></span>
+  </div>
+</div>
+</body>
+</html>

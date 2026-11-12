@@ -15,6 +15,7 @@ const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Injuries := preload("res://scripts/state/Injuries.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const Bouts := preload("res://scripts/state/Bouts.gd")
 
 var _fails := 0
 
@@ -158,6 +159,15 @@ func _swap() -> void:
 	Sim.twist_monday(c2, f2)
 	_check((f2["bout"] as Dictionary).is_empty() and (f2["camp"] as Dictionary).is_empty() and int(f2["next_offer_day"]) > c2.day,
 		"withdraw: the bout and the camp end, offers come again later")
+	# S434 (found by tools/nocamp_probe.gd: a SCRIPT ERROR in Bouts.short_notice): the swap card drawn while she was booked
+	# locks on Monday after the bout is gone (fought, pulled out, missed weight) - the coach's default "take it" has
+	# nothing to swap and must leave her unbooked.
+	var c3 := _career()
+	var f3: Dictionary = c3.fighter()
+	f3["bout"] = {}
+	f3["twist"] = "short_notice"
+	Sim.twist_monday(c3, f3)
+	_check((f3["bout"] as Dictionary).is_empty() and not Bouts.short_notice(c3, f3), "the swap card with no bout left: nothing swapped, still unbooked")
 
 
 func _risk() -> void:

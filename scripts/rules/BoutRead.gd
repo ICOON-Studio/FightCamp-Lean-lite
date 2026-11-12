@@ -12,6 +12,7 @@ const OppFile := preload("res://scripts/rules/OppFile.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const HabitFix := preload("res://scripts/rules/HabitFix.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
+const PlanChain := preload("res://scripts/rules/PlanChain.gd")
 const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
@@ -42,13 +43,14 @@ const OPP_TIRED_ODDS := 0.75
 const FADE_ODDS := 0.5
 ## Punches each side lands in an exchange on the mean (Exchanges.LANDED): what its body shots cost a tank.
 const MEAN_LANDED := 3.5
-## Share of a plan's edge that reaches the ring: she starts many exchanges where the last one left her, not on the card the
-## game puts her on (measured: a four-arrow plan in real bouts against the same plan always on the game's own card).
+## Share of a plan's edge that reaches the ring in her own trouble and the opponent's tiring (the opponent's games walk the
+## card chain exactly: PlanChain).
 const PLAN_REACH := 0.75
-## S397 what rides on a plan's answers past their own exchange: the round's reads (PlanRead), the bout's pressure and the
-## tank ceiling (PlanPressure). Measured against real bouts (tests/bout_read_test.gd), on top of PLAN_REACH. Re-fit when
-## the watched form spread went from 8 to 5: 2.0 put the coach 0.11 over those bouts; 1.2 sits inside the 0.06 bar.
-const PLAN_CARRY := 1.2
+## S397 what rides on a plan's answers past their own exchange (PlanRead's reads, PlanPressure's pressure and tank ceiling).
+## S434 PUNCHSTART1 round 2 re-fit on the card chain walked exchange by exchange (her trouble and the opponent's tiring counted
+## once): 22 arms x 1,000 real bouts (Lucy +-shifts, tired, no plan to four arrows, vs Maria/Priya/Erin/Dana) worst 0.033, rms
+## 0.017; 8 held-out arms 0.065 / 0.036 (round 1, 1.4 with the double count: 0.041 / 0.026, held out 0.074 / 0.041).
+const PLAN_CARRY := 1.9
 ## Rounds of next_mode's dice behind one style's mix.
 const MIX_ROUNDS := 300
 
@@ -181,19 +183,19 @@ static func camp_for(f: Dictionary, days: int) -> Dictionary:
 
 ## BoutNight._energy, read only, on the coach's calls: per round {edge (her combination edge and both tired penalties),
 ## a, a_end, b, b_end (the tanks at the first and last bell)}.
-static func _energy(f: Dictionary, opp: Dictionary) -> Array:
+static func _energy(f: Dictionary, opp: Dictionary, off := 0.0) -> Array:
 	var op := RoundStyle.from_opponent(opp)
 	var mine: Dictionary = OwnCombos.all_mastery(f)
-	var cond_a := float((f["stats"] as Dictionary).get("conditioning", 55.0))
+	var own := RingDuel.Attrs.of(f)   # S433 CARDIO1: the cost reads Stamina, the minute's refill Recovery
 	var cond_b := RoundStyle.stat(op, "conditioning")
 	var econ := SkillAwards.bout_economy(f, RoundStyle.SHARE)
-	var a := Combos.TANK
+	var a := Combos.TANK - off   # S434 the played Tank: hurt and the scale (BoutRules.tank_read), as BoutNight._energy
 	var b := Combos.TANK
 	var qa := 0.0
 	var qb := 0.0
 	var out: Array = []
 	for n in range(1, BoutRules.ROUNDS + 1):
-		var ra := Combos.after_round(a, qa, Combos.round_spend(mine, _call(f, n), cond_a, econ), cond_a)
+		var ra := Combos.after_round(a, qa, Combos.round_spend(mine, _call(f, n), float(own["stamina"]), econ), float(own["recovery"]))
 		var rb := Combos.after_round(b, qb, Combos.round_spend(op["combos"], "", cond_b), cond_b)
 		var a_end := float(ra["bell"])
 		var b_end := float(rb["bell"])
@@ -235,7 +237,8 @@ static func _game_edge_of(f: Dictionary, sit: String, n: int) -> float:
 	var moves: Dictionary = f.get("moves", {})
 	var combos: Dictionary = f.get("combos", {})
 	var pick := PlanFight.choose(f.get("arrows", []), at, moves, sit)
-	e += PLAN_REACH * PLAN_CARRY * PlanFight.edge(pick, sit, PlanFight.rate(str(pick["move"]), combos), PlanFight.card_mean(at, sit, moves, combos))
+	if sit in ["tiring", "she_tired"]:   # S434 the opponent's games walk the card chain in _round_edges (PlanChain)
+		e += PLAN_REACH * PLAN_CARRY * PlanFight.edge(pick, sit, PlanFight.rate(str(pick["move"]), combos), PlanFight.card_mean(at, sit, moves, combos))
 	var habits := 0.0
 	for i in Exchanges.EXCHANGES:
 		habits += Exchanges.HABIT_BOUT * HabitFix.cost(HabitFix.punished(f.get("habits", []), sit, n, i, n == BoutRules.ROUNDS), "", 0.0)
@@ -243,7 +246,7 @@ static func _game_edge_of(f: Dictionary, sit: String, n: int) -> float:
 
 
 static func _read_copy(f: Dictionary, opp: Dictionary, camp: Dictionary, coach: float) -> Dictionary:
-	var key := "%s|%s|%s|%s|%s|%.4f" % [str(f.get("id", "")), str(f.get("stats", {})), str(f.get("moves", {})), str(f.get("personality", {})), str(f.get("style", "")), float(f.get("footwork", -1.0))]
+	var key := "%s|%s|%s|%s|%s|%.4f|%s" % [str(f.get("id", "")), str(f.get("stats", {})), str(f.get("moves", {})), str(f.get("personality", {})), str(f.get("style", "")), float(f.get("footwork", -1.0)), str(f.get("attrs", {}))]   # S434: her attributes (Stamina, Recovery), not only their means
 	if not _ready.has(key):
 		var made := f.duplicate()
 		made["stats"] = (f.get("stats", {}) as Dictionary).duplicate()
@@ -296,7 +299,7 @@ static func _tiring(opp: Dictionary, n: int, energy: float) -> float:
 
 ## Her mean edge in power points in each round against this opponent, on this camp.
 static func _re_key(f: Dictionary, o: Dictionary, camp: Dictionary, coach: float) -> String:
-	return RingDuel.stat_bucket(f) + str(f.get("moves")) + str(f.get("combos")) + str(f.get("arrows")) + str(f.get("personality")) + str(f.get("perks")) + str(f.get("habits")) + str(f.get("style")) + str(f.get("stance")) + str(f.get("style_dials")) + str(f.get("durability_cap")) + str(camp) + str(coach) + str(o.get("rating")) + str(o.get("weak")) + str(o.get("threat")) + str(o.get("style")) + str(o.get("shape")) + str(o.get("age")) + str(o.get("peak_age")) + str(o.get("pace")) + str(o.get("forward")) + str(o.get("heart")) + str(o.get("stance")) + str(o.get("height")) + str(o.get("reach")) + str(o.get("name")) + str(o.get("damage_ledger")) + str(o.get("sex"))
+	return RingDuel.stat_bucket(f) + str(f.get("moves")) + str(f.get("combos")) + str(f.get("arrows")) + str(f.get("personality")) + str(f.get("perks")) + str(f.get("habits")) + str(f.get("style")) + str(f.get("stance")) + str(f.get("style_dials")) + str(f.get("durability_cap")) + str(camp) + str(coach) + str(o.get("rating")) + str(o.get("weak")) + str(o.get("threat")) + str(o.get("style")) + str(o.get("shape")) + str(o.get("age")) + str(o.get("peak_age")) + str(o.get("pace")) + str(o.get("forward")) + str(o.get("heart")) + str(o.get("stance")) + str(o.get("height")) + str(o.get("reach")) + str(o.get("name")) + str(o.get("damage_ledger")) + str(o.get("sex")) + str(BoutRules.tank_read(f)) + "|r%s-%s-%s-%s" % [o.get("w"), o.get("l"), o.get("d"), o.get("pro")]   # S434 PUNCHSTART1: her punches grow with her record
 
 
 static func round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach := 0.0) -> Array:
@@ -311,7 +314,7 @@ static func round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach 
 static func _round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach := 0.0) -> Array:
 	var fx := _read_copy(f, opp, camp, coach)
 	var base := ComboOdds.night_gap(fx)   # S398 who is better is the duels below, exchange by exchange
-	var tanks := _energy(fx, opp)
+	var tanks := _energy(fx, opp, BoutRules.tank_read(f))
 	var mix := _games(opp, RingDuel.mode_bias(fx, opp))
 	var own_attrs := RingDuel.Attrs.of(fx)
 	var opp_attrs := RingDuel.opp(opp)
@@ -322,8 +325,8 @@ static func _round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach
 	for n in range(1, BoutRules.ROUNDS + 1):
 		var t: Dictionary = tanks[n - 1]
 		var e := base + float(t["edge"]) + BoutRules.stance_edge(n, str(f.get("stance", "orthodox")), opp, camp)
-		if n >= BoutRules.ROUNDS and not BoutRules.clears_night_line("conditioning", float((f["stats"] as Dictionary).get("conditioning", 0.0))):
-			e -= BoutRules.OWN_FADE
+		if n >= BoutRules.ROUNDS:   # S434 CARDIO1: the fade's slope on her Stamina, as LiveRound
+			e -= BoutRules.own_fade(float(own_attrs["stamina"]))
 		if n >= BoutRules.ROUNDS and str(opp.get("weak", "")).begins_with("Fades"):
 			e += BoutRules.OPP_FADE
 		var worth := {}
@@ -332,9 +335,7 @@ static func _round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach
 		var body_b := MEAN_LANDED * Exchanges.body_cost(float(opp_attrs.get("body", 55.0))) \
 			* (Exchanges.BODY_CALL_SHARE if _call(f, n) == "body" else Exchanges.BODY_SHARE)
 		# S398 the duels, on the world's quick ladder (one energy a round, no ropes) so a page can read every hidden phrase.
-		var eas: Array = []
-		var ebs: Array = []
-		var wbs: Array = []
+		var eas: Array = []; var ebs: Array = []; var wbs: Array = []; var steps: Array = []
 		var mixw := RingDuel.wants_of_mix(mix)
 		for i in Exchanges.EXCHANGES:
 			var at := float(i) / float(Exchanges.EXCHANGES)
@@ -350,35 +351,25 @@ static func _round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach
 		for i in Exchanges.EXCHANGES:
 			e += float(duels[i]) / float(Exchanges.EXCHANGES)
 		for i in Exchanges.EXCHANGES:
-			var at := float(i) / float(Exchanges.EXCHANGES)
-			var done := float((n - 1) * Exchanges.EXCHANGES + i)
 			var ex := 0.0
-			if lerpf(float(t["a"]), float(t["a_end"]), at) - done * body_a < Exchanges.SHE_TIRED:
+			if float(eas[i]) < Exchanges.SHE_TIRED:
 				ex = float(worth["she_tired"])
+				steps.append({"she_tired": 1.0})
 			else:
-				var tiring := _tiring(opp, n, lerpf(float(t["b"]), float(t["b_end"]), at) - done * body_b)
+				var tiring := _tiring(opp, n, float(ebs[i]))
 				ex = tiring * float(worth["tiring"])
+				var st := {"tiring": tiring}
 				for sit in mix:
 					ex += (1.0 - tiring) * float(mix[sit]) * float(worth[sit])
+					st[sit] = (1.0 - tiring) * float(mix[sit])
+				steps.append(st)
 			e += ex / float(Exchanges.EXCHANGES)
+		# S434 her plan on the cards she really stands on (PlanChain), exchange by exchange at her chance of one; her own
+		# trouble and the opponent's tiring move her card but add their plan once, in worth (_game_edge_of).
+		e += PLAN_CARRY * PlanChain.walk(fx.get("arrows", []), fx.get("moves", {}), fx.get("combos", {}), steps, ComboOdds.win_odds(e), ["she_tired", "tiring"])
 		out.append(e)
 	return out
 
-
-## The chance of the round at edge e: most of six exchanges; a 3-3 split goes to the bigger margin, which leans her way as often.
-static func _round_odds(e: float) -> float:
-	var p := ComboOdds.win_odds(e)
-	var total := 0.0
-	var ways := 1.0
-	var six := Exchanges.EXCHANGES
-	for k in range(0, six + 1):
-		var share := ways * pow(p, k) * pow(1.0 - p, six - k)
-		if k * 2 > six:
-			total += share
-		elif k * 2 == six:
-			total += share * p
-		ways = ways * float(six - k) / float(k + 1)
-	return total
 
 
 ## The chance she wins this bout: two rounds of three (a 3-round card has no draw).
@@ -389,9 +380,9 @@ static func chance(f: Dictionary, opp: Dictionary, camp: Dictionary, coach := 0.
 	var sd := RingDuel.FORM_SD * sqrt(2.0)
 	for j in WorldBout.GH_X.size():
 		var d := float(WorldBout.GH_X[j]) * sd
-		var a := _round_odds(float(e[0]) + d)
-		var b := _round_odds(float(e[1]) + d)
-		var c := _round_odds(float(e[2]) + d)
+		var a := ComboOdds.round_odds(float(e[0]) + d)
+		var b := ComboOdds.round_odds(float(e[1]) + d)
+		var c := ComboOdds.round_odds(float(e[2]) + d)
 		out += float(WorldBout.GH_W[j]) * (a * b + a * c + b * c - 2.0 * a * b * c)
 	return clampf(out, 0.01, 0.99)   # S398 never certain, and the band's own floor and ceiling
 
@@ -430,7 +421,7 @@ static var _cand_cache := {}
 ## her most and the one that hurts her most on the duels (RingDuel.mean_edge), plus ANY_* (the fades and tank lines the
 ## duels' mean does not see). The same for any hidden word, so a hidden word still moves nothing.
 static func _candidates(f: Dictionary, opp: Dictionary, field: String) -> Array:
-	var key := "%s|%.1f|%s|%s" % [str(f.get("name", "")), RingDuel.Attrs.overall(RingDuel.Attrs.of(f)), str(opp.get("style", "")), field]
+	var key := "%s|%.1f|%s|%s|%d" % [str(f.get("name", "")), RingDuel.Attrs.overall(RingDuel.Attrs.of(f)), str(opp.get("style", "")), field, RingDuel.AttrGen.PunchStart.bouts_of(opp)]   # S434: her bouts grow her punches
 	if _cand_cache.has(key):
 		return _cand_cache[key]
 	var data: GDScript = load("res://scripts/state/Data.gd")

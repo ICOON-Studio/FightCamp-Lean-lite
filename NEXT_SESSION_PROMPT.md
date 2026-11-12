@@ -237,3 +237,24 @@ look; do not loop it again unasked. Then Ludo paints.
   morale, her goal and the sparring ban move to where the player acts on them (an "after the fight" card on Home);
   club money and members are his call. Draw nothing until he answers. Lesson for memory: decide WHAT a screen is for
   and what belongs on it with him BEFORE any drawing or critic round.
+
+## ADDED 13:10 (lead S439): the seven design maps - NONE passed (wf_66447834-d17, 63 helpers, 14.6 M tokens)
+ops/research/DESIGN_MAPS_SCORES_S439.md has the table and what the last critics asked. Depth/clarity by round, two
+critics: R37 ask for a fight 5/7,5/7 -> 5/6,6/6 -> 6/5,6/5; R58 a fighter leaves 6/7,5/7 -> 5/5,5/6 -> 6/5,6/6; host a
+club show 6/6,5/6 -> 6/6,6/6 -> 6/6,5/6; turning pro 4/6,4/6 -> 6/6,5/7 -> 6/5,5/4; cutman v3 3/5,2/5 -> 5/6,5/6 ->
+4/6,5/6; weight 5/6,5/6 -> 5/5,5/6 -> 5/5,5/5; training scene v2 5/6,5/6 -> 5/6,5/5 -> 6/5,5/5. NOTHING goes to his
+board. The pattern is the damage maps' again: depth creeps up a point while clarity FALLS as each round adds options and
+rows. Do NOT run a fourth round of this shape. Before any more design rounds: agree with him, per mechanic, what the
+ONE decision is and what it costs (a five-line pitch he says yes or no to), then design to that; and cut, not add.
+Maps: ops/research/<KEY>_MAP_S439.md (R37, R58, HOSTSHOW, TURNPRO, CUTMAN, WEIGHT, TRAINSCENE); drawings
+docs/mockups/s439/<key>/.
+
+## ADDED 13:45 (lead S439): HIS DECISION on the mechanics' order: "Yes, that order"
+After the seven maps failed, he got a five-line pitch per mechanic and agreed the order: 1 ASK FOR A FIGHT (pick a show
+and who to ask for: fair match / step up / a named opponent for a favour; today the player can never ask), 2 WEIGHT
+(hold or cut per bout; simplify the S434 map, it failed on clarity only), 3 TURNING PRO (now / hold for the nationals /
+not yet, a season side by side), 4 THE TRAINING SCENE (a screen rebuild after a keep-and-move list agreed with him).
+LATER: a fighter leaves, the hosted club show. The CUTMAN is not a mechanic: it folds into showing damage. Design each
+to its ONE decision, cutting; the pitch is agreed, so the next step for number 1 is a SHORT map (one screen, one
+decision, its prices from the code) then two fresh critics and a logic check. Memory: project_mechanic_order_s439.
+Also: TASK_MATPRICE1.md is briefed and queued for Qwen (M3, the price of each mat plan line).

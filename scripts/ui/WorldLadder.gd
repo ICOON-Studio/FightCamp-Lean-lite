@@ -11,6 +11,7 @@ const ProLadder := preload("res://scripts/state/ProLadder.gd")
 const WR := preload("res://scripts/world/WorldRank.gd")
 const Region := preload("res://scripts/state/Region.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
+const CampForecast := preload("res://scripts/state/CampForecast.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
@@ -335,6 +336,7 @@ static func _amateur_rows(c: Career, f: Dictionary) -> Array:
 	var days := int(bout["day"]) - c.day if bout.has("day") else 0
 	var camp := BoutRead.camp_for(f, days)
 	var coach := float(c.coach.get("rating", 0.0))
+	var fr := CampForecast.for_read(c, f)   # S434 each band on her booked fight night's Tank
 	var out: Array = []
 	for r in Rules.pick(light, 10):
 		var row: Dictionary = r
@@ -342,7 +344,7 @@ static func _amateur_rows(c: Career, f: Dictionary) -> Array:
 			out.append(row)
 			continue
 		var who: Dictionary = row["boxer"]
-		var band: Dictionary = BoutRead.band(f, who, camp, c.seed, coach)
+		var band: Dictionary = BoutRead.band(fr, who, camp, c.seed, coach)
 		row["band"] = {"lo": float(band["lo"]), "hi": float(band["hi"])}
 		row["ask"] = {"show": false, "on": false, "why": "The pro debut comes first."}
 		row["reach"] = false

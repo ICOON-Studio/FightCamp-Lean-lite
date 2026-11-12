@@ -1,7 +1,7 @@
 extends Control
 ## S381 G1 (gym idea 5, survivor 1): the thin threshold bar on each camp card - from now to fight night, with a gold tick at
 ## the stat number that changes the night (BoutRules.NIGHT_LINES: power past 60 the body call, technique past 61 "jab and
-## move", conditioning at 64 no round-3 fade). The bar turns gold when the forecast crosses the tick. It replaces the text
+## move", Stamina at BoutRules.FADE_STAMINA no round-3 fade, S434 CARDIO1). The bar turns gold when the forecast crosses the tick. It replaces the text
 ## line under the card. Today's part is ink, the camp's gain green (gold once over the line); `end` tweens on from the last
 ## shown forecast (operator: animated meters) and the colour flips the moment the count passes the tick.
 ##   NightBar.make(stat, now, end, from) -> NightBar "NightBar"     window(now, end, at) -> Vector2     frac(x, win) -> float

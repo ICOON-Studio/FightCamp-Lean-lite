@@ -7,6 +7,7 @@ extends RefCounted
 ##   frame(panel) -> VBoxContainer   corner(fig, name, colour, right)   compubox(rows)   tank(a, b)   timeline(exchanges)
 ##   quote(text, who)   verdict_card(card, won_rounds, colour)   reasons(lines)   ribbon(items)
 
+const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 
 const HERS := Color(0.86, 0.26, 0.22)
@@ -258,14 +259,8 @@ static func _rect(c: Color, ratio: float, min_size: Vector2 = Vector2.ZERO) -> C
 ## the third gives the closest round of the majority the other way (as RoundGraphics.judges reads it).
 static func judge_rounds(all: Array, cards: Array) -> Array:
 	var won: Array = all.map(func(r): return bool(r["won"]))
-	var her := won.count(true)
-	var flip := -1
-	if cards.size() >= 3 and str(cards[2]) != str(cards[0]):
-		var best := INF
-		for i in all.size():
-			if bool(won[i]) == (her * 2 >= all.size()) and absf(float(all[i].get("mine", 0.0))) < best:
-				best = absf(float(all[i].get("mine", 0.0)))
-				flip = i
+	# S440: the same round BoutRules.cards_of flips (the closest 3-3 round), so judge 3's chips add up to his card.
+	var flip := BoutRules.flip_round(all) if cards.size() >= 3 and str(cards[2]) != str(cards[0]) else -1
 	var out := []
 	for j in cards.size():
 		var row := []

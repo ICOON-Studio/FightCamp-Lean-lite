@@ -1,0 +1,564 @@
+{
+	"clips": {
+		"o_pro_left_jab": {
+			"back_s": 0.283333333333334,
+			"bow_hip_m": 0.0154337137937546,
+			"bow_m": -0.0834048539400101,
+			"contact_s": 0.5,
+			"elbow_contact_deg": 170.456460596605,
+			"elbow_deg": 170.006988981919,
+			"ext_hold_s": 0.396365575757262,
+			"finish_over_head": -0.195768332481384,
+			"forward_m": 0.658054709434509,
+			"hang_s": 0.387835729874755,
+			"hip_turn_deg": 52.9515517614657,
+			"length_s": 1.06666666666667,
+			"other_glove_far_m": 0.0908295139670372,
+			"other_glove_low_m": 0.0409240961074828,
+			"pre_drop_depth_m": 0.0729930400848389,
+			"pre_drop_held_s": 0.0,
+			"reach": 0.487766206264496,
+			"reach_frac": 0.997882387257785,
+			"window_s": [
+				0.1,
+				0.817
+			]
+		},
+		"o_pro_left_jab_b": {
+			"back_s": 0.233333333333333,
+			"bow_hip_m": -0.0518299601972103,
+			"bow_m": -0.199247866868973,
+			"contact_s": 0.333,
+			"elbow_contact_deg": 151.106986541615,
+			"elbow_deg": 157.470015595175,
+			"ext_hold_s": 0.289252092953326,
+			"finish_over_head": -0.145981287956238,
+			"forward_m": 0.586784243583679,
+			"hang_s": 0.231063748735446,
+			"hip_turn_deg": 49.7000636168503,
+			"length_s": 0.9,
+			"other_glove_far_m": 0.238944560289383,
+			"other_glove_low_m": 0.0736091375350951,
+			"pre_drop_depth_m": 0.0581651926040649,
+			"pre_drop_held_s": 0.0,
+			"reach": 0.48116260766983,
+			"reach_frac": 0.982160300548818,
+			"window_s": [
+				0.0,
+				0.75
+			]
+		},
+		"o_pro_left_jab_c": {
+			"back_s": 0.383333333333334,
+			"bow_hip_m": -0.0793165639042854,
+			"bow_m": -0.248798847198486,
+			"contact_s": 0.333,
+			"elbow_contact_deg": 154.571270004397,
+			"elbow_deg": 156.074799627124,
+			"ext_hold_s": 0.359085973078521,
+			"finish_over_head": -0.139436221122742,
+			"forward_m": 0.578614771366119,
+			"hang_s": 0.265161474708979,
+			"hip_turn_deg": 52.1604626916199,
+			"length_s": 0.966666666666667,
+			"other_glove_far_m": 0.320547938346863,
+			"other_glove_low_m": 0.116378331184387,
+			"pre_drop_depth_m": 0.0166302919387817,
+			"pre_drop_held_s": 0.0,
+			"reach": 0.472072660923004,
+			"reach_frac": 0.978411704926934,
+			"window_s": [
+				0.0,
+				0.85
+			]
+		},
+		"pro_body_shot": {
+			"back_s": 0.450000000000001,
+			"bow_hip_m": 0.321795910596848,
+			"bow_m": -0.0111127495765686,
+			"contact_s": 0.55,
+			"elbow_contact_deg": 142.744252901709,
+			"elbow_deg": 170.89130854954,
+			"ext_hold_s": 0.238845462633321,
+			"finish_over_head": -0.172236776351929,
+			"forward_m": 0.702321290969849,
+			"hang_s": 0.180264901949435,
+			"hip_turn_deg": 30.3206214497664,
+			"length_s": 1.1,
+			"other_glove_far_m": 0.409285724163055,
+			"other_glove_low_m": 0.187388443946838,
+			"pre_drop_depth_m": 0.187138915061951,
+			"pre_drop_held_s": 0.0,
+			"reach": 0.492075979709625,
+			"reach_frac": 0.998623540333455,
+			"window_s": [
+				0.15,
+				1.0
+			]
+		},
+		"pro_kidney_shot": {
+			"back_s": 0.533333333333333,
+			"bow_hip_m": 0.0403337329626083,
+			"bow_m": -0.173883706331253,
+			"contact_s": 0.733,
+			"elbow_contact_deg": 120.019584995972,
+			"elbow_deg": 130.410596363681,
+			"ext_hold_s": 0.405796216171606,
+			"finish_over_head": 0.0410014629364013,
+			"forward_m": 0.523848712444305,
+			"hang_s": 0.42525788768673,
+			"hip_turn_deg": 36.1067914837517,
+			"length_s": 1.73333333333333,
+			"other_glove_far_m": 0.344290763139725,
+			"other_glove_low_m": 0.000961685180663974,
+			"pre_drop_depth_m": 0.280354201793671,
+			"pre_drop_held_s": 0.0666666666666667,
+			"reach": 0.435091376304626,
+			"reach_frac": 0.939422786817244,
+			"window_s": [
+				0.333,
+				1.667
+			]
+		},
+		"pro_left_hook": {
+			"back_s": 0.366666666666668,
+			"bow_hip_m": -0.00957471877336502,
+			"bow_m": -0.187357380986214,
+			"contact_s": 0.6,
+			"elbow_contact_deg": 154.669467270653,
+			"elbow_deg": 154.669467270653,
+			"ext_hold_s": 0.490049108202715,
+			"finish_over_head": -0.159769868850708,
+			"forward_m": 0.653668105602264,
+			"hang_s": 0.193398383171571,
+			"hip_turn_deg": 67.5640456775501,
+			"length_s": 1.1,
+			"other_glove_far_m": 0.382345080375671,
+			"other_glove_low_m": 0.147352719306946,
+			"pre_drop_depth_m": 0.177156925201416,
+			"pre_drop_held_s": 0.0,
+			"reach": 0.47500404715538,
+			"reach_frac": 0.998819474256844,
+			"window_s": [
+				0.2,
+				1.033
+			]
+		},
+		"pro_left_hook_v2": {
+			"back_s": 0.566666666666668,
+			"bow_hip_m": -0.161750108003616,
+			"bow_m": -0.280662834644318,
+			"contact_s": 0.467,
+			"elbow_contact_deg": 121.757162378004,
+			"elbow_deg": 121.757162378004,
+			"ext_hold_s": 0.363649579775851,
+			"finish_over_head": -0.150202488899231,
+			"forward_m": 0.424672514200211,
+			"hang_s": 0.0560371077585562,
+			"hip_turn_deg": 70.0341193065001,
+			"length_s": 1.23333333333333,
+			"other_glove_far_m": 0.42169177532196,
+			"other_glove_low_m": 0.192589664459228,
+			"pre_drop_depth_m": 0.240976214408875,
+			"pre_drop_held_s": 0.0,
+			"reach": 0.431399196386337,
+			"reach_frac": 0.928628881348518,
+			"window_s": [
+				0.067,
+				1.067
+			]
+		},
+		"pro_left_jab": {
+			"back_s": 0.0833333333333335,
+			"bow_hip_m": 0.0150722786784172,
+			"bow_m": -0.0840872600674629,
+			"contact_s": 0.483,
+			"elbow_contact_deg": 170.402413953838,
+			"elbow_deg": 169.841345836453,
+			"ext_hold_s": 0.17289584636288,
+			"finish_over_head": -0.193994855880737,
+			"forward_m": 0.658755779266357,
+			"hang_s": 0.164968597545361,
+			"hip_turn_deg": 54.2157808223544,
+			"length_s": 0.84080819850317,
+			"other_glove_far_m": 0.0908194556832314,
+			"other_glove_low_m": 0.0362441778182983,
+			"pre_drop_depth_m": 0.0728087425231934,
+			"pre_drop_held_s": 0.0,
+			"reach": 0.487697184085846,
+			"reach_frac": 0.996578345701697,
+			"window_s": [
+				0.083,
+				0.583
+			]
+		},
+		"pro_left_jab_a": {
+			"back_s": 0.500000000000001,
+			"bow_hip_m": -0.0971450880169868,
+			"bow_m": -0.252442568540573,
+			"contact_s": 0.433,
+			"elbow_contact_deg": 156.04688503032,
+			"elbow_deg": 156.04688503032,
+			"ext_hold_s": 0.252036571126536,
+			"finish_over_head": -0.0576725959777833,
+			"forward_m": 0.554571330547333,
+			"hang_s": 0.166956226097069,
+			"hip_turn_deg": 53.6690551662444,
+			"length_s": 1.1,
+			"other_glove_far_m": 0.269566118717194,
+			"other_glove_low_m": 0.141291642189026,
+			"pre_drop_depth_m": 0.113192796707153,
+			"pre_drop_held_s": 0.0,
+			"reach": 0.474494576454163,
+			"reach_frac": 0.978361436501695,
+			"window_s": [
+				0.033,
+				0.95
+			]
+		},
+		"pro_left_jab_b": {
+			"back_s": 0.166666666666667,
+			"bow_hip_m": -0.0557658560574055,
+			"bow_m": -0.205319806933403,
+			"contact_s": 0.317,
+			"elbow_contact_deg": 148.983663091881,
+			"elbow_deg": 157.409183150429,
+			"ext_hold_s": 0.197522485772627,
+			"finish_over_head": -0.146077370643616,
+			"forward_m": 0.580053448677063,
+			"hang_s": 0.139999778448713,
+			"hip_turn_deg": 50.4970820397117,
+			"length_s": 0.808190267565911,
+			"other_glove_far_m": 0.238114610314369,
+			"other_glove_low_m": 0.0735391616821288,
+			"pre_drop_depth_m": 0.0581651926040649,
+			"pre_drop_held_s": 0.0,
+			"reach": 0.481152057647705,
+			"reach_frac": 0.982160266603327,
+			"window_s": [
+				0.0,
+				0.65
+			]
+		},
+		"pro_left_jab_c": {
+			"back_s": 0.266666666666667,
+			"bow_hip_m": -0.0793246850371361,
+			"bow_m": -0.249189525842667,
+			"contact_s": 0.317,
+			"elbow_contact_deg": 154.815103574928,
+			"elbow_deg": 156.074808556981,
+			"ext_hold_s": 0.230904128547201,
+			"finish_over_head": -0.140904998779297,
+			"forward_m": 0.577127277851105,
+			"hang_s": 0.139994428489885,
+			"hip_turn_deg": 52.5403516397806,
+			"length_s": 0.838443522415348,
+			"other_glove_far_m": 0.319101452827454,
+			"other_glove_low_m": 0.116378331184387,
+			"pre_drop_depth_m": 0.0166302919387817,
+			"pre_drop_held_s": 0.0,
+			"reach": 0.472072690725327,
+			"reach_frac": 0.978411675401361,
+			"window_s": [
+				0.0,
+				0.717
+			]
+		},
+		"pro_left_uppercut": {
+			"back_s": 0.733333333333333,
+			"bow_hip_m": -0.171592026948929,
+			"bow_m": -0.365601509809494,
+			"contact_s": 0.733,
+			"elbow_contact_deg": 102.16825329507,
+			"elbow_deg": 106.253017099147,
+			"ext_hold_s": 0.149692613339684,
+			"finish_over_head": 0.2495192527771,
+			"forward_m": 0.34997621178627,
+			"hang_s": 0.0606659028741557,
+			"hip_turn_deg": 75.974049904185,
+			"length_s": 1.6,
+			"other_glove_far_m": 0.57831335067749,
+			"other_glove_low_m": 0.187439346313476,
+			"pre_drop_depth_m": 0.335172116756439,
+			"pre_drop_held_s": 0.266666666666667,
+			"reach": 0.388666659593582,
+			"reach_frac": 0.826575109523799,
+			"window_s": [
+				0.333,
+				1.533
+			]
+		},
+		"pro_right_cross": {
+			"back_s": 0.366666666666667,
+			"bow_hip_m": 0.199535578489304,
+			"bow_m": 0.114468947052956,
+			"contact_s": 0.267,
+			"elbow_contact_deg": 164.404308654438,
+			"elbow_deg": 164.365829273573,
+			"ext_hold_s": 0.251485109733654,
+			"finish_over_head": -0.200658178329468,
+			"forward_m": 0.687364339828491,
+			"hang_s": 0.227888457745895,
+			"hip_turn_deg": 50.9297276532292,
+			"length_s": 0.866666666666667,
+			"other_glove_far_m": 0.229012742638588,
+			"other_glove_low_m": 0.0583111286163329,
+			"pre_drop_depth_m": 0.0424315929412842,
+			"pre_drop_held_s": 0.0,
+			"reach": 0.479224801063538,
+			"reach_frac": 0.994664950095631,
+			"window_s": [
+				0.0,
+				0.683
+			]
+		},
+		"pro_right_cross_a": {
+			"back_s": 0.300000000000001,
+			"bow_hip_m": 0.126876622438431,
+			"bow_m": -0.0387397855520248,
+			"contact_s": 0.467,
+			"elbow_contact_deg": 157.137882108088,
+			"elbow_deg": 157.137882108088,
+			"ext_hold_s": 0.114969829963427,
+			"finish_over_head": -0.181060767173767,
+			"forward_m": 0.602986633777618,
+			"hang_s": 0.107914826604357,
+			"hip_turn_deg": 39.8934557844655,
+			"length_s": 0.933333333333333,
+			"other_glove_far_m": 0.313226044178009,
+			"other_glove_low_m": 0.098613405227661,
+			"pre_drop_depth_m": 0.0853006839752197,
+			"pre_drop_held_s": 0.0,
+			"reach": 0.479419827461243,
+			"reach_frac": 0.980281668887176,
+			"window_s": [
+				0.067,
+				0.8
+			]
+		},
+		"pro_right_cross_b": {
+			"back_s": 0.433333333333335,
+			"bow_hip_m": 0.139860510826111,
+			"bow_m": -0.0364644229412079,
+			"contact_s": 0.567,
+			"elbow_contact_deg": 150.224272660689,
+			"elbow_deg": 150.224272660689,
+			"ext_hold_s": 0.15388577260902,
+			"finish_over_head": -0.152270412445068,
+			"forward_m": 0.575333058834076,
+			"hang_s": 0.140074163273642,
+			"hip_turn_deg": 28.852622729629,
+			"length_s": 1.16666666666667,
+			"other_glove_far_m": 0.264725178480148,
+			"other_glove_low_m": 0.0947542428970336,
+			"pre_drop_depth_m": 0.0475412607192993,
+			"pre_drop_held_s": 0.0,
+			"reach": 0.458711236715317,
+			"reach_frac": 0.977583898839837,
+			"window_s": [
+				0.167,
+				1.017
+			]
+		},
+		"pro_right_cross_c": {
+			"back_s": 0.466666666666668,
+			"bow_hip_m": 0.144220143556595,
+			"bow_m": -0.0396165996789932,
+			"contact_s": 0.483,
+			"elbow_contact_deg": 152.099729162636,
+			"elbow_deg": 159.685495711413,
+			"ext_hold_s": 0.231549803352105,
+			"finish_over_head": -0.17785701751709,
+			"forward_m": 0.602728128433228,
+			"hang_s": 0.159311867906624,
+			"hip_turn_deg": 37.6666663937158,
+			"length_s": 1.06666666666667,
+			"other_glove_far_m": 0.340157985687256,
+			"other_glove_low_m": 0.147278094291687,
+			"pre_drop_depth_m": 0.0720940828323364,
+			"pre_drop_held_s": 0.0,
+			"reach": 0.471502542495728,
+			"reach_frac": 0.98442031651425,
+			"window_s": [
+				0.083,
+				0.967
+			]
+		},
+		"pro_right_hook": {
+			"back_s": 0.883333333333332,
+			"bow_hip_m": 0.145360872149467,
+			"bow_m": 0.0148959010839462,
+			"contact_s": 0.8,
+			"elbow_contact_deg": 112.824198367473,
+			"elbow_deg": 112.824198367473,
+			"ext_hold_s": 0.983823142509135,
+			"finish_over_head": -0.167360997200012,
+			"forward_m": 0.525313019752502,
+			"hang_s": 0.0889601339929271,
+			"hip_turn_deg": 45.0518664202275,
+			"length_s": 2.03333333333333,
+			"other_glove_far_m": 0.546834409236908,
+			"other_glove_low_m": 0.171402239799499,
+			"pre_drop_depth_m": 0.196243405342102,
+			"pre_drop_held_s": 0.0,
+			"reach": 0.404794573783875,
+			"reach_frac": 0.834117078286057,
+			"window_s": [
+				0.4,
+				1.7
+			]
+		},
+		"pro_right_uppercut": {
+			"back_s": 0.333333333333333,
+			"bow_hip_m": 0.124311573803425,
+			"bow_m": -0.0553939044475555,
+			"contact_s": 0.833,
+			"elbow_contact_deg": 130.475005419858,
+			"elbow_deg": 101.974376155727,
+			"ext_hold_s": 0.166364325807765,
+			"finish_over_head": -0.113652682304382,
+			"forward_m": 0.415388852357864,
+			"hang_s": 0.0866740647006028,
+			"hip_turn_deg": 63.1387244430339,
+			"length_s": 1.3,
+			"other_glove_far_m": 0.330581903457642,
+			"other_glove_low_m": 0.0,
+			"pre_drop_depth_m": 0.304111301898956,
+			"pre_drop_held_s": 0.1,
+			"reach": 0.375959306955338,
+			"reach_frac": 0.908619543744179,
+			"window_s": [
+				0.433,
+				1.183
+			]
+		}
+	},
+	"inputs": {
+		"o_pro_left_jab": {
+			"contact_row_md5": "99914b932bd37a50b983c5e7c90ae93b",
+			"recovery_row_md5": "99914b932bd37a50b983c5e7c90ae93b",
+			"row_md5": "0276429f5d0aa4713d5daf0fe23751f0",
+			"take": "res://assets/anim/baked/mc_Box1_M3_Left_Jab.res",
+			"take_md5": "ad2597b609e5ad470a0ea4ecee5bbad0"
+		},
+		"o_pro_left_jab_b": {
+			"contact_row_md5": "99914b932bd37a50b983c5e7c90ae93b",
+			"recovery_row_md5": "99914b932bd37a50b983c5e7c90ae93b",
+			"row_md5": "830c87da1f59f778f88cb0ff1c5b9b19",
+			"take": "res://assets/anim/baked/mc_Box1_M3_Left_Jab_B.res",
+			"take_md5": "3ea5ee309dd65c9898fbe9afbeadcb11"
+		},
+		"o_pro_left_jab_c": {
+			"contact_row_md5": "99914b932bd37a50b983c5e7c90ae93b",
+			"recovery_row_md5": "99914b932bd37a50b983c5e7c90ae93b",
+			"row_md5": "b21c7014612c00b474771ee42fefd586",
+			"take": "res://assets/anim/baked/mc_Box1_M3_Left_Jab_C.res",
+			"take_md5": "fb5c996363952bc8a136fbb65b2ad5b9"
+		},
+		"pro_body_shot": {
+			"contact_row_md5": "f793f74d9f3ca9b068329d452119cf8e",
+			"recovery_row_md5": "d2949bad737ffe039c6878a6197c81c1",
+			"row_md5": "555215770b34b00a01ec514389b89b01",
+			"take": "res://assets/anim/baked/mc_Box1_M3_Body_Shot.res",
+			"take_md5": "c051610b4ee2f798966fea5dd1fe3116"
+		},
+		"pro_kidney_shot": {
+			"contact_row_md5": "8f0fad13dd6daadc48b9bc0463197766",
+			"recovery_row_md5": "828e6c54bdd660135bad0e7538fd60ca",
+			"row_md5": "33734403121bf663535a18c7467b7fb7",
+			"take": "res://assets/anim/baked/mc_Box1_M3_Kidney_Shot.res",
+			"take_md5": "e508a2a049b41a5c00c23058d8e624d7"
+		},
+		"pro_left_hook": {
+			"contact_row_md5": "d46c23a6515de72e0feb451592eca049",
+			"recovery_row_md5": "92751a54bedf6df99e793564937f1928",
+			"row_md5": "65b77350a95b2468b08fc96245789557",
+			"take": "res://assets/anim/baked/mc_Box1_M3_Left_Hook.res",
+			"take_md5": "5592a80e1751e70554c40212370bb24d"
+		},
+		"pro_left_hook_v2": {
+			"contact_row_md5": "1d48ab2ad34aedc0f656b35c00171e70",
+			"recovery_row_md5": "ccd6185bb49290b631de7c96451eb8ff",
+			"row_md5": "abed24e84cc311fd6f638ada261e9282",
+			"take": "res://assets/anim/baked/mc_Box1_M3_Left_Hook_V2.res",
+			"take_md5": "8036db19ac5f129ea18b798eed6383df"
+		},
+		"pro_left_jab": {
+			"contact_row_md5": "c4a9def0f686e013090449cb089725d7",
+			"recovery_row_md5": "86a87778b734db92d7af040fb7df6343",
+			"row_md5": "ecfe59fe1739202697d338f4bb33ca00",
+			"take": "res://assets/anim/baked/fixed/mc_Box1_M3_Left_Jab.res",
+			"take_md5": "f2e86ff4d0583e157e8cbd2da6d2162e"
+		},
+		"pro_left_jab_a": {
+			"contact_row_md5": "d4382f66c53102dae27ecf4faf176aad",
+			"recovery_row_md5": "6e6fc1915e0cf9bc63576e9fdd7cf947",
+			"row_md5": "c8484ddb224ff1bebdd43a591cc02bf4",
+			"take": "res://assets/anim/baked/mc_Box1_M3_Left_Jab_A.res",
+			"take_md5": "5b62a368df9efec9a079d2715e6b8b5c"
+		},
+		"pro_left_jab_b": {
+			"contact_row_md5": "b419fefc59e6a28289882444f599206d",
+			"recovery_row_md5": "e63f280880d80401f0e73eb0b300ea22",
+			"row_md5": "a20aab0e8043c5c4ec88fd4d3b254ccc",
+			"take": "res://assets/anim/baked/fixed/mc_Box1_M3_Left_Jab_B.res",
+			"take_md5": "3e4d6795e3631bbd96a90c3c34d8c078"
+		},
+		"pro_left_jab_c": {
+			"contact_row_md5": "9982b58e9c6471cada452a65f7d471bb",
+			"recovery_row_md5": "30c8a5cac60942261b0cabf7e6b746b5",
+			"row_md5": "f3f926c903c9aaa8f2b2f2aca752d688",
+			"take": "res://assets/anim/baked/fixed/mc_Box1_M3_Left_Jab_C.res",
+			"take_md5": "0d8331f7c1047ff1dc78e19c8b9b724c"
+		},
+		"pro_left_uppercut": {
+			"contact_row_md5": "abd963cb63dcc8acf7e1b0ad60b3e14b",
+			"recovery_row_md5": "a4e4d648c9800533db23f55d602b1dcf",
+			"row_md5": "c4e06f50aff24d98fbe59ed40f650be2",
+			"take": "res://assets/anim/baked/mc_Box1_M3_Left_Uppercut.res",
+			"take_md5": "edc24f13927a2720c3592bb6a65abb6a"
+		},
+		"pro_right_cross": {
+			"contact_row_md5": "6799b53cdae1b62b9f0281059f53a8ab",
+			"recovery_row_md5": "31612b0d00f09e9990800681a8e748d6",
+			"row_md5": "cb5b9a70c31eca611980aaf8bb0a7292",
+			"take": "res://assets/anim/baked/mc_Box1_M3_Right_Cross.res",
+			"take_md5": "536efbe1427185fb85ca699973db81ff"
+		},
+		"pro_right_cross_a": {
+			"contact_row_md5": "818ff9ccbd2710241dc181d239d1a7ad",
+			"recovery_row_md5": "34dc657d8cc280c14449f01ec6848deb",
+			"row_md5": "afb8a5829a14ee4cb157eb41c572c471",
+			"take": "res://assets/anim/baked/mc_Box1_M3_Right_Cross_A.res",
+			"take_md5": "29ce5a4b30cd7de085d434fa7cd1463d"
+		},
+		"pro_right_cross_b": {
+			"contact_row_md5": "61ba0624dbb2438148e6c664d1ffb0ac",
+			"recovery_row_md5": "fad151a2b2841ecec0ea94fc4c392cf5",
+			"row_md5": "47343de575f3b3d5a44cd7c42f8a7098",
+			"take": "res://assets/anim/baked/mc_Box1_M3_Right_Cross_B.res",
+			"take_md5": "ecdf7d2ab3c2ac209d48002efda44dd2"
+		},
+		"pro_right_cross_c": {
+			"contact_row_md5": "a78ee390446db583dc14bb2e7a413038",
+			"recovery_row_md5": "15261ca03a1a1b2621f9fb05f9100875",
+			"row_md5": "a06f1701520ecd5ba041192d556fe906",
+			"take": "res://assets/anim/baked/mc_Box1_M3_Right_Cross_C.res",
+			"take_md5": "bbb182514e0078a65d6b9e47f991e62b"
+		},
+		"pro_right_hook": {
+			"contact_row_md5": "b932f53bb3ac5601a88afdeb629b25fe",
+			"recovery_row_md5": "fb21f4d53b0c38d3247575bf0a7fb4b2",
+			"row_md5": "51bb3ffeb8fbda9fa5ecbe43cb03176d",
+			"take": "res://assets/anim/baked/mc_Box1_M3_Right_Hook.res",
+			"take_md5": "89cf7c51ba68134ac2e656127f8bf3ee"
+		},
+		"pro_right_uppercut": {
+			"contact_row_md5": "2004cde86a1fdcbe0bad80178e13797c",
+			"recovery_row_md5": "6e09ca8647e60b5f5087a5edd632f30b",
+			"row_md5": "eab6460fb23b13b834021706d1950667",
+			"take": "res://assets/anim/baked/mc_Box1_M3_Right_Uppercut.res",
+			"take_md5": "575248fba002fd78874fb8110d53abc6"
+		}
+	}
+}

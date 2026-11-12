@@ -183,3 +183,83 @@ FACE_HIT and HEAD_HIT were re-measured against the same S318 bars with RIB_HIT 3
 The corner-minute fixture in callout_pop_test carries `"side": "right"` (a carried side wins), so its liver checks hold.
 Still open: in 846 of 1800 rounds the settled body count is larger than the free single punches, so the ring shows
 fewer body shots than the fight rules settled (worst gap 4). Combination punches are not retagged on purpose.
+
+## S439, after the merge with S433 PUNCHSTART1 (Claude, the lead's ruling)
+The lead kept PUNCHSTART1 (one punch rule for both corners) and kept the S318 and RIBS1 bars, so the hit sizes were
+re-measured on the merged tree, as S438 did after the count match. The test now judges its two near-the-bar rates on the
+MEAN of eight disjoint 200-day windows (days 1000..2599, `RIB_WINDOW` lines); every other check reads the first window as
+before.
+
+Method: `tools/rib_sweep.gd` plays the test's three arms over the eight windows once (4,800 bouts), keeps the ring beats,
+and replays them through a copy of `BodyMap.add_beats` with the three sizes as parameters (nothing in the fight reads the
+map, so the beats do not move; the copy matched BodyMap on every bout, `SWEEP_COPY mismatches=0`). It also replays
+body_map_test's test 5 (the unit list).
+
+Red first, at the old sizes (1.15 / 0.575 / 3.1), the new test on the branch tip:
+```
+FAIL body plan target more-hit rib at or under 35 in 21.1% (at most 20; mean of 8 windows: 20.0 20.5 24.5 23.0 26.5 16.5 21.5 16.0)
+FAIL S318 loser hurt 36.6% (40-90; mean of 8 windows: 40.0 40.0 30.0 35.0 33.5 37.5 35.5 41.0)
+RIB_DAMAGE failures=2
+```
+
+Ribs (the body-plan reads depend on RIB_HIT only; eight-window means):
+
+| RIB_HIT | body plan rib <= 35 (<= 20; target <= 17) | body plan rib <= 55 (>= 60) | default more-hit (62-82) | default any rib <= 35 | head-only ribs (> 85) |
+|---|---|---|---|---|---|
+| 2.7 / 2.8 | 4.0 / 6.8 | 58.7 FAIL | 73.3 / 72.3 | 0.0 | 91.4 / 91.0 |
+| **2.85-2.95** | **9.8** | **67.9** | 71.8-70.8 | 0.0 | 90.7 / 95.4 |
+| 3.0-3.05 | 14.7 | 77.6 | 70.3-69.8 | 0.0 | 90.3 / 95.2 |
+| 3.1-3.2 (old) | 21.1 FAIL | 77.6 | 69.3-68.3 | 0.0 | 90.1 / 95.1 |
+| 3.3 | 29.4 FAIL | 85.9 | 67.4 | 0.0 | 89.4 / 94.8 |
+
+2.9 kept: the body plan's hurt rate 67.9 % is the one nearest RIBS1's 65 %; 3.0-3.05 also clears the critical bar (14.7)
+but hurts 77.6 %. In whole hooks 2.9 sits in 2.83-2.95 (hurt at 16 hooks, critical at 23).
+
+Face and head (RIB_HIT 2.9; real path = default arm, eight-window mean; unit list = body_map test 5, 300 seeds):
+
+| FACE_HIT / HEAD_HIT | real path loser hurt (40-90; target >= 43) | unit list loser hurt (40-90) | unit list winner fine / head lowest |
+|---|---|---|---|
+| 1.15 / 0.575 (S438) | 36.1 FAIL | 82.0 | 92.3 / 25.0 |
+| 1.16 / 0.58 | 41.6 | 86.7 | 87.7 / 26.0 |
+| 1.17 / 0.585 | 42.8 | 88.7 | 87.0 / 22.7 |
+| **1.18 / 0.59 (kept)** | **43.4** | **89.3** | 87.0 / 26.0 |
+| 1.185 / 0.5925 | 48.6 | 92.3 FAIL | 84.0 / 23.3 |
+| 1.20 / 0.60 | 49.1 | 92.3 FAIL | 84.0 / 22.7 |
+| 1.25 / 0.625 | 63.0 | 96.7 FAIL | 68.7 / 26.0 |
+
+Off the 2:1 ratio (same replay): every pair that lifts the real path to 43 or more puts the unit list at 88.7 or above
+(best: 1.20 / 0.55, 43.9 and 88.7; 1.10 / 0.61, 44.0 and 90.0; 1.15 / 0.61, 45.6 and 91.0). So the ratio buys nothing and
+2:1 stays. On the real path doctor is 0.0 % at every row and winner fine 95.5 % or more (98.8 % at the kept row).
+
+THE CATCH, stated: the real path's 43 and the unit list's 90 nearly meet. 1.18 / 0.59 is the only 2:1 step that holds
+both, and it holds the unit list by 0.7 (89.3 against 90; that list is fixed seeds, so it moves only when code moves). A
+small rise in face damage from any later change will fail body_map test 5 first. One window of eight still reads under
+40 (window 2: 38.0); the bar is on the mean.
+
+Final run (tests/rib_damage_test.gd at 1.18 / 0.59 / 2.9):
+```
+RIB_ARM default liver_mean=75.7 other_mean=87.8 hurt_pct=0.0 critical_pct=0.0 shots_mean=25.0
+RIB_DETAIL default more_hit=70.5 more_min=56.5 target_liver=78.5 target_other=88.9 any35=0.0
+RIB_ARM body liver_mean=60.6 other_mean=79.6 hurt_pct=64.0 critical_pct=11.0 shots_mean=41.0
+RIB_DETAIL body more_hit=50.0 more_min=18.8 target_liver=50.5 target_other=74.4 any35=11.0
+RIB_ARM head liver_mean=81.4 other_mean=90.6 hurt_pct=0.0 critical_pct=0.0 shots_mean=19.1
+RIB_DETAIL head more_hit=89.2 more_min=73.9 target_liver=90.2 target_other=95.0 any35=0.0
+RIB_WINDOW 0 days 1000..1199 body_crit=11.0 loser_hurt=45.0
+RIB_WINDOW 1 days 1200..1399 body_crit=6.0 loser_hurt=45.5
+RIB_WINDOW 2 days 1400..1599 body_crit=11.5 loser_hurt=38.0
+RIB_WINDOW 3 days 1600..1799 body_crit=10.5 loser_hurt=41.0
+RIB_WINDOW 4 days 1800..1999 body_crit=13.0 loser_hurt=41.5
+RIB_WINDOW 5 days 2000..2199 body_crit=9.5 loser_hurt=46.5
+RIB_WINDOW 6 days 2200..2399 body_crit=11.0 loser_hurt=41.0
+RIB_WINDOW 7 days 2400..2599 body_crit=5.5 loser_hurt=49.0
+PASS body plan target more-hit rib at or under 35 in 9.8% (at most 20; mean of 8 windows)
+PASS S318 loser hurt 43.4% (40-90; mean of 8 windows)
+S318 loser_hurt=45.0 (first window; mean 43.4) doctor=0.0 winner_fine=99.0
+RIB_INJURY default_any35=0.0 body_any35=11.0
+RIB_MATCH worst=0
+RIB_SHORT rounds=850 of 1800 worst_gap=4 mean_gap=1.25
+RIB_DAMAGE failures=0
+```
+body_map_test: `t5: loser_hurt=89% doctor=0% winner_fine=87% head_lowest=26%`, BODY_MAP failures=0. callout_pop_test
+(LIVER line from RIB_HIT) CALLOUT_POP failures=0. Rib injuries: the body plan arm's share of bouts with a rib at 35 or
+under falls from 15.0 % (S438, one window) to 11.0 % (first window; 9.8 % over eight).

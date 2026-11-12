@@ -65,7 +65,7 @@ static func fight_step(c: Career, f: Dictionary, m: Dictionary, a: String) -> vo
 		m["step"] = "round"
 		m["round"] = 0
 		m["rounds"] = []
-		_peak(f)
+		_peak(c, f)
 		_open(c, f, m, "")
 	elif a.begins_with("corner:") and not stopped(m) and LiveRound.live(m).is_empty():
 		# S309: "corner:<call>|<habit>" also fixes one habit for the round. S310 the other corner jobs ride as labelled
@@ -97,15 +97,17 @@ static func play_out(c: Career, f: Dictionary, m: Dictionary) -> void:
 
 ## S356 the peak-camp bonus at the first bell: a camp with all three goal lines met sends her out +1 every stat, taken
 ## back at the result (_finish). Checked once a bout.
-static func _peak(f: Dictionary) -> void:
+static func _peak(c: Career, f: Dictionary) -> void:
 	var b: Dictionary = f["bout"]
 	if b.has("peak_rows"):
 		return
 	var rows := PeakCamp.lines(f.get("camp", {}), f)
 	b["peak_rows"] = rows
-	# S380 heavy legs: the camp's fatigue still in her on the night (fight night is not trained: Friday's number)
+	# S433 NOCAMP1 + TANK1: the Tank off at the first bell on EVERY bout, camp or not (BoutRules.tank; Friday's tiredness)
 	if not b.has("stale"):   # PlanTest's scratch bouts carry the forecast's fight-night number instead of today's
-		b["stale"] = BoutRules.stale_energy(float(f.get("week_fatigue", 20.0)), f.get("camp", {}))
+		var tp := BoutRules.tank_parts_for(c.results, f, float(f.get("week_fatigue", 20.0)), int(b.get("day", c.day)))
+		b["stale"] = float(tp["off"])
+		b["tank_why"] = BoutRules.tank_words(tp)
 	if PeakCamp.met(rows):
 		b["peak_add"] = PeakCamp.boost(f["stats"], PeakCamp.CAP)
 
@@ -294,27 +296,27 @@ static func _lines(c: Career, f: Dictionary, r: Dictionary) -> void:
 
 
 ## S302 combos + energy (operator: "combos should also be associated with energy (stamina) in the fight"). Both tanks run
-## across the bout (f["bout"]["energy"]): her combos and the corner's call spend hers, her conditioning sets the rate and the
-## 60 s break gives some back (Combos). Her drilled combos add an edge that shrinks as she tires; an empty tank costs
+## across the bout (f["bout"]["energy"]): her combos and the corner's call spend hers, her Stamina sets the rate and the
+## 60 s break gives some back by her Recovery (Combos; S433 CARDIO1). Her drilled combos add an edge that shrinks as she tires; an empty tank costs
 ## power. The opponent tires too (her penalty helps us); her combos add no edge, her rating already holds her skill.
 ## Returns {a, b (energy at the bell to start the round), a_end, b_end, bonus (power points for play_round)}.
 static func _energy(f: Dictionary, n: int, corner: String) -> Dictionary:
 	var fb: Dictionary = f["bout"]
 	if n == 1 or not fb.has("energy"):
 		# S327 she fights hurt (the player's call, Injuries.fight_hurt): less in her tank from the first bell.
-		# S380 and heavy legs from a camp that left her tired (BoutRules.stale_energy, set in _peak).
+		# S433 and the Tank off at the first bell, camp or not (BoutRules.tank, set in _peak).
 		fb["energy"] = {"a": Combos.TANK - float(fb.get("hurt", 0.0)) - float(fb.get("stale", 0.0)), "b": Combos.TANK, "qa": 0.0, "qb": 0.0}
 	var op := RoundStyle.from_opponent(fb["opp"])
 	var mine: Dictionary = OwnCombos.all_mastery(f)   # S375 COMBOPLAN1: his own drilled combinations count too
 	# S378 PLANCOMBO1: the plan's go-to pays NAMED_SHARE while he still throws it whole mid-round (ring_edge's whole_energy).
-	var cond_a := float(f["stats"].get("conditioning", 55.0))
+	var own := Attrs.of(f)
 	var cond_b := RoundStyle.stat(op, "conditioning")
 	var a0 := PerkFight.second_wind(f, n, float(fb["energy"]["a"]))   # S355 Second wind: energy back at the round-3 bell
 	var b0 := float(fb["energy"]["b"])
 	# S303 (John J-COMBOENERGY1): the rest refills half the fast debt; the slow part stays spent all fight.
 	# S373 GOALTESTS1 phase 2: a passed grade's moves cost less gas (SkillAwards.ECONOMY over the round's punch mix).
 	var econ := SkillAwards.bout_economy(f, RoundStyle.SHARE)
-	var ra := Combos.after_round(a0, float(fb["energy"].get("qa", 0.0)), Combos.round_spend(mine, corner, cond_a, econ), cond_a)
+	var ra := Combos.after_round(a0, float(fb["energy"].get("qa", 0.0)), Combos.round_spend(mine, corner, float(own["stamina"]), econ), float(own["recovery"]))
 	var rb := Combos.after_round(b0, float(fb["energy"].get("qb", 0.0)), Combos.round_spend(op["combos"], "", cond_b), cond_b)
 	var a1 := float(ra["bell"])
 	var b1 := float(rb["bell"])
@@ -342,8 +344,8 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	PeakCamp.unboost(f["stats"], f["bout"].get("peak_add", {}))
 	var peak := PeakCamp.line(str(f["first"]), f["bout"].get("peak_rows", []))
 	if float(f["bout"].get("stale", 0.0)) > 0.0:
-		why.push_front("Heavy legs: %s carried the camp's fatigue into the ring (-%d energy at the first bell)." % [f["first"],
-			int(round(float(f["bout"]["stale"])))])
+		why.push_front("The Tank: %s started %d down at the first bell (%s)." % [f["first"], int(round(float(f["bout"]["stale"]))),
+			str(f["bout"].get("tank_why", "tiredness"))])
 	if not rounds.is_empty() and not bool(rounds[0]["won"]) and BoutRules.never_faced(str(f.get("stance", "orthodox")), opp,
 			camp, bool(f["bout"].get("lefty", false))):
 		why.push_front("Round 1: %s had never faced a southpaw." % f["first"])
@@ -406,6 +408,7 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 				d["state"] = "offer"
 				c.add_news("%s wants to sponsor %s: %s a week (Club, Money)." % [d["name"], f["first"], GameMoney.text(int(d["per"]))])
 	var card_text := ", ".join(cards) if stop == "" else "%s round %d" % [stop, rounds.size()]
+	f["last_bout_day"] = c.day   # S434 the Tank's last bout, read by the bout page too (BoutRules.tank_read)
 	c.results.push_front({"d": c.day, "fid": f["id"], "who": f["first"], "opp": opp["name"], "win": win, "outcome": outcome, "pro": pro, "cards": card_text,
 		"why": why[0] if not why.is_empty() else "", "plan_rec": PlanRecord.summary(rounds)})
 	# S341 three rounds show everything: her whole file opens, and the career's record of her keeps it.

@@ -1,0 +1,258 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Our show</title>
+<style>
+:root{--bg:#101418;--panel:#181e25;--panel2:#1e252d;--line:#2b343e;--text:#e9e6df;--mut:#8f99a4;--gold:#e2b64c;--red:#d8473e;--blue:#4a82dc;--green:#46b86f;--amber:#e08a2e}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--text);font-family:"Segoe UI",Arial,sans-serif;font-size:16px}
+.num{font-family:Bahnschrift,"Segoe UI",sans-serif;font-variant-numeric:tabular-nums}
+.cap{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--mut);font-weight:600}
+/* top bar */
+.top{position:absolute;left:0;top:0;width:1920px;height:60px;background:#0a0d10;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px;gap:22px}
+.arrow{width:32px;height:32px;border:1px solid var(--line);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:18px}
+.gym{font-weight:700;font-size:18px}
+.date{color:var(--mut);font-size:15px}
+.flag{background:#3a2a10;color:var(--gold);border:1px solid #6b4f1c;border-radius:3px;padding:4px 10px;font-size:12px;letter-spacing:1.5px;font-weight:700}
+.sp{flex:1}
+.cash{font-size:20px;font-weight:700}
+.cash small{display:block;font-size:11px;color:var(--mut);font-weight:400;letter-spacing:1px}
+.cont{background:var(--red);border-radius:4px;padding:8px 18px;font-weight:700;font-size:16px;line-height:1.1}
+.cont small{display:block;font-weight:400;font-size:12px;opacity:.9}
+.menu{color:var(--mut);font-size:15px}
+/* rail */
+.rail{position:absolute;left:0;top:60px;width:88px;height:1020px;background:#0c1014;border-right:1px solid var(--line);padding-top:18px}
+.rail div{height:64px;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:14px;border-left:3px solid transparent}
+.rail .on{color:var(--text);border-left-color:var(--red);background:#151b21;font-weight:700}
+.rail .badge{display:inline-block;background:var(--red);color:#fff;border-radius:9px;font-size:11px;padding:0 6px;margin-left:4px}
+/* content */
+.main{position:absolute;left:112px;top:76px;width:1784px;height:990px}
+.tabs{display:flex;gap:6px;height:34px}
+.tab{padding:6px 18px;border:1px solid var(--line);border-bottom:none;border-radius:4px 4px 0 0;color:var(--mut);font-size:15px}
+.tab.on{background:var(--panel);color:var(--text);font-weight:700;border-color:#3a4450}
+.head{background:var(--panel);border:1px solid #3a4450;border-radius:0 6px 6px 6px;height:150px;padding:16px 24px;display:flex;flex-direction:column;justify-content:space-between}
+.h1row{display:flex;align-items:baseline;gap:22px}
+.h1{font-family:Bahnschrift,"Segoe UI";font-size:34px;font-weight:700;letter-spacing:1px}
+.chip{border:1px solid var(--line);border-radius:3px;padding:3px 10px;font-size:14px;color:var(--text);background:var(--panel2)}
+.chip b{color:var(--gold)}
+.days{margin-left:auto;font-family:Bahnschrift;font-size:34px;color:var(--gold);font-weight:700}
+.days small{font-size:14px;color:var(--mut);letter-spacing:2px;margin-left:6px}
+.tl{display:flex;align-items:center;position:relative;height:44px}
+.tl:before{content:"";position:absolute;left:8px;right:8px;top:9px;height:2px;background:var(--line)}
+.tl .fill{position:absolute;left:8px;width:31%;top:9px;height:2px;background:var(--gold)}
+.node{position:relative;flex:1;font-size:13px;color:var(--mut)}
+.node i{display:block;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--line);margin-bottom:5px}
+.node.done i{background:var(--gold);border-color:var(--gold)}
+.node.now i{background:var(--bg);border-color:var(--gold);box-shadow:0 0 0 3px rgba(226,182,76,.25)}
+.node.now{color:var(--text);font-weight:700}
+.node:last-child{flex:0 0 150px;text-align:right}
+.node:last-child i{margin-left:auto;border-color:var(--red)}
+.cols{display:flex;gap:20px;margin-top:16px}
+.left{width:1110px}
+.right{width:654px}
+.sec{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px}
+.sec .cap{color:var(--gold)}
+.sec .note{font-size:13px;color:var(--mut)}
+/* bout rows */
+.bout{background:var(--panel);border:1px solid var(--line);border-radius:6px;height:150px;margin-bottom:10px;display:flex;padding:14px 16px;gap:16px;position:relative}
+.bout.mev2{border-color:#6b5420;box-shadow:inset 3px 0 0 var(--gold)}
+.side{width:250px;display:flex;gap:12px;align-items:flex-start}
+.disc{width:54px;height:54px;border-radius:50%;flex:0 0 54px;display:flex;align-items:center;justify-content:center;font-family:Bahnschrift;font-weight:700;font-size:20px}
+.ours{background:#3b1d1b;border:2px solid var(--red);color:#f3c2bd}
+.theirs{background:#18263c;border:2px solid var(--blue);color:#bcd2f5}
+.unk{background:#20252b;border:2px dashed #5a6570;color:var(--mut)}
+.nm{font-weight:700;font-size:17px;line-height:1.2}
+.sub{font-size:13px;color:var(--mut);line-height:1.45}
+.vs{width:26px;color:var(--mut);font-size:13px;padding-top:18px;text-align:center;font-weight:700}
+.opp{width:300px;display:flex;gap:12px;align-items:flex-start}
+.stake{flex:1;display:flex;flex-direction:column;gap:4px;font-size:14px;border-left:1px solid var(--line);padding-left:16px}
+.band{display:flex;align-items:center;gap:10px}
+.bar{position:relative;width:120px;height:8px;background:#2a3139;border-radius:4px}
+.bar span{position:absolute;top:0;height:8px;border-radius:4px;background:var(--blue)}
+.bar em{position:absolute;top:-4px;width:2px;height:16px;background:var(--mut);left:60px}
+.st{font-size:12px;font-weight:700;letter-spacing:1.5px;padding:3px 8px;border-radius:3px;display:inline-block}
+.asked{background:#2e2610;color:var(--gold);border:1px solid #6b5420}
+.yes{background:#123020;color:var(--green);border:1px solid #2a6a44}
+.none{background:#331816;color:#ef8f87;border:1px solid #6e2c27}
+.mev{background:var(--gold);color:#15110a}
+.btns{display:flex;flex-direction:column;gap:8px;width:170px;justify-content:center}
+.btn{border:1px solid #4a5560;border-radius:4px;padding:8px 10px;text-align:center;font-size:14px;color:var(--text);background:#232b33}
+.btn.pri{background:var(--red);border-color:var(--red);font-weight:700}
+.alts{position:absolute;left:16px;right:16px;bottom:10px;font-size:12.5px;color:var(--mut);display:flex;gap:18px;white-space:nowrap;overflow:hidden}
+.alts b{color:var(--text);font-weight:600}
+.alts .no{color:#b66f69}
+.why{font-size:13.5px;color:#d9b3ae;line-height:1.45}
+/* visiting */
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pair{background:var(--panel);border:1px solid var(--line);border-radius:5px;height:62px;padding:8px 12px;display:flex;align-items:center;gap:10px;font-size:14px}
+.pair .w{color:var(--mut);font-size:12px;width:62px;line-height:1.25}
+.pair .ppl{flex:1;line-height:1.35}
+.pair .ppl span{color:var(--mut);font-size:12px}
+.pair .chg{font-size:13px;color:var(--blue);border:1px solid #2f4a70;border-radius:3px;padding:4px 9px}
+.lad{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--gold);border:1px solid #6b5420;border-radius:3px;padding:2px 6px;margin-left:6px}
+/* right column */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 16px;margin-bottom:9px}
+.prices{display:flex;gap:10px}
+.price{flex:1;border:1px solid var(--line);border-radius:5px;padding:6px 12px;background:var(--panel2)}
+.price.on{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.price .p{font-family:Bahnschrift;font-size:21px;font-weight:700}
+.price .d{font-size:12.5px;color:var(--mut);line-height:1.45}
+.price .d b{color:var(--text)}
+.tix{display:flex;align-items:baseline;gap:12px}
+.big{font-family:Bahnschrift;font-size:30px;font-weight:700}
+.room{position:relative;height:24px;margin:6px 0 4px;background:#232a32;border-radius:3px;overflow:hidden}
+.seg{position:absolute;top:0;height:26px;font-size:11px;color:#0e1114;font-weight:700;display:flex;align-items:center;justify-content:center;border-right:1px solid #101418}
+.rng{position:absolute;top:0;height:26px;background:repeating-linear-gradient(45deg,rgba(226,182,76,.35) 0 6px,rgba(226,182,76,.12) 6px 12px)}
+.mark{position:absolute;top:-2px;width:2px;height:30px}
+.legend{display:flex;justify-content:space-between;font-size:12px;color:var(--mut)}
+.parts{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;color:var(--mut);margin-top:8px}
+.parts i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{padding:2px 0;border-bottom:1px solid #232b33}
+td.r{text-align:right;font-family:Bahnschrift;font-size:16px}
+tr.net td{border-bottom:none;padding-top:8px;font-weight:700;font-size:16px}
+tr.net td.r{color:var(--green);font-size:20px}
+.pos{color:var(--green)} .neg{color:var(--red)}
+.rep{display:grid;grid-template-columns:1fr 70px 70px;font-size:14px;row-gap:3px}
+.rep .h{font-size:11px;color:var(--mut);letter-spacing:1.5px;text-align:right}
+.rep .r{text-align:right;font-family:Bahnschrift;font-size:17px}
+.next{font-size:13.5px;color:var(--mut);line-height:1.5}
+.next b{color:var(--text)}
+</style></head><body>
+
+<div class="top">
+  <div class="arrow">&lsaquo;</div><div class="arrow">&rsaquo;</div>
+  <div class="gym">Anvil Street Gym</div>
+  <div class="date">Mon 6 Jul 2026 &middot; Week 27</div>
+  <div class="flag">SHOW CARD</div>
+  <div class="sp"></div>
+  <div class="cash num">$11,400<small>RUNNING +$140 A WEEK</small></div>
+  <div class="cont">CONTINUE<small>to Thu 9 Jul, Erin Doyle's answer</small></div>
+  <div class="menu">Menu</div>
+</div>
+
+<div class="rail">
+  <div>Home</div><div>Fighters</div><div class="on">Fights</div><div>Club</div><div>World</div>
+</div>
+
+<div class="main">
+  <div class="tabs"><div class="tab">Bouts</div><div class="tab on">Our show</div><div class="tab">Results</div></div>
+  <div class="head">
+    <div class="h1row">
+      <div class="h1">ANVIL STREET CLUB SHOW</div>
+      <div class="chip">Sat 25 Jul</div>
+      <div class="chip">Community hall &middot; <b>250</b> seats &middot; 9 bouts</div>
+      <div class="chip">Deposit <b>$300</b> paid 25 May</div>
+      <div class="days">19<small>DAYS</small></div>
+    </div>
+    <div class="tl"><div class="fill"></div>
+      <div class="node done"><i></i>Booked Mon 25 May</div>
+      <div class="node now"><i></i>Card open: today</div>
+      <div class="node"><i></i>Ticket read Mon 13 Jul</div>
+      <div class="node"><i></i>Bout sheet closes Wed 22 Jul</div>
+      <div class="node"><i></i>Weigh-in Fri 24 Jul</div>
+      <div class="node"><i></i>Show night Sat 25 Jul</div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="left">
+      <div class="sec"><div class="cap">Our bouts &middot; you make the match</div><div class="note">Novices meet novices &middot; no rating gap over 6 &middot; one ask at a time, answered in 3 days</div></div>
+
+      <div class="bout mev2">
+        <div class="side"><div class="disc ours">LJ</div><div><div class="nm">Lucy Jackson</div><div class="sub">6-1 &middot; No. 4 women's 60 kg<br>Novice, 7 bouts</div><div style="margin-top:8px"><span class="st mev">MAIN EVENT</span></div></div></div>
+        <div class="vs">v</div>
+        <div class="opp"><div class="disc theirs">ED</div><div><div class="nm">Erin Doyle</div><div class="sub">Belfast Gloves ABC<br>8-2 &middot; No. 2 &middot; Novice, 10 bouts</div><div style="margin-top:8px"><span class="st asked">ASKED &middot; ANSWER THU 9 JUL</span></div></div></div>
+        <div class="stake">
+          <div class="band"><div class="bar"><span style="left:46px;width:17px"></span><em></em></div><span class="num">38&ndash;52 in 100</span></div>
+          <div>Win: <b>No. 2 or 3</b>, passes Erin Doyle</div>
+          <div>Loss: <b class="neg">No. 5</b></div>
+          <div class="sub">Yes 5 in 10 &middot; +15 tickets as main event</div>
+        </div>
+        <div class="btns"><div class="btn">Ask someone else</div></div>
+        <div class="alts"><span><b>Priya Nair</b> No. 3 &middot; yes 5 in 10</span><span><b>Maria Ortega</b> unranked &middot; yes 9 in 10 &middot; a weaker name: +3 reputation on a win, not +5</span><span class="no">Sophie Turner No. 5: not allowed, 14 bouts (open)</span></div>
+      </div>
+
+      <div class="bout">
+        <div class="side"><div class="disc ours">SK</div><div><div class="nm">Samira Khan</div><div class="sub">4-2 &middot; No. 4 women's 65 kg<br>Novice, 6 bouts</div></div></div>
+        <div class="vs">v</div>
+        <div class="opp"><div class="disc theirs">LF</div><div><div class="nm">Laura Finch</div><div class="sub">Islington BC<br>5-3 &middot; No. 3 &middot; Novice, 8 bouts</div><div style="margin-top:8px"><span class="st yes">SAID YES</span></div></div></div>
+        <div class="stake">
+          <div class="band"><div class="bar"><span style="left:53px;width:19px"></span><em></em></div><span class="num">44&ndash;60 in 100</span></div>
+          <div>Win: <b>No. 3</b>, passes Laura Finch</div>
+          <div>Loss: <b class="neg">No. 5</b></div>
+          <div class="sub">+25 tickets as one of ours</div>
+        </div>
+        <div class="btns"><div class="btn">Make main event</div></div>
+      </div>
+
+      <div class="bout">
+        <div class="side"><div class="disc ours">DO</div><div><div class="nm">Danny Osei</div><div class="sub">4-1 &middot; unranked men's 60 kg<br>Novice, 5 bouts</div></div></div>
+        <div class="vs">v</div>
+        <div class="opp" style="width:520px"><div class="disc unk">?</div><div><div class="nm" style="color:#ef8f87">Nobody legal in the region</div><div class="why">Liam Doherty 12 bouts, Dean Clarke 15, Arjun Patel 15: all open boxers.<br>An unknown novice from outside the region: 0 to 3 bouts, no tape,<br>travel $80, win band 25&ndash;75 in 100.</div></div></div>
+        <div class="stake" style="border:none"></div>
+        <div class="btns"><div class="btn pri">Invite an unknown</div><div class="btn">Leave Danny off</div></div>
+      </div>
+
+      <div class="sec" style="margin-top:14px"><div class="cap">Visiting bouts &middot; the coach's pairs</div><div class="note">6 bouts &middot; each visiting boxer brings 3 supporters, travel $40</div></div>
+      <div class="vgrid">
+        <div class="pair"><div class="w">Women's<br>60 kg</div><div class="ppl"><b>Priya Nair</b> No. 3 <span>Leicester ABC</span><span class="lad">MOVES LUCY'S LADDER</span><br><b>Chloe Bennett</b> No. 6 <span>Dale Youth ABC</span></div><div class="chg">Change</div></div>
+        <div class="pair"><div class="w">Women's<br>57 kg</div><div class="ppl"><b>Grace Adeyemi</b> 4-1 <span>Lynn AC</span><br><b>Nina Kowalski</b> 6-2 <span>Double Jab ABC</span></div><div class="chg">Change</div></div>
+        <div class="pair"><div class="w">Women's<br>65 kg</div><div class="ppl"><b>Jade Okoro</b> 4-2 <span>Haringey Police CC</span><br><b>Tia Benson</b> 4-4 <span>Lion ABC</span></div><div class="chg">Change</div></div>
+        <div class="pair"><div class="w">Women's<br>75 kg</div><div class="ppl"><b>Amy Croft</b> 5-3 <span>Dale Youth ABC</span><br><b>Siobhan Byrne</b> 6-2 <span>West Ham Boxing Club</span></div><div class="chg">Change</div></div>
+        <div class="pair"><div class="w">Men's<br>57.5 kg</div><div class="ppl"><b>Tariq Hussain</b> 10-4 <span>Birtley ABC</span><br><b>Owen Pritchard</b> 12-6 <span>Lynn AC</span></div><div class="chg">Change</div></div>
+        <div class="pair"><div class="w">Men's<br>75 kg</div><div class="ppl"><b>Ben Hollis</b> 8-5 <span>Lynn AC</span><br><b>Ewan Fraser</b> 9-4 <span>Rotunda ABC</span></div><div class="chg">Change</div></div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="sec"><div class="cap">The night &middot; forecast</div><div class="note">The card as asked</div></div>
+      <div class="card">
+        <div class="cap" style="margin-bottom:8px">Ticket price &middot; can change until the read</div>
+        <div class="prices">
+          <div class="price"><div class="p">$15</div><div class="d">210&ndash;250 sold<br>net <b>+$610 to +$2,010</b><br>nearly always full</div></div>
+          <div class="price on"><div class="p">$25</div><div class="d">168&ndash;250 sold<br>net <b>+$1,660 to +$4,510</b><br>full from 213</div></div>
+          <div class="price"><div class="p">$35</div><div class="d">126&ndash;207 sold<br>net <b>+$1,870 to +$5,505</b><br>never full</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="tix"><div class="big num">168&ndash;250</div><div class="sub">tickets of 250 seats</div></div>
+        <div class="room">
+          <div class="seg" style="left:0;width:16%;background:#7f8a95">40</div>
+          <div class="seg" style="left:16%;width:16.4%;background:#9aa6b2">41</div>
+          <div class="seg" style="left:32.4%;width:9.6%;background:#b9c3cc">24</div>
+          <div class="seg" style="left:42%;width:30%;background:var(--red);color:#fff">75</div>
+          <div class="seg" style="left:72%;width:18%;background:var(--blue);color:#fff">45</div>
+          <div class="seg" style="left:90%;width:6%;background:var(--gold)">15</div>
+          <div class="mark" style="left:50%;background:#ef8f87"></div>
+          <div class="mark" style="left:85.2%;background:var(--green)"></div>
+        </div>
+        <div class="legend"><span>0</span><span style="color:#ef8f87">125: half-empty</span><span style="color:var(--green)">213: full</span><span>250</span></div>
+        <div class="parts"><span><i style="background:#7f8a95"></i>walk-ins 40</span><span><i style="background:#9aa6b2"></i>58 members 41</span><span><i style="background:#b9c3cc"></i>reputation 24</span><span><i style="background:var(--red)"></i>our 3 boxers 75</span><span><i style="background:var(--blue)"></i>15 visiting boxers 45</span><span><i style="background:var(--gold)"></i>ranked main event 15</span></div>
+        <div class="sub" style="margin-top:6px">Expected 240; on the night 70% to 115% of it. If Erin Doyle says no: 15 fewer.</div>
+      </div>
+
+      <div class="card">
+        <table>
+          <tr><td>Tickets at $25</td><td class="r pos">+$4,200 to +$6,250</td></tr>
+          <tr><td>Raffle</td><td class="r pos">+$600 to +$1,400</td></tr>
+          <tr><td>Hall rent ($300 already paid)</td><td class="r neg">&minus;$1,000</td></tr>
+          <tr><td>Officials, doctor, ambulance</td><td class="r neg">&minus;$1,200</td></tr>
+          <tr><td>Medals and trophies</td><td class="r neg">&minus;$300</td></tr>
+          <tr><td>Travel: 14 visiting boxers $40, the unknown $80</td><td class="r neg">&minus;$640</td></tr>
+          <tr class="net"><td>The night</td><td class="r">+$1,660 to +$4,510</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="rep">
+          <div class="cap" style="color:var(--gold)">Reputation at stake</div><div class="h">GOOD</div><div class="h">BAD</div>
+          <div>The room: full / half-empty</div><div class="r pos">+4</div><div class="r neg">&minus;3</div>
+          <div>The main event: win / loss</div><div class="r pos">+3</div><div class="r neg">&minus;2</div>
+          <div>Each of our bouts: win / loss</div><div class="r pos">+5</div><div class="r neg">&minus;2</div>
+        </div>
+        <div class="next" style="margin-top:6px">Reputation moves where members settle: <b>+1 point = +0.6 members</b>. A full room also brings <b>15%</b> of tonight's crowd back to the next show.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

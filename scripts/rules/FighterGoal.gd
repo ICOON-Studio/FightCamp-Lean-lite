@@ -3,9 +3,13 @@ extends RefCounted
 ## the S292 retarget, stripped for the lean restart). Pure static functions: no class_name, no preload, no argument mutation.
 ## Kept: the archetypes week 1-2 use, goal_for, progress (ON TRACK / AT RISK / OFF TRACK / MET / MISSED), outcome, card.
 ## Dropped: make-the-weight, the gatekeeper, damage control, the walk-out warning, seeded picks and next_choices.
-## All targets, buffers and trust/morale deltas are game-design values, not sport-science measurements.
+## All targets, buffers and morale deltas are game-design values, not sport-science measurements.
+## S433 CARDIO1 (TRAINING_MAP F3, CORE_LOOP C1 / C3): a goal names one of the 14 abilities (Attrs.ABILITIES) and reads that
+## number alone - "Stamina 63" is met when Stamina reaches 63, never the mean of Stamina and Recovery. A goal moves mood only
+## (the trust_delta nothing read is gone; loyalty is the bond). A goal saved on an old summary stat still reads it.
 
-const STAT_KEYS: Array[String] = ["power", "technique", "speed", "defense", "conditioning", "fight_iq", "chin"]
+const STAT_KEYS: Array[String] = ["strength", "explosiveness", "speed", "stamina", "recovery", "flexibility", "durability",
+	"fight_iq", "composure", "accuracy", "timing", "defence", "footwork", "inside"]
 const STAT_MAX: float = 100.0
 const STAT_DEFAULT: float = 55.0
 
@@ -13,10 +17,17 @@ const DEBUT_DAYS: int = 28
 const SOUTHPAW_DAYS: int = 21
 const ENGINE_DAYS: int = 28
 ## S292: deltas sit where a well-run plan clears about 70% (a focused week trains ~1.0 x coach x headroom).
-const DEBUT_CONDITIONING_DELTA: float = 3.5
-const SOUTHPAW_TECHNIQUE_DELTA: float = 2.5
+const DEBUT_STAMINA_DELTA: float = 3.5
+const SOUTHPAW_ACCURACY_DELTA: float = 2.5
 ## Lean: +2.5, not the prototype's +3: with a coach hired in week 1 she clears it about 70% of the time (decided rule).
-const ENGINE_CONDITIONING_DELTA: float = 2.5
+const ENGINE_STAMINA_DELTA: float = 2.5
+## S434 CARDIO1: "Stamina for five rounds" aims at the round-3 fade line (BoutRules.FADE_STAMINA) when it is within this
+## many points, else +2.5. FADESHARE round 2 (tools/fade_share.gd, the 206 signings through 28 days of Sim.step_day): a
+## player who answers the goal with the Cardio week (Tue intervals, Thu roadwork) meets it 72.3% of the time (named six
+## 83.3%; main's goal on the mean, +2.5 conditioning, 41.3%) - the decided ~70% for a well-run plan. On the fighter's own
+## week, untouched, 46.6% (main 0%). Gains in 28 days on the Cardio week: mean 3.60, 30th percentile 2.60, so a gap of 3
+## or less is a month's work; a fighter further under the line needs two goals (Lucy 56.4: +2.5 to 58.9).
+const ENGINE_LINE_REACH: float = 3.0
 
 ## ON_TRACK must hit 100% at least 2 days early; AT_RISK projects to at least 80%; OFF_TRACK less.
 const ON_TRACK_BUFFER_DAYS: int = 2
@@ -25,9 +36,7 @@ const AT_RISK_MIN_SHARE: float = 0.80
 const AT_RISK_UPPER_MISS_SHARE: float = 0.90
 const SHARE_EPSILON: float = 0.0001
 
-const SUCCESS_TRUST_DELTA: int = 25
 const SUCCESS_MORALE_DELTA: int = 10
-const FAILURE_TRUST_DELTA: int = -25
 const FAILURE_MORALE_DELTA: int = -20
 
 const ARCHETYPES: Array[Dictionary] = [
@@ -35,7 +44,7 @@ const ARCHETYPES: Array[Dictionary] = [
 		"id": "debut_inside_a_month",
 		"title": "Debut inside a month",
 		"days": DEBUT_DAYS,
-		"targets": {"booked_fight": true, "conditioning": DEBUT_CONDITIONING_DELTA},
+		"targets": {"booked_fight": true, "stamina": DEBUT_STAMINA_DELTA},
 		"persona_line": "Get me a fight and get my stamina up.",
 	},
 	## S352 (board review: "Lucy is already 3-1, yet her goal reads 'debut inside a month'"): a boxer with bouts on her card
@@ -44,21 +53,22 @@ const ARCHETYPES: Array[Dictionary] = [
 		"id": "next_bout_inside_a_month",
 		"title": "Next bout inside a month",
 		"days": DEBUT_DAYS,
-		"targets": {"booked_fight": true, "conditioning": DEBUT_CONDITIONING_DELTA},
+		"targets": {"booked_fight": true, "stamina": DEBUT_STAMINA_DELTA},
 		"persona_line": "Get me back in the ring and get my stamina up.",
 	},
 	{
 		"id": "southpaw_answer",
 		"title": "Southpaw answer",
 		"days": SOUTHPAW_DAYS,
-		"targets": {"technique": SOUTHPAW_TECHNIQUE_DELTA},
+		"targets": {"accuracy": SOUTHPAW_ACCURACY_DELTA},
 		"persona_line": "Sharpen my lead hand so a southpaw cannot circle away.",
 	},
 	{
 		"id": "five_round_engine",
 		"title": "Stamina for five rounds",
 		"days": ENGINE_DAYS,
-		"targets": {"conditioning": ENGINE_CONDITIONING_DELTA},
+		"targets": {"stamina": ENGINE_STAMINA_DELTA},
+		"to_line": true,
 		"persona_line": "I faded in the last round. Never again.",
 	},
 ]
@@ -79,7 +89,13 @@ static func goal_for(fighter: Dictionary, archetype_id: String, today_day: int) 
 		if key == "booked_fight":
 			targets[key] = true
 		else:
-			targets[key] = minf(STAT_MAX, float(start_stats.get(key, STAT_DEFAULT)) + float(raw[key]))
+			var start := float(start_stats.get(key, STAT_DEFAULT))
+			var delta := float(raw[key])
+			if bool(archetype.get("to_line", false)) and key == "stamina":   # a runtime load: this module keeps no preload
+				var gap: float = float(load("res://scripts/rules/BoutRules.gd").FADE_STAMINA) - start
+				if gap > delta and gap <= ENGINE_LINE_REACH:
+					delta = gap
+			targets[key] = minf(STAT_MAX, start + delta)
 	return {
 		"id": archetype_id,
 		"title": String(archetype.get("title", "")),
@@ -158,22 +174,19 @@ static func progress(goal: Dictionary, fighter_now: Dictionary, today_day: int, 
 	}
 
 
-## The end of the goal window: trust and morale move.
+## The end of the goal window: morale moves (mood; CORE_LOOP C1).
 static func outcome(goal: Dictionary, met: bool) -> Dictionary:
 	var title: String = String(goal.get("title", "Fighter goal")).strip_edges()
 	if title.is_empty():
 		title = "Fighter goal"
 	if met:
 		return {
-			"trust_delta": SUCCESS_TRUST_DELTA,
 			"morale_delta": SUCCESS_MORALE_DELTA,
-			"line": "%s met: fighter trust +%d, morale +%d." % [title, SUCCESS_TRUST_DELTA, SUCCESS_MORALE_DELTA],
+			"line": "%s met: morale +%d." % [title, SUCCESS_MORALE_DELTA],
 		}
 	return {
-		"trust_delta": FAILURE_TRUST_DELTA,
 		"morale_delta": FAILURE_MORALE_DELTA,
-		"line": "%s missed: trust %d, morale %d - walk-out warning: a rival gym may be next." % [
-			title, FAILURE_TRUST_DELTA, FAILURE_MORALE_DELTA],
+		"line": "%s missed: morale %d." % [title, FAILURE_MORALE_DELTA],
 	}
 
 
@@ -197,17 +210,25 @@ static func card(goal: Dictionary, progress_read: Dictionary) -> Dictionary:
 
 
 static func _snapshot_stats(fighter: Dictionary) -> Dictionary:
-	var raw_stats: Dictionary = _dict_copy(fighter.get("stats", {}))
 	var snap: Dictionary = {}
 	for key in STAT_KEYS:
-		snap[key] = float(raw_stats.get(key, fighter.get(key, STAT_DEFAULT)))
+		snap[key] = _value_of(fighter, key, STAT_DEFAULT)
 	return snap
+
+
+## The fighter's number for a goal key: the ability (fighter["attrs"]) first; a goal saved on an old summary stat reads it.
+static func _value_of(fighter: Dictionary, key: String, fallback: float) -> float:
+	var attrs: Dictionary = fighter.get("attrs", {}) if fighter.get("attrs", {}) is Dictionary else {}
+	var stats: Dictionary = fighter.get("stats", {}) if fighter.get("stats", {}) is Dictionary else {}
+	if attrs.has(key):
+		return float(attrs[key])
+	return float(stats.get(key, fighter.get(key, fallback)))
 
 
 static func _ordered_target_keys(targets: Dictionary) -> Array[String]:
 	var ordered: Array[String] = []
-	for key in ["booked_fight", "conditioning", "technique", "speed", "power", "defense", "fight_iq", "chin"]:
-		if targets.has(key):
+	for key in ["booked_fight"] + STAT_KEYS + ["conditioning", "technique", "power", "defense", "chin"]:
+		if targets.has(key) and not ordered.has(key):
 			ordered.append(key)
 	return ordered
 
@@ -228,15 +249,14 @@ static func _evaluate_target(key: String, target_val: Variant, fighter_now: Dict
 				traj_proj = 1.0
 				traj_early = AT_RISK_UPPER_MISS_SHARE
 		return {
-			"key": key, "label": _label_for_key(key), "current": cur_booked, "target": 1.0, "projected": cur_booked,
+			"key": key, "label": label_of(key), "current": cur_booked, "target": 1.0, "projected": cur_booked,
 			"share_done": cur_booked, "projected_share": cur_booked, "trajectory_projected_share": traj_proj,
 			"trajectory_early_share": traj_early, "met": booked,
 			"status": "MET" if booked else ("MISSED" if days_left < 0 else ("ON_TRACK" if traj_early >= 1.0 else "AT_RISK")),
-			"line": "%s %d / 1" % [_label_for_key(key), 1 if booked else 0],
+			"line": "%s %d / 1" % [label_of(key), 1 if booked else 0],
 		}
 	var numeric_target: float = float(target_val)
-	var stats: Dictionary = _dict_copy(fighter_now.get("stats", {}))
-	var current_val: float = float(stats.get(key, start_stats.get(key, STAT_DEFAULT)))
+	var current_val: float = _value_of(fighter_now, key, float(start_stats.get(key, STAT_DEFAULT)))
 	var rate_val: float = float(gains_rate.get(key, 0.0))
 	var projected_val: float = current_val + rate_val * effective_days
 	var early_val: float = current_val + rate_val * early_days
@@ -255,27 +275,30 @@ static func _evaluate_target(key: String, target_val: Variant, fighter_now: Dict
 	elif projected_share >= AT_RISK_MIN_SHARE - SHARE_EPSILON:
 		item_status = "AT_RISK"
 	return {
-		"key": key, "label": _label_for_key(key), "current": current_val, "target": numeric_target,
+		"key": key, "label": label_of(key), "current": current_val, "target": numeric_target,
 		"projected": projected_val, "share_done": share_done, "projected_share": projected_share,
 		"trajectory_projected_share": projected_share, "trajectory_early_share": early_share, "met": met,
 		"status": item_status, "line": _format_target_line(key, current_val, numeric_target),
 	}
 
 
-static func _label_for_key(key: String) -> String:
+## The words a goal key prints ("Stamina", "Fight IQ"); GoalTalk names the targets with it.
+static func label_of(key: String) -> String:
 	match key:
 		"booked_fight":
 			return "Booked Fight"
-		"defense":
+		"defense", "defence":
 			return "Defence"
 		"fight_iq":
-			return "Ring IQ"
+			return "Fight IQ"
+		"inside":
+			return "Inside fighting"
 		_:
 			return key.capitalize()
 
 
 static func _format_target_line(key: String, current_val: float, target_num: float) -> String:
-	var label: String = _label_for_key(key)
+	var label: String = label_of(key)
 	if absf(current_val - roundf(current_val)) < 0.05 and absf(target_num - roundf(target_num)) < 0.05:
 		return "%s %d / %d" % [label, roundi(current_val), roundi(target_num)]
 	return "%s %.1f / %.1f" % [label, current_val, target_num]

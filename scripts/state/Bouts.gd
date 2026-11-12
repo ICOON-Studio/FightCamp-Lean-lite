@@ -250,6 +250,8 @@ static func tougher_opp(c: Career, f: Dictionary) -> Dictionary:
 
 ## Take the fight: the tougher opponent on the same night, twice the reputation on a win (BoutNight), the tape study from today.
 static func short_notice(c: Career, f: Dictionary) -> bool:
+	if (f.get("bout", {}) as Dictionary).is_empty() or bool(f["bout"].get("done", false)):
+		return false   # S434 the week's swap card locked on Monday after her bout was gone (pulled out, missed weight): nothing to swap
 	var opp := tougher_opp(c, f)
 	if opp.is_empty():
 		return false

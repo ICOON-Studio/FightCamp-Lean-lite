@@ -5,6 +5,8 @@ extends SceneTree
 ##      number; one check mark, on the chosen card; the fighter panel outlines the camp's stat.
 ##      S381 G1: each card's threshold bar (NightBar) runs now -> fight night; power / technique / conditioning carry the
 ##      night line's caption, gold exactly when the forecast crosses it; the old line on what the camp does is gone.
+##      S434 CARDIO1: the Cardio card (conditioning, the mean of Stamina and Recovery) shows the STAMINA line, "Stamina 60:
+##      no fade from round 3", its bar on Stamina's own number (CampCard.line_numbers), never the mean's.
 ##   2. The forecast: Hard beats Standard beats Light on the camp's stat, and every card's forecast is above today.
 ##   3. Power + Hard: the card takes the check mark; S381 C229 stage 2: the club's nights and film are free (Hard in nights
 ##      and hours, its scratch-risk line), film off puts the Build-week pad night back in the forecast, the outside partner
@@ -61,21 +63,39 @@ func _initialize() -> void:
 	await _settle(0.8)
 	for k in keys:
 		var now := float(f["stats"][k])
-		var end := float(CampForecast.run(c, f, k, 2, true)["stats"][k])
+		var fck := CampForecast.run(c, f, k, 2, true)
+		var end := float(fck["stats"][k])
+		var night: Dictionary = fck["attrs"]   # S439: the Cardio card's Stamina end is the forecast's own Stamina
 		var lbl := m.find_child("Focus_" + k, true, false).find_child("Forecast", true, false) as Label
-		_check(lbl != null and lbl.text == "%.1f -> %.1f by fight night" % [now, end] and end > now,
+		var ln0: Dictionary = CampCard.line_numbers(f, k, now, end, now, night)
+		var nm := ("%s " % Sim.Attrs.LABEL[ln0["key"]]) if str(ln0["key"]) != k else ""   # S434: Cardio prints Stamina's number, named
+		_check(lbl != null and lbl.text == "%s%.1f -> %.1f by fight night" % [nm, float(ln0["now"]), float(ln0["end"])] and end > now,
 			"%s card: %s (forecast %.2f, now %.2f)" % [k, lbl.text if lbl != null else "?", end, now])
 		# S381 G1: the threshold bar replaces the line on what the camp does; a gold tick + caption where the stat has a line.
 		var card := m.find_child("Focus_" + k, true, false)
 		var bar := card.find_child("NightBar", true, false)
 		var cap := card.find_child("NightLine", true, false) as Label
-		var words := BoutRules.night_line_words(k)
-		_check(bar != null and is_equal_approx(float(bar.get("end")), end) and is_equal_approx(float(bar.get("now")), now),
-			"%s card: the bar runs now -> fight night" % k)
+		var ln: Dictionary = CampCard.line_numbers(f, k, now, end, now, night)
+		var lk := str(ln["key"])
+		var words := BoutRules.night_line_words(lk)
+		_check(bar != null and is_equal_approx(float(bar.get("end")), float(ln["end"])) and is_equal_approx(float(bar.get("now")), float(ln["now"]))
+			and str(bar.get("stat")) == lk, "%s card: the bar runs now -> fight night on %s" % [k, lk])
 		_check((cap == null) == (words == "") and (cap == null or cap.text == words), "%s card caption: %s" % [k, cap.text if cap else "-"])
-		_check(cap == null or cap.get_theme_color("font_color") == (UI.GOLD if BoutRules.clears_night_line(k, end) else UI.MUTED),
+		_check(cap == null or cap.get_theme_color("font_color") == (UI.GOLD if BoutRules.clears_night_line(lk, float(ln["end"])) else UI.MUTED),
 			"%s caption is gold exactly when the forecast crosses" % k)
-		_check(bar != null and bool(bar.call("crossed")) == BoutRules.clears_night_line(k, end), "%s bar gold = crossed" % k)
+		_check(bar != null and bool(bar.call("crossed")) == BoutRules.clears_night_line(lk, float(ln["end"])), "%s bar gold = crossed" % k)
+		if k == "conditioning":   # S434: fails when the Cardio card loses the Stamina line (the S433 branch did)
+			var st_now := float(Sim.Attrs.of(f)["stamina"])
+			var st_end := float(night["stamina"])
+			_check(cap != null and cap.text == "Stamina %d: no fade from round 3" % int(BoutRules.FADE_STAMINA)
+				and is_equal_approx(float(bar.get("now")), st_now) and is_equal_approx(float(bar.get("end")), st_end),
+				"the Cardio card shows the Stamina line on Stamina %.1f -> %.1f: %s" % [st_now, st_end, cap.text if cap else "MISSING"])
+			# S434 round 2 (the skeptic: the face printed the mean's 62.3 -> 65.0 beside Stamina's line): the face's forecast is
+			# Stamina's own now -> fight night, named, and the mean's numbers are on no label of the card.
+			var face := " ".join(_labels(card))
+			_check(lbl != null and lbl.text == "Stamina %.1f -> %.1f by fight night" % [st_now, st_end]
+				and absf(st_now - now) > 0.05 and not face.contains("%.1f -> " % now),
+				"the Cardio card's face reads Stamina %.1f -> %.1f, not the mean %.1f -> %.1f: %s" % [st_now, st_end, now, end, lbl.text if lbl else "?"])
 		_check(not " ".join(_labels(card)).contains("shadow and pads") and not " ".join(_labels(card)).contains("roadwork"),
 			"%s card: no line on what the camp does" % k)
 	# 2. The protocol's focus multiplier shows in the forecast.

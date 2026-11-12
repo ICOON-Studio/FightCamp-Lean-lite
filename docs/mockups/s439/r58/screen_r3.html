@@ -1,0 +1,201 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>R58 approach card r3</title>
+<style>
+:root{--bg:#0f141a;--panel:#171e26;--panel2:#1d2630;--line:#2a3642;--fg:#e8edf2;--mut:#93a1ae;--red:#e5534b;--blue:#4a8fe7;--teal:#3fb6a8;--green:#4cc38a;--amber:#e8a93a;--gold:#d9b45a;--violet:#8f73e8}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--fg);font-family:"Segoe UI",Arial,sans-serif}
+.num{font-family:"Bahnschrift","Segoe UI",Arial,sans-serif;font-weight:700}
+.cap{font-size:13px;letter-spacing:2px;color:var(--mut);font-weight:600;text-transform:uppercase}
+.dn{color:var(--red)}.up{color:var(--green)}.am{color:var(--amber)}.mu{color:var(--mut)}
+.bar{position:absolute;left:0;top:0;width:1920px;height:60px;background:#0a0e12;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px;gap:18px;font-size:18px}
+.arrows{color:var(--mut);font-size:22px;letter-spacing:10px}.arrows .off{color:#3a4652}
+.gym{font-weight:700;font-size:20px}.date span{color:var(--mut)}
+.flag{padding:5px 12px;border-radius:5px;font-weight:700;font-size:14px;letter-spacing:1.5px;background:var(--red);color:#fff}
+.cash{margin-left:auto;text-align:right;line-height:1.1}.cash .num{font-size:21px}.cash small{display:block;font-size:13px;color:var(--amber)}
+.go{background:var(--red);color:#fff;font-weight:700;padding:7px 20px;border-radius:6px;font-size:17px}
+.go small{display:block;font-weight:500;font-size:12px}
+.menu{color:var(--mut);font-size:16px;border:1px solid var(--line);padding:7px 14px;border-radius:6px}
+.rail{position:absolute;left:0;top:60px;width:92px;height:1020px;background:#0c1116;border-right:1px solid var(--line);padding-top:14px}
+.rail div{height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--mut);font-size:13px;gap:6px}
+.rail div i{width:24px;height:24px;border:2px solid currentColor;border-radius:6px;display:block}
+.rail .on{color:var(--fg);background:var(--panel);border-left:4px solid var(--red)}
+.head{position:absolute;left:112px;top:68px;width:1788px;height:104px}
+.face{position:absolute;left:0;top:4px;width:80px;height:80px;border-radius:50%;overflow:hidden;border:2px solid var(--line)}
+.who{position:absolute;left:96px;top:0}
+.who .name{font-size:30px;font-weight:700;line-height:1.05}
+.who .sub{font-size:16px;color:var(--mut);margin-top:3px}.who .sub b{color:var(--fg);font-weight:600}
+.tabs{position:absolute;right:0;top:6px;display:flex;gap:4px}
+.tabs div{padding:8px 20px;font-size:17px;color:var(--mut);border-bottom:3px solid transparent}.tabs .on{color:var(--fg);border-bottom-color:var(--red)}
+.worth{position:absolute;left:96px;top:64px;display:flex;gap:10px}
+.w{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:4px 12px;font-size:15px;color:var(--mut);white-space:nowrap}
+.w b{color:var(--fg);font-size:17px;font-family:Bahnschrift,Arial;margin:0 4px}
+.w.loy{border-color:var(--amber)}.w.loy b{color:var(--amber)}
+.card{position:absolute;left:112px;top:178px;width:1788px;height:892px;background:var(--panel);border-radius:10px;border-top:5px solid var(--red)}
+.ctop{position:absolute;left:22px;top:10px;right:22px;height:58px}
+.ctop h1{font-size:26px;letter-spacing:.5px}
+.ctop .offer{font-size:16px;margin-top:2px}.ctop .offer span{color:var(--mut)}
+.by{position:absolute;right:0;top:0;text-align:right}.by .num{font-size:22px;color:var(--red)}.by div{font-size:14px;color:var(--mut);margin-top:2px}
+.left{position:absolute;left:18px;top:76px;width:352px;height:668px;display:flex;flex-direction:column;gap:10px}
+.box{background:var(--panel2);border-radius:8px;padding:10px 14px}
+table.fil{width:100%;border-collapse:collapse;margin-top:6px;font-size:15px}
+table.fil th{font-size:12px;color:var(--mut);font-weight:600;text-align:left;padding:2px 4px;letter-spacing:.5px}
+table.fil td{padding:3px 4px;border-top:1px solid var(--line);vertical-align:top;line-height:1.2}
+table.fil td small{display:block;color:var(--mut);font-size:12.5px}
+.rule{font-size:13px;color:var(--mut);margin-top:6px;line-height:1.3}
+.r{display:flex;align-items:flex-start;font-size:15px;padding:5px 0;border-top:1px solid var(--line);gap:8px}
+.r .t{flex:1;line-height:1.22}.r .t small{display:block;color:var(--mut);font-size:13px}
+.r .t small a{color:#7fb0f0}
+.r .v{font-family:Bahnschrift,Arial;font-weight:700;font-size:17px;width:30px;text-align:right;color:var(--amber)}
+.talk{border:1px solid #3d4c5a}
+.talk .l{font-size:15px;line-height:1.3;margin-top:5px}.talk .l span{color:var(--mut)}
+.tbtn{margin-top:8px;padding:7px 10px;border-radius:6px;font-size:15px;font-weight:600;text-align:center;background:#22303c;border:1px solid #4a5b6b}
+.today{position:absolute;left:384px;top:76px;width:1386px;height:42px;background:var(--panel2);border-radius:8px;display:flex;align-items:center;padding:0 14px;gap:14px;font-size:15px}
+.today b{font-weight:600}.today span{color:var(--mut)}
+.today .ob{margin-left:auto;padding:5px 12px;border-radius:6px;border:1px solid #4a5b6b;background:#22303c;white-space:nowrap}
+table.g{position:absolute;left:384px;top:126px;width:1386px;border-collapse:separate;border-spacing:0;table-layout:fixed;font-size:15px}
+table.g col.lab{width:146px}
+table.g td,table.g th{padding:4px 9px;vertical-align:top;line-height:1.24;border-top:1px solid var(--line)}
+table.g th{border-top:none;text-align:left;font-size:17px;letter-spacing:1px;padding-top:7px;padding-bottom:6px}
+table.g td.lab{color:var(--mut);font-size:14px}
+table.g td:not(.lab),table.g th:not(.lab){background:var(--panel2);border-left:6px solid var(--panel)}
+th.m{box-shadow:inset 0 4px 0 var(--blue)}th.h{box-shadow:inset 0 4px 0 var(--teal)}th.v{box-shadow:inset 0 4px 0 var(--violet)}th.p{box-shadow:inset 0 4px 0 var(--gold)}th.l{box-shadow:inset 0 4px 0 var(--red)}
+tr.price td:not(.lab){font-family:Bahnschrift,Arial;font-weight:700;font-size:18px;color:var(--amber)}
+tr.price td.l2{color:var(--red)}
+td small{display:block;color:var(--mut);font-size:13px}
+tr.btns td{border-top:none;padding-top:7px;padding-bottom:8px}
+.btn{padding:7px 8px;border-radius:6px;font-size:15px;font-weight:600;text-align:center;color:#fff}
+.btn.blue{background:var(--blue)}.btn.teal{background:#2b8f84}.btn.violet{background:var(--violet)}.btn.gold{background:#a8862f}.btn.red{background:transparent;border:1px solid var(--red);color:var(--red)}
+.btn.off{background:#26313c;color:#6d7c8a}
+.tl{position:absolute;left:18px;right:18px;top:752px;height:132px;background:var(--panel2);border-radius:8px}
+.tl .cap{position:absolute;left:14px;top:9px}
+.tl .key{position:absolute;right:14px;top:8px;font-size:13px;color:var(--mut)}
+.lane{position:absolute;left:14px;font-size:15px;font-weight:600}
+.axis{position:absolute;left:130px;right:24px;top:30px;height:100px}
+.axis .wk{position:absolute;top:0;bottom:0;border-left:1px solid #2a3642}
+.axis .wk span{position:absolute;top:-1px;left:4px;font-size:12px;color:var(--mut);white-space:nowrap}
+.ev{position:absolute;font-size:13px;line-height:1.15;white-space:nowrap;padding-left:7px;border-left:3px solid}
+.ev b{font-size:14px}
+.ev.tick{border-color:var(--amber)}.ev.bout{border-color:var(--blue)}.ev.show{border-color:var(--gold)}.ev.lucy{border-color:var(--violet)}.ev.end{border-color:var(--mut)}.ev.dl{border-color:var(--red)}
+</style></head>
+<body>
+
+<div class="bar">
+  <div class="arrows">&lsaquo; <span class="off">&rsaquo;</span></div>
+  <div class="gym">Anvil Street Gym</div>
+  <div class="date">Mon 6 Apr 2026 <span>&middot; Week 14</span></div>
+  <div class="flag">APPROACHED</div>
+  <div class="cash"><div class="num">$9,860</div><small>running -$140 a week</small></div>
+  <div class="go">NEEDS YOU (1)<small>Eastside's answer, by Sun 12 Apr</small></div>
+  <div class="menu">Menu</div>
+</div>
+
+<div class="rail">
+  <div><i></i>Home</div><div class="on"><i></i>Fighters</div><div><i></i>Fights</div><div><i></i>Club</div><div><i></i>World</div>
+</div>
+
+<div class="head">
+  <div class="face"><svg width="80" height="80" viewBox="0 0 96 96"><rect width="96" height="96" fill="#1d2630"/><circle cx="48" cy="38" r="17" fill="#5a3824"/><path d="M14 96 C18 66 34 60 48 60 C62 60 78 66 82 96 Z" fill="#2c4f7a"/><rect x="41" y="52" width="14" height="10" fill="#5a3824"/></svg></div>
+  <div class="who">
+    <div class="name">Danny Osei</div>
+    <div class="sub"><b>Lightweight, men's amateur</b> &middot; 61.1 of 60 kg &middot; Age 20 &middot; Orthodox &middot; <b>3-2</b> &middot; Day job &middot; Stubborn</div>
+  </div>
+  <div class="worth">
+    <div class="w loy">Loyalty<b>33</b>Wavering &middot; Settled at 50</div>
+    <div class="w">Potential<b>85</b>the club's highest</div>
+    <div class="w">Bouts open to him:<b>2</b>novices in the class</div>
+    <div class="w">Pro offer:<b>4</b>more wins and top 3, or<b>6</b></div>
+    <div class="w">A pro purse for the club: <b>$375</b>at 50+, <b>$180</b>under 50</div>
+  </div>
+  <div class="tabs"><div class="on">Overview</div><div>Week</div><div>Playbook</div><div>History</div></div>
+</div>
+
+<div class="card">
+  <div class="ctop">
+    <h1>EASTSIDE ABC WANTS DANNY</h1>
+    <div class="offer"><span>Frank Doyle's offer:</span> full time at Eastside, the club's backers pay Danny's keep. <span>It answers Danny's largest cause, the day job.</span></div>
+    <div class="by"><div class="num">Answer by Sun 12 Apr</div><div>no answer: Danny leaves Mon 13 Apr &middot; every answer read on Mon 29 Jun</div></div>
+  </div>
+
+  <div class="left">
+    <div class="box">
+      <div class="cap">First in line for the stipend</div>
+      <table class="fil">
+        <tr><th>Fighter</th><th>Wins</th><th>Pot.</th><th>Money</th><th>Loyalty</th></tr>
+        <tr><td>Lucy</td><td>5-1</td><td>84</td><td>$250<small>stipend</small></td><td>64<small>Settled</small></td></tr>
+        <tr><td>Danny</td><td>3-2</td><td>85</td><td>day job</td><td class="am">33<small>minds Lucy</small></td></tr>
+        <tr><td>Samira</td><td>4-1</td><td>82</td><td>day job</td><td>82<small>Loyal: minds no one</small></td></tr>
+      </table>
+      <div class="rule">A day job minds a team-mate paid more with fewer wins or lower potential: -3 every 4 weeks. Loyal (70+) never.</div>
+    </div>
+
+    <div class="box">
+      <div class="cap">Why Danny would go &middot; last 12 weeks</div>
+      <div class="r" style="border-top:none"><div class="t">Day job while Lucy holds the stipend<small>3 times &middot; stops with <a>a stipend</a></small></div><div class="v">-9</div></div>
+      <div class="r"><div class="t">Offers passed: Reece Adair<small>11 Feb, 1 Apr &middot; stops with <a>taking the offer</a></small></div><div class="v">-6</div></div>
+      <div class="r"><div class="t">Asks overruled<small>16 Feb, 23 Mar &middot; stops with <a>hearing the next ask</a></small></div><div class="v">-6</div></div>
+      <div class="rule">The rest (goal missed -4, results +1) in the chip's hover.</div>
+    </div>
+
+    <div class="box talk">
+      <div class="cap">Talk it through first</div>
+      <div class="l">Free, once in 8 weeks. <span>Stubborn: lands about 1 in 2.</span></div>
+      <div class="l"><span>Lands:</span> HALF EACH counts in full: 42, not 37.</div>
+      <div class="l"><span>Fails:</span> -4 (to 29); HALF EACH is off.</div>
+      <div class="tbtn">Talk to Danny</div>
+    </div>
+  </div>
+
+  <div class="today"><span>TODAY'S OFFER, taken in every answer but the promise:</span> <b>Reece Adair</b> <span>Fisher ABC &middot; 2-2 &middot;</span> <b>Sat 25 Apr</b> <span>&middot; answer by Thu 9 Apr &middot; passing it: loyalty -3 &middot; Liam Doherty is open now (6-5)</span><div class="ob">Open the offer</div></div>
+
+  <table class="g">
+    <colgroup><col class="lab"><col><col><col><col><col></colgroup>
+    <tr><th class="lab"></th><th class="m">MATCH IT</th><th class="h">HALF EACH</th><th class="v">MOVE THE STIPEND</th><th class="p">PROMISE: OUR SHOW</th><th class="l">LET DANNY GO</th></tr>
+    <tr class="price"><td class="lab">You give</td><td>YOU PAY $3,000</td><td>YOU SPLIT $250</td><td>YOU RISK LUCY'S SHARE</td><td>YOU STAKE DANNY, 9 MAY</td><td class="l2">YOU LOSE 85 POTENTIAL</td></tr>
+    <tr><td class="lab">What it does</td><td>A second stipend: Danny full time to 29 Jun. Lucy keeps hers.</td><td>$125 each to Danny and Lucy to 29 Jun. Nobody holds more.</td><td>Lucy's $250 goes to Danny. Lucy takes a day job.</td><td>Our club show on Sat 9 May with Danny on top, in place of today's offer.</td><td>Danny boxes for Eastside from Mon 13 Apr. The place frees.</td></tr>
+    <tr><td class="lab">Cash to 29 Jun</td><td class="am">-$3,000<small>-$390 a week: 25 weeks of cash</small></td><td>$0 more<small>-$140 a week: 70 weeks of cash</small></td><td>$0 more<small>-$140 a week: 70 weeks of cash</small></td><td class="am">-$3,500 now, paid back 9 May<small>night +$400 to +$3,300 &middot; today's $450 cut lost</small></td><td>$0<small>a signing: stipend or day job</small></td></tr>
+    <tr><td class="lab">Danny on 29 Jun</td><td class="up">45 <small>+12 now, then no ticks</small></td><td>37 <small>+4 now; 42 if the talk lands</small></td><td class="up">45 <small>+12 now, then no ticks</small></td><td>41 <small>kept +10 on 9 May; day job -3 after</small></td><td class="dn">gone 13 Apr</td></tr>
+    <tr><td class="lab">Lucy on 29 Jun</td><td>64</td><td>60 <small>-4 now</small></td><td class="am">47 <small>56 now, 53, 50 on 1 Jun</small></td><td>64</td><td>64</td></tr>
+    <tr><td class="lab">Training, 12 weeks</td><td class="up">Danny +1.0</td><td>Danny +0.5 &middot; Lucy -0.5</td><td>Danny +1.0 &middot; Lucy -1.0</td><td>no change</td><td>&mdash;</td></tr>
+    <tr><td class="lab">Who minds whom</td><td>no one</td><td>no one</td><td class="am">Lucy minds Danny: 5 wins to his 3</td><td>Danny still minds Lucy</td><td>nobody under 50 &middot; reputation -2</td></tr>
+    <tr><td class="lab">Pro share, a purse</td><td>Lucy $375</td><td>Lucy $375</td><td class="am">Lucy $375 if her offer comes by 1 Jun, else $180</td><td>Lucy $375</td><td>Lucy $375 &middot; Danny's road leaves</td></tr>
+    <tr><td class="lab">Locked</td><td>Danny's stipend to 29 Jun</td><td>both halves to 29 Jun</td><td>Danny's stipend to 29 Jun</td><td class="dn">the show is his next bout; unfit that night: he leaves</td><td>nothing</td></tr>
+    <tr><td class="lab">Eastside back?</td><td>only under 35 again</td><td class="am">2 points from it: one pass</td><td>only under 35 again</td><td>only under 35 again</td><td>Danny boxes for them</td></tr>
+    <tr><td class="lab">Back to Settled</td><td>+5: two wins and an ask heard</td><td>+13: not in these 12 weeks</td><td>+5: two wins and an ask heard</td><td>+9: not while the day job ticks</td><td>&mdash;</td></tr>
+    <tr><td class="lab">Best if</td><td>Danny's next 12 weeks beat the strength corner ($3,600)</td><td>the talk lands (about 1 in 2): Danny 42 for $0</td><td>Lucy wins 18 Apr and 23 May: about 1 in 3</td><td>Danny is fit on 9 May (about 19 in 20)</td><td>the 20 Apr trial finds better: Kira 81-91, Josh 74-84</td></tr>
+    <tr class="btns"><td class="lab"></td><td><div class="btn blue">Match it</div></td><td><div class="btn teal">Half each</div></td><td><div class="btn violet">Move the stipend</div></td><td><div class="btn gold">Book it, promise it</div></td><td><div class="btn red">Let Danny go</div></td></tr>
+  </table>
+
+  <div class="tl">
+    <div class="cap">The next 12 weeks</div>
+    <div class="key">before results &middot; win +2, loss -1</div>
+    <div class="lane" style="top:56px">Danny</div>
+    <div class="lane" style="top:100px">Lucy</div>
+    <div class="axis">
+      <!-- 12 weeks, 6 Apr (0) to 29 Jun (84 days); 1594 px wide -> 18.98 px a day -->
+      <div class="wk" style="left:0"><span>6 Apr</span></div>
+      <div class="wk" style="left:266px"><span>20 Apr</span></div>
+      <div class="wk" style="left:531px"><span>4 May</span></div>
+      <div class="wk" style="left:797px"><span>18 May</span></div>
+      <div class="wk" style="left:1063px"><span>1 Jun</span></div>
+      <div class="wk" style="left:1328px"><span>15 Jun</span></div>
+      <div class="wk" style="left:1594px;border-color:#6d7c8a"><span style="left:-50px">29 Jun</span></div>
+      <!-- Danny lane, top 14-58 -->
+      <div class="ev dl" style="left:114px;top:15px"><b>12 Apr</b> answer by</div>
+      <div class="ev bout" style="left:361px;top:15px"><b>25 Apr</b> Reece Adair</div>
+      <div class="ev tick" style="left:398px;top:36px"><b>27 Apr</b> -3 day job</div>
+      <div class="ev show" style="left:626px;top:15px"><b>9 May</b> our show (the promise)</div>
+      <div class="ev tick" style="left:930px;top:36px"><b>25 May</b> -3 day job</div>
+      <div class="ev bout" style="left:1157px;top:15px"><b>about 6 Jun</b> next bout</div>
+      <div class="ev tick" style="left:1461px;top:36px"><b>22 Jun</b> -3 day job</div>
+      <!-- Lucy lane, top 62-100 -->
+      <div class="ev lucy" style="left:228px;top:62px"><b>18 Apr</b> bout, chance 62%</div>
+      <div class="ev lucy" style="left:531px;top:62px"><b>4 May</b> 53 if moved</div>
+      <div class="ev lucy" style="left:892px;top:62px"><b>23 May</b> bout, 6 in 10</div>
+      <div class="ev lucy" style="left:892px;top:80px;border-color:transparent">two wins: 7-1, pro offer</div>
+      <div class="ev dl" style="left:1063px;top:62px;border-color:var(--amber)"><b>1 Jun</b> 50 if moved</div>
+      <div class="ev dl" style="left:1594px;top:62px;transform:translateX(-100%);border-left:none;border-right:3px solid var(--amber);padding:0 7px 0 0"><b>29 Jun</b> 47 if moved: under 50</div>
+    </div>
+  </div>
+</div>
+
+</body></html>

@@ -238,7 +238,7 @@ static func uses(combos: Dictionary, corner: String) -> int:
 
 
 ## econ (S373): the punches' gas factor - SkillAwards' graded moves cost less (BoutNight passes the mean over her book).
-static func round_spend(combos: Dictionary, corner: String, conditioning: float, econ: float = 1.0) -> float:
+static func round_spend(combos: Dictionary, corner: String, stamina: float, econ: float = 1.0) -> float:
 	var u := uses(combos, corner)
 	var total_len := 0
 	var usable_count := 0
@@ -254,25 +254,25 @@ static func round_spend(combos: Dictionary, corner: String, conditioning: float,
 	var punches := PUNCHES * (0.8 if corner == "calm" else (1.15 if corner == "body" else 1.0))
 	var in_combos := minf(punches, float(u * avg_len))
 	var punch_part := (float(u) * combo_cost(avg_len) + (punches - in_combos) * PUNCH_COST) * POWER_MIX * econ
-	return (ROUND_COST + punch_part) * spend_factor(conditioning)
+	return (ROUND_COST + punch_part) * spend_factor(stamina)
 
 
-## Fitter boxers work at a lower share of their peak (Arseneau 2011: sparring 70% VO2peak): conditioning 50 = 1.0,
-## 100 = 0.8, 0 = 1.2 (ESTIMATE).
-static func spend_factor(conditioning: float) -> float:
-	return 1.2 - 0.4 * clampf(conditioning, 0.0, 100.0) / 100.0
+## Fitter boxers work at a lower share of their peak (Arseneau 2011: sparring 70% VO2peak): Stamina 50 = 1.0,
+## 100 = 0.8, 0 = 1.2 (ESTIMATE). S433 CARDIO1: Stamina alone, never the mean with Recovery.
+static func spend_factor(stamina: float) -> float:
+	return 1.2 - 0.4 * clampf(stamina, 0.0, 100.0) / 100.0
 
 
-## The minute's rest refills QUICK_REFILL of her fast debt x fitness 0.8 .. 1.2; the slow part stays spent.
-static func refill(quick_debt: float, conditioning: float) -> float:
-	return quick_debt * QUICK_REFILL * (0.8 + 0.4 * clampf(conditioning, 0.0, 100.0) / 100.0)
+## The minute's rest refills QUICK_REFILL of her fast debt x her Recovery 0.8 .. 1.2 (S433 CARDIO1); the slow part stays spent.
+static func refill(quick_debt: float, recovery: float) -> float:
+	return quick_debt * QUICK_REFILL * (0.8 + 0.4 * clampf(recovery, 0.0, 100.0) / 100.0)
 
 
 ## One round and the rest after it: {energy at the bell, energy after the rest, fast debt carried}.
-static func after_round(energy: float, quick_debt: float, spend: float, conditioning: float) -> Dictionary:
+static func after_round(energy: float, quick_debt: float, spend: float, recovery: float) -> Dictionary:
 	var at_bell := maxf(0.0, energy - spend)
 	var debt := quick_debt + QUICK_SHARE * (energy - at_bell)
-	var back := refill(debt, conditioning)
+	var back := refill(debt, recovery)
 	return {"bell": at_bell, "next": minf(TANK, at_bell + back), "debt": debt - back}
 
 

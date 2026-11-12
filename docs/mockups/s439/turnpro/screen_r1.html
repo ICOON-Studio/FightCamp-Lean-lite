@@ -1,0 +1,204 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Pro offer - two seasons</title>
+<style>
+:root{--bg:#0d1218;--panel:#151c25;--panel2:#1b2430;--line:#2a3646;--fg:#e9eef4;--mut:#8d9bad;--red:#e2433d;--blue:#3d8ee8;--amber:#f0a62e;--green:#3fbf6f;--gold:#e8c35a}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--fg);font-family:Bahnschrift,"Segoe UI",Arial,sans-serif}
+.abs{position:absolute}
+.caps{text-transform:uppercase;letter-spacing:.12em;font-size:16px;color:var(--mut)}
+.num{font-weight:700;font-variant-numeric:tabular-nums}
+/* shell */
+.top{left:0;top:0;width:1920px;height:64px;background:#0a0e13;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 18px}
+.arw{width:34px;height:34px;border:1px solid var(--line);border-radius:5px;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:18px}
+.gym{font-size:24px;font-weight:700;letter-spacing:.04em;margin-left:6px}
+.date{font-size:17px;line-height:1.15;margin-left:14px}
+.date span{color:var(--mut);font-size:15px}
+.flag{background:rgba(226,67,61,.18);border:1px solid var(--red);color:#ff8a83;font-weight:700;font-size:15px;letter-spacing:.1em;padding:6px 12px;border-radius:4px;margin-left:20px}
+.cash{margin-left:auto;text-align:right;line-height:1.15}
+.cash b{font-size:22px;color:var(--gold)} .cash span{display:block;font-size:14px;color:var(--mut)}
+.big{background:var(--red);color:#fff;border-radius:6px;padding:7px 18px;line-height:1.1;min-width:240px}
+.big b{font-size:18px;letter-spacing:.06em;display:block}.big span{font-size:14px;opacity:.9}
+.menu{border:1px solid var(--line);border-radius:5px;padding:8px 16px;color:var(--mut);font-size:16px}
+.rail{left:0;top:64px;width:84px;height:950px;background:#0a0e13;border-right:1px solid var(--line);opacity:.45}
+.rail div{height:70px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--mut)}
+.dim{left:84px;top:64px;width:1836px;height:950px;background:rgba(5,8,12,.72)}
+/* modal */
+.modal{left:118px;top:72px;width:1684px;height:934px;background:linear-gradient(180deg,#17202b 0%,#121921 100%);border:1px solid #33435a;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.tag{display:inline-block;background:rgba(232,195,90,.14);border:1px solid var(--gold);color:var(--gold);font-weight:700;letter-spacing:.14em;font-size:16px;padding:4px 10px;border-radius:3px}
+.name{font-size:46px;font-weight:700;letter-spacing:.03em}
+.sub{font-size:19px;color:var(--fg)}
+.sub i{font-style:normal;color:var(--mut)}
+.prom{right:30px;top:24px;text-align:right}
+.prom .p{font-size:26px;font-weight:700}
+.prom .l{font-size:16px;color:var(--mut);margin-top:4px}
+.strip{left:30px;top:146px;width:1624px;height:54px;background:var(--panel);border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;gap:0;font-size:17px}
+.strip div{white-space:nowrap;padding:0 20px;border-right:1px solid var(--line);height:100%;display:flex;align-items:center;gap:8px}
+.strip div:last-child{border-right:none;margin-left:auto}
+.strip b{color:var(--fg)} .strip i{font-style:normal;color:var(--mut)}
+.wish{color:var(--gold)}
+/* table */
+.hd{top:214px;left:30px}
+.colh{top:246px;height:62px;border-radius:8px 8px 0 0;padding:10px 20px}
+.colh .t{font-size:26px;font-weight:700;letter-spacing:.06em}
+.colh .s{font-size:15px;color:var(--mut);margin-top:2px}
+.pro{border-top:4px solid var(--gold);background:rgba(232,195,90,.07)}
+.am{border-top:4px solid var(--blue);background:rgba(61,142,232,.07)}
+.row{left:30px;width:1624px;border-top:1px solid var(--line)}
+.lab{position:absolute;left:0;width:250px;padding:14px 0 0 4px}
+.lab .k{font-size:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.lab .h{font-size:14px;color:#6f7d8f;margin-top:4px;line-height:1.25}
+.cell{position:absolute;padding:12px 20px 0 20px}
+.cp{left:254px;width:680px}
+.ca{left:944px;width:680px}
+.v{font-size:22px} .v b{font-weight:700}
+.d{font-size:16px;color:var(--mut);margin-top:4px;line-height:1.3}
+.g{color:var(--green)} .r{color:#ff7a72} .y{color:var(--gold)} .bl{color:#7ab6ff}
+.bignum{font-size:36px;font-weight:700;font-variant-numeric:tabular-nums}
+/* timeline */
+.tl{position:absolute;left:20px;top:40px;width:600px;height:70px}
+.tl .axis{position:absolute;left:0;top:26px;width:600px;height:4px;background:#2a3646;border-radius:2px}
+.tl .m{position:absolute;top:42px;font-size:13px;color:#6f7d8f;transform:translateX(-50%)}
+.tl .tick{position:absolute;top:22px;width:1px;height:12px;background:#3a4a60}
+.dot{position:absolute;top:18px;width:20px;height:20px;border-radius:50%;transform:translateX(-50%);border:3px solid}
+.dot.solid{background:var(--gold);border-color:var(--gold)}
+.dot.pro{background:transparent;border-color:var(--gold)}
+.dot.am{background:transparent;border-color:var(--blue)}
+.dot.ch{background:var(--blue);border-color:var(--blue)}
+.band{position:absolute;top:20px;height:16px;border-radius:8px;background:rgba(61,142,232,.35);border:1px solid var(--blue)}
+.lb{position:absolute;top:-4px;font-size:13px;color:var(--fg);transform:translateX(-50%);white-space:nowrap}
+.switch{position:absolute;right:20px;top:14px;display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;font-size:15px}
+.switch span{padding:6px 12px;color:var(--mut)}
+.switch .on{background:var(--blue);color:#fff;font-weight:700}
+.mbar{position:absolute;height:12px;border-radius:3px;top:30px}
+/* buttons */
+.btn{position:absolute;height:58px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:700;letter-spacing:.03em}
+.b-gold{background:linear-gradient(180deg,#f2cf6a,#d7ad3f);color:#1a1405;box-shadow:0 4px 0 #8f6f1d}
+.b-blue{background:rgba(61,142,232,.18);border:2px solid var(--blue);color:#cfe3ff}
+.b-quiet{background:var(--panel2);border:1px solid var(--line);color:var(--fg)}
+.bc{position:absolute;font-size:15px;color:var(--mut);text-align:center;line-height:1.25}
+.foot{left:30px;top:958px;font-size:14px;color:#6f7d8f}
+</style></head>
+<body>
+<!-- shell -->
+<div class="abs top">
+  <div class="arw">&lt;</div><div class="arw">&gt;</div>
+  <div class="gym">ANVIL STREET GYM</div>
+  <div class="date">Mon 11 Jan 2027<br><span>Week 54</span></div>
+  <div class="flag">PRO OFFER</div>
+  <div class="cash"><b class="num">$8,420</b><span>running +$135 a week</span></div>
+  <div class="big"><b>NEEDS YOU (1)</b><span>Jade's pro offer</span></div>
+  <div class="menu">Menu</div>
+</div>
+<div class="abs rail"><div>Home</div><div>Fighters</div><div>Fights</div><div>Club</div><div>World</div></div>
+<div class="abs dim"></div>
+
+<div class="abs modal">
+  <!-- header -->
+  <svg class="abs" style="left:30px;top:24px" width="104" height="104" viewBox="0 0 104 104">
+    <defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b3a4f"/><stop offset="1" stop-color="#18212d"/></linearGradient></defs>
+    <circle cx="52" cy="52" r="50" fill="url(#pg)" stroke="#e8c35a" stroke-width="3"/>
+    <circle cx="52" cy="42" r="18" fill="#9fb0c4"/>
+    <path d="M18 94 C22 68 38 62 52 62 C66 62 82 68 86 94 Z" fill="#9fb0c4"/>
+  </svg>
+  <div class="abs" style="left:154px;top:24px">
+    <span class="tag">PRO OFFER</span>
+    <div class="name">JADE KIRWAN</div>
+    <div class="sub">Lightweight 60 kg, 22, orthodox <i>|</i> amateur <b>7-2</b> <i>|</i> <b>No. 2</b> London <i>|</i> on the club stipend</div>
+  </div>
+  <div class="abs prom">
+    <div class="p">Bow Lane Promotions</div>
+    <div class="l">a pro contract, debut paid from ticket sales</div>
+    <div class="l">the clock waits for your answer</div>
+  </div>
+  <div class="abs strip">
+    <div><i>Licence</i> <b>British Boxing Board of Control</b></div>
+    <div><i>Manager</i> <b>Anvil Street Gym, 15%</b> <i>and trainer</i> <b>head coach, 10%</b> <i>: the gym keeps 25% of every purse</i></div>
+    <div class="wish">Jade's wish: the nationals first</div>
+  </div>
+
+  <div class="abs caps hd" style="font-size:18px;color:var(--fg)">THE NEXT 26 WEEKS <span style="color:var(--mut)">&nbsp;Mon 11 Jan to Mon 12 Jul</span></div>
+
+  <div class="abs colh pro" style="left:284px;width:680px">
+    <div class="t y">AS A PRO</div><div class="s">turn Jade pro today</div>
+  </div>
+  <div class="abs colh am" style="left:974px;width:680px">
+    <div class="t bl">AS AN AMATEUR</div><div class="s">stay amateur: after the nationals, or not yet</div>
+    <div class="switch" style="top:16px"><span style="color:var(--mut)">While amateur</span><span class="on">Club stipend $250 a week</span><span>Day job</span></div>
+  </div>
+
+  <!-- R1 bouts -->
+  <div class="abs row" style="top:308px;height:112px">
+    <div class="lab"><div class="k">Bouts</div><div class="h">filled: booked or on the calendar<br>hollow: about, from today's gaps</div></div>
+    <div class="cell cp"><div class="v"><b>4</b> bouts: the debut, then tune-ups</div><div class="tl" id="tlp"></div></div>
+    <div class="cell ca"><div class="v"><b>3</b> club shows and the championships (<b>2 to 6</b>)</div><div class="tl" id="tla"></div></div>
+  </div>
+
+  <!-- R2 money -->
+  <div class="abs row" style="top:420px;height:112px">
+    <div class="lab"><div class="k">The club's money</div><div class="h">over the 26 weeks</div></div>
+    <div class="cell cp">
+      <div class="bignum g">+$159</div>
+      <div class="d">licences today <span class="r">-$1,245</span>; debut <span class="g">+$138</span> (82 of 100 tickets);<br>tune-ups <span class="g">+$399, +$422, +$445</span> after camp bills; stipend <b style="color:var(--fg)">$0</b></div>
+    </div>
+    <div class="cell ca">
+      <div class="bignum r">-$5,150</div>
+      <div class="d">ticket cuts 3 x <span class="g">$450</span> (none in the championships);<br>stipend 26 x <span class="r">$250</span>. <span style="color:var(--fg)">On a day job: <b class="g">+$1,350</b></span></div>
+    </div>
+  </div>
+
+  <!-- R3 opens -->
+  <div class="abs row" style="top:532px;height:80px">
+    <div class="lab"><div class="k">What it opens</div><div class="h">titles and rank</div></div>
+    <div class="cell cp"><div class="v">Unranked on the world lightweight table</div><div class="d">a seat after 5 pro wins (4 bouts here); a step up could take No. 14</div></div>
+    <div class="cell ca"><div class="v">Regional champion: <b class="bl">about 1 in 3</b></div><div class="d">No. 2 London kept; each title +10 debut tickets; the nationals 26 Apr to 4 May</div></div>
+  </div>
+
+  <!-- R4 strength -->
+  <div class="abs row" style="top:612px;height:74px">
+    <div class="lab"><div class="k">Fight strength</div><div class="h">on top of training</div></div>
+    <div class="cell cp"><div class="v"><b class="g">+0.9</b> from three pro bouts</div><div class="d">about +4 in 100 on an even fight; full-time training</div></div>
+    <div class="cell ca"><div class="v">Training only</div><div class="d">full time on the stipend; on a day job, training 15% slower</div></div>
+  </div>
+
+  <!-- R5 mood -->
+  <div class="abs row" style="top:686px;height:68px">
+    <div class="lab"><div class="k">Jade's mood</div><div class="h">how much of your corner lands</div></div>
+    <div class="cell cp"><div class="v">Steady 64 <span style="color:var(--mut)">to</span> <b class="r">Steady 59</b></div><div class="d">overruled: the wish was the nationals</div></div>
+    <div class="cell ca"><div class="v">Steady 64 <span style="color:var(--mut)">to</span> <b class="g">Steady 69</b></div><div class="d">heard, on either answer</div></div>
+  </div>
+
+  <!-- R6 terms -->
+  <div class="abs row" style="top:754px;height:96px">
+    <div class="lab"><div class="k">The terms</div><div class="h">on every purse until the first contract talks</div></div>
+    <div class="cell cp"><div class="v"><b class="g">x1.00</b> with Bow Lane</div><div class="d">the debut Sat 13 Feb, 4 rounds</div></div>
+    <div class="cell ca">
+      <div class="v" style="font-size:19px">After the nationals: <b class="g">x1.00</b> with a regional title; without one, only a <b class="r">No. 1</b> rank brings the next call</div>
+      <div class="v" style="font-size:19px;margin-top:4px">Not yet: <b class="r">x0.90</b> with Harrow &amp; Finch, back at 9 wins and top 3</div>
+    </div>
+  </div>
+
+  <!-- buttons -->
+  <div class="btn b-gold" style="left:284px;top:856px;width:420px">Turn Jade pro: pay $1,245</div>
+  <div class="btn b-blue" style="left:974px;top:856px;width:330px">After the nationals</div>
+  <div class="btn b-quiet" style="left:1324px;top:856px;width:330px">Not yet</div>
+
+  <div class="abs foot" style="left:724px;top:860px;width:236px;font-size:14px;line-height:1.3">Wins: about 3 on either road, each +8 members and +5 reputation.</div>
+</div>
+
+<script>
+function day2x(d){return (d-371)/182*600}
+function tl(id,items){
+  var el=document.getElementById(id),h='<div class="axis"></div>';
+  [[392,'Feb'],[420,'Mar'],[451,'Apr'],[481,'May'],[512,'Jun'],[542,'Jul']].forEach(function(m){
+    var x=day2x(m[0]);h+='<div class="tick" style="left:'+x+'px"></div><div class="m" style="left:'+x+'px">'+m[1]+'</div>'});
+  items.forEach(function(it){
+    if(it.band){h+='<div class="band" style="left:'+day2x(it.a)+'px;width:'+(day2x(it.b)-day2x(it.a))+'px"></div>';}
+    else{h+='<div class="dot '+it.c+'" style="left:'+day2x(it.d)+'px"></div>';}
+    if(it.l){h+='<div class="lb" style="left:'+day2x(it.lx||it.d||it.a)+'px">'+it.l+'</div>'}
+  });
+  el.innerHTML=h;
+}
+tl('tlp',[{d:404,c:'solid',l:'debut 13 Feb'},{d:460,c:'pro',l:'10 Apr'},{d:502,c:'pro',l:'22 May'},{d:544,c:'pro',l:'3 Jul'}]);
+tl('tla',[{d:404,c:'am',l:'13 Feb'},{d:448,c:'ch'},{d:455,c:'ch',l:'regional',lx:451},{band:true,a:476,b:484,l:'nationals',lx:482},{d:516,c:'am',l:'Jun'},{d:551,c:'am',l:'Jul'}]);
+</script>
+</body></html>

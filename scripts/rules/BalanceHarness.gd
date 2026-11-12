@@ -7,6 +7,7 @@ const B := preload("res://scripts/rules/BoutRules.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 
 
 ## Play a full bout. Returns {verdict, rounds_won, rounds: Array}.
@@ -61,14 +62,15 @@ static func edge(stats: Dictionary, camp: Dictionary, answered: int, opp: Dictio
 ## Build a fighter profile with uneven stats.
 ## variant 0: power-leaning (power +6, defense -6)
 ## variant 1: defense-leaning (defense +6, power -6)
+## S433 CARDIO1: "stamina" rides beside the old summary (play_round's fade reads it). S434: it is the Stamina this summary
+## migrates to (Attrs.from_stats, seeded as Attrs.of seeds a fighter with no id or name, as make_fighter's), so the grid and
+## live_bout read the same Stamina, about 5 under the conditioning number.
 static func make_stats(avg: int, variant: int = 0) -> Dictionary:
 	var base: float = float(avg)
-	if variant == 0:
-		return {"power": base + 6.0, "speed": base, "technique": base,
-				"defense": base - 6.0, "conditioning": base, "fight_iq": base}
-	else:
-		return {"power": base - 6.0, "speed": base, "technique": base,
-				"defense": base + 6.0, "conditioning": base, "fight_iq": base}
+	var tilt: float = 6.0 if variant == 0 else -6.0
+	var st := {"power": base + tilt, "speed": base, "technique": base, "defense": base - tilt, "conditioning": base, "fight_iq": base}
+	st["stamina"] = float(Attrs.from_stats(st, -1.0, "", {}, hash(""))["stamina"])
+	return st
 
 
 ## Build a camp dictionary.
@@ -106,6 +108,7 @@ static func grid(seed: int, n: int = 400) -> Array:
 static func make_fighter(avg: int, conditioning: float, combos: Dictionary, opp_index: int) -> Dictionary:
 	var stats: Dictionary = make_stats(avg, 0)
 	stats["conditioning"] = conditioning
+	stats.erase("stamina")   # her Stamina is her attributes' (Attrs.of), read by _round_stats
 	var moves: Dictionary = {}
 	for m in Data.MOVES:
 		moves[m] = 30.0
@@ -116,6 +119,13 @@ static func make_fighter(avg: int, conditioning: float, combos: Dictionary, opp_
 		"camp": {"protocol": 2, "focus": "conditioning"},
 		"bout": {"opp": Data.OPPONENTS[opp_index].duplicate(true), "film": 1, "answered": 0},
 	}
+
+
+## S433 CARDIO1: the round's stats - the old summary plus her Stamina (play_round's fade reads it, as the live round does).
+static func _round_stats(f: Dictionary) -> Dictionary:
+	var st: Dictionary = (f["stats"] as Dictionary).duplicate()
+	st["stamina"] = float(Attrs.of(f)["stamina"])
+	return st
 
 
 ## Ramp tiredness: linear from 0 at FRESH_AT to RAMP_MAX at energy 0.
@@ -151,7 +161,7 @@ static func live_bout(f: Dictionary, corners: Array, rng: RandomNumberGenerator,
 		var camp: Dictionary = f.get("camp", {})
 		var film: int = int(f["bout"].get("answered", 0))
 		var opp: Dictionary = f["bout"]["opp"]
-		var result: Dictionary = B.play_round(n, f["stats"], camp, film, corner, opp, scaled_a, scaled_b, w_bonus)
+		var result: Dictionary = B.play_round(n, _round_stats(f), camp, film, corner, opp, scaled_a, scaled_b, w_bonus)
 		result["a"] = float(e["a"])
 		result["a_end"] = float(e["a_end"])
 		result["b"] = float(e["b"])

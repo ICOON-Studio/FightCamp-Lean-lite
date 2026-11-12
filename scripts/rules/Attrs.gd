@@ -2,7 +2,9 @@ extends RefCounted
 ## The fighter's attributes (S404): 10 primary, the same in every sport, and 5 boxing skills. Punches are moves
 ## (mastery), not attributes. The old seven stay a summary (LEGACY) so screens and saves still read them: a change to an
 ## old stat is shared among its children (absorb), and the summary is rewritten from the attributes (sync).
-## Pure static; zero preloads. Numbers are game values unless a comment cites a source.
+## Pure static; one preload (PunchStart, the punch rule both corners share). Numbers are game values unless a comment cites a source.
+
+const PunchStart := preload("res://scripts/rules/PunchStart.gd")
 
 const PRIMARY: Array[String] = ["strength", "explosiveness", "speed", "stamina", "recovery", "flexibility", "durability",
 	"fight_iq", "composure", "heart"]
@@ -67,9 +69,10 @@ static func of(f: Dictionary) -> Dictionary:
 		# A past-stats read (Sim._as_of) is a shallow copy: it shares this dict and pairs it with an older
 		# stats snapshot. Absorb would pull the live fighter back to that week. Write a private copy.
 		f["attrs"] = (f["attrs"] as Dictionary).duplicate()
+	var was_raw := PunchStart.raw_floor(f["attrs"])   # S434: a punch on the raw floor follows it down as well as up
 	absorb(f)
 	var a: Dictionary = f["attrs"]
-	_punches(a, f.get("moves", {}), float((f.get("stats", {}) as Dictionary).get("technique", 55.0)))
+	_punches(a, f.get("moves", {}), float((f.get("stats", {}) as Dictionary).get("technique", 55.0)), was_raw)
 	if f.has("durability_cap"):
 		a["durability"] = minf(float(a.get("durability", 55.0)), float(f["durability_cap"]))
 	a["heart"] = float((f.get("personality", {}) as Dictionary).get("heart", a.get("heart", 55.0)))
@@ -112,21 +115,12 @@ static func _punches_match(a: Dictionary, moves: Dictionary, fallback: float) ->
 			if not a.has(k):
 				return false
 		return true
-	# A drill may sit a punch a little above its mastery. Below mastery, the moves have moved on.
-	if float(a.get("jab", -1.0)) + 0.0001 < clampf(float(moves.get("Jab", fallback)), LO, HI):
-		return false
-	if float(a.get("straight", -1.0)) + 0.0001 < clampf(float(moves.get("Cross", fallback)), LO, HI):
-		return false
-	if float(a.get("uppercuts", -1.0)) + 0.0001 < clampf(float(moves.get("Uppercut", fallback)), LO, HI):
-		return false
-	var n := 0
-	var s := 0.0
-	for name in ["Lead hook", "Body hook"]:
-		if moves.has(name):
-			s += float(moves[name])
-			n += 1
-	var hooks := clampf(s / float(n) if n > 0 else fallback, LO, HI)
-	return float(a.get("hooks", -1.0)) + 0.0001 >= hooks
+	# A drill may sit a punch a little above its mastery. Below mastery (or the raw floor), the moves have moved on.
+	var lv := PunchStart.from_moves(moves, fallback, PunchStart.raw_floor(a))
+	for k in PUNCHES:
+		if float(a.get(k, -1.0)) + 0.0001 < clampf(float(lv[k]), LO, HI):
+			return false
+	return true
 
 
 ## A stoppage loss lowers the durability ceiling. Training cannot push it back past the new cap.
@@ -237,23 +231,20 @@ static func lay(a: Dictionary, levels: Dictionary) -> void:
 	_alias(a)
 
 
-static func _punches(a: Dictionary, moves: Dictionary, fallback: float) -> void:
+static func _punches(a: Dictionary, moves: Dictionary, fallback: float, was_raw := -1.0) -> void:
 	n_moves += 1
 	if moves.is_empty():
 		for k in PUNCHES:
 			if not a.has(k):
 				a[k] = clampf(fallback, LO, HI)
 		return
-	_keep_punch(a, "jab", clampf(float(moves.get("Jab", fallback)), LO, HI))
-	_keep_punch(a, "straight", clampf(float(moves.get("Cross", fallback)), LO, HI))
-	var n := 0
-	var s := 0.0
-	for name in ["Lead hook", "Body hook"]:
-		if moves.has(name):
-			s += float(moves[name])
-			n += 1
-	_keep_punch(a, "hooks", clampf(s / float(n) if n > 0 else fallback, LO, HI))
-	_keep_punch(a, "uppercuts", clampf(float(moves.get("Uppercut", fallback)), LO, HI))
+	# S433 PUNCHSTART1: each move through its raw floor (PunchStart), so a punch never drilled is raw, not 1.
+	var lv := PunchStart.from_moves(moves, fallback, PunchStart.raw_floor(a))
+	for k in PUNCHES:
+		if was_raw >= 0.0 and float(a.get(k, HI)) <= clampf(was_raw, LO, HI) + 0.0001:
+			a[k] = clampf(float(lv[k]), LO, HI)   # it sat on the old floor: no drill extra to keep (Accuracy or Timing fell)
+		else:
+			_keep_punch(a, k, clampf(float(lv[k]), LO, HI))
 
 
 ## Mastery catches a punch up. A drill's extra above mastery stays.
@@ -406,3 +397,23 @@ static func wants_words(a: Dictionary) -> String:
 	var how := "busy, tires faster" if pace >= 70.0 else ("patient, picks shots" \
 		if pace <= 35.0 else "steady pace")
 	return "%s, %s" % [where, how]
+
+
+## S433 CARDIO1: points a day on each of the 14 abilities over a week's days (WeekPlan.week's "days"), run through
+## apply_session on a copy as Sim.step_day runs them, with the camp's multiplier on its stat as WeekPlan.week counts it.
+## A goal names an ability (FighterGoal), so its pace is that ability's, never its old summary stat's.
+static func week_rates(f: Dictionary, days: Array, camp_stat := "", camp_mult := 1.0) -> Dictionary:
+	var a := of(f)
+	var g := f.duplicate()
+	g["attrs"] = a.duplicate()
+	g["stats"] = (f["stats"] as Dictionary).duplicate()
+	g["stats_seen"] = (f["stats_seen"] as Dictionary).duplicate()
+	for d in days:
+		for k in [["id", "stat", "gain"], ["evening", "stat2", "gain2"]]:
+			var st := str((d as Dictionary).get(k[1], ""))
+			apply_session(g, str((d as Dictionary).get(k[0], "")), st, float((d as Dictionary).get(k[2], 0.0)) * (camp_mult if st == camp_stat else 1.0))
+		apply_session(g, str((d as Dictionary).get("id", "")), "", float((d as Dictionary).get("attr_gain", 0.0)))
+	var out := {}
+	for ab in ABILITIES:
+		out[ab] = (float((g["attrs"] as Dictionary).get(ab, 55.0)) - float(a.get(ab, 55.0))) / float(maxi(1, days.size()))
+	return out

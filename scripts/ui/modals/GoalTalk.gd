@@ -26,7 +26,7 @@ func build(main: Node, m: Dictionary) -> void:
 		var targets: Array = []
 		for k in (g["targets"] as Dictionary).keys():
 			if k != "booked_fight":
-				targets.append("%s to %.1f" % [Data.LABEL.get(k, k), float(g["targets"][k])])
+				targets.append("%s to %.1f" % [Bouts.FighterGoal.label_of(str(k)), float(g["targets"][k])])   # S433 CARDIO1: an ability's own word
 		var days := int(g["deadline_day"]) - int(g["start_day"])
 		var on := str(m["pick"]) == str(g["id"])
 		var b := UI.button2("%s, %d days" % [g["title"], days], "%s. \"%s\"" % [", ".join(targets), g["persona_line"]],

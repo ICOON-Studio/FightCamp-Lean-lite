@@ -74,10 +74,10 @@ static func run(c: Career, f: Dictionary, arrows: Array) -> Dictionary:
 	var stopped := 0
 	var moves := {}      # arrow id -> [worked, used]
 	var rounds := [0, 0] # rounds won, rounds fought
-	# S380: a test mid-camp fights with fight night's heavy legs (the forecast after the taper), not today's fatigue
+	# S380: a test mid-camp fights with fight night's Tank (the forecast after the taper), not today's fatigue; S433 NOCAMP1:
+	# camp or not (the scratch careers have no results, so the forecast's number - with her last bout - rides on the bout)
 	var camp: Dictionary = f.get("camp", {})
-	var night_stale := 0.0 if camp.is_empty() else float(CampForecast.run(c, f, str(camp.get("focus", "")), int(camp.get("protocol", 0)),
-		bool(camp.get("film", false)))["stale"])
+	var tank_fc := CampForecast.run(c, f, str(camp.get("focus", "")), int(camp.get("protocol", 0)), bool(camp.get("film", false)))
 	for k in SIMS:
 		var sc := Career.new()
 		sc.day = DICE_DAY + k * 7
@@ -86,7 +86,8 @@ static func run(c: Career, f: Dictionary, arrows: Array) -> Dictionary:
 		var sf: Dictionary = f.duplicate(true)
 		sf["arrows"] = arrows.duplicate(true)
 		sf["bout"]["film"] = OppFile.film_depth(sf["bout"]["opp"])
-		sf["bout"]["stale"] = night_stale
+		sf["bout"]["stale"] = float(tank_fc["stale"])
+		sf["bout"]["tank_why"] = str(tank_fc["tank_why"])   # S434 the result line names what cost it (the last bout too)
 		sc.fighters = [sf]
 		var m := BoutNight.fight_modal(sf)
 		BoutNight.play_out(sc, sf, m)

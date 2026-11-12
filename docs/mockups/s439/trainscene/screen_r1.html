@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Training scene r1</title>
+<!-- S439 TRAINSCENE2 round 1 (ops/research/TRAINSCENE_MAP_S439.md). Samira Khan, Mon 16 Feb 2026, week 7. Every number is the map's section 5 run. -->
+<style>
+@font-face{font-family:Barlow;font-weight:400;src:url(../../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:Barlow;font-weight:500;src:url(../../../../assets/fonts/Barlow-Medium.ttf)}
+@font-face{font-family:Barlow;font-weight:600;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:Barlow;font-weight:700;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../../assets/fonts/BebasNeue-Regular.ttf)}
+:root{--bg:#0c1117;--pan:#151d27;--pan2:#1b2532;--line:#2b394a;--ink:#e9eef4;--soft:#9fb1c4;--dim:#6e8196;
+ --gold:#f2c14e;--fat:#ff8a3d;--kg:#4aa8ff;--green:#3fd27f;--red:#ff5a4f;--amber:#ffb23e}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{position:relative;background:radial-gradient(ellipse 1100px 600px at 50% 20%,#132030,transparent 70%),linear-gradient(#0e141c,#0a0e13);color:var(--ink);font:500 19px/1.22 Barlow,"Segoe UI",sans-serif}
+.p{position:absolute;background:linear-gradient(165deg,#18222e,#121a24);border:1px solid var(--line);border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.h{font:400 27px/1 Bebas;letter-spacing:.6px;color:var(--ink)}
+.h small{font:500 17px Barlow;color:var(--soft);letter-spacing:0;margin-left:8px}
+.ink{color:var(--ink)}.soft{color:var(--soft)}.dim{color:var(--dim)}.g{color:var(--gold)}.f{color:var(--fat)}.k{color:var(--kg)}.gr{color:var(--green)}.r{color:var(--red)}.a{color:var(--amber)}
+b{font-weight:700}
+.chip{display:inline-block;font:700 16px/1 Barlow;padding:5px 8px;border-radius:4px;letter-spacing:.3px}
+.met{background:#1f5a38;color:#9ff0c0}.made{background:#173f66;color:#a9d6ff}.short{background:#5a2420;color:#ffb3ad}
+/* top bar */
+.top{position:absolute;left:0;top:0;width:1920px;height:64px;background:linear-gradient(#1a2330,#121922);border-bottom:1px solid #2e3d50;display:flex;align-items:center;gap:16px;padding:0 16px}
+.nav{width:36px;height:36px;border:1px solid #33465c;border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--soft)}
+.gym{font:400 30px/1 Bebas;color:#7fb4ff;letter-spacing:1px}
+.date b{display:block;font:600 19px/22px Barlow}.date i{font:400 17px Barlow;font-style:normal;color:var(--soft)}
+.crumb{font:500 18px Barlow;color:var(--soft)}.crumb b{color:var(--ink)}
+.grow{flex:1}
+.cash{text-align:right}.cash b{display:block;font:700 22px/24px Barlow;color:var(--gold)}.cash i{font:400 17px Barlow;font-style:normal;color:var(--soft)}
+.go{width:320px;height:54px;border-radius:5px;background:linear-gradient(#3a8e5a,#2a6b43);border:1px solid #57b47c;padding:4px 12px}
+.go b{display:block;font:400 24px/22px Bebas;letter-spacing:1px}.go i{font:500 17px Barlow;font-style:normal;color:#d8f3e2}
+.menu{height:40px;padding:0 14px;border:1px solid #33465c;border-radius:4px;display:flex;align-items:center;color:var(--soft)}
+/* faces */
+.faces{display:flex;gap:14px;margin-top:10px}
+.face{width:66px;text-align:center;font:600 17px Barlow;color:var(--soft)}
+.face .ring{position:relative;width:62px;height:62px;border-radius:50%;border:2px solid #3a4b60;overflow:hidden;margin:0 auto 3px;background:#223}
+.face .ring img{width:100%;height:100%;object-fit:cover}
+.face.sel{color:var(--gold)}.face.sel .ring{border:3px solid var(--gold)}
+.dot{position:absolute;width:15px;height:15px;border-radius:50%;border:2px solid #0c1117;top:0;right:0}
+.face .wrap{position:relative;width:62px;margin:0 auto}
+/* dock */
+.pic{position:relative;height:178px;border-radius:5px;overflow:hidden;background:radial-gradient(ellipse at 50% 60%,#2a3b52,#121a24)}
+.pic img{position:absolute;left:50%;top:50%;height:200px;transform:translate(-50%,-48%) scale(1.06)}
+.tag{position:absolute;left:8px;top:8px;font:700 15px/1 Barlow;background:rgba(0,0,0,.6);padding:5px 7px;border-radius:3px;letter-spacing:.4px}
+.ladder{display:flex;gap:4px;margin:6px 0 4px}.ladder i{flex:1;height:8px;border-radius:2px;background:#2b394a}.ladder i.on{background:var(--kg)}.ladder i.half{background:linear-gradient(90deg,var(--kg) 40%,#2b394a 40%)}
+.row{display:grid;grid-template-columns:96px 1fr;gap:8px;margin-top:8px;font-size:18px}
+.row .lab{font:700 15px/1.3 Barlow;color:var(--gold);letter-spacing:.4px;padding-top:2px}
+/* weekly card */
+.ans{border:1px solid #33465c;border-radius:5px;padding:9px 11px;margin-top:9px;background:#1a2431}
+.ans.pick{border:2px solid var(--gold);background:#252417}
+.ans .t{display:flex;justify-content:space-between;align-items:center;font:400 25px/1 Bebas;letter-spacing:.6px}
+.ans .t .chip{background:var(--gold);color:#1a1405}
+.ans .l{font-size:18px;color:var(--soft);margin-top:3px}
+.ans .pr{font-size:18px;margin-top:5px;line-height:1.28}
+/* coach strip */
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:5px;font:400 22px/1 Bebas;letter-spacing:.8px}
+.btn.gold{background:linear-gradient(#ffd462,#e9a92a);color:#1b1404;border:1px solid #ffe08a}
+.btn.line{border:1px solid #4c6077;color:var(--ink);background:#1b2532}
+/* sums */
+.sumh{display:flex;justify-content:space-between;align-items:center}
+.big{font:400 52px/1 Bebas;letter-spacing:.5px}
+.arrow{font:400 30px Bebas;color:var(--dim);margin:0 6px}
+.bar{position:relative;height:16px;background:#22303f;border-radius:3px;overflow:hidden}
+.seg{position:absolute;top:0;bottom:0}
+/* lanes */
+.lane{position:absolute;display:flex;gap:10px}
+.card{position:relative;width:152px;background:linear-gradient(170deg,#1c2735,#141c26);border:1px solid #2f3e51;border-radius:5px;overflow:hidden}
+.card .hd{display:flex;justify-content:space-between;align-items:center;height:28px;padding:0 8px;background:#202d3d;font:400 22px/1 Bebas;letter-spacing:.6px}
+.card .hd span{font:600 15px Barlow;color:var(--soft);letter-spacing:0}
+.card .im{position:relative;height:66px;background:radial-gradient(ellipse at 50% 70%,#2c3e55,#141c26);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.card .im img{height:86px;margin-top:14px}
+.card .nm{padding:4px 8px 0;font:700 18px/1.15 Barlow;white-space:nowrap}
+.card .ln{padding:1px 8px 0;font:600 17px/1.2 Barlow;white-space:nowrap}
+.pips{display:inline-flex;gap:2px;margin-left:4px;vertical-align:1px}.pips i{width:9px;height:9px;border-radius:1px;background:#3a4b60}.pips i.on{background:var(--soft)}
+.card.chg{border:2px solid var(--gold);box-shadow:0 0 0 3px rgba(242,193,78,.18),0 0 18px rgba(242,193,78,.25)}
+.card.chg .hd{background:#4a3a10;color:var(--gold)}
+.x{width:22px;height:22px;border-radius:3px;background:#1b1404;color:var(--gold);display:inline-flex;align-items:center;justify-content:center;font:700 16px Barlow}
+.was{padding:2px 8px 0;font:500 16px/1.15 Barlow;color:var(--dim);text-decoration:line-through;white-space:nowrap}
+.eve .im{height:52px}
+.eve .im img{height:70px;margin-top:10px}
+.mtier{display:flex;gap:3px;padding:3px 8px 0}.mtier i{flex:1;height:7px;border-radius:2px;background:#2b394a}.mtier i.on{background:var(--kg)}
+.after{display:inline-block;font:700 14px/1 Barlow;padding:3px 5px;border-radius:3px;background:#1f5a38;color:#9ff0c0;margin-left:8px}
+.quiet{color:var(--dim)}
+/* table */
+table{border-collapse:collapse;width:100%}
+td,th{padding:3px 8px;text-align:left;white-space:nowrap}
+th{font:700 15px Barlow;color:var(--soft);letter-spacing:.5px;border-bottom:1px solid var(--line)}
+td{font:600 18px Barlow;border-bottom:1px solid #222e3c}
+/* right */
+.road{display:flex;gap:6px;margin-top:9px}
+.road div{flex:1;border-radius:4px;padding:5px 7px;font:600 15px/1.2 Barlow;color:var(--soft);background:#1d2836;border-top:3px solid #3a4b60}
+.road div b{display:block;font:400 19px/1 Bebas;letter-spacing:.6px;color:var(--ink)}
+.road .now{border-top-color:var(--gold)}.road .fw{border-top-color:var(--amber)}.road .bt{border-top-color:var(--red)}
+.gain{display:grid;grid-template-columns:118px 1fr auto;align-items:baseline;gap:6px;font-size:18px;padding:3px 0;border-bottom:1px solid #212c39}
+.gain .w{font-weight:700}.gain .s{font:500 16px Barlow;color:var(--soft);text-align:right}
+.pc{display:grid;grid-template-columns:50px 1fr 64px;gap:8px;align-items:center;padding:5px 6px;border-radius:5px;border:1px solid transparent;margin-top:3px}
+.pc img{width:50px;height:46px;object-fit:cover;object-position:50% 30%;border-radius:4px;background:#22303f}
+.pc .n{font:700 18px/1.1 Barlow}.pc .n span{font:600 16px Barlow;color:var(--soft);margin-left:5px}
+.pc .d{font:500 16px/1.2 Barlow;color:var(--soft);white-space:nowrap}
+.pc .add{font:400 26px/1 Bebas;text-align:right;color:var(--kg)}
+.pc.hov{border-color:var(--kg);background:#17283b}
+</style></head><body>
+
+<!-- TOP BAR (dark, every game screen) -->
+<div class="top">
+ <div class="nav">&lsaquo;</div><div class="nav" style="opacity:.45">&rsaquo;</div>
+ <div class="gym">ANVIL STREET GYM</div>
+ <div class="date"><b>Mon 16 Feb 2026</b><i>Week 7</i></div>
+ <div class="crumb" style="margin-left:18px">Fighters &rsaquo; Samira Khan &rsaquo; <b>Training</b></div>
+ <div class="grow"></div>
+ <div class="cash"><b>$12,940</b><i>running &minus;$210 a week</i></div>
+ <div class="go"><b>CONTINUE</b><i>to Mon 23 Feb, fight week</i></div>
+ <div class="menu">Menu</div>
+</div>
+
+<!-- LEFT: fighters -->
+<div class="p" style="left:16px;top:76px;width:340px;height:128px;padding:10px 14px">
+ <div class="h">TRAINING <small>whose week</small></div>
+ <div class="faces">
+  <div class="face"><div class="wrap"><div class="ring"><img src="../../s431/final/face_lucy.png"></div><i class="dot" style="background:var(--green)"></i></div>Lucy</div>
+  <div class="face"><div class="wrap"><div class="ring"><img src="../../s431/final/face_tess.png"></div><i class="dot" style="background:var(--amber)"></i></div>Tess</div>
+  <div class="face sel"><div class="wrap"><div class="ring"><img src="../../s431/final/face_samira.png"></div><i class="dot" style="background:var(--amber)"></i></div>Samira</div>
+  <div class="face"><div class="wrap"><div class="ring"><img src="../../s431/final/face_ana.png"></div><i class="dot" style="background:var(--green)"></i></div>Ana</div>
+ </div>
+</div>
+
+<style>
+.irow{margin-top:7px;font-size:17px;line-height:1.24}
+.irow .lab{font:700 14px Barlow;color:var(--gold);letter-spacing:.5px;margin-right:6px}
+.opt{flex:1;height:44px;border:1px solid #33465c;border-radius:5px;padding:3px 9px;background:#18212c}
+.opt .o1{display:flex;justify-content:space-between;font:400 20px/1 Bebas;letter-spacing:.6px}
+.opt .o1 span{font:600 15px/1 Barlow;color:var(--soft);letter-spacing:0}
+.opt .o2{font:500 15px/1.25 Barlow;color:var(--soft);white-space:nowrap;margin-top:3px}
+.opt.on{border:2px solid var(--gold);background:#262415;padding-top:1px}.opt.on .o1{color:var(--gold)}.opt.on .o2{color:var(--ink)}
+.wl{font:700 13px Barlow;letter-spacing:.5px;color:var(--dim)}
+.diet{border:1px solid #33465c;border-radius:4px;padding:2px 7px;font-size:15px;margin-top:4px;white-space:nowrap}
+</style>
+
+<!-- LEFT: preview dock (resting on Check hook in PAD NIGHT CARDS) -->
+<div class="p" style="left:16px;top:214px;width:340px;height:376px;padding:10px 14px">
+ <div class="pic" style="height:118px"><img src="../../../../assets/ui/moves/lead_hook.png" style="height:150px"><div class="tag">PREVIEW &middot; SAMIRA</div></div>
+ <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:7px"><div class="h" style="font-size:29px">CHECK HOOK</div><div style="font:700 17px Barlow" class="k">Learning 12</div></div>
+ <div class="ladder"><i class="half"></i><i></i><i></i><i></i><i></i></div>
+ <div class="irow"><span class="lab">WHAT IT DOES</span>A lead hook thrown pivoting out: catches a fighter stepping in.</div>
+ <div class="irow"><span class="lab">ONE NIGHT ADDS</span><b class="k">+9.1</b> (12 &rarr; 21.1). Mon + Wed: 28.9; Usable at 30 on <b>Mon 23</b>, before the bout.</div>
+ <div class="irow"><span class="lab">COSTS</span>a night's 240 minutes. Not drilled: &minus;0.75 a week.</div>
+ <div class="irow"><span class="lab">OPENS</span>slip 2-3 in the book.</div>
+</div>
+
+<!-- LEFT: this week's card (WeekTwist, choice) -->
+<div class="p" style="left:16px;top:600px;width:340px;height:396px;padding:10px 14px">
+ <div class="h">THIS WEEK'S CARD</div>
+ <div class="a" style="font:600 16px Barlow;margin-top:2px">answer before CONTINUE, or Coach picks</div>
+ <div style="font:700 21px Barlow;margin-top:6px">Heating breaks</div>
+ <div class="soft" style="font-size:17px">The gym is freezing; the repair is costly.</div>
+ <div class="ans pick"><div class="t">FIX IT <span class="chip">COACH'S PICK</span></div>
+  <div class="l">Pay $600 now; train as planned.</div>
+  <div class="pr">Cash <b>$12,940 &rarr; $12,340</b></div></div>
+ <div class="ans"><div class="t">WAIT</div>
+  <div class="l">Keep the cash; every morning counts as Light.</div>
+  <div class="pr">Goal <b class="r">61.81, missed</b> (mood &minus;20)<br>Weigh-in <b class="k">65.05 kg</b>: on the line<br>Fatigue peak <b class="f">49</b>, not 56</div></div>
+</div>
+<div class="btn line" style="position:absolute;left:16px;top:1006px;width:340px;height:58px">&lsaquo; BACK TO SAMIRA'S PAGE</div>
+
+<!-- CENTRE: coach strip -->
+<div class="p" style="left:372px;top:76px;width:1124px;height:68px;padding:6px 14px;display:flex;align-items:center;gap:14px">
+ <div style="width:54px;height:54px;border-radius:50%;overflow:hidden;border:2px solid #4c6077;flex:none;background:#223"><img src="../../s434/train/c_coach_cut.png" style="width:100%;height:100%;object-fit:cover;object-position:50% 20%"></div>
+ <div style="flex:1">
+  <div><span class="h" style="font-size:24px">COACH'S WEEK</span> <span class="chip" style="background:#22344a;color:#bcd7f5;margin-left:8px">BASE WEEK &middot; A CLUB SHOW NEEDS NO CAMP</span></div>
+  <div style="font-size:17px;margin-top:3px">"3 pad nights. <b class="g">Cardio 61.90</b> by the bout: 0.10 short of the goal. Check hook Usable Mon 23. Fight week next: I write it."</div>
+ </div>
+ <div class="btn line" style="width:150px;height:42px;font-size:20px;flex:none">1 CHANGE OF YOURS</div>
+ <div class="btn gold" style="width:226px;height:42px;flex:none">BACK TO COACH'S WEEK</div>
+</div>
+
+<!-- CENTRE: the three sums -->
+<div class="p" style="left:372px;top:152px;width:368px;height:218px;padding:10px 14px">
+ <div class="sumh"><div class="h">GOAL &middot; <span class="g">CARDIO 62.0</span> <small>by Sat 28 Feb</small></div><span class="chip met">MET</span></div>
+ <div style="display:flex;align-items:baseline;margin-top:8px"><span class="big soft" style="font-size:40px">61.20</span><span class="arrow">&rarr;</span><span class="big g">62.06</span><span class="soft" style="font-size:17px;margin-left:8px">on Sat 28</span></div>
+ <div class="bar" style="margin-top:8px">
+  <div class="seg" style="left:0;width:56.7%;background:#5d5130"></div>
+  <div class="seg" style="left:56.7%;width:4.3%;background:#c9a043;border-right:1px solid #0c1117"></div>
+  <div class="seg" style="left:61%;width:4%;background:#c9a043;border-right:1px solid #0c1117"></div>
+  <div class="seg" style="left:65%;width:4%;background:#c9a043;border-right:1px solid #0c1117"></div>
+  <div class="seg" style="left:69%;width:5.3%;background:var(--gold);border-right:1px solid #0c1117"></div>
+  <div class="seg" style="left:74.3%;width:2%;background:#c9a043"></div>
+  <div class="seg" style="left:76.3%;width:9%;background:repeating-linear-gradient(135deg,#8a7638 0 4px,#3a3420 4px 8px)"></div>
+  <div class="seg" style="left:83.3%;width:3px;background:#fff"></div>
+ </div>
+ <div style="display:flex;justify-content:space-between;font-size:15px;margin-top:2px" class="dim"><span>start 59.5</span><span>this week &middot; <b class="g">Sat</b> &middot; fight week &middot; goal</span></div>
+ <div style="font-size:17px;margin-top:6px">This week <b class="g">+0.59</b> &middot; fight week <b class="g">+0.27</b></div>
+ <div style="font-size:17px;margin-top:2px" class="soft">Coach's week: <b class="r">61.90, missed</b></div>
+ <div style="font-size:17px" class="soft">Met: mood <b class="gr">+10</b> &middot; missed: mood <b class="r">&minus;20</b></div>
+</div>
+
+<div class="p" style="left:750px;top:152px;width:368px;height:218px;padding:10px 14px">
+ <div class="sumh"><div class="h">WEIGHT <small>limit 65.0 kg</small></div><span class="chip made">MADE &middot; 0.04 UNDER</span></div>
+ <div style="display:flex;gap:8px;margin-top:6px">
+  <div style="flex:.9"><div class="wl">TODAY</div><div class="big soft" style="font-size:32px">65.80</div><div class="wl">MON 16</div></div>
+  <div style="flex:1.1;border-left:3px solid var(--kg);padding-left:7px"><div class="wl k">END OF WEEK</div><div class="big k" style="font-size:32px">65.34</div><div class="wl k">SUN 22</div></div>
+  <div style="flex:1.1;border-left:3px solid #fff;padding-left:7px"><div class="wl">WEIGH-IN</div><div class="big" style="font-size:32px">64.96</div><div class="wl">FRI 27</div></div>
+ </div>
+ <svg width="340" height="30" style="display:block;margin-top:0" font-family="Barlow">
+  <line x1="0" y1="27" x2="340" y2="27" stroke="#ff5a4f" stroke-dasharray="5 4"/><text x="250" y="22" fill="#ff8f86" font-size="13" font-weight="700">limit 65.0</text>
+  <polyline fill="none" stroke="#4aa8ff" stroke-width="2" points="6,4 36,6 66,7 96,10 126,11 156,14 186,16 216,17 246,20 276,22 306,24 334,28"/>
+  <g fill="#4aa8ff"><circle cx="6" cy="4" r="3"/><circle cx="36" cy="6" r="3"/><circle cx="66" cy="7" r="3"/><circle cx="96" cy="10" r="3"/><circle cx="126" cy="11" r="3"/><circle cx="156" cy="14" r="3"/><circle cx="186" cy="16" r="3"/><circle cx="216" cy="17" r="5" fill="#9fd0ff"/><circle cx="246" cy="20" r="3"/><circle cx="276" cy="22" r="3"/><circle cx="306" cy="24" r="3"/><circle cx="334" cy="28" r="5" fill="#fff"/></g>
+ </svg>
+ <div class="diet" style="border:2px solid var(--kg);background:#14273b"><b class="k">CUT</b> on &middot; 64.96 &middot; mornings teach 10% less</div>
+ <div class="diet"><b>HOLD</b> &middot; <span class="r">65.90: missed, the bout is off, $300</span></div>
+ <div style="font-size:15px;margin-top:3px" class="soft">Latest cut start: <b class="ink">today</b> &middot; Mon 23 gives 65.44</div>
+</div>
+
+<div class="p" style="left:1128px;top:152px;width:368px;height:218px;padding:10px 14px">
+ <div class="sumh"><div class="h">FATIGUE <small>each night, to the bell</small></div></div>
+ <svg width="340" height="118" style="display:block;margin-top:4px" font-family="Barlow">
+  <line x1="0" y1="14" x2="340" y2="14" stroke="#ff5a4f" stroke-dasharray="5 4"/><text x="0" y="10" fill="#ff8f86" font-size="13" font-weight="700">80 overworked: gains x0.6, injury x3</text>
+  <g font-size="13" font-weight="700" fill="#ffb27f" text-anchor="middle">
+   <rect x="2" y="60" width="20" height="38" fill="#c8662a"/><text x="12" y="56">38</text>
+   <rect x="28" y="59" width="20" height="39" fill="#c8662a"/><text x="38" y="55">39</text>
+   <rect x="54" y="50" width="20" height="48" fill="#c8662a"/><text x="64" y="46">48</text>
+   <rect x="80" y="50" width="20" height="48" fill="#c8662a"/><text x="90" y="46">48</text>
+   <rect x="106" y="43" width="20" height="55" fill="#c8662a"/><text x="116" y="39">55</text>
+   <rect x="132" y="42" width="20" height="56" fill="#ff8a3d"/><text x="142" y="38" fill="#ffd2b0">56</text>
+   <rect x="158" y="49" width="20" height="49" fill="#c8662a"/><text x="168" y="45">49</text>
+   <rect x="184" y="48" width="20" height="50" fill="#7a4a2e"/><text x="194" y="44">50</text>
+   <rect x="210" y="53" width="20" height="45" fill="#7a4a2e"/><text x="220" y="49">45</text>
+   <rect x="236" y="55" width="20" height="43" fill="#7a4a2e"/><text x="246" y="51">43</text>
+   <rect x="262" y="59" width="20" height="39" fill="#7a4a2e"/><text x="272" y="55">39</text>
+   <rect x="288" y="56" width="20" height="42" fill="#7a4a2e"/><text x="298" y="52">42</text>
+   <rect x="314" y="62" width="20" height="36" fill="#3fd27f"/><text x="324" y="58" fill="#9ff0c0">36</text>
+  </g>
+  <g font-size="13" fill="#6e8196" text-anchor="middle"><text x="12" y="113">M</text><text x="38" y="113">T</text><text x="64" y="113">W</text><text x="90" y="113">T</text><text x="116" y="113">F</text><text x="142" y="113">S</text><text x="168" y="113">S</text><text x="194" y="113">M</text><text x="220" y="113">T</text><text x="246" y="113">W</text><text x="272" y="113">T</text><text x="298" y="113">F</text><text x="324" y="113" fill="#ff8f86">BOUT</text></g>
+  <line x1="181" y1="24" x2="181" y2="100" stroke="#3a4b60" stroke-dasharray="3 3"/>
+ </svg>
+ <div style="font-size:17px;margin-top:2px">Peak <b class="f">56 Sat</b> &middot; fight night <b class="gr">36, fresh</b> (under 50)</div>
+ <div style="font-size:17px" class="soft">Injury this week <b class="ink">1.0 in 100</b></div>
+</div>
+
+<!-- CENTRE: pad nights this week -->
+<div class="p" style="left:372px;top:378px;width:1124px;height:54px;padding:4px 10px;display:flex;align-items:center;gap:10px">
+ <div style="width:150px;flex:none"><div class="h" style="font-size:23px">PAD NIGHTS</div><div class="dim" style="font-size:14px">injury in 100</div></div>
+ <div class="opt"><div class="o1">LIGHT &middot; 2 <span>0.9 &middot; peak 49</span></div><div class="o2">Check hook Usable after the bout</div></div>
+ <div class="opt on"><div class="o1">NORMAL &middot; 3 &middot; COACH <span style="color:var(--ink)">1.0 &middot; peak 56</span></div><div class="o2">Check hook Usable Mon 23</div></div>
+ <div class="opt"><div class="o1">HARD &middot; 4 <span>1.2 &middot; peak 61</span></div><div class="o2">+ Tuesday: 1-2-3 24.9, not 21.8</div></div>
+</div>
+
+<!-- CENTRE: mornings -->
+<div style="position:absolute;left:374px;top:438px;width:1120px;display:flex;justify-content:space-between;align-items:baseline">
+ <div><span class="h" style="font-size:24px">MORNINGS</span> <span class="soft" style="font-size:16px;margin-left:6px">build the body &middot; click a card to change its session or pace</span></div>
+ <div style="font:600 16px Barlow"><span class="g">Cardio +0.59</span> &middot; Power +0.11 &middot; Hand speed +0.10 &middot; <span class="k">&minus;0.46 kg</span> &middot; <span class="f">Fatigue +31</span></div>
+</div>
+<div class="lane" style="left:372px;top:464px">
+ <div class="card" style="height:196px"><div class="hd">MON<span>Normal<span class="pips"><i class="on"></i><i class="on"></i><i></i></span></span></div><div class="im"><img src="../../../../assets/ui/training/mh_boxer_20_roadwork.png"></div>
+  <div class="nm">Roadwork</div><div class="ln g">+0.13 Cardio</div><div class="ln k">&minus;0.09 kg &middot; 65.71</div><div class="ln f">+5.1 Fatigue</div></div>
+ <div class="card" style="height:196px"><div class="hd">TUE<span>Normal<span class="pips"><i class="on"></i><i class="on"></i><i></i></span></span></div><div class="im"><img src="../../../../assets/ui/training/mh_boxer_20_heavy_bag.png"></div>
+  <div class="nm">Heavy bag</div><div class="ln">+0.11 Power</div><div class="ln k">&minus;0.06 kg &middot; 65.66</div><div class="ln f">+5.5 Fatigue</div></div>
+ <div class="card" style="height:196px"><div class="hd">WED<span>Normal<span class="pips"><i class="on"></i><i class="on"></i><i></i></span></span></div><div class="im"><svg width="56" height="56" viewBox="0 0 60 60"><circle cx="30" cy="34" r="20" fill="none" stroke="#c3d2e2" stroke-width="4"/><rect x="25" y="6" width="10" height="6" fill="#c3d2e2"/><line x1="30" y1="34" x2="40" y2="24" stroke="#f2c14e" stroke-width="4"/></svg></div>
+  <div class="nm">Intervals</div><div class="ln g">+0.12 Cardio</div><div class="ln k">&minus;0.07 kg &middot; 65.58</div><div class="ln f">+5.5 Fatigue</div></div>
+ <div class="card" style="height:196px"><div class="hd">THU<span>Light<span class="pips"><i class="on"></i><i></i><i></i></span></span></div><div class="im"><img src="../../../../assets/ui/training/mh_boxer_20_speed_bag.png"></div>
+  <div class="nm">Speed bag</div><div class="ln">+0.10 Hand speed</div><div class="ln k">&minus;0.04 kg &middot; 65.54</div><div class="ln f">+1.6 Fatigue</div></div>
+ <div class="card" style="height:196px"><div class="hd">FRI<span>Normal<span class="pips"><i class="on"></i><i class="on"></i><i></i></span></span></div><div class="im"><img src="../../../../assets/ui/training/mh_boxer_20_roadwork.png"></div>
+  <div class="nm">Roadwork</div><div class="ln g">+0.12 Cardio</div><div class="ln k">&minus;0.09 kg &middot; 65.45</div><div class="ln f">+5.1 Fatigue</div></div>
+ <div class="card chg" style="height:196px"><div class="hd">SAT &middot; CHANGED<span class="x">&times;</span></div>
+  <div style="background:#141b24;padding:3px 0 4px;border-bottom:1px dashed #4a3a10">
+   <div class="was" style="font-size:15px">Strength circuit</div>
+   <div class="was" style="font-size:15px">+0.09 Power &middot; +6.1</div>
+  </div>
+  <div class="nm" style="padding-top:5px">Intervals <span style="font:700 15px Barlow" class="g">HARD</span></div>
+  <div class="ln g">+0.16 Cardio</div>
+  <div class="ln k">&minus;0.09 kg &middot; 65.37</div>
+  <div class="ln f">+8.2 Fatigue</div></div>
+ <div class="card" style="height:196px"><div class="hd">SUN<span>Rest</span></div><div class="im"><svg width="48" height="48" viewBox="0 0 50 50"><path d="M33 8a18 18 0 1 0 10 28A15 15 0 0 1 33 8z" fill="#9fb1c4"/></svg></div>
+  <div class="nm">Rest</div><div class="ln g">+0.06 Cardio</div><div class="ln k">&minus;0.03 kg &middot; 65.34</div><div class="ln quiet">sleep only</div></div>
+</div>
+
+<!-- CENTRE: evenings -->
+<div style="position:absolute;left:374px;top:668px;width:1120px;display:flex;justify-content:space-between;align-items:baseline">
+ <div><span class="h" style="font-size:24px">EVENINGS</span> <span class="soft" style="font-size:16px;margin-left:6px">pad nights teach moves and combinations &middot; drag a pad night card onto a night</span></div>
+ <div style="font:600 16px Barlow">a pad night also gives Technique +0.21 &middot; <span class="f">Fatigue +30</span></div>
+</div>
+<div class="lane eve" style="left:372px;top:694px">
+ <div class="card" style="height:146px;border-color:var(--kg)"><div class="hd">MON<span>Pads</span></div><div class="im" style="height:46px"><img src="../../../../assets/ui/moves/lead_hook.png" style="height:64px;margin-top:10px"></div>
+  <div class="nm">Check hook</div><div class="ln k">12 &rarr; 21.1</div><div class="ln f">+8.5 Fatigue</div></div>
+ <div class="card" style="height:146px"><div class="hd">TUE<span>Rest</span></div><div class="im" style="height:46px"><svg width="36" height="36" viewBox="0 0 50 50"><path d="M33 8a18 18 0 1 0 10 28A15 15 0 0 1 33 8z" fill="#5d6f84"/></svg></div>
+  <div class="nm quiet">No session</div><div class="ln quiet">sleep only</div></div>
+ <div class="card" style="height:146px"><div class="hd">WED<span>Pads</span></div><div class="im" style="height:46px"><img src="../../../../assets/ui/moves/lead_hook.png" style="height:64px;margin-top:10px"></div>
+  <div class="nm">Check hook</div><div class="ln k">21.1 &rarr; 28.9</div><div class="ln f">+8.5 Fatigue</div></div>
+ <div class="card" style="height:146px"><div class="hd">THU<span>Sparring</span></div><div class="im" style="height:46px"><img src="../../../../assets/ui/training/mh_boxer_20_sparring.png" style="height:66px;margin-top:12px"></div>
+  <div class="nm" style="font-size:17px">Every Usable card</div><div class="ln k" style="font-size:16px">Jab +0.9 &middot; 1-2 +0.7</div><div class="ln f">+4.8 Fatigue</div></div>
+ <div class="card" style="height:146px"><div class="hd">FRI<span>Pads</span></div><div class="im" style="height:46px"><img src="../../../../assets/ui/moves/1-2-3.png" style="height:64px;margin-top:10px"></div>
+  <div class="nm">1-2-3 <span class="a" style="font:600 14px Barlow">held: Lead hook</span></div><div class="ln k">18 &rarr; 21.8</div><div class="ln f">+8.5 Fatigue</div></div>
+ <div class="card" style="height:146px"><div class="hd">SAT<span>Rest</span></div><div class="im" style="height:46px"><svg width="36" height="36" viewBox="0 0 50 50"><path d="M33 8a18 18 0 1 0 10 28A15 15 0 0 1 33 8z" fill="#5d6f84"/></svg></div>
+  <div class="nm quiet">No session</div><div class="ln quiet">sleep only</div></div>
+ <div class="card" style="height:146px"><div class="hd">SUN<span>Rest</span></div><div class="im" style="height:46px"><svg width="36" height="36" viewBox="0 0 50 50"><path d="M33 8a18 18 0 1 0 10 28A15 15 0 0 1 33 8z" fill="#5d6f84"/></svg></div>
+  <div class="nm quiet">No session</div><div class="ln quiet">sleep only</div></div>
+</div>
+
+<!-- CENTRE: what your change did -->
+<div class="p" style="left:372px;top:850px;width:1124px;height:214px;padding:8px 14px;border-color:#6b5520">
+ <div style="display:flex;justify-content:space-between;align-items:center">
+  <div><span class="h g" style="font-size:24px">WHAT YOUR CHANGE DID</span> <span style="font-size:18px;margin-left:8px">Saturday morning: <s class="dim">Strength circuit, Normal</s> &rarr; <b class="g">Intervals, Hard</b></span></div>
+  <div class="btn line" style="width:120px;height:32px;font-size:20px">UNDO</div>
+ </div>
+ <table style="margin-top:4px">
+  <tr><th style="width:250px"></th><th style="width:230px">COACH'S WEEK</th><th style="width:230px">YOURS</th><th>FROM THE SAT CARD</th></tr>
+  <tr><td>Cardio goal, 62.0 by Sat 28</td><td class="r">61.90 &middot; missed, mood &minus;20</td><td class="gr">62.06 &middot; MET, mood +10</td><td class="soft">intervals +0.16 Cardio; strength gave none</td></tr>
+  <tr><td>Power by Sun 22</td><td>66.80</td><td>66.71</td><td class="soft">no strength circuit: &minus;0.09</td></tr>
+  <tr><td>Fatigue: peak / fight night</td><td>55 Fri / 35</td><td class="f">56 Sat / 36</td><td class="soft">Hard intervals +8.2; strength was +6.1</td></tr>
+  <tr><td>Weigh-in, Fri 27</td><td>64.99 kg</td><td class="k">64.96 kg</td><td class="soft">486 kcal burned, not 295</td></tr>
+  <tr><td style="border:0">Injury this week</td><td style="border:0">1.0 in 100</td><td style="border:0">1.0 in 100</td><td class="soft" style="border:0">the same 45 minutes of load</td></tr>
+ </table>
+</div>
+
+<!-- RIGHT: next bout -->
+<div class="p" style="left:1512px;top:76px;width:392px;height:186px;padding:9px 14px">
+ <div class="sumh"><div class="h" style="color:#ff8f86">NEXT BOUT &middot; CLUB SHOW</div><div class="big" style="font-size:40px;color:#ff8f86;line-height:.9">12<span style="font:600 15px Barlow;color:var(--soft);margin-left:4px">DAYS</span></div></div>
+ <div style="font:400 28px/1 Bebas;letter-spacing:.6px;margin-top:2px">SAT 28 FEB &middot; VS JADE OKORO</div>
+ <div class="soft" style="font-size:16px;margin-top:2px">Haringey Police CC &middot; Boxer-puncher &middot; 2-1</div>
+ <div class="soft" style="font-size:16px">Weigh-in Fri 27, the day before &middot; limit 65.0 kg</div>
+ <div class="road"><div class="now"><b>THIS WEEK</b>yours</div><div class="fw"><b>FIGHT WEEK</b>Mon 23</div><div class="bt"><b>BOUT</b>Sat 28</div></div>
+</div>
+
+<!-- RIGHT: this week's gains -->
+<div class="p" style="left:1512px;top:270px;width:392px;height:328px;padding:9px 14px">
+ <div class="h">THIS WEEK'S GAINS <small>Mon 16 to Sun 22</small></div>
+ <div style="margin-top:3px">
+  <div class="gain"><span class="g">Cardio</span><span class="w">61.20 &rarr; 61.79</span><span class="s">5 mornings</span></div>
+  <div class="gain"><span>Technique</span><span class="w">55.60 &rarr; 56.24</span><span class="s">3 pad nights</span></div>
+  <div class="gain"><span>Power</span><span class="w">66.60 &rarr; 66.71</span><span class="s">Tue bag</span></div>
+  <div class="gain"><span>Ring IQ</span><span class="w">54.80 &rarr; 55.00</span><span class="s">Thu sparring</span></div>
+  <div class="gain"><span>Hand speed</span><span class="w">57.40 &rarr; 57.50</span><span class="s">Thu bag</span></div>
+  <div class="gain"><span class="k">Check hook</span><span class="w">12 &rarr; 28.9</span><span class="s">Mon, Wed</span></div>
+  <div class="gain"><span class="k">1-2-3</span><span class="w">18 &rarr; 21.8</span><span class="s">Fri</span></div>
+  <div class="gain"><span class="k">Jab &middot; 1-2</span><span class="w">50.9 &middot; 34.7</span><span class="s">Thu sparring</span></div>
+  <div class="gain"><span class="r">Body hook</span><span class="w r">29.1 &rarr; 28.4</span><span class="s">not drilled</span></div>
+  <div class="gain" style="border:0"><span class="k">Weight</span><span class="w k">65.80 &rarr; 65.34</span><span class="s">kg, on Cut</span></div>
+ </div>
+</div>
+
+<!-- RIGHT: pad night cards -->
+<div class="p" style="left:1512px;top:606px;width:392px;height:390px;padding:9px 12px">
+ <div class="sumh"><div class="h">PAD NIGHT CARDS</div><span class="soft" style="font:600 15px Barlow">one night adds</span></div>
+ <div class="pc hov"><img src="../../../../assets/ui/moves/lead_hook.png"><div><div class="n">Check hook<span>Learning 12</span></div><div class="d">on Mon, Wed &middot; opens slip 2-3</div></div><div class="add">+9.1</div></div>
+ <div class="pc"><img src="../../../../assets/ui/moves/body_hook.png"><div><div class="n">Body hook<span>Learning 29.1</span></div><div class="d">Usable in one night: 3b-3, 1-2-3b</div></div><div class="add">+6.6</div></div>
+ <div class="pc"><img src="../../../../assets/ui/moves/lead_hook.png"><div><div class="n">Lead hook<span>Usable 38</span></div><div class="d">lifts the 1-2-3's ceiling</div></div><div class="add">+5.2</div></div>
+ <div class="pc"><img src="../../../../assets/ui/moves/rear_uppercut.png"><div><div class="n">Uppercut<span>New</span></div><div class="d">opens 1-6-3 at 30</div></div><div class="add">+10.9</div></div>
+ <div class="pc"><img src="../../../../assets/ui/moves/1-2-3.png"><div><div class="n">1-2-3<span>Learning 18</span></div><div class="d">on Fri &middot; held by Lead hook 38</div></div><div class="add">+3.8</div></div>
+ <div class="btn line" style="width:100%;height:40px;margin-top:8px;font-size:21px;border-color:var(--kg);color:#cfe6ff">+ BUILD A COMBINATION &middot; PLAYBOOK</div>
+</div>
+<div class="btn gold" style="position:absolute;left:1512px;top:1006px;width:392px;height:58px;font-size:32px">DONE</div>
+
+</body></html>

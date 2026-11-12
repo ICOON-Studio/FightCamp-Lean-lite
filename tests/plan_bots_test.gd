@@ -23,6 +23,8 @@ const CoachPlan := preload("res://scripts/rules/CoachPlan.gd")
 const FightWhy := preload("res://scripts/rules/FightWhy.gd")
 
 const N := 200
+## Rule 1's simmed arms (S434: their bar needs the bigger sample; the live arms stay at N).
+const N_SIM := 1000
 ## The player's well-read plan against a presser (plan_effect_probe GOOD).
 const GOOD := [{"move": "1-1"}, {"move": "step_back"}, {"move": "pivot_out"}, {"move": "tie_up"}]
 
@@ -50,11 +52,16 @@ func _initialize() -> void:
 	var why := FightWhy.read([{"won": true, "plan": hp, "exchanges": [{"won": true, "landed": [4, 3], "planned": true, "arrow": "step_back",
 		"arrow_fit": "best", "psit": "press", "plan_edge": 5.0}]}], "Lucy", "Maria")
 	_check(str(why["plan"]).begins_with("The coach's plan") and str(why["next"]).contains("plan of your own"), "the Why says it was the coach's plan")
-	var none := _share(func(_f): return [], -1.0, false, false)
+	# S434 CARDIO1 round 2: the simmed arms of rule 1 on N_SIM bouts (the same days from 40, 5x as many; a sim is cheap). On
+	# 200 the "about half" bar sat inside its own noise: the fade line moving 59 -> 60 (0.25 more round-3 fade for Lucy)
+	# moved coach 74 - none to 0.160 against 0.6 x 0.260 = 0.156 and turned it red. Measured on 1,000: line 59 none 0.384,
+	# plan+sim 0.578, coach 74 0.472 (0.088 vs 0.116); line 60 none 0.378, plan+sim 0.575, coach 74 0.469 (0.091 vs 0.118).
+	# Every bar is unchanged.
+	var none := _share(func(_f): return [], -1.0, false, false, N_SIM)
 	var own_corner := _share(func(_f): return GOOD, -1.0, true, false)
-	var own_sim := _share(func(_f): return GOOD, -1.0, false, false)
-	var hale := _share(func(_f): return [], 74.0, false, false)
-	var reid := _share(func(_f): return [], 58.0, false, false)
+	var own_sim := _share(func(_f): return GOOD, -1.0, false, false, N_SIM)
+	var hale := _share(func(_f): return [], 74.0, false, false, N_SIM)
+	var reid := _share(func(_f): return [], 58.0, false, false, N_SIM)
 	print("PLAN_BOTS rule 1: plan+corner %.3f  plan+sim %.3f  coach 74 %.3f  coach 58 %.3f  none %.3f" % [own_corner, own_sim, hale, reid, none])
 	_check(own_corner >= own_sim - 0.03, "your corner adds on top of your plan (or at least costs nothing)")
 	_check(own_sim > hale + 0.05, "your plan beats the coach's clearly")
@@ -111,9 +118,9 @@ static func weighed_plan(style: String, f: Dictionary) -> Array:
 ## Win share over N close bouts. plan_of(f) -> arrows; coach = the gym coach's rating (-1 none); corner = the player's
 ## corner (shout the clue's answer twice a round, the corner call on the last situation) instead of the simulation;
 ## adjust = the corner swaps an answer the opponent has adjusted to for another right one on its card.
-func _share(plan_of: Callable, coach: float, corner: bool, adjust: bool) -> float:
+func _share(plan_of: Callable, coach: float, corner: bool, adjust: bool, n: int = N) -> float:
 	var wins := 0
-	for i in N:
+	for i in n:
 		var c := Career.quick_start()
 		c.fighters.append(Data.fighter_state(Data.lucy(), c.day))
 		c.coach = {"rating": coach} if coach >= 0.0 else {}
@@ -130,7 +137,7 @@ func _share(plan_of: Callable, coach: float, corner: bool, adjust: bool) -> floa
 		else:
 			_live(c, f, m, corner, adjust)
 		wins += int(str(m.get("outcome", "")) == "win")
-	return float(wins) / N
+	return float(wins) / n
 
 
 func _live(c: Career, f: Dictionary, m: Dictionary, corner: bool, adjust: bool) -> void:

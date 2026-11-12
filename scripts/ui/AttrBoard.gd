@@ -12,6 +12,7 @@ const Icons := preload("res://scripts/ui/Icons.gd")
 const StatBar := preload("res://scripts/ui/StatBar.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
 const AttrGen := preload("res://scripts/rules/AttrGen.gd")
+const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 
 ## S398 the fighter model (FIGHTER_MODEL_S397.md v2): every attribute the fight reads, in three groups, the radar on six
 ## keys (the places and the body: where the fighter wins), the signature line and where the fighter wants the fight.
@@ -84,7 +85,11 @@ static func rows(f: Dictionary) -> Array:
 		for key in g["keys"]:
 			var v := value(f, str(key))
 			var d := v - float(start[key]) if start.has(key) else 0.0
-			list.append({"key": key, "name": label_of(str(key)), "value": v, "delta": d, "band": band(str(key), v), "why": WHY[key]})
+			# S434 CARDIO1 (TRAINING_MAP T17): the Stamina row carries its own line (BoutRules.fade_words), "tires from round 3, every stat 0.50 lower; no fade from Stamina 60".
+			var why := str(WHY[key]) + ("\nIn a bout: " + BoutRules.fade_words(v) if key == "stamina" else "")
+			# S439 (T17 "Printed on the row"): the line in a few words under the row itself, the sentence stays on hover
+			var line := BoutRules.fade_row(v) if key == "stamina" else ""
+			list.append({"key": key, "name": label_of(str(key)), "value": v, "delta": d, "band": band(str(key), v), "why": why, "line": line})
 		out.append({"title": g["title"], "rows": list})
 	return out
 
@@ -213,4 +218,20 @@ static func _row(r: Dictionary, pot := 0.0) -> Control:
 	change.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	change.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(change)
-	return h
+	return with_line(h, r, UI.MUTED)
+
+
+## S439 T17: a row with a line ("From round 3: fights 0.61 weaker; Stamina 60 stops it") carries it in small words under the row, the same tooltip.
+static func with_line(h: Control, r: Dictionary, ink: Color) -> Control:
+	if str(r.get("line", "")) == "":
+		return h
+	var box := UI.vbox(0)
+	box.tooltip_text = h.tooltip_text
+	box.mouse_filter = Control.MOUSE_FILTER_PASS
+	box.add_child(h)
+	var cap := UI.label(str(r["line"]), UI.TINY, ink)
+	cap.name = "RowLine"
+	cap.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART   # the plain-words line wraps under its row, never widens the board
+	cap.mouse_filter = Control.MOUSE_FILTER_PASS
+	box.add_child(cap)
+	return box

@@ -63,8 +63,9 @@ func exchange(beats: Array, sit: String, after: Dictionary = {}, pace: String = 
 	_to = [_fx("a"), _fx("b")]
 
 
-## The minute's rest: conditioning sets the refill (Combos.refill's 0.8..1.2), hurt ribs slow it, the second works the
-## most burning part.
+## The minute's rest: Recovery sets the refill (Combos.refill's 0.8..1.2; S434 CARDIO1: our fighter's Recovery, as the sim's
+## BoutNight reads it; the opponent's conditioning, as BoutNight reads the opponent's), hurt ribs slow it, the second works
+## the most burning part.
 func bell() -> void:
 	var p: Dictionary = view.get("_profiles")
 	var cond := {}
@@ -72,7 +73,8 @@ func bell() -> void:
 	var second := {}
 	var map: Dictionary = view.body.map if view.get("body") != null else {}
 	for side in ["a", "b"]:
-		cond[side] = 0.8 + 0.4 * clampf(RoundStyle.stat(p.get(side, {}), "conditioning"), 0.0, 100.0) / 100.0
+		var rec := float((p.get(side, {}) as Dictionary).get("recovery", RoundStyle.stat(p.get(side, {}), "conditioning")))
+		cond[side] = 0.8 + 0.4 * clampf(rec, 0.0, 100.0) / 100.0
 		ribs[side] = not map.is_empty() and minf(BodyMap.value(map, side, "left_ribs"), BodyMap.value(map, side, "right_ribs")) <= BodyMap.HURT
 		second[side] = BodyLoad.worst_part(load, side)
 	BodyLoad.rest(load, cond, ribs, second)

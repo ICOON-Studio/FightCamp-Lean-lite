@@ -18,6 +18,7 @@ const Sim := preload("res://scripts/state/Sim.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
+const CampForecast := preload("res://scripts/state/CampForecast.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
 const SparNights := preload("res://scripts/rules/SparNights.gd")
@@ -125,7 +126,8 @@ static func _tale(c: Career, f: Dictionary, opp: Dictionary, bout_day: int) -> P
 	for r in tape_rows(f, opp, Faces.cm(Faces.stem(f))):
 		var row: Dictionary = r
 		VersusPanel.draw_fact(card[1], row, str(row["label"]).to_upper())
-	var b := BoutRead.band(f, opp, BoutRead.camp_for(f, bout_day - c.day), c.seed, float(c.coach.get("rating", 0.0)))
+	# S434 fight night's Tank (her forecast, the Training tab's number), not today's tiredness
+	var b := BoutRead.band(CampForecast.for_read(c, f, opp), opp, BoutRead.camp_for(f, bout_day - c.day), c.seed, float(c.coach.get("rating", 0.0)))
 	var lo := roundi(float(b["lo"]) * 100.0)
 	var hi := roundi(float(b["hi"]) * 100.0)
 	var mid := roundi((lo + hi) / 2.0)

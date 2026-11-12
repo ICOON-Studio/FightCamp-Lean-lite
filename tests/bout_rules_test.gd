@@ -2,8 +2,10 @@ extends SceneTree
 ## BoutRules: camp cost and gain, the weigh-in line, the night's strength, rounds, cards and the reasons. Population: Lucy
 ## Jackson (lean Data.lucy(), 3-1 out-boxer) against the three legal opponents and the 14-2 mismatch from Data.
 
+const Broadcast := preload("res://scripts/ui/Broadcast.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Data := preload("res://scripts/state/Data.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 
 var checks := 0
 var failures := 0
@@ -49,9 +51,15 @@ func _test_camp() -> void:
 	_check(str(ev3["stat"]) == "power" and is_equal_approx(float(ev3["drill"]), 0.14) and is_equal_approx(float(ev3["load"]), 1.0),
 		"a Hard camp's pad nights drill its stat at 0.14, evenings x1.0")
 	_check(float(ev1["drill"]) == 0.0 and is_equal_approx(float(ev1["load"]), 0.75), "a Light camp keeps plain pads, evenings x0.75")
-	_check(BoutRules.stale_energy(50.0) == 0.0 and is_equal_approx(BoutRules.stale_energy(54.0), 8.0) and BoutRules.stale_energy(75.0) == 20.0,
-		"heavy legs: 0 at 50 fatigue, 8 at 54, capped 20")
-	_check(BoutRules.stale_energy(70.0, {}) == 0.0 and BoutRules.stale_energy(70.0, {"protocol": 0}) == 0.0, "no camp, no heavy legs")
+	_check(BoutRules.tank(50.0) == 0.0 and is_equal_approx(BoutRules.tank(54.0), 8.0) and BoutRules.tank(75.0) == 20.0,
+		"the Tank's tiredness part: 0 at 50, 8 at 54, capped 20")
+	# S433 NOCAMP1 + TANK1: the scale (same day 1 a 0.1 kg, 2 past 0.5; the day before 1 a 0.2 kg), the last bout, cap 25
+	_check(is_equal_approx(BoutRules.tank(40.0, 0.3), 3.0) and is_equal_approx(BoutRules.tank(40.0, 0.7), 9.0)
+		and is_equal_approx(BoutRules.tank(40.0, 0.4, -1, false), 2.0), "the scale: 0.3 kg 3, 0.7 kg 9 on the day, 0.4 kg 2 the day before")
+	_check(BoutRules.tank(40.0, 0.0, 7) == 8.0 and BoutRules.tank(40.0, 0.0, 14) == 4.0 and BoutRules.tank(40.0, 0.0, 15) == 0.0
+		and BoutRules.tank(80.0, 0.5, 3) == BoutRules.TANK_MAX, "the last bout 8 / 4 / 0; all together at most 25")
+	_check(BoutRules.days_since_bout([{"d": 10, "fid": "a"}, {"d": 3, "fid": "a"}, {"d": 12, "fid": "b"}], "a", 17) == 7
+		and BoutRules.days_since_bout([], "a", 17) == -1, "days since her own newest bout")
 	_check(BoutRules.camp_level(3) == "hard" and BoutRules.camp_level(1) == "light" and BoutRules.camp_level(2) == "normal", "camp levels")
 
 
@@ -93,8 +101,11 @@ func _test_power() -> void:
 	var s: Dictionary = Data.lucy()["stats"]
 	var bare := BoutRules.fight_power(s, {}, 0, "")
 	var camped := BoutRules.fight_power(s, {"focus": "conditioning", "protocol": 2}, 3, "")
-	# S381 C229 stage 4: Standard 0.6 (was 1.2) + three answered tells 1.2 + no NO_CAMP_EDGE -1.5 = 3.3 (was 3.9).
-	_check(is_equal_approx(camped - bare, 3.3), "a standard camp + three answered tells is worth 3.3 points on the night (%.2f)" % (camped - bare))
+	# S381 C229 stage 4: Standard 0.6 + three answered tells 1.2 = 1.8; S433 NOCAMP1: an amateur with no camp pays no
+	# NO_CAMP_EDGE (a professional with no camp still does: -1.5).
+	_check(is_equal_approx(camped - bare, 1.8), "a standard camp + three answered tells is worth 1.8 points on the night (%.2f)" % (camped - bare))
+	_check(is_equal_approx(BoutRules.fight_power(s, {}, 0, "", true) - bare, BoutRules.NO_CAMP_EDGE)
+		and is_equal_approx(BoutRules.night_edge({}, 0), 0.0), "no camp: the professional pays NO_CAMP_EDGE, the amateur nothing")
 	_check(is_equal_approx(BoutRules.fight_power(s, {}, 1, "") - bare, BoutRules.FILM_PER_ANSWER), "one answered tell: +0.4")
 	_check(is_equal_approx(BoutRules.film_edge(0), 0.0) and is_equal_approx(BoutRules.film_edge(2), 0.8)
 		and is_equal_approx(BoutRules.film_edge(5), BoutRules.FILM_EDGE_MAX), "film: 0.4 a tell answered, at most 1.2")
@@ -112,14 +123,19 @@ func _test_power() -> void:
 
 
 func _test_rounds() -> void:
-	var s: Dictionary = Data.lucy()["stats"]
+	# S434 CARDIO1: the round reads her Stamina (Attrs.of, as the game signs her), never a missing key read as 0.
+	var lucy := Data.lucy()
+	var s: Dictionary = (lucy["stats"] as Dictionary).duplicate()
+	s["stamina"] = float(Attrs.of(lucy)["stamina"])
 	var camp := {"focus": "conditioning", "protocol": 2}
 	var maria: Dictionary = Data.OPPONENTS[0]
 	var r := BoutRules.play_round(1, s, camp, 3, "", maria, 0.5, 0.5)
 	_check(bool(r["won"]) == (float(r["mine"]) >= float(r["theirs"])), "a round goes to the higher score")
 	var r3 := BoutRules.play_round(3, s, camp, 3, "", maria, 0.5, 0.5)
 	_check(float(r3["theirs"]) < float(r["theirs"]), "Maria fades in round 3")
-	_check(float(r3["mine"]) < float(r["mine"]), "Lucy (conditioning under 64) fades in round 3 too")
+	_check(s["stamina"] < BoutRules.FADE_STAMINA and is_equal_approx(float(r["mine"]) - float(r3["mine"]), BoutRules.own_fade(float(s["stamina"])))
+		and float(r3["mine"]) < float(r["mine"]), "Lucy (Stamina %.1f, under %.0f) fades %.2f in round 3 too" % [s["stamina"],
+		BoutRules.FADE_STAMINA, float(r["mine"]) - float(r3["mine"])])
 	# Across a spread of rolls: a prepared Lucy beats Maria more often than not, and the mismatch beats her almost always.
 	var wins_maria := 0
 	var wins_dana := 0
@@ -151,12 +167,23 @@ func _test_cards_and_why() -> void:
 	for rs in [clear21, close21, close_lost, two_close]:
 		var won_n := (rs as Array).filter(func(r): return bool(r["won"])).size()
 		_check(BoutRules.verdict(BoutRules.cards_of(rs)) == BoutRules.verdict(BoutRules.scorecards(won_n, 3)), "the verdict does not change")
+	# S440 (the logic check): the result page's round chips flip the SAME round as the cards, so each judge's chips add
+	# up to that judge's card - a 2-1 win whose LOST round was 3-3 gives judge 3 a 30-27, never 28-29 chips.
+	for rs in [clear21, close21, close_lost, two_close]:
+		var cards := BoutRules.cards_of(rs)
+		var per: Array = Broadcast.judge_rounds(rs, cards)
+		for j in 3:
+			var hers := 0
+			var theirs := 0
+			for w in per[j]:
+				hers += 10 if w else 9
+				theirs += 9 if w else 10
+			_check("%d-%d" % [hers, theirs] == str(cards[j]), "judge %d's round chips add up to the card %s (%d-%d)" % [j + 1, cards[j], hers, theirs])
 	var harness := [{"won": true, "mine": 50.0, "theirs": 40.0}, {"won": false, "mine": 40.0, "theirs": 41.0}, {"won": true, "mine": 45.0, "theirs": 30.0}]
 	_check(BoutRules.cards_of(harness) == ["29-28", "29-28", "30-27"], "harness rounds: close means a gap under CLOSE_MARGIN (%s)" % str(BoutRules.cards_of(harness)))
 	var rounds := [{"n": 1, "won": true, "corner": ""}, {"n": 2, "won": true, "corner": "body"}, {"n": 3, "won": false, "corner": "calm"}]
 	var why := BoutRules.why(rounds, true, 2, "Conditioning", 3, "left hook to the body", "Lucy")
-	_check(why.size() == 3, "three reasons")
-	_check(str(why[0]).contains("film study") and str(why[1]).contains("conditioning") and str(why[2]).contains("round 2"),
-		"film, camp, then the corner call that won a round: %s" % str(why))
+	# S433 NOCAMP1: the canned camp, no-camp and corner-call lines are gone; the film line stays.
+	_check(why.size() == 1 and str(why[0]).contains("film study"), "only the film line: %s" % str(why))
 	var bare := BoutRules.why([{"n": 1, "won": false, "corner": ""}], false, 0, "", 0, "x", "Lucy")
-	_check(bare.size() == 1 and str(bare[0]).begins_with("No camp"), "no camp says so")
+	_check(bare.is_empty(), "no camp: no canned 'a step slow' line (%s)" % str(bare))

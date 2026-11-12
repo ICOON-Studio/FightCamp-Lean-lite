@@ -32,11 +32,9 @@ const WeekOpp := preload("res://scripts/rules/WeekOpp.gd")
 const PushBack := preload("res://scripts/rules/PushBack.gd")
 const Grapplers := preload("res://scripts/state/Grapplers.gd")
 const BjjSide := preload("res://scripts/rules/BjjSide.gd")
-## S382 PADWEEK1: the week's move and combo drilling, night by night (the old fixed 420 / 240 lumps are PadWeek's nights).
-const DrillWeek := preload("res://scripts/state/DrillWeek.gd")
+const DrillWeek := preload("res://scripts/state/DrillWeek.gd")   # S382 PADWEEK1: the week's drilling, night by night (PadWeek)
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
-## S387 MENUREVIEW1: what the week really did (whole points and their causes, goal, rank, runway), read into the report.
-const WeekRead := preload("res://scripts/rules/WeekRead.gd")
+const WeekRead := preload("res://scripts/rules/WeekRead.gd")   # S387 MENUREVIEW1: what the week really did, for the report
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
 ## S397 rank 5: the head coach's edge, the start's rent and loan, the first hour's quiet weeks.
 const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
@@ -155,15 +153,16 @@ static func weigh_forecast(career: Career, f: Dictionary, bout_day: int) -> Dict
 		"over": maxf(0.0, day_kg - lim), "days": n}
 
 
-## {stat: points a day} averaged over her week; a camp multiplies its focus by the protocol.
-static func daily_gain(career: Career, f: Dictionary) -> Dictionary:
-	var tw := WeekTwist.active(f)
-	var w := WeekPlan.week(WeekTwist.days(tw, WeekPlan.days_of(f)), week_ctx(career, f), PadWeek.evenings(f))
+## {stat: points a day} averaged over her week (the old seven); a camp multiplies its focus by the protocol. goal_keys (a
+## goal's read, S433 CARDIO1): each ability's own pace laid over them, so speed and fight_iq read the ability, never the old stat.
+static func daily_gain(career: Career, f: Dictionary, goal_keys := false) -> Dictionary:
+	var ctx := week_ctx(career, f)
+	var w := WeekPlan.week(WeekTwist.days(WeekTwist.active(f), WeekPlan.days_of(f)), ctx, PadWeek.evenings(f))
 	var out: Dictionary = {}
 	for key in f["stats"].keys():
 		# S396 truth pass: WeekPlan.week already takes the camp multiplier (S380); a second one here counted the camp twice.
 		out[key] = float((w["gains"] as Dictionary).get(key, 0.0)) / 7.0
-	return out
+	return out.merged(Attrs.week_rates(f, w["days"], str(ctx.get("camp_stat", "")), float(ctx.get("camp_mult", 1.0))), true) if goal_keys else out
 
 
 static func step_day(career: Career) -> void:
@@ -476,7 +475,7 @@ static func goal_read(career: Career, f: Dictionary) -> Dictionary:
 	if f.is_empty() or (f.get("goal", {}) as Dictionary).is_empty():
 		return {}
 	var goal: Dictionary = f["goal"]
-	var rate := daily_gain(career, f)
+	var rate := daily_gain(career, f, true)
 	var p: Dictionary = FighterGoal.progress(goal, f, career.day, rate)
 	var card: Dictionary = FighterGoal.card(goal, p)
 	# The bar shows the share of the climb from her start to the target, not current / target.

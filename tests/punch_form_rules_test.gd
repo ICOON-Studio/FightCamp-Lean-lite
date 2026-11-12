@@ -11,6 +11,8 @@ extends SceneTree
 ## 9. back_s: back at 0.35 reads 0.35; never back reads -1.
 ## 10. empty and one-sample: no error, zero answers.
 ## 11. mutants: prove the test can fail.
+## 12. S438 CLIPFIX4: hang_window edges = hang_s; back_s relative to the pelvis; other_glove_from_guard;
+##     reach_frac_max; forward_at; elbow_at; S439 extension_hold_s (3D arm length, no facing).
 
 const PF := preload("res://scripts/rules/PunchForm.gd")
 
@@ -29,6 +31,7 @@ func _initialize() -> void:
 	_test9_back_s()
 	_test10_empty()
 	_test11_mutants()
+	_test12_clipfix4()
 	print("PUNCH_FORM_RULES failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -385,3 +388,99 @@ func _test11_mutants() -> void:
 		samples_bad_finish.append(s)
 	var m_bad3: Dictionary = PF.measure(samples_bad_finish, facing, contact_t, guard_wrist, head_top_y, t0)
 	_check(m_bad3["finish_over_head"] > 0.0, "mutant bad finish should be > 0, got %.4f" % m_bad3["finish_over_head"])
+
+
+# Test 12: S438 CLIPFIX4 measures
+func _test12_clipfix4() -> void:
+	var facing := Vector3(0.0, 0.0, 1.0)
+	# hang_window: held 0.10..0.40 at 0.60, edges at threshold -> left 0.10, right 0.40, peak inside, = hang_s
+	var held: Array = []
+	for i in range(11):
+		var t: float = i * 0.05
+		var s := _guard_sample(t)
+		s["shoulder"] = Vector3.ZERO
+		var r: float = 0.30
+		if t >= 0.099 and t <= 0.401:
+			r = 0.55 if (absf(t - 0.10) < 0.001 or absf(t - 0.40) < 0.001) else 0.60
+		s["wrist"] = Vector3(0.0, 0.0, r)
+		held.append(s)
+	var hw: Dictionary = PF.hang_window(held, facing)
+	_check(_approx(hw["left_t"], 0.10) and _approx(hw["right_t"], 0.40), "hang_window edges 0.10/0.40, got %.3f/%.3f" % [hw["left_t"], hw["right_t"]])
+	_check(_approx(hw["hang_s"], PF.hang_s(held, facing)), "hang_window hang_s equals hang_s")
+	_check(hw["peak_t"] >= 0.10 and hw["peak_t"] <= 0.40, "hang_window peak inside the run, got %.3f" % hw["peak_t"])
+	# back_s relative to the pelvis: the body steps 1 m forward, the wrist comes home relative to her hips at 0.30
+	var guard_rel := Vector3(0.1, 0.4, 0.2)
+	var walk: Array = []
+	for i in range(9):
+		var t2: float = i * 0.05
+		var hips := Vector3(0.0, 1.0, 1.0 if t2 > 0.12 else 0.0)
+		var s2 := _guard_sample(t2)
+		s2["hips"] = hips
+		s2["wrist"] = hips + (guard_rel if t2 >= 0.299 else Vector3(0.1, 0.4, 0.7))
+		walk.append(s2)
+	var back_rel: float = PF.back_s(walk, 0.10, guard_rel)
+	_check(_approx(back_rel, 0.20, 0.001), "back_s relative to the pelvis 0.20 after a step, got %.4f" % back_rel)
+	# Mutant: the same guard read absolute (no hips) never comes back
+	var walk_abs: Array = []
+	for s3 in walk:
+		var c: Dictionary = (s3 as Dictionary).duplicate()
+		c.erase("hips")
+		walk_abs.append(c)
+	_check(PF.back_s(walk_abs, 0.10, guard_rel) < 0.0, "mutant: absolute wrists against a relative guard never come back")
+	# other_glove_from_guard: the other glove moves 0.25 m from its spot relative to the pelvis, the pelvis moves 1 m
+	var og_guard := Vector3(-0.15, 0.45, 0.1)
+	var og: Array = []
+	for i in range(5):
+		var s4 := _guard_sample(i * 0.05)
+		s4["hips"] = Vector3(0.0, 1.0, i * 0.25)
+		s4["other_wrist"] = s4["hips"] + og_guard + (Vector3(0.0, -0.25, 0.0) if i == 3 else Vector3.ZERO)
+		og.append(s4)
+	_check(_approx(PF.other_glove_from_guard(og, og_guard), 0.25), "other_glove_from_guard 0.25, got %.4f" % PF.other_glove_from_guard(og, og_guard))
+	# reach_frac_max: straight arm 1.0, a 90-degree arm 0.707
+	var straight := _guard_sample(0.0)
+	straight["shoulder"] = Vector3.ZERO
+	straight["elbow"] = Vector3(0.0, 0.0, 0.3)
+	straight["wrist"] = Vector3(0.0, 0.0, 0.6)
+	var bent := _guard_sample(0.05)
+	bent["shoulder"] = Vector3.ZERO
+	bent["elbow"] = Vector3(0.0, 0.0, 0.3)
+	bent["wrist"] = Vector3(0.0, 0.3, 0.3)
+	_check(_approx(PF.reach_frac_max([bent, straight]), 1.0), "reach_frac_max straight 1.0")
+	_check(_approx(PF.reach_frac_max([bent]), 0.7071), "reach_frac_max 90 deg 0.707, got %.4f" % PF.reach_frac_max([bent]))
+	# forward_at: wrist z 0.2 at t=0, 0.6 at t=0.1 -> 0.4 at t=0.05 from origin z 0
+	var f0 := _guard_sample(0.0)
+	f0["wrist"] = Vector3(0.0, 1.4, 0.2)
+	var f1 := _guard_sample(0.1)
+	f1["wrist"] = Vector3(0.0, 1.4, 0.6)
+	_check(_approx(PF.forward_at([f0, f1], 0.05, Vector3.ZERO, facing), 0.4), "forward_at interpolates to 0.4")
+	# elbow_at: straight at t=0, right angle at t=0.1; at t=0.1 reads 90, at t=0 reads 180
+	var e0 := _guard_sample(0.0)
+	e0["shoulder"] = Vector3.ZERO
+	e0["elbow"] = Vector3(0.3, 0.0, 0.0)
+	e0["wrist"] = Vector3(0.6, 0.0, 0.0)
+	var e1 := _guard_sample(0.1)
+	e1["shoulder"] = Vector3.ZERO
+	e1["elbow"] = Vector3(0.3, 0.0, 0.0)
+	e1["wrist"] = Vector3(0.3, -0.3, 0.0)
+	_check(_approx(PF.elbow_at([e0, e1], 0.1), 90.0, 0.5), "elbow_at contact 90, got %.2f" % PF.elbow_at([e0, e1], 0.1))
+	_check(_approx(PF.elbow_at([e0, e1], 0.0), 180.0, 0.5), "elbow_at start 180, got %.2f" % PF.elbow_at([e0, e1], 0.0))
+	# bow_m against another joint: head 0.30 ahead of the hip, 0.0 over the knee
+	var bw := _guard_sample(0.0)
+	bw["head"] = Vector3(0.0, 1.2, 0.30)
+	bw["lead_knee"] = Vector3(0.0, 0.5, 0.30)
+	bw["lead_hip"] = Vector3(0.0, 0.8, 0.0)
+	var bw2: Dictionary = bw.duplicate()
+	bw2["t"] = 0.1
+	_check(_approx(PF.bow_m([bw, bw2], 0.05, facing), 0.0) and _approx(PF.bow_m([bw, bw2], 0.05, facing, "lead_hip"), 0.30),
+		"bow_m over the knee 0.0, over the hip 0.30")
+	# S439 R10 extension_hold_s: the arm held at full 3D length 0.6 from t=0.1 to 0.3, pointed SIDEWAYS (x), so the
+	# facing-projected hang cannot see it; edges at 0.05 m under the peak interpolate to 0.0875 / 0.3125 -> 0.225 s.
+	var ext: Array = []
+	for i in 9:
+		var s := _guard_sample(i * 0.05)
+		var r: float = 0.6 if (i >= 2 and i <= 6) else 0.4
+		s["shoulder"] = Vector3.ZERO
+		s["wrist"] = Vector3(r, 0.0, 0.0)
+		ext.append(s)
+	_check(_approx(PF.extension_hold_s(ext), 0.225, 0.002), "extension_hold_s sideways hold 0.225, got %.4f" % PF.extension_hold_s(ext))
+	_check(PF.extension_hold_s([ext[0]]) == 0.0, "extension_hold_s one sample reads 0")

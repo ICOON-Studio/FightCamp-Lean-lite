@@ -10,12 +10,16 @@ const CRITICAL := 35.0
 const DOCTOR := 15.0
 ## Points one landed punch takes off. S318: tuned on test 5 - 3 rounds of 6 exchanges as the game plays them (BoutRules
 ## spread, 300 seeds): loser hurt 40-90 %, doctor <= 8 %, winner fine >= 50 %.
-const FACE_HIT := 1.15   ## S438: was 1.1; re-measured with RIB_HIT 3.1 after the body count match (docs/RIBS1_RESULT.md)
-const HEAD_HIT := 0.575
-## RIBS1: was 1.5, too small to reach the hurt line. 3.1 measured on tests/rib_damage_test.gd (200 seeds, docs/RIBS1_RESULT.md):
-## every brief bar holds (default more-hit 67.9, body plan hurt 65.5 % / critical 15.0 %), but the S318 loser-hurt bar
-## reads 37.0 % (40-90) at 3.0-3.2 and passes only from 3.5, where the body plan's critical share is 30.5 % (at most 20).
-const RIB_HIT := 3.1
+## S438: 1.1 -> 1.15 after the body count match. S439: 1.18 / 0.59 / 2.9, re-measured on the merged tree after PUNCHSTART1
+## (one punch rule for both corners) over EIGHT 200-day windows of tests/rib_damage_test.gd (tools/rib_sweep.gd,
+## docs/RIBS1_RESULT.md): S318 loser hurt mean 43.4 % (40-90), body plan rib at or under 35 mean 9.8 % (at most 20), body
+## plan hurt 67.9 %, the unit list (body_map test 5) 89.3 % (40-90). Face 1.185+ takes the unit list over 90; 1.175- leaves
+## loser hurt under 43.
+const FACE_HIT := 1.18
+const HEAD_HIT := 0.59
+## RIBS1: was 1.5, too small to reach the hurt line; 3.1 in S438 (one window). S439: 2.9 (above). The rib reads move in steps
+## of whole hooks: 2.9 sits in 2.83-2.95, where hurt (<= 55) takes 16 hooks and critical (<= 35) takes 23.
+const RIB_HIT := 2.9
 const BIG_MULT := 2.0
 ## PaceAim.LIVER_SHARE. Not a preload: this module stays pure. The DEFENDER's liver side gets this share, as PaceAim.opp_hurt
 ## reads it: her right ribs when she is orthodox, her left when she is southpaw.

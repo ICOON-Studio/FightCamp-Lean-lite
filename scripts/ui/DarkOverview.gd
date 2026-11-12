@@ -289,7 +289,7 @@ static func _row(r: Dictionary, pot: float) -> Control:
 	change.custom_minimum_size.x = 58
 	change.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	h.add_child(change)
-	return h
+	return AttrBoard.with_line(h, r, SOFT)   # S439 T17: the Stamina row's line printed under it
 
 
 static func _glance(f: Dictionary) -> PanelContainer:
