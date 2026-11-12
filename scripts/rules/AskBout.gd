@@ -17,8 +17,11 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const MIN_LEAD_DAYS := AmateurBooking.LEAD_WEEKS_MIN * 7
 ## A picked name: up to this many places either side of the fighter on the ladder.
 const PICK_REACH := 4
-## Map s3: "Camp can be set" from 3 weeks out.
+## Map v3 s3: the camp line follows the game's own phases (WeekPhase: BUILD 3+ weeks, PEAK two weeks, fight week TAPER) and
+## BoutRules.CAMP_MIN_DAYS (Set camp needs 7 days). S445: a 14-day show is a PEAK camp, not "no camp" (Kalli + John S444).
 const CAMP_WEEKS := 3
+## Club shows run this often; the road says when the nationals' bouts cannot be made from the printed show (map v3 s3).
+const SHOW_GAP_DAYS := 14
 
 
 ## Map s5: when the ask is open. {open, why, opens_day}; opens_day -1 = no day known (or never).
@@ -30,6 +33,8 @@ static func open(f: Dictionary, day: int, after_fight: int) -> Dictionary:
 		return _closed("%s fights on the mats: BJJ nights are not club shows." % nm, -1)
 	if bool(f.get("in_nationals", false)):
 		return _closed("%s is entered in the nationals." % nm, int(f.get("nationals_end", -1)))
+	if int(f.get("w", 0)) + int(f.get("l", 0)) + int(f.get("d", 0)) == 0 and int(f.get("last_bout_day", -1)) < 0 			and not bool(f.get("booked", false)):
+		return _closed("%s's first bout comes from the sheet; asking opens after it is fought." % nm, -1)
 	if bool(f.get("booked", false)):
 		var bd := int(f.get("bout_day", -1))
 		return _closed("%s already has a bout booked." % nm, bd + after_fight if bd >= 0 else -1)
@@ -176,19 +181,37 @@ static func picks(f: Dictionary, rows: Array, min_wins: int, not_these: Array) -
 ## Map s3: the top strip. show = show_day()'s answer; forecast = Sim.weigh_forecast's {day, limit, ok}; fmt = Clock.fmt.
 static func strip(f: Dictionary, show: Dictionary, forecast: Dictionary, fmt: Callable) -> Dictionary:
 	var away := int(show.get("days_away", -1))
-	var camp := away >= CAMP_WEEKS * 7
+	var camp := away >= BoutRules.CAMP_MIN_DAYS
 	var risk := not bool(forecast.get("ok", true))
-	return {"days_away": away, "camp": camp,
-		"camp_words": "Camp can be set." if camp else "Fight week only: no camp on this date.",
+	return {"days_away": away, "camp": camp, "camp_words": camp_words(away),
 		"weight": "%.1f kg now, limit %.1f kg, %.1f kg forecast on the scale." % [float(f.get("weight", 0.0)),
 			float(forecast.get("limit", f.get("limit", 0.0))), float(forecast.get("day", f.get("weight", 0.0)))],
-		"weight_risk": risk, "risk_words": "Weight at risk" if risk else "", "road": road(f, fmt)}
+		"weight_risk": risk, "risk_words": "Weight at risk" if risk else "",
+		# Map v3 s3: a scale miss never leaves Ask armed on that date: the panel offers Wait and the show after.
+		"ask_ok": not risk, "road": road(f, fmt, int(show.get("day", -1)))}
+
+
+## The camp line in the phase words the camp screen uses. away < 0 (no show) = "".
+static func camp_words(away: int) -> String:
+	if away < 0:
+		return ""
+	if away >= CAMP_WEEKS * 7:
+		return "Camp can be set: BUILD, PEAK and fight week."
+	if away > 7:
+		return "Two weeks: a PEAK camp, no BUILD."
+	if away >= BoutRules.CAMP_MIN_DAYS:
+		return "Fight week only: a light camp, no sparring."
+	return "No camp: under a week to fight night."
 
 
 ## The live road in one chip: the nationals first while bouts are still needed, then the pro offer. What is STILL needed.
-static func road(f: Dictionary, fmt: Callable) -> String:
+static func road(f: Dictionary, fmt: Callable, show_day: int = -1) -> String:
 	var need := int(f.get("nationals_need", 0))
 	if need > 0:
+		var by := int(f.get("nationals_by", 0))
+		if show_day >= 0 and need > (1 + int(floor(float(by - show_day) / SHOW_GAP_DAYS)) if show_day <= by else 0):
+			return "The nationals' %d bout%s by %s cannot be made from this show." % [need, "" if need == 1 else "s",
+				str(fmt.call(by))]
 		return "%d bout%s still needed for the nationals by %s." % [need, "" if need == 1 else "s",
 			str(fmt.call(int(f.get("nationals_by", 0))))]
 	var w := int(f.get("w", 0))
@@ -211,10 +234,23 @@ static func road(f: Dictionary, fmt: Callable) -> String:
 
 ## Map s4: one card, raw facts only, every value words (no number the player can sort by). The two words (FightLearn.word,
 ## FightLearn.stop_word) come from the caller; the place from RankLine.
-static func card(opp: Dictionary, kind: String, rows: Array, min_wins: int, teach_words: String = "", stop_words: String = "") -> Dictionary:
+## label: map v3 s2 - "A step up" only when it is one by place; for an unranked fighter the card is "Nearest better record".
+static func card(opp: Dictionary, kind: String, rows: Array, min_wins: int, teach_words: String = "", stop_words: String = "",
+		fighter_ranked: bool = true) -> Dictionary:
 	var nm := str(opp.get("name", ""))
-	return {"name": nm, "club": str(opp.get("club", "")), "record": "%d-%d" % [int(opp.get("w", 0)), int(opp.get("l", 0))],
+	return {"label": label(kind, fighter_ranked), "name": nm, "club": str(opp.get("club", "")), "record": "%d-%d" % [int(opp.get("w", 0)), int(opp.get("l", 0))],
 		"place": str(RankLine.before(rows, nm, min_wins)["words"]), "style": str(opp.get("style", "")),
 		"teaches": teach_words, "stoppage": stop_words,
 		"gate": "The host keeps the gate: $0 for the club." if kind == "name" else
 			"The club keeps the $%d ticket cut." % BoutRules.TICKET_CUT}
+
+
+static func label(kind: String, fighter_ranked: bool) -> String:
+	match kind:
+		"sheet":
+			return "The name the sheet would send"
+		"step_up":
+			return "A step up" if fighter_ranked else "Nearest better record"
+		"name":
+			return "A name you pick"
+	return ""

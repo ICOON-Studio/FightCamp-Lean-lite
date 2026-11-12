@@ -1,64 +1,70 @@
-# S444 handover (written 2026-11-12 ~19:30 during S443; S442's handover is in git history at 08f5d813)
+# S445 handover (written 2026-11-12 ~21:20 at the end of S444; S443's handover is in git history at e8d9801c)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S444`
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S445`
 and redraw Miro.
 
-## USAGE RULES (S442 burn, kept in S443: S443 used 5% -> ~8% of the week)
-`get_usage` first; hand over at 300k context; at most TWO helpers at once; tell him the cost before a batch; one session
-coordinates and pushes, the others report to it by SendMessage (S443 did this: worked well). Each helper ~300k tokens.
+## USAGE RULES (kept)
+`get_usage` first; hand over at 300k context (S444 handed over at 291k; week at 11%); at most TWO helpers; tell him the cost
+before a batch; one session coordinates and pushes, helpers report by SendMessage.
 
-## HIS WORDS IN S443 (verbatim)
-- Board: Q-195 "Stamina", Q-196 "Show me it in the game first", Q-197 "Yes, build it", Q-198 "check markup" (the bars in
-  "In and out": "these bars look stupid do not fit here"), Q-199 "Yes, summary + tabs", Q-200 "All three", Q-201 "Yes, ease
-  it as proposed", Q-202 "Delete both", Q-203 "Measure it now", Q-204 "Only above or level (recommended)".
-- Corner card marks C320-C323 (coach line "random preset lines with no base on the fight ?"; "do not make the text about one
-  fighter , write instead : when pressed"; "remove the good at it etc , shot the costs of energy instead"; Recover "doesnt
-  seemlike an option ... real time changes should be shown with graphics"). C324/C325 blocks: "doesnt even look like a normal
-  human", "nothing seem to be blocked red fighter misses , blue fighter just holds guard". C326 announcer swell "not bad for
-  first try". C327 bubbles "remove the wooden panel , make it transparent ?". C319 headline "looks ok".
-- Cooling idea: "ice bags on the back of the neck ... overdoing it leads to muscle stiffness ... can this be turned into a
-  mechanism ... gives more things for player to do during corner and the feeling of time pressing ... and also a warning on
-  the corner time": answered (corner minute in SECONDS, neck ice dose, rub the shoulders, seconds out at 0:10); "yes add it to
-  the measurement" -> PUSHPROBE2 arm E.
-- "check other sessions and coordinate them to report here"; "pc is not red" (it was AMBER: read the watchdog, not the queue);
-  "check board"; "anything else can progress ?" (two session cards; he started both).
+## HIS WORDS IN S444 (verbatim)
+- "Yes, start it" (JUDGES1 helper); "adjust model and effort according to task" (set to Opus, high);
+  "do the Q-196 fight screen stills meanwhile"; "check board".
+- On the judges moving a good plan v a presser from 59.7% to 41.7%: "if good plans means counter to presser then i think its ok"
+  (it is: 1-1, step back, pivot out, tie up) -> the BoutRead model went ahead.
+- His markup on Q-206 (ops/Feedback/2026-11-12-12 .. -19): round box WRONG (no note: read as the wood, like C327); "use a line as
+  connector ... away from the head and maybe fade it away and bring it up when something change"; her plate "reminds way too much
+  other games, try something different"; "what is energy ? is it stamina ?"; "instead of empty circle use the organ icon";
+  AIM buttons "what are these options do?" (answered in chat); calls box "what is this for?"; corner caption "use a cloud-like icon
+  ... move it towards the corner its coming from"; Rests/Tires "display the stamina cost ... with icons+numbers".
 
-## DONE IN S443 (all pushed to main)
-- Money page on one screen, no bars, not-built rows gone (42f3ee02); hover labels on small chrome, HoverLabel.gd.
-- Stamina everywhere + one overall number, StatBlock.gd (524f8c56). NOT done: week review still lists Power/Technique; a
-  Stamina session's gain still averages Stamina+Recovery; World's scouted Stamina still the old average; camp Stamina card
-  text runs past its edge (old).
-- No-sparring eased to 0.8 a point (61d58ec5). Fight bubbles see-through (da238dd2). E: 16 GB deleted (77 GB free).
-- Corner card, his four marks (f9ac2cfa, bd97214c): coach line from Exchanges.read of the round; "When pressed"; EnergyPips;
-  RecoverCards with the +energy ghost; card 766 px. The 0-of-0 was loop_shots' placeholder. Stills on the review board.
-- Ask for a fight: S442's season probe (870c98f6, 33,739 bouts, spread ok); picks only from above (2f7515e2, Q-204).
-- Qwen PR 238 Judges + PR 239 WorldNews collected after a blind review with fixes (50e1c92d, aaa73bc0, c4053f4c).
+## DONE IN S444 (all pushed)
+- Ziva: started at S444 start, then STOPPED at the end (he asked "why you start ziva every session ? does it always have tasks ?": it had none). `start` now restarts it only when Ziva has a live run, dispatch row or plan row (_ziva_work); idle = "ZIVA idle ... not started". Its old dirty state is on local branch wip/ziva_s444 in wt/ZIVA_LEAN.
+- Ask for a fight: ops/research/ASKFIGHT_CRITIC_S444_BRIEF.md (pack + map v2 + measured probe) queued to Kalli SQ45 and John SQ46
+  (fresh, free). Answers land as ops/research/ASKFIGHT_CRITIC_S444_KALLI.md / _JOHN.md. SQ43 (Dola, v1 brief) is stale.
+- TASK_JUDGES1 contract passes. JUDGES1 steps 1+3 collected (fc518181): Judges WEIGHTS clean 1 big 12 ring 2 initiative 8
+  work 1, LEAN_MULT 5 -> (a) 85.9 (b) 11.6 (c) 12.3; docs/JUDGES1_RESULT.md. Verified: JUDGES failures=0, BOUT_READ PASS (off).
+- Q-196 regroup in the game as a PREVIEW (user arg `hudregroup`, scripts/fight3d/HudRegroup.gd, 350 lines, wired in FightHud.build):
+  small maps under the plates with organ icons + counts (RoundHits.icons), one read of her mode, STAMINA/LEGS/GUARD, skips dim
+  until the mouse is near, call box off her head on a line + fade, see-through round box, her plate as the corner's read in words,
+  stamina cell + number per call (CornerBar sets meta "cost"), our corner's shout as a cloud on our side. Stills docs/mockups/s444/hud/
+  (v2 = after_regroup_v2*.png), on the review board; question Q-206.
+- SHIPPED for everyone (his "what is this for?"): calls box heading CALLS WORKED?, a call's name no longer cut (round_board_test green).
+- Build exported at wrap-up (Builds/, see export log E:/FightCamp/tmp/s444/export.log).
 
-## IN FLIGHT AT WRITING (check each: `git log`, the review board, the session list)
-- PUSHPROBE2 LANDED (0482c24b, 386,100 real bouts, docs/PUSHPROBE2_RESULT.md): the bars FAIL the pass line - pace is
-  still decided by wind alone ("Push while wind > 45" best in 14 of 19 cells at 3 rounds; the coach 1-2.4 points behind a
-  habit); removing Coast's free refill DOES end "Push five, Save one"; Press costs 2-5 points, Move = Hold (feet only nudge
-  the forward dial: forcing the place needs a scripts/ change); the hurt state lasts one exchange; neck ice CHANGES results
-  (+1.5 / +2.5) but "always ice" is best in 14/19 and 17/20 cells (the cold penalty is too cheap) and no corner ever ran
-  past seconds out (jobs too cheap in time). The coach's edge comes from the corner CALLS (+2), not the bars.
-  DECIDED (his "up to you to decide", Q-205): PARKED until Ask for a fight is on screen; the v3 starts from these levers.
-- Result page summary + tabs DONE (a01f5785). Judges stored, HELD from deciding (99d87c68; TASK_JUDGES1.md). World news wired (9a2b91cd).
-- Build exported 19:56 (Builds/FightCamp.exe, WHAT_TO_TRY current), smoke-started headless, not played on screen.
-- S439 lead (POWER1, worktree LEAN_POWER1, branch claude/power1), report 20:35: step 4 REJECTED by its blind reader at 19:23
-  (punch_range_test failures=48; footwork looks ahead so contact gap ignores the range table, median 0.93 m, uppercuts 0.81-0.84
-  not 0.70-0.74; punch_weight_test 0 -> 3 failures; 26% of landed head punches show as grazes; lead toes cross 25 times; the
-  0.30 m reach cap not enforced, 0.397 m). A fix helper was still working (uncommitted in the worktree); the lead stops before
-  step 5. COLLECT ONLY STEP 1 (fa3bbf7e, clean read); steps 2-4 not until a fresh blind read passes. Judge against C314/C315.
+## IN FLIGHT
+- JUDGES1 helper [local_88a8afe6-f9ac-41cf-a487-47a42b3ec98d], branch `judges1`, Opus high: judged-round model in a NEW file for
+  BoutRead.chance (bar: bout_read_test -- judgesdecide PASS, the 3 Maria cases inside 0.06), then the texts ("counts double" ->
+  five times; WHY line on a judges' decision), regression with/without judgesdecide, DECIDES=true in one commit, result-page stills.
+  It reports to the coordinator by SendMessage: YOU are the coordinator now (it finds you via list_sessions? no - tell it your id
+  with SendMessage when you start). Collect by diff + the bars above; never let it push main.
+- POWER1 (S439 lead, worktree LEAN_POWER1): step 4 was rejected; collect step 1 only (fa3bbf7e) until a fresh blind read passes.
 
 ## NEXT, IN ORDER
-1. Collect what landed above; push.
-2. Ask for a fight on a screen (his order, mechanic 1): the map, picks above only, prices from the season probe.
-3. Q-196: the fight-screen regroup shown in the game as stills (not shipped) - docs/mockups/s442/ux/ux_c_fight_hud.*.
-4. Ask for a fight: the screen (map ASKFIGHT_MAP_S441.md, prices from the probe).
-5. BLOCKLOOK1 with C324/C325; POWER1 collect.
-6. Wire TraitLine, PlanPhase, LineGrade, Towel; fire level on with a re-measure. Brief Qwen (idle).
+1. Tell JUDGES1 your session id; collect it when it lands.
+2. Q-206: on his yes, move each regroup part into its owner file and drop the flag (SidePanel is 470/500 lines: put new pieces in
+   their own files). On "more marks", read ops/Feedback newest first.
+3. Ask for a fight MAP v3 (critics on v2: Kalli depth 5 / play 6, John 6 / 6 - ops/research/ASKFIGHT_CRITIC_S444_*.md). Their
+   main hole ("A NAME YOU PICK downward = pay for the highest band below, a lookup") is already closed in code by Q-204 (picks
+   above or level only) - the map still says "up to 4 places either side": fix the map. Also: a 14-day show is PEAK camp, not
+   "no camp"; teach-word cut points from the probe's 0.47-1.05 spread (0.4/0.7 labels every card the same); hide the nationals
+   chip when unreachable (0% from day 40); a later show when the scale misses; case E needs a written-plan test. Re-measure the
+   probe with picks above only, then two fresh critics.
+4. POWER1, BLOCKLOOK1. Fight bars stay parked (Q-205).
 
-## TRAPS (S443)
-- A still taken during a fade shows the 3D through a card: wait for alpha 1 (fight3d_play.gd now checks).
-- godot_slot shows only who starts; the watchdog's verdict is the truth for RED/AMBER.
-- A test that pins a sample bout's band breaks when a scale is eased on purpose: test agreement, not the band.
+## TRAPS (S444)
+- A PanelContainer lays out its children: a decoration (the cloud tail) must sit outside it.
+- The organ PNGs are RGB on #090f17 (no alpha): RoundHits._clear_pic makes the ground see-through.
+- Every Godot job, renders included, goes through `python ops/Tools/godot_slot.py run --who <you> -- ...` (rule_guard).
+- `cd` inside a Bash call moves the session's folder: use absolute paths for other worktrees.
+
+## ADOPTED FROM HIS TWO OLD CONCEPTS (S444 end; his words: "what do you think of this , if it gives you any ideas or improvements adopt it")
+docs/mockups/s426/intermission_playbook.(html|png) and docs/mockups/s427/index.(html|png), rendered S444. Decided:
+- CORNER MINUTE: "What do you tell Lucy?" framing; THE IF/THEN ANSWER: the read on her habit (TheRead.gd already fills a
+  read meter and fires a counter) gets a player choice - which combination answers that habit ("Maria loads up after the
+  jab -> slip outside, 2-3"). A cap of two changes a minute (time pressure, his S443 ice-bag ask). This is the lever the parked
+  fight bars lacked (PUSHPROBE2: the coach's edge comes from the calls) - fold it into the bars v3 map, Ask for a fight first.
+- HOME: a one-line question headline ("What needs your corner?"), NEEDS YOUR CALL rows each with its own button, a SINCE LAST
+  MONDAY column of changes only (+2 jab mastery, +4 members, a new tell), and the CONTINUE button naming its next stop (TopCards
+  has the next stop already: put it on the button). Check today's Home first; add only what is missing.
+- NOT adopted: wooden frames (his S430 "wooden panels to go", C327), body text under 20 px, paragraph cards (S416 graphics rule).

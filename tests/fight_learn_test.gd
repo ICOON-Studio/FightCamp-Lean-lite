@@ -134,11 +134,11 @@ func _loss_better_teaches_more_than_soft_win() -> void:
 ## Words are monotonic: little < some < lot.
 func _words_monotonic() -> void:
 	var w1 := FightLearn.word(0.2)
-	var w2 := FightLearn.word(0.5)
-	var w3 := FightLearn.word(0.8)
+	var w2 := FightLearn.word(0.7)
+	var w3 := FightLearn.word(0.9)
 	_check(w1 == "teaches little", "word(0.2) = '%s'" % w1)
-	_check(w2 == "teaches some", "word(0.5) = '%s'" % w2)
-	_check(w3 == "teaches a lot", "word(0.8) = '%s'" % w3)
+	_check(w2 == "teaches some", "word(0.7) = '%s'" % w2)
+	_check(w3 == "teaches a lot", "word(0.9) = '%s'" % w3)
 
 
 ## Stop words are monotonic: unlikely < possible < real risk.

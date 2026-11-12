@@ -8,9 +8,9 @@ Updated 2026-11-12 by claude S294.
 
 ## Now
 
-**S441 — ?** *(claude)*
+**S444 — ?** *(claude)*
 
-S442: collected R26SWAP1 (PR 230, line change rules), R50TRAIT1 (PR 231, trait lines) and R17PHASE1 (rounds on lines), each with fixes at collect, none wired. ASK FOR A FIGHT short map written (ops/research/ASKFIGHT_MAP_S441.md), with Kalli and John as free critics. Result page: round 2 failed its logic check (a hand-written bout that cannot happen) and two critics at 6; round 3 is drawn from a real bout (tools/result_dump.gd seed 44, docs/mockups/s442/result/), first critic 6: merge cause and fix, one primary action, colour discipline, legends. Seven code defects found by the dump (TASK_RESULTDEFECTS1). A UX expert audits menus and HUD on his ask (nine-rule recipe, hover labels, pulsing critical button). FIRELEVEL2 and ADAPT1 re-measured (ops/research/FIRELEVEL2_ADAPT1_RESULT_S442.md): fire level on with a balance re-measure; the adapting opponent stays off. His C316 PA mix fixed; C314/C315 (jabs still no power) go to POWER1's collect. He rejected the two recommended mocap packs. LATER: his 'All three' built and exported (corner cards, fight bubbles, headline card); UX audit committed; DEFECTS1 merged; 4 of 7 result defects fixed; result page loop stopped at 6 (his call, Q-199); Ask for a fight map v2, probe under blind review.
+S444: Ziva restarted; Ask for a fight map v2 + probe to two fresh critics (SQ45/SQ46); TASK_JUDGES1 contract fixed; JUDGES1 helper: weights collected (fc518181: a 85.9, b 11.6, c 12.3), switch held (BoutRead fails 3 v the presser), model task running on his ok; Q-196 regroup shown in the game, his 11 marks (C328-C334) built as preview v2 (Q-206 open); calls box fix shipped (CALLS WORKED?).
 
 ## Next
 
@@ -329,3 +329,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S441**  |  |  | *none yet* | Collected the Fighters page as painted rows (PR 227), the towel rules (PR 228) and the loyalty rules (PR 229, not wired); result page round 2 drawn from the game's own tables, critics held until the usage reset. |
 |  |  | **S442**  |  |  | *none yet* | Three Qwen rule modules collected with fixes (line change, trait lines, rounds on lines); Ask for a fight short map; result page rebuilt from a real bout after the logic check failed round 2 (critic 6, round 4 next); UX expert audit of menus and HUD started on his ask; PA mix fixed; two measurements re-run. Later: his three drawings built and exported; UX audit committed; DEFECTS1 merged. |
 |  |  | **S443**  |  |  | *none yet* | Coordinator: his board picks built (Money one screen, hover labels, Stamina + one overall, no-sparring 0.8, see-through bubbles, corner card marks, result summary + tabs, Ask picks above only), Qwen judges (held) + world news wired, PUSHPROBE2 386,100 bouts: bars fail, parked; cooling measured; build 19:56. |
+|  |  | **S444**  |  |  | *none yet* | Fight screen regroup in the game from his marks (preview v2, Q-206), calls box fix shipped, JUDGES1 weights collected (switch held, model running), Ask for a fight to critics, Ziva up. |

@@ -48,6 +48,13 @@ func _initialize() -> void:
 		["the card carries the teaching number", "\"teaches\": teach_words,", "\"teaches\": teach_words, \"learn\": 0.73,",
 			"_check_card"],
 		["the road loses the nationals line", "if need > 0:", "if false:", "_check_strip"],
+		["S445: no first-bout lock", "if int(f.get(\"w\", 0)) + int(f.get(\"l\", 0)) + int(f.get(\"d\", 0)) == 0",
+			"if false and int(f.get(\"w\", 0)) + int(f.get(\"l\", 0)) + int(f.get(\"d\", 0)) == 0", "_check_open"],
+		["S445: a 14-day show called no camp", "if away > 7:", "if away > 14:", "_check_strip"],
+		["S445: a scale miss leaves Ask armed", "\"ask_ok\": not risk,", "\"ask_ok\": true,", "_check_strip"],
+		["S445: the road never says cannot", "if show_day >= 0 and need >", "if false and need >", "_check_strip"],
+		["S445: an unranked step up still called A step up", "return \"A step up\" if fighter_ranked else",
+			"return \"A step up\" if true else", "_check_card"],
 	]
 	for mu in mutants:
 		var s := _mutant(str(mu[1]), str(mu[2]))
@@ -198,6 +205,8 @@ func _check_open(S: GDScript) -> Array:
 		["hurt, no heal day", {"fit": false}, false, -1],
 		["too soon", {"last_bout_day": 45}, false, 45 + AFTER],
 		["open", {"last_bout_day": 30}, true, -1],
+		["no bout fought yet", {"last_bout_day": -1}, false, -1],
+		["first bout booked", {"last_bout_day": -1, "booked": true, "bout_day": 26}, false, 26 + AFTER],
 	]
 	for cs in cases:
 		var r: Dictionary = S.call("open", base.merged(cs[1], true), 50, AFTER)
@@ -229,12 +238,19 @@ func _check_show_day(S: GDScript) -> Array:
 func _check_card(S: GDScript) -> Array:
 	var bad: Array = []
 	var opp: Dictionary = _rows()[2]
-	var cd: Dictionary = S.call("card", opp, "step_up", _rows(), MIN, FightLearn.word(0.73), FightLearn.stop_word(0.05))
+	var cd: Dictionary = S.call("card", opp, "step_up", _rows(), MIN, FightLearn.word(0.90), FightLearn.stop_word(0.05))
 	bad.append_array(_card_words_only(cd))
 	if str(cd["place"]) != "Number 3.":
 		bad.append("place '%s', want 'Number 3.' (RankLine)" % cd["place"])
 	if str(cd["teaches"]) != "teaches a lot" or str(cd["record"]) != "7-2":
 		bad.append("card %s" % str(cd))
+	if str(cd["label"]) != "A step up":
+		bad.append("ranked step-up label '%s'" % cd["label"])
+	var nov: Dictionary = S.call("card", opp, "step_up", _rows(), MIN, "", "", false)
+	if str(nov["label"]) != "Nearest better record":
+		bad.append("unranked step-up label '%s', want 'Nearest better record' (map v3 s2)" % nov["label"])
+	if FightLearn.word(0.47) != "teaches little" or FightLearn.word(0.73) != "teaches some" or FightLearn.word(1.05) != "teaches a lot":
+		bad.append("teach words do not split the probe's 0.47-1.05 range")
 	var named: Dictionary = S.call("card", _rows()[1], "name", _rows(), MIN)
 	if not str(named["gate"]).contains("$0"):
 		bad.append("a picked name's gate words '%s'" % named["gate"])
@@ -254,7 +270,7 @@ func _card_words_only(cd: Dictionary) -> Array:
 ## Map s3: the strip and the road: what is STILL needed, the nationals first.
 func _check_strip(S: GDScript) -> Array:
 	var bad: Array = []
-	var show := {"day": 78, "days_away": 21}
+	var show := {"day": 42, "days_away": 21}
 	var f := {"name": "Kira Shaw", "w": 2, "l": 0, "weight": 61.5, "limit": 60.0, "nationals_need": 3, "nationals_by": 70}
 	var st: Dictionary = S.call("strip", f, show, {"day": 60.4, "limit": 60.0, "ok": false}, FMT)
 	if not bool(st["camp"]) or not bool(st["weight_risk"]) or str(st["risk_words"]) != "Weight at risk":
@@ -271,7 +287,22 @@ func _check_strip(S: GDScript) -> Array:
 		var got: String = S.call("road", rd[0], FMT)
 		if got != str(rd[1]):
 			bad.append("road %s = '%s', want '%s'" % [str(rd[0]), got, rd[1]])
+	if bool(st["ask_ok"]):
+		bad.append("a scale miss left Ask armed on that date")
 	var st2: Dictionary = S.call("strip", f, {"day": 64, "days_away": 14}, {"ok": true}, FMT)
-	if bool(st2["camp"]) or bool(st2["weight_risk"]):
-		bad.append("14 days out: camp %s risk %s" % [st2["camp"], st2["weight_risk"]])
+	if not bool(st2["camp"]) or bool(st2["weight_risk"]) or not bool(st2["ask_ok"]):
+		bad.append("14 days out: camp %s risk %s ask %s" % [st2["camp"], st2["weight_risk"], st2["ask_ok"]])
+	if str(st2["camp_words"]) != "Two weeks: a PEAK camp, no BUILD.":
+		bad.append("14 days out camp words '%s' (a 14-day show is PEAK)" % st2["camp_words"])
+	var words := {28: "Camp can be set: BUILD, PEAK and fight week.", 7: "Fight week only: a light camp, no sparring.",
+		5: "No camp: under a week to fight night."}
+	for d in words:
+		if str(S.call("camp_words", d)) != str(words[d]):
+			bad.append("%d days out camp words '%s'" % [d, S.call("camp_words", d)])
+	# 3 bouts by day 70 from a show on day 64: only that one bout fits -> cannot be made; 2 from day 42 (42, 56, 70) can.
+	var miss: String = S.call("road", f, FMT, 64)
+	if miss != "The nationals' 3 bouts by %s cannot be made from this show." % Clock.fmt(70):
+		bad.append("road from a late show '%s'" % miss)
+	if str(S.call("road", f, FMT, 42)) != "3 bouts still needed for the nationals by %s." % Clock.fmt(70):
+		bad.append("road from day 42 '%s'" % S.call("road", f, FMT, 42))
 	return bad

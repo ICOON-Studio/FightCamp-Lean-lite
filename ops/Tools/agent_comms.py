@@ -2339,8 +2339,14 @@ def start(args: argparse.Namespace) -> int:
             socket.create_connection(("127.0.0.1", 7012), timeout=1.0).close()
             print("ZIVA UP 127.0.0.1:7012 (shell bridge: python Tools/ziva_mcp.py run_scene '<json>' --out <dir>)")
         except OSError:
+            ## S444 (operator: "why you start ziva every session ? does it always have tasks ?"): the editor is restarted only
+            ## for work - a live run, a dispatch row or a board plan row owned by ziva. Otherwise it stays off.
+            work = _ziva_work()
+            if not work:
+                print("ZIVA idle (no task: no live run, dispatch row or plan row for ziva) - not started. The session that "
+                      "gives Ziva work starts it (the line below shows how when it has a task).")
             ## S368: the Lean worktree is wt/ZIVA_LEAN, project.godot at its root (wt/ZIVA and its Godot/ went with the old repo).
-            print("ZIVA DOWN - FIX IT NOW (watchdog not RED, no other Godot job): git -C E:/FightCamp/wt/ZIVA_LEAN fetch; put it on "
+            if work: print("ZIVA DOWN, HAS WORK (%s) - FIX IT NOW" % work + " (watchdog not RED, no other Godot job): git -C E:/FightCamp/wt/ZIVA_LEAN fetch; put it on "
                   "origin/main (commit any dirty state to a local wip branch first); "
                   "powershell -NoProfile -ExecutionPolicy Bypass -File Tools\\godot_hidden.ps1 -e --path E:/FightCamp/wt/ZIVA_LEAN "
                   "--log-file E:/FightCamp/tmp/ziva_editor.log  (run in background; 7012 listens in ~1 min)")
@@ -2736,4 +2742,39 @@ def main() -> int:
     args = parser.parse_args()
     return args.handler(args)
 
+
+def _ziva_work() -> str:
+    """S444: what Ziva has to do, or "" - a running/queued live run, a dispatch row or a board plan row owned by ziva."""
+    found = []
+    try:
+        runs = json.loads((ROOT / "AgentComms" / "live_runs.json").read_text(encoding="utf-8-sig"))
+        rows = runs if isinstance(runs, list) else runs.get("runs", [])
+        for r in rows:
+            if isinstance(r, dict) and "ziva" in str(r.get("agent", r.get("seat", ""))).lower() \
+                    and str(r.get("status", "")).lower() in ("running", "queued", "launched", "working"):
+                found.append("run " + str(r.get("title", r.get("id", "?")))[:40])
+    except Exception:
+        pass
+    try:
+        dq = json.loads((ROOT / "AgentComms" / "dispatch_queue.json").read_text(encoding="utf-8-sig"))
+        rows = dq if isinstance(dq, list) else dq.get("queue", dq.get("rows", []))
+        for r in rows:
+            if isinstance(r, dict) and str(r.get("seat", r.get("who", ""))).lower() == "ziva" \
+                    and str(r.get("status", "queued")).lower() not in ("done", "landed", "failed", "dropped"):
+                found.append("dispatch " + str(r.get("id", "?")))
+    except Exception:
+        pass
+    try:
+        rm = json.loads((ROOT / "AgentComms" / "roadmap.json").read_text(encoding="utf-8-sig"))
+        plan = rm.get("plan", {})
+        for key in ("working_now", "next"):
+            for r in plan.get(key, []) or []:
+                if isinstance(r, dict) and str(r.get("who", "")).lower() == "ziva":
+                    found.append("plan " + str(r.get("id", "?")))
+    except Exception:
+        pass
+    return ", ".join(found)
+
+
 if __name__ == "__main__": raise SystemExit(main())
+

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FightCamp — Corner Minute / Playbook mockup</title>
+<style>
+  @font-face{font-family:FCBarlow;src:url('../../../assets/fonts/Barlow-Regular.ttf')}@font-face{font-family:FCBarlow;src:url('../../../assets/fonts/Barlow-Bold.ttf');font-weight:700}@font-face{font-family:FCMarker;src:url('../../../assets/fonts/PermanentMarker-Regular.ttf')}
+  :root{color-scheme:dark;--ink:#171613;--panel:#211f1b;--panel2:#2a2721;--paper:#ddd2bc;--muted:#a69b87;--gold:#e2ad49;--red:#d45a4d;--blue:#6390ca;--green:#72b67d;--line:#51483a;--cream:#f0e6d4}
+  *{box-sizing:border-box} body{margin:0;background:radial-gradient(ellipse at 49% 47%,#40372c 0,#231f1a 42%,#12110f 100%);color:var(--cream);font:16px/1.35 FCBarlow,"Segoe UI",sans-serif;min-height:100vh;display:grid;place-items:center;padding:22px}
+  .screen{width:min(1660px,100%);min-height:890px;background:linear-gradient(110deg,rgba(22,20,17,.97),rgba(27,25,21,.96));border:1px solid #514537;box-shadow:0 28px 90px #000b;position:relative;overflow:hidden}
+  .screen:before{content:"";position:absolute;inset:0 auto 0 0;width:7px;background:linear-gradient(var(--red) 0 50%,var(--blue) 50%)}
+  header{height:75px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px 0 42px;background:#171613 url('../../../assets/ui/wood/bar.png') center/auto 100% repeat-x}
+  .round{font-size:14px;letter-spacing:.13em;color:var(--muted);font-weight:700}.round b{font-size:21px;color:var(--gold);letter-spacing:.04em;margin-right:14px}.clock{color:var(--gold);font-size:18px;font-weight:700}.clock small{font-size:11px;color:var(--muted);letter-spacing:.1em;margin-left:8px}
+  main{padding:24px 34px 20px 42px}.headline{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:19px}.headline h1{font:30px FCMarker,serif;line-height:1.15;margin:0;letter-spacing:.02em}.headline p{color:var(--muted);margin:8px 0 0}.pill{border:1px solid var(--line);padding:7px 11px;border-radius:4px;color:var(--gold);font-size:12px;letter-spacing:.09em;font-weight:bold}
+  .cols{display:grid;grid-template-columns: minmax(280px,.78fr) minmax(500px,1.45fr) minmax(320px,.9fr);gap:15px;align-items:stretch}
+  .panel{background:#1d1e1e;border:16px solid transparent;border-image:url('../../../assets/ui/wood/panel.png') 52 fill / 16px / 0 stretch;min-width:0}.panel-head{padding:7px 8px 11px;border-bottom:1px solid #484035;display:flex;justify-content:space-between;align-items:center}.panel-head h2{font-size:14px;margin:0;letter-spacing:.1em;text-transform:uppercase}.eyebrow{color:var(--muted);font-size:10px;letter-spacing:.13em;text-transform:uppercase}.body{padding:10px 8px}
+  .readline{color:var(--gold);font-size:17px;font-weight:700;margin:0 0 6px}.subline{color:#c5bba8;font-size:13px;margin:0 0 13px}.divider{height:1px;background:#484035;margin:13px 0}.stat{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;margin:10px 0;color:#d4cbbb;font-size:13px}.stat strong{font-size:18px;color:#f0e6d4}.meter{grid-column:1/3;height:5px;background:#100f0e;border-radius:5px;overflow:hidden}.meter i{display:block;height:100%;background:var(--gold);border-radius:5px}.split{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:-3px}.fighterline{display:flex;gap:9px;align-items:center;margin:10px 0}.swatch{width:8px;height:8px;border-radius:50%;background:var(--red)}.fighterline.blue .swatch{background:var(--blue)}.tag{font-size:10px;color:var(--muted);margin-left:auto}
+  .insight{border-left:3px solid var(--gold);padding:8px 10px;background:#332b20;color:#eee0c8;font-size:12px;margin-top:13px}.insight b{color:var(--gold)}
+  .slots{font-size:12px;color:var(--muted)}.slots b{color:var(--gold)}.adjust{padding:14px 15px;border:1px solid #625542;background:#2a261f;border-radius:5px;margin-bottom:10px;display:grid;grid-template-columns:26px 1fr auto;gap:10px;align-items:start;cursor:pointer;transition:border-color .12s,background .12s}.adjust:hover{border-color:#c69a51}.adjust.selected{border-color:var(--gold);background:#332a1e}.check{width:21px;height:21px;border:1px solid #85765e;border-radius:4px;color:transparent;display:grid;place-items:center;font-weight:bold}.adjust.selected .check{background:var(--gold);border-color:var(--gold);color:#18140e}.adjust h3{font-size:15px;margin:0 0 4px}.adjust p{margin:0;color:#bfb39f;font-size:12px}.cost{font-size:10px;color:var(--muted);white-space:nowrap}
+  .target-demo{display:flex;gap:13px;align-items:center;margin-top:10px}.silhouette{width:62px;height:88px;position:relative;border:1px solid #554b3d;border-radius:28px 28px 15px 15px;background:linear-gradient(#282d2d,#34342e);clip-path:polygon(34% 0,66% 0,73% 15%,98% 29%,84% 41%,76% 35%,72% 55%,90% 100%,60% 100%,51% 66%,42% 100%,12% 100%,28% 55%,23% 35%,15% 41%,2% 29%,27% 15%)}.portrait{width:34px;height:38px;border:2px solid var(--red);border-radius:4px;overflow:hidden;flex:none}.portrait.blue{border-color:var(--blue)}.portrait img{width:100%;height:100%;object-fit:cover;object-position:center 15%}.moveart{width:74px;height:74px;object-fit:contain;background:#24282b;border:1px solid #574c3f;border-radius:4px;flex:none}
+  .mark{position:absolute;width:13px;height:13px;border-radius:50%;background:var(--gold);border:2px solid #f7e3ac;box-shadow:0 0 12px #e2ad4988;left:24px;top:18px;display:grid;place-items:center;color:#231b10;font-size:8px;font-weight:bold}.mark.m2{left:14px;top:47px;background:var(--red);border-color:#f5aaa0}.mark.m3{left:30px;top:31px;background:var(--gold)}.targets{display:flex;flex-wrap:wrap;gap:5px;max-width:245px}.target{font-size:10px;padding:5px 7px;border-radius:3px;border:1px solid #635743;background:#211e19;color:#cfc2ac;cursor:pointer}.target.active{background:#4d3c20;border-color:var(--gold);color:#ffe1a1}.sequence{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:11px;color:#d7c9b1;flex-wrap:wrap}.punch{padding:5px 7px;background:#373128;border-radius:3px}.arrow{color:var(--gold)}
+  .selectrow{display:flex;gap:6px;margin-top:11px}.selectrow button,.tabs button{border:1px solid #655943;background:#211e19;color:#cabda6;border-radius:4px;padding:7px 9px;font-size:11px;cursor:pointer}.selectrow button.active,.tabs button.active{color:#231b10;background:var(--gold);border-color:var(--gold);font-weight:bold}
+  .coach{display:flex;gap:11px;align-items:flex-start;padding:12px 13px;background:#1b1a16;border:1px solid #403a30;border-radius:5px;margin-top:12px}.coach .initial{width:30px;height:30px;display:block;overflow:hidden;border-radius:50%;background:#47371e;color:var(--gold);font-weight:bold;flex:none}.coach .initial img{width:100%;height:100%;object-fit:cover;object-position:center 15%}.coach p{font-size:12px;color:#d4c8b5;margin:0}.coach b{display:block;color:#f0e6d4;margin-bottom:3px}
+  .bottom{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid #484035}.smallnote{font-size:11px;color:var(--muted)}.actions{display:flex;gap:8px}.btn{border:0;border-radius:3px;padding:10px 17px;background:#2a2119 url('../../../assets/ui/wood/tab.png') center/100% 100% no-repeat;color:#efe6d8;font-weight:bold;cursor:pointer;box-shadow:0 2px 3px #0007}.btn.primary{background-image:url('../../../assets/ui/wood/tab_on.png');color:#241f1a}.btn:focus-visible,.adjust:focus-visible,button:focus-visible{outline:3px solid #fff3b5;outline-offset:2px}
+  .toast{position:absolute;left:50%;bottom:72px;transform:translate(-50%,12px);opacity:0;background:#40351f;border:1px solid var(--gold);padding:9px 14px;border-radius:4px;color:#ffe6b5;font-size:12px;transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
+  @media(max-width:1100px){.cols{grid-template-columns:1fr 1fr}.cols .plan{grid-column:1/3;grid-row:1}.cols .read{grid-column:1}.cols .combo{grid-column:2}.screen{min-height:0}}
+  @media(max-width:700px){body{padding:0}.screen{border:0}.cols{grid-template-columns:1fr}.cols .plan,.cols .read,.cols .combo{grid-column:1;grid-row:auto}header{padding:0 17px 0 24px}main{padding:18px 16px 20px 24px}.headline h1{font-size:25px}.headline .pill{display:none}.bottom{align-items:flex-start;gap:12px;flex-direction:column}.actions{width:100%}.actions .btn{flex:1}}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<section class="screen" aria-label="FightCamp intermission playbook mockup">
+  <header><div class="round"><b>ROUND 2</b> THE CORNER · 2 OF 3</div><div class="clock">0:48 <small>UNTIL THE BELL</small></div></header>
+  <main>
+    <div class="headline"><div><h1>What do you tell Lucy?</h1><p>Read the round. Change one thing. Send her back with a plan.</p></div><div class="pill">SAMPLE BOUT · AMATEUR · 3 ROUNDS</div></div>
+    <div class="cols">
+      <section class="panel read">
+        <div class="panel-head"><h2>Last round</h2><span class="eyebrow">Round 1 of 3</span></div>
+        <div class="body">
+          <p class="readline">Even on exchanges</p><p class="subline">Maria’s right hook found the body. Lucy’s jab kept her at range.</p>
+          <div class="fighterline"><div class="portrait"><img src="../../../assets/ui/style_b/portraits/mh_boxer_11.png" alt=""></div><i class="swatch"></i><b>Lucy Jackson</b><span class="tag">YOUR CORNER</span></div>
+          <div class="stat"><span>Exchanges won</span><strong>3 / 6</strong><div class="meter"><i style="width:50%"></i></div></div>
+          <div class="stat"><span>Clean punches</span><strong>11</strong><div class="meter"><i style="width:58%"></i></div></div>
+          <div class="stat"><span>Energy at bell</span><strong>47</strong><div class="meter"><i style="width:47%"></i></div></div>
+          <div class="divider"></div>
+          <div class="fighterline blue"><div class="portrait blue"><img src="../../../assets/ui/style_b/portraits/mh_boxer_13.png" alt=""></div><i class="swatch"></i><b>Maria Ortega</b><span class="tag">OPPONENT</span></div>
+          <div class="stat"><span>Body hooks landed</span><strong>8</strong><div class="meter"><i style="width:72%;background:var(--blue)"></i></div></div>
+          <div class="stat"><span>Energy at bell</span><strong>31</strong><div class="meter"><i style="width:31%;background:var(--blue)"></i></div></div>
+          <div class="insight"><b>Corner read</b><br>Maria is tiring, but her hook is getting through. Keep Lucy long and protect the ribs.</div>
+        </div>
+      </section>
+
+      <section class="panel plan">
+        <div class="panel-head"><h2>Choose two corner adjustments</h2><span class="slots"><b id="count">1</b> / 2 selected</span></div>
+        <div class="body">
+          <article class="adjust selected" tabindex="0" role="checkbox" aria-checked="true" data-pick>
+            <span class="check">✓</span><div><h3>Keep her long · counter the right hook</h3><p>When Maria loads up → step out, catch it, return with the cross.</p><div class="selectrow"><button class="active">Long range</button><button>Hold center</button><button>Pressure</button></div></div><span class="cost">PLAN</span>
+          </article>
+          <article class="adjust" tabindex="0" role="checkbox" aria-checked="false" data-pick>
+            <span class="check">✓</span><div><h3>Set a body counter</h3><p>When Maria throws the right hook → slip outside and fire the 2–3.</p>
+              <div class="target-demo"><div class="silhouette" aria-label="Target map"><span class="mark m3">1</span><span class="mark m2">2</span><span class="mark">3</span></div><img class="moveart" src="../../../assets/ui/moves/slip_2-3.png" alt="Fight illustration of the slip and two-three counter"><div><div class="eyebrow">PUNCH-BY-PUNCH AIM</div><div class="sequence"><span class="punch">1 Cross · head</span><span class="arrow">›</span><span class="punch">2 Hook · left ribs</span></div><div class="targets" aria-label="Target area"><button class="target">Head</button><button class="target active">Left ribs</button><button class="target">Right ribs</button><button class="target">Body</button></div></div></div>
+            </div><span class="cost">SET-UP</span>
+          </article>
+          <article class="adjust" tabindex="0" role="checkbox" aria-checked="false" data-pick>
+            <span class="check">✓</span><div><h3>Recover before the next bell</h3><p>Spend 1 corner point: ice the sore ribs or take water and breathe.</p><div class="selectrow"><button>Water +3 energy</button><button class="active">Ice · 3 body hits</button></div></div><span class="cost">1 POINT</span>
+          </article>
+          <div class="coach"><span class="initial"><img src="../../../assets/ui/style_b/portraits/mh_staff_trainer.png" alt="Coach"></span><p><b>Coach’s call</b>Take the body counter and ice her ribs. Maria is slowing down; don’t let her hook set the distance.</p></div>
+        </div>
+      </section>
+
+      <section class="panel combo">
+        <div class="panel-head"><h2>Your read on the opponent</h2><span class="eyebrow">Tape + this round</span></div>
+        <div class="body">
+          <p class="readline">Maria loads up after the jab</p><p class="subline">Seen 3 times · 2 right hooks landed · 1 opening to counter</p>
+          <div class="divider"></div>
+          <div class="eyebrow">If she does this…</div><div class="sequence"><span class="punch">Maria throws right hook</span><span class="arrow">›</span><span class="punch">Lucy slips outside</span></div>
+          <div class="divider"></div>
+          <div class="eyebrow">…Lucy answers like this</div>
+          <div class="target-demo"><div class="silhouette"><span class="mark">1</span><span class="mark m2">2</span><span class="mark m3">3</span></div><img class="moveart" src="../../../assets/ui/moves/1-2-3.png" alt="Game illustration of a three-punch combination"><div><div class="sequence"><span class="punch">1 Jab · head</span><span class="arrow">›</span><span class="punch">2 Cross · head</span><span class="arrow">›</span><span class="punch">3 Hook · ribs</span></div><p class="subline" style="margin:8px 0 0">Aim guides the combination. Guard, timing and accuracy decide what lands.</p></div></div>
+          <div class="divider"></div>
+          <div class="eyebrow">Set the read</div><div class="tabs"><button class="active">Hook after jab</button> <button>Opponent tires</button> <button>Lucy hurt</button></div>
+          <div class="insight"><b>Why this helps</b><br>The counter only fires when the tell appears. If Maria changes, Lucy returns to her saved game plan.</div>
+        </div>
+      </section>
+    </div>
+    <div class="bottom"><span class="smallnote">Targets show intent; the fight still resolves through skill, guard, distance and fatigue.</span><div class="actions"><button class="btn" id="skip">Keep current plan</button><button class="btn primary" id="apply">Apply 2 adjustments</button></div></div>
+  </main><div class="toast" id="toast" role="status">Adjustments set for Round 2.</div>
+</section>
+<script>
+  const picks=[...document.querySelectorAll('[data-pick]')], count=document.querySelector('#count'), toast=document.querySelector('#toast');
+  function updateCount(){let n=picks.filter(x=>x.classList.contains('selected')).length;count.textContent=n;document.querySelector('#apply').textContent=n===2?'Apply 2 adjustments':`Choose ${2-n} more adjustment${2-n===1?'':'s'}`;}
+  picks.forEach(card=>{function toggle(){if(card.classList.contains('selected')){card.classList.remove('selected');card.setAttribute('aria-checked','false')}else if(picks.filter(x=>x.classList.contains('selected')).length<2){card.classList.add('selected');card.setAttribute('aria-checked','true')}updateCount()}card.addEventListener('click',e=>{if(e.target.closest('button'))return;toggle()});card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}})});
+  document.querySelectorAll('.selectrow button,.target,.tabs button').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();b.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}));
+  document.querySelector('#apply').addEventListener('click',()=>{if(picks.filter(x=>x.classList.contains('selected')).length!==2)return;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800)});
+  document.querySelector('#skip').addEventListener('click',()=>{toast.textContent='Lucy will keep her saved plan.';toast.classList.add('show');setTimeout(()=>{toast.classList.remove('show');toast.textContent='Adjustments set for Round 2.'},1800)});updateCount();
+</script>
+</body>
+</html>

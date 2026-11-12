@@ -6,8 +6,9 @@ extends RefCounted
 const Matchmaking := preload("res://scripts/rules/Matchmaking.gd")
 
 ## Cut points for the teaching word (ASKPROBE1 sets them).
-const WORD_LITTLE := 0.4
-const WORD_LOT := 0.7
+## S445: cut from the probe's measured 0.47-1.05 spread (0.4 / 0.7 put every card in "some" or "a lot", Kalli + John S444).
+const WORD_LITTLE := 0.6
+const WORD_LOT := 0.85
 ## Cut points for the stoppage risk word (ASKPROBE1 sets them).
 const STOP_POSSIBLE := 0.15
 const STOP_RISK := 0.30
