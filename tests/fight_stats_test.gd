@@ -76,12 +76,12 @@ func _initialize() -> void:
 		"places": {"head": 70.0, "left_eye": 30.0, "right_eye": 50.0, "nose": 100.0, "left_ribs": 100.0, "right_ribs": 41.0}})
 	_check(str(many["big"]) == "Left eye badly hurt" and str(many["tone"]) == "bad" and int(many["sore"]) == 3 and int(many["cuts"]) == 1,
 		"three sore places, worst first (%s)" % many["big"])
-	_check(str(many["small"]) == "Also sore: right ribs, right eye. Cut over the left eye.", "the short line names the rest and the cut (%s)" % many["small"])
+	_check(str(many["small"]) == "Cut: left eye. Sore too: liver, right eye.", "the short line names the rest and the cut (%s)" % many["small"])
 	var joined := " ".join(PackedStringArray(many["lines"]))
-	_check(joined.contains("Right ribs: 41 of 100") and joined.contains("Right eye: 50 of 100") and joined.contains("heal on their own"),
+	_check(joined.contains("Liver: 41 of 100") and joined.contains("Right eye: 50 of 100") and joined.contains("heal on their own"),
 		"the hover lists each sore place and says the marks heal (%s)" % joined)
 	var cut_only: Dictionary = AM.damage({}, {}, {"first": "Lucy", "took": 5, "took_body": 0, "cuts": ["nose"], "places": {"nose": 60.0}})
-	_check(str(cut_only["big"]) == "Cut" and str(cut_only["small"]) == "Cut on the nose.", "a cut alone is named (%s / %s)" % [cut_only["big"], cut_only["small"]])
+	_check(str(cut_only["big"]) == "Cut" and str(cut_only["small"]) == "Cut: nose.", "a cut alone is named (%s / %s)" % [cut_only["big"], cut_only["small"]])
 	print("FIGHT_STATS failures=%d" % _fails)
 	quit(1 if _fails > 0 else 0)
 

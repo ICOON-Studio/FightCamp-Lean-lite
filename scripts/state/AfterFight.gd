@@ -11,6 +11,7 @@ const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const BoutMarks := preload("res://scripts/fight3d/BoutMarks.gd")
 const CoachNotes := preload("res://scripts/rules/CoachNotes.gd")
 const CornerTrust := preload("res://scripts/rules/CornerTrust.gd")
+const Faces := preload("res://scripts/rules/Faces.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const FightStats := preload("res://scripts/rules/FightStats.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
@@ -34,6 +35,9 @@ static func book(c: Career, f: Dictionary, m: Dictionary, before: Dictionary, ba
 	f["week_fatigue"] = Aftermath.toll(FighterProfile.fatigue(f), tank, stopped_loss)
 	if not BoutMarks.seen_all(m):   # S439: a skipped or unwatched bout still leaves its marks (the settled rounds)
 		m["body_map"] = BoutMarks.build(c, f, m)
+	if not m.has("bodies"):   # no ring drew them: the same pick the ring makes (FightCast.bodies_for)
+		var pick := Faces.pair(f, (f["bout"] as Dictionary).get("opp", {}))
+		m["bodies"] = [Faces.glb(pick[0]), Faces.glb(pick[1])]
 	m["rank_words"] = "" if bool(m.get("pro", false)) else rank_words(c, f, before)
 	m["aftermath"] = tiles(c, f, m, before, bank)
 

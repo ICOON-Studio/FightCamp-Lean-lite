@@ -1,3 +1,20 @@
+FIGHTCAMP - BUILD OF 2026-11-12 (S439): THE RESULT PAGE SHOWS THE MARKS OF THE FIGHT
+================================================================================
+
+ NEW (your "Stop, show damage": nothing new to decide, the damage the game already has is shown).
+  - The result page: each boxer's body picture now carries the marks of THIS bout. A sore or cut place stands
+    beside the body on a hooked line with its name, what is left of it and a word (sore, badly hurt): her own
+    face with the cut, the swollen eye, the red nose; the liver; the ribs. A boxer with no mark shows a clean body.
+  - The DAMAGE tile tells the truth: the worst place in big words, the cut and every other sore place under it,
+    each place with its number when you point at the tile. It used to name one place only.
+  - A skipped bout still leaves its marks: "Skip bout" used to stop the body picture at the last round you
+    watched, so a stoppage loss could read "Nothing lasting". Now every round of the fight is on the picture.
+ TRY: play a bout, watch round 1, then Skip bout; read the two body pictures and the DAMAGE tile on the result.
+ Many three-round amateur bouts leave nothing sore (the head ends near 60 of 100, sore starts at 55): in a
+ sample of 12 lost bouts, 5 left a sore place. A bout with nothing sore shows two clean bodies.
+ KNOWN: the 3D faces in the ring and the portraits on the other pages do not show marks yet (next, one at a time).
+ A sore place does not last past the result page today: only an injury does.
+
 FIGHTCAMP - BUILD OF 2026-11-12 (S438): THE RIBS TAKE DAMAGE, THE CORNER HAS A VOICE (ONCE YOU KEEP IT)
 ================================================================================
 

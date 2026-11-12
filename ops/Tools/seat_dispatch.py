@@ -437,6 +437,10 @@ def prompt_text(seat: str, task: str, wt: Path, branch: str) -> str:
         "(ops/research holds only your brief and the files it names here; read any other ops/research file at E:/FightCamp/Lean/ops/research, read-only.)",
         "touch only the files OWNS lists, turn RED_TEST green, keep every REGRESSION test green, no file over 500 lines.",
         f"Run Godot only headless: \"{GODOT}\" --headless --audio-driver Dummy --path . --script res://<test>.gd (never the _console.exe).",
+        ## S439: Cursor picked a Godot PID from `tasklist` to end "its hung check" and force-stopped another job's process (Ziva's editor went down).
+        "NEVER stop a Godot process you did not start: other jobs' Godot processes run on this PC (tests, renders, the Ziva editor). "
+        "No taskkill / Stop-Process / kill on a PID read from tasklist, and never by image name. A Godot job of yours that hangs: "
+        "give every run its own timeout (`timeout 300 <cmd>`), so it ends by itself; if one is still stuck, leave it and say so in your result.",
         "Nothing may open on the screen: do not open images, videos or apps.",
         f"Commit only the OWNS files on {branch} with explicit paths (git add -- <file>; never git add -A, stash, reset or clean). "
         "Do not push: the dispatcher pushes your branch and opens the PR.",

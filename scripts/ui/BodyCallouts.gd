@@ -55,6 +55,7 @@ var tip := Callable()
 var line_fn := Callable()   # Callable(spot) -> String, the condition line (BodyLive); else "<NAME> <value>"
 var _bubbles: Array = []   # a card per spot (mouse + tooltip + its drawing)
 var _hold := [0.0, 0.0, 0.0]
+var pinned := false   # S439 the result page: a marked place's card stays out, on a hooked line (pin)
 
 
 class Bubble extends Control:
@@ -66,6 +67,7 @@ class Bubble extends Control:
 	var want := false
 	var over := false
 	var tw: Tween
+	var r := 30.0   # this card's radius (S439: the result page's HEAD card is bigger)
 
 	func _get_tooltip(_p: Vector2) -> String:
 		return str(owner_tip.call(spot))
@@ -120,6 +122,28 @@ static func attach(f: Control, portrait: Dictionary, side_out: float, tip_fn: Ca
 		c.add_child(b)
 		c._bubbles.append(b)
 	return c
+
+
+## S439 DAMAGESHOW1 (operator: "Stop, show damage"; S437: "use the hook line and the pointer out of the body"): the
+## result page. Every close-up whose place is sore or cut stays out with its line, joined to the place by a hooked
+## line; her HEAD close-up (her face with the bout's marks) is `head_r` px.
+func pin(head_r: float = R) -> void:
+	pinned = true
+	var b: Bubble = _bubbles[0]
+	b.r = head_r
+	b.size = Vector2(head_r, head_r) * 2.0
+	b.pivot_offset = Vector2(head_r, head_r)
+
+
+## Close-up k shows a mark: one of its places is out of the fine band, or cut.
+func marked(k: int) -> bool:
+	var s: Dictionary = SPOTS[k]
+	if BM.band(float(fig._values.get(_worst(s), 100.0))) != "fine":
+		return true
+	for p in s["places"]:
+		if bool((marks.get("cuts", {}) as Dictionary).get(p, false)):
+			return true
+	return false
 
 
 ## The close-up showing `place` (its index in SPOTS), -1 when none does.
@@ -188,13 +212,15 @@ func _line(k: int) -> String:
 func centre(k: int) -> Vector2:
 	var head: Vector2 = fig.call("_geom_px", "head")["c"]
 	var ribs: Vector2 = fig.call("_geom_px", "right_ribs")["c"]
-	var x := PAD + R if outer < 0.0 else size.x - PAD - R
-	var y0 := maxf(R + 6.0, head.y)   # a little air above the HEAD ring (the panel's top edge)
-	var y := y0 if k == 0 else maxf(y0 + GAP_Y * k, ribs.y + GAP_Y * (k - 1.5))
+	var kr: float = (_bubbles[k] as Bubble).r if k < _bubbles.size() else R
+	var hr: float = (_bubbles[0] as Bubble).r if not _bubbles.is_empty() else R
+	var x := PAD + kr if outer < 0.0 else size.x - PAD - kr
+	var y0 := maxf(hr + 6.0, head.y)   # a little air above the HEAD ring (the panel's top edge)
+	var y := y0 if k == 0 else maxf(y0 + (hr - R) + GAP_Y * k, ribs.y + GAP_Y * (k - 1.5))
 	var c := Vector2(x, y)
 	if not is_inside_tree():
 		return c
-	var r := Rect2(c - Vector2(R, R), Vector2(R, R) * 2.0).merge(_plate_rect(c, _plate_w(k)))
+	var r := Rect2(c - Vector2(kr, kr), Vector2(kr, kr) * 2.0).merge(_plate_rect(c, _plate_w(k), kr))
 	var xf := get_global_transform()
 	var g := Rect2(xf * r.position, xf.basis_xform(r.size))
 	var vis := get_viewport_rect().grow(-EDGE_M)
@@ -204,9 +230,9 @@ func centre(k: int) -> Vector2:
 
 
 ## The condition line's plate under a card centred at `c` (local px), on the card's outer edge, growing inward.
-func _plate_rect(c: Vector2, w: float) -> Rect2:
-	var x := c.x - R if outer < 0.0 else c.x + R - w
-	return Rect2(x, c.y + R + PLATE_GAP, w, PLATE_H)
+func _plate_rect(c: Vector2, w: float, r: float = R) -> Rect2:
+	var x := c.x - r if outer < 0.0 else c.x + r - w
+	return Rect2(x, c.y + r + PLATE_GAP, w, PLATE_H)
 
 
 func _plate_w(k: int) -> float:
@@ -223,12 +249,12 @@ func _process(delta: float) -> void:
 	for k in _bubbles.size():
 		var b: Bubble = _bubbles[k]
 		_hold[k] = maxf(0.0, float(_hold[k]) - real)
-		var want := float(_hold[k]) > 0.0 or hk == k or (b.over and b.visible)
+		var want := float(_hold[k]) > 0.0 or hk == k or (b.over and b.visible) or (pinned and marked(k))
 		if want:
 			b.line = _line(k)
 		if want != b.want:
 			_tween(b, want)
-		b.position = centre(k) - Vector2(R, R)
+		b.position = centre(k) - Vector2(b.r, b.r)
 		b.visible = want or b.modulate.a > 0.01
 		if live_pop:
 			b.pic.modulate = Color.WHITE.lerp(Color(1.0, 0.25, 0.2), 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.014)) if float(_hold[k]) > 0.0 else Color.WHITE
@@ -270,7 +296,7 @@ func _colour(s: Dictionary) -> Color:
 ## Her own picture cut round the card's place, or the organ's picture (drawn on its Pic, behind the ring).
 func _draw_pic(b: Bubble) -> void:
 	var s: Dictionary = b.spot
-	var c := Vector2(R, R)
+	var c := Vector2(b.r, b.r)
 	var t := BRAIN_PIC as Texture2D if live_pop and str(s["at"]) == "head" else pic_of(SPOTS.find(s))
 	var cuv := Vector3(0.5, 0.5, 0.5)   # S381 an organ picture fills the circle
 	var asp := 1.0
@@ -290,7 +316,7 @@ func _draw_pic(b: Bubble) -> void:
 	var uvs := PackedVector2Array()
 	for i in 32:
 		var ang := TAU * i / 32.0
-		pts.append(c + Vector2(cos(ang), sin(ang)) * R)
+		pts.append(c + Vector2(cos(ang), sin(ang)) * b.r)
 		uvs.append(Vector2(cuv.x + cos(ang) * cuv.z, cuv.y + sin(ang) * cuv.z * asp))
 	b.pic.draw_polygon(pts, PackedColorArray([Color.WHITE]), uvs, t)
 
@@ -298,22 +324,22 @@ func _draw_pic(b: Bubble) -> void:
 ## One card (its local px, centre R,R): a hurt place's tint, her face marks, the outline ring, the condition line's plate.
 func _draw_card(b: Bubble) -> void:
 	var s: Dictionary = b.spot
-	var c := Vector2(R, R)
+	var c := Vector2(b.r, b.r)
 	var col := _colour(s)
 	var band := BM.band(float(fig._values.get(_worst(s), 100.0)))
-	if band != "fine":
-		b.draw_circle(c, R, Color(col, 0.22))   # a hurt place's close-up takes its colour
+	if band != "fine" and not (pinned and str(s["at"]) == "head" and face != null):   # her face keeps its own colour: the marks read
+		b.draw_circle(c, b.r, Color(col, 0.22))   # a hurt place's close-up takes its colour
 	if str(s["at"]) == "head" and face != null and not live_pop:
 		var lay := FaceMarks.layout(face_uv, face.get_size().x / face.get_size().y)
-		FaceMarks.paint(b, c, R, fig._values, marks, lay["at"] if not lay.is_empty() else FaceMarks.AT)
-	b.draw_arc(c, R + 1.0, 0.0, TAU, 48, Color(0, 0, 0, 0.6), RING_W + 3.0, true)
-	b.draw_arc(c, R, 0.0, TAU, 48, col, RING_W, true)
+		FaceMarks.paint(b, c, b.r, fig._values, marks, lay["at"] if not lay.is_empty() else FaceMarks.AT)
+	b.draw_arc(c, b.r + 1.0, 0.0, TAU, 48, Color(0, 0, 0, 0.6), RING_W + 3.0, true)
+	b.draw_arc(c, b.r, 0.0, TAU, 48, col, RING_W, true)
 	var t := str(b.line)
 	if t == "":
 		return
 	var bold: Font = UI.font("bold")
 	var w := bold.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, UI.TINY).x + 14.0
-	var pr := _plate_rect(c, w)
+	var pr := _plate_rect(c, w, b.r)
 	b.draw_style_box(UI.box(Color(0.06, 0.05, 0.05, 0.88), Color(col, 0.8), 6, 1, 0, 0), pr)
 	# Its name and number in the band colour, the words after them in the HUD's light text.
 	var cut := t.find(" - ")
@@ -334,10 +360,17 @@ func _draw() -> void:
 		var s: Dictionary = b.spot
 		var col := _colour(s)
 		var a := b.modulate.a
-		var c := b.position + Vector2(R, R)
+		var c := b.position + Vector2(b.r, b.r)
 		var to: Vector2 = fig.call("_geom_px", str(s["at"]))["c"]
-		var from := c + (to - c).normalized() * R * b.scale.x
-		draw_line(from, to, Color(0, 0, 0, 0.45 * a), 3.5, true)
-		draw_line(from, to, Color(col, 0.8 * a), 1.5, true)
+		var from := c + (to - c).normalized() * b.r * b.scale.x
+		if pinned:   # the hook: level out of the body from the place, then up or down to the card's inner edge
+			from = c + Vector2(-outer * b.r * b.scale.x, 0.0)
+			var knee := Vector2(from.x - outer * 12.0, to.y)
+			var path := PackedVector2Array([from, Vector2(knee.x, from.y), knee, to])
+			draw_polyline(path, Color(0, 0, 0, 0.45 * a), 3.5, true)
+			draw_polyline(path, Color(col, 0.9 * a), 1.5, true)
+		else:
+			draw_line(from, to, Color(0, 0, 0, 0.45 * a), 3.5, true)
+			draw_line(from, to, Color(col, 0.8 * a), 1.5, true)
 		draw_circle(to, 4.0, Color(0, 0, 0, 0.5 * a))
 		draw_circle(to, 3.0, Color(col, a))

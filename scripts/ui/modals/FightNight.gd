@@ -23,6 +23,7 @@ const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const FightFlow := preload("res://scripts/rules/FightFlow.gd")
 const FlowView := preload("res://scripts/ui/FlowView.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
+const ResultMarks := preload("res://scripts/ui/ResultMarks.gd")
 const ShoutBar := preload("res://scripts/fight3d/ShoutBar.gd")
 const FightVoice := preload("res://scripts/audio/FightVoice.gd")
 
@@ -284,7 +285,7 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	# the three cards in very large type between them.
 	var hero := UI.hbox(28)
 	var bodies: Array = m.get("bodies", ["", ""])
-	hero.add_child(Broadcast.corner(RoundGraphics.body(m.get("body_map", {}), "a", str(bodies[0]), "red", m.get("body_track", {})), str(f.get("name", f["first"])), Broadcast.HERS, false))
+	hero.add_child(_marked(ResultMarks.figure(m.get("body_map", {}), "a", str(bodies[0]), "red", m.get("body_track", {})), str(f.get("name", f["first"])), Broadcast.HERS, false))
 	var centre := UI.vbox(10)
 	centre.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	centre.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -317,7 +318,7 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	bars.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	centre.add_child(bars)
 	hero.add_child(centre)
-	hero.add_child(Broadcast.corner(RoundGraphics.body(m.get("body_map", {}), "b", str(bodies[1]), "blue", m.get("body_track", {})), str(opp.get("name", opp["first"])), Broadcast.THEIRS, true))
+	hero.add_child(_marked(ResultMarks.figure(m.get("body_map", {}), "b", str(bodies[1]), "blue", m.get("body_track", {})), str(opp.get("name", opp["first"])), Broadcast.THEIRS, true))
 	v.add_child(hero)
 	if m.has("aftermath"):   # S430 the damage, the tiredness, what was learned, morale, the corner, the rank
 		v.add_child(AftermathTiles.build(m["aftermath"], str(f["first"])))
@@ -354,6 +355,14 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	home.size_flags_vertical = Control.SIZE_SHRINK_END
 	foot.add_child(home)
 	v.add_child(foot)
+
+
+## S439 a result corner: the figure keeps the room its pinned close-ups need (Broadcast.corner sets the round page's size).
+static func _marked(fig: Control, name: String, colour: Color, right: bool) -> PanelContainer:
+	var p := Broadcast.corner(fig, name, colour, right)
+	if fig != null and fig.has_meta("result_size"):
+		fig.custom_minimum_size = fig.get_meta("result_size")
+	return p
 
 
 func _open_lit(main: Node, lit: Dictionary, title: String) -> void:

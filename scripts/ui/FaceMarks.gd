@@ -61,6 +61,7 @@ static func marks(vals: Dictionary, side: Dictionary, at: Dictionary = AT) -> Ar
 
 
 static func paint(cv: CanvasItem, c: Vector2, r: float, vals: Dictionary, side: Dictionary, at: Dictionary = AT) -> void:
+	var w := maxf(1.0, r / 30.0)   # S439 the result page's bigger close-up: lines grow with it
 	for m in marks(vals, side, at):
 		var p: Vector2 = c + (m["at"] as Vector2) * r
 		var k := float(m["k"])
@@ -75,13 +76,17 @@ static func paint(cv: CanvasItem, c: Vector2, r: float, vals: Dictionary, side: 
 				cv.draw_set_transform(p, 0.0, Vector2(1.0, 0.62))
 				cv.draw_circle(Vector2.ZERO, r * 0.19, Color(SWELL, 0.85))
 				cv.draw_set_transform(Vector2.ZERO)
-				cv.draw_line(p - Vector2(r * 0.13, 0.0), p + Vector2(r * 0.13, 0.0), Color(0.05, 0.0, 0.02, 0.95), 1.6, true)
+				cv.draw_line(p - Vector2(r * 0.13, 0.0), p + Vector2(r * 0.13, 0.0), Color(0.05, 0.0, 0.02, 0.95), 1.6 * w, true)
 			"nose":
-				cv.draw_circle(p, r * 0.12, Color(BLOOD, 0.25 + 0.4 * k))
+				# S439 soft-edged like the eye (a flat disc read as a clown's nose at 46 px): faint outside, red at the bridge.
+				cv.draw_set_transform(p, 0.0, Vector2(0.85, 1.0))
+				for ring in [[0.16, 0.30], [0.12, 0.55], [0.07, 0.85]]:
+					cv.draw_circle(Vector2.ZERO, r * float(ring[0]), Color(BLOOD, (0.14 + 0.26 * k) * float(ring[1])))
+				cv.draw_set_transform(Vector2.ZERO)
 			"cut":
 				# A short jagged gash with a drip of blood under it, outlined dark so it reads at 30 px.
 				var pts := PackedVector2Array([p + Vector2(-0.11, 0.02) * r, p + Vector2(-0.04, -0.03) * r,
 					p + Vector2(0.02, 0.02) * r, p + Vector2(0.10, -0.02) * r])
-				cv.draw_polyline(pts, Color(0.1, 0.0, 0.0, 0.8), 2.8, true)
-				cv.draw_polyline(pts, BLOOD.lightened(0.15), 1.5, true)
-				cv.draw_line(p + Vector2(-0.01, 0.01) * r, p + Vector2(0.0, 0.16) * r, Color(BLOOD, 0.85), 1.4, true)
+				cv.draw_polyline(pts, Color(0.1, 0.0, 0.0, 0.8), 2.8 * w, true)
+				cv.draw_polyline(pts, BLOOD.lightened(0.15), 1.5 * w, true)
+				cv.draw_line(p + Vector2(-0.01, 0.01) * r, p + Vector2(0.0, 0.16) * r, Color(BLOOD, 0.85), 1.4 * w, true)

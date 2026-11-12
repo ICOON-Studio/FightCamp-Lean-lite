@@ -11,7 +11,7 @@ extends RefCounted
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 
 const PLACE_WORDS := {"head": "Head", "left_eye": "Left eye", "right_eye": "Right eye", "nose": "Nose",
-	"left_ribs": "Left ribs", "right_ribs": "Right ribs"}
+	"left_ribs": "Left ribs", "right_ribs": "Liver"}   # S439 the liver side, as the close-ups name it
 
 
 ## S430 what a fight leaves in the legs (operator: "after the fight i need to clearly see ... his stamina level to figure
@@ -106,13 +106,13 @@ static func damage(before: Dictionary, after: Dictionary, facts: Dictionary) -> 
 		for k in range(1, sore.size()):
 			also.append(str(PLACE_WORDS[sore[k][1]]).to_lower())
 		if not also.is_empty():
-			marks.append("Also sore: %s." % ", ".join(also))
+			marks.append("Sore too: %s." % ", ".join(also))
 		for row in sore:
 			lines.append("%s: %d of 100 left at the final bell (%s)." % [str(PLACE_WORDS[row[1]]), int(round(float(row[0]))),
 				"sore" if BodyMap.band(float(row[0])) == "hurt" else "badly hurt"])
 	for p in cuts:
 		var cut := "Cut on the nose." if str(p) == "nose" else "Cut over the %s." % str(PLACE_WORDS[p]).to_lower()
-		marks.append(cut)
+		marks.push_front("Cut: %s." % str(PLACE_WORDS[p]).to_lower())
 		lines.append(cut)
 		tone = "bad"
 		if sore.is_empty():
