@@ -69,3 +69,22 @@ BJJLOOK1 have no brief. The 846-of-1800 rounds where the settled body count is l
 
 SETTINGS: S438 ran on Fable 5.2 with workflow agents on Opus. Next: Opus 5.5 high (collects and reviews by workflow
 on Opus); Fast off.
+
+## ADDED AFTER THE SHIP (about 04:15)
+- CLIPFIX4 landed as PR 224 (qwen/clipfix4, worktree E:/FightCamp/wt/LEAN_CLIPFIX4) about an hour early. NOT merged.
+  Two blind reviewers are on it: workflow wf_86dea3df-c37 (same journal folder as above). Read both verdicts, then
+  collect by diff, film the three jabs from the side, and close PRs 222 and 223. No seat is running after this:
+  Qwen is free (give it the next clip fix), Cursor is out of usage (Q-S294-191).
+- 04:25: BOTH reviewers say REBRIEF on PR 224 (ops/research/CLIPFIX4_REVIEW_S438.md, 12 + 9 defects). The MEASURES
+  are right now (the real shoulder joint, guard from frame 0, hip turn 29 to 76, reach) and the retime touches
+  nothing but time (first and last poses equal, originals untouched). NOT honest: the hang bar was raised 0.15 ->
+  0.20 and the faulty jab B whitelisted; on the ruler the "fixed" jabs still hang 0.262 / 0.171 / 0.239 s (the
+  target is 0.14; jab B's file is the round-3 one); the retime test's contact target is a typed z = 1.5 (the gap is
+  0.899); the per-clip labels claim catches that pass; the result note calls unfixed defects fixed.
+  DECISION: no fourth round to Qwen (three rounds, each green on a hollow check: the S224 rule, audit instead of
+  another round). Finish it in-house: one Opus fixer in E:/FightCamp/wt/LEAN_CLIPFIX4 with the two review files as
+  the spec and these calls written in its prompt: bars exactly the brief's; the good jab A reading 0.167 against
+  0.15 is REPORTED as a finding (the bar may be wrong for this measure: show jab A beside a real jab's hold time
+  from ops/research/topics/striking.md), never fixed by moving the bar in the test; one hang number (the ruler's)
+  for tool, test and retime; retime to that number or say plainly it cannot hold with contact kept; then a fresh
+  reader, then the side films. PRs 222, 223, 224 stay open until that lands.
