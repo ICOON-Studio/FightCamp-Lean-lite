@@ -1,0 +1,308 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Fight result 10/10 (critic A, r4)</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1012;--panel:#1a1c20;--panel2:#22252b;--line:#30343b;--ink:#eceae4;--dim:#9a9ea6;--you:#f0973a;--opp:#5b8fd9;--gold:#f2c94c;--good:#4fbf73;--bad:#e05a4f}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:radial-gradient(ellipse at 50% 0%,#1d2026 0%,#0f1012 60%);color:var(--ink);font:500 16px Inter,Segoe UI,sans-serif}
+.h{font-family:Oswald,'Arial Narrow',sans-serif;letter-spacing:.02em}
+.cap{font:600 13px Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.panel{background:linear-gradient(180deg,#1d2024,#17191c);border:1px solid var(--line);border-radius:6px;box-shadow:0 2px 10px #0008}
+/* top band */
+.top{position:absolute;left:20px;top:16px;width:1880px;height:150px;display:grid;grid-template-columns:520px 1fr 520px;gap:14px}
+.side{display:flex;align-items:center;gap:18px;padding:0 20px}
+.side.you{border-left:5px solid var(--you)} .side.opp{border-right:5px solid var(--opp);flex-direction:row-reverse;text-align:right}
+.por{width:96px;height:112px;border-radius:6px;background:linear-gradient(160deg,#6b3d2a,#2a1a14);position:relative;overflow:hidden}
+.por:after{content:"";position:absolute;left:24px;top:14px;width:56px;height:66px;border-radius:50% 50% 45% 45%;background:#a9684a}
+.por:before{content:"";position:absolute;left:12px;bottom:-30px;width:80px;height:70px;border-radius:40px;background:#3a2318}
+.opp .por{background:linear-gradient(160deg,#3a2c50,#16141e)} .opp .por:after{background:#b07a55}
+.name{font-size:32px;font-weight:700;line-height:1}
+.you .name{color:var(--you)} .opp .name{color:var(--opp)}
+.meta{color:var(--dim);font-size:14px;margin-top:4px}
+.chg{margin-top:5px;font-size:16px} .chg b{font-weight:700} .arrow{color:var(--dim);margin:0 6px}
+.verdict{display:grid;grid-template-columns:330px 1fr;padding:8px 18px;align-items:center}
+.lost{font-size:72px;font-weight:700;color:var(--bad);line-height:.9}
+.how{font-size:16px;margin-top:6px;line-height:1.3} .how span{color:var(--dim)}
+table.cards{border-collapse:separate;border-spacing:5px 3px;font-family:Oswald,sans-serif;font-size:19px;justify-self:end}
+.cards th{font:600 13px Inter;color:var(--dim);letter-spacing:.1em}
+.cards td{width:68px;text-align:center;border-radius:4px;background:var(--panel2);padding:2px 0}
+.cards td.j{width:auto;font:500 15px Inter;color:var(--dim);background:none;text-align:right;padding-right:8px}
+.cards td.y{color:var(--you)} .cards td.o{color:var(--opp)}
+.cards td.swing{outline:2px solid var(--gold)} .cards td.tot{background:none;font-size:22px}
+.cards th.swinghd{color:var(--gold)}
+/* why band */
+.why{position:absolute;left:20px;top:178px;width:1880px;height:214px;display:grid;grid-template-columns:860px 600px 1fr;gap:14px}
+.cause{padding:12px 18px;position:relative}
+.cause.best{border:2px solid var(--gold);box-shadow:0 0 0 1px #f2c94c33,0 6px 24px #f2c94c18}
+.tag{position:absolute;right:16px;top:14px;background:var(--gold);color:#111;font:700 13px Inter;padding:4px 9px;border-radius:3px;letter-spacing:.06em}
+.ct{font-size:23px;font-weight:600} .cs{color:var(--dim);font-size:14px;margin-top:3px;line-height:1.35}
+.gauge{display:flex;align-items:center;gap:16px;margin-top:10px}
+.dial{text-align:center} .dial .pct{font:700 38px Oswald;line-height:1} .dial .lb{font-size:13px;color:var(--dim)}
+.bar{width:150px;height:12px;background:#2b2f36;border-radius:6px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%}
+.btn{display:inline-flex;white-space:nowrap;align-items:center;gap:10px;font:700 17px Inter;padding:11px 18px;border-radius:5px;border:0}
+.btn.gold{background:var(--gold);color:#121212}
+.btn.sec{background:#2c3038;color:var(--ink);border:1px solid #474c55;font-size:15px;padding:9px 14px}
+.why2 .row{display:flex;gap:14px;align-items:center;margin-top:12px}
+.stat{flex:1}.stat .l{display:flex;justify-content:space-between;font-size:15px;color:var(--dim)}
+.sbar{height:14px;background:#2b2f36;border-radius:3px;position:relative;margin-top:4px}
+.sbar i{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
+.need{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.ruled{padding:12px 16px}
+.chip{display:flex;justify-content:space-between;align-items:center;background:var(--panel2);border-radius:4px;padding:7px 10px;margin-top:7px;font-size:13px;gap:8px}
+.chip b{font-family:Oswald;font-size:17px;color:var(--dim);white-space:nowrap}
+/* timeline */
+.tl{position:absolute;left:20px;top:404px;width:1880px;height:414px;padding:12px 16px}
+.tlg{position:absolute;left:186px;top:12px;right:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rnd{position:relative}
+.rh{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:5px}
+.rh .h{font-size:22px} .rh .jd{font-size:14px;color:var(--dim)} .jd i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:3px;vertical-align:-1px}
+.rnd.sw{outline:2px solid var(--gold);outline-offset:6px;border-radius:3px}
+.cols{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.lab{position:absolute;left:16px;width:160px;font:600 13px Inter;letter-spacing:.08em;color:var(--dim);text-transform:uppercase}
+.mode{height:26px;border-radius:3px;font-size:12px;display:flex;align-items:center;justify-content:center;color:#ddd;margin-top:8px;font-weight:600}
+.m-wc{background:#3b3550}.m-lu{background:#5a3532}.m-br{background:#2f4a46}.m-ti{background:#4b4a2c}
+.ex{height:88px;position:relative;margin-top:6px}
+.ex .mid{position:absolute;left:0;right:0;top:44px;height:1px;background:#3a3e46}
+.ex .b{position:absolute;left:18%;right:18%;border-radius:2px}
+.ex .t{position:absolute;left:0;right:0;text-align:center;font:600 14px Oswald}
+.cell{height:28px;margin-top:6px;display:flex;align-items:center;justify-content:center;font:700 12px Inter}
+.pl{border-radius:3px;padding:3px 7px;border:1.5px solid}
+.pl.g{border-color:var(--good);color:var(--good)} .pl.r{border-color:var(--bad);color:var(--bad)}
+.sh{background:#24402f;color:#a9e7bd;border-radius:3px;padding:3px 6px;font-size:11px}
+.dist{display:flex;gap:3px} .dist i{width:9px;height:9px;border-radius:50%;background:#3a3e46} .dist i.on{background:var(--ink)}
+.rope{font-size:10px;color:#111;background:#c9c4b6;padding:1px 4px;border-radius:2px;margin-left:5px;font-weight:700}
+.hurt{color:var(--bad);font-size:18px}
+.tm{font:500 11px Inter;color:#6f747c;text-align:center;margin-top:3px}
+svg.en{position:absolute;left:186px;top:318px}
+.key{position:absolute;right:18px;top:384px;font-size:13px;color:var(--dim)}
+.key span{margin-left:16px}
+.turn{position:absolute;font:700 12px Inter;color:var(--gold)}
+/* bottom */
+.bot{position:absolute;left:20px;top:830px;width:1880px;height:184px;display:grid;grid-template-columns:420px 660px 1fr;gap:14px}
+.bp{padding:12px 16px;position:relative}
+.body{position:absolute;left:18px;top:38px;width:90px;height:124px}
+.dmg{position:absolute;left:126px;top:40px;right:14px}
+.dline{display:flex;justify-content:space-between;font-size:15px;margin-bottom:6px}
+.lock{margin-top:8px;display:inline-block;background:#3b2622;border:1px solid #6a3a33;color:#f0b3a9;font-size:14px;padding:5px 9px;border-radius:4px}
+.num{display:grid;grid-template-columns:78px 1fr 190px 1fr 78px;align-items:center;row-gap:4px;column-gap:8px;margin-top:6px;font-size:13px}
+.num .a{font:600 16px Oswald;white-space:nowrap;color:var(--you);text-align:right}.num .z{font:600 16px Oswald;white-space:nowrap;color:var(--opp)}
+.num .c{text-align:center;color:var(--ink)}
+.hb{height:10px;background:#2b2f36;border-radius:2px;position:relative}.hb i{position:absolute;top:0;bottom:0;border-radius:2px}
+.plan .ln{display:grid;grid-template-columns:28px 1fr 110px 132px;align-items:center;gap:10px;font-size:15px;margin-top:7px}
+.L{width:24px;height:24px;border:1.5px solid;border-radius:3px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.sq{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:3px}
+.foot{position:absolute;left:20px;top:1024px;width:1880px;height:48px;display:flex;align-items:center;justify-content:space-between}
+.file{font-size:15px;color:var(--ink)} .file b{color:var(--gold)} .file span{color:var(--dim)}
+.cont{background:#e9e6de;color:#121212;font:700 18px Inter;padding:10px 28px;border-radius:5px}
+.cont small{font-weight:500;color:#444;margin-left:8px;font-size:14px}
+</style></head><body>
+
+<!-- TOP: who won and what it moved -->
+<div class="top">
+ <div class="panel side you">
+  <div class="por"></div>
+  <div><div class="name h">LUCY JACKSON</div>
+   <div class="meta">Your fighter · Out-boxer · orthodox · 60 kg</div>
+   <div class="chg">Record <b>3-1</b><span class="arrow">→</span><b style="color:var(--bad)">3-2</b></div>
+   <div class="chg">Ladder <b>unranked</b><span class="arrow">→</span><b>still 1 win to enter</b></div></div>
+ </div>
+ <div class="panel verdict">
+  <div><div class="lost h">LOST</div><div class="how">Split decision · 3 rounds<br><span>Round 2 decided it: 2 of 3 judges gave it to Priya</span></div></div>
+  <table class="cards">
+   <tr><th></th><th>R1</th><th class="swinghd">R2 ▼</th><th>R3</th><th>TOTAL</th></tr>
+   <tr><td class="j">Judge 1</td><td class="y">10-9</td><td class="o swing">9-10</td><td class="o">9-10</td><td class="tot o">28-29</td></tr>
+   <tr><td class="j">Judge 2</td><td class="y">10-9</td><td class="o swing">9-10</td><td class="o">9-10</td><td class="tot o">28-29</td></tr>
+   <tr><td class="j">Judge 3</td><td class="y">10-9</td><td class="y">10-9</td><td class="o">9-10</td><td class="tot y">29-28</td></tr>
+  </table>
+ </div>
+ <div class="panel side opp">
+  <div class="por"></div>
+  <div><div class="name h">PRIYA NAIR</div>
+   <div class="meta">Leicester ABC · Counter-puncher · orthodox</div>
+   <div class="chg">Record <b>5-1</b><span class="arrow">→</span><b>6-1</b></div>
+   <div class="chg">Region rank <b>No. 4</b><span class="arrow">→</span><b>No. 3</b></div></div>
+ </div>
+</div>
+
+<!-- WHY: one hero cause with its measured fix, one training cause, the rest ruled out -->
+<div class="why">
+ <div class="panel cause best">
+  <div class="tag">BIGGEST CAUSE · BEST FIX</div>
+  <div class="cap">Why it was lost · 1</div>
+  <div class="ct">Plan line C walked into her counter</div>
+  <div class="cs">C: "long range, she waits to counter → One-two-hook". Used 3 times, lost 2. Priya's right hand comes over the jab.</div>
+  <div class="gauge">
+   <div class="dial"><div class="pct" style="color:var(--dim)">18%</div><div class="lb">her chance v Priya, this plan</div><div class="bar"><i style="width:18%;background:#7a7f88"></i></div></div>
+   <div style="font:700 34px Oswald;color:var(--dim)">→</div>
+   <div class="dial"><div class="pct" style="color:var(--good)">48%</div><div class="lb">line C → Double jab</div><div class="bar"><i style="width:48%;background:var(--good)"></i></div></div>
+   <div style="margin-left:auto;text-align:right">
+    <div class="btn gold">Rewrite line C: Double jab ▸</div>
+    <div class="cs" style="margin-top:8px;font-size:14px">The hook was the opening she counters; the double jab<br>gives her none. 200 replays, same fighters.</div>
+   </div>
+  </div>
+ </div>
+ <div class="panel cause why2">
+  <div class="cap">Why it was lost · 2</div>
+  <div class="ct">Right call, not enough Defence</div>
+  <div class="cs">When Priya loaded up you called Hands up 4 times (the right call). Lucy won 1 of them.</div>
+  <div class="row"><div class="stat"><div class="l"><span>Lucy Defence</span><span><b style="color:var(--you)">54</b> · needs ~60 to hold her loaded right</span></div>
+   <div class="sbar"><i style="width:54%;background:var(--you)"></i><span class="need" style="left:60%"></span></div></div></div>
+  <div class="row"><div class="cs" style="margin:0">About 4 weeks of Defence mornings.</div>
+   <div class="btn sec" style="margin-left:auto">Set Defence focus ▸</div></div>
+ </div>
+ <div class="panel ruled">
+  <div class="cap">Checked and ruled out</div>
+  <div class="cs">Replayed 200 times with these changed: no real difference.</div>
+  <div class="chip"><span>Tired at the end (push the last minute)</span><b>18% → 17%</b></div>
+  <div class="chip"><span>Round 3 opening call: Draw the lead</span><b>18% → 18%</b></div>
+  <div class="chip"><span>Hurt on the ropes 2 times</span><b>luck</b></div>
+ </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="panel tl">
+ <div class="lab" style="top:52px">Priya's game</div>
+ <div class="lab" style="top:110px">Punches landed<br><span style="text-transform:none;letter-spacing:0;font-weight:500">up = Lucy won it</span></div>
+ <div class="lab" style="top:196px">Plan line</div>
+ <div class="lab" style="top:230px">Your shout</div>
+ <div class="lab" style="top:264px">Distance · Hurt</div>
+ <div class="lab" style="top:300px">Energy</div>
+ <div class="tlg">
+  <!-- R1 -->
+  <div class="rnd"><div class="rh"><span class="h">ROUND 1 <span style="font-size:16px;color:var(--dim)">exchanges 4-2</span></span><span class="jd">judges<i style="background:var(--you)"></i><i style="background:var(--you)"></i><i style="background:var(--you)"></i></span></div>
+   <div class="cols">
+    <div class="mode m-wc" style="grid-column:span 3">Waiting to counter</div><div class="mode m-lu" style="grid-column:span 2">Loading up</div><div class="mode m-wc">Waits</div>
+   </div>
+   <div class="cols">
+    <div class="ex"><div class="mid"></div><div class="b" style="top:30px;height:14px;background:var(--you)"></div><div class="t" style="top:10px;color:var(--you)">4-3</div></div>
+    <div class="ex"><div class="mid"></div><div class="b" style="top:20px;height:24px;background:var(--you)"></div><div class="t" style="top:0;color:var(--you)">5-2</div></div>
+    <div class="ex"><div class="mid"></div><div class="b" style="top:22px;height:22px;background:var(--you)"></div><div class="t" style="top:2px;color:var(--you)">5-3</div></div>
+    <div class="ex"><div class="mid"></div><div class="b" style="top:45px;height:24px;background:var(--opp)"></div><div class="t" style="top:70px;color:var(--opp)">2-5</div></div>
+    <div class="ex"><div class="mid"></div><div class="b" style="top:45px;height:24px;background:var(--opp)"></div><div class="t" style="top:70px;color:var(--opp)">2-5</div></div>
+    <div class="ex"><div class="mid"></div><div class="b" style="top:32px;height:12px;background:var(--you)"></div><div class="t" style="top:12px;color:var(--you)">4-3</div></div>
+   </div>
+   <div class="cols">
+    <div class="cell"><span class="pl g">C ✓</span></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+   </div>
+   <div class="cols">
+    <div class="cell"></div><div class="cell"></div><div class="cell"><span class="sh">Draw lead</span></div><div class="cell"></div><div class="cell"><span class="sh">Hands up</span></div><div class="cell"></div>
+   </div>
+   <div class="cols">
+    <div class="cell"><span class="dist"><i class="on"></i><i></i><i></i></span></div>
+    <div class="cell"><span class="dist"><i></i><i class="on"></i><i></i></span></div>
+    <div class="cell"><span class="dist"><i></i><i class="on"></i><i></i></span></div>
+    <div class="cell"><span class="dist"><i></i><i></i><i class="on"></i></span><span class="rope">CLINCH</span></div>
+    <div class="cell"><span class="dist"><i></i><i class="on"></i><i></i></span><span class="rope">ROPES</span></div>
+    <div class="cell"><span class="dist"><i></i><i class="on"></i><i></i></span><span class="rope">ROPES</span></div>
+   </div>
+  </div>
+  <!-- R2 -->
+  <div class="rnd sw"><div class="rh"><span class="h" style="color:var(--gold)">ROUND 2 <span style="font-size:16px;color:var(--dim)">exchanges 3-3 · decided the fight</span></span><span class="jd">judges<i style="background:var(--opp)"></i><i style="background:var(--opp)"></i><i style="background:var(--you)"></i></span></div>
+   <div class="cols">
+    <div class="mode m-wc">Waits</div><div class="mode m-lu" style="grid-column:span 3">Loading up</div><div class="mode m-br" style="grid-column:span 2">Boxing at range</div>
+   </div>
+   <div class="cols">
+    <div class="ex"><div class="mid"></div><div class="b" style="top:45px;height:5px;background:var(--opp)"></div><div class="t" style="top:52px;color:var(--opp)">3-4</div></div>
+    <div class="ex"><div class="mid"></div><div class="b" style="top:24px;height:20px;background:var(--you)"></div><div class="t" style="top:4px;color:var(--you)">5-2</div></div>
+    <div class="ex"><div class="mid"></div><div class="b" style="top:45px;height:24px;background:var(--opp)"></div><div class="t" style="top:70px;color:var(--opp)">2-5</div></div>
+    <div class="ex"><div class="mid"></div><div class="b" style="top:45px;height:24px;background:var(--opp)"></div><div class="t" style="top:70px;color:var(--opp)">2-5</div></div>
+    <div class="ex"><div class="mid"></div><div class="b" style="top:34px;height:10px;background:var(--you)"></div><div class="t" style="top:14px;color:var(--you)">4-3</div></div>
+    <div class="ex"><div class="mid"></div><div class="b" style="top:34px;height:10px;background:var(--you)"></div><div class="t" style="top:14px;color:var(--you)">4-3</div></div>
+   </div>
+   <div class="cols">
+    <div class="cell"><span class="pl r">C ✗</span></div><div class="cell"></div><div class="cell"><span class="pl g">A ✓</span></div><div class="cell"><span class="pl r">A ✗</span></div><div class="cell"></div><div class="cell"></div>
+   </div>
+   <div class="cols">
+    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"><span class="sh">Hands up</span></div><div class="cell"></div><div class="cell"><span class="sh">Tie up</span></div>
+   </div>
+   <div class="cols">
+    <div class="cell"><span class="dist"><i class="on"></i><i></i><i></i></span></div>
+    <div class="cell"><span class="dist"><i></i><i class="on"></i><i></i></span></div>
+    <div class="cell"><span class="dist"><i></i><i class="on"></i><i></i></span><span class="hurt">✸</span></div>
+    <div class="cell"><span class="dist"><i></i><i class="on"></i><i></i></span><span class="rope">ROPES</span><span class="hurt">✸</span></div>
+    <div class="cell"><span class="dist"><i class="on"></i><i></i><i></i></span><span class="rope">ROPES</span></div>
+    <div class="cell"><span class="dist"><i class="on"></i><i></i><i></i></span></div>
+   </div>
+  </div>
+  <!-- R3 -->
+  <div class="rnd"><div class="rh"><span class="h">ROUND 3 <span style="font-size:16px;color:var(--dim)">exchanges 1-5</span></span><span class="jd">judges<i style="background:var(--opp)"></i><i style="background:var(--opp)"></i><i style="background:var(--opp)"></i></span></div>
+   <div class="cols">
+    <div class="mode m-wc">Waits</div><div class="mode m-lu" style="grid-column:span 2">Loading up</div><div class="mode m-ti" style="grid-column:span 3">Tiring</div>
+   </div>
+   <div class="cols">
+    <div class="ex"><div class="mid"></div><div class="b" style="top:45px;height:24px;background:var(--opp)"></div><div class="t" style="top:70px;color:var(--opp)">2-5</div></div>
+    <div class="ex"><div class="mid"></div><div class="b" style="top:45px;height:8px;background:var(--opp)"></div><div class="t" style="top:56px;color:var(--opp)">3-5</div></div>
+    <div class="ex"><div class="mid"></div><div class="b" style="top:45px;height:28px;background:var(--opp)"></div><div class="t" style="top:72px;color:var(--opp)">1-6</div></div>
+    <div class="ex"><div class="mid"></div><div class="b" style="top:24px;height:20px;background:var(--you)"></div><div class="t" style="top:4px;color:var(--you)">5-2</div></div>
+    <div class="ex"><div class="mid"></div><div class="b" style="top:45px;height:20px;background:var(--opp)"></div><div class="t" style="top:66px;color:var(--opp)">2-5</div></div>
+    <div class="ex"><div class="mid"></div><div class="b" style="top:45px;height:8px;background:var(--opp)"></div><div class="t" style="top:56px;color:var(--opp)">3-4</div></div>
+   </div>
+   <div class="cols">
+    <div class="cell"><span class="pl r">C ✗</span></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+   </div>
+   <div class="cols">
+    <div class="cell"></div><div class="cell"></div><div class="cell"><span class="sh">Hands up</span></div><div class="cell"></div><div class="cell"><span class="sh">Breathe</span></div><div class="cell"></div>
+   </div>
+   <div class="cols">
+    <div class="cell"><span class="dist"><i class="on"></i><i></i><i></i></span><span class="hurt">✸</span></div>
+    <div class="cell"><span class="dist"><i></i><i class="on"></i><i></i></span><span class="rope">ROPES</span></div>
+    <div class="cell"><span class="dist"><i></i><i class="on"></i><i></i></span><span class="rope">ROPES</span><span class="hurt">✸</span></div>
+    <div class="cell"><span class="dist"><i></i><i></i><i class="on"></i></span><span class="rope">ROPES</span></div>
+    <div class="cell"><span class="dist"><i class="on"></i><i></i><i></i></span></div>
+    <div class="cell"><span class="dist"><i class="on"></i><i></i><i></i></span></div>
+   </div>
+  </div>
+ </div>
+ <svg class="en" width="1678" height="70" viewBox="0 0 1678 70"><g transform="translate(0,12)">
+  <line x1="0" y1="38" x2="1678" y2="38" stroke="#555a62" stroke-dasharray="6 5"/>
+  <text x="4" y="52" fill="#8a8f97" font-size="12" font-family="Inter">- - tired below 35</text>
+  <polyline fill="none" stroke="#f0973a" stroke-width="3" points="0,4 540,12 566,6 1100,30 1126,22 1678,44"/>
+  <polyline fill="none" stroke="#5b8fd9" stroke-width="3" points="0,6 540,14 566,8 1100,29 1126,23 1678,46"/>
+  <text x="500" y="8" fill="#f0973a" font-size="13" font-family="Oswald">68</text><text x="520" y="8" fill="#5b8fd9" font-size="13" font-family="Oswald">65</text>
+  <text x="1060" y="24" fill="#f0973a" font-size="13" font-family="Oswald">39</text><text x="1080" y="24" fill="#5b8fd9" font-size="13" font-family="Oswald">40</text></g>
+ </svg>
+ <div class="key"><span style="color:var(--you)">━ Lucy</span><span style="color:var(--opp)">━ Priya</span><span>● range · pocket · inside</span><span style="color:var(--bad)">✸ Lucy hurt</span><span>Click an exchange: watch it in 3D</span></div>
+</div>
+
+<!-- BOTTOM -->
+<div class="bot">
+ <div class="panel bp">
+  <div class="cap">What it cost Lucy</div>
+  <svg class="body" viewBox="0 0 90 124">
+   <circle cx="45" cy="16" r="13" fill="#e05a4f"/><rect x="28" y="32" width="34" height="44" rx="8" fill="#3a3e46"/>
+   <rect x="31" y="50" width="12" height="16" rx="3" fill="#c98a3a"/>
+   <rect x="14" y="34" width="10" height="40" rx="5" fill="#3a3e46"/><rect x="66" y="34" width="10" height="40" rx="5" fill="#3a3e46"/>
+   <rect x="30" y="78" width="12" height="44" rx="5" fill="#3a3e46"/><rect x="48" y="78" width="12" height="44" rx="5" fill="#3a3e46"/>
+  </svg>
+  <div class="dmg">
+   <div class="dline"><span><b style="color:var(--bad)">●</b> Head</span><b>46 damage · hurt</b></div>
+   <div class="dline"><span><b style="color:#c98a3a">●</b> Left ribs</span><b>21 · fine</b></div>
+   <div class="dline"><span>Injury roll</span><b style="color:var(--good)">none</b></div>
+   <div class="lock">🔒 No sparring until Sun 29 Mar</div>
+  </div>
+ </div>
+ <div class="panel bp">
+  <div class="cap">The numbers</div>
+  <div class="num">
+   <div class="a">8</div><div class="hb"><i style="right:0;width:44%;background:var(--you)"></i></div><div class="c">Exchanges won</div><div class="hb"><i style="left:0;width:56%;background:var(--opp)"></i></div><div class="z">10</div>
+   <div class="a">58/141</div><div class="hb"><i style="right:0;width:41%;background:var(--you)"></i></div><div class="c">Landed / thrown</div><div class="hb"><i style="left:0;width:56%;background:var(--opp)"></i></div><div class="z">70/125</div>
+   <div class="a">45 · 13</div><div class="hb"><i style="right:0;width:46%;background:var(--you)"></i></div><div class="c">Head · body</div><div class="hb"><i style="left:0;width:54%;background:var(--opp)"></i></div><div class="z">52 · 18</div>
+   <div class="a">2·3·3</div><div class="hb"><i style="right:0;width:40%;background:var(--you)"></i></div><div class="c">Won at range · pocket · inside</div><div class="hb"><i style="left:0;width:60%;background:var(--opp)"></i></div><div class="z">2·6·2</div>
+   <div class="a">0</div><div class="hb"></div><div class="c">Knockdowns · counts</div><div class="hb"></div><div class="z">0</div>
+  </div>
+ </div>
+ <div class="panel bp plan">
+  <div class="cap" style="display:flex;justify-content:space-between"><span>The plan and the corner · a line for 5 of 18 exchanges</span><span>fit · each use</span></div>
+  <div class="ln"><span class="L" style="border-color:var(--good);color:var(--good)">A</span><span>Long range, any time → <b>One-two</b></span><span style="color:var(--good)">Works</span><span><i class="sq" style="background:var(--good)"></i><i class="sq" style="background:var(--bad)"></i> 1 of 2</span></div>
+  <div class="ln"><span class="L" style="border-color:var(--good);color:var(--good)">B</span><span>Mid range, she presses → <b>Step back</b></span><span style="color:var(--good)">Beats it</span><span style="color:var(--dim)">never used</span></div>
+  <div class="ln"><span class="L" style="border-color:var(--bad);color:var(--bad)">C</span><span>Long range, she waits to counter → <b>One-two-hook</b></span><span style="color:var(--bad)">Walks into it</span><span><i class="sq" style="background:var(--good)"></i><i class="sq" style="background:var(--bad)"></i><i class="sq" style="background:var(--bad)"></i> 1 of 3</span></div>
+  <div class="ln"><span class="L" style="border-color:var(--dim);color:var(--dim)">S</span><span>Your 6 shouts, all the right call</span><span style="color:var(--good)">Right 6 of 6</span><span><i class="sq" style="background:var(--good)"></i><i class="sq" style="background:var(--bad)"></i><i class="sq" style="background:var(--bad)"></i><i class="sq" style="background:var(--good)"></i><i class="sq" style="background:var(--bad)"></i><i class="sq" style="background:var(--bad)"></i> 2</span></div>
+ </div>
+</div>
+
+<div class="foot">
+ <div class="file"><b>NEW ON PRIYA'S FILE</b> &nbsp;Right hand over the jab · loads up after 2 misses · fades in round 3 &nbsp;<span>(the whole file is open)</span></div>
+ <div class="cont">Continue <small>back to the gym</small></div>
+</div>
+</body></html>

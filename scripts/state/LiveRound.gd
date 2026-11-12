@@ -344,7 +344,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		TheRead.watch(st, game, float(vals.get("fight_iq", 55.0)), int(f["bout"]["film"]) >= BoutRules.FILM_DEPTH_WITH_STUDY)
 	var rec := {"i": i, "mode": str(lv["mode"]), "read": rd, "body": body, "setup": str(su.get("used", "")) if fire else "", "setup_combo": str(su.get("combo", "")) if fire else "", "sit": sit, "call": call, "shout": shouted, "fit": Exchanges.fit(call, sit),
 		"pace": pace, "aim": aim, "won": s["won"], "margin": s["margin"], "landed": s["landed"], "verdict": Exchanges.verdict(call, sit, bool(s["won"]), names),
-		"habit": habit, "fix": fix, "habit_line": HabitFix.line(habit_name(habit), names, habit == fix) if habit != "" else ""}
+		"habit": habit, "fix": fix, "habit_line": HabitFix.line(habit_name(habit), names, habit == fix, bool(s["won"])) if habit != "" else ""}
 	rec["at"] = at
 	rec["place"] = int(duel["place"])
 	rec["duel_edge"] = float(duel["edge"])
@@ -390,7 +390,13 @@ static func close(f: Dictionary, m: Dictionary) -> Dictionary:
 	var ro := Exchanges.round_of(exs)
 	var e: Dictionary = (lv["e"] as Dictionary).duplicate()
 	var spent := float(lv["cost"])
-	e["a_end"] = maxf(0.0, float(e.get("a_end", 100.0)) - spent)
+	# S442 RESULTDEFECTS1: the bell's tanks are the ones the sim fought on (the calls AND the bout's body shots, RingDuel);
+	# every screen reads these. a_end_calls keeps the old calls-only figure for Aftermath.toll, tuned on it.
+	e["a_end_calls"] = maxf(0.0, float(e.get("a_end", 100.0)) - spent)
+	e["b_end_calls"] = float(e.get("b_end", 100.0))
+	var bell := state(lv, exs.size()) if not exs.is_empty() else {"a": e["a_end_calls"], "b": float(e.get("b_end", 100.0))}
+	e["a_end"] = float(bell["a"])
+	e["b_end"] = float(bell["b"])
 	# The calls' energy carries into the next round's start.
 	var fb: Dictionary = f["bout"]
 	if not exs.is_empty():

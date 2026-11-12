@@ -73,11 +73,14 @@ static func offers(habits: Array, seen: Array) -> Array:
 
 
 ## The line after an exchange in which a habit was punished. name = the habit's name from the bank ("Drops the right
-## after the jab"); names = [hers, the opponent's]; held = the corner fixed it this round.
-static func line(name: String, names: Array, held: bool) -> String:
+## after the jab"); names = [hers, the opponent's]; held = the corner fixed it this round. won = she still took the
+## exchange (S442 RESULTDEFECTS1: the habit cost an edge, not the exchange, so "made X pay" was false on a won one).
+static func line(name: String, names: Array, held: bool, won: bool = false) -> String:
 	var what := name.substr(0, 1).to_lower() + name.substr(1)
 	if held:
 		return "The fix held: %s caught it in time (%s)." % [str(names[0]), what]
+	if won:
+		return "A habit cost %s an edge (%s), but %s still took the exchange." % [str(names[0]), what, str(names[0])]
 	return "%s made %s pay for a habit: %s." % [str(names[1]), str(names[0]), what]
 
 

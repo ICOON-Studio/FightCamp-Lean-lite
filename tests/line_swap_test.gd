@@ -57,6 +57,11 @@ func _test_lost_most() -> void:
 	]
 	var lost2 := LineSwap.lost_most(exs2)
 	_check(int(lost2["lost"]) == 2 and int(lost2["won"]) == 0, "lost_most tie: both 0 of 2, first in plan wins")
+	# S442: a line with a WHEN is rated in its own situation, whatever the round showed most.
+	var plan_w := [{"move": "1-2-3", "when": "counter"}, {"move": "step_back"}]
+	var exs_w := [{"planned": true, "arrow": "1-2-3", "won": false, "at": "long", "psit": "counter"}, {"planned": true, "arrow": "1-2-3", "won": false, "at": "long", "psit": "counter"}]
+	var rw := LineSwap.row(plan_w, exs_w, [{"psit": "she_hurt"}, {"psit": "she_hurt"}, {"psit": "counter"}], NIA_MOVES, NIA_COMBOS, 6)
+	_check(str(rw["game"]) == "counter", "row: a line with a when is rated on its own situation (%s)" % str(rw["game"]))
 	# No planned line lost -> {}
 	var exs3 := [
 		{"planned": true, "arrow": "1-2", "won": true, "at": "long", "psit": "counter"},

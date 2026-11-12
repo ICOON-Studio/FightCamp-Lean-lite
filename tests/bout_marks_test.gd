@@ -47,9 +47,15 @@ func _initialize() -> void:
 		var tile: Dictionary = (m["aftermath"] as Array)[0]
 		var sore := 0
 		var low := 100.0
+		# S442 RESULTDEFECTS1 (defect 4): the tile reads the head as the stand-down does (its own band); every other place
+		# from the map, as before.
+		var sd: Dictionary = f.get("stand_down", {})
 		for p in BodyMap.PLACES:
 			low = minf(low, BodyMap.value(map, "a", p))
-			if BodyMap.band(BodyMap.value(map, "a", p)) != "fine":
+			var band := BodyMap.band(BodyMap.value(map, "a", p))
+			if p == "head" and sd.has("band"):
+				band = str(sd["band"])
+			if band != "fine":
 				sore += 1
 		if low < 100.0:
 			marked += 1

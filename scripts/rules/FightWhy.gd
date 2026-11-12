@@ -156,7 +156,7 @@ static func _next_line(grade: String, top_best: String, top_wrong: String, first
 		return "Keep the plan: it was right."
 	if top_wrong != "" and grade != "good":
 		var p := top_wrong.split("|")
-		var better := best_answer(p[1])
+		var better := best_answer(p[1], str(StrikeMap.move(p[0]).get("from", "")))
 		if better != "":
 			return "Against %s, replace %s. Try %s." % [sit_word(p[1], first), name_of(p[0]), better]
 		return "Replace %s in the plan." % name_of(p[0])
@@ -189,10 +189,17 @@ static func sit_word(sit: String, first: String) -> String:
 	return w % first if w.contains("%s") else w
 
 
-## The first best answer to a situation, by name.
-static func best_answer(sit: String) -> String:
-	var row: Array = (PlanFight.ANSWERS.get(sit, {}) as Dictionary).get("best", [])
-	return name_of(str(row[0])) if not row.is_empty() else ""
+## The first best answer to a situation that can be thrown from `place`, by name (S442 RESULTDEFECTS1: the Playbook's
+## set_line refuses a move from another place, so "Try Feint and draw" for a long-range line was advice the player could
+## not take). place "" = any place (a new line can be written wherever its move starts). Best answers first, then the
+## ones that work; "" when none starts there.
+static func best_answer(sit: String, place: String = "") -> String:
+	var row: Dictionary = PlanFight.ANSWERS.get(sit, {})
+	for kind in ["best", "ok"]:
+		for id in row.get(kind, []):
+			if place == "" or str(StrikeMap.move(str(id)).get("from", "")) == place:
+				return name_of(str(id))
+	return ""
 
 
 ## "round 2" or "rounds 1 and 3": the rounds the boxer lost.

@@ -17,6 +17,8 @@ const FightStats := preload("res://scripts/rules/FightStats.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const RankLine := preload("res://scripts/rules/RankLine.gd")
 const Region := preload("res://scripts/state/Region.gd")
+const StandDown := preload("res://scripts/rules/StandDown.gd")
+const Clock := preload("res://scripts/state/Clock.gd")
 
 
 static func snap(c: Career, f: Dictionary, opp: Dictionary) -> Dictionary:
@@ -30,7 +32,10 @@ static func snap(c: Career, f: Dictionary, opp: Dictionary) -> Dictionary:
 ## Books what the fight leaves in the legs (Aftermath.toll) and writes the tiles on the result modal.
 static func book(c: Career, f: Dictionary, m: Dictionary, before: Dictionary, bank: Dictionary) -> void:
 	var rounds: Array = m.get("rounds", [])
-	var tank := float(((rounds[-1] as Dictionary).get("energy", {}) as Dictionary).get("a_end", 100.0)) if not rounds.is_empty() else 100.0
+	# S442 RESULTDEFECTS1: the toll stays on the calls-only tank it was tuned on (a_end_calls); a_end is now the bell's
+	# true tank, body shots off too. Moving the toll onto it is a balance call, measured in RESULTDEFECTS1_RESULT.md.
+	var e_last: Dictionary = ((rounds[-1] as Dictionary).get("energy", {}) as Dictionary) if not rounds.is_empty() else {}
+	var tank := float(e_last.get("a_end_calls", e_last.get("a_end", 100.0)))
 	var stopped_loss := str(m.get("stopped", "")) != "" and str(m.get("outcome", "")) == "loss"
 	f["week_fatigue"] = Aftermath.toll(FighterProfile.fatigue(f), tank, stopped_loss)
 	if not BoutMarks.seen_all(m):   # S439: a skipped or unwatched bout still leaves its marks (the settled rounds)
@@ -52,7 +57,8 @@ static func tiles(c: Career, f: Dictionary, m: Dictionary, before: Dictionary, b
 		"took_body": int(st["body"][1]), "counts": int((m.get("counts", {}) as Dictionary).get("a", 0)),
 		"worst": _worst(m.get("body_map", {})), "places": _places(m.get("body_map", {})),
 		"cuts": ((m.get("body_map", {}) as Dictionary).get("a", {}) as Dictionary).get("cuts", {}).keys(), "injury": str(m.get("injury", "")),
-		"calls": CornerTrust.settle(f, str(opp.get("name", ""))), "learned": _learned(f, before, opp, bank)}
+		"calls": CornerTrust.settle(f, str(opp.get("name", ""))), "learned": _learned(f, before, opp, bank),
+		"stand_down": stand_down_facts(f)}
 	var hist: Array = f.get("history", [])
 	if not hist.is_empty() and (hist[-1] as Dictionary).has("met") and int((hist[-1] as Dictionary).get("d", -1)) == c.day:
 		facts["goal"] = "met" if bool(hist[-1]["met"]) else "missed"
@@ -63,6 +69,17 @@ static func tiles(c: Career, f: Dictionary, m: Dictionary, before: Dictionary, b
 	if pro:   # a pro is off the amateur table: her ladder line is on the page already
 		out = out.filter(func(t): return str(t["id"]) != "rank")
 	return out
+
+
+## S442 RESULTDEFECTS1 (defect 4): the head the bout left as the stand-down reads it (Injuries.after_bout ran first) -
+## the one head reading with a consequence (no sparring, the injury roll's head), so the damage tile says the same.
+## {} after a stoppage loss (its suspension instead) or when no stand-down was made.
+static func stand_down_facts(f: Dictionary) -> Dictionary:
+	var sd: Dictionary = f.get("stand_down", {})
+	if sd.is_empty() or not sd.has("band"):
+		return {}
+	return {"head": float(sd.get("head", 100.0)), "band": str(sd["band"]), "days": int(StandDown.DAYS.get(str(sd["band"]), 0)),
+		"words": StandDown.reason(sd, Clock.fmt(int(sd.get("open_day", 0))))}
 
 
 ## The rank line for the Why panel. A pro is off the amateur table, so the words are empty.

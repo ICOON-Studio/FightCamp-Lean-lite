@@ -158,6 +158,12 @@ static func row(plan: Array, bout_exs: Array, round_exs: Array, mastery: Diction
 	if lost.is_empty():
 		return {}
 	var game := shown_game(round_exs)
+	# S442 (found drawing the corner cards): a line with a WHEN fires only in that situation, so its replacements are
+	# rated there. Rated on the round's most-shown game, "Step out" read Beats it on a line that waits for a counter.
+	var i := _plan_index(plan, str(lost["move"]))
+	var when := str((plan[i] as Dictionary).get("when", "")) if i >= 0 else ""
+	if when != "":
+		game = when
 	var game_words := _game_words(game)
 	var opts := options(plan, lost, game, mastery, combos, limit)
 	return {"lost": lost, "game": game, "game_words": game_words, "options": opts}

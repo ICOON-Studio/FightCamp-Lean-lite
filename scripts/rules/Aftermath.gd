@@ -86,9 +86,15 @@ static func damage(before: Dictionary, after: Dictionary, facts: Dictionary) -> 
 	var worst: Dictionary = facts.get("worst", {})
 	if places.is_empty() and not worst.is_empty():
 		places = {str(worst["place"]): float(worst.get("value", 100.0))}
+	# S442 RESULTDEFECTS1 (defect 4): the head is the stand-down's reading (facts.stand_down {head, band, days, words}), the
+	# one that keeps the boxer out of sparring; the 3D map's head read "fine" while the stand-down said 21 days.
+	var sd: Dictionary = facts.get("stand_down", {})
+	if not sd.is_empty():
+		places = places.duplicate()
+		places["head"] = float(sd.get("head", 100.0))
 	var sore: Array = []
 	for p in BodyMap.PLACES:
-		if places.has(p) and BodyMap.band(float(places[p])) != "fine":
+		if places.has(p) and _band(p, float(places[p]), sd) != "fine":
 			sore.append([float(places[p]), p])
 	sore.sort()
 	var cuts: Array = []
@@ -99,7 +105,7 @@ static func damage(before: Dictionary, after: Dictionary, facts: Dictionary) -> 
 	var tone := "good" if not places.is_empty() else "flat"
 	var marks: Array = []   # the short sentence under the big words
 	if not sore.is_empty():
-		var bad := BodyMap.band(float(sore[0][0])) != "hurt"
+		var bad := _band(str(sore[0][1]), float(sore[0][0]), sd) != "hurt"
 		big = "%s %s" % [str(PLACE_WORDS[sore[0][1]]), "badly hurt" if bad else "sore"]
 		tone = "bad" if bad else "flat"
 		var also: PackedStringArray = []
@@ -109,7 +115,11 @@ static func damage(before: Dictionary, after: Dictionary, facts: Dictionary) -> 
 			marks.append("Sore too: %s." % ", ".join(also))
 		for row in sore:
 			lines.append("%s: %d of 100 left at the final bell (%s)." % [str(PLACE_WORDS[row[1]]), int(round(float(row[0]))),
-				"sore" if BodyMap.band(float(row[0])) == "hurt" else "badly hurt"])
+				"sore" if _band(str(row[1]), float(row[0]), sd) == "hurt" else "badly hurt"])
+	if not sd.is_empty() and str(sd.get("band", "fine")) != "fine":
+		var words := str(sd.get("words", ""))
+		lines.append(words.substr(0, 1).to_upper() + words.substr(1) + ".")
+		marks.append("No sparring for %d days." % int(sd.get("days", 0)))
 	for p in cuts:
 		var cut := "Cut on the nose." if str(p) == "nose" else "Cut over the %s." % str(PLACE_WORDS[p]).to_lower()
 		marks.push_front("Cut: %s." % str(PLACE_WORDS[p]).to_lower())
@@ -130,6 +140,14 @@ static func damage(before: Dictionary, after: Dictionary, facts: Dictionary) -> 
 	var small := str(lines[0]) if marks.is_empty() or injury != "" else " ".join(PackedStringArray(marks))
 	return {"id": "damage", "title": "DAMAGE", "big": big, "small": small, "tone": tone, "lines": lines, "sore": sore.size(),
 		"cuts": cuts.size()}
+
+
+## A place's band; the head with a stand-down takes the stand-down's own band (StandDown: fine >= 55, hurt >= 35), so
+## the tile and the no-sparring days never disagree on the line.
+static func _band(place: String, v: float, sd: Dictionary) -> String:
+	if place == "head" and not sd.is_empty():
+		return str(sd.get("band", BodyMap.band(v)))
+	return BodyMap.band(v)
 
 
 static func learned(facts: Dictionary) -> Dictionary:
@@ -169,14 +187,18 @@ static func morale(before: Dictionary, after: Dictionary, facts: Dictionary) -> 
 
 static func corner(facts: Dictionary) -> Dictionary:
 	var calls: Dictionary = facts.get("calls", {})
-	var right := int(calls.get("right", 0))
-	var wrong := int(calls.get("wrong", 0))
+	# S442 RESULTDEFECTS1: worked of SAID (every shout taken in), the round lines' own count; right + wrong left out the
+	# shouts that neither worked nor went wrong (a right call lost, a wrong one won) and read "2 of 2" for 2 of 6.
+	var right := int(calls.get("worked", calls.get("right", 0)))
+	var wrong := int(calls.get("wrong_all", calls.get("wrong", 0)))
 	var ignored := int(calls.get("ignored", 0))
-	var said := right + wrong
+	var said := maxi(int(calls.get("said", 0)), right + wrong)
 	if said + ignored == 0:
 		return {"id": "corner", "title": "YOUR CORNER", "big": "Said nothing", "small": "The plan ran the fight.",
 			"tone": "flat", "lines": ["No shout that mattered: the plan ran the fight."]}
-	var lines: Array = ["%d call%s worked, %d went wrong." % [right, "" if right == 1 else "s", wrong]]
+	var lines: Array = ["%d of %d call%s worked, %d went wrong." % [right, said, "" if said == 1 else "s", wrong]]
+	if said > right + wrong:
+		lines.append("%d neither worked nor went wrong (a right call lost, or a wrong one won)." % (said - right - wrong))
 	if ignored > 0:
 		lines.append("%d call%s not taken in." % [ignored, "" if ignored == 1 else "s"])
 	return {"id": "corner", "title": "YOUR CORNER", "big": "%d of %d" % [right, said] if said > 0 else "Not heard", "small": str(lines[0]),
