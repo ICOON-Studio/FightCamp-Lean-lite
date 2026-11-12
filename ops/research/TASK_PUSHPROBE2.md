@@ -22,6 +22,22 @@ Policies: the named habits ("Push while wind is above 45", "Push above 55", "alw
 cards). The critic's must: a hurt fighter told to Push has to take MORE head (open while trading); the probe shows whether
 Coast + Move beats Push for a hurt fighter.
 
+## Arm E: the corner minute in SECONDS with cooling (operator S443: "yes add it to the measurement")
+His idea: ice on the back of the neck drops core heat; too much ice stiffens the muscles and costs snap; it gives the corner
+more to do and the feeling of time pressing; a warning to leave the corner in time. Claude's shape (told to him in chat):
+- The corner minute's currency becomes SECONDS out of 60 instead of Recover points: water and breathing 10 s, ice on the
+  ribs 15 s, a talk 5-10 s, rub the shoulders 8 s (warms them back). Times are ESTIMATE constants.
+- NECK ICE runs once on, without using the cornerman's hands: each second on slows the next round's wind drain, with
+  diminishing return; past a dose (ESTIMATE ~30 s), or on round after round, the first 30 s of the next round lose some
+  punch speed and power (a "cold" state on the shoulders); "rub the shoulders" removes it.
+- SECONDS OUT at 0:10; at 0:00 a running job is cut half done; a second late exit in a fight = a warning, a third = a point
+  (pro only; amateurs get the warning).
+- Links to log, not build: a hot club-show hall (more heat), a hard weight cut (overheats faster), Stamina (slower drain).
+Arm E = arm D + this minute. Policies to add: "always neck ice the whole minute", "never ice", "ice 30 s every round", and the
+coach (ice when the wind drain matters, rub the shoulders after a long dose, leave in time). The question the arm answers:
+does the ice dose ever change who wins or the head at the last bell? If no policy difference in ANY cell, say plainly
+"cooling is a chore: drop it". Report its rows beside A-D with the same pass line.
+
 ## Pass line (from the map)
 No named habit is best in more than 6 cells of 10; the coach beats every habit by 3 points; "Push five, Save one" is gone in
 C and D. Log per policy: win %, rest days (Aftermath.toll), head at the last bell, wind and legs at each bell.

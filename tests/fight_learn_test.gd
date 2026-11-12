@@ -18,6 +18,7 @@ func _initialize() -> void:
 	_teach_gap_past_learn_gap()
 	_teach_soft_gap()
 	_teach_stoppage_win()
+	_teach_loss_past_learn_gap()
 	_loss_better_teaches_more_than_soft_win()
 	_words_monotonic()
 	_stop_word_monotonic()
@@ -109,6 +110,18 @@ func _teach_stoppage_win() -> void:
 	var got := FightLearn.teach(gap, true, true)
 	var want := _ref(gap, true, true)
 	_check(absf(got - want) < 0.001, "stoppage win gap=2: got %.3f, want %.3f" % [got, want])
+
+
+## ASK2 (review S442: the mutant "drop gap <= LEARN_GAP" stayed green): a points loss to a boxer PAST LEARN_GAP teaches no
+## GROW_LOSS - surviving, not learning - so it teaches exactly what a win at that gap teaches, and less than a points loss
+## inside the gap.
+func _teach_loss_past_learn_gap() -> void:
+	var gap := Matchmaking.LEARN_GAP + 2.0
+	var got := FightLearn.teach(gap, false, false)
+	var want := Matchmaking.GROW_BASE + Matchmaking.GROW_PER_POINT * Matchmaking.LEARN_GAP
+	_check(absf(got - want) < 0.001, "points loss past LEARN_GAP: got %.3f, want %.3f (no GROW_LOSS)" % [got, want])
+	_check(absf(got - FightLearn.teach(gap, true, false)) < 0.001, "past LEARN_GAP a loss teaches what a win teaches")
+	_check(FightLearn.teach(Matchmaking.LEARN_GAP, false, false) > got, "a loss AT the gap still carries GROW_LOSS")
 
 
 ## A points loss to a better boxer teaches more than a win over a soft one.
