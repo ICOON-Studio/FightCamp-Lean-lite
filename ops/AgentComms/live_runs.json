@@ -269,168 +269,6 @@
     "board": ""
    }
   },
-  "VOICEWIRE1": {
-   "agent": "qwen",
-   "id": "VOICEWIRE1",
-   "title": "TASK VOICEWIRE1 - QWEN (qwen3-coder), the sound engineer - the cast's voices made this month and wired into fight night",
-   "status": "landed",
-   "started": "2026-11-11T23:31",
-   "eta": "2026-11-12T01:21",
-   "branch": "qwen/voicewire1",
-   "worktree": "E:/FightCamp/wt/LEAN_VOICEWIRE1",
-   "wt": "E:/FightCamp/wt/LEAN_VOICEWIRE1",
-   "brief": "ops/research/TASK_VOICEWIRE1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/VOICEWIRE1_dispatch_out.txt",
-   "match": "seat_dispatch.py run voicewire1",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/VOICEWIRE1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/VOICEWIRE1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/VOICEWIRE1_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 46872,
-    "seat_pid": 34684
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 6/6 PASS; PR #218",
-   "finished": "2026-11-11T23:53",
-   "pr": 218,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/voice_lines_test.gd",
-     "ok": true,
-     "last": "VOICE_LINES failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/sound_bank_test.gd",
-     "ok": true,
-     "last": "SOUND_BANK checks=321 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/sound_sync_test.gd",
-     "ok": true,
-     "last": "SOUND_SYNC checks=30 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/intro_style_test.gd",
-     "ok": true,
-     "last": "INTRO_STYLE pairs=640 checks=8560 failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/file_limits_test.gd",
-     "ok": true,
-     "last": "FILE_LIMITS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/no_pronoun_test.gd",
-     "ok": true,
-     "last": "NO_PRONOUN failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
-  "RIBS1": {
-   "agent": "cursor",
-   "id": "RIBS1",
-   "title": "TASK RIBS1 - CURSOR (Grok 4.7 High) - the ribs take damage normally (the defect, before the redesign)",
-   "status": "landed",
-   "started": "2026-11-11T23:43",
-   "eta": "2026-11-12T01:33",
-   "branch": "cursor/ribs1",
-   "worktree": "E:/FightCamp/wt/LEAN_RIBS1",
-   "wt": "E:/FightCamp/wt/LEAN_RIBS1",
-   "brief": "ops/research/TASK_RIBS1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/RIBS1_dispatch_out.txt",
-   "match": "seat_dispatch.py run ribs1",
-   "model": "grok-4.7-high",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/RIBS1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/RIBS1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/RIBS1_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 51188,
-    "seat_pid": 3224
-   },
-   "note": "S368 seat_dispatch: cursor exit 1; 1 commit(s); checks 8/9 PASS; PR #221; NOT committed (outside OWNS): Microsoft/Windows/PowerShell/ModuleAnalysisCache",
-   "finished": "2026-11-12T02:02",
-   "pr": 221,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tests/rib_damage_test.gd",
-     "ok": false,
-     "last": null
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/body_map_test.gd",
-     "ok": true,
-     "last": "BODY_MAP failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/body_tip_test.gd",
-     "ok": true,
-     "last": "BODY_TIP failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/body_figure_test.gd",
-     "ok": true,
-     "last": "BODY_FIGURE failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/body_report_test.gd",
-     "ok": true,
-     "last": "BODY_REPORT failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/injuries_test.gd",
-     "ok": true,
-     "last": "INJURIES failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/fight_stats_test.gd",
-     "ok": true,
-     "last": "FIGHT_STATS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/file_limits_test.gd",
-     "ok": true,
-     "last": "FILE_LIMITS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/no_pronoun_test.gd",
-     "ok": true,
-     "last": "NO_PRONOUN failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
   "CLIPFIX1": {
    "agent": "cursor",
    "id": "CLIPFIX1",
@@ -563,7 +401,7 @@
    "agent": "qwen",
    "id": "CLIPFIX3",
    "title": "TASK CLIPFIX3 - QWEN (qwen3-coder) - the punch ruler made honest, then the three hanging jabs retimed",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-12T02:54",
    "eta": "2026-11-12T04:44",
    "branch": "qwen/clipfix3",
@@ -583,6 +421,84 @@
     "brief_copied": true,
     "runner_pid": 41864,
     "seat_pid": 54784
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/7 PASS; PR #223",
+   "finished": "2026-11-12T03:23",
+   "pr": 223,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/jab_retime_test.gd",
+     "ok": true,
+     "last": "JAB_RETIME failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/punch_form_test.gd",
+     "ok": true,
+     "last": "PUNCH_FORM failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_tally_test.gd",
+     "ok": true,
+     "last": "BEAT_TALLY_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/short_punch_test.gd",
+     "ok": true,
+     "last": "SHORT_PUNCH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/punch_form_rules_test.gd",
+     "ok": true,
+     "last": "PUNCH_FORM_RULES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "CLIPFIX4": {
+   "agent": "qwen",
+   "id": "CLIPFIX4",
+   "title": "TASK CLIPFIX4 - QWEN (qwen3-coder) - the punch ruler and the three retimed jabs: every defect of the two reviews",
+   "status": "running",
+   "started": "2026-11-12T03:30",
+   "eta": "2026-11-12T05:20",
+   "branch": "qwen/clipfix4",
+   "worktree": "E:/FightCamp/wt/LEAN_CLIPFIX4",
+   "wt": "E:/FightCamp/wt/LEAN_CLIPFIX4",
+   "brief": "ops/research/TASK_CLIPFIX4.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLIPFIX4_dispatch_out.txt",
+   "match": "seat_dispatch.py run clipfix4",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLIPFIX4_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLIPFIX4_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLIPFIX4_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 3224,
+    "seat_pid": 8144
    },
    "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
   }

@@ -8,13 +8,13 @@ Updated 2026-11-12 by claude S294.
 
 ## Now
 
-**S436 — ?** *(claude)*
+**S438 — ?** *(claude)*
 
-S437 (2026-11-11 night): the glove touch loosens the shoulders and neck (his three marks); the rank a fight earned shows in the Why, on the fighter cards and the fighter's page (Cursor, collected); Qwen's dues sums collected (no robust setting once the dead lever is out); the re-measured punch contact times are in and the dead short_m read is out (D0 step 2). On his ask the damage, hit and recovery systems were judged (today's game: 3 and 3.5) and a design map written (v2 6.5 and 6, round 3 run); RIBS1 (Cursor) fixes the ribs defect now. Clips: side films of the fight's punches, eight read (two good, five faulty, one unclear); the Gemini judge is braked on its budget. Ludo: paid one more month, then paused three.
+S438 (2026-11-12 night): the ribs take damage normally (RIBS1 finished after review: both sides, 60 % on the defender's liver side, a body shot counts 3.1, face numbers re-measured); the cast's voices are wired and 26 lines made (26 Ludo credits, all unheard until he keeps them on the sound board); Qwen's two cloud modules collected (the maths of a punch's form, the data behind a Fighters page row); all 15 fight punches read on side films (12 faulty), the punch ruler's round two and the three retimed jabs are PR 223 under review; the damage design was split in two maps with scripted numbers and scored twice (after the fight 6 and 6, the fight 5.5 and 5.5), round 3 running; Cursor is out of usage (Q-191); the S438 build is exported and smoke-run.
 
 ## Next
 
-0) get_usage; his comments on the S437 stills and films (review board). 1) The damage map: read round 3's scores (bottom of NEXT_SESSION_PROMPT.md); 7+ from both = ask on the board, else another round by workflow on Opus. 2) Collect RIBS1 (re-check the rib injury rate) and PR 218 VOICEWIRE1 by diff, then run tools/voice_make.py (42 Ludo credits) and post to the sound board. 3) Animation: the other seven side films read, the clip fixes briefed (cross B, lead hook, body shot), then D0 step 3 (human_feet on the default route). 4) The foundation's third round, then PR 211.
+0) get_usage; his answers: Q-S294-191 (Cursor), the sound board (26 voices), the review board. 1) PR 223 CLIPFIX3: read the two reviewers' verdicts (workflow wf_8e4ad0f2-75b journal), collect by diff or brief round 4; read jab B's film; then the next clip fixes (crosses, lead hook, uppercut) on the honest ruler. 2) Damage maps round 3 (workflow wf_f9efba2a-fc8 journal): 7+ from both on a map = ask on the board with the map and the critics' pictures; under 7 = read the critics' case-by-case findings before any round 4. 3) Animation D0 step 3 (human_feet on the default route). 4) The foundation's third round (CARDIO1, NOCAMP1), then PR 211. 5) PAGES2 once Cursor has usage.
 
 ## Where the game actually is
 
@@ -322,3 +322,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S435** gym sponsorship renamed (Q-190); GYMLIFE1 collected, GYMLIFE2 launched; INTROCORNER1 sent back (did not compile); animation audit + BEAT_TALLY, the punch rulers shown to read almost nothing; the S434 workflows were alive, nothing re-run |  |  | *none yet* |  |
 |  |  | **S436** the fight intro from the corners rewritten by Claude after two failed seat rounds; the tale of the tape is the versus picture (his words), eight rows, figures never on the same clip; glove touch pose fixed; GYMLIFE2 collected; the punch rulers hold their gap (12 of 12, 27 of 27, one real red) |  |  | *none yet* |  |
 |  |  | **S437** glove touch loosened; rank after every fight (Cursor) and dues sums (Qwen) collected; contact times re-measured, short_m deleted; damage / hits / recovery judged (3 and 3.5) and a design map to round 3; RIBS1 and VOICEWIRE1 briefed; punch clips on side films; Ludo paused after a month |  |  | *none yet* |  |
+|  |  | **S438** ribs take damage (RIBS1 finished and collected); voices wired and 26 lines made; Qwen's cloud modules collected; all 15 punches read, the ruler and three retimed jabs under review; damage design split in two maps, two rounds each, round 3 running; Cursor out of usage; build exported |  |  | *none yet* |  |

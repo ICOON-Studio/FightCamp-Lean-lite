@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Corner Minute 10</title>
+<meta name="viewport" content="width=1920">
+<style>
+:root{
+  --bg:#12161b; --slate:#1a2028; --slate2:#212833; --line:#2e3744; --ink:#e7eaee; --dim:#8d97a5; --faint:#5d6775;
+  --red:#d9473f; --blue:#3f7bd9; --fine:#4f6a5a; --sore:#d79a2b; --hurt:#d9473f; --inj:#8e1f1a; --good:#5fb87a; --gold:#e2b44a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Roboto,Arial,sans-serif;overflow:hidden}
+.top{height:64px;display:flex;align-items:center;padding:0 32px;gap:28px;border-bottom:1px solid var(--line);background:#0e1216}
+.top .t{font-size:13px;letter-spacing:3px;color:var(--dim)}
+.top .rd{font-size:22px;font-weight:700;letter-spacing:1px}
+.pill{padding:4px 10px;border-radius:4px;font-size:13px;font-weight:700}
+.r{background:var(--red)} .b{background:var(--blue)}
+.clock{margin-left:auto;font-size:28px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--gold)}
+.clock small{font-size:12px;color:var(--dim);font-weight:400;margin-left:8px;letter-spacing:2px}
+.wrap{display:grid;grid-template-columns:520px 1fr 520px;gap:20px;padding:20px 32px;height:calc(1080px - 64px - 92px)}
+.panel{background:var(--slate);border:1px solid var(--line);border-radius:6px;position:relative;overflow:hidden}
+.ph{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.ph .nm{font-size:20px;font-weight:700} .ph .sub{font-size:12px;color:var(--dim);letter-spacing:2px}
+.ph .bar{flex:1}
+.en{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--dim)}
+.en .m{width:120px;height:8px;background:#0c0f13;border-radius:4px;overflow:hidden}
+.en .m i{display:block;height:100%}
+.en b{color:var(--ink);font-size:16px}
+svg text{font-family:"Segoe UI",Roboto,Arial,sans-serif}
+.chips{position:absolute;left:16px;bottom:14px;display:flex;gap:8px}
+.chip{display:flex;align-items:center;gap:6px;padding:5px 9px;border-radius:4px;background:#0c0f13;border:1px solid var(--line);font-size:12px}
+.chip .ic{width:16px;height:16px}
+.mid{display:flex;flex-direction:column;gap:14px}
+.sec{background:var(--slate);border:1px solid var(--line);border-radius:6px;padding:14px 18px}
+.sh{display:flex;align-items:baseline;gap:12px;margin-bottom:10px}
+.sh h3{font-size:12px;letter-spacing:3px;color:var(--dim);font-weight:600}
+.sh .note{font-size:12px;color:var(--faint);margin-left:auto}
+.fc{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.fcard{background:var(--slate2);border:1px solid var(--line);border-radius:5px;padding:10px 12px;display:flex;gap:12px;align-items:center}
+.fcard .big{font-size:30px;font-weight:700;font-variant-numeric:tabular-nums}
+.fcard .cap{font-size:12px;color:var(--dim);line-height:1.35}
+.fcard .cap b{color:var(--ink);font-weight:600}
+.aims{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.aim{background:var(--slate2);border:1px solid var(--line);border-radius:5px;padding:10px;position:relative;cursor:pointer}
+.aim.on{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.aim .an{font-size:15px;font-weight:700;margin-bottom:6px}
+.aim .row{display:flex;justify-content:space-between;font-size:12px;color:var(--dim);margin-top:3px}
+.aim .row b{color:var(--ink);font-variant-numeric:tabular-nums}
+.aim .tag{position:absolute;top:8px;right:8px;font-size:10px;letter-spacing:1px;padding:2px 6px;border-radius:3px}
+.tag.weak{background:#2b3a2f;color:var(--good)} .tag.cov{background:#3a2b2b;color:#e08a84}
+.delta{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+.up{color:var(--good)} .dn{color:#e07a72} .zero{color:var(--dim)}
+.buys{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px}
+.box{background:var(--slate2);border:1px solid var(--line);border-radius:5px;padding:10px 12px}
+.box .bt{font-size:11px;letter-spacing:2px;color:var(--dim);margin-bottom:8px;display:flex;justify-content:space-between}
+.pts{display:flex;gap:6px;margin-bottom:8px}
+.pt{width:22px;height:22px;border-radius:50%;border:2px solid var(--gold)}
+.pt.f{background:var(--gold)}
+.opt{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:4px;border:1px solid transparent;margin-bottom:5px;font-size:13px}
+.opt.sel{border-color:var(--gold);background:#2a2618}
+.opt .ic{width:20px;height:20px;flex:none}
+.opt .lbl{flex:1}
+.opt .lbl small{display:block;color:var(--dim);font-size:11px}
+.opt .v{font-variant-numeric:tabular-nums;font-weight:700;font-size:14px}
+.foot{height:92px;display:flex;align-items:center;gap:20px;padding:0 32px;border-top:1px solid var(--line);background:#0e1216}
+.sum{display:flex;gap:28px;align-items:center}
+.sum .k{font-size:11px;letter-spacing:2px;color:var(--dim)} .sum .n{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.btn{margin-left:auto;background:var(--red);color:#fff;font-weight:700;font-size:18px;padding:16px 34px;border-radius:5px;letter-spacing:1px}
+.btn2{background:transparent;border:1px solid var(--line);color:var(--dim);font-size:14px;padding:14px 20px;border-radius:5px}
+.legend{display:flex;gap:14px;font-size:11px;color:var(--dim);padding:8px 16px;border-top:1px solid var(--line);position:absolute;bottom:0;left:0;right:0;background:#161b22}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.tip{position:absolute;background:#0b0e12;border:1px solid var(--gold);border-radius:4px;padding:8px 10px;font-size:12px;color:var(--ink);width:250px;line-height:1.4;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+.tip b{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="top">
+  <span class="t">CORNER MINUTE</span>
+  <span class="rd">After round 2 of 3</span>
+  <span class="pill r">R1 you</span><span class="pill b">R2 them</span>
+  <span style="color:var(--dim);font-size:13px">Cards level 1-1: round 3 decides it</span>
+  <span class="clock">0:41<small>LEFT IN THE MINUTE</small></span>
+</div>
+
+<div class="wrap">
+  <!-- YOUR FIGHTER -->
+  <div class="panel">
+    <div class="ph"><span class="pill r">&nbsp;</span><div><div class="nm">Your boxer</div><div class="sub">ORTHODOX · OUT-BOXER</div></div><div class="bar"></div>
+      <div class="en">ENERGY<div class="m"><i style="width:49%;background:var(--sore)"></i></div><b>49</b></div></div>
+    <svg width="520" height="700" viewBox="0 0 520 700">
+      <defs>
+        <linearGradient id="skin" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a4250"/><stop offset="1" stop-color="#2b313b"/></linearGradient>
+      </defs>
+      <g transform="translate(160,40)">
+        <!-- head -->
+        <ellipse cx="100" cy="62" rx="44" ry="54" fill="url(#skin)" stroke="#4a5462"/>
+        <path d="M70 52 q12 -8 24 0 q-12 8 -24 0z" fill="#56606f"/>
+        <path d="M106 52 q12 -8 24 0 q-12 8 -24 0z" fill="#56606f"/>
+        <path d="M96 66 q4 14 8 0" fill="none" stroke="#56606f" stroke-width="3"/>
+        <!-- neck & traps -->
+        <path d="M78 108 L122 108 L128 138 L72 138Z" fill="#323946"/>
+        <path d="M72 132 Q30 140 8 166 L60 166 Z M128 132 Q170 140 192 166 L140 166Z" fill="#363e4b"/>
+        <!-- pecs -->
+        <path d="M60 166 Q20 170 10 196 Q30 236 98 232 L98 166Z" fill="#3a4250" stroke="#2a313b"/>
+        <path d="M140 166 Q180 170 190 196 Q170 236 102 232 L102 166Z" fill="#3a4250" stroke="#2a313b"/>
+        <!-- abs (middle) -->
+        <rect x="74" y="240" width="52" height="150" rx="10" fill="#363e4b" stroke="#2a313b"/>
+        <path d="M100 240 V390 M74 278 H126 M74 316 H126 M74 352 H126" stroke="#2a313b" stroke-width="2"/>
+        <!-- obliques/ribs: viewer's left = boxer's right (liver) -->
+        <path d="M14 200 Q20 250 30 300 Q44 350 68 392 L72 240 Q40 236 14 200Z" fill="#d79a2b" fill-opacity=".85" stroke="#f0b850"/>
+        <path d="M186 200 Q180 250 170 300 Q156 350 132 392 L128 240 Q160 236 186 200Z" fill="#4f6a5a" fill-opacity=".55" stroke="#2a313b"/>
+        <!-- arms -->
+        <path d="M8 170 Q-22 230 -18 330 L6 334 Q14 250 34 200Z" fill="#323946"/>
+        <path d="M192 170 Q222 230 218 330 L194 334 Q186 250 166 200Z" fill="#323946"/>
+        <!-- hips -->
+        <path d="M68 392 L132 392 L146 450 L54 450Z" fill="#2d343f"/>
+        <path d="M54 450 L96 450 L92 600 L60 600Z M104 450 L146 450 L140 600 L108 600Z" fill="#2b313b"/>
+      </g>
+      <!-- leader: right ribs (liver) -->
+      <circle cx="198" cy="330" r="5" fill="#f0b850"/>
+      <polyline points="198,330 120,330 96,300" fill="none" stroke="#f0b850" stroke-width="2"/>
+      <text x="22" y="278" fill="#f0b850" font-size="14" font-weight="700">RIGHT RIBS (liver)</text>
+      <text x="22" y="300" fill="#e7eaee" font-size="26" font-weight="700">40</text>
+      <text x="64" y="300" fill="#d79a2b" font-size="14">sore</text>
+      <!-- liver tooltip-ish caption -->
+      <g transform="translate(300,560)">
+        <text x="0" y="0" fill="#8d97a5" font-size="12">HEAD 82 · EYES 88 / 91 · NOSE 79</text>
+        <text x="0" y="18" fill="#5d6775" font-size="11">fine places show no number on the body</text>
+      </g>
+      <!-- leader left ribs -->
+      <circle cx="338" cy="330" r="4" fill="#6f8a7a"/>
+      <polyline points="338,330 410,330 432,300" fill="none" stroke="#6f8a7a" stroke-width="1.5"/>
+      <text x="400" y="290" fill="#8d97a5" font-size="13">LEFT RIBS 95</text>
+    </svg>
+    <div class="chips" style="bottom:52px">
+      <div class="chip"><svg class="ic" viewBox="0 0 16 16"><path d="M2 8 q3-5 6 0 t6 0" stroke="#d79a2b" fill="none" stroke-width="2"/></svg>Breath x1.15</div>
+      <div class="chip"><svg class="ic" viewBox="0 0 16 16"><path d="M8 2 L8 10 M5 7 L8 10 L11 7 M3 14 H13" stroke="#e07a72" fill="none" stroke-width="2"/></svg>Liver drop 5% / big left hook</div>
+    </div>
+    <div class="legend"><span><i style="background:var(--fine)"></i>fine</span><span><i style="background:var(--sore)"></i>sore 36-55</span><span><i style="background:var(--hurt)"></i>hurt 16-35</span><span><i style="background:var(--inj)"></i>injured 0-15</span></div>
+  </div>
+
+  <!-- MIDDLE: the decisions -->
+  <div class="mid">
+    <div class="sec">
+      <div class="sh"><h3>WHAT ROUND 2 DID</h3><span class="note">hover any number for the exchange log</span></div>
+      <div class="fc">
+        <div class="fcard"><div class="big dn">-38</div><div class="cap"><b>Your liver, 2 rounds</b><br>9 hooks from their left hand. Their Aim: Liver.</div></div>
+        <div class="fcard"><div class="big up">-47</div><div class="cap"><b>Their liver, 2 rounds</b><br>53 now, sore. Your Aim: Liver.</div></div>
+        <div class="fcard"><div class="big" style="color:var(--gold)">2</div><div class="cap"><b>WINDED, them</b><br>both from your cross downstairs, in the pocket.</div></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sh"><h3>AIM FOR ROUND 3</h3><span class="note">edge each 30 s · their range mix next round: long 20% · pocket 40% · inside 40%</span></div>
+      <div class="aims">
+        <div class="aim"><div class="an">Own game</div><div class="row">cost<b>0</b></div><div class="row">their place<b>-</b></div><div class="row">round 3 win<span class="delta zero">51%</span></div></div>
+        <div class="aim"><div class="an">Head</div><div class="row">cost<b>-1.0</b></div><div class="row">their eye<b>81</b></div><div class="row">round 3 win<span class="delta dn">48%</span></div></div>
+        <div class="aim"><span class="tag weak">OPEN</span><div class="an">Body</div><div class="row">cost<b>-1.8 +2</b></div><div class="row">winded<b>12%</b></div><div class="row">round 3 win<span class="delta up">54%</span></div></div>
+        <div class="aim on"><span class="tag cov">MAY COVER</span><div class="an">Liver</div><div class="row">cost<b>-1.3</b></div><div class="row">drop / big hook<b>5%</b></div><div class="row">round 3 win<span class="delta up">56%</span></div></div>
+        <div class="aim"><div class="an">Left ribs</div><div class="row">cost<b>-0.9</b></div><div class="row">their side<b>91</b></div><div class="row">round 3 win<span class="delta zero">50%</span></div></div>
+      </div>
+      <div style="margin-top:10px;font-size:13px;color:var(--dim);display:flex;gap:24px">
+        <span><b style="color:var(--ink)">Their corner:</b> covered once in 4 bouts on tape (Elbows in). If they cover, Liver falls to <b style="color:#e07a72">49%</b>.</span>
+        <span><b style="color:var(--ink)">Forecast:</b> their liver hurt by the bell 41 in 100 if you keep it.</span>
+      </div>
+    </div>
+
+    <div class="sec" style="flex:1">
+      <div class="sh"><h3>SPEND THE MINUTE</h3><span class="note">every choice shows its round-3 effect before you press it</span></div>
+      <div class="buys">
+        <div class="box">
+          <div class="bt"><span>SECOND · 3 POINTS</span><span style="color:var(--gold)">1 left</span></div>
+          <div class="pts"><span class="pt f"></span><span class="pt f"></span><span class="pt"></span></div>
+          <div class="opt sel"><svg class="ic" viewBox="0 0 20 20"><path d="M10 2 C6 8 4 11 4 13 a6 6 0 0 0 12 0 c0-2-2-5-6-11z" fill="#3f7bd9"/></svg><div class="lbl">Water x1<small>+3 energy (+6 under 40)</small></div><span class="v up">+0.9%</span></div>
+          <div class="opt sel"><svg class="ic" viewBox="0 0 20 20"><rect x="4" y="4" width="12" height="12" rx="2" fill="#9fd3ee"/></svg><div class="lbl">Ice the right ribs<small>sore acts fine next round: breath x1.0, drop 1%</small></div><span class="v up">+2.4%</span></div>
+          <div class="opt"><svg class="ic" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7" fill="none" stroke="#8d97a5" stroke-width="2"/></svg><div class="lbl" style="color:var(--faint)">Clear the head<small>only when ROCKED at the bell</small></div><span class="v zero">-</span></div>
+        </div>
+        <div class="box">
+          <div class="bt"><span>COACH · ONE CHANGE</span></div>
+          <div class="opt sel"><svg class="ic" viewBox="0 0 20 20"><path d="M4 16 L10 4 L16 16" fill="none" stroke="#e2b44a" stroke-width="2.5"/></svg><div class="lbl">Elbows in<small>half their liver hooks go to your head; your body work x0.5</small></div><span class="v up">+3.1%</span></div>
+          <div class="opt"><svg class="ic" viewBox="0 0 20 20"><path d="M4 10 L9 15 L16 5" fill="none" stroke="#5fb87a" stroke-width="2.5"/></svg><div class="lbl">Fix: drops the right after the jab<small>open habit costs 2.2 edge an exchange</small></div><span class="v up">+1.8%</span></div>
+          <div class="opt"><svg class="ic" viewBox="0 0 20 20"><path d="M5 5 L15 15 M15 5 L5 15" stroke="#5d6775" stroke-width="2"/></svg><div class="lbl">No change</div><span class="v zero">0</span></div>
+          <div style="font-size:11px;color:var(--faint);margin-top:4px">Elbows in also halves your Liver Aim: shown as 56% → 52%.</div>
+        </div>
+        <div class="box">
+          <div class="bt"><span>CUTMAN · ONE JOB</span></div>
+          <div class="opt" style="opacity:.5"><svg class="ic" viewBox="0 0 20 20"><ellipse cx="10" cy="10" rx="7" ry="4" fill="none" stroke="#8d97a5" stroke-width="2"/></svg><div class="lbl">Work the eye<small>no eye at hurt</small></div><span class="v zero">-</span></div>
+          <div class="opt" style="opacity:.5"><svg class="ic" viewBox="0 0 20 20"><path d="M4 10 H16" stroke="#8d97a5" stroke-width="3"/></svg><div class="lbl">Close the cut<small>no cut open</small></div><span class="v zero">-</span></div>
+          <div class="bt" style="margin-top:10px"><span>DOCTOR'S LOOK</span><span>0 in 100</span></div>
+          <div style="font-size:12px;color:var(--dim);line-height:1.4">Stop chance after the cutman's job. Shown before you pick the job.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THEIR FIGHTER -->
+  <div class="panel">
+    <div class="ph"><span class="pill b">&nbsp;</span><div><div class="nm">Opponent</div><div class="sub">ORTHODOX · PRESSURE</div></div><div class="bar"></div>
+      <div class="en">ENERGY<div class="m"><i style="width:55%;background:var(--sore)"></i></div><b>55</b></div></div>
+    <svg width="520" height="700" viewBox="0 0 520 700">
+      <g transform="translate(160,40)">
+        <ellipse cx="100" cy="62" rx="44" ry="54" fill="url(#skin)" stroke="#4a5462"/>
+        <path d="M70 52 q12 -8 24 0 q-12 8 -24 0z" fill="#56606f"/>
+        <path d="M106 52 q12 -8 24 0 q-12 8 -24 0z" fill="#56606f"/>
+        <path d="M78 108 L122 108 L128 138 L72 138Z" fill="#323946"/>
+        <path d="M72 132 Q30 140 8 166 L60 166 Z M128 132 Q170 140 192 166 L140 166Z" fill="#363e4b"/>
+        <path d="M60 166 Q20 170 10 196 Q30 236 98 232 L98 166Z" fill="#3a4250" stroke="#2a313b"/>
+        <path d="M140 166 Q180 170 190 196 Q170 236 102 232 L102 166Z" fill="#3a4250" stroke="#2a313b"/>
+        <rect x="74" y="240" width="52" height="150" rx="10" fill="#363e4b" stroke="#2a313b"/>
+        <path d="M100 240 V390 M74 278 H126 M74 316 H126 M74 352 H126" stroke="#2a313b" stroke-width="2"/>
+        <path d="M14 200 Q20 250 30 300 Q44 350 68 392 L72 240 Q40 236 14 200Z" fill="#d79a2b" fill-opacity=".85" stroke="#f0b850"/>
+        <path d="M186 200 Q180 250 170 300 Q156 350 132 392 L128 240 Q160 236 186 200Z" fill="#4f6a5a" fill-opacity=".55" stroke="#2a313b"/>
+        <path d="M8 170 Q-22 230 -18 330 L6 334 Q14 250 34 200Z" fill="#323946"/>
+        <path d="M192 170 Q222 230 218 330 L194 334 Q186 250 166 200Z" fill="#323946"/>
+        <path d="M68 392 L132 392 L146 450 L54 450Z" fill="#2d343f"/>
+        <path d="M54 450 L96 450 L92 600 L60 600Z M104 450 L146 450 L140 600 L108 600Z" fill="#2b313b"/>
+      </g>
+      <circle cx="198" cy="330" r="5" fill="#f0b850"/>
+      <polyline points="198,330 120,330 96,300" fill="none" stroke="#f0b850" stroke-width="2"/>
+      <text x="22" y="278" fill="#f0b850" font-size="14" font-weight="700">RIGHT RIBS (liver)</text>
+      <text x="22" y="300" fill="#e7eaee" font-size="26" font-weight="700">53</text>
+      <text x="64" y="300" fill="#d79a2b" font-size="14">sore</text>
+      <!-- solar plexus event marker as hook line, not a blob -->
+      <circle cx="260" cy="300" r="4" fill="#e2b44a"/>
+      <polyline points="260,300 340,250 470,250" fill="none" stroke="#e2b44a" stroke-width="1.5"/>
+      <text x="350" y="240" fill="#e2b44a" font-size="13" font-weight="700">MIDDLE · winded x2</text>
+      <text x="350" y="268" fill="#8d97a5" font-size="12">file: open downstairs</text>
+      <g transform="translate(300,560)">
+        <text x="0" y="0" fill="#8d97a5" font-size="12">HEAD 74 · EYES 81 / 90 · NOSE 70</text>
+        <text x="0" y="18" fill="#5d6775" font-size="11">tape: covers the ribs 1 bout in 4</text>
+      </g>
+    </svg>
+    <div class="chips" style="bottom:52px">
+      <div class="chip"><svg class="ic" viewBox="0 0 16 16"><path d="M2 8 q3-5 6 0 t6 0" stroke="#d79a2b" fill="none" stroke-width="2"/></svg>Breath x1.15</div>
+      <div class="chip"><svg class="ic" viewBox="0 0 16 16"><path d="M3 3 L13 13 M13 3 L3 13" stroke="#e2b44a" fill="none" stroke-width="2"/></svg>Under 30 energy: winded = a knee</div>
+    </div>
+    <div class="tip" style="left:240px;top:120px">
+      <b>Their liver 53, sore.</b> Each big left hook you land there drops them 5 in 100 (10 at hurt). Their breathing costs 15% more energy. A cover halves the drop.
+    </div>
+    <div class="legend"><span>tinted muscle = place sore or worse · hook line = name and number</span></div>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="sum">
+    <div><div class="k">ROUND 3 WIN, AS SET</div><div class="n up">58%</div></div>
+    <div><div class="k">IF YOU SAY NOTHING</div><div class="n zero">47%</div></div>
+    <div><div class="k">STOPPAGE RISK, YOU</div><div class="n" style="color:var(--sore)">4%</div></div>
+    <div><div class="k">STOPPAGE CHANCE, THEM</div><div class="n" style="color:var(--good)">7%</div></div>
+  </div>
+  <span class="btn2">Coach's pick</span>
+  <span class="btn">START ROUND 3</span>
+</div>
+</body>
+</html>

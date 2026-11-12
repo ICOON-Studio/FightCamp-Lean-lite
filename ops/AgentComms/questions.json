@@ -6661,6 +6661,22 @@
       "answered_at": "2026-11-11T16:11:22Z",
       "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-191",
+      "asked": "2026-11-12T00:35:54.632681+00:00",
+      "session": "S294",
+      "text": "Cursor is out of usage: its two tasks tonight (clip fixes, the Fighters page) stopped in 10 seconds. The clip fixes went to Qwen. For the Fighters page: run Cursor on its free Auto model until the limit resets, or wait?",
+      "options": [
+        "Use Auto until it resets",
+        "Wait for the limit to reset",
+        "I will raise the limit"
+      ],
+      "attach": [],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Care Card 10</title>
+<style>
+:root{--bg:#141a21;--panel:#1c242d;--panel2:#232d38;--line:#33414f;--ink:#e8edf2;--dim:#93a2b1;--faint:#5f6f7f;
+--fine:#5fbf7f;--sore:#e3b341;--hurt:#e8743b;--inj:#d8434b;--blue:#4a8fe0;--gold:#d9b25a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--bg);color:var(--ink);font:15px/1.35 "Segoe UI",Inter,Arial,sans-serif;overflow:hidden}
+.top{height:56px;background:#0d1217;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;gap:28px}
+.top b{font-size:18px;letter-spacing:.5px}.top .d{color:var(--dim)}.top .cash{margin-left:auto;color:var(--fine);font-weight:700;font-size:18px}
+.wrap{display:grid;grid-template-columns:600px 1fr 400px;gap:20px;padding:18px 28px;height:1024px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px}
+h2{font-size:12px;letter-spacing:2px;color:var(--dim);font-weight:600;margin-bottom:10px;text-transform:uppercase}
+h1{font-size:26px;font-weight:700;margin-bottom:2px}
+.sub{color:var(--dim);font-size:14px}
+.fig{position:relative;height:720px}
+.lbl{position:absolute;width:200px;font-size:14px}
+.lbl .n{font-size:22px;font-weight:700}.lbl .w{font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:1px}
+.lbl .s{color:var(--dim);font-size:13px}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--dim);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.bout{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center}
+.vs{font-size:22px;font-weight:700}
+.tiles{display:flex;gap:10px;margin-top:12px}
+.tile{flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:9px 10px}
+.tile .n{font-size:22px;font-weight:700}.tile .c{font-size:12px;color:var(--dim)}
+.ans{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+.opt{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:12px;position:relative}
+.opt.sel{border:2px solid var(--blue);box-shadow:0 0 18px rgba(74,143,224,.25)}
+.opt h3{font-size:19px;margin-bottom:2px}.opt .what{font-size:12px;color:var(--dim);height:34px}
+.row{display:flex;align-items:center;gap:9px;padding:7px 0;border-top:1px solid #2b3742}
+.row svg{flex:0 0 22px}.row .n{font-weight:700;font-size:17px;min-width:76px}.row .c{font-size:12px;color:var(--dim)}
+.good{color:var(--fine)}.warn{color:var(--sore)}.bad{color:var(--hurt)}.vbad{color:var(--inj)}
+.btn{display:inline-block;padding:9px 16px;border-radius:5px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);font-weight:600;font-size:14px}
+.btn.p{background:var(--blue);border-color:var(--blue)}
+.chip{display:inline-block;font-size:11px;letter-spacing:1px;padding:2px 7px;border-radius:3px;font-weight:700}
+.side .card{margin-bottom:14px}
+.mm{display:flex;flex-direction:column;gap:8px}
+.mm .btn{text-align:left;display:flex;justify-content:space-between}
+.foot{display:flex;align-items:center;gap:14px;margin-top:14px}
+.check{width:18px;height:18px;border:2px solid var(--blue);border-radius:3px;background:var(--blue);display:inline-block}
+.bar{height:8px;background:#2b3742;border-radius:4px;position:relative;margin:6px 0 2px}
+.bar span{position:absolute;top:0;bottom:0;border-radius:4px}
+</style></head><body>
+<div class="top"><b>ANVIL STREET GYM</b><span class="d">Mon 2 Feb 2026 · Week 5</span><span class="d">Care card · Lucy Jackson</span><span class="cash">$16,210</span><span class="btn p" style="margin-left:14px">NEEDS YOU (1)</span></div>
+<div class="wrap">
+
+<!-- LEFT: the body -->
+<div class="card">
+  <h2>What Saturday's bout left · morning after</h2>
+  <h1>Lucy Jackson</h1><div class="sub">60 kg · 21 · orthodox · 4-1 · morale Steady · heals at normal pace (age 21)</div>
+  <div class="fig">
+    <svg width="568" height="700" viewBox="0 0 568 700" style="position:absolute;left:0;top:10px">
+      <defs><radialGradient id="mus" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#5d7184"/><stop offset="1" stop-color="#2f3d4b"/></radialGradient></defs>
+      <!-- figure -->
+      <g transform="translate(284,0)" stroke="#6f8597" stroke-width="1.2" fill="url(#mus)">
+        <ellipse cx="0" cy="78" rx="44" ry="54"/>
+        <path d="M-20 128 L-18 150 L18 150 L20 128 Z"/>
+        <path d="M-70 160 Q0 140 70 160 L86 250 Q78 330 60 380 L-60 380 Q-78 330 -86 250 Z"/>
+        <path d="M-70 162 Q-108 170 -112 230 L-118 330 L-98 334 L-90 236 L-80 200 Z"/>
+        <path d="M70 162 Q108 170 112 230 L118 330 L98 334 L90 236 L80 200 Z"/>
+        <path d="M-60 380 L-66 560 L-36 560 L-8 400 Z"/><path d="M60 380 L66 560 L36 560 L8 400 Z"/>
+        <path d="M-58 176 Q-30 168 -4 178 L-4 222 Q-32 230 -60 220 Z" fill="#40505f"/>
+        <path d="M58 176 Q30 168 4 178 L4 222 Q32 230 60 220 Z" fill="#40505f"/>
+        <!-- muscle lines -->
+        <path d="M0 178 L0 372 M-36 250 L36 250 M-34 290 L34 290 M-32 330 L32 330" stroke="#55697b" fill="none"/>
+        <!-- tinted places: serratus/intercostal muscle on the ribs -->
+        <path d="M-82 232 Q-74 226 -62 236 L-56 300 Q-70 306 -84 296 Q-88 262 -82 232 Z" fill="#e8743b" fill-opacity=".85" stroke="#ffb08a"/>
+        <path d="M-73 246 L-60 250 M-76 264 L-59 268 M-78 282 L-58 286" stroke="#ffd2b8" stroke-width="1" fill="none"/>
+        <path d="M82 232 Q74 226 62 236 L56 300 Q70 306 84 296 Q88 262 82 232 Z" fill="#e3b341" fill-opacity=".55" stroke="#f0d27f"/>
+        <!-- eyes and nose as tinted orbit/nasal tissue -->
+        <path d="M-27 66 Q-16 58 -6 66 Q-16 74 -27 66 Z" fill="#e3b341" fill-opacity=".85" stroke="#f0d27f"/>
+        <path d="M6 66 Q16 58 27 66 Q16 74 6 66 Z" fill="#5fbf7f" fill-opacity=".4" stroke="#8fd3a6"/>
+        <path d="M-5 72 L0 98 L5 72" fill="#e3b341" fill-opacity=".7" stroke="#f0d27f"/>
+      </g>
+      <!-- hooked leader lines: from the body OUT to labels -->
+      <g fill="none" stroke-width="1.6">
+        <path d="M207 270 L150 270 L120 300 L40 300" stroke="#e8743b"/><circle cx="207" cy="270" r="3.5" fill="#e8743b"/>
+        <path d="M361 270 L420 270 L450 300 L530 300" stroke="#e3b341"/><circle cx="361" cy="270" r="3.5" fill="#e3b341"/>
+        <path d="M262 66 L200 66 L170 40 L40 40" stroke="#e3b341"/><circle cx="262" cy="66" r="3" fill="#e3b341"/>
+        <path d="M284 92 L330 92 L360 128 L530 128" stroke="#e3b341"/><circle cx="284" cy="92" r="3" fill="#e3b341"/>
+        <path d="M306 66 L380 66 L410 40 L530 40" stroke="#5fbf7f" stroke-opacity=".6"/><circle cx="306" cy="66" r="3" fill="#5fbf7f"/>
+      </g>
+    </svg>
+    <div class="lbl" style="left:0;top:4px" title="Swelling peaks a day after the bout. Spars body-only until fine (the coach's rule). Clears long before Saturday.">
+      <span class="w warn">Right eye · sore</span><div class="s">fine Wed 4 · spars body-only</div></div>
+    <div class="lbl" style="left:370px;top:4px;text-align:right"><span class="w good">Left eye · fine</span></div>
+    <div class="lbl" style="left:370px;top:92px;text-align:right" title="Nose 80: fine Thu 5 by itself. Weigh-in doctor fails a nose under 65.">
+      <span class="w warn">Nose · sore</span><div class="s">fine Thu 5</div></div>
+    <div class="lbl" style="left:0;top:264px" title="Right ribs 54 (HURT, numbers shown under 55). Heals 1.4 a day, 40% of that on a day a session works it. Knocked 4x as easily as sore.">
+      <span class="w bad">Right ribs · hurt</span> <span class="n bad">54</span><div class="s">fine Mon 23 if spared<br>knocks 4x as easily</div></div>
+    <div class="lbl" style="left:370px;top:264px;text-align:right" title="Left ribs sore: fine Mon 16 if spared; Train keeps it sore through Saturday.">
+      <span class="w warn">Left ribs · sore</span><div class="s">fine Mon 16 if spared</div></div>
+    <div class="legend" style="position:absolute;bottom:4px;left:0"><span><i style="background:var(--fine)"></i>fine</span><span><i style="background:var(--sore)"></i>sore</span><span><i style="background:var(--hurt)"></i>hurt</span><span><i style="background:var(--inj)"></i>injured</span><span>· head: Doctor's stand-down, none</span></div>
+  </div>
+  <div class="tiles">
+    <div class="tile" title="The doctor checks at the weigh-in: any injured place, or an eye or the nose under 65, fails."><div class="n good">PASS</div><div class="c">Weigh-in medical, as of today</div></div>
+    <div class="tile" title="Lucy's own word, from Heart 68. Overruling her: morale -5."><div class="n">Fight</div><div class="c">Her wish · overrule -5 morale</div></div>
+  </div>
+</div>
+
+<!-- CENTRE: the bout and the four answers -->
+<div>
+  <div class="card">
+    <h2>The next bout · it prices the rib</h2>
+    <div class="bout">
+      <div><div class="vs">Sat 14 Feb</div><div class="sub">12 days · Bethnal Green club show</div></div>
+      <div><div class="vs">vs Priya Nair <span class="sub">Leicester ABC · 5-1</span></div>
+        <div class="sub">Counter-puncher · <b style="color:var(--ink)">Body hook: her weapon</b> (found on tape, Wed) · <span class="bad">45% of what she lands goes to the body</span></div></div>
+      <span class="chip" style="background:#3a2a1c;color:var(--hurt)" title="Known from tape study. Before tape the card shows the style word's usual share, marked 'guess'.">KNOWN</span>
+    </div>
+    <div class="tiles">
+      <div class="tile" title="Win chance today with the ribs as they would stand if you do nothing (Train)."><div class="n">49%</div><div class="c">Win chance if Train</div></div>
+      <div class="tile" title="A body hook landing on a hurt rib in a 3x3 bout: chance the referee stops it for her."><div class="n bad">1 in 10</div><div class="c">Stopped on the ribs (Train)</div></div>
+      <div class="tile" title="Weight 61.1 kg, limit 60.0. Rest burns about 1,400 kcal less a week."><div class="n">61.1<span class="sub"> / 60.0</span></div><div class="c">kg · Cut 500 on</div></div>
+      <div class="tile" title="Goal: Next bout inside a month. A loss or a pull-out misses it."><div class="n warn">AT RISK</div><div class="c">Goal · next bout in a month</div></div>
+    </div>
+  </div>
+
+  <div class="ans">
+    <!-- icons: shield=rib risk, glove=win, cal=out, bolt=knock, arrow=stat, scale=weight, coin=cost -->
+    <div class="opt" title="Week as planned. A worked rib heals at 40%."><h3>Train</h3><div class="what">pads, bag and Thu sparring as planned</div>
+      <div class="row"><svg viewBox="0 0 22 22"><path d="M11 2 L19 5 V11 Q19 17 11 20 Q3 17 3 11 V5Z" fill="none" stroke="#e8743b" stroke-width="2"/></svg><span class="n vbad">3 in 4</span><span class="c">ribs injured on the night</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="none" stroke="#93a2b1" stroke-width="2"/><path d="M7 11h8" stroke="#93a2b1" stroke-width="2"/></svg><span class="n">49%</span><span class="c">win chance</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><rect x="3" y="5" width="16" height="14" fill="none" stroke="#93a2b1" stroke-width="2"/><path d="M3 9h16" stroke="#93a2b1" stroke-width="2"/></svg><span class="n bad">~3 wks</span><span class="c">out if injured · misses 1 show</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><path d="M12 2 L5 13 H11 L9 20 L17 8 H11Z" fill="#e3b341"/></svg><span class="n bad">20 in 100</span><span class="c">knocked in training</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><path d="M4 16 L11 6 L18 16" fill="none" stroke="#5fbf7f" stroke-width="2"/></svg><span class="n good">+0.0</span><span class="c">Power by fight night</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="none" stroke="#d9b25a" stroke-width="2"/></svg><span class="n">$0</span><span class="c">cost</span></div>
+    </div>
+    <div class="opt" title="Pads to the head mitts; sparring in the body protector. Heals 75% on a worked day."><h3>Protect</h3><div class="what">head mitts · body protector · Thu spar with Sam (light)</div>
+      <div class="row"><svg viewBox="0 0 22 22"><path d="M11 2 L19 5 V11 Q19 17 11 20 Q3 17 3 11 V5Z" fill="none" stroke="#e8743b" stroke-width="2"/></svg><span class="n bad">1 in 2</span><span class="c">ribs injured on the night</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="none" stroke="#93a2b1" stroke-width="2"/><path d="M7 11h8" stroke="#93a2b1" stroke-width="2"/></svg><span class="n">52%</span><span class="c">win chance</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><rect x="3" y="5" width="16" height="14" fill="none" stroke="#93a2b1" stroke-width="2"/><path d="M3 9h16" stroke="#93a2b1" stroke-width="2"/></svg><span class="n bad">~3 wks</span><span class="c">out if injured</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><path d="M12 2 L5 13 H11 L9 20 L17 8 H11Z" fill="#e3b341"/></svg><span class="n warn">4 in 100</span><span class="c">knocked in training</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><path d="M4 16 L11 6 L18 16" fill="none" stroke="#e3b341" stroke-width="2"/></svg><span class="n warn">-0.1</span><span class="c">Power by fight night</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="none" stroke="#d9b25a" stroke-width="2"/></svg><span class="n">$75</span><span class="c">protector, once</span></div>
+    </div>
+    <div class="opt sel" title="Bag -> roadwork; pads -> shadow and footwork; sparring -> technical rounds, head only. Not worked: heals fully."><h3>Spare</h3><div class="what">roadwork · shadow · head-only rounds</div>
+      <div class="row"><svg viewBox="0 0 22 22"><path d="M11 2 L19 5 V11 Q19 17 11 20 Q3 17 3 11 V5Z" fill="none" stroke="#e3b341" stroke-width="2"/></svg><span class="n warn">1 in 3</span><span class="c">with the clinic Thu</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="none" stroke="#93a2b1" stroke-width="2"/><path d="M7 11h8" stroke="#93a2b1" stroke-width="2"/></svg><span class="n good">54%</span><span class="c">win chance</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><rect x="3" y="5" width="16" height="14" fill="none" stroke="#93a2b1" stroke-width="2"/><path d="M3 9h16" stroke="#93a2b1" stroke-width="2"/></svg><span class="n bad">~3 wks</span><span class="c">out if injured</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><path d="M12 2 L5 13 H11 L9 20 L17 8 H11Z" fill="#5fbf7f"/></svg><span class="n good">0</span><span class="c">no knock</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><path d="M4 16 L11 6 L18 16" fill="none" stroke="#e8743b" stroke-width="2"/></svg><span class="n bad">-0.3</span><span class="c">Power · combo 1-2-3b waits</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="none" stroke="#d9b25a" stroke-width="2"/></svg><span class="n">$50</span><span class="c">clinic session Thu</span></div>
+    </div>
+    <div class="opt" title="Whole week off: gains x0.25, heals x1.5. Burns less: watch the scale."><h3>Rest</h3><div class="what">the whole week off · then spare</div>
+      <div class="row"><svg viewBox="0 0 22 22"><path d="M11 2 L19 5 V11 Q19 17 11 20 Q3 17 3 11 V5Z" fill="none" stroke="#e3b341" stroke-width="2"/></svg><span class="n warn">1 in 3</span><span class="c">ribs injured on the night</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="none" stroke="#93a2b1" stroke-width="2"/><path d="M7 11h8" stroke="#93a2b1" stroke-width="2"/></svg><span class="n">51%</span><span class="c">win chance · sharpness -</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><rect x="3" y="5" width="16" height="14" fill="none" stroke="#93a2b1" stroke-width="2"/><path d="M3 9h16" stroke="#93a2b1" stroke-width="2"/></svg><span class="n bad">~3 wks</span><span class="c">out if injured</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><path d="M12 2 L5 13 H11 L9 20 L17 8 H11Z" fill="#5fbf7f"/></svg><span class="n good">0</span><span class="c">no knock</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><path d="M4 16 L11 6 L18 16" fill="none" stroke="#d8434b" stroke-width="2"/></svg><span class="n vbad">-0.7</span><span class="c">Power · all gains x0.25</span></div>
+      <div class="row"><svg viewBox="0 0 22 22"><rect x="4" y="8" width="14" height="10" fill="none" stroke="#e8743b" stroke-width="2"/></svg><span class="n bad">+0.4 kg</span><span class="c">on the day · weight at risk</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h2>The clinic · 2 sessions a week for the club</h2>
+    <div style="display:flex;gap:14px;align-items:center">
+      <span class="btn p">Book Thu · right ribs · $50</span>
+      <span class="sub" style="flex:1">1 slot left this week · Marcus Bell (left ribs) holds the other · <b style="color:var(--ink)">right ribs: 1 in 2 → 1 in 3 on the night</b></span>
+      <span class="btn" title="An injured nose or rib only: guess / Physio's look $60 / X-ray $250 buys a known fit date.">Check: not needed</span>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="check"></span><span>Make it my order: <b>hurt rib · 7-14 days · body puncher → Spare + clinic</b></span>
+    <span class="sub">(the coach meets this case himself next time; the week review says what he did)</span>
+    <span class="btn p" style="margin-left:auto">Set the week</span>
+  </div>
+</div>
+
+<!-- RIGHT: what else the coach can do -->
+<div class="side">
+  <div class="card">
+    <h2>Talk to the matchmaker</h2>
+    <div class="mm">
+      <span class="btn" title="Leicester say yes 6 in 10. A NO cools the club 4 weeks and their corner learns the rib.">Ask to move 14 days <span class="warn">6 in 10</span></span>
+      <span class="btn" title="Same show, a different opponent of her level. A head hunter on the card: ribs 1 in 20.">Ask for another opponent <span class="warn">4 in 10</span></span>
+      <span class="btn" title="Club pays $300 for the empty slot; the goal is missed.">Pull out <span class="bad">$300 · goal missed</span></span>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Fight prep lines it opens</h2>
+    <div class="row" style="border:0" title="3 in 10 of her body punches go to the head from round 1. Costs about 3 in 100 win chance."><span class="n">Elbows in</span><span class="c">ribs 1 in 2 → 1 in 4 · win -3</span></div>
+    <div class="row" title="Priya's left eye ended sore in her last filmed bout, 9 days ago."><span class="n">Aim: her left eye</span><span class="c">sore, cut 9 days ago</span></div>
+  </div>
+  <div class="card">
+    <h2>Her side of it</h2>
+    <div class="tiles" style="margin-top:0;flex-wrap:wrap">
+      <div class="tile" title="Heart 68: she wants this bout. Spare/Rest overrules her: morale -5 (Steady stays Steady)."><div class="n">-5</div><div class="c">morale if overruled</div></div>
+      <div class="tile" title="Durability 64: knocks and heal rate are normal."><div class="n">x1.0</div><div class="c">heal pace</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Also this week</h2>
+    <div class="row" style="border:0"><span class="n warn">Marcus</span><span class="c">left ribs sore · fine Fri · order acted: Spare</span></div>
+    <div class="row"><span class="n good">Ana</span><span class="c">mats only · nothing carried</span></div>
+  </div>
+</div>
+</div>
+</body></html>

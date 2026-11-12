@@ -3,12 +3,12 @@
  "updated": "2026-11-12",
  "author": "claude S294",
  "now": {
-  "id": "S436",
+  "id": "S438",
   "owner": "claude",
   "updated": "2026-11-12",
-  "summary": "S437 (2026-11-11 night): the glove touch loosens the shoulders and neck (his three marks); the rank a fight earned shows in the Why, on the fighter cards and the fighter's page (Cursor, collected); Qwen's dues sums collected (no robust setting once the dead lever is out); the re-measured punch contact times are in and the dead short_m read is out (D0 step 2). On his ask the damage, hit and recovery systems were judged (today's game: 3 and 3.5) and a design map written (v2 6.5 and 6, round 3 run); RIBS1 (Cursor) fixes the ribs defect now. Clips: side films of the fight's punches, eight read (two good, five faulty, one unclear); the Gemini judge is braked on its budget. Ludo: paid one more month, then paused three.",
-  "last_working_commit": "7a7c598c",
-  "verified_playable": "Builds/FightCamp.exe exported 23:01 (S436, commit dbf7c119) and smoke-run 40 s on the hidden desktop with no script error; the intro, the see-through tale of the tape and the glove touch read on real-game stills. Not played by the operator yet.",
+  "summary": "S438 (2026-11-12 night): the ribs take damage normally (RIBS1 finished after review: both sides, 60 % on the defender's liver side, a body shot counts 3.1, face numbers re-measured); the cast's voices are wired and 26 lines made (26 Ludo credits, all unheard until he keeps them on the sound board); Qwen's two cloud modules collected (the maths of a punch's form, the data behind a Fighters page row); all 15 fight punches read on side films (12 faulty), the punch ruler's round two and the three retimed jabs are PR 223 under review; the damage design was split in two maps with scripted numbers and scored twice (after the fight 6 and 6, the fight 5.5 and 5.5), round 3 running; Cursor is out of usage (Q-191); the S438 build is exported and smoke-run.",
+  "last_working_commit": "6ff68167",
+  "verified_playable": "Builds/FightCamp.exe exported about 02:55 (S438: ribs + voices wired); smoke-run 40 s on the hidden desktop, no error line; not played",
   "incomplete_blocked": "His look at the S436 stills and build. S434's weight map and foundation workflows (last write 21:40). PR 211 CALLSPREAD1 waits on the foundation. Cursor idle with no brief (RANKSHOWUI first). DUESSUMS3C on Qwen. Men's opponents without height / reach on file show dashes on the tape.",
   "next_action": "0) get_usage; his comments on the S437 stills and films (review board). 1) The damage map: read round 3's scores (bottom of NEXT_SESSION_PROMPT.md); 7+ from both = ask on the board, else another round by workflow on Opus. 2) Collect RIBS1 (re-check the rib injury rate) and PR 218 VOICEWIRE1 by diff, then run tools/voice_make.py (42 Ludo credits) and post to the sound board. 3) Animation: the other seven side films read, the clip fixes briefed (cross B, lead hook, body shot), then D0 step 3 (human_feet on the default route). 4) The foundation's third round, then PR 211.",
   "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after.",
@@ -18,7 +18,7 @@
    "Three reopenings in DAMAGE_MAP_S437.md once it passes the critics"
   ]
  },
- "next": "0) get_usage; his comments on the S437 stills and films (review board). 1) The damage map: read round 3's scores (bottom of NEXT_SESSION_PROMPT.md); 7+ from both = ask on the board, else another round by workflow on Opus. 2) Collect RIBS1 (re-check the rib injury rate) and PR 218 VOICEWIRE1 by diff, then run tools/voice_make.py (42 Ludo credits) and post to the sound board. 3) Animation: the other seven side films read, the clip fixes briefed (cross B, lead hook, body shot), then D0 step 3 (human_feet on the default route). 4) The foundation's third round, then PR 211.",
+ "next": "0) get_usage; his answers: Q-S294-191 (Cursor), the sound board (26 voices), the review board. 1) PR 223 CLIPFIX3: read the two reviewers' verdicts (workflow wf_8e4ad0f2-75b journal), collect by diff or brief round 4; read jab B's film; then the next clip fixes (crosses, lead hook, uppercut) on the honest ruler. 2) Damage maps round 3 (workflow wf_f9efba2a-fc8 journal): 7+ from both on a map = ask on the board with the map and the critics' pictures; under 7 = read the critics' case-by-case findings before any round 4. 3) Animation D0 step 3 (human_feet on the default route). 4) The foundation's third round (CARDIO1, NOCAMP1), then PR 211. 5) PAGES2 once Cursor has usage.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -1773,6 +1773,12 @@
    "date": "2026-11-11",
    "title": "glove touch loosened; rank after every fight (Cursor) and dues sums (Qwen) collected; contact times re-measured, short_m deleted; damage / hits / recovery judged (3 and 3.5) and a design map to round 3; RIBS1 and VOICEWIRE1 briefed; punch clips on side films; Ludo paused after a month",
    "commit": "7a7c598c"
+  },
+  {
+   "id": "S438",
+   "date": "2026-11-12",
+   "title": "ribs take damage (RIBS1 finished and collected); voices wired and 26 lines made; Qwen's cloud modules collected; all 15 punches read, the ruler and three retimed jabs under review; damage design split in two maps, two rounds each, round 3 running; Cursor out of usage; build exported",
+   "commit": "6ff68167"
   }
  ],
  "blocked_on_operator": [],
@@ -4691,7 +4697,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-12 02:41 board_sync",
+  "updated": "2026-11-12",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4841,44 +4847,24 @@
   },
   "working_now": [
    {
-    "title": "TASK CALLSPREAD1 - QWEN (qwen3-coder) - a corner call's strength rises point by point from 56 to 62, not in one jump at 62 (one function + its test)",
-    "who": "qwen",
-    "started": "2026-11-11T19:42",
-    "run": "CALLSPREAD1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK VOICEWIRE1 - QWEN (qwen3-coder), the sound engineer - the cast's voices made this month and wired into fight night",
-    "who": "qwen",
-    "started": "2026-11-11T23:31",
-    "run": "VOICEWIRE1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK RIBS1 - CURSOR (Grok 4.7 High) - the ribs take damage normally (the defect, before the redesign)",
-    "who": "cursor",
-    "started": "2026-11-11T23:43",
-    "run": "RIBS1",
-    "state": "LANDED - Claude collects"
-   },
-   {
-    "title": "TASK CLIPFIX2 - QWEN (qwen3-coder) - the fight's punches that read wrong get a form ruler, then a fix or a cut",
-    "who": "qwen",
-    "started": "2026-11-12T02:35",
-    "run": "CLIPFIX2"
+    "title": "Damage design round 3: the fight map and the after-the-fight map, fresh critics (workflow)",
+    "who": "claude",
+    "started": "2026-11-12T03:15",
+    "run": "DAMAGE3",
+    "state": "running"
    }
   ],
   "next": [
    {
     "id": "DAMAGE1",
     "who": "claude",
-    "title": "Damage and recovery built from DAMAGE_MAP_S437 once it passes: one damage truth, hurt places that change the fight, an injury per place, the Condition page with real choices",
-    "after": "RIBS1"
+    "title": "Damage and recovery built from the two S438 maps once each passes 7 from both critics: places that change the fight, the corner minute as the decision, care after the bout",
+    "after": ""
    },
    {
-    "id": "CLIPFIX3",
+    "id": "CLIPFIX4",
     "who": "qwen",
-    "title": "The punch ruler made honest (hip turn, back to guard, no fitted bars, a reach measure), then the three hanging jabs retimed",
+    "title": "The punch ruler and the three retimed jabs: every defect of the two blind reviews of PR 223 (then the crosses, the hook, the uppercut)",
     "after": ""
    },
    {
@@ -4920,7 +4906,7 @@
    {
     "id": "PAGES2",
     "who": "cursor",
-    "title": "Fighters page then Profile to painting 1, contents from the core loop map",
+    "title": "The Fighters page as painted, one wide row a fighter (brief ready; Cursor is out of usage: Q-191)",
     "after": ""
    },
    {
@@ -5259,6 +5245,36 @@
   },
   "done_recently": [
    {
+    "title": "All 15 fight punches read on side films: 12 carry a named fault",
+    "who": "claude",
+    "when": "2026-11-12"
+   },
+   {
+    "title": "The maths of a punch's form and the data behind a Fighters page row (cloud)",
+    "who": "qwen",
+    "when": "2026-11-12"
+   },
+   {
+    "title": "The cast's voices wired into fight night; 26 lines made, waiting for his ear",
+    "who": "qwen",
+    "when": "2026-11-12"
+   },
+   {
+    "title": "The ribs take damage normally: both sides, a body shot that counts (RIBS1, finished after review)",
+    "who": "claude",
+    "when": "2026-11-12"
+   },
+   {
+    "title": "TASK RIBS1 - CURSOR (Grok 4.7 High) - the ribs take damage normally (the defect, before the redesign)",
+    "who": "cursor",
+    "when": "2026-11-12"
+   },
+   {
+    "title": "TASK VOICEWIRE1 - QWEN (qwen3-coder), the sound engineer - the cast's voices made this month and wired into fight night",
+    "who": "qwen",
+    "when": "2026-11-12"
+   },
+   {
     "title": "QWEN (qwen3-coder) - what one fighter's row on the Fighters page says: one pure module + its test",
     "who": "goose",
     "when": "2026-11-12"
@@ -5286,36 +5302,6 @@
    {
     "title": "Re-measured punch contact times in; body hooks land on target",
     "who": "claude",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "Today's damage and recovery judged by two critics: 3 and 3.5",
-    "who": "claude",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "Punch clips filmed from a fixed side camera; eight read",
-    "who": "claude",
-    "when": "2026-11-12"
-   },
-   {
-    "title": "TASK DUESSUMS3C - QWEN (qwen3-coder) - dues sums, third search fixed: a waiting list that can act, ROBUST without a dead lever, a PICK you can repeat (MEASURE O",
-    "who": "qwen",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "Fight intro from the corners: own warm-ups, the versus tale of the tape, the glove touch (his words, S436)",
-    "who": "claude",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "Punch rulers hold their gap and read every row (head aim 12 of 12, blocked punch 27 of 27)",
-    "who": "claude",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "GYMLIFE2 collected: gym people walk round the kit, nobody under a button",
-    "who": "cursor",
     "when": "2026-11-11"
    }
   ],
@@ -5501,7 +5487,32 @@
      "who": "claude"
     }
    ],
-   "done_session": [],
+   "done_session": [
+    {
+     "text": "Ribs take damage (RIBS1 collected)",
+     "who": "claude"
+    },
+    {
+     "text": "Voices wired, 26 lines made",
+     "who": "agent"
+    },
+    {
+     "text": "Punch maths + roster row (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "All 15 punch films read: 12 faulty",
+     "who": "claude"
+    },
+    {
+     "text": "Damage maps split: 6,6 and 5.5,5.5",
+     "who": "claude"
+    },
+    {
+     "text": "Build S438 exported, smoke-run",
+     "who": "claude"
+    }
+   ],
    "now": [
     {
      "text": "Foundation: Cardio, Tank, punches",
@@ -5520,16 +5531,16 @@
      "who": "claude"
     },
     {
-     "text": "Damage map split in two + critics",
+     "text": "Damage maps round 3 (critics)",
      "who": "claude"
     },
     {
-     "text": "RIBS1 + voices PR: review, collect",
-     "who": "claude"
+     "text": "CLIPFIX4: ruler + 3 jabs (Qwen)",
+     "who": "agent"
     },
     {
-     "text": "Punch side films: read the 7",
-     "who": "claude"
+     "text": "Sound board: 26 voices to hear",
+     "who": "operator"
     }
    ],
    "next": [
@@ -5578,11 +5589,11 @@
      "who": "claude"
     },
     {
-     "text": "Clip fixes: cross B, hook, body",
-     "who": "claude"
+     "text": "Fighters page (Cursor: no usage)",
+     "who": "operator"
     },
     {
-     "text": "Voices: generate 42 lines (Ludo)",
+     "text": "Clip fixes: cross, hook, uppercut",
      "who": "agent"
     }
    ],
@@ -5591,7 +5602,7 @@
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "7a7c598c",
- "next_action": "0) get_usage; his comments on the S437 stills and films (review board). 1) The damage map: read round 3's scores (bottom of NEXT_SESSION_PROMPT.md); 7+ from both = ask on the board, else another round by workflow on Opus. 2) Collect RIBS1 (re-check the rib injury rate) and PR 218 VOICEWIRE1 by diff, then run tools/voice_make.py (42 Ludo credits) and post to the sound board. 3) Animation: the other seven side films read, the clip fixes briefed (cross B, lead hook, body shot), then D0 step 3 (human_feet on the default route). 4) The foundation's third round, then PR 211.",
+ "last_working_commit": "6ff68167",
+ "next_action": "0) get_usage; his answers: Q-S294-191 (Cursor), the sound board (26 voices), the review board. 1) PR 223 CLIPFIX3: read the two reviewers' verdicts (workflow wf_8e4ad0f2-75b journal), collect by diff or brief round 4; read jab B's film; then the next clip fixes (crosses, lead hook, uppercut) on the honest ruler. 2) Damage maps round 3 (workflow wf_f9efba2a-fc8 journal): 7+ from both on a map = ask on the board with the map and the critics' pictures; under 7 = read the critics' case-by-case findings before any round 4. 3) Animation D0 step 3 (human_feet on the default route). 4) The foundation's third round (CARDIO1, NOCAMP1), then PR 211. 5) PAGES2 once Cursor has usage.",
  "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after."
 }

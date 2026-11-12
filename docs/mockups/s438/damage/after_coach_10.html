@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Care Card 10/10</title>
+<meta name="viewport" content="width=1920">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#14181d;--panel:#1c2229;--panel2:#232b34;--line:#323c47;--ink:#e6e9ec;--dim:#8b96a3;--faint:#5c6773;
+--fine:#5fae7a;--sore:#d9a441;--hurt:#e0703a;--inj:#d8434a;--blue:#4d8fe0;--gold:#e2c26b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--bg);color:var(--ink);font:15px/1.35 Barlow,sans-serif;overflow:hidden}
+.top{height:56px;background:#0e1115;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 22px;gap:22px}
+.top .gym{font:700 22px 'Barlow Condensed';letter-spacing:.5px}
+.top .date{color:var(--dim)}
+.top .cash{margin-left:auto;font:600 20px 'Barlow Condensed';color:var(--fine)}
+.top .btn{background:var(--inj);padding:8px 18px;border-radius:6px;font:700 16px 'Barlow Condensed'}
+.wrap{display:grid;grid-template-columns:600px 1fr 400px;gap:18px;padding:18px 22px;height:1024px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+h1{font:700 30px 'Barlow Condensed';letter-spacing:.5px}
+h2{font:600 13px Barlow;letter-spacing:2px;color:var(--dim);text-transform:uppercase;margin-bottom:10px}
+.sub{color:var(--dim);font-size:15px}
+.note{font:400 17px Kalam;color:var(--gold)}
+/* figure */
+.fig{position:relative;height:760px;margin-top:8px}
+.fig svg{position:absolute;left:0;top:0}
+.lab{position:absolute;font-size:14px;background:var(--panel2);border:1px solid var(--line);border-left:4px solid;border-radius:6px;padding:6px 10px;width:200px}
+.lab b{font:700 17px 'Barlow Condensed';display:block}
+.lab .w{font-weight:600}
+.lab small{color:var(--dim);display:block}
+/* options */
+.place{background:var(--panel2);border:1px solid var(--line);border-radius:10px;margin-bottom:14px;padding:12px 14px}
+.ph{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.ph .nm{font:700 22px 'Barlow Condensed'}
+.chip{font:600 13px Barlow;padding:3px 9px;border-radius:12px}
+.ph .fd{margin-left:auto;color:var(--dim)}
+.opts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.opt{border:1px solid var(--line);border-radius:8px;padding:10px;background:#1a2027;position:relative}
+.opt.sel{border:2px solid var(--blue);background:#1d2836}
+.opt .t{font:700 18px 'Barlow Condensed';margin-bottom:6px}
+.row{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:14px}
+.ic{width:22px;height:22px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font:700 12px Barlow;background:#2b3540;color:var(--ink);flex:none}
+.num{font:700 17px 'Barlow Condensed'}
+.cap{color:var(--dim)}
+.bar{height:6px;background:#2b3540;border-radius:3px;overflow:hidden;flex:1}
+.bar i{display:block;height:100%}
+.hint{position:absolute;right:8px;top:8px;color:var(--faint);font-size:12px}
+.foot{display:flex;gap:12px;align-items:center;margin-top:6px}
+.b{padding:10px 18px;border-radius:7px;font:700 17px 'Barlow Condensed';border:1px solid var(--line);background:var(--panel2)}
+.b.p{background:var(--blue);border-color:var(--blue)}
+.kv{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--line);font-size:15px}
+.kv span:first-child{color:var(--dim)}
+.risk{display:grid;grid-template-columns:70px repeat(5,1fr);gap:3px;font-size:13px;margin-top:6px}
+.risk div{padding:5px 0;text-align:center;border-radius:4px}
+</style></head><body>
+<div class="top"><span class="gym">ANVIL STREET GYM</span><span class="date">Mon 16 Feb 2026 · Week 7</span>
+<span class="cash">$14,210 <span style="color:var(--dim);font:400 13px Barlow">running +$120 a week</span></span><span class="btn">NEEDS YOU (1)</span></div>
+
+<div class="wrap">
+<!-- LEFT: the body -->
+<div class="card">
+ <h2>The morning after · Sat 14 Feb vs R. Okafor (won, points)</h2>
+ <h1>Body: Lucy Jackson</h1>
+ <div class="sub">Next bout: Sat 28 Feb vs D. Mensah, club show, <b style="color:var(--ink)">12 days</b> · their corner aimed the body last time</div>
+ <div class="fig">
+  <svg width="560" height="760" viewBox="0 0 560 760">
+   <defs>
+    <linearGradient id="sk" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a4654"/><stop offset="1" stop-color="#28313b"/></linearGradient>
+   </defs>
+   <!-- figure: simple anatomical silhouette -->
+   <g fill="url(#sk)" stroke="#4b5866" stroke-width="1.5">
+    <ellipse cx="280" cy="95" rx="44" ry="54"/>
+    <rect x="262" y="142" width="36" height="30" rx="8"/>
+    <path d="M200 175 Q280 158 360 175 L372 300 Q366 380 340 420 L220 420 Q194 380 188 300 Z"/>
+    <path d="M200 178 Q170 190 160 240 L140 360 Q136 380 150 384 L168 372 L190 260 Z"/>
+    <path d="M360 178 Q390 190 400 240 L420 360 Q424 380 410 384 L392 372 L370 260 Z"/>
+    <path d="M222 418 L338 418 L332 560 L312 720 L286 722 L284 470 L276 470 L274 722 L248 720 L228 560 Z"/>
+   </g>
+   <!-- muscle lines -->
+   <g stroke="#56636f" stroke-width="1" fill="none" opacity=".7">
+    <path d="M280 180 L280 410"/><path d="M220 230 Q250 250 280 240 Q310 250 340 230"/>
+    <path d="M230 300 L330 300"/><path d="M234 340 L326 340"/><path d="M238 378 L322 378"/>
+   </g>
+   <!-- tinted places -->
+   <path d="M325 250 Q356 262 362 300 Q360 336 344 352 L322 340 Q332 300 318 262 Z" fill="#e0703a" opacity=".85"/>
+   <path d="M235 250 Q204 262 198 300 Q200 336 216 352 L238 340 Q228 300 242 262 Z" fill="#d9a441" opacity=".55"/>
+   <ellipse cx="263" cy="88" rx="11" ry="6" fill="#d9a441" opacity=".8"/>
+   <ellipse cx="297" cy="88" rx="11" ry="6" fill="#5fae7a" opacity=".5"/>
+   <path d="M274 98 L286 98 L284 116 L276 116 Z" fill="#d9a441" opacity=".7"/>
+   <!-- hooked leader lines (out of the body) -->
+   <g stroke-width="2" fill="none">
+    <polyline points="352,300 430,300 452,250" stroke="#e0703a"/><circle cx="352" cy="300" r="4" fill="#e0703a"/>
+    <polyline points="208,300 150,300 120,420" stroke="#d9a441"/><circle cx="208" cy="300" r="4" fill="#d9a441"/>
+    <polyline points="263,88 200,60 140,60" stroke="#d9a441"/><circle cx="263" cy="88" r="3.5" fill="#d9a441"/>
+    <polyline points="280,108 360,140 430,140" stroke="#d9a441"/><circle cx="280" cy="108" r="3.5" fill="#d9a441"/>
+    <polyline points="297,88 360,40 430,40" stroke="#5fae7a"/><circle cx="297" cy="88" r="3.5" fill="#5fae7a"/>
+   </g>
+  </svg>
+  <div class="lab" style="left:0;top:22px;border-color:var(--sore)"><b>Left eye</b><span class="w" style="color:var(--sore)">sore</span> · fine Fri 20<small>clears before the bout by itself</small></div>
+  <div class="lab" style="left:350px;top:0;border-color:var(--fine)"><b>Right eye</b><span class="w" style="color:var(--fine)">fine</span></div>
+  <div class="lab" style="left:350px;top:100px;border-color:var(--sore)"><b>Nose</b><span class="w" style="color:var(--sore)">sore</span> · fine Wed 18<small>clears by itself</small></div>
+  <div class="lab" style="left:345px;top:185px;border-color:var(--hurt)"><b>Right ribs · hurt 51</b><span class="w" style="color:var(--hurt)">hurt</span> · fine Fri 13 Mar<small>liver side · hooks landed 14</small></div>
+  <div class="lab" style="left:0;top:420px;border-color:var(--sore)"><b>Left ribs</b><span class="w" style="color:var(--sore)">sore</span> · fine Fri 27<small>4 days with no body work</small></div>
+  <div style="position:absolute;left:0;bottom:0;right:0" class="card">
+   <h2>What the ribs mean on fight night (her forecast, tooltip shows the table)</h2>
+   <div class="risk">
+    <div style="color:var(--dim);text-align:left">Ribs at</div><div style="background:#2b3540">90+</div><div style="background:#2b3540">80</div><div style="background:#2b3540">70</div><div style="background:#2b3540">60</div><div style="background:#2b3540">50</div>
+    <div style="color:var(--dim);text-align:left">Badly hurt</div><div style="background:#28402f">1 in 10</div><div style="background:#4a4024">1 in 5</div><div style="background:#5a3b22">1 in 3</div><div style="background:#5e2a28">1 in 2</div><div style="background:#6a2226">3 in 4</div>
+   </div>
+   <div class="note" style="margin-top:8px">"Mensah lives on the body. I'd want that rib at 80 before I put her in." - Luke</div>
+  </div>
+ </div>
+</div>
+
+<!-- MIDDLE: the care choice per place -->
+<div class="card">
+ <h2>Monday care · week of 16 Feb · one choice per place that needs one</h2>
+ <h1>Plan around the ribs</h1>
+ <div class="sub" style="margin-bottom:14px">The face clears by itself before Sat 28. Only the ribs need a call. Each card shows the ribs on fight night, the chance a session knocks them, and what the week loses.</div>
+
+ <div class="place">
+  <div class="ph"><span class="nm">Right ribs</span><span class="chip" style="background:#5a3b22;color:var(--hurt)">hurt 51</span><span class="fd">works it: pads, heavy bag, sparring</span></div>
+  <div class="opts">
+   <div class="opt"><div class="t">Train as planned</div><span class="hint">?</span>
+    <div class="row"><span class="ic">FN</span><span class="num">55</span><span class="cap">on fight night · 1 in 2 badly hurt</span></div>
+    <div class="row"><span class="ic">K</span><span class="num">1 in 5</span><span class="cap">a session knocks it to injured</span></div>
+    <div class="row"><span class="ic">-</span><span class="num">0</span><span class="cap">training lost</span></div></div>
+   <div class="opt"><div class="t">No body work</div><span class="hint">?</span>
+    <div class="row"><span class="ic">FN</span><span class="num">66</span><span class="cap">· 2 in 5 badly hurt</span></div>
+    <div class="row"><span class="ic">K</span><span class="num">1 in 20</span><span class="cap">head-only sparring, belt on</span></div>
+    <div class="row"><span class="ic">-</span><span class="num">-0.2</span><span class="cap">Power by fight night</span></div></div>
+   <div class="opt sel"><div class="t">Spare the ribs</div><span class="hint">?</span>
+    <div class="row"><span class="ic">FN</span><span class="num">70</span><span class="cap">· 1 in 3 badly hurt</span></div>
+    <div class="row"><span class="ic">K</span><span class="num">0</span><span class="cap">roadwork + shadow</span></div>
+    <div class="row"><span class="ic">-</span><span class="num">-0.4</span><span class="cap">Power, -6 combo mastery</span></div></div>
+   <div class="opt"><div class="t">Rest the week</div><span class="hint">?</span>
+    <div class="row"><span class="ic">FN</span><span class="num">75</span><span class="cap">· 1 in 4 badly hurt</span></div>
+    <div class="row"><span class="ic">K</span><span class="num">0</span><span class="cap">no sessions</span></div>
+    <div class="row"><span class="ic">-</span><span class="num">-0.7</span><span class="cap">all stats, morale +4</span></div></div>
+  </div>
+  <div class="foot">
+   <span class="ic" style="background:#21384f">+</span><b>Physio session $60</b><span class="cap">heals x1.5 for 7 days, even on training days · with Spare: <b style="color:var(--ink)">70 → 75</b></span>
+   <span style="margin-left:auto" class="b p">Book it</span>
+  </div>
+ </div>
+
+ <div class="place">
+  <div class="ph"><span class="nm">Left ribs</span><span class="chip" style="background:#4a4024;color:var(--sore)">sore 80</span><span class="fd">fine on fight night under Spare or No body work</span></div>
+  <div class="opts" style="grid-template-columns:repeat(2,1fr)">
+   <div class="opt sel"><div class="t">Follows the right ribs</div><div class="row"><span class="ic">FN</span><span class="num">fine</span><span class="cap">on fight night</span></div></div>
+   <div class="opt"><div class="t">Train on it</div><div class="row"><span class="ic">FN</span><span class="num">88</span><span class="cap">· 1 in 100 knock</span></div></div>
+  </div>
+ </div>
+
+ <div class="place">
+  <h2 style="margin:0 0 8px">The bout on Sat 28 · what this week decides</h2>
+  <div class="opts" style="grid-template-columns:repeat(3,1fr)">
+   <div class="opt sel"><div class="t">Keep the date</div><div class="row"><span class="cap">ribs start at your forecast</span></div><div class="row"><span class="cap">plan: add "Elbows in" from round 1</span></div></div>
+   <div class="opt"><div class="t">Ask to move 14 days</div><div class="row"><span class="num">6 in 10</span><span class="cap">yes · a NO cools the club 4 weeks</span></div></div>
+   <div class="opt"><div class="t">Pull out</div><div class="row"><span class="num">-$300</span><span class="cap">slot fee · -2 morale (she wants it)</span></div></div>
+  </div>
+ </div>
+
+ <div class="foot">
+  <span class="b">Coach's call (Spare, no physio)</span>
+  <span class="sub">Her wish: <b style="color:var(--ink)">fight</b> (Heart 68) · overruling costs morale -5</span>
+  <span class="b p" style="margin-left:auto">Set the week</span>
+ </div>
+</div>
+
+<!-- RIGHT: context -->
+<div style="display:flex;flex-direction:column;gap:18px">
+ <div class="card">
+  <h2>Mensah (next opponent)</h2>
+  <div class="kv"><span>Style</span><span>Pressure fighter</span></div>
+  <div class="kv"><span>Body share</span><span><b>48%</b> of her punches</span></div>
+  <div class="kv"><span>Her own carried place</span><span style="color:var(--sore)">left eye sore (cut 9 days ago)</span></div>
+  <div class="kv"><span>Knows Lucy's ribs?</span><span style="color:var(--hurt)">yes: filmed, ended hurt</span></div>
+  <div class="note" style="margin-top:8px">Aim her left eye: an answer for your plan.</div>
+  <div class="foot"><span class="b">Write it in the plan</span></div>
+ </div>
+ <div class="card">
+  <h2>Her weigh-in medical, Fri 27</h2>
+  <div class="kv"><span>Eyes, nose</span><span style="color:var(--fine)">pass (clear by Fri 20)</span></div>
+  <div class="kv"><span>Ribs</span><span style="color:var(--sore)">pass if not injured</span></div>
+  <div class="kv"><span>A knock this week</span><span style="color:var(--inj)">fails · $300 + the bout</span></div>
+ </div>
+ <div class="card">
+  <h2>This week, the whole gym</h2>
+  <div class="kv"><span>Physio (hired)</span><span>x1.33 healing, already on</span></div>
+  <div class="kv"><span>Physio sessions booked</span><span>0 of 2 slots</span></div>
+  <div class="kv"><span>Pad nights with Luke</span><span>3 · Ana, Jade want them</span></div>
+  <div class="note" style="margin-top:8px">Spare frees one of Lucy's pad nights for Jade.</div>
+ </div>
+ <div class="card">
+  <h2>Last time she carried a rib</h2>
+  <div class="kv"><span>Wk 3, Train</span><span style="color:var(--inj)">knocked, Bruised ribs, 16 days</span></div>
+  <div class="kv"><span>Coach's notes</span><span>"Hides pain" (habit)</span></div>
+ </div>
+</div>
+</div>
+</body></html>

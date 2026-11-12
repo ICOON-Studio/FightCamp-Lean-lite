@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Medical Board 10</title>
+<meta name="viewport" content="width=1920">
+<style>
+:root{--bg:#12161b;--slate:#1a2027;--panel:#20272f;--line:#2f3943;--ink:#e8edf2;--dim:#93a1ae;--faint:#5f6d7a;
+--fine:#4fae7c;--sore:#d9a441;--hurt:#e0703a;--inj:#d8404a;--blue:#4b8fe0;--chip:#2a333d}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,sans-serif;overflow:hidden}
+.top{height:64px;background:#0d1014;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 24px;gap:22px}
+.top .gym{font-weight:700;letter-spacing:1px;font-size:20px}.top .date{color:var(--dim)}
+.top .cash{margin-left:auto;color:#7fd39b;font-weight:700;font-size:20px}.top .cash small{color:var(--dim);font-weight:400;font-size:13px;margin-left:8px}
+.big{background:#c0392b;color:#fff;font-weight:700;padding:12px 22px;border-radius:6px}
+.rail{position:absolute;top:64px;left:0;width:84px;bottom:0;background:#0f1317;border-right:1px solid var(--line)}
+.rail div{height:64px;display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:12px}
+.rail .on{color:var(--ink);border-left:3px solid var(--blue)}
+main{position:absolute;left:84px;top:64px;right:0;bottom:0;padding:22px 28px}
+h1{font-size:26px;letter-spacing:2px;font-weight:700}h1 span{color:var(--dim);font-weight:400;font-size:16px;letter-spacing:0;margin-left:14px}
+.tabs{display:flex;gap:8px;margin:14px 0 16px}.tab{padding:9px 16px;background:var(--chip);border-radius:6px;color:var(--dim);font-size:14px;display:flex;gap:8px;align-items:center}
+.tab.on{background:var(--panel);color:var(--ink);outline:1px solid var(--blue)}
+.dot{width:9px;height:9px;border-radius:50%}
+.grid{display:grid;grid-template-columns:520px 1fr 380px;gap:20px;height:880px}
+.card{background:var(--slate);border:1px solid var(--line);border-radius:10px;padding:18px}
+.lab{font-size:12px;letter-spacing:2px;color:var(--dim);font-weight:600;margin-bottom:10px}
+.fig{position:relative;height:640px}
+.lbl{position:absolute;font-size:14px;line-height:1.25}
+.lbl b{font-size:15px}.lbl .w{font-weight:700}
+.lbl .d{color:var(--dim);font-size:12.5px}
+.vs{display:flex;gap:10px;margin-top:6px}
+.tile{flex:1;background:var(--panel);border-radius:8px;padding:10px 12px;border:1px solid var(--line)}
+.tile .n{font-size:24px;font-weight:700}.tile .c{font-size:12px;color:var(--dim)}
+.opts{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-top:4px}
+.opt{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;position:relative}
+.opt.pick{outline:2px solid var(--blue)}
+.opt h3{font-size:17px;margin-bottom:2px}.opt .sub{font-size:12px;color:var(--dim);margin-bottom:12px;min-height:30px}
+.row{display:flex;align-items:center;gap:10px;margin:9px 0}
+.ic{width:30px;height:30px;border-radius:6px;background:var(--chip);display:flex;align-items:center;justify-content:center;font-size:15px}
+.row .n{font-size:20px;font-weight:700;min-width:64px}.row .c{font-size:12px;color:var(--dim);line-height:1.2}
+.bar{height:6px;background:#2a333d;border-radius:3px;margin-top:4px;overflow:hidden}.bar i{display:block;height:100%}
+.sched{margin-top:16px}
+.days{display:grid;grid-template-columns:110px repeat(7,1fr);gap:4px;font-size:12px}
+.days div{padding:7px 6px;border-radius:5px;background:var(--panel);text-align:center;color:var(--dim)}
+.days .h{background:none;color:var(--faint);font-weight:600}
+.days .rn{background:none;text-align:left;color:var(--ink);font-weight:600}
+.k{outline:1px solid var(--hurt);color:#f0b08a!important}.s{background:#1d3a2c!important;color:#9fd8b6!important}.r{background:#26303a!important;color:var(--faint)!important}
+.side .item{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}
+.side .item:last-child{border:none}
+.side .n{font-size:20px;font-weight:700}.side .c{font-size:12.5px;color:var(--dim);line-height:1.3}
+.btn{display:inline-block;padding:9px 14px;border-radius:6px;background:var(--chip);font-size:13px;margin-top:6px;margin-right:6px}
+.btn.p{background:var(--blue);color:#fff;font-weight:600}
+.order{background:#18242f;border:1px dashed #3d5a78;border-radius:8px;padding:12px;margin-top:12px;font-size:13px;color:#b9cbe0;line-height:1.45}
+.tip{border-bottom:1px dotted var(--faint)}
+.warn{color:var(--sore)}
+</style></head><body>
+<div class="top"><span class="gym">ANVIL STREET GYM</span><span class="date">Mon 2 Mar 2026 · Week 9</span>
+<span class="cash">$11,420<small>running +$210 a week</small></span><span class="big">NEEDS YOU (1) · Medical board</span></div>
+<div class="rail"><div>Home</div><div class="on">Fighters</div><div>Fights</div><div>Club</div><div>World</div></div>
+<main>
+<h1>MEDICAL BOARD <span>Monday: every carried place in the gym, one answer each. Standing orders answer the rest.</span></h1>
+<div class="tabs">
+<div class="tab on"><span class="dot" style="background:var(--hurt)"></span>Boxer A · right ribs hurt · bout Sat 14</div>
+<div class="tab"><span class="dot" style="background:var(--sore)"></span>Boxer B · nose sore · no bout</div>
+<div class="tab"><span class="dot" style="background:var(--fine)"></span>Boxer C · fine</div>
+<div class="tab"><span class="dot" style="background:var(--faint)"></span>Boxer D (no-gi) · today's rolls</div>
+</div>
+<div class="grid">
+<!-- body figure -->
+<div class="card">
+<div class="lab">BODY THE MORNING AFTER · SAT 28 FEB, LOST ON POINTS</div>
+<div class="fig">
+<svg width="484" height="640" viewBox="0 0 484 640">
+<defs><linearGradient id="sk" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a4652"/><stop offset="1" stop-color="#2a333d"/></linearGradient></defs>
+<!-- silhouette -->
+<g fill="url(#sk)" stroke="#4a5866" stroke-width="1.2">
+<ellipse cx="242" cy="78" rx="38" ry="46"/>
+<path d="M226 120 h32 l4 22 h-40z"/>
+<path d="M170 150 Q242 128 314 150 L330 250 Q322 330 300 370 L184 370 Q162 330 154 250 Z"/>
+<path d="M170 152 Q140 170 132 230 L118 330 L136 336 L156 246 Z"/>
+<path d="M314 152 Q344 170 352 230 L366 330 L348 336 L328 246 Z"/>
+<path d="M186 370 L298 370 L292 410 L192 410Z"/>
+<path d="M192 410 L238 410 L230 600 L200 600Z"/><path d="M246 410 L292 410 L284 600 L254 600Z"/>
+</g>
+<!-- muscle hints -->
+<g fill="none" stroke="#56646f" stroke-width="1"><path d="M242 150 V360"/><path d="M196 190 Q242 205 288 190"/><path d="M204 262 h76 M206 296 h72 M210 330 h64"/></g>
+<!-- tinted places: right ribs (her right = viewer left) hurt, left ribs sore, nose sore, eyes -->
+<path d="M160 230 Q170 214 196 222 L204 318 Q186 336 166 322 Z" fill="#e0703a" fill-opacity=".72" stroke="#ff9a62"/>
+<g stroke="#ff9a62" stroke-opacity=".6"><path d="M168 246 L200 252 M166 268 L201 274 M168 290 L202 296"/></g>
+<path d="M324 230 Q314 214 288 222 L280 318 Q298 336 318 322 Z" fill="#d9a441" fill-opacity=".45" stroke="#e8bf6a"/>
+<path d="M236 76 L248 76 L251 98 L233 98 Z" fill="#d9a441" fill-opacity=".7" stroke="#e8bf6a"/>
+<path d="M216 68 Q226 62 236 68 Q226 74 216 68Z" fill="#4fae7c" fill-opacity=".6"/>
+<path d="M248 68 Q258 62 268 68 Q258 74 248 68Z" fill="#d9a441" fill-opacity=".55"/>
+<!-- hooked leader lines out of the body -->
+<g fill="none" stroke-width="1.6">
+<path d="M176 280 L120 300 L20 300" stroke="#ff9a62"/><circle cx="176" cy="280" r="3.5" fill="#ff9a62"/>
+<path d="M306 276 L370 250 L470 250" stroke="#e8bf6a"/><circle cx="306" cy="276" r="3.5" fill="#e8bf6a"/>
+<path d="M242 92 L300 40 L470 40" stroke="#e8bf6a"/><circle cx="242" cy="92" r="3" fill="#e8bf6a"/>
+<path d="M226 68 L160 24 L20 24" stroke="#4fae7c"/><circle cx="226" cy="68" r="3" fill="#4fae7c"/>
+<path d="M258 68 L330 120 L470 120" stroke="#e8bf6a"/><circle cx="258" cy="68" r="3" fill="#e8bf6a"/>
+</g>
+</svg>
+<div class="lbl" style="left:20px;top:2px"><b>Right eye</b> <span class="w" style="color:var(--fine)">fine</span></div>
+<div class="lbl" style="left:300px;top:18px;text-align:right;width:170px"><b>Nose</b> <span class="w" style="color:var(--sore)">sore</span><div class="d">fine Fri 6 · by itself</div></div>
+<div class="lbl" style="left:300px;top:98px;text-align:right;width:170px"><b>Left eye</b> <span class="w" style="color:var(--sore)">sore</span><div class="d">fine Wed 4 · by itself</div></div>
+<div class="lbl" style="left:300px;top:228px;text-align:right;width:170px"><b>Left ribs</b> <span class="w" style="color:var(--sore)">sore</span><div class="d">fine Fri 13 if spared</div></div>
+<div class="lbl" style="left:20px;top:306px;width:200px"><b>Right ribs</b> <span class="w" style="color:var(--hurt)">hurt 51</span><div class="d">fine Mon 30 if spared<br><span class="tip">their corner aimed it 4 rounds of 3</span></div></div>
+</div>
+<div class="vs">
+<div class="tile"><div class="n" style="color:var(--hurt)">2</div><div class="c">places that touch training</div></div>
+<div class="tile"><div class="n">Sat 14</div><div class="c">next bout · 12 days</div></div>
+<div class="tile"><div class="n warn">Body</div><div class="c">opponent's weapon (scouted)</div></div>
+</div>
+</div>
+
+<!-- options -->
+<div class="card">
+<div class="lab">THE NEXT 12 DAYS · WHAT EACH ANSWER DOES TO FIGHT NIGHT</div>
+<div class="opts">
+<div class="opt"><h3>Train</h3><div class="sub">the week as planned; ribs heal at half speed on worked days</div>
+<div class="row"><div class="ic">⚕</div><div><div class="n" style="color:var(--hurt)">sore 62</div><div class="c">right ribs on fight night</div></div></div>
+<div class="row"><div class="ic">⚠</div><div><div class="n" style="color:var(--inj)">1 in 2</div><div class="c">ribs injured in the bout<br>vs this body puncher</div></div></div>
+<div class="row"><div class="ic">✚</div><div><div class="n">1 in 4</div><div class="c">a training knock</div></div></div>
+<div class="row"><div class="ic">▲</div><div><div class="n">+0.9</div><div class="c">Power by fight night<br>camp goal: on track</div></div></div>
+</div>
+<div class="opt pick"><h3>Body protector</h3><div class="sub">spar in a body protector, pads light; bag swapped to roadwork</div>
+<div class="row"><div class="ic">⚕</div><div><div class="n" style="color:var(--sore)">sore 68</div><div class="c">right ribs on fight night</div></div></div>
+<div class="row"><div class="ic">⚠</div><div><div class="n" style="color:var(--hurt)">1 in 3</div><div class="c">ribs injured in the bout</div></div></div>
+<div class="row"><div class="ic">✚</div><div><div class="n">1 in 25</div><div class="c">a training knock</div></div></div>
+<div class="row"><div class="ic">▲</div><div><div class="n">+0.6</div><div class="c">Power · keeps sparring<br>Ring IQ +0.3</div></div></div>
+</div>
+<div class="opt"><h3>Spare</h3><div class="sub">every rib session swapped: shadow, footwork, roadwork</div>
+<div class="row"><div class="ic">⚕</div><div><div class="n" style="color:var(--sore)">sore 72</div><div class="c">right ribs on fight night</div></div></div>
+<div class="row"><div class="ic">⚠</div><div><div class="n" style="color:var(--sore)">1 in 4</div><div class="c">ribs injured in the bout</div></div></div>
+<div class="row"><div class="ic">✚</div><div><div class="n">none</div><div class="c">a training knock</div></div></div>
+<div class="row"><div class="ic">▼</div><div><div class="n">+0.3</div><div class="c">Power · camp goal at risk<br>no sparring: 1-2 combo stays Raw</div></div></div>
+</div>
+<div class="opt"><h3>Rest</h3><div class="sub">a week off (gains a quarter), heals half again faster</div>
+<div class="row"><div class="ic">⚕</div><div><div class="n" style="color:var(--sore)">sore 76</div><div class="c">right ribs on fight night</div></div></div>
+<div class="row"><div class="ic">⚠</div><div><div class="n" style="color:var(--sore)">1 in 5</div><div class="c">ribs injured in the bout</div></div></div>
+<div class="row"><div class="ic">✚</div><div><div class="n">none</div><div class="c">a training knock</div></div></div>
+<div class="row"><div class="ic">▼</div><div><div class="n">+0.1</div><div class="c">Power · camp goal missed<br>morale −3 (Heart 71: wants to fight)</div></div></div>
+</div>
+</div>
+<div class="sched">
+<div class="lab" style="margin-top:6px">THIS WEEK ON THE BOARD (BODY PROTECTOR) · CLICK A DAY TO CHANGE IT</div>
+<div class="days">
+<div class="h"></div><div class="h">Mon</div><div class="h">Tue</div><div class="h">Wed</div><div class="h">Thu</div><div class="h">Fri</div><div class="h">Sat</div><div class="h">Sun</div>
+<div class="rn">Morning</div><div>Roadwork</div><div class="s">Roadwork ⇄ bag</div><div>Weights</div><div>Intervals</div><div>Shadow</div><div class="s">Roadwork ⇄ bag</div><div class="r">Rest</div>
+<div class="rn">Evening</div><div class="k">Pads · light</div><div class="r">Rest</div><div class="k">Pads · light</div><div class="k">Spar · protector</div><div class="k">Pads · light</div><div class="r">Rest</div><div class="r">Rest</div>
+<div class="rn">Right ribs</div><div>53</div><div>55</div><div>56</div><div>58</div><div>59</div><div>61</div><div>63</div>
+</div>
+</div>
+<div class="order">STANDING ORDER (answers every Monday nobody looks): <b>hurt ribs + a bout inside 14 days → Body protector</b> · sore face, no bout → Train · injured → Spare and book the check. <span class="btn">Edit orders</span></div>
+</div>
+
+<!-- side: money, bout, check -->
+<div class="card side">
+<div class="lab">OTHER ANSWERS THIS MONDAY</div>
+<div class="item"><div class="ic">✚</div><div><div class="n">$60 <span style="font-size:13px;color:var(--dim);font-weight:400">physio session</span></div>
+<div class="c">right ribs heal half again faster this week: <b>68 → 74</b> on fight night, risk 1 in 3 → 1 in 4. The club physio's x1.33 already counts.</div><span class="btn p">Book it</span></div></div>
+<div class="item"><div class="ic">⇆</div><div><div class="n">Ask to move <span style="font-size:13px;color:var(--dim);font-weight:400">to Sat 28</span></div>
+<div class="c">yes 6 in 10 · a NO cools Eastside 4 weeks · <span class="warn">their corner learns the ribs: Aim Body likely</span></div><span class="btn">Ask</span></div></div>
+<div class="item"><div class="ic">✕</div><div><div class="n">$300 <span style="font-size:13px;color:var(--dim);font-weight:400">pull out</span></div>
+<div class="c">next offer in about 14 days · rank place at risk · morale −5</div><span class="btn">Pull out</span></div></div>
+<div class="item"><div class="ic">♥</div><div><div class="n">Wants to fight</div>
+<div class="c">Heart 71, Composure 58. Overrule = morale −5. Fight with ribs sore = morale +3 win or lose.</div></div></div>
+<div class="item"><div class="ic">◎</div><div><div class="n">Fight plan</div>
+<div class="c">add a line <b>"When she goes to the body → Elbows in"</b>: halves rib hits, costs 1 in 10 exchanges at range.</div><span class="btn">Write it</span></div></div>
+<div class="item"><div class="ic">⧗</div><div><div class="n">12 days</div><div class="c">to the weigh-in medical: ribs pass while not injured; face must be sore or better.</div></div></div>
+<div style="margin-top:18px"><span class="btn p" style="padding:12px 22px;font-size:15px">Set Body protector for 12 days</span></div>
+</div>
+</div>
+</main>
+</body></html>

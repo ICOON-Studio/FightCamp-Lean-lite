@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Corner Minute 10</title>
+<meta name="viewport" content="width=1920">
+<style>
+:root{--bg:#12161b;--slate:#1a2027;--panel:#202832;--line:#2f3a46;--ink:#e6ebf0;--dim:#8d99a6;--faint:#5b6773;
+--red:#d8483f;--blue:#3f7fd8;--ok:#58b36a;--sore:#e0a43a;--hurt:#e2603a;--inj:#b8282a;--gold:#d9b25c;--muscle:#7a3b3b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--bg);color:var(--ink);font:15px/1.35 "Segoe UI",Roboto,Arial,sans-serif;overflow:hidden}
+.top{height:64px;display:flex;align-items:center;padding:0 32px;border-bottom:1px solid var(--line);background:#0d1014;gap:28px}
+.top h1{font-size:22px;letter-spacing:.14em;font-weight:700}
+.top .rd{color:var(--dim);letter-spacing:.12em;font-size:13px}
+.score{margin-left:auto;display:flex;gap:18px;align-items:center;font-size:14px;color:var(--dim)}
+.score b{font-size:22px;color:var(--ink)} .timer{font:700 26px Consolas,monospace;color:var(--gold)}
+.grid{display:grid;grid-template-columns:470px 1fr 470px;gap:18px;padding:18px 24px;height:1016px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px 16px;position:relative}
+.h{font-size:12px;letter-spacing:.16em;color:var(--dim);font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.h .tag{margin-left:auto;font-size:11px;letter-spacing:.08em;color:var(--faint);font-weight:600}
+.fig{height:610px} .fig svg{position:absolute;inset:44px 0 0 0;width:100%;height:560px}
+.lbl{font:600 13px "Segoe UI",Arial;fill:var(--ink)} .num{font:700 16px Consolas,monospace} .sub{font:12px "Segoe UI",Arial;fill:var(--dim)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{display:flex;align-items:center;gap:6px;padding:4px 9px;border-radius:4px;font-size:12px;font-weight:700;letter-spacing:.06em;border:1px solid}
+.c-w{color:var(--sore);border-color:#6b5222;background:#2a2215}.c-r{color:var(--hurt);border-color:#6e3424;background:#2b1a15}.c-b{color:#9cc0ff;border-color:#2b4670;background:#16202e}
+.ico{width:16px;height:16px;display:inline-block}
+.stat{display:flex;gap:10px;margin-top:10px}
+.tile{flex:1;background:#171d24;border:1px solid var(--line);border-radius:5px;padding:8px 10px}
+.tile .v{font:700 24px Consolas,monospace}.tile .k{font-size:11px;color:var(--dim);letter-spacing:.08em}
+.mid{display:flex;flex-direction:column;gap:14px}
+.range{display:flex;height:34px;border-radius:4px;overflow:hidden;font-size:12px;font-weight:700;letter-spacing:.1em}
+.range div{display:flex;align-items:center;justify-content:center;gap:6px}
+.aims{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.aim{background:#171d24;border:1px solid var(--line);border-radius:6px;padding:10px;min-height:178px;position:relative}
+.aim.sel{border:2px solid var(--gold);background:#221f17}
+.aim .n{font-weight:700;font-size:15px}.aim .big{font:700 30px Consolas,monospace;margin:6px 0 0}
+.aim .cap{font-size:11px;color:var(--dim)}
+.aim .bar{height:6px;background:#2a333d;border-radius:3px;margin:8px 0}.aim .bar i{display:block;height:100%;border-radius:3px}
+.aim .why{font-size:12px;color:var(--ink);margin-top:4px}
+.pos{color:var(--ok)}.neg{color:var(--hurt)}.neu{color:var(--dim)}
+.link{display:flex;gap:10px;align-items:center;font-size:13px;padding:8px 10px;border-left:3px solid var(--gold);background:#1b1f22;margin-top:8px}
+.changes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ch{background:#171d24;border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.ch.sel{border:2px solid var(--gold)}
+.ch .n{font-weight:700}.ch .row{display:flex;justify-content:space-between;font-size:12px;color:var(--dim);margin-top:5px}
+.ch .row b{color:var(--ink);font-family:Consolas,monospace}
+.arrow{font:700 13px Consolas;padding:2px 6px;border-radius:3px}
+.seconds{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:10px;align-items:stretch}
+.pip{display:inline-block;width:14px;height:14px;border-radius:50%;background:#3a9fd6;margin-right:3px}.pip.off{background:#2a333d}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:9px 14px;border-radius:5px;font-weight:700;font-size:13px;border:1px solid var(--line);background:#222b35;color:var(--ink)}
+.btn.go{background:var(--gold);color:#1a1408;border:none;font-size:16px;padding:14px 26px}
+.btn.stop{border-color:#6e2a2a;color:#ff9b8f;background:#2a1717}
+.foot{display:flex;gap:12px;align-items:center;margin-top:auto}
+.tip{font-size:11px;color:var(--faint)}
+.dots i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-left:2px}.dots i.o{background:#3a434d}
+.carry{font-size:12px;color:var(--dim);border-top:1px dashed var(--line);margin-top:10px;padding-top:8px}
+</style></head><body>
+<div class="top">
+  <h1>CORNER &middot; 60 SECONDS</h1><span class="rd">AFTER ROUND 2 OF 3 &middot; AMATEUR 3x3</span>
+  <div class="score"><span>Exchanges</span><b style="color:var(--red)">7</b><span>-</span><b style="color:var(--blue)">5</b><span style="margin-left:14px">Rounds</span><b>1 - 1</b><span style="margin-left:14px">Counts 0 / 0</span><span class="timer">0:41</span></div>
+</div>
+<div class="grid">
+<!-- YOUR BOXER -->
+<div style="display:flex;flex-direction:column;gap:14px">
+ <div class="card fig">
+  <div class="h"><span style="width:10px;height:10px;background:var(--red);border-radius:2px"></span>YOUR BOXER &middot; EXACT<span class="tag">hover a place: what it does now</span></div>
+  <svg viewBox="0 0 470 560">
+   <defs><linearGradient id="sk" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2b3540"/><stop offset="1" stop-color="#232b34"/></linearGradient></defs>
+   <!-- figure: muscle groups -->
+   <g transform="translate(150,20)" stroke="#11161b" stroke-width="1.2">
+    <ellipse cx="85" cy="48" rx="30" ry="38" fill="url(#sk)"/>
+    <ellipse cx="73" cy="44" rx="8" ry="5" fill="#2b3540"/><ellipse cx="97" cy="44" rx="8" ry="5" fill="#a8472f" opacity=".85"/>
+    <path d="M76 90 h18 v14 h-18z" fill="#28313b"/>
+    <path d="M30 108 Q85 92 140 108 L150 150 Q85 140 20 150Z" fill="#2c3641"/>
+    <path d="M40 150 Q85 142 130 150 L128 205 Q85 214 42 205Z" fill="#2a333d"/>
+    <path d="M42 205 L60 210 L62 290 L46 285 Q36 245 42 205Z" fill="#c9873a" opacity=".92"/>
+    <path d="M128 205 L110 210 L108 290 L124 285 Q134 245 128 205Z" fill="#2f3a44"/>
+    <path d="M62 210 h46 v84 h-46z" fill="#28313a"/>
+    <path d="M20 150 Q8 200 14 250 L28 252 Q30 205 40 155Z" fill="#26303a"/><path d="M150 150 Q162 200 156 250 L142 252 Q140 205 130 155Z" fill="#26303a"/>
+    <circle cx="20" cy="262" r="16" fill="#3a2222"/><circle cx="150" cy="262" r="16" fill="#3a2222"/>
+    <path d="M48 292 h74 l-6 40 h-62z" fill="#2a333d"/>
+    <path d="M56 332 l26 0 -4 150 -18 0z" fill="#252e37"/><path d="M90 332 l26 0 -4 150 -18 0z" fill="#252e37"/>
+   </g>
+   <!-- hooked leader lines out of the body -->
+   <g fill="none" stroke-width="1.6">
+    <path d="M195 296 L120 330 L20 330" stroke="#c9873a"/><circle cx="195" cy="296" r="3" fill="#c9873a"/>
+    <path d="M247 64 L300 40 L455 40" stroke="#a8472f"/><circle cx="247" cy="64" r="3" fill="#a8472f"/>
+    <path d="M235 75 L300 110 L455 110" stroke="#5b6773"/><circle cx="235" cy="75" r="3" fill="#5b6773"/>
+    <path d="M268 250 L330 270 L455 270" stroke="#5b6773"/><circle cx="268" cy="250" r="3" fill="#5b6773"/>
+   </g>
+   <text x="20" y="320" class="lbl">LEFT RIBS</text><text x="20" y="350" class="num" fill="#e0a43a">48 sore</text>
+   <text x="20" y="368" class="sub">breath x1.25 &middot; 5 hooks last round</text>
+   <text x="455" y="32" class="lbl" text-anchor="end">LEFT EYE</text><text x="455" y="60" class="num" fill="#e2603a" text-anchor="end">CUT &middot; 61</text>
+   <text x="455" y="76" class="sub" text-anchor="end">blind side -4 if open next round</text>
+   <text x="455" y="102" class="lbl" text-anchor="end">HEAD</text><text x="455" y="128" class="num" fill="#58b36a" text-anchor="end">82 fine</text>
+   <text x="455" y="262" class="lbl" text-anchor="end">LIVER</text><text x="455" y="288" class="num" fill="#58b36a" text-anchor="end">74 fine</text>
+  </svg>
+  <div style="position:absolute;bottom:14px;left:16px;right:16px">
+   <div class="stat"><div class="tile"><div class="v">52</div><div class="k">ENERGY / 100</div></div><div class="tile"><div class="v" style="color:var(--sore)">Steady</div><div class="k">TRUST IN YOU</div></div><div class="tile"><div class="v">Heart 61</div><div class="k">WINDED: STEPS OFF</div></div></div>
+  </div>
+ </div>
+ <div class="card" style="flex:1">
+  <div class="h">YOUR CORNER SAW</div>
+  <div class="chips"><span class="chip c-w">&#9650; WINDED R2 1:30</span><span class="chip c-r">&#9670; CUT L EYE R2 2:40</span><span class="chip c-b">&#9632; THEY COVERED R2</span></div>
+  <div class="carry">Their corner works your damage: <b style="color:var(--ink)">expect their Ribs next round</b> (6 in 10 when your side is sore)</div>
+ </div>
+</div>
+
+<!-- MIDDLE: THE CALL -->
+<div class="mid">
+ <div class="card">
+  <div class="h">NEXT ROUND: WHERE THE FIGHT HAPPENS<span class="tag">their style mix, pressure fighter &middot; your RANGE CALL shifts it</span></div>
+  <div class="range"><div style="flex:20;background:#24384f">LONG 20</div><div style="flex:40;background:#2f4a3a">POCKET 40</div><div style="flex:40;background:#4a3a24">INSIDE 40</div></div>
+  <div style="display:flex;gap:8px;margin-top:10px;align-items:center"><span class="tip" style="margin-right:6px">RANGE CALL</span>
+   <span class="btn">Stay long <span class="tip">&nbsp;long +20, -1.0 energy</span></span><span class="btn" style="border-color:var(--gold)">Their pace (free)</span><span class="btn">Get inside <span class="tip">&nbsp;inside +20, their hooks too</span></span></div>
+ </div>
+ <div class="card">
+  <div class="h">THE AIM FOR ROUND 3<span class="tag">number = change in your chance to win the bout, from the coach</span></div>
+  <div class="aims">
+   <div class="aim"><div class="n">Own game</div><div class="cap">free</div><div class="big neu">&plusmn;0</div><div class="bar"><i style="width:50%;background:#5b6773"></i></div><div class="why">baseline</div></div>
+   <div class="aim"><div class="n">Head</div><div class="cap">cost 0.6 &middot; Accuracy 50</div><div class="big pos">+4%</div><div class="bar"><i style="width:68%;background:var(--ok)"></i></div><div class="why"><b>+3 opened</b>: their ribs read sore</div></div>
+   <div class="aim"><div class="n">Body</div><div class="cap">cost 1.4 at this mix</div><div class="big neg">-2%</div><div class="bar"><i style="width:38%;background:var(--hurt)"></i></div><div class="why">no body weakness on file</div></div>
+   <div class="aim"><div class="n">Ribs</div><div class="cap">cost 0.9 &middot; hooks 62</div><div class="big pos">+2%</div><div class="bar"><i style="width:60%;background:var(--ok)"></i></div><div class="why">they cover 4 in 10 now</div></div>
+   <div class="aim sel"><div class="n">Ribs, then Head</div><div class="cap">switches on a sore read</div><div class="big pos">+5%</div><div class="bar"><i style="width:74%;background:var(--gold)"></i></div><div class="why">read is <b>sore</b> <span class="dots"><i></i><i></i><i class="o"></i></span> &rarr; Head now</div></div>
+  </div>
+  <div class="link">&#8627; <span><b>The body opened the head.</b> Their elbow dropped twice after left hooks (2 dots: right 7 in 10). If the read is wrong, Head costs <b class="neg">-1%</b>.</span></div>
+ </div>
+ <div class="card">
+  <div class="h">ONE CHANGE<span class="tag">the coach's arrow is right 8 in 10 (coach rated 72)</span></div>
+  <div class="changes">
+   <div class="ch"><div class="n">Fix the habit</div><div class="tip">drops the right at long &middot; costs 2.2 there</div><div class="row">takes <b>7 in 10</b></div><div class="row">leaves <b>ribs and eye open</b></div><div class="row">coach <span class="arrow" style="background:#26301f;color:var(--ok)">&#9650; better</span></div></div>
+   <div class="ch sel"><div class="n">Cover the ribs</div><div class="tip">elbows in &middot; habit stays open</div><div class="row">liver drop <b>x0.2</b></div><div class="row">some hooks ride up to <b>the cut eye</b></div><div class="row">coach <span class="arrow" style="background:#2d2a1d;color:var(--gold)">&#9654; same</span></div></div>
+   <div class="ch"><div class="n">Gloves high</div><div class="tip">protects the cut &middot; ribs take more</div><div class="row">face <b>x0.5</b> &middot; ribs <b>x1.2</b></div><div class="row">their body share <b>+15</b></div><div class="row">coach <span class="arrow" style="background:#2e1d1a;color:var(--hurt)">&#9660; worse</span></div></div>
+  </div>
+ </div>
+ <div class="card" style="flex:1;display:flex;flex-direction:column">
+  <div class="h">SECONDS &middot; 3 POINTS<span class="tag">picked by the seconds, change any</span></div>
+  <div class="seconds">
+   <div class="tile"><div class="k">WATER</div><div style="margin:6px 0"><span class="pip"></span><span class="pip"></span><span class="pip off"></span></div><div class="tip">+3 energy each at 40-60</div></div>
+   <div class="tile"><div class="k">ICE LEFT RIBS</div><div style="margin:6px 0"><span class="pip" style="background:#9cc0ff"></span></div><div class="tip">reads one word better R3</div></div>
+   <div class="tile"><div class="k">CUT (AMATEUR)</div><div class="v" style="font-size:18px;color:var(--hurt)">Doctor 8%</div><div class="tip">no cutman work allowed</div></div>
+   <div class="tile"><div class="k">TALK</div><div style="font-weight:700;margin-top:4px">The truth</div><div class="tip">trust Steady: takes it in</div></div>
+  </div>
+  <div class="foot">
+   <span class="btn stop">&#9632; Retire your boxer &middot; save the eye for the next bout</span>
+   <span class="tip">a cut eye carried into training: 3 weeks off sparring (other map)</span>
+   <span class="btn go" style="margin-left:auto">SEND OUT &#9654;</span>
+  </div>
+ </div>
+</div>
+
+<!-- OPPONENT -->
+<div style="display:flex;flex-direction:column;gap:14px">
+ <div class="card fig">
+  <div class="h"><span style="width:10px;height:10px;background:var(--blue);border-radius:2px"></span>OPPONENT &middot; WHAT YOU SEE<span class="tag">signs, not numbers</span></div>
+  <svg viewBox="0 0 470 560">
+   <g transform="translate(150,20)" stroke="#11161b" stroke-width="1.2">
+    <ellipse cx="85" cy="48" rx="30" ry="38" fill="url(#sk)"/>
+    <path d="M76 90 h18 v14 h-18z" fill="#28313b"/>
+    <path d="M30 108 Q85 92 140 108 L150 150 Q85 140 20 150Z" fill="#2c3641"/>
+    <path d="M40 150 Q85 142 130 150 L128 205 Q85 214 42 205Z" fill="#2a333d"/>
+    <path d="M42 205 L60 210 L62 290 L46 285 Q36 245 42 205Z" fill="#2f3a44"/>
+    <path d="M128 205 L110 210 L108 290 L124 285 Q134 245 128 205Z" fill="#c9873a" opacity=".75"/>
+    <path d="M62 210 h46 v84 h-46z" fill="#28313a"/>
+    <path d="M20 150 Q8 200 14 250 L28 252 Q30 205 40 155Z" fill="#26303a"/><path d="M150 150 Q162 200 156 250 L142 252 Q140 205 130 155Z" fill="#26303a"/>
+    <circle cx="20" cy="262" r="16" fill="#1f2a3d"/><circle cx="150" cy="262" r="16" fill="#1f2a3d"/>
+    <path d="M48 292 h74 l-6 40 h-62z" fill="#2a333d"/>
+    <path d="M56 332 l26 0 -4 150 -18 0z" fill="#252e37"/><path d="M90 332 l26 0 -4 150 -18 0z" fill="#252e37"/>
+   </g>
+   <g fill="none" stroke-width="1.6">
+    <path d="M275 296 L350 330 L455 330" stroke="#c9873a"/><circle cx="275" cy="296" r="3" fill="#c9873a"/>
+    <path d="M225 64 L170 40 L15 40" stroke="#5b6773"/><circle cx="225" cy="64" r="3" fill="#5b6773"/>
+    <path d="M205 250 L140 270 L15 270" stroke="#5b6773"/><circle cx="205" cy="250" r="3" fill="#5b6773"/>
+   </g>
+   <text x="455" y="320" class="lbl" text-anchor="end">LIVER (RIGHT RIBS)</text><text x="455" y="350" class="num" fill="#e0a43a" text-anchor="end">sore</text>
+   <text x="455" y="368" class="sub" text-anchor="end">elbow drops after hooks &#9679;&#9679;&#9675;</text>
+   <text x="15" y="32" class="lbl">EYES</text><text x="15" y="60" class="num" fill="#58b36a">fine</text><text x="15" y="76" class="sub">no swelling seen &#9679;&#9679;&#9675;</text>
+   <text x="15" y="262" class="lbl">LEFT RIBS</text><text x="15" y="288" class="num" fill="#58b36a">fine</text>
+  </svg>
+  <div style="position:absolute;bottom:14px;left:16px;right:16px">
+   <div class="stat"><div class="tile"><div class="v">Mouth</div><div class="k">BREATHING: TIRING</div></div><div class="tile"><div class="v">Pressing</div><div class="k">THEIR MODE R2</div></div><div class="tile"><div class="v">Often</div><div class="k">THEY COVER</div></div></div>
+  </div>
+ </div>
+ <div class="card" style="flex:1">
+  <div class="h">THEIR FILE<span class="tag">tape study</span></div>
+  <div style="font-size:13px;line-height:1.7">
+   <div>Weakness: <b>ribs</b> &middot; you have the weapon <span class="pos">(Body hook 62 &ge; 40)</span></div>
+   <div>Covers: <b>often</b> &middot; more after 4+ hooks on one side</div>
+   <div>Carried: <b>stopped by a body shot 12 days ago</b></div>
+   <div class="tip" style="margin-top:6px">Weakness +0.5 shuts while they cover</div>
+  </div>
+ </div>
+</div>
+</div>
+</body></html>
