@@ -42,13 +42,32 @@ func build(main: Node, m: Dictionary) -> void:
 				# S323 (Q-S294-40 "Layout looks cheap / like a spreadsheet"): the round and result pages as broadcast graphics.
 				remove_child(v)
 				v.queue_free()
-				_round(main, Broadcast.frame(self), m)
+				_round(main, Broadcast.frame(_scroll_if_asking(m)), m)
 			else:
 				_live(main, v, m)
 		"result":
 			remove_child(v)
 			v.queue_free()
 			_result(main, Broadcast.frame(self), m)
+
+
+## S442 UX audit: with the corner's questions under the round's numbers the page ran past 1080 and the calls - the only
+## way on - sat below the screen. While the corner asks, the page scrolls inside a 1040 px frame; other pages stay as built.
+func _scroll_if_asking(m: Dictionary) -> PanelContainer:
+	var rounds: Array = m["rounds"]
+	var last: Dictionary = rounds[rounds.size() - 1]
+	if int(m["round"]) >= int(m.get("total", BoutRules.ROUNDS)) or str(last.get("stopped", "")) != "":
+		return self
+	add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+	var sc := ScrollContainer.new()
+	sc.name = "CornerScroll"
+	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	sc.custom_minimum_size = Vector2(1440, 1040)
+	add_child(sc)
+	var inner := PanelContainer.new()
+	inner.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sc.add_child(inner)
+	return inner
 
 
 static func _energy_word(e: float) -> String:

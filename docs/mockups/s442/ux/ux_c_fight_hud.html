@@ -1,0 +1,98 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Fight HUD regrouped</title>
+<style>
+@font-face{font-family:Barlow;src:url(../../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:BarlowSB;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:BarlowB;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Bebas;src:url(../../../../assets/fonts/BebasNeue-Regular.ttf)}
+:root{--ink:#efe6d8;--soft:#b8a88f;--red:#e2483d;--blue:#3f7fe0;--green:#2fb56e;--gold:#f2c14e;--plate:rgba(18,15,13,.86)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;position:relative;font-family:Barlow;color:var(--ink);
+ background:radial-gradient(ellipse at 50% 55%,#4a86d6 0,#2c63b3 38%,#10223f 60%,#0b0c10 75%)}
+.rope{position:absolute;height:6px;border-radius:3px}
+.fighter{position:absolute;width:150px;height:430px;border-radius:70px 70px 30px 30px}
+.plate{position:absolute;background:var(--plate);border-radius:6px;padding:12px 16px}
+.name{font-family:BarlowB;font-size:30px;letter-spacing:1px}
+.mode{font-family:BarlowSB;font-size:20px;color:var(--soft)}
+.m{display:grid;grid-template-columns:92px 48px 1fr;align-items:center;height:30px;font-family:BarlowB;font-size:18px}
+.m span:first-child{letter-spacing:1px;font-size:16px;color:var(--soft)}
+.bar{height:14px;background:#ffffff1a;border-radius:2px;position:relative}.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:2px}
+.board{position:absolute;left:660px;top:0;width:600px;height:172px;background:#1e1b18;border:8px solid #6b4a2b;border-top:0;border-radius:0 0 8px 8px;text-align:center}
+.clock{font-family:Bebas;font-size:84px;line-height:1;margin-top:20px}
+.rnd{font-family:BarlowB;letter-spacing:2px;color:var(--soft);font-size:18px;margin-top:6px}
+.dots i{display:inline-block;width:18px;height:18px;border-radius:9px;background:#ffffff33;margin:8px 5px 0}
+.cards{position:absolute;left:760px;top:182px;display:flex;gap:8px;font-family:BarlowB;font-size:20px;align-items:center}
+.cards span{padding:4px 12px;border-radius:3px}
+.mini{width:120px;height:170px;margin-top:10px;border:1px solid #6fb7ff55;border-radius:6px;background:linear-gradient(#1a3c66aa,#0b1a2daa);position:relative}
+.mini b{position:absolute;width:20px;height:20px;border-radius:10px;border:2px solid #fff;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center}
+.bot{position:absolute;left:16px;right:16px;bottom:12px;height:150px;display:flex;gap:12px}
+.blk{background:var(--plate);border-radius:6px;padding:10px 14px}
+.lab{font-family:BarlowB;letter-spacing:1px;font-size:16px;color:var(--soft);margin-bottom:6px}
+.pill{display:inline-block;padding:7px 14px;border-radius:4px;background:#2b241d;font-family:BarlowSB;font-size:19px;margin-right:6px}
+.pill.on{background:#f6efe0;color:#241f1a}
+.call{display:inline-block;width:200px;padding:8px 10px;border-radius:5px;background:#2b241d;text-align:center;margin-right:8px;vertical-align:top}
+.call h6{font-family:BarlowB;font-size:19px;font-weight:normal}
+.call em{font-style:normal;font-family:BarlowB;font-size:16px;padding:1px 8px;border-radius:3px}
+.chrome{position:absolute;right:28px;bottom:178px;display:flex;gap:10px;opacity:.35}
+.ic{width:52px;height:52px;border-radius:26px;background:#0009;border:1px solid #ffffff44;display:flex;align-items:center;justify-content:center;font-family:BarlowB;font-size:18px}
+.note{position:absolute;background:#ffd54a;color:#241f1a;padding:10px 14px;font-family:BarlowSB;font-size:16px;border-bottom:5px solid #d9b235;width:360px}
+.inset{position:absolute;right:28px;top:560px;width:440px;height:260px;background:#0b0c10ee;border:3px solid var(--gold);border-radius:8px;padding:14px}
+.inset h3{font-family:BarlowB;letter-spacing:2px;color:var(--gold);font-size:17px;margin-bottom:10px}
+.tag{position:absolute;padding:5px 12px;border-radius:4px;font-family:BarlowB;font-size:20px;background:#120f0dcc;border:2px solid}
+</style></head><body>
+<!-- ring -->
+<div class="rope" style="left:0;right:0;top:300px;background:#ddd;transform:skewY(-4deg)"></div>
+<div class="rope" style="left:0;right:0;top:350px;background:var(--red);transform:skewY(-4deg)"></div>
+<div class="rope" style="left:0;right:0;top:400px;background:#ddd;transform:skewY(-4deg)"></div>
+<div class="fighter" style="left:760px;top:330px;background:linear-gradient(#c8372c 45%,#8a1f18)"></div>
+<div class="fighter" style="left:1010px;top:340px;background:linear-gradient(#2f62c8 45%,#163a80)"></div>
+<!-- state tag moves off the heads onto the name plates (no box above a head) -->
+
+<div class="plate" style="left:24px;top:20px;width:520px">
+  <div class="name">LUCY JACKSON</div><div class="mode">Your call: Draw the lead</div>
+  <div class="m"><span>ENERGY</span><span>89</span><span class="bar"><i style="width:89%;background:var(--gold)"></i></span></div>
+  <div class="m"><span>LEGS</span><span>83</span><span class="bar"><i style="width:83%;background:var(--green)"></i></span></div>
+  <div class="m"><span>GUARD</span><span>93</span><span class="bar"><i style="width:93%;background:#8fb8ff"></i></span></div>
+  <div style="display:flex;gap:14px;align-items:flex-end"><div class="mini"><b style="left:50px;top:12px">3</b></div><div style="font-family:BarlowB;font-size:18px;padding-bottom:6px">Worst: <span style="color:var(--red)">left eye</span><br><span style="color:var(--soft);font-family:Barlow">lasts to round 3</span></div></div>
+</div>
+<div class="plate" style="right:24px;top:20px;width:520px;text-align:right">
+  <div class="name">PRIYA NAIR</div><div class="mode" style="color:#8fb8ff">Waiting to counter</div>
+  <div class="m"><span>ENERGY</span><span>74</span><span class="bar"><i style="width:74%;background:var(--gold)"></i></span></div>
+  <div class="m"><span>LEGS</span><span>83</span><span class="bar"><i style="width:83%;background:var(--green)"></i></span></div>
+  <div class="m"><span>GUARD</span><span>91</span><span class="bar"><i style="width:91%;background:#8fb8ff"></i></span></div>
+  <div style="display:flex;gap:14px;align-items:flex-end;justify-content:flex-end"><div style="font-family:BarlowB;font-size:18px;padding-bottom:6px">Worst: <span style="color:var(--red)">ribs</span></div><div class="mini"><b style="left:50px;top:70px">1</b></div></div>
+</div>
+
+<div class="board"><div class="clock">2:36</div><div class="rnd">ROUND 2 OF 3</div><div class="dots"><i style="background:var(--red)"></i><i style="background:var(--gold)"></i><i></i><i></i><i></i><i></i></div></div>
+<div class="cards"><span style="color:var(--soft)">CARDS</span><span style="background:var(--red)">R1</span><span style="border:2px dashed var(--gold);color:var(--gold)">R2</span><span style="background:#ffffff1a;color:var(--soft)">R3</span></div>
+
+<div class="bot">
+  <div class="blk" style="width:820px">
+    <div class="lab">SHOUT NOW (3 FIT HER MODE) &nbsp;·&nbsp; 0:06 TO THE NEXT EXCHANGE &nbsp;·&nbsp; HEARD 1 OF 3</div>
+    <div class="call"><h6>JAB AND MOVE</h6><em style="background:var(--red)">Risky</em> <span style="font-family:BarlowB;color:var(--gold)">Rests</span></div><div class="call"><h6>GO TO THE BODY</h6><em style="background:var(--green)">Beats it</em> <span style="font-family:BarlowB;color:var(--gold)">Tires</span></div><div class="call" style="background:#f6efe0;color:#241f1a"><h6>DRAW THE LEAD</h6><em style="background:#e08a2c">Works</em> <span style="font-family:BarlowB">Rests</span></div>
+    <div style="margin-top:10px"><span class="lab" style="display:inline">PACE</span> <span class="pill">Push</span><span class="pill on">Steady</span><span class="pill">Save</span> &nbsp; <span class="lab" style="display:inline">AIM</span> <span class="pill on">Own game</span><span class="pill">Head</span><span class="pill">Body</span> &nbsp;<span class="pill">Say nothing</span></div>
+  </div>
+  <div class="blk" style="flex:1">
+    <div class="lab">THIS ROUND</div>
+    <div style="display:flex;align-items:center;gap:18px"><span style="font-family:Bebas;font-size:64px;color:var(--red)">3</span><span style="font-family:BarlowB;font-size:20px">LANDED</span><span style="font-family:Bebas;font-size:64px;color:var(--blue)">3</span>
+    <div style="font-family:BarlowSB;font-size:18px;color:var(--soft);margin-left:20px">Lucy head 2, body 1<br>Priya head 3, body 0</div>
+    <div style="margin-left:auto;font-family:BarlowSB;font-size:18px"><span class="lab">YOUR CALLS</span><br>Draw the lead <span style="color:var(--red)">✕</span></div></div>
+  </div>
+</div>
+
+<div class="chrome"><div class="ic">2x</div><div class="ic">⏭</div><div class="ic">⏩</div><div class="ic">⚙</div></div>
+
+<div class="inset"><h3>ON HOVER (MOUSE NEAR THE BOTTOM RIGHT)</h3>
+  <div style="display:flex;gap:16px;justify-content:center;margin-top:20px">
+    <div style="text-align:center"><div class="ic" style="background:#2b241d;border-color:#fff">2x</div><div style="font-family:BarlowB;font-size:16px;margin-top:6px">SPEED</div></div>
+    <div style="text-align:center"><div class="ic" style="background:#2b241d;border-color:#fff">⏭</div><div style="font-family:BarlowB;font-size:16px;margin-top:6px">SKIP ROUND</div></div>
+    <div style="text-align:center"><div class="ic" style="background:#2b241d;border-color:#fff">⏩</div><div style="font-family:BarlowB;font-size:16px;margin-top:6px">SKIP BOUT</div></div>
+    <div style="text-align:center"><div class="ic" style="background:#2b241d;border-color:#fff">⚙</div><div style="font-family:BarlowB;font-size:16px;margin-top:6px">VIEW</div></div>
+  </div>
+  <div style="color:var(--soft);font-size:16px;margin-top:22px">At rest 35% bright; full in 0.12 s near the mouse, back after 1.5 s. Words show for the first 3 fights, then on hover. Score, clock, the calls and the corner never fade.</div>
+</div>
+
+<div class="note" style="left:620px;top:226px">The two full-height body holos (350 x 530 px each, over the ring) become small maps in the name plates; the "Waiting to counter" box over her head moves to her plate, so nothing sits on a head or a glove.</div>
+<div class="note" style="left:24px;top:610px;width:330px">Words, not symbols, on the calls (his ruling): kept. "Risky" not "Wrong": kept. Labels in caps like the rest of the HUD (today "energy / legs / guard" are lower case).</div>
+<div class="note" style="left:1080px;top:420px;width:330px">One read of her mode, not three (today: box above her head, plate, and "Boxing at range, 1 time" box in the bar).</div>
+</body></html>

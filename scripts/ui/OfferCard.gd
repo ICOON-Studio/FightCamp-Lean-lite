@@ -84,5 +84,5 @@ static func _band(c: Career, f: Dictionary, o: Dictionary) -> Control:
 	v.add_child(UI.caps("WIN CHANCE"))
 	v.add_child(UI.label("%d%% to %d%%" % [lo, hi], 22, UI.GREEN if lo >= 50 else (UI.RED if hi <= 50 else UI.FG), "bold"))
 	if hi - lo >= 30:   # BoutCompare.win_read: a band this wide is still a rough guess
-		v.add_child(UI.muted("Scout to narrow", UI.TINY))
+		v.add_child(UI.muted("Camp film narrows it", UI.TINY))   # S442 UX audit: an amateur offer has no scout button; film in the camp opens the file
 	return v

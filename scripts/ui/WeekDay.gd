@@ -29,7 +29,7 @@ static func head(i: int, day: int, mine: bool, coach_card: Array, act: Callable,
 		undo.flat = true
 		undo.focus_mode = Control.FOCUS_NONE
 		undo.add_theme_font_override("font", UI.font("handbold"))
-		undo.add_theme_font_size_override("font_size", 15)
+		undo.add_theme_font_size_override("font_size", 16)
 		undo.add_theme_color_override("font_color", WoodKit.BLUE)
 		undo.add_theme_color_override("font_hover_color", WB.RED)
 		for k in ["normal", "hover", "pressed", "focus"]:

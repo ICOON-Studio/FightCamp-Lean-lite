@@ -67,7 +67,7 @@ func build(card: Dictionary, names: Array) -> void:
 		bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(bar)
 		_pin(bar, Vector4(0, 0 if top else 1.0 - BAR, 1, BAR if top else 1), Vector4.ZERO)
-	_clock = UI.mono("", UI.SMALL, UI.MUTED)
+	_clock = UI.mono("", UI.BODY, Color("#b8a88f"))   # S442 UX audit: muted brown on the black letterbox could not be read
 	add_child(_clock)
 	_pin(_clock, Vector4(0, 0, 0, 0), Vector4(32, 30, 420, 70))
 	var sk := UI.button("Skip to the bell", "BtnQuiet", func(): skip.emit())
@@ -81,7 +81,7 @@ func build(card: Dictionary, names: Array) -> void:
 	add_child(_caption)
 	_pin(_caption, Vector4(0.08, 1.0 - BAR, 0.92, 1), Vector4.ZERO)
 	_card = PanelContainer.new()
-	_card.add_theme_stylebox_override("panel", UI.box(Color(0.05, 0.04, 0.04, 0.88), UI.LINE, 6, 1, 18, 14))
+	_card.add_theme_stylebox_override("panel", UI.box(Color(0.05, 0.04, 0.04, 0.95), UI.LINE, 6, 1, 18, 14))
 	add_child(_card)
 	# S350 C197 ("doesnt look good, needs a lot of refining"): the card takes the right part of the frame between the bars,
 	# full height, so the corner itself (her on the stool, the coach) stays in view on the left; the round first, then the

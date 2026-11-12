@@ -215,7 +215,7 @@ func _edge_label(id: String) -> void:
 		b.text = str(num)
 		b.focus_mode = Control.FOCUS_NONE
 		b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		b.add_theme_font_size_override("font_size", 14)
+		b.add_theme_font_size_override("font_size", 16)
 		b.add_theme_font_override("font", UI.font("bold"))
 		for k in ["font_color", "font_hover_color", "font_pressed_color"]:
 			b.add_theme_color_override(k, BG)
@@ -234,7 +234,7 @@ func _edge_label(id: String) -> void:
 	b.flat = true
 	b.focus_mode = Control.FOCUS_NONE
 	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	b.add_theme_font_size_override("font_size", 13)
+	b.add_theme_font_size_override("font_size", 16)
 	b.add_theme_font_override("font", UI.font("bold" if on_plan else "semi"))
 	var col: Color = INK if on_plan else STATE_COLOR.get(st, LEARN)
 	if col.a < 1.0:

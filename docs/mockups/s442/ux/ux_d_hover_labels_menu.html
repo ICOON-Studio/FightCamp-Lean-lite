@@ -1,0 +1,61 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Hover labels</title>
+<style>
+@font-face{font-family:Barlow;src:url(../../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:BarlowSB;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:BarlowB;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Marker;src:url(../../../../assets/fonts/PermanentMarker-Regular.ttf)}
+:root{--ink:#efe6d8;--soft:#b8a88f;--gold:#f2c14e;--red:#e2483d;--slate:#24262a;--wood:#6b4a2b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:#141210;color:var(--ink);font-family:Barlow;overflow:hidden;position:relative}
+h1{font-family:Marker;font-weight:normal;font-size:44px;position:absolute;left:40px;top:20px}
+.state{position:absolute;left:40px;font-family:BarlowB;letter-spacing:3px;color:var(--gold);font-size:20px}
+.bar{position:absolute;left:40px;right:40px;height:96px;background:#1b1512;border:2px solid #000;border-radius:6px;display:flex;align-items:flex-start;padding:14px 20px;gap:16px}
+.ico{width:46px;height:46px;border-radius:6px;background:#2b241d;display:flex;align-items:center;justify-content:center;font-family:BarlowB;font-size:20px;color:#9a8f80;position:relative}
+.ico.lit{color:#fff;background:#3a3029;outline:2px solid var(--gold)}
+.ico .w{position:absolute;top:52px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:BarlowB;font-size:16px;letter-spacing:1px;color:#fff}
+.gym{font-family:Marker;color:#6f9cf0;font-size:30px;margin-left:6px}
+.date{font-family:BarlowSB;font-size:19px}.date small{display:block;color:var(--soft);font-size:16px}
+.sp{flex:1}.cash{font-family:BarlowB;color:var(--gold);font-size:26px;text-align:right}.cash small{display:block;font-family:Barlow;color:var(--soft);font-size:16px}
+.big{background:#e0a400;color:#241f1a;padding:8px 18px;border-radius:5px;font-family:BarlowB;width:290px;font-size:19px}.big small{display:block;font-family:BarlowSB;font-size:16px}
+.page{position:absolute;left:40px;right:40px;height:250px;background:var(--slate);border:9px solid var(--wood);border-radius:5px;padding:16px 22px}
+.row{display:flex;align-items:center;gap:22px;height:96px;border-bottom:1px solid #ffffff1a}
+.face{width:72px;height:72px;border-radius:36px;background:linear-gradient(#5a3a2a,#2a1a12)}
+.nm{font-family:BarlowB;font-size:24px;width:250px}.nm small{display:block;font-family:Barlow;color:var(--soft);font-size:17px}
+.prim{background:#27589e;color:#fff;padding:12px 20px;border-radius:5px;font-family:BarlowB;font-size:19px;border-bottom:3px solid #16325c}
+.tool{width:44px;height:44px;border-radius:22px;background:#2b241d;display:flex;align-items:center;justify-content:center;color:#9a8f80;font-family:BarlowB;position:relative}
+.tool.lit{color:#fff;outline:2px solid var(--gold)}
+.tool .w{position:absolute;top:50px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:BarlowB;font-size:16px;color:#fff;background:#000c;padding:2px 8px;border-radius:3px}
+.rules{position:absolute;right:40px;bottom:24px;width:860px;background:#ffd54a;color:#241f1a;padding:14px 18px;border-bottom:6px solid #d9b235;font-family:BarlowSB;font-size:17px;line-height:1.4}
+.rules b{font-family:BarlowB}
+.left{position:absolute;left:40px;bottom:24px;width:900px;background:#bfd8ff;color:#241f1a;padding:14px 18px;border-bottom:6px solid #8fb0e0;font-family:BarlowSB;font-size:17px;line-height:1.4}
+</style></head><body>
+<h1>Labels that wait for the mouse (secondary buttons only)</h1>
+
+<div class="state" style="top:92px">AT REST (after the player has used each button 3 times)</div>
+<div class="bar" style="top:122px">
+  <div class="ico">&lt;</div><div class="ico">&gt;</div><span class="gym">Anvil Street Gym</span><span class="date">Mon 12 Jan 2026<small>Week 2</small></span>
+  <div class="ico" style="margin-left:40px">⌂</div><div class="ico">✉<span style="position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;border-radius:10px;font-size:14px;padding:0 6px">5</span></div>
+  <span class="sp"></span><span class="cash">$16,841<small>running -$680 a week</small></span><span class="big">NEEDS YOU (1)<small>Answer Lucy's bout offer</small></span><div class="ico">☰</div>
+</div>
+<div class="page" style="top:232px">
+  <div class="row"><div class="face"></div><div class="nm">Lucy Jackson<small>Lightweight, 21 · 3-1</small></div><span style="color:var(--soft);flex:1">Tiredness 38 · 60.9 kg (limit 60.0) · Steady · next offers Mon 12 Jan</span>
+    <div class="tool">✎</div><div class="tool">⚑</div><div class="tool">⌖</div><span class="prim">Plan the week</span></div>
+  <div class="row" style="border:0"><div class="face" style="background:linear-gradient(#6a4a3a,#3a2a1a)"></div><div class="nm">Kira Mensah<small>Featherweight, 18 · 1-0</small></div><span style="color:var(--soft);flex:1">Tiredness 8 · 58.3 kg (limit 57.0) · Steady</span>
+    <div class="tool">✎</div><div class="tool">⚑</div><div class="tool">⌖</div><span class="prim">Plan the week</span></div>
+</div>
+
+<div class="state" style="top:506px">ON HOVER (the word appears at once, 0.05 s after the mouse stops; also on keyboard focus)</div>
+<div class="bar" style="top:536px">
+  <div class="ico lit">&lt;<span class="w">BACK: FIGHTS</span></div><div class="ico">&gt;</div><span class="gym">Anvil Street Gym</span><span class="date">Mon 12 Jan 2026<small>Week 2</small></span>
+  <div class="ico" style="margin-left:40px">⌂</div><div class="ico lit">✉<span class="w">MAIL, 5 NEW</span></div>
+  <span class="sp"></span><span class="cash">$16,841<small>running -$680 a week</small></span><span class="big">NEEDS YOU (1)<small>Answer Lucy's bout offer</small></span><div class="ico">☰</div>
+</div>
+<div class="page" style="top:646px;height:150px">
+  <div class="row" style="border:0"><div class="face"></div><div class="nm">Lucy Jackson<small>Lightweight, 21 · 3-1</small></div><span style="color:var(--soft);flex:1">Tiredness 38 · 60.9 kg (limit 60.0) · Steady</span>
+    <div class="tool">✎</div><div class="tool lit">⚑<span class="w">FIGHT PLAN</span></div><div class="tool">⌖</div><span class="prim">Plan the week</span></div>
+</div>
+
+<div class="left"><b>Always words:</b> the big button (NEEDS YOU / CONTINUE), every row's main action ("Plan the week", "Answer the offer"), tabs, page titles, the corner's calls (your ruling "words, not symbols"), anything a new player needs on the first day. <b>Never hidden for the first 3 uses:</b> a new button arrives with its word.</div>
+<div class="rules"><b>May hide its word:</b> back / forward, Home, Mail, Menu, a row's small tools (notes, fight plan, scout), the fight's speed / skip / view. <b>Setting:</b> "Always show button labels" (Settings, off by default). <b>Hover style:</b> one style everywhere, icon turns white, gold ring, the word under it (Hades: instant, no fade).</div>
+</body></html>

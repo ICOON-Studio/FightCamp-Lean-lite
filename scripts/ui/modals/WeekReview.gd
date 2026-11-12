@@ -96,7 +96,7 @@ func build(main: Node, m: Dictionary) -> void:
 		var moved: Array = []
 		for mv in fr.get("moves", []):
 			if float(mv["after"]) - float(mv["before"]) >= 0.5 and not on_pads.has("move:" + str(mv["name"])):
-				moved.append("%s %d -> %d" % [mv["name"], roundi(float(mv["before"])), roundi(float(mv["after"]))])
+				moved.append("%s %d → %d" % [mv["name"], roundi(float(mv["before"])), roundi(float(mv["after"]))])
 		if not moved.is_empty():
 			notes.append("Moves: " + ", ".join(moved))
 		if str(fr.get("new_weapon", "")) != "" and head["kind"] != "weapon":
@@ -113,7 +113,7 @@ func build(main: Node, m: Dictionary) -> void:
 				(", " + ", ".join(short)) if not short.is_empty() else ""])
 		var bl: Array = fr.get("bleep", [])
 		if bl.size() == 2:
-			notes.append("Bleep test %.1f -> %.1f." % [float(bl[0]), float(bl[1])])
+			notes.append("Bleep test %.1f → %.1f." % [float(bl[0]), float(bl[1])])
 		# S371 GOALTESTS1 phase 2: a personal best beaten goes on the records wall (TestDay.record ran on Sunday).
 		var bests: Array = fr.get("bests", [])
 		for b in bests:

@@ -117,7 +117,7 @@ static func make(f: Dictionary, card_id: String, proj: Dictionary, picked: bool,
 		var go := UI.button("Drill the %s" % punch, "Btn", func(): on_drill_it.call("move:" + punch))
 		go.name = "DrillIt"
 		go.focus_mode = Control.FOCUS_NONE
-		go.add_theme_font_size_override("font_size", 13)
+		go.add_theme_font_size_override("font_size", 16)
 		go.size_flags_horizontal = Control.SIZE_SHRINK_END
 		go.tooltip_text = "Puts the %s on the next pad night you have not set" % punch.to_lower()
 		chip.add_child(go)
@@ -172,7 +172,7 @@ func _face(v: VBoxContainer, f: Dictionary, card_id: String, m: float, end: floa
 	# S397 blind round 3 ("24.9 -> 27.7"): the tier in words on the card, the pad level on hover.
 	tooltip_text = "Pad level %.1f now, %.1f by Sunday.\n%s" % [m, end, tooltip_text]
 	var nums := UI.hbox(4)
-	var to := UI.label("mastery %d -> %d this week" % [roundi(m), roundi(end)] if end > m + 0.05 else "mastery %d" % roundi(m), 15, UI.FG, "body")
+	var to := UI.label("mastery %d → %d this week" % [roundi(m), roundi(end)] if end > m + 0.05 else "mastery %d" % roundi(m), 15, UI.FG, "body")
 	to.name = "End"
 	nums.add_child(to)
 	v.add_child(nums)
@@ -191,7 +191,7 @@ func _badge(v: VBoxContainer, cross: Dictionary, proj_pads: Array) -> void:
 	w.name = "When"
 	p.add_child(w)
 	var station := "pads" if (proj_pads as Array).has(int(cross["dow"])) else "sparring"
-	p.tooltip_text = "Mastery %.1f -> %.1f on %s %s" % [float(cross["before"]), float(cross["after"]), PadEdit.DAY_WORDS[int(cross["dow"])], station]
+	p.tooltip_text = "Mastery %.1f → %.1f on %s %s" % [float(cross["before"]), float(cross["after"]), PadEdit.DAY_WORDS[int(cross["dow"])], station]
 	v.get_child(0).add_child(p)
 
 

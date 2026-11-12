@@ -393,10 +393,12 @@ func _bottom(main: Node, c: Career, f: Dictionary, pl: Dictionary, goal: Diction
 		h.add_child(apply)
 	var mine := not WeekPhase.edits(f).is_empty() and (not (WeekPhase.edits(f).get("days", {}) as Dictionary).is_empty()
 		or not (WeekPhase.edits(f).get("eve", {}) as Dictionary).is_empty() or WeekPhase.edits(f).has("spar"))
-	var reset := _press("Leave", "Btn", 26, main.act.bind("weekreset", fid))
+	# S442 UX audit: "Leave" beside "Coach: Leave it" read as the same word, and sat greyed out on every untouched week
+	# (a dead button). It says what it does and shows only when there is something of yours to undo.
+	var reset := _press("Back to the coach's week", "Btn", 26, main.act.bind("weekreset", fid))
 	reset.name = "WeekReset"
-	reset.disabled = not mine
-	reset.tooltip_text = "This is the coach's week." if not mine else "Back to the coach's week."
+	reset.visible = mine
+	reset.tooltip_text = "Undo your changes: the coach's week again."
 	h.add_child(reset)
 	h.add_child(UI.spacer())
 	if booked(goal):
@@ -425,7 +427,7 @@ func _bottom(main: Node, c: Career, f: Dictionary, pl: Dictionary, goal: Diction
 
 func _coach_short(pl: Dictionary, fix: Dictionary) -> String:
 	if fix.is_empty():
-		return "Leave it"
+		return "The week is right as it is"   # S442 UX audit: "Leave it" read as an order to press the Leave button
 	if fix.has("diet"):
 		return "Cut"
 	var dow := int(fix["dow"])
@@ -467,5 +469,5 @@ static func _fix_effect(pl: Dictionary, fix: Dictionary) -> String:
 			var reach := float(l2[k]["end"]) >= float(l1[k]["target"])
 			out = ": %.1f of %d%s" % [float(l2[k]["end"]), roundi(float(l1[k]["target"])), "" if reach else ", still short"]
 	if roundi(float(wk2["peak"])) != roundi(float(wk["peak"])):
-		out += "%s peak fatigue %d -> %d" % [", " if out != "" else ": ", roundi(float(wk["peak"])), roundi(float(wk2["peak"]))]
+		out += "%s peak fatigue %d → %d" % [", " if out != "" else ": ", roundi(float(wk["peak"])), roundi(float(wk2["peak"]))]
 	return out

@@ -614,9 +614,11 @@
    "seat": "kalli",
    "brief": "research/ASKFIGHT_CRITIC_S442_BRIEF.md",
    "stem": "ASKFIGHT_CRITIC_S442_KALLI",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-12 11:47",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-12 12:10",
+   "sent_ms": 1794478223983
   },
   {
    "id": "SQ43",
@@ -625,7 +627,20 @@
    "stem": "ASKFIGHT_CRITIC_S442_DOLA",
    "status": "queued",
    "queued_at": "2026-11-12 11:47",
-   "tries": 0
+   "tries": 0,
+   "skips": 2,
+   "last_error": "2026-11-12 12:14 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+  },
+  {
+   "id": "SQ44",
+   "seat": "john",
+   "brief": "research/ASKFIGHT_CRITIC_S442_BRIEF.md",
+   "stem": "ASKFIGHT_CRITIC_S442_JOHN",
+   "status": "sent",
+   "queued_at": "2026-11-12 12:14",
+   "tries": 0,
+   "sent_at": "2026-11-12 12:14",
+   "sent_ms": 1794478452464
   }
  ]
 }

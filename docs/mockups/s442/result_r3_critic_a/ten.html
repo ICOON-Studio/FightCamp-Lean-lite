@@ -1,0 +1,286 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Fight result 10/10 (critic A, R3)</title>
+<style>
+:root{
+  --bg:#101215; --panel:#181b20; --panel2:#1f2329; --line:#2c323a; --ink:#e9e6df; --dim:#9aa1aa; --faint:#6b727b;
+  --you:#e8a33d; --her:#7d9cc4; --good:#4cc38a; --ok:#b9c46a; --none:#7a8089; --bad:#e5534b; --gold:#f2c14e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--ink);font-family:Bahnschrift,"Segoe UI",sans-serif;font-size:17px}
+.cond{font-stretch:condensed;font-family:"Bahnschrift Condensed",Bahnschrift,sans-serif}
+.h{font:600 15px/1 "Bahnschrift SemiBold",Bahnschrift;letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
+.abs{position:absolute}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px}
+.you{color:var(--you)} .her{color:var(--her)} .good{color:var(--good)} .bad{color:var(--bad)} .dim{color:var(--dim)}
+.btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 18px;border-radius:5px;border:1px solid #4a525c;background:#262b32;color:var(--ink);font:600 17px Bahnschrift;white-space:nowrap}
+.btn.primary{background:var(--gold);color:#17140c;border-color:var(--gold);box-shadow:0 0 0 3px rgba(242,193,78,.25)}
+.btn.small{height:34px;font-size:16px;padding:0 14px}
+.key{display:inline-flex;align-items:center;gap:6px;margin-left:16px;color:var(--dim);font-size:15px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+/* header */
+#top{left:16px;top:12px;width:1888px;height:142px}
+.verdict{left:0;top:0;width:520px;height:142px;padding:14px 22px;border-left:6px solid var(--bad)}
+.verdict .big{font:700 60px/1 "Bahnschrift Condensed",Bahnschrift;color:var(--bad);letter-spacing:.02em}
+.verdict .sub{font-size:21px;margin-top:6px}
+.verdict .sub2{font-size:17px;color:var(--dim);margin-top:6px}
+.fighter{top:0;height:142px;width:400px;padding:14px 18px;display:flex;gap:16px}
+.face{width:96px;height:112px;border-radius:5px;flex:none;display:flex;align-items:flex-end;justify-content:center;font:700 34px Bahnschrift;color:#0d0f12}
+.fname{font:700 28px/1 "Bahnschrift Condensed",Bahnschrift}
+.fl{font-size:16px;color:var(--dim);margin-top:6px}
+.fv{font-size:18px;margin-top:4px}
+.cards{left:948px;top:0;width:540px;height:142px;padding:12px 18px}
+table.sc{border-collapse:collapse;width:100%;font-size:17px}
+table.sc td,table.sc th{padding:3px 6px;text-align:center}
+table.sc th{font:600 14px Bahnschrift;letter-spacing:.1em;color:var(--faint)}
+table.sc td:first-child{text-align:left;color:var(--dim)}
+.r{display:inline-block;min-width:54px;padding:2px 0;border-radius:3px;font-weight:700}
+.r.y{background:rgba(232,163,61,.18);color:var(--you)} .r.p{background:rgba(125,156,196,.18);color:var(--her)}
+.tot{font-weight:700;font-size:19px}
+/* why row */
+#why{left:16px;top:166px;width:1888px;height:214px}
+.why-head{left:0;top:0;width:1888px;height:26px;display:flex;align-items:center}
+.cause{top:34px;height:180px;padding:14px 18px;width:461px}
+.cause .rank{position:absolute;right:16px;top:10px;font:700 34px "Bahnschrift Condensed";color:#3a414a}
+.cause .t{font:600 21px Bahnschrift}
+.cause .n{font:700 40px/1 "Bahnschrift Condensed";color:var(--bad)} .cause .n small{font:400 17px Bahnschrift;color:var(--dim)}
+.cause .d{font-size:16px;color:var(--dim);margin-top:4px;line-height:1.3}
+.fix{position:absolute;left:18px;right:18px;bottom:14px;display:flex;align-items:center;gap:12px}
+.meter{flex:1;height:22px;background:#262b31;border-radius:3px;position:relative}
+.meter .a{position:absolute;left:0;top:0;bottom:0;background:#4a525c;border-radius:3px}
+.meter .b{position:absolute;top:0;bottom:0;background:var(--good);border-radius:0 3px 3px 0}
+.meter span{position:absolute;right:6px;top:2px;font:700 16px Bahnschrift}
+.best{border:2px solid var(--gold);box-shadow:0 0 0 4px rgba(242,193,78,.12)}
+.tag{display:inline-block;background:var(--gold);color:#17140c;font:700 13px Bahnschrift;letter-spacing:.1em;padding:3px 8px;border-radius:3px;margin-left:8px;vertical-align:3px}
+/* timeline */
+#tl{left:16px;top:392px;width:1888px;height:404px;padding:0}
+.lab{position:absolute;left:14px;width:200px;font:600 16px Bahnschrift;color:var(--dim)}
+.lab small{display:block;font:400 14px Bahnschrift;color:var(--faint);margin-top:2px}
+.cell{position:absolute}
+.mode{position:absolute;height:26px;border-radius:3px;font:600 15px/26px Bahnschrift;text-align:center;color:#f1eee8;overflow:hidden;white-space:nowrap}
+.chip{position:absolute;height:26px;border-radius:4px;font:700 15px/24px Bahnschrift;text-align:center;border:1.5px solid}
+.lane{position:absolute;height:9px;border-radius:2px;background:#262b31}
+.lane.on{background:var(--you)}
+.star{position:absolute;font-size:18px;line-height:1;color:var(--bad)}
+.turn{position:absolute;border:2px solid var(--gold);border-radius:6px}
+/* bottom */
+#dmg{left:16px;top:808px;width:430px;height:190px;padding:14px 18px}
+#num{left:458px;top:808px;width:560px;height:190px;padding:14px 18px}
+#plan{left:1030px;top:808px;width:874px;height:190px;padding:14px 18px}
+.row{display:flex;align-items:center;height:19px;font-size:16px}
+.bar{height:11px;border-radius:2px}
+#foot{left:16px;top:1010px;width:1888px;height:58px;display:flex;align-items:center;gap:12px}
+</style></head>
+<body>
+
+<!-- HEADER -->
+<div id="top" class="abs">
+  <div class="abs panel verdict">
+    <div class="h">Amateur · 3 x 3 min · club show</div>
+    <div style="display:flex;align-items:baseline;gap:18px;margin-top:8px"><div class="big">LOST</div><div class="sub">on points, split decision <b>1-2</b></div></div>
+    <div class="sub2">Round 2 swung it: 2 judges gave it to Priya.</div>
+  </div>
+  <div class="abs panel fighter" style="left:532px">
+    <div class="face" style="background:linear-gradient(#3a2a1a,var(--you))">LJ</div>
+    <div><div class="fname you">LUCY JACKSON</div><div class="fl">Your fighter · Out-boxer · orthodox</div>
+      <div class="fv">Record 3-1 <span class="dim">→</span> <b>3-2</b></div>
+      <div class="fv">Ladder: <b>off</b> <span class="dim">· 1 win to enter</span></div></div>
+  </div>
+  <div class="abs panel cards">
+    <table class="sc"><tr><th></th><th>R1</th><th>R2</th><th>R3</th><th>TOTAL</th></tr>
+      <tr><td>Judge 1</td><td><span class="r y">10-9</span></td><td><span class="r p">9-10</span></td><td><span class="r p">9-10</span></td><td class="tot her">28-29</td></tr>
+      <tr><td>Judge 2</td><td><span class="r y">10-9</span></td><td><span class="r p">9-10</span></td><td><span class="r p">9-10</span></td><td class="tot her">28-29</td></tr>
+      <tr><td>Judge 3</td><td><span class="r y">10-9</span></td><td><span class="r y">10-9</span></td><td><span class="r p">9-10</span></td><td class="tot you">29-28</td></tr>
+    </table>
+  </div>
+  <div class="abs panel fighter" style="left:1500px;width:388px">
+    <div class="face" style="background:linear-gradient(#1c2636,var(--her))">PN</div>
+    <div><div class="fname her">PRIYA NAIR</div><div class="fl">Eastside ABC · Counter-puncher</div>
+      <div class="fv">Record 5-1 <span class="dim">→</span> <b>6-1</b></div>
+      <div class="fv">Rank No. 4 <span class="dim">→</span> <b>No. 3</b></div></div>
+  </div>
+</div>
+
+<!-- WHY + MEASURED FIX, ONE CARD EACH -->
+<div id="why" class="abs">
+  <div class="abs why-head"><span class="h" style="color:var(--gold)">Why you lost · and what would have won it</span>
+    <span class="key" style="margin-left:24px"><span class="sw" style="background:#4a525c"></span>this bout replayed 200 times as written: won 35</span>
+    <span class="key"><span class="sw" style="background:var(--good)"></span>with the fix: won</span>
+    <span class="key">Hover a card: the exchanges it names light up below</span></div>
+
+  <div class="abs panel cause best" style="left:0">
+    <div class="rank">1</div>
+    <div class="t">Line C walked into her counter <span class="tag">BEST FIX</span></div>
+    <div style="display:flex;align-items:baseline;gap:10px;margin-top:6px"><div class="n">2 <small>of 3 exchanges lost</small></div></div>
+    <div class="d">"At long range when she waits to counter → One-two-hook". Cost 14 energy.</div>
+    <div class="fix"><div class="meter"><div class="a" style="width:17.5%"></div><div class="b" style="left:17.5%;width:30.5%"></div><span>96 of 200</span></div>
+      <span class="btn small primary">Rewrite C: Double jab</span></div>
+  </div>
+  <div class="abs panel cause" style="left:475px">
+    <div class="rank">2</div>
+    <div class="t">No answer when she loaded up</div>
+    <div class="n" style="margin-top:6px">4 <small>of 5 exchanges lost</small></div>
+    <div class="d">No plan line for it. Your shout "Hands up, move your head" won 1 of 4.</div>
+    <div class="fix"><div class="meter"><div class="a" style="width:17.5%"></div><div class="b" style="left:17.5%;width:2%"></div><span>39 of 200</span></div>
+      <span class="btn small">Add line: loads up → Step back</span></div>
+  </div>
+  <div class="abs panel cause" style="left:950px">
+    <div class="rank">3</div>
+    <div class="t">Tired in round 3</div>
+    <div class="n" style="margin-top:6px">2 <small>of 2 exchanges lost below 35 energy</small></div>
+    <div class="d">Below 35 from R3 exchange 4; line C's cost brought it on one exchange early.</div>
+    <div class="fix"><span class="dim" style="font-size:16px;flex:1">Not replayed (a stat)</span>
+      <span class="btn small">Week: Cardio mornings</span></div>
+  </div>
+  <div class="abs panel cause" style="left:1425px">
+    <div class="rank">4</div>
+    <div class="t">Fought hurt</div>
+    <div class="n" style="margin-top:6px">2 <small>of 4 exchanges lost while hurt</small></div>
+    <div class="d">Hurt 4 times: 2 by her loaded shots, 1 on line C, 1 again after. Fixing 1 and 2 removes 3 of them.</div>
+    <div class="fix"><span class="dim" style="font-size:16px">No fix of its own · both fixes together: <b class="good">100 of 200</b></span></div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div id="tl" class="abs panel"></div>
+
+<!-- DAMAGE -->
+<div id="dmg" class="abs panel">
+  <div class="h">What it cost Lucy</div>
+  <div style="display:flex;gap:18px;margin-top:10px">
+    <svg width="74" height="130" viewBox="0 0 74 130">
+      <circle cx="37" cy="17" r="14" fill="#c98a3a" stroke="#e8a33d" stroke-width="2"/>
+      <rect x="18" y="35" width="38" height="50" rx="8" fill="#2e343c"/>
+      <rect x="8" y="38" width="9" height="40" rx="4" fill="#2e343c"/><rect x="57" y="38" width="9" height="40" rx="4" fill="#2e343c"/>
+      <rect x="20" y="87" width="14" height="40" rx="5" fill="#2e343c"/><rect x="40" y="87" width="14" height="40" rx="5" fill="#2e343c"/>
+      <path d="M51 17 L70 6" stroke="#e8a33d" stroke-width="1.5"/>
+    </svg>
+    <div style="flex:1">
+      <div class="row" style="justify-content:space-between"><span>Head</span><span><b>54</b> <span class="dim">of 100 · fine</span></span></div>
+      <div style="height:12px;background:#262b31;border-radius:3px;position:relative;margin:4px 0 10px"><div style="position:absolute;left:0;width:54%;top:0;bottom:0;background:var(--ok);border-radius:3px"></div><div style="position:absolute;left:55%;top:-3px;bottom:-3px;width:2px;background:var(--bad)"></div></div>
+      <div class="dim" style="font-size:15px">Red mark: hurt (55). Body, ribs: fine.</div>
+      <div class="row" style="margin-top:8px"><span class="dim" style="width:90px">Injury</span><b>None · full training</b></div>
+      <div class="row" style="margin-top:4px"><span class="dim" style="width:90px">Sparring</span><b>off to Sun 29 Mar</b></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- NUMBERS -->
+<div id="num" class="abs panel"></div>
+
+<!-- PLAN AND CORNER -->
+<div id="plan" class="abs panel">
+  <div style="display:flex;align-items:center"><span class="h">Your plan and your corner · how each did</span>
+    <span class="key" style="margin-left:auto"><span class="sw" style="background:var(--you)"></span>exchange Lucy won</span><span class="key"><span class="sw" style="background:var(--her)"></span>Priya won</span></div>
+  <div id="planrows" style="margin-top:8px"></div>
+  <div style="margin-top:2px;font-size:15px;color:var(--bad)">Clash: twice your shout and line C asked for opposite things in one exchange; both lost.</div>
+</div>
+
+<!-- FOOTER -->
+<div id="foot" class="abs">
+  <span class="h" style="color:var(--gold)">Next</span>
+  <span class="btn primary">Rewrite line C: Double jab</span>
+  <span class="btn">Add line: loads up → Step back</span>
+  <span class="btn">Week: Cardio mornings</span>
+  <span class="btn">▶ Watch the turning point (R2, 0:00-0:30)</span>
+  <span style="flex:1"></span>
+  <span class="dim" style="font-size:16px">Fixes open their screen and come back here</span>
+  <span class="btn" style="height:48px;font-size:20px;padding:0 28px;background:#2f353d">Continue to the gym ▸</span>
+</div>
+
+<script>
+const T=document.getElementById('tl');
+const L=230, RW=540, GAP=16, EX=RW/6;
+function x(r,e){return L+r*(RW+GAP)+e*EX}
+const ROWS={head:40,mode:72,win:104,plan:228,shout:262,range:296,hurt:338,energy:358};
+function add(h){T.insertAdjacentHTML('beforeend',h)}
+// title + key
+add(`<div class="abs h" style="left:14px;top:14px;color:var(--gold)">The fight · 18 exchanges of 30 s</div>`);
+// labels
+add(`<div class="lab" style="top:${ROWS.mode+4}px">Priya's game</div>`);
+add(`<div class="lab" style="top:${ROWS.win+18}px">Who won it<small>punches landed, Lucy-Priya<br>up = Lucy, down = Priya</small></div>`);
+add(`<div class="lab" style="top:${ROWS.plan+4}px">Plan line used<small style="display:inline;margin-left:6px">A B C below</small></div>`);
+add(`<div class="lab" style="top:${ROWS.shout+4}px">Your shout</div>`);
+add(`<div class="lab" style="top:${ROWS.range}px;line-height:1.05;font-size:14px">Where<small style="font-size:13px">range / pocket / inside</small></div>`);
+add(`<div class="lab" style="top:${ROWS.hurt-2}px">Lucy hurt <span style="color:var(--bad)">✸</span></div>`);
+add(`<div class="lab" style="top:${ROWS.energy+4}px">Energy<small><span class="you">— Lucy</span> <span class="her">— Priya</span> · dash = tired</small></div>`);
+const rounds=[
+ {t:'ROUND 1',s:'Lucy 4-2',j:'all 3 judges Lucy',modes:[[0,3,'Waiting to counter','#3c5a8a'],[3,5,'Loading up','#8a3c3c'],[5,6,'Waits','#3c5a8a']],
+  w:[[1,4,3],[1,5,2],[1,5,3],[0,2,5],[0,2,5],[1,4,3]],plan:{0:['C','✓','good']},
+  sh:[null,null,['big','Move'],null,['big','Body'],null],rng:[0,1,1,1,1,1],hurt:[],e:[[100,100],[68,65]]},
+ {t:'ROUND 2',s:'Lucy 3-3',j:'2 judges Priya, judge 3 Lucy',modes:[[0,1,'Waits','#3c5a8a'],[1,4,'Loading up','#8a3c3c'],[4,6,'Boxing at range','#3c7a5a']],
+  w:[[0,3,4],[1,5,2],[0,2,5],[0,2,5],[1,4,3],[1,4,3]],plan:{0:['C','✗','bad'],1:['A','✓','good'],2:['A','✗','bad']},
+  sh:[['none','Hands up'],['small','Hands up'],['big','Hands up'],['small','Hands up'],['big','Jab'],['none','Hands up']],rng:[2,2,1,1,2,2],hurt:[2,3],e:[[92,93],[39,40]]},
+ {t:'ROUND 3',s:'Lucy 1-5',j:'all 3 judges Priya',modes:[[0,1,'Waits','#3c5a8a'],[1,3,'Loading up','#8a3c3c'],[3,6,'Tiring','#5a5f66']],
+  w:[[0,2,5],[0,3,5],[0,1,6],[1,5,2],[0,2,5],[0,3,4]],plan:{0:['C','✗','bad']},
+  sh:[['none','Tie up'],['small','Tie up'],['big','Tie up'],['small','Tie up'],['big','Finish'],['none','Tie up']],rng:[2,1,1,0,0,0],hurt:[0,2],e:[[62,64],[23,21]]}
+];
+const col={big:'var(--good)',small:'var(--ok)',none:'var(--none)',good:'var(--good)',bad:'var(--bad)'};
+rounds.forEach((R,r)=>{
+  const x0=x(r,0);
+  add(`<div class="abs" style="left:${x0}px;top:${ROWS.head}px;width:${RW}px;display:flex;align-items:baseline;gap:10px">
+     <span style="font:700 22px 'Bahnschrift Condensed'">${R.t}</span><span style="font:600 18px Bahnschrift">${R.s}</span>
+     <span class="dim" style="margin-left:auto;font-size:15px">${R.j}</span></div>`);
+  R.modes.forEach(m=>add(`<div class="mode" style="left:${x(r,m[0])+2}px;top:${ROWS.mode}px;width:${(m[1]-m[0])*EX-4}px;background:${m[3]}">${m[2]}</div>`));
+  // win bars
+  const mid=ROWS.win+48;
+  add(`<div class="abs" style="left:${x0}px;top:${mid}px;width:${RW}px;height:1px;background:#3a414a"></div>`);
+  R.w.forEach((w,e)=>{const m=w[1]-w[2];const h=Math.abs(w[1]-w[2])*7+6;const cx=x(r,e)+EX/2;
+    if(w[0]){add(`<div class="abs" style="left:${cx-20}px;top:${mid-h}px;width:40px;height:${h}px;background:var(--you);border-radius:2px 2px 0 0"></div><div class="abs you" style="left:${cx-30}px;width:60px;text-align:center;top:${mid-h-21}px;font:700 16px Bahnschrift">${w[1]}-${w[2]}</div>`)}
+    else{add(`<div class="abs" style="left:${cx-20}px;top:${mid+1}px;width:40px;height:${h}px;background:var(--her);border-radius:0 0 2px 2px"></div><div class="abs her" style="left:${cx-30}px;width:60px;text-align:center;top:${mid+h+3}px;font:700 16px Bahnschrift">${w[1]}-${w[2]}</div>`)}
+  });
+  for(let e=0;e<6;e++){
+    const cx=x(r,e)+EX/2;
+    const p=R.plan[e];
+    if(p) add(`<div class="chip" style="left:${cx-26}px;width:52px;top:${ROWS.plan}px;border-color:${col[p[2]]};color:${col[p[2]]}">${p[0]} ${p[1]}</div>`);
+    else add(`<div class="abs" style="left:${cx-12}px;top:${ROWS.plan+4}px;width:24px;text-align:center;color:#3e454e">–</div>`);
+    const s=R.sh[e];
+    if(s) add(`<div class="chip" style="left:${cx-40}px;width:80px;top:${ROWS.shout}px;border-color:${col[s[0]]};color:${col[s[0]]};font-size:14px;font-weight:600">${s[1]}</div>`);
+    else add(`<div class="abs" style="left:${cx-12}px;top:${ROWS.shout+4}px;width:24px;text-align:center;color:#3e454e">–</div>`);
+    for(let k=0;k<3;k++) add(`<div class="lane ${R.rng[e]==k?'on':''}" style="left:${x(r,e)+6}px;width:${EX-12}px;top:${ROWS.range+k*13}px"></div>`);
+    if(R.hurt.includes(e)) add(`<div class="star" style="left:${cx-8}px;top:${ROWS.hurt}px">✸</div>`);
+  }
+  // energy
+  const H=36, y=v=>ROWS.energy+H-v/100*H;
+  const [s,f]=[R.e[0],R.e[1]];
+  add(`<svg class="abs" style="left:${x0}px;top:0" width="${RW}" height="404">
+    <line x1="0" x2="${RW}" y1="${y(35)}" y2="${y(35)}" stroke="#f2c14e" stroke-dasharray="6 5" stroke-width="1.2" opacity=".7"/>
+    <polyline fill="none" stroke="#7d9cc4" stroke-width="3" points="0,${y(s[1])} ${RW-56},${y(f[1])}"/>
+    <polyline fill="none" stroke="#e8a33d" stroke-width="3" points="0,${y(s[0])} ${RW-56},${y(f[0])}"/>
+    <text x="${RW-50}" y="${y(f[0])+2}" fill="#e8a33d" font-family="Bahnschrift" font-weight="700" font-size="16">${f[0]}</text>
+    <text x="${RW-24}" y="${y(f[1])+2}" fill="#7d9cc4" font-family="Bahnschrift" font-weight="700" font-size="16">${f[1]}</text></svg>`);
+});
+// turning point outline: R2 exchange 1
+add(`<div class="turn" style="left:${x(1,0)+2}px;top:${ROWS.mode-6}px;width:${EX-4}px;height:${ROWS.hurt-ROWS.mode+24}px"></div>
+     <div class="abs" style="left:${x(1,0)-4}px;top:${ROWS.hurt}px;width:${EX}px;text-align:center;font:700 13px Bahnschrift;color:var(--gold);white-space:nowrap">TURN</div>`);
+add(`<div class="abs dim" style="right:16px;top:14px;font-size:15px">Hover an exchange for who threw what and why · click to watch it</div>`);
+add(`<div class="abs" style="left:${x(2,3)-4}px;top:${ROWS.energy+H0()}px"></div>`);
+function H0(){return 0}
+
+// NUMBERS butterfly, one scale per row
+const N=document.getElementById('num');
+const nums=[['Exchanges won',8,10],['Punches landed',58,70],['  to the head',45,52],['  to the body',13,18],['Exchanges won at range',2,2],['  in the pocket',3,6],['  inside',3,2],['Times hurt the other',0,4]];
+let h=`<div style="display:flex"><span class="h">The numbers</span><span style="margin-left:auto;font:600 15px Bahnschrift"><span class="you">Lucy</span> <span class="dim">v</span> <span class="her">Priya</span></span></div><div style="margin-top:6px">`;
+nums.forEach(n=>{const mx=Math.max(n[1],n[2],1);h+=`<div class="row">
+  <span style="width:34px;text-align:right;font-weight:700" class="you">${n[1]}</span>
+  <span style="width:110px;display:flex;justify-content:flex-end;margin:0 8px"><span class="bar" style="width:${n[1]/mx*110}px;background:var(--you)"></span></span>
+  <span style="width:180px;text-align:center;${n[0].startsWith(' ')?'color:var(--dim)':''}">${n[0].trim()}</span>
+  <span style="width:110px;margin:0 8px"><span class="bar" style="display:block;width:${n[2]/mx*110}px;background:var(--her)"></span></span>
+  <span style="width:34px;font-weight:700" class="her">${n[2]}</span></div>`});
+N.innerHTML=h+'</div>';
+
+// PLAN rows
+const P=document.getElementById('planrows');
+const pr=[['A','At long range, any time → One-two','Works',[1,0],'won 1 of 2','good'],
+ ['B','At mid range, when she presses → Step back','Beats it',[],'she never pressed','none'],
+ ['C','At long range, when she waits to counter → One-two-hook','Walks into it',[1,0,0],'won 1 of 3','bad'],
+ ['R2','Shout: Hands up, move your head','fit 2 of 4',[0,1,0,1],'won 2 of 4','ok'],
+ ['R3','Shout: Tie up','fit 2 of 4',[0,0,1,0],'won 1 of 4','ok'],
+ ['','All your shouts with a big edge','6 of 6 big',[1,1,0,1,0,1],'won 4 of 6','good']];
+P.innerHTML=pr.map(p=>`<div class="row" style="height:21px">
+  <span style="width:32px"><span style="display:inline-block;min-width:24px;text-align:center;border:1.5px solid ${col[p[5]]||'var(--ok)'};color:${col[p[5]]||'var(--ok)'};border-radius:3px;font:700 13px/18px Bahnschrift;padding:0 2px">${p[0]||'★'}</span></span>
+  <span style="width:450px;white-space:nowrap;overflow:hidden">${p[1]}</span>
+  <span style="width:100px;color:${col[p[5]]||'var(--ok)'};font-weight:600">${p[2]}</span>
+  <span style="width:110px;display:flex;gap:3px">${p[3].map(v=>`<span class="sw" style="background:${v?'var(--you)':'var(--her)'}"></span>`).join('')}</span>
+  <span class="dim" style="white-space:nowrap">${p[4]}</span></div>`).join('');
+</script>
+</body></html>

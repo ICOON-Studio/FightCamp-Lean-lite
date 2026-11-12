@@ -1,0 +1,84 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>One set of numbers</title>
+<style>
+@font-face{font-family:Barlow;src:url(../../../../assets/fonts/Barlow-Regular.ttf)}
+@font-face{font-family:BarlowSB;src:url(../../../../assets/fonts/Barlow-SemiBold.ttf)}
+@font-face{font-family:BarlowB;src:url(../../../../assets/fonts/Barlow-Bold.ttf)}
+@font-face{font-family:Marker;src:url(../../../../assets/fonts/PermanentMarker-Regular.ttf)}
+:root{--slate:#24262a;--slate2:#2d3035;--wood:#6b4a2b;--ink:#efe6d8;--soft:#b8a88f;--gold:#f2c14e;--green:#2fb56e;--blue:#4f86e0;--orange:#e08a2c;--red:#e2483d;--purple:#a070f0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:#141210;color:var(--ink);font-family:Barlow;font-size:19px;overflow:hidden;position:relative}
+h1{font-family:Marker;font-size:52px;font-weight:normal;position:absolute;left:40px;top:26px}
+.sub{position:absolute;left:42px;top:96px;font-size:21px;color:var(--soft);width:1500px}
+.frame{position:absolute;background:var(--slate);border:10px solid var(--wood);border-radius:6px;padding:18px 22px;box-shadow:0 6px 18px #0008}
+.cap{font-family:BarlowB;letter-spacing:2px;font-size:17px;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.where{font-family:BarlowSB;color:var(--soft);font-size:17px;margin-bottom:10px}
+.grp{display:inline-block;vertical-align:top;margin-right:30px}
+.grp h4{font-family:BarlowB;font-size:16px;letter-spacing:2px;color:var(--soft);margin-bottom:6px}
+.row{display:flex;align-items:center;height:30px;gap:10px}
+.row .n{width:150px}
+.bar{width:120px;height:12px;background:#0006;border-radius:2px;position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:2px}
+.bar b{position:absolute;top:-3px;bottom:-3px;width:3px;background:#fff}
+.v{font-family:BarlowB;width:36px;text-align:right}
+.ovr{position:absolute;right:26px;top:22px;width:120px;height:120px;border-radius:60px;border:10px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ovr span{font-family:BarlowB;font-size:44px;line-height:1}.ovr small{font-size:16px;color:var(--soft)}
+.note{position:absolute;background:#ffd54a;color:#241f1a;padding:14px 18px;font-family:BarlowSB;font-size:18px;border-bottom:6px solid #d9b235;width:520px;transform:rotate(-1deg)}
+.chips span{display:inline-block;margin:4px 6px 0 0;padding:3px 10px;background:#0005;border-left:4px solid var(--soft);font-family:BarlowB;font-size:16px}
+.mini .row{height:30px;white-space:nowrap}.mini .row .n{width:120px}
+.arrow{position:absolute;color:var(--gold);font-family:Marker;font-size:24px}
+</style></head><body>
+<h1>One set of numbers, on every screen</h1>
+<div class="sub">Today the same boxer is shown with three different lists (7 old stats on reception, camp, week review, scouting and World; 10 attributes + 5 skills + mind on her page; Head / Hands / Guard / Cardio / Legs on the roster) and two overall numbers (60 on the roster, 59 on her page). Proposal: one block, same names, same order, same overall, everywhere a boxer's numbers appear.</div>
+
+<div class="frame" style="left:40px;top:170px;width:1240px;height:430px">
+  <div class="cap">The block: her page (full)</div>
+  <div class="where">Same names and order on reception, scouting, camp, week review, World side by side</div>
+  <div class="ovr"><span>59</span><small>OVERALL</small></div>
+  <div class="grp"><h4>BODY</h4>
+    <div class="row"><span class="n">Strength</span><span class="bar"><i style="width:60%;background:var(--blue)"></i><b style="left:84%"></b></span><span class="v">60</span></div>
+    <div class="row"><span class="n">Explosiveness</span><span class="bar"><i style="width:57%;background:var(--blue)"></i><b style="left:80%"></b></span><span class="v">57</span></div>
+    <div class="row"><span class="n">Speed</span><span class="bar"><i style="width:63%;background:var(--blue)"></i><b style="left:90%"></b></span><span class="v">63</span></div>
+    <div class="row"><span class="n">Stamina</span><span class="bar"><i style="width:57%;background:var(--blue)"></i><b style="left:84%"></b></span><span class="v">57</span></div>
+    <div class="row"><span class="n">Recovery</span><span class="bar"><i style="width:66%;background:var(--green)"></i><b style="left:84%"></b></span><span class="v">66</span></div>
+    <div class="row"><span class="n">Flexibility</span><span class="bar"><i style="width:55%;background:var(--blue)"></i><b style="left:84%"></b></span><span class="v">55</span></div>
+    <div class="row"><span class="n">Durability</span><span class="bar"><i style="width:66%;background:var(--green)"></i><b style="left:84%"></b></span><span class="v">66</span></div>
+  </div>
+  <div class="grp"><h4>BOXING SKILLS</h4>
+    <div class="row"><span class="n">Accuracy</span><span class="bar"><i style="width:59%;background:var(--blue)"></i><b style="left:84%"></b></span><span class="v">59</span></div>
+    <div class="row"><span class="n">Timing</span><span class="bar"><i style="width:61%;background:var(--blue)"></i><b style="left:84%"></b></span><span class="v">61</span></div>
+    <div class="row"><span class="n">Defence</span><span class="bar"><i style="width:57%;background:var(--blue)"></i><b style="left:84%"></b></span><span class="v">57</span></div>
+    <div class="row"><span class="n">Footwork</span><span class="bar"><i style="width:58%;background:var(--blue)"></i><b style="left:84%"></b></span><span class="v">58</span></div>
+    <div class="row"><span class="n">Inside fighting</span><span class="bar"><i style="width:55%;background:var(--blue)"></i><b style="left:84%"></b></span><span class="v">55</span></div>
+  </div>
+  <div class="grp"><h4>MIND</h4>
+    <div class="row"><span class="n">Fight IQ</span><span class="bar"><i style="width:61%;background:var(--blue)"></i><b style="left:84%"></b></span><span class="v">61</span></div>
+    <div class="row"><span class="n">Composure</span><span class="bar"><i style="width:56%;background:var(--blue)"></i><b style="left:84%"></b></span><span class="v">56</span></div>
+    <div class="row"><span class="n">Heart</span><span class="bar"><i style="width:85%;background:var(--purple)"></i><b style="left:90%"></b></span><span class="v">85</span></div>
+  </div>
+</div>
+
+<div class="frame mini" style="left:40px;top:630px;width:600px;height:400px">
+  <div class="cap">Short form: roster row, offer card, reception</div>
+  <div class="where">The three group averages, same words as the full block</div>
+  <div class="row"><span class="n">Body</span><span class="bar" style="width:260px"><i style="width:61%;background:var(--blue)"></i></span><span class="v">61</span></div>
+  <div class="row"><span class="n">Boxing skills</span><span class="bar" style="width:260px"><i style="width:58%;background:var(--blue)"></i></span><span class="v">58</span></div>
+  <div class="row"><span class="n">Mind</span><span class="bar" style="width:260px"><i style="width:67%;background:var(--green)"></i></span><span class="v">67</span></div>
+  <div class="row" style="margin-top:14px"><span class="n">Overall</span><span class="v" style="font-size:30px;width:auto">59</span><span style="color:var(--soft);font-size:16px">&nbsp;one number, one formula</span></div>
+  <div class="chips" style="margin-top:14px"><span>Hover a group: its members</span><span>Click: her page</span></div>
+</div>
+
+<div class="frame mini" style="left:670px;top:630px;width:610px;height:400px">
+  <div class="cap">Week review and camp: only what moved</div>
+  <div class="where">Same names; a camp card says the attribute it builds</div>
+  <div class="row"><span class="n">Stamina</span><span class="bar" style="width:150px"><i style="width:57%;background:var(--blue)"></i></span><span class="v">57</span><span style="color:var(--green);font-family:BarlowB;font-size:17px">+1: roadwork Mon, Fri</span></div>
+  <div class="row"><span class="n">Strength</span><span class="bar" style="width:150px"><i style="width:60%;background:var(--blue)"></i></span><span class="v">60</span><span style="color:var(--soft);font-size:17px">61 next week: heavy bag</span></div>
+  <div class="row"><span class="n">Accuracy</span><span class="bar" style="width:150px"><i style="width:59%;background:var(--blue)"></i></span><span class="v">59</span><span style="color:var(--soft);font-size:17px">pads Mon, Wed</span></div>
+  <div style="margin-top:18px;font-family:BarlowB">Camp: Stamina camp</div>
+  <div style="margin-top:6px"><span style="color:var(--soft)">Stamina 57.3 → 60.1 by fight night (never "Cardio" on one line and "Stamina" on the next)</span></div>
+</div>
+
+<div class="note" style="left:1330px;top:180px">YOUR CALL: one word for the engine. The 10 attributes you approved say <b>Stamina</b>; S431 you said <b>"Cardio" not "Engine"</b>. Today both are on screen for the same thing, with different numbers (Cardio 62.1, Stamina 57.3 on one camp page). Pick one; the game uses it everywhere.</div>
+<div class="note" style="left:1340px;top:470px;transform:rotate(1deg);background:#bfd8ff;border-color:#8fb0e0">Why it matters: a player who trains "Cardio" on the week board and then reads "Stamina 57 - at risk" on the goal cannot tell they are the same bar. Every screen that names a stat differently is a screen where the player stops trusting the numbers.</div>
+<div class="note" style="left:1330px;top:760px;background:#9fe0c0;border-color:#6fbf97">Kept: colours by band (weak / fair / solid / strong / elite), the white tick = ceiling, hover says what each does in a fight. Changed: names, order and the overall formula only.</div>
+</body></html>

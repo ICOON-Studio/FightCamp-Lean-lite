@@ -3,6 +3,7 @@ extends VBoxContainer
 ## Repairs and the contract answers moved to Cashbook. The cage and the coach list are not built.
 
 const UI := preload("res://scripts/ui/UI.gd")
+const Tally := preload("res://scripts/ui/Tally.gd")
 const WarmKit := preload("res://scripts/ui/WarmKit.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
@@ -101,8 +102,11 @@ func _kpis(c: Career, inc: Dictionary, cost: Dictionary, ahead: Array) -> Contro
 	var cash_col := UI.GREEN if c.cash >= 0 else UI.RED
 	var cash := UI.label(UI.money(c.cash), 26, cash_col, "bold")
 	cash.name = "PageCash"
+	Tally.number(cash, "money:cash:%d" % c.get_instance_id(), c.cash, UI.money)   # S442: numbers that change roll to their new value
 	row.add_child(_tile("money", "CASH", cash, "Cash in the tin", cash_col))
 	var members := UI.label("%d / %d" % [c.members, GymSpend.member_cap(c)], 26, WoodKit.INK, "bold")
+	var cap := GymSpend.member_cap(c)
+	Tally.number(members, "money:members:%d" % c.get_instance_id(), c.members, func(n: int) -> String: return "%d / %d" % [n, cap])
 	var even := _break_even(c, inc, cost)
 	row.add_child(_tile("members", "MEMBERS", members, "Break-even: %d of your %d members cover what the other income leaves" % [even, c.members], WoodKit.INK))
 	var runway_col := UI.AMBER if weeks >= 0 and weeks < GymBills.WARN_RUNWAY_WEEKS else WoodKit.INK
@@ -110,9 +114,11 @@ func _kpis(c: Career, inc: Dictionary, cost: Dictionary, ahead: Array) -> Contro
 	row.add_child(_tile("runway", "MONEY LASTS", runway, "Runway: weeks of costs the tin covers. Under 8 weeks warns. " + GymBills.line(c.cash, net, c.weeks_below), runway_col))
 	var net_col := UI.GREEN if net >= 0 else UI.RED
 	var net_lab := UI.label(UI.signed(net), 26, net_col, "bold")
+	Tally.number(net_lab, "money:net:%d" % c.get_instance_id(), net, UI.signed)
 	row.add_child(_tile("money", "NET A WEEK", net_lab, "Left over each week", net_col))
 	var bills := UI.label(UI.money(int(split["amount"])), 26, UI.RED, "bold")
 	bills.name = "NextBills"
+	Tally.number(bills, "money:bills:%d" % c.get_instance_id(), int(split["amount"]), UI.money)
 	bills.set_meta("day", int(split["day"]))
 	bills.set_meta("amount", int(split["amount"]))
 	row.add_child(_tile("calendar", "BILLS %s" % Clock.fmt(int(split["day"])).to_upper(), bills, "Bills are paid every 28 days. Run up so far: %s." % UI.money(c.accrued), UI.RED))

@@ -41,8 +41,8 @@ const PURPLE := Color("#8a5cf0")
 
 const BODY := 19
 const SMALL := 16
-const TINY := 15
-const MIN_TEXT := 15   # S413 look round 2: no word on any page smaller than this
+const TINY := 16
+const MIN_TEXT := 16   # S413 look round 2: no word on any page smaller than this (S442 UX audit: 15 -> 16, "fonts are small")
 
 static var _fonts: Dictionary = {}
 static var _theme: Theme

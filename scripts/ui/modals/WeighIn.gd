@@ -3,6 +3,7 @@ extends PanelContainer
 
 const UI := preload("res://scripts/ui/UI.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const Pulse := preload("res://scripts/ui/Pulse.gd")
 
 
 func build(main: Node, m: Dictionary) -> void:
@@ -27,5 +28,6 @@ func build(main: Node, m: Dictionary) -> void:
 	foot.add_child(UI.spacer())
 	var step := UI.button("Step on the scale", "BtnSolid", main.act.bind("doWeigh", ""))
 	step.name = "Scale"
+	Pulse.breathe(step)   # S442 owner: the one thing to do the day before; the clock waits on it
 	foot.add_child(step)
 	v.add_child(foot)

@@ -96,12 +96,15 @@ static func _tag(it: Dictionary) -> Control:
 	var from_net := int(it.get("net_from", 0))
 	var to_net := int(it.get("net_to", from_net))
 	if to_net != from_net:
-		var net := UI.label("Week %s to %s" % [UI.signed(from_net), UI.signed(to_net)], 12, UI.GREEN if to_net > from_net else UI.RED, "bold")
+		# S442 UX audit: "Week -$309 to -$..." lost the number that matters to the ellipsis; the week's net after buying,
+		# with the change, fits (the full line is on the hover).
+		var net := UI.label("%s a week" % UI.signed(to_net), 16, UI.GREEN if to_net > from_net else UI.RED, "bold")
 		net.name = "TagNet"
 		net.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		net.clip_text = true
 		net.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-		net.tooltip_text = "What is left over each week now, and after this"
+		net.tooltip_text = "What is left over each week: %s now, %s after this" % [UI.signed(from_net), UI.signed(to_net)]
+		net.mouse_filter = Control.MOUSE_FILTER_PASS
 		price_row.add_child(net)
 	else:
 		var gap := Control.new()   # S420: keeps the button at the right edge when there is no week line
@@ -115,7 +118,9 @@ static func _tag(it: Dictionary) -> Control:
 			_short_button(b)
 			price_row.add_child(b)
 	text.add_child(price_row)
-	var body := UI.label(str(it.get("effect", "")), 12, UI.FG, "hand", true)
+	# S442 UX audit: at the 16 px floor the handwritten face (tall lines) cut the second line in half inside the 118 px tag;
+	# the plain face keeps two whole lines.
+	var body := UI.label(str(it.get("effect", "")), 16, UI.FG, "body", true)
 	body.max_lines_visible = 2
 	body.text_overrun_behavior = TextServer.OVERRUN_TRIM_WORD_ELLIPSIS   # S420: a cut line shows it ("room for 10" read whole)
 	text.add_child(body)
@@ -147,7 +152,7 @@ static func _tag(it: Dictionary) -> Control:
 
 
 static func _short_button(b: Button) -> void:
-	b.add_theme_font_size_override("font_size", 12)
+	b.add_theme_font_size_override("font_size", 16)
 	b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	# The theme is only reachable once the button is in the tree: before that this read Godot's default dark box.
 	b.ready.connect(func(): _tighten(b), CONNECT_ONE_SHOT)

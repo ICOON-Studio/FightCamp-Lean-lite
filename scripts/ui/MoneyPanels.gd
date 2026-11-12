@@ -356,7 +356,7 @@ static func _chalk(title: String) -> Array:
 
 
 static func _short_button(b: Button) -> void:
-	b.add_theme_font_size_override("font_size", 12)
+	b.add_theme_font_size_override("font_size", 16)
 	b.ready.connect(func(): _tighten(b), CONNECT_ONE_SHOT)   # the theme is only reachable in the tree
 
 

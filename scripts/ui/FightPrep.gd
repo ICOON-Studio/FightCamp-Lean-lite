@@ -152,11 +152,11 @@ static func _camp_card(main: Node, c: Career, f: Dictionary, bout_day: int) -> P
 		var id := str(ln.get("id", ""))
 		if not (f.get("stats", {}) as Dictionary).has(id) or not ln.has("target"):
 			continue
-		rows.append(UI.kv(str(Data.LABEL.get(id, str(ln.get("label", id)))), "%.1f now -> %.1f on fight night, target %d" % [float(ln["now"]), float(ln["end"]), roundi(float(ln["target"]))],
+		rows.append(UI.kv(str(Data.LABEL.get(id, str(ln.get("label", id)))), "%.1f now → %.1f on fight night, target %d" % [float(ln["now"]), float(ln["end"]), roundi(float(ln["target"]))],
 			UI.GREEN if bool(ln.get("ok", false)) else UI.AMBER))
 	var wf := Sim.weigh_forecast(c, f, bout_day)
 	var spare := float(f["limit"]) - float(wf["day"])
-	rows.append(UI.kv("On the scale", "%.1f now -> %.1f on the morning, limit %.1f%s" % [float(wf["now"]), float(wf["day"]), float(f["limit"]),
+	rows.append(UI.kv("On the scale", "%.1f now → %.1f on the morning, limit %.1f%s" % [float(wf["now"]), float(wf["day"]), float(f["limit"]),
 		" (%.1f kg to spare)" % spare if spare >= 0.0 else " (%.1f kg over)" % -spare], UI.RED if not bool(wf["ok"]) else (UI.AMBER if spare < SCALE_MARGIN else UI.GREEN)))
 	UI.add_rows(v, rows)
 	var week := UI.button("Change the week", "Link", main.act.bind("ftab", "3"))

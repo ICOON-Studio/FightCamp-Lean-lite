@@ -9,6 +9,7 @@ extends RefCounted
 ## S440 round 3 (Claude's rulings): "No bout" + when the next offers come; DO NEXT always one real button ("Plan the week"
 ## and Coach's Drill / Rest / Fix open the week planner on her); the no-gi weight cell names her class.
 
+const Pulse := preload("res://scripts/ui/Pulse.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const MenuFx := preload("res://scripts/ui/MenuFx.gd")
@@ -52,6 +53,11 @@ static func build(main: Node, c: Career, foot: String = "") -> PanelContainer:
 		if data.is_empty():
 			continue
 		v.add_child(_row(main, id, data, best))
+	# S442 owner ("slowly expand and shrink to draw players eyes"): only the first urgent DO NEXT on the page breathes.
+	for pin in v.find_children("DoNext", "Button", true, false):
+		if (pin as Button).theme_type_variation == "Go":
+			Pulse.breathe(pin)
+			break
 	v.add_child(Bits.key_line(c.fighters.size() >= 2))
 	if foot != "":
 		var f_l := Bits.ink(foot, 16, WoodKit.SOFT)
@@ -116,6 +122,9 @@ static func _place(n: Control, key: String, col: Array, tip: String = "") -> Con
 static func _col_fighter(f: Dictionary, needs: bool, col: Array) -> Control:
 	var box := HBoxContainer.new()
 	var road := str(f.get("road_word", ""))
+	# S442 UX audit: the road word is the step being worked on, not one reached ("3-1 Nationals ready" read as ready).
+	if road != "" and road != "Pro" and not road.ends_with(" belt"):
+		road = "Next: " + road
 	_place(box, "fighter", col, "%s: %s" % [str(f.get("name", "")), road] if road != "" else "")
 	box.add_theme_constant_override("separation", 12)
 	box.add_child(Bits.face_pin(str(f.get("face", "")), needs))
@@ -199,7 +208,7 @@ static func _col_weight(d: Dictionary, col: Array) -> Control:
 	var box := UI.vbox(6)
 	var tone := str(d.get("tone", "ok"))
 	if tone == "muted":   # the no-gi athlete: no weight is kept in today's rules, so her class and no kg
-		_place(box, "weight", col, "Her class on the mats. No weight is kept and no cut in today's rules.")
+		_place(box, "weight", col, "The class on the mats. No weight is kept and no cut in today's rules.")
 		var cls := Bits.ink(str(d.get("word", "")), 18, WoodKit.SOFT, "body")   # the caption style of the other words, never trimmed
 		cls.name = "Word"
 		box.add_child(cls)
@@ -222,7 +231,13 @@ static func _col_weight(d: Dictionary, col: Array) -> Control:
 	# The bar fills to the weight against a ceiling a little over the limit, so the limit tick sits inside the track.
 	var ceiling := lim * 1.15 if lim > 0.0 else 100.0
 	box.add_child(Bits.tick_bar((kg / ceiling) * 100.0, (lim / ceiling) * 100.0 if lim > 0.0 else -1.0, c, false))
-	var word := Bits.ink(str(d.get("word", "")), 18, c if tone == "bad" else WoodKit.SOFT, "body", true)
+	# S442 UX audit: "59.8 kg on the day" did not fit the 120 px column ("59.8 kg on th..."); the short form, the long one on hover.
+	var said := str(d.get("word", ""))
+	var short := said.replace(" kg over on the day", " over").replace(" kg on the day", " kg")
+	if short != said:
+		short = "Day: " + short
+		box.tooltip_text += " Fight day: %s." % said
+	var word := Bits.ink(short, 18, c if tone == "bad" else WoodKit.SOFT, "body", true)
 	word.name = "Word"
 	box.add_child(word)
 	return box

@@ -3,6 +3,7 @@ extends VBoxContainer
 ## areas (PLAYER_PATH 6) with the club's mark, and one content pane holding the current area's scene.
 
 const UI := preload("res://scripts/ui/UI.gd")
+const Tally := preload("res://scripts/ui/Tally.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 const Tips := preload("res://scripts/ui/Tips.gd")
@@ -188,11 +189,14 @@ func _cash(c: Career) -> Control:
 	var ms := Needs.money_status(c)   # S324: coloured by GymBills (runway under 8 weeks amber, below $0 red)
 	var cash := UI.label(UI.money(c.cash), 24, Color("#ff7a6e") if ms == "red" or ms == "closed" else (Color("#ffb347") if ms == "warn" else Color("#e8c15a")), "bold")
 	cash.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	cash.name = "TopCash"
+	Tally.number(cash, "cash:%d" % c.get_instance_id(), c.cash, UI.money)   # S442: the tin rolls to a new value (a buy, a bill, a day), never snaps
 	v.add_child(cash)
 	var net := Needs.money_net(c)
 	# S397 blind round 5 ("$287 down this week" while the chart shows the week up): it is the running rate, said so.
 	var line := UI.label("running %s%s a week" % ["+" if net >= 0 else "-", UI.money(absi(net))], 15, UI.TOP_SOFT)
 	line.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	Tally.number(line, "cash:net:%d" % c.get_instance_id(), net, func(n: int) -> String: return "running %s%s a week" % ["+" if n >= 0 else "-", UI.money(absi(n))])
 	v.add_child(line)
 	v.name = "Cash"
 	Tips.card(v, func(): return TopCards.money(_main.career))   # S362 J90 6g: the week's money, Two Point's praised hover

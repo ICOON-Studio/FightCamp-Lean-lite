@@ -72,7 +72,7 @@ static func _one_row(parent: Container, main: Node, area_id: String, tabs_on: bo
 
 static func _short_tab(b: Button) -> void:
 	b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	b.add_theme_font_size_override("font_size", 15)
+	b.add_theme_font_size_override("font_size", 16)
 	b.ready.connect(func(): _tighten_tab(b), CONNECT_ONE_SHOT)   # the theme is only reachable in the tree
 
 

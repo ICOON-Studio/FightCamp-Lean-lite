@@ -3,6 +3,7 @@ extends VBoxContainer
 ## bout page.
 
 const OfferCard := preload("res://scripts/ui/OfferCard.gd")
+const Pulse := preload("res://scripts/ui/Pulse.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Fixtures := preload("res://scripts/ui/Fixtures.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
@@ -74,6 +75,11 @@ func _offers(main: Node, c: Career) -> void:
 	# S387 a card per offer (OfferCard): the opponent's face, record, win band and the chips, ready to decide on.
 	for fo in open:
 		card[1].add_child(OfferCard.make(main, c, fo[0], fo[1]))
+	# S442 owner: the offer waiting for an answer draws the eye - the first safe one's Open breathes, never two.
+	for b in card[1].find_children("Open_*", "Button", true, false):
+		if (b as Button).theme_type_variation == "BtnSolid":
+			Pulse.breathe(b)
+			break
 
 
 ## When her next offer can come, by Bouts.day_events' rule: none while booked or in the championships, else from her

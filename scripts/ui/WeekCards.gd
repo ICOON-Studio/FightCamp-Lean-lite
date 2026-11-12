@@ -170,7 +170,7 @@ static func night_body(spec: Dictionary) -> Control:
 				for e in entries:
 					var row: Dictionary = (spec.get("rows", {}) as Dictionary).get(str(e["card"]), {})
 					if row.has(i):
-						var g := UI.label("mastery %d -> %d" % [roundi(float(row[i][0])), roundi(float(row[i][1]))], 15, UI.FG, "body")   # S398: the tray's rounding
+						var g := UI.label("mastery %d → %d" % [roundi(float(row[i][0])), roundi(float(row[i][1]))], 15, UI.FG, "body")   # S398: the tray's rounding
 						g.name = "Gain_%d" % i
 						v.add_child(g)
 			var pk2 := str(spec.get("key2", ""))
@@ -250,9 +250,9 @@ static func _slot(spec: Dictionary, e: Dictionary, at: int) -> PanelContainer:
 	badge.name = "Split_%d" % i if at == 0 else "Split_%d_b" % i
 	badge.text = "%d%%" % roundi(100.0 * float(e["share"]))
 	badge.focus_mode = Control.FOCUS_NONE
-	badge.tooltip_text = "Click: 50/50 -> 70/30 -> 30/70"
+	badge.tooltip_text = "Click: 50/50 → 70/30 → 30/70"
 	badge.add_theme_font_override("font", UI.font("bold"))
-	badge.add_theme_font_size_override("font_size", 12)
+	badge.add_theme_font_size_override("font_size", 16)
 	for k in ["font_color", "font_hover_color", "font_pressed_color"]:
 		badge.add_theme_color_override(k, WoodKit.INK)
 	for st in ["normal", "hover", "pressed", "focus"]:
@@ -378,7 +378,7 @@ static func segments(prefix: String, words: Array, keys: Array, on: String, pick
 		b.custom_minimum_size = Vector2(0, 32)
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.add_theme_font_override("font", UI.font("semi"))
-		b.add_theme_font_size_override("font_size", 15)
+		b.add_theme_font_size_override("font_size", 16)
 		var lit := str(keys[n]) == on
 		for c in ["font_color", "font_hover_color", "font_pressed_color"]:
 			b.add_theme_color_override(c, WoodKit.INK)

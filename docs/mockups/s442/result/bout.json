@@ -1,0 +1,3437 @@
+{
+  "seed_offer_day": 44,
+  "fight_day": 61,
+  "fight_date": "Sat 7 Mar",
+  "how": "Career.quick_start, Lucy on the books, Bouts.day_events offer accepted (Bouts.accept), Bouts.weigh, BoutNight.fight_step start/shout/corner/end",
+  "fighter": {
+    "name": "Lucy Jackson",
+    "first": "Lucy",
+    "stance": "orthodox",
+    "style": "Out-boxer",
+    "age": 21,
+    "wc": "Lightweight",
+    "habits": [
+      "chases_stoppage",
+      "slow_starter"
+    ],
+    "moves": {
+      "Jab": 51.1,
+      "Cross": 45.1,
+      "Lead hook": 37.3,
+      "Body hook": 30.1,
+      "Uppercut": 0.0,
+      "Check hook": 0.0
+    },
+    "combos": {}
+  },
+  "opponent": {
+    "name": "Priya Nair",
+    "first": "Priya",
+    "club": "Leicester ABC",
+    "age": 22,
+    "stance": "orthodox",
+    "style": "Counter-puncher",
+    "w": 5,
+    "l": 1,
+    "height": 170,
+    "reach": 172,
+    "rating": 63.5,
+    "threat": "Right hand counter over the jab",
+    "weak": "Slow to start",
+    "div": "wlw",
+    "bouts": [
+      {
+        "d": -42,
+        "vs": "Dana Whitfield",
+        "vs_club": "Repton Boxing Club",
+        "win": false,
+        "how": "on a split, 2-1",
+        "ours": false
+      },
+      {
+        "d": -96,
+        "vs": "Tara Quinn",
+        "vs_club": "Lynn AC",
+        "win": true,
+        "how": "stopped in round 2",
+        "ours": false
+      },
+      {
+        "d": -126,
+        "vs": "Jade Cooper",
+        "vs_club": "Islington Boxing Club",
+        "win": true,
+        "how": "on points, 3-0",
+        "ours": false
+      },
+      {
+        "d": -162,
+        "vs": "Erin Doyle",
+        "vs_club": "Belfast Gloves ABC",
+        "win": true,
+        "how": "on a split, 2-1",
+        "ours": false
+      },
+      {
+        "d": -208,
+        "vs": "Ellie Ward",
+        "vs_club": "Earlsfield ABC",
+        "win": true,
+        "how": "on points, 3-0",
+        "ours": false
+      },
+      {
+        "d": -246,
+        "vs": "Zara Lewis",
+        "vs_club": "Dale Youth ABC",
+        "win": true,
+        "how": "on a split, 2-1",
+        "ours": false
+      }
+    ],
+    "file_found": [
+      "weapon",
+      "habit:slow_starter",
+      "weakness"
+    ],
+    "notes_seen": [
+      "habit:slow_starter"
+    ]
+  },
+  "before": {
+    "record": [
+      3,
+      1
+    ],
+    "opp_record": [
+      5,
+      1
+    ],
+    "rank": {
+      "now": 0,
+      "need": 1,
+      "words": "Unranked: 1 win from entering."
+    },
+    "opp_rank": {
+      "now": 4,
+      "need": 0,
+      "words": "Number 4."
+    },
+    "season": "Road to the nationals: 4/5 bouts, 8 of 13 weeks registered, entries close in 9 days"
+  },
+  "after": {
+    "record": [
+      3,
+      2
+    ],
+    "opp_record": [
+      6,
+      1
+    ],
+    "rank": {
+      "now": 0,
+      "need": 1,
+      "words": "Unranked: 1 win from entering."
+    },
+    "opp_rank": {
+      "now": 3,
+      "need": 0,
+      "words": "Number 3."
+    },
+    "season": "Road to the nationals: 5/5 bouts, 8 of 13 weeks registered, entries close in 9 days",
+    "season_check": {
+      "ok": false,
+      "reason": "Needs 3 months registered (5 weeks to go)"
+    }
+  },
+  "plan": [
+    {
+      "i": 0,
+      "letter": "A",
+      "move": "1-2",
+      "move_name": "One-two",
+      "place": "long",
+      "place_words": "At long range",
+      "to": "long",
+      "when": "",
+      "when_words": "",
+      "rated_against": "counter",
+      "fit": "ok",
+      "can_do": true,
+      "options": [
+        {
+          "id": "1-1",
+          "name": "Double jab",
+          "to": "long",
+          "kind": "combo",
+          "fit": "best",
+          "why": "",
+          "rate": 0.8,
+          "edge": 7.95
+        },
+        {
+          "id": "step_out",
+          "name": "Step out",
+          "to": "outside",
+          "kind": "step",
+          "fit": "ok",
+          "why": "",
+          "rate": 1.0,
+          "edge": 3.75
+        },
+        {
+          "id": "1-2",
+          "name": "One-two",
+          "to": "long",
+          "kind": "combo",
+          "fit": "ok",
+          "why": "",
+          "rate": 0.8,
+          "edge": 3.15
+        },
+        {
+          "id": "1-2-3b",
+          "name": "One-two, body hook",
+          "to": "mid",
+          "kind": "combo",
+          "fit": "ok",
+          "why": "",
+          "rate": 0.8,
+          "edge": 3.15
+        },
+        {
+          "id": "cut_off",
+          "name": "Cut off the ring",
+          "to": "opp_ropes",
+          "kind": "step",
+          "fit": "none",
+          "why": "",
+          "rate": 1.0,
+          "edge": 0.75
+        },
+        {
+          "id": "2-3",
+          "name": "Cross, hook",
+          "to": "mid",
+          "kind": "combo",
+          "fit": "wrong",
+          "why": "",
+          "rate": 0.8,
+          "edge": -6.25
+        },
+        {
+          "id": "1-2-3",
+          "name": "One-two-hook",
+          "to": "mid",
+          "kind": "combo",
+          "fit": "wrong",
+          "why": "",
+          "rate": 0.8,
+          "edge": -6.25
+        },
+        {
+          "id": "1-2-3-2",
+          "name": "One-two-hook-cross",
+          "to": "mid",
+          "kind": "combo",
+          "fit": "wrong",
+          "why": "",
+          "rate": 0.8,
+          "edge": -6.25
+        }
+      ]
+    },
+    {
+      "i": 1,
+      "letter": "B",
+      "move": "step_back",
+      "move_name": "Step back",
+      "place": "mid",
+      "place_words": "At mid range",
+      "to": "long",
+      "when": "press",
+      "when_words": "the opponent presses",
+      "rated_against": "press",
+      "fit": "best",
+      "can_do": true,
+      "options": [
+        {
+          "id": "step_back",
+          "name": "Step back",
+          "to": "long",
+          "kind": "step",
+          "fit": "best",
+          "why": "",
+          "rate": 1.0,
+          "edge": 3.3
+        },
+        {
+          "id": "3b-3",
+          "name": "Body hook, head hook",
+          "to": "inside",
+          "kind": "combo",
+          "fit": "ok",
+          "why": "",
+          "rate": 0.8,
+          "edge": -3.3
+        },
+        {
+          "id": "slip 2-3",
+          "name": "Slip, cross, check hook",
+          "to": "mid",
+          "kind": "combo",
+          "fit": "best",
+          "why": "Learn the Check hook first",
+          "rate": 0.8,
+          "edge": 0.0
+        },
+        {
+          "id": "1-6-3",
+          "name": "Jab, uppercut, hook",
+          "to": "inside",
+          "kind": "combo",
+          "fit": "none",
+          "why": "Learn the Uppercut first",
+          "rate": 0.8,
+          "edge": 0.0
+        }
+      ]
+    },
+    {
+      "i": 2,
+      "letter": "C",
+      "move": "1-2-3",
+      "move_name": "One-two-hook",
+      "place": "long",
+      "place_words": "At long range",
+      "to": "mid",
+      "when": "counter",
+      "when_words": "the opponent waits to counter",
+      "rated_against": "counter",
+      "fit": "wrong",
+      "can_do": true,
+      "options": [
+        {
+          "id": "1-1",
+          "name": "Double jab",
+          "to": "long",
+          "kind": "combo",
+          "fit": "best",
+          "why": "",
+          "rate": 0.8,
+          "edge": 7.95
+        },
+        {
+          "id": "step_out",
+          "name": "Step out",
+          "to": "outside",
+          "kind": "step",
+          "fit": "ok",
+          "why": "",
+          "rate": 1.0,
+          "edge": 3.75
+        },
+        {
+          "id": "1-2",
+          "name": "One-two",
+          "to": "long",
+          "kind": "combo",
+          "fit": "ok",
+          "why": "",
+          "rate": 0.8,
+          "edge": 3.15
+        },
+        {
+          "id": "1-2-3b",
+          "name": "One-two, body hook",
+          "to": "mid",
+          "kind": "combo",
+          "fit": "ok",
+          "why": "",
+          "rate": 0.8,
+          "edge": 3.15
+        },
+        {
+          "id": "cut_off",
+          "name": "Cut off the ring",
+          "to": "opp_ropes",
+          "kind": "step",
+          "fit": "none",
+          "why": "",
+          "rate": 1.0,
+          "edge": 0.75
+        },
+        {
+          "id": "2-3",
+          "name": "Cross, hook",
+          "to": "mid",
+          "kind": "combo",
+          "fit": "wrong",
+          "why": "",
+          "rate": 0.8,
+          "edge": -6.25
+        },
+        {
+          "id": "1-2-3",
+          "name": "One-two-hook",
+          "to": "mid",
+          "kind": "combo",
+          "fit": "wrong",
+          "why": "",
+          "rate": 0.8,
+          "edge": -6.25
+        },
+        {
+          "id": "1-2-3-2",
+          "name": "One-two-hook-cross",
+          "to": "mid",
+          "kind": "combo",
+          "fit": "wrong",
+          "why": "",
+          "rate": 0.8,
+          "edge": -6.25
+        }
+      ]
+    }
+  ],
+  "rounds": [
+    {
+      "n": 1,
+      "won": true,
+      "won_n": 4,
+      "mine": -0.726481385171945,
+      "theirs": 0.0,
+      "corner": "",
+      "energy": {
+        "a": 100.0,
+        "b": 100.0,
+        "a_end": 73.6286216917773,
+        "b_end": 70.0418907238987,
+        "bonus": 0.0
+      },
+      "exchanges": [
+        {
+          "i": 0,
+          "mode": "counter",
+          "read": {},
+          "body": [
+            1,
+            1
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "counter",
+          "call": "",
+          "shout": false,
+          "fit": "none",
+          "pace": "steady",
+          "aim": "",
+          "won": true,
+          "margin": 1.64540865421295,
+          "landed": [
+            4,
+            3
+          ],
+          "verdict": "Lucy won those 30 seconds with no call from you.",
+          "habit": "slow_starter",
+          "fix": "",
+          "habit_line": "Priya made Lucy pay for a habit: slow starter.",
+          "at": "long",
+          "place": 0,
+          "duel_edge": -2.75773993730545,
+          "a_best": "counter",
+          "b_best": "counter",
+          "pinned": false,
+          "wa": 2,
+          "wb": 1,
+          "duel_line": "",
+          "arrow": "1-2-3",
+          "planned": true,
+          "arrow_fit": "wrong",
+          "psit": "counter",
+          "plan_edge": -6.25,
+          "read_edge": 0.0,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 0,
+            "tank": 0.0
+          },
+          "plan_tally": [
+            1,
+            1
+          ],
+          "clinch": {},
+          "clinch_line": "",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 94.1286369486296,
+            "b": 94.0497237308318,
+            "body": [
+              1,
+              1
+            ],
+            "hurt": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "i": 1,
+          "mode": "counter",
+          "read": {},
+          "body": [
+            1,
+            1
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "counter",
+          "call": "",
+          "shout": false,
+          "fit": "none",
+          "pace": "steady",
+          "aim": "",
+          "won": true,
+          "margin": 23.0881299316883,
+          "landed": [
+            5,
+            2
+          ],
+          "verdict": "Lucy won those 30 seconds with no call from you.",
+          "habit": "slow_starter",
+          "fix": "",
+          "habit_line": "Priya made Lucy pay for a habit: slow starter.",
+          "at": "mid",
+          "place": 1,
+          "duel_edge": -5.89882198572159,
+          "a_best": "counter",
+          "b_best": "counter",
+          "pinned": false,
+          "wa": 2,
+          "wb": 1,
+          "duel_line": "",
+          "arrow": "3b-3",
+          "planned": false,
+          "arrow_fit": "none",
+          "psit": "counter",
+          "plan_edge": 0.0,
+          "read_edge": 0.0,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 0,
+            "tank": 0.0
+          },
+          "clinch": {},
+          "clinch_line": "",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 88.2572738972591,
+            "b": 88.0994474616635,
+            "body": [
+              2,
+              2
+            ],
+            "hurt": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "i": 2,
+          "mode": "counter",
+          "read": {},
+          "body": [
+            1,
+            1
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "counter",
+          "call": "lead",
+          "shout": true,
+          "fit": "best",
+          "pace": "steady",
+          "aim": "",
+          "won": true,
+          "margin": 28.4510806705713,
+          "landed": [
+            5,
+            3
+          ],
+          "verdict": "It worked: \"Draw the lead\" won Lucy those 30 seconds.",
+          "habit": "",
+          "fix": "",
+          "habit_line": "",
+          "at": "inside",
+          "place": 1,
+          "duel_edge": -5.89882198572159,
+          "a_best": "counter",
+          "b_best": "counter",
+          "pinned": false,
+          "wa": 0,
+          "wb": 1,
+          "duel_line": "",
+          "arrow": "tie_up",
+          "planned": false,
+          "arrow_fit": "none",
+          "psit": "counter",
+          "plan_edge": 0.0,
+          "read_edge": 0.0,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 0,
+            "tank": 0.0
+          },
+          "clinch": {
+            "hit": true,
+            "shots": 1,
+            "head": true,
+            "edge": 2.5,
+            "damage": 8.0
+          },
+          "clinch_line": "Lucy ties Priya up and gets a breather, but Priya lands one on the break.",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 84.3859108458887,
+            "b": 82.1491711924953,
+            "body": [
+              3,
+              3
+            ],
+            "hurt": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "i": 3,
+          "mode": "loadup",
+          "read": {},
+          "body": [
+            0,
+            1
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "loadup",
+          "call": "",
+          "shout": false,
+          "fit": "none",
+          "pace": "steady",
+          "aim": "",
+          "won": false,
+          "margin": -30.7299922466278,
+          "landed": [
+            2,
+            5
+          ],
+          "verdict": "Lucy lost those 30 seconds with no call from you.",
+          "habit": "",
+          "fix": "",
+          "habit_line": "",
+          "at": "clinch",
+          "place": 1,
+          "duel_edge": -5.89882198572159,
+          "a_best": "counter",
+          "b_best": "counter",
+          "pinned": false,
+          "wa": 2,
+          "wb": 1,
+          "duel_line": "",
+          "arrow": "push_off",
+          "planned": false,
+          "arrow_fit": "none",
+          "psit": "loadup",
+          "plan_edge": 0.0,
+          "read_edge": 0.0,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 0,
+            "tank": 0.0
+          },
+          "clinch": {
+            "hit": false,
+            "shots": 0,
+            "head": false,
+            "edge": 0.0,
+            "damage": 0.0
+          },
+          "clinch_line": "Lucy ties Priya up and gets a breather.",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 80.0145477945182,
+            "b": 77.1561529798117,
+            "body": [
+              4,
+              3
+            ],
+            "hurt": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "i": 4,
+          "mode": "loadup",
+          "read": {},
+          "body": [
+            1,
+            1
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "loadup",
+          "call": "hands",
+          "shout": true,
+          "fit": "best",
+          "pace": "steady",
+          "aim": "",
+          "won": false,
+          "margin": -27.9731088970693,
+          "landed": [
+            2,
+            5
+          ],
+          "verdict": "Right idea, \"Hands up, move your head\", but Lucy still lost those 30 seconds.",
+          "habit": "",
+          "fix": "",
+          "habit_line": "",
+          "at": "own_ropes",
+          "place": 1,
+          "duel_edge": -5.89882198572159,
+          "a_best": "counter",
+          "b_best": "counter",
+          "pinned": false,
+          "wa": 2,
+          "wb": 1,
+          "duel_line": "",
+          "arrow": "pivot_out",
+          "planned": false,
+          "arrow_fit": "ok",
+          "psit": "loadup",
+          "plan_edge": 0.0,
+          "read_edge": 0.0,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 0,
+            "tank": 0.0
+          },
+          "clinch": {},
+          "clinch_line": "",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 74.1431847431478,
+            "b": 71.2058767106435,
+            "body": [
+              5,
+              4
+            ],
+            "hurt": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "i": 5,
+          "mode": "counter",
+          "read": {
+            "game": "counter",
+            "read": 0.84,
+            "trig": 0.75,
+            "move": "Check hook",
+            "result": "landed",
+            "edge": 7.0
+          },
+          "body": [
+            1,
+            1
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "counter",
+          "call": "",
+          "shout": false,
+          "fit": "none",
+          "pace": "steady",
+          "aim": "",
+          "won": true,
+          "margin": 1.15959357619285,
+          "landed": [
+            4,
+            3
+          ],
+          "verdict": "Lucy won those 30 seconds with no call from you.",
+          "habit": "",
+          "fix": "",
+          "habit_line": "",
+          "at": "own_ropes",
+          "place": 1,
+          "duel_edge": -5.89882198572159,
+          "a_best": "counter",
+          "b_best": "counter",
+          "pinned": false,
+          "wa": 2,
+          "wb": 1,
+          "duel_line": "",
+          "arrow": "pivot_out",
+          "planned": false,
+          "arrow_fit": "none",
+          "psit": "counter_late",
+          "plan_edge": 0.0,
+          "read_edge": 0.0,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 0,
+            "tank": 0.0
+          },
+          "clinch": {},
+          "clinch_line": "",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 68.2718216917773,
+            "b": 65.2556004414752,
+            "body": [
+              6,
+              5
+            ],
+            "hurt": [
+              false,
+              false
+            ]
+          }
+        }
+      ],
+      "landed": [
+        22,
+        21
+      ],
+      "calls": 2,
+      "worked": 1,
+      "fix": "",
+      "habits_paid": {
+        "slow_starter": 2
+      },
+      "fix_came": 0,
+      "adapt": {
+        "id": "",
+        "hold": 0.835,
+        "moved": 0
+      },
+      "fix_hold": 0.835,
+      "start": {
+        "a": 100.0,
+        "b": 100.0,
+        "body": [
+          0,
+          0
+        ],
+        "hurt": [
+          false,
+          false
+        ]
+      },
+      "talk": "",
+      "setup": {},
+      "arrows": {
+        "used": 1,
+        "worked": 1,
+        "improvised": 5,
+        "moves": {
+          "1-2-3": [
+            1,
+            1
+          ]
+        }
+      },
+      "plan": [
+        {
+          "move": "1-2"
+        },
+        {
+          "move": "step_back",
+          "when": "press"
+        },
+        {
+          "move": "1-2-3",
+          "when": "counter"
+        }
+      ],
+      "hurt_at_bell": false,
+      "lines": [
+        "Lucy boxes as a out-boxer: big heart, recovers fast.",
+        "Lucy worked in the pocket, leaning on the counter.",
+        "A tidy round 1 for Lucy: cleaner punches, better feet.",
+        "Exchanges 4-2; punches landed 22-21.",
+        "Your shouts that worked: 1 of 2.",
+        "In the pocket 5 of 6: Lucy and Priya stood and traded."
+      ],
+      "counts": 0,
+      "up_at": [],
+      "down": "",
+      "stopped": ""
+    },
+    {
+      "n": 2,
+      "won": false,
+      "won_n": 3,
+      "mine": -7.5373065307735,
+      "theirs": 0.0,
+      "corner": "hands",
+      "energy": {
+        "a": 83.5753784296524,
+        "b": 79.6808977731185,
+        "a_end": 49.7040001214298,
+        "b_end": 49.7227884970172,
+        "bonus": 0.341246710663937
+      },
+      "exchanges": [
+        {
+          "i": 0,
+          "mode": "counter",
+          "read": {
+            "game": "counter",
+            "read": 1.0,
+            "trig": 0.75,
+            "move": "Check hook",
+            "result": "landed",
+            "edge": 7.0
+          },
+          "body": [
+            1,
+            1
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "counter",
+          "call": "hands",
+          "shout": false,
+          "fit": "none",
+          "pace": "steady",
+          "aim": "",
+          "won": false,
+          "margin": -0.33796503416413,
+          "landed": [
+            3,
+            4
+          ],
+          "verdict": "\"Hands up, move your head\" changed nothing: Lucy lost those 30 seconds.",
+          "habit": "",
+          "fix": "",
+          "habit_line": "",
+          "at": "long",
+          "place": 2,
+          "duel_edge": -2.37086112217411,
+          "a_best": "short",
+          "b_best": "stepin",
+          "pinned": false,
+          "wa": 2,
+          "wb": 1,
+          "duel_line": "Priya's counter on the way in against Lucy's head movement",
+          "arrow": "1-2-3",
+          "planned": true,
+          "arrow_fit": "wrong",
+          "psit": "counter",
+          "plan_edge": -6.25,
+          "read_edge": 0.0,
+          "plan_swing": -1,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 4,
+            "tank": 6.0
+          },
+          "plan_tally": [
+            1,
+            2
+          ],
+          "clinch": {},
+          "clinch_line": "",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 66.347215378282,
+            "b": 68.9443312215268,
+            "body": [
+              7,
+              6
+            ],
+            "hurt": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "i": 1,
+          "mode": "loadup",
+          "read": {},
+          "body": [
+            1,
+            1
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "loadup",
+          "call": "hands",
+          "shout": false,
+          "fit": "best",
+          "pace": "steady",
+          "aim": "",
+          "won": true,
+          "margin": 21.4708889237091,
+          "landed": [
+            5,
+            2
+          ],
+          "verdict": "It worked: \"Hands up, move your head\" won Lucy those 30 seconds.",
+          "habit": "",
+          "fix": "",
+          "habit_line": "",
+          "at": "long",
+          "place": 2,
+          "duel_edge": 3.35230051092088,
+          "a_best": "short",
+          "b_best": "body",
+          "pinned": false,
+          "wa": 2,
+          "wb": 1,
+          "duel_line": "",
+          "arrow": "1-2",
+          "planned": true,
+          "arrow_fit": "ok",
+          "psit": "loadup",
+          "plan_edge": 2.075,
+          "read_edge": -3.5,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 0,
+            "tank": 0.0
+          },
+          "plan_tally": [
+            1,
+            1
+          ],
+          "clinch": {},
+          "clinch_line": "",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 60.4758523269115,
+            "b": 62.9940549523585,
+            "body": [
+              8,
+              7
+            ],
+            "hurt": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "i": 2,
+          "mode": "loadup",
+          "read": {
+            "game": "loadup",
+            "read": 0.84,
+            "trig": 0.75,
+            "move": "Cross",
+            "result": "landed",
+            "edge": 7.0
+          },
+          "body": [
+            1,
+            1
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "loadup",
+          "call": "hands",
+          "shout": true,
+          "fit": "best",
+          "pace": "steady",
+          "aim": "",
+          "won": false,
+          "margin": -38.2501962881047,
+          "landed": [
+            2,
+            5
+          ],
+          "verdict": "Right idea, \"Hands up, move your head\", but Lucy still lost those 30 seconds.",
+          "habit": "",
+          "fix": "",
+          "habit_line": "",
+          "at": "long",
+          "place": 1,
+          "duel_edge": -6.13709560632706,
+          "a_best": "counter",
+          "b_best": "counter",
+          "pinned": false,
+          "wa": 0,
+          "wb": 1,
+          "duel_line": "",
+          "arrow": "1-2",
+          "planned": true,
+          "arrow_fit": "ok",
+          "psit": "loadup",
+          "plan_edge": 2.075,
+          "read_edge": -3.5,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 0,
+            "tank": 0.0
+          },
+          "plan_tally": [
+            1,
+            2
+          ],
+          "clinch": {},
+          "clinch_line": "",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 54.6044892755411,
+            "b": 57.0437786831903,
+            "body": [
+              9,
+              8
+            ],
+            "hurt": [
+              true,
+              false
+            ]
+          }
+        },
+        {
+          "i": 3,
+          "mode": "loadup",
+          "read": {},
+          "body": [
+            1,
+            1
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "she_hurt",
+          "call": "hands",
+          "shout": false,
+          "fit": "ok",
+          "pace": "steady",
+          "aim": "",
+          "won": false,
+          "margin": -35.7839393785021,
+          "landed": [
+            2,
+            5
+          ],
+          "verdict": "Right idea, \"Hands up, move your head\", but Lucy still lost those 30 seconds.",
+          "habit": "",
+          "fix": "",
+          "habit_line": "",
+          "at": "own_ropes",
+          "place": 1,
+          "duel_edge": -8.27076355218887,
+          "a_best": "counter",
+          "b_best": "counter",
+          "pinned": false,
+          "wa": 2,
+          "wb": 1,
+          "duel_line": "",
+          "arrow": "pivot_out",
+          "planned": false,
+          "arrow_fit": "best",
+          "psit": "she_hurt",
+          "plan_edge": 0.0,
+          "read_edge": -3.5,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 0,
+            "tank": 0.0
+          },
+          "clinch": {},
+          "clinch_line": "",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 48.7331262241707,
+            "b": 51.093502414022,
+            "body": [
+              10,
+              9
+            ],
+            "hurt": [
+              true,
+              false
+            ]
+          }
+        },
+        {
+          "i": 4,
+          "mode": "range",
+          "read": {},
+          "body": [
+            0,
+            1
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "she_hurt",
+          "call": "tie",
+          "shout": true,
+          "fit": "best",
+          "pace": "steady",
+          "aim": "",
+          "won": true,
+          "margin": 2.25423064917407,
+          "landed": [
+            4,
+            3
+          ],
+          "verdict": "It worked: \"Tie up\" won Lucy those 30 seconds.",
+          "habit": "",
+          "fix": "",
+          "habit_line": "",
+          "at": "own_ropes",
+          "place": 2,
+          "duel_edge": -5.18910667324572,
+          "a_best": "short",
+          "b_best": "stepin",
+          "pinned": false,
+          "wa": 2,
+          "wb": 0,
+          "duel_line": "",
+          "arrow": "pivot_out",
+          "planned": false,
+          "arrow_fit": "best",
+          "psit": "she_hurt",
+          "plan_edge": 0.0,
+          "read_edge": -3.5,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 0,
+            "tank": 0.0
+          },
+          "clinch": {
+            "hit": false,
+            "shots": 0,
+            "head": false,
+            "edge": 0.0,
+            "damage": 0.0
+          },
+          "clinch_line": "Lucy ties Priya up and gets a breather.",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 44.8617631728002,
+            "b": 46.1004842013385,
+            "body": [
+              11,
+              9
+            ],
+            "hurt": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "i": 5,
+          "mode": "range",
+          "read": {},
+          "body": [
+            1,
+            1
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "range",
+          "call": "hands",
+          "shout": false,
+          "fit": "none",
+          "pace": "steady",
+          "aim": "",
+          "won": true,
+          "margin": 5.42314194324672,
+          "landed": [
+            4,
+            3
+          ],
+          "verdict": "Lucy won those 30 seconds, but not because of \"Hands up, move your head\".",
+          "habit": "",
+          "fix": "",
+          "habit_line": "",
+          "at": "mid",
+          "place": 2,
+          "duel_edge": 3.02458542623589,
+          "a_best": "short",
+          "b_best": "body",
+          "pinned": false,
+          "wa": 2,
+          "wb": 0,
+          "duel_line": "Lucy's short work against Priya's inside work",
+          "arrow": "3b-3",
+          "planned": false,
+          "arrow_fit": "best",
+          "psit": "range",
+          "plan_edge": 0.0,
+          "read_edge": -3.5,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 0,
+            "tank": 0.0
+          },
+          "clinch": {},
+          "clinch_line": "",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 38.9904001214298,
+            "b": 40.1502079321702,
+            "body": [
+              12,
+              10
+            ],
+            "hurt": [
+              false,
+              false
+            ]
+          }
+        }
+      ],
+      "landed": [
+        20,
+        22
+      ],
+      "calls": 2,
+      "worked": 1,
+      "fix": "",
+      "habits_paid": {},
+      "fix_came": 0,
+      "adapt": {
+        "id": "",
+        "hold": 0.835,
+        "moved": 0
+      },
+      "fix_hold": 0.835,
+      "start": {
+        "a": 78.2185784296524,
+        "b": 74.894607490695,
+        "body": [
+          6,
+          5
+        ],
+        "hurt": [
+          false,
+          false
+        ]
+      },
+      "talk": "",
+      "setup": {},
+      "arrows": {
+        "used": 3,
+        "worked": 1,
+        "improvised": 3,
+        "moves": {
+          "1-2-3": [
+            0,
+            1
+          ],
+          "1-2": [
+            1,
+            2
+          ]
+        }
+      },
+      "plan": [
+        {
+          "move": "1-2"
+        },
+        {
+          "move": "step_back",
+          "when": "press"
+        },
+        {
+          "move": "1-2-3",
+          "when": "counter"
+        }
+      ],
+      "hurt_at_bell": false,
+      "lines": [
+        "Lucy boxes as a out-boxer: big heart, recovers fast.",
+        "Lucy worked inside, leaning on the short work.",
+        "Exchanges 3-3; punches landed 20-22.",
+        "Your shouts that worked: 1 of 2.",
+        "Inside 4 of 6: Lucy got inside."
+      ],
+      "counts": 0,
+      "up_at": [],
+      "down": "",
+      "stopped": ""
+    },
+    {
+      "n": 3,
+      "won": false,
+      "won_n": 1,
+      "mine": -15.4545535375937,
+      "theirs": 0.0,
+      "corner": "tie",
+      "energy": {
+        "a": 64.077292390691,
+        "b": 63.8318929001094,
+        "a_end": 39.2059140824683,
+        "b_end": 33.8737836240081,
+        "bonus": 0.0284683250108739
+      },
+      "exchanges": [
+        {
+          "i": 0,
+          "mode": "counter",
+          "read": {},
+          "body": [
+            0,
+            1
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "counter",
+          "call": "tie",
+          "shout": false,
+          "fit": "none",
+          "pace": "steady",
+          "aim": "",
+          "won": false,
+          "margin": -33.6153681155629,
+          "landed": [
+            2,
+            5
+          ],
+          "verdict": "\"Tie up\" changed nothing: Lucy lost those 30 seconds.",
+          "habit": "",
+          "fix": "",
+          "habit_line": "",
+          "at": "long",
+          "place": 2,
+          "duel_edge": 3.2910986583127,
+          "a_best": "short",
+          "b_best": "body",
+          "pinned": false,
+          "wa": 2,
+          "wb": 1,
+          "duel_line": "",
+          "arrow": "1-2-3",
+          "planned": true,
+          "arrow_fit": "wrong",
+          "psit": "counter",
+          "plan_edge": -6.25,
+          "read_edge": 0.0,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 5,
+            "tank": 7.5
+          },
+          "plan_tally": [
+            1,
+            3
+          ],
+          "clinch": {
+            "hit": false,
+            "shots": 0,
+            "head": false,
+            "edge": 0.0,
+            "damage": 0.0
+          },
+          "clinch_line": "Lucy ties Priya up and gets a breather.",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 41.9923293393205,
+            "b": 49.2662941225789,
+            "body": [
+              13,
+              10
+            ],
+            "hurt": [
+              true,
+              false
+            ]
+          }
+        },
+        {
+          "i": 1,
+          "mode": "loadup",
+          "read": {},
+          "body": [
+            1,
+            2
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "she_hurt",
+          "call": "tie",
+          "shout": false,
+          "fit": "best",
+          "pace": "steady",
+          "aim": "",
+          "won": false,
+          "margin": -8.95636945021953,
+          "landed": [
+            3,
+            5
+          ],
+          "verdict": "Right idea, \"Tie up\", but Lucy still lost those 30 seconds.",
+          "habit": "",
+          "fix": "",
+          "habit_line": "",
+          "at": "own_ropes",
+          "place": 1,
+          "duel_edge": -7.98355547189712,
+          "a_best": "counter",
+          "b_best": "counter",
+          "pinned": false,
+          "wa": 2,
+          "wb": 1,
+          "duel_line": "Priya's counter against Lucy's defence",
+          "arrow": "pivot_out",
+          "planned": false,
+          "arrow_fit": "best",
+          "psit": "she_hurt",
+          "plan_edge": 0.0,
+          "read_edge": -3.5,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 0,
+            "tank": 0.0
+          },
+          "clinch": {
+            "hit": true,
+            "shots": 1,
+            "head": false,
+            "edge": 2.5,
+            "damage": 0.0
+          },
+          "clinch_line": "Lucy ties Priya up and gets a breather, but Priya digs a short one to the ribs.",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 37.2281662879501,
+            "b": 43.3160178534107,
+            "body": [
+              15,
+              11
+            ],
+            "hurt": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "i": 2,
+          "mode": "loadup",
+          "read": {
+            "game": "loadup",
+            "read": 1.0,
+            "trig": 0.75,
+            "move": "Cross",
+            "result": "landed",
+            "edge": 7.0
+          },
+          "body": [
+            0,
+            1
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "loadup",
+          "call": "hands",
+          "shout": true,
+          "fit": "best",
+          "pace": "steady",
+          "aim": "",
+          "won": false,
+          "margin": -42.4234776210658,
+          "landed": [
+            1,
+            6
+          ],
+          "verdict": "Right idea, \"Hands up, move your head\", but Lucy still lost those 30 seconds.",
+          "habit": "",
+          "fix": "",
+          "habit_line": "",
+          "at": "own_ropes",
+          "place": 1,
+          "duel_edge": -5.58843103647232,
+          "a_best": "counter",
+          "b_best": "counter",
+          "pinned": false,
+          "wa": 2,
+          "wb": 1,
+          "duel_line": "",
+          "arrow": "pivot_out",
+          "planned": false,
+          "arrow_fit": "ok",
+          "psit": "loadup",
+          "plan_edge": 0.0,
+          "read_edge": -3.5,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 0,
+            "tank": 0.0
+          },
+          "clinch": {},
+          "clinch_line": "",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 31.3568032365796,
+            "b": 38.3229996407271,
+            "body": [
+              16,
+              11
+            ],
+            "hurt": [
+              true,
+              false
+            ]
+          }
+        },
+        {
+          "i": 3,
+          "mode": "tiring",
+          "read": {},
+          "body": [
+            1,
+            0
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "she_hurt",
+          "call": "tie",
+          "shout": false,
+          "fit": "best",
+          "pace": "steady",
+          "aim": "",
+          "won": true,
+          "margin": 26.1563944910685,
+          "landed": [
+            5,
+            2
+          ],
+          "verdict": "It worked: \"Tie up\" won Lucy those 30 seconds.",
+          "habit": "",
+          "fix": "",
+          "habit_line": "",
+          "at": "own_ropes",
+          "place": 0,
+          "duel_edge": -3.82088438272476,
+          "a_best": "counter",
+          "b_best": "counter",
+          "pinned": false,
+          "wa": 2,
+          "wb": 0,
+          "duel_line": "",
+          "arrow": "pivot_out",
+          "planned": false,
+          "arrow_fit": "best",
+          "psit": "she_hurt",
+          "plan_edge": 0.0,
+          "read_edge": -3.5,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 0,
+            "tank": 0.0
+          },
+          "clinch": {
+            "hit": false,
+            "shots": 0,
+            "head": false,
+            "edge": 0.0,
+            "damage": 0.0
+          },
+          "clinch_line": "Lucy ties Priya up and gets a breather.",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 28.3782401852092,
+            "b": 32.3727233715589,
+            "body": [
+              16,
+              12
+            ],
+            "hurt": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "i": 4,
+          "mode": "tiring",
+          "read": {},
+          "body": [
+            1,
+            1
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "she_tired",
+          "call": "calm",
+          "shout": true,
+          "fit": "best",
+          "pace": "steady",
+          "aim": "",
+          "won": false,
+          "margin": -26.5281417871794,
+          "landed": [
+            2,
+            5
+          ],
+          "verdict": "Right idea, \"Breathe, pick your shots\", but Lucy still lost those 30 seconds.",
+          "habit": "",
+          "fix": "",
+          "habit_line": "",
+          "at": "inside",
+          "place": 0,
+          "duel_edge": -2.3449432015419,
+          "a_best": "counter",
+          "b_best": "counter",
+          "pinned": false,
+          "wa": 2,
+          "wb": 0,
+          "duel_line": "",
+          "arrow": "tie_up",
+          "planned": false,
+          "arrow_fit": "best",
+          "psit": "she_tired",
+          "plan_edge": 0.0,
+          "read_edge": -3.5,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 0,
+            "tank": 0.0
+          },
+          "clinch": {
+            "hit": false,
+            "shots": 0,
+            "head": false,
+            "edge": 0.0,
+            "damage": 0.0
+          },
+          "clinch_line": "Lucy ties Priya up and gets a breather.",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 27.0068771338388,
+            "b": 26.4224471023906,
+            "body": [
+              17,
+              13
+            ],
+            "hurt": [
+              false,
+              false
+            ]
+          }
+        },
+        {
+          "i": 5,
+          "mode": "tiring",
+          "read": {},
+          "body": [
+            0,
+            1
+          ],
+          "setup": "",
+          "setup_combo": "",
+          "sit": "she_tired",
+          "call": "tie",
+          "shout": false,
+          "fit": "none",
+          "pace": "steady",
+          "aim": "",
+          "won": false,
+          "margin": -7.36035874260273,
+          "landed": [
+            3,
+            4
+          ],
+          "verdict": "\"Tie up\" changed nothing: Lucy lost those 30 seconds.",
+          "habit": "",
+          "fix": "",
+          "habit_line": "",
+          "at": "inside",
+          "place": 0,
+          "duel_edge": -2.04266659021378,
+          "a_best": "counter",
+          "b_best": "counter",
+          "pinned": false,
+          "wa": 2,
+          "wb": 0,
+          "duel_line": "",
+          "arrow": "tie_up",
+          "planned": false,
+          "arrow_fit": "best",
+          "psit": "she_tired",
+          "plan_edge": 0.0,
+          "read_edge": -3.5,
+          "plan_swing": 0,
+          "pressure": {
+            "pressure": 0.0,
+            "cut": 0,
+            "clean": 0,
+            "tank": 0.0
+          },
+          "clinch": {
+            "hit": false,
+            "shots": 0,
+            "head": false,
+            "edge": 0.0,
+            "damage": 0.0
+          },
+          "clinch_line": "Lucy ties Priya up and gets a breather.",
+          "perks": [],
+          "perk_line": "",
+          "after": {
+            "a": 23.1355140824683,
+            "b": 21.4294288897071,
+            "body": [
+              18,
+              13
+            ],
+            "hurt": [
+              false,
+              false
+            ]
+          }
+        }
+      ],
+      "landed": [
+        16,
+        27
+      ],
+      "calls": 2,
+      "worked": 0,
+      "fix": "",
+      "habits_paid": {},
+      "fix_came": 0,
+      "adapt": {
+        "id": "",
+        "hold": 0.835,
+        "moved": 0
+      },
+      "fix_hold": 0.835,
+      "start": {
+        "a": 53.363692390691,
+        "b": 54.2593123352625,
+        "body": [
+          12,
+          10
+        ],
+        "hurt": [
+          false,
+          false
+        ]
+      },
+      "talk": "",
+      "setup": {},
+      "arrows": {
+        "used": 1,
+        "worked": 0,
+        "improvised": 5,
+        "moves": {
+          "1-2-3": [
+            0,
+            1
+          ]
+        }
+      },
+      "plan": [
+        {
+          "move": "1-2"
+        },
+        {
+          "move": "step_back",
+          "when": "press"
+        },
+        {
+          "move": "1-2-3",
+          "when": "counter"
+        }
+      ],
+      "hurt_at_bell": false,
+      "lines": [
+        "Lucy boxes as a out-boxer: big heart, recovers fast.",
+        "Lucy worked at range, leaning on the counter.",
+        "Exchanges 1-5; punches landed 16-27.",
+        "Your shouts that worked: 0 of 2."
+      ],
+      "counts": 0,
+      "up_at": [],
+      "down": "",
+      "stopped": ""
+    }
+  ],
+  "cards": [
+    "28-29",
+    "28-29",
+    "29-28"
+  ],
+  "flip_round": 1,
+  "outcome": "loss",
+  "stopped": "",
+  "why": [],
+  "counts": {
+    "a": 0,
+    "b": 0
+  },
+  "damage": {
+    "a": 46.0,
+    "b": 12.0
+  },
+  "rank_words": "Unranked: 1 win from entering.",
+  "members_lost": 1,
+  "fight_why": {
+    "best": 0,
+    "wrong": 3,
+    "used": 5,
+    "all": 18,
+    "for": 0,
+    "cost": 1,
+    "edge": -14.6,
+    "mine": 58,
+    "theirs": 70,
+    "xwon": 8,
+    "grade": "wrong",
+    "worth": -5,
+    "plan": "Your plan: It fought the wrong fight: 0 right answers, 3 wrong ones, 2 neutral. Worse than having no plan, about -5% on the chance of winning.",
+    "against": "One-two-hook was the wrong answer to a counter-puncher, 3 times. Wrong answers punished cost Lucy 14 of the tank for the rest of the fight.",
+    "next": "Against a counter-puncher, replace One-two-hook. Try Feint and draw.",
+    "pressure": {
+      "cut": 0,
+      "tank": 13.5,
+      "peak": 0.0
+    },
+    "coach": 0
+  },
+  "fight_stats": {
+    "rounds": [
+      {
+        "n": 1,
+        "won": true,
+        "landed": [
+          22,
+          21
+        ],
+        "body": [
+          5,
+          6
+        ],
+        "xwon": [
+          4,
+          2
+        ],
+        "counts": 0,
+        "down": "",
+        "tank": [
+          73.6286216917773,
+          70.0418907238987
+        ]
+      },
+      {
+        "n": 2,
+        "won": false,
+        "landed": [
+          20,
+          22
+        ],
+        "body": [
+          5,
+          6
+        ],
+        "xwon": [
+          3,
+          3
+        ],
+        "counts": 0,
+        "down": "",
+        "tank": [
+          49.7040001214298,
+          49.7227884970172
+        ]
+      },
+      {
+        "n": 3,
+        "won": false,
+        "landed": [
+          16,
+          27
+        ],
+        "body": [
+          3,
+          6
+        ],
+        "xwon": [
+          1,
+          5
+        ],
+        "counts": 0,
+        "down": "",
+        "tank": [
+          39.2059140824683,
+          33.8737836240081
+        ]
+      }
+    ],
+    "landed": [
+      58,
+      70
+    ],
+    "body": [
+      13,
+      18
+    ],
+    "head": [
+      45,
+      52
+    ],
+    "xwon": [
+      8,
+      10
+    ],
+    "tank": [
+      39.2059140824683,
+      33.8737836240081
+    ],
+    "calls": [
+      {
+        "id": "hands",
+        "n": 7,
+        "won": 2,
+        "used": 7,
+        "i": 1
+      },
+      {
+        "id": "tie",
+        "n": 5,
+        "won": 2,
+        "used": 5,
+        "i": 2
+      },
+      {
+        "id": "lead",
+        "n": 1,
+        "won": 1,
+        "used": 1,
+        "i": 0
+      },
+      {
+        "id": "calm",
+        "n": 1,
+        "won": 0,
+        "used": 1,
+        "i": 3
+      }
+    ],
+    "games": [
+      {
+        "sit": "counter",
+        "n": 6,
+        "won": 4,
+        "used": 6,
+        "i": 0
+      },
+      {
+        "sit": "loadup",
+        "n": 5,
+        "won": 1,
+        "used": 5,
+        "i": 1
+      },
+      {
+        "sit": "she_hurt",
+        "n": 4,
+        "won": 2,
+        "used": 4,
+        "i": 2
+      },
+      {
+        "sit": "she_tired",
+        "n": 2,
+        "won": 0,
+        "used": 2,
+        "i": 4
+      },
+      {
+        "sit": "range",
+        "n": 1,
+        "won": 1,
+        "used": 1,
+        "i": 3
+      }
+    ],
+    "pace": {
+      "steady": {
+        "n": 18,
+        "won": 8
+      }
+    }
+  },
+  "fight_stats_rows": [
+    {
+      "label": "Punches landed",
+      "a": "58",
+      "b": "70",
+      "fa": 0.828571428571429,
+      "fb": 1.0,
+      "lead": 1
+    },
+    {
+      "label": "To the head",
+      "a": "45",
+      "b": "52",
+      "fa": 0.865384615384615,
+      "fb": 1.0,
+      "lead": 1
+    },
+    {
+      "label": "To the body",
+      "a": "13",
+      "b": "18",
+      "fa": 0.722222222222222,
+      "fb": 1.0,
+      "lead": 1
+    },
+    {
+      "label": "Exchanges won",
+      "a": "8",
+      "b": "10",
+      "fa": 0.8,
+      "fb": 1.0,
+      "lead": 1
+    },
+    {
+      "label": "Tank at the last bell",
+      "a": "39",
+      "b": "34",
+      "fa": 0.392059140824683,
+      "fb": 0.338737836240081,
+      "lead": 0
+    }
+  ],
+  "plan_record": {
+    "plan": [
+      "1-2",
+      "step_back",
+      "1-2-3"
+    ],
+    "used": 5,
+    "worked": 2,
+    "improvised": 13,
+    "lines": {
+      "1-2-3": [
+        1,
+        3
+      ],
+      "1-2": [
+        1,
+        2
+      ]
+    }
+  },
+  "plan_tally": {
+    "1-2-3": [
+      1,
+      3
+    ],
+    "1-2": [
+      1,
+      2
+    ]
+  },
+  "body_report": {
+    "part": "",
+    "round": 0,
+    "focus": "",
+    "line": "Lucy held up for all 3 rounds",
+    "advice": ""
+  },
+  "body_change": "",
+  "injury": "",
+  "injury_state": {},
+  "injury_out": false,
+  "stand_down": {
+    "band": "critical",
+    "damage": 46,
+    "head": 0.0,
+    "open_day": 83
+  },
+  "stand_down_words": "no sparring until Sun 29 Mar: the head took 46 damage",
+  "aftermath": [
+    {
+      "id": "damage",
+      "title": "DAMAGE",
+      "big": "Nothing lasting",
+      "small": "Took 70 punches, 18 to the body.",
+      "tone": "good",
+      "lines": [
+        "Took 70 punches, 18 to the body."
+      ],
+      "sore": 0,
+      "cuts": 0
+    },
+    {
+      "id": "tired",
+      "title": "TIREDNESS",
+      "big": "75 of 100",
+      "small": "About 3 rest days until Lucy is fresh.",
+      "tone": "flat",
+      "lines": [
+        "About 3 rest days until Lucy is fresh.",
+        "Hard training before that counts for less and risks an injury. Set the week on the Training tab."
+      ],
+      "word": "Tired"
+    },
+    {
+      "id": "learned",
+      "title": "LEARNED",
+      "big": "2 new",
+      "small": "A habit seen: Smells blood and forgets to defend.",
+      "tone": "good",
+      "lines": [
+        "A habit seen: Smells blood and forgets to defend.",
+        "The whole file on Priya is open now: a rematch starts with everything known."
+      ]
+    },
+    {
+      "id": "morale",
+      "title": "MORALE",
+      "big": "-7",
+      "small": "Morale 65 to 58: Steady.",
+      "tone": "bad",
+      "lines": [
+        "Morale 65 to 58: Steady.",
+        "Lost to Priya.",
+        "Your calls worked: Lucy trusts the corner more."
+      ]
+    },
+    {
+      "id": "corner",
+      "title": "YOUR CORNER",
+      "big": "2 of 2",
+      "small": "2 calls worked, 0 went wrong.",
+      "tone": "good",
+      "lines": [
+        "2 calls worked, 0 went wrong."
+      ]
+    },
+    {
+      "id": "rank",
+      "title": "RANK",
+      "big": "Unranked",
+      "small": "Unranked: 1 win from entering.",
+      "tone": "flat",
+      "lines": [
+        "Unranked: 1 win from entering."
+      ]
+    }
+  ],
+  "body_map": {
+    "a": {
+      "places": {
+        "head": 62.8299999999998,
+        "left_eye": 100.0,
+        "right_eye": 63.4199999999998,
+        "nose": 74.0399999999999,
+        "left_ribs": 91.3,
+        "right_ribs": 59.3999999999999
+      },
+      "cuts": {},
+      "relief": {},
+      "closed": {}
+    },
+    "b": {
+      "places": {
+        "head": 63.7149999999998,
+        "left_eye": 100.0,
+        "right_eye": 68.1399999999999,
+        "nose": 66.9599999999998,
+        "left_ribs": 91.3,
+        "right_ribs": 73.8999999999999
+      },
+      "cuts": {},
+      "relief": {},
+      "closed": {}
+    }
+  },
+  "tank_why": "",
+  "stale": 0.0,
+  "marks_by_round": [
+    {
+      "n": 1,
+      "places": {
+        "a": {
+          "head": 91.1499999999999,
+          "left_eye": 100.0,
+          "right_eye": 89.3799999999999,
+          "nose": 95.28,
+          "left_ribs": 100.0,
+          "right_ribs": 82.6
+        },
+        "b": {
+          "head": 88.1999999999999,
+          "left_eye": 100.0,
+          "right_eye": 89.38,
+          "nose": 89.38,
+          "left_ribs": 94.2,
+          "right_ribs": 91.3
+        }
+      },
+      "cuts": {
+        "a": [],
+        "b": []
+      },
+      "landed_by_punch": {
+        "a": {
+          "body_hook": 5,
+          "jab": 8,
+          "cross": 5,
+          "lead_hook": 3
+        },
+        "b": {
+          "body_hook": 6,
+          "jab": 6,
+          "lead_hook": 4,
+          "cross": 3
+        }
+      },
+      "beats_landed_per_exchange": [
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          5,
+          3
+        ]
+      ]
+    },
+    {
+      "n": 2,
+      "places": {
+        "a": {
+          "head": 79.6449999999999,
+          "left_eye": 100.0,
+          "right_eye": 77.5799999999999,
+          "nose": 88.1999999999999,
+          "left_ribs": 100.0,
+          "right_ribs": 65.1999999999999
+        },
+        "b": {
+          "head": 73.4499999999999,
+          "left_eye": 100.0,
+          "right_eye": 75.2199999999999,
+          "nose": 77.5799999999999,
+          "left_ribs": 94.2,
+          "right_ribs": 79.7
+        }
+      },
+      "cuts": {
+        "a": [],
+        "b": []
+      },
+      "landed_by_punch": {
+        "a": {
+          "body_hook": 4,
+          "jab": 8,
+          "lead_hook": 4,
+          "cross": 6,
+          "rear_uppercut": 1
+        },
+        "b": {
+          "cross": 8,
+          "lead_hook": 7,
+          "body_hook": 6,
+          "jab": 1
+        }
+      },
+      "beats_landed_per_exchange": [
+        [
+          4,
+          4
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          3
+        ]
+      ]
+    },
+    {
+      "n": 3,
+      "places": {
+        "a": {
+          "head": 62.8299999999998,
+          "left_eye": 100.0,
+          "right_eye": 63.4199999999998,
+          "nose": 74.0399999999999,
+          "left_ribs": 91.3,
+          "right_ribs": 59.3999999999999
+        },
+        "b": {
+          "head": 63.7149999999998,
+          "left_eye": 100.0,
+          "right_eye": 68.1399999999999,
+          "nose": 66.9599999999998,
+          "left_ribs": 91.3,
+          "right_ribs": 73.8999999999999
+        }
+      },
+      "cuts": {
+        "a": [],
+        "b": []
+      },
+      "landed_by_punch": {
+        "a": {
+          "jab": 9,
+          "body_hook": 3,
+          "cross": 2,
+          "lead_hook": 2,
+          "rear_uppercut": 1
+        },
+        "b": {
+          "jab": 7,
+          "lead_hook": 7,
+          "cross": 7,
+          "body_hook": 5,
+          "rear_uppercut": 1
+        }
+      },
+      "beats_landed_per_exchange": [
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    }
+  ],
+  "place_causes": {
+    "a": {
+      "right_ribs": {
+        "body_hook|1": 6,
+        "body_hook|2": 6,
+        "body_hook|3": 2
+      },
+      "head": {
+        "jab|1": 6,
+        "lead_hook|1": 4,
+        "cross|1": 3,
+        "cross|2": 8,
+        "lead_hook|2": 7,
+        "jab|2": 1,
+        "jab|3": 7,
+        "lead_hook|3": 7,
+        "cross|3": 7,
+        "rear_uppercut|3": 1
+      },
+      "nose": {
+        "jab|1": 3,
+        "cross|1": 1,
+        "cross|2": 6,
+        "cross|3": 6,
+        "jab|3": 5,
+        "rear_uppercut|3": 1
+      },
+      "right_eye": {
+        "jab|1": 3,
+        "lead_hook|1": 4,
+        "cross|1": 2,
+        "lead_hook|2": 7,
+        "cross|2": 2,
+        "jab|2": 1,
+        "jab|3": 2,
+        "lead_hook|3": 7,
+        "cross|3": 1
+      },
+      "left_ribs": {
+        "body_hook|3": 3
+      }
+    },
+    "b": {
+      "right_ribs": {
+        "body_hook|1": 3,
+        "body_hook|2": 4,
+        "body_hook|3": 2
+      },
+      "head": {
+        "jab|1": 8,
+        "cross|1": 5,
+        "lead_hook|1": 3,
+        "jab|2": 8,
+        "lead_hook|2": 4,
+        "cross|2": 6,
+        "rear_uppercut|2": 1,
+        "jab|3": 9,
+        "cross|3": 2,
+        "lead_hook|3": 2,
+        "rear_uppercut|3": 1
+      },
+      "nose": {
+        "jab|1": 5,
+        "cross|1": 3,
+        "jab|2": 6,
+        "rear_uppercut|2": 1,
+        "cross|2": 2,
+        "jab|3": 7,
+        "rear_uppercut|3": 1,
+        "cross|3": 1
+      },
+      "left_ribs": {
+        "body_hook|1": 2,
+        "body_hook|3": 1
+      },
+      "right_eye": {
+        "lead_hook|1": 3,
+        "cross|1": 2,
+        "jab|1": 3,
+        "lead_hook|2": 4,
+        "jab|2": 2,
+        "cross|2": 4,
+        "jab|3": 2,
+        "cross|3": 1,
+        "lead_hook|3": 2
+      }
+    }
+  },
+  "marks_match_body_map": true,
+  "call_grades": {
+    "long": "OK",
+    "body": "Poor",
+    "lead": "OK",
+    "hands": "OK",
+    "let_go": "OK",
+    "calm": "Good",
+    "tie": "Good",
+    "finish": "Good"
+  },
+  "new_line_options": {
+    "mid|loadup": [
+      {
+        "id": "step_back",
+        "name": "Step back",
+        "to": "long",
+        "kind": "step",
+        "fit": "best",
+        "why": "",
+        "rate": 1.0,
+        "edge": 8.0
+      },
+      {
+        "id": "3b-3",
+        "name": "Body hook, head hook",
+        "to": "inside",
+        "kind": "combo",
+        "fit": "wrong",
+        "why": "",
+        "rate": 0.8,
+        "edge": -8.0
+      },
+      {
+        "id": "slip 2-3",
+        "name": "Slip, cross, check hook",
+        "to": "mid",
+        "kind": "combo",
+        "fit": "best",
+        "why": "Learn the Check hook first",
+        "rate": 0.8,
+        "edge": 0.0
+      },
+      {
+        "id": "1-6-3",
+        "name": "Jab, uppercut, hook",
+        "to": "inside",
+        "kind": "combo",
+        "fit": "wrong",
+        "why": "Learn the Uppercut first",
+        "rate": 0.8,
+        "edge": 0.0
+      }
+    ]
+  },
+  "drillable": {
+    "combo:1-1": true,
+    "combo:1-2-3": true
+  },
+  "words": {
+    "calls": {
+      "long": {
+        "label": "Jab and move",
+        "shout": "Turn! Jab and move!",
+        "needs": [
+          "jab",
+          "footwork"
+        ],
+        "cost": -0.5,
+        "when": "Use when {opp} presses",
+        "expect": "{her} wins it from range and saves energy",
+        "tell": "Jab and move: win it from range and save your legs."
+      },
+      "body": {
+        "label": "Go to the body",
+        "shout": "Downstairs! Go to the body!",
+        "needs": [
+          "hooks",
+          "power"
+        ],
+        "cost": 1.5,
+        "when": "Use when {opp} boxes at range",
+        "expect": "{opp} slows down later; {her} takes shots getting in",
+        "tell": "Get inside and go to the body: it slows {opp} down for later."
+      },
+      "lead": {
+        "label": "Draw the lead",
+        "shout": "Feint! Draw the lead!",
+        "needs": [
+          "ring_iq",
+          "timing"
+        ],
+        "cost": -0.5,
+        "when": "Use when {opp} waits to counter",
+        "expect": "{opp}'s counters dry up; a quiet 30 seconds",
+        "tell": "Feint and draw the lead: take the counters away."
+      },
+      "hands": {
+        "label": "Hands up, move your head",
+        "shout": "Hands up! Move your head!",
+        "needs": [
+          "guard",
+          "head_movement"
+        ],
+        "cost": 0.0,
+        "when": "Use when {opp} loads up",
+        "expect": "{opp}'s big shots miss; {her} throws less",
+        "tell": "Hands up and move your head: make the big shots miss."
+      },
+      "let_go": {
+        "label": "Let your hands go",
+        "shout": "Let your hands go!",
+        "needs": [
+          "engine",
+          "hand_speed"
+        ],
+        "cost": 3.0,
+        "when": "Use when {opp} tires",
+        "expect": "{her}'s busiest 30 seconds; it costs energy",
+        "tell": "Let your hands go: {opp} can't keep up with you."
+      },
+      "calm": {
+        "label": "Breathe, pick your shots",
+        "shout": "Breathe! Pick your shots!",
+        "needs": [
+          "discipline"
+        ],
+        "cost": -3.0,
+        "when": "Use when {her} is tired",
+        "expect": "{her} gets energy back; gives a little now",
+        "tell": "Breathe and pick your shots: get your legs back."
+      },
+      "tie": {
+        "label": "Tie up",
+        "shout": "Hold! Tie up!",
+        "needs": [
+          "inside",
+          "heart"
+        ],
+        "cost": -2.0,
+        "when": "Use when {her} is hurt",
+        "expect": "{her} gets a breather; {opp} may dig to the ribs in there",
+        "tell": "Tie up, clear your head, get through it."
+      },
+      "finish": {
+        "label": "Go for the finish",
+        "shout": "Finish it! Go now!",
+        "needs": [
+          "power",
+          "heart"
+        ],
+        "cost": 3.0,
+        "when": "Use when {opp} is hurt",
+        "expect": "A knockdown chance; {her} is open if tired",
+        "tell": "{opp} is hurt: go for the finish, chin down."
+      }
+    },
+    "modes": {
+      "press": {
+        "label": "Pressing",
+        "best": "long",
+        "ok": "body",
+        "wrong": "let_go"
+      },
+      "range": {
+        "label": "Boxing at range",
+        "best": "body",
+        "ok": "lead",
+        "wrong": "long"
+      },
+      "counter": {
+        "label": "Waiting to counter",
+        "best": "lead",
+        "ok": "long",
+        "wrong": "let_go"
+      },
+      "loadup": {
+        "label": "Loading up",
+        "best": "hands",
+        "ok": "long",
+        "wrong": "body"
+      },
+      "tiring": {
+        "label": "Tiring",
+        "best": "let_go",
+        "ok": "body",
+        "wrong": "calm"
+      },
+      "hurt": {
+        "label": "Hurt",
+        "best": "finish",
+        "ok": "let_go",
+        "wrong": "calm"
+      },
+      "she_tired": {
+        "label": "Your fighter is tired",
+        "best": "calm",
+        "ok": "hands",
+        "wrong": "let_go"
+      },
+      "she_hurt": {
+        "label": "Your fighter is hurt",
+        "best": "tie",
+        "ok": "hands",
+        "wrong": "finish"
+      }
+    },
+    "edge_word": {
+      "best": "Big edge",
+      "ok": "Small edge",
+      "none": "No edge",
+      "wrong": "Risky"
+    },
+    "fit_words": {
+      "best": "Beats it",
+      "ok": "Works",
+      "none": "",
+      "wrong": "Walks into it"
+    },
+    "place_words": {
+      "outside": "From outside",
+      "long": "At long range",
+      "mid": "At mid range",
+      "inside": "Inside",
+      "clinch": "In the clinch",
+      "own_ropes": "On the ropes",
+      "opp_ropes": "Opponent on the ropes",
+      "corner": "Opponent in the corner"
+    },
+    "when_words": {
+      "press": "the opponent presses",
+      "range": "the opponent boxes at range",
+      "counter": "the opponent waits to counter",
+      "loadup": "the opponent loads up",
+      "tiring": "the opponent tires",
+      "hurt": "the opponent is hurt",
+      "she_tired": "you are tired",
+      "she_hurt": "you are hurt"
+    },
+    "ring_place": [
+      "At range",
+      "In the pocket",
+      "Inside"
+    ],
+    "she_tired": 35.0,
+    "hurt_at": 30.0,
+    "bands": {
+      "hurt": 55.0,
+      "critical": 35.0,
+      "doctor": 15.0
+    },
+    "landed_bands": {
+      "close": [
+        4,
+        3
+      ],
+      "clear": [
+        5,
+        2
+      ],
+      "dominant": [
+        6,
+        1
+      ]
+    },
+    "sit_words": {
+      "press": "pressure",
+      "range": "a boxer at range",
+      "counter": "a counter-puncher",
+      "counter_late": "a counter-puncher",
+      "loadup": "big loaded shots",
+      "tiring": "a tiring opponent",
+      "hurt": "a hurt opponent",
+      "hurt_danger": "a hurt opponent who hits back",
+      "she_tired": "%s tiring",
+      "she_hurt": "%s being hurt"
+    }
+  },
+  "counterfactual": {
+    "measured": true,
+    "rewrite_move": "1-1",
+    "rewrite_name": "Double jab",
+    "rewrite_fit": "best",
+    "loadup_move": "step_back",
+    "loadup_name": "Step back",
+    "loadup_fit": "best",
+    "plans": {
+      "as_written": [
+        {
+          "move": "1-2"
+        },
+        {
+          "move": "step_back",
+          "when": "press"
+        },
+        {
+          "move": "1-2-3",
+          "when": "counter"
+        }
+      ],
+      "rewrite_c": [
+        {
+          "move": "1-2"
+        },
+        {
+          "move": "step_back",
+          "when": "press"
+        },
+        {
+          "move": "1-1",
+          "when": "counter"
+        }
+      ],
+      "no_line_c": [
+        {
+          "move": "1-2"
+        },
+        {
+          "move": "step_back",
+          "when": "press"
+        }
+      ],
+      "add_loadup_line": [
+        {
+          "move": "1-2"
+        },
+        {
+          "move": "step_back",
+          "when": "press"
+        },
+        {
+          "move": "1-2-3",
+          "when": "counter"
+        },
+        {
+          "move": "step_back",
+          "when": "loadup"
+        }
+      ],
+      "rewrite_c_and_loadup": [
+        {
+          "move": "1-2"
+        },
+        {
+          "move": "step_back",
+          "when": "press"
+        },
+        {
+          "move": "1-1",
+          "when": "counter"
+        },
+        {
+          "move": "step_back",
+          "when": "loadup"
+        }
+      ]
+    },
+    "same_bout": {
+      "as_written": {
+        "outcome": "loss",
+        "cards": [
+          "28-29",
+          "28-29",
+          "29-28"
+        ],
+        "rounds_won_n": [
+          4,
+          3,
+          1
+        ],
+        "exchanges": [
+          [
+            [
+              1,
+              "1-2-3"
+            ],
+            [
+              1,
+              ""
+            ],
+            [
+              1,
+              ""
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              1,
+              ""
+            ]
+          ],
+          [
+            [
+              0,
+              "1-2-3"
+            ],
+            [
+              1,
+              "1-2"
+            ],
+            [
+              0,
+              "1-2"
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              1,
+              ""
+            ],
+            [
+              1,
+              ""
+            ]
+          ],
+          [
+            [
+              0,
+              "1-2-3"
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              1,
+              ""
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              0,
+              ""
+            ]
+          ]
+        ]
+      },
+      "rewrite_c": {
+        "outcome": "loss",
+        "cards": [
+          "28-29",
+          "28-29",
+          "29-28"
+        ],
+        "rounds_won_n": [
+          4,
+          3,
+          1
+        ],
+        "exchanges": [
+          [
+            [
+              1,
+              "1-1"
+            ],
+            [
+              1,
+              "1-1"
+            ],
+            [
+              1,
+              "1-1"
+            ],
+            [
+              0,
+              "1-2"
+            ],
+            [
+              0,
+              "1-1"
+            ],
+            [
+              1,
+              "1-1"
+            ]
+          ],
+          [
+            [
+              1,
+              "1-1"
+            ],
+            [
+              1,
+              "1-2"
+            ],
+            [
+              0,
+              "1-2"
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              1,
+              "1-2"
+            ]
+          ],
+          [
+            [
+              0,
+              "1-1"
+            ],
+            [
+              0,
+              "1-2"
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              1,
+              ""
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              0,
+              ""
+            ]
+          ]
+        ]
+      },
+      "no_line_c": {
+        "outcome": "win",
+        "cards": [
+          "29-28",
+          "29-28",
+          "28-29"
+        ],
+        "rounds_won_n": [
+          3,
+          4,
+          1
+        ],
+        "exchanges": [
+          [
+            [
+              1,
+              "1-2"
+            ],
+            [
+              1,
+              "1-2"
+            ],
+            [
+              1,
+              "1-2"
+            ],
+            [
+              0,
+              "1-2"
+            ],
+            [
+              0,
+              "1-2"
+            ],
+            [
+              0,
+              "1-2"
+            ]
+          ],
+          [
+            [
+              1,
+              "1-2"
+            ],
+            [
+              1,
+              "1-2"
+            ],
+            [
+              0,
+              "1-2"
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              1,
+              ""
+            ],
+            [
+              1,
+              ""
+            ]
+          ],
+          [
+            [
+              0,
+              "1-2"
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              1,
+              ""
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              0,
+              ""
+            ]
+          ]
+        ]
+      },
+      "add_loadup_line": {
+        "outcome": "loss",
+        "cards": [
+          "28-29",
+          "28-29",
+          "29-28"
+        ],
+        "rounds_won_n": [
+          4,
+          3,
+          1
+        ],
+        "exchanges": [
+          [
+            [
+              1,
+              "1-2-3"
+            ],
+            [
+              1,
+              ""
+            ],
+            [
+              1,
+              ""
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              1,
+              ""
+            ]
+          ],
+          [
+            [
+              0,
+              "1-2-3"
+            ],
+            [
+              1,
+              "1-2"
+            ],
+            [
+              0,
+              "1-2"
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              1,
+              ""
+            ],
+            [
+              1,
+              ""
+            ]
+          ],
+          [
+            [
+              0,
+              "1-2-3"
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              1,
+              ""
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              0,
+              ""
+            ]
+          ]
+        ]
+      },
+      "rewrite_c_and_loadup": {
+        "outcome": "loss",
+        "cards": [
+          "28-29",
+          "28-29",
+          "29-28"
+        ],
+        "rounds_won_n": [
+          4,
+          3,
+          1
+        ],
+        "exchanges": [
+          [
+            [
+              1,
+              "1-1"
+            ],
+            [
+              1,
+              "1-1"
+            ],
+            [
+              1,
+              "1-1"
+            ],
+            [
+              0,
+              "1-2"
+            ],
+            [
+              0,
+              "1-1"
+            ],
+            [
+              1,
+              "1-1"
+            ]
+          ],
+          [
+            [
+              1,
+              "1-1"
+            ],
+            [
+              1,
+              "1-2"
+            ],
+            [
+              0,
+              "1-2"
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              1,
+              "1-2"
+            ]
+          ],
+          [
+            [
+              0,
+              "1-1"
+            ],
+            [
+              0,
+              "1-2"
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              1,
+              ""
+            ],
+            [
+              0,
+              ""
+            ],
+            [
+              0,
+              ""
+            ]
+          ]
+        ]
+      }
+    },
+    "n": 200,
+    "fight_nights": [
+      68,
+      1461
+    ],
+    "wins": {
+      "as_written": 35,
+      "rewrite_c": 96,
+      "no_line_c": 65,
+      "add_loadup_line": 39,
+      "rewrite_c_and_loadup": 100
+    },
+    "note": "Same opponent, same corner policy, one bout per fight night; only the plan changes. Wins out of n bouts."
+  }
+}

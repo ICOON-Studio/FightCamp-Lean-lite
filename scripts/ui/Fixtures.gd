@@ -24,7 +24,8 @@ static func events(c: Career) -> Array:
 			ev.append({"d": maxi(int(f.get("pro_next", c.day)), c.day + 1), "t": "The promoter calls: %s's next fights" % f["first"], "ours": true})
 	var next := Clock.next_stop(c)
 	if not ["weigh-in", "fight night"].has(str(next["r"])) and not str(next["r"]).contains("review"):   # CONTINUE says the review
-		ev.append({"d": int(next["d"]), "t": str(next["r"]).capitalize(), "ours": true})
+		var why := str(next["r"])   # S442 UX audit: capitalize() title-cased the line and lower-cased the name ("A Bout Offer Arrives (lucy)")
+		ev.append({"d": int(next["d"]), "t": why.left(1).to_upper() + why.substr(1), "ours": true})
 	ev.append({"d": GameMoney.next_bill_day(c.day), "t": "Month-end bill", "ours": true})
 	for e in Champs.calendar(c):   # S328 the nationals: entries close, her road round by round
 		ev.append({"d": int(e["d"]), "t": str(e["t"]), "ours": true})

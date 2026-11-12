@@ -201,7 +201,7 @@ func _goal_tile(g: String, on: bool) -> Control:
 		var plan := BjjTree.drill_plan_for(f, str(fl["missing"]))
 		var d := UI.button("Drill", "BtnSolid" if str(f.get("drill", "")) == plan else "Btn", _drill.bind(plan, str(fl["missing"])))
 		d.name = "GoalDrill_" + g
-		d.add_theme_font_size_override("font_size", 12)
+		d.add_theme_font_size_override("font_size", 16)
 		d.anchor_left = 1.0
 		d.anchor_right = 1.0
 		d.offset_left = -50.0

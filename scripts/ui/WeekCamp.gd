@@ -167,7 +167,7 @@ static func _fmt(id: String, v: float) -> String:
 func _pulse(hold: PanelContainer, d: Label, id: String, was: float, to: float) -> void:
 	d.text = "%s %s" % ["+" if to > was else "-", _fmt(id, absf(to - was))]
 	d.add_theme_color_override("font_color", UI.GREEN if _better(id, was, to) else WB.RED)
-	d.tooltip_text = "By fight night %s -> %s" % [_fmt(id, was), _fmt(id, to)]
+	d.tooltip_text = "By fight night %s → %s" % [_fmt(id, was), _fmt(id, to)]
 	d.mouse_filter = Control.MOUSE_FILTER_PASS
 	hold.ready.connect(func():
 		var tw := hold.create_tween()
@@ -220,7 +220,7 @@ func _preview_g(g: Dictionary) -> void:
 		var to := float(ln["end"])
 		d.modulate.a = 1.0
 		var same := absf(to - was) < 0.05
-		d.text = "same" if same else "-> %s" % _fmt(id, to)
+		d.text = "same" if same else "→ %s" % _fmt(id, to)
 		d.add_theme_color_override("font_color", WB.PENCIL if same else (UI.GREEN if _better(id, was, to) else WB.RED))
 
 
