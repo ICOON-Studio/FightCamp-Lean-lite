@@ -114,8 +114,9 @@ func _test_level_rules() -> void:
 	var p := Judges.parts(_round([_ex(true, 2, 1, L, L, I), _ex(false, 1, 4, L, L, I)]))
 	_check(int(_real(p, "ring", [0, 0], false)["a"]) == 10, "a level total goes to the lean's side (ring, a)")
 	_check(int(_real(p, "clean", [0, 0], false)["b"]) == 10, "the same round on a clean card goes to b")
-	# initiative card where totals are level and the lean's part is 0-0: a ring 2 + clean 3 = 5, b clean 5 -> clean -> b.
-	var q := Judges.parts(_round([_ex(true, 2, 2, L, L, I), _ex(true, 1, 3, L, L, I)]))
+	# initiative card where totals are level and the lean's part is 0-0 (S444 weights: ring 2): a ring 1x2 + clean 3 = 5,
+	# b clean 5 -> clean -> b. The second exchange is fought where a did not want it (wa INSIDE), so no ring point.
+	var q := Judges.parts(_round([_ex(true, 2, 2, L, L, I), _ex(true, 1, 3, L, I, I)]))
 	var sc := _real(q, "initiative", [0, 0], false)
 	_check(int(sc["b"]) == 10 and str(sc["reason"]) == "Clean: Priya landed 5 to 3.", "level, lean 0-0: clean decides (%s)" % sc["reason"])
 	# level on everything: the side that won the last exchange.
@@ -147,12 +148,12 @@ func _test_big_shots() -> void:
 	var carried := _round([_ex(false, 0, 1, L, I, I, ha)])
 	carried["start"] = {"hurt": [true, false]}
 	_check(Judges.parts(carried)["big"] == [0, 0], "a hurt carried over the bell is not a fresh one")
-	# big counts WEIGHTS.big on the card: ring card a 1 landed + 1 big x2 = 3 against b's 2 landed -> a, by the big shot.
-	# clean card: a 1x2 + 2 = 4, b 2x2 = 4 -> level, the lean (clean) is b's -> b.
-	var r := Judges.parts(_round([_ex(true, 1, 2, L, I, I, {"setup": "landed"})]))
+	# big counts WEIGHTS.big on the card (S444: clean 1, big 12, lean x5): ring card a 1 landed + 1 big x12 = 13 against b's 4
+	# landed -> a, by the big shot. clean card: a 1x5 + 12 = 17, b 4x5 = 20 -> b: the clean judge's lean outweighs the big shot.
+	var r := Judges.parts(_round([_ex(true, 1, 4, L, I, I, {"setup": "landed"})]))
 	var big_ring := _real(r, "ring", [0, 0], false)
 	_check(int(big_ring["a"]) == 10 and str(big_ring["reason"]) == "Big shots: Lucy landed 1 to 0.", "a big shot outweighs one landed punch (%s)" % big_ring["reason"])
-	_check(int(_real(r, "clean", [0, 0], false)["b"]) == 10, "a clean judge doubles the landed punches back level")
+	_check(int(_real(r, "clean", [0, 0], false)["b"]) == 10, "a clean judge's lean on the landed punches outweighs one big shot")
 
 
 func _test_work_only_pro() -> void:

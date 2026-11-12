@@ -102,7 +102,8 @@ static func _landed(board: Control, ex: Array, me: String, her: String, x: float
 
 
 static func _calls(board: Control, ex: Array, x: float, w: float, _h: float) -> void:
-	_put(board, _tag("YOUR CALLS"), x, 6, w, 22)
+	# S444 operator C333 on this box: "what is this for?" - the heading now says it: each call, did it win its exchanges.
+	_put(board, _tag("CALLS WORKED?"), x, 6, w, 22)
 	var rows := calls(ex)
 	if rows.is_empty():
 		var none := TV.label("No call yet", 22, WoodKit.SOFT, "bold")
@@ -115,11 +116,13 @@ static func _calls(board: Control, ex: Array, x: float, w: float, _h: float) -> 
 		var lab := TV.label(str((Exchanges.CALLS.get(id, {}) as Dictionary).get("label", id)), 20, WoodKit.INK, "bold")
 		lab.name = "Used_" + id
 		lab.clip_text = true
-		_put(board, lab, x, y, w - 96.0, 30)
+		var wins := (r["wins"] as Array).slice(-3)
+		var tick_w := 28.0 * float(wins.size()) + 4.0   # S444: the name takes the room the ticks leave ("Draw the" was cut)
+		_put(board, lab, x, y, w - tick_w, 30)
 		var ticks := Ticks.new()
-		ticks.wins = (r["wins"] as Array).slice(-3)
+		ticks.wins = wins
 		ticks.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		_put(board, ticks, x + w - 92.0, y + 2.0, 92, 26)
+		_put(board, ticks, x + w - tick_w, y + 2.0, tick_w, 26)
 		y += 36.0
 
 

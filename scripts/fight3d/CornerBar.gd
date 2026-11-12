@@ -268,6 +268,7 @@ func _call(call: String, sit: String, names: Array, on: bool, _wide: float) -> C
 	var cost := float(row["cost"])
 	var spend := TV.label(_cost_word(cost), 20, WoodKit.HEAD if not on else Color("#6b3d00"), "bold")   # S427: gold on the lit plate could not be read
 	spend.name = "Cost_" + call
+	spend.set_meta("cost", cost)   # S444 the regroup preview shows it as a number (HudRegroup._costs)
 	spend.custom_minimum_size = Vector2(60, 22)
 	under.add_child(spend)
 	return frame

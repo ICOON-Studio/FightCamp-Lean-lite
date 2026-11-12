@@ -13,6 +13,7 @@ const BodyLive := preload("res://scripts/fight3d/BodyLive.gd")
 const BodyBurn := preload("res://scripts/fight3d/BodyBurn.gd")
 const SidePanel := preload("res://scripts/fight3d/SidePanel.gd")
 const IntentChip := preload("res://scripts/fight3d/IntentChip.gd")
+const HudRegroup := preload("res://scripts/fight3d/HudRegroup.gd")
 const ScoreBug := preload("res://scripts/fight3d/ScoreBug.gd")
 const CornerBar := preload("res://scripts/fight3d/CornerBar.gd")
 const HoverLabel := preload("res://scripts/ui/HoverLabel.gd")
@@ -53,6 +54,7 @@ static func build(view: Control) -> void:
 	FightCalls.attach(view, pin)   # S395 the TV line and the big-shot moment
 	CornerBar.attach(view)   # the plank across the bottom, on for the whole round
 	IntentChip.attach(view)   # a status word over each head, up with the scorebug
+	HudRegroup.attach(view)   # S444 Q-196 preview only (user arg `hudregroup`): the UX audit's regroup, for his stills
 
 
 ## Anchors (left, top, right, bottom) and offsets in pixels from them.

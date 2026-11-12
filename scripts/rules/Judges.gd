@@ -8,10 +8,13 @@ extends RefCounted
 const PARTS := ["clean", "big", "ring", "initiative", "work"]
 const AMATEUR_LEANS := ["clean", "ring", "initiative"]
 const PRO_LEANS := ["clean", "ring", "work"]
-## ESTIMATES from the map; probe JUDGES1 sets them. clean 1 a landed punch, big 2 a big shot, ring 1 an exchange kept,
-## initiative 1 a forward exchange won, work 1 a point of (pace gap / 10).
-const WEIGHTS := {"clean": 1.0, "big": 2.0, "ring": 1.0, "initiative": 1.0, "work": 1.0}
-const LEAN_MULT := 2.0
+## S444 JUDGES1 set on tools/judges_agree_probe.gd (Lucy -6/0/+6 x every opponent x 30, 897 decisions; grid in
+## docs/JUDGES1_RESULT.md): clean 1 a landed punch, big 12 a big shot, ring 2 an exchange kept, initiative 8 a forward
+## exchange won, work 1 a point of (pace gap / 10), and the lean five times its part. (a) 85.9, (b) 11.6, (c) 12.3 in 100
+## (60 a pairing: 86.3 / 11.9 / 12.0). The S443 estimates (1, 2, 1, 1, 1, lean x2) read 92.0 / 8.2 / 3.3: the ~10 punches a
+## side swamped the rest, so the leans almost never disagreed. Work keeps its 1:1 with clean (no pro bout in the probe).
+const WEIGHTS := {"clean": 1.0, "big": 12.0, "ring": 2.0, "initiative": 8.0, "work": 1.0}
+const LEAN_MULT := 5.0
 
 ## Duels.LONG / POCKET / INSIDE (scripts/rules/Duels.gd lines 9-11): a higher place is closer.
 const LONG := 0
