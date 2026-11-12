@@ -4703,7 +4703,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-12 08:11 board_sync",
+  "updated": "2026-11-12 08:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4892,6 +4892,18 @@
     "who": "cursor",
     "started": "2026-11-12T08:01",
     "run": "PAGES2B"
+   },
+   {
+    "title": "TASK PUNCHSNAP1 - ARENA - the maths of a punch's POWER read: one pure module + its test",
+    "who": "qwen",
+    "started": "2026-11-12T08:30",
+    "run": "PUNCHSNAP1"
+   },
+   {
+    "title": "TASK FACE3D1 - ARENA - which marks a hurt face shows in 3D: one pure module + its test",
+    "who": "arena",
+    "started": "2026-11-12T08:38",
+    "run": "FACE3D1"
    }
   ],
   "next": [
@@ -5549,6 +5561,22 @@
     {
      "text": "15 punch clips on the review board",
      "who": "claude"
+    },
+    {
+     "text": "Cross power: measured, 10 fixes",
+     "who": "claude"
+    },
+    {
+     "text": "Uppercut range: measured, 8 fixes",
+     "who": "claude"
+    },
+    {
+     "text": "3D face mark rule (Arena)",
+     "who": "agent"
+    },
+    {
+     "text": "Jab torso pass: small on film",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5579,14 +5607,6 @@
     {
      "text": "Result stills: your look",
      "who": "operator"
-    },
-    {
-     "text": "Jab: torso follows the hand",
-     "who": "claude"
-    },
-    {
-     "text": "Cross: why no power (measured)",
-     "who": "claude"
     }
    ],
    "next": [
@@ -5644,6 +5664,14 @@
     },
     {
      "text": "Show damage: 3D faces, portraits",
+     "who": "claude"
+    },
+    {
+     "text": "POWER1: hit on the fast frame",
+     "who": "claude"
+    },
+    {
+     "text": "RANGE1: each punch at its distance",
      "who": "claude"
     }
    ],

@@ -1,0 +1,237 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Result - three beats</title>
+<style>
+:root{--bg:#10151b;--panel:#171e26;--panel2:#1d2630;--line:#2b3642;--fg:#e9eef3;--mut:#93a1af;--red:#d9453b;--blue:#3f7fe0;--gold:#e2b84a;--green:#4cc27a;--amber:#f0a03a;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--fg);font-family:"Segoe UI",Arial,sans-serif}
+.num{font-family:Bahnschrift,"Segoe UI",sans-serif;font-weight:600;letter-spacing:.5px}
+.caps{font-size:18px;letter-spacing:3px;text-transform:uppercase;color:var(--mut);font-weight:600}
+.cap{font-size:20px;color:var(--mut)}
+/* header */
+.top{position:absolute;left:40px;right:40px;top:28px;height:150px;display:flex;align-items:center;gap:40px;border-bottom:1px solid var(--line)}
+.verdict{width:620px;white-space:nowrap}
+.verdict .big{font-size:64px;line-height:1;color:var(--red)}
+.verdict .sub{font-size:22px;color:var(--mut);margin-top:8px}
+.judges{display:flex;gap:28px;flex:1;justify-content:center}
+.judge{width:170px;text-align:center}
+.judge .sc{font-size:52px;line-height:1}
+.judge .ticks{display:flex;gap:6px;justify-content:center;margin-top:12px}
+.judge .ticks i{width:40px;height:8px;border-radius:2px;display:block}
+.judge .lab{font-size:16px;color:var(--mut);letter-spacing:2px;margin-top:8px}
+.vs{width:360px;display:flex;align-items:center;gap:20px;justify-content:flex-end}
+.vs .who{text-align:right}
+.vs .who .n{font-size:30px;font-weight:600}
+.vs .who .r{font-size:20px;color:var(--mut);margin-top:4px}
+/* beats */
+.beat{position:absolute;top:200px;height:705px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:26px 30px}
+.beat h2{font-size:20px;letter-spacing:3px;color:var(--fg);font-weight:700;display:flex;align-items:center;gap:12px}
+.beat h2 b{display:inline-block;width:34px;height:34px;border-radius:50%;background:var(--panel2);border:1px solid var(--line);text-align:center;line-height:32px;font-size:18px;color:var(--mut)}
+.b1{left:40px;width:520px}
+.b2{left:584px;width:752px;border-top:3px solid var(--red)}
+.b3{left:1360px;width:520px}
+.rounds{display:flex;gap:14px;margin-top:34px}
+.rd{flex:1;height:150px;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:pop .5s ease-out both}
+.rd .k{font-size:18px;letter-spacing:2px;opacity:.85}
+.rd .w{font-size:52px;line-height:1.1}
+.rd.r{background:linear-gradient(#c23c33,#8f2a24)} .rd.bl{background:linear-gradient(#3a74cf,#26529a)}
+.rd:nth-child(2){animation-delay:.15s}.rd:nth-child(3){animation-delay:.3s}
+.hero{margin-top:60px;display:flex;align-items:baseline;gap:16px}
+.hero .a{font-size:96px;line-height:.9;color:#f08a80}
+.hero .d{font-size:56px;color:var(--mut)}
+.hero .b{font-size:96px;line-height:.9;color:#7fb0ff}
+.duel{margin-top:30px}
+.bar{height:18px;background:#26313c;border-radius:3px;overflow:hidden;margin-top:10px}
+.bar>i{display:block;height:100%;border-radius:3px;transform-origin:left;animation:grow .9s cubic-bezier(.2,.8,.2,1) both}
+.planrow{position:absolute;left:30px;right:30px;bottom:28px;display:flex;align-items:center;gap:20px;padding:20px 22px;background:var(--panel2);border-radius:4px;border-left:4px solid var(--amber)}
+.planrow .n{font-size:48px;color:var(--amber);line-height:1}
+.planrow .t{font-size:22px}
+.planrow .t span{display:block;color:var(--mut);font-size:18px;margin-top:2px}
+.fig{position:relative;margin-top:6px;height:430px}
+.tiles{display:flex;gap:20px;position:absolute;left:30px;right:30px;bottom:28px}
+.tile{flex:1;background:var(--panel2);border-radius:4px;padding:18px 20px 20px;display:flex;flex-direction:column}
+.tile .row{display:flex;align-items:center;gap:16px}
+.tile .n{font-size:64px;line-height:1}
+.tile .u{font-size:22px;color:var(--fg)}
+.tile .u span{display:block;color:var(--mut);font-size:18px}
+.clubrow{display:flex;align-items:center;gap:20px;padding:22px 0;border-bottom:1px solid var(--line)}
+.clubrow:last-child{border-bottom:none}
+.clubrow .n{font-size:56px;line-height:1;min-width:170px}
+.clubrow .c{font-size:20px;color:var(--mut)}
+.pips{display:flex;gap:8px}
+.pips i{width:30px;height:30px;border-radius:4px;background:#26313c;border:1px solid var(--line);display:block;animation:pop .4s ease-out both}
+.pips i.on{background:var(--gold);border-color:var(--gold)}
+.pips i:nth-child(2){animation-delay:.1s}.pips i:nth-child(3){animation-delay:.2s}.pips i:nth-child(4){animation-delay:.3s}
+.foot{position:absolute;left:40px;right:40px;top:930px;height:110px;display:flex;align-items:center;gap:20px}
+.hint{font-size:18px;color:var(--mut);display:flex;align-items:center;gap:10px}
+.sp{flex:1}
+.btn{height:64px;padding:0 32px;border-radius:4px;font-size:22px;font-weight:600;display:flex;align-items:center;gap:12px;border:1px solid #3a4756;background:#202a35;color:var(--fg)}
+.btn.main{background:var(--red);border-color:var(--red);color:#fff}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes draw{from{stroke-dashoffset:300}to{stroke-dashoffset:0}}
+.lead{stroke-dasharray:300;animation:draw .8s ease-out .3s both}
+</style></head>
+<body>
+
+<!-- HEADER: the verdict -->
+<div class="top">
+  <div class="verdict">
+    <div class="big num">LOST ON POINTS</div>
+    <div class="sub">Split decision, 1 judge of 3</div>
+  </div>
+  <div class="judges" title="Each judge's card, round by round. Red = Lucy's round, blue = Priya's.">
+    <div class="judge"><div class="sc num" style="color:#7fb0ff">28-29</div><div class="ticks"><i style="background:var(--red)"></i><i style="background:var(--blue)"></i><i style="background:var(--blue)"></i></div></div>
+    <div class="judge"><div class="sc num" style="color:#7fb0ff">28-29</div><div class="ticks"><i style="background:var(--red)"></i><i style="background:var(--blue)"></i><i style="background:var(--blue)"></i></div></div>
+    <div class="judge"><div class="sc num" style="color:#f08a80">29-28</div><div class="ticks"><i style="background:var(--red)"></i><i style="background:var(--red)"></i><i style="background:var(--blue)"></i></div></div>
+  </div>
+  <div class="vs">
+    <div class="who"><div class="n">Priya Nair</div><div class="r">Out-boxer</div></div>
+    <svg width="96" height="96" viewBox="0 0 96 96"><circle cx="48" cy="48" r="46" fill="#1d2b40" stroke="#3f7fe0" stroke-width="3"/><ellipse cx="48" cy="42" rx="17" ry="21" fill="#7a5a4a"/><path d="M31 36 q17 -22 34 0 q-3 -16 -17 -17 q-14 1 -17 17z" fill="#1b1410"/><path d="M18 90 q30 -36 60 0z" fill="#2b4a7a"/></svg>
+  </div>
+</div>
+
+<!-- BEAT 1: how it was lost -->
+<div class="beat b1" title="Priya landed 78 to Lucy's 49 and took rounds 2 and 3. 62 of Priya's landed to the head, 16 to the body.">
+  <h2><b>1</b>HOW IT WENT</h2>
+  <div class="rounds">
+    <div class="rd r"><div class="k">ROUND</div><div class="w num">1</div></div>
+    <div class="rd bl"><div class="k">ROUND</div><div class="w num">2</div></div>
+    <div class="rd bl"><div class="k">ROUND</div><div class="w num">3</div></div>
+  </div>
+  <div class="hero num"><span class="a">49</span><span class="d">-</span><span class="b">78</span></div>
+  <div class="cap" style="margin-top:6px">punches landed</div>
+  <div class="duel">
+    <div class="bar"><i style="width:63%;background:var(--red)"></i></div>
+    <div class="bar"><i style="width:100%;background:var(--blue);animation-delay:.15s"></i></div>
+  </div>
+  <div class="planrow" title="Your plan: the assistant's plan ran (you wrote none). 0 right answers, 0 wrong, 1 neutral. A plan of your own can answer more of Priya's tape.">
+    <svg width="54" height="54" viewBox="0 0 54 54"><rect x="9" y="7" width="36" height="42" rx="3" fill="none" stroke="#f0a03a" stroke-width="3"/><rect x="19" y="3" width="16" height="8" rx="2" fill="#f0a03a"/><path d="M16 22h22M16 30h22M16 38h14" stroke="#f0a03a" stroke-width="3"/></svg>
+    <div class="n num">0</div>
+    <div class="t">lines of your plan paid<span>Write a plan</span></div>
+  </div>
+</div>
+
+<!-- BEAT 2: what it cost the fighter (the picture leads) -->
+<div class="beat b2">
+  <h2><b>2</b>WHAT IT COST LUCY</h2>
+  <div class="fig">
+    <svg width="692" height="430" viewBox="0 0 692 430">
+      <defs>
+        <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b3d30"/><stop offset="1" stop-color="#3e2a21"/></linearGradient>
+        <linearGradient id="vest" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a8322b"/><stop offset="1" stop-color="#6e1f1a"/></linearGradient>
+        <radialGradient id="glove" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#d4473d"/><stop offset="1" stop-color="#7a1d18"/></radialGradient>
+        <radialGradient id="spot" cx=".5" cy=".4" r=".6"><stop offset="0" stop-color="#2a3644"/><stop offset="1" stop-color="#171e26"/></radialGradient>
+      </defs>
+      <ellipse cx="250" cy="240" rx="230" ry="200" fill="url(#spot)"/>
+      <!-- shoulders and vest -->
+      <path d="M92 430 C96 330 140 290 200 278 L300 278 C360 290 404 330 408 430 Z" fill="url(#skin)"/>
+      <path d="M150 430 C156 360 186 318 214 300 L250 330 L286 300 C314 318 344 360 350 430 Z" fill="url(#vest)"/>
+      <rect x="226" y="222" width="48" height="64" rx="16" fill="#4a3127"/>
+      <!-- head -->
+      <ellipse cx="250" cy="150" rx="68" ry="86" fill="url(#skin)"/>
+      <path d="M182 136 C180 76 214 56 250 56 C290 56 322 78 318 136 C310 104 288 90 250 90 C212 90 192 104 182 136Z" fill="#17100c"/>
+      <ellipse cx="250" cy="72" rx="44" ry="20" fill="#17100c"/>
+      <!-- brows, eyes, nose, mouth -->
+      <path d="M208 132 q16 -8 30 0" stroke="#1d130e" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M262 130 q16 -8 30 0" stroke="#1d130e" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="223" cy="148" rx="11" ry="6" fill="#efe6dc"/><circle cx="224" cy="148" r="4.5" fill="#1d130e"/>
+      <!-- her left eye: swollen, half shut -->
+      <ellipse cx="277" cy="150" rx="17" ry="12" fill="#6a3a3e"/>
+      <path d="M264 151 q13 4 26 0" stroke="#1d130e" stroke-width="3" fill="none"/>
+      <!-- the cut above it -->
+      <path d="M268 122 l20 -5" stroke="#e8463b" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M250 150 q-6 26 -4 34 q6 4 12 0" stroke="#2a1b14" stroke-width="3" fill="none"/>
+      <path d="M232 204 q18 8 36 0" stroke="#2a1b14" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <!-- gloves up -->
+      <ellipse cx="168" cy="300" rx="52" ry="58" fill="url(#glove)"/>
+      <ellipse cx="332" cy="300" rx="52" ry="58" fill="url(#glove)"/>
+      <rect x="140" y="346" width="56" height="26" rx="6" fill="#efe6dc"/>
+      <rect x="304" y="346" width="56" height="26" rx="6" fill="#efe6dc"/>
+
+      <!-- hooked lines out of the body -->
+      <circle cx="278" cy="119" r="5" fill="none" stroke="#e8463b" stroke-width="2.5"/>
+      <path class="lead" d="M283 117 L360 52 L452 52" stroke="#e8463b" stroke-width="2.5" fill="none"/>
+      <circle cx="292" cy="152" r="5" fill="none" stroke="#f0a03a" stroke-width="2.5"/>
+      <path class="lead" d="M297 154 L370 200 L452 200" stroke="#f0a03a" stroke-width="2.5" fill="none"/>
+
+      <!-- label: cut -->
+      <g>
+        <rect x="452" y="16" width="232" height="74" rx="4" fill="#1d2630" stroke="#e8463b" stroke-width="1.5"/>
+        <path d="M472 64 l26 -22 M478 66 l6 -6 M488 58 l6 -6 M498 50 l6 -6" stroke="#e8463b" stroke-width="3" stroke-linecap="round"/>
+        <text x="520" y="66" font-family="Bahnschrift,Segoe UI" font-size="38" font-weight="600" fill="#e9eef3">CUT</text>
+      </g>
+      <!-- label: left eye -->
+      <g>
+        <rect x="452" y="150" width="232" height="128" rx="4" fill="#1d2630" stroke="#f0a03a" stroke-width="1.5"/>
+        <text x="470" y="180" font-family="Segoe UI" font-size="18" letter-spacing="2" font-weight="600" fill="#93a1af">LEFT EYE</text>
+        <text x="470" y="228" font-family="Bahnschrift,Segoe UI" font-size="48" font-weight="600" fill="#f0a03a">47</text>
+        <text x="540" y="226" font-family="Segoe UI" font-size="22" fill="#e9eef3">sore</text>
+        <rect x="470" y="246" width="196" height="12" rx="3" fill="#26313c"/>
+        <rect x="470" y="246" width="92" height="12" rx="3" fill="#f0a03a"><animate attributeName="width" from="0" to="92" dur=".9s" fill="freeze"/></rect>
+      </g>
+      <!-- fit to fight -->
+      <g transform="translate(452,310)">
+        <circle cx="18" cy="20" r="18" fill="#4cc27a"/>
+        <path d="M9 20 l6 7 l12 -14" stroke="#10151b" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <text x="48" y="28" font-family="Segoe UI" font-size="22" fill="#e9eef3">Fit for next bout</text>
+      </g>
+    </svg>
+  </div>
+  <div class="tiles">
+    <div class="tile" title="Tiredness 72 of 100 (Tired). Hard training before she is fresh counts for less and risks an injury. Set the week on the Week tab.">
+      <div class="row">
+        <svg width="62" height="62" viewBox="0 0 62 62"><rect x="4" y="16" width="48" height="30" rx="4" fill="none" stroke="#f0a03a" stroke-width="3"/><rect x="52" y="25" width="6" height="12" rx="2" fill="#f0a03a"/><rect x="9" y="21" width="11" height="20" rx="2" fill="#f0a03a"/></svg>
+        <div class="n num" style="color:var(--amber)">3</div>
+        <div class="u">rest days<span>until fresh</span></div>
+      </div>
+      <div class="bar" style="margin-top:16px"><i style="width:72%;background:var(--amber)"></i></div>
+    </div>
+    <div class="tile" title="Morale 60 to 48: Steady to Flat. Lost to Priya. A Flat fighter takes in less of the corner's word.">
+      <div class="row">
+        <svg width="62" height="62" viewBox="0 0 62 62"><circle cx="31" cy="31" r="27" fill="none" stroke="#d9453b" stroke-width="3"/><path d="M31 15 v30 M19 34 l12 12 l12 -12" stroke="#d9453b" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="n num" style="color:#f08a80">-12</div>
+        <div class="u">morale<span>Steady to Flat</span></div>
+      </div>
+      <div class="bar" style="margin-top:16px"><i style="width:48%;background:var(--red);animation-delay:.2s"></i></div>
+    </div>
+  </div>
+</div>
+
+<!-- BEAT 3: what the club got -->
+<div class="beat b3">
+  <h2><b>3</b>WHAT THE CLUB GOT</h2>
+  <div style="margin-top:14px;height:500px;display:flex;flex-direction:column;justify-content:space-between">
+    <div class="clubrow" title="The club's cut of the show's tickets.">
+      <svg width="56" height="56" viewBox="0 0 56 56"><rect x="4" y="12" width="48" height="32" rx="4" fill="none" stroke="#4cc27a" stroke-width="3"/><circle cx="28" cy="28" r="8" fill="none" stroke="#4cc27a" stroke-width="3"/></svg>
+      <div class="n num" style="color:var(--green)">+$450</div><div class="c">tickets</div>
+    </div>
+    <div class="clubrow" title="One member left after the loss (a win brings 8).">
+      <svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="19" r="10" fill="none" stroke="#d9453b" stroke-width="3"/><path d="M8 50 q20 -26 40 0" fill="none" stroke="#d9453b" stroke-width="3"/></svg>
+      <div class="n num" style="color:#f08a80">-1</div><div class="c">member</div>
+    </div>
+    <div class="clubrow" title="A boxer enters the regional ladder at 4 wins. Record now 3 wins, 2 losses.">
+      <svg width="56" height="56" viewBox="0 0 56 56"><path d="M10 50 h36 M14 50 v-10 h10 v10 M24 50 v-22 h10 v22 M34 50 v-34 h10 v34" stroke="#e2b84a" stroke-width="3" fill="none"/></svg>
+      <div>
+        <div class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+        <div class="c" style="margin-top:8px">1 win to the ladder</div>
+      </div>
+    </div>
+    <div class="clubrow" title="Coach's note: gets hit and comes back harder.">
+      <svg width="56" height="56" viewBox="0 0 56 56"><rect x="10" y="6" width="36" height="44" rx="3" fill="none" stroke="#93a1af" stroke-width="3"/><path d="M18 20h20M18 28h20M18 36h12" stroke="#93a1af" stroke-width="3"/></svg>
+      <div class="n num">+1</div><div class="c">coach's note</div>
+    </div>
+  </div>
+  <div style="position:absolute;left:30px;right:30px;bottom:28px;display:flex;align-items:baseline;gap:16px;padding-top:18px;border-top:1px solid var(--line)">
+    <div class="caps">RECORD</div><div class="num" style="font-size:44px">3-2</div>
+  </div>
+</div>
+
+<!-- FOOT: the next step -->
+<div class="foot">
+  <div class="hint"><svg width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="9" fill="none" stroke="#93a1af" stroke-width="2"/><path d="M11 10v6M11 6v1" stroke="#93a1af" stroke-width="2.5" stroke-linecap="round"/></svg>Hover any part for the detail</div>
+  <div class="sp"></div>
+  <div class="btn">The plan, lit up</div>
+  <div class="btn">Train defence next week</div>
+  <div class="btn main">Back home</div>
+</div>
+</body></html>
