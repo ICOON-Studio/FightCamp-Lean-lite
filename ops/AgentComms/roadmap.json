@@ -10,7 +10,7 @@
   "last_working_commit": "0c86a07f",
   "verified_playable": "Builds/FightCamp.exe exported about 02:55 (S438: ribs + voices wired); smoke-run 40 s on the hidden desktop, no error line; not played",
   "incomplete_blocked": "His look at the S436 stills and build. S434's weight map and foundation workflows (last write 21:40). PR 211 CALLSPREAD1 waits on the foundation. Cursor idle with no brief (RANKSHOWUI first). DUESSUMS3C on Qwen. Men's opponents without height / reach on file show dashes on the tape.",
-  "next_action": "0) get_usage; his comments on the S437 stills and films (review board). 1) The damage map: read round 3's scores (bottom of NEXT_SESSION_PROMPT.md); 7+ from both = ask on the board, else another round by workflow on Opus. 2) Collect RIBS1 (re-check the rib injury rate) and PR 218 VOICEWIRE1 by diff, then run tools/voice_make.py (42 Ludo credits) and post to the sound board. 3) Animation: the other seven side films read, the clip fixes briefed (cross B, lead hook, body shot), then D0 step 3 (human_feet on the default route). 4) The foundation's third round, then PR 211.",
+  "next_action": "S440: READ NEXT_SESSION_PROMPT.md from 'THE LEAD S439 SESSION' down (four ADDED sections). The lead S439 session is still OPEN with eight helper workflows running on Opus (his 'burn all credits' until 16:00 on 2026-11-12): do not relaunch them; read each journal (path in the handover) and collect what has landed. Order: 1) ruler + foundation (wf_c5b6b57b-2a4): on 'collect' merge both branches, film the three fixed jabs before/after, close PRs 222-224, then PR 211. 2) the result page final3 (wf_fb343d74-fd1): send it only if its last pass is sound; then Ludo paints. 3) POWER1 steps (claude/power1): films to the review board with critics' scores. 4) the seven design maps: to his board only at 7+ from both critics, after a logic check of the screen. 5) DEFECTS1, the gap list, the punch targets, the pack options (money: his call). 6) collect Cursor PAGES2B (open the stills), Qwen PUNCHSNAP1, Goose 225 MATLINES1. Open with him: the Ziva restart task (no answer: do not create it), the mocap pack purchase.",
   "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after.",
   "awaiting_operator": [
    "Raise the Gemini judge's monthly cap (33.26 of 33.26 used) so clips can be verified by the judge",
@@ -1785,6 +1785,11 @@
    "date": "2026-11-12",
    "title": "Show damage step 1: the audit table; the result page shows the bout's marks and the DAMAGE tile tells the truth (a skipped bout keeps its marks); stills to the review board; build exported",
    "commit": "0c86a07f"
+  },
+  {
+   "id": "S439-lead",
+   "date": "2026-11-12",
+   "summary": "Lead session beside the DAMAGESHOW side session: Cursor on Auto, Arena FACE3D1 collected, 15 punch clips on the board with three critics (3.6/10), cross power and uppercut range measured twice, numbers read from Undisputed and Blood & Canvas, punch ruler and foundation through three review rounds (not merged), result page drawings (his rejection: logic of the moment), eight helper batches launched on his word."
   }
  ],
  "blocked_on_operator": [],
@@ -4703,7 +4708,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-12 08:41 board_sync",
+  "updated": "2026-11-12 09:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4897,13 +4902,8 @@
     "title": "TASK PUNCHSNAP1 - ARENA - the maths of a punch's POWER read: one pure module + its test",
     "who": "qwen",
     "started": "2026-11-12T08:30",
-    "run": "PUNCHSNAP1"
-   },
-   {
-    "title": "TASK FACE3D1 - ARENA - which marks a hurt face shows in 3D: one pure module + its test",
-    "who": "arena",
-    "started": "2026-11-12T08:38",
-    "run": "FACE3D1"
+    "run": "PUNCHSNAP1",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
@@ -5297,6 +5297,11 @@
   },
   "done_recently": [
    {
+    "title": "TASK FACE3D1 - ARENA - which marks a hurt face shows in 3D: one pure module + its test",
+    "who": "arena",
+    "when": "2026-11-12"
+   },
+   {
     "title": "The result page shows the marks of the fight: sore and cut places on hooked lines, her face with the marks; the DAMAGE tile tells the truth; a skipped bout keeps its marks",
     "who": "claude",
     "when": "2026-11-12"
@@ -5350,21 +5355,6 @@
     "title": "TASK RANKSHOWUI - CURSOR (Grok 4.7 High) - the rank a fight earned, shown in the Why and on the fighter's page",
     "who": "cursor",
     "when": "2026-11-12"
-   },
-   {
-    "title": "Glove touch: shoulders down, neck back (his three marks)",
-    "who": "claude",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "Rank after every fight: the Why row, the fighter cards, the fighter's page",
-    "who": "cursor",
-    "when": "2026-11-11"
-   },
-   {
-    "title": "Re-measured punch contact times in; body hooks land on target",
-    "who": "claude",
-    "when": "2026-11-11"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5607,6 +5597,18 @@
     {
      "text": "Result stills: your look",
      "who": "operator"
+    },
+    {
+     "text": "Animation gap list vs 2 games",
+     "who": "claude"
+    },
+    {
+     "text": "POWER1: punch power, 6 steps",
+     "who": "claude"
+    },
+    {
+     "text": "7 design maps with critics",
+     "who": "claude"
     }
    ],
    "next": [
@@ -5664,10 +5666,6 @@
     },
     {
      "text": "Show damage: 3D faces, portraits",
-     "who": "claude"
-    },
-    {
-     "text": "POWER1: hit on the fast frame",
      "who": "claude"
     },
     {

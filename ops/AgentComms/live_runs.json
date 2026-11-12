@@ -574,7 +574,7 @@
    "agent": "cursor",
    "id": "PAGES2B",
    "title": "TASK PAGES2B - CURSOR (Auto) - the Fighters page as painted: one wide row a fighter",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-12T08:01",
    "eta": "2026-11-12T09:51",
    "branch": "cursor/pages2b",
@@ -595,13 +595,76 @@
     "runner_pid": 38032,
     "seat_pid": 17428
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "S368 seat_dispatch: cursor exit 124; 1 commit(s); checks 9/9 PASS; PR #227",
+   "finished": "2026-11-12T09:35",
+   "pr": 227,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/roster_rows_page_test.gd",
+     "ok": true,
+     "last": "ROSTER_ROWS_PAGE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/roster_row_test.gd",
+     "ok": true,
+     "last": "ROSTER_ROW failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/roster_slate_test.gd",
+     "ok": true,
+     "last": "ROSTER_SLATE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/roster_cards_test.gd",
+     "ok": true,
+     "last": "ROSTER_CARDS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/roster_flag_test.gd",
+     "ok": true,
+     "last": "ROSTER_FLAG failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/roster_summary_test.gd",
+     "ok": true,
+     "last": "ROSTER_SUMMARY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fighter_profile_test.gd",
+     "ok": true,
+     "last": "FIGHTER_PROFILE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   },
   "PUNCHSNAP1": {
    "agent": "qwen",
    "id": "PUNCHSNAP1",
    "title": "TASK PUNCHSNAP1 - ARENA - the maths of a punch's POWER read: one pure module + its test",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-12T08:30",
    "eta": "2026-11-12T10:20",
    "branch": "qwen/punchsnap1",
@@ -622,21 +685,34 @@
     "runner_pid": 28916,
     "seat_pid": 35364
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
-  },
-  "FACE3D1": {
-   "agent": "arena",
-   "status": "running",
-   "title": "TASK FACE3D1 - ARENA - which marks a hurt face shows in 3D: one pure module + its test",
-   "started": "2026-11-12T08:38",
-   "eta": "2026-11-12T09:45",
-   "branch": "arena/91be6c05-fightcamp-lean-lite",
-   "url": "https://arena.ai/agent/01a1ce7a-1f1c-712a-a270-218c91be6c05",
-   "brief": "ops/research/TASK_FACE3D1.md",
-   "note": "S439: launched in his Chrome after 'you can also use arena' + 'Signed in'. PR lands on FightCamp-Lean-lite and is relayed; never Arena's Merge button.",
-   "id": "FACE3D1",
-   "where": "cloud",
-   "repo": "FightCamp-Lean-lite"
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #226",
+   "finished": "2026-11-12T09:01",
+   "pr": 226,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/punch_snap_test.gd",
+     "ok": true,
+     "last": "PUNCH_SNAP failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/punch_form_rules_test.gd",
+     "ok": true,
+     "last": "PUNCH_FORM_RULES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   }
  },
  "codex_budget": {

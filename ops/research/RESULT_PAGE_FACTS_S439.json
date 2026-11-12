@@ -1,0 +1,290 @@
+{
+ "facts": {
+  "moment": "Fight night, the bout is over and nothing else has happened yet. BoutNight._finish has already booked everything: the record (w/l/d), members (+8 on a win, -1 on a loss, -2 on a stoppage loss), reputation, the $450 ticket cut (amateur, $0 at a championship; pro = purse share), morale (win +8 / loss -12 / goal met +10 / goal missed -20, each scaled by heart and confidence; plus at most 3 corner-call moves of -2 or +1), the coach's new note, the goal (marked met or missed in history, then cleared, with goal_talk = true), the rank, the stand-down (no sparring for 5, 10 or 21 days by head damage; none after a stoppage, which brings a suspension instead), the injury roll, and the tiredness (week_fatigue = Aftermath.toll: 45 + half the tank she used, +10 on a stoppage loss). The result modal (FightNight._result) blocks every other screen. The fighter's bout dict still exists with done=true, and next_offer_day still holds its OLD value. Nothing is booked for her and no offer can be accepted. The only way out is \"Back home\" (act \"afterfight\", Bouts.after_fight). That button clears bout and camp, sets the training load back to default, sets next_offer_day = today + 10 (AFTER_FIGHT), moves opp_index on, runs the first-hour lines and Roster.check_pro (a pro offer can arrive right then after a win that makes her pro-ready), and for a championship bout books the next championship round (Champs.after_bout). Then it closes the modal and toasts \"<name> is in your office: pick the next goal.\" Next the player picks her new goal in the office (one of two, Bouts.NEXT_GOALS), sets her week on the Training tab (rest is set per morning, 7 mornings of a session or Rest), and waits. The next amateur offer comes on its own at least 10 days later, or later still while she is injured (Injuries.day_tick keeps next_offer_day >= the injury's end). That bout is then 2 to 4 weeks after the offer (AmateurBooking LEAD_WEEKS 2..4, still the code; the S428 \"1-2 weeks\" has not been built). So her next amateur fight is about 4 to 6 weeks away.",
+  "actions_possible_now": [
+   {
+    "action": "Back home / Continue: closes the bout (Bouts.after_fight). The one way off the page",
+    "where_in_code": "FightNight._result 'BackHome' -> BoutActs 'afterfight' -> Bouts.after_fight",
+    "makes_sense_after": "always"
+   },
+   {
+    "action": "Train the body part that gave out first next week ('Train <part> next week'; sets f.focus and clears week_plan; the label turns to 'Training ... next week')",
+    "where_in_code": "FightNight._decided 'BodyFocus' -> BoutActs 'bodyfocus'; m.body_report.focus from BodyReport",
+    "makes_sense_after": "a win or a loss when body_report has a focus. Less sense while she owes rest days or is injured: it sets next week's training focus, it does not make her rest"
+   },
+   {
+    "action": "Open 'The plan, lit up': a read-only flow of the plan the bout used (her arrows, or the assistant's CoachPlan when she had none, plus any corner change), each arrow lit with won / tried. It is a replay of the plan, not an editor",
+    "where_in_code": "FightNight._result 'PlanLit' -> _open_lit -> FlowView (lit_flow(m))",
+    "makes_sense_after": "always, when the bout had any plan (the button is hidden when lit_flow is empty)"
+   },
+   {
+    "action": "Hover the tiles and the 'What decided it' words to read the full lines",
+    "where_in_code": "AftermathTiles.tile tooltip = lines; FightNight._decided tooltips",
+    "makes_sense_after": "always"
+   },
+   {
+    "action": "RIGHT AFTER the page: pick the next goal in the office (goal talk, two choices)",
+    "where_in_code": "BoutActs 'goaltalk'/'pickgoal'/'setgoal' -> Bouts.goal_choices / set_goal (f.goal_talk set true by _finish)",
+    "makes_sense_after": "always: every bout ends the old goal"
+   },
+   {
+    "action": "RIGHT AFTER: set rest mornings on the Training tab (rest is chosen per morning; there is no 'rest week' action and no 'book a rest week' button in code)",
+    "where_in_code": "WeekPlan SESSIONS 'rest' per day; Aftermath.tired line 'Set the week on the Training tab'",
+    "makes_sense_after": "after any bout where the TIREDNESS tile says rest days > 0 (fatigue >= 50); every bout leaves at least 45"
+   },
+   {
+    "action": "RIGHT AFTER: write or fix the standing fight plan in the Playbook (f.arrows). It works with no bout booked: GamePlan then says 'No bout booked: try the plan against each kind of opponent'. The next bout copies it on at round 1",
+    "where_in_code": "GamePlan.gd line ~148; LiveRound.open copies f.arrows into bout.arrows; BoutNight line ~185 CoachPlan writes one when empty",
+    "makes_sense_after": "always, most after a NO PLAN / WRONG PLAN grade. It cannot be aimed at the next opponent yet (none is known)"
+   },
+   {
+    "action": "RIGHT AFTER: decide on an injury (fight hurt or pull out) only when a NEW injury hits a bout already booked. After a normal bout nothing is booked, so this does not come up; for a championship it can (the next round gets booked)",
+    "where_in_code": "Injuries._hurt choice 'pending' -> BoutActs 'injurychoice'",
+    "makes_sense_after": "an injury, championship runs only"
+   },
+   {
+    "action": "RIGHT AFTER: answer the pro offer, if Roster.check_pro made one when Back home was pressed",
+    "where_in_code": "Bouts.after_fight -> Roster.check_pro (pro_ready, bout empty, not in the championships)",
+    "makes_sense_after": "a win that makes her pro-ready only"
+   },
+   {
+    "action": "RIGHT AFTER, championship bout: the next round is already booked (Champs.after_bout -> book_next)",
+    "where_in_code": "Bouts.after_fight -> Champs.after_bout",
+    "makes_sense_after": "a championship win"
+   }
+  ],
+  "actions_not_possible_or_senseless": [
+   "Booking, asking for or accepting a new amateur bout for this fighter. The player can never ask for one: offers only arrive by themselves (Bouts.day_events), and none can come for 10 days (AFTER_FIGHT, set when Back home is pressed), longer while injured. A 'Bout offers' button on her card opens Fights showing 'No offers right now' and 'next offer can come from <date> (in 10 days)'. That is the operator's complaint, and it is right.",
+   "Any 'book' or 'accept' while the result modal is open: the bout still exists (done=true), so the code would refuse it anyway (offers come only while bout is empty).",
+   "'Book a rest week': no such action exists. Rest is set per morning on the Training tab. The morale event 'rest_week' (+4) is defined in FighterProfile.MORALE_EVENTS but never applied anywhere.",
+   "Writing a plan 'for the next opponent': there is no next opponent. A plan can be written (the standing Playbook plan), but only tested against kinds of opponent.",
+   "Starting a camp, weigh-in, film or tape study: they need a booked bout (Bouts.start_camp returns 0 when bout is empty).",
+   "Sparring her in the stand-down days (StandDown.locked; 'spar anyway' only for fine/hurt bands, with a head-knock risk).",
+   "Changing the result, the goal, the morale or the rank from this page: all of it is already booked.",
+   "Showing 'win chance before' as a stored fact: the amateur pre-bout chance (BoutRead.band via BoutCompare.win_read / FightPrep._tale) is computed live and never saved with the bout. After the fight the opponent's file is fully open (OppFile.open_all) and the peak bonus is gone (PeakCamp.unboost), so recomputing it now gives a different number. Matchmaking.win_chance is only used for pro ladder cards and is not saved either.",
+   "A 'next offer in N days' line on the rank tile: Aftermath.rank reads facts.next_days, but AfterFight.tiles never sets it, so that line never shows (and next_offer_day is only set when Back home is pressed)."
+  ],
+  "true_statements": [
+   {
+    "item": "Winner and how",
+    "exact_meaning": "Whose name wins and by what: on points (no stoppage), by knockout (stopped == 'KO'), or by stoppage (referee). 'A DRAW' when outcome == 'draw'",
+    "field": "m.win, m.outcome, m.stopped",
+    "plain_caption": "Wins on points"
+   },
+   {
+    "item": "Judges' cards",
+    "exact_meaning": "Three cards from BoutRules.scorecards(rounds won, rounds); shown only when there was no stoppage. Per-judge round marks from Broadcast.judge_rounds",
+    "field": "m.cards, m.rounds",
+    "plain_caption": "Judge 1, 2, 3"
+   },
+   {
+    "item": "Stopped in round N",
+    "exact_meaning": "The round the bout ended, out of the scheduled total",
+    "field": "m.rounds.size(), m.total",
+    "plain_caption": "Stopped in round 2"
+   },
+   {
+    "item": "Fight numbers (punches landed, head, body, exchanges won, tank at the last bell)",
+    "exact_meaning": "Totals over every settled round for both boxers. An exchange is one 30-second block; the cards score exchanges, not punches. The tank is energy 0-100 at the final bell",
+    "field": "FightStats.of(m.rounds)",
+    "plain_caption": "Punches landed"
+   },
+   {
+    "item": "Plan grade",
+    "exact_meaning": "How the plan answered what the opponent did, by mean plan edge per exchange: GOOD (>= 1.5), MIXED, WRONG (< 0, worse than no plan), NO PLAN (no exchange used a planned arrow). It ignores the dice, so a good plan can still lose",
+    "field": "FightWhy.read(...).grade",
+    "plain_caption": "Good plan"
+   },
+   {
+    "item": "Right / wrong / neutral counts",
+    "exact_meaning": "Counted only over exchanges where a planned arrow fired: arrow_fit 'best' = right answer, 'wrong' = wrong one, any other fit = neutral. Exchanges without a planned arrow are not in it",
+    "field": "FightWhy.read: best, wrong, used - best - wrong",
+    "plain_caption": "Plan: 2 right, 1 wrong"
+   },
+   {
+    "item": "'You wrote none'",
+    "exact_meaning": "The player wrote no plan, so the hired coach wrote one from the opponent's style at round 1 (CoachPlan.write; no coach = no plan). The ticks and crosses then grade the assistant's plan, not the player's",
+    "field": "FightWhy.read(...).coach > 0 (round 1 plan arrows with coach = true)",
+    "plain_caption": "Coach's plan, not yours"
+   },
+   {
+    "item": "Plan worth",
+    "exact_meaning": "An estimate, rounded to the nearest 5, of how much the plan moved the chance of winning (mean edge x 8)",
+    "field": "FightWhy.read(...).worth",
+    "plain_caption": "Plan worth +10%"
+   },
+   {
+    "item": "The plan, lit up",
+    "exact_meaning": "Read-only flow of the arrows the bout used, each with won / tried",
+    "field": "FightNight.lit_flow(m)",
+    "plain_caption": "Replay the plan"
+   },
+   {
+    "item": "Your corner tile",
+    "exact_meaning": "Counts LIVE SHOUTS during exchanges only: right = a best/ok shout in an exchange she won, wrong = a wrong shout in an exchange she lost, not heard = shouted while she was Low (morale < 30). Between-round corner calls are not counted. 'Said nothing' = no shout counted",
+    "field": "CornerTrust.settle -> bout.calls_right / calls_wrong / calls_ignored",
+    "plain_caption": "Shouts that worked"
+   },
+   {
+    "item": "Tiredness",
+    "exact_meaning": "Fatigue 0-100 after the bout (the week plan's own number). At least 45; +0.5 for every point of tank used; +10 on a stoppage loss; never lower than it was. Words: Fresh < 50, Needs a rest 50-69, Tired 70-79, Spent 80+",
+    "field": "f.week_fatigue (Aftermath.toll), tile 'tired'",
+    "plain_caption": "Tiredness 72 of 100"
+   },
+   {
+    "item": "Rest days",
+    "exact_meaning": "Full rest mornings until fatigue drops under 50, each keeping 87%. Training hard before that counts for less and risks injury",
+    "field": "Aftermath.rest_days(week_fatigue)",
+    "plain_caption": "3 rest days"
+   },
+   {
+    "item": "Morale change and mood",
+    "exact_meaning": "Morale before vs after, all bout events included (result, corner calls, goal met/missed). Mood words: Fired up >= 75, Steady >= 50, Flat >= 30, Low < 30",
+    "field": "before.morale vs f.morale; FighterProfile.mood",
+    "plain_caption": "Morale -26, Flat"
+   },
+   {
+    "item": "Trust in the corner (what 'Flat hears 85%' really is)",
+    "exact_meaning": "A multiplier, not a share of calls heard: Fired up 1.05, Steady 1.0, Flat 0.85, Low 0.7. It scales how much of EACH shout, corner fix or adaptation takes effect (Exchanges.uptake, 0.7-1.0 by coachability, x trust). Every call still lands unless she is Low, when shouts stop landing at all (CornerTrust.lands). It is read from her morale ON FIGHT NIGHT, and morale moves before the next bout (+5 when a bout is booked, week asks, goal results), so it is a now-value, not a promise",
+    "field": "FighterProfile.trust(f) / TRUST; CornerTrust.lands",
+    "plain_caption": "Takes in less advice"
+   },
+   {
+    "item": "Damage (marks)",
+    "exact_meaning": "Her six body places at the final bell, 0-100: fine > 55, sore (band 'hurt') 36-55, badly hurt <= 35. Cuts are listed separately. The tile names the worst place; an injury overrides it to 'Injured'",
+    "field": "m.body_map 'a' via AfterFight._places/_worst; BodyMap.band; m.injury",
+    "plain_caption": "Left eye badly hurt"
+   },
+   {
+    "item": "Cut",
+    "exact_meaning": "A cut at a place on the body map. Not an injury unless the injury roll made one",
+    "field": "body_map.a.cuts",
+    "plain_caption": "Cut over left eye"
+   },
+   {
+    "item": "Injury",
+    "exact_meaning": "A real layoff from the bout's injury roll (or a worse one after fighting hurt). It keeps her out until until_day: no offers before then",
+    "field": "m.injury, f.injury.until_day",
+    "plain_caption": "Out 18 days"
+   },
+   {
+    "item": "Stand-down",
+    "exact_meaning": "No sparring until open_day: 5 / 10 / 21 days by head damage (fine / hurt / critical). None after a stoppage, which gets a suspension instead",
+    "field": "f.stand_down (StandDown.make)",
+    "plain_caption": "No sparring 10 days"
+   },
+   {
+    "item": "Chin worn",
+    "exact_meaning": "A stoppage loss lowered her durability cap for good",
+    "field": "after.cap < before.cap",
+    "plain_caption": "Takes punches worse"
+   },
+   {
+    "item": "Learned",
+    "exact_meaning": "The coach's new notes or habits seen in this bout, plus 'the whole file on <opp> is open' when tells had been hidden",
+    "field": "AfterFight._learned (notes_seen diff, before.hidden)",
+    "plain_caption": "1 coach's note"
+   },
+   {
+    "item": "Money",
+    "exact_meaning": "Amateur: +$450 ticket cut ($0 at a championship). Pro: the gym's purse share. Debut: tickets sold and the gym's share",
+    "field": "m.club_cut / m.gym_cut / m.tickets",
+    "plain_caption": "+$450 ticket cut"
+   },
+   {
+    "item": "Members",
+    "exact_meaning": "+8 on a win, -1 on a loss, -2 on a stoppage loss, no change on a draw",
+    "field": "BoutRules.WIN_MEMBERS, m.members_lost",
+    "plain_caption": "1 member left"
+   },
+   {
+    "item": "Rank / wins to enter",
+    "exact_meaning": "Amateur only. She appears in her division's regional ranking table (Region.rankings) once she has 4 wins (RANK_MIN_WINS), placed by net wins, then wins, then rating. 'Wins to enter' = 4 minus her wins. It is about entering that table, not about entering a tournament or the nationals",
+    "field": "m.rank_words (RankLine.after), Region.our_rank, Region.RANK_MIN_WINS",
+    "plain_caption": "1 win to rank"
+   },
+   {
+    "item": "Goal met / missed",
+    "exact_meaning": "The goal she carried into the bout is judged at the bell (FighterGoal.progress) and closed. A new goal is picked in the office after Back home",
+    "field": "f.history[-1].met (d == today), f.goal_talk",
+    "plain_caption": "Goal missed"
+   },
+   {
+    "item": "Train the part that went first",
+    "exact_meaning": "The body part that gave out first (BodyReport from the rounds' burn); the button sets next week's training focus to it",
+    "field": "m.body_report.focus, f.focus",
+    "plain_caption": "Train legs next week"
+   },
+   {
+    "item": "When the next offer can come",
+    "exact_meaning": "Not known on this page. After Back home: today + 10 days, or the end of an injury if that is later. The bout itself is then 2-4 weeks after the offer",
+    "field": "f.next_offer_day (set in Bouts.after_fight)",
+    "plain_caption": "Offers in 10 days"
+   }
+  ],
+  "traps": [
+   "'FIT by next bout' beside a badly hurt eye: the damage line 'Marks heal on their own before the next bout. Only an injury keeps X out.' is a general rule, not a date. No next bout exists, and sore/badly hurt places still show. 'Fit' means only 'no injury rolled'. Say 'no injury', not 'fit'.",
+   "'Bout offers' (or any book/accept) on a fresh result: impossible. No offer for 10+ days, the player cannot request one, and offers come in by themselves.",
+   "'Book a rest week': there is no such action. Rest is per morning in the week plan, and the 'rest_week' morale event is dead code.",
+   "'38% win chance before / Expected loss': not saved anywhere for amateur bouts. Recomputing it now gives a different number (opponent file opened, peak bonus removed). Saving BoutRead.band's mid at the bell would have to be built first.",
+   "'85% calls heard': wrong meaning. 0.85 scales the strength of every call she does take in; nothing is dropped unless she is Low (< 30). And it is her current mood, which moves before the next fight.",
+   "'Corner calls 0' after the player made corner calls between rounds: the tile counts only live shouts, not between-round corner calls. It reads 'Said nothing / The plan ran the fight' even when the player chose calls in the corner.",
+   "'No plan of yours' next to ticks and crosses: those counts grade the assistant's CoachPlan, not the player. With no coach and no plan, the grade is NO PLAN and all counts are 0.",
+   "Neutral count (the '-1'): it counts planned exchanges only. It is not exchanges lost or drawn.",
+   "'Write a plan' as a button on a result: it can be written, but only as the standing plan tried against kinds of opponent. There is no next opponent to aim it at.",
+   "'Win to enter' after a LOSS: it is 4 minus her WINS (losses do not change it). With 3-1 it says '1 win to enter'. 'Enter' means the regional ranking table, not a show or a tournament.",
+   "Mockup 'MARKS 2 eye cut, liver' counts a cut and a sore place as one number. In code, cuts and sore places are separate lists (Aftermath.damage sore / cuts).",
+   "Opponent's figure marks (e.g. 'NOSE 49 sore') are hers on the body map 'b'. Only side 'a' feeds the damage tile and the injury roll.",
+   "Rank tile line 'The next offer comes in about N days' never shows: facts.next_days is never set.",
+   "'Train <part> next week' beside 'needs 3 rest days': both are offered. The focus button does not rest her, and training before she is fresh counts for less.",
+   "The money and members are already booked when the page shows. The ribbon reports them; it is not a choice.",
+   "Injury overwrite: Bouts.after_fight sets next_offer_day = today + 10 even when an injury runs longer. Injuries.day_tick puts it back each morning, so offers still wait for the injury. But anything that reads next_offer_day right after Back home (Fights 'next offer can come from') can show the shorter date on that day.",
+   "Championship and pro are exceptions. After a championship win the next round IS booked automatically. After a win that makes her pro-ready, a pro offer can arrive when Back home is pressed. Pro ladder bouts come from the promoter, not from next_offer_day."
+  ]
+ },
+ "last_logic_check_of_final2": {
+  "verdict": "mistakes",
+  "mistakes": [
+   {
+    "item": "COACH LEARNED tile: 'On Priya, 1 new note, \"Gets hit, comes back harder\"'",
+    "why_wrong": "The note is true (AfterFight._learned), but it describes an opponent she will not face again: opp_index moves on and nothing is booked. It takes one of six tiles while telling the player nothing they can act on. The quote also reads like a line about Lucy, not about Priya, so it is unclear whose habit it is.",
+    "fix": "Move it to one small line ('Coach's file on Priya: 1 new note, kept for a rematch') or show it only when a rematch is possible. Give the space to something the player acts on next, such as when the marks heal."
+   },
+   {
+    "item": "MORALE tile: 'Goal missed' in red",
+    "why_wrong": "It is true, but it never says which goal. The NEXT band asks the player to pick a new goal without saying what the old one was or how close she came. Without that, a big part of the -26 cannot be explained without hovering.",
+    "fix": "Name the goal and how close she came, e.g. 'Goal missed: win 4 rounds (won 0)'. Keep 'pick a new one in your office' in NEXT."
+   },
+   {
+    "item": "DAMAGE tile: 'left eye 31 badly hurt, cut' and 'liver 33 badly hurt' with 'No injury but no sparring 21 days'",
+    "why_wrong": "All of it is true, and 'No injury' rightly avoids the false 'Fit'. But it gives no date for the badly hurt places to heal, and it does not link the 21 days to the next fight (4 to 6 weeks away). The player can't tell whether she will still be hurt when the next fight comes.",
+    "fix": "Add one line: 'Clears before her next fight (21 days < 4-6 weeks)'. If the code has a heal rate, add a heal time for each place."
+   },
+   {
+    "item": "NEXT: 'Write her own plan in the Playbook'",
+    "why_wrong": "It can be done now, but 'her own plan' is wrong: the player writes the plan, not the boxer. It also suggests aiming a plan at the next opponent, and none is known yet. The plan is a standing one, tested against kinds of opponent.",
+    "fix": "'Write your standing plan in the Playbook (test it against each style; the next opponent is not known yet)'."
+   },
+   {
+    "item": "WHY SHE LOST: 'Outworked from round 2' next to '1 of 18 exchanges used the Coach's plan ... You wrote none.'",
+    "why_wrong": "Both lines are true, but putting them together under WHY SHE LOST makes the missing plan look like the cause. The plan grade and plan worth are not shown. The page also leaves out what the numbers show: she finished with MORE tank left (46 vs 34) and still threw far less. That is the real 'outworked' story.",
+    "fix": "Tie the reason to the numbers: 'Outworked from round 2: landed 49 to 78, finished with 46 tank unused'. Show the plan line as its own reason with the grade ('NO PLAN of yours: the Coach's plan ran 1 of 18')."
+   }
+  ],
+  "clarity": 8,
+  "usefulness": 7,
+  "looks_like_a_match_summary": 6.5,
+  "to_reach_10": [
+   "Keep it that the lower half has no book, accept or bout-offer action. This version is right on that point: the only control is Continue, and 'Next offer in 10+ days, the fight about 4-6 weeks away' matches Bouts.after_fight plus AmateurBooking LEAD_WEEKS 2..4. Never put a book button back on this card.",
+   "Give a real reason under WHY SHE LOST from the fight's own numbers (punch rate, tank left unused 46 vs 34, the round it turned), and show the plan grade (NO PLAN / WRONG / MIXED / GOOD) as its own reason instead of a sentence that sounds like blame.",
+   "Name the missed goal and how close she came, both in the morale tile and in the NEXT line.",
+   "Damage: say whether the badly hurt places and the 21-day sparring ban clear before the next fight (4-6 weeks), so the player knows the result does not hang over the next bout.",
+   "Replace or shrink the COACH LEARNED 'On Priya' tile. Show it only when a rematch is possible; otherwise use a smaller line and give the space to the healing or the plan grade.",
+   "NEXT wording: 'Write your standing plan' (not 'her own plan'), and say it is tested against kinds of opponent because the next one is not known.",
+   "To look more like a match summary: add one key-moments line (the round that turned, the biggest shot, any knockdown, corner calls made and how many worked) between the judges' cards and the after-fight tiles. The fight story should come before the gym bookkeeping.",
+   "Rank tile: say 'Not ranked yet: 1 more win to enter the regional table' so 'to be ranked' cannot be read as a tournament entry, and say plainly that a loss does not move it.",
+   "Morale caption: say it is how she is now and that it will change ('Flat now: takes in less advice until her mood lifts'), so it does not read as a fixed penalty for the next fight.",
+   "Make the NEXT items match exactly what happens after Continue: the office goal talk opens first (say 'Continue takes you to your office'), then the Training tab."
+  ]
+ }
+}

@@ -133,3 +133,64 @@ THE NEXT ANIMATION WORK, one piece (call it POWER1, after the ruler merges, beca
 Traps: a Bash command whose TEXT holds the console exe's name is blocked by rule_guard (use Edit). review_add.py wants
 E:/ paths, not /e/ (it skipped 8 of 15 files silently). agent_comms ask --attach wants an absolute path. E: is at 14.8 %
 free (AMBER): retire LEAN_CLIPFIX4, LEAN_FOUNDATION_S433, LEAN_TORSO1, LEAN_PUNCHSNAP1, LEAN_PAGES2B once collected.
+
+## ADDED 09:35 (lead S439): the reference games' numbers are in; his ask about their clips
+- ops/research/REFERENCE_DISTANCES_S439.md (read-only, checked twice). Use it in POWER1 BEFORE measuring anything again:
+  Blood & Canvas works at 1.05-1.35 m centre to centre (never closer than about 1.08 m; our fixed 0.93 m is closer than
+  their closest stance), hit stop 0.04 s. Undisputed: punch reach = 0.55 of wingspan for straights and hooks, 0.535 for
+  uppercuts (their uppercut reaches 97 % as far as a straight; ours about 65 %); they FIT THE DISTANCE BY CHOOSING A CLIP
+  (a short-range and a long-range take of every punch, plus lunge takes that carry the body 0.35-0.63 m) and arm IK adds
+  at most 0.30 m; contact comes BEFORE the arm stops (0.08-0.5 s of follow-through); jab contact at about 0.2 s; punches
+  play at 1.1x; blend into a punch 0.15 s, into a hit reaction 0.05 s.
+- wf_4815ea89-f7b (in flight): their punch MOTIONS measured into a target sheet of numbers per punch type. Write it to
+  ops/research/REFERENCE_PUNCH_TARGETS_S439.md and fix our clips against it.
+- HIS WORDS: "i thought i told you to use rea to save time and costs , get all their animations and numbers", then, asked
+  whether he meant numbers or the clips, "I meant the clips", then "how can they know if we change them for our models ?".
+  I REFUSED the clips (another studio's files in a game we sell; his own rule of 2026-11-04 and the project rule) and
+  told him why retargeting does not change that. Numbers yes. Offered: licensed boxing motion-capture pack options with
+  prices on the board (money: his call). He had not answered. Do not extract or retarget their clips.
+
+## ADDED 09:55 (lead S439): rulings on the ruler and the foundation; the result page drawing REJECTED
+- wf_0ff5251b-169 came back: the three jabs ARE fixed in E:/FightCamp/wt/LEAN_CLIPFIX4 (one-key ease: jab hang 0.39 ->
+  0.165, jab B 0.23 -> 0.14, jab C 0.27 -> 0.14, contact one frame earlier each, 33 of 33 retime checks). Both readers
+  said fix_again for one open ruling each. My rulings went out as wf_c5b6b57b-2a4 (in flight; both fixers PUSH):
+  ruler R8 = a retimed clip is judged in two rows (the eye's fault caught on the ORIGINAL take; the FIXED take must pass
+  every bar); R9 the 2 % on-the-line band applies to every bar; non-jab table rows stay main's (a full regeneration is its
+  own task: block_meet and guard_knee are red on main's data already). Foundation = PUNCHSTART1 stays AND the S318 /
+  RIBS1 targets stay, so BodyMap's FACE_HIT / HEAD_HIT / RIB_HIT are re-measured on the merged tree and rib_damage_test
+  reads EIGHT windows (it passed by luck on one: the branch really read 21.1 % and 36.6 %, 6 of 8 windows failing).
+  ON "collect" from both readers: merge each branch into main, film the three fixed jabs from the side (clip_orbit, as
+  section 2 of the S438 handover says), post before and after, close PRs 222-224, then PR 211.
+- THE RESULT PAGE: he REJECTED docs/mockups/s439/result/final.png ("there are too many mistakes in thepage why you put
+  on this card option to book a fight ? a fight just ended"). wf_93d71c6d-298 redraws it as final2.png with a LOGIC check
+  against what the game allows right after a bout (memory feedback_screen_logic_of_the_moment_s439). Send final2 only if
+  its last pass was checked; then Ludo paints.
+- wf_47b997a4-c62: the animation gap list against the two games (ops/research/ANIMATION_GAPS_S439.md).
+
+## ADDED 10:15 (lead S439): his "you have 6 hours to burn all credits" (the weekly allowance resets 16:00 local)
+All on Opus helpers; all-models was 75 % at 09:30. Workflows in flight (same journal folder as above):
+- wf_66447834-d17: design maps with two fresh critics a round, up to three rounds, for R37 ask for a fight, R58 a
+  fighter leaves, HOSTSHOW1, TURNPRO1, cutman v3, weight (clarity round), training scene v2. Files:
+  ops/research/<KEY>_MAP_S439.md, drawings docs/mockups/s439/<key>/. A map goes to his board ONLY at 7+ depth and
+  clarity from both critics; run the logic check (memory feedback_screen_logic_of_the_moment_s439) on its screen first.
+- wf_a967169b-292: POWER1 in E:/FightCamp/wt/LEAN_POWER1 (branch claude/power1, six steps: hips into the punch, the
+  hit on the moving glove, the fast drive, each punch from its distance, the hit sold, the jab's load + the report
+  docs/POWER1_RESULT.md with before/after films), a blind reader after each step; DEFECTS1 in
+  E:/FightCamp/wt/LEAN_DEFECTS1 (the amateur corner's false line, FaceMark3D words, result-top labels, the five word
+  sets, block_meet and guard_knee red on main); licensed boxing motion-capture pack options with prices (money: his call).
+- wf_fb343d74-fd1: the result page drawing looped until its logic is sound, under 110 words and 8+ from a player critic
+  (final3.png). final2.png was NOT sent to him (5 open logic points, 185 words). Facts of the moment after a bout:
+  ops/research/RESULT_PAGE_FACTS_S439.json (the player can never ASK for a bout today; rest is set per morning; the next
+  offer comes 10+ days after Back home).
+- wf_c5b6b57b-2a4 (ruler + foundation rulings), wf_47b997a4-c62 (animation gap list), wf_4815ea89-f7b (punch targets).
+Nothing of these is merged. Films from POWER1 go to the review board with critics' scores before he is told it works.
+
+## ADDED 10:40 (lead S439): the punch target sheet is in
+ops/research/REFERENCE_PUNCH_TARGETS_S439.md (two shipped games, numbers only, each re-measured). The targets our clips
+are fixed against: fist start to contact 0.11-0.20 s on every punch (jab and cross about 0.2 s from the punch's start,
+hooks and uppercuts 0.26-0.32 s, power versions 0.40-0.47 s); the LAST one or two frames before contact are the fastest
+(a last-frame speed of about 10-12 m/s; ours 4.4-5.4 and peaking 3-6 frames early); straights stop at full reach with
+the elbow at 150-165 and never locked, hooks pass THROUGH contact at 9-10 m/s with the elbow at 105-130, uppercuts land
+at about 90-110; no frozen wind-up (the hand moves from the first frame); a power punch = a quiet hand while the body
+loads, then the same fast arm. POWER1's steps 3 and 6 were briefed before this sheet existed: check their numbers
+against it at collect, and brief the clip fixes (crosses, hooks, uppercuts, body shots) from it.
