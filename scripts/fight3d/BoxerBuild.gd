@@ -33,6 +33,7 @@ const FighterLife := preload("res://scripts/fight3d/FighterLife.gd")
 const RkJoinFeet := preload("res://scripts/fight3d/RkJoinFeet.gd")
 const FloorStand := preload("res://scripts/fight3d/FloorStand.gd")
 const FootLock := preload("res://scripts/fight3d/FootLock.gd")
+const PunchWeight := preload("res://scripts/fight3d/PunchWeight.gd")
 
 
 static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
@@ -77,6 +78,15 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	else:
 		js.free()
 		js = null
+	# POWER1: a punch's hips keep their captured travel (first in the stack, so the join smoother blends it like any pose).
+	var pw := PunchWeight.new()
+	pw.name = "PunchWeight"
+	if pw.setup(skel, ap):
+		skel.add_child(pw)
+		skel.move_child(pw, 0)
+	else:
+		pw.free()
+		pw = null
 	# S399: a join into a captured clip keeps her feet planted through the blend (right after the join smoother).
 	var jf := RkJoinFeet.new()
 	jf.name = "RkJoinFeet"
@@ -188,7 +198,7 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 	if tw != null:
 		skel.move_child(tw, skel.get_child_count() - 1)
 	ap.animation_finished.connect(stage._on_finished.bind(index))
-	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "joinfeet": jf, "weave": gw, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "rig": rig, "floor": fc, "stand": fs, "lock": fl, "life": life, "look": look, "south": south, "front": gl.front_m(),
+	return {"node": body, "skel": skel, "ap": ap, "gloves": gl, "joinfeet": jf, "weave": gw, "js": js, "reach": pr, "snap": hs, "gclear": gc, "tuck": gt, "sag": ts, "knee": kt, "feet": fp, "rig": rig, "floor": fc, "stand": fs, "lock": fl, "life": life, "weight": pw, "look": look, "south": south, "front": gl.front_m(),
 		"pos": Vector3.ZERO, "vel": Vector3.ZERO, "move_left": 0.0,
 		"aim_m": 0.0, "aim_dir": 0.0, "hold_m": 0.0}
 

@@ -141,6 +141,7 @@ func land(who: int, clip: String, body: bool, at_s: float = 0.0, contact_s: floa
 	var rest := need - LEAN_COVER_M - float(pr.lunge_m)
 	if rest > 0.03 and at_s > 0.0:
 		PunchRange.close_in(self, who, rest, at_s, PunchRange.floor_for(clip))
+	if boxers[who].get("weight") != null: (boxers[who]["weight"] as Node).carry(clip, contact_s if contact_s >= 0.0 else BeatClips.contact(clip, CONTACT_S))
 
 
 ## HEADAIM2: `who` throws `clip` and it does NOT land (blocked, slipped, missed): the glove front's HEIGHT is aimed at
@@ -215,6 +216,8 @@ func arm_block(who: int, clip: String, at_s: float, contact_s: float) -> void:
 		return block_pos
 	# Arm the punch to target the blocking glove (position read at contact time)
 	pr.arm(clip, hand, cs, get_block_target, float(boxers[who]["front"]))
+	# POWER1: a blocked punch stays thrown in place - with the hips' own travel the reach met the block 5-8 cm short (block_meet)
+	if boxers[who].get("weight") != null: (boxers[who]["weight"] as Node).arm("")
 
 
 ## Pelvis to pelvis now, metres.
@@ -388,6 +391,7 @@ func play(who: int, move: String, speed: float = 1.0, from_s: float = 0.0) -> bo
 	if from_s > 0.0:
 		(boxers[who]["ap"] as AnimationPlayer).seek(from_s, true)
 	RkJoin.align(self, who)
+	if boxers[who].get("weight") != null: (boxers[who]["weight"] as Node).arm(move)   # POWER1: her hips travel with the punch
 	var r := BeatClips.recovery(move)
 	_cut[who] = {} if r.y <= 0.0 else {"clip": move, "contact": r.x if r.x >= 0.15 else -1.0, "back": r.y, "fast": false,
 		"scale": BeatClips.recover_scale(move, speed)}

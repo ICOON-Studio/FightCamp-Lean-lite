@@ -160,7 +160,10 @@ static func _place(st: Node, delta: float) -> void:
 		var to := other - me
 		# S302: a landed punch carries her in (shown only; her place on the canvas stays).
 		var pr: Node = bx.get("reach")
-		var lunge := lunge_room(float(pr.lunge()), to.length(), keep_m) if pr != null else 0.0
+		# POWER1: a landed cross or hook carries her body in (PunchWeight), on top of the reach's lunge, inside the same keep.
+		var pw: Node = bx.get("weight")
+		var carry := float(pw.tick(delta)) if pw != null else 0.0
+		var lunge := lunge_room((float(pr.lunge()) if pr != null else 0.0) + carry, to.length(), keep_m)
 		# S392: the rig's feet already stand off the line (RingFeet.tick); only a body the rig has let go of takes the shift here.
 		var side: Vector3 = feet.offset(to) * (1.0 - float(bx["rig"].w) if RingFeet.on(st, bx) else 1.0)
 		n.position = me + (to.normalized() * lunge if to.length() > 0.01 else Vector3.ZERO) + st.clinch.offset(i, to) + side

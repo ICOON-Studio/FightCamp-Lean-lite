@@ -26,7 +26,7 @@ const CHIP_REST := 0.4
 const KINDS := ["Energy", "Legs", "Guard"]
 const READ := {
 	"Energy": [[80, "Fresh"], [60, "Working"], [40, "Tiring"], [0, "Running on empty"]],
-	"Legs": [[80, "Light on her feet"], [60, "Legs working"], [40, "Legs heavy"], [0, "Legs gone"]],
+	"Legs": [[80, "Light on the feet"], [60, "Legs working"], [40, "Legs heavy"], [0, "Legs gone"]],
 	"Guard": [[80, "Guard tight"], [60, "Guard holding"], [40, "Guard slipping"], [0, "Hands down"]],
 }
 const READ_COL := [Color("#7fd18b"), Color("#f2c14e"), Color("#ff9a3c"), Color("#e2483d")]
