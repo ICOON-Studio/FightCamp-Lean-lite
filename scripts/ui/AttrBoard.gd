@@ -13,12 +13,14 @@ const StatBar := preload("res://scripts/ui/StatBar.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
 const AttrGen := preload("res://scripts/rules/AttrGen.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const StatBlock := preload("res://scripts/rules/StatBlock.gd")
 
 ## S398 the fighter model (FIGHTER_MODEL_S397.md v2): every attribute the fight reads, in three groups, the radar on six
 ## keys (the places and the body: where the fighter wins), the signature line and where the fighter wants the fight.
+## S443 one set of numbers (UX_AUDIT_S442 proposal A): the groups carry StatBlock's words, the same on every screen.
 const GROUPS := [
-	{"title": "PHYSICAL", "keys": ["strength", "explosiveness", "speed", "stamina", "recovery", "flexibility", "durability"]},
-	{"title": "SKILL", "keys": ["accuracy", "timing", "defence", "footwork", "inside"]},
+	{"title": "BODY", "keys": ["strength", "explosiveness", "speed", "stamina", "recovery", "flexibility", "durability"]},
+	{"title": "BOXING SKILLS", "keys": ["accuracy", "timing", "defence", "footwork", "inside"]},
 	{"title": "MIND", "keys": ["fight_iq", "composure", "heart", "discipline", "confidence", "coachability", "temper"]},
 ]
 const NAME := {"discipline": "Discipline", "confidence": "Confidence", "coachability": "Coachability", "temper": "Temper"}
@@ -148,7 +150,7 @@ static func glance(f: Dictionary) -> Dictionary:
 	all.sort_custom(func(a, b): return float(a["value"]) > float(b["value"]))
 	var a := Attrs.of(f)
 	var temper := value(f, "temper")
-	return {"best": all.slice(0, 2), "work": [all[all.size() - 1], all[all.size() - 2]], "fight_avg": Attrs.overall(a),
+	return {"best": all.slice(0, 2), "work": [all[all.size() - 1], all[all.size() - 2]], "fight_avg": Attrs.overall(a), "overall": StatBlock.overall(f),
 		"pot": float(f.get("pot", 0.0)), "hot": band("temper", temper) == "weak", "temper": temper,
 		"style": AttrGen.style_word({"attrs": a, "pace": a.get("pace", 55.0), "forward": a.get("forward", 50.0)}),
 		"signature": Attrs.signature(a), "wants": Attrs.wants_words(a)}
@@ -172,7 +174,7 @@ static func _glance(g: Dictionary) -> PanelContainer:
 	if bool(g["hot"]):
 		v.add_child(UI.label("Hot temper: trades when hit.", UI.BODY, UI.RED, "hand", true))
 	if float(g["pot"]) > 0.0:
-		var room := int(g["pot"]) - int(g["fight_avg"])
+		var room := int(g["pot"]) - int(g["overall"])
 		v.add_child(UI.label("Room to grow: %s." % ("a lot" if room >= 20 else ("some" if room >= 8 else "close to the ceiling")), UI.BODY, UI.FG, "hand", true))
 	if str(g["style"]) != "":
 		v.add_child(UI.label("Style: " + str(g["style"]), UI.BODY, UI.MUTED, "hand", true))

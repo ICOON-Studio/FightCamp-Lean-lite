@@ -82,7 +82,7 @@ func build(main: Node, m: Dictionary) -> void:
 		var now := float(f["stats"].get(key, 0.0))
 		var end := float((fc[key]["stats"] as Dictionary).get(key, now))
 		ends[key] = end
-		var night: Dictionary = fc[key].get("attrs", {})   # S439 CARDIO1: the Cardio card's Stamina on fight night
+		var night: Dictionary = fc[key].get("attrs", {})   # S439 CARDIO1: the Stamina card's Stamina on fight night
 		if CampCard.LINE_OF.has(key):
 			ends["line_" + key] = float(night.get(CampCard.LINE_OF[key], 0.0))
 		cards.add_child(CampCard.card(main, f, key, key == focus, now, end, float(was.get(key, now)),

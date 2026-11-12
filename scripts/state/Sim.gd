@@ -35,6 +35,7 @@ const BjjSide := preload("res://scripts/rules/BjjSide.gd")
 const DrillWeek := preload("res://scripts/state/DrillWeek.gd")   # S382 PADWEEK1: the week's drilling, night by night (PadWeek)
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const WeekRead := preload("res://scripts/rules/WeekRead.gd")   # S387 MENUREVIEW1: what the week really did, for the report
+const StatBlock := preload("res://scripts/rules/StatBlock.gd")   # S443: one set of numbers (the week review's rows)
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
 ## S397 rank 5: the head coach's edge, the start's rent and loan, the first hour's quiet weeks.
 const HeadCoach := preload("res://scripts/rules/HeadCoach.gd")
@@ -336,11 +337,8 @@ static func end_week(career: Career) -> void:
 	GymSpend.end_week(career)
 	var reports: Array = []
 	for f in career.fighters:
-		var rows: Array = []
 		var start: Dictionary = f.get("week_start", {})
-		for key in Data.STATS:
-			rows.append({"st": key, "before": float(start.get(key, f["stats"][key])), "after": float(f["stats"][key]),
-				"why": WeekCause.words(f.get("week_src", {}), key), "src": WeekCause.top(f.get("week_src", {}), key)})
+		var rows: Array = StatBlock.week_rows(f, start)   # S443: Stamina and Fight IQ on the attributes' own numbers
 		var drill := DrillWeek.run(career, f)
 		var plan := {}
 		var planned: Dictionary = f.get("week_planned", {})
@@ -422,7 +420,7 @@ static func week_path(career: Career, f: Dictionary) -> Array:
 	WeekPhase.sync(free, career.day)
 	while later.size() < WeekRead.HORIZON:
 		later.append([WeekPlan.days_of(free), PadWeek.evenings(free), "base"])
-	return WeekRead.path(WeekTwist.days(WeekTwist.active(g), WeekPlan.days_of(g)), week_ctx(career, g), PadWeek.evenings(g), later)
+	return WeekRead.path(WeekTwist.days(WeekTwist.active(g), WeekPlan.days_of(g)), week_ctx(career, g), PadWeek.evenings(g), later, g)
 
 
 ## The whole weeks an injury keeps her out (0 when fit): her ETAs wait for them.

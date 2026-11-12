@@ -1,9 +1,10 @@
 extends RefCounted
-## Price tags on the books: what the gym can afford and what earns, then the cheaper buys, grey ones after, the
-## unbuilt cage last. rank() is pure. draw() only places the rows ClubSpend already built.
+## What you can buy now (S443 proposal B, his Q-S294-198): one column, the buys the gym can make first, each a line with
+## its price, what it does, the week's net after it and its button; NOT YET under them, one short line each with the
+## reason. Rows that are not built (the cage, the other sports' coaches) are not on the page until they exist.
+## rank() is pure. draw() only places the rows ClubSpend already built.
 
 const UI := preload("res://scripts/ui/UI.gd")
-const WarmKit := preload("res://scripts/ui/WarmKit.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 
@@ -31,16 +32,20 @@ static func before(a: Variant, b: Variant) -> bool:
 
 
 static func draw(parent: Node, items: Array) -> Control:
-	var grid := GridContainer.new()
-	grid.name = "PriceTags"
-	grid.columns = 2
-	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	grid.add_theme_constant_override("h_separation", 8)
-	grid.add_theme_constant_override("v_separation", 2)
-	parent.add_child(grid)
+	var list := VBoxContainer.new()
+	list.name = "PriceTags"
+	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	list.add_theme_constant_override("separation", 0)
+	parent.add_child(list)
+	var later := false
 	for it in items:
-		grid.add_child(_tag(it))
-	return grid
+		if _band(it) >= 3 and not later:
+			later = true
+			var head := UI.label("NOT YET", UI.SMALL, UI.GOLD, "bold")
+			head.name = "NotYetHead"
+			list.add_child(head)
+		list.add_child(_later(it) if later else _tag(it))
+	return list
 
 
 static func _band(it: Dictionary) -> int:
@@ -55,99 +60,99 @@ static func _band(it: Dictionary) -> int:
 	return 1
 
 
-static func _tag(it: Dictionary) -> Control:
-	var tag := Control.new()
+static func _row(it: Dictionary) -> PanelContainer:
+	var tag := PanelContainer.new()
 	tag.name = "Tag_" + str(it.get("id", ""))
 	tag.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	tag.custom_minimum_size = Vector2(0, 118)
-	tag.clip_contents = true
 	tag.set_meta("affordable", bool(it.get("affordable", false)))
 	tag.set_meta("grey", bool(it.get("grey", false)))
 	tag.set_meta("reason", str(it.get("reason", "")))
-	tag.tooltip_text = str(it.get("effect", ""))
-	var paper := PanelContainer.new()
-	paper.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	paper.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var skin := UI.box(Color(1, 1, 1, 0.04), Color(WoodKit.SOFT, 0.35), 4, 1, 16, 8)
-	skin.content_margin_bottom = 6
-	paper.add_theme_stylebox_override("panel", skin)
-	if bool(it.get("grey", false)):
-		paper.modulate = Color(1, 1, 1, 0.6)
-		tag.tooltip_text = str(it.get("reason", ""))
-	tag.add_child(paper)
-	var row := UI.hbox(6)
-	paper.add_child(row)
+	var tip := str(it.get("effect", ""))
+	for bit in [str(it.get("runway", "")), str(it.get("payback", ""))]:
+		if bit != "":
+			tip += "\n" + bit.substr(0, 1).to_upper() + bit.substr(1)
+	tag.tooltip_text = tip
+	# See-through, one chalk line under each row: the list reads as a list, not a wall of cards.
+	var skin := UI.box(Color(1, 1, 1, 0), Color(0, 0, 0, 0), 0, 0, 2, 5)
+	skin.border_width_bottom = 1
+	skin.border_color = Color(WoodKit.SOFT, 0.25)
+	tag.add_theme_stylebox_override("panel", skin)
+	return tag
+
+
+static func _tag(it: Dictionary) -> Control:
+	var tag := _row(it)
+	var row := UI.hbox(10)
+	tag.add_child(row)
 	var icon := str(it.get("icon", "money"))
 	if KitIcon.has_icon(icon):
-		row.add_child(KitIcon.icon(icon, 28, WoodKit.INK))
+		var mark := KitIcon.icon(icon, 26, WoodKit.INK)
+		mark.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		row.add_child(mark)
 	var text := UI.vbox(0)
 	text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(text)
-	var title := UI.label(str(it.get("title", "")), 14, UI.FG, "handbold")
+	var owned := bool(it.get("owned", false)) or bool(it.get("held", false))
+	var name := str(it.get("title", "")) if owned else "%s, %s" % [it.get("title", ""), it.get("price_text", "")]
+	var title := UI.label(name, 18, UI.FG, "bold")
 	title.clip_text = true
 	title.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	title.max_lines_visible = 1
 	text.add_child(title)
-	var price_row := UI.hbox(4)
-	var owned := bool(it.get("owned", false)) or bool(it.get("held", false))
-	var price := UI.label(str(it.get("price_text", "")), 16, UI.GREEN if owned else WoodKit.INK, "marker")
-	# S420: the price is never cut ("$12,00", "$280 a" on S419's page); the week line gives way instead.
-	price_row.add_child(price)
+	var body := UI.label(str(it.get("effect", "")), 16, UI.MUTED, "body", true)
+	body.max_lines_visible = 2
+	body.text_overrun_behavior = TextServer.OVERRUN_TRIM_WORD_ELLIPSIS   # S420: a cut line shows it
+	text.add_child(body)
 	var from_net := int(it.get("net_from", 0))
 	var to_net := int(it.get("net_to", from_net))
-	if to_net != from_net:
-		# S442 UX audit: "Week -$309 to -$..." lost the number that matters to the ellipsis; the week's net after buying,
-		# with the change, fits (the full line is on the hover).
-		var net := UI.label("%s a week" % UI.signed(to_net), 16, UI.GREEN if to_net > from_net else UI.RED, "bold")
-		net.name = "TagNet"
-		net.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		net.clip_text = true
-		net.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	var net := UI.label("", 16, UI.GREEN, "bold")
+	net.name = "TagNet"
+	net.custom_minimum_size = Vector2(132, 0)
+	net.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	net.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	if owned:
+		net.text = str(it.get("price_text", ""))
+	elif to_net != from_net:
+		# S442 UX audit: the week's net after buying, whole; the before and after are on the hover.
+		net.text = "%s a week" % UI.signed(to_net)
+		net.add_theme_color_override("font_color", UI.GREEN if to_net > from_net else UI.RED)
 		net.tooltip_text = "What is left over each week: %s now, %s after this" % [UI.signed(from_net), UI.signed(to_net)]
 		net.mouse_filter = Control.MOUSE_FILTER_PASS
-		price_row.add_child(net)
-	else:
-		var gap := Control.new()   # S420: keeps the button at the right edge when there is no week line
-		gap.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		gap.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		price_row.add_child(gap)
+	row.add_child(net)
 	for b in it.get("buttons", []):
 		if b != null:
 			if bool(it.get("affordable", false)):
 				(b as Button).theme_type_variation = "Go"
 			_short_button(b)
-			price_row.add_child(b)
-	text.add_child(price_row)
-	# S442 UX audit: at the 16 px floor the handwritten face (tall lines) cut the second line in half inside the 118 px tag;
-	# the plain face keeps two whole lines.
-	var body := UI.label(str(it.get("effect", "")), 16, UI.FG, "body", true)
-	body.max_lines_visible = 2
-	body.text_overrun_behavior = TextServer.OVERRUN_TRIM_WORD_ELLIPSIS   # S420: a cut line shows it ("room for 10" read whole)
-	text.add_child(body)
-	var foot := UI.hbox(4)
-	foot.add_child(KitIcon.icon("runway", 14, WoodKit.INK))
-	var runway := UI.label(str(it.get("runway", "")), 12, UI.FG, "body")
-	runway.clip_text = true
-	runway.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	runway.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	foot.add_child(runway)
-	if str(it.get("payback", "")) != "":
-		foot.add_child(UI.label(str(it["payback"]), 12, UI.FG, "bold"))
-	if bool(it.get("unbuilt", false)):
-		var mark := KitIcon.icon("warn", 14, Color("C9770F"), "Not built yet")
-		mark.name = "UnbuiltMark"
-		foot.add_child(mark)
-	text.add_child(foot)
-	if not bool(it.get("grey", false)):
-		var pin := WarmKit.magnet(16)
-		pin.name = "Pin"
-		pin.position = Vector2(12, 2)
-		pin.z_index = 3
-		if bool(it.get("owned", false)) or bool(it.get("held", false)):
-			pin.modulate = Color("2A8F5E")
-		elif bool(it.get("unbuilt", false)):
-			pin.modulate = Color(0.62, 0.61, 0.58)
-		tag.add_child(pin)
+			(b as Button).custom_minimum_size = Vector2(96, 0)
+			row.add_child(b)
+	return tag
+
+
+## A NOT YET line: the name and why not, on one line each; the whole reason is on the hover.
+static func _later(it: Dictionary) -> Control:
+	var tag := _row(it)
+	if str(it.get("reason", "")) != "":
+		tag.tooltip_text = str(it.get("reason", ""))
+	var row := UI.hbox(10)
+	tag.add_child(row)
+	var text := UI.vbox(0)
+	text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_child(text)
+	var title := UI.label("%s, %s" % [it.get("title", ""), it.get("price_text", "")], 16, UI.FG, "bold")
+	title.modulate = Color(1, 1, 1, 0.75)
+	title.clip_text = true
+	title.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	text.add_child(title)
+	var why := str(it.get("reason", "")) if str(it.get("reason", "")) != "" else str(it.get("effect", ""))
+	var reason := UI.label(why, 16, UI.MUTED, "body")
+	reason.clip_text = true
+	reason.text_overrun_behavior = TextServer.OVERRUN_TRIM_WORD_ELLIPSIS
+	text.add_child(reason)
+	for b in it.get("buttons", []):
+		if b != null:
+			_short_button(b)
+			(b as Button).custom_minimum_size = Vector2(96, 0)
+			row.add_child(b)
 	return tag
 
 

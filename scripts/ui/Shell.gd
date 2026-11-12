@@ -24,6 +24,7 @@ const RAIL_W := 128.0
 const PAGE_FOOT := 48
 const GUIDE_ROOM := 230
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
+const HoverLabel := preload("res://scripts/ui/HoverLabel.gd")
 const RAIL_ICON := {"home": "bag", "fighters": "bag", "fights": "champion", "gym": "money", "world": "up"}
 const BADGE := "res://assets/ui/club_badge.svg"
 ## S416 operator: "remove double menus". One way back to the gym, whose pins are the way to every place. Not drawn on the gym itself.
@@ -111,7 +112,8 @@ func _build_top(main: Node) -> void:
 	var h := UI.hbox(14)
 	_top.add_child(h)
 	# S398 menus (first-hour critics: "Back / Fwd look like a browser"): two small arrows, the words on hover.
-	for nav in [["back", "<", "Back: the last page", "No back: nothing earlier"], ["fwd", ">", "Forward again", "No next: nothing ahead"]]:
+	# S443 (his Q-S294-197, the Hades idea): the word shows in a small tag under the arrow while the mouse is on it.
+	for nav in [["back", "<", "Back", "Nothing to go back to"], ["fwd", ">", "Forward", "Nothing ahead"]]:
 		var stack: Array = main.past if str(nav[0]) == "back" else main.ahead
 		var empty: bool = stack.is_empty()
 		var shown := str(nav[1])   # S417 collect: a grey arrow says it; the reason stays on hover (his "less text")
@@ -120,9 +122,8 @@ func _build_top(main: Node) -> void:
 		nb.custom_minimum_size = Vector2(36, 36)
 		nb.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		nb.add_theme_font_size_override("font_size", 20)
-		if not nb.disabled:
-			nb.tooltip_text = str(nav[2])
 		h.add_child(nb)
+		HoverLabel.attach(nb, str(nav[3]) if empty else str(nav[2]))
 	var gym := UI.label(c.gym_name, 32, Color("#6ea2f2"), "marker")
 	gym.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(gym)

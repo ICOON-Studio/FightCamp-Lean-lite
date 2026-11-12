@@ -14,8 +14,9 @@ const SHOWN_GAIN := 0.05
 ## Within this of the plan (or better) a line is on plan.
 const CLOSE := {"stat": 0.05, "kg": 0.15, "fatigue": 5.0}
 const DAY_NAMES := ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-const LABEL := {"power": "Power", "speed": "Speed", "technique": "Technique", "defense": "Defence", "conditioning": "Conditioning",
-	"fight_iq": "Ring IQ", "chin": "Chin"}
+## S443 one vocabulary: the same words as Data.LABEL (it was "Conditioning", "Ring IQ", "Chin" here alone).
+const LABEL := {"power": "Power", "speed": "Speed", "technique": "Technique", "defense": "Defence", "conditioning": "Stamina",
+	"fight_iq": "Fight IQ", "chin": "Durability"}
 
 
 ## What Monday's plan said the week would do (w = WeekPlan.week; days = the saved mornings, to see a mid-week change).

@@ -76,7 +76,7 @@ func _side(i: int, who: String, belt: String, nums: Dictionary) -> Control:
 	p.add_child(v)
 	v.add_child(UI.display(who, 34, SIDE_COLOR[i]))
 	v.add_child(UI.caps("%s BELT" % belt.to_upper()))
-	for row in [["brain", "Technique", "skill"], ["biceps-flexed", "Strength", "strength"], ["heart-pulse", "Cardio", "cardio"]]:
+	for row in [["brain", "Technique", "skill"], ["biceps-flexed", "Strength", "strength"], ["heart-pulse", "Stamina", "cardio"]]:
 		var h := UI.hbox(8)
 		h.add_child(Icons.icon(str(row[0]), 20, UI.FG, str(row[1])))
 		h.add_child(UI.label(str(row[1]), UI.SMALL, UI.FG, "body"))

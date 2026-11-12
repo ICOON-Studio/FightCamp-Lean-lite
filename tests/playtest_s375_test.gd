@@ -59,12 +59,14 @@ func _initialize() -> void:
 	await _frames()
 	var kira := main.find_child("Prospect_kira", true, false)
 	_check(kira != null and kira.find_child("Face", true, false) != null, "Kira is a face card on Scouting")
-	_check(_has_text(kira, "49-59"), "her scouted power range shows (49-59)")
+	# S443 one set of numbers: the card shows the short form (Body / Boxing skills / Mind), each a scouted range
+	var rng := _body_range(main)
+	_check(_has_text(kira, rng), "her scouted Body range shows (%s)" % rng)
 	main.act("invite", "kira")
 	main.act("go", "fighters:3")
 	await _frames()
 	kira = main.find_child("Prospect_kira", true, false)
-	_check(_has_text(kira, "49-59") and _has_text(kira, "trial"), "after the invite the card keeps the ranges and shows the trial")
+	_check(_has_text(kira, rng) and _has_text(kira, "trial"), "after the invite the card keeps the ranges and shows the trial")
 
 	# 4. PLAYBOOK > Combos: an own combination has Drill it.
 	var f: Dictionary = c.fighters[0]
@@ -84,6 +86,17 @@ func _initialize() -> void:
 func _frames() -> void:
 	for i in 3:
 		await process_frame
+
+
+## Kira's Body range as the card prints it: the group read the reception reads (StatBlock on Data.fighter_state), +- the spread.
+func _body_range(main: Node) -> String:
+	var Data = load("res://scripts/state/Data.gd")
+	var SB = load("res://scripts/rules/StatBlock.gd")
+	for p in main.career.prospects:
+		if str(p["id"]) == "kira":
+			var mid: int = SB.shown(float(SB.groups(Data.fighter_state(p.duplicate(true), main.career.day))[0]["value"]))
+			return "%d-%d" % [mid - Data.SCOUT_SPREAD, mid + Data.SCOUT_SPREAD]
+	return "no kira"
 
 
 func _has_text(n: Node, t: String) -> bool:

@@ -1,6 +1,6 @@
 extends RefCounted
 ## S388 C236 (operator on FIGHTERS > Roster: "this should be a summary page , fill all necessary information for each fighter"): what
-## a coach needs at a glance under each roster row. A boxer: the seven attributes as small bars, then style, main session, the
+## a coach needs at a glance under each roster row. A boxer: Body, Boxing skills, Mind and the overall as small bars (S443), then style, main session, the
 ## move being learned, weapons and pay. A no-gi athlete: the syllabus groups as bars, then mood, next open, chance and the next belt.
 
 const UI := preload("res://scripts/ui/UI.gd")
@@ -11,6 +11,7 @@ const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const BeltRoad := preload("res://scripts/rules/BeltRoad.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
+const StatBlock := preload("res://scripts/rules/StatBlock.gd")
 
 const BAR_W := 104.0
 
@@ -20,9 +21,11 @@ static func boxer(c: Career, f: Dictionary) -> Control:
 	v.name = "Summary_" + str(f["id"])
 	var bars := UI.hbox(14)
 	bars.name = "Attributes"
-	for k in Data.STATS:
-		var n := float(f["stats"][k])
-		bars.add_child(_bar(str(Data.LABEL[k]), "%d" % int(round(n)), n / 100.0))
+	# S443 one set of numbers (UX_AUDIT_S442 proposal A): the short form - the fighter page's three groups and its overall
+	for gr in StatBlock.groups(f):
+		bars.add_child(_bar(str(gr["name"]), "%d" % StatBlock.shown(float(gr["value"])), float(gr["value"]) / 100.0))
+	var lvl := StatBlock.overall(f)
+	bars.add_child(_bar("Overall", "%d" % lvl, lvl / 100.0))
 	v.add_child(bars)
 	var facts := UI.hbox(28)
 	facts.name = "Facts"

@@ -64,8 +64,12 @@ func _initialize() -> void:
 func _causes() -> void:
 	var c := _career(7)
 	var f: Dictionary = c.fighter()
-	f["stats"]["conditioning"] = floorf(float(f["stats"]["conditioning"])) + 0.95   # the week's first session crosses a point
+	# S443: the engine's row is the Stamina attribute's own number, so the fixture puts Stamina (not the mean) just under a point
+	var at: Dictionary = Sim.Attrs.of(f)
+	at["stamina"] = floorf(float(at["stamina"])) + 0.95   # the week's first session crosses a point
+	Sim.Attrs.sync(f)
 	f["week_start"] = (f["stats"] as Dictionary).duplicate()
+	f["attrs_week"] = Sim.Attrs.of(f).duplicate()
 	var sessions: Array = WeekPlan.days_of(f).duplicate(true)
 	_week(c)
 	var x := _row(c, f, "conditioning")
@@ -78,8 +82,9 @@ func _causes() -> void:
 			(by.get_or_add(str(s["name"]).to_lower(), []) as Array).append(Clock.DAYS[d])
 	_check(by.size() == 2, "the coach's week trains conditioning with two sessions: %s" % str(by))
 	_check(bool(rd["tick"]) and int(rd["gain"]) == 1, "a crossed point is +1, not a decimal: %s" % str(rd["text"]))
-	# S434 CARDIO1 (CORE_LOOP C3): conditioning is the mean of Stamina and Recovery, so its row's word is Cardio (Data.LABEL).
-	_check(str(rd["text"]).begins_with("+1 Cardio: "), "the line says it: %s" % str(rd["text"]))
+	# S443 (operator Q-S294-195 "Stamina"): the engine's row is called Stamina and reads the Stamina attribute's own number.
+	_check(str(rd["text"]).begins_with("+1 Stamina: "), "the line says it: %s" % str(rd["text"]))
+	_check(str(x.get("attr", "")) == "stamina" and is_equal_approx(float(x["after"]), float(Sim.Attrs.of(f)["stamina"])), "the Stamina row is the Stamina the fighter page shows: %.2f" % float(x["after"]))
 	for who in by:
 		_check(str(rd["why"]).contains("%s %s" % [who, " + ".join(by[who])]), "the cause names %s on its days: %s" % [who, str(rd["why"])])
 	var chin := _row(c, f, "chin")
@@ -107,11 +112,12 @@ func _etas() -> void:
 		for x in (c.last_report["fighters"][0]["rows"] as Array):
 			var eta := int(x["read"]["eta"])
 			if eta > 0 and eta <= 8:
-				due[str(x["st"])] = [eta, int(x["read"]["next"]), 0]
+				due[str(x.get("attr", x["st"]))] = [eta, int(x["read"]["next"]), 0, x.has("attr")]   # S443: a row shown as an attribute dates that attribute
 		for w in range(1, 11):
 			_week(c)
 			for st in due:
-				if int(due[st][2]) == 0 and float(f["stats"][st]) >= float(due[st][1]):
+				var now := float(Sim.Attrs.of(f)[st]) if bool(due[st][3]) else float(f["stats"][st])
+				if int(due[st][2]) == 0 and now >= float(due[st][1]):
 					due[st][2] = w
 		for st in due:
 			var off := absi(int(due[st][2]) - int(due[st][0]))
@@ -127,7 +133,7 @@ func _etas() -> void:
 	_check(WeekRead.stat(x, [{"speed": 61.1}], "Speed")["text"] == "Speed 61 next week", "one week reads next week")
 	_check(int(WeekRead.stat(x, [{"speed": 60.8}, {"speed": 61.1}], "Speed", 3)["eta"]) == 5, "an injury's weeks out wait first")
 	_check(str(WeekRead.stat(x, [{"speed": 60.6}, {"speed": 60.7}], "Speed")["text"]) == "Speed 61 in 2+ weeks", "past the horizon it says so")
-	_check(str(WeekRead.stat({"st": "chin", "before": 99.0, "after": 99.0}, [{"chin": 99.0}], "Chin")["text"]) == "Chin at the top", "a stat at the cap has no next point")
+	_check(str(WeekRead.stat({"st": "chin", "before": 99.0, "after": 99.0}, [{"chin": 99.0}], "Durability")["text"]) == "Durability at the top", "a stat at the cap has no next point")
 
 
 ## A goal `points` above her now, `days` away, as FighterGoal keeps it, then run to its deadline for real.

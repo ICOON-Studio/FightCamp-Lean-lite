@@ -154,7 +154,7 @@ static func _goal(v: Node, f: Dictionary, pl: Dictionary, usable: int) -> void:
 	v.add_child(row)
 
 
-## S434 CARDIO1 round 2 (C3): the stat's night line under the goal, on the number it reads. Cardio (the mean) names
+## S434 CARDIO1 round 2 (C3): the stat's night line under the goal, on the number it reads. Stamina (conditioning, the mean) names
 ## Stamina's own now -> end of week beside Stamina's line, so the line never sits under the mean's numbers alone.
 static func line_tip(f: Dictionary, pl: Dictionary, stat: String) -> String:
 	var key := "stamina" if stat == "conditioning" else stat

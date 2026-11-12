@@ -14,11 +14,11 @@ extends RefCounted
 ## plans the week, else Coach's change (Drill / Rest / Fix) on the week planner; the no-gi weight cell names her class.
 ## S438 (Claude at collect): the five groups are the painted ones (CORE_LOOP_MAP_S432 section 3) read from Attrs,
 ## the ring is the measured level (Attrs.weighted), best_of marks the roster's best per group, stance and style shown.
+## S443 one set of numbers (UX_AUDIT_S442 proposal A): the bars are the fighter page's three groups (Body, Boxing skills,
+## Mind; StatBlock) in place of Head / Hands / Guard / Cardio / Legs, and the ring is the fighter page's overall (StatBlock.overall).
 
 const Attrs := preload("res://scripts/rules/Attrs.gd")
-## The painted groups. Heart and the four traits are not trained and not part of a measured level: left out of the bars.
-const GROUPS := {"Head": ["fight_iq", "composure"], "Hands": ["accuracy", "timing", "inside", "strength", "explosiveness"],
-	"Guard": ["defence", "durability"], "Cardio": ["stamina", "recovery"], "Legs": ["speed", "footwork", "flexibility"]}
+const StatBlock := preload("res://scripts/rules/StatBlock.gd")
 
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const WB_KIT := preload("res://scripts/ui/WhiteboardKit.gd")
@@ -49,13 +49,13 @@ static func best_of(c: Career) -> Dictionary:
 	var out: Dictionary = {}
 	if c.fighters.size() < 2:
 		return out
-	for g in GROUPS:
+	for g in StatBlock.GROUPS:
 		var best := -1.0
 		for f in c.fighters:
-			var v: float = _avg(Attrs.of(f), GROUPS[g])
+			var v: float = StatBlock.group_value(Attrs.of(f), str(g[0]))
 			if v > best:
 				best = v
-				out[g] = str(f["id"])
+				out[str(g[1])] = str(f["id"])
 	return out
 
 static func _find(c: Career, id: String) -> Dictionary:
@@ -96,9 +96,8 @@ static func _overall_col(f: Dictionary, is_g: bool) -> Dictionary:
 				best_mastery = float(bjj[k])
 				best_move = k
 	else:
-		var a: Dictionary = Attrs.of(f)
-		for gk in GROUPS:
-			groups[gk] = _avg(a, GROUPS[gk])
+		for gr in StatBlock.groups(f):
+			groups[str(gr["name"])] = float(gr["value"])
 		var moves: Dictionary = f.get("moves", {})
 		for k in moves:
 			if float(moves[k]) > best_mastery:
@@ -115,7 +114,7 @@ static func _overall_col(f: Dictionary, is_g: bool) -> Dictionary:
 		total += float(groups[k])
 	var ring: int = int(round(total / maxf(1.0, float(groups.size())))) if not groups.is_empty() else 0
 	if not is_g:
-		ring = int(round(Attrs.weighted(Attrs.of(f))))
+		ring = StatBlock.overall(f)
 	var out: Dictionary = {"groups": groups, "best_group": best_group, "ring": ring, "tone": "ok"}
 	if best_move != "":
 		var nm: String = NoGi.move_name(best_move) if is_g else best_move

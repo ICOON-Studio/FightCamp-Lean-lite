@@ -408,12 +408,17 @@ static func week_rates(f: Dictionary, days: Array, camp_stat := "", camp_mult :=
 	g["attrs"] = a.duplicate()
 	g["stats"] = (f["stats"] as Dictionary).duplicate()
 	g["stats_seen"] = (f["stats_seen"] as Dictionary).duplicate()
+	run_days(g, days, camp_stat, camp_mult)
+	var out := {}
+	for ab in ABILITIES:
+		out[ab] = (float((g["attrs"] as Dictionary).get(ab, 55.0)) - float(a.get(ab, 55.0))) / float(maxi(1, days.size()))
+	return out
+
+
+## S443: WeekPlan.week's "days" run on `g` (a copy) as Sim.step_day runs them: week_rates and WeekRead.path's attributes.
+static func run_days(g: Dictionary, days: Array, camp_stat := "", camp_mult := 1.0) -> void:
 	for d in days:
 		for k in [["id", "stat", "gain"], ["evening", "stat2", "gain2"]]:
 			var st := str((d as Dictionary).get(k[1], ""))
 			apply_session(g, str((d as Dictionary).get(k[0], "")), st, float((d as Dictionary).get(k[2], 0.0)) * (camp_mult if st == camp_stat else 1.0))
 		apply_session(g, str((d as Dictionary).get("id", "")), "", float((d as Dictionary).get("attr_gain", 0.0)))
-	var out := {}
-	for ab in ABILITIES:
-		out[ab] = (float((g["attrs"] as Dictionary).get(ab, 55.0)) - float(a.get(ab, 55.0))) / float(maxi(1, days.size()))
-	return out

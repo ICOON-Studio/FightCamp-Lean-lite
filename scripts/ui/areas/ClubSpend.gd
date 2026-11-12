@@ -1,6 +1,7 @@
 extends RefCounted
 ## The buys on the books (S403 money mockup). Numbers come from the running gym. A tag is grey, with a reason and no
-## pin, when it cannot be bought or would not help. The cage is drawn and not built.
+## pin, when it cannot be bought or would not help. S443 (proposal B, his Q-S294-198): the cage is not on the page until
+## it is built.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
@@ -37,7 +38,6 @@ static func items(main: Node, c: Career) -> Array:
 	var move := _move(main, c, net)
 	if not move.is_empty():
 		out.append(move)
-	out.append(_cage())
 	return out
 
 
@@ -161,17 +161,6 @@ static func _move(main: Node, c: Career, net: int) -> Dictionary:
 		effect = reason
 	return _pack("move", _no_area(str(nx["name"])), price, UI.money(price), "members", effect, 0, -extra, grey, reason if grey else "",
 		false, false, false, price, [_btn(main, "Move", "MovePremises", "movepremises", "", why)], c, net)
-
-
-static func _cage() -> Dictionary:
-	var b := UI.button("Not built yet", "Btn", func(): pass, true, "Not built yet")
-	b.name = "CageBuild"
-	return {
-		"id": "cage", "title": "Cage", "price": 0, "price_text": "not for sale yet", "icon": "cage",
-		"effect": "MMA bouts in the gym, wall and takedown drills. Needs MMA rules.", "runway": "not for sale yet", "payback": "",
-		"earn": 0, "grey": false, "reason": "Not built yet", "owned": false, "unbuilt": true, "held": false,
-		"affordable": false, "buttons": [b],
-	}
 
 
 static func _pack(id: String, title: String, price: int, price_text: String, icon: String, effect: String, added: int, delta: int,

@@ -9,6 +9,7 @@ const Bars := preload("res://scripts/ui/WorldBars.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
 const Rules := preload("res://scripts/rules/WorldLadderRules.gd")
 const Data := preload("res://scripts/state/Data.gd")
+const StatBlock := preload("res://scripts/rules/StatBlock.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 const MM := preload("res://scripts/rules/Matchmaking.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
@@ -38,8 +39,10 @@ static func build(main: Node, c: Career, f: Dictionary, row: Dictionary) -> Cont
 	if not opp.is_empty():
 		ranges = BoutRead.stat_ranges(opp, c.seed)
 	var stats: Dictionary = f.get("stats", {})
+	var attrs: Dictionary = StatBlock.Attrs.of(f)
 	for k in Data.STATS:
-		var mine := float(stats.get(k, 0.0))
+		# S443 one number a word: Stamina and Fight IQ are the gym fighter's own attributes, as on the fighter page
+		var mine := float(attrs.get(StatBlock.SHOWN_AS[k], 0.0)) if StatBlock.SHOWN_AS.has(k) else float(stats.get(k, 0.0))
 		var span: Array = ranges.get(k, [mine, mine])
 		v.add_child(_stat(str(Data.LABEL.get(k, k)), mine, float(span[0]), float(span[1])))
 	v.add_child(UI.label(_known(row), UI.SMALL, UI.FG, "body", true))

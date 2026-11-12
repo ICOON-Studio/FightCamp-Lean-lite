@@ -5,6 +5,7 @@ extends Control
 
 const TV := preload("res://scripts/ui/TV.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
+const HoverLabel := preload("res://scripts/ui/HoverLabel.gd")
 const Halo := preload("res://scripts/ui/Halo.gd")
 const Ink := preload("res://scripts/ui/UI.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
@@ -61,8 +62,8 @@ func _mount() -> void:
 	wood.add_theme_stylebox_override("panel", WoodKit.bar(8, 6))
 	add_child(wood)
 	_speed = _btn("1x", "Speed", func(): view.call("_toggle_speed"))
-	_speed.tooltip_text = "Speed (Space)"
 	_put_right(_speed, 8, 44)
+	HoverLabel.attach(_speed, "Speed (Space)", "left")   # S443: the small 1x / 2x shows its word on hover, beside it (Skip round is under it)
 	var skip := _btn("Skip round", "SkipRound", func(): view.call("skip_round"))
 	_put_right(skip, 54, 40)
 	var bout := _btn("Skip bout", "SkipBout", func(): view.call("skip_bout"))

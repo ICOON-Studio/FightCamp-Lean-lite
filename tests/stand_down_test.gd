@@ -42,16 +42,16 @@ func _same(x: Dictionary, y: Dictionary) -> bool:
 	return true
 
 
-## a. head_place: 25 -> 45, 0 -> 100, 60 -> 0 (clamped).
+## a. head_place (0.8 a point, S443 Q-201): 70 -> 44, 0 -> 100, 130 -> 0 (clamped).
 func _test_a() -> void:
 	var ok := true
-	if not _near(SD.head_place(25.0), 45.0):
+	if not _near(SD.head_place(70.0), 44.0):
 		ok = false
 	if not _near(SD.head_place(0.0), 100.0):
 		ok = false
-	if not _near(SD.head_place(60.0), 0.0):
+	if not _near(SD.head_place(130.0), 0.0):
 		ok = false
-	_check(ok, "a: head_place 25 -> 45, 0 -> 100, 60 -> 0")
+	_check(ok, "a: head_place 70 -> 44, 0 -> 100, 130 -> 0")
 
 
 ## b. band edges (55 fine, 35 hurt) and by damage.
@@ -67,16 +67,16 @@ func _test_b() -> void:
 		ok = false
 	if SD.band(SD.head_place(10.0)) != "fine":
 		ok = false
-	if SD.band(SD.head_place(25.0)) != "hurt":
+	if SD.band(SD.head_place(70.0)) != "hurt":
 		ok = false
-	if SD.band(SD.head_place(40.0)) != "critical":
+	if SD.band(SD.head_place(90.0)) != "critical":
 		ok = false
-	_check(ok, "b: band 55 fine, 54.9 hurt, 35 hurt, 34.9 critical; damage 10/25/40 fine/hurt/critical")
+	_check(ok, "b: band 55 fine, 54.9 hurt, 35 hurt, 34.9 critical; damage 10/70/90 fine/hurt/critical")
 
 
-## c. THE MAP'S TEST: damage 25 on day 100 -> hurt, locked 101..110, open on 111.
+## c. THE MAP'S TEST (damage 70 since S443): on day 100 -> hurt, locked 101..110, open on 111.
 func _test_c() -> void:
-	var sd: Dictionary = SD.make(100, 25.0, false)
+	var sd: Dictionary = SD.make(100, 70.0, false)
 	var ok := true
 	if str(sd.get("band", "")) != "hurt":
 		ok = false
@@ -87,19 +87,19 @@ func _test_c() -> void:
 			ok = false
 	if SD.locked(sd, 111) or SD.locked(sd, 112):
 		ok = false
-	_check(ok, "c: make(100, 25) hurt, open_day 111, locked 101..110, open 111 and 112")
+	_check(ok, "c: make(100, 70) hurt, open_day 111, locked 101..110, open 111 and 112")
 
 
 ## d. days by band; a stoppage gives {} and {} never locks.
 func _test_d() -> void:
 	var ok := true
 	var fine: Dictionary = SD.make(100, 10.0, false)
-	var crit: Dictionary = SD.make(100, 40.0, false)
+	var crit: Dictionary = SD.make(100, 90.0, false)
 	if str(fine.get("band", "")) != "fine" or int(fine.get("open_day", -1)) != 106:
 		ok = false
 	if str(crit.get("band", "")) != "critical" or int(crit.get("open_day", -1)) != 122:
 		ok = false
-	var stop: Dictionary = SD.make(100, 25.0, true)
+	var stop: Dictionary = SD.make(100, 70.0, true)
 	if not stop.is_empty():
 		ok = false
 	for dd in [0, 101, 105, 1000]:
@@ -111,9 +111,9 @@ func _test_d() -> void:
 ## e. the lock reason.
 func _test_e() -> void:
 	var ok := true
-	var sd: Dictionary = SD.make(100, 25.0, false)
+	var sd: Dictionary = SD.make(100, 70.0, false)
 	var r: String = SD.reason(sd, "Thu 5 Mar")
-	if r != "no sparring until Thu 5 Mar: the head took 25 damage":
+	if r != "no sparring until Thu 5 Mar: the head took 70 damage":
 		ok = false
 	if SD.reason({}, "x") != "":
 		ok = false
@@ -125,9 +125,9 @@ func _test_f() -> void:
 	var ok := true
 	if not SD.can_spar_anyway(SD.make(100, 10.0, false)):
 		ok = false
-	if not SD.can_spar_anyway(SD.make(100, 25.0, false)):
+	if not SD.can_spar_anyway(SD.make(100, 70.0, false)):
 		ok = false
-	if SD.can_spar_anyway(SD.make(100, 40.0, false)):
+	if SD.can_spar_anyway(SD.make(100, 90.0, false)):
 		ok = false
 	if SD.can_spar_anyway({}):
 		ok = false
@@ -141,8 +141,8 @@ func _test_g() -> void:
 	if hd.size() != 2 or int(hd[0]) != 21 or int(hd[1]) != 35:
 		ok = false
 	var sd_fine: Dictionary = SD.make(100, 10.0, false)
-	var sd_hurt: Dictionary = SD.make(100, 25.0, false)
-	var sd_crit: Dictionary = SD.make(100, 40.0, false)
+	var sd_hurt: Dictionary = SD.make(100, 70.0, false)
+	var sd_crit: Dictionary = SD.make(100, 90.0, false)
 	var n_fine: int = 0
 	var n_hurt: int = 0
 	var n_crit: int = 0
@@ -179,9 +179,9 @@ func _test_g() -> void:
 ## h. the price line for the button.
 func _test_h() -> void:
 	var ok := true
-	var p: String = SD.price_line(SD.make(100, 25.0, false))
+	var p: String = SD.price_line(SD.make(100, 70.0, false))
 	if p != "Spar anyway: 6 in 100 of a head knock, out 21 to 35 days, bouts closed":
 		ok = false
-	if SD.price_line(SD.make(100, 40.0, false)) != "":
+	if SD.price_line(SD.make(100, 90.0, false)) != "":
 		ok = false
 	_check(ok, "h: price_line hurt \"%s\"; critical \"\"" % p)

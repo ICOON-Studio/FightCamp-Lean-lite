@@ -78,7 +78,7 @@ const ROUNDS := 3
 ## a bout on days 28, 35, 42, 49 and 56 (1,030 bouts). Main fades 64.6% of them. Line 59 fades 58.5% (-6.0, outside the
 ## bar: Stamina trains 0.086 a day on the own week, the mean 0.050, so the split rule pulls away after signing); 60 fades
 ## 63.6% (-1.0); 61 66.9% (+2.3); 64 74.4% (+9.8). On signing day 60 is +1.9 (70.9% vs 68.9%). THE LINE IS 60.
-## A player who answers a Stamina goal (the Cardio week: Tue intervals, Thu roadwork) fades 52.8% of bouts at 60, main's
+## A player who answers a Stamina goal (the Stamina week: Tue intervals, Thu roadwork) fades 52.8% of bouts at 60, main's
 ## rule 59.9%: the split pays the Stamina work more, as F3 wants. SIZE (the design slope kept, the developer decision):
 ## a fading bout loses 1.49 on average at 60 (main: a flat 1.0), every bout 0.95 (main 0.65); holding main's size would
 ## need OWN_FADE 0.68, which breaks F3's own points (62: 0.5, 60: 1.0, 56: 2 on the old 64). The deep end costs more,

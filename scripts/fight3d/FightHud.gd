@@ -15,6 +15,7 @@ const SidePanel := preload("res://scripts/fight3d/SidePanel.gd")
 const IntentChip := preload("res://scripts/fight3d/IntentChip.gd")
 const ScoreBug := preload("res://scripts/fight3d/ScoreBug.gd")
 const CornerBar := preload("res://scripts/fight3d/CornerBar.gd")
+const HoverLabel := preload("res://scripts/ui/HoverLabel.gd")
 
 
 ## The round's exchanges scored by round time t. S312 (Ziva review: the caption said the 30 s was won while the score
@@ -78,8 +79,8 @@ static func draw_buttons(view: Control) -> void:
 		view.get_meta("corner").call("draw_speed")
 		return
 	var speed := UI.button("2x" if view.pace() > 1.0 else "1x", "BtnQuiet", view._toggle_speed)
-	speed.tooltip_text = "Speed (Space)"
 	row.add_child(speed)
+	HoverLabel.attach(speed, "Speed (Space)")   # S443: the small 1x / 2x shows its word on hover
 	var skip := UI.button("Skip round", "Btn", view.skip_round)
 	skip.name = "SkipRound"
 	row.add_child(skip)

@@ -4,7 +4,7 @@ extends RefCounted
 
 const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
 
-const HEAD_PER_DAMAGE := 2.2  # the same as Injuries.DAMAGE_TO_WORST
+const HEAD_PER_DAMAGE := 0.8  # S443 operator Q-S294-201 "Yes, ease it as proposed" (was 2.2 = Injuries.DAMAGE_TO_WORST; 21 days after 148 of 200 distance bouts -> 8; ops/research/NOSPARRING_SCALE_S442.md)
 const FINE_AT := 55.0
 const HURT_AT := 35.0
 const DAYS := {"fine": 5, "hurt": 10, "critical": 21}

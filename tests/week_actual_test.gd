@@ -79,7 +79,7 @@ func _actual() -> void:
 	hold["diet"] = "hold"
 	_check(WA.suggest(heavy, [], hold, true).begins_with("Switch to the cut diet: about 0.45 kg"), "over the limit on HOLD: the diet first (%s)" % WA.suggest(heavy, [], hold, true))
 	_check(WA.suggest(heavy, [], ctx, true).begins_with("Swap a light morning for HARD roadwork: about"), "already cutting: a hard run (%s)" % WA.suggest(heavy, [], ctx, true))
-	_check(WA.suggest(rws, [], ctx, false) == "Add a roadwork morning: conditioning came in under the plan.", "a stat short: the session that trains it")
+	_check(WA.suggest(rws, [], ctx, false) == "Add a roadwork morning: stamina came in under the plan.", "a stat short: the session that trains it")
 	var fine := WA.rows(planned, st0, {"power": 58.4, "conditioning": 61.3}, 62.2, 50.0)
 	_check(WA.suggest(fine, [], ctx, false).begins_with("Keep the week"), "all on plan: keep it")
 

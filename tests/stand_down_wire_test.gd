@@ -45,20 +45,20 @@ func _initialize() -> void:
 	var ctl := _career(-1.0)
 	var ctl_evs := _next_week(ctl[0], ctl[1])
 	_check(str(ctl_evs[3]) == "sparring", "control: without a stand-down Lucy spars on Thursday (%s)" % str(ctl_evs))
-	# Hurt (damage 25 -> head place 45): 10 days from Saturday day 12, open on day 23 (Friday of the next week).
-	var hurt := _career(25.0)
+	# Hurt (damage 70 -> head place 44, 0.8 a point since S443): 10 days from Saturday day 12, open on day 23 (Friday of the next week).
+	var hurt := _career(70.0)
 	var c: Career = hurt[0]
 	var f: Dictionary = hurt[1]
 	var sd: Dictionary = f.get("stand_down", {})
-	_check(str(sd.get("band", "")) == "hurt" and int(sd.get("open_day", 0)) == 23, "a 25-damage bout: hurt, sparring opens on day 23 (%s)" % str(sd))
-	var said := c.news.any(func(n): return str(n["t"]).begins_with("%s: no sparring until " % f["first"]) and str(n["t"]).contains("25 damage"))
+	_check(str(sd.get("band", "")) == "hurt" and int(sd.get("open_day", 0)) == 23, "a 70-damage bout: hurt, sparring opens on day 23 (%s)" % str(sd))
+	var said := c.news.any(func(n): return str(n["t"]).begins_with("%s: no sparring until " % f["first"]) and str(n["t"]).contains("70 damage"))
 	_check(said, "the news says until when and why")
 	var evs := _next_week(c, f)
 	_check(str(evs[3]) == "rest", "Thursday day 17 sits in the stand-down: the night rests (%s)" % str(evs))
 	var evs2 := _next_week(c, f)
 	_check(str(evs2[3]) == "sparring", "the week after it opens, Thursday spars again (%s)" % str(evs2))
-	# Critical (damage 40 -> head place 12): 21 days from Saturday day 12, open on day 34: Thursdays 17, 24, 31 rest, 38 spars.
-	var crit := _career(40.0)
+	# Critical (damage 90 -> head place 28): 21 days from Saturday day 12, open on day 34: Thursdays 17, 24, 31 rest, 38 spars.
+	var crit := _career(90.0)
 	var cc: Career = crit[0]
 	var cf: Dictionary = crit[1]
 	cf.erase("injury")   # the bout's own injury roll may also land; this check is the stand-down's alone

@@ -1,11 +1,11 @@
 extends RefCounted
-## The books' side column, the fighter money table and the kit chalkboard. Dues has its own tab.
-## Coaches are drawn and not built: one warn mark, the buttons off. Numbers are the gym's, not the mockup's examples.
+## The books' side column (deals and staff), the fighter money table and the kit board. Dues has its own tab.
+## S443 (proposal B, his Q-S294-198): the coaches for sports not built yet are gone until they exist; the bill's split is
+## on the NEXT BILL tile's hover. Numbers are the gym's, not the mockup's examples.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
-const CashForecast := preload("res://scripts/rules/CashForecast.gd")
 const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const StaffRoles := preload("res://scripts/rules/StaffRoles.gd")
 const DuesBoards := preload("res://scripts/ui/DuesBoards.gd")
@@ -18,15 +18,8 @@ const Faces := preload("res://scripts/rules/Faces.gd")
 const NAME_W := 130
 const STIPEND_W := 150
 const EARNS_W := 96
-const COACHES := [
-	["Striking", "Jab, cross, hooks, uppercut"],
-	["Wrestling", "Single leg, double leg, ground and pound, takedown defence"],
-	["BJJ", "Armbar, triangle, rear naked choke, sweeps"],
-	["Muay Thai", "Knee, elbow, teep, low kick, body kick"],
-]
 
-
-static func side(main: Node, c: Career, ahead: Array) -> Control:
+static func side(main: Node, c: Career, _ahead: Array) -> Control:
 	var slate := PanelContainer.new()
 	slate.name = "BooksSide"
 	slate.custom_minimum_size = Vector2(200, 0)
@@ -34,13 +27,12 @@ static func side(main: Node, c: Career, ahead: Array) -> Control:
 	slate.size_flags_stretch_ratio = 0.34
 	# The column had no frame. Pad is the 22 px frame, so the outer size does not grow past it.
 	slate.add_theme_stylebox_override("panel", WoodKit.slate(22, 22))
-	var col := UI.vbox(4)
+	var col := UI.vbox(8)
 	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	col.add_child(_talks(main, c))
-	col.add_child(_coaches())
-	col.add_child(_bills(ahead))
+	col.add_child(UI.label("DEALS AND STAFF", UI.SMALL, UI.GOLD, "bold"))
 	col.add_child(_sponsors(main, c))
 	col.add_child(_staff(main, c))
+	col.add_child(_talks(main, c))
 	slate.add_child(col)
 	return slate
 
@@ -101,86 +93,52 @@ static func _talks(main: Node, c: Career) -> Control:
 	return card[0]
 
 
-static func _coaches() -> Control:
-	var card := _paper("Coaches, a week", "coach", "Not built yet")
-	card[0].name = "CoachesPanel"
-	var warn := KitIcon.icon("warn", 18, Color("C9770F"), "Not built yet")
-	warn.name = "WarnIcon"
-	card[1].get_child(0).add_child(warn)
-	for pair in COACHES:
-		var row := UI.hbox(8)
-		var name := UI.label(str(pair[0]), 14, UI.FG, "bold")
-		name.custom_minimum_size = Vector2(88, 0)
-		row.add_child(name)
-		var moves := UI.label(str(pair[1]), 13, UI.MUTED, "body", true)
-		moves.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		row.add_child(moves)
-		var b := UI.button("Not built yet", "Btn", func(): pass, true, "Not built yet")
-		b.name = "CoachHire_" + str(pair[0])
-		row.add_child(b)
-		card[1].add_child(row)
-	return card[0]
-
-
-static func _bills(ahead: Array) -> Control:
-	var split: Dictionary = CashForecast.bill_split(ahead)
-	var when := "Bills %s, %s" % [Clock.fmt(int(split["day"])), UI.money(int(split["amount"]))]
-	var card := _paper(when, "money", "Wages and upkeep are billed every 28 days")
-	card[0].name = "BillsPanel"
-	var row := UI.hbox(8)
-	card[1].add_child(row)
-	for pair in [["Coach", int(split["coach"])], ["Rent", int(split["rent"])], ["Staff", int(split["staff"])], ["Power, kit, fees", int(split["other"])]]:
-		var bit := UI.vbox(0)
-		bit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		bit.add_child(UI.label(str(pair[0]), 12, UI.MUTED, "body"))
-		bit.add_child(UI.label(UI.money(int(pair[1])), 14, UI.FG, "bold"))
-		row.add_child(bit)
-	if int(split["stipends"]) > 0:
-		card[1].add_child(UI.label("Stipends in that bill: %s" % UI.money(int(split["stipends"])), 13, UI.FG, "body"))
-	return card[0]
-
-
 static func _sponsors(main: Node, c: Career) -> Control:
-	var card := _paper("Sponsors", "reputation", "Deals: sponsors pay every week. Bigger ones come with a bigger gym.")
+	var card := _paper("Sponsors, a week", "reputation", "Deals: sponsors pay every week. Bigger ones come with a bigger gym.")
 	card[0].name = "SponsorsPanel"
 	for d in c.deals:
 		var row := UI.hbox(8)
-		var text := UI.vbox(0)
-		text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		text.add_child(UI.label(str(d["name"]), 14, UI.FG, "bold"))
 		var state := str(d["state"])
-		var sub := "%s, %s a week" % [str(d["what"]), UI.money(int(d["per"]))]
-		if state == "locked":
-			sub += ". Comes after the first win."
-		text.add_child(UI.label(sub, 13, UI.GREEN if state == "signed" else UI.MUTED, "body", true))
-		row.add_child(text)
+		var line := UI.label("%s, %s" % [str(d["name"]), UI.money(int(d["per"]))], 16, UI.FG, "body")
+		line.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		line.clip_text = true
+		line.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		line.tooltip_text = "%s, %s a week%s" % [str(d["what"]), UI.money(int(d["per"])), ". Comes after the first win." if state == "locked" else ""]
+		line.mouse_filter = Control.MOUSE_FILTER_PASS
+		row.add_child(line)
 		if state == "offer":
 			var b := UI.button("Sign", "Btn", main.act.bind("deal", str(d["id"])))
 			b.name = "Deal_" + str(d["id"])
+			_short_button(b)
 			row.add_child(b)
 		elif state == "signed":
-			row.add_child(UI.label("signed", 13, UI.GREEN, "bold"))
+			row.add_child(UI.label("signed", 16, UI.GREEN, "bold"))
 		else:
-			row.add_child(UI.label("after a win", 13, UI.MUTED, "bold"))
+			row.add_child(UI.label("after a win", 16, UI.MUTED, "bold"))
 		card[1].add_child(row)
 	return card[0]
 
 
 static func _staff(main: Node, c: Career) -> Control:
-	var card := _paper("Staff", "members", "Staff jobs: hire for a weekly wage. Roster places: %d of %d." % [GymSpend.used(c), GymSpend.places(c)])
+	var card := _paper("Staff, a week", "members", "Staff jobs: hire for a weekly wage. Roster places: %d of %d." % [GymSpend.used(c), GymSpend.places(c)])
 	card[0].name = "StaffPanel"
 	for r in StaffRoles.LIST:
 		var id := str(r["id"])
 		var on := c.staff_roles.has(id)
-		var pay := "%s a pro night" % UI.money(int(r["per_bout"])) if int(r["per_bout"]) > 0 else "%s a week" % UI.money(int(r["wage"]))
-		pay = pay.replace(" a pro night", " a night").replace(" a week", "")
+		var pay := "%s a night" % UI.money(int(r["per_bout"])) if int(r["per_bout"]) > 0 else UI.money(int(r["wage"]))
 		var row := UI.hbox(6)
-		var label := UI.label("%s: %s" % [str(r["name"]).get_slice(",", 0), str(r["effect"])], 13, UI.FG, "body", true)
+		row.name = "Role_" + id
+		var label := UI.label(str(r["name"]).get_slice(",", 0), 16, UI.FG, "body")
 		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		label.clip_text = true
+		label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		label.tooltip_text = str(r["effect"])   # what the job does: on the hover, the row stays one line
+		label.mouse_filter = Control.MOUSE_FILTER_PASS
 		row.add_child(label)
 		var b := UI.button("Let go" if on else "Hire %s" % pay, "Btn", main.act.bind("letgorole" if on else "hirerole", id))
 		b.name = ("LetGo_" if on else "Hire_") + id
-		row.name = "Role_" + id
+		b.tooltip_text = str(r["effect"])
+		_short_button(b)
 		row.add_child(b)
 		card[1].add_child(row)
 	return card[0]

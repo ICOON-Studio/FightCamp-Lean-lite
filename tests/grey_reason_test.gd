@@ -4,6 +4,7 @@ extends SceneTree
 const FirstWeek := preload("res://scripts/rules/FirstWeek.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
+const HoverLabel := preload("res://scripts/ui/HoverLabel.gd")
 
 const W := 1920
 const H := 1080
@@ -187,6 +188,8 @@ func _check_moment(name: String) -> void:
 			continue
 		disabled_total += 1
 		var reason := str(b.tooltip_text).strip_edges()
+		if reason == "" and b.has_node("HoverTag"):   # S443: a small arrow says its reason in its hover tag (HoverLabel)
+			reason = HoverLabel.word(b as Control)
 		var label := _button_label(b)
 		print("%s | %s | %s" % [name, label, reason])
 		if reason.length() < 12 or reason.to_lower().contains("not available"):

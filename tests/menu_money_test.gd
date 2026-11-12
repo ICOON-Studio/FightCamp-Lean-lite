@@ -1,13 +1,14 @@
 extends SceneTree
 ## The books page on a real quick start. Panels by name, in and out adding up, the top bar's cash, the tag
-## order, a grey tag's reason, the coaches warn mark, and every buy the old page still offered.
+## order, a grey tag's reason, and every buy the old page still offered. S443 proposal B (his Q-S294-198): the page fits
+## 1920x1080 with no scroll, the in and out lines carry no bars (his markup), and nothing "Not built yet" is on it.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const MoneyTags := preload("res://scripts/ui/MoneyTags.gd")
 const MAIN := preload("res://scenes/Main.tscn")
 
-const PANELS := ["BooksPage", "CashbookPage", "InWeek", "OutWeek", "PriceTags", "FightersMoney", "ContractTalks", "CoachesPanel", "BillsPanel", "SponsorsPanel", "StaffPanel", "DuesBoard", "KitBoard", "CashChart", "PageCash", "BooksTab", "CashbookTab"]
+const PANELS := ["BooksPage", "CashbookPage", "InWeek", "OutWeek", "PriceTags", "FightersMoney", "ContractTalks", "SponsorsPanel", "StaffPanel", "DuesBoard", "KitBoard", "CashChart", "PageCash", "BooksTab", "CashbookTab"]
 const ACTIONS := ["Deal_ironclad", "MovePremises", "Dues_cheap", "Dues_standard", "Dues_premium", "EveningAdd", "Buy_mats", "Buy_strength", "Buy_fitkit", "Buy_youth", "Kit_low", "Kit_standard", "Kit_good", "GrantBid", "BookShow", "Repair_bags"]
 
 var failures := 0
@@ -77,16 +78,18 @@ func _page(main: Node) -> void:
 			_check(str(t.get_meta("reason", "")).length() >= 12, "grey tag has a reason")
 			_check(t.find_child("Pin", true, false) == null, "grey tag has no pin")
 		_check(greys > 0, "a grey tag")
-	var coaches := main.find_child("CoachesPanel", true, false)
-	if coaches == null:
-		_check(false, "CoachesPanel")
-	else:
-		var warn := coaches.find_child("WarnIcon", true, false)
-		_check(warn != null and str(warn.tooltip_text).find("Not built") >= 0, "coaches header has the warn icon")
-		var buttons := coaches.find_children("*", "Button", true, false)
-		_check(buttons.size() > 0, "coaches have buttons")
-		for b in buttons:
-			_check((b as Button).disabled, "coach button is off")
+	for gone in ["CoachesPanel", "BillsPanel", "Tag_cage", "CageBuild", "MmaLine", "UnbuiltMark", "WarnIcon"]:
+		_check(main.find_child(gone, true, false) == null, "%s is gone from the page (not built yet)" % gone)
+	for n in ["BooksPage", "BooksSide"]:
+		var area := main.find_child(n, true, false)
+		if area == null:
+			continue
+		for node in area.find_children("*", "", true, false):
+			var said := str(node.get("text")) if node is Label or node is Button else ""
+			_check(said.find("Not built") < 0, "%s says nothing is not built (%s)" % [n, node.name])
+	for n in ["InWeek", "OutWeek"]:
+		var box := main.find_child(n, true, false)
+		_check(box != null and box.find_children("*", "ColorRect", true, false).is_empty(), "%s lines have no bars (his markup)" % n)
 	for n in ACTIONS:
 		var node := main.find_child(n, true, false)
 		_check(node is Button, "action " + n)
@@ -151,13 +154,14 @@ func _fit(main: Node) -> void:
 	_check(scroll != null, "page scroll")
 	if scroll != null:
 		var content_h: float = scroll.get_child(0).get_combined_minimum_size().y
+		print("MENU_MONEY content %.0f px in a %.0f px frame" % [content_h, scroll.size.y])
 		_check(content_h <= scroll.size.y + 1.0, "content height %.0f <= visible %.0f at %s" % [content_h, scroll.size.y, str(root.size)])
 		var view := scroll.get_global_rect()
 		for n in ["DuesBoard", "KitBoard"]:
 			var board := main.find_child(n, true, false) as Control
 			_check(board != null and _inside(board, view), "%s is on screen" % n)
-	var tags := main.find_child("PriceTags", true, false) as GridContainer
-	_check(tags != null and tags.columns == 2, "price tags in two columns")
+	var tags := main.find_child("PriceTags", true, false) as VBoxContainer
+	_check(tags != null, "what you can buy is one list")
 	if tags != null:
 		for t in tags.get_children():
 			_check((t as Control).size.y <= 130.0, "%s is %.0f px tall" % [t.name, (t as Control).size.y])

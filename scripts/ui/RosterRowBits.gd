@@ -143,8 +143,9 @@ static func upright(group: String, value: float, gold_dot: bool, low: bool) -> C
 	c.custom_minimum_size = Vector2(BAR_SLOT, BAR_TALL)
 	c.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	c.mouse_filter = Control.MOUSE_FILTER_PASS
-	c.tooltip_text = "%s %d%s" % [group, int(round(value)), ", the best of the roster" if gold_dot else ""]
-	var num := _word_at(str(int(round(value))), 18, c.colour, "bold", BAR_SLOT * 0.5, 0.0)
+	# S443: whole numbers as the fighter page prints them (floor), so a group reads the same on every screen
+	c.tooltip_text = "%s %d%s" % [group, int(floorf(value)), ", the best of the roster" if gold_dot else ""]
+	var num := _word_at(str(int(floorf(value))), 18, c.colour, "bold", BAR_SLOT * 0.5, 0.0)
 	num.name = "Num"
 	c.add_child(num)
 	var word := _word_at(group, 16, WoodKit.SOFT, "body", BAR_SLOT * 0.5, WORD_B if low else WORD_A)

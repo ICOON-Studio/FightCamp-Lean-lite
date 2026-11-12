@@ -94,7 +94,7 @@ func _test7() -> void:
 	var rounds: Array = [{"legs": 30, "core": 20}, {"legs": 55, "lead_shoulder": 52}, {"legs": 70}]
 	var r: Dictionary = BR.report(rounds, "Lucy")
 	var expected: Dictionary = {"part": "legs", "round": 2, "focus": "conditioning",
-		"line": "Lucy's legs went in round 2", "advice": "Next week: Conditioning"}
+		"line": "Lucy's legs went in round 2", "advice": "Next week: Stamina"}
 	_check(_same_dict(r, expected),
 		"test 7: report Lucy legs r2 (got %s, expected %s)" % [str(r), str(expected)])
 
@@ -130,17 +130,17 @@ func _test9() -> void:
 ## 10. change_line.
 func _test10() -> void:
 	var legs_r2: Dictionary = {"part": "legs", "round": 2, "focus": "conditioning",
-		"line": "Lucy's legs went in round 2", "advice": "Next week: Conditioning"}
+		"line": "Lucy's legs went in round 2", "advice": "Next week: Stamina"}
 	var legs_r3: Dictionary = {"part": "legs", "round": 3, "focus": "conditioning",
-		"line": "Lucy's legs went in round 3", "advice": "Next week: Conditioning"}
+		"line": "Lucy's legs went in round 3", "advice": "Next week: Stamina"}
 	var legs_r1: Dictionary = {"part": "legs", "round": 1, "focus": "conditioning",
-		"line": "Lucy's legs went in round 1", "advice": "Next week: Conditioning"}
+		"line": "Lucy's legs went in round 1", "advice": "Next week: Stamina"}
 	var none_3: Dictionary = {"part": "", "round": 0, "focus": "",
 		"line": "Lucy held up for all 3 rounds", "advice": ""}
 	var core_r1: Dictionary = {"part": "core", "round": 1, "focus": "conditioning",
-		"line": "Lucy's body went in round 1", "advice": "Next week: Conditioning"}
+		"line": "Lucy's body went in round 1", "advice": "Next week: Stamina"}
 	var core_r2: Dictionary = {"part": "core", "round": 2, "focus": "conditioning",
-		"line": "Lucy's body went in round 2", "advice": "Next week: Conditioning"}
+		"line": "Lucy's body went in round 2", "advice": "Next week: Stamina"}
 	var empty: Dictionary = {}
 	var ok := true
 	var c1: String = BR.change_line(legs_r2, legs_r3)

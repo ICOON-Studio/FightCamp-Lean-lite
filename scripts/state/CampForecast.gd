@@ -92,7 +92,7 @@ static func run(c: Career, f: Dictionary, focus: String, protocol: int, film := 
 			g["chronic"] = TrainingLoad.next_chronic(usual, h)
 	var fe := float(g.get("week_fatigue", fat0))
 	var tp := BoutRules.tank_parts_for(c.results, g, fe, int(bout.get("day", c.day)))   # S433 the Tank, camp or not
-	# S439 CARDIO1 round 3: her attributes on fight night too (the Cardio card reads Stamina here, the number the bout reads)
+	# S439 CARDIO1 round 3: her attributes on fight night too (the Stamina card reads Stamina here, the number the bout reads)
 	return {"stats": g["stats"], "attrs": (Attrs.of(g) as Dictionary).duplicate(), "kg": kg, "limit": lim, "weigh_ok": BoutRules.made_weight(kg, lim), "fatigue_now": fat0,
 		"fatigue_end": fe, "peak": peak, "days": n, "injury": 1.0 - safe, "stale": float(tp["off"]), "tank_why": BoutRules.tank_words(tp)}
 

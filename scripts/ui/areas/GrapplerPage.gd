@@ -399,7 +399,7 @@ func _body(f: Dictionary) -> Control:
 	card[0].name = "BjjBody"
 	var v: VBoxContainer = card[1]
 	var stats: Dictionary = f.get("stats", {})
-	for row in [["Strength", "strength", "takedowns, passes, escapes, taking mount"], ["Cardio", "cardio", "how fast the tank empties in a match"]]:
+	for row in [["Strength", "strength", "takedowns, passes, escapes, taking mount"], ["Stamina", "cardio", "how fast the tank empties in a match"]]:
 		var key := str(row[1])
 		var val := float(stats.get(key, NoGi.BODY_START))
 		var gain := NoGi.body_gain(f, key)

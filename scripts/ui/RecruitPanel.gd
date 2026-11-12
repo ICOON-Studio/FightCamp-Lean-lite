@@ -24,7 +24,9 @@ static func focus_of(picks: Array) -> String:
 
 
 const KitIcon := preload("res://scripts/ui/KitIcon.gd")
-const STAT_ICON := {"power": "hands", "speed": "energy", "technique": "pads", "defense": "guard", "conditioning": "roadwork", "fight_iq": "film", "chin": "injured"}
+const GROUP_ICON := {"physical": "roadwork", "skill": "pads", "mind": "film"}
+const StatBlock := preload("res://scripts/rules/StatBlock.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 
 
 static func build(main: Node, c: Career, a: Dictionary, picks: Array, act: String) -> VBoxContainer:
@@ -57,45 +59,46 @@ static func _attributes(f: Dictionary) -> VBoxContainer:
 	var col := UI.vbox(6)
 	col.custom_minimum_size = Vector2(500, 0)
 	col.add_child(UI.caps("ATTRIBUTES"))
-	col.add_child(UI.muted("Green is now, blue is how high it can go.", UI.SMALL))
-	# S398 menus (first-hour critics: "/84" six times read as a template): the ceiling most attributes share is said once
-	# under the bars; a row prints its own ceiling only when it differs.
-	var caps := {}
-	for key in Data.STATS:
-		var k := int(Recruit.ceiling(f, key))
-		caps[k] = int(caps.get(k, 0)) + 1
-	var common := -1
-	for k in caps:
-		if common < 0 or int(caps[k]) > int(caps[common]):
-			common = int(k)
-	for key in Data.STATS:
-		var row := UI.hbox(8)
-		row.add_child(KitIcon.icon(str(STAT_ICON.get(key, "star")), 24, WoodKit.HEAD))
-		var l := UI.label(str(Data.LABEL[key]), UI.BODY)
-		l.custom_minimum_size = Vector2(130, 0)
-		row.add_child(l)
-		var now := float(f["stats"][key])
-		var cap := Recruit.ceiling(f, key)
-		var stack := Control.new()
-		stack.custom_minimum_size = Vector2(220, 18)
-		stack.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		var ceil_bar: Control = Bar.new()
-		ceil_bar.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		ceil_bar.track = Color(WoodKit.SOFT, 0.28)
-		ceil_bar.fill = WoodKit.BLUE
-		ceil_bar.frac = cap / 100.0
-		stack.add_child(ceil_bar)
-		var now_bar: Control = Bar.new()
-		now_bar.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		now_bar.track = Color(0, 0, 0, 0)
-		now_bar.fill = UI.GREEN
-		now_bar.frac = now / 100.0
-		stack.add_child(now_bar)
-		row.add_child(stack)
-		row.add_child(UI.label("%d" % int(now) + ("  up to %d" % int(cap) if int(cap) != common else ""), UI.BODY, UI.FG, "bold"))
-		col.add_child(row)
-	col.add_child(UI.muted("Most can climb to about %d (a guess until training shows the truth)." % common, UI.SMALL, true))
+	col.add_child(UI.muted("Green is now, blue is how high it can go. Hover a group for what is in it.", UI.SMALL, true))
+	# S443 one set of numbers (UX_AUDIT_S442 proposal A): the short form, the fighter page's groups and overall, the same
+	# words and numbers the roster and the fighter page show once signed (StatBlock).
+	for gr in StatBlock.groups(f):
+		var keys: Array = Attrs.GROUPS[str(gr["key"])]
+		var tip := ", ".join(PackedStringArray(keys.map(func(k): return str(Attrs.LABEL.get(k, k)))))
+		col.add_child(_ceiling_row(str(GROUP_ICON[gr["key"]]), str(gr["name"]), float(gr["value"]), StatBlock.ceiling(f, str(gr["key"])), tip))
+	col.add_child(_ceiling_row("star", "Overall", float(StatBlock.overall(f)), float(f.get("pot", 70)),
+		"The measured level the fighter page and the roster show; the ceiling is the potential."))
+	col.add_child(UI.muted("A guess until training shows the truth.", UI.SMALL, true))
 	return col
+
+
+static func _ceiling_row(icon: String, name: String, now: float, cap: float, tip: String) -> HBoxContainer:
+	var row := UI.hbox(8)
+	row.tooltip_text = tip
+	row.mouse_filter = Control.MOUSE_FILTER_PASS
+	row.add_child(KitIcon.icon(icon, 24, WoodKit.HEAD, tip))
+	var l := UI.label(name, UI.BODY)
+	l.custom_minimum_size = Vector2(130, 0)
+	row.add_child(l)
+	var stack := Control.new()
+	stack.custom_minimum_size = Vector2(220, 18)
+	stack.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	stack.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var ceil_bar: Control = Bar.new()
+	ceil_bar.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	ceil_bar.track = Color(WoodKit.SOFT, 0.28)
+	ceil_bar.fill = WoodKit.BLUE
+	ceil_bar.frac = cap / 100.0
+	stack.add_child(ceil_bar)
+	var now_bar: Control = Bar.new()
+	now_bar.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	now_bar.track = Color(0, 0, 0, 0)
+	now_bar.fill = UI.GREEN
+	now_bar.frac = now / 100.0
+	stack.add_child(now_bar)
+	row.add_child(stack)
+	row.add_child(UI.label("%d  up to %d" % [StatBlock.shown(now), StatBlock.shown(cap)], UI.BODY, UI.FG, "bold"))
+	return row
 
 
 static func _who(main: Node, f: Dictionary, picks: Array, act: String) -> VBoxContainer:

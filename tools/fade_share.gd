@@ -86,7 +86,7 @@ func _initialize() -> void:
 ## FADESHARE AT FIGHT TIME (the S434 skeptic: "measured on signing day, not on bouts"): every signing trains through the
 ## game's own day (Sim.step_day: twists, injuries, the phase weeks, no camp = the amateur fight week) for BOUT_DAYS[-1]
 ## days, BATCH to a career; a bout is sampled on each of BOUT_DAYS (weeks 4 to 8 of its own week). focus "" = the
-## fighter's own plan, "conditioning" = the Cardio week (the player answers a Stamina goal: Tue intervals, Thu roadwork). Shares and sizes per bout.
+## fighter's own plan, "conditioning" = the Stamina week (the player answers a Stamina goal: Tue intervals, Thu roadwork). Shares and sizes per bout.
 func _fight_time(raws: Array, focus: String) -> void:
 	var bouts: Array = []   # {named, cond, st}
 	var goals: Array = []   # {named, five, five_at, debut, debut_at}
@@ -119,7 +119,7 @@ func _fight_time(raws: Array, focus: String) -> void:
 				if BOUT_DAYS.has(t):
 					bouts.append({"named": row["named"], "st": float(a["stamina"]), "cond": (float(a["stamina"]) + float(a["recovery"])) / 2.0})
 		i += BATCH
-	var tag := "own week" if focus == "" else "Cardio week"
+	var tag := "own week" if focus == "" else "Stamina week"
 	print("FIGHT TIME (%s): %d bouts = the 206 signings x days %s of Sim.step_day (no camp)" % [tag, bouts.size(), str(BOUT_DAYS)])
 	for grp in [["named six", bouts.filter(func(r): return r["named"])], ["all 206", bouts]]:
 		var pop: Array = grp[1]

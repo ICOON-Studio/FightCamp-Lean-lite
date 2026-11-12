@@ -168,7 +168,7 @@ static func _boxer(f: Dictionary, c: Career = null) -> Control:
 		pic.offset_left = -125.0   # the picture is square with empty sides: wider than the column makes the boxer full height
 		pic.offset_right = 125.0
 	var g: Dictionary = AttrBoard.glance(f)
-	var ring := _ring(float(g["fight_avg"]) / 100.0, Color("#ffd54a"), str(int(g["fight_avg"])), "OF 100", 130.0)
+	var ring := _ring(float(g["fight_avg"]) / 100.0, Color("#ffd54a"), str(int(g["overall"])), "OF 100", 130.0)   # S443: StatBlock.overall, the roster's ring too
 	ring.position = Vector2(LEFT_W - 136, 8)
 	holder.add_child(ring)
 	col.add_child(holder)
@@ -303,7 +303,7 @@ static func _glance(f: Dictionary) -> PanelContainer:
 	if bool(g["hot"]):
 		c[1].add_child(_note("Temper", "Trades when hit", TONE["red"]))
 	if float(g["pot"]) > 0.0:
-		var room := int(g["pot"]) - int(g["fight_avg"])
+		var room := int(g["pot"]) - int(g["overall"])
 		c[1].add_child(_note("Room to grow", "A lot" if room >= 20 else ("Some" if room >= 8 else "Close to the ceiling"), TONE["green"]))
 	if str(g.get("wants", "")) != "":
 		c[1].add_child(_note("In the ring", str(g["wants"]), TONE["green"]))

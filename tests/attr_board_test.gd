@@ -1,6 +1,6 @@
 extends SceneTree
 ## S340 C157: her attributes board shows every value the bout reads, grouped, banded, with this week's change, and the
-## radar. S398 the fighter model: the 20 attributes + heart + the personality in PHYSICAL / SKILL / MIND, the radar on the
+## radar. S398 the fighter model: the 20 attributes + heart + the personality in BODY / BOXING SKILLS / MIND (S443), the radar on the
 ## six keys (Duels.keys), the signature line and where the fighter wants the fight. Overview and the Attributes tab both.
 
 const AttrBoard := preload("res://scripts/ui/AttrBoard.gd")
@@ -37,7 +37,7 @@ func _initialize() -> void:
 		var radars := page.find_children("*", "Control", true, false).filter(func(n): return n.get_script() == AttrRadar)
 		_check(radars.size() == 0, "tab %s: no radar, the bars carry the numbers (S398) (%d)" % [tab, radars.size()])
 		var text := _texts(page)
-		for word in ["PHYSICAL", "SKILL", "MIND", "AT A GLANCE", "Footwork", "Heart", "Discipline", "Coachability", "Temper", "Fight IQ",
+		for word in ["BODY", "BOXING SKILLS", "MIND", "AT A GLANCE", "Footwork", "Heart", "Discipline", "Coachability", "Temper", "Fight IQ",
 				"In the ring", "Defence"]:
 			_check(text.contains(word), "tab %s shows %s" % [tab, word])
 		_check(not text.contains("BAR = WAY TO THE NEXT POINT"), "tab %s: the old bar card is gone" % tab)

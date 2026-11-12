@@ -23,9 +23,9 @@ const SOUTHPAW_ACCURACY_DELTA: float = 2.5
 const ENGINE_STAMINA_DELTA: float = 2.5
 ## S434 CARDIO1: "Stamina for five rounds" aims at the round-3 fade line (BoutRules.FADE_STAMINA) when it is within this
 ## many points, else +2.5. FADESHARE round 2 (tools/fade_share.gd, the 206 signings through 28 days of Sim.step_day): a
-## player who answers the goal with the Cardio week (Tue intervals, Thu roadwork) meets it 72.3% of the time (named six
+## player who answers the goal with the Stamina week (Tue intervals, Thu roadwork) meets it 72.3% of the time (named six
 ## 83.3%; main's goal on the mean, +2.5 conditioning, 41.3%) - the decided ~70% for a well-run plan. On the fighter's own
-## week, untouched, 46.6% (main 0%). Gains in 28 days on the Cardio week: mean 3.60, 30th percentile 2.60, so a gap of 3
+## week, untouched, 46.6% (main 0%). Gains in 28 days on the Stamina week: mean 3.60, 30th percentile 2.60, so a gap of 3
 ## or less is a month's work; a fighter further under the line needs two goals (Lucy 56.4: +2.5 to 58.9).
 const ENGINE_LINE_REACH: float = 3.0
 

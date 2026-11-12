@@ -5,6 +5,7 @@ extends VBoxContainer
 const UI := preload("res://scripts/ui/UI.gd")
 const AreaHead := preload("res://scripts/ui/AreaHead.gd")
 const Data := preload("res://scripts/state/Data.gd")
+const StatBlock := preload("res://scripts/rules/StatBlock.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
@@ -210,14 +211,16 @@ func _scouting(main: Node, c: Career) -> void:
 		v.add_child(top)
 		v.add_child(UI.muted("%d, %s, %s: %s" % [p["age"], str(p["wc"]).to_lower(), str(p["style"]).to_lower(), p["note"]], UI.SMALL, true))
 		v.add_child(UI.caps("SCOUTED"))
-		for k in ["power", "speed", "technique", "defense"]:
+		# S443 one set of numbers (UX_AUDIT_S442 proposal A): the short form the roster and the fighter page use, each a
+		# scouted range (a copy: the prospect's own dict is not given attributes by a page draw)
+		for gr in StatBlock.groups(Data.fighter_state(p.duplicate(true), c.day)):   # as the reception reads the walk-in
 			var r := UI.hbox(10)
-			var lab := UI.label(str(Data.LABEL[k]), UI.SMALL, UI.FG)
+			var lab := UI.label(str(gr["name"]), UI.SMALL, UI.FG)
 			lab.custom_minimum_size = Vector2(110, 0)
 			r.add_child(lab)
-			var mid := float(p["stats"][k])
+			var mid := float(StatBlock.shown(float(gr["value"])))
 			r.add_child(UI.meter((mid + Data.SCOUT_SPREAD) / 100.0, UI.GOLD, [(mid - Data.SCOUT_SPREAD) / 100.0], 150.0))
-			r.add_child(UI.mono(Roster.scouted_range(p, k), UI.SMALL, UI.FG))
+			r.add_child(UI.mono("%d-%d" % [int(mid) - Data.SCOUT_SPREAD, int(mid) + Data.SCOUT_SPREAD], UI.SMALL, UI.FG))
 			v.add_child(r)
 		if str(p["state"]) == "scout":
 			var b := UI.button("Invite to a trial", "Btn", main.act.bind("invite", p["id"]))

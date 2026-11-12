@@ -13,6 +13,7 @@ const TrainingPreview := preload("res://scripts/rules/TrainingPreview.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const GymBills := preload("res://scripts/rules/GymBills.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 
 ## How many weeks ahead an ETA looks: past this a stat reads "12+ weeks".
 const HORIZON := 12
@@ -30,8 +31,16 @@ const SHORT := {"Pads and drills": "pads", "Sparring vs a partner": "sparring"}
 
 ## The stats after each of the next HORIZON weeks: this week's plan, then `later` ([days, evenings, phase] a week), each
 ## week stepped as WeekPlan.project steps it (stats, weight and fatigue carried over).
-static func path(days: Array, ctx: Dictionary, evenings: Array, later: Array) -> Array:
+## S443: with the fighter `f`, each week also carries her attributes ("attrs", the days run through Attrs.run_days as
+## Sim.step_day runs them), so a row shown as an attribute (StatBlock.SHOWN_AS) reads its own number's pace.
+static func path(days: Array, ctx: Dictionary, evenings: Array, later: Array, f: Dictionary = {}) -> Array:
 	var c := ctx.duplicate()
+	var g := {}
+	if not f.is_empty():
+		g = f.duplicate()
+		g["attrs"] = Attrs.of(f).duplicate()
+		g["stats"] = (f["stats"] as Dictionary).duplicate()
+		g["stats_seen"] = (f.get("stats_seen", {}) as Dictionary).duplicate()
 	var out: Array = []
 	for k in HORIZON:
 		var wk: Array = later[k - 1] if k > 0 and k - 1 < later.size() else [days, evenings, str(ctx.get("phase", ""))]
@@ -40,16 +49,26 @@ static func path(days: Array, ctx: Dictionary, evenings: Array, later: Array) ->
 		c["stats"] = w["stats_end"]
 		c["weight"] = w["weight_end"]
 		c["fatigue"] = w["fatigue_end"]
-		out.append(w["stats_end"])
+		var row: Dictionary = (w["stats_end"] as Dictionary).duplicate()
+		if not g.is_empty():
+			Attrs.run_days(g, w["days"], str(c.get("camp_stat", "")), float(c.get("camp_mult", 1.0)))
+			row["attrs"] = (g["attrs"] as Dictionary).duplicate()
+		out.append(row)
 	return out
 
 
-## The first week on `route` that `stat` reaches `target`; 0 when none does.
-static func eta(stat: String, target: float, route: Array) -> int:
+## The first week on `route` that `stat` reaches `target`; 0 when none does. `attr`: `stat` is an attribute (the week's "attrs").
+static func eta(stat: String, target: float, route: Array, attr := false) -> int:
 	for i in route.size():
-		if float((route[i] as Dictionary).get(stat, 0.0)) >= target:
+		if at(route[i], stat, attr, 0.0) >= target:
 			return i + 1
 	return 0
+
+
+## One week's value on the route: an old stat, or an attribute from the week's "attrs".
+static func at(week: Dictionary, stat: String, attr: bool, missing: float) -> float:
+	var d: Dictionary = week.get("attrs", {}) if attr else week
+	return float(d.get(stat, missing))
 
 
 ## The sessions behind a gain and their days: "roadwork Mon + Fri, intervals Wed". "" when nothing trained it.
@@ -67,14 +86,15 @@ static func cause(top: Array) -> String:
 ## One stat's line. `x` is a report row ({st, before, after, src}), `wait` the weeks she is out injured.
 ## A crossed point: "+1 Technique: pads Tue + Thu". Otherwise the next point: "Technique 61 in ~3 weeks".
 static func stat(x: Dictionary, route: Array, label: String, wait := 0) -> Dictionary:
-	var key := str(x["st"])
+	var ab := str(x.get("attr", ""))   # S443: a row shown as an attribute (StatBlock.week_rows) reads that attribute's pace
+	var key := ab if ab != "" else str(x["st"])
 	var before := float(x["before"])
 	var after := float(x["after"])
 	var why := cause(x.get("src", []))
 	var next := int(floorf(after)) + 1
 	var out := {"tick": TrainingPreview.crossed_point(before, after), "gain": int(floorf(after)) - int(floorf(before)),
 		"next": next, "eta": 0, "why": why}
-	var weeks := eta(key, float(next), route)
+	var weeks := eta(key, float(next), route, ab != "")
 	out["eta"] = weeks + wait if weeks > 0 else 0
 	if bool(out["tick"]):
 		out["text"] = "+%d %s" % [int(out["gain"]), label] + (": " + why if why != "" else "")
@@ -82,7 +102,7 @@ static func stat(x: Dictionary, route: Array, label: String, wait := 0) -> Dicti
 		out["text"] = "%s at the top" % label
 	elif weeks > 0:
 		out["text"] = "%s %d %s" % [label, next, "next week" if int(out["eta"]) == 1 else "in ~%d weeks" % int(out["eta"])]
-	elif not route.is_empty() and float((route[-1] as Dictionary).get(key, after)) > after + 0.005:
+	elif not route.is_empty() and at(route[-1], key, ab != "", after) > after + 0.005:
 		out["text"] = "%s %d in %d+ weeks" % [label, next, route.size() + wait]
 	else:
 		out["text"] = "Not on the plan"

@@ -11,7 +11,7 @@ extends SceneTree
 ##      each read their own round 3 (the whole-point key served the faded one to both).
 ##   3. BoutRead's own round 3 carries the slope: two Stamina points under the line cost 0.5 more in round 3 than two
 ##      points over it (energy moves both pairs alike), bounded 0.4..0.6.
-##   4. The Training tab's goal tooltip for Cardio names Stamina's own number beside Stamina's line (WeekEditors.line_tip).
+##   4. The Training tab's goal tooltip for Stamina (conditioning) names Stamina's own number beside Stamina's line (WeekEditors.line_tip).
 
 const Data := preload("res://scripts/state/Data.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
@@ -70,13 +70,13 @@ func _initialize() -> void:
 	var over := _drop_gap(c, line + 4.0, line + 6.0)
 	_check(under - over > 0.4 and under - over < 0.6,
 		"BoutRead round 3: two points under the line are worth %.3f more than two over it (slope 0.25 a point: 0.5)" % (under - over))
-	# 4. (round 2) The week's goal tooltip on the Training tab: Cardio names Stamina's own now -> end of week beside Stamina's
+	# 4. (round 2) The week's goal tooltip on the Training tab: Stamina (conditioning) names Stamina's own now -> end of week beside Stamina's
 	# line, never the line under the mean's numbers alone (WeekEditors.line_tip; the S434 round 1 printed the line only).
 	var g := _fighter(c, line - 2.0, MEAN * 2.0 - (line - 2.0))
 	c.fighters = [g]
 	var tip := WeekEditors.line_tip(g, WeekBoard.plan_of(c, g), "conditioning")
 	_check(tip.contains("Stamina %.1f → " % (line - 2.0)) and tip.contains(BoutRules.night_line_words("stamina")),
-		"the week's Cardio goal names Stamina %.1f beside its line: %s" % [line - 2.0, tip.strip_edges()])
+		"the week's Stamina goal names Stamina %.1f beside its line: %s" % [line - 2.0, tip.strip_edges()])
 	print("CARDIO_PATH checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures > 0 else 0)
 

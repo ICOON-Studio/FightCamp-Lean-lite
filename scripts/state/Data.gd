@@ -4,11 +4,12 @@ extends RefCounted
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const PunchStart := preload("res://scripts/rules/PunchStart.gd")
 const STATS: Array[String] = ["power", "speed", "technique", "defense", "conditioning", "fight_iq", "chin"]
-## S434 CARDIO1 (CORE_LOOP C3): conditioning is the mean of Stamina and Recovery, so its word is the group's, Cardio; the word
-## Stamina belongs to the Stamina ability alone (the fade's number).
+## S443 (operator Q-S294-195 "Stamina", UX_AUDIT_S442 proposal A): one word for the engine - conditioning (the mean of Stamina
+## and Recovery) is called Stamina, and every screen that prints a number beside the word prints the Stamina attribute's own
+## (StatBlock.SHOWN_AS; the camp card's line, CampCard.LINE_OF). Fight IQ likewise shows the Fight IQ attribute.
 const LABEL := {
 	"power": "Power", "speed": "Speed", "technique": "Technique", "defense": "Defence",
-	"conditioning": "Cardio", "fight_iq": "Fight IQ", "chin": "Durability",
+	"conditioning": "Stamina", "fight_iq": "Fight IQ", "chin": "Durability",
 }
 const CARDS: Array[String] = ["Jab and move", "Body work", "Pad rounds", "Hill sprints", "Defence drills", "Film study"]
 

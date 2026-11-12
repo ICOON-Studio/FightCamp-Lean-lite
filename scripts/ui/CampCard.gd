@@ -25,7 +25,7 @@ const TWEEN_S := 0.45
 const STATION := {"conditioning": "roadwork", "power": "heavy_bag", "technique": "pads", "defense": "slip_rope",
 	"speed": "speed_bag"}
 const PICS := "res://assets/ui/training/"
-## S434 CARDIO1 (CORE_LOOP C3): the Cardio camp (conditioning, the mean of Stamina and Recovery) shows the Stamina line, on
+## S434 CARDIO1 (CORE_LOOP C3): the Stamina camp (conditioning, the mean of Stamina and Recovery) shows the Stamina line, on
 ## Stamina's own number, never the mean's: the face's forecast ("Stamina 57.6 -> 62.4 by fight night"), the bar and the
 ## caption. S439 round 3: its fight-night end is the forecast's own Stamina (CampForecast.run "attrs", the days trained as
 ## Sim.step_day trains them), never Stamina now + the mean's gain (the camp's roadwork and intervals train Stamina by name,
@@ -39,7 +39,7 @@ static func card(main: Node, f: Dictionary, key: String, chosen: bool, now: floa
 	var b := _shell("Focus_" + key, chosen, main.act.bind("cfocus", key))
 	b.custom_minimum_size = Vector2(0, CARD_H)
 	# S434 CARDIO1 round 2 (C3: Stamina is the number on every row, line and goal): a card whose line reads another number
-	# (the Cardio card, LINE_OF) prints THAT number, named, on its face, so the forecast, the bar and the caption agree.
+	# (the Stamina card, LINE_OF) prints THAT number, named, on its face, so the forecast, the bar and the caption agree.
 	var ln := line_numbers(f, key, now, end, from, night, line_from)
 	var named := str(ln["key"]) != key
 	var nm := (str(Attrs.LABEL[ln["key"]]) + " ") if named else ""
@@ -94,7 +94,7 @@ static func card(main: Node, f: Dictionary, key: String, chosen: bool, now: floa
 
 ## The number the card's night bar and caption read: {key, now, end, from} - the card's own stat, or the line's ability
 ## (LINE_OF): today's value and fight night's from `night` (CampForecast.run's "attrs"); `line_from` is the end the card
-## showed before (the count starts there), -1 for none. A Cardio card with no forecast's attributes is a caller's error:
+## showed before (the count starts there), -1 for none. A Stamina card with no forecast's attributes is a caller's error:
 ## it shows today's Stamina as the end rather than a number derived from the mean.
 static func line_numbers(f: Dictionary, key: String, now: float, end: float, from: float, night: Dictionary = {},
 		line_from := -1.0) -> Dictionary:

@@ -73,7 +73,7 @@ static func route_px(route: Array, start: Vector2, end: Vector2) -> Array:
 	return out
 
 
-## The plan tile a picture spot walks from. Cardio has none, so that change fades.
+## The plan tile a picture spot walks from. Stamina has none, so that change fades.
 static func plan_tile(spot_id: String, kind: String, plan: Dictionary) -> Vector2i:
 	if kind == "" or kind == "cardio":
 		return Vector2i(-999, -999)

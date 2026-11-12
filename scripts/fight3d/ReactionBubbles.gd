@@ -14,8 +14,8 @@ static var enabled := not OS.get_cmdline_user_args().has("nobubbles")
 const MAX_ON := 2
 const LIFE_S := 2.0     # real seconds on screen at full strength (2x and the shout bar's slow ring do not change it)
 const FADE_S := 0.25
-const EDGE := Color("#cdb68a")
-const BG := Color(0.078, 0.059, 0.047, 0.94)
+const EDGE := Color(1, 1, 1, 0.0)   # S443 his C327 "remove the wooden panel , make it transparent": no gold-brown frame (was #cdb68a)
+const BG := Color(0.0, 0.0, 0.0, 0.42)   # S443 C327: see-through dark glass, not a wooden panel (was brown 0.94)
 const TEXT_PX := 22
 const GAP := 26.0       # bubble edge to the post
 const POST_TOP := Vector3(-2.75, 1.45, -2.75)   # RingSet post 0 (red corner): (-RING_M / 2, 0, -RING_M / 2), 1.45 m tall
@@ -204,7 +204,7 @@ func _build(b: Dictionary) -> Control:
 	elif str(bub["icon"]) != "":
 		var ic := TextureRect.new()
 		ic.texture = _icon(str(bub["icon"]))
-		ic.modulate = EDGE
+		ic.modulate = Color("#cdb68a")   # the icon keeps the gold (the frame is gone, S443 C327)
 		ic.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 		row.add_child(ic)
 	var col := UI.vbox(4)
@@ -226,7 +226,16 @@ func _build(b: Dictionary) -> Control:
 		sub.add_child(dot)
 		sub.add_child(UI.label(str(bub["sub"]), TEXT_PX, Color("#b8a88f"), "semi"))
 		col.add_child(sub)
+	_outline(holder)
 	return holder
+
+## See-through bubble (S443 C327): a dark outline keeps every word readable over the ring.
+static func _outline(n: Node) -> void:
+	for c in n.get_children():
+		if c is Label:
+			c.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
+			c.add_theme_constant_override("outline_size", 6)
+		_outline(c)
 
 ## Line breaks at `width` px (a Label's own autowrap only knows its height after a layout pass; the slot needs it now).
 static func _wrap(text: String, width: float) -> String:

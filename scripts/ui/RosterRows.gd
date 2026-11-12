@@ -159,16 +159,16 @@ static func _col_fighter(f: Dictionary, needs: bool, col: Array) -> Control:
 
 static func _col_overall(o: Dictionary, best: Dictionary, id: String, col: Array) -> Control:
 	var box := UI.vbox(4)
-	_place(box, "overall", col, "Overall level 0-100 and the five groups it is measured from; a gold dot marks the best of the roster.")
+	_place(box, "overall", col, "Overall level 0-100, the same number as the fighter page, and the groups it is measured from; a gold dot marks the best of the roster.")
 	var top := HBoxContainer.new()
 	top.add_theme_constant_override("separation", 6)
 	top.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	top.add_child(Bits.overall_ring(int(o.get("ring", 0))))
 	var bars := HBoxContainer.new()
 	bars.name = "Bars"
-	bars.add_theme_constant_override("separation", 0)
-	bars.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var groups: Dictionary = o.get("groups", {})
+	bars.add_theme_constant_override("separation", 36 if groups.size() <= 3 else 0)   # S443: a boxer's three groups, room for "Boxing skills"
+	bars.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var i := 0
 	for gname in groups.keys():
 		var gold: bool = str(best.get(str(gname), "")) == id

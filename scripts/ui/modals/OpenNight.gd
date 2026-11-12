@@ -60,7 +60,7 @@ func _compare(f: Dictionary, o: Dictionary) -> Control:
 		grid.add_child(UI.caps(t))
 	var rows := [["Technique", BjjMatch.skill_of(f), float(o["skill"])],
 		["Strength", BjjMatch.stat(f, "strength"), BjjMatch.stat(o, "strength")],
-		["Cardio", BjjMatch.stat(f, "cardio"), BjjMatch.stat(o, "cardio")]]
+		["Stamina", BjjMatch.stat(f, "cardio"), BjjMatch.stat(o, "cardio")]]
 	for r in rows:
 		grid.add_child(UI.label(str(r[0]), UI.BODY, UI.FG, "body"))
 		for k in [1, 2]:

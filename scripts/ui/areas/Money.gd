@@ -1,6 +1,8 @@
 extends VBoxContainer
 ## The books (S403). Cash, the week in and out, what is worth buying, and the ledgers on Cashbook.
-## Repairs and the contract answers moved to Cashbook. The cage and the coach list are not built.
+## Repairs and the contract answers moved to Cashbook. S443 proposal B (his Q-S294-198, "check markup"): four groups on one
+## 1920x1080 screen - the books (tiles), in and out a week, what you can buy now, deals and staff. The in and out lines are a
+## name and a signed amount, no bars (his markup: "these bars look stupid do not fit here"). Not-built rows are gone.
 
 const UI := preload("res://scripts/ui/UI.gd")
 const Tally := preload("res://scripts/ui/Tally.gd")
@@ -104,45 +106,46 @@ func _kpis(c: Career, inc: Dictionary, cost: Dictionary, ahead: Array) -> Contro
 	cash.name = "PageCash"
 	Tally.number(cash, "money:cash:%d" % c.get_instance_id(), c.cash, UI.money)   # S442: numbers that change roll to their new value
 	row.add_child(_tile("money", "CASH", cash, "Cash in the tin", cash_col))
-	var members := UI.label("%d / %d" % [c.members, GymSpend.member_cap(c)], 26, WoodKit.INK, "bold")
-	var cap := GymSpend.member_cap(c)
-	Tally.number(members, "money:members:%d" % c.get_instance_id(), c.members, func(n: int) -> String: return "%d / %d" % [n, cap])
-	var even := _break_even(c, inc, cost)
-	row.add_child(_tile("members", "MEMBERS", members, "Break-even: %d of your %d members cover what the other income leaves" % [even, c.members], WoodKit.INK))
-	var runway_col := UI.AMBER if weeks >= 0 and weeks < GymBills.WARN_RUNWAY_WEEKS else WoodKit.INK
-	var runway := UI.label(hand, 26, runway_col, "bold")
-	row.add_child(_tile("runway", "MONEY LASTS", runway, "Runway: weeks of costs the tin covers. Under 8 weeks warns. " + GymBills.line(c.cash, net, c.weeks_below), runway_col))
 	var net_col := UI.GREEN if net >= 0 else UI.RED
 	var net_lab := UI.label(UI.signed(net), 26, net_col, "bold")
 	Tally.number(net_lab, "money:net:%d" % c.get_instance_id(), net, UI.signed)
 	row.add_child(_tile("money", "NET A WEEK", net_lab, "Left over each week", net_col))
+	var runway_col := UI.AMBER if weeks >= 0 and weeks < GymBills.WARN_RUNWAY_WEEKS else WoodKit.INK
+	var runway := UI.label(hand, 26, runway_col, "bold")
+	row.add_child(_tile("runway", "MONEY LASTS", runway, "Runway: weeks of costs the tin covers. Under 8 weeks warns. " + GymBills.line(c.cash, net, c.weeks_below), runway_col))
 	var bills := UI.label(UI.money(int(split["amount"])), 26, UI.RED, "bold")
 	bills.name = "NextBills"
 	Tally.number(bills, "money:bills:%d" % c.get_instance_id(), int(split["amount"]), UI.money)
 	bills.set_meta("day", int(split["day"]))
 	bills.set_meta("amount", int(split["amount"]))
-	row.add_child(_tile("calendar", "BILLS %s" % Clock.fmt(int(split["day"])).to_upper(), bills, "Bills are paid every 28 days. Run up so far: %s." % UI.money(c.accrued), UI.RED))
+	row.add_child(_tile("calendar", "NEXT BILL %s" % Clock.fmt(int(split["day"])).to_upper(), bills, _bill_tip(c, split), UI.RED))
+	var members := UI.label("%d / %d" % [c.members, GymSpend.member_cap(c)], 26, WoodKit.INK, "bold")
+	var cap := GymSpend.member_cap(c)
+	Tally.number(members, "money:members:%d" % c.get_instance_id(), c.members, func(n: int) -> String: return "%d / %d" % [n, cap])
+	var even := _break_even(c, inc, cost)
+	row.add_child(_tile("members", "MEMBERS", members, "Break-even: %d of your %d members cover what the other income leaves" % [even, c.members], WoodKit.INK))
 	return row
 
 
 func _books_page(main: Node, c: Career, inc: Dictionary, cost: Dictionary, ahead: Array) -> Control:
-	var page := UI.hbox(10)
+	var page := UI.hbox(14)
 	page.name = "BooksPage"
 	page.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var left := UI.vbox(2)
+	var left := UI.vbox(4)
+	left.name = "InOutColumn"
 	left.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	left.size_flags_stretch_ratio = 1.05
+	left.size_flags_stretch_ratio = 0.8
+	left.add_child(UI.label("IN AND OUT, A WEEK", UI.SMALL, UI.GOLD, "bold"))
 	left.add_child(_chart(c, ahead))
 	left.add_child(_io(c, inc, cost))
-	left.add_child(_net(int(inc["total"]) - int(cost["total"])))
 	left.add_child(MoneyPanels.fighters(main, c))
 	page.add_child(left)
-	var right := UI.vbox(2)
+	var right := UI.vbox(4)
 	right.name = "BooksRight"
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var cap := UI.hbox(8)
-	cap.add_child(UI.label("Price tags, what fits now first", 16, UI.GOLD, "handbold"))
-	cap.add_child(UI.label("Red pin: buy. Green: ours. Grey: not usable now.", 12, UI.MUTED, "body"))
+	var cap := UI.hbox(10)
+	cap.add_child(UI.label("WHAT YOU CAN BUY NOW", UI.SMALL, UI.GOLD, "bold"))
+	cap.add_child(UI.label("net a week after it", UI.SMALL, UI.MUTED, "body"))
 	right.add_child(cap)
 	MoneyTags.draw(right, MoneyTags.rank(ClubSpend.items(main, c)))
 	right.add_child(MoneyPanels.chalk(main, c, inc))
@@ -158,8 +161,8 @@ func _chart(c: Career, ahead: Array) -> Control:
 	var from_w := int(past[0]["w"]) if not past.is_empty() else Clock.week_of(c.day)
 	var to_w := int(ahead[-1]["w"]) if not ahead.is_empty() else from_w
 	var cap := UI.hbox(8)
-	cap.add_child(UI.label("Cash, week %d to %d" % [from_w, to_w], 16, UI.GOLD, "handbold"))
-	cap.add_child(UI.label("dotted: if you do nothing", 12, UI.MUTED, "hand"))
+	cap.add_child(UI.label("Cash, week %d to %d" % [from_w, to_w], 16, UI.FG, "bold"))
+	cap.add_child(UI.label("dotted: if you do nothing", 16, UI.MUTED, "body"))
 	box.add_child(cap)
 	var chart := CashChart.new()
 	chart.name = "CashChart"
@@ -180,70 +183,75 @@ func _chart(c: Career, ahead: Array) -> Control:
 	return box
 
 
+## One list: the money in (green) then out (red), a name and a signed amount each, then the totals and the week.
 func _io(c: Career, inc: Dictionary, cost: Dictionary) -> Control:
-	var row := UI.hbox(10)
-	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var scale := 1   # the bars compare the lines with each other: the biggest line is the longest bar
-	for pair in _in_lines(inc) + _out_lines(cost):
-		scale = maxi(scale, int(pair[1]))
-	row.add_child(_col(c, "In, a week", "InWeek", "InLine", "InTotal", _in_lines(inc), int(inc["total"]), scale, true))
-	row.add_child(_col(c, "Out, a week", "OutWeek", "OutLine", "OutTotal", _out_lines(cost), int(cost["total"]), scale, false))
-	return row
-
-
-func _col(c: Career, title: String, box_name: String, line_name: String, total_name: String, lines: Array, total: int, scale: int, inn: bool) -> Control:
-	var box := UI.vbox(1)
-	box.name = box_name
+	var box := UI.vbox(0)
+	box.name = "InOut"
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	box.add_child(UI.label(title, 15, UI.GOLD, "handbold"))
-	var i := 0
-	for pair in lines:
-		var amount := int(pair[1])
-		var line := UI.hbox(6)
-		line.name = "%s%d" % [line_name, i]
-		line.set_meta("amount", amount)
-		if str(pair[0]) == "Members' dues":
-			_fill_dues(c, line, amount, scale)
-			box.add_child(line)
-			i += 1
-			continue
-		var name := UI.label(str(pair[0]), 13, UI.FG, "hand")
-		name.custom_minimum_size = Vector2(96, 0)
-		line.add_child(name)
-		var bar := ColorRect.new()
-		bar.custom_minimum_size = Vector2(maxf(4.0, 90.0 * float(amount) / float(scale)) if amount > 0 else 0.0, 6)
-		bar.color = UI.GREEN if inn else UI.RED
-		bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		line.add_child(bar)
-		var shown := UI.label(("+" if inn else "-") + UI.money(amount), 13, UI.GREEN if inn else UI.RED, "handbold")
-		shown.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		shown.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-		line.add_child(shown)
-		box.add_child(line)
-		i += 1
-	if not inn:
-		var mma := UI.hbox(6)
-		mma.name = "MmaLine"
-		mma.add_child(UI.label("MMA fees, travel", 13, UI.MUTED, "body"))
-		mma.add_child(UI.label("unpriced", 13, UI.MUTED, "body"))
-		mma.add_child(KitIcon.icon("warn", 16, Color("C9770F"), "Not built yet"))
-		box.add_child(mma)
-	var sum := UI.hbox(8)
-	var word := UI.label("in" if inn else "out", 16, UI.FG, "handbold")
-	word.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	sum.add_child(word)
-	var tot := UI.label(("+" if inn else "-") + UI.money(total), 16, UI.GREEN if inn else UI.RED, "handbold")
-	tot.name = total_name
-	tot.set_meta("amount", total)
-	sum.add_child(tot)
-	box.add_child(sum)
+	box.add_child(_col(c, "InWeek", "InLine", _in_lines(inc), true))
+	box.add_child(_col(c, "OutWeek", "OutLine", _out_lines(cost), false))
+	var sums := UI.hbox(8)
+	sums.add_child(UI.spacer())
+	sums.add_child(_sum("In", "InTotal", int(inc["total"]), true))
+	sums.add_child(_sum("   Out", "OutTotal", int(cost["total"]), false))
+	box.add_child(sums)
+	box.add_child(_net(int(inc["total"]) - int(cost["total"])))
 	return box
 
 
-func _fill_dues(c: Career, line: HBoxContainer, amount: int, scale: int) -> void:
-	line.add_child(DuesWire.mark(c.dues_band, 32))
+func _col(c: Career, box_name: String, line_name: String, lines: Array, inn: bool) -> Control:
+	var box := UI.vbox(0)
+	box.name = box_name
+	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var i := 0
+	for pair in lines:
+		var amount := int(pair[1])
+		if amount == 0 and str(pair[0]) != "Members' dues":
+			continue   # a line that is $0 this week says nothing: it comes back the week it costs or pays
+		var line := UI.hbox(6)
+		line.name = "%s%d" % [line_name, i]
+		line.set_meta("amount", amount)
+		i += 1
+		if str(pair[0]) == "Members' dues":
+			_fill_dues(c, line, amount)
+			box.add_child(_ruled(line))
+			continue
+		var what := UI.label(str(pair[0]), 16, UI.FG, "body")
+		what.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		line.add_child(what)
+		line.add_child(UI.label(("+" if inn else "-") + UI.money(amount), 16, UI.GREEN if inn else UI.RED, "bold"))
+		box.add_child(_ruled(line))
+	return box
+
+
+## A line with a faint rule under it, like a cash book.
+func _ruled(line: Control) -> Control:
+	var p := PanelContainer.new()
+	var sb := UI.box(Color(0, 0, 0, 0), Color(0, 0, 0, 0), 0, 0, 0, 1)
+	sb.border_width_bottom = 1
+	sb.border_color = Color(WoodKit.SOFT, 0.18)
+	p.add_theme_stylebox_override("panel", sb)
+	p.add_child(line)
+	return p
+
+
+func _sum(word: String, node_name: String, total: int, inn: bool) -> Control:
+	var row := UI.hbox(6)
+	row.add_child(UI.label(word, 16, UI.MUTED, "bold"))
+	var tot := UI.label(("+" if inn else "-") + UI.money(total), 16, UI.GREEN if inn else UI.RED, "bold")
+	tot.name = node_name
+	tot.set_meta("amount", total)
+	row.add_child(tot)
+	return row
+
+
+func _fill_dues(c: Career, line: HBoxContainer, amount: int) -> void:
+	var mark := DuesWire.mark(c.dues_band, 24)
+	mark.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	line.add_child(mark)
 	var words := UI.vbox(0)
-	var title := UI.label("Members' dues", 20, UI.FG, "bold")
+	words.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var title := UI.label("Members' dues", 16, UI.FG, "body")
 	title.name = "DuesTitle"
 	words.add_child(title)
 	var shift := DuesWire.month_shift(c)
@@ -256,14 +264,8 @@ func _fill_dues(c: Career, line: HBoxContainer, amount: int, scale: int) -> void
 		mem.name = "DuesMembers"
 		words.add_child(mem)
 	line.add_child(words)
-	var bar := ColorRect.new()
-	bar.custom_minimum_size = Vector2(maxf(4.0, 90.0 * float(amount) / float(scale)) if amount > 0 else 0.0, 6)
-	bar.color = UI.GREEN
-	bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	line.add_child(bar)
-	var shown := UI.label("+" + UI.money(amount), 20, UI.GREEN, "bold")
-	shown.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	shown.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	var shown := UI.label("+" + UI.money(amount), 16, UI.GREEN, "bold")
+	shown.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	line.add_child(shown)
 
 
@@ -295,18 +297,11 @@ func _out_lines(cost: Dictionary) -> Array:
 
 func _net(net: int) -> Control:
 	var row := UI.hbox(8)
-	row.add_child(UI.label("Each week the tin grows" if net >= 0 else "Each week the tin shrinks", 16, UI.FG, "hand"))
-	var ring := PanelContainer.new()
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color(0, 0, 0, 0)
-	sb.border_color = UI.GREEN if net >= 0 else UI.RED
-	sb.set_border_width_all(3)
-	sb.set_corner_radius_all(14)
-	sb.content_margin_left = 8
-	sb.content_margin_right = 8
-	ring.add_theme_stylebox_override("panel", sb)
-	ring.add_child(UI.label(UI.signed(net), 18, UI.GREEN if net >= 0 else UI.RED, "handbold"))
-	row.add_child(ring)
+	row.name = "WeekNet"
+	var word := UI.label("Each week", 18, UI.FG, "bold")
+	word.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_child(word)
+	row.add_child(UI.label(UI.signed(net), 22, UI.GREEN if net >= 0 else UI.RED, "bold"))
 	return row
 
 
@@ -332,6 +327,15 @@ func _tile(icon: String, caption: String, lab: Control, tip: String, col: Color)
 	lab.tooltip_text = tip
 	v.add_child(lab)
 	return p
+
+
+## What the next bill is made of (the old bills card, now the tile's hover).
+func _bill_tip(c: Career, split: Dictionary) -> String:
+	var tip := "Bills are paid every 28 days. Run up so far: %s." % UI.money(c.accrued)
+	for pair in [["Coach", "coach"], ["Rent", "rent"], ["Staff", "staff"], ["Power, kit, fees", "other"], ["Stipends", "stipends"]]:
+		if int(split.get(pair[1], 0)) > 0:
+			tip += "\n%s %s" % [pair[0], UI.money(int(split[pair[1]]))]
+	return tip
 
 
 func _break_even(c: Career, inc: Dictionary, cost: Dictionary) -> int:

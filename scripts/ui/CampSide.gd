@@ -40,7 +40,9 @@ static func make(f: Dictionary, focus: String, fc: Dictionary, before: Dictionar
 	for k in STATS:
 		var now := float(f["stats"].get(k, 0.0))
 		var end := float((fc["stats"] as Dictionary).get(k, now))
-		v.add_child(_stat(k, now, end if k == focus else -1.0, float(shown.get(k, now))))
+		# S443 one number a word: the Stamina row is the Stamina attribute's (the camp card's own line, CampCard.line_numbers)
+		var ln := CampCard.line_numbers(f, k, now, end, float(shown.get(k, now)), fc.get("attrs", {}), float(shown.get("line_" + k, -1.0)))
+		v.add_child(_stat(k, float(ln["now"]), float(ln["end"]) if k == focus else -1.0, float(ln["from"])))
 	var gap2 := Control.new()
 	gap2.custom_minimum_size = Vector2(0, 8)
 	v.add_child(gap2)

@@ -155,5 +155,5 @@ static func _engine(c: Career, f: Dictionary) -> HBoxContainer:
 	h.add_child(UI.label("in 4 weeks on this plan: %.1f" % then, UI.SMALL, UI.GREEN if then > now else UI.MUTED, "bold"))
 	Tips.card(h, func(): return {"title": "Bleep test", "rows": [["Average adult %s (21-30)" % ("man" if sex == "m" else "woman"), "%.1f" % norms.x, "", ""],
 		["A national team", "%.1f" % norms.y, "", ""], ["Level now", "%.1f" % now, "", ""], ["In 4 weeks", "%.1f" % then, "", ""]],
-		"means": "20 m shuttles to a beep that speeds up; the level reached. It follows Cardio, Stamina and Recovery together: change the week's roadwork and intervals and watch the 4-week number move."})
+		"means": "20 m shuttles to a beep that speeds up; the level reached. It follows Stamina and Recovery together: change the week's roadwork and intervals and watch the 4-week number move."})
 	return h

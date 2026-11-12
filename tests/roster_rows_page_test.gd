@@ -138,11 +138,11 @@ func _row_checks(c: Career, page: Control, id: String) -> void:
 	var groups: Dictionary = data["overall"]["groups"]
 	for g in groups:
 		var bar := row.find_child("Bar_" + str(g), true, false)
-		_check(bar != null and _text(bar, "Word") == str(g) and _text(bar, "Num") == str(int(round(float(groups[g])))),
-			"%s bar %s is named and reads %d" % [id, g, int(round(float(groups[g])))])
+		_check(bar != null and _text(bar, "Word") == str(g) and _text(bar, "Num") == str(int(floorf(float(groups[g])))),
+			"%s bar %s is named and reads %d" % [id, g, int(floorf(float(groups[g])))])   # S443: whole numbers as the fighter page prints them
 	var ring := row.find_child("OverallRing", true, false)
 	if str(f.get("sport", "")) != "bjj":
-		_check(ring != null and str(ring.get("big")) == str(int(round(Attrs.weighted(Attrs.of(f))))), "%s ring is the measured level" % id)
+		_check(ring != null and str(ring.get("big")) == str(int(floorf(Attrs.weighted(Attrs.of(f))))), "%s ring is the measured level, as the fighter page prints it" % id)
 	var tired := row.find_child("Col_tiredness", true, false)
 	_check(_text(tired, "Big") == str(int(round(FighterProfile.fatigue(f)))), "%s tiredness reads the fatigue (%s)" % [id, _text(tired, "Big")])
 	_check(_text(tired, "Word") == str(data["tiredness"]["word"]), "%s tiredness word" % id)

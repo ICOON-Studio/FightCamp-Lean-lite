@@ -121,9 +121,12 @@ func _head(f: Dictionary, m: Dictionary) -> void:
 	var joined := " ".join(PackedStringArray(tile.get("lines", [])))
 	print("    stand-down %s (head %.0f, damage %s); tile '%s' / '%s'" % [str(sd.get("band", "-")), float(sd.get("head", -1.0)),
 		str(sd.get("damage", "-")), str(tile.get("big", "")), str(tile.get("small", ""))])
-	_check(not sd.is_empty() and str(sd["band"]) != "fine", "4. the bout left a stand-down (%s)" % str(sd.get("band", "none")))
-	_check(str(tile.get("big", "")) != "Nothing lasting" and str(tile.get("big", "")).begins_with("Head")
-		and joined.contains("No sparring until"), "4. the damage tile says what the stand-down says (%s)" % joined)
+	# S443 (Q-S294-201, 0.8 a point): this distance bout now leaves a FINE head, as the eased rule means; the check is that the
+	# tile and the stand-down agree in either band (the hurt / critical words are checked on the made-up rows below).
+	_check(not sd.is_empty(), "4. the bout left a stand-down record (%s)" % str(sd.get("band", "none")))
+	var hurt: bool = str(sd.get("band", "fine")) != "fine"
+	var says_hurt: bool = str(tile.get("big", "")) != "Nothing lasting" and str(tile.get("big", "")).begins_with("Head") and joined.contains("No sparring until")
+	_check(hurt == says_hurt, "4. the damage tile says what the stand-down says (%s: %s)" % [str(sd.get("band", "-")), joined])
 
 
 ## The same rules on hand-made inputs, so each holds outside this one bout.

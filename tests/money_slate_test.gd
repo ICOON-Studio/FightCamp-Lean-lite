@@ -7,10 +7,10 @@ extends SceneTree
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const SlateWalk := preload("res://tests/slate_walk.gd")
 
-const PANELS := ["BooksPage", "CashbookPage", "InWeek", "OutWeek", "PriceTags", "FightersMoney", "ContractTalks", "CoachesPanel", "BillsPanel", "SponsorsPanel", "StaffPanel", "DuesBoard", "KitBoard", "CashChart", "PageCash", "BooksTab", "CashbookTab"]
+const PANELS := ["BooksPage", "CashbookPage", "InWeek", "OutWeek", "PriceTags", "FightersMoney", "ContractTalks", "SponsorsPanel", "StaffPanel", "DuesBoard", "KitBoard", "CashChart", "PageCash", "BooksTab", "CashbookTab"]
 const ACTIONS := ["Deal_ironclad", "MovePremises", "Dues_cheap", "Dues_standard", "Dues_premium", "EveningAdd", "Buy_mats", "Buy_strength", "Buy_fitkit", "Buy_youth", "Kit_low", "Kit_standard", "Kit_good", "GrantBid", "BookShow", "Repair_bags"]
-const TILES := ["CASH", "MEMBERS", "MONEY LASTS", "NET A WEEK", "BILLS"]
-const GHOSTS := ["FightersMoney", "ContractTalks", "BillsPanel", "DuesBoard", "KitBoard"]
+const TILES := ["CASH", "NET A WEEK", "MONEY LASTS", "NEXT BILL", "MEMBERS"]   # S443 proposal B order
+const GHOSTS := ["FightersMoney", "ContractTalks", "SponsorsPanel", "DuesBoard", "KitBoard"]
 
 var failures := 0
 var main: Node

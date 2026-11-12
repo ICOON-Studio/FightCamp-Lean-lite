@@ -181,19 +181,23 @@ func _test_best_of(c: Career) -> void:
 	var f0: Dictionary = c.fighters[0]
 	var r0: Dictionary = RosterRow.row(c, str(f0["id"]))
 	var a0: Dictionary = A.of(f0)
-	_check(absf(float(r0["overall"]["groups"]["Guard"]) - (float(a0["defence"]) + float(a0["durability"])) / 2.0) < 0.01, "Guard is the mean of Defence and Durability")
-	_check(absf(float(r0["overall"]["groups"]["Cardio"]) - (float(a0["stamina"]) + float(a0["recovery"])) / 2.0) < 0.01, "Cardio is the mean of Stamina and Recovery")
-	_check(int(r0["overall"]["ring"]) == int(round(A.weighted(a0))), "the ring is the measured level")
+	# S443 one set of numbers: the fighter page's three groups and its overall (floor of the measured level), the same words.
+	var mean := func(keys: Array) -> float: return keys.reduce(func(t, k): return t + float(a0[k]), 0.0) / float(keys.size())
+	_check((r0["overall"]["groups"] as Dictionary).keys() == ["Body", "Boxing skills", "Mind"], "the groups are Body, Boxing skills, Mind: %s" % str((r0["overall"]["groups"] as Dictionary).keys()))
+	_check(absf(float(r0["overall"]["groups"]["Body"]) - mean.call(["strength", "explosiveness", "speed", "stamina", "recovery", "flexibility", "durability"])) < 0.01, "Body is the mean of the seven body attributes")
+	_check(absf(float(r0["overall"]["groups"]["Boxing skills"]) - mean.call(["accuracy", "timing", "defence", "footwork", "inside"])) < 0.01, "Boxing skills is the mean of the five skills")
+	_check(absf(float(r0["overall"]["groups"]["Mind"]) - mean.call(["fight_iq", "composure", "heart"])) < 0.01, "Mind is the mean of Fight IQ, Composure and Heart")
+	_check(int(r0["overall"]["ring"]) == int(floorf(A.weighted(a0))) and int(r0["overall"]["ring"]) == int(floorf(A.overall(a0))), "the ring is the measured level, as the fighter page prints it")
 	_check(str(r0["fighter"]["stance"]) == str(f0.get("stance", "")), "stance is the fighter's own")
 	if c.fighters.size() >= 2:
 		var top := ""
 		var best := -1.0
 		for f in c.fighters:
-			var v: float = (float(A.of(f)["speed"]) + float(A.of(f)["footwork"]) + float(A.of(f)["flexibility"])) / 3.0
+			var v: float = (float(A.of(f)["accuracy"]) + float(A.of(f)["timing"]) + float(A.of(f)["defence"]) + float(A.of(f)["footwork"]) + float(A.of(f)["inside"])) / 5.0
 			if v > best:
 				best = v
 				top = str(f["id"])
-		_check(str(bo.get("Legs", "")) == top, "best_of names the roster's best Legs")
+		_check(str(bo.get("Boxing skills", "")) == top, "best_of names the roster's best Boxing skills")
 	else:
 		_check(bo.is_empty(), "best_of is empty with one boxer")
 

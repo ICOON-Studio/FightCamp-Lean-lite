@@ -8,7 +8,7 @@ const NAMES := {"lead_shoulder": "jab shoulder", "rear_shoulder": "power shoulde
 	"rear_arm": "power arm", "core": "body", "legs": "legs"}
 const FOCUS := {"lead_shoulder": "technique", "lead_arm": "technique", "rear_shoulder": "power", "rear_arm": "power",
 	"core": "conditioning", "legs": "conditioning"}
-const FOCUS_LABEL := {"technique": "Technique", "power": "Power", "conditioning": "Conditioning"}
+const FOCUS_LABEL := {"technique": "Technique", "power": "Power", "conditioning": "Stamina"}   # S443: Data.LABEL's words
 
 
 ## The first part to reach WENT_AT: {"part": key, "round": 1-based round}. Within one round, the part with the highest
