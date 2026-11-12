@@ -346,6 +346,9 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 		"pace": pace, "aim": aim, "won": s["won"], "margin": s["margin"], "landed": s["landed"], "verdict": Exchanges.verdict(call, sit, bool(s["won"]), names),
 		"habit": habit, "fix": fix, "habit_line": HabitFix.line(habit_name(habit), names, habit == fix, bool(s["won"])) if habit != "" else ""}
 	rec["at"] = at
+	# S442 BUBBLES: the shout she did not take in (CornerTrust.lands false), and the round's shouts before this one (the heard mark).
+	rec["said"] = shout if shout != "" and not shouted and Exchanges.CALLS.has(shout) else ""
+	rec["shouts_before"] = int(lv["shouts"]) - (1 if shouted else 0)
 	rec["place"] = int(duel["place"])
 	rec["duel_edge"] = float(duel["edge"])
 	rec["a_best"] = str(duel["a_best"])

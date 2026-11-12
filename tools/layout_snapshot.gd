@@ -117,6 +117,10 @@ func _initialize() -> void:
 	main.act("fightstep", "corner:long")
 	await _shot("20_round3")
 	main.act("fightstep", "end")
+	await _shot("21a_headline")   # S442 LOOP: the headline card first; See the fight opens the result page
+	var see := main.find_child("HeadlineGo", true, false) as Button
+	if see != null:
+		see.emit_signal("pressed")
 	await _shot("21_result")
 	main.act("afterfight")
 	main.act("goaltalk", "lucy")

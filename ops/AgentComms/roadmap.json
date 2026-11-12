@@ -6,11 +6,11 @@
   "id": "S441",
   "owner": "claude",
   "updated": "2026-11-12",
-  "summary": "S442: collected R26SWAP1 (PR 230, line change rules), R50TRAIT1 (PR 231, trait lines) and R17PHASE1 (rounds on lines), each with fixes at collect, none wired. ASK FOR A FIGHT short map written (ops/research/ASKFIGHT_MAP_S441.md), with Kalli and John as free critics. Result page: round 2 failed its logic check (a hand-written bout that cannot happen) and two critics at 6; round 3 is drawn from a real bout (tools/result_dump.gd seed 44, docs/mockups/s442/result/), first critic 6: merge cause and fix, one primary action, colour discipline, legends. Seven code defects found by the dump (TASK_RESULTDEFECTS1). A UX expert audits menus and HUD on his ask (nine-rule recipe, hover labels, pulsing critical button). FIRELEVEL2 and ADAPT1 re-measured (ops/research/FIRELEVEL2_ADAPT1_RESULT_S442.md): fire level on with a balance re-measure; the adapting opponent stays off. His C316 PA mix fixed; C314/C315 (jabs still no power) go to POWER1's collect. He rejected the two recommended mocap packs.",
+  "summary": "S442: collected R26SWAP1 (PR 230, line change rules), R50TRAIT1 (PR 231, trait lines) and R17PHASE1 (rounds on lines), each with fixes at collect, none wired. ASK FOR A FIGHT short map written (ops/research/ASKFIGHT_MAP_S441.md), with Kalli and John as free critics. Result page: round 2 failed its logic check (a hand-written bout that cannot happen) and two critics at 6; round 3 is drawn from a real bout (tools/result_dump.gd seed 44, docs/mockups/s442/result/), first critic 6: merge cause and fix, one primary action, colour discipline, legends. Seven code defects found by the dump (TASK_RESULTDEFECTS1). A UX expert audits menus and HUD on his ask (nine-rule recipe, hover labels, pulsing critical button). FIRELEVEL2 and ADAPT1 re-measured (ops/research/FIRELEVEL2_ADAPT1_RESULT_S442.md): fire level on with a balance re-measure; the adapting opponent stays off. His C316 PA mix fixed; C314/C315 (jabs still no power) go to POWER1's collect. He rejected the two recommended mocap packs. LATER: his 'All three' built and exported (corner cards, fight bubbles, headline card); UX audit committed; DEFECTS1 merged; 4 of 7 result defects fixed; result page loop stopped at 6 (his call, Q-199); Ask for a fight map v2, probe under blind review.",
   "last_working_commit": "f51b2f57",
   "verified_playable": "Builds/FightCamp.exe S441 export (Fighters page as painted rows); not played by him",
   "incomplete_blocked": "Result page round 2 needs its logic check and two fresh critics (after 16:00), sent to him at 8+ only. ASK FOR A FIGHT short map not started. POWER1 steps 3-6 run in the lead S439 session. DEFECTS1 and POWER1 step 1 are pushed, not merged.",
-  "next_action": "S443: 0) get_usage. 1) Result page round 4 from the round-3 critics (RESULT_R3_CRITIC_A/B_S442.md): merge cause + fix into one row, one primary action, colours, legends; two fresh critics; to him at 8+. 2) Collect the UX audit (ops/research/UX_AUDIT_S442.md): review its diff, tests, then commit; his pick on its drawn proposals. 3) Collect RESULTDEFECTS1 (ops/research/RESULTDEFECTS1_RESULT.md) and apply the UI lines it lists. 4) Merge DEFECTS1 (claude/defects1, main merged in, 10 tests green; blocks look the same on main). 5) ASK FOR A FIGHT: read ASKFIGHT_CRITIC_S442_KALLI/JOHN.md, fix the map, then the ASKPROBE1 brief. 6) Collect POWER1 against his C314/C315 words. 7) Fire level on + first-season re-measure; wire LineSwap, TraitLine, PlanPhase, Towel where their screens exist.",
+  "next_action": "S443: 0) get_usage. 1) Collect PR 235 ASKPROBE1, 234 R73DEAL1, 236 R19WORTH1, 237 MATPRICE1 from the blind reviews (<TASK>_REVIEW.md in each worktree): never on the seat's word. 2) His board answers Q-S294-195 to 199 and the roster-bars rule; build what he picks (result page shape; UX proposals). 3) POWER1 collect against C314/C315. 4) Wire TraitLine, PlanPhase, LineGrade, Towel to their screens. 5) Fire level on with a first-season re-measure. 6) Bring him the no-sparring rule's numbers (21 days after 148 of 200 bouts).",
   "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after.",
   "awaiting_operator": [
    "Between-rounds lines remade in the shout voice: keep or drop (review board)",
@@ -1806,7 +1806,7 @@
   {
    "id": "S442",
    "date": "2026-11-12",
-   "summary": "Three Qwen rule modules collected with fixes (line change, trait lines, rounds on lines); Ask for a fight short map; result page rebuilt from a real bout after the logic check failed round 2 (critic 6, round 4 next); UX expert audit of menus and HUD started on his ask; PA mix fixed; two measurements re-run.",
+   "summary": "Three Qwen rule modules collected with fixes (line change, trait lines, rounds on lines); Ask for a fight short map; result page rebuilt from a real bout after the logic check failed round 2 (critic 6, round 4 next); UX expert audit of menus and HUD started on his ask; PA mix fixed; two measurements re-run. Later: his three drawings built and exported; UX audit committed; DEFECTS1 merged.",
    "commit": "see git log"
   }
  ],
@@ -4726,7 +4726,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-12",
+  "updated": "2026-11-12 16:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4876,17 +4876,39 @@
   },
   "working_now": [
    {
-    "title": "TASK R50TRAIT1 - QWEN (qwen3-coder) - every trait's lines: what it does now, the next line, and an upside as well as a downside (one pure module + its test)",
+    "title": "TASK R24GRADE1 - ARENA - how THIS boxer does each plan line (Good / OK / Poor): one pure module + its test",
     "who": "qwen",
-    "started": "2026-11-12T11:41",
-    "run": "R50TRAIT1",
+    "started": "2026-11-12T12:30",
+    "run": "R24GRADE1",
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "TASK R17PHASE1 - GOOSE (cloud) - ROUNDS ON LINES: early, middle and late lines, and the last round split IF AHEAD / IF BEHIND (one pure module + its test)",
+    "title": "TASK R73DEAL1 - ARENA - the club week's coach hours: pad places, coached mornings, Coach's evenings as pads or a class, and who goes short (one pure module + it",
     "who": "qwen",
-    "started": "2026-11-12T12:11",
-    "run": "R17PHASE1"
+    "started": "2026-11-12T13:11",
+    "run": "R73DEAL1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK ASKPROBE1 - QWEN (qwen3-coder) - Ask for a fight: two pure rule modules, their tests, and the probe that decides the prices",
+    "who": "qwen",
+    "started": "2026-11-12T13:31",
+    "run": "ASKPROBE1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK R19WORTH1 - ARENA - what the next film buys: a hidden tell shown as a RANGE of worth, exact once found (one pure module + its test)",
+    "who": "qwen",
+    "started": "2026-11-12T14:42",
+    "run": "R19WORTH1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK MATPRICE1 - QWEN (qwen3-coder) - what each line of the no-gi athlete's plan costs and is worth: one pure module + its test",
+    "who": "qwen",
+    "started": "2026-11-12T15:42",
+    "run": "MATPRICE1",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
@@ -4894,18 +4916,6 @@
     "id": "RESULTLOOK1",
     "who": "claude",
     "title": "Fight result page round 4: cause and fix in one row, one main action (round 3 from a real bout scored 6)",
-    "after": ""
-   },
-   {
-    "id": "UXAUDIT1",
-    "who": "claude",
-    "title": "UX expert audit of menus and the fight HUD: fixes, pulsing key button, hover labels as drawings for his pick",
-    "after": ""
-   },
-   {
-    "id": "RESULTDEFECTS1",
-    "who": "claude",
-    "title": "Seven places the game says two things about one fight (energy, head damage, plan advice): fix each",
     "after": ""
    },
    {
@@ -5310,6 +5320,40 @@
   },
   "done_recently": [
    {
+    "id": "LOOP3",
+    "who": "claude",
+    "title": "Corner cards, bubbles over the fight and a headline card: built from his three approved drawings",
+    "after": ""
+   },
+   {
+    "id": "UXAUDIT1",
+    "who": "claude",
+    "title": "UX expert pass: 17 fixes, a pulsing key button, money that rolls",
+    "after": ""
+   },
+   {
+    "id": "RESULTDEFECTS1",
+    "who": "claude",
+    "title": "One fight, one answer: four of seven fixed",
+    "after": ""
+   },
+   {
+    "id": "DEFECTS1",
+    "who": "claude",
+    "title": "One table of level words for every screen; the corner says what the face shows",
+    "after": ""
+   },
+   {
+    "title": "TASK R17PHASE1 - GOOSE (cloud) - ROUNDS ON LINES: early, middle and late lines, and the last round split IF AHEAD / IF BEHIND (one pure module + its test)",
+    "who": "qwen",
+    "when": "2026-11-12"
+   },
+   {
+    "title": "TASK R50TRAIT1 - QWEN (qwen3-coder) - every trait's lines: what it does now, the next line, and an upside as well as a downside (one pure module + its test)",
+    "who": "qwen",
+    "when": "2026-11-12"
+   },
+   {
     "id": "R26SWAP1",
     "who": "qwen",
     "title": "Corner minute line change: the line that lost most and two better lines (rules, not wired)",
@@ -5344,46 +5388,6 @@
     "who": "claude",
     "title": "Two measurements: a move level is worth 2-3 wins in 100; the adapting opponent stays off",
     "after": ""
-   },
-   {
-    "title": "TASK R26SWAP1 - QWEN (qwen3-coder) - the corner minute's line change: the line that lost most, and two rated lines to swap in (one pure module + its test)",
-    "who": "qwen",
-    "when": "2026-11-12"
-   },
-   {
-    "title": "TASK R58LOYAL1 - GOOSE (cloud) - each fighter's LOYALTY made live: bands, dated reasons and a forecast (one pure module + its test)",
-    "who": "antigravity",
-    "when": "2026-11-12"
-   },
-   {
-    "title": "TASK R26TOWEL1 - QWEN (qwen3-coder) - THE TOWEL: when the card comes in the corner minute, the risk it shows, and what each answer costs (one pure module + its ",
-    "who": "qwen",
-    "when": "2026-11-12"
-   },
-   {
-    "title": "TASK PAGES2B - CURSOR (Auto) - the Fighters page as painted: one wide row a fighter",
-    "who": "cursor",
-    "when": "2026-11-12"
-   },
-   {
-    "title": "TASK CLIPFIX4 - QWEN (qwen3-coder) - the punch ruler and the three retimed jabs: every defect of the two reviews",
-    "who": "qwen",
-    "when": "2026-11-12"
-   },
-   {
-    "title": "TASK CLIPFIX3 - QWEN (qwen3-coder) - the punch ruler made honest, then the three hanging jabs retimed",
-    "who": "qwen",
-    "when": "2026-11-12"
-   },
-   {
-    "title": "TASK CLIPFIX2 - QWEN (qwen3-coder) - the fight's punches that read wrong get a form ruler, then a fix or a cut",
-    "who": "qwen",
-    "when": "2026-11-12"
-   },
-   {
-    "title": "TASK CALLSPREAD1 - QWEN (qwen3-coder) - a corner call's strength rises point by point from 56 to 62, not in one jump at 62 (one function + its test)",
-    "who": "qwen",
-    "when": "2026-11-12"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5576,6 +5580,30 @@
     {
      "text": "Ask for a fight: short map",
      "who": "claude"
+    },
+    {
+     "text": "Corner cards built",
+     "who": "claude"
+    },
+    {
+     "text": "Fight bubbles built",
+     "who": "claude"
+    },
+    {
+     "text": "Headline card built",
+     "who": "claude"
+    },
+    {
+     "text": "UX audit: 17 fixes in",
+     "who": "claude"
+    },
+    {
+     "text": "4 of 7 result defects fixed",
+     "who": "claude"
+    },
+    {
+     "text": "DEFECTS1 merged",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5596,8 +5624,12 @@
      "who": "claude"
     },
     {
-     "text": "Ask for a fight: free critics",
-     "who": "claude"
+     "text": "Ask for a fight: probe (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "Your picks: UX, result page shape",
+     "who": "operator"
     }
    ],
    "next": [
@@ -5664,6 +5696,6 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "f51b2f57",
- "next_action": "S443: 0) get_usage. 1) Result page round 4 from the round-3 critics (RESULT_R3_CRITIC_A/B_S442.md): merge cause + fix into one row, one primary action, colours, legends; two fresh critics; to him at 8+. 2) Collect the UX audit (ops/research/UX_AUDIT_S442.md): review its diff, tests, then commit; his pick on its drawn proposals. 3) Collect RESULTDEFECTS1 (ops/research/RESULTDEFECTS1_RESULT.md) and apply the UI lines it lists. 4) Merge DEFECTS1 (claude/defects1, main merged in, 10 tests green; blocks look the same on main). 5) ASK FOR A FIGHT: read ASKFIGHT_CRITIC_S442_KALLI/JOHN.md, fix the map, then the ASKPROBE1 brief. 6) Collect POWER1 against his C314/C315 words. 7) Fire level on + first-season re-measure; wire LineSwap, TraitLine, PlanPhase, Towel where their screens exist.",
+ "next_action": "S443: 0) get_usage. 1) Collect PR 235 ASKPROBE1, 234 R73DEAL1, 236 R19WORTH1, 237 MATPRICE1 from the blind reviews (<TASK>_REVIEW.md in each worktree): never on the seat's word. 2) His board answers Q-S294-195 to 199 and the roster-bars rule; build what he picks (result page shape; UX proposals). 3) POWER1 collect against C314/C315. 4) Wire TraitLine, PlanPhase, LineGrade, Towel to their screens. 5) Fire level on with a first-season re-measure. 6) Bring him the no-sparring rule's numbers (21 days after 148 of 200 bouts).",
  "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after."
 }

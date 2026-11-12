@@ -17,6 +17,7 @@ const InsideExits := preload("res://scripts/rules/InsideExits.gd")
 const CounterCut := preload("res://scripts/rules/CounterCut.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
+const Bubbles := preload("res://scripts/fight3d/ReactionBubbles.gd")   # S442 BUBBLES: tags the three bubble beats
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 ## RoundScript.margin reads |mine - theirs| on the round's scale: these land each band in RoundScript's own band.
 const BAND_MINE := {"close": 3.0, "clear": 10.0, "dominant": 20.0}
@@ -91,21 +92,23 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 		out.insert(0, {"t": at + 0.4, "who": "a", "move": "say", "result": "none", "caption": "Corner: \"NOW!\" - " + how})
 	_read(out, x.get("read", {}), at, ctx["names"])
 	if bool(x.get("shout", false)):
-		out.insert(0, {"t": at + 0.4, "who": "a", "move": "say", "result": "none", "shout_call": str(x["call"]),
-			"caption": "Corner: \"%s\"" % Exchanges.CALLS[str(x["call"])]["shout"]})
+		out.insert(0, Bubbles.mark({"t": at + 0.4, "who": "a", "move": "say", "result": "none", "shout_call": str(x["call"]),
+			"caption": "Corner: \"%s\"" % Exchanges.CALLS[str(x["call"])]["shout"]}, "shout", x, ctx))
+	elif str(x.get("said", "")) != "":   # S442 BUBBLES: a shout she did not take in shows as Not heard (no caption, as before)
+		out.insert(0, Bubbles.mark({"t": at + 0.4, "who": "a", "move": "say", "result": "none", "caption": ""}, "shout", x, ctx))
 	# S339 the coach's arrow she throws in this 30 s, named (the broadcast's "which arrow she just used").
 	if bool(x.get("planned", false)):
-		out.append({"t": at + 1.6, "who": "a", "move": "say", "result": "none",
-			"caption": "Plan: %s" % str(StrikeMap.move(str(x["arrow"])).get("name", x["arrow"]))})
+		out.append(Bubbles.mark({"t": at + 1.6, "who": "a", "move": "say", "result": "none",
+			"caption": "Plan: %s" % str(StrikeMap.move(str(x["arrow"])).get("name", x["arrow"]))}, "plan", x, ctx))
 		# S375 SCOUTPLAN1: the same line at the exchange's end - won or lost, and its tally over the bout so far.
 		if plan_tally_caption(x) != "":
-			out.append({"t": at + Exchanges.EX_SECONDS - 2.5, "who": "a", "move": "say", "result": "none", "caption": plan_tally_caption(x)})
+			out.append(Bubbles.mark({"t": at + Exchanges.EX_SECONDS - 2.5, "who": "a", "move": "say", "result": "none", "caption": plan_tally_caption(x)}, "plan_end", x, ctx))
 	# S309: a habit punished (or the corner's fix holding) gets its own caption before the verdict.
 	if str(x.get("habit_line", "")) != "":
 		out.append({"t": at + Exchanges.EX_SECONDS - 6.0, "who": "a", "move": "say", "result": "none", "caption": str(x["habit_line"])})
 	elif str(x.get("perk_line", "")) != "":   # S355 Counter sense: the free counter gets its caption
 		out.append({"t": at + Exchanges.EX_SECONDS - 6.0, "who": "a", "move": "say", "result": "none", "caption": str(x["perk_line"])})
-	out.append({"t": at + Exchanges.EX_SECONDS - VERDICT_LEAD_S, "who": "a", "move": "say", "result": "none", "caption": str(x["verdict"])})
+	out.append(Bubbles.mark({"t": at + Exchanges.EX_SECONDS - VERDICT_LEAD_S, "who": "a", "move": "say", "result": "none", "caption": str(x["verdict"])}, "coach", x, ctx))
 	out.sort_custom(func(a, b): return float(a["t"]) < float(b["t"]))
 	return out
 

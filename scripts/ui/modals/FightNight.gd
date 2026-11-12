@@ -26,6 +26,7 @@ const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const ResultMarks := preload("res://scripts/ui/ResultMarks.gd")
 const ShoutBar := preload("res://scripts/fight3d/ShoutBar.gd")
 const FightVoice := preload("res://scripts/audio/FightVoice.gd")
+const HeadlineCard := preload("res://scripts/ui/modals/HeadlineCard.gd")
 
 
 func build(main: Node, m: Dictionary) -> void:
@@ -48,6 +49,10 @@ func build(main: Node, m: Dictionary) -> void:
 		"result":
 			remove_child(v)
 			v.queue_free()
+			if HeadlineCard.wanted(m):   # S442 LOOP: the headline first, once, for the bout just booked; See the fight -> here
+				add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+				add_child(HeadlineCard.make(main, m))
+				return
 			_result(main, Broadcast.frame(self), m)
 
 

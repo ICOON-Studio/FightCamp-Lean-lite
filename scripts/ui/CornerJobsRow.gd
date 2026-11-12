@@ -21,6 +21,7 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
+const CornerSwapCards := preload("res://scripts/ui/CornerSwapCards.gd")
 
 
 ## What the corner can do after round r (the closed round): her state at the bell and her combinations.
@@ -39,6 +40,7 @@ static func menu(f: Dictionary, r: Dictionary) -> Dictionary:
 	return {"talks": talks, "recover": CornerJobs.recover_options(energy, body, hurt), "energy": energy, "body": body, "hurt": hurt,
 		"arrows": arrows, "tally": r.get("arrows", {}), "limit": limit,
 		"changes": PlanFight.corner_options(arrows, f.get("moves", {}), limit, PlanFight.fought_cards(exs)),
+		"swap": CornerSwapCards.row(f, exs, arrows, limit),   # S442 LOOP: the line that lost most and two to swap in ({} = none lost)
 		"setups": CornerJobs.setups(f.get("combos", {}), Combos.LEARN_AT), "combos": f.get("combos", {}),
 		"gaps": CornerJobs.gaps(Exchanges.STYLE_MODES.get(str(opp.get("style", "")), Exchanges.STYLE_MODES["Boxer-puncher"]))}
 
@@ -143,7 +145,10 @@ static func _plan_row(mn: Dictionary, sel: Dictionary, names: Array, on_change: 
 	p_row.add_child(_tag("PLAN", UI.GREEN))
 	var t: Dictionary = mn.get("tally", {})
 	var arrows: Array = mn.get("arrows", [])
-	if _tv:
+	var swap := not (mn.get("swap", {}) as Dictionary).is_empty()
+	if swap:
+		pass   # S442 LOOP: the cards' strip says what lost; the dropdown below is "Other changes"
+	elif _tv:
 		pass   # S350 "too much text": on the 3D card the dropdown alone; the tally is its hover
 	elif arrows.is_empty():
 		p_row.add_child(_m("No plan of yours: %s runs the coach's lines or improvises. Add one arrow:" % names[0], UI.SMALL))
@@ -152,7 +157,7 @@ static func _plan_row(mn: Dictionary, sel: Dictionary, names: Array, on_change: 
 	var changes: Array = mn.get("changes", [])
 	var ob := OptionButton.new()
 	ob.name = "PlanChange"
-	ob.add_item("Keep the plan" if not arrows.is_empty() else "No arrow")
+	ob.add_item("Other changes" if swap else ("Keep the plan" if not arrows.is_empty() else "No arrow"))
 	var pick := 0
 	var cur: Dictionary = sel.get("arrow", {})
 	for k in changes.size():
@@ -160,21 +165,35 @@ static func _plan_row(mn: Dictionary, sel: Dictionary, names: Array, on_change: 
 		ob.add_item(change_words(o))
 		if not cur.is_empty() and int(cur["i"]) == int(o["i"]) and str(cur["move"]) == str(o["move"]):
 			pick = k + 1
+	if swap and (mn["swap"]["options"] as Array).any(func(o): return not cur.is_empty() and int(o["i"]) == int(cur["i"]) and str(o["move"]) == str(cur["move"])):
+		pick = 0   # a card holds the pick; the list stays on "Other changes"
 	ob.select(pick)
 	ob.disabled = changes.is_empty()
 	ob.item_selected.connect(func(k):
 		sel["arrow"] = {} if k == 0 else {"i": int(changes[k - 1]["i"]), "move": str(changes[k - 1]["move"])}
 		on_change.call())
-	p_row.add_child(ob)
+	if swap:   # the PLAN tag's column also carries the ring strip's caption, level with the strip
+		var col := UI.vbox(0)
+		var tag := p_row.get_child(0)
+		p_row.remove_child(tag)
+		col.add_child(tag)
+		var gap := Control.new()
+		gap.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		col.add_child(gap)
+		col.add_child(CornerSwapCards.caption(_mute))
+		p_row.add_child(col)
+		p_row.add_child(CornerSwapCards.build(mn, sel, on_change, ob, _ink, _mute))
+	else:
+		p_row.add_child(ob)
 	box.add_child(p_row)
 	var per := PackedStringArray()
 	for id in (t.get("moves", {}) as Dictionary).keys():
 		var wu: Array = t["moves"][id]
 		per.append("%s %d/%d" % [str(StrikeMap.move(str(id)).get("name", id)), int(wu[0]), int(wu[1])])
-	if _tv:
+	if _tv and not swap:
 		ob.tooltip_text = "%d of %d arrows worked%s" % [int(t.get("worked", 0)), int(t.get("used", 0)),
 			(": " + ",  ".join(per)) if not per.is_empty() else ""]
-	elif not per.is_empty():
+	elif not per.is_empty() and not swap:
 		box.add_child(_m("    " + ",  ".join(per), UI.TINY))
 	return box
 

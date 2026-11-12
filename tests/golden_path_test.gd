@@ -233,6 +233,9 @@ func _week_two(c: Career) -> void:
 	_check(told.size() >= 9 and told.all(func(l): return not str(l).contains("{")), "three rounds in words, every name filled: %s" % str(told[4]))
 	_check(FileAccess.file_exists("res://assets/data/fight_words.json"), "the fight-words bank is in the game")
 	_press(_modal_button("Scorecards"), "To the scorecards")
+	# S442 LOOP: the headline card comes first, once; See the fight opens the result page.
+	_check(_modal_button("BackHome") == null, "the headline card before the result page")
+	_press(_modal_button("HeadlineGo"), "the headline card: See the fight")
 	_check(main.modal.get("step", "") == "result" and (main.modal.get("cards", []) as Array).size() == 3, "the result shows three scorecards")
 	var win := bool(main.modal.get("win", false))
 	print("  bout: %s, rounds %s, why %s" % ["WIN" if win else "LOSS",
@@ -543,6 +546,7 @@ func _week_four(c: Career) -> void:
 	var stopped_in := BoutNight.stopped(main.modal)
 	_check(int(main.modal.get("round", 0)) == 4 or stopped_in != "", "the debut went four rounds or was stopped (round %d, %s)" % [int(main.modal.get("round", 0)), stopped_in if stopped_in != "" else "distance"])
 	_press(_modal_button("Scorecards"), "To the scorecards")
+	_press(_modal_button("HeadlineGo"), "the debut's headline card: See the fight")
 	print("  pro debut: %s, %s" % [main.modal.get("outcome", "?"), ", ".join(main.modal.get("cards", []))])
 	_check(int(lucy.get("pro_w", 0)) + int(lucy.get("pro_l", 0)) + int(lucy.get("pro_d", 0)) == 1 and int(lucy["w"]) == 9,
 		"a pro record of one bout; the amateur record stays 9-%d" % lucy["l"])

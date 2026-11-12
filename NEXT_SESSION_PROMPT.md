@@ -38,25 +38,45 @@ local. He said "Carry on now", so S442 ran helpers on Opus (model "opus" on ever
   to 58 %: older numbers for that matchup are void.
 - Ziva's editor restarted (worktree on main; its old import noise is on local branch wip/ziva-s442). Miro P0 redrawn.
 
-## IN FLIGHT WHEN THIS WAS WRITTEN (check each before trusting it)
-- UX expert (helper): audit of menus + fight HUD, fixes that are not redesigns (uncommitted edits in scripts/ui and the
-  listed overlay scripts), Pulse helper + test, proposals drawn under docs/mockups/s442/ux/. Report:
-  ops/research/UX_AUDIT_S442.md. REVIEW ITS DIFF AND TESTS BEFORE COMMITTING; layout changes are his pick.
-- Defects fixer (helper): ops/research/TASK_RESULTDEFECTS1.md -> RESULTDEFECTS1_RESULT.md (seven places the game says two
-  things about one fight). Uncommitted edits in scripts/rules, scripts/state, tests. It lists UI lines it could not touch.
-- DEFECTS1: branch claude/defects1 has main merged in and pushed; its 10 touched tests green; NOT merged to main (it
-  touches CornerOverlay and four scripts/ui files the UX expert may also touch: merge after the UX work is committed).
-  Block stills on the board; the same look is on main, so the odd block is its own item (BLOCKLOOK1).
-- Qwen: R24GRADE1, R73DEAL1, R19WORTH1, MATPRICE1 queued behind the dispatcher. Lead S439 session: POWER1 steps 3-6.
+## LATER IN S442 (all on main, pushed)
+- His "Yes, draw them" then "All three": BUILT and in the build of 16:18 (Builds/FightCamp.exe, WHAT_TO_TRY current, the
+  exe smoke-started headless, NOT played on screen): corner cards (scripts/ui/CornerSwapCards.gd, SwapLink.gd, from
+  LineSwap), reaction bubbles over the fight (scripts/fight3d/ReactionBubbles.gd), the headline card before the result page
+  (scripts/rules/Headline.gd, scripts/ui/modals/HeadlineCard.gd). Notes: ops/research/LOOP_BUILD_UI_S442.md,
+  LOOP_BUILD_BUBBLES_S442.md, LOOP_DRAWINGS_S442.md. Real stills on the review board.
+- UX audit committed (ops/research/UX_AUDIT_S442.md): 17 fixes, Pulse.gd (one breathing button a screen), Tally.gd (money
+  rolls). His opinion asks answered in chat: animated numbers (yes, short, skippable, particles only for milestones), the
+  "visually engaging" table (yes, visual must carry the decision), the "Living Gym" text (take fighter states on the hub,
+  the BOUT SIGNED stamp, a scale needle, a locker-room beat; refuse the gym-as-menu, stats without text, shake on every drop).
+- RESULTDEFECTS1: 4 of 7 fixed (+ the damage tile's head); 3 measured, not changed (ops/research/RESULTDEFECTS1_RESULT.md).
+  FOR HIM, WITH NUMBERS, NOT YET ASKED: the no-sparring rule gives 21 days off after 148 of 200 bouts (a lost bout carries
+  about 55 head damage against a design figure of about 22).
+- DEFECTS1 merged. R24GRADE1 (LineGrade.gd) collected. Result page: round 4 scored 6 and 6: THE LOOP IS STOPPED; his call
+  on the shape is Q-S294-199 (summary + tabs, my recommendation, or one page). Round 4: docs/mockups/s442/result/.
+- ASK FOR A FIGHT: map v2 after Kalli (5/6) and John (6/6); ASKPROBE1 delivered as PR 235 but its result looks too tidy
+  (wait never wins). A blind reviewer writes E:/FightCamp/wt/LEAN_ASKPROBE1/ASKPROBE1_REVIEW.md. NOTHING DRAWN until an
+  honest probe shows a spread.
+
+## OPEN PRS / REVIEWS WHEN THIS WAS WRITTEN
+- PR 235 ASKPROBE1, PR 234 R73DEAL1, PR 236 R19WORTH1, PR 237 MATPRICE1: two blind reviewers (helpers on Opus) write
+  <TASK>_REVIEW.md in each worktree root, with fixes left uncommitted in the worktree. Read the review, check each fix,
+  copy the files to main, run the tests, commit, close the PR. Do not merge on the seat's own word.
+- Qwen queue: R29JUDGES1, R85NEWS1 (the dispatcher launches them; it waits while a windowed render runs on an AMBER PC).
+- The lead S439 session: POWER1 steps 3-6 (collect against C314/C315: "a gymnastic extension move, not a punch").
+
+## ON HIS BOARD (unanswered)
+Q-S294-195 Cardio or Stamina as the one name; 196 fight screen regroup; 197 hover labels for secondary buttons; 198 Money
+page on one screen; 199 result page shape; in chat: do the roster bars keep growing from zero on every visit (old rule)
+or only move when changed (new rule; my recommendation). Review board: block stills (the jab ends under the guard: same on
+main, item BLOCKLOOK1), the PA mix round 3, the three built features.
 
 ## NEXT, IN ORDER
-1. Result page round 4 from the two round-3 critics: cause + measured fix in ONE row of cards with the best fix marked, one
-   primary action (Continue quiet), colour discipline (red must not mean five things), a label on every mark, bars on one
-   scale. Two fresh critics. To him at 8+ only, with the lists. If it does not climb, cut, do not add.
-2. Collect the UX audit, then the defects fixer, then merge DEFECTS1.
-3. ASK FOR A FIGHT: critics' answers, fix the map, brief ASKPROBE1 (FightLearn.gd + AskBout.gd + a probe).
-4. POWER1 collect against C314/C315; nothing called fixed without his eye.
-5. Wiring: LineSwap and Towel into the corner minute, TraitLine on the fighter card, PlanPhase in the Playbook.
+1. The four reviews above: collect or re-brief. 2. His answers on the board, then: the result page in the shape he picks
+(the coach critic's two musts go in either way: the best fix is BOTH plan changes, 100 of 200; "even the best plan makes
+it an even fight"). 3. UX proposals he says yes to. 4. POWER1 collect. 5. Wiring: TraitLine on the fighter card, PlanPhase
+and LineGrade in the Playbook, Towel in the corner minute. 6. Fire level on with a first-season re-measure. 7. The 3D
+corner card is 924 px tall and reaches the bottom bar; "Fix: Chases the stoppage" runs under "Leave it": both need a
+layout change in CornerOverlay (fold into the fight screen regroup if he says yes to 196).
 
 ## TRAPS (S442)
 - A JSON file rewritten with json.dumps re-indents the whole file (media_comments.json, questions.json): keep the indent.

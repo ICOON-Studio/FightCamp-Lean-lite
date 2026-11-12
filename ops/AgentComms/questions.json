@@ -6748,10 +6748,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-195_0_ux_a_one_number_language.png"
       ],
-      "answer": null,
+      "answer": "Stamina",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-12T11:24:06Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-196",
@@ -6766,10 +6767,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-196_0_ux_c_fight_hud.png"
       ],
-      "answer": null,
+      "answer": "Show me it in the game first",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-12T11:27:10Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-197",
@@ -6784,10 +6786,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-197_0_ux_d_hover_labels_menu.png"
       ],
-      "answer": null,
+      "answer": "Yes, build it",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-12T11:29:08Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-198",
@@ -6800,6 +6803,64 @@
       ],
       "attach": [
         "AgentComms/board_attach/Q-S294-198_0_ux_b_money_regroup.png"
+      ],
+      "answer": "check markup",
+      "note": null,
+      "answered_at": "2026-11-12T11:35:41Z",
+      "seen_by_claude": false,
+      "comment_only": true
+    },
+    {
+      "id": "Q-S294-199",
+      "asked": "2026-11-12T10:46:08.030991+00:00",
+      "session": "S294",
+      "text": "Result page: four rounds, critics stuck at 6. They all say the same: too much on one page. Cut it to a summary (verdict, the one cause with its fix, what it cost, a round strip) with the 18 exchanges, the numbers and the plan behind tabs?",
+      "options": [
+        "Yes, summary + tabs",
+        "No, keep it all on one page",
+        "Show me both"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-199_0_fight_result_r4.png"
+      ],
+      "answer": "Yes, summary + tabs",
+      "note": null,
+      "answered_at": "2026-11-12T11:34:44Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-200",
+      "asked": "2026-11-12T10:54:12.413692+00:00",
+      "session": "S294",
+      "text": "Three drawings from the 'visually engaging' table are on the review board: corner cards (1 day), fight bubbles (1.5 days), headline card (1 day). Which do I build?",
+      "options": [
+        "All three",
+        "Corner cards only",
+        "Corner cards and headline",
+        "None yet"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-200_0_corner_cards.png"
+      ],
+      "answer": "All three",
+      "note": null,
+      "answered_at": "2026-11-12T11:35:13Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-201",
+      "asked": "2026-11-12T14:22:40.019092+00:00",
+      "session": "S294",
+      "text": "After a bout that went the distance, the game locks sparring for 21 days in 3 bouts out of 4 (measured). Real clubs rest some days to a week; a month off is for stoppages. Ease it so 21 days is rare (a real beating)?",
+      "options": [
+        "Yes, ease it as proposed",
+        "Keep it harsh",
+        "Ease it less"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-201_0_nosparring.md"
       ],
       "answer": null,
       "note": null,

@@ -149,6 +149,10 @@ func _tour() -> void:
 		await _shot("The scorecards", "")
 		_press(_any("Scorecards"))
 		await create_timer(1.5).timeout
+	if _any("HeadlineGo") != null:   # S442 LOOP: the headline card before the result page
+		await _shot("The headline", "The night in one line: who won and how, records and ranks, one reason, then See the fight.")
+		_press(_any("HeadlineGo"))
+		await create_timer(1.0).timeout
 	await _shot("The result", "Who won, on what, and what decided it; the body report says what to train next.")
 	_press(_any("BackHome"))
 	main.act("goaltalk", fid)

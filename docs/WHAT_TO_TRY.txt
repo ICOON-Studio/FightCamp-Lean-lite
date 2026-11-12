@@ -1,3 +1,28 @@
+FIGHTCAMP - BUILD OF 2026-11-12 (S442): CORNER CARDS, BUBBLES OVER THE FIGHT, THE HEADLINE, THE UX PASS
+================================================================================
+
+ NEW
+  - The corner minute: when one of your plan lines lost, the PLAN row names it ("C - LOST MOST - One-two-hook 0 of 2 -
+    Opponent waited to counter") and offers up to two cards to swap in, each with Beats it / Works, a bar against the
+    line it replaces and one click. "Keep the plan" keeps it; "Other changes" is the old full list. Hover a card: a line
+    runs to the place in the ring where it fires.
+  - The fight: small bubbles from your corner post - the shout and whether it was heard, the coach's line after an
+    exchange, a mark when a plan line fires and how it went. Two at most, about two seconds each, never over a boxer.
+  - After the last bell: a headline card ("Lucy wins by stoppage in round 2") with both fighters, records, ranks and
+    one cause line, then "See the fight" opens the result page. A purple ribbon marks a first win or entering the rankings.
+  - The UX pass: no text under 16 px; the key button on a page slowly grows and shrinks (the first DO NEXT on the
+    roster, Open on a waiting offer, Step on the scale); money rolls to its new value in the top bar and on the Money
+    tiles; the corner page scrolls when it is taller than the screen (the calls could be out of reach); four misleading
+    words fixed.
+  - The announcer: lines closer together, the crowd swells back in under his last words.
+  - One fight, one answer: energy at the bell is the number the fight ran on; the corner tile counts every shout; the
+    fight's advice is a move the Playbook accepts; the damage tile says what the no-sparring rule says.
+ TRY: book a bout and watch a round. Read the bubbles: do they help or get in the way? In the corner, swap a line with
+      a card. At the end, read the headline, then the result page. On the roster, watch the pulsing button.
+ KNOWN: in the 3D corner card "Fix: Chases the stoppage" runs under "Leave it"; a call name on the fight bar is cut
+      ("Draw the"); the Money page is taller than the screen. All three need layout changes that wait for your picks.
+ NOT IN THIS BUILD YET: asking for a fight yourself, the new result page, punches with power (POWER1).
+
 FIGHTCAMP - BUILD OF 2026-11-12 (S440): THE ANNOUNCER ON THE PA, HONEST JUDGES, THE FOUNDATION, THE FIXED JABS
 ================================================================================
 

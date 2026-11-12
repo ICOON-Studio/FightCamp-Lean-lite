@@ -19,6 +19,9 @@ const RankLine := preload("res://scripts/rules/RankLine.gd")
 const Region := preload("res://scripts/state/Region.gd")
 const StandDown := preload("res://scripts/rules/StandDown.gd")
 const Clock := preload("res://scripts/state/Clock.gd")
+const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+const FightWhy := preload("res://scripts/rules/FightWhy.gd")
 
 
 static func snap(c: Career, f: Dictionary, opp: Dictionary) -> Dictionary:
@@ -26,7 +29,8 @@ static func snap(c: Career, f: Dictionary, opp: Dictionary) -> Dictionary:
 	return {"morale": morale, "mood": FighterProfile.mood(morale), "rank": Region.our_rank(c, f),
 		"cap": float(f.get("durability_cap", Attrs.HI)), "notes": (f.get("notes_seen", []) as Array).duplicate(),
 		"fatigue": FighterProfile.fatigue(f),
-		"rows": rows(c, f), "hidden": OppFile.hidden(opp).size()}
+		"rows": rows(c, f), "hidden": OppFile.hidden(opp).size(),
+		"rec": _record(f, bool(f["bout"].get("pro", false))), "opp_rec": _opp_record(c, opp), "opp_rank": _place(c, f, str(opp.get("name", "")))}
 
 
 ## Books what the fight leaves in the legs (Aftermath.toll) and writes the tiles on the result modal.
@@ -45,6 +49,49 @@ static func book(c: Career, f: Dictionary, m: Dictionary, before: Dictionary, ba
 		m["bodies"] = [Faces.glb(pick[0]), Faces.glb(pick[1])]
 	m["rank_words"] = "" if bool(m.get("pro", false)) else rank_words(c, f, before)
 	m["aftermath"] = tiles(c, f, m, before, bank)
+	m["night"] = night_facts(c, f, m, before)   # S442 the headline card's facts (Headline.gd); only a bout just booked has them
+
+
+## S442 LOOP drawing 3: what the headline card may say, all booked by now - the outcome and how, the cards, each round's
+## exchanges, FightWhy's against line, records and places before (the snap) and after, the night's date, weight, rounds.
+static func night_facts(c: Career, f: Dictionary, m: Dictionary, before: Dictionary) -> Dictionary:
+	var opp: Dictionary = (f["bout"] as Dictionary).get("opp", {})
+	var rounds: Array = m.get("rounds", [])
+	var pro := bool(m.get("pro", false))
+	var outcome := str(m.get("outcome", ""))
+	var ob: Array = before.get("opp_rec", [0, 0, 0])
+	var o_after := [int(ob[0]) + int(outcome == "loss"), int(ob[1]) + int(outcome == "win"), int(ob[2]) + int(outcome == "draw")]
+	return {"first": str(f["first"]), "opp_first": str(opp.get("first", opp.get("name", ""))), "outcome": outcome,
+		"stopped": str(m.get("stopped", "")), "pro": pro, "rounds": int(m.get("total", rounds.size())), "cards": m.get("cards", []),
+		"won": rounds.map(func(r): return bool((r as Dictionary).get("won", false))),
+		"won_n": rounds.map(func(r): return int((r as Dictionary).get("won_n", 0))), "flip": BoutRules.flip_round(rounds),
+		"per_round": Exchanges.EXCHANGES, "against": str(FightWhy.read(rounds, str(f["first"]), str(opp.get("first", "")))["against"]),
+		"date": Clock.fmt(c.day), "weight": str(f.get("wc", "")),
+		"rec_before": before.get("rec", []), "rec_after": _record(f, pro), "opp_rec_before": ob, "opp_rec_after": o_after,
+		"rank_before": int(before.get("rank", 0)), "rank_after": Region.our_rank(c, f),
+		"opp_rank_before": int(before.get("opp_rank", 0)), "opp_rank_after": _place(c, f, str(opp.get("name", "")))}
+
+
+## [w, l, d] of the record this bout goes on (the pro record on a pro night).
+static func _record(f: Dictionary, pro: bool) -> Array:
+	var k := "pro_" if pro else ""
+	return [int(f.get(k + "w", 0)), int(f.get(k + "l", 0)), int(f.get(k + "d", 0))]
+
+
+## The opponent's [w, l, d]: the career's own record of a rival, else the bout's file.
+static func _opp_record(c: Career, opp: Dictionary) -> Array:
+	var r: Dictionary = c.rival(str(opp.get("name", "")))
+	var src: Dictionary = r if not r.is_empty() else opp
+	return [int(src.get("w", 0)), int(src.get("l", 0)), int(src.get("d", 0))]
+
+
+## A name's place on the division's amateur table (Region.rankings), 0 when not on it.
+static func _place(c: Career, f: Dictionary, name: String) -> int:
+	var rows := Region.rankings(c, str(f["div"]))
+	for i in rows.size():
+		if str(rows[i]["name"]) == name:
+			return i + 1
+	return 0
 
 
 static func tiles(c: Career, f: Dictionary, m: Dictionary, before: Dictionary, bank: Dictionary) -> Array:

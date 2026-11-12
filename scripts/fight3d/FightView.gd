@@ -26,6 +26,7 @@ const RangeBreath := preload("res://scripts/fight3d/RangeBreath.gd")
 const BeatFire := preload("res://scripts/fight3d/BeatFire.gd")
 const KnockdownReplay := preload("res://scripts/fight3d/KnockdownReplay.gd")
 const KnockdownCount := preload("res://scripts/fight3d/KnockdownCount.gd")
+const ReactionBubbles := preload("res://scripts/fight3d/ReactionBubbles.gd")   # S442 BUBBLES
 
 ## The player's choice lasts the session.
 static var fast := false
@@ -362,7 +363,7 @@ func _process(delta: float) -> void:
 
 
 func _fire(b: Dictionary) -> void:
-	if str(b["caption"]) != "":
+	if not ReactionBubbles.take(self, b) and str(b["caption"]) != "":   # S442: a bubble's words leave the line under the ring
 		_say(str(b["caption"]))
 	_quiet = 0.0
 	_beat.fire(self, b)

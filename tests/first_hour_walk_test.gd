@@ -182,6 +182,7 @@ func _play() -> void:
 	secs += FIGHT_S
 	log_lines.append("%5.1f min  fight night (%.0f s)" % [secs / 60.0, FIGHT_S])
 	_press(_button(main.modal_node(), "Scorecards"), "to the scorecards")
+	_press(_button(main.modal_node(), "HeadlineGo"), "the headline card: see the fight")
 	_screen("the result and the Why", 2)
 	var why_min := secs / 60.0
 	var opp_first := str((lucy["bout"].get("opp", {}) as Dictionary).get("first", ""))

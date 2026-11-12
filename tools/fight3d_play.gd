@@ -125,13 +125,16 @@ func _initialize() -> void:
 		bar._pick(coach)
 	await _shot("p03_after_shout", 0.5)
 	print("CAPTION \"%s\"" % view._caption.text)
-	_check(str(view._caption.text).begins_with("Corner:"), "the shout is heard: the corner's line captions the next 30 seconds")
+	var rbs: Node = view.get_node_or_null("ReactionBubbles")   # S442 BUBBLES: the shout and the plan mark are bubbles now
+	_check(str(view._caption.text).begins_with("Corner:") or (rbs != null and (rbs.live as Array).any(func(e): return str(e["kind"]) == "shout")),
+		"the shout is heard: the corner's line captions the next 30 seconds (or its bubble is up)")
 	# S339 the arrow she throws in this 30 s is named after the corner's line, when she has one on her card.
 	var ex1: Dictionary = (LiveRound.live(main.modal).get("ex", []) as Array)[-1]
-	await _until(func(): return str(view._caption.text).begins_with("Plan:"), 3.0)
+	var plan_up := func(): return str(view._caption.text).begins_with("Plan:") or (view.get_node_or_null("ReactionBubbles") != null and (view.get_node("ReactionBubbles").live as Array).any(func(e): return str(e["kind"]) == "plan"))
+	await _until(plan_up, 3.0)
 	await _shot("p03b_plan_caption", 0.1)
 	print("PLAN CAPTION \"%s\" (arrow %s on %s, planned %s)" % [view._caption.text, ex1.get("arrow", ""), ex1.get("at", ""), ex1.get("planned", false)])
-	_check(str(view._caption.text).begins_with("Plan:") == bool(ex1.get("planned", false)), "the arrow she throws is named in the ring (only when it is planned)")
+	_check(bool(plan_up.call()) == bool(ex1.get("planned", false)), "the arrow she throws is named in the ring (only when it is planned)")
 	await _until(func(): return float(view.t) > 58.2, 40.0)
 	await _shot("p04_verdict", 0.1)
 	_holo_off(view, "the verdict")

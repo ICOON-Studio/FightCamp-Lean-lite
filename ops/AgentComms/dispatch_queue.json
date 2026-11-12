@@ -4,8 +4,9 @@
   {
    "task": "ASKPROBE1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-12T12:58"
+   "status": "launched",
+   "queued": "2026-11-12T12:58",
+   "launched": "2026-11-12T13:31"
   },
   {
    "id": "HITREACT4",
@@ -1221,14 +1222,28 @@
   {
    "task": "R19WORTH1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-12T10:36"
+   "status": "launched",
+   "queued": "2026-11-12T10:36",
+   "launched": "2026-11-12T14:42"
   },
   {
    "task": "MATPRICE1",
    "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-12T10:59",
+   "launched": "2026-11-12T15:42"
+  },
+  {
+   "task": "R29JUDGES1",
+   "seat": "qwen",
    "status": "queued",
-   "queued": "2026-11-12T10:59"
+   "queued": "2026-11-12T16:25"
+  },
+  {
+   "task": "R85NEWS1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-12T16:25"
   }
  ]
 }

@@ -89,7 +89,7 @@ func _initialize() -> void:
 	main.act("close")
 	main.run_to_stop()
 	main.act("go_btn")
-	for step in ["Begin", "Corner_long", "Corner_body", "Scorecards"]:
+	for step in ["Begin", "Corner_long", "Corner_body", "Scorecards", "HeadlineGo"]:
 		for k in 6:
 			var sb: Button = main.find_child("Shout_*", true, false) as Button
 			if sb == null:
