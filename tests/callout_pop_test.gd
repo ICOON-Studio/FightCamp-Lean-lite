@@ -139,7 +139,7 @@ func _test3() -> void:
 	_check("3 it starts small and see-through, then tweens (not a snap)", start.size() == 2 and float(start[0]) < 0.05
 		and absf(float(start[1]) - BodyCallouts.POP_FROM) < 0.01 and card.get("tw") != null, str(start))
 	_check("3 only the LIVER card (not HEAD, not RIBS)", not co.shown(0) and not co.shown(2), "")
-	_check("3 with its condition line", co.line_of(LIVER).begins_with("LIVER 99 - one body hook"), co.line_of(LIVER))
+	_check("3 with its condition line", co.line_of(LIVER).begins_with("LIVER %d - one body hook" % roundi(100.0 - BodyMap.RIB_HIT)), co.line_of(LIVER))
 	await _secs(0.3)
 	_check("3 fully out by 0.3 s", card.modulate.a > 0.99 and absf(card.scale.x - 1.0) < 0.02,
 		"a %.2f scale %.2f" % [card.modulate.a, card.scale.x])
@@ -177,7 +177,7 @@ func _test4() -> void:
 
 ## The corner minute: red takes a body hook and a cross, then the card is built as FightCast hands it over.
 func _corner() -> void:
-	bl.land({"t": 20.0, "who": "b", "move": "body_hook", "result": "lands", "big": true, "caption": "", "def": ""}, 0.0)
+	bl.land({"t": 20.0, "who": "b", "move": "body_hook", "side": "right", "result": "lands", "big": true, "caption": "", "def": ""}, 0.0)
 	bl.land({"t": 21.0, "who": "b", "move": "cross", "result": "lands", "big": false, "caption": "", "def": ""}, 0.0)
 	await _secs(0.2)
 	view._bug_box.visible = false   # the corner minute hides the HUD

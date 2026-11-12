@@ -77,6 +77,13 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 		if b.has("pivot_t"):
 			b["pivot_t"] = float(b["pivot_t"]) + at   # S315 its pivot out
 		out.append(b)
+	# RIBS1: _habits runs before the first _body and can turn a body dig back into a head hook; _show_game runs
+	# after it and swaps body hooks into jabs and head hooks. Match the fight rules' body count once more, after
+	# every punch type is final (the smaller change: one call, _show_game keeps its own dice). Singles only, as the
+	# first pass: who lands and how many land stay as the round settled it; a combination or a big shot is never
+	# retagged, so an exchange without enough free singles stays short. The clinch's rib digs are not applied by the
+	# game (BodyLive takes punches only), so the full count goes to the punches.
+	_body(out, x.get("body", []))
 	# S310 the set-up fired: the corner's NOW and her combination, lands or not, with its own caption.
 	if str(x.get("setup", "")) != "":
 		var opp_name := str(ctx["names"][1])
@@ -84,7 +91,8 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 		out.insert(0, {"t": at + 0.4, "who": "a", "move": "say", "result": "none", "caption": "Corner: \"NOW!\" - " + how})
 	_read(out, x.get("read", {}), at, ctx["names"])
 	if bool(x.get("shout", false)):
-		out.insert(0, {"t": at + 0.4, "who": "a", "move": "say", "result": "none", "caption": "Corner: \"%s\"" % Exchanges.CALLS[str(x["call"])]["shout"]})
+		out.insert(0, {"t": at + 0.4, "who": "a", "move": "say", "result": "none", "shout_call": str(x["call"]),
+			"caption": "Corner: \"%s\"" % Exchanges.CALLS[str(x["call"])]["shout"]})
 	# S339 the coach's arrow she throws in this 30 s, named (the broadcast's "which arrow she just used").
 	if bool(x.get("planned", false)):
 		out.append({"t": at + 1.6, "who": "a", "move": "say", "result": "none",

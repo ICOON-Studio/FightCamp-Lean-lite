@@ -12,7 +12,7 @@
    "volume_db": 3.4,
    "pitch": 0.06,
    "volume_spread": 1.5,
-   "pre_fire_s": 0.010,
+   "pre_fire_s": 0.01,
    "loop": false,
    "priority": 2
   },
@@ -206,6 +206,436 @@
    "loop": false,
    "priority": 1,
    "cooldown": 2.0
+  },
+  "voice_announcer_opening": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/announcer/announcer_opening.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_announcer_red_0": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/announcer/announcer_red_0.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_announcer_red_1": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/announcer/announcer_red_1.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_announcer_red_2": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/announcer/announcer_red_2.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_announcer_blue_0": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/announcer/announcer_blue_0.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_announcer_blue_1": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/announcer/announcer_blue_1.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_announcer_blue_2": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/announcer/announcer_blue_2.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_announcer_seconds": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/announcer/announcer_seconds.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_announcer_red_decision": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/announcer/announcer_red_decision.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_announcer_blue_decision": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/announcer/announcer_blue_decision.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_announcer_red_stoppage": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/announcer/announcer_red_stoppage.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_announcer_blue_stoppage": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/announcer/announcer_blue_stoppage.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_announcer_red_ko": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/announcer/announcer_red_ko.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_announcer_blue_ko": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/announcer/announcer_blue_ko.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_announcer_draw": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/announcer/announcer_draw.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_between_long": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/between/between_long.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_between_body": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/between/between_body.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_between_calm": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/between/between_calm.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_shout_m_long": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/shout_m/shout_m_long.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_shout_m_body": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/shout_m/shout_m_body.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_shout_m_lead": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/shout_m/shout_m_lead.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_shout_m_hands": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/shout_m/shout_m_hands.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_shout_m_let_go": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/shout_m/shout_m_let_go.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_shout_m_calm": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/shout_m/shout_m_calm.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_shout_m_tie": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/shout_m/shout_m_tie.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_shout_m_finish": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [
+    "res://assets/audio/voice/shout_m/shout_m_finish.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_shout_f_long": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_shout_f_body": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_shout_f_lead": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_shout_f_hands": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_shout_f_let_go": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_shout_f_calm": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_shout_f_tie": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_shout_f_finish": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_guide_sign": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_guide_coach": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_guide_week": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_guide_go": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_guide_offer": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_guide_prep": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_guide_fight": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
+  },
+  "voice_guide_club": {
+   "bus": "Voice",
+   "kind": "voice",
+   "priority": 3,
+   "files": [],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": false
   }
  },
  "files": {
@@ -740,6 +1170,448 @@
    "heard": true,
    "verdict": "drop",
    "verdict_note": "operator 2026-11-06, sound board round 1: picks 1, 6, 9, 10, 13"
+  },
+  "assets/audio/voice/announcer/announcer_opening.ogg": {
+   "event": "voice_announcer_opening",
+   "prompt": "Ladies and gentlemen, welcome to tonight's bout!",
+   "source": "ludo audio speech-preset",
+   "voice": "Roger",
+   "credits": 1,
+   "made": "2026-11-12 02:49",
+   "mmax": -6.02,
+   "lufs": -21.72,
+   "tp": -6.01,
+   "dur": 4.127,
+   "lead_silence": 0.218,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/announcer/announcer_red_0.ogg": {
+   "event": "voice_announcer_red_0",
+   "prompt": "In the red corner!",
+   "source": "ludo audio speech-preset",
+   "voice": "Roger",
+   "credits": 1,
+   "made": "2026-11-12 02:49",
+   "mmax": -6.93,
+   "lufs": -20.99,
+   "tp": -6.93,
+   "dur": 2.116,
+   "lead_silence": 0.193,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/announcer/announcer_red_1.ogg": {
+   "event": "voice_announcer_red_1",
+   "prompt": "Introducing the fighter in red!",
+   "source": "ludo audio speech-preset",
+   "voice": "Roger",
+   "credits": 1,
+   "made": "2026-11-12 02:49",
+   "mmax": -5.51,
+   "lufs": -20.3,
+   "tp": -5.51,
+   "dur": 3.082,
+   "lead_silence": 0.196,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/announcer/announcer_red_2.ogg": {
+   "event": "voice_announcer_red_2",
+   "prompt": "From the red corner!",
+   "source": "ludo audio speech-preset",
+   "voice": "Roger",
+   "credits": 1,
+   "made": "2026-11-12 02:49",
+   "mmax": -7.32,
+   "lufs": -21.85,
+   "tp": -7.28,
+   "dur": 2.038,
+   "lead_silence": 0.194,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/announcer/announcer_blue_0.ogg": {
+   "event": "voice_announcer_blue_0",
+   "prompt": "In the blue corner!",
+   "source": "ludo audio speech-preset",
+   "voice": "Roger",
+   "credits": 1,
+   "made": "2026-11-12 02:49",
+   "mmax": -5.86,
+   "lufs": -20.72,
+   "tp": -5.81,
+   "dur": 1.959,
+   "lead_silence": 0.133,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/announcer/announcer_blue_1.ogg": {
+   "event": "voice_announcer_blue_1",
+   "prompt": "Introducing the fighter in blue!",
+   "source": "ludo audio speech-preset",
+   "voice": "Roger",
+   "credits": 1,
+   "made": "2026-11-12 02:49",
+   "mmax": -6.72,
+   "lufs": -20.69,
+   "tp": -6.69,
+   "dur": 2.926,
+   "lead_silence": 0.13,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/announcer/announcer_blue_2.ogg": {
+   "event": "voice_announcer_blue_2",
+   "prompt": "From the blue corner!",
+   "source": "ludo audio speech-preset",
+   "voice": "Roger",
+   "credits": 1,
+   "made": "2026-11-12 02:49",
+   "mmax": -6.23,
+   "lufs": -20.94,
+   "tp": -6.2,
+   "dur": 2.116,
+   "lead_silence": 0.104,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/announcer/announcer_seconds.ogg": {
+   "event": "voice_announcer_seconds",
+   "prompt": "Seconds out!",
+   "source": "ludo audio speech-preset",
+   "voice": "Roger",
+   "credits": 1,
+   "made": "2026-11-12 02:49",
+   "mmax": -4.86,
+   "lufs": -20.48,
+   "tp": -4.79,
+   "dur": 1.881,
+   "lead_silence": 0.087,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/announcer/announcer_red_decision.ogg": {
+   "event": "voice_announcer_red_decision",
+   "prompt": "The winner by decision, from the red corner!",
+   "source": "ludo audio speech-preset",
+   "voice": "Roger",
+   "credits": 1,
+   "made": "2026-11-12 02:49",
+   "mmax": -5.25,
+   "lufs": -21.51,
+   "tp": -5.24,
+   "dur": 3.788,
+   "lead_silence": 0.206,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/announcer/announcer_blue_decision.ogg": {
+   "event": "voice_announcer_blue_decision",
+   "prompt": "The winner by decision, from the blue corner!",
+   "source": "ludo audio speech-preset",
+   "voice": "Roger",
+   "credits": 1,
+   "made": "2026-11-12 02:49",
+   "mmax": -6.03,
+   "lufs": -21.02,
+   "tp": -6.02,
+   "dur": 3.788,
+   "lead_silence": 0.111,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/announcer/announcer_red_stoppage.ogg": {
+   "event": "voice_announcer_red_stoppage",
+   "prompt": "The winner by stoppage, from the red corner!",
+   "source": "ludo audio speech-preset",
+   "voice": "Roger",
+   "credits": 1,
+   "made": "2026-11-12 02:50",
+   "mmax": -6.22,
+   "lufs": -21.74,
+   "tp": -6.2,
+   "dur": 3.709,
+   "lead_silence": 0.202,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/announcer/announcer_blue_stoppage.ogg": {
+   "event": "voice_announcer_blue_stoppage",
+   "prompt": "The winner by stoppage, from the blue corner!",
+   "source": "ludo audio speech-preset",
+   "voice": "Roger",
+   "credits": 1,
+   "made": "2026-11-12 02:50",
+   "mmax": -5.6,
+   "lufs": -21.8,
+   "tp": -5.6,
+   "dur": 3.553,
+   "lead_silence": 0.14,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/announcer/announcer_red_ko.ogg": {
+   "event": "voice_announcer_red_ko",
+   "prompt": "The winner by knockout, from the red corner!",
+   "source": "ludo audio speech-preset",
+   "voice": "Roger",
+   "credits": 1,
+   "made": "2026-11-12 02:50",
+   "mmax": -7.21,
+   "lufs": -21.61,
+   "tp": -7.21,
+   "dur": 3.709,
+   "lead_silence": 0.192,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/announcer/announcer_blue_ko.ogg": {
+   "event": "voice_announcer_blue_ko",
+   "prompt": "The winner by knockout, from the blue corner!",
+   "source": "ludo audio speech-preset",
+   "voice": "Roger",
+   "credits": 1,
+   "made": "2026-11-12 02:50",
+   "mmax": -7.3,
+   "lufs": -21.85,
+   "tp": -7.26,
+   "dur": 3.631,
+   "lead_silence": 0.1,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/announcer/announcer_draw.ogg": {
+   "event": "voice_announcer_draw",
+   "prompt": "This bout is a draw!",
+   "source": "ludo audio speech-preset",
+   "voice": "Roger",
+   "credits": 1,
+   "made": "2026-11-12 02:50",
+   "mmax": -6.82,
+   "lufs": -20.43,
+   "tp": -6.81,
+   "dur": 2.508,
+   "lead_silence": 0.081,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/between/between_long.ogg": {
+   "event": "voice_between_long",
+   "prompt": "Stay long. Jab and move, make every punch reach.",
+   "source": "ludo audio speech-preset",
+   "voice": "Brian",
+   "credits": 1,
+   "made": "2026-11-12 02:50",
+   "mmax": -4.0,
+   "lufs": -21.0,
+   "tp": -3.96,
+   "dur": 6.531,
+   "lead_silence": 0.184,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/between/between_body.ogg": {
+   "event": "voice_between_body",
+   "prompt": "Go downstairs. Dig to the body, the head comes later.",
+   "source": "ludo audio speech-preset",
+   "voice": "Brian",
+   "credits": 1,
+   "made": "2026-11-12 02:50",
+   "mmax": -2.17,
+   "lufs": -21.53,
+   "tp": -2.16,
+   "dur": 4.049,
+   "lead_silence": 0.096,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/between/between_calm.ogg": {
+   "event": "voice_between_calm",
+   "prompt": "Breathe. Slow it down and pick your shots.",
+   "source": "ludo audio speech-preset",
+   "voice": "Brian",
+   "credits": 1,
+   "made": "2026-11-12 02:50",
+   "mmax": -6.14,
+   "lufs": -23.38,
+   "tp": -6.14,
+   "dur": 3.709,
+   "lead_silence": 0.066,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/shout_m/shout_m_long.ogg": {
+   "event": "voice_shout_m_long",
+   "prompt": "Turn! Jab and move!",
+   "source": "ludo audio speech-preset",
+   "voice": "Callum",
+   "credits": 1,
+   "made": "2026-11-12 02:50",
+   "mmax": -6.97,
+   "lufs": -20.57,
+   "tp": -6.97,
+   "dur": 2.508,
+   "lead_silence": 0.127,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/shout_m/shout_m_body.ogg": {
+   "event": "voice_shout_m_body",
+   "prompt": "Downstairs! Go to the body!",
+   "source": "ludo audio speech-preset",
+   "voice": "Callum",
+   "credits": 1,
+   "made": "2026-11-12 02:51",
+   "mmax": -7.06,
+   "lufs": -21.37,
+   "tp": -7.04,
+   "dur": 2.508,
+   "lead_silence": 0.084,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/shout_m/shout_m_lead.ogg": {
+   "event": "voice_shout_m_lead",
+   "prompt": "Feint! Draw the lead!",
+   "source": "ludo audio speech-preset",
+   "voice": "Callum",
+   "credits": 1,
+   "made": "2026-11-12 02:51",
+   "mmax": -6.0,
+   "lufs": -20.23,
+   "tp": -5.98,
+   "dur": 2.194,
+   "lead_silence": 0.102,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/shout_m/shout_m_hands.ogg": {
+   "event": "voice_shout_m_hands",
+   "prompt": "Hands up! Move your head!",
+   "source": "ludo audio speech-preset",
+   "voice": "Callum",
+   "credits": 1,
+   "made": "2026-11-12 02:51",
+   "mmax": -5.53,
+   "lufs": -21.03,
+   "tp": -5.52,
+   "dur": 2.273,
+   "lead_silence": 0.137,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/shout_m/shout_m_let_go.ogg": {
+   "event": "voice_shout_m_let_go",
+   "prompt": "Let your hands go!",
+   "source": "ludo audio speech-preset",
+   "voice": "Callum",
+   "credits": 1,
+   "made": "2026-11-12 02:51",
+   "mmax": -6.39,
+   "lufs": -20.03,
+   "tp": -6.39,
+   "dur": 1.881,
+   "lead_silence": 0.086,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/shout_m/shout_m_calm.ogg": {
+   "event": "voice_shout_m_calm",
+   "prompt": "Breathe! Pick your shots!",
+   "source": "ludo audio speech-preset",
+   "voice": "Callum",
+   "credits": 1,
+   "made": "2026-11-12 02:51",
+   "mmax": -6.06,
+   "lufs": -20.57,
+   "tp": -6.04,
+   "dur": 2.429,
+   "lead_silence": 0.075,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/shout_m/shout_m_tie.ogg": {
+   "event": "voice_shout_m_tie",
+   "prompt": "Hold! Tie up!",
+   "source": "ludo audio speech-preset",
+   "voice": "Callum",
+   "credits": 1,
+   "made": "2026-11-12 02:51",
+   "mmax": -5.33,
+   "lufs": -19.83,
+   "tp": -5.32,
+   "dur": 1.881,
+   "lead_silence": 0.152,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
+  },
+  "assets/audio/voice/shout_m/shout_m_finish.ogg": {
+   "event": "voice_shout_m_finish",
+   "prompt": "Finish it! Go now!",
+   "source": "ludo audio speech-preset",
+   "voice": "Callum",
+   "credits": 1,
+   "made": "2026-11-12 02:51",
+   "mmax": -7.26,
+   "lufs": -21.4,
+   "tp": -7.23,
+   "dur": 2.194,
+   "lead_silence": 0.12,
+   "codec": "vorbis",
+   "rate": 48000,
+   "channels": "mono",
+   "heard": false
   }
  }
 }

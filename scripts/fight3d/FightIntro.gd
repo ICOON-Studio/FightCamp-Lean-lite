@@ -19,6 +19,7 @@ const RkClips := preload("res://scripts/fight3d/RkClips.gd")
 const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
 const CornerWarm := preload("res://scripts/fight3d/CornerWarm.gd")
 const IntroStyle := preload("res://scripts/fight3d/IntroStyle.gd")
+const FightVoice := preload("res://scripts/audio/FightVoice.gd")
 
 signal done
 
@@ -167,6 +168,7 @@ func _corner_mark(i: int) -> Vector3:
 
 ## Both stand in front of their stools' place in their guard; each corner's coach and second on the apron behind.
 func cue_corners() -> void:
+	FightVoice.intro_opening()   # VOICEWIRE1: the ring announcer opens the night
 	for side in ["red", "blue"]:
 		var c: Dictionary = crew.corner(side)
 		var i := 0 if side == "red" else 1
@@ -296,10 +298,17 @@ func _fade(card: Control, on: bool) -> void:
 
 func cue_name_red() -> void:
 	ui.say(str(ctx["intros"][0]))
+	FightVoice.intro_corner("red", _take())
 
 
 func cue_name_blue() -> void:
 	ui.say(str(ctx["intros"][1]))
+	FightVoice.intro_corner("blue", _take())
+
+
+## Which of the announcer's three corner takes tonight (the bout's seed, the same take for both corners).
+func _take() -> int:
+	return posmod(int(ctx.get("seed", 0)), 3)
 
 
 func cue_raise_red() -> void:
@@ -424,6 +433,7 @@ func cue_untouch() -> void:
 
 func cue_seconds_out() -> void:
 	ui.say("\"Seconds out!\"")
+	FightVoice.intro_seconds_out()
 	for a in crew.actors.values():
 		(a["node"] as Node3D).visible = false
 

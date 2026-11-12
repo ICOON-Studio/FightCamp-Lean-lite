@@ -13,6 +13,7 @@ const CornerOverlay := preload("res://scripts/fight3d/CornerOverlay.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const CornerCrew := preload("res://scripts/fight3d/CornerCrew.gd")
 const FightSfx := preload("res://scripts/audio/FightSfx.gd")
+const FightVoice := preload("res://scripts/audio/FightVoice.gd")
 
 signal done(call: String)
 
@@ -367,6 +368,9 @@ func _pick(k: String) -> void:
 	ui.picked(k)
 	_lines.clear()
 	_lines.append([t, "\"%s\"" % LINES.get(k, BoutRules.CORNER[k])])
+	if k == "long": FightVoice.between_long()
+	elif k == "body": FightVoice.between_body()
+	elif k == "calm": FightVoice.between_calm()
 	for h in ctx["card"].get("fixes", []):
 		if str(h["id"]) == fix:
 			_lines.append([_card_off, "\"One more thing. %s: fix it this round.\"" % str(h["name"])])

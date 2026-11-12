@@ -106,8 +106,8 @@ func _test1() -> void:
 	_check(ok, "test 1: fresh() + no landed punches -> no change")
 
 
-## 2. Sides: orthodox lead_hook -> b right_eye + head x1.5; body_hook -> b right_ribs;
-##    southpaw -> left_eye / left_ribs; blocked/missed no change; big = BIG_MULT; b-punch on a.
+## 2. Sides: orthodox lead_hook -> b right_eye + head x1.5; body_hook -> one rib (hash, or the beat's side);
+##    southpaw -> left_eye, and one rib; blocked/missed no change; big = BIG_MULT; b-punch on a.
 func _test2() -> void:
 	var ok := true
 	# Orthodox a, landed lead_hook -> b right_eye drops, head drops x1.5 of jab's head drop.
@@ -130,15 +130,21 @@ func _test2() -> void:
 			ok = false
 	else:
 		ok = false
-	# Orthodox body_hook -> b right_ribs.
+	# Orthodox body_hook. RIBS1: no longer always right_ribs. The rib is the beat's hash (liver side 60 in 100,
+	# the other 40), and the drop is RIB_HIT. Exactly one rib moves.
 	var m2: Dictionary = BM.fresh()
 	var bh_beat: Array = [{"t": 2.0, "who": "a", "move": "body_hook", "result": "lands", "big": false}]
 	BM.add_beats(m2, bh_beat, {"a": false, "b": false})
-	if BM.value(m2, "b", "right_ribs") >= 100.0:
-		ok = false
-	if BM.value(m2, "b", "left_ribs") != 100.0:
+	var rib_right: float = BM.value(m2, "b", "right_ribs")
+	var rib_left: float = BM.value(m2, "b", "left_ribs")
+	if absf(minf(rib_right, rib_left) - (100.0 - BM.RIB_HIT)) > 0.01 or maxf(rib_right, rib_left) != 100.0:
 		ok = false
 	if BM.value(m2, "b", "head") != 100.0:
+		ok = false
+	# A side on the beat wins over that hash (orthodox, side left -> the left ribs).
+	var m2s: Dictionary = BM.fresh()
+	BM.add_beats(m2s, [{"t": 2.0, "who": "a", "move": "body_hook", "result": "lands", "big": false, "side": "left"}], {"a": false, "b": false})
+	if BM.value(m2s, "b", "left_ribs") >= 100.0 or BM.value(m2s, "b", "right_ribs") != 100.0:
 		ok = false
 	# Southpaw a -> left_eye, left_ribs.
 	var m3: Dictionary = BM.fresh()
@@ -148,13 +154,39 @@ func _test2() -> void:
 		ok = false
 	if BM.value(m3, "b", "right_eye") != 100.0:
 		ok = false
+	# Southpaw body_hook. RIBS1: was always left_ribs. Same hash rule, so one rib drops by RIB_HIT, not a fixed side.
 	var m4: Dictionary = BM.fresh()
 	var s_bh: Array = [{"t": 4.0, "who": "a", "move": "body_hook", "result": "lands", "big": false}]
 	BM.add_beats(m4, s_bh, {"a": true, "b": false})
-	if BM.value(m4, "b", "left_ribs") >= 100.0:
+	var s_right: float = BM.value(m4, "b", "right_ribs")
+	var s_left: float = BM.value(m4, "b", "left_ribs")
+	if absf(minf(s_right, s_left) - (100.0 - BM.RIB_HIT)) > 0.01 or maxf(s_right, s_left) != 100.0:
 		ok = false
-	if BM.value(m4, "b", "right_ribs") != 100.0:
+	# Named side still wins for a southpaw (side right -> the right ribs).
+	var m4s: Dictionary = BM.fresh()
+	BM.add_beats(m4s, [{"t": 4.0, "who": "a", "move": "body_hook", "result": "lands", "big": false, "side": "right"}], {"a": true, "b": false})
+	if BM.value(m4s, "b", "right_ribs") >= 100.0 or BM.value(m4s, "b", "left_ribs") != 100.0:
 		ok = false
+	# RIBS1 split: 200 landed body hooks, liver side 50-70 % of the hits and the other side some. The liver side is the
+	# DEFENDER's (PaceAim.opp_hurt): right ribs when b is orthodox, left when b is southpaw, whatever the attacker's stance.
+	for st in [[false, false], [true, false], [false, true], [true, true]]:
+		var spl: Array = []
+		for i in 200:
+			spl.append({"t": float(i) * 0.37, "who": "a", "move": "body_hook", "result": "lands", "big": false})
+		var liv := "left_ribs" if bool(st[1]) else "right_ribs"
+		var oth := "right_ribs" if bool(st[1]) else "left_ribs"
+		# A rib floors at 0, so add the beats 20 to a fresh map (at most 20 x RIB_HIT off a side) and count by the drops.
+		var n_l := 0.0
+		var n_o := 0.0
+		for c0 in range(0, 200, 20):
+			var mc: Dictionary = BM.fresh()
+			BM.add_beats(mc, spl.slice(c0, c0 + 20), {"a": bool(st[0]), "b": bool(st[1])})
+			n_l += (100.0 - float(mc["b"]["places"][liv])) / BM.RIB_HIT
+			n_o += (100.0 - float(mc["b"]["places"][oth])) / BM.RIB_HIT
+		var pct: float = n_l / maxf(n_l + n_o, 1.0) * 100.0
+		print("body_map split att_south=%s def_south=%s liver=%.0f other=%.0f liver_pct=%.1f" % [str(st[0]), str(st[1]), n_l, n_o, pct])
+		if pct < 50.0 or pct > 70.0 or n_o <= 0.0 or roundi(n_l + n_o) != 200:
+			ok = false
 	# Blocked / missed -> no change.
 	var m5: Dictionary = BM.fresh()
 	var blocked_beats: Array = [

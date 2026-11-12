@@ -1,3 +1,24 @@
+FIGHTCAMP - BUILD OF 2026-11-12 (S438): THE RIBS TAKE DAMAGE, THE CORNER HAS A VOICE (ONCE YOU KEEP IT)
+================================================================================
+
+ NEW.
+  - The ribs take damage normally (your "i want the ribs to take normally the damage"): body shots land on BOTH
+    sides, six in ten on the liver side of the boxer being hit; one body shot now counts for about three points
+    (it was 1.5, too small to ever show). A normal bout leaves the more-hit rib sore but not hurt; a body plan
+    over three rounds leaves it hurt in about two bouts of three. The ring shows as many body shots as the fight
+    settled, where the exchange has single punches to show them with.
+  - The cast's voices are wired: the ring announcer (opening, the corners, the result, once), the corner's shout
+    during a round, the corner's line between rounds. 26 lines are generated. NONE PLAYS YET: a sound stays out of
+    the game until you keep it on the sound board (docs/audio/board/sound_board.html, also on the review board).
+ TRY: give a boxer a body plan (aim: body), play the bout, and read the body picture and the result page after it.
+ Then open the sound board and keep or drop each voice.
+ KNOWN: in about half the rounds the fight settles more body shots than the ring can show with single punches
+ (combinations are not turned into body shots), so the ring can still show a few less than the count.
+ The punch clips: all 15 fight punches were read on side films, 12 carry a named fault; the first fix (the three
+ jabs that hang at full reach) is being built.
+ NOT IN THIS BUILD: the damage and recovery redesign (still with the critics), the Fighters page as painted
+ (Cursor is out of usage), the punch clip fixes.
+
 FIGHTCAMP - BUILD OF 2026-11-12 (S437): THE GLOVE TOUCH LOOSENED, THE RANK AFTER EVERY FIGHT
 ================================================================================
 

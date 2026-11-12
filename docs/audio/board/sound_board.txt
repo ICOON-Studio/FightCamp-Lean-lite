@@ -1,36 +1,58 @@
-FightCamp sound board - Round 1 - your 5 redos, 3 takes each (S387) - 2026-11-06 00:47
+FightCamp sound board - S438 voices - 2026-11-12 02:52
 NOBODY HAS LISTENED TO THESE YET. Claude and the agents cannot hear. Your ear decides: keep / redo / drop.
 Made with Ludo audio (your Pro plan). Numbers: loudness (LUFS), peak (dB), length (s).
 
- 1. punch_power_head  (punch_power_head_2.ogg)  - plays when a cross, hook or uppercut lands on the head
-    UNHEARD. 0.31 s, loudness -23.5, peak -1.9 dB. Prompt: Single heavy leather boxing glove punch hitting a face: one tight meaty smack with a short low thump, dry studio foley, no reverb, no crowd
- 2. punch_power_head  (punch_power_head_3.ogg)  - plays when a cross, hook or uppercut lands on the head
-    UNHEARD. 0.42 s, loudness -27.1, peak -2.0 dB. Prompt: Foley punch: a boxer's right cross landing on a chin, thick leather slap and a dull bone knock, very short, no tail, no room sound
- 3. punch_power_head  (punch_power_head_4.ogg)  - plays when a cross, hook or uppercut lands on the head
-    UNHEARD. 0.45 s, loudness -22.8, peak -1.8 dB. Prompt: Realistic boxing hook to the head recorded close, dense punchy thwack, short decay, no music, no crowd
- 4. punch_miss  (punch_miss_2.ogg)  - plays when a punch misses (glove whoosh)
-    UNHEARD. 0.35 s, loudness -25.6, peak -2.1 dB. Prompt: Fast air swish of a boxing glove passing close to the microphone, soft whoosh only, no impact, no voice
- 5. punch_miss  (punch_miss_3.ogg)  - plays when a punch misses (glove whoosh)
-    UNHEARD. 0.33 s, loudness -25.1, peak -3.1 dB. Prompt: Short quiet whoosh of a punch thrown through the air, cloth and leather movement, no hit, no breath
- 6. punch_miss  (punch_miss_4.ogg)  - plays when a punch misses (glove whoosh)
-    UNHEARD. 0.14 s, loudness -25.0, peak -4.9 dB. Prompt: Light swipe through air, one low soft whoosh, foley, no impact, no voice
- 7. knockdown_fall  (knockdown_fall_2.ogg)  - plays when a boxer hits the canvas
-    UNHEARD. 0.89 s, loudness -23.5, peak -2.1 dB. Prompt: A body falling flat on a boxing ring canvas: one heavy padded thud with a wooden boards boom underneath, short, no voice, no crowd
- 8. knockdown_fall  (knockdown_fall_3.ogg)  - plays when a boxer hits the canvas
-    UNHEARD. 0.52 s, loudness -21.8, peak -1.7 dB. Prompt: A person dropping onto a sprung wooden stage covered in padded canvas, deep dull slam then a small bounce, foley, no voice
- 9. knockdown_fall  (knockdown_fall_4.ogg)  - plays when a boxer hits the canvas
-    UNHEARD. 0.33 s, loudness -18.7, peak -1.8 dB. Prompt: Heavy sandbag dropped on a gym mat over a wooden platform, deep thump with a slight rattle, dry, no voice
-10. footwork_canvas  (footwork_canvas_2.ogg)  - plays when boxers step in and out on the canvas
-    UNHEARD. 0.2 s, loudness -30.0, peak -9.7 dB. Prompt: Single light step of a leather boxing boot on canvas, soft scuff, very quiet foley, no room
-11. footwork_canvas  (footwork_canvas_3.ogg)  - plays when boxers step in and out on the canvas
-    UNHEARD. 0.59 s, loudness -30.6, peak -7.0 dB. Prompt: Two quick soft boot steps pivoting on a canvas ring floor, gentle rubber squeak, foley, no room
-12. footwork_canvas  (footwork_canvas_4.ogg)  - plays when boxers step in and out on the canvas
-    UNHEARD. 0.56 s, loudness -33.8, peak -18.5 dB. Prompt: Soft shoe scuff on stretched canvas, one short slide step, close and dry
-13. ui_click  (ui_click_2.ogg)  - plays when any button in the menus
-    UNHEARD. 0.15 s, loudness -33.0, peak -10.2 dB. Prompt: A clear soft click of a wooden button being pressed, single short tick, dry, close microphone
-14. ui_click  (ui_click_3.ogg)  - plays when any button in the menus
-    UNHEARD. 0.15 s, loudness -32.4, peak -4.2 dB. Prompt: A pencil tapping once on a clipboard, tiny and crisp, very short
-15. ui_click  (ui_click_4.ogg)  - plays when any button in the menus
-    UNHEARD. 0.15 s, loudness -27.4, peak -4.9 dB. Prompt: Small paper card pressed onto a corkboard, one soft click, very short
+ 1. voice_announcer_opening  (announcer_opening.ogg)  - plays when voice announcer opening
+    UNHEARD. 4.127 s, loudness -21.72, peak -6.01 dB. Prompt: Ladies and gentlemen, welcome to tonight's bout!
+ 2. voice_announcer_red_0  (announcer_red_0.ogg)  - plays when voice announcer red 0
+    UNHEARD. 2.116 s, loudness -20.99, peak -6.93 dB. Prompt: In the red corner!
+ 3. voice_announcer_red_1  (announcer_red_1.ogg)  - plays when voice announcer red 1
+    UNHEARD. 3.082 s, loudness -20.3, peak -5.51 dB. Prompt: Introducing the fighter in red!
+ 4. voice_announcer_red_2  (announcer_red_2.ogg)  - plays when voice announcer red 2
+    UNHEARD. 2.038 s, loudness -21.85, peak -7.28 dB. Prompt: From the red corner!
+ 5. voice_announcer_blue_0  (announcer_blue_0.ogg)  - plays when voice announcer blue 0
+    UNHEARD. 1.959 s, loudness -20.72, peak -5.81 dB. Prompt: In the blue corner!
+ 6. voice_announcer_blue_1  (announcer_blue_1.ogg)  - plays when voice announcer blue 1
+    UNHEARD. 2.926 s, loudness -20.69, peak -6.69 dB. Prompt: Introducing the fighter in blue!
+ 7. voice_announcer_blue_2  (announcer_blue_2.ogg)  - plays when voice announcer blue 2
+    UNHEARD. 2.116 s, loudness -20.94, peak -6.2 dB. Prompt: From the blue corner!
+ 8. voice_announcer_seconds  (announcer_seconds.ogg)  - plays when voice announcer seconds
+    UNHEARD. 1.881 s, loudness -20.48, peak -4.79 dB. Prompt: Seconds out!
+ 9. voice_announcer_red_decision  (announcer_red_decision.ogg)  - plays when voice announcer red decision
+    UNHEARD. 3.788 s, loudness -21.51, peak -5.24 dB. Prompt: The winner by decision, from the red corner!
+10. voice_announcer_blue_decision  (announcer_blue_decision.ogg)  - plays when voice announcer blue decision
+    UNHEARD. 3.788 s, loudness -21.02, peak -6.02 dB. Prompt: The winner by decision, from the blue corner!
+11. voice_announcer_red_stoppage  (announcer_red_stoppage.ogg)  - plays when voice announcer red stoppage
+    UNHEARD. 3.709 s, loudness -21.74, peak -6.2 dB. Prompt: The winner by stoppage, from the red corner!
+12. voice_announcer_blue_stoppage  (announcer_blue_stoppage.ogg)  - plays when voice announcer blue stoppage
+    UNHEARD. 3.553 s, loudness -21.8, peak -5.6 dB. Prompt: The winner by stoppage, from the blue corner!
+13. voice_announcer_red_ko  (announcer_red_ko.ogg)  - plays when voice announcer red ko
+    UNHEARD. 3.709 s, loudness -21.61, peak -7.21 dB. Prompt: The winner by knockout, from the red corner!
+14. voice_announcer_blue_ko  (announcer_blue_ko.ogg)  - plays when voice announcer blue ko
+    UNHEARD. 3.631 s, loudness -21.85, peak -7.26 dB. Prompt: The winner by knockout, from the blue corner!
+15. voice_announcer_draw  (announcer_draw.ogg)  - plays when voice announcer draw
+    UNHEARD. 2.508 s, loudness -20.43, peak -6.81 dB. Prompt: This bout is a draw!
+16. voice_between_long  (between_long.ogg)  - plays when voice between long
+    UNHEARD. 6.531 s, loudness -21.0, peak -3.96 dB. Prompt: Stay long. Jab and move, make every punch reach.
+17. voice_between_body  (between_body.ogg)  - plays when voice between body
+    UNHEARD. 4.049 s, loudness -21.53, peak -2.16 dB. Prompt: Go downstairs. Dig to the body, the head comes later.
+18. voice_between_calm  (between_calm.ogg)  - plays when voice between calm
+    UNHEARD. 3.709 s, loudness -23.38, peak -6.14 dB. Prompt: Breathe. Slow it down and pick your shots.
+19. voice_shout_m_long  (shout_m_long.ogg)  - plays when voice shout m long
+    UNHEARD. 2.508 s, loudness -20.57, peak -6.97 dB. Prompt: Turn! Jab and move!
+20. voice_shout_m_body  (shout_m_body.ogg)  - plays when voice shout m body
+    UNHEARD. 2.508 s, loudness -21.37, peak -7.04 dB. Prompt: Downstairs! Go to the body!
+21. voice_shout_m_lead  (shout_m_lead.ogg)  - plays when voice shout m lead
+    UNHEARD. 2.194 s, loudness -20.23, peak -5.98 dB. Prompt: Feint! Draw the lead!
+22. voice_shout_m_hands  (shout_m_hands.ogg)  - plays when voice shout m hands
+    UNHEARD. 2.273 s, loudness -21.03, peak -5.52 dB. Prompt: Hands up! Move your head!
+23. voice_shout_m_let_go  (shout_m_let_go.ogg)  - plays when voice shout m let go
+    UNHEARD. 1.881 s, loudness -20.03, peak -6.39 dB. Prompt: Let your hands go!
+24. voice_shout_m_calm  (shout_m_calm.ogg)  - plays when voice shout m calm
+    UNHEARD. 2.429 s, loudness -20.57, peak -6.04 dB. Prompt: Breathe! Pick your shots!
+25. voice_shout_m_tie  (shout_m_tie.ogg)  - plays when voice shout m tie
+    UNHEARD. 1.881 s, loudness -19.83, peak -5.32 dB. Prompt: Hold! Tie up!
+26. voice_shout_m_finish  (shout_m_finish.ogg)  - plays when voice shout m finish
+    UNHEARD. 2.194 s, loudness -21.4, peak -7.23 dB. Prompt: Finish it! Go now!
 
 Reply on the board with the numbers: e.g. '1 keep, 2 redo heavier, 5 drop'.

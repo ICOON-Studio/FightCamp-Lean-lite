@@ -10,10 +10,16 @@ const CRITICAL := 35.0
 const DOCTOR := 15.0
 ## Points one landed punch takes off. S318: tuned on test 5 - 3 rounds of 6 exchanges as the game plays them (BoutRules
 ## spread, 300 seeds): loser hurt 40-90 %, doctor <= 8 %, winner fine >= 50 %.
-const FACE_HIT := 1.1
-const HEAD_HIT := 0.55
-const RIB_HIT := 1.5
+const FACE_HIT := 1.15   ## S438: was 1.1; re-measured with RIB_HIT 3.1 after the body count match (docs/RIBS1_RESULT.md)
+const HEAD_HIT := 0.575
+## RIBS1: was 1.5, too small to reach the hurt line. 3.1 measured on tests/rib_damage_test.gd (200 seeds, docs/RIBS1_RESULT.md):
+## every brief bar holds (default more-hit 67.9, body plan hurt 65.5 % / critical 15.0 %), but the S318 loser-hurt bar
+## reads 37.0 % (40-90) at 3.0-3.2 and passes only from 3.5, where the body plan's critical share is 30.5 % (at most 20).
+const RIB_HIT := 3.1
 const BIG_MULT := 2.0
+## PaceAim.LIVER_SHARE. Not a preload: this module stays pure. The DEFENDER's liver side gets this share, as PaceAim.opp_hurt
+## reads it: her right ribs when she is orthodox, her left when she is southpaw.
+const LIVER_SHARE := 0.6
 const CUT_MULT := 1.5
 const PUNCHES := ["jab", "cross", "lead_hook", "body_hook", "rear_uppercut"]
 
@@ -37,9 +43,8 @@ static func _ensure(map: Dictionary, who: String) -> void:
 
 ## Where a landed punch goes. Returns [{place, dmg}, ...].
 ## Random picks use hash(str(beat.t)+str(beat.who)+str(beat.move)) for determinism.
-static func _punch_hits(beat: Dictionary, attacker_south: bool) -> Array:
+static func _punch_hits(beat: Dictionary, attacker_south: bool, def_south: bool = false) -> Array:
 	var m: String = str(beat["move"])
-	var lead_side: String = "right" if attacker_south else "left"
 	var opp_side: String = "left" if attacker_south else "right"
 	var is_big: bool = bool(beat.get("big", false))
 	var mult: float = BIG_MULT if is_big else 1.0
@@ -64,7 +69,14 @@ static func _punch_hits(beat: Dictionary, attacker_south: bool) -> Array:
 		out.append({"place": "nose", "dmg": FACE_HIT * mult})
 		out.append({"place": "head", "dmg": HEAD_HIT * 1.5 * mult})
 	elif m == "body_hook":
-		out.append({"place": opp_side + "_ribs", "dmg": RIB_HIT * mult})
+		# A carried "side" wins. Otherwise the same hash as the face punches: the defender's liver side (PaceAim) LIVER_SHARE
+		# of the time, the other side the rest.
+		var rib := str(beat.get("side", ""))
+		if rib != "left" and rib != "right":
+			var liver := "left" if def_south else "right"
+			var other := "right" if liver == "left" else "left"
+			rib = liver if absi(h) % 100 < roundi(LIVER_SHARE * 100.0) else other
+		out.append({"place": rib + "_ribs", "dmg": RIB_HIT * mult})
 	return out
 
 
@@ -79,7 +91,7 @@ static func add_beats(map: Dictionary, beats: Array, south: Dictionary) -> void:
 		var def: String = "a" if who == "b" else "b"
 		_ensure(map, def)
 		var att_south: bool = bool(south.get(who, false))
-		var hits: Array = _punch_hits(beat, att_south)
+		var hits: Array = _punch_hits(beat, att_south, bool(south.get(def, false)))
 		for hit in hits:
 			var place: String = str(hit["place"])
 			var dmg: float = float(hit["dmg"])

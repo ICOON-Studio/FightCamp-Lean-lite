@@ -24,6 +24,7 @@ const FightFlow := preload("res://scripts/rules/FightFlow.gd")
 const FlowView := preload("res://scripts/ui/FlowView.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const ShoutBar := preload("res://scripts/fight3d/ShoutBar.gd")
+const FightVoice := preload("res://scripts/audio/FightVoice.gd")
 
 
 func build(main: Node, m: Dictionary) -> void:
@@ -268,6 +269,16 @@ func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	var stop := str(m.get("stopped", ""))
 	var by := "ON POINTS" if stop == "" else ("BY KNOCKOUT" if stop == "KO" else "BY STOPPAGE")
 	var colour: Color = (Broadcast.HERS if win else Broadcast.THEIRS) if outcome != "draw" else UI.GOLD
+	# VOICEWIRE1: the ring announcer reads the result ONCE (the modal redraws on every click; m is main.modal, so the flag
+	# survives open_modal(main.modal)).
+	if not bool(m.get("_announced", false)):
+		m["_announced"] = true
+		if outcome == "draw":
+			FightVoice.intro_result("draw", "")
+		else:
+			var kind := "decision" if stop == "" else ("ko" if stop == "KO" else "stoppage")
+			var corner := "red" if win else "blue"
+			FightVoice.intro_result(kind, corner)
 	v.add_child(UI.caps("THE RESULT" + (": PRO DEBUT" if bool(m.get("pro", false)) else "")))
 	# S323 (Q-S294-40): the verdict as the ring announcer reads it - both fighters in their corners, the winner's name and
 	# the three cards in very large type between them.

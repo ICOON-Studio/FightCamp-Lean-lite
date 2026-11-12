@@ -12,6 +12,7 @@ const ShortPunch := preload("res://scripts/rules/ShortPunch.gd")
 const TellPose := preload("res://scripts/fight3d/TellPose.gd")
 const PunchRange := preload("res://scripts/fight3d/PunchRange.gd")
 const FightSfx := preload("res://scripts/audio/FightSfx.gd")
+const FightVoice := preload("res://scripts/audio/FightVoice.gd")
 const MoveStudio := preload("res://scripts/fight3d/MoveStudio.gd")
 const BeatTally := preload("res://scripts/fight3d/BeatTally.gd")
 ## A short punch's join: half-life, length (s). Between the strike's (0.06, 0.3) and the guard return's (0.1, 0.45).
@@ -51,7 +52,10 @@ func fire(v: Node, b: Dictionary) -> void:
 		TellPose.apply(stage, who, str(b["tell"]), contact)
 	match move:
 		"say", "inside":
-			pass   # S314: an inside spell only moves the range (RangeBreath)
+			# S314: an inside spell only moves the range (RangeBreath). VOICEWIRE1: the corner's shout beat speaks its call
+			# (no coach carries a sex field yet, so it is Callum's voice until staff do).
+			if b.has("shout_call"):
+				FightVoice.shout(str(b["shout_call"]), false)
 		"step_in", "step_out":
 			# S311: one boxer lunges into the pocket or steps out of range; the other holds (RangeBreath).
 			if b.has("ref"):
