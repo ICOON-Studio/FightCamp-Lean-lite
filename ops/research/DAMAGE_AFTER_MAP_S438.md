@@ -1,284 +1,303 @@
-# DAMAGE AFTER THE FIGHT: what a bout leaves, the care, the next bout (design map, S438, round 2)
-Author: Claude (lead designer). The AFTER half of DAMAGE1. v3 (DAMAGE_MAP_S437.md) scored under the bar three rounds running, so
-the map is split: the fight half (hits, places in the ring, the minute) is a separate map; this half starts at the final bell.
-EVERY NUMBER TABLE BELOW IS PRINTED BY `tools/damage_after_numbers.py` (stdlib Python, fixed seeds, 81 asserts on this map's own
-caps and rules, about a minute). Run it to check any table; nothing here is typed by hand. Tags: CODE (file:line), REAL, TUNE.
+# DAMAGE AFTER THE FIGHT: what a bout leaves, the care, the next bout (design map, S438, round 3)
+Author: Claude (lead designer). The AFTER half of DAMAGE1; the fight half (hits, places in the ring, the minute) is
+DAMAGE_FIGHT_MAP_S438.md. This half starts at the final bell. EVERY NUMBER BELOW IS PRINTED BY `tools/damage_after_numbers.py`
+(stdlib Python, fixed seeds, 543 asserts, about 10 seconds). Tags: CODE (file:line), REAL, TUNE.
 
-THE CHAIN: last bell -> the morning after -> each place gets a WORD from its number -> Monday: the care card for a contested
-case, or a standing order -> the place heals day by day (or is knocked in training) -> the next offer shows the place and its
-RISK against that opponent -> Fight prep: Keep (with Elbows in), ask to move, pull out; Aim her carried place -> the weigh-in
-medical -> the place STARTS the next bout at its number (no longer 100).
+## 0. The result of round 3, first (read this before the tables)
+Round 3 changed the mechanic as directed: every answer is priced on the BOUT (win chance, the chance of being stopped or injured
+on that place, days and shows missed), her weapon is a GUESS until known, four answers are four jobs on the ribs AND the face,
+and the game's own weight, tiredness, morale, goal and camp lines are in the price. Then every decision was judged by REGRET:
+how many training days a simple rule loses against the best answer, case by case, over a first amateur season.
+- THE MONDAY CARE CARD FAILS THE BARS. The best one-thing rule loses 0.50 of a training day a case (bar 2.5); "always Train"
+  loses 0.71 (bar 3); Spare is best in 11% (bar 15%). Three redesigns were run, none comes near (section 4.3).
+- FIGHT PREP'S NEW ASKS FAIL THE BARS. Reading the place number loses 0.15 a case (bar 2.5).
+- WHY, in plain words: in 5 to 12 days a sore place heals only a few points whatever you choose, so the four answers end
+  close together. Where the stakes ARE big (a hurt rib against a body puncher), one look at the place number says what to do.
+So, as directed, the bar is not lowered: the weekly care card is CUT as a player decision and becomes STANDING ORDERS the coach
+applies (pre-filled, editable, priced); "Ask to move" and "Ask for another opponent" are CUT. What stays is a CONSEQUENCE
+LAYER: one number per place that carries from bout to bout and is priced, in three prices, on the screens where the player
+already decides (the offer, Fight prep, the weigh-in). On its own this half will not score 7 on depth; it should be judged as
+part of the fight half, whose choices it prices. That call is the owner's (section 10, item 8).
 
-FOUR CHANGES OF MECHANIC AGAINST v3 (not wording)
-1. A place KEEPS ITS NUMBER between bouts and heals day by day. Now a sore rib is a live number the week, the offer, the medical
-   and the next bout all read: one number, one rule.
-2. CARE IS PER RIB PLACE AND PER SESSION KIND: Train / Protect (body protector, light pads) / Spare, or Rest the week, plus a
-   physio session. A worked place still heals (40%), so Train is a real answer, not a freeze.
-3. THE OPPONENT PRICES THE PLACE. A carried rib costs 1 in 20 against a head hunter and 1 in 2 against a body puncher (T3b). Her
-   weapon is on the card, the offer and Fight prep; a carried place of HERS (seen on tape) can be aimed.
-4. NO MEDICAL GAMBLE. Any injured place fails the weigh-in until back at 56; an eye or the nose under 65 fails (visibly swollen).
-   The check (guess / physio's look / X-ray) buys a KNOWN fit date, not a way to hide a crack.
+THE CHAIN (kept): last bell -> the morning after -> each place gets a WORD from its number -> the coach's standing order works
+or spares it, day by day -> the next offer shows the place with its three prices against that opponent -> Fight prep: Keep or
+Pull out, Aim her carried place -> the weigh-in medical, with the risk shown -> the place STARTS the next bout at its number.
 
 ## 1. What is wrong today (read in the code)
 | # | Today | Code |
 |---|---|---|
-| 1 | Places are made fresh for every bout; nothing a bout did reaches the next one | BodyMap.gd:21-28 (fresh), :190-193 |
+| 1 | Places are made fresh for every bout; nothing a bout did reaches the next one | BodyMap.gd:21-28, :190-193 |
 | 2 | Places exist only when the bout was watched in 3D; words mode and Sim carry none | BodyLive.gd:33-36; Injuries.gd:188-191 |
-| 3 | The bout injury is ONE 6% roll scaled by the worst place, type by fixed weights, days a flat random range | InjuryRoll.gd:7, :25-35, :20, :95 |
-| 4 | The ribs only weigh the roll (x3 under 35); a sore rib is nothing after the bell | InjuryRoll.gd:18-19, :70-80 |
-| 5 | The result page says "sore" (Aftermath.gd:86-90) but no rule reads it: no state, no date, no choice | Aftermath.gd:74-99 |
-| 6 | One injury timer per fighter; a second, shorter one is dropped | Injuries.gd:242-248 |
-| 7 | Fighting hurt is a flat 10 / 15 / 20 ENERGY by days, not by place; two buttons | Injuries.gd:33, :84-102 |
-| 8 | The head reads damage x 2.2 (not the HEAD place) for stand-down and the roll | Injuries.gd:28, :187; StandDown.gd:7, :14-15 |
-| 9 | The week does not know a place: no session is "on the ribs"; training rolls ignore places | InjuryRoll.gd:136-154; Injuries.gd:208-226 |
-| 10 | The physio is a passive x0.75 on days: hire and forget | StaffRoles.gd:12, :19; GymSpend.gd:86 |
-| 11 | Offers simply wait past the injury; the S428 1-2 week lead is not built (still 2-4) | Injuries.gd:236, :261; AmateurBooking.gd:10-11 |
-So once the bell rings the player has nothing to do about a place unless the 6% roll fires: about twice in 26 weeks.
+| 3 | The bout injury is ONE 6% roll, type by fixed weights, days a flat random range | InjuryRoll.gd:7, :20, :25-35 |
+| 4 | The result page says "sore" but no rule reads it: no state, no date, no price | Aftermath.gd:74-99 |
+| 5 | Fighting hurt is a flat 10 / 15 / 20 energy by days, not by place | Injuries.gd:33, :84-102 |
+| 6 | The week does not know a place: no session is "on the ribs" | InjuryRoll.gd:136-154; Injuries.gd:208-226 |
+| 7 | The S428 1-2 week amateur lead is agreed but not built (offers still 2-4 weeks); this map prices the S428 lead | AmateurBooking.gd:10-11 |
 
-## 2. Vocabulary (one word per level; use only these)
-| Word | Place number | After the last bell (T1) |
+## 2. Words (one word per level; use only these)
+| Word | Place number | After the last bell |
 |---|---|---|
-| fine | 90-100 | nothing to decide (fine is not zero risk: T3b start 90) |
-| sore | 56-89 | heals by itself (at 40% on a day a session works it); can be knocked |
-| hurt | 36-55 | the same, knocked four times as easily |
-| injured | 0-35 | a named injury, light or serious; fails the medical until back at 56 |
-- hurt 55 and the 35 line are the settled bands. Injury names (light / serious): Swollen eye / Cut eye; Bloodied nose / Broken nose;
-  Bruised ribs / Cracked rib. Places: left eye, right eye, nose, left ribs, right ribs, and the HEAD (stand-down only).
-- RISK = the chance the place ends INJURED in the next bout, from its forecast and the opponent's weapon (T3b), said in words:
-  1 in 20, 1 in 10, 1 in 5, 1 in 3, 1 in 2, 3 in 4, 9 in 10. FORECAST = the place's number on fight night if she spares it.
-- NUMBERS ON SCREEN ONLY UNDER 55 (settled S419), kept everywhere: a sore place shows word + date + risk ("Right ribs: sore, fine
-  Thu 12, 1 in 2 vs Mensah"), never "forecast 70". Training lost is shown as what it costs: "Power -0.3 by fight night".
-- KNOCK = a training session that takes 25 off a sore or hurt place. Staff by role: Coach, Physio, Cutman, Doctor.
+| fine | 90-100 | nothing to decide |
+| sore | 56-89 | heals by itself; a session that works it slows that and can knock it |
+| hurt | 36-55 | the same, knocked three to four times as easily |
+| injured | 0-35 (or knocked under 56) | a named injury; fails the weigh-in until back at 56 |
+- Settled bands 55 / 35 / 15 kept. Places: left eye, right eye, nose, left ribs, right ribs; the HEAD sets the stand-down only.
+- RISK WORDS (round 2 floored 0% at "1 in 20"; fixed): under 1 in 50 (under 2%), 1 in 20 (2-7%), 1 in 10 (7-15%), 1 in 5
+  (15-27%), 1 in 3 (27-42%), 1 in 2 (42-62%), 3 in 4 (62-85%), 9 in 10 (above).
+- THE THREE PRICES on every place line the player can act on: WIN CHANCE with it ("51%"), STOPPED OR INJURED on that place
+  ("1 in 3"; a guessed weapon shows its range: "1 in 20 to 1 in 2"), and IF IT GOES ("21 days, misses 2 shows").
+- Numbers on screen only under 55 (settled S419): a sore place shows word, date and the three prices, never "forecast 70".
+- KNOCK = a training session takes 25 off a sore or hurt place. Staff by role: Coach, Physio, Cutman, Doctor.
 
-## 3. The mechanic, step by step
-### 3.1 The morning after
-| Place | Overnight | Real ring, one line |
-|---|---|---|
-| Ribs | get back 10% of what THIS bout took; a rib still HURT rolls an injury: 10 in 100 x (56 - number) / 20, and drops to 30 | spasm settles in hours; a crack shows the next morning |
-| Eyes | lose a further 25% of what THIS bout took | swelling peaks a day after the bout |
-| Nose | as at the bell | a broken nose is found by the hands, not by time |
-| Head | the HEAD place sets the stand-down, never a care choice (settled) | the doctor, not the coach, decides a head |
-An injured place rolls light or serious (30 in 100 from the fight's critical band, 70 from the doctor band; an eye with an open cut
-is always serious). The head knock and the hand keep InjuryRoll's bout roll (its head 37 and hand 18 weights of 100).
+## 3. The mechanic
+### 3.1 The morning after (kept)
+Ribs get back 10% of what this bout took; a rib still hurt may crack (10 in 100 x (56 - number) / 20). An eye swells: it loses
+a further 25% of what this bout took (the cutman the morning after stops that, 4.6). The nose stays as at the bell. An injured
+place rolls light or serious (30 in 100 from the critical band, 70 from the doctor band; an open cut on an eye is serious).
 
-### 3.2 Healing (one rule). T2, whole days rounded UP (the date shown is the first day the place reads the word; asserted):
-| Place | Points a day | Sore 75 -> fine, days | Sore 60 -> fine, days | Light injury 25 -> fit (56) | Serious injury 25 -> fit (56) |
+### 3.2 Healing (T2; the round-2 hidden multipliers are now stated)
+| Place | Points a day: sore / hurt | Sore 75 -> fine | Sore 60 -> fine | Light injury 25 -> fit (56) | Serious injury 25 -> fit (56) |
 |---|---|---|---|---|---|
-| eye | 2.0 | 8 | 15 | Swollen eye 10 (real 5-10) | Cut eye 21 (real 14-21) |
-| nose | 2.4 | 7 | 13 | Bloodied nose 10 (real 5-10) | Broken nose 26 (real 21-35) |
-| ribs | 1.4 | 11 | 22 | Bruised ribs 16 (real 10-21) | Cracked rib 56 (real 42-56) |
-Multipliers: physio hired x1.33 (built), gym plan x1.11 (built S409), a rest week x1.5, together capped at x2.0. An outside physio
-session ($50) then ADDS +0.5 for 7 days on top of the cap, on worked and rest days alike (round 1 multiplied it into the cap: worse
-than nothing with the physio hired; now it always heals, asserted). The clinic sees the club twice a week: two sessions shared by
-all the boxers, so booking one is a choice between them.
+| eye | 2.0 / 3.20 | 8 | 15 | Swollen eye: x1.60 = 3.20 a day, 10 days (real 5-10) | Cut eye: x0.75 = 1.50 a day, 21 days (real 14-21) |
+| nose | 2.4 / 3.12 | 7 | 13 | Bloodied nose: x1.30 = 3.12 a day, 10 days (real 5-10) | Broken nose: x0.50 = 1.20 a day, 26 days (real 21-35) |
+| ribs | 1.4 / 1.96 | 11 | 22 | Bruised ribs: x1.40 = 1.96 a day, 16 days (real 10-21) | Cracked rib: x0.40 = 0.56 a day, 56 days (real 42-56) |
+One rule in two parts: a HURT place heals at the light-injury pace (the same swelling, so a hurt place is never slower than an
+injured one: asserted, the cost never drops as the number drops); a SORE place at the sore pace; a named injury at its own pace.
+Physio hired x1.33 (built, StaffRoles.gd:19), a rest week x1.5, capped x2.0. Dates are whole days rounded up.
 
-### 3.3 What loads a place, and the four answers for a rib
-| Place | Sessions that work it | Real ring |
-|---|---|---|
-| Eye, nose | sparring only | bag and pads never touch the face |
-| Ribs | sparring, pads AND the heavy bag | every punch twists the trunk |
-| Answer (per rib place) | The sessions | Heals on a worked day | Knock odds | Keeps of the session |
-|---|---|---|---|---|
-| Train | as planned | 40% | sore 2 in 100 sparring, 1 in 200 pads/bag; hurt 8 in 100 / 2 in 100 | all |
-| Protect | pads to the head mitts, sparring in the body protector ($75 once, Club > Money) | 75% | a quarter of Train | 85% |
-| Spare | bag -> roadwork, pads -> shadow and footwork, sparring -> technical bag rounds | 100% (not worked) | none | 70% / 70% / 30% |
-| Rest (whole fighter) | one week off (gains x0.25, built), heals x1.5, then she spares what is still sore | 150% | none | 25% |
-An injured place is always spared (settled). A SORE FACE spars body-only (the coach's fixed rule, keeps 60% of sparring, no card):
-a face clears by itself before almost every bout, so the face is shown on the figure and its hover, never as a card row. The fight
-week (S428: light, no sparring) works only the ribs.
+### 3.3 Four jobs per place (the ribs AND the face)
+| Job | Ribs: what she does | Face: what she does | Heals on a worked day | Knock odds | Keeps of the work |
+|---|---|---|---|---|---|
+| Train | as planned | sparring as planned (headguard) | 40% | full | all |
+| Protect | body protector in sparring, pads to the head mitts, bag at half pace ($75 once) | body-only sparring | 65% ribs / 75% face | a quarter | ribs 90/80/90% pads/bag/spar; face 60% of sparring |
+| Spare | no body work: head-only sparring; pads and bag -> shadow and roadwork (combinations wait) | no sparring (technical bag rounds) | 100% | none | ribs 45/60/75%; face 30% of sparring |
+| Rest | the whole fighter, one week off, then Spare | the same | 150% | none | 25% (built), burns 20%, morale +4 (built) |
+Loads: an eye or the nose is worked by sparring only; the ribs by sparring, pads and the bag. The S428 fight week is light and
+has no sparring, so a face is never worked in the last 7 days. Knocks a session: sore rib 3 in 100 sparring, 8 in 1,000 pads or
+bag; hurt rib 10 / 3 in 100; sore eye 4 in 100 sparring, hurt 12. Chin under 55 x1.3, 70+ x0.7; overreached x3 (pack 4.1).
+TRAIN ON A HURT PLACE is the best order in 17% of hurt cases: against a head hunter, or when her goal or her weight needs the work.
 
-### 3.4 The next bout reads the number. T3b (the bout model from that start, 600 bouts a cell: injured at the last bell / mean
-injury days). A place that starts low loses less a round: 25 from 100 down to 15 from 60 (she guards it, the corner greases it).
+### 3.4 The bout from a carried place (T3b, 500 bouts a cell: stopped or injured on that place / days out if it goes)
 | Place | start 100 | start 90 | start 80 | start 70 | start 60 | start 50 | start 40 |
 |---|---|---|---|---|---|---|---|
-| eye (vs mixed) | 2% / 0.1 | 6% / 0.7 | 17% / 2.3 | 40% / 7.0 | 70% / 14.2 | 92% / 23.4 | 100% / 30.3 |
-| nose (vs mixed) | 0% / 0.0 | 5% / 0.6 | 19% / 2.2 | 42% / 5.6 | 66% / 10.4 | 94% / 20.7 | 100% / 27.3 |
-| ribs vs a head hunter | 0% / 0.0 | 0% / 0.0 | 0% / 0.0 | 0% / 0.1 | 6% / 1.7 | 30% / 7.4 | 86% / 22.0 |
-| ribs vs mixed | 0% / 0.0 | 0% / 0.0 | 1% / 0.3 | 11% / 2.4 | 39% / 9.6 | 77% / 23.0 | 98% / 37.0 |
-| ribs vs a body puncher | 2% / 0.3 | 13% / 2.3 | 34% / 6.6 | 57% / 13.4 | 82% / 21.6 | 99% / 41.2 | 100% / 63.0 |
-| ribs vs a body puncher, Elbows in | 0% / 0.1 | 2% / 0.4 | 13% / 2.6 | 29% / 6.6 | 64% / 16.6 | 91% / 30.3 | 100% / 49.0 |
-Opponent body share: head hunter 10%, mixed 22%, body puncher 45% of what she lands. In words, ribs at 80: 1 in 20 / 1 in 20 /
-1 in 3; at 70: 1 in 20 / 1 in 10 / 1 in 2. THE WEIGH-IN MEDICAL: she fails if any place is injured, or an eye or the nose is under
-65 (an eye at 60 would be injured 70 in 100: the doctor stops it before the bell). Hurt ribs pass: the coach's call, priced above.
-ELBOWS IN FROM ROUND 1 (a Fight prep plan line, the built corner ONE CHANGE moved to the plan): 3 in 10 of her body punches go to
-the head. It costs her own body work (counted as 1.5 day-equivalents, about 3 in 100 less chance to win: the fight half measures it).
+| ribs vs a head hunter | under 1 in 50 / 0 | under 1 in 50 / 0 | under 1 in 50 / 0 | under 1 in 50 / 14 | 1 in 20 / 20 | 1 in 3 / 21 | 9 in 10 / 25 |
+| ribs vs a mixed puncher | under 1 in 50 / 14 | under 1 in 50 / 14 | 1 in 20 / 23 | 1 in 10 / 19 | 1 in 3 / 21 | 3 in 4 / 29 | 9 in 10 / 41 |
+| ribs vs a body puncher | under 1 in 50 / 19 | 1 in 10 / 22 | 1 in 3 / 22 | 1 in 2 / 23 | 9 in 10 / 26 | 9 in 10 / 43 | 9 in 10 / 64 |
+| eye vs a head hunter | 1 in 20 / 14 | 1 in 10 / 14 | 1 in 3 / 15 | 1 in 2 / 20 | 3 in 4 / 23 | 9 in 10 / 27 | 9 in 10 / 32 |
+| eye vs a mixed puncher | under 1 in 50 / 14 | 1 in 20 / 13 | 1 in 5 / 13 | 1 in 3 / 17 | 3 in 4 / 20 | 9 in 10 / 25 | 9 in 10 / 31 |
+| eye vs a body puncher | under 1 in 50 / 0 | under 1 in 50 / 0 | 1 in 20 / 10 | 1 in 10 / 13 | 1 in 3 / 16 | 3 in 4 / 21 | 9 in 10 / 25 |
+"Stopped" = the place reaches the doctor band (15) in the bout: the referee or doctor stops it, a loss and a 28-day stand-down.
+The weapon prices the two places the opposite way (asserted): a body puncher threatens the ribs, a head hunter the eye.
+THE WEIGH-IN MEDICAL: she fails if a place is injured, or an eye or the nose is under 65. A rib at 56-60 passes, but against a
+body puncher it is "9 in 10": the weigh-in modal shows that line in red with Pull out on it (round 2 let "fit" read as safe).
 
-### 3.5 What a bout leaves. T3 (4,000 bouts; landed on her 36/63/90 at 35/40/25%; opponent mix 35/40/25%):
-| Landed on her | Bouts | Ribs sore or worse | Face sore or worse | A place hurt or worse | Injured per 100 |
+### 3.5 What a bout leaves (T3, 4,000 bouts; landed on her 36/63/90 at 35/40/25%; pool head hunter / mixed / body 35/40/25%)
+| Landed on her | Bouts | Ribs sore or worse | Eye or nose under 80 | A place hurt or worse | Place injuries per 100 |
 |---|---|---|---|---|---|
-| 36 | 1393 | 63% | 99% | 1% | 0.0 |
-| 63 | 1607 | 86% | 100% | 34% | 0.5 |
-| 90 | 1000 | 94% | 100% | 94% | 13.8 |
-| all | 4000 | 80% | 100% | 37% | 3.6 |
-Injuries per 100 bouts: eye 2.4, nose 1.1, ribs 0.4; head knock + hand (InjuryRoll) 3.3; all 6.9 (REAL ~6, Alevras 2022; asserted 4-8).
+| 36 | 1393 | 63% | 64% | 1% | 0.0 |
+| 63 | 1607 | 86% | 98% | 34% | 0.5 |
+| 90 | 1000 | 94% | 100% | 94% | 14.5 |
+| all | 4000 | 80% | 87% | 37% | 3.8 |
+Injuries per 100 bouts, counted one by one (round 2 counted bouts): eye 2.4, nose 1.1, ribs 0.4; head knock + hand (InjuryRoll)
+3.3; all 7.1 (REAL about 6, Alevras 2022; asserted 4-8).
 
-### 3.6 T4 worked example. Morning after: left eye 91 fine, right eye 84 sore, nose 80 sore, left ribs 71 sore, right ribs 54 hurt.
-The next show is in 14 days (a BASE week, then the fight week). Same answer on both ribs; 2,000 runs, costs over 600:
-| Her two weeks | Ribs on fight night (mean) | Right ribs injured on the night: head hunter / body puncher | A training knock | Focus stat lost | Cost vs body puncher | Cost vs head hunter |
-|---|---|---|---|---|---|---|
-| rest | left 96, right 79 | 1 in 20 / 1 in 3 | 0 in 100 | 0.7 | 10.8 | 6.4 |
-| rest + physio session ($50) | left 96, right 83 | 1 in 20 / 1 in 3 | 0 in 100 | 0.7 | 10.3 | 7.2 |
-| train | left 83, right 64 | 1 in 20 / 3 in 4 | 20 in 100 | 0.1 | 15.6 | 4.4 |
-| train + physio session ($50) | left 82, right 68 | 1 in 20 / 3 in 4 | 14 in 100 | 0.1 | 14.7 | 3.5 |
-| protect | left 87, right 70 | 1 in 20 / 1 in 2 | 4 in 100 | 0.2 | 10.8 | 2.6 |
-| protect + physio session ($50) | left 87, right 74 | 1 in 20 / 1 in 2 | 4 in 100 | 0.2 | 10.2 | 3.3 |
-| spare | left 91, right 74 | 1 in 20 / 1 in 2 | 0 in 100 | 0.3 | 9.6 | 3.2 |
-| spare + physio session ($50) | left 91, right 79 | 1 in 20 / 1 in 3 | 0 in 100 | 0.3 | 8.5 | 3.9 |
-Reading: against a body puncher, Spare + a session (next best 1.1 higher); against a head hunter, Protect (0.5 lower than Spare).
-Same bruise, two answers: the opponent's weapon is the reason. Against the body puncher the card OPENS (hurt rib, 14 days, body
-puncher is a contested situation, T5b); against the head hunter the standing order (Train) acts and costs 1.8 here, which is why
-orders are editable ("hurt + 14 days + head hunter -> Protect").
+### 3.6 The price, in TRAINING DAYS (1 = the gains of one full training day; the hidden per-point price of round 2 is gone)
+| What | Training days | From the game |
+|---|---|---|
+| A win instead of a loss | 12 | morale +8 / -12 (FighterProfile.gd:19-20), members +8 / -1, reputation +5 / -2 (pack 4.13; BoutRules.gd:96-97), a ladder place |
+| A show missed | 9 | the $450 ticket cut (built) and the bout |
+| Pull out / weight missed | 15 | $300 (Injuries.gd:11; BoutRules.gd:88 MISSED_WEIGHT_COST) = 6, plus the show |
+| A day out | 1.39 | trains at a quarter (Injuries.gain_mult) and a show every 14 days slips |
+| A stoppage on a place | the loss + 28 days out | + 1 member, 2 reputation more (BoutRules.gd:98-99) |
+| Her goal line slips | 6 | goal met +10 / missed -20 morale (FighterGoal.gd:29, :31); the line: "Power +0.8 of +1.1, goal missed 1 in 5" |
+| Weight | 15 x the chance of missing | the burn a lost session would have made (WeekPlan.gd:69 KCAL_PER_KG, :74 CUT_DEFICIT) |
+| Tiredness on the night | 0.4 in 100 win per energy point | BoutRules.gd:34-36 (2 energy a point over 50, at most 20); overreached gains x0.6 (WeekPlan.gd:77-78) |
+| No sparring before the fight week | 3 in 100 win | timing (TUNE) |
+| PEAK CAMP lost (a spared week misses the stat or tiredness line) | 4 in 100 win | PeakCamp.gd:12 BONUS +1 every stat |
+| Rest week morale | -0.8 | rest_week +4 (FighterProfile.gd:24); overruling her ask -5 = 1.0 (:30) |
+| Body protector | 1.5 once | $75 at $50 a training day |
+The game shows the INPUTS (the three prices, the stat line, the weight line, tiredness, her wish), never a cost or a "best".
 
-### 3.7 The cost model behind the script (design only; the game never shows a cost or a "best")
-DAY-EQUIVALENTS (a day of a full training week = 1): training lost x her goal's weight (no goal 0.6, on track 1.0, AT RISK 1.6:
-the goal chip); $50 = 1 (T7 also $20 / $120); a day out injured = 1; each point under 90 at the first bell 0.04; injury days on the
-night from T3b against that opponent (or Elbows in, + its cost, whichever is less); a MEDICAL FAIL = $300 pull-out + a lost bout 6 +
-every injury day still to come (round 1 forgot the days, so a knock that injured a rib made Train look cheaper); no bout booked =
-half a bout's price against a mixed opponent at day 14; overruling her wish 1 (morale -5, built). The game shows the INPUTS (word,
-date, risk vs this opponent, knock odds, stat lost, price, her wish), so the choice is read, never solved on screen.
+### 3.7 Her weapon: a GUESS until it is KNOWN
+The style word (built) gives the guess, in 100: Out-boxer head 70 / mixed 25 / body 5; Counter-puncher 55/35/10; Boxer-puncher
+25/50/25; Volume puncher 20/45/35; Pressure fighter 10/35/55; Slugger 15/40/45. KNOWN after tape study, the Ex-pro head coach's
+tell (built, pack 4.6: the weapon opens first) or her last bout filmed and watched. A guess shows the RANGE of the risk.
 
-## 4. The decisions (when, options, costs, why NOT; all numbers from the script)
-| Decision | When it appears | Option | What it costs | Why you would NOT pick it | Best in |
-|---|---|---|---|---|---|
-| Monday care card (per rib place) | a contested situation (T5b) where the worst answer costs a day+ more than the best | Train | knocks (T3.3), heals 40% on worked days | vs a body puncher a hurt rib reaches the night at 1 in 2+ | 50% |
-| | | Protect | 15% of rib sessions, $75 protector once | slower than Spare: right ribs 70 vs 74 (T4) | 10% |
-| | | Spare | 30% of pads/bag, 70% of sparring | Ring IQ and combo work wait a week; a goal at risk pays 1.6x | 10% |
-| | | Rest the week | 75% of a week's gains | a whole week for a rib a mixed opponent barely touches | 30% |
-| Physio session | on the card, per place; 2 a week for the club | +0.5 healing for 7 days | $50 and a slot another boxer may need | worth it only when the rib's risk drops a band (24% of card cases) | 24% |
-| Standing orders | Coach card; pre-filled with each uncontested situation's usual best | edit an order | the order is wrong 13% of its cases, 0.17 a time | an order that suits a head hunter fails a body puncher | (policy) |
-| The next offer | an offer while a rib is not fine | Accept | the bout starts at the forecast, priced by HER weapon | sore rib vs a body puncher: Pass wins 74% | sore: 71 / 62 / 26% vs head hunter / mixed / body |
-| | | Pass (built, free) | the next offer about 14 days later: 4.2 | a head hunter barely touches it | (the rest) |
-| Fight prep | a booked bout at 1 in 5 or worse, or a medical fail | Keep (+ Elbows in, + Protect) | the night's risk; Elbows in 1.5 | | keep 50 / 77 / 53% |
-| | | Ask to move it 14 days | yes 6 in 10; a NO cools that club 4 weeks AND she now goes to the body | 1.5 for asking; her Heart 65+ wants this bout | (the rest) |
-| | | After a NO: keep / pull out | pull out $300 (settled) + 14 days | $300 = 6 | keep 52% / pull 48% |
-| Aim her place | Fight prep, when the opponent's last bout (filmed) left a place sore | "Aim: the right eye" plan line | fewer punches at our best targets (fight half) | a place at 85 is half-healed | T6b |
-| The check | an injured nose or rib | guess / look $60 / X-ray $250 | T7 by the club's cash | tight club: the X-ray is weeks of wages | 67/25/8, 28/50/22, 6/36/58% |
-Asserted: on the card no answer best in over 70% or under 8%; the same fighter on the same day gets a different best answer vs a
-head hunter than vs a body puncher in 45% of cases; Accept moves 45 points between opponents; after a NO both keep and pull win.
-Her wish (built): Heart 65+ wants to fight, low Composure wants rest; overruling is morale -5 (built), now a tile on the card.
+## 4. The decisions, judged by regret (all from the script; a season = 3 boxers, 26 weeks, 40 seasons drawn)
+### 4.1 How often a carried place meets a Monday (T4; Mondays in 26 weeks, of them real decisions in brackets)
+| Place (the worst one) | Bout in 5 days: Mondays (decisions) | Bout in 12 days: Mondays (decisions) | No bout booked: Mondays (no decision: it heals, the next offer prices it) |
+|---|---|---|---|
+| eye hurt | 0.0 (0.0) | 0.5 (0.5) | 2.4 |
+| eye injured | 0.0 (0.0) | 0.1 (0.1) | 0.5 |
+| eye sore | 3.4 (3.0) | 2.1 (2.1) | 9.6 |
+| nose hurt | 0.0 (0.0) | 0.3 (0.3) | 1.2 |
+| nose injured | 0.0 (0.0) | 0.1 (0.1) | 0.5 |
+| nose sore | 1.6 (1.5) | 1.1 (1.1) | 5.4 |
+| ribs hurt | 0.5 (0.5) | 0.8 (0.8) | 3.1 |
+| ribs injured | 0.0 (0.0) | 0.0 (0.0) | 0.1 |
+| ribs sore | 7.8 (6.8) | 3.8 (3.8) | 14.6 |
+Bouts 23.7 a season; Mondays with a carried place 59.3; real decisions (a bout booked, answers a training day or more apart) 20.7.
 
-### 4.1 T5b: is the Monday choice a lookup? (situations the player can see; usual best, its share, n; ORDER = a standing order)
-| Worst rib | Days to the bout | vs head hunter (none: unknown) | vs mixed | vs body puncher |
-|---|---|---|---|---|
-| sore | none | - | train 88% (83) ORDER | - |
-| sore | 7-10 | train 59% (165) | train 56% (157) | train 41% (143) |
-| sore | 14 | train 79% (85) ORDER | train 77% (83) ORDER | train 49% (80) |
-| sore | 21 | train 95% (86) ORDER | train 92% (87) ORDER | train 53% (87) |
-| hurt | none | - | train 89% (19) ORDER | - |
-| hurt | 7-10 | rest 57% (37) | rest 64% (36) | rest 95% (44) ORDER |
-| hurt | 14 | train 85% (20) ORDER | train 80% (15) ORDER | rest 53% (19) |
-| hurt | 21 | train 82% (22) ORDER | train 76% (21) ORDER | train 53% (17) |
-Where one answer wins over 70%, the player sets it ONCE as a standing order instead of meeting 42 cards; the card opens only where
-the rib's number, her goal chip, her wish and the session price still decide it. Of 1,430 situations: 124 too close to matter (the
-coach picks), 565 standing orders, 741 cards (Train 50%, Rest 30%, Protect 10%, Spare 10%).
+### 4.2 The Monday care decision (T5, 829 decision cases)
+| Rule | Best answer in | Regret a case (mean +- standard error) |
+|---|---|---|
+| always Train | 53% | 0.71 +- 0.04 |
+| always Protect | 17% | 1.16 +- 0.04 |
+| always Spare | 11% | 1.50 +- 0.06 |
+| always Rest | 19% | 5.17 +- 0.20 |
+The best ONE-THING rule per visible thing (for each value, the answer cheapest across its cases; fitted on these very cases):
+| Reads only | Regret a case |
+|---|---|
+| protector owned | 0.50 +- 0.04 |
+| place number (5s) | 0.53 +- 0.03 |
+| place | 0.56 +- 0.03 |
+| her wish | 0.59 +- 0.04 |
+| goal chip | 0.66 +- 0.04 |
+| her weapon (or style word) | 0.70 +- 0.04 |
+| tiredness, days to the bout, weight, chin, camp, physio hired | 0.70-0.71 +- 0.04 |
+Two-thing rule (place number x her weapon or style word): 0.41 +- 0.03. BARS: one-thing 2.5, always-the-most-common 3, every
+answer 15%+: NOT MET. The script gates it: `CARE_CARD_IS_A_DECISION` may only be True if the bars pass (asserted).
+GUESS vs KNOWN (T5b): 69% of decision cases are a guess. Knowing the weapon changes the best answer in 19.8% of them (bar 20%:
+not met) and saves 0.13 +- 0.02 a case; Watch the tape costs a pad night (0.88), so on the damage alone it does not pay (-0.74).
+The tape's value stays where it is built: the tells in the fight plan. `TAPE_PAYS_FOR_DAMAGE` is gated the same way.
 
-## 5. THE MENU TABLE (every screen it appears on, and what each is wired to)
-Body pictures: the place is the TINTED MUSCLE on the game's own figure with a HOOKED LEADER LINE out of the body to its name, word,
-date and risk (BodyCallouts.gd, CalloutLine.gd); never blobs on the chest. New pure module: `scripts/rules/PlaceCare.gd`.
+### 4.3 Redesigns tried before cutting (each re-run by the script; the best one-thing rule's regret, bar 2.5)
+| Change | Best one-thing rule: regret a case |
+|---|---|
+| the care answer and the bout action as ONE plan (16 plans, 886 cases) | place number (5s): 0.73 +- 0.04 |
+| every weapon KNOWN (tape on every opponent) | place number (5s): 0.61 +- 0.06 |
+| every stake doubled (a win, a show, the goal line) | place number (5s): 0.88 +- 0.07 |
+The goal and weight costs are already sharp lines (met or missed), not weights. The cause is physical, not a wording: 5-12
+days move a place a few points whatever the answer, and where the stakes are big the place number alone says what to do.
+
+### 4.4 What replaces the card: STANDING ORDERS (T5c), written once on the Coach card
+One order per situation: place word x days to the bout x her weapon or style word (97 situations), e.g. "hurt ribs, bout in 5
+days, Pressure fighter -> Spare". Pre-filled with each situation's best order. The best orders cost 0.44 +- 0.03 a case against
+reading every case; leaving the coach's "Train" everywhere instead costs 0.27 +- 0.04 a case more (5.6 training days in 26
+weeks): writing orders is a small decision with a real number. With an order everywhere the Monday board never opens; a player
+who clears every order meets it 20.7 times in 26 weeks and gains 9.0 training days a season. The week review says what each
+order did ("Spare on the right ribs: 66 -> 81 by fight night; Power +0.8 of +1.1").
+
+### 4.5 Fight prep (T7, the last Monday, opens at a night's risk of 1 in 5+ or a likely weigh-in fail: 3.5 times in 26 weeks)
+| Action | Best in | Regret a case if always taken |
+|---|---|---|
+| Keep | 21% | 1.03 +- 0.20 |
+| Ask to move 14 days (yes 6 in 10; a NO tells their corner) | 20% | 1.27 +- 0.14 |
+| Ask for another opponent, same show (yes 4 in 10) | 58% | 0.43 +- 0.20 |
+| Pull out ($300 + the show) | 1% | 7.22 +- 0.20 |
+Best one-thing rule (place number): 0.15 +- 0.03 a case. BARS NOT MET: "Ask to move" and "Ask for another opponent" are CUT
+(`FIGHT_PREP_ASKS` gated). Fight prep keeps Keep / Pull out (built), now with the three prices, and the Aim line (section 7).
+The offer keeps Accept / Pass (built) with the three prices.
+
+### 4.6 The cutman the morning after ($40 a call; the eye skips its overnight swelling) (T10)
+| Eye cases (the morning after) | Cases | Worth its $40 |
+|---|---|---|
+| a bout booked | 69 | 57% |
+| no bout booked | 277 | 37% |
+So it is an order line, on by default when a bout is booked ("call the cutman for an eye when a bout is booked").
+
+## 5. A Monday, played (T6; read this to see what the player sees)
+Ana boxed Saturday. Monday morning her right ribs read 66: sore. Her next bout is in 12 days against Mensah. Mensah is a
+"Pressure fighter"; nobody has seen her box, so her weapon is a GUESS: of 100 Pressure fighters about 55 go to the body. Ana is
+cutting weight with 0.3 kg to spare, her goal "Power +2 by month's end" is on track, and she is tired (64). The four jobs, as
+the order editor shows them for her (the three prices first, then what each costs her elsewhere):
+| Answer | Win chance | Stopped or injured on the ribs (the guess's range) | If it goes | Power by fight night | Weight on the day | Tiredness on the night | Ribs on the night | Cost on the guess | Cost if KNOWN head hunter / mixed / body puncher |
+|---|---|---|---|---|---|---|---|---|---|
+| Train | 51% | 1 in 3 (1 in 20 to 1 in 2) | 21 days, 2 shows | +1.1 of +1.1, goal missed under 1 in 50 | 0.30 kg under | fresh | 73 sore | 9.7 | 1.1 / 3.5 / 15.2 |
+| Protect | 53% | 1 in 3 (under 1 in 50 to 1 in 2) | 22 days, 2 shows | +1.1 of +1.1, goal missed under 1 in 50 | 0.30 kg under | fresh | 77 sore | 10.4 | 2.5 / 4.0 / 15.9 |
+| Spare | 54% | 1 in 5 (under 1 in 50 to 1 in 3) | 22 days, 2 shows | +0.8 of +1.1, goal missed 1 in 5 | 0.23 kg under | fresh | 81 sore | 9.8 | 3.8 / 4.5 / 14.2 |
+| Rest | 8% | 1 in 10 (under 1 in 50 to 1 in 5) | 22 days, 2 shows | +0.5 of +1.1, goal missed 9 in 10 | 0.13 kg OVER | fresh | 86 sore | 23.6 | 23.0 / 23.1 / 24.0 |
+Reading it: Rest heals the ribs most, but a week without training leaves her 0.13 kg over the limit, so she would likely miss
+weight and not box at all (win chance 8%). Spare heals the ribs to 81 and halves the risk, but loses combination work, so her
+goal may slip. Train keeps everything and leaves the ribs at 73. On the guess, Train and Spare cost the same within a tenth of
+a day (9.7 and 9.8); if the tape showed a body puncher, Spare would be right; if mixed or a head hunter, Train. That is the whole
+decision and its size: about one training day either way. The cost columns are the script's, never on screen.
+
+## 6. The menu table (every screen the place appears on, what each is wired to)
+Body pictures: the place is the TINTED MUSCLE on the game's own figure with a HOOKED LEADER LINE out of the body to its word and
+date (BodyCallouts.gd, CalloutLine.gd); never blobs on the chest. New pure module: `scripts/rules/PlaceCare.gd`.
 | Screen | Element | Wired to | The act | Test |
 |---|---|---|---|---|
-| Result page, DAMAGE tile | figure: each carried place tinted, hooked line to "Right ribs: hurt 54, fine Mon 30"; injured names the injury and its range | AfterFight.gd -> PlaceCare.morning(map) -> f["places"]; Aftermath.damage | "Plan her week" opens the care card or names the order | place_care_test, golden |
-| Home, need card | "Plan around Ana's right ribs" on a Monday the card opens (contested only) | Needs.gd <- PlaceCare.card_open(f, day, orders) | opens the care card | golden |
-| Care card (new modal) | per RIB place: word, fine date, risk vs the booked opponent (her weapon tile); four answers each with risk on the night, knock odds, "Power -0.3 by fight night", goal chip line; physio session per place with slots left this week; her wish tile ("Ana: wants to fight; overrule -5 morale") | PlaceCare.options(f, day, opp) -> f["care"] | pick Train / Protect / Spare / Rest; book a session; "Make it my order" | care_card_test |
-| Care card, injured place | the range as a bar (light / serious fit dates), the check: guess / look $60 / X-ray $250 | PlaceCare.check(f, place, kind) | pick a check | care_card_test |
-| Coach card > Standing orders | one line per situation: "hurt rib, 7-10 days, body puncher -> Rest"; pre-filled, editable | PlaceCare.orders (saved on Career) | edit | care_orders_test |
-| Fighter page > Week | sessions that work a carried place tagged "works the right ribs"; Protect / Spare swaps shown | PadWeek / WeekPlan read PlaceCare.session(f, dow) | edit as today | week_spare_test |
-| Week review (modal) | "Order: Protect on the right ribs (hurt, 14 days, head hunter)"; "Sparring Thu: right ribs knocked, 51 -> 26" | WeekActual log <- PlaceCare | none (cause shown) | place_care_test |
-| Fighter page > Overview, BODY row | figure with hooked lines, word, fine date; faces on hover | f["places"] | opens the care card | golden |
-| Roster cards, Condition tile | the worst carried place: "Right ribs sore, fine Thu 12" | RosterCards.gd <- f["places"] | opens her page | roster_tile_test |
-| Fights > offer card | "On fight night: right ribs sore, 1 in 2 vs Mensah (body puncher)"; her carried place if filmed: "Mensah: right eye sore, cut 9 days ago" | OfferCard.gd <- PlaceCare.risk(f, bout_day, opp) | Accept / Pass (built) | offer_forecast_test |
-| Fight prep | risk per place; at 1 in 5+ or a medical fail: Keep / Ask to move / Pull out $300; plan answers "Elbows in from round 1" and "Aim: her right eye" | FightPrep.gd <- PlaceCare.bout_options; Injuries.pull_out; new Injuries.ask_move; Playbook plan lines | decide; write a plan line | bout_options_test |
-| Rival file | her carried places from her last filmed bout, with dates | World rival record <- her own f["places"] | "Write it in the plan" | rival_places_test |
-| Club > Money | body protector $75 (once); physio sessions this month | GymSpend.gd lines | buy | money_lines_test |
-| Weigh-in modal | THE MEDICAL: pass, or "fails: right eye 61" with $300 | WeighIn.gd <- PlaceCare.medical(f) | none (the result of earlier choices) | golden |
-| Fight (first bell) | the figure starts from the carried numbers; Elbows in / Aim lines live | the fight half reads f["places"] and the plan | (fight half) | one_map (fight half) |
-| History | per bout: places that ended hurt or worse, any injury | BoutHistory.gd <- the saved morning map | none | golden |
-Removed: the "Fight hurt" button and its flat 10/15/20 energy (Injuries.gd:33, :93), once his yes (9, item 2) comes.
-
-## 6. Numbers (from the script; TUNE ranges for the probe)
-| Constant | Value | Range | Src |
-|---|---|---|---|
-| Ladder; face medical line | fine 90, sore 56, hurt 36; face under 65 fails | 60-70 | settled 55/35; SHAPED |
-| Points a day eye / nose / ribs | 2.0 / 2.4 / 1.4 | ±20% | REAL layoffs (T2 asserts) |
-| Heal on a worked day: Train / Protect | 40% / 75% | 30-50 / 65-85 | TUNE |
-| Keeps: Protect / Spare pads-bag, sparring / Rest | 85% / 70%, 30% / 25% | | TUNE; Rest built |
-| Knock: sore spar / other; hurt spar / other; Protect; drop | 2 / 0.5; 8 / 2 in 100; x0.25; 25 | ±50% | TUNE |
-| Rest, cap; physio session; clinic slots | x1.5, x2.0; +0.5 for 7 days, $50; 2 a week | $40-80 | REAL price (GBP x1.25) |
-| Opponent body share; Elbows in moves; its cost | 10 / 22 / 45%; 3 in 10; 1.5 | 35-50; 2-4 in 10 | TUNE (fight half) |
-| Carried place round cap | 25 from 100 down to 15 from 60 | 12-18 | TUNE (fight half) |
-| Goal weight; wish overrule | 0.6 / 1.0 / 1.6; 1.0 | | morale -5 built |
-| Ask to move: yes; Fight prep opens at | 6 in 10; risk 1 in 5 | 4-7 | TUNE |
-| Card opens: worst - best; contested | 1 day-equivalent; no answer over 70% in the situation | 0.5-2 | TUNE |
-T8 (how often, 26 weeks, 3 boxers, a bout every 18 days = 30 bouts; each Monday re-checked from that day's places):
-| Decision | Times | Why |
-|---|---|---|
-| The Monday care card (Train / Protect / Spare / Rest, the physio) | 20 | contested situations only |
-| A standing order acts instead (the week review says what it did) | 22 | editable on the Coach card |
-| The offer shows a carried rib with its risk (Accept / Pass) | 11 | an offer while a rib is not fine |
-| Fight prep opens Keep / Ask to move / Pull out | 6 | a booked bout at 1 in 5 or worse |
-| An injured place: the check | 1.1 | 3.6 per 100 bouts |
-| Training rib knocks under the chosen answers | 1.2 | the KNOCK table, not InjuryRoll |
-(v3: the recovery half met the player about twice in 26 weeks. Now about 38 real decisions plus 22 orders that act on their own.)
+| Result page, DAMAGE tile | figure: carried places tinted, hooked line "Right ribs: sore, fine Mon 30"; an injury names itself and its fit range | AfterFight.gd -> PlaceCare.morning(map) -> f["places"] | "Her care orders" opens the Coach card at her line | place_care_test, golden |
+| Coach card > Care orders (new tab) | one line per situation, pre-filled; picking a line shows the four jobs with the three prices for her place now (section 5's columns 1-8) | PlaceCare.orders on Career; PlaceCare.prices(f, job, opp_dist) | edit an order; "Call the cutman" line | care_orders_test |
+| Fighter page > Week | sessions that work a carried place tagged "works the right ribs"; the order's swaps shown | PadWeek / WeekPlan read PlaceCare.session(f, dow) | edit the week as today | week_spare_test |
+| Week review (modal) | "Order: Spare on the right ribs (sore, bout in 12 days, Pressure fighter): 66 -> 81; Power +0.8 of +1.1"; a knock: "Sparring Thu: right ribs knocked, 51 -> 26" | WeekActual log <- PlaceCare | none (cause shown) | place_care_test |
+| Fighter page > Overview, BODY row | figure with hooked lines, word, fine date; hover: the three prices vs the booked opponent | f["places"], PlaceCare.prices | opens her order line | golden |
+| Roster cards, Condition tile | the worst place: "Right ribs sore, fine Thu 12" | RosterCards.gd <- f["places"] | opens her page | roster_tile_test |
+| Fights > offer card | "Right ribs on the night: win 51%, 1 in 3 (1 in 20 to 1 in 2: weapon a guess), if it goes 21 days"; her carried place if her last bout was filmed: "Mensah: right eye sore, cut 9 days ago" + "Write it in the plan" | OfferCard.gd <- PlaceCare.prices(f, bout_day, opp_dist); rival record | Accept / Pass (built); write the Aim line | offer_prices_test |
+| Fight prep | the three prices per carried place; Keep / Pull out ($300, built); "Aim: her right eye" plan line | FightPrep.gd <- PlaceCare.prices; Injuries.pull_out; Playbook | decide; write the line | bout_prices_test |
+| Weigh-in modal | THE MEDICAL: pass, "fails: right eye 61", or "PASS - right ribs 9 in 10 vs her" in red with Pull out | WeighIn.gd <- PlaceCare.medical(f) | Pull out or box | golden |
+| Club > Money | body protector $75 (once); cutman calls this month | GymSpend.gd lines | buy | money_lines_test |
+| Fight (first bell) | each place starts from its carried number | the fight half reads f["places"] | (fight half) | one_map (fight half) |
+| History | per bout: places that ended hurt or worse, any injury, the order that ran | BoutHistory.gd <- the saved morning map | none | golden |
+Removed: the "Fight hurt" button and its flat energy (Injuries.gd:33, :93), once his yes (section 10, item 2).
 
 ## 7. The hand-over to the fight half
-IN, at the final bell: the number of each of the six places (0-100), the cut flag per face place, the head-stoppage flag, the
-HEAD place, which places ended hurt or worse. OUT, at the next first bell: f["places"] = {place: {v, word, injured, sev, known}};
-the fight starts each place at v. known = their corner knows the place (it ended hurt or worse in a filmed bout, it shows at the
-weigh-in, or a NO to "ask to move"); a known rib makes a body puncher aim it.
-FINDINGS FOR THE FIGHT HALF (re-measure with its own probe):
-1. The carried round cap (25 from 100 down to 15 from 60) is what keeps T3b near real; without it an eye from 60 was injured 82 in
-   100. If the fight half moves the caps, T3b and every share above move.
-2. Elbows in is counted at 1.5 day-equivalents of win chance; Aim a carried eye at 20% of face punches takes her eye from 28 to 58
-   in 100 (start 75, T6b). Both are guesses until the fight half measures who wins.
-3. The opponent's body share (10 / 22 / 45%) now drives the after half; the fight half must hand over her weapon as one of these.
-4. Rib injuries per 100 bouts fell to 0.4 (eyes 2.4) with the new body shares; the real split (ribs 10, cuts 20, nose 15 of 100
-   injuries) wants ribs nearer 0.6.
+IN at the final bell: each place's number (0-100), cut flags, the head-stoppage flag, the HEAD place, places that ended hurt or
+worse. OUT at the next first bell: f["places"] = {place: {v, word, injured, sev, known}}; the fight starts each place at v.
+Aim her carried place (T9, the fight half to measure who wins), a "Write it in the plan" line from the offer or the rival file:
+| The opponent | Injured at the bell, our own game | Aim: her right eye (plan line) |
+|---|---|---|
+| her right eye starts 85 | 12 in 100 | 35 in 100 |
+| her right eye starts 75 | 31 in 100 | 55 in 100 |
+| her right eye starts 65 | 56 in 100 | 73 in 100 |
+FINDINGS FOR THE FIGHT HALF: (1) the carried round cap (25 from 100 down to 15 from 60) keeps T3b near real; if it moves, T3b
+moves. (2) The three win-chance terms here (4 in 100 a peak camp, 3 in 100 sharpness, 0.15 in 100 a point under 90 for guarding a
+place) are guesses until the fight half measures them. (3) Her weapon must be handed over as a body share (10 / 22 / 45%).
+(4) Elbows in is the fight half's ONE CHANGE; this half no longer prices it (round 2's face-cost line was a sampling artefact).
+(5) Rib injuries per 100 bouts are 0.4 against a real share nearer 0.6.
 
-## 8. Build order (pure module + unit test first, one screen per task, files under 500 lines, boxing only)
+## 8. Numbers (TUNE ranges)
+| Constant | Value | Range | Src |
+|---|---|---|---|
+| Ladder; face medical | fine 90, sore 56, hurt 36, doctor 15; face under 65 fails | 60-70 | settled 55/35/15; SHAPED |
+| Points a day sore eye / nose / ribs; hurt and light injury x | 2.0 / 2.4 / 1.4; 1.6 / 1.3 / 1.4; serious 0.75 / 0.5 / 0.4 | +-20% | REAL layoffs (T2 asserts) |
+| Heal on a worked day: Train / Protect | 40% / 65% ribs, 75% face | 30-50 / 60-85 | TUNE |
+| Knock: sore spar / pads-bag; hurt; drop | 3 / 0.8 in 100; 10 / 3; 25 | +-50% | TUNE |
+| A win; a show; a day out; goal line; a training day | 12; 9; 1.39; 6; $50 | 8-20; 6-12 | game values (3.6) |
+| Stand-down after a stoppage on a place | 28 days | 21-30 | REAL amateur RSC |
+| Weight line wobble; goal line wobble | 0.05 kg; 0.5 units | | TUNE |
+| Ex-pro coach; other known; last bout filmed | 25% / 7% / 50% | | pack 4.6; TUNE |
+
+## 9. Build order (pure module + unit test first, one screen per task, files under 500 lines, boxing only)
 | # | Task | Seat | Owns | Test (red on main first) | After |
 |---|---|---|---|---|---|
-| 1 | PLACECARE1: ladder, morning, heal a day (worked 40% / protect 75%), loads, the four answers, knock roll, risk vs opponent, medical, check, orders | Qwen | scripts/rules/PlaceCare.gd (new, <400) | tests/place_care_test.gd copies T1, T2, T3b rows, the medical rules, the knock order | none |
-| 2 | CARRY1: f["places"] written the morning after (every bout), healed each day, knocked in end_week; InjuryRoll keeps head + hand only | Arena | state/Injuries.gd (265), InjuryRoll.gd, one call in Injuries.day_tick | tests/carry_places_test.gd: a hurt rib on Saturday is sore on Wednesday and starts the next bout below 100 | 1, the fight half's ONEMAP |
-| 3 | Care card modal + Home need + standing orders on the Coach card | Cursor | ui/modals/CareCard.gd, Needs.gd line, CoachOrders.gd | care_card_test, care_orders_test | 2 |
-| 4 | Week tags, Protect / Spare swaps | Cursor | WeekDay.gd / PadWeek.gd read PlaceCare.session | week_spare_test | 2 |
-| 5 | Result DAMAGE tile + History line | Cursor | AftermathTiles.gd, Aftermath.gd, BoutHistory.gd | place_care_test rows | 2 |
-| 6 | Offer risk + Fight prep options + Elbows in / Aim plan lines + rival places + ask_move | Cursor (screens), Qwen (Injuries.ask_move) | OfferCard.gd, FightPrep.gd, Injuries.gd, rival file | offer_forecast_test, bout_options_test, rival_places_test | 2 |
-| 7 | Weigh-in medical + Roster tile + Money lines | Cursor | WeighIn.gd, RosterCards.gd, GymSpend.gd lines | roster_tile_test, money_lines_test | 2 |
-| 8 | GOLDEN: a body puncher leaves right ribs hurt, the card opens Monday, Spare + session, the next offer shows "1 in 3 vs <name>", Keep with Elbows in, the medical passes, the next bout starts the ribs at the forecast, History shows it | Grok Dev | tests/golden_care_path.gd | itself, then the .exe | 3-7 |
-Every screen task starts from a drawn 1920x1080 mockup (the care card first), Claude opens every still. New features ship ON
+| 1 | PLACECARE1: words, morning, pace, the four jobs, knock, the three prices vs a weapon or a guess, medical, orders | Qwen | scripts/rules/PlaceCare.gd (new, <400) | tests/place_care_test.gd copies T1, T2, T3b rows, the medical, the monotone cost, the order lookup | none |
+| 2 | CARRY1: f["places"] written every bout, healed daily by the order, knocked in end_week; InjuryRoll keeps head and hand only | Arena | state/Injuries.gd, InjuryRoll.gd, one call in Injuries.day_tick | tests/carry_places_test.gd: a hurt rib on Saturday is sore on Wednesday and starts the next bout below 100 | 1, the fight half's ONEMAP |
+| 3 | Coach card > Care orders + week tags + week review lines | Cursor | ui/CoachOrders.gd, WeekDay.gd / PadWeek.gd reads | care_orders_test, week_spare_test | 2 |
+| 4 | Offer prices + Fight prep prices + weigh-in risk line + rival places + Aim line | Cursor | OfferCard.gd, FightPrep.gd, WeighIn.gd, rival file | offer_prices_test, bout_prices_test | 2 |
+| 5 | Result DAMAGE tile, Roster tile, Money lines, History | Cursor | AftermathTiles.gd, RosterCards.gd, GymSpend.gd, BoutHistory.gd | roster_tile_test, money_lines_test | 2 |
+| 6 | GOLDEN: a body puncher leaves the right ribs hurt, the order Spares them, the offer shows the three prices with a guess range, Keep, the weigh-in shows the line, the next bout starts the ribs at their number, History names the order | Grok Dev | tests/golden_care_path.gd | itself, then the .exe | 3-5 |
+Every screen task starts from a drawn 1920x1080 mockup (the order editor first); Claude opens every still. New features ship ON
 (GameSwitches.GAME_ON); plain --script tests stay the OFF arm. Before 2: John sources rib layoffs and England Boxing's medical rule.
 
-## 9. Needs the owner's yes (on the board with --attach before task 2; none of this is built as fact before his answer)
-| # | Reopen | One-line reason |
+## 10. Needs the owner's yes (on the board with --attach before task 2; nothing here is built as fact before his answer)
+| # | Reopen or add | One-line reason |
 |---|---|---|
-| 1 | A fourth word, SORE (56-89), inside the settled "fine over 55" band; fine narrows to 90+ | without it a bout leaves nothing to decide |
-| 2 | "Fight hurt" (Q-S294-46: flat 10/15/20 energy) is replaced by the carried number + the weigh-in medical | the hurt place itself should start the bout |
-| 3 | The 6% bout roll stops deciding eyes, nose and ribs; their injuries come from the place's number (head and hand keep it) | one truth: the place watched is the place injured |
-| 4 | Money lines: physio session $50 (2 a week for the club), body protector $75 once, X-ray $250 | new spending (his call); the built physio hire stays |
-| 5 | Ask to move a bout 14 days (yes 6 in 10; a NO cools the club and their corner learns the place) | a new rule between clubs; never a championship round |
-| 6 | Standing orders for care on the Coach card | a new kind of player rule (policy set once, acted on by the coach) |
-| 7 | The weigh-in doctor fails an eye or the nose under 65 (today: hurt only, under 56) | a stricter medical than round 1; real amateur doctors stop a closing eye |
-| 8 | (from the fight half) the STOMACH as a seventh place: after the bell sore only, 1 day | his S419 "do we only have 2 hit points on the whole body?" |
-Decided by Claude inside the feature (reported, not asked): the morning step, heal rates, the four answers, the knock rule, the
-risk words, the card opening rule, Elbows in and Aim as Fight prep plan lines, the goal weight and the wish tile.
+| 1 | A fourth word, SORE (56-89), inside the settled "fine over 55" band; fine narrows to 90+ | without it a bout leaves nothing to carry |
+| 2 | "Fight hurt" (Q-S294-46, flat 10/15/20 energy) replaced by the carried number + the weigh-in medical | the place itself starts the bout |
+| 3 | The 6% bout roll stops deciding eyes, nose and ribs (head and hand keep it) | the place watched is the place injured |
+| 4 | Money lines: body protector $75 once; cutman morning-after call $40 | new spending |
+| 5 | Care orders on the Coach card: a new kind of player rule (set once, the coach acts) | replaces a weekly card that measured as a lookup |
+| 6 | The weigh-in doctor fails an eye or the nose under 65 (today: under 56); a passing place shows its risk with Pull out | stricter medical; real doctors stop a closing eye |
+| 7 | The lead's "Ask to move" and "Ask for another opponent" are NOT built: measured as lookups (4.5) | the bar wins over the brief |
+| 8 | The after half is judged with the fight half, not as its own 7+ mechanic | measured: its decisions are worth under a training day each (4.2-4.5) |
 
-## 10. Left for later (named so no one builds it by accident)
-Hands as places (the hand injury stays InjuryRoll's roll); the BJJ athlete's strains (her bouts carry no places); the habit "hides
-pain" (her reported word reads one band better until the physio looks); per-session control finer than the four answers (spare only
-Thursday); the cutman working on an eye the morning after; pro camps (BUILD / PEAK sparring twice: re-run T5 first); scars; healing
-faces in 3D and portraits; headguard modelling; repeat injuries to the same rib. The hired physio stays one number (built).
-For the critics: score depth and clarity for the AFTER half only; name what is missing, useless or always best; end with the list
-that takes it to 10, most important first; check any table by running `python tools/damage_after_numbers.py`.
+## 11. Left for later (named so no one builds it by accident)
+Hands as places; the BJJ athlete's strains; the habit "hides pain"; per-day exceptions inside an order; choosing the sparring
+partner for a carried place; heal pace by age; scars; healing faces in 3D and portraits; headguard modelling; repeat injuries
+to the same rib; pro camps (re-run T5 before: a 6-8 week camp may give the care decision the stakes an amateur fortnight lacks).
+For the critics: score depth and clarity for the AFTER half; check any table with `python tools/damage_after_numbers.py`.
 
-## Changed in round 2
-- Care is per rib place with four answers (Train / Protect / Spare / Rest); a worked place heals at 40% (was 0), Protect at 75%.
-- The opponent's body share (head hunter / mixed / body puncher) is in the bout model; risk is shown in words vs that opponent.
-- Fight prep gains "Elbows in from round 1" (with its cost) and "Aim her carried place" (rival file, offer, plan line; T6b).
-- A medical fail now costs the injury days still to come; no bout is priced as half a bout, not a flat left-over rate.
-- The carried round cap slides 25 -> 15; the eye's morning swelling counts only this bout's loss; the face medical line is 65.
-- The physio session ADDS +0.5 on top of the cap and heals on worked days; 2 clinic slots a week for the club; $50.
-- Standing orders replace lookup Mondays; the card opens only in contested situations; T5b shows every situation; T8 re-checks
-  each Monday and counts knocks from the KNOCK table.
-- Faces leave the card (body-only sparring rule, hover); training lost is shown as stat points; her wish and goal chip are on it.
-- Days are rounded up (ceil) and the first-fine-day is asserted; numbers-under-55 kept: offers show word + risk, no forecast number.
-- Fight prep opens on the night's risk (1 in 5+), not on a forecast line; T4 runs 2,000 times and shows two opponents.
+## Changed in round 3
+- Every decision is judged by regret in training days with standard errors; the share asserts are gone; the bars are gates.
+- Every answer carries three prices: win chance, stopped or injured on that place, days and shows missed if it goes.
+- Her weapon is a GUESS from the style word (a range of risk) until tape, the Ex-pro coach or a filmed bout makes it KNOWN.
+- Four jobs per place on the ribs AND the face (Protect = body protector / body-only sparring; Spare = no work on the place).
+- The cost counts the game's own lines by file: goal met/missed morale, weight and the $300, tiredness, peak camp, rest-week morale.
+- Risk words start at "under 1 in 50"; T2 states the injury paces; a hurt place heals at the light-injury pace; the night's
+  cost never drops as the number drops (round 2's medical-fail error, asserted on every number).
+- Injuries counted one by one; small samples gone (Fight prep 138 cases); Elbows in handed back to the fight half.
+- CUT after three redesigns: the weekly care card (now standing orders), Ask to move, Ask for another opponent, the check
+  (guess / look / X-ray, met under once a season), the physio session and its clinic slots.
+- Added: the weigh-in's risk line with Pull out; the cutman the morning after as an order line; "A Monday, played".

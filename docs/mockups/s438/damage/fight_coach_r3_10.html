@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Corner minute 10/10</title>
+<style>
+:root{--bg:#0d1014;--slate:#151a21;--slate2:#1c232c;--line:#2b3440;--ink:#e7ebf0;--mute:#8f9aa8;--red:#d9463c;--blue:#3d7be0;--gold:#e2b04a;--green:#4fb873;--amber:#e08a2e;--sore:#e0a33a;--hurt:#e0603a;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Roboto,Arial,sans-serif;overflow:hidden}
+.top{height:64px;display:flex;align-items:center;padding:0 28px;border-bottom:1px solid var(--line);background:#0a0c10;gap:28px}
+.top .t{font-size:13px;letter-spacing:3px;color:var(--mute)}
+.top .score{font-size:26px;font-weight:700;letter-spacing:1px}
+.top .score .r{color:var(--red)} .top .score .b{color:var(--blue)}
+.pill{border:1px solid var(--line);border-radius:4px;padding:6px 12px;font-size:14px;color:var(--mute)}
+.pill b{color:var(--ink)}
+.clock{margin-left:auto;font-size:34px;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums}
+.clock small{font-size:13px;color:var(--mute);letter-spacing:2px;margin-right:10px}
+.grid{display:grid;grid-template-columns:430px 1fr 430px;gap:18px;padding:16px 22px;height:1016px}
+.panel{background:var(--slate);border:1px solid var(--line);border-radius:6px;padding:14px 16px;position:relative}
+h3{font-size:12px;letter-spacing:2.5px;color:var(--mute);font-weight:600;margin-bottom:10px}
+.name{font-size:24px;font-weight:700}
+.sub{font-size:13px;color:var(--mute)}
+.fig{position:relative;height:500px}
+.fig svg{position:absolute;left:0;top:0}
+.lab{position:absolute;font-size:14px;white-space:nowrap;line-height:1.2}
+.lab .n{font-size:20px;font-weight:700}
+.lab .w{font-size:12px;letter-spacing:1px;text-transform:uppercase}
+.dots{color:var(--gold);letter-spacing:2px;font-size:12px}
+.dots i{color:#3c4552;font-style:normal}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{font-size:12px;letter-spacing:1px;padding:4px 8px;border-radius:3px;background:#262e38;border:1px solid var(--line)}
+.chip.warn{border-color:var(--amber);color:var(--amber)}
+.chip.bad{border-color:var(--hurt);color:var(--hurt)}
+.stat3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.tile{background:var(--slate2);border:1px solid var(--line);border-radius:4px;padding:8px;text-align:center}
+.tile .v{font-size:22px;font-weight:700}
+.tile .c{font-size:11px;color:var(--mute);letter-spacing:1px}
+.center{display:flex;flex-direction:column;gap:14px}
+.theirs{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:10px}
+.box{background:var(--slate2);border:1px solid var(--line);border-radius:4px;padding:10px 12px}
+.box .k{font-size:11px;letter-spacing:1.5px;color:var(--mute)}
+.box .v{font-size:17px;font-weight:600;margin-top:3px}
+.box .s{font-size:12px;color:var(--mute);margin-top:4px}
+.bars{display:flex;gap:3px;margin-top:6px;height:10px}
+.bars span{flex:1;border-radius:2px;background:#2c3541}
+.bars span.h{background:var(--red)} .bars span.bd{background:var(--sore)}
+.matrix{display:grid;grid-template-columns:150px repeat(3,1fr);gap:6px}
+.mh{font-size:12px;letter-spacing:1.5px;color:var(--mute);display:flex;align-items:flex-end;padding:4px 6px}
+.mh .ic{font-size:16px;margin-right:6px;color:var(--ink)}
+.mrow{font-size:15px;font-weight:600;display:flex;flex-direction:column;justify-content:center;padding:6px 8px;background:#11161c;border-radius:4px;border:1px solid var(--line)}
+.mrow small{font-size:11px;color:var(--mute);font-weight:400}
+.cell{border:1px solid var(--line);border-radius:4px;padding:7px 9px;background:#131920;display:flex;flex-direction:column;gap:2px}
+.cell .p{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+.cell .two{font-size:11px;color:var(--mute)}
+.cell .two b{color:var(--ink);font-weight:600}
+.cell.sel{border:2px solid var(--gold);background:#1d1a12}
+.cell.coach{box-shadow:inset 0 0 0 1px #4a5a6c}
+.cell .tag{font-size:10px;letter-spacing:1px;color:var(--gold)}
+.up{color:var(--green)} .dn{color:var(--hurt)} .ev{color:var(--mute)}
+.change{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.opt{border:1px solid var(--line);border-radius:5px;padding:10px 12px;background:#131920}
+.opt.sel{border:2px solid var(--gold)}
+.opt .t{font-size:16px;font-weight:700}
+.opt .p{font-size:20px;font-weight:700;margin-top:4px}
+.opt .d{font-size:12px;color:var(--mute);margin-top:4px;line-height:1.35}
+.range{display:grid;grid-template-columns:120px 1fr;gap:6px 10px;align-items:center;font-size:12px;color:var(--mute)}
+.strip{display:flex;height:16px;border-radius:3px;overflow:hidden;font-size:10px;color:#fff}
+.strip div{display:flex;align-items:center;justify-content:center}
+.L{background:#3b6fb3}.P{background:#6c7a8a}.I{background:#b3593b}
+.foot{display:flex;gap:12px;align-items:stretch}
+.seconds{flex:1}
+.go{width:260px;background:var(--gold);color:#16120a;border-radius:6px;display:flex;flex-direction:column;justify-content:center;align-items:center;font-weight:800;font-size:22px;letter-spacing:1px}
+.go small{font-size:12px;font-weight:600;letter-spacing:0}
+.retire{border-top:1px dashed #3a4450;margin-top:12px;padding-top:10px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--mute)}
+.retire .btn{border:1px solid #6b2d28;color:#e08a80;padding:6px 14px;border-radius:4px;font-size:13px}
+.log{font-size:13px;line-height:1.55;color:#c9d1db}
+.log b{color:var(--ink)}
+.kept{display:inline-block;background:#24301f;color:var(--green);font-size:11px;padding:2px 6px;border-radius:3px;margin-left:6px}
+</style></head>
+<body>
+<div class="top">
+  <div class="t">FIGHT NIGHT &middot; AMATEUR 3 x 3 &middot; CORNER MINUTE</div>
+  <div class="score"><span class="r">J. MORAN</span> 1 &ndash; 1 <span class="b">D. PRICE</span></div>
+  <div class="pill">Next: <b>Round 3 of 3</b> &middot; deciding round</div>
+  <div class="pill">Last round: <b>lost 2&ndash;4 exchanges</b> &middot; 19 &ndash; 23 landed</div>
+  <div class="clock"><small>THE MINUTE</small>0:41</div>
+</div>
+<div class="grid">
+
+<!-- YOUR BOXER -->
+<div class="panel">
+  <h3>YOUR CORNER &middot; EXACT</h3>
+  <div class="name" style="color:#f08a80">Jess Moran</div>
+  <div class="sub">Inside man &middot; orthodox &middot; home range <b style="color:var(--ink)">INSIDE</b></div>
+  <div class="fig">
+    <svg width="400" height="500" viewBox="0 0 400 500">
+      <defs>
+        <linearGradient id="sk" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#5a3a36"/><stop offset="1" stop-color="#3b2624"/></linearGradient>
+      </defs>
+      <!-- body -->
+      <g fill="url(#sk)" stroke="#7a4f48" stroke-width="1">
+        <ellipse cx="200" cy="62" rx="30" ry="37"/>
+        <path d="M186 96 L214 96 L218 116 L182 116 Z"/>
+        <path d="M150 120 Q200 108 250 120 L262 175 Q256 230 244 268 L156 268 Q144 230 138 175 Z"/>
+        <path d="M150 122 Q122 128 114 160 L100 236 Q98 250 108 254 L120 250 L136 176 Z"/>
+        <path d="M250 122 Q278 128 286 160 L300 236 Q302 250 292 254 L280 250 L264 176 Z"/>
+        <path d="M156 268 L244 268 L250 300 L150 300 Z"/>
+        <path d="M152 300 L198 300 L192 420 L164 470 L150 470 L156 420 Z"/>
+        <path d="M202 300 L248 300 L244 420 L250 470 L236 470 L208 420 Z"/>
+      </g>
+      <!-- muscle groups (tint) -->
+      <path d="M156 130 Q200 122 244 130 L246 168 Q200 178 154 168 Z" fill="#6b4640" opacity=".7"/>
+      <path d="M176 182 L224 182 L222 262 L178 262 Z" fill="#5f3f3a" opacity=".6"/>
+      <!-- right ribs (boxer's right = viewer's left) tinted sore -->
+      <path d="M142 176 Q150 172 176 182 L178 250 Q160 248 152 240 Q142 210 142 176 Z" fill="#e0a33a" opacity=".78"/>
+      <!-- left ribs fine -->
+      <path d="M258 176 Q250 172 224 182 L222 250 Q240 248 248 240 Q258 210 258 176 Z" fill="#7c8a5a" opacity=".35"/>
+      <!-- left eye (viewer's right) hurt tint -->
+      <ellipse cx="211" cy="56" rx="9" ry="5" fill="#e0603a" opacity=".9"/>
+      <ellipse cx="189" cy="56" rx="8" ry="4" fill="#9aa48a" opacity=".35"/>
+      <!-- leader lines -->
+      <g stroke="#cfd6de" stroke-width="1.4" fill="none">
+        <path d="M160 214 L110 214 L70 300"/><circle cx="160" cy="214" r="2.5" fill="#cfd6de"/>
+        <path d="M211 56 L262 40 L330 40"/><circle cx="211" cy="56" r="2.5" fill="#cfd6de"/>
+        <path d="M240 214 L292 214 L330 300"/><circle cx="240" cy="214" r="2.5" fill="#cfd6de"/>
+        <path d="M200 30 L150 14 L60 14"/><circle cx="200" cy="30" r="2.5" fill="#cfd6de"/>
+        <path d="M200 74 L140 110 L60 110"/><circle cx="200" cy="74" r="2.5" fill="#cfd6de"/>
+      </g>
+    </svg>
+    <div class="lab" style="left:0;top:0"><span class="n">82</span> <span class="w" style="color:var(--mute)">head &middot; fine</span></div>
+    <div class="lab" style="left:0;top:96px"><span class="n">71</span> <span class="w" style="color:var(--mute)">nose &middot; fine</span></div>
+    <div class="lab" style="left:4px;top:304px" title="Breath costs x1.25; each water point worth 1 less"><span class="n" style="color:var(--sore)">48</span> <span class="w" style="color:var(--sore)">right ribs (liver) &middot; sore</span><br><span class="sub">breath x1.25 &middot; drop risk 12%</span></div>
+    <div class="lab" style="left:300px;top:26px" title="One more bad round closes it: blind side, -4 against the rear hand"><span class="n" style="color:var(--hurt)">38</span> <span class="w" style="color:var(--hurt)">left eye</span><br><span class="sub">sore, 3 from hurt</span></div>
+    <div class="lab" style="left:300px;top:304px"><span class="n">79</span> <span class="w" style="color:var(--mute)">left ribs</span></div>
+  </div>
+  <div class="stat3">
+    <div class="tile" title="Under 65 every exchange costs edge"><div class="v">61</div><div class="c">ENERGY</div></div>
+    <div class="tile" title="How much of the corner's word gets through: Flat 0.85"><div class="v" style="color:var(--sore)">Flat</div><div class="c">TRUST 0.85</div></div>
+    <div class="tile" title="Drops the right in the pocket: -5 edge in pocket exchanges"><div class="v" style="color:var(--hurt)">-5</div><div class="c">HABIT &middot; POCKET</div></div>
+  </div>
+  <div class="chips"><span class="chip warn">EYE CLOSING</span><span class="chip">AIM KEPT 2 RDS +3</span></div>
+  <h3 style="margin-top:16px">LAST ROUND, ON YOUR BOXER</h3>
+  <div class="log">
+    Their punches: <b>head 15</b> &middot; body 8<br>
+    Range: inside 3 &middot; pocket 2 &middot; long 1<br>
+    Their guard: <b>none</b> &rarr; they saw your Middle work
+  </div>
+</div>
+
+<!-- CENTRE -->
+<div class="center">
+  <div class="panel">
+    <h3>THEIR CORNER &middot; WHAT YOU ARE GUESSING AGAINST</h3>
+    <div class="theirs">
+      <div class="box"><div class="k">THEIR CORNER HABIT (TAPE)</div><div class="v">Cautious <span class="dots">&#9679;&#9679;<i>&#9679;</i></span></div><div class="s">answers what hurt them last round</div></div>
+      <div class="box"><div class="k">AFTER YOUR MIDDLE ROUND, EXPECT</div><div class="v" style="color:var(--amber)">Elbows in &nbsp;~60%</div><div class="s">85 if cautious &times; read right 70</div></div>
+      <div class="box"><div class="k">THEIR PUNCHES, LAST 2 ROUNDS</div><div class="v">Head 65% <span style="color:var(--mute);font-weight:400">&uarr; from 40</span></div>
+        <div class="bars"><span class="h"></span><span class="h"></span><span class="h"></span><span class="h"></span><span class="h"></span><span class="h"></span><span class="bd"></span><span class="bd"></span><span class="bd"></span></div>
+        <div class="s">tape said "goes to the body" &middot; they changed</div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>THE MINUTE CARD &middot; ONE AIM &times; ONE RANGE &middot; COACH'S WIN % &nbsp;<span style="color:var(--ink);letter-spacing:0">now 49%</span></h3>
+    <div class="matrix">
+      <div class="mh"></div>
+      <div class="mh"><span class="ic">&#8592;&#8594;</span>STAY LONG &nbsp;<span style="letter-spacing:0">-0.5 energy/ex</span></div>
+      <div class="mh"><span class="ic">&#8596;</span>THEIR PACE</div>
+      <div class="mh"><span class="ic">&#8594;&#8592;</span>GET INSIDE &nbsp;<span style="letter-spacing:0">your home +6</span></div>
+
+      <div class="mrow">Liver<small>left hook &middot; drop chance</small></div>
+      <div class="cell"><span class="p dn">-6</span><span class="two">guarded <b>-11</b> &middot; open <b>-1</b></span></div>
+      <div class="cell"><span class="p ev">-2</span><span class="two">guarded <b>-8</b> &middot; open <b>+5</b></span></div>
+      <div class="cell"><span class="p up">+1</span><span class="two">guarded <b>-6</b> &middot; open <b>+9</b></span></div>
+
+      <div class="mrow">Left ribs<small>right hand &middot; steady</small></div>
+      <div class="cell"><span class="p dn">-5</span><span class="two">guarded <b>-7</b> &middot; open <b>-2</b></span></div>
+      <div class="cell"><span class="p ev">-1</span><span class="two">guarded <b>-4</b> &middot; open <b>+3</b></span></div>
+      <div class="cell"><span class="p up">+2</span><span class="two">guarded <b>-2</b> &middot; open <b>+7</b></span></div>
+
+      <div class="mrow">Middle<span class="kept">KEPT +3</span><small>straight &middot; winds them</small></div>
+      <div class="cell"><span class="p dn">-4</span><span class="two">guarded <b>-9</b> &middot; open <b>+2</b></span></div>
+      <div class="cell"><span class="p ev">0</span><span class="two">guarded <b>-6</b> &middot; open <b>+8</b></span></div>
+      <div class="cell coach"><span class="tag">COACH: OPEN DOOR BET</span><span class="p up">+3</span><span class="two">guarded <b>-5</b> &middot; open <b>+13</b></span></div>
+
+      <div class="mrow">Head<small>works the worse eye</small></div>
+      <div class="cell"><span class="p up">+2</span><span class="two">guarded <b>+6</b> &middot; open <b>-3</b></span></div>
+      <div class="cell sel"><span class="tag">YOUR PICK</span><span class="p up">+5</span><span class="two">guarded <b>+9</b> &middot; open <b>-1</b></span></div>
+      <div class="cell"><span class="p up">+4</span><span class="two">guarded <b>+8</b> &middot; open <b>-2</b></span></div>
+    </div>
+    <div class="range" style="margin-top:12px">
+      <div>Round 3 mix, your pick</div>
+      <div class="strip"><div class="L" style="width:20%">LONG 20</div><div class="P" style="width:40%">POCKET 40 &middot; habit -5</div><div class="I" style="width:40%">INSIDE 40</div></div>
+      <div>With Get inside</div>
+      <div class="strip"><div class="L" style="width:10%">10</div><div class="P" style="width:20%">20</div><div class="I" style="width:70%">INSIDE 70 &middot; trust 0.85</div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>ONE CHANGE &middot; YOUR GUARD IS A BET ON THEIR NEXT PUNCH</h3>
+    <div class="change">
+      <div class="opt"><div class="t">Fix the habit</div><div class="p up">+3</div><div class="d">safe &middot; takes 6 in 10 &middot; pocket -5 gone from exchange 2</div></div>
+      <div class="opt sel"><div class="t">Gloves high</div><div class="p up">+7</div><div class="d">if they keep hunting the head <b style="color:var(--green)">+14</b> &middot; if they switch to your sore liver <b style="color:var(--hurt)">-9</b> (ribs x1.25)</div></div>
+      <div class="opt"><div class="t">Elbows in</div><div class="p dn">-6</div><div class="d">covers the sore liver 75% &middot; leaves the closing eye open</div></div>
+    </div>
+  </div>
+
+  <div class="panel foot">
+    <div class="seconds">
+      <h3>SECONDS &middot; 3 POINTS</h3>
+      <div class="log">Water <b>&#9679;&#9679;</b> +3 each &nbsp;&middot;&nbsp; Ice the liver <b>&#9679;</b> sore &rarr; one word better &nbsp;&middot;&nbsp; Vaseline + pressure on the left eye <b>&#9679;</b> slows it a round <span style="color:var(--mute)">(change)</span></div>
+      <div class="retire"><span>Retire your boxer &middot; win 49% &rarr; 0 &middot; saves ~9 healing days &middot; stoppage loss: 30 days out, -2 members, -4 rep</span><span class="btn">Retire</span></div>
+    </div>
+    <div class="go">SEND THEM OUT<small>Head &middot; their pace &middot; Gloves high</small></div>
+  </div>
+</div>
+
+<!-- THEIR BOXER -->
+<div class="panel">
+  <h3>THEIR CORNER &middot; READ, NOT KNOWN</h3>
+  <div class="name" style="color:#7fa8f0">Dana Price</div>
+  <div class="sub">Pressure fighter &middot; southpaw &middot; home range <b style="color:var(--ink)">INSIDE (strong +9)</b></div>
+  <div class="fig">
+    <svg width="400" height="500" viewBox="0 0 400 500">
+      <g fill="#2b3647" stroke="#4a5d78" stroke-width="1">
+        <ellipse cx="200" cy="62" rx="30" ry="37"/>
+        <path d="M186 96 L214 96 L218 116 L182 116 Z"/>
+        <path d="M150 120 Q200 108 250 120 L262 175 Q256 230 244 268 L156 268 Q144 230 138 175 Z"/>
+        <path d="M150 122 Q122 128 114 160 L100 236 Q98 250 108 254 L120 250 L136 176 Z"/>
+        <path d="M250 122 Q278 128 286 160 L300 236 Q302 250 292 254 L280 250 L264 176 Z"/>
+        <path d="M156 268 L244 268 L250 300 L150 300 Z"/>
+        <path d="M152 300 L198 300 L192 420 L164 470 L150 470 L156 420 Z"/>
+        <path d="M202 300 L248 300 L244 420 L250 470 L236 470 L208 420 Z"/>
+      </g>
+      <path d="M176 182 L224 182 L222 262 L178 262 Z" fill="#e0a33a" opacity=".55"/>
+      <path d="M142 176 Q150 172 176 182 L178 250 Q160 248 152 240 Q142 210 142 176 Z" fill="#e0a33a" opacity=".35"/>
+      <ellipse cx="189" cy="56" rx="8" ry="4" fill="#e0a33a" opacity=".55"/>
+      <g stroke="#cfd6de" stroke-width="1.4" fill="none">
+        <path d="M200 224 L120 300 L70 300"/><circle cx="200" cy="224" r="2.5" fill="#cfd6de"/>
+        <path d="M160 214 L100 180 L40 180"/><circle cx="160" cy="214" r="2.5" fill="#cfd6de"/>
+        <path d="M189 56 L140 40 L60 40"/><circle cx="189" cy="56" r="2.5" fill="#cfd6de"/>
+      </g>
+    </svg>
+    <div class="lab" style="left:0;top:14px" title="Sign: blinks after the jab"><span class="w" style="color:var(--sore)">right eye &middot; sore</span> <span class="dots">&#9679;&#9679;<i>&#9679;</i></span></div>
+    <div class="lab" style="left:0;top:156px" title="Sign: elbow drops after the left hook"><span class="w" style="color:var(--sore)">liver &middot; sore?</span> <span class="dots">&#9679;<i>&#9679;&#9679;</i></span></div>
+    <div class="lab" style="left:0;top:306px" title="Sign: mouth breathing after the middle shots"><span class="w" style="color:var(--sore)">wind &middot; going</span> <span class="dots">&#9679;&#9679;<i>&#9679;</i></span><br><span class="sub">your Middle: 6 straight shots landed</span></div>
+  </div>
+  <div class="stat3">
+    <div class="tile"><div class="v" style="color:var(--sore)">Tiring</div><div class="c">BREATH &middot; &#9679;&#9679;</div></div>
+    <div class="tile"><div class="v">None</div><div class="c">THEIR GUARD NOW</div></div>
+    <div class="tile"><div class="v">2 of 3</div><div class="c">TELLS FOUND</div></div>
+  </div>
+  <div class="chips"><span class="chip">THEIR PLAN: BODY &#9679;&#9679;</span><span class="chip warn">HEAD WORK RISING</span></div>
+  <h3 style="margin-top:16px">WHY THE COACH LEANS HEAD</h3>
+  <div class="log">
+    Cautious corners guard the door you used: <b>Elbows in likely</b>.<br>
+    Elbows in leaves the head open: <b>+3 wrong door, +1 hands low</b>.<br>
+    Their right eye reads sore: the Head works the worse eye.
+  </div>
+</div>
+
+</div>
+</body></html>

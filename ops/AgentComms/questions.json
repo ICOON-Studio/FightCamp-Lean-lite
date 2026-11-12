@@ -6677,6 +6677,24 @@
       "note": null,
       "answered_at": null,
       "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-192",
+      "asked": "2026-11-12T02:50:09.204973+00:00",
+      "session": "S294",
+      "text": "The damage and recovery design did not reach 7 after six rounds (latest: the fight 5.5 and 4.5, after the fight 3.5 and 3.5). The critics agree where the real choice is: when to box again. What next?",
+      "options": [
+        "Try once more, another way",
+        "Stop new decisions, show damage better",
+        "Park it"
+      ],
+      "attach": [
+        "research/DAMAGE_VERDICT_S438.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

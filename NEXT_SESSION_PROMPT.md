@@ -88,3 +88,9 @@ on Opus); Fast off.
   from ops/research/topics/striking.md), never fixed by moving the bar in the test; one hang number (the ruler's)
   for tool, test and retime; retime to that number or say plainly it cannot hold with contact kept; then a fresh
   reader, then the side films. PRs 222, 223, 224 stay open until that lands.
+- 05:00: DAMAGE ROUND 3 CAME BACK LOWER: the fight 5.5 (coach) and 4.5 (systems), after the fight 3.5 and 3.5.
+  Committed (the maps, scripts and pictures are round 3's; round 2 is commit 6ff68167). The regret measure showed the
+  choices are lookups; the after map cut its own care card. Six rounds: STOP rewriting this shape. The plain verdict
+  is ops/research/DAMAGE_VERDICT_S438.md and the choice is on the board (try once more another way: three designs
+  from scratch around "when to box again", a carried place that costs the next fight, the fight plan priced against
+  it / stop new decisions and show damage better / park it). Do nothing on the damage design until he answers.

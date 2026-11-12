@@ -1,19 +1,21 @@
 """DAMAGE AFTER THE FIGHT: every number table in ops/research/DAMAGE_AFTER_MAP_S438.md comes from here.
 
-Stdlib only, deterministic (fixed seeds), prints markdown, and ASSERTS the map's own caps and rules.
-Run:  python tools/damage_after_numbers.py
-Nothing here is game code: it is the design's arithmetic. The game's pure module (PlaceCare.gd) copies the
-constants block and its unit test checks the same rows.
-Round 2: per-place care with four answers (Train / Protect / Spare / Rest), worked days heal at half, the opponent's body
-share and the Elbows-in plan line in the bout model, a carried place's round cap, a medical fail costs its remaining
-injury days, the physio session adds +0.5 (clinic slots), standing orders, situation tables, ceil days, T8 re-checked.
+Stdlib only, deterministic (fixed seeds), prints markdown, and ASSERTS the map's own caps and the regret bars.
+Run:  python tools/damage_after_numbers.py        (--soft: print failed asserts and go on)
+Nothing here is game code: it is the design's arithmetic. PlaceCare.gd copies the constants block; its unit test checks rows.
+Round 3: every decision is judged by REGRET (training days lost against the best answer), never by shares. Every answer is
+priced on the BOUT (win chance, the chance of being stopped or injured on that place, days and shows missed); her weapon is a
+GUESS from the style word until KNOWN; four answers are four jobs per place (ribs AND face); the game's own weight, tiredness,
+morale, goal and camp lines are in the price. Knocks are priced exactly (every first-knock path), not sampled. The regret bars
+are GATES: a decision that fails them may not be a player decision (CARE_CARD_IS_A_DECISION, FIGHT_PREP_ASKS); three
+redesigns of the Monday are re-run here so the cut is evidence, not opinion.
 """
 import math
 import random
 import sys
 
 ASSERTS = 0
-SOFT = '--soft' in sys.argv   # explore: print failed asserts and go on
+SOFT = '--soft' in sys.argv
 
 
 def check(cond, what):
@@ -26,121 +28,143 @@ def check(cond, what):
 
 
 # ---------------------------------------------------------------- constants (TUNE ranges in the map, section 6)
-FINE_AT, SORE_AT, HURT_AT = 90.0, 56.0, 36.0     # 90-100 fine, 56-89 sore, 36-55 hurt, 0-35 injured (settled 55/35)
-FACE_MED = 65.0          # the weigh-in doctor fails an eye or the nose under 65 (visibly swollen); ribs only when injured
-PLACES = ["left_eye", "right_eye", "nose", "left_ribs", "right_ribs"]   # head: StandDown, no care choice
+FINE_AT, SORE_AT, HURT_AT, DOCTOR_AT = 90.0, 56.0, 36.0, 15.0   # settled bands 55 / 35 / 15
+FACE_MED = 65.0             # the weigh-in doctor fails an eye or the nose under 65
+PLACES = ["left_eye", "right_eye", "nose", "left_ribs", "right_ribs"]
 KIND = {"left_eye": "eye", "right_eye": "eye", "nose": "nose", "left_ribs": "ribs", "right_ribs": "ribs"}
-RATE = {"eye": 2.0, "nose": 2.4, "ribs": 1.4}
-LIGHT = {"eye": 1.6, "nose": 1.3, "ribs": 1.4}
-SERIOUS = {"eye": 0.75, "nose": 0.5, "ribs": 0.4}
+RATE = {"eye": 2.0, "nose": 2.4, "ribs": 1.4}          # points a day, sore or hurt
+LIGHT = {"eye": 1.6, "nose": 1.3, "ribs": 1.4}         # an INJURED place heals at RATE x this (light) ...
+SERIOUS = {"eye": 0.75, "nose": 0.5, "ribs": 0.4}      # ... or x this (serious): the named injury's own pace
 NAMES = {"eye": ("Swollen eye", "Cut eye"), "nose": ("Bloodied nose", "Broken nose"), "ribs": ("Bruised ribs", "Cracked rib")}
 REAL_DAYS = {("eye", "light"): (5, 10), ("eye", "serious"): (14, 21), ("nose", "light"): (5, 10),
              ("nose", "serious"): (21, 35), ("ribs", "light"): (10, 21), ("ribs", "serious"): (42, 56)}
 SERIOUS_CHANCE = {"critical": 0.30, "doctor": 0.70}
-REST_MULT = 1.5
-MULT_CAP = 2.0
-PHYSIO_HIRED = 1.0 / 0.75   # built: StaffRoles PHYSIO_DAYS 0.75
-GYM_PLAN = 1.11             # built S409
-SESSION_ADD = 0.5           # one outside physio session ($60): +0.5 on one place's rate for 7 days, ON TOP of the cap
-SESSION_PRICE = 50.0
-CLINIC_SLOTS = 2            # the clinic sees the club twice a week: two sessions shared by every boxer
-WORKED_HEAL = 0.4           # a sore or hurt place heals at 40% on a day a session works it (was 0)
-PROTECT_HEAL = 0.75         # ... and at 75% on a day it is worked under Protect
-WEEK_BASE = {0: ["pads"], 1: ["bag"], 2: ["pads"], 3: ["spar"], 4: ["pads"], 5: ["bag"], 6: []}
-WEEK_FIGHT = {0: ["pads"], 1: ["bag"], 2: ["pads"], 3: [], 4: [], 5: [], 6: []}
-LOADS = {"eye": {"spar"}, "nose": {"spar"}, "ribs": {"spar", "pads", "bag"}}
-GAIN = {"bag": 1.0, "pads": 1.5, "spar": 1.5}
+PHYSIO_HIRED = 1.0 / 0.75   # built: StaffRoles.PHYSIO_DAYS 0.75
+REST_MULT, MULT_CAP = 1.5, 2.0
+STAND_DOWN = 28             # a stoppage on a place: the amateur stand-down, days (InjuryRoll.KO_DAYS 30 is the head's)
+ANSWERS = ["train", "protect", "spare", "rest"]
+# the week: (evening session, gain units, kg burnt, tiredness load). Mornings add 4/7 unit, 0.04 kg, 4.0 load a day.
+BASE = {0: "pads", 1: "bag", 2: "pads", 3: "spar", 4: "pads", 5: "bag", 6: None}
+FIGHT = {0: "pads", 1: "bag", 2: "pads", 3: None, 4: None, 5: None, 6: None}     # S428 light fight week, no sparring
+GAIN = {"pads": 1.5, "bag": 1.0, "spar": 1.5}
+BURN = {"pads": 0.06, "bag": 0.05, "spar": 0.05}
+LOAD = {"pads": 4.0, "bag": 3.5, "spar": 5.0}
+MORN_GAIN, MORN_BURN, MORN_LOAD = 4.0 / 7.0, 0.04, 4.0
+FIGHT_WEEK_SHARE = 0.5      # fight week sessions are light: half the gain, burn and load
 WEEK_UNITS = 12.0
-SPARE_KEEP = {"bag": 0.7, "pads": 0.7, "spar": 0.3}   # roadwork, shadow and footwork, technical bag rounds
-PROTECT_KEEP = 0.85         # Protect: pads to the head mitts, bag to roadwork-and-shadow half, sparring in the body protector
-PROTECT_KNOCK = 0.25        # knock odds x0.25 under Protect (needs the $75 body protector, Club > Money, bought once)
-BODY_SPAR_KEEP = 0.6        # a sore face spars body-only (the coach's fixed rule, no card): keeps 60% of sparring
-REST_KEEP = 0.25
-KNOCK = {"sore": {"spar": 0.02, "pads": 0.005, "bag": 0.005}, "hurt": {"spar": 0.08, "pads": 0.02, "bag": 0.02}}
-KNOCK_DROP = 25.0
 DAY_UNITS = WEEK_UNITS / 7.0
-HEADROOM = 0.8              # a typical stat's headroom factor: lost gain units -> stat points (pace 1.0 per focused week)
+STAT_PER_UNIT = 0.9 / 12.0  # a focused full week is about +0.9 on the focus stat (pace 1.0 x headroom ~0.9)
+FATIGUE_KEEP, OVERREACHED, TIRED_GAIN = 0.87, 80.0, 0.6   # WeekPlan.gd:75, :77, :78
+LOADS = {"eye": {"spar"}, "nose": {"spar"}, "ribs": {"spar", "pads", "bag"}}
+# the four jobs, per place kind: heal share on a worked day, knock multiplier, what each session keeps (gain, burn)
+JOB = {
+    "ribs": {"train": {"heal": 0.40, "knock": 1.0, "keep": {"pads": 1.0, "bag": 1.0, "spar": 1.0}},
+             # Protect: the body protector in sparring, pads to the head mitts, bag at half pace
+             "protect": {"heal": 0.65, "knock": 0.25, "keep": {"pads": 0.9, "bag": 0.8, "spar": 0.9}},
+             # Spare: no body work at all; sparring becomes head-only rounds; combinations (pads, bag) -> shadow, roadwork
+             "spare": {"heal": 1.0, "knock": 0.0, "keep": {"pads": 0.45, "bag": 0.6, "spar": 0.75}}},
+    "eye": {"train": {"heal": 0.40, "knock": 1.0, "keep": {"pads": 1.0, "bag": 1.0, "spar": 1.0}},
+            # Protect: body-only sparring (the partner leaves the head alone; a glove still slips)
+            "protect": {"heal": 0.75, "knock": 0.25, "keep": {"pads": 1.0, "bag": 1.0, "spar": 0.6}},
+            # Spare: no sparring at all (technical bag rounds instead)
+            "spare": {"heal": 1.0, "knock": 0.0, "keep": {"pads": 1.0, "bag": 1.0, "spar": 0.3}}},
+}
+JOB["nose"] = JOB["eye"]
+REST_KEEP, REST_BURN = 0.25, 0.2      # Rest the week: gains x0.25 (built, Injuries.gain_mult), burn x0.2 (a walk)
+KNOCK = {"ribs": {"sore": {"spar": 0.03, "pads": 0.008, "bag": 0.008}, "hurt": {"spar": 0.10, "pads": 0.03, "bag": 0.03}},
+         "eye": {"sore": {"spar": 0.04}, "hurt": {"spar": 0.12}}}
+KNOCK["nose"] = KNOCK["eye"]
+KNOCK_DROP = 25.0
+OVER_KNOCK = 3.0            # overreached: training injury risk x3 (pack 4.1, InjuryRoll)
+CHIN_KNOCK = {"low": 1.3, "mid": 1.0, "high": 0.7}   # Chin under 55 / 55-69 / 70+
+# what things are worth, in TRAINING DAYS (1 = the gains of one full training day). Shown in the map's section 3.7.
 DOLLARS_PER_DAY = 50.0
-INJURY_DAY = 1.0
-WIN_COST = 0.04
-DELAY_PER_DAY = 0.3
-PULL_OUT = 300.0
-BOUT_VALUE = 6.0
-MOVE_YES = 0.6
-MOVE_DAYS = 14
-OPP_GAIN = 1.0
-GOAL = {"none": 0.6, "on track": 1.0, "at risk": 1.6}   # what a training day is worth: her goal chip
-GOAL_W = [0.3, 0.4, 0.3]
-NEXT_BOUT_W = 0.5           # no bout booked: the place is priced at half a bout vs a mixed opponent at day 14
-OVERRULE = 1.0              # overruling her wish: morale -5 (built), counted as one day-equivalent
-WISH = {"fight": 0.30, "rest": 0.20, "none": 0.50}   # Heart 65+ wants to fight; low Composure wants rest
-BOXERS, BOUT_GAP_DAYS = 3, 18
-SHOW_GAP = 1.0              # the card opens only when the worst answer costs a day-equivalent more than the best
-CONTESTED = 0.70            # a situation is the player's only when no answer is best in more than 70% of its cases
-MOVE_RISK = 0.15            # Fight prep opens Keep / Ask to move / Pull out when the night's risk is 1 in 5+ (or a medical fail)
-MOVE_ASK = 1.5
-LOOK_PRICE = 60.0
-LOOK_RIGHT = {"nose": 0.75, "ribs": 0.6}
-XRAY_PRICE = 250.0
-XRAY_RIGHT = {"eye": 1.0, "nose": 1.0, "ribs": 0.9}
-# Bout model (the fight half's interface). OPP = the share of her landed punches that go to the body.
-OPP = {"jabber": 0.10, "mixed": 0.22, "body": 0.45}
-OPP_WORD = {"jabber": "head hunter", "mixed": "mixed", "body": "body puncher"}
+WIN_VALUE = 12.0            # a win instead of a loss: morale +8 vs -12, members +8 vs -1, reputation +5 vs -2, a ladder place
+SHOW_VALUE = 9.0            # a show missed: the $450 ticket cut (built) and the bout
+PULL_OUT = 300.0 / DOLLARS_PER_DAY + SHOW_VALUE      # Injuries.gd:11 $300 empty slot + the show = 15
+MISS_WEIGHT = 300.0 / DOLLARS_PER_DAY + SHOW_VALUE   # BoutRules.gd:88 MISSED_WEIGHT_COST 300 + the show = 15
+DAY_OUT = 0.75 + SHOW_VALUE / 14.0  # a day out: trains at a quarter (built) and a show every 14 days slips
+STOP_REP = 1.0              # a stoppage loss: 1 more member and 2 more reputation (BoutRules.gd:98-99)
+MORALE_UNIT = 0.2           # one morale point; overruling her ask is -5 (FighterProfile.gd:30) = 1.0
+REST_MORALE = 4             # FighterProfile.gd:24 rest_week +4
+GOAL_SWING = (10 + 20) * 0.2   # her goal met +10 morale or missed -20 (FighterGoal.gd:29, :31): 6 training days
+GOAL_SLACK = {"on track": (2.0, 6.0), "at risk": (-0.5, 2.0)}   # gain units she can lose before the goal line slips
+GOAL_SCALE, WEIGHT_SCALE = 0.5, 0.05   # how sharp the lines are (the forecast's own wobble)
+PROTECTOR = 75.0 / DOLLARS_PER_DAY
+GUARD_WIN = 0.0015          # each point under 90 on fight night: -0.15 in 100 win (she guards it; fight half to measure)
+STALE_WIN = 0.004           # each point of energy lost to staleness: BoutRules.gd:34-36 (2 a point over 50, at most 20)
+SHARP_WIN = 0.03            # no sparring in the base week before the fight week: -3 in 100 (timing)
+PEAK_WIN = 0.04             # PEAK CAMP (PeakCamp.gd:12, +1 every stat): about +4 in 100
+NO_BOUT_W = 0.5             # no bout booked: the place is priced at half a bout 14 days out against the pool
+DELAY = 0.3                 # a day a bout slips in a 26-week season
+MOVE_YES, MOVE_DAYS, ASK_MOVE = 0.6, 14, 0.5
+OTHER_YES, ASK_OTHER = 0.4, 0.3
+FILM_EVENING = GAIN["pads"] / DAY_UNITS   # Watch the tape: a pad night becomes a film night
+SHOW_GAP = 1.0              # a case is a decision when the worst answer costs a training day more than the best
+# opponents: body share of what she lands; the style word gives a GUESS (P of each weapon), tape makes it KNOWN
+OPP = {"head": 0.10, "mixed": 0.22, "body": 0.45}
+OPP_WORD = {"head": "head hunter", "mixed": "mixed puncher", "body": "body puncher"}
+STYLE = {"Out-boxer": (0.70, 0.25, 0.05), "Counter-puncher": (0.55, 0.35, 0.10), "Boxer-puncher": (0.25, 0.50, 0.25),
+         "Volume puncher": (0.20, 0.45, 0.35), "Pressure fighter": (0.10, 0.35, 0.55), "Slugger": (0.15, 0.40, 0.45)}
+STYLE_W = [0.18, 0.14, 0.18, 0.16, 0.20, 0.14]
+POOL = (0.35, 0.40, 0.25)
+OTHER_KNOWN = 0.07          # known at booking without the Ex-pro coach (her weapon already on file); Ex-pro coach 25% of clubs
+FILMED = 0.5                # her last bout was filmed: Watch the tape makes the weapon KNOWN
+# bout model (the fight half's interface)
 FACE_HIT, HEAD_HIT, RIB_HIT, BIG_SHARE, BIG_MULT = 1.1, 0.55, 3.0, 0.15, 2.0
-CAP_EXCHANGE, CAP_ROUND, GIVE_BACK = 10.0, 25.0, 0.15
-CARRIED_CAP_ROUND = 15.0    # a place that STARTS low loses less a round: 25 from 100, 15 from 60 (she guards it, the corner greases it)
-AIM_SHARE = 0.20            # Aim the hurt place (plan line): 20% of face punches go to it first
-ELBOWS_MOVE = 0.3           # Elbows in from round 1 (plan line): 3 in 10 body punches go to the head instead
-ELBOWS_COST = 1.5           # ... and her own body work drops: about 3 in 100 less chance to win (fight half to measure)
-CUT_AT = 35.0
-RIB_MORNING = 0.10          # ribs get back 10% of what THIS bout took
-EYE_MORNING = 0.25          # an eye loses a further 25% of what THIS bout took
-RIB_CRACK = 0.10
+CAP_EXCHANGE, CAP_ROUND, GIVE_BACK, CARRIED_CAP = 10.0, 25.0, 0.15, 15.0
+AIM_SHARE, CUT_AT = 0.20, 35.0
+RIB_MORNING, EYE_MORNING, RIB_CRACK = 0.10, 0.25, 0.10
+CUTMAN_CALL = 40.0 / DOLLARS_PER_DAY
 HEAD_HAND_PER_100 = 6.0 * (37 + 18) / 100.0
-
-
-def carried_cap(start):
-    return max(CARRIED_CAP_ROUND, min(CAP_ROUND, CARRIED_CAP_ROUND + (start - 60.0) / 4.0))
-
-
-def state(v, flagged=False):
-    if flagged and v < SORE_AT:
-        return "injured"
-    if v >= FINE_AT:
-        return "fine"
-    if v >= SORE_AT:
-        return "sore"
-    if v >= HURT_AT:
-        return "hurt"
-    return "injured"
-
-
-def rate(kind, sev, mult, add=0.0):
-    r = RATE[kind] * (LIGHT[kind] if sev == "light" else SERIOUS[kind] if sev == "serious" else 1.0)
-    return r * (min(mult, MULT_CAP) + add)
-
-
-def days_to(v, target, kind, sev="", mult=1.0):
-    """Whole days until the place first reads `target` (ceil: the date shown is the first day it is true)."""
-    return max(0, math.ceil((target - v) / rate(kind, sev, mult) - 1e-9))
+WORDS = ((0.02, "under 1 in 50"), (0.07, "1 in 20"), (0.15, "1 in 10"), (0.27, "1 in 5"), (0.42, "1 in 3"), (0.62, "1 in 2"),
+         (0.85, "3 in 4"))
 
 
 def risk_words(p):
-    for lim, w in ((0.07, "1 in 20"), (0.15, "1 in 10"), (0.25, "1 in 5"), (0.40, "1 in 3"), (0.60, "1 in 2"),
-                   (0.85, "3 in 4")):
+    for lim, w in WORDS:
         if p < lim:
             return w
     return "9 in 10"
 
 
+def state(v, flag=False):
+    if flag or v < HURT_AT:
+        return "injured"
+    return "fine" if v >= FINE_AT else "sore" if v >= SORE_AT else "hurt"
+
+
+def pace(kind, v, flag=False, sev=""):
+    """Points a day: an injured place at its injury's pace; a HURT place at the light-injury pace (the same swelling, so a
+    hurt place is never slower than an injured one); a sore place at the sore pace."""
+    if flag:
+        return RATE[kind] * (SERIOUS[kind] if sev == "serious" else LIGHT[kind])
+    return RATE[kind] * (LIGHT[kind] if v < SORE_AT else 1.0)
+
+
+def days_to(v, target, kind, sev="", mult=1.0, flag=None):
+    """Whole days until the place first reads `target` (rounded UP: the date shown is the first day it is true)."""
+    flag = (sev != "") if flag is None else flag
+    m, t = min(mult, MULT_CAP), 0.0
+    if v < SORE_AT and target > v:
+        top = min(target, SORE_AT)
+        t += (top - v) / (pace(kind, v, flag, sev) * m)
+        v = top
+    if target > v:
+        t += (target - v) / (pace(kind, v) * m)
+    return max(0, math.ceil(t - 1e-9))
+
+
+def carried_cap(start):
+    return max(CARRIED_CAP, min(CAP_ROUND, CARRIED_CAP + (start - 60.0) / 4.0))
+
+
 # ---------------------------------------------------------------- 1. the bout
-def bout(rng, landed, opp, start=None, elbows=False, aim=None):
-    """One 3x3 amateur bout. `start` = places carried in under 100; `aim` = a face place the other corner aims (60%
-    of face punches). Returns (places, cuts, worst exchange loss, worst round loss)."""
-    body_share = OPP[opp] * (1.0 - (ELBOWS_MOVE if elbows else 0.0))
+def bout(rng, landed, opp, start=None, aim=None):
+    body_share = OPP[opp]
     v = {p: 100.0 for p in PLACES + ["head"]}
     v.update(start or {})
-    v0 = dict(v)
+    v0, low = dict(v), dict(v)
     worst_ex = worst_rd = 0.0
     per_ex = [0] * 18
     for _ in range(landed):
@@ -152,8 +176,7 @@ def bout(rng, landed, opp, start=None, elbows=False, aim=None):
             for _ in range(per_ex[ex]):
                 big = BIG_MULT if rng.random() < BIG_SHARE else 1.0
                 if rng.random() < body_share:
-                    p = "right_ribs" if rng.random() < 0.6 else "left_ribs"   # the lead hook finds her liver side
-                    hits = [(p, RIB_HIT * big)]
+                    hits = [("right_ribs" if rng.random() < 0.6 else "left_ribs", RIB_HIT * big)]
                 else:
                     hook = 1.5 if rng.random() < 0.4 else 1.0
                     if aim and rng.random() < AIM_SHARE:
@@ -162,257 +185,331 @@ def bout(rng, landed, opp, start=None, elbows=False, aim=None):
                         f = "nose" if rng.random() < 0.45 else ("right_eye" if rng.random() < 0.65 else "left_eye")
                     hits = [(f, FACE_HIT * hook * big), ("head", HEAD_HIT * big)]
                 for p, d in hits:
-                    cap_rd = carried_cap(v0[p])
-                    d = max(0.0, min(d, CAP_EXCHANGE - lost_ex[p], cap_rd - lost_rd[p]))
+                    d = max(0.0, min(d, CAP_EXCHANGE - lost_ex[p], carried_cap(v0[p]) - lost_rd[p]))
                     lost_ex[p] += d
                     lost_rd[p] += d
                     v[p] = max(0.0, v[p] - d)
+                    low[p] = min(low[p], v[p])
             worst_ex = max(worst_ex, max(lost_ex.values()))
         worst_rd = max(worst_rd, max(lost_rd.values()))
         if rnd < 2:
             for p in ("left_ribs", "right_ribs"):
                 v[p] = min(100.0, v[p] + GIVE_BACK * lost_rd[p])
     cuts = {p: v[p] <= CUT_AT for p in ("left_eye", "right_eye", "nose")}
-    return v, v0, cuts, worst_ex, worst_rd
+    stopped = {p: low[p] <= DOCTOR_AT for p in PLACES}
+    return v, v0, cuts, worst_ex, worst_rd, stopped
 
 
-def after_bell(rng, v, v0, cuts):
+def after_bell(rng, v, v0, cuts, cutman=False):
     out = {}
     for p in PLACES:
-        kind = KIND[p]
-        x = v[p]
+        kind, x = KIND[p], v[p]
         took = max(0.0, v0[p] - x)
         if kind == "ribs":
             x = min(100.0, x + RIB_MORNING * took)
-        elif kind == "eye":
+        elif kind == "eye" and not cutman:
             x = max(0.0, x - EYE_MORNING * took)
         s = state(x)
         if kind == "ribs" and s == "hurt" and rng.random() < RIB_CRACK * (SORE_AT - x) / 20.0:
             x, s = min(x, 30.0), "injured"
         sev = ""
         if s == "injured":
-            band = "doctor" if x <= 15 else "critical"
-            serious = (kind == "eye" and cuts.get(p)) or rng.random() < SERIOUS_CHANCE[band]
+            serious = (kind == "eye" and cuts.get(p)) or rng.random() < SERIOUS_CHANCE["doctor" if x <= DOCTOR_AT else "critical"]
             sev = "serious" if serious else "light"
-        out[p] = {"v": x, "bell": v[p], "state": s, "sev": sev}
+        out[p] = {"v": x, "took": took, "state": s, "sev": sev}
     return out
 
 
 def draw_bout(rng):
     level = rng.choices([36, 63, 90], weights=[0.35, 0.40, 0.25])[0]
-    landed = max(10, int(round(level * rng.uniform(0.85, 1.15))))
-    opp = rng.choices(["jabber", "mixed", "body"], weights=[0.35, 0.40, 0.25])[0]
-    return level, landed, opp
+    return level, max(10, int(round(level * rng.uniform(0.85, 1.15))))
 
 
 REP = {"eye": "right_eye", "nose": "nose", "ribs": "right_ribs"}
 STARTS = [100, 90, 80, 70, 60, 50, 40]
-_ST = {}
+NT = {}
 
 
-def start_table():
-    """(kind, opp, elbows, start) -> (injured share, mean injury days), the bout model played from that start."""
-    if _ST:
-        return _ST
+def night_table():
+    """(kind, weapon, start) -> (P stopped on that place, P stopped or injured, mean days out after the bout)."""
+    if NT:
+        return NT
     for kind, place in REP.items():
         for opp in OPP:
-            for elbows in (False, True):
-                for st in STARTS:
-                    rng = random.Random(1000 + st)
-                    days, inj = 0.0, 0
-                    for _ in range(600):
-                        _, landed, _ = draw_bout(rng)
-                        v, v0, cuts, _, _ = bout(rng, landed, opp, {place: float(st)}, elbows)
-                        a = after_bell(rng, v, v0, cuts)[place]
-                        if a["state"] == "injured":
-                            inj += 1
-                            days += days_to(a["v"], SORE_AT, kind, a["sev"])
-                    _ST[(kind, opp, elbows, st)] = (inj / 600.0, days / 600.0)
-    return _ST
+            for st in STARTS:
+                rng = random.Random(1000 + st + 7 * len(kind))
+                n, stop, bad, days = 500, 0, 0, 0.0
+                for _ in range(n):
+                    _, landed = draw_bout(rng)
+                    v, v0, cuts, _, _, stp = bout(rng, landed, opp, {place: float(st)})
+                    a = after_bell(rng, v, v0, cuts)[place]
+                    out = days_to(a["v"], SORE_AT, kind, a["sev"]) if a["state"] == "injured" else 0
+                    if stp[place]:
+                        out = max(out, STAND_DOWN)
+                    stop += 1 if stp[place] else 0
+                    bad += 1 if out > 0 else 0
+                    days += out
+                NT[(kind, opp, st)] = (stop / n, bad / n, days / n)
+    return NT
 
 
-def interp(kind, opp, elbows, v, col):
-    t = start_table()
+def night(kind, opp, v):
+    t = night_table()
     v = max(40.0, min(100.0, v))
     hi = min(x for x in STARTS if x >= v)
     lo = max(x for x in STARTS if x <= v)
-    a, b = t[(kind, opp, elbows, lo)][col], t[(kind, opp, elbows, hi)][col]
-    return a if hi == lo else a + (b - a) * (v - lo) / (hi - lo)
+    a, b = t[(kind, opp, lo)], t[(kind, opp, hi)]
+    if hi == lo:
+        return a
+    f = (v - lo) / (hi - lo)
+    return tuple(x + (y - x) * f for x, y in zip(a, b))
 
 
-def start_cost(kind, v, opp, elbows=False):
-    base = start_table()[(kind, opp, False, 100)][1]
-    return (interp(kind, opp, elbows, v, 1) - base) * INJURY_DAY + max(0.0, FINE_AT - v) * WIN_COST
-
-
-def elbows_face_cost(opp):
-    """Elbows in moves body punches to the head: the face places (at 100) pay for it."""
-    t = start_table()
-    return sum(t[(k, opp, True, 100)][1] - t[(k, opp, False, 100)][1] for k in ("eye", "eye", "nose"))
-
-
-def sample_bouts(n, seed):
-    rng = random.Random(seed)
-    rows = []
-    for _ in range(n):
-        level, landed, opp = draw_bout(rng)
-        v, v0, cuts, wex, wrd = bout(rng, landed, opp)
-        rows.append((level, opp, v, cuts, wex, wrd, after_bell(rng, v, v0, cuts)))
-    return rows
-
-
-# ---------------------------------------------------------------- 2. the weeks after, day by day, PER PLACE
-def carried_of(after):
-    return [{"place": p, "kind": KIND[p], "v": after[p]["v"], "v0": after[p]["v"], "sev": after[p]["sev"],
-             "flag": after[p]["state"] == "injured"}
-            for p in PLACES if after[p]["state"] != "fine"]
-
-
-def rib_places(carried):
-    return [c["place"] for c in carried if c["kind"] == "ribs"]
-
-
-def plans_for(carried):
-    """Every care plan the card offers: Rest (whole fighter), or one of Train / Protect / Spare per carried rib place
-    (an injured rib is always spared). Faces follow the coach's fixed rule (body-only sparring), no card row."""
-    ribs = [c for c in carried if c["kind"] == "ribs"]
-    plans = [{"rest": True}]
-    combos = [{}]
-    for c in ribs:
-        opts = ["spare"] if c["flag"] else ["train", "protect", "spare"]
-        combos = [dict(x, **{c["place"]: o}) for x in combos for o in opts]
-    for x in combos:
-        plans.append({"rest": False, "per": x})
-    return plans
-
-
-def plan_name(plan, carried):
-    if plan["rest"]:
-        return "rest"
-    ribs = [c for c in carried if c["kind"] == "ribs"]
-    if not ribs:
-        return "train"
-    worst = min(ribs, key=lambda c: c["v"] - (100 if c["flag"] else 0))
-    return plan["per"][worst["place"]]
-
-
-def run_weeks(rng, carried, plan, days, bout_day, session_place=None, hired=False):
-    """Returns (places after, gain units lost, knocks)."""
-    pl = [dict(c) for c in carried]
-    lost, knocks = 0.0, 0
-    for d in range(days):
-        fight_week = bout_day is not None and bout_day - d <= 7
-        sessions = (WEEK_FIGHT if fight_week else WEEK_BASE)[d % 7]
-        resting = plan["rest"] and d < 7
-        per = plan.get("per", {})
-        spared, protected = set(), set()
-        face_sore = any(c["kind"] != "ribs" and state(c["v"]) != "fine" for c in pl)
+# ---------------------------------------------------------------- 2. the days to the bout, one answer, exact knock paths
+def run(c, ans, knock_at=None, days=None):
+    """Deterministic days from Monday to the weigh-in for the case's decision place under one answer. A knock lands at
+    worked session number `knock_at`. Returns the end state and the list of knock chances per worked session."""
+    kind = c["kind"]
+    v, flag, sev, f = c["v"], c["flag"], c["sev"], c["fatigue"]
+    gl = burn = 0.0
+    sparred = False
+    chances, idx = [], 0
+    horizon = c["bout_in"] if c["bout_in"] else 14
+    mult = PHYSIO_HIRED if c["physio"] else 1.0
+    for d in range(days if days else (horizon - 1 if c["bout_in"] else horizon)):
+        fight_week = c["bout_in"] is not None and c["bout_in"] - d <= 7
+        s = (FIGHT if fight_week else BASE)[d % 7]
+        share = FIGHT_WEEK_SHARE if fight_week else 1.0
+        resting = ans == "rest" and d < 7
+        job = JOB[kind]["spare" if (ans == "rest" or flag) else ans]
+        tired = TIRED_GAIN if f >= OVERREACHED else 1.0
         if resting:
-            lost += (sum(GAIN[s] for s in sessions) + 4.0 / 7.0) * (1.0 - REST_KEEP)
-            spared = set(sessions)
+            keep_g, keep_b, worked = REST_KEEP, REST_BURN, False
+            gl += (MORN_GAIN + (GAIN[s] if s else 0.0)) * share * (1.0 - REST_KEEP * tired)
+            burn += (MORN_BURN + (BURN[s] if s else 0.0)) * share * (1.0 - REST_BURN)
+            load = 0.0
         else:
-            for c in pl:
-                if c["kind"] != "ribs" or state(c["v"], c["flag"]) == "fine":
-                    continue
-                o = "spare" if (c["flag"] or plan["rest"]) else per.get(c["place"], "train")
-                if o == "spare":
-                    spared |= set(sessions) & LOADS["ribs"]
-                elif o == "protect":
-                    protected |= set(sessions) & LOADS["ribs"]
-            protected -= spared
-            for s in sessions:
-                if s in spared:
-                    lost += GAIN[s] * (1.0 - SPARE_KEEP[s])
-                else:
-                    keep = PROTECT_KEEP if s in protected else 1.0
-                    if s == "spar" and face_sore:
-                        keep *= BODY_SPAR_KEEP
-                    lost += GAIN[s] * (1.0 - keep)
-        for c in pl:
-            mult = (PHYSIO_HIRED if hired else 1.0) * (REST_MULT if resting else 1.0)
-            add = SESSION_ADD if (session_place == c["place"] and d < 7) else 0.0
-            loads = LOADS[c["kind"]] if c["kind"] == "ribs" else (set() if face_sore else LOADS[c["kind"]])
-            worked = (set(sessions) & loads) - spared
-            st = state(c["v"], c["flag"])
-            heal = 1.0
-            if worked and st in KNOCK:
-                heal = PROTECT_HEAL if worked <= protected else WORKED_HEAL
-                for s in worked:
-                    k = KNOCK[st][s] * (PROTECT_KNOCK if s in protected else 1.0)
-                    if rng.random() < k:
-                        knocks += 1
-                        c["v"] = max(0.0, c["v"] - KNOCK_DROP)
-                        if c["v"] < SORE_AT:
-                            c["flag"], c["sev"] = True, c["sev"] or "light"
-            c["v"] = min(100.0, c["v"] + heal * rate(c["kind"], c["sev"] if c["flag"] else "", mult, add))
-            if c["flag"] and c["v"] >= SORE_AT:
-                c["flag"], c["sev"] = False, ""
-    return pl, lost, knocks
+            keep_g = job["keep"].get(s, 1.0) if s else 1.0
+            gl += MORN_GAIN * share * (1.0 - tired) + ((GAIN[s] * share * (1.0 - keep_g * tired)) if s else 0.0)
+            burn += (BURN[s] * share * (1.0 - min(1.0, keep_g + 0.3))) if s else 0.0
+            load = (MORN_LOAD + (LOAD[s] * keep_g if s else 0.0)) * share
+            worked = s in LOADS[kind] and job["knock"] > 0 if s else False
+            if s == "spar" and not fight_week and (kind == "ribs" or ans != "spare"):
+                sparred = True
+        f = f * FATIGUE_KEEP + load
+        st = state(v, flag)
+        heal = 1.0
+        if worked and st in ("sore", "hurt"):
+            heal = job["heal"]
+            p = KNOCK[kind][st].get(s, 0.0) * job["knock"] * CHIN_KNOCK[c["chin"]] * (OVER_KNOCK if f >= OVERREACHED else 1.0)
+            chances.append(min(0.9, p))
+            if knock_at == idx:
+                v = max(0.0, v - KNOCK_DROP)
+                if v < SORE_AT:
+                    flag, sev = True, sev or "light"
+            idx += 1
+        m = mult * (REST_MULT if resting else 1.0)
+        v = min(100.0, v + heal * pace(kind, v, flag, sev) * min(m, MULT_CAP))
+        if flag and v >= SORE_AT:
+            flag, sev = False, ""
+    return {"v": v, "flag": flag, "sev": sev, "f": f, "gl": gl, "burn": burn, "sparred": sparred}, chances
 
 
-def medical_fails(c):
-    return c["flag"] or (c["kind"] in ("eye", "nose") and c["v"] < FACE_MED)
-
-
-def remaining_days(c):
-    """A failed medical: the days still to come until she could box (injured -> 56, a swollen face -> 65)."""
-    if c["flag"]:
-        return days_to(c["v"], SORE_AT, c["kind"], c["sev"]) + 0.0
-    if c["kind"] in ("eye", "nose") and c["v"] < FACE_MED:
-        return days_to(c["v"], FACE_MED, c["kind"]) + 0.0
-    return 0.0
-
-
-def places_cost(pl, bout_on, opp, elbows_ok=True):
-    if bout_on:
-        if any(medical_fails(c) for c in pl):
-            return PULL_OUT / DOLLARS_PER_DAY + BOUT_VALUE + max(remaining_days(c) for c in pl) * INJURY_DAY
-        plain = sum(start_cost(c["kind"], c["v"], opp) for c in pl)
-        if not elbows_ok or not any(c["kind"] == "ribs" for c in pl):
-            return plain
-        elb = sum(start_cost(c["kind"], c["v"], opp, c["kind"] == "ribs") for c in pl) + elbows_face_cost(opp) + ELBOWS_COST
-        return min(plain, elb)
-    return sum(NEXT_BOUT_W * start_cost(c["kind"], c["v"], "mixed") + remaining_days(c) * INJURY_DAY for c in pl)
-
-
-def wish_cost(name, wish):
-    if wish == "fight" and name in ("spare", "rest"):
-        return OVERRULE
-    if wish == "rest" and name in ("train", "protect"):
-        return OVERRULE
-    return 0.0
-
-
-def care_cost(carried, plan, bout_in, opp, wish="none", session_place=None, runs=40, seed=1, hired=False, goal="on track"):
-    rng = random.Random(seed)
-    horizon = bout_in if bout_in else 14
-    tot = 0.0
-    for _ in range(runs):
-        pl, lost, _ = run_weeks(rng, carried, plan, horizon, bout_in, session_place, hired)
-        tot += lost / DAY_UNITS * GOAL[goal] + (SESSION_PRICE / DOLLARS_PER_DAY if session_place else 0.0) + places_cost(pl, bout_in, opp)
-    return tot / runs + wish_cost(plan_name(plan, carried), wish)
-
-
-def best_by_name(carried, bout_in, opp, wish, seed, runs=40, goal="on track"):
-    """Cheapest plan for each answer the worst rib place can get (train / protect / spare / rest)."""
-    out = {}
-    for plan in plans_for(carried):
-        nm = plan_name(plan, carried)
-        c = care_cost(carried, plan, bout_in, opp, wish, None, runs, seed, False, goal)
-        if nm not in out or c < out[nm][0]:
-            out[nm] = (c, plan)
+def paths(c, ans):
+    """Every path with its chance: no knock, or the first knock at each worked session (a second knock is ignored)."""
+    base, ch = run(c, ans)
+    out, alive = [], 1.0
+    for i, p in enumerate(ch):
+        if p > 0:
+            out.append((alive * p, run(c, ans, i)[0]))
+            alive *= 1.0 - p
+    out.append((alive, base))
     return out
 
 
-def forecast(carried, days):
-    plan = {"rest": False, "per": {p: "spare" for p in rib_places(carried)}}
-    pl, _, _ = run_weeks(random.Random(0), carried, plan, days, days)
-    return pl
+def medical_fails(kind, e):
+    return e["flag"] or (kind in ("eye", "nose") and e["v"] < FACE_MED)
 
 
-def worst_rib(carried):
-    ribs = [c for c in carried if c["kind"] == "ribs"]
-    return min(ribs, key=lambda c: c["v"] - (100 if c["flag"] else 0)) if ribs else None
+def remaining(kind, e):
+    """A failed weigh-in: the days until she could pass it (injured -> 56; a face also -> 65)."""
+    target = FACE_MED if kind in ("eye", "nose") else SORE_AT
+    if e["flag"] or e["v"] < target:
+        return days_to(e["v"], target, kind, e["sev"] if e["flag"] else "", flag=e["flag"])
+    return 0
+
+
+def goal_miss(c, e):
+    if c["goal"] == "none":
+        return 0.0
+    return 1.0 / (1.0 + math.exp(-(e["gl"] - c["slack"]) / GOAL_SCALE))
+
+
+def miss_weight(c, e):
+    if not c["cut"] or not c["bout_in"]:
+        return 0.0
+    x = (c["margin"] + e["burn"] - 0.05) / WEIGHT_SCALE
+    return 1.0 / (1.0 + math.exp(-x))
+
+
+def bout_prices(c, e, opp, p0=None):
+    """The three prices on fight night: (win chance, P stopped or injured on the place, days out if it goes), and the
+    cost in training days. A failed medical or a missed weight is the $300 slot and the show."""
+    kind = c["kind"]
+    p0 = c["p0"] if p0 is None else p0
+    pm = miss_weight(c, e)
+    if medical_fails(kind, e):
+        return 0.0, 1.0, remaining(kind, e), PULL_OUT + remaining(kind, e) * DAY_OUT, "fails the weigh-in"
+    stop, bad, days = night(kind, opp, e["v"])
+    stale = min(20.0, max(0.0, e["f"] - 50.0) * 2.0)
+    pw = p0 * (1.0 - stop) - max(0.0, FINE_AT - e["v"]) * GUARD_WIN - stale * STALE_WIN
+    if c["bout_in"] and c["bout_in"] >= 12 and not e["sparred"]:
+        pw -= SHARP_WIN
+    if c["camp"] and (e["f"] >= OVERREACHED or e["gl"] > 0.25 * c["plan_units"]):
+        pw -= PEAK_WIN
+    pw = max(0.0, pw)
+    keep = (p0 - pw) * WIN_VALUE + days * DAY_OUT + stop * STOP_REP
+    cost = pm * MISS_WEIGHT + (1.0 - pm) * min(keep, PULL_OUT)
+    return pw * (1.0 - pm), bad, (days / bad if bad > 1e-9 else 0.0), cost, ""
+
+
+def answer_cost(c, ans):
+    """Cost of one answer against each weapon (training days), plus the expected prices."""
+    ps = paths(c, ans)
+    by = {}
+    for opp in OPP:
+        tot = 0.0
+        for pr, e in ps:
+            train = e["gl"] / DAY_UNITS + goal_miss(c, e) * GOAL_SWING
+            if c["bout_in"]:
+                nightc = bout_prices(c, e, opp)[3]
+            else:
+                nightc = NO_BOUT_W * sum(w * bout_prices(dict(c, bout_in=None, cut=False, camp=False), e, o)[3]
+                                         for w, o in zip(POOL, OPP))
+            tot += pr * (train + nightc)
+        if ans == "rest":
+            tot -= REST_MORALE * MORALE_UNIT
+        if ans == "protect" and not c["protector"]:
+            tot += PROTECTOR
+        if (c["wish"] == "fight" and ans in ("spare", "rest")) or (c["wish"] == "rest" and ans == "train"):
+            tot += 5 * MORALE_UNIT
+        by[opp] = tot
+    return by, ps
+
+
+def info_cost(c, by):
+    if c["known"]:
+        return by[c["opp"]]
+    return sum(w * by[o] for w, o in zip(STYLE[c["word"]], OPP))
+
+
+def price_case(c):
+    c["by"], c["paths"] = {}, {}
+    for a in ANSWERS:
+        c["by"][a], c["paths"][a] = answer_cost(c, a)
+    c["info"] = {a: info_cost(c, c["by"][a]) for a in ANSWERS}
+    c["true"] = {a: c["by"][a][c["opp"]] for a in ANSWERS}
+    c["best"] = min(ANSWERS, key=lambda a: c["info"][a])
+    c["tbest"] = min(ANSWERS, key=lambda a: c["true"][a])
+    vals = sorted(c["info"].values())
+    c["gap"] = vals[-1] - vals[0]
+    return c
+
+
+def expected_end(c, ans):
+    ps = c["paths"][ans]
+    return {k: sum(pr * e[k] for pr, e in ps) for k in ("v", "f", "gl", "burn")}, sum(pr for pr, e in ps if e["flag"])
+
+
+def shown_prices(c, ans, opp_dist):
+    """What the card shows for one answer: win chance, risk range over the weapons she may have, days out if it goes."""
+    pw = bad = days = 0.0
+    lo, hi = 1.0, 0.0
+    for w, o in zip(opp_dist, OPP):
+        if w <= 0:
+            continue
+        b_o = 0.0
+        for pr, e in c["paths"][ans]:
+            x = bout_prices(c, e, o)
+            pw += w * pr * x[0]
+            b_o += pr * x[1]
+            bad += w * pr * x[1]
+            days += w * pr * x[1] * x[2]
+        if w >= 0.1:
+            lo, hi = min(lo, b_o), max(hi, b_o)
+    return pw, bad, (days / bad if bad > 1e-9 else 0.0), lo, hi
+
+
+# ---------------------------------------------------------------- 3. a first amateur season, Monday by Monday
+def gap_band(b):
+    return "none" if b is None else str(b)
+
+
+def fatigue_word(f):
+    return "overreached" if f >= 80 else "very tired" if f >= 70 else "tired" if f >= 50 else "fresh"
+
+
+def weight_word(c):
+    if not c["cut"]:
+        return "not cutting"
+    return "on the line" if c["margin"] > -0.25 else "0.3-0.5 kg spare" if c["margin"] > -0.5 else "0.5 kg+ spare"
+
+
+def features(c):
+    return {"place": "%s %s" % (c["kind"], state(c["v"], c["flag"])), "days to the bout": gap_band(c["bout_in"]),
+            "her weapon (or style word)": OPP_WORD[c["opp"]] if c["known"] else c["word"] + " (guess)",
+            "goal chip": c["goal"], "weight": weight_word(c), "tiredness": fatigue_word(c["fatigue"]), "her wish": c["wish"],
+            "chin": c["chin"], "camp": "camp" if c["camp"] else "no camp", "physio hired": str(c["physio"]),
+            "protector owned": str(c["protector"]), "place number (5s)": "%s %d" % (c["kind"], 5 * int(c["v"] // 5))}
+
+
+def season_cases(seasons, seed):
+    rng = random.Random(seed)
+    cases, bouts, nothing = [], 0, 0
+    for s in range(seasons):
+        for boxer in range(3):
+            day = 0
+            prof = {"chin": rng.choices(["low", "mid", "high"], [0.3, 0.45, 0.25])[0], "physio": rng.random() < 0.4,
+                    "protector": rng.random() < 0.5, "known_coach": rng.random() < 0.25}
+            while day < 182:
+                bouts += 1
+                level, landed = draw_bout(rng)
+                word = rng.choices(list(STYLE), STYLE_W)[0]
+                opp_last = rng.choices(list(OPP), STYLE[word])[0]
+                v, v0, cuts, _, _, _ = bout(rng, landed, opp_last)
+                ab = after_bell(rng, v, v0, cuts)
+                gap = rng.choices([14, 28, 42], [0.45, 0.40, 0.15])[0]
+                lead = rng.choice([7, 14])
+                nword = rng.choices(list(STYLE), STYLE_W)[0]
+                nopp = rng.choices(list(OPP), STYLE[nword])[0]
+                cand = [p for p in PLACES if ab[p]["state"] != "fine"]
+                if not cand:
+                    nothing += 1
+                    day += gap
+                    continue
+                p = max(cand, key=lambda q: (FINE_AT - ab[q]["v"]) / RATE[KIND[q]] + (99 if ab[q]["state"] == "injured" else 0))
+                c0 = {"place": p, "kind": KIND[p], "v": ab[p]["v"], "flag": ab[p]["state"] == "injured", "sev": ab[p]["sev"],
+                      "took": ab[p]["took"], "fatigue": rng.uniform(35, 85), "goal": rng.choices(["none", "on track", "at risk"], [0.3, 0.4, 0.3])[0],
+                      "cut": rng.random() < 0.45, "margin": rng.uniform(-0.6, -0.05), "wish": rng.choices(
+                          ["fight", "rest", "none"], [0.3, 0.2, 0.5])[0], "camp": rng.random() < 0.15, "p0": rng.uniform(0.35, 0.7),
+                      "word": nword, "opp": nopp, "filmed": rng.random() < FILMED, "season": s, "bout": bouts, **prof}
+                c0["known"] = prof["known_coach"] or rng.random() < OTHER_KNOWN
+                c0["slack"] = rng.uniform(*GOAL_SLACK[c0["goal"]]) if c0["goal"] != "none" else 99.0
+                c0["plan_units"] = WEEK_UNITS * 2
+                for monday in range(6):
+                    md = 2 + 7 * monday
+                    left = gap - md
+                    if left <= 0 or state(c0["v"], c0["flag"]) == "fine":
+                        break
+                    c = dict(c0)
+                    c["bout_in"] = left if md >= gap - lead else None
+                    c["monday"] = monday
+                    price_case(c)
+                    cases.append(c)
+                    wk, _ = run(dict(c, bout_in=None), c["best"], days=7)   # the week as played (no knock)
+                    c0 = dict(c0, v=wk["v"], flag=wk["flag"], sev=wk["sev"], fatigue=wk["f"])
+                day += gap
+    return cases, bouts, nothing
 
 
 def md(headers, rows):
@@ -422,416 +519,370 @@ def md(headers, rows):
     return "\n".join(out)
 
 
-def gap_band(bout_in):
-    return "none" if bout_in is None else ("7-10" if bout_in <= 10 else str(bout_in))
+def mean_se(xs):
+    n = len(xs)
+    m = sum(xs) / n
+    sd = math.sqrt(sum((x - m) ** 2 for x in xs) / max(1, n - 1))
+    return m, sd / math.sqrt(n)
+
+
+BARS = {}
+CARE_CARD_IS_A_DECISION = False   # set by the bars: True only if T5 passes them (it does not; the map's section 4)
+FIGHT_PREP_ASKS = False           # Ask to move / Ask for another opponent: kept only if T7 passes the bars
+TAPE_PAYS_FOR_DAMAGE = False      # tape study sold on the damage only if knowing the weapon changes the answer (T5b)
+
+
+def card_regret(cs, cost="info", best="best", answers=None):
+    answers = answers or ANSWERS
+    share = {a: sum(1 for c in cs if c[best] == a) / len(cs) for a in answers}
+    always = {a: mean_se([c[cost][a] - c[cost][c[best]] for c in cs]) for a in answers}
+    rules = {}
+    for feat in features(cs[0]):
+        groups = {}
+        for c in cs:
+            groups.setdefault(features(c)[feat], []).append(c)
+        regs = []
+        for grp in groups.values():
+            a = min(answers, key=lambda x: sum(c[cost][x] for c in grp))
+            regs += [c[cost][a] - c[cost][c[best]] for c in grp]
+        rules[feat] = mean_se(regs)
+    bf = min(rules, key=lambda f: rules[f][0])
+    return {"share": share, "always": always, "rules": rules, "best_rule": (bf,) + rules[bf],
+            "common": max(share, key=share.get)}
+
+
+def gate_line(name, g):
+    f, m, se = g["best_rule"]
+    cm, cse = g["always"][g["common"]]
+    ok = m - 2 * se >= 2.5 and cm - 2 * cse >= 3.0 and min(g["share"].values()) >= 0.15
+    print("BARS for %s: best one-thing rule (%s) %.2f +- %.2f (needs 2.5); always the most common answer (%s) %.2f +- %.2f "
+          "(needs 3); every answer best in 15%%+ (lowest %d%%): %s." % (name, f, m, se, g["common"], cm, cse,
+                                                                      round(100 * min(g["share"].values())),
+                                                                      "MET" if ok else "NOT MET"))
+    return ok
+
+
+def info_dist(c):
+    return tuple(1.0 if o == c["opp"] else 0.0 for o in OPP) if c["known"] else STYLE[c["word"]]
+
+
+def combo_costs(c, a):
+    """Care answer `a` with each bout action (Keep / Ask to move / Ask for another opponent / Pull out), on what she knows."""
+    d = info_dist(c)
+    ni = lambda cc, dist: sum(w * sum(pr * bout_prices(cc, e, o)[3] for pr, e in cc["paths"][a]) for w, o in zip(dist, OPP))
+    keep = ni(c, d)
+    later = dict(c, v=min(100.0, c["v"] + MOVE_DAYS * pace(c["kind"], c["v"], c["flag"], c["sev"])), fatigue=40.0,
+                 bout_in=5, camp=False)
+    later["flag"] = c["flag"] and later["v"] < SORE_AT
+    later["paths"] = {a: paths(later, a)}
+    # a NO: their corner hears of the place and goes to it (one weapon step toward it)
+    shift = (lambda q: (0.0, q[0], q[1] + q[2])) if c["kind"] == "ribs" else (lambda q: (q[0] + q[1], q[2], 0.0))
+    move = ASK_MOVE + MOVE_YES * (DELAY * MOVE_DAYS + ni(later, d)) + (1 - MOVE_YES) * ni(c, shift(d))
+    other = ASK_OTHER + OTHER_YES * ni(c, POOL) + (1 - OTHER_YES) * keep
+    return {"keep": keep, "move": move, "other": other, "pull": PULL_OUT}
+
+
+def redesigns(cases):
+    """The ways tried to make the Monday a real decision; two of them re-run the season."""
+    global WIN_VALUE, SHOW_VALUE, PULL_OUT, MISS_WEIGHT, DAY_OUT, GOAL_SWING, OTHER_KNOWN
+    rows = []
+    booked = [c for c in cases if c["bout_in"]]
+    for c in booked:
+        c["combo"] = {}
+        for a in ANSWERS:
+            cc = combo_costs(c, a)
+            for k, x in cc.items():
+                c["combo"][a + " + " + k] = c["info"][a] - cc["keep"] + x
+        c["cbest"] = min(c["combo"], key=c["combo"].get)
+    g = card_regret(booked, "combo", "cbest", list(booked[0]["combo"]))
+    rows.append(["the care answer and the bout action as ONE plan (16 plans, %d cases)" % len(booked),
+                 "%s: %.2f +- %.2f" % g["best_rule"]])
+    saved = (WIN_VALUE, SHOW_VALUE, PULL_OUT, MISS_WEIGHT, DAY_OUT, GOAL_SWING, OTHER_KNOWN)
+    for label in ("every weapon KNOWN (tape on every opponent)", "every stake doubled (a win, a show, the goal line)"):
+        if label.startswith("every weapon"):
+            OTHER_KNOWN = 1.0
+        else:
+            WIN_VALUE, SHOW_VALUE, GOAL_SWING = 2 * WIN_VALUE, 2 * SHOW_VALUE, 2 * GOAL_SWING
+            PULL_OUT = MISS_WEIGHT = 300.0 / DOLLARS_PER_DAY + SHOW_VALUE
+            DAY_OUT = 0.75 + SHOW_VALUE / 14.0
+        cs2, _, _ = season_cases(20, 4382)
+        g = card_regret([c for c in cs2 if c["bout_in"] and c["gap"] >= SHOW_GAP])
+        rows.append([label, "%s: %.2f +- %.2f" % g["best_rule"]])
+        WIN_VALUE, SHOW_VALUE, PULL_OUT, MISS_WEIGHT, DAY_OUT, GOAL_SWING, OTHER_KNOWN = saved
+    print("\nRedesigns tried for the Monday (the best one-thing rule's regret; the bar is 2.5):")
+    print(md(["Change", "Best one-thing rule: regret a case"], rows))
+    for r in rows:
+        check(float(r[1].split()[-3]) < 2.5 or CARE_CARD_IS_A_DECISION, "a redesign that passes becomes the map (%s)" % r[0])
 
 
 def main():
     print("# damage_after_numbers.py output\n")
-    # ------------------------------------------------ T1 ladder
-    print("## T1 The ladder (one word per level, on the place's number)")
-    print(md(["Word", "Place number", "After the last bell"], [
-        ["fine", "%d-100" % FINE_AT, "nothing to decide (fine is not zero risk: T3b start 90)"],
-        ["sore", "%d-%d" % (SORE_AT, FINE_AT - 1), "heals by itself (at 40% on a day a session works it); can be knocked"],
-        ["hurt", "%d-%d" % (HURT_AT, SORE_AT - 1), "the same, knocked four times as easily"],
-        ["injured", "0-%d" % (HURT_AT - 1), "a named injury, light or serious; fails the medical until back at %d" % SORE_AT]]))
-    print("The weigh-in doctor also fails an eye or the nose under %d (visibly swollen)." % FACE_MED)
-    check(FINE_AT > SORE_AT > HURT_AT, "ladder ordered")
+    print("## T1 The ladder and the risk words")
+    print(md(["Word", "Place number", "What it means after the bell"], [
+        ["fine", "90-100", "nothing to decide"], ["sore", "56-89", "heals by itself; a session that works it slows that and can knock it"],
+        ["hurt", "36-55", "the same, knocked three to four times as easily"],
+        ["injured", "0-35 (or knocked under 56)", "a named injury; fails the weigh-in until back at 56"]]))
+    print("The weigh-in doctor also fails an eye or the nose under %d. Risk words: %s, else 9 in 10." %
+          (FACE_MED, ", ".join("under %d%%: %s" % (round(100 * l), w) for l, w in WORDS)))
     check(SORE_AT - 1 == 55 and HURT_AT - 1 == 35, "the ladder keeps the settled 55/35 bands")
-    # ------------------------------------------------ T2 healing
-    print("\n## T2 Healing (whole days, rounded UP: the date shown is the first day the place reads the word)")
+    check(risk_words(0.0) == "under 1 in 50" and risk_words(0.05) == "1 in 20", "the risk words start below 1 in 20")
+    # ------------------------------------------------ T2
+    print("\n## T2 Healing (whole days, rounded UP)")
     rows = []
     for kind in ("eye", "nose", "ribs"):
-        l25 = days_to(25, SORE_AT, kind, "light")
-        s25 = days_to(25, SORE_AT, kind, "serious")
-        rows.append([kind, "%.1f" % RATE[kind], days_to(75, FINE_AT, kind), days_to(60, FINE_AT, kind),
-                     "%s %d (real %d-%d)" % (NAMES[kind][0], l25, *REAL_DAYS[(kind, "light")]),
-                     "%s %d (real %d-%d)" % (NAMES[kind][1], s25, *REAL_DAYS[(kind, "serious")])])
+        l25, s25 = days_to(25, SORE_AT, kind, "light"), days_to(25, SORE_AT, kind, "serious")
+        rows.append([kind, "%.1f / %.2f" % (RATE[kind], RATE[kind] * LIGHT[kind]), days_to(75, FINE_AT, kind), days_to(60, FINE_AT, kind),
+                     "%s: x%.2f = %.2f a day, %d days (real %d-%d)" % (NAMES[kind][0], LIGHT[kind], RATE[kind] * LIGHT[kind], l25,
+                                                                         *REAL_DAYS[(kind, "light")]),
+                     "%s: x%.2f = %.2f a day, %d days (real %d-%d)" % (NAMES[kind][1], SERIOUS[kind], RATE[kind] * SERIOUS[kind], s25,
+                                                                         *REAL_DAYS[(kind, "serious")])])
         for sev, dd in (("light", l25), ("serious", s25)):
-            lo, hi = REAL_DAYS[(kind, sev)]
-            check(lo <= dd <= hi, "%s %s from 25 heals in the real range (%d)" % (kind, sev, dd))
-        v = 75.0
-        for day in range(1, 40):
-            v += rate(kind, "", 1.0)
-            if v >= FINE_AT:
-                check(day == days_to(75, FINE_AT, kind), "%s: the date shown is the first fine day" % kind)
-                break
-    print(md(["Place", "Points a day", "Sore 75 -> fine, days", "Sore 60 -> fine, days", "Light injury 25 -> fit (56)",
+            check(REAL_DAYS[(kind, sev)][0] <= dd <= REAL_DAYS[(kind, sev)][1], "%s %s heals in the real range" % (kind, sev))
+    print(md(["Place", "Points a day: sore / hurt", "Sore 75 -> fine", "Sore 60 -> fine", "Light injury 25 -> fit (56)",
               "Serious injury 25 -> fit (56)"], rows))
-    print("Multipliers: physio hired x%.2f, gym plan x%.2f, a rest week x%.1f, together capped at x%.1f; an outside physio "
-          "session then ADDS +%.1f for 7 days (not capped). A sore or hurt place heals at %d%% on a day a session works it."
-          % (PHYSIO_HIRED, GYM_PLAN, REST_MULT, MULT_CAP, SESSION_ADD, 100 * WORKED_HEAL))
-    # ------------------------------------------------ T3 bouts
-    bouts = sample_bouts(4000, 438)
-    print("\n## T3 What a 3x3 amateur bout leaves (4,000 bouts; landed on her 36/63/90 at 35/40/25%%; opponent head hunter / "
-          "mixed / body puncher at 35/40/25%%, body share %d / %d / %d%%)" % tuple(round(100 * OPP[o]) for o in OPP))
-    check(all(b[4] <= CAP_EXCHANGE + 1e-9 for b in bouts), "no place loses more than 10 in an exchange")
-    check(all(b[5] <= CAP_ROUND + 1e-9 for b in bouts), "no place loses more than 25 in a round")
-    rows = []
-    inj_rate = 0.0
+    print("On a day a session works the place it heals at the answer's share (Train 40%%, Protect 65%% ribs / 75%% face, Spare "
+          "and Rest 100%%). Physio hired x%.2f, a rest week x%.1f, capped x%.1f." % (PHYSIO_HIRED, REST_MULT, MULT_CAP))
+    # ------------------------------------------------ T3
+    rng = random.Random(438)
+    rows, allb, inj_n = [], [], {k: 0 for k in ("eye", "nose", "ribs")}
+    for i in range(4000):
+        level, landed = draw_bout(rng)
+        opp = rng.choices(list(OPP), POOL)[0]
+        v, v0, cuts, wex, wrd, _ = bout(rng, landed, opp)
+        allb.append((level, after_bell(rng, v, v0, cuts), wex, wrd))
+    check(all(b[2] <= CAP_EXCHANGE + 1e-9 and b[3] <= CAP_ROUND + 1e-9 for b in allb), "caps: 10 an exchange, 25 a round")
     for lvl in (36, 63, 90, "all"):
-        sel = [b for b in bouts if lvl == "all" or b[0] == lvl]
+        sel = [b for b in allb if lvl == "all" or b[0] == lvl]
         n = len(sel)
-        hurt = sum(1 for b in sel if any(b[6][p]["state"] in ("hurt", "injured") for p in PLACES))
-        inj = sum(1 for b in sel if any(b[6][p]["state"] == "injured" for p in PLACES))
-        rib = sum(1 for b in sel if min(b[6]["left_ribs"]["v"], b[6]["right_ribs"]["v"]) < FINE_AT)
-        face = sum(1 for b in sel if min(b[6]["left_eye"]["v"], b[6]["right_eye"]["v"], b[6]["nose"]["v"]) < FINE_AT)
-        rows.append([lvl, n, "%d%%" % round(100 * rib / n), "%d%%" % round(100 * face / n), "%d%%" % round(100 * hurt / n),
-                     "%.1f" % (100.0 * inj / n)])
-        if lvl == "all":
-            check(0.015 <= inj / n <= 0.04, "place injuries 1.5-4 per 100 boxer-bouts (%.3f)" % (inj / n))
-            tot = 100.0 * inj / n + HEAD_HAND_PER_100
-            check(4.0 <= tot <= 8.0, "all bout injuries 4-8 per 100 (real ~6, Alevras 2022) (%.1f)" % tot)
-            inj_rate = inj / n
-    by_place = {}
-    for b in bouts:
+        rib = sum(1 for b in sel if min(b[1]["left_ribs"]["v"], b[1]["right_ribs"]["v"]) < FINE_AT)
+        eye80 = sum(1 for b in sel if min(b[1][p]["v"] for p in ("left_eye", "right_eye", "nose")) < 80)
+        hurt = sum(1 for b in sel if any(b[1][p]["state"] in ("hurt", "injured") for p in PLACES))
+        injs = sum(1 for b in sel for p in PLACES if b[1][p]["state"] == "injured")
+        rows.append([lvl, n, "%d%%" % round(100 * rib / n), "%d%%" % round(100 * eye80 / n), "%d%%" % round(100 * hurt / n),
+                     "%.1f" % (100.0 * injs / n)])
+    for b in allb:
         for p in PLACES:
-            if b[6][p]["state"] == "injured":
-                by_place[KIND[p]] = by_place.get(KIND[p], 0) + 1
-    print("Injuries by place per 100 bouts: " + ", ".join("%s %.1f" % (k, 100.0 * by_place.get(k, 0) / len(bouts))
-                                                         for k in ("eye", "nose", "ribs")) +
-          "; head knock + hand (InjuryRoll, not places) %.1f." % HEAD_HAND_PER_100)
-    for k in ("eye", "nose", "ribs"):
-        check(by_place.get(k, 0) > 0, "%s injuries happen" % k)
-    print(md(["Landed on her", "Bouts", "Ribs sore or worse", "Face sore or worse", "A place hurt or worse",
-              "Injured per 100"], rows))
+            if b[1][p]["state"] == "injured":
+                inj_n[KIND[p]] += 1
+    per = {k: 100.0 * x / len(allb) for k, x in inj_n.items()}
+    tot = sum(per.values()) + HEAD_HAND_PER_100
+    print("\n## T3 What a 3x3 amateur bout leaves (4,000 bouts; landed on her 36/63/90 at 35/40/25%; pool head hunter / mixed / "
+          "body puncher 35/40/25%)")
+    print(md(["Landed on her", "Bouts", "Ribs sore or worse", "Eye or nose under 80", "A place hurt or worse",
+              "Place injuries per 100"], rows))
+    print("Injuries per 100 bouts: eye %.1f, nose %.1f, ribs %.1f (places, counted one by one); head knock + hand (InjuryRoll) "
+          "%.1f; all %.1f." % (per["eye"], per["nose"], per["ribs"], HEAD_HAND_PER_100, tot))
+    check(4.0 <= tot <= 8.0, "all bout injuries 4-8 per 100 (real ~6, Alevras 2022) (%.1f)" % tot)
     # ------------------------------------------------ T3b
-    print("\n## T3b The price of a carried place: the next bout played from that start (600 bouts a cell; injured at the "
-          "last bell / mean injury days). A place that starts low loses less a round: %d from 100, %d from 60." % (CAP_ROUND, CARRIED_CAP_ROUND))
-    t = start_table()
+    t = night_table()
+    print("\n## T3b The bout from a carried place (500 bouts a cell): stopped or injured on that place / days out if it goes")
     rows = []
-    for kind, opp, elb, label in (("eye", "mixed", False, "eye (vs mixed)"), ("nose", "mixed", False, "nose (vs mixed)"),
-                                  ("ribs", "jabber", False, "ribs vs a head hunter"), ("ribs", "mixed", False, "ribs vs mixed"),
-                                  ("ribs", "body", False, "ribs vs a body puncher"),
-                                  ("ribs", "body", True, "ribs vs a body puncher, Elbows in")):
-        rows.append([label] + ["%d%% / %.1f" % (round(100 * t[(kind, opp, elb, st)][0]), t[(kind, opp, elb, st)][1])
-                               for st in STARTS])
-        for x, y in zip(STARTS, STARTS[1:]):
-            check(t[(kind, opp, elb, y)][1] >= t[(kind, opp, elb, x)][1] - 0.15, "%s %s: lower start never cheaper" % (kind, opp))
-    print(md(["Place"] + ["start %d" % st for st in STARTS], rows))
-    print("Elbows in also costs the face: +%.1f injury days a bout across eyes and nose vs a body puncher (+%.1f vs mixed)."
-          % (elbows_face_cost("body"), elbows_face_cost("mixed")))
-    e70 = t[("eye", "mixed", False, 70)][0]
-    check(0.15 <= e70 <= 0.45, "an eye at 70 (passes the medical) is a real risk, not a certainty (%.2f)" % e70)
-    r70 = [t[("ribs", o, False, 70)][0] for o in ("jabber", "mixed", "body")]
-    check(r70[2] >= 1.6 * r70[0], "the opponent's body share changes the rib price (%s)" % r70)
-    check(t[("ribs", "body", True, 60)][0] < t[("ribs", "body", False, 60)][0], "Elbows in protects a carried rib")
-    print("In words on screen (rib start: head hunter / mixed / body puncher): " + "; ".join(
-        "%d: %s / %s / %s" % ((st,) + tuple(risk_words(t[("ribs", o, False, st)][0]) for o in ("jabber", "mixed", "body")))
-        for st in (90, 80, 70, 60)) + ".")
-    # ------------------------------------------------ T4 worked example
-    print("\n## T4 Worked example: one bout, one recovery, two opponents")
-    ex = next(b for b in bouts if b[0] == 63 and b[6]["right_ribs"]["state"] == "hurt" and b[6]["left_ribs"]["state"] == "sore")
-    print("Morning after: " + ", ".join("%s %d %s" % (p.replace("_", " "), round(ex[6][p]["v"]), ex[6][p]["state"])
-                                        for p in PLACES) + ". The next show is in 14 days (a BASE week, then the fight week).")
-    carried = carried_of(ex[6])
-    wr = worst_rib(carried)["place"]
-    rows, t4 = [], {}
-    for plan in plans_for(carried):
-        nm = plan_name(plan, carried)
-        other = [v for k, v in plan.get("per", {}).items() if k != wr]
-        if other and other[0] != nm:
-            continue       # T4 shows the same answer on both ribs
-        for sess in (None, wr):
-            r = random.Random(5)
-            ends, knocks, lost = {}, 0, 0.0
-            for _ in range(2000):
-                pl, l, k = run_weeks(r, carried, plan, 14, 14, sess)
-                for c in pl:
-                    ends[c["place"]] = ends.get(c["place"], 0.0) + c["v"] / 2000
-                knocks += 1 if k else 0
-                lost += l / 2000
-            cb = care_cost(carried, plan, 14, "body", "none", sess, runs=600, seed=5)
-            cj = care_cost(carried, plan, 14, "jabber", "none", sess, runs=600, seed=5)
-            t4[(nm, sess)] = (cb, cj)
-            rr = ends[wr]
-            rows.append([nm + (" + physio session ($%d)" % SESSION_PRICE if sess else ""),
-                         ", ".join("%s %d" % (p.replace("_", " "), round(ends[p])) for p in ("left_ribs", "right_ribs")),
-                         "%s / %s" % (risk_words(interp("ribs", "jabber", False, rr, 0)),
-                                      risk_words(interp("ribs", "body", False, rr, 0))),
-                         "%d in 100" % round(100 * knocks / 2000),
-                         "%.1f" % (lost / WEEK_UNITS * HEADROOM), "%.1f" % cb, "%.1f" % cj])
-    print(md(["Her two weeks", "Ribs on fight night (mean)", "Right ribs injured on the night: head hunter / body puncher",
-              "A training knock", "Focus stat points lost", "Cost vs body puncher", "Cost vs head hunter"], rows))
-    bb = min(t4, key=lambda k: t4[k][0])
-    bj = min(t4, key=lambda k: t4[k][1])
-    gb_ = sorted(v[0] for v in t4.values())
-    gj_ = sorted(v[1] for v in t4.values())
-    print("Best vs a body puncher: %s%s (next %.1f higher); vs a head hunter: %s%s (next %.1f higher)."
-          % (bb[0], " + session" if bb[1] else "", gb_[1] - gb_[0], bj[0], " + session" if bj[1] else "", gj_[1] - gj_[0]))
-    check(bb[0] != bj[0], "T4: the opponent flips the answer")
-    # ------------------------------------------------ T5 the care card
-    rng = random.Random(77)
-    dec = [b for b in bouts if any(b[6][p]["state"] != "fine" for p in ("left_ribs", "right_ribs"))]
-    face_only = sum(1 for b in bouts if not any(b[6][p]["state"] != "fine" for p in ("left_ribs", "right_ribs"))
-                    and any(b[6][p]["state"] != "fine" for p in PLACES)) / len(bouts)
-    cases = []
-    for i, b in enumerate(dec[:110]):
-        carried = carried_of(b[6])
-        wish = rng.choices(list(WISH), weights=list(WISH.values()))[0]
-        goal = rng.choices(list(GOAL), weights=GOAL_W)[0]
-        for bout_in in (None, 7, 10, 14, 21):
-            for opp in (("mixed",) if bout_in is None else ("jabber", "mixed", "body")):
-                costs = best_by_name(carried, bout_in, opp, wish, seed=i, runs=24, goal=goal)
-                vals = sorted(x[0] for x in costs.values())
-                best = min(costs, key=lambda k: costs[k][0])
-                wrb = worst_rib(carried)
-                key = (state(wrb["v"], wrb["flag"]), gap_band(bout_in), opp)
-                cases.append({"b": b, "carried": carried, "bout_in": bout_in, "opp": opp, "wish": wish, "costs": costs,
-                              "best": best, "gap": vals[-1] - vals[0], "key": key, "i": i,
-                              "goal": goal})
-    cells = {}
-    for c in cases:
-        if c["gap"] >= SHOW_GAP:
-            cells.setdefault(c["key"], {}).setdefault(c["best"], 0)
-            cells[c["key"]][c["best"]] += 1
-    contested = {k for k, d in cells.items() if max(d.values()) / sum(d.values()) <= CONTESTED}
-    order = {k: max(d, key=d.get) for k, d in cells.items()}
-    card = [c for c in cases if c["gap"] >= SHOW_GAP and c["key"] in contested]
-    ordered = [c for c in cases if c["gap"] >= SHOW_GAP and c["key"] not in contested]
-    print("\n## T5 The Monday care card (per rib place: Train / Protect / Spare, or Rest the week)")
-    print("%d situations from %d bouts that leave a rib not fine (x the next bout none / 7 / 10 / 14 / 21 days x the "
-          "opponent x her wish). Face-only carries (%d%% of bouts) open no card: the face clears alone and spars body-only."
-          % (len(cases), len(dec[:110]), round(100 * face_only)))
-    print("Gap under %.0f day-equivalent: the coach picks (%d). A situation (rib word x days to the bout x opponent) where "
-          "one answer is best in over %d%% of its cases is a STANDING ORDER, pre-filled, editable (%d). The card opens "
-          "for the rest (%d)." % (SHOW_GAP, sum(1 for c in cases if c["gap"] < SHOW_GAP), round(100 * CONTESTED), len(ordered), len(card)))
-    wins, regret = {}, {}
-    for c in card:
-        wins[c["best"]] = wins.get(c["best"], 0) + 1
-        for o, x in c["costs"].items():
-            if o != c["best"]:
-                regret.setdefault(o, []).append(x[0] - c["costs"][c["best"]][0])
-    rows = []
-    for o in ("train", "protect", "spare", "rest"):
-        share = wins.get(o, 0) / max(1, len(card))
-        rg = regret.get(o, [0.0])
-        rows.append([o.capitalize(), "%d%%" % round(100 * share), "%.1f" % (sum(rg) / len(rg))])
-        check(share <= 0.70, "card answer %s not best in more than 70%% of card cases (%.2f)" % (o, share))
-        check(share >= 0.08, "card answer %s best in at least 8%% of card cases (%.2f)" % (o, share))
-    print(md(["Answer (on the worst rib)", "Least cost in (card cases)", "Mean extra cost when not the best"], rows))
-    print("\n### T5b By situation the player can see (cases where the best two differ by a day+: usual best, its share, n)")
-    srows = []
-    for word in ("sore", "hurt", "injured"):
-        for gb in ("none", "7-10", "14", "21"):
-            cellrow = []
-            for opp in ("jabber", "mixed", "body"):
-                d = cells.get((word, gb, opp))
-                if not d:
-                    cellrow.append("-")
-                    continue
-                n = sum(d.values())
-                top = max(d, key=d.get)
-                cellrow.append("%s %d%% (%d)%s" % (top, round(100 * d[top] / n), n, "" if (word, gb, opp) in contested else " ORDER"))
-            if any(x != "-" for x in cellrow):
-                srows.append([word, gb] + cellrow)
-    print(md(["Worst rib", "Days to the bout", "vs head hunter (none: unknown)", "vs mixed", "vs body puncher"], srows))
-    check(len(card) >= 0.25 * len(cases), "at least a quarter of situations reach the card (%d of %d)" % (len(card), len(cases)))
-    pair = {}
-    for c in cases:
-        if c["bout_in"] is not None:
-            pair.setdefault((c["i"], c["bout_in"]), {})[c["opp"]] = c["best"]
-    pairs = [d for d in pair.values() if "jabber" in d and "body" in d]
-    flip = sum(1 for d in pairs if d["jabber"] != d["body"]) / len(pairs)
-    reg = [c["costs"][order[c["key"]]][0] - c["costs"][c["best"]][0] for c in ordered if order[c["key"]] in c["costs"]]
-    print("Same fighter, same days to the bout: the best answer vs a head hunter differs from the best vs a body puncher in "
-          "%d%% of %d cases. A standing order costs %.2f day-equivalents a time on average against the best answer "
-          "(it is wrong in %d%% of its cases)." % (round(100 * flip), len(pairs), sum(reg) / len(reg),
-                                                   round(100 * sum(1 for x in reg if x > 0.01) / len(reg))))
-    check(flip >= 0.30, "the opponent changes the best care answer for the same fighter (%.2f)" % flip)
-    # physio session
-    ph_yes = ph_n = hired_rest = 0
-    for c in card[:80]:
-        plan = c["costs"][c["best"]][1]
-        base = c["costs"][c["best"]][0]
-        withs = care_cost(c["carried"], plan, c["bout_in"], c["opp"], c["wish"], worst_rib(c["carried"])["place"], 24, c["i"],
-                          False, c["goal"])
-        ph_n += 1
-        ph_yes += 1 if withs < base else 0
-    hr_n = min(40, len(card))
-    for c in card[:40]:
-        rp, wp = {"rest": True}, worst_rib(c["carried"])["place"]
-        a = run_weeks(random.Random(3), c["carried"], rp, 5, None, None, True)[0]
-        b2 = run_weeks(random.Random(3), c["carried"], rp, 5, None, wp, True)[0]
-        va = next(x["v"] for x in a if x["place"] == wp)
-        vb = next(x["v"] for x in b2 if x["place"] == wp)
-        hired_rest += 1 if vb > va or va >= 100 else 0
-    print("\nA physio session ($%d, +%.1f for 7 days) on the worst rib, on top of the best answer: worth it in %d%% of %d "
-          "card cases. With the physio hired, under Rest, it still heals in %d of %d (the cap no longer eats it). "
-          "%d sessions a week for the whole club." % (SESSION_PRICE, SESSION_ADD, round(100 * ph_yes / ph_n), ph_n, hired_rest, hr_n, CLINIC_SLOTS))
-    check(0.15 <= ph_yes / ph_n <= 0.80, "the physio session is a real choice (%.2f)" % (ph_yes / ph_n))
-    check(hired_rest == hr_n, "the session always heals, hired physio or not")
-    # ------------------------------------------------ T6 the next bout
-    print("\n## T6 The next bout: an offer (Accept / Pass) and a booked bout (Keep / Ask to move / Pull out)")
-    acc, kmp = {}, {}
-    after_no = {"keep": 0, "pull": 0}
-    r6 = random.Random(66)
-    for i, b in enumerate(dec[:90]):
-        carried = carried_of(b[6])
-        wish = r6.choices(list(WISH), weights=list(WISH.values()))[0]
-        for bout_in in (7, 10, 14):
-            fc = forecast(carried, bout_in)
-            wrf = worst_rib(fc)
-            if wrf is None or wrf["v"] >= FINE_AT:
-                continue
-            word = state(wrf["v"], wrf["flag"])
-            later = min(x[0] for x in best_by_name(carried, bout_in + MOVE_DAYS, "mixed", "none", i, 16).values())
-            pas = DELAY_PER_DAY * MOVE_DAYS + later
-            pull = PULL_OUT / DOLLARS_PER_DAY + DELAY_PER_DAY * MOVE_DAYS + later
-            keep_no = min(x[0] for x in best_by_name(carried, bout_in, "body", "none", i, 16).values())
-            for opp in OPP:
-                keep = min(x[0] for x in best_by_name(carried, bout_in, opp, "none", i, 16).values())
-                acc.setdefault((word, opp), [0, 0])
-                acc[(word, opp)][0] += 1 if keep < pas else 0
-                acc[(word, opp)][1] += 1
-                if interp("ribs", opp, False, wrf["v"], 0) >= MOVE_RISK or any(medical_fails(c) for c in fc):
-                    # a NO: their corner hears; she now goes to the body
-                    move = MOVE_ASK + MOVE_YES * (later + DELAY_PER_DAY * MOVE_DAYS + OPP_GAIN) + (1 - MOVE_YES) * min(keep_no, pull)
-                    move += OVERRULE if wish == "fight" else 0.0      # Heart 65+: she wants this bout
-                    keep += OVERRULE if wish == "rest" else 0.0       # low Composure: she wants it moved
-                    kmp.setdefault(opp, {"keep": 0, "move": 0})
-                    kmp[opp]["keep" if keep <= move else "move"] += 1
-                    after_no["keep" if keep_no <= pull else "pull"] += 1
-    rows = []
-    for word in ("sore", "hurt"):
+    for kind in ("ribs", "eye"):
         for opp in OPP:
-            a = acc.get((word, opp))
-            if a and a[1]:
-                rows.append(["worst rib %s, %s" % (word, OPP_WORD[opp]), "%d%% of %d" % (round(100 * a[0] / a[1]), a[1])])
-    print(md(["Offer with a carried rib (forecast word)", "Accept is best in"], rows))
-    for word in ("sore", "hurt"):
-        sh = [acc[(word, o)][0] / acc[(word, o)][1] for o in OPP if acc.get((word, o)) and acc[(word, o)][1] >= 20]
-        if len(sh) == 3:
-            check(max(sh) - min(sh) >= 0.25, "the opponent moves Accept vs Pass for a %s rib (%s)" % (word, sh))
-    tot_a = sum(a[0] for a in acc.values()) / sum(a[1] for a in acc.values())
-    check(0.30 <= tot_a <= 0.70, "Accept vs Pass overall (%.2f)" % tot_a)
-    n6 = sum(sum(d.values()) for d in kmp.values())
-    rows = [["Keep vs %s" % OPP_WORD[o], "%d%% of %d" % (round(100 * kmp[o]["keep"] / sum(kmp[o].values())), sum(kmp[o].values()))]
-            for o in OPP if o in kmp]
-    rows += [["After a NO (she now goes to the body): keep", "%d%%" % round(100 * after_no["keep"] / n6)],
-             ["After a NO: pull out ($300)", "%d%%" % round(100 * after_no["pull"] / n6)]]
-    print(md(["Fight prep (opens at a night's risk of 1 in 5 or worse, or a medical fail)", "Best in"], rows))
-    kshare = sum(d["keep"] for d in kmp.values()) / n6
-    check(0.25 <= kshare <= 0.75, "Keep vs Ask to move overall (%.2f)" % kshare)
-    for k in after_no:
-        check(0.10 <= after_no[k] / n6 <= 0.90, "after a NO, %s is sometimes right (%.2f)" % (k, after_no[k] / n6))
-    # T6b the opponent's carried place
-    print("\n### T6b Her opponent carries a place too (seen on tape of her last bout): Aim it")
+            rows.append(["%s vs a %s" % (kind, OPP_WORD[opp])] + ["%s / %.0f" % (risk_words(t[(kind, opp, st)][1]),
+                         t[(kind, opp, st)][2] / max(1e-9, t[(kind, opp, st)][1]) if t[(kind, opp, st)][1] > 0 else 0)
+                         for st in STARTS])
+            for x, y in zip(STARTS, STARTS[1:]):
+                check(t[(kind, opp, y)][2] >= t[(kind, opp, x)][2] - 0.2, "%s %s: a lower start never costs less" % (kind, opp))
+    print(md(["Place"] + ["start %d" % s for s in STARTS], rows))
+    check(t[("ribs", "body", 70)][1] >= 3 * max(0.01, t[("ribs", "head", 70)][1]), "the weapon prices the rib")
+    check(t[("eye", "head", 80)][1] > t[("eye", "body", 80)][1], "the weapon prices the eye the other way")
+    # monotone: fight night never cheaper for a lower place (the round-2 medical-fail error)
+    cc = {"kind": "ribs", "p0": 0.55, "bout_in": 12, "cut": False, "camp": False}
+    for kind in ("ribs", "eye"):
+        cc["kind"] = kind
+        for opp in OPP:
+            prev = -1.0
+            for v in range(100, 19, -1):
+                e = {"v": float(v), "flag": v < HURT_AT, "sev": "light" if v < HURT_AT else "", "f": 40.0, "gl": 0.0,
+                     "burn": 0.0, "sparred": True}
+                x = bout_prices(cc, e, opp)[3]
+                check(x >= prev - 1e-6, "%s vs %s: the night never costs less at %d than at %d" % (kind, opp, v, v + 1))
+                prev = x
+    # ------------------------------------------------ the season
+    SEASONS = SEASONS_RUN[0]
+    cases, nb, nothing = season_cases(SEASONS, 4381)
+    per26 = 1.0 / SEASONS
+    card = [c for c in cases if c["bout_in"] and c["gap"] >= SHOW_GAP]
+    print("\n## T4 A first amateur season (3 boxers, 26 weeks, %d seasons): what reaches a Monday" % SEASONS)
+    sit = {}
+    for c in cases:
+        k = (features(c)["place"], gap_band(c["bout_in"]))
+        sit.setdefault(k, [0, 0])
+        sit[k][0] += 1
+        sit[k][1] += 1 if c["bout_in"] and c["gap"] >= SHOW_GAP else 0
+    rows = []
+    for pl in sorted({k[0] for k in sit}):
+        cells = [sit.get((pl, b), [0, 0]) for b in ("5", "12", "none")]
+        rows.append([pl] + ["%.1f (%.1f)" % (x[0] * per26, x[1] * per26) for x in cells[:2]] + ["%.1f" % (cells[2][0] * per26)])
+    print(md(["Place (the worst one)", "Bout in 5 days: Mondays (decisions)", "Bout in 12 days: Mondays (decisions)",
+              "No bout booked: Mondays (no decision: it heals, the next offer prices it)"], rows))
+    print("Bouts %.1f a season; %.1f leave nothing to decide; Mondays with a carried place %.1f; real decisions %.1f." %
+          (nb * per26, nothing * per26, len(cases) * per26, len(card) * per26))
+    # ------------------------------------------------ T5 regret
+    print("\n## T5 Is the Monday a lookup? Regret in training days against the best answer (%d decision cases: a bout "
+          "booked, the answers a day or more apart)" % len(card))
+    g = card_regret(card)
+    rows = [["always " + a.capitalize(), "%d%%" % round(100 * g["share"][a]), "%.2f +- %.2f" % g["always"][a]] for a in ANSWERS]
+    print(md(["Rule", "Best answer in", "Regret a case (mean +- standard error)"], rows))
+    rows = sorted(([f, "%.2f +- %.2f" % x] for f, x in g["rules"].items()), key=lambda r: float(r[1].split()[0]))
+    print("\nThe best ONE-THING rule per visible thing (for each value, the one answer cheapest across its cases; fitted on "
+          "these very cases, so generous to the rule):")
+    print(md(["Reads only", "Regret a case (mean +- se)"], rows))
+    hurt = [c for c in card if state(c["v"], c["flag"]) == "hurt"]
+    th = sum(1 for c in hurt if c["best"] == "train") / max(1, len(hurt))
+    print("\nTrain on a HURT place is best in %d%% of %d hurt cases. Two-thing rule (place number x her weapon or style "
+          "word): %.2f +- %.2f." % ((round(100 * th), len(hurt)) + rule_regret2(card, "place number (5s)", "her weapon (or style word)")))
+    BARS["card"] = gate_line("the Monday care card", g)
+    check(BARS["card"] or not CARE_CARD_IS_A_DECISION, "the care card is a player decision only if it passes the regret bars")
+    check(len(card) >= 400 and g["best_rule"][2] < 0.1, "the regret is measured on 400+ cases with a small error")
+    # T5b guess vs known
+    unk = [c for c in card if not c["known"]]
+    flips = sum(1 for c in unk if c["best"] != c["tbest"]) / len(unk)
+    vti = mean_se([c["true"][c["best"]] - c["true"][c["tbest"]] for c in unk])
+    print("\n### T5b Her weapon: GUESS from the style word, or KNOWN")
+    print("Of %d decision cases %d%% are a guess. Knowing her weapon changes the best answer in %d%% of guess cases and saves "
+          "%.2f +- %.2f training days a case. Watch the tape (her last bout filmed, %d%%) costs a pad night (%.2f), so for "
+          "the damage alone it pays %.2f a case." % (len(card), round(100 * len(unk) / len(card)), round(100 * flips), vti[0],
+                                                    vti[1], round(100 * FILMED), FILM_EVENING, vti[0] - FILM_EVENING))
+    BARS["known"] = flips >= 0.20
+    print("BAR (knowing changes the best answer in 20%%+ of guess cases): %s (%.1f%%)." %
+          ("MET" if BARS["known"] else "NOT MET", 100 * flips))
+    check(BARS["known"] or not TAPE_PAYS_FOR_DAMAGE, "tape study is sold for damage only if knowing changes the answer")
+    # T5c standing orders
+    keyf = lambda c: (features(c)["place"], gap_band(c["bout_in"]), features(c)["her weapon (or style word)"])
+    groups = {}
+    for c in card:
+        groups.setdefault(keyf(c), []).append(c)
+    regs_all, regs_dflt = [], []
+    for grp in groups.values():
+        a = min(ANSWERS, key=lambda x: sum(c["info"][x] for c in grp))
+        regs_all += [c["info"][a] - c["info"][c["best"]] for c in grp]
+        regs_dflt += [c["info"]["train"] - c["info"][a] for c in grp]
+    oa, od = mean_se(regs_all), mean_se(regs_dflt)
+    print("\n### T5c Standing orders (one per place word x days to the bout x her weapon or style word: %d situations)" % len(groups))
+    print("The best order in every situation costs %.2f +- %.2f a case against the best answer case by case. Leaving the "
+          "coach's 'Train' everywhere instead costs %.2f +- %.2f a case more: %.1f training days in 26 weeks. With an order "
+          "in every situation the Monday board never opens; a player who clears every order meets it %.1f times in 26 weeks "
+          "and gains %.1f training days a season over the orders." %
+          (oa[0], oa[1], od[0], od[1], od[0] * len(card) * per26, len(card) * per26, oa[0] * len(card) * per26))
+    redesigns(cases)
+    # ------------------------------------------------ T6 the Monday, played
+    monday_played(cases)
+    # ------------------------------------------------ T7 matchmaking
+    matchmaking(cases)
+    # ------------------------------------------------ T8 the opponent's carried place, the cutman
+    print("\n## T9 Her opponent carries a place (her last bout filmed): Aim it (fight half to measure who wins)")
     rows = []
     for st in (85, 75, 65):
         r1, r2 = random.Random(9), random.Random(9)
         own = aim = 0
         for _ in range(1500):
-            _, landed, _ = draw_bout(r1)
-            v, v0, cuts, _, _ = bout(r1, landed, "mixed", {"right_eye": float(st)})
+            _, landed = draw_bout(r1)
+            v, v0, cuts, _, _, _ = bout(r1, landed, "mixed", {"right_eye": float(st)})
             own += 1 if after_bell(r1, v, v0, cuts)["right_eye"]["state"] == "injured" else 0
-            _, landed, _ = draw_bout(r2)
-            v, v0, cuts, _, _ = bout(r2, landed, "mixed", {"right_eye": float(st)}, aim="right_eye")
+            _, landed = draw_bout(r2)
+            v, v0, cuts, _, _, _ = bout(r2, landed, "mixed", {"right_eye": float(st)}, aim="right_eye")
             aim += 1 if after_bell(r2, v, v0, cuts)["right_eye"]["state"] == "injured" else 0
         rows.append(["her right eye starts %d" % st, "%d in 100" % round(100 * own / 1500), "%d in 100" % round(100 * aim / 1500)])
-        if st == 75:
-            check(aim > own * 1.5, "aiming a carried eye matters")
-    rb = t[("ribs", "body", False, 70)][0]
-    rm = t[("ribs", "mixed", False, 70)][0]
-    rows.append(["her ribs start 70: our Own game vs Aim Body (body share %d%% -> %d%%)" % (100 * OPP["mixed"], 100 * OPP["body"]),
-                 "%d in 100" % round(100 * rm), "%d in 100" % round(100 * rb)])
-    print(md(["The opponent", "Injured at the last bell, our own game", "Aim the place (plan line)"], rows))
-    # ------------------------------------------------ T7 the check
-    print("\n## T7 The check on an injured nose or rib, by the club's cash")
-    ck = {}
-    for kind in ("nose", "ribs"):
-        for p_serious in (0.3, 0.5, 0.7):
-            for booked in (None, 14, 21, 28, 35, 49):
-                for dpd in (20.0, 50.0, 120.0):
-                    fl = days_to(25, SORE_AT, kind, "light")
-                    fs = days_to(25, SORE_AT, kind, "serious")
-
-                    def cost_known(truth, said):
-                        told = fl if said == "light" else fs
-                        true = fl if truth == "light" else fs
-                        c = DELAY_PER_DAY * max(0.0, told - true)
-                        if booked is not None:
-                            if told <= booked < true:
-                                c += PULL_OUT / dpd + BOUT_VALUE + (true - booked) * INJURY_DAY
-                            elif booked < told:
-                                c += PULL_OUT / dpd
-                        elif said == "light" and truth == "serious":
-                            c += DELAY_PER_DAY * 10
-                        return c
-                    ps = p_serious
-                    guess = (1 - ps) * cost_known("light", "serious") + ps * cost_known("serious", "serious")
-                    lr = LOOK_RIGHT[kind]
-                    look = LOOK_PRICE / dpd + sum(
-                        pt * (lr * cost_known(tt, tt) + (1 - lr) * cost_known(tt, "serious" if tt == "light" else "light"))
-                        for tt, pt in (("light", 1 - ps), ("serious", ps)))
-                    xr = XRAY_RIGHT[kind]
-                    xray = XRAY_PRICE / dpd + sum(
-                        pt * (xr * cost_known(tt, tt) + (1 - xr) * cost_known(tt, "light")) for tt, pt in (("light", 1 - ps), ("serious", ps)))
-                    best = min((guess, "guess"), (look, "look"), (xray, "xray"))[1]
-                    ck.setdefault(dpd, {"guess": 0, "look": 0, "xray": 0})[best] += 1
-    rows = []
-    for dpd, label in ((20.0, "tight ($20 a day-equivalent)"), (50.0, "normal ($50)"), (120.0, "comfortable ($120)")):
-        n = sum(ck[dpd].values())
-        rows.append([label] + ["%d%%" % round(100 * ck[dpd][k] / n) for k in ("guess", "look", "xray")])
-    print(md(["Club cash", "The coach's guess (free)", "Physio's look ($60)", "X-ray ($250)"], rows))
-    allk = {k: sum(ck[d][k] for d in ck) for k in ("guess", "look", "xray")}
-    n7 = sum(allk.values())
-    for k in allk:
-        check(0.10 <= allk[k] / n7 <= 0.70, "check %s is right in 10-70%% overall (%.2f)" % (k, allk[k] / n7))
-    # ------------------------------------------------ T8 how often, Monday by Monday
-    print("\n## T8 How often it meets the player in 26 weeks (each Monday re-checked from that day's places)")
-    bouts26 = BOXERS * 26 * 7 / BOUT_GAP_DAYS
-    r8 = random.Random(88)
-    cards = orders = knocks = offers = prep = 0
-    sample = bouts[:150]
-    for i, b in enumerate(sample):
-        carried = carried_of(b[6])
-        if not rib_places(carried):
-            continue
-        fc = forecast(carried, 14)
-        offers += 1 if worst_rib(fc) is not None and worst_rib(fc)["v"] < FINE_AT else 0
-        bout_in = r8.choice([None, 7, 10, 14, 21])
-        opp = r8.choices(list(OPP), weights=[0.35, 0.40, 0.25])[0] if bout_in else "mixed"
-        wish = r8.choices(list(WISH), weights=list(WISH.values()))[0]
-        goal = r8.choices(list(GOAL), weights=GOAL_W)[0]
-        if bout_in:
-            fcb = forecast(carried, bout_in)
-            wb = worst_rib(fcb)
-            prep += 1 if any(medical_fails(c) for c in fcb) or (wb and interp("ribs", opp, False, wb["v"], 0) >= MOVE_RISK) else 0
-        cur, left = carried, bout_in
-        for monday in range(3):
-            wrb = worst_rib(cur) if cur else None
-            if wrb is None or state(wrb["v"], wrb["flag"]) == "fine" or (left is not None and left <= 0):
-                break
-            costs = best_by_name(cur, left, opp, wish, seed=i, runs=16, goal=goal)
-            vals = sorted(x[0] for x in costs.values())
-            best = min(costs, key=lambda k: costs[k][0])
-            key = (state(wrb["v"], wrb["flag"]), gap_band(left), opp)
-            if vals[-1] - vals[0] >= SHOW_GAP:
-                if key in contested:
-                    cards += 1
-                else:
-                    orders += 1
-            pl, _, k = run_weeks(r8, cur, costs[best][1], 7, left)
-            knocks += k
-            cur = [c for c in pl if state(c["v"], c["flag"]) != "fine"]
-            left = None if left is None else left - 7
-    per = 1.0 / len(sample)
-    rows = [["The Monday care card (Train / Protect / Spare / Rest, the physio)", "%.0f" % (bouts26 * cards * per),
-             "contested situations only, gap re-checked each Monday"],
-            ["A standing order acts instead (the week review says what it did)", "%.0f" % (bouts26 * orders * per),
-             "editable on the Coach card"],
-            ["The offer shows a carried rib with its risk (Accept / Pass)", "%.0f" % (bouts26 * offers * per),
-             "an offer 14 days out while a rib is not fine"],
-            ["Fight prep opens Keep / Ask to move / Pull out", "%.0f" % (bouts26 * prep * per), "a booked bout at 1 in 5 or worse"],
-            ["An injured place: the check", "%.1f" % (bouts26 * inj_rate), "%.1f per 100 bouts" % (100 * inj_rate)],
-            ["Training rib knocks under the chosen answers", "%.1f" % (bouts26 * knocks * per), "the KNOCK table, not InjuryRoll"]]
-    print(md(["Decision", "Times in 26 weeks (%d boxers, a bout every %d days = %.0f bouts)" % (BOXERS, BOUT_GAP_DAYS, bouts26), "Why"], rows))
-    check(bouts26 * cards * per >= 8, "the card meets the player 8+ times in 26 weeks (%.1f)" % (bouts26 * cards * per))
-    check(bouts26 * cards * per <= BOXERS * 26, "never more cards than boxer-Mondays")
-    print("\nCONSTANTS: FINE %d, SORE %d, HURT %d, FACE_MED %d; rates eye %.1f nose %.1f ribs %.1f; knock drop %d; $%d a day-eq."
-          % (FINE_AT, SORE_AT, HURT_AT, FACE_MED, RATE["eye"], RATE["nose"], RATE["ribs"], KNOCK_DROP, DOLLARS_PER_DAY))
+    print(md(["The opponent", "Injured at the bell, our own game", "Aim: her right eye (plan line)"], rows))
+    cutman(cases)
+    print("\nCONSTANTS: FINE %d SORE %d HURT %d DOCTOR %d FACE_MED %d; win %.0f, show %.0f, pull-out %.0f, day out %.2f, $%d "
+          "a training day." % (FINE_AT, SORE_AT, HURT_AT, DOCTOR_AT, FACE_MED, WIN_VALUE, SHOW_VALUE, PULL_OUT, DAY_OUT,
+                               DOLLARS_PER_DAY))
     print("ASSERTS: %d passed" % ASSERTS)
+
+
+def rule_regret2(cs, f1, f2):
+    groups = {}
+    for c in cs:
+        groups.setdefault((features(c)[f1], features(c)[f2]), []).append(c)
+    regs = []
+    for g in groups.values():
+        a = min(ANSWERS, key=lambda x: sum(c["info"][x] for c in g))
+        regs += [c["info"][a] - c["info"][c["best"]] for c in g]
+    return mean_se(regs)
+
+
+def monday_played(cases):
+    base = {"place": "right_ribs", "kind": "ribs", "v": 66.0, "flag": False, "sev": "", "took": 30.0, "fatigue": 64.0,
+            "goal": "on track", "cut": True, "margin": -0.3, "wish": "none", "camp": False, "p0": 0.55,
+            "word": "Pressure fighter", "opp": "body", "known": False, "filmed": True, "chin": "mid", "physio": False,
+            "protector": False, "bout_in": 12, "plan_units": 24.0}
+    c = None
+    for slack in (2.0, 3.0, 4.0, 5.0, 6.0):     # the first on-track goal line where the tape changes the answer
+        c = price_case(dict(base, slack=slack))
+        if min(ANSWERS, key=lambda a: c["by"][a]["body"]) != min(ANSWERS, key=lambda a: c["by"][a]["mixed"]):
+            break
+    print("\n## T6 A Monday, played: Ana, right ribs 66 (sore), bout in 12 days against Mensah, a Pressure fighter (weapon "
+          "a GUESS: head %d / mixed %d / body %d in 100); goal 'Power +2' on track (%.1f units of slack); cutting, 0.3 kg "
+          "spare; tiredness 64 (tired); no body protector yet" % (tuple(round(100 * x) for x in STYLE["Pressure fighter"]) +
+                                                                  (c["slack"],)))
+    rows = []
+    plan = (MORN_GAIN * 11 + sum(GAIN[s] * (FIGHT_WEEK_SHARE if d >= 5 else 1.0)
+                                  for d in range(11) for s in [(FIGHT if d >= 5 else BASE)[d % 7]] if s)) * STAT_PER_UNIT
+    for a in ANSWERS:
+        pw, bad, days, lo, hi = shown_prices(c, a, STYLE[c["word"]])
+        e, _ = expected_end(c, a)
+        gm = sum(pr * goal_miss(c, x) for pr, x in c["paths"][a])
+        shows = max(1, math.ceil(days / 14.0))
+        rows.append([a.capitalize(), "%d%%" % round(100 * pw), "%s (%s to %s)" % (risk_words(bad), risk_words(lo), risk_words(hi)),
+                     "%.0f days, %d show%s" % (days, shows, "" if shows == 1 else "s"),
+                     "+%.1f of +%.1f, goal missed %s" % (max(0.0, plan - e["gl"] * STAT_PER_UNIT), plan, risk_words(gm)),
+                     "%.2f kg %s" % (abs(c["margin"] + e["burn"]), "OVER" if c["margin"] + e["burn"] > 0.05 else "under"),
+                     fatigue_word(e["f"]), "%d %s" % (round(e["v"]), state(e["v"])), "%.1f" % c["info"][a],
+                     "%.1f / %.1f / %.1f" % (c["by"][a]["head"], c["by"][a]["mixed"], c["by"][a]["body"])])
+    print(md(["Answer", "Win chance", "Stopped or injured on the ribs (the guess's range)", "If it goes", "Power by fight night",
+              "Weight on the day", "Tiredness on the night", "Ribs on the night", "Cost on the guess",
+              "Cost if KNOWN head hunter / mixed / body puncher"], rows))
+    print("Best on the guess: %s. Known: head hunter %s, mixed %s, body puncher %s." % (
+        c["best"], *(min(ANSWERS, key=lambda a: c["by"][a][o]) for o in OPP)))
+    check(min(ANSWERS, key=lambda a: c["by"][a]["body"]) != min(ANSWERS, key=lambda a: c["by"][a]["mixed"]),
+          "the Monday played: the tape changes the answer")
+
+
+ACTIONS = ["keep", "move", "other", "pull"]
+
+
+def matchmaking(cases):
+    """Fight prep on the last Monday (bout in 5 days): Keep / Ask to move 14 days / Ask for another opponent / Pull out."""
+    print("\n## T7 Fight prep, the last Monday: Keep / Ask to move 14 days / Ask for another opponent (same show) / Pull out")
+    cs = []
+    for c in cases:
+        if c["bout_in"] != 5:
+            continue
+        bad = shown_prices(c, c["best"], info_dist(c))[1]
+        if bad < 0.2 and not any(medical_fails(c["kind"], e) for pr, e in c["paths"][c["best"]] if pr > 0.2):
+            continue
+        c["act"] = combo_costs(c, c["best"])
+        c["abest"] = min(ACTIONS, key=lambda k: c["act"][k])
+        cs.append(c)
+    g = card_regret(cs, "act", "abest", ACTIONS)
+    rows = [[k, "%d%%" % round(100 * g["share"][k]), "%.2f +- %.2f" % g["always"][k]] for k in ACTIONS]
+    print("Opens when the night's risk is 1 in 5 or worse, or a weigh-in fail is likely: %.1f times in 26 weeks (%d cases)." %
+          (len(cs) / SEASONS_RUN[0], len(cs)))
+    print(md(["Action", "Best in", "Regret a case if always taken"], rows))
+    print("Best one-thing rule: %s, %.2f +- %.2f a case." % g["best_rule"])
+    BARS["prep"] = gate_line("Fight prep", g)
+    check(len(cs) >= 100, "Fight prep sample 100+ (%d)" % len(cs))
+    check(BARS["prep"] or not FIGHT_PREP_ASKS, "Ask to move / Ask for another opponent stay only if Fight prep passes the bars")
+
+
+def cutman(cases):
+    eyes = [c for c in cases if c["kind"] == "eye" and c["monday"] == 0]
+    worth = {True: [0, 0], False: [0, 0]}
+    for c in eyes:
+        cc = price_case(dict(c, v=min(100.0, c["v"] + EYE_MORNING * c["took"])))
+        k = c["bout_in"] is not None
+        worth[k][1] += 1
+        worth[k][0] += 1 if cc["info"][cc["best"]] + CUTMAN_CALL < c["info"][c["best"]] else 0
+    print("\n## T10 The cutman the morning after ($%d a call): the eye skips its overnight swelling" % round(CUTMAN_CALL * DOLLARS_PER_DAY))
+    print(md(["Eye cases (the morning after)", "Cases", "Worth its $40"], [
+        ["a bout booked", worth[True][1], "%d%%" % round(100 * worth[True][0] / max(1, worth[True][1]))],
+        ["no bout booked", worth[False][1], "%d%%" % round(100 * worth[False][0] / max(1, worth[False][1]))]]))
+
+
+SEASONS_RUN = [40]
 
 
 if __name__ == "__main__":
