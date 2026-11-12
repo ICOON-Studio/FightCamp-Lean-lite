@@ -13,6 +13,8 @@ extends Node
 ##   7. Her plate is the corner's read in words, not game bars (his C330 point 3: "reminds way too much other games").
 ##   attach(view) -> HudRegroup (null when the preview is off)   enabled() -> bool   read_word(kind, value) -> String
 
+const ReactionBubbles := preload("res://scripts/fight3d/ReactionBubbles.gd")
+const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const SMALL := [Rect2(16, 232, 176, 270), Rect2(1728, 232, 176, 270)]   # under each plate's bars, at its outer edge
 const NUM_SHIFT := 34.0   # STAMINA is wider than "energy": the number moves right so the two never touch
 const DIM := 0.35
@@ -89,7 +91,7 @@ func _process(delta: float) -> void:
 	_glass_bug()
 	_notepad()
 	_costs()
-	_shout_cloud()
+	_shout_cloud(delta)
 
 
 ## His C334 point 7: "display the stamina cost ... with icons+numbers": each call's card shows a stamina cell and the
@@ -123,68 +125,182 @@ class Cell extends Control:
 		draw_rect(Rect2(3, 3, 12, 10), y)
 
 
-## His C334 points 4-6: "use a cloud-like icon for the text and move it towards the corner it's coming from": our corner's
-## shout leaves the bottom middle for a speech cloud by our side (left); any other caption stays where it was.
-var _cap_home := {}
-var _cloud_on := false
-var _cloud_text := ""
-var _tail: Control
+## S445 his "should we make this fill up with time and make it the shout call ?" -> "Yes, build it": the corner's shout and
+## the call box are ONE thing. A call is picked in the pause at an exchange and runs for that exchange's 30 seconds, so the
+## shout ("Feint! Draw the lead!") stands where the call box stands, on the line to her head, tagged at once Heard / Half
+## heard / Not heard (ReactionBubbles.heard_word, the game's shout rule), and a wash fills it as the exchange plays out
+## (the corner bar's ring: the one counter). Full = the exchange is over: the tag turns to Worked / Did not work (the same
+## result the CALLS WORKED box ticks), holds a moment, then gives way to the short call name, which fades (his C330 point 2).
+const SHOUT_W := 440.0
+const SHOUT_H := 64.0
+const SHOUT_HOLD_S := 1.2
+const SHOUT_TOP := 244.0   # under the CARDS row and the name plates
+const SHOUT_OFF := Vector2(-80.0 - SHOUT_W, -96.0)   # up and left of her head: clear of the shoulders and gloves
+var _shout_on := false   # a shout is filling or holding its tag
+var _shout_text := ""
+var _shout_f0 := 1.0     # the ring's share left when the shout began
+var _shout_fill := 0.0
+var _shout_hold := 0.0   # > 0: full, tagged, counting down
+var _shout_tag := ""
+var _shout_won := false  # the exchange this call runs in, already settled: shown only when the fill is full
+var _sbox: PanelContainer   # the shout's own box: the game's caption line stays free for its other captions
+var _slab: Label
+var _wash: Wash
+var _head := Vector2.ZERO
 
 
-func _shout_cloud() -> void:
+class Wash extends Control:
+	var fill := 0.0
+	var flash := 0.0
+	var tag := ""
+	var tag_col := Color.WHITE
+	func _ready() -> void:
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+	func _draw() -> void:
+		var w := size.x * clampf(fill, 0.0, 1.0)
+		if w > 1.0:
+			var c := Color(1.0, 0.55, 0.35, 0.26 + 0.12 * flash)
+			draw_rect(Rect2(Vector2(10, 4), Vector2(maxf(0.0, w - 20.0), size.y - 8.0)), c)
+		if tag != "":
+			var f := ThemeDB.fallback_font
+			var tw := f.get_string_size(tag, HORIZONTAL_ALIGNMENT_LEFT, -1, 20).x
+			var r := Rect2(Vector2(size.x - tw - 26.0, -16.0), Vector2(tw + 18.0, 28.0))
+			draw_rect(r, tag_col)
+			draw_string(f, r.position + Vector2(9, 21), tag, HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color("#14100c"))
+
+
+## The ring's share of time left (1 = the wait just began, 0 = the exchange is here). -1 when there is no ring.
+func _ring_left() -> float:
+	var bar := view.find_child("CornerBar", true, false)
+	if bar == null:
+		return -1.0
+	var ring: Variant = bar.get("_ring")
+	return float((ring as Object).get("frac")) if ring != null else -1.0
+
+
+func _shout_cloud(delta: float) -> void:
 	var box := view.get("_cap_box") as Control
 	var cap := view.get("_caption") as Label
 	if box == null or cap == null:
 		return
-	if _cap_home.is_empty():
-		_cap_home = {"al": box.anchor_left, "at": box.anchor_top, "ar": box.anchor_right, "ab": box.anchor_bottom,
-			"ol": box.offset_left, "ot": box.offset_top, "or": box.offset_right, "ob": box.offset_bottom,
-			"sb": box.get_theme_stylebox("panel")}
+	if _sbox == null:
+		_build_shout()
 	var t := cap.text
 	if t.begins_with("Corner: "):
-		cap.text = t.trim_prefix("Corner: ").trim_prefix("\"").trim_suffix("\"")
-		_cloud_text = cap.text
-		if not _cloud_on:
-			_cloud_on = true
-			box.set_anchors_preset(Control.PRESET_TOP_LEFT)
-			box.position = Vector2(210, 520)
-			box.size = Vector2(440, 64)
-			var sb := StyleBoxFlat.new()
-			sb.bg_color = Color(0.97, 0.95, 0.9, 0.94)
-			sb.set_corner_radius_all(32)
-			sb.content_margin_left = 22
-			sb.content_margin_right = 22
-			box.add_theme_stylebox_override("panel", sb)
-			cap.add_theme_color_override("font_color", Color("#2a1d14"))
-			cap.add_theme_constant_override("outline_size", 0)
-			if _tail == null:
-				_tail = Tail.new()
-				_tail.name = "CloudTail"
-				view.add_child(_tail)
-	if _tail != null:   # outside the bubble: a PanelContainer lays out its own children
-		_tail.visible = _cloud_on and box.visible
-		_tail.position = box.position + Vector2(34, box.size.y - 2.0)
-	if t.begins_with("Corner: "):
-		pass
-	elif t != "" and _cloud_on and t != _cloud_text:
-		_cloud_on = false
-		box.anchor_left = _cap_home["al"]; box.anchor_top = _cap_home["at"]
-		box.anchor_right = _cap_home["ar"]; box.anchor_bottom = _cap_home["ab"]
-		box.offset_left = _cap_home["ol"]; box.offset_top = _cap_home["ot"]
-		box.offset_right = _cap_home["or"]; box.offset_bottom = _cap_home["ob"]
-		box.add_theme_stylebox_override("panel", _cap_home["sb"])
-		cap.remove_theme_color_override("font_color")
-		cap.add_theme_constant_override("outline_size", 8)
+		var said := t.trim_prefix("Corner: ").trim_prefix("\"").trim_suffix("\"")
+		if said != _shout_text:
+			_shout_begin(said)
+		box.modulate.a = 0.0   # the corner's line is said in the shout box, not on the caption line
+	elif box.modulate.a < 1.0:
+		box.modulate.a = 1.0
+	# The game's other path for the same shout: a bubble pinned to our corner post (S442 BUBBLES, when the post is on
+	# screen). The shout box says it instead; the bubble never draws.
+	var rbs := view.get_node_or_null("ReactionBubbles")
+	if rbs != null:
+		for e in rbs.get("live"):
+			if str(e.get("kind", "")) != "shout" or not is_instance_valid(e["node"]):
+				continue
+			var node := e["node"] as CanvasItem
+			if not node.has_meta("shout_taken"):
+				node.set_meta("shout_taken", true)
+				_shout_begin(_said_now())
+			node.visible = false
+	if not _shout_on:
+		_sbox.visible = false
+		_wash.visible = false
+		return
+	var left := _ring_left()
+	if _shout_hold <= 0.0:
+		if left < 0.0 or left > _shout_f0 + 0.05:   # a new exchange began: the ring refilled
+			_shout_fill = 1.0
+		else:
+			_shout_fill = maxf(_shout_fill, clampf((_shout_f0 - left) / maxf(0.01, _shout_f0), 0.0, 1.0))
+		if _shout_fill >= 0.999:
+			_shout_hold = SHOUT_HOLD_S
+			_shout_tag = "Worked" if _shout_won else "Did not work"
+			_wash.tag_col = Color("#7fd18b") if _shout_won else Color("#ff8a6a")
+	else:
+		_shout_hold -= delta
+		if _shout_hold <= 0.0:
+			_shout_on = false   # said and in force: the call box on the line takes over, bright, then fading
+			_chip_t = CHIP_BRIGHT_S
+			_sbox.visible = false
+			_wash.visible = false
+			return
+	_sbox.visible = true
+	_wash.visible = true
+	_wash.fill = _shout_fill
+	_wash.flash = clampf(_shout_hold / SHOUT_HOLD_S, 0.0, 1.0)
+	_wash.tag = _shout_tag
+	_wash.position = _sbox.position
+	_wash.size = _sbox.size
+	_wash.queue_redraw()
 
 
-## The cloud's tail, pointing down to our side of the ring.
-class Tail extends Control:
-	func _ready() -> void:
-		mouse_filter = Control.MOUSE_FILTER_IGNORE
-		size = Vector2(60, 40)
-	func _draw() -> void:
-		var c := Color(0.97, 0.95, 0.9, 0.94)
-		draw_colored_polygon(PackedVector2Array([Vector2(8, 0), Vector2(44, 0), Vector2(-6, 30)]), c)
+## The shout's place: up and left of her head, never over the name plates or the small map.
+## The side away from the middle of the ring: where the camera puts her right of centre, the shout goes to her right.
+func _shout_at() -> Vector2:
+	var right := _head.x > view.size.x * 0.5
+	var x := _head.x + 80.0 if right else _head.x + SHOUT_OFF.x
+	x = clampf(x, SMALL[0].end.x + 12.0, SMALL[1].position.x - 12.0 - SHOUT_W)
+	return Vector2(x, maxf(SHOUT_TOP, _head.y + SHOUT_OFF.y))
+
+
+## The corner's words for the exchange that just began (its call if taken in, else what was said).
+func _said_now() -> String:
+	var ex: Array = view.call("_exchanges") if view.has_method("_exchanges") else []
+	if ex.is_empty() or not ex[-1] is Dictionary:
+		return ""
+	var x: Dictionary = ex[-1]
+	var call := str(x["call"]) if bool(x.get("shout", false)) else str(x.get("said", ""))
+	return str(Exchanges.CALLS.get(call, {}).get("shout", call))
+
+
+func _build_shout() -> void:
+	_sbox = PanelContainer.new()
+	_sbox.name = "ShoutBox"
+	_sbox.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.97, 0.95, 0.9, 0.94)
+	sb.set_corner_radius_all(32)
+	sb.content_margin_left = 22
+	sb.content_margin_right = 22
+	_sbox.add_theme_stylebox_override("panel", sb)
+	_slab = Label.new()
+	_slab.add_theme_font_size_override("font_size", 26)
+	_slab.add_theme_color_override("font_color", Color("#2a1d14"))
+	_slab.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_slab.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_sbox.add_child(_slab)
+	_sbox.custom_minimum_size = Vector2(SHOUT_W, SHOUT_H)
+	_sbox.size = Vector2(SHOUT_W, SHOUT_H)
+	_sbox.visible = false
+	view.add_child(_sbox)
+	_wash = Wash.new()
+	_wash.name = "ShoutWash"
+	_wash.visible = false
+	view.add_child(_wash)   # over the box: a see-through wash, the words still read through it
+
+
+func _shout_begin(said: String) -> void:
+	_shout_on = true
+	_shout_text = said
+	_slab.text = said
+	_shout_fill = 0.0
+	_shout_hold = 0.0
+	var ex: Array = view.call("_exchanges") if view.has_method("_exchanges") else []
+	var x: Dictionary = ex[-1] if not ex.is_empty() and ex[-1] is Dictionary else {}
+	_shout_won = bool(x.get("won", false))
+	_shout_tag = ReactionBubbles.heard_word(int(x.get("shouts_before", 0)), bool(x.get("shout", true)))
+	_wash.tag_col = {"Heard": Color("#7fd18b"), "Half heard": Color("#f2c14e")}.get(_shout_tag, Color("#b8b0a4"))
+	var left := _ring_left()
+	_shout_f0 = left if left > 0.02 else 1.0
+	var chip := view.get_node_or_null("IntentChip0") as Control
+	if chip != null and chip.visible:   # _call_box already kept _head this frame
+		chip.visible = false
+	if _head == Vector2.ZERO:
+		_head = Vector2(view.size.x * 0.4, 330.0)
+	_sbox.position = _shout_at()
 
 
 func _small_maps() -> void:
@@ -271,6 +387,21 @@ func _call_box(delta: float) -> void:
 		_line.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_line.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		view.add_child(_line)
+	var shout := _sbox
+	if _shout_on and shout != null:
+		if chip != null and chip.visible:
+			_head = chip.position + Vector2(chip.size.x * 0.5, chip.size.y)
+			chip.visible = false
+		if _head == Vector2.ZERO:
+			_head = Vector2(view.size.x * 0.4, 330.0)
+		var at := _shout_at()
+		shout.position = at
+		_line.visible = shout.visible
+		_line.a = at + Vector2(0.0 if at.x > _head.x else shout.size.x, shout.size.y * 0.5)
+		_line.b = _head + Vector2(0, 14)
+		_line.col = Color(1, 0.55, 0.5, 0.85)
+		_line.queue_redraw()
+		return
 	if chip == null or not chip.visible:
 		_line.visible = false
 		return
@@ -281,6 +412,7 @@ func _call_box(delta: float) -> void:
 		_chip_t = CHIP_BRIGHT_S
 	_chip_t = maxf(0.0, _chip_t - delta)
 	var head := chip.position + Vector2(chip.size.x * 0.5, chip.size.y)
+	_head = head
 	var to := chip.position + CHIP_OFF
 	to.x = maxf(SMALL[0].end.x + 12.0, to.x)
 	chip.position = to

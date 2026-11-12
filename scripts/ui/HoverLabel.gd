@@ -13,7 +13,7 @@ const TAG := "HoverTag"
 const GAP := 4.0       # between the button and its tag
 const EDGE := 4.0      # kept from the window's edges
 const FADE_S := 0.08   # quick: Hades shows it at once; a short fade only stops a flash
-const WORD_PX := 16
+const WORD_PX := 20   # S445: the 20 px floor for game text (corner_bar_test was red on 16)
 
 
 static func attach(target: Control, word: String, side: String = "below") -> PanelContainer:

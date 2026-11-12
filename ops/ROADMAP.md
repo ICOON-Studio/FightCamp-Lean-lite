@@ -8,9 +8,9 @@ Updated 2026-11-12 by claude S294.
 
 ## Now
 
-**S444 — ?** *(claude)*
+**S445 — ?** *(claude)*
 
-S444: Ziva restarted; Ask for a fight map v2 + probe to two fresh critics (SQ45/SQ46); TASK_JUDGES1 contract fixed; JUDGES1 helper: weights collected (fc518181: a 85.9, b 11.6, c 12.3), switch held (BoutRead fails 3 v the presser), model task running on his ok; Q-196 regroup shown in the game, his 11 marks (C328-C334) built as preview v2 (Q-206 open); calls box fix shipped (CALLS WORKED?).
+S445: Ask for a fight map v3 + the critics' six rule fixes built in AskBout/FightLearn (tests + mutants green); ASKPROBE2 to Qwen; POWER1 step 1 collected (cddf2815), steps 2-4 held (step 4 red) -> blind read + fix session; JUDGES1 round 2 held on its branch (2 cases off, slow); regroup preview: the shout IS the call box, filling over its exchange (his idea); shipped: LANDED/CALLS WORKED no longer show an exchange before it ends, hover tags 20 px, a pronoun fixed.
 
 ## Next
 
@@ -330,3 +330,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S442**  |  |  | *none yet* | Three Qwen rule modules collected with fixes (line change, trait lines, rounds on lines); Ask for a fight short map; result page rebuilt from a real bout after the logic check failed round 2 (critic 6, round 4 next); UX expert audit of menus and HUD started on his ask; PA mix fixed; two measurements re-run. Later: his three drawings built and exported; UX audit committed; DEFECTS1 merged. |
 |  |  | **S443**  |  |  | *none yet* | Coordinator: his board picks built (Money one screen, hover labels, Stamina + one overall, no-sparring 0.8, see-through bubbles, corner card marks, result summary + tabs, Ask picks above only), Qwen judges (held) + world news wired, PUSHPROBE2 386,100 bouts: bars fail, parked; cooling measured; build 19:56. |
 |  |  | **S444**  |  |  | *none yet* | Fight screen regroup in the game from his marks (preview v2, Q-206), calls box fix shipped, JUDGES1 weights collected (switch held, model running), Ask for a fight to critics, Ziva up. |
+|  |  | **S445**  |  |  | *none yet* | Ask for a fight map v3 + rule fixes, ASKPROBE2 to Qwen; POWER1 step 1 in; JUDGES1 held; the filling shout in the fight preview (his idea); the board stops spoiling the exchange. |

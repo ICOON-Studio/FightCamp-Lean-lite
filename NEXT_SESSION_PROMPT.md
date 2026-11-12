@@ -1,70 +1,56 @@
-# S445 handover (written 2026-11-12 ~21:20 at the end of S444; S443's handover is in git history at e8d9801c)
+# S446 handover (written 2026-11-12 ~22:35 at the end of S445; S444's handover is in git history at b5b8c7d8)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S445`
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S446`
 and redraw Miro.
 
 ## USAGE RULES (kept)
-`get_usage` first; hand over at 300k context (S444 handed over at 291k; week at 11%); at most TWO helpers; tell him the cost
-before a batch; one session coordinates and pushes, helpers report by SendMessage.
+`get_usage` first; hand over at 300k context (S445 handed over at ~345k; week at 13%); at most TWO helpers; tell him the cost
+before a batch; one session coordinates and pushes, helpers report by SendMessage (tell each helper your session name at start).
 
-## HIS WORDS IN S444 (verbatim)
-- "Yes, start it" (JUDGES1 helper); "adjust model and effort according to task" (set to Opus, high);
-  "do the Q-196 fight screen stills meanwhile"; "check board".
-- On the judges moving a good plan v a presser from 59.7% to 41.7%: "if good plans means counter to presser then i think its ok"
-  (it is: 1-1, step back, pivot out, tie up) -> the BoutRead model went ahead.
-- His markup on Q-206 (ops/Feedback/2026-11-12-12 .. -19): round box WRONG (no note: read as the wood, like C327); "use a line as
-  connector ... away from the head and maybe fade it away and bring it up when something change"; her plate "reminds way too much
-  other games, try something different"; "what is energy ? is it stamina ?"; "instead of empty circle use the organ icon";
-  AIM buttons "what are these options do?" (answered in chat); calls box "what is this for?"; corner caption "use a cloud-like icon
-  ... move it towards the corner its coming from"; Rests/Tires "display the stamina cost ... with icons+numbers".
+## HIS WORDS IN S445 (verbatim)
+- "check other running session to report here" (both running sessions were pointed at the coordinator; both reported).
+- On the fight screen call box: "should we make this fill up with time and make it the shout call ?" -> "Yes, build it".
+- "show it" (the regroup v2 stills were sent; his default call still open).
 
-## DONE IN S444 (all pushed)
-- Ziva: started at S444 start, then STOPPED at the end (he asked "why you start ziva every session ? does it always have tasks ?": it had none). `start` now restarts it only when Ziva has a live run, dispatch row or plan row (_ziva_work); idle = "ZIVA idle ... not started". Its old dirty state is on local branch wip/ziva_s444 in wt/ZIVA_LEAN.
-- Ask for a fight: ops/research/ASKFIGHT_CRITIC_S444_BRIEF.md (pack + map v2 + measured probe) queued to Kalli SQ45 and John SQ46
-  (fresh, free). Answers land as ops/research/ASKFIGHT_CRITIC_S444_KALLI.md / _JOHN.md. SQ43 (Dola, v1 brief) is stale.
-- TASK_JUDGES1 contract passes. JUDGES1 steps 1+3 collected (fc518181): Judges WEIGHTS clean 1 big 12 ring 2 initiative 8
-  work 1, LEAN_MULT 5 -> (a) 85.9 (b) 11.6 (c) 12.3; docs/JUDGES1_RESULT.md. Verified: JUDGES failures=0, BOUT_READ PASS (off).
-- Q-196 regroup in the game as a PREVIEW (user arg `hudregroup`, scripts/fight3d/HudRegroup.gd, 350 lines, wired in FightHud.build):
-  small maps under the plates with organ icons + counts (RoundHits.icons), one read of her mode, STAMINA/LEGS/GUARD, skips dim
-  until the mouse is near, call box off her head on a line + fade, see-through round box, her plate as the corner's read in words,
-  stamina cell + number per call (CornerBar sets meta "cost"), our corner's shout as a cloud on our side. Stills docs/mockups/s444/hud/
-  (v2 = after_regroup_v2*.png), on the review board; question Q-206.
-- SHIPPED for everyone (his "what is this for?"): calls box heading CALLS WORKED?, a call's name no longer cut (round_board_test green).
-- Build exported at wrap-up (Builds/, see export log E:/FightCamp/tmp/s444/export.log).
+## DONE IN S445 (all pushed)
+- Ask for a fight MAP v3 (ops/research/ASKFIGHT_MAP_S441.md) from Kalli 5/6 + John 6/6 on v2. Built in scripts/rules/AskBout.gd +
+  FightLearn.gd (ask_bout_test with 5 new mutants, fight_learn_test green, ee315955): asking opens after the first bout (pack 2.5);
+  camp words by phase (a 14-day show is a PEAK camp; Set camp needs 7 days); a scale miss closes Ask on that date (strip.ask_ok);
+  the road says when the nationals cannot be made from this show; unranked step up = "Nearest better record"; teach words 0.6/0.85.
+  Decided: the host's "no" is always a closed panel or absent card with its reason (CRITIC_PACK line 152 updated).
+- POWER1 step 1 collected (cddf2815 = fa3bbf7e + its ruler 4b5ae5ed; punch_weight/body_keep/cam_line/fighter_look 0).
+- Regroup preview (user arg hudregroup, scripts/fight3d/HudRegroup.gd 482/500): the corner's shout IS the call box - on the line
+  to her head, tagged Heard/Half heard/Not heard at once, a wash fills it over its exchange (the corner bar's ring), full =
+  Worked/Did not work, then the call name takes over and fades; it takes over BOTH shout paths (caption line AND the corner-post
+  bubble: ReactionBubbles shows the shout as a bubble whenever our post is on screen - the S444 cloud only caught the caption
+  path). Stills docs/mockups/s445/hud/shout_1..3, on the review board. "Light on her feet" -> "Light on the feet".
+- SHIPPED for everyone (b7f596c0): LANDED + CALLS WORKED counted the exchange still playing (settled at its start: the board showed
+  this call's cross at 0:30) -> CornerBar._ex_over counts finished exchanges only; HoverLabel tags 16 -> 20 px (corner_bar_test
+  was red on main). tools/fight3d_play.gd takes p03c_shout_half / p04b_shout_full when run with hudregroup.
+- Build exported (Builds/, docs/WHAT_TO_TRY.txt S445 section).
 
 ## IN FLIGHT
-- JUDGES1 helper [local_88a8afe6-f9ac-41cf-a487-47a42b3ec98d], branch `judges1`, Opus high: judged-round model in a NEW file for
-  BoutRead.chance (bar: bout_read_test -- judgesdecide PASS, the 3 Maria cases inside 0.06), then the texts ("counts double" ->
-  five times; WHY line on a judges' decision), regression with/without judgesdecide, DECIDES=true in one commit, result-page stills.
-  It reports to the coordinator by SendMessage: YOU are the coordinator now (it finds you via list_sessions? no - tell it your id
-  with SendMessage when you start). Collect by diff + the bars above; never let it push main.
-- POWER1 (S439 lead, worktree LEAN_POWER1): step 4 was rejected; collect step 1 only (fa3bbf7e) until a fresh blind read passes.
+- ASKPROBE2 (Qwen, branch qwen/askprobe2, worktree E:\FightCamp\wt\LEAN_ASKPROBE2, launched 22:22, ETA ~23:30-00:00):
+  tools/ask_probe2.gd + docs/ASKPROBE2_RESULT.md. Bar in ops/research/TASK_ASKPROBE2.md. Collect by diff + its RESULT line.
+- POWER1 steps 2-4: session power1-step-4 [local_50fabfac-0548-4a0b-9780-6871f90cd93c] in E:/FightCamp/wt/LEAN_POWER1 (branch
+  claude/power1): blind read, then one fix round; it SendMessages the coordinator. Known reds at its start: punch_range 72
+  (control 100), hooks in band 5/9, clean hits off 20 (control 17), toes crossed 16 (14), lead uppercut pop 28.6 m/s. Ruling:
+  uppercuts at the measured 0.83-0.90 m, floor 0.70. Collect only steps the read says COLLECT. Steps 5-6 never ran: brief fresh.
+- JUDGES1: HELD, nothing collected. Branch judges1 @ 1f1ed715: JudgedRound.gd (250) + test; BoutRead +7 lines (495/500).
+  judgesdecide: 3 Maria cases inside 0.06, but Lucy +6 v Erin 0.443/0.542 and plan v Priya 0.383/0.444 fail; ~100 ms a reading.
+  Round 3 later, fresh brief: ropes/pins in the walk, TheRead's build-up, the cost cut. The helper session is done.
 
 ## NEXT, IN ORDER
-1. Tell JUDGES1 your session id; collect it when it lands.
-2. Q-206: on his yes, move each regroup part into its owner file and drop the flag (SidePanel is 470/500 lines: put new pieces in
-   their own files). On "more marks", read ops/Feedback newest first.
-3. Ask for a fight MAP v3 (critics on v2: Kalli depth 5 / play 6, John 6 / 6 - ops/research/ASKFIGHT_CRITIC_S444_*.md). Their
-   main hole ("A NAME YOU PICK downward = pay for the highest band below, a lookup") is already closed in code by Q-204 (picks
-   above or level only) - the map still says "up to 4 places either side": fix the map. Also: a 14-day show is PEAK camp, not
-   "no camp"; teach-word cut points from the probe's 0.47-1.05 spread (0.4/0.7 labels every card the same); hide the nationals
-   chip when unreachable (0% from day 40); a later show when the scale misses; case E needs a written-plan test. Re-measure the
-   probe with picks above only, then two fresh critics.
-4. POWER1, BLOCKLOOK1. Fight bars stay parked (Q-205).
+1. Tell power1-step-4 your session name; collect ASKPROBE2 when it lands; spread ok -> two FRESH critics on map v3 -> 7+ both ->
+   logic check -> one drawing for his pick.
+2. His call on regroup v2 + the filling shout as the default: on yes, move each part into its owner file (SidePanel 470/500: new
+   pieces in their own files; HudRegroup's shout block becomes its own file) and drop the flag.
+3. POWER1 collect per the read; BLOCKLOOK1; RESULTLOOK1. Fight bars stay parked (Q-205).
 
-## TRAPS (S444)
-- A PanelContainer lays out its children: a decoration (the cloud tail) must sit outside it.
-- The organ PNGs are RGB on #090f17 (no alpha): RoundHits._clear_pic makes the ground see-through.
-- Every Godot job, renders included, goes through `python ops/Tools/godot_slot.py run --who <you> -- ...` (rule_guard).
-- `cd` inside a Bash call moves the session's folder: use absolute paths for other worktrees.
-
-## ADOPTED FROM HIS TWO OLD CONCEPTS (S444 end; his words: "what do you think of this , if it gives you any ideas or improvements adopt it")
-docs/mockups/s426/intermission_playbook.(html|png) and docs/mockups/s427/index.(html|png), rendered S444. Decided:
-- CORNER MINUTE: "What do you tell Lucy?" framing; THE IF/THEN ANSWER: the read on her habit (TheRead.gd already fills a
-  read meter and fires a counter) gets a player choice - which combination answers that habit ("Maria loads up after the
-  jab -> slip outside, 2-3"). A cap of two changes a minute (time pressure, his S443 ice-bag ask). This is the lever the parked
-  fight bars lacked (PUSHPROBE2: the coach's edge comes from the calls) - fold it into the bars v3 map, Ask for a fight first.
-- HOME: a one-line question headline ("What needs your corner?"), NEEDS YOUR CALL rows each with its own button, a SINCE LAST
-  MONDAY column of changes only (+2 jab mastery, +4 members, a new tell), and the CONTINUE button naming its next stop (TopCards
-  has the next stop already: put it on the button). Check today's Home first; add only what is missing.
-- NOT adopted: wooden frames (his S430 "wooden panels to go", C327), body text under 20 px, paragraph cards (S416 graphics rule).
+## TRAPS (S445)
+- A shout has two display paths (FightView: ReactionBubbles.take, else the caption line); hook both.
+- A call is picked only in the pause at an exchange (CornerBar._shout needs view._shouting) and the live round SETTLES the
+  exchange at its start: anything reading LiveRound "ex" during play sees the future. Use finished exchanges (t >= (i+1)*30).
+- fight3d_play stills land at fixed moments; a preview element needs its own shot (gate it on the user arg).
+- seat_dispatch reads the watchdog: RED (RAM 98% while he plays) refuses launches; queue the row and re-run `--act` later.
+- dispatch_queue.json rewrite by json.dumps reformats the whole file (big diff, same content).

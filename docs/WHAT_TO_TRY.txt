@@ -1,3 +1,16 @@
+FIGHTCAMP - BUILD OF 2026-11-12 (S445): THE BOARD STOPS GIVING AWAY THE EXCHANGE, THE BODY GOES INTO THE PUNCH
+================================================================================
+
+ NEW
+  - The fight's LANDED count and CALLS WORKED box now change when an exchange ENDS. Before, they showed its result
+    (and the call's tick or cross) the moment it began.
+  - Punches: the hips travel into the cross and the hook (step 1 of the punch power work). Watch a round: does the
+    body follow the hands now?
+  - Hover tags on small buttons are bigger (20 px).
+  - Preview only (start the game with the user arg hudregroup): the regrouped fight screen, and the corner's shout as
+    one box on the line to your fighter that fills over its 30 seconds and ends on Worked / Did not work.
+ TRY: watch the first exchange of a round: the boxes at the bottom right should not change until its 30 seconds are over.
+
 FIGHTCAMP - BUILD OF 2026-11-12 (S442): CORNER CARDS, BUBBLES OVER THE FIGHT, THE HEADLINE, THE UX PASS
 ================================================================================
 

@@ -202,7 +202,7 @@ func _rebuild(pv: Dictionary, wide: int) -> void:
 	say.add_theme_font_size_override("font_size", 20)
 	_place(_calls, say, cx, CALL_Y, say_w, CALL_H)
 	x += DOCK_W
-	_place(_body, RoundBoard.build(_ex(), sit, names, right - x - 16.0, 150.0), x + 8.0, 6, right - x - 16.0, 150)
+	_place(_body, RoundBoard.build(_ex_over(), sit, names, right - x - 16.0, 150.0), x + 8.0, 6, right - x - 16.0, 150)
 
 
 func _call(call: String, sit: String, names: Array, on: bool, _wide: float) -> Control:
@@ -355,6 +355,18 @@ func _ex() -> Array:
 	return []
 
 
+## S445: only the exchanges whose 30 seconds are over. The live round settles an exchange when it starts, so reading
+## them all put this exchange's landed punches and its call's tick or cross on the board before a punch was thrown.
+func _ex_over() -> Array:
+	var ex := _ex()
+	var t := float(view.get("t")) if view.get("t") != null else 1e9
+	var n := 0
+	for i in ex.size():
+		if float(i + 1) * 30.0 <= t + 0.05:
+			n = i + 1
+	return ex.slice(0, n)
+
+
 func _in_force() -> String:
 	var ex := _ex()
 	if ex.is_empty():
@@ -363,7 +375,7 @@ func _in_force() -> String:
 
 
 func _mark_key() -> String:
-	var ex := _ex()
+	var ex := _ex_over()
 	var bits := ""
 	for e in ex:
 		bits += str((e as Dictionary).get("call", "")) + ("1" if bool((e as Dictionary).get("won", false)) else "0")

@@ -135,11 +135,16 @@ func _initialize() -> void:
 	await _shot("p03b_plan_caption", 0.1)
 	print("PLAN CAPTION \"%s\" (arrow %s on %s, planned %s)" % [view._caption.text, ex1.get("arrow", ""), ex1.get("at", ""), ex1.get("planned", false)])
 	_check(bool(plan_up.call()) == bool(ex1.get("planned", false)), "the arrow she throws is named in the ring (only when it is planned)")
+	if OS.get_cmdline_user_args().has("hudregroup"):   # S445 the filling shout: half way through its exchange
+		await _until(func(): return float(view.t) > 45.0, 40.0)
+		await _shot("p03c_shout_half", 0.0)
 	await _until(func(): return float(view.t) > 58.2, 40.0)
 	await _shot("p04_verdict", 0.1)
 	_holo_off(view, "the verdict")
 	print("VERDICT \"%s\"" % view._caption.text)
 	await _until(func(): return view._shouting != null, 20.0)
+	if OS.get_cmdline_user_args().has("hudregroup"):   # S445 the filling shout full: its exchange's result on the tag
+		await _shot("p04b_shout_full", 0.3)
 	if view._shouting != null:
 		view._shouting._pick("")
 	_goto_count(view, 1, "watched")
