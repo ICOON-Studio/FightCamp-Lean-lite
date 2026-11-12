@@ -4,7 +4,7 @@ extends RefCounted
 ## result was booked and one taken after (state/AfterFight.gd takes them).
 ##   tiles(before, after, facts) -> [{id, title, big, small, tone, lines}]
 ## before / after = {morale, mood, rank, cap, notes: [words]}
-## facts = {first, opp, outcome, stopped, took, took_body, counts, worst: {place, value} or {}, injury, calls: {right,
+## facts = {first, opp, outcome, stopped, took, took_body, counts, worst: {place, value} or {}, places: {place: value}, cuts: [place], injury, calls: {right,
 ##          wrong, ignored}, goal: "" | "met" | "missed", goal_title, rank_words, learned: [words], next_days}
 ## tone: "good" | "bad" | "flat". lines = everything behind the tile, for the hover.
 
@@ -80,14 +80,45 @@ static func damage(before: Dictionary, after: Dictionary, facts: Dictionary) -> 
 	var counts := int(facts.get("counts", 0))
 	if counts > 0:
 		lines.append("%d count%s from the referee." % [counts, "" if counts == 1 else "s"])
-	var big := "Nothing lasting"
-	var tone := "good"
+	# S439 DAMAGESHOW1 (operator: "Stop, show damage"): every place the bout left sore, worst first, and every cut - the
+	# tile named only the worst place and said "Nothing lasting" for a bout with no map at all.
+	var places: Dictionary = facts.get("places", {})
 	var worst: Dictionary = facts.get("worst", {})
-	if not worst.is_empty() and float(worst.get("value", 100.0)) < BodyMap.HURT:
-		var bad := float(worst["value"]) < BodyMap.CRITICAL
-		big = "%s %s" % [str(PLACE_WORDS.get(str(worst["place"]), "Body")), "badly hurt" if bad else "sore"]
+	if places.is_empty() and not worst.is_empty():
+		places = {str(worst["place"]): float(worst.get("value", 100.0))}
+	var sore: Array = []
+	for p in BodyMap.PLACES:
+		if places.has(p) and BodyMap.band(float(places[p])) != "fine":
+			sore.append([float(places[p]), p])
+	sore.sort()
+	var cuts: Array = []
+	for p in BodyMap.PLACES:
+		if (facts.get("cuts", []) as Array).has(p):
+			cuts.append(p)
+	var big := "Nothing lasting" if not places.is_empty() else "%d punch%s taken" % [took, "" if took == 1 else "es"]
+	var tone := "good" if not places.is_empty() else "flat"
+	var marks: Array = []   # the short sentence under the big words
+	if not sore.is_empty():
+		var bad := BodyMap.band(float(sore[0][0])) != "hurt"
+		big = "%s %s" % [str(PLACE_WORDS[sore[0][1]]), "badly hurt" if bad else "sore"]
 		tone = "bad" if bad else "flat"
-		lines.append("%s: %d of 100 left at the final bell." % [str(PLACE_WORDS.get(str(worst["place"]), "Body")), int(round(float(worst["value"])))])
+		var also: PackedStringArray = []
+		for k in range(1, sore.size()):
+			also.append(str(PLACE_WORDS[sore[k][1]]).to_lower())
+		if not also.is_empty():
+			marks.append("Also sore: %s." % ", ".join(also))
+		for row in sore:
+			lines.append("%s: %d of 100 left at the final bell (%s)." % [str(PLACE_WORDS[row[1]]), int(round(float(row[0]))),
+				"sore" if BodyMap.band(float(row[0])) == "hurt" else "badly hurt"])
+	for p in cuts:
+		var cut := "Cut on the nose." if str(p) == "nose" else "Cut over the %s." % str(PLACE_WORDS[p]).to_lower()
+		marks.append(cut)
+		lines.append(cut)
+		tone = "bad"
+		if sore.is_empty():
+			big = "Cut"
+	if not sore.is_empty() or not cuts.is_empty():
+		lines.append("Marks heal on their own before the next bout. Only an injury keeps %s out." % first)
 	var injury := str(facts.get("injury", ""))
 	if injury != "":
 		big = "Injured"
@@ -96,7 +127,9 @@ static func damage(before: Dictionary, after: Dictionary, facts: Dictionary) -> 
 	if float(after.get("cap", 0.0)) < float(before.get("cap", 0.0)) - 0.01:
 		tone = "bad"
 		lines.append("The stoppage left its mark: %s takes a punch a little worse from now on." % first)
-	return {"id": "damage", "title": "DAMAGE", "big": big, "small": str(lines[0]), "tone": tone, "lines": lines}
+	var small := str(lines[0]) if marks.is_empty() or injury != "" else " ".join(PackedStringArray(marks))
+	return {"id": "damage", "title": "DAMAGE", "big": big, "small": small, "tone": tone, "lines": lines, "sore": sore.size(),
+		"cuts": cuts.size()}
 
 
 static func learned(facts: Dictionary) -> Dictionary:

@@ -53,8 +53,8 @@ func _initialize() -> void:
 		t[str(row["id"])] = row
 	_check(tiles.size() == 6 and t.has("damage") and t.has("tired") and t.has("learned") and t.has("morale") and t.has("corner") and t.has("rank"),
 		"six tiles: damage, tiredness, learned, morale, corner, rank")
-	_check(str(t["damage"]["big"]) == "Left ribs badly hurt" and str(t["damage"]["tone"]) == "bad" and (t["damage"]["lines"] as Array).size() == 4,
-		"damage: the worst place, the punches taken, the count, the stoppage's mark (%s)" % [t["damage"]["lines"]])
+	_check(str(t["damage"]["big"]) == "Left ribs badly hurt" and str(t["damage"]["tone"]) == "bad" and (t["damage"]["lines"] as Array).size() == 5,
+		"damage: the worst place, the punches taken, the count, the heal line, the stoppage's mark (%s)" % [t["damage"]["lines"]])
 	_check(str(t["tired"]["big"]) == "80 of 100" and str(t["tired"]["small"]).contains("4 rest days"), "tiredness: 80 of 100, about 4 rest days")
 	_check(str(t["morale"]["big"]) == "-12" and str(t["morale"]["small"]).contains("Steady to Flat") and str(t["morale"]["tone"]) == "bad",
 		"morale: -12, Steady to Flat (%s)" % t["morale"]["small"])
@@ -62,10 +62,26 @@ func _initialize() -> void:
 	_check(str(t["rank"]["big"]) == "Unranked" and str(t["rank"]["small"]).begins_with("Unranked: 2 wins"), "rank: the line the fight earned")
 	_check(str(t["learned"]["big"]) == "1 new", "learned: one new thing")
 	var quiet := AM.tiles({"morale": 60.0, "mood": "Steady", "rank": 5, "cap": 99.0}, {"morale": 68.0, "mood": "Steady", "rank": 4,
-		"cap": 99.0, "fatigue": 45.0}, {"first": "Lucy", "opp": "Erin", "outcome": "win", "took": 3, "took_body": 0})
+		"cap": 99.0, "fatigue": 45.0}, {"first": "Lucy", "opp": "Erin", "outcome": "win", "took": 3, "took_body": 0,
+		"places": {"head": 90.0, "left_eye": 100.0, "right_eye": 100.0, "nose": 80.0, "left_ribs": 100.0, "right_ribs": 100.0}})
 	_check(str(quiet[0]["big"]) == "Nothing lasting" and str(quiet[1]["tone"]) == "good" and str(quiet[2]["big"]) == "Nothing new"
 		and str(quiet[3]["big"]) == "+8" and str(quiet[4]["big"]) == "Said nothing" and str(quiet[5]["big"]) == "No. 4" and str(quiet[5]["tone"]) == "good",
 		"a clean win: no marks, fresh, +8, up to No. 4")
+	# S439 DAMAGESHOW1: the tile tells the truth about sore places.
+	var nomap: Dictionary = AM.damage({}, {}, {"first": "Lucy", "took": 31, "took_body": 4})
+	_check(str(nomap["big"]) == "31 punches taken" and str(nomap["tone"]) == "flat", "no body map: never 'Nothing lasting' (%s)" % nomap["big"])
+	var edge: Dictionary = AM.damage({}, {}, {"first": "Lucy", "took": 9, "took_body": 1, "places": {"nose": 55.0, "head": 100.0}})
+	_check(str(edge["big"]) == "Nose sore", "a place at exactly 55 is sore, as its band says (%s)" % edge["big"])
+	var many: Dictionary = AM.damage({}, {}, {"first": "Lucy", "took": 40, "took_body": 9, "cuts": ["left_eye"],
+		"places": {"head": 70.0, "left_eye": 30.0, "right_eye": 50.0, "nose": 100.0, "left_ribs": 100.0, "right_ribs": 41.0}})
+	_check(str(many["big"]) == "Left eye badly hurt" and str(many["tone"]) == "bad" and int(many["sore"]) == 3 and int(many["cuts"]) == 1,
+		"three sore places, worst first (%s)" % many["big"])
+	_check(str(many["small"]) == "Also sore: right ribs, right eye. Cut over the left eye.", "the short line names the rest and the cut (%s)" % many["small"])
+	var joined := " ".join(PackedStringArray(many["lines"]))
+	_check(joined.contains("Right ribs: 41 of 100") and joined.contains("Right eye: 50 of 100") and joined.contains("heal on their own"),
+		"the hover lists each sore place and says the marks heal (%s)" % joined)
+	var cut_only: Dictionary = AM.damage({}, {}, {"first": "Lucy", "took": 5, "took_body": 0, "cuts": ["nose"], "places": {"nose": 60.0}})
+	_check(str(cut_only["big"]) == "Cut" and str(cut_only["small"]) == "Cut on the nose.", "a cut alone is named (%s / %s)" % [cut_only["big"], cut_only["small"]])
 	print("FIGHT_STATS failures=%d" % _fails)
 	quit(1 if _fails > 0 else 0)
 

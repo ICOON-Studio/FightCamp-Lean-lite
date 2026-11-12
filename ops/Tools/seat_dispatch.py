@@ -84,7 +84,7 @@ AGY = find_agy() or AGY
 AGY_MODEL = "gemini-4-argon-high"   # S369 operator: "antigravity should have argon now" (agy models lists it; test call OK)
 ## seat -> live_runs agent name, the words a roadmap `who` uses, its model, its run cap (minutes)
 SEATS = {"qwen": {"agent": "qwen", "who": ("qwen",), "model": "qwen3-coder", "minutes": 90},
-         "cursor": {"agent": "cursor", "who": ("cursor",), "model": "grok-4.7-high", "minutes": 90},   # S398 non-Claude top model; S399 11-08: GPT-5.6 Sol + Codex 5.3 hit Cursor's monthly limit (resets 12/7) - Grok 4.7 High answers
+         "cursor": {"agent": "cursor", "who": ("cursor",), "model": "auto", "minutes": 90},   # S439 operator on Q-191 (out of usage): "Use Auto model" until the limit resets; was grok-4.7-high.   # S398 non-Claude top model; S399 11-08: GPT-5.6 Sol + Codex 5.3 hit Cursor's monthly limit (resets 12/7) - Grok 4.7 High answers
          "agy": {"agent": "antigravity", "who": ("antigravity", "agy"), "model": AGY_MODEL, "minutes": 65}}
 SEAT_PROCS = {"qwen": "qwen-code", "cursor": "cursor-agent", "agy": "agy.exe"}
 PC_AGENTS = ("qwen", "cursor", "antigravity", "agy", "codex", "cline", "ziva")

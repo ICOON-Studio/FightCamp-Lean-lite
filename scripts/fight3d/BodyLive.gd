@@ -131,3 +131,5 @@ func catch_up() -> void:
 ## The round's bell: the corner's one-round fixes run out (BodyMap.end_round).
 func bell() -> void:
 	BodyMap.end_round(map)
+	if view.get("main") != null:   # S439: the result page trusts this map only when it saw every round (BoutMarks)
+		view.main.modal["body_bells"] = int(view.main.modal.get("body_bells", 0)) + 1

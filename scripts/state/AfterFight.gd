@@ -8,6 +8,7 @@ extends RefCounted
 const Aftermath := preload("res://scripts/rules/Aftermath.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
+const BoutMarks := preload("res://scripts/fight3d/BoutMarks.gd")
 const CoachNotes := preload("res://scripts/rules/CoachNotes.gd")
 const CornerTrust := preload("res://scripts/rules/CornerTrust.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
@@ -31,6 +32,8 @@ static func book(c: Career, f: Dictionary, m: Dictionary, before: Dictionary, ba
 	var tank := float(((rounds[-1] as Dictionary).get("energy", {}) as Dictionary).get("a_end", 100.0)) if not rounds.is_empty() else 100.0
 	var stopped_loss := str(m.get("stopped", "")) != "" and str(m.get("outcome", "")) == "loss"
 	f["week_fatigue"] = Aftermath.toll(FighterProfile.fatigue(f), tank, stopped_loss)
+	if not BoutMarks.seen_all(m):   # S439: a skipped or unwatched bout still leaves its marks (the settled rounds)
+		m["body_map"] = BoutMarks.build(c, f, m)
 	m["rank_words"] = "" if bool(m.get("pro", false)) else rank_words(c, f, before)
 	m["aftermath"] = tiles(c, f, m, before, bank)
 
@@ -43,7 +46,8 @@ static func tiles(c: Career, f: Dictionary, m: Dictionary, before: Dictionary, b
 	var facts := {"first": str(f["first"]), "opp": str(opp.get("first", opp.get("name", "the opponent"))),
 		"outcome": str(m.get("outcome", "")), "stopped": str(m.get("stopped", "")), "took": int(st["landed"][1]),
 		"took_body": int(st["body"][1]), "counts": int((m.get("counts", {}) as Dictionary).get("a", 0)),
-		"worst": _worst(m.get("body_map", {})), "injury": str(m.get("injury", "")),
+		"worst": _worst(m.get("body_map", {})), "places": _places(m.get("body_map", {})),
+		"cuts": ((m.get("body_map", {}) as Dictionary).get("a", {}) as Dictionary).get("cuts", {}).keys(), "injury": str(m.get("injury", "")),
 		"calls": CornerTrust.settle(f, str(opp.get("name", ""))), "learned": _learned(f, before, opp, bank)}
 	var hist: Array = f.get("history", [])
 	if not hist.is_empty() and (hist[-1] as Dictionary).has("met") and int((hist[-1] as Dictionary).get("d", -1)) == c.day:
@@ -92,6 +96,16 @@ static func _worst(map: Dictionary) -> Dictionary:
 			bv = v
 			best = p
 	return {"place": best, "value": bv}
+
+
+## {place: value} of her six places at the final bell ({} when the bout drew no map).
+static func _places(map: Dictionary) -> Dictionary:
+	var out := {}
+	if map.is_empty() or not map.has("a"):
+		return out
+	for p in BodyMap.PLACES:
+		out[p] = BodyMap.value(map, "a", p)
+	return out
 
 
 ## What the fight taught the corner: the coach's new notes, habits seen paying, the opponent's file now complete.

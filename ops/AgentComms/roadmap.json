@@ -18,7 +18,7 @@
    "Three reopenings in DAMAGE_MAP_S437.md once it passes the critics"
   ]
  },
- "next": "0) get_usage; his answers: Q-S294-191 (Cursor), the sound board (26 voices), the review board. 1) PR 223 CLIPFIX3: read the two reviewers' verdicts (workflow wf_8e4ad0f2-75b journal), collect by diff or brief round 4; read jab B's film; then the next clip fixes (crosses, lead hook, uppercut) on the honest ruler. 2) Damage maps round 3 (workflow wf_f9efba2a-fc8 journal): 7+ from both on a map = ask on the board with the map and the critics' pictures; under 7 = read the critics' case-by-case findings before any round 4. 3) Animation D0 step 3 (human_feet on the default route). 4) The foundation's third round (CARDIO1, NOCAMP1), then PR 211. 5) PAGES2 once Cursor has usage.",
+ "next": "0) get_usage; his answers: Q-S294-191 (Cursor), the sound board (26 voices), the review board. 1) DAMAGESHOW1 (his 'Stop, show damage', Q-S294-192): NO new damage decisions; show what is already computed - see NEXT_SESSION_PROMPT.md. 2) The clip ruler finished in-house in E:/FightCamp/wt/LEAN_CLIPFIX4 (ops/research/CLIPFIX4_REVIEW_S438.md is the spec), then the side films; close PRs 222-224. 3) Animation D0 step 3 (human_feet on the default route). 4) The foundation's third round (CARDIO1, NOCAMP1), then PR 211. 5) PAGES2 once Cursor has usage.",
  "assessment": {
   "source": "Codex deep audit + Cursor televised-MMA gap assessment, both 2026-09-12",
   "bars": [
@@ -4697,7 +4697,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-12",
+  "updated": "2026-11-12 04:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4847,18 +4847,39 @@
   },
   "working_now": [
    {
-    "title": "Damage design round 3: the fight map and the after-the-fight map, fresh critics (workflow)",
-    "who": "claude",
-    "started": "2026-11-12T03:15",
-    "run": "DAMAGE3",
-    "state": "running"
+    "title": "TASK CALLSPREAD1 - QWEN (qwen3-coder) - a corner call's strength rises point by point from 56 to 62, not in one jump at 62 (one function + its test)",
+    "who": "qwen",
+    "started": "2026-11-11T19:42",
+    "run": "CALLSPREAD1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK CLIPFIX2 - QWEN (qwen3-coder) - the fight's punches that read wrong get a form ruler, then a fix or a cut",
+    "who": "qwen",
+    "started": "2026-11-12T02:35",
+    "run": "CLIPFIX2",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK CLIPFIX3 - QWEN (qwen3-coder) - the punch ruler made honest, then the three hanging jabs retimed",
+    "who": "qwen",
+    "started": "2026-11-12T02:54",
+    "run": "CLIPFIX3",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK CLIPFIX4 - QWEN (qwen3-coder) - the punch ruler and the three retimed jabs: every defect of the two reviews",
+    "who": "qwen",
+    "started": "2026-11-12T03:30",
+    "run": "CLIPFIX4",
+    "state": "LANDED - Claude collects"
    }
   ],
   "next": [
    {
-    "id": "DAMAGE1",
+    "id": "DAMAGESHOW1",
     "who": "claude",
-    "title": "Damage and recovery built from the two S438 maps once each passes 7 from both critics: places that change the fight, the corner minute as the decision, care after the bout",
+    "title": "Show the damage that is already in the game (his 'Stop, show damage'): the face marks during the fight, the body picture, the result page; no new decisions",
     "after": ""
    },
    {
@@ -5431,6 +5452,30 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Ribs take damage (RIBS1 collected)",
+     "who": "claude"
+    },
+    {
+     "text": "Voices wired, 26 lines made",
+     "who": "agent"
+    },
+    {
+     "text": "Punch maths + roster row (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "All 15 punch films read: 12 faulty",
+     "who": "claude"
+    },
+    {
+     "text": "Damage maps split: 6,6 and 5.5,5.5",
+     "who": "claude"
+    },
+    {
+     "text": "Build S438 exported, smoke-run",
+     "who": "claude"
+    },
+    {
      "text": "Glove touch: shoulders, neck",
      "who": "claude"
     },
@@ -5461,58 +5506,9 @@
     {
      "text": "Tale of the tape = versus picture",
      "who": "claude"
-    },
-    {
-     "text": "Punch rulers read every row",
-     "who": "claude"
-    },
-    {
-     "text": "GYMLIFE2: walks round the kit",
-     "who": "claude"
-    },
-    {
-     "text": "Paid seat is gym sponsorship",
-     "who": "claude"
-    },
-    {
-     "text": "Gym people work out (GYMLIFE1)",
-     "who": "agent"
-    },
-    {
-     "text": "Animation audit + punch counter",
-     "who": "claude"
-    },
-    {
-     "text": "Training v6 passed: 7 and 7",
-     "who": "claude"
     }
    ],
-   "done_session": [
-    {
-     "text": "Ribs take damage (RIBS1 collected)",
-     "who": "claude"
-    },
-    {
-     "text": "Voices wired, 26 lines made",
-     "who": "agent"
-    },
-    {
-     "text": "Punch maths + roster row (Qwen)",
-     "who": "agent"
-    },
-    {
-     "text": "All 15 punch films read: 12 faulty",
-     "who": "claude"
-    },
-    {
-     "text": "Damage maps split: 6,6 and 5.5,5.5",
-     "who": "claude"
-    },
-    {
-     "text": "Build S438 exported, smoke-run",
-     "who": "claude"
-    }
-   ],
+   "done_session": [],
    "now": [
     {
      "text": "Foundation: Cardio, Tank, punches",
@@ -5531,16 +5527,16 @@
      "who": "claude"
     },
     {
-     "text": "Damage maps round 3 (critics)",
+     "text": "Sound board: 26 voices to hear",
+     "who": "operator"
+    },
+    {
+     "text": "Punch ruler + 3 jabs, in-house",
      "who": "claude"
     },
     {
-     "text": "CLIPFIX4: ruler + 3 jabs (Qwen)",
-     "who": "agent"
-    },
-    {
-     "text": "Sound board: 26 voices to hear",
-     "who": "operator"
+     "text": "Damage screens audit",
+     "who": "claude"
     }
    ],
    "next": [
@@ -5595,14 +5591,18 @@
     {
      "text": "Clip fixes: cross, hook, uppercut",
      "who": "agent"
+    },
+    {
+     "text": "Show damage: result page first",
+     "who": "claude"
     }
    ],
-   "session": "S438"
+   "session": "S439"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "6ff68167",
- "next_action": "0) get_usage; his answers: Q-S294-191 (Cursor), the sound board (26 voices), the review board. 1) PR 223 CLIPFIX3: read the two reviewers' verdicts (workflow wf_8e4ad0f2-75b journal), collect by diff or brief round 4; read jab B's film; then the next clip fixes (crosses, lead hook, uppercut) on the honest ruler. 2) Damage maps round 3 (workflow wf_f9efba2a-fc8 journal): 7+ from both on a map = ask on the board with the map and the critics' pictures; under 7 = read the critics' case-by-case findings before any round 4. 3) Animation D0 step 3 (human_feet on the default route). 4) The foundation's third round (CARDIO1, NOCAMP1), then PR 211. 5) PAGES2 once Cursor has usage.",
+ "next_action": "0) get_usage; his answers: Q-S294-191 (Cursor), the sound board (26 voices), the review board. 1) DAMAGESHOW1 (his 'Stop, show damage', Q-S294-192): NO new damage decisions; show what is already computed - see NEXT_SESSION_PROMPT.md. 2) The clip ruler finished in-house in E:/FightCamp/wt/LEAN_CLIPFIX4 (ops/research/CLIPFIX4_REVIEW_S438.md is the spec), then the side films; close PRs 222-224. 3) Animation D0 step 3 (human_feet on the default route). 4) The foundation's third round (CARDIO1, NOCAMP1), then PR 211. 5) PAGES2 once Cursor has usage.",
  "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after."
 }

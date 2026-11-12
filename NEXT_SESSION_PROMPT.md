@@ -94,3 +94,22 @@ on Opus); Fast off.
   is ops/research/DAMAGE_VERDICT_S438.md and the choice is on the board (try once more another way: three designs
   from scratch around "when to box again", a carried place that costs the next fight, the fight plan priced against
   it / stop new decisions and show damage better / park it). Do nothing on the damage design until he answers.
+
+## HIS ANSWER ON THE DAMAGE DESIGN (Q-S294-192, in chat, about 05:10): "Stop, show damage"
+No new damage or recovery decisions. The two maps and their scripts stay in ops/research as a record; nothing of
+them is built. DAMAGESHOW1 replaces DAMAGE1 in the queue: SHOW the damage the game already computes (BodyMap's six
+places, cuts, the ribs that now really fall). What exists today (S437 digest line 37): only the small 2D close-up
+during the fight (FaceMarks.gd); the 3D faces, the result page and the portrait afterwards show nothing.
+Order, one visual at a time, each with a still for him before the next:
+1. THE RESULT PAGE (it joins RESULTLOOK1, his C295: "the fighter after the bout with the fight's marks leads"):
+   the boxer's picture with the marks of THIS bout, the body picture as tinted muscle with hooked lines out of the
+   body to a label (never blobs on the chest), and the tile that today says "Nothing lasting" telling the truth
+   about sore places. Read BodyReport / the result tiles first; find what the page reads from BodyMap.
+2. THE FACE DURING THE FIGHT in 3D (his S437 question "do we have mechanic to show damage done during the fight on
+   the faces ?"): marks on the MetaHuman face at the places BodyMap tracks (eye, nose, a cut), stepped by the
+   place's word, seen on the game's broadcast camera and the close-up. Find how FaceMarks.gd draws the 2D ones.
+3. THE PORTRAIT AFTERWARDS: the fighter card and the fighter's page show the mark while the place is still sore.
+Rules that apply: a visual closes only on a still from the game's own camera plus his OK; Ludo paints the concept
+of a new look first (Ludo is paid to about 2026-12-11); only what the player can act on or read at a glance.
+A first step that needs no taste call: an audit of every screen that could show a place and what it shows today
+(a table: screen, what BodyMap has, what is drawn), by one Explore agent, before any brief.

@@ -14,7 +14,7 @@ S438 (2026-11-12 night): the ribs take damage normally (RIBS1 finished after rev
 
 ## Next
 
-0) get_usage; his answers: Q-S294-191 (Cursor), the sound board (26 voices), the review board. 1) PR 223 CLIPFIX3: read the two reviewers' verdicts (workflow wf_8e4ad0f2-75b journal), collect by diff or brief round 4; read jab B's film; then the next clip fixes (crosses, lead hook, uppercut) on the honest ruler. 2) Damage maps round 3 (workflow wf_f9efba2a-fc8 journal): 7+ from both on a map = ask on the board with the map and the critics' pictures; under 7 = read the critics' case-by-case findings before any round 4. 3) Animation D0 step 3 (human_feet on the default route). 4) The foundation's third round (CARDIO1, NOCAMP1), then PR 211. 5) PAGES2 once Cursor has usage.
+0) get_usage; his answers: Q-S294-191 (Cursor), the sound board (26 voices), the review board. 1) DAMAGESHOW1 (his 'Stop, show damage', Q-S294-192): NO new damage decisions; show what is already computed - see NEXT_SESSION_PROMPT.md. 2) The clip ruler finished in-house in E:/FightCamp/wt/LEAN_CLIPFIX4 (ops/research/CLIPFIX4_REVIEW_S438.md is the spec), then the side films; close PRs 222-224. 3) Animation D0 step 3 (human_feet on the default route). 4) The foundation's third round (CARDIO1, NOCAMP1), then PR 211. 5) PAGES2 once Cursor has usage.
 
 ## Where the game actually is
 

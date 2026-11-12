@@ -479,7 +479,7 @@
    "agent": "qwen",
    "id": "CLIPFIX4",
    "title": "TASK CLIPFIX4 - QWEN (qwen3-coder) - the punch ruler and the three retimed jabs: every defect of the two reviews",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-12T03:30",
    "eta": "2026-11-12T05:20",
    "branch": "qwen/clipfix4",
@@ -500,7 +500,74 @@
     "runner_pid": 3224,
     "seat_pid": 8144
    },
-   "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/7 PASS; PR #224",
+   "finished": "2026-11-12T04:01",
+   "pr": 224,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/jab_retime_test.gd",
+     "ok": true,
+     "last": "JAB_RETIME failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/punch_form_test.gd",
+     "ok": true,
+     "last": "PUNCH_FORM failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_tally_test.gd",
+     "ok": true,
+     "last": "BEAT_TALLY_TEST failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/short_punch_test.gd",
+     "ok": true,
+     "last": "SHORT_PUNCH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/punch_form_rules_test.gd",
+     "ok": true,
+     "last": "PUNCH_FORM_RULES failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "MATLINES1": {
+   "agent": "goose",
+   "id": "MATLINES1",
+   "title": "QWEN (qwen3-coder) - the no-gi athlete's plan lines: one pure module + its test",
+   "status": "running",
+   "started": "2026-11-12T07:54",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_MATLINES1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-12T08:54",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (command line)",
+   "issue": "225",
+   "branch": "goose/issue-225",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/225"
   }
  },
  "codex_budget": {
