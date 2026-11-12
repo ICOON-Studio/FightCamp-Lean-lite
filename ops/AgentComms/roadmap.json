@@ -4720,7 +4720,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-12",
+  "updated": "2026-11-12 11:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4870,17 +4870,17 @@
   },
   "working_now": [
    {
-    "title": "Fight result page, fight only: round 2 drawn, waits for its logic check and two critics",
-    "who": "claude",
-    "started": "2026-11-12T11:25",
-    "run": "RESULTLOOK1",
-    "state": "drawn - critics after the 16:00 usage reset"
-   },
-   {
     "title": "TASK R26SWAP1 - QWEN (qwen3-coder) - the corner minute's line change: the line that lost most, and two rated lines to swap in (one pure module + its test)",
     "who": "qwen",
     "started": "2026-11-12T11:12",
-    "run": "R26SWAP1"
+    "run": "R26SWAP1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK R50TRAIT1 - QWEN (qwen3-coder) - every trait's lines: what it does now, the next line, and an upside as well as a downside (one pure module + its test)",
+    "who": "qwen",
+    "started": "2026-11-12T11:41",
+    "run": "R50TRAIT1"
    }
   ],
   "next": [
@@ -5332,16 +5332,6 @@
     "title": "The punch ruler + three jabs retimed (films on the board)",
     "who": "claude",
     "when": "2026-11-12"
-   },
-   {
-    "title": "The foundation merged: Cardio, the no-camp Tank, punch start, ribs (30 tests green)",
-    "who": "claude",
-    "when": "2026-11-12"
-   },
-   {
-    "title": "TASK PUNCHSNAP1 - ARENA - the maths of a punch's POWER read: one pure module + its test",
-    "who": "qwen",
-    "when": "2026-11-12"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5470,6 +5460,22 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Fighters page: painted rows in",
+     "who": "claude"
+    },
+    {
+     "text": "Towel card rules in",
+     "who": "claude"
+    },
+    {
+     "text": "Loyalty rules in (not wired)",
+     "who": "claude"
+    },
+    {
+     "text": "Result page round 2 drawn",
+     "who": "claude"
+    },
+    {
      "text": "sound_bank test green on main",
      "who": "claude"
     },
@@ -5508,39 +5514,15 @@
     {
      "text": "Damage audit: every screen",
      "who": "claude"
-    },
-    {
-     "text": "15 punch clips on the review board",
-     "who": "claude"
-    },
-    {
-     "text": "Cross power: measured, 10 fixes",
-     "who": "claude"
-    },
-    {
-     "text": "Uppercut range: measured, 8 fixes",
-     "who": "claude"
-    },
-    {
-     "text": "3D face mark rule (Arena)",
-     "who": "agent"
     }
    ],
    "done_session": [
     {
-     "text": "Fighters page: painted rows in",
+     "text": "Line change rules in (not wired)",
      "who": "claude"
     },
     {
-     "text": "Towel card rules in",
-     "who": "claude"
-    },
-    {
-     "text": "Loyalty rules in (not wired)",
-     "who": "claude"
-    },
-    {
-     "text": "Result page round 2 drawn",
+     "text": "Ask for a fight: short map",
      "who": "claude"
     }
    ],
@@ -5559,6 +5541,10 @@
     },
     {
      "text": "Result page: critics, then you",
+     "who": "claude"
+    },
+    {
+     "text": "Ask for a fight: free critics",
      "who": "claude"
     }
    ],
@@ -5604,10 +5590,6 @@
      "who": "claude"
     },
     {
-     "text": "Ask for a fight: short map",
-     "who": "claude"
-    },
-    {
      "text": "Weight: hold or cut, short map",
      "who": "claude"
     },
@@ -5620,7 +5602,7 @@
      "who": "claude"
     }
    ],
-   "session": "S441"
+   "session": "S442"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

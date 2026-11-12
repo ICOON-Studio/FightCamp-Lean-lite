@@ -32,11 +32,11 @@ func _initialize() -> void:
 	if part == "announcer":
 		await create_timer(1.0).timeout
 		FightVoice.intro_opening()
-		await create_timer(FightSfx.line_seconds("voice_announcer_opening") + 2.6).timeout
+		await create_timer(FightSfx.line_seconds("voice_announcer_opening") + 1.2).timeout
 		FightVoice.intro_corner("red", 1)
-		await create_timer(FightSfx.line_seconds("voice_announcer_red_1") + 2.6).timeout
+		await create_timer(FightSfx.line_seconds("voice_announcer_red_1") + 1.2).timeout
 		FightVoice.intro_corner("blue", 1)
-		await create_timer(FightSfx.line_seconds("voice_announcer_blue_1") + 2.6).timeout
+		await create_timer(FightSfx.line_seconds("voice_announcer_blue_1") + 1.2).timeout
 		FightVoice.intro_seconds_out()
 		await create_timer(FightSfx.line_seconds("voice_announcer_seconds") + 0.3).timeout
 		FightSfx.bell(true)

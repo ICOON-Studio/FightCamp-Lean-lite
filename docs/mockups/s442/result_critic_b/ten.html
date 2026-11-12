@@ -1,0 +1,237 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Result - critic B 10/10</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#15110e;color:#efe6d8;font-family:"Segoe UI","Bahnschrift",Arial,sans-serif;font-size:17px}
+.red{color:#ff6a55}.blue{color:#6fa8ff}.gold{color:#f2c14e}.green{color:#7bd389}.dim{color:#a39684}
+.panel{background:#211a15;border:1px solid #3a2e25;border-radius:6px;position:absolute}
+h2{font-size:15px;letter-spacing:3px;color:#f2c14e;font-weight:700;margin-bottom:8px}
+.big{font-family:Bahnschrift,"Segoe UI";font-weight:700}
+/* header */
+#head{left:24px;top:16px;width:1872px;height:142px;padding:12px 20px;display:flex;gap:28px;align-items:center}
+.lost{font-size:78px;line-height:1;color:#ff5a45;font-weight:900;letter-spacing:2px}
+.sub{font-size:20px}
+.judges{display:flex;gap:18px}
+.judge{text-align:center;width:150px}
+.judge .s{font-size:40px;line-height:1.1}
+.rds{display:flex;gap:4px;justify-content:center;margin-top:4px}
+.rd{width:44px;height:26px;border-radius:3px;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.rd.r{background:#7a2219;color:#ffd5cf}.rd.b{background:#1f3b6e;color:#d4e3ff}.rd.sw{outline:2px solid #f2c14e}
+.facts{display:grid;grid-template-columns:auto auto;gap:2px 12px;font-size:16px;white-space:nowrap}
+.facts .k{color:#a39684;font-size:13px;letter-spacing:2px;align-self:center}
+/* rounds */
+#rounds{left:24px;top:170px;width:1160px;height:420px;padding:14px 18px}
+.rcols{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.rc{background:#1a1511;border-radius:5px;padding:10px 12px;height:338px;position:relative}
+.rc .t{font-size:20px;font-weight:700}
+.rc .j{font-size:15px;color:#a39684;margin-bottom:6px}
+.mode{font-size:15px;border-radius:3px;padding:3px 8px;margin-bottom:8px;display:inline-block}
+.ex{display:flex;gap:5px;margin-bottom:6px}
+.cell{width:52px;height:56px;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:14px;font-weight:700;position:relative}
+.cell.w{background:#8e2a1f}.cell.l{background:#24457f}
+.cell .tag{font-size:13px;background:#0008;border-radius:3px;padding:0 4px;margin-top:3px}
+.cell .ev{position:absolute;top:-9px;right:-6px;background:#f2c14e;color:#15110e;border-radius:9px;font-size:12px;padding:0 5px}
+.en{margin:8px 0 4px;font-size:15px}
+.bar{height:14px;background:#33291f;border-radius:7px;position:relative;margin:3px 0}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:7px}
+.why{font-size:16px;line-height:1.35;margin-top:8px;border-top:1px solid #3a2e25;padding-top:7px}
+.why b{color:#fff}
+.key{font-size:14px;color:#a39684;margin-top:8px}
+/* decided */
+#decided{left:1196px;top:170px;width:700px;height:620px;padding:14px 18px}
+.reason{background:#1a1511;border-left:5px solid #ff6a55;border-radius:5px;padding:10px 14px;margin-bottom:12px}
+.reason .hd{display:flex;justify-content:space-between;align-items:baseline}
+.reason .ti{font-size:21px;font-weight:700}
+.reason .cost{font-size:16px;color:#ff8a78;font-weight:700}
+.reason .ev2{font-size:16px;line-height:1.4;margin:4px 0 8px}
+.split{display:flex;gap:2px;height:22px;border-radius:4px;overflow:hidden;margin:4px 0 2px;font-size:13px;font-weight:700}
+.split div{display:flex;align-items:center;justify-content:center;color:#15110e}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn{background:#3b2c20;border:1px solid #7a5c3e;border-radius:4px;padding:5px 10px;font-size:15px;font-weight:600}
+.btn small{color:#f2c14e;font-weight:600;font-size:14px}
+.btn.on{background:#5a4220;border-color:#f2c14e}
+/* bottom */
+#dmg{left:24px;top:602px;width:560px;height:388px;padding:14px 18px}
+#punch{left:596px;top:602px;width:588px;height:388px;padding:14px 18px}
+#plan{left:1196px;top:802px;width:700px;height:188px;padding:12px 18px}
+.bodies{display:flex;gap:16px}
+.bd{flex:1}
+.bd .n{font-weight:700;font-size:17px;margin-bottom:4px}
+.pl{display:grid;grid-template-columns:86px 30px 1fr;font-size:16px;white-space:nowrap;gap:3px 6px;align-items:center}
+.pl .v{font-weight:700;text-align:right}
+.dot{display:inline-block;width:10px;height:10px;border-radius:5px;margin-right:6px}
+table{border-collapse:collapse;width:100%;font-size:16px}
+td,th{padding:3px 6px}
+th{font-size:13px;letter-spacing:2px;color:#a39684;font-weight:600;text-align:left}
+td.n{text-align:right;font-weight:700}
+.mini{display:inline-block;height:12px;border-radius:3px;vertical-align:middle}
+#foot{left:24px;top:1002px;width:1872px;height:64px;display:flex;align-items:center;gap:14px;padding:0 16px}
+.queue{flex:1;font-size:17px}
+.cont{background:#b8352a;color:#fff;font-weight:800;font-size:24px;padding:10px 30px;border-radius:5px}
+</style></head><body>
+
+<!-- HEADER -->
+<div class="panel" id="head">
+  <div>
+    <div class="lost">LOST</div>
+    <div class="sub"><span class="red">Lucy Jackson</span> v <span class="blue">Priya Nair</span> &middot; split decision, 2 judges to 1</div>
+  </div>
+  <div class="judges">
+    <div class="judge"><div class="dim" style="font-size:14px;letter-spacing:2px">JUDGE 1</div><div class="s big blue">28-29</div>
+      <div class="rds"><div class="rd r">10-9</div><div class="rd b">9-10</div><div class="rd b">9-10</div></div></div>
+    <div class="judge"><div class="dim" style="font-size:14px;letter-spacing:2px">JUDGE 2</div><div class="s big blue">28-29</div>
+      <div class="rds"><div class="rd r">10-9</div><div class="rd b">9-10</div><div class="rd b">9-10</div></div></div>
+    <div class="judge"><div class="dim" style="font-size:14px;letter-spacing:2px">JUDGE 3</div><div class="s big red">29-28</div>
+      <div class="rds"><div class="rd r">10-9</div><div class="rd r sw">10-9</div><div class="rd b">9-10</div></div></div>
+  </div>
+  <div style="font-size:16px;line-height:1.35;width:280px"><span class="gold">The swing round: Round 2.</span> 3 exchanges each. Priya landed 4 more clean shots (17 v 13), so 2 judges gave it to her.</div>
+  <div class="facts" style="margin-left:auto">
+    <span class="k">BEFORE THE BELL</span><span><b>42%</b> to win &middot; <span class="green">lost by one round</span></span>
+    <span class="k">RECORD</span><span>3-0 &rarr; <b>3-1</b> &middot; 1 win to enter the table</span>
+    <span class="k">WHAT IT COST</span><span class="red"><b>Cut, left eye</b> (R2): no sparring 3 weeks</span>
+    <span class="k">THE ROAD</span><span>Nationals: 1 more bout to enter</span>
+  </div>
+</div>
+
+<!-- ROUNDS -->
+<div class="panel" id="rounds">
+  <h2>THE FIGHT, ROUND BY ROUND</h2>
+  <div class="rcols">
+    <div class="rc">
+      <div class="t"><span class="red">Round 1</span> &middot; Lucy 4-2</div>
+      <div class="j">all 3 judges: Lucy &middot; pace you set: <b style="color:#efe6d8">Push</b></div>
+      <div class="mode" style="background:#3a3226">Priya: boxing at range &rarr; waits to counter</div>
+      <div class="ex">
+        <div class="cell w">W<span class="tag">A</span></div><div class="cell w">W</div><div class="cell l">L</div>
+        <div class="cell w">W<span class="tag">A</span></div><div class="cell l">L</div><div class="cell w">W<span class="tag">B</span></div>
+      </div>
+      <div class="en">Energy at the bell</div>
+      <div class="bar"><i style="width:76%;background:#e0574a"></i></div>
+      <div class="bar"><i style="width:81%;background:#4f86e0"></i></div>
+      <div class="dim" style="font-size:14px">Lucy 76 &middot; Priya 81 &middot; Push cost Lucy 6 extra</div>
+      <div class="why"><b>Line A</b> (one-two at range) won both times it fired. Lucy's jab kept her long: 5 of 6 exchanges at long range.</div>
+    </div>
+    <div class="rc">
+      <div class="t"><span class="gold">Round 2</span> &middot; 3-3</div>
+      <div class="j">judges 1 and 2: Priya &middot; judge 3: Lucy &middot; pace: <b style="color:#efe6d8">Push</b></div>
+      <div class="mode" style="background:#2c3048">Priya: waits to counter &rarr; presses from 1:00</div>
+      <div class="ex">
+        <div class="cell l">L<span class="tag">B</span></div><div class="cell w">W</div><div class="cell w">W<span class="tag">call</span><span class="ev">hurt P</span></div>
+        <div class="cell l">L<span class="tag">C</span></div><div class="cell l">L<span class="ev">cut</span></div><div class="cell w">W<span class="tag">call</span></div>
+      </div>
+      <div class="en">Energy at the bell</div>
+      <div class="bar"><i style="width:60%;background:#e0574a"></i></div>
+      <div class="bar"><i style="width:68%;background:#4f86e0"></i></div>
+      <div class="dim" style="font-size:14px">Lucy 60 &middot; Priya 68 &middot; gap now 8</div>
+      <div class="why">Priya changed to <b>pressing</b>. <b>Line C</b> (step in) walked into her right hand. Lucy backed straight to the ropes: <b>cut over the left eye</b>.</div>
+    </div>
+    <div class="rc">
+      <div class="t"><span class="blue">Round 3</span> &middot; Priya 5-1</div>
+      <div class="j">all 3 judges: Priya &middot; pace: <b style="color:#efe6d8">Steady</b></div>
+      <div class="mode" style="background:#3a2a20">Priya: presses all round</div>
+      <div class="ex">
+        <div class="cell l">L<span class="tag">C</span></div><div class="cell l">L<span class="tag">call</span></div><div class="cell w">W</div>
+        <div class="cell l">L<span class="tag">call</span></div><div class="cell l">L<span class="tag">C</span><span class="ev">hurt L</span></div><div class="cell l">L</div>
+      </div>
+      <div class="en">Energy at the bell</div>
+      <div class="bar"><i style="width:36%;background:#e0574a"></i></div>
+      <div class="bar"><i style="width:50%;background:#4f86e0"></i></div>
+      <div class="dim" style="font-size:14px">Lucy 36 &middot; Priya 50 &middot; <span class="red">legs went at 1:30</span></div>
+      <div class="why">Corner said <b>Jab and move</b>, the plan still said <b>step in</b>: she did both, half-hearted. Body shots to the right ribs (12 this round) took the legs.</div>
+    </div>
+  </div>
+  <div class="key">W/L = who won the 30-second exchange &middot; A, B, C = your plan line fired &middot; call = your shout was used &middot; red bar Lucy, blue bar Priya</div>
+</div>
+
+<!-- WHAT DECIDED IT -->
+<div class="panel" id="decided">
+  <h2>WHAT DECIDED IT &middot; RANKED BY EXCHANGES IT COST</h2>
+  <div class="reason">
+    <div class="hd"><span class="ti">1. Plan line C walked into her pressing</span><span class="cost">cost 3 exchanges</span></div>
+    <div class="ev2">"When she presses &rarr; Step in": fired 3 times, won 0. In round 3 it fought your own corner call (Jab and move). Rated against pressing: <b class="green">Step back + one-two: Beats it</b> (Lucy's one-two is Sharp).</div>
+    <div class="btns"><span class="btn on">Rewrite C: Step back + one-two <small>+6% v pressers</small></span><span class="btn">Rate my plan v pressers</span></div>
+  </div>
+  <div class="reason" style="border-color:#f2c14e">
+    <div class="hd"><span class="ti">2. Her legs went in round 3</span><span class="cost">cost 2 exchanges</span></div>
+    <div class="ev2">Energy 36 v 50 at the last bell. Where the 14 went:</div>
+    <div class="split"><div style="width:43%;background:#ff8a78">body shots 6</div><div style="width:36%;background:#f2c14e">Push pace R1-2: 5</div><div style="width:21%;background:#a39684">fitness 3</div></div>
+    <div class="dim" style="font-size:14px;margin-bottom:8px">Priya's right hand to the ribs: 21 landed, right ribs at 33 (critical). Cardio: Lucy 58, Priya 64 (scouted).</div>
+    <div class="btns"><span class="btn on">Plan pace: Steady in R1 <small>saves 5</small></span><span class="btn">Corner fix: Elbows in when she goes to the body</span><span class="btn">Cardio mornings <small>full gains, cut allows it</small></span></div>
+  </div>
+  <div class="reason" style="border-color:#6fa8ff">
+    <div class="hd"><span class="ti">3. Habit: backs up in straight lines</span><span class="cost">cost 2 exchanges</span></div>
+    <div class="ev2">Pinned on the ropes twice, hurt both times, the cut came from one of them. Inside she won 1 of 6.</div>
+    <div class="btns"><span class="btn on">Drill: pivot off the ropes <small>habit gone in ~4 weeks of pads</small></span></div>
+  </div>
+</div>
+
+<!-- DAMAGE -->
+<div class="panel" id="dmg">
+  <h2>DAMAGE AT THE LAST BELL</h2>
+  <div class="bodies">
+    <div class="bd"><div class="n red">Lucy</div>
+      <div class="pl">
+        <span>Left eye</span><span class="v red">31</span><span><span class="dot" style="background:#ff5a45"></span>cut R2</span>
+        <span>Right ribs</span><span class="v red">33</span><span><span class="dot" style="background:#ff5a45"></span>critical R3</span>
+        <span>Head</span><span class="v">58</span><span><span class="dot" style="background:#7bd389"></span>fine</span>
+        <span>Nose</span><span class="v">62</span><span><span class="dot" style="background:#7bd389"></span>fine</span>
+        <span>Left ribs</span><span class="v">66</span><span><span class="dot" style="background:#7bd389"></span>fine</span>
+        <span>Right eye</span><span class="v">69</span><span><span class="dot" style="background:#7bd389"></span>fine</span>
+      </div></div>
+    <div class="bd"><div class="n blue">Priya</div>
+      <div class="pl">
+        <span>Nose</span><span class="v gold">49</span><span><span class="dot" style="background:#f2c14e"></span>hurt R2</span>
+        <span>Right ribs</span><span class="v gold">52</span><span><span class="dot" style="background:#f2c14e"></span>hurt R1</span>
+        <span>Right eye</span><span class="v">60</span><span><span class="dot" style="background:#7bd389"></span>fine</span>
+        <span>Head</span><span class="v">63</span><span><span class="dot" style="background:#7bd389"></span>fine</span>
+        <span>Left eye</span><span class="v">66</span><span><span class="dot" style="background:#7bd389"></span>fine</span>
+        <span>Left ribs</span><span class="v">71</span><span><span class="dot" style="background:#7bd389"></span>fine</span>
+      </div></div>
+  </div>
+  <div style="margin-top:14px;font-size:16px;line-height:1.4;border-top:1px solid #3a2e25;padding-top:8px">
+    <b>Corner, R2-R3 minute:</b> cutman closed the eye (held 2 min, then reopened). Water 2, ice on the ribs 1.<br>
+    <span class="dim" style="font-size:14px">Out of 100: fine 55+, hurt under 55, critical under 35.</span>
+  </div>
+</div>
+
+<!-- PUNCHES -->
+<div class="panel" id="punch">
+  <h2>PUNCHES &middot; WHO WON EACH RANGE</h2>
+  <table>
+    <tr><th></th><th style="text-align:right" class="red">LUCY</th><th></th><th style="text-align:right" class="blue">PRIYA</th><th></th></tr>
+    <tr><td>All punches landed</td><td class="n">51 / 156</td><td class="dim">33%</td><td class="n">72 / 198</td><td class="dim">36%</td></tr>
+    <tr><td>Jab <span class="dim">(Lucy: Sharp)</span></td><td class="n">26 / 88</td><td class="dim">30%</td><td class="n">29 / 92</td><td class="dim">32%</td></tr>
+    <tr><td>Power punches</td><td class="n">25 / 68</td><td class="dim">37%</td><td class="n">43 / 106</td><td class="dim">41%</td></tr>
+    <tr><td>To the body</td><td class="n">13</td><td></td><td class="n red">21</td><td class="dim">right ribs 15</td></tr>
+    <tr><td>Counters landed</td><td class="n green">6</td><td></td><td class="n">4</td><td></td></tr>
+  </table>
+  <div style="margin-top:12px;font-size:16px">
+    <div style="display:grid;grid-template-columns:120px 1fr 120px;gap:6px;align-items:center">
+      <span>Long (7)</span><span><span class="mini" style="width:71%;background:#c94435"></span><span class="mini" style="width:28%;background:#3f6fc0;margin-left:1%"></span></span><span><b class="red">5</b> - <b class="blue">2</b></span>
+      <span>Mid (5)</span><span><span class="mini" style="width:39%;background:#c94435"></span><span class="mini" style="width:60%;background:#3f6fc0;margin-left:1%"></span></span><span><b class="red">2</b> - <b class="blue">3</b></span>
+      <span>Inside (6)</span><span><span class="mini" style="width:16%;background:#c94435"></span><span class="mini" style="width:83%;background:#3f6fc0;margin-left:1%"></span></span><span><b class="red">1</b> - <b class="blue">5</b></span>
+    </div>
+    <div style="margin-top:8px">Lucy wins at range, loses inside. <b class="gold">Keep it long: lines A and B already do; C dragged her inside.</b></div>
+  </div>
+</div>
+
+<!-- PLAN + CORNER -->
+<div class="panel" id="plan">
+  <h2>YOUR PLAN AND YOUR CORNER</h2>
+  <table>
+    <tr><td><b class="gold">A</b> Boxes at range &rarr; One-two</td><td class="green">Beats it</td><td class="n">won 2 of 2</td></tr>
+    <tr><td><b class="gold">B</b> Waits to counter &rarr; Feint and draw</td><td class="green">Beats it</td><td class="n">won 1 of 2</td></tr>
+    <tr><td><b class="gold">C</b> Presses &rarr; Step in</td><td class="red">Walks into it</td><td class="n red">won 0 of 3</td></tr>
+    <tr><td>Shouts: Draw the lead (R2), Jab and move (R3)</td><td class="green">right call</td><td class="n">won 2 of 4</td></tr>
+  </table>
+  <div class="dim" style="font-size:14px;margin-top:4px">Plan worth +5% against no plan. Without line C it would have been +11%.</div>
+</div>
+
+<!-- FOOT -->
+<div class="panel" id="foot">
+  <span class="btn">Replay the plan</span>
+  <span class="btn">Watch round 3 again</span>
+  <div class="queue"><b class="gold">3 fixes ticked</b> go to Lucy's plan and week: Rewrite C &middot; Steady in R1 &middot; Pivot drill. <span class="dim">Untick any above. Tiredness, mood and money: on Home.</span></div>
+  <span class="cont">Apply and continue &#9654;</span>
+</div>
+</body></html>

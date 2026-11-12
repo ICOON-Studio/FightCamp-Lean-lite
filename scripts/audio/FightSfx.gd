@@ -150,16 +150,17 @@ static func _reaction_volume(kind: String) -> float:
 ## bell; under each announcer line it drops ANNOUNCE_DUCK_DB for the line's length, and a name or a winner gets the roar.
 const ANNOUNCE_DUCK_DB := -5.0       # S440 C312: a softer dip, eased in and out, so the room stays under him
 const ANNOUNCE_ATTACK_S := 0.35
-const ANNOUNCE_RELEASE_S := 1.2
-const ROAR_OVERLAP_S := 0.35         # the crowd starts to rise on his last word, not after a gap
+const ANNOUNCE_RELEASE_S := 2.6      # S442 his C316: the room comes back as a slow swell, not a step
+const ROAR_OVERLAP_S := 0.8          # the crowd starts to rise under his last words, not after a gap
+const ROAR_SWELL_S := 1.6            # and the roar itself swells in
 const RESULT_BED_TAIL_S := 4.0   # the result reads after the ring has gone: the bed plays on this long after the line
 
 static func announcer_line(event: String, cheer: bool) -> void:
 	Sfx.loop("crowd_arena_loop")   # no-op when the bed already runs
 	var dur := line_seconds(event)
-	Sfx.duck("Crowd", ANNOUNCE_DUCK_DB, dur, ANNOUNCE_ATTACK_S, ANNOUNCE_RELEASE_S)
+	Sfx.duck("Crowd", ANNOUNCE_DUCK_DB, maxf(dur - ROAR_OVERLAP_S, 0.0), ANNOUNCE_ATTACK_S, ANNOUNCE_RELEASE_S)
 	if cheer:
-		Sfx.play("crowd_roar", {"delay": maxf(dur - ROAR_OVERLAP_S, 0.0)})
+		Sfx.play("crowd_roar", {"delay": maxf(dur - ROAR_OVERLAP_S, 0.0), "fade_in": ROAR_SWELL_S})
 
 
 ## The result is read on the menus, after the ring left (crowd_off): the bed comes back for it, then fades.

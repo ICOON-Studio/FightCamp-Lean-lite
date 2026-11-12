@@ -608,6 +608,24 @@
    "answer": "research/J_FIGHT_ANIM_TECH_S431_BRIEF_JOHN.md",
    "chars": 23434,
    "seen_by_claude": true
+  },
+  {
+   "id": "SQ42",
+   "seat": "kalli",
+   "brief": "research/ASKFIGHT_CRITIC_S442_BRIEF.md",
+   "stem": "ASKFIGHT_CRITIC_S442_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-12 11:47",
+   "tries": 0
+  },
+  {
+   "id": "SQ43",
+   "seat": "dola",
+   "brief": "research/ASKFIGHT_CRITIC_S442_BRIEF.md",
+   "stem": "ASKFIGHT_CRITIC_S442_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-12 11:47",
+   "tries": 0
   }
  ]
 }

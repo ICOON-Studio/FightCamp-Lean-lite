@@ -206,6 +206,12 @@ func _fire(id: String, opts: Dictionary) -> void:
 	player.bus = SoundBank.bus(id)
 	player.volume_db = SoundBank.volume_db(id) + float(intens["volume_db"])
 	player.pitch_scale = float(intens["pitch_scale"]) * (1.0 + _rng.randf_range(-spread, spread))
+	# S442 his C316 ("the crowd volume doesnt rise up gradually"): a sound may swell in instead of starting at full level.
+	var fade_in := float(opts.get("fade_in", 0.0))
+	if fade_in > 0.0:
+		var full := player.volume_db
+		player.volume_db = full - 30.0
+		create_tween().tween_property(player, "volume_db", full, fade_in).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	player.play()
 	_ranks[player] = rank
 	played[id] = int(played.get(id, 0)) + 1
