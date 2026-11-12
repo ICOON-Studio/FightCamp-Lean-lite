@@ -4726,7 +4726,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-12 16:41 board_sync",
+  "updated": "2026-11-12 17:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4883,13 +4883,6 @@
     "state": "LANDED - Claude collects"
    },
    {
-    "title": "TASK ASKPROBE1 - QWEN (qwen3-coder) - Ask for a fight: two pure rule modules, their tests, and the probe that decides the prices",
-    "who": "qwen",
-    "started": "2026-11-12T13:31",
-    "run": "ASKPROBE1",
-    "state": "LANDED - Claude collects"
-   },
-   {
     "title": "TASK R19WORTH1 - ARENA - what the next film buys: a hidden tell shown as a RANGE of worth, exact once found (one pure module + its test)",
     "who": "qwen",
     "started": "2026-11-12T14:42",
@@ -4902,6 +4895,12 @@
     "started": "2026-11-12T15:42",
     "run": "MATPRICE1",
     "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK R29JUDGES1 - ARENA - THE JUDGES: three cards scored like judges, each with a lean, 10-8 for a count, a running card and one reason (one pure module + its t",
+    "who": "qwen",
+    "started": "2026-11-12T17:11",
+    "run": "R29JUDGES1"
    }
   ],
   "next": [
@@ -5313,6 +5312,11 @@
   },
   "done_recently": [
    {
+    "title": "TASK ASKPROBE1 - QWEN (qwen3-coder) - Ask for a fight: two pure rule modules, their tests, and the probe that decides the prices",
+    "who": "qwen",
+    "when": "2026-11-12"
+   },
+   {
     "title": "TASK R24GRADE1 - ARENA - how THIS boxer does each plan line (Good / OK / Poor): one pure module + its test",
     "who": "qwen",
     "when": "2026-11-12"
@@ -5373,12 +5377,6 @@
     "id": "ASKFIGHTMAP",
     "who": "claude",
     "title": "Ask for a fight: the short map, one screen and one decision",
-    "after": ""
-   },
-   {
-    "id": "PAMIX3",
-    "who": "claude",
-    "title": "Announcer on the PA: lines closer, the crowd swells in (his C316)",
     "after": ""
    }
   ],
@@ -5596,6 +5594,14 @@
     {
      "text": "DEFECTS1 merged",
      "who": "claude"
+    },
+    {
+     "text": "3 more Qwen modules, reviewed",
+     "who": "claude"
+    },
+    {
+     "text": "Fight bars: 2 design rounds",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5620,8 +5626,8 @@
      "who": "operator"
     },
     {
-     "text": "Push + tank bars: critics",
-     "who": "claude"
+     "text": "Fight bars: your call (Q-203)",
+     "who": "operator"
     }
    ],
    "next": [

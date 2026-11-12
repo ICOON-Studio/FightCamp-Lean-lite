@@ -6882,6 +6882,24 @@
       "note": null,
       "answered_at": null,
       "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-203",
+      "asked": "2026-11-12T15:05:42.304412+00:00",
+      "session": "S294",
+      "text": "Your fight bars (hands on wind, feet on legs, head as the damage): two design rounds, critics split (coach 7 and 6, systems 5 and 4). More drawing will not settle it; a measurement through real bouts will. It is a new mechanic outside your agreed order. Measure it now, or park the design until Ask for a fight is done?",
+      "options": [
+        "Measure it now",
+        "Park it until Ask for a fight is done",
+        "Drop it"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-203_0_fight_bars_v2.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }
