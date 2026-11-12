@@ -155,8 +155,9 @@ static func _nearer(x: Dictionary, y: Dictionary) -> bool:
 	return float(x.get("rating", 0.0)) < float(y.get("rating", 0.0))
 
 
-## A NAME YOU PICK: legal names up to PICK_REACH places either side, never ours, never one of `not_these` (the sheet and
-## step-up names). Only for a fighter on the ladder (found by name).
+## A NAME YOU PICK: legal names up to PICK_REACH places ABOVE, never ours, never one of `not_these` (the sheet and step-up
+## names). Only for a fighter on the ladder (found by name). S443 operator Q-S294-204 "Only above or level": a pick from below
+## won 6 of 7 cases in the season probe (docs/ASKPROBE1_RESULT.md); above only, the plan's pick wins 4 of 7.
 static func picks(f: Dictionary, rows: Array, min_wins: int, not_these: Array) -> Array:
 	var table := RankLine._ranked(rows, min_wins)
 	var at := RankLine._rank_of(table, str(f.get("name", ""))) - 1
@@ -164,7 +165,7 @@ static func picks(f: Dictionary, rows: Array, min_wins: int, not_these: Array) -
 		return []
 	var own_bouts := AmateurBooking.bouts_of(int(f.get("w", 0)), int(f.get("l", 0)), int(f.get("d", 0)))
 	var out: Array = []
-	for i in range(maxi(0, at - PICK_REACH), mini(table.size(), at + PICK_REACH + 1)):
+	for i in range(maxi(0, at - PICK_REACH), at):
 		var nm := str(table[i]["name"])
 		if i == at or not_these.has(nm) or not _legal(table[i], own_bouts):
 			continue

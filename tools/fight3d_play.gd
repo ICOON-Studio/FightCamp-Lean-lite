@@ -155,7 +155,16 @@ func _initialize() -> void:
 	_check(cm != null, "round 1's bell starts the corner minute")
 	if cm != null:
 		await _until(func(): return cm.ui != null and cm.ui._card.visible, 40.0)
-		await _shot("p05_corner_card", 0.6)
+		# S443 review: the 0.6 s shot caught the card mid fade-in (CARD_AFTER_CUT_S 0.5 + CARD_FADE_S 0.4), so the ring's
+		# rope showed through it. Shoot once it is fully in.
+		await _until(func(): return cm.ui._card.modulate.a >= 0.999, 10.0)
+		_check(cm.ui._card.modulate.a >= 0.999, "S443 the corner card is fully opaque before the still (a %.2f)" % cm.ui._card.modulate.a)
+		await _shot("p05_corner_card", 0.2)
+		# S443 C320-C323: the card stays inside the frame between the letterbox bars, and the recover points preview.
+		var crect: Rect2 = cm.ui._card.get_global_rect()
+		print("CORNER CARD rect %s coach \"%s\"" % [str(crect), _coach_text(cm.ui._card)])
+		_check(crect.end.y <= H * (1.0 - 0.128) + 1.0 and crect.position.y >= 0.0, "S443 the corner card ends above the bottom bar (%.0f)" % crect.end.y)
+		await _recover_preview(cm.ui)
 		var tab2: Button = cm.ui._card.find_child("TabSecond", true, false)   # S430 the fight so far (MatchStats)
 		_check(tab2 != null, "S430 the corner card has the fight-so-far tab")
 		if tab2 != null:
@@ -310,3 +319,29 @@ func _check(cond: bool, label: String) -> void:
 	print(("OK  " if cond else "FAIL ") + label)
 	if not cond:
 		failures += 1
+
+
+## S443 C320: the coach's line on the card, as shown.
+func _coach_text(card: Control) -> String:
+	for l in card.find_children("*", "Label", true, false):
+		var t := (l as Label).text
+		if t.begins_with("Last ") or t.begins_with("No exchanges"):
+			return t
+	return ""
+
+
+## S443 C323: one water point moved to ice (or one more water), then a still of the live preview on the bar and her ribs.
+func _recover_preview(ui: Control) -> void:
+	var minus := ui.find_child("Rec_minus_water", true, false) as Button
+	if minus != null and not minus.disabled:
+		minus.pressed.emit()
+		await _wait(2)
+	var ice := ui.find_child("Rec_plus_ice", true, false) as Button
+	if ice != null and not ice.disabled:
+		ice.pressed.emit()
+		await _wait(2)
+	var num := ui.find_child("EnergyNumA", true, false) as Label
+	var line := ui.find_child("IcePreview", true, false) as Label
+	print("CORNER RECOVER preview energy \"%s\" ice \"%s\"" % [num.text if num != null else "-", line.text if line != null else "-"])
+	_check(num != null and num.text.contains("+"), "S443 the recover points show on her energy bar before the bell")
+	await _shot("p05d_corner_recover_preview", 0.3)

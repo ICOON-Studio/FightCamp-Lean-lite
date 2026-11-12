@@ -7,6 +7,7 @@ extends RefCounted
 
 const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+const EnergyPips := preload("res://scripts/ui/EnergyPips.gd")
 
 const GRADE_COLOR := {"Good": Color("#6cc27a"), "OK": Color("#f0a020"), "Poor": Color("#e06060")}
 const PICK := "   - coach's pick"
@@ -74,7 +75,7 @@ static func fix_row(fixes: Array, names: Array, chosen: String, pick: Callable, 
 	if fixes.is_empty() and changes.is_empty():
 		return row
 	for ch in changes:
-		var cb := UI.button2(str(ch["name"]), str(ch["small"]), "Choice", pick.bind(str(ch["key"])), Vector2(0, 56),
+		var cb := UI.button2(str(ch["name"]), str(ch["small"]), "Choice", pick.bind(str(ch["key"])), Vector2(0, 50),
 			UI.FG, UI.AMBER, false, UI.SMALL + 1, UI.TINY)
 		cb.name = "Change_" + str(ch["id"])
 		cb.tooltip_text = str(ch["tip"])
@@ -84,14 +85,17 @@ static func fix_row(fixes: Array, names: Array, chosen: String, pick: Callable, 
 	for h in fixes:
 		var paid := int(h["paid"])
 		var small := "Cost %s %d time%s this round. Press to work on it next round" % [names[0], paid, "" if paid == 1 else "s"] if paid > 0 else "Your coach has seen it. Press to work on it next round"   # S416 operator: "i do not understand the fix the habit option"
-		var b := UI.button2("Fix: " + str(h["name"]), small, "Choice", pick.bind(str(h["id"])), Vector2(0, 56),
+		var b := UI.button2("Fix: " + str(h["name"]), small, "Choice", pick.bind(str(h["id"])), Vector2(0, 50),
 			UI.FG, UI.AMBER if paid > 0 else UI.MUTED, false, UI.SMALL + 1, UI.TINY)
 		b.name = "Fix_" + str(h["id"])
-		b.tooltip_text = "Your one change this minute. Next round this habit stops costing %s, as far as the instruction sinks in (Coachability)." % names[0]
+		b.tooltip_text = "%s
+Your one change this minute. Next round this habit stops costing %s, as far as the instruction sinks in (Coachability)." % [small, names[0]]
+		for l in b.find_children("*", "Label", true, false):   # S443: the long line ran under "Leave it"; it ends in ... and the hover has it all
+			(l as Label).text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.modulate = Color(1, 1, 1, 1.0 if chosen == "" or chosen == str(h["id"]) else 0.45)
 		row.add_child(b)
-	var none := UI.button2("Leave it", "Just the plan", "BtnQuiet", pick.bind(""), Vector2(160, 56), UI.FG, UI.MUTED, false,
+	var none := UI.button2("Leave it", "Just the plan", "BtnQuiet", pick.bind(""), Vector2(160, 50), UI.FG, UI.MUTED, false,
 		UI.SMALL + 1, UI.TINY)
 	none.name = "FixNone"
 	none.modulate = Color(1, 1, 1, 1.0 if chosen == "" else 0.45)
@@ -117,17 +121,28 @@ static func corner_grid(grades: Dictionary, coach: String, names: Array, pick: C
 			# S354 C205 ("communicate the options better and clearer, player needs to see some stats"): the colour alone did
 			# not say what it meant - each tile now says when to use it and, in her grade's colour, how good she is at it and
 			# what it costs her (Exchanges CALLS cost). The round's numbers sit in the stats table above the steps.
-			var g := str(grades.get(k, "OK"))
-			var tile := UI.button2(("★  " if str(k) == coach else "") + str(c["label"]),
-				"%s\n%s" % [Exchanges.named(str(c["when"]).replace("Use when", "When"), names), "%s at it, %s" % [GRADE_WORD.get(g, g),
-				energy_words(float(c["cost"]))]], "Choice", pick.bind(str(k)), Vector2(200, 72), GRADE_COLOR.get(g, UI.FG), UI.MUTED,
-				false, UI.SMALL + 2, UI.TINY)
+			# S443 C321/C322 (operator: "write instead : when pressed and skip names", "remove the good at it etc , shot the
+			# costs of energy instead"): the call, its short name-free when and its energy price drawn as arrows
+			# (EnergyPips, from CALLS cost). How well she does it (the grade) and the round's numbers are the hover.
+			var tile := UI.button2(("★  " if str(k) == coach else "") + str(c["label"]), "", "Choice", pick.bind(str(k)),
+				Vector2(200, 48), UI.FG, UI.MUTED, false, UI.SMALL + 2, UI.TINY)
+			var line := HBoxContainer.new()
+			line.name = "WhenLine"
+			line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			line.add_theme_constant_override("separation", 8)
+			var wl := UI.label(str(c["when"]), UI.TINY, UI.MUTED, "body")
+			wl.name = "When"
+			wl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			line.add_child(wl)
+			line.add_child(EnergyPips.make(float(c["cost"])))
+			(tile.find_children("*", "VBoxContainer", true, false)[0] as VBoxContainer).add_child(line)
 			tile.name = "Corner_" + str(k)
 			tile.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			var hover := [_small(str(k), grades, str(c["when"]), names)]
 			if evidence.has(k):
 				hover.append(Exchanges.named(str(evidence[k]), names))
 			hover.append(Exchanges.named(str(c["expect"]), names))
+			hover.append(EnergyPips.tip(float(c["cost"])))
 			tile.tooltip_text = "\n".join(hover)
 			grid.add_child(tile)
 			continue

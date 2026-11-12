@@ -82,7 +82,7 @@ func build(card: Dictionary, names: Array) -> void:
 	add_child(_caption)
 	_pin(_caption, Vector4(0.08, 1.0 - BAR, 0.92, 1), Vector4.ZERO)
 	_card = PanelContainer.new()
-	_card.add_theme_stylebox_override("panel", UI.box(Color(0.05, 0.04, 0.04, 0.95), UI.LINE, 6, 1, 18, 14))
+	_card.add_theme_stylebox_override("panel", UI.box(Color(0.05, 0.04, 0.04, 0.95), UI.LINE, 6, 1, 18, 10))
 	add_child(_card)
 	# S350 C197 ("doesnt look good, needs a lot of refining"): the card takes the right part of the frame between the bars,
 	# full height, so the corner itself (her on the stool, the coach) stays in view on the left; the round first, then the
@@ -91,6 +91,7 @@ func build(card: Dictionary, names: Array) -> void:
 	var hb := UI.hbox(18)
 	_card.add_child(hb)
 	_pro = bool(card.get("pro", false))
+	_card_in = card
 	_map = card.get("body_map", {})
 	_track = card.get("body_track", {})
 	_taken = card.get("body_taken", {})
@@ -98,7 +99,7 @@ func build(card: Dictionary, names: Array) -> void:
 	if not _map.is_empty():
 		_pin(_card, Vector4(CARD_LEFT_BODY, BAR, 1, BAR), Vector4(0, 12, -24, 12))
 		hb.add_child(_body_column(str(names[0]), str(card.get("body_glb", ""))))
-	var v := UI.vbox(5)
+	var v := UI.vbox(3)   # S443: 5 -> 3, the card keeps above the bottom bar
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hb.add_child(v)
 	# S354 C205 ("try to communicate the options better and clearer, player needs to see some stats to take decisions"):
@@ -113,8 +114,8 @@ func build(card: Dictionary, names: Array) -> void:
 		else:
 			v.add_child(MatchStats.tabs(CornerStats.build(stats, names), MatchStats.build(fight, names, true), "This round", "The fight so far"))
 		v.add_child(UI.sep())
-	var head := UI.label("IN THE CORNER: WHAT DO YOU TELL %s?" % str(names[0]).to_upper(), UI.BODY + 2, UI.GOLD, "bold")
-	v.add_child(head)
+	# S443 (the card ran 981 px tall, past the bottom bar): the "IN THE CORNER: WHAT DO YOU TELL ...?" heading went - the
+	# coach's line and the numbered steps already say it.
 	var evidence: Dictionary = card.get("evidence", {})
 	var rows := [["WORKED", card["worked"], UI.GREEN], ["HURT", card["hurt"], UI.RED], ["COACH", "%s" % card["why"], UI.AMBER]]
 	if not stats.is_empty():
@@ -127,7 +128,7 @@ func build(card: Dictionary, names: Array) -> void:
 		tag.custom_minimum_size = Vector2(84, 0)
 		tag.add_theme_color_override("font_color", row[2])
 		line.add_child(tag)
-		var said := UI.label(str(row[1]), 20, UI.FG, "body", true)
+		var said := UI.label(str(row[1]), 18, UI.FG, "body", true)
 		said.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		line.add_child(said)
 		v.add_child(line)
@@ -137,12 +138,13 @@ func build(card: Dictionary, names: Array) -> void:
 	var n := 1
 	if not _menu.is_empty():
 		jobs = CornerJobsRow.defaults(_menu)
-		v.add_child(_step(n, "THE MINUTE"))
-		n += 1
+		# S443: the minute's rows carry their own tags (TALK, PLAN...), so no step heading over them; the steps number the
+		# optional change and the plan that starts the round.
 		_jobs_box = UI.vbox(0)
 		v.add_child(_jobs_box)
 		_draw_jobs()
 	_rest_strip(card, names)
+	_preview()   # again: the rest's number the points add to is known only now
 	_fixes = card.get("fixes", [])
 	_changes = card.get("adapts", [])
 	_fix_box = UI.vbox(4)
@@ -267,10 +269,42 @@ func picked(call: String) -> void:
 
 func _draw_jobs() -> void:
 	for ch in _jobs_box.get_children():
+		_jobs_box.remove_child(ch)
 		ch.queue_free()
-	_jobs_box.add_child(CornerJobsRow.build(_menu, jobs, _names, _draw_jobs, true))
+	_jobs_box.add_child(CornerJobsRow.build(_menu, jobs, _names, _draw_jobs, true, _rec_box == null))
+	if _rec_box != null:   # S443 C323: the second's cards sit under her figure, beside what they change
+		for ch in _rec_box.get_children():
+			_rec_box.remove_child(ch)
+			ch.queue_free()
+		_rec_box.add_child(RecoverCards.build(_menu, jobs, _draw_jobs, UI.FG, UI.MUTED, true, true))
 	if _rest != null:
 		_rest.aim(0, _rest_to())
+	_preview()
+
+
+## S443 C323 ("real time changes should be shown with graphics"): the recover points picked show before the bell - the
+## energy they give on her bar at the top (CornerStats.preview: what CornerRest.opens gains over no points) and the ice on
+## her figure's sorer ribs (BodyMap.corner on a copy of the map), with one line under the figure.
+func _preview() -> void:
+	var rec: Dictionary = jobs.get("rec", {})
+	var gain := CornerRest.opens(_rest_from, rec, _menu) - CornerRest.opens(_rest_from, {}, _menu) if not _menu.is_empty() else 0.0
+	CornerStats.preview(_card, gain)
+	if _fig == null:
+		return
+	var vals := {}
+	for p in BodyMap.PLACES:
+		vals[p] = BodyMap.value(_map, "a", p)
+	var words := ""
+	if int(rec.get("ice", 0)) > 0:
+		var side := "left_ribs" if float(vals["left_ribs"]) <= float(vals["right_ribs"]) else "right_ribs"
+		var after := _map.duplicate(true)
+		BodyMap.corner(after, "a", "", "ice_left" if side == "left_ribs" else "ice_right")
+		var eased := BodyMap.value(after, "a", side)
+		words = "Ice: %s %d -> %d" % [side.replace("_", " "), roundi(float(vals[side])), roundi(eased)]
+		vals[side] = eased
+	_fig.set_values(vals)
+	_ice_line.text = words
+	_ice_line.visible = words != ""
 
 
 ## The corner action's job parts for the pick (Bouts.corner_jobs).
@@ -308,12 +342,22 @@ func _body_column(_her: String, glb: String = "") -> VBoxContainer:
 	for p in BodyMap.PLACES:
 		vals[p] = BodyMap.value(_map, "a", p)
 	fig.set_values(vals)
+	_fig = fig
 	# S382: where she was hit THIS round, tinted even while 'fine' (a round-1 card is otherwise a clean figure), and one
 	# word per hot spot - under the close-ups (added after it), which cover it on the mouse.
 	round_words = RoundHits.lay_on(fig, _round_hits)
 	_callouts(fig, still)
 	if not _track.is_empty():
 		fig.set_track(_track)
+	_ice_line = UI.label("", UI.TINY, UI.GREEN, "bold")
+	_ice_line.name = "IcePreview"
+	_ice_line.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_ice_line.visible = false
+	col.add_child(_ice_line)
+	if not (_card_in.get("jobs_menu", {}) as Dictionary).is_empty():
+		_rec_box = UI.vbox(0)
+		_rec_box.name = "RecoverBox"
+		col.add_child(_rec_box)
 	# S396 truth pass: the cutman works pro corners only (CornerCrew); an amateur corner offered his jobs with nobody there.
 	var opts := _cutman_jobs(vals) if _pro else []
 	if opts.size() > 1:
@@ -336,6 +380,11 @@ var callouts: Control = null
 var round_words: Control = null   # S382 RoundHits: the words beside this round's hot spots
 var _taken := {}
 var _round_hits := {}
+var _rec_box: VBoxContainer = null   # S443 C323 the RECOVER cards under her figure (3D card with a body map)
+var _card_in := {}
+const RecoverCards := preload("res://scripts/ui/RecoverCards.gd")
+var _fig: Control = null        # S443 C323 her figure: the ice points ease her ribs on it before the bell
+var _ice_line: Label = null
 
 
 func _callouts(fig: Control, still: Dictionary) -> void:

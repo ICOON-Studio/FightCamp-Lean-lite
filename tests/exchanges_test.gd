@@ -28,17 +28,36 @@ func _initialize() -> void:
 	_check(table_ok, "every game: best / ok / wrong differ, are calls, have clues, and the shout bar offers all three")
 	# 1b. S309 "fix the wording": two women in the ring, so every button line and verdict names whom it means, with no
 	# placeholder left over.
+	# S443 C321 ("do not make the text about one fighter , write instead : when pressed and skip names and long
+	# descriptions"): the "when" line is short and names nobody; the hover's expect line still says whom it means.
 	var nm := ["Lucy", "Maria"]
 	var words_ok := true
+	var when_bad: Array = []
 	for k in X.CALLS.keys():
-		for field in ["when", "expect", "tell"]:
+		var wh := str(X.CALLS[k]["when"])
+		if wh.contains("{") or wh.contains("Use when") or wh.split(" ").size() > 5:
+			when_bad.append(wh)
+		for field in ["expect", "tell"]:
 			var line := X.named(str(X.CALLS[k][field]), nm)
 			words_ok = words_ok and not line.contains("{") and (field == "tell" or line.contains("Lucy") or line.contains("Maria"))
 		for sit in X.MODES.keys():
 			for won in [true, false]:
 				var v := X.verdict(str(k), str(sit), won, nm)
 				words_ok = words_ok and (v.contains("Lucy") or v.contains("Maria"))
-	_check(words_ok and X.verdict("", "press", true, nm).contains("Lucy"), "every call line and verdict names a boxer")
+	_check(words_ok and X.verdict("", "press", true, nm).contains("Lucy"), "every expect line and verdict names a boxer")
+	_check(when_bad.is_empty() and str(X.CALLS["long"]["when"]) == "When pressed", "every when line is short with no name (bad: %s)" % str(when_bad))
+	# 1d. S443 C320 ("are these random preset lines with no base on the fight ?"): the coach's read says what the last
+	# exchanges showed - how many were the game and how many of those she won - and with no exchanges it reads nothing.
+	var ex3 := [{"sit": "press", "won": true}, {"sit": "counter", "won": false}, {"sit": "counter", "won": true}]
+	var rd := X.read(ex3, nm)
+	_check(str(rd["sit"]) == "counter" and str(rd["call"]) == "lead" and str(rd["why"]).begins_with(
+		"Last 3 exchanges: they waited to counter twice, you won 1 of those.") and not str(rd["why"]).contains("end of that round"),
+		"the coach's read counts the round: \"%s\"" % rd["why"])
+	var ex_tired := [{"sit": "she_tired", "won": false}, {"sit": "she_tired", "won": false}, {"sit": "she_tired", "won": false}]
+	_check(str(X.read(ex_tired, nm)["why"]).begins_with("Last 3 exchanges: you were tired 3 times, you won 0 of them."),
+		"tired all three: \"%s\"" % X.read(ex_tired, nm)["why"])
+	var no_read := X.read([], nm)
+	_check(str(no_read["call"]) == "" and str(no_read["why"]) == "No exchanges to read from that round.", "an empty round: no read, no call (%s)" % str(no_read))
 	# 1c. S310: the rest of the fight's words - call captions, the words bank, the result's reasons, the corner card - never
 	# open a sentence with a bare She/Her (whose?).
 	var bare := RegEx.create_from_string("(^|[.:;!?] +)(She|Her)[ ']")
@@ -125,7 +144,8 @@ func _initialize() -> void:
 	var row_text := ""
 	for b in row.get_children():
 		row_text += str(b.find_children("*", "Label", true, false).map(func(l): return l.text))
-	_check(not row_text.contains("coach's pick") and row_text.contains("Use when"), "film 1: the shout buttons say when to use each call, no pick mark")
+	var whens: Array = (pv["offers"] as Array).map(func(k): return str(X.CALLS[k]["when"]))
+	_check(not row_text.contains("coach's pick") and whens.all(func(w): return row_text.contains(w)), "film 1: the shout buttons say when to use each call, no pick mark")
 	row.free()
 	var shouts := 0
 	while not LiveRound.live(m).is_empty():

@@ -193,7 +193,7 @@ static func _pad(c: Control, top: int) -> MarginContainer:
 static func _strip(arrows: Array, round_game: String) -> HFlowContainer:
 	var flow := HFlowContainer.new()
 	flow.name = "LinesFire"
-	flow.add_theme_constant_override("h_separation", 4)
+	flow.add_theme_constant_override("h_separation", 2)   # S443 2 (was 4) and slimmer chips: one line beside her figure
 	flow.add_theme_constant_override("v_separation", 4)
 	var tiles := {}
 	for cd in StrikeMap.CARDS:
@@ -209,8 +209,8 @@ static func _strip(arrows: Array, round_game: String) -> HFlowContainer:
 				continue
 			here = true
 			var fit := PlanFight.fit(mv, PlanLines.sit_for(str((arrows[i] as Dictionary).get("when", "")), round_game))
-			h.add_child(_pin(letter(i), {"best": GOOD, "ok": FAIR, "wrong": POOR}.get(fit, TV.FG)))
-		var name_l := UI.label(str(cd["name"]), UI.SMALL, TV.FG if here else TV.MUTED)
+			h.add_child(_pin(letter(i), {"best": GOOD, "ok": FAIR, "wrong": POOR}.get(fit, TV.FG), 17))
+		var name_l := UI.label(str(cd["name"]), UI.TINY, TV.FG if here else TV.MUTED)   # S443 TINY: the eight places keep to one line beside her figure
 		h.add_child(name_l)
 		h.move_child(name_l, 0)
 		col.add_child(h)
@@ -219,7 +219,7 @@ static func _strip(arrows: Array, round_game: String) -> HFlowContainer:
 		said.visible = false
 		col.add_child(said)
 		p.add_child(col)
-		p.add_theme_stylebox_override("panel", UI.box(Color("#1a1411"), Color("#3a2e26"), 4, 1, 6, 1))
+		p.add_theme_stylebox_override("panel", UI.box(Color("#1a1411"), Color("#3a2e26"), 4, 1, 4, 1))
 		flow.add_child(p)
 		tiles[id] = p
 	flow.set_meta("tiles", tiles)
@@ -235,10 +235,10 @@ static func caption(mute: Color) -> VBoxContainer:
 	return v
 
 
-static func _pin(l: String, colour: Color) -> PanelContainer:
+static func _pin(l: String, colour: Color, font: int = 22) -> PanelContainer:
 	var p := PanelContainer.new()
 	p.name = "Pin_" + l
 	p.add_theme_stylebox_override("panel", UI.box(Color("#120e0c"), colour, 4, 2, 7, 0))
-	p.add_child(UI.label(l, 22, TV.FG, "display"))
+	p.add_child(UI.label(l, font, TV.FG, "display"))
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return p

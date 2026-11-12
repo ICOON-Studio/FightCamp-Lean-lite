@@ -63,31 +63,33 @@ static var _ww: Array = [0.0, 0.0, 0.0, 0.0]
 
 ## Eight real corner calls. long / body / calm keep their old ids (BoutRules.CORNER, RoundScript.CALL_BEATS, Combos).
 ## needs: the values she does it with (stats, footwork, personality). cost: energy per exchange on top of the round's.
-## when / expect: the buttons' lines ({her} ours, {opp} the opponent; S309). tell: the coach saying it to her between rounds.
+## when: the buttons' situation, short and with no name (S443 C321: "write instead : when pressed and skip names");
+## "they" = the opponent, no subject = our fighter. expect: the hover ({her} ours, {opp} the opponent; S309). tell: the
+## coach saying it to her between rounds.
 const CALLS := {
 	"long": {"label": "Jab and move", "shout": "Turn! Jab and move!", "needs": ["jab", "footwork"], "cost": -0.5,
-		"when": "Use when {opp} presses", "expect": "{her} wins it from range and saves energy",
+		"when": "When pressed", "expect": "{her} wins it from range and saves energy",
 		"tell": "Jab and move: win it from range and save your legs."},
 	"body": {"label": "Go to the body", "shout": "Downstairs! Go to the body!", "needs": ["hooks", "power"], "cost": 1.5,
-		"when": "Use when {opp} boxes at range", "expect": "{opp} slows down later; {her} takes shots getting in",
+		"when": "At range", "expect": "{opp} slows down later; {her} takes shots getting in",
 		"tell": "Get inside and go to the body: it slows {opp} down for later."},
 	"lead": {"label": "Draw the lead", "shout": "Feint! Draw the lead!", "needs": ["ring_iq", "timing"], "cost": -0.5,
-		"when": "Use when {opp} waits to counter", "expect": "{opp}'s counters dry up; a quiet 30 seconds",
+		"when": "When they wait to counter", "expect": "{opp}'s counters dry up; a quiet 30 seconds",
 		"tell": "Feint and draw the lead: take the counters away."},
 	"hands": {"label": "Hands up, move your head", "shout": "Hands up! Move your head!", "needs": ["guard", "head_movement"], "cost": 0.0,
-		"when": "Use when {opp} loads up", "expect": "{opp}'s big shots miss; {her} throws less",
+		"when": "When they load up", "expect": "{opp}'s big shots miss; {her} throws less",
 		"tell": "Hands up and move your head: make the big shots miss."},
 	"let_go": {"label": "Let your hands go", "shout": "Let your hands go!", "needs": ["engine", "hand_speed"], "cost": 3.0,
-		"when": "Use when {opp} tires", "expect": "{her}'s busiest 30 seconds; it costs energy",
+		"when": "When they tire", "expect": "{her}'s busiest 30 seconds; it costs energy",
 		"tell": "Let your hands go: {opp} can't keep up with you."},
 	"calm": {"label": "Breathe, pick your shots", "shout": "Breathe! Pick your shots!", "needs": ["discipline"], "cost": -3.0,
-		"when": "Use when {her} is tired", "expect": "{her} gets energy back; gives a little now",
+		"when": "When tired", "expect": "{her} gets energy back; gives a little now",
 		"tell": "Breathe and pick your shots: get your legs back."},
 	"tie": {"label": "Tie up", "shout": "Hold! Tie up!", "needs": ["inside", "heart"], "cost": -2.0,
-		"when": "Use when {her} is hurt", "expect": "{her} gets a breather; {opp} may dig to the ribs in there",
+		"when": "When hurt", "expect": "{her} gets a breather; {opp} may dig to the ribs in there",
 		"tell": "Tie up, clear your head, get through it."},
 	"finish": {"label": "Go for the finish", "shout": "Finish it! Go now!", "needs": ["power", "heart"], "cost": 3.0,
-		"when": "Use when {opp} is hurt", "expect": "A knockdown chance; {her} is open if tired",
+		"when": "When they're hurt", "expect": "A knockdown chance; {her} is open if tired",
 		"tell": "{opp} is hurt: go for the finish, chin down."},
 }
 ## How well she can do a call: grade word -> the line the buttons show ({her} her name).
@@ -360,24 +362,40 @@ static func verdict(call: String, sit: String, won: bool, names: Array) -> Strin
 	return "\"%s\" changed nothing: %s lost those 30 seconds." % [label, her]
 
 
+## S443 C320 ("are these random preset lines with no base on the fight ?"): what each game looked like, said in the past.
+## "they" = the opponent, "you" = our fighter (the coach talking to her).
+const SIT_DONE := {"press": "they pressed", "range": "they boxed at range", "counter": "they waited to counter",
+	"loadup": "they loaded up", "tiring": "they tired", "hurt": "they were hurt", "she_tired": "you were tired",
+	"she_hurt": "you were hurt"}
+
+
 ## The corner's read of a finished round for the next round's plan: the game of the last three exchanges (the latest wins a
 ## tie), its best call and why. names = [hers, the opponent's]. Returns {sit, call, why}.
+## S443 C320: the coach says only what the round shows - how many of the last exchanges were that game and how many of
+## those she won - then the call. No exchanges (or none with a game): nothing to read, no call.
 static func read(exs: Array, names: Array) -> Dictionary:
 	var tally := {}
 	var last := ""
-	for x in exs.slice(maxi(0, exs.size() - 3)):
-		last = str(x["sit"])
-		tally[last] = int(tally.get(last, 0)) + 1
+	var tail: Array = exs.slice(maxi(0, exs.size() - 3))
+	for x in tail:
+		last = str((x as Dictionary).get("sit", ""))
+		if last != "":
+			tally[last] = int(tally.get(last, 0)) + 1
 	var sit := last
 	for k in tally.keys():
 		if int(tally[k]) > int(tally.get(sit, 0)):
 			sit = str(k)
-	if sit == "":
-		sit = "press"
+	if sit == "" or not MODES.has(sit):
+		return {"sit": "", "call": "", "why": "No exchanges to read from that round."}
 	var call := str(MODES[sit]["best"])
-	var c: Dictionary = CALLS[call]
-	# S309: the coach talking to her fighter between rounds ("you" = ours, the opponent by name).
-	var state := ("You were tired" if sit == "she_tired" else "You got hurt") if sit.begins_with("she_") \
-		else "%s was %s" % [str(names[1]), str(MODES[sit]["label"]).to_lower()]
-	var why := "%s at the end of that round. %s" % [state, named(str(c["tell"]), names)]
-	return {"sit": sit, "call": call, "why": why}
+	var won := tail.filter(func(x): return str((x as Dictionary).get("sit", "")) == sit and bool((x as Dictionary).get("won", false))).size()
+	var n := int(tally[sit])
+	var seen := "Last %d exchanges: %s %s, you won %d of %s." % [tail.size(), SIT_DONE[sit], _times(n), won,
+		"them" if n == tail.size() else "those"]
+	if tail.size() == 1:
+		seen = "Last exchange: %s, and you %s it." % [SIT_DONE[sit], "won" if won > 0 else "lost"]
+	return {"sit": sit, "call": call, "why": "%s %s" % [seen, named(str(CALLS[call]["tell"]), names)]}
+
+
+static func _times(n: int) -> String:
+	return "once" if n == 1 else ("twice" if n == 2 else "%d times" % n)

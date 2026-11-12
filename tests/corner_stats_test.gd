@@ -7,6 +7,9 @@ const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const CornerJobsRow := preload("res://scripts/ui/CornerJobsRow.gd")
 const CornerJobs := preload("res://scripts/rules/CornerJobs.gd")
 const CallButtons := preload("res://scripts/ui/CallButtons.gd")
+const EnergyPips := preload("res://scripts/ui/EnergyPips.gd")
+const RecoverCards := preload("res://scripts/ui/RecoverCards.gd")
+const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 
 var _fails := 0
 
@@ -56,6 +59,7 @@ func _initialize() -> void:
 		"a call's energy price in words")
 	var mn := CornerJobsRow.menu({"personality": flat, "bout": {"opp": {"style": "Out-boxer"}}}, {})
 	_check((mn["talks"] as Dictionary).size() == 3, "the corner menu carries the three talks' effects on her")
+	_s443(names, st)
 	print("CORNER_STATS %s fails=%d" % ["PASS" if _fails == 0 else "FAIL", _fails])
 	quit(1 if _fails > 0 else 0)
 
@@ -68,3 +72,59 @@ func _check(ok: bool, what: String) -> void:
 	if not ok:
 		_fails += 1
 	print("%s %s" % ["ok  " if ok else "FAIL", what])
+
+
+## S443 the operator's marks on the 3D corner card (C321-C323).
+func _s443(names: Array, st: Dictionary) -> void:
+	# C322 "remove the good at it etc , shot the costs of energy instead": the plan cards draw the price, from CALLS cost.
+	_check(EnergyPips.count(-3.0) == 3 and EnergyPips.count(-0.5) == 1 and EnergyPips.count(0.0) == 0 and EnergyPips.count(1.5) == 2
+		and EnergyPips.count(3.0) == 3, "energy arrows: one per point, rounded up, 3 at most, none when even")
+	_check(EnergyPips.colour(-2.0) == EnergyPips.SAVE and EnergyPips.colour(1.5) == EnergyPips.COST and EnergyPips.colour(3.0) == EnergyPips.HEAVY
+		and EnergyPips.colour(0.0) == EnergyPips.EVEN, "saves green, costs amber, a lot red, even grey")
+	_check(EnergyPips.tip(-3.0) == "Energy +3 each 30 seconds" and EnergyPips.tip(1.5) == "Energy -1.5 each 30 seconds", "the hover carries the number")
+	var grades := {}
+	for k in Exchanges.CALLS.keys():
+		grades[k] = "Good"
+	var grid := CallButtons.corner_grid(grades, "lead", names, func(_k): pass, {}, 4, true)
+	var text := ""
+	var pips := 0
+	var named_when := 0
+	for tile in grid.get_children():
+		for l in (tile as Control).find_children("*", "Label", true, false):
+			text += (l as Label).text + "
+"
+			if (l as Label).name == "When" and ((l as Label).text.contains(names[0]) or (l as Label).text.contains(names[1])):
+				named_when += 1
+		pips += (tile as Control).find_children("EnergyPips", "", true, false).size()
+	_check(not text.contains("at it") and not text.contains("energy even") and not text.contains("saves energy"),
+		"no 'Good at it, saves energy' on the plan cards")
+	_check(pips == Exchanges.CALLS.size(), "every plan card draws its energy price (%d of %d)" % [pips, Exchanges.CALLS.size()])
+	_check(named_when == 0 and text.contains("When pressed") and text.contains("When tired"), "C321: short whens, no names (\"When pressed\")")
+	grid.free()
+	# C321 the set-up's gaps name nobody either.
+	var gap_named := CornerJobs.GAP_WORDS.values().filter(func(w): return str(w).contains("{"))
+	_check(gap_named.is_empty() and CornerJobs.GAP_WORDS["press"] == "when pressed", "the set-up's gaps: \"when pressed\", no names")
+	# C323 the recover row: a card per job saying what it changes now, points left as pips, and the energy bar's preview.
+	var mn := {"recover": CornerJobs.recover_options(30.0, 9, false), "energy": 30.0, "body": 9, "hurt": false}
+	var sel := {"rec": {"water": 2, "ice": 1, "head": 0}}
+	var row := RecoverCards.build(mn, sel, func(): pass, Color.WHITE, Color.GRAY, true)
+	var cards := row.find_children("RecCard_*", "", true, false)
+	var now_w := row.find_child("RecNow_water", true, false) as Label
+	var now_i := row.find_child("RecNow_ice", true, false) as Label
+	var left := row.find_child("PointsLeft", true, false)
+	_check(cards.size() == 2 and row.find_child("Rec_plus_water", true, false) != null, "a card per recover job, with its - and +")
+	_check(now_w != null and now_w.text == "+%d energy" % int(2 * CornerJobs.WATER_TIRED) and now_i != null and now_i.text == "-%d body hits" % CornerJobs.ICE_HITS,
+		"each card says what its points change now (%s / %s)" % [now_w.text if now_w else "-", now_i.text if now_i else "-"])
+	_check(left != null and int(left.get("left")) == 0, "points left drawn as pips (0 of 3 left)")
+	_check(RecoverCards.tip("water") != RecoverCards.tip("ice") and RecoverCards.tip("ice").contains("%.1f" % Exchanges.BODY_COST),
+		"the hover says how water and ice differ")
+	row.free()
+	var table := S.build(st, names)
+	S.preview(table, 9.0)
+	var bar := table.find_child("EnergyBarA", true, false)
+	var num := table.find_child("EnergyNumA", true, false) as Label
+	_check(bar != null and absf(float(bar.get("ghost")) - 0.09) < 0.001 and num != null and num.text == "62  +9",
+		"the energy bar previews the points before the bell (%s)" % (num.text if num else "-"))
+	S.preview(table, 0.0)
+	_check(num != null and num.text == "62" and float(bar.get("ghost")) == 0.0, "no points: the preview clears")
+	table.free()

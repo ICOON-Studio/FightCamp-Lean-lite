@@ -13,6 +13,22 @@ const BLUE := Color("#6f9cf0")
 const PLACE_WORDS := {"head": "Head", "left_eye": "Left eye", "right_eye": "Right eye", "nose": "Nose",
 	"left_ribs": "Left ribs", "right_ribs": "Right ribs"}
 const POWER := ["straight", "hook", "uppercut"]
+const ENERGY_ROW := "Energy at the bell"
+
+
+## S443 C323 (operator: "real time changes should be shown with graphics"): what the corner's recover points give her,
+## shown on her energy bar before the bell - a light segment past the fill and "+9" by the number. gain 0 clears it.
+static func preview(root: Node, gain: float) -> void:
+	if root == null:
+		return
+	var bar := root.find_child("EnergyBarA", true, false)
+	var num := root.find_child("EnergyNumA", true, false) as Label
+	if bar != null:
+		bar.set("ghost", maxf(0.0, gain) / 100.0)
+		(bar as Control).queue_redraw()
+	if num != null:
+		var g := roundi(gain)
+		num.text = str(num.get_meta("base", num.text)) + ("  +%d" % g if g > 0 else "")
 
 
 ## "ROUND 1: LUCY'S ROUND  -  10-9 ON YOUR CARD  -  ROUNDS 1-0" (a standing count makes it 10-8).
@@ -39,7 +55,7 @@ static func rows(st: Dictionary, names: Array) -> Array:
 	var e: Dictionary = st.get("energy", {})
 	var ea := clampf(float(e.get("a", 100.0)), 0.0, 100.0)
 	var eb := clampf(float(e.get("b", 100.0)), 0.0, 100.0)
-	out.append({"label": "Energy at the bell", "a": "%d" % int(round(ea)), "b": "%d" % int(round(eb)), "fa": ea / 100.0,
+	out.append({"label": ENERGY_ROW, "a": "%d" % int(round(ea)), "b": "%d" % int(round(eb)), "fa": ea / 100.0,
 		"fb": eb / 100.0, "ca": _level(ea, 60.0, 40.0), "cb": _level(eb, 60.0, 40.0)})
 	var map: Dictionary = st.get("map", {})
 	if not map.is_empty():
@@ -67,8 +83,14 @@ static func build(st: Dictionary, names: Array) -> VBoxContainer:
 	g.add_child(Control.new())
 	g.add_child(_cell(str(names[1]).to_upper(), BLUE, HORIZONTAL_ALIGNMENT_LEFT, "bold"))
 	for r in rows(st, names):
-		g.add_child(_cell(str(r["a"]), r["ca"], HORIZONTAL_ALIGNMENT_RIGHT))
-		g.add_child(_bar(float(r["fa"]), r["ca"], true))
+		var na := _cell(str(r["a"]), r["ca"], HORIZONTAL_ALIGNMENT_RIGHT)
+		var ba := _bar(float(r["fa"]), r["ca"], true)
+		if str(r["label"]) == ENERGY_ROW:   # S443 C323: the corner's water and ice show here before the bell (preview)
+			na.name = "EnergyNumA"
+			na.set_meta("base", str(r["a"]))
+			ba.name = "EnergyBarA"
+		g.add_child(na)
+		g.add_child(ba)
 		g.add_child(_cell(str(r["label"]), UI.FG, HORIZONTAL_ALIGNMENT_CENTER))
 		g.add_child(_bar(float(r["fb"]), r["cb"], false))
 		g.add_child(_cell(str(r["b"]), r["cb"], HORIZONTAL_ALIGNMENT_LEFT))
@@ -130,6 +152,7 @@ class _Mirror extends Control:
 	var frac := 0.0
 	var fill := Color.WHITE
 	var leftward := false
+	var ghost := 0.0   # S443 C323 the corner's points, drawn past the fill before they happen
 
 	func _init() -> void:
 		# S354 C206/C207 ("huge distance between index and text"): a fixed width, so each number sits by its label.
@@ -141,3 +164,8 @@ class _Mirror extends Control:
 		var w := size.x * frac
 		if w > 0.0:
 			draw_rect(Rect2(Vector2(size.x - w if leftward else 0.0, 0.0), Vector2(w, size.y)), fill)
+		var gw := size.x * clampf(ghost, 0.0, 1.0 - frac)
+		if gw > 0.0:
+			var gx := size.x - w - gw if leftward else w
+			draw_rect(Rect2(Vector2(gx, -2.0), Vector2(gw, size.y + 4.0)), Color(0.42, 0.76, 0.48, 0.55))
+			draw_rect(Rect2(Vector2(gx, -2.0), Vector2(gw, size.y + 4.0)), Color(0.42, 0.76, 0.48), false, 1.0)

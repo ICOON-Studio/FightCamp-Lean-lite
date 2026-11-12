@@ -131,7 +131,8 @@ func _check_novice(S: GDScript) -> Array:
 
 
 ## 6-1, ranked 5th by name (Open, Alpha, Beta, Mate of ours, then us): the step up skips our Mate -> Beta; the picks are the
-## legal names 4 places either side minus the sheet (Epsilon), the step up and ours: exactly Alpha, Gamma, Delta, Zeta.
+## legal names up to 4 places ABOVE (S443 Q-S294-204 "Only above or level") minus the sheet (Epsilon), the step up and ours:
+## exactly Alpha (Open is past the novice limit); Gamma, Delta and Zeta sit below and are never offered.
 func _check_ranked(S: GDScript) -> Array:
 	var bad: Array = []
 	var f := {"name": "Our Six", "w": 6, "l": 1}
@@ -143,9 +144,9 @@ func _check_ranked(S: GDScript) -> Array:
 	if _names(ans, "step_up") != ["Beta"]:
 		bad.append("step up %s, want [Beta] (our Mate passed over)" % str(_names(ans, "step_up")))
 	var picked: Array = _names(ans, "name")
-	if picked != ["Alpha", "Gamma", "Delta", "Zeta"]:
-		bad.append("picked %s, want [Alpha, Gamma, Delta, Zeta]" % str(picked))
-	for nm in ["Epsilon", "Beta"]:
+	if picked != ["Alpha"]:
+		bad.append("picked %s, want [Alpha] (above only)" % str(picked))
+	for nm in ["Epsilon", "Beta", "Gamma", "Delta", "Zeta"]:
 		if picked.has(nm):
 			bad.append("picked holds %s (the sheet or the step-up name)" % nm)
 	bad.append_array(_legal_and_not_ours(ans, 7))

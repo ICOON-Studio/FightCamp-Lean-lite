@@ -1,6 +1,6 @@
 extends RefCounted
 ## S310 the corner minute's other jobs on the card (CornerJobs; plan approved Q-S294-20), the same in 3D and in words:
-##   RECOVER  3 points: water / ice on the ribs / clear her head (when hurt) - "+" and "-" per job, points left shown
+##   RECOVER  3 points: water / ice on the ribs / clear her head (when hurt) - a card per job (S443 RecoverCards)
 ##   SET-UP   one of her combinations x a gap the corner waits for; no combinations = a line pointing at the pads
 ##   TALK     calm her / fire her up / the truth
 ##   PLAN     S339: how her arrows did this round, and ONE change to the coach's plan for the next (PlanFight)
@@ -22,6 +22,7 @@ const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const PlanBoard := preload("res://scripts/rules/PlanBoard.gd")
 const CornerSwapCards := preload("res://scripts/ui/CornerSwapCards.gd")
+const RecoverCards := preload("res://scripts/ui/RecoverCards.gd")
 
 
 ## What the corner can do after round r (the closed round): her state at the bell and her combinations.
@@ -59,39 +60,16 @@ static func defaults(mn: Dictionary) -> Dictionary:
 	return {"rec": rec, "setup": {}, "talk": "", "arrow": {}}
 
 
-static func build(mn: Dictionary, sel: Dictionary, names: Array, on_change: Callable, tv: bool = false) -> VBoxContainer:
+## with_recover false: the caller draws the RECOVER cards elsewhere (S443: the 3D card puts them under her figure).
+static func build(mn: Dictionary, sel: Dictionary, names: Array, on_change: Callable, tv: bool = false,
+		with_recover: bool = true) -> VBoxContainer:
 	_ink = TV.FG if tv else UI.FG
 	_mute = TV.MUTED if tv else UI.MUTED
 	_tv = tv
 	var v := UI.vbox(4)
-	# RECOVER
-	var rec: Dictionary = sel["rec"]
-	var used := int(rec.get("water", 0)) + int(rec.get("ice", 0)) + int(rec.get("head", 0))
-	var r_row := UI.hbox(8)
-	r_row.add_child(_tag("RECOVER %d/%d" % [used, CornerJobs.RECOVER_POINTS], UI.GREEN))
-	for o in mn["recover"]:
-		var id := str(o["id"])
-		var n := int(rec.get(id, 0))
-		var chip := UI.hbox(2)
-		var minus := UI.button("-", "BtnQuiet", func():
-			rec[id] = maxi(0, int(rec.get(id, 0)) - 1)
-			on_change.call(), n == 0)
-		minus.name = "Rec_minus_" + id
-		chip.add_child(minus)
-		# S350 C197: the job in full colour, its points as dots (a grey "Water and breathing 2" read as switched off).
-		chip.add_child(UI.label(" %s " % str(o["label"]), UI.SMALL + 1, _ink))
-		chip.add_child(UI.label("●".repeat(n) + "○".repeat(maxi(0, int(o["max"]) - n)) + " ", UI.SMALL + 1,
-			UI.GREEN if n > 0 else _mute))
-		# S354 C205 "player needs to see some stats": the job's worth in numbers on the card, not only on the hover.
-		chip.add_child(UI.label("(%s) " % str(o["line"]).replace(" a point", " each"), UI.TINY, _mute))
-		var plus := UI.button("+", "BtnQuiet", func():
-			rec[id] = int(rec.get(id, 0)) + 1
-			on_change.call(), used >= CornerJobs.RECOVER_POINTS or n >= int(o["max"]))
-		plus.name = "Rec_plus_" + id
-		chip.add_child(plus)
-		chip.tooltip_text = str(o["line"])
-		r_row.add_child(chip)
-	v.add_child(r_row)
+	# RECOVER - S443 C323: the second's points as cards with what each changes (RecoverCards).
+	if with_recover:
+		v.add_child(RecoverCards.build(mn, sel, on_change, _ink, _mute, tv))
 	# SET-UP
 	var s_row := UI.hbox(6)
 	s_row.add_child(_tag("SET-UP", UI.AMBER))
@@ -115,7 +93,7 @@ static func build(mn: Dictionary, sel: Dictionary, names: Array, on_change: Call
 			s_row.add_child(_m("for", UI.SMALL))
 			for g in mn["gaps"]:
 				var gon := str(su.get("gap", "")) == str(g)
-				var gb := UI.button(str(CornerJobs.GAP_WORDS.get(g, g)).replace("{opp}", names[1]), "ChoiceOn" if gon else "Choice", func():
+				var gb := UI.button(str(CornerJobs.GAP_WORDS.get(g, g)), "ChoiceOn" if gon else "Choice", func():
 					su["gap"] = str(g)
 					on_change.call())
 				gb.name = "Gap_" + str(g)
@@ -129,7 +107,7 @@ static func build(mn: Dictionary, sel: Dictionary, names: Array, on_change: Call
 		var fx := talk_words((mn.get("talks", {}) as Dictionary).get(k, {}))
 		var tb := UI.button2(str(CornerJobs.TALKS[k]["label"]), fx, "ChoiceOn" if on else "Choice", func():
 			sel["talk"] = "" if on else str(k)
-			on_change.call(), Vector2(236, 50), _ink, _mute, false, UI.SMALL + 1, UI.TINY)
+			on_change.call(), Vector2(236, 40), _ink, _mute, false, UI.SMALL + 1, UI.TINY)
 		tb.tooltip_text = "\"%s\"" % str(CornerJobs.TALKS[k]["line"])
 		tb.name = "Talk_" + str(k)
 		t_row.add_child(tb)

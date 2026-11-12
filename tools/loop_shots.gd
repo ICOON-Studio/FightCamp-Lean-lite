@@ -15,6 +15,9 @@ const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const Adaptation := preload("res://scripts/rules/Adaptation.gd")
 const BodyMap := preload("res://scripts/rules/BodyMap.gd")
 const Headline := preload("res://scripts/rules/Headline.gd")
+const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
+const ExchangeBeats := preload("res://scripts/fight3d/ExchangeBeats.gd")
+const Combos := preload("res://scripts/rules/Combos.gd")
 
 const PLAN := [{"move": "1-2"}, {"move": "step_back", "when": "press"}, {"move": "1-2-3", "when": "counter"}]
 
@@ -145,9 +148,34 @@ func _card3d(f: Dictionary, m: Dictionary) -> Dictionary:
 	card["jobs_menu"] = CornerJobsRow.menu(f, r)
 	var won_a := rounds.filter(func(x): return bool((x as Dictionary).get("won", false))).size()
 	card["stats"] = {"round": rounds.size(), "won": bool(r.get("won", false)), "score": [won_a, rounds.size() - won_a],
-		"counts": int(r.get("counts", 0)), "tally": BodyMap.tally([]), "energy": {"a": float(en.get("a_end", 100.0)), "b": float(en.get("b_end", 100.0))}}
+		"counts": int(r.get("counts", 0)), "tally": BodyMap.tally(_beats(f, m, r, names)), "energy": {"a": float(en.get("a_end", 100.0)), "b": float(en.get("b_end", 100.0))}}
 	card["fight_rounds"] = rounds.duplicate()
+	var t: Dictionary = card["stats"]["tally"]
+	print("LOOP_SHOTS corner tally: landed %d of %d / %d of %d" % [int(t["a"]["landed"]["total"]), int(t["a"]["thrown"]["total"]),
+		int(t["b"]["landed"]["total"]), int(t["b"]["thrown"]["total"])])
 	return card
+
+
+## S443 (the operator's still showed 0 of 0 for every punch line: this tool passed BodyMap.tally([]) as a stand-in): the
+## round's beats as FightView._queue builds them from its exchanges, so the table counts what the ring would play.
+func _beats(f: Dictionary, m: Dictionary, r: Dictionary, names: Array) -> Array:
+	var opp: Dictionary = f["bout"]["opp"]
+	var profiles := {"a": RoundStyle.of_fighter(f), "b": RoundStyle.from_opponent(opp)}
+	var n := (m["rounds"] as Array).size()
+	var ctx := {"n": n, "plan": "", "a_style": str(f.get("style", "")), "b_style": str(opp.get("style", "")),
+		"seed": int(main.career.day) * 97 + n, "profiles": profiles, "f": f, "opp": opp, "names": names, "day": int(main.career.day),
+		"won_last": false}
+	var exs: Array = r.get("exchanges", [])
+	var e: Dictionary = r.get("energy", {})
+	var out: Array = []
+	for k in exs.size():
+		for side in ["a", "b"]:
+			var e0 := float(e.get(side, Combos.TANK))
+			var e1 := float(e.get(side + "_end", e0))
+			profiles[side]["energy"] = lerpf(e0, e1, float(k) / Exchanges.EXCHANGES)
+			profiles[side]["energy_end"] = lerpf(e0, e1, float(k + 1) / Exchanges.EXCHANGES)
+		out.append_array(ExchangeBeats.build(exs[k], k, r, ctx))
+	return out
 
 
 func _hover(name: String) -> void:

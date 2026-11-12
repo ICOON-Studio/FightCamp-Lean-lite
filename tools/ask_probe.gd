@@ -35,7 +35,7 @@ const SHOW_DAYS := 14.0
 var part := "all"
 var n_night := 100; var n_night60 := 30; var seasons := 100; var seasons60 := 30; var count60 := 60; var horizon := 70
 var gate := float(BoutRules.TICKET_CUT)
-var gate_rate := 0.10; var step_teach := 1.0; var pick_down := true; var seed := 4421
+var gate_rate := 0.10; var step_teach := 1.0; var pick_down := false; var seed := 4421
 var rng := RandomNumberGenerator.new()
 var c: Career
 var rivals0: Array = []

@@ -22,9 +22,10 @@ const ICE_HITS := 3
 const SETUP_EDGE := 14.0
 const SETUP_MISS := -9.0
 const SETUP_DAMAGE := 30.0
-## Gaps the corner can wait for: the opponent's two main games (her style) and her tiring.
-const GAP_WORDS := {"press": "when {opp} presses", "range": "when {opp} boxes at range", "counter": "when {opp} waits to counter",
-	"loadup": "when {opp} loads up", "tiring": "when {opp} tires"}
+## Gaps the corner can wait for: the opponent's two main games (her style) and her tiring. S443 C321 ("write instead : when
+## pressed and skip names"): short, no name; "they" = the opponent.
+const GAP_WORDS := {"press": "when pressed", "range": "at range", "counter": "when they wait to counter",
+	"loadup": "when they load up", "tiring": "when they tire"}
 
 const TALKS := {
 	"calm": {"label": "Calm down", "line": "Breathe. Your fight, your pace."},
