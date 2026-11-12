@@ -36,6 +36,16 @@ before a batch; one session coordinates and pushes, helpers report by SendMessag
   claude/power1): blind read, then one fix round; it SendMessages the coordinator. Known reds at its start: punch_range 72
   (control 100), hooks in band 5/9, clean hits off 20 (control 17), toes crossed 16 (14), lead uppercut pop 28.6 m/s. Ruling:
   uppercuts at the measured 0.83-0.90 m, floor 0.70. Collect only steps the read says COLLECT. Steps 5-6 never ran: brief fresh.
+  RESULT (reported 2026-11-12 late): ALL THREE STEPS STILL FIX, nothing to collect. claude/power1 @ 15eb475e (main merged at
+  7453e15e). Blind read verdict + sheets in the session's notes folder (C:\Users\user\AppData\Local\Claude-Data\
+  claude_pzs8sxrjxfjjc\side-session-notes\local_fb5553c6-17e8-4410-9d5c-ea985c9b35fe\ blindread/VERDICT.md, fixround/sheet_*.png);
+  the recovered brief is there as TASK_POWER1_brief.md (ops/research/TASK_POWER1.md is MISSING from main - restore it).
+  After the fix round: punch_speed 47->39, hit_carry 45-47->42, hit_frame 12, block_meet 12->11, punch_weight 0,
+  punch_range 72->74 (hooks 6/9 in band, toes back to control's 14). Still red, in docs/POWER1_STEP4_RESULT.md: cross/jab
+  reach the face one frame early at 13-15 m/s; lead uppercut pops 26.1 m/s (JoinSmoother captures the clip's raised arm,
+  not the drawn glove); hooks/uppercuts land 0.95-1.09 m apart (footwork not arriving by contact); the graze decision ignores
+  the drawn glove; gloves pass through each other after the hit. scripts/rules and scripts/state untouched. Next: decide
+  whether POWER1 needs an audit before another fix round (two red rounds -> audit, memory feedback-audit-before-more-fix-rounds).
 - JUDGES1: HELD, nothing collected. Branch judges1 @ 1f1ed715: JudgedRound.gd (250) + test; BoutRead +7 lines (495/500).
   judgesdecide: 3 Maria cases inside 0.06, but Lucy +6 v Erin 0.443/0.542 and plan v Priya 0.383/0.444 fail; ~100 ms a reading.
   Round 3 later, fresh brief: ropes/pins in the walk, TheRead's build-up, the cost cut. The helper session is done.
