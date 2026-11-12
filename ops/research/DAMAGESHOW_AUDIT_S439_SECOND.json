@@ -1,0 +1,212 @@
+{
+ "rows": [
+  {
+   "screen": "Live round: the two holo side panels (a 2D figure at each screen edge)",
+   "file": "scripts/fight3d/BodyPanels.gd (_build 43-78, struck 97-112, _repaint 115-133) + scripts/ui/BodyCallouts.gd + scripts/ui/BodyFigure.gd; built from FightHud.gd:29 (view.body = BodyLive.attach)",
+   "has": "The live BodyMap of both boxers: live.map (BodyLive.gd:16; points come off at the glove's contact in BodyLive._apply 56-85): six places, cuts{}, closed{}, relief{}; live.taken (per-place punch log), live.round_hits(side,n), live.stats. co.set(\"marks\", live.map[who]) at BodyPanels.gd:66, so cuts are reachable inside the callout node.",
+   "draws": "A SHARED holo figure (BodyHolo.portrait: one female or male muscle figure, not her own body), the three skin SPOT groups (face group, left ribs, right ribs) tinted by band in the skin shader (BodyFigure.gd:60-61, 153-189), a blink on struck places, RoundHits numbers per area, and on a big punch or a band drop the organ card pops (the HEAD card shows the BRAIN picture, LIVER/RIBS organ pictures). Face marks are NOT drawn: go_live() (BodyPanels.gd:67) sets live_pop, and _draw_card skips FaceMarks.paint when live_pop.",
+   "gap": "No cut, swollen eye or red nose anywhere in the live round although the data is wired into the node; ribs only as a skin tint.",
+   "effort": "small"
+  },
+  {
+   "screen": "Live round HUD strips (SidePanel) and their bars",
+   "file": "scripts/fight3d/SidePanel.gd (62-64, 114-115, 326-329; attached at FightHud.gd:28 as view.bars), scripts/fight3d/HudBars.gd (WORDS 32, hit() 137+)",
+   "has": "live.map place values and bands (BodyMap.value / band).",
+   "draws": "Head/body/legs bars with band colours; the head tooltip text 'Head: the worst of head, eyes and nose ... (cuts, swelling)' (HudBars.gd:32). Neither file reads cuts (grep: the only cut readers are BodyLive, CornerOverlay, Aftermath/AfterFight, BodyCallouts, FaceMarks and the new ResultMarks).",
+   "gap": "Numbers and colours only; a cut is never named on the HUD, although its tooltip promises 'cuts'.",
+   "effort": "small"
+  },
+  {
+   "screen": "3D fight: both boxers' faces and bodies on the broadcast camera",
+   "file": "scripts/fight3d/BoxerBuild.gd:49-51, 174-179; scripts/fight3d/FighterFace.gd (apply 59-108, SCAR_AT 12-18, _scars 149-174); scripts/fight3d/MHRig.gd:160-174; scripts/fight3d/ArtStyle.gd (toon twin 135-170)",
+   "has": "view.body = BodyLive (FightView.gd:73, FightCast.gd:103), so live.map is reachable from the stage; Head bone with the record-scar BoneAttachment3D; a separate MH_Skin_Head surface (MHRig.gd:100) with its own mh_skin ShaderMaterial per body (MHRig.gd:165-173); MH_Eye surfaces with a per-fighter mh_eye ShaderMaterial carrying 'lid' 0..1 (FighterFace.gd:89-98, assets/shaders/mh_eye.gdshader:11), returned as face[\"eyes\"].",
+   "draws": "Only the record scars (FighterLook.gd:100-104: 6 and 12 bouts) as Decals on the head bone, set once at build. Nothing changes during the fight. With art=toon (ArtStyle.mode, user setting) the skin material is swapped for a toon twin; with '-- nolook' FighterFace is skipped (no eyes, no scars).",
+   "gap": "No damage on the 3D faces or bodies; nothing listens to BodyLive._apply.",
+   "effort": "large"
+  },
+  {
+   "screen": "3D close-up on the big shot (1.5 s)",
+   "file": "scripts/fight3d/FightView.gd:35 (CLOSE_UP_S), scripts/fight3d/FightStage.gd:448-451, scripts/fight3d/RingCamera.gd",
+   "has": "Same as the broadcast row.",
+   "draws": "The face as built (record scars only).",
+   "gap": "The one shot where a 2-3 cm mark would read shows nothing; same hook as the broadcast row.",
+   "effort": "large"
+  },
+  {
+   "screen": "Corner minute overlay (between rounds, over the 3D corner film)",
+   "file": "scripts/fight3d/CornerOverlay.gd (_body_column 297-327, _callouts 339-346, _cutman_jobs 350-361, apply_body 375-382); card built in scripts/fight3d/FightCast.gd:103-112",
+   "has": "card[\"body_map\"] = bl.map (FightCast.gd:105), body_taken, body_round_hits, body_track; her side \"a\" only. Cuts read at CornerOverlay.gd:352 (pro corners only). closed{} is EMPTY here: BodyLive.bell (end_round) ran at the bell before the corner, and apply_body sets closed only after the pick.",
+   "draws": "The shared holo figure with band SPOTS, RoundHits words, HEAD/LIVER/RIBS close-ups with leader lines; FaceMarks on the HEAD card (her studio face, no go_live) - but cards show only while the mouse is on that place (BodyCallouts._process 226; struck() is never called here). Pro corners: cutman job buttons.",
+   "gap": "Marks only on hover; no opponent figure. Amateur corners always print 'No cut, no swollen eye: the cutman waits.' (CornerOverlay.gd:317, 326) because opts is [] when not _pro - false when she is cut or swollen.",
+   "effort": "small"
+  },
+  {
+   "screen": "3D corner film (CornerMinute) faces",
+   "file": "scripts/fight3d/CornerMinute.gd",
+   "has": "The same 3D bodies as the fight (live.map via the view).",
+   "draws": "Nothing damage-related.",
+   "gap": "Comes with the 3D face row.",
+   "effort": "small"
+  },
+  {
+   "screen": "Round page in the fight-night modal",
+   "file": "scripts/ui/modals/FightNight.gd:147-169 -> scripts/ui/RoundGraphics.gd:208-221",
+   "has": "m[\"body_map\"] only when BodyLive attached it (BodyLive.gd:34-35); BoutMarks builds a map only at the bout's end (AfterFight.book), so a words round has none.",
+   "draws": "Both boxers as the shared holo (BodyFigure.portrait_for -> BodyHolo.portrait) with band SPOTS + burn track; null (no figure) without a map.",
+   "gap": "No face marks, no cuts, no hooked lines; nothing for rounds fought in words.",
+   "effort": "small"
+  },
+  {
+   "screen": "Result page: the two hero figures",
+   "file": "scripts/ui/modals/FightNight.gd:287 and 320 (_result) -> RoundGraphics.body at HEAD 2f158e27; IN FLIGHT (uncommitted, another session editing now): scripts/ui/ResultMarks.gd (new), FightNight._marked, BodyCallouts.pin/marked + hooked line, AfterFight m[\"bodies\"]",
+   "has": "m[\"body_map\"] for EVERY bout since 2f158e27: the live map when BodyLive rang every bell (BoutMarks.seen_all), else BoutMarks.build from the settled rounds (AfterFight.gd:35-36). m[\"body_track\"] (BoutNight.gd:444-454 fills it from BoutBurn when not watched). m[\"bodies\"] only when the ring ran (BodyLive.gd:36) - the in-flight AfterFight edit adds it from Faces.pair.",
+   "draws": "At HEAD: BodyFigure via RoundGraphics.body, holo SPOTS by band, no callouts. For an unwatched bout at HEAD m.bodies is missing, portrait_for(\"\") returns {}, and the figure falls back to the DRAWN silhouette with an ellipse per place (BodyFigure._draw 224-265) - the blob look he rejected. In the working tree: ResultMarks.figure pins every sore or cut place's close-up beside the body on a hooked line (HEAD card 46 px with her studio face and FaceMarks: swell, red nose, cut), label 'LEFT EYE 30 - badly hurt, cut'.",
+   "gap": "At HEAD: no face, no cuts, blobs (and the drawn dummy for an unwatched bout). In flight: not yet committed, no still taken; shut eyes never show (closed is cleared at the last bell).",
+   "effort": "medium"
+  },
+  {
+   "screen": "Result page: WHAT THE FIGHT DID TO HER tiles (DAMAGE, TIREDNESS, LEARNED, MORALE, YOUR CORNER, RANK)",
+   "file": "scripts/rules/Aftermath.gd (damage 74-132, since commit 2f158e27); scripts/state/AfterFight.gd (book 30-40, tiles 41-61, _worst 88-98, _places 102-108); drawn by scripts/ui/AftermathTiles.gd; placed at FightNight.gd:322-323",
+   "has": "facts.places = all six of her places (BodyMap.value), facts.cuts = her cut places, facts.worst, took / took_body, referee counts, m.injury, cap before/after.",
+   "draws": "DAMAGE big: '<worst place> sore' / '<worst place> badly hurt' (any non-fine band), 'Cut' (cuts, no sore place), 'Injured' (an injury roll), 'Nothing lasting' (a map with no sore place and no cut), or 'N punches taken' (no map at all). Small line: 'Also sore: ... Cut over the left eye.' Hover: punches, counts, each sore place 'N of 100 left at the final bell', each cut, 'Marks heal on their own before the next bout. Only an injury keeps <her> out.', the stoppage cap line.",
+   "gap": "Words only (no picture link to the figure); the 'Cut' big word is unreachable in play (a cut needs a face place <= 35, which is already 'badly hurt'); the heal line is a claim with no clock behind it.",
+   "effort": "small"
+  },
+  {
+   "screen": "Result page: ribbon INJURY REPORT + 'What decided it' body-report button",
+   "file": "scripts/ui/modals/FightNight.gd:342-343 (ribbon), 233-260 (_decided, BodyFocus button)",
+   "has": "m[\"injury\"] (Injuries.line), m[\"body_report\"] / m[\"body_change\"] (BodyReport: muscle burn, not BodyMap).",
+   "draws": "Injury text in red on the ribbon; 'Train <focus> next week' button with the body-report line on its hover.",
+   "gap": "Injury in words only, no place; BodyReport (muscle burn) is easy to confuse with damage.",
+   "effort": "small"
+  },
+  {
+   "screen": "Fighter's own page, Overview (dark, default)",
+   "file": "scripts/ui/DarkOverview.gd (_boxer picture RosterCards.body 164, condition 181-201, BODY card 381-418, 'Out' note 409-410)",
+   "has": "Only what persists on the fighter: f.injury, f.week_fatigue (FighterProfile.fatigue), f.stand_down, f.last_body_report, f.durability_cap, f.ko_history. No BodyMap on the fighter.",
+   "draws": "Full-body picture, tiredness bar + rest days, BODY card: weight / 'kg to cut', fatigue word, red 'Out' note with the injury line.",
+   "gap": "No mark on her picture, no sore place; stand_down never shown; needs a per-fighter snapshot first.",
+   "effort": "medium"
+  },
+  {
+   "screen": "Fighter page, Body tab and light Overview header",
+   "file": "scripts/ui/areas/FighterPage.gd (header photo 68, _injury_rows 176-177, _photo 187-190 PromoShot.picture)",
+   "has": "Same persisted fighter keys.",
+   "draws": "Weight, class limit, diet, 'Injuries' row in red only while out; breathing head-and-shoulders PromoShot.",
+   "gap": "No damage on the photo; no sore places.",
+   "effort": "medium"
+  },
+  {
+   "screen": "Fighter card (management tabs) and the fight-camp modal's left column",
+   "file": "scripts/ui/FighterCard.gd:52-61 (HomeBoard.portrait + PromoShot.live); scripts/ui/CampSide.gd:51-59 (same face) + scripts/ui/GaugeRow.gd (LEGS / SCALE / RISK)",
+   "has": "Fighter dict (injury, fatigue, load).",
+   "draws": "Face photo, name, record, rank; on CampSide also the six stats and the LEGS/SCALE/RISK gauges.",
+   "gap": "No mark on the portrait while a place is still sore; no data after the bout to drive it.",
+   "effort": "medium"
+  },
+  {
+   "screen": "Fighters list: roster cards, table, tile",
+   "file": "scripts/ui/RosterCards.gd (body 180-187, _next 246-264), scripts/ui/RosterTable.gd, scripts/ui/FighterTile.gd:73-74",
+   "has": "Fighter dict: injury, fatigue.",
+   "draws": "Full-body / face pictures; 'Injured - Back <date>' (RosterCards.gd:263-264), condition word by fatigue (RosterTable), red OUT ring with Injuries.line (FighterTile.gd:73-74).",
+   "gap": "Words only; no mark, no place.",
+   "effort": "medium"
+  },
+  {
+   "screen": "HOME: rows, side news, next-fight matchup",
+   "file": "scripts/ui/HomeRows.gd:118-133, 212-213; scripts/ui/HomeSide.gd:35-37; scripts/ui/HomeMatch.gd:49 (missed by the first audit)",
+   "has": "f.injury (choice, until_day), results' injury text; HomeMatch has both faces (Faces.pair) for a booked bout.",
+   "draws": "Amber injury line, 'picked up an injury' news; HomeMatch: the two real faces, red and blue corner, days to fight night.",
+   "gap": "Words only; her face on HOME's matchup is clean whatever her last bout did.",
+   "effort": "small"
+  },
+  {
+   "screen": "Gym hub sprites (boxers on the floor)",
+   "file": "scripts/ui/HubFigures.gd, scripts/ui/GymFloorPeople.gd (baked strips assets/ui/art/hub_sprites)",
+   "has": "The fighter dict; the art is pre-baked PNG strips.",
+   "draws": "Baked training animations; no damage.",
+   "gap": "Not worth it at ~30 px.",
+   "effort": "large"
+  },
+  {
+   "screen": "Bout offer / versus picture / tale of the tape / fight prep / weeks strip / fight poster",
+   "file": "scripts/ui/VersusPanel.gd (tags_for 48-51, build 54+), scripts/ui/areas/BoutPage.gd:51, scripts/ui/OfferCard.gd, scripts/ui/Tape.gd, scripts/ui/TapeVersus.gd, scripts/ui/MatchupCards.gd, scripts/ui/FightPrep.gd, scripts/ui/WeekStrip.gd:152 and scripts/ui/FightPoster.gd:59 (the last two missed)",
+   "has": "Fighter + opponent dicts; her injury and fatigue; nothing of either side's bout damage.",
+   "draws": "Pictures (PromoShot / baked poses / halftone faces on the poster), tape rows, 'Shape: <fatigue word> · Mood' tag on VersusPanel. Injury not shown on these.",
+   "gap": "A boxer sore or cut from her last bout looks clean on every pre-fight picture.",
+   "effort": "medium"
+  },
+  {
+   "screen": "Live 3D shadowboxer on the versus screen (missed)",
+   "file": "scripts/ui/VersusLive.gd (made from VersusPanel.gd:82)",
+   "has": "Her body stem and corner only.",
+   "draws": "A live MetaHuman built with MHRig + kit + clips, NOT through FighterFace (no look, no scars).",
+   "gap": "A 3D damage layer put into FighterFace/BoxerBuild would not reach this view; it does not even carry the record scars.",
+   "effort": "medium"
+  },
+  {
+   "screen": "Other 3D bodies: Playbook pads, move player, tape room film (missed)",
+   "file": "scripts/fight3d/PadWork.gd (MHRig, no FighterFace), scripts/fight3d/MovePlayer.gd (FightStage/BoxerBuild), scripts/fight3d/TapeFilm.gd (FightStage; the opponent's past bouts)",
+   "has": "Her body stem; no damage data.",
+   "draws": "Her body training or the opponent's films; nothing damage-related.",
+   "gap": "Probably should stay clean (training/film), but a face layer added in BoxerBuild would also land in MovePlayer and TapeFilm - decide per view.",
+   "effort": "small"
+  },
+  {
+   "screen": "World rankings compare and ladder (missed)",
+   "file": "scripts/ui/WorldCompare.gd (faces 52, 74, 227; flags 262), scripts/ui/WorldLadder.gd:174",
+   "has": "Fighter dict; Injuries.out as a flag.",
+   "draws": "Her and the rival's faces side by side, small ladder faces; 'injured' only as a flag for the Ask/Scout logic.",
+   "gap": "No damage shown; words not even for the injury on the compare cards.",
+   "effort": "small"
+  },
+  {
+   "screen": "Training screens (week board, camp, pads)",
+   "file": "scripts/rules/PadWeek.gd:100-112 (stood_down), scripts/ui/WeekBoard.gd, scripts/ui/WeekCamp.gd:138, scripts/ui/GaugeRow.gd:69-85, 251-257, scripts/ui/modals/Camp.gd:142",
+   "has": "f.stand_down {band, damage, head, open_day} (Injuries.gd:181-182), f.injury, load ratio.",
+   "draws": "Injury-RISK pips (training load risk, not bout damage) and load rows; stand_down silently removes sparring nights. StandDown.reason is called only for one news line, and only when the band is not 'fine' (Injuries.gd:183-184); price_line / spar_anyway_roll have no UI caller.",
+   "gap": "The week never says why sparring is gone or until when; a 'fine' head still locks 5 days with no word anywhere.",
+   "effort": "small"
+  },
+  {
+   "screen": "Injury choice modal, week review, nationals 'fit to box'",
+   "file": "scripts/state/Injuries.gd (choice_modal), scripts/ui/modals/WeekReview.gd:220-225, scripts/ui/NationalsView.gd:119-130",
+   "has": "f.injury type/days/until/why.",
+   "draws": "Words: injury, fit date, cause.",
+   "gap": "No picture of where (the injury stores a type, no side or place).",
+   "effort": "small"
+  },
+  {
+   "screen": "Doctor view",
+   "file": "not found",
+   "has": "BodyMap.DOCTOR (<= 15) band and the words 'the doctor may stop it' (BodyTip/CalloutLine).",
+   "draws": "No doctor screen exists.",
+   "gap": "n/a",
+   "effort": "small"
+  }
+ ],
+ "data_model": "Baseline: commit 2f158e27 (S439 DAMAGESHOW1, 07:57 today) plus uncommitted in-flight edits by another session (scripts/ui/ResultMarks.gd new, BodyCallouts.gd, FightNight.gd, AfterFight.gd - modified 07:58-07:59 while this check ran).\nBodyMap (scripts/rules/BodyMap.gd, pure): PLACES head, left_eye, right_eye, nose, left_ribs, right_ribs (5); FACE_PLACES eyes + nose (6). fresh() 27-34 = {a/b: {places 100 each, cuts, relief, closed}}. Bands band() 124-131: fine > 55, hurt 35-55, critical 15-35, doctor <= 15. Hits _punch_hits 46-80: FACE_HIT 1.15 to nose or an eye + HEAD_HIT 0.575 (x1.5 hooks/uppercuts); body_hook RIB_HIT 3.1 to one rib side (defender's liver side 60%); big x2. add_beats 83-112: an open (not closed) cut takes x1.5; a face place reaching <= 35 gets cuts[place]=true for the rest of the bout - so every cut is on a place already 'badly hurt'. corner() 177-199: enswell lifts an eye to the next band via relief, 'cut' sets closed for every cut, ice adds rib relief. end_round() 202-205 clears relief and closed. value() 115-121 = place + relief, max 100.\nend_round runs at EVERY bell including the last: FightView._bell 404 and skip_round 477 call BodyLive.bell, and BoutMarks.build calls it per round. So on the result page relief and closed are always empty: values are the raw places, cuts are all open, and no eye is 'closed'.\nWhere the map lives: BodyLive (fight3d/BodyLive.gd:16), attached by FightHud.gd:29; attach() shares it as main.modal[\"body_map\"] and modal[\"bodies\"] (34-36); bell() counts modal[\"body_bells\"] (134-135, new). FightCast copies it to the corner card (105). NEW in 2f158e27: AfterFight.book (30-40) replaces m.body_map with BoutMarks.build(c, f, m) whenever BoutMarks.seen_all(m) is false (no map, or fewer bells than rounds: Skip bout, a words bout, headless) - the settled rounds' exchanges -> ExchangeBeats.build (seed c.day*97+n) -> add_beats, no corner work replayed. So every bout's result has a map; round pages before the end still have none for unwatched rounds. m.bodies is set only by BodyLive; the in-flight AfterFight edit fills it from Faces.pair for unwatched bouts.\nWords per level, five sets now: BodyTip.BAND_WORDS (BodyTip.gd:15), CalloutLine HEAD_WORDS / BODY_WORDS (CalloutLine.gd:17-19), Aftermath 'sore' / 'badly hurt' with PLACE_WORDS (Aftermath.gd:13-14, 103-112), and the in-flight ResultMarks WORD fine/sore/badly hurt with PLACE labels where right_ribs = 'LIVER' and left_ribs = 'RIBS' (ResultMarks.gd PLACE/WORD) while Aftermath says 'Right ribs'.\nBodyReport (rules/BodyReport.gd) is muscle burn, not damage; BoutNight._finish 439-456 stores m.body_report, m.body_change and f.last_body_report.\nWhat persists on the fighter (BoutNight._finish 326-459; order: ... body report 439-456, Injuries.after_bout 457, AfterFight.book 458): f.injury {type cut|nose|head|hand|ribs|ko, days_out, until_day, choice, why} until Injuries.day_tick clears it (230-239), no side or place; f.stand_down {band, damage, head, open_day} from the FIGHT MODEL's m.damage.a (StandDown.head_place = 100 - dmg x 2.2; fine >= 55, unlike BodyMap's > 55), {} after a stoppage loss; f.ko_history (+day on a stoppage loss); f.durability_cap lowered by Attrs.wear_stoppage (BoutNight.gd:371); f.week_fatigue = Aftermath.toll (AfterFight.gd:34); f.last_body_report; record, morale, rank. Nothing of BodyMap (places, cuts) is written to f or the Career: grep finds no f[\"body_map\"]; BoutMarks writes only m. The injury roll (Injuries.gd:186-194) reads head from m.damage and eyes/nose/ribs from m.body_map - but it runs BEFORE AfterFight.book, so for an unwatched bout it sees head only.\nWhat the result page is handed (m = main.modal): body_map (always since 2f158e27), body_bells, bodies (watched; in flight: always), body_track, body_report, body_change, injury, damage, rounds, stopped, outcome, cards, why, rank_words, aftermath (six tile dicts), members_lost, tickets/gym_cut/club_cut, ladder.",
+ "face_marks": "2D: scripts/ui/FaceMarks.gd, pure vector drawing on a CanvasItem, no textures. marks(vals, side, at) 43-60 uses the three face places only: 'shut' when side.closed[eye] (dark oval + slit), else 'swell' when the eye <= 55 (k = (55-v)/55 + 0.35, clamped 0.35..1; three squashed purple circles), 'cut' on the brow (at + BROW) when side.cuts[eye] - drawn even when that cut is closed - a red 'nose' circle when nose <= 55, a nose 'cut' when cuts.nose (the nose cut ignores closed). Positions in close-up radii: fixed AT (14) or layout() 27-40 from assets/ui/face/promo_face.json via BodyHolo._face_uv. The face under the marks is BodyHolo.portrait's 'face' = assets/ui/face/<stem>.jpg, the studio photo the json was measured on - so the close-up and its marks agree; the risk is only for menu portraits (PromoShot default ui_art 'b', the comic repaint, with a breathing sway).\nCallers: only BodyCallouts._draw_card (HEAD card, skipped when live_pop). Live round: off (BodyPanels go_live). Corner overlay: on, but only while the mouse is on her head, and 'shut' never shows there (closed is empty until apply_body runs after the pick). Result page: at HEAD none; in the working tree ResultMarks.figure attaches BodyCallouts, passes map[side] as marks and calls pin(46), so the HEAD card stays out with swell / red nose / cut for each boxer whose face place is sore or cut ('shut' never, closed is cleared at the last bell). The BodyFigure on all these pages is the SHARED holo figure (BodyFigure.portrait_for -> BodyHolo.portrait when BodyHolo.has()), so only the HEAD card is really her.\n3D hooks on the MetaHuman: (a) Decals on the head bone, as FighterFace._scars (149-174) does for record scars: BoneAttachment3D 'FighterScars' on 'Head', a rest-space Node3D, one Decal per spot (procedural _scar texture 177-192, cull_mask 1). SCAR_AT (12-18) has measured brow_l, brow_r, cheek_l, cheek_r, nose positions (rest space, metres, eyes y 1.587, x +-0.0305) - brow and nose match BodyMap's cut places; eye swelling would need new spots under each eye. Decals project over both art modes. (b) Skin: the face is its own surface MH_Skin_Head (MHRig.gd:100) with its own mh_skin ShaderMaterial per body (MHRig.gd:165-173); mh_skin.gdshader has tint, sheen (sweat), roughness etc. but no bruise or mask uniform, and with art=toon ArtStyle._twin (135-165) replaces it with a toon material, so a bruise uniform must go in both shaders. (c) Eyes: every MH_Eye surface gets a fresh ShaderMaterial on assets/shaders/mh_eye.gdshader with the fighter's one 'lid' value (FighterFace.gd:89-98; uniform 'lid' 0 wide..1 shut at line 11, plus 'blink'); FighterLife drives only 'blink' (FighterLife.gd:195). Whether the left and right eye are separate surfaces (needed to close one eye) is not verified. The materials come back as face[\"eyes\"] (BoxerBuild.gd:51, 179). (d) Reach: BodyLive._apply (56-85) is the per-punch moment; FighterFace.apply is skipped with '-- nolook'; VersusLive and PadWork build bodies through MHRig without FighterFace, so a FighterFace-based layer would not reach them. No damage textures exist.",
+ "result_page": "Built by FightNight._result (scripts/ui/modals/FightNight.gd:263-357 at HEAD): 'THE RESULT' header, a hero row with her figure (287), the winner, method, judges' cards or 'Stopped in round n', MatchStats strip and bars, and the opponent's figure (320); the aftermath row (322-323, AftermathTiles.build: big word, a 2-line small line, the rest in the tile's tooltip); WhyCard (325); 'What decided it' with the body-report focus button (_decided 233-260); the ribbon (ticket cut or purse, members, INJURY REPORT when m.injury, 327-344); 'The plan, lit up'; Back home. Tiles come from Aftermath.tiles (55-57): DAMAGE, TIREDNESS, LEARNED, MORALE, YOUR CORNER, RANK (RANK dropped for a pro, AfterFight.gd:59-60), computed in BoutNight._finish -> AfterFight.book after Injuries.after_bout.\n'Nothing lasting' (Aftermath.gd:98, commit 2f158e27): the DAMAGE tile's starting text ONLY when facts.places is non-empty (the bout has a map); with no map it starts as '<N> punches taken' (tone flat). It is then replaced by '<worst place> sore' / '<worst place> badly hurt' when any of her six places is out of the fine band (<= 55), by 'Cut' when a face place is cut and none is sore (unreachable in play: a cut needs <= 35), and by 'Injured' when m.injury is set (always on a stoppage loss: InjuryRoll gives a 'ko' suspension). So it is false only when she ends with every place above 55 and no cut and no injury. Since 2f158e27 every bout has a map (BoutMarks for a skipped, words or headless bout; the live map only when BodyLive rang every bell), and the relief question is settled: the last bell's end_round clears relief and closed before the page. The tile now lists every sore place (worst first) and every cut, and its hover says 'Marks heal on their own before the next bout. Only an injury keeps <her> out.' - still nothing of the map is kept on the fighter, so 'lasting' / 'heal' is a statement with no stored state or clock behind it.\nHero figures: at HEAD RoundGraphics.body (shared holo + band SPOTS, no callouts); for an unwatched bout at HEAD m.bodies is missing, so the figure is BodyFigure's drawn fallback silhouette with an ellipse per place. In the working tree (uncommitted): ResultMarks.figure + BodyCallouts.pin give both figures pinned close-ups on hooked lines (HEAD 46 px with her face and FaceMarks, LIVER, RIBS) for every sore or cut place, and AfterFight fills m.bodies from Faces.pair.",
+ "traps": [
+  "The first audit described a tree that changed under it: commit 2f158e27 (07:57 today) rewrote Aftermath.damage, added BoutMarks and body_bells, and another session is editing BodyCallouts.gd, FightNight.gd, AfterFight.gd and a new ResultMarks.gd right now. Name the commit in any audit; BodyCallouts line numbers moved by about 25 lines during this check.",
+  "WRONG in the first audit: 'Nothing lasting for any bout fought without the 3D view'. Since 2f158e27 a bout with no map says '<N> punches taken', and AfterFight.book builds the map from the settled rounds (BoutMarks) for every skipped, words or headless bout, so the result always has a map.",
+  "WRONG: 'the tile ignores cuts, names one place'. Aftermath.damage now reads facts.cuts and facts.places (AfterFight.gd:49-50), lists every sore place worst first and every cut. Its 'Cut' big word cannot happen in play: a cut is set only when a face place reaches <= 35, which is already 'badly hurt'.",
+  "RESOLVED, not 'not verified': relief at the final bell. FightView._bell (404) and skip_round (477) call BodyLive.bell after every round including the last, and BoutMarks calls end_round per round, so relief and closed are empty on the result page. Corollary: FaceMarks' 'shut' eye never shows there, nor on the corner card before the pick.",
+  "RESOLVED: the face is its own skin surface, MH_Skin_Head (MHRig.gd:100), with its own ShaderMaterial per body. MISSED: art=toon (ArtStyle._twin) swaps that material for a toon one, so a bruise uniform needs both shaders; decals work in both modes. '-- nolook' skips FighterFace entirely.",
+  "MISSED: the figures on the round page, corner card and result page are the SHARED holo (BodyFigure.portrait_for -> BodyHolo.portrait), not her body; only the HEAD close-up is her (the studio jpg that promo_face.json was measured on).",
+  "DEFECT at HEAD 2f158e27: an unwatched bout now has a map but no m.bodies, so portrait_for(\"\") returns {} and the result figure is BodyFigure's drawn dummy with an ellipse per place - the rejected blob look. The in-flight AfterFight edit (m.bodies from Faces.pair) fixes it; check it lands.",
+  "ORDER TRAP: BoutNight._finish calls Injuries.after_bout (457) BEFORE AfterFight.book (458). For an unwatched bout the injury roll sees no body map (head only, from m.damage), while the tile then shows 'Left ribs badly hurt' from BoutMarks - the page can show badly hurt ribs that never had a rib-injury chance.",
+  "MISSED screens: FightPoster (both faces), HomeMatch (HOME's two faces), CampSide (fight-camp face), WeekStrip (opponent face), WorldCompare / WorldLadder (faces), and the 3D bodies of VersusLive (versus screen), PadWork, MovePlayer, TapeFilm. VersusLive and PadWork use MHRig without FighterFace, so a damage layer placed in FighterFace would not reach them (VersusLive has no record scars either).",
+  "Still true: nothing of BodyMap persists; BoutMarks writes m only. A portrait-afterwards mark needs a per-fighter snapshot, and the new hover line 'Marks heal on their own before the next bout' has no clock behind it - do not invent a healing rate under 'Stop, show damage'; reuse f.injury.until_day or f.stand_down.open_day or ask.",
+  "Two head numbers: BodyMap's head place versus the fight model's m.damage.a that drives StandDown and the injury roll's head. StandDown also cuts at head >= 55 = fine while BodyMap calls 55 'hurt', and a 'fine' head still locks 5 days of sparring with no news line (the line fires only when band != 'fine').",
+  "CornerOverlay prints 'No cut, no swollen eye: the cutman waits.' for EVERY amateur corner (opts is [] when not _pro, CornerOverlay.gd:317, 326) - a seen false statement when she is cut or swollen; fix under the 'fix a seen defect now' rule.",
+  "Five word sets now for the same bands: BodyTip, CalloutLine head/body, Aftermath ('Right ribs badly hurt') and the in-flight ResultMarks ('LIVER 30 - badly hurt' for the same right_ribs). The tile and the pinned card under it can name the same place differently.",
+  "FaceMarks draws a brow cut even when the cutman closed it (closed only changes the eye to 'shut'), and a nose cut ignores closed. Porting marks() to 3D as-is keeps that.",
+  "Live-round face marks are off on purpose (go_live: brain card, S405 look); turning them on changes an approved look.",
+  "f.injury stores a type but no side or place: a 'cut' injury cannot be put on the right brow from saved data.",
+  "File sizes were understated: BodyCallouts.gd is 376 lines in the working tree, FightNight.gd 392, CornerOverlay.gd 401 (first audit: ~340, ~360, ~390). New drawing goes in a new small file (as ResultMarks does).",
+  "3D decals are 2-3 cm at SCAR_AT and the broadcast camera is far: they will read mostly on the 1.5 s close-up and the corner film. The 3D view never decides: it reads BodyLive's map, never changes it.",
+  "His S437 rule (hooked line out of the body, never blobs on the chest): at HEAD the round, corner and result figures still use the skin SPOT tint, and the unwatched result uses drawn ellipses; the in-flight pinned hooked lines answer it only on the result page."
+ ]
+}
