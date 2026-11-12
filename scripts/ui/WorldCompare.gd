@@ -299,7 +299,7 @@ static func key_panel() -> Control:
 	flow.custom_minimum_size = Vector2(480, 0)
 	for it in [["champion", "Champion", UI.GOLD], ["challenger", "Challenger", UI.RED], ["next_opp", "Next opponent", UI.RED],
 			["booked", "Booked", UI.GOLD], ["camp", "In camp", WoodKit.INK], ["injured", "Injured", UI.RED], ["offer", "Offer waiting", UI.AMBER],
-			["contract", "Contract talks", WoodKit.INK], ["free", "Free", WoodKit.SOFT], ["leaving", "Leaving", UI.AMBER], ["retiring", "Retiring", WoodKit.SOFT],
+			["contract", "Contract talks", WoodKit.INK], ["free", "Free", WoodKit.SOFT], ["leaving", "Leaving", UI.AMBER], ["retiring", "Retiring", WoodKit.SOFT], ["new_face", "New face", UI.GREEN],
 			["scouted", "Scouted", UI.GREEN], ["unscouted", "Not scouted", WoodKit.SOFT], ["up", "Rising", UI.GREEN], ["down", "Falling", UI.RED],
 			["hands", "Stoppages", WoodKit.INK], ["warn", "Not built yet", Color("ffd54a")]]:
 		var cell := UI.hbox(4)

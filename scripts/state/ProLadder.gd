@@ -15,6 +15,7 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const BoutRead := preload("res://scripts/rules/BoutRead.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
+const WorldNews := preload("res://scripts/world/WorldNews.gd")
 
 ## A pro has fought on television: the best weapon is public tape. The weakness takes a scout.
 const PUBLIC_TAPE := ["weapon"]
@@ -124,7 +125,7 @@ static func day_events(c: Career) -> void:
 		if c.day % MONTH_DAYS == 0:
 			WS.simulate_month(c.world["divisions"], _rng(c, "month"))
 		if c.day % YEAR_DAYS == 0:
-			WS.year_end(c.world["divisions"], _rng(c, "year"))
+			year_end(c)
 	for f in c.fighters:
 		if not on_ladder(c, f) or not (f["bout"] as Dictionary).is_empty():
 			continue
@@ -135,6 +136,31 @@ static func day_events(c: Career) -> void:
 			c.add_news("%s's offers lapsed: the promoter will call again next week." % f["first"])
 		elif offers.is_empty() and c.day >= int(f.get("pro_next", 0)):
 			_make_offers(c, f)
+
+
+## S443 R85 a living world, shown: the year end (WorldSim.year_end) becomes World > News lines (WorldNews: who retired,
+## who was crowned, who arrived; the gym's own divisions first), one Mail line, and a "new face" mark on the tables for a
+## year (until the next year end). The snapshot is taken BEFORE year_end, which clears a retiree's belt and rank.
+static func year_end(c: Career) -> Dictionary:
+	var divs: Dictionary = c.world["divisions"]
+	var before := WorldNews.snapshot(divs)
+	var res: Dictionary = WS.year_end(divs, _rng(c, "year"))
+	var follow: Array = []
+	for f in c.fighters:
+		if on_ladder(c, f) and not follow.has(division_for(f, c.world)):
+			follow.append(division_for(f, c.world))
+	var lines := WorldNews.lines(before, res, divs, follow)
+	for i in range(lines.size() - 1, -1, -1):   # add_news puts each on top: the most important line ends first
+		c.add_news(str(lines[i]["t"]), false)
+	var marks := WorldNews.marks(res, c.day)
+	for d in divs:
+		for b in divs[d]["boxers"]:
+			b["new_face"] = WorldNews.mark_of(marks, int(b.get("id", 0)), c.day) == "new face"
+	c.world["marks"] = marks
+	if not lines.is_empty():
+		c.add_news("The pro year closes: %d retired, %d new faces, %d vacant titles filled. The names are on World > News." % [
+			(res["retired"] as Array).size(), (res["arrived"] as Array).size(), (res["crowned"] as Array).size()])
+	return res
 
 
 ## S397 (operator "Offers that trade off"): the promoter's three offers are built to pull different ways, read on the

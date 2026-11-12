@@ -487,7 +487,7 @@ static func _w(n: Control, width: int) -> Control:
 static func _mark_col(id: String) -> Color:
 	if id == "champion":
 		return UI.GOLD
-	if id == "up":
+	if id == "up" or id == "new_face":
 		return UI.GREEN
 	return UI.RED
 

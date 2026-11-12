@@ -202,7 +202,7 @@ func _test_cards() -> void:
 	# card reasons: the ring judge's card moved 1 point by clean (R1) and 1 by ring (R3): the tie goes to the lean.
 	_check(Judges.card_reason(mixed, 0) == "Ring: Lucy kept the fight in the pocket, 4 exchanges (round 3)",
 		"ring card reason: %s" % Judges.card_reason(mixed, 0))
-	_check(Judges.card_reason(mixed, 1) == "Clean: Priya landed 11 to 8 (rounds 2, 3)", "clean card reason: %s" % Judges.card_reason(mixed, 1))
+	_check(Judges.card_reason(mixed, 1) == "Clean: Priya landed more in rounds 2 and 3.", "clean card reason: %s" % Judges.card_reason(mixed, 1))
 
 
 func _test_majority_and_draw() -> void:

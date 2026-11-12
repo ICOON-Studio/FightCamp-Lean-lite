@@ -103,6 +103,7 @@ func _result_path() -> void:
 	root.add_child(desk)
 	var night := FightNight.new()
 	root.add_child(night)
+	m["night_seen"] = true   # S442 the headline card comes first; See the fight opens the result page (HeadlineCard)
 	night.build(desk, m)
 	var why: Label = night.find_child("WhyRank", true, false) as Label
 	var tile: Node = night.find_child("After_rank", true, false)

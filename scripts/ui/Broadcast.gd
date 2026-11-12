@@ -258,6 +258,9 @@ static func _rect(c: Color, ratio: float, min_size: Vector2 = Vector2.ZERO) -> C
 ## Each judge's rounds as won (true = hers), following BoutRules.scorecards: two judges score every round to its winner;
 ## the third gives the closest round of the majority the other way (as RoundGraphics.judges reads it).
 static func judge_rounds(all: Array, cards: Array) -> Array:
+	# S443 R29: the judges' own round scores (JudgeNight puts them on each round) when the bout was judged.
+	if not all.is_empty() and all.all(func(r): return (r as Dictionary).has("judges")):
+		return range(cards.size()).map(func(j): return all.map(func(r): return int(r["judges"][j]["a"]) > int(r["judges"][j]["b"])))
 	var won: Array = all.map(func(r): return bool(r["won"]))
 	# S440: the same round BoutRules.cards_of flips (the closest 3-3 round), so judge 3's chips add up to his card.
 	var flip := BoutRules.flip_round(all) if cards.size() >= 3 and str(cards[2]) != str(cards[0]) else -1

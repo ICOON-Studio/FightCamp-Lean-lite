@@ -40,6 +40,7 @@ const PeakCamp := preload("res://scripts/rules/PeakCamp.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
 const CornerTrust := preload("res://scripts/rules/CornerTrust.gd")
 const AfterFight := preload("res://scripts/state/AfterFight.gd")
+const JudgeNight := preload("res://scripts/state/JudgeNight.gd")
 const NOTES_PATH := "res://assets/data/fight_habits.json"
 
 static var _notes_bank: Dictionary = {}
@@ -66,6 +67,7 @@ static func fight_step(c: Career, f: Dictionary, m: Dictionary, a: String) -> vo
 		m["round"] = 0
 		m["rounds"] = []
 		_peak(c, f)
+		m["lab_from"] = f.duplicate(true)   # S443 the boxer at the first bell: the result page's measured fix replays her (FixLab)
 		_open(c, f, m, "")
 	elif a.begins_with("corner:") and not stopped(m) and LiveRound.live(m).is_empty():
 		# S309: "corner:<call>|<habit>" also fixes one habit for the round. S310 the other corner jobs ride as labelled
@@ -124,7 +126,7 @@ static func _box_out(c: Career, f: Dictionary, m: Dictionary) -> void:
 static func outcome_of(f: Dictionary, m: Dictionary) -> String:
 	var rounds: Array = m["rounds"]
 	var won := rounds.filter(func(r): return bool(r["won"])).size()
-	var outcome := BoutRules.verdict(BoutRules.cards_of(rounds))   # S440: same verdict, honest split/unanimous
+	var outcome := BoutRules.verdict(JudgeNight.cards(f, m))   # S443 R29: the judges, stored; deciding only when switched on
 	if stopped(m) != "":
 		outcome = "loss" if str((rounds[-1] as Dictionary)["down"]) == "a" else "win"
 	if outcome == "draw" and f["bout"].has("champ"):
@@ -331,7 +333,7 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	var rounds: Array = m["rounds"]
 	var won := rounds.filter(func(r): return bool(r["won"])).size()
 	var pro := bool(f["bout"].get("pro", false))
-	var cards := BoutRules.cards_of(rounds)   # S440: the third judge differs only on a close round
+	var cards := JudgeNight.cards(f, m)   # S443 R29: m["judges"] always; their cards only when JudgeNight.decides()
 	var stop := stopped(m)
 	m["stopped"] = stop
 	var before := AfterFight.snap(c, f, opp)   # S430 the result page's "what the fight did" tiles read the change

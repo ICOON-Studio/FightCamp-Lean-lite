@@ -153,6 +153,8 @@ static func marks(boxer: Dictionary, challenger_id: int, next_name: String) -> A
 		out.append("champion")
 	elif challenger_id >= 0 and int(boxer.get("id", -1)) == challenger_id and not bool(boxer.get("player", false)):
 		out.append("challenger")
+	if bool(boxer.get("new_face", false)):   # S443 R85: arrived at the last year end (ProLadder.year_end, WorldNews.marks)
+		out.append("new_face")
 	return out
 
 

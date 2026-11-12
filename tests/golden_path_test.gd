@@ -22,6 +22,8 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const ProDebut := preload("res://scripts/rules/ProDebut.gd")
 const UI := preload("res://scripts/ui/UI.gd")
+const ProLadder := preload("res://scripts/state/ProLadder.gd")
+const JudgeNight := preload("res://scripts/state/JudgeNight.gd")
 
 var failures := 0
 var main: Node
@@ -34,6 +36,31 @@ func _initialize() -> void:
 	await _play()
 	print("GOLDEN_PATH failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
+
+
+## S443 R29: every judged bout keeps three judges (JudgeNight) with a lean each, each card its rounds' sum, reasons; while
+## they do not decide (S443 HOLD until JUDGES1) the result's cards stay BoutRules.cards_of and the page hides JudgeCards.
+func _judged(m: Dictionary) -> void:
+	var j: Dictionary = m.get("judges", {})
+	_check(not j.is_empty() and (j["leans"] as Array).size() == 3, "the bout was judged by three judges with a lean each: %s" % str(j.get("leans", [])))
+	if j.is_empty():
+		return
+	var ok := true
+	for k in 3:
+		var a := 0
+		var b := 0
+		for row in j["by_round"]:
+			a += int(row[k]["a"])
+			b += int(row[k]["b"])
+		ok = ok and j["cards"][k] == [a, b]
+	_check(ok, "each judge's card adds up its rounds: %s" % str(j["cards"]))
+	var deciding := bool(j.get("decides", false))
+	_check(deciding == JudgeNight.decides() and (deciding or m["cards"] == BoutRules.cards_of(m["rounds"])),
+		"while the judges do not decide, the result keeps today's cards: %s" % str(m["cards"]))
+	var reason_ok := (j["reasons"] as Array).filter(func(t): return str(t) != "").size() >= 2
+	_check(reason_ok, "at least two cards carry a reason: %s" % str(j["reasons"]))
+	_check(str(m["outcome"]) == BoutRules.verdict(m["cards"]) or str(m.get("stopped", "")) != "", "the verdict follows the judges' cards")
+	print("  judges: %s %s, %s" % [str(j["verdict"]), str(j["leans"]), str(j["reasons"])])
 
 
 func _check(ok: bool, label: String) -> void:
@@ -237,6 +264,7 @@ func _week_two(c: Career) -> void:
 	_check(_modal_button("BackHome") == null, "the headline card before the result page")
 	_press(_modal_button("HeadlineGo"), "the headline card: See the fight")
 	_check(main.modal.get("step", "") == "result" and (main.modal.get("cards", []) as Array).size() == 3, "the result shows three scorecards")
+	_judged(main.modal)
 	var win := bool(main.modal.get("win", false))
 	print("  bout: %s, rounds %s, why %s" % ["WIN" if win else "LOSS",
 		str((main.modal["rounds"] as Array).map(func(r): return r["won"])), str(main.modal.get("why", []))])
@@ -548,6 +576,8 @@ func _week_four(c: Career) -> void:
 	_press(_modal_button("Scorecards"), "To the scorecards")
 	_press(_modal_button("HeadlineGo"), "the debut's headline card: See the fight")
 	print("  pro debut: %s, %s" % [main.modal.get("outcome", "?"), ", ".join(main.modal.get("cards", []))])
+	if stopped_in == "":
+		_judged(main.modal)
 	_check(int(lucy.get("pro_w", 0)) + int(lucy.get("pro_l", 0)) + int(lucy.get("pro_d", 0)) == 1 and int(lucy["w"]) == 9,
 		"a pro record of one bout; the amateur record stays 9-%d" % lucy["l"])
 	_check(c.ledger.any(func(e): return str(e["t"]).begins_with("Debut tickets") and int(e["amount"]) == debut_gym),
@@ -555,4 +585,13 @@ func _week_four(c: Career) -> void:
 	_check(not c.ledger.any(func(e): return str(e["t"]).begins_with("Purse share")), "no flat purse on the debut")
 	_press(_modal_button("BackHome"), "Back home")
 	_check(c.news.any(func(x): return str(x["t"]).contains("turns pro")), "the news: she turns pro")
+	# S443 R85: the pro year end becomes World > News (the names) and one Mail line; arrivals carry the new-face mark.
+	var ye := ProLadder.year_end(c)
+	var told := c.news.filter(func(x): return not bool(x.get("own", true))).map(func(x): return str(x["t"]))
+	var named: Array = (ye["arrived"] as Array).filter(func(b): return told.any(func(t): return t.contains(str(b["name"]))))
+	_check(not named.is_empty() and c.news.any(func(x): return str(x["t"]).begins_with("The pro year closes")),
+		"the year end is news: %d arrivals, %d named on World > News" % [(ye["arrived"] as Array).size(), named.size()])
+	_check((ye["arrived"] as Array).all(func(b): return bool(b.get("new_face", false))), "every arrival carries the new-face mark")
+	main.act("go", "world:0")
+	_check(main._shell.find_child("NewsCols", true, false) != null, "WORLD > News draws the year's lines")
 	_check(c.cash > cash - 5000, "the money holds through week 4 (%d)" % c.cash)

@@ -153,6 +153,15 @@ static func act(main: Node, name: String, arg: String) -> bool:
 			who(main, parts[0])["focus"] = parts[1]
 			who(main, parts[0]).erase("week_plan")
 			main.open_modal(main.modal)   # S327 the result page redraws: the button reads "Training ... next week"
+		"planfix":   # S443 the result page's measured fix (FixLab) written into her plan; the Playbook can still change any line
+			var pf := who(main, arg)
+			var lab: Dictionary = main.modal.get("fixlab", {})
+			var best := str(lab.get("best", ""))
+			if best != "":
+				pf["arrows"] = ((lab["changes"] as Dictionary)[best]["arrows"] as Array).duplicate(true)
+				main.modal["fix_done"] = true
+				main.toast("The fix is in %s's plan (Playbook)." % pf["first"])
+			main.open_modal(main.modal)
 		"injurychoice":
 			main.open_modal(Injuries.choice_modal(c, who(main, arg)))
 		"pullout", "fighthurt":

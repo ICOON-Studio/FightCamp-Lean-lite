@@ -231,12 +231,12 @@ static func cards(rounds: Array, leans: Array, pro: bool, names: Array) -> Dicti
 		else:
 			verdict = "split"
 	# 1-0 with two level cards is a majority DRAW: verdict "draw", no winner.
-	return {"cards": totals, "by_round": by_round, "running": running, "verdict": verdict, "winner": winner}
+	return {"cards": totals, "by_round": by_round, "running": running, "verdict": verdict, "winner": winner, "names": names.duplicate()}
 
 
 ## The ONE reason for judge j's card (c = cards()): the part that moved most points to that card's winner over the rounds
-## it gave them (a tie goes to the judge's lean, then the earlier round), said with the round where it moved most and the
-## rounds it decided. "" for a level card.
+## it gave them (a tie goes to the judge's lean, then the earlier round). One round: that round's reason and its number;
+## several: the part in words over those rounds (one round's numbers would read as the total). "" for a level card.
 static func card_reason(c: Dictionary, judge: int) -> String:
 	var tot: Array = (c.get("cards", []) as Array)[judge] if judge < (c.get("cards", []) as Array).size() else [0, 0]
 	if int(tot[0]) == int(tot[1]):
@@ -268,5 +268,26 @@ static func card_reason(c: Dictionary, judge: int) -> String:
 	if pick == "":
 		return ""
 	var rs: Array = rounds_of[pick]
-	var where := "round %d" % int(rs[0]) if rs.size() == 1 else "rounds " + ", ".join(rs.map(func(x): return str(x)))
-	return "%s (%s)" % [str(best_round[pick]).trim_suffix("."), where]
+	if rs.size() == 1:
+		return "%s (round %d)" % [str(best_round[pick]).trim_suffix("."), int(rs[0])]
+	var nums: Array = rs.map(func(x): return str(x))
+	var where := "rounds %s and %s" % [", ".join(nums.slice(0, nums.size() - 1)), nums[-1]]
+	var names: Array = c.get("names", [])
+	var who := _name(names, 0 if side == "a" else 1)
+	var other := _name(names, 1 if side == "a" else 0)
+	match pick:
+		"clean":
+			return "Clean: %s landed more in %s." % [who, where]
+		"big":
+			return "Big shots: %s landed the bigger punches in %s." % [who, where]
+		"ring":
+			return "Ring: %s kept the fight at the distance %s wanted in %s." % [who, who, where]
+		"initiative":
+			return "Initiative: %s came forward and won the exchanges in %s." % [who, where]
+		"work":
+			return "Work: %s set the busier pace in %s." % [who, where]
+		"count":
+			return "Count: %s took counts in %s." % [other, where]
+		"last":
+			return "Even rounds: %s won the last exchange in %s." % [who, where]
+	return "%s won %s." % [who, where]

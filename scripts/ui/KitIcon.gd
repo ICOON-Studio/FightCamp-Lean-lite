@@ -27,6 +27,7 @@ const ICONS := {
 	"coach": ["<circle cx=\"12\" cy=\"6\" r=\"4\"/><path d=\"M5 22v-3a7 7 0 0 1 14 0v3M9 14l3 4 3-4\"/>", "Coach"],
 	"champion": ["<path d=\"M3 18h18L19 7l-4 4-3-7-3 7-4-4zM4 21h16\"/>", "Champion"],
 	"challenger": ["<path d=\"M4 21v-5h5v-5h5V6h6\"/><path d=\"M17 3l3 3-3 3\"/>", "Next in line for the title"],
+	"new_face": ["<path d=\"M12 2l2.200 6.800H21l-5.500 4 2.100 6.700L12 15.400 6.400 19.500l2.100-6.700L3 8.800h6.800z\"/><path d=\"M19 2v4M17 4h4\"/>", "New face: arrived on the table this year"],
 	"next_opp": ["<path d=\"M5 5l14 14M19 5 5 19\"/><circle cx=\"5\" cy=\"5\" r=\"2\"/><circle cx=\"19\" cy=\"5\" r=\"2\"/>", "Your next opponent"],
 	"scouted": ["<path d=\"M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>", "Scouted: part of this fighter is known"],
 	"unscouted": ["<path d=\"M3 3l18 18M10.600 5.200A10 10 0 0 1 22 12a14 14 0 0 1-3 3.800M6.300 6.800A14 14 0 0 0 2 12s4 7 10 7c1.500 0 2.900-.4 4.100-1\"/>", "Not scouted"],

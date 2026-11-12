@@ -3,13 +3,8 @@ extends PanelContainer
 ## decided it. Bouts.fight_step moves it on; this draws whichever step the moment is at.
 
 const RoundGraphics := preload("res://scripts/ui/RoundGraphics.gd")
-const FightStats := preload("res://scripts/rules/FightStats.gd")
-const MatchStats := preload("res://scripts/ui/MatchStats.gd")
-const AftermathTiles := preload("res://scripts/ui/AftermathTiles.gd")
 const Broadcast := preload("res://scripts/ui/Broadcast.gd")
-const WhyCard := preload("res://scripts/ui/WhyCard.gd")
 const UI := preload("res://scripts/ui/UI.gd")
-const Data := preload("res://scripts/state/Data.gd")
 const TapeVersus := preload("res://scripts/ui/TapeVersus.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
@@ -23,10 +18,10 @@ const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const FightFlow := preload("res://scripts/rules/FightFlow.gd")
 const FlowView := preload("res://scripts/ui/FlowView.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
-const ResultMarks := preload("res://scripts/ui/ResultMarks.gd")
 const ShoutBar := preload("res://scripts/fight3d/ShoutBar.gd")
 const FightVoice := preload("res://scripts/audio/FightVoice.gd")
 const HeadlineCard := preload("res://scripts/ui/modals/HeadlineCard.gd")
+const ResultPage := preload("res://scripts/ui/ResultPage.gd")
 
 
 func build(main: Node, m: Dictionary) -> void:
@@ -252,141 +247,28 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		v.add_child(foot)
 
 
-## S430 the page ran off a 1080 screen once the fight's numbers and the tiles were on it (the money line and Back home were
-## cut): what decided it is one row of gold words, each with its sentence on the hover, and the body report keeps its one
-## action (train the part that went first) at the end of that row.
-func _decided(main: Node, m: Dictionary, why: Array) -> HBoxContainer:
-	var row := UI.hbox(22)
-	row.name = "Decided"
-	row.add_child(UI.caps("WHAT DECIDED IT"))
-	for line in why:
-		var text := str(line)
-		var title := "Why"
-		if text.contains(": "):
-			title = text.get_slice(": ", 0).trim_prefix("The ").capitalize()
-		elif text.begins_with("Your corner call"):
-			title = "Your corner"
-		var word := UI.label(title, 20, UI.GOLD, "bold")
-		word.mouse_filter = Control.MOUSE_FILTER_PASS
-		word.tooltip_text = text
-		row.add_child(word)
-	row.add_child(UI.spacer())
-	var rep: Dictionary = m.get("body_report", {})
-	var focus := str(rep.get("focus", ""))
-	if focus != "":
-		var f: Dictionary = main.career.fighter_by_id(str(m["fid"]))
-		var set_now := str(f.get("focus", "")) == focus
-		var btn := UI.button(("Training %s next week" if set_now else "Train %s next week") % str(Data.LABEL.get(focus, focus)).to_lower(),
-			"Btn", main.act.bind("bodyfocus", "%s|%s" % [m["fid"], focus]), set_now, "Already set as next week's focus" if set_now else "")
-		btn.name = "BodyFocus"
-		if not set_now:
-			btn.tooltip_text = "%s. %s. %s" % [str(rep.get("line", "")), str(rep.get("advice", "")), str(m.get("body_change", ""))]
-		row.add_child(btn)
-	return row
-
-
+## S443 the result as a summary with tabs (ResultPage; operator Q-S294-199 "Yes, summary + tabs"). The ring announcer reads
+## it once (VOICEWIRE1: the modal redraws on every click; m is main.modal, so the flag survives).
 func _result(main: Node, v: VBoxContainer, m: Dictionary) -> void:
-	var c: Career = main.career
-	var f: Dictionary = c.fighter_by_id(str(m["fid"]))
+	var f: Dictionary = main.career.fighter_by_id(str(m["fid"]))
 	var opp: Dictionary = f["bout"]["opp"]
-	var win := bool(m["win"])
-	var outcome := str(m.get("outcome", "win" if win else "loss"))
+	var outcome := str(m.get("outcome", "win" if bool(m["win"]) else "loss"))
 	var stop := str(m.get("stopped", ""))
-	var by := "ON POINTS" if stop == "" else ("BY KNOCKOUT" if stop == "KO" else "BY STOPPAGE")
-	var colour: Color = (Broadcast.HERS if win else Broadcast.THEIRS) if outcome != "draw" else UI.GOLD
-	# VOICEWIRE1: the ring announcer reads the result ONCE (the modal redraws on every click; m is main.modal, so the flag
-	# survives open_modal(main.modal)).
 	if not bool(m.get("_announced", false)):
 		m["_announced"] = true
 		if outcome == "draw":
 			FightVoice.intro_result("draw", "")
 		else:
-			var kind := "decision" if stop == "" else ("ko" if stop == "KO" else "stoppage")
-			var corner := "red" if win else "blue"
-			FightVoice.intro_result(kind, corner)
-	v.add_child(UI.caps("THE RESULT" + (": PRO DEBUT" if bool(m.get("pro", false)) else "")))
-	# S323 (Q-S294-40): the verdict as the ring announcer reads it - both fighters in their corners, the winner's name and
-	# the three cards in very large type between them.
-	var hero := UI.hbox(28)
-	var bodies: Array = m.get("bodies", ["", ""])
-	hero.add_child(_marked(ResultMarks.figure(m.get("body_map", {}), "a", str(bodies[0]), "red", m.get("body_track", {})), str(f.get("name", f["first"])), Broadcast.HERS, false))
-	var centre := UI.vbox(10)
-	centre.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	centre.alignment = BoxContainer.ALIGNMENT_CENTER
-	var winner := str(f.get("name", f["first"])) if win else str(opp.get("name", opp["first"]))
-	var who := UI.display("A DRAW" if outcome == "draw" else winner.to_upper(), 60, colour.lightened(0.25))
-	who.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	centre.add_child(who)
-	if outcome != "draw":
-		var how := UI.display("WINS " + by, 32, UI.GOLD)
-		how.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		centre.add_child(how)
-	if stop == "":
-		var cards := UI.hbox(12)
-		var per := Broadcast.judge_rounds(m["rounds"], m["cards"])
-		for j in (m["cards"] as Array).size():
-			cards.add_child(Broadcast.verdict_card(str(m["cards"][j]), per[j], j + 1))
-		centre.add_child(cards)
-	else:
-		var when := UI.mono("Stopped in round %d of %d" % [(m["rounds"] as Array).size(), int(m.get("total", BoutRules.ROUNDS))], 22, UI.FG)
-		when.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		centre.add_child(when)
-	# S430 (operator on this page: "you show the holos but no stats , you need to show stats to explain what happenned you
-	# can use holos to link them"): the fight in numbers between the two figures, each side's bars growing towards its own.
-	var names := [str(f["first"]), str(opp["first"])]
-	var st := FightStats.of(m["rounds"])
-	var strip := MatchStats.strip(st, names)
-	strip.alignment = BoxContainer.ALIGNMENT_CENTER
-	centre.add_child(strip)
-	var bars := MatchStats.bars(st, names)
-	bars.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	centre.add_child(bars)
-	hero.add_child(centre)
-	hero.add_child(_marked(ResultMarks.figure(m.get("body_map", {}), "b", str(bodies[1]), "blue", m.get("body_track", {})), str(opp.get("name", opp["first"])), Broadcast.THEIRS, true))
-	v.add_child(hero)
-	if m.has("aftermath"):   # S430 the damage, the tiredness, what was learned, morale, the corner, the rank
-		v.add_child(AftermathTiles.build(m["aftermath"], str(f["first"])))
-	var why: Array = m["why"]
-	v.add_child(WhyCard.build(m["rounds"], str(f["first"]), str(opp["first"]), str(m.get("rank_words", ""))))   # S388 the hook: what the plan really did
-	v.add_child(_decided(main, m, why if not why.is_empty() else ["A close night: the rolls of the rounds decided it."]))
-	var foot := UI.hbox(10)
-	var take := []
-	if m.has("tickets"):
-		# S329 update 31: the debut pays from her tickets.
-		take.append(["%d SOLD" % int(m["tickets"]["sold"]), "DEBUT TICKETS", UI.GOLD])
-		take.append([UI.signed(int(m.get("gym_cut", 0))), "THE GYM'S SHARE OF THE FIGHTER'S HALF", UI.GREEN if int(m.get("gym_cut", 0)) > 0 else UI.MUTED])
-	elif bool(m.get("pro", false)):
-		take.append([UI.signed(int(m.get("gym_cut", 0))), "THE GYM'S PURSE SHARE", UI.GREEN])
-	else:
-		# S329: a championship bout pays the club nothing (the ribbon said +$450 at the nationals).
-		var cut := int(m.get("club_cut", BoutRules.TICKET_CUT))
-		take.append([UI.signed(cut), "CLUB TICKET CUT" if cut > 0 else "NO TICKET CUT AT THE CHAMPIONSHIPS", UI.GREEN if cut > 0 else UI.MUTED])
-	# S325: a loss shows the members it cost (update 27 took them, the ribbon still said NO CHANGE); an injury shows red.
-	var lost := int(m.get("members_lost", 0))
-	take.append(["+%d" % BoutRules.WIN_MEMBERS if win else ("-%d" % lost if lost > 0 else "NO CHANGE"), ("MEMBERS AFTER THE NEWS" if lost == 0 else ("MEMBERS LEFT AFTER THE STOPPAGE" if str(m.get("stopped", "")) != "" else "MEMBERS LEFT AFTER THE LOSS")), UI.GOLD if lost == 0 else UI.RED])
-	if m.has("injury"):
-		take.append([str(m["injury"]).to_upper(), "INJURY REPORT", UI.RED])
-	foot.add_child(Broadcast.ribbon(take))
-	foot.add_child(UI.spacer())
+			FightVoice.intro_result("decision" if stop == "" else ("ko" if stop == "KO" else "stoppage"), "red" if bool(m["win"]) else "blue")
+	ResultPage.build(main, v, m)
 	var lit := lit_flow(m)
-	if not lit.is_empty():   # S340 her plan as a flow, lit with what fired and what worked (Q-S294-64)
+	var foot := v.find_child("ResultFoot", true, false)
+	if not lit.is_empty() and foot != null:   # S340 her plan as a flow, lit with what fired and what worked (Q-S294-64)
 		var see := UI.button("The plan, lit up", "Btn", _open_lit.bind(main, lit, "THE FLOW: %s vs %s" % [str(f["first"]).to_upper(), str(opp["first"]).to_upper()]))
 		see.name = "PlanLit"
 		see.size_flags_vertical = Control.SIZE_SHRINK_END
 		foot.add_child(see)
-	var home := UI.button("Back home", "BtnSolid", main.act.bind("afterfight", ""))
-	home.name = "BackHome"
-	home.size_flags_vertical = Control.SIZE_SHRINK_END
-	foot.add_child(home)
-	v.add_child(foot)
-
-
-## S439 a result corner: the figure keeps the room its pinned close-ups need (Broadcast.corner sets the round page's size).
-static func _marked(fig: Control, name: String, colour: Color, right: bool) -> PanelContainer:
-	var p := Broadcast.corner(fig, name, colour, right)
-	if fig != null and fig.has_meta("result_size"):
-		fig.custom_minimum_size = fig.get_meta("result_size")
-	return p
+		foot.move_child(see, foot.get_child_count() - 2)
 
 
 func _open_lit(main: Node, lit: Dictionary, title: String) -> void:
