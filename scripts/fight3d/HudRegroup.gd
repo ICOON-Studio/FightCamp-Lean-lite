@@ -159,7 +159,7 @@ class Wash extends Control:
 	func _draw() -> void:
 		var w := size.x * clampf(fill, 0.0, 1.0)
 		if w > 1.0:
-			var c := Color(1.0, 0.55, 0.35, 0.26 + 0.12 * flash)
+			var c := Color(0.08, 0.06, 0.04, 0.16 + 0.10 * flash)   # S448: a dark wash reads over a green, amber or red bubble
 			draw_rect(Rect2(Vector2(10, 4), Vector2(maxf(0.0, w - 20.0), size.y - 8.0)), c)
 		if tag != "":
 			var f := ThemeDB.fallback_font
@@ -292,7 +292,12 @@ func _shout_begin(said: String) -> void:
 	var x: Dictionary = ex[-1] if not ex.is_empty() and ex[-1] is Dictionary else {}
 	_shout_won = bool(x.get("won", false))
 	_shout_tag = ReactionBubbles.heard_word(int(x.get("shouts_before", 0)), bool(x.get("shout", true)))
-	_wash.tag_col = {"Heard": Color("#7fd18b"), "Half heard": Color("#f2c14e")}.get(_shout_tag, Color("#b8b0a4"))
+	_wash.tag_col = {"Heard": Color("#7fd18b"), "Half heard": Color("#f2c14e")}.get(_shout_tag, Color("#ff8a6a"))
+	# S448 (operator on Q-208: "make the buble green when heard , red when ignored"): the whole bubble takes the colour.
+	var sb := _sbox.get_theme_stylebox("panel") as StyleBoxFlat
+	if sb != null:
+		sb.bg_color = {"Heard": Color("#9fe0a8"), "Half heard": Color("#f5d27a")}.get(_shout_tag, Color("#f4a593"))
+		sb.bg_color.a = 0.95
 	var left := _ring_left()
 	_shout_f0 = left if left > 0.02 else 1.0
 	var chip := view.get_node_or_null("IntentChip0") as Control
@@ -445,18 +450,17 @@ func _notepad() -> void:
 	var panel := view.get_node_or_null("SidePanel1") as Control
 	if panel == null:
 		return
+	# S448 (operator on Q-208, point 3: "wtf is that ?"): the three lines had no heading and sat under the worst place's word
+	# (RIBS / EYE). The organ map already shows the place, so the word goes on both plates and the lines say whose read it is.
+	for p in ["SidePanel0", "SidePanel1"]:
+		var host := view.find_child(p, true, false)
+		var tag := host.find_child("WorstTag", true, false) as CanvasItem if host != null else null
+		if tag != null: tag.visible = false
 	if _notes.is_empty():
+		panel.add_child(_read_lab("ReadHead", "YOUR CORNER'S READ", 20, 40.0, Color("#d8cfc2")))
 		for i in KINDS.size():
-			var lab := Label.new()
-			lab.name = "Read" + KINDS[i]
-			lab.add_theme_font_size_override("font_size", 26)
-			lab.add_theme_constant_override("outline_size", 6)
-			lab.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
-			lab.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-			lab.position = Vector2(140, 74.0 + float(i) * 36.0)
-			lab.size = Vector2(450, 34)
-			panel.add_child(lab)
-			_notes.append(lab)
+			_notes.append(_read_lab("Read" + KINDS[i], "", 26, 74.0 + float(i) * 36.0, Color.WHITE))
+			panel.add_child(_notes[-1])
 	for i in KINDS.size():
 		var k: String = KINDS[i]
 		for part in ["Word", "Num", "Bar"]:
@@ -468,7 +472,7 @@ func _notepad() -> void:
 		var lab := _notes[i] as Label
 		lab.visible = v >= 0.0
 		if v >= 0.0:
-			lab.text = read_word(k, v) + ("  (a guess)" if num != null and num.text.contains("-") else "")
+			lab.text = read_word(k, v) + ("  ?" if num != null and num.text.contains("-") else "")   # S448: "?" = a range, not a reading
 			lab.add_theme_color_override("font_color", READ_COL[_band(v)])
 
 
@@ -480,3 +484,17 @@ static func _mid(text: String) -> float:
 		var p := t.split("-")
 		return (p[0].to_float() + p[1].to_float()) * 0.5
 	return t.to_float()
+
+
+static func _read_lab(id: String, text: String, fs: int, y: float, col: Color) -> Label:
+	var lab := Label.new()
+	lab.name = id
+	lab.text = text
+	lab.add_theme_font_size_override("font_size", fs)
+	lab.add_theme_constant_override("outline_size", 6)
+	lab.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
+	lab.add_theme_color_override("font_color", col)
+	lab.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	lab.position = Vector2(140, y)
+	lab.size = Vector2(450, 34)
+	return lab

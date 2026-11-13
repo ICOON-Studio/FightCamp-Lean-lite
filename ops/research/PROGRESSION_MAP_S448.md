@@ -1,4 +1,4 @@
-# PROGRESSION: what the player is eager to unlock, week by week, season by season, across a career (design map v1, S448)
+# PROGRESSION: what the player is eager to unlock, week by week, season by season, across a career (design map v2, S448)
 
 Owner, verbatim: "the player needs something to be eager on unlocking each week that will make his fighter better , so wee need a
 proper progression plan , how first amateur weeks and pro weeks run , my thoughts are , in training learn a move (shows up on profile
@@ -8,259 +8,265 @@ with body attribute , and do that for other applicable things that apply also on
 will take coahces and trainers to raise his attributes and give him xp for learning the moves by reaching thresholds [...] add also coach
 progression and other staff buffs maybe". Then: "the loop is not only the week , it is the whole fighter career/progression".
 
-Sources read for this map: CRITIC_PACK (the game), CORE_LOOP_MAP_S432 (the agreed loop, decisions C1-C33), RPG_LAYER_MAP_S432 (coach level,
-perk picks, Coach grows), TRAINSCENE_MAP_S439, AMATEURWEEK1_MAP_V2_S429, SCOPE_FOUR_FIGHTERS_S428, BOXING_MANAGER_COMPARE_S425, and the
-code on main (files named below). Research on other games: section 2. Tags: CODE = the game does it today (file named). AGREED = in a
-map the owner approved, not built. NEW = this map adds it. ESTIMATE = a number this map sets until its probe (section 9) measures it.
-Game text never says he, she, him or her.
+Sources: CRITIC_PACK, CORE_LOOP_MAP_S432 (C1-C33), RPG_LAYER_MAP_S432, TRAINSCENE_MAP_S439, AMATEURWEEK1_MAP_V2_S429,
+SCOPE_FOUR_FIGHTERS_S428, BOXING_MANAGER_COMPARE_S425, PROGRESSION_RESEARCH_S448 (other games), and the code on main (files named).
+Tags: CODE = the game does it today. AGREED = in an approved map, not built. NEW = this map adds it. ESTIMATE = a number this map sets
+until its probe (section 9) measures it. Game text never uses he, she, him or her; plan situations are written "when pressed",
+"at range", "waiting to counter", "loading up", "tiring" (the code's situation words are renamed in task 13).
+
+## What v2 changed (round 1: Kalli depth 4 play 6, John depth 5 play 6)
+| The critics found | v2 changes the MECHANIC |
+|---|---|
+| The tree is a queue: every fighter learns every node within two seasons; the pick sets the order, not the fighter (both) | THE SPECIALTY (M3): moves at Sharp and Signature must be HELD with pad, bag or sparring minutes each week or they fade. A fighter can hold only so many, so which ones are held is the fighter's identity, chosen and paid for every week |
+| Awards and rows locked each other (Bronze tested a row-3 move) and the award test made every pick a lookup (both) | Awards NO LONGER GATE the tree. Rows open by how many moves the fighter can use (any branch). Awards stay the amateur season milestone they are in the code |
+| Start state contradicted the code (hooks start near 30) | Every fighter keeps today's start masteries; any move at 30+ on day 0 is known; the day-0 tree is printed for every start (M1) |
+| Grading on attributes "the game doesn't have" | CODE CHECK: the 14 abilities ARE built (`Attrs.gd` PRIMARY + SKILLS, S404; the old seven are a LEGACY summary). The critic pack is updated. Reach and height are kept OUT of the grade: centimetre modifiers in `Duels` only |
+| Feint, Roll, Herd, Push off "have no hook"; link nodes double a bar; counts wrong | CODE CHECK: all four are `StrikeMap` plan arrows (step and defence answers). Link nodes and Slip as a node are cut (combinations open by themselves, CODE). 16 nodes, counted in M1 |
+| Two walls on Signature (Technique cap + a pads-75 cliff); Hale can never get there | ONE wall, the CODE mastery cap. The coach sets the SPEED of Signature work, a rate not a gate (M6) |
+| Stamps a second currency; +5 mood, +1 reputation, S&C x1.1 invisible | Cut. The bar is the experience; its three lines are the thresholds |
+| The pro stage is barely different; the veteran has nothing to decide | PROFESSIONALS GET READ (M7): the measured rule "the opponent's corner waits for your best line" switches on for pros only, so a second Signature or a Feint becomes the answer. VETERANS TEACH: a held Signature passes to a club mate in sparring at x1.5 |
+| Breadth stops counting after six moves | Breadth is priced by opponent modes (M2 card "answers: when pressed, tiring"); TREEVALUE1 must show a breadth curve |
+| Missing: coachability, age, the visiting-pro card, a swap control, a coach market, the head coach's own pads | All added (M2, M6, M8) |
+| Amateur bout card names what the opponent tests before any tape | From the free style word only; the exact answer after a tell opens (M2, section 7) |
 
 ## 0. The idea in seven lines
-1. ONE BAR PER THING. A move's mastery (0-100, CODE) is its experience. A fighter's LEVEL is the skills award (Preliminary to Platinum,
-   CODE `SkillAwards.gd`, the real GB Boxing Awards), earned by moves reaching their tiers. No second experience currency.
-2. THE MOVE TREE: the 22 things the fight already knows how to do (6 punches, 8 footwork moves, 3 defences, 5 combinations' worth of
-   links) put in a coach's teaching order. A move opens the moves after it and the combinations it completes.
-3. SCARCE LEARNING: a fighter learns 1 new move at a time (2 with a good pads coach); when the slot frees, the coach offers 3 next
-   moves and the player picks 1. That pick is the weekly "what do I unlock next".
-4. FOOTWORK IS LEARNED like punches (today every step works at full from day one): a filling bar on the pads, in shadow mornings and
-   sparring, and a step under Usable is not done in the fight.
-5. THE BODY DECIDES HOW WELL: every move is graded by two attributes (CODE `LineGrade.gd`, written, wired nowhere) and our fighters get
-   the height and reach the fight already reads for opponents. The grade changes the fight's numbers AND the 3D (step length, pace).
-6. COACHES SET THE SPEED AND THE CEILING: the pads coach's rating speeds every bar and opens the second learning slot and Signature
-   work; coaches grow by the sessions they run (AGREED, RPG 11).
-7. THREE CLOCKS, NESTED: the WEEK (a bar crosses a line), the SEASON (an award, a style named, rank and the nationals), the CAREER
-   (fundamentals as an amateur, a specialty and a Signature as a professional, keeping it as the body declines). The player always
-   sees the next thing on each clock and its date.
+1. ONE BAR PER MOVE. Mastery (0-100, CODE) is the move's experience; its lines are the thresholds the owner asked for: Usable 30 (in the
+   fight), Sharp 60, Signature 85. Each crossing is a named moment on Monday. No second currency.
+2. THE MOVE TREE: 16 moves the fight already plays (6 punches, 7 footwork moves with the Feint, 3 defences), in a coach's teaching order.
+   A move opens the moves after it and the combinations it completes.
+3. LEARN ONE AT A TIME: one learning slot (two with a pads coach of 65+). When it frees, the coach lays out three next moves with their
+   reasons; the player picks one. That is the weekly "what do I unlock next".
+4. HOLD WHAT YOU SPECIALISE IN: Sharp and Signature moves cost minutes every week to keep. The few the fighter holds ARE the fighter:
+   they name the style, and the style adds a plan line. This is the career's choice, renewed every week.
+5. FOOTWORK IS LEARNED: steps get a filling bar like punches; a step under Usable is not done in the fight.
+6. THE BODY DECIDES HOW WELL: every move is graded by two of the 14 built abilities (CODE `LineGrade.gd`, wired nowhere today); our fighters
+   get height and reach so the duel's reach and height edges stop being 0 for them; the 3D steps follow Speed and height.
+7. THREE CLOCKS: the WEEK (a bar crosses a line), the SEASON (awards, a style named, rank, the nationals), the CAREER (the pro offer,
+   Signatures, being read and answering it, teaching club mates). The next thing on each clock is always on screen with its date.
 
-## 1. What the game has today toward his idea (read in the code)
+## 1. What the game has today (read in the code)
 | His idea | Today | Where |
 |---|---|---|
-| Learn a move | HAVE: 6 punches with mastery 0-100; tiers New / Learning under 30 / Usable 30 / Sharp 60 / Signature 85; cap 40 + 0.4 Technique + 0.2 Ring IQ (50-100); pads 2.1 an hour, sparring 1.5, double-end 1.2, heavy bag 1.05, speed bag 0.9, shadow 0.85; x(1 + 0.4 x coach / 100) x (1 - m / cap); -0.75 a week undrilled, never back under 30 | `MoveMastery.gd`, `PadWeek.gd`, `state/Data.gd:234` |
-| Start state | Jab 0.85 x Technique, Cross 0.75, Lead hook 0.62, Body hook 0.5, Uppercut 0, Check hook 0; "learning" starts on Uppercut | `PunchStart.gd:11`, `Data.gd:251` |
-| Move tree | MISSING for boxing. The only gates: a combination waits for all its punches at 30; award grades in a fixed order. BJJ has a real tree (49 positions, 135 links, felt at 15, owned 30) | `Combos.gd:56`, `SkillAwards.gd`, `BjjTree.gd`, `ui/MatTree.gd` |
-| Combos opened by moves | HAVE: 10 book combinations + own chains (`own:N`) with their own pad mastery; combo edge +0.12 / 0.20 / 0.30 at 30 / 60 / 85 | `Combos.gd`, `OwnCombos.gd`, `ui/ComboBuilder.gd` |
-| Practice bar | HAVE: drill cards on pad nights, projections (day to 30, weeks to 60), news when a combo reaches 30 or 85 | `PadWeek.project`, `ui/DrillCard.gd`, `DrillWeek.gd:143` |
-| Movement learned | MISSING: steps have no mastery, "ready the day she can stand", and the fire rule reads them at 100 | `ui/MoveBook.gd:50`, `FireLevel.gd:44-48` |
-| Body drives movement | PARTLY: Footwork / Speed / Defence / Strength steer range in the duel (open: footwork .35, speed .3, jab .25, timing .1). Reach 0.25 a cm on the jab, height 0.2 a cm inside, capped 4, but OUR fighters have no height or reach keys, so that edge is 0. The 3D uses height only for the mesh; footwork is fixed constants | `Duels.gd:16-54, 412`, `TaleOfTape.gd:5`, `fight3d/BoxerFootwork.gd` |
-| Grade by attributes | WRITTEN, UNUSED: each move's two attributes, Good / OK / Poor at 62 / 50, edge x1.2 / 0.85 / 0.35 | `LineGrade.gd` (no caller) |
-| Moves matter in the fight | WEAK: a weapon past the fourth adds +0.3 (cap +0.9); a planned line fires every time once Usable, so Sharp is worth about 1 win in 100 over Usable. The fire rule (Usable 1 in 2, Sharp 3 in 4, Signature always: +2.8 and +2.7 wins in 100) is built and OFF | `BoutRules.gd:443`, `FireLevel.gd` (queue row FIRELEVEL3) |
-| Coaches raise attributes | HAVE: weekly gain 1.0 x quality x (0.5 + 0.7 x rating) x headroom clamp((potential - stat) / 25, 0.10, 1.25); no coach 60% | `TrainingPreview.gd`, `CoachAreas.gd` |
-| Levels and XP | PARTLY: the six awards, 8 coached sessions each plus moves at tiers; a passed grade's moves cost less energy. No fighter XP; perks open at attribute lines | `SkillAwards.gd`, `PerkRoad.gd` |
-| Coach progression, staff buffs | PARTLY: fixed coach areas, four head-coach edges, four staff jobs with one flat effect each; nothing grows. Coach level, either/or picks and "Coach grows" are AGREED (RPG layer 7/7), not built | `Data.gd:31`, `StaffRoles.gd`, `HeadCoach.gd`, RPG 2 and 11 |
+| Learn a move | HAVE: 6 punches, mastery 0-100, tiers New / under 30 / Usable 30 / Sharp 60 / Signature 85; cap 40 + 0.4 Technique + 0.2 Ring IQ (50-100); pads 2.1 an hour, sparring 1.5, double-end 1.2, heavy bag 1.05, speed bag 0.9, shadow 0.85; x(1 + 0.4 x pads rating / 100) x (1 - m / cap); undrilled -0.75 a week, never back under 30 | `MoveMastery.gd`, `PadWeek.gd`, `Data.gd:234` |
+| Start state | Jab 0.85 x Technique, Cross 0.75, Lead hook 0.62, Body hook 0.5, Uppercut 0, Check hook 0 (at Technique 60: 51 / 45 / 37 / 30 / 0 / 0); "learning" fixed on Uppercut | `PunchStart.gd:11`, `Data.gd:251` |
+| Move tree | MISSING for boxing (BJJ has one: `BjjTree.gd`, `ui/MatTree.gd`) | |
+| Combos opened by moves | HAVE: 10 book combinations open when all their punches reach 30; own chains with their own mastery | `Combos.gd:56`, `OwnCombos.gd`, `ui/ComboBuilder.gd` |
+| Practice bar | HAVE: drill cards on pad nights; projections (day to 30, weeks to 60) | `PadWeek.project`, `ui/DrillCard.gd` |
+| Movement learned | MISSING: the 8 step arrows and 2 defences (`StrikeMap.gd:2-49`: step_in, step_out, step_back, cut_off, herd, pivot_out, push_off, feint; tie_up, roll_out) are plan answers with no mastery; the fire rule reads them at 100 | `FireLevel.gd:44-48`, `ui/MoveBook.gd:50` |
+| Body drives movement | PARTLY: 14 abilities built (`Attrs.gd`); range steering reads footwork .35, speed .3, jab .25, timing .1 (open) and footwork .4, speed .3, head movement .2, strength .1 (close); reach 0.25 a cm on the jab, height 0.2 a cm inside, capped 4 - but OUR fighters have no height or reach keys, so it is 0; 3D footwork is fixed constants | `Duels.gd:16-54, 412`, `TaleOfTape.gd:5`, `fight3d/BoxerFootwork.gd` |
+| Grade by attributes | WRITTEN, UNUSED: two abilities a move, Good / OK / Poor at 62 / 50, edge x1.2 / 0.85 / 0.35 | `LineGrade.gd` |
+| Moves matter in the fight | WEAK: a weapon past the fourth +0.3 (cap +0.9); a planned line fires every time from 30, so Sharp is worth about 1 win in 100 over Usable. FireLevel (Usable 1 in 2, Sharp 3 in 4, Signature always: +2.8 and +2.7 wins in 100, S427) is built and OFF. Also measured, not in the game: an opponent's corner waiting for your best line costs 7 wins in 100 | `BoutRules.gd:443`, `FireLevel.gd`, CRITIC_PACK 4.2 |
+| Coaches raise attributes | HAVE: 1.0 x quality x (0.5 + 0.7 x rating) x headroom clamp((potential - stat) / 25, 0.10, 1.25) | `TrainingPreview.gd`, `CoachAreas.gd` |
+| Levels | PARTLY: six skills awards (Preliminary, Standard Jab+Cross 30, Bronze Lead+Body hook 30, Silver Uppercut+Check hook 30, Gold four punches 60, Platinum a skills bout), 8 coached sessions each; a passed grade's moves cost less energy | `SkillAwards.gd`, `ComboFlow` econ |
+| Coach and staff growth | PARTLY: two hireable coaches with fixed areas (Luke Reid pads 74, $450; Marcus Hale pads 58 / conditioning 90, $1,090); four head-coach edges; four staff jobs, one flat effect each; nothing grows (Coach grows is AGREED, RPG 11) | `Data.gd:31-38`, `StaffRoles.gd`, `HeadCoach.gd` |
 
-## 2. What successful games do, and what that says about us
-Research in our words (sources in the S448 research note, `ops/research/PROGRESSION_RESEARCH_S448.md`).
-| Game | The mechanism that makes the next week worth waiting for | What we take |
-|---|---|---|
-| Football Manager | one individual focus per player (three in FM26); a trait (a preferred move that changes what the player DOES) can be taught; coach stars per area drop when one coach covers too much; green and red arrows each month | a TRAIT-LIKE unlock (a move changes what the boxer does), coach quality per area, the workload penalty (one pads coach shared by four) |
-| Motorsport Manager | always a part in the factory with a finish date; driver-mechanic chemistry opens perks at levels | the NEXT UNLOCK WITH A DATE on every fighter; a coach-fighter bond (already AGREED: loyalty) |
-| Boxing Manager (our benchmark, installed; S425/S426 study) | ring experience spent on single ratings at the trainer's price; potential is one visible pool; training sliders set once and never touched again | its weakness is our opening: quiet weeks ask nothing there. We keep potential as ceilings and add a weekly pick |
-| EA UFC 4/5 career | moves unlock at one star and level up by being USED, faster when they land; a guest fighter teaches a move | USE-BASED: a move landed in a bout grows and earns a FIGHT-PROVEN mark |
-| Fight Night Champion, Undisputed | training mini-games pay points; training costs stamina so rest competes with work | the price on practice: pad nights are scarce, sparring costs tiredness and risk |
-| Skyrim, NBA 2K badges | use raises the skill; tiers (bronze to gold) at visible thresholds; a perk needs a skill line | named tiers we already have (Usable, Sharp, Signature) and prerequisites by line |
-| Path of Exile | 1,300 nodes: new players are lost | the warning: about 20 nodes, one screen, no scroll |
-| Persona 5 | the week's free time is the scarce thing; ranks open real abilities | the club's pad nights are the scarce thing (AGREED PADPOOL1) |
-| Darkest Dungeon | upgrading the trainer raises the top level a hero can reach | the coach's rating opens the second learning slot and Signature work |
-| Hades | several bars fill at once, each with a named next reward; unlocks change HOW a run plays more than how strong it is | several bars per fighter, each with its next reward named; a new move changes the plan's options, not just a number |
-Principles taken: (1) one bar near its line every week, (2) the unlock changes what the fighter can do, (3) use teaches, (4) named tiers,
-(5) a pick of 3 under a cap, (6) staff are the multiplier and grow, (7) show the next unlock and its date, (8) a small readable tree,
-(9) a slow permanent clock and a fast one. Failure modes avoided: grind, invisible +1s, many currencies, trees nobody reads, maxed fighters.
-
-WHAT WE ARE MISSING: a choice of what to learn (all six punches are present at signing; the game picks "Uppercut" itself); footwork as
-something learned; any next-unlock preview with a date; a level the player can read (the awards exist but sit on the Training tab);
-body facts on our own fighters; coach growth. WHAT WE OVERDO: meters. The agreed maps carry loyalty, mood, Known, hype, the Tank,
-tiredness, fire share, grade, suit, direction, marks and moments. This map adds NO new meter: it gives order (the tree), a pick, and
-wires two built-but-idle modules (LineGrade, FireLevel). WHAT IS WRONG NOW: progress is shown as decimals (+0.4 a week); Sharp and
-Signature barely change a bout because the fire rule is off; steps work at full on day one, so footwork can never be a reward;
-an unlock arrives as a news line, not as a moment with something new to do.
+## 2. What other games teach, and what is wrong with ours (full notes: PROGRESSION_RESEARCH_S448)
+Football Manager: one individual focus, a trait that changes what the player DOES, coach stars that drop when one coach covers too much.
+Motorsport Manager: always one part in the factory with a finish date. Boxing Manager (our benchmark): experience from bouts spent on
+ratings, potential as a visible pool, training set once and never revisited (quiet weeks ask nothing: our opening). EA UFC: moves level
+by USE, faster when they land; a guest teaches a move. Skyrim and NBA 2K: named tiers at visible lines. Path of Exile: 1,300 nodes lose
+people. Persona: the week's free time is the scarce thing. Darkest Dungeon: upgrading the trainer raises what heroes can reach. Hades:
+several bars at once, each with a named next reward; unlocks change HOW you play. Gym practice: shadow, bag, pads, sparring, a bout;
+footwork once the straight punches and the hook are in.
+MISSING here: a choice of what to learn; footwork as something learned; a next unlock with a date; an identity built by specialising;
+body facts on our own fighters; coach growth and a coach market. OVERDONE: meters (loyalty, mood, Known, hype, Tank, tiredness, fire
+share, grade, suit, direction, marks, moments): this map adds NONE. WRONG NOW: progress shown as decimals; Sharp and Signature barely
+change a bout (fire rule off); steps work at full on day one; an unlock arrives as a news line, with nothing new to do.
 
 ## 3. The three clocks
-| Clock | What fills | What the player is eager for | How often (ESTIMATE, PROGPROBE1 measures) |
+| Clock | What the player is eager for | How often (ESTIMATE; PROGPROBE1 measures) | Feeds |
 |---|---|---|---|
-| WEEK | pad nights, shadow mornings and sparring fill move bars; mornings fill attributes | a move crossing a line (Usable = in the fight, Sharp, Signature); a combination opening; the next move to pick | per fighter, a line crossed in 3 weeks of 4; per gym of four, a pick most weeks |
-| SEASON | bouts (moves landed teach), awards, the regional ladder, the nationals | the next AWARD (opens a tree row and a pick), a STYLE NAMED (three moves of a style at Sharp), a rank line, the nationals entry | an award every 6 to 10 weeks; a style named in season 1; rank on every bout (S428) |
-| CAREER | ceilings, awards, styles, Signatures, the coach's level | the PRO OFFER, the first Signature, a perk, a belt; for the club, a better coach and the second learning slot | the pro offer at 7 wins and top-3 or 9 wins (CODE); a first Signature in the first pro year |
-Each lower clock feeds the next: a move's line (week) is a stamp toward an award (season); an award opens the tree row a professional
-style needs (career); the coach's growth (career) speeds every bar (week).
+| WEEK | a bar crossing a line (Usable = a new plan answer or combination; Sharp; Signature); the next pick; Monday's held/fading list | per fighter, a line crossed 3 weeks in 4; a pick every 2 to 4 weeks | the specialty, the plan, the awards |
+| SEASON | the next award (amateur), a STYLE NAMED (+1 plan line), a rank line on every bout, the nationals | an award every 6 to 10 weeks; a style named in season 1 | the pro offer (CODE 7 wins + top 3, or 9 wins) |
+| CAREER | turning pro (the professional row, being read), the first and second Signature, a coach reaching a rate, a veteran teaching | a first Signature in the first pro year; a second in the second | the club's next fighters (veteran teaching), the coach's growth |
 
-## 4. The mechanics, each a decision with its price
+## 4. The mechanics
 
-### M1. THE MOVE TREE (NEW: data + a pure module on the BjjTree pattern; nodes are actions the fight already plays)
-22 nodes in four branches, in the order a club coach teaches (gym coaching practice: shadow, bag, pads, controlled sparring, then a
-bout; footwork after the straight punches and the hook). A node opens when the moves under it reach the line named; the tree is one
-screen, no scroll.
-| Row (opened by) | LEAD HAND | REAR HAND / POWER | FOOTWORK | DEFENCE AND INSIDE |
+### M1. THE MOVE TREE (NEW: `assets/data/box_tree.json` + pure `MoveTree.gd` on the BjjTree pattern)
+| Row (opens when) | LEAD HAND | REAR HAND / POWER | FOOTWORK | DEFENCE AND INSIDE |
 |---|---|---|---|---|
-| 1 Preliminary (signing) | Jab | Cross | Step in, Step out | Guard (always, not a node) |
-| 2 Standard award | Lead hook (Jab 30) | 1-2 and 1-1-2 links (Jab, Cross 30) | Step back (Step out 30) | Slip (Jab 30) |
-| 3 Bronze award | Body hook (Lead hook 30) | Uppercut (Cross 30 + Step in 30) | Pivot (Step back 30); Cut off (Step in 60) | Roll (Slip 30); Tie up (Body hook 30) |
-| 4 Silver award | Check hook (Lead hook 60 + Pivot 30) | 1-6-3 link (Uppercut 30) | Herd (Cut off 30) | Push off (Tie up 30) |
-| 5 Gold award, PROFESSIONALS | Feint (Jab 60) | own chains of 4+ (any 3 at 60) | in-and-out rhythm = Step in + Step out both 60 (a combined node) | slip 2-3 counter link (Slip 60 + Cross 60) |
-- Nodes are the 6 punches (`Data.gd:234`), the 8 steps and 2 defences of `StrikeMap.gd` plus Slip (`ComboFlow` move types), and the
-  book's links. NO new animation is needed for any node; every node already has a fight hook and a clip or a step.
-- A node shows: its bar (0-100) with ticks at 30 / 60 / 85, its grade (M4), what it OPENS (moves below it, combinations it completes,
-  plan answers it gives: "Pivot: answers 'when she presses' at mid range"), and, locked, the line it waits for.
-- A row waits for its award (M3): the award is the "level" that widens the tree. A professional (Gold) row stays closed to amateurs:
-  the pro offer is also a tree unlock.
-- Real basis: GB Boxing Awards test exactly these in this order (`SkillAwards.AWARDS` "tests"); a check hook needs the hook and the
-  pivot first.
+| 1 at signing | Jab, Lead hook | Cross, Body hook | Step in, Step out | (Guard: always, not a node) |
+| 2 at 5 moves Usable | | Uppercut (Cross 30 + Step in 30) | Step back (Step out 30), Pivot (Step back 30) | Tie up (Step in 30), Roll out (Lead hook 30) |
+| 3 at 9 moves Usable | Check hook (Lead hook 60 + Pivot 30) | | Cut off (Step in 60), Herd (Cut off 30) | Push off (Tie up 30) |
+| 4 PROFESSIONALS (turning pro) | Feint (Jab 60) | | | |
+16 nodes: 6 punches (`Data.gd:234`), 7 footwork (`StrikeMap`: step_in, step_out, step_back, pivot_out, cut_off, herd, feint), 3 defence
+and inside (tie_up, roll_out, push_off). Every node is already a weapon or a plan answer in the bout (CODE), so no node needs new fight
+code or a new clip; each gets a bar. Within a row a node also waits for the moves named in brackets.
+DAY 0 (Technique 60, Footwork 55, today's start shares; Step in and Step out start at 0.55 x Footwork, ESTIMATE): Jab 51, Cross 45,
+Lead hook 37, Body hook 30, Step in 30, Step out 30: six Usable, so row 2 is open on day 0 and the FIRST PICK comes in week 1 (the
+first-hour guide's "learn a move" step). A fighter with Footwork under 55 starts the steps under 30 with Step in in the slot. Every other
+node starts at 0. Saves load as they are; steps in old saves start at 30 (today
+they work at 100).
+A node shows: its bar with ticks at 30 / 60 / 85, its grade letter (M5), what it opens (moves, combinations, plan answers: "Pivot: an
+answer when pressed, mid range"), what it costs to hold at Sharp (M3); locked, the line it waits for. A toggle keeps the old move book
+view BY PLACE IN THE RING (escapes, inside, long) beside BY BRANCH.
 
-### M2. ONE MOVE IN LEARNING, THE PICK OF THREE (NEW; replaces Data's fixed "learning: Uppercut")
-- A fighter has LEARNING SLOTS: 1 (2 when the club's pads coach is rated 65 or more, M6). A move in a slot is the only move under 30
-  that pad nights can carry; moves at 30+ can always be drilled toward Sharp and Signature.
-- When a slot frees (its move reaches 30), the Monday review and the Home need "A MOVE TO PICK" (steel: does not stop the clock) show
-  the COACH'S THREE: open nodes ranked by (a) what the booked or next likely opponent tests (TR T18, CODE `OppFile`), (b) the build
-  direction (AGREED RPG 12), (c) the body's grade on it (M4). Each card prints: the weeks to Usable on this week's pad nights (from
-  `PadWeek.project`), what it opens, and its worth on the next bout ("+0 on Sat 28, Usable for the next one") in the one-number unit
-  of TRAINSCENE D1. Pick one; an unpicked slot takes the coach's first card on Monday's Start week.
-- THE PRICE: a slot is the cost. Taking the Uppercut means the Pivot waits 2 to 3 more weeks, and every card says what waits.
-  Swapping a move out of the slot keeps its mastery but restarts nothing (it simply stops growing).
-- Signing: a new fighter arrives knowing row 1 (Jab, Cross, Step in, Step out from Technique / Footwork x the start shares, CODE
-  `PunchStart`) plus their SIGNATURE MOVE (CODE `Recruit`) and anything the signing card shows; the rest is open or locked.
-- Real basis: a coach brings in one new thing at a time and drills it to habit before the next (FM's one focus; Motorsport Manager's
-  one part in the factory).
+### M2. ONE MOVE IN LEARNING, THE COACH'S THREE (NEW; replaces Data's fixed "learning: Uppercut")
+- LEARNING SLOTS: 1; 2 when the best pads rating among the fighter's coaches is 65+ (M6). Only a move in a slot can be drilled while under
+  30; moves at 30+ can always be drilled.
+- When a slot frees, the Monday review and a steel Home need (never stops the clock) lay out THREE open nodes in the coach's order, each
+  with its reason: what the next opponent's STYLE WORD suggests (free at booking, CODE) or a found tell (after tape), the build direction
+  (AGREED RPG 12), and the fighter's grade on it. Each card prints: weeks to Usable on this week's pad nights (`PadWeek.project`), which
+  opponent modes it answers, what it opens, its grade, and what waits if it is taken. No card is pre-marked; an unpicked slot on Start
+  week takes the coach's first card.
+- SWAP: any time, with the price on the button: a half-learned move falls 0.75 a week (CODE decay) while out of the slot.
+- LEARNING SPEED (NEW, ESTIMATE): x(0.8 + 0.4 x coachability / 100) (CODE trait); under 23 x1.1, over 30 x0.9.
+- THE VISITING PRO (CODE twist card "visiting pro"): a new answer, "teach the slot's move": that week x2 on it.
+- Breadth pays through modes: the opponent fights one way at a time (six modes, CODE); a fighter with an answer for more modes keeps the
+  plan's edge in more exchanges. Each card says which modes it covers that the fighter cannot answer yet.
 
-### M3. THE AWARD IS THE LEVEL; STAMPS ARE ITS EXPERIENCE (CODE awards + NEW stamps read from the bars)
-- The owner's "xp for learning the moves by reaching thresholds": every line a move crosses is a STAMP: Usable 1, Sharp 2, Signature 3;
-  a move landed 3+ times in a won bout once (FIGHT-PROVEN mark) 1. Stamps are COUNTED from the bars, never spent: no second currency.
-- An AWARD needs its moves at the lines `SkillAwards.AWARDS` names (CODE) AND its stamp total (ESTIMATE: Standard 3, Bronze 8, Silver
-  14, Gold 22, Platinum 30 and a skills bout) AND 8 coached sessions (CODE `SESSIONS`). Passing it: the next tree row opens, a
-  passed grade's moves cost less energy in the bout (CODE `SkillAwards.economy_ids`), the fighter's mood +5 (CODE morale), the club's
-  reputation +1 (NEW, ESTIMATE), and the coach who ran most of the sessions gets experience (AGREED RPG 2).
-- Shown: an award chip on the Profile header, the Fighters row and the bout card ("Bronze 11 of 14 stamps; next: Body hook Usable,
-  2 pad nights"). The chip is the fighter's level everywhere.
-- Professionals keep the award at Gold or Platinum; their level from then on is the Signature count and the perk picks (career clock).
+### M3. THE SPECIALTY: HELD MOVES (NEW; the career's choice)
+- HOLDING: a move at Sharp needs 20 minutes a week of pads, bag or sparring on it; at Signature 40 (ESTIMATE, HOLD1 sets them). Unheld,
+  a Sharp move falls 1.5 a week toward 50 and a Signature toward 70 (Usable moves keep today's floor of 30). A pad night is 240 minutes,
+  a sparring night shares 180 among the moves in the fighter's plan and pad cards (CODE `PadWeek.spar_pool`), so THE PLAN HOLDS ITS OWN
+  MOVES in sparring and the rest cost pad minutes.
+- With the club's 8 pad nights shared by four fighters (AGREED PADPOOL1), a fighter can hold about 4 to 5 Sharp moves and 1 to 2
+  Signatures and still learn (ESTIMATE). Which ones is the player's call, shown as THE SPECIALTY BOARD on the tree page: the held moves,
+  their weekly minutes, and the day each starts to fade if dropped.
+- STYLE NAMED: three held moves of one style's set at Sharp name it: Out-boxer (Jab, Step back, Pivot), Pressure fighter (Cut off, Body
+  hook, Tie up), Counter-puncher (Check hook, Roll out, Pivot), Boxer-puncher (Cross, Lead hook, Step in), Volume puncher (Jab, Cross,
+  Step out). A named style ADDS ONE PLAN LINE (a plan holds 4-6 by the coach today, CODE) and the style word on the Profile now comes from
+  what the fighter can do. Lose the hold, lose the line. Two fighters with the same start end season 2 with different held sets (HOLD1).
+- SIGNATURE is reached under the CODE mastery cap (40 + 0.4 Technique + 0.2 Ring IQ): at Technique 60 and Ring IQ 55 the cap is 75, so
+  the first Signature is also a Technique goal; the node shows "your cap 75: Signature needs Technique 66".
 
-### M4. THE BODY DECIDES HOW WELL (wire `LineGrade.gd`; NEW body facts; NEW 3D reads)
-- Every node has its two attributes (CODE `LineGrade.DONE_WITH`; punches added: Jab accuracy + reach, Cross strength + accuracy,
-  Lead hook timing + explosiveness, Body hook strength + inside, Uppercut explosiveness + inside, Check hook timing + footwork, Slip
-  defence + flexibility). Grade Good / OK / Poor at the mean 62 / 50 (CODE `Exchanges.grade`); in the bout a planned line's edge
-  is x1.2 / 0.85 / 0.35 (CODE constants, LINEGRADE1 sets them). MASTERY says how often it comes off; GRADE says how well when it does.
-- BODY FACTS (NEW, fixing a dead edge): our fighters get height and reach at signing from their class (the same generator opponents
-  use, `AttrGen.gd:227`), shown on the signing card and the tale of the tape. The duel then pays reach on the jab and height inside
-  as it already does for opponents (`Duels.gd:412`). Reach also grades the Jab (above); height counts against Inside work.
-- ON SCREEN (NEW, 3D reads only, the fight never decides): step length from Speed and height, step tempo from Speed and the step's
-  grade; a Poor-grade step takes a visibly shorter, later step; a learning move is never shown (it is not thrown). Hand Speed scales
-  punch clip playback within plus or minus 10% (ESTIMATE; stills and a side film check it, visual gate).
-- This is the strongest part of his idea and the cheapest: one module written, one generator call, two 3D reads.
+### M4. FOOTWORK IS LEARNED (NEW: steps and defences get mastery; FireLevel reads it)
+The 7 footwork nodes and 3 defences fill on pad nights, in SHADOW mornings (0.85 an hour; a shadow morning names its step) and in sparring.
+Under 30 the plan line using it is greyed "Pivot: learning, 2 pad nights" (CODE `StrikeMap.grey_reason` pattern); from 30 its fire share
+follows FireLevel. The bar is the visible filling graphic, on the node, the drill card and the Monday review. FOOTWORK1 bounds the cost:
+a novice with no Step back must not lose more than 5 in 100 to pressure.
 
-### M5. FOOTWORK IS LEARNED (NEW: steps get mastery; FireLevel stops reading them at 100)
-- The 8 steps and 3 defences get mastery like punches, filled on pad nights (2.1 an hour), in SHADOW mornings (0.85, today the only
-  session that trains the Footwork attribute) and in sparring (1.5). A step under 30 is not done: the plan line using it is greyed
-  "Pivot: learning, 2 pad nights" (CODE grey reason pattern, `StrikeMap.grey_reason`). From 30 its fire share follows FireLevel tiers.
-- The bar is the visible filling graphic he asked for, on the tree node, the drill card and the week review ("Pivot 24 -> 31: Usable,
-  answers 'when she presses'").
-- A shadow morning names its step ("Shadow: Pivot") so a morning now feeds a move bar, not only an attribute. No new session kind.
+### M5. THE BODY DECIDES HOW WELL (wire `LineGrade.gd`; NEW body facts; NEW 3D reads)
+- Each node is graded by two of the 14 built abilities: steps and defences as `LineGrade.DONE_WITH` (CODE: step_in footwork +
+  explosiveness, pivot footwork + composure, cut_off footwork + fight IQ, roll_out defence + flexibility, tie_up inside + strength...);
+  punches added: Jab accuracy + speed, Cross strength + accuracy, Lead hook timing + explosiveness, Body hook strength + inside, Uppercut
+  explosiveness + inside, Check hook timing + footwork. Good / OK / Poor at the mean 62 / 50; a planned line's edge x1.2 / 0.85 / 0.35
+  (CODE constants, GRADE1 sets them). Mastery: how often it comes off. Grade: how well when it does.
+- BODY FACTS (NEW, a dead edge fixed): our fighters get height and reach at signing from their class, by the generator opponents use
+  (`AttrGen.gd:227`), on the signing card and the tale of the tape. They stay centimetre modifiers in the duel (CODE `Duels.gd:412`,
+  reach on the jab, height inside, capped 4), never inside the grade's mean.
+- ON SCREEN (NEW; the 3D shows, never decides): step length from Speed and height; step tempo from Speed and the step's grade (a Poor step
+  is visibly shorter and later); punch clips within plus or minus 10% by Speed (ESTIMATE). Stills and a side film before it ships.
+- Training already moves these abilities (CODE mornings); so a coach's mornings now change how well every move is done, on screen.
 
-### M6. COACHES SET THE SPEED AND THE CEILING (CODE coach factor + AGREED RPG 11 + NEW gates)
-- Speed: the pads coach's rating already multiplies every bar (x1 + 0.4 x rating / 100, CODE) and every attribute (0.5 + 0.7 x rating).
-- NEW GATES read the pads coach's rating: 65+ opens the second learning slot; 75+ is needed to drill a move from Sharp toward
-  Signature (below 75 the bar stops at 84: "needs a pads coach of 75 for Signature"). The gates read the club's best pads rating among the coaches who run that
-  fighter's pad nights (CODE `Data.COACHES` areas). Luke Reid (pads 74, $450 sessional) gives two slots and reaches Signature work
-  after 10 more pad sessions; Marcus Hale (pads 58, conditioning 90, $1,090 full time) gives one slot and much faster attributes.
-  The hire is now a real choice between faster MOVES and faster BODIES, and a coach is a progression event, not only a percentage.
-- GROWTH (AGREED RPG 11, unchanged): each of Coach's five areas +1 per 10 sessions run in it, up to the hire's ceiling (Reid +8, Hale
-  +12, so Hale's pads can reach 70 and open the second slot in about two seasons); 40 pad sessions on one move opens Coach's
-  signature drill (that move x1.2). Reid reaching pads 75 from 74 is the moment his fighters can start Signature work: the Monday
-  review says so, a career milestone the player sees coming ("Reid: 3 pad sessions to 75").
-- THE SHARED COACH (FM's workload): with four fighters, the club's pad nights are scarce (AGREED PADPOOL1: 8 a week, one overtime
-  night $75). Two fighters with moves in learning compete for them; the pick card says whose bar slows.
-- STAFF JOBS keep their one flat effect each (CODE `StaffRoles`); one link is added: the strength and conditioning coach makes
-  Explosiveness and Strength mornings count for the power branch's grade (x1.1 on those attributes, ESTIMATE). No new staff meter.
-- YOU (the head coach): AGREED RPG 2 (level from your own hours, either/or picks). Its source table gains one row: a move taken from
-  30 to 60 on YOUR pad places: +1 experience.
+### M6. COACHES: SPEED, SLOTS AND A MARKET (CODE factor + AGREED RPG 11 + NEW)
+- SPEED (CODE): pads rating x every bar; rating x every ability.
+- SECOND SLOT at a pads rating of 65+ (best of the coaches running the fighter's pad nights, the head coach included).
+- SIGNATURE WORK AS A RATE, NOT A GATE (NEW): gain above 60 x clamp((pads - 55) / 20, 0.25, 1). Reid (74): x0.95. Hale (58): x0.25,
+  rising as Hale grows.
+- THE HEAD COACH'S PADS (NEW, ESTIMATE, from the background card): Ex-pro 70, Amateur coach 66, Old hand 62, Strength coach 52. Your own
+  pad places (AGREED RPG 2) use it.
+- A MARKET (NEW, ESTIMATE): five assistants for hire, each with an area profile, a growth ceiling and a wage: Luke Reid (pads 74, +8,
+  $450 sessional), Marcus Hale (conditioning 90, pads 58, +12, $1,090), and three new: a young pads coach (pads 64, +16, $380, grows into
+  the second slot), an old trainer (pads 80, bag 76, +2, $900: Signatures now, no growth), a footwork specialist (pads 60, sparring 72,
+  footwork nodes x1.2, $520). The club may hire two (each paid; the slot reads the better). A hire is now a career decision: moves now,
+  bodies now, or a coach who grows.
+- GROWTH (AGREED RPG 11): +1 in an area per 10 sessions run in it, to the hire's ceiling; 40 pad sessions on one move opens Coach's
+  signature drill (x1.2). Hale's pads 58 -> 65 needs 70 pad sessions: about 12 weeks at 6 a week. The Monday review names each milestone
+  ahead ("Young coach: 9 pad sessions to 65: second slots for the club").
+- STAFF JOBS keep their one flat effect each (CODE). No coach perk of "+5% training".
 
-### M7. THE FIGHT TEACHES AND PROVES (NEW, small)
-- A move landed in a bout gains mastery as sparring does for its share of the exchanges (1.5 an hour, ESTIMATE for a 9-minute bout:
-  about +1 to +3 on the moves used). Landed 3+ times in a won bout: FIGHT-PROVEN (gold on the node, CODE already marks combos thrown
-  in fights gold) and one stamp.
-- The Why's NEXT row names the node that would have answered what lost the bout ("Her pressure won 4 exchanges: Pivot would answer,
-  it is 2 picks away") and its pick card opens from there.
+### M7. PROFESSIONALS GET READ (CODE measured rule, switched on for pros only, NEW)
+From the debut, the opponent's corner waits for the professional's MOST-FIRED line (measured S427: costs 7 wins in 100 unanswered; READ1
+re-measures). The answers are career unlocks: a SECOND Signature (the read splits), the FEINT (row 4, a plan answer that draws the read),
+a held style's extra line. Amateurs are never read (club opponents have no tape on them). This is what makes the pro weeks different:
+specialise, then cover the specialty.
 
-### M8. FIRE LEVEL ON (CODE `FireLevel.gd`, queue row FIRELEVEL3, a first-season re-measure first)
-- Without it Sharp and Signature are worth 1 in 100 and the tree's upper lines are invisible on fight night. With it (S427, 400 bouts a
-  cell): Usable fires 1 in 2, Sharp 3 in 4, Signature always; Sharp +2.8 wins in 100 over Usable, Signature +2.7 over Sharp.
+### M8. THE FIGHT TEACHES; VETERANS TEACH (NEW, small)
+- A planned line that won two or more exchanges in a bout adds +3 mastery to its move (the line receipts, CODE "The plan, lit up") and a
+  gold FIGHT-PROVEN pin on the node. If a bout cannot attribute an exchange to a line, the pin waits (checked in task 8).
+- A fighter holding a move at Signature who spars with a club mate learning it (AGREED sparring pair, C17): the learner x1.5 on that move
+  that week. A veteran's last seasons have a purpose; the club's next fighters learn faster.
+- Veterans (31+): fade on held moves x0.5; learning x0.9 (M2).
+- The Why's NEXT names the open node that would have answered what lost the bout, with Pick or Swap on it.
+
+### M9. FIRE LEVEL ON (CODE `FireLevel.gd`, queue row FIRELEVEL3, its first-season re-measure first)
+Without it Sharp and Signature are worth about 1 in 100 and the specialty is invisible on fight night. With it: Sharp +2.8, Signature +2.7
+wins in 100 (S427).
 
 ## 5. Amateur weeks against professional weeks along the arc
-| | NOVICE AMATEUR (weeks 1 to about 12) | OPEN AMATEUR (season 1 to 2) | PROFESSIONAL (from the debut) | VETERAN (30+, or 20+ pro bouts) |
+| | NOVICE AMATEUR | OPEN AMATEUR | PROFESSIONAL | VETERAN (31+ or 20+ pro bouts) |
 |---|---|---|---|---|
-| Tree | rows 1-2 | rows 3-4 | row 5 opens (Gold) | no new rows; keeping moves |
-| Slots | 1 | 1, or 2 with a 65+ pads coach | 2 with the coach; Signature with a 75+ coach | 2; Signature drilling counts double toward HOLDING (no decay) |
-| Mornings | job rota (AGREED C31): about 3 free mornings; shadow names a step | the same; a gym sponsorship frees six (AGREED) | every morning free (C31): 2 more shadow or bag mornings a week for footwork | recovery mornings cost more (AGREED T38 age) |
-| Bouts | a fight week, no camp, 1 to 2 weeks out (S428); every 3 to 4 weeks; one plan line ready | the same; the nationals (5 bouts, 3 months) | camps as load blocks (C15); 4 then 6 rounds; three promoter offers | fewer bouts, each worth more |
-| What the week is for | Usable: get the fundamentals into the fight; Standard and Bronze awards | Sharp on two or three moves; a STYLE NAMED; Silver | a SPECIALTY: one move to Signature, the Gold row, perk picks | holding Signatures as Speed and ceilings fall |
-| What they are eager for | the first combo, the first award, the first rank (S428) | the nationals, Silver, the pro offer | the first Signature, a perk, a belt | one more title before the body goes |
-STYLE NAMED (NEW, season clock): three moves of one style's set at Sharp names the style on the Profile (Out-boxer: Jab, Step back,
-Pivot; Pressure fighter: Cut off, Body hook, Tie up; Counter-puncher: Slip, Check hook, Roll; Boxer-puncher: Cross, Lead hook, Pivot;
-Volume puncher: Jab, 1-2, Step in). The style word (CODE `FighterProfile` style words) then comes from what the fighter can DO, not
-only from the dials, and the build direction (AGREED RPG 12) offers its style's nodes first.
+| Tree | rows 1-2 | rows 2-3 | row 4 (Feint) | complete; holding |
+| Slots | 1 (2 with a 65+ pads coach) | same | same | same; teaches in sparring |
+| Specialty | first Sharp | 3 to 4 held, a style named | 4 to 5 held, 1 to 2 Signatures | Signatures held at half fade |
+| Mornings | job rota (AGREED C31): fewer free; shadow names a step | same; a gym sponsorship frees six | all free (C31): more shadow and bag for footwork and holding | recovery costs more (AGREED T38) |
+| Bouts | today: offers 8-12 weeks out; with AMATEURWEEK1 (Q-209) a fight week 1-2 weeks out; one plan line ready | same; the nationals (5 bouts, 3 months) | camps as load blocks (C15); 4 then 6 rounds; three promoter offers | fewer, bigger |
+| Threat | none from tape | the regional ladder | READ (M7) | the body: Speed falls, steps shorten on screen |
+| Eager for | first award, first combination, first rank | Silver and Gold, the style, the nationals, the pro offer | first and second Signature, answering the read, a belt | one more title; a club mate's Signature |
 
-## 6. One week played (four fighters, week 9, ESTIMATES worked from the code's formulas)
-Monday: two moves crossed lines on Sunday night (Tess's Body hook 30: Usable, opens 1-2-3b and Tie up; Lucy's Step back 30). Home shows
-two steel needs, A MOVE TO PICK x2. Tess's three: Tie up (her next opponent presses: answers inside; 2 weeks), Uppercut (Bronze needs
-it; 3 weeks; Poor grade, explosiveness 48), Pivot (direction Keep it long first; 2.5 weeks). Lucy's: Pivot, Cut off, Slip. The club has
-8 pad nights; Samira (bout Saturday) holds 3 for her plan lines; the pick card says Lucy's Pivot takes 3 weeks on 2 nights, 2 weeks on 3
-(one of Tess's). Shadow mornings name Pivot for Lucy. Sunday: Lucy's Pivot 17, Tess's Tie up 16; Samira wins; her Lead hook landed 4
-times: FIGHT-PROVEN, a stamp, Bronze 13 of 14. Next Monday's preview already says: "Samira: Bronze next week if Body hook reaches 30".
+## 6. One week played (four fighters, week 9; numbers ESTIMATE from the code's formulas)
+Monday: Tess's Uppercut crossed 30 on Sunday night (opens 1-2-3b and 1-6-3; her slot frees); Lucy's Step back 30. Home: two steel needs.
+Tess's three, in the coach's order: Pivot (next opponent is a pressure fighter: answers "when pressed"; 2.5 weeks; grade OK), Tie up
+(answers "when pressed" inside; 2 weeks; grade Good: inside 66 + strength 63), Roll out (answers "loading up"; 3 weeks). Samira holds
+Jab and Cross at Sharp (40 minutes, covered by sparring because both are in her plan) and wants Body hook to Sharp for Pressure fighter
+(she holds Cut off and Tie up): that is 3 of the club's 8 pad nights this week; Lucy's Pivot gets 2. The Specialty board says Samira's
+Lead hook (Sharp 61, not in her plan) starts fading Sunday unless it gets 20 minutes: the player drops it (it will settle at 50, still a
+weapon) to pay for the Body hook. Saturday Samira wins; her Body hook line won 3 exchanges: +3, FIGHT-PROVEN. Sunday: Body hook 60, three
+held: PRESSURE FIGHTER named, her plan holds 6 lines from next week.
 
 ## 7. Every menu it appears on, and what each is wired to
-| Menu | What it shows | Wired to |
+| Menu | What it shows (and what can be done) | Wired to |
 |---|---|---|
-| Fighter page > Profile (Overview) | award chip with stamps; NEXT UNLOCKS strip: three rows (week: the bar nearest its line and its day; season: next award and what it opens; career: pro offer or Signature line); height and reach on the header | `SkillAwards.progress`, new `MoveTree.next_unlocks(f)`, `PadWeek.project`, `Roster.check_pro` |
-| Playbook > Moves (becomes THE TREE) | the 22 nodes in four branches by row; bar, ticks, grade letter, what it opens, locked reason; the slot(s) marked; click a node: watch it (CODE MoveBook clip), drill it (to the pad tray), pick it (when a slot is free) | new `MoveTree.gd` (pure), `LineGrade.grade`, `MoveMastery`, `ui/MoveBook.gd` clip player |
-| Playbook > Combos | each book combo greyed with the node that opens it ("needs Uppercut: 3 weeks if picked") | `Combos.unlocked`, `MoveTree` |
-| Playbook > Game plan | a line whose move is in learning: greyed with its days to 30; the line's grade letter | `StrikeMap.grey_reason`, `LineGrade` |
-| Week / Training (pad tray) | drill cards for steps and defences as for punches; the learning slot's card first; shadow mornings name their step | `PadWeek`, `WeekPlan` shadow session target |
-| Monday review | lines crossed with what each opened; award passed (a card, the new row lit); the pick card when a slot freed; Coach's area rising past a gate ("Reid pads 75: Signature work open") | `DrillWeek` news, `SkillAwards.assess`, `CoachAreas` growth (RPG 11) |
-| Home | steel need A MOVE TO PICK (never stops the clock); amber when unpicked by Sunday | Home needs list, `MoveTree.slot_free` |
-| Fighters page | the award chip beside "Best move"; the style named | `SkillAwards`, `MoveTree.style_named` |
-| Fights > bout card and bout page | "what this opponent tests" names the open node that answers it and how far it is | `OppFile`, `MoveTree.answers` |
-| Fight night | 3D step length and tempo from Speed, height and the step's grade; plan captions carry the grade | `fight3d/BoxerFootwork.gd` reads, `LineGrade` |
-| Result and the Why | FIGHT-PROVEN marks; mastery the bout added; NEXT names the node that would have answered and opens its pick | `BoutNight._finish`, new `MoveTree.prove`, `FightWhy` |
-| Club > People | each coach's pads rating, what the next gate opens (second slot 65, Signature 75), sessions to the next area point | `CoachAreas`, RPG 11 growth |
-| Signing card / Find a fighter | rows already known, the signature move, height and reach | `Recruit`, `AttrGen` body facts |
-| Pro offer | "turning pro opens the Gold row: Feint, own chains of four, the slip-counter" | `MoveTree.row_for("gold")` |
+| Fighter page > Profile | NEXT UNLOCKS: three rows (week: the nearest line and its day; season: next award or the style's missing move; career: the pro offer, the next Signature with its Technique need, or the read); height, reach; the style named; the award chip; each row opens its node | `MoveTree.next_unlocks`, `SkillAwards.progress`, `PadWeek.project`, `Roster.check_pro` |
+| Playbook > Moves = THE TREE | 16 nodes by branch and row (toggle BY PLACE IN THE RING); bars, grade, gold pins, locks with reasons; the slot(s); the SPECIALTY BOARD; a node: Watch (CODE clip), Drill (to the pad tray), Pick or Swap with its price, Hold or Drop | `MoveTree.gd`, `LineGrade.grade`, `MoveMastery`, `ui/MoveBook.gd`, new `Specialty.gd` |
+| Playbook > Combos | book combinations greyed with the node that opens them, Pick on it when a slot is free; own chains as today (no gate) | `Combos.unlocked`, `MoveTree` |
+| Playbook > Game plan | a line whose move is learning: greyed with its days to 30; the grade letter on each line; the style's extra line slot | `StrikeMap.grey_reason`, `LineGrade`, `Specialty.style_line` |
+| Week (pad tray, mornings) | drill cards for steps and defences; the slot card first; held moves' minutes shown on the tray ("Hold: 60 min this week, 40 by sparring"); shadow mornings name their step | `PadWeek`, `WeekPlan`, `Specialty.minutes_due` |
+| Monday review | lines crossed and what each opened; held moves fading; a style named or lost; an award passed; a slot free with the three cards; a coach's area milestone | `DrillWeek` news, `Specialty`, `SkillAwards.assess`, RPG 11 growth |
+| Home | steel need A MOVE TO PICK; amber need A SIGNATURE FADING (Sunday) | Home needs, `MoveTree.slot_free`, `Specialty.fading` |
+| Fighters page cards | style word and award on the card (S410 cards) | `Specialty.style`, `SkillAwards` |
+| Fights > bout card | from the style word only: "Pressure fighter: answers you hold: Tie up; open: Pivot (Pick)" | `OppFile` style, `MoveTree.answers` |
+| Fight prep (after a tell) | the exact answer node and how far, Pick or Swap | `OppFile.tape`, `MoveTree.answers` |
+| Fight night | 3D steps from Speed, height and grade; grade on hover only (the minute's three rows stay) | `fight3d/BoxerFootwork.gd`, `LineGrade` |
+| Result and the Why | FIGHT-PROVEN pins and mastery added; NEXT names the node that would have answered, Pick or Swap on it; for a pro, "your Jab line was read in rounds 3-4" | `BoutNight._finish`, `MoveTree.prove`, `FightWhy`, READ1 rule |
+| Club > People | each coach: pads rating, second-slot line (65), Signature rate, sessions to the next point; the market (five, hire two) | `CoachAreas`, `Data.COACHES`, RPG 11 |
+| Signing card / Find a fighter | the day-0 tree (known moves), signature move, height and reach, coachability's learning speed | `Recruit`, `AttrGen`, `MoveTree.day0` |
+| Pro offer | "turning pro opens the Feint and brings the read: your most-fired line now is the Jab 1-2" | `MoveTree.row_for(4)`, READ1 |
 
-## 8. How it all links (so it stays deep but simple)
-pads coach rating -> bar speed, slots, Signature gate -> moves cross lines -> stamps -> award -> next tree row + energy discount ->
-new plan answers and combinations -> fight night (fire share by tier, grade by body) -> bouts won, moves proven -> rank, nationals,
-pro offer -> the Gold row and Signatures -> the coach's sessions grow the coach -> faster bars. One bar per move, one chip per fighter
-(the award), one pick per freed slot. Nothing new to manage on Monday except the pick.
+## 8. How it links (deep, not complicated)
+Coach (rating, growth, market) -> bar speed, slots, Signature rate -> moves cross lines (week) -> new plan answers and combinations ->
+held moves name a style and add a line (season) -> fire share by tier and grade by body on fight night -> wins, proven lines, rank,
+awards -> the pro offer -> the read, answered by a second Signature or the Feint (career) -> veterans teach club mates -> faster bars.
+On Monday the player does at most: pick a move (when a slot freed), decide what to hold (when the board says something fades), place the
+club's pad nights (AGREED). Everything else is shown, not asked.
 
 ## 9. To be measured before any build (through the game's real code; each prints today's game first)
-| Probe | What it plays | It passes when |
+| Probe | It plays | It passes when |
 |---|---|---|
-| PROGPROBE1 cadence | two seasons of the four starters through `Sim` with the coach's week and a pick policy (coach's first card); logs every line crossed, combo opened, award, pick, style named, per fighter per week; today's game as arm A, this map as arm B | each fighter crosses a line in 3 of 4 weeks; a pick every 2 to 3 weeks per fighter; no gym week with nothing crossed; Standard by week 6 to 10, Bronze in season 1, a style named in season 1; Gold not before the pro offer |
-| TREEVALUE1 node worth | each node at Usable and at Sharp, on the played bout (BoutRead + real bouts as ASKPROBE2, 60 generated fighters, four opponent styles), FireLevel ON | every node moves 1.5 wins in 100 or more against at least one style (the C27 cut rule) and no node is best against all four; a node under the bar is cut or merged |
-| PICKSPREAD1 the three cards | 60 fighters at their first five picks; each of the three cards played forward 6 weeks | no card position wins more than 6 in 10; the coach's first card is best less than 7 in 10 (else the pick is a lookup) |
-| BODYFACT1 height and reach | our fighters with body facts against without, per class | the reach and height edge moves 1 to 4 wins in 100 between the longest and shortest in a class, never more |
-| GRADE1 (LINEGRADE1) | the grade multipliers on the played bout | Good against Poor on the same line worth 2 or more wins in 100; no attribute pair decides more than a third of grades |
-| FOOTWORK1 | steps gated by mastery against today's always-on steps | a novice without Step back loses at least 1.5 more in 100 to pressure; nothing worse than 5 (it must not make novices unplayable) |
-Gate: the probes report into `ops/AgentComms/levers.json` (C27); a mechanic whose probe fails is redesigned before it is drawn.
+| PROGPROBE1 cadence | two seasons of four starters through `Sim`, coach's picks, arm A today, arm B this map | each fighter crosses a line 3 weeks in 4; a pick every 2-4 weeks; no gym week with nothing crossed; a style named in season 1; first Signature in the first pro year |
+| HOLD1 the specialty | the same two seasons, four hold policies (plan only, widest, deepest, coach) | two fighters with the same start end season 2 with different held sets; 4 to 5 Sharp held by a careful player; no policy best in more than 2 of 3 line-ups; the hold minutes set |
+| TREEVALUE1 node worth and breadth | each node at Usable and Sharp on the played bout (60 generated fighters, four opponent styles, FireLevel on) | every node moves 1.5 wins in 100 against at least one style; none best against all four; wins still rise from 6 to 9 Usable answers (breadth curve) - else the bottom nodes merge |
+| PICKSPREAD1 the three cards | 60 fighters, first five picks, each card played 6 weeks on | no card position best in more than 6 in 10; the coach's first card best in under 5 in 10 |
+| READ1 the professional's read | pros with one Signature, two, a Feint, a held style, against the read on and off | the read costs 4 to 7 in 100 on one Signature; each answer wins back at least 2; no answer wins all back |
+| GRADE1, BODYFACT1, FOOTWORK1 | grade multipliers; reach and height for our fighters; gated steps | Good vs Poor on one line 2+ in 100; the longest vs shortest in a class 1 to 4 in 100; a stepless novice loses 1.5 to 5 more in 100 to pressure |
+| COACHMARKET1 | five coaches over three seasons | no hire best in more than 2 of 3 line-ups; growth worth less than the gap between hires in season 1 |
+Results into `ops/AgentComms/levers.json` (C27 cut rule). A mechanic whose probe fails is redesigned before it is drawn.
 
 ## 10. Build order (after his OK; each task under 500 lines, one owner, its test red on main first)
-1 FIRELEVEL3 (queued; Claude): fire share on in GAME_ON after its re-measure. 2 BODYFACTS1 (Qwen): height and reach for our fighters
-+ test. 3 MOVETREE1 (Goose, pure): `MoveTree.gd` + `assets/data/box_tree.json` (nodes, rows, needs, opens, style sets) + tests.
-4 STEPMASTERY1 (Claude, fight code): steps and defences get mastery; FireLevel and PlanFight read it; StrikeMap grey reason.
-5 LINEGRADE2 (Claude): LineGrade wired into PlanFight. 6 SLOTS1 (Qwen, pure): learning slots, the coach's three, coach gates.
-7 AWARDSTAMP1 (Qwen): stamps counted from bars in SkillAwards. 8 FIGHTPROVE1 (Claude): bout mastery and the mark. 9 the probes
-(Goose / Arena, section 9). 10 screens (Grok Dev, one a task, from the approved drawing): the tree page, the pick card, the Profile
-strip, the Monday rows. 11 BOXSTEP3D1 (Ziva, after the stills): step length and tempo reads. 12 golden path (Grok Dev): a fighter
-from signing to the pro offer picking 6 moves, passing Standard and Bronze, naming a style, a fight-proven mark, Reid crossing pads 75.
-Staff growth (RPG 11) is built after the fighter loop has been played (the lead's order and his scope rule).
+1 FIRELEVEL3 (queued). 2 BODYFACTS1 (Qwen). 3 MOVETREE1 (Goose, pure: tree data, rows, day 0, answers, tests). 4 STEPMASTERY1 (Claude:
+steps and defences get mastery; FireLevel, PlanFight and StrikeMap read it; old saves at 30). 5 LINEGRADE2 (Claude: grade into PlanFight).
+6 SLOTS1 (Qwen, pure: slots, the three cards, learning speed). 7 SPECIALTY1 (Qwen, pure: hold minutes, fade, style named, +1 line) and its
+wiring in PadWeek (Claude). 8 FIGHTPROVE1 (Claude: line receipts -> mastery and pin; checks attribution first). 9 READ1 rule for pros
+(Claude, after its probe). 10 COACHMARKET1 data + head coach pads (Qwen). 11 the probes (Goose / Arena). 12 screens (Grok Dev, one a task,
+from an approved drawing): the tree page with the Specialty board, the pick cards, the Profile strip, the Monday rows. 13 SITWORDS1: the
+plan situation words without pronouns (Claude). 14 BOXSTEP3D1 (Ziva, after stills). 15 golden path (Grok Dev): signing to the pro offer,
+six picks, a style named and lost, a Signature with the cap shown, the read answered by a Feint, a veteran teaching. Coach growth (RPG 11)
+after the fighter loop has been played.
 
 ## 11. Rejected, and why
-- A separate fighter XP spent on ratings (Boxing Manager): a second currency beside mastery and the coach's experience; the bars
-  already say what was earned.
-- A big tree with new punches (overhand, body jab, shoulder roll): each needs clips and fight hooks; LATER, as nodes added to the same
-  tree once the 22 prove themselves (TREEVALUE1).
-- Learning any number of moves at once: no decision; the slot is the decision.
-- Coach perks that are "+5% training": AGREED RPG cut rule; the coach's growth opens gates instead.
-- A training mini-game for pads: grind (Fight Night Champion); the pick and the pad nights are the play.
+- A separate fighter experience or stamps: a second currency; the bar is the experience.
+- Awards as row gates: they made the pick a lookup (round 1).
+- Hard caps on Sharp slots (3 / 5): holding by minutes gives the same limit through the club's real scarce thing (pad time) and lets a
+  fighter with more nights hold more.
+- New punches (overhand, body jab, shoulder roll): need clips and fight hooks; later nodes once TREEVALUE1 proves the 16.
+- Coach perks of "+5% training"; a training mini-game (grind).
+- Gating own chains by length: it would take away a built feature the owner calls fun.
 
 ## 12. Risks, said plainly
-- Starting fighters who know fewer moves will look weaker in the first weeks; the signing state keeps row 1 at today's start shares.
-- Gating steps can make novices lose more to pressure (FOOTWORK1 bounds it).
-- Four fighters' picks every week could feel like chores: the pick is one click with the coach's first card pre-marked, and an
-  unpicked slot takes it by itself.
-- The 3D reads need clean stills before they ship (visual gate); the numbers ship first.
-- Stamps and award thresholds are ESTIMATES until PROGPROBE1.
+- Holding costs could feel like upkeep chores: the plan's sparring holds its own moves, and only a FADING Signature raises a need.
+- Gated steps could make novices lose more to pressure: FOOTWORK1 bounds it; old saves start steps at 30.
+- The read could punish pros too hard: READ1 bounds it at 4-7 in 100 with answers worth 2+.
+- Four fighters x picks x holds: at most two decisions a fighter on a busy Monday, most weeks none.
+- 3D reads need clean stills before they ship; the numbers ship first.
+- AMATEURWEEK1 (Q-209) changes the novice's bout rhythm; this map works on today's rhythm and on that one.

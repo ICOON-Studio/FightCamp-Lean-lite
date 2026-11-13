@@ -155,6 +155,7 @@ func _mix() -> void:
 
 ## trace=1: what drives the hitting arm on each frame after a hit (the clip, its time and speed, the reach, the cut to guard).
 var trace := false
+var _prev_at := Vector3.ZERO
 func _trace(s: Dictionary, f: int) -> void:
 	var who := int(s["hitter"])
 	var ap: AnimationPlayer = stage.boxers[who]["ap"]
@@ -165,6 +166,29 @@ func _trace(s: Dictionary, f: int) -> void:
 	print("HIT_FRAME_FILM trace %s f%02d clip %s at %.3f speed %.2f | reach clip %s w %.2f fades %s | cut %s | glove over her head %.3f m" % [
 		str(s["dir"]).get_file(), f, ap.current_animation, ap.current_animation_position, ap.speed_scale, str(pr.get("_clip")),
 		float(pr.get("_w_now")), str((pr.get("_fades") as Dictionary).keys()), str(stage._cut[who]), stage.glove_front(who, hand).y - head.y])
+	# S448 diagnosis: is the drawn glove on the reach's aim, and can the arm reach it?
+	pr.set_meta("dbg", true)
+	print("HIT_FRAME_FILM frame %s f%02d k%d" % [str(s["dir"]).get_file(), f, Engine.get_process_frames()])
+	var at: Vector3 = pr.get("_last_at")
+	if not at.is_finite():
+		at = pr.get("_aim_w")
+	var ids = (pr.get("_arms") as Dictionary).get(str(pr.get("_hand")), [])
+	if not (at.is_finite() and ids != null and ids.size() >= 3):
+		print("HIT_FRAME_FILM aim %s f%02d none: last_at %s aim_w %s hand %s arms %s" % [str(s["dir"]).get_file(), f, str(pr.get("_last_at")), str(pr.get("_aim_w")), str(pr.get("_hand")), str((pr.get("_arms") as Dictionary).keys())])
+	else:
+		var sh := skel.global_transform * skel.get_bone_global_pose(int(ids[0])).origin
+		var el := skel.global_transform * skel.get_bone_global_pose(int(ids[1])).origin
+		var wr := skel.global_transform * skel.get_bone_global_pose(int(ids[2])).origin
+		print("HIT_FRAME_FILM aim %s f%02d drawn-to-aim %.3f m | shoulder-to-aim %.3f m arm %.3f m | aim moved %.3f m | lastw %.2f" % [
+			str(s["dir"]).get_file(), f, stage.glove_front(who, hand).distance_to(at), sh.distance_to(at),
+			sh.distance_to(el) + el.distance_to(wr), at.distance_to(_prev_at), float(pr.get("_last_w"))])
+		var sc: Vector3 = pr.get("_shown_cur")
+		var mods := []
+		for c in skel.get_children():
+			if c is SkeletonModifier3D and (c as SkeletonModifier3D).active:
+				mods.append(c.name)
+		print("HIT_FRAME_FILM shown %s f%02d reach-shown-to-aim %.3f m | mods %s" % [str(s["dir"]).get_file(), f, sc.distance_to(at) if sc.is_finite() else -1.0, str(mods) if f == 19 else ""])
+		_prev_at = at
 
 
 ## side=1: the camera square to the pair's line, boxer 0 on the left (set each frame before the stage draws).

@@ -89,6 +89,8 @@ var _shown_prev := Vector3.INF   # the glove front as shown last frame (world): 
 var _shown_cur := Vector3.INF
 var _shown_f := -1
 var _hit_f := -1
+var _hold_hand := Basis()        # S448: the hand in the forearm's frame on the hit frame (ReachLimit.solve_held)
+var _hold_w := 0.0               # how much of it this solve keeps (0 = the clip's own hand)
 var _t_now := 0.0
 var _real_c := 0.0               # S445 fix: real seconds since the contact (the hit-stop freezes clip time, not the carry)
 var _key := 0                    # the drawn frame this solve belongs to (reach_at: each call is a frame of its own)
@@ -233,6 +235,7 @@ func _process_modification() -> void:
 		_real_c += dt if _hit_f >= 0 and _key != _hit_f else 0.0   # from the frame after the hit
 		var ramp := clampf(_armed_t / IN_S, 0.0, 1.0)
 		_apply(skel, ap.current_animation_position, ramp * ramp * (3.0 - 2.0 * ramp))
+	ReachLimit.hand_rate(self, skel, dt)
 
 
 ## The armed punch at clip time t (the pose on the skeleton must be the clip's at t): what the modifier does each frame,
@@ -307,6 +310,8 @@ func _note_shown(skel: Skeleton3D) -> void:
 			_hit_w = shown - _dir_w * _carried(_t_now)
 		_hit_f = f
 	_dir_pending = false
+	if f == _hit_f and _arms.has(_hand):
+		ReachLimit.latch_hand(self, skel, _arms[_hand])
 
 
 ## The driven glove onto world point `at` by weight w, remembered so settle() lands it on the same point.
@@ -381,6 +386,7 @@ func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove
 	if not _arms.has(hand):
 		return
 	var ids: Array = _arms[hand]
+	_hold_w = 1.0 if w >= 0.999 and hand == _hand and DRIVE and _thru > 0.0 and not height_only and _hit_f >= 0 and _key != _hit_f else 0.0
 	var g_hd: Transform3D = skel.get_bone_global_pose(int(ids[2]))
 	var s: Vector3 = skel.get_bone_global_pose(int(ids[0])).origin
 	var l1 := s.distance_to(skel.get_bone_global_pose(int(ids[1])).origin)
@@ -417,11 +423,7 @@ func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove
 	# moving the wrist turns the forearm, so one step left the front 0.13-0.28 m off (hit_gap_probe, inside punches): the
 	# full-weight wrist is found by re-solving from the moved arm, then the pose is put back and eased in by the weight.
 	var keep := [skel.get_bone_global_pose(int(ids[0])), skel.get_bone_global_pose(int(ids[1])), g_hd]
-	var full := g_hd.origin
-	for k in SOLVE_PASSES:
-		var hd_now: Vector3 = skel.get_bone_global_pose(int(ids[2])).origin
-		full = hd_now + (target - (hd_now + _along(skel, ids) * glove_front))
-		solve(skel, ids, s, full, l1, l2, g_hd.basis, pole, pole_w)
+	var full := ReachLimit.converge(self, skel, ids, s, target, glove_front, l1, l2, g_hd.basis, pole, pole_w, SOLVE_PASSES)
 	for k in 3:
 		skel.set_bone_global_pose(int(ids[k]), keep[k])
 	var want: Vector3 = g_hd.origin + (full - g_hd.origin) * w
@@ -437,17 +439,14 @@ func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove
 			# POWER1: the lean moved the shoulder, so the glove's axis (it follows the forearm) lands it elsewhere: re-solve
 			# from the leaned shoulder (hit_frame_test read the straight-arm reaches 2-3 cm past their aim before this).
 			var keep2 := [skel.get_bone_global_pose(int(ids[0])), skel.get_bone_global_pose(int(ids[1])), skel.get_bone_global_pose(int(ids[2]))]
-			var full2 := full
-			for k in SOLVE_PASSES:
-				solve(skel, ids, s, full2, l1, l2, g_hd.basis, pole, pole_w)
-				var hd2: Vector3 = skel.get_bone_global_pose(int(ids[2])).origin
-				full2 = hd2 + (target - (hd2 + _along(skel, ids) * glove_front))
+			var full2 := ReachLimit.converge(self, skel, ids, s, target, glove_front, l1, l2, g_hd.basis, pole, pole_w, SOLVE_PASSES)
 			for k in 3:
 				skel.set_bone_global_pose(int(ids[k]), keep2[k])
 			want += (full2 - full) * w
 	if reach < l1 + l2 - 0.005:
 		want = s + (want - s).limit_length(reach)   # POWER1 step 4: an uppercut's elbow stays bent; short is short
 	ReachLimit.solve_capped(self, skel, ids, s, want, l1, l2, g_hd.basis, pole, pole_w, clip_glove, glove_front, hand == _hand and DRIVE and ReachLimit.capping(self))
+	_hold_w = 0.0
 
 
 ## The glove's long axis, as Gloves.gd mounts it: the wrist-to-knuckle direction turned WRIST_STRAIGHT of the way onto the
