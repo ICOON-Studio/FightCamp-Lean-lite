@@ -629,11 +629,12 @@
    "seat": "dola",
    "brief": "research/ASKFIGHT_CRITIC_S442_BRIEF.md",
    "stem": "ASKFIGHT_CRITIC_S442_DOLA",
-   "status": "queued",
+   "status": "dropped",
    "queued_at": "2026-11-12 11:47",
    "tries": 0,
-   "skips": 93,
-   "last_error": "2026-11-13 14:40 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+   "skips": 95,
+   "last_error": "2026-11-13 15:33 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)",
+   "note": "S452: stale (ASKFIGHT waits on the fight week); Dola re-tasked"
   },
   {
    "id": "SQ44",
@@ -887,45 +888,58 @@
    "sent_ms": 1794571834936,
    "answered_at": "2026-11-13 14:40",
    "answer": "research/AMATEURWEEK_CRITIC_S450_KALLI.md",
-   "chars": 18790
+   "chars": 18790,
+   "seen_by_claude": true
   },
   {
    "id": "SQ61",
    "seat": "kalli",
    "brief": "research/COACHFIT_CRITIC_S450_BRIEF.md",
    "stem": "COACHFIT_CRITIC_S450_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-13 14:09",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-13 15:10",
+   "sent_ms": 1794575447597,
+   "answered_at": "2026-11-13 15:33",
+   "answer": "research/COACHFIT_CRITIC_S450_KALLI.md",
+   "chars": 19372
   },
   {
    "id": "SQ62",
    "seat": "john",
    "brief": "research/AMATEURWEEK_CRITIC_S450_BRIEF.md",
    "stem": "AMATEURWEEK_CRITIC_S450_JOHN",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-13 14:09",
    "tries": 0,
    "sent_at": "2026-11-13 14:40",
-   "sent_ms": 1794573638785
+   "sent_ms": 1794573638785,
+   "answered_at": "2026-11-13 15:10",
+   "answer": "research/AMATEURWEEK_CRITIC_S450_JOHN.md",
+   "chars": 11705
   },
   {
    "id": "SQ63",
    "seat": "john",
    "brief": "research/COACHFIT_CRITIC_S450_BRIEF.md",
    "stem": "COACHFIT_CRITIC_S450_JOHN",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-13 14:09",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-13 15:34",
+   "sent_ms": 1794576835904
   },
   {
    "id": "SQ64",
    "seat": "kalli",
    "brief": "research/AMATEURWEEK_CRITIC_S451_BRIEF.md",
    "stem": "AMATEURWEEK_CRITIC_S451_KALLI",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-13 15:03",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-13 15:34",
+   "sent_ms": 1794576880394
   },
   {
    "id": "SQ65",
@@ -934,6 +948,27 @@
    "stem": "AMATEURWEEK_CRITIC_S451_JOHN",
    "status": "queued",
    "queued_at": "2026-11-13 15:03",
+   "tries": 0
+  },
+  {
+   "id": "SQ66",
+   "seat": "dola",
+   "brief": "research/AMATEURWEEK_CRITIC_S451_BRIEF.md",
+   "stem": "AMATEURWEEK_CRITIC_S451_BRIEF_DOLA",
+   "status": "sent",
+   "queued_at": "2026-11-13 15:34",
+   "tries": 0,
+   "sent_at": "2026-11-13 15:34",
+   "pid": 20880,
+   "transcript": "AgentComms/seat_logs/SQ66_dola.txt"
+  },
+  {
+   "id": "SQ67",
+   "seat": "dola",
+   "brief": "research/COACHFIT_CRITIC_S450_BRIEF.md",
+   "stem": "COACHFIT_CRITIC_S450_BRIEF_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-13 15:34",
    "tries": 0
   }
  ]

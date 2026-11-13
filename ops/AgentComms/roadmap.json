@@ -3,16 +3,16 @@
  "updated": "2026-11-13",
  "author": "claude S294",
  "now": {
-  "id": "S451",
+  "id": "S452",
   "owner": "claude",
   "updated": "2026-11-13",
-  "summary": "S451: OFFICE1 collected (d7bf6148; the office pin opens the full-screen computer desktop, his Q-213 'A'; gym_hub_test follows the route; real screen on the review board); BLOCKLOOK4 go sent to Grok Dev; Kalli SQ60 on fight week v4 = Depth 5 / Play 6 -> v5 written (AMATEURWEEK1_MAP_V5_S451: season on the box, home draws level/3 below, trips act on tank/stance/tiredness, kilo moves the weight, favours lock at 0, savings only with the stipend, regional show calendar, assistant's pick; pro-road change goes to his board); code checks (TAPER runs for amateur bouts, two stoppage rests, no savings); FIGHTWEEKPROBE3 season measure via career_harness week= (always Rest up ~6 in 100 behind; Train through costs nothing yet - no injury cost modelled); PROGPROBE1R2 collected (control+cadence valid: coach default crosses a line 12-13% of weeks, rotated cards 74%; steps and hold sweep void); critic pack S451 facts; Miro connector broke (he reconnects).",
-  "last_working_commit": "6668966b",
+  "summary": "S452: his C362-C364 fixed on the fight screen (4044a5ab: brain inside her head, ribs and liver each on their own side, counts outside the body, maps 200x320, CARDS row up beside the round box; holo_live + corner_bar green, fight3d_play hudregroup 0 failures; stills on the review board). Qwen POWER1C rejected (OVER_HEAD/ELBOW still red, join_return/hit_carry/punch_speed up; PR 253 closed) - the uppercut tail goes in-house (POWER1D). Grok Dev BLOCKLOOK4 not merged (inert alone; the arm_block hook regressed meet/absorb; findings ops/research/BLOCKLOOK4_RESULT.md; PR 254 closed) -> BLOCKLOOK5 sent (straights on the landed path, hooks as today). Qwen on STEPMASTERY1A (StepMastery pure rules + tests). Coach default pad cards (2 of 6 punches): decided no standalone change - the coach's hold rule (map M3, PROGBUILD1) owns it.",
+  "last_working_commit": "4044a5ab",
   "verified_playable": "Builds/FightCamp.exe S451 export; not played by him",
   "incomplete_blocked": "POWER1C (Qwen, gate running), BLOCKLOOK4 (Grok Dev), critics SQ62 (John v4), SQ61/63 (COACHFIT1 v1), fight week v5 critics; Miro reconnect (him)",
   "next_acceptance": "POWER1C collected with game-camera stills of the uppercut on the review board; fight week v5 scored by two fresh critics (SQ64/65); STEPMASTERY1 started.",
   "awaiting_operator": "Reconnect the Miro connector; his look: office desktop, block reel round 3, camp v3, result tabs; his ear: voices, PA mix.",
-  "next_action": "S452: 0) get_usage; hand over at 300k. 1) He reconnects Miro -> redraw P0 (where_we_are.py svg, one canvas_update_from_svg). 2) Collect Qwen POWER1C by diff (b315f3a1+), test, film seed 4242 on 3+ seeds, review board. 3) Collect Grok Dev BLOCKLOOK4. 4) Critics: fight week v5 (Kalli+John), COACHFIT1 v1 (SQ61/63); 7+ -> fix -> his board --attach. 5) STEPMASTERY1 (Claude, M5). 6) PROGPROBE1R3 to Goose. 7) Coach default pad cards train 2 of 6 punches: read and decide."
+  "next_action": "S453: 0) get_usage; hand over at 300k. 1) He reconnects Miro -> redraw P0. 2) Collect Qwen STEPMASTERY1A by diff (tests/step_mastery_test.gd), then wire it (FireLevel.mastery_of, the plan's greyed 'learning' line). 3) Collect Grok Dev BLOCKLOOK5 (PR grok/blocklook5; block_meet <= 10, absorb 0), render the block reel. 4) Critics: fight week v5 (SQ64/65), COACHFIT1 v1 (SQ61/63); 7+ -> fix -> his board --attach. 5) POWER1D in-house: cut the lead uppercut's tail after the drive, blend home elbow-down (bars in TASK_POWER1C.md). 6) PROGPROBE1R3 to Goose."
  },
  "next": "S442: 0) get_usage. 1) Result page round 2 (docs/mockups/s441/result/fight_only.png): one logic check + two fresh critics (each with CRITIC_PACK, the 10/10 list and its drawing); fix, send to him at 8+ with the lists. 2) Mechanic 1 ASK FOR A FIGHT: the short map (ops/research/ASKFIGHT_MAP_S441.md: one screen, one decision, prices from the code), two fresh critics + a logic check. 3) Collect POWER1 when the lead's steps land (check steps 3 and 6 against REFERENCE_PUNCH_TARGETS_S439.md; films + critics' scores on the board), then DEFECTS1 (merge main in first; film a blocked punch). 4) Collect R26SWAP1 (Qwen) and the queued briefs as they land (read each against its brief before merging). 5) Wire the towel card into the corner minute once the result page is through.",
  "assessment": {
@@ -1850,6 +1850,11 @@
    "date": "2026-11-13",
    "summary": "S451: OFFICE1 collected (d7bf6148; the office pin opens the full-screen computer desktop, his Q-213 'A'; gym_hub_test follows the route; real screen on the review board); BLOCKLOOK4 go sent to Grok Dev; Kalli SQ60 on fight week v4 = Depth 5 / Play 6 -> v5 written (AMATEURWEEK1_MAP_V5_S451: season on the box, home draws level/3 below, trips act on tank/stance/tiredness, kilo moves the weight, favours lock at 0, savings only with the stipend, regional show calendar, assistant's pick; pro-road change goes to his board); code checks (TAPER runs for amateur bouts, two stoppage rests, no savings); FIGHTWEEKPROBE3 season measure via career_harness week= (always Rest up ~6 in 100 behind; Train through costs nothing yet - no injury cost modelled); PROGPROBE1R2 collected (control+cadence valid: coach default crosses a line 12-13% of weeks, rotated cards 74%; steps and hold sweep void); critic pack S451 facts; Miro connector broke (he reconnects).",
    "last_working_commit": "6668966b"
+  },
+  {
+   "id": "S452",
+   "date": "2026-11-13",
+   "summary": "S452: his C362-C364 fixed on the fight screen (4044a5ab: brain inside her head, ribs and liver each on their own side, counts outside the body, maps 200x320, CARDS row up beside the round box; holo_live + corner_bar green, fight3d_play hudregroup 0 failures; stills on the review board). Qwen POWER1C rejected (OVER_HEAD/ELBOW still red, join_return/hit_carry/punch_speed up; PR 253 closed) - the uppercut tail goes in-house (POWER1D). Grok Dev BLOCKLOOK4 not merged (inert alone; the arm_block hook regressed meet/absorb; findings ops/research/BLOCKLOOK4_RESULT.md; PR 254 closed) -> BLOCKLOOK5 sent (straights on the landed path, hooks as today). Qwen on STEPMASTERY1A (StepMastery pure rules + tests). Coach default pad cards (2 of 6 punches): decided no standalone change - the coach's hold rule (map M3, PROGBUILD1) owns it."
   }
  ],
  "blocked_on_operator": [],
@@ -4768,7 +4773,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-13 14:36 board_sync",
+  "updated": "2026-11-13 15:07 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4918,31 +4923,33 @@
   },
   "working_now": [
    {
-    "title": "TASK POWER1C - QWEN - the lead uppercut's tail: short follow-through, back to guard, never over her head",
+    "title": "Steps and defences get practice bars: the rules (Qwen), then Claude wires them",
     "who": "qwen",
     "started": "2026-11-13T14:11",
     "run": "POWER1C",
-    "state": "gate running"
+    "state": "LANDED - Claude collects",
+    "id": "STEPMASTERY1A"
    },
    {
-    "title": "The block, round 4: the puncher's arm keeps its shape (the catch meets the punch further out)",
+    "title": "The block, round 5: straight punches caught out in front, hooks as today (meet and absorb held)",
     "who": "grok",
     "started": "2026-11-13T14:55",
-    "run": "BLOCKLOOK4"
-   },
-   {
-    "title": "Critics: fight week v5 and coaches v1 (Kalli, John)",
-    "who": "kalli",
-    "started": "2026-11-13",
-    "run": "SQ61-65"
+    "run": "BLOCKLOOK4",
+    "id": "BLOCKLOOK5"
    }
   ],
   "next": [
    {
+    "id": "POWER1D",
+    "who": "claude",
+    "title": "The lead uppercut's tail, in-house: a short drive through, then home elbow-down (Qwen's round missed every bar)",
+    "after": ""
+   },
+   {
     "id": "STEPMASTERY1",
     "who": "claude",
-    "title": "Steps and defences get practice levels (progression map M5): Step in/out start Usable, shadow mornings drill them, the fight fires them by level",
-    "after": ""
+    "title": "Wire the step bars into the fight and the plan screen (after Qwen's rules land)",
+    "after": "STEPMASTERY1A"
    },
    {
     "id": "OFFICE2",
@@ -5382,6 +5389,12 @@
   },
   "done_recently": [
    {
+    "id": "HUDFIX452",
+    "who": "claude",
+    "title": "Fight screen: head reads as a head, ribs and liver clean, CARDS moved up (your C362-C364)",
+    "after": ""
+   },
+   {
     "title": "The office as a full-screen computer desktop (his Q-213 'A'): in the game",
     "who": "grok",
     "when": "2026-11-13"
@@ -5568,6 +5581,22 @@
   "map": {
    "done_earlier": [
     {
+     "text": "OFFICE1: office desktop in game",
+     "who": "agent"
+    },
+    {
+     "text": "Season probe: fight-week habits",
+     "who": "claude"
+    },
+    {
+     "text": "Fight week v5 written",
+     "who": "claude"
+    },
+    {
+     "text": "Progression probe 2 collected",
+     "who": "agent"
+    },
+    {
      "text": "BODYFACTS1: height + reach",
      "who": "agent"
     },
@@ -5606,40 +5635,12 @@
     {
      "text": "Q-208 marks built",
      "who": "claude"
-    },
-    {
-     "text": "Corner King coaches read",
-     "who": "claude"
-    },
-    {
-     "text": "Camp locations mockup",
-     "who": "claude"
-    },
-    {
-     "text": "Ask map v4: step up teaches x1.25",
-     "who": "claude"
-    },
-    {
-     "text": "Block clip judged: cover-up, out",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "OFFICE1: office desktop in game",
-     "who": "agent"
-    },
-    {
-     "text": "Season probe: fight-week habits",
+     "text": "Fight HUD: head, ribs, CARDS",
      "who": "claude"
-    },
-    {
-     "text": "Fight week v5 written",
-     "who": "claude"
-    },
-    {
-     "text": "Progression probe 2 collected",
-     "who": "agent"
     }
    ],
    "now": [
@@ -5726,19 +5727,23 @@
      "who": "claude"
     },
     {
-     "text": "BLOCKLOOK4: arm keeps its shape",
+     "text": "Progression probe 3 (Goose)",
      "who": "agent"
     },
     {
-     "text": "STEPMASTERY1: steps get levels",
+     "text": "BLOCKLOOK5: straights caught out",
      "who": "claude"
     },
     {
-     "text": "Progression probe 3 (Goose)",
-     "who": "agent"
+     "text": "Uppercut tail in-house (POWER1D)",
+     "who": "claude"
+    },
+    {
+     "text": "Step bars: rules (Qwen) + wire",
+     "who": "claude"
     }
    ],
-   "session": "S451"
+   "session": "S452"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

@@ -15,7 +15,7 @@ extends Node
 
 const ReactionBubbles := preload("res://scripts/fight3d/ReactionBubbles.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
-const SMALL := [Rect2(16, 232, 176, 270), Rect2(1728, 232, 176, 270)]   # under each plate's bars, at its outer edge
+const SMALL := [Rect2(8, 228, 200, 320), Rect2(1712, 228, 200, 320)]   # under each plate's bars, at its outer edge (S452 C363 bigger)
 const NUM_SHIFT := 34.0   # STAMINA is wider than "energy": the number moves right so the two never touch
 const DIM := 0.35
 const NEAR_PX := 260.0

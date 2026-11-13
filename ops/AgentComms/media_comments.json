@@ -2761,6 +2761,41 @@
       "at_s": 2.4,
       "id": "C359",
       "addressed": "cited by 00cd305f 2026-11-13"
+    },
+    {
+      "path": "_sent/2026-11-13_1330_camp_plan_v3_seaside_card_now_shows_the_/camp_plan_v3.png",
+      "text": "decent",
+      "at": "2026-11-13T12:59:58Z",
+      "seen_by_claude": true,
+      "id": "C360"
+    },
+    {
+      "path": "_sent/2026-11-13_1227_blocks_after_blocklook2_she_stays_in_her/blocks_contact.jpg",
+      "text": "fine",
+      "at": "2026-11-13T13:00:17Z",
+      "seen_by_claude": true,
+      "id": "C361"
+    },
+    {
+      "path": "_sent/2026-11-13_1052_q_208_marks_built_bubble_green_when_hear/zoom_organs_r2.png",
+      "text": "wtf is that on the head ?",
+      "at": "2026-11-13T13:01:35Z",
+      "seen_by_claude": true,
+      "id": "C362"
+    },
+    {
+      "id": "C363",
+      "path": "media:_sent/2026-11-13_1052_q_208_marks_built_bubble_green_when_hear/p03c_shout_half.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-13-22/README.md",
+      "at": "2026-11-13T13:02:34Z",
+      "seen_by_claude": true
+    },
+    {
+      "id": "C364",
+      "path": "media:_sent/2026-11-13_1052_q_208_marks_built_bubble_green_when_hear/p03c_shout_half.png",
+      "text": "MARKUP: 2 marks -> Feedback/2026-11-13-23/README.md",
+      "at": "2026-11-13T13:02:51Z",
+      "seen_by_claude": true
     }
   ]
 }

@@ -115,13 +115,20 @@ func _draw() -> void:
 			# S444 (operator C331: "instead of empty circle use the organ icon"). S448 (operator on Q-208: "try outline the
 			# region instead of using bubbles, and the number should be without background"): the organ as a lit outline -
 			# its own shape traced in the hit colour, the inside dark - and the bare count beside it, no badge.
-			var side_px := r * 2.6
+			# S452 (operator C362 "wtf is that on the head ?", C363 "fix the head and make it a bit bigger so ribs and liver
+			# read clean"): each organ is sized to its own place, inside the body - the brain fits inside her head (her
+			# head's outline stays a head), ribs and liver each keep their own half of the chest - and the count stands
+			# outside the body on the organ's outer side.
+			var fit := 2.0 * maxf(float(g["rx"]), float(g["ry"]))
+			var side_px := clampf(fit * (0.85 if key == "head" else 1.3), 12.0, r * 2.6)
 			var box := Rect2(mid - Vector2(side_px, side_px) * 0.5, Vector2(side_px, side_px))
 			for k in 12:
 				var a := TAU * float(k) / 12.0
-				draw_texture_rect(pic, Rect2(box.position + Vector2(cos(a), sin(a)) * 2.5, box.size), false, col)
+				draw_texture_rect(pic, Rect2(box.position + Vector2(cos(a), sin(a)) * 1.5, box.size), false, col)
 			draw_texture_rect(pic, box, false, Color(0.03, 0.05, 0.08, 0.82))
-			var at2 := Vector2(mid.x + side_px * 0.40, mid.y + side_px * 0.30 + float(fs) * 0.35)
+			var right: bool = key == "head" or mid.x >= size.x * 0.5
+			var nx: float = mid.x + side_px * 0.5 + 4.0 if right else mid.x - side_px * 0.5 - 4.0 - w
+			var at2 := Vector2(nx, mid.y + float(fs) * 0.35)
 			draw_string_outline(font, at2, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, 5, Color(0, 0, 0, 0.85))
 			draw_string(font, at2, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, col)
 			drawn.append([text, at2])

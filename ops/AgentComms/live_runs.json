@@ -1,53 +1,156 @@
 {
- "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
- "seats": 3,
- "runs": {
-  "POWER1C": {
-   "agent": "qwen",
-   "id": "POWER1C",
-   "title": "TASK POWER1C - QWEN (qwen3-coder) - the lead uppercut's tail: a short upward follow-through, then back to guard, never over her own head",
-   "status": "running",
-   "started": "2026-11-13T14:11",
-   "eta": "2026-11-13T16:01",
-   "branch": "qwen/power1c",
-   "worktree": "E:/FightCamp/wt/LEAN_POWER1C",
-   "wt": "E:/FightCamp/wt/LEAN_POWER1C",
-   "brief": "ops/research/TASK_POWER1C.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/POWER1C_dispatch_out.txt",
-   "match": "seat_dispatch.py run power1c",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/POWER1C_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/POWER1C_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/POWER1C_dispatch_runner.log",
-    "source": "S450 lead, from agy",
-    "brief_copied": true,
-    "runner_pid": 47896,
-    "seat_pid": 29572
-   },
-   "note": "S368 seat_dispatch: launched unattended (S450 lead, from agy); merging stays off",
-   "finished": "2026-11-13T13:51"
+  "_doc": "Claude writes one entry per agent run at launch (operator S144: 'make it more clear, who is working on what, ETA'). The ops board /agents page joins it to the live processes. eta = Claude's estimate at launch, local time; status running|waiting|done.",
+  "seats": 3,
+  "runs": {
+    "POWER1C": {
+      "agent": "qwen",
+      "id": "POWER1C",
+      "title": "TASK POWER1C - QWEN (qwen3-coder) - the lead uppercut's tail: a short upward follow-through, then back to guard, never over her own head",
+      "status": "failed",
+      "started": "2026-11-13T14:11",
+      "eta": "2026-11-13T16:01",
+      "branch": "qwen/power1c",
+      "worktree": "E:/FightCamp/wt/LEAN_POWER1C",
+      "wt": "E:/FightCamp/wt/LEAN_POWER1C",
+      "brief": "ops/research/TASK_POWER1C.md",
+      "repo": "FightCamp-Lean",
+      "where": "pc",
+      "log": "E:/FightCamp/wt/POWER1C_dispatch_out.txt",
+      "match": "seat_dispatch.py run power1c",
+      "model": "qwen3-coder",
+      "dispatch": {
+        "prompt": "E:/FightCamp/wt/POWER1C_dispatch_prompt.txt",
+        "out": "E:/FightCamp/wt/POWER1C_dispatch_out.txt",
+        "runner_log": "E:/FightCamp/wt/POWER1C_dispatch_runner.log",
+        "source": "S450 lead, from agy",
+        "brief_copied": true,
+        "runner_pid": 47896,
+        "seat_pid": 29572
+      },
+      "note": "S452 rejected by Claude: OVER_HEAD and ELBOW still red after the fix (its own table), regressions up (join_return 0->2, hit_carry 40->52, punch_speed 39->41). Tail goes in-house (POWER1D).",
+      "finished": "2026-11-13T15:03",
+      "pr": 253,
+      "checks": [
+        {
+          "kind": "RED_TEST",
+          "script": "tests/uppercut_tail_test.gd",
+          "ok": false,
+          "last": "UPPERCUT_TAIL failures=22"
+        },
+        {
+          "kind": "REGRESSION",
+          "script": "tests/join_return_test.gd",
+          "ok": false,
+          "last": "JOIN_RETURN failures=2"
+        },
+        {
+          "kind": "REGRESSION",
+          "script": "tests/hit_carry_test.gd",
+          "ok": false,
+          "last": "HIT_CARRY failures=47"
+        },
+        {
+          "kind": "REGRESSION",
+          "script": "tests/hit_frame_test.gd",
+          "ok": false,
+          "last": "HIT_FRAME failures=10"
+        },
+        {
+          "kind": "REGRESSION",
+          "script": "tests/punch_speed_test.gd",
+          "ok": false,
+          "last": "PUNCH_SPEED failures=45"
+        },
+        {
+          "kind": "REGRESSION",
+          "script": "tests/fight_feel_test.gd",
+          "ok": true,
+          "last": "FIGHT_FEEL failures=0"
+        },
+        {
+          "kind": "REGRESSION",
+          "script": "tests/beat_clips_test.gd",
+          "ok": true,
+          "last": "BEATCLIPS failures=0"
+        },
+        {
+          "kind": "REGRESSION",
+          "script": "tests/head_aim_test.gd",
+          "ok": true,
+          "last": "HEAD_AIM failures=0"
+        },
+        {
+          "kind": "REGRESSION",
+          "script": "tests/file_limits_test.gd",
+          "ok": true,
+          "last": "FILE_LIMITS failures=0"
+        }
+      ],
+      "films": {
+        "before": {},
+        "after": {},
+        "board": ""
+      },
+      "ended": "2026-11-13T15:16:58"
+    },
+    "BLOCKLOOK4": {
+      "agent": "grok",
+      "id": "BLOCKLOOK4",
+      "title": "The block, round 4: the puncher's arm keeps its shape (the catch meets the punch further out)",
+      "status": "done",
+      "where": "cloud",
+      "repo": "FightCamp-Lean",
+      "branch": "grok/blocklook4",
+      "brief": "ops/research/TASK_BLOCKLOOK4.md",
+      "started": "2026-11-13T14:55",
+      "eta": "2026-11-13T21:00",
+      "note": "S452: not merged (inert alone; the hook regressed meet/absorb); findings in ops/research/BLOCKLOOK4_RESULT.md"
+    },
+    "STEPMASTERY1A": {
+      "agent": "qwen",
+      "id": "STEPMASTERY1A",
+      "title": "TASK STEPMASTERY1A - QWEN (qwen3-coder) - steps and defences get practice bars: the pure rules module",
+      "status": "running",
+      "started": "2026-11-13T15:19",
+      "eta": "2026-11-13T17:09",
+      "branch": "qwen/stepmastery1a",
+      "worktree": "E:/FightCamp/wt/LEAN_STEPMASTERY1A",
+      "wt": "E:/FightCamp/wt/LEAN_STEPMASTERY1A",
+      "brief": "ops/research/TASK_STEPMASTERY1A.md",
+      "repo": "FightCamp-Lean",
+      "where": "pc",
+      "log": "E:/FightCamp/wt/STEPMASTERY1A_dispatch_out.txt",
+      "match": "seat_dispatch.py run stepmastery1a",
+      "model": "qwen3-coder",
+      "dispatch": {
+        "prompt": "E:/FightCamp/wt/STEPMASTERY1A_dispatch_prompt.txt",
+        "out": "E:/FightCamp/wt/STEPMASTERY1A_dispatch_out.txt",
+        "runner_log": "E:/FightCamp/wt/STEPMASTERY1A_dispatch_runner.log",
+        "source": "command line",
+        "brief_copied": true,
+        "runner_pid": 28892,
+        "seat_pid": 50984
+      },
+      "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+    },
+    "BLOCKLOOK5": {
+      "agent": "grok",
+      "id": "BLOCKLOOK5",
+      "title": "The block, round 5: straight punches caught out in front, hooks as today",
+      "status": "running",
+      "where": "cloud",
+      "repo": "FightCamp-Lean",
+      "branch": "grok/blocklook5",
+      "brief": "ops/research/TASK_BLOCKLOOK5.md",
+      "started": "2026-11-13T15:24",
+      "eta": "2026-11-13T21:30",
+      "note": "S452: ETA from round 4 (sent 14:55, PR about 6 h later)"
+    }
   },
-  "BLOCKLOOK4": {
-   "agent": "grok",
-   "id": "BLOCKLOOK4",
-   "title": "The block, round 4: the puncher's arm keeps its shape (the catch meets the punch further out)",
-   "status": "running",
-   "where": "cloud",
-   "repo": "FightCamp-Lean",
-   "branch": "grok/blocklook4",
-   "brief": "ops/research/TASK_BLOCKLOOK4.md",
-   "started": "2026-11-13T14:55",
-   "eta": "2026-11-13T21:00",
-   "note": "S451: go sent to Grok Dev after OFFICE1 was collected"
+  "codex_budget": {
+    "used_percent": 65,
+    "resets": "2026-10-07T04:42",
+    "read_at": "2026-10-02T18:10",
+    "rule": "max 2 Codex seats, luna/medium, stop new launches at 85%"
   }
- },
- "codex_budget": {
-  "used_percent": 65,
-  "resets": "2026-10-07T04:42",
-  "read_at": "2026-10-02T18:10",
-  "rule": "max 2 Codex seats, luna/medium, stop new launches at 85%"
- }
 }

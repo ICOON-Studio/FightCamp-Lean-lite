@@ -83,7 +83,10 @@ func _mount() -> void:
 	_card_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	_card_row.add_theme_constant_override("separation", 10)
 	_card_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_place(_card_row, 80, 178, 480, 48)
+	# S452 (operator C364 on the CARDS row under the round box: "move those, they are too close to the action"): up beside
+	# the round box's top, level with the name plates, right-aligned to the box's left edge.
+	_card_row.alignment = BoxContainer.ALIGNMENT_END
+	_place(_card_row, -330, 8, 320, 48)
 	add_child(_card_row)
 	var cap := TV.label("CARDS", 22, WoodKit.SOFT, "bold")
 	_card_row.add_child(cap)
