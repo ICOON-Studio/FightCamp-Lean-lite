@@ -22,3 +22,15 @@ punches lift the lead glove above the head (our rule: at most 0.03 m). The strai
 Verdict: not usable as is; the speed of the hooks alone does not pay for the lunge. The probe runs on any FBX: run it on
 the next packs the day they are bought, BEFORE any retarget work. Before buying, only the sellers' preview videos can be
 judged (frame timing gives a rough speed; stance and guard are visible).
+
+## All 10 clips on our boxer, filmed (S447, owner: "can you try them all ?", "do you have the original clip next to ours ?")
+Baked with tools/owned_mocap_bake.gd batch (UE5 Manny rig read directly, 0 errors) into assets/anim/baked/ailive_trial/
+(not committed, not wired), filmed pure with tools/owned_mocap_film.gd view=-90 on mh_boxer_10 beside our matching clip.
+Side-by-side films + stills: docs/mockups/s447/ailive_vs_ours/ (Ailive left, ours right); review board 2026-11-13_0920.
+S381 had kept NO picture of what it dropped - these are the first side-by-sides.
+Claude's eyes at the contact frames: the Ailive punches are more athletic than ours - the jab is a real stepping jab with the
+rear glove at the chin; our lead hook is thrown with a near-straight arm at shoulder height (reads like a cross) and our jab
+frame shows both gloves forward. But every Ailive punch starts from a relaxed stand and steps into a very wide, deep stance
+(the rear hook drops the back knee nearly to the floor). The owner's point stands: speed and glove height are things our code
+already corrects; the stance depth is the capture's own. Use, if he likes them: cut guard-to-guard around the contact (S273
+plan) for a STEPPING take of each punch, the S430 stepping route.
