@@ -7025,10 +7025,11 @@
       "attach": [
         "research/OFFICE_BOOKING_S448.md"
       ],
-      "answer": null,
+      "answer": "Yes, that order",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-13T10:36:58Z",
+      "seen_by_claude": false,
+      "comment_only": false
     },
     {
       "id": "Q-S294-211",
@@ -7042,6 +7043,43 @@
       ],
       "attach": [
         "research/PROGRESSION_SUMMARY_S448.md"
+      ],
+      "answer": "Yes, go ahead",
+      "note": null,
+      "answered_at": "2026-11-13T10:39:24Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-212",
+      "asked": "2026-11-13T10:29:11.766804+00:00",
+      "session": "S294",
+      "text": "Gear (your idea): a design map after the fight week? My take: personal gear gives each fighter a look plus small REAL effects (wraps = hand injuries, headguard = cuts in sparring, gloves = sparring partners' injuries, worn gear = more risk), bought from the fighter's savings as a WANT that lifts mood; robe and trunks = look and sponsor money, not stat buffs; gym equipment already exists as Upgrades and the kit budget, so it only gets deeper. No attribute % buffs from gloves: then the shop beats training and the sim stops reading as real.",
+      "options": [
+        "Yes, map it after the fight week, real effects only",
+        "Yes, and I want stat buffs too",
+        "Not now"
+      ],
+      "attach": [],
+      "answer": "Yes, map it after the fight week, real effects only",
+      "note": null,
+      "answered_at": "2026-11-13T10:40:13Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-213",
+      "asked": "2026-11-13T10:44:07.699439+00:00",
+      "session": "S294",
+      "text": "Office computer (Q-210 step 2): which look? A = the computer fills the screen (an office desktop: apps down the left, the week's dashboard). B = the same desktop on a monitor on your office desk, the gym through the window behind it. Same content: what needs you (one pulsing button: the decision due first), the next four weeks, mail, four fighter cards with the one thing each needs, money 8 weeks ahead, staff load. No Media tab until the hosted club show.",
+      "options": [
+        "A, full screen",
+        "B, the monitor on the desk",
+        "Neither: say what to change"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-213_0_office_a.png",
+        "AgentComms/board_attach/Q-S294-213_1_office_b.png"
       ],
       "answer": null,
       "note": null,

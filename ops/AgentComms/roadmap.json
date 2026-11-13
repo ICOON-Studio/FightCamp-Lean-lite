@@ -10,7 +10,7 @@
   "last_working_commit": "eb78b997",
   "verified_playable": "Builds/FightCamp.exe S445 export; not played by him",
   "incomplete_blocked": "ASKPROBE2 running (Qwen). POWER1 steps 2-4 in session power1-step-4. JUDGES1 model not green (held). Regroup default waits for his call.",
-  "next_action": "S449: 0) get_usage; hand over at 300k. 1) Board: Q-210 (build order), Q-208 (regroup default), his look at the camp v2 mockup and the Q-208 fixes on the review board. 2) Collect the names-in-headers sweep commits (local main, 'S448 names only in headers:'; read ops/research/NAMES_IN_HEADERS_S448.md, run its tests, push). 3) Uppercut session (local_06d8cdc0): check its regression fix (hit_carry <= 43, hit_frame <= 13, join_return <= 1) and the elbow still. 4) BLOCKLOOK2 r2 (Grok Dev, PR 245): collect by RESULT lines, then film blocks in the played fight. 5) AMATEURWEEK1 (his 'Yes, fight week first'): design map v3 with the camp-window shape, camp locations for the fight week too, Find a fight on the fighter page; John checks camp costs; two fresh critics to 7+.",
+  "next_action": "S450: 0) get_usage; hand over at 300k. 1) Board: Q-213 office look A/B (his pick), Q-208 regroup default if still open; comments on the block reel and camp v3. 2) Collect: Qwen FIGHTWEEKPROBE1 (PR; the tank and flat-round-1 prices), Grok Dev BLOCKLOOK3 (by RESULT lines, then film tools/fight3d_gallery.gd only=block), the progression session's first-wave briefs (local_b6266b3e: BODYFACTS1, MOVETREE1, PROGPROBE1/HOLD1 - push its commits). 3) Seat answers: SQ58/59 (Kalli, John: AMATEURWEEK1 v3 critics) and SQ57 (John: camp costs, walking-weight matching) -> fix their defects, 7+ = his board; below 7 = v4. 4) POWER1C (decided S449): re-cut the uppercut tail - a short upward follow-through, then back to guard, never over her head; judge on join_return + the seed 4242 film on 3+ seeds (POWER1B's 10c41edc reads 20.1 m/s on today's tree); brief it to a free seat (animation is delegated). 5) OFFICE1 build once he picks. 6) Miro P0 redraw (the Miro connector was down in S449).",
   "next_acceptance": "ASKFIGHT map v4 carries step teaching x1.25 with ask_bout_test/fight_learn_test green; two fresh critics score it 7+ each; JOINFIX1 collected with JOIN_RETURN failures=0 and punch_speed <= 39.",
   "awaiting_operator": [
    "Q-S294-210 build order",
@@ -1839,6 +1839,11 @@
    "id": "S448",
    "date": "2026-11-13",
    "summary": "Uppercut jump fixed in play (regressions being closed); SOUND4 in-house; Q-208 marks built; Corner King coach/contract read; office/booking/coach plan Q-210; camp locations mockup from his interview; names-in-headers rule."
+  },
+  {
+   "id": "S449",
+   "date": "2026-11-13",
+   "summary": "S449: camp plan v3 from his 8 marks (Ludo pictures in the gym's style, no people; coach's note; display fonts); BLOCKLOOK2 collected (PR 245) and filmed - his marks sent as BLOCKLOOK3 to Grok Dev; two outages checked (nothing lost; side sessions restarted; agent worktrees and 73 PR-less branches audited); his three links read (round jobs, confirmed tells, BJJ by chapter); AMATEURWEEK1 map v3 (Find a fight on the fighter page, the fight week as a one-week camp plan, favours, walking weight) to critics SQ58/59, John SQ57; FIGHTWEEKPROBE1 to Qwen; progression map v4.1 approved (Q-211) and its first wave handed to its session; gear decided (Q-212: real effects only, after the fight week); office mockups A/B (Q-213). Uppercut: POWER1B fix does not hold on today's tree - decided to re-cut the tail (POWER1C). Ludo: 11 credits."
   }
  ],
  "blocked_on_operator": [],
@@ -4757,7 +4762,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-13",
+  "updated": "2026-11-13 12:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4907,28 +4912,26 @@
   },
   "working_now": [
    {
-    "title": "A block is a guard that catches the punch - round 2 (arm_block fix, block_set reads the catch)",
-    "who": "grok",
-    "started": "2026-11-13T11:05",
-    "run": "BLOCKLOOK2",
-    "state": "running"
+    "title": "Punch power 5-6: no one-frame jump, follow-through after the freeze",
+    "who": "goose",
+    "started": "2026-11-13T08:51",
+    "run": "POWER1B",
+    "state": "STOPPED - Claude relaunches or closes"
    },
    {
-    "title": "Uppercut fix: close the test regressions it caused (hit_carry, hit_frame, join_return)",
-    "who": "claude",
-    "started": "2026-11-13T11:00",
-    "run": "POWER1B-inhouse",
-    "state": "running (its own session)"
-   },
-   {
-    "title": "Names only in headers: every screen's body text uses her / the opponent / your coach",
-    "who": "claude",
-    "started": "2026-11-13T11:10",
-    "run": "NAMES1",
-    "state": "helper finishing - collect next session"
+    "title": "TASK FIGHTWEEKPROBE1 - QWEN (qwen3-coder) - the fight week's price list: what the tank and a flat round 1 are worth",
+    "who": "qwen",
+    "started": "2026-11-13T12:28",
+    "run": "FIGHTWEEKPROBE1"
    }
   ],
   "next": [
+   {
+    "id": "PROGBUILD1",
+    "who": "claude",
+    "title": "Progression plan build (his Q-211 'Yes, go ahead'): PROGRESSION_MAP_S448 v4.1 section 10 - FIRELEVEL3, BODYFACTS1, MOVETREE1 and the probes briefed to seats first",
+    "after": ""
+   },
    {
     "id": "CAMPLOC1",
     "who": "claude",
@@ -4938,19 +4941,19 @@
    {
     "id": "OFFICE1",
     "who": "claude",
-    "title": "Office as a computer desktop: Mail, Schedule, Fighters, Staff, Finance, Records (Q-210)",
+    "title": "Office as a computer desktop: Mail, Schedule, Fighters, Staff, Finance, Records (Q-210 'Yes, that order': 2nd, mockup first for his pick)",
     "after": ""
    },
    {
     "id": "COACHFIT1",
     "who": "claude",
-    "title": "Coaches: pairing fit, two fighters each, visible growth, personality, coach-fighter bond (Corner King read, Q-210)",
+    "title": "Coaches: pairing fit, two fighters each, visible growth, personality, coach-fighter bond (Corner King read, Q-210) [Q-210: 3rd]",
     "after": ""
    },
    {
     "id": "LEDGER1",
     "who": "claude",
-    "title": "Contract tab: what she has been worth (stipend vs ticket cuts); pro negotiation with TURNPRO1",
+    "title": "Contract tab: what she has been worth (stipend vs ticket cuts); pro negotiation with TURNPRO1 [Q-210: 4th]",
     "after": ""
    },
    {
@@ -5096,6 +5099,12 @@
     "who": "claude",
     "title": "Hooks and uppercuts thrown at a real target, from the mocap packs (end of November): today their own glove ends too far out",
     "after": "mocap packs"
+   },
+   {
+    "id": "GEAR1",
+    "who": "claude",
+    "title": "Gear (his Q-212 'Yes, map it after the fight week, real effects only'): personal gear from the fighter's savings as a want (look + hand/cut/injury effects), gym equipment deeper, robe/trunks = look + sponsor money; no stat buffs. Design map after AMATEURWEEK1",
+    "after": "AMATEURWEEK1"
    }
   ],
   "waiting_seat": [
@@ -5373,6 +5382,11 @@
   },
   "done_recently": [
    {
+    "title": "A block is a guard that catches the punch - round 2 (arm_block fix, block_set reads the catch)",
+    "who": "grok",
+    "when": "2026-11-13"
+   },
+   {
     "title": "Lead uppercut no longer jumps after the hit in the played fight (8.8/6.9 m/s)",
     "who": "claude",
     "when": "2026-11-13"
@@ -5424,11 +5438,6 @@
     "title": "TASK ASKPROBE2 - QWEN (qwen3-coder) - Ask for a fight: re-measure on map v3 (cases C and E as written)",
     "who": "qwen",
     "when": "2026-11-13"
-   },
-   {
-    "title": "Ask for a fight map v3 + six rule fixes (first bout lock, PEAK camp words, scale miss, honest step label, teach words, road)",
-    "who": "claude",
-    "when": "2026-11-12"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5557,6 +5566,26 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Uppercut jump fixed in play",
+     "who": "claude"
+    },
+    {
+     "text": "SOUND4: 79 sounds, unheard",
+     "who": "claude"
+    },
+    {
+     "text": "Q-208 marks built",
+     "who": "claude"
+    },
+    {
+     "text": "Corner King coaches read",
+     "who": "claude"
+    },
+    {
+     "text": "Camp locations mockup",
+     "who": "claude"
+    },
+    {
      "text": "Ask map v4: step up teaches x1.25",
      "who": "claude"
     },
@@ -5591,50 +5620,9 @@
     {
      "text": "Cursor out: Grok, Goose, Arena",
      "who": "claude"
-    },
-    {
-     "text": "Each punch at its own distance",
-     "who": "claude"
-    },
-    {
-     "text": "Ask for a fight: map v3 + rules",
-     "who": "claude"
-    },
-    {
-     "text": "Punch power step 1 in the game",
-     "who": "claude"
-    },
-    {
-     "text": "Board no longer spoils exchange",
-     "who": "claude"
-    },
-    {
-     "text": "Shout fills over its exchange",
-     "who": "claude"
     }
    ],
-   "done_session": [
-    {
-     "text": "Uppercut jump fixed in play",
-     "who": "claude"
-    },
-    {
-     "text": "SOUND4: 79 sounds, unheard",
-     "who": "claude"
-    },
-    {
-     "text": "Q-208 marks built",
-     "who": "claude"
-    },
-    {
-     "text": "Corner King coaches read",
-     "who": "claude"
-    },
-    {
-     "text": "Camp locations mockup",
-     "who": "claude"
-    }
-   ],
+   "done_session": [],
    "now": [
     {
      "text": "Between-rounds voices: your ear",
@@ -5727,7 +5715,7 @@
      "who": "claude"
     }
    ],
-   "session": "S448"
+   "session": "S449"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

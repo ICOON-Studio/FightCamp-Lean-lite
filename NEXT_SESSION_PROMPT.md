@@ -1,50 +1,64 @@
-# S449 handover (written 2026-11-13 ~11:30 at the end of S448; S447's handover is in git history)
+# S450 handover (written 2026-11-13 ~13:10 at the end of S449; S448's handover is in git history)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S449`.
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S450`.
 
 ## USAGE RULES (kept)
-`get_usage` first; hand over at 300k context (S448 handed over at ~390k); at most TWO helpers.
+- Run `get_usage` first. Hand over at 300k context (S449 handed over at ~410k after two outages).
+- At most TWO helper sessions.
 
-## HIS WORDS IN S448 (verbatim)
-- Corner King: "check corner kings contract screen , how it differs from ours can you rate them both, check their coaches ...
-  use rea ... when i click the office i want to see an computer screen showing the dashboard with submenus in it (mail,finance,
-  Media,Schedule,fighter summary dashboard , coach summary dashboard etc) ... Booking a fight i think is better to be an option
-  within a fighters profile tab". Answered: ratings + plan in ops/research/OFFICE_BOOKING_S448.md; order on the board Q-S294-210.
-- "notice how the names are only mentioned on the header , nowhere in text menus options , follow that rule" -> memory
-  feedback_names_only_in_headers_s448, CRITIC_PACK line, sweep helper (see RUNNING).
-- Camp: "i want the campsites to be shown graphically with their buffs/stats" / "maybe a location picture for each camp and
-  showing icons with toolitips of that drills that camp involves ? and also meters to change sparring weight cut ?" / "interview
-  me if you are unsure". His interview answers (section 7 of OFFICE_BOOKING_S448.md): all four locations, "the buffs need to be
-  real and reflect in the fight", fight week too, sliders for sparring/weight/load and "add sliders also for technique/power/
-  cardio with picture cards", who pays: "affect mood/morale,relationship and not always available for the fighter to pay".
-  Mockups docs/mockups/s448/camp_cards/camp_plan(_v2).png, review board 2026-11-13_1115.
-- Q-208 marks (his markups 2026-11-13-01..05): organ outline not bubbles, bare numbers; "wtf is that" = the corner's read; bubble
-  green when heard, red when ignored -> built (cd7025ef), stills on the review board 2026-11-13_1052. Q-209: "Yes, fight week first".
+## HIS WORDS IN S449 (verbatim)
+- Camp v2 marks (Feedback 2026-11-13-06..11):
+  - "who the fuck goes running inthe same wearing boxing gloves ? why you do not yes our game art style ?"
+  - "3 legs wtf , draw less people maybe , use style-art"
+  - "better art here ?"
+  - "look way too similar to corner king"
+  - "need higher art style fonts"
+
+  Answered with camp v3: docs/mockups/s449/camp_v3/camp_plan_v3.png, review board 2026-11-13_1145.
+- "there was an outage check everything and other sessions too", "also check for uncommitted work from other agents/bots". Checked: nothing lost. Side sessions were restarted after both outages. 10 dirty agent worktrees: all stale or already on main. 73 PR-less agent branches: every task id is named on main.
+- His links (fightiqglobal plan from film, bjjsystems lapel flowchart, shutterstock): ops/research/LINKS_PLAN_TRAINING_S449.md.
+- Gear idea: "add gear so that each fighter looks different have buffs ... want buy goals". Q-212 "Yes, map it after the fight week, real effects only". Row GEAR1; memory project_gear_real_effects_s449.
+- Board answers:
+  - Q-210 "Yes, that order": fight week + Find a fight, then the office computer, then coach depth, then the contract tab.
+  - Q-211 "Yes, go ahead": the progression plan v4.1 is approved for building.
+- Block reel (C347): "why there are no body reactions on the hits from the red fighter ?" Block stills marks (Feedback 2026-11-13-15):
+  - "blue fighter doesntlook like a human"
+  - "the arm looks shorter"
+  - "90 degrees angle ? wtf is that move ?"
+  - "colission!!"
+
+  All of it went to Grok Dev as BLOCKLOOK3.
 
 ## RUNNING (collect first)
-- NAMES SWEEP: DONE and pushed (eae4f2c6; ops/research/NAMES_IN_HEADERS_S448.md): ~150 body lines rewritten to roles ("your boxer",
-  "the opponent", "your coach" - roles, not she/her, because no_pronoun_test forbids pronouns); LANDED box reads YOURS / THEIRS.
-  Its open calls for HIM: the first-week guide strip still names the fighter; toasts and news keep names; the "BELL. X'S ROUND"
-  banner kept as a header; AskBout/TrainRead lines untouched (not on a screen yet). Ask him in the first message.
-- UPPERCUT session (local_06d8cdc0): 10c41edc pushed - lead uppercut 4.7 / 6.9 m/s after the freeze (bar 9.6), hit_frame 13 -> 11,
-  punch_speed 49 -> 45; NOT met: three NEW rear-uppercut hit_carry rows and join_return's new RETURN row (2 failures, was 1).
-  Finish those (same session has the context) before calling POWER1B done.
-- BLOCKLOOK2 round 2 - Grok Dev, PR 245 (grok/blocklook2), brief ops/research/TASK_BLOCKLOOK2_R2.md (arm_block fix approved,
-  block_set_test now reads the catch). Collect by RESULT lines; then film blocks in the played fight.
-- POWER1B Goose (issue 241) REJECTED (red, abandoned the jump fix) - close the issue if still open.
-- SOUND4: collected (69d8682f, 79 takes, voice preset Daniel, 125 credits); PR 244 closed. Ludo 916 credits left.
+- **Qwen FIGHTWEEKPROBE1** (wt/LEAN_FIGHTWEEKPROBE1, brief ops/research/TASK_FIGHTWEEKPROBE1.md): the tank and flat-round-1 prices in wins. Its result sets the AMATEURWEEK1 numbers (target: best week vs laziest = 10-12 in 100).
+- **Grok Dev BLOCKLOOK3** (branch grok/blocklook3, ops/research/TASK_BLOCKLOOK3.md):
+  - the blocker absorbs the punch
+  - no glove into glove (the cross: touch -0.026)
+  - the puncher's arm matches the landed punch (reach 90%, elbow within 15 deg, chest within 10 deg)
+
+  Collect by RESULT lines, then film `tools/fight3d_gallery.gd -- <out> only=block` through godot_slot + hidden_desktop. Put it on the review board.
+- **Progression session** (local_b6266b3e, "Weekly progression plan"): asked to brief the first build wave from PROGRESSION_MAP_S448.md section 10: BODYFACTS1, MOVETREE1 (Goose), PROGPROBE1/HOLD1, and a FIRELEVEL3 check. Push its local commits after reading them.
+- **Seat queue:** SQ57 John (camp costs, club matching at walking weight). SQ58 Kalli and SQ59 John score AMATEURWEEK1 map v3 (ops/research/AMATEURWEEK1_MAP_V3_S449.md).
+  - Two at 7+: fix the defects they name, then his board with --attach.
+  - Below 7: write v4.
+
+## DECIDED IN S449 (do it)
+- POWER1C, the uppercut: the POWER1B fix (10c41edc) does NOT hold on today's tree. BLOCKLOOK2 changed the seed 4242 bout, and its first lead uppercut reads 20.1 m/s after the freeze (bar 9.6). The uppercut session tried three reach-solve variants and none passed.
+  - Decision: re-cut the uppercut's TAIL. A short upward follow-through, then back to guard, never lifting over her head. The glove is not pinned on the face.
+  - Judge it on join_return (RETURN row), hit_carry's three rear-uppercut rows, and the seed 4242 film on 3+ seeds.
+  - Brief it to a free seat (animation is delegated); the uppercut session's notes are in its transcript.
+- OFFICE1: mockups A (full-screen desktop) and B (monitor on the desk) are on the board as Q-S294-213. Build after his pick: one Grok Dev task a screen.
 
 ## WAITING ON HIM (board)
-Q-210 build order (fight week + Find a fight, office computer, coach depth, contract ledger); Q-208 regroup default; camp v2
-mockup look; Q-208 fixes look; result tabs; Ailive films; voices + PA mix + the S448 sounds by ear.
+- Q-213: office look A or B.
+- His look at camp v3 and the block reel.
+- Q-208's regroup default, if still open.
+- From before: the voices, the PA mix and the S448 sounds by ear; the result tabs; the Ailive films.
 
-## NEXT (after collects): AMATEURWEEK1 design map v3 - the camp window shape for the fight week (locations usable, sliders,
-who pays, ON FIGHT NIGHT box), Find a fight on the fighter page, the wired-menus table; John checks camp costs (UK cottage/house
-rent, mat fees); two fresh critics (CRITIC_PACK + ACCESS) to 7+, then his board.
-
-## TRAPS (S448)
-- A seat can claim "no access" without trying (Qwen on Ludo): check the tool yourself before re-briefing.
-- The S447 cause note was wrong (quick-back path): the trace showed the reach's own solve losing the glove when the shoulder came
-  close. Trace before you brief.
-- gbot.py and agent_comms ask --attach take paths relative to ops/ (research/<file>), not the repo root.
-- file_limits counts the line after the final newline: wc -l 500 can be 501 for the test.
+## TRAPS (S449)
+- `ask --attach` paths are relative to ops/: "../docs/...". `gbot.py send --file` takes research/<file>, not ops/research.
+- live_runs.json `runs` is a dict keyed by id, not a list.
+- Comparing an agent branch to main: compare blob ids (`git rev-parse branch:file` vs `main:file`). cmp on the working tree reads CRLF as a difference.
+- Outages kill side sessions mid-turn with "API Error 403 Cloudflare". Their edits stay on disk uncommitted. Wake them with mcp send_message (SendMessage by name fails while they are idle).
+- tools/fight3d_gallery.gd stages the two boxers closer than fight distance; say so beside any still from it.
+- The Miro connector dropped in the second outage; the P0 redraw was not done this session.

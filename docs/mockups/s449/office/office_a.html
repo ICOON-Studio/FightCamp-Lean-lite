@@ -1,0 +1,183 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Office computer A - the desktop (S449)</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0f15;--panel:#121821;--panel2:#18202b;--line:#283242;--ink:#e9e4da;--dim:#97a1b0;--red:#d93a3a;--green:#5fcf7a;--amber:#f2b84b;--blue:#5aa3ff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;position:relative;font-family:"Barlow","Segoe UI",sans-serif;color:var(--ink);
+ background:radial-gradient(1400px 800px at 70% 10%,#1d2a3a,#0b0f15 70%)}
+.disp{font-family:"Oswald",Impact,sans-serif;text-transform:uppercase;letter-spacing:1.5px}
+.wall{position:absolute;inset:0;background:url(img/wallpaper.jpg) center/cover;opacity:.22;filter:blur(1px)}
+/* top bar: the OS strip */
+.top{position:absolute;left:0;right:0;top:0;height:46px;background:rgba(8,11,16,.92);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 22px;gap:18px;font-size:18px}
+.top .club{font-family:"Oswald";font-weight:600;font-size:21px;letter-spacing:2px}
+.top .crest{width:30px;height:30px;border-radius:50%;background:url(../../../../assets/ui/art/crests/anvil.png) center/cover;border:1px solid #6b5a3a}
+.top .sp{flex:1}
+.top .date b{color:var(--amber)}
+.top .cash{font-weight:800}.top .cash i{font-style:normal;color:var(--green)}
+/* dock: the apps */
+.dock{position:absolute;left:0;top:46px;bottom:0;width:108px;background:rgba(8,11,16,.85);border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;padding-top:18px;gap:12px}
+.app{width:78px;height:78px;border-radius:16px;background:var(--panel2);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;position:relative}
+.app svg{width:34px;height:34px;color:#d7dde6}
+.app .lb{font-size:13px;font-weight:700;color:var(--dim)}
+.app.on{border-color:var(--amber);box-shadow:0 0 0 2px rgba(242,184,75,.25)}
+.app.on .lb{color:var(--amber)}
+.badge{position:absolute;top:-6px;right:-6px;min-width:24px;height:24px;border-radius:12px;background:var(--red);font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 6px;border:2px solid #0b0f15}
+/* the dashboard window */
+.win{position:absolute;left:136px;top:70px;width:1756px;height:916px;background:rgba(14,19,27,.96);border:1px solid #33404f;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6);overflow:hidden}
+.wbar{height:44px;display:flex;align-items:center;padding:0 18px;gap:12px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#1a2230,#141b25)}
+.wbar .t{font-size:20px;font-weight:600}
+.wbar .dots{margin-left:auto;display:flex;gap:8px}.wbar .dots i{width:13px;height:13px;border-radius:50%;background:#3a4656}
+.grid{display:grid;grid-template-columns:600px 1fr 420px;grid-template-rows:auto auto;gap:16px;padding:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.card h3{font-family:"Oswald";font-weight:600;font-size:20px;letter-spacing:2px;color:#c9bfae;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.card h3 small{font-family:"Barlow";text-transform:none;letter-spacing:0;color:var(--dim);font-size:15px;font-weight:600}
+/* must-dos */
+.todo{display:flex;flex-direction:column;gap:10px}
+.td{display:flex;align-items:center;gap:12px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:10px 12px}
+.td .ic{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:none}
+.td .ic svg{width:26px;height:26px}
+.td .tx{flex:1;font-size:17px;line-height:1.3}.td .tx b{font-size:18px}.td .tx span{color:var(--dim);font-size:15px}
+.td .go{height:40px;padding:0 16px;border-radius:8px;display:flex;align-items:center;font-weight:800;font-size:16px;background:#223042;border:1px solid #3a4a5e;white-space:nowrap}
+.td.hot{border-color:var(--red)}
+.td.hot .go{background:var(--red);border-color:var(--red);animation:pulse 1.6s ease-in-out infinite;box-shadow:0 0 0 0 rgba(217,58,58,.6)}
+@keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(217,58,58,.5)}50%{transform:scale(1.06);box-shadow:0 0 18px 4px rgba(217,58,58,.45)}}
+.r{background:rgba(217,58,58,.18);color:#ff8a7a}.a{background:rgba(242,184,75,.16);color:var(--amber)}.g{background:rgba(95,207,122,.15);color:var(--green)}.b{background:rgba(90,163,255,.15);color:var(--blue)}
+/* fighters */
+.fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.fc{background:var(--panel2);border:1px solid var(--line);border-radius:10px;overflow:hidden;position:relative}
+.fc .pic{height:190px;background-size:cover;background-position:center 18%;position:relative}
+.fc .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(18,24,33,1) 100%)}
+.fc .wc{position:absolute;left:10px;top:8px;z-index:2;background:rgba(8,11,16,.85);border:1px solid #3a4658;border-radius:6px;font-size:14px;font-weight:800;padding:2px 7px}
+.fc .flag{position:absolute;right:8px;top:8px;z-index:2;border-radius:6px;font-size:14px;font-weight:800;padding:3px 9px;color:#0b0f15}
+.fc .flag.r{background:#e24b4b;color:#fff}.fc .flag.a{background:#f2b84b}.fc .flag.g{background:#5fcf7a}.fc .flag.b{background:#5aa3ff}
+.fc .bd{padding:4px 12px 12px;display:flex;flex-direction:column;gap:7px}
+.fc .rk{font-family:"Oswald";font-size:19px;font-weight:600}.fc .rk span{color:var(--dim);font-family:"Barlow";font-size:14px;text-transform:none;letter-spacing:0;font-weight:600}
+.bar{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--dim)}
+.bar .tr{flex:1;height:8px;border-radius:4px;background:#263040;position:relative;overflow:hidden}
+.bar .tr i{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+.bar .v{width:30px;text-align:right;color:var(--ink);font-weight:700}
+.fc .nx{font-size:15px;border-top:1px solid var(--line);padding-top:7px}.fc .nx b{color:var(--amber)}
+/* schedule */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal .h{font-size:13px;color:var(--dim);text-align:center;font-weight:700}
+.cal .d{height:54px;border-radius:6px;background:var(--panel2);border:1px solid #222b38;font-size:13px;padding:3px 5px;position:relative;color:var(--dim)}
+.cal .d.today{border-color:var(--amber);color:var(--ink)}
+.cal .ev{position:absolute;left:4px;right:4px;bottom:4px;height:18px;border-radius:4px;font-size:12px;font-weight:800;display:flex;align-items:center;padding:0 5px;color:#0b0f15;white-space:nowrap;overflow:hidden}
+.ev.bout{background:var(--red);color:#fff}.ev.fw{background:#6d5a2a;color:#f6e6bd}.ev.bill{background:#2c3a4c;color:#cfd8e3}
+/* money */
+.big{font-family:"Oswald";font-size:40px;font-weight:600}
+.spark{height:70px;margin-top:6px}
+.mrow{display:flex;justify-content:space-between;font-size:16px;padding:5px 0;border-bottom:1px solid #1f2834}.mrow:last-child{border:none}
+.mrow b.up{color:var(--green)}.mrow b.dn{color:#ff7a6a}
+/* staff */
+.st{display:flex;align-items:center;gap:12px;padding:6px 0}
+.st .ph{width:54px;height:54px;border-radius:50%;background-size:cover;background-position:center 20%;border:2px solid #6b5a3a;flex:none}
+.st .tx{flex:1;font-size:15px}.st .tx b{font-size:17px}
+/* mail peek */
+.mail .m{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #1f2834;font-size:15px}
+.mail .m:last-child{border:none}
+.mail .m .dot{width:10px;height:10px;border-radius:50%;background:var(--blue);margin-top:6px;flex:none}
+.mail .m b{font-size:16px}.mail .m span{color:var(--dim)}
+.hint{position:absolute;left:150px;bottom:10px;font-size:14px;color:#6f7a8a}
+</style></head><body>
+<div class="wall"></div>
+<svg width="0" height="0" style="position:absolute">
+ <symbol id="mail" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5h18v14H3zm2 2v.5l7 4.5 7-4.5V7zm14 3-7 4.5L5 10v7h14z"/></symbol>
+ <symbol id="cal" viewBox="0 0 24 24"><path fill="currentColor" d="M7 2h2v2h6V2h2v2h4v17H3V4h4zm-2 7v10h14V9z"/></symbol>
+ <symbol id="glove" viewBox="0 0 24 24"><path fill="currentColor" d="M8 3h6a5 5 0 0 1 5 5v5a5 5 0 0 1-3 4.6V21H8v-3.2A5 5 0 0 1 5 13V9a3 3 0 0 1 3-3z"/></symbol>
+ <symbol id="whistle" viewBox="0 0 24 24"><path fill="currentColor" d="M9 8h12v4l-6 1a6 6 0 1 1-6-5zm-3 6a3 3 0 1 0 6 0 3 3 0 0 0-6 0zM9 4h2v3H9z"/></symbol>
+ <symbol id="cash" viewBox="0 0 24 24"><path fill="currentColor" d="M2 6h20v12H2zm10 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM5 8v2a2 2 0 0 0 2-2zm12 0a2 2 0 0 0 2 2V8zM5 16h2a2 2 0 0 0-2-2zm14-2a2 2 0 0 0-2 2h2z"/></symbol>
+ <symbol id="book" viewBox="0 0 24 24"><path fill="currentColor" d="M4 3h12a3 3 0 0 1 3 3v15H7a3 3 0 0 1-3-3zm3 14a1 1 0 0 0 0 2h10v-2z"/></symbol>
+ <symbol id="sad" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm-3 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm6 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-3 5c-2 0-3.6 1-4.3 2.5l1.6.8c.5-.9 1.5-1.3 2.7-1.3s2.2.4 2.7 1.3l1.6-.8C15.6 15 14 14 12 14z"/></symbol>
+</svg>
+
+<div class="top">
+ <div class="crest"></div><div class="club">Bow Road ABC</div>
+ <div class="sp"></div>
+ <div class="date">Mon 16 Mar 2026 &middot; <b>Week 11</b></div>
+ <div class="cash">Cash <i>$9,840</i></div>
+</div>
+
+<div class="dock">
+ <div class="app on"><svg><use href="#cal"/></svg><div class="lb">Desktop</div></div>
+ <div class="app"><svg><use href="#mail"/></svg><div class="lb">Mail</div><div class="badge">3</div></div>
+ <div class="app"><svg><use href="#cal"/></svg><div class="lb">Schedule</div></div>
+ <div class="app"><svg><use href="#glove"/></svg><div class="lb">Fighters</div><div class="badge" style="background:#b8862e">1</div></div>
+ <div class="app"><svg><use href="#whistle"/></svg><div class="lb">Staff</div></div>
+ <div class="app"><svg><use href="#cash"/></svg><div class="lb">Finance</div></div>
+ <div class="app"><svg><use href="#book"/></svg><div class="lb">Records</div></div>
+</div>
+
+<div class="win">
+ <div class="wbar"><span class="t disp">This week at the club</span><span class="dots"><i></i><i></i><i></i></span></div>
+ <div class="grid">
+  <div class="card" style="grid-row:span 1">
+   <h3>Needs you <small>3 things, most urgent first</small></h3>
+   <div class="todo">
+    <div class="td hot"><div class="ic r"><svg><use href="#glove"/></svg></div><div class="tx"><b>Bout offer, lightweight</b><br><span>Sat 28 Mar, away, a name 2 places above. Expires Thu.</span></div><div class="go">Open offer</div></div>
+    <div class="td"><div class="ic a"><svg><use href="#sad"/></svg></div><div class="tx"><b>Mood low, featherweight</b><br><span>Two passes in a row; wants a bout.</span></div><div class="go">Talk</div></div>
+    <div class="td"><div class="ic b"><svg><use href="#cash"/></svg></div><div class="tx"><b>Rent due Fri, $1,800</b><br><span>Paid automatically. Cash after: $8,040.</span></div><div class="go">Finance</div></div>
+   </div>
+  </div>
+  <div class="card">
+   <h3>Next four weeks <small>bouts, fight weeks, bills</small></h3>
+   <div class="cal">
+    <div class="h">Mon</div><div class="h">Tue</div><div class="h">Wed</div><div class="h">Thu</div><div class="h">Fri</div><div class="h">Sat</div><div class="h">Sun</div>
+    <div class="d today">16</div><div class="d">17</div><div class="d">18</div><div class="d">19<div class="ev bill">offer ends</div></div><div class="d">20<div class="ev bill">rent</div></div><div class="d">21<div class="ev bout">Bout: welter</div></div><div class="d">22</div>
+    <div class="d">23<div class="ev fw">fight week</div></div><div class="d">24<div class="ev fw">fight week</div></div><div class="d">25<div class="ev fw">fight week</div></div><div class="d">26<div class="ev fw">fight week</div></div><div class="d">27<div class="ev fw">fight week</div></div><div class="d">28<div class="ev bout">Bout: light?</div></div><div class="d">29</div>
+    <div class="d">30</div><div class="d">31</div><div class="d">1</div><div class="d">2</div><div class="d">3<div class="ev bill">dues in</div></div><div class="d">4</div><div class="d">5</div>
+    <div class="d">6</div><div class="d">7</div><div class="d">8</div><div class="d">9</div><div class="d">10</div><div class="d">11<div class="ev bout">Bout: BJJ</div></div><div class="d">12</div>
+   </div>
+  </div>
+  <div class="card mail">
+   <h3>Mail <small>3 unread</small></h3>
+   <div class="m"><div class="dot"></div><div><b>Repton ABC: bout offer</b><br><span>Lightweight, Sat 28 Mar, away. Answer by Thu.</span></div></div>
+   <div class="m"><div class="dot"></div><div><b>England Boxing</b><br><span>Club fees due 1 Apr: $315 club, $18 a boxer.</span></div></div>
+   <div class="m"><div class="dot"></div><div><b>Your coach</b><br><span>The welterweight is sharp; one sparring night this week.</span></div></div>
+  </div>
+
+  <div class="card" style="grid-column:span 2">
+   <h3>Fighters <small>the flag is the one thing each needs</small></h3>
+   <div class="fgrid">
+    <div class="fc"><div class="pic" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_01.png)"></div><div class="wc">Light 60 kg</div><div class="flag r">Offer</div>
+     <div class="bd"><div class="rk">#4 <span>regional, 6-2</span></div>
+     <div class="bar">Cond<div class="tr"><i style="width:82%;background:var(--green)"></i></div><span class="v">82</span></div>
+     <div class="bar">Mood<div class="tr"><i style="width:64%;background:var(--amber)"></i></div><span class="v">64</span></div>
+     <div class="nx">Next: <b>offer open</b></div></div></div>
+    <div class="fc"><div class="pic" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_07.png)"></div><div class="wc">Welter 69 kg</div><div class="flag g">Sharp</div>
+     <div class="bd"><div class="rk">#2 <span>regional, 8-1</span></div>
+     <div class="bar">Cond<div class="tr"><i style="width:90%;background:var(--green)"></i></div><span class="v">90</span></div>
+     <div class="bar">Mood<div class="tr"><i style="width:78%;background:var(--green)"></i></div><span class="v">78</span></div>
+     <div class="nx">Next: <b>bout in 5 days</b></div></div></div>
+    <div class="fc"><div class="pic" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_12.png)"></div><div class="wc">Feather 57 kg</div><div class="flag a">Mood low</div>
+     <div class="bd"><div class="rk">#7 <span>regional, 3-3</span></div>
+     <div class="bar">Cond<div class="tr"><i style="width:88%;background:var(--green)"></i></div><span class="v">88</span></div>
+     <div class="bar">Mood<div class="tr"><i style="width:41%;background:#ff7a6a"></i></div><span class="v">41</span></div>
+     <div class="nx">Next: <b>no bout booked</b></div></div></div>
+    <div class="fc"><div class="pic" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_16.png)"></div><div class="wc">BJJ 74 kg</div><div class="flag b">Building</div>
+     <div class="bd"><div class="rk">Blue belt <span>4-1</span></div>
+     <div class="bar">Cond<div class="tr"><i style="width:70%;background:var(--amber)"></i></div><span class="v">70</span></div>
+     <div class="bar">Mood<div class="tr"><i style="width:72%;background:var(--green)"></i></div><span class="v">72</span></div>
+     <div class="nx">Next: <b>open mat 11 Apr</b></div></div></div>
+   </div>
+  </div>
+  <div class="card">
+   <h3>Money <small>8 weeks ahead</small></h3>
+   <div class="big">$9,840</div>
+   <svg class="spark" viewBox="0 0 380 70" width="380" height="70"><polyline fill="none" stroke="#5fcf7a" stroke-width="3" points="0,30 54,38 108,26 162,34 216,22 270,40 324,30 380,24"/><line x1="0" y1="62" x2="380" y2="62" stroke="#ff7a6a" stroke-dasharray="4 4"/><text x="300" y="58" fill="#ff7a6a" font-size="12">$0</text></svg>
+   <div class="mrow"><span>Dues this month</span><b class="up">+$4,200</b></div>
+   <div class="mrow"><span>Ticket cuts (2 home bouts)</span><b class="up">+$900</b></div>
+   <div class="mrow"><span>Rent, coaches, stipends</span><b class="dn">-$4,860</b></div>
+  </div>
+
+  <div class="card" style="grid-column:span 3;display:flex;gap:30px;align-items:center">
+   <h3 style="margin:0;white-space:nowrap">Staff</h3>
+   <div class="st"><div class="ph" style="background-image:url(../../../../assets/ui/art/guide_trainer.png)"></div><div class="tx"><b>Head coach (you)</b><br>pad nights 4 of 6 used this week</div></div>
+   <div class="st"><div class="ph" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_staff_coach.png)"></div><div class="tx"><b>Assistant coach</b><br>pad nights 3 of 3 used &middot; $450 a week</div></div>
+   <div class="st" style="opacity:.55"><div class="ph" style="background:#1b2230"></div><div class="tx"><b>No cutman yet</b><br>hire from Staff when a pro bout is booked</div></div>
+  </div>
+ </div>
+</div>
+<div class="hint">Click an app or any card to open it. The one pulsing button is the decision due first.</div>
+</body></html>
