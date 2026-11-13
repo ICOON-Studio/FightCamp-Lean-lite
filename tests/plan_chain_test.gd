@@ -15,6 +15,7 @@ extends SceneTree
 ## Population: Lucy as signed (Data.lucy), her moves and combinations; games press and counter.
 ## Prints PLAN_CHAIN failures=<n>.
 
+const FireLevel := preload("res://scripts/rules/FireLevel.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const PlanChain := preload("res://scripts/rules/PlanChain.gd")
@@ -32,6 +33,8 @@ func _initialize() -> void:
 	_check(is_zero_approx(PlanChain.round_mean([], moves, combos, {"press": 1.0}, 0.5, SIX)), "no plan, no edge")
 	var e_jab := _first(jab, moves, combos, "counter")
 	_check(e_jab > 1.0, "a double jab answers a counter-puncher at long (%.2f)" % e_jab)
+	var sharp := PlanChain.round_mean(jab, moves, {"1-1": 70.0, "1-2": 50.0}, {"counter": 1.0}, 0.5, SIX)
+	_check(sharp > PlanChain.round_mean(jab, moves, combos, {"counter": 1.0}, 0.5, SIX), "a Sharp double jab fires more often than a Usable one (S459)")
 	for p in [0.0, 0.5, 1.0]:
 		var got := PlanChain.round_mean(jab, moves, combos, {"counter": 1.0}, p, SIX)
 		_check(absf(got - e_jab) <= 0.001, "the double jab keeps its card: every exchange %.2f at p %.1f (got %.2f)" % [e_jab, p, got])
@@ -81,7 +84,9 @@ func _walk(moves: Dictionary, combos: Dictionary, jab: Array, both: Array) -> vo
 func _first(plan: Array, moves: Dictionary, combos: Dictionary, sit: String) -> float:
 	var at := str(PlanFight.GAME_CARD[sit])
 	var pick := PlanFight.choose(plan, at, moves, sit)
-	return PlanFight.edge(pick, sit, PlanFight.rate(str(pick["move"]), combos), PlanFight.card_mean(at, sit, moves, combos))
+	# S459: as the fight adds it - a planned line fires on its level's share of uses (FireLevel, S450 FIRELEVEL3).
+	var fire := FireLevel.share(FireLevel.shares_for({}), FireLevel.mastery_of({"combos": combos}, str(pick["move"])))
+	return fire * PlanFight.edge(pick, sit, PlanFight.rate(str(pick["move"]), combos), PlanFight.card_mean(at, sit, moves, combos))
 
 
 func _check(ok: bool, label: String) -> void:

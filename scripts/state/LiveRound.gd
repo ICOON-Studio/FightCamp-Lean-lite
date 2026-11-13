@@ -29,6 +29,7 @@ const CornerTrust := preload("res://scripts/rules/CornerTrust.gd")
 const Adaptation := preload("res://scripts/rules/Adaptation.gd")
 const ReadBack := preload("res://scripts/rules/ReadBack.gd")
 const FireLevel := preload("res://scripts/rules/FireLevel.gd")
+const StyleName := preload("res://scripts/rules/StyleName.gd")   # S459 INTEGRATE1: the named style's levers
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 ## Her values a call is done with: the fight stats, her footwork and her personality.
@@ -208,8 +209,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var opp_hurt := PaceAim.opp_hurt(lv, str(f.get("stance", "orthodox")))
 	var opp_burn := PaceAim.opp_burn(int((lv.get("body", {}) as Dictionary).get("b", 0)), opp_energy(lv, i))
 	var fire := shout == "now" and not (lv.get("setup", {}) as Dictionary).is_empty() and str(lv["setup"].get("used", "")) == ""
-	if shout == "now":
-		shout = ""
+	if shout == "now": shout = ""
 	var shouted := shout != "" and Exchanges.CALLS.has(shout) and CornerTrust.lands(f)
 	if shout != "" and not shouted: CornerTrust.ignored(f["bout"])
 	var call := shout if shouted else str(lv["plan"])
@@ -276,10 +276,10 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	if plan_edge > 0.0 and fit_now == "best":
 		plan_edge *= PlanRead.adjust(int(uses.get(arrow, 0)))
 	var rb := ReadBack.factor(f["bout"], arrow, pick, str(lv.get("plan_won_arrow", "")))
-	plan_edge *= float(rb["cov"]) * float(rb["mult"]) if plan_edge > 0.0 else 1.0
+	plan_edge *= float(rb["cov"]) * float(rb["mult"]) * StyleName.plan_mult(f, at, str(lv["mode"])) if plan_edge > 0.0 else 1.0
 	fit_now = "wrong" if bool(rb["wrong"]) else fit_now
 	# The round's reads move the exchange and count as the plan's effect (swing), but the Why grades the answers themselves.
-	var read_edge := PlanRead.edge(int(lv.get("reads", 0))) + PlanPressure.edge(f["bout"])   # S397 + the bout's pressure
+	var read_edge := PlanRead.edge(int(lv.get("reads", 0))) + PlanPressure.edge(f["bout"]) * StyleName.effect(f, "pressure_answers")   # S397 + pressure (S459 Pressure fighter x1.2)
 	d += plan_edge + read_edge
 	# S360 Q-S294-90: the camp weeks spent on the opponent's own game (WeekOpp) count when the fight is on it.
 	d += WeekOpp.edge(f["bout"], sit)

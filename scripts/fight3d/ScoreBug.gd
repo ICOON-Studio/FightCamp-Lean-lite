@@ -72,6 +72,7 @@ func _mount() -> void:
 	dots.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_place(dots, 196, 114, 248, 36)
 	add_child(dots)
+	dots.visible = false   # S459 FIGHTSEAM1 ("hide the seam it gives away who is winning"): each dot was a join's winner
 	for i in 6:
 		var d := Dot.new()
 		d.name = "Dot%d" % i
@@ -166,11 +167,7 @@ func _cards(n: int, total: int, red_n: int, blue_n: int) -> void:
 	var main: Node = view.get("main")
 	var m: Dictionary = main.get("modal")
 	var rounds: Array = m.get("rounds", [])
-	var lead := WoodKit.HEAD
-	if red_n > blue_n:
-		lead = RED
-	elif blue_n > red_n:
-		lead = BLUE
+	var lead := WoodKit.HEAD   # S459 FIGHTSEAM1: the live round's card no longer takes the leader's colour mid-round
 	for i in _chips.size():
 		var chip: Chip = _chips[i]
 		if i + 1 < n and i < rounds.size():

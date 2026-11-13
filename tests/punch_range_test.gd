@@ -386,12 +386,8 @@ func _hi(a: Array) -> float:
 
 ## The corner's shout bar and the corner minute: picked as a player would, so the rounds run on.
 func _drive() -> void:
-	var bar: Node = view.get("_shouting")
-	if bar != null and is_instance_valid(bar):
-		if not picked.has(bar.get_instance_id()):
-			picked[bar.get_instance_id()] = true
-			bar.call("_pick", "body" if bar.find_child("Shout_body", true, false) != null else "")
-		return
+	if bool(view.playing):   # S459 FIGHTSEAM1: no shout bar; the body call armed whenever the bar offers it, as picked before
+		view.set_meta("armed", "body" if view.find_child("Call_body", true, false) != null else "")
 	if bool(view.playing):
 		return
 	for ch in view.get_children():

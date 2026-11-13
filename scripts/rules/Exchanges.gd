@@ -208,6 +208,21 @@ static func fit(call: String, sit: String) -> String:
 	return "none"
 
 
+## S459 (operator C371 points 4-6 on the call cards' Risky / Works / Beats it: "remove, show what it affects, numbers and
+## icons and use tooltip for text"): what a call does to the chance of winning its 30 seconds, in points out of 100 from an
+## even exchange. settle() adds two rolls, a triangle of half-width EX_SPREAD; the call's edge is call_edge's (her grade
+## word Good / OK / Poor, the shout taken as heard in full).
+static func win_shift(call: String, sit: String, grade_word: String) -> int:
+	var e := float(EDGE[fit(call, sit)])
+	if e > 0.0:
+		e *= float(GRADE.get(grade_word, 1.0))
+	elif e < 0.0:
+		e *= float(COMMIT.get(grade_word, 1.0))
+	var a := clampf(absf(e), 0.0, EX_SPREAD)
+	var tail := (EX_SPREAD - a) * (EX_SPREAD - a) / (2.0 * EX_SPREAD * EX_SPREAD)
+	return roundi(((1.0 - tail) if e >= 0.0 else tail) * 100.0) - 50
+
+
 ## {word, mult}: whether she can do the call. vals = her stats merged with footwork and personality.
 static func grade(call: String, vals: Dictionary) -> Dictionary:
 	var needs: Array = (CALLS.get(call, {}) as Dictionary).get("needs", [])

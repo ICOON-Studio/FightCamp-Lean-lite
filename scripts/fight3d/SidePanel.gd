@@ -171,6 +171,7 @@ func _mount() -> void:
 	if side == 0:
 		_lasts = _lab("lasts to R3", 22, WoodKit.SOFT, "LastsTo")
 		_at(_lasts, 408, 78, 180, 28)
+		_lasts.visible = false   # S459 operator C371 point 1 on "lasts to R3": "remove that" - the forecast lives in the STAMINA tooltip
 		_own_bottom()
 	else:
 		_opp_bottom()
@@ -348,6 +349,11 @@ func _paint_forecast(lv: Dictionary) -> void:
 		var low := out > 0 and i == out - 1
 		bits.append("R%d %s" % [n, "runs out" if low else "holding"])
 	_lasts.tooltip_text = " ".join(bits)
+	var tip := "Stamina %s: %s" % [_lasts.text, _lasts.tooltip_text]
+	for c in [_tanks[0] if not _tanks.is_empty() else null, _energy]:
+		if c != null:
+			(c as Control).tooltip_text = tip
+			(c as Control).mouse_filter = Control.MOUSE_FILTER_PASS
 func _paint_ear(f: Dictionary) -> void:
 	if _ear != null:
 		_ear.lit = CornerTrust.lands(f)

@@ -14,6 +14,9 @@ const PaceAim := preload("res://scripts/rules/PaceAim.gd")
 const NowPlateSc := preload("res://scripts/fight3d/NowPlate.gd")
 const ShoutBar := preload("res://scripts/fight3d/ShoutBar.gd")
 const RoundBoard := preload("res://scripts/fight3d/RoundBoard.gd")
+const CornerIcons := preload("res://scripts/fight3d/CornerIcons.gd")
+const FightSeam := preload("res://scripts/fight3d/FightSeam.gd")
+const SharedHolo := preload("res://scripts/fight3d/SharedHolo.gd")
 const FX_W := 276.0
 const DOCK_W := 340.0   # FIGHTDISPLAY4: the heard pips and the habit card dock here (SidePanel._gap)
 const CALL_Y := 90.0
@@ -26,7 +29,7 @@ const AIM_LABEL := {"": "Take initiative", "head": "Head", "body": "Body", "left
 var view: Node
 var _plate: Button
 var _body: Control
-var _ring: Ring
+var _ring: CornerIcons.Ring
 var _speed: Button
 var _calls: Control
 var _sig := ""
@@ -87,9 +90,8 @@ func _process(_delta: float) -> void:
 	var raw: Variant = pv.get("now", {})
 	if raw is Dictionary:
 		now = raw
-	var w: Node = view.get("_shouting")
-	var waiting := w != null and is_instance_valid(w) and not bool(w.get("_done"))
-	var left := float(w.get("_left")) if waiting else -1.0
+	var waiting := false   # S459 FIGHTSEAM1: no bar waits at a join any more
+	var left := -1.0
 	if _plate != null:
 		_plate.visible = visible and not now.is_empty()
 		if _plate.visible:
@@ -97,7 +99,8 @@ func _process(_delta: float) -> void:
 	if not visible:
 		return
 	var wide := int(size.x) if size.x > 400.0 else 1888
-	var sig := "%s|%s|%s|%s|%d" % [pv.get("offers", []), pv.get("pace", ""), pv.get("aim", ""), _mark_key(), wide]
+	var sig := "%s|%s|%s|%s|%d|%s|%d|%s" % [pv.get("offers", []), pv.get("pace", ""), pv.get("aim", ""), _mark_key(), wide,
+		FightSeam.armed(view), FightSeam.landed_ex(view)[0]["landed"].hash(), SharedHolo.hurt_of(view)]
 	if sig != _sig:
 		_sig = sig
 		_rebuild(pv, wide)
@@ -131,13 +134,10 @@ func _write(key: String, value: String) -> void:
 	_sig = ""
 
 
+## S459 FIGHTSEAM1 (his "calls any time"): a click arms the call; the next exchange is fought on it (FightSeam.take).
 func _shout(call: String) -> void:
-	var w: Node = view.get("_shouting")
-	if w == null or bool(w.get("_done")):
-		return
-	w.set("pace", _live("pace", "steady"))
-	w.set("aim", _live("aim", ""))
-	w.call("_pick", call)
+	FightSeam.arm(view, call)
+	_sig = ""
 
 
 func _rebuild(pv: Dictionary, wide: int) -> void:
@@ -157,7 +157,15 @@ func _rebuild(pv: Dictionary, wide: int) -> void:
 		_wood(b, str(p) == pace)
 		_place(_body, b, x, 36, 92, 44)
 		x += 96.0
-	x += 12.0
+	# S459 operator C371 point 7 ("how save and own game work together?"): PACE and AIM read as one row of five buttons.
+	# A wide gap with a divider between the two groups, each heading over its own buttons.
+	x += 14.0
+	var div := ColorRect.new()
+	div.name = "PaceAimDivider"
+	div.color = Color("#6b5338")
+	div.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_place(_body, div, x, 8, 3, 72)
+	x += 17.0
 	_tag("AIM", x, 4, 70)
 	var aim := str(pv.get("aim", ""))
 	var aims: Array = pv.get("aims", ["", "head", "body"])
@@ -170,11 +178,7 @@ func _rebuild(pv: Dictionary, wide: int) -> void:
 		_wood(b, str(a) == aim)
 		_place(_body, b, x, 36, bw, 44)
 		x += bw + 6.0
-	x += 8.0
-	_ring = Ring.new()
-	_ring.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_place(_body, _ring, x, 0, 86, 86)
-	x += 92.0
+	x += 8.0   # S459 FIGHTSEAM1: no countdown ring to the next join (it marked the seam)
 	_effects(x, pace, aim, _opp(pv))
 	x += FX_W
 	# S427 (his marks on the bar, Feedback/2026-11-10-20): the calls are smaller and sit on the left under pace and aim;
@@ -189,10 +193,10 @@ func _rebuild(pv: Dictionary, wide: int) -> void:
 	_body.add_child(_calls)
 	var sit := str(pv.get("sit", ""))
 	var names: Array = pv.get("names", [])
-	var force := _in_force()
+	var force := FightSeam.armed(view) if FightSeam.armed(view) != "" else _in_force()
 	var cx := 8.0
 	for call in offers:
-		var frame := _call(str(call), sit, names, str(call) == force, each)
+		var frame := _call(str(call), sit, names, str(call) == force, each, pv.get("grades", {}))
 		_place(_calls, frame, cx, CALL_Y, each, CALL_H)
 		cx += each + 8.0
 	var say := _btn("Say nothing", "SayNothing", _shout.bind(""))
@@ -202,10 +206,10 @@ func _rebuild(pv: Dictionary, wide: int) -> void:
 	say.add_theme_font_size_override("font_size", 20)
 	_place(_calls, say, cx, CALL_Y, say_w, CALL_H)
 	x += DOCK_W
-	_place(_body, RoundBoard.build(_ex_over(), sit, names, right - x - 16.0, 150.0), x + 8.0, 6, right - x - 16.0, 150)
+	_place(_body, RoundBoard.build(_ex_over(), sit, names, right - x - 16.0, 150.0, FightSeam.landed_ex(view), SharedHolo.holo_of(view), SharedHolo.hurt_of(view)), x + 8.0, 6, right - x - 16.0, 150)
 
 
-func _call(call: String, sit: String, names: Array, on: bool, _wide: float) -> Control:
+func _call(call: String, sit: String, names: Array, on: bool, _wide: float, pv_grades: Dictionary = {}) -> Control:
 	var frame := Panel.new()
 	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var edge := StyleBoxFlat.new()
@@ -248,27 +252,32 @@ func _call(call: String, sit: String, names: Array, on: bool, _wide: float) -> C
 	under.add_theme_constant_override("separation", 8)
 	under.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(under)
+	# S459 (operator C371 points 4-6: "remove, show what it affects, numbers and icons and use tooltip for text"): no grade
+	# word. A glove in the fit's colour + what the call does to her chance of winning these 30 seconds; the words on hover.
 	var fit := Exchanges.fit(call, sit)
-	var chip := Panel.new()
-	chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	chip.custom_minimum_size = Vector2(88, 26)
-	var chip_box := StyleBoxFlat.new()
-	chip_box.bg_color = _fit_color(fit)
-	chip_box.set_corner_radius_all(6)
-	chip_box.content_margin_left = 8
-	chip_box.content_margin_right = 8
-	chip.add_theme_stylebox_override("panel", chip_box)
-	var word := _grade_word(fit)
-	var lab := TV.label(word, 20, WoodKit.DARK_INK, "bold")
+	var grade_word := str((pv_grades.get(call, "OK")))
+	var shift := Exchanges.win_shift(call, sit, grade_word)
+	var glove := CornerIcons.Glove.new()
+	glove.name = "Glove_" + call
+	glove.col = _fit_color(fit) if fit != "none" else WoodKit.SOFT
+	glove.custom_minimum_size = Vector2(22, 24)
+	glove.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	under.add_child(glove)
+	var lab := TV.label(("+" if shift > 0 else "") + str(shift) + "%", 20, _shift_ink(shift, on), "bold")
 	lab.name = "Grade_" + call
-	lab.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	lab.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	chip.add_child(lab)
-	under.add_child(chip)
+	lab.set_meta("shift", shift)
+	lab.custom_minimum_size = Vector2(52, 22)
+	under.add_child(lab)
+	b.tooltip_text = "%s
+%s
+%s Chance to win these 30 seconds: %s%d in 100. %s" % [Exchanges.named(str(row["when"]), names),
+		Exchanges.named(str(row["expect"]), names), _grade_word(fit), "+" if shift > 0 else "", shift,
+		Exchanges.named(str(Exchanges.GRADE_LINE.get(grade_word, "")), names) + "."]
 	var cost := float(row["cost"])
 	var spend := TV.label(_cost_word(cost), 20, WoodKit.HEAD if not on else Color("#6b3d00"), "bold")   # S427: gold on the lit plate could not be read
 	spend.name = "Cost_" + call
 	spend.set_meta("cost", cost)   # S444 the regroup preview shows it as a number (HudRegroup._costs)
+	spend.set_meta("ink", _shift_ink(signi(roundi(-cost * 10.0)), on))   # S459: dark ink on the lit plate
 	spend.custom_minimum_size = Vector2(60, 22)
 	under.add_child(spend)
 	return frame
@@ -396,12 +405,21 @@ func _cost_word(cost: float) -> String:
 
 func _grade_word(fit: String) -> String:
 	if fit == "best":
-		return "Beats it"
+		return "Beats the opponent's game."
 	if fit == "ok":
-		return "Works"
+		return "Works against the opponent's game."
 	if fit == "wrong":
-		return "Risky"
-	return ""
+		return "Risky: plays into the opponent's game."
+	return "No answer to the opponent's game."
+
+
+func _shift_ink(shift: int, on: bool) -> Color:
+	if shift > 0:
+		return Color("#2f6b2a") if on else Color("#7fd18b")
+	if shift < 0:
+		return Color("#9a2a1a") if on else Color("#ff8a6a")
+	return WoodKit.DARK_INK if on else Color("#d8d0c0")
+
 
 
 func _fit_color(fit: String) -> Color:
@@ -464,21 +482,3 @@ func _place(parent: Control, c: Control, x: float, y: float, w: float, h: float)
 	c.offset_top = y
 	c.offset_right = x + w
 	c.offset_bottom = y + h
-
-
-class Ring extends Control:
-	var frac := 1.0
-	var hot := false
-	var caption := "0:30"
-
-	func _draw() -> void:
-		var c := size * 0.5
-		var rad := minf(size.x, size.y) * 0.5 - 8.0
-		draw_arc(c, rad, 0.0, TAU, 40, Color("#3a3028"), 8.0, true)
-		var col := Color("#f2c14e") if hot else Color("#cdbb9c")
-		if frac > 0.02:
-			draw_arc(c, rad, -PI * 0.5, -PI * 0.5 + TAU * frac, 40, col, 8.0, true)
-		var font := ThemeDB.fallback_font
-		var px := 28
-		var ts := font.get_string_size(caption, HORIZONTAL_ALIGNMENT_LEFT, -1, px)
-		draw_string(font, c + Vector2(-ts.x * 0.5, px * 0.35), caption, HORIZONTAL_ALIGNMENT_LEFT, -1, px, col)

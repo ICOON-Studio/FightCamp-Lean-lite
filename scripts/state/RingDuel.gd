@@ -4,6 +4,7 @@ extends RefCounted
 ## night. The corner's call steers her want; the opponent's game steers theirs. BoutRead walks the same maths in expectation
 ## (mean_edges). Pure static on the career dicts; zero state outside f["bout"] and the live round.
 
+const StyleName := preload("res://scripts/rules/StyleName.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
 const AttrGen := preload("res://scripts/rules/AttrGen.gd")
 const Duels := preload("res://scripts/rules/Duels.gd")
@@ -90,6 +91,7 @@ static func step(f: Dictionary, o: Dictionary, lv: Dictionary, call: String, mod
 		rng: RandomNumberGenerator) -> Dictionary:
 	var n := int(lv.get("n", 1))
 	var a := Duels.effective(Attrs.of(f), ea, bool(lv.get("her_hurt", false)), n >= 3)
+	a["open_add"] = StyleName.effect(f, "range_open")   # S459 INTEGRATE1: the named Out-boxer
 	var b := Duels.effective(opp(o), eb, bool(lv.get("opp_hurt", false)), n >= 3)
 	var ctx := facts(f, o)
 	var place := int(lv.get("place", Duels.LONG))

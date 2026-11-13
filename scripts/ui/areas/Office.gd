@@ -305,21 +305,41 @@ func _vbar(word: String, n: int, why: String) -> Control:
 	v.add_child(w)
 	return v
 
+## S459 (operator C380: "money is shown top, maybe show something else here"): the club - members now and the room the gym
+## has, where the Money page's forecast takes them week by week, and the bills coming by date (each one's split on hover).
 func _money(c: Career) -> Control:
-	var m: Dictionary = OfficeDesk.money_ahead(c)
-	var card := _card("MoneyPanel", "Money", "8 weeks ahead", 420.0)
-	card[1].add_child(_num(UI.money(int(m["cash"])), 40, INK, "Cash in the tin today", "bold"))
-	var chart := CashChart.new()   # the Money page's own chart: today, then its 8 forecast weeks dotted, the $0 line dashed
-	chart.name = "MoneySpark"
-	chart.height = 90.0
-	chart.points = [{"w": Clock.week_of(c.day), "c": c.cash}]
-	chart.future = m["weeks"]
-	card[1].add_child(chart)
-	for r in m["rows"]:
+	var m: Dictionary = OfficeDesk.club_ahead(c)
+	var card := _card("MoneyPanel", "Club", "members and bills", 420.0)
+	var top := UI.hbox(10)
+	top.add_child(_num(str(int(m["members"])), 40, INK, "Members paying dues today", "bold"))
+	top.add_child(_num("of %d room" % int(m["cap"]), 18, DIM, "The most members the gym holds now: floor space, coaches and kit"))
+	card[1].add_child(top)
+	var ahead: Array = m["ahead"]
+	var bars := UI.hbox(6)
+	bars.name = "MembersAhead"
+	for k in ahead.size():
+		var n := int(ahead[k])
+		var col := Control.new()
+		col.custom_minimum_size = Vector2(30, 64)
+		col.tooltip_text = "Week %d: %d members (the Money page's forecast)" % [k + 1, n]
+		var fill := ColorRect.new()
+		fill.color = GREEN if n >= int(m["members"]) else Color("#ff7a6a")
+		var hgt := 60.0 * clampf(float(n) / float(maxi(1, int(m["cap"]))), 0.05, 1.0)
+		fill.position = Vector2(4, 64.0 - hgt)
+		fill.size = Vector2(22, hgt)
+		fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		col.add_child(fill)
+		bars.add_child(col)
+	card[1].add_child(bars)
+	if not ahead.is_empty():
+		var d := int(ahead[-1]) - int(m["members"])
+		card[1].add_child(_num("%d members in %d weeks (%s)" % [int(ahead[-1]), ahead.size(), UI.signed(d).replace("$", "")], 16,
+			GREEN if d >= 0 else Color("#ff7a6a"), "Where the forecast takes the members: dues, reputation and room"))
+	card[1].add_child(UI.label("BILLS COMING", 16, HEAD, "caps"))
+	for b in m["bills"]:
 		var h := UI.hbox(8)
-		h.add_child(UI.label(str(r["t"]), 16, INK, "body", true))
-		var amt := int(r["amount"])
-		h.add_child(_num(UI.signed(amt), 16, GREEN if amt >= 0 else Color("#ff7a6a"), str(r["tip"]), "bold"))
+		h.add_child(UI.label(Clock.fmt(int(b["day"])), 16, INK, "body", true))
+		h.add_child(_num("-" + UI.money(int(b["amount"])), 16, Color("#ff7a6a"), str(b["tip"]), "bold"))
 		card[1].add_child(h)
 	return card[0]
 
@@ -333,11 +353,11 @@ func _staff(c: Career) -> Control:
 		st.name = "Staff_%d" % h.get_child_count()
 		if bool(r["empty"]):
 			st.modulate = Color(1, 1, 1, 0.55)
-		var ph := _panel("Face", UI.box(Color("#1b2230"), Color("#6b5a3a"), 27, 2, 6, 6), Control.SIZE_FILL, Vector2(54, 54))
+		var ph := _panel("Face", UI.box(Color("#1b2230"), Color("#6b5a3a"), 38, 2, 6, 6), Control.SIZE_FILL, Vector2(76, 76))   # S459 C379 bigger
 		if str(r["face"]) != "":
 			ph.add_child(_tex(str(r["face"]), Vector2.ZERO, TextureRect.STRETCH_KEEP_ASPECT_COVERED))
 		elif not bool(r["empty"]):
-			ph.add_child(KitIcon.icon("coach", 30, DIM))
+			ph.add_child(KitIcon.icon("coach", 44, DIM))
 		st.add_child(ph)
 		var tx := UI.vbox(0)
 		tx.add_child(UI.label(str(r["role"]), 17, INK, "bold"))

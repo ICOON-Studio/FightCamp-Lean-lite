@@ -17,6 +17,8 @@ const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const PadReview := preload("res://scripts/rules/PadReview.gd")
+const StyleName := preload("res://scripts/rules/StyleName.gd")
+const MoveTree := preload("res://scripts/rules/MoveTree.gd")
 
 ## f key: the evenings this week as they ran (note); {"<dow>": {kind, minutes, cards}}.
 const NOTED := "week_nights"
@@ -64,8 +66,45 @@ static func run(career: Career, f: Dictionary) -> Dictionary:
 			career.add_news("%s has a new weapon: the %s (%s)." % [f["first"], new_weapon.to_lower(),
 				MoveMastery.describe(new_weapon, float(moves[new_weapon]))])
 	f["learning"] = learning
-	return {"rows": rows, "new_weapon": new_weapon, "new_combo": _combo_news(career, f, drilled, before_combos, before_own),
+	var sty := _style_week(career, f)
+	return {"style": sty, "rows": rows, "new_weapon": new_weapon, "new_combo": _combo_news(career, f, drilled, before_combos, before_own),
 		"pads": r["log"], "review": PadReview.rows(r["log"], nights), "held": r.get("held", []), "faded": r.get("faded", [])}
+
+
+## S459 INTEGRATE1 (PROGRESSION_MAP_S448 M4): the named style as the week turns. Three Sharp moves of a style's set name it;
+## lose the hold and it goes now (the Monday after). Two styles held and none named: the coach names the first and says so
+## (one style at a time). The news says each change; f["named_style"] is what the fight reads (StyleName.effect).
+static func _style_week(career: Career, f: Dictionary) -> Dictionary:
+	var sty := StyleName.monday(f)
+	if str(sty["style"]) == "" and StyleName.two_held(f):
+		var held: Array = MoveTree.styles_held(f)
+		sty = {"style": str(held[0]), "lost": str(sty["lost"]), "auto": true, "also": str(held[1])}
+	var was := str(f.get("named_style", ""))
+	if str(sty["lost"]) != "":
+		career.add_news("%s is no longer a %s: the hold on its moves slipped this week." % [f["first"], str(sty["lost"]).to_lower()])
+	if str(sty["style"]) != "" and str(sty["style"]) != was:
+		var also := (" (also holds the %s set)" % str(sty["also"]).to_lower()) if sty.has("also") else ""
+		career.add_news("%s is now a %s%s: %s." % [f["first"], str(sty["style"]).to_lower(), also, effect_words(str(sty["style"]))])
+	f["named_style"] = str(sty["style"])
+	return sty
+
+
+## What a style changes in the fight, in plain words (StyleName.EFFECTS).
+static func effect_words(style: String) -> String:
+	match style:
+		"Out-boxer":
+			return "steers the fight out to range 10% better"
+		"Volume puncher":
+			return "combinations cost 10% less energy"
+		"Boxer-puncher":
+			return "planned lines at mid range gain 10%"
+		"Pressure fighter":
+			return "pressure from right answers counts 20% more"
+		"Slugger":
+			return "knockdown chance up 10%"
+		"Counter-puncher":
+			return "planned answers gain 15% when the opponent loads up or presses"
+	return "one more plan line"
 
 
 ## What the week runs on - the Training tab's card projections call PadWeek.project with the same (S382 DRILLCARD1):

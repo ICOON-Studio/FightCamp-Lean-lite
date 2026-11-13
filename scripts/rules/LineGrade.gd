@@ -64,6 +64,17 @@ static func graded_value(move_id: String, sit: String, rate_mult: float, attrs: 
 	return base * float(Exchanges.COMMIT[word])
 
 
+## S459 INTEGRATE1 (PROGRESSION_MAP_S448 M5 GRADE): the planned line's edge in the fight, graded - PlanFight.edge with the
+## move's value through this boxer's grade (x PLUS on a plus, x COMMIT on a minus) over the ungraded no-plan baseline.
+## attrs {} = ungraded (PlanFight.edge).
+static func edge(pick: Dictionary, sit: String, rate_mult: float, base: float, attrs: Dictionary) -> float:
+	if not bool(pick.get("planned", false)):
+		return 0.0
+	if attrs.is_empty():
+		return PlanFight.edge(pick, sit, rate_mult, base)
+	return graded_value(str(pick["move"]), sit, rate_mult, attrs) - base
+
+
 ## The line's worth a use: fire_share x (graded_value - the no-plan baseline card_mean).
 static func worth(move_id: String, at: String, sit: String, mastery: Dictionary, combos: Dictionary,
 		attrs: Dictionary, fire_share := 1.0) -> float:

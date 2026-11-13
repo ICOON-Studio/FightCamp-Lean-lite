@@ -11,6 +11,7 @@ extends VBoxContainer
 ## The lines ARE fighter.arrows (PlanBoard), so the fight reads them unchanged; the map stays behind Open the map.
 ##   GamePlan.make(main, fighter, on_play: Callable(move_id)) -> GamePlan
 
+const StyleName := preload("res://scripts/rules/StyleName.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const Icons := preload("res://scripts/ui/Icons.gd")
 const SM := preload("res://scripts/rules/StrikeMap.gd")
@@ -101,7 +102,7 @@ func _game() -> String:
 
 
 func _limit() -> int:
-	return PlanBoard.arrow_limit(float((main.career as Career).coach.get("rating", 0.0)))
+	return StyleName.limit(f, PlanBoard.arrow_limit(float((main.career as Career).coach.get("rating", 0.0))))   # S459 + the style's line
 
 
 func _build() -> void:

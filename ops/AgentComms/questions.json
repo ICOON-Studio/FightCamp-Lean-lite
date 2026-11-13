@@ -7158,6 +7158,39 @@
       "answered_at": "2026-11-13T16:52:26Z",
       "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-218",
+      "asked": "2026-11-13T18:13:39.232830+00:00",
+      "session": "S294",
+      "text": "The fight's 30-second blocks: the clock and 3D run in real time, but each round is decided as six 30 s blocks (the fight slows at each one for the call bar). What should change?",
+      "options": [
+        "Hide the seams: no slow-down, calls any time, rules kept",
+        "Shorter blocks (about 10 s): retune the numbers",
+        "Keep as it is"
+      ],
+      "attach": [],
+      "answer": "Hide the seams: no slow-down, calls any time, rules kept",
+      "note": "hide the seam it gives away who is winning",
+      "answered_at": "2026-11-13T18:15:11Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-219",
+      "asked": "2026-11-13T18:21:48.603284+00:00",
+      "session": "S294",
+      "text": "Liver vs ribs: today they differ only in where body hooks land (60 of 100 on the liver side, so it hurts first); damage per hook and the 'hurt' line are the same. Make them different, as in real boxing?",
+      "options": [
+        "Yes: liver = stamina drain + a knockdown chance when hurt, ribs = the injury place (cracked rib, weeks out). Design map + critics first",
+        "Keep them the same"
+      ],
+      "attach": [],
+      "answer": "Yes: liver = stamina drain + a knockdown chance when hurt, ribs = the injury place (cracked rib, weeks out). Design map + critics first",
+      "note": null,
+      "answered_at": "2026-11-13T18:55:14Z",
+      "seen_by_claude": false,
+      "comment_only": false
     }
   ]
 }

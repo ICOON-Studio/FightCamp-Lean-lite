@@ -9,6 +9,8 @@ extends RefCounted
 const TV := preload("res://scripts/ui/TV.gd")
 const WoodKit := preload("res://scripts/ui/WoodKit.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
+const CornerIcons := preload("res://scripts/fight3d/CornerIcons.gd")
+const SharedHolo := preload("res://scripts/fight3d/SharedHolo.gd")
 
 const RED := Color("#e2483d")
 const BLUE := Color("#5b9bff")
@@ -17,7 +19,9 @@ const SLATE := Color("#1a1512")
 const EDGE := Color("#5a4a3a")
 
 
-static func build(ex: Array, sit: String, names: Array, w: float, h: float) -> Control:
+## S459 FIGHTSEAM1: `live` = FightSeam.landed_ex (the punches the 3D has landed); when given, LANDED counts those and the
+## calls show no tick or cross until the bell (a tick at each join told who took those 30 seconds).
+static func build(ex: Array, sit: String, names: Array, w: float, h: float, live: Array = [], holo: String = "", hurt: Array = []) -> Control:
 	var board := Panel.new()
 	board.name = "RoundBoard"
 	board.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -26,9 +30,9 @@ static func build(ex: Array, sit: String, names: Array, w: float, h: float) -> C
 	var me := str(names[0]) if names.size() > 0 else "You"
 	var her := str(names[1]) if names.size() > 1 else "Opponent"
 	# The "<name> NOW" column moved onto the head chip and the side panel. Its width goes to these two.
-	var col := (w - 24.0) / 2.0
-	_landed(board, ex, me, her, 12.0, col - 8.0, h)
-	_calls(board, ex, 12.0 + col + 4.0, col - 8.0, h)
+	var col := (w - 24.0) * (0.62 if holo != "" else 0.5)   # S459 C384: the shared holo takes the larger share
+	_landed(board, live if not live.is_empty() else ex, me, her, 12.0, col - 8.0, h, holo, hurt)
+	_calls(board, ex, 12.0 + col + 4.0, w - 24.0 - col - 8.0, h, live.is_empty())
 	board.set_meta("sit", sit)
 	return board
 
@@ -77,11 +81,25 @@ static func calls(ex: Array) -> Array:
 	return rows
 
 
-static func _landed(board: Control, ex: Array, _me: String, _her: String, x: float, w: float, h: float) -> void:
+## S459 C384: with `holo` (BodyHolo.holo_for's prefix) the head and body counts hang off one shared holo (SharedHolo); the
+## two totals sit low at each side, in each corner's colour.
+static func _landed(board: Control, ex: Array, _me: String, _her: String, x: float, w: float, h: float, holo: String = "", hurt: Array = []) -> void:
 	var t := tally(ex)
 	var mine := int(t["landed"][0])
 	var hers := int(t["landed"][1])
 	_put(board, _tag("LANDED"), x, 6, w, 22)
+	if holo != "":
+		var fig := SharedHolo.new()
+		fig.name = "SharedHolo"
+		fig.setup(holo, [mine - int(t["body"][0]), int(t["body"][0])], [hers - int(t["body"][1]), int(t["body"][1])], RED, BLUE, hurt)
+		_put(board, fig, x, 26, w, h - 30.0)
+		for k in 2:
+			var big := TV.label(str([mine, hers][k]), 40, [RED, BLUE][k], "bold")
+			big.name = ["LandedMine", "LandedHers"][k]
+			big.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT if k == 0 else HORIZONTAL_ALIGNMENT_RIGHT
+			_put(board, big, x if k == 0 else x + w - 70.0, h - 56.0, 70, 48)
+		board.set_meta("landed", [mine, hers])
+		return
 	var a := TV.label(str(mine), 44, RED, "bold")
 	a.name = "LandedMine"
 	_put(board, a, x, 28, 70, 52)
@@ -94,19 +112,29 @@ static func _landed(board: Control, ex: Array, _me: String, _her: String, x: flo
 	bar.hers = hers
 	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_put(board, bar, x + 74.0, 44, w - 148.0, 20)
-	# S448 operator: names only in the header. Each row is its corner's colour, "yours" / "theirs" - no name.
-	var foot := TV.label("YOURS  head %d  body %d" % [mine - int(t["body"][0]), int(t["body"][0])], 20, RED, "bold")
-	foot.name = "FootMine"
-	_put(board, foot, x, 84, w, 22)
-	var foot2 := TV.label("THEIRS  head %d  body %d" % [hers - int(t["body"][1]), int(t["body"][1])], 20, BLUE, "bold")
-	foot2.name = "FootHers"
-	_put(board, foot2, x, 108, w, 22)
+	# S448 operator: names only in the header. S459 C383 on the YOURS / THEIRS words: "remove that make it distinctive
+	# properly" - each row opens with a glove in its corner's colour (the same colour as its big number); who it is, on hover.
+	var rows := [["FootMine", RED, mine - int(t["body"][0]), int(t["body"][0]), "Your boxer's punches landed this round"],
+		["FootHers", BLUE, hers - int(t["body"][1]), int(t["body"][1]), "The opponent's punches landed this round"]]
+	for i in rows.size():
+		var r: Array = rows[i]
+		var y := 84.0 + 24.0 * float(i)
+		var glove := CornerIcons.Glove.new()
+		glove.name = str(r[0]) + "Glove"
+		glove.col = r[1]
+		glove.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_put(board, glove, x, y - 1.0, 24, 24)
+		var foot := TV.label("head %d  body %d" % [int(r[2]), int(r[3])], 20, r[1], "bold")
+		foot.name = str(r[0])
+		foot.tooltip_text = str(r[4])
+		foot.mouse_filter = Control.MOUSE_FILTER_PASS
+		_put(board, foot, x + 30.0, y, w - 30.0, 22)
 	board.set_meta("landed", [mine, hers])
 
 
-static func _calls(board: Control, ex: Array, x: float, w: float, _h: float) -> void:
+static func _calls(board: Control, ex: Array, x: float, w: float, _h: float, ticks_on: bool = true) -> void:
 	# S444 operator C333 on this box: "what is this for?" - the heading now says it: each call, did it win its exchanges.
-	_put(board, _tag("CALLS WORKED?"), x, 6, w, 22)
+	_put(board, _tag("CALLS WORKED?" if ticks_on else "CALLS THIS ROUND"), x, 6, w, 22)
 	var rows := calls(ex)
 	if rows.is_empty():
 		var none := TV.label("No call yet", 22, WoodKit.SOFT, "bold")
@@ -119,7 +147,7 @@ static func _calls(board: Control, ex: Array, x: float, w: float, _h: float) -> 
 		var lab := TV.label(str((Exchanges.CALLS.get(id, {}) as Dictionary).get("label", id)), 20, WoodKit.INK, "bold")
 		lab.name = "Used_" + id
 		lab.clip_text = true
-		var wins := (r["wins"] as Array).slice(-3)
+		var wins := (r["wins"] as Array).slice(-3) if ticks_on else []
 		var tick_w := 28.0 * float(wins.size()) + 4.0   # S444: the name takes the room the ticks leave ("Draw the" was cut)
 		_put(board, lab, x, y, w - tick_w, 30)
 		var ticks := Ticks.new()

@@ -107,7 +107,7 @@ func _costs() -> void:
 		var cost := float(l.get_meta("cost"))
 		var delta := -cost
 		l.text = "        %s%s" % ["+" if delta > 0.0 else "", ("%.1f" % delta).trim_suffix(".0")] if delta != 0.0 else "        0"
-		l.add_theme_color_override("font_color", Color("#7fd18b") if delta > 0.0 else (Color("#ff8a6a") if delta < 0.0 else Color("#d8d0c0")))
+		l.add_theme_color_override("font_color", l.get_meta("ink", Color("#7fd18b") if delta > 0.0 else (Color("#ff8a6a") if delta < 0.0 else Color("#d8d0c0"))))
 		l.tooltip_text = "Stamina each exchange while this call runs"
 		var cell := Cell.new()
 		cell.position = Vector2(0, 3)
@@ -171,11 +171,8 @@ class Wash extends Control:
 
 ## The ring's share of time left (1 = the wait just began, 0 = the exchange is here). -1 when there is no ring.
 func _ring_left() -> float:
-	var bar := view.find_child("CornerBar", true, false)
-	if bar == null:
-		return -1.0
-	var ring: Variant = bar.get("_ring")
-	return float((ring as Object).get("frac")) if ring != null else -1.0
+	var t := float(view.get("t")) if view.get("t") != null else -1.0   # S459: the bar's ring is gone; the same share of 30 s
+	return clampf((float(int(view.get("_ex_done"))) * 30.0 - t) / 30.0, 0.0, 1.0) if t >= 0.0 else -1.0
 
 
 func _shout_cloud(delta: float) -> void:
@@ -217,8 +214,7 @@ func _shout_cloud(delta: float) -> void:
 			_shout_fill = maxf(_shout_fill, clampf((_shout_f0 - left) / maxf(0.01, _shout_f0), 0.0, 1.0))
 		if _shout_fill >= 0.999:
 			_shout_hold = SHOUT_HOLD_S
-			_shout_tag = "Worked" if _shout_won else "Did not work"
-			_wash.tag_col = Color("#7fd18b") if _shout_won else Color("#ff8a6a")
+			pass   # S459 FIGHTSEAM1: no Worked / Did not work at the join (it told who took the 30 s); the tick waits for the bell
 	else:
 		_shout_hold -= delta
 		if _shout_hold <= 0.0:
@@ -316,6 +312,8 @@ func _small_maps() -> void:
 	if holo == null:
 		return
 	var panels: Array = holo.get("panels")
+	for p in panels if OS.get_cmdline_user_args().has("sharedholo") else []:   # S459 the shared-holo mockup only: side holos off
+		(p as CanvasItem).visible = false
 	var figures: Array = holo.get("figures")
 	for side in panels.size():
 		var p := panels[side] as Control
@@ -326,10 +324,10 @@ func _small_maps() -> void:
 			p.custom_minimum_size = r.size
 			p.position = r.position
 			p.size = r.size
-	for layer in holo.get("words"):
-		if layer != null and not bool((layer as Node).get("icons")):
-			(layer as Node).set("size_px", 20)
-			(layer as Node).set("icons", true)
+	for side in (holo.get("words") as Array).size():   # S459: hooked lines leave toward the ring (each map's inner side)
+		var layer: Node = holo.get("words")[side]
+		if layer != null and not bool(layer.get("icons")):
+			layer.set("size_px", 20); layer.set("icons", true); layer.set("hook", 1.0 if side == 0 else -1.0)
 			(layer as CanvasItem).queue_redraw()
 
 

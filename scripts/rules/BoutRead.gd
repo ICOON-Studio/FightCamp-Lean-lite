@@ -3,6 +3,7 @@ extends RefCounted
 ## chance() walks the bout the sim fights. Shouts and the corner minute are left out. One rating range hides the truth
 ## across all seven stats, and a hidden tell moves nothing. coach is the gym coach's rating. salt is the career seed.
 
+const StyleName := preload("res://scripts/rules/StyleName.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const ComboOdds := preload("res://scripts/rules/ComboOdds.gd")
@@ -188,7 +189,7 @@ static func _energy(f: Dictionary, opp: Dictionary, off := 0.0) -> Array:
 	var mine: Dictionary = OwnCombos.all_mastery(f)
 	var own := RingDuel.Attrs.of(f)   # S433 CARDIO1: the cost reads Stamina, the minute's refill Recovery
 	var cond_b := RoundStyle.stat(op, "conditioning")
-	var econ := SkillAwards.bout_economy(f, RoundStyle.SHARE)
+	var econ := SkillAwards.bout_economy(f, RoundStyle.SHARE) * StyleName.effect(f, "combo_energy")   # S459 as BoutNight
 	var a := Combos.TANK - off   # S434 the played Tank: hurt and the scale (BoutRules.tank_read), as BoutNight._energy
 	var b := Combos.TANK
 	var qa := 0.0

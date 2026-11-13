@@ -107,19 +107,17 @@ func _case(c: Dictionary) -> String:
 	var how := str(c["ex"])
 	# Through the shouts that come before the knockout's exchange (each fights the next 30 s, as the shout bar's pick does).
 	var shouts := {"first": 0, "middle": 2, "last": Exchanges.EXCHANGES - 2}
+	# S459 FIGHTSEAM1: a join settles by itself (the armed call, none here); the test waits for it.
 	for k in int(shouts[how]):
-		_jump(float(int(view._ex_done)) * Exchanges.EX_SECONDS)
-		if not await _until(func(): return view._shouting != null):
-			return "setup: the shout bar never opened at %.0f s" % float(view.t)
-		view._shouted("|pace=steady|aim=")
+		var k0 := int(view._ex_done)
+		_jump(float(k0) * Exchanges.EX_SECONDS)
+		if not await _until(func(): return int(view._ex_done) > k0):
+			return "setup: the join at %.0f s never settled" % float(view.t)
 	var count_t := 0.0
 	if how == "last":
-		_jump(float(int(view._ex_done)) * Exchanges.EX_SECONDS)
-		if not await _until(func(): return view._shouting != null):
-			return "setup: the closing shout never opened"
-		# FightView._shouted, with the settled round made a knockout before its last exchange is turned into beats.
-		view._shouting.queue_free()
-		view._shouting = null
+		# Just short of the closing join: the test settles it itself (FightView._shouted's steps), with the settled round made a
+		# knockout before its last exchange is turned into beats; _ex_done moves on, so the view never settles it twice.
+		_jump(float(int(view._ex_done)) * Exchanges.EX_SECONDS - 0.05)
 		Bouts.fight_step(main.career, main.career.fighter_by_id(str(view.fid)), m, "shout:|pace=steady|aim=")
 		if not LiveRound.live(m).is_empty():
 			return "setup: the closing shout left the round open"

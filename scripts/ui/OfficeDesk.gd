@@ -18,6 +18,7 @@ const RosterRow := preload("res://scripts/rules/RosterRow.gd")
 const CashForecast := preload("res://scripts/rules/CashForecast.gd")
 const GameMoney := preload("res://scripts/rules/GameMoney.gd")
 const Membership := preload("res://scripts/rules/Membership.gd")
+const GymSpend := preload("res://scripts/state/GymSpend.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const StaffRoles := preload("res://scripts/rules/StaffRoles.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
@@ -220,6 +221,33 @@ static func money_ahead(c: Career) -> Dictionary:
 		{"t": "Rent, coaches, stipends", "amount": -fixed, "tip": "In the month bill on %s" % Clock.fmt(int(split["day"]))},
 	]
 	return {"cash": c.cash, "weeks": weeks, "low": low, "rows": rows}
+
+
+## S459 (operator C380 on the money panel: "money is shown top, maybe show something else here"): the club instead -
+## {members, cap, ahead: [members a week, the Money page's forecast], bills: [{day, amount, tip}]} - the members now, the
+## room the gym has, where the forecast takes them, and every bill in the 8 weeks by date (CashForecast's billed weeks).
+static func club_ahead(c: Career) -> Dictionary:
+	var ahead: Array = CashForecast.project(c, WEEKS)
+	var members: Array = []
+	var bills: Array = []
+	for i in ahead.size():
+		var w: Dictionary = ahead[i]
+		if i < WEEKS:
+			members.append(int(w["members"]))
+		if int(w["billed"]) > 0:
+			var sp: Dictionary = CashForecast.bill_split(ahead.slice(i - _since_bill(ahead, i), i + 1))
+			bills.append({"day": int(w["day"]), "amount": int(w["billed"]), "tip": "Rent %s, coaches %s, staff %s, stipends %s" % [
+				GameMoney.text(int(sp["rent"])), GameMoney.text(int(sp["coach"])), GameMoney.text(int(sp["staff"])),
+				GameMoney.text(int(sp["stipends"]))]})
+	return {"members": c.members, "cap": GymSpend.member_cap(c), "ahead": members, "bills": bills.slice(0, 3)}
+
+
+## How many weeks back the bill at i gathers (to the week after the last bill).
+static func _since_bill(ahead: Array, i: int) -> int:
+	var k := 0
+	while i - k - 1 >= 0 and int((ahead[i - k - 1] as Dictionary)["billed"]) <= 0:
+		k += 1
+	return k
 
 
 ## [{role, line, pay, face, empty}]

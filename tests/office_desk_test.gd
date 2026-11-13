@@ -31,6 +31,7 @@ func _initialize() -> void:
 	_needs(desk, c)
 	_calendar(desk, c)
 	_money(desk, c)
+	_club(desk, c)
 	_cards(desk, c)
 	_staff(desk, c)
 	_check(_state(c) == before, "reading the desktop changes nothing in the career")
@@ -82,6 +83,19 @@ func _calendar(desk: Script, c: Career) -> void:
 		_check(not _kinds(cal[bout_day - 8 - monday]).has("fight_week"), "no fight week 8 days out")
 		_check(not _kinds(cal[bout_day + 1 - monday]).has("fight_week"), "no fight week after the bout")
 	f["bout"] = keep
+
+
+func _club(desk: Script, c: Career) -> void:
+	# S459 C380: the panel shows the club - members, room, the forecast's members a week, the bills by date.
+	var m: Dictionary = desk.club_ahead(c)
+	var page: Array = CashForecast.project(c, 8)
+	_check(int(m["members"]) == c.members, "members now are the club's (%d)" % int(m["members"]))
+	_check((m["ahead"] as Array).size() == 8 and int(m["ahead"][0]) == int(page[0]["members"]), "eight weeks of members, week 1 = the Money page's")
+	var last := -1
+	for b in m["bills"]:
+		_check(int(b["amount"]) > 0 and int(b["day"]) > last and int(b["day"]) > c.day, "a bill ahead, by date (%s)" % str(b))
+		last = int(b["day"])
+	_check(not (m["bills"] as Array).is_empty(), "at least one bill in the next weeks")
 
 
 func _money(desk: Script, c: Career) -> void:

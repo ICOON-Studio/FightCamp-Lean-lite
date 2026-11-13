@@ -111,18 +111,19 @@ func _initialize() -> void:
 	print("CAM pos=%s fov=%.0f close=%s scene=%s current=%s a=%s b=%s" % [cam.global_position, cam.fov, cam.close, view.stage.scene,
 		cam == cam.get_viewport().get_camera_3d(), view.stage.boxers[0]["pos"], view.stage.boxers[1]["pos"]])
 	_check(str(view._clock.text).contains("2:5") or str(view._clock.text).contains("2:4"), "the round clock counts down from 3:00")
-	await _until(func(): return view._shouting != null, 40.0)
-	_check(view._shouting != null, "at 0:30 the shout bar comes up")
-	await _shot("p02_shout_bar", 1.2)
-	var bar: Node = view._shouting
-	if bar != null:
-		var shouts := bar.find_children("Shout_*", "", true, false).size()
-		var clue: Label = bar.find_child("Clue", true, false)
-		print("CLUE \"%s\"" % (clue.text if clue != null else ""))
-		_check(shouts == 3 and bar.find_child("SayNothing", true, false) != null and clue != null and clue.text.length() > 10,
-			"the bar: a clue line, three calls, Say nothing")
-		var coach := str(LiveRound.preview(main.career.fighter(), main.modal)["coach"])
-		bar._pick(coach)
+	# S459 FIGHTSEAM1 (his "no slow-down, calls any time, rules kept"): no shout bar at 0:30. The coach's call is clicked on the
+	# corner bar before the join, armed (its card lit), and the join settles at once on it - the ring never slows.
+	await _until(func(): return float(view.t) > 24.0, 40.0)
+	var coach := str(LiveRound.preview(main.career.fighter(), main.modal)["coach"])
+	var cb := view.find_child("Call_" + coach, true, false) as Button
+	if cb != null:
+		cb.pressed.emit()
+	else:
+		view.set_meta("armed", coach)
+	_check(str(view.get_meta("armed", "")) == coach, "a call clicked between joins is armed (%s)" % coach)
+	await _shot("p02_shout_bar", 1.0)
+	await _until(func(): return int(view._ex_done) >= 2, 20.0)
+	_check(view._shouting == null, "the join at 0:30 settles at once: no bar, no slow-down")
 	await _shot("p03_after_shout", 0.5)
 	print("CAPTION \"%s\"" % view._caption.text)
 	var rbs: Node = view.get_node_or_null("ReactionBubbles")   # S442 BUBBLES: the shout and the plan mark are bubbles now
@@ -142,11 +143,9 @@ func _initialize() -> void:
 	await _shot("p04_verdict", 0.1)
 	_holo_off(view, "the verdict")
 	print("VERDICT \"%s\"" % view._caption.text)
-	await _until(func(): return view._shouting != null, 20.0)
-	if OS.get_cmdline_user_args().has("hudregroup"):   # S445 the filling shout full: its exchange's result on the tag
+	await _until(func(): return float(view.t) > 60.5, 20.0)
+	if OS.get_cmdline_user_args().has("hudregroup"):   # S445 the filling shout full (S459: no Worked tag at the join)
 		await _shot("p04b_shout_full", 0.3)
-	if view._shouting != null:
-		view._shouting._pick("")
 	_goto_count(view, 1, "watched")
 	view.skip_round()
 	await _wait(2)

@@ -91,6 +91,26 @@ static func plan_cap(f: Dictionary, coach_cap: int) -> int:
 	return mini(coach_cap, MAX_LINES)
 
 
+## S459 INTEGRATE1: the planned line's edge multiplier in the live round (a gain only; LiveRound applies it to a positive
+## edge). Boxer-puncher: +mid_edge on the mid card; Counter-puncher: +counter_edge while the opponent loads up or presses.
+static func plan_mult(f: Dictionary, at: String, opp_mode: String) -> float:
+	var m := 1.0
+	if at == "mid":
+		m += effect(f, "mid_edge")
+	return m + effect(f, "counter_edge", opp_mode)
+
+
+## S459 INTEGRATE1: Slugger's knockdown x1.1 as power points on Knockdowns' scale (exp((power - chin) / scale)).
+static func knock_power(f: Dictionary, scale: float) -> float:
+	return scale * log(effect(f, "knockdown"))
+
+
+## S459 INTEGRATE1: the plan's line limit with the named style's extra line - never below the coach's own limit (a top
+## coach's 8 or 9 stays; a named style lifts a smaller one by one, to MAX_LINES at most).
+static func limit(f: Dictionary, coach_limit: int) -> int:
+	return maxi(coach_limit, plan_cap(f, coach_limit))
+
+
 ## Two or more styles held at once.
 static func two_held(f: Dictionary) -> bool:
 	return MoveTree.styles_held(f).size() >= 2

@@ -95,10 +95,7 @@ func show_offer(now: Dictionary, left: float, window: bool) -> void:
 func _fire() -> void:
 	if view == null:
 		return
-	var w: Node = view.get("_shouting")
-	if w == null or bool(w.get("_done")):
-		return
-	w.call("_pick", "now")
+	view.set_meta("armed", "now")   # S459 FIGHTSEAM1: armed for the next exchange (FightSeam.arm), no waiting bar
 
 
 func _process(delta: float) -> void:

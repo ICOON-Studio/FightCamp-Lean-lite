@@ -4,6 +4,7 @@ extends RefCounted
 ## (Knockdowns), the result (record, money, members, morale, goals) and the injury roll. Bouts keeps the offers, camp
 ## and weigh-in, and delegates its fight-night entry points here so callers did not change.
 
+const StyleName := preload("res://scripts/rules/StyleName.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const AmateurBooking := preload("res://scripts/rules/AmateurBooking.gd")
@@ -183,7 +184,7 @@ static func _open(c: Career, f: Dictionary, m: Dictionary, plan: String, fix: St
 	LiveRound.live(m)["did"] = jobs.get("did", {})
 	# S339 the corner's one arrow (after open: round 1 copies her plan onto the bout, with the coach's limit).
 	if n == 1:
-		f["bout"]["arrow_limit"] = arrow_limit(c)
+		f["bout"]["arrow_limit"] = StyleName.limit(f, arrow_limit(c))   # S459 the named style's extra line
 		# S397 rule 1: no plan written - the coach writes one from the tape (CoachPlan; no coach writes nothing).
 		if (f["bout"]["arrows"] as Array).is_empty():
 			f["bout"]["arrows"] = CoachPlan.write(str(f["bout"]["opp"].get("style", "")), float(c.coach.get("rating", 0.0)),
@@ -237,6 +238,7 @@ static func _counts(c: Career, f: Dictionary, m: Dictionary, r: Dictionary) -> v
 	var opp: Dictionary = f["bout"]["opp"]
 	# S398 both sides from their profiles (RingDuel.side: the punch, the chin, the heart); a chin weakness is in the shape.
 	var sides := count_sides(f, opp)
+	sides["a"]["power"] = float(sides["a"].get("power", 60.0)) + StyleName.knock_power(f, Knockdowns.POWER_CHIN_SCALE)   # S459 Slugger x1.1
 	var so_far: Dictionary = m.get("counts", {"a": 0, "b": 0})
 	var rng := RandomNumberGenerator.new()
 	rng.seed = c.day * 53 + int(r["n"]) * 11 + c.fighters.find(f) * 2003
@@ -318,7 +320,7 @@ static func _energy(f: Dictionary, n: int, corner: String) -> Dictionary:
 	var b0 := float(fb["energy"]["b"])
 	# S303 (John J-COMBOENERGY1): the rest refills half the fast debt; the slow part stays spent all fight.
 	# S373 GOALTESTS1 phase 2: a passed grade's moves cost less gas (SkillAwards.ECONOMY over the round's punch mix).
-	var econ := SkillAwards.bout_economy(f, RoundStyle.SHARE)
+	var econ := SkillAwards.bout_economy(f, RoundStyle.SHARE) * StyleName.effect(f, "combo_energy")   # S459 Volume puncher x0.9
 	var ra := Combos.after_round(a0, float(fb["energy"].get("qa", 0.0)), Combos.round_spend(mine, corner, float(own["stamina"]), econ), float(own["recovery"]))
 	var rb := Combos.after_round(b0, float(fb["energy"].get("qb", 0.0)), Combos.round_spend(op["combos"], "", cond_b), cond_b)
 	var a1 := float(ra["bell"])

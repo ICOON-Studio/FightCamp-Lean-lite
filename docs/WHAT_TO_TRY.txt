@@ -1,3 +1,16 @@
+S459 (2026-11-13)
+- Fight (your answer "Hide the seams"): the fight no longer slows down or waits at each 30 seconds. Click a call on the corner
+  bar any time; it is used for the next stretch of the fight. Nothing on screen at the joins tells who is winning any more
+  (no coloured dots under the clock, no winner colour on the live round card, no tick or cross on calls until the bell).
+  LANDED counts the punches as you see them land. Does the fight feel like one continuous fight now?
+- Fight screen (your marks): "lasts to R3" is gone (hover STAMINA for it); the call cards show a glove + the call's change to
+  the chance of winning the next stretch (+7%, -14%) beside the stamina cost; PACE and AIM are split; LANDED has one shared
+  holo with head/body counts on lines (side holos kept for now, as you asked).
+- Office: bigger staff faces; the money panel is now the Club (members, the room you have, members week by week, bills by date).
+- Fighting styles are in the game: three Sharp moves of a style's set name the fighter's style (Out-boxer, Volume puncher,
+  Boxer-puncher, Pressure fighter, Slugger, Counter-puncher) - the news says when and what it changes in the fight, and it
+  gives one more plan line. Lose the hold and the style goes at the week's turn.
+
 S458 (2026-11-13)
 - Fight: the lead uppercut. After it lands, the glove no longer carries on up over her own head with the elbow flipping above
   the shoulder: the punch holds on the chin for a split second, then the hand comes home to her guard, elbow down. Watch a few

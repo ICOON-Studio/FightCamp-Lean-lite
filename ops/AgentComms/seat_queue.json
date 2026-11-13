@@ -1065,6 +1065,51 @@
    "answer": "research/AMATEURWEEK_CRITIC_S455_BRIEF_JOHN.md",
    "chars": 14774,
    "seen_by_claude": true
+  },
+  {
+   "id": "SQ73",
+   "seat": "kalli",
+   "brief": "research/DESIGN_AMATEURWEEK1_V7_REVISE_KALLI.md",
+   "stem": "DESIGN_AMATEURWEEK1_V7_REVISE_KALLI_KALLI",
+   "status": "sent",
+   "queued_at": "2026-11-13 20:47",
+   "tries": 0,
+   "sent_at": "2026-11-13 21:10",
+   "sent_ms": 1794597045396
+  },
+  {
+   "id": "SQ74",
+   "seat": "dola",
+   "brief": "research/DESIGN_COACHFIT1_V4_REVISE_DOLA.md",
+   "stem": "DESIGN_COACHFIT1_V4_REVISE_DOLA_DOLA",
+   "status": "sent",
+   "queued_at": "2026-11-13 20:47",
+   "tries": 0,
+   "sent_at": "2026-11-13 21:10",
+   "pid": 49412,
+   "transcript": "AgentComms/seat_logs/SQ74_dola.txt"
+  },
+  {
+   "id": "SQ75",
+   "seat": "john",
+   "brief": "research/DESIGN_HOSTSHOW1_CRITIC_JOHN.md",
+   "stem": "DESIGN_HOSTSHOW1_CRITIC_JOHN_JOHN",
+   "status": "sent",
+   "queued_at": "2026-11-13 20:47",
+   "tries": 0,
+   "sent_at": "2026-11-13 21:10",
+   "sent_ms": 1794597049291
+  },
+  {
+   "id": "SQ76",
+   "seat": "maria",
+   "brief": "research/DESIGN_R58_LEAVES_CRITIC_MARIA.md",
+   "stem": "DESIGN_R58_LEAVES_CRITIC_MARIA_MARIA",
+   "status": "sent",
+   "queued_at": "2026-11-13 20:47",
+   "tries": 0,
+   "sent_at": "2026-11-13 21:10",
+   "sent_ms": 1794597052097
   }
  ]
 }

@@ -9,6 +9,7 @@ const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 
 ## Exchanges.fit returns best / ok / wrong (the brief's good / ok / bad). The drawing's words for those three.
+const FightSeam := preload("res://scripts/fight3d/FightSeam.gd")
 const GRADE := {"best": "Beats it", "ok": "Works", "wrong": "Risky"}
 const RED := Color("#e2483d")
 const BLUE := Color("#3a7ce0")
@@ -68,7 +69,7 @@ func _before_the_call() -> void:
 	if bar == null:
 		_fail("no corner bar: the call, grade, pace and type-size checks could not run")
 		return
-	_check(view.get("_shouting") == null, "that is before the shout window")
+	_check(view.get("_shouting") == null, "no shout window (S459: none ever opens)")
 	# S424: measured against the fight view's own box, not a fixed 1080 - headless the view is taller than the window
 	# (it read y 1745 of a 1920-tall view); the windowed 1920x1080 render shows the bar at y 905-1075.
 	var rect := (bar as Control).get_global_rect()
@@ -95,39 +96,48 @@ func _before_the_call() -> void:
 		_check(push != null and push.tooltip_text.contains("next exchange"), "Push's hover says when it counts")
 
 
-## After the opening exchange the first dot is that exchange's winner, and the shout window is open.
+## S459 FIGHTSEAM1 (his "no slow-down, calls any time, rules kept"): the join at 0:30 settles at once - no shout bar, no
+## slow-down, no exchange dots - and a call clicked at any moment is armed and fights the next exchange.
 func _at_the_call() -> void:
 	view.t = 30.0
-	if not await _until(func(): return view.get("_shouting") != null):
-		_fail("the first call never opened")
+	if not await _until(func(): return int(view._ex_done) >= 2):
+		_fail("the join at 0:30 never settled the next exchange")
 		return
 	await _frames(2)
-	var ex: Array = LiveRound.live(main.modal).get("ex", [])
-	_check(ex.size() >= 1, "one exchange has been fought")
+	_check(view.get("_shouting") == null and not is_equal_approx(Engine.time_scale, 0.3 * float(view.pace())),
+		"the join settles at once: no shout bar, no slow-down (time scale %.2f)" % Engine.time_scale)
 	var bug := view.find_child("ScoreBug", true, false)
-	var dot: Node = null
-	if bug != null:
-		dot = bug.find_child("Dot0", true, false)
-	_check(dot != null, "the scorebug has six dots, the first one named")
+	var dot := bug.find_child("Dot0", true, false) as CanvasItem if bug != null else null
+	_check(dot == null or not dot.is_visible_in_tree(), "no exchange dots: each one told who took a join")
 	var bare := 0
 	if bug != null:
 		for l in bug.find_children("*", "Label", true, false):
 			if (l as Label).is_visible_in_tree() and (l as Label).text.strip_edges().is_valid_int():
 				bare += 1
 	_check(bare == 0, "the scorebug shows no bare count that reads as rounds won (S429) (%d)" % bare)
-	if dot != null and ex.size() >= 1:
-		var want: Color = RED if bool((ex[0] as Dictionary)["won"]) else BLUE
-		var fill: Color = dot.get("fill")
-		_check(_same(fill, want), "after one exchange the first dot is the winner's colour (%s, want %s)" % [fill, want])
-
-
-## A set-up whose gap is the situation the corner sees: the plate shows, and a click fights "now".
-func _now_plate() -> void:
-	if view.get("_shouting") == null:
-		_fail("no shout window, so the NOW plate could not be clicked")
+	var bar := _bar()
+	var btns: Array = bar.find_children("Call_*", "Button", true, false) if bar != null else []
+	if btns.is_empty():
+		_fail("no call button to click between joins")
 		return
+	var call := str((btns[0] as Node).name).trim_prefix("Call_")
+	(btns[0] as Button).pressed.emit()
+	_check(FightSeam.armed(view) == call, "a click between joins arms %s (armed %s)" % [call, FightSeam.armed(view)])
+	var before := (LiveRound.live(main.modal).get("ex", []) as Array).size()
+	view.t = 60.0
+	if not await _until(func(): return (LiveRound.live(main.modal).get("ex", []) as Array).size() > before):
+		_fail("the join at 1:00 never settled")
+		return
+	_check(FightSeam.armed(view) == "", "the armed call is spent on the exchange it fought")
+
+
+## A set-up whose gap is the situation the corner sees: the plate shows, and a click arms "now" for the next exchange.
+func _now_plate() -> void:
 	var f: Dictionary = _fighter()
 	var lv: Dictionary = LiveRound.live(main.modal)
+	if lv.is_empty():
+		_fail("the round closed before the NOW plate could be clicked")
+		return
 	var pv: Dictionary = LiveRound.preview(f, main.modal)
 	lv["setup"] = {"combo": "1-2", "gap": str(pv.get("sit", "")), "mastery": 80.0, "used": ""}
 	await _frames(3)
@@ -142,11 +152,15 @@ func _now_plate() -> void:
 		return
 	var before := (lv["ex"] as Array).size()
 	plate.pressed.emit()
-	await _frames(2)
+	_check(FightSeam.armed(view) == "now", "the plate's click arms NOW (%s)" % FightSeam.armed(view))
+	view.t = float(int(view._ex_done)) * 30.0
+	if not await _until(func(): return (LiveRound.live(main.modal).get("ex", []) as Array).size() > before):
+		_fail("the join after NOW never settled")
+		return
 	var after: Array = LiveRound.live(main.modal).get("ex", [])
 	var rec: Dictionary = after[-1] if after.size() > before else {}
-	_check(after.size() == before + 1 and str(rec.get("setup", "")) in ["landed", "missed"],
-		"the plate's click fights the exchange with the shout now (%s)" % str(rec.get("setup", "")))
+	_check(str(rec.get("setup", "")) in ["landed", "missed"],
+		"the next exchange is fought with the shout now (%s)" % str(rec.get("setup", "")))
 
 
 func _check_calls(bar: Node, pv: Dictionary) -> void:
@@ -157,9 +171,14 @@ func _check_calls(bar: Node, pv: Dictionary) -> void:
 		"the bar has %d call buttons and Say nothing (saw %d, say %s)" % [offers.size(), buttons.size(), say != null])
 	var sit := str(pv.get("sit", ""))
 	for call in offers:
+		# S459 C371 points 4-6: the card shows the call's win chance as a number beside a glove, the grade words on hover.
 		var chip := bar.find_child("Grade_" + str(call), true, false) as Label
-		var word := str(GRADE.get(Exchanges.fit(str(call), sit), ""))
-		_check(chip != null and chip.text == word, "grade for %s is %s (saw %s)" % [call, word, "" if chip == null else chip.text])
+		var shift := Exchanges.win_shift(str(call), sit, str((pv.get("grades", {}) as Dictionary).get(call, "OK")))
+		var want := ("+" if shift > 0 else "") + str(shift) + "%"
+		_check(chip != null and chip.text == want, "win chance for %s is %s (saw %s)" % [call, want, "" if chip == null else chip.text])
+		_check(bar.find_child("Glove_" + str(call), true, false) != null, "the card for %s has its glove" % call)
+		var fit := Exchanges.fit(str(call), sit)
+		_check(fit == "none" or (shift > 0) == (fit != "wrong"), "%s: a right call gains, a wrong one costs (%d)" % [call, shift])
 
 
 func _check_type(bar: Node) -> void:

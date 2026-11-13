@@ -1,7 +1,7 @@
 extends Control
 ## Fight night in 3D. S308 (operator: "rounds should be 3 minutes and callouts from corner every 25-30 seconds"; "Build it,
-## full 3:00"): a round runs 3:00 in real time as six 30-second exchanges. LiveRound settles each one; at every 30 seconds
-## the ring slows and the shout bar (ShoutBar) shows the clue and the calls, and the pick fights the next exchange
+## full 3:00"): a round runs 3:00 in real time as six 30-second exchanges. LiveRound settles each one; since S459 (FightSeam)
+## nothing slows at a join: the call armed on the corner bar fights the next exchange
 ## (ExchangeBeats turns it into beats on the FightStage). Scorebug with the clock and the exchanges, 1x / 2x, SKIP ROUND
 ## (the rest of the round with no shouts) and SKIP BOUT. Between rounds the corner minute (FightCast.corner).
 ## Main keeps one FightView on its fight layer while a fight modal is open (FightView.sync).
@@ -13,7 +13,7 @@ const RoundScript := preload("res://scripts/rules/RoundScript.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const ExchangeBeats := preload("res://scripts/fight3d/ExchangeBeats.gd")
-const ShoutBar := preload("res://scripts/fight3d/ShoutBar.gd")
+const FightSeam := preload("res://scripts/fight3d/FightSeam.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const LiveRound := preload("res://scripts/state/LiveRound.gd")
 const Bouts := preload("res://scripts/state/Bouts.gd")
@@ -280,22 +280,10 @@ func _queue(m: Dictionary, k: int) -> void:
 	_ex_done = k + 1
 
 
-## Every 30 seconds: the ring slows and the shout bar waits for the call.
+## Every 30 seconds the next exchange is settled at once on the call armed on the corner bar (S459 FIGHTSEAM1, his "no
+## slow-down, calls any time, rules kept": no slow ring, no waiting bar).
 func _open_shout() -> void:
-	var filming := OS.has_feature("movie")
-	for a in OS.get_cmdline_user_args():
-		filming = filming or str(a).begins_with("film=")
-	if filming:
-		_shouted("|pace=steady|aim=")
-		return
-	var f: Dictionary = main.career.fighter_by_id(fid)
-	var bar := ShoutBar.new()
-	add_child(bar)
-	bar.setup(LiveRound.preview(f, main.modal), round_n)
-	bar.picked.connect(_shouted)
-	_shouting = bar
-	_say("")
-	Engine.time_scale = SHOUT_PACE * pace()
+	_shouted(FightSeam.take(self))
 
 
 func _shouted(call: String) -> void:

@@ -17217,6 +17217,214 @@
    },
    "reconciled": "2026-11-13 19:10 board_reconcile: PR #257 closed",
    "archived": "2026-11-13 19:11 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "COACHMARKET1",
+   "title": "TASK COACHMARKET1 - QWEN (qwen3-coder) - the assistant market: four coaches, growth, the second slot, the Signature rate, letting go",
+   "status": "collected",
+   "started": "2026-11-13T19:25",
+   "eta": "2026-11-13T21:15",
+   "branch": "qwen/coachmarket1",
+   "worktree": "E:/FightCamp/wt/LEAN_COACHMARKET1",
+   "wt": "E:/FightCamp/wt/LEAN_COACHMARKET1",
+   "brief": "ops/research/TASK_COACHMARKET1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/COACHMARKET1_dispatch_out.txt",
+   "match": "seat_dispatch.py run coachmarket1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/COACHMARKET1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/COACHMARKET1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/COACHMARKET1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 42276,
+    "seat_pid": 34664
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 6/6 PASS; PR #259",
+   "landed": "2026-11-13T20:30",
+   "finished": "2026-11-13T19:46",
+   "pr": 259,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/coach_market_test.gd",
+     "ok": true,
+     "last": "COACH_MARKET failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/learn_slots_test.gd",
+     "ok": true,
+     "last": "LEARN_SLOTS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/specialty_test.gd",
+     "ok": true,
+     "last": "SPECIALTY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/coach_check_test.gd",
+     "ok": true,
+     "last": "COACH_CHECK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-13 20:08 board_reconcile: branch qwen/coachmarket1 commits are on master",
+   "archived": "2026-11-13 20:08 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "PROREAD1",
+   "title": "TASK PROREAD1 - QWEN (qwen3-coder) - professionals get read: the target line, the split, the feint, the season proof",
+   "status": "collected",
+   "started": "2026-11-13T19:45",
+   "eta": "2026-11-13T21:35",
+   "branch": "qwen/proread1",
+   "worktree": "E:/FightCamp/wt/LEAN_PROREAD1",
+   "wt": "E:/FightCamp/wt/LEAN_PROREAD1",
+   "brief": "ops/research/TASK_PROREAD1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/PROREAD1_dispatch_out.txt",
+   "match": "seat_dispatch.py run proread1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/PROREAD1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/PROREAD1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/PROREAD1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 2064,
+    "seat_pid": 21536
+   },
+   "note": "S458 collected by diff + parse + test (2 collect fixes)",
+   "finished": "2026-11-13T20:00",
+   "pr": 260,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/pro_read_test.gd",
+     "ok": true,
+     "last": "PRO_READ failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/the_read_test.gd",
+     "ok": true,
+     "last": "THE_READ PASS fails=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_lines_test.gd",
+     "ok": true,
+     "last": "PLAN_LINES PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "archived": "2026-11-13 20:08 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "STYLENAME1",
+   "title": "TASK STYLENAME1 - QWEN (qwen3-coder) - the named style: which one, when it goes, what it changes, the extra plan line",
+   "status": "closed S459: collected S457, fixed S458; PR 258 closed as superseded",
+   "started": "2026-11-13T19:11",
+   "eta": "2026-11-13T21:01",
+   "branch": "qwen/stylename1",
+   "worktree": "E:/FightCamp/wt/LEAN_STYLENAME1",
+   "wt": "E:/FightCamp/wt/LEAN_STYLENAME1",
+   "brief": "ops/research/TASK_STYLENAME1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/STYLENAME1_dispatch_out.txt",
+   "match": "seat_dispatch.py run stylename1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/STYLENAME1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/STYLENAME1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/STYLENAME1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 8520,
+    "seat_pid": 44104
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/5 PASS; PR #258",
+   "finished": "2026-11-13T19:19",
+   "pr": 258,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/style_name_test.gd",
+     "ok": true,
+     "last": "STYLE_NAME failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_tree_test.gd",
+     "ok": true,
+     "last": "MOVE_TREE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/specialty_test.gd",
+     "ok": true,
+     "last": "SPECIALTY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   }
  ]
 }
