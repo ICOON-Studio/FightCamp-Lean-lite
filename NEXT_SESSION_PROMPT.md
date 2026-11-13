@@ -21,11 +21,13 @@ OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py s
   built in the game (a07a2a8e), film on the board 2026-11-13_0958.
 
 ## RUNNING (collect first)
+- SOUND4 LANDED: PR #244 (qwen/sound4), dispatcher checks 2/3 PASS, done in 7 min - suspicious for ~35 Ludo sounds:
+  read the diff (were sounds really made? raw/ files, sounds.json heard:false, the failed check) before the board.
+- PROGRESSION design: session "Weekly progression plan" (local_b6266b3e) runs it - his words + Claude's view were sent; collect its map.
 - POWER1B - Goose, issue 241, branch goose/issue-241. Extra scope added: the PLAYED lead uppercut jumps 26-37 m/s about 0.12 s
   after the freeze (HitImpact.recover's QUICK BACK path) - JOINFIX1's isolated test never takes that path. Collect by diff, then
   FILM: `tools/hit_frame_film.gd -- <dir> jabs=0 crosses=0 uppercuts=2 seed=4242 side=1` (hidden desktop, 60 fps, --log=);
   bar: no frame over 9.6 m/s after the freeze on the lead uppercut.
-- SOUND4 - Qwen, branch qwen/sound4 (all new sounds "heard": false, on the sound board).
 - BLOCKLOOK2 - Grok Dev (sent 08:50, starts after JOINFIX1, which is now merged): ops/research/TASK_BLOCKLOOK2.md. Collect by
   diff, then FILM blocks in the played fight (not block_meet_probe's staging).
 

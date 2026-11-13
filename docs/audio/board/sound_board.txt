@@ -1,12 +1,170 @@
-FightCamp sound board - S440 between rounds, Callum - 2026-11-12 10:05
+FightCamp sound board - S448 - sound round 4: the missing sounds (Ludo) - 2026-11-13 10:30
 NOBODY HAS LISTENED TO THESE YET. Claude and the agents cannot hear. Your ear decides: keep / redo / drop.
 Made with Ludo audio (your Pro plan). Numbers: loudness (LUFS), peak (dB), length (s).
 
- 1. voice_between_long  (between_long.ogg)  - plays when voice between long
+ 1. menu_click  (menu_click_1.ogg)  - plays when menu click
+    UNHEARD. 0.08 s, loudness -23.7, peak -1.4 dB. Prompt: A soft wooden click for a menu button: short dry tick of a wooden mallet on a table edge, under 0.15 seconds, no reverb, no beep
+ 2. menu_click  (menu_click_2.ogg)  - plays when menu click
+    UNHEARD. 0.11 s, loudness -24.3, peak -1.4 dB. Prompt: A soft wooden click for a menu button: short dry tick of a wooden mallet on a table edge, under 0.15 seconds, no reverb, no beep
+ 3. menu_click  (menu_click_3.ogg)  - plays when menu click
+    UNHEARD. 0.11 s, loudness -24.9, peak -1.5 dB. Prompt: A soft wooden click for a menu button: short dry tick of a wooden mallet on a table edge, under 0.15 seconds, no reverb, no beep
+ 4. menu_confirm  (menu_confirm_1.ogg)  - plays when menu confirm
+    UNHEARD. 0.48 s, loudness -25.9, peak -1.3 dB. Prompt: A confirm click a little brighter than a soft wooden tick: a short wooden snap with a tiny high-frequency ping, under 0.15 seconds, no reverb
+ 5. menu_confirm  (menu_confirm_2.ogg)  - plays when menu confirm
+    UNHEARD. 0.04 s, loudness -23.7, peak -1.5 dB. Prompt: A confirm click a little brighter than a soft wooden tick: a short wooden snap with a tiny high-frequency ping, under 0.15 seconds, no reverb
+ 6. menu_confirm  (menu_confirm_3.ogg)  - plays when menu confirm
+    UNHEARD. 0.12 s, loudness -23.5, peak -1.0 dB. Prompt: A confirm click a little brighter than a soft wooden tick: a short wooden snap with a tiny high-frequency ping, under 0.15 seconds, no reverb
+ 7. menu_back  (menu_back_1.ogg)  - plays when menu back
+    UNHEARD. 0.48 s, loudness -15.3, peak -1.4 dB. Prompt: A lower back/cancel click: a short wooden thud with the high end rolled off, under 0.15 seconds, no reverb
+ 8. menu_back  (menu_back_2.ogg)  - plays when menu back
+    UNHEARD. 0.18 s, loudness -19.9, peak -1.3 dB. Prompt: A lower back/cancel click: a short wooden thud with the high end rolled off, under 0.15 seconds, no reverb
+ 9. menu_back  (menu_back_3.ogg)  - plays when menu back
+    UNHEARD. 0.13 s, loudness -22.0, peak -1.3 dB. Prompt: A lower back/cancel click: a short wooden thud with the high end rolled off, under 0.15 seconds, no reverb
+10. punch_miss_whoosh  (punch_miss_whoosh_1.ogg)  - plays when punch miss whoosh
+    UNHEARD. 0.48 s, loudness -16.2, peak -1.3 dB. Prompt: A quiet air whoosh of a boxing glove passing past a head: soft cloth-and-leather swipe through air, no impact, no breath, no crowd
+11. punch_miss_whoosh  (punch_miss_whoosh_2.ogg)  - plays when punch miss whoosh
+    UNHEARD. 0.26 s, loudness -23.6, peak -1.3 dB. Prompt: A quiet air whoosh of a boxing glove passing past a head: soft cloth-and-leather swipe through air, no impact, no breath, no crowd
+12. punch_miss_whoosh  (punch_miss_whoosh_3.ogg)  - plays when punch miss whoosh
+    UNHEARD. 0.48 s, loudness -16.9, peak -1.2 dB. Prompt: A quiet air whoosh of a boxing glove passing past a head: soft cloth-and-leather swipe through air, no impact, no breath, no crowd
+13. punch_block  (punch_block_1.ogg)  - plays when punch block
+    UNHEARD. 0.05 s, loudness -28.8, peak -1.5 dB. Prompt: A boxing glove smacking into a glove guard: leather on leather, short padded pat with no body thud, close microphone, dry
+14. punch_block  (punch_block_2.ogg)  - plays when punch block
+    UNHEARD. 0.1 s, loudness -21.4, peak -1.3 dB. Prompt: A boxing glove smacking into a glove guard: leather on leather, short padded pat with no body thud, close microphone, dry
+15. punch_block  (punch_block_3.ogg)  - plays when punch block
+    UNHEARD. 0.48 s, loudness -23.6, peak -0.9 dB. Prompt: A boxing glove smacking into a glove guard: leather on leather, short padded pat with no body thud, close microphone, dry
+16. punch_block  (punch_block_4.ogg)  - plays when punch block
+    UNHEARD. 0.18 s, loudness -22.6, peak -1.4 dB. Prompt: A boxing glove smacking into a glove guard: leather on leather, short padded pat with no body thud, close microphone, dry
+17. crowd_club_gasp  (crowd_club_gasp_1.ogg)  - plays when crowd club gasp
+    UNHEARD. 0.46 s, loudness -21.6, peak -1.6 dB. Prompt: A small boxing club crowd gasping after a big shot: 150 to 400 people drawing breath at once in an indoor hall, short intake, no stadium reverb
+18. crowd_club_gasp  (crowd_club_gasp_2.ogg)  - plays when crowd club gasp
+    UNHEARD. 1.48 s, loudness -25.0, peak -1.5 dB. Prompt: A small boxing club crowd gasping after a big shot: 150 to 400 people drawing breath at once in an indoor hall, short intake, no stadium reverb
+19. crowd_club_gasp  (crowd_club_gasp_3.ogg)  - plays when crowd club gasp
+    UNHEARD. 1.36 s, loudness -20.8, peak -6.9 dB. Prompt: A small boxing club crowd gasping after a big shot: 150 to 400 people drawing breath at once in an indoor hall, short intake, no stadium reverb
+20. crowd_club_oooh  (crowd_club_oooh_1.ogg)  - plays when crowd club oooh
+    UNHEARD. 1.96 s, loudness -17.9, peak -3.3 dB. Prompt: An "oooh" from a small club crowd after a near miss: 200 people murmuring "oooh" in a hall, warm and low, no stadium echo
+21. crowd_club_oooh  (crowd_club_oooh_2.ogg)  - plays when crowd club oooh
+    UNHEARD. 1.9 s, loudness -17.7, peak -4.1 dB. Prompt: An "oooh" from a small club crowd after a near miss: 200 people murmuring "oooh" in a hall, warm and low, no stadium echo
+22. crowd_club_oooh  (crowd_club_oooh_3.ogg)  - plays when crowd club oooh
+    UNHEARD. 2.0 s, loudness -17.7, peak -3.7 dB. Prompt: An "oooh" from a small club crowd after a near miss: 200 people murmuring "oooh" in a hall, warm and low, no stadium echo
+23. crowd_club_boos  (crowd_club_boos_1.ogg)  - plays when crowd club boos
+    UNHEARD. 2.48 s, loudness -19.3, peak -5.5 dB. Prompt: Scattered boos from a small club crowd: a handful of voices booing in a 300-seat hall, not a stadium roar, disapproving but thin
+24. crowd_club_boos  (crowd_club_boos_2.ogg)  - plays when crowd club boos
+    UNHEARD. 2.48 s, loudness -18.1, peak -4.2 dB. Prompt: Scattered boos from a small club crowd: a handful of voices booing in a 300-seat hall, not a stadium roar, disapproving but thin
+25. crowd_club_boos  (crowd_club_boos_3.ogg)  - plays when crowd club boos
+    UNHEARD. 2.48 s, loudness -20.0, peak -5.7 dB. Prompt: Scattered boos from a small club crowd: a handful of voices booing in a 300-seat hall, not a stadium roar, disapproving but thin
+26. crowd_club_applause  (crowd_club_applause_1.ogg)  - plays when crowd club applause
+    UNHEARD. 4.0 s, loudness -20.7, peak -2.4 dB. Prompt: Polite applause between rounds in a small boxing club: 200 people clapping in an indoor hall, moderate and even, not enthusiastic
+27. crowd_club_applause  (crowd_club_applause_2.ogg)  - plays when crowd club applause
+    UNHEARD. 4.0 s, loudness -20.1, peak -6.6 dB. Prompt: Polite applause between rounds in a small boxing club: 200 people clapping in an indoor hall, moderate and even, not enthusiastic
+28. crowd_club_applause  (crowd_club_applause_3.ogg)  - plays when crowd club applause
+    UNHEARD. 4.0 s, loudness -21.0, peak -2.3 dB. Prompt: Polite applause between rounds in a small boxing club: 200 people clapping in an indoor hall, moderate and even, not enthusiastic
+29. crowd_club_cheer  (crowd_club_cheer_1.ogg)  - plays when crowd club cheer
+    UNHEARD. 2.38 s, loudness -22.4, peak -6.0 dB. Prompt: A short cheer for the home fighter in a small club: 300 people cheering briefly in a hall, one burst, no stadium size
+30. crowd_club_cheer  (crowd_club_cheer_2.ogg)  - plays when crowd club cheer
+    UNHEARD. 2.48 s, loudness -16.5, peak -1.9 dB. Prompt: A short cheer for the home fighter in a small club: 300 people cheering briefly in a hall, one burst, no stadium size
+31. crowd_club_cheer  (crowd_club_cheer_3.ogg)  - plays when crowd club cheer
+    UNHEARD. 2.48 s, loudness -18.9, peak -6.1 dB. Prompt: A short cheer for the home fighter in a small club: 300 people cheering briefly in a hall, one burst, no stadium size
+32. camera_shutter_burst  (camera_shutter_burst_1.ogg)  - plays when camera shutter burst
+    UNHEARD. 0.86 s, loudness -14.4, peak -2.7 dB. Prompt: A press-photographer camera shutter burst: 3 to 5 rapid DSLR clicks in one burst, mechanical shutter, close microphone, indoor
+33. camera_shutter_burst  (camera_shutter_burst_2.ogg)  - plays when camera shutter burst
+    UNHEARD. 0.75 s, loudness -15.4, peak -0.7 dB. Prompt: A press-photographer camera shutter burst: 3 to 5 rapid DSLR clicks in one burst, mechanical shutter, close microphone, indoor
+34. camera_shutter_burst  (camera_shutter_burst_3.ogg)  - plays when camera shutter burst
+    UNHEARD. 0.92 s, loudness -16.2, peak -0.6 dB. Prompt: A press-photographer camera shutter burst: 3 to 5 rapid DSLR clicks in one burst, mechanical shutter, close microphone, indoor
+35. camera_shutter_single  (camera_shutter_single_1.ogg)  - plays when camera shutter single
+    UNHEARD. 0.24 s, loudness -19.7, peak -1.1 dB. Prompt: A single camera shutter click: one DSLR photo click, mechanical shutter, close microphone, indoor
+36. camera_shutter_single  (camera_shutter_single_2.ogg)  - plays when camera shutter single
+    UNHEARD. 0.21 s, loudness -16.3, peak -1.4 dB. Prompt: A single camera shutter click: one DSLR photo click, mechanical shutter, close microphone, indoor
+37. camera_shutter_single  (camera_shutter_single_3.ogg)  - plays when camera shutter single
+    UNHEARD. 0.24 s, loudness -16.4, peak -1.0 dB. Prompt: A single camera shutter click: one DSLR photo click, mechanical shutter, close microphone, indoor
+38. gym_heavy_bag  (gym_heavy_bag_1.ogg)  - plays when gym heavy bag
+    UNHEARD. 0.21 s, loudness -19.8, peak -1.3 dB. Prompt: A heavy bag thud: a body hook landing on a 45 kg hanging heavy bag in a gym, deep leather-on-canvas thud with bag chain rattle, no crowd
+39. gym_heavy_bag  (gym_heavy_bag_2.ogg)  - plays when gym heavy bag
+    UNHEARD. 0.76 s, loudness -17.5, peak -1.2 dB. Prompt: A heavy bag thud: a body hook landing on a 45 kg hanging heavy bag in a gym, deep leather-on-canvas thud with bag chain rattle, no crowd
+40. gym_heavy_bag  (gym_heavy_bag_3.ogg)  - plays when gym heavy bag
+    UNHEARD. 0.31 s, loudness -16.4, peak -1.3 dB. Prompt: A heavy bag thud: a body hook landing on a 45 kg hanging heavy bag in a gym, deep leather-on-canvas thud with bag chain rattle, no crowd
+41. gym_speed_bag_loop  (gym_speed_bag_loop_1.ogg)  - plays when gym speed bag loop
+    UNHEARD. 4.0 s, loudness -20.3, peak -3.5 dB. Prompt: A speed bag rattle loop: a leather speed bag being hit in a steady rhythm in a gym, rapid rhythmic tapping, seamless loop point
+42. gym_speed_bag_loop  (gym_speed_bag_loop_2.ogg)  - plays when gym speed bag loop
+    UNHEARD. 4.0 s, loudness -20.6, peak -2.1 dB. Prompt: A speed bag rattle loop: a leather speed bag being hit in a steady rhythm in a gym, rapid rhythmic tapping, seamless loop point
+43. gym_speed_bag_loop  (gym_speed_bag_loop_3.ogg)  - plays when gym speed bag loop
+    UNHEARD. 4.0 s, loudness -20.3, peak -2.1 dB. Prompt: A speed bag rattle loop: a leather speed bag being hit in a steady rhythm in a gym, rapid rhythmic tapping, seamless loop point
+44. gym_skip_rope_loop  (gym_skip_rope_loop_1.ogg)  - plays when gym skip rope loop
+    UNHEARD. 4.0 s, loudness -23.0, peak -1.9 dB. Prompt: A skipping rope tapping loop: a jump rope hitting a gym floor in a steady rhythm, soft rubber-on-mat tapping, seamless loop point
+45. gym_skip_rope_loop  (gym_skip_rope_loop_2.ogg)  - plays when gym skip rope loop
+    UNHEARD. 4.0 s, loudness -23.2, peak -2.3 dB. Prompt: A skipping rope tapping loop: a jump rope hitting a gym floor in a steady rhythm, soft rubber-on-mat tapping, seamless loop point
+46. gym_skip_rope_loop  (gym_skip_rope_loop_3.ogg)  - plays when gym skip rope loop
+    UNHEARD. 4.0 s, loudness -20.4, peak -1.9 dB. Prompt: A skipping rope tapping loop: a jump rope hitting a gym floor in a steady rhythm, soft rubber-on-mat tapping, seamless loop point
+47. ref_count_one  (ref_count_one_1.ogg)  - plays when ref count one
+    UNHEARD. 2.57 s, loudness -18.1, peak -1.4 dB. Prompt: Daniel speech-preset: "One." (delivery: boxing referee counting, firm and measured)
+48. ref_count_one  (ref_count_one_2.ogg)  - plays when ref count one
+    UNHEARD. 1.71 s, loudness -17.8, peak -1.4 dB. Prompt: Daniel speech-preset: "One." (delivery: boxing referee counting, firm and measured)
+49. ref_count_one  (ref_count_one_3.ogg)  - plays when ref count one
+    UNHEARD. 1.74 s, loudness -17.3, peak -2.2 dB. Prompt: Daniel speech-preset: "One." (delivery: boxing referee counting, firm and measured)
+50. ref_count_two  (ref_count_two_1.ogg)  - plays when ref count two
+    UNHEARD. 0.6 s, loudness -18.4, peak -1.5 dB. Prompt: Daniel speech-preset: "Two." (delivery: boxing referee counting, firm and measured)
+51. ref_count_two  (ref_count_two_2.ogg)  - plays when ref count two
+    UNHEARD. 0.58 s, loudness -16.9, peak -2.1 dB. Prompt: Daniel speech-preset: "Two." (delivery: boxing referee counting, firm and measured)
+52. ref_count_two  (ref_count_two_3.ogg)  - plays when ref count two
+    UNHEARD. 0.43 s, loudness -16.1, peak -1.8 dB. Prompt: Daniel speech-preset: "Two." (delivery: boxing referee counting, firm and measured)
+53. ref_count_three  (ref_count_three_1.ogg)  - plays when ref count three
+    UNHEARD. 0.68 s, loudness -16.4, peak -1.6 dB. Prompt: Daniel speech-preset: "Three." (delivery: boxing referee counting, firm and measured)
+54. ref_count_three  (ref_count_three_2.ogg)  - plays when ref count three
+    UNHEARD. 0.68 s, loudness -16.5, peak -1.6 dB. Prompt: Daniel speech-preset: "Three." (delivery: boxing referee counting, firm and measured)
+55. ref_count_three  (ref_count_three_3.ogg)  - plays when ref count three
+    UNHEARD. 1.77 s, loudness -17.6, peak -1.3 dB. Prompt: Daniel speech-preset: "Three." (delivery: boxing referee counting, firm and measured)
+56. ref_count_four  (ref_count_four_1.ogg)  - plays when ref count four
+    UNHEARD. 1.76 s, loudness -17.2, peak -1.5 dB. Prompt: Daniel speech-preset: "Four." (delivery: boxing referee counting, firm and measured)
+57. ref_count_four  (ref_count_four_2.ogg)  - plays when ref count four
+    UNHEARD. 1.75 s, loudness -18.0, peak -2.3 dB. Prompt: Daniel speech-preset: "Four." (delivery: boxing referee counting, firm and measured)
+58. ref_count_four  (ref_count_four_3.ogg)  - plays when ref count four
+    UNHEARD. 2.74 s, loudness -17.5, peak -1.5 dB. Prompt: Daniel speech-preset: "Four." (delivery: boxing referee counting, firm and measured)
+59. ref_count_five  (ref_count_five_1.ogg)  - plays when ref count five
+    UNHEARD. 0.73 s, loudness -17.5, peak -1.7 dB. Prompt: Daniel speech-preset: "Five." (delivery: boxing referee counting, firm and measured)
+60. ref_count_five  (ref_count_five_2.ogg)  - plays when ref count five
+    UNHEARD. 0.7 s, loudness -17.3, peak -1.7 dB. Prompt: Daniel speech-preset: "Five." (delivery: boxing referee counting, firm and measured)
+61. ref_count_five  (ref_count_five_3.ogg)  - plays when ref count five
+    UNHEARD. 0.72 s, loudness -17.1, peak -1.6 dB. Prompt: Daniel speech-preset: "Five." (delivery: boxing referee counting, firm and measured)
+62. ref_count_six  (ref_count_six_1.ogg)  - plays when ref count six
+    UNHEARD. 1.89 s, loudness -18.8, peak -1.0 dB. Prompt: Daniel speech-preset: "Six." (delivery: boxing referee counting, firm and measured)
+63. ref_count_six  (ref_count_six_2.ogg)  - plays when ref count six
+    UNHEARD. 3.02 s, loudness -19.0, peak -1.5 dB. Prompt: Daniel speech-preset: "Six." (delivery: boxing referee counting, firm and measured)
+64. ref_count_six  (ref_count_six_3.ogg)  - plays when ref count six
+    UNHEARD. 2.86 s, loudness -19.7, peak -1.5 dB. Prompt: Daniel speech-preset: "Six." (delivery: boxing referee counting, firm and measured)
+65. ref_count_seven  (ref_count_seven_1.ogg)  - plays when ref count seven
+    UNHEARD. 0.67 s, loudness -17.1, peak -1.4 dB. Prompt: Daniel speech-preset: "Seven." (delivery: boxing referee counting, firm and measured)
+66. ref_count_seven  (ref_count_seven_2.ogg)  - plays when ref count seven
+    UNHEARD. 0.69 s, loudness -16.7, peak -1.4 dB. Prompt: Daniel speech-preset: "Seven." (delivery: boxing referee counting, firm and measured)
+67. ref_count_seven  (ref_count_seven_3.ogg)  - plays when ref count seven
+    UNHEARD. 1.58 s, loudness -18.1, peak -1.4 dB. Prompt: Daniel speech-preset: "Seven." (delivery: boxing referee counting, firm and measured)
+68. ref_count_eight  (ref_count_eight_1.ogg)  - plays when ref count eight
+    UNHEARD. 1.43 s, loudness -18.2, peak -1.5 dB. Prompt: Daniel speech-preset: "Eight." (delivery: boxing referee counting, firm and measured)
+69. ref_count_eight  (ref_count_eight_2.ogg)  - plays when ref count eight
+    UNHEARD. 1.34 s, loudness -18.4, peak -1.3 dB. Prompt: Daniel speech-preset: "Eight." (delivery: boxing referee counting, firm and measured)
+70. ref_count_eight  (ref_count_eight_3.ogg)  - plays when ref count eight
+    UNHEARD. 0.47 s, loudness -16.3, peak -1.6 dB. Prompt: Daniel speech-preset: "Eight." (delivery: boxing referee counting, firm and measured)
+71. ref_count_nine  (ref_count_nine_1.ogg)  - plays when ref count nine
+    UNHEARD. 3.08 s, loudness -18.3, peak -1.4 dB. Prompt: Daniel speech-preset: "Nine." (delivery: boxing referee counting, firm and measured)
+72. ref_count_nine  (ref_count_nine_2.ogg)  - plays when ref count nine
+    UNHEARD. 2.03 s, loudness -18.0, peak -2.0 dB. Prompt: Daniel speech-preset: "Nine." (delivery: boxing referee counting, firm and measured)
+73. ref_count_nine  (ref_count_nine_3.ogg)  - plays when ref count nine
+    UNHEARD. 1.93 s, loudness -18.4, peak -1.4 dB. Prompt: Daniel speech-preset: "Nine." (delivery: boxing referee counting, firm and measured)
+74. ref_count_ten  (ref_count_ten_1.ogg)  - plays when ref count ten
+    UNHEARD. 0.61 s, loudness -18.2, peak -1.2 dB. Prompt: Daniel speech-preset: "Ten." (delivery: boxing referee counting, firm and measured)
+75. ref_count_ten  (ref_count_ten_2.ogg)  - plays when ref count ten
+    UNHEARD. 0.61 s, loudness -18.4, peak -1.4 dB. Prompt: Daniel speech-preset: "Ten." (delivery: boxing referee counting, firm and measured)
+76. ref_count_ten  (ref_count_ten_3.ogg)  - plays when ref count ten
+    UNHEARD. 0.61 s, loudness -18.1, peak -1.6 dB. Prompt: Daniel speech-preset: "Ten." (delivery: boxing referee counting, firm and measured)
+77. ref_box  (ref_box_1.ogg)  - plays when ref box
+    UNHEARD. 1.52 s, loudness -18.9, peak -1.3 dB. Prompt: Daniel speech-preset: "Box!" (delivery: boxing referee command, sharp and firm)
+78. ref_box  (ref_box_2.ogg)  - plays when ref box
+    UNHEARD. 2.41 s, loudness -19.0, peak -1.3 dB. Prompt: Daniel speech-preset: "Box!" (delivery: boxing referee command, sharp and firm)
+79. ref_box  (ref_box_3.ogg)  - plays when ref box
+    UNHEARD. 2.35 s, loudness -18.5, peak -1.4 dB. Prompt: Daniel speech-preset: "Box!" (delivery: boxing referee command, sharp and firm)
+80. voice_between_long  (between_long.ogg)  - plays when voice between long
     UNHEARD. 5.878 s, loudness -21.87, peak -4.61 dB. Prompt: Stay long. Jab and move, make every punch reach.
- 2. voice_between_body  (between_body.ogg)  - plays when voice between body
+81. voice_between_body  (between_body.ogg)  - plays when voice between body
     UNHEARD. 4.284 s, loudness -21.49, peak -1.88 dB. Prompt: Go downstairs. Dig to the body, the head comes later.
- 3. voice_between_calm  (between_calm.ogg)  - plays when voice between calm
+82. voice_between_calm  (between_calm.ogg)  - plays when voice between calm
     UNHEARD. 3.866 s, loudness -20.63, peak -4.55 dB. Prompt: Breathe. Slow it down and pick your shots.
 
 Reply on the board with the numbers: e.g. '1 keep, 2 redo heavier, 5 drop'.
