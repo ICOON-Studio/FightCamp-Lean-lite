@@ -7086,6 +7086,23 @@
       "answered_at": "2026-11-13T11:22:23Z",
       "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-214",
+      "asked": "2026-11-13T14:42:03.157554+00:00",
+      "session": "S294",
+      "text": "The Training tab (fighter > Training) is the S428 build; the redesign is drawn but critics scored it 5-6. Next session: patch today's tab first, or finish the redesign to 7+ and build it?",
+      "options": [
+        "Build the redesign",
+        "Patch it first"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-214_0_screen_r3.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }
