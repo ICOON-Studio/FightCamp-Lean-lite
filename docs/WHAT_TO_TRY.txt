@@ -1,3 +1,14 @@
+S461 (2026-11-13)
+- Fight night, the towel: when the corner minute comes after a count, a closing eye, heavy head damage, or a risk past your line,
+  the corner shows THE TOWEL with the chance of being stopped next round (and with Box safe). Three answers: Pull out (a loss on
+  the stool, 14 days out), Box safe (next round on Hands up at Save pace), One more round. If you skip the bout, your coach pulls
+  out on his own at your line. Set the line on Fight prep (camp card): Careful 12 / Normal 20 / Brave 33 in 100. Does it come at
+  the right moments, and is the choice a hard one?
+- Game plan: each plan line now shows how well YOUR boxer does it - Good / OK / Poor (hover: the two abilities it is done with).
+  The fight weighs the line by it.
+- Fighters list: when every check is green, the Coach column now says what to build next ("Weak spot: defence - Defence drills
+  this week", "Sharpen power"...), the sums on hover.
+
 S459 (2026-11-13)
 - Fight (your answer "Hide the seams"): the fight no longer slows down or waits at each 30 seconds. Click a call on the corner
   bar any time; it is used for the next stretch of the fight. Nothing on screen at the joins tells who is winning any more

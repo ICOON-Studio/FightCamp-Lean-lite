@@ -33,8 +33,21 @@ const DONE_WITH := {
 	"push_off": ["strength", "durability"],
 }
 
-## The grade multipliers on a positive edge (the map's ESTIMATE; LINEGRADE1 sets them).
-const PLUS := {"Good": 1.2, "OK": 0.85, "Poor": 0.35}
+## The grade multipliers on a positive edge (the map's ESTIMATE; LINEGRADE1 sets them). GRADE1: a static var so the
+## probe can test different tables; the fight and the forecast read it through LineGrade.edge.
+## Centred on the roster's grade distribution (16% Good, 84% OK, 0% Poor): mean_mult 1.017, right_plan_GOOD within
+## 10 of the ungraded baseline, Good vs Poor gap 22.2 per 100 (tools/grade_probe.gd, docs/GRADE1_RESULT.md).
+static var PLUS := {"Good": 1.15, "OK": 0.99, "Poor": 0.90}
+
+## GRADE1: the wiring switch. true = the edge reads the boxer's attributes (graded); false = ungraded (PlanFight.edge).
+static var wired := true
+
+
+## The boxer's attributes for grading. Attrs.of(f) when wired, {} when not ({} = ungraded baseline).
+static func attrs_for(f: Dictionary) -> Dictionary:
+	if not wired:
+		return {}
+	return Attrs.of(f)
 
 
 ## The boxer's grade on a move: {word, mean, pair}. Forced or unknown moves return {}.

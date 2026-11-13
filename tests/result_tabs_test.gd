@@ -72,7 +72,19 @@ func _lab_rules(c: Career, f: Dictionary, m: Dictionary) -> void:
 	_check(str(ch.get("add", {}).get("sit", "")) == "loadup" and str(ch.get("add", {}).get("to", "")) == "step_back", "the new line: loads up -> Step back")
 	_check((ch.get("both", {}).get("arrows", []) as Array).size() == 4, "both changes hold 4 lines for a coach who holds 4")
 	var full := FixLab.changes(from, m["rounds"], 3)
-	_check(str(full.get("add", {}).get("replaces", "")) == "step_back" and int(full["add"]["i"]) == 1, "a full plan puts the new line in place of B, never used")
+	# S461: the fixture's plan now fires (result_dump gives its combos at Sharp), so which line went unused is read off the bout
+	# itself: FixLab's rule - a full plan's new line replaces a line that never fired, and with every line fired it offers none.
+	var fired := {}
+	for r in m["rounds"]:
+		for x in r["exchanges"]:
+			if bool(x.get("planned", false)):
+				fired[str(x.get("arrow", ""))] = true
+	var unused: Array = (from["arrows"] as Array).filter(func(a): return not fired.has(str(a["move"])))
+	if unused.is_empty():
+		_check(not full.has("add"), "a full plan with every line fired gets no new line (%s)" % str(full.get("add", {})))
+	else:
+		_check(unused.any(func(a): return str(a["move"]) == str(full.get("add", {}).get("replaces", ""))),
+			"a full plan puts the new line in place of one never used (%s; unused %s)" % [str(full.get("add", {}).get("replaces", "")), str(unused)])
 	_check(FixLab.verdict(25, 30, 40) == "plan_right" and FixLab.verdict(5, 18, 40) == "even" and FixLab.verdict(5, 12, 40) == "class" and FixLab.verdict(5, 30, 40) == "fixed", "the verdict bands")
 
 

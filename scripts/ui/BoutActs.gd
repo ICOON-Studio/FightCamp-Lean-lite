@@ -43,10 +43,10 @@ static func act(main: Node, name: String, arg: String) -> bool:
 				return true
 			main.open_modal({"type": "info", "title": str(r["name"]), "body": "%s, %s. %s." % [r["club"], str(r.get("stance", "")),
 				r["style"]], "rival": arg})
-		"focus", "diet", "learn", "combo", "trainload":
+		"focus", "diet", "learn", "combo", "trainload", "towelline":
 			var parts := arg.split("|")
 			var f := who(main, parts[0])
-			f[{"focus": "focus", "diet": "diet", "learn": "learning", "combo": "combo_learning", "trainload": "load_setting"}[name]] = parts[1] if parts.size() > 1 else parts[0]
+			f[{"focus": "focus", "diet": "diet", "learn": "learning", "combo": "combo_learning", "trainload": "load_setting", "towelline": "towel_line"}[name]] = parts[1] if parts.size() > 1 else parts[0]
 			if name == "focus":
 				f.erase("week_plan")   # S351 a new main = the coach's week for it
 			elif name == "combo":

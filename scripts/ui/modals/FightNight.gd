@@ -5,6 +5,7 @@ extends PanelContainer
 const RoundGraphics := preload("res://scripts/ui/RoundGraphics.gd")
 const Broadcast := preload("res://scripts/ui/Broadcast.gd")
 const UI := preload("res://scripts/ui/UI.gd")
+const TowelStrip := preload("res://scripts/ui/TowelStrip.gd")
 const TapeVersus := preload("res://scripts/ui/TapeVersus.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
@@ -194,7 +195,7 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		v.add_child(beats)
 	var stop := str(last.get("stopped", ""))
 	if stop != "":
-		v.add_child(UI.display("STOPPED: %s" % ("KNOCKOUT" if stop == "KO" else "REFEREE STOPS IT"), 32, UI.AMBER))
+		v.add_child(UI.display("STOPPED: %s" % {"KO": "KNOCKOUT", "RTD": "RETIRED ON THE STOOL"}.get(stop, "REFEREE STOPS IT"), 32, UI.AMBER))
 	# S303 corner card (watched rounds only: the 3D view reads it off the beats it played).
 	var advice := ""
 	if (last.has("card") or last.has("exchanges")) and stop == "":
@@ -216,6 +217,7 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		advice = str(cc["call"]) if n < total else ""
 	if n < total and stop == "":
 		v.add_child(UI.caps("IN THE CORNER: WHAT DO YOU TELL YOUR BOXER?"))
+		_towel(main, v, m)   # S461 INTEGRATE1 #4 the towel card (TowelWire), only when it comes
 		# S309: one fix for a habit the coach has seen (kept on the moment until the call is made).
 		var fixes := LiveRound.fixes(main.career.fighter_by_id(str(m["fid"])), last)
 		if not fixes.is_empty():
@@ -237,7 +239,9 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 			var jobs := CornerJobsRow.suffix(m.get("jobs_sel", {}))
 			m.erase("fix_pick")
 			m.erase("jobs_sel")
-			main.act("fightstep", "corner:" + k + ("|fix=" + fx if fx != "" else "") + jobs)))
+			var tw := "|towel=" + str(m["towel_pick"]) if m.has("towel_pick") else ""
+			m.erase("towel_pick")
+			main.act("fightstep", "corner:" + k + ("|fix=" + fx if fx != "" else "") + jobs + tw)))
 	else:
 		var foot := UI.hbox(10)
 		foot.add_child(UI.spacer())
@@ -296,3 +300,16 @@ static func lit_flow(m: Dictionary) -> Dictionary:
 	var flow := FightFlow.build(plan, StrikeMap.MOVES, start)
 	flow["edges"] = FightFlow.lit(flow["edges"], FightFlow.bout_moves(m["rounds"]))
 	return flow
+
+
+## S461 R26 the towel card in the corner minute (TowelStrip): Pull and Box safe start the corner at once, One more hides it.
+func _towel(main: Node, v: VBoxContainer, m: Dictionary) -> void:
+	var tc: Dictionary = m.get("towel", {})
+	if not bool(tc.get("comes", false)) or str(m.get("towel_pick", "")) == "one_more":
+		return
+	v.add_child(TowelStrip.build(tc, func(kind: String):
+		if kind == "one_more":
+			m["towel_pick"] = kind
+			main.redraw_modal()
+		else:
+			main.act("fightstep", "corner:hands|towel=" + kind)))

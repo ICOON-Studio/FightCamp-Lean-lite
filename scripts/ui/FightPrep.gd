@@ -12,6 +12,7 @@ extends RefCounted
 ## Attribute names come from the lines (WeekPlan.goal_lines through WeekBoard.plan_of), never a fixed stat list.
 ##   FightPrep.make(main, career, fighter) -> VBoxContainer "FightPrep"   next_step(career, fighter) -> [label, act, arg]
 
+const TowelWire := preload("res://scripts/state/TowelWire.gd")   # S461 the towel line
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
@@ -49,6 +50,27 @@ static func make(main: Node, c: Career, f: Dictionary) -> VBoxContainer:
 	row.add_child(_camp_card(main, c, f, bout_day))
 	page.add_child(row)
 	return page
+
+
+## S461 INTEGRATE1 #4 the towel's line: the stop risk (in 100) at which the corner shows the towel card and the coach pulls
+## on his own (Towel.LINES; TowelWire.line_of reads it).
+static func towel_row(main: Node, f: Dictionary) -> HBoxContainer:
+	var row := UI.hbox(8)
+	row.name = "TowelLine"
+	var tip := "The towel: your corner offers to pull out when the chance of being stopped next round reaches the line, and pulls on its own when you skip the bout."
+	var lab := UI.label("The towel", 16, UI.FG, "bold")
+	lab.tooltip_text = tip
+	lab.mouse_filter = Control.MOUSE_FILTER_PASS
+	row.add_child(lab)
+	var now := TowelWire.line_of(f)
+	for i in TowelWire.Towel.LINE_WORDS.size():
+		var key := str(TowelWire.Towel.LINE_WORDS[i]).to_lower()
+		var b := UI.button("%s (%d in 100)" % [TowelWire.Towel.LINE_WORDS[i], roundi(float(TowelWire.Towel.LINES[key]) * 100.0)],
+			"BtnSolid" if key == now else "Btn", main.act.bind("towelline", "%s|%s" % [str(f["id"]), key]))
+		b.name = "Towel_" + key
+		b.tooltip_text = tip
+		row.add_child(b)
+	return row
 
 
 ## The sparring nights still free to test the plan (SparNights, less the ones a test used).
@@ -159,6 +181,7 @@ static func _camp_card(main: Node, c: Career, f: Dictionary, bout_day: int) -> P
 	rows.append(UI.kv("On the scale", "%.1f now → %.1f on the morning, limit %.1f%s" % [float(wf["now"]), float(wf["day"]), float(f["limit"]),
 		" (%.1f kg to spare)" % spare if spare >= 0.0 else " (%.1f kg over)" % -spare], UI.RED if not bool(wf["ok"]) else (UI.AMBER if spare < SCALE_MARGIN else UI.GREEN)))
 	UI.add_rows(v, rows)
+	v.add_child(towel_row(main, f))
 	var week := UI.button("Change the week", "Link", main.act.bind("ftab", "3"))
 	week.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	v.add_child(week)

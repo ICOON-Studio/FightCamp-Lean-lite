@@ -174,6 +174,8 @@ static func after_bout(c: Career, f: Dictionary, m: Dictionary) -> void:
 		inj["choice"] = ""
 		c.add_news("%s fought hurt and it shows: %s." % [f["first"], line(c, f)])
 		m["injury"] = line(c, f)
+	if str(m.get("stopped", "")) == "RTD":
+		return   # S461 retired on the stool: TowelWire.pull booked the days out, no injury roll (Towel.answer)
 	var head_stop := str(m.get("stopped", "")) != "" and str(m.get("outcome", "")) == "loss"
 	var dmg := float((m.get("damage", {}) as Dictionary).get("a", 0.0))
 	# S434 STANDDOWN1 (F6): no sparring for 5, 10 or 21 days by the head the bout left (a head-stoppage loss has its

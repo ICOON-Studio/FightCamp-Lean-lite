@@ -79,6 +79,13 @@ static func _setup(day: int) -> Array:
 	var f: Dictionary = c.fighters[0]
 	f["weight"] = float(f["limit"]) - 0.3   # she holds the class limit (no cut week to model)
 	f["opp_index"] = OPP_INDEX
+	# S461: the plan's combinations at Sharp - since S450 FIRELEVEL3 a line under Usable (30) never fires, and this bout
+	# (drawn S442, when every line fired) fought no plan at all: result_defects_test 2 read "Write a plan" (no line to replace).
+	var combos: Dictionary = f.get_or_add("combos", {})
+	for a in PLAN:
+		var row := StrikeMap.move(str(a["move"]))
+		if str(row.get("kind", "")) == "combo":
+			combos[str(row["combo"])] = maxf(float(combos.get(str(row["combo"]), 0.0)), 60.0)
 	c.day = day
 	f["next_offer_day"] = day
 	Bouts.day_events(c)

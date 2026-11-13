@@ -110,7 +110,7 @@
    "agent": "qwen",
    "id": "GRADE1",
    "title": "TASK GRADE1 - QWEN - centre the plan-line grade (Good / OK / Poor) and wire it into the fight and its forecast",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-13T21:42",
    "eta": "2026-11-13T23:32",
    "branch": "qwen/grade1",
@@ -130,6 +130,173 @@
     "brief_copied": true,
     "runner_pid": 46860,
     "seat_pid": 24092
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 8/8 PASS; PR #262",
+   "landed": "2026-11-13",
+   "finished": "2026-11-13T22:45",
+   "pr": 262,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/line_grade_test.gd",
+     "ok": true,
+     "last": "LINE_GRADE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/line_grade_test.gd",
+     "ok": true,
+     "last": "LINE_GRADE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bout_read_test.gd",
+     "ok": true,
+     "last": "BOUT_READ PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_fight_test.gd",
+     "ok": true,
+     "last": "PLAN_FIGHT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/style_name_test.gd",
+     "ok": true,
+     "last": "STYLE_NAME failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_chain_test.gd",
+     "ok": true,
+     "last": "PLAN_CHAIN failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "READ1": {
+   "agent": "antigravity",
+   "id": "READ1",
+   "title": "TASK READ1 - size the professional's read through the game's real bout (no screen, no game change)",
+   "status": "landed",
+   "started": "2026-11-13T22:15",
+   "eta": "2026-11-13T23:40",
+   "branch": "agy/read1",
+   "worktree": "E:/FightCamp/wt/LEAN_READ1",
+   "wt": "E:/FightCamp/wt/LEAN_READ1",
+   "brief": "ops/research/TASK_READ1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/READ1_dispatch_out.txt",
+   "match": "seat_dispatch.py run read1",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/READ1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/READ1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/READ1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 27980,
+    "seat_pid": 37352
+   },
+   "note": "S368 seat_dispatch: agy exit 0; 1 commit(s); checks 3/3 PASS; PR #261",
+   "landed": "2026-11-13",
+   "finished": "2026-11-13T22:43",
+   "pr": 261,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/read1_probe.gd",
+     "ok": true,
+     "last": "RESULT: tools/read1_probe.gd -> READ_EDGE=6 pass=no"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/pro_read_test.gd",
+     "ok": true,
+     "last": "PRO_READ failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/phase_wire_test.gd",
+     "ok": true,
+     "last": "PHASE_WIRE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "LOYAL1": {
+   "agent": "qwen",
+   "id": "LOYAL1",
+   "title": "TASK LOYAL1 - a season of club weeks: who goes short, and what it does to loyalty (SHORTWEEK1 + LOYAL1, no screen)",
+   "status": "running",
+   "started": "2026-11-13T22:41",
+   "eta": "2026-11-14T00:31",
+   "branch": "qwen/loyal1",
+   "worktree": "E:/FightCamp/wt/LEAN_LOYAL1",
+   "wt": "E:/FightCamp/wt/LEAN_LOYAL1",
+   "brief": "ops/research/TASK_LOYAL1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/LOYAL1_dispatch_out.txt",
+   "match": "seat_dispatch.py run loyal1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/LOYAL1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/LOYAL1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/LOYAL1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 39484,
+    "seat_pid": 44424
+   },
+   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
+  },
+  "KNOWBOTS1": {
+   "agent": "antigravity",
+   "id": "KNOWBOTS1",
+   "title": "TASK KNOWBOTS1 - prove the reads are worth paying for before Knowledge is wired (bots, no screen)",
+   "status": "running",
+   "started": "2026-11-13T22:45",
+   "eta": "2026-11-14T00:10",
+   "branch": "agy/knowbots1",
+   "worktree": "E:/FightCamp/wt/LEAN_KNOWBOTS1",
+   "wt": "E:/FightCamp/wt/LEAN_KNOWBOTS1",
+   "brief": "ops/research/TASK_KNOWBOTS1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/KNOWBOTS1_dispatch_out.txt",
+   "match": "seat_dispatch.py run knowbots1",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/KNOWBOTS1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/KNOWBOTS1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/KNOWBOTS1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 760,
+    "seat_pid": 13648
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }

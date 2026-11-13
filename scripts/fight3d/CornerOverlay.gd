@@ -6,6 +6,7 @@
 
 const UI := preload("res://scripts/ui/TV.gd")  # S333: fight graphics keep the dark TV look
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const TowelStrip := preload("res://scripts/ui/TowelStrip.gd")
 const CallButtons := preload("res://scripts/ui/CallButtons.gd")
 const CornerStats := preload("res://scripts/ui/CornerStats.gd")
 const MatchStats := preload("res://scripts/ui/MatchStats.gd")
@@ -57,6 +58,7 @@ var _skip: Button
 var _rest: Control = null   # S395 the tanks refilling on the top bar
 var _rest_from := 0.0        # her tank at the next round, before the second's water
 var fix := ""
+var towel := ""   # S461 the towel card's answer (TowelStrip): rides on the corner action as "|towel=<kind>"
 
 
 func build(card: Dictionary, names: Array) -> void:
@@ -132,6 +134,8 @@ func build(card: Dictionary, names: Array) -> void:
 		said.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		line.add_child(said)
 		v.add_child(line)
+	if bool((card.get("towel", {}) as Dictionary).get("comes", false)):   # S461 INTEGRATE1 #4 the towel, above the jobs
+		v.add_child(TowelStrip.build(card["towel"], _towel_pick, UI))
 	# S310: recover points, a combination set-up, the talk; S309: one fix for a habit (optional); S308: the call - last.
 	_names = names
 	_menu = card.get("jobs_menu", {})
@@ -309,7 +313,14 @@ func _preview() -> void:
 
 ## The corner action's job parts for the pick (Bouts.corner_jobs).
 func jobs_suffix() -> String:
-	return "" if _menu.is_empty() else CornerJobsRow.suffix(jobs)
+	return ("" if _menu.is_empty() else CornerJobsRow.suffix(jobs)) + ("|towel=" + towel if towel != "" else "")
+
+
+## S461 Pull out / Box safe start the round on "Hands up" (BoutNight: a pull opens none); One more just answers.
+func _towel_pick(kind: String) -> void:
+	towel = kind
+	if kind != "one_more":
+		chose.emit("hands")
 
 
 func _draw_fixes() -> void:

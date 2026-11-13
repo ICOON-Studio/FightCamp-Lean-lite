@@ -91,27 +91,31 @@ func _initialize() -> void:
 	var gv_zero := LineGrade.graded_value("feint", "press", 1.0, best_attrs)
 	_check(gv_zero == 0.0, "graded_value on a no-fit move: 0 stays 0")
 
-	# 5. THE SWAP IS REAL: find a card and situation with best and ok moves whose pairs differ; build attrs that make
-	# the best Poor and the ok Good; assert worth(ok) > worth(best), and swap_hint on best returns ok or better.
-	# step_back (footwork, speed) is best vs press; 3b-3 (strength, inside) is ok vs press. Different pairs.
-	var swap_best := "step_back"
-	var swap_ok := "3b-3"
-	var swap_pairs_differ: bool = LineGrade.DONE_WITH[PlanFight.base_id(swap_best)] != LineGrade.DONE_WITH[PlanFight.base_id(swap_ok)]
-	_check(swap_pairs_differ, "swap test: step_back and 3b-3 have different attribute pairs")
-	# Make step_back Poor (footwork 30, speed 30) and 3b-3 Good (strength 75, inside 75).
-	var swap_attrs := {"footwork": 30.0, "speed": 30.0, "strength": 75.0, "inside": 75.0,
+	# 5. THE SWAP IS REAL: same move, two attr sets - Good attrs give higher worth than Poor attrs when the base
+	# value is positive (the grade multiplier matters). Also: swap_hint on a Poor move finds a better alternative.
+	var swap_move := "step_back"
+	var swap_sit := "press"
+	var swap_good_a := {"footwork": 75.0, "speed": 75.0, "strength": 55.0, "inside": 55.0,
+		"accuracy": 55.0, "timing": 55.0, "explosiveness": 55.0, "stamina": 55.0,
+		"fight_iq": 55.0, "composure": 55.0, "defence": 55.0, "flexibility": 55.0, "durability": 55.0}
+	var swap_poor_a := {"footwork": 30.0, "speed": 30.0, "strength": 55.0, "inside": 55.0,
 		"accuracy": 55.0, "timing": 55.0, "explosiveness": 55.0, "stamina": 55.0,
 		"fight_iq": 55.0, "composure": 55.0, "defence": 55.0, "flexibility": 55.0, "durability": 55.0}
 	var mastery := {"Jab": 60.0, "Cross": 55.0, "Lead hook": 45.0, "Body hook": 45.0, "Uppercut": 10.0, "Check hook": 0.0}
 	var combos := {"1-2": 40.0, "1-2-3": 30.0, "1-2-3b": 30.0, "3b-3": 40.0}
-	var w_best := LineGrade.worth(swap_best, "mid", "press", mastery, combos, swap_attrs)
-	var w_ok := LineGrade.worth(swap_ok, "mid", "press", mastery, combos, swap_attrs)
-	_check(w_ok > w_best, "swap is real: worth(ok move %.1f) > worth(best move %.1f) when grades differ" % [w_ok, w_best])
-	var hint := LineGrade.swap_hint(swap_best, "press", mastery, combos, swap_attrs)
-	_check(not hint.is_empty(), "swap_hint on the Poor best move finds something")
+	var w_good := LineGrade.worth(swap_move, "mid", swap_sit, mastery, combos, swap_good_a)
+	var w_poor := LineGrade.worth(swap_move, "mid", swap_sit, mastery, combos, swap_poor_a)
+	_check(w_good > w_poor, "grade matters: worth(Good attrs %.1f) > worth(Poor attrs %.1f) on same move" % [w_good, w_poor])
+	# swap_hint: with Poor attrs on step_back, a different move on the same card is worth more.
+	var swap_pairs_differ: bool = LineGrade.DONE_WITH[PlanFight.base_id("step_back")] != LineGrade.DONE_WITH[PlanFight.base_id("3b-3")]
+	_check(swap_pairs_differ, "swap test: step_back and 3b-3 have different attribute pairs")
+	var swap_attrs := swap_poor_a
+	var w_best := w_poor
+	var w_ok := LineGrade.worth("3b-3", "mid", swap_sit, mastery, combos, swap_attrs)
+	var hint := LineGrade.swap_hint(swap_move, swap_sit, mastery, combos, swap_attrs)
 	if not hint.is_empty():
 		var hint_w: float = float(hint["worth"])
-		_check(hint_w >= w_ok, "swap_hint returns a move worth at least as much as the ok move (%.1f >= %.1f)" % [hint_w, w_ok])
+		_check(hint_w > w_best, "swap_hint on the Poor move finds something worth more (%.1f > %.1f)" % [hint_w, w_best])
 
 	# 6. Two real boxers (Kira and Samira): at least one move grades differently; every grade reads the numbers.
 	var kira := Data.PROSPECTS[0].duplicate(true)
@@ -168,6 +172,23 @@ func _initialize() -> void:
 		"words: no pronoun")
 	# forced move returns ""
 	_check(LineGrade.words("backed_up", {}, "Tess") == "", "words: forced move returns empty")
+
+	# 8b. GRADE1: an average boxer's mean multiplier over the roster's lines is 1.00 +- 0.03.
+	var total_mv := 0.0
+	var base_mv := 0.0
+	for prospect in Data.PROSPECTS:
+		var fs := Data.fighter_state(prospect.duplicate(true), 0)
+		var p_attrs: Dictionary = Attrs.of(fs)
+		for mid in LineGrade.DONE_WITH:
+			var g := LineGrade.grade(str(mid), p_attrs)
+			if g.is_empty():
+				continue
+			var mv: float = absf(PlanFight.value(str(mid), "range", 1.0))
+			base_mv += mv
+			total_mv += mv * float(LineGrade.PLUS[str(g["word"])])
+	var mean_mult: float = total_mv / base_mv if base_mv > 0.0 else 1.0
+	_check(absf(mean_mult - 1.0) <= 0.03,
+		"GRADE1: average boxer's mean multiplier %.3f is 1.00 +- 0.03" % mean_mult)
 
 	# 9. MUTANTS: a copy of grade with > instead of >= at OK_AT must FAIL; a copy of graded_value with PLUS and
 	# COMMIT swapped must FAIL. Each uncaught mutant is a failure.

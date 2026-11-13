@@ -8,6 +8,8 @@ const PlanFile := preload("res://scripts/rules/PlanFile.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
 const PlanPhase := preload("res://scripts/rules/PlanPhase.gd")
+const LineGrade := preload("res://scripts/rules/LineGrade.gd")   # S461 INTEGRATE1 #2
+const Attrs := preload("res://scripts/rules/Attrs.gd")
 
 const PHASE_NEXT := {"all": "early", "early": "middle", "middle": "late", "late": "all"}
 const PHASE_TIP := "Which rounds this line is fought in. Click to change: all rounds, early, middle, late. Outside its rounds your boxer improvises there."
@@ -105,6 +107,24 @@ static func phase_tag(gp, row: Control, i: int) -> void:
 	b.name = "Phase_%d" % i
 	b.tooltip_text = PHASE_TIP
 	row.add_child(b)
+	grade_tag(row, str((arrows[i] as Dictionary).get("move", "")), Attrs.of(gp.f), i)
+
+
+## S461 INTEGRATE1 #2 (LineGrade, GRADE1's centred table): how well THIS boxer does the line - Good / OK / Poor from the two
+## attributes it is done with; the fight and the forecast weigh its edge by it. Forced or unknown moves show nothing.
+static func grade_tag(row: Control, move: String, attrs: Dictionary, i: int) -> void:
+	var g := LineGrade.grade(move, attrs)
+	if g.is_empty():
+		return
+	var word := str(g["word"])
+	var l := UI.label(word, UI.TINY, {"Good": UI.GREEN, "OK": UI.FG, "Poor": UI.AMBER}.get(word, UI.FG), "bold")
+	l.name = "Grade_%d" % i
+	l.mouse_filter = Control.MOUSE_FILTER_PASS
+	var pair: Array = g["pair"]
+	l.tooltip_text = "%s for your boxer, from %s %d and %s %d. A Good line is worth more in the fight, a Poor one less (x%.2f)." % [
+		word, str(Attrs.LABEL.get(str(pair[0][0]), pair[0][0])), roundi(float(pair[0][1])),
+		str(Attrs.LABEL.get(str(pair[1][0]), pair[1][0])), roundi(float(pair[1][1])), float(LineGrade.PLUS[word])]
+	row.add_child(l)
 
 
 ## S460 INTEGRATE1 #3 (PlanPhase late states): the last round's pace by the score - "If ahead" and "If behind" (level counts

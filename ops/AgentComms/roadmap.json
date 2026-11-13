@@ -3,16 +3,16 @@
  "updated": "2026-11-13",
  "author": "claude S294",
  "now": {
-  "id": "S460",
+  "id": "S461",
   "owner": "claude",
   "updated": "2026-11-13",
-  "summary": "S460: his marks C385/C386 fixed (LANDED reads the holo's own per-round tally at contact - no drift after a call re-plans the round; the lit call card's stamina cell + number in dark ink); C387 already answered by S459's Club panel; Q-S294-219 liver vs ribs -> LIVERRIBS_MAP_S460 v1 to critics (SQ77 Dola, SQ78 John); INTEGRATE1 #3 PlanPhase wired (ring + forecast + Plan screen rounds pill + last-round If ahead/If behind pace) and #7 TraitLine on the attribute board; GRADE1 briefed and running on Qwen (qwen/grade1); stale PRs 259/260 (already collected S458) still open - closing was blocked by the permission check.",
-  "last_working_commit": "a9520d3e",
-  "verified_playable": "Builds/FightCamp.exe exported S455 17:46 (blocked straights on the landed path, BLOCKLOOK5B)",
-  "next_action": "S461: 0) get_usage; collect GRADE1 (Qwen, qwen/grade1, ops/research/TASK_GRADE1.md): read docs/GRADE1_RESULT.md, apply the DIFF (it touches LiveRound/BoutRead lines next to S460's PlanPhase lines - merge by hand, LiveRound cap 470), run line_grade, bout_read, fight_why, phase_wire, golden_path. 1) Seat answers SQ73-78 (fight week v7, coach fit v4, hosted show, fighter leaves, LIVERRIBS1 x2) -> design_loop.py next rounds; queue PUSHTANK, READREVEAL1, CAMPLOC1, LEDGER1, weight, turning pro. 2) INTEGRATE1 #4 Towel (corner-minute card: TowelWire.gd state builder from (f, m), BoutNight corner_jobs 'towel' key + retirement path, CornerOverlay card; BoutNight is 487/500 lines - put logic in the new module), then #5 ProRead, #6 Loyalty, #8 TrainRead, #10-12; TellWorth (#9) needs LEVERS1's exchange table before it can show in game words. 3) result_defects_test point 2 (trace). 4) POWER1E rear uppercut tail. 5) close PRs 259/260 (ask him to allow gh pr close, or close by hand). No menu design until mechanics are in.",
-  "incomplete_blocked": "Training I: Dola 6/8 (not two at 7+); POWER1D helper result pending at handover (see TASK_POWER1D S457 section); Specialty display waits for the C20 control + screens (map task 14).",
-  "next_acceptance": "Training tab H: two fresh critics (Claude + Dola) at 7+ on depth and as a game, then the board with the picture; POWER1D: uppercut_tail failures=0 with every regression in TASK_POWER1D not worse.",
-  "awaiting_operator": "Nothing new asked this session; open looks still on the board/review: result page tabs, office desktop, block reel S455, Training tab F/G pictures."
+  "summary": "S461: INTEGRATE1 #4 Towel wired (TowelWire: card after every round on both corners, pull = RTD loss 14 days out, box safe = Hands up at Save pace, SKIP BOUT = the coach pulls at the line; the line on Fight prep); #2 LineGrade wired (GRADE1 collected, arm H Good 1.15/OK 0.99/Poor 0.90; the grade word on every plan line); #8 TrainRead on the roster Coach cell; result_defects point 2 traced (stale fixture: combos at 0 never fire since S450) and fixed; fight_why bar -> 2 in 3 (design call); a hang trap fixed (empty corner call). READ1 collected but its page was not reproducible - Claude's rerun: READ_EDGE 6. LOYAL1 (Qwen) and KNOWBOTS1 (Antigravity) running.",
+  "next_action": "S462: 0) get_usage. 1) result_tabs_test: with the fixed result_dump fixture (combos at Sharp) its 'B never used' line may now be used - read s461_b3 log; re-pin the expectation to the line FixLab really replaces on the new bout. 2) Collect LOYAL1 (Qwen, qwen/loyal1) and KNOWBOTS1 (agy, agy/knowbots1): RERUN each probe yourself before trusting its page (READ1's page was not reproducible). If LOYAL1 passes: wire ClubDeal + Loyalty (#11 + #6) on existing screens. 3) Wire ProRead (#5) at READ_EDGE 6 (LiveRound cap 470: one line), fired counts per pro bout, the target on fight prep. 4) Seat answers SQ77-84 -> design_loop. 5) POWER1E rear uppercut tail. 6) PRs 259/260/261 (ask him to allow gh pr close). No menu design until mechanics are in.",
+  "last_working_commit": "63a96211",
+  "verified_playable": "Builds/FightCamp.exe exported S461 22:47 (the towel card, plan line grades, the coach's read on the roster)",
+  "incomplete_blocked": "plan_bout_test red on main before S461 (not traced); LOYAL1 (Qwen) and KNOWBOTS1 (Antigravity) running - each probe to be rerun by Claude before use; ProRead wiring waits for S462; CoachMarket waits COACHFIT1; TellWorth waits LEVERS1.",
+  "next_acceptance": "plan_bout_test green with the fight rule unchanged; LOYAL1 rerun matches its page and SHORTWEEK1 + LOYAL1 pass lines read; ProRead wired at READ_EDGE 6 with a wire test that plays a read pro bout.",
+  "awaiting_operator": "Nothing new asked this session; open looks on the board/review: result page tabs, office desktop, block reel S455, Training tab pictures; play S461's towel card in the .exe."
  },
  "next": "S442: 0) get_usage. 1) Result page round 2 (docs/mockups/s441/result/fight_only.png): one logic check + two fresh critics (each with CRITIC_PACK, the 10/10 list and its drawing); fix, send to him at 8+ with the lists. 2) Mechanic 1 ASK FOR A FIGHT: the short map (ops/research/ASKFIGHT_MAP_S441.md: one screen, one decision, prices from the code), two fresh critics + a logic check. 3) Collect POWER1 when the lead's steps land (check steps 3 and 6 against REFERENCE_PUNCH_TARGETS_S439.md; films + critics' scores on the board), then DEFECTS1 (merge main in first; film a blocked punch). 4) Collect R26SWAP1 (Qwen) and the queued briefs as they land (read each against its brief before merging). 5) Wire the towel card into the corner minute once the result page is through.",
  "assessment": {
@@ -1895,6 +1895,11 @@
    "id": "S460",
    "date": "2026-11-13",
    "summary": "S460: his marks C385/C386 fixed (LANDED reads the holo's own per-round tally at contact - no drift after a call re-plans the round; the lit call card's stamina cell + number in dark ink); C387 already answered by S459's Club panel; Q-S294-219 liver vs ribs -> LIVERRIBS_MAP_S460 v1 to critics (SQ77 Dola, SQ78 John); INTEGRATE1 #3 PlanPhase wired (ring + forecast + Plan screen rounds pill + last-round If ahead/If behind pace) and #7 TraitLine on the attribute board; GRADE1 briefed and running on Qwen (qwen/grade1); stale PRs 259/260 (already collected S458) still open - closing was blocked by the permission check."
+  },
+  {
+   "id": "S461",
+   "date": "2026-11-13",
+   "summary": "S461: INTEGRATE1 #4 Towel wired (TowelWire: card after every round on both corners, pull = RTD loss 14 days out, box safe = Hands up at Save pace, SKIP BOUT = the coach pulls at the line; the line on Fight prep); #2 LineGrade wired (GRADE1 collected, arm H Good 1.15/OK 0.99/Poor 0.90; the grade word on every plan line); #8 TrainRead on the roster Coach cell; result_defects point 2 traced (stale fixture: combos at 0 never fire since S450) and fixed; fight_why bar -> 2 in 3 (design call); a hang trap fixed (empty corner call). READ1 collected but its page was not reproducible - Claude's rerun: READ_EDGE 6. LOYAL1 (Qwen) and KNOWBOTS1 (Antigravity) running."
   }
  ],
  "blocked_on_operator": [],
@@ -4813,7 +4818,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-13 20:11 board_sync",
+  "updated": "2026-11-13 22:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4963,10 +4968,17 @@
   },
   "working_now": [
    {
-    "id": "GRADE1",
+    "title": "TASK LOYAL1 - a season of club weeks: who goes short, and what it does to loyalty (SHORTWEEK1 + LOYAL1, no screen)",
     "who": "qwen",
-    "title": "Centre the plan-line grade (Good/OK/Poor) so an average plan keeps its worth, wire it into the fight and forecast, measure Good vs Poor (TASK_GRADE1)",
-    "after": ""
+    "started": "2026-11-13T22:41",
+    "run": "LOYAL1"
+   },
+   {
+    "title": "TASK KNOWBOTS1 - Knowledge's bots test: reader vs blind vs bad signer over 60 worlds",
+    "who": "antigravity",
+    "started": "2026-11-13T22:50",
+    "run": "KNOWBOTS1",
+    "state": "running"
    }
   ],
   "next": [
@@ -5444,6 +5456,26 @@
   },
   "done_recently": [
    {
+    "title": "S461 READ1 sized (rerun): READ_EDGE 6",
+    "who": "claude",
+    "when": "2026-11-13"
+   },
+   {
+    "title": "S461 Coach's read on the roster",
+    "who": "claude",
+    "when": "2026-11-13"
+   },
+   {
+    "title": "S461 Plan line grade (GRADE1) wired + shown",
+    "who": "claude",
+    "when": "2026-11-13"
+   },
+   {
+    "title": "S461 Towel card in both corners + the line on Fight prep",
+    "who": "claude",
+    "when": "2026-11-13"
+   },
+   {
     "id": "FIXS459B",
     "who": "claude",
     "title": "His HUD marks: LANDED matches the holo; stamina number readable on the lit call",
@@ -5630,6 +5662,22 @@
   "map": {
    "done_earlier": [
     {
+     "text": "LANDED matches the holo",
+     "who": "claude"
+    },
+    {
+     "text": "Plan lines by round (PlanPhase)",
+     "who": "claude"
+    },
+    {
+     "text": "Traits on the fighter board",
+     "who": "claude"
+    },
+    {
+     "text": "Liver vs ribs map v1",
+     "who": "claude"
+    },
+    {
      "text": "HUD + office marks fixed",
      "who": "claude"
     },
@@ -5668,39 +5716,23 @@
     {
      "text": "Training tab F + G, ink icons",
      "who": "claude"
-    },
-    {
-     "text": "Coaches v3: Kalli 6/5, John 6/6",
-     "who": "agent"
-    },
-    {
-     "text": "Block round 6 collected (Grok)",
-     "who": "agent"
-    },
-    {
-     "text": "Training tab D + E, game art",
-     "who": "claude"
-    },
-    {
-     "text": "Fight week v6 map to critics",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "LANDED matches the holo",
+     "text": "Towel card in both corners",
      "who": "claude"
     },
     {
-     "text": "Plan lines by round (PlanPhase)",
+     "text": "Plan line grade wired + shown",
      "who": "claude"
     },
     {
-     "text": "Traits on the fighter board",
+     "text": "Coach's read on the roster",
      "who": "claude"
     },
     {
-     "text": "Liver vs ribs map v1",
+     "text": "READ1 sized: READ_EDGE 6",
      "who": "claude"
     }
    ],
@@ -5822,14 +5854,26 @@
     {
      "text": "Wire ProRead, Loyalty, TrainRead",
      "who": "claude"
+    },
+    {
+     "text": "LOYAL1 probe (Qwen)",
+     "who": "claude"
+    },
+    {
+     "text": "KNOWBOTS1 probe (Antigravity)",
+     "who": "claude"
+    },
+    {
+     "text": "Wire ProRead at READ_EDGE 6",
+     "who": "claude"
     }
    ],
-   "session": "S460"
+   "session": "S461"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "S457",
- "next_action": "S461: 0) get_usage; collect GRADE1 (Qwen, qwen/grade1, ops/research/TASK_GRADE1.md): read docs/GRADE1_RESULT.md, apply the DIFF (it touches LiveRound/BoutRead lines next to S460's PlanPhase lines - merge by hand, LiveRound cap 470), run line_grade, bout_read, fight_why, phase_wire, golden_path. 1) Seat answers SQ73-78 (fight week v7, coach fit v4, hosted show, fighter leaves, LIVERRIBS1 x2) -> design_loop.py next rounds; queue PUSHTANK, READREVEAL1, CAMPLOC1, LEDGER1, weight, turning pro. 2) INTEGRATE1 #4 Towel (corner-minute card: TowelWire.gd state builder from (f, m), BoutNight corner_jobs 'towel' key + retirement path, CornerOverlay card; BoutNight is 487/500 lines - put logic in the new module), then #5 ProRead, #6 Loyalty, #8 TrainRead, #10-12; TellWorth (#9) needs LEVERS1's exchange table before it can show in game words. 3) result_defects_test point 2 (trace). 4) POWER1E rear uppercut tail. 5) close PRs 259/260 (ask him to allow gh pr close, or close by hand). No menu design until mechanics are in.",
+ "next_action": "S462: 0) get_usage. 1) result_tabs_test: with the fixed result_dump fixture (combos at Sharp) its 'B never used' line may now be used - read s461_b3 log; re-pin the expectation to the line FixLab really replaces on the new bout. 2) Collect LOYAL1 (Qwen, qwen/loyal1) and KNOWBOTS1 (agy, agy/knowbots1): RERUN each probe yourself before trusting its page (READ1's page was not reproducible). If LOYAL1 passes: wire ClubDeal + Loyalty (#11 + #6) on existing screens. 3) Wire ProRead (#5) at READ_EDGE 6 (LiveRound cap 470: one line), fired counts per pro bout, the target on fight prep. 4) Seat answers SQ77-84 -> design_loop. 5) POWER1E rear uppercut tail. 6) PRs 259/260/261 (ask him to allow gh pr close). No menu design until mechanics are in.",
  "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after."
 }

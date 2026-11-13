@@ -25,6 +25,7 @@ const WB_KIT := preload("res://scripts/ui/WhiteboardKit.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
 const NextStep := preload("res://scripts/rules/NextStep.gd")
 const CoachCheck := preload("res://scripts/rules/CoachCheck.gd")
+const TrainRead := preload("res://scripts/rules/TrainRead.gd")   # S461 INTEGRATE1 #8
 const MoveMastery := preload("res://scripts/rules/MoveMastery.gd")
 const Needs := preload("res://scripts/state/Needs.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
@@ -235,10 +236,19 @@ static func _coach_col(c: Career, f: Dictionary) -> Dictionary:
 	# The goal ring always reads the fighter page's own goal read (empty when no goal is set).
 	var g: Dictionary = Sim.goal_read(c, f)
 	if urgent.is_empty():
-		return {"word": "No change this week", "tag": "", "tone": "good", "why": "every check Coach runs is green", "goal": g}
+		return green_cell(c, f, g)
 	var said: Array = coach_do(c, f, urgent)
 	return {"word": str(said[0]), "tag": str(said[1]), "tone": "bad" if str(urgent["state"]) == "bad" else "watch",
 		"why": "%s: %s" % [str(urgent["label"]), str(urgent["word"])], "act": str(said[2]), "arg": str(said[3]), "goal": g}
+
+
+## S461 INTEGRATE1 #8: every check green - the coach's read of what to build next (TrainRead), its sums on the hover.
+static func green_cell(c: Career, f: Dictionary, g: Dictionary) -> Dictionary:
+	var tr := TrainRead.read(f, c.day)
+	var said := TrainRead.short(tr)
+	return {"word": str(said[0]), "sub": str(said[1]), "tag": "", "tone": "good", "goal": g,
+		"why": "Every check Coach runs is green. Coach's read: %s" % str(tr["why"]).replace("
+", " ")}
 
 
 ## The no-gi athlete: the move this week's classes drill (NoGi.drilling, as her page shows it) and, as the ring, the way to

@@ -138,6 +138,7 @@ static func cold_edge(opp: Dictionary, pace: String, n: int, i: int) -> float:
 ## closed rounds so far (BoutNight m["rounds"], each with "won").
 static func pace_for(f: Dictionary, n: int, done: Array = []) -> String:
 	var b: Dictionary = f.get("bout", {})
+	if int(b.get("towel_safe", 0)) == n: return "save"   # S461 the towel card's Box safe (TowelWire)
 	var lp := PlanPhase.pace(b.get("late", f.get("late", {})), n, int(b.get("rounds", 3)), _state(done))
 	if PACES.has(lp):
 		return lp

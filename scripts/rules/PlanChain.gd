@@ -11,6 +11,7 @@ extends RefCounted
 
 const FireLevel := preload("res://scripts/rules/FireLevel.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
+const LineGrade := preload("res://scripts/rules/LineGrade.gd")   # GRADE1
 
 static var _cells := {}
 
@@ -32,7 +33,7 @@ static func _table(arrows: Array, moves: Dictionary, combos: Dictionary, sits: A
 		for sit in sits:
 			var pick := PlanFight.choose(arrows, card, moves, sit)
 			var mv := str(pick["move"])
-			var e := PlanFight.edge(pick, sit, PlanFight.rate(mv, combos), PlanFight.card_mean(card, sit, moves, combos))
+			var e := LineGrade.edge(pick, sit, PlanFight.rate(mv, combos), PlanFight.card_mean(card, sit, moves, combos), {})
 			# S459 (bout_read red since S450 FIRELEVEL3): the fight fires a planned line only on its level's share of uses
 			# (LiveRound: not fired = not planned, no edge); the read takes the same share, on the mean.
 			e *= FireLevel.share(FireLevel.shares_for({}), FireLevel.mastery_of({"combos": combos}, mv))

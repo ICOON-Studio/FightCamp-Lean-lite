@@ -15,6 +15,7 @@ const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
 const HabitFix := preload("res://scripts/rules/HabitFix.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 const PlanChain := preload("res://scripts/rules/PlanChain.gd")
+const LineGrade := preload("res://scripts/rules/LineGrade.gd")   # GRADE1
 const PerkFight := preload("res://scripts/rules/PerkFight.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const SkillAwards := preload("res://scripts/rules/SkillAwards.gd")
@@ -57,6 +58,7 @@ const PLAN_CARRY := 1.9
 const MIX_ROUNDS := 300
 
 static var _mixes := {}; static var _ge := {}; static var _ready := {}; static var _re := {}
+static func clear_cache() -> void: _ge = {}; _re = {}
 
 ## How far her file is open: tape tells found, of all she has.
 static func stage(opp: Dictionary) -> Dictionary:
@@ -240,7 +242,7 @@ static func _game_edge_of(f: Dictionary, sit: String, n: int) -> float:
 	var combos: Dictionary = f.get("combos", {})
 	var pick := PlanFight.choose(PlanFile.arrows_for(f.get("arrows", []), f.get("late", {}), n, BoutRules.ROUNDS), at, moves, sit)   # S460 PlanPhase, as the ring
 	if sit in ["tiring", "she_tired"]:   # S434 the opponent's games walk the card chain in _round_edges (PlanChain)
-		e += PLAN_REACH * PLAN_CARRY * PlanFight.edge(pick, sit, PlanFight.rate(str(pick["move"]), combos), PlanFight.card_mean(at, sit, moves, combos))
+		e += PLAN_REACH * PLAN_CARRY * LineGrade.edge(pick, sit, PlanFight.rate(str(pick["move"]), combos), PlanFight.card_mean(at, sit, moves, combos), LineGrade.attrs_for(f))   # GRADE1
 	var habits := 0.0
 	for i in Exchanges.EXCHANGES:
 		habits += Exchanges.HABIT_BOUT * HabitFix.cost(HabitFix.punished(f.get("habits", []), sit, n, i, n == BoutRules.ROUNDS), "", 0.0)

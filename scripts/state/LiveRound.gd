@@ -30,6 +30,7 @@ const Adaptation := preload("res://scripts/rules/Adaptation.gd")
 const ReadBack := preload("res://scripts/rules/ReadBack.gd")
 const FireLevel := preload("res://scripts/rules/FireLevel.gd")
 const StyleName := preload("res://scripts/rules/StyleName.gd")   # S459 INTEGRATE1: the named style's levers
+const LineGrade := preload("res://scripts/rules/LineGrade.gd")   # GRADE1
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 ## Her values a call is done with: the fight stats, her footwork and her personality.
@@ -266,9 +267,8 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	# S342 real plans (Q-S294-67): a hurt opponent who still hits back, a waiter in the round's last exchange.
 	var psit := PlanFight.refine(sit, RoundStyle.opponent_habits(opp), i, Exchanges.EXCHANGES)
 	var card_mean := PlanFight.card_mean(at, psit, f.get("moves", {}), f.get("combos", {}))
-	var plan_rate := PlanFight.rate(arrow, f.get("combos", {}))
-	var plan_edge := PlanFight.edge(pick, psit, plan_rate * PerkFight.combo_rate(f, arrow), card_mean)
-	if plan_edge > PlanFight.edge(pick, psit, plan_rate, card_mean):
+	var plan_edge := LineGrade.edge(pick, psit, PlanFight.rate(arrow, f.get("combos", {})) * PerkFight.combo_rate(f, arrow), card_mean, LineGrade.attrs_for(f))
+	if plan_edge > LineGrade.edge(pick, psit, PlanFight.rate(arrow, f.get("combos", {})), card_mean, LineGrade.attrs_for(f)):
 		perks.append("hand_speed")
 	# S396 rank 3 (PlanRead): right answers that land build reads, wrong ones punished; both carry through the round.
 	var fit_now := PlanFight.fit(arrow, psit) if bool(pick.get("planned", false)) else "none"

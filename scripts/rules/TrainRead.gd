@@ -103,6 +103,17 @@ static func read(f: Dictionary, day: int, hurt: bool = false) -> Dictionary:
 		"say": say_c, "why": why_c, "pace": 0.0, "alt": alt_c}
 
 
+## S461 INTEGRATE1 #8: the read in a roster cell, no names (S448): [word, sub]. The why stays the hover.
+static func short(r: Dictionary) -> Array:
+	var sw := _cap(str(STAT_WORDS.get(str(r.get("stat", "")), "")))
+	match str(r.get("kind", "")):
+		"fight": return ["Fight week: keep fresh", "No building now"]
+		"rest": return ["Rest first", "Worn out"]
+		"weakness": return ["Weak spot: " + sw, "%s this week" % str(r["session_name"])]
+		"weapon": return ["Sharpen " + sw, "%s this week" % str(r["session_name"])]
+	return ["Pads: a new punch", "The numbers are even"]
+
+
 static func kinds() -> Array:
 	return ["fight", "rest", "weakness", "weapon", "craft"]
 

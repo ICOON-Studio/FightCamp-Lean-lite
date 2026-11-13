@@ -17,6 +17,7 @@ const OppFile := preload("res://scripts/rules/OppFile.gd")
 const RivalPast := preload("res://scripts/rules/RivalPast.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const Knockdowns := preload("res://scripts/rules/Knockdowns.gd")
+const TowelWire := preload("res://scripts/state/TowelWire.gd")   # S461 INTEGRATE1 #4 the towel card
 const RingDuel := preload("res://scripts/state/RingDuel.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
 const RoundScript := preload("res://scripts/rules/RoundScript.gd")
@@ -76,7 +77,8 @@ static func fight_step(c: Career, f: Dictionary, m: Dictionary, a: String) -> vo
 		# changes ONE arrow of the coach's plan (i == the plan's size adds one).
 		var parts := a.trim_prefix("corner:").split("|")
 		var jobs := corner_jobs(parts)
-		_open(c, f, m, parts[0], str(jobs.get("fix", "")), jobs)
+		var plan := TowelWire.answer(c, f, m, str(jobs.get("towel", "")), parts[0])   # S461 "|towel=pull|box_safe|one_more"
+		if stopped(m) == "": _open(c, f, m, plan, str(jobs.get("fix", "")), jobs)   # a pull retires her: no round
 	elif a.begins_with("shout:"):
 		_shout(c, f, m, a.trim_prefix("shout:"))
 	elif a == "round_out":
@@ -117,7 +119,7 @@ static func _peak(c: Career, f: Dictionary) -> void:
 
 static func _box_out(c: Career, f: Dictionary, m: Dictionary) -> void:
 	_shout_out(c, f, m)
-	while int(m["round"]) < rounds_of(f) and not stopped(m):
+	while int(m["round"]) < rounds_of(f) and not stopped(m) and not TowelWire.coach_pull(c, f, m):
 		_open(c, f, m, BoutRules.auto_corner(f["stats"]))
 		_shout_out(c, f, m)
 
@@ -129,7 +131,7 @@ static func outcome_of(f: Dictionary, m: Dictionary) -> String:
 	var won := rounds.filter(func(r): return bool(r["won"])).size()
 	var outcome := BoutRules.verdict(JudgeNight.cards(f, m))   # S443 R29: the judges, stored; deciding only when switched on
 	if stopped(m) != "":
-		outcome = "loss" if str((rounds[-1] as Dictionary)["down"]) == "a" else "win"
+		outcome = "loss" if str((rounds[-1] as Dictionary)["down"]) == "a" or stopped(m) == "RTD" else "win"
 	if outcome == "draw" and f["bout"].has("champ"):
 		outcome = "win" if bool((rounds[-1] as Dictionary)["won"]) else "loss"
 	return outcome
@@ -145,7 +147,7 @@ static func corner_jobs(parts: PackedStringArray) -> Dictionary:
 			continue
 		var kv := p.split("=", true, 1)
 		match kv[0]:
-			"fix", "talk", "adapt":
+			"fix", "talk", "adapt", "towel":
 				jobs[kv[0]] = kv[1]
 			"arrow":
 				var am := kv[1].split(":", true, 1)
@@ -210,6 +212,7 @@ static func _shout(c: Career, f: Dictionary, m: Dictionary, call: String) -> voi
 	_lines(c, f, r)
 	(m["rounds"] as Array).append(r)
 	_counts(c, f, m, r)
+	m["towel"] = TowelWire.card(c, f, m, count_sides(f, f["bout"]["opp"]), rounds_of(f))
 
 
 static func _shout_out(c: Career, f: Dictionary, m: Dictionary) -> void:

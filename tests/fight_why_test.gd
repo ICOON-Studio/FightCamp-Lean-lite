@@ -60,7 +60,11 @@ func _initialize() -> void:
 		bad_good += int(str(b["grade"]) == "good")
 	print("  over %d bouts: good plan graded good %d, bad plan graded good %d, turned %d, cost %d" % [BOUTS, good_good, bad_good, turned, cost])
 	_check(turned > cost, "a good plan turns more exchanges than it costs")
-	_check(good_good >= BOUTS * 0.9, "a good plan reads GOOD in nine fights of ten")
+	# S461 THE DESIGN CALL the notes above hand up (Claude, as developer): two fights in three. Since S450 FIRELEVEL3 a Usable line
+	# fires half the time, so a right plan of Usable lines carries less edge over the bout and reads GOOD less often (384/540
+	# from S450; 375 with GRADE1's centred grades) - the game's answer to that is "drill it", not a wrong grade. The bad plan's
+	# bar below (almost never GOOD) is unchanged, so the grade still separates right from wrong.
+	_check(good_good >= BOUTS * 2 / 3, "a good plan reads GOOD in two fights of three (%d of %d)" % [good_good, BOUTS])
 	_check(bad_good <= BOUTS * 0.1, "a bad plan almost never reads GOOD")
 	_check(_outcomes(_bout(77, GOOD)) == _outcomes(_bout(77, GOOD)), "the same bout plays the same way")
 	print("FIGHT_WHY failures=%d" % failures)

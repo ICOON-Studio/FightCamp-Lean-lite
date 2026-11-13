@@ -1353,6 +1353,19 @@
    "status": "done",
    "queued": "2026-11-13T19:10",
    "launched": "2026-11-13T19:11"
+  },
+  {
+   "task": "LOYAL1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-13T22:15",
+   "launched": "2026-11-13T22:41"
+  },
+  {
+   "task": "KNOWBOTS1",
+   "seat": "agy",
+   "status": "queued",
+   "queued": "2026-11-13T22:18"
   }
  ]
 }

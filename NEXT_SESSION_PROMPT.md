@@ -1,6 +1,6 @@
-# S461 handover (written 2026-11-13 at the end of S460; S459's handover is in git history)
+# S462 handover (written 2026-11-13 at the end of S461; S460's handover is in git history)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S461`.
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S462`.
 
 ## USAGE RULES (kept)
 - Run `get_usage` first. Hand over at 420k context; wrap-up from ~395k. At most TWO helper sessions / subagents at once.
@@ -8,40 +8,29 @@ OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py s
 
 ## HIS RULINGS IN FORCE (quote them)
 - S459: "need to finish intergrading mechanics before we spend more time in designing the menus" -> INTEGRATE1 first; no menu design.
-- S459: "use all free agents on loop until all mechanics have been designed . critics need to rate them at least 6 at depth and 6 at
-  general design etc" -> design loop (ops/Tools/design_loop.py; tracker ops/research/DESIGN_LOOP_S459.md).
-- S460 Q-S294-219: "Yes: liver = stamina drain + a knockdown chance when hurt, ribs = the injury place (cracked rib, weeks out).
-  Design map + critics first" -> ops/research/LIVERRIBS_MAP_S460.md v1, critics SQ77 (Dola) + SQ78 (John).
+- S461 (he asked, Claude answered yes): "Greybox mechanics go on existing screens first, with the final menus locked afterward. do that"
+  -> each mechanic lands on the screen it belongs to as a line, a number, a hover or a few buttons; final menus after.
+- S459: design loop on the free seats until every mechanic scores 6+ depth and 6+ general (ops/Tools/design_loop.py).
 - S459 "do not remove the holos yet" -> side holos stay.
 
-## FIRST: collect
-1. GRADE1 (Qwen, branch qwen/grade1, brief ops/research/TASK_GRADE1.md, launched 21:42). Read docs/GRADE1_RESULT.md (ARM lines,
-   GOOD_VS_POOR). Apply the DIFF by hand: its LiveRound / BoutRead lines sit next to S460's PlanPhase lines (LiveRound ~263 pick,
-   BoutRead ~241 pick) - keep both; LiveRound cap 470. Then line_grade, bout_read, fight_why (red on main: 384/540), phase_wire,
-   style_wire, golden_path. If no centred table cleared the bar, LineGrade stays unwired and the numbers go to INTEGRATION_S459 row 2.
-2. Seat answers SQ73-SQ78 (Kalli fight week v7, Dola coach fit v4, John hosted show, Maria fighter leaves, Dola + John LIVERRIBS1).
-   Each -> design_loop.py next round. Then queue: PUSHTANK_MAP_V2_S442 critic, READREVEAL1 map, CAMPLOC1, LEDGER1, weight, turning pro.
-3. PRs 259 / 260 (COACHMARKET1 / PROREAD1) were collected in S458 (main is ahead); `gh pr close` was blocked by the permission check
-   in S460 - close them (or ask him to).
+## FIRST
+0. plan_bout_test is RED ON MAIN from before S461 (control run on 3d0cc9b3 code: "the branch arrows are thrown in the bouts (1 times
+   over 80 bouts)"). Suspect the same as result_defects 2: the branch lines are combos at mastery 0, which never fire since S450
+   FIRELEVEL3 - check the fixture's combos first; fix the fixture, not the fire rule.
+1. (S461 closed result_tabs: green, re-pinned to FixLab's rule.)
+2. Collect LOYAL1 (Qwen, qwen/loyal1, ops/research/TASK_LOYAL1.md) and KNOWBOTS1 (Antigravity, agy/knowbots1, TASK_KNOWBOTS1.md).
+   RERUN EACH PROBE YOURSELF before trusting its page: READ1's page (agy) did not match its own probe (rerun A 29.3% vs page 44.8%,
+   probe line pass=no; a perfectly linear table was the tell) - docs/READ1_RESULT.md is Claude's rerun.
+3. Then wire: LOYAL1 pass -> #11 ClubDeal + #6 Loyalty together; #5 ProRead at READ_EDGE 6 (LiveRound 469/470 - fold into an existing
+   line or move a helper out); KNOWBOTS1 pass -> #10 Knowledge step 3. Tracker: ops/research/INTEGRATION_S459.md.
+4. Seat answers SQ77-84 (LIVERRIBS1 x2, fight week v7, coach fit v4, ...) -> design_loop.py next rounds. READ1 finding for the loop:
+   a split or a feint covers only part of the read (2.5 / 3.3 in 100 lost at READ_EDGE 6); only changing the plan answers it.
+5. POWER1E rear uppercut tail. PRs 259/260/261 stale (collected) - `gh pr close` is blocked: ask him to allow it or close by hand.
 
-## NEXT (Claude) - INTEGRATE1 (ops/research/INTEGRATION_S459.md)
-- DONE: #1 StyleName (S459), #3 PlanPhase (98916635, phase_wire_test), #7 TraitLine (20bd3e74, trait_wire_test).
-- #4 Towel next: Towel.gd is pure (risk / reasons / comes / answer / words). Build TowelWire.gd (new, small) that builds Towel's state
-  from (f, m) - sides power/chin/heart, damage, counts, p_lose - and applies an answer; BoutNight.corner_jobs takes a `towel=` key
-  (add it to the "fix", "talk", "adapt" match: zero new lines - BoutNight is 487/500); pull = retired (loss, PULL_DAYS, morale,
-  loyalty), box_safe = pace save + hands; the card on the corner minute (CornerOverlay 452 lines); the line (careful / normal / brave)
-  on fight prep; one test that plays a pull.
-- Then #5 ProRead, #6 Loyalty, #8 TrainRead, #10 Knowledge, #11 ClubDeal, #12 CoachMarket. #9 TellWorth waits on LEVERS1's exchange
-  table (its unit is power points - not game words).
-- Not wired yet inside done items: PlanPhase late-state extra LINES (pace only has a screen); TraitLine.crossed -> week news; the three
-  "new" TraitLine hooks (Stubborn, Listens, skipped mornings) are designed but not built.
-- Reds on main: fight_why_test (384/540, decide with GRADE1); result_defects_test point 2 (not traced).
-- POWER1E rear uppercut tail (QUICK_BACK_S 0.10 + uppercut_tail; punch_range windowed baseline 67 failures).
-
-## DONE IN S460
-- His C385/C386 (a2e21f70): LANDED = the holo's own tally (FightSeam.landed_ex reads BodyLive.round_hits); holo_live_test row proves it
-  with an empty beat list. The lit call card's stamina cell + number in dark ink (HudRegroup.Cell.lit). C387: S459's Club panel.
-- LIVERRIBS1 map v1 + critics queued. GRADE1 brief + Qwen launch. PlanPhase + TraitLine wired.
+## DONE IN S461 (ops/research/S461_DIGEST.md)
+- #4 Towel (TowelWire + TowelStrip, both corners, Fight prep line; towel_wire_test). #2 LineGrade (GRADE1 + grade word on plan lines;
+  grade_wire_test). #8 TrainRead (roster Coach cell; train_wire_test). fight_why bar -> 2 in 3 (design call, reason in the test).
+- Hang trap fixed: "corner:" (empty call) must still open the round (BoutNight: `if stopped(m) == ""`).
 
 ## TRAPS (S459, kept)
 - LiveRound.gd has a TIGHT 470-line cap (file_limits): fold changes into existing lines.
@@ -49,3 +38,5 @@ OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py s
 - Control runs: copy the touched files aside, `git show HEAD:<f> > <f>`, run, copy back (never a bare stash).
 - S460: `gh pr close` is refused by the auto-mode permission check. Seat dispatch: `python ops/Tools/seat_dispatch.py --task <ID> --seat qwen`
   (dry run) then `--act`; OWNS must be bare paths (notes in parentheses on the next line).
+- S461: a seat's probe page can be invented: rerun the probe (same seeds) and compare before using a number.
+- S461: a control run that loads scripts BEFORE a fix keeps the old code for its whole run - kill and rerun it after the fix.
