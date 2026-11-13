@@ -4,11 +4,13 @@ extends Node3D
 ## between the camera and the boxers.
 
 const RingRopes := preload("res://scripts/fight3d/RingRopes.gd")
+const CrowdFlashes := preload("res://scripts/fight3d/CrowdFlashes.gd")
 
 var RING_M := 5.5
 var APRON_M := 0.6
 var ring_side: Array = []
 var ropes: Node3D = null    # RingRopes (S311)
+var flashes: Node3D = null  # CrowdFlashes (S447): camera flashes on the crowd's seats
 
 
 func build(ring_m: float, apron_m: float) -> void:
@@ -167,6 +169,18 @@ func _build_crowd() -> void:
 	hi.multimesh = heads
 	hi.material_override = mat
 	add_child(hi)
+	# S447 camera flashes on these seats; the first three rows (the press, ringside phones) fire most.
+	var heads_at: Array = []
+	var near_at: Array = []
+	for p in spots:
+		var h: Vector3 = (p as Vector3) + Vector3(0, 0.95, 0)
+		heads_at.append(h)
+		if maxf(absf(h.x), absf(h.z)) <= 5.6 + 2.0 * 0.85 + 0.01:
+			near_at.append(h)
+	flashes = CrowdFlashes.new()
+	flashes.name = "CrowdFlashes"
+	add_child(flashes)
+	flashes.setup(heads_at, near_at)
 	# Tiers under the crowd.
 	for side in 4:
 		for row in 9:

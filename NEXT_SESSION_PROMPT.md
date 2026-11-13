@@ -1,42 +1,43 @@
-# S447 handover (written 2026-11-13 ~08:20 at the end of S446; S445's handover is in git history)
+# S448 handover (written 2026-11-13 ~10:10 at the end of S447; S446's handover is in git history)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S447`.
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S448`.
 
 ## USAGE RULES (kept)
-`get_usage` first; hand over at 300k context; at most TWO helpers; tell him the cost before a batch.
+`get_usage` first; hand over at 300k context (S447 ran to 600k - start the wrap-up at 300k, not later); at most TWO helpers.
 
-## HIS WORDS IN S446 (verbatim)
-- "replace cursor with grokbots,arena,goose" -> done: Grok Dev = screens + look fixes, Goose = long cloud jobs, Arena = pure
-  modules; CLAUDE.md roles, seat_dispatch (cursor who=()), roadmap rows, memory feedback_cursor_replaced_s446.
-- "check undisputed and blood&canvas how they do it do not waste time end effort if you can get it ready" -> answered from our
-  own REA notes (ops/research/POWER1_AUDIT_S446.md): B&C freezes both 0.04 s; Undisputed no freeze, follow-through 0.08-0.31 s.
-- "yes merge it" (Q-207) -> POWER1 steps 2-4 merged 74a910de, 12 fight tests green, pushed.
-- "give me the links what you want to buy" -> Punch Perfect (Unity, EUR 36.76 + VAT) and animo-mocap Boxing Animation Pack
-  (Fab, EUR 58.57); links in ops/research/MOCAP_PACKS_S439.md. Neither is in any library we own (checked). He buys end of Nov.
+## HIS WORDS IN S447 (verbatim)
+- "you told me to buy that, so why should i trust you and buy the 2 other packs ?" -> rule saved (memory
+  feedback_see_motion_before_buy_s447): no buy advice without the seller's preview motion checked by eye; no preview = no buy.
+  The Ailive pack cost EUR 8.47; only its footwork + sway had ever been judged.
+- "also check how punch speed is affected" / "this sounds like coding weakness rather animation issue" / "can you try them all ?"
+  -> all 10 Ailive clips baked on our boxer and filmed beside ours (board 2026-11-13_0920; ops/research/AILIVE_SPEED_S447.md):
+  hooks/uppercuts fast (7.7-11 m/s), jab/cross slow; every punch steps into a 0.9-1.2 m stance. He has not judged yet.
+- "lets see how it is with the recent additions and changes before we try" -> NO video-to-mocap until he has seen POWER1B,
+  BLOCKLOOK2 and the uppercut fix in the game.
+- "delete the 3 clips, i'll download them myself" -> deleted; 52 ProductionCrate tabs opened in his Chrome (he downloads; the
+  free limit stopped him: never bypass it - "can you sign in with different agents" was declined).
+- "yes brief qwen to make the rest in ludo" -> TASK_SOUND4, Qwen running (qwen/sound4).
+- "why cant you make your own assets instead of looking elsewhere though? like these crowd flashting effects" -> CrowdFlashes
+  built in the game (a07a2a8e), film on the board 2026-11-13_0958.
 
-## DONE IN S446 (all pushed)
-- POWER1 2-4 merged after an audit; leftovers queued: POWER1B, GLOVECLASH1, JOINFIX1 (Grok Dev), FEETDIPS1 (Goose), HOOKTAKES1
-  (after the mocap packs). TASK_POWER1.md restored. Films docs/mockups/s446/power1_*.png (review board).
-- ASKPROBE2 collected (tools/ask_probe2.gd, docs/ASKPROBE2_RESULT.md; PR 240 closed). x1: spread ok but flat (ask vs wait even
-  40/36/49 of 60), teach words differ 20/60. x1.5: DOMINANT (step up wins growth 42/60), words 31/60.
-- PAGES2 sent to Grok Dev 07:40 (`gbot send --to dev`; branch grok/pages2; it skips the still - render it yourself).
-- BLOCKLOOK1 finding: ops/research/TASK_BLOCKLOOK1.md (block pose unchanged by POWER1; probe staging + mc_to_block).
+## RUNNING (collect first)
+- POWER1B - Goose, issue 241, branch goose/issue-241. Extra scope added: the PLAYED lead uppercut jumps 26-37 m/s about 0.12 s
+  after the freeze (HitImpact.recover's QUICK BACK path) - JOINFIX1's isolated test never takes that path. Collect by diff, then
+  FILM: `tools/hit_frame_film.gd -- <dir> jabs=0 crosses=0 uppercuts=2 seed=4242 side=1` (hidden desktop, 60 fps, --log=);
+  bar: no frame over 9.6 m/s after the freeze on the lead uppercut.
+- SOUND4 - Qwen, branch qwen/sound4 (all new sounds "heard": false, on the sound board).
+- BLOCKLOOK2 - Grok Dev (sent 08:50, starts after JOINFIX1, which is now merged): ops/research/TASK_BLOCKLOOK2.md. Collect by
+  diff, then FILM blocks in the played fight (not block_meet_probe's staging).
 
-## NEXT, IN ORDER
-1. ASKPROBE2 x1.25 RAN (S446): both bars hold at the edge (step up best for growth 36/60 = the cap; teach words 30/60 = half);
-   RECORD/SAFE still mostly even. Write x1.25 into ASKFIGHT_MAP v4 + the rule module (FightLearn/AskBout; the probe's
-   `step_teach` lever), tests green, then two FRESH critics (Kalli + John via seat_queue, CRITIC_PACK first) with the numbers
-   as they are; 7+ both -> logic check -> one drawing for his pick.
-2. PAGES2 was stale (on main as PAGES2B since S441). Grok Dev now has JOINFIX1 (ops/research/TASK_JOINFIX1.md, branch
-   grok/joinfix1, ETA ~10:30): collect by diff + RESULT lines, then film the lead uppercut on the PC.
-2b. ProductionCrate (his free account; he signed in in Chrome): 3 LQ crowd-flash clips with alpha in
-   E:/FightCamp/incoming/productioncrate (+ LICENCE_NOTE.md: games allowed, but a personal account may not do company work -
-   ask him before shipping). A helper surveyed the site for more usable assets: its list is in ops/research/PRODUCTIONCRATE_S446.md if written.
-3. BLOCKLOOK1, then POWER1B / GLOVECLASH1 / JOINFIX1 briefs to Grok Dev; RESULTLOOK1.
-4. His open calls: fight screen regroup + filling shout as default (stills docs/mockups/s445/hud/), voices, PA mix.
+## WAITING ON HIM (board)
+Q-208 regroup as everyone's fight screen; Q-209 build the amateur fight week before Ask for a fight (ASKFIGHT_MAP v4 STATUS:
+a later date buys nothing today, so Ask cannot be a real choice until the fight week exists); result tabs, Ailive films, crowd
+flashes on the review board; ProductionCrate company licence; voices + PA mix by ear.
 
-## TRAPS (S446)
-- `-- nopunchrange` turns off POWER1 step 4 ONLY; a "before" film with it still carries steps 2-3 - say so on the sheet.
-- roadmap.json / live_runs.json are indent=1: rewrite with json.dumps(indent=1) or the diff is the whole file.
-- tools/block_meet_probe.gd stages its own pair (GAP 0.80-1.10 m): its stills are not the played fight.
-- `agent_comms.py ask --attach` needs an absolute path.
+## TRAPS (S447)
+- A seat's isolated test can pass while the played fight fails (JOINFIX1): every motion fix closes on hit_frame_film / a
+  played-fight film, never on the seat's test alone.
+- hidden_desktop.py drops the game's prints unless `--log=<file>`.
+- ffmpeg drawtext needs a font file here (fontconfig missing) - skip text overlays; ffmpeg h264 needs an even height (scale=1920:1008).
+- Claude in Chrome: every tool result lists all 52 tabs (~6k tokens) - close the ProductionCrate tabs when he is done.
+- A probe's levers must change the path they claim: ASKPROBE3's "two dates" acted only on a scale miss (= one date).

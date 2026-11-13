@@ -63,6 +63,8 @@ static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, mov
 			gs.snap(st.target_point(who, false) - (st.boxers[hitter]["node"] as Node3D).global_position, 9.0 * GRAZE_SNAP)
 		return
 	FightSfx.landed(move, big)
+	if big and st.has_node("RingSet") and st.get_node("RingSet").get("flashes") != null:
+		st.get_node("RingSet").flashes.burst(9)   # S447: the press reacts to a big shot
 	var boxers: Array = st.boxers
 	# S305: fast to its peak, then the clip's own pace back to guard; locked in it until then (HitStun).
 	var fast := BeatClips.react_fast(clip, speed)

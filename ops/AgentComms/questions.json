@@ -6992,6 +6992,23 @@
       "note": null,
       "answered_at": null,
       "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-209",
+      "asked": "2026-11-13T08:00:11.586060+00:00",
+      "session": "S294",
+      "text": "Ask for a fight is stuck at critics 5-6: in today's game a later fight date buys nothing (amateurs have no camp, and tiredness from the last bout ends at 14 days), so asking and waiting come out the same. The amateur fight week (AMATEURWEEK1: tank at the bell, sharp or flat, lines ready) is what makes the date matter. Build the fight week first, then Ask for a fight on top of it?",
+      "options": [
+        "Yes, fight week first",
+        "No, keep Ask for a fight first"
+      ],
+      "attach": [
+        "research/ASKFIGHT_MAP_S441.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

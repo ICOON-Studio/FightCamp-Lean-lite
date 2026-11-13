@@ -21,6 +21,14 @@ from this show; (8) the lead stays 14 days and step teaching stays x1 until meas
 (s5); (10) no badge, score or package. Items 2-7 are BUILT in scripts/rules/AskBout.gd + FightLearn.gd (S445, ask_bout_test
 with mutants, fight_learn_test green). Still owed before critics: ASKPROBE2 (s7).
 
+v4 STATUS (S447, after critics round 3: Kalli 5/5, John 6/6; ASKPROBE3 PR 243 read and closed): both critics said waiting
+costs nothing and the date trades nothing. ASKPROBE3 (too small to rank arms; its two-dates lever was a no-op) and the code
+agree on the root: an amateur bout has no camp (S428 scope), and the only time effect, BoutRules.LAST_BOUT tank costs, ends at
+14 days - the ask's shortest lead. So a later date buys NOTHING today, and no card wording can make Ask a real choice for
+record or safety. It becomes one only when time before a bout pays: AMATEURWEEK1's fight week (tank at the first bell,
+sharp/flat, lines ready). Claude's recommendation to the owner (board): build AMATEURWEEK1 first, then Ask on top of it
+(near show = less fight week, far show = a full one). The critic loop on Ask stops here until then.
+
 
 v1 was scored by two free critics: Kalli depth 5 / play 6, John depth 6 / play 6 (ops/research/ASKFIGHT_CRITIC_S442_KALLI.md,
 _JOHN.md). Both: the cut to one decision is right, no answer is always best, but (a) the cards printed the decision

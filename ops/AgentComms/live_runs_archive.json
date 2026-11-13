@@ -16340,6 +16340,88 @@
    },
    "reconciled": "2026-11-12 19:40 board_reconcile: PR #239 closed",
    "archived": "2026-11-12 19:41 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "ASKPROBE2",
+   "title": "TASK ASKPROBE2 - QWEN (qwen3-coder) - Ask for a fight: re-measure on map v3 (cases C and E as written)",
+   "status": "closed",
+   "started": "2026-11-12T22:23",
+   "eta": "2026-11-13T00:13",
+   "branch": "qwen/askprobe2",
+   "worktree": "E:/FightCamp/wt/LEAN_ASKPROBE2",
+   "wt": "E:/FightCamp/wt/LEAN_ASKPROBE2",
+   "brief": "ops/research/TASK_ASKPROBE2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/ASKPROBE2_dispatch_out.txt",
+   "match": "seat_dispatch.py run askprobe2",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/ASKPROBE2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/ASKPROBE2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/ASKPROBE2_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 49692,
+    "seat_pid": 832
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 4/5 PASS; PR #240",
+   "finished": "2026-11-12T23:20",
+   "pr": 240,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/ask_probe2.gd",
+     "ok": false,
+     "last": "ASK_PROBE2 bouts: 30320 in 837s"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ask_bout_test.gd",
+     "ok": true,
+     "last": "ASK_BOUT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_learn_test.gd",
+     "ok": true,
+     "last": "FIGHT_LEARN failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-13 07:40 board_reconcile: PR #240 closed",
+   "archived": "2026-11-13 07:41 board_sync"
+  },
+  {
+   "agent": "grok",
+   "id": "PAGES2",
+   "title": "TASK PAGES2 - GROK DEV - the Fighters page as painted, one wide row a fighter",
+   "status": "done",
+   "started": "2026-11-13T07:40",
+   "eta": "2026-11-13T09:30",
+   "branch": "grok/pages2",
+   "brief": "ops/research/TASK_PAGES2.md",
+   "repo": "FightCamp-Lean",
+   "where": "cloud",
+   "note": "Grok Dev: already on main as PAGES2B (114a85c4, S441); stale row",
+   "archived": "2026-11-13 08:11 board_sync"
   }
  ]
 }
