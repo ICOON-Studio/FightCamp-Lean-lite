@@ -1,5 +1,6 @@
 # TASK PUSHPROBE2 - measure the fight bars through the game's real bout (no screen)
 
+Status: DONE - S443 (0482c24b): the fight bars measured through the real bout, arms A-E.
 Operator S443, Q-S294-203: "Measure now". Model: Opus, high. Discipline: boxing (demo).
 Design under test: ops/research/PUSHTANK_MAP_V2_S442.md (read sections 3, 5 and 6 whole). Critics:
 PUSHTANK_V2_CRITIC_A_S442.md (coach, 7/6) and PUSHTANK_V2_CRITIC_B_S442.md (systems, 5/4); their musts are in the arms below.

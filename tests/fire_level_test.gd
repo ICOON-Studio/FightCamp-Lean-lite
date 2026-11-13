@@ -36,6 +36,13 @@ func _initialize() -> void:
 	_check(FireLevel.share(partial, 30.0) == 0.5, "partial: usable 0.5 at 30 -> 0.5")
 	_check(FireLevel.share(partial, 60.0) == 1.0, "partial: sharp missing at 60 -> 1.0")
 	_check(FireLevel.share(partial, 85.0) == 1.0, "partial: signature missing at 85 -> 1.0")
+	# 5. FIRELEVEL3: a bout with no key fights on the game's shares; a probe's explicit key wins; steps stay full.
+	_check(FireLevel.share(FireLevel.shares_for({}), 40.0) == 0.5, "no key on the bout: a Usable combination at 40 fires half the time")
+	_check(FireLevel.share(FireLevel.shares_for({}), 70.0) == 0.75, "no key on the bout: Sharp at 70 -> 0.75")
+	_check(FireLevel.share(FireLevel.shares_for({}), 90.0) == 1.0, "no key on the bout: Signature -> 1.0")
+	_check(FireLevel.share(FireLevel.shares_for({"fire_level": FireLevel.OFF}), 40.0) == 1.0, "the rule-off arm's explicit key -> 1.0")
+	_check(FireLevel.share(FireLevel.shares_for({"fire_level": {}}), 0.0) == 1.0, "an explicit empty key = today's game at every mastery")
+	_check(FireLevel.mastery_of({}, "step_in") == 100.0 and FireLevel.share(FireLevel.GAME_SHARES, FireLevel.mastery_of({}, "step_in")) == 1.0, "a step keeps full fire under the game's shares")
 	print("FIRE_LEVEL failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 

@@ -1,6 +1,6 @@
 # TASK RESULTDEFECTS1 - seven places where the game tells the player two different things about one fight
 
-Status: OPEN (S442, Claude main). Discipline: boxing. Found while dumping a real bout for the result page
+Status: DONE - S442 (a85963eb, 97c13f6c).
 (tools/result_dump.gd, seed 44, docs/mockups/s442/result/bout.json). Details and file:line for each:
 ops/research/RESULT_ROUND3_S442.md, section on code defects. READ THAT FIRST, then confirm each in the code before fixing.
 

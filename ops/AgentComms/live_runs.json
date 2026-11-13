@@ -225,49 +225,6 @@
    "reconciled": "2026-11-13 09:40 board_reconcile: Actions run 43381569572 finished success, nothing pushed",
    "note": "+ played lead uppercut quick-back jump (S447)"
   },
-  "FIGHTWEEKPROBE1": {
-   "agent": "qwen",
-   "id": "FIGHTWEEKPROBE1",
-   "title": "TASK FIGHTWEEKPROBE1 - QWEN (qwen3-coder) - the fight week's price list: what the tank and a flat round 1 are worth",
-   "status": "running",
-   "started": "2026-11-13T12:28",
-   "eta": "2026-11-13T14:18",
-   "branch": "qwen/fightweekprobe1",
-   "worktree": "E:/FightCamp/wt/LEAN_FIGHTWEEKPROBE1",
-   "wt": "E:/FightCamp/wt/LEAN_FIGHTWEEKPROBE1",
-   "brief": "ops/research/TASK_FIGHTWEEKPROBE1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/FIGHTWEEKPROBE1_dispatch_out.txt",
-   "match": "seat_dispatch.py run fightweekprobe1",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/FIGHTWEEKPROBE1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/FIGHTWEEKPROBE1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/FIGHTWEEKPROBE1_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 35452,
-    "seat_pid": 50360
-   },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
-  },
-  "MOVETREE1": {
-   "agent": "goose",
-   "id": "MOVETREE1",
-   "title": "GOOSE (cloud, pure module) - the boxing move tree as rules and data",
-   "status": "running",
-   "started": "2026-11-13T12:46",
-   "where": "cloud",
-   "repo": "FightCamp-Lean",
-   "brief": "ops/research/TASK_MOVETREE1.md",
-   "model": "Goose + Qwen token plan (GitHub Actions)",
-   "eta": "2026-11-13T13:46",
-   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (dispatch_queue.json)",
-   "issue": "246",
-   "branch": "goose/issue-246",
-   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/246"
-  },
   "BLOCKLOOK3": {
    "agent": "grok",
    "id": "BLOCKLOOK3",
@@ -279,6 +236,67 @@
    "branch": "grok/blocklook3",
    "brief": "ops/research/TASK_BLOCKLOOK3.md",
    "eta": "2026-11-13T15:30"
+  },
+  "PROGPROBE1": {
+   "agent": "goose",
+   "id": "PROGPROBE1",
+   "title": "GOOSE (cloud probe) - progression cadence and the hold rule (PROGPROBE1 + HOLD1) over two seasons",
+   "status": "running",
+   "started": "2026-11-13T13:33",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_PROGPROBE1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-13T14:33",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (S450 lead, after MOVETREE1 merged)",
+   "issue": "248",
+   "branch": "goose/issue-248",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/248"
+  },
+  "POWER1C": {
+   "agent": "antigravity",
+   "id": "POWER1C",
+   "title": "TASK POWER1C - ANTIGRAVITY - the lead uppercut's tail: a short upward follow-through, then back to guard, never over her own head",
+   "status": "running",
+   "started": "2026-11-13T13:41",
+   "eta": "2026-11-13T15:06",
+   "branch": "agy/power1c",
+   "worktree": "E:/FightCamp/wt/LEAN_POWER1C",
+   "wt": "E:/FightCamp/wt/LEAN_POWER1C",
+   "brief": "ops/research/TASK_POWER1C.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/POWER1C_dispatch_out.txt",
+   "match": "seat_dispatch.py run power1c",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/POWER1C_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/POWER1C_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/POWER1C_dispatch_runner.log",
+    "source": "S450 lead",
+    "brief_copied": true,
+    "runner_pid": 15432,
+    "seat_pid": 36324
+   },
+   "note": "S368 seat_dispatch: launched unattended (S450 lead); merging stays off"
+  },
+  "OFFICE1": {
+   "agent": "grok",
+   "id": "OFFICE1",
+   "title": "The office as a full-screen computer desktop: the frame + Desktop (his Q-213 'A, full screen')",
+   "status": "queued",
+   "started": "2026-11-13T14:05",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "branch": "grok/office1",
+   "brief": "ops/research/TASK_OFFICE1.md",
+   "eta": "2026-11-13T19:00",
+   "note": "S450: queued behind BLOCKLOOK3 on Grok Dev (gbot send)"
+  },
+  "FIGHTWEEKPROBE1": {
+   "status": "running",
+   "agent": "claude",
+   "note": "S450: Qwen died silently with a draft probe; Claude rewrote it (southpaw twins, calibrated pairs) and runs it on main"
   }
  },
  "codex_budget": {

@@ -1265,6 +1265,36 @@
    "seat": "qwen",
    "status": "queued",
    "queued": "2026-11-13T09:46"
+  },
+  {
+   "task": "BODYFACTS1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-13T12:44",
+   "launched": "2026-11-13T13:11"
+  },
+  {
+   "task": "MOVETREE1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-13T12:44",
+   "launched": "2026-11-13T12:46"
+  },
+  {
+   "task": "POWER1C",
+   "seat": "agy",
+   "title": "The lead uppercut's tail: short follow-through, back to guard, never over her head (his C353/C354/C359)",
+   "brief": "POWER1C",
+   "status": "queued",
+   "queued": "2026-11-13T13:55"
+  },
+  {
+   "task": "SLOTS1",
+   "seat": "qwen",
+   "title": "One move in learning: slots, the coach's three cards, learning speed (progression M2)",
+   "brief": "SLOTS1",
+   "status": "queued",
+   "queued": "2026-11-13T14:20"
   }
  ]
 }

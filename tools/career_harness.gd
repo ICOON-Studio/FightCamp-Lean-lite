@@ -26,6 +26,9 @@ const Injuries := preload("res://scripts/state/Injuries.gd")
 const ProLadder := preload("res://scripts/state/ProLadder.gd")
 const HarnessMoney := preload("res://tools/harness_money.gd")
 const HarnessSpend := preload("res://tools/harness_spend.gd")
+const FireLevel := preload("res://scripts/rules/FireLevel.gd")
+const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
+const PlanFight := preload("res://scripts/rules/PlanFight.gd")
 
 const CARELESS_P := 0.5
 ## S397 money bites: `spender` buys whatever the cash covers (HarnessSpend); the sensible player spends by its own rule.
@@ -42,6 +45,8 @@ func _initialize() -> void:
 		if kv.size() == 2:
 			args[kv[0]] = kv[1]
 	var n := int(args.get("n", "20"))
+	FireLevel.probe_off = args.get("fire", "on") == "off"   # S450 FIRELEVEL3: the rule-off arm of the first-season re-measure
+	print("HARNESS fire levels %s" % ("OFF (today's game before S450)" if FireLevel.probe_off else "ON (FireLevel.GAME_SHARES)"))
 	var weeks := int(args.get("weeks", "26"))
 	var t0 := Time.get_ticks_msec()
 	for policy in ["careless", "sensible"]:
@@ -185,6 +190,8 @@ func _decide(policy: String, c: Career) -> void:
 			main.act("weighin", f["id"])
 			main.act("doWeigh")
 		if Bouts.fight_day(c, f):
+			if args.get("plan", "") == "combos":   # S450 FIRELEVEL3: a player who writes the plan with combinations
+				f["arrows"] = _combo_plan(f)
 			main.act("fightnight")
 			main.act("fightstep", "sim")
 			main.act("afterfight")
@@ -222,3 +229,19 @@ func _summary(policy: String, rows: Array, weeks: int) -> void:
 		if with_h.is_empty():
 			continue
 		print("HARNESS %s habit %s: %d careers, closed %d" % [policy, h, with_h.size(), with_h.filter(func(r): return bool(r["closed"])).size()])
+
+
+## S450 FIRELEVEL3 `plan=combos`: the fighter's two most-drilled combinations she can throw, as a player writes them on the
+## Game plan board (drilled or not: today a planned combination fires whatever its mastery). Distinct combos, one arrow each.
+func _combo_plan(f: Dictionary) -> Array:
+	var rows: Array = []
+	var seen := {}
+	var combos: Dictionary = f.get("combos", {})
+	for m in StrikeMap.MOVES:
+		var cid := str(m.get("combo", ""))
+		if str(m.get("kind", "")) != "combo" or seen.has(cid) or not PlanFight.can_do(m, f.get("moves", {})):
+			continue
+		seen[cid] = true
+		rows.append([str(m["id"]), float(combos.get(cid, 0.0))])
+	rows.sort_custom(func(a, b): return float(a[1]) > float(b[1]))
+	return rows.slice(0, 2).map(func(r): return {"move": r[0]})

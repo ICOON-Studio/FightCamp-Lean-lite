@@ -15,6 +15,14 @@ const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const USABLE_AT := 30.0
 const SHARP_AT := 60.0
 const SIGNATURE_AT := 85.0
+## FIRELEVEL3 (S450, owner Q-S294-211 "Yes, go ahead", PROGRESSION_MAP_S448 M9): the game's shares. A Usable line comes off half
+## the time, a Sharp one three times in four, a Signature always. Measured S442 (FIRELEVEL2_ADAPT1_RESULT_S442.md) and re-measured
+## over a first season (docs/FIRELEVEL3_RESULT.md). A bout with no "fire_level" key fights on these; a probe's rule-off arm sets
+## OFF explicitly (today's game before S450).
+const GAME_SHARES := {"usable": 0.5, "sharp": 0.75, "signature": 1.0}
+const OFF := {"usable": 1.0, "sharp": 1.0, "signature": 1.0}
+## PROBES ONLY (tools/career_harness.gd `fire=off`): every bout fights on today's game before S450 (an empty dict).
+static var probe_off := false
 
 
 ## The share of uses on which a planned line counts as planned, by its mastery tier.
@@ -32,6 +40,14 @@ static func share(level_shares: Dictionary, mastery: float) -> float:
 	if mastery < SIGNATURE_AT:
 		return float(level_shares.get("sharp", 1.0))
 	return float(level_shares.get("signature", 1.0))
+
+
+## The shares a bout fights on: its own "fire_level" key when present (a probe's arm), the game's shares when absent.
+## OFF ({usable: 1, sharp: 1, signature: 1}) keeps an under-30 combination at 0.0 like any key; an EMPTY dict is "always 1.0".
+static func shares_for(bout: Dictionary) -> Dictionary:
+	if bout.has("fire_level"):
+		return bout["fire_level"] as Dictionary
+	return {} if probe_off else GAME_SHARES
 
 
 ## Whether the planned line fires on this use. roll = the bout's own seeded dice (0..1).

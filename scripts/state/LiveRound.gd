@@ -71,6 +71,10 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 		base += WeekTwist.LEFTY_EDGE
 	# S381 C229 stage 3: round 1 against a southpaw she never faced in camp.
 	base += BoutRules.stance_edge(n, str(f.get("stance", "orthodox")), opp, f["camp"], bool(f["bout"].get("lefty", false)))
+	# S450 AMATEURWEEK1 (FIGHTWEEKPROBE2): the fight week's FLAT round 1 - bout["r1_flat"] is the edge against her in round 1 only
+	# (0 or absent = sharp; the fight week's Rest up sets it once its price is measured).
+	if n == 1:
+		base -= float(f["bout"].get("r1_flat", 0.0))
 	var rng := _rng(c, f, n, 0)
 	var mode := Exchanges.next_mode(str(opp.get("style", "")), str(opp.get("weak", "")), n, 0, "", float(e.get("b", 100.0)), false, rng, 0,
 		RingDuel.mode_bias(f, opp))
@@ -258,7 +262,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var at := str(lv["at"])
 	var pick := PlanFight.choose(f["bout"].get("arrows", []), at, f.get("moves", {}), sit)
 	var arrow := str(pick["move"])
-	if bool(pick.get("planned", false)) and not FireLevel.fires(f["bout"].get("fire_level", {}), FireLevel.mastery_of(f, arrow), _rng(c, f, n, i + 173).randf()): pick["planned"] = false
+	if bool(pick.get("planned", false)) and not FireLevel.fires(FireLevel.shares_for(f["bout"]), FireLevel.mastery_of(f, arrow), _rng(c, f, n, i + 173).randf()): pick["planned"] = false
 	# S342 real plans (Q-S294-67): a hurt opponent who still hits back, a waiter in the round's last exchange.
 	var psit := PlanFight.refine(sit, RoundStyle.opponent_habits(opp), i, Exchanges.EXCHANGES)
 	var card_mean := PlanFight.card_mean(at, psit, f.get("moves", {}), f.get("combos", {}))

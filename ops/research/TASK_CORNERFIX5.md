@@ -1,5 +1,6 @@
 # TASK CORNERFIX5 - the 3D corner card: four of his marks (S443, C320-C323)
 
+Status: DONE - S443: the corner card's four marks (C320-C323) built and reviewed (bd97214c).
 Model: Opus. Discipline: boxing (demo). His marked still: ops/Feedback/2026-11-12-10/marked.png (open it with the Read
 tool; the original is the board's corner_3d_real.png). His words, verbatim:
 1. Coach line (box over "Priya was waiting to counter at the end of that round..."): "are these random preset lines with no

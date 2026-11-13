@@ -103,8 +103,7 @@ func _run_cell(label: String, fire_level: Dictionary, combo_mastery: float, n: i
 		c.coach = {}
 		var opp: Dictionary = (Data.OPPONENTS[0] as Dictionary).duplicate(true)
 		f["bout"] = {"opp": opp, "day": c.day, "weighed": true, "made": true, "done": false, "film": 0, "rounds": 3}
-		if not fire_level.is_empty():
-			f["bout"]["fire_level"] = fire_level.duplicate()
+		f["bout"]["fire_level"] = fire_level.duplicate()   # S450: always explicit; {} = today's game (no key now = the game's shares)
 		var m := {"fid": f["id"], "step": "tape", "total": 3}
 		Bouts.fight_step(c, f, m, "start")
 		while true:
