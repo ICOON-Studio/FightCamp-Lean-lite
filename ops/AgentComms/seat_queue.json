@@ -632,8 +632,8 @@
    "status": "queued",
    "queued_at": "2026-11-12 11:47",
    "tries": 0,
-   "skips": 88,
-   "last_error": "2026-11-13 12:10 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+   "skips": 92,
+   "last_error": "2026-11-13 14:10 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
   },
   {
    "id": "SQ44",
@@ -722,7 +722,8 @@
    "sent_ms": 1794558098002,
    "answered_at": "2026-11-13 10:40",
    "answer": "research/PROGRESSION_CRITIC_S448_KALLI.md",
-   "chars": 18165
+   "chars": 18165,
+   "seen_by_claude": true
   },
   {
    "id": "SQ50",
@@ -736,7 +737,8 @@
    "sent_ms": 1794558100375,
    "answered_at": "2026-11-13 10:39",
    "answer": "research/PROGRESSION_CRITIC_S448_JOHN.md",
-   "chars": 14059
+   "chars": 14059,
+   "seen_by_claude": true
   },
   {
    "id": "SQ51",
@@ -750,7 +752,8 @@
    "sent_ms": 1794559516970,
    "answered_at": "2026-11-13 11:02",
    "answer": "research/PROGRESSION_CRITIC_S448B_KALLI.md",
-   "chars": 17138
+   "chars": 17138,
+   "seen_by_claude": true
   },
   {
    "id": "SQ52",
@@ -764,7 +767,8 @@
    "sent_ms": 1794559519508,
    "answered_at": "2026-11-13 11:03",
    "answer": "research/PROGRESSION_CRITIC_S448B_JOHN.md",
-   "chars": 11202
+   "chars": 11202,
+   "seen_by_claude": true
   },
   {
    "id": "SQ53",
@@ -778,7 +782,8 @@
    "sent_ms": 1794560737231,
    "answered_at": "2026-11-13 11:23",
    "answer": "research/PROGRESSION_CRITIC_S448C_KALLI.md",
-   "chars": 15873
+   "chars": 15873,
+   "seen_by_claude": true
   },
   {
    "id": "SQ54",
@@ -792,7 +797,8 @@
    "sent_ms": 1794560740310,
    "answered_at": "2026-11-13 11:24",
    "answer": "research/PROGRESSION_CRITIC_S448C_JOHN.md",
-   "chars": 9496
+   "chars": 9496,
+   "seen_by_claude": true
   },
   {
    "id": "SQ55",
@@ -806,7 +812,8 @@
    "sent_ms": 1794562051337,
    "answered_at": "2026-11-13 11:46",
    "answer": "research/PROGRESSION_CRITIC_S448D_KALLI.md",
-   "chars": 17024
+   "chars": 17024,
+   "seen_by_claude": true
   },
   {
    "id": "SQ56",
@@ -820,33 +827,89 @@
    "sent_ms": 1794562054069,
    "answered_at": "2026-11-13 11:46",
    "answer": "research/PROGRESSION_CRITIC_S448D_JOHN.md",
-   "chars": 10690
+   "chars": 10690,
+   "seen_by_claude": true
   },
   {
    "id": "SQ57",
    "seat": "john",
    "brief": "research/J_CAMPCOSTS_S449_BRIEF.md",
    "stem": "J_CAMPCOSTS_S449_BRIEF_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-13 12:23",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-13 12:40",
+   "sent_ms": 1794566427574,
+   "answered_at": "2026-11-13 13:10",
+   "answer": "research/J_CAMPCOSTS_S449_BRIEF_JOHN.md",
+   "chars": 13390,
+   "seen_by_claude": true
   },
   {
    "id": "SQ58",
    "seat": "kalli",
    "brief": "research/AMATEURWEEK_CRITIC_S449_BRIEF.md",
    "stem": "AMATEURWEEK_CRITIC_S449_BRIEF_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-13 12:25",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-13 12:40",
+   "sent_ms": 1794566429957,
+   "answered_at": "2026-11-13 13:10",
+   "answer": "research/AMATEURWEEK_CRITIC_S449_BRIEF_KALLI.md",
+   "chars": 19150,
+   "seen_by_claude": true
   },
   {
    "id": "SQ59",
    "seat": "john",
    "brief": "research/AMATEURWEEK_CRITIC_S449_BRIEF.md",
    "stem": "AMATEURWEEK_CRITIC_S449_BRIEF_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-13 12:25",
+   "tries": 0,
+   "sent_at": "2026-11-13 13:40",
+   "sent_ms": 1794570025395,
+   "answered_at": "2026-11-13 14:10",
+   "answer": "research/AMATEURWEEK_CRITIC_S449_BRIEF_JOHN.md",
+   "chars": 11295
+  },
+  {
+   "id": "SQ60",
+   "seat": "kalli",
+   "brief": "research/AMATEURWEEK_CRITIC_S450_BRIEF.md",
+   "stem": "AMATEURWEEK_CRITIC_S450_KALLI",
+   "status": "sent",
+   "queued_at": "2026-11-13 14:09",
+   "tries": 0,
+   "sent_at": "2026-11-13 14:10",
+   "sent_ms": 1794571834936
+  },
+  {
+   "id": "SQ61",
+   "seat": "kalli",
+   "brief": "research/COACHFIT_CRITIC_S450_BRIEF.md",
+   "stem": "COACHFIT_CRITIC_S450_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-13 14:09",
+   "tries": 0
+  },
+  {
+   "id": "SQ62",
+   "seat": "john",
+   "brief": "research/AMATEURWEEK_CRITIC_S450_BRIEF.md",
+   "stem": "AMATEURWEEK_CRITIC_S450_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-13 14:09",
+   "tries": 0
+  },
+  {
+   "id": "SQ63",
+   "seat": "john",
+   "brief": "research/COACHFIT_CRITIC_S450_BRIEF.md",
+   "stem": "COACHFIT_CRITIC_S450_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-13 14:09",
    "tries": 0
   }
  ]

@@ -251,6 +251,8 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 			var from_left: bool = stage.hand_of(who, hand if hand != "" else ("LeftHand" if lead else "RightHand")) == "LeftHand"
 			if d == "block" and move == "body_hook":
 				# S305: a body shot is blocked with the elbow - gloves stay up, the elbow drops onto the ribs (HitSnap.brace).
+				# S450 (BLOCKLOOK3's unowned bug): the brace's trunk give lives on her BlockCatch, which only a head block made.
+				preload("res://scripts/fight3d/BlockCatch.gd").on(stage, other)
 				var snap: Node = stage.boxers[other].get("snap")
 				if snap != null:
 					tree.create_timer(at).timeout.connect(snap.brace.bind(not from_left))

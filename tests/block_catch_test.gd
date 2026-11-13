@@ -17,6 +17,14 @@ extends SceneTree
 ##            the face.
 ##   OVERHEAD no hand bone more than 0.03 m above the Head bone at any frame of the block.
 ##   WRIST    the elbow-to-wrist distance changes at most 0.01 m during the block.
+##   GAP      BLOCKLOOK3 (owner mark 4, "colission!!"): the punching glove's front stops at the catching glove's surface -
+##            front to that glove's centre minus GLOVE_RADIUS is at least -0.005 m on the contact frame (the brief's bar;
+##            the deepest over the 0.10 s after it is printed).
+##   MATCH    BLOCKLOOK3 (owner marks 1-3: the blocked arm folded short, a 90 deg elbow, a hunched twist): the SAME clip,
+##            same seed, is then thrown as a LANDED punch (BeatFire's lands path: stage.land) from the same stand and the
+##            puncher's drawn arm is read on its own contact frame. Blocked against landed: reach (shoulder to hand bone) at
+##            least 90 %, elbow angle within 15 deg, chest yaw and pitch each within 10 deg, the punching shoulder at most
+##            0.04 m lower.
 ## The block "starts" on the first frame the blocker plays a block clip or her BlockCatch has weight; it lasts until both
 ## are gone again (at most CONTACT + 0.6 s). 3D only: no rule is read or changed.
 ## Run: <godot> --headless --audio-driver Dummy --path . --script res://tests/block_catch_test.gd   [-- trace: frames around contact]
@@ -47,6 +55,13 @@ const GLOVE_RADIUS := 0.04
 const BETWEEN_TOL := 0.15
 const SCAN_BEFORE := 0.10
 const SCAN_AFTER := 0.05
+const LATCH_S := 0.011   # PunchReach.LATCH_S: the hit-stop holds a landed clip up to this short of its contact
+const GAP_BAR := -0.005
+const GAP_AFTER := 0.10
+const REACH_BAR := 0.90
+const ELBOW_BAR := 15.0
+const CHEST_BAR := 10.0
+const SHOULDER_BAR := 0.04
 
 
 class FakeBody extends RefCounted:
@@ -94,7 +109,27 @@ func _on_blocker_drawn() -> void:
 
 func _on_puncher_drawn() -> void:
 	var skel: Skeleton3D = st.boxers[0]["skel"]
-	_pdrawn = {"LeftUpperArm": _bw(skel, "LeftUpperArm"), "RightUpperArm": _bw(skel, "RightUpperArm")}
+	var d := {}
+	for b in ["LeftUpperArm", "RightUpperArm", "LeftLowerArm", "RightLowerArm", "LeftHand", "RightHand", "Chest", "Neck"]:
+		d[b] = _bw(skel, b)
+	var f: Vector3 = (st.boxers[0]["node"] as Node3D).global_transform.basis.z
+	d["fwd"] = Vector3(f.x, 0.0, f.z).normalized()
+	_pdrawn = d
+
+
+## BLOCKLOOK3 MATCH: the puncher's arm and chest from one drawn frame - reach (shoulder to hand), elbow angle, chest yaw
+## (the shoulder line against her facing) and pitch (Chest -> Neck leaning along her facing), the punching shoulder's height.
+func _arm_read(p: Dictionary, side: String) -> Dictionary:
+	var s: Vector3 = p[side + "UpperArm"]
+	var e: Vector3 = p[side + "LowerArm"]
+	var h: Vector3 = p[side + "Hand"]
+	var fwd: Vector3 = p["fwd"]
+	var line: Vector3 = (p["LeftUpperArm"] as Vector3) - (p["RightUpperArm"] as Vector3)
+	line = Vector3(line.x, 0.0, line.z).normalized()
+	var left := Vector3.UP.cross(fwd).normalized()   # her left, square to her facing
+	var up: Vector3 = ((p["Neck"] as Vector3) - (p["Chest"] as Vector3)).normalized()
+	return {"reach": s.distance_to(h), "elbow": rad_to_deg((s - e).angle_to(h - e)),
+		"yaw": rad_to_deg(left.signed_angle_to(line, Vector3.UP)), "pitch": rad_to_deg(atan2(up.dot(fwd), up.y)), "sh_y": s.y}
 
 
 func _seed_for(move: String, clip: String) -> int:
@@ -273,5 +308,66 @@ func _row(v: FakeView, setup: String, clip: String) -> void:
 		"MEETS %s: touch %+.3f m (bar <= %.2f, not > %.2f inside), to_face %.3f (bar >= %.2f)" % [tag, touch, TOUCH_HI, INSIDE_BAR, best_face, FACE_BAR])
 	_check(over <= OVER_HEAD_BAR, "OVERHEAD %s: highest hand %+.3f m over the head bone (bar %.2f)" % [tag, over, OVER_HEAD_BAR])
 	_check(wrist <= WRIST_BAR, "WRIST %s: elbow-to-wrist changed %.4f m (bar %.2f)" % [tag, wrist, WRIST_BAR])
+	# GAP: the front against the catching glove's surface on the contact frame and the GAP_AFTER after it
+	# (read from the first frame the clip is within PunchReach's latch of its contact: one frame short, the reach still
+	# closes on its aim - the landed twin is read the same way, held there by the hit-stop)
+	var meet_i := contact_i
+	while meet_i < snaps.size() - 1 and float(snaps[meet_i]["pos"]) < c - LATCH_S:
+		meet_i += 1
+	var mt: Dictionary = snaps[meet_i]["d"]
+	var gap_c := (snaps[meet_i]["gf"] as Vector3).distance_to(mt[cside]) - GLOVE_RADIUS
+	var gap_min := gap_c
+	for i in range(meet_i, mini(snaps.size(), meet_i + int(GAP_AFTER * HZ) + 1)):
+		gap_min = minf(gap_min, (snaps[i]["gf"] as Vector3).distance_to((snaps[i]["d"] as Dictionary)[cside]) - GLOVE_RADIUS)
+	_check(gap_c >= GAP_BAR, "GAP %s: front to catching glove surface %+.3f m at contact (bar >= %+.3f), deepest %+.3f m over the next %.2f s" % [
+		tag, gap_c, GAP_BAR, gap_min, GAP_AFTER])
 	for i in 40:
 		await process_frame
+	# MATCH: the same clip and seed thrown as a landed punch from the same stand, read on its own contact frame
+	var pside := phand.trim_suffix("Hand")
+	var blk := _arm_read(snaps[meet_i]["p"], pside)
+	var bsh: Vector3 = (snaps[meet_i]["p"] as Dictionary)[pside + "UpperArm"]
+	print("  meet %s: frame %d (clip %.3f, contact %.3f) shoulder->catch glove %.3f shoulder->face %.3f" % [tag, meet_i, float(snaps[meet_i]["pos"]), c,
+		bsh.distance_to(mt[cside]), bsh.distance_to(mt["face"])])
+	var lan: Dictionary = await _landed_twin(v, sd, move, clip, c, sp)
+	if lan.is_empty():
+		_check(false, "MATCH %s: the landed twin never reached its contact (or did not stand)" % tag)
+	else:
+		var ln := _arm_read(lan, pside)
+		var reach_pct := 100.0 * float(blk["reach"]) / maxf(0.001, float(ln["reach"]))
+		var elbow_diff := absf(float(blk["elbow"]) - float(ln["elbow"]))
+		var yaw_diff := absf(float(blk["yaw"]) - float(ln["yaw"]))
+		var pitch_diff := absf(float(blk["pitch"]) - float(ln["pitch"]))
+		var sh_drop := float(ln["sh_y"]) - float(blk["sh_y"])
+		print("MATCH %s reach=%.1f%% elbow_diff=%.1f chest_diff=%.1f shoulder_drop=%+.3f (blocked reach %.3f elbow %.1f yaw %+.1f pitch %+.1f; landed reach %.3f elbow %.1f yaw %+.1f pitch %+.1f, its front %.3f off her face; chest yaw diff %.1f pitch diff %.1f)" % [
+			tag, reach_pct, elbow_diff, maxf(yaw_diff, pitch_diff), sh_drop, float(blk["reach"]), float(blk["elbow"]), float(blk["yaw"]), float(blk["pitch"]),
+			float(ln["reach"]), float(ln["elbow"]), float(ln["yaw"]), float(ln["pitch"]), float(lan.get("gf_face", -1.0)), yaw_diff, pitch_diff])
+		_check(reach_pct >= REACH_BAR * 100.0 and elbow_diff <= ELBOW_BAR and yaw_diff <= CHEST_BAR and pitch_diff <= CHEST_BAR and sh_drop <= SHOULDER_BAR,
+			"MATCH %s: reach %.1f%% of landed (bar >= %.0f%%), elbow diff %.1f deg (bar %.0f), chest yaw diff %.1f / pitch diff %.1f deg (bar %.0f), shoulder %+.3f m lower (bar %.2f)" % [
+			tag, reach_pct, REACH_BAR * 100.0, elbow_diff, ELBOW_BAR, yaw_diff, pitch_diff, CHEST_BAR, sh_drop, SHOULDER_BAR])
+	for i in 60:
+		await process_frame
+
+
+## BLOCKLOOK3: the same beat landed (BeatFire's lands path, stage.land carries the glove onto her face). The puncher's
+## drawn readings on the first frame the clip is at its contact (as the blocked row); {} if it never got there.
+func _landed_twin(v: FakeView, sd: int, move: String, clip: String, c: float, sp: float) -> Dictionary:
+	Engine.max_fps = 30
+	var gap: float = await Stand.stand(st, self)
+	Engine.max_fps = int(HZ)
+	if not Stand.held(st, gap):
+		return {}
+	v._amb_rng.seed = sd
+	v.t = 0.0
+	var bf := BeatFire.new()
+	await process_frame
+	await process_frame
+	var ap0: AnimationPlayer = st.boxers[0]["ap"]
+	bf.fire(v, {"who": "a", "move": move, "result": "lands", "t": 0.0})
+	for f in int(2.5 * HZ):
+		await process_frame
+		if str(ap0.current_animation) == clip and ap0.current_animation_position >= c - LATCH_S:
+			var out := _pdrawn.duplicate()
+			out["gf_face"] = st.glove_front(0, st.hand_of(0, "LeftHand" if clip.contains("left") else "RightHand")).distance_to(st.target_point(1, false))
+			return out
+	return {}

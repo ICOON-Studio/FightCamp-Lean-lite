@@ -7028,7 +7028,7 @@
       "answer": "Yes, that order",
       "note": null,
       "answered_at": "2026-11-13T10:36:58Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -7047,7 +7047,7 @@
       "answer": "Yes, go ahead",
       "note": null,
       "answered_at": "2026-11-13T10:39:24Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -7064,7 +7064,7 @@
       "answer": "Yes, map it after the fight week, real effects only",
       "note": null,
       "answered_at": "2026-11-13T10:40:13Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -7081,10 +7081,11 @@
         "AgentComms/board_attach/Q-S294-213_0_office_a.png",
         "AgentComms/board_attach/Q-S294-213_1_office_b.png"
       ],
-      "answer": null,
+      "answer": "A, full screen",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-13T11:22:23Z",
+      "seen_by_claude": true,
+      "comment_only": false
     }
   ]
 }

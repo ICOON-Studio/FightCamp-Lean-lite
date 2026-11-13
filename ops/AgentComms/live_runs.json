@@ -229,7 +229,7 @@
    "agent": "grok",
    "id": "BLOCKLOOK3",
    "title": "The block, round 3: the blocker absorbs the punch, no glove into glove, the puncher's arm keeps its shape (his marks on the block reel)",
-   "status": "running",
+   "status": "landed",
    "started": "2026-11-13T12:58",
    "where": "cloud",
    "repo": "FightCamp-Lean",
@@ -241,7 +241,7 @@
    "agent": "goose",
    "id": "PROGPROBE1",
    "title": "GOOSE (cloud probe) - progression cadence and the hold rule (PROGPROBE1 + HOLD1) over two seasons",
-   "status": "running",
+   "status": "failed",
    "started": "2026-11-13T13:33",
    "where": "cloud",
    "repo": "FightCamp-Lean",
@@ -251,16 +251,17 @@
    "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (S450 lead, after MOVETREE1 merged)",
    "issue": "248",
    "branch": "goose/issue-248",
-   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/248"
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/248",
+   "reconciled": "2026-11-13 14:10 board_reconcile: run finished (success), branch goose/issue-248 pushed"
   },
   "POWER1C": {
-   "agent": "antigravity",
+   "agent": "qwen",
    "id": "POWER1C",
-   "title": "TASK POWER1C - ANTIGRAVITY - the lead uppercut's tail: a short upward follow-through, then back to guard, never over her own head",
+   "title": "TASK POWER1C - QWEN (qwen3-coder) - the lead uppercut's tail: a short upward follow-through, then back to guard, never over her own head",
    "status": "running",
-   "started": "2026-11-13T13:41",
-   "eta": "2026-11-13T15:06",
-   "branch": "agy/power1c",
+   "started": "2026-11-13T14:11",
+   "eta": "2026-11-13T16:01",
+   "branch": "qwen/power1c",
    "worktree": "E:/FightCamp/wt/LEAN_POWER1C",
    "wt": "E:/FightCamp/wt/LEAN_POWER1C",
    "brief": "ops/research/TASK_POWER1C.md",
@@ -268,24 +269,25 @@
    "where": "pc",
    "log": "E:/FightCamp/wt/POWER1C_dispatch_out.txt",
    "match": "seat_dispatch.py run power1c",
-   "model": "gemini-4-argon-high",
+   "model": "qwen3-coder",
    "dispatch": {
     "prompt": "E:/FightCamp/wt/POWER1C_dispatch_prompt.txt",
     "out": "E:/FightCamp/wt/POWER1C_dispatch_out.txt",
     "runner_log": "E:/FightCamp/wt/POWER1C_dispatch_runner.log",
-    "source": "S450 lead",
+    "source": "S450 lead, from agy",
     "brief_copied": true,
-    "runner_pid": 15432,
-    "seat_pid": 36324
+    "runner_pid": 47896,
+    "seat_pid": 29572
    },
-   "note": "S368 seat_dispatch: launched unattended (S450 lead); merging stays off"
+   "note": "S368 seat_dispatch: launched unattended (S450 lead, from agy); merging stays off",
+   "finished": "2026-11-13T13:51"
   },
   "OFFICE1": {
    "agent": "grok",
    "id": "OFFICE1",
    "title": "The office as a full-screen computer desktop: the frame + Desktop (his Q-213 'A, full screen')",
-   "status": "queued",
-   "started": "2026-11-13T14:05",
+   "status": "running",
+   "started": "2026-11-13T14:25",
    "where": "cloud",
    "repo": "FightCamp-Lean",
    "branch": "grok/office1",
@@ -294,9 +296,105 @@
    "note": "S450: queued behind BLOCKLOOK3 on Grok Dev (gbot send)"
   },
   "FIGHTWEEKPROBE1": {
-   "status": "running",
+   "status": "landed",
    "agent": "claude",
-   "note": "S450: Qwen died silently with a draft probe; Claude rewrote it (southpaw twins, calibrated pairs) and runs it on main"
+   "note": "S450: Qwen died silently with a draft probe; Claude rewrote it (southpaw twins, calibrated pairs) and runs it on main",
+   "reconciled": "2026-11-13 14:10 board_reconcile: no process and no write for ? min (no worktree for branch '')"
+  },
+  "SLOTS1": {
+   "agent": "qwen",
+   "id": "SLOTS1",
+   "title": "TASK SLOTS1 - QWEN (qwen3-coder) - one move in learning: the slots, the coach's three cards, the learning speed",
+   "status": "landed",
+   "started": "2026-11-13T13:49",
+   "eta": "2026-11-13T15:39",
+   "branch": "qwen/slots1",
+   "worktree": "E:/FightCamp/wt/LEAN_SLOTS1",
+   "wt": "E:/FightCamp/wt/LEAN_SLOTS1",
+   "brief": "ops/research/TASK_SLOTS1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/SLOTS1_dispatch_out.txt",
+   "match": "seat_dispatch.py run slots1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/SLOTS1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/SLOTS1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/SLOTS1_dispatch_runner.log",
+    "source": "S450 lead",
+    "brief_copied": true,
+    "runner_pid": 26680,
+    "seat_pid": 7676
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/5 PASS; PR #249",
+   "finished": "2026-11-13T14:01",
+   "pr": 249,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/learn_slots_test.gd",
+     "ok": true,
+     "last": "LEARN_SLOTS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_tree_test.gd",
+     "ok": true,
+     "last": "MOVE_TREE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_mastery_test.gd",
+     "ok": true,
+     "last": "MOVE_MASTERY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  "PROGPROBE1R2": {
+   "agent": "goose",
+   "id": "PROGPROBE1R2",
+   "title": "GOOSE (cloud probe) - progression cadence and the hold rule, round 2: make the instrument train",
+   "status": "running",
+   "started": "2026-11-13T14:13",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_PROGPROBE1R2.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-13T15:13",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (S450 lead, round 2 of PROGPROBE1)",
+   "issue": "251",
+   "branch": "goose/issue-251",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/251"
+  },
+  "BLOCKLOOK4": {
+   "agent": "grok",
+   "id": "BLOCKLOOK4",
+   "title": "The block, round 4: the puncher's arm keeps its shape (the catch meets the punch further out)",
+   "status": "queued",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "branch": "grok/blocklook4",
+   "brief": "ops/research/TASK_BLOCKLOOK4.md",
+   "started": "2026-11-13T14:25",
+   "eta": "2026-11-13T21:00",
+   "note": "queued behind OFFICE1"
   }
  },
  "codex_budget": {

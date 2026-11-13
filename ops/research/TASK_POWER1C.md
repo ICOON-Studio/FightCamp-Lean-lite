@@ -1,6 +1,6 @@
-# TASK POWER1C - ANTIGRAVITY - the lead uppercut's tail: a short upward follow-through, then back to guard, never over her own head
+# TASK POWER1C - QWEN (qwen3-coder) - the lead uppercut's tail: a short upward follow-through, then back to guard, never over her own head
 
-Status: OPEN (S450, Claude main). Discipline: boxing (demo). Model: Antigravity (Gemini, PC seat).
+Status: OPEN (S450, Claude main; moved from Antigravity, whose run stopped on its credit balance). Discipline: boxing (demo). Model: qwen3-coder.
 Decided in S449 (the POWER1B fix 10c41edc does not hold on today's tree: BLOCKLOOK2 changed the seed 4242 bout and its first lead
 uppercut reads 20.1 m/s after the freeze, bar 9.6; three reach-solve variants were tried in S449 and none passed). DO NOT try a fourth
 reach-solve variant: re-cut the TAIL of the punch instead.

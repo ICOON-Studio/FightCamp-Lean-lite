@@ -8,8 +8,22 @@ extends SkeletonModifier3D
 ## through the contact and eases out over EASE_OUT_S. FightStage.arm_block carries the punching glove onto it.
 ## Timing follows the punch's own clip while it plays (so a seek or a slowed clip stays in step); before the punch starts it
 ## counts down the real seconds to contact. A punch refused or cut off (`alive` false) lets the glove go back.
+## BLOCKLOOK3 (owner C347: "why there are no body reactions on the hits from the red fighter ?"): the catch ABSORBS the
+## punch. From the contact the catching glove is knocked back toward her face (KNOCK_M, more for a cross or a rear hook
+## than a jab) on the hit reaction's own spring (HitSnap.envelope: up in 35 ms, settled by ~0.5 s), never nearer the face
+## than FACE_KEEP_M, and her head and trunk rock back on HitSnap's own snap and give (HEAD_DEG, a few cm). give_left()
+## reads what is still shown (block_absorb_test: back in guard by 0.5 s).
 
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
+const HitSnap := preload("res://scripts/fight3d/HitSnap.gd")
+const KNOCK_M := {"jab": 0.025, "cross": 0.034, "lead_hook": 0.028, "rear_hook": 0.032, "lead_uppercut": 0.028, "rear_uppercut": 0.032}
+const HEAD_DEG := {"jab": 3.0, "cross": 3.5, "lead_hook": 3.5, "rear_hook": 4.0, "lead_uppercut": 3.5, "rear_uppercut": 4.0}
+const HEAD_M_PER_DEG := 0.007   # the head's travel back per snap degree, at most (block_absorb_test: 0.005-0.007)
+const FACE_KEEP_M := 0.09
+## On a blocked body shot's elbow brace (HitSnap.brace curls her trunk INTO the punch) the trunk also gives back along it,
+## on the hit's give spring (HitSnap.give_envelope), split over Spine and Chest as HitSnap's own give.
+const BRACE_GIVE_DEG := 9.0
+const BRACE_M := 0.02           # the brace give's top of the trunk travel at its peak (block_absorb_test: Neck bone)       # the knocked glove's centre stays this far off her face point (the bar: 0.08)
 const RISE_S := 0.25          # MoveStudio.BLOCK_SET_S: the rise starts this long before contact ...
 const SET_EARLY_S := 0.06     # ... and the glove is set (weight full) this long before it: a few frames early, never late
 const HOLD_S := 0.08          # held after contact
@@ -39,6 +53,10 @@ var _seen := false
 var _after := -1.0            # seconds since contact (-1: before)
 var _alive := Callable()
 var _release := false
+var _move := ""
+var _give_t := -1.0           # seconds since the punch met the catch (-1: no give shown)
+var _brace_t := -1.0          # seconds since her elbow brace began (-1: none)
+var _last_bt := -1.0
 
 
 ## The blocker's catch (made once, last on her modifier stack, so what it sets is what is drawn).
@@ -79,6 +97,7 @@ func arm(clip: String, move: String, contact_s: float, speed: float, contact_in:
 	_after = -1.0
 	_alive = alive
 	_release = false
+	_move = move
 
 
 ## The catching glove's hand bone ("LeftHand" / "RightHand"; "" before the first arm). FightStage.arm_block carries the
@@ -116,6 +135,7 @@ func _target_w(dt: float) -> float:
 		if ttc > 0.0:
 			return 1.0 - smoothstep(SET_EARLY_S, RISE_S, ttc)
 		_after = 0.0
+		_absorb()
 	# Held for HOLD_S after contact on both clocks: real time, and the punch's own clip while it still plays (a slowed or
 	# stepped punch is still on the glove).
 	var a := _after
@@ -136,6 +156,11 @@ func _process_modification() -> void:
 	if skel == null or stage == null or me < 0:
 		return
 	var dt := get_process_delta_time()
+	if _give_t >= 0.0:
+		_give_t += dt
+		if _give_t >= HitSnap.GIVE_LIFE_S:
+			_give_t = -1.0
+	_brace_give(skel, dt)
 	var want := _target_w(dt)
 	var rate := MAX_RATE if want >= w else 1.0 / (RELEASE_S if _release else 0.05)
 	w = move_toward(w, want, rate * maxf(dt, 1.0 / 240.0))
@@ -175,6 +200,10 @@ func _process_modification() -> void:
 		var o := clampf(rel.dot(out), 0.02, 0.11)
 		goal_w = face + fwd * f + out * o
 		goal_w.y = clampf(c.y, face.y - LOW_M, top)
+	if _give_t >= 0.0:   # the absorb: knocked back toward her face on the hit spring
+		goal_w -= fwd * float(KNOCK_M.get(_move, 0.025)) * HitSnap.envelope(_give_t)
+		if goal_w.distance_to(face) < FACE_KEEP_M:
+			goal_w = face + (goal_w - face).normalized() * FACE_KEEP_M
 	var goal := xf.affine_inverse() * goal_w
 	var now := skel.get_bone_global_pose(hd).origin
 	_reach(skel, up, lo, hd, now.lerp(goal, w))
@@ -197,6 +226,58 @@ func _keep_other(skel: Skeleton3D) -> void:
 		_hold = cx.affine_inverse() * now
 		return
 	_reach(skel, up, lo, hd, now.lerp(cx * _hold, w))
+
+
+## The punch meets the catch: the glove's knock starts (applied in _process_modification) and her head and trunk take
+## HitSnap's snap along the punch (the landed hit's own spring, a few degrees).
+func _absorb() -> void:
+	_give_t = 0.0
+	var hs: Node = stage.boxers[me].get("snap")
+	var skel: Skeleton3D = stage.boxers[1 - me]["skel"]
+	var sh := skel.find_bone(_phand.trim_suffix("Hand") + "UpperArm")
+	if hs == null or sh < 0:
+		return
+	var from: Vector3 = skel.global_transform * skel.get_bone_global_pose(sh).origin
+	hs.call("snap", stage.target_point(me, false) - from, float(HEAD_DEG.get(_move, 4.0)))
+
+
+## Metres of the absorb still shown: the glove's knock (by the catch weight) or the head's rock back, whichever is more;
+## and the elbow brace's trunk give on a blocked body shot (HitSnap.brace, its own envelope).
+func give_left() -> float:
+	var out := 0.0
+	if _give_t >= 0.0:
+		var deg := float(HEAD_DEG.get(_move, 4.0))
+		out = maxf(float(KNOCK_M.get(_move, 0.025)) * HitSnap.envelope(_give_t) * w,
+			HEAD_M_PER_DEG * deg * maxf(HitSnap.envelope(_give_t), HitSnap.give_envelope(_give_t)))
+	if _brace_t >= 0.0:
+		out = maxf(out, BRACE_M * HitSnap.give_envelope(_brace_t))
+	return out
+
+
+## A fresh elbow brace (HitSnap's brace started this frame, at the brace's gain): her trunk gives back along the punch.
+func _brace_give(skel: Skeleton3D, dt: float) -> void:
+	var hs: Node = stage.boxers[me].get("snap")
+	var bt := float(hs.get("_bt")) if hs != null else -1.0
+	if bt >= 0.0 and float(hs.get("_gain")) <= 1.0 and (_last_bt < 0.0 or bt < _last_bt):
+		_brace_t = 0.0
+	_last_bt = bt
+	if _brace_t < 0.0:
+		return
+	_brace_t += dt
+	var e := HitSnap.give_envelope(_brace_t)
+	if e <= 0.0:
+		_brace_t = -1.0
+		return
+	var back: Vector3 = skel.global_transform.basis.inverse() * -(stage.boxers[me]["node"] as Node3D).global_transform.basis.z
+	back = Vector3(back.x, 0.0, back.z)
+	if back.length() < 1e-4:
+		return
+	var axis := Vector3.UP.cross(back.normalized()).normalized()
+	for n in ["Spine", "Chest"]:
+		var b := skel.find_bone(n)
+		if b >= 0:
+			var g := skel.get_bone_global_pose(b)
+			skel.set_bone_global_pose(b, Transform3D(Basis(Quaternion(axis, deg_to_rad(BRACE_GIVE_DEG) * e * 0.5)) * g.basis, g.origin))
 
 
 ## Two-bone reach in skeleton space: UpperArm swings the elbow, LowerArm swings the wrist onto `t`. Bone lengths kept.

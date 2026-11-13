@@ -1285,8 +1285,9 @@
    "seat": "agy",
    "title": "The lead uppercut's tail: short follow-through, back to guard, never over her head (his C353/C354/C359)",
    "brief": "POWER1C",
-   "status": "queued",
-   "queued": "2026-11-13T13:55"
+   "status": "failed",
+   "queued": "2026-11-13T13:55",
+   "note": "S450: agy exit 3, credit balance; moved to qwen"
   },
   {
    "task": "SLOTS1",
@@ -1295,6 +1296,14 @@
    "brief": "SLOTS1",
    "status": "queued",
    "queued": "2026-11-13T14:20"
+  },
+  {
+   "task": "POWER1C",
+   "seat": "qwen",
+   "title": "The lead uppercut's tail: short follow-through, back to guard, never over her head (his C353/C354/C359)",
+   "brief": "POWER1C",
+   "status": "queued",
+   "queued": "2026-11-13T14:15"
   }
  ]
 }

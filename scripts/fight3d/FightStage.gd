@@ -167,63 +167,43 @@ func aim_height(who: int, clip: String, at_s: float, contact_s: float) -> void:
 	pr.aim_height(clip, hand, cs, face_y, float(boxers[who]["front"]))
 
 
-## BLOCKMEET2: `who` throws a head punch that is BLOCKED: the glove is carried onto the nearer blocking glove at contact.
-## The target is the blocking glove's position, lifted to face height if needed. Full 3D aim (not height-only).
-## The glove position is read at CONTACT time (via Callable), not at arm time, so the block animation has settled.
-## BLOCKLOOK2: the blocker stays in her guard; BlockCatch turns the catching arm so that glove meets the punch.
+## BLOCKMEET2: `who` throws a head punch that is BLOCKED: the glove front is carried onto the catching glove's surface (the
+## glove's mount point plus BLOCK_SURFACE_M toward the puncher; DEFECTS1: the ruler's GLOVE_RADIUS), read each frame up to
+## the contact. BLOCKLOOK2: she stays in her guard and BlockCatch turns the catching arm so that glove meets the punch.
+## BLOCKLOOK3 (owner mark 4, "colission!!"): the front stops 0.5 cm outside that surface - the carry arrives up to 0.7 cm
+## past its aim (block_catch GAP). Arming a blocked straight as the landed reach (its drive and chest lean, a 1 mm carry)
+## kept the jab's arm (MATCH) but broke block_meet's fight cross and preview jab rows and two of its landed controls:
+## not shipped, see docs/BLOCKLOOK3_RESULT.md.
 const BlockCatch := preload("res://scripts/fight3d/BlockCatch.gd")
-## DEFECTS1: the carry aimed the punching glove's FRONT at the blocking glove's mount point (the point the ruler,
-## tests/block_meet_test.gd, calls the glove's centre), i.e. by design ~4 cm inside the blocking glove; whether a row passed
-## depended on how far short the reach fell. The front now stops at that glove's surface: the mount point plus this radius
-## toward the puncher - the ruler's own GLOVE_RADIUS, for every punch (it replaces S426's cross-only 1.5 cm standoff).
-const BLOCK_SURFACE_M := 0.04
+const BLOCK_SURFACE_M := 0.045
 func arm_block(who: int, clip: String, at_s: float, contact_s: float) -> void:
-	if OS.get_cmdline_user_args().has("noaim"):
-		return
 	var pr: Node = boxers[who].get("reach")
-	if pr == null: return
+	if pr == null or OS.get_cmdline_user_args().has("noaim"): return
 	var row := BeatClips.contact_row(clip)
 	var hand := hand_of(who, str(row.get("hand", "LeftHand" if clip.contains("left_") or clip.contains("jab") else "RightHand")))
 	var cs: float = contact_s if contact_s >= 0.0 else BeatClips.contact(clip, CONTACT_S)
 	var blocker: int = 1 - who
 	BlockCatch.on(self, blocker)   # the catch modifier, made once, last on her stack
-	# Return a Callable that reads the blocker's glove position at contact time
 	var get_block_target := func() -> Vector3:
 		var gl: Node = boxers[blocker]["gloves"]
-		if gl == null:
-			return target_point(blocker, false)
-		var gl_l: Node3D = (gl as Node).gloves.get("l")
-		var gl_r: Node3D = (gl as Node).gloves.get("r")
-		if gl_l == null or gl_r == null:
-			return target_point(blocker, false)
-		var gl_l_pos: Vector3 = (gl_l as Node3D).global_position
-		var gl_r_pos: Vector3 = (gl_r as Node3D).global_position
-		# Find nearer glove from puncher's perspective
-		var puncher_glove_pos: Vector3 = glove_front(who, hand)
-		var dl: float = puncher_glove_pos.distance_to(gl_l_pos)
-		var dr: float = puncher_glove_pos.distance_to(gl_r_pos)
-		var block_pos: Vector3 = gl_l_pos if dl <= dr else gl_r_pos
-		# BLOCKLOOK2 round 2: while her BlockCatch is up, the punch meets the CATCHING glove (her guard's lead glove sits
-		# further out and was nearer a short jab's path, so the punch landed on it instead)
-		var bc: Node = boxers[blocker].get("block_catch")
-		if bc != null and float(bc.get("w")) > 0.0:
-			block_pos = gl_l_pos if str(bc.call("catch_hand")).begins_with("Left") else gl_r_pos
-		# Read face position at contact time
 		var face_pos: Vector3 = target_point(blocker, false)
-		# Ensure the block target is at least 0.12m from the face (punch stops on glove, not face)
-		var to_face: float = block_pos.distance_to(face_pos)
-		if to_face < 0.12:
-			# Push the block target away from the face along the punch direction
-			var punch_dir: Vector3 = (block_pos - face_pos).normalized()
-			if punch_dir.length() < 0.01:
-				punch_dir = (puncher_glove_pos - face_pos).normalized()
-			block_pos = face_pos + punch_dir * 0.14
-		block_pos += (puncher_glove_pos - block_pos).normalized() * BLOCK_SURFACE_M
-		return block_pos
-	# Arm the punch to target the blocking glove (position read at contact time)
+		if gl == null or (gl as Node).gloves.get("l") == null or (gl as Node).gloves.get("r") == null:
+			return face_pos
+		var puncher_glove_pos: Vector3 = glove_front(who, hand)
+		# BLOCKLOOK2 round 2: the CATCHING glove while her BlockCatch is up, else the nearer glove
+		var bc: Node = boxers[blocker].get("block_catch")
+		var gl_l_pos: Vector3 = ((gl as Node).gloves.get("l") as Node3D).global_position
+		var gl_r_pos: Vector3 = ((gl as Node).gloves.get("r") as Node3D).global_position
+		var left := puncher_glove_pos.distance_to(gl_l_pos) <= puncher_glove_pos.distance_to(gl_r_pos)
+		if bc != null and float(bc.get("w")) > 0.0:
+			left = str(bc.call("catch_hand")).begins_with("Left")
+		var block_pos: Vector3 = gl_l_pos if left else gl_r_pos
+		if block_pos.distance_to(face_pos) < 0.12:   # the punch stops on the glove, never on the face
+			var away: Vector3 = (block_pos - face_pos).normalized()
+			block_pos = face_pos + (away if away.length() > 0.01 else (puncher_glove_pos - face_pos).normalized()) * 0.14
+		return block_pos + (puncher_glove_pos - block_pos).normalized() * BLOCK_SURFACE_M
 	pr.arm(clip, hand, cs, get_block_target, float(boxers[who]["front"]))
-	# POWER1: a blocked punch stays thrown in place - with the hips' own travel the reach met the block 5-8 cm short (block_meet)
-	if boxers[who].get("weight") != null: (boxers[who]["weight"] as Node).arm("")
+	if boxers[who].get("weight") != null: (boxers[who]["weight"] as Node).arm("")   # POWER1: no hips carry on a block
 
 
 ## Pelvis to pelvis now, metres.
