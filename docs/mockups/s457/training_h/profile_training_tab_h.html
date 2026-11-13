@@ -1,0 +1,124 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Profile Training tab - H (S457)</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--line:#283242;--ink:#e9e4da;--dim:#9aa4b3;--red:#e24b4b;--green:#5fcf7a;--amber:#f2b84b;--panel2:#18202b;
+ --sta:#4fd1c5;--pow:#e24b4b;--spd:#5aa3ff;--tec:#ff7ab6;--def:#f2b84b;--iq:#b48cff;--rec:#5fcf7a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;position:relative;font-family:"Barlow","Segoe UI",sans-serif;font-size:18px;color:var(--ink);background:radial-gradient(1400px 800px at 50% 0%,#1d2a3a,#0b0f15 70%)}
+.disp,h2{font-family:"Oswald",Impact,sans-serif;text-transform:uppercase;letter-spacing:1.5px}
+h2{font-weight:600;font-size:22px;letter-spacing:2px;color:#c9bfae}
+h2 small{font-family:Barlow;text-transform:none;letter-spacing:0;color:var(--dim);font-size:17px;font-weight:600;margin-left:8px}
+.dimt{color:var(--dim)}.u{color:var(--green)}
+.top{position:absolute;left:0;right:0;top:0;height:54px;background:rgba(8,11,16,.94);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 22px;gap:18px}
+.crest{width:32px;height:32px;border-radius:50%;background:url(../../../../assets/ui/art/crests/anvil.png) center/cover;border:1px solid #6b5a3a}
+.club{font-family:"Oswald";font-weight:600;font-size:22px;letter-spacing:2px}
+.nav{display:flex;gap:4px;margin-left:14px}.nav span{padding:6px 14px;border-radius:7px;color:var(--dim);font-weight:700;font-size:17px}
+.nav span.on{background:#223042;color:var(--ink);border:1px solid #3a4a5e}
+.sp{flex:1}.date b{color:var(--amber)}.cash{font-weight:800;color:var(--green)}
+.cont{height:40px;padding:0 22px;border-radius:8px;background:#2e7d46;border:1px solid #5fcf7a;font-family:"Oswald";font-size:20px;letter-spacing:1.5px;display:flex;align-items:center}
+.head{position:absolute;left:16px;right:16px;top:64px;height:96px;display:flex;align-items:center;gap:22px;background:rgba(18,24,33,.94);border:1px solid var(--line);border-radius:12px;padding:0 20px 0 10px}
+.av{width:78px;height:78px;border-radius:50%;background:url(../../../../assets/ui/style_b/portraits/mh_boxer_07.png) center 12%/cover;border:2px solid #6b5a3a}
+.nm{font-family:"Oswald";font-size:30px;font-weight:600;letter-spacing:1.5px;line-height:1}
+.sub{color:var(--dim);font-size:17px;margin-top:4px}
+.tabs{display:flex;gap:6px;margin-left:30px}
+.tabs span{padding:8px 18px;border-radius:8px;background:#18202b;border:1px solid var(--line);font-weight:800;color:var(--dim)}
+.tabs span.on{background:#223042;border:2px solid var(--amber);color:var(--ink)}
+.box{position:absolute;background:rgba(14,19,27,.96);border:1px solid #33404f;border-radius:12px;padding:16px 20px}
+/* this week, one row */
+.week{left:16px;top:172px;width:1300px;height:330px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:14px}
+.d{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center;position:relative}
+.d.y{border:2px solid var(--amber)}
+.d .h{font-family:"Oswald";font-size:18px;letter-spacing:1.5px}
+.d .ic{width:62px;height:62px;margin:6px auto 2px;border-radius:50%;background-size:cover;background-position:center;background-color:#121821;border:3px solid var(--c)}
+.d .w{font-size:14px;font-weight:800;color:var(--c)}
+.d .tk{height:10px;border-radius:5px;background:#263040;margin-top:8px;position:relative;overflow:hidden}
+.d .tk i{position:absolute;left:0;top:0;bottom:0;background:var(--sta)}
+.d .tn{font-size:13px;font-weight:800;color:var(--dim);margin-top:2px}
+.yb{position:absolute;right:6px;top:6px;font-size:11px;font-weight:800;background:var(--amber);color:#0b0f15;border-radius:3px;padding:0 4px}
+.line{margin-top:14px;font-size:18px;font-weight:700;line-height:1.4}
+/* buys */
+.buys{left:16px;top:514px;width:640px;height:300px}
+.mv{display:grid;grid-template-columns:140px 1fr 110px;align-items:center;gap:12px;height:40px;margin-top:6px}
+.mv .nmv{font-weight:800;font-size:19px;color:var(--tec)}
+.mbar{position:relative;height:16px;border-radius:8px;background:#263040}
+.mbar i{position:absolute;top:0;bottom:0;border-radius:8px}
+.mbar .ul{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--green)}
+.mv .v{font-family:"Oswald";font-size:22px;text-align:right}
+.st{display:grid;grid-template-columns:110px 1fr 70px;align-items:center;gap:12px;height:28px;font-weight:700;font-size:17px}
+.st .sb{height:10px;border-radius:5px;background:#263040;position:relative}.st .sb i{position:absolute;top:0;bottom:0;border-radius:5px}
+.st .g{font-weight:800;text-align:right}
+/* fight night */
+.fn{left:668px;top:514px;width:648px;height:300px}
+.check{display:flex;align-items:center;gap:10px;font-size:19px;padding:6px 0;border-bottom:1px solid #222b38}
+.check .i{width:26px;height:26px;border-radius:50%;border:2px solid var(--green);color:var(--green);font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center}
+.check .i.a{border-color:var(--amber);color:var(--amber)}
+.check .v{margin-left:auto;font-weight:800;color:var(--green)}.check .v.a{color:var(--amber)}
+/* right: open in training */
+.go{right:16px;top:172px;width:572px;bottom:266px;display:flex;flex-direction:column;gap:14px}
+.big{height:96px;border-radius:12px;background:linear-gradient(180deg,#2e7d46,#24613a);border:2px solid #5fcf7a;display:flex;align-items:center;justify-content:center;gap:14px;font-family:"Oswald";font-size:30px;letter-spacing:2px;box-shadow:0 0 22px rgba(95,207,122,.3)}
+.big small{font-family:Barlow;font-size:16px;letter-spacing:0;font-weight:700;color:#d6f3dd;display:block}
+.who{display:flex;gap:10px}
+.who div{flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center;font-size:14px;font-weight:700;color:var(--dim)}
+.who .pt{width:56px;height:56px;margin:0 auto 4px;border-radius:50%;background-size:cover;background-position:center 12%;border:2px solid #6b5a3a}
+.who .on{border:2px solid var(--amber);color:var(--ink)}
+.cap{position:absolute;left:16px;right:16px;bottom:16px;height:236px;border:2px dashed #4a5a70;border-radius:12px;padding:16px 22px;font-size:19px;line-height:1.5;color:var(--dim)}
+.cap b{color:var(--ink)}
+</style></head><body>
+<div class="top"><div class="crest"></div><div class="club">ANVIL STREET GYM</div>
+ <div class="nav"><span>◂ Office</span><span class="on">Fighters</span></div>
+ <div class="sp"></div><div class="date">Mon 16 Feb 2026 · <b>Week 7</b></div><div class="cash">$12,940</div><div class="cont">RUN THE WEEK ▸</div></div>
+
+<div class="head"><div class="av"></div>
+ <div><div class="nm">KWAME ASANTE</div><div class="sub">Welter, limit 70.0 kg · #2 regional · 8-1 · club show Sat 28 Feb, 12 days</div></div>
+ <div class="tabs"><span>Overview</span><span class="on">Training</span><span>Fight prep</span><span>Playbook</span><span>History</span></div>
+</div>
+
+<div class="box week"><h2>This week <small>Mon 16 - Sun 22 · peak week · nights: Hard · 2 changes from the coach's week</small></h2>
+ <div class="days">
+  <div class="d" style="--c:var(--sta)"><div class="h">MON</div><div class="ic" style="background-image:url(../../s456/training_f/icons/roadwork.png)"></div><div class="w">Roadwork · Pads</div><div class="tk"><i style="width:68%"></i></div><div class="tn">tired 68</div></div>
+  <div class="d y" style="--c:var(--iq)"><span class="yb">YOURS</span><div class="h">TUE</div><div class="ic" style="background-image:url(../../s456/training_f/icons/film.png)"></div><div class="w">Heavy bag · Film</div><div class="tk"><i style="width:64%"></i></div><div class="tn">tired 64</div></div>
+  <div class="d y" style="--c:var(--tec)"><span class="yb">YOURS</span><div class="h">WED</div><div class="ic" style="background-image:url(../../s456/training_f/icons/pads.png)"></div><div class="w">Intervals · Pads split</div><div class="tk"><i style="width:70%"></i></div><div class="tn">tired 70</div></div>
+  <div class="d" style="--c:var(--iq)"><div class="h">THU</div><div class="ic" style="background-image:url(../../s456/training_f/icons/sparring.png)"></div><div class="w">Speed bag · Sparring</div><div class="tk"><i style="width:67%"></i></div><div class="tn">tired 67</div></div>
+  <div class="d" style="--c:var(--tec)"><div class="h">FRI</div><div class="ic" style="background-image:url(../../s456/training_f/icons/pads.png)"></div><div class="w">Slip rope · Pads</div><div class="tk"><i style="width:70%"></i></div><div class="tn">tired 70</div></div>
+  <div class="d" style="--c:var(--tec)"><div class="h">SAT</div><div class="ic" style="background-image:url(../../s456/training_f/icons/shadow.png)"></div><div class="w">Shadow · Rest night</div><div class="tk"><i style="width:63%"></i></div><div class="tn">tired 63</div></div>
+  <div class="d" style="--c:var(--rec)"><div class="h">SUN</div><div class="ic" style="background-image:url(../../s456/training_f/icons/rest.png)"></div><div class="w">Rest</div><div class="tk"><i style="width:55%"></i></div><div class="tn">tired 55</div></div>
+ </div>
+ <div class="line">Read only here. <span class="dimt">Change the week in the Training scene.</span> Peak tiredness <b class="u">70 Wed</b>, under 72 · next week the taper.</div>
+</div>
+
+<div class="box buys"><h2>The week buys</h2>
+ <div class="mv"><span class="nmv">Check hook</span><div class="mbar"><i style="width:17%;background:#ff7ab6"></i><i style="left:17%;width:27%;background:repeating-linear-gradient(90deg,#ff7ab6 0 6px,rgba(255,122,182,.45) 6px 9px)"></i><span class="ul" style="left:42%"></span></div><span class="v">12 → <span class="u">32</span></span></div>
+ <div class="mv"><span class="nmv">Body hook</span><div class="mbar"><i style="width:40%;background:#ff7ab6"></i><i style="left:40%;width:4%;background:#ff7ab6;opacity:.6"></i><span class="ul" style="left:42%"></span></div><span class="v">29 → <span class="u">32</span></span></div>
+ <div class="st" style="margin-top:10px"><span style="color:var(--sta)">Stamina</span><div class="sb"><i style="width:75%;background:var(--sta)"></i></div><span class="g" style="color:var(--sta)">+0.18</span></div>
+ <div class="st"><span style="color:var(--tec)">Technique</span><div class="sb"><i style="width:69%;background:var(--tec)"></i></div><span class="g" style="color:var(--tec)">+0.12</span></div>
+ <div class="st"><span style="color:var(--def)">Defence</span><div class="sb"><i style="width:56%;background:var(--def)"></i></div><span class="g" style="color:var(--def)">+0.11</span></div>
+ <div class="dimt" style="font-size:15px;font-weight:700;margin-top:6px">+ Power, Speed, Fight IQ: see the Training scene</div>
+</div>
+
+<div class="box fn"><h2>On fight night</h2>
+ <div class="check"><span class="i">✓</span>Makes weight<span class="v">Cut · 69.6 kg</span></div>
+ <div class="check"><span class="i a">!</span>Stamina goal 60.4<span class="v a">60.3, 0.1 short</span></div>
+ <div class="check"><span class="i">✓</span>Injury chance, this week<span class="v">1 in 100</span></div>
+ <div class="check"><span class="i">✓</span>Moves ready to throw<span class="v">6 by Fri</span></div>
+ <div class="check" style="border:0"><span class="i">✓</span>Chance to win<span class="v">53-55% <span class="dimt" style="font-size:15px">(coach's week 51%)</span></span></div>
+</div>
+
+<div class="box go">
+ <div class="big">OPEN IN TRAINING ▸<span><small>plan this week</small></span></div>
+ <div class="dimt" style="font-size:16px;font-weight:700">The Training scene opens on this fighter. The other three are along its top:</div>
+ <div class="who">
+  <div class="on"><div class="pt" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_07.png)"></div>your week</div>
+  <div><div class="pt" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_03.png)"></div>coach's · <span style="color:var(--amber)">card</span></div>
+  <div><div class="pt" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_13.png)"></div><span style="color:#ff8a7a">fight week</span></div>
+  <div><div class="pt" style="background-image:url(../../../../assets/ui/style_b/portraits/mh_boxer_11.png)"></div>coach's</div>
+ </div>
+</div>
+
+<div class="cap"><b>Where Training lives (his Q-S294-217 "Separate Training scene, fighters on top", then "move the training out of the office and wire it on the gym floor training area"):</b>
+the week is PLANNED in the Training scene, opened by clicking the <b>bag area on the gym floor</b> (that pin says "Fighters" today and becomes "Training").
+The office keeps the business: mail, schedule, money, staff, and the Fighters app (the roster and this profile).
+This profile tab keeps his S354 wish ("a sub tab in the players profile, to see an overview of the training"): the week read-only, what it buys,
+fight night, and one button, <b>Open in Training</b>, which walks to the bag area. Nothing is planned in two places, so the screens never disagree.</div>
+</body></html>

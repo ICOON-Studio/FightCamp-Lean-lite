@@ -66,3 +66,19 @@ NEXT TRY: (a) OVER_HEAD/ELBOW measured from f01 and against max(head, hit glove 
 target by design); (b) while the reach holds after contact, hold the SHOULDER/CHEST too (the clip tail's shoulder lift is what flips the
 elbow) - ReachLimit already leans the chest; or cut the clip at the contact frame and let the join carry the glove (step 3 above);
 (c) find what lifts the guard glove to 1.57 after guard_home (IdleMatch.pick at "her usual guard", GuardTuck, GloveClear?).
+
+## S456 findings (in-house subagent; game code REVERTED, patch kept: ops/research/POWER1D_S456_quickback.patch)
+Patch: HitImpact._quick_back() from recover() freezes the lead uppercut clip at contact (speed 0, hit-stop returns 0), hands to guard()
+with guard_home + the join smoother's still flag after 0.10 s real time; BeatClips QUICK_BACK_S 0.10. With it: uppercut_tail 26 -> 18-20
+(lead ELBOW, FOLLOW, PATH pass 5/5, peak glove 1.7-3.2 m/s, the one-frame pops gone - they were PunchReach's own solve flipping inside
+the played tail at weight 1, then GloveClear's shove, not the handover). Regressions: join_return 0 (pass); hit_carry 42-44 vs bar 40
+(lead row CARRY 0.15-0.21 m, turns 2; main's lead row is itself noisy: 0.30 m alone, green in a full run); punch_speed 41 vs 39 (one
+sample, mostly hooks); hit_frame/fight_feel/beat_clips/head_aim/file_limits NOT run. Reverted under the "no regression worse" rule.
+Committed: tests/uppercut_tail_test.gd OVER_HEAD/ELBOW from f01, bar max(head, hit-frame glove y) while the reach holds (contract).
+WHAT IS LEFT IS THE TEST, NOT THE MOTION (needs a contract change, Claude's call): OVER_HEAD reads the glove-FRONT point, i.e. the top of
+an upright guard glove (GuardTuck.GUARD: lead wrist 0.04 under the Head bone) - measured at the glove's LOWEST point all 10 reps pass
+(worst lead wrist-minus-head -0.040). BACK compares world positions to ONE pre-punch frame while the body sways 0.04-0.16 m (and that
+frame is sometimes not a guard); against her spine the arm is home within 0.025-0.07 m. hit_carry counts the uppercut's way home (up,
+to guard) as carry along its line.
+NEXT: widen the contract to those three test reads (glove lowest point; BACK in the spine's frame; hit_carry excludes the post-contact
+return of an uppercut), re-apply the patch, run the full regression list on an idle GREEN PC, then film seed 4242 + 3 seeds.

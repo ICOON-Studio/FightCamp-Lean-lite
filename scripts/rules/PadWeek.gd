@@ -31,6 +31,7 @@ const WeekPhase := preload("res://scripts/rules/WeekPhase.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
 const WeekTwist := preload("res://scripts/rules/WeekTwist.gd")
 const StandDown := preload("res://scripts/rules/StandDown.gd")
+const Specialty := preload("res://scripts/rules/Specialty.gd")
 const PLAN_CARDS := "res://scripts/rules/PlanCards.gd"
 
 ## Drill minutes a pad night (game units, the scale of the old lumps: 2 nights = 480 vs LEARN_MINUTES 420, 1 = COMBO 240).
@@ -370,6 +371,7 @@ static func run_week(f: Dictionary, nights: Dictionary, week: Dictionary, coach:
 	var drilled := {}
 	var on_pads := {}
 	var pool := spar_pool(f, week)
+	var spar_cards: Array = []
 	for d in 7:
 		if (nights.get("pads", []) as Array).has(d):
 			for e in week.get(DAYS[d], []):
@@ -386,6 +388,7 @@ static func run_week(f: Dictionary, nights: Dictionary, week: Dictionary, coach:
 			for card in pool:
 				if not hands.has(card) and drillable(f, str(card)) and mastery(f, str(card)) >= Combos.LEARN_AT:
 					hands.append(str(card))
+			spar_cards = hands
 			for card in hands:
 				var mins := SPAR_NIGHT_MINUTES / float(hands.size())
 				var before := mastery(f, card)
@@ -401,7 +404,7 @@ static func run_week(f: Dictionary, nights: Dictionary, week: Dictionary, coach:
 			moves[mv] = MoveMastery.gain(float(moves[mv]), CARD_STATION, CARD_MINUTES, coach, tier, 1.0, cap(f, "move:" + str(mv)))
 		kept[mv] = true
 	for mv in moves.keys():
-		if not kept.has(mv):
+		if not kept.has(mv) and float(moves[mv]) < Specialty.HOLD_FROM:   # S457 60+ moves: Specialty's hold below
 			moves[mv] = MoveMastery.decay_week(float(moves[mv]), false)
 	var combos: Dictionary = f.get("combos", {})
 	for id in combos.keys():
@@ -411,7 +414,8 @@ static func run_week(f: Dictionary, nights: Dictionary, week: Dictionary, coach:
 	for id in own.keys():
 		if not drilled.has(str(id)):
 			own[id] = Combos.fade(float(own[id]), false)
-	return {"log": night_log, "drilled": drilled, "pads": on_pads}
+	var hold := Specialty.apply(f, on_pads, carded, spar_cards, (nights.get("spar", []) as Array).size())
+	return {"log": night_log, "drilled": drilled, "pads": on_pads, "held": hold["held"], "faded": hold["faded"]}
 
 
 ## The card projections, from run_week on a copy with the same nights each week: per card its path [[week, dow, m]], the

@@ -1302,8 +1302,17 @@
    "seat": "qwen",
    "title": "The lead uppercut's tail: short follow-through, back to guard, never over her head (his C353/C354/C359)",
    "brief": "POWER1C",
+   "status": "superseded",
+   "queued": "2026-11-13T14:15",
+   "note": "S457: superseded by POWER1D (in-house, contract widened)"
+  },
+  {
+   "task": "STYLENAME1",
+   "seat": "qwen",
+   "title": "The named style: which one, when it goes, what it changes, the extra plan line (map M4)",
+   "brief": "STYLENAME1",
    "status": "queued",
-   "queued": "2026-11-13T14:15"
+   "queued": "2026-11-13T19:10"
   }
  ]
 }

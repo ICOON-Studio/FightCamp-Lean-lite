@@ -65,7 +65,7 @@ static func run(career: Career, f: Dictionary) -> Dictionary:
 				MoveMastery.describe(new_weapon, float(moves[new_weapon]))])
 	f["learning"] = learning
 	return {"rows": rows, "new_weapon": new_weapon, "new_combo": _combo_news(career, f, drilled, before_combos, before_own),
-		"pads": r["log"], "review": PadReview.rows(r["log"], nights)}
+		"pads": r["log"], "review": PadReview.rows(r["log"], nights), "held": r.get("held", []), "faded": r.get("faded", [])}
 
 
 ## What the week runs on - the Training tab's card projections call PadWeek.project with the same (S382 DRILLCARD1):

@@ -89,7 +89,10 @@ func _drawn() -> void:
 	if not recording or ids.is_empty():
 		return
 	var f := Engine.get_process_frames()
-	var row := [f, get_root().get_process_delta_time(), _glove(), _elbow(), _head(), _shoulder(), _spine(), str(ap.current_animation), hit_at >= 0]
+	# POWER1D: the reach still holds the glove on its target this frame (armed on the clip shown, at full weight).
+	var pr: Node = st.boxers[0].get("reach")
+	var held := pr != null and str(pr.get("_clip")) != "" and str(pr.get("_clip")) == str(ap.assigned_animation) and float(pr.get("last_weight")) >= 0.999
+	var row := [f, get_root().get_process_delta_time(), _glove(), _elbow(), _head(), _shoulder(), _spine(), str(ap.current_animation), hit_at >= 0, held]
 	if not rec.is_empty() and int((rec[rec.size() - 1] as Array)[0]) == f:
 		rec[rec.size() - 1] = row
 	else:
@@ -156,6 +159,7 @@ func _throw(clip: String, move: String, rep: int) -> Array:
 	var peak_speed := 0.0
 	var follow_start_t := hold_s + FOLLOW_START_S
 	var follow_end_t := hold_s + FOLLOW_END_S
+	var hit_y := -INF
 	# S452 (Claude): the guard place is the glove BEFORE the punch (the first recorded frame), not the glove at the hit -
 	# Qwen's version measured "back" to the hit point, so BACK read 0.10 s on a tail that never went home.
 	if not rec.is_empty():
@@ -178,8 +182,13 @@ func _throw(clip: String, move: String, rep: int) -> Array:
 			var dt := maxf(float(row[1]), 1e-4)
 			speed = glove.distance_to(prev[2] as Vector3) / dt
 			peak_speed = maxf(peak_speed, speed)
-		var over_head := glove.y > head.y + OVER_HEAD_BAR
-		var elbow_high := elbow.y > shoulder.y + ELBOW_BAR
+		if f == 0:
+			hit_y = glove.y
+		# POWER1D (TASK_POWER1D open question b): measured from f01 - on the hit frame, and while the reach still holds the
+		# glove on her (a taller opponent's chin can stand above her own head), the bar is max(her head, the hit's glove).
+		var top := maxf(head.y, hit_y) if bool(row[9]) else head.y
+		var over_head := f >= 1 and glove.y > top + OVER_HEAD_BAR
+		var elbow_high := f >= 1 and elbow.y > shoulder.y + ELBOW_BAR
 		var fwd_dist := (glove - spine).dot((target - spine).normalized())
 		var path_bad := fwd_dist < PATH_MIN_FWD
 		if over_head:
