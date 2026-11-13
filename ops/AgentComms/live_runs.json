@@ -106,18 +106,32 @@
    "eta": "2026-11-13T21:30",
    "note": "S452: ETA from round 4 (sent 14:55, PR about 6 h later)"
   },
-  "BLOCKLOOK5B": {
-   "agent": "grok",
-   "id": "BLOCKLOOK5B",
-   "title": "The block, round 6: the jab preview caught with the rear glove again (BLOCKLOOK5B)",
-   "status": "running",
-   "where": "cloud",
+  "STYLENAME1": {
+   "agent": "qwen",
+   "id": "STYLENAME1",
+   "title": "TASK STYLENAME1 - QWEN (qwen3-coder) - the named style: which one, when it goes, what it changes, the extra plan line",
+   "status": "landed - collected S457 by diff + parse + test",
+   "started": "2026-11-13T19:11",
+   "eta": "2026-11-13T21:01",
+   "branch": "qwen/stylename1",
+   "worktree": "E:/FightCamp/wt/LEAN_STYLENAME1",
+   "wt": "E:/FightCamp/wt/LEAN_STYLENAME1",
+   "brief": "ops/research/TASK_STYLENAME1.md",
    "repo": "FightCamp-Lean",
-   "branch": "grok/blocklook5",
-   "brief": "ops/research/TASK_BLOCKLOOK5B.md",
-   "started": "2026-11-13T16:40",
-   "eta": "2026-11-13T22:30",
-   "note": "S453: round 2 of PR 256 (same branch); ETA ~6 h like rounds 4-5"
+   "where": "pc",
+   "log": "E:/FightCamp/wt/STYLENAME1_dispatch_out.txt",
+   "match": "seat_dispatch.py run stylename1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/STYLENAME1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/STYLENAME1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/STYLENAME1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 8520,
+    "seat_pid": 44104
+   },
+   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
   }
  },
  "codex_budget": {

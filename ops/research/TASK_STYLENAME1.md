@@ -61,8 +61,8 @@ PROGRESSION_MAP_S448.md M4 (styles, effects, the extra line, one style at a time
 scripts/rules/Specialty.gd (the hold that keeps a move at 60+, merged S457); LearnSlots.gd as the style of a merged pure module.
 
 ## What would a human do?
-A coach calls a boxer what he holds: a jab and good feet make an out-boxer. Let the feet go stale and he is not an out-boxer any more;
-the style is a label earned and kept by work, and it changes how he fights.
+A coach names a boxer by what the boxer holds: a jab and good feet make an out-boxer. Let the feet go stale and that boxer is not an out-boxer any more;
+the style is a label earned and kept by work, and it changes how the boxer fights.
 
 ## Prefab check
 Pure GDScript arithmetic over dictionaries; no library or asset applies.

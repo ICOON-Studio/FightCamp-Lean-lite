@@ -13,7 +13,8 @@
    "seat": "qwen",
    "title": "TASK HITREACT4 - QWEN (qwen3-coder) - measure the conversion stages HITREACT3 did not run",
    "brief": "HITREACT4",
-   "status": "queued"
+   "status": "superseded",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "KNEETRACK1",
@@ -494,8 +495,9 @@
   {
    "task": "MONEYOD2",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-08T07:56"
+   "status": "superseded",
+   "queued": "2026-11-08T07:56",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "RETARGET2B",
@@ -691,28 +693,32 @@
    "seat": "cursor",
    "title": "TASK MENUHOME2 - CURSOR (Grok 4.7 High) - Home, fewer words, around the gym",
    "brief": "MENUHOME2",
-   "status": "queued"
+   "status": "superseded",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "FIGHTERMODEL4F",
    "seat": "cursor",
    "title": "TASK FIGHTERMODEL4F - CURSOR (Grok 4.7 High) - the red tests the new fighter model leaves behind",
    "brief": "FIGHTERMODEL4F",
-   "status": "queued"
+   "status": "superseded",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "COACH1",
    "seat": "cursor",
    "title": "TASK COACH1 - CURSOR (Grok 4.7 High) - what a coach is good at, and a staff screen that says so",
    "brief": "COACH1",
-   "status": "queued"
+   "status": "superseded",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "MENUWEEK2",
    "seat": "cursor",
    "title": "TASK MENUWEEK2 - CURSOR (Grok 4.7 High) - the Fighter Week page, fewer words, bigger pictures",
    "brief": "MENUWEEK2",
-   "status": "queued"
+   "status": "superseded",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "FIGHTERMODEL4H",
@@ -766,8 +772,9 @@
   {
    "task": "CLIPRESCORE1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-09T14:06"
+   "status": "superseded",
+   "queued": "2026-11-09T14:06",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "FIGHTERMODEL4G",
@@ -779,14 +786,16 @@
   {
    "task": "FLOOR2",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-09T14:48"
+   "status": "superseded",
+   "queued": "2026-11-09T14:48",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "CLIPFULL1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-09T15:20"
+   "status": "superseded",
+   "queued": "2026-11-09T15:20",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "REARHAND2",
@@ -805,8 +814,9 @@
   {
    "task": "FIGHTERMODEL4I",
    "seat": "cursor",
-   "status": "queued",
-   "queued": "2026-11-09T18:53"
+   "status": "superseded",
+   "queued": "2026-11-09T18:53",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "GYMKIND1",
@@ -903,14 +913,16 @@
   {
    "task": "KDFIX2",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-10T10:56"
+   "status": "superseded",
+   "queued": "2026-11-10T10:56",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "LEGTREMBLE3",
    "seat": "cursor",
-   "status": "queued",
-   "queued": "2026-11-10T11:01"
+   "status": "superseded",
+   "queued": "2026-11-10T11:01",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "FIGHTSLIDE3",
@@ -943,8 +955,9 @@
   {
    "task": "LEGTREMBLE4",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-10T13:09"
+   "status": "superseded",
+   "queued": "2026-11-10T13:09",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "KDFIX4",
@@ -965,7 +978,8 @@
    "seat": "qwen",
    "title": "TASK KDFIX5 - QWEN (qwen3-coder) - a downed boxer's upper body sways, round 5: Cursor's all-green was false",
    "brief": "KDFIX5",
-   "status": "queued"
+   "status": "superseded",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "BLOCKMEET3",
@@ -980,128 +994,144 @@
    "seat": "qwen",
    "title": "TASK THURSDAY2 - QWEN (qwen3-coder) - the Thursday count again, on camps that really differ",
    "brief": "THURSDAY2",
-   "status": "queued",
-   "queued": "2026-11-10T18:20"
+   "status": "superseded",
+   "queued": "2026-11-10T18:20",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "HALOSWEEP1",
    "seat": "cursor",
    "title": "TASK HALOSWEEP1 - CURSOR (Grok 4.7 High) - every chosen frame in the game uses the shared outline",
    "brief": "HALOSWEEP1",
-   "status": "queued",
-   "queued": "2026-11-10T18:40"
+   "status": "superseded",
+   "queued": "2026-11-10T18:40",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "FIGHTDISPLAY3",
    "seat": "cursor",
    "title": "TASK FIGHTDISPLAY3 - CURSOR (Grok 4.7 High) - the two wooden side panels, round 3",
    "brief": "FIGHTDISPLAY3",
-   "status": "queued",
-   "queued": "2026-11-10T18:25"
+   "status": "superseded",
+   "queued": "2026-11-10T18:25",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "MOODHABIT1",
    "seat": "qwen",
    "title": "TASK MOODHABIT1 - QWEN (qwen3-coder) - what a boxer's mood and each habit are worth in wins",
    "brief": "MOODHABIT1",
-   "status": "queued",
-   "queued": "2026-11-10T18:40"
+   "status": "superseded",
+   "queued": "2026-11-10T18:40",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "HANDSPROBE1",
    "seat": "qwen",
    "title": "TASK HANDSPROBE1 - QWEN (qwen3-coder) - how scarce are Reid's hands really? Measure only",
    "brief": "HANDSPROBE1",
-   "status": "queued",
-   "queued": "2026-11-10T18:50"
+   "status": "superseded",
+   "queued": "2026-11-10T18:50",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "BARGUARD1",
    "seat": "cursor",
    "title": "TASK BARGUARD1 - CURSOR (Grok 4.7 High) - the boots stay above the corner bar while a shot holds",
    "brief": "BARGUARD1",
-   "status": "queued",
-   "queued": "2026-11-10T19:05"
+   "status": "superseded",
+   "queued": "2026-11-10T19:05",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "WEEKTESTS1",
    "seat": "cursor",
    "title": "TASK WEEKTESTS1 - CURSOR - plan_tray, drill_card, hover_ghosts still drive the old Training board",
    "brief": "WEEKTESTS1",
-   "status": "queued",
-   "queued": "2026-11-11T07:15"
+   "status": "superseded",
+   "queued": "2026-11-11T07:15",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "RANKSHOW1",
    "seat": "qwen",
    "title": "TASK RANKSHOW1 - QWEN (qwen3-coder) - the rank a fight earned, as a pure line the result, the Why and the news can show",
    "brief": "RANKSHOW1",
-   "status": "queued",
-   "queued": "2026-11-11T08:10"
+   "status": "superseded",
+   "queued": "2026-11-11T08:10",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "FIGHTDISPLAY4",
    "seat": "cursor",
    "title": "TASK FIGHTDISPLAY4 - CURSOR (Grok 4.7 High) - the fight screen: side panels go, bars to the top, figures stand free",
    "brief": "FIGHTDISPLAY4",
-   "status": "queued",
-   "queued": "2026-11-11T09:25"
+   "status": "superseded",
+   "queued": "2026-11-11T09:25",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "TRAININGB2",
    "seat": "cursor",
    "title": "TASK TRAININGB2 - CURSOR (Grok 4.7 High) - the Training tab: a tiredness curve that says something, pads list in rows",
    "brief": "TRAININGB2",
-   "status": "queued",
-   "queued": "2026-11-11T09:25"
+   "status": "superseded",
+   "queued": "2026-11-11T09:25",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "GYMLIFE1",
    "seat": "cursor",
    "title": "TASK GYMLIFE1 - CURSOR (Grok 4.7 High) - the gym picture comes alive: real workouts at each kit, fighters at today's session",
    "brief": "GYMLIFE1",
-   "status": "queued",
-   "queued": "2026-11-11T09:28"
+   "status": "superseded",
+   "queued": "2026-11-11T09:28",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "CAMLINE1",
    "seat": "qwen",
    "title": "TASK CAMLINE1 - QWEN (qwen3-coder) - the fight camera: never straight behind one boxer; far ropes stop fading and smearing at head height",
    "brief": "CAMLINE1",
-   "status": "queued",
-   "queued": "2026-11-11T09:44"
+   "status": "superseded",
+   "queued": "2026-11-11T09:44",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "AIMWIRE1",
    "seat": "qwen",
    "title": "TASK AIMWIRE1 - QWEN (qwen3-coder) - the aim buttons: rib targets that never appear, a body bonus that never fires, and what a fight's tiredness does to a year",
    "brief": "AIMWIRE1",
-   "status": "queued",
-   "queued": "2026-11-11T10:40"
+   "status": "superseded",
+   "queued": "2026-11-11T10:40",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "DUESWIRE1",
    "seat": "cursor",
    "title": "TASK DUESWIRE1 - CURSOR (Grok 4.7 High) - the dues choice and the youth section show on every menu they touch",
    "brief": "DUESWIRE1",
-   "status": "queued",
-   "queued": "2026-11-11T11:05"
+   "status": "superseded",
+   "queued": "2026-11-11T11:05",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "FACEFRAME1",
    "seat": "cursor",
    "title": "TASK FACEFRAME1 - CURSOR (Grok 4.7 High) - every face picture in the menus shows the whole head",
    "brief": "FACEFRAME1",
-   "status": "queued",
-   "queued": "2026-11-11T11:20"
+   "status": "superseded",
+   "queued": "2026-11-11T11:20",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "CORNERFACE1",
    "seat": "qwen",
    "title": "TASK CORNERFACE1 - QWEN (qwen3-coder) - the corner minute camera keeps the boxer's face in the open part of the screen",
    "brief": "CORNERFACE1",
-   "status": "queued",
-   "queued": "2026-11-11T11:20"
+   "status": "superseded",
+   "queued": "2026-11-11T11:20",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "DUESSUMS1",
@@ -1121,34 +1151,39 @@
   {
    "task": "HUMANFIGHT2B",
    "seat": "cursor",
-   "status": "queued",
-   "queued": "2026-11-11T17:02"
+   "status": "superseded",
+   "queued": "2026-11-11T17:02",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "CORNERFACE2",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-11T17:02"
+   "status": "superseded",
+   "queued": "2026-11-11T17:02",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "DUESSUMS3B",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-11T17:02"
+   "status": "superseded",
+   "queued": "2026-11-11T17:02",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "RIBHURT1",
    "seat": "qwen",
    "title": "TASK RIBHURT1 - QWEN (qwen3-coder) - a boxer whose ribs or face took a beating is likelier to come out with a rib injury or a cut",
    "brief": "RIBHURT1",
-   "status": "queued"
+   "status": "superseded",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "id": "INTROCORNER1",
    "seat": "qwen",
    "title": "TASK INTROCORNER1 - QWEN (qwen3-coder) - the fight intro starts in the corners: each boxer shadow-boxes, bounces and celebrates the name call in a way of their own (the rope entry out)",
    "brief": "INTROCORNER1",
-   "status": "queued"
+   "status": "superseded",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "DUESSUMS3C",
@@ -1167,8 +1202,9 @@
   {
    "task": "VOICEWIRE1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-11T23:21"
+   "status": "superseded",
+   "queued": "2026-11-11T23:21",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "R26TOWEL1",
@@ -1257,14 +1293,16 @@
   {
    "task": "ASKPROBE3",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-13T09:17"
+   "status": "superseded",
+   "queued": "2026-11-13T09:17",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "SOUND4",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-13T09:46"
+   "status": "superseded",
+   "queued": "2026-11-13T09:46",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "BODYFACTS1",
@@ -1294,8 +1332,9 @@
    "seat": "qwen",
    "title": "One move in learning: slots, the coach's three cards, learning speed (progression M2)",
    "brief": "SLOTS1",
-   "status": "queued",
-   "queued": "2026-11-13T14:20"
+   "status": "superseded",
+   "queued": "2026-11-13T14:20",
+   "superseded_note": "S458 cleanup: stale queued row (Cursor retired S446 / done / old)"
   },
   {
    "task": "POWER1C",
@@ -1311,8 +1350,9 @@
    "seat": "qwen",
    "title": "The named style: which one, when it goes, what it changes, the extra plan line (map M4)",
    "brief": "STYLENAME1",
-   "status": "queued",
-   "queued": "2026-11-13T19:10"
+   "status": "done",
+   "queued": "2026-11-13T19:10",
+   "launched": "2026-11-13T19:11"
   }
  ]
 }

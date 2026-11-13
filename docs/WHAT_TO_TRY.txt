@@ -1,3 +1,9 @@
+S457 (2026-11-13)
+- Moves you have made Sharp (60+) now need their weekly drill to stay sharp. A Sharp move that got no pad time, bag card or
+  sparring that week loses 1.5 (it never falls below 50; a Signature never below 70). Moves under 60 fade as before. Nothing fades
+  in a fight week or while a fighter is injured. Play a few weeks with one Sharp move left off the pads: does it slip, and does
+  putting it back on one pad night hold it? (The screen that lists what held and what faded comes later.)
+
 S455 (2026-11-13)
 - Fight: blocked jabs and crosses. The puncher's arm now keeps the shape of a landed punch (long, chest turned) and stops on the
   blocker's glove, held out in front of the face. The glove gives a little and comes back to guard. Watch a few blocked jabs and
