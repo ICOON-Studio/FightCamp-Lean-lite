@@ -29,6 +29,7 @@ const HarnessSpend := preload("res://tools/harness_spend.gd")
 const FireLevel := preload("res://scripts/rules/FireLevel.gd")
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const PlanFight := preload("res://scripts/rules/PlanFight.gd")
+const FightWeekPolicy := preload("res://tools/harness_fightweek.gd")   # S451 FIGHTWEEKPROBE3 `week=rest|tick|through|coach`
 
 const CARELESS_P := 0.5
 ## S397 money bites: `spender` buys whatever the cash covers (HarnessSpend); the sensible player spends by its own rule.
@@ -37,6 +38,7 @@ const HABITS := ["head_coach", "unsafe_bouts", "hard_camps", "no_sponsors", "har
 var main: Node
 var args := {}
 var habits := {}
+var fw_stops := {}   # S451 FIGHTWEEKPROBE3: how often each fight-week stop was played (the coach's pick mixes them)
 
 
 func _initialize() -> void:
@@ -49,12 +51,15 @@ func _initialize() -> void:
 	print("HARNESS fire levels %s" % ("OFF (today's game before S450)" if FireLevel.probe_off else "ON (FireLevel.GAME_SHARES)"))
 	var weeks := int(args.get("weeks", "26"))
 	var t0 := Time.get_ticks_msec()
-	for policy in ["careless", "sensible"]:
+	for policy in str(args.get("policies", "careless,sensible")).split(","):
 		var rows: Array = []
 		var first := int(args.get("first", "0"))   # S397: one career per process (first=k n=1) - see harness_sum.py
 		for i in range(first, first + n):
 			rows.append(await _career(policy, i, weeks))
 		_summary(policy, rows, weeks)
+		if args.has("week"):
+			print("HARNESS %s week=%s stops played %s" % [policy, args["week"], str(fw_stops)])
+			fw_stops = {}
 		if args.get("money", "0") == "1":
 			HarnessMoney.report(policy, rows)
 	print("HARNESS done in %.1f s" % ((Time.get_ticks_msec() - t0) / 1000.0))
@@ -114,7 +119,7 @@ func _career(policy: String, i: int, weeks: int) -> Dictionary:
 	var row := {"policy": policy, "i": i, "habits": on, "closed": c.closed, "week": Clock.week_of(c.day), "cash": c.cash, "min_cash": min_cash,
 		"w": int(f.get("w", 0)), "l": int(f.get("l", 0)), "bouts": bouts, "members": c.members, "rep": c.reputation,
 		"inj_bout": hurt_bout, "inj_train": hurt_train, "pulled": pulled,
-		"money": hm.as_row(), "roster": c.fighters.size(), "pros": c.fighters.filter(func(x): return bool(x.get("pro", false))).size()}
+		"money": hm.as_row(), "stat_sum": (f["stats"] as Dictionary).values().reduce(func(a, v): return a + float(v), 0.0), "res": c.results.map(func(r): return [bool(r["win"]), str(r["outcome"])]), "roster": c.fighters.size(), "pros": c.fighters.filter(func(x): return bool(x.get("pro", false))).size()}
 	print("CAREER %s #%d habits=%s closed=%s week=%d cash=%d min=%d record=%d-%d members=%d rep=%d injuries bout=%d training=%d pulled=%d" % [
 		policy, i, ",".join(on), str(c.closed), row["week"], c.cash, min_cash, row["w"], row["l"], c.members, c.reputation, hurt_bout, hurt_train, pulled])
 	print("CAREERJSON " + JSON.stringify(row))   # S397 harness_sum.py aggregates these across processes
@@ -189,12 +194,20 @@ func _decide(policy: String, c: Career) -> void:
 		if Bouts.weigh_in_today(c, f):
 			main.act("weighin", f["id"])
 			main.act("doWeigh")
+		if args.has("week") and not (f["bout"] as Dictionary).is_empty() and not f.has("fw_snap") 				and int(f["bout"]["day"]) - c.day <= 8:
+			FightWeekPolicy.snap(f, c.day)
 		if Bouts.fight_day(c, f):
 			if args.get("plan", "") == "combos":   # S450 FIRELEVEL3: a player who writes the plan with combinations
 				f["arrows"] = _combo_plan(f)
+			var stop := ""
+			if args.has("week"):
+				stop = FightWeekPolicy.apply(f, c, str(args["week"]))
+				fw_stops[stop] = int(fw_stops.get(stop, 0)) + 1
 			main.act("fightnight")
 			main.act("fightstep", "sim")
 			main.act("afterfight")
+			if stop != "":
+				FightWeekPolicy.after(f, stop)
 		if bool(f["goal_talk"]):
 			main.act("goaltalk", f["id"])
 			main.act("pickgoal", "five_round_engine")

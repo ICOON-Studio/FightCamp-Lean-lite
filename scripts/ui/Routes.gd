@@ -30,6 +30,8 @@ static func canon(r: Dictionary) -> Dictionary:
 				tab = 1
 		"money":
 			tab = 0
+		"office":   # OFFICE1: one desktop; the apps open the other pages by their own routes
+			tab = 0
 		"world":
 			if tab == 4:   # Nationals are a championship
 				tab = 2

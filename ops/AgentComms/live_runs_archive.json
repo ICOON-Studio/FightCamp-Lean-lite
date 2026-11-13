@@ -16422,6 +16422,648 @@
    "where": "cloud",
    "note": "Grok Dev: already on main as PAGES2B (114a85c4, S441); stale row",
    "archived": "2026-11-13 08:11 board_sync"
+  },
+  {
+   "agent": "grok",
+   "id": "JOINFIX1",
+   "title": "TASK JOINFIX1 - GROK DEV - the lead uppercut return to guard must not jump",
+   "status": "closed",
+   "started": "2026-11-13T08:15",
+   "eta": "2026-11-13T10:30",
+   "branch": "grok/joinfix1",
+   "brief": "ops/research/TASK_JOINFIX1.md",
+   "repo": "FightCamp-Lean",
+   "where": "cloud",
+   "reconciled": "2026-11-13 10:10 board_reconcile: PR #242 closed",
+   "archived": "2026-11-13 10:11 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "ASKPROBE3",
+   "title": "TASK ASKPROBE3 - QWEN (qwen3-coder) - Ask for a fight: make waiting cost something, measure a real step up and two dates",
+   "status": "closed",
+   "started": "2026-11-13T09:19",
+   "eta": "2026-11-13T11:09",
+   "branch": "qwen/askprobe3",
+   "worktree": "E:/FightCamp/wt/LEAN_ASKPROBE3",
+   "wt": "E:/FightCamp/wt/LEAN_ASKPROBE3",
+   "brief": "ops/research/TASK_ASKPROBE3.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/ASKPROBE3_dispatch_out.txt",
+   "match": "seat_dispatch.py run askprobe3",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/ASKPROBE3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/ASKPROBE3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/ASKPROBE3_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 42304,
+    "seat_pid": 36204
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/5 PASS; PR #243",
+   "finished": "2026-11-13T09:57",
+   "pr": 243,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/ask_probe3.gd",
+     "ok": true,
+     "last": "ASK_PROBE3 done arms=5 bouts=7183 in 208s"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/ask_bout_test.gd",
+     "ok": true,
+     "last": "ASK_BOUT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_learn_test.gd",
+     "ok": true,
+     "last": "FIGHT_LEARN failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-13 10:10 board_reconcile: PR #243 closed",
+   "archived": "2026-11-13 10:11 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "SOUND4",
+   "title": "TASK_SOUND4 - the sound engineer, round 4: the missing sounds, made in Ludo (Qwen)",
+   "status": "closed",
+   "started": "2026-11-13T09:59",
+   "eta": "2026-11-13T11:49",
+   "branch": "qwen/sound4",
+   "worktree": "E:/FightCamp/wt/LEAN_SOUND4",
+   "wt": "E:/FightCamp/wt/LEAN_SOUND4",
+   "brief": "ops/research/TASK_SOUND4.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/SOUND4_dispatch_out.txt",
+   "match": "seat_dispatch.py run sound4",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/SOUND4_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/SOUND4_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/SOUND4_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 32300,
+    "seat_pid": 6828
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/3 PASS; PR #244",
+   "finished": "2026-11-13T10:13",
+   "pr": 244,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/sound_bank_test.gd",
+     "ok": false,
+     "last": "SOUND_BANK checks=343 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/sound_bank_test.gd",
+     "ok": true,
+     "last": "SOUND_BANK checks=343 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-13 10:40 board_reconcile: PR #244 closed",
+   "archived": "2026-11-13 10:41 board_sync"
+  },
+  {
+   "agent": "grok",
+   "id": "BLOCKLOOK2",
+   "title": "A block is a guard that catches the punch - round 2 (arm_block fix, block_set reads the catch)",
+   "status": "closed",
+   "started": "2026-11-13T11:05",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "branch": "grok/blocklook2",
+   "reconciled": "2026-11-13 12:10 board_reconcile: PR #245 closed",
+   "eta": "2026-11-13T13:30",
+   "archived": "2026-11-13 12:11 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "FIGHTWEEKPROBE1",
+   "title": "TASK FIGHTWEEKPROBE1 - QWEN (qwen3-coder) - the fight week's price list: what the tank and a flat round 1 are worth",
+   "status": "collected",
+   "started": "2026-11-13T12:28",
+   "eta": "2026-11-13T14:18",
+   "branch": "qwen/fightweekprobe1",
+   "worktree": "E:/FightCamp/wt/LEAN_FIGHTWEEKPROBE1",
+   "wt": "E:/FightCamp/wt/LEAN_FIGHTWEEKPROBE1",
+   "brief": "ops/research/TASK_FIGHTWEEKPROBE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/FIGHTWEEKPROBE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run fightweekprobe1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/FIGHTWEEKPROBE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/FIGHTWEEKPROBE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/FIGHTWEEKPROBE1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 35452,
+    "seat_pid": 50360
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off",
+   "reconciled": "2026-11-13 13:10 board_reconcile: branch qwen/fightweekprobe1 commits are on master",
+   "archived": "2026-11-13 13:11 board_sync"
+  },
+  {
+   "agent": "goose",
+   "id": "MOVETREE1",
+   "title": "GOOSE (cloud, pure module) - the boxing move tree as rules and data",
+   "status": "closed",
+   "started": "2026-11-13T12:46",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_MOVETREE1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-13T13:46",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (dispatch_queue.json)",
+   "issue": "246",
+   "branch": "goose/issue-246",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/246",
+   "reconciled": "2026-11-13 13:40 board_reconcile: issue 246 closed",
+   "archived": "2026-11-13 13:41 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "BODYFACTS1",
+   "title": "TASK BODYFACTS1 - QWEN (qwen3-coder) - our fighters get a height and a reach",
+   "status": "closed",
+   "started": "2026-11-13T13:11",
+   "eta": "2026-11-13T15:01",
+   "branch": "qwen/bodyfacts1",
+   "worktree": "E:/FightCamp/wt/LEAN_BODYFACTS1",
+   "wt": "E:/FightCamp/wt/LEAN_BODYFACTS1",
+   "brief": "ops/research/TASK_BODYFACTS1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/BODYFACTS1_dispatch_out.txt",
+   "match": "seat_dispatch.py run bodyfacts1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/BODYFACTS1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/BODYFACTS1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/BODYFACTS1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 27556,
+    "seat_pid": 36988
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 7/8 PASS; PR #247",
+   "finished": "2026-11-13T13:27",
+   "pr": 247,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/body_facts_test.gd",
+     "ok": true,
+     "last": "BODY_FACTS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/save_load_test.gd",
+     "ok": true,
+     "last": "SAVE_LOAD checks=78 failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/tale_of_tape_test.gd",
+     "ok": false,
+     "last": "TALEOFTAPE failures=1"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/tape_rows_test.gd",
+     "ok": true,
+     "last": "TAPE_ROWS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/first_week_test.gd",
+     "ok": true,
+     "last": "FIRST_WEEK failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-13 13:40 board_reconcile: PR #247 closed",
+   "archived": "2026-11-13 13:41 board_sync"
+  },
+  {
+   "agent": "grok",
+   "id": "BLOCKLOOK3",
+   "title": "The block, round 3: the blocker absorbs the punch, no glove into glove, the puncher's arm keeps its shape (his marks on the block reel)",
+   "status": "closed",
+   "started": "2026-11-13T12:58",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "branch": "grok/blocklook3",
+   "brief": "ops/research/TASK_BLOCKLOOK3.md",
+   "eta": "2026-11-13T15:30",
+   "reconciled": "2026-11-13 14:36 board_reconcile: PR #250 closed",
+   "archived": "2026-11-13 14:36 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "SLOTS1",
+   "title": "TASK SLOTS1 - QWEN (qwen3-coder) - one move in learning: the slots, the coach's three cards, the learning speed",
+   "status": "closed",
+   "started": "2026-11-13T13:49",
+   "eta": "2026-11-13T15:39",
+   "branch": "qwen/slots1",
+   "worktree": "E:/FightCamp/wt/LEAN_SLOTS1",
+   "wt": "E:/FightCamp/wt/LEAN_SLOTS1",
+   "brief": "ops/research/TASK_SLOTS1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/SLOTS1_dispatch_out.txt",
+   "match": "seat_dispatch.py run slots1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/SLOTS1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/SLOTS1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/SLOTS1_dispatch_runner.log",
+    "source": "S450 lead",
+    "brief_copied": true,
+    "runner_pid": 26680,
+    "seat_pid": 7676
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/5 PASS; PR #249",
+   "finished": "2026-11-13T14:01",
+   "pr": 249,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/learn_slots_test.gd",
+     "ok": true,
+     "last": "LEARN_SLOTS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_tree_test.gd",
+     "ok": true,
+     "last": "MOVE_TREE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_mastery_test.gd",
+     "ok": true,
+     "last": "MOVE_MASTERY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-13 14:36 board_reconcile: PR #249 closed",
+   "archived": "2026-11-13 14:36 board_sync"
+  },
+  {
+   "agent": "grok",
+   "id": "OFFICE1",
+   "title": "The office as a full-screen computer desktop: the frame + Desktop (his Q-213 'A, full screen')",
+   "status": "merged",
+   "started": "2026-11-13T14:25",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "branch": "grok/office1",
+   "brief": "ops/research/TASK_OFFICE1.md",
+   "eta": "2026-11-13T19:00",
+   "note": "S451 collected by diff d7bf6148 (PR 252 closed); real screen on the review board",
+   "reconciled": "2026-11-13 14:36 board_reconcile: PR #252 open - collect it"
+  },
+  {
+   "status": "merged",
+   "agent": "claude",
+   "note": "S450: Qwen died silently with a draft probe; Claude rewrote it (southpaw twins, calibrated pairs) and runs it on main",
+   "reconciled": "2026-11-13 14:10 board_reconcile: no process and no write for ? min (no worktree for branch '')"
+  },
+  {
+   "agent": "antigravity",
+   "id": "LEGTREMBLE2",
+   "title": "TASK LEGTREMBLE2 - AGY (Argon High) - the trembling legs, round 2: bake the smoothing into the shipped clips",
+   "status": "failed",
+   "started": "2026-11-10T10:29",
+   "eta": "2026-11-10T11:54",
+   "branch": "agy/legtremble2",
+   "worktree": "E:/FightCamp/wt/LEAN_LEGTREMBLE2",
+   "wt": "E:/FightCamp/wt/LEAN_LEGTREMBLE2",
+   "brief": "ops/research/TASK_LEGTREMBLE2.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/LEGTREMBLE2_dispatch_out.txt",
+   "match": "seat_dispatch.py run legtremble2",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/LEGTREMBLE2_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/LEGTREMBLE2_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/LEGTREMBLE2_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 47628,
+    "seat_pid": 37392
+   },
+   "note": "Antigravity account: AI credits too low; partial branch, PR 160 closed; continues as LEGTREMBLE3 on Cursor",
+   "finished": "2026-11-10T11:06",
+   "pr": 160,
+   "checks": [
+    {
+     "kind": "COMPILE",
+     "script": "Main.tscn boot",
+     "ok": false,
+     "last": "res://tests/leg_tremble_test.gd:54: Static function \"setup_clips()\" not found in base \"res://scripts/fight3d/FightClips.gd\"."
+    },
+    {
+     "kind": "RED_TEST",
+     "script": "tests/leg_tremble_test.gd",
+     "ok": false,
+     "last": "   at: load (modules/gdscript/gdscript_resource_format.cpp:46)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_tip_test.gd",
+     "ok": true,
+     "last": "   at: clear (core/io/resource.cpp:822)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/head_aim_test.gd",
+     "ok": true,
+     "last": "HEAD_AIM failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/block_meet_test.gd",
+     "ok": false,
+     "last": "   at: start (main/main.cpp:4370)"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  {
+   "agent": "qwen",
+   "id": "R11C",
+   "title": "TASK R11C - QWEN (qwen3-coder) - a standing count on the cards says what it cost",
+   "status": "failed",
+   "started": "2026-11-11T14:11",
+   "eta": "2026-11-11T16:01",
+   "branch": "qwen/r11c",
+   "worktree": "E:/FightCamp/wt/LEAN_R11C",
+   "wt": "E:/FightCamp/wt/LEAN_R11C",
+   "brief": "ops/research/TASK_R11C.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/R11C_dispatch_out.txt",
+   "match": "seat_dispatch.py run r11c",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/R11C_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/R11C_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/R11C_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 10900,
+    "seat_pid": 42852
+   },
+   "note": "S368 seat_dispatch: qwen exit 0, no commit on qwen/r11c (stray: -); output E:\\FightCamp\\wt\\R11C_dispatch_out.txt",
+   "finished": "2026-11-11T14:13"
+  },
+  {
+   "agent": "qwen",
+   "id": "RANKSHOW1",
+   "title": "TASK RANKSHOW1 - QWEN (qwen3-coder) - the rank a fight earned, as a pure line the result, the Why and the news can show",
+   "status": "failed",
+   "started": "2026-11-11T17:41",
+   "eta": "2026-11-11T19:31",
+   "branch": "qwen/rankshow1",
+   "worktree": "E:/FightCamp/wt/LEAN_RANKSHOW1",
+   "wt": "E:/FightCamp/wt/LEAN_RANKSHOW1",
+   "brief": "ops/research/TASK_RANKSHOW1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/RANKSHOW1_dispatch_out.txt",
+   "match": "seat_dispatch.py run rankshow1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/RANKSHOW1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/RANKSHOW1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/RANKSHOW1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 37460,
+    "seat_pid": 35252
+   },
+   "note": "S368 seat_dispatch: qwen exit 0, no commit on qwen/rankshow1 (stray: -); output E:\\FightCamp\\wt\\RANKSHOW1_dispatch_out.txt",
+   "finished": "2026-11-11T17:46"
+  },
+  {
+   "agent": "antigravity",
+   "id": "DUESSUMS3B",
+   "title": "TASK DUESSUMS3B - QWEN (qwen3-coder) - dues sums, third search fixed: a waiting list that can act, ROBUST without a dead lever, a PICK you can repeat (MEASURE O",
+   "status": "failed",
+   "started": "2026-11-11T17:42",
+   "eta": "2026-11-11T19:07",
+   "branch": "agy/duessums3b",
+   "worktree": "E:/FightCamp/wt/LEAN_DUESSUMS3B",
+   "wt": "E:/FightCamp/wt/LEAN_DUESSUMS3B",
+   "brief": "ops/research/TASK_DUESSUMS3B.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/DUESSUMS3B_dispatch_out.txt",
+   "match": "seat_dispatch.py run duessums3b",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/DUESSUMS3B_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/DUESSUMS3B_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/DUESSUMS3B_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 45620,
+    "seat_pid": 43416
+   },
+   "note": "S368 seat_dispatch: agy exit 0, no commit on agy/duessums3b (stray: -); output E:\\FightCamp\\wt\\DUESSUMS3B_dispatch_out.txt",
+   "finished": "2026-11-11T17:43"
+  },
+  {
+   "agent": "qwen",
+   "id": "DUESSUMS1",
+   "title": "TASK DUESSUMS1 - QWEN (qwen3-coder) - dues: the sums that give each price a club where it wins (pure module + a 5-year sim, MEASURE ONLY)",
+   "status": "stopped",
+   "started": "2026-11-11T18:11",
+   "eta": "2026-11-11T20:01",
+   "branch": "qwen/duessums1",
+   "worktree": "E:/FightCamp/wt/LEAN_DUESSUMS1",
+   "wt": "E:/FightCamp/wt/LEAN_DUESSUMS1",
+   "brief": "ops/research/TASK_DUESSUMS1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/DUESSUMS1_dispatch_out.txt",
+   "match": "seat_dispatch.py run duessums1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/DUESSUMS1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/DUESSUMS1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/DUESSUMS1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 45324,
+    "seat_pid": 36700
+   },
+   "note": "S434: a re-run of S431 Goose work (issue 193, read in bc473607); stopped by Claude, brief marked CLOSED"
+  },
+  {
+   "agent": "cursor",
+   "id": "CLIPFIX1",
+   "title": "TASK CLIPFIX1 - CURSOR (Grok 4.7 High) - the fight's punches that read wrong get a form ruler, then a fix or a cut",
+   "status": "failed",
+   "started": "2026-11-12T02:07",
+   "eta": "2026-11-12T03:57",
+   "branch": "cursor/clipfix1",
+   "worktree": "E:/FightCamp/wt/LEAN_CLIPFIX1",
+   "wt": "E:/FightCamp/wt/LEAN_CLIPFIX1",
+   "brief": "ops/research/TASK_CLIPFIX1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/CLIPFIX1_dispatch_out.txt",
+   "match": "seat_dispatch.py run clipfix1",
+   "model": "grok-4.7-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/CLIPFIX1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/CLIPFIX1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/CLIPFIX1_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": false,
+    "runner_pid": 27036,
+    "seat_pid": 54472
+   },
+   "note": "S368 seat_dispatch: cursor exit 1, no commit on cursor/clipfix1 (stray: -); output E:\\FightCamp\\wt\\CLIPFIX1_dispatch_out.txt",
+   "finished": "2026-11-12T02:07"
+  },
+  {
+   "agent": "goose",
+   "id": "POWER1B",
+   "title": "Punch power 5-6: no one-frame jump, follow-through after the freeze",
+   "status": "stale",
+   "started": "2026-11-13T08:51",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/241",
+   "reconciled": "2026-11-13 09:40 board_reconcile: Actions run 43381569572 finished success, nothing pushed",
+   "note": "+ played lead uppercut quick-back jump (S447)"
+  },
+  {
+   "agent": "goose",
+   "id": "PROGPROBE1",
+   "title": "GOOSE (cloud probe) - progression cadence and the hold rule (PROGPROBE1 + HOLD1) over two seasons",
+   "status": "failed",
+   "started": "2026-11-13T13:33",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_PROGPROBE1.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-13T14:33",
+   "note": "S380 seat_dispatch: pure rule module routed to Goose instead of a PC worktree (S450 lead, after MOVETREE1 merged)",
+   "issue": "248",
+   "branch": "goose/issue-248",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/248",
+   "reconciled": "2026-11-13 14:10 board_reconcile: run finished (success), branch goose/issue-248 pushed"
+  },
+  {
+   "agent": "goose",
+   "id": "PROGPROBE1R2",
+   "title": "GOOSE (cloud probe) - progression cadence and the hold rule, round 2: make the instrument train",
+   "status": "merged",
+   "started": "2026-11-13T14:13",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "brief": "ops/research/TASK_PROGPROBE1R2.md",
+   "model": "Goose + Qwen token plan (GitHub Actions)",
+   "eta": "2026-11-13T15:13",
+   "note": "S451 collected 6af1b609: control+cadence valid, steps and hold sweep void -> round 3",
+   "issue": "251",
+   "branch": "goose/issue-251",
+   "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/251"
   }
  ]
 }

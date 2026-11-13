@@ -132,7 +132,7 @@ static func _go(main: Node, c: Career, id: String) -> void:
 		"fights":
 			main.act("area", "fights")
 		"office":
-			main.nav({"area": "money", "tab": 0})   # the books; People and Records are tabs beside them
+			main.nav({"area": "office", "tab": 0})   # OFFICE1: the office computer's desktop; its apps open the books, People, Records
 		"world":
 			main.nav({"area": "world", "tab": 1})
 		"equip":

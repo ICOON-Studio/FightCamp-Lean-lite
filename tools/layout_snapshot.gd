@@ -169,6 +169,8 @@ func _initialize() -> void:
 	_run_until(func(): return c.day >= 40)
 	main.act("go", "money:0")
 	await _shot("26_money")
+	main.act("go", "office:0")   # OFFICE1: the office computer's desktop
+	await _shot("26b_office")
 	main.act("go", "money:2")
 	await _shot("27_bills")
 	main.act("go", "gym:2")
