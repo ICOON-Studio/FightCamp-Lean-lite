@@ -1,0 +1,14 @@
+Uploading style_ref_ink.png (36 KB)
+Reusing the earlier upload of style_ref_ink.png
+Reusing the earlier upload of style_ref_ink.png
+Reusing the earlier upload of style_ref_ink.png
+Reusing the earlier upload of style_ref_ink.png
+Reusing the earlier upload of style_ref_ink.png
+Submitting batch of 6 (4 at a time)
+[1/6] ✓ image generate-with-style (c0956f5d-52c7-47e8-8fa6-69282f901570)
+[2/6] ✓ image generate-with-style (1ffed322-54b8-46ff-90c6-741fdb70e64e)
+[3/6] ✓ image generate-with-style (d41ffb35-063c-4e49-8901-7f7a00688bfa)
+[4/6] ✓ image generate-with-style (bdd72ad6-5845-4767-9c0c-7ddb6b19a213)
+[5/6] ✓ image generate-with-style (2e33e0e5-7668-4fe6-a6f3-cd14a0a57c21)
+[6/6] ✓ image generate-with-style (cd4414bb-e53f-4692-b9a2-007d1fd2d651)
+{"results":[{"index":0,"command":"image generate-with-style","status":"succeeded","job_id":"1ffed322-54b8-46ff-90c6-741fdb70e64e","credits_charged":1,"files":["ludo-output\\intervals-1.webp","ludo-output\\intervals-2.webp","ludo-output\\intervals-1.png","ludo-output\\intervals-2.png"]},{"index":1,"command":"image generate-with-style","status":"succeeded","job_id":"bdd72ad6-5845-4767-9c0c-7ddb6b19a213","credits_charged":1,"files":["ludo-output\\strength-1.webp","ludo-output\\strength-2.webp","ludo-output\\strength-1.png","ludo-output\\strength-2.png"]},{"index":2,"command":"image generate-with-style","status":"succeeded","job_id":"c0956f5d-52c7-47e8-8fa6-69282f901570","credits_charged":1,"files":["ludo-output\\mobility-1.webp","ludo-output\\mobility-2.webp","ludo-output\\mobility-1.png","ludo-output\\mobility-2.png"]},{"index":3,"command":"image generate-with-style","status":"succeeded","job_id":"d41ffb35-063c-4e49-8901-7f7a00688bfa","credits_charged":1,"files":["ludo-output\\rest-1.webp","ludo-output\\rest-2.webp","ludo-output\\rest-1.png","ludo-output\\rest-2.png"]},{"index":4,"command":"image generate-with-style","status":"succeeded","job_id":"2e33e0e5-7668-4fe6-a6f3-cd14a0a57c21","credits_charged":1,"files":["ludo-output\\film-1.webp","ludo-output\\film-2.webp","ludo-output\\film-1.png","ludo-output\\film-2.png"]},{"index":5,"command":"image generate-with-style","status":"succeeded","job_id":"cd4414bb-e53f-4692-b9a2-007d1fd2d651","credits_charged":1,"files":["ludo-output\\roadwork-1.webp","ludo-output\\roadwork-2.webp","ludo-output\\roadwork-1.png","ludo-output\\roadwork-2.png"]}],"summary":{"total":6,"succeeded":6,"failed":0,"credits_charged":6}}

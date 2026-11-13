@@ -1,0 +1,6 @@
+Reusing the earlier upload of style_ref_ink.png
+Reusing the earlier upload of style_ref_ink.png
+Submitting batch of 2 (4 at a time)
+[1/2] ✓ image generate-with-style (73f6fe92-874e-4850-bcf4-65aefa67d78f)
+[2/2] ✓ image generate-with-style (ee3a3e1a-cc7b-47de-90b2-e8e0aa8a0238)
+{"results":[{"index":0,"command":"image generate-with-style","status":"succeeded","job_id":"ee3a3e1a-cc7b-47de-90b2-e8e0aa8a0238","credits_charged":1,"files":["ludo-output\\intervals_dark-1.webp","ludo-output\\intervals_dark-2.webp","ludo-output\\intervals_dark-1.png","ludo-output\\intervals_dark-2.png"]},{"index":1,"command":"image generate-with-style","status":"succeeded","job_id":"73f6fe92-874e-4850-bcf4-65aefa67d78f","credits_charged":1,"files":["ludo-output\\roadwork_dark-1.webp","ludo-output\\roadwork_dark-2.webp","ludo-output\\roadwork_dark-1.png","ludo-output\\roadwork_dark-2.png"]}],"summary":{"total":2,"succeeded":2,"failed":0,"credits_charged":2}}

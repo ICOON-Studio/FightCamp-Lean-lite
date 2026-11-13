@@ -1,0 +1,18 @@
+[
+ {
+  "name": "intervals_dark",
+  "command": "image generate-with-style",
+  "style_image": "style_ref_ink.png",
+  "image_type": "art",
+  "n": 2,
+  "prompt": "The boxer sprinting hard in place, knees high, fists pumping, a round wall timer drawn in the same ink style beside him; the yellow arrow follows the driving knee. Comic ink style exactly like the reference: one boxer drawn with thick black ink outlines, flat grey skin with darker grey shading, red trunks, black boots, a faint darker ghost of the figure where the movement started, one curved golden-yellow arrow showing the motion, on a plain dark charcoal grain background. Square card, the whole figure head to boots in frame, centred, no text, no logo, no other colours. The dark charcoal grain background fills the whole square edge to edge: no paper tile, no light panel, no frame, no border."
+ },
+ {
+  "name": "roadwork_dark",
+  "command": "image generate-with-style",
+  "style_image": "style_ref_ink.png",
+  "image_type": "art",
+  "n": 2,
+  "prompt": "The boxer running along a road in a hooded top and red shorts, mid-stride; the yellow arrow follows the front foot forward. Comic ink style exactly like the reference: one boxer drawn with thick black ink outlines, flat grey skin with darker grey shading, red trunks, black boots, a faint darker ghost of the figure where the movement started, one curved golden-yellow arrow showing the motion, on a plain dark charcoal grain background. Square card, the whole figure head to boots in frame, centred, no text, no logo, no other colours. The dark charcoal grain background fills the whole square edge to edge: no paper tile, no light panel, no frame, no border."
+ }
+]
