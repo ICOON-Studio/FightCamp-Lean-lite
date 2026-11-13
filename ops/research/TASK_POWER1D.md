@@ -40,3 +40,23 @@ nearest frame of the guard window the stage entered (or 0.08 m), not a single pr
 uppercut_tail_test OVER_HEAD/ELBOW/BACK/PATH green on all 10 reps; join_return, hit_carry (<= 40), hit_frame, punch_speed (<= 39),
 fight_feel, beat_clips, head_aim, file_limits not worse; seed 4242 + 3 seeds filmed on the game camera (tools/hit_frame_film.gd), stills
 opened, on the review board for his OK.
+
+## S453 findings (Claude, uppercut_tail_test on main = failures 27; one experiment, reverted)
+Frames (main, lead rep 1, 60 fps from the hit): the glove stays at 1.49-1.55 (the opponent's chin, ABOVE her own head + 0.05: OVER_HEAD is
+red from f00 against a taller opponent - open question (b) answered: yes, the f00 fail is the target height, not the tail) while her head
+drops 1.42 -> 1.36 and her SHOULDER RISES 1.22 -> 1.36 (f03-f09): the clip's own tail lifts the shoulder 12-14 cm with the glove held, so
+the two-bone solve throws the elbow to 1.57-1.60 (0.25 m over the shoulder). f11 is a one-frame drop to the raw pose (11-16 m/s) and f12
+back on the held point - the pop at the guard handover (not found yet which layer skips that one frame).
+THREE holders, not one:
+1. PunchReach's release rule (`_w_now = max(_w_now, (dist(clip glove, aim) - RELEASE_M.x) / ...)`, the review-round-2 line in _apply)
+   keeps weight 1 while the clip's glove is far from the aim. For a cross that is past her face; for the lead uppercut the clip glove
+   rises over her head, so the pin never lets go until the guard's disarm.
+2. The carry hold itself (weight 1 until contact + CARRY_S of CLIP time; the hit-stop freezes clip time, so it lasts longer in real time).
+3. After the handover (guard_home) the glove climbs to 1.57 again in f17-f26 (head 1.46): the guard place she returns to is itself
+   above head + 0.05 - so BACK's "guard place" (rec[0], the pre-punch frame at 1.435) is never matched.
+EXPERIMENT (reverted): release rule off for QUICK_BACK clips (ReachLimit.quick_back) + QUICK_BACK_S 0.22 -> 0.10: failures 27 -> 24
+(FOLLOW passes, one BACK passes), ELBOW 5/5 and OVER_HEAD 10/10 still red, one rep peak 29.8 m/s. Not enough alone.
+NEXT TRY: (a) OVER_HEAD/ELBOW measured from f01 and against max(head, hit glove y) for the f00-hold frames (the held glove is at the
+target by design); (b) while the reach holds after contact, hold the SHOULDER/CHEST too (the clip tail's shoulder lift is what flips the
+elbow) - ReachLimit already leans the chest; or cut the clip at the contact frame and let the join carry the glove (step 3 above);
+(c) find what lifts the guard glove to 1.57 after guard_home (IdleMatch.pick at "her usual guard", GuardTuck, GloveClear?).

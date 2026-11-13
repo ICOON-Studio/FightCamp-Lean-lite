@@ -22,6 +22,7 @@ const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const StaffRoles := preload("res://scripts/rules/StaffRoles.gd")
 const PadWeek := preload("res://scripts/rules/PadWeek.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
+const StatBlock := preload("res://scripts/rules/StatBlock.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const Champs := preload("res://scripts/state/Champs.gd")
 const Region := preload("res://scripts/state/Region.gd")
@@ -146,6 +147,8 @@ static func _boxer(c: Career, f: Dictionary) -> Dictionary:
 	var rank := 0 if pro else Region.our_rank(c, f)
 	var big := "Pro" if pro else ("#%d" % rank if rank > 0 else "Unranked")
 	var small := "%d-%d" % [w, l] if rank <= 0 else "regional, %d-%d" % [w, l]
+	var sc: Array = CoachCheck.score(rows)   # S453 C368: the coach's checklist done, as a share (the Ready bar)
+	var ready := roundi(100.0 * float(sc[0]) / float(sc[1])) if int(sc[1]) > 0 else -1
 	var nxt := "no bout booked"
 	var fb: Dictionary = f["bout"]
 	if fb.has("day"):
@@ -155,7 +158,8 @@ static func _boxer(c: Career, f: Dictionary) -> Dictionary:
 		nxt = "offer open"
 	return {"id": str(f["id"]), "sport": "boxing", "header": "%s %d kg" % [_class_word(str(f["wc"])), roundi(float(f["limit"]))],
 		"flag": word, "tone": tone, "face": Faces.stem(f), "rank": big, "rank_sub": small,
-		"stamina": roundi(float(Attrs.of(f).get("stamina", 0.0))), "mood": roundi(float(f.get("morale", 0.0))), "next": nxt}
+		"stamina": roundi(float(Attrs.of(f).get("stamina", 0.0))), "mood": roundi(float(f.get("morale", 0.0))), "next": nxt,
+		"rating": StatBlock.overall(f), "ready": ready, "ready_tip": "%d of %d coach checks done" % [int(sc[0]), int(sc[1])]}
 
 
 static func _grappler(c: Career, g: Dictionary) -> Dictionary:
@@ -170,7 +174,17 @@ static func _grappler(c: Career, g: Dictionary) -> Dictionary:
 		"face": Faces.stem(g), "rank": "%s belt" % str(g.get("belt", "white")).capitalize(),
 		"rank_sub": "%d-%d" % [int(g.get("w", 0)), int(g.get("l", 0))],
 		"stamina": roundi(float((g.get("stats", {}) as Dictionary).get("cardio", 0.0))), "mood": roundi(float(g.get("morale", 0.0))),
-		"next": nxt}
+		"next": nxt, "rating": _avg(g.get("stats", {})), "ready": 100 if ready else -1, "ready_tip": "ready for the next open" if ready else ""}
+
+
+## The mean of a stats dictionary's numbers, rounded (a grappler's one rating).
+static func _avg(stats: Dictionary) -> int:
+	if stats.is_empty():
+		return 0
+	var t := 0.0
+	for k in stats:
+		t += float(stats[k])
+	return roundi(t / float(stats.size()))
 
 
 ## "Lightweight" -> "Light".

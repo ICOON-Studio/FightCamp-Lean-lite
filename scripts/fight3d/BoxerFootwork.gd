@@ -11,7 +11,7 @@ extends RefCounted
 ##   draws its own period and depth (sd 13 % / 15 %, seeded - a human, not a metronome), and the boxer drops into
 ##   FLAT-FOOTED spells (a 1 cm breathing bob, heels down, smaller slower shuffle steps; real boxers bounce ~25-35 % of
 ##   a bout - here `bounce_share`, 0.55 by default for the game's hop feel, set it lower for realism);
-##   weight leg to leg at half the bounce rate: the hips sway 2.5 cm toward the loaded foot and its heel sinks while the
+##   weight leg to leg once a breath (S453 C369; was half the bounce rate): the hips sway 2.5 cm toward the loaded foot and its heel sinks while the
 ##   other heel rises (Undisputed L/R foot height correlation -0.26); a planted ball NEVER leaves the canvas (r3 had a 2 cm
 ##   toe-off "hop" - one boot hovered; Undisputed idle 0 % airborne) - the hop feel is the hips and the heels;
 ##   heels: rear 1.6-4.8 cm, lead 1-3.8 cm over the bounce (round 3; r4c rear 1.6-3.4, lead 1.2-2.4; Undisputed heel
@@ -59,7 +59,7 @@ const HEEL_SWING := 0.05       # extra heel on toe-off, mid-swing it eases back
 const HEEL_BALL_M := 0.18      # heel to ball of the foot (pitch = asin(heel / this))
 const REAR_YAW_DEG := -32.0    # orthodox: the rear toes turn 32 deg to her right (round 2: 45 -> 32, the rear knee caved)
 const LEAD_YAW_DEG := 0.0
-const SWAY_M := 0.025          # hips leg to leg along the stance line, half the bounce rate ...
+const SWAY_M := 0.025          # hips leg to leg along the stance line, once a breath (S453) ...
 const SWAY_FA := 0.55          # ... its fore-aft part cut to this (r4c: 2 cm fore-aft a bounce, the backside pushing back)
 const CHEST_LAG_S := 0.065
 const NOD_LAG_S := 0.12
@@ -112,6 +112,13 @@ var keep_off: Array = []       # S391: the other boxer's balls and landings (Vec
 var pivot := [0.0, 0.0]        # S391: per foot [lead, rear] 1 = driving off it (pivot_want set each frame by the caller)
 var pivot_want := [0.0, 0.0]
 var spell := 0.0               # seconds left in this spell
+## S453 (operator C369 on the block reel: "you got to tune the often hip movement with the breathing effect"): the weight
+## goes leg to leg once a BREATH, not once a bounce (it flipped every bounce, 1.1 Hz, against a 0.24-0.34 Hz breath): onto
+## the lead foot as her chest lifts on the in-breath, back on the long out-breath. breath_of = her FighterLife (its breath
+## phase _bp, so hips and chest move as one); without one (nolook, tests) her own clock at breath_hz.
+var breath_hz := 0.30
+var breath_of: Object = null
+var _bph := 0.0
 var time := 0.0
 var rng := RandomNumberGenerator.new()
 var queue: Array = []          # [dir, size]
@@ -127,6 +134,7 @@ func _init(start: Vector2 = Vector2.ZERO, facing: float = 0.0, south: bool = fal
 	yaw = facing
 	want_yaw = facing
 	rng.seed = rng_seed
+	_bph = float(rng_seed % 97) / 97.0   # her own breath's start (no rng draw: the seeded bounce sequence stays as it was)
 	spell = rng.randf_range(BOUNCE_SPELL.x, BOUNCE_SPELL.y)
 	for i in 2:
 		feet.append({"at": start + rot(offset(i), yaw), "yaw": yaw + foot_yaw(i), "swing": {}, "nudge": Vector2.ZERO})
@@ -191,6 +199,7 @@ func busy() -> bool:
 
 func tick(dt: float) -> void:
 	time += dt
+	_bph += dt * breath_hz
 	if auto_flat:
 		spell -= dt
 		if spell <= 0.0:
@@ -328,6 +337,14 @@ func dip() -> float:
 	return dip_at(phase)
 
 
+## 0 breathed out .. 1 at the top of the in-breath (FighterLife's curve: pow(0.5 + 0.5 sin, 1.5)).
+func breath() -> float:
+	var bp: float = _bph
+	if breath_of != null and is_instance_valid(breath_of):
+		bp = float(breath_of.get("_bp"))
+	return pow(0.5 + 0.5 * sin(TAU * bp), 1.5)
+
+
 ## What the rig puts on the skeleton this frame. hip: offset in her frame (x left, y up, z forward), world metres.
 ## feet[i]: {ball: Vector3 world (y = lift off the canvas, 0 when planted), yaw (world), pitch (heel-up rad), heel (m),
 ## toe_pitch, planted}. chest_dy: the chest's lag behind the hips (m, + = above where the hips put it); nod: head pitch
@@ -335,9 +352,10 @@ func dip() -> float:
 func pose() -> Dictionary:
 	var dp := dip()
 	var up := 1.0 - dp
-	# leg to leg: the weight rides to one foot on one bounce, to the other on the next (+ = on the lead foot)
+	# leg to leg with the breath (S453 C369): the in-breath carries the weight onto the lead foot, the out-breath back
+	# (+ = on the lead foot); FighterLife's own breath curve, in quick, out long
 	var calm := 1.0 - hold * HOLD_CALM
-	var w := sin(PI * (float(beats) + phase)) * calm
+	var w := (2.0 * breath() - 1.0) * calm
 	var line := offset(LEAD) - offset(REAR)
 	var sway := line.normalized() * SWAY_M * scale * w
 	sway.y *= SWAY_FA

@@ -34,6 +34,8 @@ const APPS := [["Desktop", "booked", "go", "office:0"], ["Mail", "offer", "mail"
 const TONE := {"r": RED, "a": AMBER, "g": GREEN, "b": BLUE}
 const CHIP := {"bout": [RED, Color.WHITE], "fight_week": [Color("#6d5a2a"), Color("#f6e6bd")], "show": [RED, Color.WHITE],
 	"open": [BLUE, BG], "champs": [AMBER, BG]}
+const CARD_W := 232
+const BAR_H := 64
 const FOOT := "Click an app or any card to open it. The one pulsing button is the decision due first."
 
 func build(main: Node) -> void:
@@ -230,7 +232,9 @@ func _fighters(main: Node, cards: Array) -> Control:
 	return card[0]
 
 func _fighter(main: Node, x: Dictionary) -> Control:
-	var p := _panel("Card_" + str(x["id"]), UI.box(PANEL2, LINE, 10, 1, 0, 0), Control.SIZE_EXPAND_FILL)
+	# S453 C367/C368 ("populate it with more fighters", "these are too long use vertical bars and add more useful information"):
+	# a card is a fixed column, so the whole roster stands side by side; its numbers are vertical bars.
+	var p := _panel("Card_" + str(x["id"]), UI.box(PANEL2, LINE, 10, 1, 0, 0), Control.SIZE_SHRINK_BEGIN, Vector2(CARD_W, 0))
 	p.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	p.gui_input.connect(func(ev: InputEvent):
 		if ev is InputEventMouseButton and (ev as InputEventMouseButton).pressed and (ev as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
@@ -242,7 +246,7 @@ func _fighter(main: Node, x: Dictionary) -> Control:
 	pic.clip_contents = true
 	pic.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	v.add_child(pic)
-	var face: TextureRect = PromoShot.picture(str(x["face"]), Vector2(220, 160))
+	var face: TextureRect = PromoShot.picture(str(x["face"]), Vector2(CARD_W, 160))
 	if face != null:
 		pic.add_child(face)
 	var tags := UI.hbox(6)   # the class chip is the card's header (S448: names only in headers); the flag on the right
@@ -259,34 +263,47 @@ func _fighter(main: Node, x: Dictionary) -> Control:
 	rk.add_child(UI.label(str(x["rank"]), 19, INK, "caps"))
 	rk.add_child(UI.label(str(x["rank_sub"]), 16, DIM, "semi"))
 	b.add_child(rk)
-	b.add_child(_bar("Stamina", int(x["stamina"]), "Stamina, 0-100: how long the fighter holds the pace"))
-	b.add_child(_bar("Mood", int(x["mood"]), "Mood, 0-100: Fired up, Steady, Flat or Low"))
+	var bars := UI.hbox(0)
+	bars.add_child(_vbar("Stamina", int(x["stamina"]), "Stamina, 0-100: how long the fighter holds the pace"))
+	bars.add_child(_vbar("Mood", int(x["mood"]), "Mood, 0-100: Fired up, Steady, Flat or Low"))
+	bars.add_child(_vbar("Rating", int(x.get("rating", 0)), "Rating, 0-100: the overall number on the fighter page"))
+	bars.add_child(_vbar("Ready", int(x.get("ready", -1)), str(x.get("ready_tip", ""))))
+	b.add_child(bars)
 	var nx := UI.hbox(6)
 	nx.add_child(UI.label("Next:", 16, INK))
 	nx.add_child(UI.label(str(x["next"]), 16, AMBER, "bold"))
 	b.add_child(nx)
 	return p
 
-func _bar(word: String, n: int, why: String) -> Control:
-	var h := UI.hbox(8)
-	var w := UI.label(word, 16, DIM)
-	w.custom_minimum_size = Vector2(66, 0)
-	h.add_child(w)
-	var bar := ProgressBar.new()
-	bar.show_percentage = false
-	bar.value = n
-	bar.custom_minimum_size = Vector2(40, 8)
-	bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	bar.add_theme_stylebox_override("background", UI.box(Color("#263040"), Color(0, 0, 0, 0), 4, 0, 0, 0))
-	bar.add_theme_stylebox_override("fill", UI.box(GREEN if n >= 70 else (AMBER if n >= 50 else Color("#ff7a6a")), Color(0, 0, 0, 0), 4, 0, 0, 0))
-	h.add_child(bar)
-	var v := _num(str(n), 16, INK, why)
-	v.custom_minimum_size = Vector2(30, 0)
-	v.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	h.add_child(v)
-	return h
+## One vertical bar: the value on top, the bar, the word under it; n < 0 = not known yet (a dash, an empty track).
+func _vbar(word: String, n: int, why: String) -> Control:
+	var v := UI.vbox(3)
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var num := _num(str(n) if n >= 0 else "-", 16, INK, why)
+	num.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	v.add_child(num)
+	var track := PanelContainer.new()
+	track.custom_minimum_size = Vector2(14, BAR_H)
+	track.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	track.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	track.add_theme_stylebox_override("panel", UI.box(Color("#263040"), Color(0, 0, 0, 0), 4, 0, 0, 0))
+	if n > 0:
+		var fill := ColorRect.new()
+		fill.color = GREEN if n >= 70 else (AMBER if n >= 50 else Color("#ff7a6a"))
+		fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		fill.anchor_left = 0.0
+		fill.anchor_right = 1.0
+		fill.anchor_top = 1.0 - clampf(float(n) / 100.0, 0.0, 1.0)
+		fill.anchor_bottom = 1.0
+		var hold := Control.new()
+		hold.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		hold.add_child(fill)
+		track.add_child(hold)
+	v.add_child(track)
+	var w := UI.label(word, 13, DIM)
+	w.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	v.add_child(w)
+	return v
 
 func _money(c: Career) -> Control:
 	var m: Dictionary = OfficeDesk.money_ahead(c)

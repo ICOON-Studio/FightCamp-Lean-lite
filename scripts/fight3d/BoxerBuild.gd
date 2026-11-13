@@ -191,6 +191,8 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 			var before: Node = gw if gw != null else (gt if gt != null else pr)
 			if before != null:
 				skel.move_child(life, before.get_index())
+			if rig != null:   # S453 C369: her hips go leg to leg with this breath
+				rig.get("plan").set("breath_of", life)
 		else:
 			life.free()
 			life = null

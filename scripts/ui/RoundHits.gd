@@ -19,34 +19,17 @@ const FONT_SIZE := 13
 var fig: Control
 var hits := {}
 var size_px := FONT_SIZE   # S405 the live holo, with no plate behind it, writes them bigger
-var icons := false   # S444 the small live maps (HudRegroup): each count sits on its organ's picture
-const ORGANS := {"head": preload("res://assets/ui/body/organ_brain.png"), "left_ribs": preload("res://assets/ui/body/organ_ribs.png"),
-	"right_ribs": preload("res://assets/ui/body/organ_liver.png")}
+var icons := false   # S444 the small live maps (HudRegroup); S453 C365: each region outlined, its count inside
 var drawn: Array = []   # the words this layer drew last ([text, position]) - tests read the drawn state
 
 
-static var _clear := {}
-
-
-## The organ picture with its baked dark ground made see-through (the PNGs are RGB on #090f17): alpha follows brightness.
-static func _clear_pic(key: String) -> Texture2D:
-	if _clear.has(key):
-		return _clear[key]
-	var src: Texture2D = ORGANS.get(key)
-	if src == null:
-		return null
-	var img := src.get_image()
-	if img.is_compressed():
-		img.decompress()
-	img.convert(Image.FORMAT_RGBA8)
-	for y in img.get_height():
-		for x in img.get_width():
-			var c := img.get_pixel(x, y)
-			var a := clampf((maxf(c.r, maxf(c.g, c.b)) - 0.06) * 2.2, 0.0, 1.0)
-			img.set_pixel(x, y, Color(c.r, c.g, c.b, a))
-	var tex := ImageTexture.create_from_image(img)
-	_clear[key] = tex
-	return tex
+## An ellipse outline round a region (centre c, radii rx, ry).
+func _ring(c: Vector2, rx: float, ry: float, col: Color, width: float) -> void:
+	var pts := PackedVector2Array()
+	for k in 41:
+		var a := TAU * float(k) / 40.0
+		pts.append(c + Vector2(cos(a) * rx, sin(a) * ry))
+	draw_polyline(pts, col, width, true)
 
 
 ## One landed punch's places (`struck`, the places whose value just went down) into the log {round_n: {spot: n}}: a punch
@@ -101,6 +84,9 @@ func _draw() -> void:
 	for key in WORDS:
 		var n := int(hits.get(key, 0))
 		if n <= 0:
+			if icons:   # S453 C365: every region keeps its outline, faint until hit
+				var g0: Dictionary = fig.call("_geom_px", key)
+				_ring(g0["c"], maxf(float(g0["rx"]), 9.0), maxf(float(g0["ry"]), 9.0), Color(0.7, 0.9, 1.0, 0.32), 1.5)
 			continue
 		var text := str(n)
 		var g: Dictionary = fig.call("_geom_px", key)
@@ -110,27 +96,19 @@ func _draw() -> void:
 		var mid := Vector2(clampf(c.x, r + 1.0, maxf(r + 1.0, size.x - r - 1.0)), c.y)
 		var col := tint(n).lerp(Color.WHITE, 0.35)
 		col.a = 1.0
-		var pic: Texture2D = _clear_pic(key) if icons else null
-		if pic != null:
-			# S444 (operator C331: "instead of empty circle use the organ icon"). S448 (operator on Q-208: "try outline the
-			# region instead of using bubbles, and the number should be without background"): the organ as a lit outline -
-			# its own shape traced in the hit colour, the inside dark - and the bare count beside it, no badge.
-			# S452 (operator C362 "wtf is that on the head ?", C363 "fix the head and make it a bit bigger so ribs and liver
-			# read clean"): each organ is sized to its own place, inside the body - the brain fits inside her head (her
-			# head's outline stays a head), ribs and liver each keep their own half of the chest - and the count stands
-			# outside the body on the organ's outer side.
-			var fit := 2.0 * maxf(float(g["rx"]), float(g["ry"]))
-			var side_px := clampf(fit * (0.85 if key == "head" else 1.3), 12.0, r * 2.6)
-			var box := Rect2(mid - Vector2(side_px, side_px) * 0.5, Vector2(side_px, side_px))
-			for k in 12:
-				var a := TAU * float(k) / 12.0
-				draw_texture_rect(pic, Rect2(box.position + Vector2(cos(a), sin(a)) * 1.5, box.size), false, col)
-			draw_texture_rect(pic, box, false, Color(0.03, 0.05, 0.08, 0.82))
-			var right: bool = key == "head" or mid.x >= size.x * 0.5
-			var nx: float = mid.x + side_px * 0.5 + 4.0 if right else mid.x - side_px * 0.5 - 4.0 - w
-			var at2 := Vector2(nx, mid.y + float(fs) * 0.35)
-			draw_string_outline(font, at2, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, 5, Color(0, 0, 0, 0.85))
-			draw_string(font, at2, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, col)
+		if icons:
+			# S453 (operator C365 "remove the organs and just use an outliner for each organ", C366 "put the number in each
+			# region with tooltip showing any extra info"): no organ picture - the region itself traced in the hit colour,
+			# the count inside it; the figure's own tooltip (BodyPanels._fig_tip -> BodyTip) gives the rest on hover.
+			var rx := maxf(float(g["rx"]), 9.0)
+			var ry := maxf(float(g["ry"]), 9.0)
+			_ring(c, rx, ry, Color(0, 0, 0, 0.7), 4.0)
+			_ring(c, rx, ry, col, 2.0)
+			var fs2 := int(clampf(minf(ry * 1.3, float(fs)), 12.0, float(fs)))
+			var w2 := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs2).x
+			var at2 := Vector2(c.x - w2 * 0.5, c.y + float(fs2) * 0.35)
+			draw_string_outline(font, at2, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs2, 5, Color(0, 0, 0, 0.85))
+			draw_string(font, at2, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs2, col)
 			drawn.append([text, at2])
 			continue
 		draw_circle(mid, r, Color(0, 0, 0, 0.72))
