@@ -285,7 +285,7 @@ func _line(place: String, when: String) -> Control:
 		var o := _opt(opts, mid)
 		top.add_child(UI.label(str(SM.move(mid).get("name", mid)), UI.BODY, UI.GOLD, "bold"))
 		_rating(top, o)
-		_in_bouts(top, mid)
+		_in_bouts(top, mid); GamePlanRows.phase_tag(self, top, i)   # S460 INTEGRATE1 #3: the rounds this line lives in
 		v.add_child(UI.muted(str(MoveWords.WORDS.get(mid, "")), UI.SMALL))   # S416 "the player just guesses what to pick"
 	else:
 		top.add_child(UI.muted("no line - improvises here", UI.SMALL))

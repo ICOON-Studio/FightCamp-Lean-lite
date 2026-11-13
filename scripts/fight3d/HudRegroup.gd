@@ -110,6 +110,7 @@ func _costs() -> void:
 		l.add_theme_color_override("font_color", l.get_meta("ink", Color("#7fd18b") if delta > 0.0 else (Color("#ff8a6a") if delta < 0.0 else Color("#d8d0c0"))))
 		l.tooltip_text = "Stamina each exchange while this call runs"
 		var cell := Cell.new()
+		cell.lit = bool(l.get_meta("lit", false))   # S460 C386 point 2: yellow on the gold plate could not be read
 		cell.position = Vector2(0, 3)
 		cell.size = Vector2(26, 16)
 		l.add_child(cell)
@@ -118,8 +119,9 @@ func _costs() -> void:
 
 ## A small stamina cell in the STAMINA bar's yellow (the icon for the number beside it).
 class Cell extends Control:
+	var lit := false   # on the lit (gold) call plate: dark brown, the lit cost word's ink
 	func _draw() -> void:
-		var y := Color("#f2c14e")
+		var y := Color("#6b3d00") if lit else Color("#f2c14e")
 		draw_rect(Rect2(0, 0, 22, 16), y, false, 2.0)
 		draw_rect(Rect2(22, 5, 3, 6), y)
 		draw_rect(Rect2(3, 3, 12, 10), y)

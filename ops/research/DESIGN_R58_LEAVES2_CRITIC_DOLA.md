@@ -1,0 +1,779 @@
+# R58_LEAVES2 - score this mechanic's DESIGN (S459 design loop)
+
+You are a fresh critic. Read the whole game first (the critic pack below: facts only, no earlier scores), then the design map
+at the end. Judge the MECHANIC, not the look of any screen.
+
+Score, each out of 10, with the reasons:
+1. DEPTH - real choices with trade-offs that change outcomes; no dominant pick; it interacts with the rest of the game.
+2. GENERAL DESIGN - clear, consistent with the game's rules and words, buildable from what the game has, nothing useless.
+3. PLAY - fun week to week: anticipation, a reason to come back, a reward the player feels.
+The bar (owner S459): the mechanic is DESIGNED when critics give it 6+ on DEPTH and 6+ on GENERAL DESIGN.
+
+Also answer: which options are missing, which are useless, and what each option changes (owner S403).
+End with **To reach 10/10**: the concrete changes that would take it to 10, most important first, each specific enough to
+build (owner S405). Then describe your 10/10 as a 1920x1080 page (an HTML file is welcome) (owner S411).
+Plain words; names only in headers (the body says "your boxer", "the opponent"). Real-world boxing evidence where it helps.
+
+> Also read `ops/research/CRITIC_ACCESS.md`: the Miro board, the real screens, the mockups.
+
+
+> Also read `ops/research/CRITIC_ACCESS.md`: the Miro board, the real screens, the mockups and the eight MMA fighters. Written S403 from the code; update it when a mechanic or screen lands.
+
+## What every critic must return (operator S405: "i want the critics everytime to state what to change to reach 10/10")
+Whatever you score (a screen, a film, a mechanic, a design), end with **To reach 10/10**: the concrete changes that would take it from your score to 10, most important first, each specific enough to build. If it needs something the game cannot do yet, say so. A score without this list is not finished.
+
+
+# FightCamp critic pack: the whole game, for judging whether a screen has the right options
+
+Owner's rule: "i want every screen you design to have the right options so every critic needs to know the whole game design and mechanics to guide you".
+This pack is facts only: no scores, no verdicts, no earlier critic comments, and nothing that is merely proposed. Written 2026-11-08 from the code
+and the agreed plans. Where a document and the code disagree, the pack says what the code does.
+
+How to read the status tags:
+- BUILT = it is in the game now and a player can use it.
+- AGREED, NOT BUILT = the owner approved it (or a plan he approved includes it) but the game does not do it yet. Judge a screen as if it will exist.
+- PARTLY = some of it is in the game; the pack says which part.
+- NOT ESTABLISHED = the pack could not confirm it from the code or the plans. Do not assume either way.
+Names only in headers (owner S448: "notice how the names are only mentioned on the header , nowhere in text menus options , follow that rule"): a person's name sits in the screen's header once; options, buttons, rows, lines and tooltips say her / him / the opponent / your coach. Flag every name you see outside a header.
+A screen should offer an option only if the player can act on it (rule in section 7). "Option" below means anything the player can press, drag, pick or type.
+
+## 1. What the game is
+
+- A boxing gym management game for PC (Godot 4.7, Windows). The player is the head coach and owner of one small boxing club. Not a promoter, not a fighter,
+  not a tycoon. The club lives on members who pay monthly dues; a fighter's bouts add ticket cuts, reputation and new members.
+- Scope for the first release: boxing and no-gi BJJ (the owner decided BJJ ships beside boxing). MMA comes in the first update after launch. Kickboxing and
+  Muay Thai are not scheduled. Early Access is the target; no date.
+- The player controls: whom to sign and which starting focus; the coaches and staff hired; the week of training for each fighter (mornings, pad and sparring
+  evenings, diet); which bouts to take or ask for; the camp before a bout; the game plan written as lines; combinations built and drilled; the corner calls
+  and corner minute on fight night; the fighter's next goal; the club's money (dues, spending, deals, upgrades).
+- The player does NOT control: the punches thrown. The fight is settled by rules (exchanges of 30 seconds); the 3D fight only shows the settled round and
+  never decides. The player also does not control fighters' moods directly, rival fighters, the weather/twist cards, injuries, or when offers arrive.
+- The fun, in the owner's and the design's words: raising an unknown into a champion; the plan is the star; you can always see how your plan made the
+  difference (the Why after every fight); every week costs something (training, weight, fatigue and money pull against each other); fighters are people
+  (traits, habits, moods); fast and honest (anything one click from anywhere, true numbers). The three core mechanics beside the corner (owner S354):
+  the morning sessions that add up to a goal and an intensity (the week), the evening move and combination planner, and a fight plan that is fun to design.
+  The Playbook/Combos area is the part the owner calls really fun ("to try and also learn from the book").
+- Design rule on results: the better-trained fighter usually wins; a good plan turns close fights and gives underdogs a real chance. Measured in tests:
+  good plan about 59% of bouts, no plan 45%, bad plan 41% (one matchup). Training beats planning: 5 points better in stats wins about 72%, 10 points about 95%.
+- Not mobile, not casual: no timers, gacha, daily rewards or ads. Real stats stay visible. Deeper, not wider (owner approved "build all proposed systems").
+- Tone: a gym, warm and tactile, not a spreadsheet. Plain words, one word per concept, no flavour text.
+
+## 2. A career from the first minute to the first pro fight
+
+Time model: the clock runs day by day when the player presses the big CONTINUE button. It stops by itself every Monday (the week review) and for
+anything that needs the player (a bout offer on its last day, weigh-in, fight night, injury choice, trial day, walk-in). Day 0 is Monday 5 January 2026.
+The button says what it is stopping for ("to Thu 15 Jan, the offer expires"). Quiet week = one click.
+
+1. Title screen: Resume career (if a save exists), New career, Quick start (a ready club, London), Load career, Settings, Credits, Quit.
+2. New career, two steps. Step 1 YOU: your name and one of four head coaches on photo cards (Old hand, Ex-pro, Amateur coach, Strength coach), each with one
+   edge. Step 2 YOUR CLUB: country, city, gym name, and one of three starts that double as difficulty: Fresh doors (normal), In debt with one good boxer (hard),
+   Backed with big expectations (risky). A switch lets the player skip the first-hour guide. Quick start takes the first coach card and Fresh doors.
+3. Day 0, Home: the first-hour card (the job: keep the doors open; the first show date; who you are), a walk-in fighter waiting at reception (Lucy Jackson in
+   the standard start; other starts and the male-boxer start use other names). The guide strip runs three stages: FIRST WEEK (sign, coach, week, go),
+   FIRST FIGHT (offer, prep, fight), THE CLUB (second boxer, bouts for both, set the first boxer's next goal). It can be skipped.
+4. Sign the walk-in: an RPG-style card (class from style, potential in stars, each attribute's ceiling, two traits, one habit, a signature move, an
+   ambition) and ONE starting focus. Hire an assistant coach (Luke Reid sessional $450 a week, or Marcus Hale full-time $1,090 a week; $1,000 signing fee).
+   Without any coach, training runs at 60%. Open the Week and lock in week 1 (the coach has already written a week). Press CONTINUE.
+5. Monday of week 2 (day 7): the first bout offer arrives, for the club show on Saturday of week 4 (day 26). Until the first bout is fought there is no twist
+   card and no ask. She starts about 1.4 kg over the limit, so weight is the first real decision (a cut needs starting in week 1). Accept shows a poster
+   reveal and offers the camp.
+6. Fight prep: camp (focus, intensity, partner, film), game plan, weigh-in the day before, fight night, result, Why, goal talk. After the first bout: a second
+   walk-in arrives the next Monday, a rival coach (Frank Doyle, Eastside ABC) is named in the news, three club tasks appear on the guide strip, and Ana (the
+   no-gi athlete) is teased, then asks to join after the club's second bout or by week 9.
+7. The loop afterwards: offers every couple of weeks (a club show every other Saturday from day 12), camps, nationals, money pressure, more fighters.
+8. Amateur road: the National Amateur Championships. Entry needs 5 bouts and 3 months registered, age 19-40; entries close in week 10; a London regional then a
+   national draw. While in it, no other offers come. A loss, injury or missed weight ends the run.
+9. Turning pro: a promoter's offer arrives at 7 wins with a top-3 regional rank, or at 9 wins at any rank. The debut is 4 rounds, about 4 weeks after signing.
+   The gym pays the licence ($230) and, the first time, medicals ($875) and the trainer's licence ($140). Stipend stops. After the debut a pro joins a world
+   division table unranked and the promoter brings three offers per fight (see 4.12). Older docs said "the game ends near the first pro fights"; the code
+   goes further (pro ladder, belts, ageing, retirement), see section 8.
+10. The club failing: 8 weeks in a row below $0 closes the gym. A closed gym shows a summary that cannot be dismissed (New career / Load career / Title).
+
+## 3. The fighter: three layers
+
+Plan agreed by the owner (2026-11-08): a fighter has primary attributes (what the fighter IS, same in every sport), skills (how good at one sport) and moves
+(a jab, a low kick, an armbar; each has its own level in the Playbook: New, Raw, Usable at 30, Sharp at 60, Signature at 85).
+
+AGREED, NOT BUILT: the 10 primary attributes. Operator: "these 10 lookok"; one Speed for hands and feet (the game's Hand speed becomes Speed). Strength; Explosiveness; Speed;
+Stamina; Recovery; Flexibility; Durability; Fight IQ; Composure; Heart. One Strength number for the whole body (no number per hand; left/right differ through
+moves and stance). Merges: Chin and Toughness become Durability; boxing Conditioning and BJJ Cardio become Stamina. Power is not its own number (it comes from
+Strength, Explosiveness and skill). Weight cut, height, reach and stance are written facts, not bars. "Marks easily" is a label for cuts, not a bar. Aggression is
+a slider you set (Patient to Forward), not a bar. Technique and Defence become skills. Explosiveness and Recovery stay only if the fight really uses them.
+AGREED, NOT BUILT: 12 skills (ops/research/S400_REVIEW/SKILLS_PROPOSAL_S404.md). Boxing 5: Accuracy, Timing, Defence, Footwork, Inside fighting. Kickboxing and Muay Thai 6: those + Clinch. No-gi BJJ 5: Takedowns, Guard, Top game, Submissions, Escapes. MMA 12 in three groups. The profile design (one body and mind for every sport; only skills swap; a sport switch appears only once the
+fighter trains both; crossing over costs training time) is agreed in shape; the mockup number lists (24 numbers, 25 for a boxer) predate the 10-attribute list.
+
+BUILT today (what screens show):
+- Boxing: 7 trained stats: Power, Hand speed, Technique, Defence, Conditioning, Ring IQ (fight IQ), Chin; plus Footwork (derived from speed and defence) and
+  the personality values Heart, Discipline, Confidence, Coachability, Temper (Loyalty exists but is not on the board). Amateur women's lightweights sit 55-65;
+  bands: weak under 45, fair under 55, solid under 65, strong under 75, elite above. Each stat has a potential ceiling ("tick") and a weekly delta.
+- Moves with mastery (0-100): Jab, Cross, Lead hook, Body hook, Uppercut, Check hook; from 30 a move is a "weapon" the fight can use. Combinations (the
+  book: 1-1, 1-2, 1-1-2, 2-3, 1-2-3, 1-2-3-2, 3b-3, 1-2-3b, 1-6-3, slip 2-3) unlock when their moves are weapons; players can also build their own.
+- Body: weight vs class limit, condition (fatigue word), injuries. Style word (Out-boxer, Pressure fighter, Counter-puncher, Volume puncher, Boxer-puncher,
+  Slugger). Stance. Age. Record. Rank in the region.
+- Personality and habits, learned not shown as numbers in the ring: 6 traits (heart, temper, confidence, discipline, coachability, loyalty) and habits
+  (for example drops the right after the jab, slow starter, fades late, chases stoppage). A coach's-notes card fills in with words from fights and sparring.
+- Morale (stored 0-100): Fired up (75+), Steady (50+), Flat (30+), Low. Moves: win +8, loss -12, goal met/missed, rest week +4, a month without a fight -6,
+  bout booked +5, wrong corner call -2, right call +1. Morale is also trust in the corner: Fired up 1.05, Steady 1.0, Flat 0.85, Low 0.7 of the corner's
+  word taken in; a Low fighter stops listening.
+- BJJ athletes have 6 stats (strength, cardio, flexibility, explosiveness, composure, aggression) and mastery per move; belts, not ranks.
+- Perks (the perk road): open for good when attributes reach a need, each changes one thing in a bout: Iron chin (Chin 70), Stiff jab (Technique 65),
+  Second wind (Conditioning 70), Ring general (Ring IQ 65, corner calls work 25% better), Counter sense (Defence 65 + Check hook weapon), Body snatcher (Body
+  hook weapon), Finisher (Power 70), Fast hands (Hand speed 70).
+
+## 4. Every mechanic
+
+### 4.1 The week and training plan - BUILT
+- Choice: for each fighter a week of seven mornings (a session each: roadwork, intervals, heavy bag, weights, speed bag, slip rope, shadow, neck work, or rest;
+  each at Light, Normal or Hard) and seven evenings (Pads, Sparring, Rest, Film). The coach writes the week from the camp phase and repeats it; the player edits
+  exceptions (click a day, a popover). "Back to the coach's week" resets. Diet: Hold or Cut 500 kcal a day.
+- Phases counted back from a booked bout: BASE (no bout), BUILD (3+ weeks out), PEAK (2 weeks out, hardest, sparring twice), TAPER (fight week: light, three rest
+  days, no sparring).
+- Changes: each morning adds a small amount to one stat (pace 1.0 per focused week x coach factor x headroom clamp((potential-stat)/25, 0.10, 1.25), a morning
+  is a fifth of it, Light x0.6, Hard x1.3, less when tired); kcal and weight; fatigue (0-100, "Week tiredness"; from 80 she is overreached: gains x0.6 and
+  injury risk x3). The Week tab shows plan totals, the goal line, the coach's one change with a "Do it" button, and the weeks to fight night.
+- Coach factor: 0.5 + rating x 0.7 per cent; no coach = 60%. Strength coach head-coach edge: body mornings +10%, craft mornings -10%.
+- Twist card: once a week the coach draws one (sore wrist, rain, weights room shut, partner ill, head cold, visiting pro, quiet week; or a choice card such as
+  tight knee, scale will not move, night off, heating breaks, combo clicking, southpaw in town, old coach visits, sponsor photoshoot, rival talks trash). Two
+  answers each with a visible price; unanswered = the coach's pick on Monday. Planned vs actual is shown on the review.
+- Training load: acute vs usual load; a spike (ratio 1.5+) raises injury risk 2-4x.
+- Two fighters in camp competing for the coach's pad nights: AGREED, NOT BUILT (see 4.2).
+
+### 4.2 Pads, combinations and mastery - BUILT (pad nights for two fighters AGREED, NOT BUILT)
+- Evenings are nights that carry drill cards. A pad night is 75 minutes split over its cards; a sparring night gives every card already in her hands a share.
+  Standard week: 3 pad nights; camp 2+1 / 2+2 / 3+2 pad+spar for Light/Standard/Hard.
+- Choice: drag a drill card (a move or combination) onto a pad night; split a night 50/50, 70/30, 30/70; remove or clear; pin cards in the tray; "+ drill it".
+- Mastery gain per hour of drilling: pads 2.1, heavy bag 1.05, shadow 0.85, sparring 1.5, speed bag 0.9, double-end bag 1.2. Undrilled moves fade slowly.
+  A drilled combination also holds its punches. Tiers: New, Raw (under 30), Usable (30), Sharp (60), Signature (85). A move at 30+ is a weapon.
+  Today a planned line fires every time once it is usable; sharp is worth about 1 win in 100 over usable. In the game but SWITCHED OFF (S427,
+  measured on 400 bouts a cell): a planned line fires 1 use in 2 at usable, 3 in 4 at sharp, always at Signature (sharp then +2.8 wins in 100
+  over usable, Signature +2.7 over sharp). Also measured and NOT in the game: an opponent's corner waiting for your best line (costs 7 wins
+  in 100, no answer wins back more than 3.7).
+- A combination in a fight costs energy (longer costs more); a flurry is limited by hand speed and tiredness; a signature (drilling, not length) may run one
+  punch past the speed cap. Own combinations built in the Playbook (Combos tab) get their own pad mastery.
+- AGREED, NOT BUILT: with two fighters in camp the coach's pad nights are shared; the top row of "Learn on the pads" shows how many go to each (cost to the
+  other fighter), only while two are in camp; a needs flag says when the second camp starts.
+
+### 4.3 Fight camp - BUILT
+- Opened by "Set camp" (a need once a bout is 3+ weeks off, or from Fight prep). Choices: camp focus (one of Conditioning, Power, Technique, Defence, Speed);
+  intensity Light / Standard / Hard (3, 4, 5 nights; focus multiplier 1.1/1.2/1.35; fight-night edge +0.25/+0.6/+1.0; all free); Partner: club mates (free) or an
+  outside mate of the opponent's stance or style ($160); Film (tape study, free).
+- Changes: the camp stat gets a forecast to fight night; scale forecast; tape study opens one tell on the opponent's file every few camp days (weapon first,
+  weakness last). A camp whose three lines are all met on fight night (made weight, stat on target, never overreached) gives PEAK CAMP: +bonus to every stat for
+  that fight. A southpaw partner removes a round-1 penalty for an orthodox boxer who never faced one.
+
+### 4.4 Weight - BUILT
+- Each fighter has a class limit (women's 57/60/65/75 kg, men's 57.5/60/70/75 kg). Weigh-in is the day before. Diet Hold/Cut and training burn move weight;
+  the bout page and Fight prep forecast "now / on the day". Missing weight calls the bout off and the club pays $300 for the empty slot. A boxer over his
+  class can get a bout he can make (a later date). The Old hand head coach makes cuts easier (120 kcal a day more).
+
+### 4.5 Booking and matchmaking - PARTLY
+- Amateurs BUILT: offers arrive (a club show every other Saturday; one offer at a time per fighter, answer by a date, usually 8-12 weeks lead at clubs, 2-4
+  weeks in the first hour). Each offer: Accept or Pass, both free. An unsafe mismatch (a novice, 0-10 bouts, against an open fighter) cannot be accepted. Win chance
+  shown as a band that widens when unscouted. No way to ask for a named amateur opponent: AGREED; rules built (scripts/rules/AskBout.gd), panel not built (Ask for a fight: a "no" is a closed panel or an absent answer with its reason, never a random refusal).
+- Pros BUILT (after the debut, on Fights): the promoter brings three offers per fight (TUNE-UP likely, STEP UP about even, PAYDAY long shot) standing 7 days; OR the
+  player asks for a named boxer within the promoter's band (about 5 places above, unranked reach 15; a top-5 name needs 3 fans); Scout costs $250 and opens the
+  opponent's weapon and weakness and narrows the chance range. A promoter refuses if you duck the step up twice. Each row shows chance, what a win gives (place,
+  fans), what a loss costs, stoppage risk, pay (gym's 25% of the purse), and the gap to the next fight (quick, normal, hard night).
+- Rank rule: beat someone above you and take their place; beat someone below and nothing moves; a losing record is never ranked in the top 10. Purse: $1,500 unranked
+  + $400 per place; tickets follow fans and how close the fight looks. Pro rounds: 4 unranked, 6 ranked, 8 top 10, 10 for a title.
+
+### 4.6 Scouting and the opponent's file - BUILT
+- Free at booking: record, look, style word. Hidden until found: best weapon, each habit, weakness. Amateur: tape study in camp opens one a session. Pro: scout
+  for $250; the weapon is public tape. A found tell names its answer (a plan situation, a corner call or a drill). The Ex-pro head coach opens one tell the day
+  a bout is booked. An opponent with no bouts has no tape. The Tape Room (Fight prep, "Watch the tape") plays 3-4 films of her past bouts, SPOT the tell, then
+  YOUR ANSWER picks a move that becomes a plan line.
+
+### 4.7 The game plan (Playbook) - BUILT
+- A plan is lines: "At long range -> One-two", "When she presses -> Step back" (places: outside, long, mid, inside, clinch, ropes; situations: she presses, boxes at range,
+  waits to counter, loads up, tires). Each answer is rated vs the opponent's game: Beats it / Works / Walks into it, and its edge over improvising, times her pad
+  time. Rate against another kind of opponent; round-by-round pace Push/Steady/Save; a go-to combination. The coach's skill sets how many lines (a plan holds
+  4-6). Real fight plans can be loaded; See the flow; Open the map. With no plan written the assistant coach writes one (poor to about half of a read plan).
+- A plan the fighter has not drilled works less well; a wrong answer costs. During a bout: planned right answers that win exchanges build PRESSURE on the opponent
+  (cuts her output); planned wrong answers she is punished for shrink her energy ceiling.
+- AGREED, NOT BUILT: opponents adjust by round 2; their note replaces the coach's line in the corner minute naming the line that stopped working.
+
+### 4.8 Fight night - BUILT
+- A bout is 3 rounds of 3 minutes (amateur), 4 (pro debut), more later. A round is six 30-second exchanges, each settled by dice on an edge (training, plan, corner call,
+  pressure, tiredness). The opponent fights one way at a time (Pressing, Boxing at range, Waiting to counter, Loading up, Tiring, Hurt), shown as a clue.
+- Every 30 seconds the player may shout one of the 3 calls that fit, or say nothing: Jab and move, Go to the body, Draw the lead, Hands up move your head, Let your
+  hands go, Breathe pick your shots, Tie up, Go for the finish. Each has a best / ok / wrong match to the opponent's mode, needs stats, costs or gives energy; only
+  two instructions per minute get through fully. Pace (Push / Steady / Save) and Aim (Own game / Head / Body / ribs / the hurt head) persist from shout to shout.
+  A set-up "NOW!" fires a learned combination into a gap the opponent opens: big edge, or a cost if wrong.
+- Corner minute between rounds: the corner card (what worked, what hurt, the call), the plan call, ONE CHANGE for the next round (a habit fix, or Elbows in: half the body punches go to the head, saving their energy and adding head damage, or Gloves high: the reverse; moved punches change where she is hit and what it costs, measured not to change who wins), RECOVER with 3 points (water, ice on the ribs, clear
+  her head when hurt), SET-UP (a combination x a gap), TALK (calm / fire up / the truth), change one plan arrow, cutman job (close the cut, enswell an eye, nothing).
+  Trust: a wrong call she followed costs trust; a Low fighter ignores shouting.
+- Knockdowns and counts come from power and damage vs chin, heart for the count; amateur RSC at 3 counts in a round or 4 in a bout. Injury roll after the bout.
+- Result: scorecards (3 judges), win on points / stoppage / draw, "what decided it", the Why, a body report (which part went first, with a "Train X next week"
+  button), "The plan, lit up" flow, then Back home and the goal talk. Watch modes: with a picture the 3D fight plays (1x/2x, Skip round, Skip bout); headless runs
+  stay in words. "Sim to result" skips the fight. Highlights/full modes in design notes: NOT ESTABLISHED as options in the UI.
+- AGREED, NOT BUILT: a cutman card for a closing eye, "stop it (she loses, the eye is safe) or go on (risk of a lasting cut)", behind a divider, never a pop-up,
+  never pre-selected, not using one of the two fixes (the 3D corner has a cutman job row today; whether its stop-or-go choice exists is NOT ESTABLISHED).
+
+### 4.9 The Why - BUILT (the hook)
+- After a bout, plain lines: YOUR PLAN (graded against having no plan: right answers, wrong answers, neutral, worth about +X% chance), AGAINST YOU (what the opponent's
+  habits cost), NEXT (what to train or write). Graded by how each planned move answered what the opponent was doing, not by the dice; "swing" counts replay the
+  dice without the plan's edge. A readable reason for every random swing (R11): AGREED, NOT BUILT as a general feature; it lives on existing rows.
+
+### 4.10 Damage, injuries, suspension - BUILT
+- Six body places per boxer take punches (head, ribs, etc.); bands fine over 55, hurt 55, critical 35, doctor 15. Bout injury roll from settled damage (about 6% a
+  3x3 bout; 72% head/neck, 20% cuts); training injury about 1.3% a week, more when overreached. Stoppage loss = 30-day suspension, longer for repeats. While out: no
+  offers, a quarter of gains. A fighter hurt before a bout: choice "pull out" (club pays the empty slot) or "fight hurt" (less energy: minor 10, moderate 15, serious 20).
+  A damage ledger and fights-left forecast exist for pros in the world model.
+
+### 4.11 Morale, trust, goals - BUILT
+- Goals with deadlines (for example Debut inside a month, Next bout inside a month, Southpaw answer, Five-round engine), set in the office after each bout (Goal talk:
+  pick one of the offered goals). Status ON TRACK / AT RISK / OFF TRACK / MET / MISSED; ~70% clearable by design; meeting or missing moves morale. "Her asks" can be
+  heard or overruled (morale +5 / -5). The ambition shown on the signing card does not yet change anything (the design says a kept goal should build loyalty, a broken one may make a fighter leave: AGREED, NOT BUILT). Overruling a low-coachability fighter hurts more.
+
+### 4.12 Staff - PARTLY
+- Head coach (you): one of four edges: Old hand (cuts easier), Ex-pro (one tell on file when a bout is booked), Amateur coach (a prospect's exact potential), Strength
+  coach (+10% body mornings, -10% craft mornings). Assistants: Luke Reid and Marcus Hale (above); training quality, plan lines taught (more with better rating), evening
+  classes +$350 a week. Staff jobs on the Club page (each changes one number): Second club coach 10 h ($280 a week: +1 roster place, +40 members, runs fitness classes);
+  Strength and conditioning ($100: training injury risk -15%, a pro camp's bill halved); Physio ($75: injuries back a quarter sooner); Cutman ($150 a pro night: half
+  the post-bout layoffs). Letting a staff member go costs a week's pay. Letting the main assistant coach go: NOT ESTABLISHED (Let go exists on the staff jobs).
+- "Coach runs it / I run it" per fighter: AGREED, NOT BUILT (the Roster has no such column).
+
+### 4.13 Money and the gym - BUILT
+- The week review gives one short reason beside any change in members (word getting round, gym full, less room, dues too steep, more than the gym's name can hold).
+- Income each week: members' dues ($35 a month each standard; bands Cheap $25 / Standard $35 / Premium $45 change who joins), evening classes (+$350 with a coach), no-gi
+  dues, sponsors, fitness classes, juniors' dues. Costs: rent $1,800 a month (bigger premises more), England-Boxing-style fees ($315 club + $18 a boxer + $35 a coach a year),
+  coach, fighter stipends ($250 a week, optional), heating and power by season, insurance $1,250 a year, staff, kit budget (Low $0 / Standard $45 / Good $80 a week),
+  upgrades' upkeep. Wages and upkeep are billed every 28 days. Start cash = 1 / 3 / 6 months of costs by start. Runway under 8 weeks warns; below $0 is red; 8 weeks in a
+  row below $0 closes the gym. A loan ($180 a week for 26 weeks) comes with the debt start; the backed start loses $5,000 if the first show is lost. An overdraft rule
+  exists (offered after 12 weeks of trading, 16% a year) but NOT ESTABLISHED as having a screen.
+- One-offs: a bout adds a $450 ticket cut; camps cost a partner fee when used; repairs; a club show you host ($3,500, tickets $25, up to 400 seats, every 16 weeks, can lose
+  money); a club grant bid once a year (answer in 42 days, needs a second coach, odds follow reputation).
+- Spending choices on the Money page: Premises (Unit 70 members/3 places, $1,800 rent; Bigger unit 140/5, $3,400, $12,000 to move; Club building 250/7, $5,500, $25,000);
+  Upgrades (matted floor $2,400; strength corner $3,600; fitness class kit $1,500; youth section $1,800), each bought once, works after a week, one visible effect; Sponsors
+  (Ironclad $250/week from the start; Bow Road Physio $150 after the first win; bigger sponsors later); dues band; kit budget; evening coaches; pro stipends and contract talks.
+- Members: walk toward a target set by reputation, dues band, premises and coaches (at most 6 a week). A win adds +8 members and +5 reputation; a loss removes 1 and 2 reputation;
+  a stoppage loss 2 and 4. Facilities (floor, ring, bags, lockers, office) can be repaired once ($120 bags) for +2 reputation.
+- A pro's share to the gym starts at 25% (manager 15% + trainer 10%); contract talks at the first top-10 and the first belt (keep 25% for a bonus or drop the share), then yearly.
+
+### 4.14 Rankings, titles, the world - PARTLY
+- Amateur regional table (the region's club-show boxers; a player's fighter enters at 4 wins); rankings move as rivals fight each other at shows; news lines. Nationals and the
+  regional bracket (BUILT). World pro tables for four divisions (women's and men's lightweight and welterweight, about 20 ranked each): boxers age, peak, decline and retire
+  (damage ledger and age), new ones arrive yearly, belts at four levels (area, national, continental, world) with mandatory challengers and vacated belts, rivals improve (BUILT in the
+  rules; its screens are on Fights, not World). An open-ended career, year review, three club goals a year, club tiers, a record book of champions and rivalries,
+  a named rival gym that poaches and rematches, promises/poaching at contract time, a career clock with retirement talk, youth-section home-grown prospects, a commentary line
+  and a press card are AGREED (owner "all of them", Q-S294-120) and mostly NOT BUILT; Records (the gym's own history log with filters) and the youth section exist.
+
+### 4.15 BJJ (no-gi) - BUILT
+- Athletes (Ana Ribeiro) are on the mat, not in the ring: belts white, blue, purple, brown, black with 4 stripes each (IBJJF floor: blue needs 2 years, purple 1.5, brown 1; minimum
+  ages 16/16/18/19). The week is 3 classes; a class drills the syllabus move she is closest to owning (+3.2 a week; owned at 30, signature 50). Choices: drill a move; stripe call
+  (now / hold / early) with morale and loyalty costs; promote; enter opens (no-gi tournaments every 35 days, 8-person brackets); fight an open yourself (the player calls the moves on the move
+  graph) or simulate it; who teaches (hired coach or the athlete). No ranking table: the belt is the ladder. 5-10 minute matches by belt; points: takedown 2, sweep 2, pass 3, knee on belly 2,
+  mount 4, back 4. A BJJ athlete costs a roster place and a no-gi coach by the class.
+- The match runs on two-sided beats of about 11 seconds (S405): each side either acts on its pick or works its grips, and a holding lead can draw the referee's 20-second stall count.
+  Measured over 1,000 bouts: white belts finish about 34% of matches, the first to score keeps the bout about 80% of the time, and a one-belt gap wins about 74%.
+
+### 4.16 Perks - BUILT (listed in section 3).
+
+## 5. Every screen in the game today
+
+### 5.0 The shell (on every game screen)
+- Top bar, left to right: Back (<) and Forward (>) arrows (greyed when none); gym name; date and week (hover card); red/amber flags (not on Home): GYM CLOSED, BELOW $0, LOW CASH,
+  APPLICANT, TRIAL, PRO OFFER, SET CAMP, WEEK REVIEW, WEIGH-IN, NEW GOAL (each opens its thing); cash with "running +/- $N a week" (hover card); the big button; Menu.
+- The big button: CONTINUE ("to <date>, <reason>"), RUNNING (click to pause), NEEDS YOU (n) (opens the first red need), or GO TO FIGHT NIGHT. Space also presses it.
+- Menu: Mail (opens World News; shows a new count), Save, Load, Settings, Handbook, Quit to title.
+- Left rail: Home, Fighters, Fights (badge = open offers), Club, World; the club crest (hover: name, members). Keys 1-5 reach the rail (design note: NOT ESTABLISHED in code).
+- A guide strip (first-hour guide only): the current stage's steps, what to do and why, a button for the next step, and Skip the guide.
+- Settings: text size (Small/Medium/Large/Largest), window (Windowed/Full screen), days run at (Normal/Fast/Fastest), four sound sliders (all, punches/ring, crowd, music),
+  Autosave (every Monday, last weeks kept / Off). Handbook: search and group filter (All, Words, The club, The week, The plan, Fight night, Money) with links to areas. Credits.
+
+### 5.1 Title; 5.2 Create (see section 2). Create buttons: Back to title, Next: your club, Back, Open the gym; picks for coach, country, city, gym name, start.
+
+### 5.3 Home (no tabs) - BUILT
+- Notice board of needs as pinned notes, each with a button: Meet the walk-in; Answer a bout offer (Open); Weigh in; Set camp; Hire a coach (Staff); money warning (Money);
+  a sponsor waiting (Deals); Enter for the nationals (Nationals); Week N review ready (Open); New goal waiting (Talk); Trial today (Watch the trial); Pro offer (Hear it);
+  Hurt before the bout (Decide); competes today (Go to the mats); The gym has closed (See the summary). Red = stops the clock; amber should come next; steel can wait.
+- First-hour card until the first bout (the job, show date and countdown, you). The next fight as a matchup card (button: Go to fight night, or the next step).
+- YOUR FIGHTERS table: fighter (name opens the page), record, rank, next fight, weight, freshness, this week's plan. Right column: SINCE LAST MONDAY (each fighter's biggest gain
+  with its cause, injuries, rank moves, new members; "All news and mail"), THE CLUB THIS WEEK (money in, costs, members, coach), COMING UP (bouts, weigh-ins, championship dates, bills).
+
+### 5.4 Fighters > Roster - BUILT
+- A sortable table (columns: fighter, record, rank, The Road, and more) with flag chips per fighter that open the thing that needs her; a card per no-gi athlete with belt,
+  stripes, classes, "<name>'s mat: Playbook"; buttons: Meet the walk-in, Open training, Set camp (locked with a reason when it cannot start), See offers.
+- Fighters > Find a fighter: PROSPECTS NEAR <city> as face cards with scouted ranges for four stats (a range until the trial; the Amateur coach edge shows exact potential),
+  button Invite to a trial (free; she comes in on the Monday; signing costs the stipend). States: trial date, signed, passed. The reception walk-in is separate.
+
+### 5.5 Fighter page (tabs: Overview, Week, Fight prep (only with a bout or camp), Playbook, History)
+- Header: portrait, name, weight class, age, stance, record, goal chip ("Goal, N days: still needs X - at risk").
+- Overview: NEXT STEP (the road: next step and what it needs; Enter for the nationals; the whole road on hover); attribute board (radar of eight against potential plus all values with weekly
+  delta, hover says what each does in a fight); BODY (weight of limit, condition, injury), COACH SAYS, COACH'S NOTES n of m; GOAL (title, days left, meter, status, quote;
+  Talk to <name> when a goal talk is waiting), NEXT BOUT; buttons Plan the week, Fight plan (n arrows), Find a bout; perk road; moves with mastery bars (hover plays the move); combos
+  learned (gold = thrown in fights); contract text ("club stipend $250 a week, until turning pro") and goals so far.
+- Week: head (NEXT/THIS WEEK dates, tiredness), PLAN TOTALS, seven columns of morning and evening cards (click opens a popover: Light | Normal | Hard and sessions; Rest | Pads | Sparring
+  and the drill cards), goal line, the coach's one change with a Do it button, Back to the coach's week, the twist card (choose an answer), LEARN ON THE PADS tray (drag a card to an
+  evening), THIS CAMP (diet pills Hold / Cut 500 kcal) only with a bout booked, a skills road below.
+- Fight prep: VS <opponent> (club, record, game), days to fight night and weigh-in, ONE primary button that moves with the state (Set the camp / Write the game plan before sparring /
+  Watch the tape / Step on the scale / Check the week), the tale of the tape with the win chance and how sure it is, WHAT YOUR PLAN SHOULD ANSWER (each found trait with its answer and
+  "Write it"; hidden ones say what opens them), CAMP AND WEIGHT (scale margin, the camp stat's line to fight night, Change the week).
+- Playbook (boxer): tabs Moves (move book by place in the ring; Watch/Steps, Drill, Replay, Slow motion), Game plan (see 4.7: Write a line / Change / Clear this line, Answer: <best>,
+  Rate against, Load a real plan, Test it (limited tries), See the flow, Open the map, Build plan in the move browser), Combos (build a chain from "+ move" buttons, Play it, Clear, Save to the
+  book, Drill it on the pads, Watch on the pads, chain hit rates vs opponent types), Escapes (folded into Moves in the agreed menu). A body plays each move on the right.
+- History: every bout she fought (and brought) with result, opponent, cards and why; milestones.
+- No-gi athlete page: one Record view: THE ROAD TO BLACK BELT (five belts with stripes), TO <NEXT> BELT (mat time, moves owned, syllabus), COACH'S CALL (give the stripe, Promote to <belt>, next opens
+  with Enter, who teaches), RECORD in opens; her Playbook is a mat book (moves by group, Systems, Drill, Undo, a game tree with FELT and links).
+
+### 5.6 Fights (no tabs) - BUILT
+- Amateur: OFFERS ON THE TABLE (a card per offer: opponent face, record, win band, chips; Open) with each fighter's STANDING beside it (booked or free, next on the road, Enter for the
+  nationals); when none, the line says when the next offer can come. For a pro: a strip, NEXT FIGHT table (offers, asks: Take this fight / Book <name> / Scout ($250)) and THE ROAD (champions and
+  places around her). No-gi opens card with Enter. Fixtures list (calendar), RESULTS (who beat whom, cards, why).
+- Bout page (an offer): head chips (Legal, even match / Weight at risk / Not safe), tale of the tape, stats vs the estimate, win band and ranks at stake, SCOUTING file (locked lines say what
+  tape study opens), TERMS (date, 3 x 3 minutes, weight, on the scale now/on the day, time for a camp, purse none, club ticket cut $450, answer by). Buttons: Accept the bout (disabled with a
+  reason when unsafe or answered), Pass. Accept plays the poster reveal and offers Set the camp / Later.
+
+### 5.7 Club (tabs: People, Money, Records) - BUILT
+- People: STAFF (you as head coach with your edge; the assistant card with training quality, plan lines, cost, net weekly; two hire cards when none: Hire Luke / Hire Marcus; no-gi coach line;
+  STAFF JOBS with Hire / Let go), MEMBERS (on the books and drift, reputation word, dues band).
+- Money: CASH WEEK BY WEEK chart; NOW (cash, weekly in, costs, net, month's bill, runway line, break-even members); WHERE IT COMES FROM / WHERE IT GOES bars; STIPENDS (Pay/Stop the stipend);
+  CONTRACT TALKS (Keep 25%: pay a bonus / Drop to a lower share); PREMISES (Move); UPGRADES (Buy); KIT BUDGET (Low/Standard/Good); evening coaches (Hire one / Let one go); CLUB GRANT (Bid for a grant);
+  CLUB SHOW (Book the show); ONE-OFFS IN and PAID OUT (last 8 weeks); DEALS (Sign a sponsor); FACILITIES (Repair); dues bands buttons.
+- Records: the gym's own history, newest first, with filters (who: everyone / each fighter / coach / gym; what: bouts, honours, people...).
+
+### 5.8 World (tabs: News, Rankings, Championships) - BUILT
+- News: AROUND THE REGION (other clubs' bouts, names are links) and fixtures/events. Rankings: a table per division the gym has a fighter in (rank, fighter, gym, record, style, last bout; click a name for the rival file; a
+  fighter enters at 4 wins; no-gi says the belt is the ladder). Championships: the road to the nationals per amateur (rings for what she still needs, Enter, the London regional and national draw brackets, titles).
+- Rival file (modal): record, style and the tells found so far; locked lines say what tape study unlocks.
+
+### 5.9 Modals (open on a press or when the clock stops on them; nothing else opens by itself)
+- Interview/Trial (walk-in, prospect): the fighter as an RPG recruit, one starting focus (Sharpen the signature +10 mastery, Fix the habit gone in 4 weeks, Raise the ceiling +5 potential), Sign or Pass.
+- Pro offer: the debut money picture (tickets she sells, her share, what the gym pays now, what ends); buttons Turn <name> pro / Stay amateur.
+- Goal talk: pick one of the goals offered, Set goal or Later.
+- Camp: see 4.3; buttons Later / Start (shows the cost).
+- Weigh-in: Step on the scale (made or missed). Injury choice: pull out or fight hurt.
+- Fight night: tale of the tape (Begin fight, Sim to result); rounds with shout bar, Sim the round; corner minute (call buttons, fixes, jobs, Say nothing / No fix); To the scorecards / To the result;
+  result with Train X next week, The plan lit up, Back home.
+- Week review (per fighter): bars fill to the next whole point, moves drilled, new weapon, rank change, planned vs actual, pads cards turning over, money, the coach's word; rows land one at a time with the biggest
+  surprise last; the only button is Next week. Open night (BJJ): Simulate this bout or Fight it, Back to the gym. Closed gym summary. Info boxes (Settings, Handbook, Credits).
+
+## 6. The seven approved menus, and the agreed structure of all menus
+
+Owner, Q-S294-127: "Yes, build the seven": Home, Fighter Week, Boxing profile, Playbook, Fight night, Money, World. A shared warm-wall kit (WarmKit: wall, whiteboard, paper, sticky, magnet, chalkboard, marker
+ledge) is built first so screens cannot drift. None of the seven is rebuilt in the kit yet; the screens in section 5 are the current ones. Agreed structure: five rail buttons (Home, Fighters, Fights, Club, World); one
+home per job; no mailbox (Mail opens World News and the Monday page replaces the week-review pop-up); nothing opens by itself; time is one big button saying what it stops for; one booked fight runs in a straight line
+(Home countdown, camp, weigh-in, tape, fight night, the Why).
+
+- Home (agreed): needs first, the job, the next fight, one row per fighter, Since last Monday with causes, the club's week, what is coming; the week review folds in as a need that "sits here, never pops up"; the line
+  under the big button names the next stop; the first-week guide card only in the first hour.
+- Fighter Week (agreed): the whiteboard: sessions as magnets, the fight date circled, colour only means risk, one red button moves the week on; plan totals, fatigue, the goal line, the coach's one change with the effect on the
+  button; Learn on the pads; ADD "Coach's pad nights" as the top row, two fighters in camp only, with the cost to the other fighter (R55).
+- Boxing profile (agreed in shape; numbers superseded by the 10 attributes in section 3): tabs Overview, Week, Playbook, History on one portrait header; three columns Body, Skills, Mind with a style line ("Keeps it
+  long"), one thing to work on and where it is trained; the sport switch only once she trains both; a rival gym's offer with its three answers (match it, promise something, let her go) as the top card when it
+  comes (R58, needs the running world).
+- Playbook (agreed): Moves (Escapes folded in), Game plan (lines drawn on a board, plays a default at once, rate against each kind of opponent), Combos; "No bout booked: try the plan against each kind of opponent".
+- Fight night (agreed): dark and tight, handwritten coach notes, three fixes / time for two; stats cut to three rows in the minute; the "she has adapted" note (14 words at most) replaces the coach's note (R25); a
+  cutman card only when an eye is closing (R28); the result with scorecards and the Why (plan, against you, next); the money lines move from the Why to Home; no "one change for next time" (the Why's NEXT carries it).
+- Money (agreed): the gym's books on the whiteboard: cash, runway, in and out, bills, deals, repairs, upgrades; dues bands wait for the owner's call on the cut.
+- World (agreed): News cut to only what touches you; Rankings with rivals that develop (movement arrows, Developing column); Championships; fixtures; no-gi "belt is the ladder".
+- Other menus in the agreed map (not in the seven; final text per MENU_STRUCTURE_S402): Start (three starts, already in game); First week; Fighters (a real roster); Fights (Ask for a fight sits under
+  the offers: level, date window, an answer with its reason; it waits for the bot test that a smart ask beats a plain one, R37); Fight prep ("What your plan should answer", no injury-risk lines on camp
+  choices); Club > People (staff cards keep their faces; members panel cut); Grow (finding and signing only plus the pro offer; no prospect deadlines); Top bar (no change).
+- Held back, do not build from an old mockup: one change after the Why, camp injury risk, scorecards after each round, members panel, prospect deadlines, sponsor line and per-fighter costs, the progress chart on History.
+- Conditional elements and when each appears: Coach's pad nights (two fighters in camp, until a camp ends); Needs flag for the second camp (the second camp starts, until she opens the Week); Cutman card (an eye reaches
+  the closing state at the bell); Adapted note (from round 2, when the opponent has answered one of your lines); Rival offer (the running world sends one; a flag only, answered or past its date); Ask for a fight
+  (always, once a boxer is signed); Swing reason (a random roll moved a number you can see, scrolls off with the week).
+
+## 7. The owner's standing rulings on screens (quoted or near-verbatim)
+
+- Only actionable information: "i do not want stupid and unecessary information to be displayed unless the player can really do something about it". Cut it, hover it, or put the action on it.
+- One top bar and modals; nothing opens by itself; moments come as flags on the top bar. A week review sits as a need on Home.
+- No flavour text; plain words; one word per concept (Raw, Usable, Sharp, Signature everywhere). Hover explains every number.
+- Not mobile: "thats not how sim/manager games look , its very simplestic no actual stats to make the player understand how good the fighter is". Real stats stay. Not an 80s spreadsheet; no placeholders.
+- Do NOT judge against a generic management sim ("they seems like economic management simulator"). Judge fit to this game and its plan.
+- Look B, the gym whiteboard: marker notes, polaroid, needs as sticky notes, the cash tin, the fight date circled; warm tan plaster wall, wood and aluminium frames, cream paper. ONE art style across menus
+  ("no art consistency" was his complaint). Stylized comic portraits in menus are on and must match the fighter. Marker fonts Permanent Marker and Kalam.
+- Screens come only from agreed mockups; nothing is built on a menu he has not OK'd. A generic Money page was reverted.
+- Fight night goes dark and tight (the Miro "Corner minute"); the coach's notes stay handwritten.
+- Everything new ships switched ON. Hover cards on top-bar date and cash. Animated meters (every bar tweens).
+- Weekly job pages must not become a pop-up. One-click reach from anywhere. Two Point alignment is parked (the gym floor is out of the first release).
+- No gym still with the Day Plan or a drawer open; stills of fights show both fighters head to feet; boxers wear boots (visual rules for pictures).
+- Scouting means opponents; finding fighters is "Find a fighter". The facility is a "gym"; a fight camp is only pre-bout preparation. Fighters are fictional; organisations real-named only where legal.
+
+## 8. Where the documents and the code differ, and what could not be established
+
+Code wins. For the critic: do not judge a screen against these older statements.
+- Autosave, Settings and Handbook: docs say "not built"; they are built (autosave every Monday).
+- Pros have no offers/world after the debut (docs): the code has a pro ladder, promoter offers, asking, scouting, belts, ageing and retirement.
+- Ask for a fight: docs say impossible; it exists for pros only. Amateurs cannot ask.
+- Gym closes after 4 weeks below $0 (CLAUDE.md numbers) vs 8 weeks in code. Gym's share of a pro purse 35% (CLAUDE.md) vs 25% in code. A loss costs 3 members and 2 reputation (CLAUDE.md) vs 1 and 2 in code (stoppage 2 and 4).
+- Ex-pro head-coach edge: design says one extra corner call; code gives one opponent tell on file at booking. Old hand: design "cheaper camps"; code: easier weight cuts.
+- Roster limit "up to 8": code gives 3 places, +2 per premises tier, +1 per second coach (5 and 7 at the larger premises).
+- Four rail buttons plus Playbook: the Playbook is reached from the fighter page, not the rail. Docs on Fights tabs are out of date (one page).
+- "Coach runs it", year review and club goals, club tiers, rival gym, poaching, career clock: not in code. Overdraft has rules but no screen found. Keys 1-5 for the rail and highlights/full watch options: not found.
+- NOT ESTABLISHED: the exact number of moves in the Playbook; whether the 3D corner's cutman choice offers "stop it / go on"; whether the week review ever opens without a press (the owner listed it as a defect on 2026-11-08);
+  the owner's answer on an open-ended career and a roster of 8; whether R11 (readable reason for every swing) exists beyond the Why; crossover numbers between boxing and BJJ (left blank on purpose).
+
+## Added S409
+The building: chosen once at new career, one of four gym plans, each with one small permanent edge (5% more members, 5% more show income, 3% better power and technique training, or injured boxers back 10% sooner).
+The gym on Home has people in it: the club's fighters and members, working at equipment and walking the floor. More members, more people (2 to 12). Decoration only: they take no clicks.
+
+## Added S410
+- The shell's top bar is dark on every game screen (5.0).
+- Fighters > Roster (5.4) is now full-body cards on a painted gym: weight class and rank, a corner flag for the most urgent answer (Set camp, Offer, Weight, Mood low), Condition / Mood / Weight tiles, the next fight and days to it; a click opens the fighter's page. Under them, Scouted for you: up to four prospects, with Invite to a trial. A Cards / Table switch keeps the sortable table (Rank, The Road, Goal).
+- Fights > a bout offer (5.6) opens as a versus screen: the two boxers on a red and a blue wall, the tale of the tape (record, age, weight on the day against the limit, height, stance), the win chance and how sure it is, what a win and a loss change, Full report / Pass / Accept. Full report is the old bout page: stats against the estimate, win band, ranks at stake, the file, the terms.
+- The game does not hold a venue, last-five form or a fighter's reach, and there is no scouting before accepting an amateur offer.
+
+## Added S448 (code check)
+- The attributes in section 3 marked AGREED, NOT BUILT are in the code: `scripts/rules/Attrs.gd` holds the 14 abilities (Strength,
+  Explosiveness, Speed, Stamina, Recovery, Flexibility, Durability, Fight IQ, Composure; skills Accuracy, Timing, Defence, Footwork,
+  Inside fighting) plus Heart; the old seven (Power, Hand speed, Technique, Defence, Conditioning, Ring IQ, Chin) are kept as a summary
+  read from them. Punches are moves with mastery. Our own fighters have no height or reach value yet (opponents do).
+- The plan's step and defence answers are `StrikeMap` arrows: step in, step out, step back, cut off, herd, pivot out, push off, feint,
+  tie up, roll out. They have no mastery today and always work in full.
+- Coaches: Luke Reid pads 74 (rating 58), Marcus Hale pads 58 / conditioning 90 (rating 74).
+- Units: the code counts a pad night as 240 drill units (PadWeek.PAD_NIGHT_MINUTES) for the 75 real minutes in 4.2; a sparring night shares 180
+  units over the moves on the fighter's cards and plan. Mastery maths uses the units.
+
+## Added S451 (code check; where this and an older line above disagree, this wins)
+- FireLevel is ON since S450: a planned line fires 1 use in 2 at Usable, 3 in 4 at Sharp, always at Signature. The line in 4.2 that says
+  "SWITCHED OFF" is out of date.
+- Our own fighters now have height and reach, and the fight reads them (S450). The S448 line saying they have none is out of date.
+- Phases come from any booked bout, camp or no camp: a bout 1 week out makes the week TAPER (WeekPhase.phase), also for an amateur bout.
+- Two rest rules after a stoppage loss, both in code: the 30-day suspension (Injuries) and the next bout offered 8 weeks later than usual
+  (Matchmaking.STOP_REST_WEEKS).
+- The office is a full-screen computer desktop (owner's Q-213 "A, full screen", S451): the gym's office pin opens it. Its Desktop shows what
+  needs you, the next four weeks (bouts, bills, dues), mail, the fighters with each one's flag, money 8 weeks ahead and the staff. Its other
+  apps (Mail, Schedule, Fighters, Staff, Finance, Records) are AGREED, NOT BUILT; today they lead to the existing pages.
+
+SANDBOX (S412): the player runs any gym with any boxers, men or women. Never write about one boxer as the story, and never a fixed he or she in text or mockups.
+
+
+# THE DESIGN MAP TO JUDGE
+
+# R58 A fighter leaves - design map, round 3 (S439)
+
+Mechanic R58 (MECHANICS_LIST_S401: "A fighter leaves for a bigger gym (promises, loyalty, poaching)"; CRITIC_PACK 6: "a rival gym's offer with
+its answers as the top card when it comes"). Built from: CRITIC_PACK.md, CLUBWEEK_MAP_V41_S432 3.8 (loyalty), RPG_LAYER_MAP_S432 3 (loyalty is
+the bond), CORE_LOOP_MAP_S432 C1 / C28, FOURSTART1_MAP_V2_S429 3.1 (the sponsorship), and the code in section 2.
+Source note: `ops/research/TASK_R58.md` is an OLD brief from the archived repo (the age read and the bout read in `Godot/scripts`); nothing in it
+is used here.
+
+Drawn: `docs/mockups/s439/r58/screen_r3.html` (.png beside it): Danny Osei's Overview on Monday 6 April 2026 (day 91, week 14), the morning
+Eastside ABC's approach lands. Section 6 plays the same week.
+
+Every number is CODE (read in the file named) or ESTIMATE (a design value; the LOYAL1 probe, section 8, sets it before it is shown). Day 0 is
+Monday 5 January 2026 (CODE, CRITIC_PACK).
+
+## 0. What round 3 changed in the MECHANIC (critics: depth 5 and 5)
+
+- THE BOUT PREMISE FIXED FIRST (both critics: "in the code Danny can never box again after his first bout"). Read and confirmed: BoutNight.gd:397-399
+  books our bout on the rival (`Region.record`), so Danny beating Liam Doherty makes Liam 6-5, 11 bouts, open (AmateurBooking.NOVICE_MAX_BOUTS 10).
+  Dean 13, Arjun 13, Mateusz 31 are open too, so `Bouts.legal_index` (Bouts.gd:169-175) falls back to a mismatch, `accept` refuses it (:188), and
+  because `offers_settled` (:76-80) ignores mismatches and a mismatch's expiry does not move `next_offer_day` (:145-147), a new unsafe pair arrives
+  every day. NEW prerequisite NOVICEFLOW1 (section 8): when a class has no legal novice for one of our boxers, a new novice joins a real club in that
+  class (named, 0-3 bouts, rating near ours) and the region keeps at least two; a mismatch-only day sets `next_offer_day` like an expiry. The ledger
+  is redone on it: Liam is open (6-5) after day 26; Danny's later names are new novices Reece Adair and Kyle Brennan. The header shows "Bouts open
+  to him: N", and every bout-based loyalty tick falls only while N > 0.
+- HALF EACH ADDED (both critics). $125 to Danny and $125 to Lucy: the coin is in the code (HomeJuniors.HALF 0.5, used by GymSpend.set_stipend:108 for
+  home juniors). It costs $0 more cash (the club already pays $250), nobody holds more, so nobody minds; its price is a weaker answer (Danny +4, not
+  +12; 37, two points from the next approach) and both train at x0.925 (ESTIMATE, between full time and DAY_JOB_GAIN 0.85).
+- THE TALK IS NOW A GAMBLE WITH A STAKE (critics: "talking always wins"). One talk per fighter in 8 weeks. At WANTS A WORD (under 50) the answers are
+  Tell it straight (the talk) or Say nothing (-1, was -2). At the approach the talk sits on the card before the answers: if it lands, HALF EACH counts
+  as a full answer (+9, Danny 42 for $0); if it fails, -4 and HALF EACH is off the card. Talking at the word spends the talk the approach may need.
+  The hand model (section 4) has bots talk 39% of the time: neither always nor never.
+- PROMISE NOW COSTS SOMETHING THE PLAYER CONTROLS (critic 2's offer, taken). "Every offer" is cut: in the code it bound nothing (every offer was a
+  mismatch, exempt). The promise is "Danny tops our club show": GymSpend.book_show pays ClubShow.COST $3,500 now, the night is ClubShow.show_day =
+  the Saturday 28 days out (Sat 9 May), Danny's bout there replaces today's offer (its $450 ticket cut is lost), and if he is unfit or misses
+  weight that night he leaves. Kept: +10 (ESTIMATE). The day-job ticks wait for the night and then resume, so the card shows 41 on 29 Jun.
+- THE ANSWERS' VERDICTS ARE GONE. Each column's "Best if" names the uncertain bet, with its chance (Lucy wins two: about 1 in 3; the talk lands:
+  about 1 in 2; Danny fit on 9 May: about 19 in 20), and a 12-week timeline draws both fighters' ticks, bouts and the date Lucy drops under 50 if moved.
+- ONE HEADLINE PRICE PER ANSWER in its own coin: YOU PAY $3,000 / YOU SPLIT $250 / YOU RISK LUCY'S SHARE / YOU STAKE DANNY, 9 MAY / YOU LOSE 85
+  POTENTIAL. One HTML table, the same 12 rows in every column (APPROACHUI1's test counts them).
+- A FIRST-IN-LINE TABLE on the card (Lucy, Danny, Samira: wins, potential, money, loyalty, who minds whom) with the grievance rule in one sentence.
+- A ROAD BACK TO SETTLED per answer ("+5: two wins and an ask heard"), so paying is not followed by an endless "wants a word".
+- CODE CLAIMS FIXED: the pro share is in dollars per purse from the SECOND pro bout ($375 at 25% against $180 at StarDeal.FLOOR 12%, on
+  Roster.PRO_PURSE $1,500); the debut pays from tickets (ProDebut.night: at 70 members and 7 wins 69 sold, 9 over BREAK_EVEN 60, the gym $56); the
+  floor is StarDeal.FLOOR 0.12, not C28's 10% (C28 is changed to 12% by this map); the ask hook is the twist card's morale (Sim.twist_monday,
+  Sim.gd:58-65, WeekTwist.ASKS :77-93), not a separate system; Kira's potential is not shown as a fact (the screen gives the scouted range and
+  "loyalty shows at the trial").
+- CUT FROM THE CARD: Ana (no answer touches her), the "last 12 weeks" history chips, the bill tile (its runway sits in the cash row), the MOVE
+  sparkline. Today's offer sits above the grid as the same in every answer but the promise.
+- A HAND MODEL OF THE BOT TEST, with its shares printed (section 4); LOYAL1 still runs first in the build.
+
+## 1. The idea in five lines
+
+1. Every fighter has LOYALTY, 0 to 100 (the trait already in the data, now live); each of your deals moves it, and every move keeps its cause.
+2. It warns three times, louder each time: the word and a dated forecast on the fighter (always), "wants a word" under 50, a rival's approach under 35.
+3. The approach offers exactly what your club has been holding back from that fighter (the largest cause in their ledger), so it is the bill for your own choices.
+4. Five answers, each paid in a coin the code already has: cash (MATCH), a split (HALF EACH), a team-mate (MOVE), a booked night and the fighter at stake (PROMISE: OUR SHOW), the fighter (LET GO); a talk first can make the cheap answer whole, or close it.
+5. A fighter who goes frees a place, costs reputation, takes their bouts and pro road with them, and boxes on in your region for the rival club.
+
+## 2. What is built today (read in the code)
+
+| Piece | Where | What it does today |
+|---|---|---|
+| Loyalty as a trait | `scripts/state/Data.gd:205-226` PROSPECTS personality | Kira 60, Samira 82, Tess 66, Danny 58, Josh 70 (CODE); home juniors 84-88 (`HomeJuniors.gd`); Lucy (`Data.lucy()`, :52) has none written |
+| The word on the signing card | `scripts/rules/Recruit.gd:32` | "Loyal: stays through a bad run". Nothing makes it true. Josh's written traits are Disciplined / Fragile, so his 70 is not shown before a trial |
+| Ana's live loyalty | `NoGi.gd:82`; `StripeCall.gd:97,112-114` | stripe now +3, hold -5; under 50 one news line, then nothing |
+| Nothing reads a boxer's loyalty | grep `loyalty` in scripts | only NoGi / StripeCall / Grapplers touch `f["loyalty"]` |
+| No fighter ever leaves | `Roster.sign_fighter:135` | `c.fighters` is only appended to |
+| Roster places | `GymSpend.places:150`, `used:154`, `place_blocked:159` | premises places + `StaffRoles.places`; a full club cannot invite (`Roster.invite:86`) |
+| Trial date | `Roster.trial_day_for:82` | the Monday after the invite |
+| Stipend | `GymSpend.set_stipend:101-110`; `GameMoney.FIGHTER_STIPEND` 250; `DAY_JOB_GAIN` 0.85 (:30, applied :90); `HomeJuniors.HALF` 0.5 (:20) | on or off only, half only for a home junior's first year; no lock, no loyalty |
+| Billing | `GameMoney.BILL_EVERY_DAYS` 28 | costs accrue weekly and leave as one bill every 28 days (days 28, 56, 84, 112 ...) |
+| Bout offers | `Bouts.day_events:116-147` | when nothing is booked, `next_offer_day` has come and `offers_settled` (:76, mismatches ignored): a pair, legal + mismatch, answer in 3 days (OFFER_ANSWER_DAYS), Saturday 2-4 weeks out (`AmateurBooking.lead_weeks`, `fight_day`), moved later until the cut makes the scale (`makeable_day:155`) |
+| Who Danny can meet | `Data.DIVISIONS.mlw` (Liam Doherty, Dean Clarke, Arjun Patel; mismatch Mateusz Kowalczyk), `Data.DIVISION_RIVALS:183-186`; `Bouts.legal_index:169`; `AmateurBooking.experience_match_ok` | Liam 6-4 (10 bouts, novice), Dean 8-5, Arjun 10-3, Mateusz 26-5 (open). Danny 2-1 is a novice: Liam is his one legal name, and only once |
+| Our bout on the rival's record | `BoutNight.gd:397-399` `Region.record(r, not win)` | Liam 6-5 after Danny's first bout: 11, open. From then on Danny has no legal opponent: the mismatch fallback, refused by `accept` (:188), a new unsafe pair each day (`offers_settled` + :145-147). DEFECT, fixed by NOVICEFLOW1 |
+| Club shows (rivals) | `Region.day_events:92-129` | every other Saturday rivals fight each other when `experience_match_ok` both ways; Liam (novice) finds no partner in mlw |
+| Pass | `Bouts.decline:219-226` | free; next offer AFTER_DECLINE 5 days later; expiry AFTER_EXPIRY 4; after a bout AFTER_FIGHT 10 (:404) |
+| Pro offer | `Roster.can_turn_pro:180-184`, `turn_pro:240` (stipend 0 at :257) | 7 wins AND regional top 3, or 9 wins |
+| The gym's pro money | `Roster.share_of:207` -> `StarDeal.share` (START 0.25, FLOOR 0.12); `Roster.PRO_PURSE` 1500, STEP 500, TOP 3000; `ProDebut.night` | the debut pays from tickets (gym = share above BREAK_EVEN 60 x $50 x 50% x 0.25: about $56 at 70 members and 7 wins); from bout 2 the gym takes its share of the purse: $375 at 25%, $180 at 12% |
+| Our own club show | `ClubShow.gd` (COST 3500, TICKET 25, EVERY_DAYS 112, LEAD_DAYS 28, `preview`), `GymSpend.book_show:275`, `show_preview:271`, `home_boxers:267` | booked 28 days out; tickets from members, reputation, juniors and +25 a fit home amateur; can lose money. Our boxers do NOT box on it today (only add tickets) |
+| Members and reputation from bouts | `BoutRules`, `BoutNight.gd:363-375` | ticket cut $450; a win +8 members and +5 reputation; a loss -1 / -2; stoppage -2 / -4 |
+| Asks heard / overruled | `WeekTwist.ASKS:77-93`, `Sim.twist_monday:58-65`, `FighterProfile` heard +5 / overruled -5 morale | the hook for loyalty is the same place the morale lands |
+| Rival club | `FirstHour.gd:28` RIVAL | "Frank Doyle, Eastside ABC": one news line, no actions |
+| Upgrade a MATCH competes with | `GymUpgrades.gd:14` strength corner $3,600 | what the same cash buys instead |
+
+## 3. What is thin
+
+- Loyalty is printed and inert for every boxer; the "Loyal" trait promises something the code never does.
+- A novice boxer has no bouts after one win against the class's last novice (section 2): every bout-based cause or promise is void until NOVICEFLOW1.
+- Five choices are free today and so are lookups: passing an offer, declining the pro offer, a day job instead of the stipend, overruling an ask,
+  signing a second fighter into someone's class.
+- The roster places have no exit; Eastside ABC is a name; the club show never puts our own boxers in the ring.
+
+## 4. The mechanics, each as a decision
+
+### M1. The loyalty ledger (prices five free choices)
+`f["loyalty"]` for boxers and grapplers (seeded from `personality.loyalty`; Lucy rolled 55-75 at the start, ESTIMATE). Every move is written to
+`f["loyalty_log"]` {day, cause, delta}. Bands (CLUBWEEK 3.8): Loyal 70+, Settled 50-69, Wavering 25-49, Leaving under 25.
+
+| Event | Hook (CODE) | Loyalty (ESTIMATE) | The choice it prices, and what weighs against it |
+|---|---|---|---|
+| Pass a legal offer, or let it expire, while fit and free | `Bouts.decline`, expiry in `Bouts.day_events` | -3 | pass (-3) vs take a bout you may lose (loss -1 loyalty, -1 member, -2 reputation, morale -12, CODE BoutRules) |
+| Day job while a team-mate paid more has fewer wins or a lower potential (not a Loyal fighter) | `Sim` week end, every 28 days | -3 | who holds the $250: the Loyal fighter on a day job saves $250 a week but trains x0.85 (CODE) |
+| Stipend given / halved / pulled | `GymSpend.set_stipend` (NEW half state) | +6 / -4 (halved from full) / -8 | the $250 a week |
+| Fit, free, nothing boxed or booked for 4 weeks, only while a legal offer could come (Bouts open > 0) | `Sim` week end | -3 | revives the dead `month_no_fight` |
+| Ask heard / overruled | `Sim.twist_monday:65` (the once-morale of a WeekTwist.ASKS answer) | +2 / -3 | the week your way or theirs |
+| Goal met / missed | `BoutNight.gd:432` | +5 / -4 | the goal you set |
+| Win / loss / stoppage loss | `BoutNight.gd:363-375` | +2 / -1 / -3 | which bouts you take |
+| Decline the pro offer / turn pro | `Roster.decline_pro` / `turn_pro` | -8 / +5 | stay amateur for the nationals |
+| A signing in the same class | `Roster.sign_fighter` | -4 once | the trial you invite |
+| Contract talks: keep share / drop share | `GymSpend.answer_talks` | +6 / +3 | already a decision; now it also buys loyalty |
+
+THE UPSIDE (the trait made true): a Loyal fighter (70+) takes no day-job grievance, and result losses are halved toward zero. AT TURNING PRO: 50 or
+more, the club keeps StarDeal.START 25%; under 50, an outside manager signs the boxer and the club's share is StarDeal.FLOOR 12% (CODE constants;
+the rule is NEW in `Roster.turn_pro`, and it applies to the debut's ticket share too). In money: $375 against $180 on a $1,500 purse (bout 2), $750
+against $360 at the $3,000 top; the debut, about $56 against $27.
+
+### M2. Warning 1: the word and the forecast (always on, no button)
+The header chip: band word, number and "Settled at 50" (hover: every move, the history the player cannot act on). The Overview's causes come WITH
+THEIR CONDITION and NEXT ON ITS OWN: each scheduled tick, its date and what stops it, linked to the action.
+
+### M3. Warning 2: "wants a word" (under 50; once a fighter every 4 weeks)
+Amber need on Home and a card on the Overview, 7 days. TELL IT STRAIGHT (the talk): chance 0.30 + 0.60 x coachability/100 (ESTIMATE; shown as the
+trait word: Listens about 3 in 4, Stubborn about 1 in 2), +4 or -4, and the fighter cannot be talked to again for 8 weeks. SAY NOTHING: -1.
+The weigh: for a Stubborn fighter talking now is worth about 0 against -1, but it spends the one talk that, at an approach, can make HALF EACH whole.
+
+### M4. Warning 3: the approach
+WHEN (all three): loyalty under 35; worth taking (potential 80+, or regional top 5, or professional); no approach to that fighter in the last 12
+weeks. Under 25 with two words and no approach: leaves on their own the next Monday (CLUBWEEK 3.8 floor).
+SHOWS: red APPROACHED flag, a red need on Home, the top card on the Overview; 7 days; the big button stops on the last day. Unanswered = LET GO.
+WHAT IS OFFERED: the cause with the largest loss in the last 12 weeks: day job -> "full time: Eastside's backers pay the keep"; passes / no bout ->
+"a bout on Eastside's show"; pro offer declined -> "Eastside's promoter signs the debut"; a professional -> "a manager at 15%".
+
+THE TALK FIRST (optional, free, only if the fighter's talk is not spent): lands -> HALF EACH counts in full (+9 instead of +4); fails -> -4 and HALF
+EACH leaves the card. The other answers stay.
+
+THE FIVE ANSWERS (every row read on the window's end, 12 weeks on; the table is the card):
+
+| Answer | Coin | Price in the code | Loyalty | What follows |
+|---|---|---|---|---|
+| MATCH IT | cash | the matched thing held 12 weeks: for a day job, a second stipend, `set_stipend(off)` refused to the end date (NEW lock) = 12 x FIGHTER_STIPEND $3,000, billed every 28 days; training back to x1.0 | +12 | the cause stops ticking |
+| HALF EACH (when the cause is a team-mate's stipend) | a split | the holder's $250 becomes $125 + $125 (`weekly_salary` = FIGHTER_STIPEND x HomeJuniors.HALF; NEW half state for any fighter); both locked to the end date; both train x0.925 (ESTIMATE) | +4 (+9 if the talk landed); holder -4 | nobody holds more, so nobody minds; the fighter stays 2-4 points over 35 |
+| MOVE IT (when a team-mate holds the thing asked for) | a team-mate | the stipend moves now, $0 more; the holder: -8 now, x0.85 training, and -3 every 28 days if the grievance rule holds; their pro share falls to 12% if under 50 when their offer comes | +12 | the team-mate may be the next "wants a word" |
+| PROMISE: OUR SHOW (only when `ClubShow.can_book` today) | a booked night and the fighter at stake | `GymSpend.book_show` now ($3,500), the night `ClubShow.show_day` (28 days out); the fighter's bout there replaces today's offer (NEW: a home bout on our show against a legal novice); unfit, injured or overweight on the night = broken = leaves the Monday after | +4 now; the cause's ticks wait for the night; kept +10 | the day job ticks again after the night; a second promise for the same cause is refused |
+| LET THEM GO | the fighter | see M6 | - | leaves next Monday; the place frees for a trial |
+
+THE HAND MODEL (a Python sketch of LOYAL1's bot test, run in the scratchpad this round; its sizes and values are ESTIMATE and LOYAL1 replaces it).
+6,000 bot clubs per cash band, each state drawn at random: cash, weekly net (-$450 to +$150), Lucy's chance of two wins (0.15 to 0.70), a show
+bookable (6 in 10) and its night's net (-$800 to +$2,500), a scouted prospect's worth ($0 or $1,000 to $7,000), places full (7 in 10), Danny's
+worth to the club ($2,000 to $8,000), his coachability (Stubborn / middle / Listens). A bot values cash by how short it is (a dollar counts
+8,000/cash, between 0.2 and 1.5), a stat point at $150, Lucy's pro share at $1,500 over two years, and a fighter's chance of leaving in the next
+half year by loyalty on the end date (50+: 2%, 45: 10%, 40: 20%, 35: 35%, 30: 55%, under 30: 70%). It talks first when the expected best answer
+after a talk beats the best without one, then picks the best answer.
+
+| Cash band | MATCH | HALF EACH | MOVE | PROMISE | LET GO | Talked |
+|---|---|---|---|---|---|---|
+| Tight ($1,500-6,000) | 0% | 50% | 27% | 10% | 12% | 58% |
+| Drawn ($6,000-15,000) | 1% | 36% | 18% | 33% | 12% | 42% |
+| Rich ($15,000-40,000) | 54% | 14% | 3% | 19% | 12% | 17% |
+| All | 17% | 34% | 16% | 21% | 12% | 39% |
+
+Each answer is best in some clubs and none passes 60% in any band. The first sizes tried (MATCH +12, HALF +6 with a landed talk worth +12, PROMISE
+kept +8 with the ticks running) gave HALF 57%, MOVE 32%, MATCH and PROMISE 0%: that is why HALF gives +4 (+9 landed), PROMISE pauses the ticks
+and gives +10, and MOVE carries Lucy's training loss on her two-win chance. MATCH winning almost only in rich clubs is intended (cash is its coin);
+LOYAL1 must still show it winning in at least one of its three bot clubs.
+
+### M5. Promises (one list, checked by the code)
+Each promise is {fid, kind, by_day}; PROMISES OPEN on the fighter's Overview and Club > People. Listed only when it binds something today.
+
+| Promise | What the code locks or checks | Listed when |
+|---|---|---|
+| Top of our show on <date> (the approach's PROMISE) | `book_show` paid; the fighter's next bout is the show's; broken if not fit or not made weight on the night | `ClubShow.can_book` and a legal novice for the fighter (Bouts open > 0) |
+| You turn pro when the offer comes | `decline_pro` locked; kept when taken | the fighter is within 2 wins of a pro offer |
+| No signing in your class before <date> | Find a fighter hides the trial in that class; kept on the date | Find a fighter has a scouted prospect in that class |
+(Cut: "every offer to <date>", "the stipend from <date>", see section 9.)
+
+### M6. Leaving: what it does to the club
+On the Monday: the fighter leaves `c.fighters`; the stipend stops; a bout inside 14 days is boxed first (a farewell bout), one further off is
+withdrawn (no fine). Then: the place frees (a trial can be invited at once, the trial the Monday after, CODE `trial_day_for`); reputation -2, or -5 for
+a regional top 5 or a professional (ESTIMATE): about 1 or 3 members while under the room cap, none at it (CODE `member_target` = min); every team-mate
+under 50 loses 2 (ESTIMATE); a professional's manager pays a release fee of 40% of what the boxer earned the gym in the last year, at least $500
+(StarDeal.YEAR_BONUS x GymSpend.year_take). The fighter becomes an Eastside ABC row in `c.rivals` (NEW `c.extra_opponents`), file fully open
+(`OppFile.remember`), shown on Rankings "Eastside ABC (left us Apr 2026)"; Records: "Danny Osei leaves for Eastside ABC".
+
+### M7. Let a fighter go yourself (the places' exit)
+Overview contract line: "Let <name> go". Free in cash; frees the place; reputation -1, or -3 if ranked (ESTIMATE); the M6 knock-on. The confirm
+names the price and the scouted prospects (range only, "loyalty shows at the trial"). Greyed with its reason when places are not full.
+
+## 5. Real basis
+- An amateur club loses good boxers when they feel second in line; England Boxing amateurs move clubs on a transfer form with no fee (so MATCH is
+  the stipend, never cash for the boxer, and LET GO brings no fee).
+- A club's money for its boxers is small and shared; splitting a grant between two prospects is common, and who gets it is the coach's call.
+- A boxer topping the bill at their own club's show is a real promise clubs make to keep a prospect; the show is a club's own money risk.
+- Amateurs turning professional often sign with a manager outside the club (C28; StarDeal header: filed contracts about 18%, prospects accept more).
+
+## 6. One week, played (week 14, Monday 6 April 2026, day 91)
+
+The club (the four-fighter start is FOURSTART1, not built, so line-up and money are ESTIMATE): Anvil Street Gym, 4 of 4 places. Lucy Jackson
+(women's lightweight, potential 84 CODE `Data.lucy`, 5-1 by now ESTIMATE from 3-1 CODE, regional rank 2 ESTIMATE, loyalty 64 ESTIMATE) holds the
+one stipend. Samira Khan (potential 82, loyalty 82 CODE: Loyal) works a day job without complaint. Danny works a day job. Ana on the mats.
+Cash $9,860, running -$140 a week; members 70, reputation 24 (ESTIMATE). No club show held yet, so `ClubShow.can_book` is true.
+Danny (CODE `Data.PROSPECTS`): signed day 0 at 2-1, potential 85, coachability 34 (Stubborn), loyalty 58, walks 61.1 kg for the 60 kg class.
+
+Danny's ledger (sizes ESTIMATE; dates from the offer code: next offer day + 8 at signing, AFTER_FIGHT 10, AFTER_DECLINE 5, 2-4 weeks lead, Saturdays;
+names after day 26 from NOVICEFLOW1):
+
+| Date (day) | Cause (with its condition) | Loyalty |
+|---|---|---|
+| Mon 5 Jan (0) | signed | 58 |
+| Sat 31 Jan (26) | beat Liam Doherty on points (Liam 6-5: open from now, CODE Region.record) | +2 = 60 |
+| Mon 2 Feb (28) | day job; Lucy on the stipend (Danny potential 85, Lucy 84) | -3 = 57 |
+| Wed 11 Feb (37) | passed Reece Adair (new novice, Fisher ABC, offer of day 36) | -3 = 54 |
+| Mon 16 Feb (42) | asked to spar, overruled; that day's offer, Kyle Brennan for Sat 21 Mar, taken | -3 = 51 |
+| Mon 2 Mar (56) | day job; Lucy on the stipend | -3 = 48: WANTS A WORD |
+| Mon 9 Mar (63) | said nothing (the talk kept) | -1 = 47 |
+| Sat 21 Mar (75) | lost to Kyle Brennan on points; goal "Next bout inside a month" missed | -1 -4 = 42 |
+| Mon 23 Mar (77) | asked for more running, overruled | -3 = 39 |
+| Mon 30 Mar (84) | day job; Lucy on the stipend | -3 = 36 |
+| Wed 1 Apr (86) | passed Reece Adair (offer of day 85) | -3 = 33 |
+
+By cause: day job -9, offers passed -6, asks overruled -6, goal -4, the word -1, results +1 (58 - 25 = 33). Under 35, potential 85: Eastside
+approaches today. The largest cause is the day job: "full time: Eastside's backers pay the keep". Answer by Sun 12 Apr; unanswered, Danny leaves
+Mon 13 Apr. Danny is 3-2 now; Bouts open to him: 2 (Reece Adair 2-2, Kyle Brennan 3-1).
+Today's offer (offers reopen day 86 + 5, CODE): Reece Adair, Sat 25 Apr (day 110 = fight_day(91, 2); the 2-week lead is ESTIMATE, the hash picks
+2-4), answer by Thu 9 Apr (3 days, CODE). The card takes it as given in every answer but PROMISE.
+Next on its own (no answer, Danny kept): Mon 27 Apr, 25 May, 22 Jun -3 each (the 28-day day-job cycle from day 28).
+Lucy (ESTIMATE): booked Sat 18 Apr (day 103), the bout page's chance 62%; her next offer about Sat 23 May (day 138), about 6 in 10 against a like
+opponent; two wins make 7-1 at rank 2: the pro offer (CODE PRO_WINS 7 + PRO_RANK 3) that evening (`Roster.check_pro`, BoutNight.gd:459).
+
+THE TALK FIRST: Stubborn, 0.30 + 0.60 x 0.34 = 0.50. Lands: HALF EACH = Danny 42 for $0. Fails: Danny 29 and HALF EACH is gone.
+
+The five answers, read on Mon 29 Jun (day 175, the window's end; before results; a win +2, a loss -1):
+
+| Row | MATCH IT | HALF EACH | MOVE THE STIPEND | PROMISE: OUR SHOW | LET DANNY GO |
+|---|---|---|---|---|---|
+| You give | YOU PAY $3,000 | YOU SPLIT $250 | YOU RISK LUCY'S SHARE | YOU STAKE DANNY, 9 MAY | YOU LOSE 85 POTENTIAL |
+| Cash to 29 Jun | -$3,000 (12 x $250 CODE; $750 on the 27 Apr bill, $1,000 on 25 May and 22 Jun, $250 on 20 Jul); running -$390: 25 weeks of cash | $0 more; -$140: 70 weeks | $0 more | -$3,500 now; the night's net +$400 to +$3,300 (ClubShow.preview at 70 members, reputation 24, 3 home boxers: 132-216 tickets, raffle $600-1,400); today's $450 cut lost | $0; a signing on the stipend $250 a week or a day job |
+| Danny on 29 Jun | 45 | 37 (42 if the talk landed) | 45 | 37 now, ticks wait, kept +10 on 9 May = 47, -3 on 25 May and 22 Jun = 41 | gone 13 Apr |
+| Lucy on 29 Jun | 64 | 60 | 56 now, 53 (4 May), 50 (1 Jun), 47 (29 Jun) | 64 | 64 |
+| Training, 12 weeks (focus stat; 12 x 0.15 x headroom, CODE constants, stats ESTIMATE) | Danny +1.0 | Danny +0.5, Lucy -0.5 | Danny +1.0, Lucy -1.0 | no change | - |
+| Who minds whom | no one | no one | Lucy minds Danny (5 wins to 3) | Danny still minds Lucy | nobody under 50; reputation -2 |
+| Pro share, a purse | Lucy $375 | Lucy $375 | Lucy $375 if her offer comes by 1 Jun, else $180 | Lucy $375 | Lucy $375; Danny's road leaves |
+| Locked | Danny's stipend to 29 Jun | both halves to 29 Jun | Danny's stipend to 29 Jun | the show is his next bout; unfit that night: he leaves | nothing |
+| Eastside back? | only under 35 again | 2 points from it: one pass | only under 35 again | only under 35 again | Danny boxes for them |
+| Back to Settled | +5: two wins and an ask heard (about 6 Jun) | +13: not in these 12 weeks | +5, as MATCH | +9: not while the day job ticks | - |
+| Best if (the bet) | Danny's next 12 weeks beat the strength corner ($3,600) | the talk lands (about 1 in 2) | Lucy wins 18 Apr and 23 May (on a day job about 60% and 56%, ESTIMATE): about 1 in 3 | Danny is fit on 9 May (about 19 in 20: training injury 1.3% a week x 4, CRITIC_PACK 4.10, plus the scale) | the 20 Apr trial finds better: Kira Mensah 81-91, Josh Harper 74-84 (ranges, SCOUT_SPREAD 5) |
+
+What this club weighs: cash lasts 70 weeks at -$140, so MATCH's $3,000 is affordable but is the strength corner; Lucy's offer is about two wins away,
+so MOVE puts $195 a purse on a 1-in-3 bet; HALF is free and safe for Lucy but leaves Danny one pass from another approach unless the talk lands; the
+show is bookable and its forecast is positive at both ends, so PROMISE costs one ticket cut and a 1-in-20 risk of losing Danny, and leaves him at 41.
+The player in this example talks first. It fails (Danny 29), HALF EACH goes, and the player chooses PROMISE: OUR SHOW: $3,500 leaves today, the
+show is set for Sat 9 May, Reece Adair's 25 Apr offer is passed without the -3, and Monday's review shows "Danny +4: promised the top of our show
+(Sat 9 May)". On these numbers Danny reads 37 on 29 Jun (29 + 4 + 10 - 6), two points over Eastside's line.
+
+## 7. Every menu it appears on, and what each is wired to
+
+| Menu | What shows | Wired to |
+|---|---|---|
+| Top bar flags | APPROACHED (red) on the answer-by day | `Needs.flags`, `Needs.blockers`, NEW `Approach.open(c)` |
+| Big button | NEEDS YOU (n): "Eastside's answer, by Sun 12 Apr" | `Needs.go_state` |
+| Home, notice board | red "Eastside ABC wants Danny" (Decide); amber "Danny wants a word" (Talk); a promise due (the show) | `HomeNeeds`, `Needs.needs`, NEW `Loyalty`, `Approach`, `Promises` |
+| Home, fighter row | band word only when Wavering or Leaving | `HomeRows`, `Loyalty.band` |
+| Fighters > Roster cards / table | flags APPROACHED / WANTS A WORD; Loyalty column (number + word, sortable) | `RosterFlag.ORDER` (two rows), `RosterCards`, `RosterTable` |
+| Fighter page header | loyalty chip (hover: every move) with "Settled at 50"; Potential; Bouts open to him: N; pro offer terms; a pro purse for the club at 50+ and under 50 | `FighterPage` header, `Loyalty.last`, NEW `Bouts.open_count(c, f)`, `Roster.can_turn_pro` terms, `StarDeal.START/FLOOR` x `Roster.PRO_PURSE` |
+| Fighter page > Overview | the approach card: first-in-line table, causes with condition and what stops each, the talk, today's offer, the five-answer table (12 rows), the 12-week timeline | NEW `ApproachCard.gd`, `ApproachGrid.gd`, `ApproachTimeline.gd`; `Approach.answers(c, f)` returns the rows; `Loyalty.first_in_line(c)`, `Loyalty.forecast`; `Bouts` offers; `GymSpend.show_preview`; `Roster.prospects` |
+| Fighter page > Week (ask card) | each answer's loyalty price (heard +2, overruled -3) | `TwistCard`, `Sim.twist_monday` |
+| Fights > offer (versus) | Pass shows "loyalty -3"; "Promised: the top of our show" replaces the offer when a promise holds | `OfferCard`, `VersusPanel`, `Bouts.decline`, `Promises.blocks_offer` |
+| Pro offer modal | the club's share by loyalty ($375 a purse at 50+, $180 under); "Stay amateur: loyalty -8"; locked when promised | `Roster.turn_pro` / `decline_pro`, NEW share rule |
+| Club > Money | STIPENDS: Pay / Half / Stop with +6 / -4 / -8 and the grievance it starts or stops ("Lucy would mind: -3 every 4 weeks"), "held to 29 Jun"; CLUB SHOW: "Danny tops it (promised)" | `MoneyPanels`, `GymSpend.set_stipend`, `Loyalty.stipend_preview`, `GymSpend.book_show` |
+| Club > People | PROMISES OPEN (who, what, by when) | `Promises.open(c)` |
+| Club > Records | "Danny Osei leaves for Eastside ABC"; promises kept and broken | `Records.rows`, `c.add_news` |
+| World > Rankings | the leaver's row "Eastside ABC (left us Apr 2026)"; new novices as they join | `Region.rankings`, `RankRow`, `OppFile.remember` |
+| World > News | the approach (own fighter); "a new novice joins <club>"; the leaving line | `c.add_news` |
+| Week review (Monday) | loyalty moves by cause; band crossed | `WeekReview`, `Loyalty.week` |
+| Find a fighter / trial | "loyalty shows at the trial"; after the trial the number and "on a day job: minds no one (Loyal)" or "would mind <name>"; a trial in a promised class locked | `RecruitPanel`, `Roster.invite`, `Loyalty.would_grieve` |
+| Signing card | "Loyal: minds no day job, losses cost half" and the starting number | `Recruit.GOOD`, `RecruitPanel` |
+| Grappler page (Ana) | the same bar; an approach from "a bigger academy" with the answers that fit (no stipend: MATCH = class fees, no HALF/MOVE) | `GrapplerPage`, `StripeCall`, `Approach` |
+| Handbook | Loyalty, Wants a word, The talk, Approach, Promise | `HandbookPanel`, `assets/data/handbook.json` |
+
+## 8. Build tasks (each under 500 lines, one owner, its test red first)
+
+| Id | Owner | Files (lines, ESTIMATE) | Red test first |
+|---|---|---|---|
+| NOVICEFLOW1 (FIRST, a defect today) | Claude (state) | `scripts/state/Region.gd` +60 (`new_novice(c, div)`, names from `assets/data/novices.json`, real clubs), `scripts/state/Bouts.gd` +25 (`open_count`; when `legal_index` finds none, ask Region for a novice; a mismatch-only pair sets `next_offer_day` += AFTER_EXPIRY) ; `tests/novice_flow_test.gd` (~150) | "Danny beats Liam on day 26; on day 36 his offer is legal (not mismatch) and Bouts open > 0; no day between 27 and 60 brings two pairs" fails on main (mismatch every day) |
+| LOYAL1 probe | Arena (cloud, pure) | `tests/loyal1_probe.gd` (~320): a year, four fighters, three bot clubs (rich, drawn, tight) and the answers; prints each answer's share by club, talk rate, approaches per year | each of the five answers best in at least one bot club; none over 60% in any; the coach's default play never triggers an approach; replaces section 4's hand model |
+| LOYAL2 | Qwen (pure) | `scripts/rules/Loyalty.gd` (~240): bands, MOVES, `apply` (Loyal halving), `by_cause`, `forecast(view)`, `would_grieve(f, holder)`, `first_in_line(view)`, `talk_chance(coach)` ; `tests/loyalty_test.gd` | "Danny 85/3w vs Lucy 84/5w: Danny grieves; after a move Lucy grieves; on halves nobody; Samira 82 never" fails on main (no file) |
+| APPROACH1 | Qwen (pure) | `scripts/rules/Approach.gd` (~280): `due`, `offer` (largest cause), `talk(view, roll)`, `answers(view)` -> the 12 rows for MATCH / HALF / MOVE / PROMISE / LET GO on the end date, the show listed only when `can_book` ; `tests/approach_test.gd` | section 6 ledger -> MATCH 45 (-$3,000), HALF 37 (42 landed), MOVE Danny 45 Lucy 47, PROMISE 41, talk fail removes HALF |
+| PROMISE1 | Qwen (pure) | `scripts/rules/Promises.gd` (~150): make, listed-only-if-binding, kept/broken, `blocks_offer`, `can_decline_pro`, `can_invite` ; `tests/promises_test.gd` | "show promise for day 124: the fighter injured on 124 -> broken; fit and boxed -> kept +10" |
+| HOMEBOUT1 | Claude (state) | `scripts/state/GymSpend.gd` +30 and `scripts/state/Bouts.gd` +30: a home bout on our show (legal novice, `Bouts.legal_index`), no ticket cut (the gate is ours) ; `tests/home_bout_test.gd` | "a show booked with Danny on top: on the night Danny's bout is fought and the show's tickets paid once" |
+| LEAVE1 | Claude (state) | `scripts/state/Leaving.gd` (~220): `leave`, `let_go`, farewell bout, rival row, `c.extra_opponents`, release fee, team-mates -2; `SaveGame` seed of `f["loyalty"]` (Ana moved from NoGi) ; `tests/leaving_test.gd` | "after leave: 3 fighters, place_blocked == '', Danny in c.rivals at Eastside ABC" |
+| LOYALHOOKS1 | Claude | hooks in `Bouts.decline` / expiry (only while open_count > 0), `BoutNight`, `GymSpend.set_stipend` (lock, half state x0.925), `Sim` week end and `twist_monday`, `Roster.sign_fighter` / `decline_pro` / `turn_pro` (gym_share FLOOR under 50, debut too) ; `tests/loyalty_hooks_test.gd` | "matched stipend -> set_stipend(off) refused; turn_pro at 45 -> share 0.12; half -> weekly_salary 125 each" |
+| APPROACHUI1 | Cursor | `scripts/ui/ApproachCard.gd` (~260), `ApproachGrid.gd` (~240), `ApproachTimeline.gd` (~160) on the Overview, from screen_r3 | `tests/approach_card_test.gd`: five columns, the same 12 rows each, Danny's numbers; Claude checks the still |
+| APPROACHUI2 | Cursor | RosterFlag rows, Needs, offer Pass price, Pro offer share line, Money stipend lines (Pay / Half / Stop), the show line, Find a fighter loyalty line, Records, Rankings tag, WeekReview row, header "Bouts open" (+10 to +40 each) | `tests/approach_menus_test.gd`: each menu's data function returns its line |
+| LEAVEPATH1 | Grok Dev | `tests/leave_path_test.gd` (~300): plays Danny's 14 weeks headless (a legal offer exists on day 91), then each of the five answers and the talk on a copy to day 175 through the menus' data functions | the golden path; red until all of the above land |
+
+## 9. What was rejected, and why
+- "Promise every offer to <date>": bound nothing in the code (every offer after bout 1 was an exempt mismatch); with NOVICEFLOW1 it would bind
+  something, but it is MATCH-free time with no stake; replaced by the show, which costs a night and puts the fighter at stake.
+- "Promise the stipend from <date>" and a start-date toggle on MATCH: a lookup on one number (round 2).
+- A free talk with a sure -2 for silence: talking always won. Now silence is -1 and the talk is spent for 8 weeks.
+- "Right when" verdicts: they gave the answer. Replaced by "Best if" bets with chances.
+- A cash bonus or transfer fee for an amateur: not how amateur clubs work.
+- Random departures: nobody leaves without the bar, a word and an approach, or a broken promise.
+- A separate happiness meter: morale is this week, loyalty is the season.
+- Ana and the history chips on the card; the bill tile (folded into the cash row); the MOVE sparkline.
+- Showing a prospect's grievance from hidden potential ("Kira would mind"): leaks the trial's reveal.
+- A fully simulated Eastside (R59): later; R58 needs its name, its offer and its row.
+
+## 10. Risks
+- NOVICEFLOW1 is the floor under all of it: without new novices a boxer stops boxing after one win and every bout cause is void. It must land first.
+- The hand model is a sketch with my own values; LOYAL1 may move every size. MATCH winning only in rich clubs is by design; if LOYAL1 finds it never
+  wins at all, the lock's +12 rises before the price drops.
+- A nag: one word every 4 weeks, one approach every 12 weeks a fighter; LOYAL1 checks the coach's default play triggers neither.
+- Four fighters and one stipend make "second in line" structural: two near-equal fighters both have a claim, which is the point; HALF EACH is the
+  release valve, and LOYAL1 checks a rotation or one Loyal fighter keeps a club Settled.
+- The show as a promise depends on `can_book` (one in 16 weeks): a club that just held one has four answers, and the card says why.
+- MOVE ties Lucy's pro share to her two results: the timeline must draw her bouts and the 1 Jun / 29 Jun crossings.
+- Dependencies: FOURSTART1 (four fighters, places, money); the fight-week scope (bout pace about one in 4 weeks today).
+
+## 11. The drawing, checked
+`docs/mockups/s439/r58/screen_r3.png` opened after each of three renders. First: the table ran under the timeline (Best if and the buttons hidden)
+and the talk box lost its button; fixed by shorter cells, single-line titles and a lower timeline. Second: the talk button still clipped, the 25 May
+bill and the 1 Jun mark at wrong days; fixed (the bills lane cut: the bills sit in the cash row; 1 Jun at day 56, 29 Jun right-aligned to the end
+line). Third: nothing clipped. Every item true on Mon 6 Apr (day 91): offers reopen today (86 + 5); answer by Thu 9 Apr; Sat 25 Apr = fight_day(91,
+2); Sat 9 May = ClubShow.show_day(91); day-job ticks 27 Apr / 25 May / 22 Jun; Lucy at 53 / 50 / 47 on 4 May / 1 Jun / 29 Jun if moved; $3,000 = 12
+x $250; $375 / $180 = 25% / 12% of $1,500; ranges = pot +/- 5. Buttons only where there is a choice: the talk, the five answers, Open the offer.
+ESTIMATE on the screen: loyalty sizes, Lucy's record, rank, loyalty and bouts, the novices' names and records, cash, members and reputation behind the
+show forecast, the training gains, the talk's chance, the injury chance.
+
+## 12. Changed this round
+Round 3 (critics depth 5 and 5): the bout premise fixed first (NOVICEFLOW1; the ledger redone on Region.record: Liam open after day 26, new novices
+after); HALF EACH added on HomeJuniors.HALF; the talk made a gamble with a stake (it can make HALF whole or close it; silence -1; one talk in 8 weeks);
+PROMISE every offer cut, replaced by the top of our own club show (book_show $3,500, the night 28 days out, the fighter at stake, ticks wait, +10);
+"Right when" verdicts replaced by bets with chances and a 12-week timeline; one headline price per answer; one table with the same 12 rows; a
+first-in-line table; a road back to Settled; the pro share in dollars per purse from bout 2 with StarDeal.FLOOR 12% (C28's 10% changed); Ana, the
+history chips, the bill tile and the sparkline cut; a hand model of the bot test with its shares printed (no answer over 60%, each best somewhere).

@@ -278,6 +278,7 @@ func _call(call: String, sit: String, names: Array, on: bool, _wide: float, pv_g
 	spend.name = "Cost_" + call
 	spend.set_meta("cost", cost)   # S444 the regroup preview shows it as a number (HudRegroup._costs)
 	spend.set_meta("ink", _shift_ink(signi(roundi(-cost * 10.0)), on))   # S459: dark ink on the lit plate
+	spend.set_meta("lit", on)   # S460 C386 point 2: the cell beside it goes dark on the lit plate too
 	spend.custom_minimum_size = Vector2(60, 22)
 	under.add_child(spend)
 	return frame

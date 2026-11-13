@@ -105,6 +105,33 @@
    "started": "2026-11-13T15:24",
    "eta": "2026-11-13T21:30",
    "note": "S452: ETA from round 4 (sent 14:55, PR about 6 h later)"
+  },
+  "GRADE1": {
+   "agent": "qwen",
+   "id": "GRADE1",
+   "title": "TASK GRADE1 - QWEN - centre the plan-line grade (Good / OK / Poor) and wire it into the fight and its forecast",
+   "status": "running",
+   "started": "2026-11-13T21:42",
+   "eta": "2026-11-13T23:32",
+   "branch": "qwen/grade1",
+   "worktree": "E:/FightCamp/wt/LEAN_GRADE1",
+   "wt": "E:/FightCamp/wt/LEAN_GRADE1",
+   "brief": "ops/research/TASK_GRADE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/GRADE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run grade1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/GRADE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/GRADE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/GRADE1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 46860,
+    "seat_pid": 24092
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }
  },
  "codex_budget": {

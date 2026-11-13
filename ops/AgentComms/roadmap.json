@@ -3,13 +3,13 @@
  "updated": "2026-11-13",
  "author": "claude S294",
  "now": {
-  "id": "S459",
+  "id": "S460",
   "owner": "claude",
   "updated": "2026-11-13",
-  "summary": "S459: his board marks fixed (HUD: lasts-to off, hooked counts, glove + win chance on calls, PACE|AIM split, gloves on landed rows; office: bigger faces, Club panel); FIGHTSEAM1 (his 'Hide the seams'): no slow-down, calls armed any time, no join reveals; shared holo in LANDED (side holos kept, his 'do not remove yet'); INTEGRATE1 audit (14 unwired modules) - StyleName wired; bout_read fixed (forecast fire share); LineGrade held for GRADE1; design loop tool + SQ73-76 queued.",
+  "summary": "S460: his marks C385/C386 fixed (LANDED reads the holo's own per-round tally at contact - no drift after a call re-plans the round; the lit call card's stamina cell + number in dark ink); C387 already answered by S459's Club panel; Q-S294-219 liver vs ribs -> LIVERRIBS_MAP_S460 v1 to critics (SQ77 Dola, SQ78 John); INTEGRATE1 #3 PlanPhase wired (ring + forecast + Plan screen rounds pill + last-round If ahead/If behind pace) and #7 TraitLine on the attribute board; GRADE1 briefed and running on Qwen (qwen/grade1); stale PRs 259/260 (already collected S458) still open - closing was blocked by the permission check.",
   "last_working_commit": "a9520d3e",
   "verified_playable": "Builds/FightCamp.exe exported S455 17:46 (blocked straights on the landed path, BLOCKLOOK5B)",
-  "next_action": "S460: 0) get_usage; collect seat answers SQ73-76 (Kalli fight week v7, Dola coach fit v4, John hosted show score, Maria fighter-leaves score) and push each mechanic to its next round (ops/Tools/design_loop.py; tracker ops/research/DESIGN_LOOP_S459.md; done = 6+ depth AND 6+ general, his S459 rule); queue the next batch (PUSHTANK, READREVEAL1 map, CAMPLOC1, LEDGER1, weight, turning pro). 1) INTEGRATE1 (his 'finish integrating mechanics before ... menus'): ops/research/INTEGRATION_S459.md #3 PlanPhase, #4 Towel, #5 ProRead, #6 Loyalty, #7 TraitLine ... (StyleName DONE; LineGrade HELD for GRADE1 - brief GRADE1 to a cloud seat: Good/OK/Poor multipliers centred so an average plan keeps its worth, and fight_why's nine-in-ten bar with FIRELEVEL3). 2) result_defects_test red on HEAD (point 2, the Why line) - trace. 3) His answers pending: Q-S294-219 liver vs ribs; shared holo mockup (remove side holos?); turn the HUD regroup on in the game? 4) POWER1E rear uppercut tail (punch_range baseline 67 failures windowed). No menu design until mechanics are in.",
+  "next_action": "S461: 0) get_usage; collect GRADE1 (Qwen, qwen/grade1, ops/research/TASK_GRADE1.md): read docs/GRADE1_RESULT.md, apply the DIFF (it touches LiveRound/BoutRead lines next to S460's PlanPhase lines - merge by hand, LiveRound cap 470), run line_grade, bout_read, fight_why, phase_wire, golden_path. 1) Seat answers SQ73-78 (fight week v7, coach fit v4, hosted show, fighter leaves, LIVERRIBS1 x2) -> design_loop.py next rounds; queue PUSHTANK, READREVEAL1, CAMPLOC1, LEDGER1, weight, turning pro. 2) INTEGRATE1 #4 Towel (corner-minute card: TowelWire.gd state builder from (f, m), BoutNight corner_jobs 'towel' key + retirement path, CornerOverlay card; BoutNight is 487/500 lines - put logic in the new module), then #5 ProRead, #6 Loyalty, #8 TrainRead, #10-12; TellWorth (#9) needs LEVERS1's exchange table before it can show in game words. 3) result_defects_test point 2 (trace). 4) POWER1E rear uppercut tail. 5) close PRs 259/260 (ask him to allow gh pr close, or close by hand). No menu design until mechanics are in.",
   "incomplete_blocked": "Training I: Dola 6/8 (not two at 7+); POWER1D helper result pending at handover (see TASK_POWER1D S457 section); Specialty display waits for the C20 control + screens (map task 14).",
   "next_acceptance": "Training tab H: two fresh critics (Claude + Dola) at 7+ on depth and as a game, then the board with the picture; POWER1D: uppercut_tail failures=0 with every regression in TASK_POWER1D not worse.",
   "awaiting_operator": "Nothing new asked this session; open looks still on the board/review: result page tabs, office desktop, block reel S455, Training tab F/G pictures."
@@ -1890,6 +1890,11 @@
    "id": "S459",
    "date": "2026-11-13",
    "summary": "S459: his board marks fixed (HUD: lasts-to off, hooked counts, glove + win chance on calls, PACE|AIM split, gloves on landed rows; office: bigger faces, Club panel); FIGHTSEAM1 (his 'Hide the seams'): no slow-down, calls armed any time, no join reveals; shared holo in LANDED (side holos kept, his 'do not remove yet'); INTEGRATE1 audit (14 unwired modules) - StyleName wired; bout_read fixed (forecast fire share); LineGrade held for GRADE1; design loop tool + SQ73-76 queued."
+  },
+  {
+   "id": "S460",
+   "date": "2026-11-13",
+   "summary": "S460: his marks C385/C386 fixed (LANDED reads the holo's own per-round tally at contact - no drift after a call re-plans the round; the lit call card's stamina cell + number in dark ink); C387 already answered by S459's Club panel; Q-S294-219 liver vs ribs -> LIVERRIBS_MAP_S460 v1 to critics (SQ77 Dola, SQ78 John); INTEGRATE1 #3 PlanPhase wired (ring + forecast + Plan screen rounds pill + last-round If ahead/If behind pace) and #7 TraitLine on the attribute board; GRADE1 briefed and running on Qwen (qwen/grade1); stale PRs 259/260 (already collected S458) still open - closing was blocked by the permission check."
   }
  ],
  "blocked_on_operator": [],
@@ -4956,12 +4961,25 @@
    "GYMLIFE2": "Gym picture: smooth shadow boxing, walks round the kit, nobody under a button",
    "INTROCORNER2": "Fight intro from the corners: each name call shown, never alike"
   },
-  "working_now": [],
+  "working_now": [
+   {
+    "id": "GRADE1",
+    "who": "qwen",
+    "title": "Centre the plan-line grade (Good/OK/Poor) so an average plan keeps its worth, wire it into the fight and forecast, measure Good vs Poor (TASK_GRADE1)",
+    "after": ""
+   }
+  ],
   "next": [
    {
     "id": "INTEGRATE1",
     "who": "claude",
-    "title": "Wire the 14 built mechanics nobody plays (his 'finish integrating mechanics before ... menus'): StyleName done, LineGrade waits on GRADE1, next PlanPhase, Towel, ProRead, Loyalty, TraitLine (ops/research/INTEGRATION_S459.md)",
+    "title": "Wire the 14 built mechanics nobody plays (his 'finish integrating mechanics before ... menus'): StyleName, PlanPhase, TraitLine done; LineGrade waits on GRADE1 (Qwen running); next Towel, ProRead, Loyalty, TrainRead (ops/research/INTEGRATION_S459.md)",
+    "after": ""
+   },
+   {
+    "id": "LIVERRIBS1",
+    "who": "dola",
+    "title": "Liver vs ribs (his Q-219 yes): liver = stamina drain + a knockdown when hurt, ribs = cracked rib, weeks out - map v1 at critics Dola + John (ops/research/LIVERRIBS_MAP_S460.md)",
     "after": ""
    },
    {
@@ -5426,6 +5444,24 @@
   },
   "done_recently": [
    {
+    "id": "FIXS459B",
+    "who": "claude",
+    "title": "His HUD marks: LANDED matches the holo; stamina number readable on the lit call",
+    "after": ""
+   },
+   {
+    "id": "PLANPHASE",
+    "who": "claude",
+    "title": "Plan lines by round (early/middle/late) + last-round pace by the score, in the fight and on the Plan screen",
+    "after": ""
+   },
+   {
+    "id": "TRAITLINE",
+    "who": "claude",
+    "title": "Traits say what they do now and the next line on the fighter's board",
+    "after": ""
+   },
+   {
     "id": "S459",
     "who": "claude",
     "title": "HUD + office marks, seams hidden, shared holo mockup, StyleName in the game, forecast fixed",
@@ -5466,22 +5502,6 @@
     "id": "STYLENAME1",
     "who": "qwen",
     "title": "The named style module collected (S457)"
-   },
-   {
-    "title": "TASK SPECIALTY1 - QWEN (qwen3-coder) - held moves: the weekly hold, the fade, frozen weeks, the coach's hold list",
-    "who": "qwen",
-    "when": "2026-11-13"
-   },
-   {
-    "id": "TRAINGAME2",
-    "who": "claude",
-    "title": "S456 Training tab F + G, Playbook ink icons (his note), numbers traced to the rules",
-    "after": ""
-   },
-   {
-    "title": "Block round 6 collected (BLOCKLOOK5B, Grok PR 256): straights on the landed path, rows all pass",
-    "who": "grok",
-    "when": "2026-11-13"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5610,6 +5630,18 @@
   "map": {
    "done_earlier": [
     {
+     "text": "HUD + office marks fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Fight seams hidden (no slow-down)",
+     "who": "claude"
+    },
+    {
+     "text": "Styles in the game",
+     "who": "claude"
+    },
+    {
      "text": "POWER1D lead uppercut tail landed",
      "who": "claude"
     },
@@ -5652,31 +5684,23 @@
     {
      "text": "Fight week v6 map to critics",
      "who": "claude"
-    },
-    {
-     "text": "Training tab A-C as a game",
-     "who": "claude"
-    },
-    {
-     "text": "Coaches v3 map to critics",
-     "who": "claude"
-    },
-    {
-     "text": "HUD maps: region outlines + counts",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "HUD + office marks fixed",
+     "text": "LANDED matches the holo",
      "who": "claude"
     },
     {
-     "text": "Fight seams hidden (no slow-down)",
+     "text": "Plan lines by round (PlanPhase)",
      "who": "claude"
     },
     {
-     "text": "Styles in the game",
+     "text": "Traits on the fighter board",
+     "who": "claude"
+    },
+    {
+     "text": "Liver vs ribs map v1",
      "who": "claude"
     }
    ],
@@ -5708,6 +5732,10 @@
     {
      "text": "Training J critics: 7/8 and 6/5",
      "who": "claude"
+    },
+    {
+     "text": "Liver vs ribs: Dola + John",
+     "who": "agent"
     }
    ],
    "next": [
@@ -5784,24 +5812,24 @@
      "who": "claude"
     },
     {
-     "text": "Your board marks: HUD + office",
-     "who": "claude"
-    },
-    {
-     "text": "Wire 12 built mechanics",
-     "who": "claude"
-    },
-    {
      "text": "Design loop to 6/6 (seats)",
+     "who": "claude"
+    },
+    {
+     "text": "Towel card in the corner",
+     "who": "claude"
+    },
+    {
+     "text": "Wire ProRead, Loyalty, TrainRead",
      "who": "claude"
     }
    ],
-   "session": "S459"
+   "session": "S460"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "S457",
- "next_action": "S460: 0) get_usage; collect seat answers SQ73-76 (Kalli fight week v7, Dola coach fit v4, John hosted show score, Maria fighter-leaves score) and push each mechanic to its next round (ops/Tools/design_loop.py; tracker ops/research/DESIGN_LOOP_S459.md; done = 6+ depth AND 6+ general, his S459 rule); queue the next batch (PUSHTANK, READREVEAL1 map, CAMPLOC1, LEDGER1, weight, turning pro). 1) INTEGRATE1 (his 'finish integrating mechanics before ... menus'): ops/research/INTEGRATION_S459.md #3 PlanPhase, #4 Towel, #5 ProRead, #6 Loyalty, #7 TraitLine ... (StyleName DONE; LineGrade HELD for GRADE1 - brief GRADE1 to a cloud seat: Good/OK/Poor multipliers centred so an average plan keeps its worth, and fight_why's nine-in-ten bar with FIRELEVEL3). 2) result_defects_test red on HEAD (point 2, the Why line) - trace. 3) His answers pending: Q-S294-219 liver vs ribs; shared holo mockup (remove side holos?); turn the HUD regroup on in the game? 4) POWER1E rear uppercut tail (punch_range baseline 67 failures windowed). No menu design until mechanics are in.",
+ "next_action": "S461: 0) get_usage; collect GRADE1 (Qwen, qwen/grade1, ops/research/TASK_GRADE1.md): read docs/GRADE1_RESULT.md, apply the DIFF (it touches LiveRound/BoutRead lines next to S460's PlanPhase lines - merge by hand, LiveRound cap 470), run line_grade, bout_read, fight_why, phase_wire, golden_path. 1) Seat answers SQ73-78 (fight week v7, coach fit v4, hosted show, fighter leaves, LIVERRIBS1 x2) -> design_loop.py next rounds; queue PUSHTANK, READREVEAL1, CAMPLOC1, LEDGER1, weight, turning pro. 2) INTEGRATE1 #4 Towel (corner-minute card: TowelWire.gd state builder from (f, m), BoutNight corner_jobs 'towel' key + retirement path, CornerOverlay card; BoutNight is 487/500 lines - put logic in the new module), then #5 ProRead, #6 Loyalty, #8 TrainRead, #10-12; TellWorth (#9) needs LEVERS1's exchange table before it can show in game words. 3) result_defects_test point 2 (trace). 4) POWER1E rear uppercut tail. 5) close PRs 259/260 (ask him to allow gh pr close, or close by hand). No menu design until mechanics are in.",
  "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after."
 }

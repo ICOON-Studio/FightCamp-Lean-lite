@@ -1,12 +1,16 @@
 extends RefCounted
 ## The Game plan's ROUNDS and GO-TO rows (moved out of GamePlan in S397 to keep it under 500 lines). `gp` is the GamePlan:
 ## its fighter (gp.f), booked bout (gp._bout()) and redraw (gp._refresh()).
-##   GamePlanRows.rounds(gp) -> Control   GamePlanRows.go_to(gp) -> Control
+##   GamePlanRows.rounds(gp) -> Control   GamePlanRows.go_to(gp) -> Control   phase_tag(gp, row, i)   last_round(gp, f, n)
 
 const UI := preload("res://scripts/ui/UI.gd")
 const PlanFile := preload("res://scripts/rules/PlanFile.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const OwnCombos := preload("res://scripts/rules/OwnCombos.gd")
+const PlanPhase := preload("res://scripts/rules/PlanPhase.gd")
+
+const PHASE_NEXT := {"all": "early", "early": "middle", "middle": "late", "late": "all"}
+const PHASE_TIP := "Which rounds this line is fought in. Click to change: all rounds, early, middle, late. Outside its rounds your boxer improvises there."
 
 
 ## S375 SCOUTPLAN1 the ROUND row: the pace each round opens on (push / steady / save; none picked = steady),
@@ -31,6 +35,7 @@ static func rounds(gp) -> Control:
 			b.name = "Pace_%d_%s" % [nn, pp]
 			row.add_child(b)
 	box.add_child(row)
+	box.add_child(last_round(gp, f, n_rounds))
 	var hints := PlanFile.round_hints(gp._bout()["opp"]) if not gp._bout().is_empty() else {}
 	for k in hints:
 		var h: Array = hints[k]
@@ -83,3 +88,43 @@ static func go_to(gp) -> Control:
 	said.tooltip_text = "It decides %s." % share   # S397: the number on hover, words on the card
 	box.add_child(said)
 	return box
+
+
+## S460 INTEGRATE1 #3 (PlanPhase): the line's rounds as a pill ("All rounds", "R1", "R2", "R3"); a click moves it on
+## all -> early -> middle -> late. The ring fights the line only in those rounds (PlanFile.arrows_for), the forecast too.
+static func phase_tag(gp, row: Control, i: int) -> void:
+	var arrows: Array = (gp.arrows as Array).duplicate(true)
+	var n_rounds := int(gp._bout().get("rounds", BoutRules.ROUNDS)) if not gp._bout().is_empty() else BoutRules.ROUNDS
+	var now := str((arrows[i] as Dictionary).get("rounds", "all"))
+	var b := UI.button(PlanPhase.words(arrows[i], n_rounds), "PillOn" if now != "all" else "Pill", func():
+		arrows[i]["rounds"] = str(PHASE_NEXT.get(now, "all"))
+		if str(arrows[i]["rounds"]) == "all":
+			(arrows[i] as Dictionary).erase("rounds")
+		gp._write(arrows)
+		gp._refresh())
+	b.name = "Phase_%d" % i
+	b.tooltip_text = PHASE_TIP
+	row.add_child(b)
+
+
+## S460 INTEGRATE1 #3 (PlanPhase late states): the last round's pace by the score - "If ahead" and "If behind" (level counts
+## as behind). Unset = the round's own pace above. The ring opens the last round on it (PlanFile.pace_for).
+static func last_round(gp, f: Dictionary, n_rounds: int) -> Control:
+	var row := UI.hbox(8)
+	row.name = "PlanLastRound"
+	row.add_child(UI.caps("R%d BY THE SCORE" % n_rounds))
+	var late: Dictionary = f.get_or_add("late", {})
+	for state in ["ahead", "behind"]:
+		var st := str(state)
+		row.add_child(UI.label("If %s" % st, UI.SMALL, UI.FG, "bold"))
+		var now := str((late.get(st, {}) as Dictionary).get("pace", ""))
+		for pace in PlanFile.PACES:
+			var pp := str(pace)
+			var b := UI.button(pp.capitalize(), "PillOn" if pp == now else "Pill", func():
+				var d: Dictionary = late.get_or_add(st, {})
+				d["pace"] = "" if pp == now else pp
+				gp._refresh())
+			b.name = "Late_%s_%s" % [st, pp]
+			b.tooltip_text = "The last round opens on this pace when your boxer is %s on the rounds so far (level counts as behind)." % st
+			row.add_child(b)
+	return row

@@ -1734,6 +1734,20 @@
       "at": "2026-11-13 18:52",
       "text": "BOARD ANSWER Q-S294-217 - question: Training: one separate Training scene (your 4 fighters as portraits on top, click one to plan that fighter's week; the profile's Training tab only a summary + Open in Training), or keep the planner inside each fighter's profile? | answer: Separate Training scene, fighters on top | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
       "status": "waiting"
+    },
+    {
+      "id": "P241",
+      "from": "board",
+      "at": "2026-11-13 20:15",
+      "text": "BOARD ANSWER Q-S294-218 - question: The fight's 30-second blocks: the clock and 3D run in real time, but each round is decided as six 30 s blocks (the fight slows at each one for the call bar). What should change? | answer: Hide the seams: no slow-down, calls any time, rules kept | note: hide the seam it gives away who is winning | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P242",
+      "from": "board",
+      "at": "2026-11-13 20:55",
+      "text": "BOARD ANSWER Q-S294-219 - question: Liver vs ribs: today they differ only in where body hooks land (60 of 100 on the liver side, so it hurts first); damage per hook and the 'hurt' line are the same. Make them different, as in real boxing? | answer: Yes: liver = stamina drain + a knockdown chance when hurt, ribs = the injury place (cracked rib, weeks out). Design map + critics first | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
     }
   ]
 }

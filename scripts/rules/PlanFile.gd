@@ -20,6 +20,7 @@ const PlanLines := preload("res://scripts/rules/PlanLines.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const RoundStyle := preload("res://scripts/rules/RoundStyle.gd")
+const PlanPhase := preload("res://scripts/rules/PlanPhase.gd")   # S460 INTEGRATE1 #3
 
 const PACES := ["push", "steady", "save"]
 ## Round 1's first exchanges against a slow starter (Exchanges.next_mode plays them as her counter game): a push there
@@ -133,7 +134,13 @@ static func cold_edge(opp: Dictionary, pace: String, n: int, i: int) -> float:
 
 
 ## The pace the plan opens round n on ("" = the corner's default).
-static func pace_for(f: Dictionary, n: int) -> String:
+## S460 INTEGRATE1 #3 (PlanPhase): the late state's pace ("If ahead" / "If behind") wins in a late round; `done` = the bout's
+## closed rounds so far (BoutNight m["rounds"], each with "won").
+static func pace_for(f: Dictionary, n: int, done: Array = []) -> String:
+	var b: Dictionary = f.get("bout", {})
+	var lp := PlanPhase.pace(b.get("late", f.get("late", {})), n, int(b.get("rounds", 3)), _state(done))
+	if PACES.has(lp):
+		return lp
 	var rp: Array = f.get("round_pace", [])
 	if n < 1 or n > rp.size():
 		return ""
@@ -150,3 +157,15 @@ static func set_pace(rp: Array, n: int, pace: String) -> Array:
 	while not out.is_empty() and str(out[-1]) == "":
 		out.pop_back()
 	return out
+
+
+## S460 INTEGRATE1 #3 (PlanPhase): the plan lines that live in round n - a line tagged early / middle / late lives only in
+## those rounds (PlanPhase.split), and a late round adds the "If ahead" or "If behind" lines by the rounds won so far.
+## `arrows`/`late` are the plan's (the bout's copy in the ring, the fighter's on the forecast); a line with no tag lives all bout.
+static func arrows_for(arrows: Array, late: Dictionary, n: int, rounds: int, done: Array = []) -> Array:
+	return PlanPhase.live(arrows, late, n, rounds, _state(done))
+
+
+static func _state(done: Array) -> String:
+	var won := done.filter(func(r): return bool((r as Dictionary).get("won", false))).size()
+	return PlanPhase.late_state(won, done.size() - won)

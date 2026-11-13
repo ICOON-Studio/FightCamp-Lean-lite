@@ -11,11 +11,11 @@ Order (Claude's call, fight path first - it is what every week ends in):
 |---|---|---|---|---|---|
 | 1 | StyleName + MoveTree | the named style: 6 styles, each one fight lever; extra plan line; lost on Monday when the hold goes | Duels OPEN, Combos spend, PlanFight mid/counter edge, pressure answers, Knockdowns; Monday review; plan cap | the news at the week turn + the plan limit | DONE S459 (8c08210a, style_wire_test) |
 | 2 | LineGrade | how well THIS boxer does each plan line (Good/OK/Poor from two attributes) | PlanFight.edge on planned lines | plan line grade word on the Plan screen | HELD for GRADE1: wired it drops a right plan's GOOD read 384 -> 161 of 540 (OK = x0.85 nerfs every average plan 15%); LineGrade.edge helper is in, the probe sets the numbers first |
-| 3 | PlanPhase | lines live early/middle/late; last round if ahead/behind | PlanFight.choose by round | Plan screen line tag | |
+| 3 | PlanPhase | lines live early/middle/late; last round if ahead/behind | PlanFight.choose by round | Plan screen line tag | DONE S460: ring (LiveRound pick via PlanFile.arrows_for), last-round pace (PlanFile.pace_for), forecast (BoutRead); Plan screen rounds pill per line + "R3 BY THE SCORE" pace row (GamePlanRows); phase_wire_test. Late-state extra LINES have no screen yet (pace only) |
 | 4 | Towel | the towel card in the corner minute: risk shown, what each answer costs | CornerMinute | the corner minute card | |
 | 5 | ProRead | pros get read across bouts: the corner waits for the punch thrown most | pro bouts: opponent read share | pro fight plan + result | |
 | 6 | Loyalty | loyalty bands with dated reasons + forecast | week settle | fighter profile | |
-| 7 | TraitLine | each trait: what it does now, next line, up and downside | read-only | profile traits tooltip | |
+| 7 | TraitLine | each trait: what it does now, next line, up and downside | read-only | profile traits tooltip | DONE S460: AttrBoard trait rows carry the line in force + the next line + per-point hover (only "code" lines; the three "new" hooks - Stubborn, Listens, skipped mornings - are NOT built, they show once built); trait_wire_test. TraitLine.crossed (a line crossed at the week turn -> news) not wired yet |
 | 8 | TrainRead | the coach's read: which training each fighter needs | read-only | training scene / roster row | |
 | 9 | TellWorth | what the next film session buys (a range of worth) | read-only | film choice tooltip | |
 | 10 | Knowledge | what the player can see of a boxer (ranges that never lie) | opponent views | versus / scout | |

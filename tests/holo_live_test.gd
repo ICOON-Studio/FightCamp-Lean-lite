@@ -14,6 +14,7 @@ const BodyCallouts := preload("res://scripts/ui/BodyCallouts.gd")
 const BodyPanels := preload("res://scripts/fight3d/BodyPanels.gd")
 const RoundHits := preload("res://scripts/ui/RoundHits.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")
+const FightSeam := preload("res://scripts/fight3d/FightSeam.gd")
 
 var failures := 0
 var bl: Node
@@ -34,6 +35,9 @@ class FakeView extends Control:
 	var bodies := ["", ""]
 	var stage: Node
 	var round_n := 1
+	var body: Node   # S460: BodyLive, as FightView keeps it
+	var _round_beats := []   # empty, as after a call re-planned the round
+	var t := 30.0
 	var _names := ["Red", "Blue"]
 	var _bug_box: Control
 
@@ -53,6 +57,7 @@ func _initialize() -> void:
 	root.add_child(view)
 	view.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	bl = BodyLive.attach(view)
+	view.body = bl
 	await _secs(0.3)
 	var holo: Node = bl.get("holo")
 	_check("1 two figures, one a side", holo != null and holo.figures.size() == 2, "")
@@ -78,6 +83,9 @@ func _initialize() -> void:
 		rh == {"head": 1}, str(rh))
 	_check("2 blue's round 1: one to the liver side", bl.round_hits(1, 1) == {"right_ribs": 1}, str(bl.round_hits(1, 1)))
 	_check("2 nothing in round 2 yet", bl.round_hits(0, 2).is_empty(), "")
+	var lx: Dictionary = FightSeam.landed_ex(view)[0]
+	_check("2 S460 C385: LANDED is the holo's own count (red 1 with 1 to the body, blue 1 to the head), whatever the beat list",
+		lx["landed"] == [1, 1] and lx["body"] == [1, 0], str(lx))
 	var red_co: Node = holo.figures[0].get_node("BodyCallouts")
 	var blue_co: Node = holo.figures[1].get_node("BodyCallouts")
 	_check("3 the struck place is still blinking", float(holo.figures[0]._flash.get("head", 0.0)) > 0.0, "")

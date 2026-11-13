@@ -25,6 +25,7 @@ const GROUPS := [
 ]
 const NAME := {"discipline": "Discipline", "confidence": "Confidence", "coachability": "Coachability", "temper": "Temper"}
 const PERSONALITY := ["heart", "discipline", "confidence", "coachability", "temper"]
+const TraitLine := preload("res://scripts/rules/TraitLine.gd")   # S460 INTEGRATE1 #7
 ## What each value does in a bout (read from the rule that uses it: Duels, Knockdowns, Exchanges, TheRead).
 const WHY := {
 	"strength": "Leaning, framing and tying up inside; breaking free off the ropes.",
@@ -91,6 +92,10 @@ static func rows(f: Dictionary) -> Array:
 			var why := str(WHY[key]) + ("\nIn a bout: " + BoutRules.fade_words(v) if key == "stamina" else "")
 			# S439 (T17 "Printed on the row"): the line in a few words under the row itself, the sentence stays on hover
 			var line := BoutRules.fade_row(v) if key == "stamina" else ""
+			if TraitLine.THE_FIVE.has(key):   # S460 INTEGRATE1 #7: what the trait does now and its next line
+				var tl := trait_lines(str(key), v)
+				line = str(tl[0])
+				why += str(tl[1])
 			list.append({"key": key, "name": label_of(str(key)), "value": v, "delta": d, "band": band(str(key), v), "why": why, "line": line})
 		out.append({"title": g["title"], "rows": list})
 	return out
@@ -237,3 +242,29 @@ static func with_line(h: Control, r: Dictionary, ink: Color) -> Control:
 	cap.mouse_filter = Control.MOUSE_FILTER_PASS
 	box.add_child(cap)
 	return box
+
+
+## S460 INTEGRATE1 #7 (TraitLine): [the line under the row, the hover's extra lines] for a personality trait - the lines in
+## force now and the next one good work reaches, with the per-point effect. Only lines the game plays (TraitLine source
+## "code"); the "new" hooks (Stubborn, Listens, skipped mornings) show once they are built.
+static func trait_lines(key: String, v: float) -> Array:
+	var played := func(r): return str((r as Dictionary).get("source", "")) == "code" and float((r as Dictionary).get("at", 0)) >= 0.0   # heart's formula rows: numbers on hover only
+	var now: Array = TraitLine.rows_now(key, v).filter(played)
+	var said: Array = now.map(func(r): return (str(r["word"]) + ": " if str(r["word"]) != "" else "") + str(r["does"]))
+	var tip := ""
+	if not said.is_empty():
+		tip += "
+Now: " + "; ".join(said)
+	var nx := TraitLine.next_line(key, v)
+	var nx_played: bool = not nx.is_empty() and (TraitLine.LINES.get(key, []) as Array).any(func(r): return played.call(r) and str(r["does"]) == str(nx["does"]))
+	var next_words := ""
+	if nx_played:
+		next_words = "At %d: %s%s" % [int(nx["at"]), "no longer " if bool(nx["ends"]) else "", str(nx["does"])]
+		tip += "
+" + next_words + " (%d points away)" % int(nx["points"])
+	var hv := TraitLine.hover(key, v)
+	if hv != "":
+		tip += "
+Each point: " + hv
+	var line := str(said[0]) if not said.is_empty() else next_words
+	return [line, tip]

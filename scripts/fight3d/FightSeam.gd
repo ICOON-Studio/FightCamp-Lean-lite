@@ -33,9 +33,20 @@ static func take(view: Node) -> String:
 
 ## One record in the exchange shape RoundBoard reads ({landed: [ours, theirs], body: [ours, theirs]}) from the punches the
 ## 3D has landed so far this round. "a" is our boxer (BodyMap: the defender of "b"'s punches is "a").
+## S460 C385/C386 (operator: "numbers do not match with holo"): with the bout's BodyLive the record is the SAME tally the side
+## holos draw (BodyLive.round_hits, counted at contact), so LANDED and the holo numbers cannot drift; the fired-beat count
+## below (which ran ahead of contact and lost beats when a call re-planned the round) stays only for a view without one.
 static func landed_ex(view: Node) -> Array:
 	var landed := [0, 0]
 	var body := [0, 0]
+	var bl: Node = view.get("body") if view.get("body") is Node else null
+	if bl != null and bl.has_method("round_hits"):
+		var round_n := int(view.get("round_n")) if view.get("round_n") != null else 1
+		for k in 2:
+			var hits: Dictionary = bl.round_hits(1 - k, round_n)   # what "a" (k 0) landed is what boxer 1 took
+			body[k] = int(hits.get("left_ribs", 0)) + int(hits.get("right_ribs", 0))
+			landed[k] = int(hits.get("head", 0)) + body[k]
+		return [{"landed": landed, "body": body}]
 	var t := float(view.get("t")) if view.get("t") != null else 0.0
 	for b in view.get("_round_beats"):
 		var beat := b as Dictionary

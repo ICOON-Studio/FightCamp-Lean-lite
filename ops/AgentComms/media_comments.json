@@ -2967,21 +2967,23 @@
       "path": "media:_sent/2026-11-13_2023_fight_hud_office_after_his_c371_c383_mar/p06e_round2_live.png",
       "text": "MARKUP: 1 marks -> Feedback/2026-11-13-37/README.md",
       "at": "2026-11-13T18:35:54Z",
-      "seen_by_claude": false
+      "seen_by_claude": true,
+      "addressed": "cited by a2e21f70 2026-11-13"
     },
     {
       "id": "C386",
       "path": "media:_sent/2026-11-13_2023_fight_hud_office_after_his_c371_c383_mar/p06e_round2_live.png",
       "text": "MARKUP: 2 marks -> Feedback/2026-11-13-38/README.md",
       "at": "2026-11-13T18:53:33Z",
-      "seen_by_claude": false
+      "seen_by_claude": true,
+      "addressed": "cited by a2e21f70 2026-11-13"
     },
     {
       "id": "C387",
       "path": "media:_sent/2026-11-13_1620_office_desktop_four_fighters_side_by_sid/office_real.png",
       "text": "MARKUP: 1 marks -> Feedback/2026-11-13-39/README.md",
       "at": "2026-11-13T18:53:50Z",
-      "seen_by_claude": false
+      "seen_by_claude": true
     }
   ]
 }

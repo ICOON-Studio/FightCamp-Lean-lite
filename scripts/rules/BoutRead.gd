@@ -5,6 +5,7 @@ extends RefCounted
 
 const StyleName := preload("res://scripts/rules/StyleName.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
+const PlanFile := preload("res://scripts/rules/PlanFile.gd")   # S460 PlanPhase lines by round
 const Exchanges := preload("res://scripts/rules/Exchanges.gd")
 const ComboOdds := preload("res://scripts/rules/ComboOdds.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
@@ -237,7 +238,7 @@ static func _game_edge_of(f: Dictionary, sit: String, n: int) -> float:
 	var at := str(PlanFight.GAME_CARD.get(sit, "long"))
 	var moves: Dictionary = f.get("moves", {})
 	var combos: Dictionary = f.get("combos", {})
-	var pick := PlanFight.choose(f.get("arrows", []), at, moves, sit)
+	var pick := PlanFight.choose(PlanFile.arrows_for(f.get("arrows", []), f.get("late", {}), n, BoutRules.ROUNDS), at, moves, sit)   # S460 PlanPhase, as the ring
 	if sit in ["tiring", "she_tired"]:   # S434 the opponent's games walk the card chain in _round_edges (PlanChain)
 		e += PLAN_REACH * PLAN_CARRY * PlanFight.edge(pick, sit, PlanFight.rate(str(pick["move"]), combos), PlanFight.card_mean(at, sit, moves, combos))
 	var habits := 0.0

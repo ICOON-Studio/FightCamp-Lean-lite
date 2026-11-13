@@ -95,7 +95,7 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 	var own_attrs := Attrs.of(f)
 	var opp_attrs := RingDuel.opp(opp)
 	# S375 SCOUTPLAN1 the plan's ROUND row opens the round on its pace ("" = the default below).
-	var pace0 := PlanFile.pace_for(f, n)
+	var pace0 := PlanFile.pace_for(f, n, m.get("rounds", []))
 	if n == 1:
 		f["bout"]["plan_tally"] = {}
 	PlanPressure.new_round(f["bout"], n)   # S397 the plan's pressure and her tank's ceiling last the bout
@@ -260,7 +260,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	if str(lv.get("at", "")) == "" or sit.begins_with("she_"):
 		lv["at"] = str(PlanFight.GAME_CARD.get(sit, "long"))
 	var at := str(lv["at"])
-	var pick := PlanFight.choose(f["bout"].get("arrows", []), at, f.get("moves", {}), sit)
+	var pick := PlanFight.choose(PlanFile.arrows_for(f["bout"].get("arrows", []), f["bout"].get("late", f.get("late", {})), n, int(f["bout"].get("rounds", BoutRules.ROUNDS)), m.get("rounds", [])), at, f.get("moves", {}), sit)   # S460 PlanPhase
 	var arrow := str(pick["move"])
 	if bool(pick.get("planned", false)) and not FireLevel.fires(FireLevel.shares_for(f["bout"]), FireLevel.mastery_of(f, arrow), _rng(c, f, n, i + 173).randf()): pick["planned"] = false
 	# S342 real plans (Q-S294-67): a hurt opponent who still hits back, a waiter in the round's last exchange.
