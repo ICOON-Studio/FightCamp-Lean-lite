@@ -4,12 +4,13 @@ extends SceneTree
 ## BeatFire throws one (FightStage.play from PunchPace start, PunchPace.arm, FightStage.land, FightStage.hit on the hit's
 ## timer), then HitImpact's own cut back to guard. The hitting glove front is read in Skeleton3D.skeleton_updated (the frame
 ## as DRAWN, after every modifier), every frame from the hit's drawn frame (f00) to 0.45 s after it.
-##   OVER_HEAD  the punching glove's lowest point never rises above her own Head bone + 0.05 m (y), in any frame after the hit.
+##   OVER_HEAD  the punching glove's LOWEST point (the lower of its wrist and its front, see _low) never rises above her own
+##              Head bone + 0.05 m (y), in any frame after the hit.
 ##   ELBOW      the punching elbow never rises above her own shoulder (the upper arm bone's head) + 0.05 m.
 ##   FOLLOW     for 0.10 to 0.20 s after the freeze ends the glove keeps moving up/forward (at least 0.03 m in total, its
 ##              distance to the target never grows more than 0.02 m) - a short follow-through, not a stop.
-##   BACK       within 0.40 s of the hit the glove is within 0.05 m of its guard place, and on the way NO one-frame glove
-##              speed is above 9.6 m/s.
+##   BACK       within 0.40 s of the hit the glove is within BACK_DIST_M of its guard place IN HER CHEST'S FRAME (see _home),
+##              and on the way NO one-frame glove speed is above 9.6 m/s.
 ##   PATH       on the way back the glove stays in front of her own face/chest (its forward distance from her own spine never
 ##              below 0.10 m) - it never travels over or behind her head.
 ## Two DIFFERENT bodies (mh_boxer_02 against mh_boxer_03), at the fight's gap. 3D only: no rule is read or changed.
@@ -31,7 +32,14 @@ const FOLLOW_MAX_DRIFT := 0.02
 const FOLLOW_START_S := 0.10
 const FOLLOW_END_S := 0.20
 const BACK_TIME_S := 0.40
-const BACK_DIST_M := 0.05
+## POWER1D S457 (contract): BACK is read in her chest's frame against the nearest frame of her guard window (GUARD_WIN
+## frames, the last of the 20 she stands in guard before the throw). 0.07 m, not the old world 0.05 m: her guard is a living
+## captured take - in her chest's frame its lead hand travels 0.02-0.26 m within 1.2 s of standing in guard (8 entries
+## probed, S457), so a hand truly home sits a few cm off the window's frames. S456 measured the hand-back home 0.025-0.07 m
+## against the spine; S457 (patch on) the lead was home by 0.30-0.38 s on all 5 reps at this bar. A glove held on its hit
+## point (mutant QUICK_BACK_S 0.45) never comes within it: BACK red 5/5. f00 reads 0.29-0.49 m.
+const BACK_DIST_M := 0.07
+const GUARD_WIN := 8
 const BACK_SPEED_BAR := 9.6
 const PATH_MIN_FWD := 0.10
 
@@ -45,8 +53,11 @@ var rec: Array = []
 var recording := false
 var hit_at := -1
 var freeze_end_at := -1.0
-var guard_pos := Vector3.ZERO
 var spine_fwd := Vector3.ZERO
+## POWER1D S457: the glove front in her chest's frame (metres, chest-bone axes) on each frame of the guard window before the
+## throw - the guard is a living loop (IdleMatch), so "home" is the nearest of these, not one frame.
+var guard_win: Array = []
+var guard_rec := false
 
 
 func _check(ok: bool, what: String) -> void:
@@ -63,6 +74,24 @@ func _glove() -> Vector3:
 	if PR.STRAIGHT > 0.0 and a.angle_to(arm) > 1e-3:
 		a = a.slerp(arm, PR.STRAIGHT).normalized()
 	return wrist + a * front * g.basis.get_scale().x
+
+
+## POWER1D S457 (contract): the glove's lowest point - the lower of the wrist and the glove front. An upright guard glove's
+## front is its TOP (GuardTuck.GUARD: the lead wrist sits 0.04 m under the Head bone, so the front sits ~0.04 m over it); the
+## old read called a glove held at her own chin "over her head".
+func _low(wrist: Vector3, glove: Vector3) -> float:
+	return minf(wrist.y, glove.y)
+
+
+func _wrist() -> Vector3:
+	return skel.global_transform * skel.get_bone_global_pose(int(ids[2])).origin
+
+
+## POWER1D S457 (contract): the glove front in her chest's frame - world metres, on the Chest bone's axes. The body sways
+## 0.04-0.16 m during the tail (S456), so BACK compares the arm to the torso, not to a world point.
+func _in_chest(glove: Vector3) -> Vector3:
+	var c: Transform3D = skel.global_transform * skel.get_bone_global_pose(skel.find_bone("Chest"))
+	return c.basis.orthonormalized().inverse() * (glove - c.origin)
 
 
 func _elbow() -> Vector3:
@@ -86,17 +115,31 @@ func _spine() -> Vector3:
 
 
 func _drawn() -> void:
-	if not recording or ids.is_empty():
+	if ids.is_empty():
+		return
+	if guard_rec:
+		guard_win.append(_in_chest(_glove()))
+		return
+	if not recording:
 		return
 	var f := Engine.get_process_frames()
 	# POWER1D: the reach still holds the glove on its target this frame (armed on the clip shown, at full weight).
 	var pr: Node = st.boxers[0].get("reach")
 	var held := pr != null and str(pr.get("_clip")) != "" and str(pr.get("_clip")) == str(ap.assigned_animation) and float(pr.get("last_weight")) >= 0.999
-	var row := [f, get_root().get_process_delta_time(), _glove(), _elbow(), _head(), _shoulder(), _spine(), str(ap.current_animation), hit_at >= 0, held]
+	var gl := _glove()
+	var row := [f, get_root().get_process_delta_time(), gl, _elbow(), _head(), _shoulder(), _spine(), str(ap.current_animation), hit_at >= 0, held, _wrist(), _in_chest(gl)]
 	if not rec.is_empty() and int((rec[rec.size() - 1] as Array)[0]) == f:
 		rec[rec.size() - 1] = row
 	else:
 		rec.append(row)
+
+
+## The glove's distance from home: in her chest's frame, to the nearest frame of the guard window before the throw.
+func _home(in_chest: Vector3) -> float:
+	var best := INF
+	for g in guard_win:
+		best = minf(best, in_chest.distance_to(g as Vector3))
+	return best
 
 
 func _on_hit() -> void:
@@ -108,10 +151,14 @@ func _throw(clip: String, move: String, rep: int) -> Array:
 	ids = []
 	for n in ["UpperArm", "LowerArm", "Hand", "MiddleProximal"]:
 		ids.append(skel.find_bone(hand.trim_suffix("Hand") + n))
+	guard_win = []
 	st.guard(0)
 	st.guard(1)
 	for i in 20:
+		# The guard window: her last GUARD_WIN frames of guard before the throw (the earlier ones are still the join).
+		guard_rec = i >= 20 - GUARD_WIN
 		await process_frame
+	guard_rec = false
 	var p := PunchPace.plan(clip, move)
 	var at := PunchPace.real(p, float(p["start"]), float(p["c"])) - PunchPace.lead()
 	rec = []
@@ -160,10 +207,9 @@ func _throw(clip: String, move: String, rep: int) -> Array:
 	var follow_start_t := hold_s + FOLLOW_START_S
 	var follow_end_t := hold_s + FOLLOW_END_S
 	var hit_y := -INF
-	# S452 (Claude): the guard place is the glove BEFORE the punch (the first recorded frame), not the glove at the hit -
-	# Qwen's version measured "back" to the hit point, so BACK read 0.10 s on a tail that never went home.
-	if not rec.is_empty():
-		guard_pos = (rec[0] as Array)[2]
+	# S452 (Claude): the guard place is the glove BEFORE the punch, not the glove at the hit - Qwen's version measured "back"
+	# to the hit point, so BACK read 0.10 s on a tail that never went home. S457: in her chest's frame, against the nearest
+	# frame of the guard window (see _home).
 	for r in rec:
 		var row: Array = r
 		if not bool(row[8]):
@@ -182,12 +228,13 @@ func _throw(clip: String, move: String, rep: int) -> Array:
 			var dt := maxf(float(row[1]), 1e-4)
 			speed = glove.distance_to(prev[2] as Vector3) / dt
 			peak_speed = maxf(peak_speed, speed)
+		var low := _low(row[10] as Vector3, glove)
 		if f == 0:
-			hit_y = glove.y
+			hit_y = low
 		# POWER1D (TASK_POWER1D open question b): measured from f01 - on the hit frame, and while the reach still holds the
 		# glove on her (a taller opponent's chin can stand above her own head), the bar is max(her head, the hit's glove).
 		var top := maxf(head.y, hit_y) if bool(row[9]) else head.y
-		var over_head := f >= 1 and glove.y > top + OVER_HEAD_BAR
+		var over_head := f >= 1 and low > top + OVER_HEAD_BAR
 		var elbow_high := f >= 1 and elbow.y > shoulder.y + ELBOW_BAR
 		var fwd_dist := (glove - spine).dot((target - spine).normalized())
 		var path_bad := fwd_dist < PATH_MIN_FWD
@@ -204,12 +251,13 @@ func _throw(clip: String, move: String, rep: int) -> Array:
 		if t_since_hit >= follow_end_t and t_since_hit <= follow_end_t + 0.02 and follow_end_pos == Vector3.ZERO:
 			follow_end_pos = glove
 			follow_target_dist_end = glove.distance_to(target)
-		if not back_reached and glove.distance_to(guard_pos) <= BACK_DIST_M and f > 5:
+		var home := _home(row[11] as Vector3)
+		if not back_reached and home <= BACK_DIST_M and f > 5:
 			back_reached = true
 			back_time = t_since_hit
 		if speed > BACK_SPEED_BAR and f > 5:
 			back_ok = false
-		lines.append("f%02d glove(%.3f,%.3f,%.3f) speed %.2f head_y %.3f elbow_y %.3f shoulder_y %.3f fwd %.3f" % [f, glove.x, glove.y, glove.z, speed, head.y, elbow.y, shoulder.y, fwd_dist])
+		lines.append("f%02d glove(%.3f,%.3f,%.3f) low %.3f speed %.2f head_y %.3f elbow_y %.3f shoulder_y %.3f fwd %.3f home %.3f" % [f, glove.x, glove.y, glove.z, low, speed, head.y, elbow.y, shoulder.y, fwd_dist, home])
 		prev = row
 	if follow_start_pos != Vector3.ZERO and follow_end_pos != Vector3.ZERO:
 		var follow_dist := follow_end_pos.distance_to(follow_start_pos)

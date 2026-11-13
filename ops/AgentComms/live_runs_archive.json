@@ -17064,6 +17064,159 @@
    "issue": "251",
    "branch": "goose/issue-251",
    "gh_issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/251"
+  },
+  {
+   "agent": "grok",
+   "id": "BLOCKLOOK4",
+   "title": "The block, round 4: the puncher's arm keeps its shape (the catch meets the punch further out)",
+   "status": "done",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "branch": "grok/blocklook4",
+   "brief": "ops/research/TASK_BLOCKLOOK4.md",
+   "started": "2026-11-13T14:55",
+   "eta": "2026-11-13T21:00",
+   "note": "S452: not merged (inert alone; the hook regressed meet/absorb); findings in ops/research/BLOCKLOOK4_RESULT.md",
+   "archived": "2026-11-13 15:41 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "STEPMASTERY1A",
+   "title": "TASK STEPMASTERY1A - QWEN (qwen3-coder) - steps and defences get practice bars: the pure rules module",
+   "status": "collected",
+   "started": "2026-11-13T15:19",
+   "eta": "2026-11-13T17:09",
+   "branch": "qwen/stepmastery1a",
+   "worktree": "E:/FightCamp/wt/LEAN_STEPMASTERY1A",
+   "wt": "E:/FightCamp/wt/LEAN_STEPMASTERY1A",
+   "brief": "ops/research/TASK_STEPMASTERY1A.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/STEPMASTERY1A_dispatch_out.txt",
+   "match": "seat_dispatch.py run stepmastery1a",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/STEPMASTERY1A_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/STEPMASTERY1A_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/STEPMASTERY1A_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 28892,
+    "seat_pid": 50984
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #255",
+   "finished": "2026-11-13T15:29",
+   "pr": 255,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/step_mastery_test.gd",
+     "ok": true,
+     "last": "STEP_MASTERY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_mastery_test.gd",
+     "ok": true,
+     "last": "MOVE_MASTERY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-13 15:40 board_reconcile: branch qwen/stepmastery1a commits are on master",
+   "archived": "2026-11-13 15:41 board_sync"
+  },
+  {
+   "agent": "grok",
+   "id": "BLOCKLOOK5B",
+   "title": "The block, round 6: the jab preview caught with the rear glove again (BLOCKLOOK5B)",
+   "status": "closed",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "branch": "grok/blocklook5",
+   "brief": "ops/research/TASK_BLOCKLOOK5B.md",
+   "started": "2026-11-13T16:40",
+   "eta": "2026-11-13T22:30",
+   "note": "S453: round 2 of PR 256 (same branch); ETA ~6 h like rounds 4-5",
+   "reconciled": "2026-11-13 17:40 board_reconcile: PR #256 closed",
+   "archived": "2026-11-13 17:41 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "SPECIALTY1",
+   "title": "TASK SPECIALTY1 - QWEN (qwen3-coder) - held moves: the weekly hold, the fade, frozen weeks, the coach's hold list",
+   "status": "closed",
+   "started": "2026-11-13T18:33",
+   "eta": "2026-11-13T20:23",
+   "branch": "qwen/specialty1",
+   "worktree": "E:/FightCamp/wt/LEAN_SPECIALTY1",
+   "wt": "E:/FightCamp/wt/LEAN_SPECIALTY1",
+   "brief": "ops/research/TASK_SPECIALTY1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/SPECIALTY1_dispatch_out.txt",
+   "match": "seat_dispatch.py run specialty1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/SPECIALTY1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/SPECIALTY1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/SPECIALTY1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 424,
+    "seat_pid": 11800
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/5 PASS; PR #257",
+   "finished": "2026-11-13T18:45",
+   "pr": 257,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/specialty_test.gd",
+     "ok": true,
+     "last": "SPECIALTY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_tree_test.gd",
+     "ok": true,
+     "last": "MOVE_TREE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/move_mastery_test.gd",
+     "ok": true,
+     "last": "MOVE_MASTERY failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/no_pronoun_test.gd",
+     "ok": true,
+     "last": "NO_PRONOUN failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-13 19:10 board_reconcile: PR #257 closed",
+   "archived": "2026-11-13 19:11 board_sync"
   }
  ]
 }

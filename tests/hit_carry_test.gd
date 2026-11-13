@@ -172,9 +172,14 @@ func _initialize() -> void:
 		for i in g.size():
 			along.append(((g[i] as Vector3) - (g[ci] as Vector3)).dot(dir))
 		# The window: from the hit until she is WINDOW_BACK_M behind the hit point on her way home (or the run ends).
+		# POWER1D S457 (contract): an uppercut arrives UPWARD, and after the stage hands her back to her guard its glove goes
+		# up and back to the guard - along the arrival line that RETURN reads as more carry (S456: 0.15-0.26 m, top at
+		# +383-500 ms). For an uppercut the window also ends on the first frame the punch's clip is no longer the one shown
+		# (the hand-back to guard); its carry up to then is read exactly as for every other punch.
+		var upper := clip.contains("uppercut")
 		var end := g.size() - 1
 		for i in range(ci + 1, g.size()):
-			if float(along[i]) < -WINDOW_BACK_M:
+			if float(along[i]) < -WINDOW_BACK_M or (upper and str(dbg[i][4]) != clip):
 				end = i
 				break
 		var top := ci

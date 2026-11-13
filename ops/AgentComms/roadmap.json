@@ -3,13 +3,13 @@
  "updated": "2026-11-13",
  "author": "claude S294",
  "now": {
-  "id": "S456",
+  "id": "S458",
   "owner": "claude",
   "updated": "2026-11-13",
-  "summary": "S457: his Q-S294-217 'Separate Training scene, fighters on top', then 'move the training out of the office and wire it on the gym floor training area ? what do you think ?' -> agreed: Training is its own scene opened from the gym floor's bag-area pin (GymHub 'training' pin, labelled Fighters today); the profile's Training tab = read-only summary + Open in Training (his S354 overview kept). Training H (docs/mockups/s457/training_h): four fighters on top, what the week buys (moves jump, stats creep), one number a tile, a tiredness tank under each day, a week Nights switch, Hold/Cut ticked. Critics H: Claude 6/5, Dola 7/8. Training I: amateur no-camp nights (2+1/3+1/4+1), the coach's pad nights across four fighters with the shared-night cost (R55), drag strip from the rules (win +0 no new tier, injury 1.1->1.4, pull out or fight hurt), tank at the first bell, take-the-advice button. Critics I: Dola 6/8, Claude in flight. SPECIALTY1 (Qwen PR 257) collected + WIRED: PadWeek.run_week Sunday -> Specialty.apply for 60+ moves (hold units, fade 1.5 to 50/70, frozen in taper/injury); 11 tests green incl. golden_path, two_boxers_two_years. STYLENAME1 (Qwen) briefed, launched, collected (StyleName.gd: named style, Monday check, effects, extra plan line). POWER1C stale queue row superseded. POWER1D: in-house helper on the test contract (glove lowest point, BACK in the spine frame, hit_carry excludes an uppercut's return) + the S456 patch.",
+  "summary": "S458: POWER1D LANDED - the S456 quick hand-back (the lead uppercut's clip holds on its contact 0.10 s, then her usual guard) + the S457 test contract (lowest point, BACK in the chest frame vs the guard window 0.07 m, hit_carry ends an uppercut's window at the hand-back): lead uppercut 0 of 25 red (was 21); rear BACK 5 left; hit_carry 35/41/45 vs main 43-44 (lead row green), hit_frame 11 = main, punch_speed noise; 0.45 (S457's mutant) briefly in the tree, NOT landed (S457 warned by message). Film seeds 4242 + 7 on the review board. Training J (docs/mockups/s458/training_j) from the S457 Claude I critic's code-traced drawing: one number a tile, Nights switch with the real peaks 70/70/78/70 lighting the 2 changed evenings, a YOURS vs COACH'S row (win 53-55/52, peak 70/78, injury 1.0/2.7, last tell found/hidden), the shared night's payer by face, the rest on hover; 7 session icons + neck redrawn in the Playbook's block ink (scratchpad filter over Ludo's). Critics J: Dola 7/8; Claude J 6/5 (sparring adds nothing under 30: Friday's READY and split are false) -> K. COACHMARKET1 (Qwen) briefed + collected (CoachMarket.gd, not wired). StyleName fixed: the name lives in f['named_style'] (f['style'] is the base style word AttrGen/Attrs/BoutBurn read). PROREAD1 (Qwen, map M7: target line, split, feint, READ-PROOF as shares) launched 20:45. 39 stale dispatch rows superseded. His 12 board comments (C370-C381: HUD marks, office circles + money panel, block reel too close/no reactions, hips) seen and queued as FIXS458.",
   "last_working_commit": "b03392d9",
   "verified_playable": "Builds/FightCamp.exe exported S455 17:46 (blocked straights on the landed path, BLOCKLOOK5B)",
-  "next_action": "S458: 0) get_usage; wrap-up from ~395k. 1) Training J from TRAINGAME_CRITIC_S457_I_CLAUDE.md + _I_DOLA.md: cut numbers to a third (one per tile, the rest on hover), the Nights switch lights the evenings it changes, the coach's-nights row says which fighter pays (no 'the other boxer'), a coach-vs-yours total, Playbook-style icons for film/rest/rest night/mobility/strength/intervals/roadwork; fresh Claude + Dola, two at 7+ -> the board with H/I/J. 2) POWER1D: read the helper's S457 result in TASK_POWER1D.md; land it if the regression list is green, then film seed 4242 + 3 seeds to the review board. 3) Wire StyleName into the fight levers + the Monday check (map M4; Duels/Combos/Knockdowns). 4) Coaches map v4 from Kalli SQ69 / John SQ70. 5) Kalli SQ71 / John SQ72 on fight week v6 when they land.",
+  "next_action": "S459: 0) get_usage. 1) FIXS458 (his board marks, ops/Feedback/2026-11-13-25..33): fight HUD - remove 'lasts to R3', redraw the body-map count badges (no tubes), the call cards' words (Risky / Works / Beats it) become what each affects as icons + numbers with the text in a tooltip, a gap + heading between PACE (Push/Steady/Save) and AIM (Own game/Head/Body), the corner's read 'Working ?' as an icon + band with a tooltip; office desktop - staff circles bigger, the money panel (repeats the top bar) becomes members + next bills; stills to the board. 1b) READREVEAL1 design map (his 'it should be able to be revealed'): the corner's read narrows each watched round (film, coach rating, Fight IQ), the number shows within +-2; his add: a corner-minute 'Read her' job (a few seconds = a narrower range, paid in your fighter's rest); critics 7+ then build. 2) Collect PROREAD1 (Qwen) by diff + parse + test. 3) Training K from TRAINGAME_CRITIC_S458_J_CLAUDE.md (6/5) + _J_DOLA.md (7/8): every gain counted to the first bell (PadWeek: sparring gives a move under 30 nothing, the fight week's Monday pads make the check hook Usable anyway), the shared evening priced in wins for both fighters, Playbook move cards dragged onto the coach's evenings, the week-twist card + diet + kg on mornings, the logic slips (peak week spars twice; film outside camp has no rule; Usable not READY; one stat-name set; profile tab = scene numbers); Dola's presets + per-fighter tiredness sparklines; fresh Claude + Dola, two at 7+ -> the board. 4) Wire StyleName (named_style) into Duels OPEN, Combos spend, plan mid/counter edge, pressure answers, Knockdowns + the Monday check + plan_cap. 5) POWER1E the rear uppercut tail (QUICK_BACK_S at 0.10 + its uppercut_tail run). 6) Block reel C370: measure the stance gap in installed boxing games (REA) before any change. 7) Kalli SQ71 / John SQ72 fight week v6.",
   "incomplete_blocked": "Training I: Dola 6/8 (not two at 7+); POWER1D helper result pending at handover (see TASK_POWER1D S457 section); Specialty display waits for the C20 control + screens (map task 14).",
   "next_acceptance": "Training tab H: two fresh critics (Claude + Dola) at 7+ on depth and as a game, then the board with the picture; POWER1D: uppercut_tail failures=0 with every regression in TASK_POWER1D not worse.",
   "awaiting_operator": "Nothing new asked this session; open looks still on the board/review: result page tabs, office desktop, block reel S455, Training tab F/G pictures."
@@ -1880,6 +1880,11 @@
    "id": "S457",
    "date": "2026-11-13",
    "summary": "S457: his Q-S294-217 'Separate Training scene, fighters on top', then 'move the training out of the office and wire it on the gym floor training area ? what do you think ?' -> agreed: Training is its own scene opened from the gym floor's bag-area pin (GymHub 'training' pin, labelled Fighters today); the profile's Training tab = read-only summary + Open in Training (his S354 overview kept). Training H (docs/mockups/s457/training_h): four fighters on top, what the week buys (moves jump, stats creep), one number a tile, a tiredness tank under each day, a week Nights switch, Hold/Cut ticked. Critics H: Claude 6/5, Dola 7/8. Training I: amateur no-camp nights (2+1/3+1/4+1), the coach's pad nights across four fighters with the shared-night cost (R55), drag strip from the rules (win +0 no new tier, injury 1.1->1.4, pull out or fight hurt), tank at the first bell, take-the-advice button. Critics I: Dola 6/8, Claude in flight. SPECIALTY1 (Qwen PR 257) collected + WIRED: PadWeek.run_week Sunday -> Specialty.apply for 60+ moves (hold units, fade 1.5 to 50/70, frozen in taper/injury); 11 tests green incl. golden_path, two_boxers_two_years. STYLENAME1 (Qwen) briefed, launched, collected (StyleName.gd: named style, Monday check, effects, extra plan line). POWER1C stale queue row superseded. POWER1D: in-house helper on the test contract (glove lowest point, BACK in the spine frame, hit_carry excludes an uppercut's return) + the S456 patch."
+  },
+  {
+   "id": "S458",
+   "date": "2026-11-13",
+   "summary": "S458: POWER1D LANDED - the S456 quick hand-back (the lead uppercut's clip holds on its contact 0.10 s, then her usual guard) + the S457 test contract (lowest point, BACK in the chest frame vs the guard window 0.07 m, hit_carry ends an uppercut's window at the hand-back): lead uppercut 0 of 25 red (was 21); rear BACK 5 left; hit_carry 35/41/45 vs main 43-44 (lead row green), hit_frame 11 = main, punch_speed noise; 0.45 (S457's mutant) briefly in the tree, NOT landed (S457 warned by message). Film seeds 4242 + 7 on the review board. Training J (docs/mockups/s458/training_j) from the S457 Claude I critic's code-traced drawing: one number a tile, Nights switch with the real peaks 70/70/78/70 lighting the 2 changed evenings, a YOURS vs COACH'S row (win 53-55/52, peak 70/78, injury 1.0/2.7, last tell found/hidden), the shared night's payer by face, the rest on hover; 7 session icons + neck redrawn in the Playbook's block ink (scratchpad filter over Ludo's). Critics J: Dola 7/8; Claude J 6/5 (sparring adds nothing under 30: Friday's READY and split are false) -> K. COACHMARKET1 (Qwen) briefed + collected (CoachMarket.gd, not wired). StyleName fixed: the name lives in f['named_style'] (f['style'] is the base style word AttrGen/Attrs/BoutBurn read). PROREAD1 (Qwen, map M7: target line, split, feint, READ-PROOF as shares) launched 20:45. 39 stale dispatch rows superseded. His 12 board comments (C370-C381: HUD marks, office circles + money panel, block reel too close/no reactions, hips) seen and queued as FIXS458."
   }
  ],
  "blocked_on_operator": [],
@@ -4798,7 +4803,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-13 19:11 board_sync",
+  "updated": "2026-11-13 19:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4949,15 +4954,21 @@
   "working_now": [],
   "next": [
    {
-    "id": "TRAINGAME2",
+    "id": "FIXS458",
     "who": "claude",
-    "title": "Training scene J at critics (H: Claude 6/5, Dola 7/8; I: Dola 6/8): cut numbers, Nights lights its evenings, coach's nights row, ink icons; his 'wire it on the gym floor' kept",
+    "title": "His S458 board marks: fight HUD (lasts-to, badges, call words to icons+numbers, PACE/AIM gap, the read's '?') + office (circles, money panel) - ops/Feedback/2026-11-13-25..33",
     "after": ""
    },
    {
-    "id": "POWER1D",
+    "id": "TRAINGAME2",
     "who": "claude",
-    "title": "The lead uppercut's tail, in-house: a short drive through, then home elbow-down (Qwen's round missed every bar)",
+    "title": "Training K at critics (J: Dola 7/8, Claude 6/5 - sparring gives a move under 30 nothing, so Friday's READY and split are false): count every gain to the first bell, price the shared evening in wins for both fighters, Playbook move cards onto the evenings, the week twist + diet levers; two at 7+ -> the board",
+    "after": ""
+   },
+   {
+    "id": "POWER1E",
+    "who": "claude",
+    "title": "The rear uppercut's tail: into the quick hand-back at 0.10 s + its uppercut_tail run (the lead uppercut landed S458, on the review board)",
     "after": ""
    },
    {
@@ -5404,6 +5415,22 @@
   },
   "done_recently": [
    {
+    "title": "StyleName named_style fix (S458)",
+    "who": "claude"
+   },
+   {
+    "title": "Training J drawn, Dola 7/8 (S458)",
+    "who": "claude"
+   },
+   {
+    "title": "COACHMARKET1 collected (S458)",
+    "who": "claude"
+   },
+   {
+    "title": "POWER1D lead uppercut tail landed (S458)",
+    "who": "claude"
+   },
+   {
     "id": "SPECIALTY1",
     "who": "qwen",
     "title": "Held moves: the weekly hold collected and wired into the pad week (S457)"
@@ -5590,6 +5617,18 @@
   "map": {
    "done_earlier": [
     {
+     "text": "SPECIALTY1 collected + wired",
+     "who": "claude"
+    },
+    {
+     "text": "Training H: own scene, gym floor",
+     "who": "claude"
+    },
+    {
+     "text": "Training H critics: 6/5 and 7/8",
+     "who": "agent"
+    },
+    {
      "text": "Training tab F + G, ink icons",
      "who": "claude"
     },
@@ -5632,32 +5671,20 @@
     {
      "text": "Fight HUD: head, ribs, CARDS",
      "who": "claude"
-    },
-    {
-     "text": "OFFICE1: office desktop in game",
-     "who": "agent"
-    },
-    {
-     "text": "Season probe: fight-week habits",
-     "who": "claude"
-    },
-    {
-     "text": "Fight week v5 written",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "SPECIALTY1 collected + wired",
+     "text": "POWER1D lead uppercut tail landed",
      "who": "claude"
     },
     {
-     "text": "Training H: own scene, gym floor",
+     "text": "Training J drawn: Dola 7/8",
      "who": "claude"
     },
     {
-     "text": "Training H critics: 6/5 and 7/8",
-     "who": "agent"
+     "text": "COACHMARKET1 collected",
+     "who": "claude"
     }
    ],
    "now": [
@@ -5686,12 +5713,8 @@
      "who": "agent"
     },
     {
-     "text": "Training I: two critics",
-     "who": "agent"
-    },
-    {
-     "text": "Uppercut tail: test contract",
-     "who": "agent"
+     "text": "Training J critics: 7/8 and 6/5",
+     "who": "claude"
     }
    ],
    "next": [
@@ -5766,9 +5789,13 @@
     {
      "text": "Coaches map v4 (critics 6)",
      "who": "claude"
+    },
+    {
+     "text": "Your board marks: HUD + office",
+     "who": "claude"
     }
    ],
-   "session": "S457"
+   "session": "S458"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

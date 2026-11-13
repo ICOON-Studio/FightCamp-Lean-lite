@@ -124,7 +124,7 @@ static func aim_effect(aim: String, opp: String) -> String:
 		return "%s: hurt, hits harder" % ("Left ribs" if aim == "left_ribs" else "Right ribs")
 	if aim == "head_hurt":
 		return "The hurt head: hits harder"
-	return "Own game: 1 in 5 to the body"
+	return "Initiative: 1 in 5 to the body"
 
 
 static func aim_tip(aim: String, opp: String) -> String:

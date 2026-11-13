@@ -20,7 +20,7 @@ const CALL_Y := 90.0
 const CALL_H := 66.0
 
 const PACE_LABEL := {"push": "Push", "steady": "Steady", "save": "Save"}
-const AIM_LABEL := {"": "Own game", "head": "Head", "body": "Body", "left_ribs": "Left ribs",
+const AIM_LABEL := {"": "Take initiative", "head": "Head", "body": "Body", "left_ribs": "Left ribs",
 	"right_ribs": "Right ribs", "head_hurt": "The hurt head"}
 
 var view: Node
@@ -163,7 +163,7 @@ func _rebuild(pv: Dictionary, wide: int) -> void:
 	var aims: Array = pv.get("aims", ["", "head", "body"])
 	for a in aims:
 		var label := str(AIM_LABEL.get(a, a))
-		var bw := 108.0 if str(a) == "" else 84.0
+		var bw := 150.0 if str(a) == "" else 84.0   # S458: "Take initiative" (his rename of "Own game")
 		var named := "Aim_" + (str(a) if str(a) != "" else "own")
 		var b := _btn(label, named, _set_aim.bind(str(a)))
 		b.tooltip_text = PaceAim.aim_tip(str(a), _opp(pv))

@@ -82,3 +82,44 @@ frame is sometimes not a guard); against her spine the arm is home within 0.025-
 to guard) as carry along its line.
 NEXT: widen the contract to those three test reads (glove lowest point; BACK in the spine's frame; hit_carry excludes the post-contact
 return of an uppercut), re-apply the patch, run the full regression list on an idle GREEN PC, then film seed 4242 + 3 seeds.
+
+## S457 result (in-house subagent; NOT committed)
+CONTRACT CHANGE (lead developer's decision, implemented in the two test files only):
+1. uppercut_tail OVER_HEAD reads the glove's LOWEST point (the lower of the wrist and the glove front, `_low`); the bar stays
+   max(head, hit-frame lowest point) while the reach holds, head otherwise, from f01.
+2. uppercut_tail BACK reads the glove front in her CHEST bone's frame (world metres on the Chest axes, `_in_chest`) against the
+   NEAREST of the last 8 of the 20 guard frames before the throw (`_home`; the earlier frames are still the join). Bar 0.05 -> 0.07 m:
+   a probe (8 guard entries, 90 frames each) showed her living guard take moves the lead hand 0.02-0.26 m in the chest frame within
+   1.2 s, so a world/one-frame 0.05 bar read the loop, not the arm; S456 measured home 0.025-0.07 m against the spine.
+3. hit_carry: for a clip whose name contains "uppercut" the carry window also ends on the first frame the punch's clip is no
+   longer the one shown (the hand-back to guard); every other punch's window is byte-for-byte the old read. Bar stays 40.
+   (Tried first and dropped: "behind" on her flat facing - the uppercut's way home is mostly along its upward arrival line, so the
+   window never closed: lead row 0.179 m, turns 2.)
+MUTANT PROOFS (each red, then restored):
+- Current tree = the real tail: new OVER_HEAD red 5/5 lead (lowest point up to 0.19 m over her head), ELBOW 5/5, BACK 5/5.
+- QUICK_BACK_S lead 0.10 -> 0.45 (glove held on its contact, never sent home): BACK red 5/5 lead (FOLLOW 5/5 too).
+- PunchReach.THROUGH_M 0.08 -> 0.30 (overlong carry), hit_carry only=pro_left_uppercut: CARRY 0.209 m red (+ SMOOTH step 0.075).
+BEFORE (current tree) / AFTER (patch on), failures:
+- uppercut_tail: old reads 26; new reads 21 (lead OVER_HEAD 5, ELBOW 5, BACK 5, FOLLOW 1; rear BACK 5) / 6 (lead 0 of 25 checks red,
+  back home at 0.30-0.38 s, peak 1.9-2.8 m/s, lowest point max -0.04 m vs head; rear BACK 5 + rear ELBOW 1 - the rear uppercut is not
+  in QUICK_BACK_S, its tail is 0.07-0.10 m off home at 0.45 s). An earlier after-run at the 0.05 bar read 8 (lead BACK 2 red at 0.06-0.09).
+- hit_carry: old read 43; new read 41 / 37 (lead row: carry 0.056 m, turns 0, all green).
+- join_return: - / 0.  hit_frame: 12 / 11, 11 (same failing rows; one borderline THROUGH 0.110 flips).
+- fight_feel 0 / 0; beat_clips 0 / 0; head_aim 0 / 0; file_limits 0 / 0.
+- punch_speed (no seed argument; run alone each time): before 43, 42 (a third, 40, overlapped another session's edit - void);
+  after 45, 44, 42, 45. The bar 39 is already broken on the current tree. Per row, every difference is on rows the patch cannot
+  reach (_quick_back only acts on a pro_left_uppercut cut; punch_speed lands no hit, so no hit-stop leak): jab_hurt_ft FIRST,
+  hook_ft SPEED, rear-uppercut variants' FIRST/POP (other hand). The lead uppercut row reads the same in both (FIRST 0.267 s). Noise.
+LEFT: (a) the rear uppercut's BACK (5/5 red, not this patch's clip); (b) punch_speed and hit_carry over their bars on the current tree
+already; (c) film seed 4242 + 3 seeds on the game camera and his OK.
+WARNING: at 19:29:56 another session rewrote scripts/fight3d/BeatClips.gd + HitImpact.gd with the patch PLUS "pro_right_uppercut"
+and QUICK_BACK_S 0.45 for BOTH clips. 0.45 is this run's MUTANT value (glove held on the hit for the whole window: lead BACK and FOLLOW
+red 5/5) - it must not land; the patch's value is 0.10.
+
+## S458 landed (Claude): the S456 patch exactly (QUICK_BACK_S 0.10, lead uppercut only) + the S457 test contract
+Regression list on the landed tree: uppercut_tail 6 (lead 0 - all green; rear uppercut BACK 5 + FOLLOW 1, not in QUICK_BACK_S),
+join_return 0, hit_carry 45 / 35 / 41 (S457 helper 37; main 43-44; the lead row never fails with the patch, CARRY+SMOOTH on main),
+hit_frame 11 (= main), punch_speed 43 (main 46 in the same session: noise, the patch cannot reach those rows), fight_feel /
+beat_clips / head_aim / file_limits 0. A 0.45 value (S457's BACK mutant) briefly sat in the tree and was NOT landed.
+LEFT: (a) the rear uppercut's tail (BACK 5/5): try it in QUICK_BACK_S at 0.10 with its own uppercut_tail run; (b) film seed 4242 +
+3 seeds on the game camera (tools/hit_frame_film.gd) to the review board for his OK.

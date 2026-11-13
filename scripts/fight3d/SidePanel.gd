@@ -72,14 +72,14 @@ static func tag_text(place: String, band: String) -> String:
 	if word == "EYE" and band in ["critical", "doctor"]:
 		return "EYE x"
 	return word
-## One line under the name. Our boxer: the plan in game words, never "Plan: Own game".
+## One line under the name. Our boxer: the plan in game words, never "Plan: Take initiative".
 static func own_line(lv: Dictionary) -> String:
 	var id := str(lv.get("plan", ""))
 	var label := str((Exchanges.CALLS.get(id, {}) as Dictionary).get("label", ""))
 	if label != "":
 		return label
 	var aim := PaceAim.aim_word(str(lv.get("aim", "")))
-	return aim if aim != "" else "Own game"
+	return aim if aim != "" else "Take initiative"
 ## The opponent: the record, or the game the tape shows once it has been studied.
 static func opp_line(opp: Dictionary, film: int) -> String:
 	if film >= BoutRules.FILM_DEPTH_WITH_STUDY:

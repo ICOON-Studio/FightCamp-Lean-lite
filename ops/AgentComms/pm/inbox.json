@@ -1573,6 +1573,167 @@
       "at": "2026-11-11 18:11",
       "text": "BOARD ANSWER Q-S294-190 - question: 'Paid seat' (an amateur trains six mornings a week for 4 weeks, $1,000) - you said 'gym sponsorship', and that a local sponsor paying the boxer is not right. Which is closer? | answer: Just rename it 'gym sponsorship', the club pays | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
       "status": "waiting"
+    },
+    {
+      "id": "P218",
+      "from": "board",
+      "at": "2026-11-12 07:51",
+      "text": "BOARD ANSWER Q-S294-191 - question: Cursor is out of usage: its two tasks tonight (clip fixes, the Fighters page) stopped in 10 seconds. The clip fixes went to Qwen. For the Fighters page: run Cursor on its free Auto model until the limit resets, or wait? | answer: Use Auto until it resets | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P219",
+      "from": "board",
+      "at": "2026-11-12 11:47",
+      "text": "BOARD ANSWER Q-S294-194 - question: Licensed boxing motion-capture packs (11 checked on the sellers' own pages, nothing bought): the recommended two are Punch Perfect (Unity, about EUR 37 + VAT, 123 clips) and the animo-mocap Boxing Animation Pack (Fab, about EUR 59, 67 clips), about EUR 106 together. They add stepping punches, body versions and parries; they do not fix joins, reach and contact on their own. Buy them? | answer: i dont like any of their punches animations, their punches seem to be have to power behind them , what other options we have | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P220",
+      "from": "board",
+      "at": "2026-11-12 13:24",
+      "text": "BOARD ANSWER Q-S294-195 - question: UX audit: the same thing is called Stamina on one page and Cardio on another, with different numbers. Which one name everywhere? | answer: Stamina | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P221",
+      "from": "board",
+      "at": "2026-11-12 13:27",
+      "text": "BOARD ANSWER Q-S294-196 - question: UX audit: build the fight screen regroup (small body maps in the name plates, speed and skip dim until the mouse is near)? | answer: Show me it in the game first | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P222",
+      "from": "board",
+      "at": "2026-11-12 13:29",
+      "text": "BOARD ANSWER Q-S294-197 - question: UX audit: build Hades-style hover labels for small secondary buttons only (main actions and corner calls keep their words)? | answer: Yes, build it | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P223",
+      "from": "board",
+      "at": "2026-11-12 13:34",
+      "text": "BOARD ANSWER Q-S294-199 - question: Result page: four rounds, critics stuck at 6. They all say the same: too much on one page. Cut it to a summary (verdict, the one cause with its fix, what it cost, a round strip) with the 18 exchanges, the numbers and the plan behind tabs? | answer: Yes, summary + tabs | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P224",
+      "from": "board",
+      "at": "2026-11-12 13:35",
+      "text": "BOARD ANSWER Q-S294-200 - question: Three drawings from the 'visually engaging' table are on the review board: corner cards (1 day), fight bubbles (1.5 days), headline card (1 day). Which do I build? | answer: All three | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P225",
+      "from": "board",
+      "at": "2026-11-12 13:35",
+      "text": "BOARD ANSWER Q-S294-198 - question: UX audit: Money page on one screen, with the five 'Not built yet' rows (MMA coaches, the Cage) removed until they exist? | answer: check markup | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P226",
+      "from": "board",
+      "at": "2026-11-12 17:22",
+      "text": "BOARD ANSWER Q-S294-202 - question: E: is 87% full, which keeps the PC on AMBER and holds Qwen behind every render. Two folders would free 17 GB: old review-board items already marked Removed (5.3 GB, 498 posts) and tmp/moss (12 GB: a model's repo, venv and weights from 7 Nov). Delete them for good? | answer: Delete both | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P227",
+      "from": "board",
+      "at": "2026-11-12 17:24",
+      "text": "BOARD ANSWER Q-S294-201 - question: After a bout that went the distance, the game locks sparring for 21 days in 3 bouts out of 4 (measured). Real clubs rest some days to a week; a month off is for stoppages. Ease it so 21 days is rare (a real beating)? | answer: Yes, ease it as proposed | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P228",
+      "from": "board",
+      "at": "2026-11-12 17:26",
+      "text": "BOARD ANSWER Q-S294-203 - question: Your fight bars (hands on wind, feet on legs, head as the damage): two design rounds, critics split (coach 7 and 6, systems 5 and 4). More drawing will not settle it; a measurement through real bouts will. It is a new mechanic outside your agreed order. Measure it now, or park the design until Ask for a fight is done? | answer: Measure it now | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P229",
+      "from": "board",
+      "at": "2026-11-12 19:15",
+      "text": "BOARD ANSWER Q-S294-204 - question: Ask for a fight, measured in 33,739 real bouts: asking is a real choice for a player chasing the record (+0.3 to +0.8 wins in 10 weeks). But a ranked fighter can pick a name up to 4 places BELOW, and that wins almost every case. Should a picked opponent be only above or level? | answer: Only above or level (recommended) | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P230",
+      "from": "board",
+      "at": "2026-11-12 21:23",
+      "text": "BOARD ANSWER Q-S294-206 - question: Fight screen regroup, now shown in the game (today vs regroup attached): switch it on for everyone? | answer: i commented on stills | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P231",
+      "from": "board",
+      "at": "2026-11-13 10:41",
+      "text": "BOARD ANSWER Q-S294-209 - question: Ask for a fight is stuck at critics 5-6: in today's game a later fight date buys nothing (amateurs have no camp, and tiredness from the last bout ends at 14 days), so asking and waiting come out the same. The amateur fight week (AMATEURWEEK1: tank at the bell, sharp or flat, lines ready) is what makes the date matter. Build the fight week first, then Ask for a fight on top of it? | answer: Yes, fight week first | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P232",
+      "from": "board",
+      "at": "2026-11-13 11:17",
+      "text": "BOARD ANSWER Q-S294-208 - question: Fight screen regroup, with your marks built (organ icons with hit counts, stamina cost as icon + number on each call, the shout as a cloud from our corner that fills while the call plays out, CALLS WORKED?). Make it the fight screen for everyone? | answer: check marked comments | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P233",
+      "from": "board",
+      "at": "2026-11-13 12:36",
+      "text": "BOARD ANSWER Q-S294-210 - question: Office computer, booking from the fighter, coach depth, contracts (plan attached, Corner King read from its code). Build in this order: 1) amateur fight week with Find a fight on each fighter's page, 2) office computer (mockup first for your pick), 3) coaches: fit, load, growth, personality, bond, 4) contract ledger now, pro negotiation with turning pro? | answer: Yes, that order | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P234",
+      "from": "board",
+      "at": "2026-11-13 12:39",
+      "text": "BOARD ANSWER Q-S294-211 - question: Progression plan (moves to learn and pick, footwork learned with a bar, the body grading every move, keeping moves sharp as the fighter's style, coaches who set the pace, pros getting read): critics passed it at 7 to 8. It also makes the coach's pad-night board show every week, not only in camp. Approve it so the measuring tests and the build can start? | answer: Yes, go ahead | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P235",
+      "from": "board",
+      "at": "2026-11-13 12:40",
+      "text": "BOARD ANSWER Q-S294-212 - question: Gear (your idea): a design map after the fight week? My take: personal gear gives each fighter a look plus small REAL effects (wraps = hand injuries, headguard = cuts in sparring, gloves = sparring partners' injuries, worn gear = more risk), bought from the fighter's savings as a WANT that lifts mood; robe and trunks = look and sponsor money, not stat buffs; gym equipment already exists as Upgrades and the kit budget, so it only gets deeper. No attribute % buffs from gloves: then the shop beats training and the sim stops reading as real. | answer: Yes, map it after the fight week, real effects only | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P236",
+      "from": "board",
+      "at": "2026-11-13 13:22",
+      "text": "BOARD ANSWER Q-S294-213 - question: Office computer (Q-210 step 2): which look? A = the computer fills the screen (an office desktop: apps down the left, the week's dashboard). B = the same desktop on a monitor on your office desk, the gym through the window behind it. Same content: what needs you (one pulsing button: the decision due first), the next four weeks, mail, four fighter cards with the one thing each needs, money 8 weeks ahead, staff load. No Media tab until the hosted club show. | answer: A, full screen | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P237",
+      "from": "board",
+      "at": "2026-11-13 16:46",
+      "text": "BOARD ANSWER Q-S294-214 - question: The Training tab (fighter > Training) is the S428 build; the redesign is drawn but critics scored it 5-6. Next session: patch today's tab first, or finish the redesign to 7+ and build it? | answer: am not sure , it lacks art the info is too text heavy and it is not clear from the picture how you set the training , what ar your options and what ieach improves , fatigue and intensity meters maybe would be nice , how much do you rate it for a game not as an info sheet ? | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P238",
+      "from": "board",
+      "at": "2026-11-13 17:29",
+      "text": "BOARD ANSWER Q-S294-215 - question: Training tab redrawn as a game (C): comic pictures, your icons, a fatigue tank per day, the week goal. Critics: Dola 7/8, a fresh critic 6/6 (number slips I fix next as D). Keep this direction for the build? | answer: there is no consistensy with your previous art syle we need to beconsistent , the buttons stay though or you can do another runon them on the other art you designed your self | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P239",
+      "from": "board",
+      "at": "2026-11-13 18:08",
+      "text": "BOARD ANSWER Q-S294-216 - question: Training tab E is drawn in the game's own art now (the camp plan's pictures, your round icons kept). Is this the consistent look you meant? (The numbers get one more critic round either way.) | answer: Yes, this look | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
+    },
+    {
+      "id": "P240",
+      "from": "board",
+      "at": "2026-11-13 18:52",
+      "text": "BOARD ANSWER Q-S294-217 - question: Training: one separate Training scene (your 4 fighters as portraits on top, click one to plan that fighter's week; the profile's Training tab only a summary + Open in Training), or keep the planner inside each fighter's profile? | answer: Separate Training scene, fighters on top | turn it into BOARD EDITS (park/close/owner/notes) for the rows it names",
+      "status": "waiting"
     }
   ]
 }

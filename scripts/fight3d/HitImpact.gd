@@ -133,6 +133,8 @@ static func recover(st: Node) -> void:
 			st._cut[who] = {}
 			continue
 		var at := ap.current_animation_position
+		if BeatClips.quick_back and BeatClips.QUICK_BACK_S.has(str(cut["clip"])) and _quick_back(st, who, cut, ap, at, dt):
+			continue
 		if not bool(cut["fast"]) and float(cut["contact"]) >= 0.0 and at >= float(cut["contact"]):
 			cut["fast"] = true
 		# S316 smoothness: the recovery speeds up over RECOVER_RAMP_S, not in one frame (an instant x2-3 jumps the hand's
@@ -156,3 +158,32 @@ static func recover(st: Node) -> void:
 					boxers[who]["js"].set("still", true)
 				st.guard(who)
 				boxers[who]["guard_home"] = false
+
+
+## POWER1D: a quick hand-back (BeatClips.QUICK_BACK_S, the uppercuts) never plays the clip's tail - after the contact the
+## clip's shoulder rose 12-14 cm and its glove went up over her head, and the reach holding the glove on her flipped the
+## elbow 0.25 m over the shoulder (uppercut_tail_test). The clip stands still on its contact (the hit-stop gives back speed
+## 0), the reach carries the glove through on real time, and after QUICK_BACK_S real seconds she goes to her usual guard:
+## the join smoother (from the arm as drawn, standing still) and the reach's fade take the glove home. The contact is the
+## reach's own when it is armed on the clip (the rear uppercut's recovery starts later, at its furthest point). False
+## until the clip is there.
+static func _quick_back(st: Node, who: int, cut: Dictionary, ap: AnimationPlayer, at: float, dt: float) -> bool:
+	var bx: Dictionary = st.boxers[who]
+	var c := float(cut["contact"])
+	var pr: Node = bx.get("reach")
+	if pr != null and str(pr.get("_clip")) == str(cut["clip"]):
+		c = float(pr.get("_contact")) if c < 0.0 else minf(c, float(pr.get("_contact")))
+	if c < 0.0 or at < c:
+		return false
+	ap.speed_scale = 0.0
+	st._held_speed[who] = 0.0
+	cut["held"] = float(cut.get("held", 0.0)) + dt
+	if float(cut["held"]) < float(BeatClips.QUICK_BACK_S[str(cut["clip"])]):
+		return true
+	st._cut[who] = {}
+	bx["guard_home"] = true   # IdleMatch.pick: her usual guard, not the frame nearest the glove on her
+	if bx.get("js") != null:
+		bx["js"].set("still", true)
+	st.guard(who)
+	bx["guard_home"] = false
+	return true

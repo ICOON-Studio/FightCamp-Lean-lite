@@ -472,7 +472,7 @@ func _notepad() -> void:
 		var lab := _notes[i] as Label
 		lab.visible = v >= 0.0
 		if v >= 0.0:
-			lab.text = read_word(k, v) + ("  ?" if num != null and num.text.contains("-") else "")   # S448: "?" = a range, not a reading
+			lab.text = ("Stamina " + ("?" if num != null and num.text.contains("-") else str(roundi(v))) if k == "Energy" else read_word(k, v) + ("  ?" if num != null and num.text.contains("-") else ""))   # S458 his "Stamina ?": a range hides the number
 			lab.add_theme_color_override("font_color", READ_COL[_band(v)])
 
 

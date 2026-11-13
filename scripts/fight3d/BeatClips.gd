@@ -146,7 +146,9 @@ static var _recovery: Dictionary = {}
 ## Vector2(contact_s, back_s) of a clip at 1x (clip_recovery.json); a negative value = not measured / never back in guard.
 ## POWER1 step 4 (e) (UPPERCUT_RANGE_S439.md fix 5): after the contact the lead uppercut's glove rises 0.35 m over her own
 ## head and comes back over her own body. Its recovery ends this long after the contact: the guard takes the glove home.
-const QUICK_BACK_S := {"pro_left_uppercut": 0.22}   # S445: was 0.05 = a pop back to guard (28.6 m/s drawn)
+## POWER1D: HitImpact._quick_back holds the clip still on its contact this many REAL seconds (the hit-stop included), then
+## hands her to the guard - the tail is never played (S445's 0.22 s of tail lifted her shoulder and flipped the elbow).
+const QUICK_BACK_S := {"pro_left_uppercut": 0.10}
 static var quick_back: bool = not OS.get_cmdline_user_args().has("nopunchrange")
 
 

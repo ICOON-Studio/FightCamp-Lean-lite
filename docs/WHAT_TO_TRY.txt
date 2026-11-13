@@ -1,3 +1,11 @@
+S458 (2026-11-13)
+- Fight: the lead uppercut. After it lands, the glove no longer carries on up over her own head with the elbow flipping above
+  the shoulder: the punch holds on the chin for a split second, then the hand comes home to her guard, elbow down. Watch a few
+  landed lead uppercuts: does it read as a punch that lands and comes back? (The rear uppercut is unchanged - it still drifts
+  home slowly; that is next.)
+- Fight screen (your two replies): the aim button "Own game" now reads "Take initiative", and your corner's read of the
+  opponent shows her stamina as a number with a ? (a scouted range), instead of "Working ?".
+
 S457 (2026-11-13)
 - Moves you have made Sharp (60+) now need their weekly drill to stay sharp. A Sharp move that got no pad time, bag card or
   sparring that week loses 1.5 (it never falls below 50; a Signature never below 70). Moves under 60 fade as before. Nothing fades

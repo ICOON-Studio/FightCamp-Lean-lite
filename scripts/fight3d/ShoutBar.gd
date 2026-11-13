@@ -28,7 +28,7 @@ var _her := ""
 const PACE_COST := {"push": "wins more exchanges, burns the tank faster", "steady": "own rhythm",
 	"save": "gives exchanges away, gets the breath back"}
 const PACE_LABEL := {"push": "Push", "steady": "Steady", "save": "Save"}
-const AIM_LABEL := {"": "Own game", "head": "Head", "body": "Body", "left_ribs": "Left ribs", "right_ribs": "Right ribs", "head_hurt": "The hurt head"}
+const AIM_LABEL := {"": "Take initiative", "head": "Head", "body": "Body", "left_ribs": "Left ribs", "right_ribs": "Right ribs", "head_hurt": "The hurt head"}
 
 
 func setup(pv: Dictionary, round_n: int) -> void:

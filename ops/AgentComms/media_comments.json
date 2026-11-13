@@ -2781,21 +2781,162 @@
       "text": "wtf is that on the head ?",
       "at": "2026-11-13T13:01:35Z",
       "seen_by_claude": true,
-      "id": "C362"
+      "id": "C362",
+      "addressed": "cited by 4044a5ab 2026-11-13"
     },
     {
       "id": "C363",
       "path": "media:_sent/2026-11-13_1052_q_208_marks_built_bubble_green_when_hear/p03c_shout_half.png",
       "text": "MARKUP: 1 marks -> Feedback/2026-11-13-22/README.md",
       "at": "2026-11-13T13:02:34Z",
-      "seen_by_claude": true
+      "seen_by_claude": true,
+      "addressed": "cited by 4044a5ab 2026-11-13"
     },
     {
       "id": "C364",
       "path": "media:_sent/2026-11-13_1052_q_208_marks_built_bubble_green_when_hear/p03c_shout_half.png",
       "text": "MARKUP: 2 marks -> Feedback/2026-11-13-23/README.md",
       "at": "2026-11-13T13:02:51Z",
-      "seen_by_claude": true
+      "seen_by_claude": true,
+      "addressed": "cited by 4044a5ab 2026-11-13"
+    },
+    {
+      "path": "_sent/2026-11-13_1516_fight_hud_head_reads_as_a_head_ribs_and_/maps_zoom.png",
+      "text": "remove the organs and just use an outliner for each organ",
+      "at": "2026-11-13T13:31:03Z",
+      "seen_by_claude": true,
+      "id": "C365",
+      "addressed": "cited by 5be5343a 2026-11-13"
+    },
+    {
+      "path": "_sent/2026-11-13_1516_fight_hud_head_reads_as_a_head_ribs_and_/maps_zoom.png",
+      "text": "and put the number in each region with tooltip showing any extra info",
+      "at": "2026-11-13T13:31:33Z",
+      "seen_by_claude": true,
+      "id": "C366",
+      "addressed": "cited by 5be5343a 2026-11-13"
+    },
+    {
+      "path": "_sent/2026-11-13_1442_office_as_a_computer_desktop_office1_his/office1_desktop_real.png",
+      "text": "populate it with more fighters",
+      "at": "2026-11-13T13:34:05Z",
+      "seen_by_claude": true,
+      "id": "C367",
+      "addressed": "cited by 5be5343a 2026-11-13"
+    },
+    {
+      "id": "C368",
+      "path": "media:_sent/2026-11-13_1442_office_as_a_computer_desktop_office1_his/office1_desktop_real.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-13-24/README.md",
+      "at": "2026-11-13T13:35:01Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 5be5343a 2026-11-13"
+    },
+    {
+      "path": "_sent/2026-11-13_1419_blocks_round_3_blocklook3_the_blocker_ab/blocks_blocklook3.mp4",
+      "text": "you got to tune the often hip movement with the breathing effect , use blender.",
+      "at": "2026-11-13T13:40:05Z",
+      "seen_by_claude": true,
+      "at_s": 15.4,
+      "id": "C369",
+      "addressed": "cited by 6636383d 2026-11-13"
+    },
+    {
+      "path": "_sent/2026-11-13_1738_blocks_after_blocklook5b_jab_cross_hooks/block_reel_s455.mp4",
+      "text": "no reactions and way too much clipping with the gloves, you are standing the fighters too close , check other games numbers on that",
+      "at": "2026-11-13T17:24:05Z",
+      "seen_by_claude": true,
+      "at_s": 15.4,
+      "id": "C370",
+      "addressed": "S458: queued as FIXS458 (first item of S459), answered in chat 2026-11-13"
+    },
+    {
+      "path": "_sent/2026-11-13_1624_hips_the_weight_goes_leg_to_leg_once_a_b/standoff_breath_sway.mp4",
+      "text": "not bad but can be improved  a lot",
+      "at": "2026-11-13T17:25:44Z",
+      "seen_by_claude": true,
+      "id": "C371",
+      "addressed": "S458: queued as FIXS458 (first item of S459), answered in chat 2026-11-13"
+    },
+    {
+      "path": "_sent/2026-11-13_1620_office_desktop_four_fighters_side_by_sid/office_real.png",
+      "text": "i like it",
+      "at": "2026-11-13T17:26:09Z",
+      "seen_by_claude": true,
+      "id": "C372",
+      "addressed": "S458: queued as FIXS458 (first item of S459), answered in chat 2026-11-13"
+    },
+    {
+      "id": "C373",
+      "path": "media:_sent/2026-11-13_1620_office_desktop_four_fighters_side_by_sid/office_real.png",
+      "text": "MARKUP: 3 marks -> Feedback/2026-11-13-25/README.md",
+      "at": "2026-11-13T17:27:16Z",
+      "seen_by_claude": true,
+      "addressed": "S458: queued as FIXS458 (first item of S459), answered in chat 2026-11-13"
+    },
+    {
+      "id": "C374",
+      "path": "media:_sent/2026-11-13_1620_office_desktop_four_fighters_side_by_sid/office_real.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-13-26/README.md",
+      "at": "2026-11-13T17:29:22Z",
+      "seen_by_claude": true,
+      "addressed": "S458: queued as FIXS458 (first item of S459), answered in chat 2026-11-13"
+    },
+    {
+      "id": "C375",
+      "path": "media:_sent/2026-11-13_1620_office_desktop_four_fighters_side_by_sid/office_real.png",
+      "text": "MARKUP: 2 marks -> Feedback/2026-11-13-27/README.md",
+      "at": "2026-11-13T17:29:58Z",
+      "seen_by_claude": true,
+      "addressed": "S458: queued as FIXS458 (first item of S459), answered in chat 2026-11-13"
+    },
+    {
+      "id": "C376",
+      "path": "media:_sent/2026-11-13_1620_office_desktop_four_fighters_side_by_sid/office_real.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-13-28/README.md",
+      "at": "2026-11-13T17:30:06Z",
+      "seen_by_claude": true,
+      "addressed": "S458: queued as FIXS458 (first item of S459), answered in chat 2026-11-13"
+    },
+    {
+      "id": "C377",
+      "path": "media:_sent/2026-11-13_1619_fight_hud_body_maps_each_region_outlined/p06e_round2_live.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-13-29/README.md",
+      "at": "2026-11-13T17:35:20Z",
+      "seen_by_claude": true,
+      "addressed": "S458: queued as FIXS458 (first item of S459), answered in chat 2026-11-13"
+    },
+    {
+      "id": "C378",
+      "path": "media:_sent/2026-11-13_1619_fight_hud_body_maps_each_region_outlined/p06e_round2_live.png",
+      "text": "MARKUP: 3 marks -> Feedback/2026-11-13-30/README.md",
+      "at": "2026-11-13T17:36:28Z",
+      "seen_by_claude": true,
+      "addressed": "S458: queued as FIXS458 (first item of S459), answered in chat 2026-11-13"
+    },
+    {
+      "id": "C379",
+      "path": "media:_sent/2026-11-13_1619_fight_hud_body_maps_each_region_outlined/p06e_round2_live.png",
+      "text": "MARKUP: 6 marks -> Feedback/2026-11-13-31/README.md",
+      "at": "2026-11-13T17:38:12Z",
+      "seen_by_claude": true,
+      "addressed": "S458: queued as FIXS458 (first item of S459), answered in chat 2026-11-13"
+    },
+    {
+      "id": "C380",
+      "path": "media:_sent/2026-11-13_1619_fight_hud_body_maps_each_region_outlined/p06e_round2_live.png",
+      "text": "MARKUP: 7 marks -> Feedback/2026-11-13-32/README.md",
+      "at": "2026-11-13T17:41:25Z",
+      "seen_by_claude": true,
+      "addressed": "S458: queued as FIXS458 (first item of S459), answered in chat 2026-11-13"
+    },
+    {
+      "id": "C381",
+      "path": "media:_sent/2026-11-13_1619_fight_hud_body_maps_each_region_outlined/p06e_round2_live.png",
+      "text": "MARKUP: 8 marks -> Feedback/2026-11-13-33/README.md",
+      "at": "2026-11-13T17:42:32Z",
+      "seen_by_claude": true,
+      "addressed": "S458: queued as FIXS458 (first item of S459), answered in chat 2026-11-13"
     }
   ]
 }

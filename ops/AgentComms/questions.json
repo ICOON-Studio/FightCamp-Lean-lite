@@ -7135,10 +7135,29 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-216_0_training_game_e.png"
       ],
-      "answer": null,
+      "answer": "Yes, this look",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-13T16:08:40Z",
+      "seen_by_claude": true,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-217",
+      "asked": "2026-11-13T16:51:50.473952+00:00",
+      "session": "S294",
+      "text": "Training: one separate Training scene (your 4 fighters as portraits on top, click one to plan that fighter's week; the profile's Training tab only a summary + Open in Training), or keep the planner inside each fighter's profile?",
+      "options": [
+        "Separate Training scene, fighters on top",
+        "Inside each fighter's profile"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-217_0_training_game_g.png"
+      ],
+      "answer": "Separate Training scene, fighters on top",
+      "note": null,
+      "answered_at": "2026-11-13T16:52:26Z",
+      "seen_by_claude": true,
+      "comment_only": false
     }
   ]
 }

@@ -26,18 +26,22 @@ func _check_can_name() -> void:
 
 
 func _check_named() -> void:
-	var f := {"moves": {"Jab": 62.0}, "steps": {"step_out": 61.0, "step_back": 60.0}, "style": "Out-boxer"}
+	var f := {"moves": {"Jab": 62.0}, "steps": {"step_out": 61.0, "step_back": 60.0}, "named_style": "Out-boxer"}
 	_check(StyleName.named(f) == "Out-boxer", "named returns Out-boxer while held")
-	var f2 := {"moves": {"Jab": 62.0}, "steps": {"step_out": 61.0, "step_back": 59.9}, "style": "Out-boxer"}
+	var f2 := {"moves": {"Jab": 62.0}, "steps": {"step_out": 61.0, "step_back": 59.9}, "named_style": "Out-boxer"}
 	_check(StyleName.named(f2) == "", "named returns empty when step_back drops below 60")
+	# S458: the base style word (Data "style", read by AttrGen/Attrs/BoutBurn) never names a style, and monday never reads it.
+	var f3 := {"moves": {"Jab": 62.0}, "steps": {"step_out": 61.0, "step_back": 59.9}, "style": "Out-boxer"}
+	_check(StyleName.named(f3) == "", "the base style word alone names nothing")
+	_check(str(StyleName.monday(f3)["lost"]) == "", "monday never drops the base style word")
 
 
 func _check_monday() -> void:
-	var f := {"moves": {"Jab": 62.0}, "steps": {"step_out": 61.0, "step_back": 60.0}, "style": "Out-boxer"}
+	var f := {"moves": {"Jab": 62.0}, "steps": {"step_out": 61.0, "step_back": 60.0}, "named_style": "Out-boxer"}
 	var m1: Dictionary = StyleName.monday(f)
 	_check(m1["style"] == "Out-boxer" and m1["lost"] == "" and not m1["auto"], "monday named + held keeps style")
 
-	var f2 := {"moves": {"Jab": 62.0}, "steps": {"step_out": 61.0, "step_back": 59.0}, "style": "Out-boxer"}
+	var f2 := {"moves": {"Jab": 62.0}, "steps": {"step_out": 61.0, "step_back": 59.0}, "named_style": "Out-boxer"}
 	var m2: Dictionary = StyleName.monday(f2)
 	_check(m2["style"] == "" and m2["lost"] == "Out-boxer" and not m2["auto"], "monday named + lost drops style, lost names it")
 
@@ -49,14 +53,14 @@ func _check_monday() -> void:
 	var m4: Dictionary = StyleName.monday(f4)
 	_check(m4["style"] == "" and m4["auto"] == false, "monday no style, two held -> style stays empty")
 
-	var f5 := {"moves": {"Jab": 62.0}, "steps": {"step_out": 61.0, "step_back": 60.0}, "style": "Out-boxer"}
+	var f5 := {"moves": {"Jab": 62.0}, "steps": {"step_out": 61.0, "step_back": 60.0}, "named_style": "Out-boxer"}
 	var _before := f5.duplicate(true)
 	var _m := StyleName.monday(f5)
 	_check(f5 == _before, "monday does not mutate f")
 
 
 func _check_effect() -> void:
-	var f_slug := {"moves": {"Body hook": 60.0, "Lead hook": 60.0}, "steps": {"roll_out": 60.0}, "style": "Slugger"}
+	var f_slug := {"moves": {"Body hook": 60.0, "Lead hook": 60.0}, "steps": {"roll_out": 60.0}, "named_style": "Slugger"}
 	_check(StyleName.effect(f_slug, "knockdown") == 1.1, "Slugger effect knockdown 1.1")
 	_check(StyleName.effect(f_slug, "range_open") == 0.0, "Slugger effect range_open 0.0 (neutral add)")
 	_check(StyleName.effect(f_slug, "combo_energy") == 1.0, "Slugger effect combo_energy 1.0 (neutral mult)")
@@ -64,7 +68,7 @@ func _check_effect() -> void:
 	var f_none := {"moves": {}, "steps": {}}
 	_check(StyleName.effect(f_none, "knockdown") == 1.0, "no style knockdown neutral 1.0 (mult kind)")
 
-	var f_cp := {"moves": {"Lead hook": 60.0, "Check hook": 60.0}, "steps": {"step_out": 60.0}, "style": "Counter-puncher"}
+	var f_cp := {"moves": {"Lead hook": 60.0, "Check hook": 60.0}, "steps": {"step_out": 60.0}, "named_style": "Counter-puncher"}
 	_check(StyleName.effect(f_cp, "counter_edge", "loadup") == 0.15, "Counter-puncher counter_edge loadup 0.15")
 	_check(StyleName.effect(f_cp, "counter_edge", "press") == 0.15, "Counter-puncher counter_edge press 0.15")
 	_check(StyleName.effect(f_cp, "counter_edge", "range") == 0.0, "Counter-puncher counter_edge range 0.0 (when blocks it)")
@@ -72,7 +76,7 @@ func _check_effect() -> void:
 
 
 func _check_plan_cap() -> void:
-	var f := {"moves": {"Jab": 62.0}, "steps": {"step_out": 61.0, "step_back": 60.0}, "style": "Out-boxer"}
+	var f := {"moves": {"Jab": 62.0}, "steps": {"step_out": 61.0, "step_back": 60.0}, "named_style": "Out-boxer"}
 	_check(StyleName.plan_cap(f, 5) == 6, "plan_cap named, coach_cap 5 -> 6")
 	_check(StyleName.plan_cap(f, 7) == 7, "plan_cap named, coach_cap 7 -> 7 (MAX_LINES)")
 

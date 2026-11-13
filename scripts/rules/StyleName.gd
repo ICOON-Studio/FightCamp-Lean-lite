@@ -1,6 +1,8 @@
 extends RefCounted
 ## STYLENAME1 - the named style: which one a fighter holds, when it goes, what it changes, the extra plan line.
 ## Pure static; preloads MoveTree only. S457: a coach names a boxer by what the boxer holds; lose the hold and the style goes next Monday.
+## S458: the name lives in f["named_style"], never f["style"] - "style" is the fighter's base style word (Data, AttrGen tilts and dials,
+## Attrs.from_stats, BoutBurn); a Monday that dropped it would have reshaped the fighter's stats.
 
 const MoveTree := preload("res://scripts/rules/MoveTree.gd")
 
@@ -18,7 +20,7 @@ const EFFECTS := {
 
 ## The fighter's named style when still held, else "".
 static func named(f: Dictionary) -> String:
-	var s: String = str(f.get("style", ""))
+	var s: String = str(f.get("named_style", ""))
 	if s == "":
 		return ""
 	if not MoveTree.styles_held(f).has(s):
@@ -34,7 +36,7 @@ static func can_name(f: Dictionary, style: String) -> bool:
 ## The Monday check: returns new values, never mutates f.
 ## {style: String, lost: String, auto: bool}.
 static func monday(f: Dictionary) -> Dictionary:
-	var cur: String = str(f.get("style", ""))
+	var cur: String = str(f.get("named_style", ""))
 	var held: Array = MoveTree.styles_held(f)
 	var style: String = ""
 	var lost: String = ""
