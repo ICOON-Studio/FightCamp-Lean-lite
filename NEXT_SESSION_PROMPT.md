@@ -23,10 +23,15 @@ OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py s
 - BLOCKLOOK1 finding: ops/research/TASK_BLOCKLOOK1.md (block pose unchanged by POWER1; probe staging + mc_to_block).
 
 ## NEXT, IN ORDER
-1. ASKPROBE2 at step_teach=1.25 (~16 min headless): `python ops/Tools/godot_slot.py run --who claude -- <godot.exe> --headless
-   --audio-driver Dummy --path . --script res://tools/ask_probe2.gd -- n_night=50 step_teach=1.25`. Both bars hold -> write the
-   value into ASKFIGHT_MAP v4 + the rule module, two FRESH critics, 7+ both, logic check, one drawing. Still dominant -> 1.15.
-2. Collect PAGES2 from Grok Dev (`python ops/Tools/gbot.py thread --to dev`; PR on grok/pages2); render the Fighters still.
+1. ASKPROBE2 x1.25 RAN (S446): both bars hold at the edge (step up best for growth 36/60 = the cap; teach words 30/60 = half);
+   RECORD/SAFE still mostly even. Write x1.25 into ASKFIGHT_MAP v4 + the rule module (FightLearn/AskBout; the probe's
+   `step_teach` lever), tests green, then two FRESH critics (Kalli + John via seat_queue, CRITIC_PACK first) with the numbers
+   as they are; 7+ both -> logic check -> one drawing for his pick.
+2. PAGES2 was stale (on main as PAGES2B since S441). Grok Dev now has JOINFIX1 (ops/research/TASK_JOINFIX1.md, branch
+   grok/joinfix1, ETA ~10:30): collect by diff + RESULT lines, then film the lead uppercut on the PC.
+2b. ProductionCrate (his free account; he signed in in Chrome): 3 LQ crowd-flash clips with alpha in
+   E:/FightCamp/incoming/productioncrate (+ LICENCE_NOTE.md: games allowed, but a personal account may not do company work -
+   ask him before shipping). A helper surveyed the site for more usable assets: its list is in ops/research/PRODUCTIONCRATE_S446.md if written.
 3. BLOCKLOOK1, then POWER1B / GLOVECLASH1 / JOINFIX1 briefs to Grok Dev; RESULTLOOK1.
 4. His open calls: fight screen regroup + filling shout as default (stills docs/mockups/s445/hud/), voices, PA mix.
 

@@ -96,3 +96,9 @@ points above, so the expected teaching (FightLearn.teach) sits at 0.56-1.05, mos
 `ASK_PROBE2 DOMINANT: GROWTH: ASK_STEP wins 42 of 60` (33 clear); teach words differ on 31 of 60 panels (bar half: PASS).
 RECORD and SAFE barely move (even 39 and 49). x1 is flat, x1.5 makes the step up the growth answer. Next: x1.25 (and x1.15
 if 1.25 still dominates); the map takes the value where both bars hold. Run: `... --script res://tools/ask_probe2.gd -- n_night=50 step_teach=1.25`.
+
+## Step teaching x1.25 (S446, same size and seed; 29,343 bouts in 1031 s)
+`ASK_PROBE2 spread ok: no answer wins more than 6 in 10; teach words differ on 30 of 60 panels`
+GROWTH: ASK_STEP 36 of 60 (24 clear) - exactly the 6-in-10 cap; teach words 30/60 - exactly half. BOTH BARS HOLD, AT THE EDGE.
+RECORD and SAFE still mostly even (39 and 49 of 60): the step-up lever moves growth only. Decision (Claude): x1.25 goes into
+map v4; the critics get these numbers as they are, including the flat RECORD/SAFE rows (a depth question for them, not hidden).
