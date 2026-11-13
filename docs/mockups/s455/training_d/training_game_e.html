@@ -1,0 +1,229 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Training as a game - E (S455)</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow:wght@500;600;700;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+:root{--line:#283242;--ink:#e9e4da;--dim:#9aa4b3;--red:#e24b4b;--green:#5fcf7a;--amber:#f2b84b;--panel2:#18202b;
+ --sta:#4fd1c5;--pow:#e24b4b;--spd:#5aa3ff;--tec:#ff7ab6;--def:#f2b84b;--iq:#b48cff;--rec:#5fcf7a;--dur:#c9a27a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;position:relative;font-family:"Barlow","Segoe UI",sans-serif;font-size:18px;color:var(--ink);background:radial-gradient(1400px 800px at 50% 0%,#1d2a3a,#0b0f15 70%)}
+.disp{font-family:"Oswald",Impact,sans-serif;text-transform:uppercase;letter-spacing:1.5px}
+.top{position:absolute;left:0;right:0;top:0;height:54px;background:rgba(8,11,16,.94);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 22px;gap:18px;font-size:18px;z-index:5}
+.crest{width:32px;height:32px;border-radius:50%;background:url(../../../../assets/ui/art/crests/anvil.png) center/cover;border:1px solid #6b5a3a}
+.club{font-family:"Oswald";font-weight:600;font-size:22px;letter-spacing:2px}
+.crumb{color:var(--dim)}.crumb b{color:var(--ink)}
+.sp{flex:1}.date b{color:var(--amber)}.cash{font-weight:800;color:var(--green)}
+.flag{height:38px;padding:0 14px;border-radius:8px;background:#223042;border:1px solid #3a4a5e;font-weight:800;display:flex;align-items:center;gap:8px}
+.flag .dot{width:10px;height:10px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber)}
+.cont{height:40px;padding:0 22px;border-radius:8px;background:#2e7d46;border:1px solid #5fcf7a;font-family:"Oswald";font-size:20px;letter-spacing:1.5px;display:flex;align-items:center;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(95,207,122,0)}50%{box-shadow:0 0 18px 4px rgba(95,207,122,.45)}}
+.head{position:absolute;left:16px;right:16px;top:64px;height:80px;display:flex;align-items:center;gap:24px;background:rgba(18,24,33,.92);border:1px solid var(--line);border-radius:12px;padding:0 20px 0 8px;z-index:2}
+.av{width:64px;height:64px;border-radius:50%;background:url(../../../../assets/ui/style_b/portraits/mh_boxer_07.png) center 15%/cover;border:2px solid #6b5a3a}
+.nm{white-space:nowrap;font-family:"Oswald";font-size:30px;font-weight:600;letter-spacing:1.5px;line-height:1}
+.sub{color:var(--dim);font-size:17px;margin-top:3px;white-space:nowrap}
+.vs{border-left:1px solid var(--line);padding-left:24px}
+.vs .k{font-size:15px;color:var(--red);font-weight:800;letter-spacing:1.5px}
+.vs .t{font-family:"Oswald";font-size:24px;font-weight:600}
+.cd{font-family:"Oswald";font-size:44px;color:var(--red);line-height:1}.cd small{font-size:17px;color:var(--dim);font-family:"Barlow";font-weight:700;margin-left:4px}
+.dial{display:flex;align-items:center;gap:12px;border-left:1px solid var(--line);padding-left:24px}
+.dial .n{line-height:1.3}.dial .n b{font-family:"Oswald";font-size:28px;color:var(--green)}
+.goal{border-left:1px solid var(--line);padding-left:24px;width:380px}
+.goal .k{font-size:15px;color:var(--amber);font-weight:800;letter-spacing:1.2px}
+.gbar{height:12px;border-radius:6px;background:#263040;position:relative;margin:6px 0 4px}
+.gbar i{position:absolute;top:0;bottom:0;border-radius:6px}
+.gbar .mk{position:absolute;top:-5px;bottom:-5px;width:3px;background:#fff}
+.goal .s{font-size:16px;color:var(--dim)}.goal .s b{color:var(--green)}
+.opp{border-left:1px solid var(--line);padding-left:24px;font-size:16px;line-height:1.35;color:var(--dim)}.opp b{color:var(--ink)}
+/* board */
+.board{position:absolute;left:16px;top:156px;width:1366px;height:676px;background:rgba(14,19,27,.96);border:1px solid #33404f;border-radius:12px;padding:12px 14px;z-index:2}
+h2{font-family:"Oswald";font-weight:600;font-size:22px;letter-spacing:2px;color:#c9bfae;display:flex;align-items:baseline;gap:10px}
+h2 small{font-family:"Barlow";text-transform:none;letter-spacing:0;color:var(--dim);font-size:17px;font-weight:600}
+.bh{display:flex;align-items:center;gap:10px}
+.btn{height:36px;padding:0 14px;border-radius:7px;background:#223042;border:1px solid #3a4a5e;font-weight:800;font-size:17px;display:flex;align-items:center}
+.wgoal{display:flex;align-items:center;gap:8px;margin-top:8px}
+.wgoal div.o{padding:4px 14px;border-radius:8px;background:var(--panel2);border:1px solid var(--line);font-family:"Oswald";font-size:18px;letter-spacing:1px;color:var(--dim);line-height:1.1}
+.wgoal div.o.on{border-color:var(--green);color:var(--green);background:rgba(95,207,122,.08)}
+.wgoal .nx{margin-left:auto;font-size:16px;color:var(--dim)}.wgoal .nx b{color:var(--ink)}
+.cols{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:10px}
+.col{display:flex;flex-direction:column;gap:6px}
+.dh{font-family:"Oswald";font-size:21px;letter-spacing:1.5px;display:flex;gap:8px;align-items:baseline}
+.dh span{font-family:"Barlow";font-size:16px;color:var(--dim);letter-spacing:0;font-weight:700}
+.slot{height:168px;border-radius:9px;background:var(--panel2);border:1px solid var(--line);overflow:hidden;position:relative}
+.slot .pic{height:112px;background-size:cover;background-position:center;position:relative}
+.slot .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.0) 40%,rgba(16,22,30,.97))}
+.slot .t{position:absolute;left:56px;top:80px;z-index:2;font-family:"Oswald";font-size:21px;letter-spacing:1px;text-transform:uppercase;text-shadow:0 2px 6px #000}
+.badge{position:absolute;left:6px;top:68px;width:46px;height:46px;z-index:3;border-radius:50%;background-size:86%;background-position:center;background-repeat:no-repeat;background-color:#121821;border:3px solid var(--c);box-shadow:0 2px 6px rgba(0,0,0,.6)}
+.icons{display:flex;gap:6px;padding:8px 8px 0;align-items:center}
+.g{display:inline-flex;align-items:center;gap:3px;font-size:17px;font-weight:800;padding:1px 7px;border-radius:5px;color:var(--c);background:color-mix(in srgb,var(--c) 17%,transparent)}
+.fl{color:#ff9f43;font-size:16px;letter-spacing:-1px}
+.stop{position:absolute;left:6px;top:6px;z-index:3;width:28px;height:28px;border-radius:50%;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;background:rgba(8,11,16,.85);border:2px solid #7a6326;color:#fff3d6}
+.stop.l{border-color:#2f6b40;color:#e3f8e8}
+.lever{position:absolute;left:44px;right:8px;top:8px;height:28px;z-index:3;border-radius:14px;background:rgba(20,26,35,.92);border:1px solid #3a4a5e;display:flex}
+.lever i{flex:1;font-style:normal;font-size:16px;font-weight:800;color:#8090a2;display:flex;align-items:center;justify-content:center;border-radius:14px}
+.lever i.on{background:#7a6326;color:#fff3d6}
+.win{position:absolute;right:6px;top:6px;z-index:3;font-size:18px;font-weight:800;background:rgba(8,11,16,.88);border:1px solid #2f6b40;color:var(--green);border-radius:5px;padding:0 8px}
+.yours{border:2px solid var(--amber)}
+.yb{position:absolute;left:6px;top:6px;z-index:3;font-size:15px;font-weight:800;background:var(--amber);color:#0b0f15;border-radius:4px;padding:0 6px}
+.ev{height:150px}
+.ev .pic{height:96px}.ev .badge{top:54px}.ev .t{top:64px}
+.mvr{padding:7px 8px 0;font-size:17px;font-weight:700;line-height:1.2}
+.u{color:var(--green)}
+.sel{box-shadow:0 0 0 3px rgba(242,184,75,.6),0 0 26px rgba(242,184,75,.25)}
+.open{border:2px dashed #4a5a70;background:repeating-linear-gradient(135deg,#151c26,#151c26 10px,#18202b 10px,#18202b 20px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px;padding:0 10px}
+.open .p{font-size:34px;color:#4a5a70;line-height:1}.open b{font-size:18px}.open span{font-size:16px;color:var(--dim);line-height:1.25}
+.drop{border:2px dashed var(--amber)}
+.drop .pic{opacity:.45}
+/* the gamble panel beside the drop */
+.gamble{position:absolute;z-index:8;left:14px;right:14px;bottom:12px;display:flex;align-items:center;gap:22px;background:#0d131b;border:2px solid var(--amber);border-radius:10px;padding:10px 14px;box-shadow:0 12px 34px rgba(0,0,0,.75)}
+.gamble h3{font-family:"Oswald";font-size:20px;letter-spacing:1px;color:var(--amber);text-transform:uppercase}
+.gamble .r{display:flex;flex-direction:column;font-size:16px;color:var(--dim);font-weight:700;border-left:1px solid #2a3442;padding-left:16px;line-height:1.25}.gamble .r span:last-child{font-size:18px}
+.gamble .gain{color:var(--green);font-weight:800}.gamble .cost{color:#ff8a7a;font-weight:800}
+/* tiredness curve */
+.curve{position:relative;margin-top:8px;height:128px;border-radius:8px;background:#121821;border:1px solid var(--line);overflow:hidden}
+.curve .lab{position:absolute;left:8px;font-size:15px;font-weight:800;z-index:2}
+/* tray */
+.tray{position:absolute;left:16px;top:844px;width:1366px;bottom:16px;background:rgba(14,19,27,.96);border:1px solid #33404f;border-radius:12px;padding:10px 14px;z-index:2}
+.strip{display:flex;gap:10px;margin-top:8px}
+.tc{width:98px;flex:none;text-align:center}
+.tc .ic{width:72px;height:72px;margin:0 auto;border-radius:50%;background-size:86%;background-position:center;background-repeat:no-repeat;background-color:#121821;border:4px solid var(--c)}
+.tc .t{font-weight:800;font-size:16px;padding-top:4px;color:var(--c)}
+.sepv{width:1px;background:var(--line);flex:none;margin:0 4px}
+.tc.ghost{opacity:.45}
+.legend{font-size:16px;color:var(--dim);font-weight:700}
+/* right */
+.right{position:absolute;right:16px;top:156px;width:510px;bottom:16px;display:flex;flex-direction:column;gap:10px;z-index:2}
+.card{background:rgba(14,19,27,.96);border:1px solid #33404f;border-radius:12px;padding:12px 16px}
+.check{display:flex;align-items:center;gap:10px;font-size:19px;padding:5px 0}
+.check .i{width:26px;height:26px;border-radius:50%;border:2px solid var(--green);color:var(--green);font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;flex:none}
+.check .i.a{border-color:var(--amber);color:var(--amber)}
+.check .v{margin-left:auto;font-weight:800;color:var(--green)}.check .v.a{color:var(--amber)}
+.check small{font-size:16px;color:var(--dim);font-weight:700}
+.sum{margin-top:6px;border:1px solid #6b5426;background:rgba(242,184,75,.08);border-radius:8px;padding:8px 12px;font-size:17px;line-height:1.35}
+.sum b{color:var(--amber)}
+.note{position:relative;background:#efe6d2;color:#2a2116;border-radius:6px;padding:14px 18px 14px 120px;transform:rotate(-1deg);box-shadow:0 8px 20px rgba(0,0,0,.5)}
+.note .face{position:absolute;left:16px;top:18px;width:86px;height:86px;border-radius:50%;background:url(../../../../assets/ui/art/guide_trainer.png) center 15%/cover;border:3px solid #8a6a3a}
+.note .who{position:absolute;left:14px;top:110px;font-family:"Oswald";font-size:14px;letter-spacing:1.5px;color:#6b5426;width:92px;text-align:center}
+.note h4{font-family:"Oswald";font-size:20px;letter-spacing:1.5px;color:#b8322b}
+.note p{font-family:"Permanent Marker",cursive;font-size:19px;line-height:1.3;margin-top:4px}
+.note .sure{display:inline-block;margin-top:8px;background:#2e7d46;color:#fff;font-family:"Oswald";font-size:15px;letter-spacing:1px;padding:2px 10px;border-radius:4px}
+.selpic{height:110px;border-radius:8px;background-size:cover;background-position:center;position:relative;overflow:hidden}
+.selpic::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(14,19,27,.95))}
+.selpic .tt{position:absolute;left:12px;bottom:8px;z-index:2}
+.selpic .big{position:absolute;right:12px;bottom:6px;z-index:2;font-family:"Oswald";font-size:36px;color:var(--green);line-height:1}
+.row{display:flex;justify-content:space-between;gap:12px;font-size:18px;border-top:1px solid #222b38;padding:5px 0}
+.row b{font-weight:800;text-align:right}
+.dimt{color:var(--dim)}
+.bigbtn{height:48px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:"Oswald";font-size:20px;letter-spacing:1.5px;background:#223042;border:1px solid #3a4a5e;flex:1}
+</style></head><body>
+<div class="top"><div class="crest"></div><div class="club">ANVIL STREET GYM</div><div class="crumb">Fighters › Kwame Asante › <b>Training</b></div><div class="sp"></div><div class="flag"><span class="dot"></span>Weekly card</div><div class="date">Mon 16 Feb 2026 · <b>Week 7</b></div><div class="cash">$12,940</div><div class="cont">RUN THE WEEK ▸</div></div>
+
+<div class="head">
+ <div class="av"></div>
+ <div><div class="nm">KWAME ASANTE</div><div class="sub">Welter 70 kg · #2 regional · 8-1</div></div>
+ <div class="vs"><div class="k">NEXT BOUT · CLUB SHOW</div><div class="t">Sat 28 Feb vs Jade Okoro</div></div>
+ <div class="cd">12<small>days</small></div>
+ <div class="dial">
+  <svg width="64" height="64" viewBox="0 0 62 62"><circle cx="31" cy="31" r="25" fill="none" stroke="#263040" stroke-width="8"/><circle cx="31" cy="31" r="25" fill="none" stroke="#5a6676" stroke-width="8" stroke-dasharray="80 157" transform="rotate(-90 31 31)"/><circle cx="31" cy="31" r="25" fill="none" stroke="#5fcf7a" stroke-width="8" stroke-dasharray="86 157" stroke-linecap="round" transform="rotate(-90 31 31)"/></svg>
+  <div class="n"><b>55% TO WIN</b><br><span class="dimt">coach's plan 51% ·</span> yours <b style="font-size:18px;font-family:Barlow">+4</b></div>
+ </div>
+ <div class="goal"><div class="k">GOAL · STAMINA 61 BY SAT 28</div>
+  <div class="gbar"><i style="width:59.6%;background:var(--sta)"></i><i class="hatch" style="left:59.6%;width:.5%;background:var(--sta)"></i><div class="mk" style="left:61%"></div></div>
+  <div class="s">60.1 by Sun · 61.0 after next week · <b>on course</b></div></div>
+ <div class="opp" style="width:300px"><b>The opponent</b><br>fades from round 3 · <span style="color:var(--green)">drops the right after a jab</span></div>
+</div>
+
+<div class="board">
+ <div class="bh"><h2 class="disp">This week <small>Mon 16 - Sun 22 · a green tag = what your change adds to the WIN dial</small></h2><div class="sp"></div><div class="btn">↶ Undo</div><div class="btn">Coach's plan</div></div>
+ <div class="wgoal"><span class="legend" style="margin-right:4px">THIS WEEK IS FOR</span><div class="o on">PEAK FOR SAT 28</div><div class="o">BUILD</div><div class="o">RECOVER</div><span class="nx"><b style="color:var(--amber)">Last pad week.</b> Next week: <b>taper</b>, 3 light mornings, no sparring</span></div>
+ <div class="cols">
+  <div class="col"><div class="dh">MON <span>16</span></div>
+   <div class="slot"><span class="stop">N</span><div class="pic" style="background-image:url(img_style/roadwork.jpg)"></div><div class="badge" style="--c:var(--sta);background-image:url(../../s454/training/icons/cut/roadwork.png)"></div><div class="t">Roadwork</div><div class="icons"><span class="g" style="--c:var(--sta)">▲ Stamina</span><span class="fl">🔥</span></div></div>
+   <div class="slot ev"><div class="pic" style="background-image:url(img_style/pads.jpg)"></div><div class="badge" style="--c:var(--tec);background-image:url(../../s454/training/icons/cut/pads.png)"></div><div class="t">Pads</div><div class="mvr">Check hook 12 → 21</div></div></div>
+  <div class="col"><div class="dh">TUE <span>17</span></div>
+   <div class="slot"><span class="stop">N</span><div class="pic" style="background-image:url(img_style/heavybag.jpg)"></div><div class="badge" style="--c:var(--pow);background-image:url(../../s454/training/icons/cut/heavybag.png)"></div><div class="t">Heavy bag</div><div class="icons"><span class="g" style="--c:var(--pow)">▲ Power</span><span class="fl">🔥</span></div></div>
+   <div class="slot ev yours"><span class="yb">YOURS</span><span class="win">+2.5</span><div class="pic" style="background-image:url(img_style/film.jpg)"></div><div class="badge" style="--c:var(--iq);background-image:url(../../s454/training/icons/cut/film.png)"></div><div class="t">Film</div><div class="mvr" style="color:var(--green)">found: drops the right</div></div></div>
+  <div class="col"><div class="dh">WED <span>18</span></div>
+   <div class="slot sel"><div class="lever"><i>L</i><i class="on">N</i><i>H</i></div><div class="pic" style="background-image:url(img_style/intervals.jpg)"></div><div class="badge" style="--c:var(--sta);background-image:url(../../s454/training/icons/cut/intervals.png)"></div><div class="t">Intervals</div><div class="icons"><span class="g" style="--c:var(--sta)">▲▲ Stamina</span><span class="fl">🔥🔥</span></div></div>
+   <div class="slot ev yours sel"><span class="yb">YOURS</span><span class="win">+1.5</span><div class="pic" style="background-image:url(img_style/pads.jpg);background-position:right center"></div><div class="badge" style="--c:var(--tec);background-image:url(../../s454/training/icons/cut/pads.png)"></div><div class="t">Pads</div><div class="mvr">Body hook → <span class="u">Usable</span></div></div></div>
+  <div class="col"><div class="dh">THU <span>19</span></div>
+   <div class="slot"><span class="stop l">L</span><div class="pic" style="background-image:url(img_style/speedbag.jpg)"></div><div class="badge" style="--c:var(--spd);background-image:url(../../s454/training/icons/cut/speedbag.png)"></div><div class="t">Speed bag</div><div class="icons"><span class="g" style="--c:var(--spd)">▲ Speed</span></div></div>
+   <div class="slot ev"><div class="pic" style="background-image:url(img_style/sparring.jpg)"></div><div class="badge" style="--c:var(--iq);background-image:url(../../s454/training/icons/cut/sparring.png)"></div><div class="t">Sparring</div><div class="icons"><span class="g" style="--c:var(--iq)">▲ Fight IQ</span><span class="fl">🔥🔥</span></div></div></div>
+  <div class="col"><div class="dh">FRI <span>20</span></div>
+   <div class="slot"><span class="stop">N</span><div class="pic" style="background-image:url(img_style/sliprope.jpg)"></div><div class="badge" style="--c:var(--def);background-image:url(../../s454/training/icons/cut/sliprope.png)"></div><div class="t">Slip rope</div><div class="icons"><span class="g" style="--c:var(--def)">▲ Defence</span><span class="fl">🔥</span></div></div>
+   <div class="slot ev"><div class="pic" style="background-image:url(img_style/pads.jpg);background-position:left center"></div><div class="badge" style="--c:var(--tec);background-image:url(../../s454/training/icons/cut/pads.png)"></div><div class="t">Pads</div><div class="mvr">Check hook → <span class="u">Usable</span></div></div></div>
+  <div class="col"><div class="dh">SAT <span>21</span></div>
+   <div class="slot"><span class="stop">N</span><div class="pic" style="background-image:url(img_style/shadow.jpg)"></div><div class="badge" style="--c:var(--tec);background-image:url(../../s454/training/icons/cut/shadow.png)"></div><div class="t">Shadow</div><div class="icons"><span class="g" style="--c:var(--tec)">▲ Technique</span></div></div>
+   <div class="slot ev drop"><div class="pic" style="background-image:url(img_style/sparring.jpg)"></div><div class="t" style="color:var(--amber);left:10px;top:30px">Sparring?</div></div></div>
+  <div class="col"><div class="dh">SUN <span>22</span></div>
+   <div class="slot"><div class="pic" style="background-image:url(img_style/rest.jpg)"></div><div class="badge" style="--c:var(--rec);background-image:url(../../s454/training/icons/cut/rest.png)"></div><div class="t">Rest</div><div class="icons"><span class="g" style="--c:var(--rec)">▼ Tiredness</span></div></div>
+   <div class="slot ev open"><div class="p">＋</div><b>Open night</b><span>last pad night that counts</span></div></div>
+ </div>
+ <!-- one tiredness curve across the week -->
+ <div class="curve">
+  <svg width="1336" height="128" viewBox="0 0 1336 128" style="position:absolute;left:0;top:0">
+   <rect x="0" y="0" width="1336" height="26" fill="rgba(226,75,75,.16)"/>
+   <rect x="0" y="26" width="1336" height="10" fill="rgba(242,184,75,.16)"/>
+   <rect x="0" y="36" width="1336" height="28" fill="rgba(185,211,106,.08)"/>
+   <line x1="0" y1="26" x2="1336" y2="26" stroke="#e24b4b" stroke-width="3"/>
+   <line x1="0" y1="36" x2="1336" y2="36" stroke="#f2b84b" stroke-width="2" stroke-dasharray="8 6"/>
+   <polyline points="95,79 287,69 478,54 669,44 860,47 1051,50 1242,72" fill="none" stroke="#4fd1c5" stroke-width="4"/>
+   <polyline points="860,47 1051,30 1242,56" fill="none" stroke="#f2b84b" stroke-width="3" stroke-dasharray="7 6"/>
+   <g fill="#e9e4da" font-family="Oswald" font-size="20">
+    <circle cx="95" cy="79" r="6" fill="#4fd1c5"/><text x="105" y="104">38</text>
+    <circle cx="287" cy="69" r="6" fill="#4fd1c5"/><text x="297" y="94">46</text>
+    <circle cx="478" cy="54" r="6" fill="#4fd1c5"/><text x="488" y="80">58</text>
+    <circle cx="669" cy="44" r="6" fill="#4fd1c5"/><text x="679" y="70">66</text>
+    <circle cx="860" cy="47" r="6" fill="#4fd1c5"/><text x="870" y="73">63</text>
+    <circle cx="1051" cy="50" r="6" fill="#4fd1c5"/><text x="1061" y="76">61</text>
+    <circle cx="1051" cy="30" r="7" fill="#f2b84b"/><text x="1062" y="24" fill="#f2b84b">77</text>
+    <circle cx="1242" cy="72" r="6" fill="#4fd1c5"/><text x="1252" y="98">44</text>
+   </g>
+  </svg>
+  <span class="lab" style="top:4px;color:#ff8a7a">OVERREACHED 80</span><span class="lab" style="top:38px;color:#f2b84b">TIRED 72</span><span class="lab" style="top:66px;color:#cfe39a">WORKING</span><span class="lab" style="top:102px;color:#7fe0d6">FRESH</span>
+ </div>
+ <!-- the gamble, shown beside the card being dropped -->
+ <div class="gamble"><h3>Sparring on Sat? <span style="font-family:Barlow;text-transform:none;letter-spacing:0;font-size:16px;color:var(--dim)">drop to decide</span></h3>
+  <div class="r"><span>Buys</span><span class="gain">the check hook line fires full from round 1</span></div>
+  <div class="r"><span>WIN dial</span><span class="gain">+1.5</span></div>
+  <div class="r"><span>Tiredness</span><span class="cost">61 → 77, Tired</span></div>
+  <div class="r"><span>Injury this week</span><span class="cost">1 → 3 in 100, a week before the bout</span></div>
+ </div>
+</div>
+
+<div class="tray">
+ <div class="bh"><h2 class="disp">Sessions <small>drag onto a day</small></h2><div class="sp"></div><span class="legend">🔥 = tiredness · the ring's colour = what it trains</span></div>
+ <div class="strip">
+  <div class="tc"><div class="ic" style="--c:var(--sta);background-image:url(../../s454/training/icons/cut/roadwork.png)"></div><div class="t" style="--c:var(--sta)">Roadwork</div></div>
+  <div class="tc"><div class="ic" style="--c:var(--sta);background-image:url(../../s454/training/icons/cut/intervals.png)"></div><div class="t" style="--c:var(--sta)">Intervals</div></div>
+  <div class="tc"><div class="ic" style="--c:var(--pow);background-image:url(../../s454/training/icons/cut/heavybag.png)"></div><div class="t" style="--c:var(--pow)">Heavy bag</div></div>
+  <div class="tc"><div class="ic" style="--c:var(--pow);background-image:url(../../s454/training/icons/cut/strength.png)"></div><div class="t" style="--c:var(--pow)">Strength</div></div>
+  <div class="tc"><div class="ic" style="--c:var(--spd);background-image:url(../../s454/training/icons/cut/speedbag.png)"></div><div class="t" style="--c:var(--spd)">Speed bag</div></div>
+  <div class="tc"><div class="ic" style="--c:var(--def);background-image:url(../../s454/training/icons/cut/sliprope.png)"></div><div class="t" style="--c:var(--def)">Slip rope</div></div>
+  <div class="tc"><div class="ic" style="--c:var(--tec);background-image:url(../../s454/training/icons/cut/shadow.png)"></div><div class="t" style="--c:var(--tec)">Shadow</div></div>
+  <div class="tc"><div class="ic" style="--c:var(--dur);background-image:url(../../s454/training/icons/cut/neck.png)"></div><div class="t" style="--c:var(--dur)">Neck</div></div>
+  <div class="tc"><div class="ic" style="--c:var(--rec);background-image:url(../../s454/training/icons/cut/rest.png)"></div><div class="t" style="--c:var(--rec)">Rest</div></div>
+  <div class="sepv"></div>
+  <div class="tc"><div class="ic" style="--c:var(--tec);background-image:url(../../s454/training/icons/cut/pads.png)"></div><div class="t" style="--c:var(--tec)">Pads</div></div>
+  <div class="tc ghost"><div class="ic" style="--c:var(--iq);background-image:url(../../s454/training/icons/cut/sparring.png)"></div><div class="t" style="--c:var(--iq)">Sparring</div></div>
+  <div class="tc"><div class="ic" style="--c:var(--iq);background-image:url(../../s454/training/icons/cut/film.png)"></div><div class="t" style="--c:var(--iq)">Film</div></div>
+ </div>
+</div>
+
+<div class="right">
+ <div class="card">
+  <h2 class="disp">On fight night</h2>
+  <div class="check"><span class="i">✓</span>Makes weight <small>Fri 27, Cut</small><span class="v">0.4 kg spare</span></div>
+  <div class="check"><span class="i">✓</span>Stamina goal 61<span class="v">on course</span></div>
+  <div class="check"><span class="i">✓</span>Tiredness peak <small>under 72</small><span class="v">66 Thu</span></div>
+  <div class="check"><span class="i">✓</span>Injury chance, this week<span class="v">1 in 100</span></div>
+  <div class="check"><span class="i a">!</span>Moves ready to throw<span class="v a">4 (+2 hooks)</span></div>
+  <div class="sum">The film found the dropped right: <b>the check hook answers it</b> once Fri's pads make it Usable.</div>
+ </div>
+ <div class="note"><div class="face"></div><div class="who">YOUR COACH</div><h4>COACH'S PICK</h4><p>Pads Wed and Fri for the check hook. No sparring Sat: fresh legs into the taper.</p><span class="sure">FAIRLY SURE</span></div>
+ <div class="card" style="padding:10px 12px">
+  <div class="selpic" style="background-image:url(img_style/pads.jpg)"><div class="tt"><div class="disp" style="font-size:21px">Wed evening · Pads</div><div class="dimt" style="font-size:16px">body hook and check hook, half the night each</div></div><div class="big">+1.5</div></div>
+  <div class="row" style="margin-top:6px"><span>Body hook</span><b>29 → <span class="u">32 Usable</span></b></div>
+  <div class="row"><span>Gives up</span><b class="dimt">the 1-2-3 stays at 18 of 30</b></div>
+ </div>
+ <div style="display:flex;gap:10px;margin-top:auto"><div class="bigbtn">USE COACH'S PICK</div></div>
+</div>
+</body></html>

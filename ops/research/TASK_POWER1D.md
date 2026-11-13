@@ -4,6 +4,12 @@ Status: OPEN (S452). Discipline: boxing (demo). Owner: Claude - four seat rounds
 closed: bars still red, join_return 0->2, hit_carry 40->52, punch_speed 39->41).
 Bars and the operator's words: ops/research/TASK_POWER1C.md (C353/C354 "wtf are these arm angles", C359 "terrible hands").
 
+## Contract
+OWNS: scripts/fight3d/HitImpact.gd (the recover() quick hand-back only), scripts/fight3d/BeatClips.gd (QUICK_BACK_S only), scripts/fight3d/PunchReach.gd (the release rule in _apply only; 498 lines - stay under 500), scripts/fight3d/ReachLimit.gd, tests/uppercut_tail_test.gd (OVER_HEAD/ELBOW measurement from f01 only)
+RED_TEST: tests/uppercut_tail_test.gd -> UPPERCUT_TAIL failures=0   (main S453: failures=27)
+REGRESSION: join_return_test, hit_carry_test, hit_frame_test, punch_speed_test, fight_feel_test, beat_clips_test, head_aim_test, file_limits_test
+VISUAL: yes (tools/hit_frame_film.gd seed 4242 + 3 seeds on the game camera, stills opened, review board)
+
 ## Red test (on main since S452)
 tests/uppercut_tail_test.gd - Qwen's harness (mh_boxer_02 vs mh_boxer_03, the frame as drawn), two of its checks repaired by Claude in S452:
 - BACK measured the glove's return to its position AT THE HIT (so "back at 0.10 s" on a tail that never went home); now to the glove's

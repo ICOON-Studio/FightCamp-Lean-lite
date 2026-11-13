@@ -201,8 +201,13 @@ func arm_block(who: int, clip: String, at_s: float, contact_s: float) -> void:
 		if block_pos.distance_to(face_pos) < 0.12:   # the punch stops on the glove, never on the face
 			var away: Vector3 = (block_pos - face_pos).normalized()
 			block_pos = face_pos + (away if away.length() > 0.01 else (puncher_glove_pos - face_pos).normalized()) * 0.14
-		return block_pos + (puncher_glove_pos - block_pos).normalized() * BLOCK_SURFACE_M
-	pr.arm(clip, hand, cs, get_block_target, float(boxers[who]["front"]))
+		var to_p: Vector3 = puncher_glove_pos - block_pos
+		if clip.contains("jab"):   # BLOCKLOOK5B: a jab stops level on the glove's face, not under it (the lead glove below)
+			to_p.y = 0.0
+		return block_pos + to_p.normalized() * BLOCK_SURFACE_M
+	# BLOCKLOOK5: a blocked straight is thrown as the landed one (its drive and chest lean; a 1 mm carry, stopped on the glove);
+	# a hook or uppercut exactly as before (HOOKTAKES1 brings their targets).
+	pr.arm(clip, hand, cs, get_block_target, float(boxers[who]["front"]), 0.001 if RangeTable.kind(clip) == "straight" else 0.0)
 	if boxers[who].get("weight") != null: (boxers[who]["weight"] as Node).arm("")   # POWER1: no hips carry on a block
 
 

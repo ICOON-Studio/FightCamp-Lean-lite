@@ -16,7 +16,10 @@ extends SkeletonModifier3D
 
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const HitSnap := preload("res://scripts/fight3d/HitSnap.gd")
-const KNOCK_M := {"jab": 0.025, "cross": 0.034, "lead_hook": 0.028, "rear_hook": 0.032, "lead_uppercut": 0.028, "rear_uppercut": 0.032}
+const BlockCatchPoint := preload("res://scripts/fight3d/BlockCatchPoint.gd")   # BLOCKLOOK4: the meeting point
+const MET_HOLD_S := 0.03     # BLOCKLOOK5: the glove is at its meeting point and held this long before contact
+const OUT_S := 0.12           # BLOCKLOOK4: real seconds before contact over which the glove goes out to the meeting point
+const KNOCK_M := {"jab": 0.036, "cross": 0.044, "lead_hook": 0.028, "rear_hook": 0.032, "lead_uppercut": 0.028, "rear_uppercut": 0.032}
 const HEAD_DEG := {"jab": 3.0, "cross": 3.5, "lead_hook": 3.5, "rear_hook": 4.0, "lead_uppercut": 3.5, "rear_uppercut": 4.0}
 const HEAD_M_PER_DEG := 0.007   # the head's travel back per snap degree, at most (block_absorb_test: 0.005-0.007)
 const FACE_KEEP_M := 0.09
@@ -57,6 +60,8 @@ var _move := ""
 var _give_t := -1.0           # seconds since the punch met the catch (-1: no give shown)
 var _brace_t := -1.0          # seconds since her elbow brace began (-1: none)
 var _last_bt := -1.0
+var _ttc_now := INF           # real seconds to contact this frame (BLOCKLOOK4)
+var _met := Vector3.INF       # BLOCKLOOK5: the meeting point (world), held from contact
 
 
 ## The blocker's catch (made once, last on her modifier stack, so what it sets is what is drawn).
@@ -98,6 +103,8 @@ func arm(clip: String, move: String, contact_s: float, speed: float, contact_in:
 	_alive = alive
 	_release = false
 	_move = move
+	_ttc_now = INF
+	_met = Vector3.INF
 
 
 ## The catching glove's hand bone ("LeftHand" / "RightHand"; "" before the first arm). FightStage.arm_block carries the
@@ -132,6 +139,7 @@ func _target_w(dt: float) -> float:
 		_after += dt
 	else:
 		var ttc := _ttc(dt)
+		_ttc_now = maxf(ttc, 0.0)
 		if ttc > 0.0:
 			return 1.0 - smoothstep(SET_EARLY_S, RISE_S, ttc)
 		_after = 0.0
@@ -200,6 +208,26 @@ func _process_modification() -> void:
 		var o := clampf(rel.dot(out), 0.02, 0.11)
 		goal_w = face + fwd * f + out * o
 		goal_w.y = clampf(c.y, face.y - LOW_M, top)
+	# BLOCKLOOK4: the glove goes OUT to meet the punch where the puncher's arm is at 90 % of its landed reach (on a
+	# straight's line, a hook's arc; BlockCatchPoint), over the last OUT_S before contact - the punch is not pulled in.
+	# Only for a punch armed on the landed path (PunchReach._thru > 0: its drive and its chest lean keep the arm long; armed
+	# as today - carried onto the glove, no lean - the puncher stands inside his landed reach and the 90 % point is behind
+	# her face, docs/BLOCKLOOK4_RESULT.md). Otherwise the catch is BLOCKLOOK3's.
+	var p_reach: Node = stage.boxers[1 - me].get("reach")
+	var landed_path := p_reach != null and float(p_reach.get("_thru")) > 0.0
+	var pst: Skeleton3D = stage.boxers[1 - me]["skel"]
+	var arm_len := sh.distance_to(xf * skel.get_bone_global_pose(lo).origin) + (xf * skel.get_bone_global_pose(lo).origin).distance_to(xf * skel.get_bone_global_pose(hd).origin)
+	var mp := BlockCatchPoint.point(pst, _phand, float(stage.boxers[1 - me]["front"]) * float(stage._scale(1 - me)), face, fwd, _hook, sh, arm_len)
+	if _after < 0.0 and _ttc_now > MET_HOLD_S:
+		_met = mp
+	elif _met.is_finite():
+		mp = _met   # BLOCKLOOK5: held from just before the punch latches its aim (PunchReach.LATCH_S) - a glove still moving then
+		            # moved into its front (block_catch GAP, block_meet TOUCH) - and the absorb knocks it back from there
+	if landed_path and mp.is_finite():
+		var mo := 1.0 if _after >= 0.0 else 1.0 - smoothstep(MET_HOLD_S, MET_HOLD_S + OUT_S, _ttc_now)
+		var gm := goal_w.lerp(mp, mo)
+		gm.y = clampf(gm.y, face.y - LOW_M, top)
+		goal_w = gm
 	if _give_t >= 0.0:   # the absorb: knocked back toward her face on the hit spring
 		goal_w -= fwd * float(KNOCK_M.get(_move, 0.025)) * HitSnap.envelope(_give_t)
 		if goal_w.distance_to(face) < FACE_KEEP_M:

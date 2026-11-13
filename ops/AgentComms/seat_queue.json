@@ -963,7 +963,8 @@
    "sent_ms": 1794580825849,
    "answered_at": "2026-11-13 17:10",
    "answer": "research/AMATEURWEEK_CRITIC_S451_JOHN.md",
-   "chars": 14511
+   "chars": 14511,
+   "seen_by_claude": true
   },
   {
    "id": "SQ66",
@@ -1010,17 +1011,39 @@
    "seat": "kalli",
    "brief": "research/COACHFIT_CRITIC_S454_BRIEF.md",
    "stem": "COACHFIT_CRITIC_S454_KALLI",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-13 17:12",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-13 17:40",
+   "sent_ms": 1794584422160
   },
   {
    "id": "SQ70",
    "seat": "john",
    "brief": "research/COACHFIT_CRITIC_S454_BRIEF.md",
    "stem": "COACHFIT_CRITIC_S454_JOHN",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-13 17:12",
+   "tries": 0,
+   "sent_at": "2026-11-13 17:40",
+   "sent_ms": 1794584424697
+  },
+  {
+   "id": "SQ71",
+   "seat": "kalli",
+   "brief": "research/AMATEURWEEK_CRITIC_S455_BRIEF.md",
+   "stem": "AMATEURWEEK_CRITIC_S455_BRIEF_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-13 17:45",
+   "tries": 0
+  },
+  {
+   "id": "SQ72",
+   "seat": "john",
+   "brief": "research/AMATEURWEEK_CRITIC_S455_BRIEF.md",
+   "stem": "AMATEURWEEK_CRITIC_S455_BRIEF_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-13 17:45",
    "tries": 0
   }
  ]

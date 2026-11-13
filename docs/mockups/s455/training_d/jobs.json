@@ -1,0 +1,98 @@
+[
+ {
+  "name": "roadwork",
+  "command": "image generate-with-style",
+  "style_image": "style_ref.jpg",
+  "image_type": "art",
+  "n": 2,
+  "prompt": "An early-morning road beside a park with a pair of running shoes on a kerb, a stopwatch beside them, mist and street lamps. Empty, no people. Clean stylized 3D render from a high three-quarter angle, same palette and lighting as the reference."
+ },
+ {
+  "name": "heavybag",
+  "command": "image generate-with-style",
+  "style_image": "style_ref.jpg",
+  "image_type": "art",
+  "n": 2,
+  "prompt": "A worn red leather heavy bag hanging on a chain in a boxing gym corner, a pair of red boxing gloves on a bench beside it. Empty, no people. Clean stylized 3D render from a high three-quarter angle, same palette and lighting as the reference."
+ },
+ {
+  "name": "intervals",
+  "command": "image generate-with-style",
+  "style_image": "style_ref.jpg",
+  "image_type": "art",
+  "n": 2,
+  "prompt": "A boxing gym floor with a round timer on the wall showing red, a skipping rope coiled on the mat and a water bottle. Empty, no people. Clean stylized 3D render from a high three-quarter angle, same palette and lighting as the reference."
+ },
+ {
+  "name": "speedbag",
+  "command": "image generate-with-style",
+  "style_image": "style_ref.jpg",
+  "image_type": "art",
+  "n": 2,
+  "prompt": "A speed bag on its wooden platform mounted on a brick gym wall, a pair of bag mitts resting on a shelf below. Empty, no people. Clean stylized 3D render from a high three-quarter angle, same palette and lighting as the reference."
+ },
+ {
+  "name": "sliprope",
+  "command": "image generate-with-style",
+  "style_image": "style_ref.jpg",
+  "image_type": "art",
+  "n": 2,
+  "prompt": "A rope strung at head height across a boxing gym floor between two posts, tape marks on the floor below it. Empty, no people. Clean stylized 3D render from a high three-quarter angle, same palette and lighting as the reference."
+ },
+ {
+  "name": "shadow",
+  "command": "image generate-with-style",
+  "style_image": "style_ref.jpg",
+  "image_type": "art",
+  "n": 2,
+  "prompt": "A full-length gym mirror on a brick wall with a taped square on the floor in front of it, hand wraps on a hook. Empty, no people. Clean stylized 3D render from a high three-quarter angle, same palette and lighting as the reference."
+ },
+ {
+  "name": "rest",
+  "command": "image generate-with-style",
+  "style_image": "style_ref.jpg",
+  "image_type": "art",
+  "n": 2,
+  "prompt": "A quiet locker room bench with a folded towel, a water bottle and an ice pack, warm low light. Empty, no people. Clean stylized 3D render from a high three-quarter angle, same palette and lighting as the reference."
+ },
+ {
+  "name": "pads",
+  "command": "image generate-with-style",
+  "style_image": "style_ref.jpg",
+  "image_type": "art",
+  "n": 2,
+  "prompt": "A pair of black focus mitts and a pair of red boxing gloves on the apron of a boxing ring, corner post behind. Empty, no people. Clean stylized 3D render from a high three-quarter angle, same palette and lighting as the reference."
+ },
+ {
+  "name": "film",
+  "command": "image generate-with-style",
+  "style_image": "style_ref.jpg",
+  "image_type": "art",
+  "n": 2,
+  "prompt": "A small office in a boxing gym with a laptop showing a paused boxing match, a notepad and a pen on the desk. Empty, no people. Clean stylized 3D render from a high three-quarter angle, same palette and lighting as the reference."
+ },
+ {
+  "name": "sparring",
+  "command": "image generate-with-style",
+  "style_image": "style_ref.jpg",
+  "image_type": "art",
+  "n": 2,
+  "prompt": "A boxing ring with two headguards and two pairs of sparring gloves on the corner stools, ropes in front. Empty, no people. Clean stylized 3D render from a high three-quarter angle, same palette and lighting as the reference."
+ },
+ {
+  "name": "strength",
+  "command": "image generate-with-style",
+  "style_image": "style_ref.jpg",
+  "image_type": "art",
+  "n": 2,
+  "prompt": "A gym strength corner: a rack of dumbbells, a kettlebell and a barbell on a rubber floor. Empty, no people. Clean stylized 3D render from a high three-quarter angle, same palette and lighting as the reference."
+ },
+ {
+  "name": "neck",
+  "command": "image generate-with-style",
+  "style_image": "style_ref.jpg",
+  "image_type": "art",
+  "n": 2,
+  "prompt": "A neck harness with a small weight plate on a gym bench, a towel folded beside it. Empty, no people. Clean stylized 3D render from a high three-quarter angle, same palette and lighting as the reference."
+ }
+]

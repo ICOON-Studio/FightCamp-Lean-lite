@@ -7117,6 +7117,24 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-215_0_training_game_c.png"
       ],
+      "answer": "there is no consistensy with your previous art syle we need to beconsistent , the buttons stay though or you can do another runon them on the other art you designed your self",
+      "note": null,
+      "answered_at": "2026-11-13T15:29:31Z",
+      "seen_by_claude": true,
+      "comment_only": true
+    },
+    {
+      "id": "Q-S294-216",
+      "asked": "2026-11-13T15:48:34.853040+00:00",
+      "session": "S294",
+      "text": "Training tab E is drawn in the game's own art now (the camp plan's pictures, your round icons kept). Is this the consistent look you meant? (The numbers get one more critic round either way.)",
+      "options": [
+        "Yes, this look",
+        "No, change the look"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-216_0_training_game_e.png"
+      ],
       "answer": null,
       "note": null,
       "answered_at": null,

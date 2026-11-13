@@ -1,3 +1,8 @@
+S455 (2026-11-13)
+- Fight: blocked jabs and crosses. The puncher's arm now keeps the shape of a landed punch (long, chest turned) and stops on the
+  blocker's glove, held out in front of the face. The glove gives a little and comes back to guard. Watch a few blocked jabs and
+  crosses: does the punch look thrown for real, and does the block look like it catches it? (Hooks and uppercuts look as before.)
+
 S446 (2026-11-13)
 - Watch a fight: punches are now thrown from their own distance. A cross lands with a nearly straight arm instead of a folded
   one with the heads touching; uppercuts come from a little further out; the lead uppercut no longer swings over her head.

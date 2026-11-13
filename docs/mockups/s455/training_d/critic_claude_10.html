@@ -1,0 +1,97 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Training - critic 10/10 (Claude)</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow:wght@500;600;700;800&family=Kalam:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0f15;--panel:#121821;--line:#283242;--ink:#e9e4da;--dim:#9aa4b3;--red:#e24b4b;--green:#5fcf7a;--amber:#f2b84b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;position:relative;font-family:Barlow,sans-serif;font-size:20px;color:var(--ink);background:radial-gradient(1400px 800px at 50% 0%,#1d2a3a,#0b0f15 70%)}
+.d{font-family:Oswald,Impact,sans-serif;text-transform:uppercase;letter-spacing:1.5px}
+.top{position:absolute;left:0;right:0;top:0;height:56px;background:rgba(8,11,16,.95);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 24px;gap:20px}
+.top .t{font-size:30px;font-weight:600}.top .sp{flex:1}
+.go{height:42px;padding:0 26px;border-radius:8px;background:#2e7d46;border:1px solid var(--green);display:flex;align-items:center;font-size:22px;animation:p 1.6s infinite}
+@keyframes p{50%{box-shadow:0 0 18px 4px rgba(95,207,122,.45)}}
+.hd{position:absolute;left:16px;right:16px;top:68px;height:84px;background:rgba(18,24,33,.92);border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;gap:26px;padding:0 20px 0 8px}
+.av{width:68px;height:68px;border-radius:50%;background:url(../../../../assets/ui/style_b/portraits/mh_boxer_07.png) center 15%/cover;border:2px solid #6b5a3a}
+.nm{font-size:34px;font-weight:600;line-height:1}
+.cd{font-size:52px;color:var(--red);line-height:1}
+.dial{width:300px;height:60px;display:flex;align-items:center;gap:12px}
+.ring{width:56px;height:56px;border-radius:50%;background:conic-gradient(var(--green) 0 55%,#2a3340 0)}
+.ring i{display:block;width:40px;height:40px;margin:8px;border-radius:50%;background:#121821}
+.big{font-size:30px;white-space:nowrap;color:var(--green)}
+.goal{flex:1;max-width:420px}.bar{height:14px;background:#222c39;border-radius:7px;overflow:hidden;margin-top:6px}.bar b{display:block;height:100%;background:#4fd1c5}
+.board{position:absolute;left:16px;top:164px;width:1296px;height:620px;background:rgba(18,24,33,.92);border:1px solid var(--line);border-radius:12px;padding:14px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.col h4{font-size:22px;margin-bottom:6px;color:var(--dim)}.col h4 b{color:var(--ink)}
+.card{height:150px;border-radius:10px;border:1px solid var(--line);position:relative;background-size:cover;background-position:center;overflow:hidden;margin-bottom:8px}
+.card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 25%,rgba(6,9,14,.93) 100%)}
+.card>*{position:absolute;z-index:2}
+.ic{left:8px;bottom:42px;width:58px;height:58px;border-radius:50%;background-size:cover;border:4px solid}
+.nm2{left:74px;bottom:62px;font-size:17px;letter-spacing:.5px;white-space:nowrap}
+.what{left:10px;bottom:10px;font-size:18px;font-weight:700}
+.fl{right:10px;bottom:10px;font-size:18px}
+.tag{right:8px;top:8px;background:rgba(14,60,30,.95);border:1px solid var(--green);color:var(--green);font-weight:800;border-radius:6px;padding:0 8px;font-size:20px}
+.yours{left:8px;top:8px;background:var(--amber);color:#111;font-weight:800;font-size:14px;padding:1px 8px;border-radius:5px}
+.warn{border:2px dashed var(--red)}
+.lev{display:flex;gap:4px;margin-bottom:8px}.lev span{flex:1;text-align:center;border-radius:6px;background:#1c2530;font-size:16px;padding:2px 0;color:var(--dim)}.lev .on{background:#7a5f1c;color:#fff}
+.curve{position:absolute;left:14px;right:14px;top:518px;height:92px;width:1268px}
+.side{position:absolute;right:16px;top:164px;width:584px}
+.pn{background:rgba(18,24,33,.94);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:12px}
+.pn h3{font-size:22px;margin-bottom:8px}
+.ck{display:flex;justify-content:space-between;font-size:21px;padding:3px 0}.ok{color:var(--green);font-weight:800}.am{color:var(--amber);font-weight:800}
+.note{background:#efe6d0;color:#2a2418;border-radius:4px;padding:12px 16px;font-family:Kalam,cursive;font-size:22px;line-height:1.25;transform:rotate(-.6deg);box-shadow:0 6px 16px rgba(0,0,0,.5)}
+.tray{position:absolute;left:16px;top:796px;width:1296px;height:268px;background:rgba(18,24,33,.92);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.row{display:flex;gap:12px;margin-top:10px}
+.s{width:120px;text-align:center;font-size:17px;font-weight:700}.s .ic{position:static;width:78px;height:78px;margin:0 auto 4px;display:block}
+.s em{display:block;font-style:normal;font-size:16px;color:var(--dim)}
+.div{width:2px;background:var(--line);margin:0 6px}
+.bad{background:#1c2530;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:17px;color:var(--dim)}
+</style></head><body>
+<div class="top"><span class="d t">Anvil Street Gym</span><span class="sp"></span><span>Mon 16 Feb 2026 &middot; Week 7 &middot; $12,940</span><span class="go d">Run the week &#9656;</span></div>
+<div class="hd">
+ <div class="av"></div><div><div class="nm d">Kwame Asante</div><div style="color:var(--dim);font-size:18px">Welter 70 kg &middot; #2 regional &middot; 8-1</div></div>
+ <div style="border-left:1px solid var(--line);padding-left:22px"><div style="color:var(--red);font-weight:800;font-size:16px;letter-spacing:1.5px">CLUB SHOW &middot; SAT 28 FEB</div><div class="d" style="font-size:24px">vs Jade Okoro</div></div>
+ <div class="cd d">12<small style="font-size:18px;color:var(--dim)"> days</small></div>
+ <div class="dial"><div class="ring"><i></i></div><div><div class="big d">55% to win</div><div style="font-size:16px;color:var(--dim)">coach 51 &middot; you +4</div></div></div>
+ <div class="goal"><div class="d" style="font-size:18px">Goal &middot; stamina 61 by Sat 28</div><div class="bar"><b style="width:78%"></b></div><div style="font-size:16px;color:var(--dim)">on course to 60.1 &middot; 0.9 short</div></div>
+</div>
+<div class="board">
+ <div style="display:flex;gap:16px;align-items:center;margin-bottom:10px"><span class="d" style="font-size:26px">This week is for</span>
+  <span class="bad" style="border-color:var(--green);color:var(--green)">PEAK for the bout</span><span class="bad">Build</span><span class="bad">Recover</span><span style="flex:1"></span>
+  <span class="d" style="color:var(--dim)">all mornings</span><span class="bad">Light</span><span class="bad">Normal</span><span class="bad">Hard</span><span class="bad">Undo</span></div>
+ <div class="days" id="days"></div>
+ <svg class="curve" viewBox="0 0 1268 92" preserveAspectRatio="none">
+  <rect x="0" y="0" width="1268" height="92" fill="#0f151d" rx="8"/>
+  <rect x="0" y="0" width="1268" height="14" fill="#5a1d1d" opacity=".7"/><rect x="0" y="14" width="1268" height="14" fill="#5a4a1d" opacity=".5"/>
+  <line x1="0" y1="14" x2="1268" y2="14" stroke="#e24b4b" stroke-width="2"/><line x1="0" y1="28" x2="1268" y2="28" stroke="#f2b84b" stroke-dasharray="6 5" stroke-width="2"/>
+  <polyline points="90,52 270,36 450,40 630,34 810,38 990,44 1180,66" fill="none" stroke="#9be37a" stroke-width="5"/>
+  <polyline points="810,38 990,10 1180,48" fill="none" stroke="#e24b4b" stroke-width="3" stroke-dasharray="7 5"/>
+  <text x="8" y="12" fill="#e9e4da" font-size="13" font-family="Barlow" font-weight="700">80 overreached</text><text x="8" y="26" fill="#e9e4da" font-size="13" font-family="Barlow" font-weight="700">72 tired</text>
+  <text x="1000" y="9" fill="#ff9a9a" font-size="14" font-family="Barlow" font-weight="800">if sparring Sat: 77</text>
+ </svg>
+</div>
+<div class="side">
+ <div class="pn"><h3 class="d">On fight night</h3>
+  <div class="ck"><span>&#10003; Makes weight</span><span class="ok">0.4 kg spare</span></div>
+  <div class="ck"><span>&#10003; Stamina goal</span><span class="ok">0.9 short</span></div>
+  <div class="ck"><span>! Tiredness peak</span><span class="am">66 of 80</span></div>
+  <div class="ck"><span>&#10003; Injury chance this week</span><span class="ok">about 1 in 80</span></div>
+  <div class="ck"><span>&#10003; Usable moves</span><span class="ok">4 of 6</span></div></div>
+ <div class="pn" style="padding:0;overflow:hidden"><div style="height:120px;background:url(img_style/pads.jpg) center/cover;position:relative"><div class="d" style="position:absolute;left:16px;bottom:8px;font-size:28px;text-shadow:0 2px 6px #000">Wed evening &middot; pads &nbsp;<span style="color:var(--green)">+1.5</span></div></div>
+  <div style="padding:10px 18px"><div class="ck"><span>Body hook</span><b>29 &rarr; 32 Usable</b></div><div class="ck"><span>Check hook</span><b>21 &rarr; 25</b></div><div class="ck"><span>Costs you</span><b style="color:var(--amber)">1-2-3 stays at 18 of 30</b></div></div></div>
+ <div class="pn"><h3 class="d">Weigh-in &middot; Fri 27 Feb</h3><div class="ck"><span>today 70.9 &middot; limit 70.0</span><b>Hold 70.5 &#10007; &nbsp; Cut 69.6 &#10003;</b></div></div>
+ <div class="note">Peak week. Pads Wed and Fri finish both hooks. Sparring Thursday only: Saturday puts you at 77.<div style="font-family:Barlow;font-size:15px;margin-top:6px"><b style="background:#2e7d46;color:#fff;padding:1px 8px;border-radius:4px">FAIRLY SURE</b> &nbsp; <u>Use coach's pick</u></div></div>
+</div>
+<div class="tray"><div style="display:flex;justify-content:space-between"><span class="d" style="font-size:26px">Sessions <small style="font-size:17px;color:var(--dim);text-transform:none;letter-spacing:0">drag onto a day</small></span><span style="font-size:17px"><b style="color:var(--green)">Fresh</b> &middot; <b style="color:#d8d36a">Working</b> &middot; <b style="color:var(--amber)">Tired 72</b> injury x2 at 76 &middot; <b style="color:var(--red)">Overreached 80</b> gains x0.6, injury x3</span></div>
+ <div class="row" id="tray"></div></div>
+<script>
+var I="../../s454/training/icons/cut/",P="img_style/";
+var C={sta:"#4fd1c5",pow:"#e24b4b",spd:"#5aa3ff",fw:"#ff7ab6",def:"#f2b84b",iq:"#b48cff",rec:"#5fcf7a"};
+var S={roadwork:["Roadwork","Stamina",C.sta,"roadwork"],heavy:["Heavy bag","Power",C.pow,"heavybag"],inter:["Intervals","Stamina",C.sta,"intervals"],speed:["Speed bag","Hand speed",C.spd,"speedbag"],slip:["Slip rope","Defence",C.def,"sliprope"],shadow:["Shadow","Footwork",C.fw,"shadow"],rest:["Rest","Tiredness -15",C.rec,"rest"],pads:["Pads","Moves",C.pow,"pads"],film:["Film","Opens a tell",C.iq,"film"],spar:["Sparring","Ring IQ",C.iq,"sparring"]};
+var days=[["Mon 16","roadwork","N","pads","+0.2","+0"],["Tue 17","heavy","N","film","+0.1","+2.5",1],["Wed 18","inter","N","pads","+0.3","+1.5",1],["Thu 19","speed","L","spar","+0.1","+0.3"],["Fri 20","slip","N","pads","+0.2","+2.0"],["Sat 21","shadow","N","spar","+0.1","?",2],["Sun 22","rest","","none","+0",""]];
+function card(k,t,y,w){var s=S[k];if(!s){return '<div class="card" style="border:2px dashed #3a4658;background:#10161e"><div class="what" style="left:30px;bottom:50px;color:#9aa4b3">Open night</div></div>';}
+ return '<div class="card '+(w?'warn':'')+'" style="background-image:url('+P+s[3]+'.jpg)">'+(y?'<span class="yours">YOURS</span>':'')+'<span class="tag">'+t+'</span><span class="ic" style="background-image:url('+I+s[3]+'.png);border-color:'+s[2]+'"></span><span class="nm2 d">'+s[0]+'</span><span class="what" style="color:'+s[2]+'">'+s[1]+'</span><span class="fl">'+(w?'&#128293;&#128293;&#128293;':'&#128293;')+'</span></div>';}
+document.getElementById("days").innerHTML=days.map(function(d){var lv=["L","N","H"].map(function(x){return '<span class="'+(x==d[2]?'on':'')+'">'+x+'</span>';}).join("");return '<div class="col"><h4 class="d"><b>'+d[0].split(" ")[0]+'</b> '+d[0].split(" ")[1]+'</h4>'+card(d[1],d[4],d[6]==1)+'<div class="lev">'+lv+'</div>'+card(d[3],d[5],d[6]==1,d[6]==2)+'</div>';}).join("");
+function sess(k){return '<div class="s"><span class="ic" style="background-image:url('+I+S[k][3]+'.png);border-color:'+S[k][2]+'"></span>'+S[k][0]+'<em>'+S[k][1]+'</em></div>';}
+document.getElementById("tray").innerHTML=["roadwork","inter","heavy","speed","shadow","slip","rest"].map(sess).join("")+'<div class="div"></div>'+["pads","spar","film"].map(sess).join("");
+</script>
+</body></html>

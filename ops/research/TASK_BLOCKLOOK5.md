@@ -21,7 +21,7 @@ His marks still open (review board S449, ops/Feedback/2026-11-13-15): "the arm l
 
 ## Contract
 OWNS: scripts/fight3d/BlockCatch.gd, scripts/fight3d/BlockCatchPoint.gd (from your branch grok/blocklook4 - start from it),
-scripts/fight3d/FightStage.gd arm_block ONLY (the one call, a straight/hook test around it, at most 8 lines), tests/block_catch_test.gd,
+scripts/fight3d/FightStage.gd (arm_block only) (the one call, a straight/hook test around it, at most 8 lines), tests/block_catch_test.gd,
 docs/BLOCKLOOK5_RESULT.md
 RED_TEST: tests/block_catch_test.gd -> MATCH rows for the 4 straights (A_B/B_A jab, A_B/B_A cross) PASS; hook rows printed, not gated
 REGRESSION (none may rise above main): block_meet_test (main 10), block_absorb_test (main 0), block_set_test (0), beat_clips_test,
