@@ -3,14 +3,14 @@
  "updated": "2026-11-13",
  "author": "claude S294",
  "now": {
-  "id": "S453",
+  "id": "S454",
   "owner": "claude",
   "updated": "2026-11-13",
-  "summary": "S453: his C365/C366 fight HUD body maps - organ pictures gone, each region (head, ribs, liver) outlined in the hit colour with its count inside, the existing BodyTip tooltip on hover (5be5343a; holo_live green, fight3d_play hudregroup 0). His C367/C368 office - fighter cards are fixed 232 px columns so the whole roster stands side by side, vertical bars Stamina/Mood/Rating/Ready (coach checks done) (office_desk/office_screen green; tools/office_still.gd shows four). His C369 - the hips go leg to leg once a BREATH (FighterLife's phase) instead of every bounce (6636383d; boxer_footwork/human_feet/ring_feet green; standoff film on the review board; Blender not needed - the sway is code). BLOCKLOOK5 (PR 256) NOT merged: block_catch 9->5 and absorb 0 good, but block_meet ROW A_B preview jab regressed (lead glove, gy -0.094) -> TASK_BLOCKLOOK5B to Grok Dev. POWER1D: three holders found (release pin, carry hold vs the clip tail's shoulder lift, guard place over her head), one experiment 27->24 reverted, next tries in TASK_POWER1D.md. Critics: fight week v5 Kalli 6/6, Dola 7/6 (John SQ65 queued); COACHFIT v2 Maria 6/5 (Dola SQ67 sent by hand). PR 255 closed (collected S452). Miro: still errors on every call.",
-  "last_working_commit": "7628269d",
+  "summary": "S454: his Q-S294-214 answer on the Training tab ('lacks art, too text heavy, not clear how you set the training ... fatigue and intensity meters ... how much do you rate it for a game') -> rated the S439 redesign ~4/10 as a game and redrew it as a game: A (Ludo painted card art, drag cards, L/N/H per morning, fatigue curve), B (the week as the hero: fatigue tank per day, session strip, docked selected card), C (his asks: the pictures redrawn in Ludo 'Comic Book' style + his stylized round icons in the strip and as card badges; week goal Peak/Build/Recover, coach ghost under changes, risk pips). Critics A/B/C: Dola 7/8 each, fresh Claude critics 6/6 each (number slips: injury 76 vs 80, check-hook steps, '5 weapons' vs 4 rings, no Footwork bar, Sunday dead slot, WIN tags unexplained) -> D next. Q-S294-215 on the board with C attached; C + B on the review board. COACHFIT v3 written (Maria 6/5 + Dola 8/8 lists: visible fit in stat points, coached session defined, coach energy, graded taught-out, temper modes, Steady hand, bond spread, working to rule) -> Kalli SQ69 + John SQ70 queued. Miro works again (2 widgets updated, no deletions sent). BLOCKLOOK5B: no push yet on grok/blocklook5 (head still 59de1097). No game code changed: no export.",
+  "last_working_commit": "4ff331ba",
   "verified_playable": "Builds/FightCamp.exe exported S453 (HUD region outlines, office narrow cards with vertical bars, hips shift with the breath); tests the changes touch green",
   "incomplete_blocked": "BLOCKLOOK5B at Grok Dev; POWER1D open (findings in TASK_POWER1D.md); fight week v6 / COACHFIT v3 wait on John SQ65 and Dola SQ67; Miro connector errors",
-  "next_action": "S454: FIRST his answer on the Training tab (patch vs redesign) - then 0) get_usage; wrap-up from ~395k. 1) Collect Grok Dev BLOCKLOOK5B (PR 256 'BLOCKLOOK5B ready'): compare block_meet ROW lines main vs branch, not the count; merge, film the block reel. 2) Read Dola SQ67 (cici.py read --out research/COACHFIT_CRITIC_S452_DOLA.md) and John SQ65; write fight week v6 (Kalli SQ64 + Dola SQ66 + John lists) and COACHFIT v3 (Maria SQ68 + Dola SQ67), fresh critics. 3) POWER1D next tries (TASK_POWER1D.md S453 section). 4) PROGBUILD1 step bars on screen. 5) Miro: one try of wwa.svg.",
+  "next_action": "S455: FIRST his answer on Q-S294-215 (Training tab C direction). 0) get_usage; wrap-up from ~395k. 1) Training tab D: fix every C logic defect in TRAINGAME_CRITIC_S454_C_CLAUDE.md (injury bands x2 at 76 / x3 at 80 named Fresh/Working/Tired/Overreached, check-hook 12->21 Mon, 21->25 Wed, 25->32 Fri, weapons text = rings, a Footwork bar for every stat a card grows, Sunday evening a real slot, dated weight margin, hover 'why' on every WIN tag, 14 px minimum text, icon colour = stat colour), trim the right column; fresh Claude critic + Dola; 7+ from two -> the board. 2) Collect Grok Dev BLOCKLOOK5B (PR 256) when it pushes: compare block_meet ROW lines, not counts. 3) Read Kalli SQ69 / John SQ70 (COACHFIT v3) and John SQ65 (fight week v5); write fight week v6. 4) POWER1D (TASK_POWER1D.md S453 section). 5) PROGBUILD1 step bars.",
   "next_acceptance": "BLOCKLOOK5B merged with every block_meet ROW line passing; Training tab route decided by him and started; POWER1D uppercut_tail OVER_HEAD/ELBOW green",
   "awaiting_operator": [
    "Training tab: patch the S428 tab first, or finish and build the TRAINSCENE redesign (he: 'it has not art and looks like shit alignment of icons and there is no text')",
@@ -1864,6 +1864,11 @@
    "id": "S453",
    "date": "2026-11-13",
    "summary": "S453: his C365/C366 fight HUD body maps - organ pictures gone, each region (head, ribs, liver) outlined in the hit colour with its count inside, the existing BodyTip tooltip on hover (5be5343a; holo_live green, fight3d_play hudregroup 0). His C367/C368 office - fighter cards are fixed 232 px columns so the whole roster stands side by side, vertical bars Stamina/Mood/Rating/Ready (coach checks done) (office_desk/office_screen green; tools/office_still.gd shows four). His C369 - the hips go leg to leg once a BREATH (FighterLife's phase) instead of every bounce (6636383d; boxer_footwork/human_feet/ring_feet green; standoff film on the review board; Blender not needed - the sway is code). BLOCKLOOK5 (PR 256) NOT merged: block_catch 9->5 and absorb 0 good, but block_meet ROW A_B preview jab regressed (lead glove, gy -0.094) -> TASK_BLOCKLOOK5B to Grok Dev. POWER1D: three holders found (release pin, carry hold vs the clip tail's shoulder lift, guard place over her head), one experiment 27->24 reverted, next tries in TASK_POWER1D.md. Critics: fight week v5 Kalli 6/6, Dola 7/6 (John SQ65 queued); COACHFIT v2 Maria 6/5 (Dola SQ67 sent by hand). PR 255 closed (collected S452). Miro: still errors on every call."
+  },
+  {
+   "id": "S454",
+   "date": "2026-11-13",
+   "summary": "S454: his Q-S294-214 answer on the Training tab ('lacks art, too text heavy, not clear how you set the training ... fatigue and intensity meters ... how much do you rate it for a game') -> rated the S439 redesign ~4/10 as a game and redrew it as a game: A (Ludo painted card art, drag cards, L/N/H per morning, fatigue curve), B (the week as the hero: fatigue tank per day, session strip, docked selected card), C (his asks: the pictures redrawn in Ludo 'Comic Book' style + his stylized round icons in the strip and as card badges; week goal Peak/Build/Recover, coach ghost under changes, risk pips). Critics A/B/C: Dola 7/8 each, fresh Claude critics 6/6 each (number slips: injury 76 vs 80, check-hook steps, '5 weapons' vs 4 rings, no Footwork bar, Sunday dead slot, WIN tags unexplained) -> D next. Q-S294-215 on the board with C attached; C + B on the review board. COACHFIT v3 written (Maria 6/5 + Dola 8/8 lists: visible fit in stat points, coached session defined, coach energy, graded taught-out, temper modes, Steady hand, bond spread, working to rule) -> Kalli SQ69 + John SQ70 queued. Miro works again (2 widgets updated, no deletions sent). BLOCKLOOK5B: no push yet on grok/blocklook5 (head still 59de1097). No game code changed: no export."
   }
  ],
  "blocked_on_operator": [],
@@ -4782,7 +4787,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-13 16:41 board_sync",
+  "updated": "2026-11-13",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4940,6 +4945,12 @@
    }
   ],
   "next": [
+   {
+    "id": "TRAINGAME2",
+    "who": "claude",
+    "title": "Training tab D: fix the critics' number slips (injury bands, check-hook steps, weapons text, Footwork bar), trim the right column, fresh critics to 7+",
+    "after": ""
+   },
    {
     "id": "POWER1D",
     "who": "claude",
@@ -5390,6 +5401,12 @@
   },
   "done_recently": [
    {
+    "id": "TRAINGAME1",
+    "who": "claude",
+    "title": "Training tab redrawn as a game: A/B/C mockups (comic pictures, his icons), critics Dola 7/8, Claude 6/6; his look on Q-215",
+    "after": ""
+   },
+   {
     "title": "Fight HUD body maps: each region outlined, count inside, tooltip on hover (his C365/C366)",
     "who": "claude"
    },
@@ -5574,6 +5591,18 @@
   "map": {
    "done_earlier": [
     {
+     "text": "HUD maps: region outlines + counts",
+     "who": "claude"
+    },
+    {
+     "text": "Office: four fighters, vert. bars",
+     "who": "claude"
+    },
+    {
+     "text": "Hips shift with each breath",
+     "who": "claude"
+    },
+    {
      "text": "Fight HUD: head, ribs, CARDS",
      "who": "claude"
     },
@@ -5616,31 +5645,15 @@
     {
      "text": "FIRELEVEL3: move levels on",
      "who": "claude"
-    },
-    {
-     "text": "Fight-week prices measured",
-     "who": "claude"
-    },
-    {
-     "text": "Uppercut jump fixed in play",
-     "who": "claude"
-    },
-    {
-     "text": "SOUND4: 79 sounds, unheard",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "HUD maps: region outlines + counts",
+     "text": "Training tab A-C as a game",
      "who": "claude"
     },
     {
-     "text": "Office: four fighters, vert. bars",
-     "who": "claude"
-    },
-    {
-     "text": "Hips shift with each breath",
+     "text": "Coaches v3 map to critics",
      "who": "claude"
     }
    ],
@@ -5662,12 +5675,12 @@
      "who": "operator"
     },
     {
-     "text": "Fight week v6 + coaches v3 maps",
-     "who": "claude"
-    },
-    {
      "text": "BLOCKLOOK5B (grok)",
      "who": "agent"
+    },
+    {
+     "text": "Your look: Training tab C (Q-215)",
+     "who": "claude"
     }
    ],
    "next": [
@@ -5742,14 +5755,22 @@
     {
      "text": "Uppercut tail: three holders",
      "who": "claude"
+    },
+    {
+     "text": "Training tab D: number fixes",
+     "who": "claude"
+    },
+    {
+     "text": "Fight week v6 map",
+     "who": "claude"
     }
    ],
-   "session": "S453"
+   "session": "S454"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "eaaa6b18",
- "next_action": "S454: FIRST his answer on the Training tab (patch vs redesign) - then 0) get_usage; wrap-up from ~395k. 1) Collect Grok Dev BLOCKLOOK5B (PR 256 'BLOCKLOOK5B ready'): compare block_meet ROW lines main vs branch, not the count; merge, film the block reel. 2) Read Dola SQ67 (cici.py read --out research/COACHFIT_CRITIC_S452_DOLA.md) and John SQ65; write fight week v6 (Kalli SQ64 + Dola SQ66 + John lists) and COACHFIT v3 (Maria SQ68 + Dola SQ67), fresh critics. 3) POWER1D next tries (TASK_POWER1D.md S453 section). 4) PROGBUILD1 step bars on screen. 5) Miro: one try of wwa.svg.",
+ "last_working_commit": "4ff331ba",
+ "next_action": "S455: FIRST his answer on Q-S294-215 (Training tab C direction). 0) get_usage; wrap-up from ~395k. 1) Training tab D: fix every C logic defect in TRAINGAME_CRITIC_S454_C_CLAUDE.md (injury bands x2 at 76 / x3 at 80 named Fresh/Working/Tired/Overreached, check-hook 12->21 Mon, 21->25 Wed, 25->32 Fri, weapons text = rings, a Footwork bar for every stat a card grows, Sunday evening a real slot, dated weight margin, hover 'why' on every WIN tag, 14 px minimum text, icon colour = stat colour), trim the right column; fresh Claude critic + Dola; 7+ from two -> the board. 2) Collect Grok Dev BLOCKLOOK5B (PR 256) when it pushes: compare block_meet ROW lines, not counts. 3) Read Kalli SQ69 / John SQ70 (COACHFIT v3) and John SQ65 (fight week v5); write fight week v6. 4) POWER1D (TASK_POWER1D.md S453 section). 5) PROGBUILD1 step bars.",
  "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after."
 }

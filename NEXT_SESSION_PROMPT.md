@@ -1,53 +1,39 @@
-# S454 handover (written 2026-11-13 at the end of S453; S452's handover is in git history)
+# S455 handover (written 2026-11-13 at the end of S454; S453's handover is in git history)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S454`.
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S455`.
 
 ## USAGE RULES (kept)
-- Run `get_usage` first. Hand over at 420k context (operator S452: "the limit is 420k"); wrap-up from ~395k. At most TWO helper sessions.
+- Run `get_usage` first. Hand over at 420k context; wrap-up from ~395k. At most TWO helper sessions / subagents at once.
 - Never idle while a test or agent runs: run_in_background and do the next item.
 
-## DONE IN S453 (his comments C365-C369)
-- C365/C366 fight HUD maps: no organ pictures; head, ribs and liver each outlined in the hit colour, the count inside, BodyTip tooltip on
-  hover (scripts/ui/RoundHits.gd, 5be5343a). Still on the review board.
-- C367/C368 office: fighter cards are fixed 232 px columns (whole roster side by side), vertical bars Stamina / Mood / Rating / Ready
-  (Ready = coach checks done, OfficeDesk._boxer). Look still: tools/office_still.gd (four made-up fighters; the game's own four = FOURSTART1).
-- C369 hips: BoxerFootwork's leg-to-leg weight follows FighterLife's breath phase (plan.breath_of, set in BoxerBuild), not every bounce.
-  He asked for Blender; the sway is procedural code, so it was tuned there - say so if he asks. Standoff film on the review board.
-- PR 255 closed (STEPMASTERY1A was collected in S452). Seat answers committed (Kalli SQ64, John SQ63, Maria SQ68) and Dola SQ66 read.
+## FIRST: his answer on Q-S294-215
+"Training tab redrawn as a game (C) ... Keep this direction for the build?" (Yes, this direction / Change the look first). C is
+`docs/mockups/s454/training/training_game_c.png` (+ B painted on the review board). Quote his answer and act on it.
 
-## RUNNING (collect first)
-- **Grok Dev BLOCKLOOK5B** (ops/research/TASK_BLOCKLOOK5B.md, sent 16:40, ETA ~22:30): round 2 on grok/blocklook5, PR 256 stays open.
-  Round 1 was good EXCEPT block_meet `ROW A_B preview pro_left_jab`: the lead glove caught it at gy -0.094 (main: rear glove, -0.048).
-  COLLECT BY COMPARING ROW LINES main vs branch, never the failure count (main's 10-11 CTRL_LANDED ruler rows move run to run).
-  The hook MATCH rows fail identically on main (72/63/74/66 %), so printing them as informational until HOOKTAKES1 is accepted.
-  Apply the diff (`git diff main...origin/grok/blocklook5 -- <files> | git apply`), tests block_catch/meet/absorb/set, beat_clips; film the block reel.
-- **Dola SQ67** (COACHFIT v2): sent by hand in a NEW Cici chat. Read: `cd ops && python Tools/cici/cici.py read --out research/COACHFIT_CRITIC_S452_DOLA.md`
-  (it is the whole raw transcript; the scores are near the end: grep "Score:").
-- **John SQ65** (fight week v5): queued in the seat queue.
-
-## CRITICS SO FAR (both maps below 7 -> next versions)
-- Fight week v5: Kalli 6/6 (AMATEURWEEK_CRITIC_S451_KALLI.md), Dola 7/6 (AMATEURWEEK_CRITIC_S451_BRIEF_DOLA.md), John pending -> write v6 from their
-  "To reach 10/10" lists once John lands, then fresh critics.
-- COACHFIT v2: Maria 6/5 (COACHFIT_CRITIC_S452_BRIEF_MARIA.md), Dola pending -> v3. (John 6/6 was on v1.)
+## DONE IN S454
+- His Q-214 comment ("lacks art ... too text heavy ... how much do you rate it for a game"): the S439 redesign rated ~4/10 as a game; three
+  game-style drafts A / B / C in docs/mockups/s454/training/ (html + png). C = Ludo "Comic Book" pictures (img_comic/) + his stylized round
+  icons (icons/cut/), fatigue tank per day, week goal Peak/Build/Recover, coach card struck out under changes, risk pips.
+- Critics on each: Dola 7/8 (A, B, C), fresh Claude critics 6/6 (A, B, C). Answers: ops/research/TRAINGAME_CRITIC_S454_*.md.
+- COACHFIT v3 (ops/research/COACHFIT1_MAP_V3_S454.md) from Maria 6/5 + Dola 8/8; critic copy without scores
+  COACHFIT_CRITIC_S454_BRIEF.md queued to Kalli SQ69 and John SQ70.
+- Miro works again: P0 redrawn (done / now / next), ids learned.
 
 ## NEXT (Claude)
-1. POWER1D: read the "S453 findings" section of ops/research/TASK_POWER1D.md - three holders (PunchReach's release pin, the carry hold
-   against the clip tail's 12-14 cm shoulder lift, the guard place climbing to 1.57 after guard_home) and the next tries (a)-(c).
-   One experiment (pin off + QUICK_BACK 0.10) gave 27 -> 24 and was reverted.
-2. PROGBUILD1 step bars on screen (move tree on the Playbook + slot picker + fire gate together).
-3. PROGPROBE1R3 to Goose.
+1. TRAINING TAB D (if he says yes; if he asks for a look change, do that first): fix every logic defect in
+   TRAINGAME_CRITIC_S454_C_CLAUDE.md - injury bands from InjuryRoll (x2 at 76, x3 at 80) named Fresh / Working / Tired / Overreached with
+   the effect printed on the line; check-hook steps Mon 12->21, Wed 21->25, Fri 25->32 everywhere; the weapons text matches the rings;
+   a bar for every stat a card grows (Footwork, Defence); Sunday evening a real slot; one dated weight margin; hover "why" on each WIN tag
+   and greyed +0 cards; 14 px minimum text; icon ring colour = the stat's bar colour; trim the right column (clicked card, builds, one
+   danger). Then a fresh Claude critic (Sonnet subagent) + Dola (Cici, JPG attachment). Two at 7+ -> the board, then the build map.
+2. BLOCKLOOK5B (Grok Dev, PR 256): not pushed by session end (head 59de1097). When it lands compare block_meet ROW lines main vs branch.
+3. Read Kalli SQ69 / John SQ70 (coaches v3) and John SQ65 (fight week v5); write fight week v6.
+4. POWER1D (TASK_POWER1D.md S453 section), PROGBUILD1 step bars.
+5. Qwen is idle (idle guard): brief a pure module once a design is approved (e.g. the training screen's fatigue band word + week load tier).
 
-## MIRO
-Every call still errors ("connection state couldn't be read") with the connector listed. wwa.svg is ready via
-`python ops/Tools/where_we_are.py svg` (its 16 data-deleted lines are approved, his S452 "yes delete the 16 stale miro cards"). One try,
-then tell him once.
-
-## WAITING ON HIM
-- His look: the S453 HUD maps, the office cards, the hips film (review board); the S452 items still open there (office desktop, result tabs, camp v3).
-- His ear: the voices, the PA mix.
-
-## TRAPS (S453)
-- block_meet's failure COUNT hides a block row going red: compare ROW lines.
-- Still runs hide parse errors: pass `--log=<file>` to tools/hidden_desktop.py and grep SCRIPT ERROR.
-- review_add.py takes `E:/...` paths, not `/e/...` (it skipped the file silently as "missing").
-- Seat answers from Dola are raw transcripts; gbot `--file` is relative to ops/.
+## TRAPS (S454)
+- Cici `send` printed VERIFIED while the brief sat unsent in the composer (the send button was disabled during a 1 MB PNG upload).
+  Attach a ~400 KB JPG, wait 15 s, then send; check `cici.py status` before trusting it.
+- Ludo raw downloads are big (120 MB for ~30 pictures): keep 512 px JPGs in the repo, raw files in E:\FightCamp\tmp\s454_ludo_raw.
+- A critic brief must never carry earlier scores: strip the map's history paragraph (done for coaches v3).
+- Miro: send only changed widgets; no data-deleted lines except this module's own surplus slots.

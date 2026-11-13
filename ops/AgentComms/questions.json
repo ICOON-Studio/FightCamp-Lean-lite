@@ -7099,6 +7099,24 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-214_0_screen_r3.png"
       ],
+      "answer": "am not sure , it lacks art the info is too text heavy and it is not clear from the picture how you set the training , what ar your options and what ieach improves , fatigue and intensity meters maybe would be nice , how much do you rate it for a game not as an info sheet ?",
+      "note": null,
+      "answered_at": "2026-11-13T14:46:56Z",
+      "seen_by_claude": true,
+      "comment_only": true
+    },
+    {
+      "id": "Q-S294-215",
+      "asked": "2026-11-13T15:13:43.134571+00:00",
+      "session": "S294",
+      "text": "Training tab redrawn as a game (C): comic pictures, your icons, a fatigue tank per day, the week goal. Critics: Dola 7/8, a fresh critic 6/6 (number slips I fix next as D). Keep this direction for the build?",
+      "options": [
+        "Yes, this direction",
+        "Change the look first"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-215_0_training_game_c.png"
+      ],
       "answer": null,
       "note": null,
       "answered_at": null,
