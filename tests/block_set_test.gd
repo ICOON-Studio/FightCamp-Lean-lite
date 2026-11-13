@@ -8,6 +8,10 @@ extends SceneTree
 ## the block's timer), the whole stage running at 60 frames a second, and reads the blocker on the first frame the punch's
 ## clip is at its contact (one frame short counts: the hit's timer leads it by PunchPace.LEAD_S):
 ##   SET   the blocker plays her block clip and it is at least BLOCK_SET_S - one frame into it (its gloves are up).
+## BLOCKLOOK2 round 2: there is no block clip any more (the block is her guard plus BlockCatch), so SET now reads the
+## catch: her BlockCatch weight is at full (the catching glove is up on the punch line) on the frame BEFORE the frame the
+## punch's clip reaches its contact - set at least one frame before the glove arrives, never late. Same rows, same
+## path; on main (no BlockCatch) every row is red.
 ## Every punch the fight can block on a head line, fast ones first (the plain jab, jab hard, cross b). Two DIFFERENT
 ## bodies (mh_boxer_08 against mh_boxer_13). 3D only: no rule is read or changed.
 ## Run: <godot> --headless --audio-driver Dummy --path . --script res://tests/block_set_test.gd   [-- only=<clip>]
@@ -19,6 +23,7 @@ const MoveStudio := preload("res://scripts/fight3d/MoveStudio.gd")
 const HZ := 60.0
 const MOVES := ["jab", "cross", "lead_hook", "rear_hook"]
 const FAST := ["pro_left_jab", "pro_left_jab_hard", "pro_right_cross_b"]
+const FULL_W := 0.9999   # the catch at full: float rounding only
 
 
 class FakeBody extends RefCounted:
@@ -82,8 +87,6 @@ func _initialize() -> void:
 			var c := BeatClips.punch(str(move), {"big": false, "miss": false, "tired": false, "step": false, "roll": roll}, st.has_move)
 			if c.begins_with("pro_") and not pairs.has([c, str(move)]):
 				pairs.append([c, str(move)])
-	var rate := BeatClips.OTHER_SPEED
-	var bar := MoveStudio.BLOCK_SET_S - rate / HZ
 	for pair in pairs:
 		var clip := str(pair[0])
 		var move := str(pair[1])
@@ -107,23 +110,31 @@ func _initialize() -> void:
 		var ap1: AnimationPlayer = st.boxers[1]["ap"]
 		bf.fire(v, {"who": "a", "move": move, "result": "blocked", "def": "block", "t": 0.0})
 		var seen := false
-		var block_pos := -1.0
-		var block_clip := ""
+		var w_prev := -1.0   # the catch weight one frame before the contact frame (-1: she has no BlockCatch)
+		var w_now := -1.0
+		var w_full_at := -1  # the first frame the catch was at full
 		var started := false
+		var fr := 0
 		for f in int(2.5 * HZ):
 			await process_frame
+			fr = f
+			w_prev = w_now
+			var bc: Node = st.boxers[1].get("block_catch")
+			w_now = float(bc.get("w")) if bc != null else -1.0
+			if w_full_at < 0 and w_now >= FULL_W:
+				w_full_at = f
 			if str(ap0.current_animation) == clip:
 				started = true
 				if ap0.current_animation_position >= c - BeatClips.speed(clip, move) / HZ - 1e-4:
 					seen = true
-					block_clip = str(ap1.current_animation)
-					block_pos = ap1.current_animation_position if block_clip.contains("block") else -1.0
 					break
 		if not seen:
 			_check(false, "SET %s: the punch never reached its contact (started %s)" % [clip, "yes" if started else "no"])
 			continue
-		print("ROW %s (%s): contact %.3f, the blocker plays %s at %.3f s" % [clip, move, c, block_clip, block_pos])
-		_check(block_pos >= bar, "SET %s: when its glove arrives the block is %.3f s into its clip (bar: set, %.3f or more)" % [clip, block_pos, bar])
+		var lead_f := fr - w_full_at if w_full_at >= 0 else -1
+		print("ROW %s (%s): contact %.3f, the blocker plays %s; catch weight %.3f the frame before contact (%s), full %d frame(s) before contact" % [
+			clip, move, c, str(ap1.current_animation), w_prev, "no BlockCatch" if w_prev < 0.0 else "BlockCatch", lead_f])
+		_check(w_prev >= FULL_W, "SET %s: the frame before its glove arrives the catch weight is %.3f (bar: full, %.4f or more, at least one frame before contact)" % [clip, w_prev, FULL_W])
 		for i in 60:
 			await process_frame
 	print("BLOCK_SET failures=%d" % failures)

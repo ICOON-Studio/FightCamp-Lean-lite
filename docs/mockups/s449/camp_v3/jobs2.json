@@ -1,0 +1,5 @@
+[
+ {"name":"meter_spar","command":"image generate-with-style","style_image":"style_ref.jpg","image_type":"art","n":2,"prompt":"Still life on a boxing ring apron: a red sparring headguard and a pair of large 16 oz sparring gloves, ropes behind, warm gym light. No people. Clean stylized 3D render, same palette and lighting as the reference."},
+ {"name":"meter_weight","command":"image generate-with-style","style_image":"style_ref.jpg","image_type":"art","n":2,"prompt":"Still life in a boxing gym corner: an old-fashioned upright doctor's weighing scale with a sliding beam, a tape measure and a water bottle on a bench beside it. No people. Clean stylized 3D render, same palette and lighting as the reference."},
+ {"name":"meter_load","command":"image generate-with-style","style_image":"style_ref.jpg","image_type":"art","n":2,"prompt":"Still life in a boxing gym: a rack of kettlebells and dumbbells, a weighted vest hanging on the rack, a towel and a clipboard training log on the floor. No people. Clean stylized 3D render, same palette and lighting as the reference."}
+]

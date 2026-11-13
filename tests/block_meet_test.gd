@@ -3,6 +3,8 @@ extends SceneTree
 ## Pairs: A=mh_boxer_10 (162cm), B=mh_boxer_12 (178cm). Setups: A_B, B_A, A_A.
 ## Punches: pro_left_jab, pro_right_cross, pro_left_hook, pro_right_hook.
 ## Fight path for all four, preview path for jab only.
+## BLOCKLOOK2: the block is no clip any more - the blocker stays in her guard and BlockCatch (armed as BeatFire's block
+## branch and MoveStudio's preview arm it) turns the catching arm so that glove meets the punch. Every bar is unchanged.
 ## Bars (at the frame where puncher's glove front is nearest blocking glove):
 ##   touch: glove-to-glove surface distance <= 0.04 m, not > 0.03 m inside
 ##   between: blocking glove is between punch and face (BLOCKMEET1 definition)
@@ -20,7 +22,7 @@ const Stand := preload("res://tests/ruler_stand.gd")   # S436: the bodies stand 
 const HZ := 30.0
 const BOXER_A := "mh_boxer_10"
 const BOXER_B := "mh_boxer_12"
-const BLOCK_CLIP := "mc_to_block"
+const BlockCatch := preload("res://scripts/fight3d/BlockCatch.gd")   # BLOCKLOOK2: the block (no clip)
 const BETWEEN_TOL := 0.15
 const CTRL_LANDED_BAR := 0.05
 const SCAN_BEFORE := 0.10
@@ -94,13 +96,13 @@ func _run_setup(glb_puncher: String, glb_blocker: String, setup: String) -> void
 	await process_frame
 
 
-## Blocked punch: puncher throws with arm_block (blocked head punch goes to glove), defender plays mc_to_block.
-## Fight path: block starts BLOCK_SET_S before contact (shared constant).
-## Preview path: MoveStudio.defend timing (jab only).
+## Blocked punch: puncher throws with arm_block (blocked head punch goes to glove), the defender's BlockCatch is armed
+## for it (BLOCKLOOK2: she stays in her guard). The catch times itself off the punch's clip (set before contact, as
+## BLOCK_SET_S); the fight path and the preview path arm the same catch. block_start_clip still opens the wrist window.
 func _run_blocked(stg: Node3D, puncher: int, blocker: int, clip: String, setup: String, path: String) -> void:
 	rows_total += 1
 	# S435 (ANIM_AUDIT_S435 A10): a missing clip or a gap out of range is a failure, never a silent pass.
-	if not (stg.boxers[puncher]["ap"] as AnimationPlayer).has_animation(clip) or not (stg.boxers[blocker]["ap"] as AnimationPlayer).has_animation(BLOCK_CLIP):
+	if not (stg.boxers[puncher]["ap"] as AnimationPlayer).has_animation(clip):
 		failures += 1
 		print("FAIL SKIP %s %s %s: a clip is missing" % [setup, path, clip])
 		return
@@ -118,6 +120,8 @@ func _run_blocked(stg: Node3D, puncher: int, blocker: int, clip: String, setup: 
 	stg.play(puncher, clip, punch_speed, 0.0)
 	# BLOCKMEET2: blocked head punches use arm_block (carried onto blocking glove), not aim_height
 	stg.arm_block(puncher, clip, 0.0, contact_s)
+	# BLOCKLOOK2: the block - the same call BeatFire's block branch and MoveStudio's preview make
+	BlockCatch.block(stg, puncher, clip, move, contact_s, punch_speed, contact_s / punch_speed)
 	# Compute block timing - shared constant BLOCK_SET_S before contact for both paths
 	var block_start_clip: float = 0.0
 	var block_rate: float = 1.0
@@ -137,7 +141,6 @@ func _run_blocked(stg: Node3D, puncher: int, blocker: int, clip: String, setup: 
 		block_start_clip = maxf(0.0, block_start_real) * punch_speed
 	# Scan frames
 	var puncher_ap: AnimationPlayer = stg.boxers[puncher]["ap"]
-	var defender_ap: AnimationPlayer = stg.boxers[blocker]["ap"]
 	var block_started: bool = false
 	var best_to_glove: float = 999.0
 	var best_row: Dictionary = {}
@@ -150,12 +153,7 @@ func _run_blocked(stg: Node3D, puncher: int, blocker: int, clip: String, setup: 
 		var t: float = float(fr) / HZ
 		puncher_ap.seek(t, true)
 		if t >= block_start_clip:
-			if not block_started:
-				defender_ap.play(BLOCK_CLIP, 0.0, block_rate)
-				block_started = true
-			var real_elapsed: float = (t - block_start_clip) / punch_speed
-			var block_t: float = from_s + real_elapsed * block_rate
-			defender_ap.seek(block_t, true)
+			block_started = true
 		for w in 2:
 			await process_frame
 		var gf: Vector3 = stg.glove_front(puncher, hand)
@@ -191,7 +189,8 @@ func _run_blocked(stg: Node3D, puncher: int, blocker: int, clip: String, setup: 
 			best_to_glove = to_glove
 			best_row = {"setup": setup, "path": path, "clip": clip, "to_face": to_face,
 				"to_glove": to_glove, "touch": touch, "gy_minus_fy": gy_minus_fy,
-				"between": between, "gap": gap}
+				"between": between, "gap": gap, "glove": "l" if dl <= dr else "r", "fr": fr,
+				"catch_w": float((stg.boxers[blocker].get("block_catch") as Node).get("w")) if stg.boxers[blocker].get("block_catch") != null else -1.0}
 	if best_row.is_empty():
 		failures += 1
 		print("FAIL SKIP %s %s %s: no frame was read" % [setup, path, clip])
@@ -220,9 +219,9 @@ func _run_blocked(stg: Node3D, puncher: int, blocker: int, clip: String, setup: 
 		fail_str += " WRIST_FAIL(%.3f)" % wrist_worst
 	if not row_ok:
 		failures += 1
-	print("ROW %s %s %s touch=%.3f between=%s to_face=%.3f gy=%.3f wrist=%.3f gap=%.3f%s" % [
+	print("ROW %s %s %s touch=%.3f between=%s to_face=%.3f gy=%.3f wrist=%.3f gap=%.3f%s (glove %s, frame %d, catch weight %.2f)" % [
 		r["setup"], r["path"], r["clip"], touch_val, "yes" if between_ok else "no",
-		to_face_val, gy_val, wrist_worst, r["gap"], fail_str])
+		to_face_val, gy_val, wrist_worst, r["gap"], fail_str, r["glove"], r["fr"], r["catch_w"]])
 
 
 ## CTRL_LANDED: punch lands (stage.land). to_face must be under CTRL_LANDED_BAR.

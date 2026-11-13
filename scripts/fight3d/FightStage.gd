@@ -170,8 +170,8 @@ func aim_height(who: int, clip: String, at_s: float, contact_s: float) -> void:
 ## BLOCKMEET2: `who` throws a head punch that is BLOCKED: the glove is carried onto the nearer blocking glove at contact.
 ## The target is the blocking glove's position, lifted to face height if needed. Full 3D aim (not height-only).
 ## The glove position is read at CONTACT time (via Callable), not at arm time, so the block animation has settled.
-## The blocker's gloves are also lifted by BlockGloveLift during the block animation.
-const BlockGloveLift := preload("res://scripts/fight3d/BlockGloveLift.gd")
+## BLOCKLOOK2: the blocker stays in her guard; BlockCatch turns the catching arm so that glove meets the punch.
+const BlockCatch := preload("res://scripts/fight3d/BlockCatch.gd")
 ## DEFECTS1: the carry aimed the punching glove's FRONT at the blocking glove's mount point (the point the ruler,
 ## tests/block_meet_test.gd, calls the glove's centre), i.e. by design ~4 cm inside the blocking glove; whether a row passed
 ## depended on how far short the reach fell. The front now stops at that glove's surface: the mount point plus this radius
@@ -186,13 +186,7 @@ func arm_block(who: int, clip: String, at_s: float, contact_s: float) -> void:
 	var hand := hand_of(who, str(row.get("hand", "LeftHand" if clip.contains("left_") or clip.contains("jab") else "RightHand")))
 	var cs: float = contact_s if contact_s >= 0.0 else BeatClips.contact(clip, CONTACT_S)
 	var blocker: int = 1 - who
-	# Add glove lift modifier to blocker if not already present
-	if boxers[blocker].get("block_lift") == null:
-		var skel: Skeleton3D = boxers[blocker]["skel"]
-		var lift := BlockGloveLift.new()
-		lift.setup(skel, boxers[blocker]["ap"])
-		skel.add_child(lift)
-		boxers[blocker]["block_lift"] = lift
+	BlockCatch.on(self, blocker)   # the catch modifier, made once, last on her stack
 	# Return a Callable that reads the blocker's glove position at contact time
 	var get_block_target := func() -> Vector3:
 		var gl: Node = boxers[blocker]["gloves"]
@@ -209,6 +203,11 @@ func arm_block(who: int, clip: String, at_s: float, contact_s: float) -> void:
 		var dl: float = puncher_glove_pos.distance_to(gl_l_pos)
 		var dr: float = puncher_glove_pos.distance_to(gl_r_pos)
 		var block_pos: Vector3 = gl_l_pos if dl <= dr else gl_r_pos
+		# BLOCKLOOK2 round 2: while her BlockCatch is up, the punch meets the CATCHING glove (her guard's lead glove sits
+		# further out and was nearer a short jab's path, so the punch landed on it instead)
+		var bc: Node = boxers[blocker].get("block_catch")
+		if bc != null and float(bc.get("w")) > 0.0:
+			block_pos = gl_l_pos if str(bc.call("catch_hand")).begins_with("Left") else gl_r_pos
 		# Read face position at contact time
 		var face_pos: Vector3 = target_point(blocker, false)
 		# Ensure the block target is at least 0.12m from the face (punch stops on glove, not face)

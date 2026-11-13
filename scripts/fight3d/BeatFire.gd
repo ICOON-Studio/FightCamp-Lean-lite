@@ -184,23 +184,15 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 	# shorter (a later start, a short take) met a guard still rising. Now it is timed from the beat - she may raise it while
 	# the other still stands in her guard - and when even that is too late it starts part-way in (MoveStudio's preview does
 	# the same), so it is set when the glove arrives. A punch refused or cut off before it shows still shows no block.
+	# BLOCKLOOK2: there is no block clip any more (every owned one hunches her or holds a glove over her head). She stays
+	# in her guard and BlockCatch brings the glove on the punch's side onto its line, set before the glove arrives
+	# ((base - t) + at real seconds from now), then back into the guard. The refused / cut-off rule is the same.
 	var blk := {"id": -2}   # the punch's play id once go() has run (-1: refused)
 	if d == "block" and move != "body_hook":
-		var lead_b := move in ["jab", "lead_hook", "lead_uppercut"]
-		var left_b: bool = stage.hand_of(who, hand if hand != "" else ("LeftHand" if lead_b else "RightHand")) == "LeftHand"
-		var bclip := BeatClips.defence(d, move, left_b, bool(stage.boxers[other].get("south", false)), stage.has_move)
-		var rate := BeatClips.speed(bclip, "")
-		var set_at := (base - t) + at - MoveStudio.BLOCK_SET_S / rate - 1.0 / 60.0   # a frame early: both timers round to frames
-		var from_b := maxf(0.0, -set_at) * rate
-		var show_block := func() -> void:
+		var still_b := func() -> bool:
 			var pid := int(blk["id"])
-			if pid == -1 or (pid >= 0 and PunchRange.cut_off(stage, who, pid)):
-				return
-			stage.play(other, bclip, rate, from_b)
-		if set_at <= 0.0001:
-			show_block.call()
-		else:
-			v.get_tree().create_timer(set_at).timeout.connect(show_block)
+			return not (pid == -1 or (pid >= 0 and PunchRange.cut_off(stage, who, pid)))
+		preload("res://scripts/fight3d/BlockCatch.gd").block(stage, who, clip, move, contact, sp, (base - t) + at, still_b)
 	var go := func() -> void:
 		# S321: a punch refused (she is locked in a hit reaction) never shows, so its hit or defence must not either.
 		var punch_id: int = int(stage.boxers[who]["play_id"]) if stage.play(who, clip, sp, skip) else -1

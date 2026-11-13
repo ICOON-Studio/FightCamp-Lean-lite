@@ -100,7 +100,7 @@ static func defence(kind: String, move: String, from_left: bool, south: bool, ha
 ## above the head bone): every Pro block and mc_block_hit hold it above for 1-4.6 s; mc_to_block (cover-up, then back to
 ## guard) and the mc_block hold stay under. mc_block loops (she would freeze in the shell), so the cover-up plays.
 const DEFENCE := {
-	"block": ["mc_to_block"],
+	"block": [],   # BLOCKLOOK2: no clip - the block is her guard plus a catch (BlockCatch); defence("block") reads ""
 	"slip": ["pro_left_dodge", "pro_right_dodge", "mc_dodge_left", "slip"],
 	"weave": ["pro_left_weave", "pro_quick_weave", "pro_right_weave", "mc_dodge_right", "slip"],
 	"pull": ["pro_back_dodge", "pull"],

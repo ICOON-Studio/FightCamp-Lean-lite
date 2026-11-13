@@ -93,9 +93,14 @@ static func defends(kind: String) -> bool:
 ## BLOCKMEET2: blocked punches are carried onto the blocking glove (arm_block), not just aimed at face height.
 static func defend(p: Node, stage: Node3D, n: int, contact_real: float, speed: float, still: Callable, punch_clip: String = "", punch_contact_s: float = 0.0) -> String:
 	var has: Callable = stage.has_move
-	var clip := BeatClips.defence("slip", "jab", true, false, has) if n % 2 == 1 else BeatClips.first(BeatClips.DEFENCE["block"], has)
+	var clip := BeatClips.defence("slip", "jab", true, false, has) if n % 2 == 1 else "block"
 	if clip == "":
 		return ""
+	if clip == "block":   # BLOCKLOOK2: the fight's own block - her guard, and BlockCatch meets the jab with the rear glove
+		if punch_clip != "":
+			stage.arm_block(0, punch_clip, 0.0, punch_contact_s)
+			preload("res://scripts/fight3d/BlockCatch.gd").block(stage, 0, punch_clip, "jab", punch_contact_s, speed, contact_real, still)
+		return clip
 	var rate := speed * BeatClips.OTHER_SPEED
 	var deep := BLOCK_SET_S if clip.contains("block") else _peak(stage, clip)
 	var start := contact_real - DEF_LATE_S - deep / rate
