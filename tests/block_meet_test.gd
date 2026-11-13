@@ -248,6 +248,15 @@ func _run_ctrl_landed(stg: Node3D, puncher: int, blocker: int, clip: String, set
 	stg.land(puncher, clip, body, 0.0, contact_s)
 	var puncher_ap: AnimationPlayer = stg.boxers[puncher]["ap"]
 	var best_to_face: float = 999.0
+	# POWER1 step 2: the landed glove now drives through the face on the contact frame instead of resting on it for 0.2 s, so
+	# the 30 Hz grid below (each read 2 frames after its seek) can step over the touch. The contact frame itself is read
+	# first, held still (paused) while the modifiers run; the grid and the bar are unchanged.
+	puncher_ap.seek(contact_s, true)
+	puncher_ap.pause()
+	for w in 2:
+		await process_frame
+	var at_contact: float = stg.glove_front(puncher, hand).distance_to(stg.target_point(blocker, false))
+	puncher_ap.play()
 	var cf: int = int(contact_s * HZ)
 	var f_start: int = maxi(0, cf - int(SCAN_BEFORE * HZ))
 	var f_end: int = cf + int(SCAN_AFTER * HZ)
@@ -261,11 +270,12 @@ func _run_ctrl_landed(stg: Node3D, puncher: int, blocker: int, clip: String, set
 		var to_face: float = gf.distance_to(face)
 		if to_face < best_to_face:
 			best_to_face = to_face
+	best_to_face = minf(best_to_face, at_contact)
 	var fail_str: String = ""
 	if best_to_face >= CTRL_LANDED_BAR:
 		fail_str = " RULER_FAIL"
 		failures += 1
-	print("CTRL_LANDED %s %s to_face=%.3f gap=%.3f%s" % [setup, clip, best_to_face, gap, fail_str])
+	print("CTRL_LANDED %s %s to_face=%.3f (contact frame %.3f) gap=%.3f%s" % [setup, clip, best_to_face, at_contact, gap, fail_str])
 
 
 ## S420: blocker's elbow-to-wrist world distance, left then right, read through BoneAttachment3D nodes (they follow

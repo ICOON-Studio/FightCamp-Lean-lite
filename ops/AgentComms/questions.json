@@ -6939,6 +6939,42 @@
       "note": "operator in chat S443: \"up to you to decide\" - Claude decided: park (his order; the corner calls already hold the decisions; findings saved in docs/PUSHPROBE2_RESULT.md)",
       "answered_at": "2026-11-12T18:30:52Z",
       "seen_by_claude": true
+    },
+    {
+      "id": "Q-S294-206",
+      "asked": "2026-11-12T18:46:08.355734+00:00",
+      "session": "S294",
+      "text": "Fight screen regroup, now shown in the game (today vs regroup attached): switch it on for everyone?",
+      "options": [
+        "Yes, switch it on",
+        "Change something first",
+        "No, keep today's"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-206_0_after_regroup.png"
+      ],
+      "answer": "i commented on stills",
+      "note": null,
+      "answered_at": "2026-11-12T19:23:29Z",
+      "seen_by_claude": true,
+      "comment_only": true
+    },
+    {
+      "id": "Q-S294-207",
+      "asked": "2026-11-13T05:30:20.754521+00:00",
+      "session": "S294",
+      "text": "Punch power: the new punches (straight arm from a real distance, uppercuts from their own range) against today's, same punches. Merge it now, with the remaining glitches (hooks stopping short, gloves crossing after the hit) as their own tasks?",
+      "options": [
+        "Yes, merge it",
+        "No, keep working on it first"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-207_0_power1_cross.png"
+      ],
+      "answer": "Yes, merge it",
+      "note": "in chat: \"yes merge it\" (S446); merged 74a910de",
+      "answered_at": "2026-11-13T05:46:18.467232+00:00",
+      "seen_by_claude": true
     }
   ]
 }

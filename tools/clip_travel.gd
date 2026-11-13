@@ -22,6 +22,7 @@ func _initialize() -> void:
 	var ap: AnimationPlayer = bx["ap"]
 	var contact: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(BeatClips.CONTACT_PATH))
 	var out := {}
+	var bad: Array = []
 	for name in contact:
 		var row: Dictionary = contact[name]
 		var hand := str(row.get("hand", ""))
@@ -40,6 +41,13 @@ func _initialize() -> void:
 			t += 1.0 / HZ
 		out[name] = {"travel_m": snappedf(cum, 0.001), "path": path}
 		print("TRAVEL %s %s %.2f m in %.2fs" % [name, hand, cum, c])
+		if c <= 0.0 or cum < 0.01:   # POWER1: pro_left_uppercut read 0 m until S435; a 0 is never written again
+			bad.append("%s contact %.3f s travel %.3f m" % [name, c, cum])
+	if not bad.is_empty():
+		for b in bad:
+			print("TRAVEL FAIL a punch reads 0: %s (nothing written)" % b)
+		quit(1)
+		return
 	var f := FileAccess.open(OUT, FileAccess.WRITE)
 	f.store_string(JSON.stringify(out, "", true))
 	f.close()

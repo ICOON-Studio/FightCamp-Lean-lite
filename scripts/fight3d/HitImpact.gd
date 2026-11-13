@@ -7,6 +7,11 @@ const PunchRange := preload("res://scripts/fight3d/PunchRange.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const HitStun := preload("res://scripts/fight3d/HitStun.gd")
 const FightSfx := preload("res://scripts/audio/FightSfx.gd")
+const PunchPace := preload("res://scripts/fight3d/PunchPace.gd")
+const ReachLimit := preload("res://scripts/fight3d/ReachLimit.gd")
+const RangeTable := preload("res://scripts/fight3d/RangeTable.gd")
+## POWER1 step 4 (c): a graze's head snap, as a share of the clean hit's.
+const GRAZE_SNAP := 0.35
 
 ## S302 impact (operator: "the punches feel like they have no power"; John J-GUARDPACE1: hit-stop 2-3 frames on a jab, 4-6
 ## on a power punch; the receiver's head snaps). Seconds both bodies hold at contact, head-snap degrees, camera nudge metres.
@@ -18,6 +23,7 @@ const SHAKE_M := {"jab": 0.0, "power": 0.025, "big": 0.06}
 ## S301: a Pro clip plays its recovery fast (BeatClips.recover_scale, from its measured contact) and hands over to the guard
 ## the moment it is back in guard, instead of standing on to the end of the take.
 const RECOVER_RAMP_S := 0.05
+const PAST_OK_S := 0.04   # clip seconds past the contact a punch may be on its hit frame (one frame at 2.4x)
 const TAIL_HOLD_S := 0.06
 
 
@@ -26,17 +32,36 @@ const TAIL_HOLD_S := 0.06
 ## way the glove drove it (not on a body shot), and a power shot nudges the camera.
 static func hit(st: Node, who: int, clip: String, speed: float, hitter: int, move: String, big: bool, punch_id: int) -> void:
 	var was_cut := PunchRange.cut_off(st, hitter, punch_id)
+	var graze := false
 	if not was_cut:
 		var pr: Node = st.boxers[hitter].get("reach")
 		var ap_h: AnimationPlayer = st.boxers[hitter]["ap"]
 		if pr != null and str(pr.get("_clip")) != "" and str(ap_h.assigned_animation) == str(pr.get("_clip")):
 			var c_t := float(pr.get("_contact"))
-			if absf(ap_h.current_animation_position - c_t) > 0.01:
+			# POWER1 step 3: the timer fires before this frame's step, and the hit-stop then holds the clip where it is: a
+			# clip a hair short of its contact (under 0.01 s, not sought) froze on the frame before the hit (hit_carry_test:
+			# the glove arrived at 0-15 % of its speed). It is put on its contact; a clip already a frame past its contact
+			# carries on (seeking it back drew the glove going backwards on the hit frame).
+			var past := ap_h.current_animation_position - c_t
+			if PunchPace.on and past > 0.0 and past <= PAST_OK_S:
+				pass
+			elif absf(past) > 0.01 or (PunchPace.on and past < 0.0):
 				ap_h.seek(c_t, true)
 			pr._process_modification()
-	PunchRange.record(st, who, hitter, move, was_cut)
+			# S445 (blind read: hard/hurt/big takes were never a graze, so clean hits drew 0.2-0.38 m off her): a glove that is
+			# off her on the hit frame is a graze whatever the take. The result stands (settled before); only the show changes.
+			graze = RangeTable.on and ReachLimit.miss(pr) > ReachLimit.GRAZE_M
+	PunchRange.record(st, who, hitter, move, was_cut, graze)
 	if was_cut:
 		return   # S320: her punch was cut off before it arrived (a clinch, a reaction): no hit shows without a punch
+	if graze:
+		# POWER1 step 4 (c): the glove is still off her on the hit frame (out of the reach's cap): a glancing touch, never a
+		# clean hit - the light sound, a small snap, no freeze, no shake, no reaction. The result stands (settled before).
+		FightSfx.blocked()
+		var gs: Node = st.boxers[who].get("snap")
+		if gs != null and not move.contains("body"):
+			gs.snap(st.target_point(who, false) - (st.boxers[hitter]["node"] as Node3D).global_position, 9.0 * GRAZE_SNAP)
+		return
 	FightSfx.landed(move, big)
 	var boxers: Array = st.boxers
 	# S305: fast to its peak, then the clip's own pace back to guard; locked in it until then (HitStun).
@@ -116,9 +141,16 @@ static func recover(st: Node) -> void:
 			# S318 smoothness (tools/smooth_probe.gd: pro_idle started 39x in 1.8 min and played a median 0.27 s before the
 			# next move): back in guard, the punch's own tail (every Pro clip ends in its idle) plays on for up to TAIL_HOLD_S,
 			# easing to normal speed, so a move that comes inside it is one clip change instead of two.
-			var hold_s := float(cut.get("hold", TAIL_HOLD_S)) - dt
+			# POWER1 step 4 (e), review round 1: a quick hand-back (BeatClips.QUICK_BACK_S, the lead uppercut) goes to the guard
+			# at once - its tail is the glove rising over her own head, and the tail hold played it on (the film's f25-f27).
+			var quick := BeatClips.quick_back and BeatClips.QUICK_BACK_S.has(str(cut["clip"]))
+			var hold_s := float(cut.get("hold", 0.0 if quick else TAIL_HOLD_S)) - dt
 			cut["hold"] = hold_s
 			ap.speed_scale = maxf(1.0, ap.speed_scale - float(cut["scale"]) * dt / RECOVER_RAMP_S)
 			if hold_s <= 0.0:
 				st._cut[who] = {}
+				boxers[who]["guard_home"] = quick   # IdleMatch.pick: her usual guard, not the frame nearest the rising glove
+				if quick and boxers[who].get("js") != null:
+					boxers[who]["js"].set("still", true)
 				st.guard(who)
+				boxers[who]["guard_home"] = false

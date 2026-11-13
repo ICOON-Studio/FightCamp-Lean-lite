@@ -64,8 +64,9 @@ func _initialize() -> void:
 		_check(float(fixed["hang"]) <= target, "%s fixed hang %.4f <= target %.3f (original %.4f)" % [clip, fixed["hang"], target, orig["hang"]])
 		var crow: Dictionary = contact_doc.get(clip, {})
 		var rrow: Dictionary = recovery_doc.get(clip, {})
-		_check(absf(float(crow.get("contact_s", -9.0)) - float(fixed["contact"])) < 0.0005,
-			"%s clip_contact.json contact_s %.3f = measured %.3f (the ruler's window)" % [clip, float(crow.get("contact_s", -9.0)), fixed["contact"]])
+		# POWER1 step 2: the ruler's window is anchored on far_s (the rule contact used until S439); contact_s is now the hit frame.
+		_check(absf(float(crow.get("far_s", -9.0)) - float(fixed["contact"])) < 0.0005,
+			"%s clip_contact.json far_s %.3f = measured %.3f (the ruler's window)" % [clip, float(crow.get("far_s", -9.0)), fixed["contact"]])
 		_check(absf(float(rrow.get("back_s", -9.0)) - float(fixed["back"])) < 0.0005,
 			"%s clip_recovery.json back_s %.3f = measured %.3f (the ruler's window)" % [clip, float(rrow.get("back_s", -9.0)), fixed["back"]])
 		var shift: float = absf(float(fixed["contact"]) - float(orig["contact"]))

@@ -8,6 +8,7 @@ extends RefCounted
 ## The fastest a step in with a punch carries her body, m/s (a step-jab covers ~0.5-0.7 m in ~0.25 s).
 const STEP_IN_MAX := 3.0
 const KEEP := 400
+const UpperRoom := preload("res://scripts/fight3d/UpperRoom.gd")
 ## The nearest a punch's step in brings the pelvises (m): straight shots are thrown at arm's length, hooks, uppercuts and
 ## body shots a little closer. `-- nocarryfloor` = the control arm.
 const STRAIGHT_FLOOR_M := 0.96
@@ -15,9 +16,11 @@ const HOOK_FLOOR_M := 0.86
 static var carry_floor: bool = not OS.get_cmdline_user_args().has("nocarryfloor")
 
 
-static func floor_for(clip: String) -> float:
+static func floor_for(clip: String, st: Node = null) -> float:
 	if not carry_floor:
 		return 0.0
+	if st != null and clip.contains("uppercut"):
+		return UpperRoom.floor_m(st, HOOK_FLOOR_M)   # POWER1 step 4: lower while an uppercut's distance is wanted
 	return HOOK_FLOOR_M if clip.contains("hook") or clip.contains("uppercut") or clip.contains("body") else STRAIGHT_FLOOR_M
 
 
@@ -48,18 +51,19 @@ static func close_in(stage: Node, who: int, m: float, at_s: float, floor_m: floa
 
 
 ## At a landed contact: how far the striking glove is from where it lands (m), the pelvis gap and the range phase.
-static func record(stage: Node, who: int, hitter: int, move: String, cut := false) -> void:
+static func record(stage: Node, who: int, hitter: int, move: String, cut := false, graze := false) -> void:
 	var pr: Node = stage.boxers[hitter].get("reach")
 	if pr == null or str(pr.get("_hand")) == "":
 		return
 	var g: Vector3 = stage.glove_front(hitter, str(pr.get("_hand")))
-	var tp: Vector3 = stage.target_point(who, move.contains("body"))
+	var aim: Callable = pr.get("_target")   # POWER1 step 4: where the reach aims (an uppercut: her chin)
+	var tp: Vector3 = aim.call() if aim.is_valid() else stage.target_point(who, move.contains("body"))
 	# The miss in the hitter's frame: + ahead = the glove went past the target, + left, + up.
 	var basis: Basis = (stage.boxers[hitter]["node"] as Node3D).global_transform.basis.orthonormalized()
 	var d: Vector3 = basis.inverse() * (g - tp)
 	var gc: Node = stage.boxers[hitter].get("gclear")
 	var gaps: Array = stage.hit_gaps
-	gaps.append({"miss": g.distance_to(tp), "gap": stage._gap(), "move": move, "phase": stage.feet.phase(),
+	gaps.append({"miss": g.distance_to(tp), "gap": stage._gap(), "hitter": hitter, "graze": graze, "want": float(stage.feet.want_m), "move": move, "phase": stage.feet.phase(),
 		"fwd": d.z, "side": d.x, "up": d.y, "w": float(pr.get("last_weight")), "cut": cut, "clip": str(pr.get("_clip")), "contact": float(pr.get("_contact")),
 		"pos": (stage.boxers[hitter]["ap"] as AnimationPlayer).current_animation_position, "speed": (stage.boxers[hitter]["ap"] as AnimationPlayer).speed_scale, "push": int(gc.get("pushes")) if gc != null else -1,
 		"land_f": stage.boxers[hitter].get("land_f", []), "now_f": Engine.get_process_frames()})

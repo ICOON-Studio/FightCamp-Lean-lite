@@ -67,7 +67,9 @@ func _initialize() -> void:
 		var length: float = ap.get_animation(clip).length
 		var crow: Dictionary = contact_doc.get(clip, {})
 		var rrow: Dictionary = recovery_doc.get(clip, {})
-		var contact_s: float = float(crow.get("contact_s", -1.0))
+		# POWER1 step 2: the window is anchored on the clip's furthest point (far_s, the rule contact used until S439); the
+		# hit now lands earlier, on the glove's fast frame (contact_s), which is not what this ruler measures around.
+		var contact_s: float = float(crow.get("far_s", crow.get("contact_s", -1.0)))
 		if contact_s < 0.15:
 			contact_s = BeatClips.contact(clip, length * 0.5)
 		_measure_into(bx, clip, contact_s, float(rrow.get("back_s", -1.0)), crow, rrow, clips_out, inputs)

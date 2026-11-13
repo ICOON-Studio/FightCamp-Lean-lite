@@ -3,14 +3,14 @@
  "updated": "2026-11-12",
  "author": "claude S294",
  "now": {
-  "id": "S445",
+  "id": "S446",
   "owner": "claude",
-  "updated": "2026-11-12",
-  "summary": "S445: Ask for a fight map v3 + the critics' six rule fixes built in AskBout/FightLearn (tests + mutants green); ASKPROBE2 to Qwen; POWER1 step 1 collected (cddf2815), steps 2-4 held (step 4 red) -> blind read + fix session; JUDGES1 round 2 held on its branch (2 cases off, slow); regroup preview: the shout IS the call box, filling over its exchange (his idea); shipped: LANDED/CALLS WORKED no longer show an exchange before it ends, hover tags 20 px, a pronoun fixed.",
-  "last_working_commit": "b7f596c0",
+  "updated": "2026-11-13",
+  "summary": "S446: POWER1 steps 2-4 merged on his yes (Q-207) after an audit; hit freeze checked against Blood & Canvas / Undisputed (ours is standard, the 50% bar retired); ASKPROBE2 collected - x1 flat (teach words 20/60), x1.5 dominant (step up wins growth 42/60, words 31/60); Cursor replaced by Grok Dev / Goose / Arena (PAGES2 to Grok Dev); block still unchanged by POWER1 (TASK_BLOCKLOOK1).",
+  "last_working_commit": "see git log (S446)",
   "verified_playable": "Builds/FightCamp.exe S445 export; not played by him",
   "incomplete_blocked": "ASKPROBE2 running (Qwen). POWER1 steps 2-4 in session power1-step-4. JUDGES1 model not green (held). Regroup default waits for his call.",
-  "next_action": "S446: 0) get_usage; hand over at 300k. 1) Collect ASKPROBE2 (Qwen, branch qwen/askprobe2, launched 22:22, ETA ~23:30-00:00; bar in ops/research/TASK_ASKPROBE2.md: spread ok + teach words differ on half the panels) by diff + its RESULT line; if spread ok, two FRESH critics on ASKFIGHT_MAP_S441.md v3 (Kalli + John via seat_queue, CRITIC_PACK first), 7+ both -> logic check -> one drawing for his pick. 2) POWER1 steps 2-4: session power1-step-4 (local_50fabfac) does a blind read + one fix round on claude/power1 and reports by SendMessage; collect only steps that read COLLECT; ruling: uppercuts at measured 0.83-0.90 m, floor 0.70. Steps 5-6 briefed fresh after. 3) His call on the fight screen regroup v2 + filling shout (preview hudregroup; stills docs/mockups/s445/hud/, review board): on yes move each part into its owner file and drop the flag (HudRegroup 482/500 lines). 4) JUDGES1 round 3 later, fresh brief: ropes/pins in the walk, TheRead build-up, cut ~100 ms per reading (branch judges1 @ 1f1ed715, switch held). 5) BLOCKLOOK1, RESULTLOOK1."
+  "next_action": "S447: 0) get_usage; hand over at 300k. 1) ASKPROBE2 step_teach=1.25 (then 1.15 if it still dominates) - the value where no answer wins >6 in 10 AND teach words differ on half; write it into ASKFIGHT_MAP v4 + AskBout/FightLearn; then two FRESH critics (Kalli + John via seat_queue, CRITIC_PACK first), 7+ both -> logic check -> one drawing. 2) Collect PAGES2 from Grok Dev (grok/pages2 PR; render the Fighters still on the PC and judge it). 3) BLOCKLOOK1 per ops/research/TASK_BLOCKLOOK1.md: film blocks in the played fight; if mc_to_block is the bent body, replace it with a guard-based block; brief Grok Dev. 4) POWER1B brief (no 1-frame spike, follow-through after the freeze); GLOVECLASH1/JOINFIX1 briefs for Grok Dev. 5) RESULTLOOK1. 6) His calls still open: fight screen regroup default, voices, PA mix."
  },
  "next": "S442: 0) get_usage. 1) Result page round 2 (docs/mockups/s441/result/fight_only.png): one logic check + two fresh critics (each with CRITIC_PACK, the 10/10 list and its drawing); fix, send to him at 8+ with the lists. 2) Mechanic 1 ASK FOR A FIGHT: the short map (ops/research/ASKFIGHT_MAP_S441.md: one screen, one decision, prices from the code), two fresh critics + a logic check. 3) Collect POWER1 when the lead's steps land (check steps 3 and 6 against REFERENCE_PUNCH_TARGETS_S439.md; films + critics' scores on the board), then DEFECTS1 (merge main in first; film a blocked punch). 4) Collect R26SWAP1 (Qwen) and the queued briefs as they land (read each against its brief before merging). 5) Wire the towel card into the corner minute once the result page is through.",
  "assessment": {
@@ -1817,6 +1817,11 @@
    "id": "S445",
    "date": "2026-11-12",
    "summary": "Ask for a fight map v3 + rule fixes, ASKPROBE2 to Qwen; POWER1 step 1 in; JUDGES1 held; the filling shout in the fight preview (his idea); the board stops spoiling the exchange."
+  },
+  {
+   "id": "S446",
+   "date": "2026-11-13",
+   "summary": "POWER1 2-4 merged (his yes); freeze checked vs B&C/Undisputed; ask probe flat at x1, dominant at x1.5; Cursor replaced by Grok Dev/Goose/Arena; block still finding."
   }
  ],
  "blocked_on_operator": [],
@@ -4735,7 +4740,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-12 19:41 board_sync",
+  "updated": "2026-11-13 07:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -4883,20 +4888,7 @@
    "GYMLIFE2": "Gym picture: smooth shadow boxing, walks round the kit, nobody under a button",
    "INTROCORNER2": "Fight intro from the corners: each name call shown, never alike"
   },
-  "working_now": [
-   {
-    "id": "ASKPROBE2",
-    "who": "qwen",
-    "title": "Ask for a fight: re-measure on map v3 (cases C and E as written)",
-    "after": ""
-   },
-   {
-    "id": "POWER1",
-    "who": "claude",
-    "title": "Punch power steps 2-4: a fresh blind read, then one fix round (session power1-step-4)",
-    "after": ""
-   }
-  ],
+  "working_now": [],
   "next": [
    {
     "id": "RESULTLOOK1",
@@ -4907,7 +4899,7 @@
    {
     "id": "ASKFIGHT1",
     "who": "claude",
-    "title": "Ask for a fight: map v3 written and its rules built; after ASKPROBE2, two fresh critics, then one drawing for his pick",
+    "title": "Ask for a fight: step teaching between x1 (flat) and x1.5 (step up wins 42/60) - find the value, map v4, then two fresh critics and one drawing",
     "after": ""
    },
    {
@@ -4960,15 +4952,9 @@
    },
    {
     "id": "ROPEENTRY2",
-    "who": "cursor",
+    "who": "goose",
     "title": "The rope entry done properly, later: feet over the middle rope at its real height, ropes that give under the body, a blend from the stance (after HUMANFIGHT2B; only back when it passes his eye)",
     "after": "HUMANFIGHT2B"
-   },
-   {
-    "id": "PAGES2",
-    "who": "cursor",
-    "title": "The Fighters page as painted, one wide row a fighter (brief ready; Cursor is out of usage: Q-191)",
-    "after": ""
    },
    {
     "id": "LOOK2",
@@ -5002,7 +4988,7 @@
    },
    {
     "id": "BARGUARD1",
-    "who": "cursor",
+    "who": "grok",
     "title": "Feet stay above the corner bar while a shot holds, even at the lens",
     "after": "HALOSWEEP1"
    },
@@ -5014,7 +5000,7 @@
    },
    {
     "id": "BJJLOOK1",
-    "who": "cursor",
+    "who": "grok",
     "title": "BJJ bout: the look and visual effects (your C274), after its choices are designed",
     "after": "SQ39"
    },
@@ -5029,6 +5015,36 @@
     "who": "operator",
     "title": "Fab Boxing Animation Pack (Personal EUR 69.23): he buys it near the end of the month; then parries, body punches, guard styles, head movement into the fight",
     "after": "end of month"
+   },
+   {
+    "id": "POWER1B",
+    "who": "claude",
+    "title": "Punch power steps 5-6, fresh brief on main: no single frame faster than the band (the cross jumps to 15 m/s), the glove carries on after the freeze for its follow-through time (Undisputed 0.08-0.31 s)",
+    "after": ""
+   },
+   {
+    "id": "GLOVECLASH1",
+    "who": "grok",
+    "title": "Gloves stop passing through each other after a hit (no glove-on-glove contact anywhere today)",
+    "after": ""
+   },
+   {
+    "id": "JOINFIX1",
+    "who": "grok",
+    "title": "The lead uppercut jumps on its way back to guard (the join catches the raised arm, 26 m/s)",
+    "after": ""
+   },
+   {
+    "id": "FEETDIPS1",
+    "who": "goose",
+    "title": "Heads dip and lead toes cross during dodges and hit reactions (same rate as before punch power)",
+    "after": ""
+   },
+   {
+    "id": "HOOKTAKES1",
+    "who": "claude",
+    "title": "Hooks and uppercuts thrown at a real target, from the mocap packs (end of November): today their own glove ends too far out",
+    "after": "mocap packs"
    }
   ],
   "waiting_seat": [
@@ -5090,7 +5106,7 @@
    },
    {
     "id": "GOLDREDS1",
-    "who": "cursor",
+    "who": "arena",
     "title": "Old repo: Cursor: six career-path tests red in the game arm (golden path gap 7)",
     "why": "project wound down 2026-10-23; the restart is in E:\\FightCamp\\Lean"
    },
@@ -5136,7 +5152,7 @@
    },
    {
     "id": "PADSANIM1",
-    "who": "cursor",
+    "who": "goose",
     "title": "Pads view is broken (coach holds gloves not pads, sleeve tears through the arm, poses do not meet): fix when the pads mechanic is built",
     "after": "the pads mechanic"
    }
@@ -5306,6 +5322,19 @@
   },
   "done_recently": [
    {
+    "id": "POWER1",
+    "title": "Punch power steps 2-4 merged: each punch from its own distance, straight arms, uppercuts from their range"
+   },
+   {
+    "id": "ASKPROBE2",
+    "title": "Ask for a fight re-measured: flat at x1, step up too strong at x1.5"
+   },
+   {
+    "title": "TASK ASKPROBE2 - QWEN (qwen3-coder) - Ask for a fight: re-measure on map v3 (cases C and E as written)",
+    "who": "qwen",
+    "when": "2026-11-13"
+   },
+   {
     "title": "Ask for a fight map v3 + six rule fixes (first bout lock, PEAK camp words, scale miss, honest step label, teach words, road)",
     "who": "claude",
     "when": "2026-11-12"
@@ -5349,22 +5378,6 @@
     "title": "TASK R73DEAL1 - ARENA - the club week's coach hours: pad places, coached mornings, Coach's evenings as pads or a class, and who goes short (one pure module + it",
     "who": "qwen",
     "when": "2026-11-12"
-   },
-   {
-    "title": "TASK ASKPROBE1 - QWEN (qwen3-coder) - Ask for a fight: two pure rule modules, their tests, and the probe that decides the prices",
-    "who": "qwen",
-    "when": "2026-11-12"
-   },
-   {
-    "title": "TASK R24GRADE1 - ARENA - how THIS boxer does each plan line (Good / OK / Poor): one pure module + its test",
-    "who": "qwen",
-    "when": "2026-11-12"
-   },
-   {
-    "id": "LOOP3",
-    "who": "claude",
-    "title": "Corner cards, bubbles over the fight and a headline card: built from his three approved drawings",
-    "after": ""
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5493,6 +5506,22 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Ask for a fight: map v3 + rules",
+     "who": "claude"
+    },
+    {
+     "text": "Punch power step 1 in the game",
+     "who": "claude"
+    },
+    {
+     "text": "Board no longer spoils exchange",
+     "who": "claude"
+    },
+    {
+     "text": "Shout fills over its exchange",
+     "who": "claude"
+    },
+    {
      "text": "Fight screen regroup: preview v2",
      "who": "claude"
     },
@@ -5531,39 +5560,23 @@
     {
      "text": "4 of 7 result defects fixed",
      "who": "claude"
-    },
-    {
-     "text": "DEFECTS1 merged",
-     "who": "claude"
-    },
-    {
-     "text": "3 more Qwen modules, reviewed",
-     "who": "claude"
-    },
-    {
-     "text": "Fight bars: 2 design rounds",
-     "who": "claude"
-    },
-    {
-     "text": "Fighters page: painted rows in",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Ask for a fight: map v3 + rules",
+     "text": "Punch power 2-4 merged",
      "who": "claude"
     },
     {
-     "text": "Punch power step 1 in the game",
+     "text": "Ask probe collected (flat)",
      "who": "claude"
     },
     {
-     "text": "Board no longer spoils exchange",
+     "text": "Cursor out: Grok, Goose, Arena",
      "who": "claude"
     },
     {
-     "text": "Shout fills over its exchange",
+     "text": "Each punch at its own distance",
      "who": "claude"
     }
    ],
@@ -5579,10 +5592,6 @@
     {
      "text": "Your picks: UX, result page shape",
      "who": "operator"
-    },
-    {
-     "text": "Punch power 2-4: blind read",
-     "who": "claude"
     },
     {
      "text": "Your call: fight screen default",
@@ -5627,10 +5636,6 @@
      "who": "claude"
     },
     {
-     "text": "RANGE1: each punch at its distance",
-     "who": "claude"
-    },
-    {
      "text": "Weight: hold or cut, short map",
      "who": "claude"
     },
@@ -5645,9 +5650,21 @@
     {
      "text": "Blocks: punch meets the glove",
      "who": "claude"
+    },
+    {
+     "text": "Block: a human block pose",
+     "who": "claude"
+    },
+    {
+     "text": "Punch power 5-6: no 1-frame spike",
+     "who": "claude"
+    },
+    {
+     "text": "Glove clash + uppercut return",
+     "who": "claude"
     }
    ],
-   "session": "S445"
+   "session": "S446"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

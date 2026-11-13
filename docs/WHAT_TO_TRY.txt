@@ -1,3 +1,8 @@
+S446 (2026-11-13)
+- Watch a fight: punches are now thrown from their own distance. A cross lands with a nearly straight arm instead of a folded
+  one with the heads touching; uppercuts come from a little further out; the lead uppercut no longer swings over her head.
+- Known, queued: hooks can stop a little short, gloves can pass through each other after a hit, blocks still look bent.
+
 FIGHTCAMP - BUILD OF 2026-11-12 (S445): THE BOARD STOPS GIVING AWAY THE EXCHANGE, THE BODY GOES INTO THE PUNCH
 ================================================================================
 

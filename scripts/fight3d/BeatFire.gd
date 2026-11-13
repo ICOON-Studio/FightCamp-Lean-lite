@@ -15,6 +15,7 @@ const FightSfx := preload("res://scripts/audio/FightSfx.gd")
 const FightVoice := preload("res://scripts/audio/FightVoice.gd")
 const MoveStudio := preload("res://scripts/fight3d/MoveStudio.gd")
 const BeatTally := preload("res://scripts/fight3d/BeatTally.gd")
+const PunchPace := preload("res://scripts/fight3d/PunchPace.gd")
 ## A short punch's join: half-life, length (s). Between the strike's (0.06, 0.3) and the guard return's (0.1, 0.45).
 const SHORT_JOIN := Vector2(0.09, 0.35)
 
@@ -144,6 +145,14 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 	# would replace HER OWN still-flying punch now waits for it to land. `base` is the view time it really starts;
 	# every timer runs off it, so the contact stays on her glove.
 	var at := (contact - skip) / sp
+	# POWER1 step 3 (PunchPace): a lone punch starts past its dead wind-up (its glove's drive, ReachDrive, moves no time); what
+	# that saves, she stands in her guard first, so the punch lands when it did (the hit, its sound and reaction, the combo
+	# rhythm).
+	var pp := PunchPace.plan(clip, move, contact)
+	skip = maxf(skip, float(pp["start"]))
+	var real_s := PunchPace.real(pp, skip, contact)
+	var wait := maxf(0.0, at - real_s) + PunchPace.lead()
+	at = real_s - PunchPace.lead()
 	var base := maxf(t, float(last_contact[who]) + 0.03)
 	# S371 BODYREACT1: she does not punch out of a fresh fold either - with the own-punch wait in, a new beat could still
 	# fire beside her own body-shot reaction and cut the hold short: the probe read 0.17 s, then 0.27 s against the
@@ -153,7 +162,12 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 	var bt := float(hitsnap.get("_bt")) if hitsnap != null else -1.0
 	if bt >= 0.0 and bt < 0.51 and float(hitsnap.get("_gain")) > 1.5:
 		base = maxf(base, t + (0.51 - bt))
+	# Review round 2: the guard wait goes on after the fold's (added before it, a fold could swallow it and the punch landed
+	# up to `wait` early).
+	base += wait
 	last_contact[who] = base + at
+	b["contact_t"] = base + at   # POWER1 step 4: RangeBreath keeps this punch's own distance until it lands
+	b["clip"] = clip
 	# Her defence is chosen when the beat fires (the de-duplication reads the beat's own time), shown when it plays.
 	var d := ""
 	var stopped := bool(b.get("stopped", false))   # S393 CounterCut: the other's punch stops this one; nobody defends it
@@ -165,12 +179,36 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 			d = "slip" if d == "weave" else "block"
 		last_def[other] = d
 		last_def_t[other] = t
+	# Review round 2 (blind review of beeea8f2: "blocks are now set late"; tests/block_set_test.gd). The cover-up needs
+	# BLOCK_SET_S of its clip to get the gloves up. Timed from go() and clamped at 0, a punch whose start-to-contact is
+	# shorter (a later start, a short take) met a guard still rising. Now it is timed from the beat - she may raise it while
+	# the other still stands in her guard - and when even that is too late it starts part-way in (MoveStudio's preview does
+	# the same), so it is set when the glove arrives. A punch refused or cut off before it shows still shows no block.
+	var blk := {"id": -2}   # the punch's play id once go() has run (-1: refused)
+	if d == "block" and move != "body_hook":
+		var lead_b := move in ["jab", "lead_hook", "lead_uppercut"]
+		var left_b: bool = stage.hand_of(who, hand if hand != "" else ("LeftHand" if lead_b else "RightHand")) == "LeftHand"
+		var bclip := BeatClips.defence(d, move, left_b, bool(stage.boxers[other].get("south", false)), stage.has_move)
+		var rate := BeatClips.speed(bclip, "")
+		var set_at := (base - t) + at - MoveStudio.BLOCK_SET_S / rate - 1.0 / 60.0   # a frame early: both timers round to frames
+		var from_b := maxf(0.0, -set_at) * rate
+		var show_block := func() -> void:
+			var pid := int(blk["id"])
+			if pid == -1 or (pid >= 0 and PunchRange.cut_off(stage, who, pid)):
+				return
+			stage.play(other, bclip, rate, from_b)
+		if set_at <= 0.0001:
+			show_block.call()
+		else:
+			v.get_tree().create_timer(set_at).timeout.connect(show_block)
 	var go := func() -> void:
 		# S321: a punch refused (she is locked in a hit reaction) never shows, so its hit or defence must not either.
 		var punch_id: int = int(stage.boxers[who]["play_id"]) if stage.play(who, clip, sp, skip) else -1
+		blk["id"] = punch_id
 		if punch_id < 0:
 			BeatTally.add("refused")
 			return
+		PunchPace.arm(stage, who, pp)
 		BeatTally.add("started")
 		if short and skip > 0.0 and stage.boxers[who].get("js") != null:
 			# Started mid-swing, the clip's glove is up to a metre from the guard's: a slower join (S319 smooth_probe:
@@ -215,12 +253,7 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 		elif d != "":
 			# Her defence (RoundStyle): a block meets the glove at contact; a slip, weave or step back starts early.
 			# BLOCKMEET2: block uses shared constant BLOCK_SET_S (0.25s before contact), same as preview path.
-			var when: float
-			if d == "block":
-				var contact_real: float = contact / sp
-				when = maxf(0.0, contact_real - MoveStudio.BLOCK_SET_S)
-			else:
-				when = at * 0.35
+			var when := at * 0.35   # a head block is timed from the beat, above
 			# S305: the side comes from the hand that throws it (her left arrives on the other's right).
 			var lead := move in ["jab", "lead_hook", "lead_uppercut"]
 			var from_left: bool = stage.hand_of(who, hand if hand != "" else ("LeftHand" if lead else "RightHand")) == "LeftHand"
@@ -229,7 +262,7 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 				var snap: Node = stage.boxers[other].get("snap")
 				if snap != null:
 					tree.create_timer(at).timeout.connect(snap.brace.bind(not from_left))
-			else:
+			elif d != "block":
 				var dclip := BeatClips.defence(d, move, from_left, bool(stage.boxers[other].get("south", false)), stage.has_move)
 				tree.create_timer(when).timeout.connect(func():
 					if not PunchRange.cut_off(stage, who, punch_id):

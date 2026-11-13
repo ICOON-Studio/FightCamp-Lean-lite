@@ -165,7 +165,7 @@
 			"reach_frac": 0.928628881348518,
 			"window_s": [
 				0.067,
-				1.067
+				1.1
 			]
 		},
 		"pro_left_jab": {
@@ -213,7 +213,7 @@
 			"reach_frac": 0.978361436501695,
 			"window_s": [
 				0.033,
-				0.95
+				0.967
 			]
 		},
 		"pro_left_jab_b": {
@@ -285,7 +285,7 @@
 			"reach_frac": 0.826575109523799,
 			"window_s": [
 				0.333,
-				1.533
+				1.517
 			]
 		},
 		"pro_right_cross": {
@@ -309,7 +309,7 @@
 			"reach_frac": 0.994664950095631,
 			"window_s": [
 				0.0,
-				0.683
+				0.667
 			]
 		},
 		"pro_right_cross_a": {
@@ -357,7 +357,7 @@
 			"reach_frac": 0.977583898839837,
 			"window_s": [
 				0.167,
-				1.017
+				1.033
 			]
 		},
 		"pro_right_cross_c": {
@@ -456,106 +456,106 @@
 			"take_md5": "fb5c996363952bc8a136fbb65b2ad5b9"
 		},
 		"pro_body_shot": {
-			"contact_row_md5": "f793f74d9f3ca9b068329d452119cf8e",
-			"recovery_row_md5": "d2949bad737ffe039c6878a6197c81c1",
+			"contact_row_md5": "f8d7970efd0f885e0ce7cb94a876c420",
+			"recovery_row_md5": "8cab144e3556a17387373b03764622cd",
 			"row_md5": "555215770b34b00a01ec514389b89b01",
 			"take": "res://assets/anim/baked/mc_Box1_M3_Body_Shot.res",
 			"take_md5": "c051610b4ee2f798966fea5dd1fe3116"
 		},
 		"pro_kidney_shot": {
-			"contact_row_md5": "8f0fad13dd6daadc48b9bc0463197766",
-			"recovery_row_md5": "828e6c54bdd660135bad0e7538fd60ca",
+			"contact_row_md5": "e6665c50eaf23c84702873731bacf245",
+			"recovery_row_md5": "16acfbb6283a2f61e1efc0977528a225",
 			"row_md5": "33734403121bf663535a18c7467b7fb7",
 			"take": "res://assets/anim/baked/mc_Box1_M3_Kidney_Shot.res",
 			"take_md5": "e508a2a049b41a5c00c23058d8e624d7"
 		},
 		"pro_left_hook": {
-			"contact_row_md5": "d46c23a6515de72e0feb451592eca049",
-			"recovery_row_md5": "92751a54bedf6df99e793564937f1928",
+			"contact_row_md5": "2b4f27f82b3fe70dbfbf62d6ff551112",
+			"recovery_row_md5": "4efa8bfd82cf08cfb03439fd6c7d10ad",
 			"row_md5": "65b77350a95b2468b08fc96245789557",
 			"take": "res://assets/anim/baked/mc_Box1_M3_Left_Hook.res",
 			"take_md5": "5592a80e1751e70554c40212370bb24d"
 		},
 		"pro_left_hook_v2": {
-			"contact_row_md5": "1d48ab2ad34aedc0f656b35c00171e70",
-			"recovery_row_md5": "ccd6185bb49290b631de7c96451eb8ff",
-			"row_md5": "abed24e84cc311fd6f638ada261e9282",
+			"contact_row_md5": "c9c66ce6f19e0934e6f493480817bc21",
+			"recovery_row_md5": "8b7bcc69f0d8837d49d548379ac9712c",
+			"row_md5": "9d4693b94d51a9559cb94e75c794b6e1",
 			"take": "res://assets/anim/baked/mc_Box1_M3_Left_Hook_V2.res",
 			"take_md5": "8036db19ac5f129ea18b798eed6383df"
 		},
 		"pro_left_jab": {
-			"contact_row_md5": "c4a9def0f686e013090449cb089725d7",
-			"recovery_row_md5": "86a87778b734db92d7af040fb7df6343",
+			"contact_row_md5": "5648d06ad17c01a6866cd2ff9d831bd6",
+			"recovery_row_md5": "770d36a829dae8d4fb1f187700d29403",
 			"row_md5": "ecfe59fe1739202697d338f4bb33ca00",
 			"take": "res://assets/anim/baked/fixed/mc_Box1_M3_Left_Jab.res",
 			"take_md5": "f2e86ff4d0583e157e8cbd2da6d2162e"
 		},
 		"pro_left_jab_a": {
-			"contact_row_md5": "d4382f66c53102dae27ecf4faf176aad",
-			"recovery_row_md5": "6e6fc1915e0cf9bc63576e9fdd7cf947",
-			"row_md5": "c8484ddb224ff1bebdd43a591cc02bf4",
+			"contact_row_md5": "ff24086a57356bf96d65b5e98cfba6f2",
+			"recovery_row_md5": "0a186248c4149e3bf34d8e065a6acb48",
+			"row_md5": "d3f3ef2d8d62a26927d9367bae5f9b3d",
 			"take": "res://assets/anim/baked/mc_Box1_M3_Left_Jab_A.res",
 			"take_md5": "5b62a368df9efec9a079d2715e6b8b5c"
 		},
 		"pro_left_jab_b": {
-			"contact_row_md5": "b419fefc59e6a28289882444f599206d",
-			"recovery_row_md5": "e63f280880d80401f0e73eb0b300ea22",
+			"contact_row_md5": "f5c4c3e500c05a7300df389618e8fa3a",
+			"recovery_row_md5": "68fe2c38f1ebc9d46964cd9dcafe97b5",
 			"row_md5": "a20aab0e8043c5c4ec88fd4d3b254ccc",
 			"take": "res://assets/anim/baked/fixed/mc_Box1_M3_Left_Jab_B.res",
 			"take_md5": "3e4d6795e3631bbd96a90c3c34d8c078"
 		},
 		"pro_left_jab_c": {
-			"contact_row_md5": "9982b58e9c6471cada452a65f7d471bb",
-			"recovery_row_md5": "30c8a5cac60942261b0cabf7e6b746b5",
+			"contact_row_md5": "0f266a4d04000c236ec4c2160e474206",
+			"recovery_row_md5": "a478390673a617cee9138a1034a85097",
 			"row_md5": "f3f926c903c9aaa8f2b2f2aca752d688",
 			"take": "res://assets/anim/baked/fixed/mc_Box1_M3_Left_Jab_C.res",
 			"take_md5": "0d8331f7c1047ff1dc78e19c8b9b724c"
 		},
 		"pro_left_uppercut": {
-			"contact_row_md5": "abd963cb63dcc8acf7e1b0ad60b3e14b",
-			"recovery_row_md5": "a4e4d648c9800533db23f55d602b1dcf",
-			"row_md5": "c4e06f50aff24d98fbe59ed40f650be2",
+			"contact_row_md5": "2135551a6a6980729e46c46daee38f55",
+			"recovery_row_md5": "5368213762348ca68cb7b633440f3ac9",
+			"row_md5": "8e0bd335c0819d75e621025f8a18ba83",
 			"take": "res://assets/anim/baked/mc_Box1_M3_Left_Uppercut.res",
 			"take_md5": "edc24f13927a2720c3592bb6a65abb6a"
 		},
 		"pro_right_cross": {
-			"contact_row_md5": "6799b53cdae1b62b9f0281059f53a8ab",
-			"recovery_row_md5": "31612b0d00f09e9990800681a8e748d6",
-			"row_md5": "cb5b9a70c31eca611980aaf8bb0a7292",
+			"contact_row_md5": "6d112df25b73731e2715fac98cf41079",
+			"recovery_row_md5": "c8be3c94b2417dd99fd4741563653650",
+			"row_md5": "102c692c383ba5696ce8e1e6c3e4a7ef",
 			"take": "res://assets/anim/baked/mc_Box1_M3_Right_Cross.res",
 			"take_md5": "536efbe1427185fb85ca699973db81ff"
 		},
 		"pro_right_cross_a": {
-			"contact_row_md5": "818ff9ccbd2710241dc181d239d1a7ad",
-			"recovery_row_md5": "34dc657d8cc280c14449f01ec6848deb",
+			"contact_row_md5": "d6c6277e9629f1f5b3c9e58888fed0f6",
+			"recovery_row_md5": "f874a6b1c552fe6580f52fe6e66de0b4",
 			"row_md5": "afb8a5829a14ee4cb157eb41c572c471",
 			"take": "res://assets/anim/baked/mc_Box1_M3_Right_Cross_A.res",
 			"take_md5": "29ce5a4b30cd7de085d434fa7cd1463d"
 		},
 		"pro_right_cross_b": {
-			"contact_row_md5": "61ba0624dbb2438148e6c664d1ffb0ac",
-			"recovery_row_md5": "fad151a2b2841ecec0ea94fc4c392cf5",
-			"row_md5": "47343de575f3b3d5a44cd7c42f8a7098",
+			"contact_row_md5": "193bf58b2e937e56f92534a24baea296",
+			"recovery_row_md5": "f3ae70fba37d07694d697e57f360bbfa",
+			"row_md5": "01b434c8a7a19867bc8cfbffbe44e7da",
 			"take": "res://assets/anim/baked/mc_Box1_M3_Right_Cross_B.res",
 			"take_md5": "ecdf7d2ab3c2ac209d48002efda44dd2"
 		},
 		"pro_right_cross_c": {
-			"contact_row_md5": "a78ee390446db583dc14bb2e7a413038",
-			"recovery_row_md5": "15261ca03a1a1b2621f9fb05f9100875",
+			"contact_row_md5": "a8a47352af5aa5275247584a57ca837a",
+			"recovery_row_md5": "d249d2e3c9e010d2eed09fbc5e3c99bc",
 			"row_md5": "a06f1701520ecd5ba041192d556fe906",
 			"take": "res://assets/anim/baked/mc_Box1_M3_Right_Cross_C.res",
 			"take_md5": "bbb182514e0078a65d6b9e47f991e62b"
 		},
 		"pro_right_hook": {
-			"contact_row_md5": "b932f53bb3ac5601a88afdeb629b25fe",
-			"recovery_row_md5": "fb21f4d53b0c38d3247575bf0a7fb4b2",
+			"contact_row_md5": "da56a386a68455172612b80790ee1b2f",
+			"recovery_row_md5": "e5a317e90eb013269b3318e394220817",
 			"row_md5": "51bb3ffeb8fbda9fa5ecbe43cb03176d",
 			"take": "res://assets/anim/baked/mc_Box1_M3_Right_Hook.res",
 			"take_md5": "89cf7c51ba68134ac2e656127f8bf3ee"
 		},
 		"pro_right_uppercut": {
-			"contact_row_md5": "2004cde86a1fdcbe0bad80178e13797c",
-			"recovery_row_md5": "6e09ca8647e60b5f5087a5edd632f30b",
+			"contact_row_md5": "732cff78f4d4782372d5270c2822aaf9",
+			"recovery_row_md5": "0cd635645ea9490bd2055fb2d7637f24",
 			"row_md5": "eab6460fb23b13b834021706d1950667",
 			"take": "res://assets/anim/baked/mc_Box1_M3_Right_Uppercut.res",
 			"take_md5": "575248fba002fd78874fb8110d53abc6"

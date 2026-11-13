@@ -144,6 +144,12 @@ static var _recovery: Dictionary = {}
 
 
 ## Vector2(contact_s, back_s) of a clip at 1x (clip_recovery.json); a negative value = not measured / never back in guard.
+## POWER1 step 4 (e) (UPPERCUT_RANGE_S439.md fix 5): after the contact the lead uppercut's glove rises 0.35 m over her own
+## head and comes back over her own body. Its recovery ends this long after the contact: the guard takes the glove home.
+const QUICK_BACK_S := {"pro_left_uppercut": 0.22}   # S445: was 0.05 = a pop back to guard (28.6 m/s drawn)
+static var quick_back: bool = not OS.get_cmdline_user_args().has("nopunchrange")
+
+
 static func recovery(clip: String) -> Vector2:
 	if _recovery.is_empty() and FileAccess.file_exists(RECOVERY_PATH):
 		var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(RECOVERY_PATH))
@@ -151,7 +157,15 @@ static func recovery(clip: String) -> Vector2:
 	var row: Variant = _recovery.get(clip, null)
 	if not row is Dictionary:
 		return Vector2(-1.0, -1.0)
-	return Vector2(float((row as Dictionary).get("contact_s", -1.0)), float((row as Dictionary).get("back_s", -1.0)))
+	var from := float((row as Dictionary).get("contact_s", -1.0))
+	# POWER1 step 2, review round 1: the fast way back starts at the punch's furthest point (far_s), as it did before the
+	# hit moved onto the glove's fast frame. From the new contact it sped the clip up 2-3x straight after the hit-stop, and
+	# the glove's carry through her face ran in one frame (the played jab's glove jumped 8-17 cm, hit_carry_test).
+	if from >= 0.0:
+		from = maxf(from, float(contact_row(clip).get("far_s", from)))
+	if quick_back and QUICK_BACK_S.has(clip) and from >= 0.0:
+		return Vector2(from, from + float(QUICK_BACK_S[clip]))
+	return Vector2(from, float((row as Dictionary).get("back_s", -1.0)))
 
 
 ## S305 (operator: "reaction is way too slow"): a hit reaction reaches its furthest point REACT_PEAK_S after the blow (K51:
@@ -190,7 +204,11 @@ static func speed(clip: String, move: String) -> float:
 		return 1.0
 	if not IMPACT_S.has(move):
 		return OTHER_SPEED
-	return clampf(contact(clip, float(IMPACT_S[move])) / float(IMPACT_S[move]), 1.0, 2.0)
+	# POWER1 step 2: paced on the punch's furthest point (far_s), as it was paced before the hit moved onto the glove's fast
+	# frame (contact_s, 0-130 ms earlier): paced on the new contact, the plain jab would play 1.32x -> 1.01x and its drive
+	# would slow on screen. The pace is unchanged; the hit lands that much sooner.
+	var far := float(contact_row(clip).get("far_s", contact(clip, float(IMPACT_S[move]))))
+	return clampf(far / float(IMPACT_S[move]), 1.0, 2.0)
 
 
 ## The first name in `names` that `has` (a Callable(name) -> bool, e.g. stage.has_move) says exists, or "".
@@ -266,6 +284,28 @@ static func contact(clip: String, fallback: float) -> float:
 	var t: float = float((row as Dictionary).get("contact_s", fallback)) if row is Dictionary else fallback
 	# A measured contact in the first 0.15 s is the guard, not the punch (pro_left_uppercut reads 0.0): keep the fallback.
 	return t if t >= 0.15 else fallback
+
+
+## POWER1 step 3: each punch clip's start offset and drive (assets/data/punch_pace.json, tools/punch_pace.gd; PunchPace).
+const PACE_PATH := "res://assets/data/punch_pace.json"
+static var _pace: Dictionary = {}
+static func _pace_row(clip: String) -> Dictionary:
+	if _pace.is_empty() and FileAccess.file_exists(PACE_PATH):
+		var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(PACE_PATH))
+		_pace = parsed if parsed is Dictionary else {"_": {}}
+	var row: Variant = _pace.get(clip, null)
+	return row if row is Dictionary else {}
+
+
+## Seconds into `clip` (1x) a lone punch starts: past its dead wind-up, never into its load (0 when not measured).
+static func start_s(clip: String) -> float:
+	return float(_pace_row(clip).get("start_s", 0.0))
+
+
+## The glove's speed on screen as the landing reach drives it onto the target (ReachDrive; m/s at the contact, the arm
+## alone, the body keeps its pace). 0 when not measured or not driven.
+static func drive_v(clip: String) -> float:
+	return float(_pace_row(clip).get("drive_v", 0.0))
 
 
 ## S319 SHOVEL1: the glove's path to contact, [[t_s, cum_m], ..] relative to the hips (clip_travel.json); [] when not measured.

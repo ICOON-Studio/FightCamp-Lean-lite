@@ -8,6 +8,7 @@ const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const GuardLife := preload("res://scripts/fight3d/GuardLife.gd")
 const MirrorClip := preload("res://scripts/fight3d/MirrorClip.gd")
 const RangeBreath := preload("res://scripts/fight3d/RangeBreath.gd")
+const RangeTable := preload("res://scripts/fight3d/RangeTable.gd")
 const RkLoco := preload("res://scripts/fight3d/RkLoco.gd")
 const RkClips := preload("res://scripts/fight3d/RkClips.gd")
 const RkJoin := preload("res://scripts/fight3d/RkJoin.gd")
@@ -84,7 +85,7 @@ func aim(ph: Dictionary) -> void:
 	if str(ph["phase"]) == "pivot" and str(_aim["phase"]) != "pivot":
 		_pivoted = false
 	_aim = ph
-	want_m = RangeBreath.want_m(ph, float(stage.gap_m), _rest_roll)
+	want_m = RangeBreath.want_m(ph, float(stage.gap_m), _rest_roll, RangeTable.moves(stage, ph))
 	# S313 gap 5: the guard drops out of range and comes up for the entry and the pocket (GuardTuck.low).
 	for bx in stage.boxers:
 		if bx.get("tuck") != null:

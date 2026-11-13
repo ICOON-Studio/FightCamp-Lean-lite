@@ -166,8 +166,9 @@ static func measure_take(bx: Dictionary, name: String, gap: float) -> Dictionary
 		"peak_reach": peak_reach(bx, name, length)}
 
 
-## clip_contact.gd's measure for a lead-hand punch at head height: the moment, from 0.15 s to 75 % of the clip, the
-## LeftHand comes closest to (0, head_y at frame 0, gap_m); snapped to 1 ms as clip_contact.json stores it.
+## clip_contact.gd's far_s for a lead-hand punch at head height (the rule contact used until S439; since POWER1 step 2 the
+## hit, contact_s, lands earlier): the moment, from 0.15 s to 75 % of the clip, the LeftHand comes closest to
+## (0, head_y at frame 0, gap_m); snapped to 1 ms as clip_contact.json stores it.
 static func contact_on_take(bx: Dictionary, name: String, length: float, gap: float) -> float:
 	var head_y: float = Stage.IdleMatch.pose_point(bx, name, 0.0, "Head").y
 	var target := Vector3(0.0, head_y, gap)

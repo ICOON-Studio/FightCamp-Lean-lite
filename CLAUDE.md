@@ -39,8 +39,10 @@ and say what you decided. Ask him only about taste, scope or money. Be concise, 
 ## Agent roles (S299, from each seat's record in the old project's run archive)
 Claude decides design and integrates; the operator approves (D49: Ludo makes assets only). Each seat gets ONE kind of work:
 - Qwen - small pure rule modules + unit tests (most reliable: 0 failed of 52). Arena - bigger pure modules + tests in the
-  cloud, e.g. the balancing harness (public mirror only; check it did not delete tests). Cursor - one 2D screen per task
-  from the prototype (it cannot see images: Claude checks the stills). Grok Dev - tests: golden path, save/load, blind
+  cloud, e.g. the balancing harness (public mirror only; check it did not delete tests). CURSOR REPLACED (operator S446: "replace cursor with grokbots,arena,goose"): Grok Dev
+  (gbot / issue label `grok`, own Linux box with Godot 4.7.2, pushes grok/* PRs) takes Cursor's work - one 2D screen per task from
+  the prototype and 3D look fixes (Claude renders and checks the stills on the PC); Goose takes long cloud jobs (rope entry, pads
+  view); Arena takes pure modules + tests. Cursor gets no new tasks; the Grok chat bots (Kalli, John, Maria) stay as below. Grok Dev - tests: golden path, save/load, blind
   contract tests. Ziva - 3D fight motion + a playtest of each weekly build inside the editor.
 - Chat bots: Kalli - content and numbers tables; John - real-world research behind numbers; Maria - art review of each
   build's stills. Dola parked. Codex: none (operator S228). Ludo: assets only.

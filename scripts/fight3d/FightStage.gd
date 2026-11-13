@@ -31,6 +31,8 @@ const RkPure := preload("res://scripts/fight3d/RkPure.gd")
 const RkLoco := preload("res://scripts/fight3d/RkLoco.gd")
 const RkJoin := preload("res://scripts/fight3d/RkJoin.gd")
 const ShownRoot := preload("res://scripts/fight3d/ShownRoot.gd")
+const PunchReachScript := preload("res://scripts/fight3d/PunchReach.gd")
+const RangeTable := preload("res://scripts/fight3d/RangeTable.gd")   # POWER1 step 4: each punch's own distance
 
 const CONTACT_S := 8.0 / 30.0
 ## When the glove lands, seconds into each move (natives frame 8; baked: the old repo's clip_phases contact_s).
@@ -94,6 +96,7 @@ func setup(a: Dictionary, b: Dictionary) -> void:
 			boxers[i]["gclear"].other = boxers[1 - i]["skel"]
 			boxers[i]["gclear"].peer = boxers[1 - i].get("gclear")
 	gap_m = _jab_gap()
+	RangeTable.build(self)
 	feet.setup(self)
 	add_child(clinch)
 	clinch.setup(self)
@@ -127,7 +130,9 @@ func land(who: int, clip: String, body: bool, at_s: float = 0.0, contact_s: floa
 	var row := BeatClips.contact_row(clip)
 	var hand := hand_of(who, str(row.get("hand", "LeftHand" if clip.contains("left_") or clip.contains("jab") else "RightHand")))
 	# S321: the beat's own contact (its per-move fallback: a body hook's 0.70 s, not the jab's 0.27 s).
-	pr.arm(clip, hand, contact_s if contact_s >= 0.0 else BeatClips.contact(clip, CONTACT_S), target_point.bind(1 - who, body), float(boxers[who]["front"]))
+	# POWER1 step 2: a landed glove drives into her and carries PunchReach.THROUGH_M on through (a blocked one stops on the block).
+	pr.arm(clip, hand, contact_s if contact_s >= 0.0 else BeatClips.contact(clip, CONTACT_S), RangeTable.aim.bind(self, 1 - who, body, clip), float(boxers[who]["front"]),
+		PunchReachScript.THROUGH_M)
 	boxers[who]["land_f"] = [Engine.get_process_frames(), at_s, (boxers[who]["ap"] as AnimationPlayer).current_animation_position]   # hit_gap_probe timing
 	# S320 (operator: "some hits seem to register even when opponent is way to far"; tools/hit_gap_probe.gd: the glove
 	# 0.21 m off the target at contact (p50), 66 % past 0.15 m, up to 0.98 m - punches landed from 1.6 m). The clip touches
@@ -136,11 +141,13 @@ func land(who: int, clip: String, body: bool, at_s: float = 0.0, contact_s: floa
 	# S437: the per-clip "short_m" this read is gone for good. It had been missing from the data since S342 (always 0);
 	# restored with tools/punch_reach.gd and measured on the same bout (hit_gap_probe, 32 landed): p50 0.036 -> 0.038 m,
 	# p90 0.093 -> 0.172 m, far hits 3 -> 4. The punches that land off are off sideways or in height, not short.
-	var need := _gap_shown() - gap_m
-	pr.lunge_m = clampf(need - LEAN_COVER_M, 0.0, LUNGE_MAX_M)
-	var rest := need - LEAN_COVER_M - float(pr.lunge_m)
+	var own := RangeTable.on and RangeTable.kind(clip) != "body"   # POWER1 step 4: from her punch's own distance
+	var need := _gap_shown() - (RangeTable.clip_m(self, who, clip) if own else gap_m)
+	var cover := 0.0 if own else LEAN_COVER_M
+	pr.lunge_m = clampf(need - cover, 0.0, LUNGE_MAX_M)
+	var rest := need - cover - float(pr.lunge_m)
 	if rest > 0.03 and at_s > 0.0:
-		PunchRange.close_in(self, who, rest, at_s, PunchRange.floor_for(clip))
+		PunchRange.close_in(self, who, rest, at_s, PunchRange.floor_for(clip, self))
 	if boxers[who].get("weight") != null: (boxers[who]["weight"] as Node).carry(clip, contact_s if contact_s >= 0.0 else BeatClips.contact(clip, CONTACT_S))
 
 
@@ -417,7 +424,9 @@ func _jab_gap() -> float:
 	# S300: with the Punch Pro library the gap comes from its jab at its measured contact (the native jab reached 0.3-0.5 m
 	# further, so Pro punches met the guard, never the face, in the S300 film).
 	var jab := "pro_left_jab" if has_move("pro_left_jab") else "jab"
-	var reach := IdleMatch.pose_point(boxers[0], jab, BeatClips.contact(jab, CONTACT_S), hand_of(0, "LeftHand")).z * _scale(0) + 0.10
+	# POWER1 step 2: at the jab's furthest point (far_s), not its contact - the hit now lands on the glove's fast frame, before it.
+	var far := float(BeatClips.contact_row(jab).get("far_s", BeatClips.contact(jab, CONTACT_S)))
+	var reach := IdleMatch.pose_point(boxers[0], jab, far, hand_of(0, "LeftHand")).z * _scale(0) + 0.10
 	# +0.07 (S302: GuardTuck draws the gloves 0.10 m in toward the face, so the guards stand 0.29 m apart at the old +0.19 -
 	# the gap closes 0.12 m: face to face ~0.64 m, John J-GUARDPACE1 0.60-0.75 m; S300 film 3: untucked, +0.09 touched).
 	var face := IdleMatch.pose_point(boxers[1], jab, 0.0, "Head").z * _scale(1) + 0.07

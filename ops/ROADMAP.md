@@ -8,9 +8,9 @@ Updated 2026-11-12 by claude S294.
 
 ## Now
 
-**S445 — ?** *(claude)*
+**S446 — ?** *(claude)*
 
-S445: Ask for a fight map v3 + the critics' six rule fixes built in AskBout/FightLearn (tests + mutants green); ASKPROBE2 to Qwen; POWER1 step 1 collected (cddf2815), steps 2-4 held (step 4 red) -> blind read + fix session; JUDGES1 round 2 held on its branch (2 cases off, slow); regroup preview: the shout IS the call box, filling over its exchange (his idea); shipped: LANDED/CALLS WORKED no longer show an exchange before it ends, hover tags 20 px, a pronoun fixed.
+S446: POWER1 steps 2-4 merged on his yes (Q-207) after an audit; hit freeze checked against Blood & Canvas / Undisputed (ours is standard, the 50% bar retired); ASKPROBE2 collected - x1 flat (teach words 20/60), x1.5 dominant (step up wins growth 42/60, words 31/60); Cursor replaced by Grok Dev / Goose / Arena (PAGES2 to Grok Dev); block still unchanged by POWER1 (TASK_BLOCKLOOK1).
 
 ## Next
 
@@ -331,3 +331,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S443**  |  |  | *none yet* | Coordinator: his board picks built (Money one screen, hover labels, Stamina + one overall, no-sparring 0.8, see-through bubbles, corner card marks, result summary + tabs, Ask picks above only), Qwen judges (held) + world news wired, PUSHPROBE2 386,100 bouts: bars fail, parked; cooling measured; build 19:56. |
 |  |  | **S444**  |  |  | *none yet* | Fight screen regroup in the game from his marks (preview v2, Q-206), calls box fix shipped, JUDGES1 weights collected (switch held, model running), Ask for a fight to critics, Ziva up. |
 |  |  | **S445**  |  |  | *none yet* | Ask for a fight map v3 + rule fixes, ASKPROBE2 to Qwen; POWER1 step 1 in; JUDGES1 held; the filling shout in the fight preview (his idea); the board stops spoiling the exchange. |
+|  |  | **S446**  |  |  | *none yet* | POWER1 2-4 merged (his yes); freeze checked vs B&C/Undisputed; ask probe flat at x1, dominant at x1.5; Cursor replaced by Grok Dev/Goose/Arena; block still finding. |

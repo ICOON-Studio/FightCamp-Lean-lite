@@ -9,6 +9,7 @@ extends RefCounted
 ##   compose(stage, delta)
 
 const RingFeet := preload("res://scripts/fight3d/RingFeet.gd")
+const UpperRoom := preload("res://scripts/fight3d/UpperRoom.gd")   # POWER1 step 4: the uppercut's floor
 
 ## S320 a glide step's speed eases in and out over this (Footwork.glide).
 const STEP_RAMP_S := 0.07
@@ -69,7 +70,9 @@ static func compose(st: Node, delta: float) -> void:
 	var keep := dist
 	if pin[0] or pin[1]:
 		keep = float(boxers[0 if pin[0] else 1]["hold_m"])
-	keep = maxf(keep, st.clinch.floor_m(lerpf(MIN_GAP_M, INSIDE_FLOOR_M, feet.inside_w)))
+	var base := lerpf(MIN_GAP_M, INSIDE_FLOOR_M, feet.inside_w)
+	UpperRoom.tick(st, delta, base)
+	keep = maxf(keep, st.clinch.floor_m(UpperRoom.floor_m(st, base)))
 	if absf(dist - keep) > 0.001:
 		var err := dist - keep
 		var share := [0.5, 0.5] if pin[0] == pin[1] else ([1.0, 0.0] if pin[0] else [0.0, 1.0])
@@ -155,7 +158,7 @@ static func _place(st: Node, delta: float) -> void:
 		var me := RingFeet.shown(st, bx)
 		var other := RingFeet.shown(st, boxers[1 - i])
 		var n: Node3D = bx["node"]
-		var keep_m: float = st.clinch.floor_m(BODY_KEEP_M + room(_fold(bx), _fold(boxers[1 - i]))) if body_keep else 0.0
+		var keep_m: float = st.clinch.floor_m(UpperRoom.keep_m(st, BODY_KEEP_M) + room(_fold(bx), _fold(boxers[1 - i]))) if body_keep else 0.0
 		me = kept(me, other, keep_m)
 		var to := other - me
 		# S302: a landed punch carries her in (shown only; her place on the canvas stays).

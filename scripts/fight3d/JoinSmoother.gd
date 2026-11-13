@@ -35,6 +35,10 @@ var _ap: AnimationPlayer = null
 var _clip := ""
 var _capture_frame := 0
 var _ready := false
+## POWER1 step 4 (e), review round 1: the next join starts from the shown pose standing still (HitImpact's quick hand-back).
+## Under a landed punch's reach the shown arm is the clip's, still swinging on (the lead uppercut's glove rises over her head
+## after the hit): carried on along that speed it flew up 0.3-0.6 m a frame (tools/hit_frame_film.gd trace=1, 15-36 m/s).
+var still := false
 
 
 func setup(skel: Skeleton3D, bone_names: Array) -> bool:
@@ -176,7 +180,8 @@ func _capture(skel: Skeleton3D) -> void:
 				var axis := turn.get_axis().normalized()
 				var angle := turn.get_angle()
 				vel = axis * (angle / _dt)
-		_vels.append(vel)
+		_vels.append(vel if not still else Vector3.ZERO)
+	still = false
 	if _root >= 0:
 		_start_root = _shown_root
 		_root_vel = (_shown_root - _before_root) / _dt if have_before else Vector3.ZERO

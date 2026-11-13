@@ -35,12 +35,26 @@ static func pick(bx: Dictionary, idle: String, fallback: float, rng: RandomNumbe
 	var m: Dictionary = bx.get("idle_match", {})
 	if m.is_empty() or str(m["clip"]) != idle:
 		return fallback
-	var now := current(bx)
+	# POWER1 step 4 (e), review round 1: a quick hand-back (HitImpact, the lead uppercut) enters the loop at its most usual
+	# guard - the frame nearest the loop's mean pose - not the frame nearest her glove: that glove is on its way up over her
+	# head, and the nearest frames of the loop held it there (tools/hit_frame_film.gd trace=1: +0.17 m over her head).
+	var now: Array = mean(m) if bool(bx.get("guard_home", false)) else current(bx)
 	var scored: Array = []
 	for k in (m["t"] as Array).size():
 		scored.append([distance(m["p"][k], now), float(m["t"][k])])
 	scored.sort_custom(func(x, y): return float(x[0]) < float(y[0]))
 	return float(scored[rng.randi() % mini(PICK, scored.size())][1])
+
+
+## The mean pose of a sampled loop.
+static func mean(m: Dictionary) -> Array:
+	var out: Array = []
+	for j in BONES.size():
+		var sum := Vector3.ZERO
+		for p in m["p"]:
+			sum += (p as Array)[j] as Vector3
+		out.append(sum / maxf(1.0, float((m["p"] as Array).size())))
+	return out
 
 
 ## The pose she shows now, the same way sample() reads it.

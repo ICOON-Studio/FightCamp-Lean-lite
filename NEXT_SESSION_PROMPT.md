@@ -1,66 +1,37 @@
-# S446 handover (written 2026-11-12 ~22:35 at the end of S445; S444's handover is in git history at b5b8c7d8)
+# S447 handover (written 2026-11-13 ~08:20 at the end of S446; S445's handover is in git history)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S446`
-and redraw Miro.
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S447`.
 
 ## USAGE RULES (kept)
-`get_usage` first; hand over at 300k context (S445 handed over at ~345k; week at 13%); at most TWO helpers; tell him the cost
-before a batch; one session coordinates and pushes, helpers report by SendMessage (tell each helper your session name at start).
+`get_usage` first; hand over at 300k context; at most TWO helpers; tell him the cost before a batch.
 
-## HIS WORDS IN S445 (verbatim)
-- "check other running session to report here" (both running sessions were pointed at the coordinator; both reported).
-- On the fight screen call box: "should we make this fill up with time and make it the shout call ?" -> "Yes, build it".
-- "show it" (the regroup v2 stills were sent; his default call still open).
+## HIS WORDS IN S446 (verbatim)
+- "replace cursor with grokbots,arena,goose" -> done: Grok Dev = screens + look fixes, Goose = long cloud jobs, Arena = pure
+  modules; CLAUDE.md roles, seat_dispatch (cursor who=()), roadmap rows, memory feedback_cursor_replaced_s446.
+- "check undisputed and blood&canvas how they do it do not waste time end effort if you can get it ready" -> answered from our
+  own REA notes (ops/research/POWER1_AUDIT_S446.md): B&C freezes both 0.04 s; Undisputed no freeze, follow-through 0.08-0.31 s.
+- "yes merge it" (Q-207) -> POWER1 steps 2-4 merged 74a910de, 12 fight tests green, pushed.
+- "give me the links what you want to buy" -> Punch Perfect (Unity, EUR 36.76 + VAT) and animo-mocap Boxing Animation Pack
+  (Fab, EUR 58.57); links in ops/research/MOCAP_PACKS_S439.md. Neither is in any library we own (checked). He buys end of Nov.
 
-## DONE IN S445 (all pushed)
-- Ask for a fight MAP v3 (ops/research/ASKFIGHT_MAP_S441.md) from Kalli 5/6 + John 6/6 on v2. Built in scripts/rules/AskBout.gd +
-  FightLearn.gd (ask_bout_test with 5 new mutants, fight_learn_test green, ee315955): asking opens after the first bout (pack 2.5);
-  camp words by phase (a 14-day show is a PEAK camp; Set camp needs 7 days); a scale miss closes Ask on that date (strip.ask_ok);
-  the road says when the nationals cannot be made from this show; unranked step up = "Nearest better record"; teach words 0.6/0.85.
-  Decided: the host's "no" is always a closed panel or absent card with its reason (CRITIC_PACK line 152 updated).
-- POWER1 step 1 collected (cddf2815 = fa3bbf7e + its ruler 4b5ae5ed; punch_weight/body_keep/cam_line/fighter_look 0).
-- Regroup preview (user arg hudregroup, scripts/fight3d/HudRegroup.gd 482/500): the corner's shout IS the call box - on the line
-  to her head, tagged Heard/Half heard/Not heard at once, a wash fills it over its exchange (the corner bar's ring), full =
-  Worked/Did not work, then the call name takes over and fades; it takes over BOTH shout paths (caption line AND the corner-post
-  bubble: ReactionBubbles shows the shout as a bubble whenever our post is on screen - the S444 cloud only caught the caption
-  path). Stills docs/mockups/s445/hud/shout_1..3, on the review board. "Light on her feet" -> "Light on the feet".
-- SHIPPED for everyone (b7f596c0): LANDED + CALLS WORKED counted the exchange still playing (settled at its start: the board showed
-  this call's cross at 0:30) -> CornerBar._ex_over counts finished exchanges only; HoverLabel tags 16 -> 20 px (corner_bar_test
-  was red on main). tools/fight3d_play.gd takes p03c_shout_half / p04b_shout_full when run with hudregroup.
-- Build exported (Builds/, docs/WHAT_TO_TRY.txt S445 section).
-
-## IN FLIGHT
-- ASKPROBE2 (Qwen, branch qwen/askprobe2, worktree E:\FightCamp\wt\LEAN_ASKPROBE2, launched 22:22, ETA ~23:30-00:00):
-  tools/ask_probe2.gd + docs/ASKPROBE2_RESULT.md. Bar in ops/research/TASK_ASKPROBE2.md. Collect by diff + its RESULT line.
-- POWER1 steps 2-4: session power1-step-4 [local_50fabfac-0548-4a0b-9780-6871f90cd93c] in E:/FightCamp/wt/LEAN_POWER1 (branch
-  claude/power1): blind read, then one fix round; it SendMessages the coordinator. Known reds at its start: punch_range 72
-  (control 100), hooks in band 5/9, clean hits off 20 (control 17), toes crossed 16 (14), lead uppercut pop 28.6 m/s. Ruling:
-  uppercuts at the measured 0.83-0.90 m, floor 0.70. Collect only steps the read says COLLECT. Steps 5-6 never ran: brief fresh.
-  RESULT (reported 2026-11-12 late): ALL THREE STEPS STILL FIX, nothing to collect. claude/power1 @ 15eb475e (main merged at
-  7453e15e). Blind read verdict + sheets in the session's notes folder (C:\Users\user\AppData\Local\Claude-Data\
-  claude_pzs8sxrjxfjjc\side-session-notes\local_fb5553c6-17e8-4410-9d5c-ea985c9b35fe\ blindread/VERDICT.md, fixround/sheet_*.png);
-  the recovered brief is there as TASK_POWER1_brief.md (ops/research/TASK_POWER1.md is MISSING from main - restore it).
-  After the fix round: punch_speed 47->39, hit_carry 45-47->42, hit_frame 12, block_meet 12->11, punch_weight 0,
-  punch_range 72->74 (hooks 6/9 in band, toes back to control's 14). Still red, in docs/POWER1_STEP4_RESULT.md: cross/jab
-  reach the face one frame early at 13-15 m/s; lead uppercut pops 26.1 m/s (JoinSmoother captures the clip's raised arm,
-  not the drawn glove); hooks/uppercuts land 0.95-1.09 m apart (footwork not arriving by contact); the graze decision ignores
-  the drawn glove; gloves pass through each other after the hit. scripts/rules and scripts/state untouched. Next: decide
-  whether POWER1 needs an audit before another fix round (two red rounds -> audit, memory feedback-audit-before-more-fix-rounds).
-- JUDGES1: HELD, nothing collected. Branch judges1 @ 1f1ed715: JudgedRound.gd (250) + test; BoutRead +7 lines (495/500).
-  judgesdecide: 3 Maria cases inside 0.06, but Lucy +6 v Erin 0.443/0.542 and plan v Priya 0.383/0.444 fail; ~100 ms a reading.
-  Round 3 later, fresh brief: ropes/pins in the walk, TheRead's build-up, the cost cut. The helper session is done.
+## DONE IN S446 (all pushed)
+- POWER1 2-4 merged after an audit; leftovers queued: POWER1B, GLOVECLASH1, JOINFIX1 (Grok Dev), FEETDIPS1 (Goose), HOOKTAKES1
+  (after the mocap packs). TASK_POWER1.md restored. Films docs/mockups/s446/power1_*.png (review board).
+- ASKPROBE2 collected (tools/ask_probe2.gd, docs/ASKPROBE2_RESULT.md; PR 240 closed). x1: spread ok but flat (ask vs wait even
+  40/36/49 of 60), teach words differ 20/60. x1.5: DOMINANT (step up wins growth 42/60), words 31/60.
+- PAGES2 sent to Grok Dev 07:40 (`gbot send --to dev`; branch grok/pages2; it skips the still - render it yourself).
+- BLOCKLOOK1 finding: ops/research/TASK_BLOCKLOOK1.md (block pose unchanged by POWER1; probe staging + mc_to_block).
 
 ## NEXT, IN ORDER
-1. Tell power1-step-4 your session name; collect ASKPROBE2 when it lands; spread ok -> two FRESH critics on map v3 -> 7+ both ->
-   logic check -> one drawing for his pick.
-2. His call on regroup v2 + the filling shout as the default: on yes, move each part into its owner file (SidePanel 470/500: new
-   pieces in their own files; HudRegroup's shout block becomes its own file) and drop the flag.
-3. POWER1 collect per the read; BLOCKLOOK1; RESULTLOOK1. Fight bars stay parked (Q-205).
+1. ASKPROBE2 at step_teach=1.25 (~16 min headless): `python ops/Tools/godot_slot.py run --who claude -- <godot.exe> --headless
+   --audio-driver Dummy --path . --script res://tools/ask_probe2.gd -- n_night=50 step_teach=1.25`. Both bars hold -> write the
+   value into ASKFIGHT_MAP v4 + the rule module, two FRESH critics, 7+ both, logic check, one drawing. Still dominant -> 1.15.
+2. Collect PAGES2 from Grok Dev (`python ops/Tools/gbot.py thread --to dev`; PR on grok/pages2); render the Fighters still.
+3. BLOCKLOOK1, then POWER1B / GLOVECLASH1 / JOINFIX1 briefs to Grok Dev; RESULTLOOK1.
+4. His open calls: fight screen regroup + filling shout as default (stills docs/mockups/s445/hud/), voices, PA mix.
 
-## TRAPS (S445)
-- A shout has two display paths (FightView: ReactionBubbles.take, else the caption line); hook both.
-- A call is picked only in the pause at an exchange (CornerBar._shout needs view._shouting) and the live round SETTLES the
-  exchange at its start: anything reading LiveRound "ex" during play sees the future. Use finished exchanges (t >= (i+1)*30).
-- fight3d_play stills land at fixed moments; a preview element needs its own shot (gate it on the user arg).
-- seat_dispatch reads the watchdog: RED (RAM 98% while he plays) refuses launches; queue the row and re-run `--act` later.
-- dispatch_queue.json rewrite by json.dumps reformats the whole file (big diff, same content).
+## TRAPS (S446)
+- `-- nopunchrange` turns off POWER1 step 4 ONLY; a "before" film with it still carries steps 2-3 - say so on the sheet.
+- roadmap.json / live_runs.json are indent=1: rewrite with json.dumps(indent=1) or the diff is the whole file.
+- tools/block_meet_probe.gd stages its own pair (GAP 0.80-1.10 m): its stills are not the played fight.
+- `agent_comms.py ask --attach` needs an absolute path.
