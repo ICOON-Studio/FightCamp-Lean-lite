@@ -3,7 +3,16 @@
 OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S453`.
 
 ## USAGE RULES (kept)
-- Run `get_usage` first. Hand over at 300k context. At most TWO helper sessions.
+- Run `get_usage` first. Hand over at 420k context (operator S452: "the limit is 420k"). At most TWO helper sessions.
+
+## LATEST S452 (he: "the limit is 420k"; "you are not allowed to end session before set limit, you are not allowed to idle when waiting, or running tests")
+- Work to ~395k, then wrap up; while a test/agent runs, do the next item (run_in_background).
+- STEPMASTERY1 data layer in (e0c1d992): f["steps"] at signing and on old saves; MoveTree's start rules call StepMastery. NOT wired: the
+  fire gate - SLOTS1 (LearnSlots) and the move tree are on no screen, so a step under 30 could never be learned. Build them together (PROGBUILD1).
+- COACHFIT1 v2 (ops/research/COACHFIT1_MAP_V2_S452.md) answers all 13 of Kalli's points; fresh critics: Maria SQ68 (sent), Dola SQ67 (held).
+- POWER1D is in-house: ops/research/TASK_POWER1D.md (red test on main, failures=25, frame diagnosis, approach).
+- DOLA: Cici drops a 79k message. Send = `cici.py attach --path E:/FightCamp/tmp/FightCamp_critic_pack.md` then
+  `cici.py send --file <job+map> --wait 0`; read with `cici.py read --out research/<stem>.md`. SQ66 (fight week v5) was sent that way.
 
 ## LATE S452 (after the first handover)
 - He approved deleting the 16 stale cards on the P0 frame ("yes delete the 16 stale miro cards"). Miro's server errored on EVERY call

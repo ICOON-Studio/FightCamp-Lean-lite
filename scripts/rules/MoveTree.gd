@@ -6,6 +6,7 @@ extends RefCounted
 
 const StrikeMap := preload("res://scripts/rules/StrikeMap.gd")
 const PunchStart := preload("res://scripts/rules/PunchStart.gd")
+const StepMastery := preload("res://scripts/rules/StepMastery.gd")
 
 ## The 16 nodes. Each: {id, branch, row, needs: {node_id: mastery_required}}.
 const NODES := [
@@ -133,28 +134,13 @@ static func opens(id: String) -> Array:
 	return out
 
 
-## Day 0 steps: step_in and step_out at max(30, 0.55 x footwork); every other step/defence 0.
+## Day 0 steps and old-save steps: one rule, StepMastery's (S452 STEPMASTERY1; it also strips a place suffix "tie_up@own_ropes").
 static func day0_steps(footwork: float) -> Dictionary:
-	var base: float = maxf(30.0, 0.55 * footwork)
-	var out := {}
-	for sid in STEP_IDS:
-		if sid == "step_in" or sid == "step_out":
-			out[sid] = base
-		else:
-			out[sid] = 0.0
-	for did in DEFENCE_IDS:
-		out[did] = 0.0
-	return out
+	return StepMastery.start_values(footwork)
 
 
-## Old save steps: a step/defence in plan_arrows starts at 60, any other at 30.
 static func old_save_steps(plan_arrows: Array) -> Dictionary:
-	var out := {}
-	for sid in STEP_IDS:
-		out[sid] = 60.0 if plan_arrows.has(sid) else 30.0
-	for did in DEFENCE_IDS:
-		out[did] = 60.0 if plan_arrows.has(did) else 30.0
-	return out
+	return StepMastery.from_old_save(plan_arrows)
 
 
 ## Style names whose three moves are all at 60+.

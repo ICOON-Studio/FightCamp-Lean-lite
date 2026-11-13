@@ -22,3 +22,13 @@
 ## Trap
 - A GDScript `var x := a or b` on a Dictionary-derived value is a parse error that only shows as missing holos in a still run
   (the log is needed: hidden_desktop.py --log=F). Type it.
+
+## Late S452 (after "the limit is 420k")
+- STEPMASTERY1A collected (a8b46b2e). Data layer e0c1d992: f["steps"] at signing / on old saves; MoveTree delegates; the fire gate held
+  until the slot picker and the move tree are on screen (else steps under 30 are stuck). step_mastery, move_tree, learn_slots,
+  save_load, golden_path green.
+- COACHFIT1 v2 map + critic brief (Kalli 5/5 on v1); Maria SQ68 sent; Dola SQ67 held behind SQ66.
+- POWER1D: harness on main (8dbdc230), BACK/FOLLOW repaired, red 25; diagnosis: the elbow flips 0.07-0.12 s after the hit, before the
+  0.22 s recovery; the guard entry already eases (join 0.45 s) - never play the tail.
+- Dola relaunched (Cici auto-started without its port); her composer drops 79k messages: attach the pack, type the job.
+- Miro: every call errors (update, delete-only, board_show) while connected on both sides; his 16 deletions approved, not yet applied.

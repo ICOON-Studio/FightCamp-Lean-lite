@@ -4,6 +4,7 @@ extends RefCounted
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const PunchStart := preload("res://scripts/rules/PunchStart.gd")
 const BodyFacts := preload("res://scripts/rules/BodyFacts.gd")
+const StepMastery := preload("res://scripts/rules/StepMastery.gd")
 const STATS: Array[String] = ["power", "speed", "technique", "defense", "conditioning", "fight_iq", "chin"]
 ## S443 (operator Q-S294-195 "Stamina", UX_AUDIT_S442 proposal A): one word for the engine - conditioning (the mean of Stamina
 ## and Recovery) is called Stamina, and every screen that prints a number beside the word prints the Stamina attribute's own
@@ -253,4 +254,7 @@ static func fighter_state(f: Dictionary, day: int) -> Dictionary:
 		"focus": f.get("focus", "conditioning"), "diet": "hold", "fatigue": 8, "weekly_salary": 250, "pro": false,
 	}, false))
 	BodyFacts.fill(state)
+	# S452 STEPMASTERY1 (progression map M5): every signed boxer can step in and out; the rest of her footwork is learned.
+	if not state.has("steps"):
+		state["steps"] = StepMastery.start_values(float(state.get("footwork", 50.0)))
 	return state

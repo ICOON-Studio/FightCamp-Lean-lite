@@ -61,7 +61,7 @@ static func drillable(id: String, m: float, slot_id: String) -> bool:
 ## Shadow morning gain: MoveMastery.gain with station "shadowbox" (0.85/hr),
 ## station_tier 1.0, efficiency 1.0, minutes = hours * 60.
 static func shadow_gain(m: float, hours: float, coach_skill: float, cap_value: float) -> float:
-	return MoveMastery.gain(m, "shadowbox", hours * 60.0, coach_skill, 1.0, 1.0, cap_value)
+	return MoveMastery.gain(m, "shadowbox", hours * 60.0, coach_skill, 2.0, 1.0, cap_value)   # tier 2 = the pads' baseline (S452)
 
 
 ## Nights until the node reaches 30 (usable). 0 at 30+, -1 when gain <= 0.

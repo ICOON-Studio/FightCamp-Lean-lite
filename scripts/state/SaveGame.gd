@@ -7,6 +7,7 @@ extends RefCounted
 const Data := preload("res://scripts/state/Data.gd")
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const BodyFacts := preload("res://scripts/rules/BodyFacts.gd")
+const StepMastery := preload("res://scripts/rules/StepMastery.gd")
 const NoGi := preload("res://scripts/rules/NoGi.gd")
 const RivalPast := preload("res://scripts/rules/RivalPast.gd")
 
@@ -38,6 +39,10 @@ static func from_dict(d: Dictionary) -> Career:
 	for f in c.fighters:
 		FighterProfile.ensure(f)
 		BodyFacts.fill(f)
+		# S452 STEPMASTERY1: a save from before the step bars - her booked plan's steps start Sharp (60), the rest Usable (30).
+		if not f.has("steps"):
+			var arrows: Array = ((f.get("bout", {}) as Dictionary).get("arrows", []) as Array).map(func(a): return str((a as Dictionary).get("move", "")) if a is Dictionary else str(a))
+			f["steps"] = StepMastery.from_old_save(arrows)
 	# A save from before the belt road (S362): Ana joins the mat.
 	if not props.has("grapplers"):
 		c.grapplers = [NoGi.athlete()]
