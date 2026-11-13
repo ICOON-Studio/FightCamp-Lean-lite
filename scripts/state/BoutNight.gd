@@ -17,6 +17,7 @@ const OppFile := preload("res://scripts/rules/OppFile.gd")
 const RivalPast := preload("res://scripts/rules/RivalPast.gd")
 const Roster := preload("res://scripts/state/Roster.gd")
 const Knockdowns := preload("res://scripts/rules/Knockdowns.gd")
+const ProReadWire := preload("res://scripts/state/ProReadWire.gd")   # S462 INTEGRATE1 #5 pros get read
 const TowelWire := preload("res://scripts/state/TowelWire.gd")   # S461 INTEGRATE1 #4 the towel card
 const RingDuel := preload("res://scripts/state/RingDuel.gd")
 const Attrs := preload("res://scripts/rules/Attrs.gd")
@@ -69,6 +70,7 @@ static func fight_step(c: Career, f: Dictionary, m: Dictionary, a: String) -> vo
 		m["round"] = 0
 		m["rounds"] = []
 		_peak(c, f)
+		ProReadWire.open(f)
 		m["lab_from"] = f.duplicate(true)   # S443 the boxer at the first bell: the result page's measured fix replays her (FixLab)
 		_open(c, f, m, "")
 	elif a.begins_with("corner:") and not stopped(m) and LiveRound.live(m).is_empty():
@@ -342,6 +344,7 @@ static func _finish(c: Career, f: Dictionary, m: Dictionary) -> void:
 	var cards := JudgeNight.cards(f, m)   # S443 R29: m["judges"] always; their cards only when JudgeNight.decides()
 	var stop := stopped(m)
 	m["stopped"] = stop
+	ProReadWire.close(f, m)
 	var before := AfterFight.snap(c, f, opp)   # S430 the result page's "what the fight did" tiles read the change
 	var outcome := outcome_of(f, m)
 	var win := outcome == "win"

@@ -148,7 +148,7 @@ static var _recovery: Dictionary = {}
 ## head and comes back over her own body. Its recovery ends this long after the contact: the guard takes the glove home.
 ## POWER1D: HitImpact._quick_back holds the clip still on its contact this many REAL seconds (the hit-stop included), then
 ## hands her to the guard - the tail is never played (S445's 0.22 s of tail lifted her shoulder and flipped the elbow).
-const QUICK_BACK_S := {"pro_left_uppercut": 0.10}
+const QUICK_BACK_S := {"pro_left_uppercut": 0.10, "pro_right_uppercut": 0.10}   # S462 POWER1E: the rear uppercut too
 static var quick_back: bool = not OS.get_cmdline_user_args().has("nopunchrange")
 
 

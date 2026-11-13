@@ -1,3 +1,11 @@
+S462 (2026-11-13)
+- Fight: the rear uppercut. After it lands, the glove no longer drifts up and home slowly: it holds on the chin a split second,
+  then the hand comes back to her guard, as the lead uppercut has since S458. Watch a few landed rear uppercuts: does it land
+  and come back? (Inside, tangled up, the hand can jump the last bit into guard in one frame - tell me if you see it.)
+- Fight prep for a PRO bout: once two pro bouts are on tape, a line says which punch their corner will wait for ("Their corner
+  will wait for your Double jab"). If your plan keeps leaning on it, it costs you; change the plan's punch and it costs nothing.
+- Set the camp: hover the Film option - it now says what the next tape session looks for and what it could be worth to your plan.
+
 S461 (2026-11-13)
 - Fight night, the towel: when the corner minute comes after a count, a closing eye, heavy head damage, or a risk past your line,
   the corner shows THE TOWEL with the chance of being stopped next round (and with Box safe). Three answers: Pull out (a loss on

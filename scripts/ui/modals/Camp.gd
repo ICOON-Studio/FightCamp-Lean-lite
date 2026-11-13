@@ -24,6 +24,7 @@ const FilmEdge := preload("res://scripts/rules/FilmEdge.gd")
 const WeekStrip := preload("res://scripts/ui/WeekStrip.gd")
 const GaugeRow := preload("res://scripts/ui/GaugeRow.gd")
 const OppFile := preload("res://scripts/rules/OppFile.gd")
+const TellWorth := preload("res://scripts/rules/TellWorth.gd")   # S462 INTEGRATE1 #9 what the next tape session buys
 
 const W := 1620.0
 const OPTION_H := 132.0
@@ -187,7 +188,23 @@ func _film_card(main: Node, f: Dictionary, opp: Dictionary, film: bool) -> Butto
 	var fb := CampCard.option("Film", head, line, risk, UI.GREEN if int(s["n"]) > 0 else CampCard.SUB, film and tape,
 		main.act.bind("cfilm", ""), OPTION_H)
 	fb.size_flags_stretch_ratio = 1.5
+	fb.tooltip_text = worth_tip(f, opp)
 	return fb
+
+
+## S462 INTEGRATE1 #9 (TellWorth): what the next tape session opens and what it could be worth to the plan - a range while
+## the tell is hidden (the session is the only way to find out). "" with no tape or nothing left to find.
+static func worth_tip(f: Dictionary, opp: Dictionary) -> String:
+	var rounds := int((f.get("bout", {}) as Dictionary).get("rounds", BoutRules.ROUNDS))
+	var nf := TellWorth.next_film(opp, f.get("moves", {}), f.get("combos", {}), rounds)
+	if nf.is_empty():
+		return "Nothing left on the tape to find." if OppFile.has_tape(opp) else ""
+	var lo := float(nf["lo"])
+	var hi := float(nf["hi"])
+	var worth := "worth %d plan points over the bout" % roundi(lo)
+	if roundi(lo) != roundi(hi):
+		worth = "worth %d to %d plan points over the bout - only the tape tells which" % [roundi(lo), roundi(hi)]
+	return "The next tape session looks for: %s\n%s." % [str(nf["what"]), worth]
 
 
 ## 0.25 -> "0.25", 0.6 -> "0.6", 1.0 -> "1.0": the design values as written.

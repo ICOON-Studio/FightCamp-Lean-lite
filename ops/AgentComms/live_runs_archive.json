@@ -17425,6 +17425,364 @@
     "after": {},
     "board": ""
    }
+  },
+  {
+   "agent": "qwen",
+   "id": "GRADE1",
+   "title": "TASK GRADE1 - QWEN - centre the plan-line grade (Good / OK / Poor) and wire it into the fight and its forecast",
+   "status": "landed",
+   "started": "2026-11-13T21:42",
+   "eta": "2026-11-13T23:32",
+   "branch": "qwen/grade1",
+   "worktree": "E:/FightCamp/wt/LEAN_GRADE1",
+   "wt": "E:/FightCamp/wt/LEAN_GRADE1",
+   "brief": "ops/research/TASK_GRADE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/GRADE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run grade1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/GRADE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/GRADE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/GRADE1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 46860,
+    "seat_pid": 24092
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 8/8 PASS; PR #262",
+   "landed": "2026-11-13",
+   "finished": "2026-11-13T22:45",
+   "pr": 262,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/line_grade_test.gd",
+     "ok": true,
+     "last": "LINE_GRADE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/line_grade_test.gd",
+     "ok": true,
+     "last": "LINE_GRADE failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/bout_read_test.gd",
+     "ok": true,
+     "last": "BOUT_READ PASS"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_fight_test.gd",
+     "ok": true,
+     "last": "PLAN_FIGHT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/style_name_test.gd",
+     "ok": true,
+     "last": "STYLE_NAME failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_chain_test.gd",
+     "ok": true,
+     "last": "PLAN_CHAIN failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/golden_path_test.gd",
+     "ok": true,
+     "last": "GOLDEN_PATH failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "archived": "S462"
+  },
+  {
+   "agent": "antigravity",
+   "id": "READ1",
+   "title": "TASK READ1 - size the professional's read through the game's real bout (no screen, no game change)",
+   "status": "landed",
+   "started": "2026-11-13T22:15",
+   "eta": "2026-11-13T23:40",
+   "branch": "agy/read1",
+   "worktree": "E:/FightCamp/wt/LEAN_READ1",
+   "wt": "E:/FightCamp/wt/LEAN_READ1",
+   "brief": "ops/research/TASK_READ1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/READ1_dispatch_out.txt",
+   "match": "seat_dispatch.py run read1",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/READ1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/READ1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/READ1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 27980,
+    "seat_pid": 37352
+   },
+   "note": "S368 seat_dispatch: agy exit 0; 1 commit(s); checks 3/3 PASS; PR #261",
+   "landed": "2026-11-13",
+   "finished": "2026-11-13T22:43",
+   "pr": 261,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/read1_probe.gd",
+     "ok": true,
+     "last": "RESULT: tools/read1_probe.gd -> READ_EDGE=6 pass=no"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/pro_read_test.gd",
+     "ok": true,
+     "last": "PRO_READ failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/phase_wire_test.gd",
+     "ok": true,
+     "last": "PHASE_WIRE failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "archived": "S462"
+  },
+  {
+   "agent": "qwen",
+   "id": "LOYAL1",
+   "title": "TASK LOYAL1 - a season of club weeks: who goes short, and what it does to loyalty (SHORTWEEK1 + LOYAL1, no screen)",
+   "status": "landed",
+   "started": "2026-11-13T22:41",
+   "eta": "2026-11-14T00:31",
+   "branch": "qwen/loyal1",
+   "worktree": "E:/FightCamp/wt/LEAN_LOYAL1",
+   "wt": "E:/FightCamp/wt/LEAN_LOYAL1",
+   "brief": "ops/research/TASK_LOYAL1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/LOYAL1_dispatch_out.txt",
+   "match": "seat_dispatch.py run loyal1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/LOYAL1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/LOYAL1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/LOYAL1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 39484,
+    "seat_pid": 44424
+   },
+   "note": "S462 collected by Claude: rerun reproduced (honest page); SHORTWEEK1 + LOYAL1 FAIL structurally (12 asked vs 8 owned with four starters) -> CLUBWEEK v5 on Kalli (SQ87); #6/#11 not wired",
+   "finished": "2026-11-13T23:13",
+   "pr": 263,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/loyal1_probe.gd",
+     "ok": true,
+     "last": "LOYAL1 done"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/club_deal_test.gd",
+     "ok": true,
+     "last": "CLUB_DEAL failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/loyalty_test.gd",
+     "ok": true,
+     "last": "LOYALTY failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "archived": "S462"
+  },
+  {
+   "agent": "antigravity",
+   "id": "KNOWBOTS1",
+   "title": "TASK KNOWBOTS1 - prove the reads are worth paying for before Knowledge is wired (bots, no screen)",
+   "status": "landed",
+   "started": "2026-11-13T22:45",
+   "eta": "2026-11-14T00:10",
+   "branch": "agy/knowbots1",
+   "worktree": "E:/FightCamp/wt/LEAN_KNOWBOTS1",
+   "wt": "E:/FightCamp/wt/LEAN_KNOWBOTS1",
+   "brief": "ops/research/TASK_KNOWBOTS1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/KNOWBOTS1_dispatch_out.txt",
+   "match": "seat_dispatch.py run knowbots1",
+   "model": "gemini-4-argon-high",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/KNOWBOTS1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/KNOWBOTS1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/KNOWBOTS1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 760,
+    "seat_pid": 13648
+   },
+   "note": "S368 seat_dispatch: agy exit 0; 1 commit(s); checks 2/3 PASS; PR #264",
+   "finished": "2026-11-13T23:13",
+   "pr": 264,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/knowbots_probe.gd",
+     "ok": false,
+     "last": "RESULT: tools/knowbots_probe.gd -> reader_minus_blind=-1 per 60 worlds pass=no"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/knowledge_test.gd",
+     "ok": true,
+     "last": "KNOWLEDGE failures=0 (24 checks)"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/world_years_test.gd",
+     "ok": true,
+     "last": "WORLD_YEARS checks=30 failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "archived": "S462"
+  },
+  {
+   "agent": "qwen",
+   "id": "POWER1C",
+   "title": "TASK POWER1C - QWEN (qwen3-coder) - the lead uppercut's tail: a short upward follow-through, then back to guard, never over her own head",
+   "status": "failed | closed S452, in-house POWER1D",
+   "started": "2026-11-13T14:11",
+   "eta": "2026-11-13T16:01",
+   "branch": "qwen/power1c",
+   "worktree": "E:/FightCamp/wt/LEAN_POWER1C",
+   "wt": "E:/FightCamp/wt/LEAN_POWER1C",
+   "brief": "ops/research/TASK_POWER1C.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/POWER1C_dispatch_out.txt",
+   "match": "seat_dispatch.py run power1c",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/POWER1C_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/POWER1C_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/POWER1C_dispatch_runner.log",
+    "source": "S450 lead, from agy",
+    "brief_copied": true,
+    "runner_pid": 47896,
+    "seat_pid": 29572
+   },
+   "note": "S452 rejected by Claude: OVER_HEAD and ELBOW still red after the fix (its own table), regressions up (join_return 0->2, hit_carry 40->52, punch_speed 39->41). Tail goes in-house (POWER1D).",
+   "finished": "2026-11-13T15:03",
+   "pr": 253,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/uppercut_tail_test.gd",
+     "ok": false,
+     "last": "UPPERCUT_TAIL failures=22"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/join_return_test.gd",
+     "ok": false,
+     "last": "JOIN_RETURN failures=2"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_carry_test.gd",
+     "ok": false,
+     "last": "HIT_CARRY failures=47"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_frame_test.gd",
+     "ok": false,
+     "last": "HIT_FRAME failures=10"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/punch_speed_test.gd",
+     "ok": false,
+     "last": "PUNCH_SPEED failures=45"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fight_feel_test.gd",
+     "ok": true,
+     "last": "FIGHT_FEEL failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/beat_clips_test.gd",
+     "ok": true,
+     "last": "BEATCLIPS failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/head_aim_test.gd",
+     "ok": true,
+     "last": "HEAD_AIM failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/file_limits_test.gd",
+     "ok": true,
+     "last": "FILE_LIMITS failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "ended": "2026-11-13T15:16:58",
+   "archived": "S462"
+  },
+  {
+   "agent": "grok",
+   "id": "BLOCKLOOK5",
+   "title": "The block, round 5: straight punches caught out in front, hooks as today",
+   "status": "landed - not merged (S453: block_meet preview jab regressed), continued as BLOCKLOOK5B",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "branch": "grok/blocklook5",
+   "brief": "ops/research/TASK_BLOCKLOOK5.md",
+   "started": "2026-11-13T15:24",
+   "eta": "2026-11-13T21:30",
+   "note": "S452: ETA from round 4 (sent 14:55, PR about 6 h later)",
+   "archived": "S462"
   }
  ]
 }

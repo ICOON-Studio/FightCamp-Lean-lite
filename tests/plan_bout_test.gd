@@ -145,6 +145,13 @@ func _share(arrows: Array) -> Array:
 		var c := _career(40 + i)
 		var f: Dictionary = c.fighter()
 		f["arrows"] = arrows.duplicate(true)
+		# S462: every plan's combinations at Sharp - since S450 FIRELEVEL3 a line under Usable (30) never fires, so the branch
+		# combos (mastery 0) were never thrown. All arms drilled alike: the arms differ only in the plan.
+		var combos: Dictionary = f["combos"]
+		for a in arrows:
+			var row := StrikeMap.move(str(a["move"]))
+			if str(row.get("kind", "")) == "combo":
+				combos[str(row["combo"])] = maxf(float(combos.get(str(row["combo"]), 0.0)), 60.0)
 		var m := _book(c, f)
 		Bouts.fight_step(c, f, m, "sim")
 		for r in m["rounds"]:

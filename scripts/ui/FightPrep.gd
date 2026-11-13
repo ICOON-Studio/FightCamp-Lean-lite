@@ -13,6 +13,7 @@ extends RefCounted
 ##   FightPrep.make(main, career, fighter) -> VBoxContainer "FightPrep"   next_step(career, fighter) -> [label, act, arg]
 
 const TowelWire := preload("res://scripts/state/TowelWire.gd")   # S461 the towel line
+const ProReadWire := preload("res://scripts/state/ProReadWire.gd")   # S462 the pro read
 const UI := preload("res://scripts/ui/UI.gd")
 const Data := preload("res://scripts/state/Data.gd")
 const Sim := preload("res://scripts/state/Sim.gd")
@@ -180,6 +181,9 @@ static func _camp_card(main: Node, c: Career, f: Dictionary, bout_day: int) -> P
 	var spare := float(f["limit"]) - float(wf["day"])
 	rows.append(UI.kv("On the scale", "%.1f now → %.1f on the morning, limit %.1f%s" % [float(wf["now"]), float(wf["day"]), float(f["limit"]),
 		" (%.1f kg to spare)" % spare if spare >= 0.0 else " (%.1f kg over)" % -spare], UI.RED if not bool(wf["ok"]) else (UI.AMBER if spare < SCALE_MARGIN else UI.GREEN)))
+	var read := ProReadWire.words(f)   # S462 INTEGRATE1 #5: a pro's last two bouts are on tape; change the plan off the line
+	if read != "":
+		rows.append(UI.kv("On their tape", read + ". Change the plan's punch, or it costs you.", UI.AMBER))
 	UI.add_rows(v, rows)
 	v.add_child(towel_row(main, f))
 	var week := UI.button("Change the week", "Link", main.act.bind("ftab", "3"))

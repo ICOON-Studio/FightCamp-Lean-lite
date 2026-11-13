@@ -29,6 +29,7 @@ const CornerTrust := preload("res://scripts/rules/CornerTrust.gd")
 const Adaptation := preload("res://scripts/rules/Adaptation.gd")
 const ReadBack := preload("res://scripts/rules/ReadBack.gd")
 const FireLevel := preload("res://scripts/rules/FireLevel.gd")
+const ProReadWire := preload("res://scripts/state/ProReadWire.gd")   # S462 INTEGRATE1 #5 pros get read
 const StyleName := preload("res://scripts/rules/StyleName.gd")   # S459 INTEGRATE1: the named style's levers
 const LineGrade := preload("res://scripts/rules/LineGrade.gd")   # GRADE1
 const HABITS_PATH := "res://assets/data/fight_habits.json"
@@ -268,8 +269,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	var psit := PlanFight.refine(sit, RoundStyle.opponent_habits(opp), i, Exchanges.EXCHANGES)
 	var card_mean := PlanFight.card_mean(at, psit, f.get("moves", {}), f.get("combos", {}))
 	var plan_edge := LineGrade.edge(pick, psit, PlanFight.rate(arrow, f.get("combos", {})) * PerkFight.combo_rate(f, arrow), card_mean, LineGrade.attrs_for(f))
-	if plan_edge > LineGrade.edge(pick, psit, PlanFight.rate(arrow, f.get("combos", {})), card_mean, LineGrade.attrs_for(f)):
-		perks.append("hand_speed")
+	if plan_edge > LineGrade.edge(pick, psit, PlanFight.rate(arrow, f.get("combos", {})), card_mean, LineGrade.attrs_for(f)): perks.append("hand_speed")
 	# S396 rank 3 (PlanRead): right answers that land build reads, wrong ones punished; both carry through the round.
 	var fit_now := PlanFight.fit(arrow, psit) if bool(pick.get("planned", false)) else "none"
 	var uses: Dictionary = lv.get_or_add("answer_uses", {})   # per round: both corners reset at the bell (S396 templates test)
@@ -280,7 +280,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	fit_now = "wrong" if bool(rb["wrong"]) else fit_now
 	# The round's reads move the exchange and count as the plan's effect (swing), but the Why grades the answers themselves.
 	var read_edge := PlanRead.edge(int(lv.get("reads", 0))) + PlanPressure.edge(f["bout"]) * StyleName.effect(f, "pressure_answers")   # S397 + pressure (S459 Pressure fighter x1.2)
-	d += plan_edge + read_edge
+	d += plan_edge + read_edge - ProReadWire.edge(f["bout"], n, arrow, pick, _rng(c, f, n, i + 83).randf())   # S462 the pro read
 	# S360 Q-S294-90: the camp weeks spent on the opponent's own game (WeekOpp) count when the fight is on it.
 	d += WeekOpp.edge(f["bout"], sit)
 	# S340 the clinch's price: its own dice, so an exchange without a tie-up plays exactly as before.
