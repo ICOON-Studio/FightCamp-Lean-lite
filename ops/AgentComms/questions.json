@@ -7191,6 +7191,24 @@
       "answered_at": "2026-11-13T18:55:14Z",
       "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-220",
+      "asked": "2026-11-13T22:59:26.849953+00:00",
+      "session": "S294",
+      "text": "A fighter leaves (R58): the design passed two critics (Maria 7/7, Dola 7/8). Build it after the fight week?",
+      "options": [
+        "Yes, build after the fight week",
+        "Not yet"
+      ],
+      "attach": [
+        "research/R58_MAP_S439.md",
+        "research/DESIGN_R58_LEAVES2_CRITIC_DOLA_DOLA.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

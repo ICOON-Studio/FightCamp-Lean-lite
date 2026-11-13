@@ -1,6 +1,6 @@
 # TASK KNOWBOTS2 - the Knowledge bots test on a FAIR prospect pool (probe, no screen)
 
-Status: OPEN (S462, Claude main). Discipline: boxing. Model: qwen3-coder (Qwen), default.
+Status: DONE - VOID (S463: Claude rerun on the same seeds matched the page to the digit, -3 / -5; but the probe reads the centred shape while results come from an independent rating, so the control failed - see TASK_KNOWBOTS3). Was: OPEN (S462, Claude main). Discipline: boxing. Model: qwen3-coder (Qwen), default.
 Mechanic: PROGRESSIVE KNOWLEDGE (ops/research/KNOWLEDGE_S411.md, "First, prove it"). Step 1 built (scripts/rules/Knowledge.gd).
 KNOWBOTS1 (docs/KNOWBOTS1_RESULT.md, read it) FAILED on Claude's rerun: READER 103 vs BLIND 104 top-10 appearances, but its
 prospects were four hand-built archetypes per year (gem / hype flop / solid / raw) with hype tied to the archetype. This task

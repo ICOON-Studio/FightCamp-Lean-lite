@@ -1366,6 +1366,12 @@
    "seat": "agy",
    "status": "queued",
    "queued": "2026-11-13T22:18"
+  },
+  {
+   "task": "KNOWBOTS3",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-14T01:10"
   }
  ]
 }
