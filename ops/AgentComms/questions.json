@@ -6975,6 +6975,23 @@
       "note": "in chat: \"yes merge it\" (S446); merged 74a910de",
       "answered_at": "2026-11-13T05:46:18.467232+00:00",
       "seen_by_claude": true
+    },
+    {
+      "id": "Q-S294-208",
+      "asked": "2026-11-13T06:52:41.443664+00:00",
+      "session": "S294",
+      "text": "Fight screen regroup, with your marks built (organ icons with hit counts, stamina cost as icon + number on each call, the shout as a cloud from our corner that fills while the call plays out, CALLS WORKED?). Make it the fight screen for everyone?",
+      "options": [
+        "Yes, make it the default",
+        "Not yet, more changes"
+      ],
+      "attach": [
+        "AgentComms/board_attach/Q-S294-208_0_shout_2_half.png"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
     }
   ]
 }

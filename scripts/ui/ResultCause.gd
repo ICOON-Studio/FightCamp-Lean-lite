@@ -3,7 +3,7 @@ extends RefCounted
 ## opponent's game (and the situation lost most that no line answered); the fix is the best measured change, BOTH changes
 ## when both together win at least as often (the coach critic's must, RESULT_R4_CRITIC_B_S442.md 6.1); the ladder shows the
 ## plan as written against each change, out of the same nights, with the even-fight line; one sentence says what the numbers
-## say about the night ("even the best plan only makes it an even fight" when it does). One gold button puts the fix in the
+## say about the night ("even the best plan only gets close to an even fight" when it does). One gold button puts the fix in the
 ## plan (BoutActs "planfix"). Without a measurement (a bout from before S443) the card reads FightWhy's lines.
 ##   cause_card(main, m, f, names) -> PanelContainer   panel(title) -> PanelContainer with a VBox at child 0
 
@@ -143,7 +143,7 @@ static func _verdict(lab: Dictionary, names: Array, win: bool) -> Label:
 	var text := ""
 	var vd := str(lab.get("verdict", ""))
 	if win and vd != "plan_right":   # a win the plan did not earn: say so, then what the best plan makes of it
-		var then := {"even": "Even the best plan only makes it an even fight (%d of %d)." % [b, n],
+		var then := {"even": "Even the best plan only gets close to an even fight (%d of %d)." % [b, n],
 			"class": "Even the best plan loses most nights (%d of %d): %s is the better boxer for now." % [b, n, names[1]],
 			"fixed": "The fix makes it %d of %d." % [b, n]}
 		text = "A win the plan did not earn: as written it wins %d of %d nights against %s. %s" % [w, n, names[1], str(then.get(vd, ""))]
@@ -152,7 +152,7 @@ static func _verdict(lab: Dictionary, names: Array, win: bool) -> Label:
 			"plan_right":
 				text = "The plan was right: as written it wins %d of %d nights.%s" % [w, n, "" if win else " This night the rounds went the other way."]
 			"even":
-				text = "Even the best plan only makes it an even fight (%d of %d): %s was the better boxer. Training closes the rest." % [b, n, names[1]]
+				text = "Even the best plan only gets close to an even fight (%d of %d): %s was the better boxer. Training closes the rest." % [b, n, names[1]]
 			"class":
 				text = "Even the best plan loses most nights (%d of %d): %s is the better boxer for now. Training has to close the gap." % [b, n, names[1]]
 			_:

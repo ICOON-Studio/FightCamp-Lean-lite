@@ -4902,19 +4902,19 @@
    {
     "id": "RESULTLOOK1",
     "who": "claude",
-    "title": "Fight result page round 4: cause and fix in one row, one main action (round 3 from a real bout scored 6)",
+    "title": "Fight result page: the built summary + tabs (S443) are on the review board for his look (S447: the 'even fight' sentence fixed)",
     "after": ""
    },
    {
     "id": "ASKFIGHT1",
     "who": "claude",
-    "title": "Ask for a fight: step teaching between x1 (flat) and x1.5 (step up wins 42/60) - find the value, map v4, then two fresh critics and one drawing",
+    "title": "Ask for a fight map v4 (a step up teaches x1.25, measured): critics round 3 with Kalli + John (sent S447), 7+ both -> logic check -> one drawing",
     "after": ""
    },
    {
     "id": "BLOCKLOOK1",
-    "who": "claude",
-    "title": "A blocked punch must meet the glove (stills on the board: it ends under the guard)",
+    "who": "grok",
+    "title": "BLOCKLOOK2 at Grok Dev after JOINFIX1: no block clip - she stays in guard and the near glove catches the punch at the cheek (the clip itself is the hunched cover-up, S447 pose sheet)",
     "after": ""
    },
    {
@@ -4951,12 +4951,6 @@
     "id": "TURNPRO1",
     "who": "claude",
     "title": "Turning pro (his yes: 'put the comparison on the cards'): a season as amateur vs as pro on the cards and the offer; the offer linked to record, rank, streak, hype, the boxer's ambition and morale, the season target; the Board licence, manager, promoter named - design page + two critics 7+, then build",
-    "after": "FOUNDATION"
-   },
-   {
-    "id": "CALLSPREAD1",
-    "who": "qwen",
-    "title": "F15: a corner call's strength rises point by point from 56 to 62 (briefed; after the foundation lands)",
     "after": "FOUNDATION"
    },
    {
@@ -5027,8 +5021,8 @@
    },
    {
     "id": "POWER1B",
-    "who": "claude",
-    "title": "Punch power steps 5-6, fresh brief on main: no single frame faster than the band (the cross jumps to 15 m/s), the glove carries on after the freeze for its follow-through time (Undisputed 0.08-0.31 s)",
+    "who": "goose",
+    "title": "Punch power 5-6 at Goose (issue 241): no one-frame jump before contact, the glove carries on after the freeze",
     "after": ""
    },
    {
@@ -5515,6 +5509,22 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Punch power 2-4 merged",
+     "who": "claude"
+    },
+    {
+     "text": "Ask probe collected (flat)",
+     "who": "claude"
+    },
+    {
+     "text": "Cursor out: Grok, Goose, Arena",
+     "who": "claude"
+    },
+    {
+     "text": "Each punch at its own distance",
+     "who": "claude"
+    },
+    {
      "text": "Ask for a fight: map v3 + rules",
      "who": "claude"
     },
@@ -5553,39 +5563,19 @@
     {
      "text": "Corner cards built",
      "who": "claude"
-    },
-    {
-     "text": "Fight bubbles built",
-     "who": "claude"
-    },
-    {
-     "text": "Headline card built",
-     "who": "claude"
-    },
-    {
-     "text": "UX audit: 17 fixes in",
-     "who": "claude"
-    },
-    {
-     "text": "4 of 7 result defects fixed",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Punch power 2-4 merged",
+     "text": "Ask map v4: step up teaches x1.25",
      "who": "claude"
     },
     {
-     "text": "Ask probe collected (flat)",
+     "text": "Block clip judged: cover-up, out",
      "who": "claude"
     },
     {
-     "text": "Cursor out: Grok, Goose, Arena",
-     "who": "claude"
-    },
-    {
-     "text": "Each punch at its own distance",
+     "text": "Result page on review board",
      "who": "claude"
     }
    ],
@@ -5599,11 +5589,19 @@
      "who": "operator"
     },
     {
-     "text": "Your picks: UX, result page shape",
+     "text": "Ask map v4: Kalli + John score",
+     "who": "agent"
+    },
+    {
+     "text": "BLOCKLOOK2: guard catch (grok)",
+     "who": "agent"
+    },
+    {
+     "text": "Your call: regroup default Q-208",
      "who": "operator"
     },
     {
-     "text": "Your call: fight screen default",
+     "text": "Your look: result page tabs",
      "who": "operator"
     }
    ],
@@ -5657,15 +5655,7 @@
      "who": "claude"
     },
     {
-     "text": "Blocks: punch meets the glove",
-     "who": "claude"
-    },
-    {
      "text": "Block: a human block pose",
-     "who": "claude"
-    },
-    {
-     "text": "Punch power 5-6: no 1-frame spike",
      "who": "claude"
     },
     {
@@ -5673,7 +5663,7 @@
      "who": "claude"
     }
    ],
-   "session": "S446"
+   "session": "S447"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

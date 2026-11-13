@@ -23,6 +23,7 @@ func _initialize() -> void:
 	_words_monotonic()
 	_stop_word_monotonic()
 	_mutant_no_grow_loss_fails()
+	_step_up_teaches_more()
 	print("FIGHT_LEARN failures=%d" % failures)
 	quit(1 if failures > 0 else 0)
 
@@ -163,3 +164,14 @@ func _mutant_no_grow_loss_fails() -> void:
 	## Mutant does NOT add GROW_LOSS.
 	var real := FightLearn.teach(gap, false, false)
 	_check(absf(real - mutant_grow) > 0.1, "mutant without GROW_LOSS differs from real: real=%.3f, mutant=%.3f" % [real, mutant_grow])
+
+
+## Map v4: a step up teaches x1.25 of the same fight from the sheet; the sheet and a picked name teach the plain amount.
+## Hand value: 1.25 (ASKPROBE2 S446). A mutant at x1 (flat) or x1.5 (dominant) fails the hand value.
+func _step_up_teaches_more() -> void:
+	_check(absf(FightLearn.STEP_TEACH - 1.25) < 0.0001, "STEP_TEACH is the measured 1.25, got %.3f" % FightLearn.STEP_TEACH)
+	for gap in [0.0, 3.0, 6.0]:
+		var base := FightLearn.teach(gap, true, false)
+		_check(absf(FightLearn.teach_for("step_up", gap, true, false) - base * 1.25) < 0.0001, "step up at gap %.1f = 1.25 x sheet" % gap)
+		_check(absf(FightLearn.teach_for("sheet", gap, true, false) - base) < 0.0001, "sheet at gap %.1f = plain teach" % gap)
+		_check(absf(FightLearn.teach_for("name", gap, true, false) - base) < 0.0001, "picked name at gap %.1f = plain teach" % gap)

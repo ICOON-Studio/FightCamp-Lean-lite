@@ -1,4 +1,15 @@
-# ASK FOR A FIGHT - the short map, v3 (S445, mechanic 1 of his order)
+# ASK FOR A FIGHT - the short map, v4 (S447, mechanic 1 of his order)
+
+v4 (S447): ASKPROBE2 measured map v3 through the game's real bout (docs/ASKPROBE2_RESULT.md, 60 fighters, seed 4421,
+~29,000 bouts a run). With step teaching x1 the decision was FLAT: asking and waiting came out even for 40 (record),
+36 (growth) and 49 (safety) of 60 fighters, and the three cards' teach words differed on only 20 of 60 panels (bar: half).
+The map's own first lever moved: x1.5 made the step up the growth answer for 42 of 60 (dominant); x1.25 holds both bars at
+the edge - the step up is best for growth on 36 of 60 (the 6-in-10 cap) and the teach words differ on 30 of 60 (half).
+v4 takes x1.25: A STEP UP TEACHES A QUARTER MORE than the same fight from the sheet (`FightLearn.STEP_TEACH`,
+`FightLearn.teach_for`, tested). Still flat and shown as it is: for the record and for staying safe, asking and waiting
+come out even for most fighters (39 and 49 of 60); the step-up lever moves growth only. The cases held: C (4-1, day 40)
+- the sheet name wins growth and safety clear, asking buys bouts (2.84 vs 1.95 waiting); E - the written plan against
+pressure picks the presser two places up and wins 36% against 20% for the counter-puncher one place up.
 
 v3 (S445): v2 scored Kalli depth 5 / play 6, John 6 / 6 (ASKFIGHT_CRITIC_S444_KALLI.md, _JOHN.md). Their shared lists and
 what v3 does with each: (1) A NAME YOU PICK reaches above or level only - already the code since his Q-204 "Only above or
@@ -62,6 +73,8 @@ Three things pay, and no single number adds them up:
    little, a better opponent more (up to 6 rating points above), a soft one almost nothing; a points loss to a better
    boxer still teaches; a stoppage teaches nothing. ON THE CARD IN WORDS ONLY ("teaches little / some / a lot"), like
    the stoppage chance ("unlikely / possible / a real risk"): never a number the player can sort by.
+   A STEP UP teaches a quarter more than the same fight from the sheet (v4, x1.25, measured): the coach who sends a
+   boxer up the ladder is paid in learning, not in record.
    The stat it lands on is named as the screens name it today.
 3. THE SEASON AND THE BODY: a stoppage is 30 days out (90 for a second inside 90 days), durability ceiling -2 for
    good, 2 members, reputation -4; the nationals want 5 bouts by day 70 and a fit boxer on day 84; the pro offer wants
@@ -106,7 +119,7 @@ No favours, no host calls, no fighter's own ask, no entry-order choice, no secon
    to the show after, the honest step label and the new teach cuts; play the map's case C as written (4-1 on day 40, not
    2-0); play case E with a WRITTEN PLAN against a named style through the game's real bout (no win-chance oracle); keep
    step teaching x1. Bar: no answer best in more than 6 of 10 across 60 fighters, and the three cards' teach words differ
-   on at least half the panels.
+   on at least half the panels. DONE S446: x1 flat, x1.5 dominant, x1.25 holds both bars (v4 takes it).
 1. ASKPROBE1 (DONE S443; a seat; pure): `FightLearn.gd` + `AskBout.gd` + tests + a probe that plays cases A to G and a spread of
    60 fighters through the game's real bout and prints which answer a sensible player picks. Prices move here.
 2. Only if the probe shows a spread: two fresh critics on this map at 7+, a logic check, then ONE drawing for his pick.

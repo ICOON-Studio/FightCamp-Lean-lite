@@ -632,8 +632,8 @@
    "status": "queued",
    "queued_at": "2026-11-12 11:47",
    "tries": 0,
-   "skips": 19,
-   "last_error": "2026-11-12 20:10 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+   "skips": 44,
+   "last_error": "2026-11-13 08:40 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
   },
   {
    "id": "SQ44",
@@ -655,17 +655,47 @@
    "seat": "kalli",
    "brief": "research/ASKFIGHT_CRITIC_S444_BRIEF.md",
    "stem": "ASKFIGHT_CRITIC_S444_KALLI",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-12 20:34",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-12 20:40",
+   "sent_ms": 1794508825711,
+   "answered_at": "2026-11-12 21:10",
+   "answer": "research/ASKFIGHT_CRITIC_S444_KALLI.md",
+   "chars": 20476,
+   "seen_by_claude": true
   },
   {
    "id": "SQ46",
    "seat": "john",
    "brief": "research/ASKFIGHT_CRITIC_S444_BRIEF.md",
    "stem": "ASKFIGHT_CRITIC_S444_JOHN",
-   "status": "queued",
+   "status": "answered",
    "queued_at": "2026-11-12 20:34",
+   "tries": 0,
+   "sent_at": "2026-11-12 20:40",
+   "sent_ms": 1794508828224,
+   "answered_at": "2026-11-12 21:10",
+   "answer": "research/ASKFIGHT_CRITIC_S444_JOHN.md",
+   "chars": 17216,
+   "seen_by_claude": true
+  },
+  {
+   "id": "SQ47",
+   "seat": "kalli",
+   "brief": "research/ASKFIGHT_CRITIC_S447_BRIEF.md",
+   "stem": "ASKFIGHT_CRITIC_S447_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-13 08:46",
+   "tries": 0
+  },
+  {
+   "id": "SQ48",
+   "seat": "john",
+   "brief": "research/ASKFIGHT_CRITIC_S447_BRIEF.md",
+   "stem": "ASKFIGHT_CRITIC_S447_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-13 08:46",
    "tries": 0
   }
  ]

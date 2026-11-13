@@ -2517,6 +2517,71 @@
       "id": "C327",
       "claude_note": "S443: bubbles see-through (black 42%), no wooden frame, words outlined; still on the board after the test.",
       "addressed": "cited by da238dd2 2026-11-12"
+    },
+    {
+      "id": "C328",
+      "path": "AgentComms/board_attach/Q-S294-206_0_after_regroup.png",
+      "text": "MARKUP for Q-S294-206: 2 marks -> Feedback/2026-11-12-12/README.md",
+      "at": "2026-11-12T18:49:23Z",
+      "seen_by_claude": true,
+      "addressed": "cited by eecee6df 2026-11-12"
+    },
+    {
+      "id": "C329",
+      "path": "AgentComms/board_attach/Q-S294-206_0_after_regroup.png",
+      "text": "MARKUP for Q-S294-206: 3 marks -> Feedback/2026-11-12-13/README.md",
+      "at": "2026-11-12T18:50:24Z",
+      "seen_by_claude": true,
+      "addressed": "cited by eecee6df 2026-11-12"
+    },
+    {
+      "id": "C330",
+      "path": "AgentComms/board_attach/Q-S294-206_0_after_regroup.png",
+      "text": "MARKUP for Q-S294-206: 4 marks -> Feedback/2026-11-12-14/README.md",
+      "at": "2026-11-12T18:51:38Z",
+      "seen_by_claude": true,
+      "addressed": "cited by eecee6df 2026-11-12"
+    },
+    {
+      "id": "C331",
+      "path": "AgentComms/board_attach/Q-S294-206_0_after_regroup.png",
+      "text": "MARKUP for Q-S294-206: 1 marks -> Feedback/2026-11-12-15/README.md",
+      "at": "2026-11-12T18:53:08Z",
+      "seen_by_claude": true,
+      "addressed": "cited by eecee6df 2026-11-12"
+    },
+    {
+      "id": "C332",
+      "path": "AgentComms/board_attach/Q-S294-206_0_after_regroup.png",
+      "text": "MARKUP for Q-S294-206: 2 marks -> Feedback/2026-11-12-16/README.md",
+      "at": "2026-11-12T18:54:37Z",
+      "seen_by_claude": true,
+      "addressed": "cited by eecee6df 2026-11-12"
+    },
+    {
+      "id": "C333",
+      "path": "AgentComms/board_attach/Q-S294-206_0_after_regroup.png",
+      "text": "MARKUP for Q-S294-206: 3 marks -> Feedback/2026-11-12-17/README.md",
+      "at": "2026-11-12T18:56:09Z",
+      "seen_by_claude": true,
+      "addressed": "cited by eecee6df 2026-11-12"
+    },
+    {
+      "id": "C334",
+      "path": "AgentComms/board_attach/Q-S294-206_0_after_regroup.png",
+      "text": "MARKUP for Q-S294-206: 6 marks -> Feedback/2026-11-12-18/README.md",
+      "at": "2026-11-12T18:57:28Z",
+      "seen_by_claude": true,
+      "addressed": "cited by eecee6df 2026-11-12"
+    },
+    {
+      "id": "C335",
+      "path": "AgentComms/board_attach/Q-S294-206_0_after_regroup.png",
+      "text": "MARKUP for Q-S294-206: 7 marks -> Feedback/2026-11-12-19/README.md",
+      "at": "2026-11-12T18:58:21Z",
+      "seen_by_claude": true,
+      "addressed": "cited by eecee6df 2026-11-12 (S444) + S445 call fill",
+      "claude_note": "S447 answer by mark: 1 organ icons with the hit count replace the empty circle (eecee6df); 2 AIM = where Lucy aims: Own game (her own mix, 1 in 5 to the body), Head, Body - kept; 3 the box is now CALLS WORKED? and the shout fills as the call plays out, ending Worked / Did not work (S445); 4-6 the shout is a cloud on our side, from our corner; 7 each call shows a stamina icon and its number (+0.5 / -1.5 / -3). Still: docs/mockups/s445/hud/shout_2_half.png."
     }
   ]
 }

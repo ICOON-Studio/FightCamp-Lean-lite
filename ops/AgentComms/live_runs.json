@@ -213,19 +213,6 @@
    "note": "S368 seat_dispatch: cursor exit 1, no commit on cursor/clipfix1 (stray: -); output E:\\FightCamp\\wt\\CLIPFIX1_dispatch_out.txt",
    "finished": "2026-11-12T02:07"
   },
-  "PAGES2": {
-   "agent": "grok",
-   "id": "PAGES2",
-   "title": "TASK PAGES2 - GROK DEV - the Fighters page as painted, one wide row a fighter",
-   "status": "done",
-   "started": "2026-11-13T07:40",
-   "eta": "2026-11-13T09:30",
-   "branch": "grok/pages2",
-   "brief": "ops/research/TASK_PAGES2.md",
-   "repo": "FightCamp-Lean",
-   "where": "cloud",
-   "note": "Grok Dev: already on main as PAGES2B (114a85c4, S441); stale row"
-  },
   "JOINFIX1": {
    "agent": "grok",
    "id": "JOINFIX1",
@@ -237,6 +224,26 @@
    "brief": "ops/research/TASK_JOINFIX1.md",
    "repo": "FightCamp-Lean",
    "where": "cloud"
+  },
+  "POWER1B": {
+   "agent": "goose",
+   "id": "POWER1B",
+   "title": "Punch power 5-6: no one-frame jump, follow-through after the freeze",
+   "status": "running",
+   "started": "2026-11-13T08:51",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "issue": "https://github.com/ICOON-Studio/FightCamp-Lean/issues/241"
+  },
+  "BLOCKLOOK2": {
+   "agent": "grok",
+   "id": "BLOCKLOOK2",
+   "title": "A block is a guard that catches the punch (after JOINFIX1)",
+   "status": "waiting",
+   "started": "2026-11-13T08:51",
+   "where": "cloud",
+   "repo": "FightCamp-Lean",
+   "branch": "grok/blocklook2"
   }
  },
  "codex_budget": {
