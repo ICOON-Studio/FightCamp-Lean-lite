@@ -1,6 +1,6 @@
 # TASK PROGPROBE1 - GOOSE (cloud probe) - progression cadence and the hold rule (PROGPROBE1 + HOLD1) over two seasons
 
-Status: WAITS FOR MOVETREE1 TO MERGE (it reads scripts/rules/MoveTree.gd). Discipline: boxing. Model: Goose + qwen3-coder.
+Status: OPEN - MOVETREE1 merged on main in S450 (scripts/rules/MoveTree.gd). Discipline: boxing. Model: Goose + qwen3-coder.
 Mechanic: PROGRESSION (approved, owner Q-S294-211). Spec: ops/research/PROGRESSION_MAP_S448.md sections 3, 4 (M1-M3), 9 rows PROGPROBE1 and
 HOLD1 - READ THEM. A MEASUREMENT ONLY: no rule module changes. The rules not built yet (learning slot, hold rule, step mastery) are
 modelled INSIDE the probe, clearly marked, so their numbers can be set before they are built.

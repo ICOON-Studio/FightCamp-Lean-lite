@@ -16,7 +16,13 @@ func _initialize() -> void:
 	for r in rows:
 		by[str(r[0])] = r
 	_check(rows.size() == 8 and rows.all(func(r): return (r as Array).size() == 3 and str(r[1]) != "" and str(r[2]) != ""), "eight rows, each with both boxers")
-	_check(str(by["HEIGHT"][1]) == "169 cm" and str(by["REACH"][1]) == "169 cm", "her height is her drawn body, her reach follows it")
+	# S450 BODYFACTS1: our fighters carry their own measured height and reach now (BodyFacts.fill in Data.fighter_state).
+	_check(str(by["HEIGHT"][1]) == "%d cm" % int(f["height"]) and str(by["REACH"][1]) == "%d cm" % int(f["reach"]), "her height and reach are her own")
+	var bare := f.duplicate()
+	bare.erase("height")
+	bare.erase("reach")
+	var bare_rows := TaleOfTape.rows(bare, opp, "", 169.0)
+	_check(str(bare_rows[1][1]) == "169 cm" and str(bare_rows[2][1]) == "169 cm", "without a measured body: her drawn body, her reach follows it")
 	_check(str(by["HEIGHT"][2]) == "%d cm" % int(opp["height"]) and str(by["REACH"][2]) == "%d cm" % int(opp["reach"]), "the opponent's height and reach are her own")
 	_check(str(by["RECORD"][1]) == "%d-%d" % [int(f["w"]), int(f["l"])] and str(by["CLUB"][1]) == "Anvil Street Gym", "record and club")
 	# S312: the opponent's weight is a number inside the class limit, never the words "made weight".

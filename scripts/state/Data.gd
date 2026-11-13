@@ -3,6 +3,7 @@ extends RefCounted
 
 const FighterProfile := preload("res://scripts/rules/FighterProfile.gd")
 const PunchStart := preload("res://scripts/rules/PunchStart.gd")
+const BodyFacts := preload("res://scripts/rules/BodyFacts.gd")
 const STATS: Array[String] = ["power", "speed", "technique", "defense", "conditioning", "fight_iq", "chin"]
 ## S443 (operator Q-S294-195 "Stamina", UX_AUDIT_S442 proposal A): one word for the engine - conditioning (the mean of Stamina
 ## and Recovery) is called Stamina, and every screen that prints a number beside the word prints the Stamina attribute's own
@@ -245,9 +246,11 @@ static func fighter_state(f: Dictionary, day: int) -> Dictionary:
 		moves[m] = PunchStart.mastery(float(f["stats"]["technique"]), m)
 	var div := str(f.get("div", "wlw"))
 	# Fight model step 1: footwork, style dials, personality, habits and morale (old saves get theirs here too).
-	return FighterProfile.ensure(f.merged({
+	var state: Dictionary = FighterProfile.ensure(f.merged({
 		"div": div, "sex": sex_of(f), "limit": float(DIVISIONS[div]["limit"]), "offers": [], "bout": {}, "camp": {}, "goal_talk": false,
 		"next_offer_day": day + 8, "opp_index": 0, "rank": 0, "week_start": (f["stats"] as Dictionary).duplicate(),
 		"moves": moves, "learning": "Uppercut", "booked_fight": false, "history": [], "goal": {}, "cards": f.get("cards", []),
 		"focus": f.get("focus", "conditioning"), "diet": "hold", "fatigue": 8, "weekly_salary": 250, "pro": false,
 	}, false))
+	BodyFacts.fill(state)
+	return state
