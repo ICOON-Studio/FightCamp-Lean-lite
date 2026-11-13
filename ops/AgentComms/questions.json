@@ -6991,7 +6991,7 @@
       "answer": "check marked comments",
       "note": null,
       "answered_at": "2026-11-13T09:17:59Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": true
     },
     {
@@ -7009,7 +7009,7 @@
       "answer": "Yes, fight week first",
       "note": null,
       "answered_at": "2026-11-13T08:41:22Z",
-      "seen_by_claude": false,
+      "seen_by_claude": true,
       "comment_only": false
     },
     {
@@ -7024,6 +7024,24 @@
       ],
       "attach": [
         "research/OFFICE_BOOKING_S448.md"
+      ],
+      "answer": null,
+      "note": null,
+      "answered_at": null,
+      "seen_by_claude": false
+    },
+    {
+      "id": "Q-S294-211",
+      "asked": "2026-11-13T10:09:15.368067+00:00",
+      "session": "S294",
+      "text": "Progression plan (moves to learn and pick, footwork learned with a bar, the body grading every move, keeping moves sharp as the fighter's style, coaches who set the pace, pros getting read): critics passed it at 7 to 8. It also makes the coach's pad-night board show every week, not only in camp. Approve it so the measuring tests and the build can start?",
+      "options": [
+        "Yes, go ahead",
+        "Change something first",
+        "Not now"
+      ],
+      "attach": [
+        "research/PROGRESSION_SUMMARY_S448.md"
       ],
       "answer": null,
       "note": null,

@@ -1,4 +1,4 @@
-﻿extends SceneTree
+extends SceneTree
 ## S305 operator: "put all the animations in and work on how each animation appears". The move-set review reel: every punch
 ## beat x every outcome (lands, big shot, blocked, slipped, weaved, missed) plus tired / standing count / KO / win, each played
 ## the way FightView plays a beat (BeatClips picks, contact timing, hit / defence on time) from the broadcast camera.
@@ -11,6 +11,7 @@ const W := 1920
 const H := 1080
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
+const BlockCatch := preload("res://scripts/fight3d/BlockCatch.gd")
 const OUTCOMES := ["lands", "big", "block", "slip", "weave", "miss"]
 const CROP := Rect2i(410, 60, 1100, 1000)
 
@@ -56,7 +57,8 @@ func _punch(move: String, outcome: String) -> void:
 	var ctx := {"big": outcome == "big", "miss": outcome == "miss", "tired": false, "step": false, "roll": 0.0}
 	var clip := BeatClips.punch(move, ctx, stage.has_move)
 	var sp := BeatClips.speed(clip, move)
-	var at := BeatClips.contact(clip, float(Stage.CONTACT.get(move, Stage.CONTACT_S))) / sp
+	var cs := BeatClips.contact(clip, float(Stage.CONTACT.get(move, Stage.CONTACT_S)))
+	var at := cs / sp
 	var answer := ""
 	# The same side rule and body-shot elbow block as FightView (S305).
 	var hand := str(BeatClips.contact_row(clip).get("hand", ""))
@@ -67,12 +69,17 @@ func _punch(move: String, outcome: String) -> void:
 		answer = BeatClips.defence(outcome, move, from_left, bool(stage.boxers[0].get("south", false)), stage.has_move)
 		if outcome == "block" and move == "body_hook":
 			answer = "elbow brace"
+		elif outcome == "block":
+			answer = "guard catch"   # S449 BLOCKLOOK2: no block clip; the game's path (BeatFire): arm_block + BlockCatch
 	var label := "%s %s: blue %s%s" % [move, outcome, clip, (" -> red " + answer) if answer != "" else ""]
 	await _case(label, func():
 		stage.play(1, clip, sp)
 		if outcome in ["lands", "big"]:
 			stage.land(1, clip, move == "body_hook" or clip.contains("kidney"))
 			create_timer(at).timeout.connect(stage.hit.bind(0, answer, BeatClips.speed(answer, ""), 1, move, outcome == "big"))
+		elif answer == "guard catch":
+			stage.arm_block(1, clip, at, cs)
+			BlockCatch.block(stage, 1, clip, move, cs, sp, at)
 		elif answer == "elbow brace":
 			create_timer(at).timeout.connect((stage.boxers[0]["snap"] as Node).brace.bind(not from_left))
 		elif answer != "":

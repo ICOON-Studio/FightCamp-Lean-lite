@@ -30,5 +30,10 @@ movement, the body, coaches and staff tied together. Full map: `ops/research/PRO
 Seven tests through the game's real fights check each piece pulls its weight (no pick always right, no style always best, the pro
 read fair, coaches all worth hiring). Anything that fails is redesigned before it is drawn.
 
-## Critics
-Round 1: Kalli 4 / 6, John 5 / 6. Round 2: Kalli 6 / 6, John 6 / 7. Round 3: see the board question.
+## One thing this changes that you approved before
+The club's pad-night board (who gets the coach's 8 pad nights) becomes the top row of the Week EVERY week when two or more fighters train,
+not only when two are in camp. With moves to learn and moves to keep sharp, the nights are shared every week, so the trade has to be seen.
+
+## Critics (depth / play)
+Round 1: Kalli 4 / 6, John 5 / 6. Round 2: Kalli 6 / 6, John 6 / 7. Round 3: Kalli 6 / 7, John 7 / 7. Round 4: Kalli 7 / 7, John 8 / 7.
+The small defects round 4 still named are fixed in the map (v4.1).

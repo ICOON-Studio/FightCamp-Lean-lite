@@ -1,4 +1,4 @@
-# PROGRESSION: what the player is eager to unlock, week by week, season by season, across a career (design map v4, S448)
+# PROGRESSION: what the player is eager to unlock, week by week, season by season, across a career (design map v4.1, S448)
 
 Owner, verbatim: "the player needs something to be eager on unlocking each week that will make his fighter better , so wee need a
 proper progression plan , how first amateur weeks and pro weeks run , my thoughts are , in training learn a move (shows up on profile
@@ -19,7 +19,7 @@ UNITS: the club's assistant holds 8 PAD NIGHTS a week (AGREED PADPOOL1; Luke Rei
 A pad night is one fighter's share of an evening: 240 DRILL UNITS in the code (`PadWeek.PAD_NIGHT_MINUTES`) for the pack's 75 real minutes.
 A sparring night SHARES 180 units (`SPAR_NIGHT_MINUTES`) among the moves on the fighter's cards and plan. Prices below are in units.
 
-## What changed (R1: Kalli depth 4 / play 6, John 5 / 6; R2: Kalli 6 / 6, John 6 / 7; R3: Kalli 6 / 7, John 7 / 7)
+## What changed (R1: Kalli depth 4 / play 6, John 5 / 6; R2: Kalli 6 / 6, John 6 / 7; R3: Kalli 6 / 7, John 7 / 7; R4 on v4: Kalli 7 / 7, John 8 / 7 - v4.1 fixes the defects R4 named, last row)
 | Found | The mechanic now |
 |---|---|
 | R1: the tree was a queue; awards locked the rows; start state, stamps, invisible bonuses | THE SPECIALTY (held moves) is the identity; rows open by moves Usable; today's start kept; stamps and +1s cut |
@@ -35,6 +35,7 @@ A sparring night SHARES 180 units (`SPAR_NIGHT_MINUTES`) among the moves on the 
 | R3: old saves' Feint in a locked row | A node at 30+ in a locked row is known and usable; a row's lock only stops LEARNING new nodes there |
 | R3: the coach's default hides the choice | Monday lists "dropped X, holding Y" with Undo |
 | R3: dependencies; the always-on pad-night row changes an agreed rule; names in rows | C20 and C17 placed before what uses them; the always-on row goes to the owner as a named change in this approval; names only in headers |
+| R4 (v4.1): sparring share counted in lines; PEAK double-counted; a second assistant's nights unwritten; shadow vs the slot; a Footwork-50 cliff; the tree delaying the real Silver test; the Feint doing two jobs; the style table in points; READ-PROOF passable by 0 of 0 or by a careless wide plan; injury vs code; veteran speed twice; names in buttons | Shares counted in MOVES (a combination line shares over its punches; pad cards share the same 180); PEAK = its two nights, no multiplier; a second assistant runs some of the 8 nights and adds none; shadow and chains drill only the slot's move or moves at 30+; Step in and Step out always start Usable; Check hook to row 2; the Feint in no style set (the professional's read answer only); styles judged in measured weeks; READ-PROOF needs 3+ fires and a held second line; injury keeps the code's quarter gains; veteran speed once; Hire and Turn pro buttons |
 
 ## 0. The idea in seven lines
 1. ONE BAR PER MOVE. Mastery (0-100, CODE) is the move's experience; its lines are the thresholds: Usable 30 (in the fight), Sharp 60,
@@ -88,15 +89,16 @@ Signature barely change a bout; steps work in full on day one; an unlock arrives
 | Row (opens when) | LEAD HAND | REAR HAND / POWER | FOOTWORK | DEFENCE AND INSIDE |
 |---|---|---|---|---|
 | 1 at signing | Jab, Lead hook | Cross, Body hook | Step in, Step out | (Guard: always) |
-| 2 at 5 moves Usable | | Uppercut (Cross 30 + Step in 30) | Step back (Step out 30), Pivot (Step back 30) | Tie up (Step in 30), Roll out (Lead hook 30) |
-| 3 at 9 moves Usable | Check hook (Lead hook 60 + Pivot 30), Feint (Jab 60) | | Cut off (Step in 60), Herd (Cut off 30) | Push off (Tie up 30) |
+| 2 at 5 moves Usable | Check hook (Lead hook 60) | Uppercut (Cross 30 + Step in 30) | Step back (Step out 30), Pivot (Step back 30) | Tie up (Step in 30), Roll out (Lead hook 30) |
+| 3 at 9 moves Usable | Feint (Jab 60) | | Cut off (Step in 60), Herd (Cut off 30) | Push off (Tie up 30) |
 16 nodes: 6 punches (`Data.gd:234`), 7 footwork (`StrikeMap`: step_in, step_out, step_back, pivot_out, cut_off, herd, feint), 3 defence
 and inside (tie_up, roll_out, push_off). Every node is already a weapon or a plan answer (CODE); no new fight code or clip; each gets a bar.
 Herd and Push off stay only if TREEVALUE1 clears them; else they merge into Cut off and Tie up (14 nodes).
 A ROW'S LOCK ONLY STOPS LEARNING: a node already at 30+ in a locked row (a start, an old save, a signing card) is known and usable.
-DAY 0: punches at today's shares; Step in and Step out at max(30, 0.55 x Footwork) for Footwork 50+. Any start with Technique 49+ has
-Jab, Cross and Lead hook at 30+, so five moves are Usable and row 2 opens on day 0: the FIRST PICK comes in week 1 (the first-hour
-guide's "learn a move" step). Footwork under 50: Step in starts in the slot. Every other node starts at 0.
+DAY 0: punches at today's shares; Step in and Step out ALWAYS start at max(30, 0.55 x Footwork) (moving is what the Preliminary award
+tests: every signed boxer can step in and out). Any start with Technique 49+ has Jab, Cross and Lead hook at 30+, so five moves are Usable
+and row 2 opens on day 0: the FIRST PICK comes in week 1 (the first-hour guide's "learn a move" step). Below Technique 49 the Lead hook
+starts in the slot and row 2 opens when it crosses 30. Every other node starts at 0. No hidden number decides the first-hour moment.
 OLD SAVES: a step in the fighter's plan starts at 60 (Sharp, as today it fires in full), any other step at 30; the Monday review says so
 once ("Footwork now has bars: the plan's steps start Sharp").
 A node shows: bar with ticks at 30 / 60 / 85, grade letter (M5), what it opens (moves, combinations, plan answers: "Pivot: an answer when
@@ -119,13 +121,14 @@ book's view BY PLACE IN THE RING. Uppercut opens 1-6-3.
 - A RULE, NOT A GAIN: each Sunday `Specialty.week(f)` checks every move at 60+: if its hold was met, no fade; if not, a Sharp move falls 1.5
   toward 50 and a Signature 1.5 toward 70 (ESTIMATE). Usable moves keep today's floor of 30. Mastery gain (`MoveMastery`) is untouched.
 - THE HOLD (ESTIMATE, HOLD1 sets it): 20 drill units a week for Sharp, 40 for Signature, from the move's own SHARE of the week's pads, bag
-  and sparring. Sparring's 180 units are SHARED over the moves on the fighter's cards and plan (CODE `PadWeek.spar_pool`): a 4-line plan
-  gives each move about 45 (holds a Signature), a 6-line plan with 3 pad cards about 20 (holds Sharp only), a 7-line plan under 20 (holds
-  nothing alone). THE PLAN'S SIZE IS THE TRADE: more lines answer more modes but hold less; the rest is bought with pad-night units.
+    and sparring. Sparring's 180 units are SHARED over the MOVES on the fighter's pad cards and plan (CODE `PadWeek.spar_pool`), counted
+  move by move: a combination line shares its part over its punches (CODE: a drilled combination also holds its punches); a move named
+  twice counts once. 4 moves in all get 45 each (holds a Signature); 6 moves get 30 (Sharp only); 9 or more get 20 or less (Sharp at the
+  edge). THE PLAN'S SIZE IS THE TRADE: more moves in the plan answer more modes but each holds less; the rest is bought with pad units.
   A fighter on 2 pad nights (480 units) topping up 2 Sharp moves and 1 Signature outside the plan pays 80 and keeps 400 to learn.
-- WHEN NOTHING FADES: in a fight week (amateur, AGREED AMATEURWEEK1) and in TAPER (CODE phase: light, no sparring); while OUT INJURED or
-  SUSPENDED (CODE: no pads, no sparring; learning stops too), with a "back in the gym: holds kept" line on return. In PEAK (sparring twice)
-  sparring counts double for holds. BASE and BUILD use the rule (the coach's default week has one sparring night, CODE).
+- WHEN NOTHING FADES: in a fight week (amateur, AGREED AMATEURWEEK1) and in TAPER (CODE phase: light, no sparring); and while OUT INJURED
+  (fades frozen, NEW; learning keeps the code's quarter of gains, CODE 4.10), with a "back in the gym: holds kept" line on return. A
+  suspension with no injury trains and holds as normal. PEAK is its two sparring nights (CODE), no multiplier. BASE and BUILD use the rule (the coach's default week has one sparring night, CODE).
 - COACH HOLDS IT (needs the AGREED "Coach runs it" control, C20, built first): on by default per fighter; the coach holds the plan's moves
   and any Signature; the player overrides on the SPECIALTY BOARD. Hold and Drop are the pad tray's control (Hold puts a hold card on the
   tray, Drop takes it off). Monday lists what the coach dropped and what it holds, with Undo, so the choice is always in view. Only a
@@ -138,15 +141,16 @@ move sits in exactly two sets (a ring: Jab, Cross, Step in, Body hook, Lead hook
 three. DAY-0 DISTANCE = mastery points to bring all three to 60 from a Technique-60, Footwork-55 start (gates included), ESTIMATE:
 | Style (CODE words) | Its set | Day-0 distance | Its fight effect (ESTIMATE, existing lever) | Its look (3D step reads, after stills) |
 |---|---|---|---|---|
-| Out-boxer | Jab, Step out, Pivot | 9 + 30 + 90 = 129 | range steering open +0.1 (`Duels` OPEN) | longer range, steps off the line |
-| Volume puncher | Jab, Cross, Feint (row 3) | 9 + 15 + 60 + the row-3 wait (about 5 weeks) | a combination's energy x0.9 (`Combos` spend) | busy feet, short steps in and out |
+| Out-boxer | Jab, Step out, Step back | 9 + 30 + 60 = 99 | range steering open +0.1 (`Duels` OPEN) | longer range, steps off the line |
+| Volume puncher | Jab, Cross, Pivot | 9 + 15 + 90 (Step back first) = 114 | a combination's energy x0.9 (`Combos` spend) | busy feet, angles off after the combination |
 | Boxer-puncher | Cross, Step in, Uppercut | 15 + 30 + 60 = 105 | plan edge at mid range +0.1 | holds the middle, steps in behind the cross |
 | Pressure fighter | Step in, Body hook, Tie up | 30 + 30 + 60 = 120 | pressure from right answers x1.2 | forward steps, rarely backs up |
 | Slugger | Body hook, Lead hook, Roll out | 30 + 23 + 60 = 113 | knockdown chance x1.1 (`Knockdowns`) | rolls under, plants to hook |
-| Counter-puncher | Lead hook, Step out, Step back | 23 + 30 + 60 = 113 | counter lines' edge +0.15 when the opponent loads up or presses | held stance, steps back and returns |
-The spread is 105 to 129 (Volume puncher's lower count waits on row 3); STYLE1 swaps a third move if any set ends more than 20 from the
-others in measured weeks. One style at a time: a fighter who holds two sets names one on the board (the other's effect stays off);
-STYLE1 also reports how often two sets are held at once (target under 1 in 4). A named style allows ONE plan line past the coach's cap
+| Counter-puncher | Lead hook, Step out, Check hook | 23 + 30 + 60 = 113 | counter lines' edge +0.15 when the opponent loads up or presses | held stance, steps back and returns |
+On paper 99 to 120 points; the bar is in MEASURED WEEKS: STYLE1 prints weeks to each style from every start and swaps a third move if any
+set ends more than 3 weeks from the others. The Feint is in no set: its one job is the professional's cover against the read (M7).
+Row 3 (Feint, Cut off, Herd, Push off) holds the late-amateur and professional answers to opponents who press or read. One style at a time: a fighter who holds two sets names one on the board (the other's effect stays off);
+STYLE1 also reports how often two sets are held at once (target under 1 in 4), for amateurs and professionals apart. A named style allows ONE plan line past the coach's cap
 (at most 7) - which also thins the sparring hold (M3): the style's own extra line has a price. Lose the hold and the style goes the next
 Monday; a written plan keeps its extra line until that bout. STYLE1 passes when each effect is worth 1.5 to 4 wins in 100 against what
 it suits, none is best against all, and no style is named in more than 1 career in 3 across the four starts.
@@ -154,7 +158,8 @@ SIGNATURE sits under the CODE mastery cap (40 + 0.4 Technique + 0.2 Ring IQ): at
 Signature is also a Technique goal; the node says "cap 75: Signature needs Technique 66".
 
 ### M5. FOOTWORK LEARNED; THE BODY DECIDES HOW WELL (steps get mastery; wire `LineGrade.gd`; NEW body facts and 3D reads)
-- The 7 footwork nodes and 3 defences fill on pad nights, in SHADOW mornings (0.85 an hour; a shadow morning names its step) and in sparring.
+- The 7 footwork nodes and 3 defences fill on pad nights, in SHADOW mornings (0.85 an hour; a shadow morning names its step: the slot's move
+  or a step at 30+) and in sparring. Shadow mornings and own chains, like pad nights, drill only the slot's move or moves at 30+.
   Under 30 the plan line using it is greyed "Pivot: learning, 2 pad nights" (CODE `StrikeMap.grey_reason` pattern); from 30 its fire
   share follows FireLevel. FOOTWORK1 bounds it: a novice with no Step back loses 1.5 to 5 more in 100 to pressure, never more.
 - GRADE: two of the 14 built abilities per node: steps and defences as `LineGrade.DONE_WITH` (CODE); punches added: Jab accuracy + speed,
@@ -169,16 +174,19 @@ Signature is also a Technique goal; the node says "cap 75: Signature needs Techn
 
 ### M6. COACHES: SPEED, SLOTS AND A MARKET (CODE factor + AGREED RPG 11 + NEW)
 - SPEED (CODE): pads rating x every bar; rating x every ability.
-- SECOND SLOT: an ASSISTANT running the fighter's pad nights with pads 65+. The head coach's pads (ESTIMATE from the background: Ex-pro 70,
+- SECOND SLOT: the ASSISTANT running that fighter's pad nights has pads 65+. The head coach's pads (ESTIMATE from the background: Ex-pro 70,
   Amateur coach 66, Old hand 62, Strength coach 52) count only on the head coach's own pad places (AGREED RPG 2), never for the slot.
 - SIGNATURE WORK AS A RATE: gain above 60 x clamp((pads - 55) / 20, 0.25, 1): Luke Reid 74 x0.95, Marcus Hale 58 x0.25. No wall but the cap.
-- THE MARKET (NEW, ESTIMATE; COACHMARKET1 prices them), four assistants, two at once (each paid; the slot reads the better):
+- THE MARKET (NEW, ESTIMATE; COACHMARKET1 prices them), four assistants, two at once (each paid). A second assistant ADDS NO PAD NIGHTS:
+  the club's 8 a week are the gym's evenings (AGREED PADPOOL1; more only through the Second club coach staff job, priced there). On the
+  pad-night board the player sets which assistant runs each fighter's nights; that fighter's slot and Signature rate read that assistant.
+  Each card shows the name in its header and one button, Hire (the code's "Hire Luke / Hire Marcus" become Hire on each card):
   | Assistant | Pads (growth) | Other areas | Wage | Why hire |
   |---|---|---|---|---|
   | Luke Reid (CODE) | 74 (+1 per 10 sessions, to 82) | bag 64, sparring 58 | $450 sessional, three evenings | second slot and Signature work now |
   | Marcus Hale (CODE) | 58 (to 70) | conditioning 90, strength 84 | $1,090 full time | bodies now: every ability faster |
-  | A young pads coach | 60 (+1 per 8 sessions, to 72: second slot in about 5 weeks of 8 nights, Signature rate past Hale's in a season) | sparring 55 | $380 | the long bet, cheapest |
-  | A footwork coach | 62 (+1 per 10, to 68) | sparring 72 | $520 | footwork nodes x1.2; sparring that holds |
+  | Jamie Price, young pads coach | 60 (+1 per 8 sessions to 72, a named exception to RPG 11's 1 per 10: second slot in about 5 weeks of 8 nights) | sparring 55 | $380 | the long bet: at 72 the Signature rate is x0.85 against Luke Reid's x0.95, for $70 less |
+  | Rosa Mendez, footwork coach | 62 (+1 per 10, to 68) | sparring 72 | $520 | footwork nodes x1.2; sparring that holds |
 - LETTING GO: a week's pay; growth already earned stays with that coach; slots and rates re-read at once.
 - GROWTH (AGREED RPG 11): +1 per 10 sessions in an area to the hire's ceiling; 40 pad sessions on one move opens the coach's signature
   drill (x1.2). The Monday review names each milestone ahead ("The young coach: 12 pad sessions to 65: second slots").
@@ -186,20 +194,21 @@ Signature is also a Technique goal; the node says "cap 75: Signature needs Techn
 
 ### M7. PROFESSIONALS GET READ (the measured rule, written, for professionals only; READ1 measures before it is on)
 - THE RULE: (1) the opponent's corner waits for the professional's line fired most in their last two bouts; when it fires into a waiting
-  corner it loses its edge and the counter costs (S427 size, ESTIMATE until READ1). (2) If a second line was fired within a fifth as often
-  (a second Signature does this), the corner alternates by round and the read's cost halves. (3) When the Feint line fires in a round, the
+  corner it loses its edge and the counter costs (S427 size, ESTIMATE until READ1). (2) If a second line held at Sharp or Signature was fired at
+  least 80% as often as the first, the corner alternates by round and the read's cost halves (a wide plan of Usable lines does not split it). (3) When the Feint line fires in a round, the
   read misses its target for the rest of that round 1 time in 2.
 - SHOWN BEFORE THE BOUT: Fight prep names the target ("their corner will wait for your 1-2") with Change the plan and Swap; the Why names the
   rounds it was read and how that line did in them.
-- READ-PROOF (the professional's season milestone, lit from the bout's own counts): in two professional bouts running, the read line won at
-  least half its exchanges in the rounds it was read, OR the read was split by a second line (rule 2). READ1 passes only if a careful
+- READ-PROOF (the professional's season milestone, lit from the bout's own counts): in two professional bouts running, the read line fired at
+  least 3 times in the rounds it was read and won at least half of them, OR the read was split by a held second line (rule 2). The debut
+  is never read (no professional tape yet); the read starts at the second professional bout. READ1 passes only if a careful
   professional (second Signature or Feint, plan changed on the target) ends within 2 in 100 of not being read; else the read's size is
   lowered until it does. Amateurs are never read (a rule of the game: club corners do not study club boxers).
 
 ### M8. THE FIGHT TEACHES; VETERANS TEACH (NEW, small)
 - A planned line that won two or more exchanges adds +3 mastery to its move (the line receipts, CODE "The plan, lit up") and a gold
   FIGHT-PROVEN pin. If the bout cannot attribute an exchange to a line, the pin waits (checked in task 8).
-- VETERAN (31+): fades x0.5 on held moves; learning x0.9. A veteran holding a Signature who spars with a club mate learning that move gives
+- VETERAN (31+): fades x0.5 on held moves (learning speed is M2's, applied once). A veteran holding a Signature who spars with a club mate learning that move gives
   the learner x1.5 on it that week (needs the AGREED sparring pair, C17, built first). The career's end is the AGREED career clock's
   retirement talk; a retired fighter as a coach is LEFT FOR LATER in the core loop.
 - The Why's NEXT names the open node that would have answered what lost the bout, with Pick (a slot free) or Swap (its price).
@@ -253,7 +262,7 @@ the welterweight in about week 12 (PROGPROBE1 reports the real week).
 | Result and the Why | FIGHT-PROVEN pins and mastery added; NEXT names the answering node, Pick or Swap; a professional's read rounds and how the line did; READ-PROOF progress | `BoutNight._finish`, `MoveTree.prove`, `FightWhy` |
 | Club > People | each assistant's card (name in its header): pads, second-slot line (65), Signature rate, sessions to the next point; the market (four, two at once); Let go with its price | `CoachAreas`, `Data.COACHES`, RPG 11 |
 | Signing card / Find a fighter | the day-0 tree, signature move, height and reach, learning speed from coachability and age | `Recruit`, `AttrGen`, `MoveTree.day0` |
-| Pro offer | "turning pro brings the read: the most-fired line is the 1-2; a sharp Feint and a second Signature cover it" | READ1 rule, `MoveTree` |
+| Pro offer | "turning pro brings the read from the second bout: the most-fired line is the 1-2; a sharp Feint and a second Signature cover it"; the button reads Turn pro | READ1 rule, `MoveTree` |
 
 ## 8. How it links (deep, not complicated)
 Coach (rating, growth, market) -> bar speed, slots, Signature rate -> moves cross lines (week) -> new plan answers and combinations ->
@@ -265,8 +274,8 @@ player decides at most one pick per freed slot and the club's pad nights; holds 
 ## 9. To be measured before any build (through the game's real code; each prints today's game first)
 | Probe | It plays | It passes when |
 |---|---|---|
-| PROGPROBE1 cadence | two seasons of the four starters through `Sim`, coach's picks and holds; arm A today, arm B this map | a line crossed 3 weeks in 4 per fighter; a pick every 2-4 weeks; no gym week with nothing crossed; a style named in season 1; first pick in week 1 for all four starts; it reports the week each row opens |
-| HOLD1 the specialty | four hold policies (coach's default, widest, deepest, plan only); plans of 4, 6 and 7 lines; a Signature; FOUR BOXERS on 8 nights; an injury layoff; the camp phases | a careful player holds 4 Sharp and 1 Signature AND gets a move to Usable within 4 weeks; plan length is a real trade (4 lines hold more, 7 answer more, neither best in more than 2 of 3 line-ups); same-start fighters end season 2 with different held sets; the hold units set |
+| PROGPROBE1 cadence | two seasons of the four starters through `Sim`, coach's picks and holds; arm A today, arm B this map | a line crossed 3 weeks in 4 per fighter; a pick every 2-4 weeks; no gym week with nothing crossed; a style named in season 1; first pick in week 1 for all four starts and 60 generated walk-ins; it reports the week each row opens and the weeks to each award, arm A against arm B (Silver no later than today) |
+| HOLD1 the specialty | four hold policies (coach's default, widest, deepest, plan only); plans of 4, 6 and 7 lines; a Signature; FOUR BOXERS on 8 nights; a BUSY AMATEUR (a bout every other Saturday); an injury layoff; the camp phases | a careful player holds 4 Sharp and 1 Signature AND gets a move to Usable within 4 weeks; plan length is a real trade (4 lines hold more, 7 answer more, neither best in more than 2 of 3 line-ups); same-start fighters end season 2 with different held sets; a busy amateur's frozen weeks hold no more than a careful normal season; the hold units set |
 | STYLE1 | prints the day-0 distance table and the measured weeks to each style; each style's effect on the played bout, four opponent styles | each worth 1.5 to 4 in 100 against what it suits; none best against all; none named in more than 1 career in 3; two sets held at once under 1 in 4; no set more than 20 points from the others in weeks |
 | TREEVALUE1 | each node at Usable and Sharp (60 generated fighters, four styles, FireLevel on) | every node 1.5 in 100 against at least one style; none best against all; wins still rise from 6 to 9 Usable answers |
 | PICKSPREAD1 | 60 fighters, first five picks, each card played 6 weeks on; Pivot's share and the award-test card's share reported | no card position best in more than 6 in 10; the coach's first card best in under 5 in 10; no single node best in more than 4 in 10 of the picks it appears in |
