@@ -28,7 +28,7 @@ static func build(rounds: Array, names: Array, compact: bool = false) -> VBoxCon
 	return v
 
 
-static func strip(st: Dictionary, names: Array) -> HBoxContainer:
+static func strip(st: Dictionary, _names: Array) -> HBoxContainer:
 	var h := UI.hbox(8)
 	h.name = "RoundStrip"
 	var tag := UI.caps("PUNCHES LANDED")   # DEFECTS1: the chips are punches landed, not scores
@@ -42,8 +42,8 @@ static func strip(st: Dictionary, names: Array) -> HBoxContainer:
 		chip.add_theme_stylebox_override("panel", UI.box(col.darkened(0.55), col, 6, 2, 10, 2))
 		var l: Array = r["landed"]
 		var t: Array = r["tank"]
-		chip.tooltip_text = "Round %d: %s's round. Landed %d to %d, exchanges %d to %d, energy left at the bell %d and %d." % [int(r["n"]),
-			str(names[0] if won else names[1]), int(l[0]), int(l[1]), int(r["xwon"][0]), int(r["xwon"][1]), int(round(float(t[0]))),
+		chip.tooltip_text = "Round %d: %s round. Landed %d to %d, exchanges %d to %d, energy left at the bell %d and %d." % [int(r["n"]),
+			"your boxer's" if won else "the opponent's", int(l[0]), int(l[1]), int(r["xwon"][0]), int(r["xwon"][1]), int(round(float(t[0]))),
 			int(round(float(t[1])))]
 		chip.add_child(UI.label("%d   %d-%d" % [int(r["n"]), int(l[0]), int(l[1])], TEXT, UI.FG, "bold"))
 		h.add_child(chip)
@@ -80,7 +80,7 @@ static func lists(st: Dictionary, names: Array, rows: int = ROWS) -> HBoxContain
 	h.name = "FightLists"
 	var games := UI.vbox(2)
 	games.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	games.add_child(_head("%s'S GAME" % str(names[1]).to_upper(), "What %s did most, and how many of those exchanges %s won. The answer is the call that beats it." % [names[1], names[0]]))
+	games.add_child(_head("%s'S GAME" % str(names[1]).to_upper(), "What the opponent did most, and how many of those exchanges your boxer won. The answer is the call that beats it."))
 	var shown := 0
 	for row in st["games"]:
 		var word := FightStats.game_word(str(row["sit"]))

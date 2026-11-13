@@ -23,6 +23,9 @@ const SIT_WORDS := {"press": "pressure", "range": "a boxer at range", "counter":
 
 
 static func read(rounds: Array, first: String, opp: String) -> Dictionary:
+	# S448 operator ("names are only mentioned on the header"): the read says the role, whatever names come in.
+	first = "your boxer" if first != "" else first
+	opp = "the opponent"
 	var best := {}
 	var wrong := {}
 	var habits := {}
@@ -106,7 +109,22 @@ static func read(rounds: Array, first: String, opp: String) -> Dictionary:
 		else:
 			# Opponent took counts.
 			out["plan"] = str(out["plan"]) + " " + count_text
+	for k in out.keys():
+		if out[k] is String:
+			out[k] = caps(str(out[k]))
 	return out
+
+
+## A role ("your boxer" / "the opponent") that opens a sentence gets its capital (S448).
+static func caps(text: String) -> String:
+	var re := RegEx.create_from_string("(^|[.!?]\\s+)(your boxer|the opponent)")
+	var t := text
+	var m := re.search(t)
+	while m != null:
+		var w := m.get_string(2)
+		t =t.substr(0, m.get_start(2)) + w.left(1).to_upper() + w.substr(1) + t.substr(m.get_end(2))
+		m = re.search(t, m.get_end(2))
+	return t
 
 
 static func _grade(t: Dictionary) -> String:

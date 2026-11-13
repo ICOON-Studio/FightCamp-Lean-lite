@@ -61,10 +61,10 @@ static func tiles(before: Dictionary, after: Dictionary, facts: Dictionary) -> A
 static func tired(after: Dictionary, facts: Dictionary) -> Dictionary:
 	var v := float(after.get("fatigue", 20.0))
 	var days := rest_days(v)
-	var first := str(facts.get("first", "The boxer"))
+	var first := "your boxer"   # S448 operator: names only in the header
 	var lines: Array = []
 	if days == 0:
-		lines.append("%s is fresh: back to normal training tomorrow." % first)
+		lines.append("Your boxer is fresh: back to normal training tomorrow.")
 	else:
 		lines.append("About %d rest day%s until %s is fresh." % [days, "" if days == 1 else "s", first])
 		lines.append("Hard training before that counts for less and risks an injury. Set the week on the Training tab.")
@@ -73,7 +73,7 @@ static func tired(after: Dictionary, facts: Dictionary) -> Dictionary:
 
 
 static func damage(before: Dictionary, after: Dictionary, facts: Dictionary) -> Dictionary:
-	var first := str(facts.get("first", "The boxer"))
+	var first := "your boxer"   # S448 operator: names only in the header
 	var lines: Array = []
 	var took := int(facts.get("took", 0))
 	var body := int(facts.get("took_body", 0))
@@ -170,8 +170,8 @@ static func morale(before: Dictionary, after: Dictionary, facts: Dictionary) -> 
 	var was := int(round(float(before.get("morale", 60.0))))
 	var now := int(round(float(after.get("morale", 60.0))))
 	var d := now - was
-	var first := str(facts.get("first", "The boxer"))
-	var opp := str(facts.get("opp", "the opponent"))
+	var first := "your boxer"   # S448 operator: names only in the header
+	var opp := "the opponent"
 	var lines: Array = []
 	var mood_was := str(before.get("mood", ""))
 	var mood_now := str(after.get("mood", ""))

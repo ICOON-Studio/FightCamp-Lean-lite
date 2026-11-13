@@ -22,8 +22,8 @@ func build(main: Node, m: Dictionary) -> void:
 	add_child(v)
 	v.add_child(UI.caps("A CALL FROM %s" % str(o["promoter"]).to_upper()))
 	v.add_child(UI.display("TURN %s PRO?" % str(f["first"]).to_upper(), 48))
-	v.add_child(UI.muted("%s, amateur %d-%d, number %d in the %s rankings." % [f["name"], f["w"], f["l"], int(f.get("rank", 0)),
-		str(f["wc"]).to_lower()] if int(f.get("rank", 0)) > 0 else "%s, amateur %d-%d." % [f["name"], f["w"], f["l"]], UI.BODY, true))
+	v.add_child(UI.muted("Amateur %d-%d, number %d in the %s rankings." % [f["w"], f["l"], int(f.get("rank", 0)),
+		str(f["wc"]).to_lower()] if int(f.get("rank", 0)) > 0 else "Amateur %d-%d." % [f["w"], f["l"]], UI.BODY, true))   # S448: the name is in the title
 	var debut := UI.card("THE DEBUT: %d ROUNDS IN %d WEEKS, %d TICKETS AT %s TO SELL" % [Roster.PRO_ROUNDS, Roster.PRO_DEBUT_WEEKS,
 		ProDebut.TICKETS, UI.money(ProDebut.TICKET_PRICE)])
 	debut[0].name = "Debut"
@@ -56,7 +56,7 @@ func build(main: Node, m: Dictionary) -> void:
 	if not bool(f.get("licensed", false)):
 		rows.append(UI.kv("Brain scans, medical, bloods", UI.money(ProDebut.MEDICALS)))
 	if not Roster.trainer_licensed(c):
-		rows.append(UI.kv("%s's trainer licence" % str(c.coach.get("name", "Your coach")), UI.money(ProDebut.CORNER_LICENCE)))
+		rows.append(UI.kv("Your coach's trainer licence", UI.money(ProDebut.CORNER_LICENCE)))
 	rows.append(UI.kv("Total", "-" + UI.money(int(sheet["costs"])), UI.RED))
 	UI.add_rows(now[1], rows)
 	grid.add_child(now[0])
@@ -75,7 +75,7 @@ func build(main: Node, m: Dictionary) -> void:
 	var stay := UI.button("Stay amateur", "BtnQuiet", main.act.bind("declinepro", ""))
 	stay.name = "DeclinePro"
 	foot.add_child(stay)
-	var go := UI.button("Turn %s pro" % f["first"], "BtnSolid", main.act.bind("turnpro", ""))
+	var go := UI.button("Turn pro", "BtnSolid", main.act.bind("turnpro", ""))
 	go.name = "TurnPro"
 	foot.add_child(go)
 	v.add_child(foot)

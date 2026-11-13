@@ -144,7 +144,7 @@ func _initialize() -> void:
 		"no fatigue sentence, no weight line beside the dials")
 	_check(_labels(m.find_child("Protocol_1", true, false)).has("3 nights, spar 1 a week")
 		and _labels(m.find_child("Protocol_2", true, false)).has("4 nights, spar 2 a week"), "Light and Standard in nights, no price")
-	_check(_labels(m.find_child("Film", true, false)).has("Film on %s: yes, free" % f["bout"]["opp"]["name"]), "film is free: %s" % str(_labels(m.find_child("Film", true, false))))
+	_check(_labels(m.find_child("Film", true, false)).has("Film on the opponent: yes, free"), "film is free: %s" % str(_labels(m.find_child("Film", true, false))))
 	# S381 C229 stage 4: film is earned - nothing found and no plan yet: 0 of Maria's 4 answerable tells, +0.0.
 	_check(_labels(m.find_child("Film", true, false)).has("0/4 answered - +0.0 on the night")
 		and _labels(m.find_child("Protocol_1", true, false)).any(func(t): return str(t).ends_with("night bonus +0.25"))
@@ -180,7 +180,7 @@ func _initialize() -> void:
 		and _text(pc, "Line") == "other club - 4 visits - $160" and _text(pc, "Risk") == "no 'never faced a southpaw' in round 1",
 		"partner on: %s" % str(_labels(pc)))
 	var tag := pc.find_child("Matches", true, false) if pc != null else null
-	_check(tag != null and _labels(tag) == ["MATCHES MARIA"] and pc.find_child("Check", true, false) != null, "the green MATCHES MARIA tag and the check")
+	_check(tag != null and _labels(tag) == ["MATCHES THE OPPONENT"] and pc.find_child("Check", true, false) != null, "the green MATCHES THE OPPONENT tag and the check (S448: no name)")
 	pic = pc.find_child("Pic", true, false) as TextureRect if pc != null else null
 	_check(pic != null and pic.texture != null and pic.texture.resource_path.ends_with("_southpaw.png")
 		and not pic.texture.resource_path.contains("mh_boxer_11") and not pic.texture.resource_path.contains("mh_boxer_13"),

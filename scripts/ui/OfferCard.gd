@@ -32,7 +32,7 @@ static func make(main: Node, c: Career, f: Dictionary, o: Dictionary) -> PanelCo
 	who.add_child(UI.label("%d-%d, %s, %s" % [opp["w"], opp["l"], opp["stance"], str(opp["style"]).to_lower()], UI.SMALL, UI.FG, "semi"))
 	who.add_child(UI.label(_bio(opp), UI.SMALL, UI.MUTED, "body", true))
 	who.add_child(UI.label(_read(opp), UI.SMALL, UI.FG, "body", true))
-	var why := "Not safe: %s has %d bouts, %s has %d" % [f["first"], int(o["own_bouts"]), str(opp["name"]).split(" ")[1], int(o["their_bouts"])]
+	var why := "Not safe: your boxer has %d bouts, the opponent %d" % [int(o["own_bouts"]), int(o["their_bouts"])]   # S448: names in the header only
 	who.add_child(UI.label(why if unsafe else "%s, answer by %s" % [Clock.fmt(int(o["day"])), Clock.fmt(int(o["expires"]))],
 		UI.SMALL, UI.RED if unsafe else UI.MUTED, "body", true))
 	var chips := UI.hbox(6)

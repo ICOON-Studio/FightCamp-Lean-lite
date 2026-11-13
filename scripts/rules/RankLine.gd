@@ -127,18 +127,8 @@ static func _words(was: int, now: int, entered: bool, left: bool, moved: int, pa
 	return ""
 
 
-## Join names with commas and "and".
+## The boxers passed, counted (S448 operator: "names are only mentioned on the header" - the ladder itself lists them).
 static func _join_names(names: Array) -> String:
 	if names.size() == 0:
 		return ""
-	if names.size() == 1:
-		return str(names[0])
-	if names.size() == 2:
-		return "%s and %s" % [str(names[0]), str(names[1])]
-	var out: String = ""
-	for i in names.size() - 1:
-		if i > 0:
-			out += ", "
-		out += str(names[i])
-	out += " and " + str(names[names.size() - 1])
-	return out
+	return "one boxer" if names.size() == 1 else "%d boxers" % names.size()

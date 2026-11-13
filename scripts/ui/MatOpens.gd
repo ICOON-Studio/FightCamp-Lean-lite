@@ -21,7 +21,7 @@ static func link(main: Node, c: Career, g: Dictionary, line: String) -> Control:
 	var l := UI.muted(line, UI.BODY, true)
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	h.add_child(l)
-	h.add_child(UI.button("%s's opens on Fights" % g["first"], "Btn", main.act.bind("go", "fights:0")))
+	h.add_child(UI.button("Opens on Fights", "Btn", main.act.bind("go", "fights:0")))
 	cd[1].add_child(h)
 	return cd[0]
 
@@ -53,7 +53,7 @@ static func card(main: Node, c: Career, g: Dictionary, title: String = "") -> Co
 		if entered.has(d):
 			row.add_child(UI.label("Entered", UI.SMALL, UI.GREEN, "bold"))
 		else:
-			var b := UI.button("Enter %s" % g["first"], "Btn", main.act.bind("genter", "%s|%d" % [g["id"], d]),
+			var b := UI.button("Enter", "Btn", main.act.bind("genter", "%s|%d" % [g["id"], d]),
 				c.cash < int(o["fee"]), "Not enough cash for the entry")
 			b.name = "Enter_%s_%d" % [g["id"], d]
 			row.add_child(b)

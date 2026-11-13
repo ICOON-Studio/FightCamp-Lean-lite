@@ -39,7 +39,7 @@ static func partner_card(main: Node, f: Dictionary, opp: Dictionary, on: bool, h
 	w.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hb.add_child(w)
 	if on and BoutRules.partner_matches(opp):
-		var tag := UI.chip("MATCHES %s" % str(opp.get("first", opp.get("name", ""))).to_upper(), "green")
+		var tag := UI.chip("MATCHES THE OPPONENT", "green")   # S448: names in the header only
 		tag.name = "Matches"
 		tag.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		w.add_child(tag)

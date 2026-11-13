@@ -105,7 +105,7 @@ func _words() -> void:
 	_check(RB.text_of(bs[0]).contains("Hands up! Move your head!") and str(bs[0]["bub"]["tag"]) == "Heard", "shout: the call and Heard")
 	_check(RB.text_of(bs[2]).contains("Plan C") and RB.text_of(bs[2]).contains("One-two-hook"), "plan fires: Plan C - One-two-hook")
 	_check(RB.text_of(bs[3]).contains("lost it") and RB.text_of(bs[3]).contains("1 of 2"), "plan ends: lost it, 1 of 2")
-	_check(RB.text_of(bs[1]).contains("exchange to Priya"), "coach: the exchange went to Priya")
+	_check(RB.text_of(bs[1]).contains("exchange to the opponent"), "coach: the exchange went to the opponent (S448: the role)")
 
 
 func _check(cond: bool, label: String) -> void:

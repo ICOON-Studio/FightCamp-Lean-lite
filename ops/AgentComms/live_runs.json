@@ -213,19 +213,6 @@
    "note": "S368 seat_dispatch: cursor exit 1, no commit on cursor/clipfix1 (stray: -); output E:\\FightCamp\\wt\\CLIPFIX1_dispatch_out.txt",
    "finished": "2026-11-12T02:07"
   },
-  "JOINFIX1": {
-   "agent": "grok",
-   "id": "JOINFIX1",
-   "title": "TASK JOINFIX1 - GROK DEV - the lead uppercut return to guard must not jump",
-   "status": "landed",
-   "started": "2026-11-13T08:15",
-   "eta": "2026-11-13T10:30",
-   "branch": "grok/joinfix1",
-   "brief": "ops/research/TASK_JOINFIX1.md",
-   "repo": "FightCamp-Lean",
-   "where": "cloud",
-   "reconciled": "2026-11-13 09:40 board_reconcile: PR #242 open - collect it"
-  },
   "POWER1B": {
    "agent": "goose",
    "id": "POWER1B",
@@ -241,105 +228,14 @@
   "BLOCKLOOK2": {
    "agent": "grok",
    "id": "BLOCKLOOK2",
-   "title": "A block is a guard that catches the punch (after JOINFIX1)",
-   "status": "waiting",
-   "started": "2026-11-13T08:51",
+   "title": "A block is a guard that catches the punch - round 2 (arm_block fix, block_set reads the catch)",
+   "status": "landed",
+   "started": "2026-11-13T11:05",
    "where": "cloud",
    "repo": "FightCamp-Lean",
-   "branch": "grok/blocklook2"
-  },
-  "ASKPROBE3": {
-   "agent": "qwen",
-   "id": "ASKPROBE3",
-   "title": "TASK ASKPROBE3 - QWEN (qwen3-coder) - Ask for a fight: make waiting cost something, measure a real step up and two dates",
-   "status": "landed",
-   "started": "2026-11-13T09:19",
-   "eta": "2026-11-13T11:09",
-   "branch": "qwen/askprobe3",
-   "worktree": "E:/FightCamp/wt/LEAN_ASKPROBE3",
-   "wt": "E:/FightCamp/wt/LEAN_ASKPROBE3",
-   "brief": "ops/research/TASK_ASKPROBE3.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/ASKPROBE3_dispatch_out.txt",
-   "match": "seat_dispatch.py run askprobe3",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/ASKPROBE3_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/ASKPROBE3_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/ASKPROBE3_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 42304,
-    "seat_pid": 36204
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 5/5 PASS; PR #243",
-   "finished": "2026-11-13T09:57",
-   "pr": 243,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tools/ask_probe3.gd",
-     "ok": true,
-     "last": "ASK_PROBE3 done arms=5 bouts=7183 in 208s"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/ask_bout_test.gd",
-     "ok": true,
-     "last": "ASK_BOUT failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/fight_learn_test.gd",
-     "ok": true,
-     "last": "FIGHT_LEARN failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/file_limits_test.gd",
-     "ok": true,
-     "last": "FILE_LIMITS failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/no_pronoun_test.gd",
-     "ok": true,
-     "last": "NO_PRONOUN failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
-  "SOUND4": {
-   "agent": "qwen",
-   "id": "SOUND4",
-   "title": "TASK_SOUND4 - the sound engineer, round 4: the missing sounds, made in Ludo (Qwen)",
-   "status": "running",
-   "started": "2026-11-13T09:59",
-   "eta": "2026-11-13T11:49",
-   "branch": "qwen/sound4",
-   "worktree": "E:/FightCamp/wt/LEAN_SOUND4",
-   "wt": "E:/FightCamp/wt/LEAN_SOUND4",
-   "brief": "ops/research/TASK_SOUND4.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/SOUND4_dispatch_out.txt",
-   "match": "seat_dispatch.py run sound4",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/SOUND4_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/SOUND4_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/SOUND4_dispatch_runner.log",
-    "source": "command line",
-    "brief_copied": true,
-    "runner_pid": 32300,
-    "seat_pid": 6828
-   },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "branch": "grok/blocklook2",
+   "reconciled": "2026-11-13 11:10 board_reconcile: PR #245 open - collect it",
+   "eta": "2026-11-13T13:30"
   }
  },
  "codex_budget": {

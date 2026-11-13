@@ -485,7 +485,6 @@ static func _mid(text: String) -> float:
 		return (p[0].to_float() + p[1].to_float()) * 0.5
 	return t.to_float()
 
-
 static func _read_lab(id: String, text: String, fs: int, y: float, col: Color) -> Label:
 	var lab := Label.new()
 	lab.name = id

@@ -368,7 +368,7 @@ func _fill_node(card: PanelContainer, n: Dictionary) -> void:
 		top.add_child(UI.chip("THE TELL", "gold"))
 	words.add_child(top)
 	words.add_child(UI.muted("Something happens here - SPOT it" if hidden else str(n["line"]), UI.SMALL, true))
-	var who := "the other boxer" if str(n["who"]) == "a" else str(opp.get("first", "the opponent"))
+	var who := "the other boxer" if str(n["who"]) == "a" else "the opponent"   # S448: names in the header only
 	words.add_child(UI.label("%d:%02d  %s" % [int(n["t"]) / 60, int(n["t"]) % 60, who], UI.TINY, UI.MUTED, "mono"))
 
 
@@ -422,7 +422,7 @@ func _draw_answer() -> void:
 	var known := TapeClips.known(opp, c)
 	if not watched.has(idx):
 		_answer.add_child(UI.muted(("Watch to the end, then pick what %s does about it." if known else
-			"Press SPOT the moment it shows. At the end, pick what %s does about it.") % str(f.get("first", "your boxer")), UI.BODY, true))
+			"Press SPOT the moment it shows. At the end, pick what %s does about it.") % "your boxer", UI.BODY, true))
 		return
 	var now := TapeClips.answer(_plan(), when)
 	var row := UI.hbox(10)
@@ -443,7 +443,7 @@ func _draw_answer() -> void:
 		row.add_child(b)
 	_answer.add_child(row)
 	var limit := PlanBoard.arrow_limit(_coach())
-	var line := "In %s's plan: if %s - %s.  " % [f.get("first", "your fighter"), FightFlow.WHEN_WORDS.get(when, when), StrikeMap.move(now).get("name", now)] if now != "" \
+	var line := "In your boxer's plan: if %s - %s.  " % [FightFlow.WHEN_WORDS.get(when, when), StrikeMap.move(now).get("name", now)] if now != "" \
 		else "Not in the plan yet: pick one.  "
 	_answer.add_child(UI.muted(line + "%d of %d arrows (the coach can hold %d)." % [_plan().size(), limit, limit], UI.SMALL))
 

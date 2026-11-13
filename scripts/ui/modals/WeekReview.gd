@@ -308,7 +308,7 @@ func _grappler(main: Node, c: Career, v: VBoxContainer, gr: Dictionary, t: float
 	if not o.is_empty():
 		var bits: Array = []
 		for m in o["matches"]:
-			bits.append("%s %s, %s" % ["beat" if bool(m["win"]) else "lost to", m["opp"], m["how"]])
+			bits.append("%s, %s" % ["won" if bool(m["win"]) else "lost", m["how"]])   # S448: no opponent names below the header
 		var w := (o["matches"] as Array).filter(func(m): return bool(m["win"])).size()
 		var medal := str(o["medal"])
 		var said := "; ".join(bits)

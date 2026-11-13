@@ -218,7 +218,7 @@ static func _row(main: Node, c: Career, f: Dictionary, r: Dictionary, offered: A
 	h.add_child(_fixed(COL_PAY, pv))
 	var acts := UI.vbox(6)
 	if ask:
-		acts.add_child(UI.button("Book %s" % opp["first"], "BtnSolid", main.act.bind("probook", "%s:%d:a" % [f["id"], int(opp["id"])])))
+		acts.add_child(UI.button("Book this fight", "BtnSolid", main.act.bind("probook", "%s:%d:a" % [f["id"], int(opp["id"])])))
 	else:
 		acts.add_child(UI.button("Take this fight", "BtnSolid", main.act.bind("probook", "%s:%d:o" % [f["id"], int(opp["id"])])))
 	var why := "Already scouted" if scouted else ("Not enough cash" if c.cash < MM.SCOUT_COST else "")

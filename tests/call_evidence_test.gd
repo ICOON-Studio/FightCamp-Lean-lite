@@ -147,12 +147,12 @@ func _test5() -> void:
 		{"who": "a", "habit": "slow_starter", "t": 1.0},
 	]
 	var o1 := CE.open_line(fires1, _names(), hw)
-	_check(o1 == "Maria drops her right after the jab: 2 times",
+	_check(o1 == "The opponent drops her right after the jab: 2 times",
 		"t5: two fires, got '%s'" % o1)
 
 	var fires2 := [{"who": "b", "habit": "low_lead_hand", "t": 2.0}]
 	var o2 := CE.open_line(fires2, _names(), hw)
-	_check(o2 == "Maria keeps her lead hand low: once",
+	_check(o2 == "The opponent keeps her lead hand low: once",
 		"t5: one fire -> once, got '%s'" % o2)
 
 	var fires3 := [
@@ -161,7 +161,7 @@ func _test5() -> void:
 	]
 	var hw3 := {"x": "does x", "y": "does y"}
 	var o3 := CE.open_line(fires3, _names(), hw3)
-	_check(o3 == "Maria does y: once",
+	_check(o3 == "The opponent does y: once",
 		"t5: ties -> lowest t, got '%s'" % o3)
 
 	var fires4 := [{"who": "a", "habit": "slow_starter", "t": 1.0}]
@@ -187,7 +187,7 @@ func _test6() -> void:
 			"nose": 100.0, "left_ribs": 100.0, "right_ribs": 100.0}},
 	}
 	var r := CE.lines(m, t, [], {"a": 100.0, "b": 100.0}, _names(), {})
-	_check(r["long"] == "Lucy threw no jabs",
+	_check(r["long"] == "Your boxer threw no jabs",
 		"t6: zero jabs, got '%s'" % r["long"])
 
 	var r2 := CE.lines({}, {}, [], {}, _names(), {})

@@ -24,8 +24,7 @@ func build(main: Node, m: Dictionary) -> void:
 	v.add_child(UI.muted("%d, %s, %s, amateur %d-%d, %s" % [p["age"], str(p["wc"]).to_lower(), p["stance"], p["w"], p["l"],
 		str(p["style"]).to_lower()], UI.BODY))
 	v.add_child(UI.label(read["open"], UI.BODY, UI.FG, "body", true))
-	var coach := "%s" % c.coach.get("name", "The coach")
-	v.add_child(UI.label("%s: \"%s\"" % [coach, read["verdict"]], UI.BODY, UI.GOLD if bool(read["good"]) else UI.FG, "italic", true))
+	v.add_child(UI.label("Your coach: \"%s\"" % read["verdict"], UI.BODY, UI.GOLD if bool(read["good"]) else UI.FG, "italic", true))
 	# S354 the trial as an RPG recruit (RecruitPanel), one starting focus.
 	v.add_child(RecruitPanel.build(main, c, p, picks, "trialcard"))
 	v.add_child(UI.muted("Terms: club stipend, %s a week." % UI.money(GameMoney.FIGHTER_STIPEND), UI.SMALL))
@@ -36,8 +35,8 @@ func build(main: Node, m: Dictionary) -> void:
 	foot.add_child(pass_b)
 	var focus := RecruitPanel.focus_of(picks)
 	var ready := focus != "" or picks.size() == 3
-	var sign := UI.button("Sign %s - %s" % [p["first"], str(Recruit.FOCUS[focus]["name"]).to_lower()] if focus != "" else
-		("Sign " + str(p["first"]) if ready else "Sign: choose a starting focus"), "BtnSolid",
+	var sign := UI.button("Sign - %s" % str(Recruit.FOCUS[focus]["name"]).to_lower() if focus != "" else
+		("Sign" if ready else "Sign: choose a starting focus"), "BtnSolid",
 		main.act.bind("signprospect", ""), not ready, "Choose one starting focus first" if not ready else "")
 	sign.name = "SignProspect"
 	foot.add_child(sign)

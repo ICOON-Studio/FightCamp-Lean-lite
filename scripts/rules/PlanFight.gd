@@ -233,12 +233,12 @@ const STEP_BEAT := {"step_in": "step_in", "cut_off": "step_in", "herd": "step_in
 
 
 ## "Plan (Mid range): Step back - it worked." / "No arrow on Long range: she does her own thing." ("" before a plan exists).
-static func arrow_line(x: Dictionary, names: Array) -> String:
+static func arrow_line(x: Dictionary, _names: Array) -> String:
 	var id := str(x.get("arrow", ""))
 	var card := str(StrikeMap.card(str(x.get("at", ""))).get("name", ""))
 	if card == "":
 		return ""
 	if not bool(x.get("planned", false)):
-		return "No arrow on %s: %s improvises." % [card, names[0]]
+		return "No arrow on %s: your boxer improvises." % card   # S448: the role, never the name
 	return "Plan (%s): %s - %s." % [card, str(StrikeMap.move(id).get("name", id)),
 		"it worked" if bool(x.get("won", false)) else "it didn't come off"]

@@ -50,8 +50,8 @@ static func cause(f: Dictionary) -> String:
 			return ""
 		var first := against.get_slice(". ", 0)
 		return first if first.ends_with(".") else first + "."
-	var who := str(f.get("first", ""))
-	var opp := str(f.get("opp_first", ""))
+	var who := "your boxer"   # S448 operator: the names are in the title; the cause says the roles
+	var opp := "the opponent"
 	var won: Array = f.get("won", [])
 	var won_n: Array = f.get("won_n", [])
 	var per := int(f.get("per_round", 6))

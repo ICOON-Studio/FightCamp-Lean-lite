@@ -37,7 +37,7 @@ static func factors(st: Dictionary, me: int, o: Dictionary) -> Array:
 
 
 ## The reason in plain words: what helped most on a hit, what hurt most on a miss. `names` = [first, first].
-static func reason(fs: Array, me: int, hit: bool, names: Array) -> String:
+static func reason(fs: Array, me: int, hit: bool, _names: Array) -> String:
 	var best: Dictionary = {}
 	for x in fs:
 		if str(x["key"]) == "base":
@@ -45,8 +45,9 @@ static func reason(fs: Array, me: int, hit: bool, names: Array) -> String:
 		var v := float(x["pts"]) * (1.0 if hit else -1.0)
 		if v >= 1.0 and (best.is_empty() or v > float(best["v"])):
 			best = {"key": str(x["key"]), "v": v, "pts": float(x["pts"])}
-	var a := str(names[me])
-	var d := str(names[1 - me])
+	var roles := ["Your grappler", "The opponent"]   # S448 operator: roles below the header, never names
+	var a := str(roles[me])
+	var d := str(roles[1 - me])
 	if best.is_empty():
 		return "Nothing between them: it came down to the moment."
 	var n := roundi(absf(float(best["pts"])))

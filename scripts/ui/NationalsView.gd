@@ -51,7 +51,7 @@ static func _road_card(page: Control, main: Node, c: Career, f: Dictionary) -> v
 		if why != "":
 			card[1].add_child(_needs(c, f))
 		if why == "":
-			var b := UI.button("Enter %s for the nationals" % f["first"], "BtnSolid", main.act.bind("enterchamp", str(f["id"])))
+			var b := UI.button("Enter for the nationals", "BtnSolid", main.act.bind("enterchamp", str(f["id"])))
 			b.name = "Enter_" + str(f["id"])
 			b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 			card[1].add_child(b)
@@ -73,7 +73,7 @@ static func _road_card(page: Control, main: Node, c: Career, f: Dictionary) -> v
 static func enter_button(main: Node, c: Career, f: Dictionary) -> Control:
 	if bool(f.get("pro", false)) or Champs.cannot_enter(c, f) != "":
 		return null
-	var b := UI.button("Enter %s for the nationals" % f["first"], "BtnSolid", main.act.bind("enterchamp", str(f["id"])))
+	var b := UI.button("Enter for the nationals", "BtnSolid", main.act.bind("enterchamp", str(f["id"])))
 	b.name = "EnterNationals"
 	b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	return b

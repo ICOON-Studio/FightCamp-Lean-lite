@@ -134,7 +134,7 @@ func _play(fighter: Dictionary, opp: Dictionary, n: int, won: bool, margin_name:
 		if opening_ok:
 			for k in 2:
 				opening_ok = opening_ok and str(beats[k]["who"]) == "a" and str(beats[k]["move"]) == CALLS[call][k][0] and str(beats[k]["result"]) == CALLS[call][k][1]
-			opening_ok = opening_ok and str(beats[0].get("caption", "")) == str(CALL_TEXT[call]).replace("{her}", str(fighter["first"]))
+			opening_ok = opening_ok and str(beats[0].get("caption", "")) == str(CALL_TEXT[call]).replace("{her}", "your boxer")   # S448: the role, never the name
 		if not opening_ok:
 			_bad("corner call opening", context + " call=%s" % call)
 	_check_card(beats, counts, actual, context)
@@ -176,7 +176,7 @@ func _check_captions(beats: Array, masteries: Dictionary, names: Array, seed_val
 			continue
 		var cid := str(bt.get("combo_id", ""))
 		var side := str(bt["who"])
-		var kind := _caption_kind(cid, text, str(names[0 if side == "a" else 1]))
+		var kind := _caption_kind(cid, text, "your boxer" if side == "a" else "the opponent")   # S448: captions say the role
 		if kind == "tired":
 			tired_captions += 1
 			if not bool(bt.get("combo_cut", false)):
@@ -206,7 +206,7 @@ func _caption_kind(cid: String, text: String, boxer: String) -> String:
 		if str(entry.get("id", "")) == cid:
 			for kind in ["lands", "tired"]:
 				for line in entry.get("ring_" + kind, []):
-					if str(line).replace("{name}", boxer) == text:
+					if ComboWords.fill(str(line), boxer) == text:
 						return kind
 	return ""
 

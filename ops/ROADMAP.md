@@ -8,9 +8,9 @@ Updated 2026-11-13 by claude S294.
 
 ## Now
 
-**S447 — ?** *(claude)*
+**S448 — ?** *(claude)*
 
-S447: Ask for a fight map v4 (step up teaches x1.25, FightLearn.STEP_TEACH) scored 5/5 and 6/6 by Kalli + John; ASKPROBE3 (Qwen) closed - too small and its two-dates lever a no-op; the real finding: a later date buys nothing until AMATEURWEEK1's fight week exists (Q-209 asks the order). JOINFIX1 (Grok Dev) merged: return 21.7 -> 4.7 m/s in its test, but the PLAYED lead uppercut still jumps 26-37 m/s after the freeze (quick-back path in HitImpact) - handed to POWER1B at Goose (issue 241). Block clip judged: mc_to_block is a hunched cover-up -> BLOCKLOOK2 (guard catch) to Grok Dev. Crowd camera flashes made in the game (CrowdFlashes, burst on big shots). All 10 Ailive clips baked on our boxer and filmed beside ours (board). Result page tabs on the board ('even fight' sentence fixed). SOUND4 (Qwen, Ludo) running. ProductionCrate: 3 bot clips deleted, 52 tabs opened in his Chrome for his own downloads.
+S448: uppercut jump fixed in the played fight (c52fcc18, 26/37 -> 8.8/6.9 m/s; its session closes hit_carry/hit_frame/join_return regressions); SOUND4 made in-house (79 Ludo takes, unheard); Q-208 marks built (green/red shout bubble, organ outlines, read heading); BLOCKLOOK2 round 2 at Grok Dev; Corner King coaches+contracts read from code; office/booking/coach/contract plan (Q-210); camp plan mockups v1/v2 (locations, drill tooltips, sliders, who pays) from his interview; names-only-in-headers rule + sweep.
 
 ## Next
 
@@ -333,3 +333,4 @@ Cursor once got a 50-line brief cut off at line 3 and said so.
 |  |  | **S445**  |  |  | *none yet* | Ask for a fight map v3 + rule fixes, ASKPROBE2 to Qwen; POWER1 step 1 in; JUDGES1 held; the filling shout in the fight preview (his idea); the board stops spoiling the exchange. |
 |  |  | **S446**  |  |  | *none yet* | POWER1 2-4 merged (his yes); freeze checked vs B&C/Undisputed; ask probe flat at x1, dominant at x1.5; Cursor replaced by Grok Dev/Goose/Arena; block still finding. |
 |  |  | **S447**  |  |  | *none yet* | Ask v4 critics 5/6 -> needs the fight week first (Q-209); JOINFIX1 merged but played uppercut still jumps (to POWER1B); crowd flashes made in-game; Ailive all 10 filmed; block = guard catch brief. |
+|  |  | **S448**  |  |  | *none yet* | Uppercut jump fixed in play (regressions being closed); SOUND4 in-house; Q-208 marks built; Corner King coach/contract read; office/booking/coach plan Q-210; camp locations mockup from his interview; names-in-headers rule. |

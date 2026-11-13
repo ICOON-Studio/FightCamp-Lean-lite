@@ -50,7 +50,6 @@ static func heard_word(shouts_before: int, lands: bool) -> String:
 
 ## Tags one ExchangeBeats beat as a bubble of `kind` (shout / coach / plan / plan_end) with the words it shows.
 static func mark(b: Dictionary, kind: String, x: Dictionary, ctx: Dictionary) -> Dictionary:
-	var names: Array = ctx.get("names", ["", ""])
 	var bub := {"icon": "", "pin": "", "pin_col": UI.FG, "tag": "", "tag_col": UI.FG, "text": "", "sub": "", "dot": Color(0, 0, 0, 0)}
 	match kind:
 		"shout":
@@ -63,7 +62,7 @@ static func mark(b: Dictionary, kind: String, x: Dictionary, ctx: Dictionary) ->
 			var won := bool(x.get("won", false))
 			bub["icon"] = "talk"
 			bub["text"] = str(x.get("verdict", ""))
-			bub["sub"] = "Coach · exchange to %s" % str(names[0] if won else names[1]).get_slice(" ", 0)   # first names, as the corner card
+			bub["sub"] = "Coach · exchange to %s" % ("your boxer" if won else "the opponent")   # S448: roles, never names
 			bub["dot"] = ScoreBug.RED if won else ScoreBug.BLUE
 		"plan", "plan_end":
 			var pin := letter(((ctx.get("f", {}) as Dictionary).get("bout", {}) as Dictionary).get("arrows", []), str(x.get("arrow", "")))

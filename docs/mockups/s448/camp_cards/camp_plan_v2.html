@@ -1,0 +1,157 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Camp plan v2 - locations and sliders (S448)</title>
+<style>
+:root{--bg:#0c0f14;--panel:#141922;--line:#263040;--ink:#e9e4da;--dim:#9aa3b2;--red:#d93a3a;--green:#5fcf7a;--amber:#f2b84b;--blue:#5aa3ff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:radial-gradient(1200px 700px at 30% 0%,#1b2230,#0c0f14);color:var(--ink);font-family:"Barlow","Segoe UI",Arial,sans-serif;overflow:hidden;position:relative}
+.head{height:78px;display:flex;align-items:center;gap:22px;padding:0 36px;border-bottom:1px solid var(--line);background:rgba(10,13,18,.85)}
+.head .t{font-size:32px;font-weight:800;letter-spacing:3px}
+.head .vs{font-size:25px}.head .vs b{color:#ff6b6b}.head .vs i{font-style:normal;color:#6fb0ff}
+.head .meta{margin-left:auto;font-size:20px;color:var(--dim)}.head .meta span{color:var(--amber);font-weight:700}
+.main{display:flex;gap:24px;padding:16px 36px}
+.left{width:1378px;display:flex;flex-direction:column;gap:12px}
+.sec{font-size:19px;font-weight:800;letter-spacing:2px;color:var(--dim);display:flex;gap:14px;align-items:baseline}
+.sec small{font-weight:600;letter-spacing:0;font-size:16px}
+.locs{display:flex;gap:14px}
+.loc{width:334px;height:330px;border-radius:12px;overflow:hidden;position:relative;border:2px solid #222b38;background:var(--panel)}
+.loc img{width:100%;height:168px;object-fit:cover;display:block}
+.loc .nm{position:absolute;top:10px;left:12px;font-size:24px;font-weight:800;text-shadow:0 2px 8px #000}
+.loc .cost{position:absolute;top:10px;right:10px;background:rgba(10,13,18,.88);border:1px solid #3a4658;border-radius:6px;font-size:17px;font-weight:800;padding:3px 8px}
+.loc .body{padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.buffs{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:5px;background:#1b2230;border:1px solid #34404f;border-radius:7px;padding:3px 8px;font-size:16px;font-weight:700;white-space:nowrap}
+.up{color:var(--green)}.down{color:#ff7a6a}.mid{color:var(--amber)}
+.drills{display:flex;gap:7px;margin-top:2px}
+.dr{width:38px;height:38px;border-radius:8px;background:#0f141c;border:1px solid #34404f;display:flex;align-items:center;justify-content:center}
+.dr svg{width:24px;height:24px;color:#cfd6e0}
+.dr.hov{border-color:var(--amber);box-shadow:0 0 12px rgba(242,184,75,.5)}
+.loc.on{border-color:var(--red);box-shadow:0 0 0 2px rgba(217,58,58,.35),0 0 26px rgba(217,58,58,.45)}
+.tip{position:absolute;z-index:5;width:300px;background:#0b0e13;border:1px solid var(--amber);border-radius:9px;padding:10px 12px;font-size:16px;line-height:1.35;box-shadow:0 8px 30px rgba(0,0,0,.6)}
+.tip b{color:var(--amber);font-size:17px}
+.focus{display:flex;gap:14px}
+.fc{width:334px;height:196px;border-radius:12px;overflow:hidden;position:relative;border:2px solid #222b38}
+.fc img{width:100%;height:100%;object-fit:cover}
+.fc .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 30%,rgba(5,7,10,.94) 66%)}
+.fc .nm{position:absolute;top:8px;left:12px;font-size:23px;font-weight:800}
+.fc .pct{position:absolute;top:8px;right:12px;font-size:23px;font-weight:800;color:var(--amber)}
+.fc .bot{position:absolute;left:12px;right:12px;bottom:10px;display:flex;flex-direction:column;gap:7px}
+.slider{position:relative;height:10px;border-radius:5px;background:#2a3342}
+.slider .fill{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:linear-gradient(90deg,#b8862e,var(--amber))}
+.slider .knob{position:absolute;top:-7px;width:24px;height:24px;border-radius:50%;background:#f4efe6;border:3px solid var(--amber);transform:translateX(-50%)}
+.fc .gain{font-size:17px;font-weight:700}
+.sum100{width:334px;height:196px;border-radius:12px;border:1px dashed #3a4658;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:16px;font-size:17px;color:var(--dim)}
+.sum100 b{color:var(--ink);font-size:22px}
+.meters{display:flex;gap:14px}
+.mt{width:450px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:10px}
+.mt .top{display:flex;align-items:baseline;gap:10px}.mt .top .n{font-size:20px;font-weight:800;letter-spacing:1px}.mt .top .v{margin-left:auto;font-size:20px;font-weight:800;color:var(--amber)}
+.stops{display:flex;justify-content:space-between;font-size:14px;color:var(--dim);margin-top:2px}
+.mt .eff{display:flex;gap:6px;flex-wrap:wrap}
+.right{width:446px;display:flex;flex-direction:column;gap:12px}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
+.box h3{font-size:18px;letter-spacing:2px;color:var(--dim);margin-bottom:10px;display:flex;align-items:center}
+.sum{display:flex;flex-direction:column;gap:8px}
+.sum .r{display:flex;align-items:center;gap:10px;font-size:19px}.sum .r .v{margin-left:auto;font-weight:800}
+.ok{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex:none}
+.ok.g{color:var(--green);border:1px solid var(--green);background:rgba(95,207,122,.15)}.ok.a{color:var(--amber);border:1px solid var(--amber);background:rgba(242,184,75,.15)}
+.night{margin-top:8px;padding:9px 12px;border-radius:9px;border:1px solid rgba(242,184,75,.6);background:rgba(242,184,75,.1);font-size:17px}
+.night b{color:var(--amber)}
+.pay{display:flex;gap:8px}
+.pb{flex:1;border:2px solid #263040;border-radius:9px;padding:8px 8px;display:flex;flex-direction:column;gap:5px;font-size:15px}
+.pb .h{font-size:18px;font-weight:800}
+.pb.on{border-color:var(--red)}
+.pb.off{opacity:.42}
+.dots{display:flex;gap:5px;margin-left:auto}.dots i{width:12px;height:12px;border-radius:50%;background:#2c3644}.dots i.f{background:var(--amber)}
+.btns{display:flex;gap:10px}
+.btn{flex:1;height:54px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;border:1px solid #3a4658;background:#1b2230}.btn.go{background:var(--red);border-color:var(--red)}
+.tick{display:flex;align-items:center;gap:9px;font-size:16px;color:var(--dim)}.tick span{width:20px;height:20px;border:2px solid #586377;border-radius:4px}
+.newtag{font-size:13px;font-weight:800;color:#c9cfd8;border:1px dashed #7d8796;border-radius:5px;padding:1px 6px;margin-left:6px}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">
+ <symbol id="run" viewBox="0 0 24 24"><path fill="currentColor" d="M13.5 5.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM9.8 8.9 7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3A7.3 7.3 0 0 0 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6z"/></symbol>
+ <symbol id="hill" viewBox="0 0 24 24"><path fill="currentColor" d="M2 20 9 7l4 6 3-4 6 11z"/></symbol>
+ <symbol id="glove" viewBox="0 0 24 24"><path fill="currentColor" d="M8 3h6a5 5 0 0 1 5 5v5a5 5 0 0 1-3 4.6V21H8v-3.2A5 5 0 0 1 5 13V9a3 3 0 0 1 3-3z"/></symbol>
+ <symbol id="ring" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3zM4 4h2v16H4zm14 0h2v16h-2z"/></symbol>
+ <symbol id="wave" viewBox="0 0 24 24"><path fill="currentColor" d="M2 15c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2v3c-2 0-2 2-4 2s-2-2-4-2-2 2-4 2-2-2-4-2-2 2-4 2z"/></symbol>
+ <symbol id="bag" viewBox="0 0 24 24"><path fill="currentColor" d="M11 1h2v3h-2zM8 4h8l1 3v12a3 3 0 0 1-3 3h-4a3 3 0 0 1-3-3V7z"/></symbol>
+ <symbol id="mitt" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="12" cy="12" r="3" fill="currentColor"/></symbol>
+ <symbol id="film" viewBox="0 0 24 24"><path fill="currentColor" d="M4 5h12v14H4zm13 4 4-2v10l-4-2z"/></symbol>
+ <symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="currentColor"/><path stroke="currentColor" stroke-width="2" d="M12 1v4M12 19v4M1 12h4M19 12h4M4 4l3 3M17 17l3 3M4 20l3-3M17 7l3-3"/></symbol>
+ <symbol id="ppl" viewBox="0 0 24 24"><path fill="currentColor" d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2 20c0-3 3-6 6-6s6 3 6 6zm12 0c0-2-.6-3.6-1.6-4.9.9-.7 2.2-1.1 3.6-1.1 3 0 6 3 6 6z"/></symbol>
+</svg>
+
+<div class="head">
+ <div class="t">CAMP PLAN</div>
+ <div class="vs"><b>Lucy Jackson</b> vs <i>Priya Nair</i></div>
+ <div class="meta">Regional final &middot; <span>21 days out</span> &middot; Build, Peak, Fight week</div>
+</div>
+
+<div class="main">
+ <div class="left">
+  <div class="sec">WHERE SHE TRAINS <small>every buff below is a stat the fight reads</small></div>
+  <div class="locs">
+   <div class="loc"><img src="img/loc_home.jpg"><div class="nm">Home gym</div><div class="cost">FREE</div>
+    <div class="body"><div class="buffs"><span class="chip up">your coaches' fit</span><span class="chip up">members +</span><span class="chip">sparring up to 2/wk</span></div>
+    <div class="drills"><div class="dr"><svg><use href="#mitt"/></svg></div><div class="dr"><svg><use href="#bag"/></svg></div><div class="dr"><svg><use href="#ring"/></svg></div><div class="dr"><svg><use href="#run"/></svg></div><div class="dr"><svg><use href="#film"/></svg></div></div></div></div>
+   <div class="loc on"><img src="img/loc_hills.jpg"><div class="nm">Hill cottage</div><div class="cost">$875 / wk</div>
+    <div class="body"><div class="buffs"><span class="chip up">Cardio gains x1.25</span><span class="chip up">Legs gains x1.2</span><span class="chip down">sparring max 1/wk</span><span class="chip mid">away from home</span></div>
+    <div class="drills"><div class="dr hov"><svg><use href="#hill"/></svg></div><div class="dr"><svg><use href="#run"/></svg></div><div class="dr"><svg><use href="#bag"/></svg></div><div class="dr"><svg><use href="#mitt"/></svg></div></div></div></div>
+   <div class="loc"><img src="img/loc_city.jpg"><div class="nm">City club trip</div><div class="cost">$400 / wk</div>
+    <div class="body"><div class="buffs"><span class="chip up">Fight IQ gains x1.3</span><span class="chip up">new styles: +1 plan test a night</span><span class="chip down">injury x1.3</span></div>
+    <div class="drills"><div class="dr"><svg><use href="#ring"/></svg></div><div class="dr"><svg><use href="#ppl"/></svg></div><div class="dr"><svg><use href="#mitt"/></svg></div><div class="dr"><svg><use href="#film"/></svg></div></div></div></div>
+   <div class="loc"><img src="img/loc_sea.jpg"><div class="nm">Seaside camp</div><div class="cost">$1,000 / wk</div>
+    <div class="body"><div class="buffs"><span class="chip up">recovery +15%</span><span class="chip up">Legs gains x1.15</span><span class="chip up">mood +</span><span class="chip down">sparring max 1/wk</span></div>
+    <div class="drills"><div class="dr"><svg><use href="#run"/></svg></div><div class="dr"><svg><use href="#wave"/></svg></div><div class="dr"><svg><use href="#sun"/></svg></div><div class="dr"><svg><use href="#bag"/></svg></div></div></div></div>
+  </div>
+
+  <div class="sec">WHAT THE CAMP BUILDS <small>three shares of her drill time, always 100%</small></div>
+  <div class="focus">
+   <div class="fc"><img src="img/focus_technique.jpg"><div class="shade"></div><div class="nm">Technique</div><div class="pct">20%</div>
+    <div class="bot"><div class="gain up">Technique +0.6 by fight night</div><div class="slider"><div class="fill" style="width:20%"></div><div class="knob" style="left:20%"></div></div></div></div>
+   <div class="fc"><img src="img/focus_power.jpg"><div class="shade"></div><div class="nm">Power</div><div class="pct">25%</div>
+    <div class="bot"><div class="gain up">Power +0.8</div><div class="slider"><div class="fill" style="width:25%"></div><div class="knob" style="left:25%"></div></div></div></div>
+   <div class="fc"><img src="img/focus_stamina.jpg"><div class="shade"></div><div class="nm">Cardio</div><div class="pct">55%</div>
+    <div class="bot"><div class="gain up">Cardio +2.1 (hills x1.25)</div><div class="slider"><div class="fill" style="width:55%"></div><div class="knob" style="left:55%"></div></div></div></div>
+   <div class="sum100"><b>Goal: Cardio +2</b>The biggest share is the camp's goal. Met on fight night = one of her three peak lines.</div>
+  </div>
+
+  <div class="sec">HOW HARD</div>
+  <div class="meters">
+   <div class="mt"><div class="top"><span class="n">SPARRING</span><span class="v">1 night a week</span></div>
+    <div class="slider"><div class="fill" style="width:33%"></div><div class="knob" style="left:33%"></div></div><div class="stops"><span>0</span><span>1</span><span>2</span><span>3 a week</span></div>
+    <div class="eff"><span class="chip up">2 plan tests</span><span class="chip up">Fight IQ 2 nights</span><span class="chip mid">tired +</span><span class="chip down" style="opacity:.5">hills cap: 1</span></div></div>
+   <div class="mt"><div class="top"><span class="n">WEIGHT CUT</span><span class="v">Steady</span></div>
+    <div class="slider"><div class="fill" style="width:50%"></div><div class="knob" style="left:50%"></div></div><div class="stops"><span>Hold</span><span>Steady</span><span>Hard</span></div>
+    <div class="eff"><span class="chip up">57.9 to 56.65 kg: makes it</span><span class="chip mid">-500 kcal a day</span></div></div>
+   <div class="mt" style="width:442px"><div class="top"><span class="n">TRAINING LOAD</span><span class="v">Normal</span></div>
+    <div class="slider"><div class="fill" style="width:50%"></div><div class="knob" style="left:50%"></div></div><div class="stops"><span>Light x0.6</span><span>Normal x1.0</span><span>Hard x1.3</span></div>
+    <div class="eff"><span class="chip">gains x1.0</span><span class="chip mid">tired peak 71 of 80</span></div></div>
+  </div>
+ </div>
+
+ <div class="right">
+  <div class="box"><h3>ON FIGHT NIGHT</h3>
+   <div class="sum">
+    <div class="r"><div class="ok g">&#10003;</div>Makes weight<div class="v up">0.35 kg spare</div></div>
+    <div class="r"><div class="ok g">&#10003;</div>Cardio goal +2<div class="v up">+2.1</div></div>
+    <div class="r"><div class="ok a">!</div>Tiredness peak<div class="v mid">71 of 80</div></div>
+    <div class="r"><div class="ok g">&#10003;</div>Injury chance, whole camp<div class="v">2.7%</div></div>
+   </div>
+   <div class="night">In the fight: her stamina <b>lasts into round 3</b> (was round 2), her legs hold a step longer. <b>All three lines met = +1 to every stat.</b></div>
+  </div>
+  <div class="box"><h3>WHO PAYS $2,625 <span class="newtag">NEW</span></h3>
+   <div class="pay">
+    <div class="pb on"><div class="h">The club</div><span class="down">cash -$2,625</span><span class="up">mood +, bond +</span></div>
+    <div class="pb"><div class="h">Half each</div><span class="mid">cash -$1,313</span><span>mood =</span></div>
+    <div class="pb off"><div class="h">She pays</div><span>her savings $340</span><span class="down">can't afford it</span></div>
+   </div>
+  </div>
+  <div class="box"><h3>YOUR COACH SUGGESTS <span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></span></h3>
+   <div style="font-size:17px;line-height:1.45">Hill cottage, Cardio first, 1 sparring night, steady cut. "She fades in round 3; the hills fix that."<br><span style="color:var(--dim);font-size:15px">Dots = how sure he is; it grows with his skill.</span></div>
+  </div>
+  <div class="btns"><div class="btn">Use coach's plan</div><div class="btn go">Confirm plan</div></div>
+  <div class="tick"><span></span>Let the coach plan her camps from now on</div>
+ </div>
+</div>
+
+<div class="tip" style="left:432px;top:338px"><b>Hill sprints</b><br>8 x 60 s up a steep path, walk down. Cardio and Legs. Hard on tired legs: counts as a Hard session for tiredness.</div>
+</body></html>

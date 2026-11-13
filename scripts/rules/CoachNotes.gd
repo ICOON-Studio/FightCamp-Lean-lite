@@ -61,7 +61,6 @@ static func card(f: Dictionary, bank: Dictionary) -> Array:
 	var habit_map: Dictionary = {}
 	for row in habits_bank:
 		habit_map[str(row["id"])] = row
-	var name: String = str(f.get("name", ""))
 	for id in seen:
 		var sid: String = str(id)
 		if sid.begins_with("habit:"):
@@ -73,7 +72,7 @@ static func card(f: Dictionary, bank: Dictionary) -> Array:
 			if notes.is_empty():
 				continue
 			var idx: int = absi(hash(str(f.get("id", "")) + sid)) % notes.size()
-			var line: String = str(notes[idx]).replace("{name}", name)
+			var line: String = fill(str(notes[idx]))
 			out.append({"id": sid, "line": line})
 		elif sid.begins_with("trait:"):
 			var key: String = sid.substr("trait:".length())
@@ -85,9 +84,18 @@ static func card(f: Dictionary, bank: Dictionary) -> Array:
 			var which: String = "high" if v >= HIGH else "low"
 			if not tn.has(which):
 				continue
-			var line: String = str(tn[which]).replace("{name}", name)
+			var line: String = fill(str(tn[which]))
 			out.append({"id": sid, "line": line})
 	return out
+
+
+## A bank line with {name} as the role (S448 operator: "names are only mentioned on the header" - the card's header names
+## the fighter, the notes say "your boxer"), capitalised where it opens a sentence.
+static func fill(text: String) -> String:
+	var out := text.replace("{name}", "your boxer")
+	if out.begins_with("your boxer"):
+		out = "Y" + out.substr(1)
+	return out.replace(". your boxer", ". Your boxer").replace("! your boxer", "! Your boxer").replace("? your boxer", "? Your boxer")
 
 
 ## [seen_count, seeable_count] for the card header.

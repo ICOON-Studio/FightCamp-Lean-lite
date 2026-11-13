@@ -126,8 +126,8 @@ func _mat_book(main: Node, c: Career, f: Dictionary) -> Control:
 	v.add_child(UI.caps("%s'S MOVES - %s BELT: %s" % [str(f["first"]).to_upper(), belt.to_upper(),
 		str((BeltRoad.SYLLABUS.get(belt, {}) as Dictionary).get("title", "")).to_upper()]))
 	var drilling := MatTreeInfo.drilled(f, c.day)
-	v.add_child(UI.muted("Drill a move and %s's classes work on it (+%.1f a week): felt at %d, owned at %d, a signature at %d." % [
-		str(f["first"]), NoGi.DRILL_GAIN, int(BjjTree.T["FELT"]), int(BeltRoad.OWNED_AT), int(NoGi.SIGNATURE)], UI.TINY, true))
+	v.add_child(UI.muted("Drill a move and the classes work on it (+%.1f a week): felt at %d, owned at %d, a signature at %d." % [
+		NoGi.DRILL_GAIN, int(BjjTree.T["FELT"]), int(BeltRoad.OWNED_AT), int(NoGi.SIGNATURE)], UI.TINY, true))
 	var bjj: Dictionary = f.get("bjj", {})
 	for g in NoGi.groups_of(f):
 		v.add_child(UI.caps(str(g[0])))
@@ -163,7 +163,7 @@ func _mat_book(main: Node, c: Career, f: Dictionary) -> Control:
 	_steps = CoachSteps.new()
 	_steps.setup(mat)
 	col.add_child(_steps)
-	col.add_child(UI.muted("%s in red, the partner in blue. The moves are GrappleMap's (eel.is/GrappleMap), played at a coached pace." % f["first"], UI.SMALL, true))
+	col.add_child(UI.muted("Your fighter in red, the partner in blue. The moves are GrappleMap's (eel.is/GrappleMap), played at a coached pace.", UI.SMALL, true))
 	h.add_child(col)
 	if drilling != "":
 		mat.ready.connect(func(): _watch(drilling), CONNECT_ONE_SHOT)

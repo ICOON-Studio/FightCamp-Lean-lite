@@ -33,10 +33,10 @@ func _initialize() -> void:
 	# The reason names the real cause.
 	var names := ["Ana", "Kim"]
 	var tired := {"kind": "takedown", "m": 30.0, "pts": 2, "odds": 0.2}
-	_check(BjjClash.reason(BjjClash.factors({"skill": [30.0, 30.0], "strength": [50.0, 50.0], "gas": [0.1, 1.0]}, 0, tired), 0, false, names).contains("Ana is tiring"),
+	_check(BjjClash.reason(BjjClash.factors({"skill": [30.0, 30.0], "strength": [50.0, 50.0], "gas": [0.1, 1.0]}, 0, tired), 0, false, names).contains("Your grappler is tiring"),   # S448: the role, never the name
 		"a gassed miss says so")
 	var strong := {"kind": "pass", "m": 30.0, "pts": 3, "odds": 0.4}
-	_check(BjjClash.reason(BjjClash.factors({"skill": [30.0, 30.0], "strength": [80.0, 50.0], "gas": [1.0, 1.0]}, 0, strong), 0, true, names).contains("Ana is stronger"),
+	_check(BjjClash.reason(BjjClash.factors({"skill": [30.0, 30.0], "strength": [80.0, 50.0], "gas": [1.0, 1.0]}, 0, strong), 0, true, names).contains("Your grappler is stronger"),
 		"a strength win says so")
 	var even := {"kind": "advance", "m": 30.0, "pts": 0, "odds": 0.55}
 	_check(BjjClash.reason(BjjClash.factors({"skill": [30.0, 30.0], "strength": [50.0, 50.0], "gas": [1.0, 1.0]}, 0, even), 0, true, names).contains("Nothing between them"),

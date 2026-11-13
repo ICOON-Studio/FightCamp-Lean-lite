@@ -41,7 +41,7 @@ func _initialize() -> void:
 	var x := {"won": false, "landed": [2, 4], "planned": true, "arrow": "1-6-3", "arrow_fit": "wrong", "psit": "loadup", "plan_edge": -8.0,
 		"pressure": {"pressure": 0.4, "cut": 2, "clean": 4, "tank": 6.0}}
 	var w := FightWhy.read([{"won": false, "exchanges": [x]}], "Lucy", "Maria")
-	_check(str(w["plan"]).contains("took 2 landed punches off Maria") and str(w["against"]).contains("cost Lucy 6 of the tank"), "the Why says what lasted")
+	_check(str(w["plan"]).contains("took 2 landed punches off the opponent") and str(w["against"]).contains("cost your boxer 6 of the tank"), "the Why says what lasted")
 	print("PLAN_PRESSURE checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures > 0 else 0)
 

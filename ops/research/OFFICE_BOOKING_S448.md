@@ -90,3 +90,20 @@ fight-night result shown, not per-session numbers.
 2. Office computer: mockup first (Desktop, Mail, Schedule, Fighters, Staff, Finance, Records), his pick, then build.
 3. Coach depth: pairing fit + load + growth + personality + bond (map, critics 7+, then build).
 4. Contract ledger now (small); the pro negotiation with TURNPRO1.
+
+## 7. Camp locations (his S448 interview answers, verbatim where quoted)
+Mockups: docs/mockups/s448/camp_cards/camp_plan.png (v1, picture cards per option) and camp_plan_v2.png (v2, his direction:
+"a location picture for each camp and showing icons with toolitips of that drills that camp involves ? and also meters to change
+sparring weight cut ?"). Pictures made in Ludo in the game's own look (S448, 13 credits).
+His answers: all four locations - home gym, hill cottage, city club sparring trip, seaside - and "the buffs need to be real and
+reflect in the fight"; the amateur fight week can use them too ("Fight week too"); sliders for sparring, weight cut, training
+load, and "add sliders also for technique/power/cardio with picture cards"; who pays: "how about who pays affect mood/morale,
+relationship and not always available for the fighter to pay".
+Design rules that follow: every location buff is a multiplier on a stat or rule the fight already reads (Cardio and Legs gains,
+Fight IQ gains, plan tests per sparring night, recovery = FATIGUE_KEEP, injury chance) - never a label; the screen shows what it
+changes ON FIGHT NIGHT (e.g. stamina lasts into round 3). Each location caps or opens sliders (hills/seaside: sparring max 1 a
+week; city: new styles add a plan test a night, injury x1.3). Focus = three shares of drill time summing to 100%, the biggest is
+the camp goal (PeakCamp). Who pays: club (mood +, bond +), half, or she pays (needs her own savings - NEW: fighters have no money
+today; stipend and purses would fill it) - she cannot pay what she does not have. Costs are first estimates from UK prices x1.25
+(cottage ~GBP 700 a week, house ~GBP 800, mat fees + travel ~GBP 320 a week): John checks them before the build. Next: design map
+with the wired-menus table, two fresh critics to 7+, then his board.

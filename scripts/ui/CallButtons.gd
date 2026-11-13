@@ -45,7 +45,7 @@ static func shout_row(offers: Array, grades: Dictionary, coach: String, names: A
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.tooltip_text = Exchanges.named(str(c["expect"]), names)
 		row.add_child(b)
-	var quiet := UI.button2("Say nothing", "%s sticks to the plan\nNo shout used" % names[0], "BtnQuiet",
+	var quiet := UI.button2("Say nothing", "Your boxer sticks to the plan\nNo shout used", "BtnQuiet",
 		pick.bind(""), Vector2(0, 80), UI.FG, UI.MUTED, false, UI.BODY, UI.SMALL)
 	quiet.name = "SayNothing"
 	quiet.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -58,7 +58,7 @@ static func shout_row(offers: Array, grades: Dictionary, coach: String, names: A
 static func now_button(now: Dictionary, names: Array, pick: Callable) -> Button:
 	if now.is_empty():
 		return null
-	var b := UI.button2(str(now["line"]), "The set-up: %s is in the gap" % names[1], "ChoiceOn", pick.bind("now"), Vector2(0, 80),
+	var b := UI.button2(str(now["line"]), "The set-up: the opponent is in the gap", "ChoiceOn", pick.bind("now"), Vector2(0, 80),
 		Color("#14110f"), Color("#3a2a10"), false, UI.BODY, UI.SMALL)
 	b.name = "Shout_now"
 	b.add_theme_stylebox_override("normal", UI.box(Color("#f0b429"), Color("#ffd166"), 6, 2, 12, 8))
@@ -84,12 +84,12 @@ static func fix_row(fixes: Array, names: Array, chosen: String, pick: Callable, 
 		row.add_child(cb)
 	for h in fixes:
 		var paid := int(h["paid"])
-		var small := "Cost %s %d time%s this round. Press to work on it next round" % [names[0], paid, "" if paid == 1 else "s"] if paid > 0 else "Your coach has seen it. Press to work on it next round"   # S416 operator: "i do not understand the fix the habit option"
+		var small := "Cost your boxer %d time%s this round. Press to work on it next round" % [paid, "" if paid == 1 else "s"] if paid > 0 else "Your coach has seen it. Press to work on it next round"   # S416 operator: "i do not understand the fix the habit option"
 		var b := UI.button2("Fix: " + str(h["name"]), small, "Choice", pick.bind(str(h["id"])), Vector2(0, 50),
 			UI.FG, UI.AMBER if paid > 0 else UI.MUTED, false, UI.SMALL + 1, UI.TINY)
 		b.name = "Fix_" + str(h["id"])
 		b.tooltip_text = "%s
-Your one change this minute. Next round this habit stops costing %s, as far as the instruction sinks in (Coachability)." % [small, names[0]]
+Your one change this minute. Next round this habit stops costing your boxer, as far as the instruction sinks in (Coachability)." % small
 		for l in b.find_children("*", "Label", true, false):   # S443: the long line ran under "Leave it"; it ends in ... and the hover has it all
 			(l as Label).text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL

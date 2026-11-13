@@ -280,7 +280,8 @@ static func _lines(c: Career, f: Dictionary, r: Dictionary) -> void:
 	var opp: Dictionary = f["bout"]["opp"]
 	var camp: Dictionary = f["camp"]
 	var n := int(r["n"])
-	var subs := {"her": f["first"], "opp": opp["first"], "threat": str(opp["threat"]).to_lower(), "round": n,
+	var subs := {"her": "your boxer", "opp": "the opponent",   # S448: roles below the header (FightWords capitalises)
+		 "threat": str(opp["threat"]).to_lower(), "round": n,
 		"focus": str(Data.LABEL.get(camp.get("focus", ""), "")).to_lower()}
 	r["lines"] = FightWords.round_lines(str(opp["style"]), bool(r["won"]), str(r["corner"]), subs, c.day + n * 13,
 		f, r.get("exchanges", []))

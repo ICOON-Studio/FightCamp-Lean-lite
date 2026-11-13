@@ -76,7 +76,7 @@ func _test_clean_lands_more() -> void:
 		for lean in (Judges.PRO_LEANS if pro else Judges.AMATEUR_LEANS):
 			var sc := _real(p, lean, [0, 0], pro)
 			_check(int(sc["a"]) == 10 and int(sc["b"]) == 9, "a lands more: 10-9 to a on the %s card (pro %s)" % [lean, pro])
-			_check(str(sc["reason"]) == "Clean: Lucy landed 12 to 9.", "clean reason: %s" % sc["reason"])
+			_check(str(sc["reason"]) == "Clean: your boxer landed 12 to 9.", "clean reason: %s" % sc["reason"])
 
 
 func _test_lean_decides_close_round() -> void:
@@ -88,8 +88,8 @@ func _test_lean_decides_close_round() -> void:
 	var clean := _real(p, "clean", [0, 0], true)
 	_check(int(ring["a"]) == 10 and int(ring["b"]) == 9, "close round: the ring card goes to a")
 	_check(int(clean["a"]) == 9 and int(clean["b"]) == 10, "close round: the clean card goes to b")
-	_check(str(ring["reason"]) == "Ring: Lucy kept the fight in the pocket, 4 exchanges.", "ring reason: %s" % ring["reason"])
-	_check(str(clean["reason"]) == "Clean: Priya landed 11 to 10.", "clean reason (b first): %s" % clean["reason"])
+	_check(str(ring["reason"]) == "Ring: your boxer kept the fight in the pocket, 4 exchanges.", "ring reason: %s" % ring["reason"])
+	_check(str(clean["reason"]) == "Clean: the opponent landed 11 to 10.", "clean reason (b first): %s" % clean["reason"])
 
 
 func _test_counts() -> void:
@@ -103,7 +103,7 @@ func _test_counts() -> void:
 		_check(int(two["a"]) == 7 and int(two["b"]) == 10, "two counts on a: 10-7 to b (%s)" % lean)
 		_check(int(each["a"]) == 10 and int(each["b"]) == 9, "a count each: 10-9 by the parts (%s)" % lean)
 		_check(int(theirs["a"]) == 10 and int(theirs["b"]) == 8, "one count on b: 10-8 to a (%s)" % lean)
-		_check(str(one["reason"]) == "Count: Lucy took a count." and str(two["reason"]) == "Count: Lucy took 2 counts.",
+		_check(str(one["reason"]) == "Count: your boxer took a count." and str(two["reason"]) == "Count: your boxer took 2 counts.",
 			"count reasons: %s / %s" % [one["reason"], two["reason"]])
 
 
@@ -118,14 +118,14 @@ func _test_level_rules() -> void:
 	# b clean 5 -> clean -> b. The second exchange is fought where a did not want it (wa INSIDE), so no ring point.
 	var q := Judges.parts(_round([_ex(true, 2, 2, L, L, I), _ex(true, 1, 3, L, I, I)]))
 	var sc := _real(q, "initiative", [0, 0], false)
-	_check(int(sc["b"]) == 10 and str(sc["reason"]) == "Clean: Priya landed 5 to 3.", "level, lean 0-0: clean decides (%s)" % sc["reason"])
+	_check(int(sc["b"]) == 10 and str(sc["reason"]) == "Clean: the opponent landed 5 to 3.", "level, lean 0-0: clean decides (%s)" % sc["reason"])
 	# level on everything: the side that won the last exchange.
 	var r1 := Judges.parts(_round([_ex(false, 1, 2, L, I, L), _ex(true, 2, 1, L, L, I)]))
 	var r2 := Judges.parts(_round([_ex(true, 2, 1, L, L, I), _ex(false, 1, 2, L, I, L)]))
 	var s1 := _real(r1, "ring", [0, 0], false)
 	var s2 := _real(r2, "ring", [0, 0], false)
-	_check(int(s1["a"]) == 10 and str(s1["reason"]) == "Even round: Lucy won the last exchange.", "even round, a last: %s" % s1["reason"])
-	_check(int(s2["b"]) == 10 and str(s2["reason"]) == "Even round: Priya won the last exchange.", "even round, b last: %s" % s2["reason"])
+	_check(int(s1["a"]) == 10 and str(s1["reason"]) == "Even round: your boxer won the last exchange.", "even round, a last: %s" % s1["reason"])
+	_check(int(s2["b"]) == 10 and str(s2["reason"]) == "Even round: the opponent won the last exchange.", "even round, b last: %s" % s2["reason"])
 
 
 func _test_forward_exchanges() -> void:
@@ -152,7 +152,7 @@ func _test_big_shots() -> void:
 	# landed -> a, by the big shot. clean card: a 1x5 + 12 = 17, b 4x5 = 20 -> b: the clean judge's lean outweighs the big shot.
 	var r := Judges.parts(_round([_ex(true, 1, 4, L, I, I, {"setup": "landed"})]))
 	var big_ring := _real(r, "ring", [0, 0], false)
-	_check(int(big_ring["a"]) == 10 and str(big_ring["reason"]) == "Big shots: Lucy landed 1 to 0.", "a big shot outweighs one landed punch (%s)" % big_ring["reason"])
+	_check(int(big_ring["a"]) == 10 and str(big_ring["reason"]) == "Big shots: your boxer landed 1 to 0.", "a big shot outweighs one landed punch (%s)" % big_ring["reason"])
 	_check(int(_real(r, "clean", [0, 0], false)["b"]) == 10, "a clean judge's lean on the landed punches outweighs one big shot")
 
 
@@ -161,8 +161,8 @@ func _test_work_only_pro() -> void:
 	var p := Judges.parts(_round([_ex(true, 3, 3, L, I, I), _ex(false, 3, 3, L, I, I)], [0, 0], [70, 50]))
 	var pro := _real(p, "clean", [0, 0], true)
 	var am := _real(p, "clean", [0, 0], false)
-	_check(int(pro["a"]) == 10 and str(pro["reason"]) == "Work: Lucy set the busier pace, 70 to 50.", "pro: work decides (%s)" % pro["reason"])
-	_check(int(am["b"]) == 10 and str(am["reason"]) == "Even round: Priya won the last exchange.", "amateur ignores work (%s)" % am["reason"])
+	_check(int(pro["a"]) == 10 and str(pro["reason"]) == "Work: your boxer set the busier pace, 70 to 50.", "pro: work decides (%s)" % pro["reason"])
+	_check(int(am["b"]) == 10 and str(am["reason"]) == "Even round: the opponent won the last exchange.", "amateur ignores work (%s)" % am["reason"])
 
 
 func _test_panel() -> void:
@@ -198,12 +198,12 @@ func _test_cards() -> void:
 	for row in mixed["by_round"]:
 		for sc in row:
 			var t := str((sc as Dictionary)["reason"])
-			_check(t.contains("Lucy") or t.contains("Priya"), "reason holds a name: %s" % t)
+			_check(t.contains("your boxer") or t.contains("the opponent") or t.contains("Your boxer") or t.contains("The opponent"), "reason says whose (S448: the role): %s" % t)
 			_check(re.search(t.to_lower()) == null, "no pronoun: %s" % t)
 	# card reasons: the ring judge's card moved 1 point by clean (R1) and 1 by ring (R3): the tie goes to the lean.
-	_check(Judges.card_reason(mixed, 0) == "Ring: Lucy kept the fight in the pocket, 4 exchanges (round 3)",
+	_check(Judges.card_reason(mixed, 0) == "Ring: your boxer kept the fight in the pocket, 4 exchanges (round 3)",
 		"ring card reason: %s" % Judges.card_reason(mixed, 0))
-	_check(Judges.card_reason(mixed, 1) == "Clean: Priya landed more in rounds 2 and 3.", "clean card reason: %s" % Judges.card_reason(mixed, 1))
+	_check(Judges.card_reason(mixed, 1) == "Clean: the opponent landed more in rounds 2 and 3.", "clean card reason: %s" % Judges.card_reason(mixed, 1))
 
 
 func _test_majority_and_draw() -> void:

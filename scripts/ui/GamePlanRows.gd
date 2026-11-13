@@ -66,18 +66,18 @@ static func go_to(gp) -> Control:
 		row.add_child(b)
 	box.add_child(row)
 	if not any:
-		box.add_child(UI.muted("None of %s's own combinations is drilled yet (book ones like the 1-2 are thrown as they come). Build one under Combos and put it on the pads." % f["first"], UI.TINY, true))
+		box.add_child(UI.muted("None of your boxer's own combinations is drilled yet (book ones like the 1-2 are thrown as they come). Build one under Combos and put it on the pads.", UI.TINY, true))
 		return box
 	var share := "%d%% of the combination exchanges instead of %d%%" % [roundi(100.0 * OwnCombos.NAMED_SHARE), roundi(100.0 * OwnCombos.USE_SHARE)]
 	if named.is_empty():
-		box.add_child(UI.muted("Name one and %s reaches for it far more often, while the legs can still throw it whole." % f["first"], UI.TINY, true))
+		box.add_child(UI.muted("Name one and your boxer reaches for it far more often, while the legs can still throw it whole.", UI.TINY, true))
 		return box
 	var per_round: Array = []
 	var whole := OwnCombos.whole_by_round(f, named)
 	for i in whole.size():
 		per_round.append("R%d %s" % [i + 1, "whole" if bool(whole[i]) else "too tired"])
 	var col: Color = UI.GREEN if bool(whole[0]) else UI.RED
-	var said := UI.label("%s reaches for it far more often while it is thrown whole:  %s" % [f["first"], "  ·  ".join(per_round)], UI.TINY, col, "body", true)
+	var said := UI.label("Your boxer reaches for it far more often while it is thrown whole:  %s" % "  ·  ".join(per_round), UI.TINY, col, "body", true)
 	said.name = "GoToRounds"
 	said.mouse_filter = Control.MOUSE_FILTER_PASS
 	said.tooltip_text = "It decides %s." % share   # S397: the number on hover, words on the card

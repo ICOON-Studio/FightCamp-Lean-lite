@@ -28,7 +28,7 @@ func _initialize() -> void:
 		"rec_after": [4, 1, 0], "opp_rec_after": [5, 2, 0], "rank_after": 7, "opp_rank_after": 4})
 	var hw := Headline.headline(win)
 	_check(str(hw["title"]) == "Lucy wins on a split, 2-1", "split win title (%s)" % str(hw["title"]))
-	_check(str(hw["cause"]) == "Round 2 decided it: Lucy won 4 of 6 exchanges; judge 3 gave it to Priya.",
+	_check(str(hw["cause"]) == "Round 2 decided it: your boxer won 4 of 6 exchanges; judge 3 gave it to the opponent.",
 		"a split win names the flip round (%s)" % str(hw["cause"]))
 	_check(str((hw["milestone"] as Dictionary).get("kind", "")) == "ranked" and str(hw["milestone"]["words"]) == "Enters the rankings",
 		"unranked -> ranked is the milestone (%s)" % str(hw["milestone"]))
@@ -41,12 +41,12 @@ func _initialize() -> void:
 	_check(str(hf["title"]) == "Lucy wins on points, 3-0", "unanimous title (%s)" % str(hf["title"]))
 	_check(str((hf["milestone"] as Dictionary).get("kind", "")) == "first_win" and str(hf["milestone"]["words"]) == "First win",
 		"a first win is the milestone (%s)" % str(hf["milestone"]))
-	_check(str(hf["cause"]) == "Round 2 was the clearest: Lucy won 5 of 6 exchanges.", "unanimous cause (%s)" % str(hf["cause"]))
+	_check(str(hf["cause"]) == "Round 2 was the clearest: your boxer won 5 of 6 exchanges.", "unanimous cause (%s)" % str(hf["cause"]))
 	# 3b. A second win is no milestone; a pro's first win says pro.
 	var second := _lucy({"outcome": "win", "cards": ["30-27", "30-27", "30-27"], "won": [true, true, true], "won_n": [4, 4, 4], "flip": -1,
 		"rec_before": [1, 1, 0], "rec_after": [2, 1, 0]})
 	_check((Headline.headline(second)["milestone"] as Dictionary).is_empty(), "a second win is no milestone")
-	_check(str(Headline.headline(second)["cause"]) == "Round 3 was the clearest: Lucy won 4 of 6 exchanges.", "ties go to the later round")
+	_check(str(Headline.headline(second)["cause"]) == "Round 3 was the clearest: your boxer won 4 of 6 exchanges.", "ties go to the later round")
 	var pro := _lucy({"outcome": "win", "pro": true, "rounds": 4, "cards": ["40-36", "40-36", "40-36"], "won": [true, true, true, true],
 		"won_n": [4, 4, 4, 4], "flip": -1, "rec_before": [0, 0, 0], "rec_after": [1, 0, 0]})
 	var hp := Headline.headline(pro)
@@ -56,7 +56,7 @@ func _initialize() -> void:
 	var ko := _lucy({"outcome": "win", "stopped": "KO", "won": [true, true], "won_n": [4, 5], "flip": -1, "cards": ["20-18", "20-18", "20-18"]})
 	var hk := Headline.headline(ko)
 	_check(str(hk["title"]) == "Lucy wins by knockout in round 2", "KO win title (%s)" % str(hk["title"]))
-	_check(str(hk["cause"]) == "Round 2 decided it: Priya did not beat the count.", "KO cause (%s)" % str(hk["cause"]))
+	_check(str(hk["cause"]) == "Round 2 decided it: the opponent did not beat the count.", "KO cause (%s)" % str(hk["cause"]))
 	var rsc := _lucy({"outcome": "loss", "stopped": "RSC", "won": [false, false, false], "won_n": [2, 1, 1]})
 	_check(str(Headline.headline(rsc)["title"]) == "Lucy loses by stoppage in round 3", "RSC loss title (%s)" % str(Headline.headline(rsc)["title"]))
 	# 3d. A draw and a majority.

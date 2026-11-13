@@ -76,7 +76,7 @@ const CHOICES := [
 # takes in of the corner's calls (FighterProfile.trust). {first} = her first name (TwistCard fills it in).
 const ASKS := [
 	{"id": "ask_rest", "name": "{first} asks for a day off", "line": "\"I'm cooked. Give me Saturday.\"", "ask": true, "default": "b",
-		"a": {"label": "Give {first} Saturday", "line": "Saturday off, morning and evening; morale up.", "rest_day": 5, "morale": "heard"},
+		"a": {"label": "Give Saturday off", "line": "Saturday off, morning and evening; morale up.", "rest_day": 5, "morale": "heard"},
 		"b": {"label": "Keep the plan", "line": "The full week; morale down.", "morale": "overruled"}},
 	{"id": "ask_easy", "name": "{first} asks to ease off", "line": "\"Too many hard mornings. Can we ease off?\"", "ask": true, "default": "b",
 		"a": {"label": "Ease off", "line": "Every Hard morning goes Normal (less gain, less fatigue); morale up.", "no_hard": true, "morale": "heard"},

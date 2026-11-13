@@ -10,7 +10,7 @@ const Duels := preload("res://scripts/rules/Duels.gd")
 
 static func round_lines(style: String, won: bool, corner: String, subs: Dictionary, seed_value: int,
 		fighter: Dictionary = {}, exchanges: Array = []) -> Array:
-	var out := Legacy.round_lines(style, won, corner, subs, seed_value)
+	var out := _caps(Legacy.round_lines(style, won, corner, subs, seed_value))
 	if fighter.is_empty():
 		return out
 	var a := Attrs.of(fighter)
@@ -53,4 +53,20 @@ static func round_lines(style: String, won: bool, corner: String, subs: Dictiona
 		out.append(moment)
 	else:
 		out[1] = moment
+	return _caps(out)
+
+
+## S448 operator ("names are only mentioned on the header"): BoutNight fills {her} / {opp} with "your boxer" / "the
+## opponent"; a role that opens a sentence is capitalised here.
+static func _caps(lines: Array) -> Array:
+	var re := RegEx.create_from_string("(^|[.!?]\\s+)(your boxer|the opponent)")
+	var out: Array = []
+	for l in lines:
+		var t := str(l)
+		var m := re.search(t)
+		while m != null:
+			var w := m.get_string(2)
+			t = t.substr(0, m.get_start(2)) + w.left(1).to_upper() + w.substr(1) + t.substr(m.get_end(2))
+			m = re.search(t, m.get_end(2))
+		out.append(t)
 	return out

@@ -67,8 +67,8 @@ static func stats_card(f: Dictionary, opp: Dictionary, salt: int) -> PanelContai
 	card[0].name = "BoutStats"
 	var v: VBoxContainer = card[1]
 	var key := UI.hbox(16)
-	key.add_child(_swatch(UI.GOLD, str(f["first"])))
-	key.add_child(_swatch(UI.RED, "%s, estimate" % str(opp["first"])))
+	key.add_child(_swatch(UI.GOLD, "Yours"))   # S448 operator: names only in the header
+	key.add_child(_swatch(UI.RED, "Theirs, estimate"))
 	v.add_child(key)
 	var ranges := BoutRead.key_ranges(opp, salt)
 	var mine_keys := Duels.keys(Attrs.of(f))
@@ -92,10 +92,10 @@ static func stats_card(f: Dictionary, opp: Dictionary, salt: int) -> PanelContai
 	var seen := RingDuel.AttrGen.attrs_of(BoutRead.public(opp))
 	var sig := Attrs.signature(seen)
 	if sig != "":
-		v.add_child(UI.label("%s on tape: %s." % [str(opp["first"]), sig], UI.SMALL, UI.MUTED, "", true))
+		v.add_child(UI.label("The opponent on tape: %s." % sig, UI.SMALL, UI.MUTED, "", true))
 	# Dola (S398): where the opponent wins and where it breaks, against this fighter (the duels at each place, on the tape).
 	var wb := RingDuel.wins_breaks(f, BoutRead.public(opp))
-	v.add_child(UI.label("%s wins %s, breaks %s." % [str(opp["first"]), str(Duels.PLACE_WORD[int(wb[0])]), str(Duels.PLACE_WORD[int(wb[1])])],
+	v.add_child(UI.label("The opponent wins %s, breaks %s." % [str(Duels.PLACE_WORD[int(wb[0])]), str(Duels.PLACE_WORD[int(wb[1])])],
 		UI.SMALL, UI.FG, "", true))
 	return card[0]
 
@@ -161,14 +161,14 @@ static func read_card(c: Career, f: Dictionary, opp: Dictionary, camp: Dictionar
 	v.add_child(Icons.tip(UI.muted("%s, today's form" % camp_word, UI.SMALL), "The coach's own calls. Your plan and your shouts can beat it."))
 	var rows := Region.rankings(c, str(f["div"]))
 	var m := BoutRead.rank_move(rows, f, str(opp["name"]), Region.before, Region.RANK_MIN_WINS)
-	var items: Array = [UI.kv("%s now" % str(f["first"]), "#%d" % int(m["now"]) if int(m["now"]) > 0 else "Unranked")]
+	var items: Array = [UI.kv("Yours now", "#%d" % int(m["now"]) if int(m["now"]) > 0 else "Unranked")]
 	if int(m["win"]) == 0:
 		items.append(UI.kv("A win", "%d more to enter" % int(m["need"]), UI.MUTED))
 	else:
 		items.append(UI.kv("A win", _move_words(int(m["now"]), int(m["win"])), UI.GREEN))
 	items.append(UI.kv("A loss", _move_words(int(m["now"]), int(m["loss"])), UI.RED if int(m["loss"]) > int(m["now"]) and int(m["now"]) > 0 else UI.FG))
 	var theirs := BoutRead.rank_of(rows, str(opp["name"]))
-	items.append(UI.kv(str(opp["first"]), "#%d" % theirs if theirs > 0 else "Unranked"))
+	items.append(UI.kv("Theirs", "#%d" % theirs if theirs > 0 else "Unranked"))
 	UI.add_rows(v, items)
 	return card[0]
 
@@ -186,5 +186,5 @@ static func offer_chips(c: Career, f: Dictionary, o: Dictionary) -> Array:
 	rank.name = "OppRank_" + str(o["id"])
 	var cut := UI.chip("Ticket cut %s" % UI.money(BoutRules.TICKET_CUT), "green")
 	cut.name = "Cut_" + str(o["id"])
-	return [Icons.tip(mis, "%s's strength against the estimate of %s. Minus: %s is the stronger." % [f["first"], opp["first"], opp["first"]]),
-		Icons.tip(rank, "%s's place in the division." % opp["first"]), Icons.tip(cut, "The club's ticket cut for the bout.")]
+	return [Icons.tip(mis, "Your boxer's strength against the estimate of the opponent. Minus: the opponent is the stronger."),
+		Icons.tip(rank, "The opponent's place in the division."), Icons.tip(cut, "The club's ticket cut for the bout.")]

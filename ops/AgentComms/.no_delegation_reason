@@ -1,1 +1,1 @@
-S369 delegated before midnight (11-02): qwen RIVALPAST1 (PR #19 merged) + REFBREAK1 r4/r5, agy CAMCLINCH1 via seat_dispatch (PR #20); the check reads 11-03
+S448: Qwen idle by choice - its seat gave up on SOUND4 without trying the signed-in Ludo CLI (done in-house); no demo-path item for it until the office/booking design is agreed with the operator

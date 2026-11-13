@@ -35,7 +35,7 @@ static func build(m: Dictionary, names: Array) -> VBoxContainer:
 	return v
 
 
-static func _card(j: Dictionary, k: int, names: Array) -> PanelContainer:
+static func _card(j: Dictionary, k: int, _names: Array) -> PanelContainer:
 	var lean := str((j.get("leans", []) as Array)[k]) if k < (j.get("leans", []) as Array).size() else ""
 	var tot: Array = (j["cards"] as Array)[k]
 	var a := int(tot[0])
@@ -71,7 +71,7 @@ static func _card(j: Dictionary, k: int, names: Array) -> PanelContainer:
 		chips.add_child(chip)
 	v.add_child(chips)
 	var total := UI.label("%d-%d" % [a, b], 30, col.lightened(0.3) if a != b else UI.FG, "display")
-	total.tooltip_text = "%s %d, %s %d" % [str(names[0]) if names.size() > 0 else "Red", a, str(names[1]) if names.size() > 1 else "Blue", b]
+	total.tooltip_text = "Yours %d, theirs %d" % [a, b]   # S448: names only in the header
 	v.add_child(total)
 	var why := str((j.get("reasons", ["", "", ""]) as Array)[k]) if k < (j.get("reasons", []) as Array).size() else ""
 	v.add_child(UI.label(why if why != "" else "A level card.", UI.SMALL, UI.FG, "body", true))

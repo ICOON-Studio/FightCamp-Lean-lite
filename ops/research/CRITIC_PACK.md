@@ -404,5 +404,7 @@ The gym on Home has people in it: the club's fighters and members, working at eq
 - The plan's step and defence answers are `StrikeMap` arrows: step in, step out, step back, cut off, herd, pivot out, push off, feint,
   tie up, roll out. They have no mastery today and always work in full.
 - Coaches: Luke Reid pads 74 (rating 58), Marcus Hale pads 58 / conditioning 90 (rating 74).
+- Units: the code counts a pad night as 240 drill units (PadWeek.PAD_NIGHT_MINUTES) for the 75 real minutes in 4.2; a sparring night shares 180
+  units over the moves on the fighter's cards and plan. Mastery maths uses the units.
 
 SANDBOX (S412): the player runs any gym with any boxers, men or women. Never write about one boxer as the story, and never a fixed he or she in text or mockups.

@@ -148,7 +148,7 @@ func _top_bar() -> Control:
 				PlanTest.NONE_LEFT)
 			_test_btn.name = "TestIt"
 			h.add_child(_test_btn if _test_btn.disabled else Icons.tip(_test_btn,
-				"20 quick bouts against %s with this plan, on a sparring night." % str(bout["opp"].get("first", "the opponent"))))
+				"20 quick bouts against the opponent with this plan, on a sparring night."))
 		h.add_child(UI.button("Save plan", "BtnSolid", _save))
 	return bar
 
@@ -382,7 +382,7 @@ func _template_list() -> Control:
 	var game := OppFile.main_game(opp) if not opp.is_empty() else ""
 	var mine: Array = PlanTemplates.for_game(game)
 	if game != "":
-		box.add_child(UI.muted("Next opponent, %s: %s." % [opp.get("first", "?"), str(OppFile.GAME_WORDS.get(game, game))], UI.SMALL, true))
+		box.add_child(UI.muted("Next opponent: %s." % str(OppFile.GAME_WORDS.get(game, game)), UI.SMALL, true))
 	var rows: Array = PlanTemplates.BOXING.duplicate()
 	rows.sort_custom(func(a, b): return mine.has(a["id"]) and not mine.has(b["id"]))
 	for t in rows:

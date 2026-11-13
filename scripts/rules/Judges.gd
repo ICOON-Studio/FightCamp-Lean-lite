@@ -189,11 +189,12 @@ static func reason_of(part: String, p: Dictionary, names: Array, side: String) -
 			return "Work: %s set the busier pace, %d to %d." % [who, int(pace[i]), int(pace[1 - i])]
 		"last":
 			return "Even round: %s won the last exchange." % who
-	return "%s won the round." % who
+	return "%s won the round." % (who.left(1).to_upper() + who.substr(1))
 
 
-static func _name(names: Array, i: int) -> String:
-	return str(names[i]) if i < names.size() else ("Red" if i == 0 else "Blue")
+## S448 operator ("names are only mentioned on the header"): the judges' reasons say the role, never the name.
+static func _name(_names: Array, i: int) -> String:
+	return "your boxer" if i == 0 else "the opponent"
 
 
 ## Every round on three cards: {cards [[a, b] x3], by_round [[{a, b, reason, part} x3] ...], running [[[a, b] x3] after each
@@ -293,4 +294,4 @@ static func card_reason(c: Dictionary, judge: int) -> String:
 			return "Count: %s took counts in %s." % [other, where]
 		"last":
 			return "Even rounds: %s won the last exchange in %s." % [who, where]
-	return "%s won %s." % [who, where]
+	return "%s won %s." % [who.left(1).to_upper() + who.substr(1), where]

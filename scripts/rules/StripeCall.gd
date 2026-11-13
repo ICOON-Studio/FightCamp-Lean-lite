@@ -59,16 +59,16 @@ static func options(f: Dictionary, today: int) -> Dictionary:
 	var loyal := int(f.get("loyalty", NoGi.MORALE_START))
 	if loyal < ASKS_UNDER:
 		out["pick"] = "now"
-		out["why"] = "Give it now: %s's loyalty is thin." % f.get("first", "the fighter")
+		out["why"] = "Give it now: the loyalty is thin."   # S448: the coach's line says no name
 	elif morale < LOW_AT:
 		out["pick"] = "now"
-		out["why"] = "Give it now: %s needs a lift." % f.get("first", "the fighter")
+		out["why"] = "Give it now: morale needs a lift."
 	elif morale >= HUNGRY_AT and out["hold"] == "":
 		out["pick"] = "hold"
-		out["why"] = "%s's hungry: holding it back would light a fire." % f.get("first", "The fighter")
+		out["why"] = "Hungry: holding it back would light a fire."
 	else:
 		out["pick"] = "now"
-		out["why"] = "%s has earned it: give it now." % f.get("first", "The fighter")
+		out["why"] = "Earned it: give it now."
 	return out
 
 

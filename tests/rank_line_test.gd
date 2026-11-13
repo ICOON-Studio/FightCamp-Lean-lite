@@ -80,7 +80,7 @@ func _climb_names_passed() -> void:
 	_check(int(r["moved"]) == 1, "moved up 1")
 	var passed: Array = r["passed"]
 	_check(passed.size() == 1 and str(passed[0]) == "Beth", "passed Beth: %s" % str(passed))
-	_check(str(r["words"]).find("Beth") >= 0, "words name Beth: '%s'" % str(r["words"]))
+	_check(str(r["words"]).find("Passed one boxer") >= 0, "words count the boxer passed (S448: no names): '%s'" % str(r["words"]))
 
 
 ## She falls when she loses and another passes her.

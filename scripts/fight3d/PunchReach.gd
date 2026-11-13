@@ -137,7 +137,7 @@ func arm(clip: String, hand_bone: String, contact_s: float, target: Callable, gl
 	_back_along = INF
 	_last_w = 0.0
 	_shown_cur = Vector3.INF
-	_hit_f = -1; _real_c = 0.0
+	_hit_f = -1; _real_c = 0.0; remove_meta("hold_on")   # S448 ReachLimit.fit
 	_path = {}
 	drive_v = float(drive_for[1]) if drive_for.size() == 3 and str(drive_for[0]) == clip else 0.0
 	drive_t = float(drive_for[2]) if drive_v > 0.0 else 0.0
@@ -423,7 +423,7 @@ func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove
 	# moving the wrist turns the forearm, so one step left the front 0.13-0.28 m off (hit_gap_probe, inside punches): the
 	# full-weight wrist is found by re-solving from the moved arm, then the pose is put back and eased in by the weight.
 	var keep := [skel.get_bone_global_pose(int(ids[0])), skel.get_bone_global_pose(int(ids[1])), g_hd]
-	var full := ReachLimit.converge(self, skel, ids, s, target, glove_front, l1, l2, g_hd.basis, pole, pole_w, SOLVE_PASSES)
+	var full := ReachLimit.fit(self, skel, ids, s, target, glove_front, l1, l2, g_hd.basis, pole, pole_w, SOLVE_PASSES, Vector3.INF)
 	for k in 3:
 		skel.set_bone_global_pose(int(ids[k]), keep[k])
 	var want: Vector3 = g_hd.origin + (full - g_hd.origin) * w
@@ -439,7 +439,7 @@ func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove
 			# POWER1: the lean moved the shoulder, so the glove's axis (it follows the forearm) lands it elsewhere: re-solve
 			# from the leaned shoulder (hit_frame_test read the straight-arm reaches 2-3 cm past their aim before this).
 			var keep2 := [skel.get_bone_global_pose(int(ids[0])), skel.get_bone_global_pose(int(ids[1])), skel.get_bone_global_pose(int(ids[2]))]
-			var full2 := ReachLimit.converge(self, skel, ids, s, target, glove_front, l1, l2, g_hd.basis, pole, pole_w, SOLVE_PASSES)
+			var full2 := ReachLimit.fit(self, skel, ids, s, target, glove_front, l1, l2, g_hd.basis, pole, pole_w, SOLVE_PASSES, full)
 			for k in 3:
 				skel.set_bone_global_pose(int(ids[k]), keep2[k])
 			want += (full2 - full) * w

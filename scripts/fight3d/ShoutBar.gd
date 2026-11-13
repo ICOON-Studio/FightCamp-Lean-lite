@@ -50,7 +50,7 @@ func setup(pv: Dictionary, round_n: int) -> void:
 	var head := UI.hbox(12)
 	var left := 180 - int(pv.get("at", 30))
 	var names: Array = pv.get("names", ["Your fighter", "The opponent"])
-	head.add_child(UI.caps("ROUND %d   %d:%02d LEFT   WHAT DO YOU SHOUT TO %s?" % [round_n, left / 60, left % 60, str(names[0]).to_upper()]))
+	head.add_child(UI.caps("ROUND %d   %d:%02d LEFT   WHAT DO YOU SHOUT?" % [round_n, left / 60, left % 60]))   # S448: no name in the line
 	head.add_child(UI.spacer())
 	# S309 wording: she takes in two shouts a round in full (Exchanges.FULL_SHOUTS), the rest at half.
 	var shouts := int(pv.get("shouts", 0))
@@ -111,10 +111,10 @@ func _set_aim(a: String) -> void:
 
 
 ## How many more of your shouts she takes in fully this round.
-static func shout_note(shouts: int, her: String) -> String:
+static func shout_note(shouts: int, _her: String) -> String:   # S448 operator: the role, never the name
 	if shouts >= 2:
-		return "%s has heard 2 shouts this round: only half of the next goes in" % her
-	return "%s takes in %d more shout%s this round" % [her, 2 - shouts, "" if shouts == 1 else "s"]
+		return "Your boxer has heard 2 shouts this round: only half of the next goes in"
+	return "Your boxer takes in %d more shout%s this round" % [2 - shouts, "" if shouts == 1 else "s"]
 
 
 func _process(delta: float) -> void:

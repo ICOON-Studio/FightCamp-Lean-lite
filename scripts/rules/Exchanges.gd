@@ -96,9 +96,29 @@ const CALLS := {
 const GRADE_LINE := {"Good": "{her} is good at this", "OK": "{her} can do this", "Poor": "{her} is weak at this"}
 
 
-## A line with {her} / {opp} filled in. names = [hers, the opponent's].
-static func named(line: String, names: Array) -> String:
-	return line.replace("{her}", str(names[0])).replace("{opp}", str(names[1]))
+## A line with {her} / {opp} filled in. S448 operator ("names are only mentioned on the header"): the body says the role,
+## "your boxer" / "the opponent", capitalised where it opens a sentence. _names stays for the callers (headers use it).
+static func named(line: String, _names: Array = []) -> String:
+	return roles(line)
+
+
+## {her} -> "your boxer", {opp} -> "the opponent"; a role that opens a sentence (start, after . ! ? a newline or a quote)
+## is capitalised.
+static func roles(line: String) -> String:
+	var out := line
+	for pair in [["{her}", "your boxer"], ["{opp}", "the opponent"]]:
+		var ph := str(pair[0])
+		var i := out.find(ph)
+		while i >= 0:
+			var w := str(pair[1])
+			var j := i - 1
+			while j >= 0 and out[j] == " ":
+				j -= 1
+			if j < 0 or out[j] in [".", "!", "?", "\n", "\""]:
+				w = w.left(1).to_upper() + w.substr(1)
+			out = out.substr(0, i) + w + out.substr(i + ph.length())
+			i = out.find(ph, i + w.length())
+	return out
 
 ## The opponent's six games, and our fighter's own two states (they come first: a tired or hurt boxer is the problem).
 const MODES := {
@@ -344,22 +364,20 @@ static func round_of(exs: Array) -> Dictionary:
 
 
 ## The line after an exchange: did the call work? call "" = no call.
-static func verdict(call: String, sit: String, won: bool, names: Array) -> String:
+static func verdict(call: String, sit: String, won: bool, _names: Array) -> String:
 	var k := fit(call, sit)
-	var her := str(names[0])
-	var opp := str(names[1])
-	if call == "":
-		return "%s %s those 30 seconds with no call from you." % [her, "won" if won else "lost"]
+	if call == "":   # S448: roles, never names, below the header
+		return "Your boxer %s those 30 seconds with no call from you." % ("won" if won else "lost")
 	var label := str(CALLS[call]["label"])
 	if won and (k == "best" or k == "ok"):
-		return "It worked: \"%s\" won %s those 30 seconds." % [label, her]
+		return "It worked: \"%s\" won your boxer those 30 seconds." % label
 	if won:
-		return "%s won those 30 seconds, but not because of \"%s\"." % [her, label]
+		return "Your boxer won those 30 seconds, but not because of \"%s\"." % label
 	if k == "wrong":
-		return "Wrong call: \"%s\" played into %s's hands." % [label, opp]
+		return "Wrong call: \"%s\" played into the opponent's hands." % label
 	if k == "best" or k == "ok":
-		return "Right idea, \"%s\", but %s still lost those 30 seconds." % [label, her]
-	return "\"%s\" changed nothing: %s lost those 30 seconds." % [label, her]
+		return "Right idea, \"%s\", but your boxer still lost those 30 seconds." % label
+	return "\"%s\" changed nothing: your boxer lost those 30 seconds." % label
 
 
 ## S443 C320 ("are these random preset lines with no base on the fight ?"): what each game looked like, said in the past.

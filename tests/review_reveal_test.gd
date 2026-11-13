@@ -18,7 +18,7 @@ func _initialize() -> void:
 		"div": "54 kg", "peak": "Peak camp: Lucy met all three goal lines - +1 to every stat tonight.",
 		"injury": "Sore hand (minor) - heals in 1 week, fit on 14 Mar"}
 	var h := ReviewReveal.headline(lucy, Data.LABEL)
-	_check(h["kind"] == "injury" and str(h["text"]).begins_with("Lucy is hurt: Sore hand"), "an injury beats everything: %s" % h["text"])
+	_check(h["kind"] == "injury" and str(h["text"]).begins_with("Hurt: Sore hand"), "an injury beats everything: %s" % h["text"])
 	lucy["injury"] = ""
 	h = ReviewReveal.headline(lucy, Data.LABEL)
 	_check(h["kind"] == "weapon" and h["text"] == "NEW WEAPON: the left hook.", "then a new weapon: %s" % h["text"])

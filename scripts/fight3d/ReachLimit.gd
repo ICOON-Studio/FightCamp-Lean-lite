@@ -119,43 +119,20 @@ static func lean(skel: Skeleton3D, chest: int, s: Vector3, want: Vector3, reach_
 	skel.set_bone_global_pose(chest, Transform3D(Basis(q) * g_ch.basis, pivot))
 
 
-## Where the wrist must go for the glove front to sit on `target` (skeleton space), solved from the arm as it stands. Each
-## pass moves the wrist by the glove's miss; the glove's axis follows the forearm, so on a sharply bent arm one full step
-## swings the forearm past the point and the miss grows (S448: the played lead uppercut after its hit, her shoulder come
-## close, 0.29-0.38 m off after 8 passes = the glove out and back 26-37 m/s). A pass that misses by more goes back to the
-## best one and takes half the step; a punch that converges takes the full step every pass, as before.
-static func converge(pr: Node, skel: Skeleton3D, ids: Array, s: Vector3, target: Vector3, glove_front: float, l1: float, l2: float,
-		basis: Basis, pole: Vector3, pole_w: float, passes: int) -> Vector3:
-	var hd: Vector3 = skel.get_bone_global_pose(int(ids[2])).origin
-	var best_hd := hd
-	var best_err := target - (hd + (pr.call("_along", skel, ids) as Vector3) * glove_front)
-	var step := 1.0
-	var full := best_hd + best_err
-	for k in passes:
-		solve_held(pr, skel, ids, s, full, l1, l2, basis, pole, pole_w)
-		hd = skel.get_bone_global_pose(int(ids[2])).origin
-		var err := target - (hd + (pr.call("_along", skel, ids) as Vector3) * glove_front)
-		if err.length() < best_err.length():
-			best_hd = hd
-			best_err = err
-		else:
-			step *= 0.5
-		full = best_hd + best_err * step
-	return full
-
-
 ## S448 (the played lead uppercut, after its hit): while the reach holds a landed glove on its carry at full weight, the
 ## fist keeps the angle to the forearm it had on the hit frame (latch_hand). The clip's own hand turned up over her head
 ## while the reach held the forearm on her face: the wrist bent ~180 deg, and the glove's axis (the forearm's
 ## WRIST_STRAIGHT share, PunchReach._along) flipped from solve to solve - the glove out and back 26-37 m/s. After the hold
 ## the hand turns back to the clip's at most HAND_RATE (hand_rate), so letting go never turns the glove in one frame.
+## Review (lead session: with every landed punch held, hooks' and the kidney shot's carry went short, THROUGH): only an
+## uppercut holds its fist - its tail is the one that turns the fist up over her own head.
 const HAND_RATE := deg_to_rad(1200.0)   # rad/s: ~20 deg a frame, the glove's front ~4 m/s from the turn alone
 
 
 static func solve_held(pr: Node, skel: Skeleton3D, ids: Array, s: Vector3, want: Vector3, l1: float, l2: float, basis: Basis,
 		pole: Vector3, pole_w: float) -> void:
 	pr.call("solve", skel, ids, s, want, l1, l2, basis, pole, pole_w)
-	if float(pr.get("_hold_w")) <= 0.0:
+	if float(pr.get("_hold_w")) <= 0.0 or not bool(pr.get_meta("hold_on", false)):
 		return
 	var hd: Transform3D = skel.get_bone_global_pose(int(ids[2]))
 	var held: Basis = skel.get_bone_global_pose(int(ids[1])).basis.orthonormalized() * (pr.get("_hold_hand") as Basis)
@@ -163,14 +140,19 @@ static func solve_held(pr: Node, skel: Skeleton3D, ids: Array, s: Vector3, want:
 	pr.set_meta("held_k", int(pr.get("_key")))
 
 
-## The armed hand in its forearm's frame as drawn on the hit frame (PunchReach._note_shown), for solve_held; starts the
-## hand's turn limit (hand_rate) for after the hold.
+## The armed hand in its forearm's frame as drawn on the hit frame (PunchReach._note_shown), for solve_held; an uppercut
+## holds it from here, and hand_rate turns it back after.
 static func latch_hand(pr: Node, skel: Skeleton3D, ids: Array) -> void:
 	var la: Basis = skel.get_bone_global_pose(int(ids[1])).basis.orthonormalized()
 	var hb: Basis = skel.get_bone_global_pose(int(ids[2])).basis.orthonormalized()
 	pr.set("_hold_hand", la.inverse() * hb)
-	pr.set_meta("trk", [str(pr.get("_hand")), Quaternion(hb), Engine.get_process_frames()])
-	pr.set_meta("held_k", int(pr.get("_key")))
+	var on := RangeTable.on and RangeTable.kind(str(pr.get("_clip"))) == "uppercut"
+	pr.set_meta("hold_on", on)
+	if on:
+		pr.set_meta("trk", [str(pr.get("_hand")), Quaternion(hb), Engine.get_process_frames()])
+		pr.set_meta("held_k", int(pr.get("_key")))
+	else:
+		pr.remove_meta("trk")
 
 
 ## Once a frame, after the reach: the tracked hand turns toward the pose's own at most HAND_RATE * dt; held this frame (or
@@ -195,3 +177,45 @@ static func hand_rate(pr: Node, skel: Skeleton3D, dt: float) -> void:
 	var q := was.slerp(now, HAND_RATE * dt / ang)
 	trk[1] = q
 	skel.set_bone_global_pose(hid, Transform3D(Basis(q).scaled(hd.basis.get_scale()), hd.origin))
+
+
+## Where the wrist must go for the glove front to sit on `target` (PunchReach._reach's passes, moved here unchanged in S448;
+## each solve goes through solve_held). `from` INF: from the arm as it stands, measure then solve each pass (the last pass's
+## target returned); else from that target, solve then measure each pass (the leaned shoulder's re-solve).
+static func fit(pr: Node, skel: Skeleton3D, ids: Array, s: Vector3, target: Vector3, front: float, l1: float, l2: float,
+		basis: Basis, pole: Vector3, pole_w: float, passes: int, from: Vector3) -> Vector3:
+	if (RangeTable.on and RangeTable.kind(str(pr.get("_clip"))) == "uppercut") or bool(pr.get_meta("hold_on", false)):
+		return _fit_held(pr, skel, ids, s, target, front, l1, l2, basis, pole, pole_w, passes)
+	var full := from
+	for k in passes:
+		if from.is_finite():
+			solve_held(pr, skel, ids, s, full, l1, l2, basis, pole, pole_w)
+		var hd: Vector3 = skel.get_bone_global_pose(int(ids[2])).origin
+		full = hd + (target - (hd + (pr.call("_along", skel, ids) as Vector3) * front))
+		if not from.is_finite():
+			solve_held(pr, skel, ids, s, full, l1, l2, basis, pole, pole_w)
+	return full
+
+
+## An uppercut's fit (S448): from the arm as it stands, a pass that misses by more goes back to the best one and takes half
+## the step (the plain passes overshot on the folded arm after the hit). Uppercuts only: on every punch it moved the jabs'
+## and crosses' glove off the face on the hit frame (hit_carry ON rows, lead session review). A held uppercut's fade after
+## the cut to guard too (join_return RETURN: the same flip there); PunchReach.arm clears hold_on.
+static func _fit_held(pr: Node, skel: Skeleton3D, ids: Array, s: Vector3, target: Vector3, front: float, l1: float, l2: float,
+		basis: Basis, pole: Vector3, pole_w: float, passes: int) -> Vector3:
+	var hd: Vector3 = skel.get_bone_global_pose(int(ids[2])).origin
+	var best_hd := hd
+	var best_err := target - (hd + (pr.call("_along", skel, ids) as Vector3) * front)
+	var step := 1.0
+	var full := best_hd + best_err
+	for k in passes:
+		solve_held(pr, skel, ids, s, full, l1, l2, basis, pole, pole_w)
+		hd = skel.get_bone_global_pose(int(ids[2])).origin
+		var err := target - (hd + (pr.call("_along", skel, ids) as Vector3) * front)
+		if err.length() < best_err.length():
+			best_hd = hd
+			best_err = err
+		else:
+			step *= 0.5
+		full = best_hd + best_err * step
+	return full

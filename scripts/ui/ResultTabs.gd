@@ -52,13 +52,14 @@ static func round_strip(m: Dictionary, names: Array, lab: Dictionary) -> HBoxCon
 		v.add_child(row)
 		var en: Dictionary = r.get("energy", {})
 		if not en.is_empty():
-			v.add_child(UI.label("Energy at the bell: %s %d, %s %d" % [names[0], roundi(float(en.get("a_end", 0))), names[1],
-				roundi(float(en.get("b_end", 0)))], 18, UI.MUTED))
+			v.add_child(UI.label("Energy at the bell: yours %d, theirs %d" % [roundi(float(en.get("a_end", 0))),
+				roundi(float(en.get("b_end", 0)))], 18, UI.MUTED))   # S448: names only in the header
 		h.add_child(p)
 	return h
 
 
-static func _judges_word(per: Array, i: int, names: Array) -> String:
+static func _judges_word(per: Array, i: int, _names: Array) -> String:
+	var names := ["your boxer", "the opponent"]   # S448: roles below the header
 	if per.is_empty():
 		return ""
 	var ours := per.filter(func(j): return bool(j[i])).size()
@@ -114,12 +115,12 @@ static func _letter(r: Dictionary, move: String) -> String:
 	return ""
 
 
-static func _tip(x: Dictionary, names: Array) -> String:
+static func _tip(x: Dictionary, _names: Array) -> String:
 	var lines: PackedStringArray = []
 	lines.append(str(x.get("verdict", "")))
 	var game := FightStats.game_word(str(x.get("mode", "")))
 	if game != "":
-		lines.append("%s's game: %s." % [names[1], game])
+		lines.append("The opponent's game: %s." % game)
 	for k in ["duel_line", "habit_line", "clinch_line", "perk_line"]:
 		if str(x.get(k, "")) != "":
 			lines.append(str(x[k]))
@@ -130,7 +131,7 @@ static func _tip(x: Dictionary, names: Array) -> String:
 ## colour, the plan line used and its fit, a shout, the place in the ring, hurt.
 static func exchanges(m: Dictionary, names: Array) -> VBoxContainer:
 	var v := UI.vbox(10)
-	var key := UI.label("Each card: 30 seconds. Colour = who won it (%s red, %s blue); punches landed %s first. Hover a card for what happened." % [names[0], names[1], names[0]],
+	var key := UI.label("Each card: 30 seconds. Colour = who won it (yours red, theirs blue); punches landed, yours first. Hover a card for what happened.",
 		18, UI.MUTED, "body", true)
 	v.add_child(key)
 	for r in m["rounds"]:

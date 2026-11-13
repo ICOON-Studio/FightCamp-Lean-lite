@@ -359,7 +359,7 @@ static func _goal(main: Node, c: Career, f: Dictionary, g: Dictionary) -> PanelC
 	var arrows: int = (f.get("arrows", []) as Array).size()
 	var red: Button = null
 	if talk:
-		red = UI.button("Talk to %s" % str(f["first"]), "Btn", main.act.bind("goaltalk", f["id"]))
+		red = UI.button("Talk about the next goal", "Btn", main.act.bind("goaltalk", f["id"]))
 		buttons.add_child(red)
 	var plan := UI.button("Plan the week", "Btn", main.act.bind("ftab", "3"))
 	var fight_plan := UI.button("Fight plan (%d arrows)" % arrows if arrows > 0 else "Fight plan", "Btn", main.act.bind("plan", f["id"]))

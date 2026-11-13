@@ -133,7 +133,7 @@ func _head(f: Dictionary, m: Dictionary) -> void:
 func _units() -> void:
 	var lost := HabitFix.line("Slow starter", ["Lucy", "Priya"], false, false)
 	var won := HabitFix.line("Slow starter", ["Lucy", "Priya"], false, true)
-	_check(lost.contains("Priya made Lucy pay") and not won.contains("pay") and won.contains("still took the exchange"),
+	_check(lost.contains("The opponent made your boxer pay") and not won.contains("pay") and won.contains("still took the exchange"),
 		"6. lost: '%s' / won: '%s'" % [lost, won])
 	_check(HabitFix.line("Slow starter", ["Lucy", "Priya"], true, true).begins_with("The fix held"), "6. a held fix still says so")
 	_check(FightWhy.best_answer("counter", "long") == "Double jab" and FightWhy.best_answer("counter") == "Feint and draw"

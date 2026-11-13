@@ -6988,10 +6988,11 @@
       "attach": [
         "AgentComms/board_attach/Q-S294-208_0_shout_2_half.png"
       ],
-      "answer": null,
+      "answer": "check marked comments",
       "note": null,
-      "answered_at": null,
-      "seen_by_claude": false
+      "answered_at": "2026-11-13T09:17:59Z",
+      "seen_by_claude": false,
+      "comment_only": true
     },
     {
       "id": "Q-S294-209",
@@ -7004,6 +7005,25 @@
       ],
       "attach": [
         "research/ASKFIGHT_MAP_S441.md"
+      ],
+      "answer": "Yes, fight week first",
+      "note": null,
+      "answered_at": "2026-11-13T08:41:22Z",
+      "seen_by_claude": false,
+      "comment_only": false
+    },
+    {
+      "id": "Q-S294-210",
+      "asked": "2026-11-13T08:54:45.741713+00:00",
+      "session": "S294",
+      "text": "Office computer, booking from the fighter, coach depth, contracts (plan attached, Corner King read from its code). Build in this order: 1) amateur fight week with Find a fight on each fighter's page, 2) office computer (mockup first for your pick), 3) coaches: fit, load, growth, personality, bond, 4) contract ledger now, pro negotiation with turning pro?",
+      "options": [
+        "Yes, that order",
+        "Office computer first",
+        "Change the order (comment)"
+      ],
+      "attach": [
+        "research/OFFICE_BOOKING_S448.md"
       ],
       "answer": null,
       "note": null,

@@ -122,7 +122,7 @@ func landed(b: Dictionary) -> void:
 	_run = [int(_run[0]) + 1 if int(_run[1]) == side and _clock - float(_run[2]) <= RUN_GAP_S else 1, side, _clock]
 	var col: Color = Arc.SIDE_COLOUR[side]
 	_strip.color = col
-	_who.text = str(view._names[side]).get_slice(" ", 0).to_upper()
+	_who.text = "YOUR BOXER" if side == 0 else "OPPONENT"   # S448 operator: names only in the header; the colour says the corner
 	_who.add_theme_color_override("font_color", col)
 	_shot.text = line(str(b["move"]), big) + ("   %d IN A ROW" % int(_run[0]) if int(_run[0]) >= 3 else "")
 	_shot.add_theme_color_override("font_color", UI.GOLD if big else UI.FG)

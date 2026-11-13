@@ -75,23 +75,24 @@ static func offers(habits: Array, seen: Array) -> Array:
 ## The line after an exchange in which a habit was punished. name = the habit's name from the bank ("Drops the right
 ## after the jab"); names = [hers, the opponent's]; held = the corner fixed it this round. won = she still took the
 ## exchange (S442 RESULTDEFECTS1: the habit cost an edge, not the exchange, so "made X pay" was false on a won one).
-static func line(name: String, names: Array, held: bool, won: bool = false) -> String:
+static func line(name: String, _names: Array, held: bool, won: bool = false) -> String:
 	var what := name.substr(0, 1).to_lower() + name.substr(1)
+	# S448 operator ("names are only mentioned on the header"): roles, never names.
 	if held:
-		return "The fix held: %s caught it in time (%s)." % [str(names[0]), what]
+		return "The fix held: your boxer caught it in time (%s)." % what
 	if won:
-		return "A habit cost %s an edge (%s), but %s still took the exchange." % [str(names[0]), what, str(names[0])]
-	return "%s made %s pay for a habit: %s." % [str(names[1]), str(names[0]), what]
+		return "A habit cost your boxer an edge (%s), but still took the exchange." % what
+	return "The opponent made your boxer pay for a habit: %s." % what
 
 
 ## S320 (operator: "the fix option ... does it actually works?"): the next corner card says what last round's fix did.
 ## name = the habit's name, came = exchanges where it would have cost her, hold = how much of the fix she took in (0..1),
 ## her = her first name. "" when nothing was fixed.
-static func result(name: String, came: int, hold: float, her: String) -> String:
+static func result(name: String, came: int, hold: float, _her: String) -> String:
 	if name == "":
 		return ""
 	var what := name.substr(0, 1).to_lower() + name.substr(1)
 	if came <= 0:
 		return "Last round's fix (%s): it never came up." % what
-	return "Last round's fix (%s): it came up %d time%s - %s caught it, it cost %d %% less." % [
-		what, came, "" if came == 1 else "s", her, int(round(clampf(hold, 0.0, 1.0) * 100.0))]
+	return "Last round's fix (%s): it came up %d time%s - your boxer caught it, it cost %d %% less." % [
+		what, came, "" if came == 1 else "s", int(round(clampf(hold, 0.0, 1.0) * 100.0))]

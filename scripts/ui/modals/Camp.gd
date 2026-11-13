@@ -181,7 +181,7 @@ static func _fit(row: Variant) -> void:
 func _film_card(main: Node, f: Dictionary, opp: Dictionary, film: bool) -> Button:
 	var s := FilmEdge.summary(f)
 	var tape := bool(s["tape"])
-	var head := "Film on %s: %s" % [opp["name"], ("yes, free" if film else "no") if tape else "no tape"]
+	var head := "Film on the opponent: %s" % (("yes, free" if film else "no") if tape else "no tape")   # S448: the name is in the header
 	var line := "phone video - 1 pad night - answer the tells in the Playbook" if tape else "no video of any bout - nothing to study"
 	var risk := "%d/%d answered - +%s on the night" % [int(s["n"]), int(s["of"]), _num(float(s["edge"]))] if tape else ""
 	var fb := CampCard.option("Film", head, line, risk, UI.GREEN if int(s["n"]) > 0 else CampCard.SUB, film and tape,
@@ -220,7 +220,7 @@ func _footer(main: Node, f: Dictionary, opp: Dictionary, focus: String, proto: i
 	foot.add_child(_big(later))
 	var start := UI.button("", "BtnSolid", main.act.bind("startcamp", ""))
 	start.name = "StartCamp"
-	start.tooltip_text = "%s's camp starts today: %s" % [f["first"], why]
+	start.tooltip_text = "The camp starts today: %s" % why
 	CampCard.count(start, cost_was, cost, func(x: float) -> String:
 		return "Start the camp" + (", " + UI.money(int(round(x))) if int(round(x)) > 0 else ""))
 	foot.add_child(_big(start))

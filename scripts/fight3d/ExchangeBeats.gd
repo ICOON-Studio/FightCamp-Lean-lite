@@ -87,8 +87,7 @@ static func build(x: Dictionary, k: int, r: Dictionary, ctx: Dictionary) -> Arra
 	_body(out, x.get("body", []))
 	# S310 the set-up fired: the corner's NOW and her combination, lands or not, with its own caption.
 	if str(x.get("setup", "")) != "":
-		var opp_name := str(ctx["names"][1])
-		var how := "%s walks into the set-up!" % opp_name if str(x["setup"]) == "landed" else "%s saw it coming" % opp_name
+		var how := "the opponent walks into the set-up!" if str(x["setup"]) == "landed" else "the opponent saw it coming"   # S448: roles
 		out.insert(0, {"t": at + 0.4, "who": "a", "move": "say", "result": "none", "caption": "Corner: \"NOW!\" - " + how})
 	_read(out, x.get("read", {}), at, ctx["names"])
 	if bool(x.get("shout", false)):
@@ -128,7 +127,7 @@ static func plan_tally_caption(x: Dictionary) -> String:
 		"won it" if bool(x.get("won", false)) else "lost it", int(tl[0]), int(tl[1])]
 
 
-static func _read(out: Array, rd: Dictionary, at: float, names: Array) -> void:
+static func _read(out: Array, rd: Dictionary, at: float, _names: Array) -> void:
 	if rd.is_empty():
 		return
 	var t := at + Exchanges.EX_SECONDS * 0.5
@@ -136,7 +135,7 @@ static func _read(out: Array, rd: Dictionary, at: float, names: Array) -> void:
 	var lead := str(READ_LEAD.get(str(rd["game"]), "jab"))
 	out.append({"t": t, "who": "b", "move": lead, "result": "misses" if lead != "step_in" else "none", "caption": "",
 		"big": false, "knockback": false, "def": ""})
-	var cap := "READ IT! %s saw it coming - %s" % [names[0], str(rd["move"]).to_lower()] if landed 		else "%s went early - %s makes %s pay" % [names[0], names[1], names[0]]
+	var cap := "READ IT! Your boxer saw it coming - %s" % str(rd["move"]).to_lower() if landed 		else "Your boxer went early - the opponent makes it pay"   # S448: roles, never names
 	out.append({"t": t + 0.35, "who": "a", "move": str(READ_MOVE.get(str(rd["move"]), "cross")),
 		"result": "lands" if landed else "misses", "caption": cap, "big": landed, "knockback": landed, "def": "", "read": true})
 
@@ -291,7 +290,7 @@ static func _habits(plan: Dictionary, ctx: Dictionary, k: int, fix: String = "")
 			continue
 		for b in plan["beats"]:
 			if str(b.get("habit", "")) == id and str(b["caption"]) == "":
-				b["caption"] = str(lines[id]).replace("{name}", str(ctx["names"][0 if str(fire["who"]) == "a" else 1]))
+				b["caption"] = ComboWords.fill(str(lines[id]), "your boxer" if str(fire["who"]) == "a" else "the opponent")   # S448: roles
 				said[id] = true
 				break
 

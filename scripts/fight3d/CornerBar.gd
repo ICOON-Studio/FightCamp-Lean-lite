@@ -302,9 +302,8 @@ func _effects(x: float, pace: String, aim: String, opp: String) -> void:
 	_place(panel, a, 10, 50, FX_W - 28.0, 24)
 
 
-func _opp(pv: Dictionary) -> String:
-	var names: Array = pv.get("names", [])
-	return str(names[1]) if names.size() > 1 else "the opponent"
+func _opp(_pv: Dictionary) -> String:
+	return "the opponent"   # S448 operator: names only in the header
 
 
 func _tick(waiting: bool, left: float) -> void:

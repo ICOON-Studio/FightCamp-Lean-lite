@@ -142,8 +142,7 @@ func _head() -> Control:
 	var b := _bout()
 	var own := OppFile.main_game(b["opp"]) if not b.is_empty() else ""
 	if not b.is_empty():
-		v.add_child(UI.label("Next opponent: %s %s - %s" % [b["opp"].get("first", ""), b["opp"].get("last", ""),
-			str(OppFile.GAME_WORDS.get(own, own))], UI.BODY, UI.FG, "bold", true))
+		v.add_child(UI.label("Next opponent: %s" % str(OppFile.GAME_WORDS.get(own, own)), UI.BODY, UI.FG, "bold", true))   # S448: names in the header only
 	else:
 		v.add_child(UI.label("No bout booked: try the plan against each kind of opponent.", UI.BODY, UI.FG, "bold", true))
 	var row := UI.hbox(6)
@@ -152,7 +151,7 @@ func _head() -> Control:
 		var gid := str(g)
 		var words := str(OppFile.GAME_WORDS[gid])
 		if gid == own:
-			words = "%s: %s" % [b["opp"].get("first", ""), words]
+			words = "Next opponent: %s" % words
 		row.add_child(UI.button(words, "PillOn" if gid == _game() else "Pill", func():
 			vs = "" if gid == own else gid
 			_refresh()))
@@ -413,7 +412,7 @@ func _actions() -> Control:
 		var day := int((main.career as Career).day)   # S382 G3: a test is a spar night (PlanTest.button); none = greyed
 		var none_left := PlanTest.left(f, day) == 0
 		var tb := UI.button(PlanTest.NONE_LEFT if none_left else PlanTest.button(f, day), "BtnSolid", _test, none_left, PlanTest.NONE_LEFT)
-		h.add_child(tb if tb.disabled else Icons.tip(tb, "20 quick bouts against %s with this plan." % _bout()["opp"].get("first", "")))
+		h.add_child(tb if tb.disabled else Icons.tip(tb, "20 quick bouts against the opponent with this plan."))
 	return h
 
 

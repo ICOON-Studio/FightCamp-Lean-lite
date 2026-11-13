@@ -57,8 +57,9 @@ static func _ti(d: Dictionary, k: String) -> int:
 
 static func lines(map: Dictionary, tally: Dictionary, fires: Array, energy: Dictionary,
 		names: Array, habit_words: Dictionary) -> Dictionary:
-	var an: String = names[0]
-	var bn: String = names[1]
+	# S448 operator ("names are only mentioned on the header"): the evidence says the role, never the name.
+	var an := "Your boxer"
+	var bn := "The opponent"
 	var ap: Dictionary = _places(map, "a")
 	var bp: Dictionary = _places(map, "b")
 	var at: Dictionary = tally.get("a", {})
@@ -91,7 +92,7 @@ static func lines(map: Dictionary, tally: Dictionary, fires: Array, energy: Dict
 	var hands_line := "%s took %d to the head; %s %d" % [an, bhp, PLACE_WORDS[al[0]], int(al[1])]
 
 	var att: int = _ti(at_t, "total")
-	var let_go_line := "%s threw %d, %s threw %d" % [an, att, bn, btt]
+	var let_go_line := "%s threw %d, the opponent threw %d" % [an, att, btt]
 
 	var ae: float = float(energy.get("a", 100.0))
 	var calm_line := "%s's energy: %d at the bell" % [an, int(round(ae))]
@@ -115,8 +116,8 @@ static func lines(map: Dictionary, tally: Dictionary, fires: Array, energy: Dict
 	}
 
 
-static func open_line(fires: Array, names: Array, habit_words: Dictionary) -> String:
-	var bname: String = names[1]
+static func open_line(fires: Array, _names: Array, habit_words: Dictionary) -> String:
+	var bname := "The opponent"   # S448: the role, never the name
 	var counts := {}
 	var first := {}
 	for f in fires:

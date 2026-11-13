@@ -16,7 +16,6 @@ static func build(main: Node, f: Dictionary, title: String) -> VBoxContainer:
 	var t := WeekTwist.card_for(f)
 	if t.is_empty():
 		return box
-	var first := str(f.get("first", ""))
 	box.add_child(UI.label("%s - %s: %s" % [title, str(t["name"]).to_upper(), t["line"]], UI.BODY, UI.AMBER, "bold", true))
 	if not t.has("a"):
 		return box
@@ -45,8 +44,8 @@ static func build(main: Node, f: Dictionary, title: String) -> VBoxContainer:
 			wl.name = "AskWhy"
 			box.add_child(wl)
 		var mood := FighterProfile.mood(float(f.get("morale", FighterProfile.MORALE_START)))
-		var tl := UI.label("%s's mood: %s (morale %d). Mood is trust: in a fight a Flat or Low fighter takes in less of the corner's calls." % [
-			first, mood, roundi(float(f.get("morale", FighterProfile.MORALE_START)))], UI.SMALL, UI.MUTED, "body", true)
+		var tl := UI.label("Mood: %s (morale %d). Mood is trust: in a fight a Flat or Low fighter takes in less of the corner's calls." % [
+			mood, roundi(float(f.get("morale", FighterProfile.MORALE_START)))], UI.SMALL, UI.MUTED, "body", true)
 		tl.name = "AskTrust"
 		box.add_child(tl)
 	if locked:

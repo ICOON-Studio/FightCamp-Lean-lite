@@ -148,7 +148,7 @@ static func _swing(m: Dictionary, names: Array) -> String:
 		return ""
 	var ww: Array = split[0][1]
 	var ours := int(ww[0]) > int(ww[1])
-	return "Round %d swung it: %d judges gave it to %s." % [int(split[0][0]) + 1, maxi(int(ww[0]), int(ww[1])), names[0] if ours else names[1]]
+	return "Round %d swung it: %d judges gave it to %s." % [int(split[0][0]) + 1, maxi(int(ww[0]), int(ww[1])), "your boxer" if ours else "the opponent"]   # S448: roles
 
 
 ## True when the three judges (m["judges"], S443 R29) gave the cards that decided the bout. Until their calibration
@@ -271,8 +271,8 @@ static func cost_card(main: Node, m: Dictionary, f: Dictionary, names: Array) ->
 			dealt += int(bool(((x as Dictionary).get("after", {}) as Dictionary).get("hurt", [false, false])[1]))
 	var counts := int((m.get("counts", {}) as Dictionary).get("a", 0))
 	var facts := UI.hbox(26)
-	for fact in [["%d" % hurt, "times hurt", UI.AMBER if hurt > 0 else UI.GREEN, "Exchanges %s finished hurt (the opponent won one big)." % names[0]],
-			["%d" % dealt, "times %s was hurt" % names[1], UI.FG, "Exchanges %s finished hurt: the same count the other way." % names[1]],
+	for fact in [["%d" % hurt, "times hurt", UI.AMBER if hurt > 0 else UI.GREEN, "Exchanges your boxer finished hurt (the opponent won one big)."],
+			["%d" % dealt, "times the opponent was hurt", UI.FG, "Exchanges the opponent finished hurt: the same count the other way."],
 			["%d" % counts, "standing counts", UI.RED if counts > 0 else UI.GREEN, "Counts from the referee in the bout."]]:
 		var cell := UI.vbox(0)
 		cell.mouse_filter = Control.MOUSE_FILTER_PASS

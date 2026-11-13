@@ -32,7 +32,7 @@ func _initialize() -> void:
 	_check(str(none["grade"]) == "none" and str(none["plan"]).contains("improvised all 2"), "no plan is said plainly")
 	_check(str(none["next"]).contains("Write a plan"), "no plan: the next step is to write one")
 	var sits := FightWhy.read([{"won": false, "exchanges": [{"won": false, "psit": "press", "landed": [2, 5]}]}], "Lucy", "Maria")
-	_check(str(sits["against"]) == "Maria landed 5 to Lucy's 2, and took round 1." and str(sits["next"]).contains("main problem was pressure"), "a loss says what happened and what to write")
+	_check(str(sits["against"]) == "The opponent landed 5 to your boxer's 2, and took round 1." and str(sits["next"]).contains("main problem was pressure"), "a loss says what happened and what to write")
 	var ex := []
 	for i in 6:
 		ex.append({"planned": true, "arrow": "cut_off", "arrow_fit": "wrong", "psit": "press", "won": i < 3, "plan_edge": -4.0})

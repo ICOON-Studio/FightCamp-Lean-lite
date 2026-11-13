@@ -77,7 +77,7 @@ static func calls(ex: Array) -> Array:
 	return rows
 
 
-static func _landed(board: Control, ex: Array, me: String, her: String, x: float, w: float, h: float) -> void:
+static func _landed(board: Control, ex: Array, _me: String, _her: String, x: float, w: float, h: float) -> void:
 	var t := tally(ex)
 	var mine := int(t["landed"][0])
 	var hers := int(t["landed"][1])
@@ -94,10 +94,13 @@ static func _landed(board: Control, ex: Array, me: String, her: String, x: float
 	bar.hers = hers
 	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_put(board, bar, x + 74.0, 44, w - 148.0, 20)
-	var foot := "%s  head %d  body %d" % [me, mine - int(t["body"][0]), int(t["body"][0])]
-	_put(board, TV.label(foot, 20, WoodKit.SOFT, "bold"), x, 84, w, 22)
-	var foot2 := "%s  head %d  body %d" % [her, hers - int(t["body"][1]), int(t["body"][1])]
-	_put(board, TV.label(foot2, 20, WoodKit.SOFT, "bold"), x, 108, w, 22)
+	# S448 operator: names only in the header. Each row is its corner's colour, "yours" / "theirs" - no name.
+	var foot := TV.label("YOURS  head %d  body %d" % [mine - int(t["body"][0]), int(t["body"][0])], 20, RED, "bold")
+	foot.name = "FootMine"
+	_put(board, foot, x, 84, w, 22)
+	var foot2 := TV.label("THEIRS  head %d  body %d" % [hers - int(t["body"][1]), int(t["body"][1])], 20, BLUE, "bold")
+	foot2.name = "FootHers"
+	_put(board, foot2, x, 108, w, 22)
 	board.set_meta("landed", [mine, hers])
 
 

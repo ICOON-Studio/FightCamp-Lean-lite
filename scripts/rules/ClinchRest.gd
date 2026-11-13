@@ -57,10 +57,10 @@ static func roll(p: float, r1: float, r2: float, r3: float) -> Dictionary:
 
 ## The words for it ("" when she did not tie up). names = [hers, the opponent's]. R11E: reason (from why()) appends
 ## ": <reason>." when the shot landed; a clinch with no shot reads exactly as today.
-static func line(c: Dictionary, names: Array, reason: String = "") -> String:
+static func line(c: Dictionary, _names: Array, reason: String = "") -> String:
 	if c.is_empty():
 		return ""
-	var out := "%s ties %s up and gets a breather" % [names[0], names[1]]
+	var out := "Your boxer ties the opponent up and gets a breather"   # S448: roles, never names
 	if not bool(c.get("hit", false)):
 		return out + "."
 	var ribs := "two short ones to the ribs" if int(c["shots"]) == 2 else "a short one to the ribs"
@@ -68,4 +68,4 @@ static func line(c: Dictionary, names: Array, reason: String = "") -> String:
 	if bool(c.get("head", false)):
 		what = ("digs one to the ribs and " if int(c["shots"]) == 2 else "") + "lands one on the break"
 	var tail := (": %s." % reason) if reason != "" else "."
-	return "%s, but %s %s%s" % [out, names[1], what, tail]
+	return "%s, but the opponent %s%s" % [out, what, tail]

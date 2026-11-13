@@ -210,9 +210,9 @@ func _read() -> void:
 		_landed = [0, 0]
 	var e := clampf(FightMeters.edge(_scored) + clampf((_landed[0] - _landed[1]) * LEAN_PER_PUNCH, -LEAN_MOST, LEAN_MOST), -1.0, 1.0)
 	(edge as EdgeMeter).want = e
-	(edge as EdgeMeter).word = "THIS ROUND: EVEN" if absf(e) < EVEN_UNDER else "%s IS WINNING THIS ROUND" % str(view._names[0 if e > 0.0 else 1]).get_slice(" ", 0).to_upper()   # S419 operator on "LUCY JACKSON AHEAD": "wtf is that"
+	(edge as EdgeMeter).word = "THIS ROUND: EVEN" if absf(e) < EVEN_UNDER else ("YOUR BOXER IS WINNING THIS ROUND" if e > 0.0 else "THE OPPONENT IS WINNING THIS ROUND")   # S419 operator on "LUCY JACKSON AHEAD": "wtf is that"
 	var won := _scored.filter(func(x): return bool(x.get("won", false))).size()
-	edge.tooltip_text = "Who has this round: %s %d, %s %d exchanges" % [view._names[0], won, view._names[1], _scored.size() - won]
+	edge.tooltip_text = "Who has this round: your boxer %d, the opponent %d exchanges" % [won, _scored.size() - won]   # S448: roles
 
 
 ## S394 the stamina the ring shows, 0-100, so the corner's table reads the same number; < 0 before the first read.

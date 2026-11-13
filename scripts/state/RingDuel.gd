@@ -206,7 +206,7 @@ static func mean_edge(f: Dictionary, o: Dictionary) -> float:
 
 ## The report's line for the deciding duel: "Lucy's jab against Maria's head movement", only when that duel decided it -
 ## the counterfactual (systems critic): without the place's edge the exchange flips or is cut to under half. "" otherwise.
-static func duel_line(rec: Dictionary, names: Array) -> String:
+static func duel_line(rec: Dictionary, _names: Array) -> String:
 	var won := bool(rec.get("won", false))
 	var de := float(rec.get("duel_edge", 0.0))
 	var m := float(rec.get("margin", 0.0))
@@ -216,14 +216,16 @@ static func duel_line(rec: Dictionary, names: Array) -> String:
 	if signf(without) == signf(m) and absf(without) >= absf(m) * 0.5:
 		return ""
 	var stance := str(rec.get("a_stance" if won else "b_stance", "orthodox"))
-	return Duels.duel_words(str(names[0 if won else 1]), str(names[1 if won else 0]),
+	var roles := ["your boxer", "the opponent"]   # S448 operator: roles below the header, never names
+	return Duels.duel_words(str(roles[0 if won else 1]), str(roles[1 if won else 0]),
 		str(rec.get("a_best" if won else "b_best", "")), stance)
 
 
 ## The round report's two lines (boxing critic, round 1 item 5: who controlled the range, the duel that decided it):
 ## "Inside 4 of 6 (2 on the ropes): Maria walked Lucy down." and "The duel that decided it: Lucy's jab against Maria's head
 ## movement (3 of 6)." Either is left out when nothing stands out. names = [hers, the opponent's].
-static func round_lines(exs: Array, names: Array) -> Array:
+static func round_lines(exs: Array, _names: Array) -> Array:
+	var names := ["Your boxer", "The opponent"]   # S448 operator: roles below the header, never names
 	if exs.is_empty() or not (exs[0] as Dictionary).has("place"):
 		return []
 	var at := [0, 0, 0]
@@ -249,7 +251,7 @@ static func round_lines(exs: Array, names: Array) -> Array:
 	elif top == Duels.INSIDE:
 		who = "%s got inside." % _keeper(exs, names, Duels.INSIDE)
 	else:
-		who = "%s and %s stood and traded." % [str(names[0]), str(names[1])]
+		who = "Both stood and traded."
 	if int(at[top]) * 2 > exs.size():
 		out.append("%s: %s" % [where, who])
 	var best := ""
@@ -329,7 +331,7 @@ static func settle(lv: Dictionary, rec: Dictionary, s: Dictionary, rng: RandomNu
 	rec["clinch"] = cl
 	rec["clinch_line"] = ClinchRest.line(cl, names, ClinchRest.why(str(opp.get("style", "")), float(opp.get("rating", 60.0)), float(vals.get("technique", 55.0))))
 	rec["perks"] = perks
-	rec["perk_line"] = "%s makes %s miss and counters - Counter sense." % names if perks.has("counter_sense") else ""
+	rec["perk_line"] = "Your boxer makes the opponent miss and counters - Counter sense." if perks.has("counter_sense") else ""
 	lv["at"] = PlanFight.where_next(arrow, bool(s["won"]), sit)
 	exs.append(rec)
 	if call != "":

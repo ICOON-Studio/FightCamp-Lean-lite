@@ -70,9 +70,9 @@ static func cause_card(main: Node, m: Dictionary, f: Dictionary, names: Array) -
 		b.add_theme_font_size_override("font_size", 22)
 		b.custom_minimum_size = Vector2(330, 52)
 		if not done:
-			b.tooltip_text = "Writes the measured lines into %s's plan (the Playbook). Every line can still be changed there." % names[0]
+			b.tooltip_text = "Writes the measured lines into your boxer's plan (the Playbook). Every line can still be changed there."
 		foot.add_child(b)
-	var how := UI.label("Measured: %d more nights against %s, the corner's own calls, only the plan changes." % [int(lab["nights"]), names[1]],
+	var how := UI.label("Measured: %d more nights against the opponent, the corner's own calls, only the plan changes." % int(lab["nights"]),
 		16, UI.MUTED, "body", true)
 	how.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	foot.add_child(how)
@@ -114,16 +114,16 @@ static func _fix(lab: Dictionary, names: Array) -> VBoxContainer:
 	ladder.nights = int(lab["nights"])
 	ladder.custom_minimum_size = Vector2(0, rows.size() * ROW_H + 24)
 	ladder.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	ladder.tooltip_text = "Each bar: nights won out of %d against %s. The dashed line is an even fight (half the nights)." % [int(lab["nights"]), names[1]]
+	ladder.tooltip_text = "Each bar: nights won out of %d against the opponent. The dashed line is an even fight (half the nights)." % int(lab["nights"])
 	ladder.mouse_filter = Control.MOUSE_FILTER_PASS
 	v.add_child(ladder)
 	return v
 
 
-static func _line_words(k: String, row: Dictionary, names: Array) -> String:
+static func _line_words(k: String, row: Dictionary, _names: Array) -> String:
 	if k == "rewrite":
 		return "Line %s: %s → %s (%s)" % [str(row["letter"]), _move(str(row["move"])), str(row["to_name"]), str(PlanLines.FIT_WORDS.get(str(row["fit"]), ""))]
-	var when := str(FightFlow.WHEN_WORDS.get(str(row["sit"]), "")).replace("the opponent", names[1])
+	var when := str(FightFlow.WHEN_WORDS.get(str(row["sit"]), ""))   # S448: "the opponent" stays the role
 	var gone := " (in place of %s, never used)" % _move(str(row["replaces"])) if str(row.get("replaces", "")) != "" else ""
 	return "New line %s: when %s → %s%s" % [str(row["letter"]), when, str(row["to_name"]), gone]
 
@@ -136,7 +136,7 @@ static func _chip(text: String) -> PanelContainer:
 
 
 ## One sentence: what the numbers say about the night.
-static func _verdict(lab: Dictionary, names: Array, win: bool) -> Label:
+static func _verdict(lab: Dictionary, _names: Array, win: bool) -> Label:
 	var n := int(lab["nights"])
 	var w := int(lab["written"])
 	var b := int(lab.get("best_wins", w))
@@ -144,19 +144,19 @@ static func _verdict(lab: Dictionary, names: Array, win: bool) -> Label:
 	var vd := str(lab.get("verdict", ""))
 	if win and vd != "plan_right":   # a win the plan did not earn: say so, then what the best plan makes of it
 		var then := {"even": "Even the best plan only gets close to an even fight (%d of %d)." % [b, n],
-			"class": "Even the best plan loses most nights (%d of %d): %s is the better boxer for now." % [b, n, names[1]],
+			"class": "Even the best plan loses most nights (%d of %d): the opponent is the better boxer for now." % [b, n],
 			"fixed": "The fix makes it %d of %d." % [b, n]}
-		text = "A win the plan did not earn: as written it wins %d of %d nights against %s. %s" % [w, n, names[1], str(then.get(vd, ""))]
+		text = "A win the plan did not earn: as written it wins %d of %d nights against the opponent. %s" % [w, n, str(then.get(vd, ""))]
 	if text == "":
 		match vd:
 			"plan_right":
 				text = "The plan was right: as written it wins %d of %d nights.%s" % [w, n, "" if win else " This night the rounds went the other way."]
 			"even":
-				text = "Even the best plan only gets close to an even fight (%d of %d): %s was the better boxer. Training closes the rest." % [b, n, names[1]]
+				text = "Even the best plan only gets close to an even fight (%d of %d): the opponent was the better boxer. Training closes the rest." % [b, n]
 			"class":
-				text = "Even the best plan loses most nights (%d of %d): %s is the better boxer for now. Training has to close the gap." % [b, n, names[1]]
+				text = "Even the best plan loses most nights (%d of %d): the opponent is the better boxer for now. Training has to close the gap." % [b, n]
 			_:
-				text = "With the fix %s wins %d of %d nights against %s." % [names[0], b, n, names[1]]
+				text = "With the fix your boxer wins %d of %d nights against the opponent." % [b, n]
 	var l := UI.label(text, 21, UI.GOLD if str(lab.get("verdict", "")) != "fixed" else UI.GREEN, "bold", true)
 	l.name = "FixVerdict"
 	return l
@@ -166,9 +166,9 @@ static func _move(id: String) -> String:
 	return str(StrikeMap.move(id).get("name", id))
 
 
-static func _sit(sit: String, names: Array) -> String:
+static func _sit(sit: String, _names: Array) -> String:
 	var w := str(FightWhy.SIT_WORDS.get(sit, sit))
-	return w % names[0] if w.contains("%s") else w
+	return w % "your boxer" if w.contains("%s") else w   # S448: the role, never the name
 
 
 ## Bars of nights won out of `nights`, the best one gold, a dashed line at half.

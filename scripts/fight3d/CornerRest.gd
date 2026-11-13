@@ -53,11 +53,11 @@ static func parts_text(parts: Dictionary, frac: float) -> String:
 
 ## The strip's middle word. It names whoever the rest leaves fresher, once the tanks show it, and then keeps it: read off the
 ## live gap alone it flickered between names on the way (blind review).
-static func word(names: Array, a: float, b: float, to_a: float, to_b: float) -> String:
+static func word(_names: Array, a: float, b: float, to_a: float, to_b: float) -> String:
 	var lead := signf(to_a - to_b)
 	if absf(to_a - to_b) < LEVEL_UNDER or (a - b) * lead < LEVEL_UNDER:
 		return "ENERGY"
-	return "%s FRESHER" % str(names[0 if lead > 0.0 else 1]).to_upper()
+	return "YOUR BOXER FRESHER" if lead > 0.0 else "OPPONENT FRESHER"   # S448: roles, the names are on the plates
 
 
 func setup(names: Array, bell: Array, next: Array) -> void:

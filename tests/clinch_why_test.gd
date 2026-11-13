@@ -64,9 +64,9 @@ func _test_line_no_shot_unchanged() -> void:
 	var miss := {"hit": false, "shots": 0, "head": false, "edge": 0.0, "damage": 0.0}
 	var names := ["Lucy", "Maria"]
 	var out := ClinchRest.line(miss, names, "more technique keeps that hand quiet")
-	_check(out == "Lucy ties Maria up and gets a breather.", "no shot + reason -> clean tie-up line (got '%s')" % out)
+	_check(out == "Your boxer ties the opponent up and gets a breather.", "no shot + reason -> clean tie-up line (got '%s')" % out)
 	var out2 := ClinchRest.line(miss, names)
-	_check(out2 == "Lucy ties Maria up and gets a breather.", "no shot, no reason -> same clean line (got '%s')" % out2)
+	_check(out2 == "Your boxer ties the opponent up and gets a breather.", "no shot, no reason -> same clean line (got '%s')" % out2)
 
 
 ## Calling line with two arguments returns exactly what it returns today (backward compatible).
@@ -74,9 +74,9 @@ func _test_line_two_args_unchanged() -> void:
 	var hit := {"hit": true, "shots": 2, "head": false, "edge": ClinchRest.HIT_EDGE * 2, "damage": 0.0}
 	var names := ["Lucy", "Maria"]
 	var out := ClinchRest.line(hit, names)
-	_check(out == "Lucy ties Maria up and gets a breather, but Maria digs two short ones to the ribs.", "two-arg landed shot unchanged (got '%s')" % out)
+	_check(out == "Your boxer ties the opponent up and gets a breather, but the opponent digs two short ones to the ribs.", "two-arg landed shot (S448: roles) (got '%s')" % out)
 	var miss := {"hit": false, "shots": 0, "head": false, "edge": 0.0, "damage": 0.0}
-	_check(ClinchRest.line(miss, names) == "Lucy ties Maria up and gets a breather.", "two-arg clean tie unchanged")
+	_check(ClinchRest.line(miss, names) == "Your boxer ties the opponent up and gets a breather.", "two-arg clean tie (S448: roles)")
 	_check(ClinchRest.line({}, names) == "", "two-arg empty clinch unchanged")
 
 

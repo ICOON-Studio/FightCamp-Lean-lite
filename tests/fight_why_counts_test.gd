@@ -43,7 +43,7 @@ func _test_count_on_player_side() -> void:
 	]
 	var out := FightWhy.read(rounds, "Lucy", "Maria")
 	var against := str(out["against"])
-	_check(against.contains("Lucy took a standing count in round 2"), "player count: names Lucy and round 2: '%s'" % against)
+	_check(against.contains("Your boxer took a standing count in round 2"), "player count: says your boxer and round 2: '%s'" % against)
 	_check(against.contains("that round went wide on the cards"), "player count: says it went wide on the cards: '%s'" % against)
 
 
@@ -55,7 +55,7 @@ func _test_count_on_opponent_side() -> void:
 	]
 	var out := FightWhy.read(rounds, "Lucy", "Maria")
 	var plan := str(out["plan"])
-	_check(plan.contains("Maria took a standing count in round 1"), "opponent count: names Maria and round 1: '%s'" % plan)
+	_check(plan.contains("The opponent took a standing count in round 1"), "opponent count: says the opponent and round 1: '%s'" % plan)
 	_check(plan.contains("that round went wide your way"), "opponent count: says it went wide your way: '%s'" % plan)
 
 
@@ -68,8 +68,8 @@ func _test_counts_both_sides() -> void:
 	var out := FightWhy.read(rounds, "Lucy", "Maria")
 	var plan := str(out["plan"])
 	var against := str(out["against"])
-	_check(plan.contains("Maria took a standing count"), "both: opponent count in plan: '%s'" % plan)
-	_check(against.contains("Lucy took a standing count"), "both: player count in against: '%s'" % against)
+	_check(plan.contains("The opponent took a standing count"), "both: opponent count in plan: '%s'" % plan)
+	_check(against.contains("Your boxer took a standing count"), "both: player count in against: '%s'" % against)
 
 
 ## 5. Counts in two rounds: "in rounds 2 and 3".

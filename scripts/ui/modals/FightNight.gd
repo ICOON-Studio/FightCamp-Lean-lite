@@ -98,9 +98,9 @@ func _live(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		Exchanges.EXCHANGES, int(Exchanges.EX_SECONDS)], UI.SMALL))
 	# S310: both boxers' energy, body shots taken and hurt, as the 3D fight display shows them.
 	var st := LiveRound.state(lv, exs.size())
-	v.add_child(UI.muted("Punches landed: %s %d, %s %d." % [names[0], la, names[1], lb], UI.SMALL))
+	v.add_child(UI.muted("Punches landed: yours %d, theirs %d." % [la, lb], UI.SMALL))   # S448: names only in the header
 	for side in 2:
-		v.add_child(UI.label("%s: energy %d, body shots taken %d%s" % [names[side], int(round(float(st["a" if side == 0 else "b"]))),
+		v.add_child(UI.label("%s: energy %d, body shots taken %d%s" % ["Yours" if side == 0 else "Theirs", int(round(float(st["a" if side == 0 else "b"]))),
 			int(st["body"][side]), ", HURT" if bool(st["hurt"][side]) else ""], UI.SMALL, UI.FG if float(st["a" if side == 0 else "b"]) >= 35.0 else UI.AMBER))
 	var last: Dictionary = exs[-1]
 	v.add_child(UI.label(str(last["verdict"]), 20, UI.GREEN if bool(last["won"]) else UI.RED, "body", true))
@@ -117,7 +117,7 @@ func _live(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	v.add_child(UI.label(str(pv["clue"]), 24, UI.AMBER, "bold", true))
 	if not (pv.get("read", {}) as Dictionary).is_empty():   # S333 THE READ
 		v.add_child(ReadPanel.build(pv["read"], str(pv.get("read_call", "")), names, func(k: String): main.act("fightstep", "shout:" + k)))
-	v.add_child(UI.caps("WHAT DO YOU SHOUT TO %s?" % str(names[0]).to_upper()))
+	v.add_child(UI.caps("WHAT DO YOU SHOUT?"))
 	v.add_child(UI.muted(ShoutBar.shout_note(int(pv["shouts"]), str(names[0])), UI.SMALL))
 	var row := CallButtons.shout_row(pv["offers"], pv["grades"], str(pv["mark"]), names, func(k: String): main.act("fightstep", "shout:" + k))
 	var now := CallButtons.now_button(pv.get("now", {}), names, func(k: String): main.act("fightstep", "shout:" + k))
@@ -157,7 +157,7 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	var ex_won := RoundGraphics.totals(exs)["won"] as Array
 	if int(ex_won[0]) == int(ex_won[1]) and int(ex_won[0]) > 0:
 		# S320: level on the 30-second exchanges, the round goes to whoever did more in them.
-		sub.append("Level %d-%d on exchanges: %s took it on the work done in them." % [ex_won[0], ex_won[1], fname if won else oname])
+		sub.append("Level %d-%d on exchanges: %s took it on the work done in them." % [ex_won[0], ex_won[1], "your boxer" if won else "the opponent"])
 	if str(last["corner"]) != "":
 		sub.append("Your call: \"%s\"" % BoutRules.CORNER[last["corner"]])
 	if not sub.is_empty():
@@ -179,7 +179,7 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		if not en.is_empty():
 			centre.add_child(Broadcast.tank(float(en.get("a_end", 100.0)), float(en.get("b_end", 100.0))))
 			# S303 Kalli K-COMBOWORDS1: the corner reads her tank in a line.
-			var said := ComboWords.energy_line(float(en.get("a_end", 100.0)), fname, n * 7 + main.career.day)
+			var said := ComboWords.energy_line(float(en.get("a_end", 100.0)), "your boxer", n * 7 + main.career.day)
 			if said != "":
 				var sl := UI.label(said, UI.SMALL, UI.MUTED, "italic")
 				sl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -203,8 +203,8 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		if not last.has("card") and not exs.is_empty():
 			# S320: a skipped round has no punch-by-punch card - say what its exchanges landed (it read "nothing clean").
 			var tt := RoundGraphics.totals(exs)
-			cc["worked"] = "%s landed %d punches, %d to the body." % [fname, tt["landed"][0], tt["body"][0]]
-			cc["hurt"] = "%s landed %d punches, %d to the body." % [oname, tt["landed"][1], tt["body"][1]]
+			cc["worked"] = "Your boxer landed %d punches, %d to the body." % [tt["landed"][0], tt["body"][0]]
+			cc["hurt"] = "The opponent landed %d punches, %d to the body." % [tt["landed"][1], tt["body"][1]]
 		var coach_says := "\"%s\"" % cc["why"]
 		if last.has("exchanges"):
 			cc.merge(Exchanges.read(last["exchanges"], [fname, oname]), true)
@@ -215,7 +215,7 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		v.add_child(Broadcast.quote(coach_says, "YOUR COACH"))
 		advice = str(cc["call"]) if n < total else ""
 	if n < total and stop == "":
-		v.add_child(UI.caps("IN THE CORNER: WHAT DO YOU TELL %s?" % fname.to_upper()))
+		v.add_child(UI.caps("IN THE CORNER: WHAT DO YOU TELL YOUR BOXER?"))
 		# S309: one fix for a habit the coach has seen (kept on the moment until the call is made).
 		var fixes := LiveRound.fixes(main.career.fighter_by_id(str(m["fid"])), last)
 		if not fixes.is_empty():

@@ -119,7 +119,7 @@ static func _box_lines(d: Dictionary, f: Dictionary, combo: String, sm: Dictiona
 				if float(r["odds"]) > float(best["odds"]):
 					best = r
 			lines.append("Lands whole %d%% vs %s (%s) - %d%% with no combination." % [roundi(float(best["odds"]) * 100.0),
-				"an even opponent" if opp.is_empty() else str(opp.get("first", "the opponent")), str(best["label"]).to_lower(),
+				"an even opponent" if opp.is_empty() else "the opponent", str(best["label"]).to_lower(),
 				roundi(float(t["base"]) * 100.0)])
 	var first := ""
 	var punches := 0

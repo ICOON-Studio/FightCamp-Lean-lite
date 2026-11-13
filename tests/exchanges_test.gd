@@ -39,12 +39,12 @@ func _initialize() -> void:
 			when_bad.append(wh)
 		for field in ["expect", "tell"]:
 			var line := X.named(str(X.CALLS[k][field]), nm)
-			words_ok = words_ok and not line.contains("{") and (field == "tell" or line.contains("Lucy") or line.contains("Maria"))
+			words_ok = words_ok and not line.contains("{") and (field == "tell" or _role(line))   # S448: roles, never names
 		for sit in X.MODES.keys():
 			for won in [true, false]:
 				var v := X.verdict(str(k), str(sit), won, nm)
-				words_ok = words_ok and (v.contains("Lucy") or v.contains("Maria"))
-	_check(words_ok and X.verdict("", "press", true, nm).contains("Lucy"), "every expect line and verdict names a boxer")
+				words_ok = words_ok and _role(v)
+	_check(words_ok and X.verdict("", "press", true, nm).begins_with("Your boxer") and not X.verdict("", "press", true, nm).contains("Lucy"), "every expect line and verdict says whose (the role, never the name)")
 	_check(when_bad.is_empty() and str(X.CALLS["long"]["when"]) == "When pressed", "every when line is short with no name (bad: %s)" % str(when_bad))
 	# 1d. S443 C320 ("are these random preset lines with no base on the fight ?"): the coach's read says what the last
 	# exchanges showed - how many were the game and how many of those she won - and with no exchanges it reads nothing.
@@ -67,8 +67,8 @@ func _initialize() -> void:
 		var beats := [{}, {}, {}]
 		RoundScript._captions(beats, [], str(k), "Lucy")
 		fight_lines.append(str(beats[0]["caption"]))
-		captions_named = captions_named and str(beats[0]["caption"]).contains("Lucy")
-	_check(captions_named, "the corner call's caption names her (\"Stay long: Lucy starts behind the jab.\")")
+		captions_named = captions_named and str(beats[0]["caption"]).contains("your boxer")
+	_check(captions_named, "the corner call's caption says whose (\"Stay long: your boxer starts behind the jab.\")")
 	var subs := {"her": "Lucy", "opp": "Maria", "threat": "left hook", "round": 2, "focus": "speed"}
 	_collect(FightWords.bank(), subs, fight_lines)
 	_collect(FightWords.FALLBACK, subs, fight_lines)
@@ -136,7 +136,7 @@ func _initialize() -> void:
 	var m := {"fid": f["id"], "step": "tape", "total": 3}
 	Bouts.fight_step(c, f, m, "start")
 	var pv := LiveRound.preview(f, m)
-	_check(str(pv.get("clue", "")).contains("Priya") or str(pv.get("clue", "")).contains(str(f["first"])), "the clue names a boxer: \"%s\"" % pv.get("clue", ""))
+	_check(_role(str(pv.get("clue", ""))), "the clue says whose (the role): \"%s\"" % pv.get("clue", ""))
 	_check((pv.get("offers", []) as Array).size() == 3 and int(pv.get("at", 0)) == 30, "after 0:30 the shout bar offers three calls")
 	# S310: without film study the shout bar marks no "coach's pick" - the player reads the clue.
 	_check(str(pv.get("mark", "?")) == "" and str(pv.get("coach", "")) != "", "film 1: no coach's pick on the shout bar")
@@ -234,6 +234,12 @@ func _collect(x: Variant, subs: Dictionary, out: Array) -> void:
 	elif x is Array:
 		for v in x:
 			_collect(v, subs, out)
+
+
+## S448 operator ("names are only mentioned on the header"): a fight line says the role, never the name.
+func _role(line: String) -> bool:
+	var l := line.to_lower()
+	return (l.contains("your boxer") or l.contains("the opponent")) and not line.contains("Lucy") and not line.contains("Maria")
 
 
 func _check(cond: bool, label: String) -> void:

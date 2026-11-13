@@ -118,7 +118,7 @@ func _standing(main: Node, c: Career, f: Dictionary) -> Control:
 		v.add_child(UI.caps("NEXT ON THE ROAD"))
 		v.add_child(UI.label("%s. %s" % [str(road["steps"][int(road["lit"])]["name"]), str(road.get("need", ""))], UI.SMALL, UI.FG, "body", true))
 	if NationalsView.enter_button(main, c, f) != null:   # S397 blind round 4: the Enter button lives on Championships
-		var go := UI.button("Enter %s for the nationals" % f["first"], "Link", main.act.bind("go", "world:2"))
+		var go := UI.button("Enter for the nationals", "Link", main.act.bind("go", "world:2"))
 		go.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		v.add_child(go)
 	return fc[0]

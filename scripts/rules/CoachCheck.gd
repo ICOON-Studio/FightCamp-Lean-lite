@@ -76,7 +76,7 @@ static func _goal(c: Career, f: Dictionary) -> Dictionary:
 static func _fight(c: Career, f: Dictionary) -> Dictionary:
 	if _booked(f):
 		var days := int(f["bout"]["day"]) - c.day
-		return _row("fight", "Next fight", "%s in %d days" % [f["bout"]["opp"]["name"], days], "ok", "go", "fights:1")
+		return _row("fight", "Next fight", "booked, in %d days" % days, "ok", "go", "fights:1")   # S448: names in the header only
 	for o in f["offers"]:
 		if not bool(o["answered"]) and not bool(o["mismatch"]):
 			return _row("fight", "Next fight", "offer to answer", "warn", "openBout", str(o["id"]))

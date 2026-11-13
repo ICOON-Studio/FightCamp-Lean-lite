@@ -17,9 +17,8 @@ const FADE := 0.25
 ## {kind, text}: kind is "injury", "weapon", "peak", "rank", "stat" or "" (a quiet week, no headline). `fr` is one
 ## fighter's report from Sim.end_week ({name, rows, new_weapon, rank_before, rank_after, div, peak, injury}).
 static func headline(fr: Dictionary, labels: Dictionary) -> Dictionary:
-	var first := str(fr.get("name", "")).get_slice(" ", 0)
 	if str(fr.get("injury", "")) != "":
-		return {"kind": "injury", "text": "%s is hurt: %s." % [first, str(fr["injury"])]}
+		return {"kind": "injury", "text": "Hurt: %s." % str(fr["injury"])}   # S448: the section's header has the name
 	if str(fr.get("new_weapon", "")) != "":
 		return {"kind": "weapon", "text": "NEW WEAPON: the %s." % str(fr["new_weapon"]).to_lower()}
 	if str(fr.get("peak", "")).begins_with("Peak"):
@@ -45,12 +44,11 @@ static func headline(fr: Dictionary, labels: Dictionary) -> Dictionary:
 
 ## S363 the no-gi athlete's surprise (Grapplers.week_report row): a medal > a move that became a weapon > a stripe due.
 static func grappler_headline(gr: Dictionary, move_name: String) -> Dictionary:
-	var first := str(gr.get("first", ""))
 	var o: Dictionary = gr.get("open", {})
 	if str(o.get("medal", "")) != "":
-		return {"kind": "medal", "text": "%s takes %s at the %s." % [first, str(o["medal"]).to_upper(), str(o["name"])]}
+		return {"kind": "medal", "text": "%s at the %s." % [str(o["medal"]).to_upper(), str(o["name"])]}
 	if bool(gr.get("owned", false)):
-		return {"kind": "weapon", "text": "NEW WEAPON: %s's %s." % [first, move_name.to_lower()]}
+		return {"kind": "weapon", "text": "NEW WEAPON: the %s." % move_name.to_lower()}
 	if int(gr.get("due", 0)) > 0 and int(gr.get("held", 0)) != int(gr.get("stripes", 0)) + 1:
 		return {"kind": "stripe", "text": "Stripe %d is due: your call." % (int(gr.get("stripes", 0)) + 1)}
 	return {"kind": "", "text": ""}

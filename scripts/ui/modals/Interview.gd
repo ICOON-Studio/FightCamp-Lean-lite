@@ -47,13 +47,13 @@ func build(main: Node, m: Dictionary) -> void:
 	foot.add_child(UI.spacer())
 	# S397 a later walk-in can be turned away (the first one is the club's only boxer: Pass keeps them waiting).
 	var first: bool = main.career.fighters.is_empty()
-	var pass_b := UI.button("Pass" if first else "Pass on %s" % a["first"], "BtnQuiet", main.act.bind("decline" if first else "passwalkin", ""))
+	var pass_b := UI.button("Pass", "BtnQuiet", main.act.bind("decline" if first else "passwalkin", ""))
 	pass_b.name = "Pass"
 	foot.add_child(pass_b)
 	var focus := RecruitPanel.focus_of(picks)
 	var ready := focus != "" or picks.size() == 3
-	var sign := UI.button("Sign %s - %s" % [a["first"], str(Recruit.FOCUS[focus]["name"]).to_lower()] if focus != "" else
-		("Sign " + str(a["first"]) if ready else "Sign: choose a starting focus"), "BtnSolid",
+	var sign := UI.button("Sign - %s" % str(Recruit.FOCUS[focus]["name"]).to_lower() if focus != "" else
+		("Sign" if ready else "Sign: choose a starting focus"), "BtnSolid",
 		main.act.bind("sign", ""), not ready, "Choose one starting focus first" if not ready else "")
 	sign.name = "Sign"
 	sign.custom_minimum_size = Vector2(0, 52)

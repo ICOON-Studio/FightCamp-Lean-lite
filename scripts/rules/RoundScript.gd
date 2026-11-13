@@ -311,10 +311,10 @@ static func _shuffle(a: Array, rng: RandomNumberGenerator) -> void:
 
 ## The round's word lines ride the beats: the call's caption on the first beat (round 2 on), the first line on the
 ## opening punch, the last line on the winner's last punch, any line between on a landed beat in the middle.
-static func _captions(beats: Array, lines: Array, call: String, her: String) -> void:
+static func _captions(beats: Array, lines: Array, call: String, _her: String) -> void:
 	var start := 0
 	if call != "" and CALL_CAPTION.has(call):
-		beats[0]["caption"] = str(CALL_CAPTION[call]).replace("{her}", her)
+		beats[0]["caption"] = str(CALL_CAPTION[call]).replace("{her}", "your boxer")   # S448: the role, never the name
 		start = 2
 	if lines.is_empty():
 		return

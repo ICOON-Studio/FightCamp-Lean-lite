@@ -35,7 +35,7 @@ func _initialize() -> void:
 	var b4 := [_b("b", "1-2-3", "lands"), _b("b", "1-2-3", "blocked")]
 	b4[1]["combo_cut"] = true
 	W.caption(b4, {}, ["Maria", "Lucy"], 2)
-	_check(str(b4[1]["caption"]).contains("Lucy"), "caption: cut run -> ring_tired line for the opponent")
+	_check(str(b4[1]["caption"]).to_lower().contains("the opponent"), "caption: cut run -> ring_tired line for the opponent (S448: the role)")
 	var b5 := [_b("a", "1-2", "lands"), _b("a", "1-2", "lands")]
 	b5[1]["caption"] = "kept"
 	W.caption(b5, {"a": {"1-2": 99.0}}, ["Maria", "Lucy"], 7)

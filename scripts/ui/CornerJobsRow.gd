@@ -75,7 +75,7 @@ static func build(mn: Dictionary, sel: Dictionary, names: Array, on_change: Call
 	s_row.add_child(_tag("SET-UP", UI.AMBER))
 	var setups: Array = mn["setups"]
 	if setups.is_empty():
-		s_row.add_child(_m("%s has no combination yet - drill one on the pads in the gym to set it up here." % names[0], UI.SMALL))
+		s_row.add_child(_m("Your boxer has no combination yet - drill one on the pads in the gym to set it up here.", UI.SMALL))
 	else:
 		var su: Dictionary = sel["setup"]
 		for k in setups.slice(0, 3):
@@ -129,7 +129,7 @@ static func _plan_row(mn: Dictionary, sel: Dictionary, names: Array, on_change: 
 	elif _tv:
 		pass   # S350 "too much text": on the 3D card the dropdown alone; the tally is its hover
 	elif arrows.is_empty():
-		p_row.add_child(_m("No plan of yours: %s runs the coach's lines or improvises. Add one arrow:" % names[0], UI.SMALL))
+		p_row.add_child(_m("No plan of yours: your boxer runs the coach's lines or improvises. Add one arrow:", UI.SMALL))
 	else:
 		p_row.add_child(_m("%d of %d arrows worked. Change one:" % [int(t.get("worked", 0)), int(t.get("used", 0))], UI.SMALL))
 	var changes: Array = mn.get("changes", [])

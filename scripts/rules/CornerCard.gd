@@ -55,30 +55,30 @@ static func top(landed: Dictionary) -> String:
 	return best
 
 
-## {worked, hurt, call (BoutRules.CORNER key), why}. names = [hers, the opponent's]; energy = hers at the bell.
-static func card(summary: Dictionary, energy: float, names: Array) -> Dictionary:
+## {worked, hurt, call (BoutRules.CORNER key), why}. _names = [hers, the opponent's] (unused since S448); energy = hers at the bell.
+static func card(summary: Dictionary, energy: float, _names: Array) -> Dictionary:
 	var mine: Dictionary = summary.get("a", {}).get("landed", {})
 	var theirs: Dictionary = summary.get("b", {}).get("landed", {})
 	var whole: Array = summary.get("a", {}).get("whole", [])
 	var good := top(mine)
 	var bad := top(theirs)
 	# S309 "fix the wording": two women in the ring, so the card names who landed what; "why" is the coach talking to
-	# her fighter ("you" = ours, the opponent by name).
-	var worked := "%s landed nothing clean." % names[0] if good == "" else "%s landed %s." % [names[0], landed(int(mine[good]), good)]
+	# her fighter ("you" = ours). S448 operator ("names are only mentioned on the header"): roles, never names.
+	var worked := "Your boxer landed nothing clean." if good == "" else "Your boxer landed %s." % landed(int(mine[good]), good)
 	if not whole.is_empty():
-		worked += " %s's %s landed whole." % [names[0], str(whole[0])]
-	var hurt := "%s landed nothing clean." % names[1] if bad == "" else "%s landed %s." % [names[1], landed(int(theirs[bad]), bad)]
+		worked += " Your boxer's %s landed whole." % str(whole[0])
+	var hurt := "The opponent landed nothing clean." if bad == "" else "The opponent landed %s." % landed(int(theirs[bad]), bad)
 	var call := "long"
-	var why := "Keep %s behind your jab." % names[1]
+	var why := "Keep the opponent behind your jab."
 	if energy < WEARY_AT:
 		call = "calm"
 		why = "You're tired. Breathe and pick your shots."
 	elif bad in SHORT and int(theirs[bad]) >= 2:
 		call = "long"
-		why = "%s's %s needs you close: keep %s on the end of your jab." % [names[1], WORD[bad], names[1]]
+		why = "The opponent's %s needs you close: keep them on the end of your jab." % WORD[bad]
 	elif bad in LONG and int(theirs[bad]) >= 2:
 		call = "body"
-		why = "%s is winning at range: get inside and go to the body." % names[1]
+		why = "The opponent is winning at range: get inside and go to the body."
 	elif good == "body_hook":
 		call = "body"
 		why = "Your body shots are working: keep digging."

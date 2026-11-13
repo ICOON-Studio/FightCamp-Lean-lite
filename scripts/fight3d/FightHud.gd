@@ -93,7 +93,7 @@ static func draw_buttons(view: Control) -> void:
 
 
 ## S395 (blind review: the bar goes back to even each round and nothing on screen says who leads the fight): the round line.
-static func round_line(n: int, total: int, rounds_done: Array, names: Array) -> String:
+static func round_line(n: int, total: int, rounds_done: Array, _names: Array) -> String:
 	var line := "ROUND %d OF %d" % [n, total]
 	var won := rounds_done.filter(func(x): return bool((x as Dictionary).get("won", false))).size()
 	var lost := rounds_done.size() - won
@@ -101,7 +101,7 @@ static func round_line(n: int, total: int, rounds_done: Array, names: Array) -> 
 		return line
 	if won == lost:
 		return "%s   LEVEL %d-%d" % [line, won, lost]
-	return "%s   %s LEADS %d-%d" % [line, str(names[0 if won > lost else 1]).get_slice(" ", 0).to_upper(), maxi(won, lost), mini(won, lost)]
+	return "%s   %s LEADS %d-%d" % [line, "YOUR BOXER" if won > lost else "OPPONENT", maxi(won, lost), mini(won, lost)]   # S448: roles
 
 
 ## S395 (blind review: everything cut out on one frame at the bell): it goes in the bell's last moments, before the corner.

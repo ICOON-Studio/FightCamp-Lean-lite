@@ -216,7 +216,7 @@ func _overview(main: Node, c: Career, f: Dictionary, g: Dictionary) -> void:
 	if g.is_empty():
 		goal.add_child(UI.muted("Waiting in your office for the next goal." if bool(f["goal_talk"]) else "No goal set.", UI.BODY, true))
 		if bool(f["goal_talk"]):
-			var talk := UI.button("Talk to %s" % str(f["first"]), "Btn", main.act.bind("goaltalk", f["id"]))
+			var talk := UI.button("Talk about the next goal", "Btn", main.act.bind("goaltalk", f["id"]))
 			talk.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 			goal.add_child(talk)
 	else:

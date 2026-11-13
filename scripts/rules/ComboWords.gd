@@ -30,7 +30,7 @@ static func line(id: String, kind: String, name: String, seed_value: int) -> Str
 			var pool: Array = c.get(kind, [])
 			if pool.is_empty():
 				return ""
-			return str(pool[absi(seed_value) % pool.size()]).replace("{name}", name)
+			return fill(str(pool[absi(seed_value) % pool.size()]), name)
 	return ""
 
 
@@ -44,13 +44,30 @@ static func energy_line(energy: float, name: String, seed_value: int) -> String:
 	var pool: Array = (bank().get("energy_lines", {}) as Dictionary).get(band(energy), [])
 	if pool.is_empty():
 		return ""
-	return str(pool[absi(seed_value) % pool.size()]).replace("{name}", name)
+	return fill(str(pool[absi(seed_value) % pool.size()]), name)
+
+
+## {name} filled; a lower-case role ("your boxer") that opens a sentence is capitalised (S448: the fight says roles).
+static func fill(text: String, name: String) -> String:
+	var out := text
+	var i := out.find("{name}")
+	while i >= 0:
+		var w := name
+		var j := i - 1
+		while j >= 0 and out[j] == " ":
+			j -= 1
+		if j < 0 or out[j] in [".", "!", "?", "\""]:
+			w = w.left(1).to_upper() + w.substr(1)
+		out = out.substr(0, i) + w + out.substr(i + 6)
+		i = out.find("{name}", i + w.length())
+	return out
 
 
 ## Captions the round's combination runs (RoundScript beats carry combo_id; combo_cut on a run she left unfinished):
 ## a cut run -> ring_tired, a whole run that all lands with her mastery at SIGNATURE -> ring_lands. Once per side and kind
-## a round, never over a caption already there. names = [ours, theirs]; masteries = {"a": {id: m}, "b": {id: m}}.
-static func caption(beats: Array, masteries: Dictionary, names: Array, seed_value: int) -> void:
+## a round, never over a caption already there. _names = [ours, theirs] (S448: the captions say "your boxer" / "the
+## opponent", never the names); masteries = {"a": {id: m}, "b": {id: m}}.
+static func caption(beats: Array, masteries: Dictionary, _names: Array, seed_value: int) -> void:
 	var said := {}
 	var i := 0
 	while i < beats.size():
@@ -76,7 +93,7 @@ static func caption(beats: Array, masteries: Dictionary, names: Array, seed_valu
 			if all_land and j > i and m >= SIGNATURE_AT:
 				kind = "ring_lands"
 		if kind != "" and not said.has(who + kind) and str(last.get("caption", "")) == "":
-			var text := line(cid, kind, str(names[0 if who == "a" else 1]), seed_value + i)
+			var text := line(cid, kind, "your boxer" if who == "a" else "the opponent", seed_value + i)
 			if text != "":
 				last["caption"] = text
 				said[who + kind] = true

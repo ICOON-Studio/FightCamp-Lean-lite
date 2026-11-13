@@ -130,7 +130,7 @@ static func _coach(main: Node, c: Career, coach: Dictionary, wide: bool) -> Cont
 	if not _hired(c, who):
 		var b := UI.button("Hire", "BtnSolid", main.act.bind("hire", str(who.get("id", ""))))
 		b.name = "Hire_" + str(who.get("id", ""))
-		b.tooltip_text = "Hire %s. %s to sign." % [who.get("name", ""), UI.money(GameMoney.COACH_SIGNING_FEE)]
+		b.tooltip_text = "Hire this coach. %s to sign." % UI.money(GameMoney.COACH_SIGNING_FEE)
 		v.add_child(b)
 	h.add_child(v)
 	return p

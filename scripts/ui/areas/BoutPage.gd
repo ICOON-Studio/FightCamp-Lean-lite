@@ -142,8 +142,8 @@ func _answer_row(main: Node, f: Dictionary, o: Dictionary, offer_id: String, wf:
 	elif not open:
 		foot.add_child(UI.muted("Answered.", UI.SMALL))
 	elif not bool(wf["ok"]):
-		var heavy := UI.label("%s would come in %.1f kg over even cutting from tomorrow. Missing weight calls the bout off and the club pays %s for the empty slot." % [
-			f["first"], float(wf["over"]), UI.money(BoutRules.MISSED_WEIGHT_COST)], UI.SMALL, UI.RED, "body", true)
+		var heavy := UI.label("Your boxer would come in %.1f kg over even cutting from tomorrow. Missing weight calls the bout off and the club pays %s for the empty slot." % [
+			float(wf["over"]), UI.money(BoutRules.MISSED_WEIGHT_COST)], UI.SMALL, UI.RED, "body", true)
 		heavy.name = "WeightWarn"
 		heavy.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		heavy.size_flags_horizontal = Control.SIZE_EXPAND_FILL
