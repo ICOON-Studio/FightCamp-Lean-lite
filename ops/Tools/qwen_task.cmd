@@ -112,10 +112,17 @@ REM S214: note the model this launch runs, for the model-router live view (127.0
 for %%I in ("%~2") do set "FC_WT=%%~nxI"
 if not exist "C:\Users\user\.claude\mods\model-router-live\agents" mkdir "C:\Users\user\.claude\mods\model-router-live\agents"
 (echo %QMODEL%)> "C:\Users\user\.claude\mods\model-router-live\agents\%FC_WT%.txt"
+REM S473 operator: "use also ollama on thebest free model available" - QWEN_LOCAL=1 runs the same CLI against the local
+REM Ollama (OpenAI-style endpoint, no account, no cost): model qwen3-coder:30b unless QWEN_MODEL names another.
+set "QLOCAL="
+if "%QWEN_LOCAL%"=="1" (
+  if "%QWEN_MODEL%"=="" set "QMODEL=qwen3-coder:30b"
+  set "QLOCAL=--openai-base-url http://127.0.0.1:11434/v1 --openai-api-key ollama"
+)
 if "%FIGHTCAMP_AGENT_STREAM%"=="1" (
-  type "%PROMPT%" | "%QWEN%" --yolo -m %QMODEL%
+  type "%PROMPT%" | "%QWEN%" --yolo %QLOCAL% -m %QMODEL%
 ) else (
-  type "%PROMPT%" | "%QWEN%" --yolo -m %QMODEL% > "%OUT%" 2>&1
+  type "%PROMPT%" | "%QWEN%" --yolo %QLOCAL% -m %QMODEL% > "%OUT%" 2>&1
 )
 
 endlocal
