@@ -1,0 +1,66 @@
+FightCamp sound board - S473 Ludo: pads, corner, clinch, gym - 2026-11-14 19:25
+NOBODY HAS LISTENED TO THESE YET. Claude and the agents cannot hear. Your ear decides: keep / redo / drop.
+Made with Ludo audio (your Pro plan). Numbers: loudness (LUFS), peak (dB), length (s).
+
+ 1. clinch_break  (clinch_break_1.ogg)  - plays when the referee breaks the clinch
+    UNHEARD. 0.181 s, loudness -18.97, peak -2.17 dB. Prompt: boxing referee pulling two clinched fighters apart, gloves slap and bodies separate, short
+ 2. clinch_break  (clinch_break_2.ogg)  - plays when the referee breaks the clinch
+    UNHEARD. 0.997 s, loudness -22.53, peak -1.47 dB. Prompt: boxing referee pulling two clinched fighters apart, gloves slap and bodies separate, short
+ 3. clinch_break  (clinch_break_3.ogg)  - plays when the referee breaks the clinch
+    UNHEARD. 1 s, loudness -22.57, peak -1.24 dB. Prompt: boxing referee pulling two clinched fighters apart, gloves slap and bodies separate, short
+ 4. clinch_grapple  (clinch_grapple_1.ogg)  - plays when a clinch: gloves and shoulders tied up
+    UNHEARD. 2 s, loudness -23.91, peak -1.46 dB. Prompt: two boxers tied up in a clinch, leather gloves rubbing on sweaty skin and shoulders, heavy breathing, shuffling feet on canvas
+ 5. clinch_grapple  (clinch_grapple_2.ogg)  - plays when a clinch: gloves and shoulders tied up
+    UNHEARD. 1.098 s, loudness -21.98, peak -1.35 dB. Prompt: two boxers tied up in a clinch, leather gloves rubbing on sweaty skin and shoulders, heavy breathing, shuffling feet on canvas
+ 6. clinch_grapple  (clinch_grapple_3.ogg)  - plays when a clinch: gloves and shoulders tied up
+    UNHEARD. 1.908 s, loudness -25.71, peak -1.78 dB. Prompt: two boxers tied up in a clinch, leather gloves rubbing on sweaty skin and shoulders, heavy breathing, shuffling feet on canvas
+ 7. corner_stool  (corner_stool_1.ogg)  - plays when corner minute: the stool goes down
+    UNHEARD. 0.338 s, loudness -17.75, peak -1.45 dB. Prompt: wooden corner stool set down hard on a boxing ring canvas, between rounds
+ 8. corner_stool  (corner_stool_2.ogg)  - plays when corner minute: the stool goes down
+    UNHEARD. 0.283 s, loudness -15.03, peak -1.12 dB. Prompt: wooden corner stool set down hard on a boxing ring canvas, between rounds
+ 9. corner_stool  (corner_stool_3.ogg)  - plays when corner minute: the stool goes down
+    UNHEARD. 0.338 s, loudness -20.34, peak -1.61 dB. Prompt: wooden corner stool set down hard on a boxing ring canvas, between rounds
+10. corner_towel  (corner_towel_1.ogg)  - plays when corner minute: the towel on her face
+    UNHEARD. 0.939 s, loudness -18.52, peak -1.59 dB. Prompt: cornerman wiping a sweaty boxer's face with a cotton towel, quick rough rub
+11. corner_towel  (corner_towel_2.ogg)  - plays when corner minute: the towel on her face
+    UNHEARD. 1.2 s, loudness -16.44, peak -5.71 dB. Prompt: cornerman wiping a sweaty boxer's face with a cotton towel, quick rough rub
+12. corner_towel  (corner_towel_3.ogg)  - plays when corner minute: the towel on her face
+    UNHEARD. 1.15 s, loudness -16.97, peak -7.04 dB. Prompt: cornerman wiping a sweaty boxer's face with a cotton towel, quick rough rub
+13. corner_water_spray  (corner_water_spray_1.ogg)  - plays when corner minute: water for the boxer
+    UNHEARD. 0.988 s, loudness -21.77, peak -2.05 dB. Prompt: cornerman squirting water from a plastic bottle into a boxer's mouth, short squirt and splash
+14. corner_water_spray  (corner_water_spray_2.ogg)  - plays when corner minute: water for the boxer
+    UNHEARD. 1.124 s, loudness -16.92, peak -2.04 dB. Prompt: cornerman squirting water from a plastic bottle into a boxer's mouth, short squirt and splash
+15. corner_water_spray  (corner_water_spray_3.ogg)  - plays when corner minute: water for the boxer
+    UNHEARD. 1.2 s, loudness -16.53, peak -2.07 dB. Prompt: cornerman squirting water from a plastic bottle into a boxer's mouth, short squirt and splash
+16. gym_ambience_loop  (gym_ambience_loop_1.ogg)  - plays when the gym floor: room tone under every gym screen (loops)
+    UNHEARD. 10 s, loudness -25, peak -1.16 dB. Prompt: small amateur boxing gym room tone, distant heavy bag thuds, skipping rope, muffled talk, no music
+17. gym_ambience_loop  (gym_ambience_loop_2.ogg)  - plays when the gym floor: room tone under every gym screen (loops)
+    UNHEARD. 10 s, loudness -21.5, peak -0.97 dB. Prompt: small amateur boxing gym room tone, distant heavy bag thuds, skipping rope, muffled talk, no music
+18. gym_ambience_loop  (gym_ambience_loop_3.ogg)  - plays when the gym floor: room tone under every gym screen (loops)
+    UNHEARD. 10 s, loudness -21.37, peak -1.48 dB. Prompt: small amateur boxing gym room tone, distant heavy bag thuds, skipping rope, muffled talk, no music
+19. pads_coach_clap  (pads_coach_clap_1.ogg)  - plays when pad night: the coach claps the mitts to call the next drill
+    UNHEARD. 0.186 s, loudness -14.46, peak -1.49 dB. Prompt: boxing coach slapping two leather focus mitts together once to signal, sharp clap
+20. pads_coach_clap  (pads_coach_clap_2.ogg)  - plays when pad night: the coach claps the mitts to call the next drill
+    UNHEARD. 0.601 s, loudness -19.99, peak -1.85 dB. Prompt: boxing coach slapping two leather focus mitts together once to signal, sharp clap
+21. pads_coach_clap  (pads_coach_clap_3.ogg)  - plays when pad night: the coach claps the mitts to call the next drill
+    UNHEARD. 0.155 s, loudness -21.84, peak -0.81 dB. Prompt: boxing coach slapping two leather focus mitts together once to signal, sharp clap
+22. pads_mitt_combo  (pads_mitt_combo_1.ogg)  - plays when pad night: a quick combination on the mitts
+    UNHEARD. 0.991 s, loudness -27.34, peak -1.27 dB. Prompt: boxing pad work combination, jab jab cross into leather focus mitts, quick rhythm, three pops, small gym
+23. pads_mitt_combo  (pads_mitt_combo_2.ogg)  - plays when pad night: a quick combination on the mitts
+    UNHEARD. 1.438 s, loudness -25.75, peak -1.39 dB. Prompt: boxing pad work combination, jab jab cross into leather focus mitts, quick rhythm, three pops, small gym
+24. pads_mitt_combo  (pads_mitt_combo_3.ogg)  - plays when pad night: a quick combination on the mitts
+    UNHEARD. 1.359 s, loudness -23.74, peak -1.59 dB. Prompt: boxing pad work combination, jab jab cross into leather focus mitts, quick rhythm, three pops, small gym
+25. pads_mitt_jab  (pads_mitt_jab_1.ogg)  - plays when pad night: a jab pops into the coach's mitt
+    UNHEARD. 0.077 s, loudness -15.73, peak -1.42 dB. Prompt: boxing focus mitt hit, a crisp light jab snapping into a leather coach's pad, close mic, small boxing gym, single hit
+26. pads_mitt_jab  (pads_mitt_jab_2.ogg)  - plays when pad night: a jab pops into the coach's mitt
+    UNHEARD. 0.625 s, loudness -20.98, peak -1.41 dB. Prompt: boxing focus mitt hit, a crisp light jab snapping into a leather coach's pad, close mic, small boxing gym, single hit
+27. pads_mitt_jab  (pads_mitt_jab_3.ogg)  - plays when pad night: a jab pops into the coach's mitt
+    UNHEARD. 0.074 s, loudness -17.89, peak -1.36 dB. Prompt: boxing focus mitt hit, a crisp light jab snapping into a leather coach's pad, close mic, small boxing gym, single hit
+28. pads_mitt_power  (pads_mitt_power_1.ogg)  - plays when pad night: a power punch thuds into the mitt
+    UNHEARD. 0.283 s, loudness -16.03, peak -1.12 dB. Prompt: boxing focus mitt hit, a heavy power punch thudding into a leather coach's pad with a deep pop, close mic, small gym, single hit
+29. pads_mitt_power  (pads_mitt_power_2.ogg)  - plays when pad night: a power punch thuds into the mitt
+    UNHEARD. 0.312 s, loudness -17.88, peak -1.37 dB. Prompt: boxing focus mitt hit, a heavy power punch thudding into a leather coach's pad with a deep pop, close mic, small gym, single hit
+30. pads_mitt_power  (pads_mitt_power_3.ogg)  - plays when pad night: a power punch thuds into the mitt
+    UNHEARD. 0.335 s, loudness -18.86, peak -1.37 dB. Prompt: boxing focus mitt hit, a heavy power punch thudding into a leather coach's pad with a deep pop, close mic, small gym, single hit
+
+Reply on the board with the numbers: e.g. '1 keep, 2 redo heavier, 5 drop'.

@@ -119,6 +119,9 @@ const OUT := ["pro_knockout_v1", "pro_knockout_v2", "pro_knockout_v3", "pro_knoc
 const IMPACT_S := {"jab": 0.365, "cross": 0.501, "lead_hook": 0.534, "rear_hook": 0.534, "lead_uppercut": 0.489,
 	"rear_uppercut": 0.489, "body_hook": 0.450}
 const OTHER_SPEED := 1.1
+## HOOKCAP2 (S473: the hard hooks' glove was twice real speed): cap the pace so the clip's shown top stays at or under
+## this. Real punches top out near 11.5 m/s (ops/research/CROSS_POWER_S439.md: crosses 6-11.5).
+const TOP_MAX_MS := 11.5
 ## Everything else from the Pro library (hit reactions, blocks, dodges) plays this much faster than authored.
 ## S376 (operator on the men's bout: "their punch speed feels very fast along with their body movement and it is very
 ## unatural"): 1.25 -> 1.1, and the recovery / reaction speed-ups capped at 1.5x (were 2.5x). Those speed up the WHOLE clip:
@@ -210,7 +213,13 @@ static func speed(clip: String, move: String) -> float:
 	# frame (contact_s, 0-130 ms earlier): paced on the new contact, the plain jab would play 1.32x -> 1.01x and its drive
 	# would slow on screen. The pace is unchanged; the hit lands that much sooner.
 	var far := float(contact_row(clip).get("far_s", contact(clip, float(IMPACT_S[move]))))
-	return clampf(far / float(IMPACT_S[move]), 1.0, 2.0)
+	var pace := clampf(far / float(IMPACT_S[move]), 1.0, 2.0)
+	# HOOKCAP2: cap the pace of the three hard hooks so the glove's shown top speed stays at or under TOP_MAX_MS
+	# (real punches top ~11.5 m/s). Only the hard hooks - other clips keep their computed pace.
+	var top_clip := float(_pace_row(clip).get("top_clip", 0.0))
+	if clip in ["pro_left_hook_hard", "pro_right_hook_hard", "pro_right_hook_hard_ft"] and top_clip > TOP_MAX_MS:
+		pace = maxf(1.0, TOP_MAX_MS / top_clip)
+	return pace
 
 
 ## The first name in `names` that `has` (a Callable(name) -> bool, e.g. stage.has_move) says exists, or "".

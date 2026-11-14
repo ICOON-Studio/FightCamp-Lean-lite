@@ -23,8 +23,14 @@ from pathlib import Path
 
 GAME = Path(__file__).resolve().parent.parent
 MANIFEST = GAME / "assets" / "audio" / "sounds.json"
+SESSION = ""   # set by --session
 
 WHEN = {  # what the player is seeing when it plays (plain words, for the board)
+    "pads_mitt_jab": "pad night: a jab pops into the coach's mitt", "pads_mitt_power": "pad night: a power punch thuds into the mitt",
+    "pads_mitt_combo": "pad night: a quick combination on the mitts", "pads_coach_clap": "pad night: the coach claps the mitts to call the next drill",
+    "corner_stool": "corner minute: the stool goes down", "corner_water_spray": "corner minute: water for the boxer",
+    "corner_towel": "corner minute: the towel on her face", "clinch_grapple": "a clinch: gloves and shoulders tied up",
+    "clinch_break": "the referee breaks the clinch", "gym_ambience_loop": "the gym floor: room tone under every gym screen (loops)",
     "punch_jab_head": "a jab lands on the head", "punch_power_head": "a cross, hook or uppercut lands on the head",
     "punch_body": "a punch lands on the body", "punch_big": "the round's big shot lands (slow-motion close-up)",
     "punch_blocked": "a punch hits the gloves / arms", "punch_miss": "a punch misses (glove whoosh)",
@@ -39,7 +45,8 @@ def build(round_name: str, only: str, out: Path) -> tuple[Path, Path]:
     d = json.loads(MANIFEST.read_text(encoding="utf-8"))
     tier = {e: int(v.get("tier", 9)) for e, v in d["events"].items()}
     order = list(d["events"])
-    rows = [(rel, r) for rel, r in d["files"].items() if only == "all" or not r.get("heard")]
+    rows = [(rel, r) for rel, r in d["files"].items() if (only == "all" or not r.get("heard"))
+            and (not SESSION or r.get("session") == SESSION)]   # S473: --session S473 = one round's sounds only
     rows.sort(key=lambda x: (tier.get(x[1]["event"], 9), order.index(x[1]["event"]) if x[1]["event"] in order else 99, x[0]))
     out.mkdir(parents=True, exist_ok=True)
     cards, lines = [], [f"FightCamp sound board - {round_name} - {datetime.now():%Y-%m-%d %H:%M}",
@@ -120,8 +127,11 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--round", default="Round 1")
     ap.add_argument("--only", default="unheard", choices=["unheard", "all"])
+    ap.add_argument("--session", default="")
     ap.add_argument("--out", default=str(GAME / "docs" / "audio" / "board"))
     a = ap.parse_args()
+    global SESSION
+    SESSION = a.session
     build(a.round, a.only, Path(a.out))
     return 0
 
