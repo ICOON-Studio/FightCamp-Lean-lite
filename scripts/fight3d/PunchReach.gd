@@ -442,9 +442,17 @@ func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove
 			for k in 3:
 				skel.set_bone_global_pose(int(ids[k]), keep2[k])
 			want += (full2 - full) * w
+	var want_free := want
 	if reach < l1 + l2 - 0.005:
 		want = s + (want - s).limit_length(reach)   # POWER1 step 4: an uppercut's elbow stays bent; short is short
 	ReachLimit.solve_capped(self, skel, ids, s, want, l1, l2, g_hd.basis, pole, pole_w, clip_glove, glove_front, hand == _hand and DRIVE and ReachLimit.capping(self))
+	if hand == _hand and _hit_f == _key and OS.get_cmdline_user_args().has("reachwhy"):
+		# S472 probe arm (the double hook's far hit): which limit stops the wrist short of `full` on the hit frame
+		var got := skel.get_bone_global_pose(int(ids[2])).origin
+		var gf := got + PunchReachMath.along(skel, ids) * glove_front
+		print("REACH_WHY %s w %.2f | wrist short of full %.3f: by weight %.3f, by arm length %.3f (reach %.3f of %.3f, wanted %.3f), by cap %.3f | glove to target %.3f" % [
+			_clip, w, got.distance_to(full), g_hd.origin.distance_to(full) * (1.0 - w), want_free.distance_to(want), reach, l1 + l2,
+			s.distance_to(want_free), want.distance_to(got), gf.distance_to(target)])
 	_hold_w = 0.0
 
 

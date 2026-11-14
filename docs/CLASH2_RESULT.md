@@ -118,3 +118,12 @@ at full weight on the hit frame; (b) CTRL_LANDED lets the ease finish before it 
   code in PunchReach.gd).
 - tests at their own frame rate (tools/run_tests.sh reads `FIXED_FPS <n>` from a test's header): block_meet 0 at 30
   (10-11 at 60), head_aim 0 at 30 (4 at 60); hit_frame is not in the nightly list (9 at 30, 3 at 60: a ruler to settle).
+
+## S472 - the double hook's far hit is the cap at work, shown as a graze
+- After SPLIT471 (collected, forwarders added) and the rear knee at 18 deg, the played fight still prints 33 landed / 1 far
+  (tools/hit_gap_probe.gd, hidden desktop, `--fixed-fps 30`): the same lines as S471.
+- PunchReach's target is LIVE (RangeTable.aim -> FightStage.target_point -> GloveClear.shown_head, read every frame), so
+  the reach does follow the head. New probe arm `-- reachwhy` (PunchReach, hit frame): pro_left_hook_ft, w 1.00, wrist
+  short of the full solve 0.097 m - by weight 0, by arm length 0, BY THE CAP 0.097 (ReachLimit.CORR_M 0.30 from the clip's
+  own glove) - glove to target 0.168 m. The head is 0.16 m to the side from the first hook's snap; the cap keeps the arm on
+  the recorded motion, and HitImpact shows a hit still > GRAZE_M (0.15) off as a graze. Working as designed: closed.
