@@ -1373,6 +1373,20 @@
    "status": "launched",
    "queued": "2026-11-14T01:10",
    "launched": "2026-11-14T02:42"
+  },
+  {
+   "task": "STEPPLAN1",
+   "seat": "qwen",
+   "status": "held",
+   "queued": "2026-11-14T07:40",
+   "note": "nightly review: design call first (a coach plan is worth nothing for a new fighter since the step gate)"
+  },
+  {
+   "task": "LANDREACH1",
+   "seat": "grok",
+   "status": "held",
+   "queued": "2026-11-14T07:40",
+   "note": "nightly review: animation, goes in the animation order; Cursor replaced (S446)"
   }
  ]
 }

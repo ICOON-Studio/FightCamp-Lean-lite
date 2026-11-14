@@ -161,21 +161,22 @@ func _study_card(main: Node, f: Dictionary) -> void:
 	var pads := (PadWeek.nights_of(f).get("pads", []) as Array).size()
 	var slot: Array = f.get("learning_slots", [])
 	if slot.is_empty():
-		card.add_child(UI.muted("Study slot: free. Pick one of the coach's cards; her pad nights then work on it.", UI.SMALL, true))
+		card.add_child(UI.muted("Study slot: free. Pick one of the coach's cards; the pad nights then work on it.", UI.SMALL, true))
 	for id in slot:
-		card.add_child(UI.row("Studying " + StudyWeek.slot_line(f, str(id), pads), "On her %d pad night%s a week. At 30 a fight plan can use it." % [pads, "" if pads == 1 else "s"], UI.AMBER))
+		card.add_child(UI.row("Studying " + StudyWeek.slot_line(f, str(id), pads), "On %d pad night%s a week. At 30 a fight plan can use it." % [pads, "" if pads == 1 else "s"], UI.AMBER))
 	var full := slot.size() >= StudyWeek.slot_count(f)
 	for c in StudyWeek.cards(f):
 		var id := str(c["id"])
 		var punch := StudyWeek.MoveTree.PUNCH_IDS.has(id)
 		var now := punch and str(f.get("learning", "")) == id
 		var why := ". ".join(c["reasons"] as Array)
+		var held := "Already the pad move being learned" if now else ("The slot is taken until the move in it is usable" if full and not punch else "")
 		var b := UI.button("Study %s" % StudyWeek.name_of(id), "Btn", main.act.bind("study", "%s|%s" % [f["id"], id]),
-			now or (full and not punch), "Her pad move already" if now else ("The slot is taken until the move in it is usable" if full and not punch else ""))
+			now or (full and not punch), held)
 		if not b.disabled:
 			b.tooltip_text = why
 		card.add_child(b)
-		card.add_child(UI.muted(why, UI.SMALL, true))
+		card.add_child(UI.muted(why if held == "" else "%s. %s" % [held, why], UI.SMALL, true))   # a grey button says why on screen
 
 
 ## S302 combos: her combination book - learned ones as bars (gold = she throws it in fights), locked ones say what they need.

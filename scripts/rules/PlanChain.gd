@@ -17,8 +17,8 @@ static var _cells := {}
 
 
 ## {card: {sit: [edge, card if won, card if lost]}} for the cards she can stand on: what her plan does there.
-static func _table(arrows: Array, moves: Dictionary, combos: Dictionary, sits: Array) -> Dictionary:
-	var key := "%s|%s|%s|%s" % [str(arrows), str(moves), str(combos), str(sits)]
+static func _table(arrows: Array, moves: Dictionary, combos: Dictionary, sits: Array, bars: Dictionary = {}) -> Dictionary:
+	var key := "%s|%s|%s|%s|%s" % [str(arrows), str(moves), str(combos), str(sits), str(bars)]
 	if _cells.has(key):
 		return _cells[key]
 	var out := {}
@@ -36,7 +36,7 @@ static func _table(arrows: Array, moves: Dictionary, combos: Dictionary, sits: A
 			var e := LineGrade.edge(pick, sit, PlanFight.rate(mv, combos), PlanFight.card_mean(card, sit, moves, combos), {})
 			# S459 (bout_read red since S450 FIRELEVEL3): the fight fires a planned line only on its level's share of uses
 			# (LiveRound: not fired = not planned, no edge); the read takes the same share, on the mean.
-			e *= FireLevel.share(FireLevel.shares_for({}), FireLevel.mastery_of({"combos": combos}, mv))
+			e *= FireLevel.share(FireLevel.shares_for({}), FireLevel.mastery_of({"combos": combos, "steps": bars}, mv))   # S464: steps by their bar, as the fight (STEPMASTERY1)
 			var won := PlanFight.where_next(mv, true, sit)
 			var lost := PlanFight.where_next(mv, false, sit)
 			out[card][sit] = [e, won, lost]
@@ -59,7 +59,7 @@ static func round_mean(arrows: Array, moves: Dictionary, combos: Dictionary, mix
 ## exchange i (her own trouble, the opponent tiring, the games). A she_ situation puts her on its own card, as LiveRound
 ## does; the card she ends on carries to the next exchange either way. The edge of a situation in `skip` is not added (the
 ## caller reads it elsewhere: BoutRead's she_tired and tiring), but its card moves still count.
-static func walk(arrows: Array, moves: Dictionary, combos: Dictionary, steps: Array, p_win: float, skip: Array) -> float:
+static func walk(arrows: Array, moves: Dictionary, combos: Dictionary, steps: Array, p_win: float, skip: Array, bars: Dictionary = {}) -> float:
 	var out := 0.0
 	if arrows.is_empty() or steps.is_empty():
 		return out
@@ -67,7 +67,7 @@ static func walk(arrows: Array, moves: Dictionary, combos: Dictionary, steps: Ar
 	for st in steps:
 		for sit in st:
 			sits[sit] = true
-	var t := _table(arrows, moves, combos, sits.keys())
+	var t := _table(arrows, moves, combos, sits.keys(), bars)
 	var on := {"": 1.0}   # "" = the round's first exchange: the game's own card
 	for st in steps:
 		var nx := {}

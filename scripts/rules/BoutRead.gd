@@ -303,7 +303,7 @@ static func _tiring(opp: Dictionary, n: int, energy: float) -> float:
 
 ## Her mean edge in power points in each round against this opponent, on this camp.
 static func _re_key(f: Dictionary, o: Dictionary, camp: Dictionary, coach: float) -> String:
-	return RingDuel.stat_bucket(f) + str(f.get("moves")) + str(f.get("combos")) + str(f.get("arrows")) + str(f.get("personality")) + str(f.get("perks")) + str(f.get("habits")) + str(f.get("style")) + str(f.get("stance")) + str(f.get("style_dials")) + str(f.get("durability_cap")) + str(camp) + str(coach) + str(o.get("rating")) + str(o.get("weak")) + str(o.get("threat")) + str(o.get("style")) + str(o.get("shape")) + str(o.get("age")) + str(o.get("peak_age")) + str(o.get("pace")) + str(o.get("forward")) + str(o.get("heart")) + str(o.get("stance")) + str(o.get("height")) + str(o.get("reach")) + str(o.get("name")) + str(o.get("damage_ledger")) + str(o.get("sex")) + str(BoutRules.tank_read(f)) + "|r%s-%s-%s-%s" % [o.get("w"), o.get("l"), o.get("d"), o.get("pro")]   # S434 PUNCHSTART1: her punches grow with her record
+	return RingDuel.stat_bucket(f) + str(f.get("moves")) + str(f.get("combos")) + str(f.get("steps")) + str(f.get("arrows")) + str(f.get("personality")) + str(f.get("perks")) + str(f.get("habits")) + str(f.get("style")) + str(f.get("stance")) + str(f.get("style_dials")) + str(f.get("durability_cap")) + str(camp) + str(coach) + str(o.get("rating")) + str(o.get("weak")) + str(o.get("threat")) + str(o.get("style")) + str(o.get("shape")) + str(o.get("age")) + str(o.get("peak_age")) + str(o.get("pace")) + str(o.get("forward")) + str(o.get("heart")) + str(o.get("stance")) + str(o.get("height")) + str(o.get("reach")) + str(o.get("name")) + str(o.get("damage_ledger")) + str(o.get("sex")) + str(BoutRules.tank_read(f)) + "|r%s-%s-%s-%s" % [o.get("w"), o.get("l"), o.get("d"), o.get("pro")]   # S434 PUNCHSTART1: her punches grow with her record
 
 
 static func round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach := 0.0) -> Array:
@@ -370,7 +370,7 @@ static func _round_edges(f: Dictionary, opp: Dictionary, camp: Dictionary, coach
 			e += ex / float(Exchanges.EXCHANGES)
 		# S434 her plan on the cards she really stands on (PlanChain), exchange by exchange at her chance of one; her own
 		# trouble and the opponent's tiring move her card but add their plan once, in worth (_game_edge_of).
-		e += PLAN_CARRY * PlanChain.walk(fx.get("arrows", []), fx.get("moves", {}), fx.get("combos", {}), steps, ComboOdds.win_odds(e), ["she_tired", "tiring"])
+		e += PLAN_CARRY * PlanChain.walk(fx.get("arrows", []), fx.get("moves", {}), fx.get("combos", {}), steps, ComboOdds.win_odds(e), ["she_tired", "tiring"], fx.get("steps", {}))
 		out.append(e)
 	return out
 
