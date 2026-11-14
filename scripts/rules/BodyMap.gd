@@ -73,11 +73,12 @@ static func _punch_hits(beat: Dictionary, attacker_south: bool, def_south: bool 
 		out.append({"place": "nose", "dmg": FACE_HIT * mult})
 		out.append({"place": "head", "dmg": HEAD_HIT * 1.5 * mult})
 	elif m == "body_hook":
-		# A carried "side" wins. Otherwise the same hash as the face punches: the defender's liver side (PaceAim) LIVER_SHARE
-		# of the time, the other side the rest.
+		# A carried "side" wins. Otherwise the same hash as the face punches: the defender's liver side LIVER_SHARE of the
+		# time, the other side the rest. S466 (LIVERRIBS1 v2 s2, anatomy): the liver is on the RIGHT of every body, orthodox
+		# or southpaw (it was swapped for a southpaw defender).
 		var rib := str(beat.get("side", ""))
 		if rib != "left" and rib != "right":
-			var liver := "left" if def_south else "right"
+			var liver := "right"
 			var other := "right" if liver == "left" else "left"
 			rib = liver if absi(h) % 100 < roundi(LIVER_SHARE * 100.0) else other
 		out.append({"place": rib + "_ribs", "dmg": RIB_HIT * mult})

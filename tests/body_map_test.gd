@@ -168,13 +168,14 @@ func _test2() -> void:
 	if BM.value(m4s, "b", "right_ribs") >= 100.0 or BM.value(m4s, "b", "left_ribs") != 100.0:
 		ok = false
 	# RIBS1 split: 200 landed body hooks, liver side 50-70 % of the hits and the other side some. The liver side is the
-	# DEFENDER's (PaceAim.opp_hurt): right ribs when b is orthodox, left when b is southpaw, whatever the attacker's stance.
+	# DEFENDER's right side, orthodox or southpaw (S466 LIVERRIBS1 v2 anatomy: the liver is on everyone's right; it was swapped
+	# for a southpaw defender), whatever the attacker's stance.
 	for st in [[false, false], [true, false], [false, true], [true, true]]:
 		var spl: Array = []
 		for i in 200:
 			spl.append({"t": float(i) * 0.37, "who": "a", "move": "body_hook", "result": "lands", "big": false})
-		var liv := "left_ribs" if bool(st[1]) else "right_ribs"
-		var oth := "right_ribs" if bool(st[1]) else "left_ribs"
+		var liv := "right_ribs"
+		var oth := "left_ribs"
 		# A rib floors at 0, so add the beats 20 to a fresh map (at most 20 x RIB_HIT off a side) and count by the drops.
 		var n_l := 0.0
 		var n_o := 0.0

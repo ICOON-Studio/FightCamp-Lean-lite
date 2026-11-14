@@ -1407,9 +1407,25 @@
   {
    "task": "CARDFIX2",
    "seat": "qwen",
-   "status": "queued",
+   "status": "landed",
    "queued": "2026-11-14T10:55",
-   "note": "S466: rerun the card probe on main after the she_* + counter->outside fix (3fd32033); reach counts @card variants"
+   "note": "S466: rerun the card probe on main after the she_* + counter->outside fix (3fd32033); reach counts @card variants | S466 landed adecfea3: never_best 0, cards_never 0, wins 61-67/120, bars sensitive; Claude rerun on main",
+   "launched": "2026-11-14T10:42"
+  },
+  {
+   "task": "LIVERRIBS2",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T11:20",
+   "note": "S466: LiverRibs.gd pure module + test from the passing v2 map (his Q-219 yes)",
+   "launched": "2026-11-14T10:53"
+  },
+  {
+   "task": "NIGHTLYTRIAGE1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-14T11:45",
+   "note": "S466: re-run each nightly red test on main; first FAIL line; last green nightly"
   }
  ]
 }

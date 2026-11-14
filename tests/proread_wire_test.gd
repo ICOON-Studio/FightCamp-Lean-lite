@@ -7,6 +7,7 @@ extends SceneTree
 ##   3. The price: the same 40 pro bouts with a tape that reads her plan's punch vs no tape - she wins fewer exchanges, by a
 ##      bounded margin. Control: a tape that reads a punch her plan does not throw plays every bout exactly as no tape.
 ##   4. Shown: fight prep names the punch their corner waits for on a pro bout, and nothing on an amateur bout.
+##   5. S466 READ-PROOF: fight prep's season chip, lit after two read pro bouts beaten; 0/1 of 2 otherwise.
 ## Population: Lucy Jackson (Data.lucy, out-boxer, 1-1 and 1-2 at Sharp) against Data.OPPONENTS[0]; 40 days (the dice).
 
 const Data := preload("res://scripts/state/Data.gd")
@@ -59,6 +60,16 @@ func _initialize() -> void:
 	_check(w.contains("Double jab"), "fight prep words name the punch in game words: '%s'" % w)
 	f["bout"]["pro"] = false
 	_check(ProReadWire.words(f) == "", "an amateur bout shows no read")
+	# 5. S466 READ-PROOF on fight prep: none before a read bout; lit after two read bouts that beat the read; not lit when
+	# the last read bout lost it (control: the same tape with the last bout's wins halved).
+	_check(str(ProReadWire.proof_words({"pro_tape": [{"pro": true, "fired": {"1-1": 9}}]})[0]) == "", "no read bout yet: no read-proof line")
+	var beat := {"pro": true, "fired": {"1-1": 5}, "read": {"line": "1-1", "split": false, "fired_in_read": 4, "won_in_read": 3}}
+	var lost := {"pro": true, "fired": {"1-1": 5}, "read": {"line": "1-1", "split": false, "fired_in_read": 4, "won_in_read": 1}}
+	var lit := ProReadWire.proof_words({"pro_tape": [beat, beat]})
+	_check(bool(lit[1]) and str(lit[0]).begins_with("Read-proof"), "two read bouts beaten: read-proof lit ('%s')" % lit[0])
+	var unlit := ProReadWire.proof_words({"pro_tape": [beat, lost]})
+	_check(not bool(unlit[1]) and str(unlit[0]).begins_with("0 of 2"), "control: the last read bout lost - not lit, 0 of 2 ('%s')" % unlit[0])
+	_check(str(ProReadWire.proof_words({"pro_tape": [lost, beat]})[0]).begins_with("1 of 2"), "one read bout beaten after a lost one: 1 of 2")
 
 	print("PROREAD_WIRE failures=%d" % failures)
 	quit(1 if failures > 0 else 0)

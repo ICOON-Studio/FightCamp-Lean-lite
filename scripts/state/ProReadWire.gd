@@ -83,3 +83,18 @@ static func words(f: Dictionary) -> String:
 	if bool(t.get("split", false)):
 		named["second"] = str(StrikeMap.move(str(t["second"])).get("name", t["second"]))
 	return ProRead.words(named)
+
+
+## S466 INTEGRATE1 #5 READ-PROOF (PROGRESSION_MAP_S448 M7, the professional's season chip): beat the read in two pro bouts
+## running - the read line fired ProRead.PROOF_FIRED+ times and won half, or split by a held second line. "" before her
+## first read bout (an amateur, the debut). Returns [words, lit].
+static func proof_words(f: Dictionary) -> Array:
+	var tape: Array = f.get("pro_tape", [])
+	var read := tape.filter(func(e): return (e as Dictionary).has("read"))
+	if read.is_empty():
+		return ["", false]
+	if ProRead.proof(tape):
+		return ["Read-proof: she beat their read two pro fights running", true]
+	var last: Dictionary = read[read.size() - 1]["read"]
+	var beat := bool(last.get("split", false)) or (int(last.get("fired_in_read", 0)) >= ProRead.PROOF_FIRED and int(last.get("won_in_read", 0)) * 2 >= int(last.get("fired_in_read", 0)))
+	return ["%s of 2: beat the read in two pro fights running - throw the read punch %d+ times and win half, or hold a second Sharp line" % ["1" if beat else "0", ProRead.PROOF_FIRED], false]

@@ -76,7 +76,7 @@ static func walk(arrows: Array, moves: Dictionary, combos: Dictionary, steps: Ar
 				var w := float(on[card]) * float(st[sit])
 				if w <= 0.0:
 					continue
-				var here := str(PlanFight.GAME_CARD.get(sit, "long")) if card == "" or str(sit).begins_with("she_") else str(card)
+				var here := str(PlanFight.GAME_CARD.get(sit, "long")) if card == "" else str(card)   # S466: her own trouble keeps her card
 				var cell: Array = t[here][sit]
 				if not skip.has(sit):
 					out += w * float(cell[0])

@@ -184,6 +184,9 @@ static func _camp_card(main: Node, c: Career, f: Dictionary, bout_day: int) -> P
 	var read := ProReadWire.words(f)   # S462 INTEGRATE1 #5: a pro's last two bouts are on tape; change the plan off the line
 	if read != "":
 		rows.append(UI.kv("On their tape", read + ". Change the plan's punch, or it costs you.", UI.AMBER))
+	var pf := ProReadWire.proof_words(f)   # S466: the pro's season chip, READ-PROOF
+	if str(pf[0]) != "":
+		rows.append(UI.kv("Read-proof", str(pf[0]), UI.GREEN if bool(pf[1]) else UI.AMBER))
 	UI.add_rows(v, rows)
 	v.add_child(towel_row(main, f))
 	var week := UI.button("Change the week", "Link", main.act.bind("ftab", "3"))
