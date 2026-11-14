@@ -1825,11 +1825,12 @@
    "seat": "dola",
    "brief": "research/DESIGN_CLUBWEEK1_V6_CRITIC_DOLA.md",
    "stem": "DESIGN_CLUBWEEK1_V6_CRITIC_DOLA_DOLA",
-   "status": "queued",
+   "status": "dropped",
    "queued_at": "2026-11-14 16:13",
    "tries": 0,
-   "skips": 8,
-   "last_error": "2026-11-14 20:10 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+   "skips": 9,
+   "last_error": "2026-11-14 20:40 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)",
+   "note": "S473: stale - club week v7 replaced v6"
   },
   {
    "id": "SQ124",
@@ -1921,8 +1922,89 @@
    "seat": "kalli",
    "brief": "research/DESIGN_STEPVALUE1_V1_KALLI.md",
    "stem": "DESIGN_STEPVALUE1_V1_KALLI_KALLI",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-14 20:25",
+   "tries": 0,
+   "sent_at": "2026-11-14 20:40",
+   "sent_ms": 1794681627390
+  },
+  {
+   "id": "SQ131",
+   "seat": "kalli",
+   "brief": "research/DESIGN_COACHFIT1_V8_REVISE_KALLI.md",
+   "stem": "DESIGN_COACHFIT1_V8_REVISE_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-14 20:43",
+   "tries": 0
+  },
+  {
+   "id": "SQ132",
+   "seat": "kalli",
+   "brief": "research/DESIGN_WEIGHT1_R4_REVISE_KALLI.md",
+   "stem": "DESIGN_WEIGHT1_R4_REVISE_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-14 20:43",
+   "tries": 0
+  },
+  {
+   "id": "SQ133",
+   "seat": "john",
+   "brief": "research/DESIGN_PLANFLOW1_V2_CRITIC_JOHN.md",
+   "stem": "DESIGN_PLANFLOW1_V2_CRITIC_JOHN_JOHN",
+   "status": "sent",
+   "queued_at": "2026-11-14 20:43",
+   "tries": 0,
+   "sent_at": "2026-11-14 20:45",
+   "sent_ms": 1794681895577
+  },
+  {
+   "id": "SQ134",
+   "seat": "maria",
+   "brief": "research/DESIGN_PLANFLOW1_V2_CRITIC_MARIA.md",
+   "stem": "DESIGN_PLANFLOW1_V2_CRITIC_MARIA_MARIA",
+   "status": "sent",
+   "queued_at": "2026-11-14 20:43",
+   "tries": 0,
+   "sent_at": "2026-11-14 20:45",
+   "sent_ms": 1794681897995
+  },
+  {
+   "id": "SQ135",
+   "seat": "john",
+   "brief": "research/DESIGN_CLUBWEEK1_V7_CRITIC_JOHN.md",
+   "stem": "DESIGN_CLUBWEEK1_V7_CRITIC_JOHN_JOHN",
+   "status": "queued",
+   "queued_at": "2026-11-14 20:43",
+   "tries": 0
+  },
+  {
+   "id": "SQ136",
+   "seat": "maria",
+   "brief": "research/DESIGN_CLUBWEEK1_V7_CRITIC_MARIA.md",
+   "stem": "DESIGN_CLUBWEEK1_V7_CRITIC_MARIA_MARIA",
+   "status": "queued",
+   "queued_at": "2026-11-14 20:43",
+   "tries": 0
+  },
+  {
+   "id": "SQ137",
+   "seat": "dola",
+   "brief": "research/DESIGN_PLANFLOW1_V2_CRITIC_DOLA.md",
+   "stem": "DESIGN_PLANFLOW1_V2_CRITIC_DOLA_DOLA",
+   "status": "sent",
+   "queued_at": "2026-11-14 20:44",
+   "tries": 0,
+   "sent_at": "2026-11-14 20:45",
+   "pid": 44924,
+   "transcript": "AgentComms/seat_logs/SQ137_dola.txt"
+  },
+  {
+   "id": "SQ138",
+   "seat": "dola",
+   "brief": "research/DESIGN_CLUBWEEK1_V7_CRITIC_DOLA.md",
+   "stem": "DESIGN_CLUBWEEK1_V7_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-14 20:44",
    "tries": 0
   }
  ]
