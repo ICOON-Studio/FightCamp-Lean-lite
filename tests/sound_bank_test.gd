@@ -19,7 +19,13 @@ const FINAL := {"punch_jab_head": "fight/punch_jab_head_1", "punch_body": "fight
 	"punch_big": "fight/punch_big_1", "bell_round_start": "fight/bell_round_start_1", "bell_round_end": "fight/bell_round_end_1",
 	"crowd_arena_loop": "crowd/crowd_arena_loop_1", "crowd_roar": "crowd/crowd_roar_1", "punch_power_head": "fight/punch_power_head_2",
 	"punch_miss": "fight/punch_miss_4", "knockdown_fall": "fight/knockdown_fall_4", "footwork_canvas": "fight/footwork_canvas_2",
-	"ui_click": "ui/ui_click_2"}
+	"ui_click": "ui/ui_click_2",
+	"clinch_grapple": "fight/clinch_grapple_3", "clinch_break": "fight/clinch_break_5",
+	"corner_stool": "fight/corner_stool_3", "corner_towel": "fight/corner_towel_3", "corner_water_spray": "fight/corner_water_spray_2",
+	"gym_ambience_loop": "gym/gym_ambience_loop_3",
+	"pads_mitt_combo": "gym/pads_mitt_combo_2",
+	"pads_mitt_power": ["gym/pads_mitt_power_1", "gym/pads_mitt_power_3"],
+	"pads_mitt_jab": "gym/pads_mitt_jab_5", "pads_coach_clap": "gym/pads_coach_clap_6"}
 ## SOUND_BENCHMARK R12: the punches' loudness classes.
 const CLASS := {"punch_jab_head": -19.0, "punch_power_head": -17.0, "punch_body": -18.0, "punch_blocked": -21.0, "punch_big": -14.0}
 const PEAK_MAX_DB := 2.0   # into the -1 dB limiter, at most the 3 dB audio_prep allows off a transient
@@ -59,16 +65,32 @@ func _test_final_set() -> void:
 	# S395: new sounds may be on the board but unheard (no kept files yet); the set has at least FINAL.size() events.
 	_check(evts.size() >= FINAL.size(), "the set has at least %d events (got %d)" % [FINAL.size(), evts.size()])
 	for id in FINAL:
-		var want := "res://assets/audio/%s.ogg" % FINAL[id]
-		var fl: Array = SoundBank.files(id)
-		_check(fl == [want], "%s plays exactly %s (got %s)" % [id, want, fl])
-		_check(SoundBank.kept(want), "%s is heard and kept" % want)
-		_check(FileAccess.file_exists(want + ".import"), "%s has its import sidecar: a clean checkout loads it" % want)
-		var stream: Resource = load(want)
-		_check(stream is AudioStream, "%s loads as an AudioStream" % want)
-		if stream is AudioStream:
-			var dur := float(SoundBank.file_data(want.trim_prefix("res://")).get("dur", 0.0))
-			_check(absf((stream as AudioStream).get_length() - dur) < 0.06, "%s is the measured file: %.2f s vs %.2f s" % [want, (stream as AudioStream).get_length(), dur])
+		var entry = FINAL[id]
+		if entry is Array:
+			var wants: Array = []
+			for rel in entry:
+				wants.append("res://assets/audio/%s.ogg" % rel)
+			var fl: Array = SoundBank.files(id)
+			_check(fl == wants, "%s plays exactly %s (got %s)" % [id, wants, fl])
+			for want in wants:
+				_check(SoundBank.kept(want), "%s is heard and kept" % want)
+				_check(FileAccess.file_exists(want + ".import"), "%s has its import sidecar: a clean checkout loads it" % want)
+				var stream: Resource = load(want)
+				_check(stream is AudioStream, "%s loads as an AudioStream" % want)
+				if stream is AudioStream:
+					var dur := float(SoundBank.file_data(want.trim_prefix("res://")).get("dur", 0.0))
+					_check(absf((stream as AudioStream).get_length() - dur) < 0.06, "%s is the measured file: %.2f s vs %.2f s" % [want, (stream as AudioStream).get_length(), dur])
+		else:
+			var want := "res://assets/audio/%s.ogg" % entry
+			var fl: Array = SoundBank.files(id)
+			_check(fl == [want], "%s plays exactly %s (got %s)" % [id, want, fl])
+			_check(SoundBank.kept(want), "%s is heard and kept" % want)
+			_check(FileAccess.file_exists(want + ".import"), "%s has its import sidecar: a clean checkout loads it" % want)
+			var stream: Resource = load(want)
+			_check(stream is AudioStream, "%s loads as an AudioStream" % want)
+			if stream is AudioStream:
+				var dur := float(SoundBank.file_data(want.trim_prefix("res://")).get("dur", 0.0))
+				_check(absf((stream as AudioStream).get_length() - dur) < 0.06, "%s is the measured file: %.2f s vs %.2f s" % [want, (stream as AudioStream).get_length(), dur])
 		_check(SoundBank.bus(id) in SoundBank.VALID_BUSES, "%s bus '%s' is valid" % [id, SoundBank.bus(id)])
 	var kept := 0
 	for rel in SoundBank.all_file_data():
@@ -78,7 +100,7 @@ func _test_final_set() -> void:
 			_check(row.get("heard") == true, "%s is kept, so it was heard" % rel)
 			if not rel.begins_with("assets/audio/voice/"):
 				kept += 1
-	_check(kept == FINAL.size(), "%d sound-effect rows are kept (got %d)" % [FINAL.size(), kept])
+	_check(kept == 24, "24 sound-effect rows are kept (got %d)" % kept)
 	# S440 his ear: the announcer (15) and the corner's shouts (8) kept; the between-rounds voice (3) not.
 	var voices_kept := 0
 	for rel in SoundBank.all_file_data():
@@ -96,12 +118,18 @@ func _test_final_set() -> void:
 
 func _test_levels() -> void:
 	for id in FINAL:
-		var row := SoundBank.file_data(("res://assets/audio/%s.ogg" % FINAL[id]).trim_prefix("res://"))
+		var entry = FINAL[id]
+		var first_rel: String
+		if entry is Array:
+			first_rel = str(entry[0])
+		else:
+			first_rel = str(entry)
+		var row := SoundBank.file_data(("res://assets/audio/%s.ogg" % first_rel).trim_prefix("res://"))
 		var vol := SoundBank.volume_db(id)
 		var bus_db: float = SfxScript.BUS_DEFS.get(SoundBank.bus(id), 0.0)
-		var tp := float(row["tp"])
+		var tp := float(row.get("tp", 0.0))
 		if CLASS.has(id):
-			var want := minf(float(CLASS[id]) - float(row["mmax"]), PEAK_MAX_DB - bus_db - tp)
+			var want := minf(float(CLASS[id]) - float(row.get("mmax", 0.0)), PEAK_MAX_DB - bus_db - tp)
 			_check(absf(vol - want) <= 0.051, "%s volume_db %.1f = its class, peak-capped (want %.1f)" % [id, vol, want])
 		else:
 			_check(vol == 0.0, "%s stays as heard (volume_db %.1f)" % [id, vol])
@@ -125,9 +153,10 @@ func _loud(id: String) -> float:
 
 
 func _voice_of(n: Node, id: String) -> AudioStreamPlayer:
-	var want: String = SoundBank.files(id)[0]
+	# S475: a sound with variants (pads_mitt_power has two) plays any one of them.
+	var want: Array = SoundBank.files(id)
 	for p: AudioStreamPlayer in n._pool:
-		if p.playing and p.stream != null and p.stream.resource_path == want:
+		if p.playing and p.stream != null and want.has(p.stream.resource_path):
 			return p
 	return null
 

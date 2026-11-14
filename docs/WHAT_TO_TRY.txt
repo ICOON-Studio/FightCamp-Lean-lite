@@ -1,3 +1,10 @@
+S474 (2026-11-14)
+- Nothing new to play this time: the fight week (your "Yes, build it") is being built under the hood. Five rule pieces are
+  in (the club-show weight gap, the bout sheet, the tank and load, the Monday pull-out and favours, film nights), and the
+  hooks that will let the fight week change round 1 and the tank. They switch on together with the fight week screen,
+  once you have seen it. The game you play is unchanged.
+- The 11 sounds you kept are being wired by the sound seat; they are not in this build yet.
+
 S468 (2026-11-14)
 - Gloves and forearms no longer pass through each other the way they did (your "still clipping" marks on the rear
   uppercut). Watch a fight up close, especially uppercuts and the moments right after a punch lands: a guard hand now

@@ -3,12 +3,12 @@
  "updated": "2026-11-14",
  "author": "claude S294",
  "now": {
-  "id": "S472",
+  "id": "S474",
   "owner": "claude",
   "updated": "2026-11-14",
-  "summary": "S473: shortcuts to a fight on the board Play panel; PELVIS1 + body-scale: hips/crouch/hip-shift ruled out for the rear knee; SPEEDRULER1 sorted punch_speed's 41; HOOKCAP2 hard hooks 15-18 -> 11-12 m/s (in the build); PACEREMEASURE1: punch_pace tool repeatable, fresh file no better (kept); Arena PICKSPREAD1: punches beat steps 52-66 % v 12-20 % -> STEPVALUE1 design at Kalli; Ludo 30 sounds unheard; Higgsfield Plus cancelled + refund email sent; Ollama coder tried and removed (16 GB RAM), 4 models deleted.",
-  "next_action": "S474: 0) get_usage. 1) BUILD THE FIGHT WEEK (AMATEURWEEK1, his S473 'Yes, build it'): map v8 passed 6/6 (Dola 8/8, John 7/6) - DESIGN_AMATEURWEEK1_V8_REVISE_KALLI_KALLI.md + John's 10/10 list; split into seat tasks (pure rules -> Arena/Qwen, screens -> Grok Dev), golden path walks it. 2) Collect: Qwen KNEESWEEP1 (which knee-solve knob moves the rear knee); seat answers SQ130 STEPVALUE1 (Kalli) -> two fresh critics; SQ131 coach fit v8, SQ132 weight r4 -> critics; SQ133-138 critics on plan flowchart v2 and club week v7 (John, Maria, Dola) -> 6/6 maps to his board. 3) His ear: 30 Ludo sounds (docs/audio/board_s473, review board). 4) Arena next: after STEPVALUE1 passes, the step-reading bout wiring as a pure task.",
-  "last_working_commit": "e77ddc87",
+  "summary": "S474: FIGHT WEEK BUILD STARTED (his S473 'Yes, build it'). Five pure rule modules on main, each green on main: WeighGap (Goose, 72), BoutSheet (Qwen, 96), FightWeek tank/load/sparring (Arena, 90), FightWeekEvents pull-out/favours (Goose, 53), FilmTruth (Goose, 50). Claude wired: WeekPhase amateur branch (fight_week bout: week before = Build, fight week by load stop), bout.r1_edge round-1 hook (live + forecast), the fight week's choice layer on the tank (BoutRules.tank_parts_for). Nothing sets fight_week yet: game unchanged until the screen lands. Fight week screen mockup v1 (docs/mockups/s474) -> critics Dola+John (SQ139/140). Q-S294-229 asks his 7 map rules. Sounds: C401 kept 8, redo round '2,6,8' kept 3 -> SOUNDWIRE2 (Qwen) wires all 11. Rear knee: foot turn 45 moves it half way; two rulers disagree ~1 deg -> KNEERULER1. Console API credits fallback written (his 'set it up'); Higgsfield refused the refund, plan credits end Dec 14.",
+  "next_action": "S475: 0) get_usage. 1) Collect: Arena FWPICK1 (assistant's pick) + REGIONSHOWS1 (show calendar) - diff + test on main; Qwen SOUNDWIRE2 (11 kept sounds wired; check import sidecars + sound_bank_test); then KNEERULER1 runs. 2) Q-S294-229 answer -> Savings brief (Goose) and the Bouts.weigh club-show branch (WeighGap, ops/research/AMATEURWEEK1_CHECKS_S474.md item 3); set WeekPhase.LOAD_DEFAULT tick_over on his yes. 3) Critics SQ139/140 on the fight week screen -> fix -> his board for the look -> Grok Dev builds the screen; THEN the switch: amateur bouts booked with fight_week true, Set camp gone for them, lead 1-3 weeks (RegionShows + BoutSheet), golden path walks it. 4) Design loop answers SQ130-138 -> critics -> 6/6 maps to his board.",
+  "last_working_commit": "df924dcc",
   "verified_playable": "Builds/FightCamp.exe exported S469 (close-range punches arrive; the clinch no longer reaches from punching distance)",
   "incomplete_blocked": "guard_knee_test red (hips, not the knee); punch_speed_test 41 (pre-existing); plan_bots_test red (step bars)",
   "next_acceptance": "guard_knee within 0.03 of the take with footwork 0; punch_speed ruler settled; PLANFLOW1 v2 at 6+ depth and 6+ general",
@@ -1970,6 +1970,11 @@
    "id": "S473",
    "date": "2026-11-14",
    "summary": "S473: shortcuts to a fight on the board Play panel; PELVIS1 + body-scale: hips/crouch/hip-shift ruled out for the rear knee; SPEEDRULER1 sorted punch_speed's 41; HOOKCAP2 hard hooks 15-18 -> 11-12 m/s (in the build); PACEREMEASURE1: punch_pace tool repeatable, fresh file no better (kept); Arena PICKSPREAD1: punches beat steps 52-66 % v 12-20 % -> STEPVALUE1 design at Kalli; Ludo 30 sounds unheard; Higgsfield Plus cancelled + refund email sent; Ollama coder tried and removed (16 GB RAM), 4 models deleted."
+  },
+  {
+   "id": "S474",
+   "date": "2026-11-14",
+   "summary": "S474: FIGHT WEEK BUILD STARTED (his S473 'Yes, build it'). Five pure rule modules on main, each green on main: WeighGap (Goose, 72), BoutSheet (Qwen, 96), FightWeek tank/load/sparring (Arena, 90), FightWeekEvents pull-out/favours (Goose, 53), FilmTruth (Goose, 50). Claude wired: WeekPhase amateur branch (fight_week bout: week before = Build, fight week by load stop), bout.r1_edge round-1 hook (live + forecast), the fight week's choice layer on the tank (BoutRules.tank_parts_for). Nothing sets fight_week yet: game unchanged until the screen lands. Fight week screen mockup v1 (docs/mockups/s474) -> critics Dola+John (SQ139/140). Q-S294-229 asks his 7 map rules. Sounds: C401 kept 8, redo round '2,6,8' kept 3 -> SOUNDWIRE2 (Qwen) wires all 11. Rear knee: foot turn 45 moves it half way; two rulers disagree ~1 deg -> KNEERULER1. Console API credits fallback written (his 'set it up'); Higgsfield refused the refund, plan credits end Dec 14."
   }
  ],
  "blocked_on_operator": [],
@@ -4888,7 +4893,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-14 20:41 board_sync",
+  "updated": "2026-11-14 21:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5038,24 +5043,27 @@
   },
   "working_now": [
    {
-    "title": "CARDVISIT1",
-    "who": "",
-    "started": "",
-    "run": "CARDVISIT1",
-    "state": "LANDED - Claude collects"
+    "title": "TASK FWPICK1 - your assistant's fight-week pick (pure module + test)",
+    "who": "arena",
+    "started": "2026-11-14T21:35",
+    "run": "FWPICK1"
    },
    {
-    "title": "TASK PACEREMEASURE1 - is punch_pace.json stale, and what would a fresh one change? (measure only, headless)",
-    "who": "qwen",
-    "started": "2026-11-14T19:34",
-    "run": "PACEREMEASURE1",
-    "state": "STOPPED - Claude relaunches or closes"
+    "title": "TASK REGIONSHOWS1 - club-show calendar and slots by class (pure module + test)",
+    "who": "arena",
+    "started": "2026-11-14T21:52",
+    "run": "REGIONSHOWS1"
    },
    {
-    "title": "TASK KNEESWEEP1 - which knee-solve setting moves the rear knee onto the take? (a sweep; measure only, headless)",
+    "title": "TASK SOUNDWIRE2 - wire the 11 sounds you kept (clinch, corner minute, pads, gym tone)",
     "who": "qwen",
-    "started": "2026-11-14T20:41",
-    "run": "KNEESWEEP1"
+    "started": "2026-11-14T21:38",
+    "run": "SOUNDWIRE2"
+   },
+   {
+    "title": "Critics on the fight week screen mockup (Dola, John)",
+    "who": "dola",
+    "started": "2026-11-14T21:30"
    }
   ],
   "next": [
@@ -5551,6 +5559,26 @@
   },
   "done_recently": [
    {
+    "title": "Fight week screen mockup v1",
+    "who": "claude",
+    "when": "S474"
+   },
+   {
+    "title": "Sounds: 11 kept (two boards); redo round made in Ludo",
+    "who": "claude",
+    "when": "S474"
+   },
+   {
+    "title": "Week before an amateur bout = Build; tank + round-1 hooks wired",
+    "who": "claude",
+    "when": "S474"
+   },
+   {
+    "title": "Fight week rules: weight gap, bout sheet, tank + load, pull-out + favours, film nights (5 modules)",
+    "who": "claude",
+    "when": "S474"
+   },
+   {
     "id": "HOOKCAP2",
     "who": "qwen",
     "title": "Hard hooks no longer whip (15-18 -> 11-12 m/s)"
@@ -5589,47 +5617,6 @@
     "title": "TASK SPLIT471 - three scripts at the 500-line limit get room (pure moves, no behaviour change, headless)",
     "who": "qwen",
     "when": "2026-11-14"
-   },
-   {
-    "id": "FPSTAG",
-    "who": "claude",
-    "title": "Ruler tests run at their own frame rate: the block and head-aim tests are green again",
-    "after": "S471"
-   },
-   {
-    "id": "CRACKGUARD",
-    "who": "claude",
-    "title": "A cracked rib guards worse (-10, or -4 defending the side); the corner card fits the screen",
-    "after": "S471"
-   },
-   {
-    "id": "REPEAT1",
-    "who": "claude",
-    "title": "The played fight repeats run to run: one probe run is now a fair ruler",
-    "after": "S471"
-   },
-   {
-    "title": "TASK SPEEDFLIP1 - why punch_speed_test's rows flip between runs, and what the new carry rule adds (headless, no fix)",
-    "who": "qwen",
-    "when": "2026-11-14"
-   },
-   {
-    "id": "LANDREACH4",
-    "who": "claude",
-    "title": "Lead hooks land on the head: punches over 15 cm off 4 of 33 -> 0 to 2 in the played fight",
-    "after": "S470"
-   },
-   {
-    "id": "CRACKCARD",
-    "who": "claude",
-    "title": "Crack card: a cracked rib asks the corner (pull out / defend the side / fight through)",
-    "after": "S470"
-   },
-   {
-    "id": "GUARDKNEE3",
-    "who": "qwen",
-    "title": "Rear guard knee back in line with the footwork rig on",
-    "after": "S470"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5758,64 +5745,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Crack card: venue dark, lighter 3D",
-     "who": "claude"
-    },
-    {
-     "text": "Split 3 scripts: collected, fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Rear knee: the take's 18 deg",
-     "who": "claude"
-    },
-    {
-     "text": "Double hook: a graze, by design",
-     "who": "claude"
-    },
-    {
-     "text": "Speed test finding in (Qwen)",
-     "who": "agent"
-    },
-    {
-     "text": "Block test: own 30 fps, green",
-     "who": "claude"
-    },
-    {
-     "text": "Cracked side guards worse: wired",
-     "who": "claude"
-    },
-    {
-     "text": "Turning pro + Knowledge approved",
-     "who": "operator"
-    },
-    {
-     "text": "Nightly: 6 of 7 new reds green",
-     "who": "claude"
-    },
-    {
-     "text": "Played fight repeats run to run",
-     "who": "claude"
-    },
-    {
-     "text": "Rear knee back over the foot",
-     "who": "claude"
-    },
-    {
-     "text": "Hooks land on the head",
-     "who": "claude"
-    },
-    {
-     "text": "Crack card in the corner",
-     "who": "claude"
-    },
-    {
-     "text": "Guard knee fixed (Qwen)",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Board: buttons to a fight",
      "who": "claude"
     },
@@ -5842,6 +5771,72 @@
     {
      "text": "Higgsfield cancelled+refund",
      "who": "claude"
+    },
+    {
+     "text": "Crack card: venue dark, lighter 3D",
+     "who": "claude"
+    },
+    {
+     "text": "Split 3 scripts: collected, fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Rear knee: the take's 18 deg",
+     "who": "claude"
+    },
+    {
+     "text": "Double hook: a graze, by design",
+     "who": "claude"
+    },
+    {
+     "text": "Speed test finding in (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "Block test: own 30 fps, green",
+     "who": "claude"
+    },
+    {
+     "text": "Cracked side guards worse: wired",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Sound picks: 11 kept (2 boards)",
+     "who": "operator"
+    },
+    {
+     "text": "Week before = Build (amateur)",
+     "who": "claude"
+    },
+    {
+     "text": "Bout sheet module (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "Weight gap module (Goose)",
+     "who": "agent"
+    },
+    {
+     "text": "Knee sweep: foot turn is the knob",
+     "who": "claude"
+    },
+    {
+     "text": "Fight week screen mockup v1",
+     "who": "claude"
+    },
+    {
+     "text": "Pull-out + favours (Goose)",
+     "who": "agent"
+    },
+    {
+     "text": "Film nights module (Goose)",
+     "who": "agent"
+    },
+    {
+     "text": "Tank + load module (Arena)",
+     "who": "agent"
     }
    ],
    "now": [
@@ -5882,10 +5877,6 @@
      "who": "operator"
     },
     {
-     "text": "Knee sweep (Qwen)",
-     "who": "claude"
-    },
-    {
      "text": "Step value map (Kalli)",
      "who": "claude"
     },
@@ -5894,8 +5885,16 @@
      "who": "claude"
     },
     {
-     "text": "Your ear: 30 Ludo sounds",
+     "text": "BUILD the fight week",
      "who": "claude"
+    },
+    {
+     "text": "Critics: fight week screen",
+     "who": "agent"
+    },
+    {
+     "text": "Your call: 7 fight week rules",
+     "who": "operator"
     }
    ],
    "next": [
@@ -5960,20 +5959,20 @@
      "who": "claude"
     },
     {
-     "text": "BUILD the fight week",
+     "text": "Coach fit v8, weight r4",
      "who": "claude"
     },
     {
-     "text": "Coach fit v8, weight r4",
-     "who": "claude"
+     "text": "Knee ruler check (Qwen)",
+     "who": "agent"
     }
    ],
-   "session": "S473"
+   "session": "S474"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "e77ddc87",
- "next_action": "S473: 0) get_usage. 1) Nightly 05:00 (first with FIXED_FPS tags + S472's knee): diff, measure, do not chase; expect boxer_footwork 0, guard_knee red (hips). 2) guard_knee's rest = the hips: the take turns the pelvis 68.6 deg off the lead toes (stance_raw.py) - measure the rig's pelvis line the same way, one probe a side. 3) punch_speed_test 41 failures (same before/after the split): read what it bars, settle the ruler. 4) Design loop: PLANFLOW1 v2 (SQ122 Kalli) -> two fresh critics -> his board; club week v6 critics (SQ123 Dola, SQ124 Maria); weight r3 (SQ116), coach fit v7 (SQ118). 5) Token leak: token_log.csv now has a night. 6) His verdicts on the four flowchart pictures (asked 3 times). 7) Play the crack card in the exe. 8) Qwen is FREE: give it a task in the first hour (pelvis probe or punch_speed ruler).",
+ "last_working_commit": "df924dcc",
+ "next_action": "S475: 0) get_usage. 1) Collect: Arena FWPICK1 (assistant's pick) + REGIONSHOWS1 (show calendar) - diff + test on main; Qwen SOUNDWIRE2 (11 kept sounds wired; check import sidecars + sound_bank_test); then KNEERULER1 runs. 2) Q-S294-229 answer -> Savings brief (Goose) and the Bouts.weigh club-show branch (WeighGap, ops/research/AMATEURWEEK1_CHECKS_S474.md item 3); set WeekPhase.LOAD_DEFAULT tick_over on his yes. 3) Critics SQ139/140 on the fight week screen -> fix -> his board for the look -> Grok Dev builds the screen; THEN the switch: amateur bouts booked with fight_week true, Set camp gone for them, lead 1-3 weeks (RegionShows + BoutSheet), golden path walks it. 4) Design loop answers SQ130-138 -> critics -> 6/6 maps to his board.",
  "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after."
 }

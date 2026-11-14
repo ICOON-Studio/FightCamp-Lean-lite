@@ -26,6 +26,8 @@ static var _bed_offset_db := 0.0
 ## S395: the crowd's heat (0..1): a run of landed shots raises it, time decays it.
 static var _crowd_heat := 0.0
 static var _reaction_count := 0
+static var _last_combo_play_t := -999.0
+const COMBO_COOLDOWN_S := 3.0
 
 
 ## `move` lands. The big shot plays alone: every sound was heard on its own, so two whole punches never stack.
@@ -179,9 +181,51 @@ static func line_seconds(event: String) -> float:
 
 ## S395: the corner minute. `start` true: the crowd drops under the coach's voice.
 ## `start` false: "Seconds out" - the crowd comes back.
+## S474: on start, stool plays at once, water spray at 6 s, towel at 14 s.
 static func corner_minute(start: bool) -> void:
 	if start:
 		Sfx.duck("Crowd", CORNER_DUCK_DB, 60.0)
+		Sfx.play("corner_stool")
+		Sfx.play("corner_water_spray", {"delay": 6.0})
+		Sfx.play("corner_towel", {"delay": 14.0})
 	else:
 		# S396: a zero duck tweens the bed back to the room's level and holds it there.
 		Sfx.duck("Crowd", 0.0, 0.0)
+
+
+## S474: the clinch grapple (tie-up) and the referee's break.
+static func clinch() -> void:
+	Sfx.play("clinch_grapple")
+
+
+static func clinch_break() -> void:
+	Sfx.play("clinch_break")
+
+
+## S474: pad work sounds. `beat`: the punch type (jab, cross, hook, uppercut, etc.).
+## The combo sound plays at most once every 3 s on the first pop of a combination.
+## S475: the combo pop REPLACES that pop's single sound (each was heard alone; two never stack).
+static func pad_pop(beat: String) -> void:
+	var now: float = Time.get_ticks_msec() / 1000.0
+	if now - _last_combo_play_t >= COMBO_COOLDOWN_S:
+		_last_combo_play_t = now
+		Sfx.play("pads_mitt_combo")
+	elif beat == "jab":
+		Sfx.play("pads_mitt_jab")
+	else:
+		Sfx.play("pads_mitt_power")
+
+
+## S474: the coach claps when a new drill starts.
+static func pad_drill_start() -> void:
+	_last_combo_play_t = -999.0
+	Sfx.play("pads_coach_clap")
+
+
+## S474: gym room tone.
+static func gym_ambience_on() -> void:
+	Sfx.loop("gym_ambience_loop")
+
+
+static func gym_ambience_off() -> void:
+	Sfx.stop("gym_ambience_loop")

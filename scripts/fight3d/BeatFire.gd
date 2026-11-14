@@ -70,6 +70,7 @@ func fire(v: Node, b: Dictionary) -> void:
 			# S311: one boxer lunges into the pocket or steps out of range; the other holds (RangeBreath).
 			if b.has("ref"):
 				stage.clinch.release()   # S369/S371 NOREF1: both push off to range
+				FightSfx.clinch_break()
 			else:
 				stage.step(who, 1 if move == "step_in" else -1)
 				FightSfx.step()
@@ -77,6 +78,7 @@ func fire(v: Node, b: Dictionary) -> void:
 		"clinch":
 			# S354 CLINCH2: the beat's own digs/digger (ClinchBeats) ride along; a beat without them ties up as before.
 			stage.clinch.start(who, float(b.get("dur", 3.0)), int(b.get("digs", 0)), (0 if str(b.get("digger", "a")) == "a" else 1) if b.has("digger") else -1)
+			FightSfx.clinch()
 		"slip":
 			stage.play(who, "slip")
 		"tired":

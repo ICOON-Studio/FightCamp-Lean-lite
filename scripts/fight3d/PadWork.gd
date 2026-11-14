@@ -15,6 +15,7 @@ const MoveClips := preload("res://scripts/fight3d/MoveClips.gd")
 const Combos := preload("res://scripts/rules/Combos.gd")
 const Gloves := preload("res://scripts/fight3d/Gloves.gd")
 const FighterKit := preload("res://scripts/fight3d/FighterKit.gd")
+const FightSfx := preload("res://scripts/audio/FightSfx.gd")
 
 const LONG_RANGE_M := 1.225
 const POP_BACK_M := 0.04
@@ -161,6 +162,7 @@ func play(combo_id: String, loops: int = 1) -> void:
 	var beats: Array = row["beats"]
 	var clips: Array = MoveClips.clips(combo_id)
 	_punches.clear()
+	FightSfx.pad_drill_start()
 	var cum_t := 0.0
 	for i in beats.size():
 		var beat: String = str(beats[i])
@@ -293,3 +295,4 @@ func _pop_mitt(i: int) -> void:
 	if mitts != null: mitts.set_target_pos(side, pop_pos)
 	var ik = coach["ik"]
 	if ik != null: ik.reach(side, func(): return pop_pos)
+	FightSfx.pad_pop(str(p["beat"]))

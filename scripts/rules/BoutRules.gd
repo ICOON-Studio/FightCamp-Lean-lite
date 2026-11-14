@@ -164,6 +164,12 @@ static func stance_edge(n: int, stance: String, opp: Dictionary, camp: Dictionar
 	return -NEVER_FACED if n == 1 and never_faced(stance, opp, camp, lefty) else 0.0
 
 
+## S474 AMATEURWEEK1: the fight week's round 1 (FightWeek.round_one: FLAT -1.0 / -2.0, Sharp 0) and ring rust land on the
+## bout as bout["r1_edge"] (power points, round 1 only). The live round and the forecast both add it.
+static func first_round_edge(n: int, bout: Dictionary) -> float:
+	return float(bout.get("r1_edge", 0.0)) if n == 1 else 0.0
+
+
 ## The daily-gain multiplier the camp puts on one stat (1.0 off the focus or without a camp).
 static func camp_gain_mult(camp: Dictionary, stat: String) -> float:
 	if camp.is_empty() or str(camp.get("focus", "")) != stat:
@@ -218,7 +224,24 @@ static func tank_parts_for(results: Array, f: Dictionary, fatigue: float, day: i
 	var own := int(f.get("last_bout_day", -1))
 	if own >= 0 and own <= day:
 		days = day - own if days < 0 else mini(days, day - own)
-	return tank_parts(fatigue, float(b.get("eat_kg", 0.0)), days, not (bool(f.get("pro", false)) or bool(b.get("pro", false))))
+	var same_day := not (bool(f.get("pro", false)) or bool(b.get("pro", false)))
+	if not week_tank_on(b):
+		return tank_parts(fatigue, float(b.get("eat_kg", 0.0)), days, same_day)
+	# S474 AMATEURWEEK1: a fight-week bout - Rest up rests her to 30 before the bell; the week's choices (load stop,
+	# fight-week sparring nights, Eat less: FightWeek.tank's choice layer) come off AFTER the capped tank, uncapped (map 4.2).
+	var fw: GDScript = load("res://scripts/rules/FightWeek.gd")   # a runtime load: this file preloads nothing
+	var stop := str(b.get("load", "rest_up"))
+	var tp := tank_parts(minf(fatigue, float(fw.REST_UP_TIRED_TO)) if stop == "rest_up" else fatigue,
+		float(b.get("eat_kg", 0.0)), days, same_day)
+	var week := float(fw.tank(0, stop, b.get("spar_days", []), bool(b.get("eat_less", false)))["choices"])
+	tp["week"] = week
+	tp["off"] = float(tp["off"]) + week
+	return tp
+
+
+## S474: the fight week's choices cost the tank only on a fight-week bout (WeekPhase.amateur: no camp, not pro, not a draw).
+static func week_tank_on(b: Dictionary) -> bool:
+	return bool(b.get("fight_week", false)) and not bool(b.get("pro", false)) and not b.has("champ")
 
 
 ## S434 the Tank off the bout page's read assumes (BoutRead): once fight night has set it, the played number; before, the
@@ -234,7 +257,7 @@ static func tank_read(f: Dictionary) -> float:
 ## The parts that cost something, in words: "tiredness 20, the last bout 8" ("" when nothing).
 static func tank_words(parts: Dictionary) -> String:
 	var out: Array = []
-	for k in [["tired", "tiredness"], ["weight", "the scale"], ["bout", "the last bout"]]:
+	for k in [["tired", "tiredness"], ["weight", "the scale"], ["bout", "the last bout"], ["week", "the fight week"]]:
 		if float(parts.get(k[0], 0.0)) >= 0.5:
 			out.append("%s %d" % [k[1], int(round(float(parts[k[0]])))])
 	return ", ".join(out)

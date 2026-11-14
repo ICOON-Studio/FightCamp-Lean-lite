@@ -1491,14 +1491,36 @@
   {
    "task": "WEIGHGAP1",
    "seat": "qwen",
-   "status": "queued",
-   "queued": "2026-11-14T21:15"
+   "status": "launched",
+   "queued": "2026-11-14T21:15",
+   "launched": "2026-11-14T21:16"
   },
   {
    "task": "BOUTSHEET1",
    "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T21:15",
+   "launched": "2026-11-14T21:16"
+  },
+  {
+   "task": "SOUNDWIRE2",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T21:34",
+   "launched": "2026-11-14T21:38"
+  },
+  {
+   "task": "KNEERULER1",
+   "seat": "qwen",
    "status": "queued",
-   "queued": "2026-11-14T21:15"
+   "queued": "2026-11-14T21:40"
+  },
+  {
+   "task": "FILMTRUTH1",
+   "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T21:41",
+   "note": "S474: filed to Goose by hand (dispatcher waits on the busy Qwen seat)"
   }
  ]
 }

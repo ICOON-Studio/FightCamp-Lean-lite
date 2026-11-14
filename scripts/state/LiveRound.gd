@@ -76,6 +76,7 @@ static func open(c: Career, f: Dictionary, m: Dictionary, n: int, plan: String, 
 		base += WeekTwist.LEFTY_EDGE
 	# S381 C229 stage 3: round 1 against a southpaw she never faced in camp.
 	base += BoutRules.stance_edge(n, str(f.get("stance", "orthodox")), opp, f["camp"], bool(f["bout"].get("lefty", false)))
+	base += BoutRules.first_round_edge(n, f["bout"])   # S474 the fight week's round 1 / ring rust
 	# S450 AMATEURWEEK1 (FIGHTWEEKPROBE2): the fight week's FLAT round 1 - bout["r1_flat"] is the edge against her in round 1 only
 	# (0 or absent = sharp; the fight week's Rest up sets it once its price is measured).
 	if n == 1:

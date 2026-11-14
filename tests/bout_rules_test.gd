@@ -18,6 +18,7 @@ func _initialize() -> void:
 	_test_rounds()
 	_test_cards_and_why()
 	_test_southpaw()
+	_test_first_round()
 	print("BOUT_RULES checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures > 0 else 0)
 
@@ -187,3 +188,22 @@ func _test_cards_and_why() -> void:
 	_check(why.size() == 1 and str(why[0]).contains("film study"), "only the film line: %s" % str(why))
 	var bare := BoutRules.why([{"n": 1, "won": false, "corner": ""}], false, 0, "", 0, "x", "Lucy")
 	_check(bare.is_empty(), "no camp: no canned 'a step slow' line (%s)" % str(bare))
+
+
+## S474 AMATEURWEEK1: the fight week's round 1 / ring rust ride on the bout as r1_edge, round 1 only.
+func _test_first_round() -> void:
+	_check(BoutRules.first_round_edge(1, {"r1_edge": -2.0}) == -2.0, "a FLAT round 1 costs its edge in round 1")
+	_check(BoutRules.first_round_edge(2, {"r1_edge": -2.0}) == 0.0, "and nothing from round 2")
+	_check(BoutRules.first_round_edge(1, {}) == 0.0, "a bout with no fight week costs nothing")
+	# The fight week's choices come off the tank after the capped part, uncapped (map 4.2); Rest up rests her to 30 first.
+	var f := {"id": "t", "bout": {"day": 30, "fight_week": true, "load": "train_through", "spar_days": [5, 4], "eat_less": true}}
+	var tp := BoutRules.tank_parts_for([], f, 75.0, 30)
+	var plain := BoutRules.tank_parts(75.0, 0.0, -1, true)
+	_check(is_equal_approx(float(tp["week"]), 12.0 + 5.0 + 5.0 + 4.0) and is_equal_approx(float(tp["off"]), float(plain["off"]) + 26.0),
+		"train through + two late nights + eat less: 26 more off (%.1f v %.1f)" % [float(tp["off"]), float(plain["off"])])
+	f["bout"] = {"day": 30, "fight_week": true, "load": "rest_up"}
+	_check(is_equal_approx(float(BoutRules.tank_parts_for([], f, 75.0, 30)["off"]), 0.0), "rest up at tiredness 75: rested to 30, nothing off")
+	f["bout"] = {"day": 30, "load": "train_through"}
+	_check(is_equal_approx(float(BoutRules.tank_parts_for([], f, 75.0, 30)["off"]), float(plain["off"])), "a camp bout ignores a load stop")
+	f["bout"] = {"day": 30, "fight_week": true, "pro": true, "load": "train_through"}
+	_check(not BoutRules.week_tank_on(f["bout"]), "a pro bout has no fight week tank")

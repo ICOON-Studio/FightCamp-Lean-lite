@@ -30,6 +30,7 @@ const Grapplers := preload("res://scripts/state/Grapplers.gd")
 const Settings := preload("res://scripts/state/Settings.gd")
 const AutoSave := preload("res://scripts/state/AutoSave.gd")
 const Routes := preload("res://scripts/ui/Routes.gd")
+const FightSfx := preload("res://scripts/audio/FightSfx.gd")
 
 var career: Career = null
 var screen := "title"
@@ -246,6 +247,10 @@ func nav(r: Dictionary) -> void:
 		"ftab": int(r.get("ftab", 0)), "ptab": int(r.get("ptab", 0)), "bout": str(r.get("bout", ""))})   # S396 screen cut
 	_drop_old_toast()
 	render()
+	if route["area"] == "home":
+		FightSfx.gym_ambience_on()
+	else:
+		FightSfx.gym_ambience_off()
 	if _shell != null:
 		_shell.scroll_top()
 
@@ -264,6 +269,8 @@ func _nav_area(area: String, tab: int, who: String) -> void:
 
 
 func open_modal(m: Dictionary) -> void:
+	if str(m.get("type", "")) == "fight":
+		FightSfx.gym_ambience_off()
 	MainFlow.open_modal(self, m)
 
 
@@ -458,3 +465,4 @@ func resume(c: Career) -> void:
 	speed = 2
 	screen = "career"
 	render()
+	FightSfx.gym_ambience_on()

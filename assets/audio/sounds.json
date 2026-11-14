@@ -1001,6 +1001,155 @@
    "volume_db": 0.0,
    "pitch": 0.0,
    "loop": false
+  },
+  "clinch_grapple": {
+   "bus": "SFX",
+   "group": "fight",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/fight/clinch_grapple_3.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "volume_spread": 1.5,
+   "pre_fire_s": 0.0,
+   "loop": false,
+   "priority": 1
+  },
+  "clinch_break": {
+   "bus": "SFX",
+   "group": "fight",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/fight/clinch_break_5.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "volume_spread": 1.5,
+   "pre_fire_s": 0.0,
+   "loop": false,
+   "priority": 1
+  },
+  "corner_stool": {
+   "bus": "SFX",
+   "group": "fight",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/fight/corner_stool_3.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "volume_spread": 1.5,
+   "pre_fire_s": 0.0,
+   "loop": false,
+   "priority": 1
+  },
+  "corner_towel": {
+   "bus": "SFX",
+   "group": "fight",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/fight/corner_towel_3.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "volume_spread": 1.5,
+   "pre_fire_s": 0.0,
+   "loop": false,
+   "priority": 1
+  },
+  "corner_water_spray": {
+   "bus": "SFX",
+   "group": "fight",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/fight/corner_water_spray_2.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "volume_spread": 1.5,
+   "pre_fire_s": 0.0,
+   "loop": false,
+   "priority": 1
+  },
+  "gym_ambience_loop": {
+   "bus": "SFX",
+   "group": "gym",
+   "kind": "loop",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/gym/gym_ambience_loop_3.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.0,
+   "loop": true,
+   "priority": 0
+  },
+  "pads_mitt_combo": {
+   "bus": "SFX",
+   "group": "gym",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/gym/pads_mitt_combo_2.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "volume_spread": 1.5,
+   "pre_fire_s": 0.0,
+   "loop": false,
+   "priority": 1
+  },
+  "pads_mitt_power": {
+   "bus": "SFX",
+   "group": "gym",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/gym/pads_mitt_power_1.ogg",
+    "res://assets/audio/gym/pads_mitt_power_3.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "volume_spread": 1.5,
+   "pre_fire_s": 0.0,
+   "loop": false,
+   "priority": 1
+  },
+  "pads_mitt_jab": {
+   "bus": "SFX",
+   "group": "gym",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/gym/pads_mitt_jab_5.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "volume_spread": 1.5,
+   "pre_fire_s": 0.0,
+   "loop": false,
+   "priority": 1
+  },
+  "pads_coach_clap": {
+   "bus": "SFX",
+   "group": "gym",
+   "kind": "sfx",
+   "tier": 1,
+   "files": [
+    "res://assets/audio/gym/pads_coach_clap_6.ogg"
+   ],
+   "volume_db": 0.0,
+   "pitch": 0.04,
+   "volume_spread": 1.5,
+   "pre_fire_s": 0.0,
+   "loop": false,
+   "priority": 1
   }
  },
  "files": {

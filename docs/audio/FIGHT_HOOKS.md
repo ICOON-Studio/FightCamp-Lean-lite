@@ -20,6 +20,13 @@ heard and kept, so nothing else can play. `tests/sound_bank_test.gd` fails if an
 | A button press | `UI.button` | `Sfx.play("ui_click")` |
 | A card turns | `FlipCard.flip`: no flip sound was kept yet, so the kept click marks it | `Sfx.play("ui_click")` |
 | The poster lands | `PosterReveal.finish`: no poster sound exists, so it uses the kept heavy thud | `Sfx.play("knockdown_fall")` |
+| Clinch tie-up | `BeatFire.fire`, after `stage.clinch.start(...)` | `FightSfx.clinch()` |
+| Referee breaks the clinch | `BeatFire.fire`, after `stage.clinch.release()` (step_in/step_out with ref) | `FightSfx.clinch_break()` |
+| Corner minute starts | `FightSfx.corner_minute(true)`: stool at once, water spray at 6 s, towel at 14 s | `Sfx.play("corner_stool")`, `Sfx.play("corner_water_spray", {"delay": 6.0})`, `Sfx.play("corner_towel", {"delay": 14.0})` |
+| Pad mitt pop | `PadWork._pop_mitt`: jab for a jab, power for cross/hook/uppercut, combo at most every 3 s | `FightSfx.pad_pop(beat)` |
+| Coach clap (new drill) | `PadWork.play`, when a new combo starts | `FightSfx.pad_drill_start()` |
+| Gym room tone on | `Main.resume` (home screen), `Main.nav` (area == "home") | `FightSfx.gym_ambience_on()` |
+| Gym room tone off | `Main.open_modal` (type == "fight"), `Main.nav` (area != "home") | `FightSfx.gym_ambience_off()` |
 
 `at` is the seconds to the glove's contact: block and miss sounds wait for it, so they land with the picture, not at the throw.
 
@@ -29,11 +36,8 @@ Add the hook only once the operator has kept a row for it on the sound board.
 
 | Event | Where it would go |
 |---|---|
-| `clinch_grab` | `BeatFire.fire`, after `stage.clinch.start(...)` |
 | `ref_count_1..10` | `KnockdownCount._number`, after `_show(str(n), UI.GOLD)` |
 | `crowd_round_swell` | `FightSfx.bell(false)` |
-| `corner_minute_bed` | `CornerMinute.run` on, `CornerMinute.finish` off |
-| `gym_pads_pop` | `PadWork._pop_mitt` |
 | `ui_card_flip` | replaces `ui_click` in `FlipCard.flip` |
 
 ## The import

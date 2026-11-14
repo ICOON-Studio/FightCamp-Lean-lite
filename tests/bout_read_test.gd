@@ -46,6 +46,7 @@ func _initialize() -> void:
 	_no_leak()
 	_numbers()
 	_ranks()
+	_first_round()
 	print("BOUT_READ %s" % ("PASS" if _fails == 0 else "FAIL %d" % _fails))
 	quit(0 if _fails == 0 else 1)
 
@@ -304,6 +305,20 @@ func _ranks() -> void:
 ## before and after a find (the found word was already the worst case).
 func _pinned(b: Dictionary) -> bool:
 	return float(b["hi"]) >= 0.99 or float(b["lo"]) <= 0.01
+
+
+## S474 AMATEURWEEK1: a FLAT round 1 (bout.r1_edge) moves the forecast's round 1 by exactly that edge, and no other round.
+func _first_round() -> void:
+	var opp: Dictionary = _opps()[0]
+	var f := _lucy()
+	f["bout"] = {"opp": opp, "day": 30}
+	var plain: Array = BoutRead.round_edges(f, opp, CAMP, COACH)
+	var flat := _lucy()
+	flat["bout"] = {"opp": opp, "day": 30, "r1_edge": -2.0}
+	var tired: Array = BoutRead.round_edges(flat, opp, CAMP, COACH)
+	var d1 := float(tired[0]) - float(plain[0]) if not (plain[0] is Dictionary) else float(tired[0]["edge"]) - float(plain[0]["edge"])
+	var d2 := float(tired[1]) - float(plain[1]) if not (plain[1] is Dictionary) else float(tired[1]["edge"]) - float(plain[1]["edge"])
+	_check(absf(d1 + 2.0) < 0.001 and absf(d2) < 0.001, "a FLAT round 1 (-2.0) moves round 1 by %.3f and round 2 by %.3f" % [d1, d2])
 
 
 func _check(ok: bool, what: String) -> void:
