@@ -343,6 +343,21 @@ function Write-Detail {
     } catch { try { [IO.File]::Copy($detailTmp, $detailFile, $true) } catch { LogErr "detail write: $($_.Exception.Message)" } }
 }
 
+# S469 (operator: "Yes, log it"): Windows held 2 million leaked security tokens (pool tag Toke, ~5.8 GB) and no test named
+# the program. Once a minute: the live token count beside what is running -> AgentComms\token_log.csv (git-ignored). Read the
+# jumps (the `delta` column) against the columns to its right. Remove this block once the leak is named.
+$tokenLog = Join-Path $root 'AgentComms\token_log.csv'; $script:tokePrev = -1; $poolOk = $false
+try { . (Join-Path $PSScriptRoot 'pool_tags.ps1') | Out-Null; $poolOk = $true } catch { Log "pool tags helper failed: $($_.Exception.Message)" }
+function Write-TokenLog {
+    $line = [PoolTags]::Top(4000) | Where-Object { $_ -like 'Toke *' } | Select-Object -First 1
+    if (-not ($line -match '\(\s*([\d,]+) live')) { return }
+    $n = [int64]($Matches[1] -replace ',', '')
+    $delta = if ($script:tokePrev -ge 0) { $n - $script:tokePrev } else { 0 }; $script:tokePrev = $n
+    $ps = Get-Process; $c = @{}
+    foreach ($k in 'Godot', 'conhost', 'powershell', 'python', 'node', 'chrome', 'claude', 'git', 'qwen', 'cmd') { $c[$k] = @($ps | Where-Object { $_.ProcessName -like "$k*" }).Count }
+    if (-not (Test-Path -LiteralPath $tokenLog)) { [IO.File]::AppendAllText($tokenLog, "time,tokens,delta,processes,godot,conhost,powershell,python,node,chrome,claude,git,qwen,cmd`r`n", $utf8) }
+    [IO.File]::AppendAllText($tokenLog, ((Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), $n, $delta, $ps.Count, $c['Godot'], $c['conhost'], $c['powershell'], $c['python'], $c['node'], $c['chrome'], $c['claude'], $c['git'], $c['qwen'], $c['cmd'] -join ',') + "`r`n", $utf8)
+}
 Log "start pid=$PID every=${Every}s keep=$Keep"
 $cycle = 0
 while ($true) {
@@ -357,6 +372,7 @@ while ($true) {
             }
     } catch { LogErr "counter: $($_.Exception.Message)"; Start-Sleep -Seconds $Every }
     $cycle++
+    if ($poolOk) { try { Write-TokenLog } catch { LogErr "token log: $($_.Exception.Message)" } }
     $Error.Clear(); [GC]::Collect()   # vanished-instance errors pile up in $Error; keep the resident set flat
     if ($cycle % 10 -eq 0) { $diskInfo = Read-DiskInfo }
 }

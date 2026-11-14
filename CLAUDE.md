@@ -60,8 +60,8 @@ Claude decides design and integrates; the operator approves (D49: Ludo makes ass
   GREEN (operator S355: "you can change the rule"); two windowed renders never at once.
 - No audio in tests (`--audio-driver Dummy`).
 - DISK (S366: E: is a 480 GB DRAM-less SATA SSD; at 96% full one git repack stalled every write ~1 s and froze the PC): E:
-  stays under 85% full - the watchdog reads E: free space and write latency (AMBER < 15% free, RED < 5% free or writes
-  > 250 ms) and names any git packer running. Git auto-gc stays ON here (this repo is small, so loose objects never pile
+  keeps 20 GB free - the watchdog reads E: free space and write latency (AMBER < 20 GB free, RED < 10 GB free or writes
+  > 250 ms; operator S469: "make amber for disk at 20gb left red at 10gb") and names any git packer running. Git auto-gc stays ON here (this repo is small, so loose objects never pile
   up); the old repo's had been blocked since 9/10 by a stale lock, 9.5 GB piled up, and one fetch repacked it all at once.
   Never delete a `.git/*.lock` / `gc.pid` / `gc.log` by hand mid-session, and never start a manual `git gc` / `git repack`
   in a session.

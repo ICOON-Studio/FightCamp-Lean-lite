@@ -43,6 +43,7 @@ static func worst(stage: Node) -> Dictionary:
 				if d > float(best["depth"]):
 					best = {"depth": d, "pair": "0%s %s x 1%s %s (ranks %d %d)" % [x["side"], pair[0], y["side"], pair[1], _rank(stage, 0, x["side"]), _rank(stage, 1, y["side"])]}
 	best["drift"] = drift(stage)
+	best["layers"] = preload("res://tools/layer_trace.gd").report(stage)   # S469: who moved the hands after ArmClash
 	for i in 2:
 		var gc: Node = stage.boxers[i].get("gclear")
 		if gc != null:

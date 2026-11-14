@@ -229,7 +229,14 @@ static func _fit_held(pr: Node, skel: Skeleton3D, ids: Array, s: Vector3, target
 ## as drawn on the hit frame less the carry already run. Only the rear cross and rear hook (the bisect's short punches): the lead
 ## hand and the uppercuts land on their drawn point, and snapping them to the face sent their carry 0.12-0.27 m through
 ## (hit_frame THROUGH). `-- nopunchrange` (RangeTable off) = the review round 1 rule.
-static func carry_base(face: Vector3, shown: Vector3, clip: String) -> Vector3:
+## S469 LANDREACH4: `w` = the reach's weight on the hit frame. Below full weight the glove is still easing in from the clip
+## (a punch armed mid-clip: BeatFire's skip, a test that seeks straight to contact), 7-23 cm off her face: the hit point
+## latched onto that glove and the glove went exactly there. Then the carry starts from the face, for either hand.
+const FULL_W := 0.999
+static var BY_WEIGHT: bool = not OS.get_cmdline_user_args().has("noweightbase")   # the control arm
+static func carry_base(face: Vector3, shown: Vector3, clip: String, w: float = 1.0) -> Vector3:
+	if BY_WEIGHT and RangeTable.on and w < FULL_W and face.is_finite():
+		return face
 	var rear := clip.contains("right_cross") or clip.contains("right_hook")
 	if not RangeTable.on or not rear or not face.is_finite() or shown.distance_to(face) <= SHOWN_M:
 		return shown

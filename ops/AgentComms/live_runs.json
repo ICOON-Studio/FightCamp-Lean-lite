@@ -33,58 +33,52 @@
     "board": ""
    }
   },
-  "LANDREACH3": {
+  "LIVERPROBE1": {
    "agent": "qwen",
-   "id": "LANDREACH3",
-   "title": "TASK LANDREACH3 - the landed lead glove stops 5-11 cm above or below the face point it aims at (fix, headless)",
+   "id": "LIVERPROBE1",
+   "title": "TASK LIVERPROBE1 - tune the liver fold to the design's bar on 400 played bouts (probe, no screen)",
    "status": "landed",
-   "started": "2026-11-14T12:17",
-   "eta": "2026-11-14T14:07",
-   "branch": "qwen/landreach3",
-   "worktree": "E:/FightCamp/wt/LEAN_LANDREACH3",
-   "wt": "E:/FightCamp/wt/LEAN_LANDREACH3",
-   "brief": "ops/research/TASK_LANDREACH3.md",
+   "started": "2026-11-14T14:11",
+   "eta": "2026-11-14T16:01",
+   "branch": "qwen/liverprobe1",
+   "worktree": "E:/FightCamp/wt/LEAN_LIVERPROBE1",
+   "wt": "E:/FightCamp/wt/LEAN_LIVERPROBE1",
+   "brief": "ops/research/TASK_LIVERPROBE1.md",
    "repo": "FightCamp-Lean",
    "where": "pc",
-   "log": "E:/FightCamp/wt/LANDREACH3_dispatch_out.txt",
-   "match": "seat_dispatch.py run landreach3",
+   "log": "E:/FightCamp/wt/LIVERPROBE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run liverprobe1",
    "model": "qwen3-coder",
    "dispatch": {
-    "prompt": "E:/FightCamp/wt/LANDREACH3_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/LANDREACH3_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/LANDREACH3_dispatch_runner.log",
+    "prompt": "E:/FightCamp/wt/LIVERPROBE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/LIVERPROBE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/LIVERPROBE1_dispatch_runner.log",
     "source": "dispatch_queue.json",
     "brief_copied": true,
-    "runner_pid": 44168,
-    "seat_pid": 6524
+    "runner_pid": 34284,
+    "seat_pid": 42076
    },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 0/4 PASS; PR #274",
-   "finished": "2026-11-14T12:57",
-   "pr": 274,
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #276",
+   "finished": "2026-11-14T14:31",
+   "pr": 276,
    "checks": [
     {
      "kind": "RED_TEST",
-     "script": "tests/block_meet_test.gd",
-     "ok": false,
-     "last": "BLOCK_MEET failures=4"
+     "script": "tools/liverprobe1.gd",
+     "ok": true,
+     "last": "LIVERPROBE1 best=6.0/1.00 share=0.160 folds=17 counts=106"
     },
     {
      "kind": "REGRESSION",
-     "script": "tests/hit_frame_test.gd",
-     "ok": false,
-     "last": "HIT_FRAME failures=11"
+     "script": "tests/liver_fold_test.gd",
+     "ok": true,
+     "last": "LIVER_FOLD failures=0"
     },
     {
      "kind": "REGRESSION",
-     "script": "tests/hit_carry_test.gd",
-     "ok": false,
-     "last": "HIT_CARRY failures=35"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/block_meet_test.gd",
-     "ok": false,
-     "last": "BLOCK_MEET failures=4"
+     "script": "tests/knockdowns_test.gd",
+     "ok": true,
+     "last": "KNOCKDOWNS failures=0"
     }
    ],
    "films": {
@@ -93,32 +87,32 @@
     "board": ""
    }
   },
-  "GUARDKNEE2": {
+  "GUARDKNEE3": {
    "agent": "qwen",
-   "id": "GUARDKNEE2",
-   "title": "TASK GUARDKNEE2 - which commit bowed the rear guard knee out, and the smallest fix (bisect, headless)",
+   "id": "GUARDKNEE3",
+   "title": "TASK GUARDKNEE3 - the rear guard knee back on the source take WITH the footwork rig on (headless)",
    "status": "running",
-   "started": "2026-11-14T12:58",
-   "eta": "2026-11-14T14:48",
-   "branch": "qwen/guardknee2",
-   "worktree": "E:/FightCamp/wt/LEAN_GUARDKNEE2",
-   "wt": "E:/FightCamp/wt/LEAN_GUARDKNEE2",
-   "brief": "ops/research/TASK_GUARDKNEE2.md",
+   "started": "2026-11-14T14:41",
+   "eta": "2026-11-14T16:31",
+   "branch": "qwen/guardknee3",
+   "worktree": "E:/FightCamp/wt/LEAN_GUARDKNEE3",
+   "wt": "E:/FightCamp/wt/LEAN_GUARDKNEE3",
+   "brief": "ops/research/TASK_GUARDKNEE3.md",
    "repo": "FightCamp-Lean",
    "where": "pc",
-   "log": "E:/FightCamp/wt/GUARDKNEE2_dispatch_out.txt",
-   "match": "seat_dispatch.py run guardknee2",
+   "log": "E:/FightCamp/wt/GUARDKNEE3_dispatch_out.txt",
+   "match": "seat_dispatch.py run guardknee3",
    "model": "qwen3-coder",
    "dispatch": {
-    "prompt": "E:/FightCamp/wt/GUARDKNEE2_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/GUARDKNEE2_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/GUARDKNEE2_dispatch_runner.log",
-    "source": "dispatch_queue.json",
-    "brief_copied": false,
-    "runner_pid": 21636,
-    "seat_pid": 25956
+    "prompt": "E:/FightCamp/wt/GUARDKNEE3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/GUARDKNEE3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/GUARDKNEE3_dispatch_runner.log",
+    "source": "roadmap plan.next",
+    "brief_copied": true,
+    "runner_pid": 7312,
+    "seat_pid": 23044
    },
-   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
+   "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
   }
  },
  "codex_budget": {

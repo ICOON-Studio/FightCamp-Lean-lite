@@ -26,7 +26,8 @@ $TEMP_WARN_C = 74;    $TEMP_CRIT_C = 84
 $TEMP_HARD_C = 88;    $TEMP_HOLD_S = 120
 # S366 (E: froze the PC: a 480 GB DRAM-less SATA SSD at 96% full; one git repack of 9.5 GB of loose objects stalled every
 # write ~1 s, E: 0% idle, and `start` and new sessions hung). E: free space and write latency are gates too.
-$E_FREE_WARN_PCT = 15; $E_FREE_CRIT_PCT = 5; $E_WRITE_WARN_MS = 100; $E_WRITE_CRIT_MS = 250
+# S469 operator: "make amber for disk at 20gb left red at 10gb" - E: is gated by GB free, no longer by percent.
+$E_FREE_WARN_GB = 20; $E_FREE_CRIT_GB = 10; $E_WRITE_WARN_MS = 100; $E_WRITE_CRIT_MS = 250
 # One hold clock for every watchdog call on this PC (loop, governor, rule_guard, any worktree): "<since> <last>" unix seconds.
 $heatHoldFile = Join-Path $env:LOCALAPPDATA 'FightCamp\heat_hold.txt'
 $REPEAT_MIN = 15                              # the same warning at most once per this many minutes
@@ -163,8 +164,8 @@ function Get-Problems($r) {
     $p = @()
     if ($r.CFreeGB -lt $C_FREE_CRIT_GB) { $p += [pscustomobject]@{ Key='disk'; Red=$true;  Text="C: only $($r.CFreeGB) GB free - Windows will lag. Move or delete files on C:." } }
     elseif ($r.CFreeGB -lt $C_FREE_WARN_GB) { $p += [pscustomobject]@{ Key='disk'; Red=$false; Text="C: is getting full: $($r.CFreeGB) GB free." } }
-    if ($r.EFreePct -ne $null -and $r.EFreePct -lt $E_FREE_CRIT_PCT) { $p += [pscustomobject]@{ Key='edisk'; Red=$true;  Text="E: only $($r.EFreeGB) GB free ($($r.EFreePct)%) - the E: SSD stalls this full (S366). Free space on E: before any heavy job." } }
-    elseif ($r.EFreePct -ne $null -and $r.EFreePct -lt $E_FREE_WARN_PCT) { $p += [pscustomobject]@{ Key='edisk'; Red=$false; Text="E: is getting full: $($r.EFreeGB) GB free ($($r.EFreePct)%) - keep it under 85% used." } }
+    if ($r.EFreeGB -ne $null -and $r.EFreeGB -lt $E_FREE_CRIT_GB) { $p += [pscustomobject]@{ Key='edisk'; Red=$true;  Text="E: only $($r.EFreeGB) GB free ($($r.EFreePct)%) - the E: SSD stalls this full (S366). Free space on E: before any heavy job." } }
+    elseif ($r.EFreeGB -ne $null -and $r.EFreeGB -lt $E_FREE_WARN_GB) { $p += [pscustomobject]@{ Key='edisk'; Red=$false; Text="E: is getting full: $($r.EFreeGB) GB free ($($r.EFreePct)%) - amber under $E_FREE_WARN_GB GB, red under $E_FREE_CRIT_GB GB." } }
     $pk = if ($r.Packers) { " Git packer running: $($r.Packers -join ', ')." } else { '' }
     if ($r.EWriteMs -ne $null -and $r.EWriteMs -ge $E_WRITE_CRIT_MS -and $r.EIdle -ne $null -and $r.EIdle -lt 10) { $p += [pscustomobject]@{ Key='ewrite'; Red=$true;  Text="E: is stalled: writes take $($r.EWriteMs) ms (normal under 5), disk $($r.EIdle)% idle.$pk" } }
     elseif ($r.EWriteMs -ne $null -and $r.EWriteMs -ge $E_WRITE_WARN_MS) { $p += [pscustomobject]@{ Key='ewrite'; Red=$false; Text="E: writes are slow: $($r.EWriteMs) ms.$pk" } }
@@ -256,7 +257,7 @@ function Write-Verdict($r, $problems, $state, $printed) {
         limits = [ordered]@{ temp_warn_c = $TEMP_WARN_C; temp_crit_c = $TEMP_CRIT_C; temp_hold_s = $TEMP_HOLD_S; temp_hard_c = $TEMP_HARD_C
             cpu_warn = $CPU_WARN_PCT; cpu_crit = $CPU_CRIT_PCT; ram_warn = $RAM_WARN_PCT; ram_crit = $RAM_CRIT_PCT
             commit_warn_gb = $COMMIT_WARN_GB; commit_crit_gb = $COMMIT_CRIT_GB; c_warn_gb = $C_FREE_WARN_GB; c_crit_gb = $C_FREE_CRIT_GB
-            e_warn_pct = $E_FREE_WARN_PCT; e_crit_pct = $E_FREE_CRIT_PCT; e_write_warn_ms = $E_WRITE_WARN_MS; e_write_crit_ms = $E_WRITE_CRIT_MS }
+            e_warn_gb = $E_FREE_WARN_GB; e_crit_gb = $E_FREE_CRIT_GB; e_write_warn_ms = $E_WRITE_WARN_MS; e_write_crit_ms = $E_WRITE_CRIT_MS }
     }
     $tmp = "$f.$PID.tmp"
     try {

@@ -3,18 +3,19 @@
  "updated": "2026-11-14",
  "author": "claude S294",
  "now": {
-  "id": "S468",
+  "id": "S469",
   "owner": "claude",
   "updated": "2026-11-14",
-  "summary": "S468: result_tabs_test no longer hangs (a script error before quit: its seed-44 story died with the S466 card fix; the sample bout is now found by FixLab's rule, failures=0; fixlab_scan: on 20 sample bouts the plan wins 9 of 40, the best change 11 - under MIN_GAIN). His C394 'still clipping' (x4) on the seed-4242 rear uppercut: new ruler tools/clash_meter.gd (bodies as drawn) read red on main (14 frames, 7-8 cm); now rear uppercut 3 frames (one 6.5 cm), lead uppercut 1 frame (2.4 cm): true glove and forearm shapes, right of way (live punch > hand going home > guard), the pass runs after ElbowClear (ArmClash.gd; ElbowClear moved elbows 2-18 cm after the old pass), a crowded hand draws in, an arm opens outward off a live punch. Lead glove height NOT changed: landreach4_probe shows block_meet reads a half-eased glove and the hit point re-latches onto it (docs/CLASH2_RESULT.md). Club week v6 queued for Kalli (SQ115). Regression: block_meet 4, hit_frame 10, hit_carry 38 (old rule same day 38). Build exported.",
-  "next_action": "S469: 0) get_usage. 1) Lead glove (docs/CLASH2_RESULT.md last section): carry_base takes the face when the reach was not at full weight on the hit frame; block_meet CTRL_LANDED lets the ease finish; hit_gap_probe on the hidden desktop WITH --log; FILM seed 4242 jabs=2 crosses=2 (his C391). 2) Clipping leftovers: the frame after the rear uppercut's hit, a boxer's own two gloves, the rear uppercut 0.114 m off her chin - read his comment on the S468 strip first. 3) GUARDKNEE2 + LIVERPROBE1 (Qwen): collect, set LiverFold knobs. 4) LIVERRIBS1 step 4: corner retiring a cracked boxer + the 3-choice crack card. 5) Seat answers SQ104/109/111/113/115 -> DESIGN_LOOP_S459.md. 6) Export after any player-visible change.",
-  "last_working_commit": "69415ab2",
-  "verified_playable": "Builds/FightCamp.exe exported S468 (gloves and forearms kept off each other: seed-4242 uppercut film 14 -> 1-3 clipped frames)",
-  "incomplete_blocked": "Lead glove height not changed (cause found: the hit point latches onto a half-eased glove); one clipped frame after the rear uppercut hit; GUARDKNEE2 (Qwen) running, LIVERPROBE1 queued; plan-change value on the sample bouts (9 -> 11 of 40) not yet measured on real bouts",
-  "next_acceptance": "block_meet CTRL_LANDED rows green with the ease finished and no new hit_frame THROUGH; a seed-4242 game-camera film of jab and cross; his look at the S468 uppercut strip; LiverFold knobs from LIVERPROBE1; the crack card shows 3 choices",
+  "summary": "S469: played-fight ruler (hit_gap_probe, 33 landed punches): punches shown more than 15 cm off their target 21 % -> 15 %, worst 0.69 m -> 0.19 m, body hooks 3 of 10 far -> 0. Cause: inside punches (ShortPunch) started two frames before the hit; BeatFire.SHORT_WIND_S 0.16 gives the glove time to arrive. ReachLimit.carry_base takes the reach weight (block_meet 6 -> 3 same day). Seed-4242 match film for his C391: jab and cross 0.3-1.6 cm off the face at the hit. Clinch: the hands wait until the pair is within an arm (Clinch.HANDS_M 0.85) - the second cross's 18 clipped frames -> 2; tools/layer_trace.gd names the layer that moves the hands after ArmClash. Watchdog: E: amber under 20 GB, red under 10 GB (his words). GUARDKNEE2 (Qwen) bisect taken, fix not merged (PR 275 closed), GUARDKNEE3 queued; LIVERPROBE1 launched. His fight-plan flowchart pictures + Submission Saga link: opinion given, decision his. Build exported.",
+  "next_action": "S470: 0) get_usage. 1) PLANFLOW1 (his 'go with your recommendation'): Kalli's map v1 (seat queue, research/DESIGN_PLANFLOW1_V1_WRITE_KALLI.md) -> design_loop.py critic with two fresh critics (6+/6+) -> his board. Paged pool 10 GB after 2.3 days up: if he asks about memory again, name the driver (poolmon) before guessing. 2) LIVERPROBE1 (Qwen, branch qwen/liverprobe1 commit 194a8c05: fold tuned to 6.0/1.00, share 0.160): collect, set LiverFold knobs. 3) GUARDKNEE3 (Qwen, queued): collect, guard still on the game camera. 4) Lead hooks land ~0.15 m LOW in the played fight (3 of 9), cross from 1.15 m pelvis gap 0.17 m short (docs/CLASH2_RESULT.md S469 section). 5) punch_speed_test 41 (old rules) vs 48 (new) the same day, rows flip between runs: find out whether carry_base-by-weight adds POP rows. 6) LIVERRIBS1 step 4: corner retiring a cracked boxer + the 3-choice crack card. 7) Clash leftovers: jab 2 of the film (glove x forearm 5 frames, 0.055 m), a boxer's own two gloves. 8) Seat answers SQ109/111/113/115/116 -> DESIGN_LOOP_S459.md.",
+  "last_working_commit": "e77ddc87",
+  "verified_playable": "Builds/FightCamp.exe exported S469 (close-range punches arrive; the clinch no longer reaches from punching distance)",
+  "incomplete_blocked": "Lead hooks ~15 cm low and one long cross short in the played fight; punch_speed_test 41 vs 48 not explained; guard knee still bowed (GUARDKNEE3 queued for Qwen); LIVERPROBE1 landed on its branch, not collected; crack card not started",
+  "next_acceptance": "hit_gap_probe far share under 10 % with lead hooks on target; guard_knee_test green with the rig on; LiverFold knobs from LIVERPROBE1; the crack card shows 3 choices; his answer on the flowchart fight plan",
   "awaiting_operator": [
+   "Look: S469 match strip of jabs and crosses (your C391) and the clinch before/after strip, both on the review board",
    "Look: S468 uppercut clipping before/after strip (C394) on the review board",
-   "Review: S466 rear cross (C391 'i wait to see it in the match'), S465 what-to-learn tiles, glove clash; play S467's build: liver/ribs buttons and the rare liver fold"
+   "Play S469's build: inside exchanges and the clinch entry"
   ]
  },
  "next": "S469: 0) get_usage. 1) Lead glove (docs/CLASH2_RESULT.md last section): carry_base takes the face when the reach was not at full weight on the hit frame; block_meet CTRL_LANDED lets the ease finish; hit_gap_probe on the hidden desktop WITH --log; FILM seed 4242 jabs=2 crosses=2 (his C391). 2) Clipping leftovers: the frame after the rear uppercut's hit, a boxer's own two gloves, the rear uppercut 0.114 m off her chin - read his comment on the S468 strip first. 3) GUARDKNEE2 + LIVERPROBE1 (Qwen): collect, set LiverFold knobs. 4) LIVERRIBS1 step 4: corner retiring a cracked boxer + the 3-choice crack card. 5) Seat answers SQ104/109/111/113/115 -> DESIGN_LOOP_S459.md. 6) Export after any player-visible change.",
@@ -1938,6 +1939,16 @@
    "id": "S468",
    "date": "2026-11-14",
    "summary": "S468: result_tabs_test no longer hangs (a script error before quit: its seed-44 story died with the S466 card fix; the sample bout is now found by FixLab's rule, failures=0; fixlab_scan: on 20 sample bouts the plan wins 9 of 40, the best change 11 - under MIN_GAIN). His C394 'still clipping' (x4) on the seed-4242 rear uppercut: new ruler tools/clash_meter.gd (bodies as drawn) read red on main (14 frames, 7-8 cm); now rear uppercut 3 frames (one 6.5 cm), lead uppercut 1 frame (2.4 cm): true glove and forearm shapes, right of way (live punch > hand going home > guard), the pass runs after ElbowClear (ArmClash.gd; ElbowClear moved elbows 2-18 cm after the old pass), a crowded hand draws in, an arm opens outward off a live punch. Lead glove height NOT changed: landreach4_probe shows block_meet reads a half-eased glove and the hit point re-latches onto it (docs/CLASH2_RESULT.md). Club week v6 queued for Kalli (SQ115). Regression: block_meet 4, hit_frame 10, hit_carry 38 (old rule same day 38). Build exported."
+  },
+  {
+   "id": "S469",
+   "date": "2026-11-14",
+   "summary": "S469: played-fight ruler (hit_gap_probe, 33 landed punches): punches shown more than 15 cm off their target 21 % -> 15 %, worst 0.69 m -> 0.19 m, body hooks 3 of 10 far -> 0. Cause: inside punches (ShortPunch) started two frames before the hit; BeatFire.SHORT_WIND_S 0.16 gives the glove time to arrive. ReachLimit.carry_base takes the reach weight (block_meet 6 -> 3 same day). Seed-4242 match film for his C391: jab and cross 0.3-1.6 cm off the face at the hit. Clinch: the hands wait until the pair is within an arm (Clinch.HANDS_M 0.85) - the second cross's 18 clipped frames -> 2; tools/layer_trace.gd names the layer that moves the hands after ArmClash. Watchdog: E: amber under 20 GB, red under 10 GB (his words). GUARDKNEE2 (Qwen) bisect taken, fix not merged (PR 275 closed), GUARDKNEE3 queued; LIVERPROBE1 launched. His fight-plan flowchart pictures + Submission Saga link: opinion given, decision his. Build exported.",
+   "commits": [
+    "91075527",
+    "8b8a853e",
+    "e77ddc87"
+   ]
   }
  ],
  "blocked_on_operator": [],
@@ -4856,7 +4867,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-14",
+  "updated": "2026-11-14 14:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5006,24 +5017,50 @@
   },
   "working_now": [
    {
-    "title": "TASK GUARDKNEE2 - which commit bowed the rear guard knee out, and the smallest fix (bisect, headless)",
+    "title": "CARDVISIT1",
+    "who": "",
+    "started": "",
+    "run": "CARDVISIT1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK LIVERPROBE1 - tune the liver fold to the design's bar on 400 played bouts (probe, no screen)",
     "who": "qwen",
-    "started": "2026-11-14T12:58",
-    "run": "GUARDKNEE2"
+    "started": "2026-11-14T14:11",
+    "run": "LIVERPROBE1",
+    "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK GUARDKNEE3 - the rear guard knee back on the source take WITH the footwork rig on (headless)",
+    "who": "qwen",
+    "started": "2026-11-14T14:41",
+    "run": "GUARDKNEE3"
    }
   ],
   "next": [
    {
     "id": "LANDREACH4",
     "who": "claude",
-    "title": "Lead glove height: the hit point latches onto a half-eased glove (S468 probe) - carry_base by reach weight, block_meet lets the ease finish, then the seed-4242 match film he waits for (C391)",
+    "title": "Lead hook lands ~15 cm low in the played fight (3 of 9) and a cross from 1.15 m stops 17 cm short; punch_speed_test 41 vs 48 to explain (S469: close punches and carry_base done)",
     "after": ""
    },
    {
     "id": "CLASH3",
     "who": "claude",
-    "title": "Clipping leftovers after his look at the S468 strip: the frame after the rear uppercut hit, a boxer's own two gloves, the rear uppercut 11 cm off her chin",
+    "title": "Clipping leftovers: a jab's glove against the other's forearm (5 frames, 5.5 cm, seed 4242), a boxer's own two gloves, the frame after the rear uppercut hit (S469: clinch reach fixed, 18 -> 2 frames)",
     "after": ""
+   },
+   {
+    "id": "PLANFLOW1",
+    "who": "kalli",
+    "title": "Fight plan as an if-then flowchart (his S469 pictures; his 'go with your recommendation'): the look of the plan we have - steps down the middle, IF habits from film study, one Plan B, the fired branch lights up in the fight. Map v1 queued for Kalli, then two critics 6+/6+, then his board",
+    "after": ""
+   },
+   {
+    "id": "GUARDKNEE3",
+    "who": "qwen",
+    "title": "Rear guard knee back on the source take with the footwork rig kept on (GUARDKNEE2's bisect: the rig's hip offset)",
+    "after": "LIVERPROBE1"
    },
    {
     "id": "INTEGRATE1",
@@ -5493,6 +5530,36 @@
   },
   "done_recently": [
    {
+    "title": "TASK GUARDKNEE2 - which commit bowed the rear guard knee out, and the smallest fix (bisect, headless)",
+    "who": "qwen",
+    "when": "2026-11-14"
+   },
+   {
+    "title": "Close-range punches arrive: shown more than 15 cm off 21 % -> 15 %, worst 69 cm -> 19 cm (played-fight ruler)",
+    "who": "claude",
+    "when": "2026-11-14"
+   },
+   {
+    "title": "Clinch no longer reaches from punching distance (18 clipped frames -> 2); layer trace tool",
+    "who": "claude",
+    "when": "2026-11-14"
+   },
+   {
+    "title": "Match film of jabs and crosses for his C391; disk alarm at 20 GB / 10 GB",
+    "who": "claude",
+    "when": "2026-11-14"
+   },
+   {
+    "title": "GUARDKNEE2 bisect: the footwork rig bows the rear guard knee (fix not merged, GUARDKNEE3 queued)",
+    "who": "qwen",
+    "when": "2026-11-14"
+   },
+   {
+    "title": "TASK LANDREACH3 - the landed lead glove stops 5-11 cm above or below the face point it aims at (fix, headless)",
+    "who": "qwen",
+    "when": "2026-11-14"
+   },
+   {
     "title": "Glove clipping (his C394): drawn-body ruler, true glove shapes, clearance after the elbow step - 14 clipped frames to 1-3",
     "who": "claude",
     "when": "2026-11-14"
@@ -5521,45 +5588,6 @@
     "title": "TASK NIGHTLYTRIAGE1 - which of last night's red tests are still red on main, since when, and the first failing line",
     "who": "qwen",
     "when": "2026-11-14"
-   },
-   {
-    "title": "LiverRibs.gd: the liver and the ribs do different things (pure module + unit tests)",
-    "who": "goose",
-    "when": "2026-11-14"
-   },
-   {
-    "title": "TASK CARDFIX2 - after the S466 card-table fix, does every best answer fire? (probe, no screen)",
-    "who": "qwen",
-    "when": "2026-11-14"
-   },
-   {
-    "title": "TASK CARDFIX1 - which card-table fix lets every best answer fire, without breaking the win balance? (probe, no screen)",
-    "who": "qwen",
-    "when": "2026-11-14"
-   },
-   {
-    "title": "Card table fixed: her trouble no longer moves her; counter-punchers keep it outside (every best answer fires)",
-    "who": "claude"
-   },
-   {
-    "title": "Landed rear cross/hook reach the face again (bisected to d258cab0; 13-19 cm -> 3-6 cm)",
-    "who": "claude"
-   },
-   {
-    "title": "READ-PROOF on Fight prep (pro season chip)",
-    "who": "claude"
-   },
-   {
-    "title": "Liver on the right of every body (southpaw defect)",
-    "who": "claude"
-   },
-   {
-    "title": "LIVERRIBS1 v2 passes the design loop (John 7/6/7, Maria 7/6/7)",
-    "who": "agent"
-   },
-   {
-    "title": "Build exported (S466)",
-    "who": "claude"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -5688,6 +5716,14 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Result page test: no more hang",
+     "who": "claude"
+    },
+    {
+     "text": "Glove clipping: 14 frames to 1-3",
+     "who": "claude"
+    },
+    {
      "text": "LiverRibs module collected",
      "who": "agent"
     },
@@ -5734,23 +5770,19 @@
     {
      "text": "Maps: club show + push/tank",
      "who": "claude"
-    },
-    {
-     "text": "What-to-learn card: tiles (C388)",
-     "who": "claude"
-    },
-    {
-     "text": "Glove clash fix (C389)",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Result page test: no more hang",
+     "text": "Close punches: glove arrives",
      "who": "claude"
     },
     {
-     "text": "Glove clipping: 14 frames to 1-3",
+     "text": "Disk alarm: 20 GB / 10 GB",
+     "who": "claude"
+    },
+    {
+     "text": "Clinch reach: 18 frames to 2",
      "who": "claude"
     }
    ],
@@ -5788,12 +5820,16 @@
      "who": "claude"
     },
     {
-     "text": "Lead glove height in the match",
-     "who": "claude"
-    },
-    {
      "text": "Your look: uppercut clipping fix",
      "who": "operator"
+    },
+    {
+     "text": "Your look: match strip, clinch",
+     "who": "operator"
+    },
+    {
+     "text": "Flowchart fight plan: map (Kalli)",
+     "who": "agent"
     }
    ],
    "next": [
@@ -5862,10 +5898,6 @@
      "who": "claude"
     },
     {
-     "text": "Guard knee bisect (Qwen)",
-     "who": "agent"
-    },
-    {
      "text": "Crack card: liver/ribs step 4",
      "who": "claude"
     },
@@ -5874,20 +5906,24 @@
      "who": "agent"
     },
     {
-     "text": "Lead glove: latch + match film",
-     "who": "claude"
-    },
-    {
      "text": "Club week v6 (Kalli)",
      "who": "agent"
+    },
+    {
+     "text": "Guard knee, rig kept on (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "Lead hook lands 15 cm low",
+     "who": "claude"
     }
    ],
-   "session": "S468"
+   "session": "S469"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "c03fba4f",
- "next_action": "S468: 0) get_usage. 1) Lead glove height (docs/LANDREACH3_RESULT.md): split the contact point from the carry start (move _note_shown's carry part out of PunchReach, 498 lines), then FILM seed 4242 on the game camera - his C391 'i wait to see it in the match'. 2) GUARDKNEE2 and LIVERPROBE1 (Qwen queue): collect; set LiverFold.shot_points / fold_scale from LIVERPROBE1's table. 3) LIVERRIBS1 step 4 (crack in the bout BUILT S467): the opponent's corner retiring a cracked boxer + the 3-choice crack card in the corner minute (rules 6-8, design s4.1), then side elbow fixes + the opponent switching sides; BoutRead/Scout lines (design s6). 4) Seat answers SQ98/104 (John), SQ109/111/113 (Dola) -> DESIGN_LOOP_S459.md. 5) Export after any player-visible change.",
+ "last_working_commit": "e77ddc87",
+ "next_action": "S470: 0) get_usage. 1) PLANFLOW1 (his 'go with your recommendation'): Kalli's map v1 (seat queue, research/DESIGN_PLANFLOW1_V1_WRITE_KALLI.md) -> design_loop.py critic with two fresh critics (6+/6+) -> his board. Paged pool 10 GB after 2.3 days up: if he asks about memory again, name the driver (poolmon) before guessing. 2) LIVERPROBE1 (Qwen, branch qwen/liverprobe1 commit 194a8c05: fold tuned to 6.0/1.00, share 0.160): collect, set LiverFold knobs. 3) GUARDKNEE3 (Qwen, queued): collect, guard still on the game camera. 4) Lead hooks land ~0.15 m LOW in the played fight (3 of 9), cross from 1.15 m pelvis gap 0.17 m short (docs/CLASH2_RESULT.md S469 section). 5) punch_speed_test 41 (old rules) vs 48 (new) the same day, rows flip between runs: find out whether carry_base-by-weight adds POP rows. 6) LIVERRIBS1 step 4: corner retiring a cracked boxer + the 3-choice crack card. 7) Clash leftovers: jab 2 of the film (glove x forearm 5 frames, 0.055 m), a boxer's own two gloves. 8) Seat answers SQ109/111/113/115/116 -> DESIGN_LOOP_S459.md.",
  "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after."
 }

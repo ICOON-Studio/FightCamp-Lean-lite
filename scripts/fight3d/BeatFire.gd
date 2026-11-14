@@ -18,6 +18,15 @@ const BeatTally := preload("res://scripts/fight3d/BeatTally.gd")
 const PunchPace := preload("res://scripts/fight3d/PunchPace.gd")
 ## A short punch's join: half-life, length (s). Between the strike's (0.06, 0.3) and the guard return's (0.1, 0.45).
 const SHORT_JOIN := Vector2(0.09, 0.35)
+## S469 (hit_gap_probe: 5-6 of the 7-8 landed punches shown more than 15 cm off their target were inside punches started
+## two frames before the hit; the glove was still coming out of her guard, 0.2-0.7 m short). A short punch keeps at least
+## this much screen time for the glove to arrive. `-- shortwind=0.08` = the old floor (the control arm).
+static var SHORT_WIND_S: float = _short_wind()
+static func _short_wind() -> float:
+	for a in OS.get_cmdline_user_args():
+		if str(a).begins_with("shortwind="):
+			return float(str(a).trim_prefix("shortwind="))
+	return 0.16
 
 var stepped := [false, false]   # her next punch steps in (a Pro _ft take)
 var tired := [false, false]     # she has tired this round: her punches are the _hurt takes
@@ -136,7 +145,7 @@ func _punch(v: Node, b: Dictionary, who: int, other: int, move: String) -> void:
 	if short:
 		# S319 SHOVEL1 (J_INSIDE2: inside punches travel 15-30 cm): chest to chest the clip starts late in its swing, so
 		# the glove covers only the last stretch of its measured path (clip_travel.json) - a short hook, not a wide one.
-		skip = ShortPunch.merge(skip, ShortPunch.skip(BeatClips.travel_path(clip), contact, ShortPunch.want(move, float(ctx["roll"])), sp))
+		skip = ShortPunch.merge(skip, ShortPunch.skip(BeatClips.travel_path(clip), contact, ShortPunch.want(move, float(ctx["roll"])), sp, SHORT_WIND_S))
 	last_hand[who] = hand
 	# S371 BODYREACT1 (the S370 probe measured it: 14 of 42 landed body shots were cut off before they ever arrived - no
 	# hit, no reaction, no fold (PunchRange.cut_off: a new beat replaced the armed punch before its contact; the probe's

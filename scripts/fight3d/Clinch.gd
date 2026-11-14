@@ -55,6 +55,13 @@ const ELBOW_DOWN_M := 0.03
 ## pair 0.19 m apart in one frame).
 const TIE_SET_S := 0.4
 const TIE_SLACK_M := 0.06
+## S469 (the seed-4242 film: a tie called right after a landed cross - both reached for each other from punching range,
+## one still rocked back: straight arms, gloves 13 cm through gloves, 18 frames). The hands go for the tie only once the
+## pair stands within an arm of it and neither is in a hit reaction; then they get HANDS_S to arrive before it is TIED.
+## `-- farhands` = the old rule (hands from the beat's own frame).
+const HANDS_M := 0.85
+const HANDS_S := 0.3
+static var FAR_HANDS: bool = OS.get_cmdline_user_args().has("farhands")
 ## S354: the pair's own clip starts only once the two stand this close to the tie's gap. It is not a step clip
 ## (Footwork.can_step wants a guard or a fidget), so starting it on the beat's own frame froze the holder mid-ring - one
 ## round measured three of its four holds never closing a centimetre and timing out. The clinch band is 0.06 m
@@ -107,6 +114,7 @@ var _tie := 0.0               # the tie's spacing and pose, eased in from start(
 var _clock := 0.0             # seconds since start(): the pose must come in before the pair is TIED
 var _clip_t := 0.0            # seconds the tie's own clip has run (the pair clips only: the pose path uses _clock)
 var _hold := 0.0              # seconds since the engage (the jostle and dig clock)
+var _hands_t := -1.0          # seconds the tie's hands have been reaching (-1: not yet)
 var _mid := Vector3.ZERO
 var _axis := Vector3.BACK
 var _gap := 0.0
@@ -139,6 +147,7 @@ func start(who: int, dur: float, digs: int = 0, digger: int = -1) -> void:
 	_clock = 0.0
 	_clip_t = 0.0
 	_hold = 0.0
+	_hands_t = -1.0
 	_turn = 1.0 if stage.life.rng.randf() < 0.5 else -1.0
 	PushOff.cancel(stage)
 	_tie_up()
@@ -212,8 +221,17 @@ func _process(delta: float) -> void:
 	# S354: the pair is TIED once it stands at the tie's spacing and the tie's own clip has had TIE_SET_S to come in. The
 	# clip is the clock (the pose path has no clip and keeps _clock): a hold whose first sample lands mid-join reads the
 	# old pose - the r1 run measured a head gap of 0.62 m on the engage frame.
+	if _pair and not FAR_HANDS:
+		if _hands_t < 0.0 and dist <= HANDS_M and _free(0) and _free(1):
+			_hands_t = 0.0
+			for i in 2:
+				if stage.boxers[i].get("ik") != null:
+					_stance(i, stage.boxers[i]["ik"])
+		elif _hands_t >= 0.0:
+			_hands_t += delta
 	var set_t := _clip_t if _pair else _clock
-	if not engaged and set_t >= TIE_SET_S and dist <= want and _free(0) and _free(1):
+	var hands_set := not _pair or FAR_HANDS or _hands_t >= HANDS_S
+	if not engaged and set_t >= TIE_SET_S and hands_set and dist <= want and _free(0) and _free(1):
 		_engage()
 	_hold_clips(delta)
 	if not engaged:
@@ -269,7 +287,7 @@ func _tie_up() -> void:
 		if ik == null:
 			continue
 		ik.upright(-PAIR_LEAN_DEG if _pair else -LEAN_DEG)
-		if _pair:
+		if _pair and FAR_HANDS:
 			_stance(i, ik)
 
 

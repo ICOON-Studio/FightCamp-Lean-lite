@@ -7300,6 +7300,23 @@
       "answered_at": "2026-11-14T08:51:31Z",
       "seen_by_claude": true,
       "comment_only": false
+    },
+    {
+      "id": "Q-S294-226",
+      "asked": "2026-11-14T12:41:35.586622+00:00",
+      "session": "S294",
+      "text": "Fight plan: take your if-then flowchart pictures as the new look of the plan (steps down the middle, IF branches from what film study found, one Plan B, the branch lights up in the fight when it fires)?",
+      "options": [
+        "Yes, design it",
+        "Yes, but after the fight week",
+        "No, keep the plan as it is"
+      ],
+      "attach": [],
+      "answer": "does it  beat the current plan , what do you think is the best design for a player ?",
+      "note": null,
+      "answered_at": "2026-11-14T12:42:44Z",
+      "seen_by_claude": false,
+      "comment_only": true
     }
   ]
 }

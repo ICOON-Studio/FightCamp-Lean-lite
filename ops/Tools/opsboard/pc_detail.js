@@ -167,7 +167,7 @@
 
   // ---- 5. disks + biggest folders -----------------------------------------------------------------------------------------
   function diskHtml(d, v) {
-    const pm = window.pcmLatest, lim = v && v.limits ? v.limits : { e_warn_pct: 15, e_crit_pct: 5, c_warn_gb: 15, c_crit_gb: 6, e_write_warn_ms: 100, e_write_crit_ms: 250 };
+    const pm = window.pcmLatest, lim = v && v.limits ? v.limits : { e_warn_gb: 20, e_crit_gb: 10, c_warn_gb: 15, c_crit_gb: 6, e_write_warn_ms: 100, e_write_crit_ms: 250 };
     const rd = v && v.reading ? v.reading : {};
     let out = "";
     for (const L of ["E:", "C:"]) {
@@ -175,7 +175,7 @@
       const cur = info && pm.latest && (pm.latest.disks || []).find(x => x.n === info.n);
       if (!info || !cur) { out += `<div class="pcd-s">${L} no reading yet</div>`; continue; }
       const isE = L === "E:", used = 100 - cur.free_pct;
-      const sFree = isE ? lv(cur.free_pct, lim.e_warn_pct, lim.e_crit_pct, true) : lv(cur.free_gb, lim.c_warn_gb, lim.c_crit_gb, true);
+      const sFree = isE ? lv(cur.free_gb, lim.e_warn_gb || 20, lim.e_crit_gb || 10, true) : lv(cur.free_gb, lim.c_warn_gb, lim.c_crit_gb, true);
       const sW = isE ? lv(rd.e_write_ms, lim.e_write_warn_ms, lim.e_write_crit_ms) : "";
       out += `<div class="pcd-sub" style="${L === "E:" ? "margin-top:0;padding-top:0;border:0" : ""}"><h4>${L} ${esc(info.model)} (${esc(info.type)})</h4>` +
         `<div class="pcd-v ${tc(sFree)}">${f1(cur.free_gb)}<small>GB free of ${f0(info.size_gb)} GB (${f1(cur.free_pct)}%)</small></div>` +
@@ -183,7 +183,7 @@
         (isE ? `<div class="pcd-s">Write delay (watchdog E_write) <b class="${tc(sW)}">${f0(rd.e_write_ms)} ms</b> (amber ${lim.e_write_warn_ms}, red ${lim.e_write_crit_ms}; normal under 5)` +
           `${rd.packers && rd.packers.length ? ` · <b class="pcd-a">git packer: ${esc(rd.packers.join(", "))}</b>` : ""}</div>` : "") +
         `<div class="pcd-s">Now: response <b>${f1(cur.ms)} ms</b> · ${f0(cur.act)}% active · write ${gbB(cur.wr)}/s · read ${gbB(cur.rd)}/s</div>` +
-        `<div class="pcd-s">${isE ? `Keep under 85% used (watchdog amber &lt; ${lim.e_warn_pct}% free, red &lt; ${lim.e_crit_pct}%).` : `Windows lags when full (amber &lt; ${lim.c_warn_gb} GB, red &lt; ${lim.c_crit_gb} GB).`}</div></div>`;
+        `<div class="pcd-s">${isE ? `The E: SSD stalls when full (watchdog amber &lt; ${lim.e_warn_gb || 20} GB free, red &lt; ${lim.e_crit_gb || 10} GB).` : `Windows lags when full (amber &lt; ${lim.c_warn_gb} GB, red &lt; ${lim.c_crit_gb} GB).`}</div></div>`;
     }
     const f = d.folders;
     out += `<div class="pcd-sub"><h4>Largest folders under E:\\FightCamp</h4>`;

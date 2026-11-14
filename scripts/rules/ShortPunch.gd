@@ -46,8 +46,8 @@ static func path_at(path: Array, t: float) -> float:
 
 ## The clip time to start at so the fist travels want_m before contact. Searches back from contact_s
 ## for the time s where path_at(contact_s) - path_at(s) == want_m. Clamped so at least MIN_WIND_S
-## of real time remains before contact. Returns 0.0 if the path is too short or empty.
-static func skip(path: Array, contact_s: float, want_m: float, speed: float = 1.0) -> float:
+## of real time remains before contact (min_wind_s: the caller's own floor). Returns 0.0 if the path is too short or empty.
+static func skip(path: Array, contact_s: float, want_m: float, speed: float = 1.0, min_wind_s: float = MIN_WIND_S) -> float:
 	if path.is_empty() or contact_s <= 0.0:
 		return 0.0
 	var contact_cum: float = path_at(path, contact_s)
@@ -74,7 +74,7 @@ static func skip(path: Array, contact_s: float, want_m: float, speed: float = 1.
 				t_next = contact_s
 				c_next = contact_cum
 			var dc: float = c_next - c_i
-			var max_start: float = maxf(0.0, contact_s - MIN_WIND_S * speed)
+			var max_start: float = maxf(0.0, contact_s - min_wind_s * speed)
 			if abs(dc) < 0.0001:
 				return clampf(t_i, 0.0, max_start)
 			var frac: float = (target_cum - c_i) / dc

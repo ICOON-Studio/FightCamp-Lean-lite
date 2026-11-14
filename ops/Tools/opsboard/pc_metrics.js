@@ -6,10 +6,10 @@
 //   CPU     AMBER >= 60 %, RED >= 80 % (averaged: here over the last 10 s)   temperature AMBER >= 74 C, RED >= 84 C (88 at once)
 //   memory  AMBER >= 85 %, RED >= 93 %; commit free AMBER < 8 GB, RED < 4 GB
 //   C:      AMBER < 15 GB free, RED < 6 GB free
-//   E:      AMBER < 15 % free or response >= 100 ms; RED < 5 % free, or response >= 250 ms while the disk is > 90 % busy (S366)
+//   E:      AMBER < 20 GB free or response >= 100 ms; RED < 10 GB free (operator S469), or response >= 250 ms while the disk is > 90 % busy (S366)
 // Network and GPU have no watchdog line, so they never turn amber/red.
 (function () {
-  const R = { cpuW: 60, cpuC: 80, tW: 74, tC: 84, ramW: 85, ramC: 93, comW: 8, comC: 4, cW: 15, cC: 6, eW: 15, eC: 5, msW: 100, msC: 250 };
+  const R = { cpuW: 60, cpuC: 80, tW: 74, tC: 84, ramW: 85, ramC: 93, comW: 8, comC: 4, cW: 15, cC: 6, eW: 20, eC: 10, msW: 100, msC: 250 };
   const COL = { cpu: "#58a6ff", temp: "#e0703a", mem: "#bc8cff", com: "#d2a8ff", act: "#3fb950", rd: "#58a6ff", wr: "#e0703a",
                 rx: "#e3b341", tx: "#ff7b72", gpu: "#56d4dd" };
   const css = `
@@ -144,10 +144,10 @@
       }
       let sFree = "", sResp = "", why = [];
       if (isE) {
-        sFree = lvl(cur.free_pct, R.eW, R.eC, true);
+        sFree = lvl(cur.free_gb, R.eW, R.eC, true);
         sResp = num(cur.ms) && cur.ms >= R.msC && cur.act > 90 ? "RED" : num(cur.ms) && cur.ms >= R.msW ? "AMBER" : "GREEN";
-        why = [sFree === "RED" ? `Only ${f1(cur.free_pct)}% free - the E: SSD stalls this full (red < 5%)` :
-               sFree === "AMBER" ? `${f1(cur.free_pct)}% free - keep E: under 85% used (amber < 15%)` : "",
+        why = [sFree === "RED" ? `Only ${f1(cur.free_gb)} GB free - the E: SSD stalls this full (red < 10 GB)` :
+               sFree === "AMBER" ? `${f1(cur.free_gb)} GB free on E: (amber < 20 GB)` : "",
                bad(sResp) && `Slow: ${f0(cur.ms)} ms a transfer (amber 100, red 250 while > 90% busy)`];
       } else if (isC) {
         sFree = lvl(cur.free_gb, R.cW, R.cC, true);

@@ -130,6 +130,7 @@ func _process(delta: float) -> bool:
 			if ch is SkeletonModifier3D:
 				order.append(str(ch.name))
 		print("HIT_FRAME_FILM modifier order: ", ", ".join(order))
+		preload("res://tools/layer_trace.gd").attach(stage)
 	_drive()
 	_mix()
 	if side:
@@ -291,7 +292,8 @@ func _speeds(s: Dictionary) -> void:
 			crow.append("f%02d %.3f %s drift w %.3f e %.3f" % [f, float(cl["depth"]), str(cl["pair"]), (cl["drift"] as Vector2).x, (cl["drift"] as Vector2).y])
 			print("HIT_FRAME_FILM clashdbg f%02d depth %.3f %s
     0: %s
-    1: %s" % [f, float(cl["depth"]), str(cl["pair"]), str(cl.get("dbg0", "")), str(cl.get("dbg1", ""))])
+    1: %s
+    hands moved after ArmClash by: %s" % [f, float(cl["depth"]), str(cl["pair"]), str(cl.get("dbg0", "")), str(cl.get("dbg1", "")), str(cl.get("layers", ""))])
 		if float(cl["depth"]) > worst:
 			worst = float(cl["depth"])
 			worst_f = f

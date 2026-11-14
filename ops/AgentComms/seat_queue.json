@@ -1544,7 +1544,8 @@
    "sent_ms": 1794654627794,
    "answered_at": "2026-11-14 13:40",
    "answer": "research/DESIGN_WEIGHT1_R2_CRITIC_JOHN_JOHN.md",
-   "chars": 18351
+   "chars": 18351,
+   "seen_by_claude": true
   },
   {
    "id": "SQ105",
@@ -1611,13 +1612,13 @@
    "seat": "dola",
    "brief": "research/DESIGN_COACHFIT1_V6_REVISE_DOLA.md",
    "stem": "DESIGN_COACHFIT1_V6_REVISE_DOLA_DOLA",
-   "status": "queued",
+   "status": "failed",
    "queued_at": "2026-11-14 08:35",
-   "tries": 5,
-   "sent_at": "2026-11-14 13:10",
-   "pid": 51308,
+   "tries": 6,
+   "sent_at": "2026-11-14 14:10",
+   "pid": 48548,
    "transcript": "AgentComms/seat_logs/SQ109_dola.txt",
-   "last_error": "2026-11-14 13:40 cici send exited without a transcript (see SQ109_dola.log)"
+   "last_error": "2026-11-14 14:40 cici send exited without a transcript (see SQ109_dola.log)"
   },
   {
    "id": "SQ110",
@@ -1690,8 +1691,8 @@
    "status": "queued",
    "queued_at": "2026-11-14 13:15",
    "tries": 0,
-   "skips": 1,
-   "last_error": "2026-11-14 13:40 gbot send rc=1: ['GROKBOT FAIL SendGrokBotUserMessage 400 {\"code\":\"invalid_argument\",\"message\":\"Error\",\"details\":[{\"type\":\"aiserver.v1.ErrorDetails\",\"debug\":{\"error\":\"ERROR_BAD_REQUEST\",\"details\":{\"title\":\"Bad Request\",\"detail\":\"text exceeds the maximum leng']"
+   "skips": 3,
+   "last_error": "2026-11-14 14:40 gbot send rc=1: ['GROKBOT FAIL SendGrokBotUserMessage 400 {\"code\":\"invalid_argument\",\"message\":\"Error\",\"details\":[{\"type\":\"aiserver.v1.ErrorDetails\",\"debug\":{\"error\":\"ERROR_BAD_REQUEST\",\"details\":{\"title\":\"Bad Request\",\"detail\":\"text exceeds the maximum leng']"
   },
   {
    "id": "SQ116",
@@ -1700,6 +1701,15 @@
    "stem": "DESIGN_WEIGHT1_R3_REVISE_KALLI_KALLI",
    "status": "queued",
    "queued_at": "2026-11-14 13:58",
+   "tries": 0
+  },
+  {
+   "id": "SQ117",
+   "seat": "kalli",
+   "brief": "research/DESIGN_PLANFLOW1_V1_WRITE_KALLI.md",
+   "stem": "DESIGN_PLANFLOW1_V1_WRITE_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-14 14:49",
    "tries": 0
   }
  ]

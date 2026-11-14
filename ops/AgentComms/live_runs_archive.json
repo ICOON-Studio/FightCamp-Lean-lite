@@ -18200,6 +18200,68 @@
    },
    "reconciled": "2026-11-14 12:11 board_reconcile: PR #273 closed",
    "archived": "2026-11-14 12:12 board_sync"
+  },
+  {
+   "agent": "qwen",
+   "id": "LANDREACH3",
+   "title": "TASK LANDREACH3 - the landed lead glove stops 5-11 cm above or below the face point it aims at (fix, headless)",
+   "status": "closed",
+   "started": "2026-11-14T12:17",
+   "eta": "2026-11-14T14:07",
+   "branch": "qwen/landreach3",
+   "worktree": "E:/FightCamp/wt/LEAN_LANDREACH3",
+   "wt": "E:/FightCamp/wt/LEAN_LANDREACH3",
+   "brief": "ops/research/TASK_LANDREACH3.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/LANDREACH3_dispatch_out.txt",
+   "match": "seat_dispatch.py run landreach3",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/LANDREACH3_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/LANDREACH3_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/LANDREACH3_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 44168,
+    "seat_pid": 6524
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 0/4 PASS; PR #274",
+   "finished": "2026-11-14T12:57",
+   "pr": 274,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/block_meet_test.gd",
+     "ok": false,
+     "last": "BLOCK_MEET failures=4"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_frame_test.gd",
+     "ok": false,
+     "last": "HIT_FRAME failures=11"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/hit_carry_test.gd",
+     "ok": false,
+     "last": "HIT_CARRY failures=35"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/block_meet_test.gd",
+     "ok": false,
+     "last": "BLOCK_MEET failures=4"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   },
+   "reconciled": "2026-11-14 14:02 board_reconcile: PR #274 closed",
+   "archived": "2026-11-14 14:02 board_sync"
   }
  ]
 }

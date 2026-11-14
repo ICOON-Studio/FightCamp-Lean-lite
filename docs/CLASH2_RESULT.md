@@ -46,3 +46,29 @@ half-eased glove, not the arm solve. In the played fight the punch is armed at t
 the hit - unless a punch starts mid-clip (BeatFire's skip). Next: (a) carry_base takes the face whenever the reach was not
 at full weight on the hit frame; (b) CTRL_LANDED lets the ease finish before it seeks to the contact, as the game does;
 (c) `tools/hit_gap_probe.gd` on the hidden desktop WITH `--log=` (S468's run had no log) for the played numbers by punch.
+
+## S469 - what the played fight says (tools/hit_gap_probe.gd on the hidden desktop, 150 s, 33 landed punches)
+| Run | middle punch | 9 of 10 within | worst | shown more than 15 cm off |
+|---|---|---|---|---|
+| main (`-- noweightbase shortwind=0.08`) | 0.061 m | 0.262 m | 0.686 m | 7 (21 %) |
+| carry_base by reach weight only | 0.058 m | 0.253 m | 0.677 m | 8 (24 %) |
+| + a short inside punch keeps 0.16 s to arrive | 0.021 m | 0.174 m | 0.190 m | 5 (15 %) |
+
+- (a) DONE: `ReachLimit.carry_base` takes the reach's weight; below full weight the carry starts from the face for either
+  hand (`-- noweightbase` = the control arm). block_meet the same day: 6 failures with the old rule, 3 with the new (every
+  lead-hand CTRL_LANDED row passes; left: A_B cross 0.065, B_A jab 0.051, one GY row on a blocked jab). In the played
+  fight it changes little: there the reach is at full weight on the hit.
+- (b) NOT DONE, on purpose: holding the clip's start for the ease and then seeking to the contact reads WORSE (lead hook
+  0.46 m): the landed glove is driven at a pace, and a seek jumps the clip further than the glove can travel in a frame.
+  The test stays as it was; the played probe is the ruler for the match.
+- What the match really showed: 5-6 of the 7-8 far punches were INSIDE punches (ShortPunch) started two frames (0.06 s)
+  before the hit; the glove was still coming out of her guard (SHORT_JOIN half-life 0.09 s) and ReachLimit's 0.30 m cap
+  left it 0.2-0.7 m short. `BeatFire.SHORT_WIND_S` 0.16 (ShortPunch.skip's new `min_wind_s`; `-- shortwind=0.08` = the old
+  floor). Body hooks: 3 of 10 far -> 0 (worst 0.02 m).
+- Still far after it: lead hooks land ~0.15 m LOW at full weight (3 of 9, inside and in the pocket), one rear hook 0.16 m,
+  one cross from a 1.15 m pelvis gap 0.17 m short.
+- Film seed 4242 (docs/mockups/s469/match_jab_cross_seed4242.png): glove off her face at the hit - cross 0.016, jab
+  0.010, cross 0.003, jab 0.004 m. The second cross shows 18 clash frames AFTER the hit (worst 0.127 m, wrists drifting
+  0.3 m after the clearance pass): CLASH3.
+- GUARDKNEE2 (Qwen, PR 275): first bad commit 79665239 (the footwork rig on by default); its fix (rig weight 0 in idle)
+  is NOT merged: it snaps the rig off and adds 3 block_meet failures.

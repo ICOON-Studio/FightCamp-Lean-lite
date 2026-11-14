@@ -31,3 +31,5 @@ ops/AgentComms/lite_relay_lean.json
 ops/AgentComms/.opsboard_snapshot.json
 ops/AgentComms/start_cache.json
 _eyes/
+
+ops/AgentComms/token_log.csv
