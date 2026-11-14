@@ -480,7 +480,7 @@
      "film": "E:/FightCamp/Lean/ops/previews/dispatch/CAMCLINCH1/before.mp4",
      "verdict_file": "E:/FightCamp/Lean/ops/previews/dispatch/CAMCLINCH1/before.gemini_argon.md",
      "score": "2",
-     "line": "Verdict:** This 6-second clip only shows slow, clipping ring-entrance animations and cuts off before the fight starts, so the clinch camera (`CAMCLINCH1`) and boxing gameplay cannot be judged—**2/10**. (Please provide footage of the actual ",
+     "line": "Verdict:** This 6-second clip only shows slow, clipping ring-entrance animations and cuts off before the fight starts, so the clinch camera (`CAMCLINCH1`) and boxing gameplay cannot be judged\u2014**2/10**. (Please provide footage of the actual ",
      "rc": 0,
      "err": ""
     },
@@ -18492,6 +18492,119 @@
    },
    "reconciled": "2026-11-14 16:10 board_reconcile: PR #278 closed",
    "archived": "2026-11-14 16:11 board_sync"
+  },
+  {
+   "status": "collected S474",
+   "finished": "2026-11-14T10:07",
+   "pr": 269,
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 2/3 PASS; PR #269",
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tools/cardvisit_probe.gd",
+     "ok": false,
+     "last": "Result doc written to docs/CARDVISIT1_RESULT.md"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/plan_bout_test.gd",
+     "ok": true,
+     "last": "PLAN_BOUT failures=0"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/fire_level_test.gd",
+     "ok": true,
+     "last": "FIRE_LEVEL failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
+  },
+  {
+   "agent": "qwen",
+   "id": "PACEREMEASURE1",
+   "title": "TASK PACEREMEASURE1 - is punch_pace.json stale, and what would a fresh one change? (measure only, headless)",
+   "status": "collected S474",
+   "started": "2026-11-14T19:34",
+   "eta": "2026-11-14T21:24",
+   "branch": "qwen/paceremeasure1",
+   "worktree": "E:/FightCamp/wt/LEAN_PACEREMEASURE1",
+   "wt": "E:/FightCamp/wt/LEAN_PACEREMEASURE1",
+   "brief": "ops/research/TASK_PACEREMEASURE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/PACEREMEASURE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run paceremeasure1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/PACEREMEASURE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/PACEREMEASURE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/PACEREMEASURE1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 21800,
+    "seat_pid": 50048
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off",
+   "reconciled": "2026-11-14 20:40 board_reconcile: no process and no write for 59 min (e:/fightcamp/wt/lean_paceremeasure1)"
+  },
+  {
+   "agent": "qwen",
+   "id": "KNEESWEEP1",
+   "title": "TASK KNEESWEEP1 - which knee-solve setting moves the rear knee onto the take? (a sweep; measure only, headless)",
+   "status": "collected S474",
+   "started": "2026-11-14T20:41",
+   "eta": "2026-11-14T22:31",
+   "branch": "qwen/kneesweep1",
+   "worktree": "E:/FightCamp/wt/LEAN_KNEESWEEP1",
+   "wt": "E:/FightCamp/wt/LEAN_KNEESWEEP1",
+   "brief": "ops/research/TASK_KNEESWEEP1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/KNEESWEEP1_dispatch_out.txt",
+   "match": "seat_dispatch.py run kneesweep1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/KNEESWEEP1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/KNEESWEEP1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/KNEESWEEP1_dispatch_runner.log",
+    "source": "dispatch_queue.json",
+    "brief_copied": true,
+    "runner_pid": 44092,
+    "seat_pid": 20944
+   },
+   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 1/3 PASS; PR #284",
+   "finished": "2026-11-14T20:58",
+   "pr": 284,
+   "checks": [
+    {
+     "kind": "RED_TEST",
+     "script": "tests/guard_knee_test.gd",
+     "ok": false,
+     "last": "GUARD_KNEE failures=2"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/guard_knee_test.gd",
+     "ok": false,
+     "last": "GUARD_KNEE failures=2"
+    },
+    {
+     "kind": "REGRESSION",
+     "script": "tests/boxer_footwork_test.gd",
+     "ok": true,
+     "last": "BOXER_FOOTWORK failures=0"
+    }
+   ],
+   "films": {
+    "before": {},
+    "after": {},
+    "board": ""
+   }
   }
  ]
 }

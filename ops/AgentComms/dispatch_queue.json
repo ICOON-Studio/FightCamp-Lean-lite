@@ -1484,8 +1484,21 @@
   {
    "task": "KNEESWEEP1",
    "seat": "qwen",
+   "status": "launched",
+   "queued": "2026-11-14T20:23",
+   "launched": "2026-11-14T20:41"
+  },
+  {
+   "task": "WEIGHGAP1",
+   "seat": "qwen",
    "status": "queued",
-   "queued": "2026-11-14T20:23"
+   "queued": "2026-11-14T21:15"
+  },
+  {
+   "task": "BOUTSHEET1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-14T21:15"
   }
  ]
 }
