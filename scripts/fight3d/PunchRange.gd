@@ -66,7 +66,7 @@ static func record(stage: Node, who: int, hitter: int, move: String, cut := fals
 	gaps.append({"miss": g.distance_to(tp), "gap": stage._gap(), "hitter": hitter, "graze": graze, "want": float(stage.feet.want_m), "move": move, "phase": stage.feet.phase(),
 		"fwd": d.z, "side": d.x, "up": d.y, "w": float(pr.get("last_weight")), "cut": cut, "clip": str(pr.get("_clip")), "contact": float(pr.get("_contact")),
 		"pos": (stage.boxers[hitter]["ap"] as AnimationPlayer).current_animation_position, "speed": (stage.boxers[hitter]["ap"] as AnimationPlayer).speed_scale, "push": int(gc.get("pushes")) if gc != null else -1,
-		"land_f": stage.boxers[hitter].get("land_f", []), "now_f": Engine.get_process_frames()})
+		"land_f": stage.boxers[hitter].get("land_f", []), "now_f": Engine.get_process_frames(), "ty": tp.y, "gy": g.y, "dbg": stage.boxers[hitter].get("land_dbg", [])})
 	if gaps.size() > KEEP:
 		gaps.pop_front()
 

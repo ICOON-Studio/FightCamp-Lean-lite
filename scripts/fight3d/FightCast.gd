@@ -81,6 +81,7 @@ static func corner(view: Node) -> bool:
 		card["fixed"] = Adaptation.result(r["adapt"])
 	card["jobs_menu"] = CornerJobsRow.menu(f, r)   # S310: recover, set-up, talk
 	card["towel"] = m.get("towel", {})   # S461 the towel card (TowelWire), shown by CornerOverlay
+	card["crack"] = preload("res://scripts/state/CrackWire.gd").card(f, m, int(view.total))   # S470 the crack card
 	# S354 C205 ("player needs to see some stats to take decisions"): the round in numbers at the top of the card.
 	var done: Array = (m["rounds"] as Array).slice(0, int(view.round_n))
 	var won_a := done.filter(func(x): return bool((x as Dictionary).get("won", false))).size()

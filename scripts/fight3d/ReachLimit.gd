@@ -32,10 +32,29 @@ static func capping(pr: Node) -> bool:
 
 
 ## The point the reach may put the glove on this frame: `at`, pulled to within CORR_M of the clip's own glove.
-static func cap(clip_glove: Vector3, at: Vector3) -> Vector3:
+static func cap(clip_glove: Vector3, at: Vector3, shift := Vector3.ZERO) -> Vector3:
 	if not RangeTable.on or not clip_glove.is_finite() or not at.is_finite():
 		return at
+	clip_glove = base(clip_glove, shift, at)
 	return clip_glove + (at - clip_glove).limit_length(CORR_M)
+
+
+## S470 LANDREACH4 (hit_gap_probe + layer_trace: lead hooks shown 0.14-0.34 m LOW inside): the footwork's torso layer
+## (lean, hips) had moved the hook's hand 0.19 m down before the reach ran, so the reach spent most of its CORR_M putting
+## the hand back where the clip had it. The cap now counts from the nearest point to `at` between the clip's glove as it
+## stands and the same glove without that layer's move (`shift`, skeleton space): never tighter than before.
+## `-- nobodycap` = the control arm.
+static var BODY_CAP: bool = not OS.get_cmdline_user_args().has("nobodycap")
+static func base(clip_glove: Vector3, shift: Vector3, at: Vector3) -> Vector3:
+	if not BODY_CAP or shift.length_squared() < 1e-8:
+		return clip_glove
+	return clip_glove + shift * clampf((at - clip_glove).dot(shift) / shift.length_squared(), 0.0, 1.0)
+
+
+## The torso layer's move of the armed hand this frame (skeleton space; ZERO without the footwork rig).
+static func body_shift(skel: Skeleton3D, hand_bone: int) -> Vector3:
+	var up := skel.get_node_or_null("BoxerFootworkUpper")
+	return (up.get("hand_shift") as Dictionary).get(hand_bone, Vector3.ZERO) if up != null else Vector3.ZERO
 
 
 ## How far the wrist may go from the shoulder for `clip` (the solve's own limit, an uppercut's at UPPER_ELBOW_DEG).
@@ -90,7 +109,7 @@ static func solve_capped(pr: Node, skel: Skeleton3D, ids: Array, s: Vector3, wan
 	var cap := CORR_M / maxf(skel.global_transform.basis.get_scale().x, 1e-4)
 	for n in 2:
 		var g: Vector3 = skel.get_bone_global_pose(int(ids[2])).origin + (pr.call("_along", skel, ids) as Vector3) * front
-		var off := g - clip_glove
+		var off := g - base(clip_glove, body_shift(skel, int(ids[2])), g)
 		if off.length() <= cap:
 			return
 		want -= off - off.limit_length(cap)

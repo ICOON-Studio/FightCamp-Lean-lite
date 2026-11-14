@@ -13,7 +13,9 @@ const AttrGen := preload("res://scripts/rules/AttrGen.gd")
 ## Points one liver shot of the live tally takes off (100 fresh, hurt <= 55, critical <= 35). Not BodyMap.RIB_HIT: the live
 ## tally counts every body shot of the exchanges (about 9 liver shots a boxer a bout, at most 13 in 100 bouts), so 2.9 a
 ## shot never reached hurt (tools/liverfold_probe.gd, S467: 0 folds in 100 bouts). S467 probe, 100 bouts: 6.0 -> 7 folds of 27 counts
-## (26 %; bar 10-20 %), 7.5 -> 22 of 42, 5.5 -> 0. LIVERPROBE1 tunes it on 400 bouts.
+## (26 %; bar 10-20 %), 7.5 -> 22 of 42, 5.5 -> 0. LIVERPROBE1 (S470, 400 bouts,
+## docs/LIVERPROBE1_RESULT.md): 6.0 with fold_scale 1.00 = 17 folds of 106 counts (16 %, in the bar), no extra stoppage;
+## 6.5 = 20-30 %, 5.5 = 7-10 %. Kept at 6.0 / 1.00.
 static var shot_points := 6.0
 ## The fold chance's scale on top of LiverRibs.liver_fold_chance (its BASE_FOLD is the design's ESTIMATE, "tuned by
 ## LIVERPROBE1"): the same probe's knob, kept here so the pure module keeps the design's numbers.

@@ -146,6 +146,7 @@ func land(who: int, clip: String, body: bool, at_s: float = 0.0, contact_s: floa
 	var cover := 0.0 if own else LEAN_COVER_M
 	pr.lunge_m = clampf(need - cover, 0.0, LUNGE_MAX_M)
 	var rest := need - cover - float(pr.lunge_m)
+	boxers[who]["land_dbg"] = [_gap_shown(), need, float(pr.lunge_m), rest, at_s]   # hit_gap_probe: the range sum at arming
 	if rest > 0.03 and at_s > 0.0:
 		PunchRange.close_in(self, who, rest, at_s, PunchRange.floor_for(clip, self))
 	if boxers[who].get("weight") != null: (boxers[who]["weight"] as Node).carry(clip, contact_s if contact_s >= 0.0 else BeatClips.contact(clip, CONTACT_S))

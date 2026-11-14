@@ -54,6 +54,9 @@ func _initialize() -> void:
 		main.act("fightstep", "corner:lead")
 		main.act("fightstep", "round_out")
 		main.act("fightwatched", "2")
+	if OS.get_cmdline_user_args().has("crack"):   # S470: the crack card on both corner screens
+		f["bout"]["cracked"] = {"a": true, "b": false}
+		main.redraw_modal()
 	print("LOOP_SHOTS corner after round %d, tally %s" % [int(main.modal["round"]), str(f["bout"].get("plan_tally", {}))])
 	await _settle()
 	var sw := main.find_child("SwapCards", true, false) as Control
@@ -146,6 +149,7 @@ func _card3d(f: Dictionary, m: Dictionary) -> Dictionary:
 	card["fixes"] = LiveRound.fixes(f, r)
 	card["adapts"] = Adaptation.offers(r.get("exchanges", []), float(r.get("fix_hold", 0.0)), "")
 	card["jobs_menu"] = CornerJobsRow.menu(f, r)
+	card["crack"] = preload("res://scripts/state/CrackWire.gd").card(f, m, preload("res://scripts/state/BoutNight.gd").rounds_of(f))
 	var won_a := rounds.filter(func(x): return bool((x as Dictionary).get("won", false))).size()
 	card["stats"] = {"round": rounds.size(), "won": bool(r.get("won", false)), "score": [won_a, rounds.size() - won_a],
 		"counts": int(r.get("counts", 0)), "tally": BodyMap.tally(_beats(f, m, r, names)), "energy": {"a": float(en.get("a_end", 100.0)), "b": float(en.get("b_end", 100.0))}}

@@ -693,13 +693,26 @@ def cmd_send(a) -> int:
         ## number - a raw probe can never match. The false alarm is expensive
         ## in both directions: it sent this session hunting a phantom send
         ## failure, and the obvious "fix" of resending duplicates the task.
-        probe = _norm(text)
-        if len(probe) > 120:
-            mid = len(probe) // 2
-            probe = probe[mid:mid + 60]
+        ## S470: SQ109 "failed" six times on a 95k brief that HAD landed each time (six chats, each answered). The
+        ## middle slice sat in a markdown table, which the page renders with other separators, and 1.5 s is short
+        ## for a long message. Now: letters and digits only, three slices (any one counts), polled up to 20 s.
+        def _letters(x: str) -> str:
+            return "".join(c.lower() for c in x if c.isalnum())
+        want = _letters(text)
+        if len(want) <= 120:
+            probes = [want[:60]]
         else:
-            probe = probe[:60]
-        return probe.strip() != "" and probe in _norm(s.body())
+            probes = [want[int(len(want) * f):int(len(want) * f) + 50] for f in (0.25, 0.5, 0.75)]
+        if not any(probes):
+            return False
+        end = time.time() + 20
+        while True:
+            have = _letters(s.body())
+            if any(pr and pr in have for pr in probes):
+                return True
+            if time.time() > end:
+                return False
+            time.sleep(2)
 
     time.sleep(1.5)
     if not _landed():

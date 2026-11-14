@@ -58,6 +58,7 @@ var _skip: Button
 var _rest: Control = null   # S395 the tanks refilling on the top bar
 var _rest_from := 0.0        # her tank at the next round, before the second's water
 var fix := ""
+var crack := ""   # S470 the crack card's answer (CrackStrip): rides as "|crack=<kind>"
 var towel := ""   # S461 the towel card's answer (TowelStrip): rides on the corner action as "|towel=<kind>"
 
 
@@ -136,6 +137,8 @@ func build(card: Dictionary, names: Array) -> void:
 		v.add_child(line)
 	if bool((card.get("towel", {}) as Dictionary).get("comes", false)):   # S461 INTEGRATE1 #4 the towel, above the jobs
 		v.add_child(TowelStrip.build(card["towel"], _towel_pick, UI))
+	if not (card.get("crack", {}) as Dictionary).is_empty():   # S470 LIVERRIBS1 step 4
+		v.add_child(preload("res://scripts/ui/CrackStrip.gd").build(card["crack"], _crack_pick, UI))
 	# S310: recover points, a combination set-up, the talk; S309: one fix for a habit (optional); S308: the call - last.
 	_names = names
 	_menu = card.get("jobs_menu", {})
@@ -313,7 +316,14 @@ func _preview() -> void:
 
 ## The corner action's job parts for the pick (Bouts.corner_jobs).
 func jobs_suffix() -> String:
-	return ("" if _menu.is_empty() else CornerJobsRow.suffix(jobs)) + ("|towel=" + towel if towel != "" else "")
+	return ("" if _menu.is_empty() else CornerJobsRow.suffix(jobs)) + ("|towel=" + towel if towel != "" else "") + ("|crack=" + crack if crack != "" else "")
+
+
+## S470 Pull out ends it at once (BoutNight opens no round); the other two answers ride on the corner call.
+func _crack_pick(kind: String) -> void:
+	crack = kind
+	if kind == "pull":
+		chose.emit("hands")
 
 
 ## S461 Pull out / Box safe start the round on "Hands up" (BoutNight: a pull opens none); One more just answers.

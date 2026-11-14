@@ -33,86 +33,32 @@
     "board": ""
    }
   },
-  "LIVERPROBE1": {
+  "SPEEDFLIP1": {
    "agent": "qwen",
-   "id": "LIVERPROBE1",
-   "title": "TASK LIVERPROBE1 - tune the liver fold to the design's bar on 400 played bouts (probe, no screen)",
-   "status": "landed",
-   "started": "2026-11-14T14:11",
-   "eta": "2026-11-14T16:01",
-   "branch": "qwen/liverprobe1",
-   "worktree": "E:/FightCamp/wt/LEAN_LIVERPROBE1",
-   "wt": "E:/FightCamp/wt/LEAN_LIVERPROBE1",
-   "brief": "ops/research/TASK_LIVERPROBE1.md",
-   "repo": "FightCamp-Lean",
-   "where": "pc",
-   "log": "E:/FightCamp/wt/LIVERPROBE1_dispatch_out.txt",
-   "match": "seat_dispatch.py run liverprobe1",
-   "model": "qwen3-coder",
-   "dispatch": {
-    "prompt": "E:/FightCamp/wt/LIVERPROBE1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/LIVERPROBE1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/LIVERPROBE1_dispatch_runner.log",
-    "source": "dispatch_queue.json",
-    "brief_copied": true,
-    "runner_pid": 34284,
-    "seat_pid": 42076
-   },
-   "note": "S368 seat_dispatch: qwen exit 0; 1 commit(s); checks 3/3 PASS; PR #276",
-   "finished": "2026-11-14T14:31",
-   "pr": 276,
-   "checks": [
-    {
-     "kind": "RED_TEST",
-     "script": "tools/liverprobe1.gd",
-     "ok": true,
-     "last": "LIVERPROBE1 best=6.0/1.00 share=0.160 folds=17 counts=106"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/liver_fold_test.gd",
-     "ok": true,
-     "last": "LIVER_FOLD failures=0"
-    },
-    {
-     "kind": "REGRESSION",
-     "script": "tests/knockdowns_test.gd",
-     "ok": true,
-     "last": "KNOCKDOWNS failures=0"
-    }
-   ],
-   "films": {
-    "before": {},
-    "after": {},
-    "board": ""
-   }
-  },
-  "GUARDKNEE3": {
-   "agent": "qwen",
-   "id": "GUARDKNEE3",
-   "title": "TASK GUARDKNEE3 - the rear guard knee back on the source take WITH the footwork rig on (headless)",
+   "id": "SPEEDFLIP1",
+   "title": "TASK SPEEDFLIP1 - why punch_speed_test's rows flip between runs, and what the new carry rule adds (headless, no fix)",
    "status": "running",
-   "started": "2026-11-14T14:41",
-   "eta": "2026-11-14T16:31",
-   "branch": "qwen/guardknee3",
-   "worktree": "E:/FightCamp/wt/LEAN_GUARDKNEE3",
-   "wt": "E:/FightCamp/wt/LEAN_GUARDKNEE3",
-   "brief": "ops/research/TASK_GUARDKNEE3.md",
+   "started": "2026-11-14T15:28",
+   "eta": "2026-11-14T17:18",
+   "branch": "qwen/speedflip1",
+   "worktree": "E:/FightCamp/wt/LEAN_SPEEDFLIP1",
+   "wt": "E:/FightCamp/wt/LEAN_SPEEDFLIP1",
+   "brief": "ops/research/TASK_SPEEDFLIP1.md",
    "repo": "FightCamp-Lean",
    "where": "pc",
-   "log": "E:/FightCamp/wt/GUARDKNEE3_dispatch_out.txt",
-   "match": "seat_dispatch.py run guardknee3",
+   "log": "E:/FightCamp/wt/SPEEDFLIP1_dispatch_out.txt",
+   "match": "seat_dispatch.py run speedflip1",
    "model": "qwen3-coder",
    "dispatch": {
-    "prompt": "E:/FightCamp/wt/GUARDKNEE3_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/GUARDKNEE3_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/GUARDKNEE3_dispatch_runner.log",
-    "source": "roadmap plan.next",
+    "prompt": "E:/FightCamp/wt/SPEEDFLIP1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/SPEEDFLIP1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/SPEEDFLIP1_dispatch_runner.log",
+    "source": "command line",
     "brief_copied": true,
-    "runner_pid": 7312,
-    "seat_pid": 23044
+    "runner_pid": 45976,
+    "seat_pid": 44880
    },
-   "note": "S368 seat_dispatch: launched unattended (roadmap plan.next); merging stays off"
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }
  },
  "codex_budget": {

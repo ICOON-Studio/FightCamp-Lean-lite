@@ -13,6 +13,7 @@ extends RefCounted
 ## suspension is never a choice - no ringside doctor clears a boxer with a head injury (England Boxing medical rules).
 
 const InjuryRoll := preload("res://scripts/rules/InjuryRoll.gd")
+const CrackWire := preload("res://scripts/state/CrackWire.gd")   # S470 the corner's answer to a cracked rib
 const TrainingLoad := preload("res://scripts/rules/TrainingLoad.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const WeekPlan := preload("res://scripts/rules/WeekPlan.gd")
@@ -195,6 +196,9 @@ static func after_bout(c: Career, f: Dictionary, m: Dictionary) -> void:
 		"head_stoppage": head_stop, "ko_history": history, "day": c.day,
 		"rib_cracked": bool(((f.get("bout", {}) as Dictionary).get("cracked", {}) as Dictionary).get("a", false))}   # S467 rule 6: cracked in the bout
 	var roll := InjuryRoll.bout_roll(_seed(c, f, 7), dmg_dict)
+	var crk: Dictionary = CrackWire.injury(f, m, float(posmod(_seed(c, f, 13), 100)) / 100.0)   # S470 a crack in the bout is always the injury
+	if not crk.is_empty():
+		roll = crk
 	if head_stop:
 		f["ko_history"] = history + [c.day]
 	# S397 the cutman: half the cut layoffs after a pro bout (a seeded coin, so a save replays the same).

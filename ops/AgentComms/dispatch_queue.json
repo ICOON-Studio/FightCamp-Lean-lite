@@ -1455,6 +1455,12 @@
    "status": "launched",
    "queued": "2026-11-14T14:23",
    "launched": "2026-11-14T14:41"
+  },
+  {
+   "task": "SPEEDFLIP1",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-14T15:20"
   }
  ]
 }

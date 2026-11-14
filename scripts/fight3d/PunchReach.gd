@@ -254,7 +254,7 @@ func _apply(skel: Skeleton3D, t: float, ramp: float) -> void:
 	var drive := DRIVE and not _height_only and _target.is_valid()
 	if drive:
 		var dv := _drive(skel, t)
-		_aim_w = ReachLimit.cap(_prev_g, dv) if ReachLimit.capping(self) else dv   # _drive just read this frame's clip glove
+		_aim_w = ReachLimit.cap(_prev_g, dv, skel.global_transform.basis * ReachLimit.body_shift(skel, int(_arms[_hand][2]))) if ReachLimit.capping(self) else dv   # _drive just read this frame's clip glove
 		if drive_v > 0.0 and t <= _contact + 1e-4:
 			_w_now = ramp   # ReachDrive sets where the glove goes (far out: the clip's own glove)
 	last_weight = _w_now

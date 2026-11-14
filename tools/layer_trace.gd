@@ -51,3 +51,16 @@ static func report(stage: Node, from_layer: String = "ArmClash") -> String:
 				moved.append("%s L %.3f R %.3f" % [name, dl, dr])
 		parts.append("%d: %s" % [i, ", ".join(moved) if not moved.is_empty() else ("-" if seen else "no " + from_layer)])
 	return " | ".join(parts)
+
+
+## S470: every layer of boxer `who` this frame, in run order, with each wrist's height and how far the layer moved it:
+## "PunchReach L y1.52 +0.212 R y1.31 +0.000 > GloveClear ..." (hit_gap_probe prints it for a punch shown far off).
+static func trail(stage: Node, who: int) -> String:
+	var rows: Array = _log.get((stage.boxers[who]["skel"] as Skeleton3D).get_instance_id(), [])
+	var parts := []
+	for k in rows.size():
+		var dl := (rows[k][1] as Vector3).distance_to(rows[k - 1][1]) if k > 0 else 0.0
+		var dr := (rows[k][2] as Vector3).distance_to(rows[k - 1][2]) if k > 0 else 0.0
+		if k == 0 or maxf(dl, dr) > MIN_M:
+			parts.append("%s L y%.2f %+.3f R y%.2f %+.3f" % [str(rows[k][0]), (rows[k][1] as Vector3).y, dl, (rows[k][2] as Vector3).y, dr])
+	return " > ".join(parts)

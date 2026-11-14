@@ -72,3 +72,34 @@ at full weight on the hit frame; (b) CTRL_LANDED lets the ease finish before it 
   0.3 m after the clearance pass): CLASH3.
 - GUARDKNEE2 (Qwen, PR 275): first bad commit 79665239 (the footwork rig on by default); its fix (rig weight 0 in idle)
   is NOT merged: it snaps the rig off and adds 3 block_meet failures.
+
+## S470 - LANDREACH4: low lead hooks, the "short" cross, and the ruler itself
+- CAUSE of the low hooks (hit_gap_probe now prints `HIT_GAP layers`, tools/layer_trace.gd `trail`): the footwork's torso
+  layer (BoxerFootworkUpper: lean, hips) moves the hook's hand 0.16-0.19 m DOWN before the reach runs, and the reach's
+  0.30 m cap (ReachLimit.CORR_M) counted from that lowered hand: most of the cap went on undoing the body layer.
+- FIX: `BoxerFootworkRig.Upper.hand_shift` keeps how far that layer moved each hand; `ReachLimit.base` counts the cap from
+  the nearest point between the clip's glove as it stands and the same glove without that move. Never tighter than
+  before. `-- nobodycap` = the control arm.
+- THE CROSS WAS NOT SHORT. `HIT_GAP arm` showed the arm straight (0.489 of 0.496 m) and the glove 0.047 m off the face on
+  the frame drawn for the hit: PunchRange.record reads the glove when the hit fires, BEFORE that frame's arm layers run
+  (the glove of the frame before; a cross at 5 m/s covers 0.17 m in a frame). And one frame later her head has begun to
+  snap away (a clean uppercut read 0.01 then 0.18). The ruler now takes the nearer of the two frames either side of the
+  hit (`miss`), and prints both. Numbers before S470 from this probe overstate fast straight punches.
+- Played fight, 150 s, 33 landed, same ruler both arms:
+
+| Run | middle punch | 9 of 10 within | worst | more than 15 cm off |
+|---|---|---|---|---|
+| old cap (`-- nobodycap`), run 1 | 0.025 m | 0.160 m | 0.504 m | 4 (12 %), all lead hooks |
+| old cap, run 2 | 0.019 m | 0.120 m | 0.515 m | 2 (6 %) |
+| new cap, run 1 | 0.013 m | 0.042 m | 0.049 m | 0 |
+| new cap, run 2 | 0.017 m | 0.046 m | 0.241 m | 2 (6 %) |
+
+- Read it honestly: the counts overlap run to run (old 4 and 2, new 0 and 2); what moved clearly is the worst punch
+  (0.50-0.52 m -> 0.05-0.24 m), 9 of 10 within (0.12-0.16 -> 0.04-0.05 m) and the tests.
+- Tests the same day, new / old cap: block_meet 0 / 2, hit_frame 5 / 11, hit_carry 33 / 32, short_punch 0 / 0.
+- The fight is NOT repeatable run to run (the second hook of the double at 20.9-21.2 s read 0.28-0.68 m in five runs of
+  the same arm before the fix). SPEEDFLIP1 (Qwen) found why for the headless tests: the guard life and footwork layers
+  advance by real frame time. `--fixed-fps 60` makes punch_speed_test print the same 175 lines twice (41 failures both
+  runs); tools/run_tests.sh now passes it.
+- GUARDKNEE3 (Qwen) collected: the rig's rear knee pole comes from the clip's bend plane. guard_knee_test 0; guard still
+  on the game camera checked (Builds, not kept).

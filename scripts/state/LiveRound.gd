@@ -33,6 +33,7 @@ const FireLevel := preload("res://scripts/rules/FireLevel.gd")
 const ProReadWire := preload("res://scripts/state/ProReadWire.gd")   # S462 INTEGRATE1 #5 pros get read
 const StyleName := preload("res://scripts/rules/StyleName.gd")   # S459 INTEGRATE1: the named style's levers
 const LineGrade := preload("res://scripts/rules/LineGrade.gd")   # GRADE1
+const CrackWire := preload("res://scripts/state/CrackWire.gd")   # S470 the corner's answer to a cracked rib
 const HABITS_PATH := "res://assets/data/fight_habits.json"
 
 ## Her values a call is done with: the fight stats, her footwork and her personality.
@@ -317,7 +318,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	for k in 2:   # rule 6: a cracked side lands x CRACK_OUTPUT (LiverFold._crack)
 		var crk := bool((f["bout"].get("cracked", {}) as Dictionary).get("ab"[k], false))
 		if crk or int(LiverRibs.counts(sd.get("ab"[k], {}))["ribs"]) >= PaceAim.RIB_HURT_AT:
-			s["landed"][k] = maxi(0, int(round(float(s["landed"][k]) * (LiverRibs.CRACK_OUTPUT if crk else LiverRibs.RIB_OUTPUT_HURT))))
+			s["landed"][k] = maxi(0, int(round(float(s["landed"][k]) * (CrackWire.output(f, "ab"[k]) if crk else LiverRibs.RIB_OUTPUT_HURT))))
 	var pressed := PlanPressure.after(f["bout"], lv, s, fit_now, bool(pick.get("planned", false)))
 	# S355 Counter sense: she makes an attacker miss and a free counter comes back (its own dice).
 	if PerkFight.has(f, "counter_sense") and PerkFight.counters(f, sit, bool(s["won"]), _rng(c, f, n, i + 73).randf()):

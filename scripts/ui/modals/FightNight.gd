@@ -6,6 +6,8 @@ const RoundGraphics := preload("res://scripts/ui/RoundGraphics.gd")
 const Broadcast := preload("res://scripts/ui/Broadcast.gd")
 const UI := preload("res://scripts/ui/UI.gd")
 const TowelStrip := preload("res://scripts/ui/TowelStrip.gd")
+const CrackStrip := preload("res://scripts/ui/CrackStrip.gd")
+const CrackWire := preload("res://scripts/state/CrackWire.gd")
 const TapeVersus := preload("res://scripts/ui/TapeVersus.gd")
 const BoutRules := preload("res://scripts/rules/BoutRules.gd")
 const ComboWords := preload("res://scripts/rules/ComboWords.gd")
@@ -195,7 +197,7 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 		v.add_child(beats)
 	var stop := str(last.get("stopped", ""))
 	if stop != "":
-		v.add_child(UI.display("STOPPED: %s" % {"KO": "KNOCKOUT", "RTD": "RETIRED ON THE STOOL"}.get(stop, "REFEREE STOPS IT"), 32, UI.AMBER))
+		v.add_child(UI.display("STOPPED: %s" % {"KO": "KNOCKOUT", "RTD": "RETIRED ON THE STOOL", "RTD_B": "THE OPPONENT IS RETIRED ON THE STOOL"}.get(stop, "REFEREE STOPS IT"), 32, UI.AMBER))
 	# S303 corner card (watched rounds only: the 3D view reads it off the beats it played).
 	var advice := ""
 	if (last.has("card") or last.has("exchanges")) and stop == "":
@@ -218,6 +220,7 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 	if n < total and stop == "":
 		v.add_child(UI.caps("IN THE CORNER: WHAT DO YOU TELL YOUR BOXER?"))
 		_towel(main, v, m)   # S461 INTEGRATE1 #4 the towel card (TowelWire), only when it comes
+		_crack(main, v, m, total)   # S470 the crack card (CrackWire), only when your boxer's rib cracked
 		# S309: one fix for a habit the coach has seen (kept on the moment until the call is made).
 		var fixes := LiveRound.fixes(main.career.fighter_by_id(str(m["fid"])), last)
 		if not fixes.is_empty():
@@ -241,6 +244,8 @@ func _round(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 			m.erase("jobs_sel")
 			var tw := "|towel=" + str(m["towel_pick"]) if m.has("towel_pick") else ""
 			m.erase("towel_pick")
+			tw += "|crack=" + str(m["crack_pick"]) if m.has("crack_pick") else ""
+			m.erase("crack_pick")
 			main.act("fightstep", "corner:" + k + ("|fix=" + fx if fx != "" else "") + jobs + tw)))
 	else:
 		var foot := UI.hbox(10)
@@ -313,3 +318,16 @@ func _towel(main: Node, v: VBoxContainer, m: Dictionary) -> void:
 			main.redraw_modal()
 		else:
 			main.act("fightstep", "corner:hands|towel=" + kind)))
+
+
+## S470 the crack card in the corner minute (CrackStrip): Pull out ends it at once; the other two ride on the corner call.
+func _crack(main: Node, v: VBoxContainer, m: Dictionary, total: int) -> void:
+	var cc: Dictionary = CrackWire.card(main.career.fighter_by_id(str(m["fid"])), m, total)
+	if cc.is_empty():
+		return
+	v.add_child(CrackStrip.build(cc, func(kind: String):
+		if kind == "pull":
+			main.act("fightstep", "corner:hands|crack=pull")
+		else:
+			m["crack_pick"] = kind
+			main.redraw_modal(), UI, str(m.get("crack_pick", ""))))

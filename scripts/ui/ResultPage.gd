@@ -119,7 +119,7 @@ static func _how(m: Dictionary) -> String:
 	var stop := str(m.get("stopped", ""))
 	var rounds: Array = m["rounds"]
 	if stop != "":
-		return "%s in round %d of %d" % ["Knockout" if stop == "KO" else "Referee stops it", rounds.size(), int(m.get("total", BoutRules.ROUNDS))]
+		return "%s in round %d of %d" % ["Knockout" if stop == "KO" else ("Retired on the stool" if stop.begins_with("RTD") else "Referee stops it"), rounds.size(), int(m.get("total", BoutRules.ROUNDS))]
 	var said := str(VERDICT.get(str((m.get("judges", {}) as Dictionary).get("verdict", "")), "")) if _judged(m) else ""   # S443 R29
 	if said != "":
 		return "On points: " + said

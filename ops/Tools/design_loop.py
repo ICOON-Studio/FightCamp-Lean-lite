@@ -11,6 +11,7 @@ The brief is written to ops/research/DESIGN_<ID>_<kind>_<seat>.md and queued wit
 Tracker: ops/research/DESIGN_LOOP_S459.md (one row per mechanic; update it by hand when an answer lands).
 """
 import argparse
+import re
 import os
 import subprocess
 import sys
@@ -51,13 +52,41 @@ def _read(path):
         return f.read()
 
 
+def _letters(s):
+    idx = [i for i, c in enumerate(s) if c.isalnum()]
+    return "".join(s[i].lower() for i in idx), idx
+
+
+def reply_only(text):
+    """S470: Dola's saved answer is her WHOLE chat (the brief again, then her reply): a revise brief that embedded it
+    carried the 90k brief twice and passed the Grok bots' message limit (SQ115: 218k characters, 'text exceeds the
+    maximum length'). Keep the header and what follows the brief's last words (matched on letters only: the chat page
+    drops the markdown)."""
+    m = re.search(r"^Brief: (\S+)", text, re.M)
+    if "whole fresh chat" not in text or not m:
+        return text
+    brief = os.path.join(os.path.dirname(RES), m.group(1)) if not os.path.isabs(m.group(1)) else m.group(1)
+    if not os.path.isfile(brief):
+        brief = os.path.join(RES, os.path.basename(m.group(1)))
+    if not os.path.isfile(brief):
+        return text
+    nb, _ = _letters(_read(brief))
+    nt, it = _letters(text)
+    for n in (60, 40, 25):
+        k = nt.rfind(nb[-n:])
+        if k >= 0:
+            head = text[:text.find("---")] if "---" in text[:800] else ""
+            return head + "(the brief is cut; her reply:)\n" + text[it[k + n - 1] + 1:]
+    return text
+
+
 def build(kind, mid, map_path, critics, seat):
     task = (CRITIC_TASK if kind == "critic" else REVISE_TASK).format(id=mid)
     parts = [task, "\n> Also read `ops/research/CRITIC_ACCESS.md`: the Miro board, the real screens, the mockups.\n",
              "\n\n" + _read(os.path.join(RES, "CRITIC_PACK.md")),
              "\n\n# THE DESIGN MAP TO JUDGE\n\n" + _read(map_path)]
     for c in critics:
-        parts.append("\n\n# CRITIC ANSWER: %s\n\n" % os.path.basename(c) + _read(c))
+        parts.append("\n\n# CRITIC ANSWER: %s\n\n" % os.path.basename(c) + reply_only(_read(c)))
     out = os.path.join(RES, "DESIGN_%s_%s_%s.md" % (mid, kind.upper(), seat.upper()))
     with open(out, "w", encoding="utf-8") as f:
         f.write("".join(parts))

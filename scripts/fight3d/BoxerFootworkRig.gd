@@ -53,6 +53,8 @@ var upper: Node = null         # S391: the early half (class Upper)
 var upper_want := 1.0
 var upper_w := 1.0
 var _guard_lean := 0.0         # S391: the lean last topped up in her guard
+var _clip_knee_dir: Array = [Vector3.ZERO, Vector3.ZERO]  # GUARDKNEE3: knee direction from hip, before hip lean
+var _smoothed_th: Array = [0.0, 0.0]  # GUARDKNEE3: temporally smoothed knee angle
 
 
 ## `after`: the legs run right after this modifier. `early`: the hips and torso run right before this one (null = right
@@ -140,6 +142,12 @@ func _early(skel: Skeleton3D) -> void:
 	var s := maxf(body.scale.x, 1e-3)
 	var hip: Vector3 = p["hip"]
 	var hp := skel.get_bone_pose_position(_hips)
+	# GUARDKNEE3: store the knee direction (from hip) BEFORE the hip lean is applied, so the leg solve can use it
+	for i in 2:
+		var ids: Array = _legs[i]["ids"]
+		var hip_g := skel.get_bone_global_pose(ids[0]).origin
+		var knee_g := skel.get_bone_global_pose(ids[1]).origin
+		_clip_knee_dir[i] = knee_g - hip_g
 	# in her guard the plan's bounce is the hips' height (the guard clip's own bob on top read 4.8 cm against the bar's 4.5);
 	# in a punch, a slip or a reaction (hold) the clip's own height comes through: a duck goes down
 	var y := lerpf(_hips_y, hp.y, float(plan.hold)) - DROP + hip.y / s
@@ -177,7 +185,7 @@ func _process_modification() -> void:
 		var tilt := turn * Basis(Vector3.RIGHT, pitch)
 		var ankle: Vector3 = ball + tilt * (leg["v"] as Vector3)
 		var toes_basis := (turn * Basis(Vector3.RIGHT, pitch * maxf(float(f["toe_pitch"]), 0.0)) * (leg["tb"] as Basis))
-		var knee := _solve(skel, leg["ids"], ankle, ball, turn * Vector3.BACK, tilt * (leg["fb"] as Basis), toes_basis)
+		var knee := _solve(skel, i, leg["ids"], ankle, ball, turn * Vector3.BACK, tilt * (leg["fb"] as Basis), toes_basis)
 		last[i] = {"ankle": skel.global_transform * ankle, "ball": skel.global_transform * ball, "knee_deg": knee}
 
 
@@ -227,7 +235,7 @@ static func _turn(skel: Skeleton3D, b: int, q: Quaternion) -> void:
 ## Two-bone IK in skeleton space: hip -> knee -> ankle meets `t`, the knee over the foot's line (the vertical plane
 ## through the ankle `t` and the ball `ball`, `fwd` = the foot's heel-to-toe), the thigh twisted so the knee's hinge lies
 ## in the bend plane (no knee twist); then the foot and toes take their bases. Returns the knee's inner angle in degrees.
-func _solve(skel: Skeleton3D, ids: Array, t: Vector3, ball: Vector3, fwd: Vector3, foot: Basis, toes: Basis) -> float:
+func _solve(skel: Skeleton3D, leg_idx: int, ids: Array, t: Vector3, ball: Vector3, fwd: Vector3, foot: Basis, toes: Basis) -> float:
 	var ga := skel.get_bone_global_pose(ids[0])
 	var gb := skel.get_bone_global_pose(ids[1])
 	var gc := skel.get_bone_global_pose(ids[2])
@@ -247,21 +255,32 @@ func _solve(skel: Skeleton3D, ids: Array, t: Vector3, ball: Vector3, fwd: Vector
 	u = u.normalized()
 	var along := (reach * reach + l1 * l1 - l2 * l2) / (2.0 * reach)
 	var r := sqrt(maxf(l1 * l1 - along * along, 0.0))
-	# the knee circle: a + dir * along + r (cos th u + sin th w); th = 0 bends toward the toes. Put the knee over the
-	# foot's line: its sideways offset n.(knee - t) = 0, n = the foot's sideways axis
 	var w := dir.cross(u)
-	var fl := Vector3(ball.x - t.x, 0.0, ball.z - t.z)
-	var n := (fl if fl.length() > 1e-4 else fwd).normalized().cross(Vector3.UP)
-	var ca := r * n.dot(u)
-	var cb := r * n.dot(w)
-	var cr := sqrt(ca * ca + cb * cb)
+	# GUARDKNEE3: the rear knee's pole comes from the CLIP's pose (stored before hip lean), carried onto the moved
+	# hip-ankle line. The lead knee keeps the original foot-based pole ("lead knee stays where it is").
 	var th := 0.0
-	if cr > 1e-5:
-		var phi := atan2(cb, ca)
-		var ac := acos(clampf(-n.dot(a + dir * along - t) / cr, -1.0, 1.0))
-		var t1 := wrapf(phi + ac, -PI, PI)
-		var t2 := wrapf(phi - ac, -PI, PI)
-		th = clampf((t1 if absf(t1) < absf(t2) else t2) * KNEE_OVER, -deg_to_rad(KNEE_TURN_DEG), deg_to_rad(KNEE_TURN_DEG))
+	if leg_idx == 1:  # rear leg only
+		var clip_dir: Vector3 = _clip_knee_dir[leg_idx]
+		var clip_v := clip_dir - dir * clip_dir.dot(dir)
+		var th_raw := atan2(clip_v.dot(w), clip_v.dot(u))
+		# temporal smoothing to reduce frame-to-frame jitter
+		var smooth: float = 0.95
+		var prev_th: float = _smoothed_th[leg_idx]
+		var new_th: float = lerpf(prev_th, th_raw, 1.0 - smooth)
+		_smoothed_th[leg_idx] = new_th
+		th = clampf(new_th, -deg_to_rad(KNEE_TURN_DEG), deg_to_rad(KNEE_TURN_DEG))
+	else:  # lead leg: original foot-line calculation
+		var fl := Vector3(ball.x - t.x, 0.0, ball.z - t.z)
+		var n := (fl if fl.length() > 1e-4 else fwd).normalized().cross(Vector3.UP)
+		var ca := r * n.dot(u)
+		var cb := r * n.dot(w)
+		var cr := sqrt(ca * ca + cb * cb)
+		if cr > 1e-5:
+			var phi := atan2(cb, ca)
+			var ac := acos(clampf(-n.dot(a + dir * along - t) / cr, -1.0, 1.0))
+			var t1 := wrapf(phi + ac, -PI, PI)
+			var t2 := wrapf(phi - ac, -PI, PI)
+			th = clampf((t1 if absf(t1) < absf(t2) else t2) * KNEE_OVER, -deg_to_rad(KNEE_TURN_DEG), deg_to_rad(KNEE_TURN_DEG))
 	var side := u * cos(th) + w * sin(th)
 	var knee := a + dir * along + side * r
 	var end := a + dir * reach
@@ -313,8 +332,18 @@ static func _arc(from: Vector3, to: Vector3) -> Quaternion:
 class Upper:
 	extends SkeletonModifier3D
 	var rig: Node
+	## S470 LANDREACH4: how far this layer moved each hand this frame (skeleton space, before minus after), keyed by the
+	## hand's bone. ReachLimit's cap counts from the clip's glove with OR without this move (the lean and the hips' drop
+	## took a hook's hand 0.19 m down inside, and undoing that used up most of the reach's 0.30 m).
+	var hand_shift := {}
+	var _hands: Array = []
 
 	func _process_modification() -> void:
 		var skel := get_skeleton()
 		if skel != null and rig != null:
+			if _hands.is_empty():
+				_hands = [skel.find_bone("LeftHand"), skel.find_bone("RightHand")]
+			var pre := [skel.get_bone_global_pose(_hands[0]).origin, skel.get_bone_global_pose(_hands[1]).origin]
 			rig.early(skel)
+			for k in 2:
+				hand_shift[_hands[k]] = pre[k] - skel.get_bone_global_pose(_hands[k]).origin
