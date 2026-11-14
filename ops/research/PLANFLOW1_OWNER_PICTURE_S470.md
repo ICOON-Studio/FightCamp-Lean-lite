@@ -1,5 +1,8 @@
 # PLANFLOW1 - the owner's "Elite Tactics Editor" picture (S470, "just an idea") and Claude's verdict
 
+**Owner verdict (S473, 2026-11-14): "yes go with your verdict and have it reviewed by critics and improve if needed".** The take / change / leave-out below is agreed; it rides PLANFLOW1 v2 (Kalli, SQ122) -> two fresh critics -> revise until 6+ depth and 6+ general.
+**Owner, same day: "my 4 pictures were just for ideas do not attch too much on them".** The pictures are a source of ideas, not a spec: v2 and its critics judge the plan on its own depth and play, and any item above may be dropped if a better design needs it. 
+
 The picture (generated, 2026-11-14): a tree from NEUTRAL RANGE with three lanes. Lane 1: a double jab step, an IF diamond
 "opponent stamina < 50 %", two body hooks, an IF "blocked -> pivot and circle out". Lane 2 (bait): a feint body jab, an IF
 "opponent bites on the feint", an overhand right, then two outcomes: Success -> hunt for the knockout, Countered -> shell

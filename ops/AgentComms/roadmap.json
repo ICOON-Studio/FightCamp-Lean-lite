@@ -16,7 +16,6 @@
    "Look: S469 match strip of jabs and crosses (your C391) and the clinch before/after strip, both on the review board",
    "Look: S468 uppercut clipping before/after strip (C394) on the review board",
    "Play S469's build: inside exchanges and the clinch entry",
-   "Your view on the four flowchart picture verdicts (take / change / leave out)",
    "Look: the crack card in the corner (S471 stills on the review board)"
   ]
  },
@@ -4884,7 +4883,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-14 17:41 board_sync",
+  "updated": "2026-11-14 18:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5039,6 +5038,12 @@
     "started": "",
     "run": "CARDVISIT1",
     "state": "LANDED - Claude collects"
+   },
+   {
+    "title": "TASK SPEEDRULER1 - sort punch_speed_test's 41 failures: which bar is wrong, which punch is wrong (measure only, headless)",
+    "who": "qwen",
+    "started": "2026-11-14T18:36",
+    "run": "SPEEDRULER1"
    }
   ],
   "next": [
@@ -5528,6 +5533,11 @@
   },
   "done_recently": [
    {
+    "title": "TASK PELVIS1 - measure the rig's hips against the source take (a probe; no fix, headless)",
+    "who": "qwen",
+    "when": "2026-11-14"
+   },
+   {
     "title": "TASK SPLIT471 - three scripts at the 500-line limit get room (pure moves, no behaviour change, headless)",
     "who": "qwen",
     "when": "2026-11-14"
@@ -5586,11 +5596,6 @@
    },
    {
     "title": "TASK LIVERPROBE1 - tune the liver fold to the design's bar on 400 played bouts (probe, no screen)",
-    "who": "qwen",
-    "when": "2026-11-14"
-   },
-   {
-    "title": "TASK GUARDKNEE2 - which commit bowed the rear guard knee out, and the smallest fix (bisect, headless)",
     "who": "qwen",
     "when": "2026-11-14"
    }
