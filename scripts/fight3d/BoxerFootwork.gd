@@ -57,7 +57,7 @@ const HEEL_FLAT := Vector2(0.0, 0.012)     # lead, rear flat-footed
 const HEEL_WEIGHT := 0.008     # the unloaded heel rises, the loaded one sinks, this much each way at full sway
 const HEEL_SWING := 0.05       # extra heel on toe-off, mid-swing it eases back
 const HEEL_BALL_M := 0.18      # heel to ball of the foot (pitch = asin(heel / this))
-const REAR_YAW_DEG := -32.0    # orthodox: the rear toes turn 32 deg to her right (round 2: 45 -> 32, the rear knee caved)
+const REAR_YAW_DEG := -45.0    # S475 KNEEFIX1: the rear toes turn 45 deg out (KNEESWEEP2 table: the setting that meets the ruler's own read of the raw take)
 const LEAD_YAW_DEG := 0.0
 const SWAY_M := 0.025          # hips leg to leg along the stance line, once a breath (S453) ...
 const SWAY_FA := 0.55          # ... its fore-aft part cut to this (r4c: 2 cm fore-aft a bounce, the backside pushing back)

@@ -22,9 +22,11 @@ Miro P0: S475 redrew it (start + end). Partial updates work: send only the chang
 - "arena rdy" (he accepted Arena's terms).
 
 ## IN FLIGHT (yours - collect, do not relaunch)
-- Qwen KNEEFIX1 (E:\FightCamp\wt\LEAN_KNEEFIX1, branch qwen/kneefix1): guard_knee SOURCE -> the ruler's own read of the raw take
-  [-0.0109, 0.0176]; REAR_YAW -45 + REAR_BAND 20; stills both settings in docs/kneefix1. CAUTION: 45 was rolled back once because
-  "the rear knee caved" - open every still yourself, then the review board for his look before merging the setting.
+- Qwen KNEEFIX1 LANDED (branch qwen/kneefix1, commit a59e1c80) - NOT MERGED. guard_knee passes (rear -0.0067 / +0.0020 v the
+  calibrated source) BUT it lowered MIN_GUARD_FRAMES 15 -> 8 (boxer 1 settles only 8 frames at yaw -45) = a weakened test, and its
+  4 stills (docs/kneefix1 on the branch) cannot show the knee: the two boxers stand inside each other's guard (gloves through heads,
+  a GAP defect in the guard still itself) and the camera is far. Next: keep the SOURCE calibration (sound), refuse the frames cut
+  (find why b1 settles 8 frames at -45), render close rear-leg stills both settings at a real range, then his look.
 - Arena FWTRIPS1 (chat https://arena.ai/agent/01a1dbad-e080-797e-ae46-6f33e93a32c3): trips were CUT - close its lite PR unmerged.
 - Seat queue: SQ144 Kalli fight week map v9 (sparring partner screen replaces trips); SQ145 John LADDER1 research; SQ141/142
   step value critics (Dola, Maria); SQ143 Kalli plan flowchart v3; SQ139/140 fight week screen critics (v1 - redraw after v9);

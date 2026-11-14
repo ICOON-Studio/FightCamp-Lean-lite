@@ -32,7 +32,7 @@ const KNEE_OVER := 0.7
 ## cause: the take's stance (rear toes 45 deg, balls 0.46 along x 0.39 across) moved guard_knee the wrong way (-0.079 ->
 ## -0.085 -> -0.092). Bands 18 | 24: guard_knee -0.031/-0.017 | -0.022/-0.008, footwork 18.6 | 23.0 (= the take's own knee).
 ## Look: tools/knee_band_still.gd, his eye on band 0 v 18 (review board S472). Probe arm: `-- kneeband=<deg>`.
-const REAR_BAND_DEG := 18.0   # S472 his "Take's 18 deg": the take's own rear knee, 17.8 inside the toes
+const REAR_BAND_DEG := 20.0   # S475 KNEEFIX1: KNEESWEEP2 table, rear toes 45 + band 20 (KNEE_TURN 45): rear within 0.03 of the ruler's read, valgus 19.4/19.6 (bar 20), footwork 0 failures
 const LEAN_DEG := 10.0
 const HINGE := 0.5             # share of the lean taken at the hips
 ## S392 (two blind judges, film 0:19.8: "his rear knee folds almost to the mat"): pro_body_shot takes the hips to 0.59 m with the

@@ -27,3 +27,10 @@ DONE = two critics (one fresh) each at 6+ DEPTH and 6+ GENERAL DESIGN. Then it g
 | Small living world | - | his S425: after the week | after the week | - |
 | Flowchart fight plan (PLANFLOW1) | v2 (DESIGN_PLANFLOW1_V2_REVISE_KALLI_KALLI, S474) | v2: John 7/6 (play 7), Maria 7/6 (play 6), Dola 7/8 (play 6) S475 - PASSES 6/6 | v3 to Kalli S475 (SQ143) to fix John's 5 logic faults (found modes as a tell, camp film price, step Sharp rate, Test it leak, timing) before his board | v3 |
 | Footwork and defence worth learning (STEPVALUE1) | v1 (DESIGN_STEPVALUE1_V1_KALLI_KALLI, S474) | self 7/7 (Kalli) | critics Dola SQ141 + Maria SQ142 queued S475 | v1 |
+
+## S476 (2026-11-14)
+- CLUBWEEK1 v7: Dola 7/7 (play 6) PASS; John 6/5 (play 6), Maria 7/5 (play 6) MISS general design -> v8 to Kalli from John's + Maria's lists (SQ146).
+- COACHFIT1 v8 in (Kalli SQ131) -> critics Dola SQ147 + John SQ148.
+- WEIGHT1 round 5 in (Kalli SQ132, file R4_REVISE) -> critics Dola SQ149 + Maria SQ150.
+- STEPVALUE1 v1: Maria 7/6 (play 5) PASS; Dola SQ141 still out.
+- Fight week screen v1: Dola + John in (SQ139/140); the screen is redrawn after map v9 (SQ144, sparring partner replaces trips).

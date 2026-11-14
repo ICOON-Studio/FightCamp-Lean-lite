@@ -10,10 +10,10 @@ const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const Probe := preload("res://tools/knee_plane_probe.gd")
 const DT := 1.0 / 30.0
 const WARMUP := 30
-const FRAMES := 660
+const FRAMES := 1320   # S476: at 660 one run gave boxer 1 only 8 settled guard frames (the fidget draw: clips run on real time), the next 150
 const MIN_GUARD_FRAMES := 15
 const SETTLE_S := 0.5               # past FightStage.GUARD_FADE_S (0.2) and the join's own ease
-const SOURCE := [-0.0065, 0.0291]   # [lead, rear]
+const SOURCE := [-0.0109, 0.0176]   # S475 KNEERULER1: the take as THIS ruler reads it (tools/knee_plane_probe.gd off=all, mean of b0/b1); tools/knee_plane_raw.py's -0.0065 / +0.0291 is the same take read outside the game
 const MEAN_BAR := 0.03              # her mean may sit this far from the source
 const INWARD_BAR := 0.06            # no frame's knee further in than this
 
