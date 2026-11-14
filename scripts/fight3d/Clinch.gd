@@ -38,17 +38,8 @@ const RELEASE_S := 0.5
 const HOLD_SPAN := Vector2(0.3, 0.75)
 const HOLD_SPEED := 0.35
 ## Where the hands go, metres: over the shoulder blade (behind and below the shoulder joint), and on the flank.
-const BACK_M := 0.13
-const BLADE_DOWN_M := 0.06
-const FLANK_M := 0.14
-## S316 the overhook: the holder's wrist this far outside, behind and above the other's elbow.
-const OVERHOOK_OUT_M := 0.07
-const OVERHOOK_BACK_M := 0.06
-const OVERHOOK_UP_M := 0.08
-## S318 the held boxer's grip in the paired clinch: her glove on the outside of the holder's elbow, a little under it
-## (a glove's half-width out, so the glove meets the arm instead of sinking into it - C143 "the grip without the glove").
-const ELBOW_OUT_M := 0.06
-const ELBOW_DOWN_M := 0.03
+## SPLIT471: BACK_M, BLADE_DOWN_M, FLANK_M, OVERHOOK_*, ELBOW_* moved to ClinchPose.gd with the functions that use them.
+const ClinchPose := preload("res://scripts/fight3d/ClinchPose.gd")
 ## S354 the tie is set up as they come together, and the pair is only TIED once it has come in: the join draws the tie's
 ## pose over the punch she was throwing in ~0.3 s, and samples of that blend (heads 0.62 m apart, chests square) are not
 ## samples of a tie-up. Same for the spacing: it eases in from start() (taken from the inside range it used to pull the
@@ -298,18 +289,18 @@ func _tie_up() -> void:
 ## holder's own head, 0.00 m under the other's).
 func _stance(i: int, ik: Node) -> void:
 	if i == holder:
-		var hs := _lead(holder)
-		ik.reach(hs, _blade.bind(1 - holder, _other_side(hs)))
+		var hs := ClinchPose.lead(stage, holder)
+		ik.reach(hs, ClinchPose.blade.bind(stage, 1 - holder, ClinchPose.other_side(hs)))
 		if _digger == holder:
 			ik.reach(_free_side(), _dig_target.bind(1 - holder, _free_side()))
 		else:
 			# Spec 3 both arms read as a tie: the other hand takes the other shoulder blade (her right hand meets the
 			# other's left side). Leaving it to the clip put a cage-clinch glove on her arm, 0.09 m inside it at the
 			# tie's own spacing.
-			ik.reach(_free_side(), _blade.bind(1 - holder, hs))
+			ik.reach(_free_side(), ClinchPose.blade.bind(stage, 1 - holder, hs))
 	else:
-		var grip := _lead(holder)
-		ik.reach(grip, _grip.bind(holder, grip))
+		var grip := ClinchPose.lead(stage, holder)
+		ik.reach(grip, ClinchPose.grip.bind(stage, holder, grip))
 		if _digger == i:
 			ik.reach(_free_side(), _dig_target.bind(holder, _free_side()))
 
@@ -336,12 +327,12 @@ func _engage() -> void:
 		# S316: the holder overhooks - each arm over the other's arm at the elbow, pinning it (was: a hug around the
 		# shoulders); the held boxer's gloves stay on the holder's ribs (she can only work the body).
 		if i == holder:
-			ik.reach("Left", _overhook.bind(other, "Right"))
-			ik.reach("Right", _overhook.bind(other, "Left"))
+			ik.reach("Left", ClinchPose.overhook.bind(stage, other, "Right"))
+			ik.reach("Right", ClinchPose.overhook.bind(stage, other, "Left"))
 		else:
-			ik.reach("Left", _flank.bind(other, -1.0))
-			ik.reach("Right", _flank.bind(other, 1.0))
-		ik.look(_past.bind(other))
+			ik.reach("Left", ClinchPose.flank.bind(stage, other, -1.0))
+			ik.reach("Right", ClinchPose.flank.bind(stage, other, 1.0))
+		ik.look(ClinchPose.past.bind(stage, other))
 	if _digger >= 0:
 		var ik2: Node = stage.boxers[_digger].get("ik")
 		if ik2 != null:
@@ -353,7 +344,7 @@ func _engage() -> void:
 ## canvas positions turns both bodies. Written into `pos` (not a shown offset): the feet, the facing and the camera all
 ## follow it, and the pair's distance stays the tie's own.
 func _jostle() -> void:
-	var e := _smooth(clampf(_hold / JOSTLE_S, 0.0, 1.0))
+	var e := ClinchPose.smooth(clampf(_hold / JOSTLE_S, 0.0, 1.0))
 	var ang := deg_to_rad(TURN_DEG) * _turn * e
 	var walk := _drift * (DRIFT_M * e + DRIFT_RATE * maxf(0.0, _hold - JOSTLE_S))
 	var mid := _mid + walk
@@ -388,33 +379,11 @@ func _dig_target(other: int, side: String) -> Vector3:
 ## can reach: the pair stands a chest apart, and the band's lower end is 0.62 m from a 0.49 m arm (S354 probe: the glove
 ## stopped 0.16 m short of the flank point there).
 func _dig_point(other: int, side: String) -> Vector3:
-	var ribs := _closest(_bone(_digger, side + "UpperArm"), _rib_band(other, side))
-	var left := Vector3.UP.cross(_fwd(other)).normalized()
+	var ribs := ClinchPose.closest(ClinchPose.bone(stage, _digger, side + "UpperArm"), ClinchPose.rib_band(stage, other, side))
+	var left := Vector3.UP.cross(ClinchPose.fwd(stage, other)).normalized()
 	var out := left * (1.0 if side == "Right" else -1.0)
 	var k := _dig_k()
 	return ribs + out * lerpf(DIG_OFF_M, DIG_TIE_OUT, k) + Vector3.UP * DIG_TIE_UP * k
-
-
-## The other's ribs on the side the grip hand meets, at the top of the band (spine_03): a hand on the ribs under the arm.
-## The lower end (Spine + 0.08 m) put the held boxer's glove 0.43 m under her own head - past spec 3's 0.40 m.
-func _grip(i: int, side: String) -> Vector3:
-	return _rib_band(i, side)[1]
-
-
-## The other's rib side: from the lower ribs (Spine + 0.08 m, spine_02) up to the same offset from Chest (spine_03).
-func _rib_band(other: int, side: String) -> Array:
-	var left := Vector3.UP.cross(_fwd(other)).normalized()
-	var out := left * (1.0 if side == "Right" else -1.0)
-	var lo := _bone(other, "Spine") + out * FLANK_M - _fwd(other) * 0.04 + Vector3.UP * 0.08
-	return [lo, lo + (_bone(other, "Chest") - _bone(other, "Spine"))]
-
-
-func _closest(p: Vector3, band: Array) -> Vector3:
-	var a: Vector3 = band[0]
-	var ab: Vector3 = (band[1] as Vector3) - a
-	if ab.length() < 1e-6:
-		return a
-	return a + ab * clampf((p - a).dot(ab) / ab.length_squared(), 0.0, 1.0)
 
 
 ## How far into the tie's own hand the dig is now: 1 between digs, 0 on the ribs, eased out and back over ~0.35 s.
@@ -427,70 +396,15 @@ func _dig_k() -> float:
 		return 1.0
 	var s := t - float(k) * _pitch
 	if s < DIG_OUT_S:
-		return 1.0 - _smooth(s / DIG_OUT_S)
+		return 1.0 - ClinchPose.smooth(s / DIG_OUT_S)
 	if s < DIG_OUT_S + DIG_DWELL_S:
 		return 0.0
 	var back := (s - DIG_OUT_S - DIG_DWELL_S) / DIG_BACK_S
-	return 1.0 if back >= 1.0 else _smooth(back)
+	return 1.0 if back >= 1.0 else ClinchPose.smooth(back)
 
 
 ## The digger's free hand: the arm NOT in the overhook. The holder overhooks with her lead hand and the held boxer grips
 ## with the hand that faces the holder's other arm, so for both diggers the free hand is the one on the side of the
 ## holder's OWN free arm (S318 `_stance`).
 func _free_side() -> String:
-	return _other_side(_lead(holder))
-
-
-func _bone(i: int, bone: String) -> Vector3:
-	var skel: Skeleton3D = stage.boxers[i]["skel"]
-	var id := skel.find_bone(bone)
-	return skel.global_transform * skel.get_bone_global_pose(id).origin if id >= 0 else (stage.boxers[i]["node"] as Node3D).global_position
-
-
-func _fwd(i: int) -> Vector3:
-	return (stage.boxers[i]["node"] as Node3D).global_transform.basis.z.normalized()
-
-
-## Over the other's arm just above her elbow on her `side`, from outside and a little behind: the holder's forearm pins it.
-func _overhook(i: int, side: String) -> Vector3:
-	var left := Vector3.UP.cross(_fwd(i)).normalized()
-	var out := left if side == "Left" else -left
-	return _bone(i, side + "LowerArm") + out * OVERHOOK_OUT_M - _fwd(i) * OVERHOOK_BACK_M + Vector3.UP * OVERHOOK_UP_M
-
-
-## The clip's "left" hand as she plays it: the right one for a southpaw (mirrored clips).
-func _lead(i: int) -> String:
-	return "Right" if bool(stage.boxers[i].get("south", false)) else "Left"
-
-
-## Facing each other, her `side` meets the other's opposite side.
-static func _other_side(side: String) -> String:
-	return "Right" if side == "Left" else "Left"
-
-
-## On the outside of the other's elbow on her `side`, a little under it.
-func _elbow(i: int, side: String) -> Vector3:
-	var left := Vector3.UP.cross(_fwd(i)).normalized()
-	var out := left if side == "Left" else -left
-	return _bone(i, side + "LowerArm") + out * ELBOW_OUT_M + Vector3.DOWN * ELBOW_DOWN_M
-
-
-## Over the other's shoulder blade on her `side`.
-func _blade(i: int, side: String) -> Vector3:
-	return _bone(i, side + "UpperArm") - _fwd(i) * BACK_M - Vector3.UP * BLADE_DOWN_M
-
-
-## On the other's flank: `sgn` -1 her right side, +1 her left (her own frame), a little behind the ribs.
-func _flank(i: int, sgn: float) -> Vector3:
-	var left := Vector3.UP.cross(_fwd(i)).normalized()
-	return _bone(i, "Spine") + left * FLANK_M * sgn - _fwd(i) * 0.04 + Vector3.UP * 0.08
-
-
-## Past the other's shoulder (her own right of the other's head: the heads sit side by side).
-func _past(i: int) -> Vector3:
-	var left := Vector3.UP.cross(_fwd(i)).normalized()
-	return _bone(i, "Head") - left * 0.35 - _fwd(i) * 0.3 - Vector3.UP * 0.15
-
-
-static func _smooth(u: float) -> float:
-	return u * u * (3.0 - 2.0 * u)
+	return ClinchPose.other_side(ClinchPose.lead(stage, holder))

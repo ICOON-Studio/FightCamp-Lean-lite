@@ -18,13 +18,11 @@ const LEAN_MAX := 0.30
 ## When the next clip cuts in (a combo, a hit), the reach and the carry let go over this long instead of at once (S302
 ## joins report: an instant release jolted the hook hand 12 m/s in one frame; JoinSmoother runs before this modifier).
 const FADE_S := 0.20   # S386: 0.12 (4 frames) still read as a snap off the target
-## The glove's long axis leans this share from the hand onto the forearm (Gloves.WRIST_STRAIGHT; `-- bentwrist` = 0 there).
-const Gloves := preload("res://scripts/fight3d/Gloves.gd")
 ## Solves per frame for the full-weight wrist (the glove axis moves with the forearm); `-- onepass` = the S302 single step.
 ## POWER1 step 2: 4 -> 8. With 4 the glove front sat 1.5-2 cm off its aim (hit_frame_test, pro_left_jab_b: 0.015 m off the
 ## face at the hit, the carry 2 cm past its aim); 10 passes put it 0.001 m off. A pass is one two-bone solve.
 static var SOLVE_PASSES: int = 1 if OS.get_cmdline_user_args().has("onepass") else 8
-static var STRAIGHT: float = 0.0 if OS.get_cmdline_user_args().has("bentwrist") else Gloves.WRIST_STRAIGHT
+const PunchReachMath := preload("res://scripts/fight3d/PunchReachMath.gd")
 ## POWER1 step 2 (owner S439: "the punches do not feellike the y have power"; CROSS_POWER_S439.md: the glove reached the
 ## face at 0.3-0.8 m/s after peaking at 5-7 m/s, then rested on it). The weight still eases in, but what it eases onto is a
 ## point DRIVING into the face: before contact it sits behind the face on the glove's line, closing at the glove's own top
@@ -183,28 +181,29 @@ func lunge() -> float:
 		out = maxf(out, float(f["lunge"]) * float(f["w"]))
 	if _clip == "" or lunge_m <= 0.0 or ap == null or str(ap.assigned_animation) != _clip:
 		return out
-	return maxf(out, lunge_m * weight(ap.current_animation_position, _contact, _hold()))
+	return maxf(out, lunge_m * PunchReachMath.weight(ap.current_animation_position, _contact, _hold()))
+
+
+## S472 collect: SPLIT471 moved these to PunchReachMath but callers still use them here - ReachLimit (game code, by
+## call("_along")) and fight_feel_test (PunchReach.weight). Forwarders keep every caller unchanged, as the brief said.
+static var STRAIGHT: float:   # hit_frame_test, punch_speed_test read PR.STRAIGHT
+	get:
+		return PunchReachMath.STRAIGHT
+	set(v):
+		PunchReachMath.STRAIGHT = v
+
+
+static func weight(t: float, contact: float, hold: float = HOLD_S) -> float:
+	return PunchReachMath.weight(t, contact, hold)
+
+
+func _along(skel: Skeleton3D, ids: Array) -> Vector3:
+	return PunchReachMath.along(skel, ids)
 
 
 ## How long the reach holds at full weight after contact: through the carry on a landed drive.
 func _hold() -> float:
 	return maxf(HOLD_S, CARRY_S) if DRIVE and _thru > 0.0 and not _height_only else HOLD_S
-
-
-## 0..1 at clip time t (`hold`: how long it stays 1 after contact; a landed drive holds through its carry, _hold()).
-static func weight(t: float, contact: float, hold: float = HOLD_S) -> float:
-	var u := 0.0
-	if t < contact - IN_S:
-		return 0.0
-	elif t < contact:
-		u = (t - (contact - IN_S)) / IN_S
-	elif t <= contact + hold:
-		return 1.0
-	elif t < contact + hold + OUT_S:
-		u = 1.0 - (t - contact - hold) / OUT_S
-	else:
-		return 0.0
-	return u * u * (3.0 - 2.0 * u)
 
 
 func _process_modification() -> void:
@@ -250,7 +249,7 @@ func reach_at(t: float) -> void:
 
 func _apply(skel: Skeleton3D, t: float, ramp: float) -> void:
 	set_meta("cg_pass", int(get_meta("cg_pass", 0)) + 1)   # review round 1: one pass of the stack (ReachLimit.clip_glove)
-	_w_now = weight(t, _contact, _hold()) * ramp
+	_w_now = PunchReachMath.weight(t, _contact, _hold()) * ramp
 	var drive := DRIVE and not _height_only and _target.is_valid()
 	if drive:
 		var dv := _drive(skel, t)
@@ -291,7 +290,7 @@ func _apply(skel: Skeleton3D, t: float, ramp: float) -> void:
 ## a frame is the glove as drawn).
 func _note_shown(skel: Skeleton3D) -> void:
 	var ids: Array = _arms[_hand]
-	var shown: Vector3 = skel.global_transform * (skel.get_bone_global_pose(int(ids[2])).origin + _along(skel, ids) * _front)
+	var shown: Vector3 = skel.global_transform * (skel.get_bone_global_pose(int(ids[2])).origin + PunchReachMath.along(skel, ids) * _front)
 	# One "last frame" per drawn frame: on the hit frame HitImpact runs the stack's solve once by hand on the bare clip pose
 	# (no hips travel yet) before the stack's own pass; the line and the carry's start are taken again on every later solve.
 	var f := _key
@@ -325,7 +324,7 @@ func _aim_at(skel: Skeleton3D, at: Vector3, w: float) -> void:
 func _drive(skel: Skeleton3D, t: float) -> Vector3:
 	var ids: Array = _arms[_hand]
 	var to_w := skel.global_transform
-	var g: Vector3 = to_w * (skel.get_bone_global_pose(int(ids[2])).origin + _along(skel, ids) * _front)
+	var g: Vector3 = to_w * (skel.get_bone_global_pose(int(ids[2])).origin + PunchReachMath.along(skel, ids) * _front)
 	if _prev_t >= 0.0 and t > _prev_t + 1e-4 and t - _prev_t <= PEAK_DT_MAX and t <= _contact + 1e-4 and _prev_g.is_finite():
 		_peak_v = maxf(_peak_v, g.distance_to(_prev_g) / (t - _prev_t))
 	_prev_g = g
@@ -411,7 +410,7 @@ func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove
 	# a different height; this is inherent to the two-bone solver.
 	var target: Vector3
 	if height_only:
-		var current_gf: Vector3 = g_hd.origin + _along(skel, ids) * glove_front
+		var current_gf: Vector3 = g_hd.origin + PunchReachMath.along(skel, ids) * glove_front
 		var to_skel := skel.global_transform.affine_inverse()
 		var latched_skel_y: float = (to_skel * Vector3(0, aim_y, 0)).y
 		target = Vector3(current_gf.x, latched_skel_y, current_gf.z)
@@ -449,50 +448,9 @@ func _reach(skel: Skeleton3D, hand: String, w: float, target_fn: Callable, glove
 	_hold_w = 0.0
 
 
-## The glove's long axis, as Gloves.gd mounts it: the wrist-to-knuckle direction turned WRIST_STRAIGHT of the way onto the
-## forearm (S316 taped wrist). S321: this aimed along the bare hand alone, so wherever a clip bends the wrist (hooks, short
-## inside punches) the glove's real striking face landed 0.13-0.28 m short and to the side of the face (hit_gap_probe).
-func _along(skel: Skeleton3D, ids: Array) -> Vector3:
-	var wrist: Vector3 = skel.get_bone_global_pose(int(ids[2])).origin
-	var a: Vector3 = skel.get_bone_global_pose(int(ids[3])).origin - wrist
-	if a.length() < 1e-5:
-		return Vector3.FORWARD
-	a = a.normalized()
-	var arm: Vector3 = wrist - skel.get_bone_global_pose(int(ids[1])).origin
-	if STRAIGHT > 0.0 and arm.length() > 1e-5 and a.angle_to(arm) > 1e-3:
-		a = a.slerp(arm.normalized(), STRAIGHT).normalized()
-	return a
-
-
 ## Two-bone solve: shoulder fixed, wrist on `want` (clamped to the arm's reach), elbow kept on its current side; the hand
 ## keeps `hand_basis`. ids = [upper arm, lower arm, hand, ...] (GuardTuck uses it too). S315: `pole_w` > 0 turns the elbow's
 ## side that far toward `pole` (skeleton space; GuardTuck's inside guard drops the elbows onto the ribs).
+## SPLIT471: implementation in PunchReachMath; this forwarder keeps GloveClear, GuardTuck, TellPose unchanged.
 static func solve(skel: Skeleton3D, ids: Array, s: Vector3, want: Vector3, l1: float, l2: float, hand_basis: Basis, pole := Vector3.ZERO, pole_w := 0.0) -> void:
-	var ua: int = ids[0]
-	var la: int = ids[1]
-	var hd: int = ids[2]
-	var g_ua: Transform3D = skel.get_bone_global_pose(ua)
-	var e: Vector3 = skel.get_bone_global_pose(la).origin
-	var d := clampf(s.distance_to(want), absf(l1 - l2) + 0.01, l1 + l2 - 0.004)
-	var axis := want - s
-	if axis.length() < 1e-4:
-		return
-	axis = axis.normalized()
-	var h := s + axis * d
-	var a := (l1 * l1 - l2 * l2 + d * d) / (2.0 * d)
-	var r := sqrt(maxf(0.0, l1 * l1 - a * a))
-	var c := s + axis * a
-	var bend := (e - c) - axis * (e - c).dot(axis)
-	bend = bend.normalized() if bend.length() > 1e-4 else Vector3.DOWN
-	if pole_w > 0.0:
-		var pp := pole - axis * pole.dot(axis)
-		if pp.length() > 1e-4:
-			bend = bend.slerp(pp.normalized(), clampf(pole_w, 0.0, 1.0)).normalized()
-	var e2 := c + bend * r
-	var rot_ua := Quaternion((e - s).normalized(), (e2 - s).normalized())
-	skel.set_bone_global_pose(ua, Transform3D(Basis(rot_ua) * g_ua.basis, s))
-	var g_la: Transform3D = skel.get_bone_global_pose(la)
-	var h_now: Vector3 = skel.get_bone_global_pose(hd).origin
-	var rot_la := Quaternion((h_now - e2).normalized(), (h - e2).normalized())
-	skel.set_bone_global_pose(la, Transform3D(Basis(rot_la) * g_la.basis, e2))
-	skel.set_bone_global_pose(hd, Transform3D(hand_basis, h))
+	PunchReachMath.solve(skel, ids, s, want, l1, l2, hand_basis, pole, pole_w)

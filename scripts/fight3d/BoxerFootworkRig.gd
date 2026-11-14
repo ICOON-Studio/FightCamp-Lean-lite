@@ -27,8 +27,12 @@ const KNEE_OVER := 0.7
 ##   0: -0.07..-0.08 | 5.5 deg     6: -0.05..-0.06 | 9.5     12: -0.03..-0.04 | 14.0     45 (GUARDKNEE3 as merged): -0.004 | 32-34
 ## Reaching the take's knee takes a 30+ deg twist off the rig's own foot, worse than the bow it cures: the take's foot and
 ## the rig's foot do not stand alike, so the fix belongs in the foot / hip placement, not in the knee. 0 = knee over the foot.
-## Probe arm: `-- kneeband=<deg>`.
-const REAR_BAND_DEG := 0.0
+## S472 CORRECTED (Blender on Box1_M3_Idle, boxer_footwork_test's own measure): the take's rear knee sits 17.8 deg INSIDE
+## its toes (lead 1.2), so the two tests contradict - the source take itself fails footwork's bar 8. The foot is not the
+## cause: the take's stance (rear toes 45 deg, balls 0.46 along x 0.39 across) moved guard_knee the wrong way (-0.079 ->
+## -0.085 -> -0.092). Bands 18 | 24: guard_knee -0.031/-0.017 | -0.022/-0.008, footwork 18.6 | 23.0 (= the take's own knee).
+## Look: tools/knee_band_still.gd, his eye on band 0 v 18 (review board S472). Probe arm: `-- kneeband=<deg>`.
+const REAR_BAND_DEG := 18.0   # S472 his "Take's 18 deg": the take's own rear knee, 17.8 inside the toes
 const LEAN_DEG := 10.0
 const HINGE := 0.5             # share of the lean taken at the hips
 ## S392 (two blind judges, film 0:19.8: "his rear knee folds almost to the mat"): pro_body_shot takes the hips to 0.59 m with the

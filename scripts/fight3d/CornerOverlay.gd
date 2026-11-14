@@ -85,7 +85,9 @@ func build(card: Dictionary, names: Array) -> void:
 	add_child(_caption)
 	_pin(_caption, Vector4(0.08, 1.0 - BAR, 0.92, 1), Vector4.ZERO)
 	_card = PanelContainer.new()
-	_card.add_theme_stylebox_override("panel", UI.box(Color(0.05, 0.04, 0.04, 0.95), UI.LINE, 6, 1, 18, 10))
+	# S472 C399 ("kind of heavy on the eye, lighten it up a bit"): the near-black slab (0.05, 0.95) -> the TV panel tone,
+	# a touch see-through so the corner reads behind it, with a lighter edge.
+	_card.add_theme_stylebox_override("panel", UI.box(Color(Color("#62513f"), 0.86), Color("#8f7760"), 6, 1, 18, 10))
 	add_child(_card)
 	# S350 C197 ("doesnt look good, needs a lot of refining"): the card takes the right part of the frame between the bars,
 	# full height, so the corner itself (her on the stool, the coach) stays in view on the left; the round first, then the

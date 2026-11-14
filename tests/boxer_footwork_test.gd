@@ -5,7 +5,7 @@ extends SceneTree
 ## 3-12 cm, Undisputed idle 2.0 Hz IQR 1.8-2.3 / 3.9-9.6 cm), each pair's travel = the plant displacement, step-drag
 ## order. On the skeleton: the ankle reaches its target (< 1 cm), knees bent (< 172 deg), balls on the canvas.
 ## Round 2 (eyes on r3): bounce period CV 0.10-0.25 (a human, not a metronome), flat-footed spells, a planted ball at
-## 0 cm in the plan and on the skeleton, knees over the toes in each foot's frontal plane (valgus <= 8 deg), ankles
+## 0 cm in the plan and on the skeleton, the lead knee over the toes in each foot's frontal plane (valgus <= 8 deg; S472 the rear <= 20, the take's own 17.8), ankles
 ## >= 0.15 m apart across the line when both feet plant, torso lean 8-12 deg; the rig bars on a woman and a man.
 
 const Footwork := preload("res://scripts/fight3d/BoxerFootwork.gd")
@@ -260,6 +260,7 @@ func _rig_bars(who: String) -> void:
 	var bent_most := 180.0
 	var worst_track := 0.0
 	var worst_valgus := -INF
+	var worst_rear_valgus := -INF   # S472: the rear knee has its own bar (below)
 	var worst_lat := INF
 	var worst_ball := 0.0
 	var leans := Vector2(INF, -INF)
@@ -288,7 +289,10 @@ func _rig_bars(who: String) -> void:
 			if (float(r[i]["valgus"]) > 6.0 or float(r[i]["knee_toe"]) > 20.0) and OS.get_cmdline_user_args().has("verbose"):
 				print("  knee f=%d foot=%d valgus=%.1f off-line=%.1f knee=%.1f planted=%s pair=%s" % [f, i, r[i]["valgus"],
 					r[i]["knee_toe"], r[i]["knee"], p["feet"][i]["planted"], str(fw.pair.get("dir", "-")) + " u=%.2f" % float(fw.pair.get("u", 0.0))])
-			worst_valgus = maxf(worst_valgus, float(r[i]["valgus"]))
+			if i == 1:
+				worst_rear_valgus = maxf(worst_rear_valgus, float(r[i]["valgus"]))
+			else:
+				worst_valgus = maxf(worst_valgus, float(r[i]["valgus"]))
 			if float(r[i]["ik_err"]) > 0.005 and OS.get_cmdline_user_args().has("verbose"):
 				print("  ik f=%d foot=%d err=%.3f knee=%.1f planted=%s phase=%.2f pair=%s" % [f, i, r[i]["ik_err"], r[i]["knee"],
 					p["feet"][i]["planted"], fw.phase, str(fw.pair.get("dir", "-")) + " u=%.2f" % float(fw.pair.get("u", 0.0))])
@@ -311,7 +315,10 @@ func _rig_bars(who: String) -> void:
 	_check(worst_slide < 0.01, "on the skeleton a planted ball never slides (worst %.2f cm)" % (worst_slide * 100.0))
 	_check(worst_floor < 0.01, "on the skeleton the balls stand on the canvas (worst %.2f cm off)" % (worst_floor * 100.0))
 	_check(worst_ball < 0.003, "%s: a planted ball's height on the skeleton 0 cm (worst %.2f cm)" % [who, worst_ball * 100.0])
-	_check(worst_valgus <= 8.0, "%s: knees over the toes in each foot's frontal plane (worst valgus %.1f deg, bar 8)" % [who, worst_valgus])
+	_check(worst_valgus <= 8.0, "%s: lead knee over the toes in each foot's frontal plane (worst valgus %.1f deg, bar 8)" % [who, worst_valgus])
+	# S472 (his "Take's 18 deg" on the rear knee pair): the source take Box1_M3_Idle's own rear knee sits 17.8 deg inside its toes
+	# by this very measure (tools/stance_raw.py; lead 1.2), so bar 8 failed the real boxer. Rear bar = the take + 2 deg.
+	_check(worst_rear_valgus <= 20.0, "%s: rear knee no further inside the toes than the take (worst valgus %.1f deg, bar 20, take 17.8)" % [who, worst_rear_valgus])
 	_check(worst_lat >= 0.15, "%s: ankles %.1f cm apart across the line when both feet plant (bar >= 15)" % [who, worst_lat * 100.0])
 	_check(leans.x >= 8.0 and leans.y <= 12.0, "%s: torso leans %.1f-%.1f deg forward from the hips (bar 8-12)" % [who, leans.x, leans.y])
 	await _bounce_bars(who, skel, body, ap, rig)
