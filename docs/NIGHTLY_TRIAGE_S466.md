@@ -25,3 +25,11 @@ NIGHTLY_TRIAGE red=5 fixed=3 hang=0
 | guard_knee_test | RED, queued for Qwen (TASK_GUARDKNEE2) | rear knee -0.065 v source +0.029 since the 11-12 POWER1 merges: bisect then fix |
 | plan_bots_test | RED, known cause | GOOD = 1-1, step_back, pivot_out, tie_up; since S463/S464 a step fires by its bar and Lucy's step bars are low, so the "well-read" plan is no longer well read for her: plan+sim 0.485 v coach 0.447 (bar +0.05). A balance call for TRAINGAME2/STEPMASTERY1 (steps must be trainable first), not a test change |
 | move_tip_test | RED, known cause | the move card's partner plays hit/idle clips, never a dodge/block, for the jab (S466 open item); goes with the block pose work (BLOCKPOSE) |
+
+## S471 check (2026-11-14, the 05:00 run was on 7b7ac6e6 = S463, before the fixed 60 fps switch)
+8 red (7 new against 11-13). Rerun on main at `--fixed-fps 60` (3d401685):
+| test | on main | note |
+|---|---|---|
+| no_pronoun, plan_test_it, move_tip, guard_knee, words_on_screens, bout_read | GREEN | fixed by S464-S470 work |
+| plan_bots_test | RED, known cause (row above) | plan+sim 0.485, coach 0.447, none 0.356: step answers fire by low step bars; closes with PLANFLOW1 v2 / steps past Usable |
+| block_meet_test | RED only at fixed 60 fps (0 free-running, 11 fixed) | tests/ruler_stand.gd waited 45 FRAMES; at fixed 60 that is 0.75 s and the boxers have not stepped out yet (0.78 m, then 0.884 m from ~2.6 s). Fix written S471: wait in game seconds (3.0 s min, 8.0 s max, 20 still frames). NOT YET RUN: the PC was RED (memory) |
