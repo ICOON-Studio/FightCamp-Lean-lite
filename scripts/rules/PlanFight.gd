@@ -18,8 +18,9 @@ const Combos := preload("res://scripts/rules/Combos.gd")
 ## corner's shout the moment. A wrong move costs in full, drilled or not (she does the wrong thing well).
 const EDGE := {"best": 9.0, "ok": 3.0, "none": 0.0, "wrong": -7.0}
 
-## Where the opponent's game puts the fight (and where our fighter's own trouble does).
-const GAME_CARD := {"press": "mid", "range": "long", "counter": "long", "loadup": "mid", "tiring": "inside",
+## Where the opponent's game puts the fight (and where our fighter's own trouble does when she loses an exchange).
+## S466 CARDFIX1: a counter-puncher waits outside her range (outside was never reached: 1-1-2 could never fire).
+const GAME_CARD := {"press": "mid", "range": "long", "counter": "outside", "loadup": "mid", "tiring": "inside",
 	"hurt": "opp_ropes", "she_tired": "inside", "she_hurt": "own_ropes"}
 ## Losing an exchange to this game leaves her here (a presser walks her onto the ropes).
 const LOST_CARD := {"press": "own_ropes", "loadup": "own_ropes"}

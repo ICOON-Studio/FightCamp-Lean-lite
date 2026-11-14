@@ -46,6 +46,17 @@ var shown_head := Vector3.INF
 ## S379: her hips as shown (world): the broadcast lens frames and keeps off her back by them - a step's travel sits in the
 ## clip's hips up to ~0.5 m from her root before the root catches up.
 var shown_hips := Vector3.INF
+## S465 C389 (operator markup on the rear uppercut tail: "clipping", twice): a glove never passes through the other boxer's
+## glove or forearm. Touch: glove 0.06 m radius each -> 0.12 m centre to centre; glove to forearm (~0.04 m) 0.10 m. Each
+## boxer moves out of ARM_SHARE of the overlap (both do, so the pair clears it; the peer's arms are read up to a frame late).
+## `-- noclash` = the control arm.
+const GLOVE_TOUCH_M := 0.12
+const ARM_TOUCH_M := 0.10
+const ARM_SHARE := 0.6
+## Her arms as shown, world space, per side: [elbow, glove centre] (read by the other boxer's GloveClear).
+var shown_arms := {}
+var clash := true
+var clash_pushes := 0    # frames a glove was moved off the other's glove or forearm (for probes)
 var heads := true        # `-- noheads` turns the head clearance off (control arm)
 var pushes := 0          # frames a glove was moved out (for probes)
 var head_pushes := 0     # frames her trunk leaned out of the other's head
@@ -67,6 +78,7 @@ func setup(skel: Skeleton3D) -> bool:
 	_spine = skel.find_bone("Spine")
 	_chest = skel.find_bone("Chest")
 	heads = _spine >= 0 and _chest >= 0 and not OS.get_cmdline_user_args().has("noheads")
+	clash = not OS.get_cmdline_user_args().has("noclash")
 	if _head >= 0:
 		_up_rest = skel.get_bone_global_rest(_head).basis.orthonormalized().inverse() * Vector3.UP
 	return _head >= 0
@@ -119,6 +131,62 @@ func _process_modification() -> void:
 		var l2 := g_la.origin.distance_to(g_hd.origin)
 		PunchReach.solve(skel, ids, s, g_hd.origin + dir * push / k, l1, l2, g_hd.basis)
 		pushes += 1
+	if clash and peer != null and is_instance_valid(peer):
+		for side in _arms:
+			if _punching(side):
+				continue   # a landed punch's glove, out and home, is PunchReach's; the other boxer's guard moves off it
+			_clear_arms(skel, _arms[side], k)
+	for side in _arms:
+		var ids: Array = _arms[side]
+		var g_la: Transform3D = skel.get_bone_global_pose(int(ids[1]))
+		var g_hd: Transform3D = skel.get_bone_global_pose(int(ids[2]))
+		var gc := g_hd.origin + (g_hd.origin - g_la.origin).normalized() * GLOVE_FWD_M / k
+		shown_arms[side] = [skel.global_transform * g_la.origin, skel.global_transform * gc, _punching(side)]
+
+
+## S465: a landed punch's hand from arming to the end of its fade home (PunchReach `_clip` armed on it, or `_fades` holds
+## it). Nudging it on its way home broke hit_carry's SMOOTH (34 -> 43 failures with only the landing frames locked).
+func _punching(side: String) -> bool:
+	if reach == null:
+		return false
+	var hand := side + "Hand"
+	return (str(reach.get("_clip")) != "" and str(reach.get("_hand")) == hand) or (reach.get("_fades") as Dictionary).has(hand)
+
+
+## S465 C389: her glove off the other's gloves and forearms. The deepest overlap wins; the wrist moves out of ARM_SHARE of it
+## (soft knee as for heads) and the arm is re-solved with the hand's rotation kept.
+func _clear_arms(skel: Skeleton3D, ids: Array, k: float) -> void:
+	var g_la: Transform3D = skel.get_bone_global_pose(int(ids[1]))
+	var g_hd: Transform3D = skel.get_bone_global_pose(int(ids[2]))
+	var gc_w: Vector3 = skel.global_transform * (g_hd.origin + (g_hd.origin - g_la.origin).normalized() * GLOVE_FWD_M / k)
+	var best := 0.0
+	var dir := Vector3.ZERO
+	var share := ARM_SHARE
+	for arm in (peer.shown_arms as Dictionary).values():
+		var elbow: Vector3 = arm[0]
+		var glove: Vector3 = arm[1]
+		## A landing glove (PunchReach on, through the tail) never moves: this glove takes the whole overlap (S465 log:
+		## the rear uppercut's tail kept its reach weight 291 frames, so a 0.6 share left the gloves inside each other).
+		var own := 1.0 if bool(arm[2]) else ARM_SHARE
+		var p_g := GLOVE_TOUCH_M + SOFT_M * 0.5 - gc_w.distance_to(glove)
+		if p_g * own > best * share:
+			best = p_g
+			share = own
+			dir = gc_w - glove
+		var q := Geometry3D.get_closest_point_to_segment(gc_w, elbow, glove)
+		var p_a := ARM_TOUCH_M + SOFT_M * 0.5 - gc_w.distance_to(q)
+		if p_a * own > best * share:
+			best = p_a
+			share = own
+			dir = gc_w - q
+	if best <= 0.0 or dir.length() < 1e-5:
+		return
+	var push := (best * best / (2.0 * SOFT_M) if best < SOFT_M else best - SOFT_M * 0.5) * share
+	var to_me := skel.global_transform.affine_inverse()
+	var d_local := (to_me.basis * dir).normalized()
+	var s: Vector3 = skel.get_bone_global_pose(int(ids[0])).origin
+	PunchReach.solve(skel, ids, s, g_hd.origin + d_local * push / k, s.distance_to(g_la.origin), g_la.origin.distance_to(g_hd.origin), g_hd.basis)
+	clash_pushes += 1
 
 
 ## S316: heads touch up close (temple to temple, a head on a shoulder) but never pass through each other - inside_guard_probe

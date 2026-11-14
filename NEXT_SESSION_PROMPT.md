@@ -1,33 +1,32 @@
-# S465 handover (written 2026-11-14 at the end of S464; S463's handover is in git history)
+# S466 handover (written 2026-11-14 at the end of S465; S464's handover is in git history)
 
-OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S465`.
+OPEN IN E:\FightCamp\Lean. START: `git pull && python ops/Tools/agent_comms.py start`, then `python ops/Tools/where_we_are.py roll S466`.
 
 ## USAGE RULES (kept)
 - Run `get_usage` first. Hand over at 420k context; wrap-up from ~395k. At most TWO helper sessions / subagents at once.
-- Never idle while a test or agent runs: run_in_background and do the next item. The watchdog went RED on RAM most of S464
-  (his game, 8+ GB): no new Godot job on RED; the heat governor pauses running ones.
+- Never idle while a test or agent runs: run_in_background and do the next item. Our own windowed renders keep the PC off
+  GREEN, which holds Qwen's launch (S355): batch renders, then let the dispatcher launch.
 
 ## HIS RULINGS IN FORCE (quote them)
 - S459: "need to finish intergrading mechanics before we spend more time in designing the menus" -> integrate first.
 - S461 greybox: each mechanic lands on the screen it belongs to as a line, a number, a hover or a few buttons.
 - S459: design loop on the free seats until every mechanic scores 6+ depth and 6+ general (ops/Tools/design_loop.py).
+- Q-220 (S465): R58 a fighter leaves: "Yes, build after the fight week".
 
 ## FIRST
-1. TREEVALUE1: the last S464 run (any-time sweep) may have finished after the handover - read
-   ops/AgentComms/treevalue1_s464.log. Each swept node is planned with no "when" there; a node still reading the same at 0 and
-   70 sits on a card bouts never reach. docs/TREEVALUE1_RESULT.md is written by that run; commit tools/treevalue_probe.gd +
-   the page (both uncommitted on main). Earlier runs: treevalue1_s464_floor / _shared_when / _own_when .log.
-   Herd/Push off merge (PROGRESSION_MAP line 96) is NOT decided until CARDVISIT1 says which cards are reached.
-2. CARDVISIT1 (Qwen, ops/research/TASK_CARDVISIT1.md, dispatch queue, launches when the watchdog leaves RED): collect,
-   RERUN on the same seeds, diff the page. Cards never reached -> the card chain / answer table is the design question.
-3. LANDREACH1 (ops/research/TASK_LANDREACH1.md): red since the POWER1 merge 74a910de; step 1 = the rear glove on the game
-   camera (tools/hit_frame_film.gd). Worktree E:/FightCamp/wt/LEAN_BISECT (detached) is free for it - put it on main first.
-4. Seat answers: SQ96 fight week v8, SQ98 club week v5, SQ104 weight r2 (John) - each is DESIGNED if John gives 6+/6+ (Dola /
-   Kalli already did). SQ106-107 TURNPRO1 v1 critics, SQ108 Knowledge v3 (Kalli), SQ109 coach fit v6 (Dola).
-5. His board: Q-220 R58, Q-222 HOSTSHOW1, Q-223 PUSHTANK (all designed, build after the fight week).
-6. Export a build (S464 exported none).
+1. His board: Q-224 (club show map) and Q-225 (push/tank map) - his answers to "Show me the map first". His review-board
+   comments on the C388 tiles, the glove clash strip and the landed cross (LANDREACH1 step 1).
+2. CARDFIX1 (Qwen, ops/research/TASK_CARDFIX1.md, dispatch queue): collect, RERUN on main, diff the page; then make the card
+   table design call (PlanFight.GAME_CARD / ANSWERS) from its arms and wire it with plan_bout_test + fire_level_test.
+3. GLOVE CLASH shipped (97ca0023, GloveClear._clear_arms); closes on his OK of docs/mockups/s465/clash_compare.png. If he still
+   sees a glove inside a glove, film it from the side (hit_frame_film _side_cam) before touching the numbers.
+4. LANDREACH1 step 2: clip pro_right_cross_c holds contact 0.400 at 16.5 cm off the face (ReachLimit / ReachDrive).
+5. Seat answers: SQ91 (John, resent), SQ96/98/104 (John), SQ109 (Dola coach fit v6, cici send failed - retried), SQ111 (Dola
+   Knowledge v3), SQ113/114 (TURNPRO1 v2). Update ops/research/DESIGN_LOOP_S459.md as each lands.
+6. Export a build.
 
-## DONE IN S464 (ops/research/S464_DIGEST.md)
-- STEPPLAN1 fixed: CoachPlan skips steps under Usable; plan tests use drilled bars (31d00e44).
-- TREEVALUE1 probe made valid (calibration, full fighters, mutant arm); 7 nodes never consulted - the card + when rule.
-- LANDREACH1 bisected; PUSHTANK v2 designed (Q-223); traits never move (TraitLine.crossed has nothing to wire).
+## NOTES
+- Miro P0: NOW cards now_9 / now_10 (ids 3458764690416594183-186) were not confirmed by Miro twice in S465. If the next redraw
+  fails on them again, remove those ids from ops/AgentComms/where_we_are_miro.json so they are recreated.
+- hit_carry_test is red on main (34-38 failures, run-to-run noise of ~5) and block_meet 9: both predate S465 (LANDREACH1).
+- Qwen CARDFIX1 launched 10:04 (runner pid 48828, wt LEAN_CARDFIX1); estimate done ~11:30 (CARDVISIT1 took ~10 min for one arm).

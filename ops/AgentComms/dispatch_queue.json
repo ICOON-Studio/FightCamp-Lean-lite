@@ -1399,9 +1399,17 @@
   {
    "task": "CARDFIX1",
    "seat": "qwen",
-   "status": "queued",
+   "status": "landed",
    "queued": "2026-11-14T10:00",
-   "note": "S465: four card-table arms; which lets every best answer fire without breaking win balance"
+   "note": "S465: four card-table arms; which lets every best answer fire without breaking win balance | S466 collected (docs/CARDFIX1_RESULT.md): no arm passes; she_* fixed cards were the cause -> LiveRound fix 3fd32033 + CARDFIX2",
+   "launched": "2026-11-14T10:05"
+  },
+  {
+   "task": "CARDFIX2",
+   "seat": "qwen",
+   "status": "queued",
+   "queued": "2026-11-14T10:55",
+   "note": "S466: rerun the card probe on main after the she_* + counter->outside fix (3fd32033); reach counts @card variants"
   }
  ]
 }

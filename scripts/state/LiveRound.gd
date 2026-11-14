@@ -258,8 +258,9 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	if fire and fits and TheRead.fires(TheRead.read(st, game), TheRead.trigger(f)):
 		d += TheRead.EDGE_LANDED
 	d += float(rd.get("edge", 0.0))
-	# S339 the plan: the card this 30 s is fought on (her own trouble puts her where it does) and the arrow she throws there.
-	if str(lv.get("at", "")) == "" or sit.begins_with("she_"):
+	# S339 the plan: the card this 30 s is fought on and the arrow she throws there. S466 CARDFIX1: her own trouble no longer
+	# teleports her - she is tired or hurt where she stands; losing the exchange moves her (PlanFight.where_next).
+	if str(lv.get("at", "")) == "":
 		lv["at"] = str(PlanFight.GAME_CARD.get(sit, "long"))
 	var at := str(lv["at"])
 	var pick := PlanFight.choose(PlanFile.arrows_for(f["bout"].get("arrows", []), f["bout"].get("late", f.get("late", {})), n, int(f["bout"].get("rounds", BoutRules.ROUNDS)), m.get("rounds", [])), at, f.get("moves", {}), sit)   # S460 PlanPhase

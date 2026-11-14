@@ -1,3 +1,12 @@
+S465 (2026-11-14)
+- Her page, WHAT TO LEARN NEXT, redone after your "doesnt look good, needs redesign": what she is studying is one bar at the
+  top (how far, how many weeks); under it the coach's three choices side by side, each saying what the move is, how long it
+  takes, why the coach picks it, and one Study button (a grey one says why it is grey). Does it read better now?
+- Fight: the glove clash you marked on the rear uppercut (+150 / +200 ms). Gloves no longer pass through the other boxer's
+  glove or forearm: a punching glove keeps its line and the other boxer's guard glove moves off it. Watch a few exchanges up
+  close: do you still see a glove inside a glove?
+- On the board: the maps you asked for before deciding the club show (Q-224) and the push switch + tank (Q-225).
+
 S463 (2026-11-14)
 - Her page (Overview, scroll down past the moves and combinations): WHAT TO LEARN NEXT, your answer "Yes, greybox it". The
   coach's three picks, each with why ("Answers a Pressure fighter", "Third move of Out-boxer", "5 weeks to Usable"). Pick a
