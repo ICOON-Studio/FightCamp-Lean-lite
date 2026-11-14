@@ -3,10 +3,16 @@
   "updated": "2026-11-15",
   "author": "claude S294",
   "now": {
-    "id": "S476",
+    "id": "S477",
     "owner": "claude",
     "updated": "2026-11-15",
-    "summary": "S476: KNEE COLLECTED, UPPERCUT CLIPPING HALVED. Collected KNEEFIX1 (Qwen: rear toes 45 + band 20, guard_knee source = its own ruler's read) but refused its frames cut 15->8: the low count was the fidget draw (8/150/275 frames on one tree), the test now watches 1320 frames, bar 15 kept; close rear-knee stills on the review board. CLASH3 (Claude): off a landing punch the guard arm now opens outward only ACROSS the push (the old sum cancelled it): seed 4242 frames >2 cm 5->3, rear uppercut 6.5->2.8 cm; seed 77 10->8. Left: the blocked cross (catching glove 9.9 cm inside, BlockCatch MEET_M) -> BLOCKCLIP1 on Qwen (launched 00:18, ETA ~02:30). LIVERRIBS1: decided no plan-level aim (the aim is a live shout; a plan aim would be a new mechanic for the critics), the forecast stays. Seat answers: club week v7 Dola 7/7, John 6/5, Maria 7/5 -> v8 to Kalli (SQ146); coach fit v8 -> Dola+John (SQ147/148); weight r5 -> Dola+Maria (SQ149/150); step value Maria 7/6 pass. FWTRIPS1 (Arena) never opened a PR. | LATER IN S476: clash_meter now reads a boxer's OWN two gloves; nothing keeps them apart - tests/own_gloves_test.gd red (guard + fidgets, no punches: boxer 0 0.100 m, boxer 1 0.127 m); films show it after 9 of 10 shots. OWNGLOVE1 queued on Qwen after BLOCKCLIP1. | His board: STEPVALUE1 approved (build after the fight week) + the ropes count rule (Yes)."
+    "summary": "S477: SEAT ANSWERS MOVED, STYLE1 TO ARENA, GLOVE AXIS HELD. Weight r5 Maria 7/6 pass (first); plan flowchart v3 back to John+Maria (SQ151/152: it adds result-changing pieces); John's ladder research checked against the code -> Kalli map v1 (SQ153); training K to Dola (SQ154). STYLE1 (Arena, chat 01a1dc46): is each named style worth 1.5-4 in 100 (the style effects were already wired S459). CLASH3 glove axis (GloveClear uses PunchReachMath.along) HELD on claude/clash3-glove-axis: seed 77 8->7 frames, cross 09 4.1->2.7, but block_meet@30 1->2 (a jab catch 3 mm low). BLOCKCLIP1 (Qwen) landed BLOCKED: 08_cross still 9.9 cm; branch pushed, not merged. OWNGLOVE1 running on Qwen (ETA ~02:15). His question answered: the icons-over-text rule was withdrawn by him S425; offered to restore it.",
+    "last_working_commit": "Lean 6a9d6402",
+    "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
+    "incomplete_blocked": "CLASH3 glove axis held on claude/clash3-glove-axis (block_meet@30 1->2); BLOCKCLIP1 blocked (08_cross 9.9 cm) on qwen/blockclip1",
+    "next_action": "S478: 0) get_usage. 1) Collect Qwen OWNGLOVE1 (branch qwen/ownglove1: tests/own_gloves_test.gd green, OWN film lines down, no new CLASH frame, the 6 regression FAIL sets not larger - block_meet@30 main = 1) and Arena STYLE1 (PR on FightCamp-Lean-lite -> relayed; gates in TASK_STYLE1.md). 2) Kalli v9 (SQ144) in -> two critics -> his board with the sparring partner screen; Arena: partner match module. 3) CLASH3: trace 08_cross f27 (which layer writes the catching glove last) and the glove axis branch's block_meet row, then decide qwen/blockclip1 + claude/clash3-glove-axis together. 4) Dola's training K (SQ154): real numbers in, critics.",
+    "next_acceptance": "OWNGLOVE1 and STYLE1 collected or sent back with the reason; fight week v9 at two critics; the 08_cross trace names the layer.",
+    "awaiting_operator": []
   },
   "next": "S477: 0) get_usage. 1) Collect Qwen BLOCKCLIP1 (branch qwen/blockclip1: 08_cross seed 77 <= 0.02 m every frame, no new deep frame on any shot, block_meet FAIL set not larger; open its f27 stills yourself, then his look). 2) Seat answers: SQ144 fight week map v9 -> two fresh critics -> 6/6 + depth 7 -> his board WITH the redrawn sparring-partner screen (names only in headers); SQ145 LADDER1 research -> Kalli map; SQ143 plan flowchart v3 -> his board; SQ146-150 design loop. 3) Arena: a pure module from v9 (partner-to-opponent match score). 4) CLASH3 left: a boxer's own two gloves (clash_meter reads only pairs across boxers - add own-pair), cross 09 seed 77 one 4.1 cm frame (the clearance believes it clear: its forearm-line glove model vs the drawn glove).",
   "assessment": {
@@ -1974,6 +1980,11 @@
       "id": "S476",
       "date": "2026-11-15",
       "summary": "S476: KNEE COLLECTED, UPPERCUT CLIPPING HALVED. Collected KNEEFIX1 (Qwen: rear toes 45 + band 20, guard_knee source = its own ruler's read) but refused its frames cut 15->8: the low count was the fidget draw (8/150/275 frames on one tree), the test now watches 1320 frames, bar 15 kept; close rear-knee stills on the review board. CLASH3 (Claude): off a landing punch the guard arm now opens outward only ACROSS the push (the old sum cancelled it): seed 4242 frames >2 cm 5->3, rear uppercut 6.5->2.8 cm; seed 77 10->8. Left: the blocked cross (catching glove 9.9 cm inside, BlockCatch MEET_M) -> BLOCKCLIP1 on Qwen (launched 00:18, ETA ~02:30). LIVERRIBS1: decided no plan-level aim (the aim is a live shout; a plan aim would be a new mechanic for the critics), the forecast stays. Seat answers: club week v7 Dola 7/7, John 6/5, Maria 7/5 -> v8 to Kalli (SQ146); coach fit v8 -> Dola+John (SQ147/148); weight r5 -> Dola+Maria (SQ149/150); step value Maria 7/6 pass. FWTRIPS1 (Arena) never opened a PR. | LATER IN S476: clash_meter now reads a boxer's OWN two gloves; nothing keeps them apart - tests/own_gloves_test.gd red (guard + fidgets, no punches: boxer 0 0.100 m, boxer 1 0.127 m); films show it after 9 of 10 shots. OWNGLOVE1 queued on Qwen after BLOCKCLIP1. | His board: STEPVALUE1 approved (build after the fight week) + the ropes count rule (Yes)."
+    },
+    {
+      "id": "S477",
+      "date": "2026-11-15",
+      "summary": "S477: SEAT ANSWERS MOVED, STYLE1 TO ARENA, GLOVE AXIS HELD. Weight r5 Maria 7/6 pass (first); plan flowchart v3 back to John+Maria (SQ151/152: it adds result-changing pieces); John's ladder research checked against the code -> Kalli map v1 (SQ153); training K to Dola (SQ154). STYLE1 (Arena, chat 01a1dc46): is each named style worth 1.5-4 in 100 (the style effects were already wired S459). CLASH3 glove axis (GloveClear uses PunchReachMath.along) HELD on claude/clash3-glove-axis: seed 77 8->7 frames, cross 09 4.1->2.7, but block_meet@30 1->2 (a jab catch 3 mm low). BLOCKCLIP1 (Qwen) landed BLOCKED: 08_cross still 9.9 cm; branch pushed, not merged. OWNGLOVE1 running on Qwen (ETA ~02:15). His question answered: the icons-over-text rule was withdrawn by him S425; offered to restore it."
     }
   ],
   "blocked_on_operator": [],
@@ -4892,7 +4903,7 @@
   },
   "plan": {
     "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-    "updated": "2026-11-15 00:41 board_sync",
+    "updated": "2026-11-15 01:11 board_sync",
     "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
     "titles": {
       "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5042,10 +5053,10 @@
     },
     "working_now": [
       {
-        "title": "TASK BLOCKCLIP1 - the catching glove sits 9.9 cm inside the cross it blocks (measure, fix, stills)",
-        "who": "qwen",
-        "started": "2026-11-15T00:18",
-        "run": "BLOCKCLIP1"
+        "title": "TASK STYLE1 - does any named style dominate, and is each worth having? (probe, measure only)",
+        "who": "arena",
+        "started": "2026-11-15T00:56",
+        "run": "STYLE1"
       }
     ],
     "next": [
@@ -5058,7 +5069,7 @@
       {
         "id": "LADDER1",
         "who": "kalli",
-        "title": "Season ladder at 9/10 (his S475 note): see the ladder, find an opponent, book - reputation as the currency instead of fixed win counts; John researching games + real boxing (SQ145), then Kalli's map",
+        "title": "Season ladder at 9/10 (his S475 note): reputation as the currency instead of fixed win counts. John's research IN (S477: 10 games, England Boxing/BBBofC rules, reputation earns + unlocks, the 9/10 screen; code claims checked); map v1 at Kalli (SQ153), then two critics to 9/10",
         "after": ""
       },
       {
@@ -5070,13 +5081,13 @@
       {
         "id": "CLASH3",
         "who": "claude",
-        "title": "Clipping leftovers: S476 fixed the landing-punch push (rear uppercut 6.5 -> 2.8 cm) and measured own-glove clipping (OWNGLOVE1, Qwen); left: cross 09 seed 77 one 4.1 cm frame (the clearance's forearm-line glove model v the drawn glove), the blocked cross -> BLOCKCLIP1 (Qwen)",
+        "title": "Clipping leftovers: S477 glove axis HELD on claude/clash3-glove-axis (seed 77 8->7, cross 09 4.1->2.7; block_meet@30 1->2: a jab catch 3 mm low - fix before merge); BLOCKCLIP1 (Qwen) BLOCKED: 08_cross 9.9 cm not moved by MEET_M/SURFACE_M - trace which layer writes the catching glove last; cross 07 4.5 cm (guard glove v a returning fist - dbg_on); OWNGLOVE1 running",
         "after": ""
       },
       {
         "id": "PLANFLOW1",
         "who": "kalli",
-        "title": "Fight plan as an if-then flowchart: v2 PASSES 6/6 (John 7/6, Maria 7/6, Dola 7/8, S475); v3 at Kalli (SQ143) fixes John's 5 logic faults, then his board",
+        "title": "Fight plan as an if-then flowchart: v2 passed 6/6 (S475); v3 in (Kalli self 7/7/7, S477) adds result-changing pieces (Main bet, Test it, GUESS, Lean on it) -> critics John SQ151 + Maria SQ152, then his board",
         "after": ""
       },
       {
@@ -5100,7 +5111,7 @@
       {
         "id": "TRAINGAME2",
         "who": "claude",
-        "title": "Training K at critics (J: Dola 7/8, Claude 6/5 - sparring gives a move under 30 nothing, so Friday's READY and split are false): count every gain to the first bell, price the shared evening in wins for both fighters, Playbook move cards onto the evenings, the week twist + diet levers; two at 7+ -> the board",
+        "title": "Training K: Dola draws K from J's two 10/10 lists (S477 SQ154, TRAINGAME_K_DRAW_S477_DOLA); then Claude puts the game's real numbers in (PadWeek gains to the bell, FireLevel shares for the shared evening; every 'est.' replaced) -> two critics at 7+ -> the board",
         "after": ""
       },
       {
@@ -5118,7 +5129,7 @@
       {
         "id": "PROGBUILD1",
         "who": "claude",
-        "title": "Progression plan build (his Q-211 'Yes, go ahead'): PROGRESSION_MAP_S448 v4.1 section 10 - FIRELEVEL3, BODYFACTS1, MOVETREE1 and the probes briefed to seats first [S457: SPECIALTY1 wired, STYLENAME1 module in; next: wire the style effects]",
+        "title": "Progression plan build (his Q-211 'Yes, go ahead'): PROGRESSION_MAP_S448 v4.1 section 10 - the six named styles are BUILT AND WIRED (S459: LiveRound plan_mult/pressure, RingDuel range_open, BoutNight knock_power/combo_energy, GamePlan line limit); S477: STYLE1 probe on Arena (does a style dominate, is each worth 1.5-4 in 100; TASK_STYLE1.md); next probes HOLD1, READ1, COACHMARKET1",
         "after": ""
       },
       {
@@ -5745,6 +5756,22 @@
     "map": {
       "done_earlier": [
         {
+          "text": "Rear knee: toes 45, bar honest",
+          "who": "agent"
+        },
+        {
+          "text": "Uppercut clipping 6.5 -> 2.8 cm",
+          "who": "claude"
+        },
+        {
+          "text": "Club week v7 critics in",
+          "who": "agent"
+        },
+        {
+          "text": "Liver/ribs: no plan aim (decided)",
+          "who": "claude"
+        },
+        {
           "text": "Sounds wired: 11 kept (Qwen)",
           "who": "agent"
         },
@@ -5783,39 +5810,19 @@
         {
           "text": "Bout sheet module (Qwen)",
           "who": "agent"
-        },
-        {
-          "text": "Weight gap module (Goose)",
-          "who": "agent"
-        },
-        {
-          "text": "Knee sweep: foot turn is the knob",
-          "who": "claude"
-        },
-        {
-          "text": "Fight week screen mockup v1",
-          "who": "claude"
-        },
-        {
-          "text": "Pull-out + favours (Goose)",
-          "who": "agent"
         }
       ],
       "done_session": [
         {
-          "text": "Rear knee: toes 45, bar honest",
+          "text": "Weight r5: Maria 7/6 pass",
           "who": "agent"
         },
         {
-          "text": "Uppercut clipping 6.5 -> 2.8 cm",
-          "who": "claude"
-        },
-        {
-          "text": "Club week v7 critics in",
+          "text": "Ladder research in (John)",
           "who": "agent"
         },
         {
-          "text": "Liver/ribs: no plan aim (decided)",
+          "text": "Glove axis: cross 09 4.1->2.7 cm",
           "who": "claude"
         }
       ],
@@ -5857,19 +5864,7 @@
           "who": "agent"
         },
         {
-          "text": "Step value critics (2 seats)",
-          "who": "agent"
-        },
-        {
-          "text": "Plan flowchart v3 (Kalli)",
-          "who": "agent"
-        },
-        {
           "text": "Fight week map v9 (Kalli)",
-          "who": "agent"
-        },
-        {
-          "text": "Ladder research (John)",
           "who": "agent"
         },
         {
@@ -5882,6 +5877,18 @@
         },
         {
           "text": "Critics: coach fit v8, weight r5",
+          "who": "agent"
+        },
+        {
+          "text": "Ladder map v1 (Kalli)",
+          "who": "agent"
+        },
+        {
+          "text": "Plan flowchart v3 critics",
+          "who": "agent"
+        },
+        {
+          "text": "Training K drawing (Dola)",
           "who": "agent"
         }
       ],
@@ -5955,12 +5962,12 @@
           "who": "claude"
         }
       ],
-      "session": "S476"
+      "session": "S477"
     }
   },
   "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
   "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
-  "last_working_commit": "df924dcc",
-  "next_action": "S477: 0) get_usage. 1) Collect Qwen BLOCKCLIP1 (branch qwen/blockclip1: 08_cross seed 77 <= 0.02 m every frame, no new deep frame on any shot, block_meet FAIL set not larger; open its f27 stills yourself, then his look). 2) Seat answers: SQ144 fight week map v9 -> two fresh critics -> 6/6 + depth 7 -> his board WITH the redrawn sparring-partner screen (names only in headers); SQ145 LADDER1 research -> Kalli map; SQ143 plan flowchart v3 -> his board; SQ146-150 design loop. 3) Arena: a pure module from v9 (partner-to-opponent match score). 4) CLASH3 left: a boxer's own two gloves (clash_meter reads only pairs across boxers - add own-pair), cross 09 seed 77 one 4.1 cm frame (the clearance believes it clear: its forearm-line glove model vs the drawn glove).",
-  "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after."
+  "last_working_commit": "6a9d6402",
+  "next_action": "S478: 0) get_usage. 1) Collect Qwen OWNGLOVE1 (branch qwen/ownglove1: tests/own_gloves_test.gd green, OWN film lines down, no new CLASH frame, the 6 regression FAIL sets not larger - block_meet@30 main = 1) and Arena STYLE1 (PR on FightCamp-Lean-lite -> relayed; gates in TASK_STYLE1.md). 2) Kalli v9 (SQ144) in -> two critics -> his board with the sparring partner screen; Arena: partner match module. 3) CLASH3: trace 08_cross f27 (which layer writes the catching glove last) and the glove axis branch's block_meet row, then decide qwen/blockclip1 + claude/clash3-glove-axis together. 4) Dola's training K (SQ154): real numbers in, critics.",
+  "next_acceptance": "OWNGLOVE1 and STYLE1 collected or sent back with the reason; fight week v9 at two critics; the 08_cross trace names the layer."
 }

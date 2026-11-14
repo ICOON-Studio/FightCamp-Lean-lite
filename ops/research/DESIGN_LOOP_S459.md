@@ -44,3 +44,4 @@ DONE = two critics (one fresh) each at 6+ DEPTH and 6+ GENERAL DESIGN. Then it g
 - LADDER1: John's research in (SQ145: 10 games, England Boxing / BBBofC rules, reputation earns/unlocks, the 9/10 screen);
   Claude checked its code claims (Roster PRO_WINS 7 / PRO_RANK 3 / 9 any rank, Region RANK_MIN_WINS 4, AskBout has no caller,
   Matchmaking BAND_UP 5 / TOP_ASK_FANS 3). Map v1 brief to Kalli (SQ153, DESIGN_LADDER1_V1_WRITE_KALLI).
+- COACHFIT1 v8: Dola 7/7 (play 6) PASS; John SQ148 still out - one more 6/6 makes it DESIGNED (then his board).

@@ -99,7 +99,7 @@
    "agent": "qwen",
    "id": "BLOCKCLIP1",
    "title": "TASK BLOCKCLIP1 - the catching glove sits 9.9 cm inside the cross it blocks (measure, fix, stills)",
-   "status": "running",
+   "status": "landed S477 - NOT merged: RED not met (08_cross still 0.099 m); MEET_M/SURFACE_M 0.075 cleared 09_cross (1.3 cm) and block_meet 10->1 at 60 fps; branch pushed qwen/blockclip1 63f3deda; next: trace what holds the 08 catching glove",
    "started": "2026-11-15T00:18",
    "eta": "2026-11-15T02:08",
    "branch": "qwen/blockclip1",
@@ -119,6 +119,45 @@
     "brief_copied": true,
     "runner_pid": 40356,
     "seat_pid": 14768
+   },
+   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+  },
+  "STYLE1": {
+   "agent": "arena",
+   "id": "STYLE1",
+   "title": "TASK STYLE1 - does any named style dominate, and is each worth having? (probe, measure only)",
+   "status": "running",
+   "started": "2026-11-15T00:56",
+   "eta": "2026-11-15T02:30",
+   "branch": "arena/<chat-id>",
+   "brief": "ops/research/TASK_STYLE1.md",
+   "repo": "ICOON-Studio/FightCamp-Lean-lite",
+   "chat": "https://arena.ai/agent/01a1dc46-8131-7b0e-af3a-6e1d928bcaec"
+  },
+  "OWNGLOVE1": {
+   "agent": "qwen",
+   "id": "OWNGLOVE1",
+   "title": "TASK OWNGLOVE1 - a boxer's own two gloves pass through each other in the guard (keep them apart, film + stills)",
+   "status": "running",
+   "started": "2026-11-15T01:17",
+   "eta": "2026-11-15T03:07",
+   "branch": "qwen/ownglove1",
+   "worktree": "E:/FightCamp/wt/LEAN_OWNGLOVE1",
+   "wt": "E:/FightCamp/wt/LEAN_OWNGLOVE1",
+   "brief": "ops/research/TASK_OWNGLOVE1.md",
+   "repo": "FightCamp-Lean",
+   "where": "pc",
+   "log": "E:/FightCamp/wt/OWNGLOVE1_dispatch_out.txt",
+   "match": "seat_dispatch.py run ownglove1",
+   "model": "qwen3-coder",
+   "dispatch": {
+    "prompt": "E:/FightCamp/wt/OWNGLOVE1_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/OWNGLOVE1_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/OWNGLOVE1_dispatch_runner.log",
+    "source": "command line",
+    "brief_copied": true,
+    "runner_pid": 2576,
+    "seat_pid": 45952
    },
    "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
   }
