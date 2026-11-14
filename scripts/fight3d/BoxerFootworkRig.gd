@@ -23,6 +23,12 @@ const KNEE_TURN_DEG := 45.0
 ## ... and only this much of the way there (r4b look, front view of a side step: all the way read bow-legged on the
 ## turned-out rear foot; the rest of the way is the plain toes-pole bend)
 const KNEE_OVER := 0.7
+## S471 measured (guard_knee_test rear mean, source +0.029 | boxer_footwork_test worst knee off the toes, bar 8), by band:
+##   0: -0.07..-0.08 | 5.5 deg     6: -0.05..-0.06 | 9.5     12: -0.03..-0.04 | 14.0     45 (GUARDKNEE3 as merged): -0.004 | 32-34
+## Reaching the take's knee takes a 30+ deg twist off the rig's own foot, worse than the bow it cures: the take's foot and
+## the rig's foot do not stand alike, so the fix belongs in the foot / hip placement, not in the knee. 0 = knee over the foot.
+## Probe arm: `-- kneeband=<deg>`.
+const REAR_BAND_DEG := 0.0
 const LEAN_DEG := 10.0
 const HINGE := 0.5             # share of the lean taken at the hips
 ## S392 (two blind judges, film 0:19.8: "his rear knee folds almost to the mat"): pro_body_shot takes the hips to 0.59 m with the
@@ -54,7 +60,7 @@ var upper_want := 1.0
 var upper_w := 1.0
 var _guard_lean := 0.0         # S391: the lean last topped up in her guard
 var _clip_knee_dir: Array = [Vector3.ZERO, Vector3.ZERO]  # GUARDKNEE3: knee direction from hip, before hip lean
-var _smoothed_th: Array = [0.0, 0.0]  # GUARDKNEE3: temporally smoothed knee angle
+var _smoothed_th: Array = [0.0, 0.0]  # GUARDKNEE3 / S471: the rear knee's eased offset from the foot's line (rad)
 
 
 ## `after`: the legs run right after this modifier. `early`: the hips and torso run right before this one (null = right
@@ -235,6 +241,13 @@ static func _turn(skel: Skeleton3D, b: int, q: Quaternion) -> void:
 ## Two-bone IK in skeleton space: hip -> knee -> ankle meets `t`, the knee over the foot's line (the vertical plane
 ## through the ankle `t` and the ball `ball`, `fwd` = the foot's heel-to-toe), the thigh twisted so the knee's hinge lies
 ## in the bend plane (no knee twist); then the foot and toes take their bases. Returns the knee's inner angle in degrees.
+func _rear_band() -> float:
+	for arg in OS.get_cmdline_user_args():   # the probe arm
+		if str(arg).begins_with("kneeband="):
+			return float(str(arg).trim_prefix("kneeband="))
+	return REAR_BAND_DEG
+
+
 func _solve(skel: Skeleton3D, leg_idx: int, ids: Array, t: Vector3, ball: Vector3, fwd: Vector3, foot: Basis, toes: Basis) -> float:
 	var ga := skel.get_bone_global_pose(ids[0])
 	var gb := skel.get_bone_global_pose(ids[1])
@@ -258,29 +271,34 @@ func _solve(skel: Skeleton3D, leg_idx: int, ids: Array, t: Vector3, ball: Vector
 	var w := dir.cross(u)
 	# GUARDKNEE3: the rear knee's pole comes from the CLIP's pose (stored before hip lean), carried onto the moved
 	# hip-ankle line. The lead knee keeps the original foot-based pole ("lead knee stays where it is").
+	# The foot's line first (both legs): th = 0 bends toward the toes; put the knee over the foot's line - its sideways
+	# offset n.(knee - t) = 0, n = the foot's sideways axis - and go KNEE_OVER of the way.
 	var th := 0.0
-	if leg_idx == 1:  # rear leg only
+	var fl := Vector3(ball.x - t.x, 0.0, ball.z - t.z)
+	var n := (fl if fl.length() > 1e-4 else fwd).normalized().cross(Vector3.UP)
+	var ca := r * n.dot(u)
+	var cb := r * n.dot(w)
+	var cr := sqrt(ca * ca + cb * cb)
+	if cr > 1e-5:
+		var phi := atan2(cb, ca)
+		var ac := acos(clampf(-n.dot(a + dir * along - t) / cr, -1.0, 1.0))
+		var t1 := wrapf(phi + ac, -PI, PI)
+		var t2 := wrapf(phi - ac, -PI, PI)
+		th = clampf((t1 if absf(t1) < absf(t2) else t2) * KNEE_OVER, -deg_to_rad(KNEE_TURN_DEG), deg_to_rad(KNEE_TURN_DEG))
+	# GUARDKNEE3: the rear knee's pole comes from the CLIP's pose (stored before hip lean), carried onto the moved
+	# hip-ankle line. S471: but never further than REAR_BAND_DEG from the foot's own line - the take knows nothing of where
+	# the rig steps the foot, and following it alone left the knee 13 deg off the toes standing and 32 deg in a forward
+	# step (boxer_footwork_test, bar 8). The ease is by time, not by frame.
+	if leg_idx == 1:
 		var clip_dir: Vector3 = _clip_knee_dir[leg_idx]
 		var clip_v := clip_dir - dir * clip_dir.dot(dir)
 		var th_raw := atan2(clip_v.dot(w), clip_v.dot(u))
-		# temporal smoothing to reduce frame-to-frame jitter
-		var smooth: float = 0.95
-		var prev_th: float = _smoothed_th[leg_idx]
-		var new_th: float = lerpf(prev_th, th_raw, 1.0 - smooth)
-		_smoothed_th[leg_idx] = new_th
-		th = clampf(new_th, -deg_to_rad(KNEE_TURN_DEG), deg_to_rad(KNEE_TURN_DEG))
-	else:  # lead leg: original foot-line calculation
-		var fl := Vector3(ball.x - t.x, 0.0, ball.z - t.z)
-		var n := (fl if fl.length() > 1e-4 else fwd).normalized().cross(Vector3.UP)
-		var ca := r * n.dot(u)
-		var cb := r * n.dot(w)
-		var cr := sqrt(ca * ca + cb * cb)
-		if cr > 1e-5:
-			var phi := atan2(cb, ca)
-			var ac := acos(clampf(-n.dot(a + dir * along - t) / cr, -1.0, 1.0))
-			var t1 := wrapf(phi + ac, -PI, PI)
-			var t2 := wrapf(phi - ac, -PI, PI)
-			th = clampf((t1 if absf(t1) < absf(t2) else t2) * KNEE_OVER, -deg_to_rad(KNEE_TURN_DEG), deg_to_rad(KNEE_TURN_DEG))
+		var band := deg_to_rad(_rear_band())
+		# only the OFFSET from the foot's line is eased: the line itself follows the foot at once (an eased line lagged a
+		# step and read 10 deg off the toes with no offset at all)
+		var k := 1.0 - pow(0.95, get_process_delta_time() * 60.0)
+		_smoothed_th[leg_idx] = lerpf(float(_smoothed_th[leg_idx]), clampf(wrapf(th_raw - th, -PI, PI), -band, band), k)
+		th = clampf(th + float(_smoothed_th[leg_idx]), -deg_to_rad(KNEE_TURN_DEG), deg_to_rad(KNEE_TURN_DEG))
 	var side := u * cos(th) + w * sin(th)
 	var knee := a + dir * along + side * r
 	var end := a + dir * reach

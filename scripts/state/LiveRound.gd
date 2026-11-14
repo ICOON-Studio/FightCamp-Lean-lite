@@ -289,6 +289,7 @@ static func exchange(c: Career, f: Dictionary, m: Dictionary, shout: String) -> 
 	d += plan_edge + read_edge - ProReadWire.edge(f["bout"], n, arrow, pick, _rng(c, f, n, i + 83).randf())   # S462 the pro read
 	# S360 Q-S294-90: the camp weeks spent on the opponent's own game (WeekOpp) count when the fight is on it.
 	d += WeekOpp.edge(f["bout"], sit)
+	d += CrackWire.guard_edge(f)   # S471 rule 6: a cracked side guards worse (-10, defend the side -4)
 	# S340 the clinch's price: its own dice, so an exchange without a tie-up plays exactly as before.
 	var cl := {}
 	if ClinchRest.tied(call, arrow, at):

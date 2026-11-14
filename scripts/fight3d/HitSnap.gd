@@ -57,6 +57,7 @@ const SWAY_HZ := Vector2(0.7, 1.0)
 var sway := 0.0
 var _sway_t := 0.0
 var _sway_hz := 0.0
+var sway_seed := 0              # S471: her own pace from her name (BoxerBuild), so a played fight repeats run to run
 
 
 func setup(skel: Skeleton3D) -> bool:
@@ -206,8 +207,10 @@ func _sway_step() -> void:
 	if skel == null or int(_b.get("Chest", -1)) < 0 or int(_b.get("Hips", -1)) < 0:
 		return
 	if _sway_hz <= 0.0:
-		_sway_hz = randf_range(SWAY_HZ.x, SWAY_HZ.y)
-		_sway_t = randf() * 10.0
+		var srng := RandomNumberGenerator.new()
+		srng.seed = sway_seed
+		_sway_hz = srng.randf_range(SWAY_HZ.x, SWAY_HZ.y)
+		_sway_t = srng.randf() * 10.0
 	_sway_t += get_process_delta_time()
 	var up: Vector3 = (skel.get_bone_global_pose(int(_b["Chest"])).origin - skel.get_bone_global_pose(int(_b["Hips"])).origin).normalized()
 	var left: Vector3 = (skel.get_bone_global_pose(int(_b["LeftUpperArm"])).origin - skel.get_bone_global_pose(int(_b["RightUpperArm"])).origin).normalized()

@@ -143,6 +143,7 @@ static func build(stage: Node3D, spec: Dictionary, index: int) -> Dictionary:
 		ec.reach = pr   # S321: the landing arm keeps the reach's elbow (and so the glove's aim)
 	var hs := HitSnap.new()
 	hs.name = "HitSnap"
+	hs.sway_seed = absi(hash(str(look.get("name", "")))) + 31   # S471 (FighterLife seeds the same way, + 17)
 	if not OS.get_cmdline_user_args().has("nosnap") and hs.setup(skel):
 		skel.add_child(hs)
 		skel.move_child(hs, (pr.get_index() + 1) if pr != null else 0)

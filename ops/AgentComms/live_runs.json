@@ -33,32 +33,32 @@
     "board": ""
    }
   },
-  "SPEEDFLIP1": {
+  "SPLIT471": {
    "agent": "qwen",
-   "id": "SPEEDFLIP1",
-   "title": "TASK SPEEDFLIP1 - why punch_speed_test's rows flip between runs, and what the new carry rule adds (headless, no fix)",
+   "id": "SPLIT471",
+   "title": "TASK SPLIT471 - three scripts at the 500-line limit get room (pure moves, no behaviour change, headless)",
    "status": "running",
-   "started": "2026-11-14T15:28",
-   "eta": "2026-11-14T17:18",
-   "branch": "qwen/speedflip1",
-   "worktree": "E:/FightCamp/wt/LEAN_SPEEDFLIP1",
-   "wt": "E:/FightCamp/wt/LEAN_SPEEDFLIP1",
-   "brief": "ops/research/TASK_SPEEDFLIP1.md",
+   "started": "2026-11-14T16:34",
+   "eta": "2026-11-14T18:24",
+   "branch": "qwen/split471",
+   "worktree": "E:/FightCamp/wt/LEAN_SPLIT471",
+   "wt": "E:/FightCamp/wt/LEAN_SPLIT471",
+   "brief": "ops/research/TASK_SPLIT471.md",
    "repo": "FightCamp-Lean",
    "where": "pc",
-   "log": "E:/FightCamp/wt/SPEEDFLIP1_dispatch_out.txt",
-   "match": "seat_dispatch.py run speedflip1",
+   "log": "E:/FightCamp/wt/SPLIT471_dispatch_out.txt",
+   "match": "seat_dispatch.py run split471",
    "model": "qwen3-coder",
    "dispatch": {
-    "prompt": "E:/FightCamp/wt/SPEEDFLIP1_dispatch_prompt.txt",
-    "out": "E:/FightCamp/wt/SPEEDFLIP1_dispatch_out.txt",
-    "runner_log": "E:/FightCamp/wt/SPEEDFLIP1_dispatch_runner.log",
-    "source": "command line",
+    "prompt": "E:/FightCamp/wt/SPLIT471_dispatch_prompt.txt",
+    "out": "E:/FightCamp/wt/SPLIT471_dispatch_out.txt",
+    "runner_log": "E:/FightCamp/wt/SPLIT471_dispatch_runner.log",
+    "source": "dispatch_queue.json",
     "brief_copied": true,
-    "runner_pid": 45976,
-    "seat_pid": 44880
+    "runner_pid": 20004,
+    "seat_pid": 18668
    },
-   "note": "S368 seat_dispatch: launched unattended (command line); merging stays off"
+   "note": "S368 seat_dispatch: launched unattended (dispatch_queue.json); merging stays off"
   }
  },
  "codex_budget": {

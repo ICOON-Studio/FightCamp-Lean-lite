@@ -1621,7 +1621,8 @@
    "last_error": "2026-11-14 15:10 cici send exited without a transcript (see SQ109_dola.log)",
    "answered_at": "2026-11-14 15:14",
    "answer": "research/DESIGN_COACHFIT1_V6_REVISE_DOLA_DOLA.md",
-   "chars": 26618
+   "chars": 26618,
+   "seen_by_claude": true
   },
   {
    "id": "SQ110",
@@ -1650,7 +1651,8 @@
    "pid": 42984,
    "transcript": "AgentComms/seat_logs/SQ111_dola.txt",
    "answered_at": "2026-11-14 15:22",
-   "answer": "research/DESIGN_KNOWLEDGE_V3_CRITIC_DOLA_DOLA.md"
+   "answer": "research/DESIGN_KNOWLEDGE_V3_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ112",
@@ -1679,7 +1681,8 @@
    "pid": 48996,
    "transcript": "AgentComms/seat_logs/SQ113_dola.txt",
    "answered_at": "2026-11-14 15:28",
-   "answer": "research/DESIGN_TURNPRO1_V2_CRITIC_DOLA_DOLA.md"
+   "answer": "research/DESIGN_TURNPRO1_V2_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ114",
@@ -1708,29 +1711,35 @@
    "sent_ms": 1794661827666,
    "answered_at": "2026-11-14 15:28",
    "answer": "research/DESIGN_PLANFLOW1_V1_WRITE_KALLI_KALLI.md",
-   "chars": 28847
+   "chars": 28847,
+   "seen_by_claude": true
   },
   {
    "id": "SQ115",
    "seat": "kalli",
    "brief": "research/DESIGN_CLUBWEEK1_V6_REVISE_KALLI.md",
    "stem": "DESIGN_CLUBWEEK1_V6_REVISE_KALLI_KALLI",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-14 13:15",
    "tries": 0,
    "skips": 3,
    "last_error": "2026-11-14 14:40 gbot send rc=1: ['GROKBOT FAIL SendGrokBotUserMessage 400 {\"code\":\"invalid_argument\",\"message\":\"Error\",\"details\":[{\"type\":\"aiserver.v1.ErrorDetails\",\"debug\":{\"error\":\"ERROR_BAD_REQUEST\",\"details\":{\"title\":\"Bad Request\",\"detail\":\"text exceeds the maximum leng']",
    "sent_at": "2026-11-14 15:29",
-   "sent_ms": 1794662959536
+   "sent_ms": 1794662959536,
+   "answered_at": "2026-11-14 16:10",
+   "answer": "research/DESIGN_CLUBWEEK1_V6_REVISE_KALLI_KALLI.md",
+   "chars": 37085
   },
   {
    "id": "SQ116",
    "seat": "kalli",
    "brief": "research/DESIGN_WEIGHT1_R3_REVISE_KALLI.md",
    "stem": "DESIGN_WEIGHT1_R3_REVISE_KALLI_KALLI",
-   "status": "queued",
+   "status": "sent",
    "queued_at": "2026-11-14 13:58",
-   "tries": 0
+   "tries": 0,
+   "sent_at": "2026-11-14 16:40",
+   "sent_ms": 1794667226511
   },
   {
    "id": "SQ118",
@@ -1746,11 +1755,14 @@
    "seat": "john",
    "brief": "research/DESIGN_PLANFLOW1_V1_CRITIC_JOHN.md",
    "stem": "DESIGN_PLANFLOW1_V1_CRITIC_JOHN_JOHN",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-14 15:29",
    "tries": 0,
    "sent_at": "2026-11-14 15:29",
-   "sent_ms": 1794662961887
+   "sent_ms": 1794662961887,
+   "answered_at": "2026-11-14 16:10",
+   "answer": "research/DESIGN_PLANFLOW1_V1_CRITIC_JOHN_JOHN.md",
+   "chars": 17588
   },
   {
    "id": "SQ120",
@@ -1764,18 +1776,53 @@
    "pid": 48292,
    "transcript": "AgentComms/seat_logs/SQ120_dola.txt",
    "answered_at": "2026-11-14 15:37",
-   "answer": "research/DESIGN_PLANFLOW1_V1_CRITIC_DOLA_DOLA.md"
+   "answer": "research/DESIGN_PLANFLOW1_V1_CRITIC_DOLA_DOLA.md",
+   "seen_by_claude": true
   },
   {
    "id": "SQ121",
    "seat": "maria",
    "brief": "research/DESIGN_PLANFLOW1_V1_CRITIC_MARIA.md",
    "stem": "DESIGN_PLANFLOW1_V1_CRITIC_MARIA_MARIA",
-   "status": "sent",
+   "status": "answered",
    "queued_at": "2026-11-14 15:29",
    "tries": 0,
    "sent_at": "2026-11-14 15:29",
-   "sent_ms": 1794662964670
+   "sent_ms": 1794662964670,
+   "answered_at": "2026-11-14 16:10",
+   "answer": "research/DESIGN_PLANFLOW1_V1_CRITIC_MARIA_MARIA.md",
+   "chars": 9556
+  },
+  {
+   "id": "SQ122",
+   "seat": "kalli",
+   "brief": "research/DESIGN_PLANFLOW1_V2_REVISE_KALLI.md",
+   "stem": "DESIGN_PLANFLOW1_V2_REVISE_KALLI_KALLI",
+   "status": "queued",
+   "queued_at": "2026-11-14 16:12",
+   "tries": 0
+  },
+  {
+   "id": "SQ123",
+   "seat": "dola",
+   "brief": "research/DESIGN_CLUBWEEK1_V6_CRITIC_DOLA.md",
+   "stem": "DESIGN_CLUBWEEK1_V6_CRITIC_DOLA_DOLA",
+   "status": "queued",
+   "queued_at": "2026-11-14 16:13",
+   "tries": 0,
+   "skips": 1,
+   "last_error": "2026-11-14 16:40 no CDP on 9333 (the app runs without its debug port or is closed; never launched from here - it opens a window)"
+  },
+  {
+   "id": "SQ124",
+   "seat": "maria",
+   "brief": "research/DESIGN_CLUBWEEK1_V6_CRITIC_MARIA.md",
+   "stem": "DESIGN_CLUBWEEK1_V6_CRITIC_MARIA_MARIA",
+   "status": "sent",
+   "queued_at": "2026-11-14 16:13",
+   "tries": 0,
+   "sent_at": "2026-11-14 16:40",
+   "sent_ms": 1794667233390
   }
  ]
 }

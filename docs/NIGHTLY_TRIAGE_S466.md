@@ -32,4 +32,4 @@ NIGHTLY_TRIAGE red=5 fixed=3 hang=0
 |---|---|---|
 | no_pronoun, plan_test_it, move_tip, guard_knee, words_on_screens, bout_read | GREEN | fixed by S464-S470 work |
 | plan_bots_test | RED, known cause (row above) | plan+sim 0.485, coach 0.447, none 0.356: step answers fire by low step bars; closes with PLANFLOW1 v2 / steps past Usable |
-| block_meet_test | RED only at fixed 60 fps (0 free-running, 11 fixed) | tests/ruler_stand.gd waited 45 FRAMES; at fixed 60 that is 0.75 s and the boxers have not stepped out yet (0.78 m, then 0.884 m from ~2.6 s). Fix written S471: wait in game seconds (3.0 s min, 8.0 s max, 20 still frames). NOT YET RUN: the PC was RED (memory) |
+| block_meet_test | FIXED S471 | it steps its punch on a 30 Hz grid and reads 2 frames after each seek, so at fixed 60 the glove is read half-eased (10-11 failures). tools/run_tests.sh now reads a `FIXED_FPS <n>` tag from a test's header; block_meet carries `FIXED_FPS 30`: 0 failures, two runs print the same lines. (A first try, making tests/ruler_stand.gd wait in seconds, was dropped: it moved the free-running result from 0 to 4.) |

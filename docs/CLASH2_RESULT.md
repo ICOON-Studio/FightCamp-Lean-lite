@@ -103,3 +103,18 @@ at full weight on the hit frame; (b) CTRL_LANDED lets the ease finish before it 
   runs); tools/run_tests.sh now passes it.
 - GUARDKNEE3 (Qwen) collected: the rig's rear knee pole comes from the clip's bend plane. guard_knee_test 0; guard still
   on the game camera checked (Builds, not kept).
+
+## S471 - the played fight repeats run to run; the leftover hook named
+- The inside-range body sway (HitSnap._sway_step) took its pace and phase from the global randf(): every run swayed the
+  trunks differently. It is seeded from the boxer's name now (BoxerBuild, like FighterLife). Two runs of
+  tools/hit_gap_probe.gd (hidden desktop, `--fixed-fps 30`, secs=150) print the SAME lines: 33 landed, middle 0.014 m,
+  9 of 10 within 0.043 m, worst 0.159 m, over 15 cm off 1 (3 %). The probe is a ruler that holds: a change is now read
+  on one run a side.
+- The one far punch is still the lead hook thrown as the second of a double (20.9 s, pro_left_hook_ft): 0.16 m to the
+  side of the head. Its lines: shoulder to target live side 0.229 m against the model's -0.020, the hand moved 0.108 m
+  of the 0.30 m it may, reach weight 1.00, "when the hit fired 0.16, drawn that frame 0.28". Reading: the head is still
+  coming back from the first hook's snap while the second is armed 0.14 s before its hit; the reach does not follow the
+  head over those frames. NEXT: read PunchReach's target (armed once or live?) AFTER SPLIT471 lands (Qwen is moving
+  code in PunchReach.gd).
+- tests at their own frame rate (tools/run_tests.sh reads `FIXED_FPS <n>` from a test's header): block_meet 0 at 30
+  (10-11 at 60), head_aim 0 at 30 (4 at 60); hit_frame is not in the nightly list (9 at 30, 3 at 60: a ruler to settle).

@@ -95,6 +95,22 @@ func _choice() -> void:
 		var want := CrackWire.DEFEND_OUTPUT if kind == "defend" else LiverRibs.CRACK_OUTPUT
 		_check(is_equal_approx(CrackWire.output(b[1], "a"), want), "3 %s: her cracked side lands x%.2f (%.2f)" % [kind, want, CrackWire.output(b[1], "a")])
 		_check(is_equal_approx(CrackWire.output(b[1], "b"), LiverRibs.CRACK_OUTPUT), "3 %s: the opponent's side stays x0.6" % kind)
+	# S471 the cracked side's guard: -10 fighting through, -4 defending, in power points / 6; the opponent's crack pays her.
+	var first := {}
+	for kind in ["defend", "fight"]:
+		var g := _bout(2)
+		BoutNight.fight_step(g[0], g[1], g[2], "corner:hands|crack=" + kind)
+		BoutNight.fight_step(g[0], g[1], g[2], "round_out")
+		first[kind] = float((g[2]["rounds"][-1]["exchanges"] as Array)[0]["margin"])
+		var want_g: float = (CrackWire.DEFEND_GUARD if kind == "defend" else LiverRibs.CRACK_GUARD) / CrackWire.POWER_STATS
+		_check(is_equal_approx(CrackWire.guard_edge(g[1]), want_g), "3 %s: her guard edge %.2f (%.2f)" % [kind, want_g, CrackWire.guard_edge(g[1])])
+	var gap: float = (CrackWire.DEFEND_GUARD - LiverRibs.CRACK_GUARD) / CrackWire.POWER_STATS
+	_check(absf(float(first["defend"]) - float(first["fight"]) - gap) < 0.001,
+		"3 the played round reads it: round 2's first exchange is %.2f better defending (%.3f v %.3f)" % [gap, first["defend"], first["fight"]])
+	var none := _bout(2, "")
+	_check(CrackWire.guard_edge(none[1]) == 0.0, "3 control: no crack, no guard edge")
+	var theirs := _bout(2, "b")
+	_check(is_equal_approx(CrackWire.guard_edge(theirs[1]), -LiverRibs.CRACK_GUARD / CrackWire.POWER_STATS), "3 the opponent's crack pays her %.2f" % (-LiverRibs.CRACK_GUARD / CrackWire.POWER_STATS))
 	var b2 := _bout(2)
 	BoutNight.fight_step(b2[0], b2[1], b2[2], "corner:hands|crack=nonsense")
 	_check(CrackWire.choice(b2[1]) == "", "3 an unknown answer is no answer")

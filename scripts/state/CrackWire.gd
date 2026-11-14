@@ -16,6 +16,11 @@ const KINDS := ["pull", "defend", "fight"]
 ## Defend the side: one hand of two is silent. ESTIMATE (the design's "0 punches from the cracked side").
 const DEFEND_OUTPUT := 0.5
 const STOP_B := "RTD_B"
+## S471 rule 6's other half: the cracked side's guard. LiverRibs.CRACK_GUARD (-10) fighting through, DEFEND_GUARD (-4)
+## when the corner said defend the side (the elbow stays home). A guard point is a defence point, and the fight's power
+## is the mean of six stats (BoutRules.fight_power), so it reaches an exchange's edge divided by POWER_STATS.
+const DEFEND_GUARD := -4.0
+const POWER_STATS := 6.0
 
 
 static func cracked(f: Dictionary, who: String) -> bool:
@@ -36,9 +41,9 @@ static func card(f: Dictionary, m: Dictionary, total: int) -> Dictionary:
 		return {}
 	var d: Dictionary = LiverRibs.HEAL_DAYS
 	return {"comes": true, "round": rounds.size(), "rows": [
-		{"kind": "pull", "label": "Pull your boxer out", "words": "A loss. The rib heals in %d days." % int(d["pull"]),
+		{"kind": "pull", "label": "Pull your boxer out", "words": "A loss. Heals in %d days." % int(d["pull"]),
 			"more": "Retired on the stool: the bout ends now as a loss."},
-		{"kind": "defend", "label": "Defend the side", "words": "Half the punches land. Heals in %d days." % int(d["defend"]),
+		{"kind": "defend", "label": "Defend the side", "words": "Half the punches land, side covered. Heals in %d days." % int(d["defend"]),
 			"more": "Nothing is thrown from the cracked side for the rest of the bout."},
 		{"kind": "fight", "label": "Fight through", "words": "That side at %d in 100. Heals in %d days (1 in 10: %d)." % [
 			roundi(LiverRibs.CRACK_OUTPUT * 100.0), int(d["fight"]), int(d["fight"]) + LiverRibs.WORSE_DAYS],
@@ -56,6 +61,17 @@ static func answer(c, f: Dictionary, m: Dictionary, kind: String) -> void:
 	r["stopped"] = "RTD"
 	(r["lines"] as Array).append("Your corner retires your boxer on the stool: a cracked rib.")
 	_book(c, f, int(LiverRibs.HEAL_DAYS["pull"]), "retired with a cracked rib")
+
+
+## The edge a crack moves in every exchange (LiveRound adds it to her edge): her cracked side costs her, the opponent's
+## cracked side pays her. 0.0 with no crack.
+static func guard_edge(f: Dictionary) -> float:
+	var e := 0.0
+	if cracked(f, "a"):
+		e += (DEFEND_GUARD if choice(f) == "defend" else LiverRibs.CRACK_GUARD) / POWER_STATS
+	if cracked(f, "b"):
+		e -= LiverRibs.CRACK_GUARD / POWER_STATS
+	return e
 
 
 ## How much of a cracked side's punches land (LiveRound, rule 6): the choice decides.

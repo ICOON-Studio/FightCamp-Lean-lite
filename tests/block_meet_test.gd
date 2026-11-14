@@ -13,7 +13,10 @@ extends SceneTree
 ##   glove_y_minus_face_y: -0.08 to +0.06 m (block at face height)
 ##   gap: within 0.04 m of the stage's own standing gap (tests/ruler_stand.gd, S436), else VOID
 ##   CTRL_LANDED < 0.05 m (landed punch ruler still holds)
-##   python ops/Tools/godot_slot.py run --who qwen -- <godot.exe> --headless --audio-driver Dummy --path . --script res://tests/block_meet_test.gd
+##   python ops/Tools/godot_slot.py run --who qwen -- <godot.exe> --headless --audio-driver Dummy --fixed-fps 30 --path . --script res://tests/block_meet_test.gd
+
+## FIXED_FPS 30 (S471, read by tools/run_tests.sh): the scan seeks on a 30 Hz grid and reads 2 frames after each seek, and
+## tests/ruler_stand.gd settles in frames; at 60 the glove is read half-eased (10-11 failures), at 30 two runs print the same 0.
 
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")

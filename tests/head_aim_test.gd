@@ -3,6 +3,9 @@ extends SceneTree
 ## Both noaim and aim-on measured in ONE process for deterministic comparison.
 ##   python ops/Tools/godot_slot.py run --who qwen -- <godot.exe> --headless --audio-driver Dummy --path . --script res://tests/head_aim_test.gd
 
+## FIXED_FPS 30 (S471, read by tools/run_tests.sh): like block_meet, the rows are read a set number of frames after a seek and
+## tests/ruler_stand.gd settles in frames: 0 failures at 30, 4 at 60.
+
 const Stage := preload("res://scripts/fight3d/FightStage.gd")
 const BeatClips := preload("res://scripts/fight3d/BeatClips.gd")
 const Faces := preload("res://scripts/rules/Faces.gd")

@@ -3,19 +3,21 @@
  "updated": "2026-11-14",
  "author": "claude S294",
  "now": {
-  "id": "S470",
+  "id": "S471",
   "owner": "claude",
   "updated": "2026-11-14",
-  "summary": "S470: lead hooks no longer land low (the reach's 0.30 m cap counts from the hook's hand with or without the torso layer's move; played fight 4 of 33 punches over 15 cm off -> 0 and 2 in two runs, worst 0.50 -> 0.05 and 0.24 m; block_meet 2 -> 0, hit_frame 11 -> 5). The cross was never short: the ruler read the glove a frame early (hit_gap_probe now takes the nearer of the two frames around the hit). Crack card built (LIVERRIBS1 step 4: pull out / defend the side / fight through, the other corner can retire its cracked boxer; crack_wire_test 0; on both corner screens). GUARDKNEE3 and LIVERPROBE1 (Qwen) collected (liver knobs stay 6.0 / 1.00 = 16 %). SPEEDFLIP1 (Qwen): punch_speed_test flipped because headless runs tick by real frame time; run_tests.sh now --fixed-fps 60 (two runs identical, 41). Design loop: Knowledge v3 and Turning pro v2 pass with two critics, on his board (Q-227, Q-228); PLANFLOW1 v1 (Kalli) at three critics (Dola 7/8/6 in); his four flowchart pictures weighed (PLANFLOW1_OWNER_PICTURE_S470.md). Seat tools fixed: briefs no longer carry Dola's whole chat; Dola's landed check. Build exported.",
-  "next_action": "S471: 0) get_usage. 1) Nightly 05:00 ran for the first time at --fixed-fps 60: diff its failing set, expect shifts in 3D tests (measure, do not chase each). 2) PLANFLOW1: collect John + Maria (SQ119, SQ121) on v1; then design_loop revise PLANFLOW1_V2 --seat kalli with the critics AND ops/research/PLANFLOW1_OWNER_PICTURE_S470.md (his four pictures, verdict on each); two fresh critics; his board. 3) His answers Q-S294-227 (Turning pro) and Q-S294-228 (Knowledge). 4) Kalli queue: SQ115 club week v6 (sent), SQ116 weight r3, SQ118 coach fit v7 -> critics. 5) SPEEDFLIP1 PR (Qwen): collect the result doc + tool. 6) Token leak: read ops/AgentComms/token_log.csv for the minutes with a big delta (15 min on S470 showed ~1 a second, nothing conclusive). 7) Crack card: play it in the exe (a crack is rare: tools/loop_shots.gd 'crack' shows it); the cracked side's guard penalty (CRACK_GUARD -10 / defend -4) is NOT wired, only the output. 8) BoutNight.gd is at 499 lines: split before the next change. 9) CLASH3 leftovers (jab glove x forearm 5 frames; a boxer's own two gloves). 10) One lead hook clip (pro_left_hook, second of a double) still varies run to run.",
+  "summary": "S471: his 'Yes, both' - Turning pro and Knowledge approved for building, after the fight week. Nightly checked (05:00 ran on S463's code): 6 of 7 new reds green on main; block_meet and head_aim run at their own 30 fps now (tools/run_tests.sh reads a FIXED_FPS tag: they step a punch on a 30 Hz grid; 0 failures at 30, 10 and 4 at 60); plan_bots stays red (known: step answers fire by low step bars). The cracked side's guard is wired (every exchange's edge moves by guard / 6: -10 fighting through, -4 defending the side; crack_wire_test 0); the 3D corner card ran 16 px off the frame with the crack row - words shortened, stills on the review board. The played fight repeats run to run (the inside-range sway was on an unseeded dice roll; two hit_gap_probe runs print the same lines: 33 landed, 1 far = the lead hook as the second of a double, 0.16 m to the side). Design loop: PLANFLOW1 v1 critics Dola 7/8/6, Maria 7/6/6, John 6/5/7 (misses general design by one) -> v2 queued for Kalli with the code facts (SQ122); club week v6 in, critics Dola + Maria queued; the critic pack corrected (step bars, in-round adjust, ProRead are built). SPEEDFLIP1 collected. SPLIT471 (Qwen) launched: BoutNight, PunchReach, Clinch off the 500-line limit. The rear knee is back over the rig's foot: GUARDKNEE3 as merged twisted it 32-34 deg off the toes in steps (boxer_footwork_test 4 -> 0); guard_knee_test is red again (-0.07 v +0.029) and the cause is the foot / hip placement (band table in BoxerFootworkRig.gd). NOT done: the P0 Miro map was redrawn at the start only (no budget for a second redraw).",
+  "next_action": "S472: 0) get_usage. 1) Collect SPLIT471 (Qwen) by diff + its tests; THEN the leftover lead hook in PunchReach (docs/CLASH2_RESULT.md S471: the reach does not follow the head back from the first hook's snap; one probe run a side is enough now). 2) Design loop: PLANFLOW1 v2 (SQ122, Kalli) -> two fresh critics -> his board; club week v6 critics (SQ123 Dola, SQ124 Maria); weight r3 (SQ116) and coach fit v7 (SQ118) -> critics. 3) Nightly 05:00: first run with the FIXED_FPS tags; diff, measure, do not chase. hit_frame_test is not in the list and reads 9 at 30 / 3 at 60: settle which rate it is built for. 4) Token leak: token_log.csv now covers a night; find the minutes with a big delta. 5) His answer on the four flowchart picture verdicts (not given yet). 6) Build order after the fight week now includes TURNPRO1 and KNOWLEDGE (approved S471). 7) guard_knee_test red again by decision (knee over the foot): look at the rear FOOT and hip placement against the take (the guard still tool also shoots the two boxers standing inside each other: check when it shoots). CLASH3 leftovers. 8) Play the crack card in the exe (still only on stills).",
   "last_working_commit": "e77ddc87",
   "verified_playable": "Builds/FightCamp.exe exported S469 (close-range punches arrive; the clinch no longer reaches from punching distance)",
-  "incomplete_blocked": "Lead hooks ~15 cm low and one long cross short in the played fight; punch_speed_test 41 vs 48 not explained; guard knee still bowed (GUARDKNEE3 queued for Qwen); LIVERPROBE1 landed on its branch, not collected; crack card not started",
-  "next_acceptance": "hit_gap_probe far share under 10 % with lead hooks on target; guard_knee_test green with the rig on; LiverFold knobs from LIVERPROBE1; the crack card shows 3 choices; his answer on the flowchart fight plan",
+  "incomplete_blocked": "The lead hook as the second of a double still lands 0.16 m to the side; plan_bots_test red (step bars); SPLIT471 running on Qwen; the crack card is not yet played in the exe; guard_knee_test red by decision (foot / hip placement is the cause)",
+  "next_acceptance": "hit_gap_probe 0 far punches; SPLIT471 collected with every test at main's count; PLANFLOW1 v2 at 6+ depth and 6+ general from two critics",
   "awaiting_operator": [
    "Look: S469 match strip of jabs and crosses (your C391) and the clinch before/after strip, both on the review board",
    "Look: S468 uppercut clipping before/after strip (C394) on the review board",
-   "Play S469's build: inside exchanges and the clinch entry"
+   "Play S469's build: inside exchanges and the clinch entry",
+   "Your view on the four flowchart picture verdicts (take / change / leave out)",
+   "Look: the crack card in the corner (S471 stills on the review board)"
   ]
  },
  "next": "S469: 0) get_usage. 1) Lead glove (docs/CLASH2_RESULT.md last section): carry_base takes the face when the reach was not at full weight on the hit frame; block_meet CTRL_LANDED lets the ease finish; hit_gap_probe on the hidden desktop WITH --log; FILM seed 4242 jabs=2 crosses=2 (his C391). 2) Clipping leftovers: the frame after the rear uppercut's hit, a boxer's own two gloves, the rear uppercut 0.114 m off her chin - read his comment on the S468 strip first. 3) GUARDKNEE2 + LIVERPROBE1 (Qwen): collect, set LiverFold knobs. 4) LIVERRIBS1 step 4: corner retiring a cracked boxer + the 3-choice crack card. 5) Seat answers SQ104/109/111/113/115 -> DESIGN_LOOP_S459.md. 6) Export after any player-visible change.",
@@ -1954,6 +1956,11 @@
    "id": "S470",
    "date": "2026-11-14",
    "summary": "S470: lead hooks no longer land low (the reach's 0.30 m cap counts from the hook's hand with or without the torso layer's move; played fight 4 of 33 punches over 15 cm off -> 0 and 2 in two runs, worst 0.50 -> 0.05 and 0.24 m; block_meet 2 -> 0, hit_frame 11 -> 5). The cross was never short: the ruler read the glove a frame early (hit_gap_probe now takes the nearer of the two frames around the hit). Crack card built (LIVERRIBS1 step 4: pull out / defend the side / fight through, the other corner can retire its cracked boxer; crack_wire_test 0; on both corner screens). GUARDKNEE3 and LIVERPROBE1 (Qwen) collected (liver knobs stay 6.0 / 1.00 = 16 %). SPEEDFLIP1 (Qwen): punch_speed_test flipped because headless runs tick by real frame time; run_tests.sh now --fixed-fps 60 (two runs identical, 41). Design loop: Knowledge v3 and Turning pro v2 pass with two critics, on his board (Q-227, Q-228); PLANFLOW1 v1 (Kalli) at three critics (Dola 7/8/6 in); his four flowchart pictures weighed (PLANFLOW1_OWNER_PICTURE_S470.md). Seat tools fixed: briefs no longer carry Dola's whole chat; Dola's landed check. Build exported."
+  },
+  {
+   "id": "S471",
+   "date": "2026-11-14",
+   "summary": "S471: his 'Yes, both' - Turning pro and Knowledge approved for building, after the fight week. Nightly checked (05:00 ran on S463's code): 6 of 7 new reds green on main; block_meet and head_aim run at their own 30 fps now (tools/run_tests.sh reads a FIXED_FPS tag: they step a punch on a 30 Hz grid; 0 failures at 30, 10 and 4 at 60); plan_bots stays red (known: step answers fire by low step bars). The cracked side's guard is wired (every exchange's edge moves by guard / 6: -10 fighting through, -4 defending the side; crack_wire_test 0); the 3D corner card ran 16 px off the frame with the crack row - words shortened, stills on the review board. The played fight repeats run to run (the inside-range sway was on an unseeded dice roll; two hit_gap_probe runs print the same lines: 33 landed, 1 far = the lead hook as the second of a double, 0.16 m to the side). Design loop: PLANFLOW1 v1 critics Dola 7/8/6, Maria 7/6/6, John 6/5/7 (misses general design by one) -> v2 queued for Kalli with the code facts (SQ122); club week v6 in, critics Dola + Maria queued; the critic pack corrected (step bars, in-round adjust, ProRead are built). SPEEDFLIP1 collected. SPLIT471 (Qwen) launched: BoutNight, PunchReach, Clinch off the 500-line limit. The rear knee is back over the rig's foot: GUARDKNEE3 as merged twisted it 32-34 deg off the toes in steps (boxer_footwork_test 4 -> 0); guard_knee_test is red again (-0.07 v +0.029) and the cause is the foot / hip placement (band table in BoxerFootworkRig.gd). NOT done: the P0 Miro map was redrawn at the start only (no budget for a second redraw)."
   }
  ],
  "blocked_on_operator": [],
@@ -5022,22 +5029,10 @@
   },
   "working_now": [
    {
-    "title": "Flowchart fight plan: design v1 at three critics (Dola 7/8/6 in; John, Maria reading)",
-    "who": "kalli",
-    "started": "2026-11-14T15:10",
-    "run": "PLANFLOW1"
-   },
-   {
-    "title": "Why the punch speed test changed its mind run to run (found: real frame time; PR to collect)",
+    "title": "TASK SPLIT471 - three scripts at the 500-line limit get room (pure moves, no behaviour change, headless)",
     "who": "qwen",
-    "started": "2026-11-14T15:28",
-    "run": "SPEEDFLIP1"
-   },
-   {
-    "title": "Club week v6, weight r3, coach fit v7: Kalli writes the next versions",
-    "who": "kalli",
-    "started": "2026-11-14T15:35",
-    "run": "DESIGNLOOP1"
+    "started": "2026-11-14T16:34",
+    "run": "SPLIT471"
    }
   ],
   "next": [
@@ -5050,7 +5045,7 @@
    {
     "id": "PLANFLOW1",
     "who": "kalli",
-    "title": "Fight plan as an if-then flowchart: v1 at critics; v2 folds in his four pictures (validate plan, opponent's tree from scouting, one swap between rounds), then his board",
+    "title": "Fight plan as an if-then flowchart: v1 critics 7/8, 7/6, 6/5 (misses by one); v2 at Kalli with his four pictures and the code facts; then two fresh critics, his board",
     "after": ""
    },
    {
@@ -5062,7 +5057,7 @@
    {
     "id": "LIVERRIBS1",
     "who": "claude",
-    "title": "Liver vs ribs: crack card BUILT S470 (pull out / defend / fight through). Left: the cracked side's guard penalty, the Aim labels, play it in the exe",
+    "title": "Liver vs ribs: crack card built, the cracked side's guard wired (S471). Left: the Aim labels, play it in the exe",
     "after": ""
    },
    {
@@ -5146,7 +5141,7 @@
    {
     "id": "TURNPRO1",
     "who": "claude",
-    "title": "Turning pro (his yes: 'put the comparison on the cards'): a season as amateur vs as pro on the cards and the offer; the offer linked to record, rank, streak, hype, the boxer's ambition and morale, the season target; the Board licence, manager, promoter named - design page + two critics 7+, then build",
+    "title": "Turning pro: design v2 APPROVED (his 'Yes, both', S471) - build after the fight week",
     "after": "FOUNDATION"
    },
    {
@@ -5243,6 +5238,12 @@
     "id": "PUSHTANK1",
     "who": "claude",
     "title": "Push switch + tank (race-manager bars beside the fighter): build after the fight week - Q-225 his 'Yes, build after the fight week' (S466); map ops/research/DESIGN_PUSHTANK_V2*",
+    "after": "AMATEURWEEK1"
+   },
+   {
+    "id": "KNOWLEDGE1",
+    "who": "claude",
+    "title": "Knowledge (what you know about a boxer narrows as you study them): design v3 APPROVED (his 'Yes, both', S471) - build after the fight week",
     "after": "AMATEURWEEK1"
    }
   ],
@@ -5521,6 +5522,29 @@
   },
   "done_recently": [
    {
+    "id": "FPSTAG",
+    "who": "claude",
+    "title": "Ruler tests run at their own frame rate: the block and head-aim tests are green again",
+    "after": "S471"
+   },
+   {
+    "id": "CRACKGUARD",
+    "who": "claude",
+    "title": "A cracked rib guards worse (-10, or -4 defending the side); the corner card fits the screen",
+    "after": "S471"
+   },
+   {
+    "id": "REPEAT1",
+    "who": "claude",
+    "title": "The played fight repeats run to run: one probe run is now a fair ruler",
+    "after": "S471"
+   },
+   {
+    "title": "TASK SPEEDFLIP1 - why punch_speed_test's rows flip between runs, and what the new carry rule adds (headless, no fix)",
+    "who": "qwen",
+    "when": "2026-11-14"
+   },
+   {
     "id": "LANDREACH4",
     "who": "claude",
     "title": "Lead hooks land on the head: punches over 15 cm off 4 of 33 -> 0 to 2 in the played fight",
@@ -5562,26 +5586,6 @@
    {
     "title": "Close-range punches arrive: shown more than 15 cm off 21 % -> 15 %, worst 69 cm -> 19 cm (played-fight ruler)",
     "who": "claude",
-    "when": "2026-11-14"
-   },
-   {
-    "title": "Clinch no longer reaches from punching distance (18 clipped frames -> 2); layer trace tool",
-    "who": "claude",
-    "when": "2026-11-14"
-   },
-   {
-    "title": "Match film of jabs and crosses for his C391; disk alarm at 20 GB / 10 GB",
-    "who": "claude",
-    "when": "2026-11-14"
-   },
-   {
-    "title": "GUARDKNEE2 bisect: the footwork rig bows the rear guard knee (fix not merged, GUARDKNEE3 queued)",
-    "who": "qwen",
-    "when": "2026-11-14"
-   },
-   {
-    "title": "TASK LANDREACH3 - the landed lead glove stops 5-11 cm above or below the face point it aims at (fix, headless)",
-    "who": "qwen",
     "when": "2026-11-14"
    }
   ],
@@ -5711,6 +5715,22 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Hooks land on the head",
+     "who": "claude"
+    },
+    {
+     "text": "Crack card in the corner",
+     "who": "claude"
+    },
+    {
+     "text": "Guard knee fixed (Qwen)",
+     "who": "claude"
+    },
+    {
+     "text": "Tests repeat: fixed 60 fps",
+     "who": "claude"
+    },
+    {
      "text": "Close punches: glove arrives",
      "who": "claude"
     },
@@ -5749,39 +5769,35 @@
     {
      "text": "Liver vs ribs wired (3 steps)",
      "who": "claude"
-    },
-    {
-     "text": "Card table fix: she stays put",
-     "who": "claude"
-    },
-    {
-     "text": "Cross reach: rear hand lands",
-     "who": "claude"
-    },
-    {
-     "text": "READ-PROOF on Fight prep",
-     "who": "claude"
-    },
-    {
-     "text": "Liver on the right (southpaw)",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Hooks land on the head",
+     "text": "Speed test finding in (Qwen)",
+     "who": "agent"
+    },
+    {
+     "text": "Block test: own 30 fps, green",
      "who": "claude"
     },
     {
-     "text": "Crack card in the corner",
+     "text": "Cracked side guards worse: wired",
      "who": "claude"
     },
     {
-     "text": "Guard knee fixed (Qwen)",
+     "text": "Turning pro + Knowledge approved",
+     "who": "operator"
+    },
+    {
+     "text": "Nightly: 6 of 7 new reds green",
      "who": "claude"
     },
     {
-     "text": "Tests repeat: fixed 60 fps",
+     "text": "Played fight repeats run to run",
+     "who": "claude"
+    },
+    {
+     "text": "Rear knee back over the foot",
      "who": "claude"
     }
    ],
@@ -5832,6 +5848,10 @@
     },
     {
      "text": "Flowchart plan: critics on v1",
+     "who": "agent"
+    },
+    {
+     "text": "Split 3 scripts (Qwen)",
      "who": "agent"
     }
    ],
@@ -5907,14 +5927,22 @@
     {
      "text": "Flowchart plan v2: his 4 pictures",
      "who": "claude"
+    },
+    {
+     "text": "Rear foot + hip vs the take",
+     "who": "claude"
+    },
+    {
+     "text": "Double hook: reach follows head",
+     "who": "claude"
     }
    ],
-   "session": "S470"
+   "session": "S471"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "e77ddc87",
- "next_action": "S470: 0) get_usage. 1) PLANFLOW1 (his 'go with your recommendation'): Kalli's map v1 (seat queue, research/DESIGN_PLANFLOW1_V1_WRITE_KALLI.md) -> design_loop.py critic with two fresh critics (6+/6+) -> his board. Paged pool 10 GB after 2.3 days up: if he asks about memory again, name the driver (poolmon) before guessing. 2) LIVERPROBE1 (Qwen, branch qwen/liverprobe1 commit 194a8c05: fold tuned to 6.0/1.00, share 0.160): collect, set LiverFold knobs. 3) GUARDKNEE3 (Qwen, queued): collect, guard still on the game camera. 4) Lead hooks land ~0.15 m LOW in the played fight (3 of 9), cross from 1.15 m pelvis gap 0.17 m short (docs/CLASH2_RESULT.md S469 section). 5) punch_speed_test 41 (old rules) vs 48 (new) the same day, rows flip between runs: find out whether carry_base-by-weight adds POP rows. 6) LIVERRIBS1 step 4: corner retiring a cracked boxer + the 3-choice crack card. 7) Clash leftovers: jab 2 of the film (glove x forearm 5 frames, 0.055 m), a boxer's own two gloves. 8) Seat answers SQ109/111/113/115/116 -> DESIGN_LOOP_S459.md.",
+ "next_action": "S472: 0) get_usage. 1) Collect SPLIT471 (Qwen) by diff + its tests; THEN the leftover lead hook in PunchReach (docs/CLASH2_RESULT.md S471: the reach does not follow the head back from the first hook's snap; one probe run a side is enough now). 2) Design loop: PLANFLOW1 v2 (SQ122, Kalli) -> two fresh critics -> his board; club week v6 critics (SQ123 Dola, SQ124 Maria); weight r3 (SQ116) and coach fit v7 (SQ118) -> critics. 3) Nightly 05:00: first run with the FIXED_FPS tags; diff, measure, do not chase. hit_frame_test is not in the list and reads 9 at 30 / 3 at 60: settle which rate it is built for. 4) Token leak: token_log.csv now covers a night; find the minutes with a big delta. 5) His answer on the four flowchart picture verdicts (not given yet). 6) Build order after the fight week now includes TURNPRO1 and KNOWLEDGE (approved S471). 7) guard_knee_test red again by decision (knee over the foot): look at the rear FOOT and hip placement against the take (the guard still tool also shoots the two boxers standing inside each other: check when it shoots). CLASH3 leftovers. 8) Play the crack card in the exe (still only on stills).",
  "next_acceptance": "He has seen the corners intro and the versus tape in the .exe; RANKSHOWUI briefed and launched; short_m restored with a hit-gap before/after."
 }
